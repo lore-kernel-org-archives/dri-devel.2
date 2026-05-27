@@ -4,141 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7732DCD5BD5
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 15:09:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1946CD5BD5
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 15:15:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C653C10E202;
-	Wed, 27 May 2026 15:09:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64EB810E0A3;
+	Wed, 27 May 2026 15:15:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="VU0HqmB+";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cRxbac95";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="EgDs66DT";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mfwVqURc";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="EgDs66DT";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mfwVqURc";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9920F10E202
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 15:09:45 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64RF7B8e879263
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 15:09:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- ufMpfNyxnplHu867LBcoTwXEhS7HS0xoMB7D0cXK4Ko=; b=VU0HqmB+22HdnLmS
- aG0oxzVe+S0LRW8Bn5GH/DecXErIcy5Kgza6RStdgEaSh0fe6u/9F0fuppObKRPy
- jX6TOxh+yciQeXCp43Q3EHCxqH9Kzn7amzXbaRJN5OSd1hEY9k1KYrqxCXZ2i8Wh
- jV4iJdj5UI/QKqF513y5Ax4Br3N10SMpdfvv6IWFousNnyD2W7e9lR4bKm1d+ki1
- SPtoJmz1DQaoOV7+dtbbf5HHxYHdgkGBFAq7gczOV4CbcEraEAKVGCJqWVcE5XpM
- GZTyHfHnL+RSR1c0/+uj0IFcnq1yfR/i9qxkuTtnM4TK/LAglfaj3KMYoc0GEosR
- HjMsTA==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com
- [209.85.221.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4edvvqskyn-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 15:09:44 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id
- 71dfb90a1353d-5954c5fbcc7so268207e0c.0
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 08:09:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779894584; x=1780499384;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
- :cc:subject:date:message-id:reply-to;
- bh=ufMpfNyxnplHu867LBcoTwXEhS7HS0xoMB7D0cXK4Ko=;
- b=cRxbac95r0bL41THGWWcD7435nW14MNAzgxcZqpdZrino2u/Pxcf+UvO6vsjjt0W66
- voe85NIKLpfUeqZTQZBwQNA/8//JMfj9dWvv9M8ZeOA6icNyBravEpYfqJm4DXy+tb1u
- bg2iDvs6OMgn+kJHg7vPOAQnfCE0lvBs5jd7QPHRJWqaj3Z6DDCxyjxpHxEcQ6cN40km
- Cra62C8MGTib8RwI2DpKCdJCK/FiP8wcYcyeozRwjkSlOKy1TwbkT28zAYAmT4TaEHW9
- 2KPhNndJnsbw46qPumIHqo5lUg2UuX7VzaHtMzahO9H+qALAENUfSFvuGMjxO72vTnjX
- g9eQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779894584; x=1780499384;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ufMpfNyxnplHu867LBcoTwXEhS7HS0xoMB7D0cXK4Ko=;
- b=Sk+MVQNnOxx7ihZgM3okuy2CsMeRrucYg9EeQHadQ82NKezHURmJUxK2PhTCaPyluo
- 3IU2tbMwWeXlQivFfSQW8zrkZevuf+Gz7SrNVTo4IHyP+K8TXC56Qq1b0C6fbQuWunmP
- 0dQyV4HafcKoiZIBqr5AOLVECy844ZAtl2ASWGStkYAcd7nZQCAAWSNBmMhLmCqOikJp
- QfL9QRHcU3kgs6x+Xf7L5GcXlvvPZU202cQm/w29KeEdUaVtucIRU/BDPFIRiQIT9akb
- 1NRAfrwPXC612PonnMU0QGaqOEaEn42nVlKBhPQ/AJfJ8/HW1PcuUmxkwWfQzk88lTlB
- yMaQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+OA5lylSDpnShbXdsJiFVIcVUEjqJjDZ8fPfVFdN9yJF3gqKH+wwVlIgefwMigdenPVU39CEcls+Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyLwrQgOvFZ02OIHvodsTd7U6PZDUQU7B/QGpmvllRwWm9v0Mx1
- h/I0YssRC1+WhAML+7ArTOBxk5fGFybISchjCOfnykJ7DEVQUZhUvwukO4OUK1dBQo+fIXoNUMG
- akftLobeQIMlFoNAIePB8ul6KvE5kC+pVceUrGRwUS8RwX5wcmITjT2CvIZfkyAgEZswT9g8=
-X-Gm-Gg: Acq92OFmfkISqndMMyev5qp/xW+29Ia5pvfa7Z5kCx0eSGRn0sx4mdbT2/TbHHnjO7k
- cKel//5Ggkmyk8M2HmSW2AodouymsAmCJrKeF10XaT9T58Gk/XamGfKf8a6k/7nov5F5XcRv6SM
- 7U6/JYhOYBNLDwVrjKf9Lc2c+cCpGf3xSy/ZEfYoI0YYHOWBjLAINPvbu0je/Vf68lCX4RJeZ0X
- 3X+/SuRvxTlukNuyTp+QqIGwpb2mh1EFlnJKuCBgY7yu3XPry2PaKugOdkKSnU3tjzAOBulx+0C
- DojlFwJBCqmNSTytZ0fh22z2f5dao+5ActwXGrP1oAllYaUuZUUdDbYwc24qF9zpq5q+Ncd5tEU
- m6NlBsTnGtfu1XI6rwR1NPsugL8s69SEzERlgnphDIR2iGRQ29iQFO7W7Gb6g7kPgxPKbjQM4nE
- V25Dq/jfIIz9M0jDNqD8pdM2diJUjUHwU49FZMEnlX6mvMZHAomtH5d2pz3fYAFDnErQfEtcXFK
- FuwOEiFoY5h3V3ZxTyHl3cqIVA=
-X-Received: by 2002:a05:6122:a0b:b0:56f:2aaa:450c with SMTP id
- 71dfb90a1353d-5865e4a60f4mr11772644e0c.1.1779894583857; 
- Wed, 27 May 2026 08:09:43 -0700 (PDT)
-X-Received: by 2002:a05:6122:a0b:b0:56f:2aaa:450c with SMTP id
- 71dfb90a1353d-5865e4a60f4mr11772589e0c.1.1779894583407; 
- Wed, 27 May 2026 08:09:43 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
- (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-68a6faadb8fsm893905a12.6.2026.05.27.08.09.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 May 2026 08:09:41 -0700 (PDT)
-Message-ID: <4f34c957-817d-45fe-ac13-02b98e77f010@oss.qualcomm.com>
-Date: Wed, 27 May 2026 17:09:39 +0200
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B51B10E0A3
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 15:15:57 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4BB596A9B1;
+ Wed, 27 May 2026 15:15:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779894955; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=BwKD8u/oFzgxbvk0UW8C8FJ0orKlewT3AkmJOJgnQXw=;
+ b=EgDs66DTREZMPkqpwlSW7x3i5hxMbdCzFi9MujxugNSU+OA9XEklbUXmWtCF1y+H+ikJ6Y
+ uXQa47jzn+Cwbnyp7yquxz3a29yXy6CW9EqE9Jf6pmU0Z5Y+kSxasL2D503QiOZNd+sNNv
+ /TgxXUQRA535R9+Fb4JcqeYuNoHHYDU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779894955;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=BwKD8u/oFzgxbvk0UW8C8FJ0orKlewT3AkmJOJgnQXw=;
+ b=mfwVqURcXjstDdXst6R+1tJatuARK/bqZoM3AR2T9cvK/Ub6zljgI/GlruyxHphJju8Zvy
+ CunfSqDNRrfWptDw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779894955; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=BwKD8u/oFzgxbvk0UW8C8FJ0orKlewT3AkmJOJgnQXw=;
+ b=EgDs66DTREZMPkqpwlSW7x3i5hxMbdCzFi9MujxugNSU+OA9XEklbUXmWtCF1y+H+ikJ6Y
+ uXQa47jzn+Cwbnyp7yquxz3a29yXy6CW9EqE9Jf6pmU0Z5Y+kSxasL2D503QiOZNd+sNNv
+ /TgxXUQRA535R9+Fb4JcqeYuNoHHYDU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779894955;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=BwKD8u/oFzgxbvk0UW8C8FJ0orKlewT3AkmJOJgnQXw=;
+ b=mfwVqURcXjstDdXst6R+1tJatuARK/bqZoM3AR2T9cvK/Ub6zljgI/GlruyxHphJju8Zvy
+ CunfSqDNRrfWptDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EA48E5A8C1;
+ Wed, 27 May 2026 15:15:54 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id QMq3N6oKF2p6FQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 27 May 2026 15:15:54 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: deller@gmx.de, geert@linux-m68k.org, simona@ffwll.ch, airlied@gmail.com,
+ lukas@wunner.de, maddy@linux.ibm.com, mpe@ellerman.id.au,
+ npiggin@gmail.com, chleroy@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v3 0/4] fbdev: Internalize fbcon
+Date: Wed, 27 May 2026 17:14:01 +0200
+Message-ID: <20260527151551.258659-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Subject: Re: [PATCH 0/3] clk: Add __clk_disable_unprepare_counts_only() and
- use this in simple[fb|drm]
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, linux-clk@vger.kernel.org,
- dri-devel@lists.freedesktop.org, ~postmarketos/upstreaming@lists.sr.ht
-References: <20260527094811.116977-1-johannes.goede@oss.qualcomm.com>
- <20260527-flawless-chowchow-of-fruition-edbe8a@houat>
- <496facc4-60bc-4646-b426-30e7ac545d9f@oss.qualcomm.com>
- <20260527-armored-spiked-jacamar-0bb19e@houat>
-Content-Language: en-US, nl
-In-Reply-To: <20260527-armored-spiked-jacamar-0bb19e@houat>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDE1MCBTYWx0ZWRfX4M6uHpkYRFMy
- 40VtYuJYWA57JJIECh3QFtI9UY7I9/eRHJmR0+q8jtQePsg3xEIf8Jme9unLVtRMWaZ/jebj/Kd
- 0VLH9qPkBansP3dEnRr9n/JtGw4vVLjNmwedjeLPLcng+gTpJz2VIpqg4e6nQUh1W875qSr0pDX
- 5OOOusCTf0YUEPRdjnnVoIwzMrYRLzwA1WnK2p9WeP1VD9yBjmsRIHRyWWURscbqJ8I1+oRls8B
- +dXENHdQ9W3j2i6WMc/Pm2MgSoAeUB8LyNe7HxzZaHrcUnskXQQojDWmSsI+n9vMV50sDLqWz5B
- FSuEwsV6jhMjHtXehQxwocl9V8ZX8be0Hdzt4QSKNGq0G7R8g4DecWvr4KEX5gQKbvLNQjdVhMG
- hpUfvKnbC76Rovr0IvzhVx1YA0JP9R8mWZQZWbxvNhePAZRPdX8+KVSlfxN4wqbHsimNXEUVqeM
- eenErNdQPH7Z3NAy3iw==
-X-Proofpoint-GUID: t_V2lcPmeez_tBByRHHxcjXBQuykYr_U
-X-Proofpoint-ORIG-GUID: t_V2lcPmeez_tBByRHHxcjXBQuykYr_U
-X-Authority-Analysis: v=2.4 cv=fLMJG5ae c=1 sm=1 tr=0 ts=6a170938 cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
- a=vTr9H3xdAAAA:8 a=eS7AplsvlCe1A2W4UzQA:9 a=QEXdDO2ut3YA:10
- a=vmgOmaN-Xu0dpDh8OwbV:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-27_02,2026-05-26_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0 suspectscore=0 spamscore=0 impostorscore=0
- clxscore=1015 adultscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605270150
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_TWELVE(0.00)[13];
+ MIME_TRACE(0.00)[0:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ FREEMAIL_TO(0.00)[gmx.de,linux-m68k.org,ffwll.ch,gmail.com,wunner.de,linux.ibm.com,ellerman.id.au,kernel.org];
+ RCVD_TLS_ALL(0.00)[]; TO_DN_SOME(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,123 +104,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maxime,
+Turn fbcon into an internal client of fbdev. Manage all interactions
+with graphics drivers within fbdev. Add helpers for these tasks and
+convert drivers.
 
-On 27-May-26 14:48, Maxime Ripard wrote:
-> On Wed, May 27, 2026 at 02:21:50PM +0200, Hans de Goede wrote:
->>>> clk_prepare_enable() is fine, the clocks are already on so no
->>>> ordering worries and it ensures that the clocks and their parents cannot
->>>> get turned off by incrementing their enable, prepare and protect counts.
->>>>
->>>> clk_disable_unprepare() is a problem though since it actually turns the
->>>> clocks off. Instead something is needed which only decrements those counts.
->>>>
->>>> This series introduces a new clk-core function called
->>>> __clk_disable_unprepare_counts_only() (1) which does just that. Prefixed
->>>> with '__' to indicate that normally drivers should not use this.
->>>>
->>>> Michael, Stephen sorry for needing to add a new clk-core function for this,
->>>> but I see no other way of solving this (2)(3). The changes are not that
->>>> big / not too bad.
->>>>
->>>> I've also considered making __clk_disable_unprepare_counts_only() implement
->>>> all the logic itself instead of adding the extra parameter to
->>>> clk_core_unprepare() and clk_core_disable() but that leads in duplicating
->>>> quite a bit of logic (4) so this seems better.
->>>>
->>>> The other 2 patches just replace the clk_disable_unprepare() calls in
->>>> the simple[fb|drm] driver with the new helper.
->>>>
->>>> This series fixes the display not coming up after switching to the msm
->>>> driver when a simple-framebuffer node with clocks listed is used.
->>>>
->>>> 1) I'm open to changing the name, this is the best I could come up with.
->>>>
->>>> 2) One option considered was detaching the simple-framebuffer driver later,
->>>>    after the real display driver has had a chance to claim the clocks. But
->>>>    this won't work in cases where the real display driver picks different
->>>>    parent clocks then the boot firmware did and needs to reparent clocks.
->>>>
->>>>    Basically the goal is for things to behave as if the simple-framebuffer
->>>>    driver was not there at all, because that leaves the hw in the state
->>>>    the real display driver expects.
->>>
->>> So I know it's not really what you had in mind, but if you are only
->>> concerned about the transition from the bootloader to the DRM driver,
->>> then I think supporting the following work would help:
->>>
->>> https://lore.kernel.org/r/20260423-drm-state-readout-v2-0-8549f87cb978@kernel.org
->>>
->>> With that series, we can build the initial KMS state from the hardware
->>> state, which means that if you were to change the resolution at boot, it
->>> would be executed just like any mode change in KMS.
->>
->> Hmm, so your suggestion would be to have the initial KMS driver probe()
->> only do a read back without touching anything. Then claim clks matching
->> the read back config and then only release the simple* driver and thus
->> the clocks after this?
-> 
-> Almost. Part of the call to drm_mode_config_create_initial_state() if
-> needed to make it grab its resources. See atomic_install_state in that
-> series. So probe wouldn't have anything more to do.
-> 
->> That is certainly an interesting proposal but IMHO almost orthogonal
->> to this one (1).
-> 
-> Why do you think it's orthogonal?
-> It would completely fix your problem.
+Fbdev's PS3 and SH-Mobile drivers update fbcon as part of user-invoked
+mode changes. Call the new helpers, which also fix inconsistencies
+among the various code paths.
 
-AFAICT in its current version it does not contain a mechanism to
-delay the remove conflicting framebuffer call, so no it does not
-fix my problem.
+Vga-switcheroo remaps the fbcon terminals when switching physical
+outputs. For now, hide this in another helper. The call will later
+move into DRM's fbdev emulation.
 
->> Even if it may fix the issue in the end, it seems that that work is
->> still quite a way from going upstream
-> 
-> It's likely to be merged in the next few weeks.
-> 
->> and even then initially it only potentially fixes this for the TIDSS
->> driver since that solution needs a lot of per driver work.
-> 
-> I mean, yeah, but the good thing is that you only have one driver to
-> care about, right?
+With all refactoring in place, fbdev manages fbcon interactions by
+itself. Remove the public interfaces.
 
-I would prefer my proposed KISS solution, which works everywhere, over
-your quite complex solution which requires complex per driver changes.
+v3:
+- resolve vga-switcheroo dependencies wrt fbcon (Geert)
+v2:
+- use '#if defined' (Helge)
 
-When I was still working on:
+Thomas Zimmermann (4):
+  fbdev: Wrap user-invoked calls to fb_set_var() in helper
+  fbdev: Wrap user-invoked calls to fb_blank() in helper
+  fbdev: Wrap fbcon updates from vga-switcheroo in helper
+  fbdev: Do not export fbcon from fbdev
 
-https://fedoraproject.org/wiki/Changes/FlickerFreeBoot
+ MAINTAINERS                            |  1 -
+ drivers/gpu/vga/Kconfig                |  2 +-
+ drivers/gpu/vga/vga_switcheroo.c       |  6 +--
+ drivers/video/fbdev/core/fb_chrdev.c   | 12 ++----
+ drivers/video/fbdev/core/fb_internal.h |  1 +
+ drivers/video/fbdev/core/fbcon.c       |  3 --
+ drivers/video/fbdev/core/fbcon.h       | 50 +++++++++++++++++++++++
+ drivers/video/fbdev/core/fbmem.c       | 35 +++++++++++++++-
+ drivers/video/fbdev/core/fbsysfs.c     |  9 +----
+ drivers/video/fbdev/ps3fb.c            |  5 +--
+ drivers/video/fbdev/sh_mobile_lcdcfb.c |  5 +--
+ include/linux/fb.h                     |  3 ++
+ include/linux/fbcon.h                  | 55 --------------------------
+ 13 files changed, 99 insertions(+), 88 deletions(-)
+ delete mode 100644 include/linux/fbcon.h
 
-I needed to constantly fix i915 fastset support and when I stopped
-fixing it due to -ENOTIME it pretty much was broken most of the time.
 
-Last time I check modern (Alderlake +) laptops never had working
-fastset support and there always is a visible most set on newer
-laptop models because of this.
-
-This state-readback stuff is quite complicated, as the list of
-known issues in your cover-letter shows. I wish you all the best
-with it, but I really do not see this as a good alternative for
-fixing the issues *this* series tries to address given the huge
-disparity in complexity between the 2 fixes.
-
-I'm also worried that the readback stuff is likely going to be fragile
-so might end up being disabled or automatically detect some issue and
-disable itself at which point we're back to having the original
-problem this series tries to fix.
-
-Also atm AFAIK there are no plans to add state readback support to
-msm and there are a lot of other higher priority items to work on.
-
-###
-
-Anyways since your patch-series will not work for msm in its
-current state, I would still very much like to hear from the clock
-maintainers what they think of the approach suggested here.
-
-Regards,
-
-Hans
-
+base-commit: 5fb5a9a63cf5ece68e0eeb6fa397da27712bccf0
+-- 
+2.54.0
 
