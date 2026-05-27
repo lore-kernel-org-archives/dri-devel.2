@@ -4,128 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85BF5CD5BD5
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 15:05:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7732DCD5BD5
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 15:09:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEAFC10E1ED;
-	Wed, 27 May 2026 15:05:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C653C10E202;
+	Wed, 27 May 2026 15:09:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="dArCv6vv";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="VU0HqmB+";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cRxbac95";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazolkn19011027.outbound.protection.outlook.com [52.103.13.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0A1210E1ED
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 15:05:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Usrio8MCRwuZKZOcmhSOMVSfcJNQyPNMdHGnUA+hf8FjuxhpO/r+RkCmcWBOrvIJ9GWJY7eMusdCdaEVx9SkQBHLBcE3pxPxKeE+ndDNCtiZtOx+NG7brvfxg8uM8Q1nD4wNrcFYyBTldJYaoigiGpruyVYfYQFFLhLxfhnvDuVXRQEVL77BWjgjL+9nxSyyZxzBxfmCfxnfe34pcgJwp0TljK8xghNMA+jyup3LEiIXdnSbiN/zl04IBq+CoRTV3Q95rvlQtNJ2gJpY075RnIzWnqOBV0XvhXgXBK9qm8/REMrdCSX3d9DKSeScx0lPoaDHmFeXfOZ4so14XcynCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TpIyLntWVY1r3Rr1EhhgPM2dUfuLEubta5IewGZykfA=;
- b=ir7MGBhxskZ+HaqVXF4oRKcYqoFEogJIE64ajvk6CQBdbI5QVB6KlSCUfKsnrbxTjfc2x5o/uk4MSEp1L/4DpMJuDDJYIhL3d6WZP+5sL1EbSM+U72OUaQKLyj/NJWYMB48g69P0Q5BdineOOl1XM4/5D6O+PEQfV7QE24EsDFP7eaWIGRH2vNICOoYXxHsmfKqbVj8gg4bfT8SQqTr3HZT46wJ+leT9JRwiO/9u9hXMb74ya2uWMkrcoz0aGjBP6bC1ZlBxbhWZEcehqpoBrW87nlNZHixDDbcHsfoY3dcIpCGyj2eXXwcD0CsYNVGPFsaXMII36vJnNx2DJgsqeA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TpIyLntWVY1r3Rr1EhhgPM2dUfuLEubta5IewGZykfA=;
- b=dArCv6vvVQNXr5UamgfUtw7tqU1Jhklsj2PTulrDJgGvE5nkPGtxb4oXOg0mxBypsvJc/1jNwNRQeDlA6lqG/L6XndRB2EUWv+Uq2Jz82403OrHUJ0qmVDB4L+hJXoJfIW81yriF9HZzuqrvOTZBg/4tCc6gWBYM7OAjubXmshpVwbg8fGB1dqRNHERnXoXpOMSQuLczgHYDgdpRvkgK54FIQDnd+f6hNdFRtmbhYm7lqM6eJFOZ/675w6SuTWrJ4tXIcTwcRoaUJCXqGtae856PZ/3HSOfuuIoQoxGiQZTrNrez6A1s2H9hjbUwLpSZpTdQkvjTsFG73IaIN23zHg==
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
- by BY5PR02MB6594.namprd02.prod.outlook.com (2603:10b6:a03:20b::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Wed, 27 May
- 2026 15:05:14 +0000
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::900:1ccf:2b1e:52b6%3]) with mapi id 15.21.0071.011; Wed, 27 May 2026
- 15:05:14 +0000
-From: Michael Kelley <mhklinux@outlook.com>
-To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>, Michael Kelley
- <mhklinux@outlook.com>
-CC: "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>, "tzimmermann@suse.de"
- <tzimmermann@suse.de>, "airlied@gmail.com" <airlied@gmail.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "decui@microsoft.com"
- <decui@microsoft.com>, "longli@microsoft.com" <longli@microsoft.com>,
- "ssengar@linux.microsoft.com" <ssengar@linux.microsoft.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>
-Subject: RE: [PATCH 1/1] drm/hyperv: Replace "hyperv_" with "hvdrm_" as symbol
- name prefix
-Thread-Topic: [PATCH 1/1] drm/hyperv: Replace "hyperv_" with "hvdrm_" as
- symbol name prefix
-Thread-Index: AQGYZGmpZbciqp3jXtRxdrQwqzIko7aq6eCAgAAhusA=
-Date: Wed, 27 May 2026 15:05:13 +0000
-Message-ID: <SN6PR02MB4157EC6C4CE3BBE2ACC3E86AD4082@SN6PR02MB4157.namprd02.prod.outlook.com>
-References: <20260526205239.1509-1-mhklkml@zohomail.com>
- <ahbr3aepFUuJ45Zg@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-In-Reply-To: <ahbr3aepFUuJ45Zg@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|BY5PR02MB6594:EE_
-x-ms-office365-filtering-correlation-id: fae870ec-5f72-40da-5de1-08debc015aff
-x-microsoft-antispam: BCL:0;
- ARA:14566002|51005399006|37011999003|15080799012|19101099003|13091999003|19110799012|31061999003|8060799015|8062599012|440099028|3412199025|102099032|40105399003|1710799026;
-x-microsoft-antispam-message-info: =?us-ascii?Q?E2Jj0gAKB91P4LZVeSoFIqypkWpRvBCaAKLoL9JuUIVTH+QNb7AGe7VA4Tnv?=
- =?us-ascii?Q?OKs95ZkssTg70RJHcb15uIHyybUpQSd/QhHwcm65FzQHvGodtRXWkTbLkD0g?=
- =?us-ascii?Q?mCdLkJSRbYbfzJ03I4ZeK4zyueciF5a3VBH3N0rcDhVY5MSjM6kSwlJinzsZ?=
- =?us-ascii?Q?DdP/iOegymTa66Flv5sycogqzb4l6uf4bgU4pdTCOlquieIwr0DfeLetqnyh?=
- =?us-ascii?Q?WBtx1RAXeGUbvxCfHiI8wjPZb0x5spcF1KpjnbKmrhtspCBWq7jD7PBlaDgv?=
- =?us-ascii?Q?N/xpwYJm7SXv0cMxPftWVznxyaHvghHkXZjv/BOAzbwzwW51+gsocbogHsku?=
- =?us-ascii?Q?Iqnmear1NeACfgz/BLY9qM55OAPR2D6bLNelYXnJWyNJXyYafqjlMN0OBsYJ?=
- =?us-ascii?Q?RUwW5cwvd7xJIBbCgg/ojFtcfuYGYCKWI/Y4sY0j/KdaccXuMpMACldq3o8F?=
- =?us-ascii?Q?gKKdTgGSQpTpRADO2ZMSA9D7AF8hBpq/ghDLTsakshI6v1U2cs2IJab5gLOr?=
- =?us-ascii?Q?EcwPv80WokLsiHP7geOq2RszX9p/V6oXFQdEKgKJN4fQfwrAS+By0maiUuez?=
- =?us-ascii?Q?6IqmsAJ7Xl0+t+bNNL/zV7J2Usd/FjWc6G0o3kO5CzSA+UdRT6mz40KJzs1D?=
- =?us-ascii?Q?FMn4rPrjZm1LgXgHLMfjEM1F72QB02dl7tQ9inETzscigmOLEbBaGqAQS9eN?=
- =?us-ascii?Q?m4PA7EWbHsNRTlbL1pJdEUh2IqyovOGEHOqfuW0Lww7tC8R4/EtQNfGwVZyx?=
- =?us-ascii?Q?PWCXS9dKaMCV/RADL2/Qz0AJd0UDSUlKZAmp6KQNsKHIeFjKjCGj6yWQFUqe?=
- =?us-ascii?Q?y1AeXMlX64bsd3Pr1IGxo/Ai/Vm993s6MpxYVZgPm4sPAqI6P55fPuFl8wNJ?=
- =?us-ascii?Q?0qOS/cedm36RjKloABgpDa1EnpJ7mg+jZzwIuSMxNNN1lJFR42T/5jM/IUPj?=
- =?us-ascii?Q?OlE5wz1F5vFD35G7c6Lusqem7k99Ix82RUGIPvCZuhQv2mS9+0NGvR/YV3j9?=
- =?us-ascii?Q?2Vu5QUUjNSMSPv70wqCm0TwGVw=3D=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?LyP+wOQwTrA47E8cw2MeCbR0yDI/iP5YTwQC05YJiHyN54QPStnGUhCzjAs9?=
- =?us-ascii?Q?lxV+n4gUTRf0i5U+VuYkc6FnTJ7bk9vmhmbesXoKYy4zDlIwg+f8Nx/sfV5T?=
- =?us-ascii?Q?CP4Zw4jdtUqvDT3RbiyAPAt7uW90GSDQwLsTfyJ4xgYxFakyVuO/L+ua42MX?=
- =?us-ascii?Q?EMXKC64WN8Qm7RfYhUN7XR42tVknY42nv0p6g7jrnnEwozkaXcAuj7GG+EYy?=
- =?us-ascii?Q?sNgEvnEGXia0j2HDSqK8ernfZ+rJNuz/boiMqDpmeGlM5QrfZD2xjXoQcbJm?=
- =?us-ascii?Q?NpkC9rc2jQn1Tl2PviTqRjFkeej47XkGW2+dOVfQ02/rWXYL5FhOcIMxyCnT?=
- =?us-ascii?Q?1oR0GsM9qyTSJ96NKsmJUaOpPu7SOozuPlC7VcYntRG5OR82q+jigOGbR+lT?=
- =?us-ascii?Q?OXaDjO8FTaI38pm3Xt4infyHoOK/hFvId78jNIr5KteOnrBwpF3hZa9Eokvq?=
- =?us-ascii?Q?qBZ5s9R/p5jMmnMoJ8qsuduuF77SXMJSvlyfG0uSdLsF0GW1smKgeUuN/hg+?=
- =?us-ascii?Q?StHclMPPGvrfmzFO4woLwDoocykrmlXLRPJuVr8n74kddhM5XUY5vzMuguVZ?=
- =?us-ascii?Q?Pr2WLcnHD0GuXaYEC3Vm4BXvCU0vJWOhUGvZq+zwdcnV3QbzF3SOwddXnD8U?=
- =?us-ascii?Q?xtqYAcxt0SLhQWjSbk83nMx7+0347gHI0ymIrPuhKOHp+uNLhmZg8a5/2EEN?=
- =?us-ascii?Q?dCuIdfezfIEQvcsgK/zaT4yQM4El9pHEd/gXg3JbRthOwvXH5NKgWWK2Ip9B?=
- =?us-ascii?Q?PJtcAQezxaFF875+PSmZ5zD1pOhwO15kstBkFAsRfUQGxSyc8pCRmNxJyaBR?=
- =?us-ascii?Q?ibbAjdHuWvuToSbbmWU/fUt+su94yWD3a00i9eET6KQBK/TCbRpJvPYE367n?=
- =?us-ascii?Q?xUOQhM7JVttUS0c/hWbVrHy7Yj/7u//LurLAFOgmln3pMUlhQ6VVvcDr4oCo?=
- =?us-ascii?Q?DSVu+voViVJvRRtsofg1MaeT4v1Rg5lFmWNbCILpcHNQYABgN7F+xa55RK9B?=
- =?us-ascii?Q?Ab7oqOqRyDD/cME/Lb4bAYKeMUUscmiVDkox/UY3CNiAApEg+CBgodJCVZnN?=
- =?us-ascii?Q?S6Aq0VcPtMh1zwxm326a5yQowdGQaDrg2bYbdTIwfAxkohlO5PKyLNMPRQVd?=
- =?us-ascii?Q?xEw0VqdNSU+xl0ey500NYxapppVdtRBUT90PbYZuVcJyALOGhwXvo8l9ROMz?=
- =?us-ascii?Q?id9ltxl5oLDMAZv/lNksLJmHTUiMEA3DR03VgUJhF5RC+qZUC7nI7XiVCq54?=
- =?us-ascii?Q?BXgpgp39skw1ThSpz3GFLoI8bSfwk30Q9+6pfwF75S4xslQH+oz6P0amea1h?=
- =?us-ascii?Q?3fnx8c2RRr6RIqP80yfevXaM71luHMdNkWrE0hw1EmDmp2nBXW0r5JFlMTS+?=
- =?us-ascii?Q?75x70x4=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9920F10E202
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 15:09:45 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64RF7B8e879263
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 15:09:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ ufMpfNyxnplHu867LBcoTwXEhS7HS0xoMB7D0cXK4Ko=; b=VU0HqmB+22HdnLmS
+ aG0oxzVe+S0LRW8Bn5GH/DecXErIcy5Kgza6RStdgEaSh0fe6u/9F0fuppObKRPy
+ jX6TOxh+yciQeXCp43Q3EHCxqH9Kzn7amzXbaRJN5OSd1hEY9k1KYrqxCXZ2i8Wh
+ jV4iJdj5UI/QKqF513y5Ax4Br3N10SMpdfvv6IWFousNnyD2W7e9lR4bKm1d+ki1
+ SPtoJmz1DQaoOV7+dtbbf5HHxYHdgkGBFAq7gczOV4CbcEraEAKVGCJqWVcE5XpM
+ GZTyHfHnL+RSR1c0/+uj0IFcnq1yfR/i9qxkuTtnM4TK/LAglfaj3KMYoc0GEosR
+ HjMsTA==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com
+ [209.85.221.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4edvvqskyn-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 15:09:44 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id
+ 71dfb90a1353d-5954c5fbcc7so268207e0c.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 08:09:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779894584; x=1780499384;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=ufMpfNyxnplHu867LBcoTwXEhS7HS0xoMB7D0cXK4Ko=;
+ b=cRxbac95r0bL41THGWWcD7435nW14MNAzgxcZqpdZrino2u/Pxcf+UvO6vsjjt0W66
+ voe85NIKLpfUeqZTQZBwQNA/8//JMfj9dWvv9M8ZeOA6icNyBravEpYfqJm4DXy+tb1u
+ bg2iDvs6OMgn+kJHg7vPOAQnfCE0lvBs5jd7QPHRJWqaj3Z6DDCxyjxpHxEcQ6cN40km
+ Cra62C8MGTib8RwI2DpKCdJCK/FiP8wcYcyeozRwjkSlOKy1TwbkT28zAYAmT4TaEHW9
+ 2KPhNndJnsbw46qPumIHqo5lUg2UuX7VzaHtMzahO9H+qALAENUfSFvuGMjxO72vTnjX
+ g9eQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779894584; x=1780499384;
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ufMpfNyxnplHu867LBcoTwXEhS7HS0xoMB7D0cXK4Ko=;
+ b=Sk+MVQNnOxx7ihZgM3okuy2CsMeRrucYg9EeQHadQ82NKezHURmJUxK2PhTCaPyluo
+ 3IU2tbMwWeXlQivFfSQW8zrkZevuf+Gz7SrNVTo4IHyP+K8TXC56Qq1b0C6fbQuWunmP
+ 0dQyV4HafcKoiZIBqr5AOLVECy844ZAtl2ASWGStkYAcd7nZQCAAWSNBmMhLmCqOikJp
+ QfL9QRHcU3kgs6x+Xf7L5GcXlvvPZU202cQm/w29KeEdUaVtucIRU/BDPFIRiQIT9akb
+ 1NRAfrwPXC612PonnMU0QGaqOEaEn42nVlKBhPQ/AJfJ8/HW1PcuUmxkwWfQzk88lTlB
+ yMaQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+OA5lylSDpnShbXdsJiFVIcVUEjqJjDZ8fPfVFdN9yJF3gqKH+wwVlIgefwMigdenPVU39CEcls+Q=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyLwrQgOvFZ02OIHvodsTd7U6PZDUQU7B/QGpmvllRwWm9v0Mx1
+ h/I0YssRC1+WhAML+7ArTOBxk5fGFybISchjCOfnykJ7DEVQUZhUvwukO4OUK1dBQo+fIXoNUMG
+ akftLobeQIMlFoNAIePB8ul6KvE5kC+pVceUrGRwUS8RwX5wcmITjT2CvIZfkyAgEZswT9g8=
+X-Gm-Gg: Acq92OFmfkISqndMMyev5qp/xW+29Ia5pvfa7Z5kCx0eSGRn0sx4mdbT2/TbHHnjO7k
+ cKel//5Ggkmyk8M2HmSW2AodouymsAmCJrKeF10XaT9T58Gk/XamGfKf8a6k/7nov5F5XcRv6SM
+ 7U6/JYhOYBNLDwVrjKf9Lc2c+cCpGf3xSy/ZEfYoI0YYHOWBjLAINPvbu0je/Vf68lCX4RJeZ0X
+ 3X+/SuRvxTlukNuyTp+QqIGwpb2mh1EFlnJKuCBgY7yu3XPry2PaKugOdkKSnU3tjzAOBulx+0C
+ DojlFwJBCqmNSTytZ0fh22z2f5dao+5ActwXGrP1oAllYaUuZUUdDbYwc24qF9zpq5q+Ncd5tEU
+ m6NlBsTnGtfu1XI6rwR1NPsugL8s69SEzERlgnphDIR2iGRQ29iQFO7W7Gb6g7kPgxPKbjQM4nE
+ V25Dq/jfIIz9M0jDNqD8pdM2diJUjUHwU49FZMEnlX6mvMZHAomtH5d2pz3fYAFDnErQfEtcXFK
+ FuwOEiFoY5h3V3ZxTyHl3cqIVA=
+X-Received: by 2002:a05:6122:a0b:b0:56f:2aaa:450c with SMTP id
+ 71dfb90a1353d-5865e4a60f4mr11772644e0c.1.1779894583857; 
+ Wed, 27 May 2026 08:09:43 -0700 (PDT)
+X-Received: by 2002:a05:6122:a0b:b0:56f:2aaa:450c with SMTP id
+ 71dfb90a1353d-5865e4a60f4mr11772589e0c.1.1779894583407; 
+ Wed, 27 May 2026 08:09:43 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
+ (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-68a6faadb8fsm893905a12.6.2026.05.27.08.09.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 27 May 2026 08:09:41 -0700 (PDT)
+Message-ID: <4f34c957-817d-45fe-ac13-02b98e77f010@oss.qualcomm.com>
+Date: Wed, 27 May 2026 17:09:39 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: fae870ec-5f72-40da-5de1-08debc015aff
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 May 2026 15:05:13.8811 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR02MB6594
+User-Agent: Mozilla Thunderbird
+From: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Subject: Re: [PATCH 0/3] clk: Add __clk_disable_unprepare_counts_only() and
+ use this in simple[fb|drm]
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, linux-clk@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, ~postmarketos/upstreaming@lists.sr.ht
+References: <20260527094811.116977-1-johannes.goede@oss.qualcomm.com>
+ <20260527-flawless-chowchow-of-fruition-edbe8a@houat>
+ <496facc4-60bc-4646-b426-30e7ac545d9f@oss.qualcomm.com>
+ <20260527-armored-spiked-jacamar-0bb19e@houat>
+Content-Language: en-US, nl
+In-Reply-To: <20260527-armored-spiked-jacamar-0bb19e@houat>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDE1MCBTYWx0ZWRfX4M6uHpkYRFMy
+ 40VtYuJYWA57JJIECh3QFtI9UY7I9/eRHJmR0+q8jtQePsg3xEIf8Jme9unLVtRMWaZ/jebj/Kd
+ 0VLH9qPkBansP3dEnRr9n/JtGw4vVLjNmwedjeLPLcng+gTpJz2VIpqg4e6nQUh1W875qSr0pDX
+ 5OOOusCTf0YUEPRdjnnVoIwzMrYRLzwA1WnK2p9WeP1VD9yBjmsRIHRyWWURscbqJ8I1+oRls8B
+ +dXENHdQ9W3j2i6WMc/Pm2MgSoAeUB8LyNe7HxzZaHrcUnskXQQojDWmSsI+n9vMV50sDLqWz5B
+ FSuEwsV6jhMjHtXehQxwocl9V8ZX8be0Hdzt4QSKNGq0G7R8g4DecWvr4KEX5gQKbvLNQjdVhMG
+ hpUfvKnbC76Rovr0IvzhVx1YA0JP9R8mWZQZWbxvNhePAZRPdX8+KVSlfxN4wqbHsimNXEUVqeM
+ eenErNdQPH7Z3NAy3iw==
+X-Proofpoint-GUID: t_V2lcPmeez_tBByRHHxcjXBQuykYr_U
+X-Proofpoint-ORIG-GUID: t_V2lcPmeez_tBByRHHxcjXBQuykYr_U
+X-Authority-Analysis: v=2.4 cv=fLMJG5ae c=1 sm=1 tr=0 ts=6a170938 cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=vTr9H3xdAAAA:8 a=eS7AplsvlCe1A2W4UzQA:9 a=QEXdDO2ut3YA:10
+ a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-27_02,2026-05-26_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0 suspectscore=0 spamscore=0 impostorscore=0
+ clxscore=1015 adultscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605270150
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,70 +154,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com> Sent: Wednesday, May=
- 27, 2026 6:04 AM
->=20
-> On Tue, May 26, 2026 at 01:52:39PM -0700, Michael Kelley wrote:
-> > From: Michael Kelley <mhklinux@outlook.com>
-> >
-> > Function and structure names in the Hyper-V DRM driver currently
-> > use "hyperv_" as the prefix. This conflicts with usage in core Hyper-V
-> > and VMBus code, and incorrectly implies that functions and structures
-> > in this driver apply generically to Hyper-V. A specific conflict arises
-> > for "hyperv_init", which is an initcall for generic Hyper-V
-> > initialization on arm64. The conflict prevents the use of
-> > initcall_blacklist on the kernel boot line to skip loading this driver.
-> >
-> > Fix this by substituting "hvdrm_" as the prefix for all functions and
->=20
-> I would personally prefer "hv_drm_", since it seems clearer.
+Hi Maxime,
 
-My choice of "hvdrm" mimics the old Hyper-V FBdev driver, which
-uses "hvfb" as the prefix. However, looking through everything that
-starts with "hv" in /proc/kallsyms, I also see prefixes with the additional
-underscore.  "hv_kbd_" in the Hyper-V keyboard driver is an example.
-The Hyper-V utils drivers have both forms -- I see "hv_vss_", "hv_ptp_",
-and "hv_kvp_", but also "hvt" (for Hyper-V Transport). So the historical
-practice is inconsistent.
+On 27-May-26 14:48, Maxime Ripard wrote:
+> On Wed, May 27, 2026 at 02:21:50PM +0200, Hans de Goede wrote:
+>>>> clk_prepare_enable() is fine, the clocks are already on so no
+>>>> ordering worries and it ensures that the clocks and their parents cannot
+>>>> get turned off by incrementing their enable, prepare and protect counts.
+>>>>
+>>>> clk_disable_unprepare() is a problem though since it actually turns the
+>>>> clocks off. Instead something is needed which only decrements those counts.
+>>>>
+>>>> This series introduces a new clk-core function called
+>>>> __clk_disable_unprepare_counts_only() (1) which does just that. Prefixed
+>>>> with '__' to indicate that normally drivers should not use this.
+>>>>
+>>>> Michael, Stephen sorry for needing to add a new clk-core function for this,
+>>>> but I see no other way of solving this (2)(3). The changes are not that
+>>>> big / not too bad.
+>>>>
+>>>> I've also considered making __clk_disable_unprepare_counts_only() implement
+>>>> all the logic itself instead of adding the extra parameter to
+>>>> clk_core_unprepare() and clk_core_disable() but that leads in duplicating
+>>>> quite a bit of logic (4) so this seems better.
+>>>>
+>>>> The other 2 patches just replace the clk_disable_unprepare() calls in
+>>>> the simple[fb|drm] driver with the new helper.
+>>>>
+>>>> This series fixes the display not coming up after switching to the msm
+>>>> driver when a simple-framebuffer node with clocks listed is used.
+>>>>
+>>>> 1) I'm open to changing the name, this is the best I could come up with.
+>>>>
+>>>> 2) One option considered was detaching the simple-framebuffer driver later,
+>>>>    after the real display driver has had a chance to claim the clocks. But
+>>>>    this won't work in cases where the real display driver picks different
+>>>>    parent clocks then the boot firmware did and needs to reparent clocks.
+>>>>
+>>>>    Basically the goal is for things to behave as if the simple-framebuffer
+>>>>    driver was not there at all, because that leaves the hw in the state
+>>>>    the real display driver expects.
+>>>
+>>> So I know it's not really what you had in mind, but if you are only
+>>> concerned about the transition from the bootloader to the DRM driver,
+>>> then I think supporting the following work would help:
+>>>
+>>> https://lore.kernel.org/r/20260423-drm-state-readout-v2-0-8549f87cb978@kernel.org
+>>>
+>>> With that series, we can build the initial KMS state from the hardware
+>>> state, which means that if you were to change the resolution at boot, it
+>>> would be executed just like any mode change in KMS.
+>>
+>> Hmm, so your suggestion would be to have the initial KMS driver probe()
+>> only do a read back without touching anything. Then claim clks matching
+>> the read back config and then only release the simple* driver and thus
+>> the clocks after this?
+> 
+> Almost. Part of the call to drm_mode_config_create_initial_state() if
+> needed to make it grab its resources. See atomic_install_state in that
+> series. So probe wouldn't have anything more to do.
+> 
+>> That is certainly an interesting proposal but IMHO almost orthogonal
+>> to this one (1).
+> 
+> Why do you think it's orthogonal?
+> It would completely fix your problem.
 
-I'm OK going either way.  Does anyone else want to express a
-preference?
+AFAICT in its current version it does not contain a mechanism to
+delay the remove conflicting framebuffer call, so no it does not
+fix my problem.
 
->=20
-> > structures in this driver. This prefix marries the existing "hv" prefix
-> > for Hyper-V related code with "drm" to indicate this driver.
-> >
-> > The changes are all mechanical text substitution in symbol names.
-> > There are no other code or functional changes.
-> >
-> > Signed-off-by: Michael Kelley <mhklinux@outlook.com>
-> > ---
-> > This patch is built against linux-next20260526.
-> >
-> >  drivers/gpu/drm/hyperv/hyperv_drm.h         |  20 ++--
-> >  drivers/gpu/drm/hyperv/hyperv_drm_drv.c     |  88 ++++++++--------
-> >  drivers/gpu/drm/hyperv/hyperv_drm_modeset.c | 110 ++++++++++----------
-> >  drivers/gpu/drm/hyperv/hyperv_drm_proto.c   |  70 ++++++-------
-> >  4 files changed, 144 insertions(+), 144 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/hyperv/hyperv_drm.h
-> b/drivers/gpu/drm/hyperv/hyperv_drm.h
-> > index 9e776112c03e..66bd8730aad2 100644
-> > --- a/drivers/gpu/drm/hyperv/hyperv_drm.h
-> > +++ b/drivers/gpu/drm/hyperv/hyperv_drm.h
-> > @@ -8,7 +8,7 @@
-> >
-> >  #define VMBUS_MAX_PACKET_SIZE 0x4000
-> >
-> > -struct hyperv_drm_device {
-> > +struct hvdrm_drm_device {
->=20
-> "hvdrm_drm_device" looks kinda redundant, perhaps
-> s/hyperv_drm_device/hv_drm_device would be more sensible.
+>> Even if it may fix the issue in the end, it seems that that work is
+>> still quite a way from going upstream
+> 
+> It's likely to be merged in the next few weeks.
+> 
+>> and even then initially it only potentially fixes this for the TIDSS
+>> driver since that solution needs a lot of per driver work.
+> 
+> I mean, yeah, but the good thing is that you only have one driver to
+> care about, right?
 
-Yes, I'll make this change. And in looking through kallsyms, I
-see that the Hyper-V DRM driver has "hv_fops", which did not
-get changed in the mechanical substitution because it doesn't
-start with "hyperv_".  I'll change it to hv_drm_fops.
+I would prefer my proposed KISS solution, which works everywhere, over
+your quite complex solution which requires complex per driver changes.
 
-Michael
+When I was still working on:
+
+https://fedoraproject.org/wiki/Changes/FlickerFreeBoot
+
+I needed to constantly fix i915 fastset support and when I stopped
+fixing it due to -ENOTIME it pretty much was broken most of the time.
+
+Last time I check modern (Alderlake +) laptops never had working
+fastset support and there always is a visible most set on newer
+laptop models because of this.
+
+This state-readback stuff is quite complicated, as the list of
+known issues in your cover-letter shows. I wish you all the best
+with it, but I really do not see this as a good alternative for
+fixing the issues *this* series tries to address given the huge
+disparity in complexity between the 2 fixes.
+
+I'm also worried that the readback stuff is likely going to be fragile
+so might end up being disabled or automatically detect some issue and
+disable itself at which point we're back to having the original
+problem this series tries to fix.
+
+Also atm AFAIK there are no plans to add state readback support to
+msm and there are a lot of other higher priority items to work on.
+
+###
+
+Anyways since your patch-series will not work for msm in its
+current state, I would still very much like to hear from the clock
+maintainers what they think of the approach suggested here.
+
+Regards,
+
+Hans
+
+
