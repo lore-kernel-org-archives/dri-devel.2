@@ -4,55 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23E00CD5BD0
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 21:26:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47C58CD6E44
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 22:00:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88B9510E090;
-	Wed, 27 May 2026 21:26:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1A4F10EA44;
+	Wed, 27 May 2026 22:00:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CSCgBgiz";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="vkKYFJFw";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF94710E090
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 21:26:37 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 843F44470D;
- Wed, 27 May 2026 21:26:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0018D1F000E9;
- Wed, 27 May 2026 21:26:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779917197;
- bh=vNRtcKe/VrnPWd08v/e3phvPSfc8rENS+DLm2ORP08k=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=CSCgBgizbEY3kXallzJU7ibiCgwCJwPQy0QtOakmUKJRkkCI5LnTYlcyR0bM4nP3r
- mwHi0OBuW9Z5n2qZ5sA8MLq+OECjzujI4ubmbp3gsW27dJ0hAGGb0U88fC83g6LaEh
- bSIJINfBsEipyizGLj+V2Ax/0IpG+T7DtcbNhHB7bpPn4rNGX94nS+IPwQfuJx39IU
- L8oFStGOqsp3JowPO/gXoEYyEhd/toZjZ7GYVYW0NOBTw4fZHN8ESA+/3QiwDt48y2
- AetqVFudWqvRCAJbaa7rJ425ef3jDsIb1/uRelRgfxtaAfhRvPlWUw0ymdTc1thAWZ
- SXpHpmAJwxW/A==
-From: Danilo Krummrich <dakr@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com,
- aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com,
- leon@kernel.org, viresh.kumar@linaro.org, m.wilczynski@samsung.com,
- ukleinek@kernel.org, bhelgaas@google.com, kwilczynski@kernel.org,
- abdiel.janulgue@gmail.com, robin.murphy@arm.com, markus.probst@posteo.de,
- ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
- bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
- tmgross@umich.edu, igor.korotin@linux.dev, daniel.almeida@collabora.com,
- pcolberg@redhat.com, driver-core@lists.linux.dev,
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-pm@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-pci@vger.kernel.org,
- rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v5 00/24] rust: device: Higher-Ranked Lifetime Types for
- device drivers
-Date: Wed, 27 May 2026 23:24:53 +0200
-Message-ID: <20260527212453.1506899-1-dakr@kernel.org>
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28DF510EA45
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 22:00:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=ytuYMS5Y9r5F/emxziA3ZUssrFVA4zJfnBBIEmjBYlA=; b=vkKYFJFws8AGGVDFK65ktI4QiE
+ UbMdnZ/l6i1Q/PlAZYdjb6yG2giK1xFqOd2OV4r0Rhk92vGvdqZN/0j9Lw9RUimeMxmfNwWqPsn3P
+ XCsKRfqwYeltwNB2oMpiL7HZJXaZn39Us4i4IFqCwbbFzdqISe9mqy3B/7lbXvq0T0VB7/3VpRCkP
+ z7p6RXzIcZeSKqeH8w3mRaZpvbD3we4kJIzTExn0NY70qoN2p2Am8EXeXtIW/kSdOzWHyrckijDo0
+ GoKxtGya67+p6DTN3ejM94KycthkRueOgnfPmdvsGE2sy6YqgX2obw6Uj2xOvASoyJzslWf30AlQ5
+ F/pari3w==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+ id 1wSMIW-00000004m5X-0yuC; Wed, 27 May 2026 22:00:20 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: dri-devel@lists.freedesktop.org
+Cc: Randy Dunlap <rdunlap@infradead.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH] drm/exec: drm_exec.h: eliminate kernel-doc warnings
+Date: Wed, 27 May 2026 15:00:17 -0700
+Message-ID: <20260527220018.1231829-1-rdunlap@infradead.org>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260525202921.124698-1-dakr@kernel.org>
-References: <20260525202921.124698-1-dakr@kernel.org>
-X-Patch-Reply: applied
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -71,80 +58,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 25 May 2026 22:20:47 +0200, Danilo Krummrich wrote:
-> [PATCH v5 00/24] rust: device: Higher-Ranked Lifetime Types for device drivers
+Repair kernel-doc comments to avoid kernel-doc warnings:
 
-Applied, thanks!
+Warning: include/drm/drm_exec.h:146 No description found for return value of 'drm_exec_is_contended'
+WARNING: include/drm/drm_exec.h:157 function parameter '_exec' not described in 'drm_exec_retry'
+WARNING: include/drm/drm_exec.h:157 Excess function parameter 'exec' description in 'drm_exec_retry'
 
-  Branch: topic/dd-lifetimes
-  Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git
+Fixes: bba175a2d4be ("drm/exec, drm/xe: Avoid abusing the drm_exec retry pointer")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ include/drm/drm_exec.h |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-[1/24] rust: pci: use 'static lifetime for PCI BAR resource names
-      commit: e566a9e17f37
-[2/24] rust: alloc: remove `'static` bound on `ForeignOwnable`
-      commit: e9df918d61e0
-[3/24] rust: driver: move 'static bounds to constructor
-      commit: c8a43666bade
-[4/24] rust: driver: decouple driver private data from driver type
-      commit: 7fdffdda630e
-[5/24] rust: driver core: drop drvdata before devres release
-      commit: be31fcf5af75
-[6/24] rust: pci: implement Sync for Device<Bound>
-      commit: 0b9a29c3a4e2
-[7/24] rust: platform: implement Sync for Device<Bound>
-      commit: a89111c00b68
-[8/24] rust: auxiliary: implement Sync for Device<Bound>
-      commit: 5bbcefe8db74
-[9/24] rust: usb: implement Sync for Device<Bound>
-      commit: 3bb1655192ae
-[10/24] rust: device: implement Sync for Device<Bound>
-      commit: de12e48a1be3
-[11/24] rust: device: make Core and CoreInternal lifetime-parameterized
-      commit: 24799831d631
-[12/24] rust: pci: make Driver trait lifetime-parameterized
-      commit: 16c2b8fdab7c
-[13/24] rust: platform: make Driver trait lifetime-parameterized
-      commit: 81fdc7881443
-[14/24] rust: auxiliary: make Driver trait lifetime-parameterized
-      commit: 46f651d88662
-[15/24] rust: usb: make Driver trait lifetime-parameterized
-      commit: a3f09f8e47c4
-[16/24] rust: i2c: make Driver trait lifetime-parameterized
-      commit: 71e6b6a80b51
-[17/24] rust: driver: update module documentation for GAT-based Data type
-      commit: d31a349a7fd8
-[18/24] rust: pci: make Bar lifetime-parameterized
-      commit: 8ea0b6d5bef5
-[19/24] rust: io: make IoMem and ExclusiveIoMem lifetime-parameterized
-      commit: 89f55d04c602
-[20/24] samples: rust: rust_driver_pci: use HRT lifetime for Bar
-      commit: e397d405c4c6
-[21/24] gpu: nova-core: separate driver type from driver data
-      commit: bb1cf43f2fa8
-[22/24] rust: types: add `ForLt` trait for higher-ranked lifetime support
-      commit: e189bdb687a5
-
-      [ Handle macro_rules! invocations in the ForLt! proc macro's covariance
-        and WF checks. Since proc macros cannot expand macro_rules!, add a
-        visit_macro() implementation to conservatively assume macro
-        invocations may contain lifetimes, forcing them through the
-        compiler-assisted covariance proof.
-      
-        Fix a few typos in the documentation and in the commit message, add
-        empty lines before samples, add missing periods and consistently use
-        markdown.
-      
-        - Danilo ]
-
-[23/24] rust: auxiliary: generalize Registration over ForLt
-      commit: 4555291ddae9
-
-      [ Use PhantomData<F::Of<'a>> instead of
-        PhantomData<(fn(&'a ()) -> &'a (), F)>], which also gets us rid of
-        #[allow(clippy::type_complexity)]. - Danilo ]
-
-[24/24] samples: rust: rust_driver_auxiliary: showcase lifetime-bound registration data
-      commit: d18f3646184f
-
-The patches are in the topic/dd-lifetimes topic branch and will be merged into
-the corresponding target branch soon.
+--- linux-next-20260527.orig/include/drm/drm_exec.h
++++ linux-next-20260527/include/drm/drm_exec.h
+@@ -140,7 +140,7 @@ _label:									 \
+  * drm_exec_is_contended - check for contention
+  * @exec: drm_exec object
+  *
+- * Returns true if the drm_exec object has run into some contention while
++ * Returns: true if the drm_exec object has run into some contention while
+  * locking a GEM object and needs to clean up.
+  */
+ static inline bool drm_exec_is_contended(struct drm_exec *exec)
+@@ -150,7 +150,7 @@ static inline bool drm_exec_is_contended
+ 
+ /**
+  * drm_exec_retry() - Unconditionally restart the loop to grab all locks.
+- * @exec: drm_exec object
++ * @_exec: drm_exec object
+  *
+  * Unconditionally retry the loop to lock all objects. For consistency,
+  * the exec object needs to be newly initialized.
