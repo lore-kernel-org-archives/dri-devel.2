@@ -4,96 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07BACCD5BD1
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 07:26:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B30AECD5BD5
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 07:29:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6136210ED03;
-	Thu, 28 May 2026 07:26:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB65D10ED0E;
+	Thu, 28 May 2026 07:29:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="Rpp64L+g";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="dRe90rpu";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C885210ED03
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 07:26:18 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-49068493267so28832035e9.1
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 00:26:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1779953177; x=1780557977; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:mail-followup-to:message-id:subject:cc:to
- :from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=3Okm57YHWqP6DudQxxBoKKLC7I9Qfb5iqn9tysYDvME=;
- b=Rpp64L+glQKn45fb6xo6WRuCdZYimZCqmsiHrB0dhxA3x+lFCHCWx59vEYN2Z+KjWf
- 0Q8K9tVRB/PAHLRwdIoaT2SOnqw+enGhtlVifNG2FLJ1gB2Pme1QRv7z5k+RYCdHPRsG
- hal8O1ZDigfTorWOWdIZNF0XSuK01oiTZGqrw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779953177; x=1780557977;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:mail-followup-to:message-id:subject:cc:to
- :from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3Okm57YHWqP6DudQxxBoKKLC7I9Qfb5iqn9tysYDvME=;
- b=JnT34Z3s3FZOTqeiJK7l3Ex9mGKUJ5Ae94Usby+s+/+oA6xCLx0Gwl1LeKQhP0x4V1
- nOxWc4HvLk+IByJQZH3BohFmtgNZSPwvYhaWfqHgNDmlPaPZn7qE2Q3OpXhHxNz5xqvI
- OYga2XqlEdiL4ryxwQevACGjpSZQY4F8ESD1B7VOtjW6WIYn/XSjRncWNjyPLRRZQaBZ
- cq2jb1N1t2yQ+aLv61BQsjWdnehSNadbQ8BOLZIk2BlL2OaCtu7JbaCRUEXxRQmtjy30
- FF4yBy7DwKmFIJgCkKOLwsOe92UoxlHGxDMyHWnTjGu8uD46ZB9a9VcPgyfl7I7/64DT
- Px4A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+8C4ULEx2RPZ5nA0VU6CPAEePV4yxVLzEw0+RFwmqazpBcO1/+Hl6xpSlYqVHh6R4aWdI3DRRR3ds=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwK+Iv5nt/sPdrcWI/KaYByJHRSe+k0utI3tuqxpYPnjnw0yXq8
- a6K0C7E4QLaZUf1Jr6CEQrjAfyh7pAoRz1XskDIREcbKm6kuez3egcpyZkKUDWZxKzw=
-X-Gm-Gg: Acq92OHFCc/b5fC56SMXdiRYRdpeVEjzHGDuFr4rvrbPN/eRnSG8ZBOmk0n7fgby5S/
- cjnbJW0e/Vw19CmUibUKl86xhP3hEPJEKyX8fClKCeQEBvgxFLxaYmiNFJUXqB/84Qmzr5osfUE
- /7x5RAmmdNTTTVWGhqNSb4859XRksF4MKgyogkb7ruWDppYKkpj8ooLGMIbddDFMrrP8LmgjEJa
- DeGwblZMvE4QsBgK19izxWTbLNTcfJGpxUgNRCCHINLUSb9sG8FherleoKvkPqFC8mlp4mtTnva
- TGbQLu/NaergJH0OdBrblFuccijVZabzQ2tvm4OWMYE3/Uu2IzgbVNQTKUTZDYncyG8eAdvBtrc
- PT+j0w7yrCQRSawa6cbPNGewCTLJYCmxhBwFe5u0ezbPLSK6TwfsXy8o6vQZjy78P+X601Cs45G
- m6vwShOqjFGv31E0v3p7z/QpwsLvl3bDFD8/chzoA2IcFkz6diztoRs5yJ
-X-Received: by 2002:a05:600c:4510:b0:48f:e230:72fc with SMTP id
- 5b1f17b1804b1-490428ee268mr403369655e9.33.1779953177104; 
- Thu, 28 May 2026 00:26:17 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4909235f98bsm30377995e9.1.2026.05.28.00.26.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 May 2026 00:26:16 -0700 (PDT)
-Date: Thu, 28 May 2026 09:26:14 +0200
-From: Simona Vetter <simona.vetter@ffwll.ch>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Arnd Bergmann <arnd@kernel.org>, Inki Dae <inki.dae@samsung.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>, Arnd Bergmann <arnd@arndb.de>,
- Alim Akhtar <alim.akhtar@samsung.com>, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/exynos: fix size_t format string
-Message-ID: <ahfuFv4_-bd47r4w@phenom.ffwll.local>
-Mail-Followup-To: Chen-Yu Tsai <wenst@chromium.org>,
- Arnd Bergmann <arnd@kernel.org>, Inki Dae <inki.dae@samsung.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Arnd Bergmann <arnd@arndb.de>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260527194525.45762-1-arnd@kernel.org>
- <CAGXv+5HvJiTkLJMZ13w0OHwgp+nPBftGAC-15nhJ3R=vOPWpUg@mail.gmail.com>
+X-Greylist: delayed 394 seconds by postgrey-1.36 at gabe;
+ Wed, 27 May 2026 09:00:34 UTC
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66F3C10E674
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 09:00:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=px
+ ZNWo9LRCPMIVUw+9c1ow02KTqS79PGb7Cne9zcVKA=; b=dRe90rpuxC7raE+xCm
+ /+CorRR4fUlVbmBU/IEv+1h3wpYh+6QGxjWWYOx4aKSogilA/Q0ykCU4UAMhQXFq
+ 1OaUgMt+YMkeSVZJa4rxwwkFfCyUzs3fK+K7d3+sjxdbDMJhIrKTXUVXkzj2IqAu
+ XQWEwWuuPt5tnqiiGSmAX7dvA=
+Received: from localhost.localdomain (unknown [])
+ by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id
+ _____wD315cLsRZqnSQMDw--.17642S2; 
+ Wed, 27 May 2026 16:53:32 +0800 (CST)
+From: wangdich9700@163.com
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ wangdich9700@163.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ wangdicheng <wangdicheng@kylinos.cn>
+Subject: [PATCH] drm/connector: add CRTC state change callback to HDMI audio
+ helpers
+Date: Wed, 27 May 2026 16:53:29 +0800
+Message-Id: <20260527085329.124777-1-wangdich9700@163.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGXv+5HvJiTkLJMZ13w0OHwgp+nPBftGAC-15nhJ3R=vOPWpUg@mail.gmail.com>
-X-Operating-System: Linux phenom 6.19.10+deb14-amd64 
+X-CM-TRANSID: _____wD315cLsRZqnSQMDw--.17642S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3GFy7AFW3ZFW5JFyUCFy8Krg_yoWxXr13pa
+ 9FyrZ3Kr4vq343CFn7AF1fGrs0kaykJFyUt34Ygw15C398Krn8Aa1kGFn5u3WDJr9xZ3W2
+ yanIqw43Aa4vkw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zKjgshUUUUU=
+X-Originating-IP: [116.128.244.169]
+X-CM-SenderInfo: pzdqwv5lfkmliqq6il2tof0z/xtbC5wyP3moWsQxk5AAA37
+X-Mailman-Approved-At: Thu, 28 May 2026 07:29:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,87 +62,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, May 27, 2026 at 11:03:03PM +0200, Chen-Yu Tsai wrote:
-> On Wed, May 27, 2026 at 9:45 PM Arnd Bergmann <arnd@kernel.org> wrote:
-> >
-> > From: Arnd Bergmann <arnd@arndb.de>
-> >
-> > The exynos_gem->base.size argument is a size_t rather than an
-> > unsigned long, so adapt the printk() format string accordingly:
-> >
-> > In file included from drivers/gpu/drm/exynos/exynos_drm_gem.c:16:
-> > drivers/gpu/drm/exynos/exynos_drm_gem.c: In function 'exynos_drm_alloc_buf':
-> > drivers/gpu/drm/exynos/exynos_drm_gem.c:69:49: error: format '%lx' expects argument of type 'long unsigned int', but argument 6 has type 'size_t' {aka 'unsigned int'} [-Werror=format=]
-> >    69 |         DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev), "dma_addr(0x%lx), size(0x%lx)\n",
-> >       |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >    70 |                         (unsigned long)exynos_gem->dma_addr, exynos_gem->base.size);
-> >       |                                                              ~~~~~~~~~~~~~~~~~~~~~
-> >       |                                                                              |
-> >       |                                                                              size_t {aka unsigned int}
-> >
-> > The dma_addr in the same line is already printed using a cast
-> > to unsigned long, so change that similarly to use the correct
-> > %pad format.
-> >
-> > Fixes: 11e898373fba ("drm/exynos: Drop exynos_drm_gem.size field")
-> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> 
-> I posted the same patch [1] one and a half months ago when the culprit
-> patch was queued up and I got a report about this from the bots.
-> 
-> Inki hasn't picked up my fix yet.
-> 
-> And it seems the exynos-drm-next stuff was only merged into drm-next
-> yesterday, now causing the warnings to pop up all over.
+From: wangdicheng <wangdicheng@kylinos.cn>
 
-Yeah that's some pretty bad fail for exynos and I guess also for Dave for
-not compile-testing on 32bit before pushing drm-next out. I've noticed it
-just this morning trying to do some stuff.
+The DRM HDMI audio helper framework notifies the audio codec about
+physical connection changes via drm_connector_hdmi_audio_plugged_notify(),
+but has no mechanism to notify when the CRTC state changes while the
+connector remains physically connected.
 
-Picked up Arnd's patch as the first one that I've found (after I've typed
-it myself already, but hey let's at least give some credit).
+This is a real problem on platforms with DP/HDMI audio. When a CRTC is
+disabled while the sink remains connected (e.g. user switches to
+"internal display only" mode but still wants audio from the external
+monitor), the audio path silently breaks because:
 
-Cheers, Sima
-> 
-> ChenYu
-> 
-> [1] https://lore.kernel.org/all/20260408064936.1342321-1-wenst@chromium.org/
-> 
-> > ---
-> >  drivers/gpu/drm/exynos/exynos_drm_gem.c | 8 ++++----
-> >  1 file changed, 4 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.c b/drivers/gpu/drm/exynos/exynos_drm_gem.c
-> > index 297a93b087cd..8e357f2beb9e 100644
-> > --- a/drivers/gpu/drm/exynos/exynos_drm_gem.c
-> > +++ b/drivers/gpu/drm/exynos/exynos_drm_gem.c
-> > @@ -66,8 +66,8 @@ static int exynos_drm_alloc_buf(struct exynos_drm_gem *exynos_gem, bool kvmap)
-> >         if (kvmap)
-> >                 exynos_gem->kvaddr = exynos_gem->cookie;
-> >
-> > -       DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev), "dma_addr(0x%lx), size(0x%lx)\n",
-> > -                       (unsigned long)exynos_gem->dma_addr, exynos_gem->base.size);
-> > +       DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev), "dma_addr(%pad), size(0x%zx)\n",
-> > +                         &exynos_gem->dma_addr, exynos_gem->base.size);
-> >         return 0;
-> >  }
-> >
-> > @@ -80,8 +80,8 @@ static void exynos_drm_free_buf(struct exynos_drm_gem *exynos_gem)
-> >                 return;
-> >         }
-> >
-> > -       DRM_DEV_DEBUG_KMS(dev->dev, "dma_addr(0x%lx), size(0x%lx)\n",
-> > -                       (unsigned long)exynos_gem->dma_addr, exynos_gem->base.size);
-> > +       DRM_DEV_DEBUG_KMS(dev->dev, "dma_addr(0x%pad), size(0x%zx)\n",
-> > +                         &exynos_gem->dma_addr, exynos_gem->base.size);
-> >
-> >         dma_free_attrs(drm_dev_dma_dev(dev), exynos_gem->base.size, exynos_gem->cookie,
-> >                         (dma_addr_t)exynos_gem->dma_addr,
-> > --
-> > 2.39.5
-> >
+1. The video stream is disabled, so there are no blanking intervals
+   for audio Secondary Data Packets (SDP) to be transported.
 
+2. The audio codec still believes the jack is present because
+   plugged_notify() was not called (the connector is still physically
+   connected).
+
+3. Userspace (PulseAudio/PipeWire) continues routing audio to the
+   external display, but no sound is actually output.
+
+Without a framework-level notification, vendors who need to support
+"audio output to external display while CRTC is inactive" are forced
+to scatter condition checks across CRTC disable, encoder disable,
+suspend, and resume paths. This pattern is fragile: any change in
+the display pipeline can break the audio path, and the same condition
+("connector connected but CRTC inactive, and audio is in use") must
+be duplicated in multiple locations.
+
+The root cause is architectural: the audio codec has no visibility
+into CRTC state changes, so there is no clean way to implement
+policies like:
+
+- Mute audio output when CRTC is disabled (instead of silent breakage)
+- Keep the video stream alive for audio transport
+- Switch to DP Audio Only mode (hardware-supported on some platforms,
+  e.g. Intel TRANS_DP_AUDIO_ONLY, but never used in i915 driver)
+
+The HDA HDMI silent stream / KAE mechanism partially addresses this on
+Intel platforms, but it operates only on the audio codec side and does
+not coordinate with the DRM side. It also cannot work on platforms
+without HDA codec support (e.g. ASoC-based designs).
+
+Add an optional callback crtc_state_change() to
+drm_connector_hdmi_audio_funcs, and a corresponding notification
+function drm_connector_hdmi_audio_crtc_notify(). DRM drivers should
+call this when the CRTC state changes on a connector with audio
+capability, allowing audio codec implementations to react to display
+pipeline state changes rather than only physical connection changes.
+
+This provides a framework-level mechanism to implement "audio without
+active display" policies cleanly, instead of scattering condition
+checks across the display pipeline.
+
+Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
+---
+ .../gpu/drm/display/drm_hdmi_audio_helper.c   | 23 +++++++++++++++++++
+ include/drm/display/drm_hdmi_audio_helper.h   |  2 ++
+ include/drm/drm_connector.h                   | 16 +++++++++++++
+ 3 files changed, 41 insertions(+)
+
+diff --git a/drivers/gpu/drm/display/drm_hdmi_audio_helper.c b/drivers/gpu/drm/display/drm_hdmi_audio_helper.c
+index 7d78b02c1446..3437be6ee989 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_audio_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_audio_helper.c
+@@ -128,6 +128,29 @@ void drm_connector_hdmi_audio_plugged_notify(struct drm_connector *connector,
+ }
+ EXPORT_SYMBOL(drm_connector_hdmi_audio_plugged_notify);
+ 
++/**
++ * drm_connector_hdmi_audio_crtc_notify - Notify the audio codec of CRTC state change
++ * @connector: A pointer to the connector
++ * @crtc_active: true if the CRTC is now active, false if disabled
++ *
++ * Notify the HDMI audio codec that the CRTC state has changed on this
++ * connector. This should be called by DRM drivers when a CRTC is
++ * enabled or disabled on a connector that has audio capability, even
++ * if the connector remains physically connected.
++ *
++ * Unlike drm_connector_hdmi_audio_plugged_notify() which signals
++ * physical connection changes, this function signals display pipeline
++ * state changes that affect the audio transport path.
++ */
++void drm_connector_hdmi_audio_crtc_notify(struct drm_connector *connector,
++					  bool crtc_active)
++{
++	if (connector->hdmi_audio.funcs->crtc_state_change)
++		connector->hdmi_audio.funcs->crtc_state_change(connector,
++							       crtc_active);
++}
++EXPORT_SYMBOL(drm_connector_hdmi_audio_crtc_notify);
++
+ static const struct hdmi_codec_ops drm_connector_hdmi_audio_ops = {
+ 	.audio_startup = drm_connector_hdmi_audio_startup,
+ 	.prepare = drm_connector_hdmi_audio_prepare,
+diff --git a/include/drm/display/drm_hdmi_audio_helper.h b/include/drm/display/drm_hdmi_audio_helper.h
+index 44d910bdc72d..6b6672ae73cf 100644
+--- a/include/drm/display/drm_hdmi_audio_helper.h
++++ b/include/drm/display/drm_hdmi_audio_helper.h
+@@ -19,5 +19,7 @@ int drm_connector_hdmi_audio_init(struct drm_connector *connector,
+ 				  int sound_dai_port);
+ void drm_connector_hdmi_audio_plugged_notify(struct drm_connector *connector,
+ 					     bool plugged);
++void drm_connector_hdmi_audio_crtc_notify(struct drm_connector *connector,
++					  bool crtc_active);
+ 
+ #endif
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index f83f28cae207..54aa15d0ef45 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -1256,6 +1256,22 @@ struct drm_connector_hdmi_audio_funcs {
+ 	 */
+ 	int (*mute_stream)(struct drm_connector *connector,
+ 			   bool enable, int direction);
++
++	/**
++	 * @crtc_state_change:
++	 *
++	 * Notify the audio codec that the CRTC state has changed on this
++	 * connector. Called when a CRTC is enabled or disabled while the
++	 * connector remains physically connected. This is important for
++	 * DP/HDMI audio because audio transport depends on the video
++	 * stream's blanking intervals. The @crtc_state_change callback
++	 * is optional.
++	 *
++	 * @connector: the connector whose CRTC state changed
++	 * @crtc_active: true if the CRTC is now active, false if disabled
++	 */
++	void (*crtc_state_change)(struct drm_connector *connector,
++				  bool crtc_active);
+ };
+ 
+ void drm_connector_cec_phys_addr_invalidate(struct drm_connector *connector);
 -- 
-Simona Vetter
-Software Engineer
-http://blog.ffwll.ch
+2.25.1
+
