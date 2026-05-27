@@ -4,63 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 272F7CD5BD0
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 13:53:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1829ACD5BD0
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 13:55:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A2FA10E106;
-	Wed, 27 May 2026 13:53:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76B9D10E00C;
+	Wed, 27 May 2026 13:55:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XudC6/aA";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="ENeD3CeP";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B775110E106;
- Wed, 27 May 2026 13:53:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779890011; x=1811426011;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=HMhVZCDTnX1vcdC4g6fRFUA+elHTRzFClqwaPTSmEdQ=;
- b=XudC6/aA0QgJ8FfbzOQRSybHSdWUpwCYgD5z9XhQPxSy5YyPIE5+lihc
- GCeiR6SA2dkTKBLdsNUdl+73s7egms0B34JznDwHO7vO4JexE+aIueTs7
- rPH+V4drnY4itv5Lq3HiPVcNyezNFx47qVqzTjWamCZfxbaA0qyaTzOQS
- yg70jKmf2X16wILJtDSWjHXsOoe8FAPW4l/pcKdPYyuoskcbSYGMHmXEI
- DAxcVsoEVgbmJ0hdHRZMO3UPD/2LQRaPSAqpovxY4jL4j08JGyOVCk5uF
- xGIzHxNZ9qzUwi7D3l/km4COhJo5LER1ubkcGvV1Q9r280ysB3u1LMpRQ g==;
-X-CSE-ConnectionGUID: 0GXnbBM1S/mlRr0/f6aKrw==
-X-CSE-MsgGUID: N6vWJWcDSiSgoLfRJENLaw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11799"; a="80569526"
-X-IronPort-AV: E=Sophos;i="6.24,171,1774335600"; d="scan'208";a="80569526"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2026 06:53:30 -0700
-X-CSE-ConnectionGUID: ClUl9v0NRwCmss1aMoDyCg==
-X-CSE-MsgGUID: aMYHQDb4Rm6/7z5Vn6cH3w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,171,1774335600"; d="scan'208";a="246527783"
-Received: from black.igk.intel.com ([10.91.253.5])
- by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2026 06:53:27 -0700
-Date: Wed, 27 May 2026 15:53:24 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: Zhan Wei <zhanwei919@gmail.com>
-Cc: Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Guenter Roeck <linux@roeck-us.net>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH] drm/xe/hwmon: report a single fan for DG2 instead of
- two
-Message-ID: <ahb3VMRCQpofblbW@black.igk.intel.com>
-References: <20260527115311.13398-1-zhanwei919@gmail.com>
+Received: from CWXP265CU009.outbound.protection.outlook.com
+ (mail-ukwestazon11021120.outbound.protection.outlook.com [52.101.100.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5ED0610E00C
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 13:55:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=f5WLpgQis7Bre43lQpj8Jg21+YdFTK3TCEmm/RTI3gzQ7a/wK8B2KXoWUoVYCbmKUVdk2+92yxzNr7p7l6d+M/1N8B72xbDSPuCPkJtLTvijpvb3ae7V0WMrr2CfoDBThtIloQsabkf7ZxY9a6d2gvMAiuGiE7d/HFg01aKmS/jVefDXr2xryYP0FGIE2Mp69nAcgcpNr/1EMzfj/z8ARiHolwNaS8LQOPvwL9cSszdr9M1OypPFQyJ81Tx76ez9DK0aSqVkUMgH03aJhxsTrZ7joD2iZm2o9QoM6KPUKeVHmmaPmZDkTo4FcUfsjS9B7rgeEOm3HNNXnSw504mJdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PCXnzWGnQaS5keQreaekkqdBAGkV91jRZfNfegEyROc=;
+ b=u7QxNly0pjUaS0j+C6i1wzOqTD+L4Oovh0RsV/8l/KM92tMT5XCvciznwHXb94yyreI/m5d9sdaCnDYNPj1K0I6v1DAXpVzmFGhc5jVe0CH+cilVgoaqzbfnu4OQobEMOyP79dJgqO2sfuGA4DdyZ8AX9+DGKc83F0oupDtctA5uLgkP7SjDfUtZg1AYahJSYxXzmtBALEkk+TXIRzahNAb3+AGoDHKBnzdE8IAUJIi+psRMtQwuAWMdHHeVLz+uTMF0nqIiEK7FiCRZCYYmDmDC6nThNRD6IEifzKu8Pv305kdSjzxaZjlW0jNZHX+UM67nV3Meep/l79tUZaRP4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PCXnzWGnQaS5keQreaekkqdBAGkV91jRZfNfegEyROc=;
+ b=ENeD3CePsXjsUl6WOdK4AgM3flf18QpqGEVsr3bZHgy1wI/ircuJPkkpKCbRWThbBLHJX5FJXrSvXw21x81SoftEV1iCQBGMSXrg6IfWC2CgjxfQ8xrVOEFUSqMweh035HhwLNK+5UhW6S+9dQO0m85euixB5Pze83lJv56yqZY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by CWLP265MB7358.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1ff::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Wed, 27 May
+ 2026 13:55:14 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0071.011; Wed, 27 May 2026
+ 13:55:14 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 27 May 2026 14:55:12 +0100
+Message-Id: <DITIDXOEZ54S.2PU9VU9UGTSZP@garyguo.net>
+Subject: Re: [PATCH v5 23/24] rust: auxiliary: generalize Registration over
+ ForLt
+From: "Gary Guo" <gary@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, <gregkh@linuxfoundation.org>,
+ <rafael@kernel.org>, <acourbot@nvidia.com>, <aliceryhl@google.com>,
+ <david.m.ertman@intel.com>, <ira.weiny@intel.com>, <leon@kernel.org>,
+ <viresh.kumar@linaro.org>, <m.wilczynski@samsung.com>,
+ <ukleinek@kernel.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
+ <abdiel.janulgue@gmail.com>, <robin.murphy@arm.com>,
+ <markus.probst@posteo.de>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
+ <daniel.almeida@collabora.com>, <pcolberg@redhat.com>
+Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>, "Eliot
+ Courtney" <ecourtney@nvidia.com>
+X-Mailer: aerc 0.21.0
+References: <20260525202921.124698-1-dakr@kernel.org>
+ <20260525202921.124698-24-dakr@kernel.org>
+In-Reply-To: <20260525202921.124698-24-dakr@kernel.org>
+X-ClientProxiedBy: LO4P123CA0460.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1aa::15) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260527115311.13398-1-zhanwei919@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWLP265MB7358:EE_
+X-MS-Office365-Filtering-Correlation-Id: 412ea84f-4a13-4709-f794-08debbf79388
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|376014|366016|7416014|1800799024|921020|6133799003|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: MZmvuZ8wePepvsKimDN5DQ0GtCc2ANK1woyEvWKmo751KHoz+zuLOPYDgBgATJTl8tHN8aPAnUjsurEkjmv/RAZ93LorwxF/kuZVEPmAsXdUd9EPxXZR4IyLeobO+eepELCmkS6lHDIvIDXcUX7ngVe6PdQat/O81gfwcTaNucUVZau/a5O4RmHs6uWB6n+gxrQrAGyDxIxA37NLvBSn38r1slaKcrbS7CNx/9PIwmfOQmsQEH1DM7G2IYFqhKM5XdtDUvW4LLPRlUdGCnzPKBgOqSyiibU7ONhpL7gFhNDSVj/eKg1K0x4NRMuBgHolGr+pAW91qLqWQtKiOHSO7G68/cv42FsVZtMfrDGegDE2CKdrb5VA5bfg4PWw0UDXHJGD0/o6QLP3bM8BMScX+xJ1zFzUll/2c7W8nYopsRJMRUynNUxAIsI4JPwc7Q8SGCboLzdSb48C9vXan2nd0zqgQNDNkPtV7G1ya+lXZHVlRxSpEax23quOQJrEBrqZcOiAgDUrSKRgJOKa1yV0mRQ5c7XdlhaW1DUOoOmfT3vVcBS0rd7evq3J0DWXg/yG+xDTkp888+RHAeoK02F4ap08OAyq35k2s55chs162u2kCeaoUmrfv0Mpfgjh9zPZEY2saT82ZVSaxny5fi6fjTH9wcbkeNElFbI/1oPc9t6LxUjMbb8HsFBdEczOnevx1Dx9EqS5NWG8lcoH+zgR7LOhvpYljMZe5euJjnXi+p0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(376014)(366016)(7416014)(1800799024)(921020)(6133799003)(56012099006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QkZ4NnBJWVNDR3kzRldqYkVUcEpyUk1FQXBraDVidng4L1VqMXJxZHFiVVlL?=
+ =?utf-8?B?QWRzS0dzNStkTk9hUzhHd0FVZitaaVQ1QnFsTzliUU95ZVFFOGNlQ2RvS2ZG?=
+ =?utf-8?B?RGxvVDJCUGsrVWE0TXMyeVdwbVczb1cwN2tYbk03eGFMdklHV2FrRDVjeVVJ?=
+ =?utf-8?B?bXRSL3RqclViT2dibW81STBFbWZuTlB3M01HOGhKSGU4QlFxdkkxOVFybEo1?=
+ =?utf-8?B?TWhiRVV6cGlIazJzbHRNOFN0b2hqbkpwQWNjSjhFMzFUYktveFYrTlFXNmRL?=
+ =?utf-8?B?bkt3UkJDenVVZmVad0JEWVYwU0lzb1dWNDdPVFNhRGFtV2FxOTlmSUhTWlpG?=
+ =?utf-8?B?VUlFNE1HV2ZGUzI5V0VFdm05QnRha293NnQrLzRKcDRDV1dGU0Z2aUF1SDRh?=
+ =?utf-8?B?dmxQbDh2VXg0NURBQk5HNy94UXcvRlo4M2trdmhBblZ0WVkyajJGRXVNWTFH?=
+ =?utf-8?B?NmRkaklWOFpBZEM1VEJUdEF3OW81cm5QZEE1Y3FTRzgxM242MTB0WExoTmFu?=
+ =?utf-8?B?aGJYN1AzRjZIMVNGcGJKVmRpWFlqWUhWNWdhSFNCRkRnQ0IzQzFwZFZTelNH?=
+ =?utf-8?B?bUVibXFjWjFPSFFKMEFlcW9SUDIrckFEY01xcGJuV2hrRkdIdDBkZ3lxVTJj?=
+ =?utf-8?B?Y0xHVjM5RmlvTDJidU5yTzJNQ0FXUm5kR01Rc2FpR1pnai9BMDZONXNoRXR6?=
+ =?utf-8?B?YTVxOCt3SmNrMWI1blhTd2V0aVgrbk11b0ExUUxKZHBib1JVRkc3L3EwTVlh?=
+ =?utf-8?B?T0I5cytnbGZPaVJFVkVaU1I3ZGFBTklGNVdwR2EzZ2IzeGlUdW5UeDlJcnJn?=
+ =?utf-8?B?cVNSVGFkSGZKNlRzZU5FNWI0Q0JUNjJJT1lTWFg5QkVqQzB4UDhNa0ZtN0xI?=
+ =?utf-8?B?YVJYVmtZVGhlcXdCRml6ZGgrb0lLRXZXRnU4TG9FZ0R2TTRCTVhxejFXeVFx?=
+ =?utf-8?B?Q1BTRFpnWEI2eDlYbG9mU252RGJ6WndzcWl3ZGlsbjMvMmQwY1RLUHBmYVJ6?=
+ =?utf-8?B?TEkyU1MyczQxUzVoQkhmNGRuend6Q3Y5cDF3cHJRZFNqd0FnbXB6ZEJnNXRw?=
+ =?utf-8?B?M1c0RGdsaU1kL0MwcVBPeEs0djlHRFAxRTFRbFdsYlQwY1lBdTJnc2tRUEJy?=
+ =?utf-8?B?ck5YOS95MjZqdUJZMDBER05veGl3WFNObTNsa09LdUxzTDV4bWFQRDFzUWtr?=
+ =?utf-8?B?YnpGMU9GNHF3eEFLc0hCYytJeFM4Y0J1b2hRdnNDd0FpUk1yR0VFdEhMZHNy?=
+ =?utf-8?B?WE1sdXRiQkkrWERvcGJ6M2VMMCtRSzNSTXptcGlFOXoxWUgzVUdCNTNmUDFT?=
+ =?utf-8?B?dTNqNlF6a3J1ZUw3MkNscmFCTWRNVDVCcWZranBvUW92MjBCTlMvMk80U0Iz?=
+ =?utf-8?B?MGRwUnpwV3VzZm9iNmNvRXl4Z0JIcGZLV0FmMlA0M0JLNVJQODlGSHN4UnNy?=
+ =?utf-8?B?TjZ3cC9HaTBJckZWMHlLU24vQUlMenZ5TDQzVkJMVDlVeFo1Q0lOUG5oOWZp?=
+ =?utf-8?B?UlhZMTVnYUlmWXp4TW92aGxIYjJWenZXS25Db0laSmdMUHV5N21pMWlleVBW?=
+ =?utf-8?B?bThEbUhIVDdvUnM4Z3JOWWwzbDdWdS90TWtEbExvYjBEY3NLOTgvTzJtd3Fj?=
+ =?utf-8?B?U0N2UDE5bElxell6TGZLdGxCaHZqTVVIdFRxaFNpVmZBbzIzSnpORUNDcVFn?=
+ =?utf-8?B?VGQ3OCs3NEk1Uldkd2ZyT1h0Y2FIQnVPZjVjVGNaVFg0V3B6cUl2bEtLSXY2?=
+ =?utf-8?B?RDRZY1pkTncxMWtGWVZZemNHYzNKajFmNnJnUjZZdkVMMzV6Z0x3N3hLTjhU?=
+ =?utf-8?B?ZkFia2YrM3dtbDdabGZVYzE3VFZBWFdBNXJwM1Z4MlNiVXZ1VHIxTlRpUUc1?=
+ =?utf-8?B?S0ZnakdvdUVmV200dnlzcGhWcW9uVkxhNGUrWVVQMlJTT1BJWDNoT3l0SjRM?=
+ =?utf-8?B?RklVT0dnQjhLN0hiaFNBSlNqa2QyaEJBdjJjSjdBakN1RmdsMVZEdlczMncv?=
+ =?utf-8?B?TFI4MFd5ODhuZk9oOWxGaThuQ0dPRFc3NG1ZK0QwcUcxZEdnbkx4a09nOERh?=
+ =?utf-8?B?cHp0cGE1b25DQlRRbnFJTUdNWEhVT2xmNXFvTFF1R0p5Y0VlR041YnNlUGo3?=
+ =?utf-8?B?ZHdBU0d1d3hrMldNckVyRDVOOWhoR2JvOXZOcFdSRFJOZzVFT1BTUXR0Qzha?=
+ =?utf-8?B?VGVKM3BLdU4vY1E5VVRLcTlsd3BzQW9GZXVtRkQ3Z01senkyc0J3YlZUY0R6?=
+ =?utf-8?B?NUhvbitZcVlYWUdrbmQ2UDhyZTdac0RaaXB0eE1qTVlaUWRJRkYwcmhrL21j?=
+ =?utf-8?B?UnRYVnJCN1JRUDVlb0RLYm5rUUwvTjVuNkVobWhrbDJLeU9Td3RIUT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 412ea84f-4a13-4709-f794-08debbf79388
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 13:55:14.1223 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EaEjOSDe5vWE6MicTvYFRH5iARDK0X5AG2qcGedCz2d9CruaUqGpxmtPlxi7aeHO8XxUOPaj13T0MVOqHrAfzQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB7358
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,95 +149,342 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, May 27, 2026 at 07:53:11PM +0800, Zhan Wei wrote:
-> xe_hwmon_pcode_read_fan_control() currently hardcodes *uval = 2 when
-> queried with FSC_READ_NUM_FANS on DG2. This causes fan2_input to be
-> exposed via sysfs, but on the tested Arc A750 LE (DG2 G10, PCI ID
-> 0x56a1) fan2_input reads 0 RPM permanently while fan1_input correctly
-> reports ~800 RPM with both physical fan physically spinning.
-> 
-> The RPM is calculated delta-based from a tach pulse counter:
-> 
->     rotations = (reg_val - fi->reg_val_prev) / 2;
-> 
-> so a constant-zero RPM means the register at offset 0x138170
-> (BMG_FAN_2_SPEED) simply does not accumulate pulses on DG2 silicon.
-> The i915 driver does not expose fan2 on DG2 at all -- it only maps
-> PCU_PWM_FAN_SPEED (0x138140, identical to BMG_FAN_1_SPEED), consistent
-> with the observation that only one fan tach register is wired on DG2.
-
-i915 is for legacy cards (like DG1) which only has a single channel
-in hardware. I just happen to extend the support to DG2 for the folks
-that might be using it.
-
-> Report a single fan for DG2 to keep the phantom fan2_input out of
-> sysfs.  Battlemage paths are unchanged.
-> 
-> Tested on Arc A750 LE (DG2 G10): with this patch applied, fan2_input
-> no longer appears in /sys/class/hwmon/hwmonX/ and `sensors xe-pci-0300`
-> shows fan1 only.
-> 
-> Fixes: 28f79ac609de ("drm/xe/hwmon: expose fan speed")
-> Signed-off-by: Zhan Wei <zhanwei919@gmail.com>
+On Mon May 25, 2026 at 9:21 PM BST, Danilo Krummrich wrote:
+> Generalize Registration<T> to Registration<F: ForLt> and
+> Device::registration_data<F: ForLt>() to return Pin<&F::Of<'_>>.
+>
+> The stored 'static lifetime is shortened to the borrow lifetime of &self
+> via ForLt::cast_ref; ForLt's covariance guarantee makes this sound.
+>
+> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 > ---
-> Open questions for reviewers: this is verified only on DG2 G10. Owners
-> of G11 (e.g. ASRock Challenger A750) and G12 (e.g. Sparkle Titan A750
-> with three physical fans) -- does fan2_input or fan3_input ever read
-> non-zero in your setup? If so, the right fix is a per-subplatform
-> table rather than a flat 1.
+>  drivers/gpu/nova-core/driver.rs       |  13 ++--
+>  rust/kernel/auxiliary.rs              | 108 +++++++++++++++++++-------
+>  samples/rust/rust_driver_auxiliary.rs |  19 +++--
+>  3 files changed, 96 insertions(+), 44 deletions(-)
+>
+> diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driv=
+er.rs
+> index fa898fe5c893..d3f2245ba2e0 100644
+> --- a/drivers/gpu/nova-core/driver.rs
+> +++ b/drivers/gpu/nova-core/driver.rs
+> @@ -3,7 +3,6 @@
+>  use kernel::{
+>      auxiliary,
+>      device::Core,
+> -    devres::Devres,
+>      dma::Device,
+>      dma::DmaMask,
+>      pci,
+> @@ -21,6 +20,7 @@
+>          },
+>          Arc,
+>      },
+> +    types::ForLt,
+>  };
+> =20
+>  use crate::gpu::Gpu;
+> @@ -29,10 +29,11 @@
+>  static AUXILIARY_ID_COUNTER: Atomic<u32> =3D Atomic::new(0);
+> =20
+>  #[pin_data]
+> -pub(crate) struct NovaCore {
+> +pub(crate) struct NovaCore<'bound> {
+>      #[pin]
+>      pub(crate) gpu: Gpu,
+> -    _reg: Devres<auxiliary::Registration<()>>,
+> +    #[allow(clippy::type_complexity)]
+> +    _reg: auxiliary::Registration<'bound, ForLt!(())>,
+>  }
+> =20
+>  pub(crate) struct NovaCoreDriver;
+> @@ -76,13 +77,13 @@ pub(crate) struct NovaCore {
+> =20
+>  impl pci::Driver for NovaCoreDriver {
+>      type IdInfo =3D ();
+> -    type Data<'bound> =3D NovaCore;
+> +    type Data<'bound> =3D NovaCore<'bound>;
+>      const ID_TABLE: pci::IdTable<Self::IdInfo> =3D &PCI_TABLE;
+> =20
+>      fn probe<'bound>(
+>          pdev: &'bound pci::Device<Core<'_>>,
+>          _info: &'bound Self::IdInfo,
+> -    ) -> impl PinInit<NovaCore, Error> + 'bound {
+> +    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+>          pin_init::pin_init_scope(move || {
+>              dev_dbg!(pdev, "Probe Nova Core GPU driver.\n");
+> =20
+> @@ -115,7 +116,7 @@ fn probe<'bound>(
+>          })
+>      }
+> =20
+> -    fn unbind<'bound>(pdev: &'bound pci::Device<Core<'_>>, this: Pin<&No=
+vaCore>) {
+> +    fn unbind<'bound>(pdev: &'bound pci::Device<Core<'_>>, this: Pin<&Se=
+lf::Data<'bound>>) {
+>          this.gpu.unbind(pdev.as_ref());
+>      }
+>  }
+> diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
+> index 7a1b1a7b7ca6..75ddb0220748 100644
+> --- a/rust/kernel/auxiliary.rs
+> +++ b/rust/kernel/auxiliary.rs
+> @@ -12,7 +12,7 @@
+>          RawDeviceId,
+>          RawDeviceIdIndex, //
+>      },
+> -    devres::Devres,
+> +
+>      driver,
+>      error::{
+>          from_result,
+> @@ -20,6 +20,7 @@
+>      },
+>      prelude::*,
+>      types::{
+> +        ForLt,
+>          ForeignOwnable,
+>          Opaque, //
+>      },
+> @@ -271,12 +272,16 @@ pub fn parent(&self) -> &device::Device<device::Bou=
+nd> {
+> =20
+>      /// Returns a pinned reference to the registration data set by the r=
+egistering (parent) driver.
+>      ///
+> -    /// Returns [`EINVAL`] if `T` does not match the type used by the pa=
+rent driver when calling
+> +    /// `F` is the [`ForLt`](trait@ForLt) encoding of the data type. The=
+ returned
+> +    /// reference has its lifetime shortened from `'static` to `&self`'s=
+ borrow lifetime via
+> +    /// [`ForLt::cast_ref`].
+> +    ///
+> +    /// Returns [`EINVAL`] if `F` does not match the type used by the pa=
+rent driver when calling
+>      /// [`Registration::new()`].
+>      ///
+>      /// Returns [`ENOENT`] if no registration data has been set, e.g. wh=
+en the device was
+>      /// registered by a C driver.
+> -    pub fn registration_data<T: 'static>(&self) -> Result<Pin<&T>> {
+> +    pub fn registration_data<F: ForLt + 'static>(&self) -> Result<Pin<&F=
+::Of<'_>>> {
+>          // SAFETY: By the type invariant, `self.as_raw()` is a valid `st=
+ruct auxiliary_device`.
+>          let ptr =3D unsafe { (*self.as_raw()).registration_data_rust };
+>          if ptr.is_null() {
+> @@ -289,18 +294,23 @@ pub fn registration_data<T: 'static>(&self) -> Resu=
+lt<Pin<&T>> {
+> =20
+>          // SAFETY: `ptr` is non-null and was set via `into_foreign()` in=
+ `Registration::new()`;
+>          // `RegistrationData` is `#[repr(C)]` with `type_id` at offset 0=
+, so reading a `TypeId`
+> -        // at the start of the allocation is valid regardless of `T`.
+> +        // at the start of the allocation is valid regardless of `F`.
+>          let type_id =3D unsafe { ptr.cast::<TypeId>().read() };
+> -        if type_id !=3D TypeId::of::<T>() {
+> +        if type_id !=3D TypeId::of::<F>() {
+>              return Err(EINVAL);
+>          }
+> =20
+> -        // SAFETY: The `TypeId` check above confirms that the stored typ=
+e is `T`; `ptr` remains
+> -        // valid until `Registration::drop()` calls `from_foreign()`.
+> -        let wrapper =3D unsafe { Pin::<KBox<RegistrationData<T>>>::borro=
+w(ptr) };
+> +        // SAFETY: The `TypeId` check above confirms that the stored typ=
+e matches
+> +        // `F::Of<'static>`; `ptr` remains valid until `Registration::dr=
+op()` calls
+> +        // `from_foreign()`.
+> +        let wrapper =3D unsafe { Pin::<KBox<RegistrationData<F::Of<'stat=
+ic>>>>::borrow(ptr) };
+> =20
+>          // SAFETY: `data` is a structurally pinned field of `Registratio=
+nData`.
+> -        Ok(unsafe { wrapper.map_unchecked(|w| &w.data) })
+> +        let pinned: Pin<&F::Of<'static>> =3D unsafe { wrapper.map_unchec=
+ked(|w| &w.data) };
 
-There's no straight answer here :)
+I think `'_` is sufficient here?
 
-root@DUT2147DG2FRD:/home/gta# cat /sys/class/drm/card0/device/device
-0x56a1
+> +
+> +        // SAFETY: The data was pinned when stored; `cast_ref` only shor=
+tens
+> +        // the lifetime, so the pinning guarantee is preserved.
+> +        Ok(unsafe { Pin::new_unchecked(F::cast_ref(pinned.get_ref())) })
+>      }
+>  }
+> =20
+> @@ -389,43 +399,61 @@ struct RegistrationData<T> {
+>  /// This type represents the registration of a [`struct auxiliary_device=
+`]. When its parent device
+>  /// is unbound, the corresponding auxiliary device will be unregistered =
+from the system.
+>  ///
+> -/// The type parameter `T` is the type of the registration data owned by=
+ the registering (parent)
+> -/// driver. It can be accessed by the auxiliary driver through
+> -/// [`Device::registration_data()`].
+> +/// The type parameter `F` is a [`ForLt`](trait@ForLt) encoding of the r=
+egistration
+> +/// data type. For non-lifetime-parameterized types, use [`ForLt!(T)`](m=
+acro@ForLt).
+> +/// The data can be accessed by the auxiliary driver through [`Device::r=
+egistration_data()`].
+>  ///
+>  /// # Invariants
+>  ///
+>  /// `self.adev` always holds a valid pointer to an initialized and regis=
+tered
+>  /// [`struct auxiliary_device`] whose `registration_data_rust` field poi=
+nts to a
+> -/// valid `Pin<KBox<RegistrationData<T>>>`.
+> -pub struct Registration<T: 'static> {
+> +/// valid `Pin<KBox<RegistrationData<F::Of<'static>>>>`.
+> +pub struct Registration<'a, F: ForLt + 'static> {
+>      adev: NonNull<bindings::auxiliary_device>,
+> -    _data: PhantomData<T>,
+> +    #[allow(clippy::type_complexity)]
 
-root@DUT2147DG2FRD:/home/gta# sensors xe-pci-0300
-xe-pci-0300
-Adapter: PCI adapter
-pkg:         758.00 mV
-fan1:         636 RPM
-fan2:         652 RPM
-pkg:          +47.0°C
-vram:         +50.0°C
-pkg:              N/A  (max = 190.00 W)
-pkg:          14.37 kJ
+Is this acutally needed?
 
+> +    _phantom: PhantomData<(fn(&'a ()) -> &'a (), F)>,
 
-The way this works is upto the OEMs how they design their cards. Some reuse
-a single channel for multiple physical fans while some use 1:1 mapped multiple
-channels for each fan.
+Could you update this to `PhantomData<F::Of<'a>>` please? It matches better
+what's is actually being stored.
 
-This is unfortunately not possible to figure out from the driver without
-FSC_READ_NUM_FANS command (which has been found to be not working on some
-cards and hence the hardcoded value).
+'a also does not actually need to be invariant here if `F::Of` is covariant
+(which currently `ForLt` guarantees). (Although, lifetimes will still be
+invariant as it's used in assoc type by changing to `F::Of<'a>`). Variance =
+of
+`'a` is not what matters here; the covariance of `F::Of` is load-bearing pa=
+rt
+for the `registration_data` method, and the !Leak requirement is the
+load-bearing part for UAF protection.
 
-Raag
+Feel free to add my R-b with the change.
 
->  drivers/gpu/drm/xe/xe_hwmon.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_hwmon.c b/drivers/gpu/drm/xe/xe_hwmon.c
-> index de3f2aeffc3f..2a60a76b1971 100644
-> --- a/drivers/gpu/drm/xe/xe_hwmon.c
-> +++ b/drivers/gpu/drm/xe/xe_hwmon.c
-> @@ -860,9 +860,15 @@ static int xe_hwmon_pcode_read_fan_control(const struct xe_hwmon *hwmon, u32 sub
->  {
->  	struct xe_tile *root_tile = xe_device_get_root_tile(hwmon->xe);
->  
-> -	/* Platforms that don't return correct value */
-> +	/*
-> +	 * The PCODE FAN_SPEED_CONTROL subcommands return an error on DG2, so we
-> +	 * answer the FSC_READ_NUM_FANS query here. DG2 only wires a single fan
-> +	 * tachometer register (BMG_FAN_1_SPEED == 0x138140, shared with i915's
-> +	 * PCU_PWM_FAN_SPEED); BMG_FAN_2/3_SPEED read 0 on DG2 silicon. Reporting
-> +	 * one fan keeps a phantom fan2_input that always reads 0 out of sysfs.
-> +	 */
->  	if (hwmon->xe->info.platform == XE_DG2 && subcmd == FSC_READ_NUM_FANS) {
-> -		*uval = 2;
-> +		*uval = 1;
->  		return 0;
->  	}
->  
-> -- 
-> 2.43.0
-> 
+Best,
+Gary
+
+>  }
+> =20
+> -impl<T: Send + Sync + 'static> Registration<T> {
+> +impl<'a, F: ForLt> Registration<'a, F>
+> +where
+> +    for<'b> F::Of<'b>: Send + Sync,
+> +{
+>      /// Create and register a new auxiliary device with the given regist=
+ration data.
+>      ///
+>      /// The `data` is owned by the registration and can be accessed thro=
+ugh the auxiliary device
+>      /// via [`Device::registration_data()`].
+> -    pub fn new<E>(
+> -        parent: &device::Device<device::Bound>,
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// The caller must not `mem::forget()` the returned [`Registration`=
+] or otherwise prevent its
+> +    /// [`Drop`] implementation from running, since the registration dat=
+a may contain borrowed
+> +    /// references that become invalid after `'a` ends.
+> +    ///
+> +    /// If the registration data is `'static`, use the safe [`Registrati=
+on::new()`] instead.
+> +    pub unsafe fn new_with_lt<E>(
+> +        parent: &'a device::Device<device::Bound>,
+>          name: &CStr,
+>          id: u32,
+>          modname: &CStr,
+> -        data: impl PinInit<T, E>,
+> -    ) -> Result<Devres<Self>>
+> +        data: impl PinInit<F::Of<'a>, E>,
+> +    ) -> Result<Self>
+>      where
+>          Error: From<E>,
+>      {
+>          let data =3D KBox::pin_init::<Error>(
+>              try_pin_init!(RegistrationData {
+> -                type_id: TypeId::of::<T>(),
+> +                type_id: TypeId::of::<F>(),
+>                  data <- data,
+>              }),
+>              GFP_KERNEL,
+>          )?;
+> =20
+> +        // SAFETY: `'a` is invariant (via `Registration`'s `PhantomData`=
+). Lifetimes do not
+> +        // affect layout, so RegistrationData<F::Of<'a>> and Registratio=
+nData<F::Of<'static>>
+> +        // have identical representation.
+> +        let data: Pin<KBox<RegistrationData<F::Of<'static>>>> =3D
+> +            unsafe { core::mem::transmute(data) };
+> +
+>          let boxed: KBox<Opaque<bindings::auxiliary_device>> =3D KBox::ze=
+roed(GFP_KERNEL)?;
+>          let adev =3D boxed.get();
+> =20
+> @@ -455,7 +483,9 @@ pub fn new<E>(
+>          if ret !=3D 0 {
+>              // SAFETY: `registration_data` was set above via `into_forei=
+gn()`.
+>              drop(unsafe {
+> -                Pin::<KBox<RegistrationData<T>>>::from_foreign((*adev).r=
+egistration_data_rust)
+> +                Pin::<KBox<RegistrationData<F::Of<'static>>>>::from_fore=
+ign(
+> +                    (*adev).registration_data_rust,
+> +                )If it's un
+>              });
+> =20
+>              // SAFETY: `adev` is guaranteed to be a valid pointer to a
+> @@ -467,18 +497,36 @@ pub fn new<E>(
+> =20
+>          // INVARIANT: The device will remain registered until `auxiliary=
+_device_delete()` is
+>          // called, which happens in `Self::drop()`.
+> -        let reg =3D Self {
+> +        Ok(Self {
+>              // SAFETY: `adev` is guaranteed to be non-null, since the `K=
+Box` was allocated
+>              // successfully.
+>              adev: unsafe { NonNull::new_unchecked(adev) },
+> -            _data: PhantomData,
+> -        };
+> +            _phantom: PhantomData,
+> +        })
+> +    }
+> =20
+> -        Devres::new::<core::convert::Infallible>(parent, reg)
+> +    /// Create and register a new auxiliary device with `'static` regist=
+ration data.
+> +    ///
+> +    /// Safe variant of [`Registration::new_with_lt()`] for registration=
+ data that does not contain
+> +    /// borrowed references.
+> +    pub fn new<E>(
+> +        parent: &'a device::Device<device::Bound>,
+> +        name: &CStr,
+> +        id: u32,
+> +        modname: &CStr,
+> +        data: impl PinInit<F::Of<'a>, E>,
+> +    ) -> Result<Self>
+> +    where
+> +        F::Of<'a>: 'static,
+> +        Error: From<E>,
+> +    {
+> +        // SAFETY: `F::Of<'a>: 'static` guarantees the data contains no =
+borrowed references,
+> +        // so forgetting the `Registration` cannot cause use-after-free.
+> +        unsafe { Self::new_with_lt(parent, name, id, modname, data) }
+>      }
+>  }
+
