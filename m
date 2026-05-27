@@ -4,136 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E999CD5BD5
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 13:13:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EBF7CD5BD0
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 13:17:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D277110E0FC;
-	Wed, 27 May 2026 13:13:08 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="EYyRSoBb";
-	dkim-atps=neutral
-Received: from LO0P265CU003.outbound.protection.outlook.com
- (mail-uksouthazon11022116.outbound.protection.outlook.com [52.101.96.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BB6610E0FC
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 13:13:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hNx/oSAqY63AZ2OswhSw/vOBkKmhUO7S+rMQHKOK8upRARpiiKd441qNSJ08jWMPXFp4J42tvAjrv6fjcLaus/DoHfCh/SQ4z49o/DikSL/MwoQVpgZjUdlG6xypkiYXxQiIgCaOBFnxcZ6+TQ2btkZCLrFmBhi4RivEpPXUKobddm1N1qhqnaD6jRApLYppCLeAC0cTjZ6iI1BhfJZVzZ0wY2TdVRZeVcKHywI3k7GSZISHl6F45kJUuU4/pZPypWHWQNZ+oO2rXMJKVH2fuDUMWZdCYjBYheiIYEyzl6roqRBAC7FsR7XTC/ciRHFO5P3M9SXiW1F21N1nKUHMlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4Yz2efpOsaj5hYOAkNbgN8/utAy3HXSEXQNxm+Evn9I=;
- b=ko/eORuX7AW0IBOgksZ31UDMU1Cf0iaVVerOVTPX7rL7iPWjXpG55UNsdhAXATeN2BNIMXxZSW8jP5bm1/2WQJdLti4mziHpT/BRAkj5J5Lr3xPvsgIucc5v7/9aDAzYPrEIQH4x4jyhoS5IV/hEwtd6xzfssVnCcjSgvDzKE1lKdyjoTYuT+IjX5XkqyT8t4DvyViHmMgWeMrzTyf4OR4WQRvmhr1J3v1L5U4CnBr4xD5BD2/+/Aw+EdtI4A+R0oKnJYJa5rDcNE+ULf+VgYUFJtAqkjSaoewMkCxK4ebh0p5ghJTaEcpHKhR2cCFp1XW7W7mBHjUAkprJ6SpXGTQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4Yz2efpOsaj5hYOAkNbgN8/utAy3HXSEXQNxm+Evn9I=;
- b=EYyRSoBbZsVO12E+X4WG6Q1zEoI1eblQyt7JJr95OBwrJER1FKlANkRMSJ6sRgy679erHeQvwkKl4xo6bytDtBW8MXRgfHg1bfW03cAtM/u9HAXVaEj0ji02jOZoKXejrGyqa1RbxsvhbKBrdzn4QQNvMODDDJT66J979V2re2Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by CW1P265MB8687.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27e::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Wed, 27 May
- 2026 13:13:02 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0071.011; Wed, 27 May 2026
- 13:13:02 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 27 May 2026 14:13:01 +0100
-Message-Id: <DITHHN0ECZIE.LHY3OLB53XAR@garyguo.net>
-Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>, "Eliot
- Courtney" <ecourtney@nvidia.com>
-Subject: Re: [PATCH v5 11/24] rust: device: make Core and CoreInternal
- lifetime-parameterized
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, <gregkh@linuxfoundation.org>,
- <rafael@kernel.org>, <acourbot@nvidia.com>, <aliceryhl@google.com>,
- <david.m.ertman@intel.com>, <ira.weiny@intel.com>, <leon@kernel.org>,
- <viresh.kumar@linaro.org>, <m.wilczynski@samsung.com>,
- <ukleinek@kernel.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
- <abdiel.janulgue@gmail.com>, <robin.murphy@arm.com>,
- <markus.probst@posteo.de>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
- <daniel.almeida@collabora.com>, <pcolberg@redhat.com>
-X-Mailer: aerc 0.21.0
-References: <20260525202921.124698-1-dakr@kernel.org>
- <20260525202921.124698-12-dakr@kernel.org>
-In-Reply-To: <20260525202921.124698-12-dakr@kernel.org>
-X-ClientProxiedBy: LO4P302CA0024.GBRP302.PROD.OUTLOOK.COM
- (2603:10a6:600:2c1::10) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1A8610E7BE;
+	Wed, 27 May 2026 13:17:49 +0000 (UTC)
+Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com
+ [209.85.217.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B355C10E7BE
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 13:17:30 +0000 (UTC)
+Received: by mail-vs1-f51.google.com with SMTP id
+ ada2fe7eead31-631333ee9e4so3673112137.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 06:17:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779887849; x=1780492649;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=JRCmfpq1b4R+1qcl85pdAn5PhWzGoG97LYi2GdYmC1E=;
+ b=DG6jnwwHzWqx9I/tfwq6fYIGRWq+FWwsHLVCetTR6jV2nNWP5DKVn39Dx5/D+fIQE5
+ RM6X4fPweJCbCyLJicrf/aJNMm0sh5J/UDgEV98nRwDEa7d8+FFpWD6wW7jHGB6wE0xZ
+ i7fpJdD6vu55pMZlCNSQTEWt1Ez8L4oWnbTpB1NM27S2Ct+Hic4ocqpDmJ/JUwMQIA8Q
+ oX9+UC41qwyEBYO8lpA7f51MxNcExqUCF1+Ihc7Kw9V36tnaVn5K0ee0MMc6Ya6nARqg
+ CVTcKrEEV6NcvBfoaGwqm6XlZB7WjjMR8yNFykvEYNK1dkPOiRLDOJaRvkzM2P6pwBAU
+ Y25Q==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8nELHb4l30eYkAHG3nZh4YniHwWug7KZHI9HSbKqH9I7wjMyQskKyHEd1HaMwa+tQsgNU/sp/PpEA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzXghn3AtYPoOZ4njGlnnCaYOIbWTWItx9gEOSiAp1noFWUPGaL
+ vce8u8rJHFcC76x/4n3dfRgJmX+dOKg9gb+17TYPMKMg8bmawrgTHKH9QnGiFa5ZB+w=
+X-Gm-Gg: Acq92OFmvZPvx/CzPe0w0Z1l8RRpIAVSlwpzwbD5qXiekFCPwx2BVcM68B7BJtd/TsR
+ 8o2YSgg7P2h7VuF7soUFsleihgVDMdcvNMMtxmpGqPM6QFEn2egSGTbf2ffZuaHLpn4jYNtoM09
+ dJPgLrh5AjYY4eMm/tw1xe8MFFR+ug3U3ujt178FcYVemQ8twjU3xs5xldOkUR2dioNrpxrqtSa
+ z6au8cmD/AzzJqffW7HrDqIevtN3KMhLqV2tVLBAngHCSbHUvnY1X3m7CMaf7dd34KISs7Unw9B
+ sKN9HnQa3+uf8DLU/5fuDybHFP2+UUnqn0Z1o3afezc8W6YbpWlv4yzdUxzWtyEQqv2VAxBm7Hs
+ RHAJEnoH6I0vW+gtIUX0Q2iQT+i3culnXSzUCGrHQQsfY1NCY0dnH2gUnUt8ip2m12GfNAXd316
+ yxZ6Rkq8EAeBC0uC8SjW94mY7QrDkj2xCtPf3V1gkUgdqNmcMfVPnTlzAsG8XU
+X-Received: by 2002:a05:6102:2b8c:b0:632:88f6:d6ae with SMTP id
+ ada2fe7eead31-67c8398fa78mr10184274137.22.1779887849442; 
+ Wed, 27 May 2026 06:17:29 -0700 (PDT)
+Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com.
+ [209.85.222.45]) by smtp.gmail.com with ESMTPSA id
+ a1e0cc1a2514c-96173af3e82sm16977705241.10.2026.05.27.06.17.28
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 27 May 2026 06:17:28 -0700 (PDT)
+Received: by mail-ua1-f45.google.com with SMTP id
+ a1e0cc1a2514c-961556c15ceso2504124241.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 06:17:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+FHy4lPKlzBwhsw7F7kfTqTwqIb2NjTedzf9AL9rUtI/z8aiCJOE2EPKf0Dc835b5THcvjKRaENHM=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:3ec6:b0:631:4580:6a3f with SMTP id
+ ada2fe7eead31-67c767cb843mr10676067137.7.1779887848413; Wed, 27 May 2026
+ 06:17:28 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CW1P265MB8687:EE_
-X-MS-Office365-Filtering-Correlation-Id: 657549bc-3d59-4847-c5c9-08debbf1aea3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|10070799003|1800799024|22082099003|18002099003|921020|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info: HS/iQkr9C+5UvxBcpSzCVITn2u8Uqsppyk81wXTDq+FQt6OdQ8J8nWsi0LDDRsE07tKB+Mm2VWd6oY9oA8ZDvJEjBJZGce0WaAR17Ojohs35zXsq1exRljImq8H78bM2m+i4w/qKKRC03pVOZvpSJ50YM0Tt+MvqxcMGTko4GVblgiWe/i9YQJ2tsao78shkSDiFimsF39JPoEyqeDR5eZbWzbGpYQzC1bivc9RGu0raFoqswH4UyaUVPSe3qpsRlh9rwzmqlfDCMoWXV2ODmh6VOOEsAockVl2EuQX2ZhNzVJx0XFYCo/CvbsZYvo7QORbJ9Eyebkx3rS+em5dkGTSH/UxF63HpMJORX83Xjs6qyfeFGj0tmMEveQnaCDM8dYSEgqrSzLpv/D0TuN2E/aeog15V7k2notTHa0/3C6N0Th6aDwe4YjOD9OzpzuIHJdUuqAB8/0/8BsOV6z8yo8CaHag7MC5vhOpVj6aUb2/Txg4cxvgtamprJ+JZgklCPNPb0y/S67r1S2YbPyWAupIv0ZbgXWxy96N4OQ8uDq5nn/p80Y3kda1MlWFzhMwSu5qQL6bt5UHIh8POPTfTpZ///yfvZVsIZZTRlSDwkg102nTonDtCqeezuJvDOsZpvz3QKL6NTJk3dcMLBvDp9LAschR3PhDejNBjAWNTox+il4Qeo5GmzG7csKpv0qZQ9L8V9RZjK5JbaYPmW4AKaqUKpBIz8zlZIEroznbxGag=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(10070799003)(1800799024)(22082099003)(18002099003)(921020)(4143699003)(56012099006);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OWxKZ3JBb3RrY1FQaGFxTlFmNitQejhpNVdaNDN3VGU1M3ZWKzBNdWUxMHBk?=
- =?utf-8?B?Q3pObTBmU2Qya29IMFlSVzBrNnM5bkZmMk5NUSt3MGhneWkrM3pJZkl3S0FF?=
- =?utf-8?B?VUU0SFJuQUhKbWZOWWVaaDd2a051dE9McjE5QUdSMHI0V1ZsK3lUOUp6SURQ?=
- =?utf-8?B?RmY0QThPSDl0NitEWG90REQ3L1lESGw3UnA3aUxnMU52ZGh2VHlnL3dtTnRK?=
- =?utf-8?B?QitIc3Q2VnlnR25wL1Fsc3JtUjN0dy9wWU9RTy9LUUlpSkFpQ05LQ2t2NjdO?=
- =?utf-8?B?a28xQU4ydkNFNW1Na3dqLzFiZjVHQlRkRDJ2OEIyZS9GODB3VmFEVG44N245?=
- =?utf-8?B?SjhYOEMvdTc0S2tSQzdtS3BDQWlhQVFMQytma0tlcXMwV1lXVU5HaERWenY5?=
- =?utf-8?B?T2hEUzhMYk1zN0RWRWhnTTZRY0I2bkQrZHN3SVp5K1hZczRsQXV2TVlRNE5n?=
- =?utf-8?B?WWxKd1grY3JHd1NIQTZkYUFPajJKV0IwWHBRQk1uNDVxZGZ6Q2J5L1pWQ1po?=
- =?utf-8?B?a2llaDJpWkxBQnJKV3Qvd0tRQ2ZYSU12SFdlUjNRYU5jZmlFbFlrWVVxNEVj?=
- =?utf-8?B?MklCQWVoYk8zZnY3ODR1ZHBxVHRoU2tlUFZrc0dQenpBWFN1Mk92cXRBTmVn?=
- =?utf-8?B?R1FKaWxDRmx4WmhLWHpIVnoyOUVFOWorWU5qT2RtTHBUVHVzblpaYjRCWWlO?=
- =?utf-8?B?bnpQeU9ydkg1Tm93cHZEaDJlNzI0ZGsvMWtmSjBpZWJjUi9JUy84WkFsQ042?=
- =?utf-8?B?VWZmQXNJcjE1WkdCUmNoRzlPRmhQVTh1eW9YZ3hxNE5RMVBTNnh0SUZNT29r?=
- =?utf-8?B?ZVpSaThBbDJFQnpNeEdwQ0pCTVkvN1M5b04zaURKcDY0YTJjYkxzSTR5TStU?=
- =?utf-8?B?NkVObm5tOWI2eDdwRDlPeTJXUndzdkgrcWxSUVNkS1Mrc28yeVBkQTg2MWRq?=
- =?utf-8?B?cnVlYTNZVEFiUTBaejFPdVNEdEVwM1RsZUlaeWhCZWRBSEtzeVdzTG0yTXds?=
- =?utf-8?B?MEZjdlNWL2kvdFZGdkt3aFgxVW1TUlN4WjZaeXo2K2dvZDlrWmV5WHRONm9M?=
- =?utf-8?B?cjBaMGVBQ0FXSUNkOGlUMllUSHU1b1hpNVYxVDhMbS91clZoMmtHUGFucHdq?=
- =?utf-8?B?OUJOUy9XL1VRQWludXFOUWwzVkhyOFVLL2lVMFZBTzZIWGZyUTMyNUxDdXo5?=
- =?utf-8?B?dU04d0JSOXRMV2p5MERHeEIvNDg5SFpYakxZQzNrUnpvdzFxNjJTankyclZU?=
- =?utf-8?B?dS9XRlh5U2FwUUljVnhFVnduelYxd0E0bXN2Rk1wUVdqSlRjK045ZTZIRCt1?=
- =?utf-8?B?MUlBZExqMXNNTVpBOWxFK1daSnBGYXplR1oyRE1rSjI3LzVpQ1ltdUxGWWlB?=
- =?utf-8?B?SmMvYkZwdTJhZHBoamE3T0tCOFovSHBya0QvbkRDSTFVSitVZzEyNFJVUGVw?=
- =?utf-8?B?ek5qUXVRU0l5RXZoeHk2NHNieGY2NXhKZkdxc0RJUzVOSjczUzBoZWFSVFlI?=
- =?utf-8?B?elBGTEZBWWF0UUxIOUIvQW16RC9icTBTL3gweFh1ckYvSEVoRFNvRUl0dUsz?=
- =?utf-8?B?ZVNjTVVpeWswb3NRaE5lSGxnMStqWllGTGF4YVhxQktlUkJ1eWs4RVlHL21O?=
- =?utf-8?B?L2o5VUNCNzlPOXBUL3FSN2tibjhvZjlUTzhGRThSNlcxNDRUZ3NONkhmQjdQ?=
- =?utf-8?B?cEowd1pSRUZRM0ppbllTempoa2p4bzlTY2pqNitjdDlPRmhGTHAxTys3M04x?=
- =?utf-8?B?L0FPUHQ5TURFckkwUzlURkRpdTRESlpkL2Mvc2tIK2Nlbk0yWEJiQnNBNW5v?=
- =?utf-8?B?ZlJBcGRzMkhTSTNiaXNRejVBSTFnUUJXUnNEUGNwZThhU1ZkNzFDdXhmMkZw?=
- =?utf-8?B?MW9mMHFYSXpHZ0ZBTGVpR201bWloQU55V1p5cFVzZXcxSW1ZeERKWitMOXpp?=
- =?utf-8?B?K1IxSHBZcVkrWDZWcTI1U0c0emFiNThJbHQ2a0k3YzlDcEZST3labmVXSy82?=
- =?utf-8?B?ZlZMZXdQZG1keFNsSTZjYitYa0srekNFNkM1Y2duMnVJQTE0Zm0xZkk1MzFW?=
- =?utf-8?B?bGgvb2hPRUZwd2RMbFRYOFJQK1J2TG0yVGorWkFMNlF2TnZyTVBJbFR4a1F0?=
- =?utf-8?B?NXdaK2l4bXFrV3BzNTRxWmE0T0dDeE9Wc2J4VituMU5GZ290bmhxSWE5bmFD?=
- =?utf-8?B?NlV3Sk5uZnU4c1cvNkpnRjF3MEdJd1VlZXd6eXA4NmE4eURWRUVOSzkrMGRN?=
- =?utf-8?B?WE9MVW1lUFEwS1VvZjhmNFg2QlNtUytoLzkrQm5WZHVMVWxTVzRlVlo3R1VQ?=
- =?utf-8?B?MzJCdHhCaGNPb2lYQlpGZ2tzYWtEUUU4NzdHZkZnRkdzWUJjakF3UT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 657549bc-3d59-4847-c5c9-08debbf1aea3
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 13:13:02.6079 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 63SvK01cqMUCy3A1r7FjT9J8Jod/31fGviMLNOiPRkFhzNAT1wHGK35fWHjdLGmICrxR37YaMubXZr81BOTVJw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB8687
+References: <cover.1779803053.git.u.kleine-koenig@baylibre.com>
+ <12911d2a1dfc4e482bbc0a417df73748283d04ee.1779803053.git.u.kleine-koenig@baylibre.com>
+In-Reply-To: <12911d2a1dfc4e482bbc0a417df73748283d04ee.1779803053.git.u.kleine-koenig@baylibre.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 27 May 2026 15:17:16 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXZZi9MVEnS1VjugLCY-18Rxq9FcrtzR7x3=MdbcmTiHg@mail.gmail.com>
+X-Gm-Features: AVHnY4IGd02q56r2qfPhmxXv4tp6c-mV5aR4QFnr15yhVjYq6uruWZtcFagWHm4
+Message-ID: <CAMuHMdXZZi9MVEnS1VjugLCY-18Rxq9FcrtzR7x3=MdbcmTiHg@mail.gmail.com>
+Subject: Re: [PATCH v1 5/8] video: fm2fb: Use named initializer for
+ zorro_device_id array
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>
+Cc: Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-m68k@lists.linux-m68k.org, 
+ linux-kernel@vger.kernel.org, 
+ "Christian A. Ehrhardt" <christian.ehrhardt@codasip.com>,
+ "Christian A. Ehrhardt" <lk@c--e.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,46 +91,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon May 25, 2026 at 9:20 PM BST, Danilo Krummrich wrote:
-> Device<Core> references in probe callbacks are scoped to the callback,
-> not the full binding duration. Add a lifetime parameter to Core and
-> CoreInternal to accurately represent this in the type system.
->=20
-> Suggested-by: Gary Guo <gary@garyguo.net>
-> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+On Tue, 26 May 2026 at 16:18, Uwe Kleine-K=C3=B6nig (The Capable Hub)
+<u.kleine-koenig@baylibre.com> wrote:
+> Using named initializers is more explicit and thus easier to parse for a
+> human.
+>
+> While touching this array, drop the explicit zero from the list terminato=
+r.
+>
+> This change doesn't introduce changes to the compiled zorro_device_id
+> array.
+>
+> Signed-off-by: Uwe Kleine-K=C3=B6nig (The Capable Hub) <u.kleine-koenig@b=
+aylibre.com>
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
+Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
 
-> ---
->  drivers/cpufreq/rcpufreq_dt.rs        |  2 +-
->  drivers/gpu/drm/nova/driver.rs        |  5 ++-
->  drivers/gpu/drm/tyr/driver.rs         |  2 +-
->  drivers/gpu/nova-core/driver.rs       |  4 +--
->  drivers/gpu/nova-core/gpu.rs          |  2 +-
->  drivers/pwm/pwm_th1520.rs             |  2 +-
->  rust/kernel/auxiliary.rs              | 12 ++++---
->  rust/kernel/cpufreq.rs                |  2 +-
->  rust/kernel/device.rs                 | 49 +++++++++++++++++++++------
->  rust/kernel/devres.rs                 |  2 +-
->  rust/kernel/dma.rs                    |  2 +-
->  rust/kernel/driver.rs                 |  6 ++--
->  rust/kernel/i2c.rs                    | 16 ++++-----
->  rust/kernel/io/mem.rs                 |  4 +--
->  rust/kernel/pci.rs                    | 20 ++++++-----
->  rust/kernel/pci/id.rs                 |  2 +-
->  rust/kernel/platform.rs               | 12 +++----
->  rust/kernel/usb.rs                    | 16 ++++-----
->  samples/rust/rust_debugfs.rs          |  4 +--
->  samples/rust/rust_dma.rs              |  2 +-
->  samples/rust/rust_driver_auxiliary.rs |  7 ++--
->  samples/rust/rust_driver_i2c.rs       |  6 ++--
->  samples/rust/rust_driver_pci.rs       |  4 +--
->  samples/rust/rust_driver_platform.rs  |  2 +-
->  samples/rust/rust_driver_usb.rs       |  8 ++---
->  samples/rust/rust_i2c_client.rs       |  4 +--
->  samples/rust/rust_soc.rs              |  2 +-
->  27 files changed, 118 insertions(+), 81 deletions(-)
+Gr{oetje,eeting}s,
 
+                        Geert
+
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
