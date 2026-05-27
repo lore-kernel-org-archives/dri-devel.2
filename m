@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CF9DCD6E45
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 14:51:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EFD0CD6E46
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 14:51:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B37110E835;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 765AE10E838;
 	Wed, 27 May 2026 14:51:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="nXwZ24Zc";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="OFLFTYQd";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="nXwZ24Zc";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="OFLFTYQd";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="yOUTlbLp";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6krfBcbI";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="yOUTlbLp";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6krfBcbI";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CFB510E815
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 14:51:26 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF33510E815
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 14:51:29 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A60ED6AE8B;
- Wed, 27 May 2026 14:51:20 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5DB4467251;
+ Wed, 27 May 2026 14:51:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779893480; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1779893484; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=oMFRjX8LY1JTDZdocnlptTgPAglFO7CqHhbgK5OdqVs=;
- b=nXwZ24ZcPqW2upUUvh//EgBIGKEVwlCEuRF1QyMOoQCoQhhxxHfIXFd7mbzWUKqFfti681
- cXO6/f+o217e89KCEPImt1X3K5qCeJA+2CfQAeCZbvxHGWwe5uIUgdvXS82iBES1Y3xmeQ
- 2Z8ApvjU/FwTIAa3kZmTrGuF5i9ZEzI=
+ bh=bNeVQ+4iIjB3pxzz0v6T8CKAlWvFzXihgyxpWf+sx34=;
+ b=yOUTlbLpyAATsjSXCU8ouW0m8ugLzg4G83Lhe7HQUaPeuzceYEjFRYDk32jTpwSUBC62Kz
+ s0dgf8ISqwu2PBQvqr+ngwhFEXrWgXMjWsfogDpAyzOgQeCpThquEClSZGqLSHkVAeFeLE
+ mfDyn7gabWh5mmtIWUefCRqSjyXvKjU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779893480;
+ s=susede2_ed25519; t=1779893484;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=oMFRjX8LY1JTDZdocnlptTgPAglFO7CqHhbgK5OdqVs=;
- b=OFLFTYQdTRDfH1z99d71kZSZ2oCTyCH1/TE5EZZbuviTmUkB6yCWp5+rytOKfz0lNJxMdX
- kR44BbEPYdnNZtAA==
-Authentication-Results: smtp-out1.suse.de;
+ bh=bNeVQ+4iIjB3pxzz0v6T8CKAlWvFzXihgyxpWf+sx34=;
+ b=6krfBcbIEi1gCrLcUrbqLz8bkiuGl7tmJhMrRUQZ3fWyWWtxLrA7yR1F5Er+SpWgqc3B2+
+ ucB0z64lFLGbvJDg==
+Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779893480; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1779893484; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=oMFRjX8LY1JTDZdocnlptTgPAglFO7CqHhbgK5OdqVs=;
- b=nXwZ24ZcPqW2upUUvh//EgBIGKEVwlCEuRF1QyMOoQCoQhhxxHfIXFd7mbzWUKqFfti681
- cXO6/f+o217e89KCEPImt1X3K5qCeJA+2CfQAeCZbvxHGWwe5uIUgdvXS82iBES1Y3xmeQ
- 2Z8ApvjU/FwTIAa3kZmTrGuF5i9ZEzI=
+ bh=bNeVQ+4iIjB3pxzz0v6T8CKAlWvFzXihgyxpWf+sx34=;
+ b=yOUTlbLpyAATsjSXCU8ouW0m8ugLzg4G83Lhe7HQUaPeuzceYEjFRYDk32jTpwSUBC62Kz
+ s0dgf8ISqwu2PBQvqr+ngwhFEXrWgXMjWsfogDpAyzOgQeCpThquEClSZGqLSHkVAeFeLE
+ mfDyn7gabWh5mmtIWUefCRqSjyXvKjU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779893480;
+ s=susede2_ed25519; t=1779893484;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=oMFRjX8LY1JTDZdocnlptTgPAglFO7CqHhbgK5OdqVs=;
- b=OFLFTYQdTRDfH1z99d71kZSZ2oCTyCH1/TE5EZZbuviTmUkB6yCWp5+rytOKfz0lNJxMdX
- kR44BbEPYdnNZtAA==
+ bh=bNeVQ+4iIjB3pxzz0v6T8CKAlWvFzXihgyxpWf+sx34=;
+ b=6krfBcbIEi1gCrLcUrbqLz8bkiuGl7tmJhMrRUQZ3fWyWWtxLrA7yR1F5Er+SpWgqc3B2+
+ ucB0z64lFLGbvJDg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 296EF5A8A8;
- Wed, 27 May 2026 14:51:20 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D80935A8A8;
+ Wed, 27 May 2026 14:51:23 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id yBPkCOgEF2qsegAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 27 May 2026 14:51:20 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id WHGKM+sEF2qsegAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 27 May 2026 14:51:23 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: mripard@kernel.org, maarten.lankhorst@linux.intel.com, airlied@redhat.com,
  airlied@gmail.com, simona@ffwll.ch, admin@kodeit.net,
@@ -81,10 +81,10 @@ Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  linux-mips@vger.kernel.org, virtualization@lists.linux.dev,
  Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v3 02/10] drm/atomic-helpers: Evaluate plane damage after
- atomic_check
-Date: Wed, 27 May 2026 16:46:21 +0200
-Message-ID: <20260527145113.241595-3-tzimmermann@suse.de>
+Subject: [PATCH v3 09/10] drm/damage-helper: Rename state parameters in damage
+ helpers
+Date: Wed, 27 May 2026 16:46:28 +0200
+Message-ID: <20260527145113.241595-10-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260527145113.241595-1-tzimmermann@suse.de>
 References: <20260527145113.241595-1-tzimmermann@suse.de>
@@ -120,38 +120,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Each plane's and CRTC's atomic_check might trigger a full modeset. As
-this affects the plane's damage handling, evaluate damage clips after
-running the atomic_check helpers.
-
-Examples can be found in a number of drivers, such as ast, gud, ingenic,
-mgag200 or vmwgfx, which all set mode_changed in the CRTC state to true.
-Ingenic even reevaluates damage information in its plane's atomic_check.
-Doing this after the atomic_check helpers ran benefits all drivers.
-
-There's already a damage evaluation before the calls to atomic_check.
-With a few fixes to drivers, this can be removed.
+Rename some of the state parameters of the damage-helper functions to
+align them with each other and other helpers. No functional changes.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/drm_atomic_helper.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/drm_damage_helper.c | 20 ++++++++++----------
+ include/drm/drm_damage_helper.h     |  4 ++--
+ 2 files changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-index 51f39edc31ed..4c37299e8ccb 100644
---- a/drivers/gpu/drm/drm_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_helper.c
-@@ -1065,6 +1065,10 @@ drm_atomic_helper_check_planes(struct drm_device *dev,
- 		}
- 	}
+diff --git a/drivers/gpu/drm/drm_damage_helper.c b/drivers/gpu/drm/drm_damage_helper.c
+index 28b847636253..23701e5c51b7 100644
+--- a/drivers/gpu/drm/drm_damage_helper.c
++++ b/drivers/gpu/drm/drm_damage_helper.c
+@@ -209,7 +209,7 @@ EXPORT_SYMBOL(drm_atomic_helper_dirtyfb);
+ /**
+  * drm_atomic_helper_damage_iter_init - Initialize the damage iterator.
+  * @iter: The iterator to initialize.
+- * @state: Plane state from which to iterate the damage clips.
++ * @plane_state: Plane state from which to iterate the damage clips.
+  *
+  * Initialize an iterator, which clips plane damage
+  * &drm_plane_state.fb_damage_clips to plane &drm_plane_state.src. This iterator
+@@ -225,26 +225,26 @@ EXPORT_SYMBOL(drm_atomic_helper_dirtyfb);
+  */
+ void
+ drm_atomic_helper_damage_iter_init(struct drm_atomic_helper_damage_iter *iter,
+-				   const struct drm_plane_state *state)
++				   const struct drm_plane_state *plane_state)
+ {
+ 	struct drm_rect src;
+ 	memset(iter, 0, sizeof(*iter));
  
-+	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
-+		drm_atomic_helper_check_plane_damage(state, new_plane_state);
-+	}
-+
- 	return ret;
- }
- EXPORT_SYMBOL(drm_atomic_helper_check_planes);
+-	if (!state || !state->crtc || !state->fb || !state->visible)
++	if (!plane_state || !plane_state->crtc || !plane_state->fb || !plane_state->visible)
+ 		return;
+ 
+-	iter->clips = (struct drm_rect *)drm_plane_get_damage_clips(state);
+-	iter->num_clips = drm_plane_get_damage_clips_count(state);
++	iter->clips = (struct drm_rect *)drm_plane_get_damage_clips(plane_state);
++	iter->num_clips = drm_plane_get_damage_clips_count(plane_state);
+ 
+ 	/* Round down for x1/y1 and round up for x2/y2 to catch all pixels */
+-	src = drm_plane_state_src(state);
++	src = drm_plane_state_src(plane_state);
+ 
+ 	iter->plane_src.x1 = src.x1 >> 16;
+ 	iter->plane_src.y1 = src.y1 >> 16;
+ 	iter->plane_src.x2 = (src.x2 >> 16) + !!(src.x2 & 0xFFFF);
+ 	iter->plane_src.y2 = (src.y2 >> 16) + !!(src.y2 & 0xFFFF);
+ 
+-	if (!iter->clips || state->ignore_damage_clips) {
++	if (!iter->clips || plane_state->ignore_damage_clips) {
+ 		iter->clips = NULL;
+ 		iter->num_clips = 0;
+ 		iter->full_update = true;
+@@ -296,7 +296,7 @@ EXPORT_SYMBOL(drm_atomic_helper_damage_iter_next);
+ 
+ /**
+  * drm_atomic_helper_damage_merged - Merged plane damage
+- * @state: Plane state from which to iterate the damage clips.
++ * @plane_state: Plane state from which to iterate the damage clips.
+  * @rect: Returns the merged damage rectangle
+  *
+  * This function merges any valid plane damage clips into one rectangle and
+@@ -308,7 +308,7 @@ EXPORT_SYMBOL(drm_atomic_helper_damage_iter_next);
+  * Returns:
+  * True if there is valid plane damage otherwise false.
+  */
+-bool drm_atomic_helper_damage_merged(const struct drm_plane_state *state,
++bool drm_atomic_helper_damage_merged(const struct drm_plane_state *plane_state,
+ 				     struct drm_rect *rect)
+ {
+ 	struct drm_atomic_helper_damage_iter iter;
+@@ -320,7 +320,7 @@ bool drm_atomic_helper_damage_merged(const struct drm_plane_state *state,
+ 	rect->x2 = 0;
+ 	rect->y2 = 0;
+ 
+-	drm_atomic_helper_damage_iter_init(&iter, state);
++	drm_atomic_helper_damage_iter_init(&iter, plane_state);
+ 	drm_atomic_for_each_plane_damage(&iter, &clip) {
+ 		rect->x1 = min(rect->x1, clip.x1);
+ 		rect->y1 = min(rect->y1, clip.y1);
+diff --git a/include/drm/drm_damage_helper.h b/include/drm/drm_damage_helper.h
+index b5a4de779db6..4a1ac47b9051 100644
+--- a/include/drm/drm_damage_helper.h
++++ b/include/drm/drm_damage_helper.h
+@@ -73,11 +73,11 @@ int drm_atomic_helper_dirtyfb(struct drm_framebuffer *fb,
+ 			      unsigned int num_clips);
+ void
+ drm_atomic_helper_damage_iter_init(struct drm_atomic_helper_damage_iter *iter,
+-				   const struct drm_plane_state *state);
++				   const struct drm_plane_state *plane_state);
+ bool
+ drm_atomic_helper_damage_iter_next(struct drm_atomic_helper_damage_iter *iter,
+ 				   struct drm_rect *rect);
+-bool drm_atomic_helper_damage_merged(const struct drm_plane_state *state,
++bool drm_atomic_helper_damage_merged(const struct drm_plane_state *plane_state,
+ 				     struct drm_rect *rect);
+ 
+ #endif
 -- 
 2.54.0
 
