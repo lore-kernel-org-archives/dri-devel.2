@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8585CD5BD1
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 03:34:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D43ABCD5BD1
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 03:34:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C4DB10E52C;
-	Wed, 27 May 2026 03:34:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E30E10E21A;
+	Wed, 27 May 2026 03:34:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TziMoQHP";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="E4/Ob2uA";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6953910E21A;
- Wed, 27 May 2026 03:34:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 545FB10E63F;
+ Wed, 27 May 2026 03:34:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779852844; x=1811388844;
+ t=1779852856; x=1811388856;
  h=date:message-id:from:to:cc:subject:in-reply-to:
  references:mime-version;
- bh=Xg+jpuWxBJsIgKU+PoycC+A4G4DfXt+9HRYl3XzOBKA=;
- b=TziMoQHPxLT8W1VUMRQDWh2qX3LzJuQG3O7kinzBWDnzXx0Y7GWl9JhD
- NjVeIN97bSmO0Tp8xISe2kcKXy7wrxPkLZuPagPsHIF7jbq/d6PBZhFZP
- ri7Ax7IcKYXxxlhhMUGEMYrdSOto7WZvRl4EiwQVVfL0PVSAs8odIgm90
- /ETJ8o8QrgYRbawsWqjqrM+TOVnqOo1dw7s5egYdaVbw/o1ALsFWtp2US
- vA3FSwfEO0+4L4M5EKT9V4094BqP9Bk7HN5DlCCQg37QVrTZFFWk2R9vR
- EMKwYmlJZPgKoql/mbAUcQGkPBxzRXfBTVVl7GUyQjlI3U0/e1Ha1+b8k A==;
-X-CSE-ConnectionGUID: XKZW8WPNS7G+6YktUaEcaA==
-X-CSE-MsgGUID: SdMQfD8aRVufH6kXsABj3A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11798"; a="98101395"
-X-IronPort-AV: E=Sophos;i="6.24,170,1774335600"; d="scan'208";a="98101395"
+ bh=JsriVoaHDbR6VPYqZpYIfpQS0+Q66rzOuV5vrK18h54=;
+ b=E4/Ob2uAmF640P5PvOkW5GA9qOeq9SknUaxbfJ9PiuOD8y4cvziiwSLm
+ bAI4rdgDeY8Iz0rP/sj/x2VGilpOVdcHtxreL9Ii7d99Xq2wgrLFbNhuZ
+ W66WbT6Ga0g2xPNVgvMxG4IlIIFJwRT+V/bE5YSt2g1s7iCYQrR0T7MiM
+ iPmuM0YrfbORVqZSw+YvRhYQYXBLqwqpbVHFuWaI18JlKC9yrt6Rq+hVS
+ MAW/5ZwpLneTz29pSDE4RCDlT18zlS06N9kFIxPK+dhrRsQRJ0yHVhjLw
+ I+NSQtQYzCc2M5mAHx0CeCNH9ElyhCR74btQerwqv6/4GWKS50BuFWfqA g==;
+X-CSE-ConnectionGUID: CgFkxRefT2qXbAXVp+89UA==
+X-CSE-MsgGUID: ORYgz6nFSxKQ3mYadvJ5xA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11798"; a="98101427"
+X-IronPort-AV: E=Sophos;i="6.24,170,1774335600"; d="scan'208";a="98101427"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 20:34:04 -0700
-X-CSE-ConnectionGUID: JA7eEmN3RZWfa2B3E3513g==
-X-CSE-MsgGUID: 5azddSvaQ52aSUGQwBRXuA==
+ 26 May 2026 20:34:16 -0700
+X-CSE-ConnectionGUID: b+jIGZ3PR3u3QDGANc1WlA==
+X-CSE-MsgGUID: 6UECSbfrS9K9iRUF3ep3Rg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,170,1774335600"; d="scan'208";a="241065576"
+X-IronPort-AV: E=Sophos;i="6.24,170,1774335600"; d="scan'208";a="241065613"
 Received: from gauravga-mobl1.amr.corp.intel.com (HELO adixit-MOBL3.intel.com)
  ([10.125.67.21])
  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 20:34:03 -0700
-Date: Tue, 26 May 2026 20:34:02 -0700
-Message-ID: <87h5ntv845.wl-ashutosh.dixit@intel.com>
+ 26 May 2026 20:34:15 -0700
+Date: Tue, 26 May 2026 20:34:14 -0700
+Message-ID: <87fr3dv83t.wl-ashutosh.dixit@intel.com>
 From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
 To: John Hubbard <jhubbard@nvidia.com>
 Cc: Matthew Brost <matthew.brost@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr?=
@@ -58,10 +58,10 @@ Cc: Matthew Brost <matthew.brost@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr?=
  <james.clark@linaro.org>,<intel-xe@lists.freedesktop.org>,
  <dri-devel@lists.freedesktop.org>,<linux-perf-users@vger.kernel.org>, LKML
  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 2/2] drm/xe: gate observation streams with
- perf_allow_cpu()
-In-Reply-To: <20260523013326.129491-3-jhubbard@nvidia.com>
-References: <20260523013326.129491-1-jhubbard@nvidia.com>	<20260523013326.129491-3-jhubbard@nvidia.com>
+Subject: Re: [PATCH v2 1/2] perf/core: out-of-line and export
+ perf_allow_cpu/tracepoint()
+In-Reply-To: <20260523013326.129491-2-jhubbard@nvidia.com>
+References: <20260523013326.129491-1-jhubbard@nvidia.com>	<20260523013326.129491-2-jhubbard@nvidia.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
  FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
  Emacs/30.2 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -82,192 +82,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 22 May 2026 18:33:26 -0700, John Hubbard wrote:
+On Fri, 22 May 2026 18:33:25 -0700, John Hubbard wrote:
 >
-> xe OA and EU-stall paths open-code a partial copy of the system-wide
-> perf CPU-event permission check:
+> These helpers are static inline in <linux/perf_event.h> and reach
+> into sysctl_perf_event_paranoid and security_perf_event_open(),
+> neither of which is itself exported. The perf_allow_* trio is
+> therefore asymmetric: built-in callers can use any of the three, but
+> modular code can only call perf_allow_kernel().
 >
->     if (xe_observation_paranoid && !perfmon_capable())
->             return -EACCES;
+> Move both bodies into kernel/events/core.c next to perf_allow_kernel()
+> and export them with EXPORT_SYMBOL_GPL, following the shape of
+> commit 5e9629d0ae97 ("drivers/perf: arm_spe: Use perf_allow_kernel()
+> for permissions"). Existing in-tree callers live in built-in arch and
+> tracing code, so the change is invisible to them.
 >
-> This open-coded check skips two things perf_allow_cpu() handles: the
-> graduated kernel.perf_event_paranoid policy that an administrator
-> may have tuned, and the security_perf_event_open() LSM hook.
->
-> Introduce xe_observation_paranoid_check() to wrap perf_allow_cpu(),
-> and convert the open-coded sites in xe_oa.c and xe_eu_stall.c. The
-> dev.xe.observation_paranoid sysctl still acts as an escape hatch
-> when cleared.
->
-> xe observation now consults kernel.perf_event_paranoid and the LSM
-> perf hook on every open. Sites that have already configured an LSM
-> perf policy or tuned the paranoid sysctl will see those settings
-> extend to xe.
+> Provide !CONFIG_PERF_EVENTS stubs that fall back to perfmon_capable(),
+> so the helpers stay callable when perf is compiled out.
 >
 > Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-
-LGTM:
 
 Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 
 > ---
->  drivers/gpu/drm/xe/xe_eu_stall.c    |  5 +++--
->  drivers/gpu/drm/xe/xe_oa.c          | 25 +++++++++++++---------
->  drivers/gpu/drm/xe/xe_observation.c | 32 ++++++++++++++++++++++++-----
->  drivers/gpu/drm/xe/xe_observation.h |  3 +--
->  4 files changed, 46 insertions(+), 19 deletions(-)
+>  include/linux/perf_event.h | 31 +++++++++++++++----------------
+>  kernel/events/core.c       | 18 ++++++++++++++++++
+>  2 files changed, 33 insertions(+), 16 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/xe/xe_eu_stall.c b/drivers/gpu/drm/xe/xe_eu_stall.c
-> index dddcdd0bb7a3..ede8e3c98b2b 100644
-> --- a/drivers/gpu/drm/xe/xe_eu_stall.c
-> +++ b/drivers/gpu/drm/xe/xe_eu_stall.c
-> @@ -963,9 +963,10 @@ int xe_eu_stall_stream_open(struct drm_device *dev, u64 data, struct drm_file *f
->		return -ENODEV;
->	}
+> diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
+> index 48d851fbd8ea..5842552294c1 100644
+> --- a/include/linux/perf_event.h
+> +++ b/include/linux/perf_event.h
+> @@ -1791,22 +1791,8 @@ static inline int perf_is_paranoid(void)
+>  }
 >
-> -	if (xe_observation_paranoid && !perfmon_capable()) {
-> +	ret = xe_observation_paranoid_check();
-> +	if (ret) {
->		drm_dbg(&xe->drm,  "Insufficient privileges for EU stall monitoring\n");
+>  extern int perf_allow_kernel(void);
+> -
+> -static inline int perf_allow_cpu(void)
+> -{
+> -	if (sysctl_perf_event_paranoid > 0 && !perfmon_capable())
 > -		return -EACCES;
-> +		return ret;
->	}
+> -
+> -	return security_perf_event_open(PERF_SECURITY_CPU);
+> -}
+> -
+> -static inline int perf_allow_tracepoint(void)
+> -{
+> -	if (sysctl_perf_event_paranoid > -1 && !perfmon_capable())
+> -		return -EPERM;
+> -
+> -	return security_perf_event_open(PERF_SECURITY_TRACEPOINT);
+> -}
+> +extern int perf_allow_cpu(void);
+> +extern int perf_allow_tracepoint(void);
 >
->	/* Initialize and set default values */
-> diff --git a/drivers/gpu/drm/xe/xe_oa.c b/drivers/gpu/drm/xe/xe_oa.c
-> index d908f4e03906..f3dcff66b336 100644
-> --- a/drivers/gpu/drm/xe/xe_oa.c
-> +++ b/drivers/gpu/drm/xe/xe_oa.c
-> @@ -1676,9 +1676,10 @@ static int xe_oa_mmap(struct file *file, struct vm_area_struct *vma)
->	unsigned long start = vma->vm_start;
->	int i, ret;
+>  extern int perf_exclude_event(struct perf_event *event, struct pt_regs *regs);
 >
-> -	if (xe_observation_paranoid && !perfmon_capable()) {
-> +	ret = xe_observation_paranoid_check();
-> +	if (ret) {
->		drm_dbg(&stream->oa->xe->drm, "Insufficient privilege to map OA buffer\n");
-> -		return -EACCES;
-> +		return ret;
->	}
+> @@ -2023,6 +2009,19 @@ perf_event_pause(struct perf_event *event, bool reset)			{ return 0; }
+>  static inline int
+>  perf_exclude_event(struct perf_event *event, struct pt_regs *regs)	{ return 0; }
 >
->	/* Can mmap the entire OA buffer or nothing (no partial OA buffer mmaps) */
-> @@ -2054,10 +2055,12 @@ int xe_oa_stream_open_ioctl(struct drm_device *dev, u64 data, struct drm_file *f
->		privileged_op = true;
->	}
->
-> -	if (privileged_op && xe_observation_paranoid && !perfmon_capable()) {
-> -		drm_dbg(&oa->xe->drm, "Insufficient privileges to open xe OA stream\n");
-> -		ret = -EACCES;
-> -		goto err_exec_q;
-> +	if (privileged_op) {
-> +		ret = xe_observation_paranoid_check();
-> +		if (ret) {
-> +			drm_dbg(&oa->xe->drm, "Insufficient privileges to open xe OA stream\n");
-> +			goto err_exec_q;
-> +		}
->	}
->
->	if (!param.exec_q && !param.sample) {
-> @@ -2336,9 +2339,10 @@ int xe_oa_add_config_ioctl(struct drm_device *dev, u64 data, struct drm_file *fi
->		return -ENODEV;
->	}
->
-> -	if (xe_observation_paranoid && !perfmon_capable()) {
-> +	err = xe_observation_paranoid_check();
-> +	if (err) {
->		drm_dbg(&oa->xe->drm, "Insufficient privileges to add xe OA config\n");
-> -		return -EACCES;
-> +		return err;
->	}
->
->	err = copy_from_user(&param, u64_to_user_ptr(data), sizeof(param));
-> @@ -2438,9 +2442,10 @@ int xe_oa_remove_config_ioctl(struct drm_device *dev, u64 data, struct drm_file
->		return -ENODEV;
->	}
->
-> -	if (xe_observation_paranoid && !perfmon_capable()) {
-> +	ret = xe_observation_paranoid_check();
-> +	if (ret) {
->		drm_dbg(&oa->xe->drm, "Insufficient privileges to remove xe OA config\n");
-> -		return -EACCES;
-> +		return ret;
->	}
->
->	ret = get_user(arg, ptr);
-> diff --git a/drivers/gpu/drm/xe/xe_observation.c b/drivers/gpu/drm/xe/xe_observation.c
-> index e3f9b546207e..39e05b9131a7 100644
-> --- a/drivers/gpu/drm/xe/xe_observation.c
-> +++ b/drivers/gpu/drm/xe/xe_observation.c
-> @@ -4,6 +4,7 @@
->   */
->
->  #include <linux/errno.h>
-> +#include <linux/perf_event.h>
->  #include <linux/sysctl.h>
->
->  #include <uapi/drm/xe_drm.h>
-> @@ -12,9 +13,28 @@
->  #include "xe_oa.h"
->  #include "xe_observation.h"
->
-> -u32 xe_observation_paranoid = true;
-> +static u32 xe_observation_paranoid = true;
->  static struct ctl_table_header *sysctl_header;
->
-> +/**
-> + * xe_observation_paranoid_check - Gate access to xe observation streams.
-> + *
-> + * When the xe-specific observation_paranoid sysctl is enabled (the
-> + * default), defer to perf_allow_cpu() so that access is governed by the
-> + * same policy as system-wide perf CPU events: kernel.perf_event_paranoid
-> + * plus the security_perf_event_open() LSM hook. When the sysctl has been
-> + * cleared by a privileged user, observation is open to all callers.
-> + *
-> + * Return: 0 if access is permitted, a negative errno otherwise.
-> + */
-> +int xe_observation_paranoid_check(void)
+> +static inline int perf_allow_kernel(void)
 > +{
-> +	if (!xe_observation_paranoid)
-> +		return 0;
-> +
-> +	return perf_allow_cpu();
+> +	return perfmon_capable() ? 0 : -EACCES;
+> +}
+> +static inline int perf_allow_cpu(void)
+> +{
+> +	return perfmon_capable() ? 0 : -EACCES;
+> +}
+> +static inline int perf_allow_tracepoint(void)
+> +{
+> +	return perfmon_capable() ? 0 : -EPERM;
 > +}
 > +
->  static int xe_oa_ioctl(struct drm_device *dev, struct drm_xe_observation_param *arg,
->		       struct drm_file *file)
->  {
-> @@ -83,11 +103,13 @@ static const struct ctl_table observation_ctl_table[] = {
->  };
+>  #endif /* !CONFIG_PERF_EVENTS */
 >
->  /**
-> - * xe_observation_sysctl_register - Register xe_observation_paranoid sysctl
-> + * xe_observation_sysctl_register - Register the observation_paranoid sysctl
->   *
-> - * Normally only superuser/root can access observation stream
-> - * data. However, superuser can set xe_observation_paranoid sysctl to 0 to
-> - * allow non-privileged users to also access observation data.
-> + * When dev.xe.observation_paranoid is set (the default), access to
-> + * observation streams follows the system-wide perf_allow_cpu() policy:
-> + * kernel.perf_event_paranoid plus the security_perf_event_open() LSM
-> + * hook. A privileged user can clear the sysctl to bypass that gate and
-> + * allow unprivileged access to observation data.
->   *
->   * Return: always returns 0
->   */
-> diff --git a/drivers/gpu/drm/xe/xe_observation.h b/drivers/gpu/drm/xe/xe_observation.h
-> index 17816998e966..73a03e03c96a 100644
-> --- a/drivers/gpu/drm/xe/xe_observation.h
-> +++ b/drivers/gpu/drm/xe/xe_observation.h
-> @@ -11,8 +11,7 @@
->  struct drm_device;
->  struct drm_file;
+>  #if defined(CONFIG_PERF_EVENTS) && defined(CONFIG_CPU_SUP_INTEL)
+> diff --git a/kernel/events/core.c b/kernel/events/core.c
+> index 7935d5663944..cb13f3ad11a3 100644
+> --- a/kernel/events/core.c
+> +++ b/kernel/events/core.c
+> @@ -14731,6 +14731,24 @@ int perf_allow_kernel(void)
+>  }
+>  EXPORT_SYMBOL_GPL(perf_allow_kernel);
 >
-> -extern u32 xe_observation_paranoid;
-> -
-> +int xe_observation_paranoid_check(void);
->  int xe_observation_ioctl(struct drm_device *dev, void *data, struct drm_file *file);
->  int xe_observation_sysctl_register(void);
->  void xe_observation_sysctl_unregister(void);
+> +int perf_allow_cpu(void)
+> +{
+> +	if (sysctl_perf_event_paranoid > 0 && !perfmon_capable())
+> +		return -EACCES;
+> +
+> +	return security_perf_event_open(PERF_SECURITY_CPU);
+> +}
+> +EXPORT_SYMBOL_GPL(perf_allow_cpu);
+> +
+> +int perf_allow_tracepoint(void)
+> +{
+> +	if (sysctl_perf_event_paranoid > -1 && !perfmon_capable())
+> +		return -EPERM;
+> +
+> +	return security_perf_event_open(PERF_SECURITY_TRACEPOINT);
+> +}
+> +EXPORT_SYMBOL_GPL(perf_allow_tracepoint);
+> +
+>  /*
+>   * Inherit an event from parent task to child task.
+>   *
 > --
 > 2.54.0
 >
