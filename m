@@ -4,134 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EEC8CD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 17:54:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D27C8CD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 18:06:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE97C89CC4;
-	Wed, 27 May 2026 17:54:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30EDC10E0B7;
+	Wed, 27 May 2026 18:06:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="BAgx6/IP";
+	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="C0w+091K";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="ktr+UzGW";
 	dkim-atps=neutral
-Received: from LO3P265CU004.outbound.protection.outlook.com
- (mail-uksouthazon11020084.outbound.protection.outlook.com [52.101.196.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9700589CC4
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 17:54:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pnL//f413MO1iXRWbXhyd1AB+lkeKQD5GGnvEi+vfPuq3zT4hTAEseYGpTEtQwstyUO7cD1nPhb2BaGvnRgw7Gb0pIHOrgVt50AidOIQsNqHT93yLEo5Ic+424wfGc219f2k5Bn5D7x3R4S1DlCC5fxkpQJkryziwqDbDhs0gebyOA5QEu/GDiPyM/Dot3IuosMfpjnDcCjTve34qX6lKKXEDMlESy2Dk60fwgwacVhhqbvac5fTUwf/H7u+qyZeXFifCHNHzs7ineTa2rt26H9C4hcWVauwOvQ8N6/S3AQiJ03Timw0JIzsowDldxWUiDzA3/YmbjrKhQEX5CD3NA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/O7kBL6rBxHSOnr8Ci00ZkCGmAtyVrJ+yrtYSbOUVf4=;
- b=sVSA9ncneS+Jr+TV6QzoVvXoNK3QF2GIjfjzkp7UqAqfcXZY3yUBAOawCdsUTttUuO0o58zWi5hx8MbO4UPNSF+BYQD0TQlgJxgxHqC1qmD3F8+JJGLWu0/hCsQZ4J//zOELGOfo7EMKOKWQTthw1ZuxaxZaj2hmjnAw0WwwngiRRIvWz/q1ssQdNb1TkCZyg3LW2/HD5QiwZRyDYW/C+fN5aKPdGTJRmbFT9I6WLY5V+5QptRFzwXP/z0wPW9ObMisjZZ+XF7yJ7dKoEjOkiikqM1dEl5iJdSVI+5MG7JueFDP6cxs8HWYpHvauVOifua5y9iH2nJ7LgsD3qJW8hQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/O7kBL6rBxHSOnr8Ci00ZkCGmAtyVrJ+yrtYSbOUVf4=;
- b=BAgx6/IPVcQgoDO1lH+NbrpPlKNy87z2246kdQH0Wopu7dknxmhYvxJFF+IGu8pThBKD6w4gS8vMF/8uTqt9Vj44uvrJqrG32o5r9DZMZBMfHzzTHiDjlSV6e/GOXmZifSqvBFcpbEqu1HmnzfVGJGwuhZ4yTa0nztWAlx3O5aA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27c::13)
- by LO8P265MB7671.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3ca::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Wed, 27 May
- 2026 17:54:44 +0000
-Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
- ([fe80::6c9e:93c8:10db:e995]) by CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
- ([fe80::6c9e:93c8:10db:e995%6]) with mapi id 15.21.0071.011; Wed, 27 May 2026
- 17:54:43 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 27 May 2026 18:54:43 +0100
-Message-Id: <DITNHBFUULNG.2X57K1ATS5AUO@garyguo.net>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
- <linux-kbuild@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v2 3/7] rust: always inline some init methods
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Nathan Chancellor" <nathan@kernel.org>, "Nicolas
- Schier" <nsc@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-X-Mailer: aerc 0.21.0
-References: <20260527-nova-exports-v2-0-06de4c556d55@nvidia.com>
- <20260527-nova-exports-v2-3-06de4c556d55@nvidia.com>
-In-Reply-To: <20260527-nova-exports-v2-3-06de4c556d55@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0569.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:276::9) To CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:400:27c::13)
+Received: from fhigh-a1-smtp.messagingengine.com
+ (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B93110E0B7
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 18:06:12 +0000 (UTC)
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 42A5D1400085;
+ Wed, 27 May 2026 14:06:11 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-01.internal (MEProxy); Wed, 27 May 2026 14:06:11 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm2; t=1779905171;
+ x=1779991571; bh=If8nEdIdnJc3yeIDwS3+Ms+eIoYh155YCijfwZGIk/c=; b=
+ C0w+091KjiY90zo6qoUpL8ddXkCA2Ra9kswmLwl/94aMuWXFuvQFbwL3JnWHnZ94
+ 6yS+Rkj2HQol8/+yn//YHPL9qw9EzEGgEr491tv7g6ALEMfY7zT5y0tiQZ1a3Vj/
+ /lShvrEG+GYuZeXlkEgyz/D1NaFvNFAgJ5pMpRD/X+23GgE98PsMW7/nq3iIXQgH
+ 7xghFoGK8WEKUFrWV5yL3YAP8g8g80U0XW2Z7M+oK4ThlNhBZRKD1DkxIei+gzqI
+ oHDUTU5mW7vix+Bq5GkckhrAnBGFa9iPANk6FrxAqIHQTSmhzLA/VAmiAukrp9gD
+ d4BpagX58pVLhfecyiwo3A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1779905171; x=
+ 1779991571; bh=If8nEdIdnJc3yeIDwS3+Ms+eIoYh155YCijfwZGIk/c=; b=k
+ tr+UzGWajFCz58MFtEtRe1N6VQj3+eW4WLAatfiX6Y7c7GFHRh7mKRHPr214cUjG
+ 9bqR6qaNDDrbhNxuNWF3p3zUKGobiYhH430RaD0WiFLfhGHvDNNfeyfe/J31KiWT
+ uYdmAtumjrLngvy+xg9+6kLl8YiBsrRVqCSHTuhudhgPfha1HS7dvwfH45CNdQk5
+ DUSNTkvPBBcxlQEor9X7qatAfZ96FWMWC1CPxYG3rHgzoIp+UJABfNXXTESuwZ0X
+ grTXV0ByXY/65PLnkDGl3VPxJunAtaS5shXh7qFNZ0t2iUDWwy3jRWXV7G3OBXV7
+ 4tZZ0lrQuO5AWhjtk1Wwg==
+X-ME-Sender: <xms:kjIXap7-xlHPWmc8sjvqekW0QkErnYfI7FYkjgKAu0iZ7HosC7bSyg>
+ <xme:kjIXaucstq4fP64CuXC9b4YyJuHaD4aYAi5sdaJtYd34wDBwGTillrZW6tBqwtIWV
+ UYLi45MvoDNkolBdHwtDDmrHLlcbKfj_htE3d-lxZcW7I202UXGBQ>
+X-ME-Received: <xmr:kjIXagGzh-HtPQp-hPf4-LkKtoe6N7thGvRFQHKiZ_GPSSXlLVVhwy2K6YY>
+X-ME-Proxy-Cause: dmFkZTEF+fjtTbHDg7Gr1uRQhPx9yHJ9DX6kqEMc2wwQjv5v5HIeaMZyxan2Psmob/vm2R
+ Ko3GhVtDNGwBBAGiNj9Xky3QpzrwETpn4UaEkCXcDdOIg+P0g4KDIdWsem6kF/ntYN5YJa
+ vuM5qctd4xXfbZ7NP+8C0tKNnHoz7vVYJONSkMQYHpolGC9nvOgS6TTxaxonDYRPVo/03m
+ mLFPX/xk96gxLc4IEHuS3dPHP8PS8PbhOAQu2DPE9ybD7UVbp+30TkLauBo9NuIK+Vvk5f
+ /SDdiX8Wpmi3PvNNcWF56l2jLpFEwpCm5A8EIDXDotFOgkTZ2T3MIZ3stgNEhPHbNiUgI8
+ yutGmhgODU9pOAGQokhroE9t3TA6AhpNOyfe1eUwny7nyt9SVtAL5GKGlNpr+u0rjauo/v
+ biUmMu/9qoDL/ZcnO4vQDzzkL2ZydK5HpJrBFB2RR2Mym83D5pG6syrktUTX3fg3a7Tnet
+ CGOmWtcRBcHVEgarJAGrna2YgQuMhPJsrhXoMTQEXpFdpBzn1Bglw1xViOgD+yA+2wj+4j
+ K1/R+rBTTOTlREPrv2tbUW6kChuQsIIgGNyxrjrMMximMAPEKjiP9qvCa6mtbmabsJd8ko
+ O3ZvAj685yLHlfBJbzydRlSbQq5hFdfB6HkenOJJCWhLwSFF3IW2agp7j1XA
+X-ME-Proxy: <xmx:kjIXau58OYh4ojWsjz5horZPMLP1BQ041_SUOrhtx8KmGyS2-FuswA>
+ <xmx:kjIXajuNcUq0Fm-dYuEzx738smHhgCtPHoUOFGvdDmkH2C60NmZVgg>
+ <xmx:kjIXai9iJvMhQqUNnEnhK-mKGai-FrJpx1QgikKu1Fjuq73UKuITKQ>
+ <xmx:kjIXatkj3r5HQg_D8dJj3_EdHhHgK3qFYqcEvo-bFubedE4R97OUQw>
+ <xmx:kzIXaqkevAiMgtCi0nEDp8TG6JIs6dIgefg3ZDKnawZQNmdBMHO1aJey>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 27 May 2026 14:06:09 -0400 (EDT)
+Date: Wed, 27 May 2026 12:06:07 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Zhiping Zhang <zhipingz@meta.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Sumit
+ Semwal <sumit.semwal@linaro.org>, Christian Konig
+ <christian.koenig@amd.com>, Bjorn Helgaas <helgaas@kernel.org>,
+ <kvm@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, Keith Busch <kbusch@kernel.org>, Yochai
+ Cohen <yochai@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
+ alex@shazbot.org
+Subject: Re: [PATCH v5 3/4] vfio/pci: implement get_tph and DMA_BUF_TPH feature
+Message-ID: <20260527120607.248867c1@shazbot.org>
+In-Reply-To: <20260526144401.1485788-4-zhipingz@meta.com>
+References: <20260526144401.1485788-1-zhipingz@meta.com>
+ <20260526144401.1485788-4-zhipingz@meta.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CW1P265MB8877:EE_|LO8P265MB7671:EE_
-X-MS-Office365-Filtering-Correlation-Id: d4b4476e-caa2-4e9f-4761-08debc19089e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|7416014|376014|1800799024|366016|4143699003|56012099006|6133799003|22082099003|18002099003|921020;
-X-Microsoft-Antispam-Message-Info: Rs4LkjpU5jLadaHY7JdF+0tGPO5895jdYXZXKWNxjNQJS/+npqNnvi20WrtQ+U8asYF9poLoZ85X0Hce1xVaIfU9hOIEPZvC56ZBIEXMnBIl3KmNX1Ru49FfxphoCSWce46BjvQHp17REM9JV9ZamKItDyUkhHB5MAfw8lKZ1clI+akaNCe24tm/Ms3MP9y5sP5QMYv7IOJHnq9B6r+l5XZ4xVg8ZvL3hMNkXUNRtTOV4mhiBsXkF8G3LMlt90b8FEAcvDEyM0TRGVzE/Be4tf/APty18HCdM/tOn+0MmKsqwsq+fGKQsVGmgWFy7Fi15K6lg5kPQn/y7uh3Ln8SqGECwGwn2Zu3IzHZ7+7XRuNvFUgluhwZKRbWOUTTOlYCDx7SePswa92FR4D36k+/wRD6RHMszR3rPZeAZE1wIXYwyWUcWGP5D87l9/QHIG0gxdhBtVmf00onMmaAHVSOJEIrSRnbMXctAWse4fcsXaNz+OZSUCyKEgzOySs4IvbX/++yxv9O2vS0Yuef5H3jUZ2q/mm4bPlXN8AH/6m+Sjsl+mflVsg/KreXoOsS1CB7MkWKxYCAnW4+dL8Zvrrg9YVR9VyQTQr+vVCGWASLCNWCLHBNn9HKON2nrVqnEs9yxk5nT6WhdQFviNdCZSIs29N6kBG2eKfUPOYr/aAtxmGx+itIlXV8cI7CAWGs07tle5uP0LGwtIDUbVTXeqb7TvXDJXn7lXLBNqzv3M9nAsM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(7416014)(376014)(1800799024)(366016)(4143699003)(56012099006)(6133799003)(22082099003)(18002099003)(921020);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NStxdlZXNUtXbmlCNDVwaXI5eUZsWU5ZTVd5NkVRa2lFbzh1Ykc3WVF4aWpx?=
- =?utf-8?B?NFlTZUM3M2lOdnh6TVJEY2xMenFHL3duM05peGFpVnhqNmZjMktMQnM5TnlT?=
- =?utf-8?B?b1lsK2ZjL1pSMXNURGlyS3MwOXkrYWkzM0k4dXFNNStXOGRuMDE4QnJsY0tO?=
- =?utf-8?B?NGJYZmRJS25rNVJxd0diL1JWa2NJZ0lHZ2l2VERhTW1qdHR6dDdpZnltUDBh?=
- =?utf-8?B?anVIbXNxbU00Zjl3UW5hbGxkVkFLb0tQbC9qOWljZFJWWUlLQ1VwdHNhWVhJ?=
- =?utf-8?B?QUpxclVNQ1BrYzJhSlFWdXFPL3lBeGUvdjZmanFtZ0d1WWVOSElxZzlyRUNy?=
- =?utf-8?B?NTc4ME04NkQwajdrOUZ3NU5Lc3JVcTgrRnRHem52VmFiaFN0VnFIcGpMT0do?=
- =?utf-8?B?NFlNNklDeEZkdEJJZVIxYU5PZ3NDaTEwdTRJSGQ2VW00MGlaQURsTW5Rb0FD?=
- =?utf-8?B?MHRxdzZpVTFzK0ZUUUg4Q0FvdDJWZkRPSVRhbXRkUEo1VTlhMTk2S0VzcUZn?=
- =?utf-8?B?VlRlcFEzMlNxbmZUODFHTVBFcllneVZqRmVDSGY3UlRRdlVtS2hZcnI2TTZm?=
- =?utf-8?B?K1ZLdGhhZ2lMWkFXdUdwdE43T080Rlp4NEVSNGJtZ2tzMzB2cmUwaXg2UXJ5?=
- =?utf-8?B?di9wekdWUzN2S3ZaN2ZsZEduRmtFbktlQmJaNTRIRGVYUkdUMis2aE9IVU0z?=
- =?utf-8?B?bjFJWnIzQUtZK2I2SnJyN0FWSlhiWnhGcWtFV1dvNmZUYW80cVdQWDlBZXcy?=
- =?utf-8?B?S1RTL1p4MDQ2cmZUSmdscHR1VzVkVzlMU283b1c4TWN2L1BkR0I3SjN5Yk9Z?=
- =?utf-8?B?TFhSM0FVMFdFNXJSei81VTRMNkNSdzFJUllXNE5tQmVhLzVBdnRNejUzUUxD?=
- =?utf-8?B?Z0c1MW1BbU9pUVNiQUFWWlVULzVTYkRQQzE3dVU0b2VCYnFoZXZ1S2hKSlQ2?=
- =?utf-8?B?RFNKeXlyZXNjV1l6QjBzSU9UR3JJRFZvSXBCdjYwOTNWSjNoV053c3JHU0Qr?=
- =?utf-8?B?ZS9vVmdmWTBqUWNkT0lQNVROV3BwNHpwV2hRZEhpdTIwTkZGdHc2NzJCc2Mx?=
- =?utf-8?B?T2tOcE1YQUJFVkRQUVFEeWZhZDVzUHQ5TUdkekJyZU1LUDlGQmMwek5zNUQ1?=
- =?utf-8?B?ak4xWkJtNGVZanUxb3M2YmtDcXB3YjNCMFFWUUh6STVRd2xlK1J5SkI4ZHJt?=
- =?utf-8?B?STQyNkN5Zk55MXdudXM2NGRXSVJFOEhxQWpCeXFlTnBVNzQ1M1JTN0RNRlJL?=
- =?utf-8?B?VUc3cEkvOXRiT1gxR1Bvb284aG5xbUdVRVFYckpyWkF3bTVkRXhMdDNxYUR5?=
- =?utf-8?B?QU44WXhZdmVpd3AwcTkwUkxyNm52Ulo1NlVuN0gxSEsvZkUxWDl5WGQxc3dn?=
- =?utf-8?B?QUsxSXVNcXV4ejY5TWFpcGNWMEVDWUZvUkpRK3k4Um90WW1GWEVCejZYVWR2?=
- =?utf-8?B?YU9jdjhPYXBYU2VQaCtObUt3RGJKTFdobnpPbFM1WGtKTENnMFlucWJ5NExq?=
- =?utf-8?B?NUkwTko4QndlVXgxbS9Gb0NwbnNvZzZRY1pab3pOWkVPOTN4YUhtZnlEQktV?=
- =?utf-8?B?WXY1N3UxTUYrMlJRYjErZ05rcGhkeDdRVWJncnVUSjJHR3ZueHp4L2tlc1lO?=
- =?utf-8?B?RUU5eDZNeTRJMVVkbzJpSFJwTGZLeGRxTi9WMkZPL0JkUnYwL2wyVEc2MnRa?=
- =?utf-8?B?dnRBenZ0cTdhUklkbVA3T2FtSUptVVRtQmo0Z3hUMVA2WUtsTVdxNWdBODEz?=
- =?utf-8?B?cko3OTM4clBsUWowdWd4MmZNTXZneUdEclVqdzZ5aEEvV051L3BWR1orcWN0?=
- =?utf-8?B?eFZycndRVTg2QUZzTlBkb2RuMXlWUHd1UGt4aEdOM3lmZUJPbEhLc2RDWFls?=
- =?utf-8?B?WUhUZXJoZkNRNDdub3Q1eTcxUFRFcEE1cEx2a1ZqMWR2Y3g5L1o5LzBJNVZB?=
- =?utf-8?B?NndncEdJVjY5N1VXL3laek9NYmRQOWlaZjNPMzZOTkdUaUVKVmFHazJ3U2c4?=
- =?utf-8?B?ekx0QzJseHBldG1qUVpnYXdydzg2ZWs0b1dRU0U4Z1dSa2NSVDVBWlJHWFpQ?=
- =?utf-8?B?RmFHRWZWcDJENjZUWXVRTnBoc2lnMlhLN01FSTRzOEdBd0dOVzlMc0M1RDc2?=
- =?utf-8?B?aGxYeFZDSmxSaWJHa09SSEpCMHRWbVliZ0sxL3hBaGxMakJOdU1GRmtYMlRv?=
- =?utf-8?B?cHZ1WXE1ZVBZN2NpR3NQeVlLbkU4TWd3SGFuS0pwOGo0QWJhbDdqajVCOGRG?=
- =?utf-8?B?TE43T0FoRFUva0xpNGhpUWxKZC9WaFp0bUtLdEtZV3dWeVpMV1BQdG5XN0V0?=
- =?utf-8?B?emF1Z3pXcEcvOE1vK3hjSFlBUFc5WEJzWHpjZXdWeVhZRWJVOGlIUT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: d4b4476e-caa2-4e9f-4761-08debc19089e
-X-MS-Exchange-CrossTenant-AuthSource: CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 17:54:43.8873 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Wm1AQ3lYUfP5olVO6hWEawTfnIgjR8UuGYLyweapeUVmVKv3rYbC0CM0NPDeCCXv74rUFoOJay65jXpS28gSJQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P265MB7671
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,129 +103,314 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed May 27, 2026 at 12:52 PM BST, Alexandre Courbot wrote:
-> These methods should always be inlined for optimization reasons. Failure
-> to do so can also produce symbol names larger than what `modpost`
-> supports.
->
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+On Tue, 26 May 2026 07:43:55 -0700
+Zhiping Zhang <zhipingz@meta.com> wrote:
+
+> Implement the dma-buf get_tph callback for vfio-pci-exported dma-bufs
+> and add VFIO_DEVICE_FEATURE_DMA_BUF_TPH so userspace can attach TPH
+> metadata to such a dma-buf.
+> 
+> 8-bit ST and 16-bit Extended ST are distinct PCIe TPH namespaces; the
+> uAPI carries both with explicit validity flags, and get_tph() returns
+> the value matching the importer's requested width (or -EOPNOTSUPP).
+> 
+> The TPH descriptor is published under a new per-dma-buf mutex
+> (priv->lock) and read by get_tph() under the same mutex. The same
+> mutex serialises with the priv->vdev clear in
+> vfio_pci_dma_buf_cleanup() so a SET racing with device teardown
+> cannot observe a half-detached dma-buf. memory_lock remain on the
+> existing dma-buf paths; the outer order is memory_lock -> priv->lock.
+> 
+> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
 > ---
->  rust/kernel/alloc/kbox.rs | 2 ++
->  rust/kernel/init.rs       | 1 +
->  rust/kernel/sync/arc.rs   | 2 ++
->  rust/kernel/types.rs      | 3 +++
->  4 files changed, 8 insertions(+)
->
-> diff --git a/rust/kernel/alloc/kbox.rs b/rust/kernel/alloc/kbox.rs
-> index 2f8c16473c2c..592fffc72e52 100644
-> --- a/rust/kernel/alloc/kbox.rs
-> +++ b/rust/kernel/alloc/kbox.rs
-> @@ -433,6 +433,7 @@ impl<T, A> InPlaceWrite<T> for Box<MaybeUninit<T>, A>
+>  drivers/vfio/pci/vfio_pci_core.c   |   3 +
+>  drivers/vfio/pci/vfio_pci_dmabuf.c | 110 ++++++++++++++++++++++++++++-
+>  drivers/vfio/pci/vfio_pci_priv.h   |  12 ++++
+>  include/uapi/linux/vfio.h          |  37 ++++++++++
+>  4 files changed, 161 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+> index 050e7542952e..4fa36f2f7555 100644
+> --- a/drivers/vfio/pci/vfio_pci_core.c
+> +++ b/drivers/vfio/pci/vfio_pci_core.c
+> @@ -1569,6 +1569,9 @@ int vfio_pci_core_ioctl_feature(struct vfio_device *device, u32 flags,
+>  		return vfio_pci_core_feature_token(vdev, flags, arg, argsz);
+>  	case VFIO_DEVICE_FEATURE_DMA_BUF:
+>  		return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
+> +	case VFIO_DEVICE_FEATURE_DMA_BUF_TPH:
+> +		return vfio_pci_core_feature_dma_buf_tph(vdev, flags, arg,
+> +							 argsz);
+>  	default:
+>  		return -ENOTTY;
+>  	}
+> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> index 1a177ce7de54..3ea2978c376c 100644
+> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> @@ -19,7 +19,19 @@ struct vfio_pci_dma_buf {
+>  	u32 nr_ranges;
+>  	struct kref kref;
+>  	struct completion comp;
+> -	u8 revoked : 1;
+> +	/*
+> +	 * @lock serializes TPH SET vs get_tph and the priv->vdev clear in
+> +	 * vfio_pci_dma_buf_cleanup(). It nests inside memory_lock:
+> +	 * the outer order across these paths is
+> +	 * memory_lock -> priv->lock.
+> +	 */
+> +	struct mutex lock;
+> +	u8 tph_st_valid:1;	/* priv->lock */
+> +	u8 tph_st_ext_valid:1;	/* priv->lock */
+> +	u8 tph_ph:2;		/* priv->lock */
+> +	u8 tph_st;		/* priv->lock */
+> +	u16 tph_st_ext;		/* priv->lock */
+> +	u8 revoked:1;		/* dma_resv_lock */
+>  };
+>  
+>  static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+> @@ -69,6 +81,38 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *attachment,
+>  	return ret;
+>  }
+>  
+> +static int vfio_pci_dma_buf_get_tph(struct dma_buf *dmabuf, u16 *steering_tag,
+> +				    u8 *ph, u8 st_width)
+> +{
+> +	struct vfio_pci_dma_buf *priv = dmabuf->priv;
+> +	int ret = 0;
+> +
+> +	mutex_lock(&priv->lock);
+
+Use guard semantics and drop ret, return from the error branch directly.
+
+> +	switch (st_width) {
+> +	case 8:
+> +		if (!priv->tph_st_valid) {
+> +			ret = -EOPNOTSUPP;
+> +			break;
+> +		}
+> +		*steering_tag = priv->tph_st;
+> +		*ph = priv->tph_ph;
+> +		break;
+> +	case 16:
+> +		if (!priv->tph_st_ext_valid) {
+> +			ret = -EOPNOTSUPP;
+> +			break;
+> +		}
+> +		*steering_tag = priv->tph_st_ext;
+> +		*ph = priv->tph_ph;
+> +		break;
+> +	default:
+> +		ret = -EINVAL;
+> +		break;
+> +	}
+> +	mutex_unlock(&priv->lock);
+> +	return ret;
+> +}
+> +
+>  static void vfio_pci_dma_buf_unmap(struct dma_buf_attachment *attachment,
+>  				   struct sg_table *sgt,
+>  				   enum dma_data_direction dir)
+> @@ -95,12 +139,14 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
+>  		up_write(&priv->vdev->memory_lock);
+>  		vfio_device_put_registration(&priv->vdev->vdev);
+>  	}
+> +	mutex_destroy(&priv->lock);
+>  	kfree(priv->phys_vec);
+>  	kfree(priv);
+>  }
+>  
+>  static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
+>  	.attach = vfio_pci_dma_buf_attach,
+> +	.get_tph = vfio_pci_dma_buf_get_tph,
+>  	.map_dma_buf = vfio_pci_dma_buf_map,
+>  	.unmap_dma_buf = vfio_pci_dma_buf_unmap,
+>  	.release = vfio_pci_dma_buf_release,
+> @@ -265,6 +311,7 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>  		ret = -ENOMEM;
+>  		goto err_free_ranges;
+>  	}
+> +	mutex_init(&priv->lock);
+>  	priv->phys_vec = kzalloc_objs(*priv->phys_vec, get_dma_buf.nr_ranges);
+>  	if (!priv->phys_vec) {
+>  		ret = -ENOMEM;
+> @@ -327,12 +374,71 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>  err_free_phys:
+>  	kfree(priv->phys_vec);
+>  err_free_priv:
+> +	mutex_destroy(&priv->lock);
+>  	kfree(priv);
+>  err_free_ranges:
+>  	kfree(dma_ranges);
+>  	return ret;
+>  }
+>  
+> +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
+> +				      u32 flags,
+> +				      struct vfio_device_feature_dma_buf_tph __user *arg,
+> +				      size_t argsz)
+> +{
+> +	struct vfio_device_feature_dma_buf_tph set_tph;
+> +	struct vfio_pci_dma_buf *priv;
+> +	struct dma_buf *dmabuf;
+> +	int ret;
+> +
+> +	ret = vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_SET,
+> +				 sizeof(set_tph));
+> +	if (ret != 1)
+> +		return ret;
+
+Don't we need to test whether the device supports the TPH capability
+somewhere here?  AIUI the device must exposed a TPH capability to act
+as a TPH completer.
+
+> +
+> +	if (copy_from_user(&set_tph, arg, sizeof(set_tph)))
+> +		return -EFAULT;
+> +
+> +	if (set_tph.flags & ~(VFIO_DMA_BUF_TPH_ST | VFIO_DMA_BUF_TPH_ST_EXT))
+> +		return -EINVAL;
+> +
+> +	if (!set_tph.flags)
+> +		return -EINVAL;
+
+This seems to block the path to marking both steering tags to invalid
+without any particular reason to do so.
+
+> +
+> +	/* PCIe TLP Processing Hint is a 2-bit field. */
+> +	if (set_tph.ph & ~0x3)
+> +		return -EINVAL;
+> +
+> +	dmabuf = dma_buf_get(set_tph.dmabuf_fd);
+> +	if (IS_ERR(dmabuf))
+> +		return PTR_ERR(dmabuf);
+> +
+> +	if (dmabuf->ops != &vfio_pci_dmabuf_ops) {
+> +		ret = -EINVAL;
+> +		goto out_put;
+> +	}
+> +
+> +	priv = dmabuf->priv;
+> +	mutex_lock(&priv->lock);
+
+Use guards.
+
+> +	if (priv->vdev != vdev) {
+
+For here and the next chunk, why is priv->vdev pulled into this lock?
+We're calling an ioctl on the vdev, that's stable.  We have a reference
+to the dma-buf, that's stable.  I think the ordering prevents this from
+needing to be under the lock, which probably means it should be
+s/lock/tph_lock/.
+
+> +		ret = -EINVAL;
+> +		goto out_unlock;
+> +	}
+> +
+> +	priv->tph_st = set_tph.steering_tag;
+> +	priv->tph_st_ext = set_tph.steering_tag_ext;
+> +	priv->tph_ph = set_tph.ph;
+> +	priv->tph_st_valid = !!(set_tph.flags & VFIO_DMA_BUF_TPH_ST);
+> +	priv->tph_st_ext_valid = !!(set_tph.flags & VFIO_DMA_BUF_TPH_ST_EXT);
+> +	ret = 0;
+> +
+> +out_unlock:
+> +	mutex_unlock(&priv->lock);
+> +out_put:
+> +	dma_buf_put(dmabuf);
+> +	return ret;
+> +}
+> +
+>  void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
 >  {
->      type Initialized =3D Box<T, A>;
-> =20
-> +    #[inline(always)]
->      fn write_init<E>(mut self, init: impl Init<T, E>) -> Result<Self::In=
-itialized, E> {
->          let slot =3D self.as_mut_ptr();
->          // SAFETY: When init errors/panics, slot will get deallocated bu=
-t not dropped,
-> @@ -442,6 +443,7 @@ fn write_init<E>(mut self, init: impl Init<T, E>) -> =
-Result<Self::Initialized, E
->          Ok(unsafe { Box::assume_init(self) })
->      }
-> =20
-> +    #[inline(always)]
->      fn write_pin_init<E>(mut self, init: impl PinInit<T, E>) -> Result<P=
-in<Self::Initialized>, E> {
->          let slot =3D self.as_mut_ptr();
->          // SAFETY: When init errors/panics, slot will get deallocated bu=
-t not dropped,
-> diff --git a/rust/kernel/init.rs b/rust/kernel/init.rs
-> index 7a0d4559d7b5..36d4bf1959fb 100644
-> --- a/rust/kernel/init.rs
-> +++ b/rust/kernel/init.rs
-> @@ -151,6 +151,7 @@ fn try_pin_init<E>(init: impl PinInit<T, E>, flags: F=
-lags) -> Result<Self::Pinne
->      /// type.
->      ///
->      /// If `T: !Unpin` it will not be able to move afterwards.
-> +    #[inline(always)]
->      fn pin_init<E>(init: impl PinInit<T, E>, flags: Flags) -> error::Res=
-ult<Self::PinnedSelf>
->      where
->          Error: From<E>,
-> diff --git a/rust/kernel/sync/arc.rs b/rust/kernel/sync/arc.rs
-> index 18d6c0d62ce0..973f15165606 100644
-> --- a/rust/kernel/sync/arc.rs
-> +++ b/rust/kernel/sync/arc.rs
-> @@ -712,6 +712,7 @@ fn try_init<E>(init: impl Init<T, E>, flags: Flags) -=
-> Result<Self, E>
->  impl<T> InPlaceWrite<T> for UniqueArc<MaybeUninit<T>> {
->      type Initialized =3D UniqueArc<T>;
-> =20
-> +    #[inline(always)]
->      fn write_init<E>(mut self, init: impl Init<T, E>) -> Result<Self::In=
-itialized, E> {
->          let slot =3D self.as_mut_ptr();
->          // SAFETY: When init errors/panics, slot will get deallocated bu=
-t not dropped,
-> @@ -721,6 +722,7 @@ fn write_init<E>(mut self, init: impl Init<T, E>) -> =
-Result<Self::Initialized, E
->          Ok(unsafe { self.assume_init() })
->      }
-> =20
-> +    #[inline(always)]
->      fn write_pin_init<E>(mut self, init: impl PinInit<T, E>) -> Result<P=
-in<Self::Initialized>, E> {
->          let slot =3D self.as_mut_ptr();
->          // SAFETY: When init errors/panics, slot will get deallocated bu=
-t not dropped,
-> diff --git a/rust/kernel/types.rs b/rust/kernel/types.rs
-> index ac316fd7b538..381a06ee0d59 100644
-> --- a/rust/kernel/types.rs
-> +++ b/rust/kernel/types.rs
-> @@ -367,6 +367,7 @@ pub const fn zeroed() -> Self {
->      /// This function is safe, because the `T` inside of an `Opaque` is =
-allowed to be
->      /// uninitialized. Additionally, access to the inner `T` requires `u=
-nsafe`, so the caller needs
->      /// to verify at that point that the inner value is valid.
-> +    #[inline(always)]
->      pub fn ffi_init(init_func: impl FnOnce(*mut T)) -> impl PinInit<Self=
-> {
->          // SAFETY: We contain a `MaybeUninit`, so it is OK for the `init=
-_func` to not fully
->          // initialize the `T`.
+>  	struct vfio_pci_dma_buf *priv;
+> @@ -398,7 +504,9 @@ void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
+>  			continue;
+>  
+>  		list_del_init(&priv->dmabufs_elm);
+> +		mutex_lock(&priv->lock);
+>  		priv->vdev = NULL;
+> +		mutex_unlock(&priv->lock);
 
-Are you sure this (and other `impl PinInit`-returning functions) are actual=
-ly
-causing issue? They just return an initializer and the actual init code is =
-not
-marked as `#[inline]`.
+As above, seems unnecessary.
 
-Best,
-Gary
+>  		vfio_device_put_registration(&vdev->vdev);
+>  		fput(priv->dmabuf->file);
+>  	}
+> diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
+> index fca9d0dfac90..c58f369be4b3 100644
+> --- a/drivers/vfio/pci/vfio_pci_priv.h
+> +++ b/drivers/vfio/pci/vfio_pci_priv.h
+> @@ -118,6 +118,10 @@ static inline bool vfio_pci_is_vga(struct pci_dev *pdev)
+>  int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>  				  struct vfio_device_feature_dma_buf __user *arg,
+>  				  size_t argsz);
+> +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
+> +				      u32 flags,
+> +				      struct vfio_device_feature_dma_buf_tph __user *arg,
+> +				      size_t argsz);
+>  void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev);
+>  void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked);
+>  #else
+> @@ -128,6 +132,14 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>  {
+>  	return -ENOTTY;
+>  }
+> +
+> +static inline int
+> +vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev, u32 flags,
+> +				  struct vfio_device_feature_dma_buf_tph __user *arg,
+> +				  size_t argsz)
+> +{
+> +	return -ENOTTY;
+> +}
+>  static inline void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
+>  {
+>  }
+> diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
+> index 5de618a3a5ee..55cac3b7122c 100644
+> --- a/include/uapi/linux/vfio.h
+> +++ b/include/uapi/linux/vfio.h
+> @@ -1534,6 +1534,43 @@ struct vfio_device_feature_dma_buf {
+>   */
+>  #define VFIO_DEVICE_FEATURE_MIG_PRECOPY_INFOv2  12
+>  
+> +/**
+> + * Upon VFIO_DEVICE_FEATURE_SET associate TPH (TLP Processing Hints) metadata
+> + * with a vfio-exported dma-buf. The dma-buf must have been created by
+> + * VFIO_DEVICE_FEATURE_DMA_BUF on this device.
+> + *
+> + * dmabuf_fd is the file descriptor returned by VFIO_DEVICE_FEATURE_DMA_BUF.
+> + *
+> + * 8-bit ST (steering_tag) and 16-bit Extended ST (steering_tag_ext) are
+> + * distinct namespaces in the PCIe TPH ST table and may both be present with
+> + * different values. Userspace should populate the value(s) it has from the
+> + * firmware ST table for this device and set the matching VFIO_DMA_BUF_TPH_ST /
+> + * VFIO_DMA_BUF_TPH_ST_EXT bit in @flags. An importer requests a specific
+> + * width and receives the matching value; if the requested width is not
+> + * present, the importer is told TPH is unavailable for this dma-buf.
+> + *
+> + * ph is the 2-bit TLP Processing Hint and must be in the range [0, 3].
+> + *
+> + * Userspace is responsible for setting TPH on the dma-buf before handing the
+> + * fd to the importer. Calling SET again replaces the previously published
+> + * values; racing a SET against an importer that is already consuming the
+> + * dma-buf is a userspace ordering problem.
+> + *
+> + * Return: 0 on success, -errno on failure.
+> + */
+> +#define VFIO_DEVICE_FEATURE_DMA_BUF_TPH 13
+> +
+> +#define VFIO_DMA_BUF_TPH_ST		(1 << 0)  /* steering_tag valid */
+> +#define VFIO_DMA_BUF_TPH_ST_EXT		(1 << 1)  /* steering_tag_ext valid */
+> +
+> +struct vfio_device_feature_dma_buf_tph {
+> +	__s32	dmabuf_fd;
+> +	__u32	flags;
+> +	__u8	steering_tag;
+> +	__u8	ph;
 
-> @@ -386,6 +387,7 @@ pub fn ffi_init(init_func: impl FnOnce(*mut T)) -> im=
-pl PinInit<Self> {
->      /// This function is safe, because the `T` inside of an `Opaque` is =
-allowed to be
->      /// uninitialized. Additionally, access to the inner `T` requires `u=
-nsafe`, so the caller needs
->      /// to verify at that point that the inner value is valid.
-> +    #[inline(always)]
->      pub fn try_ffi_init<E>(
->          init_func: impl FnOnce(*mut T) -> Result<(), E>,
->      ) -> impl PinInit<Self, E> {
-> @@ -417,6 +419,7 @@ pub const fn cast_from(this: *const T) -> *const Self=
- {
-> =20
->  impl<T> Wrapper<T> for Opaque<T> {
->      /// Create an opaque pin-initializer from the given pin-initializer.
-> +    #[inline(always)]
->      fn pin_init<E>(slot: impl PinInit<T, E>) -> impl PinInit<Self, E> {
->          Self::try_ffi_init(|ptr: *mut T| {
->              // SAFETY:
+Nit, I'd swap the order of these so the steering_tag fields are
+back-to-back.  Thanks,
 
-
+Alex
