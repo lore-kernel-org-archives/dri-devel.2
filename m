@@ -4,93 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95E50CD5BD5
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 14:07:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 696F3CD6E46
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 14:51:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0268210E7F7;
-	Wed, 27 May 2026 14:07:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 356F010E7CB;
+	Wed, 27 May 2026 14:51:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YO3iCQgJ";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="DZ7FnH8A";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8PesZOzc";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="DZ7FnH8A";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8PesZOzc";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCE7810E7F7;
- Wed, 27 May 2026 14:07:17 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7F99440580;
- Wed, 27 May 2026 14:07:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DF5B1F000E9;
- Wed, 27 May 2026 14:07:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779890837;
- bh=i6CFXNwgelzox7IvTlIMcrTk9ZivAZLyNzDVQx0vmz0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=YO3iCQgJzQNEuhfJf9xffpLM/icOpMtouwv0izhfb2PKmNQmpH5td51ftB6Du9zOc
- fHsEanU0BPD8hO37OadHUSVoZd+RngunGa80VBbuatQFfj5tBWlCENwUPM/nfite3C
- C//16ZlWxP8B5dRSXTSIkQhzKGlOPwaPmn9YLyibH26prw+593LpwZ2DzvkSvUV1gH
- tfeSw0vUJAIXqB4Adgbf2M7zIJslaT4zS23i6ZJR/pUIHD3BJSSBiiT2dxu1lfwi1r
- VCpC/dAdISBdIqPPs3SA+oZCx3VP+2EOveKbCGA3Im3COWqV1EtTZXQBlp61LBnMC5
- 8K+VIxz8FXnmA==
-Message-ID: <482ee03a-c5b3-4873-a550-cc5743068616@kernel.org>
-Date: Wed, 27 May 2026 16:07:12 +0200
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6A7610E28A
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 14:51:20 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8D88A6B168;
+ Wed, 27 May 2026 14:51:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779893479; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=3m/5O51/6gJpJUZlgUTVM23u58TzBQcvVOdnYvwVijI=;
+ b=DZ7FnH8ALizYFlWsPDtGw1BbG30NFsDogiD7MDWhCf7nVJE2UgYrh6alRlkFh6H+7ND1kO
+ 6qfwUq2eOH7Yx0cpzq6XXPzV/MgTcp/ejg1l605BpPxtxovA8QiAJNfGIhc8jSTKpm4lzC
+ rSc2bdGJe6PIRTeeLQ9nAeTFxgm2aa0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779893479;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=3m/5O51/6gJpJUZlgUTVM23u58TzBQcvVOdnYvwVijI=;
+ b=8PesZOzcfDnFpPOQpRyzeLQI7qcUcreVJGAgzCjTwQTV8ZVSzWz/vjeuSn0/Td/XhUy1AJ
+ 1ESvfZnabZYNjSBQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779893479; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=3m/5O51/6gJpJUZlgUTVM23u58TzBQcvVOdnYvwVijI=;
+ b=DZ7FnH8ALizYFlWsPDtGw1BbG30NFsDogiD7MDWhCf7nVJE2UgYrh6alRlkFh6H+7ND1kO
+ 6qfwUq2eOH7Yx0cpzq6XXPzV/MgTcp/ejg1l605BpPxtxovA8QiAJNfGIhc8jSTKpm4lzC
+ rSc2bdGJe6PIRTeeLQ9nAeTFxgm2aa0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779893479;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=3m/5O51/6gJpJUZlgUTVM23u58TzBQcvVOdnYvwVijI=;
+ b=8PesZOzcfDnFpPOQpRyzeLQI7qcUcreVJGAgzCjTwQTV8ZVSzWz/vjeuSn0/Td/XhUy1AJ
+ 1ESvfZnabZYNjSBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0E2FC5A8A8;
+ Wed, 27 May 2026 14:51:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id aW4MAucEF2qsegAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 27 May 2026 14:51:19 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: mripard@kernel.org, maarten.lankhorst@linux.intel.com, airlied@redhat.com,
+ airlied@gmail.com, simona@ffwll.ch, admin@kodeit.net,
+ gargaditya08@proton.me, paul@crapouillou.net, jani.nikula@linux.intel.com,
+ mhklinux@outlook.com, zack.rusin@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com
+Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-mips@vger.kernel.org, virtualization@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v3 00/10] 
+Date: Wed, 27 May 2026 16:46:19 +0200
+Message-ID: <20260527145113.241595-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: improve the kmem_cache_alloc_bulk API
-Content-Language: en-US
-To: Christoph Hellwig <hch@lst.de>
-Cc: Harry Yoo <harry@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
- David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Jesper Dangaard Brouer <hawk@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, io-uring@vger.kernel.org,
- kasan-dev@googlegroups.com, bpf@vger.kernel.org, netdev@vger.kernel.org
-References: <20260527070239.2252948-1-hch@lst.de>
- <ee817070-cc7a-40d5-92a4-2bd8e9e65fbe@kernel.org>
- <20260527122148.GA6838@lst.de>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20260527122148.GA6838@lst.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; SUBJECT_ENDS_SPACES(0.50)[];
+ NEURAL_HAM_SHORT(-0.20)[-0.993]; MIME_GOOD(-0.10)[text/plain];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_TWELVE(0.00)[19];
+ MIME_TRACE(0.00)[0:+]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,redhat.com,gmail.com,ffwll.ch,kodeit.net,proton.me,crapouillou.net,outlook.com,broadcom.com];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCVD_TLS_ALL(0.00)[]; TO_DN_SOME(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,outlook.com]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,40 +108,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/27/26 14:21, Christoph Hellwig wrote:
-> On Wed, May 27, 2026 at 11:11:31AM +0200, Vlastimil Babka (SUSE) wrote:
->> > value convention.  Fix that and add documentation.
->> > 
->> > Note that the few comments explaining it mention that the gfp flags
->> > must allow "spinning".  That's not really a term used in the memory
->> > allocator, is this supposed to mean "block" or "sleep"?
->> 
->> Page allocator now has alloc_pages_nolock() for when no spinning is
->> possible, and it uses ALLOC_TRYLOCK internally.
->> 
->> Slab has kmalloc_nolock() relying on that when it needs new pages.
-> 
-> The comment long predates that, and it isn't expressed using gfp flags,
+DRM clients can supply information on framebuffer areas to update as
+part of each page flip, called damage clipping rectangles. But DRM's
+processing of this information is inconsistent and prone to errors.
 
-Do we both mean this comment?
+- There are multiple fields and tests that decide if damage clips
+should be taken or ignored.
 
--/* Note that interrupts must be enabled when calling this function. */
-+/*
-+ * Note that interrupts must be enabled when calling this function and gfp     
-+ * flags must allow spinning.               
-+ */
- int kmem_cache_alloc_bulk_noprof(struct kmem_cache *s, gfp_t flags, size_t size,                                                                                                                                                    
-                                 void **p)   
+- Sometimes damage clips are removed behind the back of the DRM client.
 
-commit 46dea1744498 ("slab: refill sheaves from all nodes") from this January.
-Previously it was just interrupts enabled.
+- Atomic helpers evaluate damage clipping in the middle of the atomic
+check: after connectors and encoders, but before planes and CRTCs. Hence
+pipeline stages have an inconsistent view.
 
-> but by requiring separate functions so I somehow doubt that was meant.
+- Which leads to drivers (ingenic) doing a re-evaluation if necessary.
 
-Yeah, it's expressed by the _nolock variants. But slab propagates it internally
-by the gfp flags, and since 46dea1744498 it affects kmem_cache_alloc_bulk().
+- Tests of plane source coordinates only happen during commits. At this
+point, the driver should already know if damage clips are to be taken or
+not. Because of this, some drivers (appletbdrm) might operate on incorrect
+damage information for their internal workings. This also leads to excessive
+use of the old plane state.
 
-> But I could also not see why it would not support GFP_ATOMIC /
-> GFP_NOWAIT allocation, so I might just be confused.
+Therefore go through DRM helpers and drivers and fix the logic.
 
-Yeah those are supported because they can spin, just not sleep.
+- Run all of the atomic checks with the damage information supplied by
+DRM clients. Afterwards evaluate plane and CRTC states on whether to
+take or ignore damage clips. Do all related tests in a single atomic
+helper.
+
+- Do not discard damage clips. Set ignore_damage_clips in struct
+drm_plane_state instead. This includes changes to plane source-coordinates.
+The damage iterator now only has to look at this flag to detect if it
+should use the damage clips. 
+
+- Go over drivers and fix the damage handling in the plane's
+atomic_update helpers. Most drivers no longer need the old plane state
+in their update.
+
+- The appletbdrm driver requires a fix in how it uses damage information.
+Ingenic and vmwgfx can be simplified. These changes improve the drivers'
+code organization.
+
+- Kunit tests require some changes. Drop some obsolete tests and add a new
+one for ignore_damage_flags.
+
+Tested with bochs, mgag200, Kunit tests.
+
+v3:
+- fix error path in appletbdrm
+v2:
+- rebase on latest upstream
+
+Thomas Zimmermann (10):
+  drm/damage-helper: Do not alter damage clips on modeset, but ignore
+    them
+  drm/atomic-helpers: Evaluate plane damage after atomic_check
+  drm/ingenic: Remove calls to drm_atomic_helper_check_plane_damage()
+  drm/damage-helper: Test src coord in
+    drm_atomic_helper_check_plane_damage()
+  drm/appletbdrm: Allocate request/response buffers in begin_fb_access
+  drm/damage-helper: Remove old state from
+    drm_atomic_helper_damage_iter_init()
+  drm/damage-helper: Remove old state from
+    drm_atomic_helper_damage_merged()
+  drm/atomic_helper: Do not evaluate plane damage before atomic_check
+  drm/damage-helper: Rename state parameters in damage helpers
+  drm/vmwgfx: Remove unused field struct
+    vmwgfx_du_update_plane.old_state
+
+ drivers/gpu/drm/ast/ast_cursor.c              |   3 +-
+ drivers/gpu/drm/ast/ast_mode.c                |   2 +-
+ drivers/gpu/drm/drm_atomic_helper.c           |   6 +-
+ drivers/gpu/drm/drm_atomic_state_helper.c     |   1 +
+ drivers/gpu/drm/drm_damage_helper.c           |  44 ++--
+ drivers/gpu/drm/drm_fb_dma_helper.c           |   2 +-
+ drivers/gpu/drm/drm_mipi_dbi.c                |   3 +-
+ drivers/gpu/drm/gud/gud_pipe.c                |   3 +-
+ drivers/gpu/drm/hyperv/hyperv_drm_modeset.c   |   3 +-
+ drivers/gpu/drm/i915/display/intel_plane.c    |  11 +-
+ drivers/gpu/drm/i915/display/intel_psr.c      |   3 +-
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |   3 -
+ drivers/gpu/drm/ingenic/ingenic-ipu.c         |   8 +-
+ drivers/gpu/drm/mgag200/mgag200_mode.c        |   3 +-
+ drivers/gpu/drm/sitronix/st7571.c             |   3 +-
+ drivers/gpu/drm/sitronix/st7586.c             |   3 +-
+ drivers/gpu/drm/sitronix/st7920.c             |   3 +-
+ drivers/gpu/drm/solomon/ssd130x.c             |   9 +-
+ drivers/gpu/drm/sysfb/drm_sysfb_modeset.c     |   3 +-
+ .../gpu/drm/tests/drm_damage_helper_test.c    | 200 +++---------------
+ drivers/gpu/drm/tiny/appletbdrm.c             |  59 +++---
+ drivers/gpu/drm/tiny/bochs.c                  |   3 +-
+ drivers/gpu/drm/tiny/cirrus-qemu.c            |   2 +-
+ drivers/gpu/drm/tiny/gm12u320.c               |   2 +-
+ drivers/gpu/drm/tiny/ili9225.c                |   3 +-
+ drivers/gpu/drm/tiny/repaper.c                |   2 +-
+ drivers/gpu/drm/tiny/sharp-memory.c           |   3 +-
+ drivers/gpu/drm/udl/udl_modeset.c             |   3 +-
+ drivers/gpu/drm/virtio/virtgpu_plane.c        |   2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.c           |   5 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.h           |   2 -
+ drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c          |  12 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c          |  15 +-
+ include/drm/drm_damage_helper.h               |   9 +-
+ 34 files changed, 123 insertions(+), 315 deletions(-)
+
+
+base-commit: 5fb5a9a63cf5ece68e0eeb6fa397da27712bccf0
+-- 
+2.54.0
+
