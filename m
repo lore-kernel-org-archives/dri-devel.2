@@ -4,91 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED2A7CD5BD0
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 20:20:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20C7ECD4F54
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 20:30:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F2B710E948;
-	Wed, 27 May 2026 20:20:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CEC010E9D5;
+	Wed, 27 May 2026 20:30:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="H7651F4Y";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="tBdhlAEl";
 	dkim-atps=neutral
-Received: from mail-oo1-f97.google.com (mail-oo1-f97.google.com
- [209.85.161.97])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4284110E948
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 20:20:31 +0000 (UTC)
-Received: by mail-oo1-f97.google.com with SMTP id
- 006d021491bc7-69d42abd04dso3515115eaf.1
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 13:20:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779913230; x=1780518030;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=/o50EFC0sji7vfRJ4UfvwqKRH6fM2XPOFR685hxklgk=;
- b=FzXp+kBwz+m8oxs5msoDRRSHUblUWQtkZngB65m+zeSUp3h1C/Efr+ds49lGfm4jTs
- WAtsRUnI4XoV5AHRgtnJaaWbyXzEdn8SD6DhO2RyMNm5H0aAKHyxS+ADTmxpCfAUDvdE
- 08KFOHI8FT9lHGL7kEx1AJtS7S9DbQN0MHwhuWb6Okzk5LtoD/edZ0FEnHsl5DWiZS+K
- 00jUkcvIcpJNZW48SopEx4ia7gXMUinFzNLeJh4+c8deCTLFhbOQpoTTnU7WGv/EXUmN
- PZIe6XYfRI2lW/uq4FDkBRFJz8Wap2OL9UhpgbmAvk1liWzxkBGb6NodG5G1FOQQzQDC
- RHyQ==
-X-Gm-Message-State: AOJu0YwzOEIjns0LIipu9/llReznZEY6XAnEE/hjnOJ52fVBC8F0psdV
- 5anVlxXX1OzPnDt06B3cWLwryg09umytWQeo/OeOA6iT4xqjga+QXGTFDAaXaNXVMs9vaeZvfoc
- 44iL0xPAxRCTP+Z76d5XJlY6IHtuZ+05wUcRs9sUE0aqMiYw7EGDxA0ExqBXKV2dkYE0Bld9HAv
- uoGjfrCkt3iFHhDcH345BSm8e5sBmVR/otkCiOhkEHYtOooeh3nNCT4I2OJ0oWO3XXhNEbORx19
- pDyECyrPUlNDmy/PtOI
-X-Gm-Gg: Acq92OET9pwtsCfhkO1wxhOOeqPjVjIv9FBdbfJwGQLPFhbVGnjVW7JQl4kA9IqQqvy
- QzbITTfKzCWYHJKFGA3kzkE03MgKcJHmazAPBQkpOXRPrbwl+4tnbNteP1NL53p9rfA6Q/Y46di
- 8ZwUqCaiEdSoTuBFmLR+4OVSo3r664Y2c0Ddp34U9UycDa/m6Ty9j3o67grSeKuVvZBNUG5MOyc
- I+CQ9JWrLvSKOW9dFNH4DwhLWJyQiRLG/uZW+ab6cuVR5VV1BtzJZs5L0hdOmzgri25ZlL1MuDe
- qUgIz4rQyGUvHQALBAPLma7O8YRb3oQpTfFk3695Z1k5rjiuolSkQl+RGywIqHYFDpNOYiDiCu4
- rd9qeOIma4HuUb5kJCnD25/GF8uidjCJLPWWAs49q9OGAkBKEJMm7NN4tCBERlCPl3a/Zvq499x
- vXxiwGxYmFjSX2t5zl5A38ldnAncj1Lx2hQMuv5HiysRMAyfayg0dZvcf52ktyvf8L7Pw=
-X-Received: by 2002:a05:6820:1888:b0:69d:95d6:2629 with SMTP id
- 006d021491bc7-69d95d62775mr9836952eaf.26.1779913230041; 
- Wed, 27 May 2026 13:20:30 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-102.dlp.protect.broadcom.com. [144.49.247.102])
- by smtp-relay.gmail.com with ESMTPS id
- 006d021491bc7-69d83ad6518sm725870eaf.19.2026.05.27.13.20.28
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 27 May 2026 13:20:30 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f198.google.com with SMTP id
- 5a478bee46e88-2ef37c3f773so12080037eec.1
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 13:20:28 -0700 (PDT)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D42110E9D5
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 20:30:53 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-367d88b9940so8030463a91.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 13:30:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1779913227; x=1780518027;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=/o50EFC0sji7vfRJ4UfvwqKRH6fM2XPOFR685hxklgk=;
- b=H7651F4YRLMIZBIZIIrlmWAEPVRhNiDvERl9MfxhFASs3YG2aWUg4GUzQ+Xks0hJls
- tvABkXjrukIJGt5rahRa/HtVxBEYzKLUIUwvu0fjV6HLHBsnlJKDZzK1XhARHKzz9nxZ
- taJ+K/xkVqEDzG8fl3m3McIwMo+HJftjIS0OE=
-X-Received: by 2002:a05:693c:69dc:b0:304:8114:8d8f with SMTP id
- 5a478bee46e88-30481149117mr4231478eec.31.1779913227446; 
- Wed, 27 May 2026 13:20:27 -0700 (PDT)
-X-Received: by 2002:a05:693c:69dc:b0:304:8114:8d8f with SMTP id
- 5a478bee46e88-30481149117mr4231451eec.31.1779913226758; 
- Wed, 27 May 2026 13:20:26 -0700 (PDT)
-Received: from plasma.dhcp.broadcom.net ([192.19.144.250])
+ d=gmail.com; s=20251104; t=1779913853; x=1780518653; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=k2OhCxIlJi2QiiC8j/rvp1ZcuO4vzfhN+zs+219JbuA=;
+ b=tBdhlAElDurOkjMJ5VI/cKjVGgObL9BtWEk0DznVRU9nF1OzdNnzq2QLHuy1i4/zG1
+ zfTqBTfi0xrZRgchowi/IqSHk9KjmatSTAY794CPhgbgF2qJrtyHZ9H4p3sshTOdXx/X
+ tAnYGluOHob4VQFzONgnVX2Miw5TYOzzNgaSbflSlHeq/z5GYZP2fqcH9Uj3VfPdL6Vf
+ FvHLiXq262YbC7hleohIvBSK5vRNMJIYAFmNDBZ4NL+Q/sYIaH+hI/q3bcEzGdgyBR3a
+ ed+A0eRxSVf0rGqLmDe2J5zFqWG+08X9wc9ytqTw3hZGeiJ0UMztlGhFEnXXpKGJGwpl
+ LWIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779913853; x=1780518653;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=k2OhCxIlJi2QiiC8j/rvp1ZcuO4vzfhN+zs+219JbuA=;
+ b=JMbHGbo+phZexB6pqAc20+1x3UrIG1p6dYzTz8e5qN89OQu4z2/hjFcbiTALp6NjsF
+ 94iLSHErbfLxVT/8k9TBoPJm2rsRST/fpsCHndlQE0Q3C07Aeg+IKPfSZfHky3tVVICl
+ 8qZhKJ57ywAwBZHwSRMX9kzxwDCnSWM6L4wTf/kEFqpqfKz5Efs3jHTbuDlq9YEwBIan
+ 5ouM8VYPjK0xypan9ZRwfLsAZ+X0xHdX22DYwKphui60dntewYykM6omFvVwyGg7Q7wM
+ jxPH7JCTA1JjOQC3xeBs7n7u9IfvOkOBeQhdjcVLyctF8ctRRPMQDQR1v68MKXMFuqct
+ v2eA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8LnAQl67Zkd1gp+AENlvWrHFvf4MMHS/F9l8wsQlpQKRdJB66n0KdShVVQ1F62X5zPWVIOnPiJ548=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx0TJ3t/XRXnYP5iHOQExZ4Pkc9cme/OuaFPoAuGQgkDOgBhgml
+ kEl+mGpqEapeo7Rcxr+qHV8Q2BM2IVtAzylXjuPXIQITJnlN8FanxUAy
+X-Gm-Gg: Acq92OF/CaauIEurPwPmkcWWEKq7+qgH01UiV3qbg1RwjNoRMwwuWM5+mQfM9NCP5WU
+ goJUReV2XokG9b2qZIx+z4oPgx2NSqDlg+E9porZRXkZ6tqfUeoUJ8xNqExLFNDy4VCWG/5/KK+
+ ZxLHeVt0agFlGPCXA2LanIRvjBF7mlEtOneSQ8J2gQm4z0d6fxlGvreNpbIVYsgkoi+eNe2Hq36
+ NmFlUg78iV/N+MHi8pAzOQL3ofcaMvNmw1vEjS/pDWxK5noZF1uNLJigd2+y+ue/7bJASlCD7lc
+ OCuhtuRP2PnEfPnwubkg8NXomsGBgwPM7yYu6VeRcUjb66ORQF35eiCylSBBw7XLjnzdY5ffIvR
+ nnOtemws5c7tca/wcDR70+q1fEMtlmk9l3wdIq+Mod0HXxfp3cox3bPIxm38gyHk/QFLIbJnIJv
+ SLiGapTK8wfPAaSrnt8Q/WPpAZhxkslWmDwhz0315UV/vJ+yA=
+X-Received: by 2002:a17:90b:134f:b0:366:3ac:f725 with SMTP id
+ 98e67ed59e1d1-36a6788d912mr24792193a91.25.1779913852550; 
+ Wed, 27 May 2026 13:30:52 -0700 (PDT)
+Received: from [172.18.227.108] ([219.88.198.180])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-304522547fesm14052914eec.21.2026.05.27.13.20.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 May 2026 13:20:26 -0700 (PDT)
-From: Ian Forbes <ian.forbes@broadcom.com>
-To: dri-devel@lists.freedesktop.org
-Cc: christian.koenig@amd.com, airlied@redhat.com,
- Ian Forbes <ian.forbes@broadcom.com>
-Subject: [PATCH] ttm/pool: Don't leak LRU list on shutdown
-Date: Wed, 27 May 2026 15:20:18 -0500
-Message-ID: <20260527202018.1223912-1-ian.forbes@broadcom.com>
-X-Mailer: git-send-email 2.54.0
+ 98e67ed59e1d1-36a72c98b95sm16549405a91.16.2026.05.27.13.30.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 27 May 2026 13:30:52 -0700 (PDT)
+Message-ID: <4b911ed0-64b1-48aa-a00f-e2ade66afa1c@gmail.com>
+Date: Thu, 28 May 2026 08:30:42 +1200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] soc: qcom: rpmh-rsc: Skip TCS init when RSC is
+ managed by firmware
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org
+Cc: andersson@kernel.org, konradybcio@kernel.org,
+ robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260522060645.4399-1-graham.oconnor@gmail.com>
+ <20260522060645.4399-2-graham.oconnor@gmail.com>
+ <934e6039-4639-49bd-8cf9-a1674f86b8c8@oss.qualcomm.com>
+Content-Language: en-GB, en-US
+From: Gekko <graham.oconnor@gmail.com>
+In-Reply-To: <934e6039-4639-49bd-8cf9-a1674f86b8c8@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,30 +99,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-TTM pool was changed from a regular list to an lru list in the
-referenced fixes commit. list_lru_init allocates state and it needs to
-be freed unlike a simple list.
+Hi Konrad,
 
-Found using the igt@core_hotunplug and kmemleak.
+This one is confusing.
 
-Fixes: 444e2a19d7fd ("ttm/pool: port to list_lru. (v2)")
-Signed-off-by: Ian Forbes <ian.forbes@broadcom.com>
----
- drivers/gpu/drm/ttm/ttm_pool.c | 1 +
- 1 file changed, 1 insertion(+)
+I started the bring-up on this board on gentoo-sources 6.18.18 but the 
+board would not boot. After an almost subliminal flash of tux the board 
+would lock every time.I found the solution from PostmarketOS who 
+obviously faced the same issue which formed the genesis of this patch. 
+With this patch applied the board booted fine so I've applied it ever since.
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 26a3689e5fd9..a41addbf3ddf 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -395,6 +395,7 @@ static void ttm_pool_type_fini(struct ttm_pool_type *pt)
- 
- 	list_lru_walk(&pt->pages, pool_move_to_dispose_list, &dispose, LONG_MAX);
- 	ttm_pool_dispose_list(pt, &dispose);
-+	list_lru_destroy(&pt->pages);
- }
- 
- /* Return the pool_type to use for the given caching and order */
--- 
-2.54.0
+However, as a result of your response here I tried booting my current 
+kernel (gentoo-sources 7.0.10) without the patch and to my surprise it 
+booted just fine. This leaves a few options, including:
+1) the kernel source has changed
+2) this is a firmware issue and a firmware update fixed it
+3) It's a timing issue.
+
+To eliminate 2 I would have to test 6.18.18 with the current firmware, 
+then regress the firmware and test again. The do the same with 7.0.10. I 
+can't honestly recall whether the firmware upgrade was before or after 
+this issue first appeared.
+
+If it's a timing issue it's a bit more concerning. If the kernel is 
+taking slightly longer to initialise before calling 
+rpmh_probe_tcs_config() then it may just be missing the solver 
+activation, everything appears to work and nobody is any the wiser. If 
+the existing solver code doesn't deal with early firmware TCS 
+initialisation then it could, under some circumstances, lead to the 
+security reset that I was seeing. This patch specifically tests for that 
+case.
+
+Based on the AI review feedback I've also modified the patch to not 
+simply return early but to just skip the sensitive parts of the code to 
+allow any other setup to complete normally.
+
+My current objective evidence is that the board boots without this patch 
+and it's quite possible this patch is unnecessary if the above is incorrect.
+
+Graham
+
+
+On 26/05/2026 00:40, Konrad Dybcio wrote:
+> On 5/22/26 8:06 AM, Graham O'Connor wrote:
+>> On QCS6490-based platforms booting via UEFI, the RSC hardware solver
+>> is already active when the kernel takes over from the firmware. Calling
+>> rpmh_probe_tcs_config() in this state reinitializes the controller
+>> while the firmware is actively managing it, causing a security
+>> violation and system reset.
+> 
+> I don't think this has been an issue so far on other platforms..
+> 
+> Do you have some more details?
+> 
+> Konrad
 
