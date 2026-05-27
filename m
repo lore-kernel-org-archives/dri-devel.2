@@ -4,46 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73893CD5BC9
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 10:53:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB708CD5BD5
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 11:12:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF7E810E1D9;
-	Wed, 27 May 2026 10:53:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE0D110E152;
+	Wed, 27 May 2026 11:12:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=baidu.com header.i=@baidu.com header.b="TaYc9YRm";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fDGLHJPf";
 	dkim-atps=neutral
-X-Greylist: delayed 484 seconds by postgrey-1.36 at gabe;
- Wed, 27 May 2026 10:53:05 UTC
-Received: from outbound.baidu.com (mx24.baidu.com [111.206.215.185])
- by gabe.freedesktop.org (Postfix) with SMTP id DF8DD10E1D9
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 10:53:05 +0000 (UTC)
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.47
-From: lirongqing <lirongqing@baidu.com>
-To: Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
- <linux-kernel@vger.kernel.org>
-CC: Li RongQing <lirongqing@baidu.com>
-Subject: [PATCH] dma-buf: Move dma_resv_assert_held() after input validation
-Date: Wed, 27 May 2026 06:44:49 -0400
-Message-ID: <20260527104449.2350-1-lirongqing@baidu.com>
-X-Mailer: git-send-email 2.17.1
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26AC010E152;
+ Wed, 27 May 2026 11:12:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779880356; x=1811416356;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=1SgRiBg7cwUrr3CnzQdg8ztHpnIbw5xFcKA1QkSscQM=;
+ b=fDGLHJPfgrACQBiMW+2AwY3jDzh29kDkO0EgLpkwk1K5U1k3fWUdWoSK
+ /Eli2NrefBm+HgeFicGwlt2OmfC30jLAIni9KTkjazgqQlSnS7jw/SvaV
+ QLW2ChPct2NpIjrb8BrkfS90MiNqoDoXSVAH6wGU8rt7vUWGppHPuEqQE
+ 0xkOg3SBVrzTx1BbEslgLNUdJU+ChrKUjhIJhnSoHX3rHlLP3aBIFBjYO
+ lFrGZI86CQbUIfXyuaFp+mJSLSuxvT2orCzKwQOh5MljdLpbknGNqDRyD
+ erCBqmVu4uOByrggklVx5MR66TZdbaZnIwjciKkuii5nQ/OS+lacXXq07 w==;
+X-CSE-ConnectionGUID: lPnFHBS1Q/KDki23CmEzDg==
+X-CSE-MsgGUID: 7IhejN1mRF2fzfVMwuegjA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11798"; a="80818507"
+X-IronPort-AV: E=Sophos;i="6.24,171,1774335600"; d="scan'208";a="80818507"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 May 2026 04:12:35 -0700
+X-CSE-ConnectionGUID: SlcG4pg0THuQupOCVg1/Uw==
+X-CSE-MsgGUID: s+Tt5ySdSmCZZHk8gDc27A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,171,1774335600"; d="scan'208";a="265803129"
+Received: from nemesa.iind.intel.com ([10.190.239.22])
+ by fmviesa002.fm.intel.com with ESMTP; 27 May 2026 04:12:34 -0700
+From: Nemesa Garg <nemesa.garg@intel.com>
+To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Cc: Nemesa Garg <nemesa.garg@intel.com>
+Subject: [PATCH 0/4]  DSC max delta bpp support
+Date: Wed, 27 May 2026 16:38:45 +0530
+Message-Id: <20260527110849.3943338-1-nemesa.garg@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [172.31.63.8]
-X-ClientProxiedBy: bjkjy-exc2.internal.baidu.com (172.31.50.46) To
- bjkjy-exc3.internal.baidu.com (172.31.50.47)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
- s=selector1; t=1779878699;
- bh=8wxiXP655DLDne+j37kjUbGvhP71Q5D+Jw5Sn2qPwtM=;
- h=From:To:CC:Subject:Date:Message-ID:Content-Type;
- b=TaYc9YRm50UTB3PERjLWE9PFLf2rUKjf6YsOz++tHMhErOOBfr8yKMCvsuMDlcgHh
- WjQ92PnYmoK6my3wLAUVW2vdj35v3uNbpjxV6UQOc008dKZCTkTUWTNi6HbaomhtK2
- 9Ksis3y3oHGNoDd3pThW2Q4R8+V5NtnNAlq9w6N3wBGa2Rnq4yHklSwlC5nOtAOfTy
- 1o5XRmiIusLKuqcu7oMJsy3UpqpupBhjwj4l8EZypZKKKWR+OuBJ2BSKUnyFbPg95r
- Pav5xlHwVP2j+FoVhJLHJLdmV9PyPXKVY6zT+ujJf5G0FkMmUNDZu/2XRvw0P2U5m9
- EgDhAmGcs5iww==
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,36 +65,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Li RongQing <lirongqing@baidu.com>
+ Some sinks exposes DSC max bpp through delta based
+DPCD fields. To support those sinks, add DP DPCD field
+field and logic to decode the delta value in bppx16
+format.
 
-Move dma_resv_assert_held() after the validation of 'attach' and
-'attach->dmabuf' to avoid a potential null pointer dereference if
-the function is ever called with invalid arguments.
+Nemesa Garg (4):
+  drm/dp: Add DP_DSC_MAX_BPP_DELTA register
+  drm/dp: Rename YCbCr420 bpp delta mask to native
+  drm/dp: Add max bpp delta computation constants
+  drm/i915/dp: Decode dsc max delta bpp from sink dpcd
 
-Signed-off-by: Li RongQing <lirongqing@baidu.com>
----
- drivers/dma-buf/dma-buf-mapping.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 41 +++++++++++++++++++++++--
+ include/drm/display/drm_dp.h            | 12 ++++++--
+ 2 files changed, 49 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-index 794acff..e6ecd6c 100644
---- a/drivers/dma-buf/dma-buf-mapping.c
-+++ b/drivers/dma-buf/dma-buf-mapping.c
-@@ -102,12 +102,12 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
- 	size_t i;
- 	int ret;
- 
--	dma_resv_assert_held(attach->dmabuf->resv);
--
- 	if (WARN_ON(!attach || !attach->dmabuf || !provider))
- 		/* This function is supposed to work on MMIO memory only */
- 		return ERR_PTR(-EINVAL);
- 
-+	dma_resv_assert_held(attach->dmabuf->resv);
-+
- 	dma = kzalloc_obj(*dma);
- 	if (!dma)
- 		return ERR_PTR(-ENOMEM);
 -- 
-2.9.4
+2.25.1
 
