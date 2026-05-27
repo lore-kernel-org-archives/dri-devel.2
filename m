@@ -4,128 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6E76CD5BDE
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 06:57:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39E69CD5BDE
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 07:03:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5194410E733;
-	Wed, 27 May 2026 06:57:54 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oVF8wvf/";
-	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012011.outbound.protection.outlook.com [52.101.48.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A15310E72D
- for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 06:57:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aSP5W+I62kNIDHVhTY2hUZBKBKfo3MnkVfBeesIzhkvOYWPOgXEmuDz6HtEpa4BTgKo6cRbsfydfCy7FEBsHwu//ifefsa7geG/pl49Nce3GRctBnqz3Q5D0D1zKZQI5pS1euDTIaooCsC5KWlXwndCOsHet+VnZxHNUBb4gqk7jUXTdI7IAxbsmIHLjhjDO+izbuF4JSwJXQUghQsqucrWC+mJx/eWRa7/7HLwOxU/6+YCmQXJhW7zKu8nkVoHxvFjJIOVdTSEdYC9lDi0COoHYBiV3ANJVqj0VkabU9ccH5R3T822I5ryJh1yciDvqMY9ZnDdlk410Bss7G6Fmig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UA0DIWgfXmRpD+ga3RuQ9nW5HwsA0CtRINH+EMwKG9E=;
- b=Sg0x21vti2TW1VuE+muJ5g657BREpA2pxB/RteQU9SagUgL+njCGlYcAsLh4wPVOw51Vrw8mcHU3AizsMnYnZPovHJ66dShYwpAPwwHu8kOVgi8IsUsayosXJSSdQzAYX7im58phr0ZVkCTGmnLFeS9Pp5UR1bZ2PMQfSLKfvIc2OBqYRvHRiOXpniHPgNREVcb9l7eBcfbU4VqZEV/hblEJ4qf8Qraj5SRMzNIuE2FAYdf/9GnqaWxaXtgQMeKZEUR0xCry5ioPUcHirHjI9TRHWoVDgbhJKRFk14KnUbzezzdWiw7gOj+FniUmzmcLc44QjSiipPwJO7BGV26f6Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UA0DIWgfXmRpD+ga3RuQ9nW5HwsA0CtRINH+EMwKG9E=;
- b=oVF8wvf/DG3G/dzk5FTa9B9R9JU8Y0JLcztkVOdBDBaeIWF98YYC5NOWWFZsAxm+iAKwukFO2n8PCHJZ7UcQBKElsRoKCqYZSk9kVKEtUwkDDJ+NNBIgAsulji90v8bWxjUSZ//9yji3M78ytkXaQ5Ak1EKSBoFlDv2wV77ppI0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by BN7PPF521FFE181.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::6d0) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Wed, 27 May
- 2026 06:57:48 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0071.011; Wed, 27 May 2026
- 06:57:48 +0000
-Message-ID: <e71825f6-fd5a-4a46-b832-a207b3988071@amd.com>
-Date: Wed, 27 May 2026 08:57:41 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/4] dma-buf: add optional get_tph() callback
-To: Zhiping Zhang <zhipingz@meta.com>, Alex Williamson <alex@shazbot.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, kvm@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
- netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Keith Busch <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>,
- Yishai Hadas <yishaih@nvidia.com>
-References: <20260526144401.1485788-1-zhipingz@meta.com>
- <20260526144401.1485788-3-zhipingz@meta.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260526144401.1485788-3-zhipingz@meta.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN9PR03CA0648.namprd03.prod.outlook.com
- (2603:10b6:408:13b::23) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 997D310E735;
+	Wed, 27 May 2026 07:03:11 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8866210E739;
+ Wed, 27 May 2026 07:03:09 +0000 (UTC)
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.3])
+ by APP-03 (Coremail) with SMTP id rQCowACXt94nlxZqnACHEg--.8176S2;
+ Wed, 27 May 2026 15:03:04 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Wentao Liang <vulab@iscas.ac.cn>,
+ Ashutosh Dixit <ashutosh.dixit@intel.com>,
+ Gustavo Sousa <gustavo.sousa@intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: [PATCH] drm: xe: selftests: fix fence refcount leak in
+ run_sanity_job()
+Date: Wed, 27 May 2026 07:02:44 +0000
+Message-Id: <20260527070244.858512-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BN7PPF521FFE181:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2914bf13-ee91-43aa-da27-08debbbd4312
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|366016|11063799006|18002099003|22082099003|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info: FbYZdoTBnkvAgOvIdnl5Zu778xKYsTC4oYcuVmkjd2AR/Jf37NZSSloQrnnJrB4K0BBQHicSMMHrBexhqIyg7/RkzHkzAtc0idvVhhgBuQ0dIKKDjqiPU7Y9zrITF/OaeuTvCstR1NXvLNlH7Y9GtMhZdrP8/rgnFR3h6xiFSGKzxU9xcxEXC5hQzMkuP2k8OcI37kzOBp/v8EUVyiU/+1XjPuX/04eZ+SxfcmJo9omhuePOD4sv0bAEaheJRSJ3bFoflGIUMZKMFHeBnh+NcHbcS/15+lr6sxElj6Gmrccs/pcEcid5Rexouj6z1K6XJl8zEYPamvcYP24ZLaL6ykF6gSGhQSNKaSUWyZFyrcsorov5HH7Nr9DlO9wSf67AttzDCqSM8mAhk6CA8GlEsm947Arg6q5W7QA4oYQwIPVQKV2jm3H5gGgosgZJi6YGnIOcCnffNotdYxdkyogZoQqTYg0iyUojBlt8Wi6LoJXPPHsQyZ6hJnb/MnyrFGOZh9FN+f5bkQpS0KcC234DsjVnqzq+ALOtOknHXUWY5DkbYVWt2DhhDOGUW0RFQtGovnPLZfbXUd9vl+66ZZ2/7BNrT7U4Y4FrgVK0TPt9RYy4Gu/ArDpSOHUUXbEdlx+OyHxP2YRrpgnuXtPwm/IxotM64vu+FYbQ/ZT35nc4CdLrVWRbC7nuP3BW6mcgIkaW
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016)(11063799006)(18002099003)(22082099003)(4143699003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TE5tWWdiK1ZDWnVpeWtvdy9zelpUc2tnT0ZTeDB3T09QVFh0Y3N0Q2phTXlY?=
- =?utf-8?B?VGZUd0xkTFJpaHhWUU9yWmxMODdOU3YrYWhCOVAwY2hNSG1uVUhIV1p5bFNp?=
- =?utf-8?B?QW9YUEVlZThRbHRYYkhlWkNVazJ4ZmdxaUNjV2N2MnVTaDVPb0NrOVoxbWR2?=
- =?utf-8?B?S21Na3BsY3hSOFE2US9rZmMvc3dkVUMwODRhYVh1cXVObjRVSkcvMFhkc284?=
- =?utf-8?B?cFNzUEJrVHpIdzBjUFluWnhtUVBtRnNJZG9pamhCSEZFbUt0TXRtUmxidzk1?=
- =?utf-8?B?WkFKUW1OUzJsR1dueC9DelFLcVZKZVRhTzA1RGI1dnl2eU4xcW1HbDgyVjJT?=
- =?utf-8?B?ZENvR0FRMlI3YkpVem41bDVsWmtXQjdiZk9hb2k1eXNoeHlPTGJ6RVRIcWxk?=
- =?utf-8?B?MVFUTzkwOWhzWWJVNzF0VFlGQ1UyUnNsY3FqMFUxNEZabUU4MkFOekNnRFFC?=
- =?utf-8?B?RUx5UU9UcGhRSnVsWVFxZlNHUXl3RS9PQjNRMjk2dDBrcFhMOHRvRGpLdnVj?=
- =?utf-8?B?a2cxQlN5allNZE9BRlFnTUdWUEc3SDdGL3dUT29DS3BmbHBYeTRNSXRjLzFH?=
- =?utf-8?B?bDlzV2thMTMyM0dGWWxvb1J4MWJEZXhrQXNsTlRzeEh2UHlLL25pTVhrMHdw?=
- =?utf-8?B?RGpMM2tyYUxUMjcyRUpwUzhIMXN6bnpyRENrT2YvWG01NHcrVy92S0ZTRFc3?=
- =?utf-8?B?cmZwU3BjQjNRaHFZVzl2OUVkS05UNlNSQXZZcGNyNVo1N0VpMHQrclB4MkhE?=
- =?utf-8?B?MmdiRXhSNmlXMXpFM1FYV3dreS9qNTlGY20yOGt6S1JObk00c1J6QnA2Z3ht?=
- =?utf-8?B?MXpnb0xKRDBBeTFEaGF6L3BTVnE0cERmNTM2ZENJZkh3ZkFzTjJ3UkZFV1dv?=
- =?utf-8?B?Z25ZSVBWaVVXZ0grclNEbTNaL1dmMloxK2FRYS82ZkZJaGU0RFRxV0ttSGFF?=
- =?utf-8?B?dkkwVzdDalViYjN4d0pGbFJxTmFGb2dsdFI3eXVzVzhyaFQrM2p5WGVFQS8w?=
- =?utf-8?B?TnhiZUpicGpGVE15VCt5U0FVZlp5aTBzUlBTWmVsc3ZORXRnQU5BaHNHVTEy?=
- =?utf-8?B?b3hyQUp0YVBTWmlFR2I1amJSYXJjTWsxRGEwMzBMd3ZBZ2h2bFZOR1BKblVp?=
- =?utf-8?B?Y2ZuWm9Kd2lFek44LzFoOUxYMGZNdXZ3R2pxUFFBMFRzUi9xc25kSnpKOFNo?=
- =?utf-8?B?ZmljcXVBRUxJaFJGQXFQZkoraitxWm9neDlNeG9zbHRBdG8vNVdReTNVOXMv?=
- =?utf-8?B?ZXhoaERwZUtTeVBObzNGS1pqRzNIWHJQeEx0dGpRajZnRXozd0ZKZm5WM0pN?=
- =?utf-8?B?YXFHNXl0ZzJLa0w5bmRrTHlURFFxbmtraW5CYVNDRmlmR3k4R2Y0bktUbXZH?=
- =?utf-8?B?NGlyRG9xUFVFNzlCYzRoUDltN3pKYTZXOXlzV25LZ1puQ0tPamliNUxRenc0?=
- =?utf-8?B?QklaeVJFODRmbDhPa2M5MURUTGU2QThZRlVtOU9qV2xSYTFVTVdYaEtldmp5?=
- =?utf-8?B?Vyt6Q2tPSHEvY0ljcktaVHdpM0dZb3JTTzNINnNpR1hFbGhMVEI0SzI2dUU1?=
- =?utf-8?B?Z2FzYnNJeXM1RmloYlA1R0VVTGxYUjNDMVpSK1I1VVBDWm1mblR4eUNTdmdG?=
- =?utf-8?B?MlpkS2RCbThnSm91RXpVZGphQmhKVnhOT3JnSk1iVU1reTVCSTZuVGo0aG5M?=
- =?utf-8?B?SWdvc1lqVVdsTzE4bVk4bGJWajlmZUltd3NieEpuWXNVUmMrNFZWNllxWG9k?=
- =?utf-8?B?c2tkaXBjUG1MZVhtd3VhRllTR3YzR3A2UHE0N1Vsc0JkR3VKSEx1UE9XSERt?=
- =?utf-8?B?S1JNTWJmcmZ0TFBweGo5K2tjcmJub04wdHVjSmh1UmkzSkRWUmZzQTk5MGYx?=
- =?utf-8?B?L2Q0ZXZXb0pOKzUrd3hUc3BOQlhrSkJmN2dqY1BwSnBSYk9XTlNpRlZ3eGxn?=
- =?utf-8?B?bndVcmVtcjB3SlZhcDJGTSt1V1JaTUc0REhQYktTa25LaHJic2FNM3RmMGxF?=
- =?utf-8?B?aU0yTkkyaHEyMFZOdUNyT3l0eFNNTit0UXBBb2RJdHk3ekZWTElSNGxYZHpB?=
- =?utf-8?B?V0poMS9EZ04vUnljU3RTbzhZbDlEVlRxZzdVRjZWby9CQUhpNEFQMGhGR2Mr?=
- =?utf-8?B?Y2k4ckc1L0xZVTZiN1A0RDFNdlR5V0FaR3hJdjRyeHJOQiszaUZub24wdnhY?=
- =?utf-8?B?K0grOGJVN1NobXJiaEl2MVdXRTM1aWpVZ1NPanpnQm43ajlhRE1leWNpUGw4?=
- =?utf-8?B?dC9oZmRnTy96RTZhQWpLMGNJMzFkc0YwdVZWVWxsVmRiZ2tOVlVEUFJZTVdF?=
- =?utf-8?Q?DlYSHa03fEyI9XQ8Se?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2914bf13-ee91-43aa-da27-08debbbd4312
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 06:57:48.3348 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xrGPwIxcCvvC1K63kGEkImAT3FamiFkMgeFu9o8hWZ/bfZMLL/mnsHwxK5+8l9fu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF521FFE181
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: rQCowACXt94nlxZqnACHEg--.8176S2
+X-Coremail-Antispam: 1UD129KBjvJXoWrtryDXFyrZFy3ury3uw47XFb_yoW8JF1rpw
+ 4xGw1jkrWDJa12q3y7AF1UXF90kw13tr9akr1vyayfuws8Xr1UJrnIq3y0qFs8A392k34f
+ Zrn293s3X3WqkFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+ n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+ kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+ 67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+ CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+ MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
+ VFxhVjvjDU0xZFpf9x0JUQZ2fUUUUU=
+X-Originating-IP: [36.110.52.3]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwsAA2oWPY6xmwABsr
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,67 +67,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+run_sanity_job() calls dma_fence_get() to take a reference on the
+fence before submitting the migration job. If the job submission fails,
+the function returns an error without calling dma_fence_put() on the
+fence, leaking the reference.
 
+Add dma_fence_put(fence) on the error path to properly release the
+reference.
 
-On 5/26/26 16:43, Zhiping Zhang wrote:
-> [Sie erhalten nicht häufig E-Mails von zhipingz@meta.com. Weitere Informationen, warum dies wichtig ist, finden Sie unter https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> Add an optional dma-buf get_tph callback so an exporter can return TPH
-> (TLP Processing Hints) metadata to an importer.
-> 
-> 8-bit ST and 16-bit Extended ST are distinct namespaces in the PCIe TPH
-> ST table and may both be present with different values. The importer
-> passes its supported steering-tag width and the exporter returns the
-> matching value, or -EOPNOTSUPP if no metadata is available for that
-> width.
-> 
-> The first user is VFIO_DEVICE_FEATURE_DMA_BUF_TPH in vfio-pci, with the
-> mlx5 RDMA driver as the first importer.
-> 
-> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
-> ---
->  include/linux/dma-buf.h | 21 +++++++++++++++++++++
->  1 file changed, 21 insertions(+)
-> 
-> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> index d1203da56fc5..49eb6ad644a2 100644
-> --- a/include/linux/dma-buf.h
-> +++ b/include/linux/dma-buf.h
-> @@ -113,6 +113,27 @@ struct dma_buf_ops {
->          */
->         void (*unpin)(struct dma_buf_attachment *attach);
-> 
-> +       /**
-> +        * @get_tph:
-> +        * @dmabuf: DMA buffer for which to retrieve TPH metadata
-> +        * @steering_tag: Returns the raw TPH steering tag for @st_width
-> +        * @ph: Returns the TPH processing hint (2-bit value)
+Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/xe/tests/xe_migrate.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Returned values as last arguments please.
-
-Regards,
-Christian.
-
-> +        * @st_width: Consumer's supported steering tag width in bits (8 or 16)
-> +        *
-> +        * Return the TPH (TLP Processing Hints) metadata associated with this
-> +        * DMA buffer for the requested steering-tag width. 8-bit ST and 16-bit
-> +        * Extended ST are distinct namespaces in the PCIe TPH ST table and may
-> +        * both be present with different values, so the exporter must select the
-> +        * value that matches @st_width and must not substitute one for the other.
-> +        *
-> +        * Return 0 on success, -EOPNOTSUPP if no metadata is available for the
-> +        * requested width, or -EINVAL if @st_width is not 8 or 16.
-> +        *
-> +        * This callback is optional.
-> +        */
-> +       int (*get_tph)(struct dma_buf *dmabuf, u16 *steering_tag, u8 *ph,
-> +                      u8 st_width);
-> +
->         /**
->          * @map_dma_buf:
->          *
-> --
-> 2.53.0-Meta
-> 
+diff --git a/drivers/gpu/drm/xe/tests/xe_migrate.c b/drivers/gpu/drm/xe/tests/xe_migrate.c
+index 34e2f0f4631f..36d4cff00e18 100644
+--- a/drivers/gpu/drm/xe/tests/xe_migrate.c
++++ b/drivers/gpu/drm/xe/tests/xe_migrate.c
+@@ -54,8 +54,10 @@ static int run_sanity_job(struct xe_migrate *m, struct xe_device *xe,
+ 	fence = dma_fence_get(&job->drm.s_fence->finished);
+ 	xe_sched_job_push(job);
+ 
+-	if (sanity_fence_failed(xe, fence, str, test))
++	if (sanity_fence_failed(xe, fence, str, test)) {
++		dma_fence_put(fence);
+ 		return -ETIMEDOUT;
++	}
+ 
+ 	dma_fence_put(fence);
+ 	kunit_info(test, "%s: Job completed\n", str);
+-- 
+2.34.1
 
