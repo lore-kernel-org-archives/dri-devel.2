@@ -4,64 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D43ABCD5BD1
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 03:34:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76640CD5BD1
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 03:35:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E30E10E21A;
-	Wed, 27 May 2026 03:34:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D40E110E64A;
+	Wed, 27 May 2026 03:34:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="E4/Ob2uA";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="G7MDPZSA";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 545FB10E63F;
- Wed, 27 May 2026 03:34:16 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6138110E63F;
+ Wed, 27 May 2026 03:34:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779852856; x=1811388856;
+ t=1779852899; x=1811388899;
  h=date:message-id:from:to:cc:subject:in-reply-to:
  references:mime-version;
- bh=JsriVoaHDbR6VPYqZpYIfpQS0+Q66rzOuV5vrK18h54=;
- b=E4/Ob2uAmF640P5PvOkW5GA9qOeq9SknUaxbfJ9PiuOD8y4cvziiwSLm
- bAI4rdgDeY8Iz0rP/sj/x2VGilpOVdcHtxreL9Ii7d99Xq2wgrLFbNhuZ
- W66WbT6Ga0g2xPNVgvMxG4IlIIFJwRT+V/bE5YSt2g1s7iCYQrR0T7MiM
- iPmuM0YrfbORVqZSw+YvRhYQYXBLqwqpbVHFuWaI18JlKC9yrt6Rq+hVS
- MAW/5ZwpLneTz29pSDE4RCDlT18zlS06N9kFIxPK+dhrRsQRJ0yHVhjLw
- I+NSQtQYzCc2M5mAHx0CeCNH9ElyhCR74btQerwqv6/4GWKS50BuFWfqA g==;
-X-CSE-ConnectionGUID: CgFkxRefT2qXbAXVp+89UA==
-X-CSE-MsgGUID: ORYgz6nFSxKQ3mYadvJ5xA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11798"; a="98101427"
-X-IronPort-AV: E=Sophos;i="6.24,170,1774335600"; d="scan'208";a="98101427"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 20:34:16 -0700
-X-CSE-ConnectionGUID: b+jIGZ3PR3u3QDGANc1WlA==
-X-CSE-MsgGUID: 6UECSbfrS9K9iRUF3ep3Rg==
+ bh=0jMtXdyR+XkBSElTR5vKC1YNbrZAX2spWw06dn6oYAk=;
+ b=G7MDPZSAS/u5LdQLTvm/iCyUyIHXz01i7YmnmXVqP3G5tdIP5U1gKddZ
+ /Dm0Vib/1HdRN3p+ZJVEjbJ2mLia3lXjaliVuSDK8rNXVPy0QHR9rw2LK
+ 0aykjQiPHzk4/9Mr5GEpu4DaiKBsSRIWW5aQEij0sosPgAmYtBcMD+hNd
+ uT940io+EG0INYOPRwzWyiTbt5d6/wlAdU/PPNaeGNFtOmF2LonA5vPM3
+ 1zOGR/Xzi7RO/LmWTK4XIa3I7HgA2Q5Q6WrXiOhT7qstKQrlqGNgTgbhW
+ fmigIqHkKlp7+d1VbI9Ke7ZSzwpozxDXFsW4zNh9fd2teB57sTuhec3IN w==;
+X-CSE-ConnectionGUID: KkxecIZLTCioxBhM9Llbcg==
+X-CSE-MsgGUID: Bc0ueoGCQ3qTcHnSjDkEhg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11798"; a="68201569"
+X-IronPort-AV: E=Sophos;i="6.24,170,1774335600"; d="scan'208";a="68201569"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2026 20:34:59 -0700
+X-CSE-ConnectionGUID: 5dvCwfWzTnuhR6eLWC2Mag==
+X-CSE-MsgGUID: raVGjmYoSeu4E/nJR5jfuw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,170,1774335600"; d="scan'208";a="241065613"
+X-IronPort-AV: E=Sophos;i="6.24,170,1774335600"; d="scan'208";a="239109059"
 Received: from gauravga-mobl1.amr.corp.intel.com (HELO adixit-MOBL3.intel.com)
  ([10.125.67.21])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 20:34:15 -0700
-Date: Tue, 26 May 2026 20:34:14 -0700
-Message-ID: <87fr3dv83t.wl-ashutosh.dixit@intel.com>
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2026 20:34:58 -0700
+Date: Tue, 26 May 2026 20:34:57 -0700
+Message-ID: <87ecixv82m.wl-ashutosh.dixit@intel.com>
 From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
 To: John Hubbard <jhubbard@nvidia.com>
-Cc: Matthew Brost <matthew.brost@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr?=
- =?ISO-8859-1?Q?=F6m?= <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Peter Zijlstra <peterz@infradead.org>, "Ingo Molnar"
- <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung
- Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Alexander
- Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa
- <jolsa@kernel.org>, "Ian Rogers" <irogers@google.com>, Adrian Hunter
- <adrian.hunter@intel.com>, "James Clark"
- <james.clark@linaro.org>,<intel-xe@lists.freedesktop.org>,
+Cc: Peter Zijlstra <peterz@infradead.org>, Matthew Brost
+ <matthew.brost@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ "Ingo Molnar" <mingo@redhat.com>, Arnaldo Carvalho de Melo
+ <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Mark Rutland
+ <mark.rutland@arm.com>, Alexander Shishkin
+ <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian
+ Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, James
+ Clark <james.clark@linaro.org>,<intel-xe@lists.freedesktop.org>,
  <dri-devel@lists.freedesktop.org>,<linux-perf-users@vger.kernel.org>, LKML
  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 1/2] perf/core: out-of-line and export
- perf_allow_cpu/tracepoint()
-In-Reply-To: <20260523013326.129491-2-jhubbard@nvidia.com>
-References: <20260523013326.129491-1-jhubbard@nvidia.com>	<20260523013326.129491-2-jhubbard@nvidia.com>
+Subject: Re: [PATCH v2 0/2] complete perf_allow_* trio and use in drm/xe
+In-Reply-To: <8871a158-7a68-4247-a09f-bb3d970d6dc2@nvidia.com>
+References: <20260523013326.129491-1-jhubbard@nvidia.com>	<20260523084056.GE3102624@noisy.programming.kicks-ass.net>	<8871a158-7a68-4247-a09f-bb3d970d6dc2@nvidia.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
  FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
  Emacs/30.2 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -82,110 +81,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 22 May 2026 18:33:25 -0700, John Hubbard wrote:
+On Sat, 23 May 2026 10:52:16 -0700, John Hubbard wrote:
 >
-> These helpers are static inline in <linux/perf_event.h> and reach
-> into sysctl_perf_event_paranoid and security_perf_event_open(),
-> neither of which is itself exported. The perf_allow_* trio is
-> therefore asymmetric: built-in callers can use any of the three, but
-> modular code can only call perf_allow_kernel().
+> On 5/23/26 1:40 AM, Peter Zijlstra wrote:
+> > On Fri, May 22, 2026 at 06:33:24PM -0700, John Hubbard wrote:
+> ...
+> >>    perf/core: out-of-line and export perf_allow_cpu/tracepoint()
+> >>    drm/xe: gate observation streams with perf_allow_cpu()
+> >>
+> >>   drivers/gpu/drm/xe/xe_eu_stall.c    |  5 +++--
+> >>   drivers/gpu/drm/xe/xe_oa.c          | 25 +++++++++++++---------
+> >>   drivers/gpu/drm/xe/xe_observation.c | 32 ++++++++++++++++++++++++-----
+> >>   drivers/gpu/drm/xe/xe_observation.h |  3 +--
+> >>   include/linux/perf_event.h          | 31 ++++++++++++++--------------
+> >>   kernel/events/core.c                | 18 ++++++++++++++++
+> >>   6 files changed, 79 insertions(+), 35 deletions(-)
+> >
+> > Sure, works for me. How do you want to route these things, Xe tree or
+> > -tip?
 >
-> Move both bodies into kernel/events/core.c next to perf_allow_kernel()
-> and export them with EXPORT_SYMBOL_GPL, following the shape of
-> commit 5e9629d0ae97 ("drivers/perf: arm_spe: Use perf_allow_kernel()
-> for permissions"). Existing in-tree callers live in built-in arch and
-> tracing code, so the change is invisible to them.
+> Hi Peter,
 >
-> Provide !CONFIG_PERF_EVENTS stubs that fall back to perfmon_capable(),
-> so the helpers stay callable when perf is compiled out.
->
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+> Maybe -tip, but really, either way is perfectly OK with me.
 
-Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+I've R-b'd both the patches. If you want to merge via Xe tree, let me know
+and we can get them merged.
 
-> ---
->  include/linux/perf_event.h | 31 +++++++++++++++----------------
->  kernel/events/core.c       | 18 ++++++++++++++++++
->  2 files changed, 33 insertions(+), 16 deletions(-)
->
-> diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-> index 48d851fbd8ea..5842552294c1 100644
-> --- a/include/linux/perf_event.h
-> +++ b/include/linux/perf_event.h
-> @@ -1791,22 +1791,8 @@ static inline int perf_is_paranoid(void)
->  }
->
->  extern int perf_allow_kernel(void);
-> -
-> -static inline int perf_allow_cpu(void)
-> -{
-> -	if (sysctl_perf_event_paranoid > 0 && !perfmon_capable())
-> -		return -EACCES;
-> -
-> -	return security_perf_event_open(PERF_SECURITY_CPU);
-> -}
-> -
-> -static inline int perf_allow_tracepoint(void)
-> -{
-> -	if (sysctl_perf_event_paranoid > -1 && !perfmon_capable())
-> -		return -EPERM;
-> -
-> -	return security_perf_event_open(PERF_SECURITY_TRACEPOINT);
-> -}
-> +extern int perf_allow_cpu(void);
-> +extern int perf_allow_tracepoint(void);
->
->  extern int perf_exclude_event(struct perf_event *event, struct pt_regs *regs);
->
-> @@ -2023,6 +2009,19 @@ perf_event_pause(struct perf_event *event, bool reset)			{ return 0; }
->  static inline int
->  perf_exclude_event(struct perf_event *event, struct pt_regs *regs)	{ return 0; }
->
-> +static inline int perf_allow_kernel(void)
-> +{
-> +	return perfmon_capable() ? 0 : -EACCES;
-> +}
-> +static inline int perf_allow_cpu(void)
-> +{
-> +	return perfmon_capable() ? 0 : -EACCES;
-> +}
-> +static inline int perf_allow_tracepoint(void)
-> +{
-> +	return perfmon_capable() ? 0 : -EPERM;
-> +}
-> +
->  #endif /* !CONFIG_PERF_EVENTS */
->
->  #if defined(CONFIG_PERF_EVENTS) && defined(CONFIG_CPU_SUP_INTEL)
-> diff --git a/kernel/events/core.c b/kernel/events/core.c
-> index 7935d5663944..cb13f3ad11a3 100644
-> --- a/kernel/events/core.c
-> +++ b/kernel/events/core.c
-> @@ -14731,6 +14731,24 @@ int perf_allow_kernel(void)
->  }
->  EXPORT_SYMBOL_GPL(perf_allow_kernel);
->
-> +int perf_allow_cpu(void)
-> +{
-> +	if (sysctl_perf_event_paranoid > 0 && !perfmon_capable())
-> +		return -EACCES;
-> +
-> +	return security_perf_event_open(PERF_SECURITY_CPU);
-> +}
-> +EXPORT_SYMBOL_GPL(perf_allow_cpu);
-> +
-> +int perf_allow_tracepoint(void)
-> +{
-> +	if (sysctl_perf_event_paranoid > -1 && !perfmon_capable())
-> +		return -EPERM;
-> +
-> +	return security_perf_event_open(PERF_SECURITY_TRACEPOINT);
-> +}
-> +EXPORT_SYMBOL_GPL(perf_allow_tracepoint);
-> +
->  /*
->   * Inherit an event from parent task to child task.
->   *
-> --
-> 2.54.0
->
+Thanks.
+--
+Ashutosh
