@@ -4,60 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39C59CD4F54
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 16:30:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26AEACD5BD0
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 16:31:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8316210E26B;
-	Wed, 27 May 2026 16:30:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BFE610E262;
+	Wed, 27 May 2026 16:31:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="TydIpMij";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HgTHkkXs";
 	dkim-atps=neutral
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0A7A10E262;
- Wed, 27 May 2026 16:30:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=hjubwyUGpvii4yHrQN7iWzf9058y+MhOuurWOoQQtoU=; b=TydIpMijDe4+FJpLkzynelnYRK
- VNJ9izAdgq8fYnktpyOTgB5E00ytSNQsFYRHl6ioo0y7Qq5hm6Bn5Hg+efQ1/kFjAbo0ZWgjaX84M
- rBbH7+2d61R/Y29S52qfADU1wPPtB49DsId57QDyAlYpWMFbnGD4eMKm5smUIKk8MtQuNLdA49L3D
- zqE3Iv60SGRCONJE31I1YpvUzgUZnJAHcDaUhrFmwwtvPsawIbBhbTrN4V5PCkPMATC9KK6vkIVTZ
- jpW06LeZImeIzGbDYH/hUJts4UPFAHj3qbFO8pqQJWz31/B9ktN7JQS8n5Ly0QMnTZFCH9sap5K8v
- odAAJHFg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252]
- helo=noisy.programming.kicks-ass.net)
- by desiato.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wSH94-0000000EUWv-2M56; Wed, 27 May 2026 16:30:15 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
- id 6249E300673; Wed, 27 May 2026 18:30:14 +0200 (CEST)
-Date: Wed, 27 May 2026 18:30:14 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>,
- John Hubbard <jhubbard@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- James Clark <james.clark@linaro.org>,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-perf-users@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 0/2] complete perf_allow_* trio and use in drm/xe
-Message-ID: <20260527163014.GI3102624@noisy.programming.kicks-ass.net>
-References: <20260523013326.129491-1-jhubbard@nvidia.com>
- <20260523084056.GE3102624@noisy.programming.kicks-ass.net>
- <8871a158-7a68-4247-a09f-bb3d970d6dc2@nvidia.com>
- <87ecixv82m.wl-ashutosh.dixit@intel.com>
- <ahcQ9Ns5mjsnrbEa@intel.com>
+Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com
+ [74.125.224.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B29E10E7F9
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 16:31:33 +0000 (UTC)
+Received: by mail-yx1-f54.google.com with SMTP id
+ 956f58d0204a3-65eb226b1ceso6276811d50.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 27 May 2026 09:31:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779899492; cv=none;
+ d=google.com; s=arc-20240605;
+ b=QpOZpVZnFR2vKscvj1ijvg5K2J7Z/NPj3YejmFwBRdIU0wff172VPyN86DClnhqm5g
+ u0dBW2tZ2Rt33o5/KNQdxseC59nWGcEp52FhQmfFq1wE83ISu38Vq/vptyIOxa23gXyp
+ 1rHOlcqC2InFzBqLxtzTQEbiI289Gaj3d6VEbh4HO9cLXWIDoIXB1eWNFds44RxHMJCD
+ F+q4GaqNceV4He04ypt7DZEeHNwtRBpJ4n6s3eis49RX7pFZK/1o2CorfsRFwUD9e0s9
+ JzTvFnt24Njhit3C9Wypz1O2ofB88tJTLe8UYa92oQW7MWaUz8UYu6MvjQkL396dhLmW
+ J8rQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=9tLf8lt1YoAuBidXkoX7o9PfBwuIjJNOIKz1xekd6O8=;
+ fh=FLJoI97oVfukxeyLfZTn0UF4ncIO5JC6GcpWzwjd0RA=;
+ b=f775zTQbm4tCcQIiUsmMinKMfr/RSoi618v/7eEzxpzJ6ia2k/xL79bQXkRqCyDzbc
+ 6r0mk/INo7rbLzGWZUsR8jdeJr09EhqINa98h6fzu8vY831LB9XuW1xyEBggh1SuA0Pp
+ U3jOFNIaXaqamcZWVIflA1UZZwN24kC0PbGahsJWBAkzuNEtQpv7CgaUiM1i6tZGOK1p
+ Op9FLLwVealvwrdmtRo+eM19qb2d6Rc+Ul/pPeFFNR21aYm1gKfoXy+m0+bUldwS09IG
+ BvMmeS6TTx/ElRz6rc9pvmIoUVQgkOju3ZfcMcTx0XdHUlyFKyzwUAVlWRAVbdpemXXg
+ 63IQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779899492; x=1780504292; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9tLf8lt1YoAuBidXkoX7o9PfBwuIjJNOIKz1xekd6O8=;
+ b=HgTHkkXs1YFtJgdmjxxPR2z72ubtM+as7l37XQ2VN55lTUEkJBMJuywBSlctIswxlm
+ xp9wFZBdUgyGKMJ3Gs6/oqMhwLInDsfdetp9FwQDtZ24W3a7vbWGMKpr4v1/rWox6Dga
+ uE9dcomPb9JFzqpg/Ekg7wSiIR+BDs+2GF4QDa1OHTWW6WiFu7val09x5Mh08K/FcQV8
+ 7wrUP0yB0tWZ0rrWCXot6Ptv5XrPLeeLxnw8E3jyLPJDt1ekPcJpxMxQPcHYPKZVJ1rw
+ jtbS+mQ89/DtWqyLhyWUnXe17bwJue4IWx+M+2HI1XqMb7B5WB6GoZseJmq8YJ6QHYWm
+ WnUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779899492; x=1780504292;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=9tLf8lt1YoAuBidXkoX7o9PfBwuIjJNOIKz1xekd6O8=;
+ b=TgMNLTJoeSa7PX+8vJDA0BP/AP/6uSYtkSRYkhwvTE9zzFOEJE3PLFNA30/bXdu9nx
+ l4ssXBvEpec0WDX86le6puqLT0+eNaDNVAnczYIBnHVioj2E05eMK3GzfkrqImbBeO9w
+ tYipHELzdj2MRBt2xacpICCNAH4A0KVbvOhFsEj0M+zR5oIIBqoPCC4vpMiVnKEJ2cFw
+ czXFdgAvYRv0p/rkhTFwZD0gszFnxLQ2EljZzESbJ1qw3sNAAp23JkmD3ciYvzy09FMx
+ vEOJcgfyfgyRpk7DcFS7DsqUImAqraUiiWsgTtUnkPKg4QR5230niFuPrY4EO9xAot11
+ VMUg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+y0qzhUjP9kIOSj4yewlarEY8PmfzpDCJYb7ThwNxoSZtQG76KSAIZ3EihSaArlRtUtE8TQSxdW7s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx1c667h0Q64m5XfqYy6aQUJK1VllUswX9n7UDy/st77uTMZfoF
+ sJ7ucYBDM4mFxcjmlPEcNADZl+Kvu1ducgUi94B+GIAjdmHBFScDhG1bvv8H/K+0YkMo0gSZagK
+ wZXmPxhH+2DOVFWu6J+1NP5+QmtWLX/M=
+X-Gm-Gg: Acq92OG0gHA89D3FKfxzH2MPLt4Sswhw9qacNKF6RsTMaBlX489ltgrzsoW+t3ixGD4
+ Rh8OhXZ0IbFf/FMJ6d3uOFZT1i4GkfQ1TTmaVIDS8YipdYVVliGOrdO8zoUm+70Uu1OKM/70Q+f
+ L6OdQj2U32pKD0tBGp9O4sElc+BS3C/phcgNT3yvZHgW6ur5xnKKjiIQd055L0oHgsjRFExG+2y
+ B+cMGf/u08pCpS5ssQaAyE1a/tjraQ6KpM8PeL0z/RD4ABv4A03GXlGWBBM49FElbJJCqew/3CQ
+ S7F+PHwO4DcUxAYINY9PS2pJKSTQHILw6GCkb5qvQYi6qvmQ03m01W+/boaCari47n8fQ4Gq
+X-Received: by 2002:a05:690e:158f:10b0:65e:14b6:b1c3 with SMTP id
+ 956f58d0204a3-65ec965c9f8mr17896814d50.16.1779899491716; Wed, 27 May 2026
+ 09:31:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ahcQ9Ns5mjsnrbEa@intel.com>
+References: <20260527133917.207150-1-tzimmermann@suse.de>
+In-Reply-To: <20260527133917.207150-1-tzimmermann@suse.de>
+From: Julian Orth <ju.orth@gmail.com>
+Date: Wed, 27 May 2026 18:31:22 +0200
+X-Gm-Features: AVHnY4LiGKeklklqrya8rDzPqcZQqpOuXv9liIo0k9FzrL8MbPYNMzvo_QUUG_E
+Message-ID: <CAHijbEVZBRTK7yhZy8gaZwb19JMzUD_nA2S1LOKX2NrK19RBsQ@mail.gmail.com>
+Subject: Re: [PATCH v2 0/9] drm: Limit DRM_IOCTL_WAIT_VBLANK to vblank
+ interrupts
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: simona@ffwll.ch, airlied@gmail.com, mdaenzer@redhat.com, 
+ pekka.paalanen@collabora.com, jadahl@gmail.com, contact@emersion.fr, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, mhklinux@outlook.com, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org, 
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,37 +110,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, May 27, 2026 at 11:42:44AM -0400, Rodrigo Vivi wrote:
-> On Tue, May 26, 2026 at 08:34:57PM -0700, Dixit, Ashutosh wrote:
-> > On Sat, 23 May 2026 10:52:16 -0700, John Hubbard wrote:
-> > >
-> > > On 5/23/26 1:40 AM, Peter Zijlstra wrote:
-> > > > On Fri, May 22, 2026 at 06:33:24PM -0700, John Hubbard wrote:
-> > > ...
-> > > >>    perf/core: out-of-line and export perf_allow_cpu/tracepoint()
-> > > >>    drm/xe: gate observation streams with perf_allow_cpu()
-> > > >>
-> > > >>   drivers/gpu/drm/xe/xe_eu_stall.c    |  5 +++--
-> > > >>   drivers/gpu/drm/xe/xe_oa.c          | 25 +++++++++++++---------
-> > > >>   drivers/gpu/drm/xe/xe_observation.c | 32 ++++++++++++++++++++++++-----
-> > > >>   drivers/gpu/drm/xe/xe_observation.h |  3 +--
-> > > >>   include/linux/perf_event.h          | 31 ++++++++++++++--------------
-> > > >>   kernel/events/core.c                | 18 ++++++++++++++++
-> > > >>   6 files changed, 79 insertions(+), 35 deletions(-)
-> > > >
-> > > > Sure, works for me. How do you want to route these things, Xe tree or
-> > > > -tip?
-> > >
-> > > Hi Peter,
-> > >
-> > > Maybe -tip, but really, either way is perfectly OK with me.
-> > 
-> > I've R-b'd both the patches. If you want to merge via Xe tree, let me know
-> > and we can get them merged.
-> 
-> To get them through drm-xe trees we need ack from performance events subsystem
-> maintainers.
-> 
-> Peter, Ilgo, anyone, ack here?
+On Wed, May 27, 2026 at 3:39=E2=80=AFPM Thomas Zimmermann <tzimmermann@suse=
+.de> wrote:
+>
+> DRM's WAIT_VBLANK ioctl synchronizes user-space clients to display
+> refresh. This is meaningless with vblank timers, which run unrelated
+> to the hardware's vblank.
+>
+> Disable the ioctl for simulated vblanks. Set DRM_VBLANK_FLAG_SIMULATED
+> for CRTCs with simulated vblank events in all such drivers. The vblank
+> timers of these devices still rate-limit the number of page-flip events
+> to match the display refresh.
+>
+> According to maintainers, user-space compositors do not require the ioctl
+> for rate-limitting display output. Weston, Kwin and Mutter rely on comple=
+tion
+> events. Mutter optionally uses the WAIT_VBLANK ioctl only to optimize the
+> time from input to output.
+>
+> When testing with mutter and weston, the page-flip rate appears correct
+> with the patch set applied.
 
-Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+To avoid this being a regression, you need to test that this change
+does not regress input latency.
+
+As discussed on IRC, compositors use vblank data to predict the time
+of the next flip event. For each device that you are touching here,
+there are two possibilities:
+
+- The vblank data is related to the flip timing, i.e. flip events and
+vblank events are sent at almost the same time. In this case removing
+these apis removes the path for compositors to predict the time of the
+next flip event. Input latency will therefore regress after idle
+periods when the compositor no longer has the time of the last vblank.
+
+- The vblank data has nothing to do with the time of the next flip
+event. In this case this series could in fact improve latency because
+it removes the incorrect data from the compositor.
+
+Whether the times of the flip events correspond to hardware timings is
+not relevant. Everything in wayland compositors is scheduled against
+flip event timings and they are also forwarded to clients for their
+frame scheduling. If the flip timings are wrong/out of sync with the
+hardware, then removing the vblank apis does not improve this
+situation.
+
+>
+> This change has been discussed at length on IRC recently.
+>
+> https://people.freedesktop.org/~cbrill/dri-log/?channel=3Ddri-devel&highl=
+ight_names=3D&date=3D2026-05-08&show_html=3Dtrue
+> https://people.freedesktop.org/~cbrill/dri-log/?channel=3Ddri-devel&highl=
+ight_names=3D&date=3D2026-05-12&show_html=3Dtrue
+> https://people.freedesktop.org/~cbrill/dri-log/?channel=3Ddri-devel&highl=
+ight_names=3D&date=3D2026-05-13&show_html=3Dtrue
+> https://people.freedesktop.org/~cbrill/dri-log/?channel=3Ddri-devel&highl=
+ight_names=3D&date=3D2026-05-15&show_html=3Dtrue
+>
+> v2:
+> - add filter to CRTC_GET_SEQUENCE and CRTC_QUEUE_SEQUENCE ioctls (Michel)
+> - clarify Mutter's behavior in cover letter (Michel)
+>
+> Thomas Zimmermann (9):
+>   drm/vblank: Add drmm_vblank_init() to indicate managed cleanup
+>   drm/vblank: Add DRM_VBLANK_FLAG_SIMULATED
+>   drm/amdgpu: vkms: Set DRM_VBLANK_FLAG_SIMULATED
+>   drm/bochs: Set DRM_VBLANK_FLAG_SIMULATED
+>   drm/cirrus: Set DRM_VBLANK_FLAG_SIMULATED
+>   drm/hypervdrm: Set DRM_VBLANK_FLAG_SIMULATED
+>   drm/qxl: Set DRM_VBLANK_FLAG_SIMULATED
+>   drm/virtgpu: Set DRM_VBLANK_FLAG_SIMULATED
+>   drm/vkms: Set DRM_VBLANK_FLAG_SIMULATED
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c    |  3 ++-
+>  drivers/gpu/drm/drm_vblank.c                | 26 +++++++++++++++------
+>  drivers/gpu/drm/drm_vblank_helper.c         |  2 +-
+>  drivers/gpu/drm/hyperv/hyperv_drm_modeset.c |  2 +-
+>  drivers/gpu/drm/qxl/qxl_display.c           |  2 +-
+>  drivers/gpu/drm/tiny/bochs.c                |  2 +-
+>  drivers/gpu/drm/tiny/cirrus-qemu.c          |  2 +-
+>  drivers/gpu/drm/virtio/virtgpu_display.c    |  2 +-
+>  drivers/gpu/drm/vkms/vkms_drv.c             |  4 ++--
+>  include/drm/drm_crtc.h                      |  2 +-
+>  include/drm/drm_device.h                    |  2 +-
+>  include/drm/drm_vblank.h                    | 15 +++++++++++-
+>  12 files changed, 45 insertions(+), 19 deletions(-)
+>
+>
+> base-commit: 5fb5a9a63cf5ece68e0eeb6fa397da27712bccf0
+> --
+> 2.54.0
+>
