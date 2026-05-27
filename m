@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86F23CD6E44
-	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 11:12:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6750ACD6E47
+	for <dri-devel@archiver.kernel.org>; Wed, 27 May 2026 11:12:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5683410E788;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 763C910E789;
 	Wed, 27 May 2026 11:12:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YVopIMsG";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="S1MP0JVA";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C57E010E797;
- Wed, 27 May 2026 11:12:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97E3310E152;
+ Wed, 27 May 2026 11:12:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779880362; x=1811416362;
+ t=1779880357; x=1811416357;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=vph3jYbS0cPJdMv10zC/QftVU7qYBM+QZUH1+jDjhEo=;
- b=YVopIMsG6JBUV4PC3xgNEhIbjfbpPVe+GcDYqOvWE/7TXKvwrOwgCRVb
- KACEr0KF2kULsxjnmuDrrnJw4ZCDzt22i738wAmy1rdVA8IqiIDm2ihTL
- pe0s2HBL5wQTTag/ZGlwNeJK4WkIeMxmJYMdMWaGHATtxIq3XHsdY5wXc
- j77s1TGZA/UKLnYqOzd2qB8Pc35e3rtRKbHeAh7gU0rSf/esuOKVoXYfz
- vGHorQ8svYY3n1uDSlbyw6O7WWHkDBJAOQcQiGU87UeLZzPaYvrIxfQwr
- MMlBESbosZIoDCbMxdKmYjRZe41ri6HwVqDQfjMynsacTmGxT0pAIjJ0o Q==;
-X-CSE-ConnectionGUID: yAkfaEQlT3GZxio/2TIuiQ==
-X-CSE-MsgGUID: 6OUoxFdkSlySwkOxFEal6A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11798"; a="80818518"
-X-IronPort-AV: E=Sophos;i="6.24,171,1774335600"; d="scan'208";a="80818518"
+ bh=bOK3L4pPhyRkYKfjEqE6s4PnKovf4DdzHS9FwpkDgwY=;
+ b=S1MP0JVAExpLZIqUXCPD8k8GETb5HMPiWAJWtc5M6RLRUb0lBDOMuFfD
+ detLujg3b2S80838ncQIc+cW52muN9dl4WISOXRUBJooo6T/ZEWdDl1jS
+ TuIZxMZb2oU5aE9Xy0rvEQYrO911bRNX+nup03Y3KIVTSXScpwrKTNIkW
+ xjUHltl63lPJCznqbLwzDW9F8V6AmY7cLvkOYRJEqwkuri/GcVBBHNlnc
+ MFTLbmpYfPx1bxQXAnSO+DgF5IiGui6+TrPx5rN7LFdcYrBlU6woRaBMt
+ gkW0mm996yeCBjNXtvesmIFYdyObLA7njP78URNeTk9Kn9VptoEk1KKiS w==;
+X-CSE-ConnectionGUID: ehQ2t/ugRlGSCQ2Es6gblw==
+X-CSE-MsgGUID: pPW8w/pUTDegIi6Ij3MV2A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11798"; a="80818510"
+X-IronPort-AV: E=Sophos;i="6.24,171,1774335600"; d="scan'208";a="80818510"
 Received: from fmviesa002.fm.intel.com ([10.60.135.142])
  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2026 04:12:42 -0700
-X-CSE-ConnectionGUID: VCk+ghP3QpWfpVvprcHFPA==
-X-CSE-MsgGUID: T5yhg2r6Rc2xSHQoYmExXQ==
+ 27 May 2026 04:12:37 -0700
+X-CSE-ConnectionGUID: +kE7aS5kRrSAHnDmXpjvNA==
+X-CSE-MsgGUID: znYCrxhvR0yESLDd9qp1lA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,171,1774335600"; d="scan'208";a="265803200"
+X-IronPort-AV: E=Sophos;i="6.24,171,1774335600"; d="scan'208";a="265803147"
 Received: from nemesa.iind.intel.com ([10.190.239.22])
- by fmviesa002.fm.intel.com with ESMTP; 27 May 2026 04:12:40 -0700
+ by fmviesa002.fm.intel.com with ESMTP; 27 May 2026 04:12:35 -0700
 From: Nemesa Garg <nemesa.garg@intel.com>
 To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org
 Cc: Nemesa Garg <nemesa.garg@intel.com>,
  Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 4/4] drm/i915/dp: Decode dsc max delta bpp from sink dpcd
-Date: Wed, 27 May 2026 16:38:49 +0530
-Message-Id: <20260527110849.3943338-5-nemesa.garg@intel.com>
+Subject: [PATCH 1/4] drm/dp: Add DP_DSC_MAX_BPP_DELTA register
+Date: Wed, 27 May 2026 16:38:46 +0530
+Message-Id: <20260527110849.3943338-2-nemesa.garg@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260527110849.3943338-1-nemesa.garg@intel.com>
 References: <20260527110849.3943338-1-nemesa.garg@intel.com>
@@ -68,89 +68,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add intel_dp_dsc_max_delta_bppx16() to parse sink dsc max
-delta bpp from dpcd when DP_DSC_MAX_BPP_DELTA_AVAILABILITY
-is set. This helper decodes the delta range for both RGB/YCbCr444
-and YCbCr420 formats from DP_DSC_MAX_BPP_DELTA.
+The dsc max bpp delta masks were incorrectly placed
+under the DP_DSC_BITS_PER_PIXEL_INC(0x06F) register.
+Move these under correct DP_DSC_MAX_BPP_DELTA(0x06E)
+register.
 
-With this addition, the flow becomes:
-1. First, check for a format-specific range and use it to calculate
-max compressed bpp.
-2. If not, check for sink supported max compressed bpp and
-use that
-3. If this is also not there go with mandatory
-max range supported bpp.
-
-v2: Reorder the check flow for max_bpp. [Ankit]
-v3: Put RGB and YCbCr444 mask assignment in the same line. [Ankit]
+v2: Separate patch for correcting register. [Ankit]
 
 Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
 Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 41 +++++++++++++++++++++++--
- 1 file changed, 39 insertions(+), 2 deletions(-)
+ include/drm/display/drm_dp.h | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 3f9123a53244..3b18cb4a64af 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2203,17 +2203,54 @@ static int dsc_compute_link_config(struct intel_dp *intel_dp,
- 	return -EINVAL;
- }
+diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
+index 829e4d98d61c..e65aafcccf99 100644
+--- a/include/drm/display/drm_dp.h
++++ b/include/drm/display/drm_dp.h
+@@ -354,9 +354,11 @@
+ # define DP_DSC_20_PER_DP_DSC_SINK          (1 << 1)
+ # define DP_DSC_24_PER_DP_DSC_SINK          (1 << 2)
  
-+static u16 intel_dp_dsc_max_delta_bppx16(const struct intel_connector *connector,
-+					 enum intel_output_format output_format)
-+{
-+	const u8 *dsc_dpcd = connector->dp.dsc_dpcd;
-+	u8 max_bpp_delta_v1 = dsc_dpcd[DP_DSC_MAX_BPP_DELTA_VERSION_1 - DP_DSC_SUPPORT];
-+	int max_bpp;
+-#define DP_DSC_BITS_PER_PIXEL_INC           0x06F
++#define DP_DSC_MAX_BPP_DELTA		    0x06E
+ # define DP_DSC_RGB_YCbCr444_MAX_BPP_DELTA_MASK 0x1f
+ # define DP_DSC_RGB_YCbCr420_MAX_BPP_DELTA_MASK 0xe0
 +
-+	if (!(dsc_dpcd[DP_DSC_MAX_BITS_PER_PIXEL_HI - DP_DSC_SUPPORT] &
-+	    DP_DSC_MAX_BPP_DELTA_AVAILABILITY))
-+		return 0;
-+
-+	switch (output_format) {
-+	case INTEL_OUTPUT_FORMAT_RGB:
-+	case INTEL_OUTPUT_FORMAT_YCBCR444:
-+		max_bpp =  max_bpp_delta_v1 & DP_DSC_RGB_YCbCr444_MAX_BPP_DELTA_MASK;
-+		if (max_bpp >= 1 && max_bpp <= 21)
-+			max_bpp =  max_bpp + DP_DSC_BPP_DELTA_444 - 1;
-+		break;
-+	case INTEL_OUTPUT_FORMAT_YCBCR420:
-+		max_bpp = (max_bpp_delta_v1 & DP_DSC_NATIVE_YCbCr420_MAX_BPP_DELTA_MASK) >>
-+			  DP_DSC_BPP_DELTA_SHIFT_420;
-+		if (max_bpp >= 1 && max_bpp <= 7)
-+			max_bpp = max_bpp + DP_DSC_BPP_DELTA_420 - 1;
-+		break;
-+	default:
-+		MISSING_CASE(output_format);
-+		return 0;
-+	}
-+
-+	return max_bpp << 4;
-+}
-+
- static
- u16 intel_dp_dsc_max_sink_compressed_bppx16(const struct intel_connector *connector,
- 					    enum intel_output_format output_format,
- 					    int bpc)
- {
--	u16 max_bppx16 = drm_edp_dsc_sink_output_bpp(connector->dp.dsc_dpcd);
-+	u16 max_bppx16 = intel_dp_dsc_max_delta_bppx16(connector, output_format);
-+
-+	if (max_bppx16)
-+		return max_bppx16;
-+
-+	max_bppx16 = drm_edp_dsc_sink_output_bpp(connector->dp.dsc_dpcd);
- 
- 	if (max_bppx16)
- 		return max_bppx16;
- 	/*
--	 * If support not given in DPCD 67h, 68h use the Maximum Allowed bit rate
-+	 * If support not given in DPCD 67h, 68h, 6Eh, 6Fh use the Maximum Allowed bit rate
- 	 * values as given in spec Table 2-157 DP v2.0
- 	 */
- 	switch (output_format) {
++#define DP_DSC_BITS_PER_PIXEL_INC           0x06F
+ # define DP_DSC_BITS_PER_PIXEL_1_16         0x0
+ # define DP_DSC_BITS_PER_PIXEL_1_8          0x1
+ # define DP_DSC_BITS_PER_PIXEL_1_4          0x2
 -- 
 2.25.1
 
