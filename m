@@ -4,131 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6DB5CD6E44
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 15:28:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAD30CD5BD5
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 15:37:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EC4510F3A2;
-	Thu, 28 May 2026 15:28:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED18610F365;
+	Thu, 28 May 2026 15:37:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="l4JSNao4";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MZW3M7oF";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Gv+tohvh";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7434610F3A0
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 15:28:31 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64S8vQaC1562684
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 15:28:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=DEfw1QU1zLzoap1tp5Jhi4Me
- cLeOegImq4Fgt6OMM+g=; b=l4JSNao4lUbVUP+dYFt7BkWVNPvKuZXtpfl1H1NT
- pgelLvw/FUdvH00tLdnbhSvT2BF8K4jyXn0rVhv/RUYdj2NWUHi1cftmyKsrkDq8
- JkjAJXI8VyYfqKjApuZ/KcFfg0oZPBhf7GJUq35iIsAV7O3xWE6+tJbuYSUmnJjO
- jrnmQPnYT8Hw0Ysaw7vrUEZ3MKWQq6npueW/qLjZYR4+4G4kTRD6806Q/de2f/0e
- inxOCcVHJHUgg+7Ub6TKSnAOKQ8q//wGu46ncq3yCMPUpS9PRwYArg1wpZb9WWLL
- H0NQv5+yIl4Ep75djIG0vgrc+Jm5OQ2V8pXYS/+coWrIXg==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com
- [209.85.217.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ee7y2uc13-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 15:28:31 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id
- ada2fe7eead31-6314daf0053so5098134137.0
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 08:28:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779982110; x=1780586910;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=DEfw1QU1zLzoap1tp5Jhi4MecLeOegImq4Fgt6OMM+g=;
- b=MZW3M7oFNZ0zFOe6owK9yzxWKyOkIFEZNFi7x8y/mHbjso5W5GGYiohaCT4V2TxmuA
- Rxij/gw+LQjpLPLeMg9GDpzIpx74ljXw0ACQS2kvOCX/QziiasgvuveINwIqZXpYBk9Q
- LDP84P3OzXFOXSIfJgQGRb+PlsXlKjuCx2Uph+RBgzXLMzoqgW+2id8k8Bb4rMoZXCNj
- USSvsB6xvlXvC2GwcQ0BB0e+Q3MTOmEdTCF7wnXS7mZxurD1DlFHCowI9KxbTHWFo/uU
- Qdy2v6H0hMxxr9cGqyP/RuKPfispxXvq4TMvPGZkXSqdAhg9J/xW3s47LhgWX45awvCu
- DoYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779982110; x=1780586910;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=DEfw1QU1zLzoap1tp5Jhi4MecLeOegImq4Fgt6OMM+g=;
- b=d2BIlkc+M+9fvNLHAjXB1mnPCI1vcB033WAS0bryQi9svl2WI1WnRFM5X5rDHkJESJ
- fW0HXg4ZlOb8pQi2wl6N9UFW2r7rgjFwztVMGny2657LJC6E27j8RSLsAWa18zN3AZwV
- YTaXzC6+orohUv/NM1EkZdbrXuNYi93Sx1D+QAPgG4uWNkDBDKikqJrjXUgvSVhnkUET
- 7eNpKRUDq2SgJnyHmIkHM9CWtYxKTBgQNPGRs8lVf1xRHM2r52M8PCsdn++Tu0m6pbBd
- yTC2ZyrOYJqn9a03JE5xKC0YdAuZn4Pd/FwBocOkc/LTSUf/BWrcsSl2E8Hp1L7Aexaz
- 4g5A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/aKTJsUd9TOiexq5+/3aZ/IdFkAB5O7SDSclnjdfb1B8VYnb8gRpv4+dYFHQyXLeokp50p1oO/CKE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxeOS3Vna82kWae+TXyUuZhmpPMYzuRywgaey6pgnurFrMHAkQG
- vn29C1VzfPB3sAf/QKcazao5+QEEmth3/ejV6rvkGZdJ2LBe3AQPCrtJu0TRz2HELfV9WU1+Grz
- W3f2H2+mWYyclYZLbzllwUk23AFL0Gwgw+II2JfjHx+tosg4NJ0toMkvfhGdZBP0CzmoQg4s=
-X-Gm-Gg: Acq92OH9aOd0YjhyoWFkNdGcXtdux/pqjmVEcfJOAP09tiN6mToIMA/FSl6+O/SGwsr
- HGuSKKqku3sd/wpMMfL2GBQI41KJcQ8wG0A1R2i4ISefjbeLw13K8wk973zMCY3G8b1Gyfk3Q1f
- RA9+z0M5Xfuc0nDyc+UI83+fqOxI5WwjTFLp6k3GMsqCmS19YLJoM8Ql/e5Bj0LsZ36N/MarmoY
- M5D3iRgVM7wpavRuyDbF4TVJyChoPW060rTF3S9WDPIWpP8JDXH6DeoBcaTOPuC2Ssuvv3c/g5O
- /9Vf7+pnE6GiSTc4EdwNSuFXTrN456UTYtDDynnZfIOXTt6PInwHPNHkcT3Xbsf5kolj+eDuW+e
- dZVZtVH7thc1x7YKDPTUjEZA2GXA5RYRTZ73jPrVQl6f4tqooeoAbVI9rYYjyORVWo4lbkHYVmq
- mehViFH7Xy8rks14aKMmVLMVETeX+dC9KMdIxAE+7iUrfkkQ==
-X-Received: by 2002:a05:6102:5813:b0:632:c69c:fbea with SMTP id
- ada2fe7eead31-67c80d6682dmr11492414137.19.1779982110125; 
- Thu, 28 May 2026 08:28:30 -0700 (PDT)
-X-Received: by 2002:a05:6102:5813:b0:632:c69c:fbea with SMTP id
- ada2fe7eead31-67c80d6682dmr11492394137.19.1779982109692; 
- Thu, 28 May 2026 08:28:29 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5aa4aaa8f1esm1359828e87.26.2026.05.28.08.28.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 May 2026 08:28:28 -0700 (PDT)
-Date: Thu, 28 May 2026 18:28:26 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3783010F365
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 15:37:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779982643; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=UmekvXYN7RRSnHTCLJ9nmNGs86iZ9e9cQ/O+BAx9wNHc7Rf2nDJ1pbe+O+WB7u4hfl8CrX1IcE7UhWWdqTV2PvlYIX+fVS4VqW2wa++vgK9bgyVwTECevZ0liE7xYX8bfXvuXYYM/fXbM98eXNxP+oA4Ifc9518B9Vvv86haNhY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1779982643;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=hx6IngChPzu8wVFfFvPOU9rvJKQ/Ut7ytcKKn5x2rGo=; 
+ b=Yztq4r7PXpI/bsIIkuyyunCgThBDvC8hO44keh1DfewMNqOrW9KJ/qcikqsRMTUjXnv4vy6JSdcOTUfqjE6eiPxM+zOLkq4njm2IGn0WIpmUjSIFnzMMz3pOhVgaDqUYOMk1mFsPb7NgiscAh1rT01aqadQEENOeecYntiuoLEo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779982643; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=hx6IngChPzu8wVFfFvPOU9rvJKQ/Ut7ytcKKn5x2rGo=;
+ b=Gv+tohvhN+Q91PScXFZSx7Yqg3dd2TPLxKiFsIK9A7Qx4du0tJ3PLa19oqdrMlG/
+ J8zxhIsPW3tBY5qn1bHUw5Iot5mzRvPkRA3IR4fnluUtb+DvGo6Z/SJdcHgtH3hrQWK
+ LtrRp0QQyYArHz1vZJNxzlzeTk13hX0E1izuf6BM=
+Received: by mx.zohomail.com with SMTPS id 1779982641704569.2331869375547;
+ Thu, 28 May 2026 08:37:21 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Peter Chen <hzpeterchen@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Yubing Zhang <yubing.zhang@rock-chips.com>,
+ Frank Wang <frank.wang@rock-chips.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 15/15] drm/msm/dp: pass panel to display
- enable/disable helpers
-Message-ID: <y324daiszlubxda7u3sob424qkm2ggtcijymk722gktnxk4jzz@qysobwgu7523>
-References: <20260528-dp_mstclean-v5-0-a9221c1f1f3b@oss.qualcomm.com>
- <20260528-dp_mstclean-v5-15-a9221c1f1f3b@oss.qualcomm.com>
+ Amit Sunil Dhamne <amitsd@google.com>, Dragan Simic <dsimic@manjaro.org>,
+ Johan Jonker <jbx6244@gmail.com>, Diederik de Haas <didi.debian@cknow.org>,
+ Peter Robinson <pbrobinson@gmail.com>, Hugh Cole-Baker <sigmaris@gmail.com>,
+ dri-devel@lists.freedesktop.org, Chaoyi Chen <kernel@airkyi.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Subject: Re: [PATCH v15 1/9] drm/bridge: Implement generic USB Type-C DP HPD
+ bridge
+Date: Thu, 28 May 2026 17:37:10 +0200
+Message-ID: <q6ufdWF5QJ60i9KlIiE_AA@collabora.com>
+In-Reply-To: <20260304094152.92-2-kernel@airkyi.com>
+References: <20260304094152.92-1-kernel@airkyi.com>
+ <20260304094152.92-2-kernel@airkyi.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260528-dp_mstclean-v5-15-a9221c1f1f3b@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=VeXH+lp9 c=1 sm=1 tr=0 ts=6a185f1f cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=1hnY2tqY8zy_tLQCQi4A:9 a=CjuIK1q_8ugA:10 a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDE1NiBTYWx0ZWRfXyS0T1ej72Ri7
- d8zBPNE4VwKXZE1ifVoVPdjQQr4Za8chwBh/Uz477jIicasJgS8Uu6O3DOlT+faYa28EsInxf3u
- 6Ttf6XT8YNpWTZ0jHJ8BO8NKONMVr4iN7E4Jy9RDUZpauzWmHoX572yduZI9r6P006c8atpnyM9
- 9pM2ZE5geat/HGGLe/W3S5DtPMgUSNFF9f8cV02BB+5WSXF6b5nmNxgWYLbaVmANZ6FmoA7KImK
- Qf8rdKJQ+l1rptQWda/wSk604uG0Aex0DhnhPFuHlk0XkGJm0xmtaBrmQuq5m0/RkBiaBYncB2x
- dyRjAm1Gdtqz3eQE9/7XzgL9llW7xp+WuDlR8rY9KhIETRevciaXHhdNZtpqqURYXntKDwapemQ
- eCCdcwfxOL9a/Jq7kILiY5n9fC2yxQ==
-X-Proofpoint-GUID: cWC92Q8rrkGLCdyvyDHcTcyqkn0yBYK2
-X-Proofpoint-ORIG-GUID: cWC92Q8rrkGLCdyvyDHcTcyqkn0yBYK2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-28_05,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 suspectscore=0 adultscore=0 phishscore=0
- lowpriorityscore=0 malwarescore=0 classifier=typeunknown authscore=0 authtc=
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.22.0-2605210000 definitions=main-2605280156
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,19 +89,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, May 28, 2026 at 06:40:36PM +0800, Yongxing Mou wrote:
-> Pass struct msm_dp_panel to the display enable/disable helpers to make
-> them easier to reuse for MST stream handling.
+On Wednesday, 4 March 2026 10:41:44 Central European Summer Time Chaoyi Chen wrote:
+> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 > 
-> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> The HPD function of Type-C DP is implemented through
+> drm_connector_oob_hotplug_event(). For embedded DP, it is required
+> that the DRM connector fwnode corresponds to the Type-C port fwnode.
+> 
+> To describe the relationship between the DP controller and the Type-C
+> port device, we usually using drm_bridge to build a bridge chain.
+> 
+> Now several USB-C controller drivers have already implemented the DP
+> HPD bridge function provided by aux-hpd-bridge.c, it will build a DP
+> HPD bridge on USB-C connector port device.
+> 
+> But this requires the USB-C controller driver to manually register the
+> HPD bridge. If the driver does not implement this feature, the bridge
+> will not be create.
+> 
+> So this patch implements a generic DP HPD bridge based on
+> aux-hpd-bridge.c. It will monitor Type-C bus events, and when a
+> Type-C port device containing the DP svid is registered, it will
+> create an HPD bridge for it without the need for the USB-C controller
+> driver to implement it.
+> 
+> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 > ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 18 ++++++++++--------
->  1 file changed, 10 insertions(+), 8 deletions(-)
+> 
+> (no changes since v14)
+> 
+> Changes in v13:
+> - Only register drm dp hpd bridge for typec port altmode device.
+> 
+> (no changes since v12)
+> 
+> Changes in v11:
+> - Switch to using typec bus notifiers.
+> 
+> (no changes since v10)
+> 
+> Changes in v9:
+> - Remove the exposed DRM_AUX_HPD_BRIDGE option, and select
+> DRM_AUX_HPD_TYPEC_BRIDGE when it is available.
+> - Add more commit comment about problem background.
+> 
+> Changes in v8:
+> - Merge generic DP HPD bridge into one module.
+> ---
+> 
+>  drivers/gpu/drm/bridge/Kconfig                | 10 ++++
+>  drivers/gpu/drm/bridge/Makefile               |  1 +
+>  .../gpu/drm/bridge/aux-hpd-typec-dp-bridge.c  | 49 +++++++++++++++++++
+>  3 files changed, 60 insertions(+)
+>  create mode 100644 drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
+> 
+> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+> index a250afd8d662..559487aa09a9 100644
+> --- a/drivers/gpu/drm/bridge/Kconfig
+> +++ b/drivers/gpu/drm/bridge/Kconfig
+> @@ -30,6 +30,16 @@ config DRM_AUX_HPD_BRIDGE
+>  	  Simple bridge that terminates the bridge chain and provides HPD
+>  	  support.
+>  
+> +if DRM_AUX_HPD_BRIDGE
+> +config DRM_AUX_HPD_TYPEC_BRIDGE
+> +	tristate
+> +	depends on TYPEC || !TYPEC
+> +	default TYPEC
+> +	help
+> +	  Simple bridge that terminates the bridge chain and provides HPD
+> +	  support. It build bridge on each USB-C connector device node.
+> +endif
+> +
+>  menu "Display Interface Bridges"
+>  	depends on DRM && DRM_BRIDGE
+>  
+> diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
+> index c7dc03182e59..a3a0393d2e72 100644
+> --- a/drivers/gpu/drm/bridge/Makefile
+> +++ b/drivers/gpu/drm/bridge/Makefile
+> @@ -1,6 +1,7 @@
+>  # SPDX-License-Identifier: GPL-2.0
+>  obj-$(CONFIG_DRM_AUX_BRIDGE) += aux-bridge.o
+>  obj-$(CONFIG_DRM_AUX_HPD_BRIDGE) += aux-hpd-bridge.o
+> +obj-$(CONFIG_DRM_AUX_HPD_TYPEC_BRIDGE) += aux-hpd-typec-dp-bridge.o
+>  obj-$(CONFIG_DRM_CHIPONE_ICN6211) += chipone-icn6211.o
+>  obj-$(CONFIG_DRM_CHRONTEL_CH7033) += chrontel-ch7033.o
+>  obj-$(CONFIG_DRM_CROS_EC_ANX7688) += cros-ec-anx7688.o
+> diff --git a/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c b/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
+> new file mode 100644
+> index 000000000000..d915e0fb0668
+> --- /dev/null
+> +++ b/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
+> @@ -0,0 +1,49 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+
+Having a copyright statement added here is likely required.
+Something like
+
+/*
+ * Copyright (C) 2026 Rockchip Electronics Co., Ltd.
+ *
+ * Author: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+ */
+
+will suffice. While I hope it's never relevant for a driver this
+small, explicit copyright statements in this form have a legal
+effect in some jurisdictions like the US, where by law it
+automatically dismisses the defense that the copyright holder
+wasn't known.
+
+> +#include <linux/of.h>
+> +#include <linux/usb/typec_altmode.h>
+> +#include <linux/usb/typec_dp.h>
+> +
+> +#include <drm/bridge/aux-bridge.h>
+> +
+> +static int drm_typec_bus_event(struct notifier_block *nb,
+> +			       unsigned long action, void *data)
+> +{
+> +	struct device *dev = (struct device *)data;
+
+Small nitpick: The explicit (struct device *) cast of data isn't
+needed here. Just
+
+    struct device *dev = data;
+
+will work fine. The benefit is that if the type of "data" ever changes
+(e.g. from void *data to const void *data) then we're not silencing
+a warning/error through an explicit cast.
+
+> +	struct typec_altmode *alt = to_typec_altmode(dev);
+> +
+> +	if (action != BUS_NOTIFY_ADD_DEVICE)
+> +		goto done;
+> +
+> +	/*
+> +	 * alt->dev.parent->parent : USB-C controller device
+> +	 * alt->dev.parent         : USB-C connector device
+> +	 */
+> +	if (is_typec_port_altmode(&alt->dev) && alt->svid == USB_TYPEC_DP_SID)
+> +		drm_dp_hpd_bridge_register(alt->dev.parent->parent,
+> +					   to_of_node(alt->dev.parent->fwnode));
+> +
+> +done:
+> +	return NOTIFY_OK;
+> +}
+
+Nitpicking: the "done" label and "goto done" here is redundant.
+You could remove the label and replace the goto with another
+"return NOTIFY_OK;". There's no functional change here though.
+
+> +
+> +static struct notifier_block drm_typec_event_nb = {
+> +	.notifier_call = drm_typec_bus_event,
+> +};
+> +
+> +static void drm_aux_hpd_typec_dp_bridge_module_exit(void)
+> +{
+> +	bus_unregister_notifier(&typec_bus, &drm_typec_event_nb);
+> +}
+> +
+> +static int __init drm_aux_hpd_typec_dp_bridge_module_init(void)
+> +{
+> +	bus_register_notifier(&typec_bus, &drm_typec_event_nb);
+> +
+> +	return 0;
+> +}
+> +
+> +module_init(drm_aux_hpd_typec_dp_bridge_module_init);
+> +module_exit(drm_aux_hpd_typec_dp_bridge_module_exit);
+> +
+> +MODULE_DESCRIPTION("DRM TYPEC DP HPD BRIDGE");
+> +MODULE_LICENSE("GPL");
 > 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Feel free to add yourself as MODULE_AUTHOR here. :)
+
+With those things changed:
+
+Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+
+Kind regards,
+Nicolas Frattaroli
 
 
--- 
-With best wishes
-Dmitry
