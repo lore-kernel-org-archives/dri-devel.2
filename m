@@ -4,54 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEE7DCD5BD5
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 18:02:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CC12CD5BD5
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 18:17:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DBAB10F4FF;
-	Thu, 28 May 2026 18:02:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0546810F511;
+	Thu, 28 May 2026 18:17:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="i+oYMtE2";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hLbCWQYQ";
 	dkim-atps=neutral
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Thu, 28 May 2026 15:51:05 UTC
-Received: from mail-m93188.xmail.ntesmail.com (mail-m93188.xmail.ntesmail.com
- [103.126.93.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD0D010F2B1;
- Thu, 28 May 2026 15:51:05 +0000 (UTC)
-Received: from PC-202605011814.localdomain (unknown
- [IPV6:2409:8924:2013:1a6b:50af:214a:ea2b:7da2])
- by smtp.qiye.163.com (Hmail) with ESMTP id 403418ca8;
- Thu, 28 May 2026 23:45:58 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: jani.nikula@linux.intel.com,
-	rodrigo.vivi@intel.com
-Cc: joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch, bigeasy@linutronix.de, clrkwllms@kernel.org,
- rostedt@goodmis.org, jerome.anand@intel.com,
- pierre-louis.bossart@linux.dev, tiwai@suse.de,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, runyu.xiao@seu.edu.cn,
- jianhao.xu@seu.edu.cn, stable@vger.kernel.org
-Subject: [PATCH] drm/i915/audio: use generic_handle_irq_safe() for LPE audio
- irq
-Date: Thu, 28 May 2026 23:45:51 +0800
-Message-Id: <20260528154551.3708290-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B1B310F511
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 18:17:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=s8U0TWaHRbGw99vUtJyKsaSyf024e+RdhkE49rSK4lY=; b=hLbCWQYQr+0j3PduS/CE4Cjkn5
+ sm+T2czOdycUXytPoDCh9DnRij5/hBpD7WGvuKkLd7YY+LzBkxkg5zAY0iBSVKv8Z4UVfU74Z8NXF
+ 3ijljzyfnBjGXkssFN43EKqMgitjCsvY/Lkhsww9Vf5Kj6w9g4+LJTWxLyXErYBQPzUC9zmtQI595
+ qhGHUPbWU634MgZS4jucoY42U3yJp19NGksHGcw0eVZyW0Al4Se5y/HP/XamaTJCApvyzRnUwY0pD
+ 6qEoMs1CK27GNcaD9dYEzJFLi/cRlXSOLj3/+ykUh0VeXi2G5GOf9YhXTua75uKgmrV+NAZ3M0Od+
+ 1uaTF7Gw==;
+Received: from [189.7.87.67] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wSfI8-009UqY-M8; Thu, 28 May 2026 20:17:12 +0200
+Message-ID: <2b602ec6-d563-4fa0-a0c5-89b97a46abf9@igalia.com>
+Date: Thu, 28 May 2026 15:17:03 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/vc4: fix krealloc() memory leak
+To: "Alexander A. Klimov" <grandmaster@al2klimov.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Eric Anholt <eric@anholt.net>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20260526184105.18962-1-grandmaster@al2klimov.de>
+ <20260526184105.18962-5-grandmaster@al2klimov.de>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260526184105.18962-5-grandmaster@al2klimov.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e6f438ac703a1kunmeb945bb5695a4
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSExCVh0YSUkfQhkeSUwaHVYeHw
- 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0tCQUNCSU9BSUtKSEFKGk0ZQU5LGh1BSUpPGkEeGkkZQU
- wfGklZV1kWGg8SFR0UWUFZT0tIVUpLSUhOQ0NVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
- b=i+oYMtE2Uw987NRwaIDLItV2PiXrfbsCTGptQqXsNBgKX6eSnYckWaW0ilkf7Z7q+7yAlojA/BSfPcWvvYgWDMC+MwDVjA1CKybUCLSlyt7b5omxUKGD8J1isNfRVgCxMr1Zzr4PoQ2O/iAqTsdK0sc00d6YEq5mSmAC+XtT38o=;
- c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
- bh=loucx8xe4IYiCrHUEihfpijKrZOkZGAVA8/7vYAgfsM=;
- h=date:mime-version:subject:message-id:from;
-X-Mailman-Approved-At: Thu, 28 May 2026 18:02:26 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,57 +92,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-intel_lpe_audio_irq_handler() forwards the LPE audio child IRQ from the
-i915 parent IRQ path with generic_handle_irq(). The forwarded child top
-half is not an independent hardirq entry point; it inherits the context
-of the outer i915 interrupt dispatch path.
+Hi Alexander,
 
-This becomes a problem when the parent IRQ runs in threaded context, for
-example on PREEMPT_RT or other forced-threading configurations. i915
-requests the parent IRQ with IRQF_SHARED and without IRQF_NO_THREAD, so
-the forwarded child handler can run with local IRQs enabled. That
-violates the expected top-half execution semantics and can trigger an
-"enabled interrupts" WARN.
+LGTM, but a small styling nit:
 
-The issue was identified on Linux v6.18.21 by our static analysis tool
-and then manually reviewed on the i915 child-IRQ forwarding sites after
-commit 8cadce97bf26 ("drm/i915/gsc: mei interrupt top half should be in
-irq disabled context") fixed the same helper contract for the GSC path.
+On 26/05/26 15:41, Alexander A. Klimov wrote:
+> Don't just overwrite the original pointer passed to krealloc()
+> with its return value without checking latter:
+> 
+>      MEM = krealloc(MEM, SZ, GFP);
+> 
+> If krealloc() returns NULL, that erases the pointer
+> to the still allocated memory, hence leaks this memory.
+> Instead, use a temporary variable, check it's not NULL
+> and only then assign it to the original pointer:
+> 
+>      TMP = krealloc(MEM, SZ, GFP);
+>      if (!TMP) return;
+>      MEM = TMP;
+> 
+> Fixes: 6d45c81d229d ("drm/vc4: Add support for branching in shader validation.")
+> Signed-off-by: Alexander A. Klimov <grandmaster@al2klimov.de>
+> ---
+>   drivers/gpu/drm/vc4/vc4_validate_shaders.c | 12 ++++++------
+>   1 file changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/vc4/vc4_validate_shaders.c b/drivers/gpu/drm/vc4/vc4_validate_shaders.c
+> index d48cf76983c0..af48758592f9 100644
+> --- a/drivers/gpu/drm/vc4/vc4_validate_shaders.c
+> +++ b/drivers/gpu/drm/vc4/vc4_validate_shaders.c
+> @@ -291,14 +291,14 @@ static bool require_uniform_address_uniform(struct vc4_validated_shader_info *va
+>   	uint32_t o = validated_shader->num_uniform_addr_offsets;
+>   	uint32_t num_uniforms = validated_shader->uniforms_size / 4;
 
-It was then validated with a reproducible QEMU no-device parent/child
-IRQ harness that registers a threaded parent IRQ and a child IRQ
-handler, then exercises both generic_handle_irq() and
-generic_handle_irq_safe() under the same threaded parent context. In the
-plain-helper phase, the child handler ran with irqs_disabled=0 and
-triggered an "enabled interrupts" WARN. In the safe-helper phase, the
-same child handler ran with irqs_disabled=1. This is family-level
-runtime evidence for the same IRQ forwarding misuse pattern. No
-Baytrail/Cherrytrail hardware was available to run the real i915 LPE
-path end-to-end.
+Declare the variable here.
 
-Use generic_handle_irq_safe() here so the forwarded LPE audio child IRQ
-runs with local IRQs disabled even when the outer i915 dispatch path is
-threaded.
+>   
+> -	validated_shader->uniform_addr_offsets =
+> -		krealloc(validated_shader->uniform_addr_offsets,
+> -			 (o + 1) *
+> -			 sizeof(*validated_shader->uniform_addr_offsets),
+> -			 GFP_KERNEL);
+> -	if (!validated_shader->uniform_addr_offsets)
+> +	void *mem = krealloc(validated_shader->uniform_addr_offsets,
 
-Fixes: eef57324d926 ("drm/i915: setup bridge for HDMI LPE audio driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/gpu/drm/i915/display/intel_lpe_audio.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Instead of void *, you should probably use uint32_t *.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_lpe_audio.c b/drivers/gpu/drm/i915/display/intel_lpe_audio.c
-index 42284e9928f2..ac1dfd592a9f 100644
---- a/drivers/gpu/drm/i915/display/intel_lpe_audio.c
-+++ b/drivers/gpu/drm/i915/display/intel_lpe_audio.c
-@@ -263,7 +263,7 @@ void intel_lpe_audio_irq_handler(struct intel_display *display)
- 	if (!HAS_LPE_AUDIO(display))
- 		return;
- 
--	ret = generic_handle_irq(display->audio.lpe.irq);
-+	ret = generic_handle_irq_safe(display->audio.lpe.irq);
- 	if (ret)
- 		drm_err_ratelimited(display->drm,
- 				    "error handling LPE audio irq: %d\n", ret);
--- 
-2.34.1
+Best regards,
+- Maíra
+
+> +			     (o + 1) *
+> +			     sizeof(*validated_shader->uniform_addr_offsets),
+> +			     GFP_KERNEL);
+> +	if (!mem)
+>   		return false;
+>   
+> +	validated_shader->uniform_addr_offsets = mem;
+>   	validated_shader->uniform_addr_offsets[o] = num_uniforms;
+>   	validated_shader->num_uniform_addr_offsets++;
+>   
+
