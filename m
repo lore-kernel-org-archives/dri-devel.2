@@ -4,89 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CCAACD5BD5
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 19:49:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0FD1CD4F54
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 20:07:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA88210F5FE;
-	Thu, 28 May 2026 19:49:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44B7710E110;
+	Thu, 28 May 2026 20:07:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="LVmzChf+";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="vosyaRMC";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8B7610F5FE
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 19:49:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1779997750;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=PP1ZQ9R+ns+VKuNnm+AdhqEaREMNY39Y34TAWM1PVuk=;
- b=LVmzChf+crIeX/3oru6X8w1VI3IQpbELjHFqIqizPhyPEoE9c1w4dGCzXZoNn/8zuIPLKw
- zwB2B+HrxbdnfXh8Iv5FaVsyD+k8jip2Tv4+gQDkrhAIkclpPvLIn0XCSYNK2jJ1dcXLRI
- UeJRicB3H1jd9PApW0qQXsQsqnEHqgk=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-481-mAWFNrdcMlGgc_eqZUmi7w-1; Thu, 28 May 2026 15:49:09 -0400
-X-MC-Unique: mAWFNrdcMlGgc_eqZUmi7w-1
-X-Mimecast-MFC-AGG-ID: mAWFNrdcMlGgc_eqZUmi7w_1779997749
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-516ceea1984so142525701cf.1
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 12:49:09 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779997749; x=1780602549;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=PP1ZQ9R+ns+VKuNnm+AdhqEaREMNY39Y34TAWM1PVuk=;
- b=WlPaVSW0T89clrnxWKV7JKNmLPKaLMsEr6uJjhiax5jW8sxDw8n0DsBeKWjWoO1loS
- HmUYtMezBSiafF1C1ezHmyYp462C6eaJ834KlIMUhO2Qg07oIH/CNcf1qRGvzf1MkB9U
- MP5Bfmo51JhZPeFNfo/lojPqmCG4zLibKrXrATPbRbGqKqqWmi4MQn1WnlD3UR1LnnKi
- FUMn+1GFan4uPEoWYDHQQTBDfyZwEarlwmnhZr8WPk+Zt4qBnP33p2MubsHMxSgQwnO2
- vTRBRZMWZB+bhzte6qy5EIcwV2wNv29vdQivSfSx0rm7Va0tebzcFQVq4Nc8qeFAARel
- ctwQ==
-X-Gm-Message-State: AOJu0YwV7q4JrvC6jwKmQIb6R4mtaJbPj6ZlK6wGxw7ujo8gmID/UwyY
- SD7EFo6oiQ/+xsRUoVtT1fc7E4iShDsjUsCWWFn6yAN8enM6vNvstrFBzLXghoYviU/Frz51caB
- 3xf8uzrRjDNFoy+NUroO0vLYAl+qXVBpZQtvRETGJkmBqDl/tqPpH5OVwPCn97D3v5SSY0w==
-X-Gm-Gg: Acq92OFxvQZy6Dns0Eq0NuKr+zA/xJL964SHvcPfo9MplPLSmjRwzn5QaejqW1PRRNT
- 1Wv4aCl5tJXHeOKw5SrEeSvo5DOumJnsfLqYjumiu36J40QHVNduHhPnj9w5vTCEKvfPYHI0RJT
- NIio1yGqm2lJ5QcC9IdTMhxtlMYxdVxz5r0p/ctz5IkyGH72/vo/rWrihr0U8Vjbpn27X93UMmA
- e5AcM+4MB7XFTHFTGMahLERBpY6uPmKjpmpXoXTRygp8ORAEkgb0Uk7itaqfPRQYyV36AJlgYip
- 9/KekLGF3uLwX3XUtXblw5JjXrEJzRXTlg4oel5UmNL2aCnLdveO3EdSdfXCsvCJIzjiBgsgUqP
- 71GyXdI7vVt98S5QtpWXEhnRClJkk
-X-Received: by 2002:a05:622a:260a:b0:516:d812:c35e with SMTP id
- d75a77b69052e-5172cbb883amr4075811cf.21.1779997748770; 
- Thu, 28 May 2026 12:49:08 -0700 (PDT)
-X-Received: by 2002:a05:622a:260a:b0:516:d812:c35e with SMTP id
- d75a77b69052e-5172cbb883amr4075351cf.21.1779997748357; 
- Thu, 28 May 2026 12:49:08 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8cc80ded529sm209836006d6.16.2026.05.28.12.49.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 May 2026 12:49:06 -0700 (PDT)
-Message-ID: <1b4ff2734e0c15448ab5c24a0800d20c24b25e5c.camel@redhat.com>
-Subject: Re: [PATCH 0/5] Revert cleanups for IS_ERR_OR_NULL() usage
-From: lyude@redhat.com
-To: Danilo Krummrich <dakr@kernel.org>, Timur Tabi <ttabi@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Dave Airlie <airlied@redhat.com>, Qianfeng
- Rong	 <rongqianfeng@vivo.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Kees Cook <kees@kernel.org>, Simona
- Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>,  Thomas
- Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>,
- Hongling Zeng <zenghongling@kylinos.cn>,  Zhi Wang <zhiw@nvidia.com>
-Date: Thu, 28 May 2026 15:49:05 -0400
-In-Reply-To: <DIUKG7F2VAC7.17L4VHNNI7YL2@kernel.org>
-References: <20260528192847.4077458-1-lyude@redhat.com>
- <DIUKG7F2VAC7.17L4VHNNI7YL2@kernel.org>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99D9510E110
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 20:07:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=kemnade.info; s=20220719; h=References:In-Reply-To:Cc:From:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID;
+ bh=sD7kBKKtM8dEsFdv6/yfLIQsji4IOkzPOV/bT+nBl48=; b=vosyaRMC/4CM7H84E5kl4g6t07
+ BUIfiwJntkrb2LZ7iXkbTmUao3J1j9UAcDbbSyB7OUluIh9StJkN4Wk8UhwghS6gM3pgZd5yRxyIS
+ mt13vypJcnqLd4OXRugApOhPTrAbCmT6Xl7IcOBlHHRecU6OYSpqkXteM8jvMnLpzOYla0XI6XUD7
+ mpqyNrUx4JLpFBkX+PYOdy6t2bDA49vqZ42e6ZrIzVvOy+VqJQvtmeh4rG3Y+fcPfmJx3O4zmZezd
+ AhMDukksuc1P/ycXwgCzbNfw1PL0byy2PtoCbQ8D9Q37wkzEASY7NpLuNRBQv8lrM699TlBJnjPLA
+ X7fxndwQ==;
+Date: Thu, 28 May 2026 22:06:03 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sebastian Reichel
+ <sebastian.reichel@collabora.com>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, Tony Lindgren <tony@atomide.com>,
+ Linux-OMAP <linux-omap@vger.kernel.org>, Marek Vasut <marex@denx.de>, "H.
+ Nikolaus Schaller" <hns@goldelico.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Tomi Valkeinen <tomi.valkeinen@ti.com>,
+ Andreas Kemnade <andreas@kemnade.info>
+Subject: Re: [PATCH] drm/omap: dsi: avoid sending bta sync all the time in
+ writes
+Message-ID: <20260528220603.6600d45b@kemnade.info>
+In-Reply-To: <37f64c1c-9920-41a6-a8c0-7a84a30c884a@gmail.com>
+References: <20260528-vm-upstr-v1-1-fb93ef8cbe47@kernel.org>
+ <ec1a577b-12fb-402c-9ceb-3c1e8265a7e9@gmail.com>
+ <20260528190234.4c00b740@kernel.org>
+ <37f64c1c-9920-41a6-a8c0-7a84a30c884a@gmail.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: _jK4kRTMHnOzlhM-f1DjsbPrce4FfT07wWLEfH_eNS0_1779997749
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,12 +65,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 2026-05-28 at 21:44 +0200, Danilo Krummrich wrote:
+On Thu, 28 May 2026 20:43:12 +0300
+Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com> wrote:
+
+> Hi,
 >=20
-> I can pick this up later, but in case you want to pick it up Lyude,
-> note that
-> this now has to go into drm-misc-next-fixes.
+> On 28.05.26 =D0=B3. 20:02 =D1=87., Andreas Kemnade wrote:
+> > Hi,
+> >=20
+> > so this droid4? Or which device is it?
+> >  =20
+>=20
+> Oh, sorry, yes, this is droid4.
+>=20
+> > On Thu, 28 May 2026 17:44:14 +0300
+> > Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com> wrote:
+> >  =20
+> >> Applied against 6.18.31, no dice :)
+> >>
+> >> [   11.617523] [drm] Initialized pvr 1.17.4948957 for 56000000.gpu on
+> >> minor 0
+> >> [   11.674652] omapdss_dss 58000000.dss: bound 58001000.dispc (ops
+> >> dispc_component_ops [omapdrm])
+> >> [   11.775085] omapdss_dss 58000000.dss: bound 58001000.dispc (ops
+> >> dsi_vc_flush_receive_data [omapdrm])
+> >> [   12.222930] omapdss_dss 58000000.dss: bound 58001000.dispc (ops
+> >> dsi_vc_flush_receive_data [omapdrm])
+> >> [   12.245117] omapdss_dss 58000000.dss: bound 58001000.dispc (ops
+> >> dsi_vc_flush_receive_data [omapdrm])
+> >> [   12.247375] omapdss_dss 58000000.dss: bound 58004000.encoder (ops
+> >> dsi_vc_flush_receive_data [omapdrm])
+> >> [   12.249267] omapdss_dss 58000000.dss: bound 58006000.encoder (ops
+> >> dsi_vc_flush_receive_data [omapdrm])
+> >> [   12.284729] [drm] Initialized omapdrm 1.0.0 for omapdrm.0 on minor 1
+> >> [   12.311981] [drm] Enabling DMM ywrap scrolling =20
+> >=20
+> > I would expect some
+> > output from  the panel-dsi-cm driver:
+> > dev_info(&ddata->dsi->dev, "panel revision %02x.%02x.%02x\n",
+> >                          id1, id2, id3);
+> >=20
+> > or some error:
+> >          dev_err(&ddata->dsi->dev, "error while enabling panel, issuing=
+ HW reset\n");
+> >=20
+> > Any explanation why it is missing?
+> >  =20
+>=20
+> It is there, I grep-ed for omapdrm only, didn't want to flood the ML:
+>=20
+> 2026-05-28T17:34:45.761932+03:00 devuan-droid4 kernel: [   12.502105]=20
+> panel-dsi-cm 58004000.encoder.0: panel revision 70.01.02
+>=20
+> Here is the (almost)full boot log: https://paste.debian.net/hidden/e6ca55=
+a7
+>=20
+2026-05-28T17:34:45.763732+03:00 devuan-droid4 kernel: [  112.820404] DSI: =
+omapdss DSI: failed to send nop between frames: -5
+2026-05-28T17:34:45.763732+03:00 devuan-droid4 kernel: [  113.331726] DSI: =
+omapdss DSI: failed to send nop between frames: -5
 
-Whatever works for you and is easier, I also didn't realize we'd hit
-rc6 yet
+and that is interesting. Apparently no PACKET_SENT_IRQ and the wait
+completion times out. Maybe it is not used with short packets.
+But..
+       /*
+         * Send NOP between the frames. If we don't send something here, the
+         * updates stop working. This is probably related to DSI spec stati=
+ng
+         * that the DSI host should transition to LP at least once per fram=
+e.
+         */
+        r =3D _dsi_send_nop(dsi, VC_CMD, dsi->dsidev->channel);
 
+I do not see a reason why something should go into LP mode here. the
+message will probably be sent in HS mode but the BTA sync (not done anymore)
+is probably the only thing turning something to LP mode.
+
+So to avoid PACKET_SENT_IRQ trouble, do:
+diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c b/drivers/gpu/drm/omapdrm/ds=
+s/dsi.c
+index dcfcfc0efcdc..37323c9b08a8 100644
+--- a/drivers/gpu/drm/omapdrm/dss/dsi.c
++++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
+@@ -2200,7 +2200,7 @@ static int dsi_vc_write_common(struct omap_dss_device=
+ *dssdev, int vc,
+ 	int r;
+=20
+ 	if (mipi_dsi_packet_format_is_short(msg->type))
+-		r =3D dsi_vc_send_short(dsi, vc, msg);
++		return dsi_vc_send_short(dsi, vc, msg);
+ 	else
+ 		r =3D dsi_vc_send_long(dsi, vc, msg);
+=20
+
+Also try:
+diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c b/drivers/gpu/drm/omapdrm/ds=
+s/dsi.c
+index dcfcfc0efcdc..37323c9b08a8 100644
+--- a/drivers/gpu/drm/omapdrm/dss/dsi.c
++++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
+@@ -3283,11 +3283,11 @@ static int dsi_update_channel(struct omap_dss_devic=
+e *dssdev, int vc)
+ 	DSSDBG("dsi_update_channel: %d", vc);
+=20
+ 	/*
+-	 * Send NOP between the frames. If we don't send something here, the
++	 * Transition to LP here. If we don't send something here, the
+ 	 * updates stop working. This is probably related to DSI spec stating
+ 	 * that the DSI host should transition to LP at least once per frame.
+ 	 */
+-	r =3D _dsi_send_nop(dsi, VC_CMD, dsi->dsidev->channel);
++	r =3D dsi_vc_send_bta_sync(dssdev, vc);
+ 	if (r < 0) {
+ 		DSSWARN("failed to send nop between frames: %d\n", r);
+ 		goto err;
+
+
+
+Regards,
+Andreas
