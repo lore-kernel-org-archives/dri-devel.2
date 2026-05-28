@@ -4,52 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E34ACD4F54
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 12:16:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CB24CD4F54
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 12:18:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 811FA10F0DA;
-	Thu, 28 May 2026 12:16:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3CC710F0E5;
+	Thu, 28 May 2026 12:18:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V2CGDCj0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="la8OcLun";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5D6010F0DA
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 12:16:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2FE410F0E5
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 12:18:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 94A74438E7;
- Thu, 28 May 2026 12:16:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E58101F00A3A;
- Thu, 28 May 2026 12:16:01 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C1E4440A52;
+ Thu, 28 May 2026 12:18:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 101921F00A3A;
+ Thu, 28 May 2026 12:18:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779970562;
- bh=+buq2ptcz3JEj/EpBlSaTdBpCSUNhIEKXgsoTZroRW0=;
+ s=k20260515; t=1779970723;
+ bh=NH11+mJ5bBQa4zeUL8bXacM3mVoV8R1CnRHTZPVPpQs=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=V2CGDCj0qdObonA6xsEmiUruzdyDhaDVcOjnUYm5RBz6bWG2BFVJy+o7es7XrKb17
- loHnHSxcdsS1+5bdiIepwg9k4Ca1cnPNI1PaXfX/ioYPQsRAFTHkvv6xTSTV/qGEu7
- XaXN+Ued0ofGEUw/Oih5zwV3xVSl8QzgiDus81nLKMosrdfQUYw5Vtf1dhrHQ9Hb+b
- ALjTzN+b72hj+v2GRBi4hjWrlAz4hmDBEJB5B66MfJ06ML/FL/Icz31uct8YbfaiE3
- IZlpfWZ6sWOcikRO5P9eRSqFv/iGUa/qAHupsdk9ewECpxaRrOEoOp337GpH4ZdRan
- ljNXA04XVAWSw==
-Date: Thu, 28 May 2026 14:16:00 +0200
+ b=la8OcLunEi/rFDWmMjDsmibajjd+8SxW1wGBQ6LeuvDpbtJzgVxhPdS7EluHg8blO
+ mA/zSPvFIi1wKHO47EiavI+V1MdqRqUqolTM9a4d3bLrnngRNsAJEt0YZ2F8G/H7qU
+ G0FOuomBkpOaXjMe9CEJ2d6mVyHmXgHNx4B+Ro8jHabpDLXDpOMA18afhPQCH5d5to
+ ILLejknUZR6ykny7YQoJCJ0js2fnKKyb9Z2Gc78FIN7IhzgpMKvFp7rHyNqMhpyIyL
+ UdB2bbcMIZTSppv/5VPjWzVR6QVWw+duyyDT62tNeBJOF3+64nkcneXvVOQJWP89Kr
+ ZEjS44wvcBouA==
+Date: Thu, 28 May 2026 14:18:41 +0200
 From: Thierry Reding <thierry.reding@kernel.org>
-To: Mikko Perttunen <mperttunen@nvidia.com>
+To: Tanmay Patil <tanmayp@nvidia.com>
 Cc: Thierry Reding <thierry.reding@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Akhil R <akhilrajeev@nvidia.com>, 
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>, 
- Aaron Kling <webgeek1234@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org
-Subject: Re: [PATCH 1/2] gpu: host1x: Allow entries in BO caches to be freed
-Message-ID: <ahgx9L954jPBWkdO@orome>
-References: <20260515-host1x-bocache-leak-v1-0-a0375f68aeab@nvidia.com>
- <20260515-host1x-bocache-leak-v1-1-a0375f68aeab@nvidia.com>
+ Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] gpu: host1x: syncpt_wait micro-optimizations
+Message-ID: <ahgylxp4s04sb3DL@orome>
+References: <20260514103153.766343-1-tanmayp@nvidia.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="6my564ulmhwxpudn"
+ protocol="application/pgp-signature"; boundary="bmct6mf4goicw7er"
 Content-Disposition: inline
-In-Reply-To: <20260515-host1x-bocache-leak-v1-1-a0375f68aeab@nvidia.com>
+In-Reply-To: <20260514103153.766343-1-tanmayp@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,66 +61,50 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---6my564ulmhwxpudn
+--bmct6mf4goicw7er
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/2] gpu: host1x: Allow entries in BO caches to be freed
+Subject: Re: [PATCH 0/2] gpu: host1x: syncpt_wait micro-optimizations
 MIME-Version: 1.0
 
-On Fri, May 15, 2026 at 11:34:51AM +0900, Mikko Perttunen wrote:
-> When a buffer object is pinned via host1x_bo_pin() with a cache, the
-> resulting mapping is kept in the cache so it can be reused on subsequent
-> pins. Each mapping held a reference to the underlying host1x_bo (taken
-> in tegra_bo_pin / gather_bo_pin), so as long as a mapping was cached,
-> the bo itself could not be freed.
+On Thu, May 14, 2026 at 10:31:51AM +0000, Tanmay Patil wrote:
+> This series reduces the latency in host1x syncpoint wait path.
 >=20
-> However, the only way to remove the cached mapping was through the free
-> path of the buffer object. This meant that if a bo got cached, it could
-> never get freed again.
+> Patch 1 removes redundant MMIO reads in host1x_syncpt_wait().
+> Patch 2 skips the host1x_intr_update_hw_state() call in the ISR
+> when no fences remain.
 >=20
-> Resolve the circularity by holding a weak reference to the bo from the
-> cache side. This is done by having the .pin callbacks not bump the bo's
-> refcount -- instead the common Host1x bo code does so, except for the
-> cache reference.
+> Measured syncpoint wait latency (50000 samples):
+>   Average latency:   12.2 us  -> 9.4 us
+>   99.99 pct latency: 62.96 us -> 36.58 us
 >=20
-> Also move the remove-cache-mapping-on-free code into a common function
-> inside Host1x code. This is only called from the TegraDRM GEM buffers
-> since those are the only ones that can be cached at the moment.
->=20
-> Reported-by: Aaron Kling <webgeek1234@gmail.com>
-> Fixes: 1f39b1dfa53c ("drm/tegra: Implement buffer object cache")
-> Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
-> ---
->  drivers/gpu/drm/tegra/gem.c    | 13 ++-------
->  drivers/gpu/drm/tegra/submit.c |  3 +--
->  drivers/gpu/host1x/bus.c       | 60 ++++++++++++++++++++++++++++++++++++=
-+++++-
->  include/linux/host1x.h         |  7 +++++
->  4 files changed, 69 insertions(+), 14 deletions(-)
+> Tanmay Patil (2):
+>   gpu: host1x: skip redundant syncpoint loads in host1x_syncpt_wait()
+>   gpu: host1x: skip redundant HW state update
 
-Applied, thanks.
+Both patches applied, thanks.
 
 Thierry
 
---6my564ulmhwxpudn
+--bmct6mf4goicw7er
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoYMgAACgkQ3SOs138+
-s6H4tQ//XkWRl3y7bAt9TLAdXWliceZEHfMdVL/tnvQt61OaxMiMXb3KF0U1CFSz
-bCrOSsS4t3L1/2zRbicJ7rW92tT3J3bNmHGroLo64ODozmDX9A8IKrLLPJ+1a3a5
-SXzNHyeK+3Gz7cUl0EwUyoCY0r/wBTl/povwzAE7Wk0cKL7vBMW8rjFTQkb/KYr3
-Tj4+q0VAELLmHLUGBo+zQlJHJIWN6SSCvzvaL7zE2vlgFvX0tZW1EMZrZ3AdNEln
-UmXCYkIYHOthnhqMFD1xUmp5YNcpaO0dQMY0kt3YC9AK5ZuDJXfs/Cv8ztittEOf
-KMITTDm+JyJ11MY5ycp9ipDpaSUk3Cbsw9vfwd0TNltsJvwyQnYNTlSpXMdseJPP
-hqRzk1j828d11x1FN+Qq3xtxQZUCSxX/V5DnioScXPMujFp48qh5W7evIwbJ2dss
-tfjImpSwWRZ7FmH4Rl7FnioU2oLUKTFP903bp0sEHWMQXW+HemlCPMKBxa6sgVRo
-9OTu2v29Vypb8Rp4VoehjumCjQxW64RZ9NfxH7MYyidh/Hxhz+2FEs/PzxreGp5e
-aLoWkLxgD2GJ1ueuh0sIf+4uS99Lf0Dho6Er2uko9+P0lgaxjIB4j2CQZ6Mjk5km
-cpWpm9CGI4v4e38pGfrXG0UhiWF4OK6lCYeut3jTgDzGw65UMY4=
-=fyjP
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoYMqAACgkQ3SOs138+
+s6Gx+hAAlMUMKg7XBweWXj+62BodkNm8kvFz8QbKkWhemaU0odj362AXOdZtcnyA
+ccBkH/AduHZzArbUsk4WnGl9tDEWDeMkIb28j9iKxKpg1XVL0Okoz3YG8vI07CT0
+9y1mLC6dvFwiHfY6cIkkUjByw5RaoIlArV6Myddq9cL9I5/hLTfWIFqaYstJr9Bb
+7xUcTVdYNYYfavIpkoHkw/MeroJbGCOPQxzomvx0rhoj/2FH9+iZgmXRKAHHop9a
+TPs9pvAur7/uVuwo9RSUfWy9mT2PmXMdFE69nGd8e5O1mWQccBaC7DMViiqFoAoz
+2YLeO6ydl9kEdgsgolr032RwP80I7VSKl9hW+kvJ6P33Wo8XaHh/txBjuIXMtgS4
+Y9SvBKdMbu5H5BJSumUy3yIdkV5hgz9vDFIn5A3/0FowH78dm5bt2WL1u+rIZhgG
+PMKXFFmzLr4ioHYDpxDhtPS6D3Xm00dh2ZRU6/5MFPxEVGfkoBLIbqAKXh8j7TgL
+JpXz7OZkatpsCFPTApo4IGOiporZn4w3sWbicBBdu0W+EI4mbyMVXPzPHrVad+yS
+qKruoFnZD33E+FWAZS1IBRGXoqBJbsa3JAGfh5wjPQ687WR2RcIvNJw7N/q1Ambh
+UOqvHsr4onb7YKoQsboVPJ+Q+kQnTimIksp59XiTXo42EutvTTw=
+=AsN2
 -----END PGP SIGNATURE-----
 
---6my564ulmhwxpudn--
+--bmct6mf4goicw7er--
