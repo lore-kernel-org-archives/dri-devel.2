@@ -4,66 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 220E0CD6E49
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 14:10:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84706CD6E44
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 14:20:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 742BF10F22F;
-	Thu, 28 May 2026 14:10:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E647C10F27C;
+	Thu, 28 May 2026 14:20:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="laEIRJfq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KMPbH9MC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EC2110F228
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 14:10:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779977405; x=1811513405;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=SW6AbvY66GmQj6TqS0+DbeFgb+pvqwPRFu4mSfAykAk=;
- b=laEIRJfqIWPZvAVy+yX67Z5ArUjfzX3hjg9E/C02gt8urIWEK0l6mOZr
- QkQCYfM5f+OkOV05RUht2o/vJMDOIofQN5JaSVKvdbYpFXzHu0+1eI+h9
- tayfFFeoO38gLDu6ivWtIBF0SH5kSbnK+yuS7nNSdQRBJKBMKwd2WoI7t
- uSNjOHfLrXJrjtzhWLgF6BBKtq1A3zuItRdftgf3GFOclczEQgLaISWON
- Zso+FXlcphQzd4FbcDFw6ZrCO87sueKZSHBu6UrOnjBv4jodSW4VhCohk
- y7SMY8NRKsZ9tFsYv2GiY+xUdjBte0TAptN8a2LqwYyRVnjae7jcmUT4m A==;
-X-CSE-ConnectionGUID: vXzgM80vQkG5GSLD8AhuOA==
-X-CSE-MsgGUID: 301S92SJRHepkhE7LmS2gg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11800"; a="91506921"
-X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; d="scan'208";a="91506921"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 May 2026 07:10:04 -0700
-X-CSE-ConnectionGUID: HBJXSwdSRpuM7qHgaecLug==
-X-CSE-MsgGUID: Mw2wXSFaR2KUP/QqICzFuQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; d="scan'208";a="272897642"
-Received: from abityuts-desk.ger.corp.intel.com (HELO [10.245.244.43])
- ([10.245.244.43])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 May 2026 07:10:00 -0700
-Message-ID: <9d175d92-61c2-4dc6-a62a-2793a1197fb7@linux.intel.com>
-Date: Thu, 28 May 2026 16:09:40 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 774A310F27A
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 14:20:40 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C81AB6055C;
+ Thu, 28 May 2026 14:20:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAB731F00A3A;
+ Thu, 28 May 2026 14:20:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779978039;
+ bh=owd3yHcdZZk9kVBZfXXRZcFgZI3DQoqnNBNYxcexvmI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=KMPbH9MCmF9mOEsS1NCjDqSBVX6tA37KmiqpwOmyO/6qlDnDJGjM9eP1vfZNhJFDM
+ HmWrThGx5s2FaItFKeci91fl4MS1Spz5C0mpVhANv6pMdlmF60GIZplxFhK+8avCL5
+ He5wkqagXhCe05KYx1seLWY9nln28qhh+SIrxVFDsgbBeUiz5QSOuYtiPdkg++F+qB
+ FNeha83pm0hEZpttwjoEdzekjg2F4anH2Y90qqC2NKQaND/rbQ1Mdm34+ux5V3etnO
+ ncTekxVCvE22Npl3kSILz9HFRBNRBTfr7PuPkE0jWs0pY31qkkjAa0hu8ukXjd+THA
+ jJfEejhqD0QJA==
+Date: Thu, 28 May 2026 16:20:37 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Felix Gu <ustc.gu@gmail.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>, 
+ Thierry Reding <treding@nvidia.com>, dri-devel@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/tegra: dc: Fix device node reference leak in
+ tegra_dc_has_output()
+Message-ID: <ahhPH___c7pTjYUZ@orome>
+References: <20260128-dc-v1-1-a88205826301@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] cgroup/dmem: implement dmem.high soft limit via
- prioritized eviction
-To: Qiliang Yuan <realwujing@gmail.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Natalie Vock <natalie.vock@gmx.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- cgroups@vger.kernel.org
-References: <20260528-feature-dmem-high-v3-1-c642b34bcb2f@gmail.com>
-Content-Language: en-US
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-In-Reply-To: <20260528-feature-dmem-high-v3-1-c642b34bcb2f@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="y6dsoxirkzmzvozk"
+Content-Disposition: inline
+In-Reply-To: <20260128-dc-v1-1-a88205826301@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,330 +62,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
 
-Den 2026-05-28 kl. 14:03, skrev Qiliang Yuan:
-> The dmem cgroup v2 controller currently only provides a hard "max"
-> limit, which causes immediate allocation failures when a cgroup's
-> device memory usage reaches its quota.  GPU-bound AI workloads need
-> smoother over-subscription support: a soft limit that temporarily
-> allows excess usage while applying backpressure through reclaim
-> rather than outright failure.
-> 
-> Add dmem.high, a soft limit that penalizes over-limit cgroups by
-> evicting their buffer objects first when eviction is triggered (e.g.
-> due to a "max" limit hit).  Unlike the rejected v1 approach which
-> used sleep-on-allocation throttling, this version provides a
-> meaningful recovery action through prioritized reclaim.
-> 
-> Expose "high" as a new cgroupfs control file per region via
-> set_resource_high() and get_resource_high(), and initialize it to
-> PAGE_COUNTER_MAX in reset_all_resource_limits().  Like get_resource_max(),
-> get_resource_high() returns PAGE_COUNTER_MAX when the pool is NULL.
-> 
-> Extend dmem_cgroup_state_evict_valuable() with a "try_high"
-> parameter.  When set, the function walks the page_counter parent
-> chain to check whether any ancestor exceeds its high limit, then
-> verifies that the pool is above its effective minimum to respect
-> dmem.min protection.  Only pools meeting both criteria are evicted.
-> 
-> Refactor ttm_bo_evict_alloc() into a 3-pass eviction strategy.
-> Pass 1 uses trylock and targets only BOs whose cgroup exceeds
-> dmem.high.  Pass 2 falls back to the standard above-elow eviction.
-> Pass 3 begins with a properly-locked high-priority pass in case
-> Pass 1 failed due to trylock contention, then proceeds with the
-> standard repeat-while-making-progress loop with low-watermark
-> fallback.
-> 
-> Signed-off-by: Qiliang Yuan <realwujing@gmail.com>
+--y6dsoxirkzmzvozk
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] drm/tegra: dc: Fix device node reference leak in
+ tegra_dc_has_output()
+MIME-Version: 1.0
+
+On Wed, Jan 28, 2026 at 12:43:10AM +0800, Felix Gu wrote:
+> The of_for_each_phandle() macro increments the reference count of the
+> device node it iterates over. If the loop exits early, the reference must
+> be released manually.
+>=20
+> In tegra_dc_has_output(), the function returns true immediately when a
+> match is found, failing to release the current node's reference.
+>=20
+> Fix this by adding a call to of_node_put() before returning from the loop.
+>=20
+> Fixes: c57997bce423 ("drm/tegra: sor: Add Tegra186 support")
+> Signed-off-by: Felix Gu <ustc.gu@gmail.com>
 > ---
-> Introduce a "high" soft limit for the dmem cgroup v2 controller.
-> When a "max" limit is hit and eviction is triggered, buffer objects
-> belonging to cgroups that exceed their dmem.high limit are targeted
-> first, providing a meaningful recovery action through reclaim.
-> 
-> The dmem cgroup currently only supports hard "max" limits, which
-> cause immediate allocation failures for GPU-bound workloads. A soft
-> limit enables smoother over-subscription by penalizing over-limit
-> cgroups via prioritized eviction rather than outright rejection.
-> 
-> The implementation adds a "high" cgroupfs control file per region,
-> a try_high parameter to dmem_cgroup_state_evict_valuable() for
-> tier-1 eviction, and a 3-pass strategy in ttm_bo_evict_alloc().
-> ---
-> V2 -> V3:
-> - Walk the page_counter parent chain in the try_high pass to prevent
->   child cgroups from evading the penalty when a parent cgroup exceeds
->   its dmem.high limit.
-> - Check dmem.min protection in the try_high pass to avoid evicting
->   BOs below the effective minimum.
-> - Add a properly-locked high-priority retry at the beginning of Pass 3
->   so that actively-used over-limit BOs (which failed trylock in Pass 1)
->   are not skipped while innocent cgroups are evicted.
-> - Fix get_resource_high(NULL) returning 0 instead of PAGE_COUNTER_MAX
->   to match the behavior of get_resource_max().
-> 
-> V1 -> V2:
-> - Replace sleep-on-allocation throttling with prioritized eviction.
->   When a "max" limit is hit, BOs from cgroups exceeding dmem.high are
->   evicted first in a dedicated pass. No throttling or sleeping is
->   performed in the charge path.
-> - Remove task throttling (schedule_timeout_killable, TIF_NOTIFY_RESUME,
->   resume_user_mode_work() integration) entirely.
-> - Add dmem.high cgroupfs control file per region.
-> - Extend dmem_cgroup_state_evict_valuable() with try_high parameter
->   to target over-limit cgroups as tier-1 eviction.
-> - Refactor ttm_bo_evict_alloc() into a 3-pass eviction strategy:
->   (1) trylock: evict only BOs exceeding dmem.high
->   (2) trylock: above-elow
->   (3) proper-lock: repeat with low fallback.
-> - Initialize high to PAGE_COUNTER_MAX in reset_all_resource_limits().
-> 
-> v1: https://lore.kernel.org/all/20260520-feature-dmem-high-v1-1-97ca0cb7f95a@gmail.com
-> v2: https://lore.kernel.org/all/20260522-feature-dmem-high-v2-1-d805deddecbb@gmail.com
-> ---
->  drivers/gpu/drm/ttm/ttm_bo.c | 35 ++++++++++++++++++++----
->  include/linux/cgroup_dmem.h  |  4 +--
->  kernel/cgroup/dmem.c         | 65 ++++++++++++++++++++++++++++++++++++++++++--
->  3 files changed, 94 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-> index bcd76f6bb7f02..2f2b428f1d30a 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-> @@ -505,6 +505,8 @@ struct ttm_bo_evict_walk {
->  
->  	/** @limit_pool: Which pool limit we should test against */
->  	struct dmem_cgroup_pool_state *limit_pool;
-> +	/** @try_high: Whether to only evict BO's above the high watermark (first pass) */
-> +	bool try_high;
->  	/** @try_low: Whether we should attempt to evict BO's with low watermark threshold */
->  	bool try_low;
->  	/** @hit_low: If we cannot evict a bo when @try_low is false (first pass) */
-> @@ -518,7 +520,8 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
->  	s64 lret;
->  
->  	if (!dmem_cgroup_state_evict_valuable(evict_walk->limit_pool, bo->resource->css,
-> -					      evict_walk->try_low, &evict_walk->hit_low))
-> +					      evict_walk->try_high, evict_walk->try_low,
-> +					      &evict_walk->hit_low))
->  		return 0;
->  
->  	if (bo->pin_count || !bo->bdev->funcs->eviction_valuable(bo, evict_walk->place))
-> @@ -577,31 +580,51 @@ static int ttm_bo_evict_alloc(struct ttm_device *bdev,
->  	};
->  	s64 lret;
->  
-> +	/*
-> +	 * Pass 1 (trylock): Only evict BOs whose cgroup is above its
-> +	 * dmem.high soft limit. This penalizes over-limit cgroups first.
-> +	 */
->  	evict_walk.walk.arg.trylock_only = true;
-> +	evict_walk.try_high = true;
->  	lret = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man, 1);
-> +	evict_walk.try_high = false;
-> +	if (lret)
-> +		goto out;
+>  drivers/gpu/drm/tegra/dc.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 
-I believe the first pass for 'high' should not be trylock only. High needs to be
-preferentially evicted, even if the objects are locked elsewhere.
+Sorry for missing this earlier. Applied now, thanks.
 
+Thierry
 
-> -	/* One more attempt if we hit low limit? */
-> +	/*
-> +	 * Pass 2 (trylock): Evict BOs above the effective low watermark.
-> +	 * Falls back to low-priority eviction if needed.
-> +	 */
-> +	lret = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man, 1);
->  	if (!lret && evict_walk.hit_low) {
->  		evict_walk.try_low = true;
->  		lret = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man, 1);
->  	}
-> +
->  	if (lret || !ticket)
->  		goto out;
->  
-> -	/* Reset low limit */
-> +	/*
-> +	 * Pass 3+ (properly locked): Evict while making progress.
-> +	 * First retry the high-priority pass with proper locking in case
-> +	 * Pass 1 failed due to trylock contention on over-limit BOs.
-> +	 * If that still fails, fall back to the standard low-priority eviction.
-> +	 */
->  	evict_walk.try_low = evict_walk.hit_low = false;
-> -	/* If ticket-locking, repeat while making progress. */
->  	evict_walk.walk.arg.trylock_only = false;
-> +	evict_walk.try_high = true;
-> +	lret = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man, 1);
-> +	evict_walk.try_high = false;
-> +	if (lret)
-> +		goto out;
->  
->  retry:
->  	do {
-> -		/* The walk may clear the evict_walk.walk.ticket field */
->  		evict_walk.walk.arg.ticket = ticket;
->  		evict_walk.evicted = 0;
->  		lret = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man, 1);
->  	} while (!lret && evict_walk.evicted);
->  
-> -	/* We hit the low limit? Try once more */
->  	if (!lret && evict_walk.hit_low && !evict_walk.try_low) {
->  		evict_walk.try_low = true;
->  		goto retry;
-> diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
-> index dd4869f1d736e..06115d35509b1 100644
-> --- a/include/linux/cgroup_dmem.h
-> +++ b/include/linux/cgroup_dmem.h
-> @@ -23,7 +23,7 @@ int dmem_cgroup_try_charge(struct dmem_cgroup_region *region, u64 size,
->  void dmem_cgroup_uncharge(struct dmem_cgroup_pool_state *pool, u64 size);
->  bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
->  				      struct dmem_cgroup_pool_state *test_pool,
-> -				      bool ignore_low, bool *ret_hit_low);
-> +				      bool try_high, bool ignore_low, bool *ret_hit_low);
->  
->  void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool);
->  #else
-> @@ -54,7 +54,7 @@ static inline void dmem_cgroup_uncharge(struct dmem_cgroup_pool_state *pool, u64
->  static inline
->  bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
->  				      struct dmem_cgroup_pool_state *test_pool,
-> -				      bool ignore_low, bool *ret_hit_low)
-> +				      bool try_high, bool ignore_low, bool *ret_hit_low)
->  {
->  	return true;
->  }
-> diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-> index 4753a67d0f0f2..c80444c0da177 100644
-> --- a/kernel/cgroup/dmem.c
-> +++ b/kernel/cgroup/dmem.c
-> @@ -156,6 +156,12 @@ set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val)
->  	page_counter_set_low(&pool->cnt, val);
->  }
->  
-> +static void
-> +set_resource_high(struct dmem_cgroup_pool_state *pool, u64 val)
-> +{
-> +	page_counter_set_high(&pool->cnt, val);
-> +}
-> +
->  static void
->  set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
->  {
-> @@ -167,6 +173,11 @@ static u64 get_resource_low(struct dmem_cgroup_pool_state *pool)
->  	return pool ? READ_ONCE(pool->cnt.low) : 0;
->  }
->  
-> +static u64 get_resource_high(struct dmem_cgroup_pool_state *pool)
-> +{
-> +	return pool ? READ_ONCE(pool->cnt.high) : PAGE_COUNTER_MAX;
-> +}
-> +
->  static u64 get_resource_min(struct dmem_cgroup_pool_state *pool)
->  {
->  	return pool ? READ_ONCE(pool->cnt.min) : 0;
-> @@ -186,6 +197,7 @@ static void reset_all_resource_limits(struct dmem_cgroup_pool_state *rpool)
->  {
->  	set_resource_min(rpool, 0);
->  	set_resource_low(rpool, 0);
-> +	set_resource_high(rpool, PAGE_COUNTER_MAX);
->  	set_resource_max(rpool, PAGE_COUNTER_MAX);
->  }
->  
-> @@ -289,10 +301,13 @@ dmem_cgroup_calculate_protection(struct dmem_cgroup_pool_state *limit_pool,
->   * dmem_cgroup_state_evict_valuable() - Check if we should evict from test_pool
->   * @limit_pool: The pool for which we hit limits
->   * @test_pool: The pool for which to test
-> + * @try_high: Only evict BOs whose usage exceeds the high limit (first pass)
->   * @ignore_low: Whether we have to respect low watermarks.
->   * @ret_hit_low: Pointer to whether it makes sense to consider low watermark.
->   *
->   * This function returns true if we can evict from @test_pool, false if not.
-> + * When @try_high is set, only pools with usage above their high limit are
-> + * evictable, enabling prioritized eviction of over-limit cgroups.
->   * When returning false and @ignore_low is false, @ret_hit_low may
->   * be set to true to indicate this function can be retried with @ignore_low
->   * set to true.
-> @@ -301,7 +316,7 @@ dmem_cgroup_calculate_protection(struct dmem_cgroup_pool_state *limit_pool,
->   */
->  bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
->  				      struct dmem_cgroup_pool_state *test_pool,
-> -				      bool ignore_low, bool *ret_hit_low)
-> +				      bool try_high, bool ignore_low, bool *ret_hit_low)
->  {
->  	struct dmem_cgroup_pool_state *pool = test_pool;
->  	struct page_counter *ctest;
-> @@ -331,9 +346,38 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
->  
->  	ctest = &test_pool->cnt;
->  
-> +	used = page_counter_read(ctest);
-> +
-> +	if (try_high) {
-> +		struct page_counter *c;
-> +
-> +		/*
-> +		 * Walk the page_counter parent chain to check whether any
-> +		 * ancestor cgroup exceeds its dmem.high limit.  This prevents
-> +		 * child cgroups from evading the penalty when a parent cgroup
-> +		 * is over its high limit.
-> +		 */
-> +		if (used <= READ_ONCE(ctest->high)) {
-> +			for (c = ctest->parent; c; c = c->parent) {
-> +				if (page_counter_read(c) > READ_ONCE(c->high))
-> +					break;
-> +			}
-> +			if (!c)
-> +				return false;
-> +		}
-> +
-> +		/*
-> +		 * Respect dmem.min protection: do not evict BOs below the
-> +		 * effective minimum even during the high-priority pass.
-> +		 */
-> +		dmem_cgroup_calculate_protection(limit_pool, test_pool);
-> +		min = READ_ONCE(ctest->emin);
-> +
-> +		return used > min;
-> +	}
-> +
->  	dmem_cgroup_calculate_protection(limit_pool, test_pool);
->  
-> -	used = page_counter_read(ctest);
->  	min = READ_ONCE(ctest->emin);
->  
->  	if (used <= min)
-> @@ -835,6 +879,17 @@ static ssize_t dmem_cgroup_region_low_write(struct kernfs_open_file *of,
->  	return dmemcg_limit_write(of, buf, nbytes, off, set_resource_low);
->  }
->  
-> +static int dmem_cgroup_region_high_show(struct seq_file *sf, void *v)
-> +{
-> +	return dmemcg_limit_show(sf, v, get_resource_high);
-> +}
-> +
-> +static ssize_t dmem_cgroup_region_high_write(struct kernfs_open_file *of,
-> +					  char *buf, size_t nbytes, loff_t off)
-> +{
-> +	return dmemcg_limit_write(of, buf, nbytes, off, set_resource_high);
-> +}
-> +
->  static int dmem_cgroup_region_max_show(struct seq_file *sf, void *v)
->  {
->  	return dmemcg_limit_show(sf, v, get_resource_max);
-> @@ -868,6 +923,12 @@ static struct cftype files[] = {
->  		.seq_show = dmem_cgroup_region_low_show,
->  		.flags = CFTYPE_NOT_ON_ROOT,
->  	},
-> +	{
-> +		.name = "high",
-> +		.write = dmem_cgroup_region_high_write,
-> +		.seq_show = dmem_cgroup_region_high_show,
-> +		.flags = CFTYPE_NOT_ON_ROOT,
-> +	},
->  	{
->  		.name = "max",
->  		.write = dmem_cgroup_region_max_write,
+--y6dsoxirkzmzvozk
+Content-Type: application/pgp-signature; name="signature.asc"
 
-The rest of the patch looks good.
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoYTzIACgkQ3SOs138+
+s6GxaRAAjgANXnfe1wgqu6b9m4HuFdaycpwxk4CcV3WwqHprSpxl1qFYVt1ibS7t
+VeTme3TXMEQfWtWtjpmZP+v57XEl4GYqJbkwfWxe07IQ8J69VlW9SO1zuD0r2fDf
+4Tne3aFpMyzAcnw6xdzwMKss3AG2kZSRCXL8lKStb9ukJBuodwjnCPyr7Rwb9I8R
+6sEskI+ZrNxAQYhpO29NRnmMcbpF2ISammOI5BxpLJ3lidf1va0lP5J9C2v+g9Ev
+50kAAmX+PmWJK8rVyKvrxVhjVA9fCFglWyGFxXk0Dv5Xe1f4dfPSLpBklKuxi3Xo
+HnmFPiyagcl2edZmjzfpfptkrgpEtbqkWR6/K/KmcqVi6DOqNzRaZZO7yaSdKBat
+19AggK170KetHSoynu2dFWNtH/z/NIhfEUTgZuZbXaQaaX+rvD0++RgcuzklISr+
+6pT8QG8/aKTmuYZtvmOxyDwRGML+gR3LS2HkazV2c5JriN0xsZsZjWgt8a7NfVdv
+UZajs6ifGkCtSa6zN8hiDeLw1yNBj1MNNb5f1qSnY0/jlNsnAZAxb1E8zE5fV4TI
+9GGF3GZJzq6ILu2BIJ8cEWI3VTUbDEHD/eb8SJjt7hedRqU6fv/kgZNvDMA4cX8z
+a+tVDxRXRhsxjbQhPh0z/HitFPVSe5JTHJ4mlJ2HniKMEuuXqcA=
+=2DYb
+-----END PGP SIGNATURE-----
+
+--y6dsoxirkzmzvozk--
