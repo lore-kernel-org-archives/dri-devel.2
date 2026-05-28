@@ -4,137 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15635CD6E44
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 10:12:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E9ECCD5BD1
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 10:13:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3238710EF81;
-	Thu, 28 May 2026 10:12:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7A9A10EF84;
+	Thu, 28 May 2026 10:13:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RejT8wCN";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RgI7FmR/";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="WUETkDiH";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="D/UYfeRL";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6B1810EF80
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 10:12:14 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DF9310EF84
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 10:13:13 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64S8vUJC4016406
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 10:12:14 GMT
+ 64S8vcXE566574
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 10:13:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- AuMlQ94hzZYHxomsU+L+MfA3oE3xtzzIMmJ6zw8DcuY=; b=RejT8wCNdPCXNUbr
- XGZGjTn8BCWHFhCIFGuj5Dk2yHWcyJofFMJI0GgXn0mmR1VLJFSjHN3bsBFDC4dm
- owvJpQCZd3eodp+mwcoNqMkRFU/BT2sNWOlvF1NJt999EHVFtD0IjwNThT9P8+cy
- UqD5bfoRqLw7/ae0UBcCF+4p5M5gK58Edz2FCsxwi5LS89++FbcAFDjMNvCR1QMX
- n1O7Cm7Uedk1pDDhI24TFxjLfosmjIOyljZXSEpRVqpdsKYQmRMvD5ZMet+M3Bhr
- KAbCprsmlqln/JkRPd6MpVlZlBHIDguCaobrK52cgpaPZZBAzraKnmFrQB7CPZ1l
- IVMWJA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ee7y5ab25-1
+ Tw9BCq69+vPICTaEPFF13m6QUIzPyxrc7hFFrxx7Wfk=; b=WUETkDiHdPqIxrha
+ Bj+BG/eb1EQsF8AVbKSyChhywX+y9FhIinp8B1Pcq3eS9+wb1NzQIA3v3DQE34pX
+ IG/Q4RFInaqDfwleMWDFrU7qQ9ZqGTZnwK9qEHs+EdMmwsCM/VNdNpYpjn8fn9Fi
+ AGpJs0INzoYxSdYPtCL9wHp62mAiiEtqvUT+pIWFSXIeTp0nQF7rU7/SN4OxMm1y
+ NeGyvKWaNsjcFtiuqdfDI40PrMuIHWy+m6WOxFNsUaggK1s5Cov4JqdRW5Qkrnsz
+ j6sr1abSMYCACx3U/SeUOmWe94EO7/DwkPllUdm5NbSDAggELQ2OqLvWXzFL8hL3
+ oGdqOw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ee7ynjan4-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 10:12:13 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-516d13328dcso131058811cf.1
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 03:12:13 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 10:13:13 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-516d38bfe83so138553311cf.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 03:13:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779963133; x=1780567933;
+ d=oss.qualcomm.com; s=google; t=1779963192; x=1780567992;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
- :cc:subject:date:message-id:reply-to;
- bh=AuMlQ94hzZYHxomsU+L+MfA3oE3xtzzIMmJ6zw8DcuY=;
- b=RgI7FmR/vGSaFT0Vx4Fxl9HUw8qH9tKCWzXxZRHssBpVJBurqEqiGRbSytHghkuXnb
- 87X4C3qtYKjnRH5dI2qjvqz/AONr5jfyiUp3yEsnoNsrQlGNChWN1RH1z5K3q0noM4Jn
- DdUJIwRHUP4JFfr2XeW9ZvsYXEcYrhzMEHqytB8dFUD2xEW/nBU+imIlLmkKBEY+aUS6
- fxsoTqzbANYoRGxsErRTLZqKympIgvKVfEZaJYwxlj670V4a0qII3mic8KURe+DlsDaR
- m/oixxDKvFy8NxQwDRFPQm7oTsoND0+ZApG2dYJcpmVm3qwuIAtWS0BrGKJI+Vu9XKDq
- oVJA==
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Tw9BCq69+vPICTaEPFF13m6QUIzPyxrc7hFFrxx7Wfk=;
+ b=D/UYfeRLOGfUy2jz04MWn81T8+UEMGjr100lS/xM4dkq8PAK98zt4/PWgOEfvuStzO
+ chO4m/zDxZgF6qqYIXKgchbxR+qFTZVtTCLVz2+vBYSAPsg3ZFGy7gIU8P/pZLTOK+7Z
+ cmkkkcDo17AcdUjqnxychfNBY1Gpyl1/ClAeQWoghGX+omzbKWY1YYfGfrBp27JOx4q/
+ t9LYcxoayxf2a2G7+afYz9vvrDYshQTJtZj5L1GZTdZzzw33DkxQwg2JZiwnmMK1deOp
+ VN+90JPn6ELSo6IToq7nZzeAOOtEeRUb+PtP7nbb8jTVfNWSdVPjkBNCb9NZ9oQBDtNQ
+ INug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779963133; x=1780567933;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=AuMlQ94hzZYHxomsU+L+MfA3oE3xtzzIMmJ6zw8DcuY=;
- b=lPoU9vG9gKO5EILnHoccRxk3wk7URegLQqpUzVIMjLUFv42DhTWJ2Lj22D6GiRwyoT
- aqYO4nuNhbEVfTOLroyWFZjojKyIcHkct0DbOWGC4O7tSBfPatgO5KXD8uwcn7ms3U6r
- Gl0v7/AUuVD9hn7YzHuEWiKZC0UX4Ra/rujuZlz6NONoaSMedhNsM8CL7CnK1XuThcUi
- RSiTLVhLUxFAHKsYx7QK7pq+eHYk7VtbySAJxw/Ozey5GfQpS0/dL8FS52i7yLKbckah
- qKEJbk+jJzrX+zfMooJGaXJ9VnyjsCbdde970nGKfsSn2Pr802ZwjRZZCocGQeWWotom
- D7TA==
+ d=1e100.net; s=20251104; t=1779963192; x=1780567992;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Tw9BCq69+vPICTaEPFF13m6QUIzPyxrc7hFFrxx7Wfk=;
+ b=mmiwcyiZlo7dE8WInNnGM28kjN2ro8jX7Le58053XvQkj2amcO0mvgmLg5XU/vIVen
+ IGgK2DaDWxxo/Y5eM/XSsiH3vtDltuFE1AbTIvoOmzuJsn18LxBu6j5RSnSm7VsnmPJo
+ AEF30rxGhWdsC6igDYPYxf6mELdM28HkLqNxI+YsZIKUthPr32Hv5kEQmmaa2RHjmt4Y
+ THa+tosb25YwoetfDRoH7UP4/zAgWKRy7e0LPYKbKGJNBesFdWQGo3aGEa+z37S0V+UK
+ DSAWfxPjjUgyFP7C0wmKvX7q9oy56lqts7Bkv7pNFVGmzFyoGzMo3XyUqEO01FeVhfY3
+ 4IrQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/9QAHUgctcYOd07OLXmv+a7DJS7oBSdhsluab5u6JFiHHh1qht4+neKt53u34jDDNNa02b5/dBd8k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx8aEsYLRF9zDF76RljiVQQDJ4NLqTce980kzra2KDpxFY+fk8z
- 8imABdtqfKCn93Co7MIQxWkzZAORJgvY3kJaCTDFbrI3GNVz7Bau5SCdpLIUh6qeimpwAO+Kf2T
- +Zo+vJRo28r0xdEVcKbzrVVOhhsOoGYt9+2JibX3XHULXDrXR7t1mNfxLdthG0Zou+BIFFao=
-X-Gm-Gg: Acq92OEXRExOxUdwckZgC6b5o+vIqZlWZKrXO3CIIjv+a0yEyjzNPFYNE6riTVTcPf8
- g7UO+frqvX16DOWfJqjfENKTxfnoNG7x1tnt8HA5ZTMQOu9tvsf3XlFN0+jiT/gGd9NwvrD8T86
- Hk75NJCuD2xe3HfKP9L9ZcxMO62CTqSR5/F4kza9wpLbSMLw2rK/V0Gt2wO34UebjWxWTYPfeuG
- 9gJfpfwC7CC8MW0vTD3Gew2mS/J4Fy0fkmB4SrQYiR1iGBkvIGGtryHaHswGDFIXEemQWeIhTA3
- nlXt3zNa5BMZSTmmHwJ0wETrUgPcLzkwEEqdQy5wgNBl6R3mTD5CdrT2zCSURnO7OmGZ0l/AARR
- 8jKIW9OJ7FOlVV6c6pwqaFjE3wBReZBQk9qptQelbhBGaRUTjag5JAPjLCdDSTRs7x5M9ON09LO
- locTqgGlzZ7NCRyO35ma6E9HicmEElFqXjnIJLTH9WjlQDBtIu9oREa7WXubWMYgt4G/qHPgVng
- J+kBpo/TgPRT+CLbERpEIKZuaw=
-X-Received: by 2002:a05:622a:2298:b0:50f:c67e:d52c with SMTP id
- d75a77b69052e-516d466fc0cmr364940061cf.55.1779963133275; 
- Thu, 28 May 2026 03:12:13 -0700 (PDT)
-X-Received: by 2002:a05:622a:2298:b0:50f:c67e:d52c with SMTP id
- d75a77b69052e-516d466fc0cmr364939791cf.55.1779963132858; 
- Thu, 28 May 2026 03:12:12 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:2a07:3a01:8e96:3679:b9c:de47?
- (2001-1c00-2a07-3a01-8e96-3679-0b9c-de47.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:2a07:3a01:8e96:3679:b9c:de47])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-68a6faae4basm1682979a12.5.2026.05.28.03.12.11
+ AFNElJ/9C3ky/Hf56G2BRi6/02Eo8rRu7o3kuOSwSFGBNK9RScy5BBJP4YN6Dn927eM9oH47POo2oNl12jA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwvWSG2fWIK5kAzrt2cfLEFDhkQ0MF1Es+4jBgPwQDilp0wfQf5
+ KaFN9CzP383QvKCUdJGnWb0UCgxf4KIGBDYQx+SBJnN230YkwCGcvNF/xyQCSgJaJNq3Z39cy0l
+ +vCZUzFPk6l0b3hL+EvLytyT5zqe4hwnpAlxtjv8pKtojed9ievydBm35S7U00QEhZlMbj2Q=
+X-Gm-Gg: Acq92OE75MSLa3axhXNnRmZzQvlUJ4WYaS39Qh9N2XTziVwaC0x63Pohx9LSSkL4Ekt
+ 2BFm2+vPR3j5Zl+4MymyJhk9EMqd8t156JF+LjQKzCjEd3hwbrdK7NA3jFEUxDmxlBkmsR9N8LZ
+ RT78RN74eVUnZj5rLUOsDgmxnwOdmOa/vOYDTDPHT6Sx7ZSAKGSfGBvaiMqrGLLfnbmf4ixVDW3
+ COjyRY0X+swul+zc5iOqxZilVjSyCvvGrE0E6p2J9MiCZN8I9wxgE8E1nQxDYnkri9PfLaGqUJT
+ cMJ9TcTZrVLlVp9hODCApOKJo2k/QpFnlDsaZoD2tb7gqO2EWY/FSdcZ+v9MgMtC0Uc/rpItW+x
+ lk06/qajCFWZnoV39ujMJCBDLd4ciDXgcCTs72JCQ4jlUb1BYr+2ouXpxWM7Ak9sizn5ni/dGSI
+ m6yeauXje30F6VZFUUq3XGNQ==
+X-Received: by 2002:a05:622a:d0e:b0:516:e96b:2356 with SMTP id
+ d75a77b69052e-516e96b277fmr252286931cf.24.1779963192096; 
+ Thu, 28 May 2026 03:13:12 -0700 (PDT)
+X-Received: by 2002:a05:622a:d0e:b0:516:e96b:2356 with SMTP id
+ d75a77b69052e-516e96b277fmr252286591cf.24.1779963191696; 
+ Thu, 28 May 2026 03:13:11 -0700 (PDT)
+Received: from [10.111.173.202] (Global_NAT1_IAD_FW.qualcomm.com.
+ [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8cc80ded529sm195589336d6.16.2026.05.28.03.13.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 May 2026 03:12:11 -0700 (PDT)
-Message-ID: <66a76d9f-fe04-4a72-b6fe-42c2922fe9d9@oss.qualcomm.com>
-Date: Thu, 28 May 2026 12:12:10 +0200
+ Thu, 28 May 2026 03:13:11 -0700 (PDT)
+Message-ID: <057742e8-9de9-4aa0-ac5d-8ddf44cf467d@oss.qualcomm.com>
+Date: Thu, 28 May 2026 18:13:04 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Subject: Re: [PATCH 0/3] clk: Add __clk_disable_unprepare_counts_only() and
- use this in simple[fb|drm]
-To: Brian Masney <bmasney@redhat.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Helge Deller <deller@gmx.de>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, linux-clk@vger.kernel.org,
- dri-devel@lists.freedesktop.org, ~postmarketos/upstreaming@lists.sr.ht
-References: <20260527094811.116977-1-johannes.goede@oss.qualcomm.com>
- <ahd4XgTo3KZqGS9M@redhat.com>
-Content-Language: en-US, nl
-In-Reply-To: <ahd4XgTo3KZqGS9M@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=OM4XGyaB c=1 sm=1 tr=0 ts=6a1814fd cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=b01-GHMo7TsF7J3Xm3IA:9
- a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-ORIG-GUID: 8cm87CXkRbGQePNwaScaWk4jCep7-Hkd
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDEwMyBTYWx0ZWRfX7F0lafx5EOoo
- 7o8ARnLPu6kafY21CzohQYEZf1iCZTUD5ecAMnsmzCPOVNZ/FtgDE2iqd7FgUjBQgb2XZRYU19K
- fc5eahuYmvwA4xGSgFMyAxqFUTJEzaJM7x4ING8kg9BZLp59PBmx8j2dijRSej5mpk5d6wCKBTC
- htukDntWmcl6VwR0vh8G1tWPAe/As6n6QwIiPYV0HpkcHvr1JceupavmxPZH7IK644cnzOnFAdH
- npSoXzjXu189d1KWQZNw8CkS+kpNnhYul4EMDOxUnZFhI0PzNIqbBf8Eoefm4a7mH1iUGhbSDhF
- gbDwFWYgDCIePov8C/wEzIhmYB35Ycy5vuTxbh5N8QQCwhQCWgA17ZMj01rtaHAKLixsKnfuho5
- w1gEhTct1nZuJfrS5A26FRzlA2ALY998JXRZOhFRA1mpLJu+sINcEEX4i+SMu0txqeWpIybrI0w
- KlQup4gNsaAzpnjf0jw==
-X-Proofpoint-GUID: 8cm87CXkRbGQePNwaScaWk4jCep7-Hkd
+Subject: Re: [PATCH v4 25/39] drm/msm/dp: pass panel to display enable/disable
+ helpers
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260410-msm-dp-mst-v4-0-b20518dea8de@oss.qualcomm.com>
+ <20260410-msm-dp-mst-v4-25-b20518dea8de@oss.qualcomm.com>
+ <7dxlzm5hm2uq7ai56lmvzyjntn4kprdg5bp6qr77cqetku4hgu@iom7kqnfn4eo>
+Content-Language: en-US
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+In-Reply-To: <7dxlzm5hm2uq7ai56lmvzyjntn4kprdg5bp6qr77cqetku4hgu@iom7kqnfn4eo>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 8AtwaIx4BijORgpxkwW_-hEjYA5_47HN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDEwMyBTYWx0ZWRfX1ONyANFBXqUM
+ lyBjnN9a8EKw4MfQRwX4RaZ8qU8P1SDB/pqXwPXoLevkcIEWJgFS4WQJYD5DDLg3hwxI9vZCsDF
+ DBTMyc2+uNx/HQSyxW1+NAhDpLOUkFs2IcQ0/9WY7+mb3sk2TYLGuZ0BmyHFRGCL5hbMEUa4ZZ8
+ QfcATOAMvOKsFLAHuklT2a9m13EPkoxe2hqVkZwVOhEyi9tfV8X+UShqxPw8NO55kzKukodUVvp
+ Z85+5XLMHRMN1LgjauVOseCvjzNvhhcLagAEbqZI3tzrO6yOlyScjGOu16YMLXZItaCyLgVYtXC
+ Bpfbt9mHnT3g/lePjy1yv2DPPqwutKsZ5PDj5W9BP4r+wkjY11wW5+8D5J7c2gG7lWGOa7Bj//J
+ UwAQ6P4ij0xhNqNJr1SDgwEKp5sI1vRF9f2GmlK2pVuV1TaAIq0418pO9fumEFJP8n6muCKneSa
+ 6NF+y0ei7Bomin1B3bA==
+X-Proofpoint-ORIG-GUID: 8AtwaIx4BijORgpxkwW_-hEjYA5_47HN
+X-Authority-Analysis: v=2.4 cv=Eo7iaycA c=1 sm=1 tr=0 ts=6a181539 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=keVsun0R0cJNlHGda80A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-05-28_03,2026-05-26_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0 impostorscore=0 adultscore=0 suspectscore=0
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 phishscore=0 spamscore=0
+ clxscore=1015 impostorscore=0 suspectscore=0 adultscore=0 spamscore=0
+ bulkscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605280103
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -152,71 +150,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Brian,
 
-On 28-May-26 1:03 AM, Brian Masney wrote:
-> Hi Hans,
-> 
-> On Wed, May 27, 2026 at 11:48:08AM +0200, Hans de Goede wrote:
->> 2) One option considered was detaching the simple-framebuffer driver later,
->>    after the real display driver has had a chance to claim the clocks. But
->>    this won't work in cases where the real display driver picks different
->>    parent clocks then the boot firmware did and needs to reparent clocks.
-> 
-> Why won't that work in the case where different parent clocks are selected?
-> I'll describe a scenario below.
-> 
+
+On 4/12/2026 8:05 AM, Dmitry Baryshkov wrote:
+> On Fri, Apr 10, 2026 at 05:34:00PM +0800, Yongxing Mou wrote:
+>> Pass struct msm_dp_panel to the display enable/disable helpers to make
+>> them easier to reuse for MST stream handling.
 >>
->>    Basically the goal is for things to behave as if the simple-framebuffer
->>    driver was not there at all, because that leaves the hw in the state
->>    the real display driver expects.
+>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_display.c | 18 ++++++++++--------
+>>   1 file changed, 10 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index 7b3b9160e005..88a078e53dc1 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -668,7 +668,8 @@ static int msm_dp_display_prepare(struct msm_dp_display_private *dp)
+>>   	return msm_dp_ctrl_prepare_stream_on(dp->ctrl, force_link_train);
+>>   }
+>>   
+>> -static int msm_dp_display_enable(struct msm_dp_display_private *dp)
+>> +static int msm_dp_display_enable(struct msm_dp_display_private *dp,
+>> +				 struct msm_dp_panel *msm_dp_panel)
 > 
-> I think the deferred unbinding could have some potential here where
-> there is some kind of notification mechanism between simple-framebuffer
-> and the real drm driver. So:
+> Where is it being used?
 > 
-> - simple-framebuffer driver takes reference(s) to the clk(s).
+Got it..That was my mistake — I’ll pass it inside the function.
+>>   {
+>>   	int rc = 0;
+>>   	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+>> @@ -725,20 +726,21 @@ static void msm_dp_display_audio_notify_disable(struct msm_dp_display_private *d
+>>   	msm_dp_display->audio_enabled = false;
+>>   }
+>>   
+>> -static int msm_dp_display_disable(struct msm_dp_display_private *dp)
+>> +static int msm_dp_display_disable(struct msm_dp_display_private *dp,
+>> +				  struct msm_dp_panel *msm_dp_panel)
+>>   {
+>>   	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+>>   
+>>   	if (!msm_dp_display->power_on)
+>>   		return 0;
+>>   
+>> -	msm_dp_panel_disable_vsc_sdp(dp->panel);
+>> +	msm_dp_panel_disable_vsc_sdp(msm_dp_panel);
+>>   
+>> -	msm_dp_ctrl_off_pixel_clk(dp->ctrl, dp->panel->stream_id);
+>> +	msm_dp_ctrl_off_pixel_clk(dp->ctrl, msm_dp_panel->stream_id);
+>>   
+>>   	/* dongle is still connected but sinks are disconnected */
+>>   	if (dp->link->sink_count == 0)
+>> -		msm_dp_link_psm_config(dp->link, &dp->panel->link_info, true);
+>> +		msm_dp_link_psm_config(dp->link, &msm_dp_panel->link_info, true);
+>>   
+>>   	msm_dp_ctrl_off_link(dp->ctrl);
+>>   
+>> @@ -1529,14 +1531,14 @@ void msm_dp_display_atomic_enable(struct msm_dp *msm_dp_display)
+>>   
+>>   	msm_dp_display_set_stream_info(msm_dp_display, dp->panel, 0, 0, 0, 0);
+>>   
+>> -	rc = msm_dp_display_enable(dp);
+>> +	rc = msm_dp_display_enable(dp, dp->panel);
+>>   	if (rc)
+>>   		DRM_ERROR("DP display enable failed, rc=%d\n", rc);
+>>   
+>>   	rc = msm_dp_display_post_enable(msm_dp_display);
+>>   	if (rc) {
+>>   		DRM_ERROR("DP display post enable failed, rc=%d\n", rc);
+>> -		msm_dp_display_disable(dp);
+>> +		msm_dp_display_disable(dp, dp->panel);
+>>   	}
+>>   
+>>   	drm_dbg_dp(msm_dp_display->drm_dev, "type=%d Done\n", msm_dp_display->connector_type);
+>> @@ -1573,7 +1575,7 @@ void msm_dp_display_atomic_post_disable(struct msm_dp *dp)
+>>   
+>>   	msm_dp_display_audio_notify_disable(msm_dp_display);
+>>   
+>> -	msm_dp_display_disable(msm_dp_display);
+>> +	msm_dp_display_disable(msm_dp_display, msm_dp_display->panel);
+>>   
+>>   	msm_dp_display_unprepare(msm_dp_display);
+>>   }
+>>
+>> -- 
+>> 2.43.0
+>>
 > 
-> - real drm driver eventually loads, takes reference(s) to the necessary
->   clk(s).
-> 
-> - real drm driver sends a notification to simple-framebuffer that it's
->   done, and has control.
-> 
-> - simple-framebuffer can unbind and release its references to the clks.
-> 
-> No clks will be shutdown prematurely in this scenario.
-> 
-> If the real drm driver needs a different parent, then presumably things
-> should be setup correctly, and simple-framebuffer can have the clocks
-> shut down when it calls clk_disable_unprepare().
-
-If the real drm driver needs a different parent, then how does it
-do the reparenting while the simple-framebuffer driver is holding
-a reference to the clock ?  In that case the clock might have
-a protected_count of non 0 (depends on the core-clk flags) and
-reparenting won't work.
-
-We could have the drm driver claim the clks, then call some release
-function and only then do the reparenting. But this makes things
-somewhat complicated for the drm drivers.
-
-So my conclusion is that having a clk equivalent of e.g.
-pm_runtime_put_noidle() which just lowers the counts without
-actually doing anything is still the most KISS approach here.
-
-With the downside of needing a new clk-core function for this.
-
-> If the real drm driver
-> needed those clks, then it should hold a reference to them.
->
-> I'm intentionally not going through how to do the notification mechanism> here.
-
-Ack.
-
-Regards,
-
-Hans
-
-
 
