@@ -4,97 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CA38CD4F54
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 19:09:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D38E2CD4F54
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 19:14:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DB1D10F5B2;
-	Thu, 28 May 2026 19:09:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36E5A10F5AA;
+	Thu, 28 May 2026 19:14:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="acrE9dIz";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="h5bKZWpQ";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0CF310F5A3
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 19:09:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1779995391;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=fakoTULzpL8x2UFOvAiDOqwXfj/NdneAEJE6VOYhXQw=;
- b=acrE9dIz84mtKM7TyaUp55feUYmgn5peCTNyOJIWI63Kti3iK+XF8PkAOQLiGesZSQmAzt
- 1uAY7uq+viD1bDdTwqhXackvNSdMDNGp6B6lo0SSx0/rRA+s1XnkW1v3X/e7hkYxH5w5b7
- VtSKXOgLvIYDr+I5w/4fxvX02aGDIQ8=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-622-l6NQIijGPPiX3FyBv6IzBA-1; Thu, 28 May 2026 15:09:47 -0400
-X-MC-Unique: l6NQIijGPPiX3FyBv6IzBA-1
-X-Mimecast-MFC-AGG-ID: l6NQIijGPPiX3FyBv6IzBA_1779995387
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-8cce0957698so5002146d6.3
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 12:09:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779995387; x=1780600187;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=fakoTULzpL8x2UFOvAiDOqwXfj/NdneAEJE6VOYhXQw=;
- b=SIQ4Wn20WnO791MIFg/W1C9JsVj+TtMn3G/m36rLUtlW3+BckhQBm43b6N182c+/SC
- nXXOzFoIWCGyFq6h76tHFWvfigmG6qQ0Hc2OXUT7iRnzSA6HihebdYHV5b9KCO+/NzC3
- wg3vVelWt4NmoXz9iMuLGU8/U20Ax00irNe12jzxMLbbrCBDYzQwMaak6nhPTEIA96LB
- RiwY3n5IRRQ1Uol8+CDdqY9Lt8DpaJe9AwBcgJ6MfVi3AKEGprr2uAxJ+eP66vtD25gl
- Lq0ZtL1pgr1o/BZQjN9zzE7yNQX8+W4jq7Hmqg0wu1XpQm6tMktdYcsrA/TVP1dukGBm
- bNMg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+Uq9WLYFf9zdc5FsuFC6OniuGravoeT2zLzFEXu1WB6Ai+CvwTqLRYRrgyxPjKhGF2B+vM7saFf2w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyXdQ9NmlmLr71FYskppsiAeomuKggGZd0rFD4Lml4YJXh8PfXJ
- wmbgUTIWwCzpYsaxJU1pIdvKqTjb0mMMi2iZmjCAve/A4XS293TWQ547q3SvMD5HDRZz0ZhQxf5
- H+X2PWuqk3Ac1b6pxOTbtPGuM1FTASZ5BQ+SoNbVZzLFSenC4p0h1QohqqwbPeLHQ+w8cgg==
-X-Gm-Gg: Acq92OHtWxBPbvyCSjYXjevYqLLqusKx+V9LQdaXxRFr8Zuqyspw8jjDGrO59g0fR8g
- MQ5oE1tzcDXwlKHHdUzJtGV+T8WlhJMCIpMuq7RZ7ucEYttT8xWxgjgLqIevUywjg+0F8V/jsza
- ZHDsTb9YVcKP6rWCx/aYrAn/G0eVcuN4GiVr5WMJ9gPbWOnrK8n2J+Bf6WiP1J+jmk6eeZ9TNhC
- fqFkAlATCZABpKlxdvcfg3r5+hgG4cK1KXRxMaW02MXOgrCiv9mPbJdjib+2wb9QiH4QfjiPA2n
- S/lAgCr3jNl3tViX98GVGJ94NCJQ6jO2L0Kj91606Lc/FJ8if7iapHOKM6wKQKZu/OdoI6WGfBl
- LCeTCjjyId/rLs/c0u9GMY0hG5YBa
-X-Received: by 2002:a05:6214:252d:b0:8cc:1010:bbcb with SMTP id
- 6a1803df08f44-8cce216ca21mr7628966d6.27.1779995387394; 
- Thu, 28 May 2026 12:09:47 -0700 (PDT)
-X-Received: by 2002:a05:6214:252d:b0:8cc:1010:bbcb with SMTP id
- 6a1803df08f44-8cce216ca21mr7628396d6.27.1779995386957; 
- Thu, 28 May 2026 12:09:46 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8cc812e2018sm211434596d6.28.2026.05.28.12.09.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 May 2026 12:09:46 -0700 (PDT)
-Message-ID: <c45c2e9096df0b407fa67ee5caee6b4641e2c8ab.camel@redhat.com>
-Subject: Re: [PATCH 0/5] nouveau/gsp: Cleanup IS_ERR_OR_NULL() usage
-From: lyude@redhat.com
-To: Timur Tabi <ttabi@nvidia.com>, "dakr@kernel.org" <dakr@kernel.org>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
- "airlied@redhat.com"	 <airlied@redhat.com>, "simona@ffwll.ch"
- <simona@ffwll.ch>,  "tzimmermann@suse.de"	 <tzimmermann@suse.de>,
- "dri-devel@lists.freedesktop.org"	 <dri-devel@lists.freedesktop.org>,
- "airlied@gmail.com" <airlied@gmail.com>,  "nouveau@lists.freedesktop.org"	
- <nouveau@lists.freedesktop.org>, "maarten.lankhorst@linux.intel.com"	
- <maarten.lankhorst@linux.intel.com>, "zenghongling@kylinos.cn"	
- <zenghongling@kylinos.cn>, "bskeggs@nvidia.com" <bskeggs@nvidia.com>, 
- "mripard@kernel.org"	 <mripard@kernel.org>, "zhongling0719@126.com"
- <zhongling0719@126.com>
-Date: Thu, 28 May 2026 15:09:45 -0400
-In-Reply-To: <ad1ab3a555ca34f37ca4d7c20af5f4cadc4558b5.camel@nvidia.com>
-References: <20260528062451.54107-1-zenghongling@kylinos.cn>
- <794dbd35fd81f03478cdd3238d3d506d0d800187.camel@redhat.com>
- <DIUI56CABZAF.3TU7XCIKTV93R@kernel.org>
- <ad1ab3a555ca34f37ca4d7c20af5f4cadc4558b5.camel@nvidia.com>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B39B10F5AA
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 19:14:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=RBMGdbHnd2aynUHC7hmEf31MglTT+0KoAoR9rUzgEK0=; b=h5bKZWpQeCK5LbL1t6XehMyv32
+ F0sQ71E+zNdN3At2C6NIhD/1vblAWHNhpMF8okaTPYpDhXmU5HFmRRhW34UWVZAt1ENnibtWtA5J+
+ LRbli0ozr2VWBZ+nvcRDyt83aKRdFwazy1L8U8GsotvJXvZnDalEc0148qzRVschvztYOKaj0IEws
+ kDVEapzGEZihblFUcBwFchmcyyyCNPvAqMG8N7x6PqSbLmp2c1pSLokzs08WhIrYuxh3Z+IalaXdM
+ AnJu28lq6czMK8RkjV2ZO7KSZuFmivWP3vZ7ft8uScDcPpJ3rCf5gD99aWlTAfDMyerkwO5Ok1CDu
+ mHzNJ7Gw==;
+Received: from [189.7.87.67] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wSgBV-009W1X-HB; Thu, 28 May 2026 21:14:25 +0200
+Message-ID: <9956a72e-57ad-4bad-a3f6-87710eb4924d@igalia.com>
+Date: Thu, 28 May 2026 16:14:18 -0300
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: r9zb58QQ_2f1W4zdOPiAeoilWSLGvyKHicJBfFw-S3g_1779995387
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/v3d: fix to avoid cleaning up uninitialized CPU jobs
+To: Jeongjun Park <aha310510@gmail.com>, Melissa Wen <mwen@igalia.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Iago Toral Quiroga <itoral@igalia.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@kernel.org
+References: <20260525140422.1545327-1-aha310510@gmail.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260525140422.1545327-1-aha310510@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,33 +88,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 2026-05-28 at 19:06 +0000, Timur Tabi wrote:
-> On Thu, 2026-05-28 at 19:56 +0200, Danilo Krummrich wrote:
-> > I think at least this patch has to be reverted, it causes the
-> > following oops
-> > probing nouveau on my machine.
-> >=20
-> > I can't currently look into this, but I think Sashiko [1] has a
-> > valid point on
-> > this one.
->=20
-> I'm not a fan of this series.=C2=A0 When I saw the number of patches, I
-> was suspicious, because I have a
-> hard time believing that there were so many functions that never
-> returned NULL.=C2=A0 The call tree of a
-> lot of Nouveau code is pretty deep, and it takes quite a lot of work
-> to ensure that there is no
-> "return NULL" in any code path.
->=20
-> Nouveau is kinda sloppy in this regard, which is why IS_ERR_OR_NULL
-> is used so much.=C2=A0 It's a safety
-> measure.
+Hi Jeongjun,
 
-FWIW: I already sent a revert for the last patch in the series which
-needs a review, but I'm happy to send out a revert for the whole thing
-if we want.
+On 25/05/26 11:04, Jeongjun Park wrote:
+> The CPU submit ioctl checks cpu_job->job_type before the CPU job has been
+> initialized with v3d_job_init(). When no CPU job extension is supplied,
+> the check fails and the ioctl goes to the common error path.
+> 
+> That path calls v3d_job_cleanup(), which expects a fully initialized
+> v3d_job. However at this point the CPU job has only been allocated,
+> so the embedded DRM scheduler job state has not been initialized yet.
+> 
+> Initialize the CPU job after parsing extensions, but before validating
+> the CPU job type and BO count. Keep pre-initialization failures on a
 
-You are right - I did actually sit down and try to run through all of
-the codepaths for all these functions, but there's clearly a number
-that I missed and should have checked sashiko for.=20
+Considering that this is a minimal fix for stable, could you explain me
+why do you believe moving v3d_job_init() is the best solution?
+
+Best regards,
+- Maíra
+
+> separate path that only deallocates the job and releases multisync
+> post-dependencies. Also use the CPU-job release callback so initialized
+> CPU jobs are released through the normal cleanup path.
+> 
+> Cc: stable@kernel.org
+> Fixes: aafc1a2bea67 ("drm/v3d: Add a CPU job submission")
+> Signed-off-by: Jeongjun Park <aha310510@gmail.com>
+> ---
+>   drivers/gpu/drm/v3d/v3d_submit.c | 19 +++++++++++--------
+>   1 file changed, 11 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
+> index 3ddd53b6f437..f5a1b388eaa3 100644
+> --- a/drivers/gpu/drm/v3d/v3d_submit.c
+> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
+> @@ -1300,10 +1300,18 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+>   		ret = v3d_get_extensions(file_priv, args->extensions, &se, cpu_job);
+>   		if (ret) {
+>   			drm_dbg(dev, "Failed to get extensions.\n");
+> -			goto fail;
+> +			v3d_job_deallocate((void *)&cpu_job);
+> +			goto fail_init;
+>   		}
+>   	}
+>   
+> +	ret = v3d_job_init(v3d, file_priv, &cpu_job->base,
+> +			   v3d_cpu_job_free, 0, &se, V3D_CPU);
+> +	if (ret) {
+> +		v3d_job_deallocate((void *)&cpu_job);
+> +		goto fail_init;
+> +	}
+> +
+>   	/* Every CPU job must have a CPU job user extension */
+>   	if (!cpu_job->job_type) {
+>   		drm_dbg(dev, "CPU job must have a CPU job user extension.\n");
+> @@ -1319,13 +1327,6 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+>   
+>   	trace_v3d_submit_cpu_ioctl(&v3d->drm, cpu_job->job_type);
+>   
+> -	ret = v3d_job_init(v3d, file_priv, &cpu_job->base,
+> -			   v3d_cpu_job_free, 0, &se, V3D_CPU);
+> -	if (ret) {
+> -		v3d_job_deallocate((void *)&cpu_job);
+> -		goto fail;
+> -	}
+> -
+>   	clean_job = cpu_job->indirect_csd.clean_job;
+>   	csd_job = cpu_job->indirect_csd.job;
+>   
+> @@ -1402,6 +1403,8 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+>   	v3d_job_cleanup((void *)cpu_job);
+>   	v3d_job_cleanup((void *)csd_job);
+>   	v3d_job_cleanup(clean_job);
+> +
+> +fail_init:
+>   	v3d_put_multisync_post_deps(&se);
+>   
+>   	return ret;
 
