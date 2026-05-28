@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69153CD5BD1
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 09:49:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8818DCD6E44
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 09:49:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE25610EF22;
-	Thu, 28 May 2026 09:49:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F07CB10EF24;
+	Thu, 28 May 2026 09:49:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="o4z7Ys61";
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="gEoJbWHm";
 	dkim-atps=neutral
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch
- [79.135.106.118])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4B4710EF27
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 09:49:12 +0000 (UTC)
+Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch
+ [185.70.43.101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 255EC10EF28
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 09:49:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1779961750; x=1780220950;
- bh=4GIvf6g25dTeIEkU4yrk2b1GS2dt1d/k+38Dt9gY7H8=;
+ s=protonmail3; t=1779961752; x=1780220952;
+ bh=4cNpgUFkxkNEbpjpaCfVK8wi7WkJctG6LthT6aKiF/s=;
  h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
  Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
  Message-ID:BIMI-Selector;
- b=o4z7Ys61t3P+B+ziURs+oZdCqJ4NtuId2lEVKgGvPlqkX0T4aeBbhSBVA3RbJ4m/h
- jPU4Zv50P0UYRGRrSW8BX2etngPWd462ZtBjw/DDtb46ZcIVf3lCgu40JNm8lsCZs+
- T1hbhkZ2g6osNDyCioaFXzXGOwqVJNh+4fmguurUBzSt3xvL6LVtwnO7dJIchzYyOP
- Rubjm3O+bR3ZCwI6cpogE5m0RctzBEayoBSaub79Ca8THVo/R0EJP/I6bDH1SJ011P
- Gftettr+0/xfwd3lDk0cOCFXIZu2O8TYgoUMZxfi5Z+k8J5XBTe00LiAYnvt8U8p0n
- i8ju91tm4GXqA==
-Date: Thu, 28 May 2026 09:48:57 +0000
+ b=gEoJbWHmIi+7byYiB079v+ED48a4RHwy84IXEGULqXDU18kX/ngMiSzz8H+dxBAPs
+ XmqovD/4vDSaglf+brqJAcuQcs7pFzZX/8CnzCL50foOl7KFPgNsOJNE2hO+FEZCWK
+ lUIDNoaI4J0bCPAqdnivaOojkI+4w1joyNmFW8ux4wfBXZCx7BG3Tm3F8nSnViUPyv
+ 2iVgiJXM05HRlDAB/4z34iLlfy9ADqy3ZqWDxQvd36P5GnzOotrNfoUXjmKcEG+uVh
+ OwDvs3Zd92T/pdKWIfGbGuneiZLBDye6yfI5cWHmCB6IFN99GYfRLehqLw1qWSoISg
+ fKXi/7BwPk49A==
+Date: Thu, 28 May 2026 09:49:04 +0000
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
@@ -45,13 +45,13 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>,
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: [PATCH v7 4/6] drm/msm/adreno: set cx_misc_mmio regardless of if
- platform has LLCC
-Message-ID: <20260528-adreno-810-v7-4-7fe7fdd97fc2@pm.me>
+Subject: [PATCH v7 5/6] drm/msm/a8xx: use pipe protect slot 15 for
+ last-span-unbound feature
+Message-ID: <20260528-adreno-810-v7-5-7fe7fdd97fc2@pm.me>
 In-Reply-To: <20260528-adreno-810-v7-0-7fe7fdd97fc2@pm.me>
 References: <20260528-adreno-810-v7-0-7fe7fdd97fc2@pm.me>
 Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: fc7329e3a68a6e39061236e0de59472a1ac92049
+X-Pm-Message-ID: be0eea62f1b0a9bd01496b79b60be27b3c8a802f
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -70,114 +70,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Platforms without a LLCC (e.g. milos) still need to be able to read and
-write to the cx_mem region. Previously if LLCC slices were unavailable
-the cx_misc_mmio mapping was overwritten with ERR_PTR, causing a crash
-when the GMU later accessed cx_mem.
+A8XX GPUs have two sets of protect registers: 64 global slots and 16
+pipe specific slots. The last-span-unbound feature is only available
+on pipe protect registers, and should always target pipe slot 15.
 
-Move the cx_misc_mmio mapping out of a6xx_llc_slices_init() into
-a6xx_gpu_init() so that cx_mem mapping is independent of LLCC.
+This matches the downstream driver which hardcodes pipe slot 15 for
+all A8XX GPUs (GRAPHICS.LA.15.0.r1) and resolves protect errors on
+A810.
 
 Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 38 ++++++++++++++++---------------=
-----
- 1 file changed, 17 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/msm/adreno/a8xx_gpu.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/ad=
-reno/a6xx_gpu.c
-index d7f446e92098..ac9597baeb44 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -2038,7 +2038,7 @@ static void a6xx_llc_activate(struct a6xx_gpu *a6xx_g=
-pu)
- =09struct msm_gpu *gpu =3D &adreno_gpu->base;
- =09u32 cntl1_regval =3D 0;
+diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/ad=
+reno/a8xx_gpu.c
+index 66a6c9c714fa..5e2d15e42452 100644
+--- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+@@ -265,8 +265,8 @@ static void a8xx_set_cp_protect(struct msm_gpu *gpu)
+ =09 * Last span feature is only supported on PIPE specific register.
+ =09 * So update those here
+ =09 */
+-=09a8xx_write_pipe(gpu, PIPE_BR, REG_A8XX_CP_PROTECT_PIPE(protect->count_m=
+ax), final_cfg);
+-=09a8xx_write_pipe(gpu, PIPE_BV, REG_A8XX_CP_PROTECT_PIPE(protect->count_m=
+ax), final_cfg);
++=09a8xx_write_pipe(gpu, PIPE_BR, REG_A8XX_CP_PROTECT_PIPE(15), final_cfg);
++=09a8xx_write_pipe(gpu, PIPE_BV, REG_A8XX_CP_PROTECT_PIPE(15), final_cfg);
 =20
--=09if (IS_ERR(a6xx_gpu->cx_misc_mmio))
-+=09if (IS_ERR_OR_NULL(a6xx_gpu->llc_slice) && IS_ERR_OR_NULL(a6xx_gpu->htw=
-_llc_slice))
- =09=09return;
-=20
- =09if (!llcc_slice_activate(a6xx_gpu->llc_slice)) {
-@@ -2097,7 +2097,7 @@ static void a7xx_llc_activate(struct a6xx_gpu *a6xx_g=
-pu)
- =09struct adreno_gpu *adreno_gpu =3D &a6xx_gpu->base;
- =09struct msm_gpu *gpu =3D &adreno_gpu->base;
-=20
--=09if (IS_ERR(a6xx_gpu->cx_misc_mmio))
-+=09if (IS_ERR_OR_NULL(a6xx_gpu->llc_slice) && IS_ERR_OR_NULL(a6xx_gpu->htw=
-_llc_slice))
- =09=09return;
-=20
- =09if (!llcc_slice_activate(a6xx_gpu->llc_slice)) {
-@@ -2134,31 +2134,12 @@ static void a6xx_llc_slices_destroy(struct a6xx_gpu=
- *a6xx_gpu)
- static void a6xx_llc_slices_init(struct platform_device *pdev,
- =09=09struct a6xx_gpu *a6xx_gpu, bool is_a7xx)
- {
--=09struct device_node *phandle;
--
- =09/* No LLCC on non-RPMh (and by extension, non-GMU) SoCs */
- =09if (adreno_has_gmu_wrapper(&a6xx_gpu->base))
- =09=09return;
-=20
--=09/*
--=09 * There is a different programming path for A6xx targets with an
--=09 * mmu500 attached, so detect if that is the case
--=09 */
--=09phandle =3D of_parse_phandle(pdev->dev.of_node, "iommus", 0);
--=09a6xx_gpu->have_mmu500 =3D (phandle &&
--=09=09of_device_is_compatible(phandle, "arm,mmu-500"));
--=09of_node_put(phandle);
--
--=09if (is_a7xx || !a6xx_gpu->have_mmu500)
--=09=09a6xx_gpu->cx_misc_mmio =3D msm_ioremap(pdev, "cx_mem");
--=09else
--=09=09a6xx_gpu->cx_misc_mmio =3D NULL;
--
- =09a6xx_gpu->llc_slice =3D llcc_slice_getd(LLCC_GPU);
- =09a6xx_gpu->htw_llc_slice =3D llcc_slice_getd(LLCC_GPUHTW);
--
--=09if (IS_ERR_OR_NULL(a6xx_gpu->llc_slice) && IS_ERR_OR_NULL(a6xx_gpu->htw=
-_llc_slice))
--=09=09a6xx_gpu->cx_misc_mmio =3D ERR_PTR(-EINVAL);
+ =09a8xx_aperture_clear(gpu);
  }
-=20
- #define GBIF_CLIENT_HALT_MASK=09=09BIT(0)
-@@ -2756,6 +2737,7 @@ static struct msm_gpu *a6xx_gpu_init(struct drm_devic=
-e *dev)
- =09struct platform_device *pdev =3D priv->gpu_pdev;
- =09struct adreno_platform_config *config =3D pdev->dev.platform_data;
- =09const struct adreno_info *info =3D config->info;
-+=09struct device_node *phandle;
- =09struct a6xx_gpu *a6xx_gpu;
- =09struct adreno_gpu *adreno_gpu;
- =09struct msm_gpu *gpu;
-@@ -2806,6 +2788,20 @@ static struct msm_gpu *a6xx_gpu_init(struct drm_devi=
-ce *dev)
-=20
- =09a6xx_llc_slices_init(pdev, a6xx_gpu, is_a7xx);
-=20
-+=09/*
-+=09 * There is a different programming path for A6xx targets with an
-+=09 * mmu500 attached, so detect if that is the case
-+=09 */
-+=09phandle =3D of_parse_phandle(pdev->dev.of_node, "iommus", 0);
-+=09a6xx_gpu->have_mmu500 =3D (phandle &&
-+=09=09of_device_is_compatible(phandle, "arm,mmu-500"));
-+=09of_node_put(phandle);
-+
-+=09if (is_a7xx || !a6xx_gpu->have_mmu500)
-+=09=09a6xx_gpu->cx_misc_mmio =3D msm_ioremap(pdev, "cx_mem");
-+=09else
-+=09=09a6xx_gpu->cx_misc_mmio =3D NULL;
-+
- =09ret =3D a6xx_set_supported_hw(&pdev->dev, a6xx_gpu, info);
- =09if (ret) {
- =09=09a6xx_llc_slices_destroy(a6xx_gpu);
 
 --=20
 2.53.0
