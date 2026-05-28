@@ -4,66 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92D8ECD5BD1
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 08:59:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4F27CD5BD1
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 09:00:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC15010EE49;
-	Thu, 28 May 2026 08:59:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE42A10EE4C;
+	Thu, 28 May 2026 09:00:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZLjGjCS8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="K8fJmCyr";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B876110EE49;
- Thu, 28 May 2026 08:59:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779958753; x=1811494753;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=yITXz7miJoKkLJkFy0JeLjTGaWJ0V8x8RwQLEqHLRmQ=;
- b=ZLjGjCS8wiNcOhv0UVujYSv2STmW4NEvvxaBjIu9pH9XcD2BjNXRc/2H
- oWxLTYUwkIz3UHBLfP2zCHwbJNsQfyByIfGMlDLMqB7tQaUTzI4vHYoh4
- U6Va9hk/d2cD+APLK7gF7FosLYlRPJaGygriTPPAC21ueXmdxaSZx3JCw
- hIeEYXen3Zyildyrit+LBdg4lRQFEOH3NIZpni44JxG79R1vDGQrSK1f1
- opFsJj4qAmAgCLK/7y3l3KK7luKcs+jyktGNF4NIE0HiWKJiSgqik7B/L
- 4Y8R/Oegzch6TSdrynPkAnN2f8/d9DvXSg9vPXEE9rhZa2AnNEsXEh1SC w==;
-X-CSE-ConnectionGUID: 1qQOAFrORDa/JggGbuMGxw==
-X-CSE-MsgGUID: +LnnAzCvQyGAuNWCFvzODA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11799"; a="79946329"
-X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; d="scan'208";a="79946329"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 May 2026 01:59:12 -0700
-X-CSE-ConnectionGUID: OWoJ8s+vSmKaooVbl3p+sQ==
-X-CSE-MsgGUID: R+cGajzlR9ql9VHI5YnIIw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; d="scan'208";a="246523117"
-Received: from lkp-server01.sh.intel.com (HELO f0d55cb201f0) ([10.239.97.150])
- by orviesa003.jf.intel.com with ESMTP; 28 May 2026 01:59:07 -0700
-Received: from kbuild by f0d55cb201f0 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wSWa0-000000005l0-1tso;
- Thu, 28 May 2026 08:59:04 +0000
-Date: Thu, 28 May 2026 16:58:24 +0800
-From: kernel test robot <lkp@intel.com>
-To: Christoph Hellwig <hch@lst.de>, Vlastimil Babka <vbabka@kernel.org>,
- Harry Yoo <harry@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
-Cc: oe-kbuild-all@lists.linux.dev,
- Linux Memory Management List <linux-mm@kvack.org>,
- Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@linux-foundation.org>,
- David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- io-uring@vger.kernel.org, kasan-dev@googlegroups.com,
- bpf@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH] mm/slab: improve kmem_cache_alloc_bulk
-Message-ID: <202605281629.y8HhAihO-lkp@intel.com>
-References: <20260527070239.2252948-2-hch@lst.de>
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10A1210EE4C
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 09:00:00 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4906238c62eso39024425e9.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 01:59:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779958798; x=1780563598; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=KgapLk0U8W9ohmKNOKBlmGBZxDjWC3tsNDHbpGJHrbQ=;
+ b=K8fJmCyrsn4rXoJ8KuvOIyePGUK/Us7OoJwcrQwaF7YpY/Jy6IuWisXHrZ4OaDMZa4
+ i/h2zrLsoWIzCB7tktkG+5Y8dy2Zk2/AU9xR9N+erAgGSK6jptiwzhpXxSR9zx+S8fGY
+ YObbkWVRBCEFX+oCCQUUHpFzx/OlR9Vt6vuC5pvqA3YrQo0Ac7a9ZKSWadOF5do5uafN
+ bMfeqi191agEAGscNAX++tH0JGR62u9d6bEPWz5Kdg3MBSFISgpUQdMmc/VQUxJwhdxP
+ H5sFkV/tRjquo3BldWMCjhpt/XIFXuDnzSxl5w9hlpt48P4bQdYYVx0tB0Bqddzj6IT/
+ HYEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779958798; x=1780563598;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=KgapLk0U8W9ohmKNOKBlmGBZxDjWC3tsNDHbpGJHrbQ=;
+ b=bELMueARjZfEJvIe2dzclTP/VLElpyGxX3vi0Tsi1njUNgovpWJM3fOfYbJB97GJj4
+ nOTYi1P/hv63hIZYqHnDE9ZXts9V1bygi5Zsi8kDcL/Ld3oz5rPnnqx+bxCN+6IhtsJt
+ p67cV6gBbwqqEXPItMiiH65a2gIUUHP4V4gUw4VtM8G7S0gL61kE4x6Gxw1bZcM3lhWQ
+ 7TS4T/TLepz6M2zN273reM+0k2Cqe0Gb9Yi+IbSKhXRxMR/zbxGFogWTZgKnE5khmPSE
+ SNl3E9rD5JUGd6yXsTf6pxtOKLPkineM86PsiopTDMmJ/P6k0AHe1YvOsbINkfs8ATg2
+ rUDw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/Q2mvWIURvHtacufUf3jKwZn+Lk7kmyZcnuq5nJS3jIHvkRX/5jO79dR5y8/67l4Wjo5Y9k776ee4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YweMVCVpOcTdz5xoZuBKOzcMbpO8sNQcFXGP8iw7czH/VEuryU+
+ 9BhmDkBbvBpYPPYp+s+igBFesSWpZ4E10Tlv6oT8bUeUXBN4t4Rn/SdC
+X-Gm-Gg: Acq92OGH3X8wvnXbC/7YkDn/AFs4rDSHKOFUjcTeCYg5RxPLvxsIJkBJoWAusxQcZUw
+ F6cbrdZNwZrs4fqBSPIo+i9dcla4ZsHrArVNiPAkw6fd8ZHIwZ9gGaynfQ+LLnRmpA2xofH2Hy3
+ pnU9BgnxvFornCq3oh647/0CQInnyCm3Bsr50ju9lzPWikClSEejKVeY7OLq5aOLH52qrZQuhn0
+ 3UtXNf++I5F46wWTNeP6VV7xfq1BkSylwv09Kly17w6z0pu2oxLNOuFAT4YSDmpariZ1Dy4F3Lo
+ cOiMwGPqqER5tLaCwC5hBpvW9Iacu0B8t0vCt4zoMfyUVQ0cyBxedBVaFUpX1SsCbFymGDhAdhf
+ 47cy825Hrn7X8MwUFYTyYJ5c+osf647CXJfUoBTz5K0BfgvOUqDBf9Lce7Cm674Usvf/i+7O1Od
+ v61VFUoaSQwHv1uY5oL5SUAVVaN2w/HsXSSA==
+X-Received: by 2002:a05:600c:35cf:b0:48a:5c23:cab with SMTP id
+ 5b1f17b1804b1-490426bc737mr484669565e9.19.1779958797723; 
+ Thu, 28 May 2026 01:59:57 -0700 (PDT)
+Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49091d55972sm26972035e9.0.2026.05.28.01.59.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 May 2026 01:59:57 -0700 (PDT)
+Date: Thu, 28 May 2026 11:59:53 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Sean Anderson <sean.anderson@linux.dev>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Michal Simek <michal.simek@amd.com>, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ kernel-janitors@vger.kernel.org
+Subject: Re: [PATCH] drm: zynqmp_dp: Fix uninitialized variable in debugfs()
+Message-ID: <ahgECVKG-djR9_l3@stanley.mountain>
+References: <ahP3Xagt1LJrhmFl@stanley.mountain>
+ <935aaec5-5417-3cde-f944-3c04ffbd3458@linux.dev>
+ <ahfeOh091V3BuuaB@stanley.mountain>
+ <9189701d-168e-1e63-8a6c-f6926029c336@linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260527070239.2252948-2-hch@lst.de>
+In-Reply-To: <9189701d-168e-1e63-8a6c-f6926029c336@linux.dev>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,116 +97,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Christoph,
+On Thu, May 28, 2026 at 04:00:53AM -0400, Sean Anderson wrote:
+> On 5/28/26 02:18, Dan Carpenter wrote:
+> > On Wed, May 27, 2026 at 08:31:59PM -0400, Sean Anderson wrote:
+> > > On 5/25/26 03:16, Dan Carpenter wrote:
+> > > > If the *ppos is non-zero then simple_write_to_buffer() will not
+> > > > initialize the start of the buf[] buffer.  It doesn't really make sense
+> > > > to allow non-zero values for *ppos, so check for that at the start and
+> > > > return -EINVAL.
+> > > 
+> > > non-zero ppos seems to be handled properly by simple_write_to_buffer.
+> > > 
+> > 
+> > It's not an overflow bug, it's an uninitialized variable bug.
+> > 
+> > The simple_write_to_buffer() is designed to handle partial writes so it
+> > leaves the first "written" (scare quotes) part of the string as is.  But
+> > in this case, we can't handle a partial write and the first part of
+> > buf[] is left uninitialized.
+> > 
+> > https://staticthinking.wordpress.com/2026/05/23/simple_write_to_buffer-is-complicated/
+> 
+> OK, that's a bit strange. Can you add this to the doc comment? I certainly
+> missed it when looking around for appropriate functions.
+> 
+> And I like the explicit copy_from_user variant better, especially since
+> we are setting the nul-terminator anyway.
+> 
+> > Also this appears to be dead code since fops_zynqmp_dp_pattern is never
+> > used.
+> 
+> It's of course used in zynqmp_dp_bridge_debugfs_init.
 
-kernel test robot noticed the following build errors:
+Ah, yes.  I just did a git grep and the CREATE_FILE() macro confused me.
+But obviously this wouldn't compile if we had an unused local variable.
+Duh...
 
-[auto build test ERROR on akpm-mm/mm-everything]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Christoph-Hellwig/mm-slab-improve-kmem_cache_alloc_bulk/20260527-150421
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
-patch link:    https://lore.kernel.org/r/20260527070239.2252948-2-hch%40lst.de
-patch subject: [PATCH] mm/slab: improve kmem_cache_alloc_bulk
-config: parisc-randconfig-r071-20260528 (https://download.01.org/0day-ci/archive/20260528/202605281629.y8HhAihO-lkp@intel.com/config)
-compiler: hppa-linux-gcc (GCC) 8.5.0
-smatch: v0.5.0-9185-gbcc58b9c
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260528/202605281629.y8HhAihO-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202605281629.y8HhAihO-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   lib/test_meminit.c: In function 'do_kmem_cache_size':
->> lib/test_meminit.c:239:29: error: 'ret' undeclared (first use in this function); did you mean 'net'?
-        kmem_cache_free_bulk(c, ret, bulk_array);
-                                ^~~
-                                net
-   lib/test_meminit.c:239:29: note: each undeclared identifier is reported only once for each function it appears in
-
-
-vim +239 lib/test_meminit.c
-
-dc5c5ad79f0cc2d Laura Abbott        2019-12-04  209  
-5015a300a522c8f Alexander Potapenko 2019-07-16  210  /*
-5015a300a522c8f Alexander Potapenko 2019-07-16  211   * Test kmem_cache with given parameters:
-5015a300a522c8f Alexander Potapenko 2019-07-16  212   *  want_ctor - use a constructor;
-5015a300a522c8f Alexander Potapenko 2019-07-16  213   *  want_rcu - use SLAB_TYPESAFE_BY_RCU;
-5015a300a522c8f Alexander Potapenko 2019-07-16  214   *  want_zero - use __GFP_ZERO.
-5015a300a522c8f Alexander Potapenko 2019-07-16  215   */
-5015a300a522c8f Alexander Potapenko 2019-07-16  216  static int __init do_kmem_cache_size(size_t size, bool want_ctor,
-5015a300a522c8f Alexander Potapenko 2019-07-16  217  				     bool want_rcu, bool want_zero,
-5015a300a522c8f Alexander Potapenko 2019-07-16  218  				     int *total_failures)
-5015a300a522c8f Alexander Potapenko 2019-07-16  219  {
-5015a300a522c8f Alexander Potapenko 2019-07-16  220  	struct kmem_cache *c;
-5015a300a522c8f Alexander Potapenko 2019-07-16  221  	int iter;
-5015a300a522c8f Alexander Potapenko 2019-07-16  222  	bool fail = false;
-5015a300a522c8f Alexander Potapenko 2019-07-16  223  	gfp_t alloc_mask = GFP_KERNEL | (want_zero ? __GFP_ZERO : 0);
-5015a300a522c8f Alexander Potapenko 2019-07-16  224  	void *buf, *buf_copy;
-5015a300a522c8f Alexander Potapenko 2019-07-16  225  
-5015a300a522c8f Alexander Potapenko 2019-07-16  226  	c = kmem_cache_create("test_cache", size, 1,
-5015a300a522c8f Alexander Potapenko 2019-07-16  227  			      want_rcu ? SLAB_TYPESAFE_BY_RCU : 0,
-5015a300a522c8f Alexander Potapenko 2019-07-16  228  			      want_ctor ? test_ctor : NULL);
-5015a300a522c8f Alexander Potapenko 2019-07-16  229  	for (iter = 0; iter < 10; iter++) {
-dc5c5ad79f0cc2d Laura Abbott        2019-12-04  230  		/* Do a test of bulk allocations */
-dc5c5ad79f0cc2d Laura Abbott        2019-12-04  231  		if (!want_rcu && !want_ctor) {
-863d4ee245fb4d6 Christoph Hellwig   2026-05-27  232  			if (!kmem_cache_alloc_bulk(c, alloc_mask, BULK_SIZE,
-863d4ee245fb4d6 Christoph Hellwig   2026-05-27  233  					bulk_array)) {
-dc5c5ad79f0cc2d Laura Abbott        2019-12-04  234  				fail = true;
-dc5c5ad79f0cc2d Laura Abbott        2019-12-04  235  			} else {
-dc5c5ad79f0cc2d Laura Abbott        2019-12-04  236  				int i;
-863d4ee245fb4d6 Christoph Hellwig   2026-05-27  237  				for (i = 0; i < BULK_SIZE; i++)
-dc5c5ad79f0cc2d Laura Abbott        2019-12-04  238  					fail |= check_buf(bulk_array[i], size, want_ctor, want_rcu, want_zero);
-dc5c5ad79f0cc2d Laura Abbott        2019-12-04 @239  				kmem_cache_free_bulk(c, ret, bulk_array);
-dc5c5ad79f0cc2d Laura Abbott        2019-12-04  240  			}
-dc5c5ad79f0cc2d Laura Abbott        2019-12-04  241  		}
-dc5c5ad79f0cc2d Laura Abbott        2019-12-04  242  
-5015a300a522c8f Alexander Potapenko 2019-07-16  243  		buf = kmem_cache_alloc(c, alloc_mask);
-5015a300a522c8f Alexander Potapenko 2019-07-16  244  		/* Check that buf is zeroed, if it must be. */
-dc5c5ad79f0cc2d Laura Abbott        2019-12-04  245  		fail |= check_buf(buf, size, want_ctor, want_rcu, want_zero);
-5015a300a522c8f Alexander Potapenko 2019-07-16  246  		fill_with_garbage_skip(buf, size, want_ctor ? CTOR_BYTES : 0);
-d3a811617ae629d Arnd Bergmann       2019-07-16  247  
-d3a811617ae629d Arnd Bergmann       2019-07-16  248  		if (!want_rcu) {
-d3a811617ae629d Arnd Bergmann       2019-07-16  249  			kmem_cache_free(c, buf);
-d3a811617ae629d Arnd Bergmann       2019-07-16  250  			continue;
-d3a811617ae629d Arnd Bergmann       2019-07-16  251  		}
-d3a811617ae629d Arnd Bergmann       2019-07-16  252  
-5015a300a522c8f Alexander Potapenko 2019-07-16  253  		/*
-5015a300a522c8f Alexander Potapenko 2019-07-16  254  		 * If this is an RCU cache, use a critical section to ensure we
-5015a300a522c8f Alexander Potapenko 2019-07-16  255  		 * can touch objects after they're freed.
-5015a300a522c8f Alexander Potapenko 2019-07-16  256  		 */
-5015a300a522c8f Alexander Potapenko 2019-07-16  257  		rcu_read_lock();
-5015a300a522c8f Alexander Potapenko 2019-07-16  258  		/*
-5015a300a522c8f Alexander Potapenko 2019-07-16  259  		 * Copy the buffer to check that it's not wiped on
-5015a300a522c8f Alexander Potapenko 2019-07-16  260  		 * free().
-5015a300a522c8f Alexander Potapenko 2019-07-16  261  		 */
-733d1d1a7745113 Alexander Potapenko 2019-08-02  262  		buf_copy = kmalloc(size, GFP_ATOMIC);
-5015a300a522c8f Alexander Potapenko 2019-07-16  263  		if (buf_copy)
-5015a300a522c8f Alexander Potapenko 2019-07-16  264  			memcpy(buf_copy, buf, size);
-d3a811617ae629d Arnd Bergmann       2019-07-16  265  
-4ab7ace465466d2 Alexander Potapenko 2019-07-16  266  		kmem_cache_free(c, buf);
-5015a300a522c8f Alexander Potapenko 2019-07-16  267  		/*
-5015a300a522c8f Alexander Potapenko 2019-07-16  268  		 * Check that |buf| is intact after kmem_cache_free().
-5015a300a522c8f Alexander Potapenko 2019-07-16  269  		 * |want_zero| is false, because we wrote garbage to
-5015a300a522c8f Alexander Potapenko 2019-07-16  270  		 * the buffer already.
-5015a300a522c8f Alexander Potapenko 2019-07-16  271  		 */
-5015a300a522c8f Alexander Potapenko 2019-07-16  272  		fail |= check_buf(buf, size, want_ctor, want_rcu,
-5015a300a522c8f Alexander Potapenko 2019-07-16  273  				  false);
-5015a300a522c8f Alexander Potapenko 2019-07-16  274  		if (buf_copy) {
-5015a300a522c8f Alexander Potapenko 2019-07-16  275  			fail |= (bool)memcmp(buf, buf_copy, size);
-5015a300a522c8f Alexander Potapenko 2019-07-16  276  			kfree(buf_copy);
-5015a300a522c8f Alexander Potapenko 2019-07-16  277  		}
-5015a300a522c8f Alexander Potapenko 2019-07-16  278  		rcu_read_unlock();
-5015a300a522c8f Alexander Potapenko 2019-07-16  279  	}
-5015a300a522c8f Alexander Potapenko 2019-07-16  280  	kmem_cache_destroy(c);
-5015a300a522c8f Alexander Potapenko 2019-07-16  281  
-5015a300a522c8f Alexander Potapenko 2019-07-16  282  	*total_failures += fail;
-5015a300a522c8f Alexander Potapenko 2019-07-16  283  	return 1;
-5015a300a522c8f Alexander Potapenko 2019-07-16  284  }
-5015a300a522c8f Alexander Potapenko 2019-07-16  285  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+regards,
+dan carpenter
