@@ -4,129 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9ED58CD6E44
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 12:58:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14341CD4F54
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 13:02:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1227910F13F;
-	Thu, 28 May 2026 12:58:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C21810F148;
+	Thu, 28 May 2026 13:02:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="0fBgfExN";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nmxdgFaP";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cL0lYCOt";
 	dkim-atps=neutral
-Received: from LO2P265CU024.outbound.protection.outlook.com
- (mail-uksouthazon11021108.outbound.protection.outlook.com [52.101.95.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E48D10F13F;
- Thu, 28 May 2026 12:58:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b4Cm0QSKpsgWh+QOht+8ulPFs1IWqkfbu90fz3Y/uejltbjSLoZJuoEMGXNr5261ftIjE07waHKYS6uAiUGkC6d/A5NuXIEg814vfsZ0rSmY+JcGTs2lA/nN5qcfHzdjzdIbNSNiw9gMuqK8itcX9I5lVh0R9nG4pLaYOMgQC9HBoMApxGcUhMVmC84fIQkyYZhqqWXr9u+WK2m2ni0xO+e3Tu0BMMJuAr8alkJTv/6fbtSybILfz6opiNKZmDFACmnMSfeM7WR+8FHi3fN3xS5qTd9cbbFPrfcqxwi7XpJrFvWmiUC0qaw5Qzbif2HNI7Osx/37GNMrXBTJXhCaiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4IqVF/CkpI8SRV4jV2kHl+eRR1ibZR9Cp1zZpf/a3nQ=;
- b=fquV9daeI48Y0JYWXjSdEo+Zp9X1K0nKd3GH+vbLFdi/nMxh4l5lcMDuRv8RClBTG6v+TaaXm9EFGOYE6j/+zjj9tiFDtL4Olg4SCTkVPsP375aCiJJVDVmEIX5/TAhoU8K9FVr97TvJqcu0UMMPmW7Pe0yGMI4+g3rff2LO0DItovRVS2bGBTnOFMRvF3gpAkrLTn0k1Y/I+S5nDRfLcyBeQctO+r7ODhL1oYqkUtjJhm43hXsYSC9PnEuY7BMB0uwfOdUSfeAH1qONtQvjhkae9w4M7p6McKgWJgld/pQz4Y3pSHBbNpxMMXWB2rl+/aYfR0l5BwSqUyEI48uJIg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4IqVF/CkpI8SRV4jV2kHl+eRR1ibZR9Cp1zZpf/a3nQ=;
- b=0fBgfExN/dgUjXqSMQpsblpCSpZapHRtE4cd1ePww5K8wrNhVPPt9qA+chPalS2IeQGmRjK5fSSWbGhO8T+lksjsn4R5QjiI1VtWgcnIMRliXhPdo2wPmCLTT98KqS/kauwMFCOVHnhwFKEeQ497aIzTNYo56kzFMVwpKeXf1DA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LOBP265MB8883.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:48c::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Thu, 28 May
- 2026 12:58:35 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0071.011; Thu, 28 May 2026
- 12:58:35 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 28 May 2026 13:58:35 +0100
-Message-Id: <DIUBT4GXKI2Q.3RZEYJVWXZF18@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Deborah Brouwer"
- <deborah.brouwer@collabora.com>
-Cc: "Eliot Courtney" <ecourtney@nvidia.com>, <aliceryhl@google.com>,
- <daniel.almeida@collabora.com>, <boris.brezillon@collabora.com>,
- <gary@garyguo.net>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH 2/2] gpu: drm: tyr: use IoMem directly instead of Devres
-From: "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.21.0
-References: <20260525230152.277820-1-dakr@kernel.org>
- <20260525230152.277820-3-dakr@kernel.org>
- <DIS9H75POYGW.EBC1MLW466RG@nvidia.com> <ahd4UoKVT4cM-pgA@um790>
- <DITUMY6K2IQX.17R1VUFJGBDAW@kernel.org>
-In-Reply-To: <DITUMY6K2IQX.17R1VUFJGBDAW@kernel.org>
-X-ClientProxiedBy: LO4P123CA0111.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:192::8) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BF0710F148
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 13:02:21 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64S8vP3E1562676
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 13:02:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ QkLBgrFATghw43YvF1sCEhlToO5Oy4l+TSxs1/G9Cfc=; b=nmxdgFaP9ycgIT+W
+ Vzcx5XQ7QsrfZOMUaQmCJCGhEhcrVUvKGs+gSyiZLIqgsDcFr+5sauDNp1AqyHYg
+ m7+BdatKUt5tHUrMScyUrHSLdeeLXY7aMmHY5I8/SFtUBrIDMkTuSWaHetdOHnwu
+ FE9/nALG8S41XVLuXRGEr4DIg2BiBd3YxbAw2RqAOuH3PDEfRcrobTGVeUePsWO2
+ uhEUXYnjGLSxN8eCbNZrJCRPpGZzo87cLlwDcd/bNr7SOXOLzpi8hI/xkD3zV/pX
+ E+sYPA003hqn+IGhuXpnT2aNWg2Gqe6xspy51PRmC6xMHIFH8RDflhcMGsm71nF0
+ RYX0Ig==
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
+ [209.85.210.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ee7y2tsfv-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 13:02:20 +0000 (GMT)
+Received: by mail-ot1-f71.google.com with SMTP id
+ 46e09a7af769-7e63575a87cso6280828a34.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 06:02:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779973340; x=1780578140;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=QkLBgrFATghw43YvF1sCEhlToO5Oy4l+TSxs1/G9Cfc=;
+ b=cL0lYCOtrzNysTqCufgCI32+PNgc94Jp99RblRNDTDllTfi+olfLzvsBlFHZmCioQ1
+ ACh1ZgW85oYr4B1FBQaQgUiKmg2RiRhVyskDRmsPnmn8E57AngUav3eMk22C74Q/p8Do
+ 1JmqdN0iVFh62EAixR1UreZi5+maM6HokB9bdQsI/yaSYjyCkE950wrD85reVrdfI2zj
+ rMyHp3LYV8mn79qJXUAL6H+ewVfvjuqA4jf9BECpifMr4Ojd0/dm7h1HZzsBMVtAgnVu
+ ryR2Rhq+qbzriOW8GlTCuNPnhu8zjWSqGwjCTamNzYN36PCJqwFvfddkw715638I0gn/
+ rSPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779973340; x=1780578140;
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=QkLBgrFATghw43YvF1sCEhlToO5Oy4l+TSxs1/G9Cfc=;
+ b=Goi3wMy63Gk1+LIzSPZnHis7/sjDpWJlETLay5yfscialtG9sucD5IuNgsH6kAUeAl
+ deMvMeT2Dl2/J1MxyFhuvA0toplYd0eZqLgy/Dxhan6uhjpUy/Hi3/HKP3Gj0ylG2cjz
+ L5rvl+5K+1hY9pYI4AY4zvzwQ6kNT7MaBLoOaX8xcAyyLoMLMOAHdF0w2XXAnstcoBTI
+ m4Chv8pC/hETlF7VVOkuIkemAp2p5K4AMLKIEdd2KhyEBcXc6t3cUbzKoIqTP0xoZM0I
+ ARaZU05b/jsc578cLALK0H0FN9OVmfPwwN2iRWJB5dwvx2WYo67v66XSRbHhSfLgAefm
+ I+sQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8rTOgAiNRxC9OZOcnMHUO+ezOROgoi1GLIxPgGYxJsibtDHKCrmtnNvfCI3mvnHAnqt047mBvUvrQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxPzpeBUP5aEslpW8dacxYypM8B464wFoTuNRhwFFFM5w0aIRJp
+ wby1wIiTLqWtLU4v4oRmws4GdRmCQRoYxzKedX4z/fmX1gkUCuG4P6BfmU+hdW6k0uSUsRvbtxI
+ I9pv6hVh1JX4c5+gNh+49QOiWJLzFV7NBhyQE1JCbUaUbSqCwLbeB2TJ29lBXiu4a5LtkwUU=
+X-Gm-Gg: Acq92OFBRIHyZNaHHlZtrL3qFNo1HevHZ5F38VjXzhp+Zaez8Tsa28LESfitmuF+CGI
+ jmqpY4xzbXYWBc8ErpL4+99thUfkN8hqeRUvdvDtQVzM8tcgcHtOPQychM60fOZpsNmoLxcawdc
+ 1TLVFNjxC9e5xwL+2XfM8XrLJm1TQK7nmTXfjHJOd6+PDRKpmbN06IKN3bgoIzHsjDTY/r1BKc6
+ Lw7USTXnMMcGzmpIpjmMV+WZGR4WPBbsXJeqQxmkx0YbulX0WgjfUsX5w/3dvi6b6w8OEHD2k39
+ f21XOso/gcLOKrj7+1VABnn3y7uICFRjlR/9cTJOnTPCTU/FRq7xEg20ovhQzDHQtR+gzcE/A5R
+ 9pT4CPt9MPngKpRo244t9cfABmBwRKJMfgnD0F7aC5B3svrlNbMqs/iOWrCbk4NxPdwCDPxzj7F
+ Q7ChQHePXTBPc5tfx5P211T4AYVmDYOeQ9mY3wGXuIYbxjCYXmAryyVpLB5j3sxQtdYQuvldP2Z
+ lilMy3cGxhujj8W+A7IPBQyKq0=
+X-Received: by 2002:a05:6830:660c:b0:7dc:d0cc:91b with SMTP id
+ 46e09a7af769-7e5fefcb86bmr17464108a34.26.1779973338300; 
+ Thu, 28 May 2026 06:02:18 -0700 (PDT)
+X-Received: by 2002:a05:6830:660c:b0:7dc:d0cc:91b with SMTP id
+ 46e09a7af769-7e5fefcb86bmr17463543a34.26.1779973333375; 
+ Thu, 28 May 2026 06:02:13 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:2a07:3a01:8e96:3679:b9c:de47?
+ (2001-1c00-2a07-3a01-8e96-3679-0b9c-de47.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:2a07:3a01:8e96:3679:b9c:de47])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-68b9d51a60csm115745a12.11.2026.05.28.06.02.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 28 May 2026 06:02:12 -0700 (PDT)
+Message-ID: <4b09bd91-9a08-407a-9b01-216dd4d7aae0@oss.qualcomm.com>
+Date: Thu, 28 May 2026 15:02:09 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LOBP265MB8883:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7960c0f5-eb21-4187-0704-08debcb8d43e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|10070799003|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: RWmJgXVQI2IYD4Z/96KjfXJdJ+PFB41VzPP0aOtdyahQ2qw6DJItPx5tHuhZ7BqxKcdjTRnCQbsmzO6oHSep7tFrrDZUUSEWO4kou653AmaWdLvZzD/zLCG3UMVO0UGcRycBcen8tyfbvNEsJIkWGe/3ml5ILdeU5RZ5A1ZCWxaJjZ4oDToH6CPYDgzplMCp9rcNnvYvld4zmLnRVSvJ8VT7Sk0mLC7BWeKgA+ZHgo2qNoZUbJlDpMsl1no5kd7bRtXW18RssDEnLr00Cc0HNGRxEngJcDiCuhsDEt6EFn7teBnbHZKNPWfLVs6KoriSprhtfKqA6+jzq9A3k53I6p3Ke5Sb8iQVUgDZPackrwNrKAzrHML1calJpyXuCRfjrKJD03p9kgiCBQE1kZkVJYDPNE00glinIpaJdHAUF7vJphY/5FFWFavyLQEgQvw85gSp5sGPpgCM87dN4NJbCdr+8ybHQhyQykvbCB/0Yq429IjQbgiPvgS4Y3KwvW/SAnIySpzLu9+U55HhO7g4JQFxFD64DCPWbZzUKkxbx/F8sIuRM5eKwvfsOMgVRBy24avjms4GrR4TiF9scJbACvCLaFXAGYLkYFVBOQFclRQWFH17AUApgqyglgbSW/GPAAsPqBp2E2GSAKRzwrAAya61prxh4Rbj3iGw47zx1RwD7ycahIUzsn/bxIR9MxAC
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(10070799003)(56012099006)(4143699003)(22082099003)(18002099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WUdPL3l4REFRaDZEbEFpRmJmSVFzbmRhREx3elR3VVV1a3BlLzYxWlJ3NzA0?=
- =?utf-8?B?a2EzRFNHS1MwWEtMTkowbmY0Tkp0bTkrLytqcnFwb3dqVUdDNkJuZGU5WWRk?=
- =?utf-8?B?K1ExaHUrbnZibmtjU1dvd2owNlpBckM1a0NrQTJRdzVnQ2wwUWNDUGRicGg4?=
- =?utf-8?B?QnlJcmdxWWVkZHpqVmxQcUFrVFZaUUpTVG8wMVlrUkI2Q3hmQk5qL05LZlMy?=
- =?utf-8?B?N1ZFTGM3Vlo0THdKZVVOSVNSa0syUlJiK1k2UDVlaEN5RFdSbnBrVlg0RjF3?=
- =?utf-8?B?cEQva2cxUXMrN3hTbmxENzMyazFXU1hQSnpuSWhQM0FXaW1sVXdNWEFoQ3pp?=
- =?utf-8?B?VjFhYkF5SENOYnFYRjczS0VqWDZFOE9QNzJ6a3duY0dVc0NlK040c1VobUZu?=
- =?utf-8?B?TkJIczVOMFVxRzh6VmNKVTAxYnZVTmdvVnh0QUh5YVZtclRocVU0cUhLcVRU?=
- =?utf-8?B?MnNjTXVscnhQclFPeUtiSnFiRm9KbVJ1WGU0b1NUSWlVWnJPaUhDdUNXMHht?=
- =?utf-8?B?a2NaY294ZlpmVm5Wc2hlcXVFYnVXNytuYUo0UGNRdkRvc2VUbkh4czFTMGdX?=
- =?utf-8?B?eWtzUVBjVFdvSXVQVm5Ibm1JYUV1MVkxZnVtblZYc1FWaFl6R0dCYyt1WFhI?=
- =?utf-8?B?dmplT0QzUnVMdXpZV0ZucTZsQ0oxOGNJaUxNcElnY3hIbkpxYytLb3hJdWlY?=
- =?utf-8?B?WFVuQzJMa2FNalFMdXlsZ0VQUVFuYlhDcFBjem80d0hVeHB4LzVvUjBKSHpy?=
- =?utf-8?B?SEFvMUNJcTJlOWJTODhEclZNcDRRN0Q4LzBIb1h5akdFQnpFdXdSQmJsaDhZ?=
- =?utf-8?B?dmx6RUNQWm9ucHRXeWd3UUw4YXc5SHJQZWU1VGE2NkdzbnNFcW9VOUxkdTFu?=
- =?utf-8?B?ck5CamEydkQ0Wmh1VzhONG1SK2xDUTZCZHBxNUdPY0R5SjFVMFhWNklJd1lq?=
- =?utf-8?B?WDNoYlkwOFRFSkVWTVlaNkg0MDIwOW9pcXNDYVM0MUprMjhqYzVnSVdOaS9W?=
- =?utf-8?B?d1JLQVpBNmkvRG9kN0ozdTVITHBqY0ZoZzhWenJFN09sWGM5UjczRk9YRWJt?=
- =?utf-8?B?VkszNkhLRytIbEgyTHExTU45MEhkOEJZN3JNSkxUak14V3djTTVMRUVwTzF5?=
- =?utf-8?B?UGxidU9MMy9FU0krWjVhNmFBdTRvS3NwS21UNitnUDZTU20vR2pydis3RzRw?=
- =?utf-8?B?Z3orejRmZjBraDJEOHJ3ek50WXNnT3plbUE2Yi91a0MvVUdOM3NTeHJXeHk2?=
- =?utf-8?B?U1RWbWhJSVd0MXVXSXBsTWJiMEQrVGNYUlZJZm1vMEFqQmFtdnZQaU1XUUZQ?=
- =?utf-8?B?Y2Q2QlBEZ2RKODFScktFamFnbzBBcjNFZkx5azZnTlBIRlRvdkpRTnB4Mmhv?=
- =?utf-8?B?dzNWcGJ5SGdPSy9nRUgxV0s5RGhqS0ZqaGw5SytTNXpsQkw0WlpNVjhISU9k?=
- =?utf-8?B?WEk1d1U1K3Z0azZ2c1AxSzI3ZWhrdndoTmtZYlVKd00yak5qME1wUmhVQjMx?=
- =?utf-8?B?WERuZE45TnROMEVGZWlKSjhta2xHTHozbElhZ3E3eEFzM2ZMT0NxbVlIeElT?=
- =?utf-8?B?VURWWG5zZmJwQXQ5NjA2OXJJM3MzYkNacWtPMVJGUmNoODVNeHlzMEp3TWR0?=
- =?utf-8?B?Y2QvQlJtTVdjMUw0SUJ5a2s3OWlDOUh3Y2o4eDVqUTAxVGtEL2RJWlBMWTBQ?=
- =?utf-8?B?NlEvQzJIQWN0TUljb2dURDhFRWo0QXpSeFNMb01tTDdOanZkSzRvVEhZOVhv?=
- =?utf-8?B?emt4Yy9jWTAyRGdSdFJKSzFjOC91N0czVEZENG4zS2dBYUFWL2tVN3NZWUJQ?=
- =?utf-8?B?QzBkVmRCbzV1a3dQSGRIL2JMWW02RTBrWXkrQ2hSMzJFTTNuZGQ4Z2QyV1Nw?=
- =?utf-8?B?VnVDSlJrVGJ3V01yLzBSR1VTVXFkMHdVelZkYXo2ZHk2M2lTeUp2YTc3TCt2?=
- =?utf-8?B?dmVXRTJjbTR4dUtHc2puajFjVVBZODV3Q3ZoM2YvWUo1OVUxaW16b1I3cFJ6?=
- =?utf-8?B?S0Y4dnhEVDNHdTVOSmtKRGdnYzdCWEhSd3hlZmlJUGhDaCttd3lkMXlHNkJt?=
- =?utf-8?B?cXRVM2pmU250bjB4MVVyR3l6aUF5eExYNDJBdEpqaFJYaEQyM0d5RDJUMlNt?=
- =?utf-8?B?YWE3dUREMHQxMk5LMnc4bE9ITFFIa3pIV21sWDdGZjdQR1dSQlZuM1JCVTF4?=
- =?utf-8?B?N1Q2VnJINHFVbUxUMGhBSUdaS2ZPYnhUeDI1elkwY04rMmhxTFdzcnEySk1m?=
- =?utf-8?B?dEhUUEw2Z05JN3I0QmVoSUhWL2VHTnA0eWpHWHROejM3Yy9lajQwdGR4Qzlu?=
- =?utf-8?B?aEo5ZkRoQU9vMjJpRzM5STBvU2xxUnVYK2VFSW93T3cwRTV2SDdZdz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7960c0f5-eb21-4187-0704-08debcb8d43e
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2026 12:58:35.4724 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 28ES92525aG3fGiux/DNDx9IvmhV5Y7b1hWQjyrdiF6S4X9cydbVJhO++VbTnsuZ+KZc/IEdCV1r8w3VupVsYg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOBP265MB8883
+User-Agent: Mozilla Thunderbird
+From: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Subject: Re: [PATCH 0/3] clk: Add __clk_disable_unprepare_counts_only() and
+ use this in simple[fb|drm]
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Brian Masney <bmasney@redhat.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, linux-clk@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, ~postmarketos/upstreaming@lists.sr.ht
+References: <20260527094811.116977-1-johannes.goede@oss.qualcomm.com>
+ <ahd4XgTo3KZqGS9M@redhat.com>
+ <66a76d9f-fe04-4a72-b6fe-42c2922fe9d9@oss.qualcomm.com>
+ <20260528-sloth-of-delightful-chaos-1f02dc@houat>
+Content-Language: en-US, nl
+In-Reply-To: <20260528-sloth-of-delightful-chaos-1f02dc@houat>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=VeXH+lp9 c=1 sm=1 tr=0 ts=6a183cdc cx=c_pps
+ a=OI0sxtj7PyCX9F1bxD/puw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=jBUPtkGcZuGRmuA17X4A:9
+ a=QEXdDO2ut3YA:10 a=Z1Yy7GAxqfX1iEi80vsk:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDEzMiBTYWx0ZWRfX70CXMz5KzAhX
+ jxgHjcI0vCXaNPSZXFramTEDsKrElPhL+LB6e7lMWY01zVcBU7jgu0JGcUdaMTo6L9mfHuxpGDB
+ EVqF+B+m2DHOGsh6i+QeTSAlJfN72UGmL8H8mXjnF03tVE5qOHK4sqr5kFr9ZXsaHeZAgax9wSw
+ P5VY8MmWzJ++6bffzKOSkFxvHKd/hf315oILqf8Qs8bPvgxA5xHtrBis8CYobP3OLbX1BPnk219
+ DHBo/LOscYxZnqe95A0sSrNUVBKEVlWH8B8j4wXAe7H3F5VvaOIbCUM13MCv5ricTWJq/JxGG5U
+ 270zUJ1GOnfD3AyyN64q4Y4G5DDT49OV9/wkmnfswyQftdKyCC/42e+GeOBZe8zS2LHG6uxtxSx
+ Vr34pAokQ3hzpM5SuWp9in6ziJWPoelGERwChrf222nVYLtdZlZM+6tugXzstW8q8lEimhA+FIi
+ mYsIFUiIpHL5C1oV+Gw==
+X-Proofpoint-GUID: Mw_-vUGRaA9Ls_OyyVqETMtqF6G2ldWI
+X-Proofpoint-ORIG-GUID: Mw_-vUGRaA9Ls_OyyVqETMtqF6G2ldWI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-28_03,2026-05-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0 malwarescore=0
+ impostorscore=0 bulkscore=0 suspectscore=0 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605280132
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,41 +154,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu May 28, 2026 at 12:31 AM BST, Danilo Krummrich wrote:
-> On Thu May 28, 2026 at 1:03 AM CEST, Deborah Brouwer wrote:
->> On Tue, May 26, 2026 at 11:43:38AM +0900, Eliot Courtney wrote:
->>> On Tue May 26, 2026 at 8:01 AM JST, Danilo Krummrich wrote:
->>> > @@ -40,9 +39,7 @@
->>> >  pub(crate) struct GpuInfo(pub(crate) uapi::drm_panthor_gpu_info);
->>> > =20
->>> >  impl GpuInfo {
->>> > -    pub(crate) fn new(dev: &Device<Bound>, iomem: &Devres<IoMem>) ->=
- Result<Self> {
->>> > -        let io =3D (*iomem).access(dev)?;
->>> > -
->>> > +    pub(crate) fn new(io: &IoMem<'_>) -> Result<Self> {
->>>=20
->>> Perhaps a future patch can remove this now unnecessary looking Result i=
-n
->>> the return type.
->>
->> Oh that's right now that we don't have: let io =3D (*iomem).access(dev)?
->> we don't need the Result anymore.
->>
->> Danilo, I can add this fix to our fw-boot series which I'm preparing to =
-sit
->> on top of these changes.
->
-> I can send a v2, fix it up on apply when I get an ACK, have Alice fix it =
-up on
-> apply, or have it done in a follow-up as you offer -- just let me know. :=
-)
->
+Hi,
 
-I think it makes sense to have a v2 with this, as getting rid of impossible
-failure paths is the reason we go for lifetime in the first place, so this =
-is a
-good demonstration of that benefit.
+On 28-May-26 2:08 PM, Maxime Ripard wrote:
+> On Thu, May 28, 2026 at 12:12:10PM +0200, Hans de Goede wrote:
+>> Hi Brian,
+>>
+>> On 28-May-26 1:03 AM, Brian Masney wrote:
+>>> Hi Hans,
+>>>
+>>> On Wed, May 27, 2026 at 11:48:08AM +0200, Hans de Goede wrote:
+>>>> 2) One option considered was detaching the simple-framebuffer driver later,
+>>>>    after the real display driver has had a chance to claim the clocks. But
+>>>>    this won't work in cases where the real display driver picks different
+>>>>    parent clocks then the boot firmware did and needs to reparent clocks.
+>>>
+>>> Why won't that work in the case where different parent clocks are selected?
+>>> I'll describe a scenario below.
+>>>
+>>>>
+>>>>    Basically the goal is for things to behave as if the simple-framebuffer
+>>>>    driver was not there at all, because that leaves the hw in the state
+>>>>    the real display driver expects.
+>>>
+>>> I think the deferred unbinding could have some potential here where
+>>> there is some kind of notification mechanism between simple-framebuffer
+>>> and the real drm driver. So:
+>>>
+>>> - simple-framebuffer driver takes reference(s) to the clk(s).
+>>>
+>>> - real drm driver eventually loads, takes reference(s) to the necessary
+>>>   clk(s).
+>>>
+>>> - real drm driver sends a notification to simple-framebuffer that it's
+>>>   done, and has control.
+>>>
+>>> - simple-framebuffer can unbind and release its references to the clks.
+>>>
+>>> No clks will be shutdown prematurely in this scenario.
+>>>
+>>> If the real drm driver needs a different parent, then presumably things
+>>> should be setup correctly, and simple-framebuffer can have the clocks
+>>> shut down when it calls clk_disable_unprepare().
+>>
+>> If the real drm driver needs a different parent, then how does it
+>> do the reparenting while the simple-framebuffer driver is holding
+>> a reference to the clock ?  In that case the clock might have
+>> a protected_count of non 0 (depends on the core-clk flags) and
+>> reparenting won't work.
+> 
+> The only case where it should reparent you listed was that you might
+> need to pick up a different resolution. However, that can only be
+> enforced by an ioctl or a client.
+> 
+> simplefb/drm is removed in msm_drm_kms_init. The device is published
+> drm_dev_register called right after msm_drm_kms_init, and the clients
+> are registered in msm_drm_kms_post_init, called after drm_dev_register.
+> 
+> There's no way in the current msm architecture to have a modeset happen
+> while the simpledrm driver is still active.
 
-Best,
-Gary
+Ok, new plan, please let me know what you think about this:
+
+1. Add a new "disable" callback argument to
+devm_aperture_acquire_for_platform_device() and store this in
+struct aperture_range
+
+2. Add a new aperture_disable_conflicting_devices() which
+calls the disable callback for matching devices.
+
+3. Have the simple[fd|drm] drivers implement a disable callback
+which unregisters the drm dev and releases any claims on the
+aperture mem-region, while keeping clks, regulators, etc.
+enabled. And have them check if disable was called on remove()
+and if not do the disable() things on remove(0
+
+4. Have msm call aperture_disable_conflicting_devices() where it
+now call aperture_remove_conflicting_devices() and call
+aperture_remove_conflicting_devices() at the point where it has
+claimed any clks it needs.
+
+Does this sound like something which would be acceptable ?
+
+Regards,
+
+Hans
+
+
