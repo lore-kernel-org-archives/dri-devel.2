@@ -4,80 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FA21CD5BD5
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 18:56:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 950E5CD6E45
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 18:58:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 811B610F57E;
-	Thu, 28 May 2026 18:56:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7975810F582;
+	Thu, 28 May 2026 18:58:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="YbJBEHFs";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QDyQP7e8";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6427E10F57E
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 18:56:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=X/4dOKqfdpaAMhOZRsLuzWvKhDAyX7Vs6E7WcICztQU=; b=YbJBEHFsIcoHlIU4jSXrU5lbtz
- pgQvYScW5CDYqjuNV9M12TpndJ3o0f27cAUVFePCar2QbwGAYxYx4pU61tBgxkDqa1BeZQ47SkVqL
- 0QLr0k8UgXtFkfazW+t1EmfcfZ304F7pG5Lhk0nCd2+voomS5kMuIKfgt9QChknyp54okjZeGCcpC
- CDWnqVZ1pmrOnwTjHGYXi/mq8RUHkUTEq/yZDbFBx6KiYhT7UfRF3P6iT58roTv2HYItuRPFBvJke
- LjtDPH7PdprxN90ADjQlNeR7hYPYQQ6L9lVVgrNNzBZ+hpIpxNW1oxtwmfE4s1nRk83zt1OW0nTdZ
- Ty+/Qb8Q==;
-Received: from [189.7.87.67] (helo=[192.168.0.2])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wSfu5-009VbN-1A; Thu, 28 May 2026 20:56:25 +0200
-Message-ID: <34b59ada-940b-46ce-b376-bc372190633b@igalia.com>
-Date: Thu, 28 May 2026 15:56:17 -0300
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3817810F582;
+ Thu, 28 May 2026 18:58:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779994727; x=1811530727;
+ h=message-id:date:mime-version:from:to:cc:subject:
+ content-transfer-encoding;
+ bh=h4nhAIFlrHYsBUZIJY8m5NPO1FEasVZKpDgboRZoYxA=;
+ b=QDyQP7e81DDEOq0bl+TVDFufykG1fYD2gc2tsdhxCZHOn27C7QLcKwaf
+ 9OYzRnPWfl9ii5bpg44mDFASZqYr/zA1jt3Yo9ghIZVtCk0VYRp4HZDry
+ S80ul+GouhyTxDQVyOS9uNkcJ1hWXKi91cy5sCsZoYKnY4Rr8MWAyQX/o
+ QreNC/axLvnfhrzbJqpFH82yRSJB+g7rmc98fKH1QhYE8PU6Ck6euKTUo
+ I3CW8xpVTVCr+J56fe3ymlr0C6BSn/ROvsj0MBPEsbdSS/5RBeSXDht91
+ ajn7DT8GIOIWpis0y7EiVC+FW3Ut1nEUCDV5C+saYhdix46/sCD0pFp/G A==;
+X-CSE-ConnectionGUID: f125N+QCTnSCoSg1OflcoA==
+X-CSE-MsgGUID: HaCnfPA+TMmc8SGHgBT3+A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11800"; a="79993814"
+X-IronPort-AV: E=Sophos;i="6.24,174,1774335600"; d="scan'208";a="79993814"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 May 2026 11:58:46 -0700
+X-CSE-ConnectionGUID: 8lEdAd/HSmOMtmrCJdGT5g==
+X-CSE-MsgGUID: ur2Erzv8QnSFYBYyYJla4w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,174,1774335600"; d="scan'208";a="241597324"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.244.82])
+ ([10.245.244.82])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 May 2026 11:58:43 -0700
+Message-ID: <ef65f43c-becf-473c-a5cc-203fdfecd491@linux.intel.com>
+Date: Thu, 28 May 2026 20:58:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] accel: ethosu: Add performance counter support
-To: Tomeu Vizoso <tomeu.vizoso@gmail.com>, "Rob Herring (Arm)"
- <robh@kernel.org>, Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Simona Vetter <simona.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>
+Cc: dim-tools@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Oded Gabbay <ogabbay@kernel.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:ARM ETHOS-U NPU DRIVER" <dri-devel@lists.freedesktop.org>,
- open "list:KERNEL" HARDENING "(not" covered by other
- "areas):Keyword:b__counted_by(_le|_be)?b" <linux-hardening@vger.kernel.org>
-References: <20260515032625.1880618-1-robh@kernel.org>
- <20260523083730.255310-1-tomeu@tomeuvizoso.net>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+Subject: [PULL] drm-misc-next
 Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20260523083730.255310-1-tomeu@tomeuvizoso.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,279 +77,290 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Tomeu,
+Hi Dave, Sima,
 
-On 23/05/26 05:37, Tomeu Vizoso wrote:
-> From: "Rob Herring (Arm)" <robh@kernel.org>
-> 
-> The Arm Ethos-U NPUs have a PMU with performance counters. The PMU h/w
-> supports up to 4 (U65) or 8 (U85) counters which can be programmed for
-> different events. There is also a dedicated cycle counter.
-> 
-> The ABI and implementation are copied from the V3D driver. The main
-> difference in the ABI is there is no query API for the the event list.
-> The events differ between the U65 and U85, so the events lists are
-> maintained in userspace along with other differences between the U65 and
-> U85.
-> 
-> The cycle counter is always enabled when the PMU is enabled. When the
-> user requests N events, reading the counters will return the N events
-> plus the cycle counter.
-> 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Last drm-misc-next pull-request, with last minute changes for tegra, nouveau and host1x.
 
-Reviewed-by: Maíra Canal <mcanal@igalia.com>
+Kind regards,
+~Maarten Lankhorst
 
-Just small nits below. Feel free to fix it when applying it.
+drm-misc-next-2026-05-28:
+drm-misc-next for v7.2-rc1:
 
-> ---
-> v2:
->   - Use XArray instead of idr
->   - Rework locking to use per device spinlock to protect modifying active
->     perfmon. Based on pending V3D changes:
->     https://lore.kernel.org/all/20260508-v3d-perfmon-lifetime-v1-1-f5b5642c085f@igalia.com/
->   - Add missing perfmon puts in ethosu_ioctl_perfmon_set_global() and
->     ethosu_ioctl_perfmon_get_values() error paths.
->   - Fix reading number of counters on U85.
->   - Add defines NPU_REG_PMCCNTR_CFG
-> 
-> v3:
->   - Add explicit padding to drm_ethosu_perfmon_destroy
->   - Fix SPDX license expression
->   - Fix comment typos
->   - Convert perfmon lock from spinlock to mutex
->   - Simplify switch_perfmon condition check
->   - Remove unused ethosu_perfmon_init
->   - Add lockdep_assert_held to ethosu_perfmon_stop_locked
-> ---
->   drivers/accel/ethosu/Makefile         |   2 +-
->   drivers/accel/ethosu/ethosu_device.h  |  33 +++
->   drivers/accel/ethosu/ethosu_drv.c     |  23 +-
->   drivers/accel/ethosu/ethosu_drv.h     |  61 +++++-
->   drivers/accel/ethosu/ethosu_job.c     |  39 +++-
->   drivers/accel/ethosu/ethosu_job.h     |   2 +
->   drivers/accel/ethosu/ethosu_perfmon.c | 298 ++++++++++++++++++++++++++
->   include/uapi/drm/ethosu_accel.h       |  60 +++++-
->   8 files changed, 504 insertions(+), 14 deletions(-)
->   create mode 100644 drivers/accel/ethosu/ethosu_perfmon.c
-> 
+UAPI Changes:
+- amdxdna: Revert read-only user-pointer BO mappings.
+- panthor: Add eviction and reclaim info to fdinfo.
 
-[...]
+Cross-subsystem Changes:
+- Convert DMA-buf system and cma heap allocators to module.
 
+Core Changes:
+- Cleanup driver misuses of drm/exec.
 
-> @@ -312,11 +318,16 @@ static int ethosu_init(struct ethosu_device *ethosudev)
->   
->   	ethosudev->npu_info.id = id = readl_relaxed(ethosudev->regs + NPU_REG_ID);
->   	ethosudev->npu_info.config = config = readl_relaxed(ethosudev->regs + NPU_REG_CONFIG);
-> -
+Driver Changes:
+- Add LG LP129WT232166, AM-1280800W8TZQW-T00H, NEC NL6448BC33-70C,
+  Riverdi RVT70HSLNWCA0 and RVT101HVLNWC00 panels.
+- Add support for RZ/T2H SoC to renesas.
+- Add cursor plane support to verisilicon.
+- Support DVI outputs in ite-it66121 bridge.
+- Assorted bugfixes, docbook updates and improvements to ivpu, tegra,
+  host1x, nouveau.
+- Add DSC quirk for ASUS DC301 USB-C dock.
+- Use drm client buffer for tegra framebuffer.
+- Add support for GA100 to nouveau.
 
-I believe this doesn't belong to this patch.
+The following changes since commit bed29492d413349e5b13f21936655064cdb63c91:
 
->   	ethosu_sram_init(ethosudev);
->   
-> +	if (!ethosu_is_u65(ethosudev))
-> +		ethosudev->pmu_regs += 0x1000;
-> +
-> +	ethosudev->npu_info.pmu_counters = FIELD_GET(PMCR_NUM_EVENT_CNT_MASK,
-> +		readl_relaxed(ethosudev->pmu_regs + NPU_REG_PMCR));
-> +
->   	dev_info(ethosudev->base.dev,
-> -		 "Ethos-U NPU, arch v%ld.%ld.%ld, rev r%ldp%ld, cmd stream ver%ld, %d MACs, %dKB SRAM\n",
-> +		 "Ethos-U NPU, arch v%ld.%ld.%ld, rev r%ldp%ld, cmd stream ver%ld, %d MACs, %dKB SRAM, %d PMU cntrs\n",
->   		 FIELD_GET(ID_ARCH_MAJOR_MASK, id),
->   		 FIELD_GET(ID_ARCH_MINOR_MASK, id),
->   		 FIELD_GET(ID_ARCH_PATCH_MASK, id),
-> @@ -324,7 +335,8 @@ static int ethosu_init(struct ethosu_device *ethosudev)
->   		 FIELD_GET(ID_VER_MINOR_MASK, id),
->   		 FIELD_GET(CONFIG_CMD_STREAM_VER_MASK, config),
->   		 1 << FIELD_GET(CONFIG_MACS_PER_CC_MASK, config),
-> -		 ethosudev->npu_info.sram_size / 1024);
-> +		 ethosudev->npu_info.sram_size / 1024,
-> +		 ethosudev->npu_info.pmu_counters);
->   
->   	return 0;
->   }
-> @@ -343,11 +355,16 @@ static int ethosu_probe(struct platform_device *pdev)
->   	dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(40));
->   
->   	ethosudev->regs = devm_platform_ioremap_resource(pdev, 0);
-> +	ethosudev->pmu_regs = ethosudev->regs;
->   
->   	ethosudev->num_clks = devm_clk_bulk_get_all(&pdev->dev, &ethosudev->clks);
->   	if (ethosudev->num_clks < 0)
->   		return ethosudev->num_clks;
->   
-> +	ret = devm_mutex_init(&pdev->dev, &ethosudev->perfmon_state.lock);
+  Merge v7.1-rc5 into drm-next (2026-05-28 09:58:36 +0200)
 
-I believe this should be drmm_mutex_init() as it's bounded by the DRM
-device.
+are available in the Git repository at:
 
-> +	if (ret)
-> +		return ret;
-> +
->   	ret = ethosu_job_init(ethosudev);
->   	if (ret)
->   		return ret;
+  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-next-2026-05-28
 
-[...]
+for you to fetch changes up to 61de054a772a1feda6364931ab1baf9038abf1c8:
 
-> +
-> +void ethosu_perfmon_put(struct ethosu_perfmon *perfmon)
-> +{
-> +	if (perfmon && refcount_dec_and_test(&perfmon->refcnt)) {
-> +		kfree(perfmon);
-> +	}
+  drm/nouveau/gsp: formally support GA100 (2026-05-28 19:30:15 +0200)
 
-No brackets needed.
+----------------------------------------------------------------
+drm-misc-next for v7.2-rc1:
 
-> +}
-> +
-> +void ethosu_perfmon_start(struct ethosu_device *ethosu, struct ethosu_perfmon *perfmon)
-> +{
-> +	unsigned int i;
-> +	u8 ncounters;
-> +	u32 mask;
+UAPI Changes:
+- amdxdna: Revert read-only user-pointer BO mappings.
+- panthor: Add eviction and reclaim info to fdinfo.
 
-lockdep_assert_held?
+Cross-subsystem Changes:
+- Convert DMA-buf system and cma heap allocators to module.
 
-> +
-> +	if (WARN_ON_ONCE(!perfmon || ethosu->perfmon_state.active))
-> +		return;
-> +
-> +	writel_relaxed(PMCR_CNT_EN, ethosu->pmu_regs + NPU_REG_PMCR);
-> +	writel_relaxed(PMU_EV_TYPE_CYCLES, ethosu->pmu_regs + NPU_REG_PMCCNTR_CFG);
-> +
-> +	mask = 0x80000000;
-> +	ncounters = perfmon->ncounters - 1;
-> +	if (ncounters)
-> +		mask |= GENMASK(ncounters - 1, 0);
-> +
-> +	for (i = 0; i < ncounters; i++)
-> +		writel_relaxed(perfmon->counters[i], ethosu->pmu_regs + NPU_REG_PMU_EVTYPER(i));
-> +
-> +	writel_relaxed(mask, ethosu->pmu_regs + NPU_REG_PMCNTENSET);
-> +	writel_relaxed(PMCR_CNT_EN | PMCR_EVENT_CNT_RST | PMCR_CYCLE_CNT_RST,
-> +		ethosu->pmu_regs + NPU_REG_PMCR);
-> +	ethosu->perfmon_state.active = perfmon;
-> +}
-> +
-> +void ethosu_perfmon_stop_locked(struct ethosu_device *ethosu, struct ethosu_perfmon *perfmon,
-> +				bool capture)
-> +{
-> +	unsigned int i;
-> +	u8 ncounters;
-> +	u32 mask;
-> +
-> +	lockdep_assert_held(&ethosu->perfmon_state.lock);
-> +
-> +	if (!perfmon || perfmon != ethosu->perfmon_state.active)
-> +		return;
-> +
-> +	ncounters = perfmon->ncounters - 1;
-> +
-> +	if (!pm_runtime_get_if_active(ethosu->base.dev)) {
-> +		ethosu->perfmon_state.active = NULL;
-> +		return;
-> +	}
-> +
-> +	if (capture) {
-> +		for (i = 0; i < ncounters; i++)
-> +			perfmon->values[i] += readl_relaxed(ethosu->pmu_regs + NPU_REG_PMU_EVCNTR(i));
+Core Changes:
+- Cleanup driver misuses of drm/exec.
 
-A new line here would make the code a bit more readable.
+Driver Changes:
+- Add LG LP129WT232166, AM-1280800W8TZQW-T00H, NEC NL6448BC33-70C,
+  Riverdi RVT70HSLNWCA0 and RVT101HVLNWC00 panels.
+- Add support for RZ/T2H SoC to renesas.
+- Add cursor plane support to verisilicon.
+- Support DVI outputs in ite-it66121 bridge.
+- Assorted bugfixes, docbook updates and improvements to ivpu, tegra,
+  host1x, nouveau.
+- Add DSC quirk for ASUS DC301 USB-C dock.
+- Use drm client buffer for tegra framebuffer.
+- Add support for GA100 to nouveau.
 
-> +		perfmon->values[ncounters] +=
-> +			readl_relaxed(ethosu->pmu_regs + NPU_REG_PMCCNTR_LO) |
-> +			(u64)readl_relaxed(ethosu->pmu_regs + NPU_REG_PMCCNTR_HI) << 32;
-> +	}
-> +
-> +	mask = 0x80000000;
-> +	if (ncounters)
-> +		mask |= GENMASK(ncounters - 1, 0);
-> +	writel_relaxed(mask, ethosu->pmu_regs + NPU_REG_PMCNTENCLR);
-> +
-> +	writel_relaxed(0, ethosu->pmu_regs + NPU_REG_PMCR);
-> +	ethosu->perfmon_state.active = NULL;
-> +
-> +	pm_runtime_put(ethosu->base.dev);
-> +}
-> +
-> +void ethosu_perfmon_stop(struct ethosu_device *ethosu, struct ethosu_perfmon *perfmon,
-> +			 bool capture)
-> +{
-> +	if (!perfmon)
-> +		return;
-> +
-> +	guard(mutex)(&ethosu->perfmon_state.lock);
-> +	ethosu_perfmon_stop_locked(ethosu, perfmon, capture);
-> +}
-> +
-> +struct ethosu_perfmon *ethosu_perfmon_find(struct ethosu_file_priv *ethosu_priv, int id)
-> +{
-> +	struct ethosu_perfmon *perfmon;
-> +
-> +	xa_lock(&ethosu_priv->perfmons);
-> +	perfmon = xa_load(&ethosu_priv->perfmons, id);
-> +	ethosu_perfmon_get(perfmon);
-> +	xa_unlock(&ethosu_priv->perfmons);
-> +
-> +	return perfmon;
-> +}
-> +
-> +void ethosu_perfmon_open_file(struct ethosu_file_priv *ethosu_priv)
-> +{
-> +	xa_init_flags(&ethosu_priv->perfmons, XA_FLAGS_ALLOC1);
-> +}
-> +
-> +static void ethosu_perfmon_delete(struct ethosu_file_priv *ethosu_priv,
-> +				 struct ethosu_perfmon *perfmon)
-> +{
-> +	struct ethosu_device *ethosu = ethosu_priv->edev;
-> +
-> +	/* If the active perfmon is being destroyed, stop it first */
-> +	scoped_guard(mutex, &ethosu->perfmon_state.lock) {
-> +		/* If the global perfmon is being destroyed, set it to NULL */
-> +		if (ethosu->global_perfmon == perfmon) {
-> +			ethosu->global_perfmon = NULL;
-> +			ethosu_perfmon_put(perfmon);
-> +		}
-> +
-> +		ethosu_perfmon_stop_locked(ethosu, perfmon, false);
-> +	}
-> +
-> +	ethosu_perfmon_put(perfmon);
-> +}
-> +
-> +void ethosu_perfmon_close_file(struct ethosu_file_priv *ethosu_priv)
-> +{
-> +	struct ethosu_perfmon *perfmon;
-> +	unsigned long id;
-> +
-> +	xa_for_each(&ethosu_priv->perfmons, id, perfmon)
-> +		ethosu_perfmon_delete(ethosu_priv, perfmon);
-> +
-> +	xa_destroy(&ethosu_priv->perfmons);
-> +}
-> +
-> +int ethosu_ioctl_perfmon_create(struct drm_device *dev, void *data,
-> +			     struct drm_file *file_priv)
-> +{
-> +	struct ethosu_file_priv *ethosu_priv = file_priv->driver_priv;
-> +	struct drm_ethosu_perfmon_create *req = data;
-> +	struct ethosu_device *ethosu = to_ethosu_device(dev);
-> +	struct ethosu_perfmon *perfmon;
-> +	unsigned int i, event_max;
-> +	int ret;
-> +	u32 id;
-> +
-> +	/* Number of monitored counters cannot exceed HW limits. */
-> +	if (req->ncounters > ethosu->npu_info.pmu_counters)
+----------------------------------------------------------------
+Aaron Kling (1):
+      drm/tegra: Enable cmu for Tegra186 and Tegra194
 
-Feel free to ignore this comment if I'm mistaken, but IIUC, pmu_counters
-is the maximum number of counters *including* cycle counter. If
-pmu_counters indeed includes cycle counter, I believe this should be a >=.
+Andrzej Kacprowski (1):
+      accel/ivpu: Remove disable_d0i3_msg workaround
 
-Best regards,
-- Maíra
+Artur Kowalski (1):
+      gpu: host1x: trace: fix string fields in host1x traces
 
+Ben Dooks (1):
+      gpu: host1x: Fix missing 'host1x_context_device_bus_type'
+
+Dario Binacchi (2):
+      dt-bindings: display: simple: Add AM-1280800W8TZQW-T00H
+      drm/panel: simple: Add AM-1280800W8TZQW-T00H
+
+Dongyang Jin (1):
+      drm/panel: fix kernel-doc warning for devm_drm_panel_add()
+
+Felix Gu (2):
+      gpu: host1x: mipi: Fix device_node reference leak in tegra_mipi_request()
+      drm/tegra: dc: Fix device node reference leak in tegra_dc_has_output()
+
+Guangshuo Li (1):
+      gpu: host1x: Fix device reference leak in host1x_device_parse_dt() error path
+
+Hongling Zeng (5):
+      nouveau/gsp: cleanup IS_ERR_OR_NULL in rm_alloc functions
+      nouveau/gsp: cleanup IS_ERR_OR_NULL in rpc_rd
+      nouveau/gsp/rm: cleanup IS_ERR_OR_NULL in core implementation
+      nouveau/gsp/rm: cleanup WARN_ON(IS_ERR_OR_NULL)
+      nouveau/gsp/rm: cleanup remaining IS_ERR_OR_NULL usage
+
+Icenowy Zheng (3):
+      drm: verisilicon: add max cursor size to HWDB
+      drm: verisilicon: add support for cursor planes
+      drm: verisilicon: fix build failure of cursor plane code
+
+Imre Deak (1):
+      drm/dp: Add DSC virtual DPCD quirk for Realtek MST branch device
+
+Ion Agorria (1):
+      drm/tegra: gr2d/gr3d: Contain PM in the gr*d_probe/gr*d_remove
+
+Jacob McLemore (1):
+      drm/tegra: sor: Remove usage of drm_simple_encoder_init()
+
+Javier Martinez Canillas (3):
+      drm/bridge: ite-it66121: Switch to the HDMI connector helpers
+      drm/bridge: ite-it66121: Move .mode_set logic to .atomic_enable
+      drm/bridge: ite-it66121: Select HDMI or DVI mode based on sink type
+
+Jérôme de Bretagne (1):
+      drm/panel-edp: Add LG LP129WT232166 panel
+
+Karol Wachowski (1):
+      accel/ivpu: Document why full JSM message size is always used
+
+Lad Prabhakar (4):
+      dt-bindings: display: renesas,rzg2l-du: Add RZ/T2H and RZ/N2H support
+      drm: renesas: rz-du: Make DU reset control optional for RZ/T2H support
+      drm: renesas: rz-du: Move mode_valid logic to per-SoC clock limits
+      drm: renesas: rz-du: Add support for RZ/T2H SoC
+
+Lizhi Hou (1):
+      Revert "accel/amdxdna: Support read-only user-pointer BO mappings"
+
+Maxime Ripard (4):
+      dma-buf: heaps: Export mem_accounting parameter
+      dma-buf: heaps: cma: Turn the heap into a module
+      dma-buf: heaps: system: Turn the heap into a module
+      arm64: defconfig: Enable dma-buf heaps
+
+Mikko Perttunen (3):
+      gpu: host1x: Allow entries in BO caches to be freed
+      gpu: host1x: Fix iommu_map_sgtable() return value check
+      drm/tegra: Fix iommu_map_sgtable() return value check
+
+Nicolas Frattaroli (2):
+      drm/panthor: Implement evicted status for GEM objects
+      drm/panthor: Reduce padding in gems debugfs for refcount
+
+Randy Dunlap (2):
+      drm/tegra: dp: fix kernel-doc warnings in dp.h
+      drm/tegra: tegra_drm.h: fix all uapi kernel-doc warnings
+
+Souradipto Das (1):
+      drm/tegra: hdmi: Open-code drm_simple_encoder_init()
+
+Steffen Trumtrar (2):
+      dt-bindings: display: simple: Add NEC NL6448BC33-70C panel
+      drm/panel: simple: add NEC NL6448BC33-70C
+
+Svyatoslav Ryhel (1):
+      drm/tegra: gr2d/gr3d: Initialize address register map before HOST1X client is registered
+
+Tanmay Patil (2):
+      gpu: host1x: Skip redundant syncpoint loads in host1x_syncpt_wait()
+      gpu: host1x: Skip redundant HW state update
+
+Thomas Hellström (4):
+      drm/exec: Remove the index parameter from drm_exec_for_each_locked_obj[_reverse]
+      drm/exec: Make the drm_exec_until_all_locked() macro more readable
+      drm/exec, drm/xe: Avoid abusing the drm_exec retry pointer
+      drm/exec, drm/xe, drm/amdgpu: Add an accessor for struct drm_exec::ticket
+
+Thomas Zimmermann (6):
+      Merge drm/drm-next into drm-misc-next
+      drm/tegra: fbdev: Do not assign to struct drm_fb_helper.info
+      drm/tegra: fbdev: Remove offset into framebuffer memory
+      drm/tegra: fbdev: Calculate buffer geometry with format helpers
+      drm/tegra: fbdev: Use a DRM client buffer
+      drm/tegra: Make tegra_fb_alloc() an internal interface
+
+Thorsten Blum (2):
+      drm/tegra: dp: use str_plural in drm_dp_link_train_{full,fast}
+      drm/tegra: sor: use str_plural in tegra_sor_dp_link_configure
+
+Timur Tabi (9):
+      drm/nouveau/gsp: add SEC2 to GA100 chip table
+      drm/nouveau/gsp: use fb.bios.addr for gspFwWprEnd instead of vga_workspace.addr
+      drm/nouveau/gsp: read MMU_LOCK to fix WPR placement on GA100
+      drm/nouveau: only boot FRTS if its region is allocated
+      drm/nouveau: GA100 has an FRTS region size of zero
+      drm/nouveau/bios: specify correct display fuse register for Ampere and Ada
+      drm/nouveau/bios: skip the IFR header if present
+      drm/nouveau/gsp: require GSP-RM for GA100 support
+      drm/nouveau/gsp: formally support GA100
+
+Tommaso Merciai (1):
+      dt-bindings: display: renesas,rzg2l-du: Refuse port@1 for RZ/G2UL
+
+Vitor Soares (1):
+      dt-bindings: display: panel-lvds: Add Riverdi RVT70HSLNWCA0 and RVT101HVLNWC00
+
+shayderrr (1):
+      host1x: bus: Fix missing ops null check in error teardown
+
+ .../bindings/display/panel/panel-lvds.yaml         |   4 +
+ .../bindings/display/panel/panel-simple.yaml       |   4 +
+ .../bindings/display/renesas,rzg2l-du.yaml         |  21 +-
+ arch/arm64/configs/defconfig                       |   3 +
+ drivers/accel/amdxdna/amdxdna_ubuf.c               |  29 +-
+ drivers/accel/ivpu/ivpu_drv.h                      |   3 -
+ drivers/accel/ivpu/ivpu_fw.c                       |  23 +-
+ drivers/accel/ivpu/ivpu_ipc.c                      |   6 +-
+ drivers/accel/ivpu/ivpu_jsm_msg.c                  |   3 -
+ drivers/accel/ivpu/vpu_boot_api.h                  |   6 +-
+ drivers/dma-buf/dma-heap.c                         |   1 +
+ drivers/dma-buf/heaps/Kconfig                      |   4 +-
+ drivers/dma-buf/heaps/cma_heap.c                   |   3 +
+ drivers/dma-buf/heaps/system_heap.c                |   5 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |  15 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c |   3 +-
+ drivers/gpu/drm/bridge/Kconfig                     |   2 +
+ drivers/gpu/drm/bridge/ite-it66121.c               | 310 +++++++++++++++------
+ drivers/gpu/drm/display/drm_dp_helper.c            |   2 +
+ drivers/gpu/drm/drm_exec.c                         |   9 +-
+ drivers/gpu/drm/drm_gpuvm.c                        |   3 +-
+ drivers/gpu/drm/drm_panel.c                        |   1 +
+ drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h  |   8 +-
+ drivers/gpu/drm/nouveau/nvkm/engine/device/base.c  |  10 +-
+ .../gpu/drm/nouveau/nvkm/subdev/bios/shadowramin.c |   3 +-
+ .../gpu/drm/nouveau/nvkm/subdev/bios/shadowrom.c   | 110 +++++++-
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c    |   1 -
+ .../drm/nouveau/nvkm/subdev/gsp/rm/r535/alloc.c    |   4 +-
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/bar.c  |   2 +-
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/ctrl.c |   2 +-
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c  |  10 +-
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c    |  69 ++++-
+ drivers/gpu/drm/panel/panel-edp.c                  |   1 +
+ drivers/gpu/drm/panel/panel-simple.c               |  57 ++++
+ drivers/gpu/drm/panthor/panthor_gem.c              |  16 +-
+ drivers/gpu/drm/panthor/panthor_gem.h              |  10 +
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c      |   9 +-
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c       |  20 +-
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h       |  14 +
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c   |   9 +-
+ drivers/gpu/drm/tegra/dc.c                         | 120 +++++++-
+ drivers/gpu/drm/tegra/dc.h                         |  13 +
+ drivers/gpu/drm/tegra/dp.c                         |   6 +-
+ drivers/gpu/drm/tegra/dp.h                         |  12 +-
+ drivers/gpu/drm/tegra/drm.h                        |   5 -
+ drivers/gpu/drm/tegra/fb.c                         |   1 +
+ drivers/gpu/drm/tegra/fbdev.c                      |  88 +++---
+ drivers/gpu/drm/tegra/gem.c                        |  22 +-
+ drivers/gpu/drm/tegra/gr2d.c                       |  19 +-
+ drivers/gpu/drm/tegra/gr3d.c                       |  19 +-
+ drivers/gpu/drm/tegra/hdmi.c                       |  10 +-
+ drivers/gpu/drm/tegra/sor.c                        |  37 ++-
+ drivers/gpu/drm/tegra/submit.c                     |   3 +-
+ drivers/gpu/drm/verisilicon/Makefile               |   3 +-
+ drivers/gpu/drm/verisilicon/vs_crtc.c              |  11 +-
+ drivers/gpu/drm/verisilicon/vs_cursor_plane.c      | 272 ++++++++++++++++++
+ drivers/gpu/drm/verisilicon/vs_cursor_plane_regs.h |  44 +++
+ drivers/gpu/drm/verisilicon/vs_hwdb.c              |   4 +
+ drivers/gpu/drm/verisilicon/vs_hwdb.h              |   5 +
+ drivers/gpu/drm/verisilicon/vs_plane.h             |   1 +
+ drivers/gpu/drm/xe/xe_validation.c                 |   4 +-
+ drivers/gpu/drm/xe/xe_validation.h                 |   2 +-
+ drivers/gpu/drm/xe/xe_vm.c                         |   3 +-
+ drivers/gpu/host1x/bus.c                           |  66 ++++-
+ drivers/gpu/host1x/context.c                       |   1 +
+ drivers/gpu/host1x/context.h                       |   3 +-
+ drivers/gpu/host1x/context_bus.c                   |   1 +
+ drivers/gpu/host1x/intr.c                          |   8 +-
+ drivers/gpu/host1x/job.c                           |  10 +-
+ drivers/gpu/host1x/mipi.c                          |   6 +-
+ drivers/gpu/host1x/syncpt.c                        |  23 +-
+ include/drm/drm_exec.h                             |  71 +++--
+ include/linux/host1x.h                             |   7 +
+ include/trace/events/host1x.h                      |  50 ++--
+ include/uapi/drm/tegra_drm.h                       |  16 ++
+ 76 files changed, 1393 insertions(+), 392 deletions(-)
+ create mode 100644 drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+ create mode 100644 drivers/gpu/drm/verisilicon/vs_cursor_plane_regs.h
