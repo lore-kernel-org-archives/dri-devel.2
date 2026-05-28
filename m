@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11206CD6E49
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 13:52:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1C72CD4F54
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 13:52:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F5A310F1E7;
-	Thu, 28 May 2026 13:52:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 261B610F1EB;
+	Thu, 28 May 2026 13:52:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RgPnOrG/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iv7CuiPw";
 	dkim-atps=neutral
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1ABF10F1E6
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 13:51:59 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id
- 4fb4d7f45d1cf-68707d88626so3857163a12.0
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 06:51:59 -0700 (PDT)
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
+ [209.85.218.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 792EE10F1E3
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 13:51:56 +0000 (UTC)
+Received: by mail-ej1-f44.google.com with SMTP id
+ a640c23a62f3a-bd8d0e4e341so1843376466b.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 06:51:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779976318; x=1780581118; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779976315; x=1780581115; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=/VF1wrmilBUlbim8sdlHkjNWy4s/JRLxuueYjCB0tac=;
- b=RgPnOrG/r94pLYlFDtVnfdCygFpDjxZmz50YwLXoxXTQR9/un9io1KvjYNldJt6AMc
- YWxBJeEg3Cj3IvV24lmqJwQbxqoMQ4qGwHRbIrP8p1gl4+t5WuEYNTHlTGWup9vfm9NV
- c8fngAwa2QnfTrlVQBQN0btlQC5Ps4FaPYVrgh4eZ20o1OCf8mf1qMu13RS/tGlKrc63
- 5VmP9aPnv8uHq37GvtzfD8tWpuHyy8VLf4IH1qIw0Ap481q3e6TLuCiVtZqtYuBEZrMM
- BTjyKxN36u77fkoE+QtpmwnBDdGD3+8onbPt6rMyauJ8ZcuR6R1PWafFn2kfM1v45cZI
- lBgg==
+ bh=HqOemnD04LJjQnMzwMBgcGs6gZ1ngsn7g7S9Cna4sh0=;
+ b=iv7CuiPwQcafix8eMLTkCuimthzLNQr4KwmycPEvhb71nf6gutlcWJFV5lKABCIjRA
+ edLFgtocskCm4WNcU7AoL8Tmn89upZxNasxW2jvyaIF0HM/h0GXpM5/+THin4CQsEvJ8
+ ELAB8FpO0HYVtU56E3vY/yZNRcSZmW3nWPLLbcJ+wC85f7ApXpFtUxHFch+lSP84/mxF
+ v7OEhnOhvxMpgQwIMC2egL3Jzoj6xY+yc+8+fH1Y8f/dWHC8AbQzsusw8D3KqqY7/CJ9
+ Im4ebVN7DZ96YUqnuBEmV+EyA6cOGpI+UvajoeZZffKQgh68F02Ka0TzskcluS/hHc40
+ cQ3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779976318; x=1780581118;
+ d=1e100.net; s=20251104; t=1779976315; x=1780581115;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=/VF1wrmilBUlbim8sdlHkjNWy4s/JRLxuueYjCB0tac=;
- b=JTHJ87sGRuakqfKIe8O4Cf4WDyHFOLsRwlr72orSkuX50E0j5OKcQ2EyiPuFzOzXys
- 4jWUs9lzonP8TLrqKveFNCdm+c2NkXuSom4Q2tB2eD1Jljh2yEXWXgw/5nf8HCKoS9Cy
- 8FKEZ9EQlrYbEwEGzn3upw8TRF/qWdGwfmUgrq2QR0k9pOhgIzCKJ7cTIvbHH4GRDcQs
- vGGJH8BfziW8Kqp1UJjC99etlA9sfvgJmDe9LKrqt/dlMbimfayrGqtaq4F2PeQ/GfFL
- OS0WKA/FCNADnRrJUiRlK5MX1Q6eu7qShZN5t/uEWu1ZrYyB+sdJZ8iMHFXuyOJ94nxL
- kqpw==
+ bh=HqOemnD04LJjQnMzwMBgcGs6gZ1ngsn7g7S9Cna4sh0=;
+ b=GO+9mNF7ORZ89LPojCmAPjuK27N4o8xNtDXDzEsk0bckZaDApxLaf8x+vlM+DfEPGi
+ u6pQHRG0rwnz2H+oIZesPi+BCon11uy1zCLI3wtuAxK+eXarCV77+QoLC3Nd2Gs1XdWl
+ NnT0iMO/L5IA04yKtiYgY2Bu+HLgJNXoPHPbBLFEitc+ALLA/lfLRBNgAiy1eGpRkYy6
+ cqfqJ+KYxCmCHlOirQMRKe5RLSb3D0BRaLk9Hg+9pvmy2PapfGnIXwfAlyaYOlwb0gQ6
+ oWKeDEpfC4dqsWPthLJvDXBM9T7P2H/klBTUzt0ENP9zLPoOHD2G+dfB2esoHRCiUhES
+ F2Dw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/B7GViT8uyt9lOfhvaMQbr5p2hDXcGfA4AiEn71wbhNRKA4hxryrEGBJ31FesdRuwbLlyGHg4gasM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxuvMoz8u9Dp3HKnsP19x5K4Z9R2KdJp8kgWEj66sMfGcrzYdTr
- zkgmh5ewwY+mUtMdoWy+KZwTBIdIAeMwGbiB4JV3KfMacRyCeLz6ylub
-X-Gm-Gg: Acq92OHt8k2Ai4X0qMUk+S9W8IotJWff/xtRn0WMkvrMAmEA3GY+sDDFa3Pih1VblzG
- YJLWBaMYKgHQMybjxXIsKEj+ht/J9nwja79yvLN+FFqo07TyCRSeDiqlGAT3Oo4CjlZXy37DAy7
- caXYoN6hH0ANK7faB+gX7V3jSwTGfh40HhelXbnLa9NrHbFXacBj9gF8O8LrDUn3/WjOb402e4k
- i20u2pkRkN42JlT5GL044p4tnz2sSrcueg7NpjGChT/Hl/L/oYX5BFcbebEdQ9fOIeiQLAG+Ok/
- t1p44Z0wy+uPiMkYK9NLKH5x2IFyE6Fz5PWqLn8fvifa+VBKGzSuDXyep/b44J/jIPQDy6vaAic
- Q/xBkaoc1o/SwO/LyeK5nltnKZKSUUpE6MqbHl+fI6XRhiWGQR7Jbl4tDjmMttNY7eArNQGw6zE
- Sa6STIkjp38ophv9V4LkgBfaw=
-X-Received: by 2002:a17:907:d10:b0:bd1:4da0:b0d5 with SMTP id
- a640c23a62f3a-bdd2360369fmr1692341766b.17.1779976318068; 
- Thu, 28 May 2026 06:51:58 -0700 (PDT)
+ AFNElJ9kgJusP85SzixuR/TmuIx/b1pBr+0izV97OiW6IAVedTkd7INmxSASvNkJmG9Nh14uafzPobH+leI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxNZH7z8A0BlMFz98JEF+2b/mhyw7n5PtJSI56+laE/V7nUcY7s
+ UxBaBFNPok8J42pkatmOWKZ99Z6zZ/qkT91RdrIzopLmmLmhpqNNikrs
+X-Gm-Gg: Acq92OEPywVP0/vrf+6fuN6EeDo0vLzuWiPxKwgOHngdAUhpP8z8PWxaqS0zxPF+Gfw
+ dCq8yYBRRHnVQ8OF/Fc4D1RPmylBLwSYac0giR7iGnfE1B6yKrM/4x/peR1Z4/vPmwE4B9oYzC2
+ no1CHxGPvHDK0lE30dIkGRuTE7JtjVhL0CEOjZ7K4z9vi4jDYI62eZe7jq2PgW0nzh6U75eBJ0O
+ Sv5k49+X4AowUJcgQYuhLgDVnaz1vSxUiXxfNtSwNHiOtM7HzeX0OxbvakrkeWUo5gffOna3Lgm
+ RFraLCk40MBwiapbZnI7F02NPXywolDwILIKQVXVWn2WSnV1JsrjJpEYDlIaK+GlRwofv3rhG3q
+ L9vXgwM7vR7G62zMesoJag6SR1lK8qz+Uh0cv+l8ZFUWvXxoTlD4ncsiSuAQL8F08oSzJNhX1d1
+ OW3FAVkfgBb/Vm3SNSPu/2h1Y=
+X-Received: by 2002:a17:907:2665:b0:bd1:d549:decc with SMTP id
+ a640c23a62f3a-bdd23af346bmr1376086666b.20.1779976314604; 
+ Thu, 28 May 2026 06:51:54 -0700 (PDT)
 Received: from xeon ([188.163.112.61]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bddc65da3bbsm723636566b.52.2026.05.28.06.51.56
+ a640c23a62f3a-bddc65da3bbsm723636566b.52.2026.05.28.06.51.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 May 2026 06:51:57 -0700 (PDT)
+ Thu, 28 May 2026 06:51:54 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
  Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
@@ -74,10 +74,9 @@ Cc: Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
  linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
  linux-fbdev@vger.kernel.org
-Subject: [PATCH v2 6/6] video: leds: backlight: lm3533: Support getting LED
- sources from DT
-Date: Thu, 28 May 2026 16:51:23 +0300
-Message-ID: <20260528135123.103745-7-clamor95@gmail.com>
+Subject: [PATCH v2 4/6] mfd: lm3533: Set DMA mask
+Date: Thu, 28 May 2026 16:51:21 +0300
+Message-ID: <20260528135123.103745-5-clamor95@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260528135123.103745-1-clamor95@gmail.com>
 References: <20260528135123.103745-1-clamor95@gmail.com>
@@ -98,192 +97,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add Control Bank to HVLED/LVLED muxing support based on the led-sources
-defined in the device tree.
+Missing coherent_dma_mask assigning triggers the following warning in
+dmesg:
+
+[    3.287872] platform lm3533-backlight.0: DMA mask not set
+
+Since this warning might be elevated to an error in the future, set
+coherent_dma_mask to zero because both the core and cells do not utilize
+DMA.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- drivers/leds/leds-lm3533.c          | 55 ++++++++++++++++++++++++++++-
- drivers/video/backlight/lm3533_bl.c | 37 ++++++++++++++++++-
- 2 files changed, 90 insertions(+), 2 deletions(-)
+ drivers/mfd/lm3533-core.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
-index d707d43d5526..07390bba9a48 100644
---- a/drivers/leds/leds-lm3533.c
-+++ b/drivers/leds/leds-lm3533.c
-@@ -7,6 +7,7 @@
-  * Author: Johan Hovold <jhovold@gmail.com>
-  */
+diff --git a/drivers/mfd/lm3533-core.c b/drivers/mfd/lm3533-core.c
+index 519f8c16a3f3..3cfdebf5fb52 100644
+--- a/drivers/mfd/lm3533-core.c
++++ b/drivers/mfd/lm3533-core.c
+@@ -526,6 +526,10 @@ static int lm3533_i2c_probe(struct i2c_client *i2c)
+ 				   LM3533_BOOST_FREQ_MAX);
+ 	lm3533->boost_freq = lm3533->boost_freq / (500 * KILO) - 1;
  
-+#include <linux/bits.h>
- #include <linux/module.h>
- #include <linux/leds.h>
- #include <linux/mfd/core.h>
-@@ -26,6 +27,12 @@
- #define LM3533_ALS_CHANNEL_LV_MIN	1
- #define LM3533_ALS_CHANNEL_LV_MAX	2
- 
-+#define LM3533_REG_OUTPUT_CONF1			0x10
-+#define   OUTPUT_CONF1_MASK			GENMASK(7, 2)
-+#define   OUTPUT_CONF1_SHIFT			2
-+#define LM3533_REG_OUTPUT_CONF2			0x11
-+#define   OUTPUT_CONF2_MASK			GENMASK(3, 0)
-+#define   OUTPUT_CONF2_SHIFT			6
- #define LM3533_REG_CTRLBANK_BCONF_BASE		0x1b
- #define LM3533_REG_PATTERN_ENABLE		0x28
- #define LM3533_REG_PATTERN_LOW_TIME_BASE	0x71
-@@ -53,6 +60,9 @@ struct lm3533_led {
- 
- 	u32 max_current;
- 	u32 pwm;
++	/* LM3533 and child devices do not use DMA */
++	i2c->dev.coherent_dma_mask = 0;
++	i2c->dev.dma_mask = &i2c->dev.coherent_dma_mask;
 +
-+	int num_leds;
-+	u32 leds[LM3533_LVCTRLBANK_MAX];
- };
+ 	return lm3533_device_init(lm3533);
+ }
  
- 
-@@ -639,7 +649,33 @@ static const struct attribute_group *lm3533_led_attribute_groups[] = {
- 
- static int lm3533_led_setup(struct lm3533_led *led)
- {
--	int ret;
-+	u32 output_cfg_shift = 0;
-+	u32 output_cfg_val = 0;
-+	int ret, i;
-+
-+	if (led->num_leds) {
-+		for (i = 0; i < led->num_leds; i++) {
-+			if (led->leds[i] > LM3533_LVCTRLBANK_MAX)
-+				continue;
-+
-+			output_cfg_shift = led->leds[i] * 2;
-+			output_cfg_val |= led->id << output_cfg_shift;
-+		}
-+
-+		/* LVLED1, LVLED2 and LVLED3 */
-+		ret = lm3533_update(led->lm3533, LM3533_REG_OUTPUT_CONF1,
-+				    output_cfg_val << OUTPUT_CONF1_SHIFT,
-+				    OUTPUT_CONF1_MASK);
-+		if (ret)
-+			return ret;
-+
-+		/* LVLED4 and LVLED5 */
-+		ret = lm3533_update(led->lm3533, LM3533_REG_OUTPUT_CONF2,
-+				    output_cfg_val >> OUTPUT_CONF2_SHIFT,
-+				    OUTPUT_CONF2_MASK);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	ret = lm3533_ctrlbank_set_max_current(&led->cb, led->max_current);
- 	if (ret)
-@@ -714,6 +750,23 @@ static int lm3533_led_probe(struct platform_device *pdev)
- 	led->pwm = 0;
- 	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &led->pwm);
- 
-+	led->num_leds = device_property_count_u32(&pdev->dev, "led-sources");
-+
-+	/*
-+	 * If led-sources property is not set then either this Control Bank uses
-+	 * its default LVLED or is not linked to any LVLED at all.
-+	 */
-+	if (led->num_leds > 0 && led->num_leds <= LM3533_LVCTRLBANK_MAX) {
-+		ret = device_property_read_u32_array(&pdev->dev, "led-sources",
-+						     led->leds, led->num_leds);
-+		if (ret) {
-+			dev_err(&pdev->dev, "failed to get led-sources\n");
-+			goto err_deregister;
-+		}
-+	} else {
-+		led->num_leds = 0;
-+	}
-+
- 	ret = lm3533_led_setup(led);
- 	if (ret)
- 		goto err_deregister;
-diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backlight/lm3533_bl.c
-index c03d0d1667e4..82b46a531dd2 100644
---- a/drivers/video/backlight/lm3533_bl.c
-+++ b/drivers/video/backlight/lm3533_bl.c
-@@ -7,6 +7,7 @@
-  * Author: Johan Hovold <jhovold@gmail.com>
-  */
- 
-+#include <linux/bits.h>
- #include <linux/module.h>
- #include <linux/init.h>
- #include <linux/mod_devicetable.h>
-@@ -21,6 +22,8 @@
- #define LM3533_HVCTRLBANK_COUNT		2
- #define LM3533_BL_MAX_BRIGHTNESS	255
- 
-+#define LM3533_REG_OUTPUT_CONF1		0x10
-+#define   OUTPUT_CONF1_MASK		GENMASK(1, 0)
- #define LM3533_REG_CTRLBANK_AB_BCONF	0x1a
- #define   CTRLBANK_AB_BCONF_MODE(n)	BIT(2 * (n) + 1)
- 
-@@ -34,6 +37,9 @@ struct lm3533_bl {
- 	u32 max_current;
- 	u32 pwm;
- 	bool linear;
-+
-+	u32 num_leds;
-+	u32 led_strings[LM3533_HVCTRLBANK_COUNT];
- };
- 
- 
-@@ -248,7 +254,8 @@ static struct attribute_group lm3533_bl_attribute_group = {
- static int lm3533_bl_setup(struct lm3533_bl *bl)
- {
- 	int id = lm3533_bl_get_ctrlbank_id(bl);
--	int ret;
-+	u32 output_cfg_val = 0;
-+	int ret, i;
- 
- 	ret = lm3533_update(bl->lm3533, LM3533_REG_CTRLBANK_AB_BCONF,
- 			    bl->linear ? CTRLBANK_AB_BCONF_MODE(id) : 0,
-@@ -256,6 +263,16 @@ static int lm3533_bl_setup(struct lm3533_bl *bl)
- 	if (ret)
- 		return ret;
- 
-+	if (bl->num_leds) {
-+		for (i = 0; i < bl->num_leds; i++)
-+			output_cfg_val |= id << bl->led_strings[i];
-+
-+		ret = lm3533_update(bl->lm3533, LM3533_REG_OUTPUT_CONF1,
-+				    output_cfg_val, OUTPUT_CONF1_MASK);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	ret = lm3533_ctrlbank_set_max_current(&bl->cb, bl->max_current);
- 	if (ret)
- 		return ret;
-@@ -329,6 +346,24 @@ static int lm3533_bl_probe(struct platform_device *pdev)
- 	bl->linear = device_property_read_bool(&pdev->dev,
- 					       "ti,linear-mapping-mode");
- 
-+	bl->num_leds = device_property_count_u32(&pdev->dev, "led-sources");
-+
-+	/*
-+	 * If led-sources property is not set then either this Control Bank uses
-+	 * its default HVLED or is not linked to any HVLED at all.
-+	 */
-+	if (bl->num_leds > 0 && bl->num_leds <= LM3533_HVCTRLBANK_COUNT) {
-+		ret = device_property_read_u32_array(&pdev->dev, "led-sources",
-+						     bl->led_strings,
-+						     bl->num_leds);
-+		if (ret) {
-+			dev_err(&pdev->dev, "failed to get led-sources\n");
-+			goto err_sysfs_remove;
-+		}
-+	} else {
-+		bl->num_leds = 0;
-+	}
-+
- 	ret = lm3533_bl_setup(bl);
- 	if (ret)
- 		return ret;
 -- 
 2.51.0
 
