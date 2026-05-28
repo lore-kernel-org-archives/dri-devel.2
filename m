@@ -4,63 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D18B6CD5BD0
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 01:57:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8260BCD5BD0
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 02:39:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31FCA10EB4A;
-	Thu, 28 May 2026 01:57:39 +0000 (UTC)
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.209.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6B0F10EB4A
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 01:57:36 +0000 (UTC)
-X-QQ-mid: zesmtpsz3t1779933411t051b27aa
-X-QQ-Originating-IP: Xo+WVLqeetR6zv4ASWWCm/TADq7Vz3fao/NqAUF+c7w=
-Received: from [127.0.0.1] ( [116.234.26.110]) by bizesmtp.qq.com (ESMTP) with 
- id ; Thu, 28 May 2026 09:56:48 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 3255798331960100904
-Message-ID: <755BEADC478F92B8+16dd5a2a-9a6f-44c2-a84a-af36675a3346@radxa.com>
-Date: Thu, 28 May 2026 09:56:47 +0800
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6698789C7F;
+	Thu, 28 May 2026 02:39:30 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="FCDU/+jR";
+	dkim-atps=neutral
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010011.outbound.protection.outlook.com [52.101.61.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E81910EB7F
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 02:39:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SoSEkRdGKkISVOaPWpk7eWZVUJCj600zL3fpT32YgfvUQpCQMBhchzAbjvJJYzDKk60qxfm2YAbHyPmopn7tOyxuIYQUdN6skPmemf0/AFO2kk2jHojHepnRonYEgt8ZwdrCNAYUlir1ADyEyKjRzMFDhirw5ymxtsm9PTNLfdH6cNJpodl1Xhacy1D0cC4bQu0itwnxW89siXtOPbO+1d9qS+KDJmkqgIdgUGdXdokwJ2S0m4tXv3V7iPwdJ84tHrH360TQ0i0G10UHCWQFuX/GfiR+UUtMgmgXtGD6MACMkV4A0RX4JMRn2rNHGBD9EMPQf096abBqwuSU7qlDuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3zZ7QN4LvEiY7d1KtAhhWeRCVqXUdNkouUqFw3fOWEk=;
+ b=KpREyW5HKDjXlX94hG1pYR3ubHloQIvSSHqfoHARzKGmvF5M2jBeiH0kSxI1hhT4NwVfsf+YK+ZmcGWcYy0XA2XDv0R+R4HeNMFW1JdWEB3Tcn2UtiX/kbsdCmCVOM+40TtULKruIqeayqjv8+yVRUwkDTf3TqHiMErUWTUy/S7VyM/79gEz0UAF7gL84o/bxDDTVHD+Cls/Go93iZOTNKFYm3m+7yYHlkcb/m5hEf7ryyh41o/yuRiV8aBavZLGOjIj51CD1PeSBjf7pAkoSY2330tkVqNu1ceAgp+9guJnyYHRXxTHtSmcbywBYVkwwTs8vcrwZAEDOYxdOvnBKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3zZ7QN4LvEiY7d1KtAhhWeRCVqXUdNkouUqFw3fOWEk=;
+ b=FCDU/+jRMt1dTcRnjEgflKbrHWd12s4oVDhVD9fMu8sbiH/dS77Qj5N24kJUBy2Axs5O88aG83ri9nkuuK14vsViWCDskLyGdBgpmedx+of0X7nI/ZUzvUdKurUBhNfKi87VZtjQlILDhZNoJi+i0d3BSSp06AtPqlbVoyxA7YEQnF8HCR/ldnwCbz3Uoh/uskn9YJzmZaL9wbCiAUTo3s1h/qnIfOhcUBZy2gZq39NENVtSoAxvUEt2Kt5kzlWcrAAjpo3y+Asc4nDYDkSH4fr8H89fn1xa6ELNb20xIvyGJtixvHkV1a1w43O5LFl4gPPhB1MEF9SPDnpHl123ng==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ CH3PR12MB7738.namprd12.prod.outlook.com (2603:10b6:610:14e::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.71.12; Thu, 28 May 2026 02:39:20 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%5]) with mapi id 15.21.0071.011; Thu, 28 May 2026
+ 02:39:19 +0000
+Message-ID: <97aa8ce9-e965-4f2a-8719-c5e586688878@nvidia.com>
+Date: Wed, 27 May 2026 19:39:17 -0700
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] arm64: qcom: Enable additional hardware on Radxa
- Dragon Q6A
-To: Gekko <graham.oconnor@gmail.com>, linux-arm-msm@vger.kernel.org
-Cc: andersson@kernel.org, konradybcio@kernel.org,
- robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, neil.armstrong@linaro.org
-References: <20260522060645.4399-1-graham.oconnor@gmail.com>
- <20260522101323.31911-1-graham.oconnor@gmail.com>
- <15015D7EB84640D6+cc21a9f7-ae1b-4a22-bb38-34d6fafe1bcb@radxa.com>
- <30edf212-f656-4c09-a066-d765debf3fcb@gmail.com>
+Subject: Re: [PATCH v2] dma-buf: set SB_I_NOEXEC and SB_I_NODEV on the pseudo
+ filesystem
+To: Christoph Hellwig <hch@infradead.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Christian Brauner <brauner@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, LKML <linux-kernel@vger.kernel.org>,
+ stable@vger.kernel.org
+References: <20260523011117.121390-1-jhubbard@nvidia.com>
+ <ahPkQgCg_52sxkYH@infradead.org>
 Content-Language: en-US
-From: Xilin Wu <sophon@radxa.com>
-In-Reply-To: <30edf212-f656-4c09-a066-d765debf3fcb@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: NRKJMD5h+iEjzJzDoUhUVCMxOonf5Rfv1htmL/YEXz2YFNh+Fr9tMdKt
- 0aLxoDSd5nDGm1Tp79qNInPrXH7ks9vd6r4OXJgp6ttH7NXMI78Kp0d8I47yR4bdSEp5KZz
- c+A9Y4ZO09eHZ0HOQ0b8t0l3KoXfhlJbdfkVUbpPMnRM8qPGfjjx3NYDpY1au73sr2H7O0/
- K+mwGBrxNOYl0cq7AgRpq4lR+p/ojsa8xHS1fVVtG8uH8vEy1Ddd4f3KML6HTnplO5V/BpJ
- WPPqUKs2bYpj2+Xkno10gZcoKDs4mozh58yPVPGAnFGZEXiaQ2zqFIWc3fXGdUG+bUryDME
- SsG6/GEYaPz1lIX7NusGW/zsb5a66nnjC+C+HSDC/wBrFkwHIltvCPb89COO+YN1LYb+CXb
- 0OPiofi/d7lDtt9kc5QIKoNXpp0Tm8ugyy+uGcjBLNYuYdQgw8vizdDPnDqQCafIUBUbavv
- oInKbT7RH34gKxEBuyvSvCdWLxCGAentkovr7naT4ZAK7vp5STne7HDWSvMY0H9H08wK+iW
- D8MFCN8L243NbRAKNk4uuG+XTBjZ57Aj9fz9/d0iHeVfHAwqUeqThIx51HluwFMrlIRkbQv
- 0rVa/cVCb2eq/071P6us8HuIzhrmaLw0p2sjyLVgJZ3Hxr1NG1iMXiEO3uJn/VksGg33NO2
- b0uMdHEAjGA7/tZiJMIEH/Dv66gxe1SPF85tQiV5LZvfm0Ur4rk2m+QdkrSaHTmLdX0FPJl
- BMX8hE8fHv1EpLsyAxThdAS1FLxywzgIgo/IroEFAAvgsWE31n+uTP0iy1/x9XKo+rJKlDC
- Wt6pLkvpBfyX8Nep+wmGlMyIC3680HbBuCkGbtnXan+UB/aS9qRK4iyKTKYz/+sDCmqmaPY
- Ql/ieWDAIv/DDxAlDnK3f7oXmlWE1U1cYp3yQ9oIWSJVachQtELaHhpAz3/twaKtDcxIzPs
- q2p3V8tyjo4SjzQngPFTOCyKDSAv19LS749lQ2Swche/jBf8kZKlK16XvmJuxrhk8q/oput
- OEEV91POCpY73b9Mv9aw56wnAaoWl/WBVLxBS/VAJ2HBfcxrS/G1hpLujE1KMdZWIq7rygb
- uRICJR5oAyQ
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <ahPkQgCg_52sxkYH@infradead.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BY3PR05CA0017.namprd05.prod.outlook.com
+ (2603:10b6:a03:254::22) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|CH3PR12MB7738:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6abfe015-98c7-42b3-7bea-08debc625145
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7416014|4143699003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: npcWVHKtfigByppJzDs7lb7rQtIUgZBTcfWky1FPO5XJ2W8KmLDexD7Y1UWJ2mjsqlQrlZcF9QVvnivcSuNjd/l2OUrai38X77tT36yg/LA/aeruYq7EOnbQknMLp+QAaAkqo+xua/E5Z0S1mGHQWKYPSPR9kPJJLYddZVLvmlOV1vkvZfpfwiJ35PTl93VEcyxJvUORip2q2aSTR1GItzDQ7IfAcpAIk3lkVZ2+Cbkdc1b3AcxpcBF0CD6e6NhKBti2FzRmrdoumpHuzL96/5gvjwmcQ7+8rvGsFo3WTDVRG8pVyR0pe+i9Ucpp3m9fwFGxOV34J/aX+KVVol9qbrLGxk9ii6MO3bIhen6qIZwXiQoBBVCcTyvp3s5J1kphAwji2mgZ3OUB3CV1jO07Ybw5aM2OLuuNX303fxb1HZo404Bin3kJtYeehPFiqEQ04qK+kZCj8ikjzQM/Jt23+3jLZGCJ97E/b7uerDIuejGh6jL4pb/2H9tZ2TcGiGUFCCHlVCVlyvxWyJGgVVQD4faqeaoF3P5zxy0hWyJVM5vaUfMGy1sr5bKIThwpFA58ZyQ8YEvGR/hthvD8qXZ7oHjIiB3bEVwFcS2e2CDLFhaPu3K3GZE7Oa7w5taR+FUTdcxeCBTbBrDGbURXDTBF/p0HVP06egapuoEEtwMVuVLVTzEbN2rtJY1n3HlBRdGg
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c3lSK05QaXhodk1wdnhkdUgwZVZCSFJrak5aSXNla0xpYTZHQUlJV2c0Rml6?=
+ =?utf-8?B?cU9DMXFSZHViMDVNTXBVN01jNi9LZ0pndHBBZmFMelZFVllFdjFPYWNQUUxh?=
+ =?utf-8?B?MmZESVA0ZklyV0VMNzFRa2EyYUMwdTRSelBPR29FTGFGemJaWVFCSXB0cm1W?=
+ =?utf-8?B?Y2kvd3N3dFpxV2xDUVFPYUlFTGhhMkhpMFZTK1N6bU0zVHdsYkNhMkR1WHR6?=
+ =?utf-8?B?OXNVSXRKZzJOd3h2YmVhNTVDUWRmQzRqb2x3dS96WXpjYXJqUDRERzJzZktN?=
+ =?utf-8?B?Nk9tTWljSmVIaUtBQlJmMnROZndUSW1YOW5QcncrYi9FNStHWXJMRzg2ZlVZ?=
+ =?utf-8?B?NHdXNjV3cHJwY3lqZnovbFdaMWVpc1BOZVVhcFhsWjlYczJlWVJyRjZSSUNs?=
+ =?utf-8?B?Z0IxSk84bXJkd1FXOTZPZ0lRMEJLMHVNUEw1dnIvR2dvOEtTTGNiWmJiUDdm?=
+ =?utf-8?B?ME5lZlNJTlNhQ3JSZXBtbm5RVU90ejNERCtEU2tOalgyZG9xUGFoUVgvRUkx?=
+ =?utf-8?B?Q3NzV0p0RjgrRkh6WEN6M2VMTTZUbSt0ZVN1WUYyOWh6bjVFL1h3dzdMbDdD?=
+ =?utf-8?B?R3d0eWYvM1M5SEV6eGc2bVRmUnFJS2ZUUFNubkVFaE4rVE1YSVVMNnVPM21F?=
+ =?utf-8?B?d1lsZm9ySXYyUTZOL2xMTnlmaWRMODFRNXVQejJNcVdxRzZmSkI0ZmZPZml1?=
+ =?utf-8?B?TnkyV2NKdHBDcXJsTkhxVzNuUXkrbElqNXY2c09NcjF2aFdVQitTbWFpMmxs?=
+ =?utf-8?B?ak1MaG01aFVoR1huejlyU2ROeTgvVm10bS9KeC93dEx3Ulh0V2g0Z3o4OU1S?=
+ =?utf-8?B?SHd5YThTcGFsdEp3YmRDNXVtSjFKRW1oeVloeTZZQ3pWeWJwZmE1bkU4cThj?=
+ =?utf-8?B?L1QyNThERW5ZQlZMTzJqV3NaV083K3ZzdDRFLzVFejU0bUhHZkNoamlpWUFl?=
+ =?utf-8?B?ODZzRTJSS09ZTXFIVkRWOGwrZk1UTDBkbXNTNERzaXhKVFk3NkttUEl3bzlE?=
+ =?utf-8?B?UDdKMzZ4SkM3WExYbnhHNHNsMzFxUWJXV1BtQTl0RTc1OEdGTjlpNklRWll6?=
+ =?utf-8?B?T085QXIzY0kzeWFuc2pSN3BBaDdHd2I2c3ZsS1hNOVpiVklUREZQU1phYTE5?=
+ =?utf-8?B?cjk3YjZCUW45dEpmaGR1c29UYWRtbmtOWEsxZ0JwZzRFT05jMDBQaThHdFRC?=
+ =?utf-8?B?c3dmdmo4ZkpQN29TeGNodDhxSzB2aGVka2lvaDNEazk5NDExYkRKZ1RkR1VY?=
+ =?utf-8?B?VEV2OGxmdzhqREZ5VU9QYzNHQXRVZXBva09jWE1YelhReVUrcW53UGNzcEgv?=
+ =?utf-8?B?WEdYWXVoMmV5eVBZSE5KTldVbjVVUU9HSmduOC9vbUNRdDh1TmJWRG0wSUs4?=
+ =?utf-8?B?eHEvVU9uNHNXbTEvQUpxUm41d2N1TG16Q1c1SUFLTFpNMksvL01uQkxURzVL?=
+ =?utf-8?B?VG5KanpKOUFHb0wxTDRwM01IeEsyR3JmejFHT1RHTkJPZzFiRGxnVFpLQkZV?=
+ =?utf-8?B?eU5oazhJUlFNM3Y0bSs0cTkwaTlxU0E1aDlydEdYNUJHM2U3RHlnemM0K2Fs?=
+ =?utf-8?B?bkYvSEM2MVFNNWtPQ1Z5R29TWHlycVcwdFZJenUyMUd4azN4TFpkSnhrcHVD?=
+ =?utf-8?B?WXdra1VoTmwrZUZza0hGREFCdUw0OGd2clNpUzllMGtBWERkR1BlUzd0d3B6?=
+ =?utf-8?B?NndrT2k4UlZYbnRMSGY0aEFxT3VPQ2tyb1NBd0twL0haUm1KZ2dQbUJ2SzMx?=
+ =?utf-8?B?U04rditLaUdDNVE5Q0tNZ1BYb0pjdko4c1p1SWpCR09Hd1Q3M0NyZi9MS2Rk?=
+ =?utf-8?B?VERtWnhnR3JPNEVsZUpPTGVtQ1VxeG9vVmo2ZXlDV1ViTDRreU14eTAzd2Nn?=
+ =?utf-8?B?MVBqdGRsbDQ0bEo4Z1F4Ukwzc3lNSVo0OHA5R05zY1pVVCtqZUZpbGN4aW1i?=
+ =?utf-8?B?dXVrdjllWTBNN2s4Zk1MeE1aS2NnVWxWSmFsWElQZmNEZEJKeWZCb2p1RFcz?=
+ =?utf-8?B?bWZ0VHlydjM3MEtvbFdvOXNYb3dIb2NxT2lpdU9CdFdCK1UyYmFPRDlHaFVS?=
+ =?utf-8?B?d2xYLzJlZ0lYUWZYQUhKbTZ6aFprQjBrRVNXdHpHOVV2YUVYK1c4WVVGdXRs?=
+ =?utf-8?B?OURFQm82cC9USlgzaWkyejhxYnZUYUhVMFgydTlDaEZIRnRiUENDOHYvQWFY?=
+ =?utf-8?B?djFOQmNDV0RxNUxZWUw1Q0h2TDVpMWgxVis0UEUveGRmOW1tdTNRMGdqK04r?=
+ =?utf-8?B?TE04NEdFaGFteFphV1E3aCtFUytsMldPdkRkWEJLNXZTZ0FFelVNbXF6Nm1W?=
+ =?utf-8?B?QmdJN1dCZ0huK3VSaUd5aEkzdkxucjlUWnNtd3NGVFhmSzgrbzlxUT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6abfe015-98c7-42b3-7bea-08debc625145
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2026 02:39:19.2015 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: K4mzfpKzGcBm+Dw6jNXRFvcuGjKRlFb2Z3iVnhq+akGXKvFbrqxQ0FwebTkmvLaiKkvzVm2fYBvGFmAm2Iv61g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7738
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,103 +142,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/28/2026 4:43 AM, Gekko wrote:
-> Hi Xilin,
+On 5/24/26 10:55 PM, Christoph Hellwig wrote:
+> On Fri, May 22, 2026 at 06:11:17PM -0700, John Hubbard wrote:
+>> The dma-buf pseudo filesystem dispenses S_ANON_INODE inodes via
+>> alloc_anon_inode() but never sets SB_I_NOEXEC on its superblock.
+>> Since commit 1e7ab6f67824 ("anon_inode: rework assertions") in 6.17,
+>> path_noexec() warns on exactly that combination, so an mmap() on any
+>> dma-buf fd trips the warning:
 > 
-> Thank you for the response.
-> 
-> I appreciate the offer to take over your patch set to move things 
-> forward. However, I feel I must respectfully decline. This is mainly due 
-> to my lack of experience with both upstream kernel development on this 
-> hardware and the patch management process itself. It would be 
-> irresponsible of me to take on something that I'm not knowledgeable 
-> enough to ensure successful completion.
-> 
-> I'm happy to work with you to help in any other way that I can such as 
-> testing patches, but I think you should maintain ownership of the patch- 
-> set and submission process, at least for now.
-> 
-> One of the reasons I withdrew my own patch-set is that from what I can 
-> see your series covers everything I was trying to achieve, and does it 
-> correctly :-)
-> 
-> The only one that isn't covered is the patch for early TCS 
-> initialisation that I'm discussing with Konrad which may be unnecessary 
-> anyway.
-> 
-> Graham
+> Just as last time this came up, we really should set this higher up.
+> There isn't really a reason why pseudofses should not set SB_I_NOEXEC
+> by default.
 > 
 
-Hi Graham,
+Ha, I see now that there is some history to this.
 
-Thanks, I understand your point.
+After looking at the email history and the code, it does seem like
+the time is right to do that. I'm testing out a tiny series to set
+these flags in init_pseudo(), and then to *not* redundantly set them
+elsewhere, I'll post it shortly.
 
-I appreciate your offer to help with testing. I will do my best to move 
-this series forward once I get the current work off my plate.
-
-Thanks again for your help.
-
-> On 24/05/2026 13:58, Xilin Wu wrote:
->> On 5/22/2026 6:13 PM, Graham O'Connor wrote:
->>> Thank you to Konrad, Neil, and others for the very prompt and helpful 
->>> reviews.
->>>
->>> Based on the feedback received, I think it best to withdraw this 
->>> series to
->>> address the issues raised, most notobly:
->>>
->>> 1. The DP_TRAIN_LEVEL_MAX change (patch 3) is too broad - it affects all
->>>     devices using the Qualcomm MSM DP driver rather than being 
->>> specific to
->>>     the RA620 bridge. A proper fix should be implemented at the bridge
->>>     level. This is going to take more investigation.
->>>
->>> 2. The display DT nodes (patch 5) should use the radxa,ra620 compatible
->>>     string per the existing Radxa upstream series from Xilin Wu, and the
->>>     lane ordering needs correcting.
->>>
->>> 3. The rpmh-rsc early return (patch 1) needs further review regarding
->>>     the implications of returning before full driver initialization.
->>>
->>> 4. DTS patch label dependency issue (sorry)
->>>
->>> I'll integrate with the Radxa upstream effort, re-evaluate the other 
->>> areas
->>> and resubmit corrected patches addressing these concerns at a later 
->>> date.
->>>
->>> Thanks for the feedback.
->>>
->>> Cheers
->>>
->>> Graham
->>
->> Hi Graham,
->>
->> Thanks for working on the additional hardware bring-up for Q6A 
->> upstream support. I'm really glad to see someone pushing this forward.
->>
->> I actually posted a patch series [1] last month, and it is generally 
->> in good shape. Unfortunately, I got busy with other work and haven't 
->> had a chance to send v2 yet.
->>
->> If it helps, please feel free to take over that series and fold your 
->> additional patches into it. I think that would be a good way to move 
->> things forward.
->>
->> Also, I believe patches 10-12 in my series are no longer needed and 
->> can be dropped.
->>
->> Thank you again for the work you have done.
->>
->> [1] https://patchwork.kernel.org/project/linux-arm-msm/list/? 
->> series=1078242&state=%2A&archive=both
->>
-> 
-> 
-
-
+thanks,
 -- 
-Best regards,
-Xilin Wu <sophon@radxa.com>
-
+John Hubbard
