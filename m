@@ -4,133 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E59DCD6E44
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 15:23:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5D78CD6E44
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 15:24:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9CDC10F37A;
-	Thu, 28 May 2026 15:23:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 131EA10F2E2;
+	Thu, 28 May 2026 15:24:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Tw7EWfSF";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hv/TI1dx";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bF0+VSRT";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A78AF10F358
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 15:22:59 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64S8wM5k382529
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 15:22:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=PEDqP6PRnD4f3w0pOYnhKn4r
- OzVoretJwgoZHP7f+y8=; b=Tw7EWfSFFA0va9E7Sln0BwnmKyNm+kMw6d0AyuNK
- xznaaxFnEG+XAew3WIa8LiCTIXF5wKPjd3/cF4CAjiRU+4cKdEsCC0DvmaHmQc5S
- 25GAMJOoCx+RhlAAknYGOGk39tEg1BMJPCCJA3sq7rQpKRf5Wsj1BkcFPkpQTI7a
- 1lYROLTxnr9k8UFyggCgzWS2jFf8JvqZM0/kNsJkLD8Jfm4kabZqjysCkzR4itAw
- FQ0yHiQCbpb/Kxla+VENdjzXUngT8YZng5k+T6DZDEsZQwXQ9E+SdI/qU9B1OH6m
- X9qF44+Pw47t9BZkTWxENiCeNENHulg4fNqs6YgCfDHTYQ==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com
- [209.85.221.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ee7yrkbas-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 15:22:59 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id
- 71dfb90a1353d-5753ef2562aso9020096e0c.2
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 08:22:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779981778; x=1780586578;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=PEDqP6PRnD4f3w0pOYnhKn4rOzVoretJwgoZHP7f+y8=;
- b=hv/TI1dxtMZB0qe3AY+g1kku30Ai9aijmDLDsXy4CYCrA9iY0rLf8UxKBJwQAObpUk
- 05tQlYvtiWetLFoGlWzOBVlt/vUS6lHCbQMQ42VOQSipTe03NuI2fHPXCN6Gny05Xqda
- R28DUQ0hR7/g7hpZiu9KqalC1L4TGsSD/u7UfAu9jl8YytwzfHYrj9CQmraxBiWjEM+b
- c2MrzhmQr1pH7kbECKN00XR/jppetpCVtrrcxXcK6DEoucZgVip6p2lO4YKW7BGqnNwV
- 7sB6apI0Zo3ouPiumhSvZ+laIcgdcy8iM+f4l1/GboSYrUlmgI7DT2fqjQdUO6sdmcMO
- cpIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779981778; x=1780586578;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=PEDqP6PRnD4f3w0pOYnhKn4rOzVoretJwgoZHP7f+y8=;
- b=FcLTmAHxocnT6hnkE0/ZwcNC5s8H1NvvwJw64a+vI0KQWKmRvnngz6NU+DKcEm2OTr
- /YCxBq64/YykJ5wAHXN/4Z7Xiq4ljGMJSAS2yEbRrCXsS0Ikc0GXoagI4Cr1QPVF6QuB
- QmMomS0KErIWgSzhLiZ5olpTIOUvbsbVB9/qG/zA5QgjkLDplx4KU4/1Q+9jvQw2zE/r
- itAxt37RVCR2GiAMijEHcvRJVM+1rJ7Cd8KjBuCToZgzF6Oh1+GXR3G0DXoEZUQaAaCs
- zS+lK0ciD6oxGjbcliojYaKCg9c1KxNksvAAiljh1xV9mtrdeitnbttoMi/UjUnwZCZs
- 7ncg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/04zzypl9NSB4sdA6+FD96h+V4XvasHHBCQaQQa/PhV1YrCx72zFV/SLfnri/msqn0hl+pVy2H2/8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyu6FCyTqinOOEfSxmFkhRq0F6znMpnfnt1Q3lzmCM6/krz0MjW
- 1qEnmomCLYQH92pAEXEK531+nW8fySOtnsyHHxKPc6YonQReU6pBVv27aHLWvLprUL0PI3XiGjN
- 5e9vIB6XHAxzUOoa9+uhWsrtRYDVwO+YwjkfqoUMgGq7ZgA+FCgmZO0vdlCiOaa4EDpQiltg=
-X-Gm-Gg: Acq92OEjYMXLfnvbylKzmZxYxa1jOZWYhnBTUmWn3P0p7X42BP+mITBBFiO4J6Ayjy1
- xXvooXifXYz2Rcz2AZ6W6ZNzbdTxzQ2HIRLb9sYWaZlsUUqrwqGvXKn0lZxeImLM6HBikDQyn6L
- ngWoeykZxU+GJl1M1zwgcyVKgx6mowBlbU6IXW1E/qhuig+1Q0s30gJiCMzZi7ACc/tG6eC0WLu
- ygirXv/lhwWDUIyJuhsFn3XbQXCprMEdEQse32sVdPidY0SJz844v+oMj1uZVzDT2LMyKqe1RqD
- q28U10N+LMMUTUUdRpvC9vAcUi26i/0WdjT3SWlRZMA1SqiBKGBxol7+eoue8PxYbDZByMJguot
- ozplyd7M/1uW98mSt4CPpH9flHbX43om91vTOjP0FLXCodQV1ggEHfI933Uipw63rWLy7g8s9m7
- NzsgC0xbSFgL2WCqpsJJXZcNLJQHUfcdydjq4vLBGYtpm6tQ==
-X-Received: by 2002:a05:6122:1ac9:b0:56c:da22:6921 with SMTP id
- 71dfb90a1353d-5865f621e09mr15145956e0c.5.1779981778024; 
- Thu, 28 May 2026 08:22:58 -0700 (PDT)
-X-Received: by 2002:a05:6122:1ac9:b0:56c:da22:6921 with SMTP id
- 71dfb90a1353d-5865f621e09mr15145915e0c.5.1779981777570; 
- Thu, 28 May 2026 08:22:57 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5aa4634d472sm2009767e87.77.2026.05.28.08.22.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 May 2026 08:22:56 -0700 (PDT)
-Date: Thu, 28 May 2026 18:22:54 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 04/15] drm/msm/dp: split msm_dp_ctrl_config_ctrl()
- into link parts and stream parts
-Message-ID: <nop7uyplq643ps4naczmrqhukeiuvfxllutmaz2sbohrnxk6ko@pr7emfe5panj>
-References: <20260528-dp_mstclean-v5-0-a9221c1f1f3b@oss.qualcomm.com>
- <20260528-dp_mstclean-v5-4-a9221c1f1f3b@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38DA010F2E2
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 15:24:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779981882; x=1811517882;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=tN0Zox+zscVT61iQDrIe7lbRpNdsm02vvOAK4XvDPv0=;
+ b=bF0+VSRTkD/NsfgwLksUDJvtlyC3mk5zrkOgk2wrQn1sETgUwmAIuk+a
+ rAaBGIB4pBrgF1CqstKm+LlJXBqAbMTftcNFr40mH0TGgZoWL13IgGtjT
+ oElJT9oXnFDZl35YZLqBz5GAnoTpzfl0r26HVtDuSX4uiXCTD39P6g4Yh
+ ZwSJG2E2IUOOXry+V1Y7tUSCV0eae9phKH/0U1wkItTjx2YpJ60wB1xbK
+ 8nYWCOFT+x55/seWcJI8nlKqLYIp1eAtFM2yA7sLiYf9fCGSJAIFpl9qQ
+ 1V3dtKk555igStAI+957yigK2QEadBJZHvcINURQ0MyPLPy/XAfU052IL w==;
+X-CSE-ConnectionGUID: 8XJPwGWmTvCsKRkBl6IFdQ==
+X-CSE-MsgGUID: BepvgS8lTCqQSpRYub8SbQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11800"; a="80888352"
+X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; d="scan'208";a="80888352"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 May 2026 08:24:42 -0700
+X-CSE-ConnectionGUID: FbbBVO6/RsmTc3OOI2nHJg==
+X-CSE-MsgGUID: GRM9A5YWTte7b0At2QBtgg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; d="scan'208";a="241539346"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 May 2026 08:24:42 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 28 May 2026 08:24:41 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Thu, 28 May 2026 08:24:41 -0700
+Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.16) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 28 May 2026 08:24:41 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e/i4Wp4QkYfR07FAYmSKcA8slBkbO/wAJFJnsUM5nTg5Z34iug5EL79LNFHm3LnVXqpkpCS2d7fN5qXkEM1eL4qCPsF/o31KxRWBUz8yermPBrL4bAmXKGI9vbikbwdvxRPDf/I8gDJtg+TYoGAbFoqqcRkjUqiCG4LqwB707jnXpjwIjtVgniXCabMSGyUIh8en7iJNDHl7Xew2ektnnzphdP9N5H2PTbGIo1v8B5Fh4h44IjGtQouogzWMtyhSk0IkFtQQ9HRolHyrcAe0uUmMnesaex4XJrns2KynPf0GaEOrxkagODjVkOxbDZcTfhMMWr1aDf41eRCaa8pFzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TFbP0KyXDwxoOAiWOCQaGNgdjGsuNpKUdm6qkxX4JuU=;
+ b=WAT6lPZX9Y8/d40bzw25YPvUOcp1dINOrbLTVmUixyBoqmGCpkh1FnXUu4U1rk/V2KXQKKEG0EWSe0I345yETo8CmjlwBLH37ImeX+wcGRycbCGp1+INWBYvQkcwe25xkd7e509lNsysJuiSfOog+DnNqWnrc797q2IJnjTWOVN5IsFbX9qjqzld9t3trFbV1RnhNZRjruCYulPGB9FVU1HzpmOW0SeZuS5Fhnvgh/7CmzcZ2aJoI7PR4q8EI3X+wNLCh3DhDv9a3ydbdqPaRKMRSfMwFbcBd2WZu3oF0ppml6BaMHq1/JSMGJw90XGjf0IZ6tmbLqADh0+nKcbXaw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB8019.namprd11.prod.outlook.com (2603:10b6:8:12e::18)
+ by SA0PR11MB4591.namprd11.prod.outlook.com (2603:10b6:806:9c::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Thu, 28 May
+ 2026 15:24:32 +0000
+Received: from DS0PR11MB8019.namprd11.prod.outlook.com
+ ([fe80::fce1:3bde:b383:e801]) by DS0PR11MB8019.namprd11.prod.outlook.com
+ ([fe80::fce1:3bde:b383:e801%3]) with mapi id 15.21.0071.011; Thu, 28 May 2026
+ 15:24:32 +0000
+Date: Thu, 28 May 2026 17:24:21 +0200
+From: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+CC: <dri-devel@lists.freedesktop.org>, Andi Shyti
+ <andi.shyti@linux.intel.com>, Krzysztof Karas <krzysztof.karas@intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+Subject: Re: [PATCH] drm: Set dev->registered back to false in case of
+ register failure
+Message-ID: <ednzkzzbdyabfyvgwkpwqttueqh5taaovhuidfkyc3e2tupnia@7a56amg3bmto>
+References: <20260522154037.46892-3-krzysztof.niemiec@intel.com>
+ <c55da1fa43e00d755191520e8c03a7659c6e892f.camel@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-In-Reply-To: <20260528-dp_mstclean-v5-4-a9221c1f1f3b@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDE1NSBTYWx0ZWRfXxCJas8W7/J6Y
- Ep2Iclt10no7y1xtmuv89FldpW0gk+Xnlk5cDgqUvrzqXA+LBPrk/kSeywqd1AMw26vzj4XxjM+
- sV4HgyAYegmcZqTGFtW9GsCsN6n3bqKiZ9fgGK7EakjECCsq/kXetNGttG/5mCy1JRuNKUopazm
- H8B2Nixig8oYZkJYu4KAq9fM/bTVA6dXuFTae36NU6ieBpkatnUCM80UmiQe09dPTwtHxeYswV3
- FZ8dwdbD7O1M5DzwweP6MjY3/Ic42cG5FNuks6dM7G4d1734JShKTF4uRT1VIp8SOahFWf8IJGl
- rLqnisd+ntiTvP2hidWOrIulqGFgChZ7HwZAJohU6WPhaYimB+tacdIoQIoNhViAInqVvwHWX3I
- di/2JCc/mCQoQaaUUdAyhG87OQIv++w+KOMqHE3w7DDX8Pee15lcbDkK9/rWv+NcWhNbJgoUS7N
- eGlejXMVC5w+9EP6xFA==
-X-Authority-Analysis: v=2.4 cv=PLo/P/qC c=1 sm=1 tr=0 ts=6a185dd3 cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=NxVLH6Ql9juLhvLULPkA:9 a=CjuIK1q_8ugA:10 a=hhpmQAJR8DioWGSBphRh:22
-X-Proofpoint-GUID: lh6DwKj46xHx3NrnwlopIPIicKSx0N_L
-X-Proofpoint-ORIG-GUID: lh6DwKj46xHx3NrnwlopIPIicKSx0N_L
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-28_05,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 malwarescore=0 spamscore=0 bulkscore=0
- priorityscore=1501 adultscore=0 lowpriorityscore=0 suspectscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2605280155
+In-Reply-To: <c55da1fa43e00d755191520e8c03a7659c6e892f.camel@linux.intel.com>
+X-ClientProxiedBy: DU2PR04CA0192.eurprd04.prod.outlook.com
+ (2603:10a6:10:28d::17) To PH8PR11MB8014.namprd11.prod.outlook.com
+ (2603:10b6:510:23a::15)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB8019:EE_|SA0PR11MB4591:EE_
+X-MS-Office365-Filtering-Correlation-Id: 05629966-5824-422e-3a5f-08debccd372b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|18002099003|22082099003|5023799004|6133799003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: FT59Y1bThFvYI1Q45yJEsapWMy4e6h5bkVwWxu1JNGqXWuQ+EqTHEBJ+aI6eVb2To8/QF0v5+oZ1bqRFYr79QCv07glfevshthZhdFebgUgNUyqYIQWdCmwmnrZvfd4QeRUImQyL5yw7McpHxzvH1LBU4xicTbcnQIko9nHvdqoUbkErkKxtxBx5K2v6IU1pkHszZSQQHBgJh2GVfmi+/2tc7XitfbS4iE2z38K8eRhcg6YZB89MNEGAIfas5S/fczf2fjE0kvVjipALzB/4wYQY8pmOtbyP3amNwlPRubZ7KLF5H6S2MlCSaH3q0+ndQd0VeKyRkph/TMNXpqwPATKaHuz6pWpJeHjiBfzvMFxJD1U65Mj4nhfg4ExFoThYCvKqK5ZlrKwhG/QugfOmqN0zwbIYZzlCgsVLG+FjK4qxW8JzCV3e87ZVtzwhSalQK6DsOkO50wtt3R7iTbWVS89RIm+nYbtAly7kTybg6YIMPIWWyLYYI5hupcRElMX79ZqEaGJTkVPDYwBNTM6B0NMlWqyRtiJ2H41J+jLYagd1ycQJ4+ow1SbWseshtQsi04IRaIYQfU3E5lHXVkV7HFNN+K/46Xmuhs/s0UQzEaFvaaT6COEvZLIm3UfFthakOP17BoW2pwnb2w9rSgq3s/BC12VBeO+d6nLl9CTY1ESzCWNa5saerc9j31BvX5zk
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB8019.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(22082099003)(5023799004)(6133799003)(11063799006)(4143699003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NDZVdGNScmZNU0NXaHdkQWNHdFFEeUNya0Z6c1NHK1lUR0YxR1J6bEl2ZUZW?=
+ =?utf-8?B?Z1pVRk1ES2lmYk9NcktVOUV4aWNmcS9ta091eVRFQUZXaSsxZXNQeWRFUXFp?=
+ =?utf-8?B?Z3IzRmRGb1VGZndCVXl1aGNBam1RdkdCdytFcndJejhnL3ZrZGpjZGpLWnlj?=
+ =?utf-8?B?ekFQZTFkSElKdi9DTEJBcnhHcVByb3llVTdYeGxIL2dwWUdaUzZqeWpmQ0d6?=
+ =?utf-8?B?MmpySXlYM0hseHA1UHo5bWlJMTVZNTZ0dDUvWnNzc1RTK3hsQUlMcTdVeXVi?=
+ =?utf-8?B?aHJXc3NzaGpIYVZQRk9xUWIxVll1UVlrcXgrMjZLUEpad2RXUk5tcUFQaERG?=
+ =?utf-8?B?akxXL3BjLzJacFROV0x5TG5BaEpva0VsVjJ0ZytaaFN6WnRoMUt6S1Fpb2FR?=
+ =?utf-8?B?dzZOQjBnT2hHem1yNUlUeTdvNXdNMG5qRlcva0wyTmhoUm45dW5heHNWaFNr?=
+ =?utf-8?B?dkM1WUMzbzI0anpLZ2NnNGFXQ1dnZW4wYm5Kdi9NU2w3QjZoQWZpTHN6enh4?=
+ =?utf-8?B?U21naFdTQkFFRzVBZHI0MG1EbXZlKzZ2Q2dWWGtNVlBaR0tDODI4MW1hb1hx?=
+ =?utf-8?B?Q29iQVh1OUt1Y3k3cXFmWW5jckpRV1FEbmRDYktsZnVaeS9TTXJWcG05bS9S?=
+ =?utf-8?B?U1lTK2o0dDBRem8xSEFleVhIaFdlMkpNL3JndXNrajhLZHpIUElIbTQxdzho?=
+ =?utf-8?B?ZlZiaVlJak5TYThIOEpLQllmYXNidmwzaWhpZ1JFMkdtdmdvdklZWFhPSk5O?=
+ =?utf-8?B?Y2hCS1ZFbmVVUzNxeWhvNThrV094MXk3eFRUK01XeFVkbTR5WlE2NGJDSUl3?=
+ =?utf-8?B?NHBteUJPV2V0MkVQTU1mc0h2dGpzMkV3ZGJhZzZiM256WHlKRUE0YU83Rkc5?=
+ =?utf-8?B?OUs1Y2ZpQ3BuOFJjY2VpNTVOMHlZQzc0Zkx4T1ZObkNGaUM5T2FQSzNjNnpi?=
+ =?utf-8?B?U1FUTFpHNzZ0QWNvWVgxaHdoZzczL3ZoUnhaQlJnL3QrVlAvYXVkS2xxNWdl?=
+ =?utf-8?B?cThxZEM1QWhBdXJJRGY5YWFGTjZMbTNyNUMvQ2F4Z3FzeW9QbTJBNjVqNjVX?=
+ =?utf-8?B?T1hFUnk3OTFCT2s1R3N1N2szUi9lWHlBaUVHSjdud0RBQzcxazBNZXJvd09l?=
+ =?utf-8?B?RU5DVnNxQ2ZHWElMbUlYQ2NXTHlzRHhVV1g5VWRadEVBTEVFWS9FNVFxcERR?=
+ =?utf-8?B?emxOOE54MExIU1l0NTViZ1F5V0I1ZTYyNHRuK1lqMlk5NXhIQ0pNcENSOXpn?=
+ =?utf-8?B?YmhDTU4wcGRvQWVkeTlxcHZmYy85Q2NrNzl6N1FtZi9GOUU5UTdRS1UzNksw?=
+ =?utf-8?B?T2IzaFYwa2tCM0w0RUNpT3ZSRjV3THEvL1doQ2tsQkN0N09jeFBzeUNPOUpr?=
+ =?utf-8?B?Tk1nYmhRVlcwS05uVGNlZzlTV2xWbTU3TmxnYjhsaUVXdFRHeUFiZjdQT2ZS?=
+ =?utf-8?B?MThxLzZsK1p0YitDWUsvNmpPTjAzUmRlbE1KM0ZIOUFPR1hUOWJuL052YzN4?=
+ =?utf-8?B?YTgyQzNTdWorM0RtY2MxbWQ3OWpDeWpGUHFsaDhkVmdJYWVUaHpObkFBY2M0?=
+ =?utf-8?B?M0ZiV2RRT3gxRjVwTDFCSHoveElTQUdxa25BalFOekJJNXNKempPN1J0UmVN?=
+ =?utf-8?B?cDN2eGNRT1lGbGxWVG1id09CY3ovZVV0L3Ntc3IrUmVzZXhnTUNTMWdTUVRk?=
+ =?utf-8?B?Z05iankrTm1zR2pGMGtLRUVhaDZaZGp2NkFLZ2tuMU9aK2k3MGYzeW12K1JZ?=
+ =?utf-8?B?VGgzUWR5L1pON0JveWovR2M0QmxML1FGcjM0NnF5VFZIWWM3V3E3YVFOcFZG?=
+ =?utf-8?B?Ukh5c29SQWs3MlU2UzVwWWZvZEFNTk9GeHNiR1hzQ1F5Q213Z0NKWGR5MUVs?=
+ =?utf-8?B?Ymd3VHVkSmJiMmNJeFl6ekJXazZiNGZxVkpEOWtocEJWL05NLzlmU2JHT05Z?=
+ =?utf-8?B?T3pJRVhyS2VvMVRGcTNEZUduVjhKQ3RsQjN1cWhoVE84ei9UTXJxU0pJT1I0?=
+ =?utf-8?B?T1NoK1FVVDFVQklvTHNTdDFJRmNvV0UvTEpvcFNqdXp1YTBDT2twWGtsNjht?=
+ =?utf-8?B?SmpNQjRiWDM4dC9VTTBLNmZxazV5WmM0NmV0WFMxZ3NGOG0vYnFOSCtKcVhT?=
+ =?utf-8?B?TVhqc1pZQXJVNnVMWHJVSFY2cUFaMUcvc3pOUDVVS1FvaUk1WkpEOXJWcEtO?=
+ =?utf-8?B?R0NFTWcrOUJ6S1VVUC9wc1dLMjFMYkduYXdzSHpjREI2N0JkcjRHZVdBSW1Z?=
+ =?utf-8?B?MVJ0bkw0UTg3aHJvbFZwdkc2VmE2RXVFeS9zMndGLzhxSlVranlNQmJJNXBW?=
+ =?utf-8?B?QndrNkloT2QwSUUwaU94SGFZK0lrZk4wMDlVVXhDVHg2Q3ZmVzlIUWFKT1lS?=
+ =?utf-8?Q?t0UW+QVscOT7dgOc=3D?=
+X-Exchange-RoutingPolicyChecked: tBVijGq/i9jbRAuMCnMuO4uShVSygbgbLEkunQ9g5gh3BckN0KxgVT1edqRez8LHOIqnnjbFl3DgouYQMFl4l95/PZv4KyAplDiDweR3VcipzuNxkcnl1LEuZ5yLwnELEvxCopvzd0biLU7iXz9zxC2DnEm5z1eo9byzWwo0PJaiHMr/ZiNhnQlav6ONy6RQCmmKLkPwCh/XqmVaElVvQDRQdwVM6zNOCQXhVyrauTrPKdaHXrN5nq6tHuS/iO9ZFNfKJpw4E98txTrWv/CiRwwysCdYQX9XFwScXuXknhUCBD6+kzdEFRRuShH9b2wEMYg8kpHMbP3XeSXpFvmKUw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05629966-5824-422e-3a5f-08debccd372b
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR11MB8014.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2026 15:24:32.5762 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WsbXUsh0M+kveIWmzhOqPh1X7D5rB0cAE3c4hOhGYyUy25Q97gzSv3LR1DsPtAIrTUEnzjaFCwPMp0Ps3vp8lpoNjYFN7Cw5OciQY2yMPfk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR11MB4591
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,44 +171,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, May 28, 2026 at 06:40:25PM +0800, Yongxing Mou wrote:
-> The DP_CONFIGURATION_CTRL register contains both link-level and
-> stream-specific fields. Currently, msm_dp_ctrl_config_ctrl() configures
-> all of them together. Separate the configuration into link parts and
-> stream parts to support MST.
+On 2026-05-25 at 10:16:32 GMT, Janusz Krzysztofik wrote:
+> Hi Krzysztof,
 > 
-> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_ctrl.c | 47 +++++++++++++++++++++++++++-------------
->  1 file changed, 32 insertions(+), 15 deletions(-)
+> On Fri, 2026-05-22 at 17:40 +0200, Krzysztof Niemiec wrote:
+> > The dev->registered variable was initially added in such a way that it
+> > is only set after all functions that could have failed have been called
+> > and haven't returned an error. However, since then, the function
+> > drm_modeset_register_all() is being checked for its return value, which
+> > opens a possibility of failing the register after setting the registered
+> > variable anyway. drm_dev_register() cleans up after itself in case of
+> > failure, mimicking the functions called in drm_dev_unregister(), with
+> > the exception of drm_client_sysrq_unregister() and
+> > drm_panic_unregister() (_register() counterparts of which are not
+> > checked for their return values), and the dev->registered flag.
+> > 
+> > This creates a situation in which after calling drm_dev_register()
+> > nothing is registered (as the function entered an error path and cleaned
+> > up), but the device is reported as being registered according to the
+> > dev->registered variable.
+> > 
+> > This, for example, confuses the WARN_ON() in drm_mode_object_register(), which
+> > is raised if a non-dynamic mode object is attempted to be unregistered
+> > in between the drm_dev_register() and drm_dev_unregister() calls. If
+> > drm_dev_register() fails - meaning the device *isn't* registered -
+> > currently it still reports dev->registered = true, which triggers the
+> > WARN_ON(), even though the usage is correct in that instance.
+> > 
+> > Set dev->registered back to false in the error path to prevent this.
 > 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index 86ef8c89ad44..cc00e8d2d6c7 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -388,26 +388,45 @@ void msm_dp_ctrl_push_idle(struct msm_dp_ctrl *msm_dp_ctrl)
->  	drm_dbg_dp(ctrl->drm_dev, "mainlink off\n");
->  }
->  
-> -static void msm_dp_ctrl_config_ctrl(struct msm_dp_ctrl_private *ctrl)
-> +static void msm_dp_ctrl_config_ctrl_streams(struct msm_dp_ctrl_private *ctrl,
-> +					    struct msm_dp_panel *msm_dp_panel)
->  {
->  	u32 config = 0, tbd;
-> +
-> +	/*
-> +	 * RMW: in SST, config_ctrl_link and config_ctrl_streams are called
-> +	 * sequentially on the same thread. In MST, caller holds mst_lock.
+> While you've also submitted a patch ("drm/i915: Remove drm_dev_unregister()
+> from the error path during i915_driver_register()") that adjusts i915
+> handling of register / unregister steps after this fix, have you checked if
+> other drivers are prepared for that and won't be affected?
 
-There is neither MST nor mst_lock. Also being called on the same thread
-means nothing, there can be another thread, executing the same code
-concurretly. Please point out that they are called only from the
-atomic_enable() callback, which is guarantted to be executed once at a
-time.
+I just did; there'd be a problem if in the error path triggered by
+failing drm_dev_register, some driver relies on the dev->registered
+variable to be true to do its work.
 
-> +	 */
-> +	config = msm_dp_read_link(ctrl, REG_DP_CONFIGURATION_CTRL);
+There are two main patterns of doing the error path in the DRM drivers
+I've seen - one is just directly returning from the overarching function
+with drm_dev_register()'s error return value. The other is invoking the
+.unbind handler of the driver via component_unbind_all(), and most of
+the time those call drm_dev_unregister() right away, which sets the
+dev->registered value to false anyway. In these two cases (if
+drm_dev_unregister() is called in the second one), the problem doesn't
+affect the driver at all.
 
--- 
-With best wishes
-Dmitry
+In the case of i915 not setting the variable to false on failure
+triggered a WARN_ON() in drm_mode_object_unregister() because that is
+invoked indirectly in the error path due to the complexity of our
+init code (even xe just returns directly instead). If another driver
+calls that function in its error path, it will just silence (correctly)
+the WARN_ONs there.
+
+The only driver that explicitly checks for dev->registerd in its error
+path is msm, which does that to see if it needs to invoke
+drm_dev_unregister() during unload. This patch actually fixes a bug there
+because otherwise _unregister() would be called even if _register() fails,
+which is not correct.
+
+All other uses of the variable are outside the error path of their
+respective drivers, so they should function as intended even after the
+change.
+
+Thanks
+Krzysztof
+
+> 
+> Thanks,
+> Janusz
+> 
+> 
+> > 
+> > Signed-off-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+> > ---
+> >  drivers/gpu/drm/drm_drv.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> > 
+> > diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> > index 985c283cf59f..92403d79bb64 100644
+> > --- a/drivers/gpu/drm/drm_drv.c
+> > +++ b/drivers/gpu/drm/drm_drv.c
+> > @@ -1116,6 +1116,7 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
+> >  	if (dev->driver->unload)
+> >  		dev->driver->unload(dev);
+> >  err_minors:
+> > +	dev->registered = false;
+> >  	remove_compat_control_link(dev);
+> >  	drm_minor_unregister(dev, DRM_MINOR_ACCEL);
+> >  	drm_minor_unregister(dev, DRM_MINOR_PRIMARY);
