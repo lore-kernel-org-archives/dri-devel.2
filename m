@@ -4,59 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9D9ECD5BD5
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 08:04:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14299CD5BD5
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 08:30:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3186510ED8A;
-	Thu, 28 May 2026 08:04:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 533F110EDDD;
+	Thu, 28 May 2026 08:30:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="VWNmy/8p";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="bHgBkqpW";
 	dkim-atps=neutral
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com
- [113.46.200.223])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03F8510ED8A
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 08:04:30 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=CEfwnPgqLrNaYc1mj4Eyf5bsKzEWDOcFqXc4WbjJj3Y=;
- b=VWNmy/8ppTsOaeH7aF0IkCxzVtF02EKB40Q9n+4FS2a49yqKE93km1cGo7tdMukvd+DizK640
- vi3iz/xW1BQV8Gi5uBJySJ7LLs+A4yUb35GPILBJVkXEleZVBmRDs/+XWvwt+5lC9/Fs3PEnMDf
- Z/U2WkMeDuot+idcTJbFv+w=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
- by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4gQzMp6R6nzmV6T;
- Thu, 28 May 2026 15:56:38 +0800 (CST)
-Received: from kwepemk500009.china.huawei.com (unknown [7.202.194.94])
- by mail.maildlp.com (Postfix) with ESMTPS id 59E7140539;
- Thu, 28 May 2026 16:04:26 +0800 (CST)
-Received: from [10.67.121.161] (10.67.121.161) by
- kwepemk500009.china.huawei.com (7.202.194.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 28 May 2026 16:04:25 +0800
-Message-ID: <65b3d63a-271a-4aa8-ba8c-fc2b186349dc@huawei.com>
-Date: Thu, 28 May 2026 16:04:25 +0800
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 268EC10EDDD
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 08:29:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=n0
+ 3eoOtM3eHsClG29ijMHpetVoDW9xstf0etlqEH/3I=; b=bHgBkqpWxzkBp7BEs9
+ fVdDHTiMq4OCJFhh4wQoWgS5Z+Xs2qAbwmfADZYtwwu/7l3T4JBVxH3PcE4SXJQK
+ AbU3mTpIHauqMtbOs3pMwdubdKpP0WfJJMTeo91MCJpK6lbbLyUtGj/OnBojhtdG
+ deIOR5YM5130/xGIEFJOYPQtk=
+Received: from 163.com (unknown [])
+ by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id
+ _____wDnv_3a_BdqOMI7AA--.8856S2; 
+ Thu, 28 May 2026 16:29:18 +0800 (CST)
+From: w15303746062@163.com
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, sumit.semwal@linaro.org,
+ christian.koenig@amd.com
+Cc: jeffy.chen@rock-chips.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org,
+ Mingyu Wang <25181214217@stu.xidian.edu.cn>, stable@vger.kernel.org
+Subject: [PATCH] drm/prime: Fix unsupervised rb_tree corruption in
+ drm_prime_remove_buf_handle
+Date: Thu, 28 May 2026 16:29:12 +0800
+Message-Id: <20260528082912.1051262-1-w15303746062@163.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/4] PCI/TPH: expose the enabled TPH requester type
-To: Zhiping Zhang <zhipingz@meta.com>, Alex Williamson <alex@shazbot.org>
-CC: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Sumit
- Semwal <sumit.semwal@linaro.org>, Christian Konig <christian.koenig@amd.com>, 
- Bjorn Helgaas <helgaas@kernel.org>, <kvm@vger.kernel.org>,
- <linux-rdma@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <netdev@vger.kernel.org>, <dri-devel@lists.freedesktop.org>, Keith Busch
- <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>, Yishai Hadas
- <yishaih@nvidia.com>
-References: <20260526144401.1485788-1-zhipingz@meta.com>
- <20260526144401.1485788-2-zhipingz@meta.com>
- <20260527145332.30412ea4@shazbot.org>
- <CAH3zFs3Yv2G0rQNE7x8DjBWPE+3sFC_3X6ZtF4x-mPp==h0BQA@mail.gmail.com>
-Content-Language: en-US
-From: fengchengwen <fengchengwen@huawei.com>
-In-Reply-To: <CAH3zFs3Yv2G0rQNE7x8DjBWPE+3sFC_3X6ZtF4x-mPp==h0BQA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.67.121.161]
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemk500009.china.huawei.com (7.202.194.94)
+X-CM-TRANSID: _____wDnv_3a_BdqOMI7AA--.8856S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxuF1xWF48Kw1xXw1xXw18Xwb_yoW5KFyfpF
+ W3tryYkr48JF42gayIy3W7Zas3Aa1fWF4xWa92qr93Z3s0yr1xurWayFyj9rW5Gr97GryY
+ qFyUJw15KFyjkrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5EfOUUUUU=
+X-Originating-IP: [113.200.174.100]
+X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbDAB7WumoX-N6FmwAA3z
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,85 +62,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/28/2026 1:35 PM, Zhiping Zhang wrote:
-> On Wed, May 27, 2026 at 1:53 PM Alex Williamson <alex@shazbot.org> wrote:
->>
->>>
->> On Tue, 26 May 2026 07:43:53 -0700
->> Zhiping Zhang <zhipingz@meta.com> wrote:
->>
->>> Add pcie_tph_enabled_req_type() so drivers can query the enabled TPH
->>> requester mode without reaching into pci_dev internals.
->>>
->>> This keeps pci_dev::tph_req_type inside the PCI/TPH code and provides a
->>> !CONFIG_PCIE_TPH stub for callers.
->>>
->>> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
->>> ---
->>>  drivers/pci/tph.c       | 12 ++++++++++++
->>>  include/linux/pci-tph.h |  2 ++
->>>  2 files changed, 14 insertions(+)
->>>
->>> diff --git a/drivers/pci/tph.c b/drivers/pci/tph.c
->>> index 91145e8d9d95..6c4492075ae9 100644
->>> --- a/drivers/pci/tph.c
->>> +++ b/drivers/pci/tph.c
->>> @@ -174,6 +174,18 @@ u32 pcie_tph_get_st_table_loc(struct pci_dev *pdev)
->>>  }
->>>  EXPORT_SYMBOL(pcie_tph_get_st_table_loc);
->>>
->>> +/**
->>> + * pcie_tph_enabled_req_type - Return the device's enabled TPH requester type
->>> + * @pdev: PCI device to query
->>> + *
->>> + * Return: PCI_TPH_REQ_DISABLE, PCI_TPH_REQ_TPH_ONLY or PCI_TPH_REQ_EXT_TPH.
->>> + */
->>> +u8 pcie_tph_enabled_req_type(struct pci_dev *pdev)
->>> +{
->>> +     return pdev->tph_req_type;
->>> +}
->>> +EXPORT_SYMBOL(pcie_tph_enabled_req_type);
->>> +
->>>  /*
->>>   * Return the size of ST table. If ST table is not in TPH Requester Extended
->>>   * Capability space, return 0. Otherwise return the ST Table Size + 1.
->>> diff --git a/include/linux/pci-tph.h b/include/linux/pci-tph.h
->>> index be68cd17f2f8..fe572737b409 100644
->>> --- a/include/linux/pci-tph.h
->>> +++ b/include/linux/pci-tph.h
->>> @@ -30,6 +30,7 @@ void pcie_disable_tph(struct pci_dev *pdev);
->>>  int pcie_enable_tph(struct pci_dev *pdev, int mode);
->>>  u16 pcie_tph_get_st_table_size(struct pci_dev *pdev);
->>>  u32 pcie_tph_get_st_table_loc(struct pci_dev *pdev);
->>> +u8 pcie_tph_enabled_req_type(struct pci_dev *pdev);
->>>  #else
->>>  static inline int pcie_tph_set_st_entry(struct pci_dev *pdev,
->>>                                       unsigned int index, u16 tag)
->>> @@ -41,6 +42,7 @@ static inline int pcie_tph_get_cpu_st(struct pci_dev *dev,
->>>  static inline void pcie_disable_tph(struct pci_dev *pdev) { }
->>>  static inline int pcie_enable_tph(struct pci_dev *pdev, int mode)
->>>  { return -EINVAL; }
->>> +static inline u8 pcie_tph_enabled_req_type(struct pci_dev *pdev) { return 0; }
->>
->> nit, s/0/PCI_TPH_REQ_DISABLE/ for consistency.  Thanks,
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
 
-It need add #include <linux/pci.h> at beginning too, else it will counter compile error like this:
+Syzkaller fuzzer triggered a kernel panic via a WARNING in
+drm_prime_destroy_file_private() due to a non-empty prime rb_tree.
 
-   In file included from drivers/vdpa/mlx5/core/mr.c:8:
-   In file included from include/linux/mlx5/qp.h:36:
-   In file included from include/linux/mlx5/device.h:37:
-   In file included from include/rdma/ib_verbs.h:46:
->> include/linux/pci-tph.h:48:10: error: use of undeclared identifier 'PCI_TPH_LOC_NONE'
-      48 | { return PCI_TPH_LOC_NONE; }
-         |          ^
-   1 error generated.
+The root cause is a complete lack of synchronization in the teardown
+path. While the import path (drm_gem_prime_fd_to_handle) holds the
+&file_priv->prime.lock during lookup and insertion, the deletion path
+(drm_prime_remove_buf_handle) traverses and mutates both the 'handles'
+and 'dmabufs' rb_trees without acquiring any mutex.
 
->>
->> Alex
->>
-> ack, will do.
-> 
-> Thanks,
-> Zhiping
-> 
+When multiple threads concurrently close GEM handles or interleave import
+and close operations, the pointers and balance states of the rb_tree
+nodes get corrupted. As a result, certain members are erased from one
+tree but remain orphaned in the other. Upon process exit, the final
+sanity check triggers the WARNING.
+
+[    448.919314][T19739] ------------[ cut here ]------------
+[    448.945387][T19739] WARNING: CPU: 0 PID: 19739 at drivers/gpu/drm/drm_prime.c:223 drm_prime_destroy_file_private+0x43/0x60
+...
+[    449.056535][T19739] Call Trace:
+[    449.056544][T19739]  <TASK>
+[    449.056553][T19739]  drm_file_free.part.0+0x805/0xcf0
+[    449.056652][T19739]  drm_close_helper.isra.0+0x183/0x1f0
+[    449.056677][T19739]  drm_release+0x1ab/0x360
+[    449.056719][T19739]  __fput+0x402/0xb50
+[    449.056783][T19739]  task_work_run+0x16b/0x260
+[    449.056883][T19739]  exit_to_user_mode_loop+0xf9/0x130
+[    449.056931][T19739]  do_syscall_64+0x424/0xfa0
+[    449.056977][T19739]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[    449.057268][T19739]  </TASK>
+[    449.057295][T19739] Kernel panic - not syncing: kernel: panic_on_warn set ...
+
+Fix this by acquiring the prime_fpriv->lock mutex around the rb_tree
+lookup and erasure logic. To respect the locking rules and avoid potential
+deadlocks with driver-specific memory cleanups, assign the target node to
+a temporary pointer and defer the dma_buf_put() and kfree() operations
+until after the mutex is safely dropped.
+
+Fixes: ea2aa97ca37a ("drm/gem: Fix GEM handle release errors")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+---
+ drivers/gpu/drm/drm_prime.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+index 9b44c78cd77f..26319c638e0f 100644
+--- a/drivers/gpu/drm/drm_prime.c
++++ b/drivers/gpu/drm/drm_prime.c
+@@ -190,6 +190,9 @@ void drm_prime_remove_buf_handle(struct drm_prime_file_private *prime_fpriv,
+ 				 uint32_t handle)
+ {
+ 	struct rb_node *rb;
++	struct drm_prime_member *found = NULL;
++
++	mutex_lock(&prime_fpriv->lock);
+ 
+ 	rb = prime_fpriv->handles.rb_node;
+ 	while (rb) {
+@@ -200,8 +203,7 @@ void drm_prime_remove_buf_handle(struct drm_prime_file_private *prime_fpriv,
+ 			rb_erase(&member->handle_rb, &prime_fpriv->handles);
+ 			rb_erase(&member->dmabuf_rb, &prime_fpriv->dmabufs);
+ 
+-			dma_buf_put(member->dma_buf);
+-			kfree(member);
++			found = member;
+ 			break;
+ 		} else if (member->handle < handle) {
+ 			rb = rb->rb_right;
+@@ -209,6 +211,13 @@ void drm_prime_remove_buf_handle(struct drm_prime_file_private *prime_fpriv,
+ 			rb = rb->rb_left;
+ 		}
+ 	}
++	mutex_unlock(&prime_fpriv->lock);
++
++	/* Defer resource release outside the mutex to prevent deadlocks */
++	if (found) {
++		dma_buf_put(found->dma_buf);
++		kfree(found);
++	}
+ }
+ 
+ void drm_prime_init_file_private(struct drm_prime_file_private *prime_fpriv)
+-- 
+2.34.1
 
