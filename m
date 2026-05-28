@@ -4,76 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DF50CD5BD5
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 20:17:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71027CD6E45
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 20:19:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB46E10E420;
-	Thu, 28 May 2026 20:17:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 590BC10E6CE;
+	Thu, 28 May 2026 20:19:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="P9x7M7m+";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="jGtoLau4";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB74C10E420
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 20:17:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779999428; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=hO7EMcWALGGpNl2r4ScnlHfRAMrdn4uMtSNFVQReoYnu3jmDA6b3y2HUxrYYqTcllzlopY4rS8IaVfdeyvzgILuz/crAcPm6K2F6KP+6706SVnYlDVVSpX04PpK4cdrRrtdrZimFFwfutcyKVCCiEd8w3gNM6WX86BQyYxJL02w=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779999428;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=g2I/0B90iuMZt2lMl1WShEK0wHDf0J0tBU2FGvcmifY=; 
- b=BGry+lluu2inwPMISU7VSm3+rj7j2ITSPGRW7Sw37rax6iXLSOoRi5DziimWeltU+gTwWNaA/RR/8Om1rGQNfx/UQ19jyZhN8R42706AYF7QT6XgexBC5doicT2PpTMSWjQ4rPJar/QX/OW6uAecOLoiFMtBkoNucaytfTZVXaY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779999428; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=g2I/0B90iuMZt2lMl1WShEK0wHDf0J0tBU2FGvcmifY=;
- b=P9x7M7m+7snIRykKLCX3FsTmdo/AjaiZyBpG6aek5szlLshDxiIYjUgw8AnnuBqn
- bQXG0XGQlu64phJTMcezy4uLLZ6reh6g6fDKeWLkwxMtwYvjaXWADlVCZd+i/XpN/Ff
- 0B0d+UZ/S2orfi8cVDCQJQWr0Kd0fs24DfUIu37g=
-Received: by mx.zohomail.com with SMTPS id 1779999425938448.1741445689263;
- Thu, 28 May 2026 13:17:05 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Peter Chen <hzpeterchen@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
- Andy Yan <andy.yan@rock-chips.com>,
- Yubing Zhang <yubing.zhang@rock-chips.com>,
- Frank Wang <frank.wang@rock-chips.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Amit Sunil Dhamne <amitsd@google.com>, Dragan Simic <dsimic@manjaro.org>,
- Johan Jonker <jbx6244@gmail.com>, Diederik de Haas <didi.debian@cknow.org>,
- Peter Robinson <pbrobinson@gmail.com>, Hugh Cole-Baker <sigmaris@gmail.com>,
- dri-devel@lists.freedesktop.org, Chaoyi Chen <kernel@airkyi.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- dri-devel@lists.freedesktop.org, Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Subject: Re: [PATCH v15 4/9] phy: rockchip: phy-rockchip-typec: Add
- typec_mux/typec_switch support
-Date: Thu, 28 May 2026 22:16:51 +0200
-Message-ID: <Ueak618ET1-5Ceu6vq06lg@collabora.com>
-In-Reply-To: <20260304094152.92-5-kernel@airkyi.com>
-References: <20260304094152.92-1-kernel@airkyi.com>
- <20260304094152.92-5-kernel@airkyi.com>
+Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com
+ [209.85.160.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10ACE10E6BF
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 20:19:07 +0000 (UTC)
+Received: by mail-oa1-f46.google.com with SMTP id
+ 586e51a60fabf-439acb393f7so14487306fac.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 13:19:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779999546; cv=none;
+ d=google.com; s=arc-20240605;
+ b=MpbNsn9cAq0syF31qw54Ip5d6aM49cqkF7YkUuruLfZ7W+8tnbMiOaiiQUlmPWOw5C
+ CE3J8iHxgqwqn9thhFKQad9mczIl1OFrbaKJjfzjB2YeWYPimwAiVj5hE7B2wHWNPov5
+ orI/LNhdhHq+bBjMRO0Wlx0pg4W+AS2dkqr9XOaPrHG7ml7eby/2NlYu5Pqx6qCKgIsT
+ RlZhoeDdShDpM9WBGAyoOLDO46VGqi2iN3xbDmdQAr/Q046jpCsDWp8Ux2iuSnDo4av0
+ NyslN+ydYZoH5NkChARA5N6A81AWLe1RsGg+wik9e8XsdLkk0LZiP3Yv6aWEnPfgmSKV
+ 45hw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=NEzjnv+Kp0jO+B1kdAYqSGuPLxg2TUZ6vcH1EWXCMJY=;
+ fh=nIW2/vZr9sJyo2BcaSA2X8QjMMbpzkn+wgJrbD5xjPk=;
+ b=cJKDbXGP2UoQWu1UqOFuIsha3yjyvkCOYAGaZ3SACuJ30W+gSFw8rjjBZbyGFmFV5A
+ 5SOROzEeAR9VUaIr22bN8j9IoEXTe3N0rYIXXyF9CaOesellEyCM0tKFRfho5HPu8qdA
+ jEeBQRBXZOAXuSlQjQl5MOmCeZIeX4xr9YxZLcsLEVqncjCDQKZX4dOm7FYyzE3zMXnA
+ FDpYoB1CP9pZwvGUBg3kzh9r9kfxPKXDlt4zvDvGpWOhKeAR4kdT79/3JM7/gMeMBJme
+ LQgjMKhhaylqNJp8/Zh/+nHV4OKpoguwwk13WwTWCFc+tOUgrPSvUGYYgEHGV7DgKYhF
+ 7SDQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1779999546; x=1780604346;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=NEzjnv+Kp0jO+B1kdAYqSGuPLxg2TUZ6vcH1EWXCMJY=;
+ b=jGtoLau4ObJUQQ46MhY4fwxt6t44MbpIZdfvmFpCAJtiKbiIFQN5gH+tftF+D1WJn2
+ nT80GajDnC57Dzf2S62ckHT+OwTC1krCwbUVrmITtJ0te7vMm8dKB06bFRhvT7DGGxJu
+ Um6DrDdywt/FItfEIbQupEuiUqSyM8p3O02fbgU0b5r4f5HeFUrAsSVShtj2xQUiUVuQ
+ z/PCsCVY11chDdV1MDUR6vr8ipuFiBp4M74Sj1wFm7DvGb/LqalD7lme9TRIDqQvoB6q
+ ehQXl4WhVb8HVV/kPtPBSLZJ4yp5+a/p+Qr3DQLnBQH9i5+IAbvDDsAABhdqMae5Yipb
+ nmJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779999546; x=1780604346;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NEzjnv+Kp0jO+B1kdAYqSGuPLxg2TUZ6vcH1EWXCMJY=;
+ b=fUL1aCMBH8WLsgrO1G56NP8Xy/n1gTLpnswm96aS0jepmIHLh1PNwwRp8ETCLYf9fH
+ VGIOgAUHKsx6CRTowamF9PBPSM6toHAN3P4wp1qN+HbnEoa7BuprFR8OQ0iAALXxMi8g
+ 0g2iPjXo94i66FDxVDepjYc7Dzp5A4VsY0MD1VQNplD2uvx32ipKsNLrSoxOd5lqnCUJ
+ aBYEAdoZMMrAt3LYWyisi19vGDI+nHFJpHRO5j+WuYsbHIFuuMqYcV/Thp2u7ybRP/b1
+ mDWx7sfhf5Z/1rvjK5AfDt7zIAnx8YGyjVOy8/i4W6SmO1F4bDS3ZX5qQSjD7mTVtJpX
+ ZxEg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9kLK3QQ9kSSh3uwJsTppqZUWldz49vsuGN0kCSZ7QaDJtmLRMlOV3xJ8A6tHzIjATNnY7ywK38eRM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzbtuofDXEDsGMR6yUtZZXejGMJsRsXcS8E+TdcrGaaL/75qzSc
+ nIuYvS1ACHuT2XJqM9sDLCGzvAKRIq0KYnVOEkIRAX13xAizNhvA7gFSnLXT03uX++w8TgK59Gc
+ 2F3NzJ3P/faqctkEV+Xodi3I0do9BFcrLTZDBNnf2
+X-Gm-Gg: Acq92OHPnGNav4N2/oawpXtK6nJVbOik3dr16VBw2djOKer5hT8ep/htmfBA4gqdbIV
+ 8ULETNsSGmgcHOFVnIUx9WGulo8M9Q4445VNNsBq9vJ5Cj47Nrkw3gVEdateQ1iivm05B62xcND
+ F/uTkrjJ2k8T9bXODsTTc9CHrLrqmPCQauRocZVwo7ugz9zw/kosSb+MxDOKR0C6FRAau/7jNko
+ lnjyjTJfTkHImvIQF8NDtX2mhhUT3paAiuyP/iOJ1vZuNzgPA219o1bdjUjPcpxj7zT2oMvz4Nf
+ 0A1979YcWfd+nJGVPU5MAgtiQYAgkCj3szP/V3FubzjllgZ6iW71A0acC5WYZQVgBrokghYH+wz
+ xyaQTynP9tw4Ke5MhK+8nzYac5PZTj4ky2KXGQlBXO9gjyXBJBrdQnqTPgCLOjpteSSq0fPU=
+X-Received: by 2002:a05:6870:e08f:b0:43b:543c:5069 with SMTP id
+ 586e51a60fabf-43c85f2c4a1mr187366fac.15.1779999545649; Thu, 28 May 2026
+ 13:19:05 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+References: <6d8e36e2aea806f9973b3c501aad4523f7316d6a@intel.com>
+ <20260521194018.2445206-1-sean@poorly.run>
+ <20260521194018.2445206-2-sean@poorly.run>
+ <9b290b22-97a9-4ffc-9823-67efba98c70f@intel.com>
+In-Reply-To: <9b290b22-97a9-4ffc-9823-67efba98c70f@intel.com>
+From: Sean Paul <seanpaul@google.com>
+Date: Thu, 28 May 2026 16:18:28 -0400
+X-Gm-Features: AVHnY4Kao597dDx2SRbChuVFrf-Jrh9IUtXZpLh_1XKHqDfReuT3ymaWu95wqY8
+Message-ID: <CAOw6vbLn+-iEk_Aky9r-TWuT3WXi4xkHZ3ZUDyX7EeKPKDpf1g@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] drm/i915/color: Fix Pre-CSC degamma LUT bounds
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+Cc: Sean Paul <sean@poorly.run>, intel-gfx@lists.freedesktop.org, 
+ jani.nikula@linux.intel.com, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="000000000000a05c6b0652e670b8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,695 +112,220 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wednesday, 4 March 2026 10:41:47 Central European Summer Time Chaoyi Chen wrote:
-> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-> 
-> This patch add support for Type-C Port Controller Manager. Each PHY
-> will register typec_mux and typec_switch when external Type-C
-> controller is present. Type-C events are handled by TCPM without
-> extcon.
-> 
-> The extcon device should still be supported.
-> 
-> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-> ---
-> 
-> (no changes since v7)
-> 
-> Changes in v6:
-> - Fix depend in Kconfig.
-> - Check DP svid in tcphy_typec_mux_set().
-> - Remove mode setting in tcphy_orien_sw_set().
-> 
-> (no changes since v5)
-> 
-> Changes in v4:
-> - Remove notify DP HPD state by USB/DP PHY.
-> 
-> (no changes since v3)
-> 
-> Changes in v2:
-> - Fix compile error when CONFIG_TYPEC is not enabled.
-> - Notify DP HPD state by USB/DP PHY.
-> ---
-> 
->  drivers/phy/rockchip/Kconfig              |   1 +
->  drivers/phy/rockchip/phy-rockchip-typec.c | 368 +++++++++++++++++++++-
->  2 files changed, 353 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/phy/rockchip/Kconfig b/drivers/phy/rockchip/Kconfig
-> index 14698571b607..db4adc7c53da 100644
-> --- a/drivers/phy/rockchip/Kconfig
-> +++ b/drivers/phy/rockchip/Kconfig
-> @@ -119,6 +119,7 @@ config PHY_ROCKCHIP_SNPS_PCIE3
->  config PHY_ROCKCHIP_TYPEC
->  	tristate "Rockchip TYPEC PHY Driver"
->  	depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
-> +	depends on TYPEC || TYPEC=n
->  	select EXTCON
->  	select GENERIC_PHY
->  	select RESET_CONTROLLER
-> diff --git a/drivers/phy/rockchip/phy-rockchip-typec.c b/drivers/phy/rockchip/phy-rockchip-typec.c
-> index d9701b6106d5..1f5b4142cbe4 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-typec.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-typec.c
-> @@ -54,6 +54,8 @@
->  
->  #include <linux/mfd/syscon.h>
->  #include <linux/phy/phy.h>
-> +#include <linux/usb/typec_dp.h>
-> +#include <linux/usb/typec_mux.h>
->  
->  #define CMN_SSM_BANDGAP			(0x21 << 2)
->  #define CMN_SSM_BIAS			(0x22 << 2)
-> @@ -286,12 +288,23 @@
->  #define RX_DIAG_SC2C_DELAY		(0x81e1 << 2)
->  
->  #define PMA_LANE_CFG			(0xc000 << 2)
-> +#define PMA_LANE3_DP_LANE_SEL(x)	(((x) & 0x3) << 14)
-> +#define PMA_LANE3_INTERFACE_SEL(x)	(((x) & 0x1) << 12)
-> +#define PMA_LANE2_DP_LANE_SEL(x)	(((x) & 0x3) << 10)
-> +#define PMA_LANE2_INTERFACE_SEL(x)	(((x) & 0x1) << 8)
-> +#define PMA_LANE1_DP_LANE_SEL(x)	(((x) & 0x3) << 6)
-> +#define PMA_LANE1_INTERFACE_SEL(x)	(((x) & 0x1) << 4)
-> +#define PMA_LANE0_DP_LANE_SEL(x)	(((x) & 0x3) << 2)
-> +#define PMA_LANE0_INTERFACE_SEL(x)	(((x) & 0x1) << 0)
->  #define PIPE_CMN_CTRL1			(0xc001 << 2)
->  #define PIPE_CMN_CTRL2			(0xc002 << 2)
->  #define PIPE_COM_LOCK_CFG1		(0xc003 << 2)
->  #define PIPE_COM_LOCK_CFG2		(0xc004 << 2)
->  #define PIPE_RCV_DET_INH		(0xc005 << 2)
->  #define DP_MODE_CTL			(0xc008 << 2)
-> +#define PHY_DP_POWER_STATE_ACK_MASK	GENMASK(7, 4)
-> +#define PHY_DP_POWER_STATE_ACK_SHIFT	4
-> +#define PHY_DP_POWER_STATE_MASK		GENMASK(3, 0)
->  #define DP_CLK_CTL			(0xc009 << 2)
->  #define STS				(0xc00F << 2)
->  #define PHY_ISO_CMN_CTRL		(0xc010 << 2)
-> @@ -327,8 +340,15 @@
->  
->  #define DP_MODE_A0			BIT(4)
->  #define DP_MODE_A2			BIT(6)
-> -#define DP_MODE_ENTER_A0		0xc101
-> -#define DP_MODE_ENTER_A2		0xc104
-> +
-> +#define DP_MODE_MASK			0xf
-> +#define DP_MODE_ENTER_A0		BIT(0)
-> +#define DP_MODE_ENTER_A2		BIT(2)
-> +#define DP_MODE_ENTER_A3		BIT(3)
-> +#define DP_MODE_A0_ACK			BIT(4)
-> +#define DP_MODE_A2_ACK			BIT(6)
-> +#define DP_MODE_A3_ACK			BIT(7)
-> +#define DP_LINK_RESET_DEASSERTED	BIT(8)
->  
->  #define PHY_MODE_SET_TIMEOUT		100000
->  
-> @@ -340,6 +360,31 @@
->  #define MODE_DFP_USB			BIT(1)
->  #define MODE_DFP_DP			BIT(2)
->  
-> +enum phy_dp_lane_num {
-> +	PHY_DP_LANE_0 = 0,
-> +	PHY_DP_LANE_1,
-> +	PHY_DP_LANE_2,
-> +	PHY_DP_LANE_3,
-> +};
-> +
-> +enum phy_pma_if {
-> +	PMA_IF_PIPE_PCS = 0,
-> +	PMA_IF_PHY_DP,
-> +};
-> +
-> +enum phy_typec_role {
-> +	TYPEC_PHY_USB = 0,
-> +	TYPEC_PHY_DP,
-> +	TYPEC_PHY_MAX,
-> +};
-> +
-> +enum phy_dp_power_state {
-> +	PHY_DP_POWER_STATE_A0 = 0,
-> +	PHY_DP_POWER_STATE_A1,
-> +	PHY_DP_POWER_STATE_A2,
-> +	PHY_DP_POWER_STATE_A3,
-> +};
-> +
->  struct usb3phy_reg {
->  	u32 offset;
->  	u32 enable_bit;
-> @@ -372,18 +417,22 @@ struct rockchip_typec_phy {
->  	struct device *dev;
->  	void __iomem *base;
->  	struct extcon_dev *extcon;
-> +	struct typec_mux_dev *mux;
-> +	struct typec_switch_dev *sw;
->  	struct regmap *grf_regs;
->  	struct clk *clk_core;
->  	struct clk *clk_ref;
->  	struct reset_control *uphy_rst;
->  	struct reset_control *pipe_rst;
->  	struct reset_control *tcphy_rst;
-> +	struct phy *phys[TYPEC_PHY_MAX];
->  	const struct rockchip_usb3phy_port_cfg *port_cfgs;
->  	/* mutex to protect access to individual PHYs */
->  	struct mutex lock;
->  
->  	bool flip;
->  	u8 mode;
-> +	u8 new_mode;
->  };
->  
->  struct phy_reg {
-> @@ -454,6 +503,99 @@ static const struct rockchip_usb3phy_port_cfg rk3399_usb3phy_port_cfgs[] = {
->  	{ /* sentinel */ }
->  };
->  
-> +static int tcphy_cfg_usb3_to_usb2_only(struct rockchip_typec_phy *tcphy,
-> +				       bool value);
-> +
+--000000000000a05c6b0652e670b8
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-If possible, please avoid forward declarations of this static
-function and just move the implementation here if it needs to
-be declared earlier.
+On Wed, May 27, 2026 at 1:23=E2=80=AFAM Borah, Chaitanya Kumar <
+chaitanya.kumar.borah@intel.com> wrote:
 
-> +static int tcphy_dp_set_power_state(struct rockchip_typec_phy *tcphy,
-> +				    enum phy_dp_power_state state)
-> +{
-> +	u32 ack, reg, sts = BIT(state);
-> +	int ret;
-> +
-> +	/*
-> +	 * Power state changes must not be requested until after the cmn_ready
-> +	 * signal has gone active.
-> +	 */
-> +	reg = readl(tcphy->base + PMA_CMN_CTRL1);
-> +	if (!(reg & CMN_READY)) {
-> +		dev_err(tcphy->dev, "cmn_ready in the inactive state\n");
-> +		return -EINVAL;
-> +	}
+> Hello Sean,
+>
+> On 5/22/2026 1:09 AM, Sean Paul wrote:
+> > From: Sean Paul <seanpaul@google.com>
+> >
+> > Fix a typo in the loop condition in xelpd_program_plane_pre_csc_lut
+> > for Segment 2 degamma programming, changing 'while (i++ > 130)' to
+> > 'while (i++ < 130)'. Also clamp Segment 2 to the last user-provided
+> > LUT entry value instead of hardcoding it to 1.0 (1 << 24) to fix
+> > a step discontinuity.
+>
+> The commit message needs an update.
+>
 
-You can use readl in the if condition directly here, since reg
-isn't used otherwise, but I'm also fine with it as-is if you think
-it helps readability.
-
-> +
-> +	reg = readl(tcphy->base + DP_MODE_CTL);
-> +	reg &= ~PHY_DP_POWER_STATE_MASK;
-> +	reg |= sts;
-> +	writel(reg, tcphy->base + DP_MODE_CTL);
-> +
-> +	ret = readl_poll_timeout(tcphy->base + DP_MODE_CTL,
-> +				 ack, (((ack & PHY_DP_POWER_STATE_ACK_MASK) >>
-> +				 PHY_DP_POWER_STATE_ACK_SHIFT) == sts), 10,
-> +				 PHY_MODE_SET_TIMEOUT);
-
-Here please use FIELD_GET() from <linux/bitfield.h> like this:
-
-	ret = readl_poll_timeout(tcphy->base + DP_MODE_CTL, ack,
-				 FIELD_GET(PHY_DP_POWER_STATE_ACK_MASK, ack) == sts,
-				 10, PHY_MODE_SET_TIMEOUT);
-
-PHY_DP_POWER_STATE_ACK_SHIFT is then no longer needed.
-
-> +	if (ret < 0) {
-
-Nitpick: `if (ret) {` suffices here, readl_poll_timeout returns 0 on
-success and negative errno on failure.
-
-> +		dev_err(tcphy->dev, "failed to enter power state %d\n", state);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * For the TypeC PHY, the 4 lanes are mapping to the USB TypeC receptacle pins
-> + * as follows:
-> + *   -------------------------------------------------------------------
-> + *	PHY Lanes/Module Pins			TypeC Receptacle Pins
-> + *   -------------------------------------------------------------------
-> + *	Lane0 (tx_p/m_ln_0)			TX1+/TX1- (pins A2/A3)
-> + *	Lane1 (tx_rx_p/m_ln_1)			RX1+/RX1- (pins B11/B10)
-> + *	Lane2 (tx_rx_p/m_ln_2)			RX2+/RX2- (pins A11/A10)
-> + *	Lane3 (tx_p/m_ln_3)			TX2+/TX2- (pins B2/B3)
-> + *   -------------------------------------------------------------------
-> + *
-> + * USB and DP lanes mapping to TypeC PHY lanes for each of pin assignment
-> + * options (normal connector orientation) described in the VESA DisplayPort
-> + * Alt Mode on USB TypeC Standard as follows:
-> + *
-> + * ----------------------------------------------------------------------
-> + *	PHY Lanes	A	B	C	D	E	F
-> + * ----------------------------------------------------------------------
-> + *	  0	       ML1     SSTX    ML2     SSTX    ML2     SSTX
-> + *	  1	       ML3     SSRX    ML3     SSRX    ML3     SSRX
-> + *	  2	       ML2     ML1     ML0     ML0     ML0     ML0
-> + *	  3	       ML0     ML0     ML1     ML1     ML1     ML1
-> + * ----------------------------------------------------------------------
-> + */
-> +static void tcphy_set_lane_mapping(struct rockchip_typec_phy *tcphy, u8 mode)
-> +{
-> +	/*
-> +	 * The PMA_LANE_CFG register is used to select whether a PMA lane
-> +	 * is mapped for USB or PHY DP. The PMA_LANE_CFG register is
-> +	 * configured based on a normal connector orientation. Logic in the
-> +	 * PHY automatically handles the flipped connector case based on the
-> +	 * setting of orientation of TypeC PHY.
-> +	 */
-> +	if (mode == MODE_DFP_DP) {
-> +		/* This maps to VESA DP Alt Mode pin assignments C and E. */
-> +		writel(PMA_LANE3_DP_LANE_SEL(PHY_DP_LANE_1) |
-> +		       PMA_LANE3_INTERFACE_SEL(PMA_IF_PHY_DP) |
-> +		       PMA_LANE2_DP_LANE_SEL(PHY_DP_LANE_0) |
-> +		       PMA_LANE2_INTERFACE_SEL(PMA_IF_PHY_DP) |
-> +		       PMA_LANE1_DP_LANE_SEL(PHY_DP_LANE_3) |
-> +		       PMA_LANE1_INTERFACE_SEL(PMA_IF_PHY_DP) |
-> +		       PMA_LANE0_DP_LANE_SEL(PHY_DP_LANE_2) |
-> +		       PMA_LANE0_INTERFACE_SEL(PMA_IF_PHY_DP),
-> +		       tcphy->base + PMA_LANE_CFG);
-> +	} else {
-> +		/* This maps to VESA DP Alt Mode pin assignments D and F. */
-> +		writel(PMA_LANE3_DP_LANE_SEL(PHY_DP_LANE_1) |
-> +		       PMA_LANE3_INTERFACE_SEL(PMA_IF_PHY_DP) |
-> +		       PMA_LANE2_DP_LANE_SEL(PHY_DP_LANE_0) |
-> +		       PMA_LANE2_INTERFACE_SEL(PMA_IF_PHY_DP) |
-> +		       PMA_LANE1_INTERFACE_SEL(PMA_IF_PIPE_PCS) |
-> +		       PMA_LANE0_INTERFACE_SEL(PMA_IF_PIPE_PCS),
-> +		       tcphy->base + PMA_LANE_CFG);
-> +	}
-> +}
-> +
->  static void tcphy_cfg_24m(struct rockchip_typec_phy *tcphy)
->  {
->  	u32 i, rdata;
-> @@ -743,8 +885,10 @@ static int tcphy_phy_init(struct rockchip_typec_phy *tcphy, u8 mode)
->  	tcphy_dp_aux_set_flip(tcphy);
->  
->  	tcphy_cfg_24m(tcphy);
-> +	tcphy_set_lane_mapping(tcphy, mode);
->  
->  	if (mode == MODE_DFP_DP) {
-> +		tcphy_cfg_usb3_to_usb2_only(tcphy, true);
->  		tcphy_cfg_dp_pll(tcphy);
->  		for (i = 0; i < 4; i++)
->  			tcphy_dp_cfg_lane(tcphy, i);
-
-Is there a difference between the values tcphy_set_lane_mapping() writes
-to PMA_LANE_CFG, and what this if block writes to PMA_LANE_CFG at the
-end (either PIN_ASSIGN_C_E or PIN_ASSIGN_D_F)?
-
-If not, then I think think the second write to it may be redundant.
-
-> @@ -768,7 +912,10 @@ static int tcphy_phy_init(struct rockchip_typec_phy *tcphy, u8 mode)
->  		writel(PIN_ASSIGN_D_F, tcphy->base + PMA_LANE_CFG);
->  	}
->  
-> -	writel(DP_MODE_ENTER_A2, tcphy->base + DP_MODE_CTL);
-> +	val = readl(tcphy->base + DP_MODE_CTL);
-> +	val &= ~DP_MODE_MASK;
-> +	val |= DP_MODE_ENTER_A2 | DP_LINK_RESET_DEASSERTED;
-> +	writel(val, tcphy->base + DP_MODE_CTL);
->  
->  	reset_control_deassert(tcphy->uphy_rst);
->  
-> @@ -811,8 +958,9 @@ static int tcphy_get_mode(struct rockchip_typec_phy *tcphy)
->  	u8 mode;
->  	int ret, ufp, dp;
->  
-> +	/* If extcon not exist, try to use tcpm mode */
->  	if (!edev)
-> -		return MODE_DFP_USB;
-> +		return tcphy->new_mode;
->  
->  	ufp = extcon_get_state(edev, EXTCON_USB);
->  	dp = extcon_get_state(edev, EXTCON_DISP_DP);
-> @@ -850,6 +998,71 @@ static int tcphy_get_mode(struct rockchip_typec_phy *tcphy)
->  	return mode;
->  }
->  
-> +#if IS_ENABLED(CONFIG_TYPEC)
-> +static int tcphy_orien_sw_set(struct typec_switch_dev *sw,
-> +			      enum typec_orientation orien)
-> +{
-> +	struct rockchip_typec_phy *tcphy = typec_switch_get_drvdata(sw);
-> +
-> +	mutex_lock(&tcphy->lock);
-
-Instead of this you can use
-
-	guard(mutex)(&tcphy->lock);
-
-from <linux/cleanup.h>
-
-and get rid of the manual unlock and goto. The lock held by the guard
-statement will be dropped as soon as the scope of automatic variable
-declaration is left, so no manual goto unwind needs to be done.
-
-> +
-> +	if (orien == TYPEC_ORIENTATION_NONE) {
-> +		tcphy->new_mode = MODE_DISCONNECT;
-> +		goto unlock_ret;
-> +	}
-> +
-> +	tcphy->flip = (orien == TYPEC_ORIENTATION_REVERSE) ? true : false;
-> +
-> +unlock_ret:
-> +	mutex_unlock(&tcphy->lock);
-> +	return 0;
-> +}
-> +
-> +static void udphy_orien_switch_unregister(void *data)
-> +{
-> +	struct rockchip_typec_phy *tcphy = data;
-> +
-> +	typec_switch_unregister(tcphy->sw);
-> +}
-> +
-> +static int tcphy_setup_orien_switch(struct rockchip_typec_phy *tcphy)
-> +{
-> +	struct typec_switch_desc sw_desc = { };
-> +	struct device_node *np;
-> +	int ret = 0;
-> +
-> +	np = of_get_child_by_name(tcphy->dev->of_node, "usb3-port");
-> +	if (!np)
-> +		return 0;
-> +
-> +	if (!of_property_read_bool(np, "orientation-switch"))
-> +		goto put_np;
-
-np isn't needed after this check. Instead of manual freeing of np
-with a goto, you can use the `__free(device_node)` attribute.
-
-	static int foo(struct rockchip_typec_phy *tcphy)
-	{
-		/* if return can happen before np assigned, NULL-init it here */
-		struct device_node __free(device_node) *np;
-		
-		np = of_get_child_by_name(tcphy->dev->of_node, "usb3-port");
-		if (!np)
-			return 0;
-
-		if (!of_property_read_bool(np, "orientation-switch"))
-			return 0; /* no more manual put needed, done when scope left */
-
-		/* ... etc etc. ... */
-
-		return devm_add_action_or_reset(tcphy->dev, ...)
-	}
-
-> +
-> +	sw_desc.drvdata = tcphy;
-> +	sw_desc.fwnode = device_get_named_child_node(tcphy->dev, "usb3-port");
-> +	sw_desc.set = tcphy_orien_sw_set;
-> +
-> +	tcphy->sw = typec_switch_register(tcphy->dev, &sw_desc);
-> +	if (IS_ERR(tcphy->sw)) {
-> +		dev_err(tcphy->dev, "Error register typec orientation switch: %ld\n",
-> +			PTR_ERR(tcphy->sw));
-
-Instead of %ld, use %pe and drop the `PTR_ERR()`, so just:
-
-	dev_err(tcphy->dev, "Error register typec orientation switch: %pe\n",
-	        tcphy->sw);
-
-> +		ret = PTR_ERR(tcphy->sw);
-> +		goto put_np;
-> +	}
-> +
-> +	ret = devm_add_action_or_reset(tcphy->dev, udphy_orien_switch_unregister, tcphy);
-> +
-> +put_np:
-> +	of_node_put(np);
-> +	return ret;
-> +}
-> +#else
-> +static int tcphy_setup_orien_switch(struct rockchip_typec_phy *tcphy)
-> +{
-> +	return 0;
-> +}
-> +#endif
-> +
->  static int tcphy_cfg_usb3_to_usb2_only(struct rockchip_typec_phy *tcphy,
->  				       bool value)
->  {
-> @@ -989,14 +1202,9 @@ static int rockchip_dp_phy_power_on(struct phy *phy)
->  
->  	tcphy_dp_aux_calibration(tcphy);
->  
-> -	writel(DP_MODE_ENTER_A0, tcphy->base + DP_MODE_CTL);
-> -
-> -	ret = readx_poll_timeout(readl, tcphy->base + DP_MODE_CTL,
-> -				 val, val & DP_MODE_A0, 1000,
-> -				 PHY_MODE_SET_TIMEOUT);
-> -	if (ret < 0) {
-> -		writel(DP_MODE_ENTER_A2, tcphy->base + DP_MODE_CTL);
-> -		dev_err(tcphy->dev, "failed to wait TCPHY enter A0\n");
-> +	ret = tcphy_dp_set_power_state(tcphy, PHY_DP_POWER_STATE_A0);
-> +	if (ret) {
-> +		dev_err(tcphy->dev, "failed to enter A0 power state\n");
->  		goto power_on_finish;
->  	}
->  
-> @@ -1013,6 +1221,7 @@ static int rockchip_dp_phy_power_on(struct phy *phy)
->  static int rockchip_dp_phy_power_off(struct phy *phy)
->  {
->  	struct rockchip_typec_phy *tcphy = phy_get_drvdata(phy);
-> +	int ret;
->  
->  	mutex_lock(&tcphy->lock);
->  
-> @@ -1021,7 +1230,11 @@ static int rockchip_dp_phy_power_off(struct phy *phy)
->  
->  	tcphy->mode &= ~MODE_DFP_DP;
->  
-> -	writel(DP_MODE_ENTER_A2, tcphy->base + DP_MODE_CTL);
-> +	ret = tcphy_dp_set_power_state(tcphy, PHY_DP_POWER_STATE_A2);
-> +	if (ret) {
-> +		dev_err(tcphy->dev, "failed to enter A2 power state\n");
-> +		goto unlock;
-> +	}
->  
->  	if (tcphy->mode == MODE_DISCONNECT)
->  		tcphy_phy_deinit(tcphy);
-> @@ -1037,6 +1250,93 @@ static const struct phy_ops rockchip_dp_phy_ops = {
->  	.owner		= THIS_MODULE,
->  };
->  
-> +#if IS_ENABLED(CONFIG_TYPEC)
-> +static int tcphy_typec_mux_set(struct typec_mux_dev *mux, struct typec_mux_state *state)
-> +{
-> +	struct rockchip_typec_phy *tcphy = typec_mux_get_drvdata(mux);
-> +	struct typec_displayport_data *data;
-> +	int hpd = 0;
-
-hpd doesn't need to be initialised here.
-
-> +
-> +	mutex_lock(&tcphy->lock);
-
-Prefer guard(mutex)(&tcphy->lock); here to combat potential for
-future lock leaking bugs.
-
-> +
-> +	switch (state->mode) {
-> +	case TYPEC_STATE_SAFE:
-> +		fallthrough;
-> +	case TYPEC_STATE_USB:
-> +		tcphy->new_mode = MODE_DFP_USB;
-> +		phy_set_bus_width(tcphy->phys[TYPEC_PHY_DP], 0);
-> +		break;
-> +	case TYPEC_DP_STATE_C:
-> +	case TYPEC_DP_STATE_E:
-> +		if (state->alt->svid != USB_TYPEC_DP_SID)
-> +			break;
-> +		tcphy->new_mode = MODE_DFP_DP;
-> +		data = state->data;
-> +		hpd = !!(data->status & DP_STATUS_HPD_STATE);
-> +		phy_set_bus_width(tcphy->phys[TYPEC_PHY_DP], hpd ? 4 : 0);
-> +		break;
-> +	case TYPEC_DP_STATE_D:
-> +		if (state->alt->svid != USB_TYPEC_DP_SID)
-> +			break;
-> +		tcphy->new_mode = MODE_DFP_DP | MODE_DFP_USB;
-> +		data = state->data;
-> +		hpd = !!(data->status & DP_STATUS_HPD_STATE);
-> +		phy_set_bus_width(tcphy->phys[TYPEC_PHY_DP], hpd ? 2 : 0);
-> +		break;
-> +	default:
-> +		break;
-
-Might be good to return -EINVAL here. No additional ret local needed
-with above guard statement. :)
-
-> +	}
-> +
-> +	mutex_unlock(&tcphy->lock);
-> +
-> +	return 0;
-> +}
-> +
-> +static void tcphy_typec_mux_unregister(void *data)
-> +{
-> +	struct rockchip_typec_phy *tcphy = data;
-> +
-> +	typec_mux_unregister(tcphy->mux);
-> +}
-> +
-> +static int tcphy_setup_typec_mux(struct rockchip_typec_phy *tcphy)
-> +{
-> +	struct typec_mux_desc mux_desc = {};
-> +	struct device_node *np;
-> +	int ret = 0;
-> +
-> +	np = of_get_child_by_name(tcphy->dev->of_node, "dp-port");
-> +	if (!np)
-> +		return 0;
-> +
-> +	if (!of_property_read_bool(np, "mode-switch"))
-> +		goto put_np;
-
-__free attribute on np can get rid of the manual goto put_np stuff
-here as well.
-
-> +
-> +	mux_desc.drvdata = tcphy;
-> +	mux_desc.fwnode = device_get_named_child_node(tcphy->dev, "dp-port");
-> +	mux_desc.set = tcphy_typec_mux_set;
-> +
-> +	tcphy->mux = typec_mux_register(tcphy->dev, &mux_desc);
-> +	if (IS_ERR(tcphy->mux)) {
-> +		dev_err(tcphy->dev, "Error register typec mux: %ld\n",
-> +			PTR_ERR(tcphy->mux));
-
-%pe format specifier again.
-
-> +		ret = PTR_ERR(tcphy->mux);
-> +		goto put_np;
-> +	}
-> +
-> +	ret = devm_add_action_or_reset(tcphy->dev, tcphy_typec_mux_unregister, tcphy);
-> +
-> +put_np:
-> +	of_node_put(np);
-> +	return ret;
-> +}
-> +#else
-> +static int tcphy_setup_typec_mux(struct rockchip_typec_phy *tcphy)
-> +{
-> +	return 0;
-> +}
-> +#endif
-> +
->  static int tcphy_parse_dt(struct rockchip_typec_phy *tcphy,
->  			  struct device *dev)
->  {
-> @@ -1095,6 +1395,25 @@ static void typec_phy_pre_init(struct rockchip_typec_phy *tcphy)
->  	tcphy->mode = MODE_DISCONNECT;
->  }
->  
-> +static int typec_dp_lane_get(struct rockchip_typec_phy *tcphy)
-> +{
-> +	int dp_lanes;
-> +
-> +	switch (tcphy->new_mode) {
-> +	case MODE_DFP_DP:
-> +		dp_lanes = 4;
-> +		break;
-> +	case MODE_DFP_DP | MODE_DFP_USB:
-> +		dp_lanes = 2;
-> +		break;
-> +	default:
-> +		dp_lanes = 0;
-> +		break;
-> +	}
-> +
-> +	return dp_lanes;
-
-dp_lanes local doesn't need to exist here, you
-can just return from the switch statement directly:
-
-	static int typec_dp_lane_get(struct rockchip_typec_phy *tcphy)
-	{
-		switch (tcphy->new_mode) {
-		case MODE_DFP_DP:
-			return 4;
-		case MODE_DFP_DP | MODE_DFP_USB:
-			return 2;
-		default:
-			return 0;
-		}
-	}
+Ack.
 
 
-> +}
-> +
->  static int rockchip_typec_phy_probe(struct platform_device *pdev)
->  {
->  	struct device *dev = &pdev->dev;
-> @@ -1142,6 +1461,7 @@ static int rockchip_typec_phy_probe(struct platform_device *pdev)
->  		return ret;
->  
->  	tcphy->dev = dev;
-> +	tcphy->new_mode = MODE_DFP_USB;
->  	platform_set_drvdata(pdev, tcphy);
->  	mutex_init(&tcphy->lock);
->  
-> @@ -1151,6 +1471,7 @@ static int rockchip_typec_phy_probe(struct platform_device *pdev)
->  	if (IS_ERR(tcphy->extcon)) {
->  		if (PTR_ERR(tcphy->extcon) == -ENODEV) {
->  			tcphy->extcon = NULL;
-> +			dev_info(dev, "extcon not exist, try to use typec mux\n");
->  		} else {
->  			if (PTR_ERR(tcphy->extcon) != -EPROBE_DEFER)
->  				dev_err(dev, "Invalid or missing extcon\n");
-> @@ -1158,19 +1479,34 @@ static int rockchip_typec_phy_probe(struct platform_device *pdev)
->  		}
->  	}
->  
-> +	ret = tcphy_setup_orien_switch(tcphy);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = tcphy_setup_typec_mux(tcphy);
-> +	if (ret)
-> +		return ret;
+> Is there an easy way to reproduce the problem you are seeing (e.g. IGT)?
+>
 
-If they are just used in the probe function, you can make the error
-prints in tcphy_setup_orien_switch() and tcphy_setup_typec_mux()
-use dev_err_probe instead. That way, if the probe function fails,
-the error message is shown in the devices_deferred debugfs file.
+Unfortunately I don't have an IGT test, it's reproducing readily with our
+userspace.
 
-> +
->  	pm_runtime_enable(dev);
->  
->  	for_each_available_child_of_node(np, child_np) {
->  		struct phy *phy;
->  
-> -		if (of_node_name_eq(child_np, "dp-port"))
-> +		if (of_node_name_eq(child_np, "dp-port")) {
->  			phy = devm_phy_create(dev, child_np,
->  					      &rockchip_dp_phy_ops);
-> -		else if (of_node_name_eq(child_np, "usb3-port"))
-> +			if (!IS_ERR(phy)) {
-> +				tcphy->phys[TYPEC_PHY_DP] = phy;
-> +				phy_set_bus_width(phy, typec_dp_lane_get(tcphy));
-> +			}
-> +		} else if (of_node_name_eq(child_np, "usb3-port")) {
->  			phy = devm_phy_create(dev, child_np,
->  					      &rockchip_usb3_phy_ops);
-> -		else
-> +			if (!IS_ERR(phy))
-> +				tcphy->phys[TYPEC_PHY_USB] = phy;
-> +		} else {
->  			continue;
-> +		}
->  
->  		if (IS_ERR(phy)) {
->  			dev_err(dev, "failed to create phy: %pOFn\n",
-> 
+Sean
 
-Kind regards,
-Nicolas Frattaroli
+I am wondering if we have to do the same on the pipe Gamma and Degamma.
+>
+> =3D=3D
+> Chaitanya
+>
+> >
+> > Link:
+> https://lore.kernel.org/intel-gfx/20260521180143.2143262-1-sean@poorly.ru=
+n/
+> #v1
+> > Signed-off-by: Sean Paul <seanpaul@google.com>
+> >
+> > Changes in v2:
+> > - Split out into separate patches for pre/post csc fixes
+> > - Dropped loop bounds fix in favor of [1]
+> >
+> > [1]-
+> https://lore.kernel.org/r/20260519075245.383864-1-pranay.samala@intel.com
+> > ---
+> >   drivers/gpu/drm/i915/display/intel_color.c | 5 +++--
+> >   1 file changed, 3 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_color.c
+> b/drivers/gpu/drm/i915/display/intel_color.c
+> > index 90d5dc2ef3e4..469011c83f9b 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_color.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_color.c
+> > @@ -3953,6 +3953,7 @@ xelpd_program_plane_pre_csc_lut(struct intel_dsb
+> *dsb,
+> >       enum plane_id plane =3D to_intel_plane(state->plane)->id;
+> >       const struct drm_color_lut32 *pre_csc_lut =3D
+> plane_state->hw.degamma_lut->data;
+> >       u32 i, lut_size;
+> > +     u32 lut_val =3D 1 << 24;
+> >
+> >       if (icl_is_hdr_plane(display, plane)) {
+> >               lut_size =3D 128;
+> > @@ -3963,7 +3964,7 @@ xelpd_program_plane_pre_csc_lut(struct intel_dsb
+> *dsb,
+> >
+> >               if (pre_csc_lut) {
+> >                       for (i =3D 0; i < lut_size; i++) {
+> > -                             u32 lut_val =3D
+> drm_color_lut32_extract(pre_csc_lut[i].green, 24);
+> > +                             lut_val =3D
+> drm_color_lut32_extract(pre_csc_lut[i].green, 24);
+> >
+> >                               intel_de_write_dsb(display, dsb,
+> >
+> PLANE_PRE_CSC_GAMC_DATA_ENH(pipe, plane, 0),
+> > @@ -3975,7 +3976,7 @@ xelpd_program_plane_pre_csc_lut(struct intel_dsb
+> *dsb,
+> >                       do {
+> >                               intel_de_write_dsb(display, dsb,
+> >
+> PLANE_PRE_CSC_GAMC_DATA_ENH(pipe, plane, 0),
+> > -                                                (1 << 24));
+> > +                                                lut_val);
+> >                       } while (i++ > 130);
+> >               } else {
+> >                       for (i =3D 0; i < lut_size; i++) {
+>
+>
 
+--000000000000a05c6b0652e670b8
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
+mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, May 27,=
+ 2026 at 1:23=E2=80=AFAM Borah, Chaitanya Kumar &lt;<a href=3D"mailto:chait=
+anya.kumar.borah@intel.com">chaitanya.kumar.borah@intel.com</a>&gt; wrote:<=
+br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
+x;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hello Sean,<br>
+<br>
+On 5/22/2026 1:09 AM, Sean Paul wrote:<br>
+&gt; From: Sean Paul &lt;<a href=3D"mailto:seanpaul@google.com" target=3D"_=
+blank">seanpaul@google.com</a>&gt;<br>
+&gt; <br>
+&gt; Fix a typo in the loop condition in xelpd_program_plane_pre_csc_lut<br=
+>
+&gt; for Segment 2 degamma programming, changing &#39;while (i++ &gt; 130)&=
+#39; to<br>
+&gt; &#39;while (i++ &lt; 130)&#39;. Also clamp Segment 2 to the last user-=
+provided<br>
+&gt; LUT entry value instead of hardcoding it to 1.0 (1 &lt;&lt; 24) to fix=
+<br>
+&gt; a step discontinuity.<br>
+<br>
+The commit message needs an update.<br></blockquote><div><br></div><div>Ack=
+.</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+Is there an easy way to reproduce the problem you are seeing (e.g. IGT)?<br=
+></blockquote><div><br></div><div>Unfortunately I don&#39;t have an IGT tes=
+t, it&#39;s reproducing readily with our userspace.</div><div><br></div><di=
+v>Sean</div><div><br></div><blockquote class=3D"gmail_quote" style=3D"margi=
+n:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex=
+">
+I am wondering if we have to do the same on the pipe Gamma and Degamma.<br>
+<br>
+=3D=3D<br>
+Chaitanya<br>
+<br>
+&gt; <br>
+&gt; Link: <a href=3D"https://lore.kernel.org/intel-gfx/20260521180143.2143=
+262-1-sean@poorly.run/" rel=3D"noreferrer" target=3D"_blank">https://lore.k=
+ernel.org/intel-gfx/20260521180143.2143262-1-sean@poorly.run/</a> #v1<br>
+&gt; Signed-off-by: Sean Paul &lt;<a href=3D"mailto:seanpaul@google.com" ta=
+rget=3D"_blank">seanpaul@google.com</a>&gt;<br>
+&gt; <br>
+&gt; Changes in v2:<br>
+&gt; - Split out into separate patches for pre/post csc fixes<br>
+&gt; - Dropped loop bounds fix in favor of [1]<br>
+&gt; <br>
+&gt; [1]- <a href=3D"https://lore.kernel.org/r/20260519075245.383864-1-pran=
+ay.samala@intel.com" rel=3D"noreferrer" target=3D"_blank">https://lore.kern=
+el.org/r/20260519075245.383864-1-pranay.samala@intel.com</a><br>
+&gt; ---<br>
+&gt;=C2=A0 =C2=A0drivers/gpu/drm/i915/display/intel_color.c | 5 +++--<br>
+&gt;=C2=A0 =C2=A01 file changed, 3 insertions(+), 2 deletions(-)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/=
+drm/i915/display/intel_color.c<br>
+&gt; index 90d5dc2ef3e4..469011c83f9b 100644<br>
+&gt; --- a/drivers/gpu/drm/i915/display/intel_color.c<br>
+&gt; +++ b/drivers/gpu/drm/i915/display/intel_color.c<br>
+&gt; @@ -3953,6 +3953,7 @@ xelpd_program_plane_pre_csc_lut(struct intel_dsb=
+ *dsb,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0enum plane_id plane =3D to_intel_plane(state=
+-&gt;plane)-&gt;id;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0const struct drm_color_lut32 *pre_csc_lut =
+=3D plane_state-&gt;hw.degamma_lut-&gt;data;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0u32 i, lut_size;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0u32 lut_val =3D 1 &lt;&lt; 24;<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (icl_is_hdr_plane(display, plane)) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0lut_size =3D 128=
+;<br>
+&gt; @@ -3963,7 +3964,7 @@ xelpd_program_plane_pre_csc_lut(struct intel_dsb=
+ *dsb,<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (pre_csc_lut)=
+ {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0for (i =3D 0; i &lt; lut_size; i++) {<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0u32 lut_val =3D drm_color_lut32_extract(=
+pre_csc_lut[i].green, 24);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0lut_val =3D drm_color_lut32_extract(pre_=
+csc_lut[i].green, 24);<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0intel_de_write_dsb(display, dsb,<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PLANE_PRE_CSC_GAMC_DATA_ENH(pipe, plane, 0)=
+,<br>
+&gt; @@ -3975,7 +3976,7 @@ xelpd_program_plane_pre_csc_lut(struct intel_dsb=
+ *dsb,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0do {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0intel_de_write_dsb(display, dsb,<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PLANE_PRE_CSC_GAMC_DATA_ENH(pipe, plane, 0)=
+,<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 (1 &lt;&lt; 24));<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 lut_val);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0} while (i++ &gt; 130);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0for (i =3D 0; i &lt; lut_size; i++) {<br>
+<br>
+</blockquote></div></div>
+
+--000000000000a05c6b0652e670b8--
