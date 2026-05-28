@@ -4,100 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7A52CD6E44
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 10:01:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15635CD6E44
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 10:12:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CA3C10EF50;
-	Thu, 28 May 2026 10:01:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3238710EF81;
+	Thu, 28 May 2026 10:12:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g3a498FF";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RejT8wCN";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RgI7FmR/";
 	dkim-atps=neutral
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com
- [74.125.224.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD84D10EF52
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 10:01:10 +0000 (UTC)
-Received: by mail-yx1-f54.google.com with SMTP id
- 956f58d0204a3-65c1ba7eeb6so12456481d50.1
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 03:01:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779962469; cv=none;
- d=google.com; s=arc-20240605;
- b=G9wkWsjSvuQKwWdZhD6FWpADBnpTmLJGBaEqDUCfeueD0Cu9qtk6YJT7y0IKi+LO/v
- kTtBg7gA06iHx7avICEegEtbd1uCh7dGt7Fb88zWQAI/y0HQxw7rK0UT+iB9ivYvz2OV
- wQLFojCUqrSx4/8xcIorPU+G7RgQml3T1Cdy3nFiVaMQ47E/bbVeuumj0DGM2gJT0uiM
- ZuJIw0Llk6u5fQvjzWOb3wG5vhDNN4qbbai6+rXS7CwbMgtavw7uvk3kde9Xn185L4Wr
- +gkTcSnf3yFzv5zsoanyAnpj9yTcXr1AVHvPFJPj7tpuIVqIYppyuHqa+ZXtC6rkHXDm
- 8OLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=ENaGop7hdOhRvlo9/v6zprcr5Co1+opC5qv3HonlvMs=;
- fh=gSiGgTrMga36TsMOhViyid1e9gkZirpbDRU1vmYs4+c=;
- b=i9yr5P91Ok773MilODvdInD6BPo3P0ea5YmDFpbMbdmSdNkIsba132ci8DSzOgtPOR
- TmGCxFiIXX8pZQ28IC3xWxIt3rslT+jRyR/iVaG3+rvzNhDEROeLMns+p4oHID4RnUHy
- m+6yGu6VS0yA76R//wbyY93/duFybBUkv9YDT3YBCKS41TSru1+EZYAcPg5OGEmEz5Fs
- MVJzuk8WSQ/pPbmL6zX2kVQLTNQffPuo6sy73Vf7HcnxRd7N/nUIzXxFRtKPG82Lro7l
- t+kgNPUysLK68pcFkzv5coIdV5TGeZ/YOaZzQn/TDK8cFeHiRCW3hecnlJAXhD0SZlUc
- fqvg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6B1810EF80
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 10:12:14 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64S8vUJC4016406
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 10:12:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ AuMlQ94hzZYHxomsU+L+MfA3oE3xtzzIMmJ6zw8DcuY=; b=RejT8wCNdPCXNUbr
+ XGZGjTn8BCWHFhCIFGuj5Dk2yHWcyJofFMJI0GgXn0mmR1VLJFSjHN3bsBFDC4dm
+ owvJpQCZd3eodp+mwcoNqMkRFU/BT2sNWOlvF1NJt999EHVFtD0IjwNThT9P8+cy
+ UqD5bfoRqLw7/ae0UBcCF+4p5M5gK58Edz2FCsxwi5LS89++FbcAFDjMNvCR1QMX
+ n1O7Cm7Uedk1pDDhI24TFxjLfosmjIOyljZXSEpRVqpdsKYQmRMvD5ZMet+M3Bhr
+ KAbCprsmlqln/JkRPd6MpVlZlBHIDguCaobrK52cgpaPZZBAzraKnmFrQB7CPZ1l
+ IVMWJA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ee7y5ab25-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 10:12:13 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-516d13328dcso131058811cf.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 03:12:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779962469; x=1780567269; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ENaGop7hdOhRvlo9/v6zprcr5Co1+opC5qv3HonlvMs=;
- b=g3a498FFqNwSL3udJYupbXixF1mM8SbJqcFdB0qUQFsl0RityJQbCYMCt+BgvOghcL
- ZpenSjKsysi8tYOfPTVYgxKn78OXzgyDwSRsuBqiHsVmisand58F5nmOHnbqx7+f/TQq
- 5LbTNF96HJ1NTQSGxbfKMV998TZEAY0kZzjvjA+yTdjR+QGaJMP+bGC8J/Qsj1B8ek2I
- GP3ukQlZFIchWC937OP8wMEF9x3pPKfETmfJZGzKXsl5/sQ1F/+W1a9WpHOcXoDXJzUY
- qy7t0gxORyd1Vq04esnvMJSN86X3r9NtEMqKm66AqNaFcD9nK1ZGwAtR4VIyHSK0XMuO
- /wfA==
+ d=oss.qualcomm.com; s=google; t=1779963133; x=1780567933;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=AuMlQ94hzZYHxomsU+L+MfA3oE3xtzzIMmJ6zw8DcuY=;
+ b=RgI7FmR/vGSaFT0Vx4Fxl9HUw8qH9tKCWzXxZRHssBpVJBurqEqiGRbSytHghkuXnb
+ 87X4C3qtYKjnRH5dI2qjvqz/AONr5jfyiUp3yEsnoNsrQlGNChWN1RH1z5K3q0noM4Jn
+ DdUJIwRHUP4JFfr2XeW9ZvsYXEcYrhzMEHqytB8dFUD2xEW/nBU+imIlLmkKBEY+aUS6
+ fxsoTqzbANYoRGxsErRTLZqKympIgvKVfEZaJYwxlj670V4a0qII3mic8KURe+DlsDaR
+ m/oixxDKvFy8NxQwDRFPQm7oTsoND0+ZApG2dYJcpmVm3qwuIAtWS0BrGKJI+Vu9XKDq
+ oVJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779962469; x=1780567269;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=ENaGop7hdOhRvlo9/v6zprcr5Co1+opC5qv3HonlvMs=;
- b=klSOhkJZivz6wiHwU9/ZRk72J8ExNPmsjy3JkM3d+rhm/dpnlDJLnxaNbMzwpTBuTB
- dwBPVc3ZU7WptXk0PZldQb4ElnIIsmQ+xOAqALSv7wu4dxtl6PBw+D/dcQI6f2I4A5yN
- rxDuztPkwCzTnRouHqdXoAp1gHTkz8ne7rwWzr7GmDgLQNvT4j3YqPtNYvlVGrO+IjbV
- 0Tq7hXLZ5IafsSEx5p4LAA26wjwO6XYnn2rqX/JIu945UsRKZMMzxzf+W9aZSDTPMzzU
- tVgTjWrVEnlUaXZUIPF20+KHO+e6rsJelCZZoGzo2kPLqPycYmEwRfs9mjAy9nJ6mgdd
- dM1g==
+ d=1e100.net; s=20251104; t=1779963133; x=1780567933;
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=AuMlQ94hzZYHxomsU+L+MfA3oE3xtzzIMmJ6zw8DcuY=;
+ b=lPoU9vG9gKO5EILnHoccRxk3wk7URegLQqpUzVIMjLUFv42DhTWJ2Lj22D6GiRwyoT
+ aqYO4nuNhbEVfTOLroyWFZjojKyIcHkct0DbOWGC4O7tSBfPatgO5KXD8uwcn7ms3U6r
+ Gl0v7/AUuVD9hn7YzHuEWiKZC0UX4Ra/rujuZlz6NONoaSMedhNsM8CL7CnK1XuThcUi
+ RSiTLVhLUxFAHKsYx7QK7pq+eHYk7VtbySAJxw/Ozey5GfQpS0/dL8FS52i7yLKbckah
+ qKEJbk+jJzrX+zfMooJGaXJ9VnyjsCbdde970nGKfsSn2Pr802ZwjRZZCocGQeWWotom
+ D7TA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+yZybJ9DOF1f22/UZy4eoT/COZMZxcLqL3o9kpM13y1+mXODKWawhkf/oQ0FC+p+SRMUnYWjVWwlI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyMiXFEQiRzuFrAaRJw3pKNUb/uk1RO+TNAxC3X9IzqO01cHM71
- msluk6+XmCOa+llJNxm10GmAITK8qap6l+B0UAdV9W6FI+fdcVgW13foTg4+ItK5jCIHjRLoJJ1
- alr/nHHz7ewxuungUG2D2TAE6+0a/99c=
-X-Gm-Gg: Acq92OEvaNWkBGQiiqBM6y7kqz7VABRUtqwvH3T+bLCBHTa+kxNMd1pR0FWu9b8q9SA
- yq59mIPvVJX5yhK8p8kyVq/PwLxAgruYpy6rle3UCDjJOlNr2eh5Wk1NJ7JBiHpXfYvUDiW0pOi
- xr/kYL6fAOaKsnSbMEkRGIfZf7gcjRKtYziUG9babomXpHssHINBmc2nfIL8q/P4aPvkLhCGWXa
- nZlZl1AzBYH3Q21VkPS3VOm/YjKPdNE/Cms5H3jqLMvEFO0Y+65aH8KfspVvNSKOO4DxyztXjsr
- GYRX5IgNOImcJ85DR9V0gGsEN1/6wV3guTYY1UhGwDZ2Oiq5y3k9Z/w8X68c1wXIPC0MlTob2RQ
- aCtsMiw==
-X-Received: by 2002:a05:690e:4090:b0:65e:421f:25a with SMTP id
- 956f58d0204a3-65ec9938b9dmr23205364d50.53.1779962469261; Thu, 28 May 2026
- 03:01:09 -0700 (PDT)
+ AFNElJ/9QAHUgctcYOd07OLXmv+a7DJS7oBSdhsluab5u6JFiHHh1qht4+neKt53u34jDDNNa02b5/dBd8k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx8aEsYLRF9zDF76RljiVQQDJ4NLqTce980kzra2KDpxFY+fk8z
+ 8imABdtqfKCn93Co7MIQxWkzZAORJgvY3kJaCTDFbrI3GNVz7Bau5SCdpLIUh6qeimpwAO+Kf2T
+ +Zo+vJRo28r0xdEVcKbzrVVOhhsOoGYt9+2JibX3XHULXDrXR7t1mNfxLdthG0Zou+BIFFao=
+X-Gm-Gg: Acq92OEXRExOxUdwckZgC6b5o+vIqZlWZKrXO3CIIjv+a0yEyjzNPFYNE6riTVTcPf8
+ g7UO+frqvX16DOWfJqjfENKTxfnoNG7x1tnt8HA5ZTMQOu9tvsf3XlFN0+jiT/gGd9NwvrD8T86
+ Hk75NJCuD2xe3HfKP9L9ZcxMO62CTqSR5/F4kza9wpLbSMLw2rK/V0Gt2wO34UebjWxWTYPfeuG
+ 9gJfpfwC7CC8MW0vTD3Gew2mS/J4Fy0fkmB4SrQYiR1iGBkvIGGtryHaHswGDFIXEemQWeIhTA3
+ nlXt3zNa5BMZSTmmHwJ0wETrUgPcLzkwEEqdQy5wgNBl6R3mTD5CdrT2zCSURnO7OmGZ0l/AARR
+ 8jKIW9OJ7FOlVV6c6pwqaFjE3wBReZBQk9qptQelbhBGaRUTjag5JAPjLCdDSTRs7x5M9ON09LO
+ locTqgGlzZ7NCRyO35ma6E9HicmEElFqXjnIJLTH9WjlQDBtIu9oREa7WXubWMYgt4G/qHPgVng
+ J+kBpo/TgPRT+CLbERpEIKZuaw=
+X-Received: by 2002:a05:622a:2298:b0:50f:c67e:d52c with SMTP id
+ d75a77b69052e-516d466fc0cmr364940061cf.55.1779963133275; 
+ Thu, 28 May 2026 03:12:13 -0700 (PDT)
+X-Received: by 2002:a05:622a:2298:b0:50f:c67e:d52c with SMTP id
+ d75a77b69052e-516d466fc0cmr364939791cf.55.1779963132858; 
+ Thu, 28 May 2026 03:12:12 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:2a07:3a01:8e96:3679:b9c:de47?
+ (2001-1c00-2a07-3a01-8e96-3679-0b9c-de47.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:2a07:3a01:8e96:3679:b9c:de47])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-68a6faae4basm1682979a12.5.2026.05.28.03.12.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 28 May 2026 03:12:11 -0700 (PDT)
+Message-ID: <66a76d9f-fe04-4a72-b6fe-42c2922fe9d9@oss.qualcomm.com>
+Date: Thu, 28 May 2026 12:12:10 +0200
 MIME-Version: 1.0
-References: <20260527133917.207150-1-tzimmermann@suse.de>
- <CAHijbEVZBRTK7yhZy8gaZwb19JMzUD_nA2S1LOKX2NrK19RBsQ@mail.gmail.com>
- <1d399c2d-b50f-4d19-8170-9db8961e4227@suse.de>
-In-Reply-To: <1d399c2d-b50f-4d19-8170-9db8961e4227@suse.de>
-From: Julian Orth <ju.orth@gmail.com>
-Date: Thu, 28 May 2026 12:01:01 +0200
-X-Gm-Features: AVHnY4Kd6TXNqqh3i-IesxOIMTyuSSIzXsJX_ARE_lWWTyd_wM1yd783Bw12QD0
-Message-ID: <CAHijbEUKpOuDLJES9AbSp8Pk+egeDPe7KPyBy1xBFM9ET9peCg@mail.gmail.com>
-Subject: Re: [PATCH v2 0/9] drm: Limit DRM_IOCTL_WAIT_VBLANK to vblank
- interrupts
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: simona@ffwll.ch, airlied@gmail.com, mdaenzer@redhat.com, 
- pekka.paalanen@collabora.com, jadahl@gmail.com, contact@emersion.fr, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, mhklinux@outlook.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org, 
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Subject: Re: [PATCH 0/3] clk: Add __clk_disable_unprepare_counts_only() and
+ use this in simple[fb|drm]
+To: Brian Masney <bmasney@redhat.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Helge Deller <deller@gmx.de>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, linux-clk@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, ~postmarketos/upstreaming@lists.sr.ht
+References: <20260527094811.116977-1-johannes.goede@oss.qualcomm.com>
+ <ahd4XgTo3KZqGS9M@redhat.com>
+Content-Language: en-US, nl
+In-Reply-To: <ahd4XgTo3KZqGS9M@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=OM4XGyaB c=1 sm=1 tr=0 ts=6a1814fd cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=b01-GHMo7TsF7J3Xm3IA:9
+ a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-ORIG-GUID: 8cm87CXkRbGQePNwaScaWk4jCep7-Hkd
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDEwMyBTYWx0ZWRfX7F0lafx5EOoo
+ 7o8ARnLPu6kafY21CzohQYEZf1iCZTUD5ecAMnsmzCPOVNZ/FtgDE2iqd7FgUjBQgb2XZRYU19K
+ fc5eahuYmvwA4xGSgFMyAxqFUTJEzaJM7x4ING8kg9BZLp59PBmx8j2dijRSej5mpk5d6wCKBTC
+ htukDntWmcl6VwR0vh8G1tWPAe/As6n6QwIiPYV0HpkcHvr1JceupavmxPZH7IK644cnzOnFAdH
+ npSoXzjXu189d1KWQZNw8CkS+kpNnhYul4EMDOxUnZFhI0PzNIqbBf8Eoefm4a7mH1iUGhbSDhF
+ gbDwFWYgDCIePov8C/wEzIhmYB35Ycy5vuTxbh5N8QQCwhQCWgA17ZMj01rtaHAKLixsKnfuho5
+ w1gEhTct1nZuJfrS5A26FRzlA2ALY998JXRZOhFRA1mpLJu+sINcEEX4i+SMu0txqeWpIybrI0w
+ KlQup4gNsaAzpnjf0jw==
+X-Proofpoint-GUID: 8cm87CXkRbGQePNwaScaWk4jCep7-Hkd
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-28_03,2026-05-26_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0 impostorscore=0 adultscore=0 suspectscore=0
+ clxscore=1015 priorityscore=1501 lowpriorityscore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605280103
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,172 +152,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, May 28, 2026 at 9:54=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse=
-.de> wrote:
->
-> Hi
->
-> Am 27.05.26 um 18:31 schrieb Julian Orth:
-> > On Wed, May 27, 2026 at 3:39=E2=80=AFPM Thomas Zimmermann <tzimmermann@=
-suse.de> wrote:
-> >> DRM's WAIT_VBLANK ioctl synchronizes user-space clients to display
-> >> refresh. This is meaningless with vblank timers, which run unrelated
-> >> to the hardware's vblank.
-> >>
-> >> Disable the ioctl for simulated vblanks. Set DRM_VBLANK_FLAG_SIMULATED
-> >> for CRTCs with simulated vblank events in all such drivers. The vblank
-> >> timers of these devices still rate-limit the number of page-flip event=
-s
-> >> to match the display refresh.
-> >>
-> >> According to maintainers, user-space compositors do not require the io=
-ctl
-> >> for rate-limitting display output. Weston, Kwin and Mutter rely on com=
-pletion
-> >> events. Mutter optionally uses the WAIT_VBLANK ioctl only to optimize =
-the
-> >> time from input to output.
-> >>
-> >> When testing with mutter and weston, the page-flip rate appears correc=
-t
-> >> with the patch set applied.
-> > To avoid this being a regression, you need to test that this change
-> > does not regress input latency.
->
-> Let me stress that the current situation is that there's high-quality,
-> and low-quality and no timing information. Depends on the driver and
-> hardware.
->
-> >
-> > As discussed on IRC, compositors use vblank data to predict the time
-> > of the next flip event. For each device that you are touching here,
-> > there are two possibilities:
-> >
-> > - The vblank data is related to the flip timing, i.e. flip events and
-> > vblank events are sent at almost the same time. In this case removing
-> > these apis removes the path for compositors to predict the time of the
-> > next flip event. Input latency will therefore regress after idle
-> > periods when the compositor no longer has the time of the last vblank.
->
-> User-space compositors seem to operate under this assumption. That, I
-> think, makes sense on better hardware with rendering and vblank IRQs.
-> Page flips are fast on such systems.
->
-> >
-> > - The vblank data has nothing to do with the time of the next flip
-> > event. In this case this series could in fact improve latency because
-> > it removes the incorrect data from the compositor.
->
-> Most of the hardware that would use vblank timers falls in this
-> category. Page flips often consist of memcpys into video memory, or they
-> transfer pixel data over slow peripheral busses. The amount of work per
-> page flip varies with the size of the damage rectangles.
->
-> Any vblank timing information here is therefore of low quality. For some
-> scenarios, it would be common to miss a vblank or even the one after it.
+Hi Brian,
 
-What matters is if the flip event will be aligned to _some_ vblank
-event. As long as that is the case, the compositor can estimate which
-vblank it will hit based on previous frames and can schedule its work
-accordingly. I believe KWin and Mutter already support scheduling
-frames for multiple vblanks in the future to support low-powered
-devices or devices that are under high load. I have not looked into
-this myself.
+On 28-May-26 1:03 AM, Brian Masney wrote:
+> Hi Hans,
+> 
+> On Wed, May 27, 2026 at 11:48:08AM +0200, Hans de Goede wrote:
+>> 2) One option considered was detaching the simple-framebuffer driver later,
+>>    after the real display driver has had a chance to claim the clocks. But
+>>    this won't work in cases where the real display driver picks different
+>>    parent clocks then the boot firmware did and needs to reparent clocks.
+> 
+> Why won't that work in the case where different parent clocks are selected?
+> I'll describe a scenario below.
+> 
+>>
+>>    Basically the goal is for things to behave as if the simple-framebuffer
+>>    driver was not there at all, because that leaves the hw in the state
+>>    the real display driver expects.
+> 
+> I think the deferred unbinding could have some potential here where
+> there is some kind of notification mechanism between simple-framebuffer
+> and the real drm driver. So:
+> 
+> - simple-framebuffer driver takes reference(s) to the clk(s).
+> 
+> - real drm driver eventually loads, takes reference(s) to the necessary
+>   clk(s).
+> 
+> - real drm driver sends a notification to simple-framebuffer that it's
+>   done, and has control.
+> 
+> - simple-framebuffer can unbind and release its references to the clks.
+> 
+> No clks will be shutdown prematurely in this scenario.
+> 
+> If the real drm driver needs a different parent, then presumably things
+> should be setup correctly, and simple-framebuffer can have the clocks
+> shut down when it calls clk_disable_unprepare().
 
-But even on high-powered devices compositors already take per-commit
-kernel work into account. For example, by default I aim to commit 1.5
-ms before vblank. This grace period is adjusted dynamically if I miss
-the expected vblank.
+If the real drm driver needs a different parent, then how does it
+do the reparenting while the simple-framebuffer driver is holding
+a reference to the clock ?  In that case the clock might have
+a protected_count of non 0 (depends on the core-clk flags) and
+reparenting won't work.
 
-Therefore I don't think this is an argument against exposing vblank
-info. Even if the hardware had such an interrupt, the memcpy and
-slow-bus issues would continue to apply.
+We could have the drm driver claim the clks, then call some release
+function and only then do the reparenting. But this makes things
+somewhat complicated for the drm drivers.
 
->
->
-> IMHO, the first thing to discuss is whether having possibly low-quality
-> timing information is preferable to having either high-quality timing or
-> none. I have no strong opinion, but would tend to the latter.
+So my conclusion is that having a clk equivalent of e.g.
+pm_runtime_put_noidle() which just lowers the counts without
+actually doing anything is still the most KISS approach here.
 
-If you want to make userspace aware that vblank events are not backed
-by hardware interrupts, then maybe this could be exposed as a driver
-cap or a flag in the vblank event. Userspace could then decide on
-their own what to do with that information.
+With the downside of needing a new clk-core function for this.
 
-Currently I don't think any compositor would use that information
-since they target flip times and don't care if those times are driven
-by hardware or software (since this is not actionable by userspace
-anyway). So maybe the useful flag would be "flip times will not be
-aligned to any vblank event" if that applies to any driver.
+> If the real drm driver
+> needed those clks, then it should hold a reference to them.
+>
+> I'm intentionally not going through how to do the notification mechanism> here.
 
->
-> Best regards
-> Thomas
->
->
-> >
-> > Whether the times of the flip events correspond to hardware timings is
-> > not relevant. Everything in wayland compositors is scheduled against
-> > flip event timings and they are also forwarded to clients for their
-> > frame scheduling. If the flip timings are wrong/out of sync with the
-> > hardware, then removing the vblank apis does not improve this
-> > situation.
-> >
-> >> This change has been discussed at length on IRC recently.
-> >>
-> >> https://people.freedesktop.org/~cbrill/dri-log/?channel=3Ddri-devel&hi=
-ghlight_names=3D&date=3D2026-05-08&show_html=3Dtrue
-> >> https://people.freedesktop.org/~cbrill/dri-log/?channel=3Ddri-devel&hi=
-ghlight_names=3D&date=3D2026-05-12&show_html=3Dtrue
-> >> https://people.freedesktop.org/~cbrill/dri-log/?channel=3Ddri-devel&hi=
-ghlight_names=3D&date=3D2026-05-13&show_html=3Dtrue
-> >> https://people.freedesktop.org/~cbrill/dri-log/?channel=3Ddri-devel&hi=
-ghlight_names=3D&date=3D2026-05-15&show_html=3Dtrue
-> >>
-> >> v2:
-> >> - add filter to CRTC_GET_SEQUENCE and CRTC_QUEUE_SEQUENCE ioctls (Mich=
-el)
-> >> - clarify Mutter's behavior in cover letter (Michel)
-> >>
-> >> Thomas Zimmermann (9):
-> >>    drm/vblank: Add drmm_vblank_init() to indicate managed cleanup
-> >>    drm/vblank: Add DRM_VBLANK_FLAG_SIMULATED
-> >>    drm/amdgpu: vkms: Set DRM_VBLANK_FLAG_SIMULATED
-> >>    drm/bochs: Set DRM_VBLANK_FLAG_SIMULATED
-> >>    drm/cirrus: Set DRM_VBLANK_FLAG_SIMULATED
-> >>    drm/hypervdrm: Set DRM_VBLANK_FLAG_SIMULATED
-> >>    drm/qxl: Set DRM_VBLANK_FLAG_SIMULATED
-> >>    drm/virtgpu: Set DRM_VBLANK_FLAG_SIMULATED
-> >>    drm/vkms: Set DRM_VBLANK_FLAG_SIMULATED
-> >>
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c    |  3 ++-
-> >>   drivers/gpu/drm/drm_vblank.c                | 26 +++++++++++++++----=
---
-> >>   drivers/gpu/drm/drm_vblank_helper.c         |  2 +-
-> >>   drivers/gpu/drm/hyperv/hyperv_drm_modeset.c |  2 +-
-> >>   drivers/gpu/drm/qxl/qxl_display.c           |  2 +-
-> >>   drivers/gpu/drm/tiny/bochs.c                |  2 +-
-> >>   drivers/gpu/drm/tiny/cirrus-qemu.c          |  2 +-
-> >>   drivers/gpu/drm/virtio/virtgpu_display.c    |  2 +-
-> >>   drivers/gpu/drm/vkms/vkms_drv.c             |  4 ++--
-> >>   include/drm/drm_crtc.h                      |  2 +-
-> >>   include/drm/drm_device.h                    |  2 +-
-> >>   include/drm/drm_vblank.h                    | 15 +++++++++++-
-> >>   12 files changed, 45 insertions(+), 19 deletions(-)
-> >>
-> >>
-> >> base-commit: 5fb5a9a63cf5ece68e0eeb6fa397da27712bccf0
-> >> --
-> >> 2.54.0
-> >>
->
-> --
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
-> GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG N=C3=
-=BCrnberg)
->
->
+Ack.
+
+Regards,
+
+Hans
+
+
+
