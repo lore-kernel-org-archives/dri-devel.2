@@ -4,103 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AD98CD6E44
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 15:03:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4F00CD6E44
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 15:06:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D417A10F312;
-	Thu, 28 May 2026 15:03:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D2FA10F322;
+	Thu, 28 May 2026 15:06:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="W4k3PHhG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q9ocXmfN";
 	dkim-atps=neutral
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com
- [74.125.82.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2848410F312
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 15:03:44 +0000 (UTC)
-Received: by mail-dy1-f169.google.com with SMTP id
- 5a478bee46e88-304e58292d3so240942eec.0
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 08:03:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779980623; cv=none;
- d=google.com; s=arc-20240605;
- b=RT61yUttpajLOrBBlF8f2cNFR72b7GQjdUKuw7yJWg0ORzdW2xyLx0fQsLLF30k6yW
- p93UvLgRiSlhb2IF3HXkV/KX6+gxjJiL2rHoRv6ZzycGd+eWTrV5V3+fOxe12e6f7rII
- Uc8orRKWUHKbWGxx28q/76kNPYOPOlBDrwmILjjFs5+usja6oryDFpnA3XAGq5zR87yS
- WcOq005iSwOJAv/ojj5jY8STUew36t5GdnOvOjbmdG5+H0nVYP1IP40jpkbRD77/XV1K
- 06Ax6iRcLccH/8YA3THAeOqhP4YsRuBwXGPMcql26REIAk+w7P2sXvqF2Y7dPB4ltApi
- pfkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=999rZWGlrRMiFPTcWjsNb4DI/hC1DrKVLDhSSMIwam0=;
- fh=RJ4uB6dmYTjJUooRJ82hkNB95oeQex4jGy60NMJd2RA=;
- b=K8j2YcIrw+/rWSLjWX7d63EZo2y7zZAMUO3KXs4/XmCNctFCc7KUQif7DAas6pwUt2
- R89r1lp8/4GkFiTvfylFTejE7nHqE837eUPly8XNjBV1u9NCtj5CNvX4jwB9T+sqbSK0
- 0/gHFppKzrx5l2wgMOkOFMsfXUF7rDpWOtBApWIZixG8lPMPp+LFqo1P4Bvq9/UGYyh8
- FkUBY2QOcGaA2N4prAvUL61dHJXkq5srGd9ffNx12g0l4KOUb+OqVEpkYKB5dv7KLXyn
- QTU1tmgyMLx5onfY75BioTNctzws7KT4PXXuRPurIUcE2CjNmJK2GA+hPPZikEI88Lgu
- 7d5A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779980623; x=1780585423; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=999rZWGlrRMiFPTcWjsNb4DI/hC1DrKVLDhSSMIwam0=;
- b=W4k3PHhGEwm/OdqATFpzsSO9PJVmZXmjBUjeUfB1I51n0XYQSiAko8aDL//E3f7MZ9
- QhOSslfdw0MYvfwuV0nYnLo9QYsODtiQQuGsUb6HZHwjW06vWS9CArURsPIn55TEs7XU
- 8htJmgq3QGiWsm3Rdk/KlQbMyOxg/+hUUBx6NMaBTKdzjS2WZL8KUkM+KkFz3GxU71VF
- S0F1xu+pYbZFFRnwsSVMDjDeimhJ2Ui6ZCPEYqexhcS966ehblmXa78iXVHeDN/IiWWW
- H7Xdfm5bqIOgtC9Th6RNVY9GvlX3btpdMWsOoXTfJy3tkRUtAA2/hDaAAp8NtrCqPqku
- FZrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779980623; x=1780585423;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=999rZWGlrRMiFPTcWjsNb4DI/hC1DrKVLDhSSMIwam0=;
- b=g0rJE46HQ89p1n1HAnOEO420UmUL71ekXO+zMcBs8T1vSyUgPIeCKEpPpFziObZIJb
- n8ibxNr/3C+r6O+vSBsJWJV60cQQYg0OyZllDEDg7cNUH5rxJhZoptBceqThIQZJJh/1
- FfRo6ObNAEKnWiTMtNH5+nYibHZinlCmn7fGz2Fylni59O3Axar/Ez0JDCuW/mkJwThI
- CsVB6Co3v1hgWUO1Yi5yjIEUGEokOH1BWldUJynd3RLS7Qaaxl4e23WCdK8uFmCQZ+vj
- Gyef8pgR/mKczCl4kE7tEETFvuCvdmcGTIBYPzTjg/K2pSJbZYdsLxN/7wmPM9oAXV7h
- JYgw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9EGKGzZOx4u+LX6g2LDGNwYRTb+5tOQq8lTCPgfC5/Mvuj//G2FtmNDVyeNrz4kT8+9ucACCAukA8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzBIlhw50YuIBFfls8i3igi+wHZ6HXzOptpk+lUTTMSoKWB/Rco
- GbH1G67qk3VEJojlXtz4hvc7UYXQsyVduhx2de36/H9R7GDZ/O8rn07GOp64aT3wg3t+amJJFKp
- 18W+gyuYcKdbbNTZUmYFb409OSqQPE+c=
-X-Gm-Gg: Acq92OGIe9xfTQzCJCLmTJrjboYPzHelrv3uNtz2x9ietSWvvFzdZX38VcvEvv9YQv9
- npKPeFcn+dcYEC0OLQvhtypR6JzFqmAAXSoNpFIJqOPUYSH0QIUCKYCI1gg4RBNPfx3roJUkjqn
- 2FEfVur+b4gy4WE57JViPssEpD6W0vyfbT+piLFyg1ASgwWCPqc6oAmhP5Hvz4ToxGkSLrYl4Sw
- vO56I+WlcrBG3amdX7dsWN1ilZhYnEo+dbb+Ge+8TS5kwJu5Qr+tPL3tEG8MJtjJijVd3zv5QyM
- SSNiNMATecSwOrqHIqk=
-X-Received: by 2002:a05:7301:fa04:b0:304:d82f:be10 with SMTP id
- 5a478bee46e88-304d82fe55fmr1288739eec.11.1779980623129; Thu, 28 May 2026
- 08:03:43 -0700 (PDT)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5997110F320;
+ Thu, 28 May 2026 15:06:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8023D6014B;
+ Thu, 28 May 2026 15:06:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA2811F000E9;
+ Thu, 28 May 2026 15:06:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779980809;
+ bh=c8uxKDeozKtw7HhpWHZre9JGy+bOINHNRMoLgA/eKYc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Q9ocXmfNTfoni/BH+FLS5BRReOswvnj9TI77F5FJoQ9tbi8N6PiXxVov73pQuR+zV
+ Z2VNVEt3c+xDsDlT5YgyBpD0HZpGUS+w9eK+h4/K5/xrApsYRcEjL1MZXrz9fBk5Yq
+ FZZK3nGAGQE6BCDUnpc352dkT6gMwXbO7opycSWfLW7cfXjVTDp4vagYpztci50YlB
+ kOsl1OaNqcKYRG70JisL8un20vRx4Mh4hYic52t0ER+8Rhq9dtjZ9CffvH5V2dfMh0
+ aBJwGtUxKrTErAvxEwkbU6KC36VF2okVU6EInLUERYanGkUSMGb7jbTKrH0HJqx6dc
+ fANY3xEsIJrcQ==
+Date: Thu, 28 May 2026 17:06:46 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, dri-devel@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH 1/4] gpu: host1x: Fix iommu_map_sgtable() return value
+ check
+Message-ID: <ahhZ_Enh2TAWFxDg@orome>
+References: <20260421-iommu_map_sgtable-return-v1-0-fb484c07d2a1@nvidia.com>
+ <20260421-iommu_map_sgtable-return-v1-1-fb484c07d2a1@nvidia.com>
 MIME-Version: 1.0
-References: <20260528135123.103745-1-clamor95@gmail.com>
- <20260528135123.103745-3-clamor95@gmail.com>
- <20260528155001.2bcb7003@jic23-huawei>
-In-Reply-To: <20260528155001.2bcb7003@jic23-huawei>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Thu, 28 May 2026 18:03:31 +0300
-X-Gm-Features: AVHnY4JOZH_BBdJBd0wzIDDW2UO693Byl1wIIcPrxkbXcQMPI-6wgD9ANvHg0-o
-Message-ID: <CAPVz0n0qCekQVGGyAyBuYv+RKC6bpydYBLJNGfPrgTYjtOJOuA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/6] mfd: lm3533: Convert to use OF bindings
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- David Lechner <dlechner@baylibre.com>,
- =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
- Johan Hovold <johan@kernel.org>, 
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="hqgt5icxz7r7yoip"
+Content-Disposition: inline
+In-Reply-To: <20260421-iommu_map_sgtable-return-v1-1-fb484c07d2a1@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,220 +69,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=D1=87=D1=82, 28 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 17:5=
-0 Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Thu, 28 May 2026 16:51:19 +0300
-> Svyatoslav Ryhel <clamor95@gmail.com> wrote:
->
-> > Since there are no users of this driver via platform data, remove the
-> > platform data support and switch to using Device Tree bindings.
-> > Additionally, optimize functions used only by platform data.
->
->
-> At least the IIO ones would have made much the same amount of sense for
-> dt, just that they weren't having in the first place. I'd prefer that
-> as a precursor patch to make the rest much more readable.
->
 
-I can add you preferences into this commit, I don't mind.
+--hqgt5icxz7r7yoip
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/4] gpu: host1x: Fix iommu_map_sgtable() return value
+ check
+MIME-Version: 1.0
 
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
->
-> I only looked in detail at the iio bit. A few changes requested.
->
-> > ---
-> >  drivers/iio/light/lm3533-als.c      |  95 ++++------
-> >  drivers/leds/leds-lm3533.c          |  51 ++++--
-> >  drivers/mfd/lm3533-core.c           | 268 ++++++++++------------------
-> >  drivers/video/backlight/lm3533_bl.c |  52 ++++--
-> >  include/linux/mfd/lm3533.h          |  51 +-----
-> >  5 files changed, 212 insertions(+), 305 deletions(-)
-> >
-> > diff --git a/drivers/iio/light/lm3533-als.c b/drivers/iio/light/lm3533-=
-als.c
-> > index 99f0b903018c..cbd337b73bd9 100644
-> > --- a/drivers/iio/light/lm3533-als.c
-> > +++ b/drivers/iio/light/lm3533-als.c
->
-> > @@ -714,59 +720,33 @@ static const struct attribute_group lm3533_als_at=
-tribute_group =3D {
-> >       .attrs =3D lm3533_als_attributes
-> >  };
-> >
-> > -static int lm3533_als_set_input_mode(struct lm3533_als *als, bool pwm_=
-mode)
-> > +static int lm3533_als_setup(struct lm3533_als *als)
-> >  {
-> > -     u8 mask =3D LM3533_ALS_INPUT_MODE_MASK;
-> > -     u8 val;
-> > +     struct device *dev =3D &als->pdev.dev;
-> >       int ret;
-> >
-> > -     if (pwm_mode)
-> > -             val =3D mask;     /* pwm input */
-> > -     else
-> > -             val =3D 0;        /* analog input */
-> > -
-> > -     ret =3D lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, val, mask=
-);
-> > -     if (ret) {
-> > -             dev_err(&als->pdev->dev, "failed to set input mode %d\n",
-> > -                                                             pwm_mode)=
-;
-> > -             return ret;
-> > -     }
-> > -
-> > -     return 0;
-> > -}
-> > -
-> > -static int lm3533_als_set_resistor(struct lm3533_als *als, u8 val)
-> > -{
-> > -     int ret;
-> > -
-> > -     if (val < LM3533_ALS_RESISTOR_MIN || val > LM3533_ALS_RESISTOR_MA=
-X) {
-> > -             dev_err(&als->pdev->dev, "invalid resistor value\n");
-> > -             return -EINVAL;
-> > -     }
-> > -
-> > -     ret =3D lm3533_write(als->lm3533, LM3533_REG_ALS_RESISTOR_SELECT,=
- val);
-> > -     if (ret) {
-> > -             dev_err(&als->pdev->dev, "failed to set resistor\n");
-> > -             return ret;
-> > -     }
-> > +     device_property_read_u32(dev, "ti,resistor-value-ohm",
-> > +                              &als->r_select);
-> Does this have a default?  If so the pattern we've recently be setting on=
- for IIO
-> is
->         if (device_property_present(dev, "ti,resistor-value-ohm"))
->                 ret =3D device_property_read_u32();
->                 if (ret) //corrupt property in some fashion
->                         return ret;
->         } else {
->                 //set default
->         }
-> If there is no default then check it unconditionally.
+On Tue, Apr 21, 2026 at 01:02:36PM +0900, Mikko Perttunen wrote:
+> Commit "iommu: return full error code from iommu_map_sg[_atomic]()"
+> changed iommu_map_sgtable() to return an ssize_t and negative values
+> in error cases, rather than a size_t and a zero.
+>=20
+> pin_job() also was incorrectly assigning to 'int', which could cause
+> overflows into negative values.
+>=20
+> Update pin_job() to correctly check for errors from iommu_map_sgtable.
+>=20
+> Fixes: ad8f36e4b6b1 ("iommu: return full error code from iommu_map_sg[_at=
+omic]()")
+> Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
+> ---
+>  drivers/gpu/host1x/job.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
 
-default value is LM3533_ALS_RESISTOR_MIN and if no property is present
-clamp will ensure that als->r_select will be set to
-LM3533_ALS_RESISTOR_MIN
+Applied, thanks.
 
->
-> >
-> > -     return 0;
-> > -}
-> > +     als->r_select =3D clamp(als->r_select, LM3533_ALS_RESISTOR_MIN,
-> > +                           LM3533_ALS_RESISTOR_MAX);
-> > +     als->r_select =3D DIV_ROUND_UP(2 * MICRO, 10 * als->r_select);
-> >
-> > -static int lm3533_als_setup(struct lm3533_als *als,
-> > -                         const struct lm3533_als_platform_data *pdata)
-> > -{
-> > -     int ret;
-> > +     als->pwm_mode =3D device_property_read_bool(dev, "ti,pwm-mode");
-> >
-> > -     ret =3D lm3533_als_set_input_mode(als, pdata->pwm_mode);
-> > +     ret =3D lm3533_update(lm3533, LM3533_REG_ALS_CONF, als->pwm_mode =
-?
-> > +                         LM3533_ALS_INPUT_MODE_MASK : 0,
->
-> That's ugly.  Better as
->
->         ret =3D lm3533_update(lm3533, LM3533_REG_ALS_CONF,
->                             als->pwm_mode ? LM3533_ALS_INPUT_MODE_MASK : =
-0,
->
+Thierry
 
-Yes sure, just followed 80 char limit.
+--hqgt5icxz7r7yoip
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> Though if there wasn't a layer hiding the regmap, it could just have been
->
->         ret =3D regmap_assign_bits(lm3533->regmap, LM3533_REG_ALS_CONF,
->                                  LM3533_ALS_INPUT_MODE_MASK, als->pwm_mod=
-e);;
->
-> which would have been nicer.
->
-> I'm not particularly keen on the swashing of the helpers being in a patch
-> that is about switching the binding type as feels largely unrelated.
-> Should really have been a precursor, easier to review patch.
->
+-----BEGIN PGP SIGNATURE-----
 
-Removing of lm3533_update layer is not the scope of this patchset.
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoYWgYACgkQ3SOs138+
+s6GqTBAAwdxQxm9pX/VxKeekH9QcutZH2UVnE3Piqkgk4WWWPGo+OJe0eP8rYRz1
+k24+EwaUd+TCg8hwLmi/ReXPiDEB5aIT1nbnCMi6a88ND9a+hnTydA27jSO4Gtip
+Yahkuixea/PETVHJ1QgBx6ZZBVY227qbdDrrSFCDHkqXgquFYcEq/y1GcCPNI6v3
+Q5pKK9anrZDdGSLmML3X1+djUHS1G16/H3AG3xoabDRrQkA/C1wwN7sa1eFRTdGy
+CvAl1aTketmwRuw5nPn46fVBlTbsP/oVyr+KclRI8ctkMXFMq74f0fs4DyOlqdAy
+AKkXXpppda3yiy1r10NAC03D7EdDKcIkO0Y98KxANFj5FQoa1FI4Tp3H5ikAh58I
+hQuXi2WCoLe10G4jrJrGLstvUhgJVrP0WbCa1xGdDAe8AZfH/NUEadDFSkQ+Gl8X
+7fGdUYkUrDnjTPUrvJWiOZj9fk3TQbsrGKIFeu0TJp2+rO22jocolSvSvLX1lL4t
+XfYPcbsCu7xQQPNqDLTid+hoX/w7cRhPUSrQAhEM6OPtn1s+6pDRT0qkXb7hu6bn
+7SyijlTJZ0l3a5XziROyiiIZ4T672pAeQmzI5i3+xBRTATutOuciF+UAcQfu4afo
+CBmYMaAZDyDSCIPAvXaQ5OEE7nPap7sQdz9jNvw+w9ltQlSKfLw=
+=uYsw
+-----END PGP SIGNATURE-----
 
->
-> > +                         LM3533_ALS_INPUT_MODE_MASK);
-> >       if (ret)
-> > -             return ret;
-> > +             return dev_err_probe(dev, ret, "failed to set input mode =
-%d\n",
-> > +                                  als->pwm_mode);
-> >
-> >       /* ALS input is always high impedance in PWM-mode. */
-> > -     if (!pdata->pwm_mode) {
-> > -             ret =3D lm3533_als_set_resistor(als, pdata->r_select);
-> > +     if (!als->pwm_mode) {
-> > +             ret =3D lm3533_write(lm3533, LM3533_REG_ALS_RESISTOR_SELE=
-CT,
-> > +                                (u8)als->r_select);
->
-> Same applies here. Mostly an unrelated change as the only thing switching=
- that
-> is related to the patch is one parameter.
->
-
-Removing of lm3533_write layer is not the scope of this patchset.
-
-> >               if (ret)
-> > -                     return ret;
-> > +                     return dev_err_probe(dev, ret, "failed to set res=
-istor\n");
-> >       }
-> >
-> >       return 0;
->
-> > @@ -852,25 +825,28 @@ static int lm3533_als_probe(struct platform_devic=
-e *pdev)
-> >       indio_dev->channels =3D lm3533_als_channels;
-> >       indio_dev->num_channels =3D ARRAY_SIZE(lm3533_als_channels);
-> >       indio_dev->name =3D dev_name(&pdev->dev);
-> > -     iio_device_set_parent(indio_dev, pdev->dev.parent);
->
-> I'm not sure why this was there in the first place.  Hence not sure if it
-> is safe to remove.
->
-
-This is directly related to OF conversion. The iio_device_set_parent
-bound indio_dev to parent, and it causes problems with OF now since
-als output has its own node and binding it to parent if wrong. Same
-story for backlight and leds btw.
-
->
-> > diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
-> > index 45795f2a1042..d707d43d5526 100644
-> > --- a/drivers/leds/leds-lm3533.c
-> > +++ b/drivers/leds/leds-lm3533.c
->
-> >
-> >       led->cb.dev =3D led->cdev.dev;
-> >
-> > -     ret =3D lm3533_led_setup(led, pdata);
-> > +     device_property_read_u32(&pdev->dev, "led-max-microamp",
-> > +                              &led->max_current);
->
-> I'd prefer explicit setting of the default to be visible before this, or
-> the property_present pattern I mention in the IIO review above.
->
-
-clamp will ensure that led->max_current will be set to
-LM3533_LED_MAX_CURRENT_MIN regardless if it it present
-
-> > +     led->max_current =3D clamp(led->max_current, LM3533_LED_MAX_CURRE=
-NT_MIN,
-> > +                              LM3533_LED_MAX_CURRENT_MAX);
->
-> I didn't look any further (busy day!)
+--hqgt5icxz7r7yoip--
