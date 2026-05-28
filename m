@@ -4,51 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB8A7CD4F54
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 13:03:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A3B3CD6E44
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 13:11:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D6E410F14C;
-	Thu, 28 May 2026 13:03:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1A1010F167;
+	Thu, 28 May 2026 13:11:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="swGu0kab";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="b2UHAKvV";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2379110F14C
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 13:03:27 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gR69k6K6sz9v5w;
- Thu, 28 May 2026 15:03:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1779973402; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ldWZaB1V0VFmfuVmmY4GBcFyCmTzpt1ZkAIKZBSc/tg=;
- b=swGu0kabwMrmc8/eRy3s8UB7CTMTWxaG83agEj15qcTu5cw/1f86aNRzY/B48XDV+Sds/H
- 0rUGieMHhLhVFezM7sPEGDwks4KV9GL0UJYFsEYrP36NyJAp8Dz6S5sisuhS5duMk986C0
- G+R2Gg5Ysx8y0KnEaeo7NWYV4UgSryxoROy7piboVF4T/2ATmEKUIOE82YjyzuFBmkqlMD
- wcRaCaL+Lw9xatQ6z97JUypdKL25Yl2q5USHBk8mcGSxiXl/Coicx7DfttwrVs1u/U9vto
- UJJe4cSIat9zxeLjhoSdb+Z58MIo7S8E4VcX/ds3tO8ZLXGDjHwwBGPCbQ3j+A==
-Message-ID: <23df1e8b17c4ba5a9106b84a65e092ebd54fee42.camel@mailbox.org>
-Subject: Re: [PATCH] drm/sched: Fix clang build warning in kunit tests
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, kernel test robot <lkp@intel.com>, Philipp
- Stanner <phasta@kernel.org>
-Date: Thu, 28 May 2026 15:03:18 +0200
-In-Reply-To: <20260522090129.9385-1-tvrtko.ursulin@igalia.com>
-References: <20260522090129.9385-1-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E01210F16A;
+ Thu, 28 May 2026 13:11:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1CF1240869;
+ Thu, 28 May 2026 13:11:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4393B1F000E9;
+ Thu, 28 May 2026 13:11:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779973880;
+ bh=iDEo0j2nHsYSJgSqy1z8dWMjD802zHIig7qC3EKAx/k=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=b2UHAKvVDwz9Q8zDeG5+gjEzAwHGNvWPrhFQu4UWecZMGU9oLFnYEUppHdL1JG96W
+ ZyKfXbFlZkxgErlkIJ9vEDjHqhgkZYeEglVfzfyl1vwgy5OcQX/ILvYNtAw+Fw/u/n
+ 7Rf4HO5aTgBsh8Qrexyv+asWzwUvPXiN0B/LUktlwpZ7GWwIh5oxpK5VedspSPx+Bn
+ nl+HsmBpJmBcRweXxwoqgm9Olo+josivuYToc2QW7vazCQsXTqNoHWp1knQYF/ENFG
+ jtLGo1SiiASszWS5aZ18I7jEX0fOy1BKxNFyaZVCVtMBYw8PPdiTBmqYLjDYvMKN77
+ k31LndrsIUjKg==
+Date: Thu, 28 May 2026 18:41:07 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+Cc: andersson@kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org,
+ konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
+ mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+ pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+ tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+ srinivas.kandagatla@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>,
+ Harshal Dev <harshal.dev@oss.qualcomm.com>
+Subject: Re: [PATCH v7 02/15] firmware: qcom: Add a generic PAS service
+Message-ID: <ahg-6-eLus-J7tC8@sumit-xelite>
+References: <20260522115936.201208-1-sumit.garg@kernel.org>
+ <20260522115936.201208-3-sumit.garg@kernel.org>
+ <37fb075c-3f48-4a7c-b05d-090b0b09e04a@oss.qualcomm.com>
 MIME-Version: 1.0
-X-MBO-RS-META: pj6six8h95q93rwby9zzhwrpugixq7g7
-X-MBO-RS-ID: 6113b225984f0bd0ec5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <37fb075c-3f48-4a7c-b05d-090b0b09e04a@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,119 +76,190 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Yo Tvrtko,
+Hi Amir,
 
-On Fri, 2026-05-22 at 10:01 +0100, Tvrtko Ursulin wrote:
-> Initializing compile time constant struct or arrays from another such
-> variable is a gcc extension, while clang strictly requires a compile time
-> constant literal.
->=20
-> As reported by LKP:
->=20
-> > > drivers/gpu/drm/scheduler/tests/tests_scheduler.c:675:10: error: init=
-ializer element is not a compile-time constant
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_scheduler_two_clien=
-ts_attr),
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
-~~~~~~~
-> =C2=A0=C2=A0 include/kunit/test.h:224:13: note: expanded from macro 'KUNI=
-T_CASE_PARAM_ATTR'
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .attr =3D attributes, .mod=
-ule_name =3D KBUILD_MODNAME}
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 ^~~~~~~~~~
-> =C2=A0=C2=A0 1 error generated.
+On Thu, May 28, 2026 at 10:45:32AM +1000, Amirreza Zarrabi wrote:
+> Hi Sumit,
+> 
+> On 5/22/2026 9:59 PM, Sumit Garg wrote:
+> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > 
+> > Qcom platforms has the legacy of using non-standard SCM calls
+> > splintered over the various kernel drivers. These SCM calls aren't
+> > compliant with the standard SMC calling conventions which is a
+> > prerequisite to enable migration to the FF-A specifications from Arm.
+> > 
+> > OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
+> > support these non-standard SCM calls. And even for newer architectures
+> > using S-EL2 with Hafnium support, QTEE won't be able to support SCM
+> > calls either with FF-A requirements coming in. And with both OP-TEE
+> > and QTEE drivers well integrated in the TEE subsystem, it makes further
+> > sense to reuse the TEE bus client drivers infrastructure.
+> > 
+> > The added benefit of TEE bus infrastructure is that there is support
+> > for discoverable/enumerable services. With that client drivers don't
+> > have to manually invoke a special SCM call to know the service status.
+> > 
+> > So enable the generic Peripheral Authentication Service (PAS) provided
+> > by the firmware. It acts as the common layer with different TZ
+> > backends plugged in whether it's an SCM implementation or a proper
+> > TEE bus based PAS service implementation.
+> > 
+> > Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> > Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
+> > Reviewed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
+> > Tested-by: Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com> # IPQ9650
+> > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > ---
+> >  drivers/firmware/qcom/Kconfig          |   8 +
+> >  drivers/firmware/qcom/Makefile         |   1 +
+> >  drivers/firmware/qcom/qcom_pas.c       | 291 +++++++++++++++++++++++++
+> >  drivers/firmware/qcom/qcom_pas.h       |  50 +++++
+> >  include/linux/firmware/qcom/qcom_pas.h |  43 ++++
+> >  5 files changed, 393 insertions(+)
+> >  create mode 100644 drivers/firmware/qcom/qcom_pas.c
+> >  create mode 100644 drivers/firmware/qcom/qcom_pas.h
+> >  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
+> > 
+> > diff --git a/drivers/firmware/qcom/Kconfig b/drivers/firmware/qcom/Kconfig
+> > index b477d54b495a..9f66cc774508 100644
+> > --- a/drivers/firmware/qcom/Kconfig
+> > +++ b/drivers/firmware/qcom/Kconfig
+> > @@ -6,6 +6,14 @@
+> >  
+> >  menu "Qualcomm firmware drivers"
+> >  
+> > +config QCOM_PAS
+> > +	tristate "Qualcomm generic PAS interface driver"
+> > +	help
+> > +	  Enable the generic Peripheral Authentication Service (PAS) provided
+> > +	  by the firmware. It acts as the common layer with different TZ
+> > +	  backends plugged in whether it's an SCM implementation or a proper
+> > +	  TEE bus based PAS service implementation.
+> > +
+> >  config QCOM_SCM
+> >  	select QCOM_TZMEM
+> >  	tristate
+> > diff --git a/drivers/firmware/qcom/Makefile b/drivers/firmware/qcom/Makefile
+> > index 0be40a1abc13..dc5ab45f906a 100644
+> > --- a/drivers/firmware/qcom/Makefile
+> > +++ b/drivers/firmware/qcom/Makefile
+> > @@ -8,3 +8,4 @@ qcom-scm-objs += qcom_scm.o qcom_scm-smc.o qcom_scm-legacy.o
+> >  obj-$(CONFIG_QCOM_TZMEM)	+= qcom_tzmem.o
+> >  obj-$(CONFIG_QCOM_QSEECOM)	+= qcom_qseecom.o
+> >  obj-$(CONFIG_QCOM_QSEECOM_UEFISECAPP) += qcom_qseecom_uefisecapp.o
+> > +obj-$(CONFIG_QCOM_PAS)		+= qcom_pas.o
 
-Hmm, is it now a build error, or a build warning? The commit title says
-"warning".
+<snip>
 
-Depending on what it really is, where should it go, misc-next or misc-
-fixes?
+> > diff --git a/include/linux/firmware/qcom/qcom_pas.h b/include/linux/firmware/qcom/qcom_pas.h
+> > new file mode 100644
+> > index 000000000000..65b1c9564458
+> > --- /dev/null
+> > +++ b/include/linux/firmware/qcom/qcom_pas.h
+> > @@ -0,0 +1,43 @@
+> > +/* SPDX-License-Identifier: GPL-2.0-only */
+> > +/*
+> > + * Copyright (c) 2010-2015, 2018-2019 The Linux Foundation. All rights reserved.
+> > + * Copyright (C) 2015 Linaro Ltd.
+> > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> > + */
+> > +
+> > +#ifndef __QCOM_PAS_H
+> > +#define __QCOM_PAS_H
+> > +
+> > +#include <linux/err.h>
+> > +#include <linux/types.h>
+> > +
+> > +struct qcom_pas_context {
+> > +	struct device *dev;
+> > +	u32 pas_id;
+> > +	phys_addr_t mem_phys;
+> > +	size_t mem_size;
+> > +	void *ptr;
+> > +	dma_addr_t phys;
+> > +	ssize_t size;
+> > +	bool use_tzmem;
+> > +};
+> > +
+> > +bool qcom_pas_is_available(void);
+> > +struct qcom_pas_context *devm_qcom_pas_context_alloc(struct device *dev,
+> > +						     u32 pas_id,
+> > +						     phys_addr_t mem_phys,
+> > +						     size_t mem_size);
+> > +int qcom_pas_init_image(u32 pas_id, const void *metadata, size_t size,
+> > +			struct qcom_pas_context *ctx);
+> > +struct resource_table *qcom_pas_get_rsc_table(struct qcom_pas_context *ctx,
+> > +					      void *input_rt, size_t input_rt_size,
+> > +					      size_t *output_rt_size);
+> > +int qcom_pas_mem_setup(u32 pas_id, phys_addr_t addr, phys_addr_t size);
+> > +int qcom_pas_auth_and_reset(u32 pas_id);
+> > +int qcom_pas_prepare_and_auth_reset(struct qcom_pas_context *ctx);
+> > +int qcom_pas_set_remote_state(u32 state, u32 pas_id);
+> > +int qcom_pas_shutdown(u32 pas_id);
+> > +bool qcom_pas_supported(u32 pas_id);
+> > +void qcom_pas_metadata_release(struct qcom_pas_context *ctx);
+> > +
+> > +#endif /* __QCOM_PAS_H */
+> 
+> I have a question about the shape of the generic PAS abstraction.
+> 
+> Looking at the current interface, it seems that pas_id is still treated as
+> the primary identity for most PAS operations, while struct qcom_pas_context
+> is used as optional extended state for the operations that need it. I can see
+> how this maps well to the existing SCM PAS interface and keeps the transition
+> simple.
+> 
+> However, I wonder if this makes the abstraction less generic in the long term.
+> Some callbacks in struct qcom_pas_ops receive only pas_id, while others
+> receive struct qcom_pas_context *ctx. This works as long as pas_id is
+> sufficient for those operations. But if a backend needs per-peripheral
+> private state for operations such as auth_and_reset,
+> shutdown, or set_remote_state, it would need to reconstruct that state from
+> pas_id or maintain a separate pas_id to backend-context mapping.
+> 
+> Would it be cleaner to make struct qcom_pas_context the common
+> per-peripheral object and pass it consistently to all per-peripheral callbacks?
+> Existing backends could still use ctx->pas_id, but future backends would not
+> need to perform a separate lookup only because the callback was passed a raw
+> pas_id.
 
-P.
+The common evolution for a generic abstraction comes when it's needed.
+So once the client driver or the backend comes up with certain
+requirements then the generic PAS layer can be extended as needed. It
+should be possible for more APIs to migrate to using PAS context but
+there should be corresponding use-case requirements.
 
->=20
-> vim +675 drivers/gpu/drm/scheduler/tests/tests_scheduler.c
->=20
-> =C2=A0=C2=A0 671
-> =C2=A0=C2=A0 672	static struct kunit_case drm_sched_scheduler_two_clients=
-_tests[] =3D {
-> =C2=A0=C2=A0 673		KUNIT_CASE_PARAM_ATTR(drm_sched_scheduler_two_clients_t=
-est,
-> =C2=A0=C2=A0 674				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_scheduler_tw=
-o_clients_gen_params,
-> =C2=A0> 675				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_scheduler_two_cli=
-ents_attr),
-> =C2=A0=C2=A0 676		{}
-> =C2=A0=C2=A0 677	};
-> =C2=A0=C2=A0 678
->=20
-> Fix it by using a compound literal as other tests do.
->=20
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202605220312.Pu7UO05u-lkp@i=
-ntel.com/
-> Fixes: 97ef806a5314 ("drm/sched: Add some scheduling quality unit tests")
-> Cc: Philipp Stanner <phasta@kernel.org>
-> ---
-> =C2=A0drivers/gpu/drm/scheduler/tests/tests_scheduler.c | 12 ++----------
-> =C2=A01 file changed, 2 insertions(+), 10 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c b/drivers/=
-gpu/drm/scheduler/tests/tests_scheduler.c
-> index 8b2e4ef9915f..90d31888cf92 100644
-> --- a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
-> +++ b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
-> @@ -666,14 +666,10 @@ static void drm_sched_scheduler_two_clients_test(st=
-ruct kunit *test)
-> =C2=A0	}
-> =C2=A0}
-> =C2=A0
-> -static const struct kunit_attributes drm_sched_scheduler_two_clients_att=
-r =3D {
-> -	.speed =3D KUNIT_SPEED_SLOW,
-> -};
-> -
-> =C2=A0static struct kunit_case drm_sched_scheduler_two_clients_tests[] =
-=3D {
-> =C2=A0	KUNIT_CASE_PARAM_ATTR(drm_sched_scheduler_two_clients_test,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_scheduler_two_clients_g=
-en_params,
-> -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_scheduler_two_clients_attr),
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 { .speed =3D KUNIT_SPEED_SLOW }),
-> =C2=A0	{}
-> =C2=A0};
-> =C2=A0
-> @@ -858,14 +854,10 @@ static void drm_sched_scheduler_many_clients_test(s=
-truct kunit *test)
-> =C2=A0		drm_mock_sched_entity_free(client[i].entity);
-> =C2=A0}
-> =C2=A0
-> -static const struct kunit_attributes drm_sched_scheduler_many_clients_at=
-tr =3D {
-> -	.speed =3D KUNIT_SPEED_SLOW,
-> -};
-> -
-> =C2=A0static struct kunit_case drm_sched_scheduler_many_clients_tests[] =
-=3D {
-> =C2=A0	KUNIT_CASE_PARAM_ATTR(drm_sched_scheduler_many_clients_test,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_scheduler_many_clients_=
-gen_params,
-> -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_scheduler_many_clients_attr)=
-,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 { .speed =3D KUNIT_SPEED_SLOW }),
-> =C2=A0	{}
-> =C2=A0};
-> =C2=A0
+> 
+> I also wonder whether struct qcom_pas_context is exposing some
+> implementation-specific state. Fields such as ptr, phys, size, and
+> use_tzmem seem to describe how the current SCM/QTEE implementations manage
+> metadata memory, rather than generic PAS state. For another backend, the
+> per-operation state might be a tee_shm, an FF-A memory handle, shared or lent
+> memory state, or something else transport-specific.
+> 
+> Would it make sense to keep only the common PAS fields in
+> struct qcom_pas_context, such as dev, pas_id, and possibly the firmware
+> memory address/size if those are truly generic, and add a backend-private
+> pointer for implementation-specific state?
 
+Currently, the 2 backends can re-use parts of the PAS context but I
+agree more abstraction can be done as needed for future backends.
+
+> 
+> I may be missing a reason why the pas_id-only callbacks are preferred, but if
+> this is intended to be the long-term generic PAS layer rather than mainly a
+> shim over the existing SCM API shape, using the context consistently and keeping
+> backend-specific state private seems easier to extend.
+
+As I mentioned above, the generic PAS layer isn't fixed but it will
+surely go through evolution as needed. Current abstraction handles the
+existing client driver and backend requirments.
+
+Moreover the subsystem maintainers are already complaining about this
+series being too large for the merge to happen.
+
+-Sumit
