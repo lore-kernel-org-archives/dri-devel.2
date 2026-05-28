@@ -4,76 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 888D4CD4F54
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 15:46:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82FF3CD5BD5
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 16:00:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA03C10F3C9;
-	Thu, 28 May 2026 15:46:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E507610F3C8;
+	Thu, 28 May 2026 16:00:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="R0mlm6TV";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="av48r/vt";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66CC810E27F
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 15:46:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779983187; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=GHWMHdoWNcU15l0hvRveP46RyYdqPgCNIeJOJbgJI9JBobYiofMCMQDP9tkyRw47bS6196r8P9gujSO6cNJ9Ac5kv/bPGASHU7fkljblkRp5xGqhzxVFEPJvBplRIblIb4HnGhMU1zkIXRKyOlTy8syLsNSciYqlZYJrNnrZGdg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779983187;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=TdX9/bZga6Qg6ao7lAnopeSLFZmhgNqsCFRMGQo40M0=; 
- b=hnRAzfqXviyjhZIjxpBSmwxqGkCfShiXtPnNYqedxGvcMfnf2fvfm9L00qulOPvmRbankDXGxKrmhNds05DPIqHJVOPhitigUxdoObfdeZRi2AXap80Tcxqq4s4Jgja7nsUTW8KIao9gayS/yaqATsbLz2nRRej1dIwvOkRhUcc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779983187; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=TdX9/bZga6Qg6ao7lAnopeSLFZmhgNqsCFRMGQo40M0=;
- b=R0mlm6TVO+9eUKq9MnKnKU3dLEa/hEkLVmVw68chR+YqDd8tvgRJEpMlFBM5I/5b
- c6+TcHKMz7YIBp1eqtoYItnX8cbubTExtEOZ+GY+weuPi7GZAMLommCqfp7gb4Fd1hy
- 09jBTk09vbl4tp4nh1BvU45oHlAvHghEBJXyExbE=
-Received: by mx.zohomail.com with SMTPS id 1779983186292414.93444418879574;
- Thu, 28 May 2026 08:46:26 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Peter Chen <hzpeterchen@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
- Andy Yan <andy.yan@rock-chips.com>,
- Yubing Zhang <yubing.zhang@rock-chips.com>,
- Frank Wang <frank.wang@rock-chips.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Amit Sunil Dhamne <amitsd@google.com>, Dragan Simic <dsimic@manjaro.org>,
- Johan Jonker <jbx6244@gmail.com>, Diederik de Haas <didi.debian@cknow.org>,
- Peter Robinson <pbrobinson@gmail.com>, Hugh Cole-Baker <sigmaris@gmail.com>,
- dri-devel@lists.freedesktop.org, Chaoyi Chen <kernel@airkyi.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- dri-devel@lists.freedesktop.org, Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Subject: Re: [PATCH v15 2/9] drm/bridge: aux: Add
- drm_aux_bridge_register_from_node()
-Date: Thu, 28 May 2026 17:46:15 +0200
-Message-ID: <zQEH3WYtRMCn07SWaZMzgQ@collabora.com>
-In-Reply-To: <20260304094152.92-3-kernel@airkyi.com>
-References: <20260304094152.92-1-kernel@airkyi.com>
- <20260304094152.92-3-kernel@airkyi.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Received: from mail-qt1-f202.google.com (mail-qt1-f202.google.com
+ [209.85.160.202])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B71FA10F3C8
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 16:00:08 +0000 (UTC)
+Received: by mail-qt1-f202.google.com with SMTP id
+ d75a77b69052e-50edf01172bso183176461cf.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 09:00:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1779984008; x=1780588808;
+ darn=lists.freedesktop.org; 
+ h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=MmPFy91yuYd+9nLUOi1wu2JWcf7o4ksos6H5oNntzCU=;
+ b=av48r/vttmOxzH/TsgABmRsnckIguxoxSPyob0F7r+Kuefa+d+BzFqt0/bivX1Dfen
+ JAx+GgqyyQgRPHPGee+M155gebnZ+pPnjUFJPd2fZSCGE1gx9X/OfqDXLd2PJS90u9gL
+ Nl80MKUPhUVZsMcrqS6EKtBL3fdM+U47nFJ/xnSFtXZeNVnsbNbAhwwx9oW1d49wZmHG
+ mk7pZzjWFTkQ+frMLzYBEa0RuIgjRETbFTbeR1bb5l/QCgaJsYuPuxs89NebfPVhiRqp
+ pbIkOQxwqyX99C/sKfjj5uYPeav/tdR3vjTTSr32Qkuda/kQDVCs9BPO65Wkxru5FW2d
+ xrtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779984008; x=1780588808;
+ h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=MmPFy91yuYd+9nLUOi1wu2JWcf7o4ksos6H5oNntzCU=;
+ b=dzNZapNfPGecI73qmDZ6dTxM6cRyEsfh1UI6fR/M3dTb3iQS+w2H12fAn2YmlT8nmL
+ cXsaQEuhHQrKzQ9Shzg+fb1sAr8Lel2Cz1MJXZ5zMKkjWaAYxS1xlXHGbDAAumQFH8WG
+ F2uSsLQ5bGvoBpF6o9G2WdrctmlSmE5H7xKeMPqfFf+ZIFrC8jwcOZDXtLuKHp6JhlwC
+ GtEY6R8W2rEPQac1ayKdDYhdqIkEjIejhLeCY/NxBPv0m1+9fm42lNG6JcXEzKj+jFT8
+ lSmt3f7UP0/SUw7eXyZLyPBNyOYQrtKhJarxdtsy3bKNwJ05lUH6je2DXYOeQktkqs9o
+ VvBw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9HH63ClKDrGlesmzhar5FEmlnszXWJI4kAhXzgnMLLzKd+DmskzbMeqbxe+7xPsf7QlALaZ1nGtF8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YysixFYWMlSWHm/T2EtvqWRLUsyHjd7ra5evGFyBPz3/XGpfp9L
+ Zb7FRli7HDgtQhhFkQIKxPt3CVpII3gRBWV6SxckSD96ma+ah+XvUJ+xeo4j02ImWw6DBtss3ZA
+ ZcGX9jisuXSPz
+X-Received: from qtxy12.prod.google.com ([2002:a05:622a:120c:b0:516:373e:a942])
+ (user=xuehaohu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:622a:1488:b0:516:d6a4:fd69 with SMTP id
+ d75a77b69052e-516d6a4fe46mr371616761cf.12.1779984005890; 
+ Thu, 28 May 2026 09:00:05 -0700 (PDT)
+Date: Thu, 28 May 2026 16:00:04 +0000
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.54.0.794.g4f17f83d09-goog
+Message-ID: <20260528160004.2452461-1-xuehaohu@google.com>
+Subject: [PATCH v3] dma-buf: Fix silent overflow for phys vec to sgt
+From: David Hu <xuehaohu@google.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>, 
+ "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>
+Cc: Nicolin Chen <nicolinc@nvidia.com>, Leon Romanovsky <leon@kernel.org>, 
+ Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, 
+ Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ linux-kernel@vger.kernel.org, jmoroni@google.com, praan@google.com, 
+ David Hu <xuehaohu@google.com>, stable@vger.kernel.org, iommu@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,119 +83,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wednesday, 4 March 2026 10:41:45 Central European Summer Time Chaoyi Chen wrote:
-> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-> 
-> The drm_aux_bridge_register() uses the device->of_node as the
-> bridge->of_node.
-> 
-> This patch adds drm_aux_bridge_register_from_node() to allow
-> specifying the of_node corresponding to the bridge.
-> 
-> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
-> 
-> (no changes since v11)
-> ---
-> 
->  drivers/gpu/drm/bridge/aux-bridge.c | 24 ++++++++++++++++++++++--
->  include/drm/bridge/aux-bridge.h     |  6 ++++++
->  2 files changed, 28 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/aux-bridge.c b/drivers/gpu/drm/bridge/aux-bridge.c
-> index b3e4cdff61d6..52dff4601c2d 100644
-> --- a/drivers/gpu/drm/bridge/aux-bridge.c
-> +++ b/drivers/gpu/drm/bridge/aux-bridge.c
-> @@ -35,6 +35,7 @@ static void drm_aux_bridge_unregister_adev(void *_adev)
->  /**
->   * drm_aux_bridge_register - Create a simple bridge device to link the chain
+In case MMIO size is bigger than 4G and peer2peer DMA goes
+through host bridge, we trigger a code path that assigns the
+total linked IOVA (which is greater than 4G) to mapped_len.
 
-Function name needs to be changed here as well. You can validate
-kernel doc strings for a single file with:
+Previously, `mapped_len` was declared as 32-bit `unsigned int`.
+When accumulating `size_t` lengths, this leads to a silent wrap-around.
+This truncation causes truncated lengths to be passed to functions
+like `fill_sg_entry()`.
 
-  ./tools/docs/kernel-doc -v -none drivers/gpu/drm/bridge/aux-bridge.c
+Fix this by changing `mapped_len` to `size_t` (64-bit). While
+at it, fix similar potential overflow issues in `calc_sg_nents`
+by using `size_t` for `nents` and checking against `UINT_MAX`
+and using `unsigned int` for the loop iterator in `fill_sg_entry`
+to match.
 
-With that fixed:
+Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
+Cc: stable@vger.kernel.org
+Cc: iommu@lists.linux.dev
+Reviewed-by: Pranjal Shrivastava <praan@google.com>
+Signed-off-by: David Hu <xuehaohu@google.com>
+---
+Changes in v3:
+ - Removed leftover sentence fragment from the commit message.
+ - Kept `nents = 0` initialization (previously stated as removed in the
+   v2 changelog) as it is strictly required for the `+=` accumulation
+   loop in `calc_sg_nents()`.
 
-Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Changes in v2:
+ - Fixed 'IVOA' -> 'IOVA' typo and expanded commit message (Claude Bot).
+ - Added Reverse Xmas tree formatting (Pranjal).
+ - Folded in extra bounds checking for calc_sg_nents() (Pranjal).
+ - Folded in type consistency fix for fill_sg_entry() (Pranjal).
 
-Kind regards,
-Nicolas Frattaroli
+ drivers/dma-buf/dma-buf-mapping.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
->   * @parent: device instance providing this bridge
-> + * @np: device node pointer corresponding to this bridge instance
->   *
->   * Creates a simple DRM bridge that doesn't implement any drm_bridge
->   * operations. Such bridges merely fill a place in the bridge chain linking
-> @@ -42,7 +43,7 @@ static void drm_aux_bridge_unregister_adev(void *_adev)
->   *
->   * Return: zero on success, negative error code on failure
->   */
-> -int drm_aux_bridge_register(struct device *parent)
-> +int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np)
->  {
->  	struct auxiliary_device *adev;
->  	int ret;
-> @@ -62,7 +63,10 @@ int drm_aux_bridge_register(struct device *parent)
->  	adev->dev.parent = parent;
->  	adev->dev.release = drm_aux_bridge_release;
->  
-> -	device_set_of_node_from_dev(&adev->dev, parent);
-> +	if (np)
-> +		device_set_node(&adev->dev, of_fwnode_handle(np));
-> +	else
-> +		device_set_of_node_from_dev(&adev->dev, parent);
->  
->  	ret = auxiliary_device_init(adev);
->  	if (ret) {
-> @@ -80,6 +84,22 @@ int drm_aux_bridge_register(struct device *parent)
->  
->  	return devm_add_action_or_reset(parent, drm_aux_bridge_unregister_adev, adev);
->  }
-> +EXPORT_SYMBOL_GPL(drm_aux_bridge_register_from_node);
-> +
-> +/**
-> + * drm_aux_bridge_register - Create a simple bridge device to link the chain
-> + * @parent: device instance providing this bridge
-> + *
-> + * Creates a simple DRM bridge that doesn't implement any drm_bridge
-> + * operations. Such bridges merely fill a place in the bridge chain linking
-> + * surrounding DRM bridges.
-> + *
-> + * Return: zero on success, negative error code on failure
-> + */
-> +int drm_aux_bridge_register(struct device *parent)
-> +{
-> +	return drm_aux_bridge_register_from_node(parent, NULL);
-> +}
->  EXPORT_SYMBOL_GPL(drm_aux_bridge_register);
->  
->  struct drm_aux_bridge_data {
-> diff --git a/include/drm/bridge/aux-bridge.h b/include/drm/bridge/aux-bridge.h
-> index c2f5a855512f..7dd1f17a1354 100644
-> --- a/include/drm/bridge/aux-bridge.h
-> +++ b/include/drm/bridge/aux-bridge.h
-> @@ -13,11 +13,17 @@ struct auxiliary_device;
->  
->  #if IS_ENABLED(CONFIG_DRM_AUX_BRIDGE)
->  int drm_aux_bridge_register(struct device *parent);
-> +int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np);
->  #else
->  static inline int drm_aux_bridge_register(struct device *parent)
->  {
->  	return 0;
->  }
-> +
-> +static inline int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np)
-> +{
-> +	return 0;
-> +}
->  #endif
->  
->  #if IS_ENABLED(CONFIG_DRM_AUX_HPD_BRIDGE)
-> 
-
-
-
+diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
+index 794acff2546a..5bc769fc42ea 100644
+--- a/drivers/dma-buf/dma-buf-mapping.c
++++ b/drivers/dma-buf/dma-buf-mapping.c
+@@ -10,7 +10,7 @@ static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
+ 					 dma_addr_t addr)
+ {
+ 	unsigned int len, nents;
+-	int i;
++	unsigned int i;
+ 
+ 	nents = DIV_ROUND_UP(length, UINT_MAX);
+ 	for (i = 0; i < nents; i++) {
+@@ -36,7 +36,7 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
+ 				  struct phys_vec *phys_vec, size_t nr_ranges,
+ 				  size_t size)
+ {
+-	unsigned int nents = 0;
++	size_t nents = 0;
+ 	size_t i;
+ 
+ 	if (!state || !dma_use_iova(state)) {
+@@ -51,6 +51,9 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
+ 		nents = DIV_ROUND_UP(size, UINT_MAX);
+ 	}
+ 
++	if (nents > UINT_MAX)
++		return 0;
++
+ 	return nents;
+ }
+ 
+@@ -95,9 +98,10 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
+ 					 size_t nr_ranges, size_t size,
+ 					 enum dma_data_direction dir)
+ {
+-	unsigned int nents, mapped_len = 0;
+ 	struct dma_buf_dma *dma;
+ 	struct scatterlist *sgl;
++	size_t mapped_len = 0;
++	unsigned int nents;
+ 	dma_addr_t addr;
+ 	size_t i;
+ 	int ret;
+-- 
+2.54.0.794.g4f17f83d09-goog
 
