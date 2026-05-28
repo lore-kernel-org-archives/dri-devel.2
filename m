@@ -4,99 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC922CD5BD1
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 11:47:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 026A8CD6E44
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 12:01:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0FD310F078;
-	Thu, 28 May 2026 11:47:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 414CD10F0A6;
+	Thu, 28 May 2026 12:01:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="tU9vy73B";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DZm+5SY8";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tU9vy73B";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DZm+5SY8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T3XmokJC";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8B7C10F078
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 11:47:50 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3C17F6A7C3;
- Thu, 28 May 2026 11:47:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779968869; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=L+1O0gw21CMWZPg8HpjI16FZrYaEJg/EY+DS/dnv4m8=;
- b=tU9vy73BKaw5v20HSPfEOk4JJljAQxVpFsrd4m4G/ZNtIcOp1JuKOzcPk8ENGkEDdOiLwe
- cytBO0Ljsfmp4M3rQjt/x3PBqO+W2l2qpRj9advpGoSSTNRuZ6IykgA0BnQl8OTHFvZgRV
- BIJ1zNKjx14ENUdkPYMHrKEYA7NoZbE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779968869;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=L+1O0gw21CMWZPg8HpjI16FZrYaEJg/EY+DS/dnv4m8=;
- b=DZm+5SY8FzAN+l9akmKr2pm3DOCvqGbBpUTA+ZJj1HsUEbbuyvgil8A/xugpowNRqokmxd
- 614kLLoroz1lfcBg==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=tU9vy73B;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=DZm+5SY8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1779968869; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=L+1O0gw21CMWZPg8HpjI16FZrYaEJg/EY+DS/dnv4m8=;
- b=tU9vy73BKaw5v20HSPfEOk4JJljAQxVpFsrd4m4G/ZNtIcOp1JuKOzcPk8ENGkEDdOiLwe
- cytBO0Ljsfmp4M3rQjt/x3PBqO+W2l2qpRj9advpGoSSTNRuZ6IykgA0BnQl8OTHFvZgRV
- BIJ1zNKjx14ENUdkPYMHrKEYA7NoZbE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1779968869;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=L+1O0gw21CMWZPg8HpjI16FZrYaEJg/EY+DS/dnv4m8=;
- b=DZm+5SY8FzAN+l9akmKr2pm3DOCvqGbBpUTA+ZJj1HsUEbbuyvgil8A/xugpowNRqokmxd
- 614kLLoroz1lfcBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 015605AD83;
- Thu, 28 May 2026 11:47:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id zwp9OmQrGGowVgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 28 May 2026 11:47:48 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: boris.brezillon@collabora.com, igor.torrente@collabora.com,
- simona@ffwll.ch, airlied@gmail.com, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com
-Cc: dri-devel@lists.freedesktop.org,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v2] drm/gem-shmem: Immediately record writable mmap;
- drop pfn_mkwrite
-Date: Thu, 28 May 2026 13:47:36 +0200
-Message-ID: <20260528114744.463484-1-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.54.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E529310F0A6
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 12:01:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 374C860123;
+ Thu, 28 May 2026 12:01:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67A0A1F000E9;
+ Thu, 28 May 2026 12:01:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779969691;
+ bh=41DrVZ4xS7vhXVEgxGgxSNJ1PMDaMkbDls2BuQg9ydM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=T3XmokJC8kLStgVwqlglA/5Bsw+rFxERoxPBiSoVO8bZIms8ozh4thDeTAyFwitst
+ UIGIp0ohUitgCRsC8k7yEfP8GrI/6E6gYoxG0tE4qjW3eeeopRe2dLOlzgaBKPTSP7
+ /tdsUmlrCPR61I7xb/S+Y65x5DzbnZgKdJpw7u2lYfmTjRzwNhe64OGGIg9Qs1bYCY
+ gAgHkRIJAl5oJYfsVCjTubthS5zOj+vHtPu96WbgVk7NxNVxxy+GPrVbLirWbBasCQ
+ u+sJwul5IiLAT0QbVvFx10KwnGbLHDxwVBOIx0/xjU5ErZMtTdX7Gs6bs5dRYFQRVT
+ z5TRbnhQvHF5A==
+Date: Thu, 28 May 2026 14:01:29 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Helge Deller <deller@gmx.de>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, linux-clk@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, ~postmarketos/upstreaming@lists.sr.ht
+Subject: Re: [PATCH 0/3] clk: Add __clk_disable_unprepare_counts_only() and
+ use this in simple[fb|drm]
+Message-ID: <20260528-solemn-chowchow-of-psychology-cc0ae4@houat>
+References: <20260527094811.116977-1-johannes.goede@oss.qualcomm.com>
+ <20260527-flawless-chowchow-of-fruition-edbe8a@houat>
+ <496facc4-60bc-4646-b426-30e7ac545d9f@oss.qualcomm.com>
+ <20260527-armored-spiked-jacamar-0bb19e@houat>
+ <4f34c957-817d-45fe-ac13-02b98e77f010@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 3C17F6A7C3
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- FREEMAIL_TO(0.00)[collabora.com,ffwll.ch,gmail.com,kernel.org,linux.intel.com];
- RCPT_COUNT_SEVEN(0.00)[8]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[collabora.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:dkim,suse.de:mid];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="ojuvfkqckxhkyq4k"
+Content-Disposition: inline
+In-Reply-To: <4f34c957-817d-45fe-ac13-02b98e77f010@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,119 +69,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Using pfn_mkwrite breaks KVM with "error: kvm run failed Bad address".
-Seen on a Mali-G610 GPU. Fix this by marking writable mmapped pages as
-written when installing the mapping in the page table.
 
-v2:
-- remove obsolete comment new vmf_insert_pfn_pmd() (Boris)
-- fix style (Boris)
+--ojuvfkqckxhkyq4k
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 0/3] clk: Add __clk_disable_unprepare_counts_only() and
+ use this in simple[fb|drm]
+MIME-Version: 1.0
 
-Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reported-by: Igor Torrente <igor.torrente@collabora.com>
-Closes: https://lore.kernel.org/dri-devel/d89422f1-f00a-47b1-b68a-d949d6d6a974@collabora.com/raw
-Tested-by: Igor Torrente <igor.torrente@collabora.com>
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-Fixes: 28e3918179aa ("drm/gem-shmem: Track folio accessed/dirty status in mmap")
----
- drivers/gpu/drm/drm_gem_shmem_helper.c | 51 +++++++-------------------
- 1 file changed, 13 insertions(+), 38 deletions(-)
+On Wed, May 27, 2026 at 05:09:39PM +0200, Hans de Goede wrote:
+> Hi Maxime,
+>=20
+> On 27-May-26 14:48, Maxime Ripard wrote:
+> > On Wed, May 27, 2026 at 02:21:50PM +0200, Hans de Goede wrote:
+> >>>> clk_prepare_enable() is fine, the clocks are already on so no
+> >>>> ordering worries and it ensures that the clocks and their parents ca=
+nnot
+> >>>> get turned off by incrementing their enable, prepare and protect cou=
+nts.
+> >>>>
+> >>>> clk_disable_unprepare() is a problem though since it actually turns =
+the
+> >>>> clocks off. Instead something is needed which only decrements those =
+counts.
+> >>>>
+> >>>> This series introduces a new clk-core function called
+> >>>> __clk_disable_unprepare_counts_only() (1) which does just that. Pref=
+ixed
+> >>>> with '__' to indicate that normally drivers should not use this.
+> >>>>
+> >>>> Michael, Stephen sorry for needing to add a new clk-core function fo=
+r this,
+> >>>> but I see no other way of solving this (2)(3). The changes are not t=
+hat
+> >>>> big / not too bad.
+> >>>>
+> >>>> I've also considered making __clk_disable_unprepare_counts_only() im=
+plement
+> >>>> all the logic itself instead of adding the extra parameter to
+> >>>> clk_core_unprepare() and clk_core_disable() but that leads in duplic=
+ating
+> >>>> quite a bit of logic (4) so this seems better.
+> >>>>
+> >>>> The other 2 patches just replace the clk_disable_unprepare() calls in
+> >>>> the simple[fb|drm] driver with the new helper.
+> >>>>
+> >>>> This series fixes the display not coming up after switching to the m=
+sm
+> >>>> driver when a simple-framebuffer node with clocks listed is used.
+> >>>>
+> >>>> 1) I'm open to changing the name, this is the best I could come up w=
+ith.
+> >>>>
+> >>>> 2) One option considered was detaching the simple-framebuffer driver=
+ later,
+> >>>>    after the real display driver has had a chance to claim the clock=
+s. But
+> >>>>    this won't work in cases where the real display driver picks diff=
+erent
+> >>>>    parent clocks then the boot firmware did and needs to reparent cl=
+ocks.
+> >>>>
+> >>>>    Basically the goal is for things to behave as if the simple-frame=
+buffer
+> >>>>    driver was not there at all, because that leaves the hw in the st=
+ate
+> >>>>    the real display driver expects.
+> >>>
+> >>> So I know it's not really what you had in mind, but if you are only
+> >>> concerned about the transition from the bootloader to the DRM driver,
+> >>> then I think supporting the following work would help:
+> >>>
+> >>> https://lore.kernel.org/r/20260423-drm-state-readout-v2-0-8549f87cb97=
+8@kernel.org
+> >>>
+> >>> With that series, we can build the initial KMS state from the hardware
+> >>> state, which means that if you were to change the resolution at boot,=
+ it
+> >>> would be executed just like any mode change in KMS.
+> >>
+> >> Hmm, so your suggestion would be to have the initial KMS driver probe()
+> >> only do a read back without touching anything. Then claim clks matching
+> >> the read back config and then only release the simple* driver and thus
+> >> the clocks after this?
+> >=20
+> > Almost. Part of the call to drm_mode_config_create_initial_state() if
+> > needed to make it grab its resources. See atomic_install_state in that
+> > series. So probe wouldn't have anything more to do.
+> >=20
+> >> That is certainly an interesting proposal but IMHO almost orthogonal
+> >> to this one (1).
+> >=20
+> > Why do you think it's orthogonal?
+> > It would completely fix your problem.
+>=20
+> AFAICT in its current version it does not contain a mechanism to
+> delay the remove conflicting framebuffer call, so no it does not
+> fix my problem.
 
-diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-index 545933c7f712..75e9970f443d 100644
---- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-+++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@ -554,21 +554,6 @@ int drm_gem_shmem_dumb_create(struct drm_file *file, struct drm_device *dev,
- }
- EXPORT_SYMBOL_GPL(drm_gem_shmem_dumb_create);
- 
--static void drm_gem_shmem_record_mkwrite(struct vm_fault *vmf)
--{
--	struct vm_area_struct *vma = vmf->vma;
--	struct drm_gem_object *obj = vma->vm_private_data;
--	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
--	loff_t num_pages = obj->size >> PAGE_SHIFT;
--	pgoff_t page_offset = vmf->pgoff - vma->vm_pgoff; /* page offset within VMA */
--
--	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
--		return;
--
--	file_update_time(vma->vm_file);
--	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
--}
--
- static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
- 				 unsigned long pfn)
- {
-@@ -581,23 +566,9 @@ static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
- 
- 		if (aligned &&
- 		    folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
--			vm_fault_t ret;
--
- 			pfn &= PMD_MASK >> PAGE_SHIFT;
- 
--			/* Unlike PTEs which are automatically upgraded to
--			 * writeable entries, the PMD upgrades go through
--			 * .huge_fault(). Make sure we pass the "write" info
--			 * along in that case.
--			 * This also means we have to record the write fault
--			 * here, instead of in .pfn_mkwrite().
--			 */
--			ret = vmf_insert_pfn_pmd(vmf, pfn,
--						 vmf->flags & FAULT_FLAG_WRITE);
--			if (ret == VM_FAULT_NOPAGE && (vmf->flags & FAULT_FLAG_WRITE))
--				drm_gem_shmem_record_mkwrite(vmf);
--
--			return ret;
-+			return vmf_insert_pfn_pmd(vmf, pfn, false);
- 		}
- #endif
- 	}
-@@ -635,9 +606,20 @@ static vm_fault_t drm_gem_shmem_any_fault(struct vm_fault *vmf, unsigned int ord
- 	pfn = page_to_pfn(page);
- 
- 	ret = try_insert_pfn(vmf, order, pfn);
--	if (ret == VM_FAULT_NOPAGE)
-+	if (ret == VM_FAULT_NOPAGE) {
- 		folio_mark_accessed(folio);
- 
-+		/*
-+		 * Immediately record write access to the buffer. The
-+		 * natural place would be pfn_mkwrite at the time when
-+		 * the access happens, but this breaks KVM.
-+		 */
-+		if (vma->vm_flags & VM_WRITE) {
-+			file_update_time(vma->vm_file);
-+			folio_mark_dirty(folio);
-+		}
-+	}
-+
- out:
- 	dma_resv_unlock(obj->resv);
- 
-@@ -683,12 +665,6 @@ static void drm_gem_shmem_vm_close(struct vm_area_struct *vma)
- 	drm_gem_vm_close(vma);
- }
- 
--static vm_fault_t drm_gem_shmem_pfn_mkwrite(struct vm_fault *vmf)
--{
--	drm_gem_shmem_record_mkwrite(vmf);
--	return 0;
--}
--
- const struct vm_operations_struct drm_gem_shmem_vm_ops = {
- 	.fault = drm_gem_shmem_fault,
- #ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
-@@ -696,7 +672,6 @@ const struct vm_operations_struct drm_gem_shmem_vm_ops = {
- #endif
- 	.open = drm_gem_shmem_vm_open,
- 	.close = drm_gem_shmem_vm_close,
--	.pfn_mkwrite = drm_gem_shmem_pfn_mkwrite,
- };
- EXPORT_SYMBOL_GPL(drm_gem_shmem_vm_ops);
- 
--- 
-2.54.0
+The conflicting framebuffer is removed by drivers through an explicit
+call to aperture_remove_all_conflicting_devices(). Just move that call
+after the call to drm_mode_config_create_initial_state, there's nothing
+to integrate.
 
+> >> Even if it may fix the issue in the end, it seems that that work is
+> >> still quite a way from going upstream
+> >=20
+> > It's likely to be merged in the next few weeks.
+> >=20
+> >> and even then initially it only potentially fixes this for the TIDSS
+> >> driver since that solution needs a lot of per driver work.
+> >=20
+> > I mean, yeah, but the good thing is that you only have one driver to
+> > care about, right?
+>=20
+> I would prefer my proposed KISS solution, which works everywhere, over
+> your quite complex solution which requires complex per driver changes.
+>=20
+> When I was still working on:
+>=20
+> https://fedoraproject.org/wiki/Changes/FlickerFreeBoot
+>=20
+> I needed to constantly fix i915 fastset support and when I stopped
+> fixing it due to -ENOTIME it pretty much was broken most of the time.
+>=20
+> Last time I check modern (Alderlake +) laptops never had working
+> fastset support and there always is a visible most set on newer
+> laptop models because of this.
+>=20
+> This state-readback stuff is quite complicated, as the list of
+> known issues in your cover-letter shows.
+
+It's kind of a bad faith argument. This list is 4 issues. One is getting
+fixed in the next version, the other two are specific to tidss which you
+don't care about.
+
+> I wish you all the best with it, but I really do not see this as a
+> good alternative for fixing the issues *this* series tries to address
+> given the huge disparity in complexity between the 2 fixes.
+>=20
+> I'm also worried that the readback stuff is likely going to be fragile
+> so might end up being disabled or automatically detect some issue and
+> disable itself at which point we're back to having the original
+> problem this series tries to fix.
+>=20
+> Also atm AFAIK there are no plans to add state readback support to
+> msm and there are a lot of other higher priority items to work on.
+>=20
+> ###
+>=20
+> Anyways since your patch-series will not work for msm in its
+> current state, I would still very much like to hear from the clock
+> maintainers what they think of the approach suggested here.
+
+I really don't get this argument either. Sure, it doesn't work for msm.
+But the clock framework didn't have that unsafe function call either,
+and yet you did the work to add it.
+
+Maxime
+
+--ojuvfkqckxhkyq4k
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCahgukgAKCRAnX84Zoj2+
+dmPbAX9kzaVNfopFtItZV7bN6W6OTPHb5TksLkDo8ZT/Mn1fLV3o+Tpco8mLqNLr
+KfJSRvoBf35JDMX2p9pZNDE+xIK8FSS13TguR1SqQA70p96NkUhuEXNLwold4Y2/
+bqsqrKK8HA==
+=mMoe
+-----END PGP SIGNATURE-----
+
+--ojuvfkqckxhkyq4k--
