@@ -4,128 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D660DCD5BD1
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 09:14:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDCA1CD5BD1
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 09:16:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4087610E100;
-	Thu, 28 May 2026 09:14:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3522710EE9E;
+	Thu, 28 May 2026 09:16:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kcWzvgsk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kjzqMZ0i";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011004.outbound.protection.outlook.com
- [40.93.194.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1EDA10E100
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 09:14:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Vnh8L8DO2XHFBlOEzhS7USq5YEO40MKI2YrpT88xdoy29U31JiHHLdL65E3ljb1Uy9KM/DA9QmIPRAcxAJeW5+CyVnMBgst49k21QmGkarjrM1rT8X4rJQEsc/8SY05IIhGD+ihXpdsJu7RQnGnT04LEbN4Z7UOPnlG//mylI3ure0Xa3QD37mud1thjJnqfKQM9cfiKXpR75guF0swqs+2kYYDQL2Pannx6VJXIO7dMY9xi+MpyYSRwJ307xV81iB1/9eQlkcJF8HWbkIhjHXDdsRFA9VGR+MxbS3spjkFUg8+Grj8VK0VLaijVh7X4T2WOF4ldKAcbDmzY48Cg/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rWOxMJQONzhI0cs4N1MlVuiw42Ffn+es+On8Pn6LyS8=;
- b=catlaNm8d6lTgmeDe46ki4a2IbU0Q5xl+ftuHdA8rleAymeA1VGug9MbS/UDvw/QL6QeluBK42hjArAciJ/j7fxID0Sfyh0eziKmMKs7b6QMwMiNcpMUSSyjjFOiPT45A2fYJ+nZYJVpgHGGpL8dD8EzB/gIYZy1u49jg9MmeNQq83vgrluLX9/xdw48Pc/af6cT9uAaM/ixQaUO2Sagc71+EXDYGu8jE+I8AhFDN/dbyai/tceoqv9UnmkaRrcFCEAmh+9DiwBZG7CK6Xu3DOzm/qDTLX8PmZnnfT4K7uOL5f9q6ETEa4f2U646HqleTpOmc5QZ3qtj+M1jB9nfWg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rWOxMJQONzhI0cs4N1MlVuiw42Ffn+es+On8Pn6LyS8=;
- b=kcWzvgskklpaGUiOcAGeNO5SqRUle833lBIhjpXzof5XALcbqNi6ZItqjLYNUECD3AgXaOZWZgNam9H7bbTLth5e1emKKDZVvm84R6bB8chxyGAztd9zDDia+rK45FlVM/7z8hdl/j6tVApwo+iLVAXDM+VIZIp6OE1grOUKMkU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB8197.namprd12.prod.outlook.com (2603:10b6:8:f1::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Thu, 28 May
- 2026 09:14:38 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0071.011; Thu, 28 May 2026
- 09:14:38 +0000
-Message-ID: <0e12ce28-f5b7-4ffa-849c-df9ad1796e22@amd.com>
-Date: Thu, 28 May 2026 11:14:32 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5471D10EE9E;
+ Thu, 28 May 2026 09:16:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2F68843F75;
+ Thu, 28 May 2026 09:16:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB9BF1F000E9;
+ Thu, 28 May 2026 09:16:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779959772;
+ bh=ZS5mdGBUp9CWgagmhtWPpgUc1bksbZ1JeQXfzhQg4/c=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=kjzqMZ0iYUcAMeOp1Hxvzwn3xuYHg95O5ARGQoara35a1RzQsMjBSbwiJ2K/UjBdw
+ W/YWIS1sk4MJzqYPX7OHOzqRWeK+3Oh9yS8tXK5JwtAUsAa+TfZX5LndWVGrLUbn4L
+ FJTqBsU7Ce067NcD14cVHe+6wHnmbZz0H1dgjUwt9zCg1EXGBD02o9TDqbUvJ0CtCR
+ TfC1/sfVcwFzhQzGttl6LMDERb2BPCX/jOweHkTIXtasFj19R3DoxXEyyIWm/69wVn
+ MuRF8BWDOw23MUvbeiAedX20W/xSco9SwAyaUhsMHIee5+7D0OyIAONtf4F1l+yQa8
+ ZFFhr/O5cIz6g==
+Message-ID: <bc7e1123-35bd-4bc2-a6e5-39f76d9722b0@kernel.org>
+Date: Thu, 28 May 2026 11:16:07 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/prime: Fix unsupervised rb_tree corruption in
- drm_prime_remove_buf_handle
-To: w15303746062@163.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- sumit.semwal@linaro.org
-Cc: jeffy.chen@rock-chips.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, Mingyu Wang <25181214217@stu.xidian.edu.cn>,
- stable@vger.kernel.org
-References: <20260528082912.1051262-1-w15303746062@163.com>
+Subject: Re: improve the kmem_cache_alloc_bulk API
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260528082912.1051262-1-w15303746062@163.com>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Harry Yoo <harry@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+ David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Jesper Dangaard Brouer <hawk@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, io-uring@vger.kernel.org,
+ kasan-dev@googlegroups.com, bpf@vger.kernel.org, netdev@vger.kernel.org
+References: <20260527070239.2252948-1-hch@lst.de>
+ <ee817070-cc7a-40d5-92a4-2bd8e9e65fbe@kernel.org>
+ <20260527122148.GA6838@lst.de>
+ <482ee03a-c5b3-4873-a550-cc5743068616@kernel.org>
+ <20260528090508.GB8376@lst.de>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ xsFNBFZdmxYBEADsw/SiUSjB0dM+vSh95UkgcHjzEVBlby/Fg+g42O7LAEkCYXi/vvq31JTB
+ KxRWDHX0R2tgpFDXHnzZcQywawu8eSq0LxzxFNYMvtB7sV1pxYwej2qx9B75qW2plBs+7+YB
+ 87tMFA+u+L4Z5xAzIimfLD5EKC56kJ1CsXlM8S/LHcmdD9Ctkn3trYDNnat0eoAcfPIP2OZ+
+ 9oe9IF/R28zmh0ifLXyJQQz5ofdj4bPf8ecEW0rhcqHfTD8k4yK0xxt3xW+6Exqp9n9bydiy
+ tcSAw/TahjW6yrA+6JhSBv1v2tIm+itQc073zjSX8OFL51qQVzRFr7H2UQG33lw2QrvHRXqD
+ Ot7ViKam7v0Ho9wEWiQOOZlHItOOXFphWb2yq3nzrKe45oWoSgkxKb97MVsQ+q2SYjJRBBH4
+ 8qKhphADYxkIP6yut/eaj9ImvRUZZRi0DTc8xfnvHGTjKbJzC2xpFcY0DQbZzuwsIZ8OPJCc
+ LM4S7mT25NE5kUTG/TKQCk922vRdGVMoLA7dIQrgXnRXtyT61sg8PG4wcfOnuWf8577aXP1x
+ 6mzw3/jh3F+oSBHb/GcLC7mvWreJifUL2gEdssGfXhGWBo6zLS3qhgtwjay0Jl+kza1lo+Cv
+ BB2T79D4WGdDuVa4eOrQ02TxqGN7G0Biz5ZLRSFzQSQwLn8fbwARAQABzSNWbGFzdGltaWwg
+ QmFia2EgPHZiYWJrYUBrZXJuZWwub3JnPsLBsAQTAQoAWhYhBKlA1DSZLC6OmRA9UCJPp+fM
+ gqZkBQJqFFy6GxSAAAAAAAQADm1hbnUyLDIuNSsxLjEyLDIsMgIbAwUJGtCBUAULCQgHAwUV
+ CgkICwUWAgMBAAIeBQIXgAAKCRAiT6fnzIKmZJIUEADFx/tREzUImHrEwVHeSvDFmA7tJysI
+ UVrlvrM09E7GIuzphzv7jYmo8n3ANpCczLEVr4G0syYQdTigaZgv3+FQDIIzhKih1IHhu1Ei
+ XHlywNWKnQxxQEUNi5Mwx43wQz5XVw9F1A7gtKBKNtfogO511hAbrzagrYajyQacEJ/+sfhZ
+ 9Da8ltHIXD8pcYaHUfQgEusCgmEd9+KrUwrTbckFKmYq5chuE6yJ4J0EmWknL096jIE6CnzF
+ FRslQ3B1UKDjxVsm1ZHfir5NeWszLkTvGFsddFaWTgh8UycESG6VQzKXjjewXu2pG7YQYRpj
+ QKm1W5X2TkwWkXRBZTmfmbhxIUMh3+zf5wQ463rSmDN/8v81tdqBtAW6rH/kzg1GvkaTHXn0
+ 507yEHFzBksk2viAuIxxr7km8+/KARYLIdGtx30EG8cKzAUZOK6WqxtNCsXUJNrVE8CWrCaD
+ icoNu7Fs1c5hmPHdSTnU48ce67449DdnO4neLSNhRiGlMHJgfJUmgrxu/hcYeOZ3haWmEQ2w
+ uW1Mh01OHi8QZHCEyAbABrPs9GUgccc/4eYXX9hIgxfSkYzn8f+8NuIFPWl/0uTvjgqU29FQ
+ SbzOLxHq9439Ox40G5mS5eZXRGxITYR+6TXvRGI6P/264jvflnr/pDGUttaikU+0W+1uxgKH
+ cmYbEc7ATQRbGTU1AQgAn0H6UrFiWcovkh6EXVcl+SeqyO6JHOPm+e9Wu0Vw+VIUvXZVUVVQ
+ La1PQDUi6j00ChlcR66g9/V0sPIcSutacPKfdKYOBvzd4rlhL8rfrdEsQw5ApZxrA8kYZVMh
+ FmBRKAa6wos25moTlMKpCWzTH84+WO5+ziCTsTUZASAToz3RdunTD+vQcHj0GqNTPAHK63sf
+ bAB2I0BslZkXkY1RLb/YhuA6E7JyEd2pilZOrIuBGl/5q2qSakgnAVFWFBR/DO27JuAksYnq
+ +aH8vI0xGvwn75KqSk4UzAkDzWSmO4ZHuahKtQgZNsMYV+PGayRBX9b9zbldzopoLBdqHc4n
+ jQARAQABwsF8BBgBCgAmAhsMFiEEqUDUNJksLo6ZED1QIk+n58yCpmQFAmfIHFQFCRYU6J8A
+ CgkQIk+n58yCpmS2PA//bqN1LfcotmArgElsa+0EGZSQlYgK48pm8WAeTXTngudP9IJ4SuKY
+ HR5RNjHcBeqN+Me0zxRqYzRb8nGanHEkDyf4Im8DQM8d6vbyU+FcPmG4skud4kgS1zMHnlVd
+ SXfSIwKC/hKgdHG8aBV7545Lz9X6Iohea+94wneD0aw/hqF+QWewGZhWJriWAZtvEkzNjQOi
+ 4U9F/trLten/x7bpphDSnDMKJtITbtzATT1Dq7o7VpIUK1nCTQALMuMjKCdi8OdU/+V+R3O4
+ 0PXWvX8qrvqYapVbZ+9KqT74FsuB0Ya9uXwgBF2Q6cRuETZk5vqaqKxzqoQZCO8AOz/58j6O
+ 2RHNy/mZEN+7tJ5Tsq42zVJ4jxsT8b9YplavCMsnBgDeRWhcbYhCyttoL7nYISyWg4kQYZ/P
+ wIV3OuNv2f8iKYsxNsRuClOAF82+gvqOy1/1pprFjy8uo2pkoOrb63aOP3vO5VHnRKgra6dq
+ NcaZ+c6J4H+nEJGi2SkHAUJz5oBzuThvPudLvPA/SK8sKoM01IRxSihev/S/5WLazXB1PGem
+ OCbvzC1IjWJJraxiDJ5IygokapUa2RP7+WBR22skQ3SSl6G107QgWKSyTOGWEaRmV53vxQLV
+ jXuCmzSSasTL60zq5yGrT4/DYQVSNEUiUbG4pYekxJujNeEDkUlky0Y=
+In-Reply-To: <20260528090508.GB8376@lst.de>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0085.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1f::22) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB8197:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e7f744e-4304-4a92-0986-08debc998ae3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7416014|22082099003|18002099003|6133799003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: 78pmr9sfa4PcUSTZMoVU/faa66zNjhuU4t++Sv3lc3WFvIGOpJRvwyrC+xvu41gBICpq1FZQd9g15HJA936E96Y2NvHcV5vS14XQUNUj/Un7XjmLp0IzM1PB1ZStthp1c1A9ZHOGwZONaaRQ7Z8en2p1+dYCuhTk53BUiKAJIa6eIPdU5zGY8+RzVAvuPrZtgxQZQvAdfJCl/BXOFZVTAZsrIqoZKRmaD365WDUR15Hf+XzZn38+9V4GGBF7I1VVHxz2D7SioK0SYCD4e3Oho5hW+E696isnRwoGnHKlV2HWfjisno+JgmaAPVTbXSOpmqyiMpODPImEgAqjxp4EP9vdzX8Nh8Fq406U/WXSgDLXXvUOstjr2W3P1vhyZ8ueF7K1hZuG0cnn+g3oPOm4LugQWXIko4GPIsDNhz+ucOG5oAcZhMeSak8v86i9Xn8pP22JBAJTb2qn6npI/byn7guNolzwz3N279RyP25BP7B2alQbH+uPOeyTffo7xX68VbcApmPzbiwBAQMoaLXP5vPobGTuREuxHbGuA/Oe+scNVs9xvPtgPkCCx+L7o0p4e4zAVfVugIzjeOT33Fdp+SBzFudL8HeZXKu7bPMwxU5nFb6SeyIHYfxVW6TG70svAkB/1SjxxCiDKWtRb1Yf03OgtZFRBojW9W+bKpxd+/M8LvQRo6bbd5++QcHowUgU
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014)(22082099003)(18002099003)(6133799003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WFZMY2U0NjFQSUlIcjR5UDFCZmZkanNNMkZjblBXZFlUeDNyYjRaZDlibVRG?=
- =?utf-8?B?N3Q2WTVjQVZCUzRSSVZ6dDdyeFA2VVhpcElpMFJPVGxSbVFqSzNWSVl4bzdx?=
- =?utf-8?B?TjRqQzRRdFdGS3JWeEczM2JLeEo5UHgrOU9ZN3FKVWVaTlRtWGRWWldEeE1o?=
- =?utf-8?B?SEphSGh1MmpXUFdHbFVHVnd0ZXlHRHpmUERNT3B2YksyYkp1d3RSNWRqZVVu?=
- =?utf-8?B?S1lMWXdHaFF4Z1NDU0w1WEVvMEtaYzJyUXVrMEEwQzhwOUd0UUF5WkxrT0pJ?=
- =?utf-8?B?UlFqRWhuYk84TU1TZHQzd0ErVTBOMTIya2s3aTNqVHp1REtkbkZmWkZVcmxl?=
- =?utf-8?B?cEx5TXlZa1NJTTFkMG1zNDFUc3Y1UEZ3L1p4YUZSdGN6dnA4U1RxclBpaGVs?=
- =?utf-8?B?TnQvckpNbnB1TVMrdVp6UHRGcENaZVc2N2VEQU5PQnhZdzFoV2Jqd3JxLzA3?=
- =?utf-8?B?SU11OE5BNm9scGdvOE5iRXJwU0djSkxBSEYyOGZ6WGpwdjRHRGd0Ujg2U2JH?=
- =?utf-8?B?bWxPK2RicFRVcm1IT0FXOEFBaVFIc1R5U0dQNCtYWXRSeXBkSEtMNUlsWlUy?=
- =?utf-8?B?MUN3MlBHS214UG1MMWpjakUxMUNRTmorM1JNNjhDcmlhdzQ1VkxvN0FrR05W?=
- =?utf-8?B?S25Hd2V3SFF0OUw2RXBUaERCR0hsTEhibWltY2RtaDQ5Sm5odlVHSVBOU2pI?=
- =?utf-8?B?alg3YXdhSENJN0pLVHVGSXVvNE9ONk1CbVMwYWNZZjNwT1h3Q3A0SkFyZ3RW?=
- =?utf-8?B?azFia0NpVmMzL0d2TGJrS0hpNU8xc2pURWpqT0RsOHBOWmlkMlA3eDk4ZUxo?=
- =?utf-8?B?dmEvcWVEL2VzQUtJWWxiOEs3d05sT01xYm1SK1FMdTBSQ1FyeE1hRVpQYWlY?=
- =?utf-8?B?dndqMll0VktRVHdyWjBxNytsQzdqWDdGc3pNV3lURUhndEdiemJleTRFazU1?=
- =?utf-8?B?eXBaN3FIUlhmdUZSZFA2dDRUdWQxdmJSN2kzeW15eVEvWnZhOCt6Z1Rsa29M?=
- =?utf-8?B?L0tzdEdHdHRwSWpLeUk0dEJvaEh0ZlpWQW9ZZW9CQzdSOG03VERYODlTbnZ2?=
- =?utf-8?B?TW4wS3JKS3RKQlg2VEdzTmJEa0FaT0NLdE5tU3ZTbFlUMW8rMFVtTWh5bHF1?=
- =?utf-8?B?THJzZ0Z0c3ArQTFhY0dFR3RDS3ZTMnoxTi9BZGRrQkEzRXMvd0I0K3dqL1Nv?=
- =?utf-8?B?NHZ0b004ZDZKU1R2ZnJmUEQvTTBRRzJtb2tyT1NjQUVFdnNQekxwZWloT1RV?=
- =?utf-8?B?Q0hVQmprZDgxSEhKUHBiYkZqbHBiTmNuSGVNamNkYXphMUUyQ1lTRnBFUlM0?=
- =?utf-8?B?MkJjVnBGazJURzM3dXV0emlzcUxwNHBpTXdFZytCRnZsbUp6OVUzRlRHVXZ3?=
- =?utf-8?B?QWVNVFFYMTE2OEFBWlM3Ny9hNnpsMVU2VzQ1Rm1Ta1FHZ2tLWHNTaEVvY0ND?=
- =?utf-8?B?MEplSCt2NFRsRDJWVjRZS1NZT2ZBam5lVHZvalY0ZlhkK3JGanFyZEI5aWk5?=
- =?utf-8?B?UnJLQ2tTSmpKeUNZTVIvMzgvQjM0djNoR2ZrK2NVeU93dHRUcDdVRnVzTEFJ?=
- =?utf-8?B?QTkxT01VbHRaUFdGWHdRejJhOEswTk1WZllNbG1XYitxN1BId1ZzSi9lU2s1?=
- =?utf-8?B?OEc5RitKV0d0V0N2WTIzV2lxMzlEK0JXS3pEeWVkeTBSdGlkTmxYWUZNdmty?=
- =?utf-8?B?WVo0UERmdlUwVWw0VzJJbDExSnV4VG43TjJaempMbHdUSWVaSHpXdzBYbHEv?=
- =?utf-8?B?MDg4SWtTT0J0SWRWZk1EY3BmTGwwN0I4SnFlUXJWd2h4ZnkyaytOZmNMRXFz?=
- =?utf-8?B?b1FCcDFHVGY1K3d0Nll0Z3BrKzd4R1lMc1VCK0pWMXlNT3JHOGVDMTVKd215?=
- =?utf-8?B?UStkQ0g0bTU4MFZCc0taSnZJVjJLMnRlMUx0ZFJVeDRoMUZqOVNlOElOMFNL?=
- =?utf-8?B?dElYMWpvQjFUSzBFRCs2Znl1VmVycncyT3V4YzBreHZkTmRnazZPUDVNaHNr?=
- =?utf-8?B?MVJ2N215OHlyV2hqdzk1bUJvRW1raUVIV1U1SWplOTc0NXNlRzl3dmdPSHd3?=
- =?utf-8?B?TlUwc3NCVnBlZHdBWVp6bjROS2lEbkNSa3ZzQnZ5SzlSTWJBWTlUTHo2d0pi?=
- =?utf-8?B?ZlYwempzOHUybmlRVDdTSUtEQUFpYjgwcUducDBzSEZJS3BJY2dueitRUVUr?=
- =?utf-8?B?ZUowZUdldUtYTW1wVE5DKzROSG9Vdkp3a3E0UmRpZHZGSUE1VEVwYnFIZko5?=
- =?utf-8?B?NVFERU1JOWJlTEZvOGgzSUhkdGJkMjVlOEw0UUxPa3p4eGZMTmQxVjhjNVN6?=
- =?utf-8?Q?g3Xg3oDSWyy8kYyBUw?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e7f744e-4304-4a92-0986-08debc998ae3
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2026 09:14:38.1681 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zT4FWnKElPuqmRbry7C4OtwgDBGDX7MP5k3AxQfrA3cnMqcxNXr4cbiKCO/LjfMj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8197
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,110 +108,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/28/26 10:29, w15303746062@163.com wrote:
-> From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+On 5/28/26 11:05, Christoph Hellwig wrote:
+> On Wed, May 27, 2026 at 04:07:12PM +0200, Vlastimil Babka (SUSE) wrote:
+>> commit 46dea1744498 ("slab: refill sheaves from all nodes") from this January.
+>> Previously it was just interrupts enabled.
+>> 
+>> > but by requiring separate functions so I somehow doubt that was meant.
+>> 
+>> Yeah, it's expressed by the _nolock variants. But slab propagates it internally
+>> by the gfp flags, and since 46dea1744498 it affects kmem_cache_alloc_bulk().
 > 
-> Syzkaller fuzzer triggered a kernel panic via a WARNING in
-> drm_prime_destroy_file_private() due to a non-empty prime rb_tree.
-> 
-> The root cause is a complete lack of synchronization in the teardown
-> path. While the import path (drm_gem_prime_fd_to_handle) holds the
-> &file_priv->prime.lock during lookup and insertion, the deletion path
-> (drm_prime_remove_buf_handle) traverses and mutates both the 'handles'
-> and 'dmabufs' rb_trees without acquiring any mutex.
+> So what are the GFP flags that affect spinning?  I can't find anything
+> related to that in either Documentation/core-api/memory-allocation.rst or
+> include/linux/gfp_types.h.
 
-That's just simply incorrect, drm_prime_remove_buf_handle() is called with the lock already held.
-
-See drm_gem_object_release_handle():
-
-        mutex_lock(&file_priv->prime.lock);
-
-        drm_prime_remove_buf_handle(&file_priv->prime, id);
-
-        mutex_unlock(&file_priv->prime.lock);
-
-So the patch you propose here is just nonsense.
-
-What tree are you working on? Could it be that this is something specific to a certain version.
-
-Regards,
-Christian.
-
-> 
-> When multiple threads concurrently close GEM handles or interleave import
-> and close operations, the pointers and balance states of the rb_tree
-> nodes get corrupted. As a result, certain members are erased from one
-> tree but remain orphaned in the other. Upon process exit, the final
-> sanity check triggers the WARNING.
-> 
-> [    448.919314][T19739] ------------[ cut here ]------------
-> [    448.945387][T19739] WARNING: CPU: 0 PID: 19739 at drivers/gpu/drm/drm_prime.c:223 drm_prime_destroy_file_private+0x43/0x60
-> ...
-> [    449.056535][T19739] Call Trace:
-> [    449.056544][T19739]  <TASK>
-> [    449.056553][T19739]  drm_file_free.part.0+0x805/0xcf0
-> [    449.056652][T19739]  drm_close_helper.isra.0+0x183/0x1f0
-> [    449.056677][T19739]  drm_release+0x1ab/0x360
-> [    449.056719][T19739]  __fput+0x402/0xb50
-> [    449.056783][T19739]  task_work_run+0x16b/0x260
-> [    449.056883][T19739]  exit_to_user_mode_loop+0xf9/0x130
-> [    449.056931][T19739]  do_syscall_64+0x424/0xfa0
-> [    449.056977][T19739]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> [    449.057268][T19739]  </TASK>
-> [    449.057295][T19739] Kernel panic - not syncing: kernel: panic_on_warn set ...
-> 
-> Fix this by acquiring the prime_fpriv->lock mutex around the rb_tree
-> lookup and erasure logic. To respect the locking rules and avoid potential
-> deadlocks with driver-specific memory cleanups, assign the target node to
-> a temporary pointer and defer the dma_buf_put() and kfree() operations
-> until after the mutex is safely dropped.
-> 
-> Fixes: ea2aa97ca37a ("drm/gem: Fix GEM handle release errors")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-> ---
->  drivers/gpu/drm/drm_prime.c | 13 +++++++++++--
->  1 file changed, 11 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-> index 9b44c78cd77f..26319c638e0f 100644
-> --- a/drivers/gpu/drm/drm_prime.c
-> +++ b/drivers/gpu/drm/drm_prime.c
-> @@ -190,6 +190,9 @@ void drm_prime_remove_buf_handle(struct drm_prime_file_private *prime_fpriv,
->                                  uint32_t handle)
->  {
->         struct rb_node *rb;
-> +       struct drm_prime_member *found = NULL;
-> +
-> +       mutex_lock(&prime_fpriv->lock);
-> 
->         rb = prime_fpriv->handles.rb_node;
->         while (rb) {
-> @@ -200,8 +203,7 @@ void drm_prime_remove_buf_handle(struct drm_prime_file_private *prime_fpriv,
->                         rb_erase(&member->handle_rb, &prime_fpriv->handles);
->                         rb_erase(&member->dmabuf_rb, &prime_fpriv->dmabufs);
-> 
-> -                       dma_buf_put(member->dma_buf);
-> -                       kfree(member);
-> +                       found = member;
->                         break;
->                 } else if (member->handle < handle) {
->                         rb = rb->rb_right;
-> @@ -209,6 +211,13 @@ void drm_prime_remove_buf_handle(struct drm_prime_file_private *prime_fpriv,
->                         rb = rb->rb_left;
->                 }
->         }
-> +       mutex_unlock(&prime_fpriv->lock);
-> +
-> +       /* Defer resource release outside the mutex to prevent deadlocks */
-> +       if (found) {
-> +               dma_buf_put(found->dma_buf);
-> +               kfree(found);
-> +       }
->  }
-> 
->  void drm_prime_init_file_private(struct drm_prime_file_private *prime_fpriv)
-> --
-> 2.34.1
-> 
-
+See gfpflags_allow_spinning(). The usage by slab and page allocator users
+was meant to be via _nolock() variants, not by removing the flags when
+calling the normal functions, hence it's not documented. But the abstraction
+has now leaked in the kmem_cache_alloc_bulk() case, hm. I think instead of
+documenting that, we should adjust the implementation in slab, if possible.
+I'll try to look into that.
