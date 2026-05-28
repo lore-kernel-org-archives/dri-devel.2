@@ -4,53 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 551A2CD6E44
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 12:42:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 388A6CD6E44
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 12:42:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 735FA10F121;
-	Thu, 28 May 2026 12:42:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CF5510F123;
+	Thu, 28 May 2026 12:42:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="GHsVZzXZ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="i4YW9vdD";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C6A710F121
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 12:42:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
- Message-ID; bh=eqfs4KK63S0TOSE6+RLu6s71mPduUVA0LxwjeQ2pykI=; b=G
- HsVZzXZP50EnuqFQuNvCHI6wfii4vWJ4d7KHSxs48eUIZPyebzqW4Lgq4v9Bch5P
- 2UZk9RAZiY1NA8/ZEsZVYV32CsHmjMDBgVLJbwf76fSQRk8Z6wAASFLbJmovgZIM
- 9/VXNvA0/xCFgxRDEQwxvOMbAnKCNojagTnpAXz+WM=
-Received: from w15303746062$163.com ( [113.200.174.80] ) by
- ajax-webmail-wmsvr-40-149 (Coremail) ; Thu, 28 May 2026 20:40:44 +0800
- (CST)
-X-Originating-IP: [113.200.174.80]
-Date: Thu, 28 May 2026 20:40:44 +0800 (CST)
-From: w15303746062  <w15303746062@163.com>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- sumit.semwal@linaro.org, jeffy.chen@rock-chips.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- "Mingyu Wang" <25181214217@stu.xidian.edu.cn>, stable@vger.kernel.org
-Subject: Re:Re: [PATCH] drm/prime: Fix unsupervised rb_tree corruption in
- drm_prime_remove_buf_handle
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <0e12ce28-f5b7-4ffa-849c-df9ad1796e22@amd.com>
-References: <20260528082912.1051262-1-w15303746062@163.com>
- <0e12ce28-f5b7-4ffa-849c-df9ad1796e22@amd.com>
-X-NTES-SC: AL_Qu2cC/WcvUgv4iabZukfmU0Qguw9Xcq5uPkj34FWN5t8jCLr2iAKW0JFIHb04eyMFRyerjiMcBZ1+ONjdJh8W6EFDzOAp66oJV0VScdoN1osUg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98C5E10F121
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 12:42:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779972137; x=1811508137;
+ h=from:date:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=KJ4bXx5Jhw4lK4DMTDthJ7vwOLfI0qyGPlE0N0k3tkE=;
+ b=i4YW9vdD7W0uCDQJxrjpF9ppmLGdeRFu1Wd0y7CZotQgaAzevHE/Kdly
+ 0wkw+qskggy2F3wWUdyx7f4E0nFFeyo+Ow6NHed3JDi1SzoWfLy/T0/Xs
+ sKKW7LtxHt7f7ctc35PxQaFaoNO8vPfkta2Xo9akjz5oJtUPWmMZP9Zo+
+ OIops5LuFVX6QcATbOYlQQGjpKe6UHDUWcT6c8Z1rCe1ZJA0QiTpc1U2A
+ XoSqcnw9vErUNVrHTk5OekV4SPVTZJkGuSsv49W0SvOpA1G/QQO1r7Ldj
+ GyCbqJnm6IYAqJhoSwlfAXztiseGzdg8dwAetmtME66wEuPqAs+u9MgDj w==;
+X-CSE-ConnectionGUID: qwg6RLTwQhCyxxE/xl1k6A==
+X-CSE-MsgGUID: NTqpz6gjQpavuthbfzdx/g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11799"; a="79960826"
+X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; d="scan'208";a="79960826"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 May 2026 05:42:17 -0700
+X-CSE-ConnectionGUID: Zgvm9re8QNyOT84HzR7Xsg==
+X-CSE-MsgGUID: VOwf1bD0QlSg9PmMEtsr2w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; d="scan'208";a="242634568"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.187])
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 May 2026 05:42:08 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 28 May 2026 15:42:04 +0300 (EEST)
+To: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
+cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org, 
+ krzk+dt@kernel.org, conor+dt@kernel.org, 
+ Herbert Xu <herbert@gondor.apana.org.au>, davem@davemloft.net, 
+ neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, 
+ simona@ffwll.ch, jikos@kernel.org, bentiss@kernel.org, 
+ luzmaximilian@gmail.com, Hans de Goede <hansg@kernel.org>, 
+ Douglas Anderson <dianders@chromium.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+ linux-crypto@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-input@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH v2 3/7] platform/surface: SAM: Add support for Surface
+ Pro 12in
+In-Reply-To: <ab458aadea651396d9ea7629419a32dc7510c593.1778822464.git.harrison.vanderbyl@gmail.com>
+Message-ID: <6808166a-423c-c801-497a-ed95cccc8d0c@linux.intel.com>
+References: <cover.1778822464.git.harrison.vanderbyl@gmail.com>
+ <ab458aadea651396d9ea7629419a32dc7510c593.1778822464.git.harrison.vanderbyl@gmail.com>
 MIME-Version: 1.0
-Message-ID: <6d351ca7.9904.19e6e99f765.Coremail.w15303746062@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: lSgvCgDX3qLNNxhqaMytAA--.11951W
-X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbDAA2hhWoYN80SlAAA3n
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,21 +80,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-SGkgQ2hyaXN0aWFuLAoKVGhhbmsgeW91IGZvciB0aGUgcmV2aWV3IGFuZCBmb3IgY2F0Y2hpbmcg
-dGhpcy4gWW91IGFyZSBhYnNvbHV0ZWx5IHJpZ2h0LCBhbmQgbXkgYW5hbHlzaXMgd2FzIGZsYXdl
-ZC4gQWRkaW5nIHRoZSBsb2NrIGluc2lkZSBgZHJtX3ByaW1lX3JlbW92ZV9idWZfaGFuZGxlYCB3
-b3VsZCBpbmRlZWQgY2F1c2UgYSByZWN1cnNpdmUgZGVhZGxvY2suCgpUaGUgc3l6a2FsbGVyIGNy
-YXNoIHdhcyBvcmlnaW5hbGx5IHRyaWdnZXJlZCBvbiB0aGUgdjYuMTgga2VybmVsLiBXaGVuIGlu
-dmVzdGlnYXRpbmcsIEkgY2hlY2tlZCB0aGUgbGF0ZXN0IG1haW5saW5lIHNvdXJjZSBmb3IgYGRy
-bV9wcmltZV9yZW1vdmVfYnVmX2hhbmRsZWAgaXRzZWxmLiBTaW5jZSBJIGRpZG4ndCBzZWUgYW55
-IHN5bmNocm9uaXphdGlvbiBjaGFuZ2VzIHdpdGhpbiB0aGF0IHNwZWNpZmljIGZ1bmN0aW9uLCBJ
-IGluY29ycmVjdGx5IGFzc3VtZWQgdGhlIGNvbmN1cnJlbmN5IGlzc3VlIHdhcyBzdGlsbCBjb21w
-bGV0ZWx5IHVuaGFuZGxlZCwgZmFpbGluZyB0byBub3RpY2UgdGhhdCB0aGUgdXBzdHJlYW0gdHJl
-ZSBwcm9wZXJseSBob2xkcyB0aGUgbG9jayBpbiB0aGUgY2FsbGVyIChgZHJtX2dlbV9vYmplY3Rf
-cmVsZWFzZV9oYW5kbGVgKS4KCkkgd2lsbCBkaXZlIGRlZXBlciBpbnRvIHRoZSBjb2RlIHRvIHNl
-ZSBpZiB0aGVyZSBpcyBzdGlsbCBhbnkgaGlkZGVuIHJhY2UgY29uZGl0aW9uIHVuZGVyIHRoZSBj
-dXJyZW50IGxvY2tpbmcgc2NoZW1lLCBvciBpZiB0aGlzIGlzIHN0cmljdGx5IGEgbGVnYWN5IGlz
-c3VlIHRoYXQgbWlnaHQgb25seSByZXF1aXJlIGEgc3RhYmxlLXRyZWUgYmFja3BvcnQuIElmIGEg
-Zml4IGlzIHN0aWxsIHdhcnJhbnRlZCwgSSB3aWxsIHNlbmQgYSB2MiBwYXRjaC4KClRoYW5rcyBh
-Z2FpbiBmb3IgeW91ciB0aW1lIGFuZCBndWlkYW5jZSEKCkJlc3QgcmVnYXJkcywKTWluZ3l1IFdh
-bmc=
+On Fri, 15 May 2026, Harrison Vanderbyl wrote:
+
+> Add a SAM client device node group and registry entry for the
+> Microsoft Surface Pro, 12-inch with Snapdragon.
+> 
+> This set enables the use of the following devices.
+> 1: cover keyboard
+> 2: cover touchpad
+> 3: pen stash events.
+> 
+> The battery info and charger info devices have been
+> purposefully omitted as they are also reported by
+> other drivers and cause conflicts.
+> 
+> Signed-off-by: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
+> ---
+>  .../surface/surface_aggregator_registry.c         | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+> 
+> diff --git a/drivers/platform/surface/surface_aggregator_registry.c b/drivers/platform/surface/surface_aggregator_registry.c
+> index 0599d5adf02e..884049961415 100644
+> --- a/drivers/platform/surface/surface_aggregator_registry.c
+> +++ b/drivers/platform/surface/surface_aggregator_registry.c
+> @@ -422,6 +422,19 @@ static const struct software_node *ssam_node_group_sp11[] = {
+>  	NULL,
+>  };
+>  
+> +/* Devices for Surface Pro 12" first edition (ARM/QCOM) */
+> +static const struct software_node *ssam_node_group_sp12in[] = {
+> +	&ssam_node_root,
+> +	&ssam_node_hub_kip,
+> +	&ssam_node_tmp_sensors,
+> +	&ssam_node_hid_kip_keyboard,
+> +	&ssam_node_hid_sam_penstash,
+
+Hi,
+
+Could you please confirm this penstash is correct (sam vs kip)?
+
+Sashiko suggested it might be wrong but take it's report with a grain of 
+salt, it's AI after all and sometimes seems to extrapolate about HW to a 
+sibling HW without any real knowledge:
+
+https://sashiko.dev/#/patchset/cover.1778822464.git.harrison.vanderbyl%40gmail.com
+
+-- 
+ i.
+
+> +	&ssam_node_hid_kip_touchpad,
+> +	&ssam_node_hid_kip_fwupd,
+> +	&ssam_node_pos_tablet_switch,
+> +	NULL,
+> +};
+> +
+>  /* -- SSAM platform/meta-hub driver. ---------------------------------------- */
+>  
+>  static const struct acpi_device_id ssam_platform_hub_acpi_match[] = {
+> @@ -500,6 +513,8 @@ static const struct of_device_id ssam_platform_hub_of_match[] __maybe_unused = {
+>  	{ .compatible = "microsoft,arcata", (void *)ssam_node_group_sp9_5g },
+>  	/* Surface Pro 11 (ARM/QCOM) */
+>  	{ .compatible = "microsoft,denali", (void *)ssam_node_group_sp11 },
+> +	/* Surface Pro 12in First Edition (ARM/QCOM) */
+> +	{ .compatible = "microsoft,surface-pro-12in", (void *)ssam_node_group_sp12in },
+>  	/* Surface Laptop 7 */
+>  	{ .compatible = "microsoft,romulus13", (void *)ssam_node_group_sl7 },
+>  	{ .compatible = "microsoft,romulus15", (void *)ssam_node_group_sl7 },
+
+
