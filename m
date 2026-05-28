@@ -4,56 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61576CD6E44
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 12:08:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EC59CD4F54
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 12:09:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 057BE10F0BE;
-	Thu, 28 May 2026 12:08:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC13510F0C5;
+	Thu, 28 May 2026 12:09:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R0Pkp/by";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KbM4Fwjo";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CD3310F0BE
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 12:08:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44DC710F0C5
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 12:09:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D44F760123;
- Thu, 28 May 2026 12:08:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08BED1F000E9;
- Thu, 28 May 2026 12:08:12 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AC3E160123;
+ Thu, 28 May 2026 12:09:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF12C1F000E9;
+ Thu, 28 May 2026 12:09:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779970093;
- bh=jZdiQWfbNCmHdbL0qPXuLtZ2WwmAbORNr9dD2tiwIWU=;
+ s=k20260515; t=1779970166;
+ bh=6EsIe6+QcTk8dNWj4zK1Rd5fuD0TttLl9s4Yfx92BeY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=R0Pkp/bywSa5wZecNxWFjvuNmmOhKGsGCZCd/TN/Ov9dyhzqhy0orYmp518YA/+7f
- J+byUKSIf0dg2TAmDwR7DToNwbv/siyAHsRgIOwrd5/jsRz8v6mzDrQ+PSz7p+hB8h
- qwP1gYGMJHBFn42Yw/N0wVISvOSZuC/og4Xcn6+Wi7Wy/GYv7fAwBT9a9ccwumkFS7
- hEgUqUZU6G4Gmxwp5WBklDnhE+SjJ+GlAmcPan0QeYxBJGldZMobwsEOP/ITKnZbsN
- FCeS5zj6I100j/8LAM/2pcPSge6F+7HkKOI5BOXFG6Eaylg77ku1y3MoWyYgQMhKqo
- JW1fMvLuRomSw==
-Date: Thu, 28 May 2026 14:08:10 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Cc: Brian Masney <bmasney@redhat.com>, 
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Helge Deller <deller@gmx.de>, 
- Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>, 
- linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- ~postmarketos/upstreaming@lists.sr.ht
-Subject: Re: [PATCH 0/3] clk: Add __clk_disable_unprepare_counts_only() and
- use this in simple[fb|drm]
-Message-ID: <20260528-sloth-of-delightful-chaos-1f02dc@houat>
-References: <20260527094811.116977-1-johannes.goede@oss.qualcomm.com>
- <ahd4XgTo3KZqGS9M@redhat.com>
- <66a76d9f-fe04-4a72-b6fe-42c2922fe9d9@oss.qualcomm.com>
+ b=KbM4FwjoMr5keIYGy7CsRrRWFBXa+scPxzlVNJs90A9xACLh8MwMhWzi6xtDEerQt
+ 4NWV6PEclMG36IGwGM/x41Wk26FbKE0kbplDFSdr76fyr9eoUfc+7k6Qpym+NHOkol
+ liT1jwgNPTbzBlKnmGMHLOytmecI77kC1dI7stKni+WeSxvojO1RW31gKNKWlpbWLH
+ Pm9+TjKfHZdLjS5It3cmbqpKgI0DdB/FNO9BvrG1Cxg0O+6qesFja9YfQ39KFew6DV
+ JzEW9XzIky+1PGhY1uHTKIKvCg7sg8rRBQ1yVVzDVXxNOTQ7HA+dr6kRkc+3BCCOco
+ Ip57rp+XdCr3Q==
+Date: Thu, 28 May 2026 14:09:23 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Thorsten Blum <thorsten.blum@linux.dev>
+Cc: Mikko Perttunen <mperttunen@nvidia.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, dri-devel@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] drm/tegra: dp: use str_plural in
+ drm_dp_link_train_{full,fast}
+Message-ID: <ahgwaOX8TJlpZP0u@orome>
+References: <20260521194658.366737-3-thorsten.blum@linux.dev>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="sloh5l5jsj3qmgsm"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="tuovdn66hye2i6w4"
 Content-Disposition: inline
-In-Reply-To: <66a76d9f-fe04-4a72-b6fe-42c2922fe9d9@oss.qualcomm.com>
+In-Reply-To: <20260521194658.366737-3-thorsten.blum@linux.dev>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,89 +62,45 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---sloh5l5jsj3qmgsm
+--tuovdn66hye2i6w4
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/3] clk: Add __clk_disable_unprepare_counts_only() and
- use this in simple[fb|drm]
+Subject: Re: [PATCH 1/2] drm/tegra: dp: use str_plural in
+ drm_dp_link_train_{full,fast}
 MIME-Version: 1.0
 
-On Thu, May 28, 2026 at 12:12:10PM +0200, Hans de Goede wrote:
-> Hi Brian,
+On Thu, May 21, 2026 at 09:46:59PM +0200, Thorsten Blum wrote:
+> Replace the manual ternary "s" pluralizations with str_plural() to
+> simplify the code. This also corrects the "0 lanes" case.
 >=20
-> On 28-May-26 1:03 AM, Brian Masney wrote:
-> > Hi Hans,
-> >=20
-> > On Wed, May 27, 2026 at 11:48:08AM +0200, Hans de Goede wrote:
-> >> 2) One option considered was detaching the simple-framebuffer driver l=
-ater,
-> >>    after the real display driver has had a chance to claim the clocks.=
- But
-> >>    this won't work in cases where the real display driver picks differ=
-ent
-> >>    parent clocks then the boot firmware did and needs to reparent cloc=
-ks.
-> >=20
-> > Why won't that work in the case where different parent clocks are selec=
-ted?
-> > I'll describe a scenario below.
-> >=20
-> >>
-> >>    Basically the goal is for things to behave as if the simple-framebu=
-ffer
-> >>    driver was not there at all, because that leaves the hw in the state
-> >>    the real display driver expects.
-> >=20
-> > I think the deferred unbinding could have some potential here where
-> > there is some kind of notification mechanism between simple-framebuffer
-> > and the real drm driver. So:
-> >=20
-> > - simple-framebuffer driver takes reference(s) to the clk(s).
-> >=20
-> > - real drm driver eventually loads, takes reference(s) to the necessary
-> >   clk(s).
-> >=20
-> > - real drm driver sends a notification to simple-framebuffer that it's
-> >   done, and has control.
-> >=20
-> > - simple-framebuffer can unbind and release its references to the clks.
-> >=20
-> > No clks will be shutdown prematurely in this scenario.
-> >=20
-> > If the real drm driver needs a different parent, then presumably things
-> > should be setup correctly, and simple-framebuffer can have the clocks
-> > shut down when it calls clk_disable_unprepare().
->=20
-> If the real drm driver needs a different parent, then how does it
-> do the reparenting while the simple-framebuffer driver is holding
-> a reference to the clock ?  In that case the clock might have
-> a protected_count of non 0 (depends on the core-clk flags) and
-> reparenting won't work.
+> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+> ---
+>  drivers/gpu/drm/tegra/dp.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
 
-The only case where it should reparent you listed was that you might
-need to pick up a different resolution. However, that can only be
-enforced by an ioctl or a client.
+Both patches applied, thanks.
 
-simplefb/drm is removed in msm_drm_kms_init. The device is published
-drm_dev_register called right after msm_drm_kms_init, and the clients
-are registered in msm_drm_kms_post_init, called after drm_dev_register.
+Thierry
 
-There's no way in the current msm architecture to have a modeset happen
-while the simpledrm driver is still active.
-
-Maxime
-
---sloh5l5jsj3qmgsm
+--tuovdn66hye2i6w4
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCahgwKgAKCRAnX84Zoj2+
-dlOJAX96DdfsdZKRS3tZrj8a1VUU2rzbl1mUZaskqOqZfG/kbz3+Lb+Zvn8k3mk6
-RSr8TkABfRhGxxwt/MTLRFMANNnZcBbeKvb9D5JxMC/ptdCTInr5jsGu4L6IBHU/
-pYaPdM2CiQ==
-=EqOj
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoYMHMACgkQ3SOs138+
+s6GZ9A/+NK7XAH7VW4nq1/fYZDrFrMsV1SkeL33baIKmphllBPJBmTRkJuCsUMvs
+Va9CAR+GT93IQy9EhiFuFqndHf/T5o6vSFi/E/fsxCXcU9ss5/0VhPaq3Sa56TI0
+vE4+FZoKv1kfD4YcJX/sGTl2tJy/998vPjOWbt0pJYe5I7q6/+xkS59a6OwcqNNW
+JSV8nSgwf7L3TyO9uAVPE4RXYZHdFEc0nhWoLWDHB/o3h46vfzHrf3Tz0QmgfRUS
+wKtAJGibDKV5DUAEHfA41PYek16aVimm8NiRLQ2eDjeZDKBJOY4oBXtMn1dNb+qw
+bB6qtI3A69pniQqIjU3sOW9neZUGz0QLpJygTShtQgyrAE9pEiSE0T80dQE8qUdy
+EJm3PtLpcOkqolkxONuwwyJFiJBn5WN7n8aQMaCNSKVhKHcwHTD9VfqugONaidbk
+9qKMYZ3m+5uet1p9SfaQY5k7H3/RyGBebdLIy2Whesqy9Xk3Z0s4kqxvghwC42Ql
+AXEOC91Vk79scoXt3DY2aM9mPW7N8nolNAl4QWzRaHq+lrzWS/K/k0cYgi6C8M17
+JmPtQmPUGacvNU2J4uHmLuzPoZD6YEAf+L/87Zr8itnGNUYxfjoj8OvbOs3d+6Ec
+x9SzlHNQ0MnQRpWeuJxamDZQ72l5P2tfkrb3IEuky93QJeLV1TE=
+=mIBc
 -----END PGP SIGNATURE-----
 
---sloh5l5jsj3qmgsm--
+--tuovdn66hye2i6w4--
