@@ -4,83 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8D51CD6E44
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 11:05:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A485BCD6E44
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 11:07:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07D7D10F01F;
-	Thu, 28 May 2026 11:05:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1DAB10F03B;
+	Thu, 28 May 2026 11:07:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="lH9HNh4S";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="GzNr5b51";
 	dkim-atps=neutral
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E180510F01F
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 11:05:20 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-45edc09f51bso1103864f8f.0
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 04:05:20 -0700 (PDT)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F0BA10F036
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 11:07:55 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-48d146705b4so133945635e9.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 04:07:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1779966319; x=1780571119; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1779966474; x=1780571274; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=/WBV2stTi+BoMvjTn+6Wdm0ar2Vhc8k/vzOLTV4C0Ts=;
- b=lH9HNh4Svhxu1xAmTB88Cr0NGZi2r/opK5H/7ys2LqPFxXDZ2VDXmX1PkCQU3Gt31i
- f3tYDZviGNaYNuw/7aTtx1Zjgs8pnVyCxcKIz0qcivh5oH33RPoxviG3l0R0+aWjj49K
- /5oK+jfTkCdsoKzUak0DwzFOwyixl7AtWb059UoRhkfPHNjlKUOMuSFEKE/G3UeuE0dm
- LWVL2bHZCmA53GFEYNeB9gxs+A9gVdHApY+zK3YxVN/z5DFnyZ+Uj/q8O5hHPXFdpDxx
- himkDwA+SiUIcmPDQeFsjYenyDCI8ec2VKJ4D4ZMZCYLZwPBiJq6Mef/RphPmsA7Pw19
- L6yw==
+ :reply-to; bh=jdEan+OEa59Pk8W7jTB8S9kGLZiRAs4H/P8LLJyS2nI=;
+ b=GzNr5b517h9VXL2Y+o4FgVljqT1tPmjJYcj9G0O4o9YrCkSRTapK5qmfm+rne52To0
+ R4QLMC4b7tAtxlzq14FjsZuerz62zzv1noW3TdzV+V5rTbE5iuBhJs2j/ppuKeF2/aPQ
+ X7U5za0cJ+wsXLs/wSh/GvsOaDIohCvHz94egi0g0eGxalDu4wrJRU5HzbJt+YMy4lyJ
+ mM4ZLayYoQwuMhLCLGh/4VGiutDC8OT9iWiPk36DbuLEfAYK8FCsJFDI3XzBFFYNJH0g
+ UHKaqmC8d/468yfrRDGua9Cs9tqCuG8udEqrgyhST1pm8ayN/tEdeCZyRuPRlP8m92CM
+ 9LaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779966319; x=1780571119;
+ d=1e100.net; s=20251104; t=1779966474; x=1780571274;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=/WBV2stTi+BoMvjTn+6Wdm0ar2Vhc8k/vzOLTV4C0Ts=;
- b=ea0CfuWqvPRAZJwyhsJ0htRdw0UtJA9B4WiigM4S+lfAtgoRhy0UHT24pBAU8712RA
- SvXmwjrgHpgfEaBDgY4hXLc6yWzDMEqmhi5TtSle+wMi2ETxd6IzLy0z7XIRTlTky1+E
- jKX2hm3kpboMa6h8ZpN2Gx94/ardTMVulLTPw4CPpHuguaOmBVGunVXo1zVic/8aiwms
- v8Z6oaEt9WHPmZq7VfQbNqXxJrQfSaDdcff1mfpKkVOwjy33FNsj0hfgQuBTgSHDUcmy
- 3k6vxf9wCxC2rN4+tlVpZOSoTzIoPe7FBeoa02t7hYvnQF3Zgounry4WBOY7xGETbNhb
- lIbQ==
-X-Gm-Message-State: AOJu0Yym+L6wNUf3AeslVELuNcfRAnIrRA7kQROkr79lq55TjiCYWCge
- u75J4t7rAOlJvsseNFBKxA/1aw4UaGa+52Tg6PWTVjBfkzB0P5/I5hYdDP+73AYaceE=
-X-Gm-Gg: Acq92OFWBZrV7MzwXPNx/o7azNGTETY5zeiZuY2romIj+Ag44t6OzOw3PGlJKZsKRFn
- Uefy4n3fZFvAuU2/4xlpgPE6Xg6yS7vvXXZYd0hdDZoolUzJLA7o6v/dIW5hj5qgLxq9kq4vzzH
- WoRnQufO470sifAHWD8WwdbAFHp0DUTUB83/5V1KP+Qd+ehOg6o0/iD7SYoEQFPmEvpqvb8nSC2
- f+oGKoFTGAhlZdOa5rDcZ3c8Cf/7B55jq+bM84FS4BppQlADgpBAfef3miy4UXN9ENrNCIQpIPW
- o/SkpMc/Hrw43ojRY+cWft/nkTI6NN7Sc/yUm1A+CmwUNRc2z95qaAnaaFH4iCsRBjU4EwNcoRl
- I7lGKMJGiCwh5a6MPepyLaisef1IHFRwnbarlWmva3pMhelTbD6geHH6tM0K/nH2UHEpvzowFnm
- swDT2y/OdhXsYSfjbdm0AicIAPP9w8ZxIxgUZEFFGd1Gw=
-X-Received: by 2002:a05:600c:4f52:b0:490:4f91:5519 with SMTP id
- 5b1f17b1804b1-4904f91568dmr456980265e9.18.1779966318522; 
- Thu, 28 May 2026 04:05:18 -0700 (PDT)
+ bh=jdEan+OEa59Pk8W7jTB8S9kGLZiRAs4H/P8LLJyS2nI=;
+ b=hOFcTpsYkmz9ElIaH2/MvQbz/oucKGekYyqWj4pGiCPry0RXzLqiCOLWpKZJgv+e4d
+ ggtbmv7EHT5NIYHH4AlleU68uI+qZ7Lq69sMsKyoYTP8/SUGZzRj1OTQBN/oIdAtpP3Q
+ xU88i2ve/c29tH0h4P8SRiuZFNN3FBhjorRna5isWkuNgvZyR4yODSj5cdUVWBMUlOua
+ eXXcThtWSgp+qZJBwDjqQYpO9CUJZ65OqxblLUD3qQzGJQ98RgDKUW29M1ALHxV/0DKp
+ CYgUAKtleEuP5exiAs+Yrw6MjZXo1g9QE0EklFUjQl7D+hkzlcI1VOlT2I71eLwrsmjz
+ o7ww==
+X-Gm-Message-State: AOJu0YzJnC9ByGvBX+IDRlLZ9NEMi9keTy6cnYk6GPNhifYlZBq6ckag
+ xZASb5AKTF8wBGsaffohZTIT4yKaKV54B5SeA+Mum2YBhGQqdl2t5Fc/cEoGuDmZKVs=
+X-Gm-Gg: Acq92OGR0edOnYE+nj10GZdz3g7EUKz67KLKJqE2bZQgyu2gZkyDE3kNvTeQAQ4vUd/
+ TtCjgCOi8+mUqWksXWjlrjdpm5Ww06qH8qhmEy4jYD5cb51xLnIPVkQCioYrfoCcPoRAivzJHB2
+ Gdfc3MrxKMFyyViebzBU3uuOulg2aWZfh68iOeoCmn7sNlqgI6ACzq5fJfYoB98gT8qwuJnc1NR
+ pXkmthwyqj9USM/g6xGG461gwRwiRNmc5iZGphMLjBtby4GTAUMw1tTr9hHZoD4JtwWKuShZ5eC
+ jf/nJEbGK2xTVPyWbDkl6F+ARXrse87Gd+4oyrdRnVmwXxfMx2SuhyDX2pZUv0dFIKvz6357MmK
+ f53NAyS2LQ42Q8HQMhvceVevPwa4u8Sdtmo7kPAMbnYb4wZpzakwYMFpxXlRk0NOBYVC/Us7fes
+ +6sZgFID6eYMbI2JLFkrFIxL4OgxzxI0TgeENcmOk64So=
+X-Received: by 2002:a05:600c:4ecc:b0:485:30d4:6b9e with SMTP id
+ 5b1f17b1804b1-490426cd8a4mr416004715e9.21.1779966473758; 
+ Thu, 28 May 2026 04:07:53 -0700 (PDT)
 Received: from [172.20.10.2] ([37.167.60.147])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45edb5584b8sm12243364f8f.11.2026.05.28.04.05.16
+ 5b1f17b1804b1-49091d57c0dsm55223895e9.0.2026.05.28.04.07.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 May 2026 04:05:18 -0700 (PDT)
-Message-ID: <e8526e33-d34b-4900-81f1-f0a16edca388@linaro.org>
-Date: Thu, 28 May 2026 13:05:14 +0200
+ Thu, 28 May 2026 04:07:53 -0700 (PDT)
+Message-ID: <86a1e8e4-1e83-439d-840f-6687dfc87fe3@linaro.org>
+Date: Thu, 28 May 2026 13:07:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v4 2/2] drm/panel: Add Ilitek ILI9488 controller driver
-To: Igor Reznichenko <igor@reznichenko.net>,
- Jessica Zhang <jesszhan0024@gmail.com>,
+Subject: Re: [PATCH v3 2/3] drm/bridge: display-connector: don't autoenable
+ HPD IRQ
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Manivannan Sadhasivam <mani@kernel.org>, Kael D'Alcamo <dev@kael-k.io>,
- Kever Yang <kever.yang@rock-chips.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260527062300.88928-1-igor@reznichenko.net>
- <20260527062300.88928-3-igor@reznichenko.net>
+ Tomi Valkeinen <tomi.valkeinen@ti.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Sam Ravnborg <sam@ravnborg.org>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260528-dp-connector-hpd-v3-0-d656eb1079b7@oss.qualcomm.com>
+ <20260528-dp-connector-hpd-v3-2-d656eb1079b7@oss.qualcomm.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -107,7 +109,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260527062300.88928-3-igor@reznichenko.net>
+In-Reply-To: <20260528-dp-connector-hpd-v3-2-d656eb1079b7@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -126,123 +128,63 @@ Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
-
-On 5/27/26 08:23, Igor Reznichenko wrote:
-> Add support for Ilitek ILI9488 DSI controller which is used in
-> FocusLCDs E35GH-I-MW800-CB 320x480 MIPI DSI panel. The mode timing
-> was adjusted after STM32MP157 testing. The previous 14.256 MHz mode
-> worked on AM62P, but was awkward for STM32 DSI/LTDC clock synthesis.
+On 5/28/26 09:10, Dmitry Baryshkov wrote:
+> If HPD IRQ is enabled in the display_connector's probe, it can be
+> triggered too early, before the DRM connector is completely setup. Use
+> the enable_hpd / disable_hpd callbacks to control enablement of the HPD
+> IRQ.
 > 
-> Signed-off-by: Igor Reznichenko <igor@reznichenko.net>
+> Fixes: 0c275c30176b ("drm/bridge: Add bridge driver for display connectors")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
->   MAINTAINERS                                  |   6 +
->   drivers/gpu/drm/panel/Kconfig                |   9 +
->   drivers/gpu/drm/panel/Makefile               |   1 +
->   drivers/gpu/drm/panel/panel-ilitek-ili9488.c | 299 +++++++++++++++++++
->   4 files changed, 315 insertions(+)
->   create mode 100644 drivers/gpu/drm/panel/panel-ilitek-ili9488.c
-
-<snip>
-
-> +
-> +static int ili9488_dsi_probe(struct mipi_dsi_device *dsi)
+>   drivers/gpu/drm/bridge/display-connector.c | 17 +++++++++++++++++
+>   1 file changed, 17 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
+> index 16c0631adeb1..6bb1134f75c3 100644
+> --- a/drivers/gpu/drm/bridge/display-connector.c
+> +++ b/drivers/gpu/drm/bridge/display-connector.c
+> @@ -87,6 +87,20 @@ display_connector_bridge_detect(struct drm_bridge *bridge, struct drm_connector
+>   	return display_connector_detect(bridge);
+>   }
+>   
+> +static void display_connector_hpd_enable(struct drm_bridge *bridge)
 > +{
-> +	struct device *dev = &dsi->dev;
-> +	struct ili9488 *ili;
-> +	int i, ret;
+> +	struct display_connector *conn = to_display_connector(bridge);
 > +
-> +	ili = devm_drm_panel_alloc(dev, struct ili9488, panel, &ili9488_funcs,
-> +				   DRM_MODE_CONNECTOR_DSI);
-> +	if (IS_ERR(ili))
-> +		return PTR_ERR(ili);
-> +
-> +	ili->desc = device_get_match_data(dev);
-> +	mipi_dsi_set_drvdata(dsi, ili);
-> +	ili->dsi = dsi;
-> +
-> +	dsi->mode_flags = ili->desc->mode_flags;
-> +	dsi->format = ili->desc->format;
-> +	dsi->lanes = ili->desc->lanes;
-> +
-> +	ili->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-> +	if (IS_ERR(ili->reset))
-> +		return dev_err_probe(dev, PTR_ERR(ili->reset),
-> +				     "failed to get reset-gpios\n");
-> +
-> +	for (i = 0; i < ARRAY_SIZE(ili->supplies); i++)
-> +		ili->supplies[i].supply = regulator_names[i];
-> +
-> +	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ili->supplies),
-> +				      ili->supplies);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "failed to get regulators\n");
-> +
-> +	ret = of_drm_get_panel_orientation(dev->of_node, &ili->orientation);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get orientation\n");
-> +
-> +	ret = drm_panel_of_backlight(&ili->panel);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get backlight\n");
-> +
-> +	ili->panel.prepare_prev_first = true;
-> +	drm_panel_add(&ili->panel);
-> +
-> +	ret = mipi_dsi_attach(dsi);
-> +	if (ret < 0) {
-> +		dev_err_probe(dev, ret, "failed to attach to DSI host\n");
-> +		drm_panel_remove(&ili->panel);
-> +		return ret;
-> +	}
-
-Please switch to devm_drm_panel_add() and devm_mipi_dsi_attach() and drop the remove callback.
-
-> +
-> +	return 0;
+> +	enable_irq(conn->hpd_irq);
 > +}
 > +
-> +static void ili9488_dsi_remove(struct mipi_dsi_device *dsi)
+> +static void display_connector_hpd_disable(struct drm_bridge *bridge)
 > +{
-> +	struct ili9488 *ili = mipi_dsi_get_drvdata(dsi);
-> +	int ret;
+> +	struct display_connector *conn = to_display_connector(bridge);
 > +
-> +	ret = mipi_dsi_detach(dsi);
-> +	if (ret < 0)
-> +		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
-> +
-> +	drm_panel_remove(&ili->panel);
+> +	disable_irq(conn->hpd_irq);
 > +}
 > +
-> +static const struct ili9488_desc e35gh_i_mw800cb_desc = {
-> +	.init_sequence = e35gh_i_mw800cb_init,
-> +	.display_mode = &e35gh_i_mw800cb_display_mode,
-> +	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-> +		      MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS,
-> +	.format = MIPI_DSI_FMT_RGB666_PACKED,
-> +	.lanes = 1,
-> +};
-> +
-> +static const struct of_device_id ili9488_of_match[] = {
-> +	{ .compatible = "focuslcds,e35gh-i-mw800cb", .data = &e35gh_i_mw800cb_desc },
-> +	{ }
-> +};
-> +
-> +MODULE_DEVICE_TABLE(of, ili9488_of_match);
-> +
-> +static struct mipi_dsi_driver ili9488_dsi_driver = {
-> +	.probe	= ili9488_dsi_probe,
-> +	.remove	= ili9488_dsi_remove,
-> +	.driver = {
-> +		.name		= "ili9488-dsi",
-> +		.of_match_table	= ili9488_of_match,
-> +	},
-> +};
-> +module_mipi_dsi_driver(ili9488_dsi_driver);
-> +
-> +MODULE_AUTHOR("Igor Reznichenko <igor@reznichenko.net>");
-> +MODULE_DESCRIPTION("Ilitek ILI9488 Controller Driver");
-> +MODULE_LICENSE("GPL");
+>   static const struct drm_edid *display_connector_edid_read(struct drm_bridge *bridge,
+>   							  struct drm_connector *connector)
+>   {
+> @@ -178,6 +192,8 @@ static u32 *display_connector_get_input_bus_fmts(struct drm_bridge *bridge,
+>   static const struct drm_bridge_funcs display_connector_bridge_funcs = {
+>   	.attach = display_connector_attach,
+>   	.detect = display_connector_bridge_detect,
+> +	.hpd_enable = display_connector_hpd_enable,
+> +	.hpd_disable = display_connector_hpd_disable,
+>   	.edid_read = display_connector_edid_read,
+>   	.atomic_get_output_bus_fmts = display_connector_get_output_bus_fmts,
+>   	.atomic_get_input_bus_fmts = display_connector_get_input_bus_fmts,
+> @@ -307,6 +323,7 @@ static int display_connector_probe(struct platform_device *pdev)
+>   						NULL, display_connector_hpd_irq,
+>   						IRQF_TRIGGER_RISING |
+>   						IRQF_TRIGGER_FALLING |
+> +						IRQF_NO_AUTOEN |
+>   						IRQF_ONESHOT,
+>   						"HPD", conn);
+>   		if (ret) {
+> 
+
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
 Thanks,
 Neil
