@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEDFDCD6E44
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 14:06:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57558CD4F54
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 14:09:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4175610F235;
-	Thu, 28 May 2026 14:06:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5F8F10F243;
+	Thu, 28 May 2026 14:09:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jn8ao2vy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ISqWGSVN";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFD6910F234
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 14:06:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAE1E10F243
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 14:09:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 26AA66022B;
- Thu, 28 May 2026 14:06:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4951B1F00A3A;
- Thu, 28 May 2026 14:06:42 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4EA736022B;
+ Thu, 28 May 2026 14:09:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 708B61F000E9;
+ Thu, 28 May 2026 14:09:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779977202;
- bh=kiyC2moGcmtgdeNSaFo56pMgH3zNTMgObzQG6WFoEcI=;
+ s=k20260515; t=1779977345;
+ bh=QNFMfMmMQ7Hbc1efk4o9sLuqoDvVVe5vWAt2TAD+cRI=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Jn8ao2vyPizwcJF1veAq5VPirITuFbJb/f7gn6kc3nZmkA/vCa/Y1moRMs5c44JXU
- wwl238RW967IcqM7oxGfwCrrBogHogFwNb35s1LHa4wAFzGN91yOeln5E0beC9TDie
- Q3yqT5oEEph165diwVTH+S0jqJbAhevXFRJ46gzDsniuLAIXlwhL4Pea7K30pafAhs
- nedNVcZbboJ1ub8Xwp+DbTPxTMhZsF5UmKHc5w8HkLolaE8PYGH6h4TLmJLS4gGsmf
- ZRZpTUvhiXvjXQ7l6eO3/HkxTs30nLDDqBGyCWdY7DWtKE1sfjCxZu9oq40SJKSY53
- TJKBd8lhcWvYg==
-Date: Thu, 28 May 2026 16:06:40 +0200
+ b=ISqWGSVNg0meYdbS99H0x06FlPHao6N5gMn4+GKUKYOIhwoBE1h0knTguGmQm22B0
+ LferAp3kxvAdKdg19flju3B79voVuZ2iEkYs+qHjZ/dDwGU4xh7hZxCCywWln7QZqm
+ ZcI0jbu289owc8oiM1SDZIbxQMoAmSoUVpJjK9N3wVOT5EeOnv2GQyayOT35Dg4Foc
+ SSQktuO+IwzkiAT/SKGMI+cVRWFNiW5N984oNhfxXgnXrw2C0+GB91EaGD7xlentnV
+ EQRVYgBxAEpDEwDbRofOekh5cVPfBCPQRPbei/IpcMGanU+UxzLwibZq7BYZjhHLxc
+ /K1N7GFcXJZpg==
+Date: Thu, 28 May 2026 16:09:02 +0200
 From: Thierry Reding <thierry.reding@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
+To: webgeek1234@gmail.com
 Cc: Thierry Reding <thierry.reding@gmail.com>, 
  Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>, 
  dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/tegra: rgb: Fix use-after-free and leak in
- tegra_dc_rgb_probe()
-Message-ID: <ahhLDKD2nI_skQ7B@orome>
-References: <20260407084629.283151-1-vulab@iscas.ac.cn>
+ linux-kernel@vger.kernel.org, 
+ Kurt Kiefer <kekiefer@gmail.com>, Jasper Korten <jja2000@gmail.com>
+Subject: Re: [PATCH v4] drm/tegra: Enable cmu for Tegra186 and Tegra194
+Message-ID: <ahhMdYWnjexOGoPV@orome>
+References: <20260407-tegra-drm-cmu-v4-1-2fe95f305afd@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="yljhe77scuhzfyua"
+ protocol="application/pgp-signature"; boundary="5ammexysfx2yz2yn"
 Content-Disposition: inline
-In-Reply-To: <20260407084629.283151-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260407-tegra-drm-cmu-v4-1-2fe95f305afd@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,74 +63,75 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---yljhe77scuhzfyua
+--5ammexysfx2yz2yn
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] drm/tegra: rgb: Fix use-after-free and leak in
- tegra_dc_rgb_probe()
+Subject: Re: [PATCH v4] drm/tegra: Enable cmu for Tegra186 and Tegra194
 MIME-Version: 1.0
 
-On Tue, Apr 07, 2026 at 08:46:29AM +0000, Wentao Liang wrote:
-> Move the of_device_is_available() check before devm_add_action_or_reset()
-> to avoid using np after it may have been freed (if the action registration
-> fails). Also release np immediately when the device is not available to
-> prevent a reference leak.
+On Tue, Apr 07, 2026 at 02:09:37AM -0500, Aaron Kling via B4 Relay wrote:
+> From: Aaron Kling <webgeek1234@gmail.com>
 >=20
-> Fixes: 3c3642335065 ("drm/tegra: rgb: Fix the unbound reference count")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> Without the cmu, nvdisplay will display colors that are notably darker
+> than intended. The vendor bootloader and the downstream display driver
+> enable the cmu and sets a sRGB table. Loading that table here results in
+> the intended colors.
+>=20
+> Co-developed-by: Kurt Kiefer <kekiefer@gmail.com>
+> Signed-off-by: Kurt Kiefer <kekiefer@gmail.com>
+> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> Tested-by: Jasper Korten <jja2000@gmail.com>
 > ---
->  drivers/gpu/drm/tegra/rgb.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
+> Changes in v4:
+> - Add missing signoff
+> - Rename cmu phys var to be more clear
+> - Remove redundant lut null check
+> - Link to v3: https://lore.kernel.org/r/20260406-tegra-drm-cmu-v3-1-dfcb1=
+dda4ad6@gmail.com
 >=20
-> diff --git a/drivers/gpu/drm/tegra/rgb.c b/drivers/gpu/drm/tegra/rgb.c
-> index ff5a749710db..d7586fc820ce 100644
-> --- a/drivers/gpu/drm/tegra/rgb.c
-> +++ b/drivers/gpu/drm/tegra/rgb.c
-> @@ -215,13 +215,15 @@ int tegra_dc_rgb_probe(struct tegra_dc *dc)
->  	if (!np)
->  		return -ENODEV;
-> =20
-> +	if (!of_device_is_available(np)) {
-> +		of_node_put(np);
-> +		return -ENODEV;
-> +	}
-> +
->  	err =3D devm_add_action_or_reset(dc->dev, tegra_dc_of_node_put, np);
->  	if (err < 0)
->  		return err;
-> =20
-> -	if (!of_device_is_available(np))
-> -		return -ENODEV;
-> -
+> Changes in v3:
+> - Remove improper IOVA null check
+> - Use dmam_alloc_coherent instead of manually tracking memory
+> - Address other review comments
+> - Link to v2: https://lore.kernel.org/r/20260202-tegra-drm-cmu-v2-1-a1bcb=
+37f3e85@gmail.com
+>=20
+> Changes in v2:
+> - Several formatting changes per v1 review
+> - Move cmu alloc/free to dc, where it can be handled in probe/remove
+> - Enable cmu for displayport as well
+> - Link to v1: https://lore.kernel.org/r/20251101-tegra-drm-cmu-v1-1-21179=
+9755ab8@gmail.com
+> ---
+>  drivers/gpu/drm/tegra/dc.c  | 116 ++++++++++++++++++++++++++++++++++++++=
+++++++
+>  drivers/gpu/drm/tegra/dc.h  |  13 +++++
+>  drivers/gpu/drm/tegra/sor.c |  25 ++++++++++
+>  3 files changed, 154 insertions(+)
 
-I don't see how this achieves anything. If the action registration
-fails, devm_add_action_or_reset() executes the action (that's the
-"or_reset" part), so that takes care of the leak. Similarly, when things
-fail, np is not going to be used anymore since we immediately return, so
-there's no use-after-free either.
+Applied, thanks.
 
 Thierry
 
---yljhe77scuhzfyua
+--5ammexysfx2yz2yn
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoYS/AACgkQ3SOs138+
-s6G16Q/7BrRolqQi2OPTpeyyk6ZZ2yv3zPoPbb+nsLxWsiwD/KifNFlr6LC9Yymu
-rbVxDI2hkYfTclmvWuvJ9BQs0Nvusv1CXWcRY1j0zYIpZWJR2nYzSvAMwdxapH/b
-F2AtXFQhuooInpwK8szOwS1EUQWxbuKr9bfCNoNuaCDGEunIf08TnZryao53v73x
-qqlUyXnvVIQ+wwDYpD1mXNbPKRDvoh8GZjAlzBPUmsNN+6pYbPLDNM0KV0qR4+KS
-M1tfCJC4AMALRUnVVVuYOazvRVROxaOFx+0sHYZxN8WNMcGEveb47FckLLkqivl6
-qiQP1lhaQDAdan0ZUtoAy1OYjQbSBxRIr2kFQCmxRattoR0kxg9Co37n1O9izlNE
-JwVl202cHPrJfPIylQaw6T2s06ljaz2bzR0ZMprwpjCnstwGwPc3mIkx4mv7+Zeu
-SFM3n9jGLGgWZuHtSW34DRhVwI/3IJEeyokF6wjm1DeU4T/q1GSWawy2p2PRt6rh
-iwOj5bGufEW503CqWUA02H26bNx4rxg0b/FpFPcUu2Gp3AN8UBmxcG7fQcl1hNB/
-2h6E0/BROVrxBfkpd7Vu0LLZjjCK2hfuwoMhL8sWqzJBVzjIABqt9TBGLs3vqMc7
-iAqDwdLdZw23vNzTxWpByCjT4voB/1M8bS+4f1ba3k4WX5mQX4I=
-=gLnO
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoYTH4ACgkQ3SOs138+
+s6HsJQ//U9xIqD8wQOS5timtZ0qmz56Nvv0NM0kZFQkpCUjfm/H8F9jPE8inGf6l
+djxwQ5fWTalTbeGske/AApMVHkqj3P1mQY7R3yd/Vj+EgV+pX16KE4KfejstRORt
+eZ+NByZPb8atHcTDB3QUmhv9xj3RXLqw4rkpBCjIHN05F9I2qrt/hBuZSAXUWuEM
+TB07pf0ix7vAKzMV5afOql+NsbnQOe5S0j3YVAsgJ1hhM3K6pMCKQX0YHYhwW+kq
+u5rVq2CU+7IGVlP4GHuF23C2IKw/1s6qkteIEL95yYx6JR4lTF2/cd/5uG127jRw
+VTR7sXvvyaFrsxZVIDB22B0MLwVJFTID7TPWbF+uwN7a5qOYK/gEJV2Fw2Xsb0b0
+kQTis33qv2X0WfDuflzZYIGgqtjwCWY/ZtkNzelMEtkAvAouR51QpOEe9MsX4KCq
+Gu8nSlRbJ7v3AH9cHLp6/l1L6hMuiFnKEClaDtHcoIqBYKVa4Wqa0ykMTTW+tP5I
+SPQ/DFbVZJo966wKzOOxFSsUmU5cVbbgWr0P/6T0o1ZVcEbghdyr+JLq6/3/IpVa
+7pn83ALzoXttZAQQ8Uq1ebjGNCsHNQnFDFM9XDIjD5i0/f0c6MsXtq+p02uor+/0
+CvAS2vVSR5auyKomZr0pUCdzOzXG4AnsYK2xXqYrwwkLvIZkVNA=
+=Oydq
 -----END PGP SIGNATURE-----
 
---yljhe77scuhzfyua--
+--5ammexysfx2yz2yn--
