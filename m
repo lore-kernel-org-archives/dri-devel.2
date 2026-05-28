@@ -4,76 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F89ECD4F54
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 13:02:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB8A7CD4F54
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 13:03:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9860C10F14E;
-	Thu, 28 May 2026 13:02:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D6E410F14C;
+	Thu, 28 May 2026 13:03:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BxuRmE4p";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="swGu0kab";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 069D610F14C
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 13:02:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B91E4446DC
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 13:02:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C8661F00ACA
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 13:02:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779973362;
- bh=9zBMRM7knJbV+B5IyzIOMW8VBuVs+q0LiO/Usw/gaBw=;
- h=From:In-Reply-To:References:Date:Subject:To:Cc;
- b=BxuRmE4pOfjvzE4Zz5o9zLilN741qISwWNB9t6fWz4iCJqX3tVV7endadRmESzVtn
- 1orlfZqkTg1VmQ+Cukq4RmFJfGuHHCF/zIOcDD1uGc69DR8zfGvWPelYvG9qGFXJEW
- WKYrtPoU14PzR/MQjGFlmDjng67cXVNYxOho6DdZlZLAxUvVzKPuMY0aY/5Saqj3L4
- UAar+++JJdqVTtgmabzmsHSzuPdwnlLOwS4b8V0LEp6XHZwNnhQ5+nmiOdjtlYKuyD
- K4IveBukR1Dst/ahOzodRHbjmNTdZDua3wf9PU8EMmD3Q3yCiaA1plrDhSCxLT03WD
- y8+yiI8l8+4dA==
-Received: by mail-lf1-f45.google.com with SMTP id
- 2adb3069b0e04-5aa2d5a1d51so5809926e87.3
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 06:02:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ/gI0Tpls/3h3JEqoslkc3pwsWBDxv3jX+XyB3i/NgT64ps1Sqzv5+QwPhlg01Z4f0NnKgf+a+6AzI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw3yrALGG1K2GyWQu3oDOKfHt4+3TmLxRv9AiLBojSSYAfwLJWY
- 4r0R6zoCkBoZqdxPCb6j0EZK/gkPMPqxiqWq+WD0R0a8J3X/yP0nJAI0JNXC4sVPGviw4IB28Mh
- URsbvJZdGpLJeD1bhCs4CXstqoDHYo21YZ+S1Rmbdwg==
-X-Received: by 2002:a05:6512:61d8:10b0:5a3:ffed:8443 with SMTP id
- 2adb3069b0e04-5aa323bbfd8mr6446301e87.23.1779973361190; Thu, 28 May 2026
- 06:02:41 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 28 May 2026 09:02:40 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 28 May 2026 09:02:40 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <9a0d0e01-adf8-e111-49a0-580239265dbf@linux.intel.com>
-MIME-Version: 1.0
-References: <20260513-swnode-remove-on-dev-unreg-v6-0-f9c58939df27@oss.qualcomm.com>
- <20260513-swnode-remove-on-dev-unreg-v6-2-f9c58939df27@oss.qualcomm.com>
- <9a0d0e01-adf8-e111-49a0-580239265dbf@linux.intel.com>
-Date: Thu, 28 May 2026 09:02:40 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MfX+f4OVSsE9gnEccWiX2jccomhdJeMMGbVPcyzTi4SZQ@mail.gmail.com>
-X-Gm-Features: AVHnY4JLKSlVBf56eLZQmpAeLQcFReum4FF_eA-wI4Fc7-vVe2WQrN5HmsTNijA
-Message-ID: <CAMRc=MfX+f4OVSsE9gnEccWiX2jccomhdJeMMGbVPcyzTi4SZQ@mail.gmail.com>
-Subject: Re: [PATCH v6 2/6] platform/surface: gpe: use
- platform_device_register_full()
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Danilo Krummrich <dakr@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
- Rae Moar <raemoar63@gmail.com>, Andy Shevchenko <andy@kernel.org>, 
- Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, brgl@kernel.org, driver-core@lists.linux.dev, 
- LKML <linux-kernel@vger.kernel.org>, linux-kselftest@vger.kernel.org, 
- kunit-dev@googlegroups.com, platform-driver-x86@vger.kernel.org, 
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2379110F14C
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 13:03:27 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gR69k6K6sz9v5w;
+ Thu, 28 May 2026 15:03:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1779973402; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ldWZaB1V0VFmfuVmmY4GBcFyCmTzpt1ZkAIKZBSc/tg=;
+ b=swGu0kabwMrmc8/eRy3s8UB7CTMTWxaG83agEj15qcTu5cw/1f86aNRzY/B48XDV+Sds/H
+ 0rUGieMHhLhVFezM7sPEGDwks4KV9GL0UJYFsEYrP36NyJAp8Dz6S5sisuhS5duMk986C0
+ G+R2Gg5Ysx8y0KnEaeo7NWYV4UgSryxoROy7piboVF4T/2ATmEKUIOE82YjyzuFBmkqlMD
+ wcRaCaL+Lw9xatQ6z97JUypdKL25Yl2q5USHBk8mcGSxiXl/Coicx7DfttwrVs1u/U9vto
+ UJJe4cSIat9zxeLjhoSdb+Z58MIo7S8E4VcX/ds3tO8ZLXGDjHwwBGPCbQ3j+A==
+Message-ID: <23df1e8b17c4ba5a9106b84a65e092ebd54fee42.camel@mailbox.org>
+Subject: Re: [PATCH] drm/sched: Fix clang build warning in kunit tests
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, kernel test robot <lkp@intel.com>, Philipp
+ Stanner <phasta@kernel.org>
+Date: Thu, 28 May 2026 15:03:18 +0200
+In-Reply-To: <20260522090129.9385-1-tvrtko.ursulin@igalia.com>
+References: <20260522090129.9385-1-tvrtko.ursulin@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MBO-RS-META: pj6six8h95q93rwby9zzhwrpugixq7g7
+X-MBO-RS-ID: 6113b225984f0bd0ec5
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,95 +61,119 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 28 May 2026 14:35:50 +0200, "Ilpo J=C3=A4rvinen"
-<ilpo.jarvinen@linux.intel.com> said:
-> On Wed, 13 May 2026, Bartosz Golaszewski wrote:
->
->> Creating a software node for a given set of properties and adding it to
->> a platform device can be achieved with a single call to
->> platform_device_register_full(). There's nothing in this driver that
->> suggests using the more fine-grained interfaces was intentional so
->> switch to using the high-level helper.
->>
->> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com=
->
->> ---
->>  drivers/platform/surface/surface_gpe.c | 36 +++++++++++----------------=
--------
->>  1 file changed, 11 insertions(+), 25 deletions(-)
->>
->> diff --git a/drivers/platform/surface/surface_gpe.c b/drivers/platform/s=
-urface/surface_gpe.c
->> index b359413903b13c4f8e8b284ef7ae6f6db3f47d72..b8bb47b0d91f036ee5073d21=
-534f8f26a4d5ed15 100644
->> --- a/drivers/platform/surface/surface_gpe.c
->> +++ b/drivers/platform/surface/surface_gpe.c
->> @@ -290,9 +290,9 @@ static struct platform_device *surface_gpe_device;
->>
->>  static int __init surface_gpe_init(void)
->>  {
->> +	struct platform_device_info pdevinfo;
->>  	const struct dmi_system_id *match;
->>  	struct platform_device *pdev;
->> -	struct fwnode_handle *fwnode;
->>  	int status;
->>
->>  	match =3D dmi_first_match(dmi_lid_device_table);
->> @@ -305,34 +305,20 @@ static int __init surface_gpe_init(void)
->>  	if (status)
->>  		return status;
->>
->> -	fwnode =3D fwnode_create_software_node(match->driver_data, NULL);
->> -	if (IS_ERR(fwnode)) {
->> -		status =3D PTR_ERR(fwnode);
->> -		goto err_node;
->> -	}
->> -
->> -	pdev =3D platform_device_alloc("surface_gpe", PLATFORM_DEVID_NONE);
->> -	if (!pdev) {
->> -		status =3D -ENOMEM;
->> -		goto err_alloc;
->> +	pdevinfo =3D (struct platform_device_info){
->> +		.name =3D "surface_gpe",
->> +		.id =3D PLATFORM_DEVID_NONE,
->> +		.properties =3D match->driver_data,
->> +	};
->> +
->> +	pdev =3D platform_device_register_full(&pdevinfo);
->> +	if (IS_ERR(pdev)) {
->> +		platform_driver_unregister(&surface_gpe_driver);
->> +		return PTR_ERR(pdev);
->>  	}
->>
->> -	pdev->dev.fwnode =3D fwnode;
->> -
->> -	status =3D platform_device_add(pdev);
->> -	if (status)
->> -		goto err_add;
->> -
->>  	surface_gpe_device =3D pdev;
->>  	return 0;
->> -
->> -err_add:
->> -	platform_device_put(pdev);
->> -err_alloc:
->> -	fwnode_remove_software_node(fwnode);
->> -err_node:
->> -	platform_driver_unregister(&surface_gpe_driver);
->> -	return status;
->>  }
->>  module_init(surface_gpe_init);
->
-> Acked-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
->
+Yo Tvrtko,
 
-Hi!
+On Fri, 2026-05-22 at 10:01 +0100, Tvrtko Ursulin wrote:
+> Initializing compile time constant struct or arrays from another such
+> variable is a gcc extension, while clang strictly requires a compile time
+> constant literal.
+>=20
+> As reported by LKP:
+>=20
+> > > drivers/gpu/drm/scheduler/tests/tests_scheduler.c:675:10: error: init=
+ializer element is not a compile-time constant
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_scheduler_two_clien=
+ts_attr),
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
+~~~~~~~
+> =C2=A0=C2=A0 include/kunit/test.h:224:13: note: expanded from macro 'KUNI=
+T_CASE_PARAM_ATTR'
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .attr =3D attributes, .mod=
+ule_name =3D KBUILD_MODNAME}
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 ^~~~~~~~~~
+> =C2=A0=C2=A0 1 error generated.
 
-Thanks but FYI: I will replace this series with a different approach once t=
-he
-rework of node assignment for platform devices lands upstream.
+Hmm, is it now a build error, or a build warning? The commit title says
+"warning".
 
-Bart
+Depending on what it really is, where should it go, misc-next or misc-
+fixes?
+
+P.
+
+>=20
+> vim +675 drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+>=20
+> =C2=A0=C2=A0 671
+> =C2=A0=C2=A0 672	static struct kunit_case drm_sched_scheduler_two_clients=
+_tests[] =3D {
+> =C2=A0=C2=A0 673		KUNIT_CASE_PARAM_ATTR(drm_sched_scheduler_two_clients_t=
+est,
+> =C2=A0=C2=A0 674				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_scheduler_tw=
+o_clients_gen_params,
+> =C2=A0> 675				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_scheduler_two_cli=
+ents_attr),
+> =C2=A0=C2=A0 676		{}
+> =C2=A0=C2=A0 677	};
+> =C2=A0=C2=A0 678
+>=20
+> Fix it by using a compound literal as other tests do.
+>=20
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202605220312.Pu7UO05u-lkp@i=
+ntel.com/
+> Fixes: 97ef806a5314 ("drm/sched: Add some scheduling quality unit tests")
+> Cc: Philipp Stanner <phasta@kernel.org>
+> ---
+> =C2=A0drivers/gpu/drm/scheduler/tests/tests_scheduler.c | 12 ++----------
+> =C2=A01 file changed, 2 insertions(+), 10 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c b/drivers/=
+gpu/drm/scheduler/tests/tests_scheduler.c
+> index 8b2e4ef9915f..90d31888cf92 100644
+> --- a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+> +++ b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+> @@ -666,14 +666,10 @@ static void drm_sched_scheduler_two_clients_test(st=
+ruct kunit *test)
+> =C2=A0	}
+> =C2=A0}
+> =C2=A0
+> -static const struct kunit_attributes drm_sched_scheduler_two_clients_att=
+r =3D {
+> -	.speed =3D KUNIT_SPEED_SLOW,
+> -};
+> -
+> =C2=A0static struct kunit_case drm_sched_scheduler_two_clients_tests[] =
+=3D {
+> =C2=A0	KUNIT_CASE_PARAM_ATTR(drm_sched_scheduler_two_clients_test,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_scheduler_two_clients_g=
+en_params,
+> -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_scheduler_two_clients_attr),
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 { .speed =3D KUNIT_SPEED_SLOW }),
+> =C2=A0	{}
+> =C2=A0};
+> =C2=A0
+> @@ -858,14 +854,10 @@ static void drm_sched_scheduler_many_clients_test(s=
+truct kunit *test)
+> =C2=A0		drm_mock_sched_entity_free(client[i].entity);
+> =C2=A0}
+> =C2=A0
+> -static const struct kunit_attributes drm_sched_scheduler_many_clients_at=
+tr =3D {
+> -	.speed =3D KUNIT_SPEED_SLOW,
+> -};
+> -
+> =C2=A0static struct kunit_case drm_sched_scheduler_many_clients_tests[] =
+=3D {
+> =C2=A0	KUNIT_CASE_PARAM_ATTR(drm_sched_scheduler_many_clients_test,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_scheduler_many_clients_=
+gen_params,
+> -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_scheduler_many_clients_attr)=
+,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 { .speed =3D KUNIT_SPEED_SLOW }),
+> =C2=A0	{}
+> =C2=A0};
+> =C2=A0
+
