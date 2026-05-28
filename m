@@ -4,66 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A3B3CD6E44
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 13:11:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B98D9CD6E44
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 13:19:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1A1010F167;
-	Thu, 28 May 2026 13:11:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23C1010F174;
+	Thu, 28 May 2026 13:19:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="b2UHAKvV";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="R5iYKOAc";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JfO1wFcN";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E01210F16A;
- Thu, 28 May 2026 13:11:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1CF1240869;
- Thu, 28 May 2026 13:11:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4393B1F000E9;
- Thu, 28 May 2026 13:11:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779973880;
- bh=iDEo0j2nHsYSJgSqy1z8dWMjD802zHIig7qC3EKAx/k=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=b2UHAKvVDwz9Q8zDeG5+gjEzAwHGNvWPrhFQu4UWecZMGU9oLFnYEUppHdL1JG96W
- ZyKfXbFlZkxgErlkIJ9vEDjHqhgkZYeEglVfzfyl1vwgy5OcQX/ILvYNtAw+Fw/u/n
- 7Rf4HO5aTgBsh8Qrexyv+asWzwUvPXiN0B/LUktlwpZ7GWwIh5oxpK5VedspSPx+Bn
- nl+HsmBpJmBcRweXxwoqgm9Olo+josivuYToc2QW7vazCQsXTqNoHWp1knQYF/ENFG
- jtLGo1SiiASszWS5aZ18I7jEX0fOy1BKxNFyaZVCVtMBYw8PPdiTBmqYLjDYvMKN77
- k31LndrsIUjKg==
-Date: Thu, 28 May 2026 18:41:07 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-Cc: andersson@kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org,
- konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
- mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
- pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
- tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
- srinivas.kandagatla@oss.qualcomm.com, jens.wiklander@linaro.org,
- op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
- skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
- Sumit Garg <sumit.garg@oss.qualcomm.com>,
- Harshal Dev <harshal.dev@oss.qualcomm.com>
-Subject: Re: [PATCH v7 02/15] firmware: qcom: Add a generic PAS service
-Message-ID: <ahg-6-eLus-J7tC8@sumit-xelite>
-References: <20260522115936.201208-1-sumit.garg@kernel.org>
- <20260522115936.201208-3-sumit.garg@kernel.org>
- <37fb075c-3f48-4a7c-b05d-090b0b09e04a@oss.qualcomm.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A1D810F174
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 13:19:27 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64S8w47q124976
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 13:19:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=4useIf4eLqCZe5bOXRzatW9D
+ bQChiyEdf+RF+QCQ5+Q=; b=R5iYKOAcT3bwEKJ+H6PZicn2pv4zi5WVmalWCqob
+ iEyQidn8MrLgEbbDDAsSdNhXbVom3hP0oMkE11LHOeGrdxlU7DKFKy2Ka66d0Gcy
+ eef3wV4J1RRAAZT75YIgF8PSbXw0uQuY7Dbg/Kx05jCSqf6plZ+Le37onO/P0hmH
+ ZyeyicVDAsHdUqyPiwwMq36LENgNEawsBQZJZDwMQOU+qnkEvfI89sRObgpj0hes
+ xp9IFpouHSyoZyvVOFDu1indYYt9vnAAikHid1LvTtYEOji3sZnAsuEJre/+UGI/
+ yyRC6Qmr5qmjixQePXJkgSHFlSh95RztRMgLOugrDjWXXg==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com
+ [209.85.221.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ee7ycaue5-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 13:19:26 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id
+ 71dfb90a1353d-56fab6d9242so25511486e0c.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 06:19:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1779974366; x=1780579166;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=4useIf4eLqCZe5bOXRzatW9DbQChiyEdf+RF+QCQ5+Q=;
+ b=JfO1wFcNvgRYTa/ckvdsMFpkfqCF5UKjfNdi69BAJA7QfF8yu6WVsIxdw4B3Kv7QpP
+ Qy1iUtg/d1cjEn8guvWj187kFffFG+bxYTifFnIPqC14S1trJDrPFGvSjG0sejmNZ65Q
+ Wz3vvh+PyhLGrjQBf+0B9e4XD/6zD1YdhE3rWPwKrpFsfyyRCP22MMb0SYR0pBq8wPlE
+ udlqls42arBQAwenJkONbhKbUVrfICexqsFMAIZlWI5MeNRb9ZMjaXhP/tvWmVqvZuF5
+ K5MOW3CKhkh3N8W0mAGGojztUaa/9UUxXOAzsbL9eraYKUgkW0TD4jwJtM88jiXjd74S
+ 56eQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779974366; x=1780579166;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=4useIf4eLqCZe5bOXRzatW9DbQChiyEdf+RF+QCQ5+Q=;
+ b=acI0ORr9xwnSbXycAVETcluRPTUNsUz+sDHI2CZJhbOsTIv81o+mGi2Sm8UDCtsl1k
+ FutKVzC9XrWuV4amY+k0ALxip0O0EYYpS3/LbhNGgQHLyIJ8hWq/nORPL5j5/n65f53w
+ 9JHroEDPqKqK1uEuTO67P+Lh7cvjUKZhSBWd/Zq0gNE8nxZxLInlaAMRLiCW+qJOgg5q
+ G6XMAL3MiHmoPVSwyXlFYQtX8hbVTi6cJR7fGJ/9B723oSWDhX7uuRgJ99QXCSCUs6t1
+ klJiAfRuUZOhnJrDt2GvVfayib4lNaTX3ZAjb4wXYeaqwnc4avFXhx92tXW34JrgHceo
+ ZQhw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ87jyAMEYHOhjUbkdklSEetK5rbIC2E2T/rjG/NuC37YiARHTQ8vCZDwkjpgh865snmPq6oVbrVEg0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwZGBstattBpGJN99RLKGPGXf5/oCASoLyGCNKGlsd4NEOPcyNj
+ TkPMV30B/DjpFbmWE1vcjLmaDoSWyeXes8Guf47EZJn7CDNG/em7Nxm2/bCA9gffC4CrR2DhTtO
+ QqxYBcrKB6TXmPqRQ8ypy515lUJHf43ltv8WbgSVboQfjvFAyJEOc7qNK+LY7NrJr0DImRG0=
+X-Gm-Gg: Acq92OG710D63xXK+SGsJymE0eQGftq4ByJOSYZNKFkgUX0s+lvekMHRvc63Haj6ZFo
+ i8T6jMq0eVKW+UqVfjVobo/aZZmcZuKjQ3bDbyr2omWx73ycm3uleils/XFrF29MDzkJJiPFmHx
+ 38dO3gaHVggdQDXPu07YgEsaXL6WpZWx9IiYwK6FWsw3skKKWk/n0dR6ozSL2vYsL3HdLwSTmwx
+ 1kKqjnWDK3bvt7Y+JvYDaIY3WtidmzwLM9LQ5VaTkHLPRXfD7mHpkb2n890rXM4pA81AWODOdHW
+ pqs4UYD2cjXjkEO/Lm0ay2K/ELDqui6aMHq646dn/TNaDaVygZEkmVDFfj+X4WrTcUMss8BahBr
+ 4WCxxPlbECHB0YxYx0fD5T/EaxNeJnvHTcq2+9117DJC57XJMTHXXQxjLA57tanf5RZeHU49fo9
+ mhBndIWRtNLyPM/rxECn1ldg/BFpQuR7P14SPvd8koFEwVag==
+X-Received: by 2002:a05:6122:1d13:b0:56c:3a57:aee2 with SMTP id
+ 71dfb90a1353d-58660c8bcadmr16307660e0c.6.1779974365823; 
+ Thu, 28 May 2026 06:19:25 -0700 (PDT)
+X-Received: by 2002:a05:6122:1d13:b0:56c:3a57:aee2 with SMTP id
+ 71dfb90a1353d-58660c8bcadmr16307589e0c.6.1779974365298; 
+ Thu, 28 May 2026 06:19:25 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5aa463312b2sm1891842e87.62.2026.05.28.06.19.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 May 2026 06:19:24 -0700 (PDT)
+Date: Thu, 28 May 2026 16:19:22 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org,
+ Herbert Xu <herbert@gondor.apana.org.au>, davem@davemloft.net,
+ neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, jikos@kernel.org, bentiss@kernel.org,
+ luzmaximilian@gmail.com, hansg@kernel.org, ilpo.jarvinen@linux.intel.com,
+ Douglas Anderson <dianders@chromium.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-input@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH v2 7/7] arm64: dts: qcom: Add Microsoft Surface Pro 12in
+Message-ID: <q2ffaqisybasi6nfciy4iel44kwxaiqkzc2fv2bo6omrsodbpg@mghuize6kwco>
+References: <cover.1778822464.git.harrison.vanderbyl@gmail.com>
+ <8ac29ee38ba80a3fbde8bfe43b74b9b936b31cb1.1778822464.git.harrison.vanderbyl@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <37fb075c-3f48-4a7c-b05d-090b0b09e04a@oss.qualcomm.com>
+In-Reply-To: <8ac29ee38ba80a3fbde8bfe43b74b9b936b31cb1.1778822464.git.harrison.vanderbyl@gmail.com>
+X-Authority-Analysis: v=2.4 cv=VOntWdPX c=1 sm=1 tr=0 ts=6a1840de cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=pGLkceISAAAA:8
+ a=EUspDBNiAAAA:8 a=NJ6gOXVS0vVz-tHME-0A:9 a=CjuIK1q_8ugA:10
+ a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-GUID: jm2kbkmXc_GztBoDXca49pelLEnLxgeJ
+X-Proofpoint-ORIG-GUID: jm2kbkmXc_GztBoDXca49pelLEnLxgeJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDEzNCBTYWx0ZWRfX+0HvvNTOnwFr
+ CngjO/jx9bQgUaFF9aZyMhhICDirhWG3xdp/FHAIcpt+wwbvtAyoOJo0pBCJkenrSIRK3XPAjNg
+ 8aq7ASuj4VFkyiiIP7y7noS8+d2piD/NeuyQFmSXPBBzupkVv7Q8sFtJcQFdNeDTjMOsCCMNzRA
+ iOGxz44KYiP+CDYL8yuKxSISfoZ6nIsLRoLhIAqEwroYmFqkFnreK3119ADQoc24Khj73vllS/H
+ EQMpXdTtF8X7/2bkncyoBvgn74stJc/WagGuJIS5RYKnYtKT//2A6vv+TRyhNBMmuRU6AMh8Cru
+ RRg89jlDfONTKQy2vpbddzkTixh1w8cx7YhDXqQFORCKdHajtR2wM296tkaWz2tjAr/Gv/BVnij
+ CCVO3N5Jne6gdH57gFXDqxd9gZrMB+Cg6pdFzUA/RbMRQfGZ9w1UJ5hgzpjmjn4HSrsRfWr22zo
+ aT6cMdf5fNV3MgwgscQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-28_03,2026-05-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 adultscore=0 impostorscore=0 suspectscore=0
+ lowpriorityscore=0 bulkscore=0 clxscore=1015 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605280134
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,187 +149,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Amir,
-
-On Thu, May 28, 2026 at 10:45:32AM +1000, Amirreza Zarrabi wrote:
-> Hi Sumit,
+On Fri, May 15, 2026 at 03:41:52PM +1000, Harrison Vanderbyl wrote:
+> Initial device tree for Microsoft Surface Pro 12in
 > 
-> On 5/22/2026 9:59 PM, Sumit Garg wrote:
-> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > 
-> > Qcom platforms has the legacy of using non-standard SCM calls
-> > splintered over the various kernel drivers. These SCM calls aren't
-> > compliant with the standard SMC calling conventions which is a
-> > prerequisite to enable migration to the FF-A specifications from Arm.
-> > 
-> > OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
-> > support these non-standard SCM calls. And even for newer architectures
-> > using S-EL2 with Hafnium support, QTEE won't be able to support SCM
-> > calls either with FF-A requirements coming in. And with both OP-TEE
-> > and QTEE drivers well integrated in the TEE subsystem, it makes further
-> > sense to reuse the TEE bus client drivers infrastructure.
-> > 
-> > The added benefit of TEE bus infrastructure is that there is support
-> > for discoverable/enumerable services. With that client drivers don't
-> > have to manually invoke a special SCM call to know the service status.
-> > 
-> > So enable the generic Peripheral Authentication Service (PAS) provided
-> > by the firmware. It acts as the common layer with different TZ
-> > backends plugged in whether it's an SCM implementation or a proper
-> > TEE bus based PAS service implementation.
-> > 
-> > Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> > Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
-> > Reviewed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
-> > Tested-by: Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com> # IPQ9650
-> > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > ---
-> >  drivers/firmware/qcom/Kconfig          |   8 +
-> >  drivers/firmware/qcom/Makefile         |   1 +
-> >  drivers/firmware/qcom/qcom_pas.c       | 291 +++++++++++++++++++++++++
-> >  drivers/firmware/qcom/qcom_pas.h       |  50 +++++
-> >  include/linux/firmware/qcom/qcom_pas.h |  43 ++++
-> >  5 files changed, 393 insertions(+)
-> >  create mode 100644 drivers/firmware/qcom/qcom_pas.c
-> >  create mode 100644 drivers/firmware/qcom/qcom_pas.h
-> >  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
-> > 
-> > diff --git a/drivers/firmware/qcom/Kconfig b/drivers/firmware/qcom/Kconfig
-> > index b477d54b495a..9f66cc774508 100644
-> > --- a/drivers/firmware/qcom/Kconfig
-> > +++ b/drivers/firmware/qcom/Kconfig
-> > @@ -6,6 +6,14 @@
-> >  
-> >  menu "Qualcomm firmware drivers"
-> >  
-> > +config QCOM_PAS
-> > +	tristate "Qualcomm generic PAS interface driver"
-> > +	help
-> > +	  Enable the generic Peripheral Authentication Service (PAS) provided
-> > +	  by the firmware. It acts as the common layer with different TZ
-> > +	  backends plugged in whether it's an SCM implementation or a proper
-> > +	  TEE bus based PAS service implementation.
-> > +
-> >  config QCOM_SCM
-> >  	select QCOM_TZMEM
-> >  	tristate
-> > diff --git a/drivers/firmware/qcom/Makefile b/drivers/firmware/qcom/Makefile
-> > index 0be40a1abc13..dc5ab45f906a 100644
-> > --- a/drivers/firmware/qcom/Makefile
-> > +++ b/drivers/firmware/qcom/Makefile
-> > @@ -8,3 +8,4 @@ qcom-scm-objs += qcom_scm.o qcom_scm-smc.o qcom_scm-legacy.o
-> >  obj-$(CONFIG_QCOM_TZMEM)	+= qcom_tzmem.o
-> >  obj-$(CONFIG_QCOM_QSEECOM)	+= qcom_qseecom.o
-> >  obj-$(CONFIG_QCOM_QSEECOM_UEFISECAPP) += qcom_qseecom_uefisecapp.o
-> > +obj-$(CONFIG_QCOM_PAS)		+= qcom_pas.o
-
-<snip>
-
-> > diff --git a/include/linux/firmware/qcom/qcom_pas.h b/include/linux/firmware/qcom/qcom_pas.h
-> > new file mode 100644
-> > index 000000000000..65b1c9564458
-> > --- /dev/null
-> > +++ b/include/linux/firmware/qcom/qcom_pas.h
-> > @@ -0,0 +1,43 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only */
-> > +/*
-> > + * Copyright (c) 2010-2015, 2018-2019 The Linux Foundation. All rights reserved.
-> > + * Copyright (C) 2015 Linaro Ltd.
-> > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> > + */
-> > +
-> > +#ifndef __QCOM_PAS_H
-> > +#define __QCOM_PAS_H
-> > +
-> > +#include <linux/err.h>
-> > +#include <linux/types.h>
-> > +
-> > +struct qcom_pas_context {
-> > +	struct device *dev;
-> > +	u32 pas_id;
-> > +	phys_addr_t mem_phys;
-> > +	size_t mem_size;
-> > +	void *ptr;
-> > +	dma_addr_t phys;
-> > +	ssize_t size;
-> > +	bool use_tzmem;
-> > +};
-> > +
-> > +bool qcom_pas_is_available(void);
-> > +struct qcom_pas_context *devm_qcom_pas_context_alloc(struct device *dev,
-> > +						     u32 pas_id,
-> > +						     phys_addr_t mem_phys,
-> > +						     size_t mem_size);
-> > +int qcom_pas_init_image(u32 pas_id, const void *metadata, size_t size,
-> > +			struct qcom_pas_context *ctx);
-> > +struct resource_table *qcom_pas_get_rsc_table(struct qcom_pas_context *ctx,
-> > +					      void *input_rt, size_t input_rt_size,
-> > +					      size_t *output_rt_size);
-> > +int qcom_pas_mem_setup(u32 pas_id, phys_addr_t addr, phys_addr_t size);
-> > +int qcom_pas_auth_and_reset(u32 pas_id);
-> > +int qcom_pas_prepare_and_auth_reset(struct qcom_pas_context *ctx);
-> > +int qcom_pas_set_remote_state(u32 state, u32 pas_id);
-> > +int qcom_pas_shutdown(u32 pas_id);
-> > +bool qcom_pas_supported(u32 pas_id);
-> > +void qcom_pas_metadata_release(struct qcom_pas_context *ctx);
-> > +
-> > +#endif /* __QCOM_PAS_H */
+> Currently supported:
+>   - UFS
+>   - Touchscreen
+>   - Pen
+>   - USB 3.2 x2 (DP Alt Mode)
+>   - Audio
+>   - Wifi
+>   - Bluetooth
+>   - CDSP
+>   - ADSP
+>   - GPU
 > 
-> I have a question about the shape of the generic PAS abstraction.
+> Not currently supported:
+>   - Accelerometer
+>   - Front, Back and IR cameras
+>   - IRIS video decoder
 > 
-> Looking at the current interface, it seems that pas_id is still treated as
-> the primary identity for most PAS operations, while struct qcom_pas_context
-> is used as optional extended state for the operations that need it. I can see
-> how this maps well to the existing SCM PAS interface and keeps the transition
-> simple.
+> Tested on Surface_Pro_12in_1st_Ed_with_Snapdragon_2110
 > 
-> However, I wonder if this makes the abstraction less generic in the long term.
-> Some callbacks in struct qcom_pas_ops receive only pas_id, while others
-> receive struct qcom_pas_context *ctx. This works as long as pas_id is
-> sufficient for those operations. But if a backend needs per-peripheral
-> private state for operations such as auth_and_reset,
-> shutdown, or set_remote_state, it would need to reconstruct that state from
-> pas_id or maintain a separate pas_id to backend-context mapping.
+> Signed-off-by: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
+> ---
+>  arch/arm64/boot/dts/qcom/Makefile             |    2 +
+>  .../dts/qcom/x1p42100-microsoft-sp12in.dts    | 1201 +++++++++++++++++
+>  2 files changed, 1203 insertions(+)
+>  create mode 100644 arch/arm64/boot/dts/qcom/x1p42100-microsoft-sp12in.dts
 > 
-> Would it be cleaner to make struct qcom_pas_context the common
-> per-peripheral object and pass it consistently to all per-peripheral callbacks?
-> Existing backends could still use ctx->pas_id, but future backends would not
-> need to perform a separate lookup only because the callback was passed a raw
-> pas_id.
 
-The common evolution for a generic abstraction comes when it's needed.
-So once the client driver or the backend comes up with certain
-requirements then the generic PAS layer can be extended as needed. It
-should be possible for more APIs to migrate to using PAS context but
-there should be corresponding use-case requirements.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-> 
-> I also wonder whether struct qcom_pas_context is exposing some
-> implementation-specific state. Fields such as ptr, phys, size, and
-> use_tzmem seem to describe how the current SCM/QTEE implementations manage
-> metadata memory, rather than generic PAS state. For another backend, the
-> per-operation state might be a tee_shm, an FF-A memory handle, shared or lent
-> memory state, or something else transport-specific.
-> 
-> Would it make sense to keep only the common PAS fields in
-> struct qcom_pas_context, such as dev, pas_id, and possibly the firmware
-> memory address/size if those are truly generic, and add a backend-private
-> pointer for implementation-specific state?
 
-Currently, the 2 backends can re-use parts of the PAS context but I
-agree more abstraction can be done as needed for future backends.
-
-> 
-> I may be missing a reason why the pas_id-only callbacks are preferred, but if
-> this is intended to be the long-term generic PAS layer rather than mainly a
-> shim over the existing SCM API shape, using the context consistently and keeping
-> backend-specific state private seems easier to extend.
-
-As I mentioned above, the generic PAS layer isn't fixed but it will
-surely go through evolution as needed. Current abstraction handles the
-existing client driver and backend requirments.
-
-Moreover the subsystem maintainers are already complaining about this
-series being too large for the merge to happen.
-
--Sumit
+-- 
+With best wishes
+Dmitry
