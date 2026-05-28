@@ -4,65 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEE9ACD5BD5
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 16:49:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 138BCCD4F54
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 16:52:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5385510F291;
-	Thu, 28 May 2026 16:49:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D99C10F491;
+	Thu, 28 May 2026 16:52:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PtVMVsti";
+	dkim=pass (1024-bit key; unprotected) header.d=microsoft.com header.i=@microsoft.com header.b="ZGZtqspY";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB38710F24F;
- Thu, 28 May 2026 16:49:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779986982; x=1811522982;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=jRNLJqJ2HvzVjQj+tHx25T+AidGfUuIqtwnCkO6JJPk=;
- b=PtVMVstix50prMDQ343XD/LQ4+V4PTdNa27r6pf1x10mFbVmZXaa5dby
- xo95aK4Rci3U5YIvjU7w6+ADK28kh2Zyu36E/NWrNQMb5vIh3gq5qhfbo
- IcKNR+/V5RG+5+cBHPGzpXpSuPjYB3dqKZqorhYE1yj2jb94DmoP7bRsk
- Rb5CowrwHBENe3NFepTvk7ZLfYXwvpfSFX9btZEiljx7OJowD3E+yGl8S
- T/zwG9Ix2NFYD9gxZKkEJTxAcp+EUmbzpMdoW2mF135lDlt6wO7qUkuxG
- 9dvQmEuVOdxPOBAy+PI5zy5F8KbsLiQXBtarq4ncRxOsRwKV29PIXKicm A==;
-X-CSE-ConnectionGUID: KrtF+vbLTj2RbSlxlS/ndQ==
-X-CSE-MsgGUID: baivdz6MTv6sQc+k/cFx+Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11800"; a="91522127"
-X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; d="scan'208";a="91522127"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 May 2026 09:49:42 -0700
-X-CSE-ConnectionGUID: GalvE7ydTGKhYxVR2sLgZg==
-X-CSE-MsgGUID: eLHufy7CRaWI7Bqe/yeR3A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; d="scan'208";a="241567216"
-Received: from black.igk.intel.com ([10.91.253.5])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 May 2026 09:49:40 -0700
-Date: Thu, 28 May 2026 18:49:36 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: =?utf-8?B?5Y2gd2Vp?= <zhanwei919@gmail.com>
-Cc: Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Guenter Roeck <linux@roeck-us.net>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH] drm/xe/hwmon: report a single fan for DG2 instead of
- two
-Message-ID: <ahhyIMa3Btj7oZv6@black.igk.intel.com>
-References: <20260527115311.13398-1-zhanwei919@gmail.com>
- <ahb3VMRCQpofblbW@black.igk.intel.com>
- <CA+qUFcnP-XEPHJD-+djRydD92-bAz5bxxVaRHGJ3nrpwtq4m7w@mail.gmail.com>
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11020127.outbound.protection.outlook.com [52.101.61.127])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0715D10F491
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 16:52:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j1lXmwFQ4A7hiLeLgyG5gPVjgUPMJGe33eGkg1aIGAIacSJre8/G2n3O70IRx3H8MifxdiII872zLLHBusWm/95dZhPr/yXsaAEHDUNf9eGKS73DnNZBxvr8p93z5LtRRYUk1aQstCGJXnTlZeg/v0DsobjPMGXDngXUUkPUURJhsPk3J5hs1zF13DxiIM9Vy3NefX6m99/q2XURK+frAUimz3YoQhUWfTgpstqi3VPXBnETmp5MgAZfujp9yO9xw+EzGV4GrkGarb7mLpeGmQailvs8JUsTZbfwbX00rwBcMm1o7VeL8W6+Y2Z/K4HwC+JZb2q1dKklemNilzzxyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Kb2HOeUxZSVKa0+OkEgDLOhDCUO0VeC+X2xko/UNsyU=;
+ b=wj//FSNcN0jCsKDYmgOb521RhiLCLeQvqg6ySK9Enqzlh6EYr1C0tgp1lCASZz1CTicpLem37RiBYQT8X7MENCS8KfhzC6X9ct1lYwsVBb3fCZLToGaOO8rk5p4UBxF2J1jbf6DThPZJJ4RjOSlYZhMVS+Km4IXVuYRXgh95P4hj3MW8MdQSwTazFsvsenboYoYTV1RqEp05fhN5WBkqfDyEsHMI/GDuIerWIhu5409moSD+9AsU2D5WpXu6vTsbwu6vIqw2Kav/etrtK6Ygb/j4jmom1eYY2HUbEeaOMuvPocOfAdzG+BnaQpxhZPAJh5660F7OzVnooHPWX4Ifeg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microsoft.com; dmarc=pass action=none
+ header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Kb2HOeUxZSVKa0+OkEgDLOhDCUO0VeC+X2xko/UNsyU=;
+ b=ZGZtqspYEhX+a5HU8grie1S4v2DuF0EfeLXltzuhAkxDgFlFg+aEglO+enp6QMJdj5c105mdzCkpQxvX716YkVVHRK1gHdVYh7H4du7MLFXuI86Fan3sZkV7Gnsr4teL2Lop8QxAIc1perxPh0xA3fgFtmklyJGkm/kS1c9SfDE=
+Received: from SA1PR21MB6921.namprd21.prod.outlook.com (2603:10b6:806:4a7::11)
+ by LV5PR21MB4729.namprd21.prod.outlook.com (2603:10b6:408:303::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.3; Thu, 28 May 2026
+ 16:52:53 +0000
+Received: from SA1PR21MB6921.namprd21.prod.outlook.com
+ ([fe80::648e:8c2b:b5e4:aefc]) by SA1PR21MB6921.namprd21.prod.outlook.com
+ ([fe80::648e:8c2b:b5e4:aefc%5]) with mapi id 15.21.0092.000; Thu, 28 May 2026
+ 16:52:53 +0000
+From: Dexuan Cui <DECUI@microsoft.com>
+To: "mhklinux@outlook.com" <mhklinux@outlook.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>, "tzimmermann@suse.de"
+ <tzimmermann@suse.de>, "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, Long Li <longli@microsoft.com>,
+ "ssengar@linux.microsoft.com" <ssengar@linux.microsoft.com>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>
+Subject: RE: [EXTERNAL] [PATCH v2 1/1] drm/hyperv: Replace "hyperv_" with
+ "hv_drm_" as symbol name prefix
+Thread-Topic: [EXTERNAL] [PATCH v2 1/1] drm/hyperv: Replace "hyperv_" with
+ "hv_drm_" as symbol name prefix
+Thread-Index: AQHc7qkcrZ369g+21UStSntAJBmfxbYjpcgg
+Date: Thu, 28 May 2026 16:52:53 +0000
+Message-ID: <SA1PR21MB6921E2BE7D0F3B804877427CBF092@SA1PR21MB6921.namprd21.prod.outlook.com>
+References: <20260528135108.1787-1-mhklkml@zohomail.com>
+In-Reply-To: <20260528135108.1787-1-mhklkml@zohomail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=321657cf-567b-4be5-b1e9-c48497ff415e;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2026-05-28T16:46:38Z;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Tag=10, 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microsoft.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR21MB6921:EE_|LV5PR21MB4729:EE_
+x-ms-office365-filtering-correlation-id: a33dccef-e643-410e-9441-08debcd98f68
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|22082099003|18002099003|38070700021|56012099006|11063799006;
+x-microsoft-antispam-message-info: Eowv2wgmDjf5W1VJtcjk6U0yiFS+I6RwDX7glVWU/JKy25OcjNfhhDPVZhvoUcGfpy2qwQy/b6N/8SonXfsth8CjO02TMIAwBw2wA9YiAd9IpDQ/LZKBPbtAV1IlefW3aRRqK/sV75/Axv7i099bUnTW88D1rJzFtK5+TQKdMGda6JbVpC8CQPzBAWK0pbZDvxPkSWneOV5p+e8hMDD2f3320b0DmvWc3j/brTa3o37nunInrgpHcs+sMA6bLWSu6vlhrokfU5gO+klTnlhxY5bUJTe0PIdB24qUtQ1vBFQ5B87FsE7j5lPbM+ZG2hUKIW81qEtfaAPQGz2yx5aHx29OLyx1FVtFwcpm1O+/oWOc8lqXzeYvZONaDHcKjbBP9kL3xbd8dYJ6UuMWNj5yDZA3h/uPaNcdxO7reONZ6xXfjxvhSZqKbYyxK4sa1IxfeLJI8oVjRAOvapnyedMVxX+s0SzIuPF/tvGX8S5ElINXOTFUhg5LkZ29sRaLjun5CKxM7MBZPDGX8s3JtVPyy1S+QUYKLCOh94xC5e0sBrlOSyjvryDDqNbSToYWs2EwXVYoC8J84qLfm0rQYXIb1lpI3MxmSh0/oPMZ9KAtq8aw3GhYlUqqdTatEtz5uElgSMD3UiigKeEt5bOMo7C+6gYrKh5fUiTFcWifB7mDv8jl+9xBmgM3r8q8FLyeDMBKAkgJ1xmN8hPjfGxk/THxzXrIGrv7SEMBz8OjlQIdWTh6QpQponLIgSCBncQuEKPi
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR21MB6921.namprd21.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(18002099003)(38070700021)(56012099006)(11063799006);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?c67oHp3jKoQGvgTjDTHDaRTKg0Sv5WaLui/AwrnRlWd0azsEgljzBSFKXvDI?=
+ =?us-ascii?Q?/BQlIuvQDD8WJaacbZBDYIM/OdkjFnylmGJTDDPBUyYop7y8Sqv2NlbST6hw?=
+ =?us-ascii?Q?eLeu8lZ5z2Z/OZiONZclVur5naA4SmXj5y+KrWtbG7rApSBV0LSQRCY8+L5a?=
+ =?us-ascii?Q?nKJb5A4tXzkssMzl3S0X0oGI5ZIuaGgBOo3z/kV8b5rEspQtfhA/2+PG/cLu?=
+ =?us-ascii?Q?IDAflbx7xKT/ViZ8RXzxMzHrvVKm6dsQfzxa6MLEbsXHU6xkW/8KykOBU/kH?=
+ =?us-ascii?Q?8NWImKntcpZ5msV+bcJskDuB4dU5RQQSWRrIJHa1jCqQeGnPxkC91QummXpg?=
+ =?us-ascii?Q?3gD0YdzP3d61WYHou4CXH4BTjQWlRKj4CJoNS4jQhrE6I8iixMvUQsOTWrfU?=
+ =?us-ascii?Q?NNgIyt/a/EQMNiDY+JvPreZkF4MvAKEWAl0/Cr6mbNzyfGHoNNAVuimCkhJj?=
+ =?us-ascii?Q?cmupMHmMG6Bddo61EjYDJZnlRnp2H7/8DkSyGozgCedPouCeuz/kTMgIRsJ3?=
+ =?us-ascii?Q?c6QkINnnK1sq7DA3zfFxzejeKBIM/kr9ifr3xy53K5lNrAjh/CVb8O8VZQoX?=
+ =?us-ascii?Q?sVJ+ulZh1KnY/kJ39NIhiczEQ8IyJ39Wb8bTlaKpMjPEbyx6VE1wbfO36zyx?=
+ =?us-ascii?Q?7Vkf9VMfj3dDsQrdLF91eZf+jcA6PnJdgQe/rVjpbxfwTjY+ApXzIFlu2red?=
+ =?us-ascii?Q?uwLaOd60Cdypn9GIpxDgQzm408la6lgK686cntj4MqEtqm2uWkRxIrp9srrC?=
+ =?us-ascii?Q?X9605FnlKKIoKngk6+WroFFIH0yg9FnqZqIVh6GN7PmPRdpCLlaW/b3eEqpu?=
+ =?us-ascii?Q?CwIg0lzMBwn2ugGPO2WyHk7jp7t+5q5QhwVb9ZAgZmLF8p89mCt6aZ3U60Tg?=
+ =?us-ascii?Q?zih3etlsy8tAjKn65OaPrqLQokMcCYRH4DuMyfT2uIDX/fsGQhAMPk5a5/ML?=
+ =?us-ascii?Q?fLP9Df0FVrmWpMosNSlFugW7iTjqAm2++Z08arql/estSc9q4pgBj2FGLRKZ?=
+ =?us-ascii?Q?zDSAZbv5l+ANOCw8JEy216RCteIctoLO2NAun1EzP33J79zWdmd+3L4cpE1m?=
+ =?us-ascii?Q?YgTyKNmbGqluXYvthkQbi+CfaYdcyrHB7ElWmX7MnmggHvR1QHbgodLqJ47x?=
+ =?us-ascii?Q?yAX+eno8v3dmEOHkjqODxhFh6RX2LgVmRAAcnlayM45vbWsEDOKsySGGyv1s?=
+ =?us-ascii?Q?xGffOoPs6MH1tb7uMOlXgxLhdELG+pEkXJ19eC/mleZ2BV4J0zTPT4tIepLc?=
+ =?us-ascii?Q?6t2ZW618jjT+PCJfqZ2p0yoczpXYLQkgOyeVhE5RVbqUSH0xem1zEwMF+/u2?=
+ =?us-ascii?Q?j7Rfd5qZQeBaubLlTyln8+OWMS9n0jbsRym8+xu6c8eYCo/qlXvLPmeS5LWX?=
+ =?us-ascii?Q?ZbbD4j83HmXfZwr/EWvLBoEHbs6WQP3Zc3/3+LzJ6AZo5Urq3Unrp+KAR44Q?=
+ =?us-ascii?Q?h+cBcweER7HzvUHttKMGL4ak5pH71jkSe88mjK/PqOteAvKlV7+T6tlqjmMs?=
+ =?us-ascii?Q?/iTYyW0XNwBDXmNZgXSneAcoC0wLV6Szxpfw5np9UVxvBl5biztema1nOkO/?=
+ =?us-ascii?Q?jSavrmKkjz+JMhSJzIsWJ8IpNlE/9CChP75FxMkkgZ0+KPOlPll9z3vtKZaF?=
+ =?us-ascii?Q?L1djveRW9tcNP1Net9150NB3pIT3PxuRURz0AgmwXeShNYub7w0uWKJLqyqb?=
+ =?us-ascii?Q?yRsE3uTdxxcOlVQRY/f+B4xeG+cDRwr8+ZrBV41jPiWVFn6F?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CA+qUFcnP-XEPHJD-+djRydD92-bAz5bxxVaRHGJ3nrpwtq4m7w@mail.gmail.com>
+X-OriginatorOrg: microsoft.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR21MB6921.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a33dccef-e643-410e-9441-08debcd98f68
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 May 2026 16:52:53.2838 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9/TBFoeXa4vF9i8yClTTWsS7bgXsp/gBfqdBKQc7A/qrgTUdGcbkOfuXYN/FJYydqgd1nYfqf79g74UqAj70Gg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR21MB4729
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,32 +143,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, May 27, 2026 at 11:18:52PM +0800, 占wei wrote:
-> Thanks for the detailed explanation -- that make sense
-> 
-> I can think of two paths forward:
-> 
-> 1) Have fan_input_read() return -ENODATA if one channel has started
->  reporting pulses but another remains silent for, say, 30 seconds.
->  This way the phantom entry still appears in sysfs but userspace
->  tools like `sensors` can handle the "no data" case gracefully
->  instead of showing a misleading 0 RPM.
+> From: Michael Kelley <mhklkml@zohomail.com>
+> Sent: Thursday, May 28, 2026 6:51 AM
+>  ...
+> -#define to_hv(_dev) container_of(_dev, struct hyperv_drm_device, dev)
+> +#define to_hv(_dev) container_of(_dev, struct hv_drm_device, dev)
 
-Sounds a bit over engineered solution with its own caveats because
+A minor nit:  change "to_hv" to "to_hv_drm"? Otherwise, LGTM.
 
-a) We assume that both channels are monitored simultaneously and first
-   channel actually reports non-zero value for 30 seconds (or whatever
-   trivial value we device) continuously, which is not guaranteed.
-
-b) This means the output of one channel depends on another and I'm
-   doubtful if maintainers would be okay with such hacks.
-
-> 2) Drop the code change entirely and instead add a short note in
->  Documentation/gpu/xe/xe_hwmon.rst explaining that on DG2 boards
->  where the OEM routes multiple physical fans through a shared tach
->  line, fan{2,3}_input may read 0, so future contributors don't end
->  up re-attempting the same v1 patch I just sent.
-
-This one makes more sense to me though.
-
-Raag
+Reviewed-by: Dexuan Cui <decui@microsoft.com>
