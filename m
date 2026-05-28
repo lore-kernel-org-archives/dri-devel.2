@@ -4,81 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5C66CD5BD5
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 19:01:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79E3ACD4F54
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 19:03:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DCFF10F58D;
-	Thu, 28 May 2026 19:01:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C869110F592;
+	Thu, 28 May 2026 19:03:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="W9fgyW4m";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TyIpD5Qb";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7604310F58C
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 19:01:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=yc0vWrNNcRCL9hulFpL4VK4L628m5NhGYf+KpafmqXk=; b=W9fgyW4m6yOafKSFTeYLzkKS4/
- iZWaP05i29cCKAPep2IOnV3//yalsqkyQWu1Z5e0e+INuEWfFCRl9MnwiV9cM/oNoEfSUFaGwC+8F
- 8RE4hd+8dcm13lnuYEd9kAzbT78L9whnbf/IWH69XBXhKpNgRfYQABuR0fUMWva8oNJHsbrV+nDsG
- mSv/Xm4l4O1pGTIueqm3GBvGBf/6WNkdgiM5fvXg8DNwyfV4AoOmdbK3HAuDK02D1xGUu6aQzYAOz
- cuAYaL3AXU2SymfZrbHBZExtVRJoRybvfa94WU/ef4dMXygNdlJrVCgurmzkMlczBxoIbt/DAyQI5
- P4a6fN/Q==;
-Received: from [189.7.87.67] (helo=[192.168.0.2])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wSfzA-009Vhj-CF; Thu, 28 May 2026 21:01:40 +0200
-Message-ID: <e486203f-dcc4-456f-af36-45ef8e3349f6@igalia.com>
-Date: Thu, 28 May 2026 16:01:32 -0300
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
+ [74.125.82.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A51110F592
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 19:03:38 +0000 (UTC)
+Received: by mail-dy1-f175.google.com with SMTP id
+ 5a478bee46e88-304e86ecebfso15634eec.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 12:03:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779995017; cv=none;
+ d=google.com; s=arc-20240605;
+ b=gQAvlaMp4sgo3U0JaWCFI1MJCFpYnECtp13wa/5I10zZbsb9PpBkl0PnsQZqsQb5Cf
+ 0hNznaN1EZttvB3OqEvzwgQa5XB9u8PtpMQBS9JOqZCjIF2ZDtaqNd4VRe5dLHG832lD
+ ngoOQ6OCQTygU2v4q7CrdyHesK2EsPgsMKNv10tAzq6zyzKfytYdDKHpSYku2FVxcJpS
+ 2M0vHs+PTMLBjBQpAcZBo7GmW8xRARAMFIOWHbQsRukw+dd6mIcuixtHqm0fGGbH5bZU
+ 1wbWAVksJf30yxIDUFj5qUIkIl0uVfSCfuJ5TnyH0c1x2xdOhcZjqOf44Ot/wpbEXmOj
+ jlHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=8A2SN4X3OFcTcNOFQSoYJ/Kcbx3sV02TXx8ZftUXyl8=;
+ fh=LA4U/sRJ5HJpMpyXizo9C1bfGHTiIt+hrJyC4csWVKc=;
+ b=lC8l/1Jp6nGEefINPUpsonGkw6U54nISIqCO2JNvOBPNMOdV2e9BkYLPG48u+Wb7i2
+ jJYDgQV94v94kDrsO+ASvIROKIXQlMFKloi5+OKmHjvKFbYIRkUa/WILPAmg1CnROYiq
+ OPl2Ujt8UfTE9gtzQWhlpCnEuE9qmBho+eBTp6w/5PWtut0X637Ib0WzoWqmFCS6a9kD
+ KvUfpj0xMIxTEEFM10jcEltAf2hd82gKZLgk1nqybhA7nDgjvFU+zns7Gfo8XbWTC/gx
+ BSR99Jm3fdDWjlLYMQ109VONx9GKyGxBMfOyPcl+bVDGQEimV0aH/IRjjJA4IVAKNKzQ
+ KXnA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779995017; x=1780599817; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8A2SN4X3OFcTcNOFQSoYJ/Kcbx3sV02TXx8ZftUXyl8=;
+ b=TyIpD5QbVD5fCwY2iSrhayJl6wmpkUelg1xeaAJ5Iq28cgaoO6h6dQqp0wU7HE6LoP
+ EJMjiLBgyXztCrSHygB+MF0JzYtRqUUy2aOaaj5PJI//xwfzReYVGJBpme4PatYhSneh
+ G+QTY2sbcuFrfs4bq4IEKSBGHKfJCQTnWxIuWoNRqzMny9VkmpUZJRqtnuH9GtdzM9Nq
+ zfw90a5jMYI4s2LcVNv/EbmutWQ7HOc+kxVB7AVTQfXJJjl/+J87gJFtyOwpwkBiOwR7
+ MBdO3H5XddMAsQAad9wN3ukF2Moe1w6L+wi7/Xj/BJ5fNzuANdq+XfTj3q+QT5aZTrvh
+ Mcaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779995017; x=1780599817;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=8A2SN4X3OFcTcNOFQSoYJ/Kcbx3sV02TXx8ZftUXyl8=;
+ b=tRyvm9oyRRaE+JpXudfPhl2Og+/eP2fRX86ZjAq0sCDBcjmPz02RB/QVhZ6dTTAhLP
+ zm5+ipQFD6Pvp8481h2G3dvU5p/7lHIPvD8evOx0da1A8RAAz7Hb+i0+O2xA/9Ey6Ldo
+ ffFx4xaGEfAvI3pPYmjMCOfXIPU6/gcGzYKNu7Sw4cJSiJAfecF18wJyGjYLgxWSe7Sd
+ dZCT+9Ph3AFA9Rb808/HKl8YQsAJ7Eqf2ig7gML/alE8e5RFbOVUzHxJGVQMIsUj62hk
+ wUWAUxETnJsBmbRNBkUNJ0NInD0BpEtLU0L1NXrUvQ/sywBLLgu2+mbGtIcZL58ypf0H
+ tMrg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/jepqFWT5VB5w/Y7/rxHulKLeZpNdfIVWZXCfwrEsTIy1u6H1V8Slal1cVvIJBTkUrJydpk3ZmRXk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxiZr3+KdtKwuU0aG/u1MxHGG3yTawJfkEE3NK2QuPgdt9v8Zht
+ uoZLcN0ptlFev61BDkCHUKqRabSdnzeq79lCaMLdgokTzzgT1ahwQa7yew5IgYK0YM3eCTFcOW0
+ P9xPhV2j4N2xws8aW6LyDMyQ8i7xJDw0=
+X-Gm-Gg: Acq92OHPh6m/Kv9CHOIvwE+znZ7dB8QBajwMGwYnb14FwkS9ljWSG45lhYunpxVs+uB
+ 3uS8vudLf6PQ8YrilIAMAPZxGjzqb286Lv49o0frtpvjFdRlj1ulWLXOgDP3uUBSXBvgZt+NA4s
+ AhN43RY7upnCNXoJXJw7aj8pzVoG6MZt//oY5PNgHTuT2l9r5sG9YJhcr9ybNPyL4zGw9IvOAfx
+ q4JdrGyUGqSljOL+uIY2eMKbzrUT7qPyXUGK3SghQuydV0KH8i355o0zJiJ7viJLKtTq/neB+8s
+ tN5HBLjReLyWti8ITm7BGfS0J2G23Ogn4aH9PEe/h+U1vm48/hRYPtcGgeCtKFUPwyYpg08w9UM
+ jLaXfnidRhRUQf+A=
+X-Received: by 2002:a05:7022:ef18:b0:130:a479:79a8 with SMTP id
+ a92af1059eb24-137a81352b9mr35853c88.2.1779995017322; Thu, 28 May 2026
+ 12:03:37 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/vc4: fix krealloc() memory leak
-To: "Alexander A. Klimov" <grandmaster@al2klimov.de>,
- Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Eric Anholt <eric@anholt.net>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20260526184105.18962-1-grandmaster@al2klimov.de>
- <20260526184105.18962-5-grandmaster@al2klimov.de>
- <2b602ec6-d563-4fa0-a0c5-89b97a46abf9@igalia.com>
- <5642dd71-01ad-4db2-b0b8-5431298b39a1@al2klimov.de>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <5642dd71-01ad-4db2-b0b8-5431298b39a1@al2klimov.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260528070016.14843-1-leorize+oss@disroot.org>
+In-Reply-To: <20260528070016.14843-1-leorize+oss@disroot.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 28 May 2026 15:03:25 -0400
+X-Gm-Features: AVHnY4Kszkq6EwAjLYJ1z0b1-DnJpnDWRLuUmFay7LmjcRJeyh_qxMbDCX9ofIs
+Message-ID: <CADnq5_OBaVum+jV3HBL3mqXfvrhqVOu+gcU9Y2QHdRryQDw8SA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: add missing CSC entries for BT.2020 for
+ DCE IPs
+To: Leorize <leorize+oss@disroot.org>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, "Leo (Sunpeng) Li" <Sunpeng.Li@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,59 +112,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alexander,
+On Thu, May 28, 2026 at 3:39=E2=80=AFAM Leorize <leorize+oss@disroot.org> w=
+rote:
+>
+> DCE-based hardware does not have the CSC matrices for BT.2020, which
+> causes the driver to fallback to the GPU built-in matrices. This does
+> not appear to cause any issues for RGB sinks, but causes major color
+> artifacts for YCbCr ones (e.g. black becomes green).
+>
+> This commit adds the missing CSC matrices (taken from DC common) to DCE
+> CSC tables, resolving the issue.
+>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/3358
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5333
+> Assisted-by: oh-my-pi:GPT-5.5
+> Signed-off-by: Leorize <leorize+oss@disroot.org>
 
-On 28/05/26 15:54, Alexander A. Klimov wrote:
-> 
-> 
-> On 5/28/26 20:17, Maíra Canal wrote:
->> Hi Alexander,
->>
->> LGTM, but a small styling nit:
->>
->> On 26/05/26 15:41, Alexander A. Klimov wrote:
->>> Don't just overwrite the original pointer passed to krealloc()
->>> with its return value without checking latter:
->>>
->>>      MEM = krealloc(MEM, SZ, GFP);
->>>
->>> If krealloc() returns NULL, that erases the pointer
->>> to the still allocated memory, hence leaks this memory.
->>> Instead, use a temporary variable, check it's not NULL
->>> and only then assign it to the original pointer:
->>>
->>>      TMP = krealloc(MEM, SZ, GFP);
->>>      if (!TMP) return;
->>>      MEM = TMP;
->>>
->>> Fixes: 6d45c81d229d ("drm/vc4: Add support for branching in shader 
->>> validation.")
->>> Signed-off-by: Alexander A. Klimov <grandmaster@al2klimov.de>
->>> ---
->>>   drivers/gpu/drm/vc4/vc4_validate_shaders.c | 12 ++++++------
->>>   1 file changed, 6 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/vc4/vc4_validate_shaders.c b/drivers/ 
->>> gpu/drm/vc4/vc4_validate_shaders.c
->>> index d48cf76983c0..af48758592f9 100644
->>> --- a/drivers/gpu/drm/vc4/vc4_validate_shaders.c
->>> +++ b/drivers/gpu/drm/vc4/vc4_validate_shaders.c
->>> @@ -291,14 +291,14 @@ static bool 
->>> require_uniform_address_uniform(struct vc4_validated_shader_info *va
->>>       uint32_t o = validated_shader->num_uniform_addr_offsets;
->>>       uint32_t num_uniforms = validated_shader->uniforms_size / 4;
->>
->> Declare the variable here.
-> 
-> Strange...
-> It comes already directly after num_uniforms, doesn't it?
+This looks reasonable to me.  @Wentland, Harry, @Leo (Sunpeng) Li any conce=
+rns?
 
-Yeah, it does. However, usually, we declare the variables and then we
-proceed to the functions. Check, for example, the function
-record_texture_sample() in vc4.
+Alex
 
-Best regards,
-- Maíra
-
-> At least when I apply my patch to Linus' master.
-
+> ---
+>  drivers/gpu/drm/amd/display/dc/dce/dce_transform.c     | 10 +++++++++-
+>  .../gpu/drm/amd/display/dc/dce110/dce110_opp_csc_v.c   | 10 +++++++++-
+>  2 files changed, 18 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c b/drivers=
+/gpu/drm/amd/display/dc/dce/dce_transform.c
+> index b3640682fa60..12c85c3afd6a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
+> @@ -110,7 +110,15 @@ static const struct out_csc_color_matrix global_colo=
+r_matrix[] =3D {
+>  { COLOR_SPACE_YCBCR601_LIMITED, { 0xE00, 0xF447, 0xFDB9, 0x1000, 0x991,
+>         0x12C9, 0x3A6, 0x200, 0xFB47, 0xF6B9, 0xE00, 0x1000} },
+>  { COLOR_SPACE_YCBCR709_LIMITED, { 0xE00, 0xF349, 0xFEB7, 0x1000, 0x6CE, =
+0x16E3,
+> -       0x24F, 0x200, 0xFCCB, 0xF535, 0xE00, 0x1000} }
+> +       0x24F, 0x200, 0xFCCB, 0xF535, 0xE00, 0x1000} },
+> +{ COLOR_SPACE_2020_RGB_FULLRANGE,
+> +       { 0x2000, 0, 0, 0, 0, 0x2000, 0, 0, 0, 0, 0x2000, 0} },
+> +{ COLOR_SPACE_2020_RGB_LIMITEDRANGE,
+> +       { 0x1B67, 0, 0, 0x201, 0, 0x1B67, 0, 0x201, 0, 0, 0x1B67, 0x201} =
+},
+> +{ COLOR_SPACE_2020_YCBCR_LIMITED, { 0x1000, 0xF149, 0xFEB7, 0x1004, 0x08=
+68,
+> +       0x15B2, 0x01E6, 0x201, 0xFB88, 0xF478, 0x1000, 0x1004} },
+> +{ COLOR_SPACE_2020_YCBCR_FULL, { 0x1000, 0xF149, 0xFEB7, 0x1004, 0x0868,=
+ 0x15B2,
+> +       0x01E6, 0x201, 0xFB88, 0xF478, 0x1000, 0x1004} }
+>  };
+>
+>  static bool setup_scaling_configuration(
+> diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_opp_csc_v.c b/d=
+rivers/gpu/drm/amd/display/dc/dce110/dce110_opp_csc_v.c
+> index cf63fac82832..1ed018aaa4bb 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_opp_csc_v.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_opp_csc_v.c
+> @@ -88,7 +88,15 @@ static const struct out_csc_color_matrix global_color_=
+matrix[] =3D {
+>  { COLOR_SPACE_YCBCR601_LIMITED, { 0xE00, 0xF447, 0xFDB9, 0x1000, 0x991,
+>         0x12C9, 0x3A6, 0x200, 0xFB47, 0xF6B9, 0xE00, 0x1000} },
+>  { COLOR_SPACE_YCBCR709_LIMITED, { 0xE00, 0xF349, 0xFEB7, 0x1000, 0x6CE, =
+0x16E3,
+> -       0x24F, 0x200, 0xFCCB, 0xF535, 0xE00, 0x1000} }
+> +       0x24F, 0x200, 0xFCCB, 0xF535, 0xE00, 0x1000} },
+> +{ COLOR_SPACE_2020_RGB_FULLRANGE,
+> +       { 0x2000, 0, 0, 0, 0, 0x2000, 0, 0, 0, 0, 0x2000, 0} },
+> +{ COLOR_SPACE_2020_RGB_LIMITEDRANGE,
+> +       { 0x1B67, 0, 0, 0x201, 0, 0x1B67, 0, 0x201, 0, 0, 0x1B67, 0x201} =
+},
+> +{ COLOR_SPACE_2020_YCBCR_LIMITED, { 0x1000, 0xF149, 0xFEB7, 0x1004, 0x08=
+68,
+> +       0x15B2, 0x01E6, 0x201, 0xFB88, 0xF478, 0x1000, 0x1004} },
+> +{ COLOR_SPACE_2020_YCBCR_FULL, { 0x1000, 0xF149, 0xFEB7, 0x1004, 0x0868,=
+ 0x15B2,
+> +       0x01E6, 0x201, 0xFB88, 0xF478, 0x1000, 0x1004} }
+>  };
+>
+>  enum csc_color_mode {
+> --
+> 2.54.0
+>
