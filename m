@@ -4,70 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91EA3CD5BD5
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 19:29:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0FF1CD4F54
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 19:44:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17B6310F5DD;
-	Thu, 28 May 2026 19:29:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C1D710F5B3;
+	Thu, 28 May 2026 19:44:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="fxdMzSUn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i7WgIx7u";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C62D10F5DD
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 19:29:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1779996576;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=gXEMs3m1iU9CvSjiofzhaHKNsr4M9NI1nJV5PXEBxJY=;
- b=fxdMzSUnmHeg1gRF7v58tu2pSJvoWMHXZfEP/faDc0FHo4m+NsCK76jxWtS4NxaAYVuwmk
- y0WSLFp2jz8tW7RQalrJLRXSD9/saM4moZ4I5DDfl1bVn0YcHF7AVEYvVgHTfl9dx+SUPY
- pw2B6oHjqtaTp27JGPuXMxoAPqrY2JI=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-63-NpLvq8C8N86CP8_axzjxIA-1; Thu,
- 28 May 2026 15:29:33 -0400
-X-MC-Unique: NpLvq8C8N86CP8_axzjxIA-1
-X-Mimecast-MFC-AGG-ID: NpLvq8C8N86CP8_axzjxIA_1779996570
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 2C84619540DC; Thu, 28 May 2026 19:29:26 +0000 (UTC)
-Received: from GoldenWind.lan (unknown [10.22.89.248])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 1A0DF19560AD; Thu, 28 May 2026 19:29:23 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org, Timur Tabi <ttabi@nvidia.com>,
- nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: "Dave Airlie" <airlied@redhat.com>,
- "Qianfeng Rong" <rongqianfeng@vivo.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Kees Cook" <kees@kernel.org>, "Simona Vetter" <simona@ffwll.ch>,
- "David Airlie" <airlied@gmail.com>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- "Maxime Ripard" <mripard@kernel.org>,
- "Hongling Zeng" <zenghongling@kylinos.cn>,
- "Danilo Krummrich" <dakr@kernel.org>, "Zhi Wang" <zhiw@nvidia.com>,
- "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH 5/5] Revert "nouveau/gsp: cleanup IS_ERR_OR_NULL in rm_alloc
- functions"
-Date: Thu, 28 May 2026 15:27:19 -0400
-Message-ID: <20260528192847.4077458-6-lyude@redhat.com>
-In-Reply-To: <20260528192847.4077458-1-lyude@redhat.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D22D810F5B3;
+ Thu, 28 May 2026 19:44:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 31C21601E4;
+ Thu, 28 May 2026 19:44:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27CA61F000E9;
+ Thu, 28 May 2026 19:44:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779997496;
+ bh=Al1Rdb0qP+tKYEA5EKgoaK4bwuBTFrZINc4pk3eqfec=;
+ h=Date:From:Subject:Cc:To:References:In-Reply-To;
+ b=i7WgIx7u93jihOGlS5GspsKjabCLij0u1nfESdcJQM9boPVNsHzFgmJNP29FW4scX
+ VezJW37R8sJfQv4/YtN0rxZseENN+xhdCoMong9NuORcDhHWGVihrF7cE7eOQk46kI
+ xzV8ftI0TI/ubVNDNBz13zAL0TgFgRz+W7D/+ogNC5Oj5yKySNsoRa47heYGKfmTLV
+ LhAH+GPoEKq4NmQYIw94WJd3CVa3iiF0LN+JUikwmkXjeunokxTnnVNZUQUukyopeA
+ EJ4e+MSFG5YCi3LWXHGso7ip/8C40NcxIAdVXN0XXhUJDhOvFc0PeFTdYhLMM9GGuy
+ 6idtrbPntPJuw==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 28 May 2026 21:44:52 +0200
+Message-Id: <DIUKG7F2VAC7.17L4VHNNI7YL2@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH 0/5] Revert cleanups for IS_ERR_OR_NULL() usage
+Cc: <dri-devel@lists.freedesktop.org>, <nouveau@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, "Dave Airlie" <airlied@redhat.com>,
+ "Qianfeng Rong" <rongqianfeng@vivo.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Kees Cook" <kees@kernel.org>, "Simona
+ Vetter" <simona@ffwll.ch>, "David Airlie" <airlied@gmail.com>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>, "Maxime Ripard" <mripard@kernel.org>,
+ "Hongling Zeng" <zenghongling@kylinos.cn>, "Zhi Wang" <zhiw@nvidia.com>
+To: "Lyude Paul" <lyude@redhat.com>, "Timur Tabi" <ttabi@nvidia.com>
 References: <20260528192847.4077458-1-lyude@redhat.com>
-MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
-X-Mimecast-MFC-PROC-ID: 3dro9_cEr1gfF2GS9_PTHplruGGGPeB5OWbdwvO3G8I_1779996570
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+In-Reply-To: <20260528192847.4077458-1-lyude@redhat.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,41 +62,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is probably too risky, see the discussion here:
+On Thu May 28, 2026 at 9:27 PM CEST, Lyude Paul wrote:
+> Lyude Paul (5):
+>   Revert "nouveau/gsp/rm: cleanup remaining IS_ERR_OR_NULL usage"
+>   Revert "nouveau/gsp/rm: cleanup IS_ERR_OR_NULL in core implementation"
+>   Revert "nouveau/gsp/rm: cleanup WARN_ON(IS_ERR_OR_NULL)"
+>   Revert "nouveau/gsp: cleanup IS_ERR_OR_NULL in rpc_rd"
+>   Revert "nouveau/gsp: cleanup IS_ERR_OR_NULL in rm_alloc functions"
 
-  https://lists.freedesktop.org/archives/dri-devel/2026-May/570353.html
+Reverting the whole thing for now is the right call, as it needs some more
+review.
 
-This reverts commit 281fe11c6c4aebc1a1eb9d21eaab7323ee5af979.
+@Timur: I do think cleaning this up is the right call in general though, an=
+d I
+also don't think that the whole driver necessarily needs to be consistent o=
+n
+whether IS_ERR_OR_NULL() or IS_ERR() is used -- it depends on the context
+(although I usually prefer not to mix up NULL and ERR semantics in the firs=
+t
+place).
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+It should however be consistent in terms of what functions can actually ret=
+urn.
 
-diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-index ab2bd88eebce5..64fed208e4cf8 100644
---- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-+++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-@@ -373,7 +373,7 @@ nvkm_gsp_rm_alloc_get(struct nvkm_gsp_object *parent, u32 handle, u32 oclass, u3
- 	object->handle = handle;
- 
- 	argv = gsp->rm->api->alloc->get(object, oclass, argc);
--	if (IS_ERR(argv)) {
-+	if (IS_ERR_OR_NULL(argv)) {
- 		object->client = NULL;
- 		return argv;
- 	}
-@@ -415,8 +415,8 @@ nvkm_gsp_rm_alloc(struct nvkm_gsp_object *parent, u32 handle, u32 oclass, u32 ar
- {
- 	void *argv = nvkm_gsp_rm_alloc_get(parent, handle, oclass, argc, object);
- 
--	if (IS_ERR(argv))
--		return PTR_ERR(argv);
-+	if (IS_ERR_OR_NULL(argv))
-+		return argv ? PTR_ERR(argv) : -EIO;
- 
- 	return nvkm_gsp_rm_alloc_wr(object, argv);
- }
--- 
-2.54.0
+	ret =3D foo();
+	if (IS_ERR_OR_NULL(ret))
+		return ret;
 
+If foo() can never return NULL, the above is misleading, as it puts an
+obligation on the caller to somehow handle the NULL case and come up with a=
+n
+actual error code for it.
+
+So, I think it is the right call to align that to what functions can actual=
+ly
+return, but while doing this, the contract should be properly documented, s=
+uch
+that subsequent changes can be properly validated.
+
+I can pick this up later, but in case you want to pick it up Lyude, note th=
+at
+this now has to go into drm-misc-next-fixes.
+
+Thanks,
+Danilo
