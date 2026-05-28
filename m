@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49F45CD6E44
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 13:30:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6625CD4F54
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 13:31:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC84010F191;
-	Thu, 28 May 2026 13:30:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 134F910F192;
+	Thu, 28 May 2026 13:31:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cnk/Iud8";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="Vc/fRPeq";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C241310F183
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 13:30:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F27586055C;
- Thu, 28 May 2026 13:30:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20DC81F000E9;
- Thu, 28 May 2026 13:30:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779975024;
- bh=Y8rVMr4dqWUmgMWiltbXDUURPAIIqisuvdyrjOXRRr8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=cnk/Iud8BGdfiTt92TmGHO5r3e9biuU3K+BZGLeb+21QwVCYmjH0a32VKX5ASSMQ4
- iEqTHcGpfDVBpSgQAj5xH/CcMItA+Y/btOQyJ6QI3xhUroq1yoWOCR7umnUfDjyPxb
- YUN7J57pqZhfO0yC87yng22Hy5EH342KYL2K4AqJAtJIFG0hVKXgpNV5rdy+93kMLu
- 1bTXp8UuXy1+JJJCmQS8gwtqTzl+7DiltAMg0Xmom3D9YOcpuiAqh1Ihn/e8qtimFe
- 5Q9rAeWCzKsaJCmIPw2sQjEk0xvWc/sZEM6Tho5MmKelsOl1HobgLjpfUHAHuh1L4h
- r1Ak8b3m9LyQg==
-Date: Thu, 28 May 2026 15:30:22 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: shayderrr <darknessshayder@gmail.com>
-Cc: thierry.reding@gmail.com, cyndis@kapsi.fi, airlied@linux.ie, 
- simona@ffwll.ch, dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] host1x: bus: Fix missing ops null check in error teardown
-Message-ID: <ahhDR8dtEJ7Fpl3d@orome>
-References: <20260517170456.84927-1-darknessshayder@gmail.com>
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F416C10F192
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 13:31:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=8J
+ +dUm9W37rXxgShjP2ChFk+3+g0TSrBqH/jssS5uR4=; b=Vc/fRPeqtFFv+FdT8R
+ 3yPCC3GKPUmoFXvYFbHkWnrzYLOSpRuEGoZZV3tRq/td2BTpk6ayTJxFsnYPTM53
+ L0/6IcnNJLKyzF82Kf6Ob/gErvzvqCAZIIlgS/aRAKuZGJsC/d5xQn77L3ZVYJ3+
+ PSjfvzRQQMrZyYuc7ddOWsB2I=
+Received: from 163.com (unknown [])
+ by gzsmtp4 (Coremail) with SMTP id PygvCgD3v0M_QxhqpAnRFQ--.101S2;
+ Thu, 28 May 2026 21:29:39 +0800 (CST)
+From: w15303746062@163.com
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, sumit.semwal@linaro.org,
+ christian.koenig@amd.com
+Cc: jeffy.chen@rock-chips.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Subject: [PATCH v2] drm/prime: fix dangling dmabuf entries after handle release
+Date: Thu, 28 May 2026 21:29:32 +0800
+Message-Id: <20260528132932.1078483-1-w15303746062@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <0e12ce28-f5b7-4ffa-849c-df9ad1796e22@amd.com>
+References: <0e12ce28-f5b7-4ffa-849c-df9ad1796e22@amd.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="4k3tk77o7e7dsbxu"
-Content-Disposition: inline
-In-Reply-To: <20260517170456.84927-1-darknessshayder@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: PygvCgD3v0M_QxhqpAnRFQ--.101S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZFyUWw1DCw43KFyDuFWDXFb_yoW5XFy3pr
+ W3Wryqyr4vyF1Fga42y3WxXF93ua1fJFW7JFW7K39av34Yvr1fCryIyayIkrWUGr93XF4Y
+ qF18JryYyF1j93DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5EfOUUUUU=
+X-Originating-IP: [113.200.174.100]
+X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC5AOBZWoYQ0MN5gAA3a
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,54 +61,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
 
---4k3tk77o7e7dsbxu
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] host1x: bus: Fix missing ops null check in error teardown
-MIME-Version: 1.0
+When a GEM handle already exists in the drm_prime_file_private, repeated
+calls to DRM_IOCTL_PRIME_HANDLE_TO_FD can cause drm_prime_add_buf_handle()
+to insert multiple entries with the same handle into the handles rb_tree.
+Because the insertion walk moves left on equality, duplicate keys are
+structurally accepted by the tree.
 
-On Sun, May 17, 2026 at 12:04:56PM -0500, shayderrr wrote:
-> In host1x_device_init(), the error teardown paths do not check
-> client->ops before dereferencing it, unlike the forward init paths
-> which correctly guard with 'client->ops &&'. This can result in a
-> NULL pointer dereference if client->ops is NULL.
->=20
-> Fix by adding the missing client->ops check in both the teardown
-> and teardown_late labels.
->=20
-> Signed-off-by: shayderrr <darknessshayder@gmail.com>
-> ---
->  drivers/gpu/host1x/bus.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+Later, when the handle is released via drm_gem_release() ->
+drm_gem_object_release_handle() -> drm_prime_remove_buf_handle(), the
+latter iterates the handles tree, removes the first matching node, and
+breaks out of the loop. Any remaining duplicate nodes that share the
+same handle are left orphaned in the dmabufs tree - they are no longer
+reachable through the handles tree and are never freed.
 
-I don't think this can ever happen because all clients do implement the
-ops structure, but since we have them in the code above, makes sense to
-be consistent.
+When the drm file is finally closed, drm_prime_destroy_file_private()
+triggers:
 
-Applied, thanks.
+	WARN_ON(!RB_EMPTY_ROOT(&prime_fpriv->dmabufs));
 
-Thierry
+because the dmabufs tree is still non-empty. With CONFIG_PANIC_ON_WARN
+this becomes a kernel panic:
 
---4k3tk77o7e7dsbxu
-Content-Type: application/pgp-signature; name="signature.asc"
+	------------[ cut here ]------------
+	WARNING: CPU: 0 PID: 19739 at drivers/gpu/drm/drm_prime.c:223 drm_prime_destroy_file_private+0x43/0x60
+	...
+	Kernel panic - not syncing: kernel: panic_on_warn set ...
 
------BEGIN PGP SIGNATURE-----
+Fix this by restarting the lookup from the root of the handles tree
+after each successful removal, so that all duplicate nodes for the given
+handle are erased. The caller (drm_gem_object_release_handle) already
+holds prime_fpriv->lock, so this does not change the locking strategy.
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoYQ24ACgkQ3SOs138+
-s6GE9RAAgvpcWkFK3LA0tc8S6Ay0mqVowCASm5wwnR7UQSfTyo7G4sYivZ5w3/vS
-vgmt0mzoJf4KcnPlJXksA1omYKekaon2i2NLG9tMfARWw9yc5C89TwWElQnFuU7P
-ebuJMqWwrAyZ/9ic7MSOcDtzjdn0sgFWU/NT47R+Yg17HFxPV72xYAca2Y19KwGU
-0Lnw2C0xLEOuXzCqwv2RTG07Ko8CcXvR/AsqTBeAWPBTE2M0KfxFgR4VjxJ8COou
-eCvnpg2eeJnTr8pMbOCEMv+DPbvA7U3myvSJx36a8td7jA5yNZpirnMHWmKlOE/L
-LeHPDBkatPz/69IxYvoG7XT5gbi+1zUEX6wy3/w0jrU+o7h4yi9PUp22Q7bdtTnB
-7In1zcg/Q/OeIyP2A7vQfu374Nzvdz+MuHQXaUF04yiONy6SDH9OYvjEIjcvDkAe
-BnKKgy4r7/RVLBEl4BQDSWLDrG2nwLfagm+Wy2BXkzWcN8gNLJiB8MtZWLtZsKI/
-V0NcfML33MuqSZvr4payRjTxLsyaj+ApoeQq5HhPQRXVYKnxuhisytGj0dk5Xdlu
-Ix/l4VgcPLTsFl5h9Hz8cvGCPbqmUUCRFC5V4L+uZCAtc1UWJ9rhAp9Cj4S/Zur5
-8rU/9CFvZ+ENmQxqiEo9+2Wt6aj9Ze55Yt4RQlWv5r8HN9jhibI=
-=Z7YB
------END PGP SIGNATURE-----
+Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+---
+Changes in v2:
+ - Drop the unnecessary mutex_lock addition, as the caller (drm_gem_object_release_handle) already holds the lock.
+ - Rewrite the commit message to accurately reflect the root cause (duplicate handle insertions) rather than an assumed lack of synchronization.
+ - Restart the rb_tree lookup from the root instead of breaking the loop to ensure all orphaned duplicate nodes are thoroughly removed.
 
---4k3tk77o7e7dsbxu--
+ drivers/gpu/drm/drm_prime.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+index 9b44c78cd77f..dc28df1c6698 100644
+--- a/drivers/gpu/drm/drm_prime.c
++++ b/drivers/gpu/drm/drm_prime.c
+@@ -202,7 +202,10 @@ void drm_prime_remove_buf_handle(struct drm_prime_file_private *prime_fpriv,
+ 
+ 			dma_buf_put(member->dma_buf);
+ 			kfree(member);
+-			break;
++			/* Duplicate handles may exist; restart search from root
++			 * to guarantee removal of all matching entries.
++			 */
++			rb = prime_fpriv->handles.rb_node;
+ 		} else if (member->handle < handle) {
+ 			rb = rb->rb_right;
+ 		} else {
+-- 
+2.34.1
+
