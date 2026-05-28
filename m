@@ -4,67 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF077CD5BD1
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 09:59:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7A52CD6E44
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 10:01:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20A4610EF4E;
-	Thu, 28 May 2026 09:59:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CA3C10EF50;
+	Thu, 28 May 2026 10:01:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SSmmIlDh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g3a498FF";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87AF710EF4E
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 09:59:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779962357; x=1811498357;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=RVbc3koXQ4err9PbYblRDyJEYwnImRo0oDvglNC9DXQ=;
- b=SSmmIlDhZ9COr04pXtkTQPYzI0r7LmKgZiZ6QC2wOZKtpD0VcgkH+mpE
- cbdxFzfJYPAA2uApicBdP/btqfhsHD8f+mLRGIzjs1vLKZwXEPe2uXD5/
- Sp/Ezh4RE45Bmzn2GS9g/+6p10+b3ESIq3GCk5nWRdfHt2Yv7zjdY693n
- UxH0MFeFmrHLnxPCPX1RKrX++qGABa+dY2bRaxn+VzVzEYWwAoooMeXTc
- NJLkub20Cx7eStIMRd6FuTeybg9F0nPHSICNcd2SgfWTybWUDvbigPBVQ
- mig2QCOnIJu20hNPAUZUc12clYKsJnlcxVF25g+lPfL8H3pV3sUvPcKTn A==;
-X-CSE-ConnectionGUID: zDWq4RQnRfmnFfIt1nStZQ==
-X-CSE-MsgGUID: 1de1YIrlTJS9LZLy8/ZtdQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11799"; a="84690795"
-X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; d="scan'208";a="84690795"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 May 2026 02:59:16 -0700
-X-CSE-ConnectionGUID: mkTEZP3cRj+k5DYuQ58yeA==
-X-CSE-MsgGUID: A+RjZFUHRLql4VDS9C8C+Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; d="scan'208";a="238322491"
-Received: from lkp-server01.sh.intel.com (HELO f0d55cb201f0) ([10.239.97.150])
- by fmviesa010.fm.intel.com with ESMTP; 28 May 2026 02:59:10 -0700
-Received: from kbuild by f0d55cb201f0 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wSXW7-000000005oI-107J;
- Thu, 28 May 2026 09:59:07 +0000
-Date: Thu, 28 May 2026 17:58:32 +0800
-From: kernel test robot <lkp@intel.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- syzbot <syzbot+5d32c8bd82427f9c77cc@syzkaller.appspotmail.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- Linux Memory Management List <linux-mm@kvack.org>,
- apopple@nvidia.com, byungchul@sk.com, david@kernel.org,
- gourry@gourry.net, joshua.hahnjy@gmail.com,
- linux-kernel@vger.kernel.org, matthew.brost@intel.com,
- rakie.kim@sk.com, syzkaller-bugs@googlegroups.com,
- ying.huang@linux.alibaba.com, ziy@nvidia.com,
- dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH] drm/lease: Limit amount of maximum objects per lease.
-Message-ID: <202605281701.Blefmpwd-lkp@intel.com>
-References: <b3390013-f0de-4e23-a915-23340594fb49@linux.intel.com>
+Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com
+ [74.125.224.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD84D10EF52
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 10:01:10 +0000 (UTC)
+Received: by mail-yx1-f54.google.com with SMTP id
+ 956f58d0204a3-65c1ba7eeb6so12456481d50.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 03:01:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779962469; cv=none;
+ d=google.com; s=arc-20240605;
+ b=G9wkWsjSvuQKwWdZhD6FWpADBnpTmLJGBaEqDUCfeueD0Cu9qtk6YJT7y0IKi+LO/v
+ kTtBg7gA06iHx7avICEegEtbd1uCh7dGt7Fb88zWQAI/y0HQxw7rK0UT+iB9ivYvz2OV
+ wQLFojCUqrSx4/8xcIorPU+G7RgQml3T1Cdy3nFiVaMQ47E/bbVeuumj0DGM2gJT0uiM
+ ZuJIw0Llk6u5fQvjzWOb3wG5vhDNN4qbbai6+rXS7CwbMgtavw7uvk3kde9Xn185L4Wr
+ +gkTcSnf3yFzv5zsoanyAnpj9yTcXr1AVHvPFJPj7tpuIVqIYppyuHqa+ZXtC6rkHXDm
+ 8OLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=ENaGop7hdOhRvlo9/v6zprcr5Co1+opC5qv3HonlvMs=;
+ fh=gSiGgTrMga36TsMOhViyid1e9gkZirpbDRU1vmYs4+c=;
+ b=i9yr5P91Ok773MilODvdInD6BPo3P0ea5YmDFpbMbdmSdNkIsba132ci8DSzOgtPOR
+ TmGCxFiIXX8pZQ28IC3xWxIt3rslT+jRyR/iVaG3+rvzNhDEROeLMns+p4oHID4RnUHy
+ m+6yGu6VS0yA76R//wbyY93/duFybBUkv9YDT3YBCKS41TSru1+EZYAcPg5OGEmEz5Fs
+ MVJzuk8WSQ/pPbmL6zX2kVQLTNQffPuo6sy73Vf7HcnxRd7N/nUIzXxFRtKPG82Lro7l
+ t+kgNPUysLK68pcFkzv5coIdV5TGeZ/YOaZzQn/TDK8cFeHiRCW3hecnlJAXhD0SZlUc
+ fqvg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779962469; x=1780567269; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ENaGop7hdOhRvlo9/v6zprcr5Co1+opC5qv3HonlvMs=;
+ b=g3a498FFqNwSL3udJYupbXixF1mM8SbJqcFdB0qUQFsl0RityJQbCYMCt+BgvOghcL
+ ZpenSjKsysi8tYOfPTVYgxKn78OXzgyDwSRsuBqiHsVmisand58F5nmOHnbqx7+f/TQq
+ 5LbTNF96HJ1NTQSGxbfKMV998TZEAY0kZzjvjA+yTdjR+QGaJMP+bGC8J/Qsj1B8ek2I
+ GP3ukQlZFIchWC937OP8wMEF9x3pPKfETmfJZGzKXsl5/sQ1F/+W1a9WpHOcXoDXJzUY
+ qy7t0gxORyd1Vq04esnvMJSN86X3r9NtEMqKm66AqNaFcD9nK1ZGwAtR4VIyHSK0XMuO
+ /wfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779962469; x=1780567269;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=ENaGop7hdOhRvlo9/v6zprcr5Co1+opC5qv3HonlvMs=;
+ b=klSOhkJZivz6wiHwU9/ZRk72J8ExNPmsjy3JkM3d+rhm/dpnlDJLnxaNbMzwpTBuTB
+ dwBPVc3ZU7WptXk0PZldQb4ElnIIsmQ+xOAqALSv7wu4dxtl6PBw+D/dcQI6f2I4A5yN
+ rxDuztPkwCzTnRouHqdXoAp1gHTkz8ne7rwWzr7GmDgLQNvT4j3YqPtNYvlVGrO+IjbV
+ 0Tq7hXLZ5IafsSEx5p4LAA26wjwO6XYnn2rqX/JIu945UsRKZMMzxzf+W9aZSDTPMzzU
+ tVgTjWrVEnlUaXZUIPF20+KHO+e6rsJelCZZoGzo2kPLqPycYmEwRfs9mjAy9nJ6mgdd
+ dM1g==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+yZybJ9DOF1f22/UZy4eoT/COZMZxcLqL3o9kpM13y1+mXODKWawhkf/oQ0FC+p+SRMUnYWjVWwlI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyMiXFEQiRzuFrAaRJw3pKNUb/uk1RO+TNAxC3X9IzqO01cHM71
+ msluk6+XmCOa+llJNxm10GmAITK8qap6l+B0UAdV9W6FI+fdcVgW13foTg4+ItK5jCIHjRLoJJ1
+ alr/nHHz7ewxuungUG2D2TAE6+0a/99c=
+X-Gm-Gg: Acq92OEvaNWkBGQiiqBM6y7kqz7VABRUtqwvH3T+bLCBHTa+kxNMd1pR0FWu9b8q9SA
+ yq59mIPvVJX5yhK8p8kyVq/PwLxAgruYpy6rle3UCDjJOlNr2eh5Wk1NJ7JBiHpXfYvUDiW0pOi
+ xr/kYL6fAOaKsnSbMEkRGIfZf7gcjRKtYziUG9babomXpHssHINBmc2nfIL8q/P4aPvkLhCGWXa
+ nZlZl1AzBYH3Q21VkPS3VOm/YjKPdNE/Cms5H3jqLMvEFO0Y+65aH8KfspVvNSKOO4DxyztXjsr
+ GYRX5IgNOImcJ85DR9V0gGsEN1/6wV3guTYY1UhGwDZ2Oiq5y3k9Z/w8X68c1wXIPC0MlTob2RQ
+ aCtsMiw==
+X-Received: by 2002:a05:690e:4090:b0:65e:421f:25a with SMTP id
+ 956f58d0204a3-65ec9938b9dmr23205364d50.53.1779962469261; Thu, 28 May 2026
+ 03:01:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b3390013-f0de-4e23-a915-23340594fb49@linux.intel.com>
+References: <20260527133917.207150-1-tzimmermann@suse.de>
+ <CAHijbEVZBRTK7yhZy8gaZwb19JMzUD_nA2S1LOKX2NrK19RBsQ@mail.gmail.com>
+ <1d399c2d-b50f-4d19-8170-9db8961e4227@suse.de>
+In-Reply-To: <1d399c2d-b50f-4d19-8170-9db8961e4227@suse.de>
+From: Julian Orth <ju.orth@gmail.com>
+Date: Thu, 28 May 2026 12:01:01 +0200
+X-Gm-Features: AVHnY4Kd6TXNqqh3i-IesxOIMTyuSSIzXsJX_ARE_lWWTyd_wM1yd783Bw12QD0
+Message-ID: <CAHijbEUKpOuDLJES9AbSp8Pk+egeDPe7KPyBy1xBFM9ET9peCg@mail.gmail.com>
+Subject: Re: [PATCH v2 0/9] drm: Limit DRM_IOCTL_WAIT_VBLANK to vblank
+ interrupts
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: simona@ffwll.ch, airlied@gmail.com, mdaenzer@redhat.com, 
+ pekka.paalanen@collabora.com, jadahl@gmail.com, contact@emersion.fr, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, mhklinux@outlook.com, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org, 
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,176 +113,172 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maarten,
+On Thu, May 28, 2026 at 9:54=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse=
+.de> wrote:
+>
+> Hi
+>
+> Am 27.05.26 um 18:31 schrieb Julian Orth:
+> > On Wed, May 27, 2026 at 3:39=E2=80=AFPM Thomas Zimmermann <tzimmermann@=
+suse.de> wrote:
+> >> DRM's WAIT_VBLANK ioctl synchronizes user-space clients to display
+> >> refresh. This is meaningless with vblank timers, which run unrelated
+> >> to the hardware's vblank.
+> >>
+> >> Disable the ioctl for simulated vblanks. Set DRM_VBLANK_FLAG_SIMULATED
+> >> for CRTCs with simulated vblank events in all such drivers. The vblank
+> >> timers of these devices still rate-limit the number of page-flip event=
+s
+> >> to match the display refresh.
+> >>
+> >> According to maintainers, user-space compositors do not require the io=
+ctl
+> >> for rate-limitting display output. Weston, Kwin and Mutter rely on com=
+pletion
+> >> events. Mutter optionally uses the WAIT_VBLANK ioctl only to optimize =
+the
+> >> time from input to output.
+> >>
+> >> When testing with mutter and weston, the page-flip rate appears correc=
+t
+> >> with the patch set applied.
+> > To avoid this being a regression, you need to test that this change
+> > does not regress input latency.
+>
+> Let me stress that the current situation is that there's high-quality,
+> and low-quality and no timing information. Depends on the driver and
+> hardware.
+>
+> >
+> > As discussed on IRC, compositors use vblank data to predict the time
+> > of the next flip event. For each device that you are touching here,
+> > there are two possibilities:
+> >
+> > - The vblank data is related to the flip timing, i.e. flip events and
+> > vblank events are sent at almost the same time. In this case removing
+> > these apis removes the path for compositors to predict the time of the
+> > next flip event. Input latency will therefore regress after idle
+> > periods when the compositor no longer has the time of the last vblank.
+>
+> User-space compositors seem to operate under this assumption. That, I
+> think, makes sense on better hardware with rendering and vblank IRQs.
+> Page flips are fast on such systems.
+>
+> >
+> > - The vblank data has nothing to do with the time of the next flip
+> > event. In this case this series could in fact improve latency because
+> > it removes the incorrect data from the compositor.
+>
+> Most of the hardware that would use vblank timers falls in this
+> category. Page flips often consist of memcpys into video memory, or they
+> transfer pixel data over slow peripheral busses. The amount of work per
+> page flip varies with the size of the damage rectangles.
+>
+> Any vblank timing information here is therefore of low quality. For some
+> scenarios, it would be common to miss a vblank or even the one after it.
 
-kernel test robot noticed the following build warnings:
+What matters is if the flip event will be aligned to _some_ vblank
+event. As long as that is the case, the compositor can estimate which
+vblank it will hit based on previous frames and can schedule its work
+accordingly. I believe KWin and Mutter already support scheduling
+frames for multiple vblanks in the future to support low-powered
+devices or devices that are under high load. I have not looked into
+this myself.
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on akpm-mm/mm-everything daeinki-drm-exynos/exynos-drm-next drm/drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-tip/drm-tip linus/master v7.1-rc5 next-20260527]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+But even on high-powered devices compositors already take per-commit
+kernel work into account. For example, by default I aim to commit 1.5
+ms before vblank. This grace period is adjusted dynamically if I miss
+the expected vblank.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Maarten-Lankhorst/drm-lease-Limit-amount-of-maximum-objects-per-lease/20260527-180216
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/b3390013-f0de-4e23-a915-23340594fb49%40linux.intel.com
-patch subject: [PATCH] drm/lease: Limit amount of maximum objects per lease.
-config: hexagon-allmodconfig (https://download.01.org/0day-ci/archive/20260528/202605281701.Blefmpwd-lkp@intel.com/config)
-compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260528/202605281701.Blefmpwd-lkp@intel.com/reproduce)
+Therefore I don't think this is an argument against exposing vblank
+info. Even if the hardware had such an interrupt, the memcpy and
+slow-bus issues would continue to apply.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202605281701.Blefmpwd-lkp@intel.com/
+>
+>
+> IMHO, the first thing to discuss is whether having possibly low-quality
+> timing information is preferable to having either high-quality timing or
+> none. I have no strong opinion, but would tend to the latter.
 
-All warnings (new ones prefixed by >>):
+If you want to make userspace aware that vblank events are not backed
+by hardware interrupts, then maybe this could be exposed as a driver
+cap or a flag in the vblank event. Userspace could then decide on
+their own what to do with that information.
 
->> drivers/gpu/drm/drm_lease.c:513:50: warning: format specifies type 'long' but the argument has type 'size_t' (aka 'unsigned int') [-Wformat]
-     513 |                 drm_dbg_lease(dev, "too many objects (%ld)\n", object_count);
-         |                                                       ~~~      ^~~~~~~~~~~~
-         |                                                       %zu
-   include/drm/drm_print.h:663:54: note: expanded from macro 'drm_dbg_lease'
-     663 |         drm_dev_dbg(__drm_to_dev(drm), DRM_UT_LEASE, fmt, ##__VA_ARGS__)
-         |                                                      ~~~    ^~~~~~~~~~~
-   include/drm/drm_print.h:563:39: note: expanded from macro 'drm_dev_dbg'
-     563 |         __drm_dev_dbg(NULL, dev, cat, fmt, ##__VA_ARGS__)
-         |                                       ~~~    ^~~~~~~~~~~
-   1 warning generated.
+Currently I don't think any compositor would use that information
+since they target flip times and don't care if those times are driven
+by hardware or software (since this is not actionable by userspace
+anyway). So maybe the useful flag would be "flip times will not be
+aligned to any vblank event" if that applies to any driver.
 
-
-vim +513 drivers/gpu/drm/drm_lease.c
-
-   468	
-   469	/*
-   470	 * The master associated with the specified file will have a lease
-   471	 * created containing the objects specified in the ioctl structure.
-   472	 * A file descriptor will be allocated for that and returned to the
-   473	 * application.
-   474	 */
-   475	int drm_mode_create_lease_ioctl(struct drm_device *dev,
-   476					void *data, struct drm_file *lessor_priv)
-   477	{
-   478		struct drm_mode_create_lease *cl = data;
-   479		size_t object_count;
-   480		int ret = 0;
-   481		struct idr leases;
-   482		struct drm_master *lessor;
-   483		struct drm_master *lessee = NULL;
-   484		struct file *lessee_file = NULL;
-   485		struct file *lessor_file = lessor_priv->filp;
-   486		struct drm_file *lessee_priv;
-   487		int fd = -1;
-   488		uint32_t *object_ids;
-   489		static const size_t max_objects =
-   490			8 * sizeof(drm_crtc_mask(NULL)) +
-   491			8 * sizeof(drm_plane_mask(NULL)) +
-   492			8 * sizeof(drm_connector_mask(NULL));
-   493	
-   494		/* Can't lease without MODESET */
-   495		if (!drm_core_check_feature(dev, DRIVER_MODESET))
-   496			return -EOPNOTSUPP;
-   497	
-   498		if (cl->flags && (cl->flags & ~(O_CLOEXEC | O_NONBLOCK))) {
-   499			drm_dbg_lease(dev, "invalid flags\n");
-   500			return -EINVAL;
-   501		}
-   502	
-   503		lessor = drm_file_get_master(lessor_priv);
-   504		/* Do not allow sub-leases */
-   505		if (lessor->lessor) {
-   506			drm_dbg_lease(dev, "recursive leasing not allowed\n");
-   507			ret = -EINVAL;
-   508			goto out_lessor;
-   509		}
-   510	
-   511		object_count = cl->object_count;
-   512		if (object_count > max_objects) {
- > 513			drm_dbg_lease(dev, "too many objects (%ld)\n", object_count);
-   514			ret = -EINVAL;
-   515			goto out_lessor;
-   516		}
-   517	
-   518		/* Handle leased objects, if any */
-   519		idr_init(&leases);
-   520		if (object_count != 0) {
-   521			object_ids = memdup_array_user(u64_to_user_ptr(cl->object_ids),
-   522						       object_count, sizeof(__u32));
-   523			if (IS_ERR(object_ids)) {
-   524				ret = PTR_ERR(object_ids);
-   525				idr_destroy(&leases);
-   526				goto out_lessor;
-   527			}
-   528	
-   529			/* fill and validate the object idr */
-   530			ret = fill_object_idr(dev, lessor_priv, &leases,
-   531					      object_count, object_ids);
-   532			kfree(object_ids);
-   533			if (ret) {
-   534				drm_dbg_lease(dev, "lease object lookup failed: %i\n", ret);
-   535				idr_destroy(&leases);
-   536				goto out_lessor;
-   537			}
-   538		}
-   539	
-   540		/* Allocate a file descriptor for the lease */
-   541		fd = get_unused_fd_flags(cl->flags & (O_CLOEXEC | O_NONBLOCK));
-   542		if (fd < 0) {
-   543			idr_destroy(&leases);
-   544			ret = fd;
-   545			goto out_lessor;
-   546		}
-   547	
-   548		drm_dbg_lease(dev, "Creating lease\n");
-   549		/* lessee will take the ownership of leases */
-   550		lessee = drm_lease_create(lessor, &leases);
-   551	
-   552		if (IS_ERR(lessee)) {
-   553			ret = PTR_ERR(lessee);
-   554			idr_destroy(&leases);
-   555			goto out_leases;
-   556		}
-   557	
-   558		/* Clone the lessor file to create a new file for us */
-   559		drm_dbg_lease(dev, "Allocating lease file\n");
-   560		lessee_file = file_clone_open(lessor_file);
-   561		if (IS_ERR(lessee_file)) {
-   562			ret = PTR_ERR(lessee_file);
-   563			goto out_lessee;
-   564		}
-   565	
-   566		lessee_priv = lessee_file->private_data;
-   567		/* Change the file to a master one */
-   568		drm_master_put(&lessee_priv->master);
-   569		lessee_priv->master = lessee;
-   570		lessee_priv->is_master = 1;
-   571		lessee_priv->authenticated = 1;
-   572	
-   573		/* Pass fd back to userspace */
-   574		drm_dbg_lease(dev, "Returning fd %d id %d\n", fd, lessee->lessee_id);
-   575		cl->fd = fd;
-   576		cl->lessee_id = lessee->lessee_id;
-   577	
-   578		/* Hook up the fd */
-   579		fd_install(fd, lessee_file);
-   580	
-   581		drm_master_put(&lessor);
-   582		drm_dbg_lease(dev, "drm_mode_create_lease_ioctl succeeded\n");
-   583		return 0;
-   584	
-   585	out_lessee:
-   586		drm_master_put(&lessee);
-   587	
-   588	out_leases:
-   589		put_unused_fd(fd);
-   590	
-   591	out_lessor:
-   592		drm_master_put(&lessor);
-   593		drm_dbg_lease(dev, "drm_mode_create_lease_ioctl failed: %d\n", ret);
-   594		return ret;
-   595	}
-   596	
-
+>
+> Best regards
+> Thomas
+>
+>
+> >
+> > Whether the times of the flip events correspond to hardware timings is
+> > not relevant. Everything in wayland compositors is scheduled against
+> > flip event timings and they are also forwarded to clients for their
+> > frame scheduling. If the flip timings are wrong/out of sync with the
+> > hardware, then removing the vblank apis does not improve this
+> > situation.
+> >
+> >> This change has been discussed at length on IRC recently.
+> >>
+> >> https://people.freedesktop.org/~cbrill/dri-log/?channel=3Ddri-devel&hi=
+ghlight_names=3D&date=3D2026-05-08&show_html=3Dtrue
+> >> https://people.freedesktop.org/~cbrill/dri-log/?channel=3Ddri-devel&hi=
+ghlight_names=3D&date=3D2026-05-12&show_html=3Dtrue
+> >> https://people.freedesktop.org/~cbrill/dri-log/?channel=3Ddri-devel&hi=
+ghlight_names=3D&date=3D2026-05-13&show_html=3Dtrue
+> >> https://people.freedesktop.org/~cbrill/dri-log/?channel=3Ddri-devel&hi=
+ghlight_names=3D&date=3D2026-05-15&show_html=3Dtrue
+> >>
+> >> v2:
+> >> - add filter to CRTC_GET_SEQUENCE and CRTC_QUEUE_SEQUENCE ioctls (Mich=
+el)
+> >> - clarify Mutter's behavior in cover letter (Michel)
+> >>
+> >> Thomas Zimmermann (9):
+> >>    drm/vblank: Add drmm_vblank_init() to indicate managed cleanup
+> >>    drm/vblank: Add DRM_VBLANK_FLAG_SIMULATED
+> >>    drm/amdgpu: vkms: Set DRM_VBLANK_FLAG_SIMULATED
+> >>    drm/bochs: Set DRM_VBLANK_FLAG_SIMULATED
+> >>    drm/cirrus: Set DRM_VBLANK_FLAG_SIMULATED
+> >>    drm/hypervdrm: Set DRM_VBLANK_FLAG_SIMULATED
+> >>    drm/qxl: Set DRM_VBLANK_FLAG_SIMULATED
+> >>    drm/virtgpu: Set DRM_VBLANK_FLAG_SIMULATED
+> >>    drm/vkms: Set DRM_VBLANK_FLAG_SIMULATED
+> >>
+> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c    |  3 ++-
+> >>   drivers/gpu/drm/drm_vblank.c                | 26 +++++++++++++++----=
 --
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> >>   drivers/gpu/drm/drm_vblank_helper.c         |  2 +-
+> >>   drivers/gpu/drm/hyperv/hyperv_drm_modeset.c |  2 +-
+> >>   drivers/gpu/drm/qxl/qxl_display.c           |  2 +-
+> >>   drivers/gpu/drm/tiny/bochs.c                |  2 +-
+> >>   drivers/gpu/drm/tiny/cirrus-qemu.c          |  2 +-
+> >>   drivers/gpu/drm/virtio/virtgpu_display.c    |  2 +-
+> >>   drivers/gpu/drm/vkms/vkms_drv.c             |  4 ++--
+> >>   include/drm/drm_crtc.h                      |  2 +-
+> >>   include/drm/drm_device.h                    |  2 +-
+> >>   include/drm/drm_vblank.h                    | 15 +++++++++++-
+> >>   12 files changed, 45 insertions(+), 19 deletions(-)
+> >>
+> >>
+> >> base-commit: 5fb5a9a63cf5ece68e0eeb6fa397da27712bccf0
+> >> --
+> >> 2.54.0
+> >>
+>
+> --
+> --
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
+> GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG N=C3=
+=BCrnberg)
+>
+>
