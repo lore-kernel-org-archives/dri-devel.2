@@ -4,130 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 138BCCD4F54
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 16:52:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24D3BCD5BD5
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 17:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D99C10F491;
-	Thu, 28 May 2026 16:52:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F2CE10F2E9;
+	Thu, 28 May 2026 17:02:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=microsoft.com header.i=@microsoft.com header.b="ZGZtqspY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cL2jrF+Q";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11020127.outbound.protection.outlook.com [52.101.61.127])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0715D10F491
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 16:52:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j1lXmwFQ4A7hiLeLgyG5gPVjgUPMJGe33eGkg1aIGAIacSJre8/G2n3O70IRx3H8MifxdiII872zLLHBusWm/95dZhPr/yXsaAEHDUNf9eGKS73DnNZBxvr8p93z5LtRRYUk1aQstCGJXnTlZeg/v0DsobjPMGXDngXUUkPUURJhsPk3J5hs1zF13DxiIM9Vy3NefX6m99/q2XURK+frAUimz3YoQhUWfTgpstqi3VPXBnETmp5MgAZfujp9yO9xw+EzGV4GrkGarb7mLpeGmQailvs8JUsTZbfwbX00rwBcMm1o7VeL8W6+Y2Z/K4HwC+JZb2q1dKklemNilzzxyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kb2HOeUxZSVKa0+OkEgDLOhDCUO0VeC+X2xko/UNsyU=;
- b=wj//FSNcN0jCsKDYmgOb521RhiLCLeQvqg6ySK9Enqzlh6EYr1C0tgp1lCASZz1CTicpLem37RiBYQT8X7MENCS8KfhzC6X9ct1lYwsVBb3fCZLToGaOO8rk5p4UBxF2J1jbf6DThPZJJ4RjOSlYZhMVS+Km4IXVuYRXgh95P4hj3MW8MdQSwTazFsvsenboYoYTV1RqEp05fhN5WBkqfDyEsHMI/GDuIerWIhu5409moSD+9AsU2D5WpXu6vTsbwu6vIqw2Kav/etrtK6Ygb/j4jmom1eYY2HUbEeaOMuvPocOfAdzG+BnaQpxhZPAJh5660F7OzVnooHPWX4Ifeg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microsoft.com; dmarc=pass action=none
- header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kb2HOeUxZSVKa0+OkEgDLOhDCUO0VeC+X2xko/UNsyU=;
- b=ZGZtqspYEhX+a5HU8grie1S4v2DuF0EfeLXltzuhAkxDgFlFg+aEglO+enp6QMJdj5c105mdzCkpQxvX716YkVVHRK1gHdVYh7H4du7MLFXuI86Fan3sZkV7Gnsr4teL2Lop8QxAIc1perxPh0xA3fgFtmklyJGkm/kS1c9SfDE=
-Received: from SA1PR21MB6921.namprd21.prod.outlook.com (2603:10b6:806:4a7::11)
- by LV5PR21MB4729.namprd21.prod.outlook.com (2603:10b6:408:303::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.3; Thu, 28 May 2026
- 16:52:53 +0000
-Received: from SA1PR21MB6921.namprd21.prod.outlook.com
- ([fe80::648e:8c2b:b5e4:aefc]) by SA1PR21MB6921.namprd21.prod.outlook.com
- ([fe80::648e:8c2b:b5e4:aefc%5]) with mapi id 15.21.0092.000; Thu, 28 May 2026
- 16:52:53 +0000
-From: Dexuan Cui <DECUI@microsoft.com>
-To: "mhklinux@outlook.com" <mhklinux@outlook.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>, "tzimmermann@suse.de"
- <tzimmermann@suse.de>, "airlied@gmail.com" <airlied@gmail.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>, Long Li <longli@microsoft.com>,
- "ssengar@linux.microsoft.com" <ssengar@linux.microsoft.com>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>
-Subject: RE: [EXTERNAL] [PATCH v2 1/1] drm/hyperv: Replace "hyperv_" with
- "hv_drm_" as symbol name prefix
-Thread-Topic: [EXTERNAL] [PATCH v2 1/1] drm/hyperv: Replace "hyperv_" with
- "hv_drm_" as symbol name prefix
-Thread-Index: AQHc7qkcrZ369g+21UStSntAJBmfxbYjpcgg
-Date: Thu, 28 May 2026 16:52:53 +0000
-Message-ID: <SA1PR21MB6921E2BE7D0F3B804877427CBF092@SA1PR21MB6921.namprd21.prod.outlook.com>
-References: <20260528135108.1787-1-mhklkml@zohomail.com>
-In-Reply-To: <20260528135108.1787-1-mhklkml@zohomail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=321657cf-567b-4be5-b1e9-c48497ff415e;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2026-05-28T16:46:38Z;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Tag=10, 3, 0, 1;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microsoft.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR21MB6921:EE_|LV5PR21MB4729:EE_
-x-ms-office365-filtering-correlation-id: a33dccef-e643-410e-9441-08debcd98f68
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|22082099003|18002099003|38070700021|56012099006|11063799006;
-x-microsoft-antispam-message-info: Eowv2wgmDjf5W1VJtcjk6U0yiFS+I6RwDX7glVWU/JKy25OcjNfhhDPVZhvoUcGfpy2qwQy/b6N/8SonXfsth8CjO02TMIAwBw2wA9YiAd9IpDQ/LZKBPbtAV1IlefW3aRRqK/sV75/Axv7i099bUnTW88D1rJzFtK5+TQKdMGda6JbVpC8CQPzBAWK0pbZDvxPkSWneOV5p+e8hMDD2f3320b0DmvWc3j/brTa3o37nunInrgpHcs+sMA6bLWSu6vlhrokfU5gO+klTnlhxY5bUJTe0PIdB24qUtQ1vBFQ5B87FsE7j5lPbM+ZG2hUKIW81qEtfaAPQGz2yx5aHx29OLyx1FVtFwcpm1O+/oWOc8lqXzeYvZONaDHcKjbBP9kL3xbd8dYJ6UuMWNj5yDZA3h/uPaNcdxO7reONZ6xXfjxvhSZqKbYyxK4sa1IxfeLJI8oVjRAOvapnyedMVxX+s0SzIuPF/tvGX8S5ElINXOTFUhg5LkZ29sRaLjun5CKxM7MBZPDGX8s3JtVPyy1S+QUYKLCOh94xC5e0sBrlOSyjvryDDqNbSToYWs2EwXVYoC8J84qLfm0rQYXIb1lpI3MxmSh0/oPMZ9KAtq8aw3GhYlUqqdTatEtz5uElgSMD3UiigKeEt5bOMo7C+6gYrKh5fUiTFcWifB7mDv8jl+9xBmgM3r8q8FLyeDMBKAkgJ1xmN8hPjfGxk/THxzXrIGrv7SEMBz8OjlQIdWTh6QpQponLIgSCBncQuEKPi
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR21MB6921.namprd21.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(18002099003)(38070700021)(56012099006)(11063799006);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?c67oHp3jKoQGvgTjDTHDaRTKg0Sv5WaLui/AwrnRlWd0azsEgljzBSFKXvDI?=
- =?us-ascii?Q?/BQlIuvQDD8WJaacbZBDYIM/OdkjFnylmGJTDDPBUyYop7y8Sqv2NlbST6hw?=
- =?us-ascii?Q?eLeu8lZ5z2Z/OZiONZclVur5naA4SmXj5y+KrWtbG7rApSBV0LSQRCY8+L5a?=
- =?us-ascii?Q?nKJb5A4tXzkssMzl3S0X0oGI5ZIuaGgBOo3z/kV8b5rEspQtfhA/2+PG/cLu?=
- =?us-ascii?Q?IDAflbx7xKT/ViZ8RXzxMzHrvVKm6dsQfzxa6MLEbsXHU6xkW/8KykOBU/kH?=
- =?us-ascii?Q?8NWImKntcpZ5msV+bcJskDuB4dU5RQQSWRrIJHa1jCqQeGnPxkC91QummXpg?=
- =?us-ascii?Q?3gD0YdzP3d61WYHou4CXH4BTjQWlRKj4CJoNS4jQhrE6I8iixMvUQsOTWrfU?=
- =?us-ascii?Q?NNgIyt/a/EQMNiDY+JvPreZkF4MvAKEWAl0/Cr6mbNzyfGHoNNAVuimCkhJj?=
- =?us-ascii?Q?cmupMHmMG6Bddo61EjYDJZnlRnp2H7/8DkSyGozgCedPouCeuz/kTMgIRsJ3?=
- =?us-ascii?Q?c6QkINnnK1sq7DA3zfFxzejeKBIM/kr9ifr3xy53K5lNrAjh/CVb8O8VZQoX?=
- =?us-ascii?Q?sVJ+ulZh1KnY/kJ39NIhiczEQ8IyJ39Wb8bTlaKpMjPEbyx6VE1wbfO36zyx?=
- =?us-ascii?Q?7Vkf9VMfj3dDsQrdLF91eZf+jcA6PnJdgQe/rVjpbxfwTjY+ApXzIFlu2red?=
- =?us-ascii?Q?uwLaOd60Cdypn9GIpxDgQzm408la6lgK686cntj4MqEtqm2uWkRxIrp9srrC?=
- =?us-ascii?Q?X9605FnlKKIoKngk6+WroFFIH0yg9FnqZqIVh6GN7PmPRdpCLlaW/b3eEqpu?=
- =?us-ascii?Q?CwIg0lzMBwn2ugGPO2WyHk7jp7t+5q5QhwVb9ZAgZmLF8p89mCt6aZ3U60Tg?=
- =?us-ascii?Q?zih3etlsy8tAjKn65OaPrqLQokMcCYRH4DuMyfT2uIDX/fsGQhAMPk5a5/ML?=
- =?us-ascii?Q?fLP9Df0FVrmWpMosNSlFugW7iTjqAm2++Z08arql/estSc9q4pgBj2FGLRKZ?=
- =?us-ascii?Q?zDSAZbv5l+ANOCw8JEy216RCteIctoLO2NAun1EzP33J79zWdmd+3L4cpE1m?=
- =?us-ascii?Q?YgTyKNmbGqluXYvthkQbi+CfaYdcyrHB7ElWmX7MnmggHvR1QHbgodLqJ47x?=
- =?us-ascii?Q?yAX+eno8v3dmEOHkjqODxhFh6RX2LgVmRAAcnlayM45vbWsEDOKsySGGyv1s?=
- =?us-ascii?Q?xGffOoPs6MH1tb7uMOlXgxLhdELG+pEkXJ19eC/mleZ2BV4J0zTPT4tIepLc?=
- =?us-ascii?Q?6t2ZW618jjT+PCJfqZ2p0yoczpXYLQkgOyeVhE5RVbqUSH0xem1zEwMF+/u2?=
- =?us-ascii?Q?j7Rfd5qZQeBaubLlTyln8+OWMS9n0jbsRym8+xu6c8eYCo/qlXvLPmeS5LWX?=
- =?us-ascii?Q?ZbbD4j83HmXfZwr/EWvLBoEHbs6WQP3Zc3/3+LzJ6AZo5Urq3Unrp+KAR44Q?=
- =?us-ascii?Q?h+cBcweER7HzvUHttKMGL4ak5pH71jkSe88mjK/PqOteAvKlV7+T6tlqjmMs?=
- =?us-ascii?Q?/iTYyW0XNwBDXmNZgXSneAcoC0wLV6Szxpfw5np9UVxvBl5biztema1nOkO/?=
- =?us-ascii?Q?jSavrmKkjz+JMhSJzIsWJ8IpNlE/9CChP75FxMkkgZ0+KPOlPll9z3vtKZaF?=
- =?us-ascii?Q?L1djveRW9tcNP1Net9150NB3pIT3PxuRURz0AgmwXeShNYub7w0uWKJLqyqb?=
- =?us-ascii?Q?yRsE3uTdxxcOlVQRY/f+B4xeG+cDRwr8+ZrBV41jPiWVFn6F?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E651110F2E9
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 17:02:41 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 15311601E4;
+ Thu, 28 May 2026 17:02:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F9361F000E9;
+ Thu, 28 May 2026 17:02:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779987760;
+ bh=kX//T06+JmJvGXIU6nc59vpQxq6cZ5FTcVXRmzpdNqA=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=cL2jrF+Qx8ocotInYNei4sngZcGSqKPZnGmT6xMRS7Um7twrLRm1LFyhnPmKqueOy
+ Q7uILGDhu8bN7mf6YQu6O6dur6AhLphkDyN4rm2LYrQPTzQSPSjJelNSYQInuW3DTk
+ GpGK+WQhoaYfN9YbAX++JWZxzYR1Gz9x/5cHeLOWIibJwNUBKaSuXQAhW/+WVabgKa
+ GsvuARdUY1DFJUTuFurXNJc/BsWsQlIFw2jAtbEiqNt2EgQWKfKSNNqLoN7WRUJDdb
+ c35bqP/BgkzEWwujAoXlp76aN2ATBkF/eMRcJXxCkVUmHgyxz3KcZbRML4q38urV5F
+ vqKRd3QWSGL6A==
+Date: Thu, 28 May 2026 19:02:34 +0200
+From: Andreas Kemnade <akemnade@kernel.org>
+To: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sebastian Reichel
+ <sebastian.reichel@collabora.com>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, Tony Lindgren <tony@atomide.com>,
+ Linux-OMAP <linux-omap@vger.kernel.org>, Marek Vasut <marex@denx.de>, "H.
+ Nikolaus Schaller" <hns@goldelico.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Tomi Valkeinen <tomi.valkeinen@ti.com>,
+ Andreas Kemnade <andreas@kemnade.info>
+Subject: Re: [PATCH] drm/omap: dsi: avoid sending bta sync all the time in
+ writes
+Message-ID: <20260528190234.4c00b740@kernel.org>
+In-Reply-To: <ec1a577b-12fb-402c-9ceb-3c1e8265a7e9@gmail.com>
+References: <20260528-vm-upstr-v1-1-fb93ef8cbe47@kernel.org>
+ <ec1a577b-12fb-402c-9ceb-3c1e8265a7e9@gmail.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 MIME-Version: 1.0
-X-OriginatorOrg: microsoft.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR21MB6921.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a33dccef-e643-410e-9441-08debcd98f68
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 May 2026 16:52:53.2838 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9/TBFoeXa4vF9i8yClTTWsS7bgXsp/gBfqdBKQc7A/qrgTUdGcbkOfuXYN/FJYydqgd1nYfqf79g74UqAj70Gg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR21MB4729
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,12 +68,191 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> From: Michael Kelley <mhklkml@zohomail.com>
-> Sent: Thursday, May 28, 2026 6:51 AM
->  ...
-> -#define to_hv(_dev) container_of(_dev, struct hyperv_drm_device, dev)
-> +#define to_hv(_dev) container_of(_dev, struct hv_drm_device, dev)
+Hi,
 
-A minor nit:  change "to_hv" to "to_hv_drm"? Otherwise, LGTM.
+so this droid4? Or which device is it?
 
-Reviewed-by: Dexuan Cui <decui@microsoft.com>
+On Thu, 28 May 2026 17:44:14 +0300
+Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com> wrote:
+
+> Applied against 6.18.31, no dice :)
+>=20
+> [   11.617523] [drm] Initialized pvr 1.17.4948957 for 56000000.gpu on=20
+> minor 0
+> [   11.674652] omapdss_dss 58000000.dss: bound 58001000.dispc (ops=20
+> dispc_component_ops [omapdrm])
+> [   11.775085] omapdss_dss 58000000.dss: bound 58001000.dispc (ops=20
+> dsi_vc_flush_receive_data [omapdrm])
+> [   12.222930] omapdss_dss 58000000.dss: bound 58001000.dispc (ops=20
+> dsi_vc_flush_receive_data [omapdrm])
+> [   12.245117] omapdss_dss 58000000.dss: bound 58001000.dispc (ops=20
+> dsi_vc_flush_receive_data [omapdrm])
+> [   12.247375] omapdss_dss 58000000.dss: bound 58004000.encoder (ops=20
+> dsi_vc_flush_receive_data [omapdrm])
+> [   12.249267] omapdss_dss 58000000.dss: bound 58006000.encoder (ops=20
+> dsi_vc_flush_receive_data [omapdrm])
+> [   12.284729] [drm] Initialized omapdrm 1.0.0 for omapdrm.0 on minor 1
+> [   12.311981] [drm] Enabling DMM ywrap scrolling
+
+I would expect some
+output from  the panel-dsi-cm driver:
+dev_info(&ddata->dsi->dev, "panel revision %02x.%02x.%02x\n",
+                        id1, id2, id3);
+
+or some error:
+        dev_err(&ddata->dsi->dev, "error while enabling panel, issuing HW r=
+eset\n");
+
+Any explanation why it is missing?
+
+
+
+> [   12.770385] omapdrm omapdrm.0: atomic complete timeout (pipe 0)!
+> [   22.901306] omapdrm omapdrm.0: [drm] *ERROR* flip_done timed out
+> [   22.901306] omapdrm omapdrm.0: [drm] *ERROR* [CRTC:67:crtc-0] commit=20
+> wait timed out
+looks like dsi is not involed here, so something else is producing problems?
+
+> [   33.131256] omapdrm omapdrm.0: [drm] *ERROR* flip_done timed out
+> [   33.131378] omapdrm omapdrm.0: [drm] *ERROR* [CONNECTOR:66:DSI-1]=20
+> commit wait timed out
+
+This might have something to do with the patch.
+
+> [   43.371307] omapdrm omapdrm.0: [drm] *ERROR* flip_done timed out
+> [   43.371398] omapdrm omapdrm.0: [drm] *ERROR* [PLANE:34:plane-0]=20
+> commit wait timed out
+> [   43.631408] omapdrm omapdrm.0: atomic complete timeout (pipe 0)!
+> [   43.692504] omapdrm omapdrm.0: [drm] fb0: omapdrmdrmfb frame buffer=20
+> device
+> [   54.251342] omapdrm omapdrm.0: [drm] *ERROR* flip_done timed out
+> [   54.251464] omapdrm omapdrm.0: [drm] *ERROR* [CRTC:67:crtc-0] commit=20
+> wait timed out
+> [   64.491302] omapdrm omapdrm.0: [drm] *ERROR* flip_done timed out
+> [   64.491424] omapdrm omapdrm.0: [drm] *ERROR* [CONNECTOR:66:DSI-1]=20
+> commit wait timed out
+> [   74.731323] omapdrm omapdrm.0: [drm] *ERROR* flip_done timed out
+> [   74.731445] omapdrm omapdrm.0: [drm] *ERROR* [PLANE:34:plane-0]=20
+> commit wait timed out
+> [   74.991363] omapdrm omapdrm.0: atomic complete timeout (pipe 0)!
+> [   85.621307] omapdrm omapdrm.0: [drm] *ERROR* flip_done timed out
+> [   85.621398] omapdrm omapdrm.0: [drm] *ERROR* [CRTC:67:crtc-0] commit=20
+> wait timed out
+> [   95.851287] omapdrm omapdrm.0: [drm] *ERROR* flip_done timed out
+> [   95.851379] omapdrm omapdrm.0: [drm] *ERROR* [CONNECTOR:66:DSI-1]=20
+> commit wait timed out
+> [  106.101257] omapdrm omapdrm.0: [drm] *ERROR* flip_done timed out
+> [  106.101440] omapdrm omapdrm.0: [drm] *ERROR* [PLANE:34:plane-0]=20
+> commit wait timed out
+> [  106.371459] omapdrm omapdrm.0: atomic complete timeout (pipe 0)!
+> [  106.961334] omapdrm omapdrm.0: atomic complete timeout (pipe 0)!
+> [  141.301269] omapdrm omapdrm.0: [drm] *ERROR* flip_done timed out
+> [  141.301269] omapdrm omapdrm.0: [drm] *ERROR* [CRTC:67:crtc-0] commit=20
+> wait timed out
+> [  151.531280] omapdrm omapdrm.0: [drm] *ERROR* flip_done timed out
+> [  151.531402] omapdrm omapdrm.0: [drm] *ERROR* [CONNECTOR:66:DSI-1]=20
+> commit wait timed out
+>=20
+>=20
+Thanks for testing.
+
+Regards,
+Andreas
+
+> On 28.05.26 =D0=B3. 13:16 =D1=87., akemnade@kernel.org wrote:
+> > From: Andreas Kemnade <andreas@kemnade.info>
+> >=20
+> > Some chips need configuration commands to be sent first, before they can
+> > send data. TC358762 for example needs PPI_LPTXTIMECNT configured
+> > and PPI_STARTPPI set to 1 to be able to transmit anything. To be able to
+> > configure such chips, do not send bta sync during writes if no acks are
+> > requested. Instead just wait for the packet to be sent to avoid FIFO
+> > overflows. There might be more to do about acks, but there seem to be
+> > virtually no users of that flag.
+> >=20
+> > This came to light when fiddling with the Epson Moverio BT-200 display
+> > which consists of 2 TC358762 bridges with SPI funneled through
+> > to the unknown display chip. With that patch the bridge can be accessed,
+> > Reading back registers works, when the above-mentioned registers are se=
+t.
+> >=20
+> > Video mode panel at OMAP4 (BT-200) and video mode at OMAP5 was tested.
+> >=20
+> > Fixes: e70965386353e ("drm/omap: dsi: simplify write function")
+> > Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+> > ---
+> > This was not tested on any command mode display, which IMHO should be
+> > done.  So droid4 folks: please give it a try
+> > ---
+> >   drivers/gpu/drm/omapdrm/dss/dsi.c | 32 +++++++++++++++++++++++-------=
+--
+> >   1 file changed, 23 insertions(+), 9 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c b/drivers/gpu/drm/omapdr=
+m/dss/dsi.c
+> > index 27fe7bca9e2cf..98362b0157023 100644
+> > --- a/drivers/gpu/drm/omapdrm/dss/dsi.c
+> > +++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
+> > @@ -2194,6 +2194,7 @@ static int dsi_vc_send_null(struct dsi_data *dsi,=
+ int vc, int channel)
+> >   static int dsi_vc_write_common(struct omap_dss_device *dssdev, int vc,
+> >   			       const struct mipi_dsi_msg *msg)
+> >   {
+> > +	DECLARE_COMPLETION_ONSTACK(completion);
+> >   	struct dsi_data *dsi =3D to_dsi_data(dssdev);
+> >   	int r;
+> >  =20
+> > @@ -2205,17 +2206,30 @@ static int dsi_vc_write_common(struct omap_dss_=
+device *dssdev, int vc,
+> >   	if (r < 0)
+> >   		return r;
+> >  =20
+> > -	/*
+> > -	 * TODO: we do not always have to do the BTA sync, for example
+> > -	 * we can improve performance by setting the update window
+> > -	 * information without sending BTA sync between the commands.
+> > -	 * In that case we can return early.
+> > -	 */
+> > +	/* wait for IRQ for long packet transmission confirmation */
+> > +	r =3D dsi_register_isr_vc(dsi, vc, dsi_completion_handler,
+> > +			&completion, DSI_VC_IRQ_PACKET_SENT);
+> > +	if (r)
+> > +		return r;
+> >  =20
+> > -	r =3D dsi_vc_send_bta_sync(dssdev, vc);
+> > -	if (r) {
+> > -		DSSERR("bta sync failed\n");
+> > +	if (wait_for_completion_timeout(&completion,
+> > +			msecs_to_jiffies(500)) =3D=3D 0)
+> > +		r =3D -EIO;
+> > +
+> > +	dsi_unregister_isr_vc(dsi, vc, dsi_completion_handler,
+> > +			      &completion, DSI_VC_IRQ_PACKET_SENT);
+> > +
+> > +	if (r)
+> >   		return r;
+> > +
+> > +	/* TODO: find out if more needs to be done for MIPI_DIS_MSG_REQ_ACK */
+> > +
+> > +	if (msg->flags & MIPI_DSI_MSG_REQ_ACK) {
+> > +		r =3D dsi_vc_send_bta_sync(dssdev, vc);
+> > +		if (r) {
+> > +			DSSERR("bta sync failed\n");
+> > +			return r;
+> > +		}
+> >   	}
+> >  =20
+> >   	/* RX_FIFO_NOT_EMPTY */
+> >=20
+> > ---
+> > base-commit: e7ae89a0c97ce2b68b0983cd01eda67cf373517d
+> > change-id: 20260528-vm-upstr-c8e7634ebf56
+> >=20
+> > Best regards,
+> > --
+> > Andreas Kemnade <akemnade@kernel.org>
+> >=20
+> >  =20
+>=20
+>=20
+
