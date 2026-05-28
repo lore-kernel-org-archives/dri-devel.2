@@ -4,67 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 388A6CD6E44
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 12:42:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4316BCD6E44
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 12:56:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CF5510F123;
-	Thu, 28 May 2026 12:42:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A23410F13C;
+	Thu, 28 May 2026 12:56:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="i4YW9vdD";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="XaqiAI+r";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98C5E10F121
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 12:42:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779972137; x=1811508137;
- h=from:date:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=KJ4bXx5Jhw4lK4DMTDthJ7vwOLfI0qyGPlE0N0k3tkE=;
- b=i4YW9vdD7W0uCDQJxrjpF9ppmLGdeRFu1Wd0y7CZotQgaAzevHE/Kdly
- 0wkw+qskggy2F3wWUdyx7f4E0nFFeyo+Ow6NHed3JDi1SzoWfLy/T0/Xs
- sKKW7LtxHt7f7ctc35PxQaFaoNO8vPfkta2Xo9akjz5oJtUPWmMZP9Zo+
- OIops5LuFVX6QcATbOYlQQGjpKe6UHDUWcT6c8Z1rCe1ZJA0QiTpc1U2A
- XoSqcnw9vErUNVrHTk5OekV4SPVTZJkGuSsv49W0SvOpA1G/QQO1r7Ldj
- GyCbqJnm6IYAqJhoSwlfAXztiseGzdg8dwAetmtME66wEuPqAs+u9MgDj w==;
-X-CSE-ConnectionGUID: qwg6RLTwQhCyxxE/xl1k6A==
-X-CSE-MsgGUID: NTqpz6gjQpavuthbfzdx/g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11799"; a="79960826"
-X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; d="scan'208";a="79960826"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 May 2026 05:42:17 -0700
-X-CSE-ConnectionGUID: Zgvm9re8QNyOT84HzR7Xsg==
-X-CSE-MsgGUID: VOwf1bD0QlSg9PmMEtsr2w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; d="scan'208";a="242634568"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.187])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 May 2026 05:42:08 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Thu, 28 May 2026 15:42:04 +0300 (EEST)
-To: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
-cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org, 
- krzk+dt@kernel.org, conor+dt@kernel.org, 
- Herbert Xu <herbert@gondor.apana.org.au>, davem@davemloft.net, 
- neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, 
- simona@ffwll.ch, jikos@kernel.org, bentiss@kernel.org, 
- luzmaximilian@gmail.com, Hans de Goede <hansg@kernel.org>, 
- Douglas Anderson <dianders@chromium.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
- linux-crypto@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-input@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH v2 3/7] platform/surface: SAM: Add support for Surface
- Pro 12in
-In-Reply-To: <ab458aadea651396d9ea7629419a32dc7510c593.1778822464.git.harrison.vanderbyl@gmail.com>
-Message-ID: <6808166a-423c-c801-497a-ed95cccc8d0c@linux.intel.com>
-References: <cover.1778822464.git.harrison.vanderbyl@gmail.com>
- <ab458aadea651396d9ea7629419a32dc7510c593.1778822464.git.harrison.vanderbyl@gmail.com>
+Received: from LO2P265CU024.outbound.protection.outlook.com
+ (mail-uksouthazon11021099.outbound.protection.outlook.com [52.101.95.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E11A810F13C
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 12:56:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pUcmfIvCFlbdJdxi8OV9y71HuF4xFh+NB07v0eeqiX/Fnck2Gw2wMAoDsmpco2qmwD5TgCUe6oPcmVuDzDcWnrop6Yn2u3Lxq7C31nzZQ9Osaf2TXIlJthjJc7q0dmW2vRj0xjr2KUBEUmx+JZfSodMLeUctw2fQiH+F4VyQ6AuzxPIiiBWw+eBUSyj8/U9bP2F/MEW6P/G+S1Gub8v54IXvEpGtBHxC/a5Vdk0vymZzCpSk5AP8u1czvjKmJiVOd/MAQEcyjdUv9rdKaPl0FUpg1UISaVjJYS4gzUpF5P98wJ+pmtK0QkbRTbkuGJyHVbUY2yvSd1VGVb1VgwLq8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=exEWWo/jG/SV7/FxyqFfpFU8vuRAe6+HTca5trZtNdc=;
+ b=naaWM7tiXBEf0xlr5Ee5wm//K7q9Y1R5pg4zr/D6j+ptpnUuD1TcJPF6hJ54eEXkBgxAwpm4A7Fm1JL5+GhD4crUVq3cpXe29NF/HLuqsH2otYyXt5vmMlML1FpgDKgU8iF+LKEu8KMpv5bJtZjFnm6TJ042YKD7yJ2DmjM/UoRWvEoN3vEf7HUOg606W5q31eaLgcLgCGpnLvmuVCOZPgDgg4EOiJIudf7ALkg6MFncjw0/g0BuFHd/GxT8Gy4K/JniszBakNfdT69hPY4J2QGNFSoENSFAkUeE16AV2GP74bu9t3/xYRNAfWpG0ZPJlaCmqO/paao3wpkvvq7XMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=exEWWo/jG/SV7/FxyqFfpFU8vuRAe6+HTca5trZtNdc=;
+ b=XaqiAI+rA3wZBf81ndod7XycDii0jaGiveauIqkdAer6DXhiR24BkSq5dmL5N2VKsquxLuAHg3Ut0u7xROSCyboKbVYKDiO+s6XpR34FH3btxDffWItlqDGAYjtdyb+8jjn+mitsQusEpGOuN5/jv9u9TqpsaE98ouY7R8Gemew=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by CWLP265MB5987.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1d0::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Thu, 28 May
+ 2026 12:56:07 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0071.011; Thu, 28 May 2026
+ 12:56:06 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 28 May 2026 13:56:06 +0100
+Message-Id: <DIUBR87B0MIL.1DQDI5WUOBM0P@garyguo.net>
+Cc: <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH 1/2] gpu: drm: tyr: separate driver type from driver data
+From: "Gary Guo" <gary@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, <aliceryhl@google.com>,
+ <daniel.almeida@collabora.com>, <boris.brezillon@collabora.com>,
+ <deborah.brouwer@collabora.com>, <gary@garyguo.net>
+X-Mailer: aerc 0.21.0
+References: <20260525230152.277820-1-dakr@kernel.org>
+ <20260525230152.277820-2-dakr@kernel.org>
+In-Reply-To: <20260525230152.277820-2-dakr@kernel.org>
+X-ClientProxiedBy: LO4P265CA0290.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:38f::17) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWLP265MB5987:EE_
+X-MS-Office365-Filtering-Correlation-Id: b282314e-a2cc-49aa-db65-08debcb87ba5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|10070799003|366016|376014|22082099003|18002099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: 0JTj1UQL05cb4XR/mM801JmNDFTjUexCC+OO2PdJvNMQCn5p7ptFxaMg19jJOfObP+XwPDicJBkqyy0XdB0bR1Mdd4ExILpcAp+WhBd4vu6L72G7uFWt+/YL7rFbNZC3S5T3r3SoQUtR7YkcnBM03XPBsdusEuxoi7CbKqgAtlDW5+9HpEci+E3ZslT7ZxwDFbqENI/o+hQevw8ZMYwRbF9wbEIzy/QJjjuCJ7SR31iaI0Ng8QS+pH/SKmznkaxPfOPzbY0SVxwmNc2KfutTUbwt27P2dv9rYDdkS04MhSEcx5VqnDNueL+OGJIOm9YD9R/6Hll2wmz1o1hnzOiXopKhLYvo/kT3tYTFPQoOfkKjIt3NPJMxzNj3GY2R57RiLFfL2gQWlaTxFzQ1QTPGpGGp8Jjez+Lw27igV14gWJ2qXfXVG6awAQNfsWuWOwEPttNBckjYgjv7PANAtAeSk8vvNK5vfdew4lgKUODUPPwL0Q8mVTOYW6LPpZnWBJK9q8Sbd3kB4mlrzcxQc1vD4HuwE+9eoiZsoDTWC4oRwqx4nzW6mjBuugDHsq7CUgVoYjNqU7aSGVdd94saZJqh7BTlkj5RNuI8lY9MSHlJGq5r8zDlqxsQ9vAxJZjtezmA9vd2Hsz+hT50S5Bv9IS4Hv/qJzOAy0sQZ4Gua+AUVhkJx5V/u/tIra+Zyt6g+DYN
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(10070799003)(366016)(376014)(22082099003)(18002099003)(4143699003)(56012099006);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?emVLL0Z2TnpjdVl6eExOVkU0TTRJY01nOC9OU0czTlZjT1FCNFEwa2ZDemoy?=
+ =?utf-8?B?WkcvbFhGWGo3am1wME9QNXo5SWMxejBGckVxQ0dYOXB0TDVZQlkxUWtTSk5r?=
+ =?utf-8?B?VkV1UWZxS3NVUUZLZXRmOTZQUllxSklpK1ZxT1p2V1hoeVJnQTF3RTZyQWNL?=
+ =?utf-8?B?NEZQUnh6U0dpdDdNN252dFl2OWNpVEk0V1N4Q055dXMxRFpQSEwyYjEwTC9U?=
+ =?utf-8?B?TUoxK09MMitvb1JTYXhtMHlTQXpkR2xiUDltWlJrbkZtd1RaS2VSb0NRQTQ0?=
+ =?utf-8?B?OEF6MTFMVWFTZmpCL2s2UDBXazZCMXRaSTVQMXYrcDlQaFhGNTB2R3ArRnVu?=
+ =?utf-8?B?MnZWRmRIbmI2N2tCS3F5YmN0WEVxQ2trbGw5Z2d5LzlBUDR6L1o4czFEVzRC?=
+ =?utf-8?B?WUhpKytRdTB4Vm1FZFB5bjdKUGhJYSttUGhxOFZ4REM0VFM4OTNEN24xbXFX?=
+ =?utf-8?B?cVAydk1BdXNrYmtmQ1MxWXZGZGc1dkNnaEpuRlc4aWpBdDM2VHhZTE9mK2RD?=
+ =?utf-8?B?UDVNejcyVjM1aWtDdG1tQkVHRjcweHp2RDh2ejdjVzZYS3J0eTZkRVFiYXpW?=
+ =?utf-8?B?UHV2aHJiNFM0WlF6Z3p1TjByVi9oTDdaMzRzVWdIbXVtalc1UU1YbUtyeHE4?=
+ =?utf-8?B?ZGVRZWxuUGJoTXdCZ2ExNTF2ckJpSW5xZHV6UkJIR2hidXFLaXlDeGt3VVNU?=
+ =?utf-8?B?TVdBMkgzVTAySVBxNFlOS3kvYUhzSUhWNy9OTGV2aVBaem1TaHAyNEpqVjUy?=
+ =?utf-8?B?SWFVVnV2aGxyYmtZTWlWVGgySTVDb1NPdzNCb2pKbzJUd1B3d3U3MHF6MDl6?=
+ =?utf-8?B?dlB0ekhtQUdZL0diUmpZV3lNbGt2cENZVDZGRHVqRWxidE1tT0dVRVpDWmFy?=
+ =?utf-8?B?Z244QVl4Mzk4VWRQYVdQcHdXbG1DSk9sdW14SWVIRHA0eEl2K0hCQ0wwUDVG?=
+ =?utf-8?B?a1gzMytSazMxK3BZaWVCcGE1Y3h4NTNaeWszaHhDT2dYcHIxWmR4NnJPWjNX?=
+ =?utf-8?B?OS9ZbGk1TllKQ0hWRis0WEtXNENEQUpUTU8rUGllSk8wbFd3UzNBV3ZaL242?=
+ =?utf-8?B?WHZ0OXpTc0YzR3Z1cXJwUW5lTjNLUll1L09BeElLSXpYZEJJVVZ2MklOZC8v?=
+ =?utf-8?B?bDhIQjJNSnltdjgwWENNMzdSL1I1eG5jdWYxZW9IV29TZlFqaE16M2NaOHJr?=
+ =?utf-8?B?MVR1TjV5d3o0WXo4cmExS0U5MFlZOFhLNktzQWxiRzF0VlNVdVd1ajREdzBU?=
+ =?utf-8?B?V1VoM1NNUWdDTlZkRG04Vm52OTU4SWZHRmxpbTZkSCtaakEwSVA2WUpUczZv?=
+ =?utf-8?B?VVNTSzluRG43LzE5UkpZWWdCY1VyM256MzNCa3VuT1RwMTQ4eCtiYkhmNG9N?=
+ =?utf-8?B?Wk92MVhSaFUxL3psbGM5bjRmRFAwdWlmYmJYa2ZvOXJyL0Y5MDcyUlk1b09W?=
+ =?utf-8?B?dTcvN1FYeUk2VksyOHFTMjc1dFpiSEx6a09CL2JNN1VPeWVqRzBUYm1WWVpQ?=
+ =?utf-8?B?WFBuOVNUdWlqbFdIQ3oxSHM1cm9NcWFFZ0dlTXZ2U1FpNC9CbmRQeGUwNDVR?=
+ =?utf-8?B?WnQ1WWFiRDdBL1VROWkrNGNMcjBBZW16VytPbGRVdkFLaFFzaFVYeWQ3aGZo?=
+ =?utf-8?B?aDFMcEhtNVBuWjgwMnU5aHpuRU9vRXBNQzk4V3pwYklGRWlGN0hyeUJ1dlhW?=
+ =?utf-8?B?QTQzb3ZSdm0yZW42MFU3R0p2Q1dxYzF2UkFYYVJXc2cyOWUwYU9JMnZJbGdQ?=
+ =?utf-8?B?Y3Q5Mk41SmtVS09IVVlsdEdGMWVuUjhZSXFud0hWRGllbHhZWFJSSmJ5Q2lZ?=
+ =?utf-8?B?SkV1VW9ROUhGQXpDakF5OXNOcXREbHlwbzlWK1ZIbWZ3WnpYUGE4dG83OXFq?=
+ =?utf-8?B?elExRUQ0TTliWGMzekxQUnN2WXJSMXpuQjVnM1pKcXlyenVVaTZVYXhQeHJH?=
+ =?utf-8?B?TGNESHR0OWYvSEY4a3hLQzhUVjF1UDJQL2RFOUdtdnBEcVBXcjFIK0wzbXZ0?=
+ =?utf-8?B?MlZSYy84V0FlSzB0QWdEVENwaFdzM2RLZG1JQ09hQjNibmUzVTFzZXVVNTBD?=
+ =?utf-8?B?VnUzWDdrNkljMGVYUG5lRGo1aXRjVzdXak1BcmwySEh4bzJJZzA2dkpCdG82?=
+ =?utf-8?B?ai9jTWNDa05MWTNIb3NmdlpGSFRRZzE3Y1BGRzJXYnorWU9hZEFsekwwcGhl?=
+ =?utf-8?B?ZkNQbUdDL0pPcGo3a0ZCbU1aU0sxR0J3TUtYekx5RU1sN2gyLytnUW5RKzV1?=
+ =?utf-8?B?VG1kU0ZuL2F1S2tFN2RwUEtKNTdhbjJGK0MyUXZZSUNjbmZXbEYyVXVydHJY?=
+ =?utf-8?B?Z2c4YXZFWDBQSnVjK1RsbTJxUnRBVFh3OUkvY1JjNDhNa0RjbmJoQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: b282314e-a2cc-49aa-db65-08debcb87ba5
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2026 12:56:06.8361 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MGPlinbqH3c2OG/6oV9MzVnRRfkIgpRwpK4/X8DO7s5UUCM6pUZWjs/e2w2BzWXLVcgZY7Bwo5bjiT5xKdg6xQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB5987
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,71 +137,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 15 May 2026, Harrison Vanderbyl wrote:
+On Tue May 26, 2026 at 12:01 AM BST, Danilo Krummrich wrote:
+> Introduce TyrPlatformDriver as a unit struct for the platform::Driver
+> trait implementation and keep TyrPlatformDriverData for the private
+> driver data.
+>=20
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-> Add a SAM client device node group and registry entry for the
-> Microsoft Surface Pro, 12-inch with Snapdragon.
-> 
-> This set enables the use of the following devices.
-> 1: cover keyboard
-> 2: cover touchpad
-> 3: pen stash events.
-> 
-> The battery info and charger info devices have been
-> purposefully omitted as they are also reported by
-> other drivers and cause conflicts.
-> 
-> Signed-off-by: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
+Reviewed-by: Gary Guo <gary@garyguo.net>
+
 > ---
->  .../surface/surface_aggregator_registry.c         | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
-> 
-> diff --git a/drivers/platform/surface/surface_aggregator_registry.c b/drivers/platform/surface/surface_aggregator_registry.c
-> index 0599d5adf02e..884049961415 100644
-> --- a/drivers/platform/surface/surface_aggregator_registry.c
-> +++ b/drivers/platform/surface/surface_aggregator_registry.c
-> @@ -422,6 +422,19 @@ static const struct software_node *ssam_node_group_sp11[] = {
->  	NULL,
->  };
->  
-> +/* Devices for Surface Pro 12" first edition (ARM/QCOM) */
-> +static const struct software_node *ssam_node_group_sp12in[] = {
-> +	&ssam_node_root,
-> +	&ssam_node_hub_kip,
-> +	&ssam_node_tmp_sensors,
-> +	&ssam_node_hid_kip_keyboard,
-> +	&ssam_node_hid_sam_penstash,
-
-Hi,
-
-Could you please confirm this penstash is correct (sam vs kip)?
-
-Sashiko suggested it might be wrong but take it's report with a grain of 
-salt, it's AI after all and sometimes seems to extrapolate about HW to a 
-sibling HW without any real knowledge:
-
-https://sashiko.dev/#/patchset/cover.1778822464.git.harrison.vanderbyl%40gmail.com
-
--- 
- i.
-
-> +	&ssam_node_hid_kip_touchpad,
-> +	&ssam_node_hid_kip_fwupd,
-> +	&ssam_node_pos_tablet_switch,
-> +	NULL,
-> +};
-> +
->  /* -- SSAM platform/meta-hub driver. ---------------------------------------- */
->  
->  static const struct acpi_device_id ssam_platform_hub_acpi_match[] = {
-> @@ -500,6 +513,8 @@ static const struct of_device_id ssam_platform_hub_of_match[] __maybe_unused = {
->  	{ .compatible = "microsoft,arcata", (void *)ssam_node_group_sp9_5g },
->  	/* Surface Pro 11 (ARM/QCOM) */
->  	{ .compatible = "microsoft,denali", (void *)ssam_node_group_sp11 },
-> +	/* Surface Pro 12in First Edition (ARM/QCOM) */
-> +	{ .compatible = "microsoft,surface-pro-12in", (void *)ssam_node_group_sp12in },
->  	/* Surface Laptop 7 */
->  	{ .compatible = "microsoft,romulus13", (void *)ssam_node_group_sl7 },
->  	{ .compatible = "microsoft,romulus15", (void *)ssam_node_group_sl7 },
-
+>  drivers/gpu/drm/tyr/driver.rs | 10 ++++++----
+>  drivers/gpu/drm/tyr/tyr.rs    |  4 ++--
+>  2 files changed, 8 insertions(+), 6 deletions(-)
 
