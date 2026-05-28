@@ -4,90 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 657B2CD5BD5
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 08:37:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33247CD6E45
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 08:51:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFAD910EDF8;
-	Thu, 28 May 2026 08:37:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C93110EE32;
+	Thu, 28 May 2026 08:51:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="EIxPzLb5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mDx9jMex";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A114F10EDF8
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 08:37:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1779957424;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:  in-reply-to:in-reply-to; 
- bh=PC98DFJJYj6pMUAqlbj9jwtGyGpOgv8qE/aIsYksKhk=;
- b=EIxPzLb5eTp6CKw4cp4b2NapoMMNKPineREo0GWcDji7Pew2oChqlDyI5mI35YkHb5B1EQ
- doet77o8spaExS+YDLYFlF8FOi+jTpXQtmvgGy3JQF5giC8Id3goJyXCPxoWqGkYacouZU
- t34yeheXd0dRTKw5zUVnuIZnkpVRT+A=
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-17-U0sweWOlO2uVQN76ccZWhA-1; Thu, 28 May 2026 04:37:02 -0400
-X-MC-Unique: U0sweWOlO2uVQN76ccZWhA-1
-X-Mimecast-MFC-AGG-ID: U0sweWOlO2uVQN76ccZWhA_1779957422
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-36781927b4dso6514803a91.0
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 01:37:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779957422; x=1780562222;
- h=content-transfer-encoding:date:message-id:subject:cc:in-reply-to:to
- :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=Oq+lTIk+CoM6LUDz2MyWeM9Dcf8keMMkzhCBCnXUco4=;
- b=mxY8QXSRWQc639hNXifQcZuKOEGw2uTkxRyHVjmrdq/GR3Y5XgAE61Uy6mPjC5MZty
- r29LX+gQHeUPC5koz52f0bhvQmnaQnTHyzgMYLp71ucB3qIngcFdaNIw3+hwxaDtFB+9
- lpQDYt1532NiSuFZnD1VYVv0SxlWaLnF5ZPjW9grOZ7HANS9uicvhn0piWJhcdAiLeIg
- smX9U2oVbdc9OeF1sOoLtDUdhQTsN7uqyXT9NnC5rkpHKHU89nnBxWz31YmvY9aW7rie
- ezPNjSL7wRyXo41TzEVf3kRn3uJSOlMyzpTnJBCGRV+WyXO6t0o5gifwr9KnfM1Ujkcw
- TIqA==
-X-Gm-Message-State: AOJu0Yz8iilne49U4Z37bdHUyxnsn9iI2RjXlBhmzzOobXuh+RrOXX6b
- gX83nBWluwIfStlk/T9kDhmUj0Rvgd+jQat2/B/qfHLvIckMzb5F37sbPCJeoTCwUDMt4Ztvz8k
- vPLZGex2y/tUiV5Ggt0n3h0qaL+ZHb8E1QjgNfq6GqT+zFojV05u6jGvGerm9hHZUa1MsVQ==
-X-Gm-Gg: Acq92OEBteguyU5RDIiyRogalVqzCzTUyE+wgL3nWGENv7Zd6HK0c4VtIYRvQyo0olz
- vlbMvOiUk04nWt59Ol6W5gmfYVcAPew2KYBznl7KuMXmtaifZuuP7tSZOK59HWk5SJDhz+O/XmB
- rVRtaPuOWOHNPOwEXdxnj5PELIqg/fNcdoEXzhDRt7z7DXOnBy23duEEoyc+Fc/l6BX/qyv9oK3
- OiYGta5Ics/nKG43ByEYcWBANGVajTDNSz/1XXy1G7XN6aF0fbyyyb340APOYR/SpWlpORhsPbD
- D2HGJOyEJEDuPw15V+rwTjL5wADe/H3yxQM4fZvvxU2FDzUoJzFjcWZquvGV3P4sH/1ANgIg/HV
- RMyQAgCiMIzQQDhOvjZHBztRDll+x2WcabLqfasHd74g22ChZrlXj3+f1t26OSfettbZR4Q==
-X-Received: by 2002:a17:90b:3d4c:b0:36b:293:68d1 with SMTP id
- 98e67ed59e1d1-36b02937336mr11428194a91.16.1779957421816; 
- Thu, 28 May 2026 01:37:01 -0700 (PDT)
-X-Received: by 2002:a17:90b:3d4c:b0:36b:293:68d1 with SMTP id
- 98e67ed59e1d1-36b02937336mr11428160a91.16.1779957421341; 
- Thu, 28 May 2026 01:37:01 -0700 (PDT)
-Received: from ryasuoka-thinkpadx1carbongen9.tokyo.csb ([126.143.164.49])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-36b90900f36sm1014431a91.5.2026.05.28.01.36.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 May 2026 01:37:00 -0700 (PDT)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012008.outbound.protection.outlook.com [40.107.209.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16ACE10EE30;
+ Thu, 28 May 2026 08:51:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hOFV+V8HZusRyP8tpNStWXebNvTa+oU9qirxmD/144pzbPW8Ro3KMc6LdbuO4mfvNTaw2Byt3k4RMPlC2pP0BRNmF4ojWx9579op0fNosNiUmDNSKc9M7OWLHPStT+4sw+Mns2h+RtzCsbX9x2kOELuMcfbObaMjaPTlaSS4SRkH5HogrtF5S4lMlR10AtUA/bsXo/8uDnCDCxop9VppIaqFz5Vgt3kIjEiGtncdy3s9lE4+Rf75uKjejv9Cw+bCyiwTutTxgc1BohAjYcdi8uu5AD2x4s6nL6r5d6JDeU//IgEx8gLpZIZu96XptgVBkYDGEo7XXU6YYTwZPyyxJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GvKSx5vAeKfMkQdR9ii0NLh1LBSjaCKhieKAiwSPlSE=;
+ b=EDyw54qvj/STlDknnwGT8cKfqVi26H8DK8Tbi2cNljYASIlCTuuj0mTSbcJXTmeOKL9YWlFacekHfJgJcJO093Zr6klTVT9NdvuU+5AaaslzmQ9NZXXdswT2PJUivY5ySvNqibx5M0/2KxKPOMxtXiLRsiw6tMnDqslF1YGIesRmN6cSFrgdbzdVpvJNNcK+cTQr/tjNnsq7KNMAexDMLIvhtloQs54KTN5/BTYj/riDOpdhgqENg8j1G0IIjxsEV3WFArTKQDRdBOr7Y0tyY0kVEIPMWQd6uNNxCaq5ODNi90Fp3Ajk0NPqD4cI2D4Mbi/MlB75AyKX1g3hIyzZ/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GvKSx5vAeKfMkQdR9ii0NLh1LBSjaCKhieKAiwSPlSE=;
+ b=mDx9jMexu9TvKqa1RY1nXuUIWnqSgb7ZTCd6OL9efGPlD9sW5xXD3fp9jj0MyKArJHHXcPFDpEIsX0CHUIKsGf8wmd0v/wfs3NQnUGUnNiTqE1uclsVq7p98Wpt4+x22Ro3fCgkhwRSWL2jl4suJDfEM4DiN62ZmwV1kE7NSJJk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CYYPR12MB8892.namprd12.prod.outlook.com (2603:10b6:930:be::12)
+ by MN2PR12MB4455.namprd12.prod.outlook.com (2603:10b6:208:265::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Thu, 28 May
+ 2026 08:51:40 +0000
+Received: from CYYPR12MB8892.namprd12.prod.outlook.com
+ ([fe80::62b0:b284:c9c6:c96]) by CYYPR12MB8892.namprd12.prod.outlook.com
+ ([fe80::62b0:b284:c9c6:c96%4]) with mapi id 15.21.0071.011; Thu, 28 May 2026
+ 08:51:40 +0000
+Message-ID: <8a1e73be-13a6-42af-8e1c-f38fdb60cbdf@amd.com>
+Date: Thu, 28 May 2026 16:51:36 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] drm/edid: extract base section header processing
+ into helper
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Ray Wu <Ray.Wu@amd.com>, Limonciello Mario <Mario.Limonciello@amd.com>,
+ Jani Nikula <jani.nikula@intel.com>
+References: <20260526030254.1460480-1-chen-yu.chen@amd.com>
+ <20260526030254.1460480-2-chen-yu.chen@amd.com>
+Content-Language: en-US
+From: "Chen, Chen-Yu" <Chen-Yu.Chen@amd.com>
+In-Reply-To: <20260526030254.1460480-2-chen-yu.chen@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TYCP286CA0114.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:29c::12) To CYYPR12MB8892.namprd12.prod.outlook.com
+ (2603:10b6:930:be::12)
 MIME-Version: 1.0
-From: "Ryosuke Yasuoka" <ryasuoka@redhat.com>
-To: "Dmitry Osipenko" <dmitry.osipenko@collabora.com>, 
- "David Airlie" <airlied@redhat.com>, "Gerd Hoffmann" <kraxel@redhat.com>, 
- "Gurchetan Singh" <gurchetansingh@chromium.org>, 
- "Chia-I Wu" <olvaffe@gmail.com>, 
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, 
- "Maxime Ripard" <mripard@kernel.org>, 
- "Thomas Zimmermann" <tzimmermann@suse.de>, 
- "Simona Vetter" <simona@ffwll.ch>
-In-Reply-To: <e6b414a1-db9e-45a1-9cb8-e9459c028f6f@collabora.com>
-Cc: <dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>, 
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] drm/virtio: abort virtqueue wait on device removal to
- avoid hung task
-Message-ID: <18b3add6b57b04df.b301120b59b2db5f.d33efc07a092f2a2@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
-Date: Thu, 28 May 2026 08:36:55 +0000
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: xV9ISPGnkxbwc_3myOSpkjsxd8d_1iZS81c3AWOXFvc_1779957422
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CYYPR12MB8892:EE_|MN2PR12MB4455:EE_
+X-MS-Office365-Filtering-Correlation-Id: 656ebfa9-3100-4b93-49ea-08debc9655c8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|22082099003|18002099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: 8gkNjgVqNfczbbCLYfy5lC/9ghaDgiXX0SgdiEMHF+AqzgOUHf8S8GCbUN7lCcSZSLc+NnKAivmHyg6NCYP2RWv4GyoSV5a7IXSGHFavxEKbiN+GjPJrYpA2+mq20kdDFBiMkF75yKShXqQtzWKHW5kNH3OwSZCABeD8xxwl58qvpuE0HMeWTcCxqliZfB8N+9bAxTLQJjv/ZEGIc3l0eNs+4CFLJG+figpZGEaLuOnRMthYXtb+w0fRTz/H0h+8IKdtgQrCMcksM8JHNGh09TYA70mTxr25qmYNwzz2yYlZlgM4lYUyyDJU2Aqe6SBYNtT5t09pbXTcFlvgHygBmyLrLUC7g632NKgL6WJAW2odWjEbSbR0YYT97aAH/cXy1m8yAkUlYfAkL9/yPtumRleTp3mNTx2GsOe+XplqJrQ57RUwuZ0b+uOUZvDMC3i1grtmo1zmFQWr1XRYzd7tgXuI/rauV5XkjDZ9ahPFilxX7MfoemgO6ZdKmztJ/69QDRtYh/zKQQznDYh3hV+as0+f8Qq4CK1K1P+PsjHIikMtSl/+ETt5SWKUei/BdwzWqmJ4h1L0yQfTMIu967bLZ6LIgm2F5gKTykBsuDj8sB1EcQ0GTgT5MZqio7NF1R4oQId3itzBzbkR3JL+37Mm/7nO1JBVz+nvphQi0W+BK+noBhW5EHM8ANKQhXhf0p4D
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CYYPR12MB8892.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MitWdEFzbjdkK3B4WkxHREZnRytDWGJNRzk1c2wxSjByS1oyeGZ2YjgrWFdw?=
+ =?utf-8?B?UGtOUjY5cDE1Y01KTjZpbDJWSVZpTW9uWkt3eEViL09qZEVwRjAwdUhCT054?=
+ =?utf-8?B?TEIvd2pKZjRjbnBPZHkrdGNWM2I1V0QzNjd3c3YzbXgxVTFRWEZtUjZhT284?=
+ =?utf-8?B?NE5LZFdDVGpmemdCQXVCZ0VoeFFEV016RnlZSllBWENhUlpLeFZPUmxlWlBx?=
+ =?utf-8?B?QzNnRFhxekNnMFdyQk9kczN5U3lsK2VNYnhLMCszMWUxcmNxMTZoaWJGVUE5?=
+ =?utf-8?B?RTVPWjAzSllNV0UxY3FvN1FobzlLeE8rZkNHdkovLzMrS1FvOStWUUNpL21S?=
+ =?utf-8?B?c3dWY2N3dmxiMUc1UUZraWtkTGYzK2pWNFF5Qk5TdVNLYVZwN2Zjc2lCb2pl?=
+ =?utf-8?B?ZFJ3YmlkMmRXMVRLa1EybVJGNDdJQlJGS0JpQWVNL1ltaXRidit5a2NnUTdO?=
+ =?utf-8?B?Zy9UZkRITzVXSFJkZ09Sbk5qT0ZGaEMwVHVqUHdpbzVTa3FTUWFZOWdCcXlo?=
+ =?utf-8?B?aW1FWjkvbEFQSFhmSnl3bUZxZlZ4YW1NN2txS3N1dU9yTEhlUnoxcUh6cEFD?=
+ =?utf-8?B?UWtpMWw3RU55UlF5dSswY1FoYlVpTjFwcnlBYUFpK0tGM1hTOXBDZHNkT3ps?=
+ =?utf-8?B?WjBTYW5iYnU3M2lWQ0JOeHNGMFlQcVhHdWw3MzdKRjhNb2Rmam8wWUE4aUh2?=
+ =?utf-8?B?aDBFdS9oWHZOcitCY1lMR3MxWk5LbHlhVGt5aEpUYzg2Q2JiQ1BOMmt1TDM2?=
+ =?utf-8?B?bittMmJkRmF1Y3QyMmpMb2FKYk9EVEo0LzhLOW1tdzZQMUZWS2VQN01JdGZ2?=
+ =?utf-8?B?ZTVpclVVdGp4Q0ZJTWw5anB5YU1HeEkzdHpnUW9lQVBJTVovRWNIMytucUND?=
+ =?utf-8?B?czlmNWZ4d2FhdFprd2poVzJ4cWlVcGJ1NlVwbHlHZk9wb0FVSWcyeDgzWFhh?=
+ =?utf-8?B?OGtXY2FVdDRNN0V5V3RFMEVQdHlybTFvQzdNUTR3Q213M0owcnRHalNETTdN?=
+ =?utf-8?B?b1BKQ0tpV1ZtR0FlRTVDSzB0ellZWitydmhjQjRvT3ZVazZyb1dnQXdPa0RL?=
+ =?utf-8?B?T0hYa0ZZOXFDdjIrcG0yQW5zaEFVZi85ZXBOQ0JXRnAvMTFKTzdVSHRMT1hs?=
+ =?utf-8?B?L245ZUp5Ymp1c2dNZ2RvMXpWTUkrTXowZXRVdjNnazBqRkVaQldiYkhkbXdY?=
+ =?utf-8?B?VitWVFhuUFNCR1BOYmZ2blBVeVM5TjNFUkFITGtOdXFKL0pvUG9zN3FyUTFT?=
+ =?utf-8?B?RXdmdmtmbjQzeFJLV3hoeGR4RFhVYngwQVY0dkZXWDJkNG53U2dYRUZJWGQ4?=
+ =?utf-8?B?R2ZONi9JZUZtWkhTZk05UnNMd0xFcUhaWU9BOU1rcDZaMDVkcjJDWWhwWEJt?=
+ =?utf-8?B?WktYcjZHbmY3RU5YQjNzYUpJRFdHYmxRdzVvK2grVEdGdFhSM0Q3NEZybmk3?=
+ =?utf-8?B?dUZxRS9rbkk1Wm12cDNoc25XelVLaTdHY21yeGRacmFpU2hWVFRLeG5UaHFL?=
+ =?utf-8?B?a3RRNGlORkNtRld2UTdhbUZXTzh5bWNEWXdta2tnQ05sZUt5djJqanYrenNJ?=
+ =?utf-8?B?c082MEhZWHltUnduSVJRN2Nqb3dGSTU5bmxkNFJ5OWZQQ0F4VnFGdURhUDVy?=
+ =?utf-8?B?Z2JHbk9RSTJjMmNORTYzMFhxV1pyYkk2ODBmQWtNOHRJTUo4Y2RJV2hEQ1VB?=
+ =?utf-8?B?SGpKUkt0VW05dTI5RktxK1AydDhZc1hQSENEQVJ2cFA5eXRMUjI1ZDl5clFM?=
+ =?utf-8?B?b1MveFIvTCtubzdSWWNBOWFHMm9DV1libDA3QmU3bG8vYlpTbTNiaVRqN09n?=
+ =?utf-8?B?WmErcVNYNlVvRVBnNG1nSmcwMWZIUVBNRU1QVklqK3ozSGswODA2c3FKaVBj?=
+ =?utf-8?B?aUVUUnZGbGFOK1RpcU5sSk9OYUNOVzh4WUltbHplb0dxT3FtQ1p5Rmhjejhs?=
+ =?utf-8?B?VDB3L0QvanVKWTVDTDNBOFR5Z09OK2ViQlJHTk01dS9rVTFLQjRIWTF1WW1K?=
+ =?utf-8?B?b0JVSWpIU0hNUTllVjRNWlUxOWcxN0ZJWStyUlZWd0Y4Nll3OFdYUW9HUFll?=
+ =?utf-8?B?ejNjek56cENiT085WXd0c0lWTkF0RGl5UE9mbWF3WXVpUHNsaENtU0toWlQv?=
+ =?utf-8?B?dlk0ejhFK2xIejVSNWxUdlRMRS9PUzJCekhVdm92b0M4VkF4RFJJbTB1eld4?=
+ =?utf-8?B?eEhTY2lFdWpMM0dQd3JmMnFUOURLR2FNZDJlU0cvb0ZZWCtZTElaNDZWSEhm?=
+ =?utf-8?B?cHRtRS9PV0twK1k1aVEzYmx0Z3hsdHhqTnhoOE1tSkxVYmtpcHUrNGxoSmo1?=
+ =?utf-8?B?NEdSeldHMkJ4OFZ3bUFJdmZvZUVlYmpzTGdjMGFQanloNzNmVndtQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 656ebfa9-3100-4b93-49ea-08debc9655c8
+X-MS-Exchange-CrossTenant-AuthSource: CYYPR12MB8892.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2026 08:51:40.6718 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: G9W+eES4fd7DM4B9j44P7hGpNWmowgXug4eA6ibjfoD3dIgPj81Eduz8Y8oX2YE3T9+1VFCIh2Dm0rYcJ5A1GQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4455
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,260 +138,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Jani,
 
-Hi Dmitry,
-Thank you for the detailed review and follow-up.
+I'm not sure why I didn't receive the cover letter, so I'm replying to this email.
+Do you have any comments on PATCH v3, or does it look good to you?
 
-On 28/05/2026 07:18, Dmitry Osipenko wrote:
-> On 5/26/26 13:24, Dmitry Osipenko wrote:
->> On 5/22/26 11:51, Ryosuke Yasuoka wrote:
->>> Hi Dmitry,
->>> Thank you for your review and the comment.
->>>
->>> On 21/05/2026 22:01, Dmitry Osipenko wrote:
->>>> 21.05.2026 05:19, Ryosuke Yasuoka =D0=BF=D0=B8=D1=88=D0=B5=D1=82:
->>>>> virtio_gpu_queue_ctrl_sgs() and virtio_gpu_queue_cursor() use
->>>>> wait_event() without any abort condition when waiting for virtqueue
->>>>> space. If the host device stops processing commands, these waits bloc=
-k
->>>>> indefinitely inside a drm_dev_enter/exit() critical section. Since
->>>>> drm_dev_unplug(), which is called in device removal and system shutdo=
-wn
->>>>> call path, blocks on synchronize_srcu() until all critical sections
->>>>> complete, device removal and system shutdown also hang.
->>>>>
->>>>> Add a vqs_released flag to virtio_gpu_device and include it in the
->>>>> wait_event() condition. Set the flag and wake up both queues in a new
->>>>> virtio_gpu_release_vqs() helper, called before drm_dev_unplug() in bo=
-th
->>>>> virtio_gpu_remove() and virtio_gpu_shutdown(). When the flag is set, =
-the
->>>>> wait returns immediately and the command is aborted, following the sa=
-me
->>>>> cleanup path as drm_dev_enter() failure.
->>>>>
->>>>> Reported-by: syzbot+d6dd6f86d3aaf7eebe7406e45c1c6e549453f224@syzkalle=
-r.appspotmail.com
->>>>> Closes: https://syzkaller.appspot.com/bug?id=3Dd6dd6f86d3aaf7eebe7406=
-e45c1c6e549453f224
->>>>> Reported-by: syzbot+908bd910da5dd79b88de4cf7baf376cc873a922e@syzkalle=
-r.appspotmail.com
->>>>> Closes: https://syzkaller.appspot.com/bug?id=3D908bd910da5dd79b88de4c=
-f7baf376cc873a922e
->>>>> Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
->>>>> ---
->>>>> Changes in v2:
->>>>> - Update the commit message.
->>>>> - Replace wait_event_timeout() with wait_event() using a compound
->>>>> condition that includes a new vqs_released flag.
->>>>> - Add virtio_gpu_release_vqs() helper to set the flag and wake up
->>>>> both queues, called before drm_dev_unplug() in remove and shutdown
->>>>> paths.
->>>>> - Remove the hardcoded 5-second timeout. Recovery is now driven by
->>>>> the driver flag instead of an arbitrary timeout value.
->>>>> ---
->>>>>  drivers/gpu/drm/virtio/virtgpu_drv.c | 15 +++++++++++++++
->>>>>  drivers/gpu/drm/virtio/virtgpu_drv.h |  1 +
->>>>>  drivers/gpu/drm/virtio/virtgpu_vq.c  | 23 +++++++++++++++++++++--
->>>>>  3 files changed, 37 insertions(+), 2 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/v=
-irtio/virtgpu_drv.c
->>>>> index a5ce96fb8a1d..e4fe5e0780f9 100644
->>>>> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
->>>>> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
->>>>> @@ -119,10 +119,24 @@ static int virtio_gpu_probe(struct virtio_devic=
-e *vdev)
->>>>>  =09return ret;
->>>>>  }
->>>>> =20
->>>>> +/*
->>>>> + * Release pending virtqueue waits so the drm_dev_enter/exit() criti=
-cal
->>>>> + * sections complete before drm_dev_unplug() blocks on synchronize_s=
-rcu().
->>>>> + */
->>>>> +static void virtio_gpu_release_vqs(struct drm_device *dev)
->>>>> +{
->>>>> +=09struct virtio_gpu_device *vgdev =3D dev->dev_private;
->>>>> +
->>>>> +=09vgdev->vqs_released =3D true;
->>>>> +=09wake_up_all(&vgdev->ctrlq.ack_queue);
->>>>> +=09wake_up_all(&vgdev->cursorq.ack_queue);
->>>>> +}
->>>>> +
->>>>>  static void virtio_gpu_remove(struct virtio_device *vdev)
->>>>>  {
->>>>>  =09struct drm_device *dev =3D vdev->priv;
->>>>> =20
->>>>> +=09virtio_gpu_release_vqs(dev);
->>>>>  =09drm_dev_unplug(dev);
->>>>>  =09drm_atomic_helper_shutdown(dev);
->>>>>  =09virtio_gpu_deinit(dev);
->>>>> @@ -133,6 +147,7 @@ static void virtio_gpu_shutdown(struct virtio_dev=
-ice *vdev)
->>>>>  {
->>>>>  =09struct drm_device *dev =3D vdev->priv;
->>>>> =20
->>>>> +=09virtio_gpu_release_vqs(dev);
->>>>>  =09/* stop talking to the device */
->>>>>  =09drm_dev_unplug(dev);
->>>>>  }
->>>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/v=
-irtio/virtgpu_drv.h
->>>>> index f17660a71a3e..0bd69a40857e 100644
->>>>> --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
->>>>> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
->>>>> @@ -235,6 +235,7 @@ struct virtio_gpu_device {
->>>>> =20
->>>>>  =09struct virtio_gpu_queue ctrlq;
->>>>>  =09struct virtio_gpu_queue cursorq;
->>>>> +=09bool vqs_released;
->>>>>  =09struct kmem_cache *vbufs;
->>>>> =20
->>>>>  =09atomic_t pending_commands;
->>>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/vi=
-rtio/virtgpu_vq.c
->>>>> index 67865810a2e7..8057a9b7356d 100644
->>>>> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
->>>>> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
->>>>> @@ -396,7 +396,19 @@ static int virtio_gpu_queue_ctrl_sgs(struct virt=
-io_gpu_device *vgdev,
->>>>>  =09if (vq->num_free < elemcnt) {
->>>>>  =09=09spin_unlock(&vgdev->ctrlq.qlock);
->>>>>  =09=09virtio_gpu_notify(vgdev);
->>>>> -=09=09wait_event(vgdev->ctrlq.ack_queue, vq->num_free >=3D elemcnt);
->>>>> +=09=09wait_event(vgdev->ctrlq.ack_queue,
->>>>> +=09=09=09   vq->num_free >=3D elemcnt || vgdev->vqs_released);
->>>>> +=09=09/*
->>>>> +=09=09 * Set by virtio_gpu_release_vqs() to unblock
->>>>> +=09=09 * synchronize_srcu() wait in drm_dev_unplug().
->>>>> +=09=09 */
->>>>> +=09=09if (vgdev->vqs_released) {
->>>>> +=09=09=09if (fence && vbuf->objs)
->>>>> +=09=09=09=09virtio_gpu_array_unlock_resv(vbuf->objs);
->>>>> +=09=09=09free_vbuf(vgdev, vbuf);
->>>>> +=09=09=09drm_dev_exit(idx);
->>>>> +=09=09=09return -ENODEV;
->>>>> +=09=09}
->>>>>  =09=09goto again;
->>>>>  =09}
->>>>> =20
->>>>> @@ -566,7 +578,14 @@ static void virtio_gpu_queue_cursor(struct virti=
-o_gpu_device *vgdev,
->>>>>  =09ret =3D virtqueue_add_sgs(vq, sgs, outcnt, 0, vbuf, GFP_ATOMIC);
->>>>>  =09if (ret =3D=3D -ENOSPC) {
->>>>>  =09=09spin_unlock(&vgdev->cursorq.qlock);
->>>>> -=09=09wait_event(vgdev->cursorq.ack_queue, vq->num_free >=3D outcnt)=
-;
->>>>> +=09=09wait_event(vgdev->cursorq.ack_queue,
->>>>> +=09=09=09   vq->num_free >=3D outcnt || vgdev->vqs_released);
->>>>> +=09=09/* See comment in virtio_gpu_queue_ctrl_sgs(). */
->>>>> +=09=09if (vgdev->vqs_released) {
->>>>> +=09=09=09free_vbuf(vgdev, vbuf);
->>>>> +=09=09=09drm_dev_exit(idx);
->>>>> +=09=09=09return;
->>>>> +=09=09}
->>>>>  =09=09spin_lock(&vgdev->cursorq.qlock);
->>>>>  =09=09goto retry;
->>>>>  =09} else {
->>>>
->>>> What about other wait_event in the driver? Why only these?
->>>
->>> There are other wait_event() calls on vgdev->resp_wq in virtgpu_prime.c
->>> and virtgpu_vram.c. These can also cause a stuck process when the host
->>> device stops or does not respond and should be fixed. However, they are
->>> not related to the issue being fixed here. I think they should be
->>> addressed in a separate commit.
->>>
->>> The wait_event(vgdev->resp_wq) calls wait for a host response, not for
->>> virtqueue ring space. They are not inside a drm_dev_enter/exit()
->>> critical section, so they don't block drm_dev_unplug() ->
->>> synchronize_srcu() and are not part of the deadlock reported by syzbot.
->>>
->>> However, if a process is stuck in wait_event(vgdev->resp_wq), there is
->>> no way to recover other than host device recovery itself. We can still
->>> remove the device and destroy the virtqueues while the process is stuck=
-,
->>> so the host response can never arrive. IIUC, the stuck thread holds a
->>> drm_device reference, preventing vgdev from being freed; this is a
->>> resource leak.
->>>
->>> This can be fixed by adding a wake_up_all() and a vqs_released check
->>> similar to what is done for ctrlq/cursorq. However, I think this should
->>> be a separate commit since the root cause and problem are different.
->>>
->>> Alternatively, the resp_wq wait_event() calls could be converted to
->>> wait_event_interruptible() to fix the issue. But as you mentioned
->>> earlier in the v1 comment, we need the wait_event_interruptible()
->>> rework.
->>>
->>> What do you think? Should I include the resp_wq fix as a separate commi=
-t
->>> in this patch series, or leave it for the _interruptible() rework?
->>=20
->> Let's leave it for the later rework.
->>=20
->> I briefly tried testing this patch and it's not apparent what exact
->> problem this patch solves.
->>=20
->> With a regular Linux OS running systemd, during normal shutdown, systemd
->> waits for processes to be terminated before it would perform kernel
->> shutdown, hence virtio_gpu_shutdown() doesn't have a chance to be
->> invoked in my scenario.
->>=20
->> In the referenced syzkaller reports, I don't see anything related to
->> shutdown or driver removal. Could you please clarify how to reproduce
->> and test the original issue?
+Regards,
+Chenyu
 
-You are right that the syzkaller reports show a different issue; a
-probe-time lock ordering deadlock between clientlist_mutex and the
-dequeue worker, not a device removal hang. I will drop the Reported-by
-and Closes tags in the next revision.=20
 
-Regarding reproduction: the scenario this patch fixes is as follows:
-
-1. The host device stops processing virtqueue commands (host process
-crash, resource exhaustion, or a hypervisor bug)
-2. A guest GPU operation fills the virtqueue and blocks in wait_event()
-inside virtio_gpu_queue_ctrl_sgs() or virtio_gpu_queue_cursor(),
-within a drm_dev_enter/exit() critical section
-3. Device removal or system shutdown calls virtio_gpu_remove() or
-virtio_gpu_shutdown(), which call drm_dev_unplug()
-4. drm_dev_unplug() blocks on synchronize_srcu() because the
-drm_dev_enter/exit() critical section from step 2 never completes
-5. Both the GPU operation and the removal/shutdown hang indefinitely
-with no recovery path
-
-Since wait_event() uses TASK_UNINTERRUPTIBLE, the blocked process
-cannot be killed by signals during shutdown, so the hang persists even
-after systemd's process cleanup phase.
-
-This is difficult to reproduce because it depends on host-side failure.
-In a normal QEMU/KVM environment the virtqueue is always serviced.
-
-> To make it more clear, the patch looks okay, but I'm not convinced that
-> it fixes the reported issue. We likely need a full solution with
-> handling interrupt signals, using a reasonable timeout and etc for all
-> wake_event().
-
-I agree that a full solution with wait_event_interruptible() and proper
-signal handling for all wait_event() calls is the right long-term
-direction, and I am happy to work on that as a follow-up series.
-
-However, converting to wait_event_interruptible() alone does not fully
-solve the device removal case. The remove/shutdown path does not send
-signals to waiting processes; it only calls drm_dev_unplug(). So even
-with interruptible waits, the driver still needs a mechanism to
-explicitly wake up waiters during teardown. The vqs_released flag in
-this patch provides that mechanism, and remains necessary even after
-the interruptible rework.
-
-I will resubmit with updated tags and commit message, and work on the
-syzkaller probe-time deadlock and the interruptible rework as follow-up
-patches.
-
-Best regards,
-Ryosuke
-
+On 5/26/2026 10:59 AM, Chenyu Chen wrote:
+> Extract the DisplayID base section header logging and non_desktop
+> detection from update_displayid_info() into a dedicated helper,
+> drm_displayid_process_base_section_header(). Remove the break so the
+> iterator walks through all data blocks, preparing for future patches
+> that will parse additional block types within the loop.
+> 
+> The helper is called only once for the base section via a
+> base_section_header_processed flag. Since version and primary_use are
+> only captured from the base section, and extension sections carry a
+> primary use of zero per spec, the non_desktop logic is unaffected.
+> 
+> No functional change.
+> 
+> Assisted-by: Copilot:Claude-Opus-4.6
+> Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
+> ---
+>  drivers/gpu/drm/drm_edid.c | 37 +++++++++++++++++++++----------------
+>  1 file changed, 21 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index 8031f021d4d0..7ad3f939dbe6 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -6715,30 +6715,35 @@ static void drm_reset_display_info(struct drm_connector *connector)
+>  	memset(&info->amd_vsdb, 0, sizeof(info->amd_vsdb));
+>  }
+>  
+> +static void drm_displayid_process_base_section_header(struct drm_connector *connector,
+> +						      const struct displayid_iter *iter)
+> +{
+> +	struct drm_display_info *info = &connector->display_info;
+> +
+> +	drm_dbg_kms(connector->dev,
+> +		    "[CONNECTOR:%d:%s] DisplayID extension version 0x%02x, primary use 0x%02x\n",
+> +		    connector->base.id, connector->name,
+> +		    displayid_version(iter),
+> +		    displayid_primary_use(iter));
+> +	if (displayid_version(iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
+> +	    (displayid_primary_use(iter) == PRIMARY_USE_HEAD_MOUNTED_VR ||
+> +	     displayid_primary_use(iter) == PRIMARY_USE_HEAD_MOUNTED_AR))
+> +		info->non_desktop = true;
+> +}
+> +
+>  static void update_displayid_info(struct drm_connector *connector,
+>  				  const struct drm_edid *drm_edid)
+>  {
+> -	struct drm_display_info *info = &connector->display_info;
+>  	const struct displayid_block *block;
+>  	struct displayid_iter iter;
+> +	bool base_section_header_processed = false;
+>  
+>  	displayid_iter_edid_begin(drm_edid, &iter);
+>  	displayid_iter_for_each(block, &iter) {
+> -		drm_dbg_kms(connector->dev,
+> -			    "[CONNECTOR:%d:%s] DisplayID extension version 0x%02x, primary use 0x%02x\n",
+> -			    connector->base.id, connector->name,
+> -			    displayid_version(&iter),
+> -			    displayid_primary_use(&iter));
+> -		if (displayid_version(&iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
+> -		    (displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_VR ||
+> -		     displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_AR))
+> -			info->non_desktop = true;
+> -
+> -		/*
+> -		 * We're only interested in the base section here, no need to
+> -		 * iterate further.
+> -		 */
+> -		break;
+> +		if (!base_section_header_processed) {
+> +			drm_displayid_process_base_section_header(connector, &iter);
+> +			base_section_header_processed = true;
+> +		}
+>  	}
+>  	displayid_iter_end(&iter);
+>  }
 
