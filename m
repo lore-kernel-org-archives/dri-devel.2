@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06441CD6E44
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 13:27:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49F45CD6E44
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 13:30:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B1F910F197;
-	Thu, 28 May 2026 13:27:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC84010F191;
+	Thu, 28 May 2026 13:30:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dJhLFdkW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cnk/Iud8";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 750FC10F194
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 13:27:42 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C241310F183
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 13:30:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 523BD40592;
- Thu, 28 May 2026 13:27:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A15301F000E9;
- Thu, 28 May 2026 13:27:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F27586055C;
+ Thu, 28 May 2026 13:30:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20DC81F000E9;
+ Thu, 28 May 2026 13:30:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779974862;
- bh=CaLB5YbrnY0a8s58Pi+fW+011HIvbyL/i1pM2BIB7io=;
+ s=k20260515; t=1779975024;
+ bh=Y8rVMr4dqWUmgMWiltbXDUURPAIIqisuvdyrjOXRRr8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=dJhLFdkWDABa0Vgcnd82C5Dky2G1Gjclv23A4MgyEBBA6rpk35TqJOHXmXVr6Bd7N
- Z9zErq8OC9Kc5TiwiPyc2Qpl31KCgug4AxetEeuEltEV+o5044w1pwDRkrn3dSRqKq
- iC7X/dCViB3VhPvIsrcnO1ZB+mmwDN5/tCoT+Tf45fGDeSmi0PymxZgTRj3zaH1inS
- naKKgSKU8YiZf6Yv4t7m4oMoCJTIGwaxIjNnyz4QK0vlmE+eczwBtnqWwJutKRn5DD
- 3cldGGvwMvsDNcjGPSJdTjImprCzcggaiQe4UctSgCs02Mnd/EqIH5QQ1aUYQwKBAs
- kqF81qf3fDotA==
-Date: Thu, 28 May 2026 15:27:39 +0200
+ b=cnk/Iud8BGdfiTt92TmGHO5r3e9biuU3K+BZGLeb+21QwVCYmjH0a32VKX5ASSMQ4
+ iEqTHcGpfDVBpSgQAj5xH/CcMItA+Y/btOQyJ6QI3xhUroq1yoWOCR7umnUfDjyPxb
+ YUN7J57pqZhfO0yC87yng22Hy5EH342KYL2K4AqJAtJIFG0hVKXgpNV5rdy+93kMLu
+ 1bTXp8UuXy1+JJJCmQS8gwtqTzl+7DiltAMg0Xmom3D9YOcpuiAqh1Ihn/e8qtimFe
+ 5Q9rAeWCzKsaJCmIPw2sQjEk0xvWc/sZEM6Tho5MmKelsOl1HobgLjpfUHAHuh1L4h
+ r1Ak8b3m9LyQg==
+Date: Thu, 28 May 2026 15:30:22 +0200
 From: Thierry Reding <thierry.reding@kernel.org>
-To: Jacob McLemore <jmclemore.lkml@gmail.com>
-Cc: tzimmermann@suse.de, Mikko Perttunen <mperttunen@nvidia.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jonathan Hunter <jonathanh@nvidia.com>, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/tegra: sor: Remove usage of drm_simple_encoder_init()
-Message-ID: <ahhCnxgD99dovn7k@orome>
-References: <20260523012824.81043-1-jmclemore.lkml@gmail.com>
+To: shayderrr <darknessshayder@gmail.com>
+Cc: thierry.reding@gmail.com, cyndis@kapsi.fi, airlied@linux.ie, 
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] host1x: bus: Fix missing ops null check in error teardown
+Message-ID: <ahhDR8dtEJ7Fpl3d@orome>
+References: <20260517170456.84927-1-darknessshayder@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="4bzrbxr4qtkvnhq6"
+ protocol="application/pgp-signature"; boundary="4k3tk77o7e7dsbxu"
 Content-Disposition: inline
-In-Reply-To: <20260523012824.81043-1-jmclemore.lkml@gmail.com>
+In-Reply-To: <20260517170456.84927-1-darknessshayder@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,52 +60,53 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---4bzrbxr4qtkvnhq6
+--4k3tk77o7e7dsbxu
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] drm/tegra: sor: Remove usage of drm_simple_encoder_init()
+Subject: Re: [PATCH] host1x: bus: Fix missing ops null check in error teardown
 MIME-Version: 1.0
 
-On Fri, May 22, 2026 at 08:26:24PM -0500, Jacob McLemore wrote:
-> Remove the deprecated trivial helper drm_simple_encoder_init(). Inline
-> the call to drm_encoder_init and add instance of
-> drm_encoder_funcs.
+On Sun, May 17, 2026 at 12:04:56PM -0500, shayderrr wrote:
+> In host1x_device_init(), the error teardown paths do not check
+> client->ops before dereferencing it, unlike the forward init paths
+> which correctly guard with 'client->ops &&'. This can result in a
+> NULL pointer dereference if client->ops is NULL.
 >=20
-> Signed-off-by: Jacob McLemore <jmclemore.lkml@gmail.com>
+> Fix by adding the missing client->ops check in both the teardown
+> and teardown_late labels.
+>=20
+> Signed-off-by: shayderrr <darknessshayder@gmail.com>
 > ---
-> Saw this was a good first task in Documentation/gpu/todo.rst.
-> This is my first patch, so apologies if I've set up anything wrong
-> in either my email client or gitconfig and the patch ends up invalid.
-> ---
->  drivers/gpu/drm/tegra/sor.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
+>  drivers/gpu/host1x/bus.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 
-Applied, though I had to fix a few checkpatch warnings. Make sure to
-always run that fix anything that it flags (though sometimes it can go a
-bit overboard, so apply some common sense, too).
+I don't think this can ever happen because all clients do implement the
+ops structure, but since we have them in the code above, makes sense to
+be consistent.
 
-Thanks,
+Applied, thanks.
+
 Thierry
 
---4bzrbxr4qtkvnhq6
+--4k3tk77o7e7dsbxu
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoYQssACgkQ3SOs138+
-s6H3hg//YlaM6RIBRDZ0rf/d48OzMsSWcBKgJDqtdVrUcfyGkCV4mkrV9BS3oLmG
-KQtv9Wj8Gy05hlwMm9k/C1atmvtrQnX4HJmtUAFLorzk2NxbDQg4keVbqyzuwGX4
-rrEYaGS7SOgFQC7Ol8q/EYkAPYVKSiJzjROLqZGoaKneQtHzNXysIej7k/DwXGK9
-frx3hlnen53gIdC91c2lTQot1AE75HtS9HXMunVazEVDJHj+VFiQU/tZjrLWLbQq
-2tbZxJnzXhYaJu3Dw5cqtLUiz2FTuC2ikOd/v0SzU42mkGnkd/9vJ9gOxrcOpjy0
-8i5M5c+NTcVdSglcPcKGrw/1XtIqeClMb5WxBOEziAZ+ufng7Hs/zQTyC8wWxkF1
-Qb47TjEkjGZL0eaq4H49BwqgdTgkS+HCKs+pchKZk7I2KrLfoh7QuuGj0oDN++xu
-oyUvOrBF3CSuFBjXeYTpPy2vidgZ8nkCfje3dy0nI2j+DaJ61rY4XkIbGvdh8+09
-YWGBENV52m6B0ewNJZDMoolJSlz0pqvzOt8l4BCzxeL7GjpwAxHxwqUVB6UPdEGf
-+Zf/yaPatSXHmFEqhQVeqv1VnGZfHmkT16LQfd2MSbEINphrR9SFUFEzb+vzdCsN
-3SiX6rNhCKRdr5MbbhmqsYnGL1kM3qMVGqGrrFPjNKGWPiGV8QA=
-=MyuU
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoYQ24ACgkQ3SOs138+
+s6GE9RAAgvpcWkFK3LA0tc8S6Ay0mqVowCASm5wwnR7UQSfTyo7G4sYivZ5w3/vS
+vgmt0mzoJf4KcnPlJXksA1omYKekaon2i2NLG9tMfARWw9yc5C89TwWElQnFuU7P
+ebuJMqWwrAyZ/9ic7MSOcDtzjdn0sgFWU/NT47R+Yg17HFxPV72xYAca2Y19KwGU
+0Lnw2C0xLEOuXzCqwv2RTG07Ko8CcXvR/AsqTBeAWPBTE2M0KfxFgR4VjxJ8COou
+eCvnpg2eeJnTr8pMbOCEMv+DPbvA7U3myvSJx36a8td7jA5yNZpirnMHWmKlOE/L
+LeHPDBkatPz/69IxYvoG7XT5gbi+1zUEX6wy3/w0jrU+o7h4yi9PUp22Q7bdtTnB
+7In1zcg/Q/OeIyP2A7vQfu374Nzvdz+MuHQXaUF04yiONy6SDH9OYvjEIjcvDkAe
+BnKKgy4r7/RVLBEl4BQDSWLDrG2nwLfagm+Wy2BXkzWcN8gNLJiB8MtZWLtZsKI/
+V0NcfML33MuqSZvr4payRjTxLsyaj+ApoeQq5HhPQRXVYKnxuhisytGj0dk5Xdlu
+Ix/l4VgcPLTsFl5h9Hz8cvGCPbqmUUCRFC5V4L+uZCAtc1UWJ9rhAp9Cj4S/Zur5
+8rU/9CFvZ+ENmQxqiEo9+2Wt6aj9Ze55Yt4RQlWv5r8HN9jhibI=
+=Z7YB
 -----END PGP SIGNATURE-----
 
---4bzrbxr4qtkvnhq6--
+--4k3tk77o7e7dsbxu--
