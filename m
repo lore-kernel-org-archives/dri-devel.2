@@ -4,89 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2C5BCD5BD5
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 16:41:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEE9ACD5BD5
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 16:49:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1210310F489;
-	Thu, 28 May 2026 16:41:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5385510F291;
+	Thu, 28 May 2026 16:49:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="YxinWkQv";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PtVMVsti";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26EB910F48A
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 16:41:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1779986489;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=XBGoB0L6+rOVHYnTM/R3c8pY5d+eoM/ES6oiySPeke4=;
- b=YxinWkQv+ASOm+NJUtnK0jWdGN+Wl553TfkpxfxmR5771CMLlCS70llTxBoJzsmS3ySQVL
- 5n8XYYtsACil2WfcKIT7+t2QkIGso7pTBNEt/DjphRmSzgeOvxAE64rN4Rsx/OGaKy8daM
- Z1Ao+qcIPCIqX5hBdcsvHqP/f3qA5H0=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-91-ZQ0FFvYuPPGm4D62R9Nniw-1; Thu, 28 May 2026 12:41:27 -0400
-X-MC-Unique: ZQ0FFvYuPPGm4D62R9Nniw-1
-X-Mimecast-MFC-AGG-ID: ZQ0FFvYuPPGm4D62R9Nniw_1779986487
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-914f037b7dfso644405985a.3
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 09:41:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779986487; x=1780591287;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=XBGoB0L6+rOVHYnTM/R3c8pY5d+eoM/ES6oiySPeke4=;
- b=eZ+Q4ZWErxzOiJ0phtDCRIstoYuV/qnBSrhIFAaVVwmVVa5vu/6zewl+cIHU5m6kTG
- KtDwYODPSJbZfC++w9sPF/plb+Uy3hP6L7LyP8ZSU21pVNxEg8C+CHnqm3bJ65M07/iK
- m3k0YZzaTODp2vzQ9Ah4P2zJZdjCM8S2/oceZbKkEP1usPdio1Um/kBDocP0Cwnpk8Bd
- g/Ynk1xtJDQehJeHg4ceHmPNkUMVmoOc3iETX1AimclwfEwmZoKanPeEb9h9yy9kPP1D
- x0qzA7YK577ZpSYnOpbr4PuIznP1qnXkElLkF9gAb2Mj21ronxW4EXZHkE+KKK4jecfr
- Wuvw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ85ZPk+5dCRSBRSGTAg+tAAw+8p1fu07s0QkudyXR5sPFqGWSWK/Vk+AI92zwwJgHcwMJxKlArYGIs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwtnEUd3GDNMrH9WfPME6YKPSVwPOxcSIB2SR6x+uyiyhp6HCZx
- vJ5JNZ6NBGICJ5fzX7KEp2ayhGErScCK33V54Bk2+K4TgBYZfTACD4RssdkSt1WUdcmig89UxaU
- qYouXcGQgirxIqZMeB9sxxBkcEpMj7HuxpossAE7F3RdaSeJAKy/BBmxQWzuu4dD0dCBXyg==
-X-Gm-Gg: Acq92OH4NO0ZmXy4SOcUcWkFT+ovfwdfrmOVEqguyFqV+gR2LYlssIVuF2t6+9SvgJN
- 4lzpcxU13SeD1MoU9+OpmwdtumuJEs9mJezJjo6R1X9Vy4qWAiX1Bi5/58uCTi7uWPtZfEOiRxo
- yChv3y9MINTXnS78ppniZpS00OEN81m4/3VrbqlxF3l/Jnk1Z2xP/1/lY65nWvhzl8eDabrDOIW
- NUB+8enFitCe3HzF0ArwaHQFcVCwy+z+ZtNX0+gm32Kvi3+YRxUqIn5ZuyIrj2xNbLuncyy9eML
- Woiuk7FDnyrqA76QSK2hmH02ld+DpGtmqrA18pKGcNb/0Mckz/3iz/fzLPWRvvsHtp93k++ru7c
- 2dFrd0QkSeJgtzOI3r5u/2ysTnm2B
-X-Received: by 2002:a05:620a:414c:b0:8cb:9975:cba8 with SMTP id
- af79cd13be357-914b49e13d7mr3947691685a.62.1779986487059; 
- Thu, 28 May 2026 09:41:27 -0700 (PDT)
-X-Received: by 2002:a05:620a:414c:b0:8cb:9975:cba8 with SMTP id
- af79cd13be357-914b49e13d7mr3947687185a.62.1779986486633; 
- Thu, 28 May 2026 09:41:26 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-914f86e9bf5sm862446485a.8.2026.05.28.09.41.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 May 2026 09:41:26 -0700 (PDT)
-Message-ID: <794dbd35fd81f03478cdd3238d3d506d0d800187.camel@redhat.com>
-Subject: Re: [PATCH 0/5] nouveau/gsp: Cleanup IS_ERR_OR_NULL() usage
-From: lyude@redhat.com
-To: Hongling Zeng <zenghongling@kylinos.cn>, dakr@kernel.org, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, airlied@redhat.com, ttabi@nvidia.com, 
- bskeggs@nvidia.com, dri-devel@lists.freedesktop.org
-Cc: nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- zhongling0719@126.com
-Date: Thu, 28 May 2026 12:41:25 -0400
-In-Reply-To: <20260528062451.54107-1-zenghongling@kylinos.cn>
-References: <20260528062451.54107-1-zenghongling@kylinos.cn>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB38710F24F;
+ Thu, 28 May 2026 16:49:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779986982; x=1811522982;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=jRNLJqJ2HvzVjQj+tHx25T+AidGfUuIqtwnCkO6JJPk=;
+ b=PtVMVstix50prMDQ343XD/LQ4+V4PTdNa27r6pf1x10mFbVmZXaa5dby
+ xo95aK4Rci3U5YIvjU7w6+ADK28kh2Zyu36E/NWrNQMb5vIh3gq5qhfbo
+ IcKNR+/V5RG+5+cBHPGzpXpSuPjYB3dqKZqorhYE1yj2jb94DmoP7bRsk
+ Rb5CowrwHBENe3NFepTvk7ZLfYXwvpfSFX9btZEiljx7OJowD3E+yGl8S
+ T/zwG9Ix2NFYD9gxZKkEJTxAcp+EUmbzpMdoW2mF135lDlt6wO7qUkuxG
+ 9dvQmEuVOdxPOBAy+PI5zy5F8KbsLiQXBtarq4ncRxOsRwKV29PIXKicm A==;
+X-CSE-ConnectionGUID: KrtF+vbLTj2RbSlxlS/ndQ==
+X-CSE-MsgGUID: baivdz6MTv6sQc+k/cFx+Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11800"; a="91522127"
+X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; d="scan'208";a="91522127"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 May 2026 09:49:42 -0700
+X-CSE-ConnectionGUID: GalvE7ydTGKhYxVR2sLgZg==
+X-CSE-MsgGUID: eLHufy7CRaWI7Bqe/yeR3A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; d="scan'208";a="241567216"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 May 2026 09:49:40 -0700
+Date: Thu, 28 May 2026 18:49:36 +0200
+From: Raag Jadav <raag.jadav@intel.com>
+To: =?utf-8?B?5Y2gd2Vp?= <zhanwei919@gmail.com>
+Cc: Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Guenter Roeck <linux@roeck-us.net>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH] drm/xe/hwmon: report a single fan for DG2 instead of
+ two
+Message-ID: <ahhyIMa3Btj7oZv6@black.igk.intel.com>
+References: <20260527115311.13398-1-zhanwei919@gmail.com>
+ <ahb3VMRCQpofblbW@black.igk.intel.com>
+ <CA+qUFcnP-XEPHJD-+djRydD92-bAz5bxxVaRHGJ3nrpwtq4m7w@mail.gmail.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: xowdl9U0Q6N8FyBxB2r2ML8UFRjeIja8QYBusD67MEg_1779986487
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CA+qUFcnP-XEPHJD-+djRydD92-bAz5bxxVaRHGJ3nrpwtq4m7w@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,50 +78,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+On Wed, May 27, 2026 at 11:18:52PM +0800, 占wei wrote:
+> Thanks for the detailed explanation -- that make sense
+> 
+> I can think of two paths forward:
+> 
+> 1) Have fan_input_read() return -ENODATA if one channel has started
+>  reporting pulses but another remains silent for, say, 30 seconds.
+>  This way the phantom entry still appears in sysfs but userspace
+>  tools like `sensors` can handle the "no data" case gracefully
+>  instead of showing a misleading 0 RPM.
 
-Will push them to drm-misc in just a moment
+Sounds a bit over engineered solution with its own caveats because
 
-On Thu, 2026-05-28 at 14:24 +0800, Hongling Zeng wrote:
-> This patch series cleans up redundant IS_ERR_OR_NULL() checks in the
-> nouveau GSP-RM code.
->=20
-> The core GSP-RM functions already return error pointers via IS_ERR()
-> checks. Using IS_ERR_OR_NULL() is redundant and adds unnecessary NULL
-> checks.
->=20
-> This series is organized as follows:
-> - Patch 1: Cleanup IS_ERR_OR_NULL in nvkm_gsp_rm_alloc_get/alloc
-> - Patch 2: Cleanup IS_ERR_OR_NULL in nvkm_gsp_rpc_rd
-> - Patch 3: Cleanup IS_ERR_OR_NULL in core implementation
-> - Patch 4: Cleanup WARN_ON(IS_ERR_OR_NULL) across multiple files
-> - Patch 5: Cleanup remaining IS_ERR_OR_NULL usage
->=20
-> After this cleanup:
-> - Error handling is consistent with the rest of the kernel
-> - Code is simpler and more maintainable
-> - The intent is clearer (checking for error pointers, not NULL)
->=20
-> Hongling Zeng (5):
-> =C2=A0 nouveau/gsp: cleanup IS_ERR_OR_NULL in rm_alloc functions
-> =C2=A0 nouveau/gsp: cleanup IS_ERR_OR_NULL in rpc_rd
-> =C2=A0 nouveau/gsp/rm: cleanup IS_ERR_OR_NULL in core implementation
-> =C2=A0 nouveau/gsp/rm: cleanup WARN_ON(IS_ERR_OR_NULL)
-> =C2=A0 nouveau/gsp/rm: cleanup remaining IS_ERR_OR_NULL usage
->=20
-> =C2=A0drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h=C2=A0=C2=A0=C2=A0=
- | 4 ++--
-> =C2=A0.../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/alloc.c=C2=A0 | 4 ++--
-> =C2=A0.../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/bar.c=C2=A0=C2=A0 | 2 +=
--
-> =C2=A0.../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/ctrl.c=C2=A0 | 2 +-
-> =C2=A0.../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvenc.c | 2 +-
-> =C2=A0.../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/ofa.c=C2=A0=C2=A0 | 2 +=
--
-> =C2=A0.../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c=C2=A0=C2=A0 | 8 +=
-+++----
-> =C2=A07 files changed, 14 insertions(+), 14 deletions(-)
->=20
-> --
-> 2.25.1
+a) We assume that both channels are monitored simultaneously and first
+   channel actually reports non-zero value for 30 seconds (or whatever
+   trivial value we device) continuously, which is not guaranteed.
 
+b) This means the output of one channel depends on another and I'm
+   doubtful if maintainers would be okay with such hacks.
+
+> 2) Drop the code change entirely and instead add a short note in
+>  Documentation/gpu/xe/xe_hwmon.rst explaining that on DG2 boards
+>  where the OEM routes multiple physical fans through a shared tach
+>  line, fan{2,3}_input may read 0, so future contributors don't end
+>  up re-attempting the same v1 patch I just sent.
+
+This one makes more sense to me though.
+
+Raag
