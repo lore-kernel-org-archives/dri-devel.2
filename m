@@ -4,49 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14299CD5BD5
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 08:30:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 657B2CD5BD5
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 08:37:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 533F110EDDD;
-	Thu, 28 May 2026 08:30:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFAD910EDF8;
+	Thu, 28 May 2026 08:37:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="bHgBkqpW";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="EIxPzLb5";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 268EC10EDDD
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 08:29:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=n0
- 3eoOtM3eHsClG29ijMHpetVoDW9xstf0etlqEH/3I=; b=bHgBkqpWxzkBp7BEs9
- fVdDHTiMq4OCJFhh4wQoWgS5Z+Xs2qAbwmfADZYtwwu/7l3T4JBVxH3PcE4SXJQK
- AbU3mTpIHauqMtbOs3pMwdubdKpP0WfJJMTeo91MCJpK6lbbLyUtGj/OnBojhtdG
- deIOR5YM5130/xGIEFJOYPQtk=
-Received: from 163.com (unknown [])
- by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id
- _____wDnv_3a_BdqOMI7AA--.8856S2; 
- Thu, 28 May 2026 16:29:18 +0800 (CST)
-From: w15303746062@163.com
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, sumit.semwal@linaro.org,
- christian.koenig@amd.com
-Cc: jeffy.chen@rock-chips.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org,
- Mingyu Wang <25181214217@stu.xidian.edu.cn>, stable@vger.kernel.org
-Subject: [PATCH] drm/prime: Fix unsupervised rb_tree corruption in
- drm_prime_remove_buf_handle
-Date: Thu, 28 May 2026 16:29:12 +0800
-Message-Id: <20260528082912.1051262-1-w15303746062@163.com>
-X-Mailer: git-send-email 2.34.1
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A114F10EDF8
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 08:37:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1779957424;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:  in-reply-to:in-reply-to; 
+ bh=PC98DFJJYj6pMUAqlbj9jwtGyGpOgv8qE/aIsYksKhk=;
+ b=EIxPzLb5eTp6CKw4cp4b2NapoMMNKPineREo0GWcDji7Pew2oChqlDyI5mI35YkHb5B1EQ
+ doet77o8spaExS+YDLYFlF8FOi+jTpXQtmvgGy3JQF5giC8Id3goJyXCPxoWqGkYacouZU
+ t34yeheXd0dRTKw5zUVnuIZnkpVRT+A=
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-17-U0sweWOlO2uVQN76ccZWhA-1; Thu, 28 May 2026 04:37:02 -0400
+X-MC-Unique: U0sweWOlO2uVQN76ccZWhA-1
+X-Mimecast-MFC-AGG-ID: U0sweWOlO2uVQN76ccZWhA_1779957422
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-36781927b4dso6514803a91.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 01:37:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779957422; x=1780562222;
+ h=content-transfer-encoding:date:message-id:subject:cc:in-reply-to:to
+ :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=Oq+lTIk+CoM6LUDz2MyWeM9Dcf8keMMkzhCBCnXUco4=;
+ b=mxY8QXSRWQc639hNXifQcZuKOEGw2uTkxRyHVjmrdq/GR3Y5XgAE61Uy6mPjC5MZty
+ r29LX+gQHeUPC5koz52f0bhvQmnaQnTHyzgMYLp71ucB3qIngcFdaNIw3+hwxaDtFB+9
+ lpQDYt1532NiSuFZnD1VYVv0SxlWaLnF5ZPjW9grOZ7HANS9uicvhn0piWJhcdAiLeIg
+ smX9U2oVbdc9OeF1sOoLtDUdhQTsN7uqyXT9NnC5rkpHKHU89nnBxWz31YmvY9aW7rie
+ ezPNjSL7wRyXo41TzEVf3kRn3uJSOlMyzpTnJBCGRV+WyXO6t0o5gifwr9KnfM1Ujkcw
+ TIqA==
+X-Gm-Message-State: AOJu0Yz8iilne49U4Z37bdHUyxnsn9iI2RjXlBhmzzOobXuh+RrOXX6b
+ gX83nBWluwIfStlk/T9kDhmUj0Rvgd+jQat2/B/qfHLvIckMzb5F37sbPCJeoTCwUDMt4Ztvz8k
+ vPLZGex2y/tUiV5Ggt0n3h0qaL+ZHb8E1QjgNfq6GqT+zFojV05u6jGvGerm9hHZUa1MsVQ==
+X-Gm-Gg: Acq92OEBteguyU5RDIiyRogalVqzCzTUyE+wgL3nWGENv7Zd6HK0c4VtIYRvQyo0olz
+ vlbMvOiUk04nWt59Ol6W5gmfYVcAPew2KYBznl7KuMXmtaifZuuP7tSZOK59HWk5SJDhz+O/XmB
+ rVRtaPuOWOHNPOwEXdxnj5PELIqg/fNcdoEXzhDRt7z7DXOnBy23duEEoyc+Fc/l6BX/qyv9oK3
+ OiYGta5Ics/nKG43ByEYcWBANGVajTDNSz/1XXy1G7XN6aF0fbyyyb340APOYR/SpWlpORhsPbD
+ D2HGJOyEJEDuPw15V+rwTjL5wADe/H3yxQM4fZvvxU2FDzUoJzFjcWZquvGV3P4sH/1ANgIg/HV
+ RMyQAgCiMIzQQDhOvjZHBztRDll+x2WcabLqfasHd74g22ChZrlXj3+f1t26OSfettbZR4Q==
+X-Received: by 2002:a17:90b:3d4c:b0:36b:293:68d1 with SMTP id
+ 98e67ed59e1d1-36b02937336mr11428194a91.16.1779957421816; 
+ Thu, 28 May 2026 01:37:01 -0700 (PDT)
+X-Received: by 2002:a17:90b:3d4c:b0:36b:293:68d1 with SMTP id
+ 98e67ed59e1d1-36b02937336mr11428160a91.16.1779957421341; 
+ Thu, 28 May 2026 01:37:01 -0700 (PDT)
+Received: from ryasuoka-thinkpadx1carbongen9.tokyo.csb ([126.143.164.49])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-36b90900f36sm1014431a91.5.2026.05.28.01.36.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 May 2026 01:37:00 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wDnv_3a_BdqOMI7AA--.8856S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuF1xWF48Kw1xXw1xXw18Xwb_yoW5KFyfpF
- W3tryYkr48JF42gayIy3W7Zas3Aa1fWF4xWa92qr93Z3s0yr1xurWayFyj9rW5Gr97GryY
- qFyUJw15KFyjkrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5EfOUUUUU=
-X-Originating-IP: [113.200.174.100]
-X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbDAB7WumoX-N6FmwAA3z
+From: "Ryosuke Yasuoka" <ryasuoka@redhat.com>
+To: "Dmitry Osipenko" <dmitry.osipenko@collabora.com>, 
+ "David Airlie" <airlied@redhat.com>, "Gerd Hoffmann" <kraxel@redhat.com>, 
+ "Gurchetan Singh" <gurchetansingh@chromium.org>, 
+ "Chia-I Wu" <olvaffe@gmail.com>, 
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, 
+ "Maxime Ripard" <mripard@kernel.org>, 
+ "Thomas Zimmermann" <tzimmermann@suse.de>, 
+ "Simona Vetter" <simona@ffwll.ch>
+In-Reply-To: <e6b414a1-db9e-45a1-9cb8-e9459c028f6f@collabora.com>
+Cc: <dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>, 
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] drm/virtio: abort virtqueue wait on device removal to
+ avoid hung task
+Message-ID: <18b3add6b57b04df.b301120b59b2db5f.d33efc07a092f2a2@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
+Date: Thu, 28 May 2026 08:36:55 +0000
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: xV9ISPGnkxbwc_3myOSpkjsxd8d_1iZS81c3AWOXFvc_1779957422
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,90 +103,260 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
 
-Syzkaller fuzzer triggered a kernel panic via a WARNING in
-drm_prime_destroy_file_private() due to a non-empty prime rb_tree.
+Hi Dmitry,
+Thank you for the detailed review and follow-up.
 
-The root cause is a complete lack of synchronization in the teardown
-path. While the import path (drm_gem_prime_fd_to_handle) holds the
-&file_priv->prime.lock during lookup and insertion, the deletion path
-(drm_prime_remove_buf_handle) traverses and mutates both the 'handles'
-and 'dmabufs' rb_trees without acquiring any mutex.
+On 28/05/2026 07:18, Dmitry Osipenko wrote:
+> On 5/26/26 13:24, Dmitry Osipenko wrote:
+>> On 5/22/26 11:51, Ryosuke Yasuoka wrote:
+>>> Hi Dmitry,
+>>> Thank you for your review and the comment.
+>>>
+>>> On 21/05/2026 22:01, Dmitry Osipenko wrote:
+>>>> 21.05.2026 05:19, Ryosuke Yasuoka =D0=BF=D0=B8=D1=88=D0=B5=D1=82:
+>>>>> virtio_gpu_queue_ctrl_sgs() and virtio_gpu_queue_cursor() use
+>>>>> wait_event() without any abort condition when waiting for virtqueue
+>>>>> space. If the host device stops processing commands, these waits bloc=
+k
+>>>>> indefinitely inside a drm_dev_enter/exit() critical section. Since
+>>>>> drm_dev_unplug(), which is called in device removal and system shutdo=
+wn
+>>>>> call path, blocks on synchronize_srcu() until all critical sections
+>>>>> complete, device removal and system shutdown also hang.
+>>>>>
+>>>>> Add a vqs_released flag to virtio_gpu_device and include it in the
+>>>>> wait_event() condition. Set the flag and wake up both queues in a new
+>>>>> virtio_gpu_release_vqs() helper, called before drm_dev_unplug() in bo=
+th
+>>>>> virtio_gpu_remove() and virtio_gpu_shutdown(). When the flag is set, =
+the
+>>>>> wait returns immediately and the command is aborted, following the sa=
+me
+>>>>> cleanup path as drm_dev_enter() failure.
+>>>>>
+>>>>> Reported-by: syzbot+d6dd6f86d3aaf7eebe7406e45c1c6e549453f224@syzkalle=
+r.appspotmail.com
+>>>>> Closes: https://syzkaller.appspot.com/bug?id=3Dd6dd6f86d3aaf7eebe7406=
+e45c1c6e549453f224
+>>>>> Reported-by: syzbot+908bd910da5dd79b88de4cf7baf376cc873a922e@syzkalle=
+r.appspotmail.com
+>>>>> Closes: https://syzkaller.appspot.com/bug?id=3D908bd910da5dd79b88de4c=
+f7baf376cc873a922e
+>>>>> Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
+>>>>> ---
+>>>>> Changes in v2:
+>>>>> - Update the commit message.
+>>>>> - Replace wait_event_timeout() with wait_event() using a compound
+>>>>> condition that includes a new vqs_released flag.
+>>>>> - Add virtio_gpu_release_vqs() helper to set the flag and wake up
+>>>>> both queues, called before drm_dev_unplug() in remove and shutdown
+>>>>> paths.
+>>>>> - Remove the hardcoded 5-second timeout. Recovery is now driven by
+>>>>> the driver flag instead of an arbitrary timeout value.
+>>>>> ---
+>>>>>  drivers/gpu/drm/virtio/virtgpu_drv.c | 15 +++++++++++++++
+>>>>>  drivers/gpu/drm/virtio/virtgpu_drv.h |  1 +
+>>>>>  drivers/gpu/drm/virtio/virtgpu_vq.c  | 23 +++++++++++++++++++++--
+>>>>>  3 files changed, 37 insertions(+), 2 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/v=
+irtio/virtgpu_drv.c
+>>>>> index a5ce96fb8a1d..e4fe5e0780f9 100644
+>>>>> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
+>>>>> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
+>>>>> @@ -119,10 +119,24 @@ static int virtio_gpu_probe(struct virtio_devic=
+e *vdev)
+>>>>>  =09return ret;
+>>>>>  }
+>>>>> =20
+>>>>> +/*
+>>>>> + * Release pending virtqueue waits so the drm_dev_enter/exit() criti=
+cal
+>>>>> + * sections complete before drm_dev_unplug() blocks on synchronize_s=
+rcu().
+>>>>> + */
+>>>>> +static void virtio_gpu_release_vqs(struct drm_device *dev)
+>>>>> +{
+>>>>> +=09struct virtio_gpu_device *vgdev =3D dev->dev_private;
+>>>>> +
+>>>>> +=09vgdev->vqs_released =3D true;
+>>>>> +=09wake_up_all(&vgdev->ctrlq.ack_queue);
+>>>>> +=09wake_up_all(&vgdev->cursorq.ack_queue);
+>>>>> +}
+>>>>> +
+>>>>>  static void virtio_gpu_remove(struct virtio_device *vdev)
+>>>>>  {
+>>>>>  =09struct drm_device *dev =3D vdev->priv;
+>>>>> =20
+>>>>> +=09virtio_gpu_release_vqs(dev);
+>>>>>  =09drm_dev_unplug(dev);
+>>>>>  =09drm_atomic_helper_shutdown(dev);
+>>>>>  =09virtio_gpu_deinit(dev);
+>>>>> @@ -133,6 +147,7 @@ static void virtio_gpu_shutdown(struct virtio_dev=
+ice *vdev)
+>>>>>  {
+>>>>>  =09struct drm_device *dev =3D vdev->priv;
+>>>>> =20
+>>>>> +=09virtio_gpu_release_vqs(dev);
+>>>>>  =09/* stop talking to the device */
+>>>>>  =09drm_dev_unplug(dev);
+>>>>>  }
+>>>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/v=
+irtio/virtgpu_drv.h
+>>>>> index f17660a71a3e..0bd69a40857e 100644
+>>>>> --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
+>>>>> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+>>>>> @@ -235,6 +235,7 @@ struct virtio_gpu_device {
+>>>>> =20
+>>>>>  =09struct virtio_gpu_queue ctrlq;
+>>>>>  =09struct virtio_gpu_queue cursorq;
+>>>>> +=09bool vqs_released;
+>>>>>  =09struct kmem_cache *vbufs;
+>>>>> =20
+>>>>>  =09atomic_t pending_commands;
+>>>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/vi=
+rtio/virtgpu_vq.c
+>>>>> index 67865810a2e7..8057a9b7356d 100644
+>>>>> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
+>>>>> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+>>>>> @@ -396,7 +396,19 @@ static int virtio_gpu_queue_ctrl_sgs(struct virt=
+io_gpu_device *vgdev,
+>>>>>  =09if (vq->num_free < elemcnt) {
+>>>>>  =09=09spin_unlock(&vgdev->ctrlq.qlock);
+>>>>>  =09=09virtio_gpu_notify(vgdev);
+>>>>> -=09=09wait_event(vgdev->ctrlq.ack_queue, vq->num_free >=3D elemcnt);
+>>>>> +=09=09wait_event(vgdev->ctrlq.ack_queue,
+>>>>> +=09=09=09   vq->num_free >=3D elemcnt || vgdev->vqs_released);
+>>>>> +=09=09/*
+>>>>> +=09=09 * Set by virtio_gpu_release_vqs() to unblock
+>>>>> +=09=09 * synchronize_srcu() wait in drm_dev_unplug().
+>>>>> +=09=09 */
+>>>>> +=09=09if (vgdev->vqs_released) {
+>>>>> +=09=09=09if (fence && vbuf->objs)
+>>>>> +=09=09=09=09virtio_gpu_array_unlock_resv(vbuf->objs);
+>>>>> +=09=09=09free_vbuf(vgdev, vbuf);
+>>>>> +=09=09=09drm_dev_exit(idx);
+>>>>> +=09=09=09return -ENODEV;
+>>>>> +=09=09}
+>>>>>  =09=09goto again;
+>>>>>  =09}
+>>>>> =20
+>>>>> @@ -566,7 +578,14 @@ static void virtio_gpu_queue_cursor(struct virti=
+o_gpu_device *vgdev,
+>>>>>  =09ret =3D virtqueue_add_sgs(vq, sgs, outcnt, 0, vbuf, GFP_ATOMIC);
+>>>>>  =09if (ret =3D=3D -ENOSPC) {
+>>>>>  =09=09spin_unlock(&vgdev->cursorq.qlock);
+>>>>> -=09=09wait_event(vgdev->cursorq.ack_queue, vq->num_free >=3D outcnt)=
+;
+>>>>> +=09=09wait_event(vgdev->cursorq.ack_queue,
+>>>>> +=09=09=09   vq->num_free >=3D outcnt || vgdev->vqs_released);
+>>>>> +=09=09/* See comment in virtio_gpu_queue_ctrl_sgs(). */
+>>>>> +=09=09if (vgdev->vqs_released) {
+>>>>> +=09=09=09free_vbuf(vgdev, vbuf);
+>>>>> +=09=09=09drm_dev_exit(idx);
+>>>>> +=09=09=09return;
+>>>>> +=09=09}
+>>>>>  =09=09spin_lock(&vgdev->cursorq.qlock);
+>>>>>  =09=09goto retry;
+>>>>>  =09} else {
+>>>>
+>>>> What about other wait_event in the driver? Why only these?
+>>>
+>>> There are other wait_event() calls on vgdev->resp_wq in virtgpu_prime.c
+>>> and virtgpu_vram.c. These can also cause a stuck process when the host
+>>> device stops or does not respond and should be fixed. However, they are
+>>> not related to the issue being fixed here. I think they should be
+>>> addressed in a separate commit.
+>>>
+>>> The wait_event(vgdev->resp_wq) calls wait for a host response, not for
+>>> virtqueue ring space. They are not inside a drm_dev_enter/exit()
+>>> critical section, so they don't block drm_dev_unplug() ->
+>>> synchronize_srcu() and are not part of the deadlock reported by syzbot.
+>>>
+>>> However, if a process is stuck in wait_event(vgdev->resp_wq), there is
+>>> no way to recover other than host device recovery itself. We can still
+>>> remove the device and destroy the virtqueues while the process is stuck=
+,
+>>> so the host response can never arrive. IIUC, the stuck thread holds a
+>>> drm_device reference, preventing vgdev from being freed; this is a
+>>> resource leak.
+>>>
+>>> This can be fixed by adding a wake_up_all() and a vqs_released check
+>>> similar to what is done for ctrlq/cursorq. However, I think this should
+>>> be a separate commit since the root cause and problem are different.
+>>>
+>>> Alternatively, the resp_wq wait_event() calls could be converted to
+>>> wait_event_interruptible() to fix the issue. But as you mentioned
+>>> earlier in the v1 comment, we need the wait_event_interruptible()
+>>> rework.
+>>>
+>>> What do you think? Should I include the resp_wq fix as a separate commi=
+t
+>>> in this patch series, or leave it for the _interruptible() rework?
+>>=20
+>> Let's leave it for the later rework.
+>>=20
+>> I briefly tried testing this patch and it's not apparent what exact
+>> problem this patch solves.
+>>=20
+>> With a regular Linux OS running systemd, during normal shutdown, systemd
+>> waits for processes to be terminated before it would perform kernel
+>> shutdown, hence virtio_gpu_shutdown() doesn't have a chance to be
+>> invoked in my scenario.
+>>=20
+>> In the referenced syzkaller reports, I don't see anything related to
+>> shutdown or driver removal. Could you please clarify how to reproduce
+>> and test the original issue?
 
-When multiple threads concurrently close GEM handles or interleave import
-and close operations, the pointers and balance states of the rb_tree
-nodes get corrupted. As a result, certain members are erased from one
-tree but remain orphaned in the other. Upon process exit, the final
-sanity check triggers the WARNING.
+You are right that the syzkaller reports show a different issue; a
+probe-time lock ordering deadlock between clientlist_mutex and the
+dequeue worker, not a device removal hang. I will drop the Reported-by
+and Closes tags in the next revision.=20
 
-[    448.919314][T19739] ------------[ cut here ]------------
-[    448.945387][T19739] WARNING: CPU: 0 PID: 19739 at drivers/gpu/drm/drm_prime.c:223 drm_prime_destroy_file_private+0x43/0x60
-...
-[    449.056535][T19739] Call Trace:
-[    449.056544][T19739]  <TASK>
-[    449.056553][T19739]  drm_file_free.part.0+0x805/0xcf0
-[    449.056652][T19739]  drm_close_helper.isra.0+0x183/0x1f0
-[    449.056677][T19739]  drm_release+0x1ab/0x360
-[    449.056719][T19739]  __fput+0x402/0xb50
-[    449.056783][T19739]  task_work_run+0x16b/0x260
-[    449.056883][T19739]  exit_to_user_mode_loop+0xf9/0x130
-[    449.056931][T19739]  do_syscall_64+0x424/0xfa0
-[    449.056977][T19739]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[    449.057268][T19739]  </TASK>
-[    449.057295][T19739] Kernel panic - not syncing: kernel: panic_on_warn set ...
+Regarding reproduction: the scenario this patch fixes is as follows:
 
-Fix this by acquiring the prime_fpriv->lock mutex around the rb_tree
-lookup and erasure logic. To respect the locking rules and avoid potential
-deadlocks with driver-specific memory cleanups, assign the target node to
-a temporary pointer and defer the dma_buf_put() and kfree() operations
-until after the mutex is safely dropped.
+1. The host device stops processing virtqueue commands (host process
+crash, resource exhaustion, or a hypervisor bug)
+2. A guest GPU operation fills the virtqueue and blocks in wait_event()
+inside virtio_gpu_queue_ctrl_sgs() or virtio_gpu_queue_cursor(),
+within a drm_dev_enter/exit() critical section
+3. Device removal or system shutdown calls virtio_gpu_remove() or
+virtio_gpu_shutdown(), which call drm_dev_unplug()
+4. drm_dev_unplug() blocks on synchronize_srcu() because the
+drm_dev_enter/exit() critical section from step 2 never completes
+5. Both the GPU operation and the removal/shutdown hang indefinitely
+with no recovery path
 
-Fixes: ea2aa97ca37a ("drm/gem: Fix GEM handle release errors")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
----
- drivers/gpu/drm/drm_prime.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+Since wait_event() uses TASK_UNINTERRUPTIBLE, the blocked process
+cannot be killed by signals during shutdown, so the hang persists even
+after systemd's process cleanup phase.
 
-diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-index 9b44c78cd77f..26319c638e0f 100644
---- a/drivers/gpu/drm/drm_prime.c
-+++ b/drivers/gpu/drm/drm_prime.c
-@@ -190,6 +190,9 @@ void drm_prime_remove_buf_handle(struct drm_prime_file_private *prime_fpriv,
- 				 uint32_t handle)
- {
- 	struct rb_node *rb;
-+	struct drm_prime_member *found = NULL;
-+
-+	mutex_lock(&prime_fpriv->lock);
- 
- 	rb = prime_fpriv->handles.rb_node;
- 	while (rb) {
-@@ -200,8 +203,7 @@ void drm_prime_remove_buf_handle(struct drm_prime_file_private *prime_fpriv,
- 			rb_erase(&member->handle_rb, &prime_fpriv->handles);
- 			rb_erase(&member->dmabuf_rb, &prime_fpriv->dmabufs);
- 
--			dma_buf_put(member->dma_buf);
--			kfree(member);
-+			found = member;
- 			break;
- 		} else if (member->handle < handle) {
- 			rb = rb->rb_right;
-@@ -209,6 +211,13 @@ void drm_prime_remove_buf_handle(struct drm_prime_file_private *prime_fpriv,
- 			rb = rb->rb_left;
- 		}
- 	}
-+	mutex_unlock(&prime_fpriv->lock);
-+
-+	/* Defer resource release outside the mutex to prevent deadlocks */
-+	if (found) {
-+		dma_buf_put(found->dma_buf);
-+		kfree(found);
-+	}
- }
- 
- void drm_prime_init_file_private(struct drm_prime_file_private *prime_fpriv)
--- 
-2.34.1
+This is difficult to reproduce because it depends on host-side failure.
+In a normal QEMU/KVM environment the virtqueue is always serviced.
+
+> To make it more clear, the patch looks okay, but I'm not convinced that
+> it fixes the reported issue. We likely need a full solution with
+> handling interrupt signals, using a reasonable timeout and etc for all
+> wake_event().
+
+I agree that a full solution with wait_event_interruptible() and proper
+signal handling for all wait_event() calls is the right long-term
+direction, and I am happy to work on that as a follow-up series.
+
+However, converting to wait_event_interruptible() alone does not fully
+solve the device removal case. The remove/shutdown path does not send
+signals to waiting processes; it only calls drm_dev_unplug(). So even
+with interruptible waits, the driver still needs a mechanism to
+explicitly wake up waiters during teardown. The vqs_released flag in
+this patch provides that mechanism, and remains necessary even after
+the interruptible rework.
+
+I will resubmit with updated tags and commit message, and work on the
+syzkaller probe-time deadlock and the interruptible rework as follow-up
+patches.
+
+Best regards,
+Ryosuke
+
 
