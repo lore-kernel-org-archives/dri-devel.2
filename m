@@ -4,118 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99AACCD5BD1
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 11:40:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC922CD5BD1
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 11:47:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7A4410F069;
-	Thu, 28 May 2026 11:40:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0FD310F078;
+	Thu, 28 May 2026 11:47:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="TDVtnmQg";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="tU9vy73B";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DZm+5SY8";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tU9vy73B";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DZm+5SY8";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010042.outbound.protection.outlook.com [52.101.61.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE73310F069
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 11:40:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R6/x/2zoKK9diuxC3L4eerq1K8LbujbNJfo7NJlrFKVosZSwNTpWFTdOWPDJHpXzrp8hOYa8W9ZU9LfXXiz+t6r5dxFbX1kdo5jOSu8+xqcKALYKDHvIWnEIkHLCrvt/4xYgOd8cdNGqxSs9LmnW7RIhcS2OBZqbGa1TarXgLvWfemWgbRYtwNnnFdjVVL+9gvXbuyIj+ZK93177ebb21nnvAvh805DaRRF1Z8+KwexOFJoDgYYp3mae3ULIENbqv8iG9AYkjoU5533nO/1DGpfCUjkQdSK3uSawl5G7vRIN3SwZVqX+QPlejNzgDmMfKc0c8LrWFZOq0tT0KwVS8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K/yox6qiTS3Hk/9/amI9A3GWnlNfA6lz9kXXgWfrzxE=;
- b=IpyGBxfMZH5pdpMcRUSG0ZmzNdRqmpvS2b8ia1p/AgbvHPREZXUWF1+AC/w3jE01TwTvj+/yBibFV1JHUaSqu7tnxSkK6horw+eXFeCFCqcdy7uJlvL7f4dS06nq9+/0AZJJsM2Snn2soCd1BihCsLNKd9rwuvEk9RWT1Rnnt1gbswjYEzibntqjG5h6arUpG3AxLtNBHhpzTTIVcbF/vwP2sFgTlcciRiT4XRUm5eslP3/UNhTHUgybk69f/lgeXkkCzay5yTeVXNiGBgP7vPCT+YBSxDbHJMNVv+jQ3Dgbsv5HoNYVDT8K4+1iQZGBuK3efrAaH17P8Enh2wmNaw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K/yox6qiTS3Hk/9/amI9A3GWnlNfA6lz9kXXgWfrzxE=;
- b=TDVtnmQg4MJoevNU+v9LHJOsDHTL5wJdOKUklwhSWhrrU6Il1I0UkawAO/gTcz7rUifXuCV3HwNRgKrEk+9Q5gpZNU82VNy0rQ1yEfuhUxMr+OmSJSnX6Bo16rRoUmjqxpIuUR9YK5GmgR89YW0DI1HFH7D+Gn00T0mHfDRIieY=
-Received: from SJ0PR03CA0080.namprd03.prod.outlook.com (2603:10b6:a03:331::25)
- by MN2PR10MB4205.namprd10.prod.outlook.com (2603:10b6:208:1d3::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Thu, 28 May
- 2026 11:40:46 +0000
-Received: from SJ1PEPF00001CE8.namprd03.prod.outlook.com
- (2603:10b6:a03:331:cafe::9) by SJ0PR03CA0080.outlook.office365.com
- (2603:10b6:a03:331::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Thu, 28
- May 2026 11:40:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- SJ1PEPF00001CE8.mail.protection.outlook.com (10.167.242.24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.71.7 via Frontend Transport; Thu, 28 May 2026 11:40:43 +0000
-Received: from DFLE203.ent.ti.com (10.64.6.61) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 28 May
- 2026 06:40:43 -0500
-Received: from DFLE213.ent.ti.com (10.64.6.71) by DFLE203.ent.ti.com
- (10.64.6.61) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 28 May
- 2026 06:40:43 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE213.ent.ti.com
- (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Thu, 28 May 2026 06:40:43 -0500
-Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232])
- by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64SBehOi1428868;
- Thu, 28 May 2026 06:40:43 -0500
-Date: Thu, 28 May 2026 06:40:43 -0500
-From: Nishanth Menon <nm@ti.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-CC: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Jessica Zhang
- <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Vignesh Raghavendra <vigneshr@ti.com>,
- Tero Kristo <kristo@kernel.org>, Lad Prabhakar
- <prabhakar.mahadev-lad.rj@bp.renesas.com>, Thierry Reding
- <thierry.reding@gmail.com>, Vitor Soares <ivitro@gmail.com>, Vitor Soares
- <vitor.soares@toradex.com>, <dri-devel@lists.freedesktop.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>
-Subject: Re: (subset) [PATCH v3 00/11] arm64: dts: ti: k3-am62-verdin: Add
- display and peripheral overlays
-Message-ID: <20260528114043.n226kfd5urad22xe@sulphate>
-References: <20260522161105.277519-13-ivitro@gmail.com>
- <177980721984.3070642.16547338359984019493.b4-ty@b4>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8B7C10F078
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 11:47:50 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3C17F6A7C3;
+ Thu, 28 May 2026 11:47:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779968869; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=L+1O0gw21CMWZPg8HpjI16FZrYaEJg/EY+DS/dnv4m8=;
+ b=tU9vy73BKaw5v20HSPfEOk4JJljAQxVpFsrd4m4G/ZNtIcOp1JuKOzcPk8ENGkEDdOiLwe
+ cytBO0Ljsfmp4M3rQjt/x3PBqO+W2l2qpRj9advpGoSSTNRuZ6IykgA0BnQl8OTHFvZgRV
+ BIJ1zNKjx14ENUdkPYMHrKEYA7NoZbE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779968869;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=L+1O0gw21CMWZPg8HpjI16FZrYaEJg/EY+DS/dnv4m8=;
+ b=DZm+5SY8FzAN+l9akmKr2pm3DOCvqGbBpUTA+ZJj1HsUEbbuyvgil8A/xugpowNRqokmxd
+ 614kLLoroz1lfcBg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=tU9vy73B;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=DZm+5SY8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779968869; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=L+1O0gw21CMWZPg8HpjI16FZrYaEJg/EY+DS/dnv4m8=;
+ b=tU9vy73BKaw5v20HSPfEOk4JJljAQxVpFsrd4m4G/ZNtIcOp1JuKOzcPk8ENGkEDdOiLwe
+ cytBO0Ljsfmp4M3rQjt/x3PBqO+W2l2qpRj9advpGoSSTNRuZ6IykgA0BnQl8OTHFvZgRV
+ BIJ1zNKjx14ENUdkPYMHrKEYA7NoZbE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779968869;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=L+1O0gw21CMWZPg8HpjI16FZrYaEJg/EY+DS/dnv4m8=;
+ b=DZm+5SY8FzAN+l9akmKr2pm3DOCvqGbBpUTA+ZJj1HsUEbbuyvgil8A/xugpowNRqokmxd
+ 614kLLoroz1lfcBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 015605AD83;
+ Thu, 28 May 2026 11:47:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id zwp9OmQrGGowVgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 28 May 2026 11:47:48 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: boris.brezillon@collabora.com, igor.torrente@collabora.com,
+ simona@ffwll.ch, airlied@gmail.com, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com
+Cc: dri-devel@lists.freedesktop.org,
+	Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v2] drm/gem-shmem: Immediately record writable mmap;
+ drop pfn_mkwrite
+Date: Thu, 28 May 2026 13:47:36 +0200
+Message-ID: <20260528114744.463484-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <177980721984.3070642.16547338359984019493.b4-ty@b4>
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE8:EE_|MN2PR10MB4205:EE_
-X-MS-Office365-Filtering-Correlation-Id: e9aef92d-502e-44e2-3260-08debcadf3ec
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|7416014|376014|36860700016|18002099003|22082099003|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info: jKzBNryOoSRwf2nY99K4qTAC4ZFxJhWwIwQPAORKhrE1Wm/S32+YWuY7AGpRVtPtWPT8S0eaI0IZYAGfIhTTeVOWrwKOdfUYyy57RVHwB6pWxyDrczGpQH6Z88kjoEWn8vBKMSFKZCZsUCsI05rHnhD+3b/CfTt04eVxH70b0kWvmwQPc2f4fZekNemGtL7sgGbDlLWTeEy4omPyuywseX4AxfCokm8keIKtZGRChUlMZ9/CCRd4Rf3NSsg9P7Eo9/Dw7RAg5p6gr+X64Kt1rIbsuNWAXK+JcLnA3t5WFq2WUvWi/ndCbGiET9SZJs7FbwFPXv57EDTbk3mEhAHNaABMIh6D1BLO8OcYtAYntphV6Yw+cUi87LB8X6hN6vaZ2EFz/E9JbPr+tVgeDCZXeU1Hkt4VLTrCTkZQzz9JWGzdutw4nfRIf6bAjxsJjGl14X26pRNB83FHLldt98Y2/WCko/j2GxUwuRGqhqn5ET5wL4wVybKt2FTUAyM/iLVoL6gmwe62hikYSXQ7+FOpe5Q8XISLAyA6SUmMTVM9rpjl6pcDuIXslYZDHk/noU8CiYInt2TpE16Srg5vRFSPE2wNI3UCJocBNF/SrynaNIfJXpn5mACvPYbfZ8rc32fF3kjT/312ylBuW71BsO7U1h5Eg+VnGj9ZsZjR94dND5Q6wjYDK7L6GPLsOkCH/4/7
-X-Forefront-Antispam-Report: CIP:198.47.21.194; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:flwvzet200.ext.ti.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(7416014)(376014)(36860700016)(18002099003)(22082099003)(56012099006)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 5ep5sqNNLaUzROjUKs3KEiwjVcnkBSMywsBvLCCtghjejY2psXAYd7PWUNFMGUGsPodrNMOcmjHfuzWDifRqX3KK1uDlj8Go2ROdRitd+MMJ6HzdXW+l+2aimC7OnAMeYJOLdX4VcM83MenU0RgLVj4YVnWr4aO7WE58G6SPSc6PbQ9IDr868GtlZcuoXobvxSVcViGs+k/fChFl4GfBMVIvtc2f4htXvmvGD7L5M9uqBf2rKMmYDRlvRwvGKL51oPfVRjCbJKJBEBeKDH8QMy3rKzvXUDDk78tezzj8CIRjB+rLdN9B5eZnATORB1VRlvnGNlHrLZ6x/sws+n9c+NPJ/bBAhJLMaDelTroNBPAP1TkxWq3vlGG4kL3XkgBA+JO9qoZpW8fw8TFu5zEllrMTPJt7W/fvgh5FrFyl/EixbViSjPrBwTn3KazGTHtr
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2026 11:40:43.9650 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9aef92d-502e-44e2-3260-08debcadf3ec
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.21.194];
- Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE8.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR10MB4205
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 3C17F6A7C3
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ FREEMAIL_TO(0.00)[collabora.com,ffwll.ch,gmail.com,kernel.org,linux.intel.com];
+ RCPT_COUNT_SEVEN(0.00)[8]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[collabora.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:dkim,suse.de:mid];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,31 +112,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 16:53-20260526, Neil Armstrong wrote:
-> Hi,
-> 
-> On Fri, 22 May 2026 17:11:04 +0100, Vitor Soares wrote:
-> > From: Vitor Soares <vitor.soares@toradex.com>
-> > 
-> > This series adds device tree overlays, expanding the hardware support for
-> > the Toradex Verdin AM62 SoM. The overlays target displays, cameras, audio,
-> > and peripherals available through Toradex carrier boards and the accessory
-> > ecosystem.
-> > 
-> > [...]
-> 
-> Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
-> 
-> [04/11] dt-bindings: display: panel-lvds: Add Riverdi RVT70HSLNWCA0 and RVT101HVLNWC00
->         https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/3c3c5fb9b36836d279ebe370189d68a0a3387362
+Using pfn_mkwrite breaks KVM with "error: kvm run failed Bad address".
+Seen on a Mali-G610 GPU. Fix this by marking writable mmapped pages as
+written when installing the mapping in the page table.
 
-Neil,
+v2:
+- remove obsolete comment new vmf_insert_pfn_pmd() (Boris)
+- fix style (Boris)
 
-Could https://lore.kernel.org/linux-arm-kernel/20260522161105.277519-16-ivitro@gmail.com/
-go through your tree as well?
+Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reported-by: Igor Torrente <igor.torrente@collabora.com>
+Closes: https://lore.kernel.org/dri-devel/d89422f1-f00a-47b1-b68a-d949d6d6a974@collabora.com/raw
+Tested-by: Igor Torrente <igor.torrente@collabora.com>
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Fixes: 28e3918179aa ("drm/gem-shmem: Track folio accessed/dirty status in mmap")
+---
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 51 +++++++-------------------
+ 1 file changed, 13 insertions(+), 38 deletions(-)
 
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index 545933c7f712..75e9970f443d 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -554,21 +554,6 @@ int drm_gem_shmem_dumb_create(struct drm_file *file, struct drm_device *dev,
+ }
+ EXPORT_SYMBOL_GPL(drm_gem_shmem_dumb_create);
+ 
+-static void drm_gem_shmem_record_mkwrite(struct vm_fault *vmf)
+-{
+-	struct vm_area_struct *vma = vmf->vma;
+-	struct drm_gem_object *obj = vma->vm_private_data;
+-	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
+-	loff_t num_pages = obj->size >> PAGE_SHIFT;
+-	pgoff_t page_offset = vmf->pgoff - vma->vm_pgoff; /* page offset within VMA */
+-
+-	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
+-		return;
+-
+-	file_update_time(vma->vm_file);
+-	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
+-}
+-
+ static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
+ 				 unsigned long pfn)
+ {
+@@ -581,23 +566,9 @@ static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
+ 
+ 		if (aligned &&
+ 		    folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
+-			vm_fault_t ret;
+-
+ 			pfn &= PMD_MASK >> PAGE_SHIFT;
+ 
+-			/* Unlike PTEs which are automatically upgraded to
+-			 * writeable entries, the PMD upgrades go through
+-			 * .huge_fault(). Make sure we pass the "write" info
+-			 * along in that case.
+-			 * This also means we have to record the write fault
+-			 * here, instead of in .pfn_mkwrite().
+-			 */
+-			ret = vmf_insert_pfn_pmd(vmf, pfn,
+-						 vmf->flags & FAULT_FLAG_WRITE);
+-			if (ret == VM_FAULT_NOPAGE && (vmf->flags & FAULT_FLAG_WRITE))
+-				drm_gem_shmem_record_mkwrite(vmf);
+-
+-			return ret;
++			return vmf_insert_pfn_pmd(vmf, pfn, false);
+ 		}
+ #endif
+ 	}
+@@ -635,9 +606,20 @@ static vm_fault_t drm_gem_shmem_any_fault(struct vm_fault *vmf, unsigned int ord
+ 	pfn = page_to_pfn(page);
+ 
+ 	ret = try_insert_pfn(vmf, order, pfn);
+-	if (ret == VM_FAULT_NOPAGE)
++	if (ret == VM_FAULT_NOPAGE) {
+ 		folio_mark_accessed(folio);
+ 
++		/*
++		 * Immediately record write access to the buffer. The
++		 * natural place would be pfn_mkwrite at the time when
++		 * the access happens, but this breaks KVM.
++		 */
++		if (vma->vm_flags & VM_WRITE) {
++			file_update_time(vma->vm_file);
++			folio_mark_dirty(folio);
++		}
++	}
++
+ out:
+ 	dma_resv_unlock(obj->resv);
+ 
+@@ -683,12 +665,6 @@ static void drm_gem_shmem_vm_close(struct vm_area_struct *vma)
+ 	drm_gem_vm_close(vma);
+ }
+ 
+-static vm_fault_t drm_gem_shmem_pfn_mkwrite(struct vm_fault *vmf)
+-{
+-	drm_gem_shmem_record_mkwrite(vmf);
+-	return 0;
+-}
+-
+ const struct vm_operations_struct drm_gem_shmem_vm_ops = {
+ 	.fault = drm_gem_shmem_fault,
+ #ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
+@@ -696,7 +672,6 @@ const struct vm_operations_struct drm_gem_shmem_vm_ops = {
+ #endif
+ 	.open = drm_gem_shmem_vm_open,
+ 	.close = drm_gem_shmem_vm_close,
+-	.pfn_mkwrite = drm_gem_shmem_pfn_mkwrite,
+ };
+ EXPORT_SYMBOL_GPL(drm_gem_shmem_vm_ops);
+ 
 -- 
-Regards,
-Nishanth Menon
-Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
-https://ti.com/opensource
+2.54.0
+
