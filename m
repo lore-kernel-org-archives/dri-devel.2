@@ -4,53 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B256ACD6E44
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 14:50:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21E56CD4F54
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 14:54:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 271F410F2AF;
-	Thu, 28 May 2026 14:50:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67C5610F2D2;
+	Thu, 28 May 2026 14:54:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KY5/qWZ3";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="i9Az1yO3";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F53410F2AF
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 14:50:14 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A8AFA6054B;
- Thu, 28 May 2026 14:50:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F33C21F000E9;
- Thu, 28 May 2026 14:50:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779979813;
- bh=NiItlBY7QOVrHd2Lg1eA5eBS6YeaFvRU04FpBU3GdhU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=KY5/qWZ3RyMqWExGi4AC93pZcwim6EYmS7SHr06t9dLMY/CHdNjrfybK2SZnhcZXV
- d906jL0Nr9kL4/Wk6b4kuXVnGMplWdmCxmh1jTXTqh+z4HIFJ8V2N7Y15TCKn/7vE2
- rh8ZqPUS8gimH7cjMIVSKEjnmdsWX/8mGkGr8Cojklc8q76Z4s3AP3dggqYxVrpGvb
- CxwiiLm5Jc4doO1J/SF/aDRa8zX+OqCySS0FWbUALqNHLkJ/M+UcLkvOE9ynAX5uKA
- X8pIic5YxjIuEhxX5jo74zQhPWKHVHZv8Jz3kTl6LPRGzqn6N5t3PlIcU82yywAHVP
- WGW+W/GiDYD4g==
-Date: Thu, 28 May 2026 15:50:01 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, Jingoo
- Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Helge Deller <deller@gmx.de>, Johan Hovold <johan@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v2 2/6] mfd: lm3533: Convert to use OF bindings
-Message-ID: <20260528155001.2bcb7003@jic23-huawei>
-In-Reply-To: <20260528135123.103745-3-clamor95@gmail.com>
-References: <20260528135123.103745-1-clamor95@gmail.com>
- <20260528135123.103745-3-clamor95@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B76B10F2DF
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 14:54:09 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-6804e24803bso9628690a12.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 07:54:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779980048; cv=none;
+ d=google.com; s=arc-20240605;
+ b=NLC+4jKLeffpHG0DPkqGfGfpAAwTFJHY3bNw7rEG6FW47nAP/GIoXX+49ondpCYAgt
+ CPQRG0XdrXl4TslP0O8C0mvGSracgnc7shlJulHx0rT6RkgWJ0beCKFGkwQ4fTjc7vhL
+ M187L+W8r5SGJ/AU8e1v0eQG+FYF/tk0S0FKp9OklTq0cusEJn92L2ihduEx1JGoVNcW
+ 1cg6FvLBa/U9aubXW7q3klF1rspK1rtMVh2mCyezkO4yhO9/jTj8F3OuaD6yl5mJfm4v
+ DjSWJuX7ls+emD7tR3P/g/rmIuow1k730c1924U3tbtrEbW9yWMDwYJAbHCIP6qyEZLc
+ 4fgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=9OXz/l5MhiOrtGyFdSgSY2UmTjKKZnnagh0u7LsCdfw=;
+ fh=P0E+sN5cg43yb6/zc4TGEDl4gEzS6sh/7wsXAartqHQ=;
+ b=P0nYU+x9FEdeCpoR3mDHiAgjANWi2y8ULfZiuMnIHsSobIHAhuOp1GNR5Mos+FPeUZ
+ Scu6DI02SLgax5/amt2CJ/qSxU8Dfk3JcAtO6kT7b6JBblhbHfXJFBScFqhvX7PkkOOW
+ RxtM9DrAJMydU50qLGfmlXTdjx9Y44Oc7jDJYbj6DgCEsf2gxg+CPndSMl3Bm/8MUu5i
+ rP6UAFOV5d7JFjelvs/YHdiEZDNV2HgnO01/aW370OxZIfCoHemJuQYGVr5oVfch0Ipk
+ pjV3g8NsJQjcgewxwPRqXwk2psHL0CUP1iYx6ADeFt2v1YRGYMQoSj8N3nwp9Td14enj
+ Ylbg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1779980048; x=1780584848; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9OXz/l5MhiOrtGyFdSgSY2UmTjKKZnnagh0u7LsCdfw=;
+ b=i9Az1yO3kQX7Y/Vin5+2vQmI1xDFy0EqOUwh906PTiv/DTn0cGi3HrM5vlrZLI7P8c
+ WeQEz8IEW+pCnpgquK7YwV0RtQWOd2rKjp1Fjzh9jXjtVAf1wrFDzXClvtyLdIkfKvyi
+ oRPC14EWF9hh3cLwrCIPcqJA5FHnr+u11QC6HWuM4ag2wLmvISgUHU9C3gyxSqLKPvKK
+ h9F3aU5IQR8FNzaczouVkRtMtSdxnQAX2j1VrFxj5UyDhlYDpAwYrvSt6JQrjpB9Uu+6
+ 1rmK+jXW8PmNWRJqozBoxEkj20HayYA+14MBeNEzHl9CKist7BpGEIXNRBUZEz/v+kbh
+ gaGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779980048; x=1780584848;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=9OXz/l5MhiOrtGyFdSgSY2UmTjKKZnnagh0u7LsCdfw=;
+ b=D3XAKCkgHb6SZ1ROirhP7A5Kh9utW7bcBn+M9e3AdOEXzVF4rT8QNdLv1Hm6ur5iKA
+ paBiHFvzd2n1fK+48FzA6jv32E1UIGGa/M6GPm8oShU9Xm9C8yp4Z6w6RCERzXOiTFb6
+ 5h1piIZpXqghh7Bw+bfPfJWqvk6WKk1OWPGGVd67rk2Ux7xa7pagG6vFBPSkaKrsnjD3
+ VC0IEL0I/IFn8wLeSoxQUYs83SZzUVqBlWBnZE7oi7kw04X6gZK5PJWHSsssAbqLUDYU
+ NV22TnRGQE9hX6n7DsOvmQ+ntAZz9vgtTHAiLvkwITW9ykW5ZelVB4pfI1tB3jZ8lnyr
+ 5egw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+m0tDpnanvbegSH2L4P/kt8cnFftyDBAUe68oy3CnMowyr4TBwZVD4W7dTqyingUzIcSWnj5ws4cY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzG9tkM1O1o4axgvViUSre83KXNtT6j9tsXBzG5M2iiPnVY6EJG
+ 0YUCmY2VknddIPrzbPlhJlufF2myt8YTccFwWP6ERnlAD6PBCR0YBjn3L5YWSDFstZTGNjR/Xbf
+ G9DOQ67Q8PChSqh/Em/VXrGTBDnYm+171DooMCKlicQ==
+X-Gm-Gg: Acq92OGzWSoDlFrBchEbR3wp6xH0FEG2IJdXCWv17kURmPFATeOu3ax663kixyySirx
+ nmPErpjMqncWj5nzC2q2ZFv+AadM/my1UblLcp0LHssTO9yC7TYSNFWN1V30M1mnXW+xIxrQ5wT
+ F8y0FPFMwnC6zZbLDX9fWvcvkJqpRkBl68vApeeGXk/Lk+s9ZOphfIvoKZQlDU6Tg1uogbcLHHk
+ JlM+PXx9am1j2WvYYdJSRx9CQDW13FIVLphTzxJersbkxHh7hzMv7rrLY9+8I4x/femvDOLolSm
+ H0YGDPrOwrSDJQfIXATiTbRJCzba/nSFU6IYZ3Vid0AAQgkZ
+X-Received: by 2002:a17:907:75d9:b0:bbe:37ee:8a2b with SMTP id
+ a640c23a62f3a-bdd279ce23fmr1206290366b.33.1779980047494; Thu, 28 May 2026
+ 07:54:07 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260523181446.69525-1-devnexen@gmail.com>
+ <ae16f5c2-c6d9-4274-9a27-f87bfe931b1f@amd.com>
+In-Reply-To: <ae16f5c2-c6d9-4274-9a27-f87bfe931b1f@amd.com>
+From: Sumit Semwal <sumit.semwal@linaro.org>
+Date: Thu, 28 May 2026 20:23:52 +0530
+X-Gm-Features: AVHnY4LutoQ-7Ka86XumSZSoxXa9nFy3SHyGiarPBSsSmWM-nR_geKS3HNuAjkA
+Message-ID: <CAO_48GFOZESPnm5iLa0D+4itq7hjc9EyRUjMY4QwN5EsLn97SQ@mail.gmail.com>
+Subject: Re: [PATCH] dma-buf: fix UAF in dma_buf_fd() tracepoint
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: David Carlier <devnexen@gmail.com>, gaoxiang17@xiaomi.com,
+ linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ linux-kernel@vger.kernel.org, 
+ syzbot+7f4987d0afb97dd090cb@syzkaller.appspotmail.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,173 +109,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 28 May 2026 16:51:19 +0300
-Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+Hi David,
 
-> Since there are no users of this driver via platform data, remove the
-> platform data support and switch to using Device Tree bindings.
-> Additionally, optimize functions used only by platform data.
+On Tue, 26 May 2026 at 00:25, Christian K=C3=B6nig <christian.koenig@amd.co=
+m> wrote:
+>
+> On 5/23/26 20:14, David Carlier wrote:
+> > Once FD_ADD() returns, the fd is live in the file descriptor table
+> > and a thread sharing that table can close() it before DMA_BUF_TRACE()
+> > runs. The close drops the last reference, __fput() frees the dma_buf,
+> > and the tracepoint then dereferences dmabuf to take dmabuf->name_lock
+> > -- slab-use-after-free.
+> >
+> > Split FD_ADD() back into get_unused_fd_flags() + fd_install() and
+> > emit the tracepoint between them. While the fdtable slot is reserved
+> > with a NULL file pointer, a racing close() returns -EBADF without
+> > entering __fput(), so the dma_buf stays alive across the trace. Same
+> > approach as commit 2d76319c4cbb ("dma-buf: fix UAF in dma_buf_put()
+> > tracepoint").
+> >
+> > This undoes the FD_ADD() conversion done in commit 34dfce523c90
+> > ("dma: convert dma_buf_fd() to FD_ADD()"); FD_ADD() has no place to
+> > hook the tracepoint safely.
+> >
+> > Reported-by: syzbot+7f4987d0afb97dd090cb@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=3D7f4987d0afb97dd090cb
+> > Fixes: 281a22631423 ("dma-buf: add some tracepoints to debug.")
+> > Cc: stable@vger.kernel.org # 7.0.x
+> > Signed-off-by: David Carlier <devnexen@gmail.com>
+>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 
+Thanks very much for the patch; applied to drm-misc-fixes.
+>
+> > ---
+> >  drivers/dma-buf/dma-buf.c | 6 +++++-
+> >  1 file changed, 5 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> > index 71f37544a5c6..d504c636dc29 100644
+> > --- a/drivers/dma-buf/dma-buf.c
+> > +++ b/drivers/dma-buf/dma-buf.c
+> > @@ -792,9 +792,13 @@ int dma_buf_fd(struct dma_buf *dmabuf, int flags)
+> >         if (!dmabuf || !dmabuf->file)
+> >                 return -EINVAL;
+> >
+> > -       fd =3D FD_ADD(flags, dmabuf->file);
+> > +       fd =3D get_unused_fd_flags(flags);
+> > +       if (fd < 0)
+> > +               return fd;
+> > +
+> >         DMA_BUF_TRACE(trace_dma_buf_fd, dmabuf, fd);
+> >
+> > +       fd_install(fd, dmabuf->file);
+> >         return fd;
+> >  }
+> >  EXPORT_SYMBOL_NS_GPL(dma_buf_fd, "DMA_BUF");
+> > --
+> > 2.53.0
+> >
+>
 
-At least the IIO ones would have made much the same amount of sense for
-dt, just that they weren't having in the first place. I'd prefer that
-as a precursor patch to make the rest much more readable.
-
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-
-I only looked in detail at the iio bit. A few changes requested.
-
-> ---
->  drivers/iio/light/lm3533-als.c      |  95 ++++------
->  drivers/leds/leds-lm3533.c          |  51 ++++--
->  drivers/mfd/lm3533-core.c           | 268 ++++++++++------------------
->  drivers/video/backlight/lm3533_bl.c |  52 ++++--
->  include/linux/mfd/lm3533.h          |  51 +-----
->  5 files changed, 212 insertions(+), 305 deletions(-)
-> 
-> diff --git a/drivers/iio/light/lm3533-als.c b/drivers/iio/light/lm3533-als.c
-> index 99f0b903018c..cbd337b73bd9 100644
-> --- a/drivers/iio/light/lm3533-als.c
-> +++ b/drivers/iio/light/lm3533-als.c
-
-> @@ -714,59 +720,33 @@ static const struct attribute_group lm3533_als_attribute_group = {
->  	.attrs = lm3533_als_attributes
->  };
->  
-> -static int lm3533_als_set_input_mode(struct lm3533_als *als, bool pwm_mode)
-> +static int lm3533_als_setup(struct lm3533_als *als)
->  {
-> -	u8 mask = LM3533_ALS_INPUT_MODE_MASK;
-> -	u8 val;
-> +	struct device *dev = &als->pdev.dev;
->  	int ret;
->  
-> -	if (pwm_mode)
-> -		val = mask;	/* pwm input */
-> -	else
-> -		val = 0;	/* analog input */
-> -
-> -	ret = lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, val, mask);
-> -	if (ret) {
-> -		dev_err(&als->pdev->dev, "failed to set input mode %d\n",
-> -								pwm_mode);
-> -		return ret;
-> -	}
-> -
-> -	return 0;
-> -}
-> -
-> -static int lm3533_als_set_resistor(struct lm3533_als *als, u8 val)
-> -{
-> -	int ret;
-> -
-> -	if (val < LM3533_ALS_RESISTOR_MIN || val > LM3533_ALS_RESISTOR_MAX) {
-> -		dev_err(&als->pdev->dev, "invalid resistor value\n");
-> -		return -EINVAL;
-> -	}
-> -
-> -	ret = lm3533_write(als->lm3533, LM3533_REG_ALS_RESISTOR_SELECT, val);
-> -	if (ret) {
-> -		dev_err(&als->pdev->dev, "failed to set resistor\n");
-> -		return ret;
-> -	}
-> +	device_property_read_u32(dev, "ti,resistor-value-ohm",
-> +				 &als->r_select);
-Does this have a default?  If so the pattern we've recently be setting on for IIO
-is
-	if (device_property_present(dev, "ti,resistor-value-ohm"))
-		ret = device_property_read_u32();
-		if (ret) //corrupt property in some fashion
-			return ret;
-	} else {
-		//set default
-	}
-If there is no default then check it unconditionally.
-
->  
-> -	return 0;
-> -}
-> +	als->r_select = clamp(als->r_select, LM3533_ALS_RESISTOR_MIN,
-> +			      LM3533_ALS_RESISTOR_MAX);
-> +	als->r_select = DIV_ROUND_UP(2 * MICRO, 10 * als->r_select);
->  
-> -static int lm3533_als_setup(struct lm3533_als *als,
-> -			    const struct lm3533_als_platform_data *pdata)
-> -{
-> -	int ret;
-> +	als->pwm_mode = device_property_read_bool(dev, "ti,pwm-mode");
->  
-> -	ret = lm3533_als_set_input_mode(als, pdata->pwm_mode);
-> +	ret = lm3533_update(lm3533, LM3533_REG_ALS_CONF, als->pwm_mode ?
-> +			    LM3533_ALS_INPUT_MODE_MASK : 0,
-
-That's ugly.  Better as
-
-	ret = lm3533_update(lm3533, LM3533_REG_ALS_CONF,
-			    als->pwm_mode ? LM3533_ALS_INPUT_MODE_MASK : 0,
-
-Though if there wasn't a layer hiding the regmap, it could just have been
-
-	ret = regmap_assign_bits(lm3533->regmap, LM3533_REG_ALS_CONF,
-				 LM3533_ALS_INPUT_MODE_MASK, als->pwm_mode);;
-
-which would have been nicer.
-
-I'm not particularly keen on the swashing of the helpers being in a patch
-that is about switching the binding type as feels largely unrelated.
-Should really have been a precursor, easier to review patch.
-
-
-> +			    LM3533_ALS_INPUT_MODE_MASK);
->  	if (ret)
-> -		return ret;
-> +		return dev_err_probe(dev, ret, "failed to set input mode %d\n",
-> +				     als->pwm_mode);
->  
->  	/* ALS input is always high impedance in PWM-mode. */
-> -	if (!pdata->pwm_mode) {
-> -		ret = lm3533_als_set_resistor(als, pdata->r_select);
-> +	if (!als->pwm_mode) {
-> +		ret = lm3533_write(lm3533, LM3533_REG_ALS_RESISTOR_SELECT,
-> +				   (u8)als->r_select);
-
-Same applies here. Mostly an unrelated change as the only thing switching that
-is related to the patch is one parameter.
-
->  		if (ret)
-> -			return ret;
-> +			return dev_err_probe(dev, ret, "failed to set resistor\n");
->  	}
->  
->  	return 0;
-
-> @@ -852,25 +825,28 @@ static int lm3533_als_probe(struct platform_device *pdev)
->  	indio_dev->channels = lm3533_als_channels;
->  	indio_dev->num_channels = ARRAY_SIZE(lm3533_als_channels);
->  	indio_dev->name = dev_name(&pdev->dev);
-> -	iio_device_set_parent(indio_dev, pdev->dev.parent);
-
-I'm not sure why this was there in the first place.  Hence not sure if it
-is safe to remove.
-
-
-> diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
-> index 45795f2a1042..d707d43d5526 100644
-> --- a/drivers/leds/leds-lm3533.c
-> +++ b/drivers/leds/leds-lm3533.c
-
->  
->  	led->cb.dev = led->cdev.dev;
->  
-> -	ret = lm3533_led_setup(led, pdata);
-> +	device_property_read_u32(&pdev->dev, "led-max-microamp",
-> +				 &led->max_current);
-
-I'd prefer explicit setting of the default to be visible before this, or
-the property_present pattern I mention in the IIO review above.
-
-> +	led->max_current = clamp(led->max_current, LM3533_LED_MAX_CURRENT_MIN,
-> +				 LM3533_LED_MAX_CURRENT_MAX);
-
-I didn't look any further (busy day!)
+Best,
+Sumit.
