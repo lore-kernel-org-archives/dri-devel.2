@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B61E7CD4F54
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 13:51:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6F33CD4F54
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 13:52:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F100C10F1E5;
-	Thu, 28 May 2026 13:51:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01E8E10F1E8;
+	Thu, 28 May 2026 13:52:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kNZjbxQ+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bN05VySb";
 	dkim-atps=neutral
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB99110F1E2
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 13:51:54 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-bd21ffaca79so2343260066b.0
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 06:51:54 -0700 (PDT)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
+ [209.85.218.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EAB110F1E3
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 13:51:58 +0000 (UTC)
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-bd3eb594960so1478888366b.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 06:51:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779976313; x=1780581113; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779976317; x=1780581117; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8RF2xk6t5S9a3BXZ1svw/IWrQWbafQA9obLcpKPhSUU=;
- b=kNZjbxQ+1xIPHHUcHov62vtBlNkT+00419VEhux223+1E/0BOINb06+eunCXE3ptmO
- GrNrKN6fzgEWX4YiXon7CIb9EzNXNOoeNsE5Jtjj2O06I9/4DgMcC+jBTr3JAVdY0VZq
- M7/pMj8ygmcc3BdsG2407zQGEhZzxhlCMPQoaUQ+u6h3hasGN19tzsg8TfmHw7nEaduH
- y07DjSUjHlK9KV/n6fZVY6titiZbeuO7OaWpizBvylqnaR2GJHm3m2NOQKd79Sm72CRb
- ApEvF59LVG/B1tl8FTQX3NOfkD9yGAHn+JtS7sQqwt6L38Te+cJYUV8sQKMFi/oizHs6
- i54Q==
+ bh=dDQ/tiPuyfzwfBV4n9YbMw4Pd30yVycLBAunY89akC8=;
+ b=bN05VySb/B3jLqrU5BtKR3cUWT1uYOEKJaKRZg/ZXUhVMQn9tF27abuJvZwdhtMOBY
+ UfaBs43sZDgS8fp+NfHDYN02no7Ii9lk0HSbBjScPm272zYHqQ0WQD0lfD5PjuAgBSaz
+ ahWZKL1Cd+62QVfOmkDvK8Hhp95Co6e4Hy2SYZvZcjCHYzEx+GzOoD4lE++18Srxq9Za
+ qYzVJ6SLXfpbfN2YXezqTrk5hksW+f9Fnz4qzjDoUY9H+znIgwhSr0iXqC00/P8WtObo
+ 6BFIO3iMk2zSK2PZz34l7o6mcXssuWAxAiVi0rxkwNVl+4VtFwvP3atcBFdE/e80snNl
+ tYoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779976313; x=1780581113;
+ d=1e100.net; s=20251104; t=1779976317; x=1780581117;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=8RF2xk6t5S9a3BXZ1svw/IWrQWbafQA9obLcpKPhSUU=;
- b=a+xkygOP/IvCw+osBL2BSxydVgV0N2wryDkklrCr0Qj8ymtfWzUvil27slbqh58dG/
- aenT3z669zSVFL3aK81xe6oL1JIRGLU/JSgjdQY+B17r7HPP9lt2sGgozF8+zJpCmZgo
- mvwxK3p/8IFKkEAIpJyECpQJ0Hucdz0dZ6LIT2fqkgwRrbkccPfl/l1wEWXBm0ZJgAvB
- m3rutt/Rox6jsSlPfb4y+7vAR+6ZCOEvy1CuOy0I61XmoxOIy6W2LKRBgX4Iw+0tYHmL
- vz5PGm4Kj1U3PkxaKRuDwWNJEQNLx5mdDjd2rgoY0kb26Qc1KVfs3h/rDT8279UwDECi
- LP0Q==
+ bh=dDQ/tiPuyfzwfBV4n9YbMw4Pd30yVycLBAunY89akC8=;
+ b=PB7zwtXyphXTr0L3dpZ/qjPWN9at3zfwcs5JU+cO17hxzEg6lB59CNKRuLcuyNw09H
+ ZfeiqCPIfMwGkUjMDCyMjCR3hB4xSr7oyeeExvrG9f03YO8Zi2cvt2PmQ6KPS5RjrQ7m
+ R6CPqWWV1rQ4pFgx5+ZwgdHKH3kvBPDmJtISOQ422Rco5jUzzu/CUHoNSnn6hdIaBPtt
+ pfhT2L+kYIREPfiWsyFi6DcrvVMVOD9rbivGuzP7BLtzP/4Mq5QjNZ3UAumExEjglwRI
+ NHbllFYhxWsRSXGNdQWNilsWSy3qMgJYgeQuXA8GUjMCZn+jAL8mIqQKGS7vgFQvkiA9
+ Bvjg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/dqJEHm6jDIeg9x+lFrCFCWhT2gDdQaWG1/a5zZXOy7ayTgxBT6xrylouyyaYggQnithVkQGNrgG0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxA+ffhmD/t8jkCSfALsqo6vu0OGSz1XFuLDmv/VOKop9YuIVVI
- 8Ppof6fNnh1hmxIt1R7wdATOcHG8KArUdTb9zyHo1kbWxT3WG8mdtHHx
-X-Gm-Gg: Acq92OFzkzs/0+oySfs2yU8iaGz74IylFy/1f1YAMzqhbZdmjwFWso4UYncWmUYyZjJ
- lzKU35zqDklSIlspca/3iIEXqjGNVysw64BB05pBxBXkIhXyG+IsACNIfH1wY7l7JbX7ext8FyD
- xJMzAygzNOOJHIKBGb1Rq+20mFQkWb74e5qC3ipHtw3QVsVapBN4CtDRx71dd7cJexeZPDKeHqg
- 9vGSFU1o0HegfMk1ypirLgf0rKUpZG+A2Del28DmBX+1iYTaktbK+e4cqU8dm+cYodLtxvLck+V
- 6jP/y2csMJ9BagqPeNvavvAOXY9w6k1wGVVl5lViSj5Q5DRwGXwQQ7MRXig47y6QSuv9gRRWXSK
- RYMSBcQStDOYCxuMEZiwOoN+MD1zrE/590A9ein5p4E15spI8GzoiFVERg5rli8L2GxFiRsgE5q
- T5R/+jhoIDgEmcL7PeOR24S/cGUkv9Zx5rXA==
-X-Received: by 2002:a17:907:1b06:b0:bd5:b27:c02e with SMTP id
- a640c23a62f3a-be86d71c01amr114017466b.6.1779976313029; 
- Thu, 28 May 2026 06:51:53 -0700 (PDT)
+ AFNElJ9a1ULQN611RG6JoRRPCRsODgblJoaMOe87C4mb8+ee762iVFclSYFKSzzsnf15P8OkBeDxFHTDT7g=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwYJiiBzlhCyGJ2j0q7gtIuAeRZT+EPCZTRewE3uYkd/v0+IYvV
+ wIMZyxRrB6Z2kdwam5P7tFzKaxq67oUZGHeCHzEXe73T9TMeHvwvXeli
+X-Gm-Gg: Acq92OFA3XOisOc5nCwBGXmvkTREHNJZdRs8b7GcJcLm1JkZPXXBb9ru5ZzY6Q10TwO
+ Ny28Buh4S5Z8jaOawyozIZv6oLJzyApGkgJEAo6E2SnJ/PH0VHCDpvSZJc7z45zh9fbnPaCQuJh
+ +ccRYIBbX5+FiuxhFHZnh7GgX/h89HDvdmtHq6Ge8lsM7teyyNpxgTocPOMiew5YvncgdWXt5pd
+ 2ww5sgCf6lZ6rjpc1KYC+IoiaJm1WhvpZuqqKIPTUWkA7MYe+8ro91+yCPDRxncaNmhS6leMg+N
+ JPVPbvjxQDnVjYjVSlhGDzm3TP5Te3jS+OOXsPOqh11tQanUImZq6o2P4x99+MPRo+5Bspj7o0j
+ urJZzwWXLzlsMq7ll8TP4vSUXwLfGxmQ8GdonU1bqwLH6KeU8O6ID1I/i9LjVw9n6Yym641z8kf
+ 3U0rb6DsPvKEcnCBpt8okPN1FL6Ampwp3Vhg==
+X-Received: by 2002:a17:906:f049:b0:bdc:8c6b:4842 with SMTP id
+ a640c23a62f3a-bdd25cecf04mr1579914166b.30.1779976316385; 
+ Thu, 28 May 2026 06:51:56 -0700 (PDT)
 Received: from xeon ([188.163.112.61]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bddc65da3bbsm723636566b.52.2026.05.28.06.51.51
+ a640c23a62f3a-bddc65da3bbsm723636566b.52.2026.05.28.06.51.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 May 2026 06:51:52 -0700 (PDT)
+ Thu, 28 May 2026 06:51:55 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
  Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
@@ -74,9 +74,10 @@ Cc: Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
  linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
  linux-fbdev@vger.kernel.org
-Subject: [PATCH v2 3/6] mfd: lm3533: Add support for VIN power supply
-Date: Thu, 28 May 2026 16:51:20 +0300
-Message-ID: <20260528135123.103745-4-clamor95@gmail.com>
+Subject: [PATCH v2 5/6] video: backlight: lm3533_bl: Set initial mapping mode
+ from DT
+Date: Thu, 28 May 2026 16:51:22 +0300
+Message-ID: <20260528135123.103745-6-clamor95@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260528135123.103745-1-clamor95@gmail.com>
 References: <20260528135123.103745-1-clamor95@gmail.com>
@@ -97,96 +98,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for 2.7V-5.5V VIN power supply.
+Add support to obtain the initial mapping mode from DT instead of leaving
+it unconfigured. Additionally, update the linear sysfs code, which uses a
+similar coding pattern.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- drivers/mfd/lm3533-core.c  | 23 +++++++++++++++++++++--
- include/linux/mfd/lm3533.h |  2 ++
- 2 files changed, 23 insertions(+), 2 deletions(-)
+ drivers/video/backlight/lm3533_bl.c | 50 ++++++++++++++++-------------
+ 1 file changed, 27 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/mfd/lm3533-core.c b/drivers/mfd/lm3533-core.c
-index 8495e9119871..519f8c16a3f3 100644
---- a/drivers/mfd/lm3533-core.c
-+++ b/drivers/mfd/lm3533-core.c
-@@ -17,6 +17,7 @@
- #include <linux/mod_devicetable.h>
- #include <linux/property.h>
- #include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
- #include <linux/seq_file.h>
- #include <linux/slab.h>
- #include <linux/uaccess.h>
-@@ -164,14 +165,25 @@ static int lm3533_set_lvled_config(struct lm3533 *lm3533, u8 lvled, u8 led)
- 	return ret;
- }
+diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backlight/lm3533_bl.c
+index 42da652df58d..c03d0d1667e4 100644
+--- a/drivers/video/backlight/lm3533_bl.c
++++ b/drivers/video/backlight/lm3533_bl.c
+@@ -22,6 +22,7 @@
+ #define LM3533_BL_MAX_BRIGHTNESS	255
  
--static void lm3533_enable(struct lm3533 *lm3533)
-+static int lm3533_enable(struct lm3533 *lm3533)
+ #define LM3533_REG_CTRLBANK_AB_BCONF	0x1a
++#define   CTRLBANK_AB_BCONF_MODE(n)	BIT(2 * (n) + 1)
+ 
+ 
+ struct lm3533_bl {
+@@ -32,6 +33,7 @@ struct lm3533_bl {
+ 
+ 	u32 max_current;
+ 	u32 pwm;
++	bool linear;
+ };
+ 
+ 
+@@ -135,8 +137,9 @@ static ssize_t show_linear(struct device *dev,
+ 				struct device_attribute *attr, char *buf)
  {
-+	int ret;
+ 	struct lm3533_bl *bl = dev_get_drvdata(dev);
++	int id = lm3533_bl_get_ctrlbank_id(bl);
++	u8 mask = CTRLBANK_AB_BCONF_MODE(id);
+ 	u8 val;
+-	u8 mask;
+ 	int linear;
+ 	int ret;
+ 
+@@ -144,8 +147,6 @@ static ssize_t show_linear(struct device *dev,
+ 	if (ret)
+ 		return ret;
+ 
+-	mask = 1 << (2 * lm3533_bl_get_ctrlbank_id(bl) + 1);
+-
+ 	if (val & mask)
+ 		linear = 1;
+ 	else
+@@ -159,23 +160,16 @@ static ssize_t store_linear(struct device *dev,
+ 					const char *buf, size_t len)
+ {
+ 	struct lm3533_bl *bl = dev_get_drvdata(dev);
++	int id = lm3533_bl_get_ctrlbank_id(bl);
+ 	unsigned long linear;
+-	u8 mask;
+-	u8 val;
+ 	int ret;
+ 
+ 	if (kstrtoul(buf, 0, &linear))
+ 		return -EINVAL;
+ 
+-	mask = 1 << (2 * lm3533_bl_get_ctrlbank_id(bl) + 1);
+-
+-	if (linear)
+-		val = mask;
+-	else
+-		val = 0;
+-
+-	ret = lm3533_update(bl->lm3533, LM3533_REG_CTRLBANK_AB_BCONF, val,
+-									mask);
++	ret = lm3533_update(bl->lm3533, LM3533_REG_CTRLBANK_AB_BCONF,
++			    linear ? CTRLBANK_AB_BCONF_MODE(id) : 0,
++			    CTRLBANK_AB_BCONF_MODE(id));
+ 	if (ret)
+ 		return ret;
+ 
+@@ -253,8 +247,15 @@ static struct attribute_group lm3533_bl_attribute_group = {
+ 
+ static int lm3533_bl_setup(struct lm3533_bl *bl)
+ {
++	int id = lm3533_bl_get_ctrlbank_id(bl);
+ 	int ret;
+ 
++	ret = lm3533_update(bl->lm3533, LM3533_REG_CTRLBANK_AB_BCONF,
++			    bl->linear ? CTRLBANK_AB_BCONF_MODE(id) : 0,
++			    CTRLBANK_AB_BCONF_MODE(id));
++	if (ret)
++		return ret;
 +
-+	ret = regulator_enable(lm3533->vin_supply);
-+	if (ret) {
-+		dev_err(lm3533->dev, "failed to enable vin power supply\n");
+ 	ret = lm3533_ctrlbank_set_max_current(&bl->cb, bl->max_current);
+ 	if (ret)
+ 		return ret;
+@@ -317,14 +318,6 @@ static int lm3533_bl_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, bl);
+ 
+-	ret = sysfs_create_group(&bd->dev.kobj, &lm3533_bl_attribute_group);
+-	if (ret < 0) {
+-		dev_err(&pdev->dev, "failed to create sysfs attributes\n");
+-		return ret;
+-	}
+-
+-	backlight_update_status(bd);
+-
+ 	device_property_read_u32(&pdev->dev, "led-max-microamp",
+ 				 &bl->max_current);
+ 	bl->max_current = clamp(bl->max_current, LM3533_LED_MAX_CURRENT_MIN,
+@@ -333,9 +326,20 @@ static int lm3533_bl_probe(struct platform_device *pdev)
+ 	bl->pwm = 0;
+ 	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &bl->pwm);
+ 
++	bl->linear = device_property_read_bool(&pdev->dev,
++					       "ti,linear-mapping-mode");
++
+ 	ret = lm3533_bl_setup(bl);
+ 	if (ret)
+-		goto err_sysfs_remove;
++		return ret;
++
++	ret = sysfs_create_group(&bd->dev.kobj, &lm3533_bl_attribute_group);
++	if (ret < 0) {
++		dev_err(&pdev->dev, "failed to create sysfs attributes\n");
 +		return ret;
 +	}
 +
- 	gpiod_set_value(lm3533->hwen, 1);
-+
-+	return 0;
- }
++	backlight_update_status(bd);
  
- static void lm3533_disable(struct lm3533 *lm3533)
- {
- 	gpiod_set_value(lm3533->hwen, 0);
-+	regulator_disable(lm3533->vin_supply);
- }
- 
- enum lm3533_attribute_type {
-@@ -324,7 +336,9 @@ static int lm3533_device_init(struct lm3533 *lm3533)
- 	u32 count = 0, reg;
- 	int ret;
- 
--	lm3533_enable(lm3533);
-+	ret = lm3533_enable(lm3533);
-+	if (ret)
-+		return ret;
- 
- 	device_for_each_child_node_scoped(lm3533->dev, child) {
- 		if (!fwnode_device_is_available(child))
-@@ -493,6 +507,11 @@ static int lm3533_i2c_probe(struct i2c_client *i2c)
- 		return dev_err_probe(lm3533->dev, PTR_ERR(lm3533->hwen),
- 				     "failed to get HWEN GPIO\n");
- 
-+	lm3533->vin_supply = devm_regulator_get(lm3533->dev, "vin");
-+	if (IS_ERR(lm3533->vin_supply))
-+		return dev_err_probe(lm3533->dev, PTR_ERR(lm3533->vin_supply),
-+				     "failed to get vin-supply\n");
-+
- 	device_property_read_u32(lm3533->dev, "ti,boost-ovp-microvolt",
- 				 &lm3533->boost_ovp);
- 
-diff --git a/include/linux/mfd/lm3533.h b/include/linux/mfd/lm3533.h
-index 3aa962d4c747..d751773fc92d 100644
---- a/include/linux/mfd/lm3533.h
-+++ b/include/linux/mfd/lm3533.h
-@@ -21,6 +21,7 @@
- struct device;
- struct gpio_desc;
- struct regmap;
-+struct regulator;
- 
- struct lm3533 {
- 	struct device *dev;
-@@ -28,6 +29,7 @@ struct lm3533 {
- 	struct regmap *regmap;
- 
- 	struct gpio_desc *hwen;
-+	struct regulator *vin_supply;
- 
- 	u32 boost_ovp;
- 	u32 boost_freq;
+ 	ret = lm3533_ctrlbank_enable(&bl->cb);
+ 	if (ret)
 -- 
 2.51.0
 
