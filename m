@@ -4,63 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 950E5CD6E45
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 18:58:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5C66CD5BD5
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 19:01:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7975810F582;
-	Thu, 28 May 2026 18:58:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DCFF10F58D;
+	Thu, 28 May 2026 19:01:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QDyQP7e8";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="W9fgyW4m";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3817810F582;
- Thu, 28 May 2026 18:58:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779994727; x=1811530727;
- h=message-id:date:mime-version:from:to:cc:subject:
- content-transfer-encoding;
- bh=h4nhAIFlrHYsBUZIJY8m5NPO1FEasVZKpDgboRZoYxA=;
- b=QDyQP7e81DDEOq0bl+TVDFufykG1fYD2gc2tsdhxCZHOn27C7QLcKwaf
- 9OYzRnPWfl9ii5bpg44mDFASZqYr/zA1jt3Yo9ghIZVtCk0VYRp4HZDry
- S80ul+GouhyTxDQVyOS9uNkcJ1hWXKi91cy5sCsZoYKnY4Rr8MWAyQX/o
- QreNC/axLvnfhrzbJqpFH82yRSJB+g7rmc98fKH1QhYE8PU6Ck6euKTUo
- I3CW8xpVTVCr+J56fe3ymlr0C6BSn/ROvsj0MBPEsbdSS/5RBeSXDht91
- ajn7DT8GIOIWpis0y7EiVC+FW3Ut1nEUCDV5C+saYhdix46/sCD0pFp/G A==;
-X-CSE-ConnectionGUID: f125N+QCTnSCoSg1OflcoA==
-X-CSE-MsgGUID: HaCnfPA+TMmc8SGHgBT3+A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11800"; a="79993814"
-X-IronPort-AV: E=Sophos;i="6.24,174,1774335600"; d="scan'208";a="79993814"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 May 2026 11:58:46 -0700
-X-CSE-ConnectionGUID: 8lEdAd/HSmOMtmrCJdGT5g==
-X-CSE-MsgGUID: ur2Erzv8QnSFYBYyYJla4w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,174,1774335600"; d="scan'208";a="241597324"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.244.82])
- ([10.245.244.82])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 May 2026 11:58:43 -0700
-Message-ID: <ef65f43c-becf-473c-a5cc-203fdfecd491@linux.intel.com>
-Date: Thu, 28 May 2026 20:58:30 +0200
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7604310F58C
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 19:01:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=yc0vWrNNcRCL9hulFpL4VK4L628m5NhGYf+KpafmqXk=; b=W9fgyW4m6yOafKSFTeYLzkKS4/
+ iZWaP05i29cCKAPep2IOnV3//yalsqkyQWu1Z5e0e+INuEWfFCRl9MnwiV9cM/oNoEfSUFaGwC+8F
+ 8RE4hd+8dcm13lnuYEd9kAzbT78L9whnbf/IWH69XBXhKpNgRfYQABuR0fUMWva8oNJHsbrV+nDsG
+ mSv/Xm4l4O1pGTIueqm3GBvGBf/6WNkdgiM5fvXg8DNwyfV4AoOmdbK3HAuDK02D1xGUu6aQzYAOz
+ cuAYaL3AXU2SymfZrbHBZExtVRJoRybvfa94WU/ef4dMXygNdlJrVCgurmzkMlczBxoIbt/DAyQI5
+ P4a6fN/Q==;
+Received: from [189.7.87.67] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wSfzA-009Vhj-CF; Thu, 28 May 2026 21:01:40 +0200
+Message-ID: <e486203f-dcc4-456f-af36-45ef8e3349f6@igalia.com>
+Date: Thu, 28 May 2026 16:01:32 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Simona Vetter <simona.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>
-Cc: dim-tools@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Oded Gabbay <ogabbay@kernel.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
+Subject: Re: [PATCH] drm/vc4: fix krealloc() memory leak
+To: "Alexander A. Klimov" <grandmaster@al2klimov.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>
-Subject: [PULL] drm-misc-next
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Eric Anholt <eric@anholt.net>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20260526184105.18962-1-grandmaster@al2klimov.de>
+ <20260526184105.18962-5-grandmaster@al2klimov.de>
+ <2b602ec6-d563-4fa0-a0c5-89b97a46abf9@igalia.com>
+ <5642dd71-01ad-4db2-b0b8-5431298b39a1@al2klimov.de>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <5642dd71-01ad-4db2-b0b8-5431298b39a1@al2klimov.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,290 +94,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dave, Sima,
+Hi Alexander,
 
-Last drm-misc-next pull-request, with last minute changes for tegra, nouveau and host1x.
+On 28/05/26 15:54, Alexander A. Klimov wrote:
+> 
+> 
+> On 5/28/26 20:17, Maíra Canal wrote:
+>> Hi Alexander,
+>>
+>> LGTM, but a small styling nit:
+>>
+>> On 26/05/26 15:41, Alexander A. Klimov wrote:
+>>> Don't just overwrite the original pointer passed to krealloc()
+>>> with its return value without checking latter:
+>>>
+>>>      MEM = krealloc(MEM, SZ, GFP);
+>>>
+>>> If krealloc() returns NULL, that erases the pointer
+>>> to the still allocated memory, hence leaks this memory.
+>>> Instead, use a temporary variable, check it's not NULL
+>>> and only then assign it to the original pointer:
+>>>
+>>>      TMP = krealloc(MEM, SZ, GFP);
+>>>      if (!TMP) return;
+>>>      MEM = TMP;
+>>>
+>>> Fixes: 6d45c81d229d ("drm/vc4: Add support for branching in shader 
+>>> validation.")
+>>> Signed-off-by: Alexander A. Klimov <grandmaster@al2klimov.de>
+>>> ---
+>>>   drivers/gpu/drm/vc4/vc4_validate_shaders.c | 12 ++++++------
+>>>   1 file changed, 6 insertions(+), 6 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/vc4/vc4_validate_shaders.c b/drivers/ 
+>>> gpu/drm/vc4/vc4_validate_shaders.c
+>>> index d48cf76983c0..af48758592f9 100644
+>>> --- a/drivers/gpu/drm/vc4/vc4_validate_shaders.c
+>>> +++ b/drivers/gpu/drm/vc4/vc4_validate_shaders.c
+>>> @@ -291,14 +291,14 @@ static bool 
+>>> require_uniform_address_uniform(struct vc4_validated_shader_info *va
+>>>       uint32_t o = validated_shader->num_uniform_addr_offsets;
+>>>       uint32_t num_uniforms = validated_shader->uniforms_size / 4;
+>>
+>> Declare the variable here.
+> 
+> Strange...
+> It comes already directly after num_uniforms, doesn't it?
 
-Kind regards,
-~Maarten Lankhorst
+Yeah, it does. However, usually, we declare the variables and then we
+proceed to the functions. Check, for example, the function
+record_texture_sample() in vc4.
 
-drm-misc-next-2026-05-28:
-drm-misc-next for v7.2-rc1:
+Best regards,
+- Maíra
 
-UAPI Changes:
-- amdxdna: Revert read-only user-pointer BO mappings.
-- panthor: Add eviction and reclaim info to fdinfo.
+> At least when I apply my patch to Linus' master.
 
-Cross-subsystem Changes:
-- Convert DMA-buf system and cma heap allocators to module.
-
-Core Changes:
-- Cleanup driver misuses of drm/exec.
-
-Driver Changes:
-- Add LG LP129WT232166, AM-1280800W8TZQW-T00H, NEC NL6448BC33-70C,
-  Riverdi RVT70HSLNWCA0 and RVT101HVLNWC00 panels.
-- Add support for RZ/T2H SoC to renesas.
-- Add cursor plane support to verisilicon.
-- Support DVI outputs in ite-it66121 bridge.
-- Assorted bugfixes, docbook updates and improvements to ivpu, tegra,
-  host1x, nouveau.
-- Add DSC quirk for ASUS DC301 USB-C dock.
-- Use drm client buffer for tegra framebuffer.
-- Add support for GA100 to nouveau.
-
-The following changes since commit bed29492d413349e5b13f21936655064cdb63c91:
-
-  Merge v7.1-rc5 into drm-next (2026-05-28 09:58:36 +0200)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-next-2026-05-28
-
-for you to fetch changes up to 61de054a772a1feda6364931ab1baf9038abf1c8:
-
-  drm/nouveau/gsp: formally support GA100 (2026-05-28 19:30:15 +0200)
-
-----------------------------------------------------------------
-drm-misc-next for v7.2-rc1:
-
-UAPI Changes:
-- amdxdna: Revert read-only user-pointer BO mappings.
-- panthor: Add eviction and reclaim info to fdinfo.
-
-Cross-subsystem Changes:
-- Convert DMA-buf system and cma heap allocators to module.
-
-Core Changes:
-- Cleanup driver misuses of drm/exec.
-
-Driver Changes:
-- Add LG LP129WT232166, AM-1280800W8TZQW-T00H, NEC NL6448BC33-70C,
-  Riverdi RVT70HSLNWCA0 and RVT101HVLNWC00 panels.
-- Add support for RZ/T2H SoC to renesas.
-- Add cursor plane support to verisilicon.
-- Support DVI outputs in ite-it66121 bridge.
-- Assorted bugfixes, docbook updates and improvements to ivpu, tegra,
-  host1x, nouveau.
-- Add DSC quirk for ASUS DC301 USB-C dock.
-- Use drm client buffer for tegra framebuffer.
-- Add support for GA100 to nouveau.
-
-----------------------------------------------------------------
-Aaron Kling (1):
-      drm/tegra: Enable cmu for Tegra186 and Tegra194
-
-Andrzej Kacprowski (1):
-      accel/ivpu: Remove disable_d0i3_msg workaround
-
-Artur Kowalski (1):
-      gpu: host1x: trace: fix string fields in host1x traces
-
-Ben Dooks (1):
-      gpu: host1x: Fix missing 'host1x_context_device_bus_type'
-
-Dario Binacchi (2):
-      dt-bindings: display: simple: Add AM-1280800W8TZQW-T00H
-      drm/panel: simple: Add AM-1280800W8TZQW-T00H
-
-Dongyang Jin (1):
-      drm/panel: fix kernel-doc warning for devm_drm_panel_add()
-
-Felix Gu (2):
-      gpu: host1x: mipi: Fix device_node reference leak in tegra_mipi_request()
-      drm/tegra: dc: Fix device node reference leak in tegra_dc_has_output()
-
-Guangshuo Li (1):
-      gpu: host1x: Fix device reference leak in host1x_device_parse_dt() error path
-
-Hongling Zeng (5):
-      nouveau/gsp: cleanup IS_ERR_OR_NULL in rm_alloc functions
-      nouveau/gsp: cleanup IS_ERR_OR_NULL in rpc_rd
-      nouveau/gsp/rm: cleanup IS_ERR_OR_NULL in core implementation
-      nouveau/gsp/rm: cleanup WARN_ON(IS_ERR_OR_NULL)
-      nouveau/gsp/rm: cleanup remaining IS_ERR_OR_NULL usage
-
-Icenowy Zheng (3):
-      drm: verisilicon: add max cursor size to HWDB
-      drm: verisilicon: add support for cursor planes
-      drm: verisilicon: fix build failure of cursor plane code
-
-Imre Deak (1):
-      drm/dp: Add DSC virtual DPCD quirk for Realtek MST branch device
-
-Ion Agorria (1):
-      drm/tegra: gr2d/gr3d: Contain PM in the gr*d_probe/gr*d_remove
-
-Jacob McLemore (1):
-      drm/tegra: sor: Remove usage of drm_simple_encoder_init()
-
-Javier Martinez Canillas (3):
-      drm/bridge: ite-it66121: Switch to the HDMI connector helpers
-      drm/bridge: ite-it66121: Move .mode_set logic to .atomic_enable
-      drm/bridge: ite-it66121: Select HDMI or DVI mode based on sink type
-
-Jérôme de Bretagne (1):
-      drm/panel-edp: Add LG LP129WT232166 panel
-
-Karol Wachowski (1):
-      accel/ivpu: Document why full JSM message size is always used
-
-Lad Prabhakar (4):
-      dt-bindings: display: renesas,rzg2l-du: Add RZ/T2H and RZ/N2H support
-      drm: renesas: rz-du: Make DU reset control optional for RZ/T2H support
-      drm: renesas: rz-du: Move mode_valid logic to per-SoC clock limits
-      drm: renesas: rz-du: Add support for RZ/T2H SoC
-
-Lizhi Hou (1):
-      Revert "accel/amdxdna: Support read-only user-pointer BO mappings"
-
-Maxime Ripard (4):
-      dma-buf: heaps: Export mem_accounting parameter
-      dma-buf: heaps: cma: Turn the heap into a module
-      dma-buf: heaps: system: Turn the heap into a module
-      arm64: defconfig: Enable dma-buf heaps
-
-Mikko Perttunen (3):
-      gpu: host1x: Allow entries in BO caches to be freed
-      gpu: host1x: Fix iommu_map_sgtable() return value check
-      drm/tegra: Fix iommu_map_sgtable() return value check
-
-Nicolas Frattaroli (2):
-      drm/panthor: Implement evicted status for GEM objects
-      drm/panthor: Reduce padding in gems debugfs for refcount
-
-Randy Dunlap (2):
-      drm/tegra: dp: fix kernel-doc warnings in dp.h
-      drm/tegra: tegra_drm.h: fix all uapi kernel-doc warnings
-
-Souradipto Das (1):
-      drm/tegra: hdmi: Open-code drm_simple_encoder_init()
-
-Steffen Trumtrar (2):
-      dt-bindings: display: simple: Add NEC NL6448BC33-70C panel
-      drm/panel: simple: add NEC NL6448BC33-70C
-
-Svyatoslav Ryhel (1):
-      drm/tegra: gr2d/gr3d: Initialize address register map before HOST1X client is registered
-
-Tanmay Patil (2):
-      gpu: host1x: Skip redundant syncpoint loads in host1x_syncpt_wait()
-      gpu: host1x: Skip redundant HW state update
-
-Thomas Hellström (4):
-      drm/exec: Remove the index parameter from drm_exec_for_each_locked_obj[_reverse]
-      drm/exec: Make the drm_exec_until_all_locked() macro more readable
-      drm/exec, drm/xe: Avoid abusing the drm_exec retry pointer
-      drm/exec, drm/xe, drm/amdgpu: Add an accessor for struct drm_exec::ticket
-
-Thomas Zimmermann (6):
-      Merge drm/drm-next into drm-misc-next
-      drm/tegra: fbdev: Do not assign to struct drm_fb_helper.info
-      drm/tegra: fbdev: Remove offset into framebuffer memory
-      drm/tegra: fbdev: Calculate buffer geometry with format helpers
-      drm/tegra: fbdev: Use a DRM client buffer
-      drm/tegra: Make tegra_fb_alloc() an internal interface
-
-Thorsten Blum (2):
-      drm/tegra: dp: use str_plural in drm_dp_link_train_{full,fast}
-      drm/tegra: sor: use str_plural in tegra_sor_dp_link_configure
-
-Timur Tabi (9):
-      drm/nouveau/gsp: add SEC2 to GA100 chip table
-      drm/nouveau/gsp: use fb.bios.addr for gspFwWprEnd instead of vga_workspace.addr
-      drm/nouveau/gsp: read MMU_LOCK to fix WPR placement on GA100
-      drm/nouveau: only boot FRTS if its region is allocated
-      drm/nouveau: GA100 has an FRTS region size of zero
-      drm/nouveau/bios: specify correct display fuse register for Ampere and Ada
-      drm/nouveau/bios: skip the IFR header if present
-      drm/nouveau/gsp: require GSP-RM for GA100 support
-      drm/nouveau/gsp: formally support GA100
-
-Tommaso Merciai (1):
-      dt-bindings: display: renesas,rzg2l-du: Refuse port@1 for RZ/G2UL
-
-Vitor Soares (1):
-      dt-bindings: display: panel-lvds: Add Riverdi RVT70HSLNWCA0 and RVT101HVLNWC00
-
-shayderrr (1):
-      host1x: bus: Fix missing ops null check in error teardown
-
- .../bindings/display/panel/panel-lvds.yaml         |   4 +
- .../bindings/display/panel/panel-simple.yaml       |   4 +
- .../bindings/display/renesas,rzg2l-du.yaml         |  21 +-
- arch/arm64/configs/defconfig                       |   3 +
- drivers/accel/amdxdna/amdxdna_ubuf.c               |  29 +-
- drivers/accel/ivpu/ivpu_drv.h                      |   3 -
- drivers/accel/ivpu/ivpu_fw.c                       |  23 +-
- drivers/accel/ivpu/ivpu_ipc.c                      |   6 +-
- drivers/accel/ivpu/ivpu_jsm_msg.c                  |   3 -
- drivers/accel/ivpu/vpu_boot_api.h                  |   6 +-
- drivers/dma-buf/dma-heap.c                         |   1 +
- drivers/dma-buf/heaps/Kconfig                      |   4 +-
- drivers/dma-buf/heaps/cma_heap.c                   |   3 +
- drivers/dma-buf/heaps/system_heap.c                |   5 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |  15 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c |   3 +-
- drivers/gpu/drm/bridge/Kconfig                     |   2 +
- drivers/gpu/drm/bridge/ite-it66121.c               | 310 +++++++++++++++------
- drivers/gpu/drm/display/drm_dp_helper.c            |   2 +
- drivers/gpu/drm/drm_exec.c                         |   9 +-
- drivers/gpu/drm/drm_gpuvm.c                        |   3 +-
- drivers/gpu/drm/drm_panel.c                        |   1 +
- drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h  |   8 +-
- drivers/gpu/drm/nouveau/nvkm/engine/device/base.c  |  10 +-
- .../gpu/drm/nouveau/nvkm/subdev/bios/shadowramin.c |   3 +-
- .../gpu/drm/nouveau/nvkm/subdev/bios/shadowrom.c   | 110 +++++++-
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c    |   1 -
- .../drm/nouveau/nvkm/subdev/gsp/rm/r535/alloc.c    |   4 +-
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/bar.c  |   2 +-
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/ctrl.c |   2 +-
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c  |  10 +-
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c    |  69 ++++-
- drivers/gpu/drm/panel/panel-edp.c                  |   1 +
- drivers/gpu/drm/panel/panel-simple.c               |  57 ++++
- drivers/gpu/drm/panthor/panthor_gem.c              |  16 +-
- drivers/gpu/drm/panthor/panthor_gem.h              |  10 +
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c      |   9 +-
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c       |  20 +-
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h       |  14 +
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c   |   9 +-
- drivers/gpu/drm/tegra/dc.c                         | 120 +++++++-
- drivers/gpu/drm/tegra/dc.h                         |  13 +
- drivers/gpu/drm/tegra/dp.c                         |   6 +-
- drivers/gpu/drm/tegra/dp.h                         |  12 +-
- drivers/gpu/drm/tegra/drm.h                        |   5 -
- drivers/gpu/drm/tegra/fb.c                         |   1 +
- drivers/gpu/drm/tegra/fbdev.c                      |  88 +++---
- drivers/gpu/drm/tegra/gem.c                        |  22 +-
- drivers/gpu/drm/tegra/gr2d.c                       |  19 +-
- drivers/gpu/drm/tegra/gr3d.c                       |  19 +-
- drivers/gpu/drm/tegra/hdmi.c                       |  10 +-
- drivers/gpu/drm/tegra/sor.c                        |  37 ++-
- drivers/gpu/drm/tegra/submit.c                     |   3 +-
- drivers/gpu/drm/verisilicon/Makefile               |   3 +-
- drivers/gpu/drm/verisilicon/vs_crtc.c              |  11 +-
- drivers/gpu/drm/verisilicon/vs_cursor_plane.c      | 272 ++++++++++++++++++
- drivers/gpu/drm/verisilicon/vs_cursor_plane_regs.h |  44 +++
- drivers/gpu/drm/verisilicon/vs_hwdb.c              |   4 +
- drivers/gpu/drm/verisilicon/vs_hwdb.h              |   5 +
- drivers/gpu/drm/verisilicon/vs_plane.h             |   1 +
- drivers/gpu/drm/xe/xe_validation.c                 |   4 +-
- drivers/gpu/drm/xe/xe_validation.h                 |   2 +-
- drivers/gpu/drm/xe/xe_vm.c                         |   3 +-
- drivers/gpu/host1x/bus.c                           |  66 ++++-
- drivers/gpu/host1x/context.c                       |   1 +
- drivers/gpu/host1x/context.h                       |   3 +-
- drivers/gpu/host1x/context_bus.c                   |   1 +
- drivers/gpu/host1x/intr.c                          |   8 +-
- drivers/gpu/host1x/job.c                           |  10 +-
- drivers/gpu/host1x/mipi.c                          |   6 +-
- drivers/gpu/host1x/syncpt.c                        |  23 +-
- include/drm/drm_exec.h                             |  71 +++--
- include/linux/host1x.h                             |   7 +
- include/trace/events/host1x.h                      |  50 ++--
- include/uapi/drm/tegra_drm.h                       |  16 ++
- 76 files changed, 1393 insertions(+), 392 deletions(-)
- create mode 100644 drivers/gpu/drm/verisilicon/vs_cursor_plane.c
- create mode 100644 drivers/gpu/drm/verisilicon/vs_cursor_plane_regs.h
