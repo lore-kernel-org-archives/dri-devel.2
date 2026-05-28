@@ -4,97 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1D16CD6E49
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 11:21:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 511BECD6E44
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 11:39:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26BA810F043;
-	Thu, 28 May 2026 11:21:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A27A310F066;
+	Thu, 28 May 2026 11:39:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jeHZ2xbi";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="hkGqY1gp";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BFE710F043;
- Thu, 28 May 2026 11:21:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779967295; x=1811503295;
- h=from:date:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=f/lIC4TgmEzyiBDPh2iBCW6oUeY6y5+TmWqzleJFfvY=;
- b=jeHZ2xbiomaOLz47kKWLHRSM9eIvB9p3NX5f8g+8V0feOz2isSAX1hUT
- mj3hm4e//XA6fijnmncmbneB+zOfQ8ZIHVAvoRwbwECXbhtvLSuDSZQUb
- 3eZT12VVtcus/+kD6uL/+NHh71q5qIAyL8z2x6SBjZIFJiWvAgx9K08AB
- lu2xtLjtbI0taaT5x363UpAC7MY3I9cb7QMgPntterB4eI63tG0SUegvs
- rKXLaxFe3U6tsHynAYEiOcnpdNF3IG9K/Q+OLnad5Wit3tC32pdu62kqI
- TiiEhCDC+NWm9Dal8dfXfsrgCurPBBZLm1/rzQvZc/ShjI0Tx1q5nrf38 Q==;
-X-CSE-ConnectionGUID: PnzoyxGeQ9S3b36Gsm5qEQ==
-X-CSE-MsgGUID: npsN0l+zQOaXoOeWW6D2Uw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11799"; a="103480344"
-X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; d="scan'208";a="103480344"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 May 2026 04:21:34 -0700
-X-CSE-ConnectionGUID: NhorkxbETOO3yaxAYXvTkQ==
-X-CSE-MsgGUID: vXFsgfpXQNSWfwq2pTGuRg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; d="scan'208";a="238337774"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.187])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 May 2026 04:21:15 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Thu, 28 May 2026 14:21:11 +0300 (EEST)
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-cc: Lee Jones <lee@kernel.org>, 
- Mark Brown <broonie@opensource.wolfsonmicro.com>, 
- Thierry Reding <thierry.reding@avionic-design.de>, 
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Srinivas Kandagatla <srini@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
- Saravana Kannan <saravanak@kernel.org>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- Andi Shyti <andi.shyti@kernel.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Doug Berger <opendmb@gmail.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Matthew Brost <matthew.brost@intel.com>, 
- =?ISO-8859-15?Q?Thomas_Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Peter Chen <peter.chen@kernel.org>, 
- Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org, 
- LKML <linux-kernel@vger.kernel.org>, Netdev <netdev@vger.kernel.org>, 
- linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
- driver-core@lists.linux.dev, devicetree@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org, 
- iommu@lists.linux.dev, linux-pm@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org, 
- linux-mips@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH 19/23] platform/surface: gpe: use
- platform_device_set_fwnode()
-In-Reply-To: <20260521-pdev-fwnode-ref-v1-19-88c324a1b8d2@oss.qualcomm.com>
-Message-ID: <bfdbc026-b3f9-971b-aaf0-0485434b8411@linux.intel.com>
-References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
- <20260521-pdev-fwnode-ref-v1-19-88c324a1b8d2@oss.qualcomm.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0095F10F066
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 11:39:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1779968341;
+ bh=6BbE/VtvTsRidCICMewpm0oWjwe3p3VmGllvWPm6zF4=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=hkGqY1gpKOXZhWet38wVFbAeKCO5SB/UMPxUdIZ90X9/Wqyy7+C5EgGxZkOgg0Zsi
+ w+G5h4Yee5RJ5X++TA/VP8g7neaASVXODhqPPF2IEgYQx+RQIySCrblFOQ2z6wYr8z
+ +rTpWk7LSzre3hw6fStWMYpbUgvBhg360YuPxz0yh+DhaVg5DtlpL42arESUV6qeS0
+ 23fdL/2Fa6n+BgG+he6g3T8ZzzTl6gWbbU+qy7Kl0Y537ix5V4KuyStcF9AL7G950X
+ DBDLGKm24edtQNW2wGcuUDP+GmcttuIR4pyz+kJ4RF/cGfbp1NezYsQQTBbuXE3MYp
+ M8Aap66sVtlpQ==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 319F517E0246;
+ Thu, 28 May 2026 13:39:01 +0200 (CEST)
+Date: Thu, 28 May 2026 13:38:56 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: igor.torrente@collabora.com, simona@ffwll.ch, airlied@gmail.com,
+ mripard@kernel.org, maarten.lankhorst@linux.intel.com,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH] drm/gem-shmem: Immediately record writable mmap; drop
+ pfn_mkwrite
+Message-ID: <20260528133856.27eb0c8c@fedora>
+In-Reply-To: <20260528102809.399127-1-tzimmermann@suse.de>
+References: <20260528102809.399127-1-tzimmermann@suse.de>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-947565217-1779967271=:1291"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,45 +64,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Thu, 28 May 2026 12:27:59 +0200
+Thomas Zimmermann <tzimmermann@suse.de> wrote:
 
---8323328-947565217-1779967271=:1291
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+> Using pfn_mkwrite breaks KVM with "error: kvm run failed Bad address".
+> Seen on a Mali-G610 GPU. Fix this by marking writable mmapped pages as
+> written when installing the mapping in the page table.
+> 
+> Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Reported-by: Igor Torrente <igor.torrente@collabora.com>
+> Closes: https://lore.kernel.org/dri-devel/d89422f1-f00a-47b1-b68a-d949d6d6a974@collabora.com/raw
+> Tested-by: Igor Torrente <igor.torrente@collabora.com>
+> Fixes: 28e3918179aa ("drm/gem-shmem: Track folio accessed/dirty status in mmap")
 
-On Thu, 21 May 2026, Bartosz Golaszewski wrote:
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-> Ahead of reworking the reference counting logic for platform devices,
-> encapsulate the assignment of the firmware node for dynamically allocated
-> platform devices with the provided helper.
->=20
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Two nits below.
+
 > ---
->  drivers/platform/surface/surface_gpe.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/platform/surface/surface_gpe.c b/drivers/platform/su=
-rface/surface_gpe.c
-> index b359413903b13c4f8e8b284ef7ae6f6db3f47d72..40896a8544b0a4da4261ea881=
-b1eaed62d93b32b 100644
-> --- a/drivers/platform/surface/surface_gpe.c
-> +++ b/drivers/platform/surface/surface_gpe.c
-> @@ -317,7 +317,7 @@ static int __init surface_gpe_init(void)
->  =09=09goto err_alloc;
->  =09}
-> =20
-> -=09pdev->dev.fwnode =3D fwnode;
-> +=09platform_device_set_fwnode(pdev, fwnode);
-> =20
->  =09status =3D platform_device_add(pdev);
->  =09if (status)
->=20
->=20
+>  drivers/gpu/drm/drm_gem_shmem_helper.c | 48 ++++++++------------------
+>  1 file changed, 14 insertions(+), 34 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> index 545933c7f712..7af31932af84 100644
+> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> @@ -554,21 +554,6 @@ int drm_gem_shmem_dumb_create(struct drm_file *file, struct drm_device *dev,
+>  }
+>  EXPORT_SYMBOL_GPL(drm_gem_shmem_dumb_create);
+>  
+> -static void drm_gem_shmem_record_mkwrite(struct vm_fault *vmf)
+> -{
+> -	struct vm_area_struct *vma = vmf->vma;
+> -	struct drm_gem_object *obj = vma->vm_private_data;
+> -	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
+> -	loff_t num_pages = obj->size >> PAGE_SHIFT;
+> -	pgoff_t page_offset = vmf->pgoff - vma->vm_pgoff; /* page offset within VMA */
+> -
+> -	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
+> -		return;
+> -
+> -	file_update_time(vma->vm_file);
+> -	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
+> -}
+> -
+>  static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
+>  				 unsigned long pfn)
+>  {
+> @@ -581,23 +566,15 @@ static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
+>  
+>  		if (aligned &&
+>  		    folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
+> -			vm_fault_t ret;
+> -
+>  			pfn &= PMD_MASK >> PAGE_SHIFT;
+>  
+> -			/* Unlike PTEs which are automatically upgraded to
+> +			/*
+> +			 * Unlike PTEs which are automatically upgraded to
+>  			 * writeable entries, the PMD upgrades go through
+>  			 * .huge_fault(). Make sure we pass the "write" info
+>  			 * along in that case.
+> -			 * This also means we have to record the write fault
+> -			 * here, instead of in .pfn_mkwrite().
+>  			 */
 
-Acked-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+We can drop the comment altogether since we no longer have this
+read-only -> rw upgrade now that pfn_mkwrite is gone.
 
---=20
- i.
+> -			ret = vmf_insert_pfn_pmd(vmf, pfn,
+> -						 vmf->flags & FAULT_FLAG_WRITE);
+> -			if (ret == VM_FAULT_NOPAGE && (vmf->flags & FAULT_FLAG_WRITE))
+> -				drm_gem_shmem_record_mkwrite(vmf);
+> -
+> -			return ret;
+> +			return vmf_insert_pfn_pmd(vmf, pfn, false);
+>  		}
+>  #endif
+>  	}
+> @@ -635,8 +612,18 @@ static vm_fault_t drm_gem_shmem_any_fault(struct vm_fault *vmf, unsigned int ord
+>  	pfn = page_to_pfn(page);
+>  
+>  	ret = try_insert_pfn(vmf, order, pfn);
+> -	if (ret == VM_FAULT_NOPAGE)
+> +	if (ret == VM_FAULT_NOPAGE) {
+>  		folio_mark_accessed(folio);
 
---8323328-947565217-1779967271=:1291--
+Please add a blank line here.
+
+> +		/*
+> +		 * Immediately record write access to the buffer. The
+> +		 * natural place would be pfn_mkwrite at the time when
+> +		 * the access happens, but this breaks KVM.
+> +		 */
+> +		if (vma->vm_flags & VM_WRITE) {
+> +			file_update_time(vma->vm_file);
+> +			folio_mark_dirty(folio);
+> +		}
+> +	}
+>  
+>  out:
+>  	dma_resv_unlock(obj->resv);
+> @@ -683,12 +670,6 @@ static void drm_gem_shmem_vm_close(struct vm_area_struct *vma)
+>  	drm_gem_vm_close(vma);
+>  }
+>  
+> -static vm_fault_t drm_gem_shmem_pfn_mkwrite(struct vm_fault *vmf)
+> -{
+> -	drm_gem_shmem_record_mkwrite(vmf);
+> -	return 0;
+> -}
+> -
+>  const struct vm_operations_struct drm_gem_shmem_vm_ops = {
+>  	.fault = drm_gem_shmem_fault,
+>  #ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
+> @@ -696,7 +677,6 @@ const struct vm_operations_struct drm_gem_shmem_vm_ops = {
+>  #endif
+>  	.open = drm_gem_shmem_vm_open,
+>  	.close = drm_gem_shmem_vm_close,
+> -	.pfn_mkwrite = drm_gem_shmem_pfn_mkwrite,
+>  };
+>  EXPORT_SYMBOL_GPL(drm_gem_shmem_vm_ops);
+>  
+
