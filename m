@@ -4,84 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4F27CD5BD1
-	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 09:00:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D12DCD5BD1
+	for <dri-devel@archiver.kernel.org>; Thu, 28 May 2026 09:11:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE42A10EE4C;
-	Thu, 28 May 2026 09:00:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DE7610EE88;
+	Thu, 28 May 2026 09:11:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="K8fJmCyr";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Vrh/3qbI";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10A1210EE4C
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 09:00:00 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4906238c62eso39024425e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 01:59:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779958798; x=1780563598; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=KgapLk0U8W9ohmKNOKBlmGBZxDjWC3tsNDHbpGJHrbQ=;
- b=K8fJmCyrsn4rXoJ8KuvOIyePGUK/Us7OoJwcrQwaF7YpY/Jy6IuWisXHrZ4OaDMZa4
- i/h2zrLsoWIzCB7tktkG+5Y8dy2Zk2/AU9xR9N+erAgGSK6jptiwzhpXxSR9zx+S8fGY
- YObbkWVRBCEFX+oCCQUUHpFzx/OlR9Vt6vuC5pvqA3YrQo0Ac7a9ZKSWadOF5do5uafN
- bMfeqi191agEAGscNAX++tH0JGR62u9d6bEPWz5Kdg3MBSFISgpUQdMmc/VQUxJwhdxP
- H5sFkV/tRjquo3BldWMCjhpt/XIFXuDnzSxl5w9hlpt48P4bQdYYVx0tB0Bqddzj6IT/
- HYEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779958798; x=1780563598;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=KgapLk0U8W9ohmKNOKBlmGBZxDjWC3tsNDHbpGJHrbQ=;
- b=bELMueARjZfEJvIe2dzclTP/VLElpyGxX3vi0Tsi1njUNgovpWJM3fOfYbJB97GJj4
- nOTYi1P/hv63hIZYqHnDE9ZXts9V1bygi5Zsi8kDcL/Ld3oz5rPnnqx+bxCN+6IhtsJt
- p67cV6gBbwqqEXPItMiiH65a2gIUUHP4V4gUw4VtM8G7S0gL61kE4x6Gxw1bZcM3lhWQ
- 7TS4T/TLepz6M2zN273reM+0k2Cqe0Gb9Yi+IbSKhXRxMR/zbxGFogWTZgKnE5khmPSE
- SNl3E9rD5JUGd6yXsTf6pxtOKLPkineM86PsiopTDMmJ/P6k0AHe1YvOsbINkfs8ATg2
- rUDw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/Q2mvWIURvHtacufUf3jKwZn+Lk7kmyZcnuq5nJS3jIHvkRX/5jO79dR5y8/67l4Wjo5Y9k776ee4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YweMVCVpOcTdz5xoZuBKOzcMbpO8sNQcFXGP8iw7czH/VEuryU+
- 9BhmDkBbvBpYPPYp+s+igBFesSWpZ4E10Tlv6oT8bUeUXBN4t4Rn/SdC
-X-Gm-Gg: Acq92OGH3X8wvnXbC/7YkDn/AFs4rDSHKOFUjcTeCYg5RxPLvxsIJkBJoWAusxQcZUw
- F6cbrdZNwZrs4fqBSPIo+i9dcla4ZsHrArVNiPAkw6fd8ZHIwZ9gGaynfQ+LLnRmpA2xofH2Hy3
- pnU9BgnxvFornCq3oh647/0CQInnyCm3Bsr50ju9lzPWikClSEejKVeY7OLq5aOLH52qrZQuhn0
- 3UtXNf++I5F46wWTNeP6VV7xfq1BkSylwv09Kly17w6z0pu2oxLNOuFAT4YSDmpariZ1Dy4F3Lo
- cOiMwGPqqER5tLaCwC5hBpvW9Iacu0B8t0vCt4zoMfyUVQ0cyBxedBVaFUpX1SsCbFymGDhAdhf
- 47cy825Hrn7X8MwUFYTyYJ5c+osf647CXJfUoBTz5K0BfgvOUqDBf9Lce7Cm674Usvf/i+7O1Od
- v61VFUoaSQwHv1uY5oL5SUAVVaN2w/HsXSSA==
-X-Received: by 2002:a05:600c:35cf:b0:48a:5c23:cab with SMTP id
- 5b1f17b1804b1-490426bc737mr484669565e9.19.1779958797723; 
- Thu, 28 May 2026 01:59:57 -0700 (PDT)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49091d55972sm26972035e9.0.2026.05.28.01.59.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 May 2026 01:59:57 -0700 (PDT)
-Date: Thu, 28 May 2026 11:59:53 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Sean Anderson <sean.anderson@linux.dev>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Michal Simek <michal.simek@amd.com>, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- kernel-janitors@vger.kernel.org
-Subject: Re: [PATCH] drm: zynqmp_dp: Fix uninitialized variable in debugfs()
-Message-ID: <ahgECVKG-djR9_l3@stanley.mountain>
-References: <ahP3Xagt1LJrhmFl@stanley.mountain>
- <935aaec5-5417-3cde-f944-3c04ffbd3458@linux.dev>
- <ahfeOh091V3BuuaB@stanley.mountain>
- <9189701d-168e-1e63-8a6c-f6926029c336@linux.dev>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB37110EE86
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 09:11:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1779959506;
+ bh=p83yMS4+TIpBazfoCslnvC+pbsWKviEG8NJxRj91Z5Y=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Vrh/3qbIeHhF0LcNWK4VFxyuYOLGXyBFmXNpXP5E2EQpByekeO8ScSpLmzIXU8LYp
+ DLs+GcuNc6I6sA/9/QMRRTCKJWj6cp/aNJjss0GuLYSZtjUC5iFkS91BSh1d6uWfTS
+ JHZwCOQLm0jgadq4oU55MgzkCq7GXY3pLGcIB7yabxnPW/iV1d1a+FHgL80ejNoahf
+ CUV1BNmeRqShjT2Q29buW5bKmlIdmJ3AfTXPrqXEf6epPXGnt1uN/j2fIjwVCDqg86
+ dPHiL6qPngF28vyJiCK/ueZY3HqUaF8g9l9duaJqy5aQjEvkaYwpWCQIrVdZkGP9+4
+ EvhH4LQvE8piA==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 0E0E317E0157;
+ Thu, 28 May 2026 11:11:46 +0200 (CEST)
+Date: Thu, 28 May 2026 11:11:40 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Igor Torrente <igor.torrente@collabora.com>,
+ loic.molinari@collabora.com, willy@infradead.org, frank.binns@imgtec.com,
+ matt.coster@imgtec.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org
+Subject: Re: [PATCH v3 5/6] drm/gem-shmem: Track folio accessed/dirty status
+ in mmap
+Message-ID: <20260528111140.2d9535b7@fedora>
+In-Reply-To: <4a00d72c-9b87-4511-9da0-bcb40fae4d74@suse.de>
+References: <20260209133241.238813-1-tzimmermann@suse.de>
+ <20260209133241.238813-6-tzimmermann@suse.de>
+ <d89422f1-f00a-47b1-b68a-d949d6d6a974@collabora.com>
+ <850e8355-7884-405c-a70a-986ce032c019@suse.de>
+ <831c0943-c75f-4d42-aa5f-90ce34cf8530@collabora.com>
+ <67855fcd-2afe-4a1d-a51a-210e45f56167@suse.de>
+ <20260527121832.7264f0db@fedora>
+ <4a00d72c-9b87-4511-9da0-bcb40fae4d74@suse.de>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9189701d-168e-1e63-8a6c-f6926029c336@linux.dev>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,41 +73,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, May 28, 2026 at 04:00:53AM -0400, Sean Anderson wrote:
-> On 5/28/26 02:18, Dan Carpenter wrote:
-> > On Wed, May 27, 2026 at 08:31:59PM -0400, Sean Anderson wrote:
-> > > On 5/25/26 03:16, Dan Carpenter wrote:
-> > > > If the *ppos is non-zero then simple_write_to_buffer() will not
-> > > > initialize the start of the buf[] buffer.  It doesn't really make sense
-> > > > to allow non-zero values for *ppos, so check for that at the start and
-> > > > return -EINVAL.
-> > > 
-> > > non-zero ppos seems to be handled properly by simple_write_to_buffer.
-> > > 
-> > 
-> > It's not an overflow bug, it's an uninitialized variable bug.
-> > 
-> > The simple_write_to_buffer() is designed to handle partial writes so it
-> > leaves the first "written" (scare quotes) part of the string as is.  But
-> > in this case, we can't handle a partial write and the first part of
-> > buf[] is left uninitialized.
-> > 
-> > https://staticthinking.wordpress.com/2026/05/23/simple_write_to_buffer-is-complicated/
-> 
-> OK, that's a bit strange. Can you add this to the doc comment? I certainly
-> missed it when looking around for appropriate functions.
-> 
-> And I like the explicit copy_from_user variant better, especially since
-> we are setting the nul-terminator anyway.
-> 
-> > Also this appears to be dead code since fops_zynqmp_dp_pattern is never
-> > used.
-> 
-> It's of course used in zynqmp_dp_bridge_debugfs_init.
+On Thu, 28 May 2026 09:20:16 +0200
+Thomas Zimmermann <tzimmermann@suse.de> wrote:
 
-Ah, yes.  I just did a git grep and the CREATE_FILE() macro confused me.
-But obviously this wouldn't compile if we had an unused local variable.
-Duh...
+> Hi
+> 
+> Am 27.05.26 um 12:18 schrieb Boris Brezillon:
+> [...]
+> >> -			return ret;
+> >> +			return vmf_insert_pfn_pmd(vmf, pfn,
+> >> +						  vmf->flags & FAULT_FLAG_WRITE);  
+> > I believe we can go back to
+> >
+> > 			return vmf_insert_pfn_pmd(vmf, pfn, false);
+> >
+> > if the mappings are no longer adjusted to catch write accesses.  
+> 
+> If we don't install it as writable now, won't the kernel not split it up 
+> into 4KiB pages when the actual write happens?
 
-regards,
-dan carpenter
+It will be installed as writeable right away, regardless of the write
+parameter, because if pfn_mkwrite is not implemented, vma->vm_page_prot
+won't be lowered to read-only in the first place, or at least that's
+what I remember from the previous debugging session I've done.
