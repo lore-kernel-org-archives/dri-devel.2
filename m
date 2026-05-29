@@ -4,88 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06295CD6E4A
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 14:52:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E32FCD6E51
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 14:56:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B8D511204D;
-	Fri, 29 May 2026 14:52:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4A17112059;
+	Fri, 29 May 2026 14:56:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="F7moANIB";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="C8YMVfTw";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4676E11204D
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 14:52:21 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-4905529b933so56705305e9.0
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 07:52:21 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FD38112059
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 14:56:15 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4906869f0cbso64066125e9.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 07:56:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1780066340; x=1780671140; darn=lists.freedesktop.org; 
+ d=suse.com; s=google; t=1780066574; x=1780671374; darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=pmSOuhBgxBhu7Is1B1Rw2/yoQpGrUuGnNNhQRjRyvrQ=;
- b=F7moANIBJrvGrmWhHkgCD2SvwJVS0qzj4C+K/fueJwxYICwxG876iY2I+XUt9tGdk4
- v0iUcKJMXSYVVkKIQf62UkrpDBiXJcovoOaVxnDZP+z9Cc/ob4To6o3DNat39uxPBSUW
- aMclv1IP7FQB+8OA3UBNV3SEPQFI87KaU+OgIihxfKPzzwTMies30RELRq7j/fX0dCc2
- Qp2B20HJNI17HEc+PiqL+GAX+Ca/U5c6HMD3PtRa8E22eJDKli55SkVsr43vXSdbnK/H
- tx4b0lT9xgBPPNSadTlwR1mxXha8vCiMBujBfkuunl3mcnJb8+vUKONsaNysxio8btmM
- bjPg==
+ bh=4sxBURKEIs5vdCG6YL1mHOm0YuBgobmnmOVB3aNVSj0=;
+ b=C8YMVfTwW0GnNNgKO7qfHCathh20Wf7dRTcZx48dEiOwwIZpfVjkkWpZPBm4jniVZV
+ P+bCFN99mDcWP8ngZtKPEGND8wpq5G6aToXCB8zLx59cFfB3YF9xAKmxqQYGxoIalfJN
+ qqIAwXk3ls+XkmFnlnjzauQ/cZkO7QiHYzixUXP0rlfdnFqf63rAa/PLN+J8zG/0vMB4
+ NlMbnxbifXDt57XMluBcxd9s6kqJFEdeH8UeArODUK4YJpWdDQ6+x5uiZga3vZ91GFuN
+ vv1deMzLKOjmOZ6bztGvBSs+0HDN1JF2Ebjx8bXabGVNrLqeukOc1b+aRARoCmp4UnSG
+ DAxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780066340; x=1780671140;
+ d=1e100.net; s=20251104; t=1780066574; x=1780671374;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=pmSOuhBgxBhu7Is1B1Rw2/yoQpGrUuGnNNhQRjRyvrQ=;
- b=HyQhF9Ka7hvZw0GU0zHj/XwfRO8Hk+jJkkAEa3rsMGaq/nAzhFMUHEMRmF8VKqcHME
- CqD287968sPG0tSUTPhL90/OLZIgxXNyFsEMX3v8sS2N8MuviF49YVFUnaXjuPNGX1pe
- V7lK5h30dSGmsd/wR07lgfumx5kJByGUmBy0IWgQPz966TmyzkeyKIHltpOFPpc1iZn4
- cFS9Kmx9ZfOl2Mv5TyQCOp/I5buJw1vLRYj1ZVIJHleC1Rds1yzveHekYSwOTZ4+C3Ka
- WiK7gdgbfyDGr95AlSfLp1WO4ePlyGULWZcXa6GM1Gw5LTI3tsvyXYN4+QQuoRqopJgH
- TlLw==
+ bh=4sxBURKEIs5vdCG6YL1mHOm0YuBgobmnmOVB3aNVSj0=;
+ b=hE9q60FAzsxNhLkYAa1wvty4BGdAQfAIefSz9auYyfWe8YQ0qrPgXu8pFAUqN89QG6
+ +h/CBXoPb3PG8bEBBnYURpq44Iw8zzUmhXsayDdJzkczTzQ7FO9Zfms09DlxW2nTx0/C
+ I75cOa+wyndMpJojZZA6CFdMncxSu1xSbKmV7ObQJoWpfZiPAN3USLIrxftXg07Ta53I
+ bgFaVXP0QW0VPlmNPFkA84INouD9OV1XGuC5gQc/56YA40I59RPAQzU4LtDOeSfwBxly
+ Dr2fWulB5I8DamjxAkspLT2Fmlq7lLYF5Oh5jZEALbiOCYjSDU4KktMTcn1jNAXwSFGE
+ /6Tg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+mVWSw6oYOGFDgHj3cS0Kw8FMuDaPsXMsNTIqxHKzu/7rh5hJ4JdaNGn5TWUHqIqByJPzGqU679ns=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy2KpZeMeosGhzmvXduP7sWHwc/+OUhYpAUloQJYItEwVpNjdxv
- 4OEFEkgO7xzA5NkgA+DBIpD3z5Wt0RIuE/LcabUw8H4/r291XXnTDyQEb51f2A55KRM=
-X-Gm-Gg: Acq92OEdmmMettaAIJ3xr7+35DKx/e7Ha5LD/uBI+rHacuqiuzOTyY+C92XnTNsEsST
- H84D/mONmz8ydSGXByluiwT+Rxm1jCebglMsRmYV4DlrrOoN9fHwl5Gct7cOMOPe9afWkVPxXnI
- uFGEp/3A8nPtN2yEMSIAXhfHYXa+KlSZxGulo/UNhoy7eUfbaxbQUAaWtlFGyagxZNua7uzPtGv
- BcUjpvQUlQwMUEcjCgFki04fisIcPLR7cAl9GGy8+xQEofT+Jj7gXh8oCSjnSAkeASJr8hMVvsQ
- zfISEPohCPxQdxwVv07hN45d3tfBXM8JMXUsIMYINJ4zL5sl2T1fwJEpTKDtvVElAsPvaB3AJ9h
- 7eeiHOLGdLqdtd15rnNoKJSJAjnKGLr3pjEpUb9+cyEsX16ROd0+CzJjdI8cflr4BnLEeFqlPIX
- bpTcoAiwGU4pdoBpi7yKN2aEMUfvPk5Fiv3vXbsxAxr6qjVlyyz2/Rg/MNBE6jHx96tmCFog==
-X-Received: by 2002:a05:600c:1453:b0:490:9536:c513 with SMTP id
- 5b1f17b1804b1-4909c0b0012mr41744015e9.19.1780066339778; 
- Fri, 29 May 2026 07:52:19 -0700 (PDT)
+ AFNElJ9ATsuMDQPv1FFJlwg1FtVzhrTum1XoCijG1c0c38/279l71i4LwJtKystIQK+MqN5sBD5ER9uaIek=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzkiGWHuNcMXbYfDgZ1Kh+n3Ih0hn/scil+7pcBRzGqkfk1KU9h
+ Bqm/qHDThi+Ke8EtAs3gN0Zz83RVNovv0JHIFjFwABi3CoCPg8fYBpmrThO4QGatp60=
+X-Gm-Gg: Acq92OHH6FiOrNvdH1CKrhYHQJ/1xwff6+sHQtmt+kmM/qN90GofGSWOn2YeuUYeqPu
+ 5lx+0DaK27zJ+eDqsHDxpm3i39r5h6IONwTs7XE4FX4A5zlUbL/Q7yZ9LV7eGoJd11R9AQctQhJ
+ 6d+QAQNAFhNBcpS5JoX7I0E8oyGAzAh1Ei8RnlDwDgo+lP2zJVXok24MF9NIgdVrqoBc1mPoFFx
+ jOOrp2WTK1nhw5G2E176wnCF2WJkuIdfRAO+s5M8d29cpnvqSqqvv5BHT/wQuUl6c+wxNW4xFJu
+ mMq+FGlpqmlg1+zzhYZ3pcl5Mj0zegHhJLEnjOU5G/z9rzNFx/j2aEUDv1sy1iXHJliYJ3/XKvI
+ 0LePZyzIrI0gUgiSaQ7oXOsts5LpLh0XudsozADlodRC8KDFZhctziHeHOONhrgdGBjEBSRtDod
+ rNVSxeFurLmMmF9q2DTfAapXY5tPRnO3aFMq4MOsivsl8kBNVKOU/zpBi7ic8=
+X-Received: by 2002:a05:600c:4e55:b0:48a:9428:5522 with SMTP id
+ 5b1f17b1804b1-4909c0a7eeemr64821725e9.16.1780066573715; 
+ Fri, 29 May 2026 07:56:13 -0700 (PDT)
 Received: from localhost.localdomain (nat2.prg.suse.com. [195.250.132.146])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4909d696f25sm62858365e9.5.2026.05.29.07.52.18
+ 5b1f17b1804b1-4909dff2a80sm51054325e9.3.2026.05.29.07.56.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 May 2026 07:52:19 -0700 (PDT)
-Date: Fri, 29 May 2026 16:52:17 +0200
+ Fri, 29 May 2026 07:56:13 -0700 (PDT)
+Date: Fri, 29 May 2026 16:56:11 +0200
 From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
 To: Eric Chanudet <echanude@redhat.com>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, Maarten Lankhorst <dev@lankhorst.se>,
- Maxime Ripard <mripard@kernel.org>, Natalie Vock <natalie.vock@gmx.de>,
- Tejun Heo <tj@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, "T.J. Mercier" <tjmercier@google.com>,
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
+ Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
+ Natalie Vock <natalie.vock@gmx.de>, Tejun Heo <tj@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, cgroups@vger.kernel.org,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ "T.J. Mercier" <tjmercier@google.com>,
  Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
  Maxime Ripard <mripard@redhat.com>, Albert Esteve <aesteve@redhat.com>, 
  Dave Airlie <airlied@gmail.com>, linux-doc@vger.kernel.org
 Subject: Re: [PATCH v2 1/2] mm/memcontrol: add dmem charge/uncharge functions
-Message-ID: <ahmceQfFPpXa_6Qe@localhost.localdomain>
+Message-ID: <ahmoDiQ8Q11xUgtV@localhost.localdomain>
 References: <20260519-cgroup-dmem-memcg-double-charge-v2-0-db4d1407062b@redhat.com>
  <20260519-cgroup-dmem-memcg-double-charge-v2-1-db4d1407062b@redhat.com>
- <ahB7pCu_G4vuswc0@linux.dev> <ahWfypvuTVsB-pHQ@x1nano>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="rw7fy7kfpwloyodg"
+ protocol="application/pgp-signature"; boundary="rwilhpywdsxyo6sd"
 Content-Disposition: inline
-In-Reply-To: <ahWfypvuTVsB-pHQ@x1nano>
+In-Reply-To: <20260519-cgroup-dmem-memcg-double-charge-v2-1-db4d1407062b@redhat.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,54 +103,51 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---rw7fy7kfpwloyodg
+--rwilhpywdsxyo6sd
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 Subject: Re: [PATCH v2 1/2] mm/memcontrol: add dmem charge/uncharge functions
 MIME-Version: 1.0
 
-On Wed, May 27, 2026 at 03:10:47PM -0400, Eric Chanudet <echanude@redhat.co=
-m> wrote:
-> but that made me realize there is a catch with
-> this patch set, with something like:
-> A: +memory{max:32M}/+dmem
-> A/B: +memory{max:16M}
->=20
-> It gets the CSS from the dmem's cgroup with
->   cgroup_get_e_css(cgrp, &memory_cgrp_subsys);
->   mem_cgroup_from_css(mem_css);
->=20
-> Which would resolve to A's memcg and not enforce the memory.max limit
-> set in B when dmem.memcg is set for that region.
+On Tue, May 19, 2026 at 11:59:01AM -0400, Eric Chanudet <echanude@redhat.com> wrote:
+> +/**
+> + * mem_cgroup_dmem_uncharge - uncharge memcg from a dmem pool allocation
+> + * @cgrp: cgroup of the dmem pool
+> + * @nr_pages: number of pages to uncharge
+> + */
+> +void mem_cgroup_dmem_uncharge(struct cgroup *cgrp, unsigned int nr_pages)
+> +{
+> +	struct cgroup_subsys_state *mem_css;
+> +	struct mem_cgroup *memcg;
+> +
+> +	/* CGROUP_DMEM and MEMCG guarantees this cannot be NULL. */
+> +	mem_css = cgroup_get_e_css(cgrp, &memory_cgrp_subsys);
+> +
+> +	memcg = mem_cgroup_from_css(mem_css);
+> +	if (!memcg || mem_cgroup_is_root(memcg)) {
+> +		css_put(mem_css);
+> +		return;
+> +	}
+> +
+> +	mod_memcg_state(memcg, MEMCG_DMEM, -nr_pages);
+> +	refill_stock(memcg, nr_pages);
 
-One perspective is that this is in accordance with dmem's limit granularity.
-If the user wanted to distinguish dmem charges below A, they need to
-enable the controller there too. IOW, the depends_on in one direction is
-correct. dmem is primary when it comes to those charges and memcg
-secondary.
+This doesn't look right.
+Here should be memcg_uncharge().
 
-Another possibility would be to always use the highest precision
-available (wrt where current resides) and then the API should refer to
-struct cgroup from task_dfl_cgroup(current) (and make this only
-available on v2), or to struct css_set and extract respective subsys
-csses in the double charging function.
-
-In either case, it's worth mentioning the behavior in the dmem docs.
-
-HTH,
+Regards,
 Michal
 
---rw7fy7kfpwloyodg
+--rwilhpywdsxyo6sd
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCahmoHRsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+Ahb7AD/ReCU/1qelso4Se3AlOZq
-R+fmGmGVDlgPYs7gBkJUqqEBALvZg8zd4ig7QW/B4SdBdSv8RGm7SPB7R9vTNMP8
-dKYO
-=3pZx
+iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCahmpBxsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AjhCQEAr+BVWEm8zFPKmbprS/Y0
+DGDmEkJvmxq53yv7/M98beIA/RFe/RMHQUNUp4via8ejOQCz9uiKLY1q3PFlk5c+
+ByIA
+=eOXW
 -----END PGP SIGNATURE-----
 
---rw7fy7kfpwloyodg--
+--rwilhpywdsxyo6sd--
