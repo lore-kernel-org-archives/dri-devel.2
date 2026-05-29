@@ -4,55 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D7E0CD6E45
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 09:08:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F4100CD5BD2
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 09:20:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 874F310FB7F;
-	Fri, 29 May 2026 09:08:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F42510FBA7;
+	Fri, 29 May 2026 09:20:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X1KsMRvl";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="AGaCOPVK";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01C0E10FB7E
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 09:08:32 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 243C960564;
- Fri, 29 May 2026 09:08:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55181F00893;
- Fri, 29 May 2026 09:08:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780045711;
- bh=SJhCBNK1z06eHdQUaoXs+yc4q80tlftXqJh3f219zPs=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=X1KsMRvlEDqxH6HNt/sLZgqvC6pDIHPcOnX3zD0c2VF1uncQ83dO7ICSK4kHtlu6y
- txTfvgvkcC5u4WQ3Ic2CcKYtM2Vt5r+5HVL+gbsCV/AOXWpv6WgQEdkmnAARpTqMrZ
- 0knmKymZLqVmnD5eJWszccrsioEQX5Tnf+S7y759DKhWLq/2pjPTlGrfUw32OTGqC7
- x0BKMy7E/SnaQ8nvlkNq3mGvcMKOwdDwHw8yDYCVt8gBjRm6IhIhFkCJjQ1Z6bUBjq
- 5vpfX8fdsIezybD6WxANkb0tYH1L1r4NuCiBjv4AwrEjJxapFBlYQz1bZfyrulY3Yh
- EsxthgMwu0iAw==
-Date: Fri, 29 May 2026 10:08:19 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, Jingoo
- Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Helge Deller <deller@gmx.de>, Johan Hovold <johan@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v2 2/6] mfd: lm3533: Convert to use OF bindings
-Message-ID: <20260529100819.1823ebb3@jic23-huawei>
-In-Reply-To: <CAPVz0n0qCekQVGGyAyBuYv+RKC6bpydYBLJNGfPrgTYjtOJOuA@mail.gmail.com>
-References: <20260528135123.103745-1-clamor95@gmail.com>
- <20260528135123.103745-3-clamor95@gmail.com>
- <20260528155001.2bcb7003@jic23-huawei>
- <CAPVz0n0qCekQVGGyAyBuYv+RKC6bpydYBLJNGfPrgTYjtOJOuA@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EFFB10FBA7
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 09:20:49 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gRdBG1g1Fz9v5S;
+ Fri, 29 May 2026 11:20:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1780046446; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=246KX2myjlNcYzwRwcWKy96PrTmzZx2ijjurnCdjG/0=;
+ b=AGaCOPVKlp3BHEmYyG4N+p4NHcXc800gFj1gnxEPQLCp8Zu5m8aM6l2EOi5xPgvloJXNM6
+ Mf31A3k3jn/VmclNtdwFCsrc8vYHJczKjYt7sxeUbVT6bGpdd25Hu1Hem/xGYGzeRnzq8E
+ YwqnTnl8aJ2ysB+POlbla3JGFnMtftvOSB6gvf/bKbREoFwIYzBCJ7cDEj8wdDa7THS7CA
+ h0TxpPa/nu67TJMw1zyod5JUwAXC1oFDL+oceJ+hGCT1r4PxAB2g/m1sD2jHq/pheYk25Q
+ CMuvGEO2mxvoTEUOyfgme48XeSHKL7sHbguuJnOErrp/FntoERAMjdo7Cd3UvA==
+Authentication-Results: outgoing_mbo_mout; dkim=none;
+ spf=pass (outgoing_mbo_mout: domain of phasta@mailbox.org designates
+ 2001:67c:2050:b231:465::102 as permitted sender)
+ smtp.mailfrom=phasta@mailbox.org
+Message-ID: <db213e09d23fb2e3315059b9f3c2dd9d3b9bee4e.camel@mailbox.org>
+Subject: Re: [PATCH] drm/sched: Fix clang build warning in kunit tests
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, kernel test robot <lkp@intel.com>
+Date: Fri, 29 May 2026 11:20:27 +0200
+In-Reply-To: <8a65c09e-c03a-43ce-94af-cbf5c4fcef94@igalia.com>
+References: <20260522090129.9385-1-tvrtko.ursulin@igalia.com>
+ <23df1e8b17c4ba5a9106b84a65e092ebd54fee42.camel@mailbox.org>
+ <f01ffd7e-7a20-496e-9a7a-0f75a500be0c@igalia.com>
+ <8a65c09e-c03a-43ce-94af-cbf5c4fcef94@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MBO-RS-ID: 0cf59a20dd2f122545b
+X-MBO-RS-META: dbwufjj7komimjtfrbx7edi44xoq4kdm
+X-Rspamd-Queue-Id: 4gRdBG1g1Fz9v5S
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,260 +69,167 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 28 May 2026 18:03:31 +0300
-Svyatoslav Ryhel <clamor95@gmail.com> wrote:
-
-> =D1=87=D1=82, 28 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 17=
-:50 Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > On Thu, 28 May 2026 16:51:19 +0300
-> > Svyatoslav Ryhel <clamor95@gmail.com> wrote:
-> > =20
-> > > Since there are no users of this driver via platform data, remove the
-> > > platform data support and switch to using Device Tree bindings.
-> > > Additionally, optimize functions used only by platform data. =20
-> >
-> >
-> > At least the IIO ones would have made much the same amount of sense for
-> > dt, just that they weren't having in the first place. I'd prefer that
-
-Gah. I write gibberish after too much reviewing.  having/helping!
-
-> > as a precursor patch to make the rest much more readable.
-> > =20
+On Fri, 2026-05-29 at 08:16 +0100, Tvrtko Ursulin wrote:
 >=20
-> I can add you preferences into this commit, I don't mind.
->=20
-> > >
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com> =20
-> >
-> > I only looked in detail at the iio bit. A few changes requested.
-> > =20
-> > > ---
-> > >  drivers/iio/light/lm3533-als.c      |  95 ++++------
-> > >  drivers/leds/leds-lm3533.c          |  51 ++++--
-> > >  drivers/mfd/lm3533-core.c           | 268 ++++++++++----------------=
---
-> > >  drivers/video/backlight/lm3533_bl.c |  52 ++++--
-> > >  include/linux/mfd/lm3533.h          |  51 +-----
-> > >  5 files changed, 212 insertions(+), 305 deletions(-)
-> > >
-> > > diff --git a/drivers/iio/light/lm3533-als.c b/drivers/iio/light/lm353=
-3-als.c
-> > > index 99f0b903018c..cbd337b73bd9 100644
-> > > --- a/drivers/iio/light/lm3533-als.c
-> > > +++ b/drivers/iio/light/lm3533-als.c =20
-> > =20
-> > > @@ -714,59 +720,33 @@ static const struct attribute_group lm3533_als_=
-attribute_group =3D {
-> > >       .attrs =3D lm3533_als_attributes
-> > >  };
-> > >
-> > > -static int lm3533_als_set_input_mode(struct lm3533_als *als, bool pw=
-m_mode)
-> > > +static int lm3533_als_setup(struct lm3533_als *als)
-> > >  {
-> > > -     u8 mask =3D LM3533_ALS_INPUT_MODE_MASK;
-> > > -     u8 val;
-> > > +     struct device *dev =3D &als->pdev.dev;
-> > >       int ret;
-> > >
-> > > -     if (pwm_mode)
-> > > -             val =3D mask;     /* pwm input */
-> > > -     else
-> > > -             val =3D 0;        /* analog input */
-> > > -
-> > > -     ret =3D lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, val, ma=
-sk);
-> > > -     if (ret) {
-> > > -             dev_err(&als->pdev->dev, "failed to set input mode %d\n=
-",
-> > > -                                                             pwm_mod=
-e);
-> > > -             return ret;
-> > > -     }
-> > > -
-> > > -     return 0;
-> > > -}
-> > > -
-> > > -static int lm3533_als_set_resistor(struct lm3533_als *als, u8 val)
-> > > -{
-> > > -     int ret;
-> > > -
-> > > -     if (val < LM3533_ALS_RESISTOR_MIN || val > LM3533_ALS_RESISTOR_=
-MAX) {
-> > > -             dev_err(&als->pdev->dev, "invalid resistor value\n");
-> > > -             return -EINVAL;
-> > > -     }
-> > > -
-> > > -     ret =3D lm3533_write(als->lm3533, LM3533_REG_ALS_RESISTOR_SELEC=
-T, val);
-> > > -     if (ret) {
-> > > -             dev_err(&als->pdev->dev, "failed to set resistor\n");
-> > > -             return ret;
-> > > -     }
-> > > +     device_property_read_u32(dev, "ti,resistor-value-ohm",
-> > > +                              &als->r_select); =20
-> > Does this have a default?  If so the pattern we've recently be setting =
-on for IIO
-> > is
-> >         if (device_property_present(dev, "ti,resistor-value-ohm"))
-> >                 ret =3D device_property_read_u32();
-> >                 if (ret) //corrupt property in some fashion
-> >                         return ret;
-> >         } else {
-> >                 //set default
-> >         }
-> > If there is no default then check it unconditionally. =20
->=20
-> default value is LM3533_ALS_RESISTOR_MIN and if no property is present
-> clamp will ensure that als->r_select will be set to
-> LM3533_ALS_RESISTOR_MIN
-
-I don't see that default in the binding doc and relying in the 0 being clam=
-ped
-isn't particularly readable - I'd set it explicitly.
-
-
->=20
-> > =20
-> > >
-> > > -     return 0;
-> > > -}
-> > > +     als->r_select =3D clamp(als->r_select, LM3533_ALS_RESISTOR_MIN,
-> > > +                           LM3533_ALS_RESISTOR_MAX);
-> > > +     als->r_select =3D DIV_ROUND_UP(2 * MICRO, 10 * als->r_select);
-> > >
-> > > -static int lm3533_als_setup(struct lm3533_als *als,
-> > > -                         const struct lm3533_als_platform_data *pdat=
-a)
-> > > -{
-> > > -     int ret;
-> > > +     als->pwm_mode =3D device_property_read_bool(dev, "ti,pwm-mode");
-> > >
-> > > -     ret =3D lm3533_als_set_input_mode(als, pdata->pwm_mode);
-> > > +     ret =3D lm3533_update(lm3533, LM3533_REG_ALS_CONF, als->pwm_mod=
-e ?
-> > > +                         LM3533_ALS_INPUT_MODE_MASK : 0, =20
-> >
-> > That's ugly.  Better as
-> >
-> >         ret =3D lm3533_update(lm3533, LM3533_REG_ALS_CONF,
-> >                             als->pwm_mode ? LM3533_ALS_INPUT_MODE_MASK =
-: 0,
-> > =20
->=20
-> Yes sure, just followed 80 char limit.
->=20
-> > Though if there wasn't a layer hiding the regmap, it could just have be=
-en
-> >
-> >         ret =3D regmap_assign_bits(lm3533->regmap, LM3533_REG_ALS_CONF,
-> >                                  LM3533_ALS_INPUT_MODE_MASK, als->pwm_m=
-ode);;
-> >
-> > which would have been nicer.
-> >
-> > I'm not particularly keen on the swashing of the helpers being in a pat=
+> On 28/05/2026 14:38, Tvrtko Ursulin wrote:
+> >=20
+> > On 28/05/2026 14:03, Philipp Stanner wrote:
+> > > Yo Tvrtko,
+> > >=20
+> > > On Fri, 2026-05-22 at 10:01 +0100, Tvrtko Ursulin wrote:
+> > > > Initializing compile time constant struct or arrays from another su=
 ch
-
-smashing.  (this definitely wasn't my best effort at English!)
-
-> > that is about switching the binding type as feels largely unrelated.
-> > Should really have been a precursor, easier to review patch.
-> > =20
+> > > > variable is a gcc extension, while clang strictly requires a compil=
+e=20
+> > > > time
+> > > > constant literal.
+> > > >=20
+> > > > As reported by LKP:
+> > > >=20
+> > > > > > drivers/gpu/drm/scheduler/tests/tests_scheduler.c:675:10: error=
+:=20
+> > > > > > initializer element is not a compile-time constant
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_schedul=
+er_two_clients_attr),
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ^~~~~~~~~~~~~~~~~=
+~~~~~~~~~~~~~~~~~~~
+> > > > =C2=A0=C2=A0=C2=A0 include/kunit/test.h:224:13: note: expanded from=
+ macro=20
+> > > > 'KUNIT_CASE_PARAM_ATTR'
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .attr =3D attr=
+ibutes, .module_name =3D KBUILD_MODNAME}
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ^~~~~~~~~~
+> > > > =C2=A0=C2=A0=C2=A0 1 error generated.
+> > >=20
+> > > Hmm, is it now a build error, or a build warning? The commit title sa=
+ys
+> > > "warning".
+> > >=20
+> > > Depending on what it really is, where should it go, misc-next or misc=
+-
+> > > fixes?
+> >=20
+> > Right, warning or error it depends if someone enabled CONFIG_DRM_WERROR=
+.
+> >=20
+> > According to drm-misc commiter guidelines, since we are in -rc5, it can=
+=20
+> > go to drm-misc-next.
 >=20
-> Removing of lm3533_update layer is not the scope of this patchset.
+> Now it's=C2=A0 drm-misc-next-fixes I think since Maarten sent the last=
+=20
+> drm-misc-next pull request yesterday.
 
-Understood.  I'm fine with just the refactor you are doing brought out as a=
- precursor
-patch.
+Acked-by: Philipp Stanner <phasta@kernel.org>
 
->=20
-> > =20
-> > > +                         LM3533_ALS_INPUT_MODE_MASK);
-> > >       if (ret)
-> > > -             return ret;
-> > > +             return dev_err_probe(dev, ret, "failed to set input mod=
-e %d\n",
-> > > +                                  als->pwm_mode);
-> > >
-> > >       /* ALS input is always high impedance in PWM-mode. */
-> > > -     if (!pdata->pwm_mode) {
-> > > -             ret =3D lm3533_als_set_resistor(als, pdata->r_select);
-> > > +     if (!als->pwm_mode) {
-> > > +             ret =3D lm3533_write(lm3533, LM3533_REG_ALS_RESISTOR_SE=
-LECT,
-> > > +                                (u8)als->r_select); =20
-> >
-> > Same applies here. Mostly an unrelated change as the only thing switchi=
-ng that
-> > is related to the patch is one parameter.
-> > =20
->=20
-> Removing of lm3533_write layer is not the scope of this patchset.
->=20
-> > >               if (ret)
-> > > -                     return ret;
-> > > +                     return dev_err_probe(dev, ret, "failed to set r=
-esistor\n");
-> > >       }
-> > >
-> > >       return 0; =20
-> > =20
-> > > @@ -852,25 +825,28 @@ static int lm3533_als_probe(struct platform_dev=
-ice *pdev)
-> > >       indio_dev->channels =3D lm3533_als_channels;
-> > >       indio_dev->num_channels =3D ARRAY_SIZE(lm3533_als_channels);
-> > >       indio_dev->name =3D dev_name(&pdev->dev);
-> > > -     iio_device_set_parent(indio_dev, pdev->dev.parent); =20
-> >
-> > I'm not sure why this was there in the first place.  Hence not sure if =
-it
-> > is safe to remove.
-> > =20
->=20
-> This is directly related to OF conversion. The iio_device_set_parent
-> bound indio_dev to parent, and it causes problems with OF now since
-> als output has its own node and binding it to parent if wrong. Same
-> story for backlight and leds btw.
+Feel free to do that as you see fit
 
-Is there any risk anyone was using the canonical path to get to the iio dev?
-/sys/bus/platform/devices/..../iio\:deviceX
-This is technically an ABI change be it a subtle one.
-
+Thx
+P.
 
 >=20
-> > =20
-> > > diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
-> > > index 45795f2a1042..d707d43d5526 100644
-> > > --- a/drivers/leds/leds-lm3533.c
-> > > +++ b/drivers/leds/leds-lm3533.c =20
-> > =20
-> > >
-> > >       led->cb.dev =3D led->cdev.dev;
-> > >
-> > > -     ret =3D lm3533_led_setup(led, pdata);
-> > > +     device_property_read_u32(&pdev->dev, "led-max-microamp",
-> > > +                              &led->max_current); =20
-> >
-> > I'd prefer explicit setting of the default to be visible before this, or
-> > the property_present pattern I mention in the IIO review above.
-> > =20
+> Regards,
 >=20
-> clamp will ensure that led->max_current will be set to
-> LM3533_LED_MAX_CURRENT_MIN regardless if it it present
-
-As above, I'd prefer it set explicitly.
-
+> Tvrtko
 >=20
-> > > +     led->max_current =3D clamp(led->max_current, LM3533_LED_MAX_CUR=
-RENT_MIN,
-> > > +                              LM3533_LED_MAX_CURRENT_MAX); =20
-> >
-> > I didn't look any further (busy day!) =20
+> > > > vim +675 drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+> > > >=20
+> > > > =C2=A0=C2=A0=C2=A0 671
+> > > > =C2=A0=C2=A0=C2=A0 672=C2=A0=C2=A0=C2=A0 static struct kunit_case=
+=20
+> > > > drm_sched_scheduler_two_clients_tests[] =3D {
+> > > > =C2=A0=C2=A0=C2=A0 673=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=20
+> > > > KUNIT_CASE_PARAM_ATTR(drm_sched_scheduler_two_clients_test,
+> > > > =C2=A0=C2=A0=C2=A0 674=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 drm_sched_scheduler_two_clients_gen_params,
+> > > > =C2=A0=C2=A0> 675=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 d=
+rm_sched_scheduler_two_clients_attr),
+> > > > =C2=A0=C2=A0=C2=A0 676=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 {}
+> > > > =C2=A0=C2=A0=C2=A0 677=C2=A0=C2=A0=C2=A0 };
+> > > > =C2=A0=C2=A0=C2=A0 678
+> > > >=20
+> > > > Fix it by using a compound literal as other tests do.
+> > > >=20
+> > > > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> > > > Reported-by: kernel test robot <lkp@intel.com>
+> > > > Closes: https://lore.kernel.org/oe-kbuild-all/202605220312.Pu7UO05u=
+-=20
+> > > > lkp@intel.com/
+> > > > Fixes: 97ef806a5314 ("drm/sched: Add some scheduling quality unit=
+=20
+> > > > tests")
+> > > > Cc: Philipp Stanner <phasta@kernel.org>
+> > > > ---
+> > > > =C2=A0=C2=A0drivers/gpu/drm/scheduler/tests/tests_scheduler.c | 12 =
+++----------
+> > > > =C2=A0=C2=A01 file changed, 2 insertions(+), 10 deletions(-)
+> > > >=20
+> > > > diff --git a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c b/=
+=20
+> > > > drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+> > > > index 8b2e4ef9915f..90d31888cf92 100644
+> > > > --- a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+> > > > +++ b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+> > > > @@ -666,14 +666,10 @@ static void=20
+> > > > drm_sched_scheduler_two_clients_test(struct kunit *test)
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> > > > =C2=A0=C2=A0}
+> > > > -static const struct kunit_attributes=20
+> > > > drm_sched_scheduler_two_clients_attr =3D {
+> > > > -=C2=A0=C2=A0=C2=A0 .speed =3D KUNIT_SPEED_SLOW,
+> > > > -};
+> > > > -
+> > > > =C2=A0=C2=A0static struct kunit_case drm_sched_scheduler_two_client=
+s_tests[] =3D {
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 KUNIT_CASE_PARAM_ATTR(drm_sched_sche=
+duler_two_clients_test,
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_scheduler_two_clients=
+_gen_params,
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_scheduler_two_clients_attr),
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 { .speed =3D KUNIT_SPEED_SLOW }),
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 {}
+> > > > =C2=A0=C2=A0};
+> > > > @@ -858,14 +854,10 @@ static void=20
+> > > > drm_sched_scheduler_many_clients_test(struct kunit *test)
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_mock_sch=
+ed_entity_free(client[i].entity);
+> > > > =C2=A0=C2=A0}
+> > > > -static const struct kunit_attributes=20
+> > > > drm_sched_scheduler_many_clients_attr =3D {
+> > > > -=C2=A0=C2=A0=C2=A0 .speed =3D KUNIT_SPEED_SLOW,
+> > > > -};
+> > > > -
+> > > > =C2=A0=C2=A0static struct kunit_case drm_sched_scheduler_many_clien=
+ts_tests[] =3D {
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 KUNIT_CASE_PARAM_ATTR(drm_sched_sche=
+duler_many_clients_test,
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_scheduler_many_client=
+s_gen_params,
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_scheduler_many_clients_attr),
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 { .speed =3D KUNIT_SPEED_SLOW }),
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 {}
+> > > > =C2=A0=C2=A0};
+> > >=20
+> >=20
 >=20
 
