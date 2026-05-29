@@ -4,37 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32412CD6E50
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4FF8CD6E51
 	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 08:47:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FF1710FB13;
-	Fri, 29 May 2026 08:47:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8138410FB16;
+	Fri, 29 May 2026 08:47:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="CRAxuqhC";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="FEJWxiuG";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27F0F10FB03
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 08:47:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEDED10FB09
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 08:47:28 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1C7861337;
- Fri, 29 May 2026 10:46:57 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id C2E7C291F;
+ Fri, 29 May 2026 10:47:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1780044418;
- bh=5YxUz6t3BXJWUpNuKRYQwWhOjTfHf/XO0P/Y8t9xq0U=;
+ s=mail; t=1780044427;
+ bh=vNhPG3gt1iNAQede4sSDJktbqWiYm6dT9TVVZYkS1Jg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=CRAxuqhCyy0hKdFEdWOhxWyGdseJ+JNIy4pFSr6DytelAKX+/x99moTNG+I6yh621
- DpsQzUoLF77lIvrh5zBpbAvEDi1ITqEkNT+GnmeDX/Qm1LEPxVW8HG5Y56bDW45YJz
- 6CZvoKa92kIC3mPOGROmW1sSafazk5+w9cEwB9kI=
+ b=FEJWxiuGF6wP43Zgf6HmN+hw5/smgGyVqtB4l7IhSWldva1WPbDZuh326o1XCzM1H
+ rOQHoCr5idk+QvHidVh0SNy9IZvdXCkzWVmG5fYYGBT2gHMUdTp6sOphGbMrU6X9t6
+ UQUWmhgfDR0r2TNWls/y6yRL2+7o13NkYNln+eBY=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Fri, 29 May 2026 11:45:33 +0300
-Subject: [PATCH v3 03/15] dt-bindings: display: ti,am625-oldi: Add optional
- power-domain for OLDI
+Date: Fri, 29 May 2026 11:45:41 +0300
+Subject: [PATCH v3 11/15] drm/tidss: oldi: Fix OLDI signal polarities
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260529-beagley-ai-display-v3-3-7fefdc5d1adf@ideasonboard.com>
+Message-Id: <20260529-beagley-ai-display-v3-11-7fefdc5d1adf@ideasonboard.com>
 References: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
 In-Reply-To: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -50,21 +49,21 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=939;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4997;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=5YxUz6t3BXJWUpNuKRYQwWhOjTfHf/XO0P/Y8t9xq0U=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqGVKMTj/FUyRipkwsdk72Ss6R7PRhPUsMoVJZ8
- LCgzs65T1uJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCahlSjAAKCRD6PaqMvJYe
- 9U+RD/4m6jAQuBSloXMV8SWmCRgUkW3VaAIDeBY4Q/enD7xkwLyiXj/Liiz/uzwa/QXXj+cV0w+
- gqefzcfjvSplemjRn4r7t0Rh+u9FbT1IpskWQDfBy99PSxY8jdw2CDjozXfTQ7Oc6QQg8Du9Nqt
- KKNYRO/oOPg3fqucOFml++5/Ktyc0Pj/em41KQnM+jUp3f7VeKkYskfJa3X2Eu0pZgm40VSAej/
- hZlS+yn91hIibSCNkoS/nisZd7/rg+vYUByDeuTW/NaSwCFqkzEVEqKODt89PxAdhtlPuXsxp9D
- FW64dCvzjMppmcItyB7lozMU8exWu3HCxecHWfB2m5jzjb4BGUPawS4wPGzKu778OLP1lj4F/zI
- T8agNerWcBugPMvZSEgwAavcCuGaX3a7XbAj53H7nCtnRz4Leo6jLuoONZgyDoCjrOA4tvrQiZm
- 95xl9kWaSLMgih+UDR2XZmdydxUkTgxDdtYbuHGxCw93VE4wNc4YyCnFeG1qbk8Ll4cIEb2/mkL
- XSrEB1FWwvzUidpM0YFIF2qHgobPb0jzO+KOwhSwJmgy3hUggC7RxdFvruVpYcQoE1WTb5hzi8/
- 2NOYB6glu1ZJDdIVcpUycL2PSltIcIVYEh9hvKpmsnVc7fLyIWCx+G7pKZOy6uUfwq15x+t2fwb
- S1xuCzkCae9AGIA==
+ bh=vNhPG3gt1iNAQede4sSDJktbqWiYm6dT9TVVZYkS1Jg=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqGVKPLEqXtvNtESuoXqfgthiAenLg0OEjFo3sS
+ qX/TSc7QKGJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCahlSjwAKCRD6PaqMvJYe
+ 9RJ+EACg3qKAWrMv5tLQrO5C/lIMuyM2T0knuft0pt2V9UdgGEUgrzKUuWs349rvbLJBmRX8ydg
+ FWEas6wVr1d9AmMkwrd8piR3kWB4I2hBs2l3EjuyTfUgDsZbbqi1qgRmyryVa7FOhCaU7z25HMN
+ i2H2XprPgWieOip1fXuPbqccc03dLFMVmSp5QiJ0LroWEaDZjiEPUh2X9mXyGQ7vTKXXOAk6wXm
+ AvYhnpTj0akHifeTsJqK+P7qlU1FbWYQrEVb/Qt8ack9NDIXJWtIV+3uCW79bOco0ew6GD5nQ81
+ zWyR+MnG/oKIu7lubA3agXgsioCrGIKVf+QtkbCTR9zqKh6BW+TY8RvtLMuU76kq8Us2Fyv/UeP
+ TqZSpRDiONNrBaayfRvraM/nWmFqCpKKDjuFM11i/qENkf7mp2EaZOKnGjIHcUkWMmdY77v3zve
+ KiEJ8NVIvo7rScfYGtMlPh/2eqNNXhT+jpkH3EvL/dhXqk3qIq/7tQENvifIzv7UCCAO0c4ISWk
+ dVWcF1qhLFSThLlFrXYNcZjQc64lJP6XajSvojo+nFQRSXDL3QaDp1B/Ce482LonEOSrrRYOuWH
+ 2/eRHbsVZ1drjWNhr1JTap7t7dMaMiWPnLNfzgKzo44meepAIkErkNhdhzC3Su6fpOVYucZYYOo
+ rCIEzAoGOAFuoeg==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -82,31 +81,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On some SoCs the OLDI blocks belong to the same power-domain as the main
-DSS block, but on some more recent SoCs the OLDI blocks have a
-controllable power-domain.
+OLDI has a few issues with how it handles the signal polarities:
 
-Add the power-domain to the DT binding.
+- It always sets OLDI_DEPOL, which means DE active low
+- It sets DRM_BUS_FLAG_DE_HIGH in struct drm_bridge_timings, i.e.
+  reverse to the OLDI_DEPOL
+- It sets DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE in struct drm_bridge_timings,
+  but the TRM says "The DSS interface is clocked on the rising edge of
+  OLDI_FWD_P_CLK pixel clock", which I read as "OLDI samples on rising
+  edge".
+- But the defined drm_bridge_timings is not actually used anywhere, even
+  if it is set to bridge->timings, so the bus flags are just ignored.
 
+However, based on my testing, OLDI_DEPOL bit or the edge on which data
+and syncs are driven doesn't seem to affect the OLDI output. Possibly
+it's not as robust, but I did not see any effect with an oscilloscope.
+
+However, the code is still quite broken, so let's fix it:
+- Remove drm_bridge_timings
+- Set the correct input_bus_cfg.flags in tidss_oldi_atomic_check()
+- Set OLDI_DEPOL based on the DE bus flag
+
+Tested-by: Swamil Jain <s-jain1@ti.com>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- Documentation/devicetree/bindings/display/ti/ti,am625-oldi.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/tidss/tidss_oldi.c | 38 ++++++++++++++++++++++++++++----------
+ 1 file changed, 28 insertions(+), 10 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/ti/ti,am625-oldi.yaml b/Documentation/devicetree/bindings/display/ti/ti,am625-oldi.yaml
-index 8203ec5e5bb3..5dbf1f76dd3f 100644
---- a/Documentation/devicetree/bindings/display/ti/ti,am625-oldi.yaml
-+++ b/Documentation/devicetree/bindings/display/ti/ti,am625-oldi.yaml
-@@ -29,6 +29,9 @@ properties:
-   clock-names:
-     const: serial
+diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
+index 17c535bfa057..e925ddaa4fd6 100644
+--- a/drivers/gpu/drm/tidss/tidss_oldi.c
++++ b/drivers/gpu/drm/tidss/tidss_oldi.c
+@@ -164,7 +164,8 @@ static void tidss_oldi_tx_power(struct tidss_oldi *oldi, bool enable)
+ 	regmap_update_bits(oldi->io_ctrl, OLDI_PD_CTRL, mask, enable ? 0 : mask);
+ }
  
-+  power-domains:
-+    maxItems: 1
+-static int tidss_oldi_config(struct tidss_oldi *oldi)
++static int tidss_oldi_config(struct tidss_oldi *oldi,
++			     struct drm_bridge_state *bridge_state)
+ {
+ 	const struct oldi_bus_format *bus_fmt = NULL;
+ 	u32 oldi_cfg = 0;
+@@ -183,7 +184,8 @@ static int tidss_oldi_config(struct tidss_oldi *oldi)
+ 			 "OLDI%u: DSS port width %d not supported\n",
+ 			 oldi->oldi_instance, bus_fmt->data_width);
+ 
+-	oldi_cfg |= OLDI_DEPOL;
++	if (bridge_state->input_bus_cfg.flags & DRM_BUS_FLAG_DE_LOW)
++		oldi_cfg |= OLDI_DEPOL; /* 1 = active low */
+ 
+ 	oldi_cfg = (oldi_cfg & (~OLDI_MAP)) | (bus_fmt->oldi_mode_reg_val << 1);
+ 
+@@ -220,6 +222,22 @@ static int tidss_oldi_config(struct tidss_oldi *oldi)
+ 	return ret;
+ }
+ 
++static int tidss_oldi_atomic_check(struct drm_bridge *bridge,
++				   struct drm_bridge_state *bridge_state,
++				   struct drm_crtc_state *crtc_state,
++				   struct drm_connector_state *conn_state)
++{
++	bridge_state->input_bus_cfg.flags &=
++		~(DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE |
++		  DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE);
 +
-   ti,companion-oldi:
-     $ref: /schemas/types.yaml#/definitions/phandle
-     description:
++	bridge_state->input_bus_cfg.flags |=
++		DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
++		DRM_BUS_FLAG_SYNC_SAMPLE_POSEDGE;
++
++	return 0;
++}
++
+ static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
+ 					 struct drm_atomic_state *state)
+ {
+@@ -228,6 +246,7 @@ static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
+ 	struct drm_connector_state *conn_state;
+ 	struct drm_crtc_state *crtc_state;
+ 	struct drm_display_mode *mode;
++	struct drm_bridge_state *bridge_state;
+ 
+ 	if (oldi->link_type == OLDI_MODE_SECONDARY_CLONE_SINGLE_LINK)
+ 		return;
+@@ -245,10 +264,14 @@ static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
+ 	if (WARN_ON(!crtc_state))
+ 		return;
+ 
++	bridge_state = drm_atomic_get_new_bridge_state(state, bridge);
++	if (WARN_ON(!bridge_state))
++		return;
++
+ 	mode = &crtc_state->adjusted_mode;
+ 
+ 	/* Configure the OLDI params*/
+-	tidss_oldi_config(oldi);
++	tidss_oldi_config(oldi, bridge_state);
+ 
+ 	/* Set the OLDI serial clock (7 times the pixel clock) */
+ 	tidss_oldi_set_serial_clk(oldi, mode->clock * 7 * 1000);
+@@ -329,7 +352,8 @@ tidss_oldi_mode_valid(struct drm_bridge *bridge,
+ }
+ 
+ static const struct drm_bridge_funcs tidss_oldi_bridge_funcs = {
+-	.attach	= tidss_oldi_bridge_attach,
++	.attach = tidss_oldi_bridge_attach,
++	.atomic_check = tidss_oldi_atomic_check,
+ 	.atomic_pre_enable = tidss_oldi_atomic_pre_enable,
+ 	.atomic_post_disable = tidss_oldi_atomic_post_disable,
+ 	.atomic_get_input_bus_fmts = tidss_oldi_atomic_get_input_bus_fmts,
+@@ -440,11 +464,6 @@ static int get_parent_dss_vp(struct device_node *oldi_tx, u32 *parent_vp)
+ 	return -ENODEV;
+ }
+ 
+-static const struct drm_bridge_timings default_tidss_oldi_timings = {
+-	.input_bus_flags = DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE
+-			 | DRM_BUS_FLAG_DE_HIGH,
+-};
+-
+ void tidss_oldi_deinit(struct tidss_device *tidss)
+ {
+ 	for (int i = 0; i < tidss->num_oldis; i++) {
+@@ -598,7 +617,6 @@ int tidss_oldi_init(struct tidss_device *tidss)
+ 		/* Register the bridge. */
+ 		oldi->bridge.of_node = child;
+ 		oldi->bridge.driver_private = oldi;
+-		oldi->bridge.timings = &default_tidss_oldi_timings;
+ 
+ 		tidss->oldis[tidss->num_oldis++] = oldi;
+ 		tidss->is_ext_vp_clk[oldi->parent_vp] = true;
 
 -- 
 2.43.0
