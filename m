@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65533CD6E4C
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 10:01:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A6ABCD6E45
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 10:07:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B70D110FC5A;
-	Fri, 29 May 2026 10:01:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F74F10FC74;
+	Fri, 29 May 2026 10:07:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jzdsUzu7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OGXNYi5s";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B96C10FC5A
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 10:01:32 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DD0110FC6C
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 10:07:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7390E6056E;
- Fri, 29 May 2026 10:01:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 112B61F00893;
- Fri, 29 May 2026 10:01:28 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EC127409AE;
+ Fri, 29 May 2026 10:07:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 043B61F00893;
+ Fri, 29 May 2026 10:07:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780048891;
- bh=mkftG1497aD4Pdh1IFIy0l2/xnbdOjhiCCxVTjY6l8c=;
+ s=k20260515; t=1780049236;
+ bh=lXKf6EfvdGOigOoLkgyY217iW74Ag1v0A+N5KPnAyHc=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=jzdsUzu7sixsZCw9+4zNQNrHc328nlcGG5lKjCztOrywKABZ/1bRkh6Uy+2JgJFzZ
- EgynfvCBGtzZqrfBr68ocw7QVwZsEw4iJL/zvw/qWHkxl3+ffONuMsjwcPECfKdUvk
- TubwT2Iw+eTWcM6XViSglwm8AoFvqR2Qa4wSQtYUT2xCs8L59qvVBPyfABujcsWyXs
- h7ZpvjVoFFjz9lmdPCQHoHf4uZ69KqL0aEvym9N6wFb53Jy1SrozOFMYmlflpCw/sR
- akSAUjYGka0Eo2XmnXptUkA6ttOVoVNg6M5F3Oec4Eq9Qw5AYI+VTbKtqjxeoAsrLT
- UxywWndFFItPQ==
-Date: Fri, 29 May 2026 11:01:26 +0100
+ b=OGXNYi5sCoKbBpMSoTnYkMJq24CnAv2tZyU0np08BylAsUiretKRXFAH5l700jWNn
+ 55IC0jiozhxx2J+i9XwtOevmWmDF+MwGC+j7NaFQIDYRudZCvi/PO13NCKAoZqZcf1
+ isBPuV+ezZGnKLhF4voSUmHkf64Ktv+WvOCzxRFNrjP377q71hKV8VLbsg3klJIaCQ
+ ip860dX0//ShSx0qBiGEJVBRqmJASCfQtFzTnkp1E6u++2IXBVhY9wM7AzmXWjA3a+
+ NWIZ0oBjSdvgW2RBag7JVsDEb9GPBKqrWuyCMjERlvMih8z5ueBTEl890C3ow7M7Gs
+ WDwD7ZdE+U2Bw==
+Date: Fri, 29 May 2026 11:07:11 +0100
 From: Daniel Thompson <danielt@kernel.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
 Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
- Michael Hennerich <michael.hennerich@analog.com>,
- Helge Deller <deller@gmx.de>, Junjie Cao <caojunjie650@gmail.com>,
- Jianhua Lu <lujianhua000@gmail.com>,
- Flavio Suligoi <f.suligoi@asem.it>, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] backlight: Use named initializers for arrays of
- i2c_device_data
-Message-ID: <ahlj9ttqaFwuSADJ@aspen.lan>
-References: <20260518111203.639603-2-u.kleine-koenig@baylibre.com>
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: leds: backlight: document the SY7758
+ 6-channel High Efficiency LED Driver
+Message-ID: <ahllT_HVTAJ5MbkS@aspen.lan>
+References: <20260519-topic-sm8650-ayaneo-pocket-s2-sy7758-v3-0-ec8194bbc885@linaro.org>
+ <20260519-topic-sm8650-ayaneo-pocket-s2-sy7758-v3-1-ec8194bbc885@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260518111203.639603-2-u.kleine-koenig@baylibre.com>
+In-Reply-To: <20260519-topic-sm8650-ayaneo-pocket-s2-sy7758-v3-1-ec8194bbc885@linaro.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,25 +65,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 18, 2026 at 01:12:03PM +0200, Uwe Kleine-König (The Capable Hub) wrote:
-> While being less compact, using named initializers allows to more easily
-> see which members of the structs are assigned which value without having
-> to lookup the declaration of the struct. And it's also more robust
-> against changes to the struct definition.
+On Tue, May 19, 2026 at 10:43:38AM +0200, Neil Armstrong wrote:
+> Document the Silergy SY7758 6-channel High Efficiency LED Driver
+> used for backlight brightness control.
 >
-> The mentioned robustness is relevant for a planned change to struct
-> i2c_device_id that replaces .driver_data by an anonymous union.
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> ---
+>  .../bindings/leds/backlight/silergy,sy7758.yaml    | 53 ++++++++++++++++++++++
+>  1 file changed, 53 insertions(+)
 >
-> While touching all these arrays, unify usage of whitespace in the list
-> terminator.
->
-> This patch doesn't modify the compiled arrays, only their representation
-> in source form benefits. The former was confirmed with x86 and arm64
-> builds.
->
-> Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+> diff --git a/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
+> new file mode 100644
+> index 000000000000..80e978d691c2
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
+> @@ -0,0 +1,53 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/leds/backlight/silergy,sy7758.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Silergy SY7758 6-channel High Efficiency LED Driver
+> +
+> +maintainers:
+> +  - Neil Armstrong <neil.armstrong@linaro.org>
+> +
+> +description:
+> +  Silergy SY7758 is a high efficiency 6-channels LED backlight
+> +  driver with I2C brightness control.
+> +
+> +allOf:
+> +  - $ref: common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: silergy,sy7758
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  vddio-supply: true
+> +
+> +  enable-gpios:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - vddio-supply
 
-Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
+Sorry for missing this in v2 but is vddio-supply really a required
+property?
+
+It's unusual for supplies to be mandatory (and the it is not mandatory
+in the driver implementation).
 
 
 Daniel.
