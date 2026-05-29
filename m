@@ -4,135 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FB56CD5BD2
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 08:29:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06750CD6E45
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 08:47:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C9AF10FACA;
-	Fri, 29 May 2026 08:29:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E59B10FB08;
+	Fri, 29 May 2026 08:47:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Fqbw6yN1";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="KQzSLv4p";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Fqbw6yN1";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="KQzSLv4p";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="qeeXDZMa";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 815E310FACA
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 08:29:14 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B9B88672A5;
- Fri, 29 May 2026 08:29:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780043352; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FI/MTWm64Ne6XY+8U8fxOXDbxeFzsGOxs02Mc36UrIQ=;
- b=Fqbw6yN1/kbaKPQIUYeGRsGCn37FF2kBmn3uCNOPGxJC/hCrV/lFYdzoT6NymmG+KuJZ25
- oRSMcOmOheaC8ie0OOhd0pjZLP/jRFsNWgTZlYDAu+1cKKS/9qAuD6sJVDwMYWenjXZ+Fc
- o0Ljseh8M1w7/Fl6aBJA8g5DcK3FVDc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780043352;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FI/MTWm64Ne6XY+8U8fxOXDbxeFzsGOxs02Mc36UrIQ=;
- b=KQzSLv4poF1/if95diTFfA+JdLYjC91+LPHWfwOFpHdhzzBohhBlZ0bz9JTW1TPXTsK8kQ
- xd9HFrH74Zi6QEDQ==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Fqbw6yN1;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=KQzSLv4p
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780043352; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FI/MTWm64Ne6XY+8U8fxOXDbxeFzsGOxs02Mc36UrIQ=;
- b=Fqbw6yN1/kbaKPQIUYeGRsGCn37FF2kBmn3uCNOPGxJC/hCrV/lFYdzoT6NymmG+KuJZ25
- oRSMcOmOheaC8ie0OOhd0pjZLP/jRFsNWgTZlYDAu+1cKKS/9qAuD6sJVDwMYWenjXZ+Fc
- o0Ljseh8M1w7/Fl6aBJA8g5DcK3FVDc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780043352;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FI/MTWm64Ne6XY+8U8fxOXDbxeFzsGOxs02Mc36UrIQ=;
- b=KQzSLv4poF1/if95diTFfA+JdLYjC91+LPHWfwOFpHdhzzBohhBlZ0bz9JTW1TPXTsK8kQ
- xd9HFrH74Zi6QEDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 71A13779A7;
- Fri, 29 May 2026 08:29:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id hi17GlhOGWqlFwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 29 May 2026 08:29:12 +0000
-Message-ID: <5691dc2c-44a5-49d3-9b55-59260b118fba@suse.de>
-Date: Fri, 29 May 2026 10:29:11 +0200
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45E5910FB07
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 08:47:16 +0000 (UTC)
+Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 50390741;
+ Fri, 29 May 2026 10:46:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1780044414;
+ bh=ns9apGH4POa8yl/UYKramrpqDnT3jxOchO1UHnMK7Is=;
+ h=From:Subject:Date:To:Cc:From;
+ b=qeeXDZMaVDMD6ASaqBl8wz1iMyKUqCN1dxDCXmGLc8b+rkqQJIQCwLO8IROmiSsF+
+ g8pqPg/FJAYNe85r8dCEGPIgGW+M3v2yT/8qxmwLWjJlrTr8fTZ+RZAvdUh5Y3Knbk
+ fJ9lz9Xu3b7ALYZrUpDWKZoA4P4JjHymMq/70p4E=
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Subject: [PATCH v3 00/15] drm/tidss: Add BeagleY-AI display support (and
+ some more)
+Date: Fri, 29 May 2026 11:45:30 +0300
+Message-Id: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/mgag200: reject pixel clocks outside PLL range
-To: Berkant Koc <me@berkoc.com>, dri-devel@lists.freedesktop.org
-Cc: Jocelyn Falempe <jfalempe@redhat.com>, Dave Airlie <airlied@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- Sam Ravnborg <sam@ravnborg.org>, linux-kernel@vger.kernel.org
-References: <28e476e896dafdd31518dc5360ab7766@berkoc.com>
- <041bae47-bb5d-4db7-9435-f6c5d9c2fda1@suse.de>
- <177954470241.415690.10502351545232803066@berkoc.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <177954470241.415690.10502351545232803066@berkoc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: B9B88672A5
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
- RCPT_COUNT_SEVEN(0.00)[9]; RCVD_TLS_ALL(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:url,suse.de:mid,suse.de:dkim,bootlin.com:url];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACxSGWoC/33PzY7CIBAH8FdpOO+YQqFqT/seGw98DDqJBYVKt
+ jF996X14MXs8T8Dv5l5soyJMLOhebKEhTLFUEP31TB70eGMQK5mJlrRt1K0YFCfrziDJnCUb1c
+ 9g9v7vpPWofKS1Y+3hJ5+N/Tn9MoJ749qT6/imx6aDVbiABPBqCmAjcFXUmnUCpUVZih8VY3OW
+ JvjSNPQlP2OQ7KKrf6F8hTTvN1Q364D/lu3cGjB9+KgZOe84/KbHOocg4k6uV0dsalFvCXFu4+
+ SqNIRj8aid9gb+0FaluUPWlVPlGUBAAA=
+X-Change-ID: 20260420-beagley-ai-display-d7f634cde5f4
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
+ Aradhya Bhatia <aradhya.bhatia@linux.dev>, Nishanth Menon <nm@ti.com>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, Swamil Jain <s-jain1@ti.com>, 
+ Devarsh Thakkar <devarsht@ti.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Jayesh Choudhary <j-choudhary@ti.com>, Aradhya Bhatia <a-bhatia1@ti.com>, 
+ Andrew Davis <afd@ti.com>, Robert Nelson <robertcnelson@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6028;
+ i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
+ bh=ns9apGH4POa8yl/UYKramrpqDnT3jxOchO1UHnMK7Is=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqGVKIlPy/glwTSO58WbcEpx1uvmffXSOmzmdlY
+ 7j5kYpPcLCJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCahlSiAAKCRD6PaqMvJYe
+ 9dE9D/kBYIS5NefMls2VIVt4nAzxtakVo9gp0P9DQoLTAMbFuqvB4bDKFSOdW4wgm+jixf7Uj5+
+ dOslXajpKRvgazfT/GAI57D0F75I9a3F9LFsu9M8PNODk+sy9EbS5xOHymFXQLkhcR835qHSnDr
+ vExBo8UjJB05Ofwnw+zDi2WWahzYQFRnVlJCTxRFXmMh4q7XTTseNj5MH6OTB4x0uNN4g7Thoig
+ yxPsv2ceXH0fpqOVuq3wAZL15ejiJBif64e5ALEL6jzOky1KCvEsrGEYhXia5RnihEYY/fAXHMY
+ 8q6wIo0RdYMp/hGF4Vw/1VpuWd6syAvzust74e4nKTxu5ggEO7bvQXPo2OAC+J1C4xJkOCn3Hzo
+ Asr/zZgVWOf2Mj+Y5LENOX25oMejRveWJO6jUIlGYpjZnrMCTxYioSHACdAMU+jjCLWQeQoGQq1
+ 86jUEFNhdPACMikOVoPijbnRs3dpUp7JqokzHDveBU+I6LrXMixTHNXSCzE5OHiCNukq7Ey8Mgu
+ 56loyZ1xhlGj4j3rRuijTJ/2hc5a4yZgXrk0f8E/HooF/XO33vRO8bI48XBGCpdmB2wLVmqADYQ
+ WTpSBCsDWpfSO7wI2livadoNwQFPwli6HOYxldHIOpDkmi3lzIGrENNxHHLhBTW+hwy0OZmNB8O
+ Er9p08NRc3oDONQ==
+X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
+ fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,53 +88,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+This series aims to add display support for all display interfaces on
+BeagleY-AI board. More generally, it adds display support for TI AM62P,
+J722S, and related SoCs, and, as a bit extra, improves AM62L's DPI
+handling.
 
-Am 23.05.26 um 15:58 schrieb Berkant Koc:
->> The other models never did this check. Why is this now a problem?
-> You are right, and my Fixes tag is wrong. I checked the split again.
-> 877507bb954e moved the per-model compute routines into separate files; it
-> did not remove a check. Only g200se ever had the permitteddelta guard (the
-> 0.5% VESA comment lives only there). The other six helpers never had it,
-> before or after the split. So this is not a regression. Please drop the
-> Fixes tag and the stable Cc; I should not have framed it that way.
->
-> What remains is a latent robustness gap, not a bug users hit.
-> mgag200_crtc_helper_mode_valid does not bound the pixel clock, so a
-> hand-crafted out-of-range modeline can reach the search loop, match
-> nothing, and leave m/n/p/s at 0. atomic_update then does pixpllc->m - 1,
-> which underflows, and programs garbage into PIXPLLC. Normal EDID modes stay
-> inside the VCO window and never trigger this.
->
-> If you think hardening the six helpers to match g200se is still worth it, I
-> will resend without the Fixes/stable tags. Do you prefer a per-helper guard
-> like g200se, or one shared check after the loop? I will follow your call on
-> scope.
+The main topics to highlight:
 
-Adding that test could possibly regress someone's system. If they run 
-the display at a higher delta than 5%, it might still work.
+- The data and sync signal polarities require accessing a register
+  (DPI0_CLK_CTRL) in the CTRL_MMR block. This has already been discussed
+  e.g. in
+  https://lore.kernel.org/all/20250730-fix-edge-handling-v1-0-1bdfb3fe7922%40bootlin.com/.
+  This series is based on "[PATCH 0/6] arm64: ti: Use syscon for the
+  Control Module" which makes the CTRL_MMR block available for DSS via
+  syscon.
 
-Before rejecting those modes, there needs to be a check in the CRTC's 
-mode_valid [1] against the limits of PIXPLLC, similar to 
-pixpllc_atomic_check. That would filter out display modes that are not 
-supported anyway.
+- The tidss OLDI support will now use auxiliary device/driver. This seems
+  to solve quite neatly the requirement to have a power-domain for each
+  OLDI. The main issue that remains is that on AM62P (and similar) we
+  will have three OLDI TX DT nodes, even if there are only two in the
+  hardware.
 
-https://elixir.bootlin.com/linux/v7.0.10/source/drivers/gpu/drm/mgag200/mgag200_mode.c#L581
+- I'm no audio expert, but based on the original dts from Robert Nelson,
+  I did get HDMI audio working, but I see "davinci-mcasp
+  2b10000.audio-controller: Sample-rate is off by 400 PPM".
 
-Best regards
-Thomas
+With this series one can use the HDMI output on BeagleY-AI. I have also
+tested the DSI output with Raspberry Pi's 7" DSI display, and OLDI
+output with an oscilloscope (I don't have a suitable OLDI panel) with
+extra DT overlays.
 
->
-> Thanks for catching the framing.
->
-> Berkant Koc
+ Tomi
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+---
+Changes in v3:
+- Base on "[PATCH 0/6] arm64: ti: Use syscon for the Control Module"
+- Drop quotation marks from Rb tags
+- Drop Tested-by tags for the bindings patches
+- "drm/tidss: Add external data and sync signal edge configuration": Fix
+  error handling
+- "drm/tidss: Add support for DPIENABLE bit": set/unset DPIENABLE in
+  prepare/unprepare
+- "drm/tidss: oldi: Convert OLDI to an aux driver": Improve cleanups
+  (of_node_put, clk_put, device_link_del)
+- Dropped "arm64: dts: ti: k3-am62p-j722s-common-main: Make main_conf a syscon"
+- "arm64: dts: ti: k3-am62p-j722s-common-main: Add support for DSS": Add
+  missing clocks and ti,oldi-io-ctrl for oldi1 node. Drop unused
+  main-gpio0-ioexp-intr-default-pins node. Fix MCASP1_AXR0 pin
+  direction. Fix DSS videoport numbering.
+- Link to v2: https://lore.kernel.org/r/20260513-beagley-ai-display-v2-0-9e9bcefde6bc@ideasonboard.com
 
+Changes in v2:
+- Add Rb and Tb tags
+- Drop "dt-bindings: mfd: syscon: Add ti,am625-dss-dpi0-clk-ctrl
+  compatible", which is now implemented with the below changes.
+- New patch "dt-bindings: display: ti,am65x-dss: Add ti,dpi-io-ctrl"
+- Modify "drm/tidss: Add external data and sync signal edge
+  configuration" to use the 'ti,dpi-io-ctrl' with offset.
+- New patch "arm64: dts: ti: k3-am62p-j722s-common-main: Make main_conf
+  a syscon".
+- Modify "arm64: dts: ti: k3-am62p-j722s-common-main: Add support for
+  DSS" to set 'ti,dpi-io-ctrl' properties
+- Drop generic desc in DT bindings for power-domains property
+- Fix pm_runtime_get_sync() return value check
+- Link to v1: https://lore.kernel.org/r/20260420-beagley-ai-display-v1-0-f628543dfd14@ideasonboard.com
+
+---
+Andrew Davis (1):
+      arm64: dts: ti: beagley-ai: Enable HDMI display and audio
+
+Jayesh Choudhary (1):
+      arm64: dts: ti: k3-am62p-j722s-common-main: Add support for DSS
+
+Swamil Jain (1):
+      drm/tidss: Add support for AM62P display subsystem
+
+Tomi Valkeinen (12):
+      dt-bindings: display: ti: Move ti,am62l-dss binding to a new binding file
+      dt-bindings: display: ti,am65x-dss: Simplify binding
+      dt-bindings: display: ti,am625-oldi: Add optional power-domain for OLDI
+      dt-bindings: display: ti,am65x-dss: Add ti,dpi-io-ctrl
+      dt-bindings: display: ti,am65x-dss: Add AM62P DSS
+      drm/tidss: Remove extra pm_runtime_mark_last_busy
+      drm/tidss: oldi: Remove define for unused register OLDI_LB_CTRL
+      drm/tidss: Add mechanism to detect DPI output
+      drm/tidss: Add external data and sync signal edge configuration
+      drm/tidss: Add support for DPIENABLE bit
+      drm/tidss: oldi: Fix OLDI signal polarities
+      drm/tidss: oldi: Convert OLDI to an aux driver
+
+ .../bindings/display/ti/ti,am625-oldi.yaml         |   3 +
+ .../bindings/display/ti/ti,am62l-dss.yaml          | 136 ++++++
+ .../bindings/display/ti/ti,am65x-dss.yaml          | 187 +++----
+ MAINTAINERS                                        |   1 +
+ .../boot/dts/ti/k3-am62p-j722s-common-main.dtsi    | 112 +++++
+ arch/arm64/boot/dts/ti/k3-am62p.dtsi               |  16 +
+ arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts     | 191 ++++++++
+ arch/arm64/boot/dts/ti/k3-j722s.dtsi               |  16 +
+ drivers/gpu/drm/tidss/tidss_crtc.c                 |  10 +-
+ drivers/gpu/drm/tidss/tidss_crtc.h                 |   4 +-
+ drivers/gpu/drm/tidss/tidss_dispc.c                |  53 +-
+ drivers/gpu/drm/tidss/tidss_dispc.h                |   5 +-
+ drivers/gpu/drm/tidss/tidss_dispc_regs.h           |   5 +
+ drivers/gpu/drm/tidss/tidss_drv.c                  |  54 ++-
+ drivers/gpu/drm/tidss/tidss_drv.h                  |   5 +-
+ drivers/gpu/drm/tidss/tidss_kms.c                  |  55 ++-
+ drivers/gpu/drm/tidss/tidss_oldi.c                 | 540 +++++++++++++++------
+ drivers/gpu/drm/tidss/tidss_oldi.h                 |   8 +-
+ 18 files changed, 1109 insertions(+), 292 deletions(-)
+---
+base-commit: 9e171fc1d7d7ab847a750c03571c87ac3c17bd84
+change-id: 20260420-beagley-ai-display-d7f634cde5f4
+prerequisite-change-id: 20260528-ti-main-conf-d75aea5e5c2b:v1
+prerequisite-patch-id: b45e40d091eeb547189d2bed60cb809be22543cf
+prerequisite-patch-id: 1098a5aca6124123635bc0b19853eca9968291bc
+prerequisite-patch-id: edea999683b5849977f5a1d40430fa674c3143ff
+prerequisite-patch-id: 1a71566898f248dfdd99bed6b2de9ab8b229bf7d
+prerequisite-patch-id: 9112dad36cf951c79d63ea3d87324745ed790ca3
+prerequisite-patch-id: 7b93f92509cb1a9536cd8a2833526178a9d13f74
+
+Best regards,
+--  
+Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
