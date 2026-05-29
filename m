@@ -4,136 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87780CD6E51
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 15:28:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F03BFCD6E50
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 15:28:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F89D1120FB;
-	Fri, 29 May 2026 15:28:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51F7A112100;
+	Fri, 29 May 2026 15:28:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="pE2YcKiF";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VXbOUNJw";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012052.outbound.protection.outlook.com [40.107.209.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8705C1120F9
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 15:28:22 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010031.outbound.protection.outlook.com [52.101.56.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 682F3112100
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 15:28:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LDhHKmBGAioCmcuoc9GDJqg6qkmXlzcBjtvC+2lJz7lZaD1jSFIVdXyoN71MNH9dGFtafs8p6aKC9/EbyPbc97u1PXXBTxQlvUjQNYXCmFLk00d85Q9U5jbYLPC3+eHXhaw4WsvnwBselmjnkRgc8f2UyDnPbXEJMoQ8jNeh9h7z7UlFgEl3OPpNJMT4NGTJlQb/l80OzxYTVFHTFCSLlusEjtcSSVp5kxBDBpKgPDNgUGrjyczkFQB4Qpd3ofUfw7kWgz15vAWSagkAlcBXVzIVQ3MSCVx8YvR2cjPsdTwrWKtH6FCun6SO7Hgfpf4LSTtb0fkfKktiwO/m83ljtQ==
+ b=WijxljeMURt094fH09HLGceymhOKvwlTD39EBb1UM5BTpQXMwMNB82mNM29ujfcPyRjc6nL8rywxTBEM4lPocGXUAEzBV/wI/JIaVRec/7ghhDu3bkiACspMdgwA1HDyLYcXKdlIbcb8wC7EcZfIPqXzq/lqcQfVKPR+5CSfpMfxB1RXVdUgggtDhs+I8rAo2WCl1U3fsv+c6YGsuUHFss0DK/fcxCG4TH3zfyCP9hzcq2t7xXOcNWv63PQvA3DSklECBp1B98GG4+TbhBLGxuAT4raYF6h80nJ1jZNBtXye5ocleS8dJ8yiZBLQ+Km84uvo5WbmegTcrNF/Z+6yfw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PAkkCBy2ZVoFSEz2etSYuD69CLmQ2/Nm7HHXy/jMqDk=;
- b=E7sK3dXEejmgBPuuM5hFVpe5y6mRx2+tt1MbCdZa3gdsoAGiVjuTC+gmeQqGZiXKWm3socMllS1g40bG3V74WM6nYcAnVp0QjSFNX9ApKYwUcHbFQwXndcExDvk9Fl3mjuye2C+yDbMJ5Acwmmzb+7EI0JgTU/x1GzhMr/PYu7DQuZHJmIhkDfAaRKvyhqBm2yKAubzb8nby9pC/k9oW1kYU8kdF2cLxsR+nltjgPAWG2WLkg35Eeys5cs5HhvgisCmFYQzp8Kw/LhpGyABvWWDevOWy6fpo9G/rcQvUzN68ropC0pGEeaEP23XsgBxqtZ+JGLpb/GXSIi9uqsyqKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=JZfgVtLK7k15103REFv0+JCEi+Cwc9N2bho9GPGVmKM=;
+ b=orMWmqv8eX7Nc76RRsF/BwCj7tB8g075ImciYti/mJHTbS4bs2lTYtb/14AlS7D+w6p8DbTXT1sVYTtfONvFHhszNdAyfwCWmhg63oKFBaJiX0i3bSpPms+1X7E72I+PFfkVpCem+r12UsBOhYOqSuZrAHsVWMBsnOv8xjGJOxzrQI8f/onTiDhSbim0lHyyF0a0AqR/i12llj3aDjaI7U3nOtCh3BK5BhOOONGiBktuU6Fsptf+6AC8mQcEMJocCbIR6zY2U9BrBYV2iHsulEQy3iGrcdnZ1MDORrVLSzDPEkepfrAqYCWpRyIJ0I1XNCSxaY1OEOY0ql4/e0ytRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PAkkCBy2ZVoFSEz2etSYuD69CLmQ2/Nm7HHXy/jMqDk=;
- b=pE2YcKiFnBscI1L81vF70uAgTnT2c8xYW2rgzwQDMfTTmBrGsL/ta+QZxmCZo6Qf9AYye7EmNV6JOSZiOBQ3t31E3WX5axbRUjF0+dkN/tJrKCtSAFnnD8zdSEKPQ6uBlaJbHqgfaDJGumgc8IEJCmA36o+OMdIp3ELBpMBlIwMjVp7PwtEtqBaZxrVfhL4//mxMlH3bIcbEwrXsCs/98vibGIZN2TT54wEYsUlB273CZAMdOWxzgdYCBtRg3d6sdl6AQhXnY8fycQy/v4HgV8TL67MAOcg7zk8lQYqJx97EuXZxaN/IiL2SkkjWcscjdvgipK2TvrdVCg/mnnnK9A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by SA3PR12MB9159.namprd12.prod.outlook.com (2603:10b6:806:3a0::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Fri, 29 May
- 2026 15:28:16 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0071.011; Fri, 29 May 2026
- 15:28:16 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Sat, 30 May 2026 00:27:43 +0900
-Subject: [PATCH v3 3/5] gpu: nova-core: emit Rust metadata for dependent
- modules
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260530-nova-exports-v3-3-1202aa339ef7@nvidia.com>
-References: <20260530-nova-exports-v3-0-1202aa339ef7@nvidia.com>
-In-Reply-To: <20260530-nova-exports-v3-0-1202aa339ef7@nvidia.com>
-To: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
- Nicolas Schier <nsc@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Zhi Wang <zhiw@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, 
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, Alexandre Courbot <acourbot@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCPR01CA0198.jpnprd01.prod.outlook.com
- (2603:1096:405:7a::19) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+ bh=JZfgVtLK7k15103REFv0+JCEi+Cwc9N2bho9GPGVmKM=;
+ b=VXbOUNJwXYjY95wQDcmtwBrSh08AZADylAo3tAj1bHiJJ3ukk6Do5PkbvFb4louB5Kho0/QZy0PbIskwHE8e3mwXX3lghR02BQ5F4u5EhrLMOwQfJTJo4eziDAWbLaAUw6Ab9seq/A8s7r6d8szfnxTB2NwMPvlZfrlw0B93WaQ=
+Received: from SA9PR13CA0054.namprd13.prod.outlook.com (2603:10b6:806:22::29)
+ by DM4PR12MB7501.namprd12.prod.outlook.com (2603:10b6:8:113::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Fri, 29 May
+ 2026 15:28:44 +0000
+Received: from SA2PEPF00001506.namprd04.prod.outlook.com
+ (2603:10b6:806:22:cafe::59) by SA9PR13CA0054.outlook.office365.com
+ (2603:10b6:806:22::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.5 via Frontend Transport; Fri, 29
+ May 2026 15:28:42 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF00001506.mail.protection.outlook.com (10.167.242.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 15:28:41 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 29 May
+ 2026 10:28:40 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 29 May
+ 2026 08:28:40 -0700
+Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Fri, 29 May 2026 10:28:39 -0500
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+ <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+ <karol.wachowski@linux.intel.com>
+CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
+ <max.zhen@amd.com>, <sonal.santan@amd.com>
+Subject: [PATCH V1] accel/amdxdna: Remove drv_cmd tracing from job free
+ callback
+Date: Fri, 29 May 2026 08:28:37 -0700
+Message-ID: <20260529152837.1973405-1-lizhi.hou@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SA3PR12MB9159:EE_
-X-MS-Office365-Filtering-Correlation-Id: 46ae31a8-804b-47f9-bfdb-08debd96e7a8
+X-MS-TrafficTypeDiagnostic: SA2PEPF00001506:EE_|DM4PR12MB7501:EE_
+X-MS-Office365-Filtering-Correlation-Id: 46d8b487-81fb-495b-1f28-08debd96f6f7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|366016|10070799003|22082099003|18002099003|921020|6133799003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: 8/LerZD7pVnr7JFZmnLN7F3awhMf/l4NmtKkSSZdyyWHDAoPIgE5HZeUVt2Tx10xmOgUrfjcE/YtLO6vspR6sN7PyNFTDlXxv1GIWlGtOnQS0IghMvbRK0F7yAQ+b1eEjFMireyAQJpcawuzSXMYZP79X/tJny9gSahpOvQLnbXov4fy+Y2eqEjnfXVPs4P+HgasdEUwLR3dvPhP/tWKvXRCJkD1PcmZ6RaM2/e41cFPLhAwYnSRO+3M7yu8xjLGOiQtwPuyJW7NQ75Q6QNWPxFcP17yDOfwRptrRKSWoW0GYPGo1v4kIwoba9v7d/GZJZUQVdBvaQxJHDi4grvUYSb0Hc9Rdnydhltf1EvPv79L0o0bP6zkFCfPo561/fKnD0s2UoIrcoov8S3sMzMfVzzBpwUhlOpR9AJMc5QVQZdMslifj+UDL/0Hhbo1nkE6hIlSr34+0WV7jx1Ht2L+nmGsip88Onhx9JNmzWJOMP1uvZ2gXHUxBRZXLlqBBuH+7md3m6oKILcjg0p5ZIju2zivUQY4PsoCywuCBtsCTOxZCSaiqdMQqcaNhMKJKNYUdp1aBm9FPmnambeQQWUII1Eos2eu+AQsZlTYnNSanim4mNtbwCQtG+mRifqCq2fYFplOikVry8nUJoqJw2sr8g82yQ8mMclna8HbnOt6h3CDbpnjfugbLIa4dL8sPSvoKDemw9tT7WsdbSaiU9c8+3KTu0JqtXORIBI5FF75kF0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(366016)(10070799003)(22082099003)(18002099003)(921020)(6133799003)(11063799006)(56012099006);
+ ARA:13230040|36860700016|376014|82310400026|1800799024|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: oeUf46zr/OvxZQonIw7oayoxQsuB5mWy1Qe85Im6Exzg/ItHmQdQlGZdi+blH7LFC/2/hC1u11aLMx6q8O6YQRXL7JEZ1fCVKn+rmP53EtPBgge96NRfOqXqh0rqcjDHIeQTXmY+k4o3VrRTneG+I85zQKixFNc1oNYxOnBFPQQ1eQRQxdNvukpsVIMTzLoeaY64lHhWIPXb1p80FDwfCphNsV3k0Rak1Mape+8jneaPQf1v/5gR1KKur+oX2npRujAkw76FHgFqcMoYwJNz2TMO1MB75L4YjluiOkPM/YjgLmo8SkdBeJwmvNgZnJ69zutIPvZWzvxI8jzFGlG3PDPVUekpHvzCkjNPbTnReuSq1xDfkPwPf8kvOzlWEk8uUu8dvSP2xkAnc+5be3nMCeG/S1M6/UZvNeV2RvonhmY8vOoat7FkT5amwAuytM4HcvCR5poWVGAqyBy4qWGxfpxcy2xsrcZaLH2K07H9TFPuXKTd98PNJF5q4UzP7Jk9ljjNqyTR6BddSr7t3oJ82vjSYMYeMym3iDtG3tmuwfukqCFa81MbmFfakUiVipBFOSVBvVFqKqm4zXhqFJPBDBPEgq1JbLmdDJWgYAmrykCiKpyd2KJwWXCrcLahIj5Dn6jaG6ov/xa4pLbD7EN6jilCZFTcRUZ3GWt2lnFhOBqrecukmGGzMCH2lbFbhNh+oNujTqSoHPeKBEq0a68ocCLWb0uQTlTb6LoZrUyF5IE=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(11063799006)(56012099006)(18002099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TnNsOFRYekFVTjg4ZlpsUHBTWENKeVNjU2NOcUlqdUE1L3RHMGN0VVoxejRw?=
- =?utf-8?B?Y3RualJ3L1ZPWVlBdWdrbEJJUjVVVUR0bVJDck41YnVvY3VPcGQrMjVtQWdu?=
- =?utf-8?B?em1XcUw0NVhZWk5ESEYzQXNZZjBoMEpKVmRGbGYrTGFNMHh4OThaQm84V1Nq?=
- =?utf-8?B?aVFHVzJzVFlzcUtvaENpZEREVWw1MjdNREFvdjN6ZW1NanBOa0ZIZVdicjVu?=
- =?utf-8?B?VnVsR3dUVFY1M28vNkt2RFZsZUVROHhaRGRGc25pVmNRdU80SEx2eWtzcW51?=
- =?utf-8?B?WGEyWk9xMlNYb0w5NjVWS1MwNFhUY21HeXovT3JmcC9vK1orekh4anYrNVJp?=
- =?utf-8?B?NDhxWGhobDFyZHM0S283SWcwUEUxTnZ6QVB2QzhDMmprKzVUNzB4TFpvbURi?=
- =?utf-8?B?QTlYSSsxcnFGYlFoeFN1czNFZTlDOG44czVFT0hXMWx0SnNXK2RJTTUzK0Mr?=
- =?utf-8?B?ckVsMFNmTzhzWlUveVRKNTJITllnR05oN29zbUIzckhtSVlrY3FTR3JFN0xj?=
- =?utf-8?B?dlV4dllNLzM0bDhtRTFNL2tsa2JCTllXVGRiNlZyeXVxUlB6L2RuWG9TTzRR?=
- =?utf-8?B?aHpQd1V2WjVhSldERFUyTHJHR0JNdHBHRGI3MzNQTWpHT3FLOStndUtzeXhI?=
- =?utf-8?B?WFlqN29tdndyMTZUOEhNTlYvVEZ5S0lBSHp6VVlmcEwzV09tNmt3VzBiSGZO?=
- =?utf-8?B?RHhMUjloaTVObGdvQXBYcnhkeTh0R1FEVTloOFd2WVVhT0xIUGszUkpQajg1?=
- =?utf-8?B?eTFKVmZzeit1LzR3Q1p5Z285TkttQU5lTjIrVklBVXk1NzRKcGtzTlQvK09B?=
- =?utf-8?B?Y01NUm41eUg3S1FJaS85SFpHbkRWd0R6R0g2QjhwbDZxUktTSTFHdGNNNHFu?=
- =?utf-8?B?SDBnQjg4TlQ0QzhDKzZXQTRoRDc0TlNROVNiR0NxT21XWHZlMG9Yd2IvM04x?=
- =?utf-8?B?N0sxUWxib3FFUnFZL0h2V3B5UXpwbXRIWjEwYnAzTi9raVZlOVVXcFRyVDZq?=
- =?utf-8?B?MTBYVEE4b3FESm1LT1d3RTl6Y2VpcUJyZHM5LzU4NWtLM3N4TDZoellGd3NE?=
- =?utf-8?B?U3dXNTkvTDJoY2dpRjB6VnZLTFVXVlI3UGJGbld3T0loeElLV1dJNnZZNmNm?=
- =?utf-8?B?K3pYdGc0Sk9walRrZE5ZYXNGZGFrYmppR3RhVlNPclVsa24vQWNsWW5RNE1a?=
- =?utf-8?B?ZzlJSkJObTd1QU93bDY3ZVdYRE02MGpydVQxRzRsQUx2dmYrRlJ6T3gzU0Vl?=
- =?utf-8?B?dGh2VEFEdFVWdmNud3lVT2ZmZ1BsL1hrWU1Fbys3bStKUExldm9oK2dhWVc1?=
- =?utf-8?B?OGRPd2c2UFNyZ1lDdWFLZitnZk9xa0MzeGxYaEYzZW1CeXR0ZE1iSVB3bnNC?=
- =?utf-8?B?bFBkTGM2Q2w5b09ZOFhyOUZWRVhoZHpyVU5EQS9SamNJUGxicEh1M3pxNGRj?=
- =?utf-8?B?cTdweXJzMkdld2laenJ6cG9mdDJvT082eHJJRjVIMUVCODhJWThWSUE4aWxX?=
- =?utf-8?B?OG43T1crM0pMQTRLdFNLK2RSeWlWQkpUaUpsV1JETGNCZTJUNmVpVjdDTWli?=
- =?utf-8?B?ZFYxSCt0dHVuODUwQTFnbjhRTUx2dGk0YTkraVh3MDlZTWozYThmeGk1aWlW?=
- =?utf-8?B?K1Ntb2MxeHAzSEt3S0oxWVdDU1pxR1F6Nm9LSmhhMFR3ZnFTT0t2ZXZtUDFt?=
- =?utf-8?B?Q3A4ZkRFMDJwakZoMElEZ2lIOUo4cDRYMWxHNk1Pa1lZS1o4RHFmUUVGQlh4?=
- =?utf-8?B?eHRtTUUxR2pPS0g2S1NKN2dKckMwKy9iT0pFdHAxRXNOMERrS2ZGbUpUUnF3?=
- =?utf-8?B?cVNrcjZQK21odTJBbVhWUG1aT281MkppYmVtYWVNQ2VFemNCMGNPeHptVHk5?=
- =?utf-8?B?VkErWEtYOXRQMFdIYysxdm1aOXk2WkVKL0Y0ZDgyWjYrQitlWmdMRUFwRFdE?=
- =?utf-8?B?WjZaM01sUEtJQ0VnNnVIM2oycnpEUTRnU2daVHZFWlI4dW9XMGFHQlF6VDYx?=
- =?utf-8?B?VTFpeGJjd3Q3cUdzaXVFUzYxb2hnMlFGUmpHR2JpSjQyQUN1Ty9PMWY2KzIv?=
- =?utf-8?B?MkowWlpHSjFGek1XVndreU11MzNKVUt6bVhNVHhRRzJmc05wemZCYnlQb2tN?=
- =?utf-8?B?Z2xlWUpmMHJPdjVWVkZjaEdSSjFjTnB5TFkvMlIrYit0citEMkliZVBlWTl6?=
- =?utf-8?B?UHVZNHZtTUVnWncrNjZGaXhiMGY1S1BTeWhtanU3dFArdXVoMlBDZzZZTVU4?=
- =?utf-8?B?ejJvVmh0T3J0WDBhaU1EdWJjYVgzQ01zK2E0Q2lUcjYzOXBPZktwRklUd0xr?=
- =?utf-8?B?dXF6YUhuZzAzb0RPNmRiWkRGUHRhU2RLVmgwaE9FSnFkR2pDQXozS1NtTFQ1?=
- =?utf-8?Q?xwU+T0NNa2KDksNUODXVw5OKqLpnkrTELQ2/SgCsTyc6i?=
-X-MS-Exchange-AntiSpam-MessageData-1: vE76CvshvuEQCg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 46ae31a8-804b-47f9-bfdb-08debd96e7a8
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 15:28:16.4239 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gQFMxq7zgmTHTSwf2NYXDLc97dWFVG4FPltPM52B7BQE6+3P0sGZ7rjVpUjk8nrRLJl+PXCTstEdFnvPG471GA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9159
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 9eTRzSdgCl1KHaf9/U/0RerDaFdv2kGwnF1ze6hrUh7mWOiqybLfCdPanmrvq3cNeUEMkxJDm7x5hWOMLnzpUQXxjgmsqYnqbsHxQuTGrNGpJxaqH6N3iCmJHsWgQ8weHu+GCgVOQJcTdsbCK3BTNfvCLCBscSslwGGNBla8sCOHHD89x+IllowSgFRbNig7qWrPWFyZn4Te0NnTULehp8XKxMQnPOfNPeyqCXvarIHZhtY3cBz3gpx1htZElg5fOdvuDJOR17EJfWhq6BPrJu/xNn8mQRGyQqtMWM/am6wZFBJHYycdNcYCnWU0UuWQsMN5tw/kkyOBSGMKVngO49yGsp8mADFBghzJNpF5xp9niSnEZhkiB5CTrdy6hBfmJa14SIjjvlZFMicI6riJrXx+NWkDO5wttKJ4acFMhE9/cC8Csv/PlISI/vCDe5lN
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 15:28:41.8670 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46d8b487-81fb-495b-1f28-08debd96f6f7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00001506.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7501
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,55 +116,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Emit nova-core's `.rmeta` crate metadata so dependent Rust modules can
-resolve nova-core's types and functions via `--extern`.
+aie2_sched_job_free() accesses job->drv_cmd for tracing purposes. However,
+job->drv_cmd is owned by the caller and may already have been freed when
+the job free callback runs, leading to a potential use-after-free.
 
-The metadata is exposed as an explicit Kbuild target instead of relying
-on an untracked side effect of the object build. This lets dependent
-modules ask for the metadata directly, including single-target builds
-where `nova-core`'s object may already be up to date.
+Remove the job->drv_cmd access from aie2_sched_job_free().
 
-This is a workaround until the build system supports Rust cross-crate
-dependencies natively.
-
-Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+Fixes: 8711eb2dde2e ("accel/amdxdna: Improve tracing for job lifecycle and mailbox RX worker")
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
 ---
- drivers/gpu/nova-core/Makefile | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ drivers/accel/amdxdna/aie2_ctx.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/nova-core/Makefile b/drivers/gpu/nova-core/Makefile
-index 59ac25488896..b8ccea78b2d2 100644
---- a/drivers/gpu/nova-core/Makefile
-+++ b/drivers/gpu/nova-core/Makefile
-@@ -24,3 +24,27 @@ $(obj)/exports_nova_core_generated.h: $(obj)/nova_core.o FORCE
- targets += exports_nova_core_generated.h
+diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+index 658a5fb1fda6..2ad343728782 100644
+--- a/drivers/accel/amdxdna/aie2_ctx.c
++++ b/drivers/accel/amdxdna/aie2_ctx.c
+@@ -437,8 +437,9 @@ static void aie2_sched_job_free(struct drm_sched_job *sched_job)
+ 	struct amdxdna_sched_job *job = drm_job_to_xdna_job(sched_job);
+ 	struct amdxdna_hwctx *hwctx = job->hwctx;
  
- $(obj)/nova_core_exports.o: $(obj)/exports_nova_core_generated.h
-+
-+# Dependent Rust drivers need `nova-core`'s crate metadata.
-+# Expose it as an explicit target so they can request it directly.
-+nova_core_rmeta := libnova_core.rmeta
-+nova_core_rmeta_private := .nova_core_rmeta/$(nova_core_rmeta)
-+targets += $(nova_core_rmeta) $(nova_core_rmeta_private)
-+
-+# Build in a private directory to avoid racing with `nova_core.o` on rustc's
-+# intermediate object names during parallel builds.
-+quiet_cmd_rustc_rmeta_rs = RUSTC RMETA $@
-+      cmd_rustc_rmeta_rs = mkdir -p $(dir $@); \
-+		$(rust_common_cmd) --emit=metadata=$@ \
-+		--emit=obj=$(basename $@).o $<; \
-+		rm -f $(basename $@).o
-+
-+$(obj)/$(nova_core_rmeta_private): private __modname := nova-core
-+$(obj)/$(nova_core_rmeta_private): private part-of-builtin := $(if $(filter y,$(CONFIG_NOVA_CORE)),y)
-+$(obj)/$(nova_core_rmeta_private): private part-of-module := $(if $(filter m,$(CONFIG_NOVA_CORE)),y)
-+$(obj)/$(nova_core_rmeta_private): $(obj)/nova_core.rs FORCE
-+	+$(call if_changed_dep,rustc_rmeta_rs)
-+
-+# Keep the metadata available at a stable path for consumers.
-+$(obj)/$(nova_core_rmeta): $(obj)/$(nova_core_rmeta_private) FORCE
-+	$(call if_changed,copy)
-
++	/* job->drv_cmd could be freed, so use DEFAULT_IO */
+ 	trace_xdna_job(sched_job, hwctx->name, "job free",
+-		       job->seq, job->drv_cmd ? job->drv_cmd->opcode : DEFAULT_IO);
++		       job->seq, DEFAULT_IO);
+ 	if (!job->job_done)
+ 		up(&hwctx->priv->job_sem);
+ 
 -- 
-2.54.0
+2.34.1
 
