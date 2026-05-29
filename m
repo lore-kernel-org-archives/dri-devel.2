@@ -4,62 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60D4ACD6E4A
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 12:49:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CC6ECD6E4A
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 12:50:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C39F510FEA3;
-	Fri, 29 May 2026 12:49:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A43F10FEA6;
+	Fri, 29 May 2026 12:50:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OA91hPnQ";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="UX8fUbkK";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 123DD10FEA3
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 12:49:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780058974; x=1811594974;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=0+7/g0mi6l7kKxYz0Xqr5IpWDJvOQ6TzQcMKQtE4/r4=;
- b=OA91hPnQWauDHZMqyy67PtTrIOYr+71l1mnHBt+T5VVkAmQRU0JoK0NO
- h+YVUqIYsdEvF4KaY2I/iA0cQAtQ5kRlKH039xeV8C9zhOFa/nHEuRlqp
- MafzYgSfotc0W+nkcjQJgR9Z9rnyaCnWnTZZDekIWxC9KgSXYLxBWGrCE
- Jb1V14arX/9RRMWe2MWJqbadw9SXigX7yqBWWsNFssydKKvv+HGx11Exb
- HD6A63kjPE+Vo2Bv2hwOKD7YjqD1zSbkDWxY5oAVB2v9+AeLAz4gOqg6d
- K5EXx/6w7+W4V9YayJJYi5zSHxs2rzuswHVgwQJoNu0q+dWmSkoK34NnX A==;
-X-CSE-ConnectionGUID: jI7xxy3RReCWzRmUacqB0Q==
-X-CSE-MsgGUID: IaYVw+S2ThyV0/EVVjxzXA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11801"; a="80938131"
-X-IronPort-AV: E=Sophos;i="6.24,175,1774335600"; d="scan'208";a="80938131"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2026 05:49:34 -0700
-X-CSE-ConnectionGUID: //sN67o1TFKY3pyvZWtphg==
-X-CSE-MsgGUID: b/KmKKA6QumYHdpXF/xm0Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,175,1774335600"; d="scan'208";a="241797128"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.65])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2026 05:49:32 -0700
-Message-ID: <38ac02bee3cc6aff18af80324ae794ab72745724.camel@linux.intel.com>
-Subject: Re: [PATCH] drm: Set dev->registered back to false in case of
- register failure
-From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-To: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Cc: dri-devel@lists.freedesktop.org, Andi Shyti
- <andi.shyti@linux.intel.com>,  Krzysztof Karas <krzysztof.karas@intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>
-Date: Fri, 29 May 2026 14:49:29 +0200
-In-Reply-To: <ednzkzzbdyabfyvgwkpwqttueqh5taaovhuidfkyc3e2tupnia@7a56amg3bmto>
-References: <20260522154037.46892-3-krzysztof.niemiec@intel.com>
- <c55da1fa43e00d755191520e8c03a7659c6e892f.camel@linux.intel.com>
- <ednzkzzbdyabfyvgwkpwqttueqh5taaovhuidfkyc3e2tupnia@7a56amg3bmto>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21F3310FEA6
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 12:50:46 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-45ef1629ff4so522312f8f.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 05:50:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1780059045; x=1780663845; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=gsdtKyBNIze1lqIATJulyFXg8jvRauNrlgVPkVHHWJU=;
+ b=UX8fUbkKbgwkjbZfWozv57x4nyDnsoKsfv02ilMd/gzY2j6W+r1JhfUHpmMjvQfYDC
+ mlfBM0BkuUyNIecI4HVT6VMS9X2ts9X+pO/GwhQjPE/6VZcDfgvJ6VeZW5yMY1nonlpL
+ 8329LByo32LYMfrqtOj+DcaoAzxHRkbK8khjmL+2syxzXh3mvSDmForkjHvnEiu+bhfY
+ DvcoZelIkYwPPNNN5EK8OwgaKXMYbuU9w4OsvumQQoM7k++eHoCzDLh0sVH+enpd+HAG
+ VtgmNmaCas9FhXeCALE4OhRUYccUyQNrR4lljHmALYO6bZwb2myktRqhMAlCFGGcuQK+
+ flpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780059045; x=1780663845;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=gsdtKyBNIze1lqIATJulyFXg8jvRauNrlgVPkVHHWJU=;
+ b=AQ7zPWI2DxvyWDS3s5AHO1vQv2DguKGTWWPUX9W6QH07ewtxmRNyjRxZ/P+9adf1SN
+ dz6xzwJ35OHteLstmH5b0QC81yHR7s57UDtyyArgPpKuNmsit+GHz1MSJV0f1qW6+M7p
+ B7YKmCWlmUPlqLGpGJMNyqY8wOf4HD7/GkVTZkEoUtSDJPIK0ePgOa2aGmydaNeG9vYd
+ XOjfDUsvE9E2U+2ZRbWkAgBtpqm7EEjqGtBboCKc9eOPxMp96DaBZ3Tg24WMtfUXq6kN
+ YABm4CLhTeHapSXUHL4/nAzBb2KLIc6xnZPAjuVHuzSCO228koENWvL8OFL2Dguo0E1V
+ ANTQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9ZtbB0rXQ9Y8pV2VOk94Vh7Gw6Bpw7oeRfEvQYQ7s00ybcL8w/wdfORrT+201woCFArcw8xVxaA0g=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw35ZAsJYAOUctIkQfNwWPv5aS8H70NbyQupS5wt2mUFqPkPFO/
+ 3liRmGcskYhpYIK6W76yknhstpKz9GliMrMD02MXM/eLB8LqzgjOhLHkyupMnwJOZPE=
+X-Gm-Gg: Acq92OE5Oq3I4YCXjjWKonZv3ZIT+7iJkxc74ZfKVEH6y2FOnEgtJDGAiqMhygPlGWB
+ YBiQIg236CJK/fDrlOvMgePOxhA8TtmEkgApBhoRwK3iWRfdi3UP3zbF/18hHtkbYowSPiWfXnb
+ C2HWC4oghkeJ339CWL2VZrhUNkj3dhU9TVP0J8J80RNIdtU2XlnMHsI74VE1O7WA7Addjyjq5l/
+ MMYkeMyh2sM1m3qIQYoY7vv7b8QftHytLL0TeYNj035BeYUt0ktOZTHOoiEjNwAeYkGldM9FbSz
+ xZo6ycb2mU/Xla2m0bQoCSNlYsJDblvULmrswhqKNhioX4LTdlPF+D79gclCYZS4ZHJeHM1jiWl
+ AuZ3VLeODHdmloc33Hf5oNiTwcNe+XEyWtH2m6+ZVoZXWqVIRbuQbBHpuB++npjUV6WBEYeyzVJ
+ Vp4oxDcEPZEoQpk4K2dn2bxW9QfBO/viIDOnQV3TJKz4c6A8UBXdSzewh/Tx8Nqe4tD5YNc6sr1
+ 6tzBXbZXu6j/jFrg9iTqt3LgDR4
+X-Received: by 2002:a5d:5d0c:0:b0:45e:e1a4:c4c3 with SMTP id
+ ffacd0b85a97d-45ef1403b76mr5200312f8f.15.1780059044315; 
+ Fri, 29 May 2026 05:50:44 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:b6d0:a628:be51:f552?
+ ([2a01:e0a:106d:1080:b6d0:a628:be51:f552])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-45ef354b5bdsm3169110f8f.21.2026.05.29.05.50.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 29 May 2026 05:50:43 -0700 (PDT)
+Message-ID: <4001cf6a-b7de-4933-96bc-c9b4ccb53e4d@linaro.org>
+Date: Fri, 29 May 2026 14:50:43 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v3 1/2] dt-bindings: leds: backlight: document the SY7758
+ 6-channel High Efficiency LED Driver
+To: Daniel Thompson <danielt@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260519-topic-sm8650-ayaneo-pocket-s2-sy7758-v3-0-ec8194bbc885@linaro.org>
+ <20260519-topic-sm8650-ayaneo-pocket-s2-sy7758-v3-1-ec8194bbc885@linaro.org>
+ <ahllT_HVTAJ5MbkS@aspen.lan>
+ <e3c99fe3-9279-4dfa-af69-d9366ab06837@linaro.org>
+ <ahlr5PnX5O0tEd6G@aspen.lan>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <ahlr5PnX5O0tEd6G@aspen.lan>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,124 +127,117 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 2026-05-28 at 17:24 +0200, Krzysztof Niemiec wrote:
-> On 2026-05-25 at 10:16:32 GMT, Janusz Krzysztofik wrote:
-> > Hi Krzysztof,
-> >=20
-> > On Fri, 2026-05-22 at 17:40 +0200, Krzysztof Niemiec wrote:
-> > > The dev->registered variable was initially added in such a way that i=
-t
-> > > is only set after all functions that could have failed have been call=
-ed
-> > > and haven't returned an error. However, since then, the function
-> > > drm_modeset_register_all() is being checked for its return value, whi=
-ch
-> > > opens a possibility of failing the register after setting the registe=
-red
-> > > variable anyway. drm_dev_register() cleans up after itself in case of
-> > > failure, mimicking the functions called in drm_dev_unregister(), with
-> > > the exception of drm_client_sysrq_unregister() and
-> > > drm_panic_unregister() (_register() counterparts of which are not
-> > > checked for their return values), and the dev->registered flag.
-> > >=20
-> > > This creates a situation in which after calling drm_dev_register()
-> > > nothing is registered (as the function entered an error path and clea=
-ned
-> > > up), but the device is reported as being registered according to the
-> > > dev->registered variable.
-> > >=20
-> > > This, for example, confuses the WARN_ON() in drm_mode_object_register=
-(), which
-> > > is raised if a non-dynamic mode object is attempted to be unregistere=
-d
-> > > in between the drm_dev_register() and drm_dev_unregister() calls. If
-> > > drm_dev_register() fails - meaning the device *isn't* registered -
-> > > currently it still reports dev->registered =3D true, which triggers t=
-he
-> > > WARN_ON(), even though the usage is correct in that instance.
-> > >=20
-> > > Set dev->registered back to false in the error path to prevent this.
-> >=20
-> > While you've also submitted a patch ("drm/i915: Remove drm_dev_unregist=
-er()
-> > from the error path during i915_driver_register()") that adjusts i915
-> > handling of register / unregister steps after this fix, have you checke=
-d if
-> > other drivers are prepared for that and won't be affected?
->=20
-> I just did; there'd be a problem if in the error path triggered by
-> failing drm_dev_register, some driver relies on the dev->registered
-> variable to be true to do its work.
+On 5/29/26 12:35, Daniel Thompson wrote:
+> On Fri, May 29, 2026 at 12:16:07PM +0200, Neil Armstrong wrote:
+>> On 5/29/26 12:07, Daniel Thompson wrote:
+>>> On Tue, May 19, 2026 at 10:43:38AM +0200, Neil Armstrong wrote:
+>>>> Document the Silergy SY7758 6-channel High Efficiency LED Driver
+>>>> used for backlight brightness control.
+>>>>
+>>>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>>>> ---
+>>>>    .../bindings/leds/backlight/silergy,sy7758.yaml    | 53 ++++++++++++++++++++++
+>>>>    1 file changed, 53 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
+>>>> new file mode 100644
+>>>> index 000000000000..80e978d691c2
+>>>> --- /dev/null
+>>>> +++ b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
+>>>> @@ -0,0 +1,53 @@
+>>>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>>>> +%YAML 1.2
+>>>> +---
+>>>> +$id: http://devicetree.org/schemas/leds/backlight/silergy,sy7758.yaml#
+>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>> +
+>>>> +title: Silergy SY7758 6-channel High Efficiency LED Driver
+>>>> +
+>>>> +maintainers:
+>>>> +  - Neil Armstrong <neil.armstrong@linaro.org>
+>>>> +
+>>>> +description:
+>>>> +  Silergy SY7758 is a high efficiency 6-channels LED backlight
+>>>> +  driver with I2C brightness control.
+>>>> +
+>>>> +allOf:
+>>>> +  - $ref: common.yaml#
+>>>> +
+>>>> +properties:
+>>>> +  compatible:
+>>>> +    const: silergy,sy7758
+>>>> +
+>>>> +  reg:
+>>>> +    maxItems: 1
+>>>> +
+>>>> +  vddio-supply: true
+>>>> +
+>>>> +  enable-gpios:
+>>>> +    maxItems: 1
+>>>> +
+>>>> +required:
+>>>> +  - compatible
+>>>> +  - reg
+>>>> +  - vddio-supply
+>>>
+>>> Sorry for missing this in v2 but is vddio-supply really a required
+>>> property?
+>>>
+>>> It's unusual for supplies to be mandatory (and the it is not mandatory
+>>> in the driver implementation).
+>>
+>> This device is a little bit special, the VDDIO regulator is used to provide
+>> power for the I/O via the enable input, so basically the enable gpio power
+>> level is provided by VDDIO.
+> 
+> I don't follow. The EN pin acts as both VDDIO and as an enable but it's
+> still effectively a power rail isn't it (albeit one with very low current
+> draw).
 
-OK, maybe my doubts about other drivers were groundless.  The flag is
-described as DRM internal after all, and cleaning it in the error unwind
-path seems fully justified.  However, please review your commit
-description.  Trying to understand why drm_mode_object_register() might
-call WARN_ON() when dev->registered is true, I found it doesn't, and that's
-probably its _unregister() counterpart that may do that.  With no stack
-trace attached, that's confusing for a reviewer.  Such WARN_ON()s may be
-hit not only due to inconsistencies internal to DRM, but also as a result
-of drivers incorrectly / unexpectedly calling some DRM functions.
+Here's the datasheet description:
+```
+Dual-purpose pin serving both as a chip enable and as a power supply
+reference for PWM, SDA, and SCL inputs.
+```
 
-Thanks,
-Janusz
+The VDD input is directly provided by the panel, so Linux has no control
+of it so I haven't added it.
 
+> 
+> It looked to me like the correct way to model to two power rails
+> going into the chip is vdd-supply (main power supply) and vddio-supply
+> (EN/VDDIO) I don't understand why a single pin needs both a regulator
+> *and* a GPIO in the DT bindings?
 
->=20
-> There are two main patterns of doing the error path in the DRM drivers
-> I've seen - one is just directly returning from the overarching function
-> with drm_dev_register()'s error return value. The other is invoking the
-> .unbind handler of the driver via component_unbind_all(), and most of
-> the time those call drm_dev_unregister() right away, which sets the
-> dev->registered value to false anyway. In these two cases (if
-> drm_dev_unregister() is called in the second one), the problem doesn't
-> affect the driver at all.
->=20
-> In the case of i915 not setting the variable to false on failure
-> triggered a WARN_ON() in drm_mode_object_unregister() because that is
-> invoked indirectly in the error path due to the complexity of our
-> init code (even xe just returns directly instead). If another driver
-> calls that function in its error path, it will just silence (correctly)
-> the WARN_ONs there.
->=20
-> The only driver that explicitly checks for dev->registerd in its error
-> path is msm, which does that to see if it needs to invoke
-> drm_dev_unregister() during unload. This patch actually fixes a bug there
-> because otherwise _unregister() would be called even if _register() fails=
-,
-> which is not correct.
->=20
-> All other uses of the variable are outside the error path of their
-> respective drivers, so they should function as intended even after the
-> change.
->=20
-> Thanks
-> Krzysztof
->=20
-> >=20
-> > Thanks,
-> > Janusz
-> >=20
-> >=20
-> > >=20
-> > > Signed-off-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-> > > ---
-> > >  drivers/gpu/drm/drm_drv.c | 1 +
-> > >  1 file changed, 1 insertion(+)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> > > index 985c283cf59f..92403d79bb64 100644
-> > > --- a/drivers/gpu/drm/drm_drv.c
-> > > +++ b/drivers/gpu/drm/drm_drv.c
-> > > @@ -1116,6 +1116,7 @@ int drm_dev_register(struct drm_device *dev, un=
-signed long flags)
-> > >  	if (dev->driver->unload)
-> > >  		dev->driver->unload(dev);
-> > >  err_minors:
-> > > +	dev->registered =3D false;
-> > >  	remove_compat_control_link(dev);
-> > >  	drm_minor_unregister(dev, DRM_MINOR_ACCEL);
-> > >  	drm_minor_unregister(dev, DRM_MINOR_PRIMARY);
+I don't have a the schematics of the board, but as I understood one gpio is
+actually enabling an regulator which provides power to the IC (vddio) and
+a second gpio will either drive the EN signal to GND or VDDIO to provide a
+clean rising edge on the EN pin.
+
+So it's not really 2 regulators, and having regulators means the enable
+signal can be shared and would have regulator characteristics which it hasn't.
+
+> 
+>> This is the recommended way from the datasheet, and I assume it will be used
+>> like that on other platforms (if it exists...)
+>>
+>> This is why it's mandatory and enabled first before setting the enable pin.
+> 
+> It's not mandatory for the C implementation. devm_regulator_get_enable()
+> will provide a dummy regulator if the property is omitted.
+
+So yeah if you prefer I'll re-spin with the vddio regulator as optional
+because between both, the VDDIO is the only which could be shared with
+other devices or always-on.
+
+Neil
+
+> 
+> 
+> Daniel.
+
