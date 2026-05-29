@@ -4,98 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F365CCD6E51
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 13:42:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E8D7CD6E4A
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 13:45:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6735110FF5C;
-	Fri, 29 May 2026 13:42:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E315010FF63;
+	Fri, 29 May 2026 13:45:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WShJZDmS";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="GrssdrZ8";
 	dkim-atps=neutral
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com
- [209.85.217.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E05E610FF5C
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 13:42:10 +0000 (UTC)
-Received: by mail-vs1-f52.google.com with SMTP id
- ada2fe7eead31-6c449ac3588so92157137.3
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 06:42:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780062130; cv=none;
- d=google.com; s=arc-20240605;
- b=iE5b0QpvdpGMmUI1ffMNhIMDYiCzfIMvU9kmOCXsB6nFewzwmDPlQzSnfTyKvDpNce
- pB/9zD9QlGHvcUaetdM686pEVsrG/8dHrxgRfmRUo/ZILGBY/XdAkTB90Rujg7FU9wfG
- K99NXwuIlWznXYVdHMAHuT1I/ixyMH6kSgyQ+BwD8GAhLJVXpp1LFU2iRJct/zPws4GZ
- hNE9FIkQZH+GRIBQ0LCbOAEkxcgb7B85T6Ky8MHJj1Om9vWCo+jKyMs26N9MuUcw1+Tk
- qH9f3azqzUgcK+nCMZ0I0vHkYZXCe58r/TIa87m7WCdE3YK0hMkTfYjX6j8z0G9NExYw
- xL0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=foZUSSCn3mw3igbjhG/ByovMp3TLwfr7Tn+8SY7PdHU=;
- fh=qmVSLiFdbluHEDZadNK2IEoDgD6laL4dhsBrnUvF4Jk=;
- b=hdsYn64HPj+uoh+1H+GyoTTaF1uOyRNaXmPxnB/FdKWR2U/g4upGVujllbsW4YZlRY
- vqObkbza8tLCHownNaUFc3FBu7cayOEc8lQomqY5Jv2jt9Fld2329xHPbkG+dJEWqveS
- CugwutmLMnINr9axSk2vZxyfLxfNAgH02/nYnSYzZE5dbIU7y8CF2Af1u1UGz2SjzxX0
- wuLHiyx5uGoSMWPmOB/bMo4mfS1NuPuFm4AJEiziOo64WMiG4BrcxelKDUNBYe40k/rD
- 0kbikaHoPxKnLVXo9MuXAUzPZ0iobuDS8YDn69Y0UODEYshsf+Sswo/f/mssT6ZuMqzQ
- 1uVA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9163110FF63
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 13:45:41 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4905e190c71so66675435e9.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 06:45:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780062130; x=1780666930; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=linaro.org; s=google; t=1780062340; x=1780667140; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=foZUSSCn3mw3igbjhG/ByovMp3TLwfr7Tn+8SY7PdHU=;
- b=WShJZDmS9gBZfkXYXwkTwCWv9YpG6whfXkxcDYymhpCieYP6aiGck7YNMKMIfnTQce
- BhVCReh5k0ow2XzhWkeiTk0YxBE3b7okZe6P0LMAfiOmCoHozXdtXUMwGY+iArQ/T2Jq
- +KCcn68wfpr5/236h+G/Ngmm66AbTDbFGfYfB3eW3/c4oAaDtMtqA2ZMVbsmCWNcs8hS
- FXLer20YCgaowYp3H7kYlwi/mvklGw791fbYJmgqwM2SQE7iQWmok5M5elOB4LXzu3IK
- RRuCiI2wlsu9gUFG5lraE/i0wks4ydIbNG/a8hC4q2ekjOeRD3a2mhEGeJGkdSwntPfq
- Ng/Q==
+ bh=/hmESmRQ7oEDRaIT7qrXfWDnCEYcDZdHNx/MwGQONMc=;
+ b=GrssdrZ8G3yaoQdozo0sjgHF9sdOg9yAN9y1YYXgxq/WC0h9c+mgG3id79giKd/+Hr
+ 0O2goj3MT0JUmvKm6LDjG2WiUL9qLl/XKBb2UZe0U1Ocq6E8xwc320TxEbCN0SdhCmY+
+ kEPTfojx/xFvm2fY87u173Ku3Ik7zzMeWgZAIxQj8ve26L/9jPaTTHkEn5tSgQaLPyPF
+ lFd4IQsBy7qwVLs/FC5PIT67xt3zGiLoovTZ/3HNI0xbjK9ZQ2MxgMn8J6DmuIYVVuOh
+ kLy5uaRAfQrW/RsA1zlNn6X55yz1kET22N+UFdA4es/5DQSR3jDlSRRB6a50c9C30eH8
+ yq8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780062130; x=1780666930;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1780062340; x=1780667140;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=foZUSSCn3mw3igbjhG/ByovMp3TLwfr7Tn+8SY7PdHU=;
- b=QgwaEm97a3QWSWRBEP4UI3qjOV99ICzrdqHR9FI+vxNpdyemKL6Wwww4gNpSy0kQeS
- vkeCWX7JJVH/UAhbMz7ALCrxR93ZSERlsHqTiDt07fRhTL9QJhGHjWXMFrHI80uNjxta
- sleYvgOIz2Y8ZlbN4IPGIoJJkCktKIWjajAJsAUe7nK93Xs6H2N8gLMsugF4imKu0eMs
- Uu3RJFvy/nt1ioVlkGLiROROTBMyC//E5hhpjY0lRVY6VeZ2eaSbNM2A6bVao8Fc7Y+C
- MpFfuppYradG7TObG+9PggYQAnUuG0Z7x+e3ht7W4LQuUGogeNdQwDT+Xuix6SQbxUfn
- jc8A==
+ bh=/hmESmRQ7oEDRaIT7qrXfWDnCEYcDZdHNx/MwGQONMc=;
+ b=nq6PG5ES6wF+jjYklTV98X0LJhXERGEpvu1RGnjkLc1YS0xt+8DWmImzkGhLRq13/F
+ FcmRsGfdL/l22xw5GicmSRdxqvVOxs/PJyi6IM+6Gzrj+eTt/oeBTOVDosv2ducg2o0u
+ 2xAB3kbOLP7tHw5dRjGWruf/Fu7e3LwPpij6hx4rycDckgoojCGlrKTab3bKsrYKLAe9
+ Hzj3e95yjDbiwuzUaK25UBVW+7kecqFzzsH8HbDikOqil6oBaIBJOIQhOGhJsQgrFDCV
+ ht2ZZ1YpbllkGX+6xxi2922ESIYhqj9sizkreBsjBQld31Kj+sw/0Cu1PGNBvqaibruK
+ wImw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8fRkLr9nUmxIcgCL+SU7I5E6orLgK1zzAwG3R8STApCkj95+5dwCZYZ+bmgKF53G13ycCjFWFGDnc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx+jI85JYQ32OT/Xze7oM47u0EXdSo2FC4gb4Nrl351Lb9q/8jz
- 4i/LXDTgpjvJ19T8P9e0gZ40ES7j/hXPCJaQZ9HfTkKmCMZpxnxJwhSOQClLr/UJlpIjEOB5Nm0
- WKhhBNtySB8lkyojrp2oziv3Sycp7tJw=
-X-Gm-Gg: Acq92OGRioGTO9a8mYFulbhJLGmrvcuKGGVP286AqKtlKMvmltxIHSYd/f9WSyTeOTO
- x1D9GqhKmboua5doO/wSeBuga/Tl1d5zjy0y/zmYzDMBvX0y5WWcA8+UX8+vjHaYg759YnI82Mo
- zoxFC5EkgLw+UriR0o/cuSwdI6u4NFjJpJv4+UseLsoeJeF1scQVHNVKvk0mxjy6m073eC02Mv5
- LSUnfxLYY7fPkUpLwhv6TuNVbUxu+XLsLImzpVqAytFHzaM6DBY3so30Mxe4TyhiBgxDgDsxAKj
- BdLHod3OjMZ/znhx9Z3VS+Tn/BuRKkEezBR+mmDKc5TeFA/t
-X-Received: by 2002:a05:6102:3746:b0:636:c0c:4d91 with SMTP id
- ada2fe7eead31-6bf41448d48mr1182976137.28.1780062129815; Fri, 29 May 2026
- 06:42:09 -0700 (PDT)
+ AFNElJ94dAVqdsTORYG657bnSGeEQpksmze8SCNPvfpVAtqHUCpp4lesQc+FVfxRfEivXXm7Z+TK4aC2zX8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw/fERH8MxC6Kgbw9hU2BdXm8uIS4htoUOUFSUm+VglB2TyPoQg
+ EW5bHpSIF/c32EBD8y6zCHy32NhW66ZIhNiM09SlOv1CKO/ExWgTKaAo3V2ssfC5is0=
+X-Gm-Gg: Acq92OHP9O6kDm6q4PAfUxBtpvoZ6de0tRkYg8wOeKCvohKitBqfi85xvYayR8AXUsL
+ cUoUbhFIXwEo1dwBkR0ELNrOxMr5TG1ijV95pD/WPE3CdnPMKr1qb5P1P/yyHFJFV1uLjFFr5B4
+ KCIW/VKdnHrAmvP1Nt65CjdeA9RBdHy2x8WfIG1cFOuHLSsgD6GRVKj/Xfx5na8pqoOomDd82VN
+ VgwvwKIqo+S3Z3xK90EDgtGkdN7QPOtupZjWPNreyjRu30GbT65+nv9Ze4/HExk1Vz7zm6uac1o
+ qukH6NcbgfYW+VsfzGTx+rYa+DC74s1vvzYDgsm3/YT6LjSF5q2jJeIRX1VA+dlgfHjgrCYInGo
+ efU75pL+jGTvnY8SOWEsIVDFEzFHSWZc+6hOqwMFeprU50uQqdZwZNwc931mPSHuVsVw2Iwe/dX
+ FVrjqXMqLNWm8CiJdRAwM+zUuJf1glE9jUyJ6uXd3XHt4eIaDn8e2ZZ8c=
+X-Received: by 2002:a05:600c:c0d1:10b0:490:5e2a:f924 with SMTP id
+ 5b1f17b1804b1-4909c07755dmr41345005e9.7.1780062339885; 
+ Fri, 29 May 2026 06:45:39 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4909d6eb3adsm41387165e9.11.2026.05.29.06.45.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 29 May 2026 06:45:39 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, Vitor Soares <ivitro@gmail.com>
+Cc: Vitor Soares <vitor.soares@toradex.com>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20260522161105.277519-13-ivitro@gmail.com>
+References: <20260522161105.277519-13-ivitro@gmail.com>
+Subject: Re: (subset) [PATCH v3 00/11] arm64: dts: ti: k3-am62-verdin: Add
+ display and peripheral overlays
+Message-Id: <178006233854.3611686.1401419911890133047.b4-ty@b4>
+Date: Fri, 29 May 2026 15:45:38 +0200
 MIME-Version: 1.0
-References: <20260527194525.45762-1-arnd@kernel.org>
- <CAGXv+5HvJiTkLJMZ13w0OHwgp+nPBftGAC-15nhJ3R=vOPWpUg@mail.gmail.com>
-In-Reply-To: <CAGXv+5HvJiTkLJMZ13w0OHwgp+nPBftGAC-15nhJ3R=vOPWpUg@mail.gmail.com>
-From: Inki Dae <daeinki@gmail.com>
-Date: Fri, 29 May 2026 22:41:34 +0900
-X-Gm-Features: AVHnY4JvF7WCaYgOFVyNLTbyQStc4V3bgFlseC90wq5uN90mEmMwAwiliM8N3JY
-Message-ID: <CAAQKjZNoGC_9ratL7+FjNiQk+MkOE7p=yg5ECQA+ih1trGw8cA@mail.gmail.com>
-Subject: Re: [PATCH] drm/exynos: fix size_t format string
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Arnd Bergmann <arnd@kernel.org>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, Arnd Bergmann <arnd@arndb.de>, 
- Alim Akhtar <alim.akhtar@samsung.com>, dri-devel@lists.freedesktop.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.1
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,103 +101,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-2026=EB=85=84 5=EC=9B=94 28=EC=9D=BC (=EB=AA=A9) =EC=98=A4=EC=A0=84 6:05, C=
-hen-Yu Tsai <wenst@chromium.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> On Wed, May 27, 2026 at 9:45=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> w=
-rote:
-> >
-> > From: Arnd Bergmann <arnd@arndb.de>
-> >
-> > The exynos_gem->base.size argument is a size_t rather than an
-> > unsigned long, so adapt the printk() format string accordingly:
-> >
-> > In file included from drivers/gpu/drm/exynos/exynos_drm_gem.c:16:
-> > drivers/gpu/drm/exynos/exynos_drm_gem.c: In function 'exynos_drm_alloc_=
-buf':
-> > drivers/gpu/drm/exynos/exynos_drm_gem.c:69:49: error: format '%lx' expe=
-cts argument of type 'long unsigned int', but argument 6 has type 'size_t' =
-{aka 'unsigned int'} [-Werror=3Dformat=3D]
-> >    69 |         DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev), "dma_addr(0x%lx=
-), size(0x%lx)\n",
-> >       |                                                 ^~~~~~~~~~~~~~~=
-~~~~~~~~~~~~~~~~~
-> >    70 |                         (unsigned long)exynos_gem->dma_addr, ex=
-ynos_gem->base.size);
-> >       |                                                              ~~=
-~~~~~~~~~~~~~~~~~~~
-> >       |                                                                =
-              |
-> >       |                                                                =
-              size_t {aka unsigned int}
-> >
-> > The dma_addr in the same line is already printed using a cast
-> > to unsigned long, so change that similarly to use the correct
-> > %pad format.
-> >
-> > Fixes: 11e898373fba ("drm/exynos: Drop exynos_drm_gem.size field")
-> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
->
-> I posted the same patch [1] one and a half months ago when the culprit
-> patch was queued up and I got a report about this from the bots.
->
-> Inki hasn't picked up my fix yet.
+Hi,
 
-Really sorry for this. I missed your patch.
+On Fri, 22 May 2026 17:11:04 +0100, Vitor Soares wrote:
+> From: Vitor Soares <vitor.soares@toradex.com>
+> 
+> This series adds device tree overlays, expanding the hardware support for
+> the Toradex Verdin AM62 SoM. The overlays target displays, cameras, audio,
+> and peripherals available through Toradex carrier boards and the accessory
+> ecosystem.
+> 
+> [...]
 
-Thanks,
-inki Dae
+Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
->
-> And it seems the exynos-drm-next stuff was only merged into drm-next
-> yesterday, now causing the warnings to pop up all over.
->
-> ChenYu
->
-> [1] https://lore.kernel.org/all/20260408064936.1342321-1-wenst@chromium.o=
-rg/
->
-> > ---
-> >  drivers/gpu/drm/exynos/exynos_drm_gem.c | 8 ++++----
-> >  1 file changed, 4 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.c b/drivers/gpu/drm/=
-exynos/exynos_drm_gem.c
-> > index 297a93b087cd..8e357f2beb9e 100644
-> > --- a/drivers/gpu/drm/exynos/exynos_drm_gem.c
-> > +++ b/drivers/gpu/drm/exynos/exynos_drm_gem.c
-> > @@ -66,8 +66,8 @@ static int exynos_drm_alloc_buf(struct exynos_drm_gem=
- *exynos_gem, bool kvmap)
-> >         if (kvmap)
-> >                 exynos_gem->kvaddr =3D exynos_gem->cookie;
-> >
-> > -       DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev), "dma_addr(0x%lx), size(=
-0x%lx)\n",
-> > -                       (unsigned long)exynos_gem->dma_addr, exynos_gem=
-->base.size);
-> > +       DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev), "dma_addr(%pad), size(0=
-x%zx)\n",
-> > +                         &exynos_gem->dma_addr, exynos_gem->base.size)=
-;
-> >         return 0;
-> >  }
-> >
-> > @@ -80,8 +80,8 @@ static void exynos_drm_free_buf(struct exynos_drm_gem=
- *exynos_gem)
-> >                 return;
-> >         }
-> >
-> > -       DRM_DEV_DEBUG_KMS(dev->dev, "dma_addr(0x%lx), size(0x%lx)\n",
-> > -                       (unsigned long)exynos_gem->dma_addr, exynos_gem=
-->base.size);
-> > +       DRM_DEV_DEBUG_KMS(dev->dev, "dma_addr(0x%pad), size(0x%zx)\n",
-> > +                         &exynos_gem->dma_addr, exynos_gem->base.size)=
-;
-> >
-> >         dma_free_attrs(drm_dev_dma_dev(dev), exynos_gem->base.size, exy=
-nos_gem->cookie,
-> >                         (dma_addr_t)exynos_gem->dma_addr,
-> > --
-> > 2.39.5
-> >
->
+[03/11] dt-bindings: vendor-prefixes: Add Riverdi
+        https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/3764568dd2e621850c8c2a34dd8a88096ae73e72
+
+-- 
+Neil
+
