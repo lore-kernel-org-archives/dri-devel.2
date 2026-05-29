@@ -4,38 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D6ECCD5BD2
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 08:51:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D7E0CD6E45
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 09:08:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AE7910FB26;
-	Fri, 29 May 2026 08:51:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 874F310FB7F;
+	Fri, 29 May 2026 09:08:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="g6te5prD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X1KsMRvl";
 	dkim-atps=neutral
-Received: from mail-4397.protonmail.ch (mail-4397.protonmail.ch [185.70.43.97])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1112710FB26
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 08:51:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail; t=1780044708; x=1780303908;
- bh=rctSTzIDqa8aqPc1OQh6LHkpfPpFqz50AihaSvSTuQs=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=g6te5prDJGg6dQ/EYdcjVaFC9uCKTAvAzZdUEc2j4IuF7Gnqo9id9FPjciGujfu9H
- ELeJ0V82CCy+9HTwNxNhjg2hC9Audim0ecsBIc0y95FXJb8aMYfAYyO2W4WWpr5gXP
- UhiRtQbkO2A3JINDtCmxvjersaoueFA9Hb+YnaegzcgutdKLmNuryfksrCfdH2+Tjr
- NT2T+Gzqt5qsiqLa8Ec+AyDd1G5G5XzJHu6zxMq5ysQP4rHLurRyFWv0pb+hwHl1lb
- 6etbNOsdX7AdZuBDRYFclMP/TCzJKB7v48G+hYx3hnsG2httAXlaV8KDF1ZmEFyUEM
- 5LMDbJKBmPdkg==
-Date: Fri, 29 May 2026 08:51:42 +0000
-To: "xorg-announce@lists.x.org" <xorg-announce@lists.x.org>
-From: Simon Ser <contact@emersion.fr>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Subject: [ANNOUNCE] libdrm 2.4.134
-Message-ID: <Lf440GQtiWgoREFjkYc-WzM8TVEYtpODpfCb0w9neU5Dd_iYSgT98goFxMYHRpoxPqFo2mrI5QOaXYpdpKbKg7_Xklv07yI9NVQczuchV7c=@emersion.fr>
-Feedback-ID: 1358184:user:proton
-X-Pm-Message-ID: 1e553db82db36901ba9e93c46db57160e91cd5bf
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01C0E10FB7E
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 09:08:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 243C960564;
+ Fri, 29 May 2026 09:08:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55181F00893;
+ Fri, 29 May 2026 09:08:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780045711;
+ bh=SJhCBNK1z06eHdQUaoXs+yc4q80tlftXqJh3f219zPs=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=X1KsMRvlEDqxH6HNt/sLZgqvC6pDIHPcOnX3zD0c2VF1uncQ83dO7ICSK4kHtlu6y
+ txTfvgvkcC5u4WQ3Ic2CcKYtM2Vt5r+5HVL+gbsCV/AOXWpv6WgQEdkmnAARpTqMrZ
+ 0knmKymZLqVmnD5eJWszccrsioEQX5Tnf+S7y759DKhWLq/2pjPTlGrfUw32OTGqC7
+ x0BKMy7E/SnaQ8nvlkNq3mGvcMKOwdDwHw8yDYCVt8gBjRm6IhIhFkCJjQ1Z6bUBjq
+ 5vpfX8fdsIezybD6WxANkb0tYH1L1r4NuCiBjv4AwrEjJxapFBlYQz1bZfyrulY3Yh
+ EsxthgMwu0iAw==
+Date: Fri, 29 May 2026 10:08:19 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, Jingoo
+ Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Helge Deller <deller@gmx.de>, Johan Hovold <johan@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v2 2/6] mfd: lm3533: Convert to use OF bindings
+Message-ID: <20260529100819.1823ebb3@jic23-huawei>
+In-Reply-To: <CAPVz0n0qCekQVGGyAyBuYv+RKC6bpydYBLJNGfPrgTYjtOJOuA@mail.gmail.com>
+References: <20260528135123.103745-1-clamor95@gmail.com>
+ <20260528135123.103745-3-clamor95@gmail.com>
+ <20260528155001.2bcb7003@jic23-huawei>
+ <CAPVz0n0qCekQVGGyAyBuYv+RKC6bpydYBLJNGfPrgTYjtOJOuA@mail.gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,30 +68,257 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Eric Engestrom (2):
-      ci: fix indentation
-      ci: bump debian from bookworm to trixie
+On Thu, 28 May 2026 18:03:31 +0300
+Svyatoslav Ryhel <clamor95@gmail.com> wrote:
 
-Rudi Heitbaum (2):
-      amdgpu: fix discards 'const' qualifier from pointer target type
-      modetest: fix discards 'const' qualifier from pointer target type
+> =D1=87=D1=82, 28 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 17=
+:50 Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> >
+> > On Thu, 28 May 2026 16:51:19 +0300
+> > Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+> > =20
+> > > Since there are no users of this driver via platform data, remove the
+> > > platform data support and switch to using Device Tree bindings.
+> > > Additionally, optimize functions used only by platform data. =20
+> >
+> >
+> > At least the IIO ones would have made much the same amount of sense for
+> > dt, just that they weren't having in the first place. I'd prefer that
 
-Samuel Pitoiset (4):
-      add missing include to util_math.h
-      build: bump version to 2.4.133
-      omap: stop including linux/types.h
-      meson: do not mark exynos/omap/tegra as disabled features
+Gah. I write gibberish after too much reviewing.  having/helping!
 
-Simon Ser (2):
-      Sync drm_fourcc.h with drm-next
-      build: bump version to 2.4.134
+> > as a precursor patch to make the rest much more readable.
+> > =20
+>=20
+> I can add you preferences into this commit, I don't mind.
+>=20
+> > >
+> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com> =20
+> >
+> > I only looked in detail at the iio bit. A few changes requested.
+> > =20
+> > > ---
+> > >  drivers/iio/light/lm3533-als.c      |  95 ++++------
+> > >  drivers/leds/leds-lm3533.c          |  51 ++++--
+> > >  drivers/mfd/lm3533-core.c           | 268 ++++++++++----------------=
+--
+> > >  drivers/video/backlight/lm3533_bl.c |  52 ++++--
+> > >  include/linux/mfd/lm3533.h          |  51 +-----
+> > >  5 files changed, 212 insertions(+), 305 deletions(-)
+> > >
+> > > diff --git a/drivers/iio/light/lm3533-als.c b/drivers/iio/light/lm353=
+3-als.c
+> > > index 99f0b903018c..cbd337b73bd9 100644
+> > > --- a/drivers/iio/light/lm3533-als.c
+> > > +++ b/drivers/iio/light/lm3533-als.c =20
+> > =20
+> > > @@ -714,59 +720,33 @@ static const struct attribute_group lm3533_als_=
+attribute_group =3D {
+> > >       .attrs =3D lm3533_als_attributes
+> > >  };
+> > >
+> > > -static int lm3533_als_set_input_mode(struct lm3533_als *als, bool pw=
+m_mode)
+> > > +static int lm3533_als_setup(struct lm3533_als *als)
+> > >  {
+> > > -     u8 mask =3D LM3533_ALS_INPUT_MODE_MASK;
+> > > -     u8 val;
+> > > +     struct device *dev =3D &als->pdev.dev;
+> > >       int ret;
+> > >
+> > > -     if (pwm_mode)
+> > > -             val =3D mask;     /* pwm input */
+> > > -     else
+> > > -             val =3D 0;        /* analog input */
+> > > -
+> > > -     ret =3D lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, val, ma=
+sk);
+> > > -     if (ret) {
+> > > -             dev_err(&als->pdev->dev, "failed to set input mode %d\n=
+",
+> > > -                                                             pwm_mod=
+e);
+> > > -             return ret;
+> > > -     }
+> > > -
+> > > -     return 0;
+> > > -}
+> > > -
+> > > -static int lm3533_als_set_resistor(struct lm3533_als *als, u8 val)
+> > > -{
+> > > -     int ret;
+> > > -
+> > > -     if (val < LM3533_ALS_RESISTOR_MIN || val > LM3533_ALS_RESISTOR_=
+MAX) {
+> > > -             dev_err(&als->pdev->dev, "invalid resistor value\n");
+> > > -             return -EINVAL;
+> > > -     }
+> > > -
+> > > -     ret =3D lm3533_write(als->lm3533, LM3533_REG_ALS_RESISTOR_SELEC=
+T, val);
+> > > -     if (ret) {
+> > > -             dev_err(&als->pdev->dev, "failed to set resistor\n");
+> > > -             return ret;
+> > > -     }
+> > > +     device_property_read_u32(dev, "ti,resistor-value-ohm",
+> > > +                              &als->r_select); =20
+> > Does this have a default?  If so the pattern we've recently be setting =
+on for IIO
+> > is
+> >         if (device_property_present(dev, "ti,resistor-value-ohm"))
+> >                 ret =3D device_property_read_u32();
+> >                 if (ret) //corrupt property in some fashion
+> >                         return ret;
+> >         } else {
+> >                 //set default
+> >         }
+> > If there is no default then check it unconditionally. =20
+>=20
+> default value is LM3533_ALS_RESISTOR_MIN and if no property is present
+> clamp will ensure that als->r_select will be set to
+> LM3533_ALS_RESISTOR_MIN
 
-git tag: libdrm-2.4.134
+I don't see that default in the binding doc and relying in the 0 being clam=
+ped
+isn't particularly readable - I'd set it explicitly.
 
-https://dri.freedesktop.org/libdrm/libdrm-2.4.134.tar.xz
-SHA256: ac5e74d157830eb8bee44c6a6bf3ad49774ef0dd2a72bdad74a8f20308b52a95  l=
-ibdrm-2.4.134.tar.xz
-SHA512: ef2abddea59d1e93c83a48de920431b839ab50d6071ef4da3cf126e7d64ba7b235f=
-2e34e1169d49ad9de2937a0a18acd66bb8d324b067239b1136e0ddbe792a1  libdrm-2.4.1=
-34.tar.xz
-PGP:  https://dri.freedesktop.org/libdrm/libdrm-2.4.134.tar.xz.sig
+
+>=20
+> > =20
+> > >
+> > > -     return 0;
+> > > -}
+> > > +     als->r_select =3D clamp(als->r_select, LM3533_ALS_RESISTOR_MIN,
+> > > +                           LM3533_ALS_RESISTOR_MAX);
+> > > +     als->r_select =3D DIV_ROUND_UP(2 * MICRO, 10 * als->r_select);
+> > >
+> > > -static int lm3533_als_setup(struct lm3533_als *als,
+> > > -                         const struct lm3533_als_platform_data *pdat=
+a)
+> > > -{
+> > > -     int ret;
+> > > +     als->pwm_mode =3D device_property_read_bool(dev, "ti,pwm-mode");
+> > >
+> > > -     ret =3D lm3533_als_set_input_mode(als, pdata->pwm_mode);
+> > > +     ret =3D lm3533_update(lm3533, LM3533_REG_ALS_CONF, als->pwm_mod=
+e ?
+> > > +                         LM3533_ALS_INPUT_MODE_MASK : 0, =20
+> >
+> > That's ugly.  Better as
+> >
+> >         ret =3D lm3533_update(lm3533, LM3533_REG_ALS_CONF,
+> >                             als->pwm_mode ? LM3533_ALS_INPUT_MODE_MASK =
+: 0,
+> > =20
+>=20
+> Yes sure, just followed 80 char limit.
+>=20
+> > Though if there wasn't a layer hiding the regmap, it could just have be=
+en
+> >
+> >         ret =3D regmap_assign_bits(lm3533->regmap, LM3533_REG_ALS_CONF,
+> >                                  LM3533_ALS_INPUT_MODE_MASK, als->pwm_m=
+ode);;
+> >
+> > which would have been nicer.
+> >
+> > I'm not particularly keen on the swashing of the helpers being in a pat=
+ch
+
+smashing.  (this definitely wasn't my best effort at English!)
+
+> > that is about switching the binding type as feels largely unrelated.
+> > Should really have been a precursor, easier to review patch.
+> > =20
+>=20
+> Removing of lm3533_update layer is not the scope of this patchset.
+
+Understood.  I'm fine with just the refactor you are doing brought out as a=
+ precursor
+patch.
+
+>=20
+> > =20
+> > > +                         LM3533_ALS_INPUT_MODE_MASK);
+> > >       if (ret)
+> > > -             return ret;
+> > > +             return dev_err_probe(dev, ret, "failed to set input mod=
+e %d\n",
+> > > +                                  als->pwm_mode);
+> > >
+> > >       /* ALS input is always high impedance in PWM-mode. */
+> > > -     if (!pdata->pwm_mode) {
+> > > -             ret =3D lm3533_als_set_resistor(als, pdata->r_select);
+> > > +     if (!als->pwm_mode) {
+> > > +             ret =3D lm3533_write(lm3533, LM3533_REG_ALS_RESISTOR_SE=
+LECT,
+> > > +                                (u8)als->r_select); =20
+> >
+> > Same applies here. Mostly an unrelated change as the only thing switchi=
+ng that
+> > is related to the patch is one parameter.
+> > =20
+>=20
+> Removing of lm3533_write layer is not the scope of this patchset.
+>=20
+> > >               if (ret)
+> > > -                     return ret;
+> > > +                     return dev_err_probe(dev, ret, "failed to set r=
+esistor\n");
+> > >       }
+> > >
+> > >       return 0; =20
+> > =20
+> > > @@ -852,25 +825,28 @@ static int lm3533_als_probe(struct platform_dev=
+ice *pdev)
+> > >       indio_dev->channels =3D lm3533_als_channels;
+> > >       indio_dev->num_channels =3D ARRAY_SIZE(lm3533_als_channels);
+> > >       indio_dev->name =3D dev_name(&pdev->dev);
+> > > -     iio_device_set_parent(indio_dev, pdev->dev.parent); =20
+> >
+> > I'm not sure why this was there in the first place.  Hence not sure if =
+it
+> > is safe to remove.
+> > =20
+>=20
+> This is directly related to OF conversion. The iio_device_set_parent
+> bound indio_dev to parent, and it causes problems with OF now since
+> als output has its own node and binding it to parent if wrong. Same
+> story for backlight and leds btw.
+
+Is there any risk anyone was using the canonical path to get to the iio dev?
+/sys/bus/platform/devices/..../iio\:deviceX
+This is technically an ABI change be it a subtle one.
+
+
+>=20
+> > =20
+> > > diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
+> > > index 45795f2a1042..d707d43d5526 100644
+> > > --- a/drivers/leds/leds-lm3533.c
+> > > +++ b/drivers/leds/leds-lm3533.c =20
+> > =20
+> > >
+> > >       led->cb.dev =3D led->cdev.dev;
+> > >
+> > > -     ret =3D lm3533_led_setup(led, pdata);
+> > > +     device_property_read_u32(&pdev->dev, "led-max-microamp",
+> > > +                              &led->max_current); =20
+> >
+> > I'd prefer explicit setting of the default to be visible before this, or
+> > the property_present pattern I mention in the IIO review above.
+> > =20
+>=20
+> clamp will ensure that led->max_current will be set to
+> LM3533_LED_MAX_CURRENT_MIN regardless if it it present
+
+As above, I'd prefer it set explicitly.
+
+>=20
+> > > +     led->max_current =3D clamp(led->max_current, LM3533_LED_MAX_CUR=
+RENT_MIN,
+> > > +                              LM3533_LED_MAX_CURRENT_MAX); =20
+> >
+> > I didn't look any further (busy day!) =20
+>=20
+
