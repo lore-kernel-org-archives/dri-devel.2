@@ -4,104 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C899CD5BD2
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 07:00:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B026CCD5BD2
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 07:16:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE5F310F9B8;
-	Fri, 29 May 2026 07:00:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12EB210F9E9;
+	Fri, 29 May 2026 07:16:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Pbw5qjbh";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2WtQQmzb";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="DKi3DUJM";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="c5ZrqV52";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="k9Lcqx/u";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 634DF10F9BA
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 07:00:12 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DE43E66F6B;
- Fri, 29 May 2026 07:00:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780038011; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=sx9uZgU6Uf5r1hE2m5Qd8QDIOswHFAw99qCVgtc8iOg=;
- b=Pbw5qjbhZLsOyurQeGfy6zSuE1SXyryJ3sDKq6Hv99W3OK3g18YYE1JpvzAWkFIYzOF4o3
- 4RA0ut1ZsnGXCUMe2i00WuWp/2jCgSwaPXeesvfwdiry25TKkYAP27DR7P++tN4WJfJann
- 1P80dxyasSBo1F7j7J2lp+byqn5Ty4o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780038011;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=sx9uZgU6Uf5r1hE2m5Qd8QDIOswHFAw99qCVgtc8iOg=;
- b=2WtQQmzbD1kpH1nyFsBY9Ya+6whC8HoUYbFjOHbKFMwIPvrNIIfJfqiISkPL6v3tTUtEJG
- rk/MI73iTTbdYgBQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780038010; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=sx9uZgU6Uf5r1hE2m5Qd8QDIOswHFAw99qCVgtc8iOg=;
- b=DKi3DUJMfMnYYHqcrklnHcBuT2on5KiA3EPygTMgg0dZYUDq+agB8GgQPPqIsPi2wli9xw
- /60aH86tP4ftm0Y2ZpR70G6tDQyZMuCS+fMkUqcw1NLh/WgNoANtMyXMQEmTMvK5UVaQSe
- tTdtWvYEan6K1wW4/tmIVSNzUxIrcRo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780038010;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=sx9uZgU6Uf5r1hE2m5Qd8QDIOswHFAw99qCVgtc8iOg=;
- b=c5ZrqV52gn7zdAgtlYBcKJ7OSoFDWXh2aCzb4a239EZveAiisGU08P2hfmBrGGmsi9mEf+
- nxYMnAOXplz8nzCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 73F1F5B1EF;
- Fri, 29 May 2026 07:00:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id gjHaGno5GWoEPgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 29 May 2026 07:00:10 +0000
-Date: Fri, 29 May 2026 09:00:09 +0200
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-misc-fixes
-Message-ID: <20260529070009.GA313534@linux.fritz.box>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D0FE10F9E9
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 07:16:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
+ Cc:To:From:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=umZFTFyU/mup5ZtRCcSIFKj13IXx1U5oVgNhgVyEu0s=; b=k9Lcqx/urY8wfZqsWclQ5D9iW1
+ EFanWVPiMb7hY2ITtIorCJc62S7gkBDHOSDK3l8ElUr0hgtZdNy4H5rbHSEsojcHKU2twCdJSiaJJ
+ mgzwaTKE0fpTmUROldwWFqpxyml9eG2xwKu94ve9HmkwB1wgpp1vFuLiZkXe72n5RSCqcTW/J+3+X
+ MBtADEy39mSNfqMyPY89BGLbkysIE9Gbv1ble17j8CnTzoIvwMbG4EEc3PmC/QqTlRoJXNz9dufR+
+ uEI7VNfWxnr9Z7YDyqcdaT1QaFAAMpub9B75dkpTF0A/4Kx8RSnsr5ZTjB8/o/lTatg0aE9R8e4dO
+ Qr3i71Ig==;
+Received: from [90.240.106.137] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wSrSE-009kSF-VL; Fri, 29 May 2026 09:16:27 +0200
+Message-ID: <8a65c09e-c03a-43ce-94af-cbf5c4fcef94@igalia.com>
+Date: Fri, 29 May 2026 08:16:26 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/sched: Fix clang build warning in kunit tests
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: phasta@kernel.org, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, kernel test robot <lkp@intel.com>
+References: <20260522090129.9385-1-tvrtko.ursulin@igalia.com>
+ <23df1e8b17c4ba5a9106b84a65e092ebd54fee42.camel@mailbox.org>
+ <f01ffd7e-7a20-496e-9a7a-0f75a500be0c@igalia.com>
+Content-Language: en-GB
+In-Reply-To: <f01ffd7e-7a20-496e-9a7a-0f75a500be0c@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MISSING_XM_UA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[16];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- FREEMAIL_TO(0.00)[gmail.com,ffwll.ch];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
- linux.fritz.box:mid, gitlab.freedesktop.org:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,100 +62,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dave, Sima,
 
-here is this week's PR from drm-misc-fixes. There's one cross-subsys
-commit to the dma-buf code. Commit 5ab62dd3687b ("drm: prevent integer
-overflows in dumb buffer creation helpers") has not Link tag because
-it went through the security list.
+On 28/05/2026 14:38, Tvrtko Ursulin wrote:
+> 
+> On 28/05/2026 14:03, Philipp Stanner wrote:
+>> Yo Tvrtko,
+>>
+>> On Fri, 2026-05-22 at 10:01 +0100, Tvrtko Ursulin wrote:
+>>> Initializing compile time constant struct or arrays from another such
+>>> variable is a gcc extension, while clang strictly requires a compile 
+>>> time
+>>> constant literal.
+>>>
+>>> As reported by LKP:
+>>>
+>>>>> drivers/gpu/drm/scheduler/tests/tests_scheduler.c:675:10: error: 
+>>>>> initializer element is not a compile-time constant
+>>>                                   drm_sched_scheduler_two_clients_attr),
+>>>                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>>     include/kunit/test.h:224:13: note: expanded from macro 
+>>> 'KUNIT_CASE_PARAM_ATTR'
+>>>                       .attr = attributes, .module_name = KBUILD_MODNAME}
+>>>                               ^~~~~~~~~~
+>>>     1 error generated.
+>>
+>> Hmm, is it now a build error, or a build warning? The commit title says
+>> "warning".
+>>
+>> Depending on what it really is, where should it go, misc-next or misc-
+>> fixes?
+> 
+> Right, warning or error it depends if someone enabled CONFIG_DRM_WERROR.
+> 
+> According to drm-misc commiter guidelines, since we are in -rc5, it can 
+> go to drm-misc-next.
 
-Best regards
-Thomas
+Now it's  drm-misc-next-fixes I think since Maarten sent the last 
+drm-misc-next pull request yesterday.
 
-drm-misc-fixes-2026-05-29:
-Short summary of fixes pull:
+Regards,
 
-amdxdna:
-- require IOMMU on AIE2
+Tvrtko
 
-dumb-buffer:
-- prevent overflows in dumb-buffer creation
+>>> vim +675 drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+>>>
+>>>     671
+>>>     672    static struct kunit_case 
+>>> drm_sched_scheduler_two_clients_tests[] = {
+>>>     673        
+>>> KUNIT_CASE_PARAM_ATTR(drm_sched_scheduler_two_clients_test,
+>>>     674                      drm_sched_scheduler_two_clients_gen_params,
+>>>   > 675                      drm_sched_scheduler_two_clients_attr),
+>>>     676        {}
+>>>     677    };
+>>>     678
+>>>
+>>> Fix it by using a compound literal as other tests do.
+>>>
+>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>> Reported-by: kernel test robot <lkp@intel.com>
+>>> Closes: https://lore.kernel.org/oe-kbuild-all/202605220312.Pu7UO05u- 
+>>> lkp@intel.com/
+>>> Fixes: 97ef806a5314 ("drm/sched: Add some scheduling quality unit 
+>>> tests")
+>>> Cc: Philipp Stanner <phasta@kernel.org>
+>>> ---
+>>>   drivers/gpu/drm/scheduler/tests/tests_scheduler.c | 12 ++----------
+>>>   1 file changed, 2 insertions(+), 10 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c b/ 
+>>> drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+>>> index 8b2e4ef9915f..90d31888cf92 100644
+>>> --- a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+>>> +++ b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+>>> @@ -666,14 +666,10 @@ static void 
+>>> drm_sched_scheduler_two_clients_test(struct kunit *test)
+>>>       }
+>>>   }
+>>> -static const struct kunit_attributes 
+>>> drm_sched_scheduler_two_clients_attr = {
+>>> -    .speed = KUNIT_SPEED_SLOW,
+>>> -};
+>>> -
+>>>   static struct kunit_case drm_sched_scheduler_two_clients_tests[] = {
+>>>       KUNIT_CASE_PARAM_ATTR(drm_sched_scheduler_two_clients_test,
+>>>                     drm_sched_scheduler_two_clients_gen_params,
+>>> -                  drm_sched_scheduler_two_clients_attr),
+>>> +                  { .speed = KUNIT_SPEED_SLOW }),
+>>>       {}
+>>>   };
+>>> @@ -858,14 +854,10 @@ static void 
+>>> drm_sched_scheduler_many_clients_test(struct kunit *test)
+>>>           drm_mock_sched_entity_free(client[i].entity);
+>>>   }
+>>> -static const struct kunit_attributes 
+>>> drm_sched_scheduler_many_clients_attr = {
+>>> -    .speed = KUNIT_SPEED_SLOW,
+>>> -};
+>>> -
+>>>   static struct kunit_case drm_sched_scheduler_many_clients_tests[] = {
+>>>       KUNIT_CASE_PARAM_ATTR(drm_sched_scheduler_many_clients_test,
+>>>                     drm_sched_scheduler_many_clients_gen_params,
+>>> -                  drm_sched_scheduler_many_clients_attr),
+>>> +                  { .speed = KUNIT_SPEED_SLOW }),
+>>>       {}
+>>>   };
+>>
+> 
 
-dma-buf:
-- fix UAF in dma_buf_fd() tracepoint
-
-hyperv:
-- improve protocol validation
-
-ivpu:
-- test write offset in debugfs
-
-rocket:
-- fix UAF in bo creation
-The following changes since commit 9af1b6e175c82daf4b423da339a722d8e67a735a:
-
-  drm/virtio: use uninterruptible resv lock for plane updates (2026-05-20 18:12:11 +0300)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2026-05-29
-
-for you to fetch changes up to 5ab62dd3687bcc2cc542b99385aabac5c996db6f:
-
-  drm: prevent integer overflows in dumb buffer creation helpers (2026-05-29 08:30:47 +0200)
-
-----------------------------------------------------------------
-Short summary of fixes pull:
-
-amdxdna:
-- require IOMMU on AIE2
-
-dumb-buffer:
-- prevent overflows in dumb-buffer creation
-
-dma-buf:
-- fix UAF in dma_buf_fd() tracepoint
-
-hyperv:
-- improve protocol validation
-
-ivpu:
-- test write offset in debugfs
-
-rocket:
-- fix UAF in bo creation
-
-----------------------------------------------------------------
-Berkant Koc (2):
-      drm/hyperv: validate resolution_count and fix WIN8 fallback
-      drm/hyperv: validate VMBus packet size in receive callback
-
-Dan Carpenter (1):
-      accel/ivpu: prevent uninitialized data bug in debugfs
-
-David Carlier (1):
-      dma-buf: fix UAF in dma_buf_fd() tracepoint
-
-Dhabaleshwar Das (1):
-      accel/rocket: fix UAF via dangling GEM handle in create_bo
-
-Lizhi Hou (1):
-      accel/amdxdna: Block running when IOMMU is off
-
-Rajat Gupta (1):
-      drm: prevent integer overflows in dumb buffer creation helpers
-
- drivers/accel/amdxdna/aie2_pci.c          |   5 ++
- drivers/accel/ivpu/ivpu_debugfs.c         |   2 +-
- drivers/accel/rocket/rocket_gem.c         |  17 +++--
- drivers/dma-buf/dma-buf.c                 |   6 +-
- drivers/gpu/drm/drm_dumb_buffers.c        |  14 +++-
- drivers/gpu/drm/hyperv/hyperv_drm_proto.c | 113 +++++++++++++++++++++++++-----
- 6 files changed, 132 insertions(+), 25 deletions(-)
-
--- 
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 N�rnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG N�rnberg)
