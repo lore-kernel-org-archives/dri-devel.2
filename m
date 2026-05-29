@@ -4,94 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDE68CD6E43
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 11:54:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1E71CD6E43
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 11:59:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27ADE10FDF0;
-	Fri, 29 May 2026 11:54:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 319B410FDFB;
+	Fri, 29 May 2026 11:59:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L8VZz9V7";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cdNP1OLm";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C29E10FD34;
- Fri, 29 May 2026 11:54:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 02F1F44438;
- Fri, 29 May 2026 11:54:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 298511F00893;
- Fri, 29 May 2026 11:54:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780055693;
- bh=wDOsRW9HSX03yxtZDtOoclJqvTh9mPV1pfPcH0+q2no=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=L8VZz9V7K1eN2jdYePACCXZ60MYUhFC1fOihSN+0H+7dhVQgUxdGJ9EQdJmCDTbwW
- G+lY0xHDWzx6pTWX1lLWl/0EpNCsU5b9yHlXtO5sbBEMs7G5VmlF0dXcZ9v/DGu76f
- /viJGQXlwamh7rHUkI0iAX99Shho8pimXeoM0y7KNHlU+cpwDo6MSIljUf43lop+B4
- Y/IKFYrX4MCpwS9OMGK+k+HTotpqSCbAaZXWldCVwdTAjK0G+boxDWKQ2C5xXoy/Dg
- Frr8k2GRRRiGohLe6GdGc+rFcv3VqLP0ZveFBiJjWHREuNVs5EyBZwfujpGuPitREW
- 03hx7I5WrTEiQ==
-Message-ID: <5f7f90d8-cb32-4ffb-8f1c-0722aafbe869@kernel.org>
-Date: Fri, 29 May 2026 13:54:48 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30FBD10FDF7
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 11:59:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780055946; x=1811591946;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=HHUIRMWGDIsqL9kQs+dk2T94LYVQaVJ3tsM6Xq18TxY=;
+ b=cdNP1OLmC86f2izVRNHKSM8y5/kchhVEw7lNWu5h0YSLFYZPPPjflSvk
+ Xo8RvPR6BMaf12O1CA7syb19dVwLr/YkXlNUdQmwG1TKvtv4JDSUdE2iJ
+ IlejvWyGvPuUqmVVt9IwDtCDr8cINg2XY4m3l+SE3UUCv0GgalA8TFKud
+ pX9O/2BvcngoEC/sbz7TFovxBxc0OO1b1MQuNHesWEwBaPlpMPyg1I5Hp
+ sZj2mG8Yfyi0wG2u04H4bJYqJF0IogA+WaqESMwESw7Ni4Zb2kqrKwmOB
+ JDSILHDKK9sIZyKRSJVEwgDoUk/xbQRIjtz3aDtd7GIFT+kFA1IkmhRIa w==;
+X-CSE-ConnectionGUID: 7htad/dEQmquj4qVCjqyzA==
+X-CSE-MsgGUID: FuuXrCE+TPmeX0w+uJsVCg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11800"; a="80935257"
+X-IronPort-AV: E=Sophos;i="6.24,175,1774335600"; d="scan'208";a="80935257"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 May 2026 04:59:06 -0700
+X-CSE-ConnectionGUID: Jcl0HK4SSwmVhBT8VpUgoQ==
+X-CSE-MsgGUID: 4sl67yWJTPKr9zzQS4ratg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,175,1774335600"; d="scan'208";a="241788413"
+Received: from akacprow-dev3.igk.intel.com ([10.91.220.47])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 May 2026 04:59:04 -0700
+From: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
+ karol.wachowski@linux.intel.com, dawid.osuchowski@linux.intel.com,
+ Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ stable@vger.kernel.org
+Subject: [PATCH] accel/ivpu: Fix signed integer truncation in IPC receive
+Date: Fri, 29 May 2026 13:54:53 +0200
+Message-ID: <20260529115453.132291-1-andrzej.kacprowski@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/slab: improve kmem_cache_alloc_bulk
-Content-Language: en-US
-To: Christoph Hellwig <hch@lst.de>, Harry Yoo <harry@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Mark Brown <broonie@kernel.org>
-Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
- David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Jesper Dangaard Brouer <hawk@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, io-uring@vger.kernel.org,
- kasan-dev@googlegroups.com, bpf@vger.kernel.org, netdev@vger.kernel.org,
- Alexander Lobakin <aleksander.lobakin@intel.com>,
- Boris Brezillon <boris.brezillon@collabora.com>
-References: <20260528093437.2519248-1-hch@lst.de>
- <20260528093437.2519248-2-hch@lst.de>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20260528093437.2519248-2-hch@lst.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,92 +68,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/28/26 11:34, Christoph Hellwig wrote:
-> The kmem_cache_alloc_bulk return value is weird.  It returns the number
-> of allocated objects, but that must always be 0 or the requested number
-> based on the implementations and the handling in the callers, but that
-> assumption is not actually documented anywhere, which confuses automated
-> review tools.
-> 
-> Fix this by returning a bool if the allocation succeeded and adding a
-> kerneldoc comment explaining the API.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> Reviewed-by: Alexander Lobakin <aleksander.lobakin@intel.com> # skbuff
-> ---
->  drivers/gpu/drm/msm/msm_iommu.c       |  6 +--
->  drivers/gpu/drm/panthor/panthor_mmu.c | 13 +++---
->  include/linux/slab.h                  |  6 ++-
->  io_uring/io_uring.c                   | 23 ++++-------
->  lib/test_meminit.c                    | 23 +++++------
->  mm/kasan/kasan_test_c.c               |  5 +--
->  mm/kfence/kfence_test.c               |  9 ++--
->  mm/slub.c                             | 59 +++++++++++++++------------
->  net/bpf/test_run.c                    |  7 ++--
->  net/core/skbuff.c                     | 24 ++++++-----
->  tools/include/linux/slab.h            |  2 +-
->  tools/testing/shared/linux.c          | 19 ++++-----
->  12 files changed, 97 insertions(+), 99 deletions(-)
+Fix potential buffer overflow where firmware-supplied data_size is cast
+to signed int before being used in min_t(). Large unsigned values
+(>= 0x80000000) become negative, causing unsigned wraparound and
+oversized memcpy operations that can overflow the stack buffer.
 
-Thanks, I applied it to slab/for-7.2/alloc_bulk and merged to slab/for-next
-(it's still yankable in case of issues)
+Change min_t(int, ...) to min_t(u32, ...) to ensure large values are
+properly clamped instead of becoming negative.
 
-Did some fixups below (the comment was stale prior to the patch; restored
-unlikely(), simplified one line).
+Fixes: 3b434a3445ff ("accel/ivpu: Use threaded IRQ to handle JOB done messages")
+Cc: <stable@vger.kernel.org> # v6.18+
+Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+---
+ drivers/accel/ivpu/ivpu_ipc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-A test merge into yesterday's -next found a conflict in drivers/gpu/drm/
-panthor/panthor_mmu.c. Commit 1013bf53650e ("drm/panthor: Split
-panthor_vm_prepare_map_op_ctx() to prepare for reclaim") moved the changed
-codeto a new function panthor_vm_op_ctx_prealloc_pts().
-But it's solvable so no need for a complicated coordination I think.
-
-diff --git a/mm/slub.c b/mm/slub.c
-index 6caf6f3ceeed..711df528c9a6 100644
---- a/mm/slub.c
-+++ b/mm/slub.c
-@@ -7372,10 +7372,7 @@ bool kmem_cache_alloc_bulk_noprof(struct kmem_cache *s, gfp_t flags,
-        }
+diff --git a/drivers/accel/ivpu/ivpu_ipc.c b/drivers/accel/ivpu/ivpu_ipc.c
+index f47df092bb0d..9980a7898bed 100644
+--- a/drivers/accel/ivpu/ivpu_ipc.c
++++ b/drivers/accel/ivpu/ivpu_ipc.c
+@@ -276,7 +276,7 @@ int ivpu_ipc_receive(struct ivpu_device *vdev, struct ivpu_ipc_consumer *cons,
+ 	if (ipc_buf)
+ 		memcpy(ipc_buf, rx_msg->ipc_hdr, sizeof(*ipc_buf));
+ 	if (rx_msg->jsm_msg) {
+-		u32 size = min_t(int, rx_msg->ipc_hdr->data_size, sizeof(*jsm_msg));
++		u32 size = min_t(u32, rx_msg->ipc_hdr->data_size, sizeof(*jsm_msg));
  
- out:
--       /*
--        * memcg and kmem_cache debug support and memory initialization.
--        * Done outside of the IRQ disabled fastpath loop.
--        */
-+       /* memcg and kmem_cache debug support and memory initialization */
-        return likely(slab_post_alloc_hook(s, NULL, flags, size, p,
-                        slab_want_init_on_alloc(flags, s), s->object_size));
- }
-diff --git a/net/bpf/test_run.c b/net/bpf/test_run.c
-index 99ab9ddb05e3..dbf0d8eae8d8 100644
---- a/net/bpf/test_run.c
-+++ b/net/bpf/test_run.c
-@@ -246,8 +246,8 @@ static int xdp_recv_frames(struct xdp_frame **frames, int nframes,
-        int i;
-        LIST_HEAD(list);
- 
--       if (!kmem_cache_alloc_bulk(net_hotdata.skbuff_cache, gfp, nframes,
--                                  (void **)skbs)) {
-+       if (unlikely(!kmem_cache_alloc_bulk(net_hotdata.skbuff_cache, gfp,
-+                                           nframes, (void **)skbs))) {
-                for (i = 0; i < nframes; i++)
-                        xdp_return_frame(frames[i]);
-                return -ENOMEM;
-diff --git a/tools/testing/shared/linux.c b/tools/testing/shared/linux.c
-index e9c3bc9b3272..e0a0693df08f 100644
---- a/tools/testing/shared/linux.c
-+++ b/tools/testing/shared/linux.c
-@@ -301,7 +301,7 @@ int kmem_cache_refill_sheaf(struct kmem_cache *s, gfp_t gfp,
-        if (!kmem_cache_alloc_bulk(s, gfp, size - sheaf->size,
-                        &sheaf->objects[sheaf->size]))
-                return -ENOMEM;
--       sheaf->size += (size - sheaf->size);
-+       sheaf->size = size;
-        return 0;
- }
-
-
-
-
-
-
+ 		if (rx_msg->jsm_msg->result != VPU_JSM_STATUS_SUCCESS) {
+ 			ivpu_err(vdev, "IPC resp result error: %d\n", rx_msg->jsm_msg->result);
+-- 
+2.43.0
 
