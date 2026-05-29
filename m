@@ -4,117 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1AEFCD4F54
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 20:08:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CAF5CD4F54
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 20:11:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A75381124AC;
-	Fri, 29 May 2026 20:08:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 866B91124B5;
+	Fri, 29 May 2026 20:11:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="vG4H8L9J";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="Q56lhMre";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010067.outbound.protection.outlook.com [52.101.201.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B96E1124AC
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 20:08:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XFf88jsHBh/J3r+u78lary1i2mbhc3UR8htvhU2cicW3XaT1jCu/tWrmGBqv5rzmwsyfv7CoEgCXkRnWvBzZwqkQsqbQiwMYhJNZzdioNZQjUbxbEMGkX2h9kau1XoYA3CZWeCTssGei5cvtTm4ljWQUgKa10VowzHKGO4VO9Mkwf0M+I4metezDr/g2/sglpRuZHt91J4ktLmTb7xauX+wYcClrU6uPMdxzzLQR3hmM73pbuOyCoYRTjA08ztYRBoxp+gTzVwHJhX6rRMLeRiIunxx0kD72Spg+E+/6agE+I9m3v5UqHBJ/+uo+d6rv0YzVlCtxOagVOOpr8HYjsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5Z++yGXrnuItwNYnKuotvbboICoE0BJ78sla09t4BNI=;
- b=xR9imDN0WyxHPF4sGDEEI9P4sESpOGfIrpHkHwzlWFfxc1bmGfL4qHvISNOJ0dVQgKTADnFDTUOUDSMSnYDxQPR3ishTyYsiCDwTWGUMeeh+3SfoqSEomDYjl93eJ3WJqHxKKwrRhfH7Lsjrcdhi4zv68fQ/E88AODQE0QfnqZ/WYP1pPK97j+1qNB9IoOaS1LNWfbaJ7vW+9dNKLkQO8F1NQDMkww6OEDcZIuN0HhVfFijbmsiQUj4xFuqo73EPSALlB0iX7vL+hf8ls+IYHD/w71DIFtUfholF0q4KV0cpVe2LGjHdRHjOx5PJKzaTVw2lrqUkdg25TKOqon6aaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5Z++yGXrnuItwNYnKuotvbboICoE0BJ78sla09t4BNI=;
- b=vG4H8L9JCK5Od+ncXlNOqnbckpDvWxqBJou9tGjm5wwkNcerOzV8xPBYTuaA5b/RRy5DLZq7GnFkGVwzEPd5jH319eDNW7Uvi8VSWbnrERXEX9CEx2c8AdpOjgemAVHBoI4F5yLeIn8KbsydVcW0dOXPQn8TLyygHJH2dleKT7k=
-Received: from CY5PR22CA0034.namprd22.prod.outlook.com (2603:10b6:930:1d::10)
- by CO6PR10MB5537.namprd10.prod.outlook.com (2603:10b6:303:134::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Fri, 29 May
- 2026 20:08:35 +0000
-Received: from CH2PEPF0000009E.namprd02.prod.outlook.com
- (2603:10b6:930:1d:cafe::63) by CY5PR22CA0034.outlook.office365.com
- (2603:10b6:930:1d::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Fri, 29
- May 2026 20:08:35 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- CH2PEPF0000009E.mail.protection.outlook.com (10.167.244.27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 20:08:33 +0000
-Received: from DFLE214.ent.ti.com (10.64.6.72) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 29 May
- 2026 15:08:32 -0500
-Received: from DFLE206.ent.ti.com (10.64.6.64) by DFLE214.ent.ti.com
- (10.64.6.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 29 May
- 2026 15:08:32 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE206.ent.ti.com
- (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Fri, 29 May 2026 15:08:32 -0500
-Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232])
- by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64TK8W6R101622;
- Fri, 29 May 2026 15:08:32 -0500
-From: Nishanth Menon <nm@ti.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, "David
- Airlie" <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo
- <kristo@kernel.org>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
- Thierry Reding <thierry.reding@gmail.com>, Vitor Soares <ivitro@gmail.com>
-CC: Nishanth Menon <nm@ti.com>, Vitor Soares <vitor.soares@toradex.com>,
- <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
-Subject: Re: (subset) [PATCH v3 00/11] arm64: dts: ti: k3-am62-verdin: Add
- display and peripheral overlays
-Date: Fri, 29 May 2026 15:08:30 -0500
-Message-ID: <178008517336.3731914.15433260939449202476.b4-ty@b4>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <20260522161105.277519-13-ivitro@gmail.com>
-References: <20260522161105.277519-13-ivitro@gmail.com>
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
+ [209.85.222.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0DB51124B5
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 20:11:33 +0000 (UTC)
+Received: by mail-qk1-f169.google.com with SMTP id
+ af79cd13be357-914b5f85129so697282385a.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 13:11:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1780085492; x=1780690292; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=x50nMfXuC2+erTFJFRG2pVEkXmZORi5k9T8WBzn0C8s=;
+ b=Q56lhMrezsDg7AGVLT6RxDmAtrJg/bvrEdxOUmv5ouutZ3dmAYkfVSiR55zl3JQ6ql
+ +Ise5aoRORvmZLAv+5+kCDAy6Q3P5Wmn/RUKe9OWOk5cCpWobFojWWdp3HojzUf9L1VD
+ gDACNcb/YGos+otqXAGlV7PCuJJBuJUXM2i7wBDci7xIaolY/1QTT9AxHQLnr/2oTZ0F
+ e9UFhtOu8fKAfeI8MPT6GeG2a6/vSC02ZW57M+3tc2VV9i5nLJspVf6/hm3gr49EK0RP
+ RL4C3BhsFPNdpn0HxKlgUcWgbufp8yw/yUETTxzeJ5Y3Ea5HaQkN8K2eURPB4dur2NYI
+ t79g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780085492; x=1780690292;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=x50nMfXuC2+erTFJFRG2pVEkXmZORi5k9T8WBzn0C8s=;
+ b=QMC/iV9TXNZudnrBob77kgShyG5NymxwDX0K+7W73t5NM6uqq2ol21WRpw2cz5nJ7g
+ c4/AjirxvM/1jeAUIgexlfVfFdWV9DpR8mql8JAFv00kGWcVuGWJmIDcdVl38PhYR0Iz
+ CO7K9I+YGCCeS/i4NAsRwWg0LwQ80eUDjFR7OUtYUh3w5qS4aEsKdvv/+xn67VPf+221
+ LAZ8dD8hHbbOJ7sfCoN7EiNHGAMoCWTppsz8YnxpjIJC2gI9hDQ2FBZaI6wPkleKVFxF
+ /+bav/KGb3xBUAoy16Ll1xmW/F4RG/fQCEr85zCmjElPF4i5eeqYHGZzj28PdNhFOR1I
+ CX4Q==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9XXqlLaIUvQqQOdvU6pNxt0Vl7B0e2wyau+CgOsLSo80PyiWIwTwdLZ8Mn2qf2oUjh15BoQCCShtA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzjO4wtvQKDUTkEInyA5V60/vU3zIksu+f96EjsYxyPIb+kBV/3
+ u/8icrY7RiQPovcKA4jo46CxFca3OhaGFG5PNvQ0fIwE13tbneunEqh6H8Ip+zaYkIg=
+X-Gm-Gg: Acq92OF3L8MUOYbuxh4wClhq36LE4zLXPJz48ITZKhUVfXGCZVxfiwS4MCSH0eSRRXV
+ fJq8zID45dhif2WvAXE7QHN5U5GgzYeQocCSwrdPUALjiS7ce0QbZPzjCzRr60VKXlVe7E4cOHO
+ 25w2rJrVvPstYZQsEjiDTrH9iJnCxjKARfKh2nHbmT7mgzxWzGrDx/5GU2rMlaAnIh0jn1Rfy6O
+ mXv6Lerh8ayfIPvNak8IiWrNvC1A62hA+OZ3WXkcnE0TaX4F+QXm5vPwK+AuuY5WoIvR4IpBeRA
+ eb1wOyBrvwd8IRsJPPQ83J0jQk37uMUMIMdBY4cUl7Sxdtc9fTD61wfkPnG3yx7kgPVM1cofZmb
+ 7KcuMEr4FsoIwU2jAGVot52jQ4H6Ju4fsxmmgIGFZPQTmhDRIidLF8Y0hNtXntqvGuYMBjFmyRQ
+ IWLdM3wlxQhGgs1MMeLi3njpIpGjJ7IRKf8qWXIU16hD2AA9lAWllTMlhqbxA/CYU1K9P2gcGcK
+ skSCe+1lDiEhVMC
+X-Received: by 2002:a05:620a:649c:b0:912:671b:d090 with SMTP id
+ af79cd13be357-9153d999728mr194543785a.24.1780085492316; 
+ Fri, 29 May 2026 13:11:32 -0700 (PDT)
+Received: from ziepe.ca
+ (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
+ [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-9153244de53sm312617585a.8.2026.05.29.13.11.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 29 May 2026 13:11:31 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1wT3YI-00000000q8h-45Mx;
+ Fri, 29 May 2026 17:11:30 -0300
+Date: Fri, 29 May 2026 17:11:30 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Zhiping Zhang <zhipingz@meta.com>, Alex Williamson <alex@shazbot.org>,
+ Leon Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Bjorn Helgaas <helgaas@kernel.org>, kvm@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
+ netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Keith Busch <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>,
+ Yishai Hadas <yishaih@nvidia.com>,
+ Linus Torvalds <torvalds@linuxfoundation.org>
+Subject: Re: [PATCH v5 0/4] vfio/dma-buf: add TPH support for peer-to-peer
+ access
+Message-ID: <20260529201130.GU2487554@ziepe.ca>
+References: <20260526144401.1485788-1-zhipingz@meta.com>
+ <a8cd01ab-d7aa-465d-bfa3-431f78f33ee1@amd.com>
+ <20260527121438.GJ2487554@ziepe.ca>
+ <ff247643-73e7-44e2-b3d5-8ac0a8efb871@amd.com>
+ <20260527123634.GK2487554@ziepe.ca>
+ <a5ff1930-e9fb-43f5-82ab-9875d7a28421@amd.com>
+ <CAH3zFs2KALuHXReLZG_uoqvBBWvBzU6rHKakmt6HBV7PZEsD=w@mail.gmail.com>
+ <71302a7a-6b9f-40da-af81-b1862dbd637a@amd.com>
+ <CAH3zFs036sr93duQKx613pCyOYw4t0_x_TdSza1xBCaEmqijyA@mail.gmail.com>
+ <8d9bb0b7-182d-4930-b683-d5d24da6b2ab@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000009E:EE_|CO6PR10MB5537:EE_
-X-MS-Office365-Filtering-Correlation-Id: b47f21a9-07d6-4792-fd67-08debdbe0f67
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|36860700016|82310400026|1800799024|921020|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info: cmZXWCewAlNxoxrUua+XNXoh00WEjdEvnBo9Qgi7lN8lsmvJk61EQVTuRZgpbQxF2i8loC2OFc+gULMHYMQOr1iI86LHqYgLKg4Kqd81+VMzN/k68uFNNTfXWppI1kHul+IvQYUHJp1ASt05lsHwej+e57OWC0doWxXk1H+T+ecFeHFwjr37ObSJhOVCnBB23W4cgJ8wiPs6kU1VJ48QwQyGe2fbacV0YoWnAf0Yb9BhJuu2MvcZwXEaeoO/XRFea32GgUth8gn8Q+YfuaN/5U7bqf0Q2QqQhNRrQPqNkiP13yVPGcxsr4zF78oW7qZfwqD/u4npBL4Fw+iW72SLNnnb3bVmJmXSlaHgsCJb/kfxWHUz/barNXFgSLDX1DXVI/8VFx88VX4Wt4v0Jl1KTt1HrHDUoB5zzaX7qvUqDLnl7Cp9s6T6Ktt4bNu/RoC3OpxBewSUaiNCchgRp4GyO1s4D2DNM4MkzN/1ZBh0Ijw85owcyMZH8sX27pfeO1/ShNAunwiAVOZ6vnE5fT33NOi01hbjdUhR+Dl6x7PGr/JCYVsyIPXnGPTqz2CP5Vq5y0aiZ3V0JhklmGsd3klHDtvoT+TGwH++kb8YuvvLf5/G5mAZsJvgh9QTvW4VYxYf40Q5Jidw/1CSb2jb0SMhsHrkVyDi15arHTHdUx4wVYUwaqdi9mUpKlsP4lD6pn8Uf4qfUtKFa39wGCaTvZmr6PjPZwOWzgdalgki+T3naeMw+lYVSdWn1+OOtZC1dKRpJwovlsAYSumNrWtvMI+pmGDtP+tR1k7jVZ3ioURtZfo=
-X-Forefront-Antispam-Report: CIP:198.47.21.195; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:flwvzet201.ext.ti.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(36860700016)(82310400026)(1800799024)(921020)(22082099003)(18002099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: S5xLz/u/g7P9BwIjkiKrz+um9DXkKHIcnff18qYdqqS/HUZNR066XwOlMC7EtcKUoW6JfxzFZvX7+l5h2NXZrSy7RTdQtX9a3AOF8eBdWg7664k7pCmWs8J/KX82cxDr83+hWSChPoopphtgSyD46IcxB5davSvRApTsJOz9B3smfRtCI4TrpIw6+R+tiT9QRfdYrgjhAEwRILTc9+pfU5rxYJYHkvL8XztSKlsnV4SEPt5gTRB5PmWX9Yofsq9N7LbKSGfKYvKYReGuitQDSdT8Tg4shr+Q3JTF1KsjhUOJop8rTrKj7pXkvPnevbYv9PFP2pVL5ojYqNVVq0vsB1BzNS90L4u2Sm3yb/v+vesdXZs9fHcdUR+Q5gBy1mHfA3lpN0/cWYsaybaguGeUgj08mwb8Hhk753Alfdjl0fu6oHSARmvr1OyTW1y14gIZ
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 20:08:33.2222 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b47f21a9-07d6-4792-fd67-08debdbe0f67
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.21.195];
- Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR10MB5537
+In-Reply-To: <8d9bb0b7-182d-4930-b683-d5d24da6b2ab@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,66 +111,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Vitor Soares,
-
-On Fri, 22 May 2026 17:11:04 +0100, Vitor Soares wrote:
-> From: Vitor Soares <vitor.soares@toradex.com>
+On Fri, May 29, 2026 at 09:36:00AM +0200, Christian König wrote:
+> On 5/29/26 08:34, Zhiping Zhang wrote:
+> ...
+> > There's no in-tree vendor PF driver
 > 
-> This series adds device tree overlays, expanding the hardware support for
-> the Toradex Verdin AM62 SoM. The overlays target displays, cameras, audio,
-> and peripherals available through Toradex carrier boards and the accessory
-> ecosystem.
-> 
-> [...]
+> Well I have to admit it's a bit on the edge but this sentence is a
+> show stopper.
 
-I have applied the following to branch ti-next on [1].
+I think he means the device is not SRIOV. vfio-pci is the in-kernel PF
+driver.
 
-Now, I have assumed that [2] will get in, but if in the unlikely
-event that things change, please notify me and I can drop the series.
-Pulling this in from the best interest of Toradex community.
+> DMA-buf is an in kernel interface for buffer sharing between drivers
+> and any change to it needs an in kernel driver as justification for
+> the added complexity.
 
-Thank you!
+vfio is the in-kernel driver, this series fully shows the in-kernel
+API using vfio as the exporter and mlx5 as the importer. It certainly
+meets the standard required to show in-tree users.
 
-[01/11] arm64: dts: ti: k3-am62-verdin: Add Toradex DSI to LVDS adapter with 10.1" display
-        commit: ff4427a465a018fedaadd607c8166588a28a79d1
-[02/11] arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display 10.1" LVDS
-        commit: 38d01a245e66c30e7372a4a67d310fbcd8319649
-[05/11] arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display 10.1" DSI
-        commit: 8e76e1539c440c3070e4004bd20392588f870010
-[06/11] arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display 7" DSI
-        commit: 8a637725ad7cb29434bba0deb6b530d3116429b3
-[07/11] arm64: dts: ti: k3-am62-verdin: Add NAU8822 Bridge Tied Load
-        commit: a8891ba79990aded756e8bb92ebb690a4da6dab2
-[08/11] arm64: dts: ti: k3-am62-verdin: Reserve UART_4 for Cortex-M4F
-        commit: ca61bcec3e8a52ad2bf8b02f9244df1d47447ffa
-[09/11] arm64: dts: ti: k3-am62-verdin: Add Toradex OV5640 CSI Cameras
-        commit: f63de43a0d6f13874b6c20af0ca4726f7a5327f8
-[10/11] arm64: dts: ti: k3-am62-verdin: Add Toradex Verdin Mezzanine CAN
-        commit: a63211b0b7c9cea098ab954bbafec31982c89f57
-[11/11] arm64: dts: ti: k3-am62-verdin: Add Mezzanine with Toradex Display 10.1" LVDS
-        commit: 837c7dbc5bee260768333c1f985dd0688b5aff8a
+> When you have a complete open source driver stack which utilizes
+> VFIO passthrough as the interface to communicate with the kernel
+> drivers then we can eventually talk about that.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent up the chain during
-the next merge window (or sooner if it is a relevant bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+That decision is not up to dmabuf - what VFIO subsystem requires to
+accept a new UAPI is up to the VFIO maintainers.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+DRM and VFIO have very different views on what is required to merge a
+new uAPI.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/ti/linux.git
-[2] https://lore.kernel.org/linux-arm-kernel/178006233854.3611686.1401419911890133047.b4-ty@b4/
--- 
-Regards,
-Nishanth Menon
-Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
-https://ti.com/opensource
-
+Jason
