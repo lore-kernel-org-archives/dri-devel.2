@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24238CD6E49
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 18:37:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20E51CD6E4A
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 18:37:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A2E91123E1;
-	Fri, 29 May 2026 18:37:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64BC81123E4;
+	Fri, 29 May 2026 18:37:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="QwcH2y/S";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="DUJPMqOY";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 487831123D0
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 18:37:37 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 981B41123E1
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 18:37:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1780079856;
+ s=mimecast20190719; t=1780079859;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=9iRHxmN/dnU79hS18x4XdzAf0Ghs0AIzOreSmFvd9Ao=;
- b=QwcH2y/S37auMJehuAqiXFaQ88DYaddu0us3dxZcMkNxwKOJLlWslcUqLKgS5A/dnkjPvS
- Y7MVUJztsvUGH3XDwhOYDS+8eOTkFQsxWdAhDKaBuuJTicLb48dntUgT3kGTdAYpIJZp9A
- vKS9Yy5t1X1qPSAhp24ggFdSiD9+Z5w=
+ bh=FW4muBq04eUEQ5DPUv/MIH2aGLX2hNQSawY7hFA7cfc=;
+ b=DUJPMqOYnALpGdRCuQpp9xtg1RLW2w6cr5Kxnp9GJwYgNEoOenILYTcDutxhg4U21Lm6Gy
+ xTLZK0N5epVKkC3qpwJqVUGLY6BdxNFvpypeXRNGWw5q01lzgsvPOKJANMwOTW1QUhPDtN
+ Mn8MPunBqzpbUJzOnL6tSoEmyts7B7k=
 Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-136-knbq1hdOPo-qIGV8Qr4TAw-1; Fri,
- 29 May 2026 14:37:31 -0400
-X-MC-Unique: knbq1hdOPo-qIGV8Qr4TAw-1
-X-Mimecast-MFC-AGG-ID: knbq1hdOPo-qIGV8Qr4TAw_1780079848
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-297-kMqJ3efKP_6-3Cyqrp-ceg-1; Fri,
+ 29 May 2026 14:37:34 -0400
+X-MC-Unique: kMqJ3efKP_6-3Cyqrp-ceg-1
+X-Mimecast-MFC-AGG-ID: kMqJ3efKP_6-3Cyqrp-ceg_1780079851
 Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
  by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id D10D719560AA; Fri, 29 May 2026 18:37:27 +0000 (UTC)
+ id 25A85195608B; Fri, 29 May 2026 18:37:31 +0000 (UTC)
 Received: from GoldenWind.redhat.com (unknown [10.22.89.101])
  by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 979E91773; Fri, 29 May 2026 18:37:24 +0000 (UTC)
+ id 0DCF21776; Fri, 29 May 2026 18:37:27 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
  nouveau@lists.freedesktop.org
@@ -62,15 +62,14 @@ Cc: Alexandre Courbot <acourbot@nvidia.com>, Gary Guo <gary@garyguo.net>,
  Daniel Almeida <daniel.almeida@collabora.com>,
  Lyude Paul <lyude@redhat.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH v15 5/6] drm/gem/shmem: Introduce
- __drm_gem_shmem_free_sgt_locked()
-Date: Fri, 29 May 2026 14:34:03 -0400
-Message-ID: <20260529183702.677677-6-lyude@redhat.com>
+Subject: [PATCH v15 6/6] rust: drm: gem: Introduce shmem::Object::sg_table()
+Date: Fri, 29 May 2026 14:34:04 -0400
+Message-ID: <20260529183702.677677-7-lyude@redhat.com>
 In-Reply-To: <20260529183702.677677-1-lyude@redhat.com>
 References: <20260529183702.677677-1-lyude@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
-X-Mimecast-MFC-PROC-ID: SXaEvqloFDI1YRIVvPcif6snUoH7CW9bjqfAR17oBXg_1780079848
+X-Mimecast-MFC-PROC-ID: SaLxRDWavzNbGfJDYX-FkYWcIUnTWcII9gstfib1uZ4_1780079851
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -89,92 +88,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-One of the complications of trying to use the shmem helpers to create a
-scatterlist for shmem objects is that we need to be able to provide a
-guarantee that the driver cannot be unbound for the lifetime of the
-scatterlist.
+In order to do this, we need to be careful to ensure that any interface we
+expose for scatterlists ensures that any mappings created from one are
+destroyed on driver-unbind. To do this, we introduce a Devres resource into
+shmem::Object that we use in order to ensure that we release any SGTable
+mappings on driver-unbind.
 
-The easiest way of handling this seems to be just hooking up an unmap
-operation to devres the first time we create a scatterlist, which allows us
-to still take advantage of gem shmem facilities without breaking that
-guarantee. To allow for this, we extract __drm_gem_shmem_free_sgt_locked()
-- which allows a caller (e.g. the rust bindings) to manually unmap the sgt
-for a gem object as needed.
+There's some other slightly unfortunate caveats of this:
+
+* Drivers don't have explicit control at the moment over when unmapping
+  happens (which is exactly the same as the C side atm, so it might not be
+  a problem).
+* We can't just return `SGTableMap` to the user through an Arc to attempt
+  to fix the last caveat - because that implies the gem object would need
+  to hold a reference count to the scatterlist mapping, which just leaves
+  us with the same problem.
 
 Signed-off-by: Lyude Paul <lyude@redhat.com>
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
 
 ---
+V3:
+* Rename OwnedSGTable to shmem::SGTable. Since the current version of the
+  SGTable abstractions now has a `Owned` and `Borrowed` variant, I think
+  renaming this to shmem::SGTable makes things less confusing.
+  We do however, keep the name of owned_sg_table() as-is.
+V4:
+* Clarify safety comments for SGTable to explain why the object is
+  thread-safe.
+* Rename from SGTableRef to SGTable
 V10:
-* Fix incorrect function name in documentation for
-  __drm_gem_shmem_release_sgt_locked()
+* Use Devres in order to ensure that SGTables are revocable, and are
+  unmapped on driver-unbind.
+V11:
+* s/create_sg_table()/get_sg_table()
+* Get rid of extraneous `ret = ` in shmem::Object::get_sg_table()
+V12:
+* Actually move sgt_res in this patch and not the next one
+V13:
+* Use DmaResvGuard suggestion from Alexander
+* Use Alexander's (much better) solution for get_sg_table()
+* Use SetOnce instead of UnsafeCell
+* s/SGTableRef/SGTableMap
+* Fix typo in SGTableMap documentation
+* Create fallible constructor for SGTableMap
+* Don't reuse dma_resv lock for protecting Object contents, just use Mutex
+  + SetOnce
+* Drop use of drm_gem_shmem_get_pages_sgt_locked(), since we don't need to
+  hold the dma_resv lock ourselves for anything but this function.
+* Check that the device we receive in the bounds for sg_table() and
+  owned_sg_table() that said Device is in fact, the correct device.
+* Remove redundant docs in owned_sg_table(), just point it back to
+  sg_table().
+* Implement Deborah's suggestion to fix double-free in
+  free_callback()
+* Restore original order of Object<T>
+* Fix doc typo for SGTableMap
+V14:
+* Use new InitOnce container over the Mutex/SetOnce horror show we had
+  before.
+* Start using LazyInit container for storing Devres for sgt unmap
+* Add some kunit tests for sg_table (not sure why I didn't do this before)
+  using some of the boilerplate code leftover from the vmap bindings
+* Get rid of the owned SGTable variant for now, we'll add it back in a
+  future patch if people actually need it.
+* Use new LazyInit container from me to get rid of the horrid
+  Mutex<SetOnce<>> mess.
+* Add the best we can do for unit tests w/r/t SGTable at the moment
 
- drivers/gpu/drm/drm_gem_shmem_helper.c | 32 +++++++++++++++++++++-----
- include/drm/drm_gem_shmem_helper.h     |  1 +
- 2 files changed, 27 insertions(+), 6 deletions(-)
+ rust/kernel/drm/gem/shmem.rs | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-index 545933c7f7121..c989459eb2159 100644
---- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-+++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@ -158,6 +158,30 @@ struct drm_gem_shmem_object *drm_gem_shmem_create(struct drm_device *dev, size_t
+diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+index 494e0d0d8d0d6..5655c2a1ae8fb 100644
+--- a/rust/kernel/drm/gem/shmem.rs
++++ b/rust/kernel/drm/gem/shmem.rs
+@@ -664,4 +664,28 @@ fn vmap_io() -> Result {
+ 
+         Ok(())
+     }
++
++    // TODO: I would love to actually test the success paths of sg_table(), but that would require
++    // also implementing dummy dma_ops so that trying to create a mapping doesn't explode. So, leave
++    // that for someone else.
++
++    // Ensures that passing the wrong device to sg_table() fails as we expect, and also ensure it
++    // skips initializing `sgt_res` since we could otherwise create `sgt_res` with the wrong device
++    // bound to it.
++    #[test]
++    fn fail_sg_table_on_wrong_dev() -> Result {
++        let (_dev, drm) = create_drm_dev()?;
++        let wrong_dev = faux::Registration::new(c"EvilKunit", None)?;
++
++        let obj = Object::<KunitObject>::new(&drm, PAGE_SIZE, ObjectConfig::default(), ())?;
++
++        assert_eq!(obj.sg_table(wrong_dev.as_ref()).err().unwrap(), EINVAL);
++
++        // If sgt_res was not initialized mistakenly with the wrong device, this should still fail.
++        assert_eq!(obj.sg_table(wrong_dev.as_ref()).err().unwrap(), EINVAL);
++
++        // TODO: Someday, we should test that creating an sg_table here still succeeds.
++
++        Ok(())
++    }
  }
- EXPORT_SYMBOL_GPL(drm_gem_shmem_create);
- 
-+/**
-+ * __drm_gem_shmem_release_sgt_locked - Unpin and DMA unmap pages, and release the
-+ * cached scatter/gather table for an shmem GEM object.
-+ * @shmem: shmem GEM object
-+ *
-+ * If the passed shmem object has an active scatter/gather table for driver
-+ * usage, this function will unmap it and release the memory associated with it.
-+ * It is the responsibility of the caller to ensure it holds the dma_resv_lock
-+ * for this object.
-+ *
-+ * Drivers should not need to call this function themselves, it is mainly
-+ * intended for usage in the Rust shmem bindings.
-+ */
-+void __drm_gem_shmem_free_sgt_locked(struct drm_gem_shmem_object *shmem)
-+{
-+	dma_resv_assert_held(shmem->base.resv);
-+
-+	dma_unmap_sgtable(shmem->base.dev->dev, shmem->sgt, DMA_BIDIRECTIONAL, 0);
-+	sg_free_table(shmem->sgt);
-+	kfree(shmem->sgt);
-+	shmem->sgt = NULL;
-+}
-+EXPORT_SYMBOL_GPL(__drm_gem_shmem_free_sgt_locked);
-+
- /**
-  * drm_gem_shmem_release - Release resources associated with a shmem GEM object.
-  * @shmem: shmem GEM object
-@@ -176,12 +200,8 @@ void drm_gem_shmem_release(struct drm_gem_shmem_object *shmem)
- 
- 		drm_WARN_ON(obj->dev, refcount_read(&shmem->vmap_use_count));
- 
--		if (shmem->sgt) {
--			dma_unmap_sgtable(obj->dev->dev, shmem->sgt,
--					  DMA_BIDIRECTIONAL, 0);
--			sg_free_table(shmem->sgt);
--			kfree(shmem->sgt);
--		}
-+		if (shmem->sgt)
-+			__drm_gem_shmem_free_sgt_locked(shmem);
- 		if (shmem->pages)
- 			drm_gem_shmem_put_pages_locked(shmem);
- 
-diff --git a/include/drm/drm_gem_shmem_helper.h b/include/drm/drm_gem_shmem_helper.h
-index 5ccdae21b94a9..b2c23af628e1a 100644
---- a/include/drm/drm_gem_shmem_helper.h
-+++ b/include/drm/drm_gem_shmem_helper.h
-@@ -111,6 +111,7 @@ int drm_gem_shmem_init(struct drm_device *dev, struct drm_gem_shmem_object *shme
- struct drm_gem_shmem_object *drm_gem_shmem_create(struct drm_device *dev, size_t size);
- void drm_gem_shmem_release(struct drm_gem_shmem_object *shmem);
- void drm_gem_shmem_free(struct drm_gem_shmem_object *shmem);
-+void __drm_gem_shmem_free_sgt_locked(struct drm_gem_shmem_object *shmem);
- 
- void drm_gem_shmem_put_pages_locked(struct drm_gem_shmem_object *shmem);
- int drm_gem_shmem_pin(struct drm_gem_shmem_object *shmem);
 -- 
 2.54.0
 
