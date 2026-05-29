@@ -4,90 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9114BCD4F54
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 21:47:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CABFCD6E49
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 21:51:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB9C3112553;
-	Fri, 29 May 2026 21:47:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0123112560;
+	Fri, 29 May 2026 21:51:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="HD6BpZec";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="c9/IEYXg";
 	dkim-atps=neutral
-Received: from mail-yw1-f226.google.com (mail-yw1-f226.google.com
- [209.85.128.226])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A3A2112553
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 21:47:05 +0000 (UTC)
-Received: by mail-yw1-f226.google.com with SMTP id
- 00721157ae682-7dc93d02916so23387997b3.3
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 14:47:05 -0700 (PDT)
+Received: from mail-dl1-f101.google.com (mail-dl1-f101.google.com
+ [74.125.82.101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F34CB112560
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 21:51:18 +0000 (UTC)
+Received: by mail-dl1-f101.google.com with SMTP id
+ a92af1059eb24-134fe980658so17075211c88.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 14:51:18 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780091224; x=1780696024;
+ d=1e100.net; s=20251104; t=1780091478; x=1780696278;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=tq+GBjnPPjbqnz/T4O2Nzq6ksTXv9aG1Rt9H0ulaXnc=;
- b=YqlLFyFBTrygUWzVOgD6sukhkOphKI3PlcllXSNW2/fZJOvqokeOm6CJ+L5qmxjmnL
- V+Ml8GZex2wEVgsQjb/I3A0gnfwdFZAQaTJ+vi8mcmoYxpUn+mtdKQR2uIkgQOngjCzu
- y3iLYo+B7p0sFfoU6JGXGzHfXKW3pu6obKL8fsBQOT+DrRP1fgu73be3gUfKi6f79keA
- 5aY3UlhnK9lwLmnvGSRYCbECGr5i2OlMXT5XUzKfisKCF91Afbph7pGK/jgIQ2NgZf57
- PzQEkNPLaCTQDv3qUPS0iyOGOFu7V22XFclHxpdIXOUzPUDUMtW4Eke9VVOkQNMDTsjp
- HJDA==
-X-Gm-Message-State: AOJu0YxkgPR5Aw+GqTSBknXB7alm1P4wY4EUWUV7/cJ8Yo+AcGLaSUoZ
- qjtbsNN8zkdPch7arSNyaywsN/DrLAnts7uNc42Oqqr7vId22Bo6XAwuL5TH53fwq4nq343vmKh
- BbYmdrXgJgZaP2yae9sSZ/Kh0aM6Wz2zUNoQH/9zL8TJiA53BORh2cOgZLLwMCeRlZyc+X7Q7TM
- NHi0VkSpJDaIzD2oQEAywPPFwt4rpXMpi3SOSjvmceiu2gDBz/6A5cfYin8DvDYc8GyAJH6+yFh
- p7lzKfA55oVLhsk3MwO
-X-Gm-Gg: Acq92OHtnkM7kzdi3PswpeIZnZcAWgvjLWZR4kNrLRGzilFsoQmUE9Y6ihOs8l0coHE
- +y2K0kx8Li9BmALwQC7MoOu5nqgj+tZMXDlv9jKnDDsXQuGAM4+T79H9dzH2QBONe44/c5wvHHE
- +YBrUaUekVTILUDvGHrwiHFG2vSy2Adidl3y/rsDWGxE24URjRVqX6WcVdm+d1zIfl9sdzu3dVP
- S5wp5nBgSfJyZnvBknJbj86Dvw7g6SHShXYbKmhF1ctmzFtcjW/8nPi3f79TfkjDOah5lBbx9Z2
- /1BrmDIl5K6ZKp9N6gdl9+6BPPzjxeQmLKHs/avlLfFlHDw7judSoFsMSalxpUQfO5YFQ7BUcUo
- zZp02gmDq+MnIOTVemnani5YsRdkB71Cb9t8ZHBDT5hy6kgfs68djfF1XAn0O9QuG5TXVJTRSjZ
- y4WxxewXOeQ0ncgRUcT4GA1v9KChRNZGHSg/b6of2UBPRcbd7vV7m4v5AlbzmRHF4dYxs=
-X-Received: by 2002:a05:690c:c50f:b0:7dd:89dc:3da7 with SMTP id
- 00721157ae682-7e05a286762mr11344617b3.17.1780091224317; 
- Fri, 29 May 2026 14:47:04 -0700 (PDT)
+ bh=i1esBPvDhvYQF5rLH2Oud0oSbDBBVh3zZpiZrTfk26w=;
+ b=lDKDgeTmvA0D/Wt4JdOmPeMPBpoiPqBtOacRHzPVMDaI6eZIWbB8Q0osr4i0UdIzMn
+ vVZJHNiFhUjvcGHD056ZC4HYNo9sutdkkD0wzfY6rX0EecBQgoj2lR4bk5xhLxXB8/dc
+ hgd0x95eGeC7TmAg7d1gDBawUWPpxnfxZOYKH8SrGPxZHPoFXk/qKfxGYpK56jYyfgk3
+ 8kQoj1CbkkQWIvDZZwVsrNyRUXnzCZ1BgBStoaa/NoL2vH/0Rs57UqysZBLsrlcaQ2s+
+ mQTPx0zGtG640G0NDZRlHZhJ8YMrcHtNHzsNm6heUXk38a+qX8kow2ar/C8NHDU7kioY
+ fbVQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ83jw1PaOQAR1Xmbp+vejVQPxq+ca0eSXrMCsV6TCkkMqVloAAPl80A3q7F6aZA4Pw9RauahegpZT0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxAw76NCoC1X0iBPzk45GIZUBhvdR4SzGGBpJYwVD69d8qlteRG
+ lS0Tcb5lp3oU0tWhjhqybeh+OdgYE1g0spq2qXEMoQNhM5dfkc6DfHpmqQx/H/0VA9RJOb4K9o2
+ H9G/Y5teWpKUCCbkke3HQ7Uiz50FoQJVA9KpXP0B/xOODmrvUcG2Q+ga1JLpOziYUW9KUeyMduV
+ bpvi3QBG8/Rm+LIMFaqrBZwcZqWyOGUh60pRfHnPNT9hNfOj4lafkkBp3kTSMz1UOMfvR8XEawG
+ nBShL+Etn9uvGUZnHnTYt8=
+X-Gm-Gg: Acq92OH4GAsWtO5KdBSAReUbIit9Sw/vcuWKpH7BAVhW75JaJLA6iPTWlfvOsfkFUSG
+ 3SfDsA6aRNggAClMkBG7JuzxEB55ANqHbGmZGFiIUwP8XPNEDRebqMylGljNHuxpkzl0alUzuI0
+ W17qbqNkMXx9T5NawjjMMSoIWfxKnL1bG8ChFB9ovoXTK503qDwtFe3k+yP+5xcAUBY+VlAORk2
+ Lbbh9f0pCxqZO9GaIAERvljIZKisSvTe74bxZLx7I1hiiRmPklTgtOLNyOPdRI/FnoXZkoG5Bcr
+ pgJb/N+Q/RmK9SCzVUyYsQLdCC4mgX7yOWTvZtg85KM/N/Cwr0j+Tgtmff+n2uekHPl3P/X4xVE
+ 0Pmc463dVBY0NVww9WVWveSTLza2cgRh8Sx6oRaJlad7PP6OS5IODkjuB/lSRbrEAmUIbJtKy1f
+ rIk/SkKkYpT+DD2bQ4mh9tFLwC688JvrEQog+gCYn2e2tuL1cNcns4d5pr8b8EDQ==
+X-Received: by 2002:a05:7300:e683:b0:304:6139:5a3e with SMTP id
+ 5a478bee46e88-304fa6c856dmr783237eec.34.1780091477781; 
+ Fri, 29 May 2026 14:51:17 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-117.dlp.protect.broadcom.com. [144.49.247.117])
+ (address-144-49-247-0.dlp.protect.broadcom.com. [144.49.247.0])
  by smtp-relay.gmail.com with ESMTPS id
- 00721157ae682-7de6757c96csm1855377b3.4.2026.05.29.14.47.02
+ 5a478bee46e88-304ed502388sm190162eec.24.2026.05.29.14.51.17
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 29 May 2026 14:47:04 -0700 (PDT)
+ Fri, 29 May 2026 14:51:17 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-lf1-f71.google.com with SMTP id
- 2adb3069b0e04-5aa607bbfe2so324407e87.3
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 14:47:02 -0700 (PDT)
+Received: by mail-lf1-f72.google.com with SMTP id
+ 2adb3069b0e04-5aa5a7e16afso633280e87.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 14:51:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1780091221; x=1780696021;
+ d=broadcom.com; s=google; t=1780091475; x=1780696275;
  darn=lists.freedesktop.org; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=tq+GBjnPPjbqnz/T4O2Nzq6ksTXv9aG1Rt9H0ulaXnc=;
- b=HD6BpZecG92lzpwQzL6cXV2CMbB7hFv8Cl7ste5tfMZz6F+ZiO1aWXNzh0SXVmYTeA
- GdPu9IPOXN/XvaMq35PpXPqTRF+Ja+eL0jkwKc1h1VuVAnZF9W6vqSOgDXLbFzQpP3IM
- 5eElj5PLzsiqW31RNBojnu9IGcmjDkXK6fXuU=
-X-Received: by 2002:a05:6512:b19:b0:5aa:6289:e0b5 with SMTP id
- 2adb3069b0e04-5aa6289e364mr128713e87.35.1780091221638; 
- Fri, 29 May 2026 14:47:01 -0700 (PDT)
-X-Received: by 2002:a05:6512:b19:b0:5aa:6289:e0b5 with SMTP id
- 2adb3069b0e04-5aa6289e364mr128705e87.35.1780091221210; Fri, 29 May 2026
- 14:47:01 -0700 (PDT)
+ bh=i1esBPvDhvYQF5rLH2Oud0oSbDBBVh3zZpiZrTfk26w=;
+ b=c9/IEYXg4bq8pR0HCZh6a5f2FZVjiipHTTwvMUGJ89dSEn2cdVKR7eH3DwsEtA8B7p
+ KL0DhR+9rVhVvhm7MUtUdsXaj/rAWqotqpWxCETbGf84R6ksO9IRCCiqBUAAN6mV4HUH
+ OGiCpCGfK2tDYTqbSPRWCi4mtpNVug8aGNw/E=
+X-Forwarded-Encrypted: i=1;
+ AFNElJ98AWZgx/VNHoWzpF2Mk1zil+0xXPSqlgMTnlFxid53sKuO1ZPamJfypMxkZSXVYIND2V/aC5bjeNo=@lists.freedesktop.org
+X-Received: by 2002:a05:6512:612:20b0:5a8:e129:af6f with SMTP id
+ 2adb3069b0e04-5aa59040f2cmr867397e87.23.1780091475124; 
+ Fri, 29 May 2026 14:51:15 -0700 (PDT)
+X-Received: by 2002:a05:6512:612:20b0:5a8:e129:af6f with SMTP id
+ 2adb3069b0e04-5aa59040f2cmr867382e87.23.1780091474623; Fri, 29 May 2026
+ 14:51:14 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260521223756.627311-1-maaz.mombasawala@broadcom.com>
- <20260521223756.627311-4-maaz.mombasawala@broadcom.com>
-In-Reply-To: <20260521223756.627311-4-maaz.mombasawala@broadcom.com>
+References: <20260527145113.241595-1-tzimmermann@suse.de>
+ <20260527145113.241595-11-tzimmermann@suse.de>
+In-Reply-To: <20260527145113.241595-11-tzimmermann@suse.de>
 From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Fri, 29 May 2026 17:46:48 -0400
-X-Gm-Features: AVHnY4LL6vqPnMiPVnpGB-g3MfJPsPcbYkKZmEJIs9zBJFskvvv0NSKtg3JJ7Cw
-Message-ID: <CABQX2QMEfeELvPX-_x6KZadyaEO4h8mgfA9yHBxPkGQYJLihYw@mail.gmail.com>
-Subject: Re: [PATCH v4 3/4] drm/vmwgfx: Reserve ttm object before resv usage
-To: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-Cc: dri-devel@lists.freedesktop.org, bcm-kernel-feedback-list@broadcom.com, 
- ian.forbes@broadcom.com
+Date: Fri, 29 May 2026 17:51:02 -0400
+X-Gm-Features: AVHnY4KIK2b_b8RVjZiB-AlL-VZmUXJwYKGs1uGNiJBm8qXQcz8OVNuVdL8kcUc
+Message-ID: <CABQX2QOaFpmw=ytYM4NquqScTPL-gFeEAyufNP4jxHUx5sg1RQ@mail.gmail.com>
+Subject: Re: [PATCH v3 10/10] drm/vmwgfx: Remove unused field struct
+ vmwgfx_du_update_plane.old_state
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: mripard@kernel.org, maarten.lankhorst@linux.intel.com, airlied@redhat.com, 
+ airlied@gmail.com, simona@ffwll.ch, admin@kodeit.net,
+ gargaditya08@proton.me, 
+ paul@crapouillou.net, jani.nikula@linux.intel.com, mhklinux@outlook.com, 
+ bcm-kernel-feedback-list@broadcom.com, dri-devel@lists.freedesktop.org, 
+ linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-mips@vger.kernel.org, 
+ virtualization@lists.linux.dev
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="000000000000f444770652fbc88a"
+ micalg=sha-256; boundary="00000000000013a2320652fbd849"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,79 +114,198 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000f444770652fbc88a
+--00000000000013a2320652fbd849
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, May 21, 2026 at 6:35=E2=80=AFPM Maaz Mombasawala
-<maaz.mombasawala@broadcom.com> wrote:
+On Wed, May 27, 2026 at 10:51=E2=80=AFAM Thomas Zimmermann <tzimmermann@sus=
+e.de> wrote:
 >
-> We hit dma_resv_assert_held warnings in several places, reserve the ttm
-> base object when it's being used to avoid them.
+> Plane updates no longer require the old plane state. Remove the field
+> from struct vmwgfx_du_update_plane and fix all callers.
 >
-> Signed-off-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
->  drivers/gpu/drm/vmwgfx/vmwgfx_bo.c   |  2 ++
->  drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c | 12 ++++++++++++
->  2 files changed, 14 insertions(+)
+>  drivers/gpu/drm/vmwgfx/vmwgfx_kms.h  |  2 --
+>  drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c | 12 ++----------
+>  drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c | 11 ++---------
+>  3 files changed, 4 insertions(+), 21 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/=
-vmwgfx_bo.c
-> index 9c7a73c0b0dc..6817e0b8ce99 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-> @@ -55,7 +55,9 @@ static void vmw_bo_free(struct ttm_buffer_object *bo)
->                         /* Reserve and switch the backing mob. */
->                         mutex_lock(&res->dev_priv->cmdbuf_mutex);
->                         (void)vmw_resource_reserve(res, false, true);
-> +                       ttm_bo_reserve(bo, false, false, NULL);
-
-We probably want to check the return here just like you did below
-because if the reservation fails you'll hit the same
-dma_resv_assert_held warnings.
-
->                         vmw_resource_mob_detach(res);
-> +                       ttm_bo_unreserve(bo);
->                         if (res->dirty)
->                                 res->func->dirty_free(res);
->                         if (res->coherent)
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c b/drivers/gpu/drm/vmwgf=
-x/vmwgfx_vkms.c
-> index 7b8163b5e501..da6ccd5e318e 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
-> @@ -131,6 +131,7 @@ crc_generate_worker(struct work_struct *work)
->         spin_unlock_irq(&du->vkms.crc_state_lock);
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h b/drivers/gpu/drm/vmwgfx=
+/vmwgfx_kms.h
+> index 2224d7d91d1b..8c2072b82062 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h
+> @@ -19,7 +19,6 @@
+>  /**
+>   * struct vmw_du_update_plane - Closure structure for vmw_du_helper_plan=
+e_update
+>   * @plane: Plane which is being updated.
+> - * @old_state: Old state of plane.
+>   * @dev_priv: Device private.
+>   * @du: Display unit on which to update the plane.
+>   * @vfb: Framebuffer which is blitted to display unit.
+> @@ -102,7 +101,6 @@ struct vmw_du_update_plane {
+>                                     struct drm_rect *bb);
 >
->         if (surf) {
-> +               int ret;
->                 if (vmw_surface_sync(vmw, surf)) {
->                         drm_warn(
->                                 crtc->dev,
-> @@ -138,7 +139,18 @@ crc_generate_worker(struct work_struct *work)
->                         return;
->                 }
+>         struct drm_plane *plane;
+> -       struct drm_plane_state *old_state;
+>         struct vmw_private *dev_priv;
+>         struct vmw_display_unit *du;
+>         struct vmw_framebuffer *vfb;
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c b/drivers/gpu/drm/vmwgf=
+x/vmwgfx_scrn.c
+> index c83061cf7455..fa84bc7ab5bb 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
+> @@ -530,7 +530,6 @@ static uint32_t vmw_stud_bo_post_clip(struct vmw_du_u=
+pdate_plane  *update,
+>   */
+>  static int vmw_sou_plane_update_bo(struct vmw_private *dev_priv,
+>                                    struct drm_plane *plane,
+> -                                  struct drm_plane_state *old_state,
+>                                    struct vmw_framebuffer *vfb,
+>                                    struct vmw_fence_obj **out_fence)
+>  {
+> @@ -538,7 +537,6 @@ static int vmw_sou_plane_update_bo(struct vmw_private=
+ *dev_priv,
 >
-> +               ret =3D ttm_bo_reserve(&surf->res.guest_memory_bo->tbo, f=
-alse, false, NULL);
-> +               if (ret !=3D 0) {
-> +                       drm_warn(&vmw->drm, "%s: failed reserve\n", __fun=
-c__);
-> +                       goto done;
-> +               }
-> +
->                 compute_crc(crtc, surf, &crc32);
-> +
-> +               ttm_bo_unreserve(&surf->res.guest_memory_bo->tbo);
-> +
-> +done:
-> +
+>         memset(&bo_update, 0, sizeof(struct vmw_du_update_plane_buffer));
+>         bo_update.base.plane =3D plane;
+> -       bo_update.base.old_state =3D old_state;
+>         bo_update.base.dev_priv =3D dev_priv;
+>         bo_update.base.du =3D vmw_crtc_to_du(plane->state->crtc);
+>         bo_update.base.vfb =3D vfb;
+> @@ -692,7 +690,6 @@ static uint32_t vmw_sou_surface_post_clip(struct vmw_=
+du_update_plane *update,
+>   */
+>  static int vmw_sou_plane_update_surface(struct vmw_private *dev_priv,
+>                                         struct drm_plane *plane,
+> -                                       struct drm_plane_state *old_state=
+,
+>                                         struct vmw_framebuffer *vfb,
+>                                         struct vmw_fence_obj **out_fence)
+>  {
+> @@ -700,7 +697,6 @@ static int vmw_sou_plane_update_surface(struct vmw_pr=
+ivate *dev_priv,
+>
+>         memset(&srf_update, 0, sizeof(struct vmw_du_update_plane_surface)=
+);
+>         srf_update.base.plane =3D plane;
+> -       srf_update.base.old_state =3D old_state;
+>         srf_update.base.dev_priv =3D dev_priv;
+>         srf_update.base.du =3D vmw_crtc_to_du(plane->state->crtc);
+>         srf_update.base.vfb =3D vfb;
+> @@ -721,7 +717,6 @@ static void
+>  vmw_sou_primary_plane_atomic_update(struct drm_plane *plane,
+>                                     struct drm_atomic_commit *state)
+>  {
+> -       struct drm_plane_state *old_state =3D drm_atomic_get_old_plane_st=
+ate(state, plane);
+>         struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_st=
+ate(state, plane);
+>         struct drm_crtc *crtc =3D new_state->crtc;
+>         struct vmw_fence_obj *fence =3D NULL;
+> @@ -734,12 +729,9 @@ vmw_sou_primary_plane_atomic_update(struct drm_plane=
+ *plane,
+>                         vmw_framebuffer_to_vfb(new_state->fb);
+>
+>                 if (vfb->bo)
+> -                       ret =3D vmw_sou_plane_update_bo(dev_priv, plane,
+> -                                                     old_state, vfb, &fe=
+nce);
+> +                       ret =3D vmw_sou_plane_update_bo(dev_priv, plane, =
+vfb, &fence);
+>                 else
+> -                       ret =3D vmw_sou_plane_update_surface(dev_priv, pl=
+ane,
+> -                                                          old_state, vfb=
+,
+> -                                                          &fence);
+> +                       ret =3D vmw_sou_plane_update_surface(dev_priv, pl=
+ane, vfb, &fence);
+>                 if (ret !=3D 0)
+>                         DRM_ERROR("Failed to update screen.\n");
+>         } else {
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c b/drivers/gpu/drm/vmwgf=
+x/vmwgfx_stdu.c
+> index f0df2b1c8465..474e3badb80f 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
+> @@ -1240,7 +1240,6 @@ vmw_stdu_bo_populate_update_cpu(struct vmw_du_updat=
+e_plane  *update, void *cmd,
+>   */
+>  static int vmw_stdu_plane_update_bo(struct vmw_private *dev_priv,
+>                                     struct drm_plane *plane,
+> -                                   struct drm_plane_state *old_state,
+>                                     struct vmw_framebuffer *vfb,
+>                                     struct vmw_fence_obj **out_fence)
+>  {
+> @@ -1248,7 +1247,6 @@ static int vmw_stdu_plane_update_bo(struct vmw_priv=
+ate *dev_priv,
+>
+>         memset(&bo_update, 0, sizeof(struct vmw_du_update_plane_buffer));
+>         bo_update.base.plane =3D plane;
+> -       bo_update.base.old_state =3D old_state;
+>         bo_update.base.dev_priv =3D dev_priv;
+>         bo_update.base.du =3D vmw_crtc_to_du(plane->state->crtc);
+>         bo_update.base.vfb =3D vfb;
+> @@ -1350,7 +1348,6 @@ vmw_stdu_surface_populate_update(struct vmw_du_upda=
+te_plane  *update, void *cmd,
+>   */
+>  static int vmw_stdu_plane_update_surface(struct vmw_private *dev_priv,
+>                                          struct drm_plane *plane,
+> -                                        struct drm_plane_state *old_stat=
+e,
+>                                          struct vmw_framebuffer *vfb,
+>                                          struct vmw_fence_obj **out_fence=
+)
+>  {
+> @@ -1363,7 +1360,6 @@ static int vmw_stdu_plane_update_surface(struct vmw=
+_private *dev_priv,
+>
+>         memset(&srf_update, 0, sizeof(struct vmw_du_update_plane));
+>         srf_update.plane =3D plane;
+> -       srf_update.old_state =3D old_state;
+>         srf_update.dev_priv =3D dev_priv;
+>         srf_update.du =3D vmw_crtc_to_du(plane->state->crtc);
+>         srf_update.vfb =3D vfb;
+> @@ -1424,12 +1420,9 @@ vmw_stdu_primary_plane_atomic_update(struct drm_pl=
+ane *plane,
+>                         DRM_ERROR("Failed to bind surface to STDU.\n");
+>
+>                 if (vfb->bo)
+> -                       ret =3D vmw_stdu_plane_update_bo(dev_priv, plane,
+> -                                                      old_state, vfb, &f=
+ence);
+> +                       ret =3D vmw_stdu_plane_update_bo(dev_priv, plane,=
+ vfb, &fence);
+>                 else
+> -                       ret =3D vmw_stdu_plane_update_surface(dev_priv, p=
+lane,
+> -                                                           old_state, vf=
+b,
+> -                                                           &fence);
+> +                       ret =3D vmw_stdu_plane_update_surface(dev_priv, p=
+lane, vfb, &fence);
+>                 if (ret)
+>                         DRM_ERROR("Failed to update STDU.\n");
+>         } else {
+> --
+> 2.54.0
+>
 
-Is this an extra newline? Lets get rid of it.
+LGTM
+
+For the vmwgfx bits:
+Reviewed-by: Zack Rusin <zack.rusin@broadcom.com>
+
+For the rest of the series:
+Acked-by: Zack Rusin <zack.rusin@broadcom.com>
 
 z
 
---000000000000f444770652fbc88a
+--00000000000013a2320652fbd849
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -267,13 +397,13 @@ iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
 b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
 VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
 VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIEqI
-l0Un4FIVtg5xDj+IACbP/Y4C19NGfU3OEE7yaawHMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MDUyOTIxNDcwMVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIK6T
+M3hcwIG6U09NmUG4muHUYSOBWzNS3Wkx9wYnRHojMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MDUyOTIxNTExNVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
 ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAGDRWUKRvGaAiIfajSaCu/RJqWUjLjNN6vFoqV0T
-pjeygLQQwjwpi+PndpWkuAcBQii64NLGPuKUdqBxu8djyJOHOEOBAVHEMYb30voC4dXuJ3GVKT9e
-hBK/yZdH9EGLsXtfHRdI3ec78D57zBQ2xWNH8Twd07d5YMZxsq6CgH36TsWb8DwIRcu39evFPB+x
-4sOKc9+AgfyDv6iUZkBtjyvjGU5uX79m7uAw7QJxO7NbPTpdsx4aw99NvdM9y8GqP3Z26iYc9D4J
-qoWmiZ8D3UGTYlnjnfM3sTjqm2xukKs2wLEoxgcU5Ql2AWMfLGAuqFS7tKkh+5Rbfc6QDRPQHac=
---000000000000f444770652fbc88a--
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAEKPxb22TcQG2ccYaBfS+VbMq6HhQMeOQ+G6GB7h
+uG2QNotr/CMDiERxZC7VoImSeIdZxccjxGdyWOuOtawNbek0BclLI21pZ4qV1B326XGmuVdSpUYZ
+XITplE1iTHWIWVbQaaer+zDXFIfley57dLZw7Nm6KW9yul/MBzohNJCcZiolaGS/qH6menk4NOby
+Nu0NxGfCwnFT8hRik4gtWEEBEMxeY/yY5NFvImONzZdqs/VC/WcTCrpI40GzSboPvn5pM5Yq6XYI
+547GYJfx8g6ITD43rpsDewfuIeVR3/ZLapDI+U71y0jCMiKNXQkBrW4SFO6szmhu4xtpWTabp3U=
+--00000000000013a2320652fbd849--
