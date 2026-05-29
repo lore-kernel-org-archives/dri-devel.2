@@ -4,61 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54B46CD6E51
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 15:17:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10F6FCD6E50
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 15:18:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6923F1120BC;
-	Fri, 29 May 2026 15:17:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 707811120C6;
+	Fri, 29 May 2026 15:18:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hAljyH7S";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="hgKzm/J0";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBAC41120B9;
- Fri, 29 May 2026 15:17:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780067820; x=1811603820;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=HedptQ/6CIwjp4YiEkdapvOi2Wo7J+jtmUPcqWAfNeo=;
- b=hAljyH7SS6gcYFpHXFPAgOu8ULYOEJYxK4154M7c/34TycN/kfm35yEj
- vaw1qI4j1OQ24dVY0IOgYKUQSWgno61LS0HL0I3udo7u7G+32pobJEJuO
- jai+mrWTLS1RYMXjcwDmgjHZCPGWl5dj/UuXXUSwnemB5w7oCwPhLcuSD
- IxiVQn8RneG7EUkqlqqUAebF18zbFuOS8bbP673g4K8VLS2INo08wvqB0
- d+5RCV/jPdnLtfU8lrsVQUiShnFzohNg/sI1IbEwKpMiQy8+nng11o2Da
- iCs1dFHz0Wp6rJC2sSyq7sPOSdIBzr4IIpKb79eyuj7qoCUQ7kyIFacSe A==;
-X-CSE-ConnectionGUID: jL5M7Ch0TOCorgoPQ/s7Pg==
-X-CSE-MsgGUID: JUoVW7r0RkiYyrhGZVf5VQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11801"; a="81035499"
-X-IronPort-AV: E=Sophos;i="6.24,175,1774335600"; d="scan'208";a="81035499"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2026 08:17:00 -0700
-X-CSE-ConnectionGUID: i6bFdGVTS82BuB4IRgzZTA==
-X-CSE-MsgGUID: CaBophDrRayP69jpuH6lKw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,175,1774335600"; d="scan'208";a="273187289"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.147])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2026 08:16:57 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Nikita Zhandarovich <n.zhandarovich@fintech.ru>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Nikita Zhandarovich <n.zhandarovich@fintech.ru>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
-Subject: Re: [PATCH v2] drm/i915/edp: Check supported link rates DPCD read
-In-Reply-To: <20260529145759.1640646-1-n.zhandarovich@fintech.ru>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260529145759.1640646-1-n.zhandarovich@fintech.ru>
-Date: Fri, 29 May 2026 18:16:54 +0300
-Message-ID: <824c6ced1095635f86527709822c8af3ddff7c8c@intel.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B24B91120C6;
+ Fri, 29 May 2026 15:18:50 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E040533EA;
+ Fri, 29 May 2026 08:18:44 -0700 (PDT)
+Received: from [10.57.26.238] (unknown [10.57.26.238])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 344383FAF5;
+ Fri, 29 May 2026 08:18:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1780067929; bh=ivH/tOTm/MtMLHtuPvnKIKXI+O+0zuzXiqnxkcFsMmE=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=hgKzm/J08GPu32rvNURHQPhQwqlHMLKWK4g2wPk8wMNuhs71nZMwvNEJyknB3aS2H
+ RDly5a1sZ0p9v8fYAphU9hEH69x6Yv9Y5lB3vnOvnFJKqUL70mcwOzn3FaKAE9NLJY
+ 6x9k9XotjJ05gFG+GuGAGAWkFy4+jAXBKaAYFRYY=
+Message-ID: <1f0527d4-1dfb-432b-8d0e-06e99a94f638@arm.com>
+Date: Fri, 29 May 2026 16:18:41 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 07/10] thermal/of: Add cooling device ID support
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, rafael@kernel.org,
+ daniel.lezcano@kernel.org
+Cc: Zhang Rui <rui.zhang@intel.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lucas Stach <l.stach@pengutronix.de>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Guenter Roeck <linux@roeck-us.net>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+ Benson Leung <bleung@chromium.org>, =?UTF-8?Q?Pali_Roh=C3=A1r?=
+ <pali@kernel.org>, Avi Fishman <avifishman70@gmail.com>,
+ Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
+ Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+ Benjamin Fair <benjaminfair@google.com>, Heiko Stuebner <heiko@sntech.de>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Amit Daniel Kachhap <amit.kachhap@gmail.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Amit Kucheria
+ <amitk@kernel.org>, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org,
+ "moderated list:DRM DRIVERS FOR VIVANTE GPU IP"
+ <etnaviv@lists.freedesktop.org>,
+ "open list:DRM DRIVERS FOR VIVANTE GPU IP" <dri-devel@lists.freedesktop.org>
+References: <20260526140802.1059293-12-daniel.lezcano@oss.qualcomm.com>
+ <20260526140802.1059293-19-daniel.lezcano@oss.qualcomm.com>
+Content-Language: en-US
+From: Lukasz Luba <lukasz.luba@arm.com>
+In-Reply-To: <20260526140802.1059293-19-daniel.lezcano@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,57 +82,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 29 May 2026, Nikita Zhandarovich <n.zhandarovich@fintech.ru> wrote:
-> intel_edp_set_sink_rates() reads DP_SUPPORTED_LINK_RATES into a local
-> stack array and then parses the array unconditionally. If the read
-> fails, the array contents are not valid and may result in bogus sink
-> link rates being used.
->
-> Use drm_dp_dpcd_read_data() and clear the sink rate array on failure,
-> so the existing parser falls back to the default sink rate handling.
->
-> Found by Linux Verification Center (linuxtesting.org) with static
-> analysis tool SVACE.
->
-> Fixes: 68f357cb7347 ("drm/i915/dp: generate and cache sink rate array for all DP, not just eDP 1.4")
-> Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
+On 5/26/26 15:08, Daniel Lezcano wrote:
+> Introduce an identifier (cdev_id) for cooling devices registered from
+> device tree.
+> 
+> This prepares support for a new DT binding where cooling devices are
+> identified by a tuple (device node, ID), instead of relying on child
+> nodes.
+> 
+> Existing users are updated to pass a default ID of 0, preserving the
+> current behavior.
+> 
+> Future changes will extend the cooling map parsing to match cooling
+> devices based on both the device node and the ID.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
 > ---
-> v1 -> v2:
-> - Use drm_dp_dpcd_read_data() instead of drm_dp_dpcd_read().
-> - Avoid the goto by clearing sink_rates on read failure, as suggested by
->   Jani Nikula.
-> - Adjust patch description.
->
->  drivers/gpu/drm/i915/display/intel_dp.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 6ef2a0043cda..5c3e816b0135 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -4678,10 +4678,17 @@ intel_edp_set_sink_rates(struct intel_dp *intel_dp)
->  
->  	if (intel_dp->edp_dpcd[0] >= DP_EDP_14) {
->  		__le16 sink_rates[DP_MAX_SUPPORTED_RATES];
-> +		int ret;
->  		int i;
->  
-> -		drm_dp_dpcd_read(&intel_dp->aux, DP_SUPPORTED_LINK_RATES,
-> -				 sink_rates, sizeof(sink_rates));
-> +		ret = drm_dp_dpcd_read_data(&intel_dp->aux,
-> +					    DP_SUPPORTED_LINK_RATES,
-> +					    sink_rates, sizeof(sink_rates));
-> +		if (ret < 0) {
-> +			drm_dbg_kms(display->drm,
-> +				    "Unable to read eDP supported link rates, using default rates\n");
-> +			memset(sink_rates, 0, sizeof(sink_rates));
-> +		}
->  
->  		for (i = 0; i < ARRAY_SIZE(sink_rates); i++) {
->  			int rate;
+>   drivers/gpu/drm/etnaviv/etnaviv_gpu.c |  5 +++--
+>   drivers/thermal/cpufreq_cooling.c     |  2 +-
+>   drivers/thermal/cpuidle_cooling.c     |  2 +-
+>   drivers/thermal/devfreq_cooling.c     |  2 +-
+>   drivers/thermal/thermal_of.c          | 14 ++++++++------
+>   include/linux/thermal.h               |  6 ++++--
+>   6 files changed, 18 insertions(+), 13 deletions(-)
+> 
 
--- 
-Jani Nikula, Intel
+Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
