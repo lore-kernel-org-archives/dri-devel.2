@@ -4,49 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88A75CD4F54
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 18:36:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60836CD4F54
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 18:37:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D125C1123CB;
-	Fri, 29 May 2026 18:36:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9641B1123CF;
+	Fri, 29 May 2026 18:37:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="Y5ejxRfg";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="N6Xcwwpe";
 	dkim-atps=neutral
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27D521123CB
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 18:36:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=kemnade.info; s=20220719; h=References:In-Reply-To:Cc:From:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID;
- bh=sTmihkNHKEYjBALrV5BfEAzROK2od+s1ImGaDID6VEE=; b=Y5ejxRfgK5dhjxvejNXZfyZZ00
- G5vwIbl4gpapBmptYtnvl8XzCqy+RRgJaaArYJuvbn9G4AsLpDGK6P5XEfUzb4e87DXrI0E3GjbII
- YKqLa4X70YAuUKXWUjrbFnmNCVGbcY3O6gG1G96gnxxUhZtlsUakIB3Qt5vmfJ6GJk/dRL5PUndKS
- KcmNNkY8Jpm6BFSEo06LzC1/0pafdkBmM/+g/VrFUYez7kcM/dSJd/r/HhT9Jlmsrh+PMg5ZSyxC+
- Jx7jZhdN9gBjk2JtPpq79Th2I1gshMKWKQIgNVDFg5R7lkk4afGb58a32inKX3d0MRAJPwXCkZY6V
- in3kCpfA==;
-Date: Fri, 29 May 2026 20:34:24 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dave
- Stevenson <dave.stevenson@raspberrypi.com>
-Subject: Re: [PATCH v3 07/13] drm/bridge: tc358762: Update comment about the
- number of lanes
-Message-ID: <20260529203424.72199881@kemnade.info>
-In-Reply-To: <20260513-tc358762-fixes-v3-7-6698b55008b9@ideasonboard.com>
-References: <20260513-tc358762-fixes-v3-0-6698b55008b9@ideasonboard.com>
- <20260513-tc358762-fixes-v3-7-6698b55008b9@ideasonboard.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25D101123D8
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 18:37:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1780079839;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ibOzZZ9MbBgPCsyeHLx7hx/XOPF768dDk7bOGh7vXek=;
+ b=N6XcwwpenfNJiKlgG+PmaYtfX3pAVR8+GUQR5WFUHaVI1hcJTkZySwICtn9kBdklnTqD6Q
+ jeE2w27HLMpewvNmqujvlsmMx/vaGrcPseUxf+dtWX6ZD7BX4pt2F6H2zlcjbhG/sJXi5d
+ 9Hd5lHkDDkRkj4QJt8w6yFqAPipK/og=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-641-N3PmdtkkNv6foI_0vejyiA-1; Fri,
+ 29 May 2026 14:37:13 -0400
+X-MC-Unique: N3PmdtkkNv6foI_0vejyiA-1
+X-Mimecast-MFC-AGG-ID: N3PmdtkkNv6foI_0vejyiA_1780079830
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 81E7019560AE; Fri, 29 May 2026 18:37:09 +0000 (UTC)
+Received: from GoldenWind.redhat.com (unknown [10.22.89.101])
+ by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 9C43B1688; Fri, 29 May 2026 18:37:05 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ nouveau@lists.freedesktop.org
+Cc: Alexandre Courbot <acourbot@nvidia.com>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ driver-core@lists.linux.dev, Miguel Ojeda <ojeda@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Alice Ryhl <aliceryhl@google.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org, Sumit Semwal <sumit.semwal@linaro.org>,
+ linux-media@vger.kernel.org, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Benno Lossin <lossin@kernel.org>, linaro-mm-sig@lists.linaro.org,
+ Danilo Krummrich <dakr@kernel.org>,
+ Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
+ Asahi Lina <lina+kernel@asahilina.net>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Lyude Paul <lyude@redhat.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH v15 0/6] Rust bindings for gem shmem
+Date: Fri, 29 May 2026 14:33:58 -0400
+Message-ID: <20260529183702.677677-1-lyude@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+X-Mimecast-MFC-PROC-ID: cvRyUNRqGgnqm3tTt_2WjnnmFnmBPdgjwII7kXZuF1o_1780079830
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,43 +85,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 13 May 2026 16:10:16 +0300
-Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
+Most of this patch series has already been pushed upstream, this is just
+the second half of the patch series that has not been pushed yet + some
+additional changes which were required to implement changes requested by
+the mailing list. This patch series is originally from Asahi, previously
+posted by Daniel Almeida.
 
-> Update comment about the number of lanes.
-> 
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> ---
->  drivers/gpu/drm/bridge/tc358762.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-> index 7840ab3454f6..c5734c4df440 100644
-> --- a/drivers/gpu/drm/bridge/tc358762.c
-> +++ b/drivers/gpu/drm/bridge/tc358762.c
-> @@ -306,7 +306,14 @@ static int tc358762_probe(struct mipi_dsi_device *dsi)
->  	ctx->dev = dev;
->  	ctx->pre_enabled = false;
->  
-> -	/* TODO: Find out how to get dual-lane mode working */
-> +	/*
-> +	 * When using DSI clk for pixel clock (only mode supported in the driver),
-> +	 * the pclk is derived directly from the DSI byteclk via simple divider,
-> +	 * which is either 2 or 3.
-> +	 * The required divider can be calculated with bitspp / 8 / nlanes. Thus,
-> +	 * for RGB888, only nlanes = 1 works as nlanes = 2 would require divider
-> +	 * of 1.5.
-> +	 */
->  	dsi->lanes = 1;
->  	dsi->format = MIPI_DSI_FMT_RGB888;
->  	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-> 
-wondering: I am using lanes = 2 and RGB888. But I need to write something to
-SYSPLL3 register. Which somehow is sensitive to write to.... Do you have any
-information about that register?
+The previous version of the patch series can be found here:
 
-My dirty attic:
-https://github.com/akemnade/linux/blob/epson-7.1rc-panel-experiments-part-upstr/drivers/gpu/drm/panel/panel-bt2.c
+	https://patchwork.freedesktop.org/series/164580/
 
-Regards,
-Andreas
+Branch with patches applied available here:
+
+	https://gitlab.freedesktop.org/lyudess/linux/-/commits/rust/gem-shmem
+
+This patch series applies on top of drm-rust-next with the following
+dependencies applied:
+
+	https://lore.kernel.org/rust-for-linux/20260529173137.303717-1-lyude@redhat.com/T/#t
+
+Lyude Paul (6):
+  rust: gem: shmem: Fix Default implementation for ObjectConfig
+  rust: drm: gem/shmem: Add DmaResvGuard helper
+  rust: drm: gem: Add vmap functions to shmem bindings
+  rust: faux: Allow retrieving a bound Device
+  drm/gem/shmem: Introduce __drm_gem_shmem_free_sgt_locked()
+  rust: drm: gem: Introduce shmem::Object::sg_table()
+
+ drivers/gpu/drm/drm_gem_shmem_helper.c |  32 +-
+ include/drm/drm_gem_shmem_helper.h     |   1 +
+ rust/kernel/drm/gem/shmem.rs           | 497 ++++++++++++++++++++++++-
+ rust/kernel/faux.rs                    |   7 +-
+ 4 files changed, 512 insertions(+), 25 deletions(-)
+
+
+base-commit: 0e42ec83d46ab8877d38d37493328ed7d1a24de8
+prerequisite-patch-id: c8ade07eec6e9c9e875800b114137c459d362e4e
+prerequisite-patch-id: c38da06dbc4cfd2589bf2e7e9f0ebaa4da521ddf
+-- 
+2.54.0
+
