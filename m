@@ -4,104 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D982CD6E45
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 05:50:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C66CCD6E45
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 06:26:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F67A10F915;
-	Fri, 29 May 2026 05:50:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D75810F958;
+	Fri, 29 May 2026 06:26:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lSYWK0y3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ArBG4CSd";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012011.outbound.protection.outlook.com [52.101.53.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02D9110F912;
- Fri, 29 May 2026 05:50:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kpL4cp4IJNvPErIexP2s1XeaajHKeBIezkTAwCbyPjkgLKhE0o+u+nuTZBgfDfJBalPuvYrZt4N8JVQCVdg+ddY+9HE/Wa/zH7Em2kTi5Hrz7dWXlzdnsJFdsbRxU8PUUfVbhAB6TYLFOCQa7OydDOKD4mznRr62Nw1UHP4I4qSmsLpr4RRJI+bh2b6TBObblj+EPwWpOoDTOnfHMlYtBNqbOaGMSoIzah8MLlBoXeE3cWl57Y8+xZg7G6HffOihnQiCtztSOElzxoPua6kfxeWnNatJRphMJqV7dHvUyZIx0SbRczegEnlb5V0lDNnlbzjG5oKPgZpsgv07mlWWKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3870aZWKmpepYvtBHdzmvpJhaEoH6VQofSwP15gAlzM=;
- b=DA83rLmEbafsowGJnFX+STzM6krC3BwzJl3hWfhcDiyv4Yb4ppHXvqQU251x9Aj6mBz7T7hjarzg2EZvt6y6WP67YNbo8nV9DOL2xcG8wuImX8o7JTPUnZsktlvcP33WTndrJawN0esIrzQ86LpBS9O0K4DzthM/C6s7ASOtQFyUKF/lOWSP0iZVxhIgr2oPQ3xOPCLYZEUN0ubQtjEoNN+GqRSjLTVoH3O6ar7r/ybVwumhvgV0QxU+07V01lMut0vqbQ1guJKy5/B2iKMoarHtAc/Zs0vbmjrTbVVMkUxS33vJjhvMT75/H9Ns0pVDPS0P+an1FQicedvw+9iTGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3870aZWKmpepYvtBHdzmvpJhaEoH6VQofSwP15gAlzM=;
- b=lSYWK0y3e1dr2FO2q4OZ2Dn3p3K9StqAAl1+WAEZWe9P5HE1D15qAFrATZCt3JcIjkDbKACK49YfTU9CBRASeY2c3vVYnyr6p8ONLYY75mr1XWMiInbQ1500Lg2/swo/HTzG9kGv6cELhu07f8dG3qswMmMwlKJ43Oc8y6axYV8=
-Received: from CH0PR07CA0024.namprd07.prod.outlook.com (2603:10b6:610:32::29)
- by CY8PR12MB7436.namprd12.prod.outlook.com (2603:10b6:930:50::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Fri, 29 May
- 2026 05:50:23 +0000
-Received: from CH2PEPF0000013F.namprd02.prod.outlook.com
- (2603:10b6:610:32:cafe::1b) by CH0PR07CA0024.outlook.office365.com
- (2603:10b6:610:32::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Fri, 29
- May 2026 05:50:23 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF0000013F.mail.protection.outlook.com (10.167.244.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 05:50:23 +0000
-Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 29 May
- 2026 00:50:17 -0500
-From: Honglei Huang <honglei1.huang@amd.com>
-To: <Alexander.Deucher@amd.com>, <Felix.Kuehling@amd.com>,
- <Christian.Koenig@amd.com>, <Oak.Zeng@amd.com>, <Jenny-Jing.Liu@amd.com>,
- <Philip.Yang@amd.com>, <Xiaogang.Chen@amd.com>, <Ray.Huang@amd.com>,
- <Lingshan.Zhu@amd.com>, <Junhua.Shen@amd.com>, <Yiru.Ma@amd.com>,
- <sima@ffwll.ch>, <matthew.brost@intel.com>, <rodrigo.vivi@intel.com>,
- <thomas.hellstrom@linux.intel.com>, <dakr@kernel.org>, <aliceryhl@google.com>
-CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <honghuan@amd.com>
-Subject: [V2 RFC 8/8] drm/amdgpu: wire xnack-off restore into lifecycle and
- attr set
-Date: Fri, 29 May 2026 13:49:28 +0800
-Message-ID: <20260529054928.596825-9-honglei1.huang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260529054928.596825-1-honglei1.huang@amd.com>
-References: <20260529054928.596825-1-honglei1.huang@amd.com>
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57D8910F958
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 06:26:27 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-490686877a1so36991135e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 23:26:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780035986; x=1780640786; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=J6w0+5mCVlOlxvbGiaPZUip+G9h6j0Uqf+tR53uTjHI=;
+ b=ArBG4CSdoMf/1ab7NLo6EceiFoEmuHAA+D2q08VvMX9P0etPvLcfBh8eHK6dzIVYsh
+ 9H670awYvjtHQF9+3iUe7xX8zaOgxeOfBZqxxzSSkNAs0sirwS5YgZzeHu6LsiD2LrPF
+ bgsx5MWJ4NIcvai5vxeUjZLz5TLWz0AmyGsEEefS4Nh1R3zciDTTziPzlhLSbmBYMUnr
+ xcH3GG6KEBrHHCPfiBlFAkitBe2Kc7CIyjxdqrY1KZKAyfAMZf6UpB4UgRL6GQvrKRzp
+ Xx35J1RdDPR3oS1gsH3W+HZidgw8SmLIdhklzq3vHizYJIPmX5VRqlodzUB8t4fnPdcd
+ EmbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780035986; x=1780640786;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=J6w0+5mCVlOlxvbGiaPZUip+G9h6j0Uqf+tR53uTjHI=;
+ b=mnvbrvz+EpsMP6gZ0WR1qQHqzkj+ZKU516cFBk/ntz7oBe8CRspvJC4ZsLYTwE4g/s
+ kMUsTNDs+0EFi2drfRmh4kIw/AEYlTGzwFYzkdcdS2Qp01iPGFNKP6PodzQ2p8pYwiVE
+ vN7gmMn4W8EPfMtsFEfabkuP7lMpWkHBjLu0Oqf1wAJE9aNqT65h4tKc4C8H868JyFNb
+ uNYshTp/rC1wEL7fV2W7OG57wuRPzCCLSdJZNIOeX7LQQGmCiKJ35c9WjIgXg1mRrVOW
+ E4zZB53TpQQFUFwvk6jX+hxl6sZGqtJoF4Y3XYNTWzP4Ysm10qAywIIfRJ2QkrOoYs5h
+ Prcg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9zwsSAtmuGjlYGAohLP6B/7YU6Gaeli1zTd4pRj8hE7eYxE6KsWDkqmPQOU+wMqUv9gxrCC4csnfc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxHaQkitoORNMnjpJHgCFOQ9aVloXvfwA+uks/cV/7LQc+wp+4R
+ d8w4ozPlWFOk88YkDbtoJGoMfxi/e/y6aNeZgfzPXRMJtY27LAv/eSlq
+X-Gm-Gg: Acq92OE9VSjJXsGj9j0I3owjK8E2cex0zVtuWdbbWkoJkuz8xTC7re/tDf2kz7zc5zt
+ 3O5AP4uuIwgG7VerlrE5NzNa9mspY0eBCpIW601G+RWMoeZtRCS5y7Nfb8Oa0b7zwm3kfzqIsyG
+ DO6SADtxYmA7jkydAiDEUSMYNEZWqYTgAJJ1EdjXD+f74Q+lvSF3oQ0q/lsrkQyKAZsX0c8uBBR
+ MaU+9q/cM/KM6T0OL0llTkVYF9Aysl0LkseogboPal+To2BD4rxZBfxVVBjqR0oeYvacSRMvzT+
+ EEKF1XuMsWwzHlLOrtGx2/Gi0rTMPfd/TTYkUAOmHoOtlAlv6IIUsTP6LNUrI82/0gvhapiKEwn
+ vEz7DW9h5fa46oMIKI4YxvE3eFBn773D6H+28i/ISLBwWoKdWUmIusdp8nMMAGTOSBbqH6WYDWU
+ 7krTedo29R3ePuVnFZP44X7bq/P9opwci0eBHPLvcWF1q9nrs5ThvPJnFk
+X-Received: by 2002:a05:600c:3545:b0:490:50ff:d394 with SMTP id
+ 5b1f17b1804b1-4909c1670a5mr24522085e9.16.1780035985401; 
+ Thu, 28 May 2026 23:26:25 -0700 (PDT)
+Received: from [192.168.1.10] ([95.43.220.235])
+ by smtp.googlemail.com with ESMTPSA id
+ ffacd0b85a97d-45ef34b47eesm1319191f8f.9.2026.05.28.23.26.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 28 May 2026 23:26:25 -0700 (PDT)
+Message-ID: <4cb8a90b-6345-47a8-b15a-a977a33af8b3@gmail.com>
+Date: Fri, 29 May 2026 09:26:23 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/omap: dsi: avoid sending bta sync all the time in
+ writes
+To: Andreas Kemnade <andreas@kemnade.info>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Tony Lindgren <tony@atomide.com>, Linux-OMAP <linux-omap@vger.kernel.org>,
+ Marek Vasut <marex@denx.de>, "H. Nikolaus Schaller" <hns@goldelico.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>
+References: <20260528-vm-upstr-v1-1-fb93ef8cbe47@kernel.org>
+ <ec1a577b-12fb-402c-9ceb-3c1e8265a7e9@gmail.com>
+ <20260528190234.4c00b740@kernel.org>
+ <37f64c1c-9920-41a6-a8c0-7a84a30c884a@gmail.com>
+ <20260528220603.6600d45b@kemnade.info> <20260528221912.1771daa4@kemnade.info>
+Content-Language: en-GB
+From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+In-Reply-To: <20260528221912.1771daa4@kemnade.info>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000013F:EE_|CY8PR12MB7436:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0068f635-4118-4089-6c93-08debd462ce4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700016|376014|921020|18002099003|22082099003|6133799003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: l4D4OCB19Vt/m4QnH3keCimDrCj+DRUhTtXquq4sHRS8mqQe/yXBhPv8MXIu2GZ3h2YqbT+7ATd+EhqU1DNUI/Xw5o2j84EkZyf1yZCP/5UL05KCRzyzeTvD0qqJBMOm8NFDibTLEsViyLxB0x52uvVXM57WKLEXzpkL3RiAnfNjdVWlhCexGEBAC8wyo2plsHl09R8YlOMHK3/Z2w6h9FkvGOoiy+WqdaWoDP7heUJSHg+RTYOhyEI+ruQz6aDCqCXo4+mn6YhaJtdZi4B9OkDhnybfHVY+8vK5MbTmfuwGU3Bq4RSm5p4oCBOsjeyy4iM8Bm6yLj/9jNyDnYQa2/ajhhVDx0Ljb24+9oqlO7slRSfdfKhqfZ24BMlfPrs8XAY+sx+O8J0mruMZRxKz7hdUx+JL+bv4sCO12tI9qZsTs1zzdkiZSM/itr3/F2rUe4zx/yX8fkpZLXmAxhLLTLS/tdTrj/WJeKR9ly3895jibx5lAVghnHNIyy4S0MF3K97i8RttvpSNl8A9YicMeGRkS9R99GfU034W2lXwxhP4EgTR4B4PtbAOHsOtbGmTw5ZLQICIlCzjjpRmJGK/RoRfG3KbVP4y9AVnETRsXYuVGCutiHYuAs5uVoYzJGoHX3vin9VMDgHa+zvxSJmdcpxMsZS/K1mN+qW5XOo1BpsCUhcEhMdpfQH6+nXHFOIxCE8R8CMk1YsGVy3GCKZ37t0DC5ASE/BwXYI06aqp/OEV/pieQrvX3nDUFFkDCugUXl/Zz8W7pfqdvhUNUql4sg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(921020)(18002099003)(22082099003)(6133799003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: kywKWLT9RbKgTNaQ+qFRMxjAhhbNOuyd0nepMCN/jDHwMB0kMNUKZ8SN+40WPBTY12HSt0cvfvAsTmFpjg73Z7CBmcOPy0RlasTyn0KT8O/e31xhcNVGnACfVQtba/IONiGN4XELwJEYyInegtl93DMymVA6m46Jx9cFc+96BicYVsP/vyn3WDrZ5N/m3v7Z48G7iihPFSKeMwI4wpD7LXk9CcQO28uK0pOyeSyWHnw1ZdtrBK0aI5itGh/MzpQN5keNWulK0c81W0rNwHYFlTBB1ZS2b5w0riikBOhL9AwfDsdjQefT4odPStXvkzcl/R0wP+PclRbumvc/OJ67nl3Kg28yJn+gTeRH6wlp7gQGRWBjvipqGCbGZZjdyDQbLN6MBe2I0FnI7DdEL+2tYj9HU0SObiEc7TDEE0jrylZqIN7tQj2hjmBlhSrmF94T
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 05:50:23.1165 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0068f635-4118-4089-6c93-08debd462ce4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013F.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7436
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,249 +105,190 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Honglei Huang <honghuan@amd.com>
+Hi,
 
-amdgpu_svm_attr.h:
-- Add AMDGPU_SVM_ATTR_TRIGGER_NEED_REMAP macro as an alias for
-  AMDGPU_SVM_ATTR_TRIGGER_NEED_INVALIDATE. Both cover the same
-  trigger set today but carry different semantics: NEED_INVALIDATE
-  is used by xnack-on (invalidate GPU PTEs, rely on fault to
-  rebuild), NEED_REMAP is used by xnack-off (eagerly rebuild GPU
-  mapping since no fault mechanism exists). Keeping them as separate
-  macros allows future divergence without code churn.
+with the following changes:
 
-amdgpu_svm.c:
-- amdgpu_svm_apply_attr_change: xnack-off remap decision now uses
-  AMDGPU_SVM_ATTR_TRIGGER_NEED_REMAP instead of open-coding the
-  four trigger flags.
-- amdgpu_svm_work_init/fini: call amdgpu_svm_restore_init/fini for
-  XNACK_OFF; unwind gc on restore_init failure.
-- amdgpu_svm_init_with_ops: accept begin_restore/end_restore
-  callbacks and forward them to work_init.
-- amdgpu_svm_init_compute: xnack-off path now calls init_with_ops
-  with amdgpu_svm_restore_invalidate,
-  amdgpu_svm_restore_gc_work_func, and
-  amdgpu_svm_quiesce_compute/resume_compute as the begin/end-restore
-  hooks (replacing the previous -EOPNOTSUPP stub).
-- amdgpu_svm_sync_work: XNACK_OFF path flushes restore -> gc ->
-  restore.wq -> gc.wq so any work re-queued during draining is
-  fully drained.
-- amdgpu_svm_apply_attr_change: in XNACK_OFF mode, dispatch to
-  amdgpu_svm_map_attrs_with_restore(); XNACK_ON path unchanged.
+user@devuan:/media/user/7b76ddc8-44f5-47b5-af5b-e5e9b5ab39c3/user/linux_openpvrsgx$ 
+git diff drivers/gpu/drm/omapdrm/dss/dsi.c
+diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c 
+b/drivers/gpu/drm/omapdrm/dss/dsi.c
+index af27339c79f9..8ffcd95c3bc3 100644
+--- a/drivers/gpu/drm/omapdrm/dss/dsi.c
++++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
+@@ -2199,7 +2199,7 @@ static int dsi_vc_write_common(struct 
+omap_dss_device *dssdev, int vc,
+         int r;
 
-amdgpu_svm_range.c:
-- amdgpu_svm_range_put_if_dequeued: add RESTORE_WORK branch to
-  re-queue ranges into the restore list when restore ops are
-  pending, mirroring the GC re-queue logic.
+         if (mipi_dsi_packet_format_is_short(msg->type))
+-               r = dsi_vc_send_short(dsi, vc, msg);
++               return dsi_vc_send_short(dsi, vc, msg);
+         else
+                 r = dsi_vc_send_long(dsi, vc, msg);
 
-Makefile:
-- Add amdgpu_userptr.o to obj-y/build/clean targets so the restore
-  worker translation unit gets linked into amdgpu.ko.
+@@ -3247,21 +3247,6 @@ static int _dsi_update(struct dsi_data *dsi)
+         return 0;
+  }
 
-Signed-off-by: Honglei Huang <honghuan@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/Makefile           |  6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c       | 56 +++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.h  |  3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c |  8 +++
- 4 files changed, 65 insertions(+), 8 deletions(-)
+-static int _dsi_send_nop(struct dsi_data *dsi, int vc, int channel)
+-{
+-       const u8 payload[] = { MIPI_DCS_NOP };
+-       const struct mipi_dsi_msg msg = {
+-               .channel = channel,
+-               .type = MIPI_DSI_DCS_SHORT_WRITE,
+-               .tx_len = 1,
+-               .tx_buf = payload,
+-       };
+-
+-       WARN_ON(!dsi_bus_is_locked(dsi));
+-
+-       return _omap_dsi_host_transfer(dsi, vc, &msg);
+-}
+-
+  static int dsi_update_channel(struct omap_dss_device *dssdev, int vc)
+  {
+         struct dsi_data *dsi = to_dsi_data(dssdev);
+@@ -3282,11 +3267,11 @@ static int dsi_update_channel(struct 
+omap_dss_device *dssdev, int vc)
+         DSSDBG("dsi_update_channel: %d", vc);
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 608d30d9a..b15a8e23e 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -328,12 +328,12 @@ amdgpu-$(CONFIG_HMM_MIRROR) += amdgpu_hmm.o
- 
- # svm support
- amdgpu-$(CONFIG_DRM_AMDGPU_SVM) += amdgpu_svm.o amdgpu_svm_attr.o \
--	amdgpu_svm_fault.o amdgpu_svm_range.o
-+	amdgpu_svm_fault.o amdgpu_svm_range.o amdgpu_userptr.o
- 
- .PHONY: clean-svm
- clean-svm:
--	rm -f $(obj)/amdgpu_svm.o $(obj)/amdgpu_svm_attr.o $(obj)/amdgpu_svm_fault.o $(obj)/amdgpu_svm_range.o \
--	      $(obj)/.amdgpu_svm.o.cmd $(obj)/.amdgpu_svm_attr.o.cmd $(obj)/.amdgpu_svm_fault.o.cmd $(obj)/.amdgpu_svm_range.o.cmd
-+	rm -f $(obj)/amdgpu_svm.o $(obj)/amdgpu_svm_attr.o $(obj)/amdgpu_svm_fault.o $(obj)/amdgpu_svm_range.o $(obj)/amdgpu_userptr.o \
-+	      $(obj)/.amdgpu_svm.o.cmd $(obj)/.amdgpu_svm_attr.o.cmd $(obj)/.amdgpu_svm_fault.o.cmd $(obj)/.amdgpu_svm_range.o.cmd $(obj)/.amdgpu_userptr.o.cmd
- 
- include $(FULL_AMD_PATH)/pm/Makefile
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c
-index 96b8f9454..626c5790e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c
-@@ -270,6 +270,18 @@ int amdgpu_svm_apply_attr_change(struct amdgpu_svm *svm,
- 
- 	if (trigger & AMDGPU_SVM_ATTR_TRIGGER_PREFETCH)
- 		needs_mapping = true;
-+	/*
-+	 * With xnack off there is no page fault mechanism to lazily establish
-+	 * GPU mappings, so they must be in place before the GPU runs.  The attr
-+	 * layer has no visibility into actual GPU mapping state, so force a
-+	 * mapping pass whenever the range is accessible, even when attrs are
-+	 * unchanged, to guarantee the GPU mapping is current.
-+	 */
-+	if (XNACK_OFF(svm) && new_access && !trigger)
-+		needs_mapping = true;
-+	if (XNACK_OFF(svm) && new_access &&
-+	    (trigger & AMDGPU_SVM_ATTR_TRIGGER_NEED_REMAP))
-+		needs_mapping = true;
- 
- 	if (!trigger && !needs_mapping)
- 		return 0;
-@@ -296,6 +308,11 @@ int amdgpu_svm_apply_attr_change(struct amdgpu_svm *svm,
- 	if (!needs_mapping)
- 		return 0;
- 
-+	if (XNACK_OFF(svm))
-+		return amdgpu_svm_map_attrs_with_restore(svm, new_attrs,
-+							 start_page,
-+							 last_page);
-+
- 	return amdgpu_svm_range_map_attrs(svm, new_attrs,
- 					  start_page << PAGE_SHIFT,
- 					  (last_page + 1) << PAGE_SHIFT);
-@@ -331,7 +348,9 @@ static void amdgpu_svm_flush_tlb_compute(struct amdgpu_svm *svm)
- }
- 
- static int amdgpu_svm_work_init(struct amdgpu_svm *svm,
--				void (*gc_work_func)(struct work_struct *));
-+				void (*gc_work_func)(struct work_struct *),
-+				void (*begin_restore)(struct amdgpu_svm *),
-+				void (*end_restore)(struct amdgpu_svm *));
- static void amdgpu_svm_work_fini(struct amdgpu_svm *svm);
- 
- static int amdgpu_svm_init_xnack_mode(struct amdgpu_device *adev,
-@@ -370,6 +389,8 @@ static int amdgpu_svm_init_with_ops(struct amdgpu_svm *svm,
- 						struct drm_gpusvm_range *,
- 						uint64_t, uint64_t),
- 				    void (*gc_work_func)(struct work_struct *),
-+				    void (*begin_restore)(struct amdgpu_svm *),
-+				    void (*end_restore)(struct amdgpu_svm *),
- 				    void (*flush_tlb)(struct amdgpu_svm *))
- {
- 	struct amdgpu_device *adev = svm->adev;
-@@ -378,7 +399,8 @@ static int amdgpu_svm_init_with_ops(struct amdgpu_svm *svm,
- 	svm->flush_tlb = flush_tlb;
- 	svm->invalidate_ranges = invalidate_ranges;
- 
--	ret = amdgpu_svm_work_init(svm, gc_work_func);
-+	ret = amdgpu_svm_work_init(svm, gc_work_func, begin_restore,
-+				   end_restore);
- 	if (ret)
- 		return ret;
- 
-@@ -445,10 +467,15 @@ static int amdgpu_svm_init_compute(struct amdgpu_device *adev,
- 		ret = amdgpu_svm_init_with_ops(svm,
- 					       amdgpu_svm_range_invalidate,
- 					       amdgpu_svm_gc_work_func,
-+					       NULL, NULL,
- 					       amdgpu_svm_flush_tlb_compute);
- 	} else {
--		AMDGPU_SVM_ERR("xnack off is not supported yet\n");
--		ret = -EOPNOTSUPP;
-+		ret = amdgpu_svm_init_with_ops(svm,
-+					       amdgpu_svm_restore_invalidate,
-+					       amdgpu_svm_restore_gc_work_func,
-+					       amdgpu_svm_quiesce_compute,
-+					       amdgpu_svm_resume_compute,
-+					       amdgpu_svm_flush_tlb_compute);
- 	}
- 
- 	if (ret)
-@@ -597,7 +624,9 @@ static void amdgpu_svm_gc_flush(struct amdgpu_svm *svm)
- }
- 
- static int amdgpu_svm_work_init(struct amdgpu_svm *svm,
--				void (*gc_work_func)(struct work_struct *))
-+				void (*gc_work_func)(struct work_struct *),
-+				void (*begin_restore)(struct amdgpu_svm *),
-+				void (*end_restore)(struct amdgpu_svm *))
- {
- 	int ret;
- 
-@@ -608,17 +637,34 @@ static int amdgpu_svm_work_init(struct amdgpu_svm *svm,
- 	if (ret)
- 		return ret;
- 
-+	if (XNACK_OFF(svm)) {
-+		ret = amdgpu_svm_restore_init(svm, begin_restore,
-+					      end_restore);
-+		if (ret) {
-+			amdgpu_svm_gc_fini(svm);
-+			return ret;
-+		}
-+	}
-+
- 	return 0;
- }
- 
- static void amdgpu_svm_work_fini(struct amdgpu_svm *svm)
- {
-+	if (XNACK_OFF(svm))
-+		amdgpu_svm_restore_fini(svm);
- 	amdgpu_svm_gc_fini(svm);
- }
- 
- void amdgpu_svm_sync_work(struct amdgpu_svm *svm)
- {
- 	amdgpu_svm_gc_flush(svm);
-+	if (XNACK_OFF(svm)) {
-+		amdgpu_svm_restore_flush(svm);
-+		amdgpu_svm_gc_flush(svm);
-+		flush_workqueue(svm->restore.wq);
-+	}
-+	flush_workqueue(svm->gc.wq);
- }
- 
- int amdgpu_gem_svm_ioctl(struct drm_device *dev, void *data,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.h
-index d8eedf578..ce7be1bc4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.h
-@@ -121,6 +121,9 @@ enum amdgpu_svm_attr_change_trigger {
- 	 AMDGPU_SVM_ATTR_TRIGGER_MAPPING_FLAG_CHANGE | \
- 	 AMDGPU_SVM_ATTR_TRIGGER_LOCATION_CHANGE)
- 
-+#define AMDGPU_SVM_ATTR_TRIGGER_NEED_REMAP \
-+	AMDGPU_SVM_ATTR_TRIGGER_NEED_INVALIDATE
-+
- struct amdgpu_svm_attr_tree *
- amdgpu_svm_attr_tree_create(struct amdgpu_svm *svm);
- void amdgpu_svm_attr_tree_destroy(struct amdgpu_svm_attr_tree *attr_tree);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
-index f1be2f2d5..ef913a236 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
-@@ -699,6 +699,7 @@ amdgpu_svm_range_put_if_dequeued(struct amdgpu_svm *svm,
- {
- 	bool release_kref = false;
- 	bool queue_gc = false;
-+	bool queue_restore = false;
- 
- 	spin_lock(&svm->work_lock);
- 
-@@ -711,6 +712,10 @@ amdgpu_svm_range_put_if_dequeued(struct amdgpu_svm *svm,
- 		list_add_tail(&range->work_node, &svm->gc.list);
- 		range->queue_state = AMDGPU_SVM_RANGE_IN_GC;
- 		queue_gc = true;
-+	} else if (RESTORE_WORK(range->pending_ops)) {
-+		list_add_tail(&range->work_node, &svm->restore.list);
-+		range->queue_state = AMDGPU_SVM_RANGE_IN_RESTORE;
-+		queue_restore = true;
- 	} else {
- 		range->queue_state = AMDGPU_SVM_RANGE_NOT_QUEUED;
- 		release_kref = true;
-@@ -720,6 +725,9 @@ amdgpu_svm_range_put_if_dequeued(struct amdgpu_svm *svm,
- 
- 	if (queue_gc)
- 		queue_work(svm->gc.wq, &svm->gc.work);
-+	if (queue_restore)
-+		queue_delayed_work(svm->restore.wq, &svm->restore.work,
-+				   msecs_to_jiffies(AMDGPU_SVM_RANGE_RESTORE_DELAY_MS));
- 	if (release_kref)
- 		drm_gpusvm_range_put(&range->base);
- }
--- 
-2.34.1
+         /*
+-        * Send NOP between the frames. If we don't send something here, the
++        * Transition to LP here. If we don't send something here, the
+          * updates stop working. This is probably related to DSI spec 
+stating
+          * that the DSI host should transition to LP at least once per 
+frame.
+          */
+-       r = _dsi_send_nop(dsi, VC_CMD, dsi->dsidev->channel);
++       r = dsi_vc_send_bta_sync(dssdev, VC_CMD);
+         if (r < 0) {
+                 DSSWARN("failed to send nop between frames: %d\n", r);
+                 goto err;
 
+
+Leste boots properly on droid4. No visible side effects in hildon so 
+far, chromium runs as slow as usual, glmark2 score is 85, which looks 
+normal, so with the above changes you may add my Tested-by, unless you 
+want me to test more things.
+
+Thanks and regards,
+Ivo
+
+On 28.05.26 г. 23:19 ч., Andreas Kemnade wrote:
+> On Thu, 28 May 2026 22:06:03 +0200
+> Andreas Kemnade <andreas@kemnade.info> wrote:
+> 
+>> On Thu, 28 May 2026 20:43:12 +0300
+>> Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com> wrote:
+>>
+>>> Hi,
+>>>
+>>> On 28.05.26 г. 20:02 ч., Andreas Kemnade wrote:
+>>>> Hi,
+>>>>
+>>>> so this droid4? Or which device is it?
+>>>>      
+>>>
+>>> Oh, sorry, yes, this is droid4.
+>>>    
+>>>> On Thu, 28 May 2026 17:44:14 +0300
+>>>> Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com> wrote:
+>>>>      
+>>>>> Applied against 6.18.31, no dice :)
+>>>>>
+>>>>> [   11.617523] [drm] Initialized pvr 1.17.4948957 for 56000000.gpu on
+>>>>> minor 0
+>>>>> [   11.674652] omapdss_dss 58000000.dss: bound 58001000.dispc (ops
+>>>>> dispc_component_ops [omapdrm])
+>>>>> [   11.775085] omapdss_dss 58000000.dss: bound 58001000.dispc (ops
+>>>>> dsi_vc_flush_receive_data [omapdrm])
+>>>>> [   12.222930] omapdss_dss 58000000.dss: bound 58001000.dispc (ops
+>>>>> dsi_vc_flush_receive_data [omapdrm])
+>>>>> [   12.245117] omapdss_dss 58000000.dss: bound 58001000.dispc (ops
+>>>>> dsi_vc_flush_receive_data [omapdrm])
+>>>>> [   12.247375] omapdss_dss 58000000.dss: bound 58004000.encoder (ops
+>>>>> dsi_vc_flush_receive_data [omapdrm])
+>>>>> [   12.249267] omapdss_dss 58000000.dss: bound 58006000.encoder (ops
+>>>>> dsi_vc_flush_receive_data [omapdrm])
+>>>>> [   12.284729] [drm] Initialized omapdrm 1.0.0 for omapdrm.0 on minor 1
+>>>>> [   12.311981] [drm] Enabling DMM ywrap scrolling
+>>>>
+>>>> I would expect some
+>>>> output from  the panel-dsi-cm driver:
+>>>> dev_info(&ddata->dsi->dev, "panel revision %02x.%02x.%02x\n",
+>>>>                           id1, id2, id3);
+>>>>
+>>>> or some error:
+>>>>           dev_err(&ddata->dsi->dev, "error while enabling panel, issuing HW reset\n");
+>>>>
+>>>> Any explanation why it is missing?
+>>>>      
+>>>
+>>> It is there, I grep-ed for omapdrm only, didn't want to flood the ML:
+>>>
+>>> 2026-05-28T17:34:45.761932+03:00 devuan-droid4 kernel: [   12.502105]
+>>> panel-dsi-cm 58004000.encoder.0: panel revision 70.01.02
+>>>
+>>> Here is the (almost)full boot log: https://paste.debian.net/hidden/e6ca55a7
+>>>    
+>> 2026-05-28T17:34:45.763732+03:00 devuan-droid4 kernel: [  112.820404] DSI: omapdss DSI: failed to send nop between frames: -5
+>> 2026-05-28T17:34:45.763732+03:00 devuan-droid4 kernel: [  113.331726] DSI: omapdss DSI: failed to send nop between frames: -5
+>>
+>> and that is interesting. Apparently no PACKET_SENT_IRQ and the wait
+>> completion times out. Maybe it is not used with short packets.
+>> But..
+>>         /*
+>>           * Send NOP between the frames. If we don't send something here, the
+>>           * updates stop working. This is probably related to DSI spec stating
+>>           * that the DSI host should transition to LP at least once per frame.
+>>           */
+>>          r = _dsi_send_nop(dsi, VC_CMD, dsi->dsidev->channel);
+>>
+>> I do not see a reason why something should go into LP mode here. the
+>> message will probably be sent in HS mode but the BTA sync (not done anymore)
+>> is probably the only thing turning something to LP mode.
+>>
+>> So to avoid PACKET_SENT_IRQ trouble, do:
+>> diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c b/drivers/gpu/drm/omapdrm/dss/dsi.c
+>> index dcfcfc0efcdc..37323c9b08a8 100644
+>> --- a/drivers/gpu/drm/omapdrm/dss/dsi.c
+>> +++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
+>> @@ -2200,7 +2200,7 @@ static int dsi_vc_write_common(struct omap_dss_device *dssdev, int vc,
+>>   	int r;
+>>   
+>>   	if (mipi_dsi_packet_format_is_short(msg->type))
+>> -		r = dsi_vc_send_short(dsi, vc, msg);
+>> +		return dsi_vc_send_short(dsi, vc, msg);
+>>   	else
+>>   		r = dsi_vc_send_long(dsi, vc, msg);
+>>   
+>>
+>> Also try:
+>> diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c b/drivers/gpu/drm/omapdrm/dss/dsi.c
+>> index dcfcfc0efcdc..37323c9b08a8 100644
+>> --- a/drivers/gpu/drm/omapdrm/dss/dsi.c
+>> +++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
+>> @@ -3283,11 +3283,11 @@ static int dsi_update_channel(struct omap_dss_device *dssdev, int vc)
+>>   	DSSDBG("dsi_update_channel: %d", vc);
+>>   
+>>   	/*
+>> -	 * Send NOP between the frames. If we don't send something here, the
+>> +	 * Transition to LP here. If we don't send something here, the
+>>   	 * updates stop working. This is probably related to DSI spec stating
+>>   	 * that the DSI host should transition to LP at least once per frame.
+>>   	 */
+>> -	r = _dsi_send_nop(dsi, VC_CMD, dsi->dsidev->channel);
+>> +	r = dsi_vc_send_bta_sync(dssdev, vc);
+> 
+> probably rather VC_CMD
+>>   	if (r < 0) {
+>>   		DSSWARN("failed to send nop between frames: %d\n", r);
+>>   		goto err;
+>>
+>>
+>>
+>> Regards,
+>> Andreas
+>>
+> 
