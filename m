@@ -4,69 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10F6FCD6E50
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 15:18:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEFE4CD6E50
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 15:21:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 707811120C6;
-	Fri, 29 May 2026 15:18:52 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="hgKzm/J0";
-	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id B24B91120C6;
- Fri, 29 May 2026 15:18:50 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E040533EA;
- Fri, 29 May 2026 08:18:44 -0700 (PDT)
-Received: from [10.57.26.238] (unknown [10.57.26.238])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 344383FAF5;
- Fri, 29 May 2026 08:18:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1780067929; bh=ivH/tOTm/MtMLHtuPvnKIKXI+O+0zuzXiqnxkcFsMmE=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=hgKzm/J08GPu32rvNURHQPhQwqlHMLKWK4g2wPk8wMNuhs71nZMwvNEJyknB3aS2H
- RDly5a1sZ0p9v8fYAphU9hEH69x6Yv9Y5lB3vnOvnFJKqUL70mcwOzn3FaKAE9NLJY
- 6x9k9XotjJ05gFG+GuGAGAWkFy4+jAXBKaAYFRYY=
-Message-ID: <1f0527d4-1dfb-432b-8d0e-06e99a94f638@arm.com>
-Date: Fri, 29 May 2026 16:18:41 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 521221120D0;
+	Fri, 29 May 2026 15:21:00 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 072E51120D0
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 15:21:00 +0000 (UTC)
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
+ helo=[IPv6:::1])
+ by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <l.stach@pengutronix.de>)
+ id 1wSz16-0002oU-Rc; Fri, 29 May 2026 17:20:56 +0200
+Message-ID: <7ca82ce17e772bfe3b12c5c82ace96386eaff387.camel@pengutronix.de>
+Subject: Re: [PATCH v2 0/2] drm: lcdif: FIFO underrun/solid color bug fix
+From: Lucas Stach <l.stach@pengutronix.de>
+To: Frieder Schrempf <frieder.schrempf@kontron.de>, Paul Kocialkowski	
+ <paulk@sys-base.io>, dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Frank Li
+ <Frank.Li@nxp.com>, Sascha Hauer	 <s.hauer@pengutronix.de>, Pengutronix
+ Kernel Team <kernel@pengutronix.de>,  Fabio Estevam <festevam@gmail.com>,
+ Krzysztof =?UTF-8?Q?Ha=C5=82asa?= <khalasa@piap.pl>, Marco Felsch	
+ <m.felsch@pengutronix.de>, Liu Ying <victor.liu@nxp.com>
+Date: Fri, 29 May 2026 17:20:54 +0200
+In-Reply-To: <01c33cda-e6ac-44a8-b1eb-8a8d7118175e@kontron.de>
+References: <20260402183351.3281123-1-paulk@sys-base.io>
+ <01c33cda-e6ac-44a8-b1eb-8a8d7118175e@kontron.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 07/10] thermal/of: Add cooling device ID support
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, rafael@kernel.org,
- daniel.lezcano@kernel.org
-Cc: Zhang Rui <rui.zhang@intel.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Guenter Roeck <linux@roeck-us.net>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
- Benson Leung <bleung@chromium.org>, =?UTF-8?Q?Pali_Roh=C3=A1r?=
- <pali@kernel.org>, Avi Fishman <avifishman70@gmail.com>,
- Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
- Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
- Benjamin Fair <benjaminfair@google.com>, Heiko Stuebner <heiko@sntech.de>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Amit Daniel Kachhap <amit.kachhap@gmail.com>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Amit Kucheria
- <amitk@kernel.org>, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-hwmon@vger.kernel.org,
- "moderated list:DRM DRIVERS FOR VIVANTE GPU IP"
- <etnaviv@lists.freedesktop.org>,
- "open list:DRM DRIVERS FOR VIVANTE GPU IP" <dri-devel@lists.freedesktop.org>
-References: <20260526140802.1059293-12-daniel.lezcano@oss.qualcomm.com>
- <20260526140802.1059293-19-daniel.lezcano@oss.qualcomm.com>
-Content-Language: en-US
-From: Lukasz Luba <lukasz.luba@arm.com>
-In-Reply-To: <20260526140802.1059293-19-daniel.lezcano@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: l.stach@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: dri-devel@lists.freedesktop.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,33 +60,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Am Mittwoch, dem 27.05.2026 um 12:35 +0200 schrieb Frieder Schrempf:
+> On 02.04.26 20:33, Paul Kocialkowski wrote:
+> > This series brings a fix for the FIFO underrun/solid color bug (in the
+> > last commit) and two other changes that may help with reliability.
+> >=20
+> > Paul Kocialkowski (2):
+> >   drm: lcdif: Set undocumented bit to clear FIFO at vsync
+> >   drm: lcdif: Wait for vblank before disabling DMA
+> >=20
+> >  drivers/gpu/drm/mxsfb/lcdif_kms.c  | 18 ++++++++++++++----
+> >  drivers/gpu/drm/mxsfb/lcdif_regs.h |  1 +
+> >  2 files changed, 15 insertions(+), 4 deletions(-)
+> >=20
+>=20
+> Can this series be applied, please?
+>=20
+Applied to drm-misc-next.
 
-
-On 5/26/26 15:08, Daniel Lezcano wrote:
-> Introduce an identifier (cdev_id) for cooling devices registered from
-> device tree.
-> 
-> This prepares support for a new DT binding where cooling devices are
-> identified by a tuple (device node, ID), instead of relying on child
-> nodes.
-> 
-> Existing users are updated to pass a default ID of 0, preserving the
-> current behavior.
-> 
-> Future changes will extend the cooling map parsing to match cooling
-> devices based on both the device node and the ID.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-> ---
->   drivers/gpu/drm/etnaviv/etnaviv_gpu.c |  5 +++--
->   drivers/thermal/cpufreq_cooling.c     |  2 +-
->   drivers/thermal/cpuidle_cooling.c     |  2 +-
->   drivers/thermal/devfreq_cooling.c     |  2 +-
->   drivers/thermal/thermal_of.c          | 14 ++++++++------
->   include/linux/thermal.h               |  6 ++++--
->   6 files changed, 18 insertions(+), 13 deletions(-)
-> 
-
-Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
+Regards,
+Lucas
