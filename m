@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4521BCD6E49
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 17:32:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C2D8CD6E49
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 17:32:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DB7611230C;
-	Fri, 29 May 2026 17:32:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 530A911230E;
+	Fri, 29 May 2026 17:32:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="DEF80NRu";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="SAh89zqa";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6864D11230C
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 17:32:04 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B18B111230E
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 17:32:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1780075923;
+ s=mimecast20190719; t=1780075929;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=TCbzlCqjTBRG2TfsDWMEQYTU39QbHkvS+53/vDLXzes=;
- b=DEF80NRuGCS27o3u2PRCD4CDNgESfGG4NcEuXhu785VeSvVr2ChcPJrPq8sqlATt/U74aw
- qSVSHkE+q/60h2ZtFU2AgJrTaDKnYGb1RU40jdeSNX+WgfE5elpGNSUegJZ6I0Q9qDhfwp
- EwAOUlN6FjsqgEgQxqCCGTUoWkdY8wk=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=CTXkVWhfiCkPPMFCSefkBsAtfCVesv2uIIO2EqJJ/8Y=;
+ b=SAh89zqaCyZmfvaO30iYtnRz5X162Jo1bIkedULMd6j3D5fHLvnRY5EqbGYKCGnMqV6meC
+ jU85jjOxNzbWFLEPaJbBCvjTUA1Tp0SXYImfTOsJxNG7XZIIc0yN5JlQseBIexA9rnZsmA
+ 9+LxgQguZByZbMjg34EWDInvm/kgFd0=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-288-zB3bBx82Og2lTujoFF8v1w-1; Fri,
- 29 May 2026 13:31:59 -0400
-X-MC-Unique: zB3bBx82Og2lTujoFF8v1w-1
-X-Mimecast-MFC-AGG-ID: zB3bBx82Og2lTujoFF8v1w_1780075916
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-171-E7vl8DQ1NBWSv445wnwexg-1; Fri,
+ 29 May 2026 13:32:06 -0400
+X-MC-Unique: E7vl8DQ1NBWSv445wnwexg-1
+X-Mimecast-MFC-AGG-ID: E7vl8DQ1NBWSv445wnwexg_1780075922
 Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 3AA2218002E3; Fri, 29 May 2026 17:31:56 +0000 (UTC)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 2F1791955F44; Fri, 29 May 2026 17:32:02 +0000 (UTC)
 Received: from GoldenWind.redhat.com (unknown [10.22.89.101])
  by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 50C6E30001BB; Fri, 29 May 2026 17:31:54 +0000 (UTC)
+ id D395A30001BB; Fri, 29 May 2026 17:31:59 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  rust-for-linux@vger.kernel.org
@@ -51,12 +52,14 @@ Cc: "Gary Guo" <gary@garyguo.net>, "Ingo Molnar" <mingo@redhat.com>,
  "Peter Zijlstra" <peterz@infradead.org>,
  "Benno Lossin" <lossin@kernel.org>, "Will Deacon" <will@kernel.org>,
  "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v2 0/2] rust: sync: Introduce LazyInit
-Date: Fri, 29 May 2026 13:30:40 -0400
-Message-ID: <20260529173137.303717-1-lyude@redhat.com>
+Subject: [PATCH v2 1/2] rust: sync: lock: Add Lock::get_mut_pinned()
+Date: Fri, 29 May 2026 13:30:41 -0400
+Message-ID: <20260529173137.303717-2-lyude@redhat.com>
+In-Reply-To: <20260529173137.303717-1-lyude@redhat.com>
+References: <20260529173137.303717-1-lyude@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-MFC-PROC-ID: CDVMxLQWFXzP9aqMOTmtC_7WXE5KBwkcTdR1_n_82bo_1780075916
+X-Mimecast-MFC-PROC-ID: Rt6cBizzQweJGkuPRcYK5a_1i-ZOyGKflLhV_tnXPto_1780075922
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -75,38 +78,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-While trying to write up some SGTable bindings for the GEM shmem
-helpers, I discovered that SetOnce is actually quite difficult to make
-use of in a number of situations.
+These two functions are inspired by the Rust stdlib equivalent:
 
-For one: there is (upstream) currently no way to use it with fallible
-initializers. Even with some of the work being done to add support for
-this from Gary Guo and Alvin Sun:
+  https://doc.rust-lang.org/std/sync/struct.Mutex.html#method.get_mut()
 
-  https://lore.kernel.org/rust-for-linux/20260326-b4-tyr-debugfs-v1-1-074badd18716@linux.dev/
+The idea here is very simple - if the user has access to a Pin<&mut
+Mutex<…>>, we can guarantee that no one else can look at the data protected
+by the lock. Thus in such situations, locking the mutex isn't necessary to
+access its contents. This can be useful in situations like `Drop`
+implementations, where we may want to access the contents of a Mutex within
+a struct before dropping it.
 
-We're still left with the issue that if two callers race on trying to
-call init(), there's no actual way for either of them to block until the
-thread they raced with is done initializing the contents of the
-container.
+So to do this, we add `get_mut_pinned()` to `Lock` - which provides a
+function to access the inner contents of a Mutex provided a Pin<&mut …>.
 
-LazyInit is my proposed solution to this issue. It provides a container
-which protects the initialization of its contents, without protecting
-access to its contents (implying of course, that its contents have to
-provide their own thread synchronization).
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+---
+ rust/kernel/sync/lock.rs | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-Lyude Paul (2):
-  rust: sync: lock: Add Lock::get_mut_pinned()
-  rust: sync: Introduce LazyInit
-
- rust/kernel/sync.rs           |   2 +
- rust/kernel/sync/lazy_init.rs | 352 ++++++++++++++++++++++++++++++++++
- rust/kernel/sync/lock.rs      |  11 ++
- 3 files changed, 365 insertions(+)
- create mode 100644 rust/kernel/sync/lazy_init.rs
-
-
-base-commit: 0e42ec83d46ab8877d38d37493328ed7d1a24de8
+diff --git a/rust/kernel/sync/lock.rs b/rust/kernel/sync/lock.rs
+index 10b6b5e9b024f..5ca36baed34f5 100644
+--- a/rust/kernel/sync/lock.rs
++++ b/rust/kernel/sync/lock.rs
+@@ -190,6 +190,17 @@ pub fn try_lock(&self) -> Option<Guard<'_, T, B>> {
+         // that `init` was called.
+         unsafe { B::try_lock(self.state.get()).map(|state| Guard::new(self, state)) }
+     }
++
++    /// Returns a pinned mutable reference to the underlying data.
++    ///
++    /// Because this borrows the lock mutably, no actual locking needs to take place - as the
++    /// mutable borrow statically guarantees no new locks can be acquired while this reference
++    /// exists.
++    #[inline(always)]
++    pub fn get_mut_pinned(self: Pin<&mut Self>) -> Pin<&mut T> {
++        // SAFETY: We return a pinned T, ensuring we don't move T.
++        unsafe { self.map_unchecked_mut(|data| data.data.get_mut()) }
++    }
+ }
+ 
+ /// A lock guard.
 -- 
 2.54.0
 
