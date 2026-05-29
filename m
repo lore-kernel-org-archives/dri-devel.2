@@ -4,95 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77E9BCD4F54
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 16:18:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65A24CD4F54
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 16:21:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5A99112204;
-	Fri, 29 May 2026 16:18:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE78D11220C;
+	Fri, 29 May 2026 16:21:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RYFwOSJB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zyU/Oerp";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87F7F112203
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 16:18:21 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CC458605DE;
- Fri, 29 May 2026 16:18:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D55CD1F00893;
- Fri, 29 May 2026 16:18:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780071500;
- bh=KGn8v2jq7Ub01ZUuqZ6CdyaIBmuX1eNalYc9sbLJMfA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=RYFwOSJB2R8uWFGJmYZvbrS4OGvNF/dip/DFzrRCRJ8L5ufY1nWRjPUm+Oy39/DAF
- 8+aBEGY6i20k4jyZ1rNRUv5r9pwKzPBEIHcadZ2sDZq9gC5r/u+mtRXWczalvx/sXM
- QGhixX4LNZow4HsuYz4gRT8BG/hBlzS+f3vgT5mSlTvtoQQgxkjJ22GvxJKUB2gBjU
- Bwd+aO9aBlcX2DCwAeyyDriXGTTNTNlmNMRFLOt2k+/+i9LdGfx7M4t4Ge3OlmIwsg
- +1vBMixMroi3iUlM6KzF9z3mngZDrj/nojFzWaSHrXCO6kPBnZyjhLXGVuc+ufcT14
- f54jGV4AWVFJA==
-Message-ID: <53c4249e-8d6c-4bf7-86ff-b8d02117338a@kernel.org>
-Date: Fri, 29 May 2026 18:18:16 +0200
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011010.outbound.protection.outlook.com [52.101.62.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B0DB11220C
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 16:21:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=R9teNrul2juhpTp868ZsNYx8s+UjUYkb5VRqLduWtfp5uNu16vsGmA6L3jXWId0GzxP8tksoJg86R7qodixBwcYugGZppcMxC/havRNvBR55wfKLZYmCLZHJRByczjsZqQrINM882L6aQKCSDuUTjkBe4aQwUUqAeJWtRDyLk9XCnIsMjLe3iwwP+y8haf698Padus19j5HEpWW6//3YK1DgrHKnm7/jONFRffMhJDTHjyAcaGjw/dmgYzqFUI8C+sdKN8CKye3uYeYEDqVwqq5VdIdNDiQEllhvH2foQMYTum/vtLWTiSwbzCKrwwKTDhVvtlB5TeBV5MANGjkILA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vUUGxxdpgxM2XbIkUmHghhyGuMhHLCTlu/Y9OZJLdO8=;
+ b=dzZzQuIdwlnUX+RCIBp2rBSCLgEYRC1LMsXyXiJFZGaCkCMxGpCV7mV/3FQYkICYxhimP7sITx3IhBhtN5yaIUW/GaV8jsbs2oLDVSKSvG4UX2hr2nKphq6R+ycY2UE12RP+lvUNcAJ+2i3G91cOO/yw2KnCKUJxHM6w8WzIznbrutAA5eo+4L/NxqzKKJz5xy46G86R3dqRUlQVTv+zJqMCAMxJ62N42O+BZkcmJOqrLpNRqL/CNUz8tEqVXecbBYau3MYxSqVhrNlqL/ETbLJJYbMmkSxrc0aAghizzAJCQsrr9V6nGTzYg+itWNQZ0ZjnO/LSUj7HzgQHKhx20A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vUUGxxdpgxM2XbIkUmHghhyGuMhHLCTlu/Y9OZJLdO8=;
+ b=zyU/OerpAL+p5M9BiAtVZX4pkyZ5AvKmrVAcsDZTdU2AwvNHEl4CXNMUKdMAjPdpNdIeP72LwghJQjZDluZOXjpmTcMZQMCJxRN0xNxxa8C1e2Gtc87ZzvGEWBRy4/Z6RXmlmMj6cS+FXu0/Y6udJfDSmmnWYQmDFb9GDHemmdg=
+Received: from MN0P220CA0025.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:52e::33)
+ by CH2PR12MB9494.namprd12.prod.outlook.com (2603:10b6:610:27f::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Fri, 29 May
+ 2026 16:21:30 +0000
+Received: from BL6PEPF00022573.namprd02.prod.outlook.com
+ (2603:10b6:208:52e:cafe::13) by MN0P220CA0025.outlook.office365.com
+ (2603:10b6:208:52e::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Fri, 29
+ May 2026 16:21:30 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF00022573.mail.protection.outlook.com (10.167.249.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 16:21:30 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 29 May
+ 2026 11:21:29 -0500
+Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Fri, 29 May 2026 11:21:29 -0500
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+ <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+ <karol.wachowski@linux.intel.com>
+CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
+ <max.zhen@amd.com>, <sonal.santan@amd.com>
+Subject: [PATCH V1] accel/amdxdna: Return errors for failed debug BO commands
+Date: Fri, 29 May 2026 09:21:22 -0700
+Message-ID: <20260529162122.1976376-1-lizhi.hou@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] dt-bindings: npu: rockchip,rk3588-rknn-core: Add
- RK3568 support
-To: MidG971 <midgy971@gmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>,
- Oded Gabbay <ogabbay@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260529155824.3099831-1-midgy971@gmail.com>
- <20260529155824.3099831-3-midgy971@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
- QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
- +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
- ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
- 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
- hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
- tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
- 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
- naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
- hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
- whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
- qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
- RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
- Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
- H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
- dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
- AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
- jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
- zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
- XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260529155824.3099831-3-midgy971@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022573:EE_|CH2PR12MB9494:EE_
+X-MS-Office365-Filtering-Correlation-Id: eba9d783-b318-4cd8-299e-08debd9e5773
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|36860700016|1800799024|18002099003|56012099006|3023799007|11063799006;
+X-Microsoft-Antispam-Message-Info: fzs8UjnD+nae46dXF4ILZ4HC4w9l36al4l2ejeU8SLEQU/NQJDv9rYCpgrZ3AJJ1BUmrcgpoXXuIM8IkHMXf9ZzkHgBh2H/Gi5kFBcwRHTqoVjSDx36fV2wD4hHGot8sY1KgcHGv4r6Cceq2OJ38OWgQIIMoIzF0zg/7ejVl4cHK+KjkueLgpN//EYarfuyya30xZTmu+oAe9Oq2jH/OKauCllRkSX9vtsKj3SKsisQ4RyRM+MwNmZo480HKcN57+6wJqIQNecIjrv20vGPJk88Oe1o9FEtUNNAky6R7cUJfBgm8GmqFuAhGtk9vpggScsBIp6mHHohgDuoI7eNa1HoxecxCKDW6Ya/vw6m6caXoJ9lQN+2iL4+DMimEIfZLdbuUo0OB+6bEudia6kZ9MyJ2tjUeeXa+l9Z4JECU8FOmj0vec03XBau4yW990Ug2KczUqKsoy+CgR2oRYaNbAw4VZv1uxmWFQc2EsPMzKRJuQNysGZmAvkdCqUizhFpLc0ZAD6KGFSSeLAZEnPliKQYaGR1dGJB8lnWkkgT2Qf+nCZ9FIKPLSkXRdvnqzjge5kkUMe6o0aJHyLs+svri3TOnmYxMr+a+7O5C0C0stMCdr9V4ps+xa5ApIHNxDCkgt3hWmPshobnEJSJyUM6LdixT/0o8epEmcHARTxhpldKlulV8egj5s/k5QgZ1MqZxR9nRNjfNHwmyW5KaoGRfV9CVl1fIxy5JZsLEEt0FAYs=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(18002099003)(56012099006)(3023799007)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: Ac7NaXF46viY46Qu/TIukxMhiDzoU5F62yJWxgBXfbzaTrnddFOJ4bBDZHi2dJoRfJwsS2A9Krni0APng+rdk1U1nQ1+nXULN0pkjfshSzHB9umC7JMmX1ATJmd8uNvKU18eihZt53BMqo/yAGaRkFW9f94l0tMyC5h7UjJSDugfIk9jA0/JvbVLXdRBHpN9m2BvxsoUnnf/r0rO4AARGxxw97pEmHSa44Yu1Q0tEY9DZZ1nXvbL/D1sx12dLqdEIL9ScnkV+eB+xYguXtCFdvS+2B/jgAcDc7T4LM2Vhcyo4MN0Blk3hJbKuGB4HoFYfLekaVXfjPetvEAatCkV+5AFSGQ8DZLFZ5vrEeo19Gyeb6npFhDyrruc+pr1OeqZQ+JlC9o7FIy9lBSruA2fpiZlaM18qr4xwS8H3Kr6HVmUzG7QtdaS4xbBTHTJAz/l
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 16:21:30.2403 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: eba9d783-b318-4cd8-299e-08debd9e5773
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00022573.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9494
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,47 +111,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 29/05/2026 17:58, MidG971 wrote:
-> From: Midgy BALON <midgy971@gmail.com>
-> 
-> Add rockchip,rk3568-rknn-core to the compatible enum, document the
-> new rockchip,pmu phandle that RK3568 needs for the NPU NOC bus de-idle
-> sequence, and make sram-supply only required on RK3588 (RK3568 has no
-> NPU SRAM rail).
-> 
-> The driver supports both RK3568 and RK3588 RKNN cores; the binding now
-> documents both. The rockchip,pmu phandle is consumed by the driver to
-> issue PMU register writes (BUS_IDLE_SFTCON0, NOC_AUTO_CON0,
+The config and sync debug BO commands currently may report success even
+when the operation fails.
 
-You need to start explaining the hardware, not drivers.
+Capture the firmware return status and propagate the corresponding error
+to userspace.
 
-> PWR_GATE_SFTCON, BUS_IDLE_ST) on RK3568 only.
-> 
-> Signed-off-by: Midgy BALON <midgy971@gmail.com>
-> ---
->  .../npu/rockchip,rk3588-rknn-core.yaml         | 18 +++++++++++++++++-
->  1 file changed, 17 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-> index caca2a490..6582a0c5c 100644
-> --- a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-> +++ b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-> @@ -21,6 +21,7 @@ properties:
->  
->    compatible:
->      enum:
-> +      - rockchip,rk3568-rknn-core
->        - rockchip,rk3588-rknn-core
->  
->    reg:
-> @@ -50,6 +51,13 @@ properties:
->  
->    npu-supply: true
->  
-> +  rockchip,pmu:
-> +    : /schemas/types.yaml#/definitions/phandle
+Fixes: 7ea046838021 ("accel/amdxdna: Support firmware debug buffer")
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+---
+ drivers/accel/amdxdna/aie2_ctx.c | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
-I don't think you tested this.
+diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+index 2ad343728782..da89b3701f5b 100644
+--- a/drivers/accel/amdxdna/aie2_ctx.c
++++ b/drivers/accel/amdxdna/aie2_ctx.c
+@@ -305,17 +305,13 @@ aie2_sched_drvcmd_resp_handler(void *handle, void __iomem *data, size_t size)
+ 	struct amdxdna_sched_job *job = handle;
+ 	int ret = 0;
+ 
+-	if (unlikely(!data))
+-		goto out;
+-
+-	if (unlikely(size != sizeof(u32))) {
++	if (unlikely(!data || size != sizeof(u32))) {
++		job->drv_cmd->result = U32_MAX;
+ 		ret = -EINVAL;
+-		goto out;
++	} else {
++		job->drv_cmd->result = readl(data);
+ 	}
+ 
+-	job->drv_cmd->result = readl(data);
+-
+-out:
+ 	aie2_sched_notify(job);
+ 	return ret;
+ }
+@@ -940,6 +936,7 @@ static int aie2_hwctx_cfg_debug_bo(struct amdxdna_hwctx *hwctx, u32 bo_hdl,
+ 	aie2_cmd_wait(hwctx, seq);
+ 	if (cmd.result) {
+ 		XDNA_ERR(xdna, "Response failure 0x%x", cmd.result);
++		ret = -EINVAL;
+ 		goto put_obj;
+ 	}
+ 
+-- 
+2.34.1
 
-Best regards,
-Krzysztof
