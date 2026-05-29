@@ -4,79 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA0C9CD6E4C
-	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 05:55:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F291FCD6E54
+	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 05:55:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23788112714;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9687D112715;
 	Sat, 30 May 2026 05:55:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ac6dtwSF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h6WyF4Hj";
 	dkim-atps=neutral
-Received: from mail-dl1-f66.google.com (mail-dl1-f66.google.com [74.125.82.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE39D10FF71
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 13:51:00 +0000 (UTC)
-Received: by mail-dl1-f66.google.com with SMTP id
- a92af1059eb24-1363e78746eso10341927c88.1
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 06:51:00 -0700 (PDT)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78A8810FA32
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 07:43:29 +0000 (UTC)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-bdbcc6c4500so1287519866b.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 00:43:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780040608; cv=none;
+ d=google.com; s=arc-20240605;
+ b=LYi6DhmIAaI7NvP4WoR7q8T8EdyAmF6mwNlXKTjWvjZsrGMgAGpOm0r4HLg+aD5x5q
+ Ssf+OH7JBGn0oEubEnBfa8Tf3pkqybizJGGf1AUCPQR/M7pQglL4wg2iZ9HuXnhpZpkm
+ QZT+PYQP6udA4+vH4HMsH71V+30B9yhip5Vs9Cw+8j/xnFF1ys6+g/fqn10GV+3isiN4
+ oLR/N/QbDUBcjW1Vys8rKQ/MLpu6PRsWQc8iTE+0RP5T1xXa9RpDm5pw2DLGENK+YF51
+ cODZT8imUxxyVYXE3UZAFX3XmygguvNBGUDRV7ChNWD90jB+6HAcX4JgQLtcaIwHxlHH
+ d/eg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=GzZHOwAgPk7upKhwwz8rSQvZhiNurmaPnPBWCLZlTTc=;
+ fh=qxR42mG3aC30TE9oKeQtjBfSJx66fiQqDzkXETsw1hg=;
+ b=ZHHlvjnyLZZVVVg5B0jkyzo8rPkLtWuDll9lJK6Zn1Sg8/ag8NOJrHpA70NHvLSerg
+ +Hui69tWkZzimicNu9mE9h19ZGt7B1nwBOFE0ZkJooG7pUhTWGBdKSruY6TwctU2nsAu
+ KMZrx2vsDhXC3QeG+bTExQoIaC+1uxSQhLJh4PQ252OiNKzspAMJD52cur0+TvFO+kLM
+ fvoR+wV7EuglmlswTlZc6bglMKZbnlQTUut2PLCteZlZxffM/u2pvn7g/tE4TjLHvFt4
+ 173+PPkEWR5mU7a3LspCIi19mI4+C9+4dLFVuOPV9fpCBSG7NEaIZgK5gLD9mSt9t156
+ OZFA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780062660; x=1780667460; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1780040608; x=1780645408; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rqOHPyyH5EfN3wruBEgkXAHRsiGcQZOI00mYuQNCffs=;
- b=ac6dtwSFV+UiXBKNvwuOoT2I59DwNQxS/hyajsQftE5bT4yrLYZ/QhcvOpLKcX1ARH
- dkz/u3jfAiDAO50e0E8Pcg85OYMh8KwyTLxUwRsvMDpLaBmVWx/KnWpAMq1fl8p2RqKe
- pw9Q78JQl6ONgiSlUTUDicm6HECIHN2rB+WdbB2FZ9SwplS53GZxtQsgnzJK3FwqYGD5
- CU34gQZHecs4oDilPZLSg6n30R9SktN9MykK0MDgpLIed1neRrUW3Ur5y8KnD3sJEaeS
- aNlsfTM/iaKD6Yp11cCeJVxJhmJ5uuht2isWc/MHshsMG/99rPGGuXTxQ9KqHmQ2LG0X
- qs1w==
+ bh=GzZHOwAgPk7upKhwwz8rSQvZhiNurmaPnPBWCLZlTTc=;
+ b=h6WyF4HjM2NJdCDMiseAsuWpVLHsyEKdEPYkyAZ2mk0l7Diw5FbRW5RZfjV52NEPzs
+ jf8Ll2WRAD0duZENmuL4MdyjsljggZcVT22zz6psVQylzE8DphZN7SRvhTWxrQq+xLlT
+ XNRn8uzbPjLmkwyvmGs+Dv5wvIHpZWNqWDdPra/drM0IaaqurCIDFdNLMsDlad072gxf
+ RRUOq1asZQbs+PRFPBjuKOuM8bSbwIPJBO/cDz0sPudbAJv11zBjJmOdCQZtYDpB28Ll
+ utWH8IzVOlO3sgAsv62UssQI+8yXIMg1ZJNRvW0wn9fPff8BfKCWEa5QB93iWR0gbUPq
+ l4MQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780062660; x=1780667460;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1780040608; x=1780645408;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=rqOHPyyH5EfN3wruBEgkXAHRsiGcQZOI00mYuQNCffs=;
- b=ByIdcLaG7+nhNN6J/iiOh0i8gCHiBq9KnCFn8O7AxFJLa8B6iN9JTS97Cakt5LewY5
- uSKPJphfO227Dqh54gZee+ZrLythtdwSIilq/S65w7XHL9yqHI/Nb21aBdhe5RwRKPnw
- i6+2A8ZaDOFm30eMGwinWtdxIx0wnvA6y20DND8QxLw7zcQCgI0kEMYSTjulqu8CQRy0
- 0WBLA0rIJ6Q2RO69ybAG3HkXMYQmFkjSLDxYGrsyaZrKepYz1ACsaEHis6fWZicxGLW9
- xnCsKG3NvMogS7Fh1yo/khxgzpsXiScoa3gzIasWHyTyYKmqHnDAOY0DwGjwpbutngRR
- hI0g==
+ bh=GzZHOwAgPk7upKhwwz8rSQvZhiNurmaPnPBWCLZlTTc=;
+ b=Fn0VDuqenyR/hWWOa2dgwG8MSkR06kKqE1XIKdQZV+T8WeYYnAPm/XtR6jNGWu3Gem
+ w89O6zbcKSGduAXO3mMxAsmNY0EPfTxaBXSk4zrRpfWQzdjfr+WmTKz3aphuPNZZr3vq
+ TJqFrhFjNRi+d+CzI3ya1zCY+55/e3UmeS3faCfRA7E5btYWRoClKnvkFucqOGFfL+Sa
+ THaQ/G1GXXJQb9syQv7ngQzVkpvIS1Q0EYSvGA3/WsJlIt2FINyX0J0nn4BiaCg+c34z
+ C9GkO+dC6cZg4eBDDZDeU1WaIptCTfXpgcuLX+OaQpGwvvMnn9ecN4/6AF96/nf5Ugvh
+ xbWQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/okdLu2/1rcSsLi51hXqOkGvTJSq5UHfENQYGP6b8pzmynI5VtiE4BfcVfwydLCRix23X+oxsVVmQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx0uyi6RToM1kuSaB1cEa2fjsBnM4LAATnsox+8VRSabR+Plgsc
- IWD69DM9IEZNTAKS20Bo2XLmF8TTx/FQcmjuAdk0Ta1nm+B1zsSdkmiR
-X-Gm-Gg: Acq92OHD6HBR5LChVOTFoLRukbaA2TkCEzwMWB/aj7M85tcJLM8BWCP6SQPlL4SS6cZ
- doMDsv62fhGhTPoe17isEMD4IRBKAyh0F5iyXXcZojwrn1sZAjs5tVJONVj/K5sZ15SFXL4S8zk
- JpWGd7Uq8oPPL1u24ZnHYoLhdnuWoIJbjOOymgqEGUUnslmhfbc2MWH0JMNTiDLG49ZAZHES3yJ
- it/G5cNZqaTMXFJOiLDpkETz+/ShzP05DTXJR25XCUj8381LYfXOmH6djmnl8jwCxUqF1+nJnd8
- JX1aAaHFSvTTitvR/R/fBDB2Xq1oEyuRMPEZ5sdKeec59sVTbEY/4W8eg0CwbK2I+Mp+VLjw2FL
- 0TUxlLhOmVpQ5BTEspGbtOJBRaN1Kkm5Sa023RzMjzGrku3qwRHsozyXGXwX515psrudJBw7pTd
- BQnIrYR2o/58j6Jb0xFfX/+cmMQl1SxyvH
-X-Received: by 2002:a05:7022:2522:b0:136:60e7:53b with SMTP id
- a92af1059eb24-137ae975179mr1065625c88.1.1780062659647; 
- Fri, 29 May 2026 06:50:59 -0700 (PDT)
-Received: from zhanwei.. ([192.227.223.214]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-137b3c69c0asm1169747c88.11.2026.05.29.06.50.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 May 2026 06:50:59 -0700 (PDT)
-From: Zhan Wei <zhanwei919@gmail.com>
-To: Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Zhan Wei <zhanwei919@gmail.com>
-Subject: [PATCH v2] drm/xe/hwmon: document DG2 fan speed reporting quirk
-Date: Fri, 29 May 2026 21:50:28 +0800
-Message-ID: <20260529135028.20763-1-zhanwei919@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260527115311.13398-1-zhanwei919@gmail.com>
-References: <20260527115311.13398-1-zhanwei919@gmail.com>
+ AFNElJ89YZ26UBze+giYaXAW7rpCzBDUJSporZ1V44mY08FoY/59Z7FaXDgrjDhhazlQe9Xy1yehbuWyMW4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzreCCvHZkekaCRJW0AhvpU1S/cnR4vdMO7bOnak3vp16X+8j5K
+ VYV71KttJdtLhFuxMkME8COvV7CVcMHWMbYi0eGwrZAfEMnUvJ0vA/0QN4o9Qn3xet03/ggai8R
+ xLSvccnkE9MYQkf901zGSrmXto9Yio14BtAe8
+X-Gm-Gg: Acq92OHmrwb5klANqHMfkNTs7OT8FTL/DloV6SLfDJX4ZsGlHTIVARjZlkIphda4m3e
+ F45io82DphKIrJ0A19QXeAIeIAAPQ1g5H+ZQFwWasghMNFFvKt3fF0GBA1Jo+6jtqjcjFke+mbc
+ hbsdF8NdpYKfN00HJfFIrrO46LGHYW2NRFaHdlKxZlEV41lPuGFyEEFAWJwUq7DsvPe/54qAO74
+ Iv5xwc2EcVegPrjXUUKXyPbQiLJoZ8GxxVQnKsu0t6GmOkHsEpwQkJMdSrbolhx3a9oxZJOgwzA
+ LcFi5evnJmps3oUg
+X-Received: by 2002:a17:906:8468:b0:be2:d66:eb21 with SMTP id
+ a640c23a62f3a-be9cbcc413fmr67394166b.26.1780040607489; Fri, 29 May 2026
+ 00:43:27 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 30 May 2026 05:55:09 +0000
+References: <CADnq5_Pq947+u3U-iVXLanuDQa_WxJKr_=DzJg1z+4rS334NqQ@mail.gmail.com>
+ <20260527222012.2943-2-gilles.risch@gmail.com>
+ <CADnq5_N5nM4Vn8=YbzBTJWcp8SEjMmb2KZurNqgqsxOpxQGUoA@mail.gmail.com>
+In-Reply-To: <CADnq5_N5nM4Vn8=YbzBTJWcp8SEjMmb2KZurNqgqsxOpxQGUoA@mail.gmail.com>
+From: Gilles Risch <gilles.risch@gmail.com>
+Date: Fri, 29 May 2026 09:43:13 +0200
+X-Gm-Features: AVHnY4Ivf1vLxWzTWtlywRo5k9qKgdZdfdYYM0JHnqyU5gCLM8x3Gg-PPb2P0ZY
+Message-ID: <CALnjqVky2zET5U5N_PEorrsWG4stHQSeTJZV6fA8G0q0XU5ZDQ@mail.gmail.com>
+Subject: Re: [PATCH v4] drm/radeon: fix internal display on iMac11,
+ 1 (RV770/DCE3.1)
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Sat, 30 May 2026 05:55:19 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,98 +109,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The number of fanN_input attributes on DG2 is hardcoded to two because
-FSC_READ_NUM_FANS returns an incorrect value on some boards. How the
-physical fans map onto the tach channels is left to the board vendor:
-some OEMs route multiple physical fans through a single shared tach
-line, in which case the unwired channel's pulse counter never
-accumulates and fanN_input reads a constant 0 RPM.
+Good morning,
 
-This is expected behaviour for such boards rather than a driver fault,
-and the driver has no reliable way to distinguish a shared-tach layout
-from a genuinely silent fan. Document this so the flat DG2 fan count is
-not mistaken for a bug and "fixed" by lowering it, which would hide a
-working fan2 on boards that do wire two tach lines.
+I'll make that adjustment, shouldn't I just regroup all three iMac
+machines in one if statement?
 
-Signed-off-by: Zhan Wei <zhanwei919@gmail.com>
----
-v1 -> v2: Drop the code change. As pointed out in review, the same PCI
-  device ID ships with both shared-tach (multiple physical fans on one
-  channel) and 1:1 fan wiring, and FSC_READ_NUM_FANS is unreliable on
-  some boards, so the DG2 fan count cannot be lowered without hiding a
-  working fan2 on boards that do wire two tach lines. Document the
-  behaviour instead of changing the reported fan count.
+Am Do., 28. Mai 2026 um 20:53 Uhr schrieb Alex Deucher <alexdeucher@gmail.c=
+om>:
+>
+> On Thu, May 28, 2026 at 3:39=E2=80=AFAM Gilles Risch <gilles.risch@gmail.=
+com> wrote:
+> >
+> > The Apple iMac11,1 (27-inch, Late 2009) uses a Mobility Radeon HD 4850
+> > (RV770/DCE3.1) with a 2560x1440 internal panel on an internal
+> > DisplayPort path. Without this fix the display stays dark under KMS.
+> >
+> > The same problem already exists for iMac10,1 and iMac11,2. Three fixes:
+> >
+> > 1. Introduce ASIC_IS_DCE31() for CHIP_RV770 and newer. Note that
+> >    CHIP_RV770 precedes CHIP_RV730 in the enum, so ASIC_IS_DCE31()
+> >    subsumes ASIC_IS_DCE32().
+> >
+> > 2. Extend the Link B encoder quirk from ASIC_IS_DCE32() to
+> >    ASIC_IS_DCE31() and add iMac11,1 to the DMI list.
+> >
+> > 3. The 2560x1440 panel needs RADEON_PLL_USE_FRAC_FB_DIV and
+> >    ATOM_ENCODER_CMD_DP_VIDEO_ON. These are limited to iMac11,1
+> >    via dmi_match() to avoid affecting other DCE3.1 boards.
+> >
+> > Signed-off-by: Gilles Risch <gilles.risch@gmail.com>
+> > ---
+> >  drivers/gpu/drm/radeon/atombios_crtc.c     |  5 ++++-
+> >  drivers/gpu/drm/radeon/atombios_encoders.c | 11 ++++++-----
+> >  drivers/gpu/drm/radeon/radeon.h            |  1 +
+> >  3 files changed, 11 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/radeon/atombios_crtc.c b/drivers/gpu/drm/r=
+adeon/atombios_crtc.c
+> > index 2fc0334e0..075eba2d4 100644
+> > --- a/drivers/gpu/drm/radeon/atombios_crtc.c
+> > +++ b/drivers/gpu/drm/radeon/atombios_crtc.c
+> > @@ -24,6 +24,8 @@
+> >   *          Alex Deucher
+> >   */
+> >
+> > +#include <linux/dmi.h>
+> > +
+> >  #include <drm/drm_fixed.h>
+> >  #include <drm/drm_fourcc.h>
+> >  #include <drm/drm_framebuffer.h>
+> > @@ -594,7 +596,8 @@ static u32 atombios_adjust_pll(struct drm_crtc *crt=
+c,
+> >                 if (((rdev->family =3D=3D CHIP_RS780) || (rdev->family =
+=3D=3D CHIP_RS880))
+> >                     && !radeon_crtc->ss_enabled)
+> >                         radeon_crtc->pll_flags |=3D RADEON_PLL_USE_FRAC=
+_FB_DIV;
+> > -               if (ASIC_IS_DCE32(rdev) && mode->clock > 165000)
+> > +               if ((ASIC_IS_DCE32(rdev) || dmi_match(DMI_PRODUCT_NAME,=
+ "iMac11,1"))
+> > +                   && mode->clock > 165000)
+> >                         radeon_crtc->pll_flags |=3D RADEON_PLL_USE_FRAC=
+_FB_DIV;
+> >         } else {
+> >                 radeon_crtc->pll_flags |=3D RADEON_PLL_LEGACY;
+> > diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/d=
+rm/radeon/atombios_encoders.c
+> > index 5cfd8fcfa..4de60559f 100644
+> > --- a/drivers/gpu/drm/radeon/atombios_encoders.c
+> > +++ b/drivers/gpu/drm/radeon/atombios_encoders.c
+> > @@ -1707,7 +1707,7 @@ radeon_atom_encoder_dpms_dig(struct drm_encoder *=
+encoder, int mode)
+> >                 if (ENCODER_MODE_IS_DP(atombios_get_encoder_mode(encode=
+r)) && connector) {
+> >                         /* DP_SET_POWER_D0 is set in radeon_dp_link_tra=
+in */
+> >                         radeon_dp_link_train(encoder, connector);
+> > -                       if (ASIC_IS_DCE4(rdev))
+> > +                       if (ASIC_IS_DCE4(rdev) || dmi_match(DMI_PRODUCT=
+_NAME, "iMac11,1"))
+> >                                 atombios_dig_encoder_setup(encoder, ATO=
+M_ENCODER_CMD_DP_VIDEO_ON, 0);
+> >                 }
+> >                 if (radeon_encoder->devices & (ATOM_DEVICE_LCD_SUPPORT)=
+) {
+> > @@ -2123,12 +2123,13 @@ int radeon_atom_pick_dig_encoder(struct drm_enc=
+oder *encoder, int fe_idx)
+> >         }
+> >
+> >         /*
+> > -        * On DCE32 any encoder can drive any block so usually just use=
+ crtc id,
+> > -        * but Apple thinks different at least on iMac10,1 and iMac11,2=
+, so there use linkb,
+> > -        * otherwise the internal eDP panel will stay dark.
+> > +        * On DCE31 and DCE32 any encoder can drive any block so usuall=
+y just use crtc id,
+> > +        * but Apple thinks different at least on iMac10,1, iMac11,1 an=
+d iMac11,2,
+> > +        * so there use linkb, otherwise the internal eDP panel will st=
+ay dark.
+> >          */
+> > -       if (ASIC_IS_DCE32(rdev)) {
+> > +       if (ASIC_IS_DCE31(rdev)) {
+>
+> This will change the routing for DCE3.1 as well.  Probably best to do
+> something like:
+>
+> if (dmi_match(DMI_PRODUCT_NAME, "iMac11,1")) {
+>     enc_idx =3D (dig->linkb) ? 1 : 0;
+>     goto assigned;
+> }
+>
+> before or after the DCE32() block.
+>
+> >                 if (dmi_match(DMI_PRODUCT_NAME, "iMac10,1") ||
+> > +                   dmi_match(DMI_PRODUCT_NAME, "iMac11,1") ||
+> >                     dmi_match(DMI_PRODUCT_NAME, "iMac11,2"))
+> >                         enc_idx =3D (dig->linkb) ? 1 : 0;
+> >                 else
+> > diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/r=
+adeon.h
+> > index 527b9d19d..6b7c0abe4 100644
+> > --- a/drivers/gpu/drm/radeon/radeon.h
+> > +++ b/drivers/gpu/drm/radeon/radeon.h
+> > @@ -2625,6 +2625,7 @@ void r100_pll_errata_after_index(struct radeon_de=
+vice *rdev);
+> >                             (rdev->family =3D=3D CHIP_RS740)  ||    \
+> >                             (rdev->family >=3D CHIP_R600))
+> >  #define ASIC_IS_DCE3(rdev) ((rdev->family >=3D CHIP_RV620))
+> > +#define ASIC_IS_DCE31(rdev) ((rdev->family >=3D CHIP_RV770))
+> >  #define ASIC_IS_DCE32(rdev) ((rdev->family >=3D CHIP_RV730))
+> >  #define ASIC_IS_DCE4(rdev) ((rdev->family >=3D CHIP_CEDAR))
+> >  #define ASIC_IS_DCE41(rdev) ((rdev->family >=3D CHIP_PALM) && \
+> >
+> > base-commit: e7ae89a0c97ce2b68b0983cd01eda67cf373517d
+> > --
+> > 2.47.3
+> >
 
-v1: https://lore.kernel.org/intel-xe/20260527115311.13398-1-zhanwei919@gmail.com/
 
- Documentation/gpu/xe/index.rst    |  1 +
- Documentation/gpu/xe/xe_hwmon.rst | 48 +++++++++++++++++++++++++++++++
- 2 files changed, 49 insertions(+)
- create mode 100644 Documentation/gpu/xe/xe_hwmon.rst
 
-diff --git a/Documentation/gpu/xe/index.rst b/Documentation/gpu/xe/index.rst
-index 874ffcb6da3a..3c14cdcaa8a6 100644
---- a/Documentation/gpu/xe/index.rst
-+++ b/Documentation/gpu/xe/index.rst
-@@ -30,3 +30,4 @@ DG2, etc is provided to prototype the driver.
-    xe-drm-usage-stats.rst
-    xe_configfs
-    xe_gt_stats
-+   xe_hwmon
-diff --git a/Documentation/gpu/xe/xe_hwmon.rst b/Documentation/gpu/xe/xe_hwmon.rst
-new file mode 100644
-index 000000000000..8cd48df59386
---- /dev/null
-+++ b/Documentation/gpu/xe/xe_hwmon.rst
-@@ -0,0 +1,48 @@
-+.. SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+
-+=================
-+Xe HWMON support
-+=================
-+
-+The xe driver exposes hardware monitoring sensors (power, energy,
-+temperature, voltage and fan speed) through the kernel hwmon subsystem,
-+typically consumed via ``/sys/class/hwmon/hwmonX/`` or tools such as
-+``sensors``.
-+
-+Fan speed reporting
-+===================
-+
-+Fan speed (``fanN_input``) is reported in RPM and computed from a tach
-+pulse counter: the driver reads an accumulating pulse register, divides
-+the delta between two subsequent readings by two pulses per rotation,
-+and time-averages the result.
-+
-+Number of fan channels
-+-----------------------
-+
-+The number of ``fanN_input`` attributes exposed in sysfs is the fan
-+count returned by the ``FSC_READ_NUM_FANS`` pcode command. On DG2 this
-+command has been found to return an incorrect value on some boards, so
-+the driver hardcodes a fan count of two there. As a result up to
-+``fan1_input`` and ``fan2_input`` are always exposed on DG2 regardless
-+of how many tach lines are actually wired.
-+
-+Zero RPM on DG2 is not necessarily a bug
-+----------------------------------------
-+
-+How physical fans map onto the tach channels is left to the board
-+vendor. Some OEMs route several physical fans through a single shared
-+tach line, while others wire each fan to its own channel 1:1. The
-+driver has no reliable way to tell these layouts apart, and the same PCI
-+device ID can ship in either configuration.
-+
-+When a channel has no tach line driving it, its pulse counter never
-+accumulates, so the corresponding ``fanN_input`` reads a constant 0 RPM.
-+On DG2 this is most often seen on ``fan2_input`` for boards that drive
-+both physical fans from a single tach line. This is expected behaviour
-+for such boards, not a driver fault, and reflects the board wiring
-+rather than a missing or stalled fan.
-+
-+For this reason the fan count on DG2 is intentionally left at a flat
-+value rather than tracked per board: there is no driver-visible signal
-+that distinguishes a shared-tach layout from a genuinely silent fan.
--- 
-2.43.0
+--=20
+Gilles
 
+Sent from my Commodore C=3D64
