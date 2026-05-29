@@ -4,53 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB8B3CD5BD2
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 10:23:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 436AFCD6E4A
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 10:31:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3ECFF10FC98;
-	Fri, 29 May 2026 10:23:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4E9510FCB9;
+	Fri, 29 May 2026 10:31:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="ASfqEzYR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dp4wgzC4";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6C8E10FC98
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 10:23:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1780050232; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Dyk1QT+361cVBFMSOqSiOro2qhOMxuCVvQ7R00p8YHjbwwVHr0bawWCy2g4wQ1XzvHAFy0nkKpmXErtL0YwY+j4OcudC/+PVFFsoBlKCwrBe1GW2X5r1f5HVJKEQx8H5B185S+pIXbUJvf9yXMp1O3rconvCWWOf+H9xbEJHugI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1780050232;
- h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
- bh=Z7rNUCAEGScMwFc5gyKgYkHU5rEnSfXGbO4wIXD7YMA=; 
- b=BMkf850Czt8NWVzaBQctR/d5tIfbKYdmyE8Fc3rfkUhjdulDmRZLKw40ruOqjGj4WzyTSqX+7NP7pJFtBrrGMFfZ/h/04vaes2geSpMMljV9pmc+qCHJgcr4R3r//RXNxY7tjre6j4TdHYSlQsD2Omf5lvrGMkSqLKyjPrjrJqE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780050232; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
- bh=Z7rNUCAEGScMwFc5gyKgYkHU5rEnSfXGbO4wIXD7YMA=;
- b=ASfqEzYRhukSIVr6shG7ISNq8xI8gr6LiUM0GXTcuzDCMMzulKD0zT2lT1vcq7lh
- ZAxrE8rnDhiyf+d3jkyssKKCJN4Sr2LhtfCplhRBAn/kPNGE4OIe/4H6gfy4VKMZgWa
- egEGA23MbM5VRnZq3rz2srZ0NpwClQNwz5g8IxVc=
-Received: by mx.zohomail.com with SMTPS id 1780050229411150.7880417884635;
- Fri, 29 May 2026 03:23:49 -0700 (PDT)
-Message-ID: <c288a516-cd00-49ac-a52b-1d87481bfc6a@collabora.com>
-Date: Fri, 29 May 2026 13:23:45 +0300
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
+ [209.85.210.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E843D10FCB9
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 10:31:54 +0000 (UTC)
+Received: by mail-pf1-f174.google.com with SMTP id
+ d2e1a72fcca58-82fbf5d4dc2so9526644b3a.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 03:31:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780050714; x=1780655514; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=l1VAROYwDh72WAwm7PM11vMet7R/k5gdSS8NOIjTWNg=;
+ b=dp4wgzC4QpOZYe4rM3CEi8p58At0vxUf3/nGcjv8f8M2rMnXcaU7tgvvFYm3hOC+2m
+ xMoqv6Jol1PHVvzrP43ifQe9lHipGRmmg7UeBLDwCi3FEsmgpTFg/XgyLk+Z0Sb+U/bd
+ iJWYdCE1NJwSwkFI19AEXlsoFui93g+q4t5p8Fh2bhcyeRRqOdcgfg5It7/IAXQPnSl/
+ biSS/vCkOJkf47OvI460KCnhmyLGPHhz5hIM+OXtOAh4rZtZi3WWF1hMfP2jDzUfFnwl
+ giabsXyzZCOUlg3i9dJA9XNLe4diuJ5vMPmVZon4nRiR77ODZJVUN0gl0tl0tPjGak5b
+ VQPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780050714; x=1780655514;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=l1VAROYwDh72WAwm7PM11vMet7R/k5gdSS8NOIjTWNg=;
+ b=fH4KvJ/g5kRJuFxQX0shj31GMnednTojuPVjcHqsm8ZYbZh5i9UmjGuOelKHcdT0KH
+ qY4ONTfcZmY4MY+QNSEU0UuATn1F51VwikqkVb0XrWsmMkHQSdqRaVqHkp01sKpjxqop
+ Qs8jdJbqiS8yg7IYevYFgTN1x4waNGfatChMSLbhgt1rDjdQbPce9LwmKiujlWC2MHP3
+ YXQAT8+s6S6tsOAuNzbDLQf6qIXH2I+zevxuC8r91Mb6qoqri/ybespJt7hbNEazY9Ba
+ XPf8eha35edQ/beXHAsLP0pKEesESge7cFKNgqk2E09rxNco5ixdQ0k6C9vVNM9Dv2Ca
+ 7ruw==
+X-Gm-Message-State: AOJu0YzQ0SlvjXYogQ/oREk3K6xZI+8bVXeLXTLjd6XAdzgLUy5SidfX
+ E0kSagWMZi+lkkC9hWYCgw45SpZxCxvqsOYeWu0WcvzweHwbF0cLEKmU
+X-Gm-Gg: Acq92OFG2gMbldGVrOc3c0OY0rUGhjwwbaFVVOzh+5W2D/Uq1Jp05MlZwMQBfEJLdie
+ 4IjId0hJKWPLRCRT1x7aDeGCYNU+KZ3iuRBSWwtoHoTpvhTFB+nTkgS0u+3KKrWI9Pv0ktfMqYN
+ dJQAGaOreWsjL/nPUsS+rwZPBP+UvDV6cPoAZiBNUdxxWDlQw5G/gzjigI8hd15NH9j+Pd51IAv
+ ukcR+1HSdGYZE0vNLj+Q7cPV4fFngRiFOHHzfIFIi2r2SkACD6U6YNOs8EmnZODctcQWZw2Vszn
+ Wy4LsrTapyWzuL+PSXvHLQXBFDY+g9LWmZybwPGVThwsmYbdPF5/BXe+NqgKtdKch292UNuHYqg
+ wilQdrj+hJcq63emgfkeoN14gy9vUVj07BIefzKjsd3wt1hkyiU4DuRoaCORvyjgEK61wDWHMRv
+ Tl6h6yWYzSxW+ClqTEudhGMuN4pmEWZJo55TK+cg3FU8Frv9G3c2zwNRokI0RQ3FGgSGi6KzISQ
+ 8zNH2MOfcYdBEY7XaAClg==
+X-Received: by 2002:a05:6a00:4399:b0:841:e7f6:3dce with SMTP id
+ d2e1a72fcca58-84212be20dfmr2503527b3a.18.1780050714380; 
+ Fri, 29 May 2026 03:31:54 -0700 (PDT)
+Received: from [127.0.1.1] (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-84214b30711sm1418512b3a.16.2026.05.29.03.31.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 29 May 2026 03:31:53 -0700 (PDT)
+From: LiangCheng Wang <zaq14760@gmail.com>
+Subject: [PATCH v3 0/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
+ e-ink panel
+Date: Fri, 29 May 2026 18:31:50 +0800
+Message-Id: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 0/3] Virtio-GPU S4 support
-To: dongwon.kim@intel.com, dri-devel@lists.freedesktop.org,
- airlied@redhat.com, kraxel@redhat.com
-References: <20260526192814.179673-1-dongwon.kim@intel.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20260526192814.179673-1-dongwon.kim@intel.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+X-B4-Tracking: v=1; b=H4sIABZrGWoC/03MTQrCMBCG4auUWRtJJj8YV95DXMQ0aQdsK4kEp
+ fTupkWhy3eY55shh0Qhw7mZIYVCmaaxhjw04Hs3doFRWxuQo+Gaa3Z3iWmUEb2MxkoL9fOZQqT
+ 3tnK91e4pv6b02UaLWK9/bzZfBONMoLBacRNViJducPQ4+mmA1RfcGfwZrMYb00brTop7tTfLs
+ nwBClaTR8oAAAA=
+X-Change-ID: 20260505-bar-523f2c3f6939
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Wig Cheng <onlywig@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, LiangCheng Wang <zaq14760@gmail.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780050713; l=2624;
+ i=zaq14760@gmail.com; h=from:subject:message-id;
+ bh=NMZMnqDGWWAeGlB49gFdIh93m5miziizBZr+exvXud4=;
+ b=eF5ekYB/26eVXjq8fm28Y44E0HCCXZG/+RrwTDVkBQT/bau4kEtOsb/UncLu4DQo9kNHFLEgK
+ IR450rxsuPLB3GKopD6D9Fjnqi28jntvs3IVfvovCxMK6VkS283VJrS
+X-Developer-Key: i=zaq14760@gmail.com; a=ed25519;
+ pk=5IaLhzvMqasgGPT47dsa8HEpfb0/Dv2BZC0TzSLj6E0=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,134 +104,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/26/26 22:28, dongwon.kim@intel.com wrote:
-> From: Dongwon Kim <dongwon.kim@intel.com>
-> 
-> This patch series implements the .freeze and .restore hooks for the virtio-gpu
-> driver, alongside a PM notifier to properly handle object tracking and 
-> restoration for S4 (hibernation) scenarios.
-> 
-> The first patch adds the `virtgpu_freeze` and `virtgpu_restore` functions. 
-> These functions orchestrate flushing pending work, safely deleting virtio 
-> queues before suspension once they are empty, and recreating them during 
-> the restoration process.
-> 
-> The second patch implements a tracking and recreation mechanism for active 
-> `virtio_gpu_object` instances. This is necessary because the host hypervisor 
-> (e.g., QEMU) terminates or resets the backend during a full hibernation cycle, 
-> wiping out all previously established graphics resources and causing post-resume 
-> errors in the guest.
-> 
-> The third patch integrates a PM notifier block into the driver. It captures 
-> the PM_HIBERNATION_PREPARE phase to check compatibility (blocking S4 if Virgl 
-> 3D is active) and sets a state flag. This flag instructs `virtgpu_restore` to 
-> fully re-submit and restore active GPU objects immediately after the fresh 
-> virtqueues are reconfigured.
-> 
-> These changes ensure that the virtio-gpu driver can cleanly survive guest 
-> hibernation without experiencing host-side resource loss.
-> 
-> v2: 10ms sleep is added in virtgpu_freeze to avoid the situation
->     the driver is locked up during resumption.
-> 
-> v3: Plain 10ms delay (v2) is replaced with wait calls which wait until
->     the virtio queue is empty.
->     (Dmitry Osipenko)
-> 
-> v4: New version of patchset only covers S4 case because loss of resources in S3
->     case can be avoided by skipping virtio-gpu-reset in QEMU (hw/display/virtio-gpu.c).
->     To skip virtio-gpu-reset (soft-reset), virtio-gpu-pci device should be attached to
->     PCIE bus AND a PCIE option, 'x-pcie-pm-no-soft-reset' should added and set to 'true'.
->     (e.g. -device virtio-gpu-pci,bus=port,x-pcie-pm-no-soft-reset=true)
-> 
-> v5: Remove virtio_gpu_object from the restore list before freeing the object
->     to prevent an use-after-free situation.
->     (Nirmoy Das)
-> 
->     Protect restore list operations with a spinlock
->     (Nirmoy Das)
-> 
->     Move restore list node into virtio_gpu_bo struct to reduce memory usage
->     (Dmitry Osipenko)
-> 
->     Remove unused header - drm_atomic_helper.h
->     (Dmitry Osipenko)
-> 
-> v6: Include object backed by imported dmabuf
->     (Dmitry Osipenko)
-> 
->     Not storing virgl objects in the restore_list as virgl 3D objects are not
->     recoverable.
->     (Dmitry Osipenko)
-> 
->     Change the name 'list',a node in restore_list to 'restore_node'
->     (Nirmoy Das)
-> 
->     Use mutex instead of spinlock when updating restore_list
->     (Nirmoy Das)
-> 
->     Initialize restore_node when virtio_gpu_object is created - this is to
->     check if the node is in the list with 'list_empty' before removing it.
-> 
->     Restoring objects in the PM notifier is too late, as virtio-gpu
->     message communication begins in virtgpu_restore once virtqueues
->     are re-established. To address this, a 'hibernation' flag is set
->     during the PM_HIBERNATION_PREPARE phase in the notifier. This flag
->     is then used in virtgpu_restore to detect if the system is resuming
->     from S4, allowing objects to be recovered immediately after virtqueues
->     are reconfigured.
-> 
-> v7: Add a helper, virtio_gpu_add_object_to_restore_list
->     (Dmitry Osipenko)
-> 
->     Unreference all objects before hibernation so they can be removed
->     on the host side, since they will be fully restored anyway. This
->     prevents the situation where host-side hibernation fails (leaving
->     all associated resources still alive) while the virtio-gpu driver
->     still attempts to restore those objects.
->     (Dmitry Osipenko)
-> 
-> v8: Add drm_print.h to virtgpu_prime.c
-> 
-> v9: Move duplicate wait_event_timeout blocks into a single
->     virtio_gpu_wait_queue helper function.
->     (Dmitry Osipenko)
-> 
->     Handle timeouts gracefully by returning -ETIMEDOUT to abort
->     the freeze operation if the host hangs.
->     (Dmitry Osipenko)
-> 
-> Dongwon Kim (3):
->   drm/virtio: Freeze and restore hooks to support suspend and resume
->   drm/virtio: Add support for saving and restoring virtio_gpu_objects
->   drm/virtio: Add PM notifier to restore objects after hibernation
-> 
->  drivers/gpu/drm/virtio/virtgpu_drv.c    | 80 ++++++++++++++++++++++-
->  drivers/gpu/drm/virtio/virtgpu_drv.h    | 25 ++++++-
->  drivers/gpu/drm/virtio/virtgpu_kms.c    | 54 +++++++++++++--
->  drivers/gpu/drm/virtio/virtgpu_object.c | 87 ++++++++++++++++++++++++-
->  drivers/gpu/drm/virtio/virtgpu_prime.c  | 45 ++++++++++++-
->  drivers/gpu/drm/virtio/virtgpu_vq.c     | 30 ++++++++-
->  drivers/gpu/drm/virtio/virtgpu_vram.c   |  5 +-
->  7 files changed, 312 insertions(+), 14 deletions(-)
-> 
+This patch series adds support for the Mayqueen Pixpaper 4.26
+monochrome e-ink display panel, controlled via SPI.
 
-Applied to misc next, thanks!
+The series includes:
+- Device tree binding updates for the Pixpaper 4.26 panel
+- A DRM tiny driver implementation for the Pixpaper 4.26 panel
+- A MAINTAINERS update for the Pixpaper DRM drivers and binding
 
-Addressed and inlined fixes for issues reported on [1], plus made misc
-minor improvements and fixes:
+The panel supports 800x480 resolution with XRGB8888 framebuffer
+input and uses SPI, along with GPIO lines for reset, busy, and
+data/command control.
 
-- added missing drm_mode_config_helper_resume()
-- use proper types for vars
-- remove extra blank line
-- rename hibernation -> hibernated
-- improved error messages, telling more what failed
-- removed inclusion of pm_runtime.h
-- properly handle register_pm_notifier failure
+Tested on:
+- Raspberry Pi 5 with Linux kernel 7.1.0-rc1
 
-[1]
-https://lore.gitlab.freedesktop.org/drm-ai-reviews/review-overall-20260526192814.179673-1-dongwon.kim@intel.com/T/#u
+Feedback is welcome.
 
--- 
+Signed-off-by: LiangCheng Wang <zaq14760@gmail.com>
+---
+Changes in v3:
+- Keep Conor's Acked-by on the DT binding patch.
+- Avoid passing stack and read-only buffers to spi_write().
+- Use le32_to_cpu() when reading XRGB8888 pixels.
+- Document the panel RAM X direction used during framebuffer conversion.
+- Document why busy-wait timeouts remain warning-only.
+- Rename the busy-wait helper to pixpaper_wait_for_panel().
+- Drop the forward declaration of pixpaper_xrgb8888_to_bw() by moving its
+  definition before its first use.
+- Use a fixed display mode with drm_connector_helper_get_modes_fixed().
+- Drop the redundant mode_config mode_valid callback; resolution is
+  validated only by the CRTC mode_valid callback.
+- Use drm_err_once() for errors in userspace-triggered update paths.
+- Link to v2: https://lore.kernel.org/r/20260526-bar-v2-0-c66df9a840c4@gmail.com
+
+Changes in v2:
+- Explain why pixpaper-426m requires a distinct compatible string despite
+  sharing the same SPI and GPIO properties with the existing Pixpaper panel.
+- Drop the duplicated pixpaper-426m DT binding example.
+- Update the binding description for multiple Pixpaper panels.
+- Select DRM_GEM_SHMEM_HELPER instead of DRM_GEM_DMA_HELPER for the
+  pixpaper-426m driver.
+- Link to v1: https://lore.kernel.org/r/20260506-bar-v1-0-12195406f4ef@gmail.com
+
+---
+LiangCheng Wang (2):
+      dt-bindings: display: mayqueen,pixpaper: add pixpaper-426m
+      drm/tiny: add support for PIXPAPER 4.26 monochrome e-ink panel
+
+ .../bindings/display/mayqueen,pixpaper.yaml        |  13 +-
+ MAINTAINERS                                        |   3 +-
+ drivers/gpu/drm/tiny/Kconfig                       |  16 +
+ drivers/gpu/drm/tiny/Makefile                      |   1 +
+ drivers/gpu/drm/tiny/pixpaper-426m.c               | 817 +++++++++++++++++++++
+ 5 files changed, 844 insertions(+), 6 deletions(-)
+---
+base-commit: a293ec25d59dd96309058c70df5a4dd0f889a1e4
+change-id: 20260505-bar-523f2c3f6939
+
 Best regards,
-Dmitry
+-- 
+LiangCheng Wang <zaq14760@gmail.com>
+
