@@ -4,136 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F0FCCD5BD2
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 06:35:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACC76CD5BD2
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 06:41:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99B1F10F976;
-	Fri, 29 May 2026 06:35:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0482B10F985;
+	Fri, 29 May 2026 06:41:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="U5pRf1Xi";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="myui/KH8";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65CE110F976;
- Fri, 29 May 2026 06:35:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1780036497; x=1780641297; i=natalie.vock@gmx.de;
- bh=NkaMmbGMJxjXt+E81VmxSSX1SUlKpKOFjiOB794YmZQ=;
- h=X-UI-Sender-Class:From:Date:Subject:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
- cc:content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=U5pRf1XimVEP1g+ICAgLRnJzK337oErP4jxwGVxy9ng2HADot/HR3rG9AMqM8Mf6
- eqlf6Yt2+W7V7jgpnAAmkJWq4ejaT0E40MoEYnlV2Bf7E2DWFnsJOFTl9HC7p+98n
- GXMHCpCwOBxqgQbHdqS0bxFMFq/tquz7pJUF3Tm3dJpEpXbwzcUqw0hyxy0tV4MDU
- Xv5KhQsjKWV6HBvvUMV0AGSFmJ3lx3IfNU1ctjs5W2IQD/OU3x6/4y7LKThb1fvFs
- J0gkGTzlprt7OvEo0vRi3TmZJ4ri0bHtNxwiPoDxb4NtizTywUg/DiuvJJv615qK5
- qjMtxVJ193JIZO6zFw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1Mg6e4-1wxEHG2yFS-00iTEa; Fri, 29
- May 2026 08:34:56 +0200
-From: Natalie Vock <natalie.vock@gmx.de>
-Date: Fri, 29 May 2026 08:34:39 +0200
-Subject: [PATCH 2/3] drm/amdgpu: Implement explicit sync for PRT unmaps
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 599B510F985
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 06:41:52 +0000 (UTC)
+Received: from pps.filterd (m0528004.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64SNIVrL2977287
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 23:41:51 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+ bh=wjl2lJMhu3x6YF6VZMdTDkNQcozAcKqTdHEY7+axmxo=; b=myui/KH8juDb
+ 9VFRxDDFEIimNoAd5XwHhraUO/L1qE4ZtZnO5K+/nzprny+oPTbRJWHwUl7Iab/B
+ cMLPIr8HMpKYeWusLbb/K+iwCBNNEvNQ4TbH/N8JWoEGZzYAl66wAE0qc8sarvKy
+ NYv2JsEurivQoqaAHfEmVHaXwieB82fQ7S1h7lyRTkK45xQ7kvSunBJhbh5mhqcS
+ R4u4gH7+DhvThFUOuSUwR7HsCG5Cx58JsKiG3AGPcpDd3+2CHCL50PZkKvpuBsSW
+ 56zV2uZKI0BOQNtMOtj246H6KVeuu5CBuNc+Twlud+11KyL2joGJMeL7vJmJjcwU
+ nf9M3D97/Q==
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
+ [209.85.167.200])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4ee7x1j75d-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 23:41:51 -0700 (PDT)
+Received: by mail-oi1-f200.google.com with SMTP id
+ 5614622812f47-48576b309c7so8579509b6e.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 23:41:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780036911; cv=none;
+ d=google.com; s=arc-20240605;
+ b=UkSRFZ3ApxodvoMOXjco3Fd+g10ylHhzyhUOQHH3S5+d3+w8somX0TKWfMvVLcJG5x
+ qhMtg6YKRpLI+4ZQiIKFUlYEpbhmScx8eVJKcD864pqqKZkyDfzzaQOlhEyLWU8NHJjc
+ /gZNYrfuiZvFIb2im2WzemY0ClQm8VHPLI5tyjiTIGI/D4E+baZZyYSrq/jUB+bAeR+B
+ D+q/58u5onZzyJrBQ2itYdQMYDDuNz4nddfF1CYjQ4iNiWm61JGl1H+ANptZkT6VGZKz
+ snUfgfbMv2ZUQYryq2ieqUu/NDwFXVJN59BfV12EXAZZfnWdCA9ZY1a5YTbU1Kp0igD8
+ NfoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version;
+ bh=5hKWaaPr0jpqnvHMhDmJMKNnaKkhbQEW5A8xM9/5BHs=;
+ fh=RZ+fzhXcUIZs4SlWaycq/CHp+aBil40eXEGWBGckKmQ=;
+ b=c3YwzO4pb3Lsujwo486fRUv0lIV/UgurW4uGCKhxKfgD+WmESc2SX8daEbuwgLbkL9
+ LRensFZEEhWRsdHsHZ2gIJWt99XM7YQwfD+BpDLV+4FWFzqIAM3cFa1z1Asw3Kps3PuN
+ dd5iaVwDUy9z02S1GsyB9wVx9Pi01ZQ+Qjv/2cLo+gS5Q5XdKfhkVws3sIXd6u+jg6rp
+ q4B4hzr6uuLrdzFYhZtjqWbD8HuAnXnw8XQirYcyMYZ4KZyKsMft4bDUuhDyZXHjjlpS
+ zHE7vltHoNn4+FfXD2GzB97Tz51xRIx3ntuuKCCrYRWjX5o826BkIwRtPJvdcS6dAhG7
+ qvTg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780036911; x=1780641711;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=5hKWaaPr0jpqnvHMhDmJMKNnaKkhbQEW5A8xM9/5BHs=;
+ b=fDvRhUny3/up2LfZ/YA0TvMpC8K1Sxi/7ROYTTev+p4PI4hMDQXo/25ky0Vzv8hTrX
+ sqYBGTVMXAyjKMGb2DWJmSlEUBQQR2l4EQ9aMzUV0VEKFK/974lWZGWxYmobuIaU8xoN
+ dHF24bZh/5EQeufTDqxDuFH6apO80RyFuKap8z8krNUsgDfsSVj/Nrt5546XmkJ9YZwa
+ X+t4PheqDPsd/DIukUhgv9GZVnl7RSmgn2tZ7dDRPaSpqKprKVJ/A1yEf6iFsH3m9ESF
+ nM55D7GzqMW7MHHag/ErmfRRGDT/ptVKtHHWcSOY6kKqnbRduA48M6LobZerLxdHpnGK
+ IZsg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/kWtdDxLFhDvYCHmEsXgTrjsqbimAjtUqp7R28XHlEUhd9tVeXxXK+XP6cn6R7OA8Pl8Jb26iFY9Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwwhsXboIq1uv+r0BqYe0M/3yKoFN8YSfmf0uAgRpvS9bZjh36T
+ Edj4GraiPJhsGpSdoVE71/VclsedaVmmo7r4h8QRV/k0oURDA30Ehcpl70T3oHLGlaY+54VflzB
+ hJgv+LItDdGijUkHyEtmIS0ccTxGZFqqm72+qTqfzG0Nw2eaxpQy64j1QIs0mxBb7vFE0IE+xEt
+ Wyy4eZt1vle5vRoLqTsGNJ4YXRMn8vK75Up5y9z+jGk4Y=
+X-Gm-Gg: Acq92OEoxnYTy57Qlba9eJFIXPD6tB17q9+1259PofffZD3CYF1qwBl0e6W/STsTCBW
+ jL8nAM8FRd9UD8Xxe2F/nDklS436GGMIn9meJf26sPUVjxTI82mulZoFcObMoqdbWTf9/2LTVTH
+ xHLF3MJ9jCdFMo5GWJXkJcV/aMmOvgmrnRPh9E0yN8MPibMPn4v1I3GigjfaxZsEhnUBePbaFNL
+ LxVw1Qs9oQhT9rsdCzfOa0UeqEzqLEIAM6W6LzRaJ4xRI4oHkc=
+X-Received: by 2002:a05:6808:1c07:b0:467:1212:46eb with SMTP id
+ 5614622812f47-485e6dc0223mr972290b6e.35.1780036910686; 
+ Thu, 28 May 2026 23:41:50 -0700 (PDT)
+X-Received: by 2002:a05:6808:1c07:b0:467:1212:46eb with SMTP id
+ 5614622812f47-485e6dc0223mr972266b6e.35.1780036910218; Thu, 28 May 2026
+ 23:41:50 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+References: <20260526144401.1485788-1-zhipingz@meta.com>
+ <20260526144401.1485788-2-zhipingz@meta.com>
+ <20260527145332.30412ea4@shazbot.org>
+ <CAH3zFs3Yv2G0rQNE7x8DjBWPE+3sFC_3X6ZtF4x-mPp==h0BQA@mail.gmail.com>
+ <65b3d63a-271a-4aa8-ba8c-fc2b186349dc@huawei.com>
+In-Reply-To: <65b3d63a-271a-4aa8-ba8c-fc2b186349dc@huawei.com>
+From: Zhiping Zhang <zhipingz@meta.com>
+Date: Thu, 28 May 2026 23:41:39 -0700
+X-Gm-Features: AVHnY4JOme_X08lKUfayqc49fxg4J4ab3o3Y14UzTjVjHMNZxrhWL7QV4gYwqO4
+Message-ID: <CAH3zFs3eddZUtb08oNpjEg5b2=DJtRCuEcjsxuPyRA-zB2idag@mail.gmail.com>
+Subject: Re: [PATCH v5 1/4] PCI/TPH: expose the enabled TPH requester type
+To: fengchengwen <fengchengwen@huawei.com>
+Cc: Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian Konig <christian.koenig@amd.com>,
+ Bjorn Helgaas <helgaas@kernel.org>, kvm@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
+ netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Keith Busch <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>,
+ Yishai Hadas <yishaih@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <20260529-prt-explicit-sync-v1-2-9f1c60955cab@gmx.de>
-References: <20260529-prt-explicit-sync-v1-0-9f1c60955cab@gmx.de>
-In-Reply-To: <20260529-prt-explicit-sync-v1-0-9f1c60955cab@gmx.de>
-To: Felix Kuehling <Felix.Kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- =?utf-8?q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Provags-ID: V03:K1:Pkce3sXXdVR19v1LKucw5Yi8Iy0THjDbuvkRNlYnHXTELbfbro2
- BZqZF/9y+BxgJYRHAeazRmeVkyeBam3BAualMfnpBj1Up5M0b5cI8aGSF8LY/l1rsbp4zkW
- YN2Cz+k8r1+/ZHN/OLAC6e8MUfQZIpoAYTTkTP2ZJ5zSp9ccT4Uf9AbQyE1rW2jeYwShs6T
- NL9IxXZNcwLrVByu93gvQ==
-UI-OutboundReport: notjunk:1;M01:P0:PgCDzXb8EfY=;pQRngNfrhIe2Ty6wTkXv931Ry4F
- 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
+X-Proofpoint-GUID: dGb4949NCHlAegry8nx4TUk-K8D0U6TY
+X-Proofpoint-ORIG-GUID: dGb4949NCHlAegry8nx4TUk-K8D0U6TY
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI5MDA2MiBTYWx0ZWRfX5jOks3vLVQ0i
+ SGvWTyqqOqrYv35QIQITzTcMWD/vR8DA59/vnr7VjWkN4fW8ol9RUIc2Md1QJbPBqKB7yJrJUjS
+ x4Olc3wDL6KvFfOBLqCiDcxej6hP+5mVAkVpFfj69pph9WRuk53/LApNbB1iTq3/eGNZsafupot
+ HTPefcMWBRoCdJGmJg4mhICs9NCc32KVGM8siPw8QWx7CoVGJesGGq3AyW6afgIjSXPMzaZ2352
+ uK0lY2XG2eXIZURgn0Rj/CZ3dhIYLGZ/Xh8W99MLDE5WgfcCVFUrb2LE4M83kEar5bb+RtKj3YC
+ iXNdM6WnNccs6ITYfD96enDvcpMC2/yodqb/P6yhnSkI4ZR1I5DzZgPq7MR6HmD0cEgf9py3TnG
+ eqUMABJOFF1B0PD3Biaz1Z3+oEUL+LcLo9a+gCkvh05l/TqxwrePrVVMGgn4/9wsB/ir5OxX5Qr
+ jgQREnyTzKSJ8vBrN4g==
+X-Authority-Analysis: v=2.4 cv=fMUJG5ae c=1 sm=1 tr=0 ts=6a19352f cx=c_pps
+ a=AKZTfHrQPB8q3CcvmcIuDA==:117 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=GbPsI2Ihf5RTnMjR_gZv:22
+ a=i0EeH86SAAAA:8 a=r1p2_3pzAAAA:8 a=VabnemYjAAAA:8 a=zzBG9ipUb6nLY-ocZWUA:9
+ a=QEXdDO2ut3YA:10 a=pF_qn-MSjDawc0seGVz6:22 a=r_pkcD-q9-ctt7trBg_g:22
+ a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-29_02,2026-05-28_03,2025-10-01_01
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,224 +144,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In certain cases, it is possible to skip syncing with every submission
-in the whole VM before unmapping pagetables. The important condition is
-that no memory must be released to the system while the GPU still has a
-chance to access it.
+On Thu, May 28, 2026 at 1:04=E2=80=AFAM fengchengwen <fengchengwen@huawei.c=
+om> wrote:
+>
+> >
+> On 5/28/2026 1:35 PM, Zhiping Zhang wrote:
+> > On Wed, May 27, 2026 at 1:53=E2=80=AFPM Alex Williamson <alex@shazbot.o=
+rg> wrote:
+> >>
+> >>>
+> >> On Tue, 26 May 2026 07:43:53 -0700
+> >> Zhiping Zhang <zhipingz@meta.com> wrote:
+> >>
+> >>> Add pcie_tph_enabled_req_type() so drivers can query the enabled TPH
+> >>> requester mode without reaching into pci_dev internals.
+> >>>
+> >>> This keeps pci_dev::tph_req_type inside the PCI/TPH code and provides=
+ a
+> >>> !CONFIG_PCIE_TPH stub for callers.
+> >>>
+> >>> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
+> >>> ---
+> >>>  drivers/pci/tph.c       | 12 ++++++++++++
+> >>>  include/linux/pci-tph.h |  2 ++
+> >>>  2 files changed, 14 insertions(+)
+> >>>
+> >>> diff --git a/drivers/pci/tph.c b/drivers/pci/tph.c
+> >>> index 91145e8d9d95..6c4492075ae9 100644
+> >>> --- a/drivers/pci/tph.c
+> >>> +++ b/drivers/pci/tph.c
+> >>> @@ -174,6 +174,18 @@ u32 pcie_tph_get_st_table_loc(struct pci_dev *pd=
+ev)
+> >>>  }
+> >>>  EXPORT_SYMBOL(pcie_tph_get_st_table_loc);
+> >>>
+> >>> +/**
+> >>> + * pcie_tph_enabled_req_type - Return the device's enabled TPH reque=
+ster type
+> >>> + * @pdev: PCI device to query
+> >>> + *
+> >>> + * Return: PCI_TPH_REQ_DISABLE, PCI_TPH_REQ_TPH_ONLY or PCI_TPH_REQ_=
+EXT_TPH.
+> >>> + */
+> >>> +u8 pcie_tph_enabled_req_type(struct pci_dev *pdev)
+> >>> +{
+> >>> +     return pdev->tph_req_type;
+> >>> +}
+> >>> +EXPORT_SYMBOL(pcie_tph_enabled_req_type);
+> >>> +
+> >>>  /*
+> >>>   * Return the size of ST table. If ST table is not in TPH Requester =
+Extended
+> >>>   * Capability space, return 0. Otherwise return the ST Table Size + =
+1.
+> >>> diff --git a/include/linux/pci-tph.h b/include/linux/pci-tph.h
+> >>> index be68cd17f2f8..fe572737b409 100644
+> >>> --- a/include/linux/pci-tph.h
+> >>> +++ b/include/linux/pci-tph.h
+> >>> @@ -30,6 +30,7 @@ void pcie_disable_tph(struct pci_dev *pdev);
+> >>>  int pcie_enable_tph(struct pci_dev *pdev, int mode);
+> >>>  u16 pcie_tph_get_st_table_size(struct pci_dev *pdev);
+> >>>  u32 pcie_tph_get_st_table_loc(struct pci_dev *pdev);
+> >>> +u8 pcie_tph_enabled_req_type(struct pci_dev *pdev);
+> >>>  #else
+> >>>  static inline int pcie_tph_set_st_entry(struct pci_dev *pdev,
+> >>>                                       unsigned int index, u16 tag)
+> >>> @@ -41,6 +42,7 @@ static inline int pcie_tph_get_cpu_st(struct pci_de=
+v *dev,
+> >>>  static inline void pcie_disable_tph(struct pci_dev *pdev) { }
+> >>>  static inline int pcie_enable_tph(struct pci_dev *pdev, int mode)
+> >>>  { return -EINVAL; }
+> >>> +static inline u8 pcie_tph_enabled_req_type(struct pci_dev *pdev) { r=
+eturn 0; }
+> >>
+> >> nit, s/0/PCI_TPH_REQ_DISABLE/ for consistency.  Thanks,
+>
+> It need add #include <linux/pci.h> at beginning too, else it will counter=
+ compile error like this:
+>
+>    In file included from drivers/vdpa/mlx5/core/mr.c:8:
+>    In file included from include/linux/mlx5/qp.h:36:
+>    In file included from include/linux/mlx5/device.h:37:
+>    In file included from include/rdma/ib_verbs.h:46:
+> >> include/linux/pci-tph.h:48:10: error: use of undeclared identifier 'PC=
+I_TPH_LOC_NONE'
+>       48 | { return PCI_TPH_LOC_NONE; }
+>          |          ^
+>    1 error generated.
+>
 
-This is true for VM-always-valid buffers since the resv is shared with
-the VM's root PD and thus there will always be synchronization before
-unmapping, but also for PRT pages which do not point to any real memory
-location at all. Bypass implicit sync for unmapping for these buffers if
-userspace requests it. Userspace can request this via a new VM ioctl
-flag.
+Great catch =E2=80=94 thanks for testing.  I will add
+#include <linux/pci_regs.h> to pci-tph.h so the TPH macros
+(PCI_TPH_REQ_*, PCI_TPH_LOC_*) are in scope wherever the header is
+included.
 
-Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
-=2D--
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c |  8 ++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 49 ++++++++++++++++++++++++++++=
-+----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |  5 ++++
- include/uapi/drm/amdgpu_drm.h           |  2 ++
- 4 files changed, 56 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_gem.c
-index e95aaa5167538..a8d1cf3d0d5fc 100644
-=2D-- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -813,12 +813,13 @@ amdgpu_gem_va_update_vm(struct amdgpu_vm_update_ctx =
-*ctx,
- int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 			  struct drm_file *filp)
- {
--	const uint32_t valid_flags =3D AMDGPU_VM_DELAY_UPDATE |
-+	const uint32_t valid_flags =3D
-+		AMDGPU_VM_EXPLICIT_SYNC | AMDGPU_VM_DELAY_UPDATE |
- 		AMDGPU_VM_PAGE_READABLE | AMDGPU_VM_PAGE_WRITEABLE |
- 		AMDGPU_VM_PAGE_EXECUTABLE | AMDGPU_VM_MTYPE_MASK |
- 		AMDGPU_VM_PAGE_NOALLOC;
--	const uint32_t prt_flags =3D AMDGPU_VM_DELAY_UPDATE |
--		AMDGPU_VM_PAGE_PRT;
-+	const uint32_t prt_flags =3D AMDGPU_VM_EXPLICIT_SYNC |
-+				   AMDGPU_VM_DELAY_UPDATE | AMDGPU_VM_PAGE_PRT;
-=20
- 	struct drm_amdgpu_gem_va *args =3D data;
- 	struct drm_gem_object *gobj;
-@@ -896,6 +897,7 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *=
-data,
- 	}
-=20
- 	amdgpu_vm_update_ctx_init(&update_ctx, adev, &fpriv->vm);
-+	update_ctx.explicit_sync_unmap =3D args->flags & AMDGPU_VM_EXPLICIT_SYNC=
-;
-=20
- 	/* Add input syncobj fences (if any) for synchronization. */
- 	r =3D amdgpu_gem_add_input_fence(filp, &update_ctx,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_vm.c
-index c9fb29abb0e66..9ba9db970f0fe 100644
-=2D-- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -382,6 +382,37 @@ void amdgpu_vm_update_stats(struct amdgpu_vm_bo_base =
-*base,
- 	spin_unlock(&vm->stats_lock);
- }
-=20
-+/**
-+ * amdgpu_vm_update_ctx_add_freed_mapping - mark a mapping as freed
-+ * @ctx: context for updating the VM
-+ * @bo_va: BO/VA pair the mapping corresponds to
-+ * @mapping: The mapping to free
-+ *
-+ * Adds the mapping to the context's freed list, as well as doing some bo=
-okkeeping
-+ * about the mappings being freed.
-+ */
-+void amdgpu_vm_update_ctx_add_freed_mapping(struct amdgpu_vm_update_ctx *=
-ctx,
-+					    struct amdgpu_bo_va *bo_va,
-+					    struct amdgpu_bo_va_mapping *mapping)
-+{
-+	struct amdgpu_bo *bo =3D bo_va->base.bo;
-+
-+	/* When unmapping buffers, we must make sure there is no way to free the
-+	 * buffer's underlying memory before the GPU is absolutely guaranteed to
-+	 * be done accessing it.
-+	 *
-+	 * With explicit syncing, userspace indicates when unmapping can be perf=
-ormed,
-+	 * but if userspace is either malicious or sufficiently incompetent, the
-+	 * GPU may access the buffer even after userspace indicated it is safe t=
-o free.
-+	 * Therefore, only allow explicit sync on unmapping if the BO is
-+	 * always valid in the VM (in which case freeing syncs to all submission=
-s already)
-+	 * or if it's a PRT page (in which case there is no memory being accesse=
-d in any case).
-+	 */
-+	ctx->explicit_sync_unmap &=3D amdgpu_vm_is_bo_always_valid(ctx->vm, bo) =
-||
-+				    mapping->flags & AMDGPU_VM_PAGE_PRT;
-+	list_add(&mapping->list, &ctx->freed);
-+}
-+
- /**
-  * amdgpu_vm_update_ctx_ensure_unmap_synced - VM update sync helper
-  * @ctx: context for updating the VM
-@@ -398,11 +429,13 @@ int amdgpu_vm_update_ctx_ensure_unmap_synced(struct =
-amdgpu_vm_update_ctx *ctx)
-=20
- 	/*
- 	 * Implicitly sync to command submissions in the same VM before
--	 * unmapping.
-+	 * unmapping, unless we unmap with explicit sync.
- 	 */
- 	r =3D amdgpu_sync_resv(ctx->adev, &ctx->sync,
- 			     ctx->vm->root.bo->tbo.base.resv,
--			     AMDGPU_SYNC_EQ_OWNER, ctx->vm);
-+			     ctx->explicit_sync_unmap ? AMDGPU_SYNC_EXPLICIT :
-+							AMDGPU_SYNC_EQ_OWNER,
-+			     ctx->vm);
- 	if (r)
- 		return r;
-=20
-@@ -1562,6 +1595,9 @@ int amdgpu_vm_clear_freed(struct amdgpu_vm_update_ct=
-x *ctx,
- 	struct dma_fence *f =3D NULL;
- 	int r;
-=20
-+	if (list_empty(&ctx->freed))
-+		return 0;
-+
- 	r =3D amdgpu_vm_update_ctx_ensure_unmap_synced(ctx);
- 	if (r)
- 		return r;
-@@ -2024,7 +2060,7 @@ int amdgpu_vm_bo_unmap(struct amdgpu_vm_update_ctx *=
-ctx,
- 	trace_amdgpu_vm_bo_unmap(bo_va, mapping);
-=20
- 	if (valid)
--		list_add(&mapping->list, &ctx->freed);
-+		amdgpu_vm_update_ctx_add_freed_mapping(ctx, bo_va, mapping);
- 	else
- 		amdgpu_vm_free_mapping(ctx->adev, vm, mapping,
- 				       bo_va->last_pt_update);
-@@ -2048,6 +2084,7 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_vm_upd=
-ate_ctx *ctx,
- 				uint64_t saddr, uint64_t size)
- {
- 	struct amdgpu_bo_va_mapping *before, *after, *tmp, *next;
-+	struct amdgpu_bo_va *bo_va;
- 	LIST_HEAD(removed);
- 	uint64_t eaddr;
- 	int r;
-@@ -2112,8 +2149,9 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_vm_upd=
-ate_ctx *ctx,
- 		if (tmp->last > eaddr)
- 		    tmp->last =3D eaddr;
-=20
-+		bo_va =3D tmp->bo_va;
- 		tmp->bo_va =3D NULL;
--		list_add(&tmp->list, &ctx->freed);
-+		amdgpu_vm_update_ctx_add_freed_mapping(ctx, bo_va, tmp);
- 		trace_amdgpu_vm_bo_unmap(NULL, tmp);
- 	}
-=20
-@@ -2241,9 +2279,10 @@ void amdgpu_vm_bo_del(struct amdgpu_vm_update_ctx *=
-ctx,
- 	list_for_each_entry_safe(mapping, next, &bo_va->valids, list) {
- 		list_del(&mapping->list);
- 		amdgpu_vm_it_remove(mapping, &vm->va);
-+
- 		mapping->bo_va =3D NULL;
- 		trace_amdgpu_vm_bo_unmap(bo_va, mapping);
--		list_add(&mapping->list, &ctx->freed);
-+		amdgpu_vm_update_ctx_add_freed_mapping(ctx, bo_va, mapping);
- 	}
- 	list_for_each_entry_safe(mapping, next, &bo_va->invalids, list) {
- 		list_del(&mapping->list);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_vm.h
-index 0bd3fa1100dd6..ae1a8e8f6433b 100644
-=2D-- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -293,6 +293,8 @@ struct amdgpu_vm_update_ctx {
- 	 * i.e. all previous submissions in the VM are waited on.
- 	 */
- 	bool unmap_synced;
-+
-+	bool explicit_sync_unmap;
- };
-=20
- /**
-@@ -660,6 +662,9 @@ int amdgpu_vm_pt_map_tables(struct amdgpu_device *adev=
-, struct amdgpu_vm *vm);
-=20
- bool amdgpu_vm_is_bo_always_valid(struct amdgpu_vm *vm, struct amdgpu_bo =
-*bo);
-=20
-+void amdgpu_vm_update_ctx_add_freed_mapping(
-+	struct amdgpu_vm_update_ctx *ctx, struct amdgpu_bo_va *bo_va,
-+	struct amdgpu_bo_va_mapping *mapping);
- int amdgpu_vm_update_ctx_ensure_unmap_synced(struct amdgpu_vm_update_ctx =
-*ctx);
-=20
- /**
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 9f3090db2f163..1f70a3ff0564a 100644
-=2D-- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -900,6 +900,8 @@ struct drm_amdgpu_gem_list_handles_entry {
- #define AMDGPU_VM_MTYPE_RW		(5 << 5)
- /* don't allocate MALL */
- #define AMDGPU_VM_PAGE_NOALLOC		(1 << 9)
-+/* Bypass implicit synchronization for VM updates*/
-+#define AMDGPU_VM_EXPLICIT_SYNC		(1 << 10)
-=20
- struct drm_amdgpu_gem_va {
- 	/** GEM object handle */
-
-=2D-=20
-2.54.0
-
+Thanks,
+Zhiping
