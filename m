@@ -4,41 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62D8ACD6E43
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 12:14:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3009CD6E51
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 12:21:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C34FF10FE06;
-	Fri, 29 May 2026 12:14:58 +0000 (UTC)
-X-Greylist: delayed 324 seconds by postgrey-1.36 at gabe;
- Fri, 29 May 2026 12:14:58 UTC
-Received: from exchange.fintech.ru (exchange.fintech.ru [195.54.195.159])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02EF410FE06;
- Fri, 29 May 2026 12:14:58 +0000 (UTC)
-Received: from Ex16-01.fintech.ru (10.0.10.18) by exchange.fintech.ru
- (195.54.195.159) with Microsoft SMTP Server (TLS) id 14.3.498.0; Fri, 29 May
- 2026 15:09:30 +0300
-Received: from localhost (10.0.253.153) by Ex16-01.fintech.ru (10.0.10.18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 29 May
- 2026 15:09:30 +0300
-From: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
-To: Jani Nikula <jani.nikula@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-CC: Nikita Zhandarovich <n.zhandarovich@fintech.ru>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <lvc-project@linuxtesting.org>
-Subject: [PATCH] drm/i915/edp: Check supported link rates DPCD read
-Date: Fri, 29 May 2026 15:09:18 +0300
-Message-ID: <20260529120921.1633346-1-n.zhandarovich@fintech.ru>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E31610FE45;
+	Fri, 29 May 2026 12:21:42 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="MKgyE5Ci";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="oHVgbi/z";
+	dkim-atps=neutral
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C47AA10FE43;
+ Fri, 29 May 2026 12:21:40 +0000 (UTC)
+Date: Fri, 29 May 2026 14:21:37 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1780057299;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Lk6J8Yay4yJw29ZMp1a44IgTYA3zIlsMamRU59bPHEk=;
+ b=MKgyE5Ci4fmUYnA5JOEnB4n4ljFf5Au4EUx66ry6llbuCwmprN1bF9bi91TPTzfqcPG/rh
+ UdAaxjYkl26wGci7upMeJXE4aQsyKimpRJKJgu10pRFDT9zDZe+u7U4jFReNbVB4dBmoG4
+ +ng4kxcR1YkcKmhaT0vcTbtHI5S4FWmujTC9+qlywDmoNIa2BUEv9NBG1Cl8k7nAhuvhCB
+ Rs15yPqHLzolELj25UgKJia8ckEm+ikv2vKE/CMgmAno0K3n3CLwIm7wE49P3BUYDRDKBz
+ IxwTtVBWHzfrNu2G0QG1sHHjqzoatLBVyxmMj4OqGbYxf0X7iJojHr7fdvEkeQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1780057299;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Lk6J8Yay4yJw29ZMp1a44IgTYA3zIlsMamRU59bPHEk=;
+ b=oHVgbi/zFlD1tQdiDiwM6YKnRLFgyzv6Lnl4DT2HVyxg5F/aj3ru4qKlT7az3qQRzXBfv/
+ K0fGA1qi1JoTY5AA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Maarten Lankhorst <dev@lankhorst.se>
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
+ clrkwllms@kernel.org, rostedt@goodmis.org, jerome.anand@intel.com,
+ pierre-louis.bossart@linux.dev, tiwai@suse.de,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, jianhao.xu@seu.edu.cn,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] drm/i915/audio: use generic_handle_irq_safe() for LPE
+ audio irq
+Message-ID: <20260529122137.VZtFvQvw@linutronix.de>
+References: <20260528154551.3708290-1-runyu.xiao@seu.edu.cn>
+ <20260529074816.k1K16jyy@linutronix.de>
+ <2023cf0e-85a8-4128-857d-cae806ff0e58@lankhorst.se>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.0.253.153]
-X-ClientProxiedBy: Ex16-02.fintech.ru (10.0.10.19) To Ex16-01.fintech.ru
- (10.0.10.18)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <2023cf0e-85a8-4128-857d-cae806ff0e58@lankhorst.se>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,51 +72,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-intel_edp_set_sink_rates() reads DP_SUPPORTED_LINK_RATES into a local
-stack array and then parses the array unconditionally. If the read
-fails or returns less data than requested, the array contents are not
-valid and may result in bogus sink link rates being used.
+On 2026-05-29 11:50:18 [+0200], Maarten Lankhorst wrote:
+> Hey,
+Hi,
 
-Check that the full DPCD block was read before parsing it. If not, fall
-back to the default sink rate handling.
+> It's been absolutely rock stable since the last time I submitted it.
+> I've been using it on my local machine, and the amount of times >100us
+> (evasion failed) with and without PREEMPT_RT are identical with
+> the vblank changes.
+> It still applies cleanly when rebasing.
+> 
+> The vblank patches are the most involved change, and they ensure that
+> absolutely no lock contention happens in the critical path with irqs off.
 
-Found by Linux Verification Center (linuxtesting.org) with static
-analysis tool SVACE.
+So that is the good part.
 
-Fixes: 68f357cb7347 ("drm/i915/dp: generate and cache sink rate array for all DP, not just eDP 1.4")
-Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+> Unfortunately the status is still same as the time I submitted it before it,
+> and pending reviews on the series.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 6ef2a0043cda..b6650a12ca54 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4678,10 +4678,16 @@ intel_edp_set_sink_rates(struct intel_dp *intel_dp)
- 
- 	if (intel_dp->edp_dpcd[0] >= DP_EDP_14) {
- 		__le16 sink_rates[DP_MAX_SUPPORTED_RATES];
-+		ssize_t ret;
- 		int i;
- 
--		drm_dp_dpcd_read(&intel_dp->aux, DP_SUPPORTED_LINK_RATES,
--				 sink_rates, sizeof(sink_rates));
-+		ret = drm_dp_dpcd_read(&intel_dp->aux, DP_SUPPORTED_LINK_RATES,
-+				       sink_rates, sizeof(sink_rates));
-+		if (ret != sizeof(sink_rates)) {
-+			drm_dbg_kms(display->drm,
-+				    "Unable to read eDP supported link rates, using default rates\n");
-+			goto use_default_rates;
-+		}
- 
- 		for (i = 0; i < ARRAY_SIZE(sink_rates); i++) {
- 			int rate;
-@@ -4715,6 +4721,7 @@ intel_edp_set_sink_rates(struct intel_dp *intel_dp)
- 	 * Use DP_LINK_RATE_SET if DP_SUPPORTED_LINK_RATES are available,
- 	 * default to DP_MAX_LINK_RATE and DP_LINK_BW_SET otherwise.
- 	 */
-+use_default_rates:
- 	if (intel_dp->num_sink_rates)
- 		intel_dp->use_rate_select = true;
- 	else
+my memory is that you have no work items and the auto-CI isn't worse
+than before. The series just waits for a review then?
+
+> Kind regards,
+> ~Maarten Lankhorst
+
+Sebastian
