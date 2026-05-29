@@ -4,90 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 021D4CD4F54
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 21:43:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B494BCD6E4A
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 21:44:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBA6311254E;
-	Fri, 29 May 2026 21:43:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F33AA112550;
+	Fri, 29 May 2026 21:44:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="QnCca13d";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4ubxVKhD";
 	dkim-atps=neutral
-Received: from mail-yw1-f228.google.com (mail-yw1-f228.google.com
- [209.85.128.228])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBBAA11254E
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 21:43:27 +0000 (UTC)
-Received: by mail-yw1-f228.google.com with SMTP id
- 00721157ae682-7dbe0943b21so39131417b3.1
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 14:43:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780091007; x=1780695807;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=5uSGjB/q0gove7h+gufGdt0oyfdl0dEAxYRGETBfQC4=;
- b=MllyxcXZwwyeUrA6Psimyhs//R0JdYu6RzsDKbXL0La+Ek+awZppLfKlycoSDMQQS4
- j4s6qE0i3Rw5F6L78ZLKGg9QtK2rz/I91NtBXuxPpzhgBXMMt2FwyvSshxpHw1EieznZ
- mF6bAsuxYI6G7PGNkeOUqmVDjWEJyTmkPpMNQK8q+Vv8J+hWyMp/qFnteY4/WMQbqVMW
- mKyfd7vSHKrjjoRqWAKRENr6lfevM9jy9CoE/xwp7SXZn7sQ0mssfm9fhx/EG72/3KuL
- N+e8Hf5GXCppoXPFg0L+fz1PHXTlgO46mrW92obrg/wp2P5Om3tHDN/Ema36STaxzDit
- mqtQ==
-X-Gm-Message-State: AOJu0YxLPIAtA5ea34U0eXOo/BQ8rK0UBffqFMmI0GbXyJMVG3iH8Je7
- hH2+U28KwWaNOgvg7MFlGknbFGe6LsaUOIW+NxK4lkABaRnTE5svpC/8RLanu1hjwWFzZrJH61u
- Vjss40wqeELS8culkSnSL6sAvyEsHs0bx0LLqoI+an2Yj6VQf8ddoflhO3+0qCNXcdxRq+xNPYj
- hIRm4Upj+94HCgUk+xuldW4CoplnuwBNt77m9y/0TJvlE089othVXlQWGEtdcDSGNOgLUh3a542
- 66mFfnumEOiFcmUgeyN
-X-Gm-Gg: Acq92OHXb9DFFpKLCPRNLK5hTtycXC6LeCylj17ooVmJsQiGZvLOoTpKOG37GzxkfC9
- rAmLW8CowT+BkiiEW4YD4TTJODhjfxdpFU7FY5IFdN+lbbJEkEFy+eiADRF9CVFVRzkHaHMwNas
- x3D2A5ft11SEm4BZfj0oMG1V9Mb13NrDfdFfl3OwipeXiH6BMisNrEpP6QcC7qFvI5cdMf6CiSl
- SEH4iy0u5/5iJxsCgCAXXX2u9ASc8XFZAJnWZwWERzP/3gu88TfZ+oOCOQtpgQD8wOOxWTtPDaq
- MGFjESJZs/CcE5lqorRCAuUWa8eGLRpInP5GdQUaaxXFXxG4/NFH4xHvYNKB0WrxWsCtWuGbzC7
- miJirbe4nc6t9Uzvjp4zqUaAV6nRz6s87XWt1y5uSDnsDjbnIBBX3mtDJ2lVOmzdDPWtuouXigJ
- UBG0JF68NQBLynzBdV8WQ9BR+R+nE5qqB+TyoU7L3q7Ay9uai64WRzxhoBTdV1lEctHI4=
-X-Received: by 2002:a05:690c:c505:b0:7b6:7df9:33f6 with SMTP id
- 00721157ae682-7de207fd69amr39761627b3.2.1780091006333; 
- Fri, 29 May 2026 14:43:26 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-102.dlp.protect.broadcom.com. [144.49.247.102])
- by smtp-relay.gmail.com with ESMTPS id
- 00721157ae682-7de68605f4asm1736177b3.11.2026.05.29.14.43.25
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 29 May 2026 14:43:26 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-lj1-f200.google.com with SMTP id
- 38308e7fff4ca-393adad635dso82937531fa.3
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 14:43:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1780091004; x=1780695804;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=5uSGjB/q0gove7h+gufGdt0oyfdl0dEAxYRGETBfQC4=;
- b=QnCca13dql6oTTwPibHqOMAJ4hvj7YoV1Omr2xXKtXDrvzxTIvzNqJa8gYREYXKWF0
- m/ydIBkV6HofzQRvL/v03GMLfrLZfSTx1hFQQwx5Blf5IKvIuOAhzzsQt9pPM/1HemCA
- cebCz+lwuay0i2QRLY1dxM+SKxx/aedUBjZ8k=
-X-Received: by 2002:a05:6512:3d13:b0:5a8:6d58:b29 with SMTP id
- 2adb3069b0e04-5aa608ec4f0mr574621e87.22.1780091004595; 
- Fri, 29 May 2026 14:43:24 -0700 (PDT)
-X-Received: by 2002:a05:6512:3d13:b0:5a8:6d58:b29 with SMTP id
- 2adb3069b0e04-5aa608ec4f0mr574619e87.22.1780091004121; Fri, 29 May 2026
- 14:43:24 -0700 (PDT)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010037.outbound.protection.outlook.com [52.101.56.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 660F711254F;
+ Fri, 29 May 2026 21:44:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TeLzx1uttS7yqAscHjBTh8u0uUoQwdvMC374jpVXJlZNPRO7DDpcS6eeZv/lz00MhjIYHyXugksG+judgyNbYu5gUz/j2spwmpbKMolVqmjgBhK+JuFlBEw6c/u3voZV8RfpxYrOhB1Jeirw0XM3eDnYfQgK0A3CbrqY7I1LisVGY1kxT2cjuCtjC2KJ4eNwKFnt+45xnRm9bIESjlGYrIqIp4QGLnvLSJbVGhgKwk+MkYSKVdB4QUryGQtIaWJrynstmZOFeUxsU1Qn/mqK5NWwy0EfoVz7gBLI4c8SZIc0gd86re0kaExU9bIUD8y6xPX0/kzGWjPy2fsXCeMklw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZyhDjEi91hCzhLxseBPDKsJVcPMybmVf1F3pf4K+g0M=;
+ b=tuJXv4o0pIbB7KnuR/0J4W2FQWbMvFKLtQJ7A95DizQ6lIsYSJ9mi2q5RRHe+2EmYK4qiSM05oCWvWWyRgoxnor4XDroCkn3uku+p5g84KkFsK1ewHkMspQZr6E30aAt5ZI0LVJzwx7f5tR21hW0JwZu06otPWB8UJe2MZ92Qg0sxovncL5/+XElAjQgL6Ic/mB0qsrPkAob4TUCWJD81VCzhT6rKJXfxX116Zb07LW9yvMkBndCqqOJGlMNVv7ABpj9vtUfjf79UujsA2kGOfhcOQrHac7TEowfuk8es8VssaouwcYHB7fWJcl20s//PJ1DXXk790+vJBkGJKOJPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZyhDjEi91hCzhLxseBPDKsJVcPMybmVf1F3pf4K+g0M=;
+ b=4ubxVKhDyZiaYbMsix/IGZLi4FwibqP9ra6supPUnI2wAfEGdPofGBFs9dzWTOROR9sSxVgf1/aVfqSrSOCs8bYg32YKQrd446G6z/xVmXdAJMWsvvHY2c1qzc4t6e4RYp9ikY88Q5SU/+Kepb05rREzCa62IeAuosU4cWomT/w=
+Received: from CY8PR12CA0008.namprd12.prod.outlook.com (2603:10b6:930:4e::12)
+ by DS7PR12MB6118.namprd12.prod.outlook.com (2603:10b6:8:9a::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.71.14; Fri, 29 May 2026 21:43:53 +0000
+Received: from CY4PEPF0000FCC2.namprd03.prod.outlook.com
+ (2603:10b6:930:4e:cafe::8d) by CY8PR12CA0008.outlook.office365.com
+ (2603:10b6:930:4e::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Fri, 29
+ May 2026 21:43:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000FCC2.mail.protection.outlook.com (10.167.242.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 21:43:53 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 29 May
+ 2026 16:43:52 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 29 May
+ 2026 14:43:52 -0700
+Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Fri, 29 May 2026 16:43:51 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd, radeon drm-next-7.2
+Date: Fri, 29 May 2026 17:43:45 -0400
+Message-ID: <20260529214346.2328355-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-References: <20260521223756.627311-1-maaz.mombasawala@broadcom.com>
- <20260521223756.627311-3-maaz.mombasawala@broadcom.com>
-In-Reply-To: <20260521223756.627311-3-maaz.mombasawala@broadcom.com>
-From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Fri, 29 May 2026 17:43:11 -0400
-X-Gm-Features: AVHnY4IImsBLqd4vyCS-NhmUnqPT67qp4VPuZozRJ8ODEFCiDugCZw6iWXyqVls
-Message-ID: <CABQX2QMmSML+dYE4iL167cJfH7buH=aCubd1X6pGW0TrEaGSYw@mail.gmail.com>
-Subject: Re: [PATCH v4 2/4] drm/vmwgfx: Check vrefresh in drm_mode_setcrtc.
-To: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-Cc: dri-devel@lists.freedesktop.org, bcm-kernel-feedback-list@broadcom.com, 
- ian.forbes@broadcom.com
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="0000000000000398bb0652fbbcbf"
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC2:EE_|DS7PR12MB6118:EE_
+X-MS-Office365-Filtering-Correlation-Id: 50a30add-bb2c-4f4e-30bc-08debdcb60d8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|82310400026|36860700016|3023799007|56012099006|6133799003|11063799006|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info: bohPeCy/E3l+5/v3AnZKqU8MFH+7+jRICw/W1sDZzvNX7AgezE7rSOnr7NdyMXhtfL5RSQZWWsp8GR6adsftLNJqQ/DfJkK9I5QemDZ0N7l9M7TreNMqEm9klrnxNbfBhOfimTCRJ+F8uD5gN2wsUBDxmKOsVIepticxpf9OcaxYBsVQNzskSiFRfyVJJlbKmCFWzw488EazOwQnSfevlWEsNpTi4R6tPBdFafAozg2EksmQwzkzAVR3mSo33rOAyhfGt9UYtAiAVXl3a+YJQCA7fXwplNI+1mDFile2YT3VAUt6HQwOIwv5sVDdBazn6/oKcY37c+TuH8E5yaFdo1ez+PPAq5QMBl6c/R0Kw8dvcvUZfqPFynS23zv1lgGy4zGHBjZUx2FUDgBg0LFZJ14ocz4QnR3Z2ikE0u6TbvG+OIg1b8Y/mBQlJQAkFcP0ezV7VIPQlb+sk9Rohab9/kIzB9pp4i0xnRQlrxUhP1gL+8M82xEU3bqD5tzczoHd3/gwwG7i7LIqW1li71SyP9+d2RcpIAM3yNiyxndX1L1yo3+kGaTBv9sVzfwOU0yIA86kifq9XhZ/9Bg+XNM1qg54RvXWYTxk47fQAHLKY7um9uYHS8rk4Dzj052S8Na41kp/g0XSVvrYjOqwmNu4IZsfuFrq4mmoQrm7BPS00Z+0hK191ot+orCWRbk7oL3p
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(3023799007)(56012099006)(6133799003)(11063799006)(18002099003)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: oCraLmdxsLHxSAA0yYqAvLpkyyW1M1or3hfouTA7j+kH6x3l+uzw+dnLVzIrVjudfCskjXerRBpjeEnNeNSnKXgNVZvv4+iko05arHLwb8fTSHxE5krAh1G87An2dz4E7izJsUMwM1CwIuVBd/SkpzgolcycC3FpeC4WI9athOeod23YFk+c+wbWcHGzutFhZkWN9bvcOYNDm2y594YdK+dRo20LUeNoCyQr+sZnbDxljvV+hnuEC/t/aQHKSpjBjht+27oiF59adaJeDnhZByHTJdoDcRex5OBDQ42ujV6mXOmqDGoE08mvFDIe/2VuhV/DwaSsCjJfYmeEq0WSChwe4FSEDYv9qlxGrJ2R0TlDfZVfPebinn2MsqhWdWlYV8wYNcQLAuDje2PYlBE5DSiqnx2YFoStrRn92L9InT9g5RCWuY4ZeJ+Gim1gz4ro
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 21:43:53.3110 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50a30add-bb2c-4f4e-30bc-08debdcb60d8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCC2.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6118
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,153 +113,228 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---0000000000000398bb0652fbbcbf
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi Dave, Simona,
 
-On Thu, May 21, 2026 at 6:35=E2=80=AFPM Maaz Mombasawala
-<maaz.mombasawala@broadcom.com> wrote:
->
-> Add the mode_valid() callback in drm_mode_config_funcs to check for valid
-> mode during drm_mode_setcrtc.
-> Both the mode_valid() callbacks also check if the vrefresh value is
-> correct.
-> This fixes igt test kms_invalid_mode@overflow-vrefresh.
->
-> Signed-off-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-> ---
->  drivers/gpu/drm/vmwgfx/vmwgfx_kms.c  | 28 ++++++++++++++++++++++++++++
->  drivers/gpu/drm/vmwgfx/vmwgfx_kms.h  |  9 +++++++++
->  drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c | 12 +++---------
->  3 files changed, 40 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c b/drivers/gpu/drm/vmwgfx=
-/vmwgfx_kms.c
-> index 1b407b61f683..4db29b645a38 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-> @@ -1063,8 +1063,36 @@ vmw_kms_atomic_check_modeset(struct drm_device *de=
-v,
->         return ret;
->  }
->
-> +static enum drm_mode_status
-> +vmw_kms_config_mode_valid(struct drm_device *dev,
-> +                         const struct drm_display_mode *mode)
-> +{
-> +       enum drm_mode_status ret;
-> +       struct vmw_private *dev_priv =3D vmw_priv(dev);
-> +       u64 assumed_cpp =3D dev_priv->assume_16bpp ? 2 : 4;
-> +       /* Align width and height to account for GPU tile over-alignment =
-*/
-> +       u64 required_mem =3D ALIGN(mode->hdisplay, GPU_TILE_SIZE) *
-> +                          ALIGN(mode->vdisplay, GPU_TILE_SIZE) *
-> +                          assumed_cpp;
+More stuff for 7.2.
 
-Could you move this below drm_mode_validate_size and ensure one of the
-ALIGN's is casted to u64, just to prevent future wrapping around u32?
+The following changes since commit 4cdbba5a16aaf16513b69cc332b1d6f971a44b52:
 
-z
+  drm/amdgpu: restructure VM state machine v4 (2026-05-19 11:54:32 -0400)
 
---0000000000000398bb0652fbbcbf
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+are available in the Git repository at:
 
-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
-6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
-SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
-uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
-Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
-b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
-dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
-BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
-Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
-oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
-A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
-s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
-SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
-QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
-fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
-iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
-3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
-91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
-06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
-b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
-VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIPI8
-3YtWc9dBL4I2kUYIV3vZlijMuSK6NuEkAzlTRmB0MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MDUyOTIxNDMyNFowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAKyUB3H6rjh8Z6p7Vz85gTywStiQHdtjxpjmB+kf
-wJDMal153OOsbpAbpKo8rAkMHdjGtY8SjVNhAt1o/Ne9oxlaT0231rFQ0SnhnkVDKkqqNjvaCZ3x
-LHkjj/enFNZD7pS4zf8v4XifcKIqRz6W9GahjV0jOCbFP/eVsy91foYAY/WgnRrXRH/9zGehDTBA
-uFBc9v4jnk2Aavi4xhOluOsAtf817QC0aoigYif00NbI4Xjkp57FLtzXEdCpXths0bsmOXOZn511
-hP7/hSPWgEDuQY2MkEoiMDZNLIn9uoruS1751Xbodx1TOGX5MrETF7If9HTgQJUPyBIkmQPB/E4=
---0000000000000398bb0652fbbcbf--
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-7.2-2026-05-29
+
+for you to fetch changes up to 470d1ae31d29f90b8998c5c08ee0b267a05fe378:
+
+  drm/amd/display: Add a default case for dc_status_to_str (2026-05-28 16:21:42 -0400)
+
+----------------------------------------------------------------
+amd-drm-next-7.2-2026-05-29:
+
+amdgpu:
+- GEM_OP warning fix
+- GEM_OP locking fix
+- Userq fixes
+- DCN 2.1 refclk fix
+- SI fixes
+- HMM fixes
+- Add DC KUNIT tests
+- UML fixes
+- Switch to system_dfl_wq
+- Old DC power state cleanup
+- RAS fixes
+
+amdkfd:
+- svm_range_set_attr locking fix
+- CRIU restore fix
+- KFD debugger fix
+
+radeon:
+- Use struct drm_edid instead of struct edid
+
+----------------------------------------------------------------
+Alex Hung (7):
+      drm/amd/display: Add KUnit test for HDCP process_output
+      drm/amd/display: Add KUnit test for colorop TF bitmasks
+      drm/amd/display: Add KUnit test for color helpers
+      drm/amd/display: Add KUnit test for PSR function
+      drm/amd/display: Add KUnit test for replay
+      drm/amd/display: Add KUnit test for ISM functions
+      drm/amdkfd: Fix UML build guards for x86_64-only code
+
+Aurabindo Pillai (1):
+      drm/amd/display: Add KUnit test for CRC function
+
+Chenglei Xie (2):
+      drm/amdgpu: bound SR-IOV RAS CPER dump parsing against used_size
+      drm/amdgpu: Fix TOCTOU on UniRAS  command response size
+
+Christian König (3):
+      drm/amdgpu: fix amdgpu_hmm_range_get_pages
+      drm/amdgpu: fix calling VM invalidation in amdgpu_hmm_invalidate_gfx
+      drm/amdgpu: fix amdgpu_vm_bo_reset_state_machine
+
+David Francis (1):
+      drm/amdkfd: Check for pdd drm file first in CRIU restore path
+
+Eric Huang (2):
+      drm/amdkfd: fix NULL pointer bug in svm_range_set_attr
+      drm/amdkfd: fix a vulnerability of integer overflow in kfd debugger
+
+Ivan Lipski (3):
+      drm/amd/display: Write REFCLK to 48MHz on DCN21
+      drm/amd/display: Initialize dsc_caps to 0
+      drm/amd/display: Add a default case for dc_status_to_str
+
+Jeremy Klarenbeek (2):
+      drm/amd/pm/si: Fix updating clock limits from power states
+      drm/amd/pm/si: Notify the SMC when switching to AC
+
+Joshua Peisach (2):
+      drm/radeon/radeon_connectors: use struct drm_edid instead of struct edid
+      drm/radeon/radeon_connectors: remove radeon_connector_free_edid
+
+Marco Crivellari (2):
+      drm/amd/display: Replace use of system_unbound_wq with system_dfl_wq
+      drm/amdgpu: Replace use of system_unbound_wq with system_dfl_wq
+
+Mario Limonciello (1):
+      drm/amd: Add dedicated helper for amdgpu_device_find_parent()
+
+Michael Bommarito (1):
+      drm/amdgpu: fix lock leak on ENOMEM in AMDGPU_GEM_OP_GET_MAPPING_INFO
+
+Ray Wu (1):
+      drm/amd/display: Fix amdgpu_dm KUnit allmodconfig build
+
+Stanley.Yang (3):
+      drm/amdgpu: fix potential overflow in fs_info.debugfs_name
+      drm/amdgpu: init locals in umc_v12_0_convert_error_address
+      drm/amd/ras: cap pending_ecc_list size
+
+Sunil Khatri (9):
+      drm/amdgpu/userq: Fix doorbell object cleanup of queue
+      drm/amdgpu/userq: Fix the mutex_init cleanup for fence_drv_lock
+      drm/amdgpu: simplify return value in amdgpu_userq_get_doorbell_index
+      drm/amdgpu/userq: add amdgpu_bo_unpin when amdgpu_ttm_alloc_gart fails
+      drm/amdgpu/userq: reserve root bo without interruption
+      drm/amdgpu/userq: make sure queue is valid in the hang_detect_work
+      drm/amdgpu/userq: remove amdgpu_userq_create/destroy_object wrapper
+      drm/amdgpu/userq: move mqd_destroy to later stage to keep core obj valid
+      drm/amdgpu/userq: use array instead of list for userq_vas
+
+Timur Kristóf (17):
+      drm/amd/display: Delete unimplemented dm_pp_apply_power_level_change_request() (v2)
+      drm/amd/display: Delete dce_get_required_clocks_state()
+      drm/amd/display: Remove min/max clock levels from clk_mgr (v2)
+      drm/amd/display: Delete max_clocks_state
+      drm/amd/display: Set max supported display clock without max_clks_by_state (v2)
+      drm/amd/display: Delete max_clks_by_state from DCE clock manager (v2)
+      drm/amd/display: Delete disp_clk_voltage from integrated info (v2)
+      drm/amd/display: Delete dm_pp_clocks_state
+      drm/amd/pm: Delete unused get_display_power_level() function
+      drm/amd/pm: Delete dummy get_dal_power_level implementations
+      drm/amd/pm: Delete non-functional SMU8 get_dal_power_level implementation
+      drm/amd/pm: Delete vddc_dep_on_dal_pwrl
+      drm/amd/pm: Delete get_dal_power_level
+      drm/amd/pm: Delete PP_DAL_POWERLEVEL
+      drm/amd/pm/si: Disregard vblank time when no displays are connected
+      drm/amd/pm: Rename enable_bapm() to notify_ac_dc()
+      drm/amd/pm/smu7: Notify SMU7 of DC->AC switch
+
+Ziyi Guo (1):
+      drm/amdgpu: check num_entries in GEM_OP GET_MAPPING_INFO
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c   |    2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   44 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c            |   11 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c            |   17 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |    3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |  207 +---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h          |   31 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c           |   20 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |   24 +-
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c         |   47 +-
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.c             |    3 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |   10 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c              |    6 +-
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |    8 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |    3 +
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c          |    2 +-
+ drivers/gpu/drm/amd/display/Kconfig                |   12 +
+ drivers/gpu/drm/amd/display/amdgpu_dm/Makefile     |    5 +
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |    2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |    2 -
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c    |   65 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.h    |   89 ++
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c  |    4 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c  |   17 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h  |   10 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c |    5 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h |   13 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c  |   26 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h  |   10 +
+ .../display/amdgpu_dm/amdgpu_dm_kunit_helpers.h    |   19 +
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c   |   55 -
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c  |    6 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h  |    5 +
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |    3 +
+ .../drm/amd/display/amdgpu_dm/tests/.kunitconfig   |   14 +
+ .../gpu/drm/amd/display/amdgpu_dm/tests/Makefile   |   18 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_color_test.c | 1071 ++++++++++++++++++++
+ .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c       |  161 +++
+ .../display/amdgpu_dm/tests/amdgpu_dm_crc_test.c   |  121 +++
+ .../display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c  |  175 ++++
+ .../display/amdgpu_dm/tests/amdgpu_dm_ism_test.c   |  636 ++++++++++++
+ .../display/amdgpu_dm/tests/amdgpu_dm_psr_test.c   |  255 +++++
+ .../amdgpu_dm/tests/amdgpu_dm_replay_test.c        |  206 ++++
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser.c  |   36 -
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c |   18 -
+ .../amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c    |  144 +--
+ .../amd/display/dc/clk_mgr/dce100/dce_clk_mgr.h    |    3 -
+ .../amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c |   25 -
+ .../amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c |   41 -
+ .../amd/display/dc/clk_mgr/dce120/dce120_clk_mgr.c |   16 -
+ drivers/gpu/drm/amd/display/dc/core/dc_debug.c     |    4 +-
+ .../gpu/drm/amd/display/dc/dccg/dcn21/dcn21_dccg.c |   15 +-
+ drivers/gpu/drm/amd/display/dc/dm_services.h       |    8 -
+ drivers/gpu/drm/amd/display/dc/dm_services_types.h |   30 -
+ .../drm/amd/display/dc/inc/hw/clk_mgr_internal.h   |   10 -
+ .../amd/display/include/grph_object_ctrl_defs.h    |    9 -
+ drivers/gpu/drm/amd/include/dm_pp_interface.h      |   19 -
+ drivers/gpu/drm/amd/include/kgd_pp_interface.h     |    4 +-
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c                |    8 +-
+ drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c         |    6 +-
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c         |   50 +-
+ drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c   |   34 +-
+ .../drm/amd/pm/powerplay/hwmgr/hardwaremanager.c   |   10 -
+ .../drm/amd/pm/powerplay/hwmgr/processpptables.c   |    1 -
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c   |   47 -
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    |   15 +
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c    |   63 --
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c  |   18 -
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c  |   16 -
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c  |   17 -
+ .../gpu/drm/amd/pm/powerplay/inc/hardwaremanager.h |    3 -
+ drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h       |    5 +-
+ .../gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c  |   16 +-
+ drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h          |    9 +
+ drivers/gpu/drm/amd/ras/rascore/ras_umc.c          |   35 +
+ drivers/gpu/drm/amd/ras/rascore/ras_umc.h          |   12 +
+ drivers/gpu/drm/radeon/radeon_audio.c              |    4 +-
+ drivers/gpu/drm/radeon/radeon_combios.c            |    4 +-
+ drivers/gpu/drm/radeon/radeon_connectors.c         |   60 +-
+ drivers/gpu/drm/radeon/radeon_mode.h               |    4 +-
+ 80 files changed, 3307 insertions(+), 955 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.h
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_kunit_helpers.h
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/.kunitconfig
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_color_test.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_ism_test.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_replay_test.c
