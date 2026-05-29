@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82879CD6E4A
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 12:12:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0D0DCD6E4A
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 12:13:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB3E010FE23;
-	Fri, 29 May 2026 12:12:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10B9910FE27;
+	Fri, 29 May 2026 12:13:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OauzyPAz";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CXgRakhZ";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C466D10FE23
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 12:12:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9D2410FE27
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 12:13:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780056773; x=1811592773;
+ t=1780056785; x=1811592785;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=JE8LA9juPD4juxz/MBf5J8J9Ac/f41r/b9qVSaNW1ow=;
- b=OauzyPAzO5AHpSEodgDyFwkKsW86sODmAP+rK0Ai7w3K4ZE+OJY8bXYD
- HYMycK6Q3Rn+7B/9Q5DdDB4tWDauWf/iKu0vJqDoaAsPb/W4e59mvAD5Y
- C1wHX3m2e3+CUp9C42bmusi7bpc9THLIomBhDixNTkhbvu+4CWCET+0wV
- nDkyGUYrZU+woAT2sYTISgmYK52JCk87gKqe2ZCP1ZAl5ASs2URwFGThl
- 0ECVQVuwzU0mvHY2244ehl8m2gY069wAb9GF+PVRnz5RYVxAW4JmIHgub
- UNCs6RSsKK036pu8yY4shfL5MF55+nuQBk6ryuNMUscmCTtaz1RKB5Eyg w==;
-X-CSE-ConnectionGUID: KQfwuSYMRcmO67yx9VvBVg==
-X-CSE-MsgGUID: TFMY2n6eT+eJ9JXHYBpQfQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11800"; a="91216945"
-X-IronPort-AV: E=Sophos;i="6.24,175,1774335600"; d="scan'208";a="91216945"
+ bh=4A/c8Oy9znqnw/CbgfQDRXvRioPD8P0qyZunjaa9+VQ=;
+ b=CXgRakhZYAMGeLMkaCMjNouCjboMkhXIUcD/jNGoBk72YeXMArfu4RFO
+ fEz69Q26CiBm3PUczG3oJe9vzsQFb5hiMDg8iBqM8ijuVgDbvQSwRNVU+
+ uDmdP8N4M4Qji7Ot+ntaNLazkDPjR0SdS15TCc5epAnJFnxejNTsYsaS2
+ AEbF6rtBXDROFFVEu/yuX7EO1m/CWZB6KI22VOnPMXvZZs7Ua4jAuYYpl
+ kRGD7Z2gWgUxJM5ljraRMQ4x0H5PnF0dTQLEHwiMtHQEtV65kNyHLjrTL
+ WsNIu5SdNmmUxXGzIhaRqrnGXRPBW/OV/TO8n6p8awcewxGlEVaPfuBcd g==;
+X-CSE-ConnectionGUID: qVaWVj3ySXGKPCxCgB6nfg==
+X-CSE-MsgGUID: 35kWVe7vQs++80d8WxUwhA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11800"; a="91216969"
+X-IronPort-AV: E=Sophos;i="6.24,175,1774335600"; d="scan'208";a="91216969"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2026 05:12:53 -0700
-X-CSE-ConnectionGUID: GONU+tfLSqyGrcb+KMdNIg==
-X-CSE-MsgGUID: YbkXHhWWTuaGq6BkQqDhRQ==
+ 29 May 2026 05:13:05 -0700
+X-CSE-ConnectionGUID: WrXtacOESniLFFbzwLkLvA==
+X-CSE-MsgGUID: 85olzGkhQlao+snk3CeScA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,175,1774335600"; d="scan'208";a="238643348"
+X-IronPort-AV: E=Sophos;i="6.24,175,1774335600"; d="scan'208";a="238643413"
 Received: from akacprow-dev3.igk.intel.com ([10.91.220.47])
  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2026 05:12:51 -0700
+ 29 May 2026 05:13:03 -0700
 From: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
 Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
  karol.wachowski@linux.intel.com, dawid.osuchowski@linux.intel.com,
  Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
  stable@vger.kernel.org
-Subject: [PATCH] accel/ivpu: Add buffer overflow check in MS get_info_ioctl
-Date: Fri, 29 May 2026 14:08:41 +0200
-Message-ID: <20260529120841.135852-1-andrzej.kacprowski@linux.intel.com>
+Subject: [PATCH] accel/ivpu: Add bounds check for firmware runtime memory
+Date: Fri, 29 May 2026 14:08:53 +0200
+Message-ID: <20260529120853.135876-1-andrzej.kacprowski@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -68,37 +68,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add validation that the info size returned from the metric stream info
-query is not exceeded when checked against the allocated buffer size.
-If the firmware returns a size larger than the buffer, reject the
-operation with -EOVERFLOW instead of proceeding with an incorrect
-buffer copy.
+Validate that the firmware runtime memory specified in the image
+header is properly aligned and sized to hold the firmware image.
+This prevents errors during memory allocation and image transfer.
 
-Fixes: cdfad4db7756 ("accel/ivpu: Add NPU profiling support")
-Cc: <stable@vger.kernel.org> # v6.18+
+Fixes: 2007e210b6a1 ("accel/ivpu: Split FW runtime and global memory buffers")
+Cc: <stable@vger.kernel.org> # v7.0+
 Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
 ---
- drivers/accel/ivpu/ivpu_ms.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/accel/ivpu/ivpu_fw.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/drivers/accel/ivpu/ivpu_ms.c b/drivers/accel/ivpu/ivpu_ms.c
-index be43851f5f32..cd176e77b9a0 100644
---- a/drivers/accel/ivpu/ivpu_ms.c
-+++ b/drivers/accel/ivpu/ivpu_ms.c
-@@ -291,6 +291,13 @@ int ivpu_ms_get_info_ioctl(struct drm_device *dev, void *data, struct drm_file *
- 	if (ret)
- 		goto unlock;
+diff --git a/drivers/accel/ivpu/ivpu_fw.c b/drivers/accel/ivpu/ivpu_fw.c
+index 107f8ad31050..33c50779c06b 100644
+--- a/drivers/accel/ivpu/ivpu_fw.c
++++ b/drivers/accel/ivpu/ivpu_fw.c
+@@ -259,6 +259,22 @@ static int ivpu_fw_parse(struct ivpu_device *vdev)
+ 		return -EINVAL;
+ 	}
  
-+	if (info_size > ivpu_bo_size(bo)) {
-+		ivpu_warn_ratelimited(vdev, "MS info overflow: %#llx > %#zx\n",
-+				      info_size, ivpu_bo_size(bo));
-+		ret = -EOVERFLOW;
-+		goto unlock;
++	if (!PAGE_ALIGNED(runtime_addr)) {
++		ivpu_err(vdev, "Runtime address 0x%llx not page aligned\n", runtime_addr);
++		return -EINVAL;
 +	}
 +
- 	if (args->buffer_size < info_size) {
- 		ret = -ENOSPC;
- 		goto unlock;
++	if (!PAGE_ALIGNED(runtime_size)) {
++		ivpu_err(vdev, "Runtime size %llu not page aligned\n", runtime_size);
++		return -EINVAL;
++	}
++
++	if (runtime_size < image_size) {
++		ivpu_err(vdev, "Runtime size too small: %llu, image size: %llu\n",
++			 runtime_size, image_size);
++		return -EINVAL;
++	}
++
+ 	if (!ivpu_is_within_range(image_load_addr, image_size, &vdev->hw->ranges.runtime)) {
+ 		ivpu_err(vdev, "Invalid firmware load address: 0x%llx and size %llu\n",
+ 			 image_load_addr, image_size);
 -- 
 2.43.0
 
