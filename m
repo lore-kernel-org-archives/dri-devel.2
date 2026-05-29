@@ -4,104 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FEE0CD5BD2
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 10:08:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2987CD6E43
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 10:16:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06F4810FC67;
-	Fri, 29 May 2026 10:08:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3667B10FC83;
+	Fri, 29 May 2026 10:16:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="S5XP5flk";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="jGAEkQ7A";
 	dkim-atps=neutral
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
- [74.125.82.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2F1E10FC67
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 10:08:02 +0000 (UTC)
-Received: by mail-dy1-f170.google.com with SMTP id
- 5a478bee46e88-304d8e3bb72so140201eec.1
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 03:08:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780049282; cv=none;
- d=google.com; s=arc-20240605;
- b=W/Go/bC56LLBZGmZgXA7WQAUoG/vAXRMc6+pcwUMusQoJ4VQlrC4t2Z0Tsh0UT05s6
- 4AjJyzqF7WMioSqbh9BwDkDS/G7hThQorP5/Xy2h6D8u9YFjXv/6iW0ap4fDQ0qZw5Xq
- IlD+cQDExVUFjd9HlznitvvkmzU96GwG7zoS348XD2hkZI4VjVdue6SUXWIi2l+qYOWO
- Wv6FCc97bI2x6c5/DusMq08FUUSg33kQfrXs354fCrCXZqRtEoUqYHOV/v470pTy+g0b
- YIcX30YqxOhLvF02tNnX3a52N8zmdLMmrcYnFWqiSx6GsZEzotBAGqJ9SA1Tfse9o9/V
- I8ng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=kFYmm3B1m2K2OFAsTX7e06En+33NHgtZEIHcXjaWAp4=;
- fh=4GL2ohCW+KSv9UY7Sc6TG9KU+D0l18ubVMlwT5Fm+54=;
- b=EPda+v/FMDt21Xjz4t++JMTkYp9OdOsm5CZCXYqVLiQHNwtC62gtouG/vrn56fct8I
- eWbw8gUuu40c9B4pByB1KIEOiAsdMmu3An96z47V1tfj8/FshFoROMI1uRj/jxFied0h
- S6nTfH9KucVzbsCx62IPguzOJvA7Ts+JdDmzunHAYPxSykqg736XmVNzBVn8GFfzGiLv
- B0QkBARk1FE3CIj7HyV/MEwLbchaNTVmXW18fY/Te3DSRtng4uBpKar9E3CV0uvvr0k8
- pvoGjkQ7pU+Da5SzjK+BNwCvPYHoGedoa07NHSw2sbDSUDjrap+jWFTJEdw9vKwcTWmj
- h8rg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A864710FC83
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 10:16:11 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4906869f0cbso60295115e9.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 03:16:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780049282; x=1780654082; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=kFYmm3B1m2K2OFAsTX7e06En+33NHgtZEIHcXjaWAp4=;
- b=S5XP5flk5EMCr7UbPEe4llbqdB/d9TNHX4T+CkbYZlA1I8g3gpw6IQf/RQnulcvp4j
- ZRJSH5AwkJ64Ha3O1Dob9fUy878HGaA2/YQBNYDWDVW/w9cWerQnW54qwebPfH1Z4Igs
- mv0mF9is5UVSi8SgP3pn/QjByMaLL3WLN866XabMTR9KAGiYZYD26lftOljBumG1tkI/
- l/kwcpHN602yjxKcTJAFp7inAzJrhZMTrLdQ2diTAuTlCD5qcl2rMiGgfARJ7nKJX9iL
- 7izKHtwxm5f0EJS1ILan9yhRh2qBZ2fknZ8dzGuyzlZgkGxJ12cZpxiXA4O/Sv3UijuQ
- lsrw==
+ d=linaro.org; s=google; t=1780049770; x=1780654570; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=zY32vo4wGSfZ5uOAVtxfFcwmsUjSGjI2ELbc4pDk6qU=;
+ b=jGAEkQ7ABiSbKhkt/1A67QrI3HMbEfYaRa25pf48hzSEFcsFFg1FEUosNYOPjNEBQ9
+ JaPKKSyFglpFk1/FwCy+nTJLdKlHPr9Ex7gtP/B5a8dolGELT64KnPRnHxDpNqKdwEzi
+ Ar5f/vTrQBjJJnnRMXxpHARynaA4cQPpD6ulmMqV1jNiO5XfTN39tlxv2XLSByRkEfmf
+ 4Xz1YsDicT/jiY1l8fO/Gea5w4t33ShLed/c2hxYEF148fqtDL4LA2kBEA/8knDmk8Op
+ 285O2KpWCoAOt9GXtGz4QzevcGJz0RTlyc6b+jkTQhX0oCO7DK5d2l//vxCcm7BY8HCM
+ evOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780049282; x=1780654082;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=kFYmm3B1m2K2OFAsTX7e06En+33NHgtZEIHcXjaWAp4=;
- b=LuIKWLiM5LnLaPV3PeyJFEAP1XVpZ1OVOt8mbmjLxvUYL7MppvmhUaB3uhKV3/XMbr
- vVl65hOjlg+vquhXlhzNZ8S3V77sO9eqF3XiGKtDh14RNE/CP7Kvx+vtDO+1/n4svq2U
- OBzSxMsSeuLQkkSA26erX3BjswZ3OnRDlOwn1UEvmeEEhSx9maSYj0Hl7vkX/zUbD5SO
- Pk4CiE+6GKJAjirAXcLk0hsi69hCkhjDBwg8IKIJIFVcgoGjQEnJt/sV7EaJUOy9HZZ6
- VvB2XqsAOmx4yM0gqWAsGStFN8FN0TB3PqoT2hC68SdTeCbUTDnU9qo6Do4WLzY0pWfo
- +jHQ==
+ d=1e100.net; s=20251104; t=1780049770; x=1780654570;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=zY32vo4wGSfZ5uOAVtxfFcwmsUjSGjI2ELbc4pDk6qU=;
+ b=T/thdAW6QW0zDFNvbn0LOs0QfQ0VNq8gqAKtEoEPudg4uZjEkM6k5w2Vro47uEhKVZ
+ FogGzfRwWt7gU1UOpN325SXdwhsVrdByARd0TVebaKbb+Ekxabry0xts8AqXtBBlbO6n
+ V94gYSQFKdSWmiriBnKHPo0btMA2K0BraXbt3bh7cyoZMHhZhsLUt/YoFSe/DQ+uPJnh
+ Iz1scYVbVQ624Tz878NZFndPdmYAOsuxtWGivt2RRx1HOBqrpiN0eEWFnj0cgcq9WjQW
+ amPD3JjUmK/ylTi4SCvfOtUAzkRZAy5+eYUfpCB0OKj1bUBNU13dTucYKW76UeReNkY4
+ d+PA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8sdk/x1iXBeZiGjnBnL6np9fV8ei4R2Jz4mzpFU7O/2gjRGASeHh5tUY1fc2O+o2PMOqw6J40Nn0k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YypdKp04mPpeY919R27I9CY96XMjXnlnBdnl9YuKgv23d8EfahL
- ZSLHe2xoQ2UNosSme8J9K05aoTmgbYT8BiEvbyEtJ0+ZTFvoCWjLcOHN099aON4hveWN2uKAQaH
- hQGpTAT/vO6jFn2LMb7HCF0GUBVWsT38=
-X-Gm-Gg: Acq92OEvpNoIvZ2oiKLe+a9M4IhcHmdYREXtYIIkSTHq5p/vCy8TLTqzEiELW4L0qR3
- Iz0ti+cAUeaGqdYLWdxFGZD1ZMfhesspcS0UwZUvjlQRP3yMO2K0vXuUCoFzeZa649sq/0NKfR+
- Pcaj27eoZ2qWNpfeMY0Ae94mmNoKGGClga7EOZqRpOuni93QZBOUSR9gRr7FI2pitiMis4p/GIP
- YZP6gU4kVWFD/4UafAN12kCWX2YIUhZxhHwqWOR4eUlw7s70qS00J4ilQ0ZxR25TkOS5ZJaAZXb
- Ht81+IdymspvonlWImA=
-X-Received: by 2002:a05:7301:6093:b0:304:aca:35c5 with SMTP id
- 5a478bee46e88-304eb228f12mr937539eec.23.1780049281982; Fri, 29 May 2026
- 03:08:01 -0700 (PDT)
+ AFNElJ/KSqOgaJrPZ3Q6A9Ib+53D2OXDXcEys+9/YAFXYK1ErsvnIOVvFaZd/MGgphbel3f60LflMN/q9N8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwfSxntn1rsYVvK/58Wm8kI8YlaBi5oqkTXAJ555H/2YfmwnMZC
+ b9gNaA5jg1TYmdCWbPUHYJJaiAkKyelXXlBFa1H4/iZaSdF4n28BNoEouTp+IN2egi4=
+X-Gm-Gg: Acq92OF/dr0GvWXkX+4K2s/Gu9t74R36zx/eFM+PGky18zs2SlJEgmotX3UE5qF/2hj
+ z+e6GuiyFwLcAlWuMhXBgEL0PrG4WT3wKASMV+N7h7PPAejUHkysbIhH/S2dhlXZ3R1i3bMq6L0
+ Oty7vfuALjjFbzdSnkgymDlCp3/i5+o3/e5093QzaIDA4BGLeKe7h3HatfvD9DVaJ+miFwsBr5+
+ QZ3DOwXo2NVWjTDZoe9tsYkQChuu5zouUyRSNp6LBA2/gbNepockjfPS+j7otroCLisnuOe5onm
+ W7gRHrjqacyNh7ATv0gQCsJoW8+dI24VhDru4piStNZxvHqSVMkP30TeQdVB659FUUeFszf9bm0
+ W9+LsHKcV2piUGKGC89kmgCZwo1OZy6AXQzZEQgYl81klJC3vUNrPVBkZ+qoCB2F6OhJJEkOGpk
+ rtalV54siMwXUZnVIPXLc50Hlarc2rxUGNMsulkVuyT04=
+X-Received: by 2002:a05:600c:81c5:b0:490:3bad:3784 with SMTP id
+ 5b1f17b1804b1-4909c0a7e03mr36047785e9.18.1780049770022; 
+ Fri, 29 May 2026 03:16:10 -0700 (PDT)
+Received: from [172.20.10.3] ([37.167.116.21])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-45ef354b7edsm2332881f8f.22.2026.05.29.03.16.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 29 May 2026 03:16:09 -0700 (PDT)
+Message-ID: <e3c99fe3-9279-4dfa-af69-d9366ab06837@linaro.org>
+Date: Fri, 29 May 2026 12:16:07 +0200
 MIME-Version: 1.0
-References: <20260528135123.103745-1-clamor95@gmail.com>
- <20260528135123.103745-2-clamor95@gmail.com>
- <ahlhinOh3NxB7FY_@aspen.lan>
-In-Reply-To: <ahlhinOh3NxB7FY_@aspen.lan>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Fri, 29 May 2026 13:07:50 +0300
-X-Gm-Features: AVHnY4Ju4apl_6PVevGT822qLIzQw2MECBwLZ58e2K1CK8Q_oHMtYlAD2TA9TPk
-Message-ID: <CAPVz0n3C8D+amSRkF=Koj6Niu6u8uz4LbMoRYEX32_ECm5-tSQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/6] dt-bindings: leds: Document TI LM3533 LED
- controller
-To: Daniel Thompson <daniel@riscstar.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
- Johan Hovold <johan@kernel.org>, 
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v3 1/2] dt-bindings: leds: backlight: document the SY7758
+ 6-channel High Efficiency LED Driver
+To: Daniel Thompson <danielt@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260519-topic-sm8650-ayaneo-pocket-s2-sy7758-v3-0-ec8194bbc885@linaro.org>
+ <20260519-topic-sm8650-ayaneo-pocket-s2-sy7758-v3-1-ec8194bbc885@linaro.org>
+ <ahllT_HVTAJ5MbkS@aspen.lan>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <ahllT_HVTAJ5MbkS@aspen.lan>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,90 +123,82 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=D0=BF=D1=82, 29 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 12:5=
-1 Daniel Thompson <daniel@riscstar.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Thu, May 28, 2026 at 04:51:18PM +0300, Svyatoslav Ryhel wrote:
-> > Document the LM3533 - a complete power source for backlight, keypad and
-> > indicator LEDs in smartphone handsets. The high-voltage inductive boost
-> > converter provides the power for two series LED strings display backlig=
-ht
-> > and keypad functions.
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > ---
-> >  .../leds/backlight/ti,lm3533-backlight.yaml   |  68 +++++++
-> >  .../bindings/leds/ti,lm3533-leds.yaml         |  66 +++++++
-> >  .../devicetree/bindings/leds/ti,lm3533.yaml   | 170 ++++++++++++++++++
-> >  3 files changed, 304 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/leds/backlight/ti=
-,lm3533-backlight.yaml
-> >  create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3533-le=
-ds.yaml
-> >  create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3533.ya=
-ml
-> >
-> > diff --git a/Documentation/devicetree/bindings/leds/backlight/ti,lm3533=
--backlight.yaml b/Documentation/devicetree/bindings/leds/backlight/ti,lm353=
-3-backlight.yaml
-> > new file mode 100644
-> > index 000000000000..866b0fb8ed04
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/leds/backlight/ti,lm3533-backli=
-ght.yaml
-> > @@ -0,0 +1,68 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/leds/backlight/ti,lm3533-backlight.=
-yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: TI LM3533 high voltage series LED strings
-> > +
-> > +description:
-> > +  This is part of the TI LM3533 MFD device. It represents two high vol=
-tage series
-> > +  LED strings for display backlight controlled by the TI LM3533.
-> > +
-> > +maintainers:
-> > +  - Svyatoslav Ryhel <clamor95@gmail.com>
-> > +
-> > +allOf:
-> > +  - $ref: /schemas/leds/backlight/common.yaml#
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: ti,lm3533-backlight
-> > +
-> > +  reg:
-> > +    description: Control bank selection (0 =3D bank A, 1 =3D bank B).
-> > +    maximum: 1
-> >    <snip>
-> > +  ti,pwm-config-mask:
-> > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > +    description: |
-> > +      Control Bank PWM Configuration Register mask that allows to conf=
-igure
-> > +      PWM input in Zones 0-4
-> > +      BIT(0) - PWM Input is enabled
-> > +      BIT(1) - PWM Input is enabled in Zone 0
-> > +      BIT(2) - PWM Input is enabled in Zone 1
-> > +      BIT(3) - PWM Input is enabled in Zone 2
-> > +      BIT(4) - PWM Input is enabled in Zone 3
-> > +      BIT(5) - PWM Input is enabled in Zone 4
->
-> This is optional and the drive implements a default (zero) that is not
-> documented here.
->
-> Is zero a sane default from a DT binding point of view?
->
+On 5/29/26 12:07, Daniel Thompson wrote:
+> On Tue, May 19, 2026 at 10:43:38AM +0200, Neil Armstrong wrote:
+>> Document the Silergy SY7758 6-channel High Efficiency LED Driver
+>> used for backlight brightness control.
+>>
+>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> ---
+>>   .../bindings/leds/backlight/silergy,sy7758.yaml    | 53 ++++++++++++++++++++++
+>>   1 file changed, 53 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
+>> new file mode 100644
+>> index 000000000000..80e978d691c2
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
+>> @@ -0,0 +1,53 @@
+>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/leds/backlight/silergy,sy7758.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Silergy SY7758 6-channel High Efficiency LED Driver
+>> +
+>> +maintainers:
+>> +  - Neil Armstrong <neil.armstrong@linaro.org>
+>> +
+>> +description:
+>> +  Silergy SY7758 is a high efficiency 6-channels LED backlight
+>> +  driver with I2C brightness control.
+>> +
+>> +allOf:
+>> +  - $ref: common.yaml#
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: silergy,sy7758
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  vddio-supply: true
+>> +
+>> +  enable-gpios:
+>> +    maxItems: 1
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - vddio-supply
+> 
+> Sorry for missing this in v2 but is vddio-supply really a required
+> property?
+> 
+> It's unusual for supplies to be mandatory (and the it is not mandatory
+> in the driver implementation).
 
-Yes, if property is missing then PWM input is disabled which is
-equivalent to setting all bits to 0.
+This device is a little bit special, the VDDIO regulator is used to provide
+power for the I/O via the enable input, so basically the enable gpio power
+level is provided by VDDIO.
 
->
+This is the recommended way from the datasheet, and I assume it will be used
+like that on other platforms (if it exists...)
+
+This is why it's mandatory and enabled first before setting the enable pin.
+
+This should probably be a comment in the code.
+
+Neil
+
+> 
+> 
 > Daniel.
+
