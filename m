@@ -4,131 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACC76CD5BD2
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 06:41:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4964CD6E45
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 06:45:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0482B10F985;
-	Fri, 29 May 2026 06:41:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1745910F989;
+	Fri, 29 May 2026 06:45:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="myui/KH8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2XCL9Lob";
 	dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 599B510F985
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 06:41:52 +0000 (UTC)
-Received: from pps.filterd (m0528004.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64SNIVrL2977287
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 23:41:51 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=wjl2lJMhu3x6YF6VZMdTDkNQcozAcKqTdHEY7+axmxo=; b=myui/KH8juDb
- 9VFRxDDFEIimNoAd5XwHhraUO/L1qE4ZtZnO5K+/nzprny+oPTbRJWHwUl7Iab/B
- cMLPIr8HMpKYeWusLbb/K+iwCBNNEvNQ4TbH/N8JWoEGZzYAl66wAE0qc8sarvKy
- NYv2JsEurivQoqaAHfEmVHaXwieB82fQ7S1h7lyRTkK45xQ7kvSunBJhbh5mhqcS
- R4u4gH7+DhvThFUOuSUwR7HsCG5Cx58JsKiG3AGPcpDd3+2CHCL50PZkKvpuBsSW
- 56zV2uZKI0BOQNtMOtj246H6KVeuu5CBuNc+Twlud+11KyL2joGJMeL7vJmJjcwU
- nf9M3D97/Q==
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
- [209.85.167.200])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4ee7x1j75d-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 23:41:51 -0700 (PDT)
-Received: by mail-oi1-f200.google.com with SMTP id
- 5614622812f47-48576b309c7so8579509b6e.3
- for <dri-devel@lists.freedesktop.org>; Thu, 28 May 2026 23:41:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780036911; cv=none;
- d=google.com; s=arc-20240605;
- b=UkSRFZ3ApxodvoMOXjco3Fd+g10ylHhzyhUOQHH3S5+d3+w8somX0TKWfMvVLcJG5x
- qhMtg6YKRpLI+4ZQiIKFUlYEpbhmScx8eVJKcD864pqqKZkyDfzzaQOlhEyLWU8NHJjc
- /gZNYrfuiZvFIb2im2WzemY0ClQm8VHPLI5tyjiTIGI/D4E+baZZyYSrq/jUB+bAeR+B
- D+q/58u5onZzyJrBQ2itYdQMYDDuNz4nddfF1CYjQ4iNiWm61JGl1H+ANptZkT6VGZKz
- snUfgfbMv2ZUQYryq2ieqUu/NDwFXVJN59BfV12EXAZZfnWdCA9ZY1a5YTbU1Kp0igD8
- NfoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version;
- bh=5hKWaaPr0jpqnvHMhDmJMKNnaKkhbQEW5A8xM9/5BHs=;
- fh=RZ+fzhXcUIZs4SlWaycq/CHp+aBil40eXEGWBGckKmQ=;
- b=c3YwzO4pb3Lsujwo486fRUv0lIV/UgurW4uGCKhxKfgD+WmESc2SX8daEbuwgLbkL9
- LRensFZEEhWRsdHsHZ2gIJWt99XM7YQwfD+BpDLV+4FWFzqIAM3cFa1z1Asw3Kps3PuN
- dd5iaVwDUy9z02S1GsyB9wVx9Pi01ZQ+Qjv/2cLo+gS5Q5XdKfhkVws3sIXd6u+jg6rp
- q4B4hzr6uuLrdzFYhZtjqWbD8HuAnXnw8XQirYcyMYZ4KZyKsMft4bDUuhDyZXHjjlpS
- zHE7vltHoNn4+FfXD2GzB97Tz51xRIx3ntuuKCCrYRWjX5o826BkIwRtPJvdcS6dAhG7
- qvTg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780036911; x=1780641711;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=5hKWaaPr0jpqnvHMhDmJMKNnaKkhbQEW5A8xM9/5BHs=;
- b=fDvRhUny3/up2LfZ/YA0TvMpC8K1Sxi/7ROYTTev+p4PI4hMDQXo/25ky0Vzv8hTrX
- sqYBGTVMXAyjKMGb2DWJmSlEUBQQR2l4EQ9aMzUV0VEKFK/974lWZGWxYmobuIaU8xoN
- dHF24bZh/5EQeufTDqxDuFH6apO80RyFuKap8z8krNUsgDfsSVj/Nrt5546XmkJ9YZwa
- X+t4PheqDPsd/DIukUhgv9GZVnl7RSmgn2tZ7dDRPaSpqKprKVJ/A1yEf6iFsH3m9ESF
- nM55D7GzqMW7MHHag/ErmfRRGDT/ptVKtHHWcSOY6kKqnbRduA48M6LobZerLxdHpnGK
- IZsg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/kWtdDxLFhDvYCHmEsXgTrjsqbimAjtUqp7R28XHlEUhd9tVeXxXK+XP6cn6R7OA8Pl8Jb26iFY9Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwwhsXboIq1uv+r0BqYe0M/3yKoFN8YSfmf0uAgRpvS9bZjh36T
- Edj4GraiPJhsGpSdoVE71/VclsedaVmmo7r4h8QRV/k0oURDA30Ehcpl70T3oHLGlaY+54VflzB
- hJgv+LItDdGijUkHyEtmIS0ccTxGZFqqm72+qTqfzG0Nw2eaxpQy64j1QIs0mxBb7vFE0IE+xEt
- Wyy4eZt1vle5vRoLqTsGNJ4YXRMn8vK75Up5y9z+jGk4Y=
-X-Gm-Gg: Acq92OEoxnYTy57Qlba9eJFIXPD6tB17q9+1259PofffZD3CYF1qwBl0e6W/STsTCBW
- jL8nAM8FRd9UD8Xxe2F/nDklS436GGMIn9meJf26sPUVjxTI82mulZoFcObMoqdbWTf9/2LTVTH
- xHLF3MJ9jCdFMo5GWJXkJcV/aMmOvgmrnRPh9E0yN8MPibMPn4v1I3GigjfaxZsEhnUBePbaFNL
- LxVw1Qs9oQhT9rsdCzfOa0UeqEzqLEIAM6W6LzRaJ4xRI4oHkc=
-X-Received: by 2002:a05:6808:1c07:b0:467:1212:46eb with SMTP id
- 5614622812f47-485e6dc0223mr972290b6e.35.1780036910686; 
- Thu, 28 May 2026 23:41:50 -0700 (PDT)
-X-Received: by 2002:a05:6808:1c07:b0:467:1212:46eb with SMTP id
- 5614622812f47-485e6dc0223mr972266b6e.35.1780036910218; Thu, 28 May 2026
- 23:41:50 -0700 (PDT)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010022.outbound.protection.outlook.com [52.101.56.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDBED10F989
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 06:45:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sCjBHFL4X9L0dFM+sbxFRbKnOmIj7xk5pyAbBGdzLJGz4D+K+LK9DlSHq0OprwqbcicC0VprThlgLeWihY2uil5oXwam/YOISzmMigKUJK5ZK5Z+xdzOSL/RrcQ8kIHtxHpcCESPDk/MFBcw4fMNU7FqouR7TpVydJ47BU5BAXPx53iiKzhO6vzv4Y2wAWsB0FZq43Le/rrz/zlomM7ge7GDmUMWQIxv/wHa0wgsP8zHSD0y+JYcln9/msGXul1jCCM99O6MfjzNlLO1pONWlRG/QdOX9H3kdb46xW8Fa2MU9qEBi6yR9pz2GuWJT3cbV4se+v5Nke6zP+ADAZH8Rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kUpsoj1bpW7q8NG+lOwdTJIuw6iQo+p8cwklpKIbG7c=;
+ b=c2giGSB7kIU8mlf+4LSaKjT4J0wkH3dOCb/XJdipQwp8QAUi1SE84MaAoWG0WJn9dcTqrBMhukoAZvSx/8XziZlS9za56w/Moc+OobOEnJO96VVOOw4uMkotKu/dAD9rsgnSBRhBgxlgrT8JHik9cv+hnDvF4OaVbLGjGrX+0PIOGUK7x+FEB8i3fUEhPoPcNwhoajOxlgl1e6VTo5ixhED4ttOUTm4IQDYaRAReH9dPS+eorVhjIzW28JQlbEEs66OFuLZo1jzKftASJ/xD1jcnALJQFdKGwvX8RluFn3UMQPkKP5CDpLtSQT/0iozFqSZiBEmweGFRJq9RYZNvbg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kUpsoj1bpW7q8NG+lOwdTJIuw6iQo+p8cwklpKIbG7c=;
+ b=2XCL9LobTLbmj5+4FBXAP/jH8GtXdoKmq+J6PCk83m/rc+Fd50fKTdFu780l96EvlcKWzzYw8/nyf9ekSt9UqO1PhSQNydDxoUaPL2cyyEEo/P3rPLKa38/rvDMiLXjXQyk9wmawEUrA1i3EsU6HbcwlhBQWqw+0sF5lXulPKFk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY8PR12MB8316.namprd12.prod.outlook.com (2603:10b6:930:7a::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Fri, 29 May
+ 2026 06:45:06 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0071.011; Fri, 29 May 2026
+ 06:45:06 +0000
+Message-ID: <bb4d3330-822e-45ae-94f4-65ba0e351f57@amd.com>
+Date: Fri, 29 May 2026 08:45:01 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/prime: fix dangling dmabuf entries after handle
+ release
+To: w15303746062 <w15303746062@163.com>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ sumit.semwal@linaro.org, jeffy.chen@rock-chips.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Mingyu Wang <25181214217@stu.xidian.edu.cn>
+References: <0e12ce28-f5b7-4ffa-849c-df9ad1796e22@amd.com>
+ <20260528132932.1078483-1-w15303746062@163.com>
+ <62c256eb-1df4-4633-8040-222895b54f97@amd.com>
+ <7bbb8946.9d19.19e6ed958df.Coremail.w15303746062@163.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <7bbb8946.9d19.19e6ed958df.Coremail.w15303746062@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0047.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cc::14) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-References: <20260526144401.1485788-1-zhipingz@meta.com>
- <20260526144401.1485788-2-zhipingz@meta.com>
- <20260527145332.30412ea4@shazbot.org>
- <CAH3zFs3Yv2G0rQNE7x8DjBWPE+3sFC_3X6ZtF4x-mPp==h0BQA@mail.gmail.com>
- <65b3d63a-271a-4aa8-ba8c-fc2b186349dc@huawei.com>
-In-Reply-To: <65b3d63a-271a-4aa8-ba8c-fc2b186349dc@huawei.com>
-From: Zhiping Zhang <zhipingz@meta.com>
-Date: Thu, 28 May 2026 23:41:39 -0700
-X-Gm-Features: AVHnY4JOme_X08lKUfayqc49fxg4J4ab3o3Y14UzTjVjHMNZxrhWL7QV4gYwqO4
-Message-ID: <CAH3zFs3eddZUtb08oNpjEg5b2=DJtRCuEcjsxuPyRA-zB2idag@mail.gmail.com>
-Subject: Re: [PATCH v5 1/4] PCI/TPH: expose the enabled TPH requester type
-To: fengchengwen <fengchengwen@huawei.com>
-Cc: Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian Konig <christian.koenig@amd.com>,
- Bjorn Helgaas <helgaas@kernel.org>, kvm@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
- netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Keith Busch <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>,
- Yishai Hadas <yishaih@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: dGb4949NCHlAegry8nx4TUk-K8D0U6TY
-X-Proofpoint-ORIG-GUID: dGb4949NCHlAegry8nx4TUk-K8D0U6TY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI5MDA2MiBTYWx0ZWRfX5jOks3vLVQ0i
- SGvWTyqqOqrYv35QIQITzTcMWD/vR8DA59/vnr7VjWkN4fW8ol9RUIc2Md1QJbPBqKB7yJrJUjS
- x4Olc3wDL6KvFfOBLqCiDcxej6hP+5mVAkVpFfj69pph9WRuk53/LApNbB1iTq3/eGNZsafupot
- HTPefcMWBRoCdJGmJg4mhICs9NCc32KVGM8siPw8QWx7CoVGJesGGq3AyW6afgIjSXPMzaZ2352
- uK0lY2XG2eXIZURgn0Rj/CZ3dhIYLGZ/Xh8W99MLDE5WgfcCVFUrb2LE4M83kEar5bb+RtKj3YC
- iXNdM6WnNccs6ITYfD96enDvcpMC2/yodqb/P6yhnSkI4ZR1I5DzZgPq7MR6HmD0cEgf9py3TnG
- eqUMABJOFF1B0PD3Biaz1Z3+oEUL+LcLo9a+gCkvh05l/TqxwrePrVVMGgn4/9wsB/ir5OxX5Qr
- jgQREnyTzKSJ8vBrN4g==
-X-Authority-Analysis: v=2.4 cv=fMUJG5ae c=1 sm=1 tr=0 ts=6a19352f cx=c_pps
- a=AKZTfHrQPB8q3CcvmcIuDA==:117 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=GbPsI2Ihf5RTnMjR_gZv:22
- a=i0EeH86SAAAA:8 a=r1p2_3pzAAAA:8 a=VabnemYjAAAA:8 a=zzBG9ipUb6nLY-ocZWUA:9
- a=QEXdDO2ut3YA:10 a=pF_qn-MSjDawc0seGVz6:22 a=r_pkcD-q9-ctt7trBg_g:22
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-29_02,2026-05-28_03,2025-10-01_01
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB8316:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3a1b7477-68dc-4dc8-b4ba-08debd4dd1e2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|366016|1800799024|6133799003|18002099003|22082099003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: m9Uh5bKJohjIrTCAgZ+e2mfflx1+ivgwx6bHHdGfGP6ZYxMLq6P0riHNDWwPRPlrQoB3XUpfsPvxhYyFvWFknnVPoj0WhHSABwr/1WKB3XVQnNpaQr1ffTAGej2di18c0CQEX5z8jFri6IFppt3bUITKCE0bG6xXyWeX9+tZU6ih6UNgHxa/DwsyBE+/Z4uGRtbqN1RJ+FvIXcL/dHZ6TroiexDdQSBOEvWGzaAnOCxYLvVhrNl7ZxLzRwBha5OhzUcPJGdLplVBM8BYlQ3yrobtfkUPkC1Fjf1NcgzLeT2a9CDpXsgxvnrChDiKoSDKjaYPIK/cDWhAS32k+CEVEUdkE3V9lS6J/gq7P4YPVASqd7FFVGl5ZimK+aPDGWY6wmbd6BoN4Dcay5jeLreQcWN45+qNCg+49hzyDjDPKOR5bia61SDqV0Y/ohXBVX2rvSYVYtNQ5eIVqqx4RSeEJRiUlnR+AB5QriRHhmOsG4T7d+1VRNUuBuj2syZcJQBvXd9F9GHNk2wvquuJfiPwSRv9EPfMGCZUB1cqEF7gt4pDl7c38PzJ1k1On8014SWLC+9dZjVLRc87v1gAMvKEfggi1am3b9luz+WakNaGO28ALekzLnwMe4H4mGbj8t40x3uJYqqzVab//B57KEGwzmeBovmEtoME5BDjxBjhGcf1M009cjfoo3hD1vxzlnWtmbeN/ZT5Z82iSvAItJSw4w==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024)(6133799003)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VkRSNk16eWhQVEo4MjF0aWJHUURQdnp1OTZGblBXS3VxZ1FzNXhSMUdLelcv?=
+ =?utf-8?B?cUlNNTFqUWxpRm9iOXErNTZIdkQ5ODZxSlF5THlqd3VybWMvcjloalRoQ3Jy?=
+ =?utf-8?B?V0RXazNIQVhQVzg2THlpM0hnQVp6enhiVk1LOVRJcjhRNXNSdlRGU2gwUzZl?=
+ =?utf-8?B?YThZQjhFUDFpZVFtekNSNXVVZWFFVFh6UVQyeUxrMTZGUlg3S0hvOG9udE9p?=
+ =?utf-8?B?bkVCL1ZJL0JiczFuOGZ1ZmRIUjc2MU1WTjlWeTRFemNOWEV6SE9vcmZsY1Z6?=
+ =?utf-8?B?UVAxWlBnc3NUdHhjbnNrejdJdUg2SUVET2VIaTBNbDgwRnBjWCtCK2htaTMz?=
+ =?utf-8?B?SldWMXB5RktEZkk4ZG9mTlhtcDgyZVJNdm1oZHRyQ1BPUDAvRnVlRE1xbXRR?=
+ =?utf-8?B?Uk9BL05lM3ZxZk82RHRNM2VaSVBBNUZSb2E0M2pydFFoQU1KcXcrUFZKQWVK?=
+ =?utf-8?B?OVpwdFlxNHUxQVVKU3FjSksrRHFBSmlTTk5PYWFCZDlHNkJpc1ZrQ3J4ZU0x?=
+ =?utf-8?B?eWN3Q091cE1Qb3V0U1F2NDNybnhRNFhzQU8zNTJTMnNOczc3SFNIYnQycm1M?=
+ =?utf-8?B?blErNEMzTW5HY2RmRDNpdGlDRnZSejcrRGFDemp5aytweGh0THBuNTZxSWJX?=
+ =?utf-8?B?cldmc2lINUlnOUxtQUgydHV0ejRFWDlUc2xJRXZFNExFclcwcmlpWXpzWHRa?=
+ =?utf-8?B?RzVkNHZteGVuNlNDWENreXBzV3RjTVBEbVpUOWJSNlpBRlRtdm5HUGY0aUpP?=
+ =?utf-8?B?ZW5QaS92dXlvTXN2SU5NaTk5UUdUM2NSSU1EYmRVMU5NanptL0p2WDZ0MXlw?=
+ =?utf-8?B?QlVXMm9UVU9hcnlWTm43WDZJdFlrTHp4YkJpU0xZeUhYZXFld0pUSzQ1WUls?=
+ =?utf-8?B?M2Y2VjdUdE8yN05VdGwwbGRVTktsSVhYMUkxUFBJTm9HNGdYK0Ftd0RZTVJw?=
+ =?utf-8?B?cWJnYmdSWWJpOUVXR0JYdDRRMi95VFBHV1RYM0ViS0V3clY2b1lXdGovWjVG?=
+ =?utf-8?B?OS9wQzh5QzUwYWdDTHVWbEwrNjEwZEVvOXdFK1J3VjJGRHRGcm9GU3BUWUxn?=
+ =?utf-8?B?R0xpV012S0xyaXkrK1dpb2VUNk9MMXphZ3AxSWZoajh4R1JXZ1NndFJWQUlD?=
+ =?utf-8?B?MEw2MndqeTZOaCtRN3lDbDI0SEozbGJjVEwwUnplSTJHR3RyWnJLNmdFQkMw?=
+ =?utf-8?B?bTFxcy91RVZKSzFoT29zZU13cEt5bDV0ck5BU3NzTnpPdjg1UGk5YmxjeGlW?=
+ =?utf-8?B?N0lqWi9jcy82aEtFdVRCT0x5Z2N1Z0lpdUpQZnUrUnBUTmFiRzR1QWZoU3F5?=
+ =?utf-8?B?K2djV2dhUXZKaStHSFZCUXNQR2VKdW40R28vaDE4ZzBvNEFLUGU2THVBd2NT?=
+ =?utf-8?B?SWdvK3E1cnBoT2FWNkgvc1VOK1Fycm1qWXlnNjkzZnY5QTFlN2ZGK1lGOEY2?=
+ =?utf-8?B?MWljOGg2amdZeEpZVjVKZ3Y5N1hsR1VON1BxM3VOaHlJR3NBclVsTXIraEV2?=
+ =?utf-8?B?UDRzY2V1Ly9udnllNVo4MjVSS0FabjJkNU5LYjJ2cHFpV1hiNXlVbmpnZzNn?=
+ =?utf-8?B?VG44YlN1cjNUUnN4S281N3U5OGZKdldTeGVVYVMrYnF0YkM5dE5QYWlUbmJB?=
+ =?utf-8?B?SDFyajdacVFnVmhpTmY1NXU4enJDbER1QVNUQ1FSQzBuS1E3R2NqbFdpY0hJ?=
+ =?utf-8?B?MkZ1MGFuRmZWQ0QzaTluWk5VUEJnZmU5Tm5GNkx6Ri91ZjRIT1RYYXZFTWNK?=
+ =?utf-8?B?RjM2RXVRa1FDYWNCTkxNclV6aWNxd3VaTlM0NDZtVG1qbzN6ZmZGUTlYMHpK?=
+ =?utf-8?B?c01OWWNYVXc4RWo3LzhXZTh0Wlh2dFh1REZnWDBnNGZ0T2RYNjMyM2pUbWhp?=
+ =?utf-8?B?MnAwRkt2ZkZvbFFFOWxKdys4UVFNbGFWNmc3WnZ6TkdNMzVkL0lsRkJyQlRz?=
+ =?utf-8?B?WnVIR25Tdk16dlpJTlFRbThEekQzY1EweGNLRHVtQWx5UTBxeC8wRnVHOUJh?=
+ =?utf-8?B?WERtcmFZY2FzeUc5anIwL0NxSCtHUVBkQzcwL0tlSVgyMTB4NUtaWDAzZ1hG?=
+ =?utf-8?B?Uit3ZTYrUnB4OWtRUlBDSGpSdXVXNU9LbVd0YU1YeGhQdml6dGVqL1I1ejRw?=
+ =?utf-8?B?L2NtQWM0eWx5aHJCODR2b3VJZHh4Rk1GOThHVW5aLy84TlhYZGExWXRoYTdW?=
+ =?utf-8?B?Y1IvOWlrY2c2Z08yd3p1VjM2TGdBbjFsellQYmUvMllwZkg2WTJuTXVaQVVU?=
+ =?utf-8?B?Qjh2R24zRE0ySi8yR1dUQzc5OFkycGt5cEtqbUw5M01laml6OUFrbTI0Tm5r?=
+ =?utf-8?Q?APmkVO3/ovMEfRqVf6?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a1b7477-68dc-4dc8-b4ba-08debd4dd1e2
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 06:45:06.7514 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: apdb3CctwC3UYDEjbmAkEr+JVSzdQLNJnn8nXVqRFSqBcZLLpHb+oJTfU8GEvV78
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8316
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,99 +143,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, May 28, 2026 at 1:04=E2=80=AFAM fengchengwen <fengchengwen@huawei.c=
-om> wrote:
->
-> >
-> On 5/28/2026 1:35 PM, Zhiping Zhang wrote:
-> > On Wed, May 27, 2026 at 1:53=E2=80=AFPM Alex Williamson <alex@shazbot.o=
-rg> wrote:
-> >>
-> >>>
-> >> On Tue, 26 May 2026 07:43:53 -0700
-> >> Zhiping Zhang <zhipingz@meta.com> wrote:
-> >>
-> >>> Add pcie_tph_enabled_req_type() so drivers can query the enabled TPH
-> >>> requester mode without reaching into pci_dev internals.
-> >>>
-> >>> This keeps pci_dev::tph_req_type inside the PCI/TPH code and provides=
- a
-> >>> !CONFIG_PCIE_TPH stub for callers.
-> >>>
-> >>> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
-> >>> ---
-> >>>  drivers/pci/tph.c       | 12 ++++++++++++
-> >>>  include/linux/pci-tph.h |  2 ++
-> >>>  2 files changed, 14 insertions(+)
-> >>>
-> >>> diff --git a/drivers/pci/tph.c b/drivers/pci/tph.c
-> >>> index 91145e8d9d95..6c4492075ae9 100644
-> >>> --- a/drivers/pci/tph.c
-> >>> +++ b/drivers/pci/tph.c
-> >>> @@ -174,6 +174,18 @@ u32 pcie_tph_get_st_table_loc(struct pci_dev *pd=
-ev)
-> >>>  }
-> >>>  EXPORT_SYMBOL(pcie_tph_get_st_table_loc);
-> >>>
-> >>> +/**
-> >>> + * pcie_tph_enabled_req_type - Return the device's enabled TPH reque=
-ster type
-> >>> + * @pdev: PCI device to query
-> >>> + *
-> >>> + * Return: PCI_TPH_REQ_DISABLE, PCI_TPH_REQ_TPH_ONLY or PCI_TPH_REQ_=
-EXT_TPH.
-> >>> + */
-> >>> +u8 pcie_tph_enabled_req_type(struct pci_dev *pdev)
-> >>> +{
-> >>> +     return pdev->tph_req_type;
-> >>> +}
-> >>> +EXPORT_SYMBOL(pcie_tph_enabled_req_type);
-> >>> +
-> >>>  /*
-> >>>   * Return the size of ST table. If ST table is not in TPH Requester =
-Extended
-> >>>   * Capability space, return 0. Otherwise return the ST Table Size + =
-1.
-> >>> diff --git a/include/linux/pci-tph.h b/include/linux/pci-tph.h
-> >>> index be68cd17f2f8..fe572737b409 100644
-> >>> --- a/include/linux/pci-tph.h
-> >>> +++ b/include/linux/pci-tph.h
-> >>> @@ -30,6 +30,7 @@ void pcie_disable_tph(struct pci_dev *pdev);
-> >>>  int pcie_enable_tph(struct pci_dev *pdev, int mode);
-> >>>  u16 pcie_tph_get_st_table_size(struct pci_dev *pdev);
-> >>>  u32 pcie_tph_get_st_table_loc(struct pci_dev *pdev);
-> >>> +u8 pcie_tph_enabled_req_type(struct pci_dev *pdev);
-> >>>  #else
-> >>>  static inline int pcie_tph_set_st_entry(struct pci_dev *pdev,
-> >>>                                       unsigned int index, u16 tag)
-> >>> @@ -41,6 +42,7 @@ static inline int pcie_tph_get_cpu_st(struct pci_de=
-v *dev,
-> >>>  static inline void pcie_disable_tph(struct pci_dev *pdev) { }
-> >>>  static inline int pcie_enable_tph(struct pci_dev *pdev, int mode)
-> >>>  { return -EINVAL; }
-> >>> +static inline u8 pcie_tph_enabled_req_type(struct pci_dev *pdev) { r=
-eturn 0; }
-> >>
-> >> nit, s/0/PCI_TPH_REQ_DISABLE/ for consistency.  Thanks,
->
-> It need add #include <linux/pci.h> at beginning too, else it will counter=
- compile error like this:
->
->    In file included from drivers/vdpa/mlx5/core/mr.c:8:
->    In file included from include/linux/mlx5/qp.h:36:
->    In file included from include/linux/mlx5/device.h:37:
->    In file included from include/rdma/ib_verbs.h:46:
-> >> include/linux/pci-tph.h:48:10: error: use of undeclared identifier 'PC=
-I_TPH_LOC_NONE'
->       48 | { return PCI_TPH_LOC_NONE; }
->          |          ^
->    1 error generated.
->
+Hi Mingyu,
 
-Great catch =E2=80=94 thanks for testing.  I will add
-#include <linux/pci_regs.h> to pci-tph.h so the TPH macros
-(PCI_TPH_REQ_*, PCI_TPH_LOC_*) are in scope wherever the header is
-included.
+On 5/28/26 15:49, w15303746062 wrote:
+> Hi Christian,
+> 
+> Thank you for insisting on this. I've now gone through all callers
+> of drm_prime_add_buf_handle() in drm_prime.c.
+> 
+> You are absolutely right: both drm_gem_prime_fd_to_handle() and
+> drm_gem_prime_handle_to_dmabuf() perform the lookup under
+> prime_fpriv->lock before adding, so a duplicate handle should indeed
+> never be inserted through those paths.
+> 
+> That said, the syzkaller report clearly shows that the dmabufs tree
+> is not empty when drm_prime_destroy_file_private() runs, which means
+> some entry wasn't removed. Given that the normal add/remove paths
+> appear correct, the trigger might be something more subtle — perhaps
+> a driver-specific callback that bypasses the generic helpers, or an
+> error path that leaves an orphan in the dmabufs tree. I haven't been
+> able to identify the exact trigger yet.
+> 
+> The proposed change to drm_prime_remove_buf_handle() (restart search
+> instead of break) is intended as a small robustness improvement, not
+> a fix for a confirmed race. In the normal case it will still execute
+> only once, but if the trees ever become inconsistent for any reason,
+> it will clean up all entries for the given handle and prevent the
+> WARNING.
+> 
+> Would you be okay with such a defensive approach, or would you prefer
+> that we first track down the precise trigger (e.g. with additional
+> WARNs or tracing)?
 
-Thanks,
-Zhiping
+I don't think so. As far as I can see this is not a robustness improvement but just papering over an issue.
+
+Leaking memory is usually only a very minor problem, things like use after free or random memory corruption is much more worse.
+
+And such things is exactly what starts to happens when you start papering over issues.
+
+So I would say find the root cause of what is going on here, you have certainly stumbled over something, and then we can look into how to fix that.
+
+But just sending out random patches where a bit of simple code reading can prove them incorrect is not really helpful.
+
+Regards,
+Christian.
+
+> 
+> Thanks,
+> Mingyu
+
