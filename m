@@ -4,59 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4F6ACD6E4A
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 13:10:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16702CD6E4A
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 13:13:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4733110FEE4;
-	Fri, 29 May 2026 13:10:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 703EF10FEF0;
+	Fri, 29 May 2026 13:13:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mLOeNaY+";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KDDfpmXS";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12E6010FEE4
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 13:10:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BB1104040C;
- Fri, 29 May 2026 13:10:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC5F21F00893;
- Fri, 29 May 2026 13:10:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780060242;
- bh=tC9HqkQy8s8fCowmxdJQZ9JYQ14fcgNVnaNweKmAX5U=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=mLOeNaY+LFPu3SP40WdO2KaINV+FYH004qBTmn1FtKJB81vr3GaeMS+zXZ2GLc+7g
- Jb6Y2Fzb6OXFGL9y16tZdu1odcIA8Atb87zT6MhQVOL1gwDsa5JEEsM/vsH6CpBbNZ
- 6jXOArmVUaFWwm300UxV0flUbB4hP8IzDnFecLWxP+re32gb/Rab7G+RvvaUvSSNLZ
- QT8cVVWpcT4PrlCJPeISJV0SDOXxHdyJSK7lSRV8ONlcrmfF7DsauYAVdzennX+qUG
- IXWcnDLuiLQB81wMlInxRv7f36RnEfu1wqtz2YOVrThqQr1wDtWWP9AD850L0BNa2k
- kynlbPBjctgqA==
-Date: Fri, 29 May 2026 14:10:31 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, Jingoo
- Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Helge Deller <deller@gmx.de>, Johan Hovold <johan@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v2 2/6] mfd: lm3533: Convert to use OF bindings
-Message-ID: <20260529141031.62703eff@jic23-huawei>
-In-Reply-To: <CAPVz0n1u0z35rP8vUKjAzW_mrPm9yeMjK_-nKbyctUvQik6ECw@mail.gmail.com>
-References: <20260528135123.103745-1-clamor95@gmail.com>
- <20260528135123.103745-3-clamor95@gmail.com>
- <20260528155001.2bcb7003@jic23-huawei>
- <CAPVz0n0qCekQVGGyAyBuYv+RKC6bpydYBLJNGfPrgTYjtOJOuA@mail.gmail.com>
- <20260529100819.1823ebb3@jic23-huawei>
- <CAPVz0n0VHdUo5oHdALgcerLsykdz-2n7c+jxYHrMOV7Ra5x_qQ@mail.gmail.com>
- <20260529114828.5a87c732@jic23-huawei>
- <CAPVz0n1u0z35rP8vUKjAzW_mrPm9yeMjK_-nKbyctUvQik6ECw@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0394410FEF0;
+ Fri, 29 May 2026 13:13:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780060427; x=1811596427;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=Q5Qwz2albalOj7cbm8MiM98vDezCZ5eP+DfY0naHO+U=;
+ b=KDDfpmXSvhyJ+sj+Hr9jUGsgrzAuupqefypk6rPfnuxGgnbL1jRRXny3
+ kyn1TuNyg+7fXxfQnk8Gj0cyVxKtEz6FaN9jo6Jx8J4NIyGbSTGuVft1K
+ zBIG0AMnzXDtLmkVl2LsGXMnyKGzu4lkxUgsK7P9G/oeEXNR7SY+psdz7
+ CsQqXiP4J8GkuCyVGPg4UqabLrs+/o+zRVSGq6R7vsgnDjNM2ZGcwqRhO
+ qILpspH4nUM77ZwLwE66W5IXVMs4ZBJJG9aPH89TVoiFlZpcdyA/uWCry
+ e+hgCHjoGaNIBXvUJ2vwTXMdgeGh4dX/28h+OoHxrUNyBu8b4WQNjvj5z Q==;
+X-CSE-ConnectionGUID: o2On7sa+SBOzqm/ogeJj2w==
+X-CSE-MsgGUID: F/PYrcbDRCeEjpWNY7T+kg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11801"; a="80811803"
+X-IronPort-AV: E=Sophos;i="6.24,175,1774335600"; d="scan'208";a="80811803"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 May 2026 06:13:46 -0700
+X-CSE-ConnectionGUID: P1PawXPcQn+K1BUaIMdZOw==
+X-CSE-MsgGUID: mUKuah4sQROS27MP1xATbA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,175,1774335600"; d="scan'208";a="246863169"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.147])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 May 2026 06:13:44 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Mario Limonciello <superm1@kernel.org>, "Chia-Lin Kao (AceLan)"
+ <acelan.kao@canonical.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, ville.syrjala@linux.intel.com
+Subject: Re: [PATCH v2] drm/dp: Add byte-by-byte fallback for broken USB-C
+ adapters
+In-Reply-To: <685f4a41-b90c-4f8f-b4be-531eae1905ce@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20251204024647.1462866-1-acelan.kao@canonical.com>
+ <685f4a41-b90c-4f8f-b4be-531eae1905ce@kernel.org>
+Date: Fri, 29 May 2026 16:13:41 +0300
+Message-ID: <61e9fb8c40b40fc6a1588b29bc2283fdaa313e1d@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,92 +73,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Fri, 09 Jan 2026, Mario Limonciello <superm1@kernel.org> wrote:
+> On 12/3/25 8:46 PM, Chia-Lin Kao (AceLan) wrote:
+>> Some USB-C hubs and adapters have buggy firmware where multi-byte AUX
+>> reads consistently timeout, while single-byte reads from the same address
+>> work correctly.
+>> 
+>> Known affected devices that exhibit this issue:
+>> - Lenovo USB-C to VGA adapter (VIA VL817 chipset)
+>>    idVendor=17ef, idProduct=7217
+>> - Dell DA310 USB-C mobile adapter hub
+>>    idVendor=413c, idProduct=c010
+>> 
+>> Analysis of the failure pattern shows:
+>> - Single-byte probes to 0xf0000 (LTTPR) succeed
+>> - Single-byte probes to 0x00102 (TRAINING_AUX_RD_INTERVAL) succeed
+>> - Multi-byte reads from 0x00000 (DPCD capabilities) timeout with -ETIMEDOUT
+>> - Retrying does not help - the failure is consistent across all attempts
+>> 
+>> The issue appears to be a firmware bug in the AUX transaction handling
+>> that specifically affects multi-byte reads.
+>> 
+>> Add a fallback mechanism in drm_dp_dpcd_read_data() that attempts
+>> byte-by-byte reading when the normal multi-byte read fails. This
+>> workaround only activates for adapters that fail the standard read path,
+>> ensuring no impact on correctly functioning hardware.
+>> 
+>> Tested with:
+>> - Lenovo USB-C to VGA adapter (VIA VL817) - now works with fallback
+>> - Dell DA310 USB-C hub - now works with fallback
+>> - Dell/Analogix Slimport adapter - continues to work with normal path
+>> 
+>> Signed-off-by: Chia-Lin Kao (AceLan) <acelan.kao@canonical.com>
+>
+> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+>
+> As this fixes reads for some existing hardware on the market and is just 
+> in fallback path I feel this is low risk.  I've applied this to 
+> drm-misc-fixes.
 
-> > > > > >         if (device_property_present(dev, "ti,resistor-value-ohm"))
-> > > > > >                 ret = device_property_read_u32();
-> > > > > >                 if (ret) //corrupt property in some fashion
-> > > > > >                         return ret;
-> > > > > >         } else {
-> > > > > >                 //set default
-> > > > > >         }
-> > > > > > If there is no default then check it unconditionally.  
-> > > > >
-> > > > > default value is LM3533_ALS_RESISTOR_MIN and if no property is present
-> > > > > clamp will ensure that als->r_select will be set to
-> > > > > LM3533_ALS_RESISTOR_MIN  
-> > > >
-> > > > I don't see that default in the binding doc and relying in the 0 being clamped
-> > > > isn't particularly readable - I'd set it explicitly.
-> > > >  
-> > >
-> > > Oh, ye, my bad. Schema enforces one of props to be present and if pwn
-> > > is present then resistor is ignored. What if I move resistor reading,
-> > > clamping and conversion under !als->pwm_mode check? Then resistor must
-> > > be present and hence must be checked unconditionally.  
-> >
-> > Sounds good.
-> >  
-> > >
-> > > Additionally, I can comment original lm3533_als_setup with #if 0
-> > > #endif then git formatting will be much cleaner and easier to review,
-> > > and once we all come to result I will just remove entire commented
-> > > block and Lee can pick clean commits.  
-> >
-> > No don't do that.  If you flatten the two helpers as a precursor patch
-> > then the changes in here will be easier to review anyway.
-> >  
-> 
-> By "flatten the two helpers" you mean incorporate
-> lm3533_als_set_input_mode and lm3533_als_set_resistor into
-> lm3533_als_setup first and then convert it to use DT? I am asking,
-> just to be sure.
-> 
+I've stumbled on this when I was looking at drm_dp_dpcd_read_data(). I
+never received the original patch, for whatever reason, even though Lore
+says I was Cc'd.
 
-yes
+> a8f49a0043011 (HEAD -> drm-misc-fixes) drm/dp: Add byte-by-byte fallback 
+> for broken USB-C adapters
+>
+>> ---
+>> v2. 1. Move the workaround from intel_dp_read_dprx_caps() to
+>>         drm_dp_dpcd_read_data(), so that it applies to all DPCD reads across
+>>         all DRM drivers benefit from this fix, not just i915.
+>>      2. Move the definition of drm_dp_dpcd_readb() before
+>>         drm_dp_dpcd_read_data()
+>> ---
+>>   include/drm/display/drm_dp_helper.h | 57 +++++++++++++++++++----------
+>>   1 file changed, 37 insertions(+), 20 deletions(-)
+>> 
+>> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+>> index df2f24b950e4..14d2859f0bda 100644
+>> --- a/include/drm/display/drm_dp_helper.h
+>> +++ b/include/drm/display/drm_dp_helper.h
+>> @@ -551,6 +551,22 @@ ssize_t drm_dp_dpcd_read(struct drm_dp_aux *aux, unsigned int offset,
+>>   ssize_t drm_dp_dpcd_write(struct drm_dp_aux *aux, unsigned int offset,
+>>   			  void *buffer, size_t size);
+>>   
+>> +/**
+>> + * drm_dp_dpcd_readb() - read a single byte from the DPCD
+>> + * @aux: DisplayPort AUX channel
+>> + * @offset: address of the register to read
+>> + * @valuep: location where the value of the register will be stored
+>> + *
+>> + * Returns the number of bytes transferred (1) on success, or a negative
+>> + * error code on failure. In most of the cases you should be using
+>> + * drm_dp_dpcd_read_byte() instead.
+>> + */
+>> +static inline ssize_t drm_dp_dpcd_readb(struct drm_dp_aux *aux,
+>> +					unsigned int offset, u8 *valuep)
+>> +{
+>> +	return drm_dp_dpcd_read(aux, offset, valuep, 1);
+>> +}
+>> +
+>>   /**
+>>    * drm_dp_dpcd_read_data() - read a series of bytes from the DPCD
+>>    * @aux: DisplayPort AUX channel (SST or MST)
+>> @@ -570,12 +586,29 @@ static inline int drm_dp_dpcd_read_data(struct drm_dp_aux *aux,
+>>   					void *buffer, size_t size)
+>>   {
+>>   	int ret;
+>> +	size_t i;
+>> +	u8 *buf = buffer;
+>>   
+>>   	ret = drm_dp_dpcd_read(aux, offset, buffer, size);
+>> -	if (ret < 0)
+>> -		return ret;
+>> -	if (ret < size)
+>> -		return -EPROTO;
+>> +	if (ret >= 0) {
+>> +		if (ret < size)
+>> +			return -EPROTO;
+>> +		return 0;
+>> +	}
+>> +
+>> +	/*
+>> +	 * Workaround for USB-C hubs/adapters with buggy firmware that fail
+>> +	 * multi-byte AUX reads but work with single-byte reads.
+>> +	 * Known affected devices:
+>> +	 * - Lenovo USB-C to VGA adapter (VIA VL817, idVendor=17ef, idProduct=7217)
+>> +	 * - Dell DA310 USB-C hub (idVendor=413c, idProduct=c010)
+>> +	 * Attempt byte-by-byte reading as a fallback.
+>> +	 */
+>> +	for (i = 0; i < size; i++) {
+>> +		ret = drm_dp_dpcd_readb(aux, offset + i, &buf[i]);
 
-> > > > > > > @@ -852,25 +825,28 @@ static int lm3533_als_probe(struct platform_device *pdev)
-> > > > > > >       indio_dev->channels = lm3533_als_channels;
-> > > > > > >       indio_dev->num_channels = ARRAY_SIZE(lm3533_als_channels);
-> > > > > > >       indio_dev->name = dev_name(&pdev->dev);
-> > > > > > > -     iio_device_set_parent(indio_dev, pdev->dev.parent);  
-> > > > > >
-> > > > > > I'm not sure why this was there in the first place.  Hence not sure if it
-> > > > > > is safe to remove.
-> > > > > >  
-> > > > >
-> > > > > This is directly related to OF conversion. The iio_device_set_parent
-> > > > > bound indio_dev to parent, and it causes problems with OF now since
-> > > > > als output has its own node and binding it to parent if wrong. Same
-> > > > > story for backlight and leds btw.  
-> > > >
-> > > > Is there any risk anyone was using the canonical path to get to the iio dev?
-> > > > /sys/bus/platform/devices/..../iio\:deviceX
-> > > > This is technically an ABI change be it a subtle one.
-> > > >  
-> > >
-> > > Linux kernel has no users of this driver, and it is in "stale" state
-> > > for more then 2 years (maybe even longer). I have cc'd Johan Hovold.
-> > >
-> > > https://lore.kernel.org/lkml/ZmBcvtLCzllQDWVX@hovoldconsulting.com/
-> > >
-> > > This this 2 y. o. discussion and there were no actions ore movements.
-> > > I assume this driver in its current form has no more users. This does
-> > > not mean that it cannot be revived though.  
-> >
-> > So, just to check, are you a user of this code or is this more trying to
-> > help out with old code?
-> >  
-> 
-> I am not insane enough to get myself into all this conversion if I did
-> not need it. This is one of 2 remaining gaps in support of LG
-> P880/P895 I own and support. I would really like to finally mainline
-> all the patches I have locally since maintaining them becomes quite
-> troublesome with time and additional patches layering on top.
+drm_dp_dpcd_read_byte() should be preferred over drm_dp_dpcd_readb()...
 
-Excellent! There are some odd people out there who do start on this
-sort of thing despite no personal use case :)
+>> +		if (ret < 0)
 
-Jonathan
+...because drm_dp_dpcd_readb() might return 0 on failures. You need to
+use drm_dp_dpcd_readb() == 1 to check for success, which is why
+drm_dp_dpcd_read_byte() and drm_dp_dpcd_read_data() were introduced in
+the first place.
+
+Moreover, this ugly workaround only impacts drm_dp_dpcd_read_data()
+callers, but there are lots and lots of direct drm_dp_dpcd_read() calls
+all over the place, which go unfixed.
+
+It should be emphasized that DP AUX changes that affect absolutely all
+drivers should go through more scrutiny, and require more acks.
+
+This needs follow-up fixes.
 
 
+BR,
+Jani.
 
+
+>> +			return ret;
+>> +	}
+>>   
+>>   	return 0;
+>>   }
+>> @@ -609,22 +642,6 @@ static inline int drm_dp_dpcd_write_data(struct drm_dp_aux *aux,
+>>   	return 0;
+>>   }
+>>   
+>> -/**
+>> - * drm_dp_dpcd_readb() - read a single byte from the DPCD
+>> - * @aux: DisplayPort AUX channel
+>> - * @offset: address of the register to read
+>> - * @valuep: location where the value of the register will be stored
+>> - *
+>> - * Returns the number of bytes transferred (1) on success, or a negative
+>> - * error code on failure. In most of the cases you should be using
+>> - * drm_dp_dpcd_read_byte() instead.
+>> - */
+>> -static inline ssize_t drm_dp_dpcd_readb(struct drm_dp_aux *aux,
+>> -					unsigned int offset, u8 *valuep)
+>> -{
+>> -	return drm_dp_dpcd_read(aux, offset, valuep, 1);
+>> -}
+>> -
+>>   /**
+>>    * drm_dp_dpcd_writeb() - write a single byte to the DPCD
+>>    * @aux: DisplayPort AUX channel
+>
+
+-- 
+Jani Nikula, Intel
