@@ -4,36 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4FF8CD6E51
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 08:47:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DC1DCD6E45
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 08:47:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8138410FB16;
-	Fri, 29 May 2026 08:47:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AA5210FB15;
+	Fri, 29 May 2026 08:47:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="FEJWxiuG";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="YIuAVdzf";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEDED10FB09
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 08:47:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E14CB10FB15
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 08:47:33 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id C2E7C291F;
- Fri, 29 May 2026 10:47:06 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id B8DCC7B6A;
+ Fri, 29 May 2026 10:47:11 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1780044427;
- bh=vNhPG3gt1iNAQede4sSDJktbqWiYm6dT9TVVZYkS1Jg=;
+ s=mail; t=1780044432;
+ bh=gvLfMhv4HQU6DTIrpERtFSiOVrvkNCT0l7ewEFG2l50=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=FEJWxiuGF6wP43Zgf6HmN+hw5/smgGyVqtB4l7IhSWldva1WPbDZuh326o1XCzM1H
- rOQHoCr5idk+QvHidVh0SNy9IZvdXCkzWVmG5fYYGBT2gHMUdTp6sOphGbMrU6X9t6
- UQUWmhgfDR0r2TNWls/y6yRL2+7o13NkYNln+eBY=
+ b=YIuAVdzfW5Iyl1sDds7AfTwz1bC7BIYaOeRPSHku4nkNIxD+sfA7av6oRdWBK9xM4
+ bI+o/3IPLkYhRXUH0pmO3riUe3mSPBnn0c9vCP5OegojBqSj1KtkHjpOKWNUaYuQqW
+ WUIVNixCnbUzilEruzRQLJI8zcqQRsYqS1ghstpg=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Fri, 29 May 2026 11:45:41 +0300
-Subject: [PATCH v3 11/15] drm/tidss: oldi: Fix OLDI signal polarities
+Date: Fri, 29 May 2026 11:45:45 +0300
+Subject: [PATCH v3 15/15] arm64: dts: ti: beagley-ai: Enable HDMI display
+ and audio
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260529-beagley-ai-display-v3-11-7fefdc5d1adf@ideasonboard.com>
+Message-Id: <20260529-beagley-ai-display-v3-15-7fefdc5d1adf@ideasonboard.com>
 References: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
 In-Reply-To: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -47,23 +48,24 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Louis Chauvet <louis.chauvet@bootlin.com>
 Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Andrew Davis <afd@ti.com>, 
+ Robert Nelson <robertcnelson@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4997;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7536;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=vNhPG3gt1iNAQede4sSDJktbqWiYm6dT9TVVZYkS1Jg=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqGVKPLEqXtvNtESuoXqfgthiAenLg0OEjFo3sS
- qX/TSc7QKGJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCahlSjwAKCRD6PaqMvJYe
- 9RJ+EACg3qKAWrMv5tLQrO5C/lIMuyM2T0knuft0pt2V9UdgGEUgrzKUuWs349rvbLJBmRX8ydg
- FWEas6wVr1d9AmMkwrd8piR3kWB4I2hBs2l3EjuyTfUgDsZbbqi1qgRmyryVa7FOhCaU7z25HMN
- i2H2XprPgWieOip1fXuPbqccc03dLFMVmSp5QiJ0LroWEaDZjiEPUh2X9mXyGQ7vTKXXOAk6wXm
- AvYhnpTj0akHifeTsJqK+P7qlU1FbWYQrEVb/Qt8ack9NDIXJWtIV+3uCW79bOco0ew6GD5nQ81
- zWyR+MnG/oKIu7lubA3agXgsioCrGIKVf+QtkbCTR9zqKh6BW+TY8RvtLMuU76kq8Us2Fyv/UeP
- TqZSpRDiONNrBaayfRvraM/nWmFqCpKKDjuFM11i/qENkf7mp2EaZOKnGjIHcUkWMmdY77v3zve
- KiEJ8NVIvo7rScfYGtMlPh/2eqNNXhT+jpkH3EvL/dhXqk3qIq/7tQENvifIzv7UCCAO0c4ISWk
- dVWcF1qhLFSThLlFrXYNcZjQc64lJP6XajSvojo+nFQRSXDL3QaDp1B/Ce482LonEOSrrRYOuWH
- 2/eRHbsVZ1drjWNhr1JTap7t7dMaMiWPnLNfzgKzo44meepAIkErkNhdhzC3Su6fpOVYucZYYOo
- rCIEzAoGOAFuoeg==
+ bh=Ge4aPjOaQi2GtYQmIurGaY0c8IXbvBUBn4UOL1Y1VfU=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqGVKQbYdNh4QagCbQ5M7DAm9e2x+K1X9j0S5P1
+ LkJQUOs/pOJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCahlSkAAKCRD6PaqMvJYe
+ 9YalEACaVfwiSw250f8We9JZAjWApwbtwDkh6rnlfLU7irzhDH7NlD+sbuoOs0L6FqSVfAnaUIW
+ LWYr9+NJ8p7mCOSndxOAvvciFL8QN36iA3ZXY2F8UwVpNFLIG42hOTTBFmFKb0vEFEpIrohdBiT
+ W4VDSK4rQbB3t7EWHn5Hxu7pkx/cmmXfTI/1VCSiPthzhcA6XB5HoZyNZi54vy5qtwham/9l/UY
+ fe0YAern0KhjG7kfryDI8qzfMqc+34pBzd8qT3/2JHODQpXyslu01zyXggEp5bvAF7DsOV2p/dt
+ TYuJ5V3Ml4n0FXRnK9nUMvlt/+CKZ134BdFY3zlyn4Rx0uMm7dPuZAFJTt9uhtSLhZefMbLVZXB
+ zmJXAf8ZtsfnS7V3ufTBgGFP1jz9lQZ+zABeo44foe+0oCk1rryLSQeZLDg2xFFcalx40ewAxOo
+ kMBE1TRbYpi2/FaJtaMLHYagnhqRq0Hlt036simluGRVuJP4jlfvxIYkSITJEub+9IQ82YyTWQe
+ hXfmXf7SJHPoemI7Zi6IpdALxUjy0i8og2BnEHZPoZVd3oNpe9yyruy0McrRrz17jCGMy7BFMSR
+ MeMqrpDTkIw+zQDtWvsiQ5hV2n6wCAg0mnDFUf3Z1jEVt7cykTgYS9zVE/XJo3g9fuwd6Rd/4Sq
+ kuqbDKrLXVJKj3A==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,134 +83,258 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-OLDI has a few issues with how it handles the signal polarities:
+From: Andrew Davis <afd@ti.com>
 
-- It always sets OLDI_DEPOL, which means DE active low
-- It sets DRM_BUS_FLAG_DE_HIGH in struct drm_bridge_timings, i.e.
-  reverse to the OLDI_DEPOL
-- It sets DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE in struct drm_bridge_timings,
-  but the TRM says "The DSS interface is clocked on the rising edge of
-  OLDI_FWD_P_CLK pixel clock", which I read as "OLDI samples on rising
-  edge".
-- But the defined drm_bridge_timings is not actually used anywhere, even
-  if it is set to bridge->timings, so the bus flags are just ignored.
+Enable HDMI support for BeagleY-AI platform. The display controller used is
+TIDSS and the HDMI bridge used is IT66122.
 
-However, based on my testing, OLDI_DEPOL bit or the edge on which data
-and syncs are driven doesn't seem to affect the OLDI output. Possibly
-it's not as robust, but I did not see any effect with an oscilloscope.
+Based on DT by: Robert Nelson <robertcnelson@gmail.com>
 
-However, the code is still quite broken, so let's fix it:
-- Remove drm_bridge_timings
-- Set the correct input_bus_cfg.flags in tidss_oldi_atomic_check()
-- Set OLDI_DEPOL based on the DE bus flag
-
+Signed-off-by: Andrew Davis <afd@ti.com>
+Signed-off-by: Swamil Jain <s-jain1@ti.com>
+[tomi.valkeinen: cosmetic fixes]
+Tested-by: Robert Nelson <robertcnelson@gmail.com>
 Tested-by: Swamil Jain <s-jain1@ti.com>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/tidss/tidss_oldi.c | 38 ++++++++++++++++++++++++++++----------
- 1 file changed, 28 insertions(+), 10 deletions(-)
+ arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts | 191 +++++++++++++++++++++++++
+ 1 file changed, 191 insertions(+)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
-index 17c535bfa057..e925ddaa4fd6 100644
---- a/drivers/gpu/drm/tidss/tidss_oldi.c
-+++ b/drivers/gpu/drm/tidss/tidss_oldi.c
-@@ -164,7 +164,8 @@ static void tidss_oldi_tx_power(struct tidss_oldi *oldi, bool enable)
- 	regmap_update_bits(oldi->io_ctrl, OLDI_PD_CTRL, mask, enable ? 0 : mask);
- }
- 
--static int tidss_oldi_config(struct tidss_oldi *oldi)
-+static int tidss_oldi_config(struct tidss_oldi *oldi,
-+			     struct drm_bridge_state *bridge_state)
- {
- 	const struct oldi_bus_format *bus_fmt = NULL;
- 	u32 oldi_cfg = 0;
-@@ -183,7 +184,8 @@ static int tidss_oldi_config(struct tidss_oldi *oldi)
- 			 "OLDI%u: DSS port width %d not supported\n",
- 			 oldi->oldi_instance, bus_fmt->data_width);
- 
--	oldi_cfg |= OLDI_DEPOL;
-+	if (bridge_state->input_bus_cfg.flags & DRM_BUS_FLAG_DE_LOW)
-+		oldi_cfg |= OLDI_DEPOL; /* 1 = active low */
- 
- 	oldi_cfg = (oldi_cfg & (~OLDI_MAP)) | (bus_fmt->oldi_mode_reg_val << 1);
- 
-@@ -220,6 +222,22 @@ static int tidss_oldi_config(struct tidss_oldi *oldi)
- 	return ret;
- }
- 
-+static int tidss_oldi_atomic_check(struct drm_bridge *bridge,
-+				   struct drm_bridge_state *bridge_state,
-+				   struct drm_crtc_state *crtc_state,
-+				   struct drm_connector_state *conn_state)
-+{
-+	bridge_state->input_bus_cfg.flags &=
-+		~(DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE |
-+		  DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE);
+diff --git a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts
+index 5255e04b9ac7..f97e3bddf28f 100644
+--- a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts
++++ b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts
+@@ -146,6 +146,34 @@ led-1 {
+ 			default-state = "on";
+ 		};
+ 	};
 +
-+	bridge_state->input_bus_cfg.flags |=
-+		DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
-+		DRM_BUS_FLAG_SYNC_SAMPLE_POSEDGE;
++	hdmi0: connector-hdmi {
++		compatible = "hdmi-connector";
++		label = "hdmi";
++		type = "d";
++		port {
++			hdmi_connector_in: endpoint {
++				remote-endpoint = <&it66122_out>;
++			};
++		};
++	};
 +
-+	return 0;
-+}
++	sound0: sound {
++		compatible = "simple-audio-card";
++		simple-audio-card,name = "it66122 HDMI";
++		simple-audio-card,format = "i2s";
++		simple-audio-card,bitclock-master = <&hdmi_dailink_master>;
++		simple-audio-card,frame-master = <&hdmi_dailink_master>;
 +
- static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
- 					 struct drm_atomic_state *state)
- {
-@@ -228,6 +246,7 @@ static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
- 	struct drm_connector_state *conn_state;
- 	struct drm_crtc_state *crtc_state;
- 	struct drm_display_mode *mode;
-+	struct drm_bridge_state *bridge_state;
- 
- 	if (oldi->link_type == OLDI_MODE_SECONDARY_CLONE_SINGLE_LINK)
- 		return;
-@@ -245,10 +264,14 @@ static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
- 	if (WARN_ON(!crtc_state))
- 		return;
- 
-+	bridge_state = drm_atomic_get_new_bridge_state(state, bridge);
-+	if (WARN_ON(!bridge_state))
-+		return;
++		hdmi_dailink_master: simple-audio-card,cpu {
++			sound-dai = <&mcasp1>;
++			system-clock-direction-out;
++		};
 +
- 	mode = &crtc_state->adjusted_mode;
++		simple-audio-card,codec {
++			sound-dai = <&it66122>;
++		};
++	};
+ };
  
- 	/* Configure the OLDI params*/
--	tidss_oldi_config(oldi);
-+	tidss_oldi_config(oldi, bridge_state);
+ &main_pmx0 {
+@@ -185,6 +213,14 @@ J722S_IOPAD(0x0240, PIN_INPUT, 7) /* (B24) MMC1_SDCD.GPIO1_48 */
+ 		bootph-all;
+ 	};
  
- 	/* Set the OLDI serial clock (7 times the pixel clock) */
- 	tidss_oldi_set_serial_clk(oldi, mode->clock * 7 * 1000);
-@@ -329,7 +352,8 @@ tidss_oldi_mode_valid(struct drm_bridge *bridge,
- }
++	main_i2c1_pins_default: main-i2c1-default-pins {
++		pinctrl-single,pins = <
++			J722S_IOPAD(0x01e8, PIN_INPUT_PULLUP, 0) /* (C24) I2C1_SCL */
++			J722S_IOPAD(0x01ec, PIN_INPUT_PULLUP, 0) /* (A22) I2C1_SDA */
++		>;
++		bootph-all;
++	};
++
+ 	mdio_pins_default: mdio-default-pins {
+ 		pinctrl-single,pins = <
+ 			J722S_IOPAD(0x0160, PIN_OUTPUT, 0) /* (AC24) MDIO0_MDC */
+@@ -227,6 +263,47 @@ vdd_3v3_sd_pins_default: vdd-3v3-sd-default-pins {
+ 			J722S_IOPAD(0x0254, PIN_OUTPUT, 7) /* (E25) USB0_DRVVBUS.GPIO1_50 */
+ 		>;
+ 	};
++
++	dss1_pins_default: dss1-default-pins {
++		pinctrl-single,pins = <
++			J722S_IOPAD(0x0100, PIN_OUTPUT, 0) /* (AB23) VOUT0_VSYNC */
++			J722S_IOPAD(0x00f8, PIN_OUTPUT, 0) /* (AB24) VOUT0_HSYNC */
++			J722S_IOPAD(0x0104, PIN_OUTPUT, 0) /* (AC26) VOUT0_PCLK */
++			J722S_IOPAD(0x00fc, PIN_OUTPUT, 0) /* (AC27) VOUT0_DE */
++			J722S_IOPAD(0x00b8, PIN_OUTPUT, 0) /* (W27) VOUT0_DATA0 */
++			J722S_IOPAD(0x00bc, PIN_OUTPUT, 0) /* (W25) VOUT0_DATA1 */
++			J722S_IOPAD(0x00c0, PIN_OUTPUT, 0) /* (W24) VOUT0_DATA2 */
++			J722S_IOPAD(0x00c4, PIN_OUTPUT, 0) /* (W23) VOUT0_DATA3 */
++			J722S_IOPAD(0x00c8, PIN_OUTPUT, 0) /* (W22) VOUT0_DATA4 */
++			J722S_IOPAD(0x00cc, PIN_OUTPUT, 0) /* (W21) VOUT0_DATA5 */
++			J722S_IOPAD(0x00d0, PIN_OUTPUT, 0) /* (Y26) VOUT0_DATA6 */
++			J722S_IOPAD(0x00d4, PIN_OUTPUT, 0) /* (Y27) VOUT0_DATA7 */
++			J722S_IOPAD(0x00d8, PIN_OUTPUT, 0) /* (AA24) VOUT0_DATA8 */
++			J722S_IOPAD(0x00dc, PIN_OUTPUT, 0) /* (AA27) VOUT0_DATA9 */
++			J722S_IOPAD(0x00e0, PIN_OUTPUT, 0) /* (AA25) VOUT0_DATA10 */
++			J722S_IOPAD(0x00e4, PIN_OUTPUT, 0) /* (AB25) VOUT0_DATA11 */
++			J722S_IOPAD(0x00e8, PIN_OUTPUT, 0) /* (AA23) VOUT0_DATA12 */
++			J722S_IOPAD(0x00ec, PIN_OUTPUT, 0) /* (AA22) VOUT0_DATA13 */
++			J722S_IOPAD(0x00f0, PIN_OUTPUT, 0) /* (AB26) VOUT0_DATA14 */
++			J722S_IOPAD(0x00f4, PIN_OUTPUT, 0) /* (AB27) VOUT0_DATA15 */
++			J722S_IOPAD(0x005c, PIN_OUTPUT, 1) /* (AC25) GPMC0_AD8.VOUT0_DATA16 */
++			J722S_IOPAD(0x0060, PIN_OUTPUT, 1) /* (U26) GPMC0_AD9.VOUT0_DATA17 */
++			J722S_IOPAD(0x0064, PIN_OUTPUT, 1) /* (V27) GPMC0_AD10.VOUT0_DATA18 */
++			J722S_IOPAD(0x0068, PIN_OUTPUT, 1) /* (V25) GPMC0_AD11.VOUT0_DATA19 */
++			J722S_IOPAD(0x006c, PIN_OUTPUT, 1) /* (V26) GPMC0_AD12.VOUT0_DATA20 */
++			J722S_IOPAD(0x0070, PIN_OUTPUT, 1) /* (V24) GPMC0_AD13.VOUT0_DATA21 */
++			J722S_IOPAD(0x0074, PIN_OUTPUT, 1) /* (V22) GPMC0_AD14.VOUT0_DATA22 */
++			J722S_IOPAD(0x0078, PIN_OUTPUT, 1) /* (V23) GPMC0_AD15.VOUT0_DATA23 */
++		>;
++	};
++
++	main_mcasp1_pins_default: main-mcasp1-default-pins {
++		pinctrl-single,pins = <
++			J722S_IOPAD(0x0090, PIN_INPUT, 2) /* (P27) GPMC0_BE0n_CLE.MCASP1_ACLKX */
++			J722S_IOPAD(0x0098, PIN_INPUT, 2) /* (V21) GPMC0_WAIT0.MCASP1_AFSX */
++			J722S_IOPAD(0x008c, PIN_OUTPUT, 2) /* (N23) GPMC0_WEn.MCASP1_AXR0 */
++		>;
++	};
+ };
  
- static const struct drm_bridge_funcs tidss_oldi_bridge_funcs = {
--	.attach	= tidss_oldi_bridge_attach,
-+	.attach = tidss_oldi_bridge_attach,
-+	.atomic_check = tidss_oldi_atomic_check,
- 	.atomic_pre_enable = tidss_oldi_atomic_pre_enable,
- 	.atomic_post_disable = tidss_oldi_atomic_post_disable,
- 	.atomic_get_input_bus_fmts = tidss_oldi_atomic_get_input_bus_fmts,
-@@ -440,11 +464,6 @@ static int get_parent_dss_vp(struct device_node *oldi_tx, u32 *parent_vp)
- 	return -ENODEV;
- }
+ &cpsw3g {
+@@ -284,6 +361,13 @@ J722S_MCU_IOPAD(0x050, PIN_INPUT_PULLUP, 0)	/* (C6) WKUP_I2C1_SDA */
+ 		>;
+ 		bootph-all;
+ 	};
++
++	hdmi_gpio_pins_default: hdmi-gpio-default-pins {
++		pinctrl-single,pins = <
++			J722S_MCU_IOPAD(0x0038, PIN_INPUT_PULLUP | PIN_DEBOUNCE_CONF6, 7) /* (D8) MCU_MCAN0_RX.MCU_GPIO0_14 HDMI_INTn */
++			J722S_MCU_IOPAD(0x0034, PIN_OUTPUT_PULLUP, 7) /* (B2) MCU_MCAN0_TX.MCU_GPIO0_13 HDMI_RSTn */
++		>;
++	};
+ };
  
--static const struct drm_bridge_timings default_tidss_oldi_timings = {
--	.input_bus_flags = DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE
--			 | DRM_BUS_FLAG_DE_HIGH,
--};
--
- void tidss_oldi_deinit(struct tidss_device *tidss)
- {
- 	for (int i = 0; i < tidss->num_oldis; i++) {
-@@ -598,7 +617,6 @@ int tidss_oldi_init(struct tidss_device *tidss)
- 		/* Register the bridge. */
- 		oldi->bridge.of_node = child;
- 		oldi->bridge.driver_private = oldi;
--		oldi->bridge.timings = &default_tidss_oldi_timings;
+ &wkup_uart0 {
+@@ -385,6 +469,63 @@ rtc: rtc@68 {
+ 	};
+ };
  
- 		tidss->oldis[tidss->num_oldis++] = oldi;
- 		tidss->is_ext_vp_clk[oldi->parent_vp] = true;
++&main_i2c1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&main_i2c1_pins_default>;
++	clock-frequency = <400000>;
++	bootph-all;
++
++	it66122: bridge-hdmi@4c {
++		compatible = "ite,it66122";
++		reg = <0x4c>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&hdmi_gpio_pins_default>;
++		vcn33-supply = <&vdd_3v3>;
++		vcn18-supply = <&buck2_reg>;
++		vrf12-supply = <&ldo2_reg>;
++		reset-gpios = <&mcu_gpio0 13 GPIO_ACTIVE_LOW>;
++		interrupt-parent = <&mcu_gpio0>;
++		interrupts = <14 IRQ_TYPE_EDGE_FALLING>;
++		#sound-dai-cells = <0>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			/*
++			 * HDMI can be serviced with 3 potential VPs -
++			 * (DSS0 VP1 / DSS1 VP0 / DSS1 VP1).
++			 * For now, we will service it with DSS1 VP0.
++			 */
++			port@0 {
++				reg = <0>;
++
++				it66122_in: endpoint {
++					bus-width = <24>;
++					remote-endpoint = <&dss1_dpi0_out>;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++
++				it66122_out: endpoint {
++					remote-endpoint = <&hdmi_connector_in>;
++				};
++			};
++		};
++	};
++};
++
++&main_gpio0 {
++	status = "okay";
++};
++
++&mcu_gpio0 {
++	status = "okay";
++};
++
+ &sdhci1 {
+ 	/* SD/MMC */
+ 	vmmc-supply = <&vdd_mmc1>;
+@@ -399,4 +540,54 @@ &sdhci1 {
+ 	status = "okay";
+ };
+ 
++&dss1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&dss1_pins_default>;
++
++	clocks = <&k3_clks 232 8>,
++		 <&k3_clks 232 0>,
++		 <&k3_clks 232 4>;
++
++	assigned-clocks = <&k3_clks 241 0>, /* DSS1-VP0 */
++			  <&k3_clks 240 0>, /* DSS1-VP1 */
++			  <&k3_clks 245 0>; /* DPI Output */
++
++	assigned-clock-parents = <&k3_clks 241 2>, /* PLL 17 HDMI */
++				 <&k3_clks 240 1>, /* PLL 18 DSI */
++				 <&k3_clks 245 2>; /* DSS1-DPI0 */
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		/* DSS1-VP0: DPI/HDMI Output */
++		port@0 {
++			reg = <0>;
++
++			dss1_dpi0_out: endpoint {
++				remote-endpoint = <&it66122_in>;
++			};
++		};
++	};
++};
++
++&mcasp1 {
++	status = "okay";
++	#sound-dai-cells = <0>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&main_mcasp1_pins_default>;
++	auxclk-fs-ratio = <2177>;
++	op-mode = <0>; /* MCASP_IIS_MODE */
++	tdm-slots = <2>;
++	serial-dir = <  /* 0: INACTIVE, 1: TX, 2: RX */
++		1 0 0 0
++		0 0 0 0
++		0 0 0 0
++		0 0 0 0
++	>;
++	tx-num-evt = <32>;
++	rx-num-evt = <32>;
++};
++
+ #include "k3-j722s-ti-ipc-firmware.dtsi"
 
 -- 
 2.43.0
