@@ -4,55 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40F40CD6E49
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 04:06:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43F02CD6E49
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 04:27:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9765B10F853;
-	Fri, 29 May 2026 04:06:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97B1610F867;
+	Fri, 29 May 2026 04:27:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="MMgPJ4+V";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ICdLpdph";
 	dkim-atps=neutral
-Received: from mail-m8267.xmail.ntesmail.com (mail-m8267.xmail.ntesmail.com
- [156.224.82.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0D4110F853
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 04:05:56 +0000 (UTC)
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 404653bd3;
- Fri, 29 May 2026 12:05:52 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
- dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v4 3/3] drm/bridge: analogix_dp: Add support for optional
- data-lanes mapping
-Date: Fri, 29 May 2026 12:05:30 +0800
-Message-Id: <20260529040530.741336-4-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260529040530.741336-1-damon.ding@rock-chips.com>
-References: <20260529040530.741336-1-damon.ding@rock-chips.com>
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012064.outbound.protection.outlook.com [52.101.43.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A289710F867
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 04:27:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ilh22z8TN+bDsPRvP/pqDgaY8O00i2/0l5BRCaKyXX/8/Y78JiErPepSJ5ShM2UIJ2sQ78LV1bxMOV+/cTm6t8QuWmh9I4fFYs6rGBgQ1W3D7M6zsSoECyXr11qQp9sJhRZHuYSwWt1PeWQIkJ50Q47ZROZsMfUpq3DO8YlFZuGYXsPgpRVm1lw+mSsjhyz00aTRyIzFGYwDRvjDBR1Fl98N27619TmFgA+5MY9XcE1jMFf0E21ccuGr7OGi7OXMzWa9IRKDDMBw88/klgSMpVm1qNY6b4seNcgeXS389j/sRtXQHSBz+dMbQr7KXX88y4T4SbTC/NvASgZAsqfxPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CBHszpVoN0Hnimn4JyMdwPIiNX50ay0H85IAzkdBRkk=;
+ b=IJDE4J0reG+YHR8c0v7zrrCuIVRroLSWDR6nwMVcpVyQYDpx1U/BGl23vvYJ9g0nZ/NDcpaYvU2sjCAorYyr0DMqNsalW4W/jkpw8jhSOeIU4LObbSYdSDluH2lNlVrv62QhqSXfZSivrlE9Oj7Q0iWRGo2Tg6rakv+UlDf0tpOx+4NGMbrslyJM1iWEg07jBotZleGGytW3LIVdLSHH8krfBeFaEJJPrgzilwaA/a3sHOQwh/BOhjAc72Rhwef1oeRKyX7Hd1RVP/twXXI1jC8e+Ofc3BIb3uNK8U3cNIfbZ3Hnf8inBB0r5Wdp+geoCL7OoOE83jdsxC9xB05XxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CBHszpVoN0Hnimn4JyMdwPIiNX50ay0H85IAzkdBRkk=;
+ b=ICdLpdphpOOCizoeNwUznY3pPJ7aGQwgeUBk5mi8++f8tsR8qArGx5RmczoUYYj66eHpXJmtmk1qBD6m1NkhZHNuJ4aqWrliISE9NNV3WW8i4LhL5sLooLdg7uEpN2aN+AV8tED9l3GwGF5L0ZsJeBUU6o1Y71zKonzfAVy6iv8=
+Received: from SA9PR11CA0001.namprd11.prod.outlook.com (2603:10b6:806:6e::6)
+ by BL3PR12MB6401.namprd12.prod.outlook.com (2603:10b6:208:3b1::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Fri, 29 May
+ 2026 04:26:57 +0000
+Received: from SA2PEPF000015CB.namprd03.prod.outlook.com
+ (2603:10b6:806:6e:cafe::3) by SA9PR11CA0001.outlook.office365.com
+ (2603:10b6:806:6e::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.12 via Frontend Transport; Fri, 29
+ May 2026 04:26:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SA2PEPF000015CB.mail.protection.outlook.com (10.167.241.201) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 04:26:57 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 28 May
+ 2026 23:26:57 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Thu, 28 May 2026 23:26:56 -0500
+Message-ID: <6817ecd8-cbf7-8ade-6926-7375bda20e73@amd.com>
+Date: Thu, 28 May 2026 21:26:56 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V1] accel/amdxdna: Disable device buffer exporting
+Content-Language: en-US
+To: Mario Limonciello <superm1@kernel.org>, <ogabbay@kernel.org>,
+ <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+ <karol.wachowski@linux.intel.com>
+CC: <linux-kernel@vger.kernel.org>, <max.zhen@amd.com>, <sonal.santan@amd.com>
+References: <20260526185058.1780869-1-lizhi.hou@amd.com>
+ <28dc206a-695d-482f-b434-c27eda960bfe@kernel.org>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <28dc206a-695d-482f-b434-c27eda960bfe@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e71e8f47d03a8kunmaf9a1d48e6c34
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQhpKVh9MSx9PH0kZGRgYGVYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=MMgPJ4+Vi0CVvauDkSv080LStu9S72lp32lWV3eqT2I887soBz3RTHzQcp+w8NIkOcFQeQVOca0lrzbGx8v9ezXsuZ6SK4PDqyZx1kTccv4uaYvdMiM++roHJEUEde25ffrzPZEcOqQ+Hahhi8yHTCf11rqTRHahwiSztB6skaM=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=73qAOTIleH0MDsOqvfvdJo3Hbwa6tE3kEhHdlHdGqdk=;
- h=date:mime-version:subject:message-id:from;
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015CB:EE_|BL3PR12MB6401:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8e87f3a1-1b31-43e9-fedf-08debd3a8548
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|376014|1800799024|82310400026|22082099003|18002099003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: wQ6YGuwcQCwW4n4RbLfXxI4cC0kFWzklH2pGmDUgz23OuoNljA/EtaWKOlNr+Y6Av14yTcSXEBJc8daxAPfU9cZl7MVfwOn5ylZMgLUYMii1J75hGSF3/DnHRzmHKTRooWHxiSDWR1yPdL01l7MmMHgaDm0MlCQqzmrCiHHWfobf+6szfvjEkNvge8Cmy9Gm6Wt3KZN2TAST/Cc1IsrZhIZMIihe39TTOdzkmuFcLuJu7uIHnGm5asiqUbOgWn25EWUQKrL4grtk814coZ24u4kfrlzYAV2ugYp9xVlvS0JvyP7VKL9gJTQbciIP9T2unzOlDA+fjcRTj/OIhjgyBvtkLY5FR16FVL02CTzojURp2+Fd64eAJZNqn1p4zmYolK5fOyyeIoH+LmiHgEBfdQBqvUvOCRJCo9axoINvGKq/JkJZ0CMftMp3dhHyVC4HzF47FTdnlW5QlbfJh2AqulU2/8+QSMpmFLXZ9BbnpzdqZ3bFgbD4an9Nw+c4x0GOlcl287KcdHtpTJixu9fPgWdp/HEwOcy2prL7dJ/nqA0mMy5jE4aTs2hqp8qPwbo8/HcTQVDPl6IZGyQCUgCI6OHJa+xkS/ow+INXFlaxv5lpJXw0dhLeXKalh84XUX/nSZMkxa/66Pv5tEoPAC5UTv3Par8POtq5sx5btflySn9CJjvo6OoONaZugRDRJhrayLQ3eNY8R0ZjM//KlhGoSH5Dd5l2YRukEN5zFXPQags=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: RD4Dq/t00tn12hfqTE4Tg58RKMmdbMGRWlX+vgNsc1QESs0Hz+ML5y0cquDTuncD3/oGsE6rx/Wb4hIa6Y1CDQN35tPqkjgfWyxEGEF0oYxDtYkapPFKf4Q5FsYcKQfVtZOV2z2I8bR8mJTlHSN1TxXznT7en7f1JJPhBqzlXdo6rOsjET5ZPEfGImtwt5V1D9UARBrd/Wy4RK1XULQZRmLMN66hKLEcmENvODoLaEGHDTlyVGY8RfksUjQJyyUKs0ts06XSDxS+R+rp7Rqri06f6KasgCgKC18XcC+HXhalKvoH3zVQXOUUzzoSbpkPcRdHrJ5HbVzsX8E4uli6Fu5I3VuTQufPfT35bDLHCIqzzhjngoTHMi19o4bwUADdgt5vUQvp9Wdqk7/WpKLTsZr9/xFjoIkLN1AB2GvuxBECpra9wRD4bfkUka/w27NX
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 04:26:57.4483 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e87f3a1-1b31-43e9-fedf-08debd3a8548
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015CB.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6401
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,179 +115,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Parse the optional 'data-lanes' device tree property to support
-custom physical lane mapping configuration.
+Applied to drm-misc-next
 
-If no valid configuration is found, fall back to the default
-lane map (0, 1, 2, 3) automatically and keep the driver running.
-
-Lane mapping is mainly used for below scenarios:
-1. Correct PCB lane swap and differential line routing crossover
-   without hardware changes;
-2. Adapt mismatched lane pin definitions between SoC and eDP panel;
-3. Support multiple panel hardware variants on the same board
-   by configuring data-lanes in device tree only.
-
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-
----
-
-Changes in v2:
-- Add lane mapping application scenarios in commit message.
----
- .../drm/bridge/analogix/analogix_dp_core.c    | 56 +++++++++++++++++++
- .../drm/bridge/analogix/analogix_dp_core.h    |  4 +-
- .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 15 +++--
- .../gpu/drm/bridge/analogix/analogix_dp_reg.h |  4 ++
- 4 files changed, 70 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 699a7f380c56..b2e729850391 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -1234,6 +1234,59 @@ static const struct drm_bridge_funcs analogix_dp_bridge_funcs = {
- 	.detect = analogix_dp_bridge_detect,
- };
- 
-+static int analogix_dp_dt_parse_lanes_map(struct analogix_dp_device *dp)
-+{
-+	struct video_info *video_info = &dp->video_info;
-+	struct device_node *endpoint;
-+	u32 tmp[LANE_COUNT4];
-+	u32 map[LANE_COUNT4] = {0, 1, 2, 3};
-+	bool used[LANE_COUNT4] = {false};
-+	int num_lanes;
-+	int ret, i;
-+
-+	memcpy(video_info->lane_map, map, sizeof(map));
-+
-+	num_lanes = drm_of_get_data_lanes_count_ep(dp->dev->of_node, 1, 0, 1,
-+						   video_info->max_lane_count);
-+	if (num_lanes < 0)
-+		return -EINVAL;
-+
-+	endpoint = of_graph_get_endpoint_by_regs(dp->dev->of_node, 1, -1);
-+	if (!endpoint)
-+		return -EINVAL;
-+
-+	ret = of_property_read_u32_array(endpoint, "data-lanes", tmp, num_lanes);
-+	of_node_put(endpoint);
-+	if (ret)
-+		return -EINVAL;
-+
-+	for (i = 0; i < num_lanes; i++) {
-+		if (tmp[i] >= LANE_COUNT4) {
-+			dev_dbg(dp->dev, "data-lanes[%d] = %u is out of range\n", i, tmp[i]);
-+			return -EINVAL;
-+		}
-+
-+		if (used[tmp[i]]) {
-+			dev_dbg(dp->dev, "data-lanes[%d] = %u is duplicate\n", i, tmp[i]);
-+			return -EINVAL;
-+		}
-+
-+		used[tmp[i]] = true;
-+		map[i] = tmp[i];
-+	}
-+
-+	for (i = 0; i < LANE_COUNT4 && num_lanes < LANE_COUNT4; i++) {
-+		if (!used[i])
-+			map[num_lanes++] = i;
-+	}
-+
-+	dev_dbg(dp->dev, "Using parsed lane map: <%u %u %u %u>\n", map[0], map[1], map[2], map[3]);
-+
-+	memcpy(video_info->lane_map, map, sizeof(map));
-+
-+	return 0;
-+}
-+
- static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
- {
- 	struct device_node *dp_node = dp->dev->of_node;
-@@ -1274,6 +1327,9 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
- 		break;
- 	}
- 
-+	if (analogix_dp_dt_parse_lanes_map(dp))
-+		dev_dbg(dp->dev, "No valid data-lanes found, using default lane map\n");
-+
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-index 17347448c6b0..634fad241e69 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-@@ -137,6 +137,8 @@ struct video_info {
- 
- 	int max_link_rate;
- 	enum link_lane_count_type max_lane_count;
-+
-+	u32 lane_map[LANE_COUNT4];
- };
- 
- struct link_train {
-@@ -175,7 +177,7 @@ struct analogix_dp_device {
- /* analogix_dp_reg.c */
- void analogix_dp_enable_video_mute(struct analogix_dp_device *dp, bool enable);
- void analogix_dp_stop_video(struct analogix_dp_device *dp);
--void analogix_dp_lane_swap(struct analogix_dp_device *dp, bool enable);
-+void analogix_dp_lane_mapping(struct analogix_dp_device *dp);
- void analogix_dp_init_analog_param(struct analogix_dp_device *dp);
- void analogix_dp_init_interrupt(struct analogix_dp_device *dp);
- void analogix_dp_reset(struct analogix_dp_device *dp);
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-index 38fd8d5014d2..45c7652645a1 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-@@ -48,16 +48,15 @@ void analogix_dp_stop_video(struct analogix_dp_device *dp)
- 	writel(reg, dp->reg_base + ANALOGIX_DP_VIDEO_CTL_1);
- }
- 
--void analogix_dp_lane_swap(struct analogix_dp_device *dp, bool enable)
-+void analogix_dp_lane_mapping(struct analogix_dp_device *dp)
- {
-+	u32 *lane_map = dp->video_info.lane_map;
- 	u32 reg;
- 
--	if (enable)
--		reg = LANE3_MAP_LOGIC_LANE_0 | LANE2_MAP_LOGIC_LANE_1 |
--		      LANE1_MAP_LOGIC_LANE_2 | LANE0_MAP_LOGIC_LANE_3;
--	else
--		reg = LANE3_MAP_LOGIC_LANE_3 | LANE2_MAP_LOGIC_LANE_2 |
--		      LANE1_MAP_LOGIC_LANE_1 | LANE0_MAP_LOGIC_LANE_0;
-+	reg = lane_map[0] << LANE0_MAP_SHIFT;
-+	reg |= lane_map[1] << LANE1_MAP_SHIFT;
-+	reg |= lane_map[2] << LANE2_MAP_SHIFT;
-+	reg |= lane_map[3] << LANE3_MAP_SHIFT;
- 
- 	writel(reg, dp->reg_base + ANALOGIX_DP_LANE_MAP);
- }
-@@ -140,7 +139,7 @@ void analogix_dp_reset(struct analogix_dp_device *dp)
- 
- 	usleep_range(20, 30);
- 
--	analogix_dp_lane_swap(dp, 0);
-+	analogix_dp_lane_mapping(dp);
- 
- 	writel(0x0, dp->reg_base + ANALOGIX_DP_SYS_CTL_1);
- 	writel(0x40, dp->reg_base + ANALOGIX_DP_SYS_CTL_2);
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.h
-index 12735139046c..ac914e37089b 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.h
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.h
-@@ -209,6 +209,10 @@
- #define LANE0_MAP_LOGIC_LANE_1			(0x1 << 0)
- #define LANE0_MAP_LOGIC_LANE_2			(0x2 << 0)
- #define LANE0_MAP_LOGIC_LANE_3			(0x3 << 0)
-+#define LANE3_MAP_SHIFT				(6)
-+#define LANE2_MAP_SHIFT				(4)
-+#define LANE1_MAP_SHIFT				(2)
-+#define LANE0_MAP_SHIFT				(0)
- 
- /* ANALOGIX_DP_ANALOG_CTL_1 */
- #define TX_TERMINAL_CTRL_50_OHM			(0x1 << 4)
--- 
-2.34.1
-
+On 5/28/26 14:19, Mario Limonciello wrote:
+>
+>
+> On 5/26/26 19:50, Lizhi Hou wrote:
+>> Device buffers are never intended to be exported. Disable exporting
+>> support explicitly.
+>>
+>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+>> ---
+>>   drivers/accel/amdxdna/amdxdna_gem.c | 6 ++++++
+>>   1 file changed, 6 insertions(+)
+>>
+>> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c 
+>> b/drivers/accel/amdxdna/amdxdna_gem.c
+>> index 2dfdc56ba91d..2727e48afc0a 100644
+>> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+>> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+>> @@ -725,9 +725,15 @@ static int amdxdna_gem_dev_obj_vmap(struct 
+>> drm_gem_object *obj, struct iosys_map
+>>       return 0;
+>>   }
+>>   +static struct dma_buf *amdxdna_gem_dev_obj_export(struct 
+>> drm_gem_object *gobj, int flags)
+>> +{
+>> +    return ERR_PTR(-EOPNOTSUPP);
+>> +}
+>> +
+>>   static const struct drm_gem_object_funcs amdxdna_gem_dev_obj_funcs = {
+>>       .free = amdxdna_gem_dev_obj_free,
+>>       .vmap = amdxdna_gem_dev_obj_vmap,
+>> +    .export = amdxdna_gem_dev_obj_export,
+>>   };
+>>     static const struct drm_gem_object_funcs amdxdna_gem_shmem_funcs = {
+>
