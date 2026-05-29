@@ -4,50 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E25ACD5BD2
-	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 09:46:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08C3FCD5BD2
+	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 09:50:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B465810FC10;
-	Fri, 29 May 2026 09:46:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4096810FC1F;
+	Fri, 29 May 2026 09:50:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="sL1Jta0D";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="D5cQBJ29";
 	dkim-atps=neutral
-Received: from out28-50.mail.aliyun.com (out28-50.mail.aliyun.com
- [115.124.28.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EF1910FC10
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 09:45:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
- t=1780047954; h=From:To:Subject:Date:Message-Id:MIME-Version;
- bh=eVZn7MAONGMHowrlbF8Q4henpwp8Ya3lVGmR/icgdNU=;
- b=sL1Jta0Dphsa/Fn4DkRuuWSKG5Q1WGneSLIqaRFVbEAVx6lmvCoy+GYHK+k+9sdQF8rNW9m3219sz7Xt3Bk7Ar4sWRIPI3fmabN484wHFnoedsOYeSSnfGkYw26hAc+V9Q0r08HLloSYJmNQI1scJgrg0W99MX+K8cfXCgg07AQZmAgDpmTZWEy8WAC31dHXHPIZVSxaIG/CTOko16v7795d0x5puLUk3cjvd99Rwtbp6RnkSjZ5IKeyF90fLbAEt4IagXm9MBi7EuHj4kHw5ngrRHqQNMSWpjZlBY+DiQ6rP1lUbVHtdH5RVdX+tu3ujtdN7316uXbEdWDJ5cuuWA==
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.08557807|-1; BR=01201311R551ec; CH=green;
- DM=|CONTINUE|false|; DS=SPAM|spam_ad|0.867174-0.00121929-0.131607;
- FP=12538499638350538034|0|0|0|0|-1|-1|-1;
- HT=maildocker-contentspam033037021130; MF=syyang@lontium.com; NM=1; PH=DS;
- RN=24; RT=24; SR=0; TI=SMTPD_---.hjtUXR._1780047952; 
-Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com
- fp:SMTPD_---.hjtUXR._1780047952 cluster:ay29) by smtp.aliyun-inc.com;
- Fri, 29 May 2026 17:45:53 +0800
-From: syyang@lontium.com
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
- rfoss@kernel.org, mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com,
- xbpeng@lontium.com, qdchen@lontium.com, llzhang@lontium.com,
- Sunyun Yang <syyang@lontium.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v13 1/2] dt-bindings: bridge: Add Lontium LT7911EXC eDP to
- MIPI DSI bridge
-Date: Fri, 29 May 2026 17:45:46 +0800
-Message-Id: <20260529094547.869919-2-syyang@lontium.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260529094547.869919-1-syyang@lontium.com>
-References: <20260529094547.869919-1-syyang@lontium.com>
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EDD510FC1E;
+ Fri, 29 May 2026 09:50:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1780048220;
+ bh=nQhEEJC7UiBSk+EjxGg14ByJ7Sa+/PNen/fIZQlXYJ0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=D5cQBJ295FX/kz8ZSMxTRJ6szEjP1/q59dWdJTQatz4CKMniWu6veA2lHdMJ62wn/
+ P2mICAsVqXkLrLL1FZn/XAbvFKLhqdicaxPJAYFD81gRg0/IG+ME1PR7YWXf1gAYSi
+ +8XsyKSrsZbZjsMBSMIJT9IdqAnVftv0j/vVclLbGjqzJ/mLBTQBne2uYalLiZDDdf
+ 44N065p5Adab47o+f1uOhmBeWE5BfLEGZ2JApxKGz4K95/XL7l7+45CE+LfYQ4sjr6
+ BZyUbaZyaeoJAPSukU+ZM6NoY6EyEP3amGUkg8GSaE7gcGLRIov3ltt3YhjDq88MMW
+ mlUhrEmaxwrVA==
+Message-ID: <2023cf0e-85a8-4128-857d-cae806ff0e58@lankhorst.se>
+Date: Fri, 29 May 2026 11:50:18 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/i915/audio: use generic_handle_irq_safe() for LPE
+ audio irq
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch, clrkwllms@kernel.org, rostedt@goodmis.org,
+ jerome.anand@intel.com, pierre-louis.bossart@linux.dev, tiwai@suse.de,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, jianhao.xu@seu.edu.cn, stable@vger.kernel.org
+References: <20260528154551.3708290-1-runyu.xiao@seu.edu.cn>
+ <20260529074816.k1K16jyy@linutronix.de>
+Content-Language: en-US
+From: Maarten Lankhorst <dev@lankhorst.se>
+In-Reply-To: <20260529074816.k1K16jyy@linutronix.de>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,114 +62,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sunyun Yang <syyang@lontium.com>
+Hey,
 
-This commit adds the device tree binding schema for the Lontium LT7911EXC.
-This device is an I2C-controlled bridge that converts eDP 1.4 input to MIPI
-DSI output.
+Den 2026-05-29 kl. 09:48, skrev Sebastian Andrzej Siewior:
+> On 2026-05-28 23:45:51 [+0800], Runyu Xiao wrote:
+>> intel_lpe_audio_irq_handler() forwards the LPE audio child IRQ from the
+>> i915 parent IRQ path with generic_handle_irq(). The forwarded child top
+>> half is not an independent hardirq entry point; it inherits the context
+>> of the outer i915 interrupt dispatch path.
+> …
+> 
+> This looks very familiar and is work in progress
+> 	https://lore.kernel.org/all/20260310115709.2276203-16-dev@lankhorst.se/
+> 
+> Maarten, where do we stand on the i915 series?
+> 
+>> Fixes: eef57324d926 ("drm/i915: setup bridge for HDMI LPE audio driver")
+>> Cc: stable@vger.kernel.org
+> 
+> No stable fix needed because i915 can not be turned on PREEMPT_RT.
+> 
+> Sebastian
 
-Signed-off-by: Sunyun Yang <syyang@lontium.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- .../display/bridge/lontium,lt7911exc.yaml     | 89 +++++++++++++++++++
- 1 file changed, 89 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
+It's been absolutely rock stable since the last time I submitted it.
+I've been using it on my local machine, and the amount of times >100us
+(evasion failed) with and without PREEMPT_RT are identical with
+the vblank changes.
+It still applies cleanly when rebasing.
 
-diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
-new file mode 100644
-index 000000000000..3290b10ce883
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
-@@ -0,0 +1,89 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/bridge/lontium,lt7911exc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Lontium LT7911EXC eDP to MIPI DSI Bridge
-+
-+maintainers:
-+  - Sunyun Yang <syyang@lontium.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - lontium,lt7911exc
-+
-+  reg:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: GPIO connected to RST_ pin.
-+
-+  vdd-supply:
-+    description: Regulator for 1.2V MIPI phy power.
-+
-+  vcc-supply:
-+    description: Regulator for 3.3V IO power.
-+
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Video port for eDP input.
-+
-+      port@1:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Video port for MIPI DSI output.
-+
-+    required:
-+      - port@0
-+      - port@1
-+
-+required:
-+  - compatible
-+  - reg
-+  - reset-gpios
-+  - vdd-supply
-+  - vcc-supply
-+  - ports
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        mipi-bridge@41 {
-+            compatible = "lontium,lt7911exc";
-+            reg = <0x41>;
-+            reset-gpios = <&gpy8 8 GPIO_ACTIVE_LOW>;
-+            vdd-supply = <&lt7911exc_1v2>;
-+            vcc-supply = <&lt7911exc_3v3>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+                    bridge_in: endpoint {
-+                        remote-endpoint = <&edp_out>;
-+                    };
-+                };
-+
-+                port@1 {
-+                    reg = <1>;
-+                    bridge_out: endpoint {
-+                        remote-endpoint = <&panel_in>;
-+                    };
-+                };
-+            };
-+        };
-+    };
--- 
-2.34.1
+The vblank patches are the most involved change, and they ensure that
+absolutely no lock contention happens in the critical path with irqs off.
 
+Unfortunately the status is still same as the time I submitted it before it,
+and pending reviews on the series.
+
+Kind regards,
+~Maarten Lankhorst
