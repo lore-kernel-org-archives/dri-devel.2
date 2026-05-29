@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20E51CD6E4A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06B86CD6E49
 	for <dri-devel@archiver.kernel.org>; Fri, 29 May 2026 18:37:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64BC81123E4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59E681123DB;
 	Fri, 29 May 2026 18:37:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="DUJPMqOY";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="As2TYlRw";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 981B41123E1
- for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 18:37:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EF281123D6
+ for <dri-devel@lists.freedesktop.org>; Fri, 29 May 2026 18:37:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1780079859;
+ s=mimecast20190719; t=1780079860;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=FW4muBq04eUEQ5DPUv/MIH2aGLX2hNQSawY7hFA7cfc=;
- b=DUJPMqOYnALpGdRCuQpp9xtg1RLW2w6cr5Kxnp9GJwYgNEoOenILYTcDutxhg4U21Lm6Gy
- xTLZK0N5epVKkC3qpwJqVUGLY6BdxNFvpypeXRNGWw5q01lzgsvPOKJANMwOTW1QUhPDtN
- Mn8MPunBqzpbUJzOnL6tSoEmyts7B7k=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ bh=HrXdDu/InkB9sLGHJzoqpWF/Pn0ivIvjVzrsBZWeZKY=;
+ b=As2TYlRwntJAELvaUWfh/8JW/yH10iQnnXF9+u0zA/PZK6DawkgcX/aY6dbZq9JlYQEiAZ
+ PLQb/P7kQxJYnuYx8rTck01/EmcZ9YRd0Z9c+cUGu1xt7y4ogW61L28ubnphvymUCqJIrz
+ a8JejzFujyFLYCYUxvf4FhyWdSpIzzM=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-297-kMqJ3efKP_6-3Cyqrp-ceg-1; Fri,
- 29 May 2026 14:37:34 -0400
-X-MC-Unique: kMqJ3efKP_6-3Cyqrp-ceg-1
-X-Mimecast-MFC-AGG-ID: kMqJ3efKP_6-3Cyqrp-ceg_1780079851
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-445-5igLbPZuPgy1vA7zCI_VRA-1; Fri,
+ 29 May 2026 14:37:24 -0400
+X-MC-Unique: 5igLbPZuPgy1vA7zCI_VRA-1
+X-Mimecast-MFC-AGG-ID: 5igLbPZuPgy1vA7zCI_VRA_1780079841
 Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 25A85195608B; Fri, 29 May 2026 18:37:31 +0000 (UTC)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id AD62D180056E; Fri, 29 May 2026 18:37:20 +0000 (UTC)
 Received: from GoldenWind.redhat.com (unknown [10.22.89.101])
  by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 0DCF21776; Fri, 29 May 2026 18:37:27 +0000 (UTC)
+ id 55D121686; Fri, 29 May 2026 18:37:17 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
  nouveau@lists.freedesktop.org
@@ -62,14 +62,14 @@ Cc: Alexandre Courbot <acourbot@nvidia.com>, Gary Guo <gary@garyguo.net>,
  Daniel Almeida <daniel.almeida@collabora.com>,
  Lyude Paul <lyude@redhat.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH v15 6/6] rust: drm: gem: Introduce shmem::Object::sg_table()
-Date: Fri, 29 May 2026 14:34:04 -0400
-Message-ID: <20260529183702.677677-7-lyude@redhat.com>
+Subject: [PATCH v15 3/6] rust: drm: gem: Add vmap functions to shmem bindings
+Date: Fri, 29 May 2026 14:34:01 -0400
+Message-ID: <20260529183702.677677-4-lyude@redhat.com>
 In-Reply-To: <20260529183702.677677-1-lyude@redhat.com>
 References: <20260529183702.677677-1-lyude@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
-X-Mimecast-MFC-PROC-ID: SaLxRDWavzNbGfJDYX-FkYWcIUnTWcII9gstfib1uZ4_1780079851
+X-Mimecast-MFC-PROC-ID: py9JBu0APWjkyDUKtpzaVTjrXFuNYfeUDix7pZjrYDE_1780079841
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -88,109 +88,567 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In order to do this, we need to be careful to ensure that any interface we
-expose for scatterlists ensures that any mappings created from one are
-destroyed on driver-unbind. To do this, we introduce a Devres resource into
-shmem::Object that we use in order to ensure that we release any SGTable
-mappings on driver-unbind.
+One of the more obvious use cases for gem shmem objects is the ability to
+create mappings into their contents. So, let's hook this up in our rust
+bindings.
 
-There's some other slightly unfortunate caveats of this:
-
-* Drivers don't have explicit control at the moment over when unmapping
-  happens (which is exactly the same as the C side atm, so it might not be
-  a problem).
-* We can't just return `SGTableMap` to the user through an Arc to attempt
-  to fix the last caveat - because that implies the gem object would need
-  to hold a reference count to the scatterlist mapping, which just leaves
-  us with the same problem.
+Similar to how we handle SGTables, we make sure there's two different types
+of mappings: owned mappings (kernel::drm::gem::shmem::VMap) and borrowed
+mappings (kernel::drm::gem::shmem::VMapRef).
 
 Signed-off-by: Lyude Paul <lyude@redhat.com>
 
 ---
-V3:
-* Rename OwnedSGTable to shmem::SGTable. Since the current version of the
-  SGTable abstractions now has a `Owned` and `Borrowed` variant, I think
-  renaming this to shmem::SGTable makes things less confusing.
-  We do however, keep the name of owned_sg_table() as-is.
-V4:
-* Clarify safety comments for SGTable to explain why the object is
-  thread-safe.
-* Rename from SGTableRef to SGTable
+V7:
+* Switch over to the new iosys map bindings that use the Io trait
+V8:
+* Get rid of iosys_map bindings for now, only support non-iomem types
+* s/as_shmem()/as_raw_shmem()
+V9:
+* Get rid of some outdated comments I missed
+* Add missing SIZE check to raw_vmap()
+* Add a proper unit test that ensures that we actually validate SIZE at
+  compile-time.
+  Turns out it takes only 34 lines to make a boilerplate DRM driver for a
+  kunit test :)
+* Add unit tests
+* Add some missing #[inline]s
 V10:
-* Use Devres in order to ensure that SGTables are revocable, and are
-  unmapped on driver-unbind.
+* Correct issue with iomem error path
+  We previously called raw_vunmap() if we got an iomem allocation, but
+  raw_vunmap() was written such that it assumed all allocations were sysmem
+  allocations. Fix this by just making raw_vunmap() accept a iosys_map.
 V11:
-* s/create_sg_table()/get_sg_table()
-* Get rid of extraneous `ret = ` in shmem::Object::get_sg_table()
-V12:
-* Actually move sgt_res in this patch and not the next one
-V13:
-* Use DmaResvGuard suggestion from Alexander
-* Use Alexander's (much better) solution for get_sg_table()
-* Use SetOnce instead of UnsafeCell
-* s/SGTableRef/SGTableMap
-* Fix typo in SGTableMap documentation
-* Create fallible constructor for SGTableMap
-* Don't reuse dma_resv lock for protecting Object contents, just use Mutex
-  + SetOnce
-* Drop use of drm_gem_shmem_get_pages_sgt_locked(), since we don't need to
-  hold the dma_resv lock ourselves for anything but this function.
-* Check that the device we receive in the bounds for sg_table() and
-  owned_sg_table() that said Device is in fact, the correct device.
-* Remove redundant docs in owned_sg_table(), just point it back to
-  sg_table().
-* Implement Deborah's suggestion to fix double-free in
-  free_callback()
-* Restore original order of Object<T>
-* Fix doc typo for SGTableMap
-V14:
-* Use new InitOnce container over the Mutex/SetOnce horror show we had
-  before.
-* Start using LazyInit container for storing Devres for sgt unmap
-* Add some kunit tests for sg_table (not sure why I didn't do this before)
-  using some of the boilerplate code leftover from the vmap bindings
-* Get rid of the owned SGTable variant for now, we'll add it back in a
-  future patch if people actually need it.
-* Use new LazyInit container from me to get rid of the horrid
-  Mutex<SetOnce<>> mess.
-* Add the best we can do for unit tests w/r/t SGTable at the moment
+* Use Alexandre's clever solution to remove the macros we were using for
+  maintaining two different VMap types.
+* Change the order of items in Object<T> to ensure that sgt_res is always
+  dropped before obj.
+* Fix typo in Object.raw_vmap()
+* s/raw_vmap()/make_vmap()/
+  Deduplicate code a bit more as well by using more generics here
+V15:
+* Add these patches back
+* We only have one VMap type now!
+* Use ObjectConfig::default() in unit tests since we unbroke it.
 
- rust/kernel/drm/gem/shmem.rs | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ rust/kernel/drm/gem/shmem.rs | 433 +++++++++++++++++++++++++++++++++--
+ 1 file changed, 418 insertions(+), 15 deletions(-)
 
 diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
-index 494e0d0d8d0d6..5655c2a1ae8fb 100644
+index a116b0752e46a..494e0d0d8d0d6 100644
 --- a/rust/kernel/drm/gem/shmem.rs
 +++ b/rust/kernel/drm/gem/shmem.rs
-@@ -664,4 +664,28 @@ fn vmap_io() -> Result {
+@@ -11,18 +11,39 @@
  
-         Ok(())
+ use crate::{
+     container_of,
++    device::{
++        self,
++        Bound, //
++    },
++    devres::*,
+     drm::{
+-        device,
+         driver,
+         gem,
+-        private::Sealed, //
++        private::Sealed,
++        Device, //
++    },
++    error::{
++        from_err_ptr,
++        to_result, //
++    },
++    io::{
++        Io,
++        IoCapable,
++        IoKnownSize, //
+     },
+-    error::to_result,
+     prelude::*,
+-    sync::aref::ARef,
++    scatterlist,
++    sync::{
++        aref::ARef,
++        new_lazy_init,
++        LazyInit,
++        LazyInitError, //
++    },
+     types::Opaque, //
+ };
+ use core::{
++    ffi::c_void,
++    mem::MaybeUninit, //
+     ops::{
+         Deref,
+         DerefMut, //
+@@ -33,6 +54,7 @@
+     },
+ };
+ use gem::{
++    BaseObject,
+     BaseObjectPrivate,
+     DriverObject,
+     IntoGEMObject, //
+@@ -75,6 +97,9 @@ pub struct Object<T: DriverObject> {
+     obj: Opaque<bindings::drm_gem_shmem_object>,
+     /// Parent object that owns this object's DMA reservation object.
+     parent_resv_obj: Option<ARef<Object<T>>>,
++    /// Devres object for unmapping any SGTable on driver-unbind.
++    #[pin]
++    sgt_res: LazyInit<Devres<SGTableMap<T>>>,
+     #[pin]
+     inner: T,
+ }
+@@ -118,7 +143,7 @@ fn as_raw_shmem(&self) -> *mut bindings::drm_gem_shmem_object {
+     ///
+     /// Additional config options can be specified using `config`.
+     pub fn new(
+-        dev: &device::Device<T::Driver>,
++        dev: &Device<T::Driver>,
+         size: usize,
+         config: ObjectConfig<'_, T>,
+         args: T::Args,
+@@ -127,6 +152,7 @@ pub fn new(
+             try_pin_init!(Self {
+                 obj <- Opaque::init_zeroed(),
+                 parent_resv_obj: config.parent_resv_obj.map(|p| p.into()),
++                sgt_res <- new_lazy_init!(),
+                 inner <- T::new(dev, size, args),
+             }),
+             GFP_KERNEL,
+@@ -160,9 +186,9 @@ pub fn new(
+     }
+ 
+     /// Returns the `Device` that owns this GEM object.
+-    pub fn dev(&self) -> &device::Device<T::Driver> {
++    pub fn dev(&self) -> &Device<T::Driver> {
+         // SAFETY: `dev` will have been initialized in `Self::new()` by `drm_gem_shmem_init()`.
+-        unsafe { device::Device::from_raw((*self.as_raw()).dev) }
++        unsafe { Device::from_raw((*self.as_raw()).dev) }
+     }
+ 
+     extern "C" fn free_callback(obj: *mut bindings::drm_gem_object) {
+@@ -170,22 +196,123 @@ extern "C" fn free_callback(obj: *mut bindings::drm_gem_object) {
+         // - DRM always passes a valid gem object here
+         // - We used drm_gem_shmem_create() in our create_gem_object callback, so we know that
+         //   `obj` is contained within a drm_gem_shmem_object
+-        let this = unsafe { container_of!(obj, bindings::drm_gem_shmem_object, base) };
+-
+-        // SAFETY:
+-        // - We're in free_callback - so this function is safe to call.
+-        // - We won't be using the gem resources on `this` after this call.
+-        unsafe { bindings::drm_gem_shmem_release(this) };
++        let base = unsafe { container_of!(obj, bindings::drm_gem_shmem_object, base) };
+ 
+         // SAFETY:
+         // - We verified above that `obj` is valid, which makes `this` valid
+         // - This function is set in AllocOps, so we know that `this` is contained within a
+         //   `Object<T>`
+-        let this = unsafe { container_of!(Opaque::cast_from(this), Self, obj) }.cast_mut();
++        let this = unsafe { container_of!(Opaque::cast_from(base), Self, obj) }.cast_mut();
++
++        // We need to reset `sgt_res` first, since doing so requires that the GEM object is still
++        // alive.
++        // SAFETY:
++        // - We verified above that `this` is valid.
++        // - `&mut (*this)` does not implement Unpin.
++        unsafe { Pin::new_unchecked(&mut (*this).sgt_res) }.reset();
++
++        // SAFETY:
++        // - We're in free_callback - so this function is safe to call.
++        // - We won't be using the gem resources on `this` after this call.
++        unsafe { bindings::drm_gem_shmem_release(base) };
+ 
+         // SAFETY: We're recovering the Kbox<> we created in gem_create_object()
+         let _ = unsafe { KBox::from_raw(this) };
      }
 +
-+    // TODO: I would love to actually test the success paths of sg_table(), but that would require
-+    // also implementing dummy dma_ops so that trying to create a mapping doesn't explode. So, leave
-+    // that for someone else.
++    /// Attempt to create a vmap from the gem object, and confirm the size of said vmap.
++    fn make_vmap<'a, R, const SIZE: usize>(&'a self) -> Result<VMap<T, R, SIZE>>
++    where
++        R: Deref<Target = Self> + From<&'a Self>,
++    {
++        // INVARIANT: We check here that the gem object is at least as large as `SIZE`.
++        if self.size() < SIZE {
++            return Err(ENOSPC);
++        }
 +
-+    // Ensures that passing the wrong device to sg_table() fails as we expect, and also ensure it
-+    // skips initializing `sgt_res` since we could otherwise create `sgt_res` with the wrong device
-+    // bound to it.
++        let mut map: MaybeUninit<bindings::iosys_map> = MaybeUninit::uninit();
++        let guard = DmaResvGuard::new(self);
++
++        // SAFETY: drm_gem_shmem_vmap can be called with the DMA reservation lock held
++        to_result(unsafe {
++            bindings::drm_gem_shmem_vmap_locked(self.as_raw_shmem(), map.as_mut_ptr())
++        })?;
++
++        // Drop the guard explicitly here, since we may need to call raw_vunmap() (which re-acquires
++        // the lock).
++        drop(guard);
++
++        // SAFETY: The call to drm_gem_shmem_vmap_locked succeeded above, so we are guaranteed that
++        // map is properly initialized.
++        let map = unsafe { map.assume_init() };
++
++        // XXX: We don't currently support iomem allocations
++        if map.is_iomem {
++            // SAFETY:
++            // - The vmap operation above succeeded, guaranteeing that `map` points to a valid
++            //   memory mapping.
++            // - We checked that this is an iomem allocation, making it safe to read vaddr_iomem
++            unsafe { self.raw_vunmap(map) };
++
++            Err(ENOTSUPP)
++        } else {
++            Ok(VMap {
++                // SAFETY: We checked that this is not an iomem allocation, making it safe to read
++                // vaddr
++                addr: unsafe { map.__bindgen_anon_1.vaddr },
++                owner: self.into(),
++            })
++        }
++    }
++
++    /// Unmap a vmap from the gem object.
++    ///
++    /// # Safety
++    ///
++    /// - The caller promises that `map` is a valid vmap on this gem object.
++    /// - The caller promises that the memory pointed to by map will no longer be accesed through
++    ///   this instance.
++    unsafe fn raw_vunmap(&self, mut map: bindings::iosys_map) {
++        let _guard = DmaResvGuard::new(self);
++
++        // SAFETY:
++        // - This function is safe to call with the DMA reservation lock held.
++        // - Our `ARef` is proof that the underlying gem object here is initialized and thus safe to
++        //   dereference.
++        unsafe { bindings::drm_gem_shmem_vunmap_locked(self.as_raw_shmem(), &mut map) };
++    }
++
++    /// Creates and returns a virtual kernel memory mapping for this object.
++    #[inline]
++    pub fn vmap<const SIZE: usize>(&self) -> Result<VMapRef<'_, T, SIZE>> {
++        self.make_vmap()
++    }
++
++    /// Creates and returns an owned reference to a virtual kernel memory mapping for this object.
++    #[inline]
++    pub fn owned_vmap<const SIZE: usize>(&self) -> Result<VMapOwned<T, SIZE>> {
++        self.make_vmap()
++    }
++
++    /// Creates (if necessary) and returns an immutable reference to a scatter-gather table of DMA
++    /// pages for this object.
++    ///
++    /// This will pin the object in memory. It is expected that `dev` should be a pointer to the
++    /// same [`device::Device`] which `self` belongs to, otherwise this function will return
++    /// `Err(EINVAL)`.
++    pub fn sg_table<'a>(
++        &'a self,
++        dev: &'a device::Device<Bound>,
++    ) -> Result<&'a scatterlist::SGTable> {
++        if dev.as_raw() != self.dev().as_ref().as_raw() {
++            return Err(EINVAL);
++        }
++
++        match self.sgt_res.init(Devres::new(dev, SGTableMap::new(self))) {
++            Ok(ret) | Err(LazyInitError::AlreadyInit(ret)) => Ok(ret.access(dev)?),
++            Err(LazyInitError::DuringInit(e)) => Err(e),
++        }
++    }
+ }
+ 
+ impl<T: DriverObject> Deref for Object<T> {
+@@ -246,7 +373,6 @@ impl<T: DriverObject> driver::AllocImpl for Object<T> {
+ 
+ impl<'a, T: DriverObject> DmaResvGuard<'a, T> {
+     #[inline(always)]
+-    #[expect(unused)]
+     fn new(obj: &'a Object<T>) -> Self {
+         // SAFETY: This lock is initialized throughout the lifetime of `object`.
+         unsafe { bindings::dma_resv_lock(obj.raw_dma_resv(), ptr::null_mut()) };
+@@ -262,3 +388,280 @@ fn drop(&mut self) {
+         unsafe { bindings::dma_resv_unlock(self.0.raw_dma_resv()) };
+     }
+ }
++
++macro_rules! impl_vmap_io_capable {
++    ($impl:ident, $ty:ty) => {
++        impl<D, R, const SIZE: usize> IoCapable<$ty> for $impl<D, R, SIZE>
++        where
++            D: DriverObject,
++            R: Deref<Target = Object<D>>,
++        {
++            #[inline(always)]
++            unsafe fn io_read(&self, address: usize) -> $ty {
++                let ptr = address as *mut $ty;
++
++                // SAFETY: The safety contract of `io_read` guarantees that address is a valid
++                // address within the bounds of `Self` of at least the size of $ty, and is properly
++                // aligned.
++                unsafe { ptr::read(ptr) }
++            }
++
++            #[inline(always)]
++            unsafe fn io_write(&self, value: $ty, address: usize) {
++                let ptr = address as *mut $ty;
++
++                // SAFETY: The safety contract of `io_write` guarantees that address is a valid
++                // address within the bounds of `Self` of at least the size of $ty, and is properly
++                // aligned.
++                unsafe { ptr::write(ptr, value) }
++            }
++        }
++    };
++}
++
++/// A reference to a virtual mapping for an shmem-based GEM object in kernel address space.
++///
++/// # Invariants
++///
++/// - The size of `owner` is >= SIZE.
++/// - The memory pointed to by addr remains valid at least until this object is dropped.
++pub struct VMap<D, R, const SIZE: usize = 0>
++where
++    D: DriverObject,
++    R: Deref<Target = Object<D>>,
++{
++    addr: *mut c_void,
++    owner: R,
++}
++
++/// An alias type for a reference to a shmem-based GEM object's VMap.
++pub type VMapRef<'a, D, const SIZE: usize = 0> = VMap<D, &'a Object<D>, SIZE>;
++
++/// An alias type for an owned reference to a shmem-based GEM object's VMap.
++pub type VMapOwned<D, const SIZE: usize = 0> = VMap<D, ARef<Object<D>>, SIZE>;
++
++impl<D, R, const SIZE: usize> VMap<D, R, SIZE>
++where
++    D: DriverObject,
++    R: Deref<Target = Object<D>>,
++{
++    /// Borrows a reference to the object that owns this virtual mapping.
++    #[inline(always)]
++    pub fn owner(&self) -> &Object<D> {
++        &self.owner
++    }
++}
++
++impl<D, R, const SIZE: usize> Drop for VMap<D, R, SIZE>
++where
++    D: DriverObject,
++    R: Deref<Target = Object<D>>,
++{
++    #[inline(always)]
++    fn drop(&mut self) {
++        // SAFETY:
++        // - Our existence is proof that this map was previously created using self.owner.
++        // - Since we are in Drop, we are guaranteed that no one will access the memory
++        //   through this mapping after calling this.
++        unsafe {
++            self.owner.raw_vunmap(bindings::iosys_map {
++                is_iomem: false,
++                __bindgen_anon_1: bindings::iosys_map__bindgen_ty_1 { vaddr: self.addr },
++            })
++        };
++    }
++}
++
++impl<D, R, const SIZE: usize> Io for VMap<D, R, SIZE>
++where
++    D: DriverObject,
++    R: Deref<Target = Object<D>>,
++{
++    #[inline(always)]
++    fn addr(&self) -> usize {
++        self.addr as usize
++    }
++
++    #[inline(always)]
++    fn maxsize(&self) -> usize {
++        self.owner.size()
++    }
++}
++
++impl<D, R, const SIZE: usize> IoKnownSize for VMap<D, R, SIZE>
++where
++    D: DriverObject,
++    R: Deref<Target = Object<D>>,
++{
++    const MIN_SIZE: usize = SIZE;
++}
++
++impl_vmap_io_capable!(VMap, u8);
++impl_vmap_io_capable!(VMap, u16);
++impl_vmap_io_capable!(VMap, u32);
++#[cfg(CONFIG_64BIT)]
++impl_vmap_io_capable!(VMap, u64);
++
++/// A reference to a GEM object that is known to have a mapped [`SGTable`].
++///
++/// This is used by the Rust bindings with [`Devres`] in order to ensure that mappings for SGTables
++/// on GEM shmem objects are revoked on driver-unbind.
++///
++/// # Invariants
++///
++/// - `self.obj` always points to a valid GEM object.
++/// - This object is proof that `self.obj.owner.sgt` has an initialized and valid
++///   [`scatterlist::SGTable`].
++pub struct SGTableMap<T: DriverObject> {
++    obj: NonNull<Object<T>>,
++}
++
++impl<T: DriverObject> Deref for SGTableMap<T> {
++    type Target = scatterlist::SGTable;
++
++    fn deref(&self) -> &Self::Target {
++        // SAFETY:
++        // - The NonNull is guaranteed to be valid via our type invariants.
++        // - The sgt field is guaranteed to be initialized and valid via our type invariants.
++        unsafe { scatterlist::SGTable::from_raw((*self.obj.as_ref().as_raw_shmem()).sgt) }
++    }
++}
++
++impl<T: DriverObject> Drop for SGTableMap<T> {
++    fn drop(&mut self) {
++        // SAFETY: `obj` is always valid via our type invariants
++        let obj = unsafe { self.obj.as_ref() };
++        let _lock = DmaResvGuard::new(obj);
++
++        // SAFETY: We acquired the lock needed for calling this function above
++        unsafe { bindings::__drm_gem_shmem_free_sgt_locked(obj.as_raw_shmem()) };
++    }
++}
++
++impl<T: DriverObject> SGTableMap<T> {
++    fn new(obj: &Object<T>) -> impl Init<Self, Error> {
++        // INVARIANT:
++        // - We call drm_gem_shmem_get_pages_sgt_locked below and check whether or not it
++        //   succeeds, fulfilling the invariant of SGTableMap that the object's `sgt` field is
++        //   initialized.
++        // SAFETY:
++        // - `obj` is fully initialized, making this function safe to call.
++        from_err_ptr(unsafe { bindings::drm_gem_shmem_get_pages_sgt(obj.as_raw_shmem()) })?;
++
++        Ok(Self { obj: obj.into() })
++    }
++}
++
++// SAFETY: The NonNull in SGTableMap is guaranteed valid by our type invariants, and the GEM object
++// it points to is guaranteed to be thread-safe.
++unsafe impl<T: DriverObject> Send for SGTableMap<T> {}
++// SAFETY: The NonNull in SGTableMap is guaranteed valid by our type invariants, and the GEM object
++// it points to is guaranteed to be thread-safe.
++unsafe impl<T: DriverObject> Sync for SGTableMap<T> {}
++
++#[kunit_tests(rust_drm_gem_shmem)]
++mod tests {
++    use super::*;
++    use crate::{
++        drm,
++        faux,
++        page::PAGE_SIZE, //
++    };
++
++    // The bare minimum needed to create a fake drm driver for kunit
++
++    #[pin_data]
++    struct KunitData {}
++    struct KunitDriver;
++    struct KunitFile;
++    #[pin_data]
++    struct KunitObject {}
++
++    const INFO: drm::DriverInfo = drm::DriverInfo {
++        major: 0,
++        minor: 0,
++        patchlevel: 0,
++        name: c"kunit",
++        desc: c"Kunit",
++    };
++
++    impl drm::file::DriverFile for KunitFile {
++        type Driver = KunitDriver;
++
++        fn open(_dev: &drm::Device<KunitDriver>) -> Result<Pin<KBox<Self>>> {
++            Ok(KBox::new(Self, GFP_KERNEL)?.into())
++        }
++    }
++
++    impl gem::DriverObject for KunitObject {
++        type Driver = KunitDriver;
++        type Args = ();
++
++        fn new(
++            _dev: &drm::Device<KunitDriver>,
++            _size: usize,
++            _args: Self::Args,
++        ) -> impl PinInit<Self, Error> {
++            try_pin_init!(KunitObject {})
++        }
++    }
++
++    #[vtable]
++    impl drm::Driver for KunitDriver {
++        type Data = KunitData;
++        type File = KunitFile;
++        type Object = Object<KunitObject>;
++
++        const INFO: drm::DriverInfo = INFO;
++        const IOCTLS: &'static [drm::ioctl::DrmIoctlDescriptor] = &[];
++    }
++
++    fn create_drm_dev() -> Result<(faux::Registration, ARef<drm::Device<KunitDriver>>)> {
++        // Create a faux DRM device so we can test gem object creation.
++        let data = try_pin_init!(KunitData {});
++        let dev = faux::Registration::new(c"Kunit", None)?;
++        let drm = drm::Device::<KunitDriver>::new(dev.as_ref(), data)?;
++
++        Ok((dev, drm))
++    }
++
 +    #[test]
-+    fn fail_sg_table_on_wrong_dev() -> Result {
++    fn compile_time_vmap_sizes() -> Result {
 +        let (_dev, drm) = create_drm_dev()?;
-+        let wrong_dev = faux::Registration::new(c"EvilKunit", None)?;
 +
 +        let obj = Object::<KunitObject>::new(&drm, PAGE_SIZE, ObjectConfig::default(), ())?;
 +
-+        assert_eq!(obj.sg_table(wrong_dev.as_ref()).err().unwrap(), EINVAL);
++        // Try creating a normal vmap
++        obj.vmap::<PAGE_SIZE>()?;
 +
-+        // If sgt_res was not initialized mistakenly with the wrong device, this should still fail.
-+        assert_eq!(obj.sg_table(wrong_dev.as_ref()).err().unwrap(), EINVAL);
++        // Try creating a vmap that's smaller then the size we specified
++        obj.vmap::<{ PAGE_SIZE - 100 }>()?;
 +
-+        // TODO: Someday, we should test that creating an sg_table here still succeeds.
++        // Make sure creating a vmap that's too large fails
++        assert!(obj.vmap::<{ PAGE_SIZE + 200 }>().is_err());
 +
 +        Ok(())
 +    }
- }
++
++    #[test]
++    fn vmap_io() -> Result {
++        let (_dev, drm) = create_drm_dev()?;
++
++        let obj = Object::<KunitObject>::new(&drm, PAGE_SIZE, ObjectConfig::default(), ())?;
++
++        let vmap = obj.vmap::<PAGE_SIZE>()?;
++
++        vmap.write8(0xDE, 0x0);
++        assert_eq!(vmap.read8(0x0), 0xDE);
++        vmap.write32(0xFFFFFFFF, 0x20);
++
++        assert_eq!(vmap.read32(0x20), 0xFFFFFFFF);
++
++        assert_eq!(vmap.read8(0x20), 0xFF);
++        assert_eq!(vmap.read8(0x21), 0xFF);
++        assert_eq!(vmap.read8(0x22), 0xFF);
++        assert_eq!(vmap.read8(0x23), 0xFF);
++
++        Ok(())
++    }
++}
 -- 
 2.54.0
 
