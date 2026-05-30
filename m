@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06958CD6E52
-	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 14:03:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B811CD5BD0
+	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 14:03:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98DB811284F;
-	Sat, 30 May 2026 14:03:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6DDB11284C;
+	Sat, 30 May 2026 14:03:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kYVV3WQu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="abWJxm/D";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 351F9112838
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 14:02:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F43B112832
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 14:02:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1D27B43AF9;
- Sat, 30 May 2026 14:02:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75CC41F00899;
- Sat, 30 May 2026 14:02:38 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4EEB840A77;
+ Sat, 30 May 2026 14:02:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B52271F00899;
+ Sat, 30 May 2026 14:02:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780149759;
- bh=KiKS2dw0/K6VhMDULqoA7xkiJMxybcQFfLu7EwBv9Co=;
+ s=k20260515; t=1780149740;
+ bh=Lb8+Yah6POxOEW4zC6qNypDezT9KunyvjgDgSOKXVGw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=kYVV3WQuzroDpRJCyk3yAQr7gSfSCdDMqxf7mLQzmW68boqEeR/Db9BTYWEsOCPRJ
- qohn2akqAKUN/MKUstJf4Q9SM4fspI1EuMAaMgKiMZdoGv4mCjbTQDFMJUhnI93gEV
- eMZA1p7NevJiQZjyuANtPCymQpHIgVDehAOjVN7NXLofPnx7X+RMwdd66vaSGFqQhr
- kWoVht6pGItz6WD7DoAtIbsl8HODEJQqO0bEGl3jZmFfr/+5P0rfFj+cCBPz6cSBhj
- jdvqrGdrAg9vuzV5DvVbV0Sb+V/M3cfVQ5yjaV7HItjNDy+Trps88KCF6bNPB0TZKt
- 4Htybrw+6OEpA==
+ b=abWJxm/D1GzNGT28p2szjMCeeaQJP+/4U5Hw65AqIHjdtPNszHWmeu9O+L/Idb2zj
+ BZkKB9blxShpgVtmqvTTvsuRURllzTYYt3ToQmLuldbbhnh2dXmcQdxS9/Nl7Bs+Yr
+ xrfotKtab2CDmkjd9daK4XBvAdFPZLvQvYv2QheoSHKu/iEFxwGIKvrGaRW0PQef7x
+ 7xshSUHGcB6nnq3IHMT376fQeS1KG/JKRWepYBti0uYXh0x5BQC9ujQ/poLsgQ8bl7
+ 8mQZY/1W5zfoqY5UhLrZZuFSy0GIoJOwhmVzQ/PSUDKFDrUllb/1zfNRbexKk+V2uD
+ p2M5Q86VGgJJQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Sat, 30 May 2026 16:00:06 +0200
-Subject: [PATCH 61/76] drm/renesas: rz-du: mipi_dsi: Switch to
- atomic_create_state
+Date: Sat, 30 May 2026 15:59:59 +0200
+Subject: [PATCH 54/76] drm/meson: encoder_hdmi: Switch to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260530-drm-no-more-bridge-reset-v1-61-875d828d31bc@kernel.org>
+Message-Id: <20260530-drm-no-more-bridge-reset-v1-54-875d828d31bc@kernel.org>
 References: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
 In-Reply-To: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -49,15 +48,17 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>, 
- linux-renesas-soc@vger.kernel.org
+ Maxime Ripard <mripard@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
+ Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1501; i=mripard@kernel.org;
- h=from:subject:message-id; bh=AbVFZ/alLj656mhFYPTJIEYokrMzZqJ3u8NjC854QY8=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlSbwNKbj+f++DPs/p59cVXZazrpO+9uHF//9q0L7sMx
- a9Hqbh3dExlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJlB1gbLg2//pL77/fjrxW
- bhAXbbqlcPXqcpbSDaq3rNv/K98RdlZ/83PdrgtpVXK20bns69M+7WWss3d7P2ef1ek5f3vPVFn
- L6FsvEFuxKnjzJwkOa81riU/0eO5srTy/SVnx8ZojVRGzTZk+AgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1597; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=Lb7rES85ug5bcahF/lcO4GX1UrOeAWFb9bqnR6HN/7g=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlSb32ZnJzOTTdOYrrFriV4VHp5a+HeFV9Oc899rPFxY
+ syZjB1LO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEXLMZG77MESmX33pt2ZrY
+ 7P06Patl3shXb/3W1vEk4ryMsNymVJXamcZnz9wPMYm5pnDeyGN7HGN9WbTtR4c/3u+DBG44TAz
+ VVXbcnldg9j6R//Om3MZNHzbO22+4qi5V3nwKM9+zVy8rGNcDAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -84,30 +85,34 @@ drm_atomic_helper_bridge_create_state() counterpart.
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
 ---
-To: Biju Das <biju.das.jz@bp.renesas.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Kevin Hilman <khilman@baylibre.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
 Cc: dri-devel@lists.freedesktop.org
-Cc: linux-renesas-soc@vger.kernel.org
+Cc: linux-amlogic@lists.infradead.org
+Cc: linux-arm-kernel@lists.infradead.org
 ---
- drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 2 +-
+ drivers/gpu/drm/meson/meson_encoder_hdmi.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-index a2c864860075..0590ade96b91 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-@@ -1107,11 +1107,11 @@ rzg2l_mipi_dsi_bridge_mode_valid(struct drm_bridge *bridge,
- 
- static const struct drm_bridge_funcs rzg2l_mipi_dsi_bridge_ops = {
- 	.attach = rzg2l_mipi_dsi_attach,
+diff --git a/drivers/gpu/drm/meson/meson_encoder_hdmi.c b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+index 55c0601df3c6..0c7a72cb514a 100644
+--- a/drivers/gpu/drm/meson/meson_encoder_hdmi.c
++++ b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+@@ -364,11 +364,11 @@ static const struct drm_bridge_funcs meson_encoder_hdmi_bridge_funcs = {
+ 	.atomic_disable = meson_encoder_hdmi_atomic_disable,
+ 	.atomic_get_input_bus_fmts = meson_encoder_hdmi_get_inp_bus_fmts,
+ 	.atomic_check = meson_encoder_hdmi_atomic_check,
  	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
  	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 -	.atomic_reset = drm_atomic_helper_bridge_reset,
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.atomic_pre_enable = rzg2l_mipi_dsi_atomic_pre_enable,
- 	.atomic_enable = rzg2l_mipi_dsi_atomic_enable,
- 	.atomic_disable = rzg2l_mipi_dsi_atomic_disable,
- 	.atomic_post_disable = rzg2l_mipi_dsi_atomic_post_disable,
- 	.mode_valid = rzg2l_mipi_dsi_bridge_mode_valid,
+ };
+ 
+ int meson_encoder_hdmi_probe(struct meson_drm *priv)
+ {
+ 	struct meson_encoder_hdmi *meson_encoder_hdmi;
 
 -- 
 2.54.0
