@@ -4,56 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B669BCD6E52
-	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 14:00:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8E30CD6E60
+	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 14:00:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C1E1112B78;
-	Sun, 31 May 2026 13:59:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D02B0112B74;
+	Sun, 31 May 2026 13:59:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="AEAesSOm";
+	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="BVwPrvPU";
 	dkim-atps=neutral
 Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2642D10E2F0
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 13:54:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 092FE10E3A4
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 14:51:13 +0000 (UTC)
 Received: from submission (posteo.de [185.67.36.169]) 
- by mout02.posteo.de (Postfix) with ESMTPS id AB9E7240104
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 15:53:59 +0200 (CEST)
+ by mout02.posteo.de (Postfix) with ESMTPS id 68501240103
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 16:51:11 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
- t=1780149239; bh=UtFusFlR2IDNsRPez3ugM1XZdhbLgIiCHhObVXCZqbQ=;
+ t=1780152671; bh=c74Z1x043Et3TQX+MoViRwCZ4obG/OH1QunVOaMGM30=;
  h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
  MIME-Version:OpenPGP:From;
- b=AEAesSOmPseCTfp8r9izj/FYm2l8JNuJEnSi/rY8mRBzuj/VraIYv5yiR9Vn01ogJ
- +cle7iQifdL2yJsn+OfOHrhmFiZBajHFhkV6dzd8GCa74JWLW58eiq0hJde/FfNYVM
- vdyhjHw2LWIU3vE5TZE2xFthvKEqeeewt+f4EhPBl1E5B0p1Ng+VrNVLiFr1aLbXHR
- eTK8gUO6jXAIAZoJKwhFpaYgS9nj2oekOlHExQZMtZIWRZwc/rGgtdDs3DwnM+o+0y
- Ry/AtZRZhdLm0SPQWLsPNUQpos5YX1jj8cfc9tqKuOkirPwX0iHWiTwNTNqL94CGt7
- SLUB42HVhTI0A==
+ b=BVwPrvPUXK1tBj2AqSn8E/Xg+VRtaHaWGpyADSEWBSOgVeDdZxJ3lAvVPOqUtu86F
+ e9RTrwMpJFGT3kD1B5RfreZTWyPkBbKHE9L7nqC1o/R6PpH2XTC+nJxqCI1MQzTPqg
+ ZTSvzt306TswsW3yuLQFdjGftC61uiNdZ8aRIa2n74BFqQWtIeRcaWNbO7XLxOCMTN
+ +fJJrpcXsjVFXk1IIcw+562y9x0M/1QVcEnvH2AQtgZUkNIl85LZy8bG4O+Z/qbhc+
+ RN7JZvd79ULFpOdIZwbq14N9orGZn4tVjtIYALWzz7w4BAUBj52OlMlF0c1ApxtH/O
+ 61A3MMDbyrDWA==
 Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4gSMC94Qwgz9rxF;
- Sat, 30 May 2026 15:53:57 +0200 (CEST)
-Message-ID: <ad98dfb1d8469022519d37364e8a068bed3b5687.camel@posteo.de>
+ by submission (posteo.de) with ESMTPSA id 4gSNT90H1gz6tvm;
+ Sat, 30 May 2026 16:51:09 +0200 (CEST)
+Message-ID: <25dc9a4bbde0b542abf608be1b3305f1421a4502.camel@posteo.de>
 Subject: Re: [PATCH v8 3/5] rust: add basic serial device bus abstractions
 From: Markus Probst <markus.probst@posteo.de>
-To: Danilo Krummrich <dakr@kernel.org>, Markus Probst via B4 Relay
- <devnull+markus.probst.posteo.de@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Greg Kroah-Hartman	
- <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, Miguel
- Ojeda	 <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
- <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>, Kari Argillander
- <kari.argillander@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-serial@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, 	linux-pm@vger.kernel.org,
- driver-core@lists.linux.dev, 	dri-devel@lists.freedesktop.org
-Date: Sat, 30 May 2026 13:53:59 +0000
-In-Reply-To: <4638946fc49a38797b716ea173c93327eb751479.camel@posteo.de>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Markus Probst via B4 Relay <devnull+markus.probst.posteo.de@kernel.org>,
+ Rob Herring <robh@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Jiri Slaby	 <jirislaby@kernel.org>, Miguel
+ Ojeda <ojeda@kernel.org>, Gary Guo	 <gary@garyguo.net>,
+ =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	 <bjorn3_gh@protonmail.com>, Benno
+ Lossin <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>, Kari
+ Argillander <kari.argillander@gmail.com>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng
+ <boqun@kernel.org>,  David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, linux-serial@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-pm@vger.kernel.org, driver-core@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org
+Date: Sat, 30 May 2026 14:51:10 +0000
+In-Reply-To: <DIW34DX6BSUS.ANXBOP9687B0@kernel.org>
 References: <20260530-rust_serdev-v8-0-2a95f1da22a7@posteo.de>
  <20260530-rust_serdev-v8-3-2a95f1da22a7@posteo.de>
  <DIW1B4FUIXO7.28GSUA0CEA4EV@kernel.org>
  <4638946fc49a38797b716ea173c93327eb751479.camel@posteo.de>
+ <ad98dfb1d8469022519d37364e8a068bed3b5687.camel@posteo.de>
+ <888dc39c52bb6ddac1a1eed7876c4573bdbef002.camel@posteo.de>
+ <DIW2JUUL6A6J.96VI4IQN6HYU@kernel.org>
+ <55eae11ea68f129508d0f7e30ac457ba919812b2.camel@posteo.de>
+ <DIW34DX6BSUS.ANXBOP9687B0@kernel.org>
 Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
  keydata=mQINBGiDvXgBEADAXUceKafpl46S35UmDh2wRvvx+UfZbcTjeQOlSwKP7YVJ4JOZrVs93
  qReNLkOWguIqPBxR9blQ4nyYrqSCV+MMw/3ifyXIm6Pw2YRUDg+WTEOjTixRCoWDgUj1nOsvJ9tVA
@@ -99,7 +105,7 @@ Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
  dQNGrZ91M9nlIBKw8Y7c7xZ4098qX2b8JX/CxD+gC1r4C8vuA3GkhFLx+KlkON7LyiJPkrePp6Qky
  jfGillcaQOqFZ3WwVqyzG1BUfTow==
 Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-IOrlQrW9R1Sbx2Zq66IT"
+ protocol="application/pgp-signature"; boundary="=-RREjNt8d6m6oU7o3V6DC"
 MIME-Version: 1.0
 OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
  preference=encrypt
@@ -120,218 +126,54 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---=-IOrlQrW9R1Sbx2Zq66IT
+--=-RREjNt8d6m6oU7o3V6DC
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, 2026-05-30 at 15:37 +0200, Markus Probst wrote:
-> On Sat, 2026-05-30 at 15:10 +0200, Danilo Krummrich wrote:
-> > On Sat May 30, 2026 at 3:13 AM CEST, Markus Probst via B4 Relay wrote:
-> > > +    extern "C" fn probe_callback(sdev: *mut bindings::serdev_device)=
- -> kernel::ffi::c_int {
-> > > +        // SAFETY: The serial device bus only ever calls the probe c=
-allback with a valid pointer to
-> > > +        // a `struct serdev_device`.
-> > > +        //
-> > > +        // INVARIANT: `sdev` is valid for the duration of `probe_cal=
-lback()`.
-> > > +        let sdev =3D unsafe { &*sdev.cast::<Device<device::CoreInter=
-nal<'_>>>() };
-> > > +        let info =3D <Self as driver::Adapter>::id_info(sdev.as_ref(=
-));
-> > > +
-> > > +        from_result(|| {
-> > > +            let private_data =3D devres::register(
-> > > +                sdev.as_ref(),
-> > > +                try_pin_init!(PrivateData {
-> > > +                    probe_complete <- Completion::new(),
-> > > +                    error: false.into(),
-> > > +                }),
-> > > +                GFP_KERNEL,
-> > > +            )?;
-> > > +
-> > > +            // SAFETY: `sdev.as_raw()` is guaranteed to be a valid p=
-ointer to `serdev_device`.
-> > > +            unsafe {
-> > > +                (*sdev.as_raw()).rust_private_data =3D
-> > > +                    (&raw const *private_data).cast::<c_void>().cast=
-_mut()
-> > > +            };
-> > > +
-> > > +            // SAFETY: `sdev.as_raw()` is guaranteed to be a valid p=
-ointer to `serdev_device`.
-> > > +            unsafe { bindings::serdev_device_set_client_ops(sdev.as_=
-raw(), Self::OPS) };
-> > > +
-> > > +            // SAFETY: The serial device bus only ever calls the pro=
-be callback with a valid pointer
-> > > +            // to a `serdev_device`.
-> > > +            to_result(unsafe {
-> > > +                bindings::devm_serdev_device_open(sdev.as_ref().as_r=
-aw(), sdev.as_raw())
-> > > +            })?;
-> >=20
-> > The bus device private data drops before devres callbacks run, thus you=
- can't
-> > use the devm helper here. I suggest to use serdev_device_open() and cal=
-l
-> > serdev_device_close() from remove_callback() instead.
-> >=20
-> > You may also want to consider whether you potentially want T::unbind() =
-to allow
-> > to have concurrent transmits in flight regardless. IOW, you may want to=
- call
-> > serdev_device_close() before T::unbind() anyway.
-> `serdev::Device<Core>` will be passed as argument to unbind, i.e.
-> set_baudrate, set_flow_control etc. calls are possible. If we close the
-> serdev device before unbind, calling those would result in a null
-> pointer dereference. Maybe a driver even wants to send a message here,
-> so it should stay open.
+On Sat, 2026-05-30 at 16:35 +0200, Danilo Krummrich wrote:
+> On Sat May 30, 2026 at 4:27 PM CEST, Markus Probst wrote:
+> > This would work, but I don't see how it would get rid of rust_private_d=
+ata in
+> > this way. The device private data will but the private bus abstraction =
+data
+> > needs to outlive the devres callbacks (which is done by rust_private_da=
+ta).
 >=20
-> If I think about it, I can't even close it inside remove_callback after
-> `T::unbind`. With the driver lifetimes, the driver could store the
-> `serdev::Device<Bound>` pointer in its DriverData and could still make
-> calls to the device.
->=20
-> Any suggestions?
-I could keep calling devm, but close it before unbind and reopen it
-without the receive ops. The devm will close it then again.
+> Why? You only ever use it in the receive callback, which won't be called =
+after
+> device unbind anymore.
+Because the possibility exists that some classdev ops or Drop calls
+e.g. sdev.set_baudrate. This is a null pointer dereference after
+serdev_device_close has been called. I interpreted it to add a state to
+the abstraction private data which would prevent those calls (early
+return with error) after serdev_device_close has been called, but this
+would only work if it outlives these calls.
 
-This way it stays open until the last devres callback has run, but
-doesn't call the receive_buf_callback while the drvdata has been
-dropped.
-
-I will test it and see if it works.
+But it seems you were refering to something else with the state?
 
 Thanks
 - Markus Probst
 
->=20
-> >=20
-> > > +
-> > > +            let data =3D T::probe(sdev, info);
-> > > +            let result =3D sdev.as_ref().set_drvdata(data);
-> > > +
-> > > +            // SAFETY: We have exclusive access to `private_data.err=
-or`.
-> > > +            unsafe { *private_data.error.get() =3D result.is_err() }=
-;
-> > > +
-> > > +            private_data.probe_complete.complete_all();
-> > > +
-> > > +            result.map(|()| 0)
-> > > +        })
-> > > +    }
-> > > +
-> > > +    extern "C" fn remove_callback(sdev: *mut bindings::serdev_device=
-) {
-> > > +        // SAFETY: The serial device bus only ever calls the remove =
-callback with a valid pointer
-> > > +        // to a `struct serdev_device`.
-> > > +        //
-> > > +        // INVARIANT: `sdev` is valid for the duration of `remove_ca=
-llback()`.
-> > > +        let sdev =3D unsafe { &*sdev.cast::<Device<device::CoreInter=
-nal<'_>>>() };
-> > > +
-> > > +        // SAFETY: `remove_callback` is only ever called after a suc=
-cessful call to
-> > > +        // `probe_callback`, hence it's guaranteed that `Device::set=
-_drvdata()` has been called
-> > > +        // and stored a `Pin<KBox<T::Data<'_>>>`.
-> > > +        let data =3D unsafe { sdev.as_ref().drvdata_borrow::<T::Data=
-<'_>>() };
-> > > +
-> > > +        T::unbind(sdev, data);
-> > > +    }
-> > > +
-> > > +    extern "C" fn receive_buf_callback(
-> > > +        sdev: *mut bindings::serdev_device,
-> > > +        buf: *const u8,
-> > > +        length: usize,
-> > > +    ) -> usize {
-> > > +        // SAFETY: The serial device bus only ever calls the receive=
- buf callback with a valid
-> > > +        // pointer to a `struct serdev_device`.
-> > > +        //
-> > > +        // INVARIANT: `sdev` is valid for the duration of `receive_b=
-uf_callback()`.
-> > > +        let sdev =3D unsafe { &*sdev.cast::<Device<device::CoreInter=
-nal<'_>>>() };
-> >=20
-> > CoreInternal dereferences to Core, which is technically unsound within =
-this
-> > callback.
-> >=20
-> > I think you want CoreInternal for drvdata_borrow(), so we should add a
-> > BoundInternal type state for this; I will send a patch for this.
-> >=20
-> > With this and the above fixed,
-> >=20
-> > Reviewed-by: Danilo Krummrich <dakr@kernel.org>
-> >=20
-> > from the driver-core side of things.
-> >=20
-> > > +        // SAFETY:
-> > > +        // - The serial device bus only ever calls the receive buf c=
-allback with a valid pointer to
-> > > +        //   a `struct serdev_device`.
-> > > +        // - `receive_buf_callback` is only ever called after a succ=
-essful call to
-> > > +        //   `probe_callback`, hence it's guaranteed that `sdev.priv=
-ate_data` is a pointer
-> > > +        //   to a valid `PrivateData`.
-> > > +        let private_data =3D unsafe { &*(*sdev.as_raw()).rust_privat=
-e_data.cast::<PrivateData>() };
-> > > +
-> > > +        private_data.probe_complete.wait_for_completion();
-> > > +
-> > > +        // SAFETY: No one has exclusive access to `private_data.erro=
-r`.
-> > > +        if unsafe { *private_data.error.get() } {
-> > > +            return length;
-> > > +        }
-> > > +
-> > > +        // SAFETY: `receive_buf_callback` is only ever called after =
-a successful call to
-> > > +        // `probe_callback`, hence it's guaranteed that `Device::set=
-_drvdata()` has been called
-> > > +        // and stored a `Pin<KBox<T::Data<'_>>>`.
-> > > +        let data =3D unsafe { sdev.as_ref().drvdata_borrow::<T::Data=
-<'_>>() };
-> > > +
-> > > +        // SAFETY: `buf` is guaranteed to be non-null and has the si=
-ze of `length`.
-> > > +        let buf =3D unsafe { core::slice::from_raw_parts(buf, length=
-) };
-> > > +
-> > > +        T::receive(sdev, data, buf)
-> > > +    }
-> > > +}
->=20
-> Thanks
-> - Markus Probst
-
---=-IOrlQrW9R1Sbx2Zq66IT
+--=-RREjNt8d6m6oU7o3V6DC
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmoa6/UbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSA48P/j+CGvtdc/OUtZBH6+ox
-1Fqm3uthXWc+w1k2DuDCtkKhJgIsy2EIjSlwfkgmRTXXe0omx4o7KiS2FwvOVnjP
-PxJjLj9jR1BJSEcn3FeED4Ha9/LolALDvXV31p1s7owKVoJoUP5Lb3HDiRiy+Pov
-RCO1ODe6o0O6Y07EpN6yAMtEMrY+l3MjPb50HGKoVxBe9RmHAoWDvENlCfAVTArX
-DC+vtVr7ykqkVlE/io+8nJ/whWCDejYKzYThSdqd3uKXpnBJ+6Hd66LK83YKj505
-oemaHTkPP6MrjqCfPTKn29y+RFB5NH+1TMe+mUA6sprmY9ucOGcY6zUzLO5TFU33
-WWCF7C3dOMnb/a2hEZeg7QCVoCWhKDJWBXjQgCrseuZDXyQ+JtlW4sY9WX9g+Jx5
-ytwj0LXaZBAtw3501lV08zqkZqLd75zjf2VqF8yKGCg26kBnfOAaH9UmqNU17iqG
-bdO8jYJ321j7tEQ/VJurRvlJu7i7KOWuuHLAum5Esd/jeXPHLDKBoge0P4kfZzpv
-34pRYgxbJi30d/AZNvARQyWlwSk8yaCL6n3nrjYOoJPhMka7mxq6rPCRuWJa+oql
-EunZFaqkWzQz1tB+XSTwW/dc+6jg1SJACWKU9f6Wz0opBa8cAiYl9u51/W6f7Wgf
-KwpdnaqyYmwjOStl5qIejoYT
-=F4kp
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmoa+VQbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSeZ4P+wRkq8a1IpMyeEEEvu7o
+x/r5XDd8K2uCjyPkXw834aNdxCL4nbvqjmaLXVoL7mlJaKEaT5Kl1/HEItxx6IE0
+QSODPfb9vh4RE/W810qD9INUEgQv6NDQJyIDDHFos2+FLM1Ntqbr3ruCdR4dvJbq
+AWz//ZztPoWio4HT+MK5MckA9u5cctDN7Jr/lD7CHTlwPL2YIwPid2sONd+FqEG3
+bikQTYJKLQmYhi3JMk8dAY9TjlhpFYnFKssAZMKrZmT/kEBXwqyTpFO8z8Z4heHv
+9mttXOW1cd8H3YNQE3HbNH2NETTOhm8cvJTrs9UihlsysKtyFT6FUf5PdzrOTmrt
+33Fk+kZGvxeQod7Y7PkQSFWnuqUk1bt5DOP49r4Jxr4PQopJ51BCnCnUNBBkcnvS
+XJC7rkqUU4ysOGCJD17HkfxzhRzqluuWMQl7gLGJTVZ2srM1KjrJKIWzz+zpLYKO
+CU+gkcWhDRwaok6RmWkigZmMxW9jEC7FQtGOhwiGIAeWESEAk69BDBwWjQHvN8I2
+XOP+rxZ3cQdYxMPyAoeiHegXI3SlbKgA/1Yq0o8/oZeUYkpra4Su/U1yNxOJsWHz
+QI2PtPTkzcg7LObB/NvFYh12cH2Wpn+TZ60X3e1XKqHrLYFeXYvilQDZQ66lXTZU
+m1h6PAVxUq2Kt91/c+WFlVSv
+=OFZm
 -----END PGP SIGNATURE-----
 
---=-IOrlQrW9R1Sbx2Zq66IT--
+--=-RREjNt8d6m6oU7o3V6DC--
