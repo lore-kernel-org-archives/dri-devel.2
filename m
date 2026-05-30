@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DCA0CD6E52
-	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 14:01:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B411CD6E55
+	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 14:01:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3092112822;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFACE112821;
 	Sat, 30 May 2026 14:01:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I/ftIpyG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OlUF3+M2";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6467D11281A
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 14:01:37 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4494811281A
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 14:01:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4BB4B40616;
- Sat, 30 May 2026 14:01:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA8F01F00893;
- Sat, 30 May 2026 14:01:36 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id BC61B600BB;
+ Sat, 30 May 2026 14:01:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB4401F00893;
+ Sat, 30 May 2026 14:01:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780149697;
- bh=3W4dFEF23VtkPSr8te0EecDVHJICoU1i8NUROzvPPGk=;
+ s=k20260515; t=1780149686;
+ bh=hiYFl4SFUWvuwJNnaJSpvPIik2l7jcco5rcBEQKI+94=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=I/ftIpyG/UXBEPx0birBu3hnl1Ex/g2Ej7tG3XTVawuS1UQe5EIdUn6Dc1hDkFL1U
- brTPLFkvjvYSIO/J8XyxW2NUDcG2pLp7F/0UjbMn12TcaFpOyUqUekDi0tL5ob/W5u
- L1xN30nU4rI170a8mnmGpjfPj+WB640hPbLZF9wKDlGMIeMGYAaNy/T8moko0jD8G0
- Wpr4M0NMNcfhWmm+GpYG9PzHFIyvCpfb6wYK3HX4J/3Ai1fnMxX1HtWeRV6C5Epu1+
- laSpm7g/VorgTAT5dT94RnNm8vL65UOL7UFPcjw7XPk0tLOF79VEZA8jFHH1oPDwqr
- V9LDAXCl2onjg==
+ b=OlUF3+M27nx/GoE7cQJyIz45FXKVjtErpeTnEZi8t1wkE2Kr1UhcKl4tIZWheA6JW
+ 0w+4HQDnqBAAWK+cODZpo9kcSJVUCTiyYySGq2X9P/Su+nnTCbHCOFV+Ytifxc5qTy
+ dwCVUTdeMLHX9JVe76pavfS6ar2FgSNdraA4rp8KDLwTOdnV9FX+QRz/ZgGPlOR0SE
+ iQiDQeGoJGjcoSYgfzkbkJL8H5aHJKuvgsJ4DGI3nw+405EYrFDwo3HiYlbRQxiF3l
+ hhW4AbACfFC5jrq2s1fMvZ9DkgY5Xl8R7/hM7uVQyCpwIUj0D9HYb0jsLEnooy6vwp
+ T7AUcq1m40m/Q==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Sat, 30 May 2026 15:59:43 +0200
-Subject: [PATCH 38/76] drm/bridge: tc358768: Switch to atomic_create_state
+Date: Sat, 30 May 2026 15:59:39 +0200
+Subject: [PATCH 34/76] drm/bridge: dw-mipi-dsi: Switch to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260530-drm-no-more-bridge-reset-v1-38-875d828d31bc@kernel.org>
+Message-Id: <20260530-drm-no-more-bridge-reset-v1-34-875d828d31bc@kernel.org>
 References: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
 In-Reply-To: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -50,12 +50,12 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1255; i=mripard@kernel.org;
- h=from:subject:message-id; bh=1t8IfM73z5+neACa40f2LkR0dYnP/aQ+EptAqk6U/Y4=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlSb91uOOjw5fHGCgsfff8gxHN61b+C5IKkm3PYfaPZ7
- 7ulOpR0TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgIm8rWJs+BJ5fe3NKJOMdiU7
- 1s9yu4R6M4Q+OtisnLyqdPNjiaqt7Eopmo/lRHm8HGcwr9thtvkyY33uXvMGM92f4SLWF+Xsv89
- l+LfKaPOdHZxdUb6ZJ7svT9bmct9Qz5oW+Jk7VLD2Jo9wIgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1471; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=wbvxscuc2OyDmMun+jvDV695tH8AFS+7FgMngmU9B6o=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlSb12ypmhEfVfbbS1Yef/csimhO484tD6Z/n5p09NI+
+ S19IisLO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEFi1irK8TEcivK0iOs71v
+ vPdsEet7lqv7ftz1dpCe2SjJcX/Nrz/rFrvNkniuW6m3ab/htcmHpjLW1yn/3sQ27ZTVpcala4p
+ D7dseeyovrOtN6/HlDXTxUYs2b9s0MTlqx7ajlzfbe7wTWMEAAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,26 +81,26 @@ drm_atomic_helper_bridge_create_state() counterpart.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/tc358768.c | 2 +-
+ drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/tc358768.c b/drivers/gpu/drm/bridge/tc358768.c
-index 0f2820b37302..0d85120fcc7a 100644
---- a/drivers/gpu/drm/bridge/tc358768.c
-+++ b/drivers/gpu/drm/bridge/tc358768.c
-@@ -1288,11 +1288,11 @@ static const struct drm_bridge_funcs tc358768_bridge_funcs = {
- 	.atomic_disable = tc358768_bridge_atomic_disable,
- 	.atomic_post_disable = tc358768_bridge_atomic_post_disable,
- 
- 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
--	.atomic_reset = drm_atomic_helper_bridge_reset,
-+	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.atomic_get_input_bus_fmts = tc358768_atomic_get_input_bus_fmts,
- };
- 
- static const struct drm_bridge_timings default_tc358768_timings = {
- 	.input_bus_flags = DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
+index af176e136f85..5dd475fcaacf 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
+@@ -1093,11 +1093,11 @@ static int dw_mipi_dsi_bridge_attach(struct drm_bridge *bridge,
+ static const struct drm_bridge_funcs dw_mipi_dsi_bridge_funcs = {
+ 	.atomic_duplicate_state	= drm_atomic_helper_bridge_duplicate_state,
+ 	.atomic_destroy_state	= drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_get_input_bus_fmts = dw_mipi_dsi_bridge_atomic_get_input_bus_fmts,
+ 	.atomic_check		= dw_mipi_dsi_bridge_atomic_check,
+-	.atomic_reset		= drm_atomic_helper_bridge_reset,
++	.atomic_create_state		= drm_atomic_helper_bridge_create_state,
+ 	.atomic_pre_enable	= dw_mipi_dsi_bridge_atomic_pre_enable,
+ 	.atomic_enable		= dw_mipi_dsi_bridge_atomic_enable,
+ 	.atomic_post_disable	= dw_mipi_dsi_bridge_post_atomic_disable,
+ 	.mode_set		= dw_mipi_dsi_bridge_mode_set,
+ 	.mode_valid		= dw_mipi_dsi_bridge_mode_valid,
 
 -- 
 2.54.0
