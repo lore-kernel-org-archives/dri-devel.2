@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD0D6CD5BD0
-	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 15:20:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D531CD5BD0
+	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 15:27:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16C43112893;
-	Sat, 30 May 2026 15:20:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7590610E325;
+	Sat, 30 May 2026 15:27:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Lk8OFmb5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PlqV5rtU";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD31810E39B
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 15:20:34 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73CF810E325
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 15:27:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 84119437F5;
- Sat, 30 May 2026 15:20:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C3031F00893;
- Sat, 30 May 2026 15:20:27 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B8661600BB;
+ Sat, 30 May 2026 15:27:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B76381F00893;
+ Sat, 30 May 2026 15:27:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780154434;
- bh=+sc/8gqjxXPGiBvIvfD3IGHEnbbWMn6slfVxYS4NsDE=;
- h=Date:Cc:To:From:Subject:References:In-Reply-To;
- b=Lk8OFmb5QUw2CRzhJufG32U11EnGHWNH/C0HzWLKA/jvmjZe838mBvYadKLJtFXqq
- zzRhj8RUIYR2wS3J4i7sBa1XwPe9fU+s9n1vBm99BUrZHxYKr+eRl9Lf6AFHMr6RgV
- 5+MaCL9TOxBtcku2/J9XgRMSe1HS6ZKH8izhS0cTidUhU9sPdh1WsGsboOq/q7ltCB
- RJ58HZLV7thBtBRayXAdRhT86s/05Y3/fIgh0Hm6aW+oukCbXscB6mrbzGaqZGPkDq
- mA4KdB2jzkHRm/cT6yR/NCRW3tuOm1eywlxCE62osPNM4t+SK2MGoinEALteGeYNOp
- 5ith0jBQvczLw==
+ s=k20260515; t=1780154866;
+ bh=JzNwHAlWijeIAaG15DTA2o5Tf9s2L7yI5CPXH7a+wi8=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=PlqV5rtUI6f9pzKL6aAEp+ROgJjj+sh4ZJqNOuJh2RWXEY75/QdgcavEFArDBDdzG
+ qDYr/VmZeRxgIm73QBDrlOHUB1FPPYLqiGCWSNxb7QJD2N6mCTBHEYLNwHHxy0h104
+ UFlAdxA4Oi9LEUnoyuYzscH0IG27O//ciYKe5QMuK/Uyl/KnPP+Qpq57Y2OiGHJP1Y
+ /0NL7Ho0IumfW86Ai2o2W2pBosUBtA6n3EAQQAMThS3PYsniiPVQKVxlr2s3jMg5L7
+ y+LTcjdHivWP2c9vLPNp2/hniUFMFmg86acan+82wKvuxWpsJYdRiJR/kgKa9FbCOw
+ RFql/BO+U+O+g==
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Sat, 30 May 2026 17:20:26 +0200
-Message-Id: <DIW42TO5HY6H.2RLL8V8H48A5A@kernel.org>
-Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Sumit Semwal"
- <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
+Date: Sat, 30 May 2026 17:27:38 +0200
+Message-Id: <DIW48C65445Y.1VVD8AEDB35UM@kernel.org>
+Subject: Re: [PATCH 2/4] rust: rcu: add RcuBox type
+Cc: "Philipp Stanner" <phasta@kernel.org>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Sumit
+ Semwal" <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
  <christian.koenig@amd.com>, "Paul E. McKenney" <paulmck@kernel.org>,
  "Frederic Weisbecker" <frederic@kernel.org>, "Neeraj Upadhyay"
  <neeraj.upadhyay@kernel.org>, "Joel Fernandes" <joelagnelf@nvidia.com>,
@@ -58,12 +59,11 @@ Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
  <rust-for-linux@vger.kernel.org>, <linux-media@vger.kernel.org>,
  <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
  <rcu@vger.kernel.org>
-To: "Philipp Stanner" <phasta@kernel.org>
+To: "Boqun Feng" <boqun@kernel.org>
 From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH 4/4] MAINTAINERS: Add entry for Rust dma-buf
 References: <20260530143541.229628-2-phasta@kernel.org>
- <20260530143541.229628-7-phasta@kernel.org>
-In-Reply-To: <20260530143541.229628-7-phasta@kernel.org>
+ <20260530143541.229628-4-phasta@kernel.org> <ahr9gtzQLSbPeBx_@tardis.local>
+In-Reply-To: <ahr9gtzQLSbPeBx_@tardis.local>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,16 +79,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat May 30, 2026 at 4:35 PM CEST, Philipp Stanner wrote:
-> @@ -7529,6 +7530,7 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kern=
-el.git
->  F:	Documentation/driver-api/dma-buf.rst
->  F:	Documentation/userspace-api/dma-buf-alloc-exchange.rst
->  F:	drivers/dma-buf/
-> +F:	rust/kernel/dma_buf/
+On Sat May 30, 2026 at 5:08 PM CEST, Boqun Feng wrote:
+> type RcuKBox<T> =3D RcuBox<T, Kmalloc>;
+> type RcuVBox<T> =3D RcuBox<T, Vmalloc>;
 
-Please also add rust/helpers/dma_fence.c.
+type RcuKVBox<T> =3D RcuBox<T, KVmalloc>;
 
-Given that dma-buf goes through drm-misc, we should probably also add those=
- file
-to the drm-rust entry.
+> To support RCU-protected vmalloc allocation, we need to make `RcuBox`
+> generic over `Allocator`. Currently this works since all `Allocator`s
+> are either kmalloc() or vmalloc(), and kvfree_call_rcu() works with both
+> allocations.
+
+I think we can add Allocator::free_call_rcu().
