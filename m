@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45499CD6E57
-	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 14:02:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B036CD6E56
+	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 14:02:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD74B112830;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A15011282E;
 	Sat, 30 May 2026 14:02:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UVYa6Pnc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NZ3TVZ7o";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6740D112824
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 14:02:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DFE5112824
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 14:01:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5098343944;
- Sat, 30 May 2026 14:02:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B77CA1F00893;
- Sat, 30 May 2026 14:02:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 664C7408F8;
+ Sat, 30 May 2026 14:01:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C471E1F00898;
+ Sat, 30 May 2026 14:01:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780149724;
- bh=IEAkwZ/+qLbTldwIct/HqL+WkNuYktF+5BeZoWCYbmk=;
+ s=k20260515; t=1780149705;
+ bh=bKexUUWt365qJXp3CqDM+5I0hAL+VI5s0+G5LiLn64U=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=UVYa6Pnc8ThqS82mksjneTG8EEUySLxzvjXLFss6GjQQtTakTlMvAve51I3T5kC+w
- vyGaukumkCZE0svGSilGupaAMwSdNxkgTveiHbWfkgIl9nA/JBaYz8tvNvMPx15SYu
- YQsZWfmtUIKNg73PRzW+/YggW3uPOQ+P4/F8Dqo78StbKEN9bzjmtqLJ/vbPOVFsTG
- snP50ispoDnLZsgiQsVNNosXcKm/QB+n3QGDBk1VxpnlA+yUEGvSWDaC/b4i4mClmr
- gGNbIQ4SEgj2AcadMSE6a+Q3JXdLTokiFGmEOMFuvPQem9OOuQoURESKxjDu1z+l3A
- BIeA2z83mXNNw==
+ b=NZ3TVZ7o3lJbkfH7qWRxfrwd1Tz5cWI33iOKzgX7JJHxOcPAXuwUlYBzfGm59fgjw
+ Ku5BuZvdW9Q1ott0byo+zHeLcLJk+T/5E66sOxTtRrqdJInL4X48j/RyYNCnkcrHwC
+ o3enSbk6XCuHW3edmiEu9RnA4dxDWTg1Hk1G1BjDAn42Y8XlnITlu4g+sfZ70kGZ/Z
+ Bd8fDwQYiVKSToly7oXbF8RvuO3ilOwdjY66Ltw+/nwiqZbDVST+Pol5Y5kn3r0uqc
+ iCbo3B1g048YgirLl2xQgHQt9o6rD62Xs8pjMXvXRHm5bNr8OEMIQVCKn9/iPuuTWw
+ sH8NQCfMICEEQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Sat, 30 May 2026 15:59:53 +0200
-Subject: [PATCH 48/76] drm/mediatek: dpi: Switch to atomic_create_state
+Date: Sat, 30 May 2026 15:59:46 +0200
+Subject: [PATCH 41/76] drm/bridge: ti-sn65dsi83: Switch to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260530-drm-no-more-bridge-reset-v1-48-875d828d31bc@kernel.org>
+Message-Id: <20260530-drm-no-more-bridge-reset-v1-41-875d828d31bc@kernel.org>
 References: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
 In-Reply-To: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -48,19 +48,14 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org
+ Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1652; i=mripard@kernel.org;
- h=from:subject:message-id; bh=Z8CweYx7cyZyxe2DMmfvnRTRy+5EXHTwsjDkYvirUvA=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlSb72+LbAxWM3j2bXFqda6/4np5j3fmXyTbiwq3cjC4
- b4t5ejqjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjARTVvGGl6VvM9vD17uOcuY
- /TB+vvL/mMt3FlR5iPx4vjhiZqflp/g5xXeCRdYefNpqEifhIrk/gbFOQV9Q4ZGywukw7eiohqR
- 1C6ssxMtL1Gdv3cYecFXI9DHvwdLUt5pZet9t1cu5GQ7YrgcA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1249; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=zYl2E3Kmfqzev6o1YxJvC63H5XKSm7xMcuD8FxJPqJo=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlSb92zQrbeZPnXOss1OOCLt8cz83uRVRosHnKOFRY9g
+ f6st2Z2TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgIksamNseCb15dTeuC6biu2h
+ tW/dJ4r/ff5v/i+Bg5kyZ7cLrlu9n+v8t7fyay/r8Uecbnef4BQYxFjNenXaRz0pnn9/ii8tZz0
+ uEKRXra/jeIQlg4vvSrUQz7SnhjfviZq89d7+2jP/zwqhfysA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -85,37 +80,27 @@ Switch to the atomic_create_state callback and its
 drm_atomic_helper_bridge_create_state() counterpart.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
 ---
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-To: Matthias Brugger <matthias.bgg@gmail.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-mediatek@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
----
- drivers/gpu/drm/mediatek/mtk_dpi.c | 2 +-
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dpi.c b/drivers/gpu/drm/mediatek/mtk_dpi.c
-index bb4b7e6f1e29..959c994eef24 100644
---- a/drivers/gpu/drm/mediatek/mtk_dpi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dpi.c
-@@ -987,11 +987,11 @@ static const struct drm_bridge_funcs mtk_dpi_bridge_funcs = {
- 	.atomic_check = mtk_dpi_bridge_atomic_check,
- 	.atomic_get_output_bus_fmts = mtk_dpi_bridge_atomic_get_output_bus_fmts,
- 	.atomic_get_input_bus_fmts = mtk_dpi_bridge_atomic_get_input_bus_fmts,
+diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+index 42b451432bbb..ec6390ee9943 100644
+--- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
++++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+@@ -799,11 +799,11 @@ static const struct drm_bridge_funcs sn65dsi83_funcs = {
+ 	.atomic_disable		= sn65dsi83_atomic_disable,
+ 	.mode_valid		= sn65dsi83_mode_valid,
+ 
  	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
  	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 -	.atomic_reset = drm_atomic_helper_bridge_reset,
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.debugfs_init = mtk_dpi_debugfs_init,
+ 	.atomic_get_input_bus_fmts = sn65dsi83_atomic_get_input_bus_fmts,
  };
  
- static const struct drm_encoder_funcs mtk_dpi_encoder_funcs = {
- 	.destroy = drm_encoder_cleanup,
+ static int sn65dsi83_select_lvds_vod_swing(struct device *dev,
+ 	u32 lvds_vod_swing_data[2], u32 lvds_vod_swing_clk[2], u8 lvds_term)
 
 -- 
 2.54.0
