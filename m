@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FBF4CD6E55
-	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 14:03:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23FCBCD5BD0
+	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 14:03:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92D3F112849;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF2B211284B;
 	Sat, 30 May 2026 14:03:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eR82DJ/H";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="edAt3CZr";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E65D11283B
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 14:03:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1673811283B
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 14:02:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 22334600BB;
- Sat, 30 May 2026 14:03:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 545291F00893;
- Sat, 30 May 2026 14:03:13 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8E920600BB;
+ Sat, 30 May 2026 14:02:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C31351F00893;
+ Sat, 30 May 2026 14:02:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780149793;
- bh=9oFladQl8JqFJbRLE34adxgv9WHeEknwJD46EB8Pe7k=;
+ s=k20260515; t=1780149772;
+ bh=u6xhlNh+s4qS9ptXONO+QPTvxfs/B5eCp5PvHFvWUig=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=eR82DJ/HSQmXGNZvHi9WbIM+2zFr9o5Fvq/jDxDtWDbHyNQCzJBtLVI1idtNtb2OL
- USu7qF2FewGNDQUMPc3WvVJOjOkWgBCD9LPJDCwp1Yp/s/tBaUtEORw0jcSUevJ7oQ
- T5t84cDMvuabmz1zDkSWnp1+qYTBozp9rVcLGsaQGXWoT24F+VOSqipZo/m98qJca/
- GDhJakn3eC0fXYMttw97+6+iwKyAQCYGb9Y3JOVQUxWQWxEE5QBwbLCj6RJSPh9qZ0
- nrjyGuo4Hmljj6mRza5SvIuqaR52FaTOFCbVnkTkK8ObGKhEcPdsPp1nzf+a3f8xKk
- Ps1mkI0SpLMXw==
+ b=edAt3CZrkIKDtBOa6iAgNAPNCCL4RyI5+l2OCUqPJuUZcVFq5GOSI/3a7ClpJds0I
+ jmRmUq0wVgrt6pXGyLoBhX0d4h2ItPuwwRp3xWj9bUVlP6imVb83l3DoPCecWHpZQw
+ qiQyRpdGeeXFEZlPfT1z9gUjXfB8Qs+O1TSzMBSYRSQzcJII72Jx9IhP1mu6Azwx3H
+ xOBhgo7h3HzruDnO11VwvmKYxgJAVWoXrtvXrXt2EcxVJd8/ygOgTO0TQU5JfA5AEU
+ XCnMnUVdOweFIv1+VChjZICh8y/0GIIvTJJgyu5rI+3QsaeT5cuxKrkoxslC5kdqnl
+ RGj/2rYQ+QYLQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Sat, 30 May 2026 16:00:19 +0200
-Subject: [PATCH 74/76] drm/bridge: cdns-dsi: Switch to atomic_create_state
+Date: Sat, 30 May 2026 16:00:11 +0200
+Subject: [PATCH 66/76] drm/tests: bridge: Switch to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260530-drm-no-more-bridge-reset-v1-74-875d828d31bc@kernel.org>
+Message-Id: <20260530-drm-no-more-bridge-reset-v1-66-875d828d31bc@kernel.org>
 References: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
 In-Reply-To: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -50,12 +50,12 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2007; i=mripard@kernel.org;
- h=from:subject:message-id; bh=S8ZW2DRczaJ3/vV8p5pIac0PF5rI4rUzK0oh/V+qRSQ=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlSb8OOHpns+FJKlXnC0zs5S+JUr7OdF06OlGGd3h8i/
- jmSx+5Rx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjIveuMDQ9rGA/6sD1r8W0q
- yzcrWeTBHPGrWeFOL5dfnNLylIrfJk9u3o5TCv3NfG/GrWjTB5c4GOu0fZO//lyhePLt8pfTJvD
- 8kJkzZ2fJObmj/399Ufs+8fzEM5tOvK5jX6NptPsk1/SmtMfuAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1242; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=3SmQ9VzcC6wJ2AYtS+2hh3zjGSVRjIHCIc+aCojzUfI=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlSb4MiPxQopl5S7UhZYbrk7z/L4jtuvw+9YdavCZ9xe
+ EX2/kdfOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBE/j1mrA/9b7hJXMG03GHX
+ 4amvT17992yW0s3He34vk7X7F3s37Pr+RzHd06uZVMV6BTfs+C+du5qxTtvkkujeyhtr/p+py3m
+ Vekfsab7M/T0cU1dtr3zRqnlRXKrz59tdAh6id2fOXbT+T/GNHwA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,58 +73,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The cdns-dsi bridge atomic_reset implementation is semantically an
-atomic_create_state: it allocates and initializes a pristine state
-without side effects.
+The drm_bridge_funcs.atomic_reset callback and its
+drm_atomic_helper_bridge_reset() helper are deprecated.
 
-However, it returns NULL on allocation failure instead of an error
-pointer.
-
-Switch to the atomic_create_state callback, rename the function
-accordingly, and return ERR_PTR(-ENOMEM) on failure.
+Switch to the atomic_create_state callback and its
+drm_atomic_helper_bridge_create_state() counterpart.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/tests/drm_bridge_test.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-index f4cf765f0be8..c3e466ded84a 100644
---- a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-+++ b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-@@ -1007,17 +1007,17 @@ cdns_dsi_bridge_atomic_destroy_state(struct drm_bridge *bridge,
- 
- 	kfree(dsi_state);
- }
- 
- static struct drm_bridge_state *
--cdns_dsi_bridge_atomic_reset(struct drm_bridge *bridge)
-+cdns_dsi_bridge_atomic_create_state(struct drm_bridge *bridge)
- {
- 	struct cdns_dsi_bridge_state *dsi_state;
- 
- 	dsi_state = kzalloc_obj(*dsi_state);
- 	if (!dsi_state)
--		return NULL;
-+		return ERR_PTR(-ENOMEM);
- 
- 	__drm_atomic_helper_bridge_state_init(&dsi_state->base, bridge);
- 
- 	return &dsi_state->base;
- }
-@@ -1026,11 +1026,11 @@ static const struct drm_bridge_funcs cdns_dsi_bridge_funcs = {
- 	.attach = cdns_dsi_bridge_attach,
- 	.mode_valid = cdns_dsi_bridge_mode_valid,
- 	.atomic_pre_enable = cdns_dsi_bridge_atomic_pre_enable,
- 	.atomic_post_disable = cdns_dsi_bridge_atomic_post_disable,
- 	.atomic_check = cdns_dsi_bridge_atomic_check,
--	.atomic_reset = cdns_dsi_bridge_atomic_reset,
-+	.atomic_create_state = cdns_dsi_bridge_atomic_create_state,
- 	.atomic_duplicate_state = cdns_dsi_bridge_atomic_duplicate_state,
- 	.atomic_destroy_state = cdns_dsi_bridge_atomic_destroy_state,
- 	.atomic_get_input_bus_fmts = cdns_dsi_bridge_get_input_bus_fmts,
+diff --git a/drivers/gpu/drm/tests/drm_bridge_test.c b/drivers/gpu/drm/tests/drm_bridge_test.c
+index 64b665580a88..3f0269e52432 100644
+--- a/drivers/gpu/drm/tests/drm_bridge_test.c
++++ b/drivers/gpu/drm/tests/drm_bridge_test.c
+@@ -90,11 +90,11 @@ static const struct drm_bridge_funcs drm_test_bridge_atomic_funcs = {
+ 	.destroy		= drm_test_bridge_priv_destroy,
+ 	.atomic_enable		= drm_test_bridge_atomic_enable,
+ 	.atomic_disable		= drm_test_bridge_atomic_disable,
+ 	.atomic_destroy_state	= drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_duplicate_state	= drm_atomic_helper_bridge_duplicate_state,
+-	.atomic_reset		= drm_atomic_helper_bridge_reset,
++	.atomic_create_state		= drm_atomic_helper_bridge_create_state,
  };
  
+ KUNIT_DEFINE_ACTION_WRAPPER(drm_bridge_remove_wrapper,
+ 			    drm_bridge_remove,
+ 			    struct drm_bridge *);
 
 -- 
 2.54.0
