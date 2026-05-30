@@ -4,65 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4296CD5BD0
-	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 16:14:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53158CD6E49
+	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 16:17:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0DE01128D3;
-	Sat, 30 May 2026 16:14:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73CC110E3A9;
+	Sat, 30 May 2026 16:17:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZzINa+ig";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iyy0utnz";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8A801128D3
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 16:14:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 982CB10E3A9
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 16:17:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 80CA240AD4;
- Sat, 30 May 2026 16:14:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76F061F00893;
- Sat, 30 May 2026 16:14:32 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6DA3C40B45;
+ Sat, 30 May 2026 16:17:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AA3B1F00A05;
+ Sat, 30 May 2026 16:17:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780157677;
- bh=a1HJb7wM7dbrPtrdf2u0hQIT9klNUXKK9GONYcrJZ5U=;
- h=Date:Cc:To:From:Subject:References:In-Reply-To;
- b=ZzINa+iguSKy5ptBu0K8zr01QzrekpsQEKMK9bwYi/o+eoydvuSChjmASxWo4TaAa
- lk2/CUWeM5DKzXYXBIjs3gRAT/O7Fffh0YjuoAr6WuAJyv/q5hyTS2dqBc80T5831+
- Bjs5StxZnh4+euTg/AGkxMSCWZ6Ud5vfVCS/PWkkq2bgzWppEyUmKho4tO6VnszErG
- AYpljMjadlXtHyli2PlfP2590MtcMep0Y9Q/8RVT3TvRknneCXg/Ie4euzCoGV83jY
- a3kT0kVpXm1mq2HnysvUG+SecQKOUQBhfki0OtdevNkcGo2XCZhsnYVA6XvdCdQY6N
- o/OnzP8fMXFng==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 30 May 2026 18:14:28 +0200
-Message-Id: <DIW587AGXYCS.39MR1B4TVSO9@kernel.org>
-Cc: "Markus Probst via B4 Relay"
- <devnull+markus.probst.posteo.de@kernel.org>, "Rob Herring"
- <robh@kernel.org>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Jiri
- Slaby" <jirislaby@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Gary
- Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Kari Argillander"
- <kari.argillander@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Viresh Kumar" <viresh.kumar@linaro.org>, "Boqun Feng" <boqun@kernel.org>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- <linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <driver-core@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-To: "Markus Probst" <markus.probst@posteo.de>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v8 3/5] rust: add basic serial device bus abstractions
-References: <20260530-rust_serdev-v8-0-2a95f1da22a7@posteo.de>
- <20260530-rust_serdev-v8-3-2a95f1da22a7@posteo.de>
- <DIW1B4FUIXO7.28GSUA0CEA4EV@kernel.org>
- <4638946fc49a38797b716ea173c93327eb751479.camel@posteo.de>
- <ad98dfb1d8469022519d37364e8a068bed3b5687.camel@posteo.de>
- <888dc39c52bb6ddac1a1eed7876c4573bdbef002.camel@posteo.de>
- <DIW2JUUL6A6J.96VI4IQN6HYU@kernel.org>
- <55eae11ea68f129508d0f7e30ac457ba919812b2.camel@posteo.de>
- <DIW34DX6BSUS.ANXBOP9687B0@kernel.org>
- <25dc9a4bbde0b542abf608be1b3305f1421a4502.camel@posteo.de>
-In-Reply-To: <25dc9a4bbde0b542abf608be1b3305f1421a4502.camel@posteo.de>
+ s=k20260515; t=1780157824;
+ bh=lgMGABhDtkcJCecMD67uV8TgoUAtWzS8gs+6setzh9w=;
+ h=Subject:From:In-Reply-To:References:Date:To:Cc;
+ b=iyy0utnzajBWYBOt3kaFOixwunXSTxA4LSoyNbWP5jFa4RiC0TmBpF2rQq2IsDHFF
+ M8liKZvGcV9Ozv4k4UTkkweBnvaibpFMBs1czch17fMGDpQL+QwHLVOZQg6qoTXmP4
+ XyRCwvfZassz7SnB9lKePvu5+KO738ywak2SbdmSuN0AOqqRFK89Q8D+XN3hM8Oqaf
+ uNCfOfLgMYYGHu7pG/isO+XG8V42uH4JU8z2pm0kbgO3KYNxqoY+0InC6MNHrIYUsz
+ Dbj6nFFedeYuFNzGEwhCwgkGv0tg8hP40Jz7ajkJt345pw89FqsdI+uwtyZdRtnZ2O
+ Rb0lQNqNiAl5Q==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ D0AA2393021E; Sat, 30 May 2026 16:17:08 +0000 (UTC)
+Subject: Re: [git pull] drm fixes for 7.1-rc6
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <CAPM=9tw_rsuFEfRpcctpzCxeiAufCf_+5Z+wYXVzYg2JEcHJjA@mail.gmail.com>
+References: <CAPM=9tw_rsuFEfRpcctpzCxeiAufCf_+5Z+wYXVzYg2JEcHJjA@mail.gmail.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <CAPM=9tw_rsuFEfRpcctpzCxeiAufCf_+5Z+wYXVzYg2JEcHJjA@mail.gmail.com>
+X-PR-Tracked-Remote: https://gitlab.freedesktop.org/drm/kernel.git
+ tags/drm-fixes-2026-05-30
+X-PR-Tracked-Commit-Id: 7164d78559b0ff29931a366a840a9e5dd53d4b7c
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 2765233a483febb1bf56f0abdcc5aa06d25633d7
+Message-Id: <178015782749.2653560.12936125919831947962.pr-tracker-bot@kernel.org>
+Date: Sat, 30 May 2026 16:17:07 +0000
+To: Dave Airlie <airlied@gmail.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Sima Vetter <sima@ffwll.ch>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,39 +66,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat May 30, 2026 at 4:51 PM CEST, Markus Probst wrote:
-> On Sat, 2026-05-30 at 16:35 +0200, Danilo Krummrich wrote:
->> On Sat May 30, 2026 at 4:27 PM CEST, Markus Probst wrote:
->> > This would work, but I don't see how it would get rid of rust_private_=
-data in
->> > this way. The device private data will but the private bus abstraction=
- data
->> > needs to outlive the devres callbacks (which is done by rust_private_d=
-ata).
->>=20
->> Why? You only ever use it in the receive callback, which won't be called=
- after
->> device unbind anymore.
-> Because the possibility exists that some classdev ops or Drop calls
-> e.g. sdev.set_baudrate. This is a null pointer dereference after
-> serdev_device_close has been called. I interpreted it to add a state to
-> the abstraction private data which would prevent those calls (early
-> return with error) after serdev_device_close has been called, but this
-> would only work if it outlives these calls.
->
-> But it seems you were refering to something else with the state?
+The pull request you sent on Sat, 30 May 2026 09:10:19 +1000:
 
-Yes, but I just notice that I'm a step ahead. With the lifetime model class
-device registrations shouldn't be guarded with Devres anymore, but with a
-lifetime.
+> https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-05-30
 
-(This also entirely eliminates the need for having different devres stages =
-to
-prevent drivers from smuggling a newly created Devres object into an existi=
-ng
-Devres<Registration<T>>'s data, which would be unsound for obvious reasons.=
-)
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/2765233a483febb1bf56f0abdcc5aa06d25633d7
 
-With this there is no way there are still class device callbacks after the =
-bus
-device private data has been dropped in the first place.
+Thank you!
+
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
