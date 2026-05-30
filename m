@@ -4,63 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E27EECD5BD0
-	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 13:38:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0401CD5BD0
+	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 13:59:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C1EC10E338;
-	Sat, 30 May 2026 13:38:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E71B10E31C;
+	Sat, 30 May 2026 13:59:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="0Ec7yLjH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ouUSjMcx";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBCCA10E338
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 13:38:21 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 891CF1A3750;
- Sat, 30 May 2026 13:38:20 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 490586073B;
- Sat, 30 May 2026 13:38:20 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id C663610888CC8; 
- Sat, 30 May 2026 15:38:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1780148298; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=HKrIBJHZD91OGHEHVz5icU8jb2dXEwclJl95UpuDS+U=;
- b=0Ec7yLjHV7F3GfRWpGS/Jh45rOIY/RCXZ6DwjKTCVXMkdaD1xzjp6Y9XyRUkjyFtFZfuOF
- 3P9QhCvry/SyDVW4RyYe/KaOzIrbL6MJgGDQ/YmLYcItXJI0fH33gfSrAON6P+dq6a/m3r
- JZRwfZNaYNZNdiyb5cMRN007pFtXOz6LowX1oNqXurum5rFfxcHPTmmIvDzdTI8XOanlfZ
- cTlS4RLyJ1pv0NiT+gTpGvH4u+J6JRbm5ElJ++gnZLG/8jfkzAjakCKu/hZBH91W3Ga5nu
- ybQ4NtweDzYbPMWJAs2u08gXQlqMmVNoiygSG7yri/prWlXLGR5JTurKvIYDRw==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 30 May 2026 15:38:05 +0200
-Message-Id: <DIW1WGLL0GW5.1BGU194UXN0HO@bootlin.com>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Damon Ding"
- <damon.ding@rock-chips.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v4 2/3] drm/bridge: analogix_dp: Add validation for
- samsung,lane-count property
-Cc: <hjc@rock-chips.com>, <heiko@sntech.de>, <andy.yan@rock-chips.com>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>, <rfoss@kernel.org>,
- <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
- <jernej.skrabec@gmail.com>, <nicolas.frattaroli@collabora.com>,
- <cristian.ciocaltea@collabora.com>, <sebastian.reichel@collabora.com>,
- <dmitry.baryshkov@oss.qualcomm.com>, <dianders@chromium.org>,
- <m.szyprowski@samsung.com>, <dri-devel@lists.freedesktop.org>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.21.0
-References: <20260529040530.741336-1-damon.ding@rock-chips.com>
- <20260529040530.741336-3-damon.ding@rock-chips.com>
- <178014803941.21632.16225608049285101452.b4-review@b4>
-In-Reply-To: <178014803941.21632.16225608049285101452.b4-review@b4>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18F5010E31C
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 13:59:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 52AA242A34;
+ Sat, 30 May 2026 13:59:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87B8D1F00893;
+ Sat, 30 May 2026 13:59:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780149594;
+ bh=EAA8Cng1tHiDU71Bsnv2nxNHGPA4F8O7/bGrv/TxoZk=;
+ h=From:Subject:Date:To:Cc;
+ b=ouUSjMcxP/WdDHjzVwSe7/7fquFllZ3T/M9TzeCFtsaHT2/kqwyEnNXAnkjMLLdOC
+ MZWVPhCAb84+ys3Xx2DKlMbbfkwNOIu/47XLsThWBXS9pGjPf2x8RMCLg1gwiUd/di
+ 7SUakavt7Tp94UXcGP8U5s9z17KjwuuSVlqOCK+ihwDvUeGxhGRTwAikYRUjciynvb
+ fFfMlaqyYuZP6fJjC7aVNRog+qd3sM5dEclOTM23ZVjvnzSDUwVT2SBiYyL1BjFbak
+ SNfcnfAP6xIhbf/56hOgM/rIf9ai2ICy4tcFxy+kW3jdQrbxorCAA5es5TYbew/ZSv
+ nmVZQSw2+wpnw==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH 00/76] drm/bridge: Convert all reset users to create_state
+Date: Sat, 30 May 2026 15:59:05 +0200
+Message-Id: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MwQqDQAwFf0VyNpCm2kJ/RTxY92lzcLdkRQTx3
+ 108DszMQRluyPSpDnJsli3FAo+6ovE3xBlsoTCp6Evap3DwhWPiJTn46xaK4chYeRxUQgvVdyN
+ U8r9jsv1ed/15Xjs3gQ9qAAAA
+X-Change-ID: 20260530-drm-no-more-bridge-reset-ca20d5e22740
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
+ Maxime Ripard <mripard@kernel.org>, Jagan Teki <jagan@amarulasolutions.com>, 
+ Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, Andy Yan <andy.yan@rock-chips.com>, 
+ Phong LE <ple@baylibre.com>, Douglas Anderson <dianders@chromium.org>, 
+ Inki Dae <inki.dae@samsung.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org, 
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ linux-amlogic@lists.infradead.org, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ linux-renesas-soc@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ linux-rockchip@lists.infradead.org, 
+ Yannick Fertre <yannick.fertre@foss.st.com>, 
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
+ Philippe Cornu <philippe.cornu@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ linux-stm32@st-md-mailman.stormreply.com, Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Michal Simek <michal.simek@amd.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9737; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=5mdpzx6AnIdXlXtHiMk6gtXCaV0Ggi5q17pXlWPT+Uk=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlSb01r+u3jJBcsVzl6eIHvJglnRfPCFSKp/sWLitVe3
+ V+atu5ox1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZiIXRxjwzp9nkOtcyMmtdgd
+ a91d0aoc6u5wjM0qR8ZrjsJq7c9muTsb0i1v2+YtftNc7l9/fTYrY8O2eRzqvy5sn3mhruGz9Oy
+ CfVVqOiEps4XcVVd6rDiRNvOQW0oEl2zaers8zblFe8+e0wAA
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,76 +114,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat May 30, 2026 at 3:33 PM CEST, Luca Ceresoli wrote:
-> On Fri, 29 May 2026 12:05:29 +0800, Damon Ding <damon.ding@rock-chips.com=
-> wrote:
->
-> Hello Damon,
->
->>
->> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/driver=
-s/gpu/drm/bridge/analogix/analogix_dp_core.c
->> index 8cf6b73bceac..699a7f380c56 100644
->> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->> @@ -1260,8 +1261,16 @@ static int analogix_dp_dt_parse_pdata(struct anal=
-ogix_dp_device *dp)
->>  		 */
->>  		of_property_read_u32(dp_node, "samsung,link-rate",
->>  				     &video_info->max_link_rate);
->> -		of_property_read_u32(dp_node, "samsung,lane-count",
->> -				     &video_info->max_lane_count);
->> +		ret =3D of_property_read_u32(dp_node, "samsung,lane-count",
->> +					   &video_info->max_lane_count);
->> +		if (!ret) {
->> +			if (video_info->max_lane_count =3D=3D 0 ||
->> +			    video_info->max_lane_count > LANE_COUNT4) {
->
-> This sashiko report seems to me valid.
+Hi, 
 
-Meh, messed up with 'b4 review' :-/ Apologies
+All the bridges use reset to create a blank state only and don't use it
+to reset the hardware at all. This is what the new atomic_create_state
+is exactly supposed to be doing, so we can convert all existing bridge
+users to it, and remove the reset hook and helpers.
 
-"This sashiko report" [0] was about an enum being signed, so '=3D=3D 0' cou=
-ld miss
-negative numbers coming from bogus DT values higher than 1^31.
+Let me know what you think,
+Maxime 
 
->
-> But I'n no DP expert, I have no idea whether this ther one is valid.
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Maxime Ripard (76):
+      drm/atomic-state-helper: Rename __drm_atomic_helper_bridge_reset()
+      drm/atomic-state-helper: Reorder __drm_atomic_helper_bridge_state_init() arguments
+      drm/atomic-state-helper: Drop memset from __drm_atomic_helper_bridge_state_init()
+      drm/bridge: Add new atomic_create_state callback
+      drm/atomic-state-helper: Add drm_atomic_helper_bridge_create_state()
+      drm/bridge: adv7511: Switch to atomic_create_state
+      drm/bridge: analogix_dp: Switch to atomic_create_state
+      drm/bridge: anx7625: Switch to atomic_create_state
+      drm/bridge: chipone-icn6211: Switch to atomic_create_state
+      drm/bridge: display-connector: Switch to atomic_create_state
+      drm/bridge: fsl-ldb: Switch to atomic_create_state
+      drm/bridge: imx8mp-hdmi-pvi: Switch to atomic_create_state
+      drm/bridge: imx8qm-ldb: Switch to atomic_create_state
+      drm/bridge: imx8qxp-ldb: Switch to atomic_create_state
+      drm/bridge: imx8qxp-pixel-combiner: Switch to atomic_create_state
+      drm/bridge: imx8qxp-pixel-link: Switch to atomic_create_state
+      drm/bridge: imx8qxp-pxl2dpi: Switch to atomic_create_state
+      drm/bridge: inno-hdmi: Switch to atomic_create_state
+      drm/bridge: ite-it6263: Switch to atomic_create_state
+      drm/bridge: ite-it6505: Switch to atomic_create_state
+      drm/bridge: ite-it66121: Switch to atomic_create_state
+      drm/bridge: lontium-lt9211: Switch to atomic_create_state
+      drm/bridge: lontium-lt9611: Switch to atomic_create_state
+      drm/bridge: lvds-codec: Switch to atomic_create_state
+      drm/bridge: nwl-dsi: Switch to atomic_create_state
+      drm/bridge: panel: Switch to atomic_create_state
+      drm/bridge: parade-ps8640: Switch to atomic_create_state
+      drm/bridge: samsung-dsim: Switch to atomic_create_state
+      drm/bridge: sii902x: Switch to atomic_create_state
+      drm/bridge: ssd2825: Switch to atomic_create_state
+      drm/bridge: dw-dp: Switch to atomic_create_state
+      drm/bridge: dw-hdmi-qp: Switch to atomic_create_state
+      drm/bridge: dw-hdmi: Switch to atomic_create_state
+      drm/bridge: dw-mipi-dsi: Switch to atomic_create_state
+      drm/bridge: dw-mipi-dsi2: Switch to atomic_create_state
+      drm/bridge: tc358762: Switch to atomic_create_state
+      drm/bridge: tc358767: Switch to atomic_create_state
+      drm/bridge: tc358768: Switch to atomic_create_state
+      drm/bridge: tc358775: Switch to atomic_create_state
+      drm/bridge: ti-dlpc3433: Switch to atomic_create_state
+      drm/bridge: ti-sn65dsi83: Switch to atomic_create_state
+      drm/bridge: ti-sn65dsi86: Switch to atomic_create_state
+      drm/bridge: ti-tdp158: Switch to atomic_create_state
+      drm/bridge: ti-tfp410: Switch to atomic_create_state
+      drm/imx: parallel-display: Switch to atomic_create_state
+      drm/ingenic: Switch to atomic_create_state
+      drm/mediatek: dp: Switch to atomic_create_state
+      drm/mediatek: dpi: Switch to atomic_create_state
+      drm/mediatek: dsi: Switch to atomic_create_state
+      drm/mediatek: hdmi: Switch to atomic_create_state
+      drm/mediatek: hdmi_v2: Switch to atomic_create_state
+      drm/meson: encoder_cvbs: Switch to atomic_create_state
+      drm/meson: encoder_dsi: Switch to atomic_create_state
+      drm/meson: encoder_hdmi: Switch to atomic_create_state
+      drm/msm: dp: Switch to atomic_create_state
+      drm/msm: hdmi: Switch to atomic_create_state
+      drm/omap: hdmi4: Switch to atomic_create_state
+      drm/omap: hdmi5: Switch to atomic_create_state
+      drm/renesas: rcar-du: lvds: Switch to atomic_create_state
+      drm/renesas: rcar-du: mipi_dsi: Switch to atomic_create_state
+      drm/renesas: rz-du: mipi_dsi: Switch to atomic_create_state
+      drm/rockchip: cdn-dp: Switch to atomic_create_state
+      drm/rockchip: rk3066_hdmi: Switch to atomic_create_state
+      drm/rockchip: lvds: Switch to atomic_create_state
+      drm/stm: lvds: Switch to atomic_create_state
+      drm/tests: bridge: Switch to atomic_create_state
+      drm/tidss: encoder: Switch to atomic_create_state
+      drm/tidss: oldi: Switch to atomic_create_state
+      drm/vc4: dsi: Switch to atomic_create_state
+      drm/verisilicon: Switch to atomic_create_state
+      drm/xlnx: zynqmp_dp: Switch to atomic_create_state
+      drm/atomic-state-helper: Remove drm_atomic_helper_bridge_reset()
+      drm/bridge: cdns-dsi: Use __drm_atomic_helper_bridge_state_init()
+      drm/bridge: cdns-dsi: Switch to atomic_create_state
+      drm/bridge: cdns-mhdp8546: Switch to atomic_create_state
+      drm/bridge: Remove atomic_reset support
 
-And this was about "Additionally, does this check inadvertently allow 3,
-which is an invalid DisplayPort lane count?"
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c       |  2 +-
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.c |  2 +-
+ drivers/gpu/drm/bridge/analogix/anx7625.c          |  2 +-
+ drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c     |  9 +++---
+ .../gpu/drm/bridge/cadence/cdns-mhdp8546-core.c    |  8 +++---
+ drivers/gpu/drm/bridge/chipone-icn6211.c           |  2 +-
+ drivers/gpu/drm/bridge/display-connector.c         |  2 +-
+ drivers/gpu/drm/bridge/fsl-ldb.c                   |  2 +-
+ drivers/gpu/drm/bridge/imx/imx8mp-hdmi-pvi.c       |  2 +-
+ drivers/gpu/drm/bridge/imx/imx8qm-ldb.c            |  2 +-
+ drivers/gpu/drm/bridge/imx/imx8qxp-ldb.c           |  2 +-
+ .../gpu/drm/bridge/imx/imx8qxp-pixel-combiner.c    |  2 +-
+ drivers/gpu/drm/bridge/imx/imx8qxp-pixel-link.c    |  2 +-
+ drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c       |  2 +-
+ drivers/gpu/drm/bridge/inno-hdmi.c                 |  2 +-
+ drivers/gpu/drm/bridge/ite-it6263.c                |  2 +-
+ drivers/gpu/drm/bridge/ite-it6505.c                |  2 +-
+ drivers/gpu/drm/bridge/ite-it66121.c               |  2 +-
+ drivers/gpu/drm/bridge/lontium-lt9211.c            |  2 +-
+ drivers/gpu/drm/bridge/lontium-lt9611.c            |  2 +-
+ drivers/gpu/drm/bridge/lvds-codec.c                |  2 +-
+ drivers/gpu/drm/bridge/nwl-dsi.c                   |  2 +-
+ drivers/gpu/drm/bridge/panel.c                     |  2 +-
+ drivers/gpu/drm/bridge/parade-ps8640.c             |  2 +-
+ drivers/gpu/drm/bridge/samsung-dsim.c              |  2 +-
+ drivers/gpu/drm/bridge/sii902x.c                   |  2 +-
+ drivers/gpu/drm/bridge/ssd2825.c                   |  2 +-
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c            |  2 +-
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c       |  2 +-
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c          |  2 +-
+ drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c      |  2 +-
+ drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c     |  2 +-
+ drivers/gpu/drm/bridge/tc358762.c                  |  2 +-
+ drivers/gpu/drm/bridge/tc358767.c                  |  4 +--
+ drivers/gpu/drm/bridge/tc358768.c                  |  2 +-
+ drivers/gpu/drm/bridge/tc358775.c                  |  2 +-
+ drivers/gpu/drm/bridge/ti-dlpc3433.c               |  2 +-
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c              |  2 +-
+ drivers/gpu/drm/bridge/ti-sn65dsi86.c              |  2 +-
+ drivers/gpu/drm/bridge/ti-tdp158.c                 |  2 +-
+ drivers/gpu/drm/bridge/ti-tfp410.c                 |  2 +-
+ drivers/gpu/drm/drm_atomic_state_helper.c          | 33 ++++++++++++----------
+ drivers/gpu/drm/drm_bridge.c                       |  4 +--
+ drivers/gpu/drm/imx/ipuv3/parallel-display.c       |  2 +-
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |  2 +-
+ drivers/gpu/drm/mediatek/mtk_dp.c                  |  2 +-
+ drivers/gpu/drm/mediatek/mtk_dpi.c                 |  2 +-
+ drivers/gpu/drm/mediatek/mtk_dsi.c                 |  2 +-
+ drivers/gpu/drm/mediatek/mtk_hdmi.c                |  2 +-
+ drivers/gpu/drm/mediatek/mtk_hdmi_v2.c             |  2 +-
+ drivers/gpu/drm/meson/meson_encoder_cvbs.c         |  2 +-
+ drivers/gpu/drm/meson/meson_encoder_dsi.c          |  2 +-
+ drivers/gpu/drm/meson/meson_encoder_hdmi.c         |  2 +-
+ drivers/gpu/drm/msm/dp/dp_drm.c                    |  4 +--
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c             |  2 +-
+ drivers/gpu/drm/omapdrm/dss/hdmi4.c                |  2 +-
+ drivers/gpu/drm/omapdrm/dss/hdmi5.c                |  2 +-
+ drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c        |  2 +-
+ drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c    |  2 +-
+ drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c     |  2 +-
+ drivers/gpu/drm/rockchip/cdn-dp-core.c             |  2 +-
+ drivers/gpu/drm/rockchip/rk3066_hdmi.c             |  2 +-
+ drivers/gpu/drm/rockchip/rockchip_lvds.c           |  2 +-
+ drivers/gpu/drm/stm/lvds.c                         |  2 +-
+ drivers/gpu/drm/tests/drm_bridge_test.c            |  2 +-
+ drivers/gpu/drm/tidss/tidss_encoder.c              |  2 +-
+ drivers/gpu/drm/tidss/tidss_oldi.c                 |  2 +-
+ drivers/gpu/drm/vc4/vc4_dsi.c                      |  2 +-
+ drivers/gpu/drm/verisilicon/vs_bridge.c            |  4 +--
+ drivers/gpu/drm/xlnx/zynqmp_dp.c                   |  2 +-
+ include/drm/drm_atomic_state_helper.h              |  6 ++--
+ include/drm/drm_bridge.h                           | 33 ++++++++--------------
+ 72 files changed, 111 insertions(+), 120 deletions(-)
+---
+base-commit: 21fcb222f0d1e1c9f5b04c09e9fb3408e13a0264
+change-id: 20260530-drm-no-more-bridge-reset-ca20d5e22740
 
->> +				dev_err(dp->dev, "samsung,lane-count =3D %d is out of range\n",
->> +					video_info->max_lane_count);
->> +				return -EINVAL;
->> +			}
->> +		}
->
-> As reported by sashiko, 'count =3D=3D 0' should be 'count <=3D 0', being =
-an enum.
->
-> Additionally I'd avoid the nested if, and I think using dev_err_probe() i=
-s
-> correct here (we are only called by probe functions), so it all could
-> become:
->
->    if (ret || count <=3D 0 || count > LANE_COUNT0)
->         return dev_err_probe(...);
->
-> There are other sashiko reports to patch 3, and at least one seems valid =
-to
-> me. Can you either fix them in the next iteration or elaborate on why the
-> code is correct there?
->
-> Thanks!
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
 
-
-[0] https://sashiko.dev/#/patchset/20260529040530.741336-1-damon.ding%40roc=
-k-chips.com
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
