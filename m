@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AC4DCD6E55
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EACF1CD6E58
 	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 14:02:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 851AB112837;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB002112839;
 	Sat, 30 May 2026 14:02:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ko1IER1z";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BTGwTSqn";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B054112824
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 14:01:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6E0C11282A
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 14:02:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 735CD40A83;
- Sat, 30 May 2026 14:01:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D12401F00898;
- Sat, 30 May 2026 14:01:52 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A6F2B40B5B;
+ Sat, 30 May 2026 14:02:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17DD21F00893;
+ Sat, 30 May 2026 14:02:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780149713;
- bh=D7aYBsAj97dv3xV8PIOPP0HcFVFnWssEF/OTwBY9rnY=;
+ s=k20260515; t=1780149737;
+ bh=anUI5MHtMvkBC0GL+1Qn0sotBdjMvdd5vMopFShCozU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ko1IER1zyQQoCd52ztRPY8dfcnMVBhSnPFUYivZJqwceCyVgoXHECzy5nkY3SWA6A
- A1zC0l5BZ30qzHhcNvCCj0XADptqdb/91zo6lkjVyGvXZhsPasXEMItSe4IoQJi/+6
- zXOwvck9hBC9vb4jvs4Hec1tIJ2s0bKu+Tp6lC0TgW/hcppzUx0Dn8Jl84Viu+fL5O
- M3rQRLWZCg0591pHIDOda+3Njn3WmZ/JyPCAfMwTSjWPjWizYua/ECrgj7LQaFfhXM
- kXRYzFDCw148xF8tb6ZE4lrnZJRKp4FwN5WE4OKrXmRq4wNl/1PWcKhc8rSbeNABT5
- P7c9L7hnGFG5w==
+ b=BTGwTSqn1YIJlYcFjkkHQw7OXJBQb14speUP2S4DboKN/QpnYqooblg6XkrxHo1qn
+ LNdk4pZqNVw3DRbKROF/6RyRvEwbcRLHqVioagNXRLeQ5LPU0ozDE0lPl7dBlNEqyu
+ dkZ1tIC1ZCwJsm8zwuJtFjH1jtXSJJGcFe/z2sUg3+10XXQeaoSw0eLVp0g4sO+Kv1
+ HiVfMVcE7o9CrmwBcmWwked/M2BwMFwO1rXPC7JJ+zENAxdeBnqDB+E6MZFUH8wWHc
+ KRjFIQ3j/cYgprB5Oe1c3PoaFEXkzXYYEcv+i3YszvkWvB53+XibWZYxAJtkNAg2/1
+ 2V5iVz/B+qdmg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Sat, 30 May 2026 15:59:49 +0200
-Subject: [PATCH 44/76] drm/bridge: ti-tfp410: Switch to atomic_create_state
+Date: Sat, 30 May 2026 15:59:58 +0200
+Subject: [PATCH 53/76] drm/meson: encoder_dsi: Switch to
+ atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260530-drm-no-more-bridge-reset-v1-44-875d828d31bc@kernel.org>
+Message-Id: <20260530-drm-no-more-bridge-reset-v1-53-875d828d31bc@kernel.org>
 References: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
 In-Reply-To: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -48,14 +49,17 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>
+ Maxime Ripard <mripard@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
+ Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1190; i=mripard@kernel.org;
- h=from:subject:message-id; bh=rxy/ewC0g4Fb5xeAwEzB/CyvTuiVkbLuPEV7PoLWXp0=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlSbz2O5UbyS7TtFJo7KfKLZlvVlRnFjxXZp4n+vrA3w
- SvQJ/Vrx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjIr12MdcqKPSaTLkteqE0o
- Obxm76q9bw5c8p/Fslj3Ntvm+U+uBDDkHD2jInzrX0dYZuPyI3cFHzPWuz1zCXxQ2cHvWdS/zCP
- W0qzvr6dll+i8QyfXsYXz3dNMPbnh7uHPjk3yslyrHoaXXogAAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1556; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=W3FfOYycKu4FyFarZzDHjkwqPdWFu1t0icXPJHTdty8=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlSb33E/91m9p163Gpv94VbVuYFcgZ3j+xUUPx7eWrTE
+ olr8b8rOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEivgZ6z1ul574yvi0b80i
+ hV0fTjY+XLtZo82ngf+fabFX3aO/Qn/3JiZq+QrfYuX9cKV6hUj1Jsb6vJMl7TmT3E6kcog9PHB
+ B9+QmPikz7rhXretebLljfIrpiOIP7ofCEzm/8STxrVI+qPoZAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,27 +84,36 @@ Switch to the atomic_create_state callback and its
 drm_atomic_helper_bridge_create_state() counterpart.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
+
 ---
- drivers/gpu/drm/bridge/ti-tfp410.c | 2 +-
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Kevin Hilman <khilman@baylibre.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-amlogic@lists.infradead.org
+Cc: linux-arm-kernel@lists.infradead.org
+---
+ drivers/gpu/drm/meson/meson_encoder_dsi.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/ti-tfp410.c b/drivers/gpu/drm/bridge/ti-tfp410.c
-index bf4ab4eaf269..6f06f7b4e992 100644
---- a/drivers/gpu/drm/bridge/ti-tfp410.c
-+++ b/drivers/gpu/drm/bridge/ti-tfp410.c
-@@ -243,11 +243,11 @@ static const struct drm_bridge_funcs tfp410_bridge_funcs = {
- 	.attach		= tfp410_attach,
- 	.detach		= tfp410_detach,
- 	.enable		= tfp410_enable,
- 	.disable	= tfp410_disable,
- 	.mode_valid	= tfp410_mode_valid,
--	.atomic_reset = drm_atomic_helper_bridge_reset,
-+	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+diff --git a/drivers/gpu/drm/meson/meson_encoder_dsi.c b/drivers/gpu/drm/meson/meson_encoder_dsi.c
+index c1f4685073bb..3e422b612f74 100644
+--- a/drivers/gpu/drm/meson/meson_encoder_dsi.c
++++ b/drivers/gpu/drm/meson/meson_encoder_dsi.c
+@@ -94,11 +94,11 @@ static const struct drm_bridge_funcs meson_encoder_dsi_bridge_funcs = {
+ 	.attach	= meson_encoder_dsi_attach,
+ 	.atomic_enable = meson_encoder_dsi_atomic_enable,
+ 	.atomic_disable	= meson_encoder_dsi_atomic_disable,
  	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
  	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_get_input_bus_fmts = tfp410_get_input_bus_fmts,
- 	.atomic_check = tfp410_atomic_check,
+-	.atomic_reset = drm_atomic_helper_bridge_reset,
++	.atomic_create_state = drm_atomic_helper_bridge_create_state,
  };
+ 
+ int meson_encoder_dsi_probe(struct meson_drm *priv)
+ {
+ 	struct meson_encoder_dsi *meson_encoder_dsi;
 
 -- 
 2.54.0
