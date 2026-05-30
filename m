@@ -4,56 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B029CD5BD0
-	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 08:58:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8030CCD5BD0
+	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 11:20:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBC7010E5E9;
-	Sat, 30 May 2026 08:58:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C858C10E1A3;
+	Sat, 30 May 2026 11:20:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YDhpt0SY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kUhpNEzQ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 980CE10E5E9
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 08:58:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6939D10E1A3
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 11:20:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6B3FF44775;
- Sat, 30 May 2026 08:58:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8924D1F00893;
- Sat, 30 May 2026 08:58:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1C959423D7;
+ Sat, 30 May 2026 11:20:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D2771F00893;
+ Sat, 30 May 2026 11:20:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780131521;
- bh=ayHHk4ZOOr5w+O/PeNuUnAMZ4J8wsxunRTe/vkmvyG8=;
+ s=k20260515; t=1780140017;
+ bh=bTTIrZBmCxm27x7l5/yVhHeLULKx99g4jNoxoWktCU0=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=YDhpt0SYHo9S+jdUx8pLtkH/ygPg2Y5vBAXhc/kIgMbDqclzrhIPo5PtQdlFhfHKv
- j8q70TsdwYVghsf9v0dggNSFxMnVKEU+CAlwNt5AoBBeveiIYHmhovlEuv3Rdwtq6q
- QOF8THxNchBkkD/ZkkycslTkcfz0t2QpFxM8rc/A85VC1lRpl6UMFZMDjGpgFy/zf3
- wTHlpw8l7iKVwBJtKhfLJvl7jPCIcWkfwwAd9jSIhLEIkaMMBu73LEcyPpoo2WIQX7
- NVBZ3lZUQv8wqsDrIkWUL3oy7WQNKcc224nUanT4TyLxO6BcR+4PJPIlYHvax4A3hH
- iIzHV2suEZlzg==
-Date: Sat, 30 May 2026 10:58:38 +0200
+ b=kUhpNEzQljMJVhIih74sco6BT6TTexle0n5qOLWlzaF/WcDqHeNdbXh9le6TwfK7k
+ EhiH/7aoKwlzHMUTQBczQ8anKaQzi0rnNty0Ny2fyN0ssYnwoLl7lYKEMa0qvSHwod
+ ORbzy+kNZ94VZaugFh/zoODVPbMc0n6LezqpC9K4xBMUyhjVUb0UuFxkxCFPjdq7/q
+ lY5ctwa+t4R318JRoBWuzihIvnqtvrVe46sAPRXYz5+FlEkCeoLuAdW8LmyyWAAyF2
+ WBz4BknRMf2+Fa0rkrD1OlxqhQ0AJqSL4vA3oNIvD2xWM6skdwWZFeQ4lpt/Ew8mhk
+ WmjFyyULIlUQA==
+Date: Sat, 30 May 2026 13:20:15 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Lee Jones <lee@kernel.org>, 
- Aradhya Bhatia <aradhya.bhatia@linux.dev>, Nishanth Menon <nm@ti.com>, 
- Vignesh Raghavendra <vigneshr@ti.com>, Swamil Jain <s-jain1@ti.com>,
- Devarsh Thakkar <devarsht@ti.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>, devicetree@vger.kernel.org,
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Yijie Yang <yijie.yang@oss.qualcomm.com>, 
+ Srinivas Kandagatla <srini@kernel.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v3 04/15] dt-bindings: display: ti,am65x-dss: Add
- ti,dpi-io-ctrl
-Message-ID: <20260530-slim-private-dachshund-e869cd@quoll>
-References: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
- <20260529-beagley-ai-display-v3-4-7fefdc5d1adf@ideasonboard.com>
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: misc: qcom,fastrpc: Add Maili FastRPC
+ compatible
+Message-ID: <20260530-wise-discreet-woodpecker-3c7d0c@quoll>
+References: <20260525-fastrpc-v1-1-ae9add881952@oss.qualcomm.com>
+ <meuxtcs3quchupl6gf4vtjiosmoig7zs2tc2vr2xthetem5hll@l4op77zr2srj>
+ <a7b4c0ea-0e02-4ede-8d51-a4c038d55a5a@oss.qualcomm.com>
+ <moeb7zqqhengrd2nrqyuqydyq4pk4imd2uylmr4tf2ypn65h34@z33iifvtf7al>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260529-beagley-ai-display-v3-4-7fefdc5d1adf@ideasonboard.com>
+In-Reply-To: <moeb7zqqhengrd2nrqyuqydyq4pk4imd2uylmr4tf2ypn65h34@z33iifvtf7al>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,61 +66,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, May 29, 2026 at 11:45:34AM +0300, Tomi Valkeinen wrote:
-> The DPI output pipeline in K3 SoCs contains the display subsystem (DSS)
-> which produces the in-SoC parallel video signal, and a DPI block which
-> adjusts the signal to the external MIPI DPI output.
+On Mon, May 25, 2026 at 01:08:54PM +0300, Dmitry Baryshkov wrote:
+> On Mon, May 25, 2026 at 05:37:23PM +0800, Yijie Yang wrote:
+> > 
+> > 
+> > On 5/25/2026 4:37 PM, Dmitry Baryshkov wrote:
+> > > On Mon, May 25, 2026 at 02:21:17PM +0800, Yijie Yang wrote:
+> > > > Document compatible string for the FastRPC interface on the Qualcomm Maili
+> > > > SoC, which is compatible with the Qualcomm Kaanapali FastRPC and can
+> > > > fallback to Kaanapali.
+> > > 
+> > > Can I assume that it has the same bus width as Kaanapali?
+> > 
+> > Yes, the DMA width for CDSP and ADSP is the same. If you were referring to
+> > something other than the DMA width, please let me know.
 > 
-> The DSS IP has registers to configure whether the data and sync signals
-> are driven on rising or falling clock edge, and on some SoCs these are
-> automatically conveyed to the DPI block which needs that configuration
-> to properly output the MIPI DPI signal.
+> Thanks for the confirmation.
 > 
-> However, on some SoCs the DPI block configuration has to be done
-> manually, using an extra register outside the DSS, DPI0_CLK_CTRL in
-> MAIN_CTRL_MMR_CFG0 block, which controls the DPI block's behavior.
+> > 
+> > > 
+> > > > 
+> > > > Assisted-by: Claude:claude-opus-4-6
+> > > 
+> > > Claude assisting to write a one-liner patch? It's becoming ridiculous.
+> > 
+> > This patch was generated alongside a set of Maili-related patches and was
+> > not created specifically on its own.
+> 
+> Okay...
 
-Why don't you constrain this properyy per SoC in such case? Why is it
-applicable to each SoC, even though you said it is done via DSS IP
-registers?
+If a human cannot write and validate this one, I see as putting effort
+on maintainers.
 
-> 
-> Currently the DPI0_CLK_CTRL is never written, so it's always 0, meaning
-> the data and sync are always driven on a rising clock edge regardless of
-> the DSS configuration.
-> 
-> Add 'ti,dpi-io-ctrl' property, which contains phandle to the
-> MAIN_CTRL_MMR_CFG0 block and the offset to the DPI0_CLK_CTRL register,
-> so that the DSS driver can configure the data and sync signals
-> correctly.
-> 
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> ---
->  .../devicetree/bindings/display/ti/ti,am65x-dss.yaml          | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
-> index 588d72d4ec0d..902ae2122d86 100644
-> --- a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
-> +++ b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
-> @@ -113,6 +113,17 @@ properties:
->        and OLDI_CLK_IO_CTRL registers. This property is needed for OLDI
->        interface to work.
->  
-> +  ti,dpi-io-ctrl:
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    description:
-> +      phandle to a syscon device node containing the DPI0_CLK_CTRL register,
-> +      with the offset to DPI0_CLK_CTRL as an argument.
-> +    maxItems: 1
-
-Drop
-
-> +    items:
-> +      items:
-
-missing '-'. See other examples of phandle-array, for example one of
-the first search results: qcom,ssc-block-bus.yaml
+Dropping from patchwork.
 
 Best regards,
 Krzysztof
