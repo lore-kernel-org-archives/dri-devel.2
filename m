@@ -4,78 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D13CCD6E52
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 803F1CD6E5E
 	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 13:59:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ACCC112B63;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AFBC112B65;
 	Sun, 31 May 2026 13:59:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EjQOoUOU";
+	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="XRZskBUd";
 	dkim-atps=neutral
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
- [209.85.210.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 675E310E164
- for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 07:46:47 +0000 (UTC)
-Received: by mail-pf1-f175.google.com with SMTP id
- d2e1a72fcca58-841882f8f4bso3030871b3a.0
- for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 00:46:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780213607; x=1780818407; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pZgZXDapD3/D+twZe7T4nhGsVyTA1P2sNWQ93wpwZx8=;
- b=EjQOoUOUY+0ICrTr1bQaaiGY72AKGdHT6S5dfqZJqRsAjoottXpzQJAzqcWwrpKfbJ
- JiErcI4FGW1F1RK7zUaAJILl5J+O+tVUYMzBCa/jYz80/VysDWk5Rg2uUDUuknSRXyII
- DcobQN5g9H1f4ZX+s8FngCa/3xGaa+uZikjkfxKVPNFxAs5alTrhCPLjSpMvrQcAgKkR
- lnjqV/rim6Sb8f8ihEGoXRas1dItgnHKawzj0oAgoA8tJQUTqSpkVXnNKjAcHG6tBzov
- DEuRf/vAlleC1xo6GDOfiqlFLF1rtPwra5dLztW7VP6MTssrWSHYAtY49TvB5ets2ArE
- T4PQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780213607; x=1780818407;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=pZgZXDapD3/D+twZe7T4nhGsVyTA1P2sNWQ93wpwZx8=;
- b=A56/pMLgKPQTz9LXkM6cLqzZppLmM/35qfuJ6QaJn4zVvuHCbg0dXGcEkGlTp7L+nt
- WhkfedcQ7T/6iQ5TlGuYXEiRG2hx10hT3SXYJj4h4hyUo6KB6Jw3HWWm26QQ3Djn0r1d
- wG4ixZWt49DmA9qqQBZ8xV3+348v3qneDHmNc/Ppb4SNmy4FRC8BrGhl+cK+/goDRUPn
- HaAIGD6Rz+ihkV6/Ua7DsEKRpQXttG/HTA8eF0TQGx1BNjmUp3Av7bnJf0noQuH8dJ1m
- u0wME+OCVxqKg21uHdQxp5ysPEiumgk3XEcJgEnOU9UZloSH9VlD8VoQ2zE21fKhrmeQ
- 61QA==
-X-Gm-Message-State: AOJu0YwYx3i2GF+AUR7PlDqW5m2rRpbh/R0iDvdZIwVfET4US+oYD/Qt
- HXekJvjWp9L8B4I5ehZy2oohi3yRjcc7xxdC7qJdCE46i8MqX/Ywb/dlgy5Bvvok
-X-Gm-Gg: Acq92OHG8xvXzN/04Dp5GWNmd8qP5FiQHVvELtFmYoFL//cuDL0Rjdf/HH6GydKuQvU
- NpKdRZmnOpuVJ3NqHLvDkY3WJSVfDGQBTOQf9ZDywTHkPfQmqTel865yuy9tf+4gzdOCbc7KQiv
- 3aZSoTUZ3J+IlOprm4EZYUCY575Qf2PH0ZA+f/5Q9KMPMZfkUPtMDbj72GjwRo2Mx/VXI6MBdBs
- 2Egs8jMINNhiq7P2U6lbztIecYJfQDMkNGHk5q/gvxYDqXClI+No9gF173gsTnS51LBu4m4hfrE
- DXY0ZtuEeQ9pfTeZ4+87/l6lRhPCvmdf0O3jg3ctb2imSQxEYJVxEBHPOlgrmasOVrkzBsKTN1v
- ux3vL6sDKF6btalfsSfj8VU0T+XtN68Q380WZq3RemVXNHcGM7U0C336h9DsDWSO/LZpz1WI6Cl
- yR7qZBbj877ZN8oeBpO5lM29xjsJvtvf8RrpCpMY7MIg==
-X-Received: by 2002:a05:6a00:4f93:b0:842:432e:b802 with SMTP id
- d2e1a72fcca58-842432ecadfmr1408991b3a.16.1780213606915; 
- Sun, 31 May 2026 00:46:46 -0700 (PDT)
-Received: from Naman.Naman ([2401:4900:1f39:4c4a:1e56:d301:ce43:ac25])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84246844780sm933636b3a.30.2026.05.31.00.46.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 31 May 2026 00:46:46 -0700 (PDT)
-From: Naman Arora <namanarora029@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: tzimmermann@suse.de, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- airlied@gmail.com, simona@ffwll.ch, neil.armstrong@linaro.org,
- khilman@baylibre.com, linux-kernel@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Naman Arora <namanarora029@gmail.com>
-Subject: [PATCH 4/6] drm/meson: Open-code drm_simple_encoder_init() in
- encoder_cvbs
-Date: Sun, 31 May 2026 13:16:25 +0530
-Message-Id: <20260531074627.8936-1-namanarora029@gmail.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20260531073532.8609-1-namanarora029@gmail.com>
-References: <20260531073532.8609-1-namanarora029@gmail.com>
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF1C011295A
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 18:00:02 +0000 (UTC)
+Received: from submission (posteo.de [185.67.36.169]) 
+ by mout02.posteo.de (Postfix) with ESMTPS id 9021C240101
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 20:00:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
+ t=1780164001; bh=aMme/b7aJrnbG+SKubX74OAuyLaZdkWD0dg31B6c8YA=;
+ h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+ MIME-Version:OpenPGP:From;
+ b=XRZskBUdXcKsKI/jEoGaHkIm1o98nPlxTpdDwWMRknfw0EnRAOT2lyzeFBpTIewnX
+ cOcZl/3/Pqnh5j+rVljeQKCT5iQ4ClQIIMf8QEoHjbmUyfDQf0iJRqoOplTWIrc2L3
+ jDzUH/3ImDxNuIIoYwkFuyZUcjR1rMXx4clVWIXGTNPkNmNWpUbxYDoDSnevyIp4Wi
+ /VDPfTjz8xLSxo28JO2TxBPHLyP715XRIIMX1C11RvAeqq2ZLKX0aBBqIJPJjjlO3g
+ lJ2RGFrdc4KbX2vo/ETpojySGFj7MEgFQ7srh0SQ/xuMUGDMyzZRxPborY460yMv4k
+ EsnjwpwAZ+wGQ==
+Received: from customer (localhost [127.0.0.1])
+ by submission (posteo.de) with ESMTPSA id 4gSSg30SNsz6trs;
+ Sat, 30 May 2026 19:59:59 +0200 (CEST)
+Message-ID: <fa841fad5493953f7932cde83d7a1b2e3356faa6.camel@posteo.de>
+Subject: Re: [PATCH v9 1/3] rust: add basic serial device bus abstractions
+From: Markus Probst <markus.probst@posteo.de>
+To: Rob Herring <robh@kernel.org>, Greg Kroah-Hartman	
+ <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, Miguel
+ Ojeda	 <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
+ <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl
+ <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich
+ <dakr@kernel.org>, Kari Argillander	 <kari.argillander@gmail.com>, "Rafael
+ J. Wysocki" <rafael@kernel.org>,  Viresh Kumar <viresh.kumar@linaro.org>,
+ Boqun Feng <boqun@kernel.org>, David Airlie <airlied@gmail.com>,  Simona
+ Vetter <simona@ffwll.ch>
+Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org, 
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org
+Date: Sat, 30 May 2026 18:00:00 +0000
+In-Reply-To: <20260530-rust_serdev-v9-1-f8b5fccb49c3@posteo.de>
+References: <20260530-rust_serdev-v9-0-f8b5fccb49c3@posteo.de>
+ <20260530-rust_serdev-v9-1-f8b5fccb49c3@posteo.de>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-YD5z8kaBMv6Utdv9eVyT"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
+ preference=encrypt
 X-Mailman-Approved-At: Sun, 31 May 2026 13:58:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,51 +116,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The helper drm_simple_encoder_init() is a thin wrapper around
-drm_encoder_init() with a simple destroy-only encoder funcs struct.
-Remove the dependency on drm_simple_kms_helper by open-coding the
-encoder initialization directly in the driver.
 
-Signed-off-by: Naman Arora <namanarora029@gmail.com>
----
- drivers/gpu/drm/meson/meson_encoder_cvbs.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+--=-YD5z8kaBMv6Utdv9eVyT
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/meson/meson_encoder_cvbs.c b/drivers/gpu/drm/meson/meson_encoder_cvbs.c
-index 41071d6e0..496100ba2 100644
---- a/drivers/gpu/drm/meson/meson_encoder_cvbs.c
-+++ b/drivers/gpu/drm/meson/meson_encoder_cvbs.c
-@@ -18,7 +18,6 @@
- #include <drm/drm_device.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_probe_helper.h>
--#include <drm/drm_simple_kms_helper.h>
- 
- #include "meson_registers.h"
- #include "meson_vclk.h"
-@@ -218,6 +217,10 @@ static const struct drm_bridge_funcs meson_encoder_cvbs_bridge_funcs = {
- 	.atomic_reset = drm_atomic_helper_bridge_reset,
- };
- 
-+static const struct drm_encoder_funcs meson_encoder_cvbs_drm_encoder_funcs = {
-+	.destroy = drm_encoder_cleanup,
-+};
-+
- int meson_encoder_cvbs_probe(struct meson_drm *priv)
- {
- 	struct drm_device *drm = priv->drm;
-@@ -257,8 +260,9 @@ int meson_encoder_cvbs_probe(struct meson_drm *priv)
- 	meson_encoder_cvbs->priv = priv;
- 
- 	/* Encoder */
--	ret = drm_simple_encoder_init(priv->drm, &meson_encoder_cvbs->encoder,
--				      DRM_MODE_ENCODER_TVDAC);
-+	ret = drm_encoder_init(priv->drm, &meson_encoder_cvbs->encoder,
-+			       &meson_encoder_cvbs_drm_encoder_funcs,
-+			       DRM_MODE_ENCODER_TVDAC, NULL);
- 	if (ret)
- 		return dev_err_probe(priv->dev, ret,
- 				     "Failed to init CVBS encoder\n");
--- 
-2.20.1
+On Sat, 2026-05-30 at 17:36 +0000, Markus Probst wrote:
+>=20
+> +#[doc(hidden)]
+> +#[pin_data(PinnedDrop)]
+> +pub struct PrivateData<'bound, T: Driver> {
+> +    sdev: &'bound Device<device::Bound>,
+> +    #[pin]
+> +    driver: UnsafeCell<MaybeUninit<T::Data<'bound>>>,
+> +    #[pin]
+> +    probe_complete: Completion,
+> +    error: UnsafeCell<bool>,
+> +}
+> +
+> +#[pinned_drop]
+> +impl<T: Driver> PinnedDrop for PrivateData<'_, T> {
+> +    fn drop(self: Pin<&mut Self>) {
+> +        // SAFETY: No one has exclusive access to `self.error`.
+> +        if !unsafe { *self.error.get() } {
+> +            // SAFETY:
+> +            // - We have exclusive access to `self.driver`.
+> +            // - `self.driver` is guaranteed to be initialized.
+> +            unsafe { (*self.driver.get()).assume_init_drop() };
+> +        }
+> +
+> +        // SAFETY: `self.sdev.as_raw()` is guaranteed to be a pointer to=
+ a valid
+> +        // `struct serdev_device`.
+> +        unsafe { bindings::serdev_device_close(self.sdev.as_raw()) };
+Ok, I might have sent this too early.
 
+ignore for now. This is unsound.
+
+Thanks
+- Markus Probst
+
+> +    }
+> +}
+> +
+
+--=-YD5z8kaBMv6Utdv9eVyT
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmobJZ4bFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSf5sP/A6J/lvVI7uxowdg6WiV
+tnnsrCN/G10ZUfcHUUrVWDNAmzYReB42SLmLYZsvo24QHdH4LIj5JSU1W72Fp+dY
+UJSZYdw/GlJuskU2iizV6l1rm0g4HkBoUex9M7ELzDN9JPUiy50k9I6TVV7jW6zj
+/575K4cq+JCmJ9OCG/Bmf6hP93SQUYgRQWOowXQMpk4G/IX4aL3ocU8WnstlbPAI
+F58CDeXkxZyHmXYr265PSdZoWo8bdDdyZmWsMpg0nu+OECAr6bOKfPipE61ZkdCA
+uYRvrc9aSJcLwEYDDp4evm2WyZnJ+X7VMYhpgkwlazGqormyHnValJo8yE+XGq4O
+K3g4k/ip85KcaCCgX5qW8b8dzs3qD+bE+fHILPUl6BFjQwuifiX6T5rVQTVVhTZZ
+GrNnXSgdUpMWBeN64LXerjuHxNhoQWPzhJwYoH1b1d/AsKqpoWG30sHhC9GKo8A4
+T3A37gsx26XZY45pqMnGT/Z752oqYiEn3fMMPRPKND5GWZaJHP5fBvRx6sYsJ8Ly
+x2ZkVCUqGz7CCDbN8jlnRjiDlmbFdSwy7wcjcvmXQMdzUb2pI0bDU5XXDwUNSlfY
+Wr1WMfCSgO/Er+lBc3WeS+zFEh2pn4/qqrhnYWzPfCLMw7O6OVfhVoo5puEyBxZo
+ekgS6qe0+XH3HWq2q99CV8tD
+=CqxB
+-----END PGP SIGNATURE-----
+
+--=-YD5z8kaBMv6Utdv9eVyT--
