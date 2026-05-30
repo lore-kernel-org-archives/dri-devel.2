@@ -4,44 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB411CD5BD0
-	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 18:54:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3550CD6E49
+	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 18:57:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E4E311297F;
-	Sat, 30 May 2026 18:54:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04140112980;
+	Sat, 30 May 2026 18:57:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="F+2f5duo";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="YuIGeCEa";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="WFiXfchG";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YuIGeCEa";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="WFiXfchG";
 	dkim-atps=neutral
-Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E50B911297F
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 18:54:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail3; t=1780167110; x=1780426310;
- bh=6hqDjImuAem/6OD61cXZG6OTmI0pwB62MXq+JBsU1ro=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=F+2f5duosDoNeeas6k96BIJQWCi40bwxVBoqIt02focXKYWocMzPVIyh7+ejcgi+8
- MVBlI2w7lKe2Ez6ePyHcqv2ZDMOl+8yIwI1xmh7lyVNkLfDTJDqHlwfbbKDbrTVXXm
- INOHt+hbL7n3xD7tLa/1EJVG3M40uZIXrWWwpaulQofj+Lldy2H3dvOyjB9K3+sIol
- 6OTtluybHinTDEgw6a8F7TURF9B6Rti2rxFGKgP8jEEH+MDLk4qelyP3xKJRCVr+dg
- 8WINYj7kKvSBxo7cd7ADgXzCQPYUx8R7KlngJ3pe5bjqKuXNldHpCklMCViLr8ECtM
- I3I28Sz/5b5KQ==
-Date: Sat, 30 May 2026 18:51:42 +0000
-To: Sudarshan Shetty <tessolveupstream@gmail.com>, luca.ceresoli@bootlin.com
-From: Sean Nyekjaer <sean@geanix.com>
-Cc: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, jernej.skrabec@gmail.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, alexander.stein@ew.tq-group.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] drm: bridge: ti-sn65dsi83: Disable video burst
- mode for LVDS stability
-Message-ID: <ahsxWhXMhzbAj_3G@Seans-MacBook-Pro.local>
-Feedback-ID: 134068486:user:proton
-X-Pm-Message-ID: aa8b75addb1c0b0e117d1a5c77bbeb83e9192027
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8EC610E3B6
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 18:57:20 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0E9516B4BB;
+ Sat, 30 May 2026 18:57:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780167439; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Hl/6Hzud/qMAEKC5HoBcZ2QJGJfPgZbaNL6g80kRCHI=;
+ b=YuIGeCEaAF6DXSEV9p+bzu2xWrP2fbBeqfMTGFC0z1xqwdcnrNCpHQQ0dynNqZ40HMJxe1
+ iFoHKN+LmX3eNKz9U+yt7f8JxG6T0fXu01BdkE9Wor7twmfxxg9TkFgbrd+M+capiHBkFN
+ 903mZE+p0Fz+J3SdAEyf76HqZLeGpYg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780167439;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Hl/6Hzud/qMAEKC5HoBcZ2QJGJfPgZbaNL6g80kRCHI=;
+ b=WFiXfchGAIswK0jbtZnq+9xxyJg0fco5nwMZHi7HeaVnHZckbpLnn5SXtCErvLrwm22/Hs
+ 0+aEDGqU24vSJlAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780167439; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Hl/6Hzud/qMAEKC5HoBcZ2QJGJfPgZbaNL6g80kRCHI=;
+ b=YuIGeCEaAF6DXSEV9p+bzu2xWrP2fbBeqfMTGFC0z1xqwdcnrNCpHQQ0dynNqZ40HMJxe1
+ iFoHKN+LmX3eNKz9U+yt7f8JxG6T0fXu01BdkE9Wor7twmfxxg9TkFgbrd+M+capiHBkFN
+ 903mZE+p0Fz+J3SdAEyf76HqZLeGpYg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780167439;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Hl/6Hzud/qMAEKC5HoBcZ2QJGJfPgZbaNL6g80kRCHI=;
+ b=WFiXfchGAIswK0jbtZnq+9xxyJg0fco5nwMZHi7HeaVnHZckbpLnn5SXtCErvLrwm22/Hs
+ 0+aEDGqU24vSJlAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7DF6F779A8;
+ Sat, 30 May 2026 18:57:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id iOCSHQ4zG2rXUwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Sat, 30 May 2026 18:57:18 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: mripard@kernel.org, maarten.lankhorst@linux.intel.com, airlied@redhat.com,
+ airlied@gmail.com, simona@ffwll.ch, admin@kodeit.net,
+ gargaditya08@proton.me, paul@crapouillou.net, jani.nikula@linux.intel.com,
+ mhklinux@outlook.com, zack.rusin@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com
+Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-mips@vger.kernel.org, virtualization@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org
+Subject: [PATCH v4 01/10] drm/damage-helper: Do not alter damage clips on
+ modeset, but ignore them
+Date: Sat, 30 May 2026 20:53:14 +0200
+Message-ID: <20260530185716.65688-2-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260530185716.65688-1-tzimmermann@suse.de>
+References: <20260530185716.65688-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-6.79 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
+ NEURAL_HAM_SHORT(-0.19)[-0.970]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid,lists.freedesktop.org:email,broadcom.com:email];
+ RCPT_COUNT_TWELVE(0.00)[20]; MIME_TRACE(0.00)[0:+];
+ TO_DN_SOME(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,redhat.com,gmail.com,ffwll.ch,kodeit.net,proton.me,crapouillou.net,outlook.com,broadcom.com];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLqqu4k9zio1uathxs7idfp4sa)];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,outlook.com]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,62 +120,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Luca,
+User space supplies rectangles for damage clipping in a plane property.
+For full mode sets, drivers still require a full plane update. In this
+case, leave the information as-is and set the ignore_damage_clips flag
+instead. The damage iterator will later ignore any damage information.
 
-On Wed, May 27, 2026 at 02:27:36PM +0100, Sudarshan Shetty wrote:
-> The current DSI configuration enables MIPI_DSI_MODE_VIDEO_BURST.
-> while burst mode is supported by the hardware, its use
-> depends on continuous clock behavior from the DSI host. In practice,
-> burst mode may introduce instability depending on the host controller
-> implementation, as the DSI link may transition to low-power state
-> between bursts.
->=20
-> Testing showed improved display stability when using non-burst mode on
-> affected panels.
->=20
-> Remove MIPI_DSI_MODE_VIDEO_BURST and use non-burst video mode.
->=20
+Also fixes a bug where ignore_damage_clips was not cleared across plane-
+state duplications.
 
-We briefly talked about this at Embedded Recipes
-I promised to sent a link:
-https://lore.kernel.org/all/E35054BA-FBE5-4CEE-905C-1F5D20140590@geanix.com=
-/
+Leaving the damage information as-is might be helpful to drivers that
+benefit from this information even on full modesets (e.g., for cache
+management). It will also help with consolidating the damage-handling
+logic.
 
-When burst mode is enabled, the LVDS clock gets way to high for my
-panel. I don't know if it's the DSI controller in the STM32MP1 or
-something not supported on the TI side.
+Also add a new unit test that evaluates the ignore_damage_clips flag. It
+sets two damage clips plus the flag and tests if the reported damage
+covers the entire framebuffer.
 
-We have been running with this fix for 2 years :)
+v4:
+- slightly reword the commit description
 
-> Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com>
-> Signed-off-by: Sudarshan Shetty <tessolveupstream@gmail.com>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers to ignore damage clips")
+Acked-by: Zack Rusin <zack.rusin@broadcom.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v6.10+
+---
+ drivers/gpu/drm/drm_atomic_state_helper.c     |  1 +
+ drivers/gpu/drm/drm_damage_helper.c           |  6 ++--
+ .../gpu/drm/tests/drm_damage_helper_test.c    | 28 +++++++++++++++++++
+ 3 files changed, 31 insertions(+), 4 deletions(-)
 
-Tested-by: Sean Nyekjaer <sean@geanix.com>
-
-> ---
->  drivers/gpu/drm/bridge/ti-sn65dsi83.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/brid=
-ge/ti-sn65dsi83.c
-> index c03ff1ea9df8..6b5a6019c30d 100644
-> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> @@ -976,8 +976,8 @@ static int sn65dsi83_host_attach(struct sn65dsi83 *ct=
-x)
-> =20
->  =09dsi->lanes =3D dsi_lanes;
->  =09dsi->format =3D MIPI_DSI_FMT_RGB888;
-> -=09dsi->mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-> -=09=09=09  MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET;
-> +=09dsi->mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_NO_HSA =
-|
-> +=09=09=09  MIPI_DSI_MODE_NO_EOT_PACKET;
-> =20
->  =09ret =3D devm_mipi_dsi_attach(dev, dsi);
->  =09if (ret < 0) {
-> --=20
-> 2.34.1
->=20
+diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+index cc70508d4fdb..84d5231ccac1 100644
+--- a/drivers/gpu/drm/drm_atomic_state_helper.c
++++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+@@ -359,6 +359,7 @@ void __drm_atomic_helper_plane_duplicate_state(struct drm_plane *plane,
+ 	state->fence = NULL;
+ 	state->commit = NULL;
+ 	state->fb_damage_clips = NULL;
++	state->ignore_damage_clips = false;
+ 	state->color_mgmt_changed = false;
+ }
+ EXPORT_SYMBOL(__drm_atomic_helper_plane_duplicate_state);
+diff --git a/drivers/gpu/drm/drm_damage_helper.c b/drivers/gpu/drm/drm_damage_helper.c
+index 74a7f4252ecf..945fac8dc27b 100644
+--- a/drivers/gpu/drm/drm_damage_helper.c
++++ b/drivers/gpu/drm/drm_damage_helper.c
+@@ -78,10 +78,8 @@ void drm_atomic_helper_check_plane_damage(struct drm_atomic_commit *state,
+ 		if (WARN_ON(!crtc_state))
+ 			return;
+ 
+-		if (drm_atomic_crtc_needs_modeset(crtc_state)) {
+-			drm_property_blob_put(plane_state->fb_damage_clips);
+-			plane_state->fb_damage_clips = NULL;
+-		}
++		if (drm_atomic_crtc_needs_modeset(crtc_state))
++			plane_state->ignore_damage_clips = true;
+ 	}
+ }
+ EXPORT_SYMBOL(drm_atomic_helper_check_plane_damage);
+diff --git a/drivers/gpu/drm/tests/drm_damage_helper_test.c b/drivers/gpu/drm/tests/drm_damage_helper_test.c
+index 0df2e1a54b0d..64f038a62ffe 100644
+--- a/drivers/gpu/drm/tests/drm_damage_helper_test.c
++++ b/drivers/gpu/drm/tests/drm_damage_helper_test.c
+@@ -603,6 +603,33 @@ static void drm_test_damage_iter_damage_not_visible(struct kunit *test)
+ 	KUNIT_EXPECT_EQ_MSG(test, num_hits, 0, "Should not return any damage.");
+ }
+ 
++static void drm_test_damage_iter_damage_ignore(struct kunit *test)
++{
++	struct drm_damage_mock *mock = test->priv;
++	struct drm_atomic_helper_damage_iter iter;
++	struct drm_property_blob damage_blob;
++	struct drm_mode_rect damage[2];
++	struct drm_rect clip;
++	u32 num_hits = 0;
++
++	set_plane_src(&mock->old_state, 0, 0, 1024 << 16, 768 << 16);
++	set_plane_src(&mock->state, 0, 0, 1024 << 16, 768 << 16);
++	/* 2 damage clips, but ignore them. */
++	set_damage_clip(&damage[0], 20, 30, 200, 180);
++	set_damage_clip(&damage[1], 240, 200, 280, 250);
++	set_damage_blob(&damage_blob, &damage[0], sizeof(damage));
++	set_plane_damage(&mock->state, &damage_blob);
++	mock->state.ignore_damage_clips = true;
++	drm_atomic_helper_damage_iter_init(&iter, &mock->old_state, &mock->state);
++	drm_atomic_for_each_plane_damage(&iter, &clip) {
++		if (num_hits == 0)
++			check_damage_clip(test, &clip, 0, 0, 1024, 768);
++		num_hits++;
++	}
++
++	KUNIT_EXPECT_EQ_MSG(test, num_hits, 1, "Should return full-framebuffer damage.");
++}
++
+ static struct kunit_case drm_damage_helper_tests[] = {
+ 	KUNIT_CASE(drm_test_damage_iter_no_damage),
+ 	KUNIT_CASE(drm_test_damage_iter_no_damage_fractional_src),
+@@ -625,6 +652,7 @@ static struct kunit_case drm_damage_helper_tests[] = {
+ 	KUNIT_CASE(drm_test_damage_iter_damage_one_outside),
+ 	KUNIT_CASE(drm_test_damage_iter_damage_src_moved),
+ 	KUNIT_CASE(drm_test_damage_iter_damage_not_visible),
++	KUNIT_CASE(drm_test_damage_iter_damage_ignore),
+ 	{ }
+ };
+ 
+-- 
+2.54.0
 
