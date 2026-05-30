@@ -4,54 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BA32CD6E5E
-	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 13:59:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B0E8CD6E52
+	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 13:59:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CA68112B6F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 027F9112B6E;
 	Sun, 31 May 2026 13:59:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="V7whiK7N";
+	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="YBKVNTp2";
 	dkim-atps=neutral
-Received: from out30-98.freemail.mail.aliyun.com
- (out30-98.freemail.mail.aliyun.com [115.124.30.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABA5410E5B7
- for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 09:42:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux.alibaba.com; s=default;
- t=1780220519; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=4/Z+ZPm/plftxIVQEjNwZFqBQEqg7EIjfcS2GaMAQFU=;
- b=V7whiK7NxTeE9PmXfQ77t59b44yf9cCQjoCrX2W89RYfMKsKAf+CEDH2XR7Zl8uOURlQKFpeA73ack9/no1KydLFGXhpUU7GQHaNWHpCDx77496Mkf5tR0cL2QGHZf/14ISDWT9pIMcEO9c6bRuzxcj2KpRq9VzGD2m12AsJDII=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R331e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033032089153;
- MF=guanghuifeng@linux.alibaba.com; NM=1; PH=DS; RN=27; SR=0;
- TI=SMTPD_---0X3tRVrQ_1780220215; 
-Received: from
- VM20241011-104.tbsite.net(mailfrom:guanghuifeng@linux.alibaba.com
- fp:SMTPD_---0X3tRVrQ_1780220215 cluster:ay36) by smtp.aliyun-inc.com;
- Sun, 31 May 2026 17:36:55 +0800
-From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
-To: boris.brezillon@collabora.com, robh@kernel.org, steven.price@arm.com,
- adrian.larumbe@collabora.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- liviu.dudau@arm.com, joro@8bytes.org, will@kernel.org,
- robin.murphy@arm.com, alex@shazbot.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, kvm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, jgg@ziepe.ca, kevin.tian@intel.com,
- baolu.lu@linux.intel.com, suravee.suthikulpanit@amd.com,
- dwmw2@infradead.org
-Cc: xlpang@linux.alibaba.com, oliver.yang@linux.alibaba.com,
- shiyu.zsq@linux.alibaba.com, wei.guo.simon@linux.alibaba.com
-Subject: [PATCH 9/9] iommu: remove deprecated iova_to_phys from domain_ops and
- io_pgtable_ops
-Date: Sun, 31 May 2026 17:36:37 +0800
-Message-ID: <20260531093637.3893199-10-guanghuifeng@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260531093637.3893199-1-guanghuifeng@linux.alibaba.com>
-References: <20260529115116.GR2487554@ziepe.ca>
- <20260531093637.3893199-1-guanghuifeng@linux.alibaba.com>
+X-Greylist: delayed 451 seconds by postgrey-1.36 at gabe;
+ Sat, 30 May 2026 14:35:29 UTC
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF20E11286E
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 14:35:29 +0000 (UTC)
+Received: from submission (posteo.de [185.67.36.169]) 
+ by mout01.posteo.de (Postfix) with ESMTPS id 8D45C240027
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 16:27:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
+ t=1780151275; bh=OV0WtdKIh/EWDg3JBKBO30RbXcVfWIjYzB/Nc1JXcds=;
+ h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+ MIME-Version:OpenPGP:From;
+ b=YBKVNTp2QJv8mbAW04lyH5ptaECCmN4Kf8MJGJG/NE7cD23BlsxqwzVjj/zvx3O0S
+ D7RoWeot2sHtXgflTCcJqP+3eRxUNqmdA0cZxHwBMFOGG1CNysD3ilS0JkARSrPRoa
+ tNtwKEJdNNQHbpCOcMloLPZHmzNJmoIJdnwbwC3rZ50kvZg2pdMjWrpXlZzCflcnKo
+ PCFHZ0bRofxugZkR2Q8XfbQGGqNFGeALVrNdRSiz/hjmGETzQuC9/vptd/rvEM1OuI
+ hzWguzkoBem72tQf2jPeNgWskEBQM/3iGgurASzWss8rzRI12nEGUgErQk75TOs1kx
+ qGR7XWKIDpOPQ==
+Received: from customer (localhost [127.0.0.1])
+ by submission (posteo.de) with ESMTPSA id 4gSMyK16Nsz6twP;
+ Sat, 30 May 2026 16:27:53 +0200 (CEST)
+Message-ID: <55eae11ea68f129508d0f7e30ac457ba919812b2.camel@posteo.de>
+Subject: Re: [PATCH v8 3/5] rust: add basic serial device bus abstractions
+From: Markus Probst <markus.probst@posteo.de>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Markus Probst via B4 Relay <devnull+markus.probst.posteo.de@kernel.org>,
+ Rob Herring <robh@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Jiri Slaby	 <jirislaby@kernel.org>, Miguel
+ Ojeda <ojeda@kernel.org>, Gary Guo	 <gary@garyguo.net>,
+ =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	 <bjorn3_gh@protonmail.com>, Benno
+ Lossin <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>, Kari
+ Argillander <kari.argillander@gmail.com>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng
+ <boqun@kernel.org>,  David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, linux-serial@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-pm@vger.kernel.org, driver-core@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org
+Date: Sat, 30 May 2026 14:27:54 +0000
+In-Reply-To: <DIW2JUUL6A6J.96VI4IQN6HYU@kernel.org>
+References: <20260530-rust_serdev-v8-0-2a95f1da22a7@posteo.de>
+ <20260530-rust_serdev-v8-3-2a95f1da22a7@posteo.de>
+ <DIW1B4FUIXO7.28GSUA0CEA4EV@kernel.org>
+ <4638946fc49a38797b716ea173c93327eb751479.camel@posteo.de>
+ <ad98dfb1d8469022519d37364e8a068bed3b5687.camel@posteo.de>
+ <888dc39c52bb6ddac1a1eed7876c4573bdbef002.camel@posteo.de>
+ <DIW2JUUL6A6J.96VI4IQN6HYU@kernel.org>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-5n5DmuF5EoUNZfpNVw0Z"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sun, 31 May 2026 13:58:32 +0000
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
+ preference=encrypt
+X-Mailman-Approved-At: Sun, 31 May 2026 13:58:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,171 +125,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that all drivers implement iova_to_phys_length and all callers
-have migrated, remove the deprecated interfaces:
 
-- Remove .iova_to_phys from struct iommu_domain_ops
-- Remove .iova_to_phys from struct io_pgtable_ops
-- Remove fallback in iommu_iova_to_phys_length()
-- Make iommu_iova_to_phys() a thin wrapper
-- Remove old wrapper functions from io-pgtable implementations
+--=-5n5DmuF5EoUNZfpNVw0Z
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
-Acked-by: Shiqiang Zhang <shiyu.zsq@linux.alibaba.com>
-Acked-by: Simon Guo <wei.guo.simon@linux.alibaba.com>
----
- drivers/iommu/io-pgtable-arm-v7s.c | 11 -----------
- drivers/iommu/io-pgtable-arm.c     | 11 -----------
- drivers/iommu/io-pgtable-dart.c    | 11 -----------
- drivers/iommu/iommu.c              |  4 ----
- include/linux/io-pgtable.h         |  3 ---
- include/linux/iommu.h              |  3 ---
- 6 files changed, 43 deletions(-)
+On Sat, 2026-05-30 at 16:08 +0200, Danilo Krummrich wrote:
+> On Sat May 30, 2026 at 4:00 PM CEST, Markus Probst wrote:
+> > On Sat, 2026-05-30 at 15:53 +0200, Markus Probst wrote:
+> > > On Sat, 2026-05-30 at 15:37 +0200, Markus Probst wrote:
+> > > > If I think about it, I can't even close it inside remove_callback a=
+fter
+> > > > `T::unbind`. With the driver lifetimes, the driver could store the
+> > > > `serdev::Device<Bound>` pointer in its DriverData and could still m=
+ake
+> > > > calls to the device.
+> > > >=20
+> > > > Any suggestions?
+>=20
+> Now that there is no public drvdata() accessor anymore, all bus device pr=
+ivate
+> data accesses go through the bus abstraction.
+>=20
+> So, you could go back to your original approach and wrap the state in a b=
+us
+> specific bus device private data wrapper type, which would also get you r=
+id of
+> the rust_private_data pointer you add to struct serdev_device.
+This would work, but I don't see how it would get rid of
+rust_private_data in this way. The device private data will
+automatically be dropped after the remove_callback, but the private bus
+abstraction data needs to outlive the devres callbacks (which is done
+by rust_private_data).
 
-diff --git a/drivers/iommu/io-pgtable-arm-v7s.c b/drivers/iommu/io-pgtable-arm-v7s.c
-index 54e8cc673eb6..00c09710b01b 100644
---- a/drivers/iommu/io-pgtable-arm-v7s.c
-+++ b/drivers/iommu/io-pgtable-arm-v7s.c
-@@ -641,16 +641,6 @@ static size_t arm_v7s_unmap_pages(struct io_pgtable_ops *ops, unsigned long iova
- 	return unmapped;
- }
- 
--static phys_addr_t arm_v7s_iova_to_phys_length(struct io_pgtable_ops *ops,
--						unsigned long iova,
--						size_t *mapped_length);
--
--static phys_addr_t arm_v7s_iova_to_phys(struct io_pgtable_ops *ops,
--					unsigned long iova)
--{
--	return arm_v7s_iova_to_phys_length(ops, iova, NULL);
--}
--
- static phys_addr_t arm_v7s_iova_to_phys_length(struct io_pgtable_ops *ops,
- 						unsigned long iova,
- 						size_t *mapped_length)
-@@ -730,7 +720,6 @@ static struct io_pgtable *arm_v7s_alloc_pgtable(struct io_pgtable_cfg *cfg,
- 	data->iop.ops = (struct io_pgtable_ops) {
- 		.map_pages	= arm_v7s_map_pages,
- 		.unmap_pages	= arm_v7s_unmap_pages,
--		.iova_to_phys	= arm_v7s_iova_to_phys,
- 		.iova_to_phys_length	= arm_v7s_iova_to_phys_length,
- 	};
- 
-diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-arm.c
-index e2ea84669fbf..c7419f812e79 100644
---- a/drivers/iommu/io-pgtable-arm.c
-+++ b/drivers/iommu/io-pgtable-arm.c
-@@ -731,16 +731,6 @@ static int visit_iova_to_phys(struct io_pgtable_walk_data *walk_data, int lvl,
- 	return 0;
- }
- 
--static phys_addr_t arm_lpae_iova_to_phys_length(struct io_pgtable_ops *ops,
--						 unsigned long iova,
--						 size_t *mapped_length);
--
--static phys_addr_t arm_lpae_iova_to_phys(struct io_pgtable_ops *ops,
--					 unsigned long iova)
--{
--	return arm_lpae_iova_to_phys_length(ops, iova, NULL);
--}
--
- static phys_addr_t arm_lpae_iova_to_phys_length(struct io_pgtable_ops *ops,
- 						 unsigned long iova,
- 						 size_t *mapped_length)
-@@ -963,7 +953,6 @@ arm_lpae_alloc_pgtable(struct io_pgtable_cfg *cfg)
- 	data->iop.ops = (struct io_pgtable_ops) {
- 		.map_pages	= arm_lpae_map_pages,
- 		.unmap_pages	= arm_lpae_unmap_pages,
--		.iova_to_phys	= arm_lpae_iova_to_phys,
- 		.iova_to_phys_length	= arm_lpae_iova_to_phys_length,
- 		.read_and_clear_dirty = arm_lpae_read_and_clear_dirty,
- 		.pgtable_walk	= arm_lpae_pgtable_walk,
-diff --git a/drivers/iommu/io-pgtable-dart.c b/drivers/iommu/io-pgtable-dart.c
-index fa250f5d16ed..f71c04a4c15e 100644
---- a/drivers/iommu/io-pgtable-dart.c
-+++ b/drivers/iommu/io-pgtable-dart.c
-@@ -333,16 +333,6 @@ static size_t dart_unmap_pages(struct io_pgtable_ops *ops, unsigned long iova,
- 	return i * pgsize;
- }
- 
--static phys_addr_t dart_iova_to_phys_length(struct io_pgtable_ops *ops,
--					    unsigned long iova,
--					    size_t *mapped_length);
--
--static phys_addr_t dart_iova_to_phys(struct io_pgtable_ops *ops,
--				     unsigned long iova)
--{
--	return dart_iova_to_phys_length(ops, iova, NULL);
--}
--
- static phys_addr_t dart_iova_to_phys_length(struct io_pgtable_ops *ops,
- 					    unsigned long iova,
- 					    size_t *mapped_length)
-@@ -414,7 +404,6 @@ dart_alloc_pgtable(struct io_pgtable_cfg *cfg)
- 	data->iop.ops = (struct io_pgtable_ops) {
- 		.map_pages		= dart_map_pages,
- 		.unmap_pages		= dart_unmap_pages,
--		.iova_to_phys		= dart_iova_to_phys,
- 		.iova_to_phys_length	= dart_iova_to_phys_length,
- 	};
- 
-diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index 43323229a1df..df56635de39d 100644
---- a/drivers/iommu/iommu.c
-+++ b/drivers/iommu/iommu.c
-@@ -2573,10 +2573,6 @@ phys_addr_t iommu_iova_to_phys_length(struct iommu_domain *domain,
- 		return domain->ops->iova_to_phys_length(domain, iova,
- 							mapped_length);
- 
--	/* Fallback to legacy iova_to_phys without length info */
--	if (domain->ops->iova_to_phys)
--		return domain->ops->iova_to_phys(domain, iova);
--
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(iommu_iova_to_phys_length);
-diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
-index 42bcdd309b88..c595f5b51e61 100644
---- a/include/linux/io-pgtable.h
-+++ b/include/linux/io-pgtable.h
-@@ -202,7 +202,6 @@ struct arm_lpae_io_pgtable_walk_data {
-  *
-  * @map_pages:    Map a physically contiguous range of pages of the same size.
-  * @unmap_pages:  Unmap a range of virtually contiguous pages of the same size.
-- * @iova_to_phys: Translate iova to physical address.
-  * @iova_to_phys_length: Translate iova to physical address and return the
-  *			  remaining mapped length from iova to the end of the
-  *			  mapping entry via @mapped_length. If @mapped_length is
-@@ -222,8 +221,6 @@ struct io_pgtable_ops {
- 	size_t (*unmap_pages)(struct io_pgtable_ops *ops, unsigned long iova,
- 			      size_t pgsize, size_t pgcount,
- 			      struct iommu_iotlb_gather *gather);
--	phys_addr_t (*iova_to_phys)(struct io_pgtable_ops *ops,
--				    unsigned long iova);
- 	phys_addr_t (*iova_to_phys_length)(struct io_pgtable_ops *ops,
- 					   unsigned long iova,
- 					   size_t *mapped_length);
-diff --git a/include/linux/iommu.h b/include/linux/iommu.h
-index 19da84c2922c..ca585647180b 100644
---- a/include/linux/iommu.h
-+++ b/include/linux/iommu.h
-@@ -746,7 +746,6 @@ struct iommu_ops {
-  *                         array->entry_num to report the number of handled
-  *                         invalidation requests. The driver data structure
-  *                         must be defined in include/uapi/linux/iommufd.h
-- * @iova_to_phys: translate iova to physical address
-  * @iova_to_phys_length: translate iova to physical address and additionally
-  *                       return the page size of the PTE mapping at @iova
-  *                       through @mapped_length.
-@@ -777,8 +776,6 @@ struct iommu_domain_ops {
- 	int (*cache_invalidate_user)(struct iommu_domain *domain,
- 				     struct iommu_user_data_array *array);
- 
--	phys_addr_t (*iova_to_phys)(struct iommu_domain *domain,
--				    dma_addr_t iova);
- 	phys_addr_t (*iova_to_phys_length)(struct iommu_domain *domain,
- 					    dma_addr_t iova,
- 					    size_t *mapped_length);
--- 
-2.43.7
+Thanks
+- Markus Probst
 
+--=-5n5DmuF5EoUNZfpNVw0Z
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmoa8+EbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSTH8P/j4F/+FNN0HxvqVzHkB8
+1EYiOypsHuC8DcCf+bpQFjaQycHc7JKKIuT3jKA/dfoMCqRI4Ldv7OKhEC3rYhIc
+fVHtOkOPOWvUG40y7HqmC82NUt7WC+Z64Nhvr371XBmth7/ybxNj6pbwfNziraXJ
+d77aIuGzxy9zt8+4LINRU3f6lgACy4hc725UEU6mxnfmERLSw/UbhhGg/3F6Xr79
+gyxo3c3T0FtBkksMX5vh8lWlVpD/p85jaivn5i8ByiNFTFNzyNfDOTTkOW59xz3b
+o1719bvekVEu9522xQGfLJxlncf6AJF2sxttDWF6t68xT3+XzjUcQSS745vMDv8c
+yM0uwsou2qeXFtDnCglds796qnh6Ul5p8elhRHdWSEzo/mP1wBUO2Hrc4knla1m5
+tmMXxWOIvR1CTgHTt0QUY45GvYYDM1yPQN7FnQl/MB0SnI+XOcFV/tGKUFvj116/
+EDBSp9BYxDMGlfhL3b6nqz8yqHasFuaKBpmnsZZd7ab/TEL5+wbrGJdOFO0pJckV
+ELEg0svqkJNfEZtYsWIBEe2o012ZW/ls3NnZDOeKsl9oY1GO/fII96M4Yu3hSmfx
+/mYEZ1J76H6MrozpwVJvFaUYavySUFsBERHwsGR72QpyiHLUqn/paQO696yQ52Ih
+75rv/H5ZUIepLVAQ03yImpnC
+=Zj1/
+-----END PGP SIGNATURE-----
+
+--=-5n5DmuF5EoUNZfpNVw0Z--
