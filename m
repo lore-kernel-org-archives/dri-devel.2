@@ -4,44 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8638CCD6E52
-	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 14:00:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72346CD6E5E
+	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 14:00:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35197112B7B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2795112B88;
 	Sun, 31 May 2026 13:59:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="UrglIUm3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hnWJCa1U";
 	dkim-atps=neutral
-Received: from mail-244102.protonmail.ch (mail-244102.protonmail.ch
- [109.224.244.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5894112A86
- for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 05:05:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1780203549; x=1780462749;
- bh=K+8OFb6m2BhuUAkJ/JJ3Js3mjRVZ001+PKPq5jYUsxY=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=UrglIUm3HCGYFcIczw/PZS14z0l01yf2anJsDfMMFCo58kFXJ7ZIukZCCU9pj40Xu
- oEm8QvfTowjrUzDAemaT1r/GKv2aDRjT73LWi5z5uYC8nvF7lymhICbpSPYgymbq8V
- eTzF2d43tUqMO140BkiLRwbjGjhB4Qc/HOO6wBFE+Ep5n9RX8OS6AKlrAiP5WxEj7L
- oDJsmDJ9aXOkJ2jNxL6GFhF+MKDreK+Bpwahuj1alEUYl/7b7O0xNAxtZV2CQ1bO2J
- 0qPmtGSYeH7L1O73TMlNwW7NWcNsf3rtAeTsBzLTX9Hw/Gj+IbKNJcsHYNVdmGINvH
- fw/BeXLLPEIQg==
-Date: Sun, 31 May 2026 04:59:04 +0000
-To: dri-devel@lists.freedesktop.org
-From: =?utf-8?Q?Gustavo_Kenji_Mendon=C3=A7a_Kaneko?= <kaneko.dev@pm.me>
-Cc: airlied@gmail.com, simona@ffwll.ch, alexander.deucher@amd.com,
- christian.koenig@amd.com, harry.wentland@amd.com, corbet@lwn.net,
- amd-gfx@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- =?utf-8?Q?Gustavo_Kenji_Mendon=C3=A7a_Kaneko?= <kaneko.dev@pm.me>
-Subject: [PATCH 1/2] drm: fix spelling mistakes in comments and documentation
-Message-ID: <20260531045852.41849-1-kaneko.dev@pm.me>
-Feedback-ID: 165279626:user:proton
-X-Pm-Message-ID: afb4c42cef220faf058e256e353ae6c0ff2e2bf2
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28B15112742
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 09:43:37 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-2bf008a99d4so29385725ad.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 02:43:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780134216; x=1780739016; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=5ZTtXuk8VMOe/R1MOW9+2Ia+hoeCMO0OxOU+XGlScXw=;
+ b=hnWJCa1UtZq0i0b56vD6k0kbardOkOn6C2RK/JGII/Gad+KzHG2JRkpycTaxabbRct
+ 9nWeCe+94JBQMK8b3qv2phl9STjb8VvUzavdHZAF3DIw12rZDXx/uMz9X3v1o5ZCmHB3
+ 9LjWw9yWiV/UufIGrMHZos0CokNsiLXPaHD86H/QlOLSdg5rN0yFVwq9ZEVgWduvnIA8
+ LWhdaweznlDj4BctpPl7vuja11Elcl/ed7AnmLozmRyvzTDOINN2nCpOw9tI+awl8hAu
+ JGkPI8FIbWgKZG6Q09SAzy2NUYJre+ox8iurrX2UrXd0ABulaljb19AMYvF+QhGdZ7u/
+ IIrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780134216; x=1780739016;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5ZTtXuk8VMOe/R1MOW9+2Ia+hoeCMO0OxOU+XGlScXw=;
+ b=bjAZLUOub9oLD8yZK7d2+K1sxzGlHRLG5e3OcFnY1IxgGxLe90s9HAPHlrz0gpGj7D
+ xL98a65qZ7xbI040pG21OHgphVt4YkbQ/LNBzjYrB2gbBJ/pW/PXrwQ7AwETUE0kmWmy
+ mYVA2qHIMq9wrWiLuWKpC2zTP4u3EVC7w4CK/O0kiqseV6aJHcVOB78oH7ckQ5TaOnwl
+ IrDdW76Dj29BTO2qGj2gMNph98N28kBICO4caTCMMRjeT+WOs3GSIXNqnhkqaZZoVP4D
+ uGWEp/gdUsWfzbcN3H64eZnP7Z0hObQ5UnSeIrJB/09pcfbVbuJ6hEiKF+Sci9G4qtrc
+ DsSA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8+slCr8fp6o3TMtAoorvuLrpzG+3/KJZY/bzAvmk25EJag7aynsfdgm9PopHR3dcXPtpJj0kfqFhY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx1CBne9EeoCRhtyybwMpAs5hki6b54iUmM6oAJa99PdVSZ9c0E
+ 1A1S9GOCRMojsYE+uEnzv6r4KPaoyEru3wQpS+hGYDz5RsGhTkEfRusn
+X-Gm-Gg: Acq92OGg37VZ1pLCAT3Mk5DCjLJpmYjO5Jd9t3chWa27nwPyEczqaPHYqwQTB6SYuCn
+ jKD4l+UcqhMqpLyMPyKlYcwRdFy9xrj9F8LIO1fuydmKPi5l/k/j0GLBbcFcz+u2fqGA6D+I1eX
+ 1cvDo7dwaBry9szcRqmjVKfaFRwxEv0MWjtCXk9BNshjXxCSr6zihIwpzdK8ntfg7kqorb6Doxe
+ 0dYUvChxtrbJ7+GKbTeQTEhRsaPPdTa6t/G3j8ihXqSPRH5+SOoPgS5GWiVCQBZeobpHV4eWjSt
+ eZ67ogtQ2KwyY3Nm8/07LI7pkm1TspEt2mkhu2BuWqONDRanSPWsly039K72JQE9gcIQzBDj5pJ
+ Kpi3oXogl2E2OxsMUNJeqUJx5j9IqirnvWS+TQEOJIy9qdJL/LBa3FKRQMKamFSR5J4Z6hnAmxG
+ j40iuBMks56xiv387WQF+Khb9cvx3YRb4=
+X-Received: by 2002:a17:903:46c4:b0:2c0:ab92:584c with SMTP id
+ d9443c01a7336-2c0ab926140mr12404095ad.25.1780134216487; 
+ Sat, 30 May 2026 02:43:36 -0700 (PDT)
+Received: from rockpi-5b ([45.112.0.191]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2bf239e700csm61529945ad.10.2026.05.30.02.43.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 30 May 2026 02:43:35 -0700 (PDT)
+From: Anand Moon <linux.amoon@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Hans Verkuil <hverkuil@kernel.org>, Maxime Jourdan <mjourdan@baylibre.com>,
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS FOR AMLOGIC SOCS),
+ linux-amlogic@lists.infradead.org (open list:DRM DRIVERS FOR AMLOGIC SOCS),
+ linux-arm-kernel@lists.infradead.org (moderated list:ARM/Amlogic Meson SoC
+ support), linux-kernel@vger.kernel.org (open list),
+ linux-media@vger.kernel.org (open list:MESON VIDEO DECODER DRIVER FOR AMLOGIC
+ SOCS), linux-staging@lists.linux.dev (open list:STAGING SUBSYSTEM)
+Cc: Anand Moon <linux.amoon@gmail.com>
+Subject: [PATCH v6 0/8] media: meson: Fix memory leak in error path in vdec
+Date: Sat, 30 May 2026 15:12:46 +0530
+Message-ID: <20260530094326.11892-1-linux.amoon@gmail.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 31 May 2026 13:58:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,147 +101,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fix multiple spelling mistakes across the DRM subsystem:
+v6: Changes
 
-- 'occured' -> 'occurred' in:
-  - drm_debugfs_crc.h
-  - amdgpu_ctx.c
-  - amdgpu_ids.c (x2)
-  - amdgpu_job.h
-  - radeon_fence.c (x2)
+The previous approach had some technical issues, so this new version
+takes a slightly different approach, I have fixed the DMA warnings
+found during basic testing.
 
-- 'fucntions' -> 'functions' in Documentation/gpu/todo.rst
-- 'doesn't exists' -> 'doesn't exist' in amdgpu_gmc.h
+I have donse basic testing on the Odroid N2+ and found that
+the clocks are not enabling for decoder.
 
-Signed-off-by: Gustavo Kenji Mendon=C3=A7a Kaneko <kaneko.dev@pm.me>
----
- Documentation/gpu/todo.rst              | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.h | 2 +-
- drivers/gpu/drm/radeon/radeon_fence.c   | 4 ++--
- include/drm/drm_debugfs_crc.h           | 2 +-
- 7 files changed, 9 insertions(+), 9 deletions(-)
+It also seems some Mali GPU configurations are still missing.
 
-diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-index bc9f14c8a2ec..841e4e986c48 100644
---- a/Documentation/gpu/todo.rst
-+++ b/Documentation/gpu/todo.rst
-@@ -55,7 +55,7 @@ There are still drivers that use drm_simple_display_pipe.=
- The task here is to
- convert them to use regular atomic helpers. Search for a driver that calls
- drm_simple_display_pipe_init() and inline all helpers from drm_simple_kms_=
-helper.c
- into the driver, such that no simple-KMS interfaces are required. Please a=
-lso
--rename all inlined fucntions according to driver conventions.
-+rename all inlined functions according to driver conventions.
-=20
- Contact: Thomas Zimmermann, respective driver maintainer
-=20
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ctx.c
-index 7af86a32c0c5..e5884bb4d63a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -564,7 +564,7 @@ static int amdgpu_ctx_query(struct amdgpu_device *adev,
- =09out->state.flags =3D 0x0;
- =09out->state.hangs =3D 0x0;
-=20
--=09/* determine if a GPU reset has occured since the last call */
-+=09/* determine if a GPU reset has occurred since the last call */
- =09reset_counter =3D atomic_read(&adev->gpu_reset_counter);
- =09/* TODO: this should ideally return NO, GUILTY, or INNOCENT. */
- =09if (ctx->reset_counter_query =3D=3D reset_counter)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gmc.h
-index 6ab4c1e297fc..85a0d9bcba16 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -39,7 +39,7 @@
- =09=09=09=090xff00000000000000ULL : 0xffff800000000000ULL)
-=20
- /*
-- * Hardware is programmed as if the hole doesn't exists with start and end
-+ * Hardware is programmed as if the hole doesn't exist with start and end
-  * address values.
-  *
-  * This mask is used to remove the upper 16bits of the VA and so come up w=
-ith
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ids.c
-index 124fb38eb465..095ab609623f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-@@ -161,12 +161,12 @@ void amdgpu_pasid_free_delayed(struct dma_resv *resv,
-  */
-=20
- /**
-- * amdgpu_vmid_had_gpu_reset - check if reset occured since last use
-+ * amdgpu_vmid_had_gpu_reset - check if reset occurred since last use
-  *
-  * @adev: amdgpu_device pointer
-  * @id: VMID structure
-  *
-- * Check if GPU reset occured since last use of the VMID.
-+ * Check if GPU reset occurred since last use of the VMID.
-  */
- bool amdgpu_vmid_had_gpu_reset(struct amdgpu_device *adev,
- =09=09=09       struct amdgpu_vmid *id)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_job.h
-index 56a88e14a044..bc011b4639f2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-@@ -31,7 +31,7 @@
- #define AMDGPU_PREAMBLE_IB_PRESENT          (1 << 0)
- /* bit set means preamble IB is first presented in belonging context */
- #define AMDGPU_PREAMBLE_IB_PRESENT_FIRST    (1 << 1)
--/* bit set means context switch occured */
-+/* bit set means context switch occurred */
- #define AMDGPU_HAVE_CTX_SWITCH              (1 << 2)
- /* bit set means IB is preempted */
- #define AMDGPU_IB_PREEMPTED                 (1 << 3)
-diff --git a/drivers/gpu/drm/radeon/radeon_fence.c b/drivers/gpu/drm/radeon=
-/radeon_fence.c
-index 02a40e4750c7..943861b62ee9 100644
---- a/drivers/gpu/drm/radeon/radeon_fence.c
-+++ b/drivers/gpu/drm/radeon/radeon_fence.c
-@@ -191,7 +191,7 @@ static int radeon_fence_check_signaled(wait_queue_entry=
-_t *wait,
-  * @ring: ring index the fence is associated with
-  *
-  * Checks the current fence value and calculates the last
-- * signalled fence value. Returns true if activity occured
-+ * signalled fence value. Returns true if activity occurred
-  * on the ring, and the fence_queue should be waken up.
-  */
- static bool radeon_fence_activity(struct radeon_device *rdev, int ring)
-@@ -262,7 +262,7 @@ static bool radeon_fence_activity(struct radeon_device =
-*rdev, int ring)
-  * @work: delayed work item
-  *
-  * Checks for fence activity and if there is none probe
-- * the hardware if a lockup occured.
-+ * the hardware if a lockup occurred.
-  */
- static void radeon_fence_check_lockup(struct work_struct *work)
- {
-diff --git a/include/drm/drm_debugfs_crc.h b/include/drm/drm_debugfs_crc.h
-index 1b4c98c2f838..d7da666b50ca 100644
---- a/include/drm/drm_debugfs_crc.h
-+++ b/include/drm/drm_debugfs_crc.h
-@@ -49,7 +49,7 @@ struct drm_crtc_crc_entry {
-  * @lock: protects the fields in this struct
-  * @source: name of the currently configured source of CRCs
-  * @opened: whether userspace has opened the data file for reading
-- * @overflow: whether an overflow occured.
-+ * @overflow: whether an overflow occurred.
-  * @entries: array of entries, with size of %DRM_CRC_ENTRIES_NR
-  * @head: head of circular queue
-  * @tail: tail of circular queue
---=20
-2.54.0
+You can reproduce the test case using:
 
+mpv --hwdec=v4l2m2m Big_Buck_Bunny_1080_10s_30MB.mp4
+
+Please let me know your feedback so we can discuss and address these
+points!
+
+Thanks
+-Anand 
+
+V5: Changes
+
+[v5] https://lore.kernel.org/all/20260525095216.12078-2-linux.amoon@gmail.com/
+ 
+Following chamges try to fix the memory leak reported by Sashiko
+
+New issues:
+- [High] The newly added error path in `vdec_start_streaming()` leaks
+  `sess->priv` when `kthread_run()` fails.
+
+Pre-existing issues:
+- [Critical] Race condition between hardware power-on and `core->cur_sess`
+   initialization leads to a NULL pointer dereference in the IRQ handler.
+- [High] Returning buffers for both source and destination queues upon
+    single-queue failure orphans active queue buffers.
+- [High] Concurrent sessions can bypass the hardware exclusivity check,
+  leading to simultaneous hardware programming.
+--
+
+V4: Changes:
+
+v4: https://lore.kernel.org/all/20260521073449.10057-2-linux.amoon@gmail.com/
+
+Following chamges try to fix the memory leak reported by Sashiko
+
+Pre-existing issues:
+- [Critical] The `sess->esparser_queue_work` work item is not canceled
+   before freeing the session context, leading to a potential Use-After-Free
+   vulnerability.
+- [High] The patch attempts to fix a memory leak reported by kmemleak,
+    but misdiagnoses the root cause and leaves the primary memory leak
+    (the V4L2 control handler) unresolved.
+- [High] The driver does not verify if `kthread_run()` returns an `ERR_PTR`,
+     leading to a kernel panic when `kthread_stop()` is called.
+
+Thanks
+-Anand
+
+Anand Moon (8):
+  media: meson: vdec: Fix memory leaks and lifetime of m2m device
+  media: meson: vdec: Fix concurrent STREAMON / STREAMOFF race
+    conditions
+  media: meson: vdec: Handle kthread failure and free codec state
+  media: meson: vdec: Condition buffer flushing on queue type in
+    start_streaming
+  media: meson: vdec: Cancel esparser work during teardown
+  media: meson: vdec: Configure DMA mask and segment size in probe
+  media: meson: vdec: Fix NULL pointer dereference in ISR handlers
+  gpu: drm: meson: Fix DMA max segment size for DMABUF imports
+
+ drivers/gpu/drm/meson/meson_drv.c       |   2 +
+ drivers/staging/media/meson/vdec/vdec.c | 179 +++++++++++++++++-------
+ drivers/staging/media/meson/vdec/vdec.h |   4 +-
+ 3 files changed, 136 insertions(+), 49 deletions(-)
+
+
+base-commit: f5e5d3509bffb95c6648eb9795f7f236852ae62d
+-- 
+2.50.1
 
