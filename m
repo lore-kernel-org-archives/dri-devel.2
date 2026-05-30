@@ -4,49 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7163BCD6E49
-	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 16:58:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02820CD6E49
+	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 17:14:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D2E4112912;
-	Sat, 30 May 2026 16:58:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12C8211292F;
+	Sat, 30 May 2026 17:14:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="P5IgeHI9";
+	dkim=pass (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="X7hKiXlH";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF0B8112914;
- Sat, 30 May 2026 16:58:49 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9875543B68;
- Sat, 30 May 2026 16:58:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEFD11F00893;
- Sat, 30 May 2026 16:58:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1780160329;
- bh=lPKjVmu0Ahe65kkokKukSAmt4aMwiug+NgY6jDUgW3s=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=P5IgeHI9DO5iBGmCEjFwz28YiZzv5xjvRFs98JNarYy0knr+OAaycMCoievIyKGwR
- yMNo80tAny6eZBv1HU1GEXrYbDQu2f7SJAk1x86Q7CjlH8sQbqdVUdIQFlMB0ghBGN
- KAzXM4Uo0W7PIgJEWAbGHuYrXN8XXmeUNakUc05Y=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Arjan van de Ven <arjan@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 6.1 275/969] drm/amdgpu: fix zero-size GDS range init on RDNA4
-Date: Sat, 30 May 2026 17:56:39 +0200
-Message-ID: <20260530160308.073458947@linuxfoundation.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260530160300.485627683@linuxfoundation.org>
-References: <20260530160300.485627683@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Received: from mail-244118.protonmail.ch (mail-244118.protonmail.ch
+ [109.224.244.118])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0E9310E225
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 17:14:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail; t=1780161289; x=1780420489;
+ bh=ggWnJbhWCZGehn3Jv1Jq/x6Xk3/GMeyz9N7uAmOorjE=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=X7hKiXlHGwvPk7opr2oB7UItClYfz/CcQG4KFBOE90CyLQkp5wTPPP6OVBP4W9kNA
+ U1NFTYXByAxq8WTnBooyHdhuzv1KRGG1lteXxdCTJ9R/E4G4wFCc87h5xaVUCXjIQi
+ pmYGl/14myKM9/OcQyrLFJ0SdwwqsZwiaT1U6ZH+H34jOO7+wXL0Bgv7iMzaHrUF5N
+ XhezxIc4SvzuRLWQPOr/GHWHNSSKFuChhA8b+DJl4rSzTY5KXGXtLX78Mlnboa486d
+ Iy9VpCGdYihhtLjSFyvOCdWOniu7KrxT9pMqgaE22ES7x/tSHlWE6YzTTO1nQsKyjI
+ cjtSeSxbLDxTA==
+Date: Sat, 30 May 2026 17:14:44 +0000
+To: dri-devel@lists.freedesktop.org
+From: Simon Ser <contact@emersion.fr>
+Cc: wayland-devel@lists.freedesktop.org, Daniel Stone <daniel@fooishbar.org>,
+ =?utf-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH] drm/atomic: introduce PAGE_FLIP_EVENT property
+Message-ID: <20260530171422.4615-1-contact@emersion.fr>
+Feedback-ID: 1358184:user:proton
+X-Pm-Message-ID: d3f062539c5133c08704b680d01f1a94ee201831
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,65 +57,193 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+Currently user-space can only request page-flip events for all CRTCs includ=
+ed
+in an atomic commit. This is cumbersome with multi-CRTC commits: when movin=
+g a
+plane from a different CRTC, or when disabling a plane, user-space has no w=
+ay
+to opt-out of the page-flip events.
 
-------------------
+Additionally, page-flip events are invalid for already-disable planes, so
+user-space needs to add special cases [1]. Libraries cannot add planes to t=
+he
+commit without risking causing unexpected page-flip events for the
+compositor [2]. Figuring out what CRTCs get implicitly included in a commit=
+ is
+non-trivial [3].
 
-From: Arjan van de Ven <arjan@linux.intel.com>
+Introduce a new PAGE_FLIP_EVENT CRTC property so that user-space can select
+explicitly which CRTCs will get page-flip events. The property is very
+similar to IN_FENCE_FD/OUT_FENCE_PTR: it always reads as zero, and 1 can
+be written to request an event.
 
-commit 095a8b0ad3c3b5cdc3850d961adb8a8f735220bb upstream.
+A user-space implementation is available at [4].
 
-RDNA4 (GFX 12) hardware removes the GDS, GWS, and OA on-chip memory
-resources. The gfx_v12_0 initialisation code correctly leaves
-adev->gds.gds_size, adev->gds.gws_size, and adev->gds.oa_size at
-zero to reflect this.
+[1]: https://github.com/ValveSoftware/gamescope/blob/67fcb3aebae0ae1eb2d1cf=
+f60f29e6d9fe1d128f/src/Backends/DRMBackend.cpp#L2897
+[2]: https://gitlab.freedesktop.org/emersion/libliftoff/-/merge_requests/85
+[3]: https://lore.kernel.org/dri-devel/20250501112945.6448-1-contact@emersi=
+on.fr/
+[4]: https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/5387
 
-amdgpu_ttm_init() unconditionally calls amdgpu_ttm_init_on_chip() for
-each of these resources regardless of size. When the size is zero,
-amdgpu_ttm_init_on_chip() forwards the call to ttm_range_man_init(),
-which calls drm_mm_init(mm, 0, 0). drm_mm_init() immediately fires
-DRM_MM_BUG_ON(start + size <= start) -- trivially true when size is
-zero -- crashing the kernel during modprobe of amdgpu on an RX 9070 XT.
-
-Guard against this by returning 0 early from
-amdgpu_ttm_init_on_chip() when size_in_page is zero. This skips TTM
-resource manager registration for hardware resources that are absent,
-without affecting any other GPU type.
-
-DRM_MM_BUG_ON() only asserts if CONFIG_DRM_DEBUG_MM is enabled in
-the kernel config.  This is apparently rarely enabled as these chips
-have been in the market for over a year and this issue was only reported
-now.
-
-Link: https://lore.kernel.org/all/bug-221376-2300@https.bugzilla.kernel.org%2F/
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221376
-Oops-Analysis: http://oops.fenrus.org/reports/bugzilla.korg/221376/report.html
-Assisted-by: GitHub Copilot:Claude Sonnet 4.6 linux-kernel-oops-x86.
-Signed-off-by: Arjan van de Ven <arjan@linux.intel.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 5719ce5865279cad4fd5f01011fe037168503f2d)
-Cc: stable@vger.kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Simon Ser <contact@emersion.fr>
+Cc: Daniel Stone <daniel@fooishbar.org>
+Cc: Michel D=C3=A4nzer <michel.daenzer@mailbox.org>
+Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
+Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+Cc: Simona Vetter <simona@ffwll.ch>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |    3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/drm_atomic_uapi.c | 17 +++++++++++++++--
+ drivers/gpu/drm/drm_crtc.c        |  7 +++++++
+ drivers/gpu/drm/drm_mode_config.c |  6 ++++++
+ include/drm/drm_crtc.h            |  6 ++++++
+ include/drm/drm_mode_config.h     |  4 ++++
+ 5 files changed, 38 insertions(+), 2 deletions(-)
 
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -76,6 +76,9 @@ static int amdgpu_ttm_init_on_chip(struc
- 				    unsigned int type,
- 				    uint64_t size_in_page)
- {
-+	if (!size_in_page)
-+		return 0;
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic=
+_uapi.c
+index 6441b55cc274..21f2b0df4f63 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -466,6 +466,14 @@ static int drm_atomic_crtc_set_property(struct drm_crt=
+c *crtc,
+ =09=09=09return -EFAULT;
+=20
+ =09=09set_out_fence_for_crtc(state->state, crtc, fence_ptr);
++=09} else if (property =3D=3D config->prop_page_flip_event) {
++=09=09if (val !=3D 1) {
++=09=09=09drm_dbg_atomic(crtc->dev,
++=09=09=09=09       "[CRTC:%d:%s] PAGE_FLIP_EVENT can only be set to 1",
++=09=09=09=09       crtc->base.id, crtc->name);
++=09=09=09return -EINVAL;
++=09=09}
++=09=09state->page_flip_event_requested =3D val;
+ =09} else if (property =3D=3D crtc->scaling_filter_property) {
+ =09=09state->scaling_filter =3D val;
+ =09} else if (property =3D=3D crtc->sharpness_strength_property) {
+@@ -507,6 +515,8 @@ drm_atomic_crtc_get_property(struct drm_crtc *crtc,
+ =09=09*val =3D state->background_color;
+ =09else if (property =3D=3D config->prop_out_fence_ptr)
+ =09=09*val =3D 0;
++=09else if (property =3D=3D config->prop_page_flip_event)
++=09=09*val =3D 0;
+ =09else if (property =3D=3D crtc->scaling_filter_property)
+ =09=09*val =3D state->scaling_filter;
+ =09else if (property =3D=3D crtc->sharpness_strength_property)
+@@ -1385,6 +1395,7 @@ static int prepare_signaling(struct drm_device *dev,
+ =09struct drm_connector *conn;
+ =09struct drm_connector_state *conn_state;
+ =09int i, c =3D 0, ret;
++=09bool page_flip_event_requested;
+=20
+ =09if (arg->flags & DRM_MODE_ATOMIC_TEST_ONLY)
+ =09=09return 0;
+@@ -1392,9 +1403,11 @@ static int prepare_signaling(struct drm_device *dev,
+ =09for_each_new_crtc_in_state(state, crtc, crtc_state, i) {
+ =09=09s32 __user *fence_ptr;
+=20
++=09=09page_flip_event_requested =3D arg->flags & DRM_MODE_PAGE_FLIP_EVENT =
+||
++=09=09=09=09=09    crtc_state->page_flip_event_requested;
+ =09=09fence_ptr =3D get_out_fence_for_crtc(crtc_state->state, crtc);
+=20
+-=09=09if (arg->flags & DRM_MODE_PAGE_FLIP_EVENT || fence_ptr) {
++=09=09if (page_flip_event_requested || fence_ptr) {
+ =09=09=09struct drm_pending_vblank_event *e;
+=20
+ =09=09=09e =3D create_vblank_event(crtc, arg->user_data);
+@@ -1404,7 +1417,7 @@ static int prepare_signaling(struct drm_device *dev,
+ =09=09=09crtc_state->event =3D e;
+ =09=09}
+=20
+-=09=09if (arg->flags & DRM_MODE_PAGE_FLIP_EVENT) {
++=09=09if (page_flip_event_requested) {
+ =09=09=09struct drm_pending_vblank_event *e =3D crtc_state->event;
+=20
+ =09=09=09if (!file_priv)
+diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
+index 63ead8ba6756..5ad6681bd47c 100644
+--- a/drivers/gpu/drm/drm_crtc.c
++++ b/drivers/gpu/drm/drm_crtc.c
+@@ -248,6 +248,11 @@ struct dma_fence *drm_crtc_create_fence(struct drm_crt=
+c *crtc)
+  *=09The sharpness effect takes place post blending on the final composed =
+output.
+  *=09If the feature is disabled, the content remains same without any shar=
+pening effect
+  *=09and when this feature is applied, it enhances the clarity of the cont=
+ent.
++ * PAGE_FLIP_EVENT:
++ *=09Atomic property for requesting a page-flip event on this CRTC.
++ *
++ *=09The value of this property is an integer value which always reads as
++ *=09zero and can be written with 1 to request the event.
+  */
+=20
+ __printf(6, 0)
+@@ -322,6 +327,8 @@ static int __drm_crtc_init_with_planes(struct drm_devic=
+e *dev, struct drm_crtc *
+ =09=09=09=09=09   config->prop_out_fence_ptr, 0);
+ =09=09drm_object_attach_property(&crtc->base,
+ =09=09=09=09=09   config->prop_vrr_enabled, 0);
++=09=09drm_object_attach_property(&crtc->base,
++=09=09=09=09=09   config->prop_page_flip_event, 0);
+ =09}
+=20
+ =09return 0;
+diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_c=
+onfig.c
+index f432f485a914..688937d2e1ec 100644
+--- a/drivers/gpu/drm/drm_mode_config.c
++++ b/drivers/gpu/drm/drm_mode_config.c
+@@ -496,6 +496,12 @@ static int drm_mode_create_standard_properties(struct =
+drm_device *dev)
+ =09=09return -ENOMEM;
+ =09dev->mode_config.prop_out_fence_ptr =3D prop;
+=20
++=09prop =3D drm_property_create_range(dev, DRM_MODE_PROP_ATOMIC,
++=09=09=09"PAGE_FLIP_EVENT", 0, 1);
++=09if (!prop)
++=09=09return -ENOMEM;
++=09dev->mode_config.prop_page_flip_event =3D prop;
 +
- 	return ttm_range_man_init(&adev->mman.bdev, type,
- 				  false, size_in_page);
- }
+ =09prop =3D drm_property_create_object(dev, DRM_MODE_PROP_ATOMIC,
+ =09=09=09"CRTC_ID", DRM_MODE_OBJECT_CRTC);
+ =09if (!prop)
+diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+index 152349f973e3..b0f9130d263a 100644
+--- a/include/drm/drm_crtc.h
++++ b/include/drm/drm_crtc.h
+@@ -311,6 +311,12 @@ struct drm_crtc_state {
+ =09 */
+ =09bool vrr_enabled;
+=20
++=09/**
++=09 * @page_flip_event_requested: indicates whether a page-flip event has
++=09 * been requested on this CRTC.
++=09 */
++=09bool page_flip_event_requested;
++
+ =09/**
+ =09 * @self_refresh_active:
+ =09 *
+diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+index d8f5b7e9673e..13f39677c32f 100644
+--- a/include/drm/drm_mode_config.h
++++ b/include/drm/drm_mode_config.h
+@@ -670,6 +670,10 @@ struct drm_mode_config {
+ =09 * value of type s32, and then cast that pointer to u64.
+ =09 */
+ =09struct drm_property *prop_out_fence_ptr;
++=09/**
++=09 * @page_flip_event_property: property to request page-flip events.
++=09 */
++=09struct drm_property *prop_page_flip_event;
+ =09/**
+ =09 * @prop_crtc_id: Default atomic plane property to specify the
+ =09 * &drm_crtc.
+--=20
+2.54.0
 
 
