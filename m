@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B5CACD6E57
-	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 14:01:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7A94CD5BD0
+	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 14:01:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB860112818;
-	Sat, 30 May 2026 14:01:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7A8E11281E;
+	Sat, 30 May 2026 14:01:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O+v3hhL9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ntqXxcjw";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F00AC112816
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 14:01:13 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE834112814
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 14:00:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 56B69600BB;
- Sat, 30 May 2026 14:01:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89F051F00893;
- Sat, 30 May 2026 14:01:12 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B63E04074E;
+ Sat, 30 May 2026 14:00:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D4341F00893;
+ Sat, 30 May 2026 14:00:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780149673;
- bh=PspEh4Oi/RLTFZrRKE4ENqolk7oIwcH7ZK1MtDRXqf0=;
+ s=k20260515; t=1780149659;
+ bh=Oac/bBAShAFqo4rVms4PQg5XhRkE9nmOlw2fpRsSDXM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=O+v3hhL9krVp0x+A+U+92Sen6FKRfcrlYBZQieHZ1uvgVauLO8i2N6ZQ66hBpNMQj
- A8jcXufGRYYLhAs02eAvXuoxnmhUwoT1dG5NSU90Q3j5ZJEd6QXuMszr+u3LY12+Or
- VPVMX64IBEjCJAubyhcZVwmEhFTu7krf3M1kJPlLgbfVieYzhdeebKX8rvwaSTzBEj
- FafnUp6I0OfG+D5gd2CE0OVgEc6k3TaoSczuLJfkWUQjlnn/whpWEijO9agG52ckl+
- g7p4wLlivFWy3OqXx9c0chg8Kw4bXJ1yT57kDevQhRAyFF4ICzbfi5g2UXntF+Xrej
- DSYj2ifZOupiA==
+ b=ntqXxcjwcmvLCUSBtVt98D1zLbkQHHXR0QdX+YQqmJwVXCJcQGyd9cn6UkM41OVoh
+ 4ia15UTknfb9VAlQEmIdY/dXv2oTFOCdkG0IyLiZ32JWT7pzaYGph5G4ngT8c2bKH+
+ bBwftks812sAFNF5iKZPpLO1ezvF0HrgpYV79Y+uLVh1t5+xEdODs/10rZbgQqMRwN
+ y9lrQqFuxBGM8L4BPv7sbxhUDQ7ugYn2q6oCUVxLEMH/xlJWW/5fBbq983WqKi6HZR
+ rD9C8OfT0dEWE87j9DenikOBOoQVLaxb0lFTmxN6UD72DvImlz1f5iraIZZq3QQ/vc
+ 5ZBWM9hosVLsg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Sat, 30 May 2026 15:59:34 +0200
-Subject: [PATCH 29/76] drm/bridge: sii902x: Switch to atomic_create_state
+Date: Sat, 30 May 2026 15:59:29 +0200
+Subject: [PATCH 24/76] drm/bridge: lvds-codec: Switch to
+ atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260530-drm-no-more-bridge-reset-v1-29-875d828d31bc@kernel.org>
+Message-Id: <20260530-drm-no-more-bridge-reset-v1-24-875d828d31bc@kernel.org>
 References: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
 In-Reply-To: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -50,12 +51,12 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1310; i=mripard@kernel.org;
- h=from:subject:message-id; bh=ME97fEjA9FS9LjAyeYOFeopdZeJRhulg+SzyfgStUHE=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlSb51Op7bIPok68C24oueu3J2HMseeXpJz5Uh5pK9k9
- SxW95ZUx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhImCtjfZlmXqfIL/Grc/7W
- 7+cuOnfseIz/trP9R3w2iPYpqhv7d6zy4HoayN0fdv5s7N5tGR+1GBu+NReZlxdxxa8KzyuZufq
- sZe72rNUl4Us+xs379rd85ZoTJjnrd82R5tThODNhQXzw/QMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1164; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=3gel0QHdW0AP23zDK9lENnzE+neWKTrJEI+M1CMeV7s=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlSbx08xI/Z9QU1fXkt/3OdSIuRrMTxysKilVbh///rN
+ LS21cp1TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgInkyTI27EqL9+uWzP/l+nnG
+ 9swr336LeuX/35vSHvyvN/bw8/oSRyufnPyTNavZEkMKd5bz5h5hbHgick/Ab8POGQUP5jdNy4/
+ 6lTqt47Pr59ILLt/sckUunpQ8oqKaKaCt951lduC85BufywA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,26 +82,26 @@ drm_atomic_helper_bridge_create_state() counterpart.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/sii902x.c | 2 +-
+ drivers/gpu/drm/bridge/lvds-codec.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
-index ea543be4ae3e..30d04324d8ce 100644
---- a/drivers/gpu/drm/bridge/sii902x.c
-+++ b/drivers/gpu/drm/bridge/sii902x.c
-@@ -542,11 +542,11 @@ static const struct drm_bridge_funcs sii902x_bridge_funcs = {
- 	.mode_set = sii902x_bridge_mode_set,
- 	.atomic_disable = sii902x_bridge_atomic_disable,
- 	.atomic_enable = sii902x_bridge_atomic_enable,
- 	.detect = sii902x_bridge_detect,
- 	.edid_read = sii902x_bridge_edid_read,
--	.atomic_reset = drm_atomic_helper_bridge_reset,
-+	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+diff --git a/drivers/gpu/drm/bridge/lvds-codec.c b/drivers/gpu/drm/bridge/lvds-codec.c
+index e6a7147e141b..d1135dc3b99f 100644
+--- a/drivers/gpu/drm/bridge/lvds-codec.c
++++ b/drivers/gpu/drm/bridge/lvds-codec.c
+@@ -102,11 +102,11 @@ static const struct drm_bridge_funcs funcs = {
+ 	.attach = lvds_codec_attach,
+ 	.enable = lvds_codec_enable,
+ 	.disable = lvds_codec_disable,
  	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
  	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_get_input_bus_fmts = sii902x_bridge_atomic_get_input_bus_fmts,
- 	.atomic_check = sii902x_bridge_atomic_check,
- 	.mode_valid = sii902x_bridge_mode_valid,
+-	.atomic_reset = drm_atomic_helper_bridge_reset,
++	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+ 	.atomic_get_input_bus_fmts = lvds_codec_atomic_get_input_bus_fmts,
+ };
+ 
+ static int lvds_codec_probe(struct platform_device *pdev)
+ {
 
 -- 
 2.54.0
