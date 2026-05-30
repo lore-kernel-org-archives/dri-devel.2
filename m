@@ -4,57 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AC72CD5BD0
-	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 18:38:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB411CD5BD0
+	for <dri-devel@archiver.kernel.org>; Sat, 30 May 2026 18:54:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB3BC112978;
-	Sat, 30 May 2026 18:38:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E4E311297F;
+	Sat, 30 May 2026 18:54:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ROKBlRoG";
+	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="F+2f5duo";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6C02112977
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 18:38:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
- Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
- Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
- :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=kigU0OurTXgZm9DCTOVylrqR0vRm4WQF5qVMCutlFSM=; b=ROKBlRoG+iTISb0HHbTRVnybr2
- nTncv6HBWPACwiR1dt2104/AtOc4vbkAq/E+9tNiAcoY4aulcZd57qAZMDS+zYGi7akknRSqijVN0
- 5C5QS7RXzXTGTnjTxSpiEGPmz5ynpENMeAYnQ9ozYiwVwHHAZDcBuk49zOM4SFh/JEKvbKfxG0GnC
- Tm5UHGl6imqKKkvoOBPykvRwbZhu8XZy51Tyzr3Oudyp9mXIxQhzciXQDrnW/ET2/cNSy43S32Z/o
- v3uBQd59C+brub5h4HCeBCiYRcKtn/NcUJUtH366OngActxLmL5iExv/wMkfneFffxjT14iQ9OCDR
- Dilqfg3Q==;
-Received: from [189.7.87.67] (helo=[10.0.0.1])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wTOZY-00ALNh-UT; Sat, 30 May 2026 20:38:13 +0200
-From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Sat, 30 May 2026 15:37:45 -0300
-Subject: [PATCH 4/4] drm/v3d: Reduce PM runtime autosuspend delay
+Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E50B911297F
+ for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 18:54:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+ s=protonmail3; t=1780167110; x=1780426310;
+ bh=6hqDjImuAem/6OD61cXZG6OTmI0pwB62MXq+JBsU1ro=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=F+2f5duosDoNeeas6k96BIJQWCi40bwxVBoqIt02focXKYWocMzPVIyh7+ejcgi+8
+ MVBlI2w7lKe2Ez6ePyHcqv2ZDMOl+8yIwI1xmh7lyVNkLfDTJDqHlwfbbKDbrTVXXm
+ INOHt+hbL7n3xD7tLa/1EJVG3M40uZIXrWWwpaulQofj+Lldy2H3dvOyjB9K3+sIol
+ 6OTtluybHinTDEgw6a8F7TURF9B6Rti2rxFGKgP8jEEH+MDLk4qelyP3xKJRCVr+dg
+ 8WINYj7kKvSBxo7cd7ADgXzCQPYUx8R7KlngJ3pe5bjqKuXNldHpCklMCViLr8ECtM
+ I3I28Sz/5b5KQ==
+Date: Sat, 30 May 2026 18:51:42 +0000
+To: Sudarshan Shetty <tessolveupstream@gmail.com>, luca.ceresoli@bootlin.com
+From: Sean Nyekjaer <sean@geanix.com>
+Cc: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, jernej.skrabec@gmail.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, alexander.stein@ew.tq-group.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] drm: bridge: ti-sn65dsi83: Disable video burst
+ mode for LVDS stability
+Message-ID: <ahsxWhXMhzbAj_3G@Seans-MacBook-Pro.local>
+Feedback-ID: 134068486:user:proton
+X-Pm-Message-ID: aa8b75addb1c0b0e117d1a5c77bbeb83e9192027
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260530-v3d-fix-rpi4-freezes-v1-4-c2c8307da6ce@igalia.com>
-References: <20260530-v3d-fix-rpi4-freezes-v1-0-c2c8307da6ce@igalia.com>
-In-Reply-To: <20260530-v3d-fix-rpi4-freezes-v1-0-c2c8307da6ce@igalia.com>
-To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1105; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=WVLGlzOVL1IZbsD1OPq3GwQVsIl44h9bQZM6JL357f0=;
- b=owGbwMvMwMVo/5mvq6zj1yrG02pJDFnSep27X7FuPHXoVM6lM99LRNs1D+d9nS1rM3nx6+oVj
- nYBxyqmdDIaszAwcjHIiimy/HgSW8soVs6uuaz8IswgViaQKQxcnAJwo304GG50FIhUdPydO9m6
- K1SvorP49cpbrw/qy9kV2EQa+SguNQ/9LCtRsX2pt+CJlRpl+c8L4wUKpjNx/UgILm3Ymcrxv6H
- S/ruC+3eTG6lmRf/PrH6se40xPDPxzH12rxdf1I+/E7tgKsGq0RZv+W9yxrcpIi0SfhceS3fMvn
- s1ODzfIJXtytetR1yPud655RT7/ufPyK873vkvae42ipeyd0/+dPN84K9N3h/4bhfp2xmUuEan7
- RT5otO/s86QYcLRlxcLTkglf6tIWDDhgMO1DeuPnKzNS9rflGHxVem+oW6XnWWG371Vt5QjkkM+
- SH57+DHcW+bgrlBje4lZ8lVOLaK2NeYXc7kPH4qUkl4CAA==
-X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
- fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,34 +57,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The 100ms autosuspend delay was only ever a workaround: shorter delays
-caused more frequent runtime suspend/resume cycles on the BCM2711
-(Raspberry Pi 4), which exposed the cache and MMU coherency bugs as
-random GPU hangs.
+Hi Luca,
 
-With those hangs resolved, the inflated delay is no longer necessary.
-Reduce it from 100ms to 50ms so the GPU power domain can be released
-sooner once the GPU goes idle.
+On Wed, May 27, 2026 at 02:27:36PM +0100, Sudarshan Shetty wrote:
+> The current DSI configuration enables MIPI_DSI_MODE_VIDEO_BURST.
+> while burst mode is supported by the hardware, its use
+> depends on continuous clock behavior from the DSI host. In practice,
+> burst mode may introduce instability depending on the host controller
+> implementation, as the DSI link may transition to low-power state
+> between bursts.
+>=20
+> Testing showed improved display stability when using non-burst mode on
+> affected panels.
+>=20
+> Remove MIPI_DSI_MODE_VIDEO_BURST and use non-burst video mode.
+>=20
 
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
----
- drivers/gpu/drm/v3d/v3d_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+We briefly talked about this at Embedded Recipes
+I promised to sent a link:
+https://lore.kernel.org/all/E35054BA-FBE5-4CEE-905C-1F5D20140590@geanix.com=
+/
 
-diff --git a/drivers/gpu/drm/v3d/v3d_drv.c b/drivers/gpu/drm/v3d/v3d_drv.c
-index fc81dd1247e3..805d84435ee0 100644
---- a/drivers/gpu/drm/v3d/v3d_drv.c
-+++ b/drivers/gpu/drm/v3d/v3d_drv.c
-@@ -420,7 +420,7 @@ static int v3d_platform_drm_probe(struct platform_device *pdev)
- 	ident3 = V3D_READ(V3D_HUB_IDENT3);
- 	v3d->rev = V3D_GET_FIELD(ident3, V3D_HUB_IDENT3_IPREV);
- 
--	pm_runtime_set_autosuspend_delay(dev, 100);
-+	pm_runtime_set_autosuspend_delay(dev, 50);
- 	pm_runtime_use_autosuspend(dev);
- 
- 	ret = drm_dev_register(drm, 0);
+When burst mode is enabled, the LVDS clock gets way to high for my
+panel. I don't know if it's the DSI controller in the STM32MP1 or
+something not supported on the TI side.
 
--- 
-2.54.0
+We have been running with this fix for 2 years :)
+
+> Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+> Signed-off-by: Sudarshan Shetty <tessolveupstream@gmail.com>
+
+Tested-by: Sean Nyekjaer <sean@geanix.com>
+
+> ---
+>  drivers/gpu/drm/bridge/ti-sn65dsi83.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/brid=
+ge/ti-sn65dsi83.c
+> index c03ff1ea9df8..6b5a6019c30d 100644
+> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> @@ -976,8 +976,8 @@ static int sn65dsi83_host_attach(struct sn65dsi83 *ct=
+x)
+> =20
+>  =09dsi->lanes =3D dsi_lanes;
+>  =09dsi->format =3D MIPI_DSI_FMT_RGB888;
+> -=09dsi->mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+> -=09=09=09  MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET;
+> +=09dsi->mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_NO_HSA =
+|
+> +=09=09=09  MIPI_DSI_MODE_NO_EOT_PACKET;
+> =20
+>  =09ret =3D devm_mipi_dsi_attach(dev, dsi);
+>  =09if (ret < 0) {
+> --=20
+> 2.34.1
+>=20
 
