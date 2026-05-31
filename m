@@ -4,125 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A029CD6E5F
-	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 14:00:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8638CCD6E52
+	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 14:00:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56468112B85;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35197112B7B;
 	Sun, 31 May 2026 13:59:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="CmAwHLWU";
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="UrglIUm3";
 	dkim-atps=neutral
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61A5E112942
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 17:36:45 +0000 (UTC)
-Received: from submission (posteo.de [185.67.36.169]) 
- by mout02.posteo.de (Postfix) with ESMTPS id 6E805240103
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 19:36:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
- t=1780162603; bh=2e2O/8b5NRtHio85i8yYWzntgvUhu+5ong2pxaqR0kw=;
- h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:
- Content-Transfer-Encoding:To:Cc:Autocrypt:OpenPGP:From;
- b=CmAwHLWUA99yF1UYjDxjd2nJSt5X3jYJM/q5CdMzXwstNMQbIyAFt21ioigwU9Hqv
- sF+Y2LI4/DERx5IboegAbakJ89UBCWHPrDNuh/X8ekTnPtLOezsp/Qyd5V6f73zbJl
- m+/UCWJrr7FGvp1GhwGc7SaYzRQ8OYkfymmgaWbn9pFLFBsTgbh3kGX9ImlN8LBh5R
- 2KOrZ1KoVwBRQLbleJdyYSWAcnp32wkGwVoFq4msNEvK/bqTdvtsVLCiBQjfmuN270
- ebww60Te4aDYhcCzOl022nf7GX4IMgn3z/TUxd+7xw+vdyzOdkMbgjAwtz7d9KxpOq
- /KVXKNnjyKa9Q==
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4gSS882hfKz6twx;
- Sat, 30 May 2026 19:36:40 +0200 (CEST)
-From: Markus Probst <markus.probst@posteo.de>
-Subject: [PATCH v9 0/3] rust: add basic serial device bus abstractions
-Date: Sat, 30 May 2026 17:36:42 +0000
-Message-Id: <20260530-rust_serdev-v9-0-f8b5fccb49c3@posteo.de>
+Received: from mail-244102.protonmail.ch (mail-244102.protonmail.ch
+ [109.224.244.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5894112A86
+ for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 05:05:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+ s=protonmail3; t=1780203549; x=1780462749;
+ bh=K+8OFb6m2BhuUAkJ/JJ3Js3mjRVZ001+PKPq5jYUsxY=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=UrglIUm3HCGYFcIczw/PZS14z0l01yf2anJsDfMMFCo58kFXJ7ZIukZCCU9pj40Xu
+ oEm8QvfTowjrUzDAemaT1r/GKv2aDRjT73LWi5z5uYC8nvF7lymhICbpSPYgymbq8V
+ eTzF2d43tUqMO140BkiLRwbjGjhB4Qc/HOO6wBFE+Ep5n9RX8OS6AKlrAiP5WxEj7L
+ oDJsmDJ9aXOkJ2jNxL6GFhF+MKDreK+Bpwahuj1alEUYl/7b7O0xNAxtZV2CQ1bO2J
+ 0qPmtGSYeH7L1O73TMlNwW7NWcNsf3rtAeTsBzLTX9Hw/Gj+IbKNJcsHYNVdmGINvH
+ fw/BeXLLPEIQg==
+Date: Sun, 31 May 2026 04:59:04 +0000
+To: dri-devel@lists.freedesktop.org
+From: =?utf-8?Q?Gustavo_Kenji_Mendon=C3=A7a_Kaneko?= <kaneko.dev@pm.me>
+Cc: airlied@gmail.com, simona@ffwll.ch, alexander.deucher@amd.com,
+ christian.koenig@amd.com, harry.wentland@amd.com, corbet@lwn.net,
+ amd-gfx@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ =?utf-8?Q?Gustavo_Kenji_Mendon=C3=A7a_Kaneko?= <kaneko.dev@pm.me>
+Subject: [PATCH 1/2] drm: fix spelling mistakes in comments and documentation
+Message-ID: <20260531045852.41849-1-kaneko.dev@pm.me>
+Feedback-ID: 165279626:user:proton
+X-Pm-Message-ID: afb4c42cef220faf058e256e353ae6c0ff2e2bf2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAEgG2oC/43SwU7kMAwG4FcZ9bytYidO4jnxHqsVSlsXKnamk
- JQKhHh3PDMgpmUPe4oc6fsVx36riuRRSrXfvVVZlrGM01EL/rWruvt0vJN67LWu0CABQqjzc5l
- vFfWy1CLkIgibSF2l4jHLML6c037/0fp+LPOUX8/hC5xuP3PQrHIWqE0tznlHwQePcPM4lVmmp
- pfqlLPgl/XGGr+2eLLcom0dtki0tfbKgl1bq7bjZNOA4IYwbK37tg5gbZ3a6EjYm857DFtLV3b
- bL6mlILFNhoAHu7X+2q7/fPFqIdjAsSeB9MOGa8trG9SaPnIXGFrq4tbGb0t28+aoFhPTAH1CT
- Kt+3y/Dz/L0rBs0XzagOkgp6bxB+90lU7sldMY0lrVgX0Pdp4d88yD5KH+bKd+d1uinQ9KTERp
- A5zn+L7MGLAbrG4scyfG/XZuK1N10OIzzfreERufckfb0/gGITJKrHQMAAA==
-X-Change-ID: 20251217-rust_serdev-ee5481e9085c
-To: Rob Herring <robh@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Kari Argillander <kari.argillander@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Boqun Feng <boqun@kernel.org>
-Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org, 
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5698;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=kRO4NH3VMxsI9hmNuUJEFuA+TdZxr2QG4aut3DO0ULk=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqGyAnvlACq3CZi+ZGChqDAcrBCXcRktDhYI/aj
- B75iuEPoyuJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCahsgJxsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9IjQRAAvA3qj9+STtwINeUuarKni9DmixDYAnq
- Dc7Xh/hpbZx3c7RbJSNSdBUGZBSdRH5hDhqMlHsByAiKYCgf/rumim6TPaSNGtHlN6tW/QQ8lDP
- eXroE+v8iQkDwAzZy9xRCY8MZLJ9zREaQgve1b5s0dylOsJRrDdTJGJni3LmH2ycT4/vd+BV9JJ
- KczQdrgP8wisg4JdUrwXNxmsdmXPYLNIg4kgi6kA932vszm5ur2SBGAJKEjF3WNNVPUXZMBw6Af
- S9xvF4ZmpD4Mio+ebkucLpltmqNIMYjA3IwQytrCI/L+NAWCJSpc+xa6hE1+kpDRyIxwnXrTjQY
- oo4Bf/HaOYV34DKjUvgocsZbdGEpXGq0Q6/ITtfVeByNJIDmJeJundN/7vAM671kVx+UbCaCtYa
- b71niUAtpNFKwpHJg0Bwm6mGXaljctoKUxIgncUUlXdiIrwVxG4UpKqK55t4grN1RTG/MGDuK+i
- PjoC6+oH/DCDEo9kNL31sUgbwyjzE9CHuoPKiBjtjo30llmHHNu2EcsXjZheRR1tXq1mHwgn8Fw
- ORW7G4SUPdqMEl2iGBZ1tXTwJy3zVACsoY7B5Y2+WjUogU5EUNWn6M82SeqQfVO93Xr1Wica1sE
- KDoND5XNYdYqPrHMp5PLXBgNH9i7UPm4DXl632nywyNFSm17+A6w=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
- preference=encrypt
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Sun, 31 May 2026 13:58:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -139,128 +58,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch series adds the serdev device bus rust abstraction into the
-kernel.
+Fix multiple spelling mistakes across the DRM subsystem:
 
-This abstraction will be used by a driver,
-which targets the MCU devices in Synology devices.
+- 'occured' -> 'occurred' in:
+  - drm_debugfs_crc.h
+  - amdgpu_ctx.c
+  - amdgpu_ids.c (x2)
+  - amdgpu_job.h
+  - radeon_fence.c (x2)
 
-Kari Argillander also messaged me, stating that he wants to write a
-watchdog driver with this abstraction (needing initial device data).
+- 'fucntions' -> 'functions' in Documentation/gpu/todo.rst
+- 'doesn't exists' -> 'doesn't exist' in amdgpu_gmc.h
 
-This series depends on [1] and [2].
-
-[1]
-https://lore.kernel.org/rust-for-linux/20260525202921.124698-1-dakr@kernel.org/
-[2] https://lore.kernel.org/rust-for-linux/20260530132736.3298549-1-dakr@kernel.org/
-
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
+Signed-off-by: Gustavo Kenji Mendon=C3=A7a Kaneko <kaneko.dev@pm.me>
 ---
-Changes in v9:
-- make use of BoundInternal
-- use PrivateData wrapper and drop rust_private_data field
-- use non-devm version of serdev_device_open
-- Link to v8: https://patch.msgid.link/20260530-rust_serdev-v8-0-2a95f1da22a7@posteo.de
+ Documentation/gpu/todo.rst              | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h | 2 +-
+ drivers/gpu/drm/radeon/radeon_fence.c   | 4 ++--
+ include/drm/drm_debugfs_crc.h           | 2 +-
+ 7 files changed, 9 insertions(+), 9 deletions(-)
 
-Changes in v8:
-- adapted to driver-lifetime v5 patch series
-- add MAINTAINERS file patch
-- Link to v7: https://patch.msgid.link/20260429-rust_serdev-v7-0-0d89c791b5c8@posteo.de
+diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+index bc9f14c8a2ec..841e4e986c48 100644
+--- a/Documentation/gpu/todo.rst
++++ b/Documentation/gpu/todo.rst
+@@ -55,7 +55,7 @@ There are still drivers that use drm_simple_display_pipe.=
+ The task here is to
+ convert them to use regular atomic helpers. Search for a driver that calls
+ drm_simple_display_pipe_init() and inline all helpers from drm_simple_kms_=
+helper.c
+ into the driver, such that no simple-KMS interfaces are required. Please a=
+lso
+-rename all inlined fucntions according to driver conventions.
++rename all inlined functions according to driver conventions.
+=20
+ Contact: Thomas Zimmermann, respective driver maintainer
+=20
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ctx.c
+index 7af86a32c0c5..e5884bb4d63a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -564,7 +564,7 @@ static int amdgpu_ctx_query(struct amdgpu_device *adev,
+ =09out->state.flags =3D 0x0;
+ =09out->state.hangs =3D 0x0;
+=20
+-=09/* determine if a GPU reset has occured since the last call */
++=09/* determine if a GPU reset has occurred since the last call */
+ =09reset_counter =3D atomic_read(&adev->gpu_reset_counter);
+ =09/* TODO: this should ideally return NO, GUILTY, or INNOCENT. */
+ =09if (ctx->reset_counter_query =3D=3D reset_counter)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_gmc.h
+index 6ab4c1e297fc..85a0d9bcba16 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -39,7 +39,7 @@
+ =09=09=09=090xff00000000000000ULL : 0xffff800000000000ULL)
+=20
+ /*
+- * Hardware is programmed as if the hole doesn't exists with start and end
++ * Hardware is programmed as if the hole doesn't exist with start and end
+  * address values.
+  *
+  * This mask is used to remove the upper 16bits of the VA and so come up w=
+ith
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ids.c
+index 124fb38eb465..095ab609623f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+@@ -161,12 +161,12 @@ void amdgpu_pasid_free_delayed(struct dma_resv *resv,
+  */
+=20
+ /**
+- * amdgpu_vmid_had_gpu_reset - check if reset occured since last use
++ * amdgpu_vmid_had_gpu_reset - check if reset occurred since last use
+  *
+  * @adev: amdgpu_device pointer
+  * @id: VMID structure
+  *
+- * Check if GPU reset occured since last use of the VMID.
++ * Check if GPU reset occurred since last use of the VMID.
+  */
+ bool amdgpu_vmid_had_gpu_reset(struct amdgpu_device *adev,
+ =09=09=09       struct amdgpu_vmid *id)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_job.h
+index 56a88e14a044..bc011b4639f2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+@@ -31,7 +31,7 @@
+ #define AMDGPU_PREAMBLE_IB_PRESENT          (1 << 0)
+ /* bit set means preamble IB is first presented in belonging context */
+ #define AMDGPU_PREAMBLE_IB_PRESENT_FIRST    (1 << 1)
+-/* bit set means context switch occured */
++/* bit set means context switch occurred */
+ #define AMDGPU_HAVE_CTX_SWITCH              (1 << 2)
+ /* bit set means IB is preempted */
+ #define AMDGPU_IB_PREEMPTED                 (1 << 3)
+diff --git a/drivers/gpu/drm/radeon/radeon_fence.c b/drivers/gpu/drm/radeon=
+/radeon_fence.c
+index 02a40e4750c7..943861b62ee9 100644
+--- a/drivers/gpu/drm/radeon/radeon_fence.c
++++ b/drivers/gpu/drm/radeon/radeon_fence.c
+@@ -191,7 +191,7 @@ static int radeon_fence_check_signaled(wait_queue_entry=
+_t *wait,
+  * @ring: ring index the fence is associated with
+  *
+  * Checks the current fence value and calculates the last
+- * signalled fence value. Returns true if activity occured
++ * signalled fence value. Returns true if activity occurred
+  * on the ring, and the fence_queue should be waken up.
+  */
+ static bool radeon_fence_activity(struct radeon_device *rdev, int ring)
+@@ -262,7 +262,7 @@ static bool radeon_fence_activity(struct radeon_device =
+*rdev, int ring)
+  * @work: delayed work item
+  *
+  * Checks for fence activity and if there is none probe
+- * the hardware if a lockup occured.
++ * the hardware if a lockup occurred.
+  */
+ static void radeon_fence_check_lockup(struct work_struct *work)
+ {
+diff --git a/include/drm/drm_debugfs_crc.h b/include/drm/drm_debugfs_crc.h
+index 1b4c98c2f838..d7da666b50ca 100644
+--- a/include/drm/drm_debugfs_crc.h
++++ b/include/drm/drm_debugfs_crc.h
+@@ -49,7 +49,7 @@ struct drm_crtc_crc_entry {
+  * @lock: protects the fields in this struct
+  * @source: name of the currently configured source of CRCs
+  * @opened: whether userspace has opened the data file for reading
+- * @overflow: whether an overflow occured.
++ * @overflow: whether an overflow occurred.
+  * @entries: array of entries, with size of %DRM_CRC_ENTRIES_NR
+  * @head: head of circular queue
+  * @tail: tail of circular queue
+--=20
+2.54.0
 
-Changes in v7:
-- adapted to driver-lifetime patch series
-- Link to v6: https://patch.msgid.link/20260427-rust_serdev-v6-0-173798d5e1a3@posteo.de
-
-Changes in v6:
-- rebased onto v7.1-rc1
-- Link to v5: https://patch.msgid.link/20260420-rust_serdev-v5-0-57e8ba0519f3@posteo.de
-
-Changes in v5:
-- fix typo in documentation
-- Link to v4: https://lore.kernel.org/r/20260411-rust_serdev-v4-0-845e960c6627@posteo.de
-
-Changes in v4:
-- fixed not selecting rust serdev abstraction in sample
-- Link to v3: https://lore.kernel.org/r/20260313-rust_serdev-v3-0-c9a3af214f7f@posteo.de
-
-Changes in v3:
-- fix vertical import style
-- add Kconfig entry for the rust abstraction
-- fix documentation in include/linux/serdev.h
-- rename private_data to rust_private_data
-- fix `complete_all` <-> `wait_for_completion` typo
-- move drvdata_borrow call after the completion
-- Link to v2: https://lore.kernel.org/r/20260306-rust_serdev-v2-0-e9b23b42b255@posteo.de
-
-Changes in v2:
-- fix documentation in `serdev::Driver::write` and
-  `serdev::Driver::write_all`
-- remove use of `dev_info` in probe from the sample
-- remove `properties_parse` from the sample
-- add optional `baudrate` property to the sample
-- remove 1. patch
-- remove `TryFrom<&device::Device<Ctx>> for &serdev::Device<Ctx>`
-  implementation
-- fix import style
-- add patch to return reference in `devres::register` to fix safety
-  issue
-- add patch to add private data to serdev_device, to fix
-  `Device.drvdata()` from failing
-- simplify abstraction by removing ability to receive the initial
-  transmission. It may be added later in a separate patch series if
-  needed.
-- Link to v1: https://lore.kernel.org/r/20251220-rust_serdev-v1-0-e44645767621@posteo.de
-
----
-Markus Probst (3):
-      rust: add basic serial device bus abstractions
-      samples: rust: add Rust serial device bus sample device driver
-      MAINTAINERS: serdev: Add self for serdev
-
- MAINTAINERS                        |   5 +-
- drivers/tty/serdev/Kconfig         |   7 +
- rust/bindings/bindings_helper.h    |   1 +
- rust/helpers/helpers.c             |   1 +
- rust/helpers/serdev.c              |  22 ++
- rust/kernel/lib.rs                 |   2 +
- rust/kernel/serdev.rs              | 574 +++++++++++++++++++++++++++++++++++++
- samples/rust/Kconfig               |  11 +
- samples/rust/Makefile              |   1 +
- samples/rust/rust_driver_serdev.rs |  91 ++++++
- 10 files changed, 714 insertions(+), 1 deletion(-)
----
-base-commit: 9e171fc1d7d7ab847a750c03571c87ac3c17bd84
-change-id: 20251217-rust_serdev-ee5481e9085c
-prerequisite-message-id: 20260505152400.3905096-1-dakr@kernel.org
-prerequisite-patch-id: d2aebf69b153c039bbed1d0ed26906708fd22534
-prerequisite-patch-id: 84b28da2f5de20fc1785095c647b2ffc35d969a5
-prerequisite-patch-id: 67318671a5eed5fb4ad23a450f1cf0e442bf8ca2
-prerequisite-message-id: 20260525202921.124698-1-dakr@kernel.org
-prerequisite-patch-id: b84db329d4372a175cb8d49e4e88c3eecf7eb228
-prerequisite-patch-id: 2c30303f409cc8288cc87e241920219f5ddd8390
-prerequisite-patch-id: 4e4f0ad370d763ad00b0f75b91fa216f2cc95953
-prerequisite-patch-id: 5bcd6b37f3498feebda275dfef78136eba34004e
-prerequisite-patch-id: 872b0982f3e5e7d1698d9df3b325e4cd27b27789
-prerequisite-patch-id: 3a3c7749e017d9335f58497404d1350e96caf471
-prerequisite-patch-id: 3526c9154f581497a11465b936d83ef61a875454
-prerequisite-patch-id: 65d8c757b52475c2acc7d22ddc92cd3f0152b55d
-prerequisite-patch-id: 4bd31f1414d5248dc080884caadf5f21684a8427
-prerequisite-patch-id: 7beadbb0da3e589ed86d12f512d1c83427dd82b4
-prerequisite-patch-id: 12cd0f67ffd27347f90c065db491945908206b7f
-prerequisite-patch-id: 4642e31f66331f6c3b579377111ea733dbb3a11c
-prerequisite-patch-id: 52d67b40b4396c741e2222d6a5bc7927abcb77aa
-prerequisite-patch-id: 74ca82ff26cf9c7a993757c87db8be62006e820f
-prerequisite-patch-id: 466fb9fa7febbffd8ef51b311c7d9893c11fc0f0
-prerequisite-patch-id: e515cd98b06e26721cbbe6a4fbacd251d0073b63
-prerequisite-patch-id: 8dc8e75d9f6499a554ef7e474bbacdbf3660a9f2
-prerequisite-patch-id: 5fdb9f71dca2f44dd293760a60db125b770f1f55
-prerequisite-patch-id: c766a24c2d5064f5ec09daada0b8e8fba862d3aa
-prerequisite-patch-id: b768f6456d35fa7a80c015e34bbdba6082dbd593
-prerequisite-patch-id: 6a8b17234f12f7084e6e2ce843a7031b0a891ce4
-prerequisite-patch-id: 98b2deb9e60c1f28f90c5ee34fd608aaa9fd9420
-prerequisite-patch-id: 774b29be66e641ee50cedb4704cf49d8b9fabf50
-prerequisite-patch-id: cf95dc936cfc4b3a7a363435a51a48d9009645b3
-prerequisite-message-id: 20260530132736.3298549-1-dakr@kernel.org
-prerequisite-patch-id: 310c6bee038ca3909a8e5e58ec12b74f7189b869
-prerequisite-patch-id: 92812c3d42b29504838e6dc66c307ff5c035bb5e
 
