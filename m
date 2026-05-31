@@ -4,150 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE837CD5BD1
-	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 07:54:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85D98CD6E51
+	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 08:45:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD9C510E4B3;
-	Sun, 31 May 2026 07:54:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A119310E465;
+	Sun, 31 May 2026 08:45:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GWLINlPf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XMzlFmuv";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71B5E10E4B3
- for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 07:54:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780214064; x=1811750064;
- h=date:from:to:cc:subject:message-id:in-reply-to: mime-version;
- bh=dfM3cJ4PyM3QS9iBlKddYb1EseKZWLU596Ab+GYdtYk=;
- b=GWLINlPfSdVGC78V47CguBxXWZcgIiYH9VfbRj8e+hST/kX2f73QRg/w
- b3ID7YDVWiUp8tFvNQ2qM16ZuHkv5xYscM9YylFjJHreIBbBkeu21MpKq
- hjrCqpC2qK7tRQbp93+QPd5F94RRwFZPnopOXNOs3Klqbt0lIm+ZW5A+X
- i6AGApUmo3Sdgt7WgjjYUFo8fcI72x8lUtG96xGlzg9cXgu3nfQv9dozY
- rtXJ+3zYzChXOUULEalihJKm1bm8G+d/1AKZLQMEjg9otbFJzT4dNCWFV
- 5eqWrmid72pjjLaE3Ann7Z3yRTKRie6aIyzjQIaK4vRdzNVXYpcm6I8lv A==;
-X-CSE-ConnectionGUID: e4lqc0KkSdW+M1RHD4ACsA==
-X-CSE-MsgGUID: 49MNrQlNTjGCHj7EKiS4MQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11802"; a="80973686"
-X-IronPort-AV: E=Sophos;i="6.24,178,1774335600"; d="scan'208";a="80973686"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2026 00:54:23 -0700
-X-CSE-ConnectionGUID: f/ZU/5foRBu8XAqjgcPMoA==
-X-CSE-MsgGUID: n0jRTO5PS5G2nSWHXv9JwQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,178,1774335600"; d="scan'208";a="242461008"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2026 00:54:22 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Sun, 31 May 2026 00:54:22 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Sun, 31 May 2026 00:54:21 -0700
-Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.14) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Sun, 31 May 2026 00:54:21 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=STr+49PLQp45Y6EjeIhvX85SKfc3C0+oQePu4+mKRJ6bBIib5O/tSENCgXRz7qqvzfnxk1TIADmQVQhrB+qoe7sgzQ3dsFmylacU879lFQQGsY3IdOhJ0j7h4y/J94Ii5fcu/F5sy4WIB32HlXZaehhZ8vBt0gFqDATYySVUmv6NtLATCVhNT0JSgNnReteYDlxGYDkoO4aTeMhWj/c8IxuTP9U/BOKAGV9RZKxnkxLZHeV6GpOe8WX3B7CHwPydWS+JCgwI1snjUE34e0uj70DyVanp2mPxGgSFBIjzwlvv4vE1vd31NV76U7Fg6euecSQUCOLm0ZqTl8RRCqRIMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+l2/CC+1grcxcplQx4OOXSZXCdZP4TKSqpayKRe+kbM=;
- b=xXUzCgM76cfE1Pj/4wQ/Jx72x3L9HDh5Xtp5VudVQdTSVmU1mXz20etn5XdgE9bx5dDXn2LeKraIXlK7V/knq/skt5ftjOEyRj0OlKMBOWhBNJLSmM3qRuoSURRuD7btmCekcl78hW8I6e6CGKBDeT9v/8oNUY5ESEj+kLQyKJbBJ6WbbSAxwQZ+bjOgMzEh6ls31+B8Eu2TEWd29n4hIw11Xm6uuUauMuvSd0+GqeLKITRxP12uBsRUns4CAIWW8SnUBlxVPVz4p/8nV8SeBU9WyfHyQW7KK/pxsQbGTm1k/Nid7V1z9RfGNtl3aDWSRAK5wDY5lEoVYiDyJ3Zsxg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB5832.namprd11.prod.outlook.com (2603:10b6:510:141::7)
- by DM3PPFD2F4A0090.namprd11.prod.outlook.com (2603:10b6:f:fc00::f50)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Sun, 31 May
- 2026 07:54:19 +0000
-Received: from PH0PR11MB5832.namprd11.prod.outlook.com
- ([fe80::106e:78dd:4c96:d707]) by PH0PR11MB5832.namprd11.prod.outlook.com
- ([fe80::106e:78dd:4c96:d707%5]) with mapi id 15.21.0071.015; Sun, 31 May 2026
- 07:54:19 +0000
-Date: Sun, 31 May 2026 15:54:09 +0800
-From: kernel test robot <oliver.sang@intel.com>
-To: <w15303746062@163.com>
-CC: <oe-lkp@lists.linux.dev>, <lkp@intel.com>,
- <dri-devel@lists.freedesktop.org>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <sumit.semwal@linaro.org>, <christian.koenig@amd.com>,
- <jeffy.chen@rock-chips.com>, <linux-kernel@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>, Mingyu Wang
- <25181214217@stu.xidian.edu.cn>, <stable@vger.kernel.org>,
- <oliver.sang@intel.com>
-Subject: Re: [PATCH] drm/prime: Fix unsupervised rb_tree corruption in
- drm_prime_remove_buf_handle
-Message-ID: <202605310941.ddd52610-lkp@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260528082912.1051262-1-w15303746062@163.com>
-X-ClientProxiedBy: SI2P153CA0015.APCP153.PROD.OUTLOOK.COM
- (2603:1096:4:140::21) To PH0PR11MB5832.namprd11.prod.outlook.com
- (2603:10b6:510:141::7)
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13C2910E1CA
+ for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 08:45:26 +0000 (UTC)
+Received: by mail-dl1-f53.google.com with SMTP id
+ a92af1059eb24-137d452574cso864272c88.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 01:45:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780217125; x=1780821925; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=l/vPGPYIWZ3cYQnQnKuyT6luc+iRq2TIQF+FlFNhbeQ=;
+ b=XMzlFmuvU0s/PNt+WyePkg65pzaI6Zb3Uol7oJQkFwy7P4RZDinkzIM64ZAFiraFV5
+ QDzE+zDxLeNboaXpy9n/tqcazyeQO9AMrSxR3j21lxt7QOmIdPO/+ZOiO+TIgvBo5Wj6
+ HiSK96C9IpvpPnjVqxkDTtuJYBmZ9wM7pXoFEqLOcNCchIxOeceQovBfOrkbc5aDpHsz
+ 3fi8MdBRUeLdeU3PZL0tFdEGIChOaIgKw9oyuU6wKGCZrKPc7SJZsZOvNutdA6p0rXXX
+ Aeul0n4PFjHpqbP/wPoeEZyFE6Lwe9Ln2dPctJmQ+mIQNyeEXQyRfUhhZT6Br1XrR58e
+ JuoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780217125; x=1780821925;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=l/vPGPYIWZ3cYQnQnKuyT6luc+iRq2TIQF+FlFNhbeQ=;
+ b=PrrmLGhycb2L28EgMoEWrZDoUQMeiZIx4Mxf9thjC1A1VvLJuIdd4QBiSar78KEidd
+ bx6ICR47X3/Gw4Ks85btb3fP6wAOo4d4qF/7eW0j63M+KlbOS+xtJR2W+tH5hwFzUoIp
+ GUL68WaS6ubAh4ribjBhnb1NeVtaliGpb18WKQaRCvEhCjrAivNuW4uY2bDTe3Xh3PVO
+ V+P0q2sSe88cj79+bhSJrnTn67qsSxVyzqtCkA3j3dWRKsjTdnDkR5yjMIoQxXtL/hSl
+ tn7kzoW/J9smT5pfsrTkUNso7AbecngpSQlsYqsyzKkU32x0c7muSrDlEcZUKq+mgrq1
+ iLlQ==
+X-Gm-Message-State: AOJu0YzmrnQF0bnQ08qbpeoOP+8t+1tLwxKE4te7r9zggQXB5oPt3fME
+ T/HQ6XCpCnYneOEmv94qHGE4nWLHEPDW1p2jVbHn1Nb3DLQKICX7aug+
+X-Gm-Gg: Acq92OECecs9xEnPpMS0L6/DHg6AkzvvBlhxZjXdqVpAOfcV85y6FT/fbPOAFZNaAX5
+ ZM0sLLHuoNIh2UjujNfWDLsznBx9R5gWH4BvvhW8oO9EvOLSlJabr4t9t+hXsYBW6LVTGli63s/
+ UaH6bbDYAbmrN8jlSW34A76bQLyXBdpRWXCjbm0XeH8KcbMfHO1j74RYuzqAU2WNTJRPxSE7QIe
+ 3r81X3ZPlu/WVTntK8GyKT+w+NLtW8bPFb6EZnmRej5WFORjQqpUDTt1Hgi2MlCZFEMYF/yNgRL
+ NnXxBRrXyujhQMY21M6Xzvx+RfjLr7zTzLUtxizgu2A9vqYqe+API/LJBxRJBoMcw25VAlVe/UJ
+ 6FOXGFO7AN+FGuMoZvtvqn85n9H+h9AOisMga+xQPjstcHNzTlwMInu3lrAKAJ61VYb37gUAjKH
+ +fxzlSOLn8vYBgkpQ3DQ8ujASFGo3NJutFPj/SH6Kj
+X-Received: by 2002:a05:7300:ef83:b0:304:ba84:a0cc with SMTP id
+ 5a478bee46e88-304fa74682bmr2981286eec.33.1780217124924; 
+ Sun, 31 May 2026 01:45:24 -0700 (PDT)
+Received: from wujing.localdomain ([23.254.208.9])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-304ed5a0b7dsm6124336eec.22.2026.05.31.01.45.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 31 May 2026 01:45:24 -0700 (PDT)
+From: Qiliang Yuan <realwujing@gmail.com>
+Date: Sun, 31 May 2026 16:45:19 +0800
+Subject: [PATCH v5] cgroup/dmem: implement dmem.high soft limit via
+ prioritized eviction
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB5832:EE_|DM3PPFD2F4A0090:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ed14536-d9ca-4014-4150-08debee9d1cb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|366016|6133799003|3023799007|5023799004|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: C9zm/Jih5Q3UlAYfrvXopRtZKCeulD2MNaSj9AmkBIEMkjLLdrHG44AU2aSBsO67OoMpvZmi1bUB7IkY9BcAzenyfQwq3iQozPfhDgDU6aYplMcrj0pK3e0sAmTlqsyKaMUbHMp/nqt2aC3rg/PW3Xkc6Jp6e6VfkEtU2cQ13O+TOd1cBO9qFpkt3rnuzMQ1WhilhPdZYD1iTAN6BoKpkkQuwUt6zawEPAErvaQ/udjMrma2e1/9p92tO2Id4SR0G3pgPlo6wVZPUwZyPORsdMopQvAMY3xhMsF0lySMlAlhDfckWX6LfroRVnAvccnquOlI6sW4agRGAwckwW81okXrPnh/MUYpAb9ERtqr8OXdIHAjsH6wJDvZ0vMoKtoZJwdQ455QsrBOwzj+IzLKfBRauDVO90X0RU2OA6I+e4eLPVH1K0Wsf8zk4o5vgDbvxTNIgpEsgifEC2eQf2vPDRcdcIL9Nntw79NUpXvC7iqZHk0Lt+4oGJ1VsBFyqnY4/Rg7jJ9m5OSZLDo+BNOf58B4myLR8OKOE2SldGj4H50VGc9Ke5rCJjHV+EFF5mmxCKMkIDAMTkNvddn0o8a3dcs5+CHU6fLnWbUrvTHhC/nQAMUdSlONRKQ8h0GT0rH1n5mdo+ymkwlRveLkHPE0Gg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB5832.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016)(6133799003)(3023799007)(5023799004)(18002099003)(22082099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?z/EWBuB+a4Q8/960397psuYC9ZvaT4Ml4UQ04te/q+xAkKqbwe17Kp9yM55g?=
- =?us-ascii?Q?NpCP0euXkwI16CK91k1o2bw2yFqfg31mUEKyHwtfLBo72u8ZnTNxYamkEw7m?=
- =?us-ascii?Q?zcsVuvo2TRCxHyPdKL86FuLiMAfbhEV/4Yz6qRgk1olrxvg4grnEasegY7Jp?=
- =?us-ascii?Q?H7Wg2MnMLI1x8K28IAOiEencSna1gUzBgRjvQFPIVAyJNfuiv484ojd5fNPL?=
- =?us-ascii?Q?4jqtEpX3qv88XB4++TudSiYybYaIVkmZ/JxxkW2BM0/d580siiSCNpbx4W0u?=
- =?us-ascii?Q?BeMRKm4T4IB1xohuD/ZEHXbQfUBrDt3ZupdS2hyeDi42EGxOC3uZ2YqF/ABh?=
- =?us-ascii?Q?B+eRY7sb9vEt4jxz8/W6Exhgv4DbTNhQr2kaFZhlW/8bWtl4aeGj0+CY1Ktg?=
- =?us-ascii?Q?nn53Gw40/Jjy5yvPcE6XrgsFn+kiXbd0aqHqiEL8FjSA8oum02qAEYfJilj8?=
- =?us-ascii?Q?wNPVtIWQH+FHFTpnVIvypaHZfZ2MzcNdV+6dWKDxbnylIsJB6M5nYg1iS/8e?=
- =?us-ascii?Q?0p8y+3CKn69Be1dN7uhYBPDDsvdjAXFjL0OfevR7z3aCrcQtGBjRoMOiHrB1?=
- =?us-ascii?Q?UL/XsK/YvXns5eTwULl+EdquDgN+3Z9gV7XLSMkRSXisQYYKSgA/n3kwbC0i?=
- =?us-ascii?Q?l/wbxMBmcR5ftq8RVpfGLGNH9d4wFn4ssOo3Ebc8gBX7KxXYwLnS0wT8vJ80?=
- =?us-ascii?Q?sGTu665t/l1XKYVLLi9WsfcjrbZdIdODLrvEBRI2gVrHsa51nDwFj/khjWFa?=
- =?us-ascii?Q?Cedp4ilyxyTGgwyhqIz50fu2S+WR5xQE4V+UPDzBgi/XinwqxRxJjxqfUZDQ?=
- =?us-ascii?Q?wdOWIlu0Pa4iSzBNV8p0ZDew2IUPySMrlkUWbeT/vgZcGDOjLsY+q8w9Xqal?=
- =?us-ascii?Q?YquXjnCucfMEO62sxrOGa8oxmBXOPTyUj+steqqe89LPLCG+BPx7WeBdXrc1?=
- =?us-ascii?Q?7tm1kIB+0QJ0sJsYHhqPTp7Sum37YkwttTS2yiNJNFkDafKxKNCMsXusY3pw?=
- =?us-ascii?Q?jiiwZ2VkFLzxJFo31yijqnmM1es3Ue6aup7eB/ZmpnKqQ2i4nMqT6HEsWsuW?=
- =?us-ascii?Q?DvjJpksP5vlGU3oriJKgNef8CVWCcnwuj+S9PqCQkx1DYgY6075KoiN20xc6?=
- =?us-ascii?Q?UxiGRM/P+VDxsPSzVRhGfXhirx8Q8QVQL5HO2gGFs4uLtjEAlbaJhhwacaOr?=
- =?us-ascii?Q?ajdDu5CDj9RgSRJ0I1R1iNsUr5OnzyjvR8Fm7SedYMVCJns03WYTv1TKRs55?=
- =?us-ascii?Q?r3z+y70k/KfTsHiLni0tYnKXDks9NMhDuWaD9eq/jBz742iMkk9yMi7EAPx9?=
- =?us-ascii?Q?UiP0xfRIxRAqR/lw9PmIZltcRafLc0oUAeLYZZhMNlvliwl/llRhmxmOfHm5?=
- =?us-ascii?Q?t+2LyfxuUk5V9vSIWvnExG4D1eDmmBIIGbpYtUNHefD0NCXOK02meA7+jhjI?=
- =?us-ascii?Q?yNh2J9vFMQ2iO7PcZJu/xH+4ErUR/SGhYkv4yTEVWwALPffIprmTYo+D/xOq?=
- =?us-ascii?Q?BnoQWyi57hNfeVYLILmciv18WPa3jnGA5ClGIyew2LaLv3E6nRVRx9Z/8bKs?=
- =?us-ascii?Q?qiDusNrnEDan7dAsj/R6v9k0atJUvLTVzZ4L8gNlPzqk1+R/i+KWIzjzja1T?=
- =?us-ascii?Q?ziaToKgD87q1nyMnmz0Fu+1V3wp8GYsvMn0J9JkjlQaiX7M4HDWjKxSqUtmr?=
- =?us-ascii?Q?huJm75pyVdAItXmxasxtxzrWscgK05raxqX3hwmWcCncam96xJ8vpjNSIMwz?=
- =?us-ascii?Q?QO2CD5o+Pw=3D=3D?=
-X-Exchange-RoutingPolicyChecked: SotBIqOrlzwtXkrJ6YeNCT9nJxcUvKerrDg6XcaLy51YC/u2nv1E0UDTm/yTdsqfifuQevktZhzHJA1mjqySHw2ksVBZAANKzEhzcCVeNBiLDTUEpeBhfKK3ABRgv947QPSrhlbt0hCVEgjPf+T1LtMWz/PBHiyJPv/xI3OAxl2mcPvQkCXIydLnHoNDkg9t6d7h8gOjq2m6nXvQlKB4l+C6Wr+CI94d7TL93SEpz54QCR1JDTJkO7L3zIcuvEa93B2ISOJV+qnykL/IpV6ievNKgYG0VwC8WfeQB/V98trhhHxcJ1yR4DJx7PukdrPuUBJWI6sKo62PCGu4jwBgHA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ed14536-d9ca-4014-4150-08debee9d1cb
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB5832.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2026 07:54:19.1104 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: h3tnhFZqBobOXOXdaasounhRoNi89n5NqB9bKTTWT3JXVqUihFQbnrHsN8oSrH5rJ/+TYMckvojKe92/T7/tfA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPFD2F4A0090
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260531-feature-dmem-high-v5-1-1c6c532b26a9@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyTHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDU0NL3bTUxJLSolTdlNzUXN2MzPQMXUMzS0tzQxOLlGRjCyWgvoKi1LT
+ MCrCZ0bG1tQCG0bt4YwAAAA==
+X-Change-ID: 20260519-feature-dmem-high-16997148dc38
+To: Christian Koenig <christian.koenig@amd.com>, 
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Natalie Vock <natalie.vock@gmx.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ cgroups@vger.kernel.org, Qiliang Yuan <realwujing@gmail.com>
+X-Mailer: b4 0.14.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,194 +97,374 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+The dmem cgroup v2 controller currently only provides a hard "max"
+limit, which causes immediate allocation failures when a cgroup's
+device memory usage reaches its quota.  GPU-bound AI workloads need
+smoother over-subscription support: a soft limit that temporarily
+allows excess usage while applying backpressure through reclaim
+rather than outright failure.
 
+Add dmem.high, a soft limit that penalizes over-limit cgroups by
+evicting their buffer objects first when eviction is triggered (e.g.
+due to a "max" limit hit).  Unlike the rejected v1 approach which
+used sleep-on-allocation throttling, this version provides a
+meaningful recovery action through prioritized reclaim.
 
-Hello,
+Expose "high" as a new cgroupfs control file per region via
+set_resource_high() and get_resource_high(), and initialize it to
+PAGE_COUNTER_MAX in reset_all_resource_limits().  Like get_resource_max(),
+get_resource_high() returns PAGE_COUNTER_MAX when the pool is NULL.
 
-kernel test robot noticed "WARNING:possible_recursive_locking_detected" on:
+Extend dmem_cgroup_state_evict_valuable() with a "try_high"
+parameter.  When set, the function walks the page_counter parent
+chain to check whether any ancestor exceeds its high limit, and
+verifies that the pool is above its effective minimum to respect
+dmem.min protection.  For the limit-hitting cgroup's own BOs, the
+ancestry check is skipped but the high threshold still applies.
 
-commit: 60a023d26c97753be2beee6062d71ce9416725b1 ("[PATCH] drm/prime: Fix unsupervised rb_tree corruption in drm_prime_remove_buf_handle")
-url: https://github.com/intel-lab-lkp/linux/commits/w15303746062-163-com/drm-prime-Fix-unsupervised-rb_tree-corruption-in-drm_prime_remove_buf_handle/20260528-163356
-base: https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link: https://lore.kernel.org/all/20260528082912.1051262-1-w15303746062@163.com/
-patch subject: [PATCH] drm/prime: Fix unsupervised rb_tree corruption in drm_prime_remove_buf_handle
+Refactor ttm_bo_evict_alloc() into a 3-pass eviction strategy.
+Pass 1 targets only BOs whose cgroup exceeds dmem.high, using a
+blocking lock when a ticket is available or trylock otherwise.
+Pass 2 falls back to the standard above-elow trylock eviction.
+Pass 3+ uses proper locking and repeats while making progress
+with the existing low-watermark fallback.
 
-in testcase: boot
+Signed-off-by: Qiliang Yuan <realwujing@gmail.com>
+---
+Introduce a "high" soft limit for the dmem cgroup v2 controller.
+When a "max" limit is hit and eviction is triggered, buffer objects
+belonging to cgroups that exceed their dmem.high limit are targeted
+first, providing a meaningful recovery action through reclaim.
 
-config: x86_64-rhel-9.4-bpf
-compiler: gcc-14
-test machine: qemu-system-x86_64 -enable-kvm -cpu SandyBridge -smp 2 -m 32G
+The dmem cgroup currently only supports hard "max" limits, which
+cause immediate allocation failures for GPU-bound workloads. A soft
+limit enables smoother over-subscription by penalizing over-limit
+cgroups via prioritized eviction rather than outright rejection.
 
-(please refer to attached dmesg/kmsg for entire log/backtrace)
+The implementation adds a "high" cgroupfs control file per region,
+a try_high parameter to dmem_cgroup_state_evict_valuable() for
+tier-1 eviction, and a 3-pass strategy in ttm_bo_evict_alloc().
+---
+V4 -> V5:
+- Restore the original control flow in dmem_cgroup_state_evict_valuable():
+  test_pool is no longer dereferenced before the ancestry checks, fixing
+  a NULL pointer dereference on BOs without a cgroup.  The limit_pool
+  NULL-to-root-cgroup resolution is now performed before the try_high
+  block, fixing a panic during global memory pressure eviction.
+- Keep the try_high check for limit_pool == test_pool inside the existing
+  early-return branch to avoid bypassing the hierarchy constraint check
+  that prevents cross-cgroup eviction.
+- Use a blocking lock in Pass 1 only when a ticket is available
+  (trylock otherwise), addressing the deadlock risk of blocking without
+  a valid ww_acquire_ctx.
+- Explicitly reset trylock_only to true before Pass 2 so it does not
+  inherit Pass 1's blocking behavior.
 
+V3 -> V4:
+- Use a blocking lock in Pass 1 instead of trylock to ensure
+  over-limit cgroups are penalized even when their BOs are actively
+  in use, as requested by Maarten Lankhorst.
+- Evaluate the try_high condition before the limit_pool == test_pool
+  early-return so that the limit-hitting cgroup's own BOs are also
+  filtered by dmem.high.
+- Remove the high-priority compensation retry at the start of Pass 3,
+  which is no longer needed now that Pass 1 uses a blocking lock.
 
+V2 -> V3:
+- Walk the page_counter parent chain in the try_high pass to prevent
+  child cgroups from evading the penalty when a parent cgroup exceeds
+  its dmem.high limit.
+- Check dmem.min protection in the try_high pass to avoid evicting
+  BOs below the effective minimum.
+- Add a properly-locked high-priority retry at the beginning of Pass 3
+  so that actively-used over-limit BOs (which failed trylock in Pass 1)
+  are not skipped while innocent cgroups are evicted.
+- Fix get_resource_high(NULL) returning 0 instead of PAGE_COUNTER_MAX
+  to match the behavior of get_resource_max().
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <oliver.sang@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202605310941.ddd52610-lkp@intel.com
+V1 -> V2:
+- Replace sleep-on-allocation throttling with prioritized eviction.
+  When a "max" limit is hit, BOs from cgroups exceeding dmem.high are
+  evicted first in a dedicated pass. No throttling or sleeping is
+  performed in the charge path.
+- Remove task throttling (schedule_timeout_killable, TIF_NOTIFY_RESUME,
+  resume_user_mode_work() integration) entirely.
+- Add dmem.high cgroupfs control file per region.
+- Extend dmem_cgroup_state_evict_valuable() with try_high parameter
+  to target over-limit cgroups as tier-1 eviction.
+- Refactor ttm_bo_evict_alloc() into a 3-pass eviction strategy:
+  (1) trylock: evict only BOs exceeding dmem.high
+  (2) trylock: above-elow
+  (3) proper-lock: repeat with low fallback.
+- Initialize high to PAGE_COUNTER_MAX in reset_all_resource_limits().
 
+v4: https://lore.kernel.org/r/20260530-feature-dmem-high-v4-1-ee7c6ec1c8da@gmail.com
+v3: https://lore.kernel.org/r/20260528-feature-dmem-high-v3-1-c642b34bcb2f@gmail.com
+v2: https://lore.kernel.org/r/20260522-feature-dmem-high-v2-1-1d7d4a0fa5da@gmail.com
+v1: https://lore.kernel.org/all/20260520-feature-dmem-high-v1-1-97ca0cb7f95a@gmail.com
+---
+ drivers/gpu/drm/ttm/ttm_bo.c | 33 ++++++++++++++----
+ include/linux/cgroup_dmem.h  |  4 +--
+ kernel/cgroup/dmem.c         | 79 +++++++++++++++++++++++++++++++++++++++++---
+ 3 files changed, 103 insertions(+), 13 deletions(-)
 
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index bcd76f6bb7f02..21fe34fd43eec 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -505,6 +505,8 @@ struct ttm_bo_evict_walk {
+ 
+ 	/** @limit_pool: Which pool limit we should test against */
+ 	struct dmem_cgroup_pool_state *limit_pool;
++	/** @try_high: Whether to only evict BO's above the high watermark (first pass) */
++	bool try_high;
+ 	/** @try_low: Whether we should attempt to evict BO's with low watermark threshold */
+ 	bool try_low;
+ 	/** @hit_low: If we cannot evict a bo when @try_low is false (first pass) */
+@@ -518,7 +520,8 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
+ 	s64 lret;
+ 
+ 	if (!dmem_cgroup_state_evict_valuable(evict_walk->limit_pool, bo->resource->css,
+-					      evict_walk->try_low, &evict_walk->hit_low))
++					      evict_walk->try_high, evict_walk->try_low,
++					      &evict_walk->hit_low))
+ 		return 0;
+ 
+ 	if (bo->pin_count || !bo->bdev->funcs->eviction_valuable(bo, evict_walk->place))
+@@ -577,31 +580,47 @@ static int ttm_bo_evict_alloc(struct ttm_device *bdev,
+ 	};
+ 	s64 lret;
+ 
+-	evict_walk.walk.arg.trylock_only = true;
++	/*
++	 * Pass 1 (high-priority): Evict only BOs whose cgroup exceeds its
++	 * dmem.high soft limit.  A blocking lock is used when a ticket is
++	 * available to ensure over-limit cgroups are penalized even when
++	 * their BOs are actively in use; trylock otherwise.
++	 */
++	evict_walk.walk.arg.trylock_only = !ticket;
++	evict_walk.try_high = true;
+ 	lret = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man, 1);
++	evict_walk.try_high = false;
++	if (lret)
++		goto out;
+ 
+-	/* One more attempt if we hit low limit? */
++	/*
++	 * Pass 2 (trylock): Evict BOs above the effective low watermark.
++	 * Falls back to low-priority eviction if needed.
++	 */
++	evict_walk.walk.arg.trylock_only = true;
++	lret = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man, 1);
+ 	if (!lret && evict_walk.hit_low) {
+ 		evict_walk.try_low = true;
+ 		lret = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man, 1);
+ 	}
++
+ 	if (lret || !ticket)
+ 		goto out;
+ 
+-	/* Reset low limit */
++	/*
++	 * Pass 3+ (properly locked): Evict while making progress.
++	 * Reset flags and retry with try_low if we hit the low watermark.
++	 */
+ 	evict_walk.try_low = evict_walk.hit_low = false;
+-	/* If ticket-locking, repeat while making progress. */
+ 	evict_walk.walk.arg.trylock_only = false;
+ 
+ retry:
+ 	do {
+-		/* The walk may clear the evict_walk.walk.ticket field */
+ 		evict_walk.walk.arg.ticket = ticket;
+ 		evict_walk.evicted = 0;
+ 		lret = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man, 1);
+ 	} while (!lret && evict_walk.evicted);
+ 
+-	/* We hit the low limit? Try once more */
+ 	if (!lret && evict_walk.hit_low && !evict_walk.try_low) {
+ 		evict_walk.try_low = true;
+ 		goto retry;
+diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
+index dd4869f1d736e..06115d35509b1 100644
+--- a/include/linux/cgroup_dmem.h
++++ b/include/linux/cgroup_dmem.h
+@@ -23,7 +23,7 @@ int dmem_cgroup_try_charge(struct dmem_cgroup_region *region, u64 size,
+ void dmem_cgroup_uncharge(struct dmem_cgroup_pool_state *pool, u64 size);
+ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
+ 				      struct dmem_cgroup_pool_state *test_pool,
+-				      bool ignore_low, bool *ret_hit_low);
++				      bool try_high, bool ignore_low, bool *ret_hit_low);
+ 
+ void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool);
+ #else
+@@ -54,7 +54,7 @@ static inline void dmem_cgroup_uncharge(struct dmem_cgroup_pool_state *pool, u64
+ static inline
+ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
+ 				      struct dmem_cgroup_pool_state *test_pool,
+-				      bool ignore_low, bool *ret_hit_low)
++				      bool try_high, bool ignore_low, bool *ret_hit_low)
+ {
+ 	return true;
+ }
+diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+index 4753a67d0f0f2..29f8c68e92f7f 100644
+--- a/kernel/cgroup/dmem.c
++++ b/kernel/cgroup/dmem.c
+@@ -156,6 +156,12 @@ set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val)
+ 	page_counter_set_low(&pool->cnt, val);
+ }
+ 
++static void
++set_resource_high(struct dmem_cgroup_pool_state *pool, u64 val)
++{
++	page_counter_set_high(&pool->cnt, val);
++}
++
+ static void
+ set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
+ {
+@@ -167,6 +173,11 @@ static u64 get_resource_low(struct dmem_cgroup_pool_state *pool)
+ 	return pool ? READ_ONCE(pool->cnt.low) : 0;
+ }
+ 
++static u64 get_resource_high(struct dmem_cgroup_pool_state *pool)
++{
++	return pool ? READ_ONCE(pool->cnt.high) : PAGE_COUNTER_MAX;
++}
++
+ static u64 get_resource_min(struct dmem_cgroup_pool_state *pool)
+ {
+ 	return pool ? READ_ONCE(pool->cnt.min) : 0;
+@@ -186,6 +197,7 @@ static void reset_all_resource_limits(struct dmem_cgroup_pool_state *rpool)
+ {
+ 	set_resource_min(rpool, 0);
+ 	set_resource_low(rpool, 0);
++	set_resource_high(rpool, PAGE_COUNTER_MAX);
+ 	set_resource_max(rpool, PAGE_COUNTER_MAX);
+ }
+ 
+@@ -289,10 +301,13 @@ dmem_cgroup_calculate_protection(struct dmem_cgroup_pool_state *limit_pool,
+  * dmem_cgroup_state_evict_valuable() - Check if we should evict from test_pool
+  * @limit_pool: The pool for which we hit limits
+  * @test_pool: The pool for which to test
++ * @try_high: Only evict BOs whose usage exceeds the high limit (first pass)
+  * @ignore_low: Whether we have to respect low watermarks.
+  * @ret_hit_low: Pointer to whether it makes sense to consider low watermark.
+  *
+  * This function returns true if we can evict from @test_pool, false if not.
++ * When @try_high is set, only pools with usage above their high limit are
++ * evictable, enabling prioritized eviction of over-limit cgroups.
+  * When returning false and @ignore_low is false, @ret_hit_low may
+  * be set to true to indicate this function can be retried with @ignore_low
+  * set to true.
+@@ -301,15 +316,26 @@ dmem_cgroup_calculate_protection(struct dmem_cgroup_pool_state *limit_pool,
+  */
+ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
+ 				      struct dmem_cgroup_pool_state *test_pool,
+-				      bool ignore_low, bool *ret_hit_low)
++				      bool try_high, bool ignore_low, bool *ret_hit_low)
+ {
+ 	struct dmem_cgroup_pool_state *pool = test_pool;
+ 	struct page_counter *ctest;
+ 	u64 used, min, low;
+ 
+-	/* Can always evict from current pool, despite limits */
+-	if (limit_pool == test_pool)
++	/*
++	 * When the limit-hitting cgroup's own BOs are being considered
++	 * in try_high mode, only evict them if their pool exceeds its
++	 * own dmem.high limit.  For non-try_high mode, maintain the
++	 * existing behavior: always evict from the limit-hitting pool.
++	 */
++	if (limit_pool == test_pool) {
++		if (try_high) {
++			ctest = &test_pool->cnt;
++			used = page_counter_read(ctest);
++			return used > READ_ONCE(ctest->high);
++		}
+ 		return true;
++	}
+ 
+ 	if (limit_pool) {
+ 		if (!parent_dmemcs(limit_pool->cs))
+@@ -330,10 +356,38 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
+ 	}
+ 
+ 	ctest = &test_pool->cnt;
++	used = page_counter_read(ctest);
++
++	if (try_high) {
++		struct page_counter *c;
++
++		/*
++		 * Walk the page_counter parent chain to check whether any
++		 * ancestor cgroup exceeds its dmem.high limit.  This prevents
++		 * child cgroups from evading the penalty when a parent cgroup
++		 * is over its high limit.
++		 */
++		if (used <= READ_ONCE(ctest->high)) {
++			for (c = ctest->parent; c; c = c->parent) {
++				if (page_counter_read(c) > READ_ONCE(c->high))
++					break;
++			}
++			if (!c)
++				return false;
++		}
++
++		/*
++		 * Respect dmem.min protection: do not evict BOs below the
++		 * effective minimum even during the high-priority pass.
++		 */
++		dmem_cgroup_calculate_protection(limit_pool, test_pool);
++		min = READ_ONCE(ctest->emin);
++
++		return used > min;
++	}
+ 
+ 	dmem_cgroup_calculate_protection(limit_pool, test_pool);
+ 
+-	used = page_counter_read(ctest);
+ 	min = READ_ONCE(ctest->emin);
+ 
+ 	if (used <= min)
+@@ -835,6 +889,17 @@ static ssize_t dmem_cgroup_region_low_write(struct kernfs_open_file *of,
+ 	return dmemcg_limit_write(of, buf, nbytes, off, set_resource_low);
+ }
+ 
++static int dmem_cgroup_region_high_show(struct seq_file *sf, void *v)
++{
++	return dmemcg_limit_show(sf, v, get_resource_high);
++}
++
++static ssize_t dmem_cgroup_region_high_write(struct kernfs_open_file *of,
++					  char *buf, size_t nbytes, loff_t off)
++{
++	return dmemcg_limit_write(of, buf, nbytes, off, set_resource_high);
++}
++
+ static int dmem_cgroup_region_max_show(struct seq_file *sf, void *v)
+ {
+ 	return dmemcg_limit_show(sf, v, get_resource_max);
+@@ -868,6 +933,12 @@ static struct cftype files[] = {
+ 		.seq_show = dmem_cgroup_region_low_show,
+ 		.flags = CFTYPE_NOT_ON_ROOT,
+ 	},
++	{
++		.name = "high",
++		.write = dmem_cgroup_region_high_write,
++		.seq_show = dmem_cgroup_region_high_show,
++		.flags = CFTYPE_NOT_ON_ROOT,
++	},
+ 	{
+ 		.name = "max",
+ 		.write = dmem_cgroup_region_max_write,
 
-[   86.630882][  T218] WARNING: possible recursive locking detected
-[   86.631312][  T218] 7.1.0-rc2+ #1 Not tainted
-[   86.631634][  T218] --------------------------------------------
-[   86.632065][  T218] (udev-worker)/218 is trying to acquire lock:
-[   86.632529][  T218] ffff8881ab017388 (&prime_fpriv->lock){+.+.}-{4:4}, at: drm_prime_remove_buf_handle (gpu/drm/drm_prime.c:195) drm
-[   86.633434][  T218]
-[   86.633434][  T218] but task is already holding lock:
-[   86.633951][  T218] ffff8881ab017388 (&prime_fpriv->lock){+.+.}-{4:4}, at: drm_gem_object_release_handle (gpu/drm/drm_gem.c:377) drm
-[   86.638664][  T218]
-[   86.638664][  T218] other info that might help us debug this:
-[   86.639229][  T218]  Possible unsafe locking scenario:
-[   86.639229][  T218]
-[   86.639769][  T218]        CPU0
-[   86.640006][  T218]        ----
-[   86.640243][  T218]   lock(&prime_fpriv->lock);
-[   86.640581][  T218]   lock(&prime_fpriv->lock);
-[   86.640916][  T218]
-[   86.640916][  T218]  *** DEADLOCK ***
-[   86.640916][  T218]
-[   86.641480][  T218]  May be due to missing lock nesting notation
-[   86.641480][  T218]
-[   86.642060][  T218] 4 locks held by (udev-worker)/218:
-[   86.642446][  T218]  #0: ffff8881022921f8 (&dev->mutex){....}-{4:4}, at: __driver_attach (linux/device.h:1040 base/dd.c:1174 base/dd.c:1294)
-[   86.643133][  T218]  #1: ffff8881ab020260 (&dev->clientlist_mutex){+.+.}-{4:4}, at: drm_client_register (gpu/drm/drm_client.c:129) drm
-[   86.644051][  T218]  #2: ffff8882a2b58a70 (&helper->lock){+.+.}-{4:4}, at: drm_fb_helper_initial_config (gpu/drm/drm_fb_helper.c:1717 gpu/drm/drm_fb_helper.c:1710) drm_kms_helper
-[   86.644930][  T218]  #3: ffff8881ab017388 (&prime_fpriv->lock){+.+.}-{4:4}, at: drm_gem_object_release_handle (gpu/drm/drm_gem.c:377) drm
-[   86.645880][  T218]
-[   86.645880][  T218] stack backtrace:
-[   86.646300][  T218] CPU: 1 UID: 0 PID: 218 Comm: (udev-worker) Not tainted 7.1.0-rc2+ #1 PREEMPT(full)
-[   86.646307][  T218] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[   86.646311][  T218] Call Trace:
-[   86.646316][  T218]  <TASK>
-[   86.646321][  T218]  dump_stack_lvl (dump_stack.c:94 dump_stack.c:120)
-[   86.646333][  T218]  print_deadlock_bug.cold (locking/lockdep.c:3041)
-[   86.646341][  T218]  validate_chain (locking/lockdep.c:3093 locking/lockdep.c:3895)
-[   86.646350][  T218]  __lock_acquire (locking/lockdep.c:5237)
-[   86.646366][  T218]  lock_acquire (trace/events/lock.h:24 (discriminator 15) trace/events/lock.h:24 (discriminator 15) locking/lockdep.c:5831 (discriminator 15))
-[   86.646372][  T218]  ? drm_prime_remove_buf_handle (gpu/drm/drm_prime.c:195) drm
-[   86.646516][  T218]  ? rcu_is_watching (x86/include/asm/atomic.h:23 linux/atomic/atomic-arch-fallback.h:457 linux/context_tracking.h:128 rcu/tree.c:752)
-[   86.646521][  T218]  ? drm_prime_remove_buf_handle (gpu/drm/drm_prime.c:195) drm
-[   86.646659][  T218]  ? lock_acquire (trace/events/lock.h:24 (discriminator 21) locking/lockdep.c:5831 (discriminator 21))
-[   86.646665][  T218]  __mutex_lock (locking/mutex.c:646 locking/mutex.c:820)
-[   86.646675][  T218]  ? drm_prime_remove_buf_handle (gpu/drm/drm_prime.c:195) drm
-[   86.646814][  T218]  ? drm_prime_remove_buf_handle (gpu/drm/drm_prime.c:195) drm
-[   86.646952][  T218]  ? __mutex_lock (locking/mutex.c:656 locking/mutex.c:820)
-[   86.646958][  T218]  ? drm_gem_object_release_handle (gpu/drm/drm_gem.c:377) drm
-[   86.647103][  T218]  ? __pfx___mutex_lock (locking/mutex.c:914)
-[   86.647109][  T218]  ? __pfx___mutex_lock (locking/mutex.c:914)
-[   86.647116][  T218]  ? idr_replace (idr.c:304)
-[   86.647124][  T218]  ? drm_prime_remove_buf_handle (gpu/drm/drm_prime.c:195) drm
-[   86.647264][  T218] drm_prime_remove_buf_handle (gpu/drm/drm_prime.c:195) drm
-[   86.647408][  T218] drm_gem_object_release_handle (gpu/drm/drm_gem.c:379) drm
-[   86.647555][  T218] drm_gem_handle_delete (gpu/drm/drm_gem.c:413) drm
-[   86.647700][  T218] drm_client_buffer_create_dumb (gpu/drm/drm_client.c:424) drm
-[   86.647840][  T218]  ? __pfx_drm_client_buffer_create_dumb (gpu/drm/drm_client.c:267) drm
-[   86.647977][  T218]  ? drm_fb_helper_single_fb_probe (gpu/drm/drm_fb_helper.c:1414 gpu/drm/drm_fb_helper.c:1445) drm_kms_helper
-[   86.648030][  T218] drm_fbdev_shmem_driver_fbdev_probe (gpu/drm/drm_fbdev_shmem.c:151) drm_shmem_helper
-[   86.648045][  T218]  ? __pfx_drm_fbdev_shmem_driver_fbdev_probe (gpu/drm/drm_fbdev_shmem.c:119) drm_shmem_helper
-[   86.648055][  T218]  ? __kmalloc_noprof (linux/local_lock_internal.h:62 slub.c:4771 slub.c:4883 slub.c:5294 slub.c:5307)
-[   86.648064][  T218]  ? rcu_is_watching (x86/include/asm/atomic.h:23 linux/atomic/atomic-arch-fallback.h:457 linux/context_tracking.h:128 rcu/tree.c:752)
-[   86.648073][  T218] drm_fb_helper_single_fb_probe (gpu/drm/drm_fb_helper.c:1454) drm_kms_helper
-[   86.648121][  T218]  ? __pfx_drm_fb_helper_single_fb_probe (gpu/drm/drm_fb_helper.c:1391) drm_kms_helper
-[   86.648167][  T218]  ? fb_copy_cmap (video/fbdev/core/fbcmap.c:187)
-[   86.648174][  T218]  ? fb_alloc_cmap_gfp (video/fbdev/core/fbcmap.c:124 (discriminator 1))
-[   86.648180][  T218] __drm_fb_helper_initial_config_and_unlock (gpu/drm/drm_fb_helper.c:1635) drm_kms_helper
-[   86.648230][  T218] drm_fbdev_client_hotplug (gpu/drm/clients/drm_fbdev_client.c:66) drm_client_lib
-[   86.648239][  T218] drm_client_register (gpu/drm/drm_client.c:143) drm
-[   86.648376][  T218] drm_fbdev_client_setup (gpu/drm/clients/drm_fbdev_client.c:168) drm_client_lib
-[   86.648383][  T218] drm_client_setup (gpu/drm/clients/drm_client_setup.c:46 gpu/drm/clients/drm_client_setup.c:35) drm_client_lib
-[   86.648390][  T218] bochs_pci_probe (gpu/drm/tiny/bochs.c:776 gpu/drm/tiny/bochs.c:747) bochs
-[   86.648405][  T218]  ? __pfx_bochs_pci_probe (gpu/drm/tiny/bochs.c:254) bochs
-[   86.648413][  T218]  local_pci_probe (pci/pci-driver.c:325)
-[   86.648422][  T218]  pci_call_probe (pci/pci-driver.c:387)
-[   86.648427][  T218]  ? __pfx_pci_call_probe (pci/pci-driver.c:653)
-[   86.648432][  T218]  ? find_held_lock (locking/lockdep.c:5350)
-[   86.648439][  T218]  ? pci_match_device (linux/spinlock.h:390 pci/pci-driver.c:156)
-[   86.648444][  T218]  ? rcu_is_watching (x86/include/asm/atomic.h:23 linux/atomic/atomic-arch-fallback.h:457 linux/context_tracking.h:128 rcu/tree.c:752)
-[   86.648448][  T218]  ? trace_preempt_on (trace/events/preemptirq.h:53 (discriminator 21) trace/trace_preemptirq.c:120 (discriminator 21))
-[   86.648452][  T218]  ? pci_match_id (pci/pci.h:466 pci/pci.h:460 pci/pci-driver.c:110)
-[   86.648459][  T218]  ? pci_match_device (pci/pci-driver.c:168)
-[   86.648465][  T218]  pci_device_probe (pci/pci-driver.c:448 pci/pci-driver.c:482)
-[   86.648471][  T218]  call_driver_probe (base/dd.c:631)
-[   86.648477][  T218]  really_probe (base/dd.c:709)
-[   86.648484][  T218]  __driver_probe_device (base/dd.c:871)
-[   86.648489][  T218]  driver_probe_device (base/dd.c:901)
-[   86.648495][  T218]  __driver_attach (base/dd.c:1295)
-[   86.648500][  T218]  ? __pfx___driver_attach (base/dd.c:1004 (discriminator 1))
-[   86.648504][  T218]  bus_for_each_dev (base/bus.c:383)
-[   86.648511][  T218]  ? __pfx_bus_for_each_dev (base/bus.c:205)
-[   86.648516][  T218]  ? bus_add_driver (base/bus.c:754)
-[   86.648520][  T218]  ? trace_preempt_on (trace/events/preemptirq.h:53 (discriminator 21) trace/trace_preemptirq.c:120 (discriminator 21))
-[   86.648526][  T218]  bus_add_driver (base/bus.c:756)
-[   86.648532][  T218]  driver_register (base/driver.c:249)
-[   86.648538][  T218]  ? __pfx_bochs_pci_driver_init (bochs.c:?) bochs
-[   86.648548][  T218]  do_one_initcall (main.c:1392)
-[   86.648555][  T218]  ? __pfx_do_one_initcall (trace/events/initcall.h:10)
-[   86.648561][  T218]  ? kasan_unpoison (kasan/shadow.c:146 kasan/shadow.c:178)
-[   86.648568][  T218]  ? __kasan_slab_alloc (kasan/common.c:336 kasan/common.c:366)
-[   86.648575][  T218]  ? rcu_is_watching (x86/include/asm/atomic.h:23 linux/atomic/atomic-arch-fallback.h:457 linux/context_tracking.h:128 rcu/tree.c:752)
-[   86.648579][  T218]  ? kasan_unpoison (kasan/shadow.c:146 kasan/shadow.c:178)
-[   86.648586][  T218]  do_init_module (module/main.c:3106)
-[   86.648594][  T218]  ? __pfx_do_init_module (trace/events/module.h:50 (discriminator 1))
-[   86.648599][  T218]  ? load_module (module/main.c:2528 module/main.c:2523 module/main.c:3575)
-[   86.648603][  T218]  ? kfree (linux/kasan.h:235 slub.c:2689 slub.c:6250 slub.c:6565)
-[   86.648611][  T218]  load_module (module/main.c:3580)
-[   86.648620][  T218]  ? __pfx_load_module (module/main.c:3020)
-[   86.648626][  T218]  ? __pfx_kernel_read_file (??:?)
-[   86.648632][  T218]  ? do_syscall_64 (linux/irq-entry-common.h:279 linux/entry-common.h:320 x86/entry/syscall_64.c:100)
-[   86.648640][  T218]  init_module_from_file (module/main.c:3777)
-[   86.648646][  T218]  ? __pfx_init_module_from_file (module/main.c:3634)
-[   86.648656][  T218]  ? idempotent_init_module (linux/spinlock.h:390 module/main.c:3688 module/main.c:3788)
-[   86.648661][  T218]  ? rcu_is_watching (x86/include/asm/atomic.h:23 linux/atomic/atomic-arch-fallback.h:457 linux/context_tracking.h:128 rcu/tree.c:752)
-[   86.648664][  T218]  ? trace_preempt_on (trace/events/preemptirq.h:53 (discriminator 21) trace/trace_preemptirq.c:120 (discriminator 21))
-[   86.648669][  T218]  ? preempt_count_sub (sched/core.c:5874 (discriminator 2) sched/core.c:5871 (discriminator 2) sched/core.c:5893 (discriminator 2))
-[   86.648676][  T218]  idempotent_init_module (module/main.c:3789)
-[   86.648682][  T218]  ? __pfx_idempotent_init_module (module/main.c:3778)
-[   86.648687][  T218]  ? preempt_count_sub (sched/core.c:5874 (discriminator 2) sched/core.c:5871 (discriminator 2) sched/core.c:5893 (discriminator 2))
-[   86.648696][  T218]  ? security_capable (security.c:660 (discriminator 20))
-[   86.648702][  T218]  __x64_sys_finit_module (module/main.c:3815 module/main.c:3799 module/main.c:3799)
-[   86.648708][  T218]  do_syscall_64 (x86/entry/syscall_64.c:63 x86/entry/syscall_64.c:94)
-[   86.648713][  T218]  ? rcu_is_watching (x86/include/asm/atomic.h:23 linux/atomic/atomic-arch-fallback.h:457 linux/context_tracking.h:128 rcu/tree.c:752)
-[   86.648717][  T218]  ? trace_preempt_on (trace/events/preemptirq.h:53 (discriminator 21) trace/trace_preemptirq.c:120 (discriminator 21))
-[   86.648720][  T218]  ? do_syscall_64 (linux/randomize_kstack.h:58 x86/entry/syscall_64.c:92)
-[   86.648725][  T218]  ? preempt_count_sub (sched/core.c:5874 (discriminator 2) sched/core.c:5871 (discriminator 2) sched/core.c:5893 (discriminator 2))
-[   86.648730][  T218]  ? do_syscall_64 (linux/randomize_kstack.h:58 x86/entry/syscall_64.c:92)
-[   86.648734][  T218]  ? irqentry_exit (linux/irq-entry-common.h:280 linux/irq-entry-common.h:325 entry/common.c:162)
-[   86.648740][  T218]  entry_SYSCALL_64_after_hwframe (x86/entry/entry_64.S:121)
-[   86.648747][  T218] RIP: 0033:0x7f3757f90779
-[   86.648768][  T218] Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 4f 86 0d 00 f7 d8 64 89 01 48
-All code
-========
-   0:	ff c3                	inc    %ebx
-   2:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
-   9:	00 00 00 
-   c:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
-  11:	48 89 f8             	mov    %rdi,%rax
-  14:	48 89 f7             	mov    %rsi,%rdi
-  17:	48 89 d6             	mov    %rdx,%rsi
-  1a:	48 89 ca             	mov    %rcx,%rdx
-  1d:	4d 89 c2             	mov    %r8,%r10
-  20:	4d 89 c8             	mov    %r9,%r8
-  23:	4c 8b 4c 24 08       	mov    0x8(%rsp),%r9
-  28:	0f 05                	syscall
-  2a:*	48 3d 01 f0 ff ff    	cmp    $0xfffffffffffff001,%rax		<-- trapping instruction
-  30:	73 01                	jae    0x33
-  32:	c3                   	ret
-  33:	48 8b 0d 4f 86 0d 00 	mov    0xd864f(%rip),%rcx        # 0xd8689
-  3a:	f7 d8                	neg    %eax
-  3c:	64 89 01             	mov    %eax,%fs:(%rcx)
-  3f:	48                   	rex.W
+---
+base-commit: ab5fce87a778cb780a05984a2ca448f2b41aafbf
+change-id: 20260519-feature-dmem-high-16997148dc38
 
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20260531/202605310941.ddd52610-lkp@intel.com
-
-
-
+Best regards,
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Qiliang Yuan <realwujing@gmail.com>
 
