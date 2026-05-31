@@ -4,93 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2E35CD6E5F
-	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 13:59:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE9BBCD6E5E
+	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 13:59:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56F0C112B58;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E12D1112B6A;
 	Sun, 31 May 2026 13:59:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N9PEeK0q";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="xY17vOl4";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AE13112742
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 09:44:23 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-2bcd3ac3307so84887425ad.0
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 02:44:23 -0700 (PDT)
+Received: from out30-130.freemail.mail.aliyun.com
+ (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC5F710E5C0
+ for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 09:41:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780134263; x=1780739063; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=YD6axKKp8wDht90VyqGQ3zjwLyfLDF+g7zoFDStjFGA=;
- b=N9PEeK0qzW5+7/5/LkpM+VIy0Y+oeDaAIHxuGh9aEhHQPO9g9dr1uleQSgLmLrZ1uP
- lY+hyXYyzuV//Ox9TqvSyOKnxxKK4LSeHEhwJ2w4XgRnesJLuIz4b5h9oL4DUk2ZMyE3
- cE/0rRaXBCsT76Pw71sxFh8AEBirzgwLbjw/slPXlP29NcS86U1WREYr/e8ykWbVLVXr
- QOMxW+QBwGP1N6wTsXmdd/EeMAyq/p9ELbFCphAA8NPC4URGpvGfyJU6e1efp/eFsGUW
- 9RI+2Ma/6/s8jcsrMERHL2fXKtFn5FDT+LDOUJXX8ZfBf8YmyyJVqnwSZDpGbwnk7wLD
- h5mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780134263; x=1780739063;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=YD6axKKp8wDht90VyqGQ3zjwLyfLDF+g7zoFDStjFGA=;
- b=Yqo3d1Tygugom6pbBpYbbsoYFAcK80yfGbo2/SG2lGHhfKIJrI4syLL9TiPC7eYC6I
- 5jW42agHhsoPb5gfIGbTAd8sZhDQPYPebsNuPXNyNrebTYXhpnqt8pROD/Fj0IVjWWoE
- JXP55esrw10YHBSvilm7T7IcRSYICsPPvE6a+dJYvZq+2NbIb6w7eOVC5w/lNXJYqQd3
- tjvYSoSIo/Bep0Loyd7FkyRJMG2QRLfMbSHo3tk0EmxoR+lY/r7l9awM7NJsUwi5io19
- g3y8bcqgdiILoJtb4Kmo5GL7hfW+6cgZ2hR6AeGVnLMZ3zIC2pEkn4VX9m9V3IiJxB+4
- FTRg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ//5kBwu4i2A8sAXw8DBiUun1jNe/NXoSq78dQyX/GowprU3rO0DzFjVgibr4YuKICdYSNEHhaEtTw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz1b0sh7Ogd4k1VNrfIvLEG8jBVAaNbT88ku3BFkLexovMWw7Rv
- R8bdMqUN2jFtRi1K8HFdaN4qcQL9BduCRPDieC4bbB/FsE81bAVZzLk9
-X-Gm-Gg: Acq92OEF/IG3kwu+BZYRtxrutO8Wr7ma+pU8OFBoOEveWirDc0uubbGFNUCrj84E93u
- Cf7tVTXa2Ct6VWxB4QoSZFRQHOnCjOEuwvJVWTkzg6RTZ9xyz4raTRKAhtiGkwmV2cgyw2d/6Gj
- JJ3WnfcVeRUbMKJYHglftHAx9jmjK52KQk03zZCz2VZXZYtO9SyI/zy72OSfJkARKV2f8MSmz7M
- oozjUrTaNtef4+yrXq9sXW1NOUsDw+Guk2GXhMEWB9SY+nh37GVq0gg4tBjMYmFL4wsw1XgXMUH
- 8/9M1tR/8jJHbWcwNz7DOr3CholSM5RZxrM1FRj02CH8R4RmqPEDIf8KdMR4xI8tHgCUewcWxYf
- zBwcqoQFz516qz12/yeh3to8cTmQkNky/G3VcrKWZIOI7df36D9iTxJYAmMX2CM9RGqS3FZp4BH
- tJ4UCw98rGFQ94WaIfy+zCowl8eBTintg=
-X-Received: by 2002:a17:903:2305:b0:2ba:7881:948d with SMTP id
- d9443c01a7336-2bf367b214fmr38817185ad.1.1780134262731; 
- Sat, 30 May 2026 02:44:22 -0700 (PDT)
-Received: from rockpi-5b ([45.112.0.191]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2bf239e700csm61529945ad.10.2026.05.30.02.44.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 30 May 2026 02:44:22 -0700 (PDT)
-From: Anand Moon <linux.amoon@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Hans Verkuil <hverkuil@kernel.org>, Maxime Jourdan <mjourdan@baylibre.com>,
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS FOR AMLOGIC SOCS),
- linux-amlogic@lists.infradead.org (open list:DRM DRIVERS FOR AMLOGIC SOCS),
- linux-arm-kernel@lists.infradead.org (moderated list:ARM/Amlogic Meson SoC
- support), linux-kernel@vger.kernel.org (open list),
- linux-media@vger.kernel.org (open list:MESON VIDEO DECODER DRIVER FOR AMLOGIC
- SOCS), linux-staging@lists.linux.dev (open list:STAGING SUBSYSTEM)
-Cc: Anand Moon <linux.amoon@gmail.com>,
- Nicolas Dufresne <nicolas@ndufresne.ca>, Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v6 2/8] media: meson: vdec: Fix concurrent STREAMON /
- STREAMOFF race conditions
-Date: Sat, 30 May 2026 15:12:48 +0530
-Message-ID: <20260530094326.11892-3-linux.amoon@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260530094326.11892-1-linux.amoon@gmail.com>
-References: <20260530094326.11892-1-linux.amoon@gmail.com>
+ d=linux.alibaba.com; s=default;
+ t=1780220513; h=From:To:Subject:Date:Message-ID:MIME-Version;
+ bh=fMFLtmgtJGc7Xa/wXUQPOkhxPbCISpIgLbRDfLPPgtk=;
+ b=xY17vOl4GkMgV2M2HO1+3xHjK7u3RXC6+CVIq/gq1wPcbiNjY+QZpXmT5oJeezDzSVYXozVKH831lmKGKxs5+Qon3w06MXfiknnZ2/bsbbaKOIk5Zi/uYxUxvokwkOhBF5eAR6jUeUebYnedSO2pBJ4vSgS0ST246UB4xnjLP0w=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R191e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033045098064;
+ MF=guanghuifeng@linux.alibaba.com; NM=1; PH=DS; RN=27; SR=0;
+ TI=SMTPD_---0X3tRVpg_1780220210; 
+Received: from
+ VM20241011-104.tbsite.net(mailfrom:guanghuifeng@linux.alibaba.com
+ fp:SMTPD_---0X3tRVpg_1780220210 cluster:ay36) by smtp.aliyun-inc.com;
+ Sun, 31 May 2026 17:36:50 +0800
+From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
+To: boris.brezillon@collabora.com, robh@kernel.org, steven.price@arm.com,
+ adrian.larumbe@collabora.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ liviu.dudau@arm.com, joro@8bytes.org, will@kernel.org,
+ robin.murphy@arm.com, alex@shazbot.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, kvm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, jgg@ziepe.ca, kevin.tian@intel.com,
+ baolu.lu@linux.intel.com, suravee.suthikulpanit@amd.com,
+ dwmw2@infradead.org
+Cc: xlpang@linux.alibaba.com, oliver.yang@linux.alibaba.com,
+ shiyu.zsq@linux.alibaba.com, wei.guo.simon@linux.alibaba.com
+Subject: [PATCH 4/9] iommu/arm-smmu: implement iova_to_phys_length
+Date: Sun, 31 May 2026 17:36:32 +0800
+Message-ID: <20260531093637.3893199-5-guanghuifeng@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20260531093637.3893199-1-guanghuifeng@linux.alibaba.com>
+References: <20260529115116.GR2487554@ziepe.ca>
+ <20260531093637.3893199-1-guanghuifeng@linux.alibaba.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sun, 31 May 2026 13:58:31 +0000
+X-Mailman-Approved-At: Sun, 31 May 2026 13:58:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,149 +66,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The Meson VDEC driver’s start/stop streaming paths previously
-updated core->cur_sess and sess->status without synchronization,
-leaving a race window between concurrent STREAMON/STREAMOFF calls.
+Migrate ARM SMMU drivers to implement iova_to_phys_length, calling
+ops->iova_to_phys_length on the io-pgtable layer to get both phys
+and PTE page size.
 
-Following change introduces proper locking discipline:
-
-- Hold core->lock when checking or updating core->cur_sess and
-  sess->status in vdec_start_streaming().
-- Snapshot sess->status under the lock in vdec_stop_streaming()
-  to safely evaluate hardware state after releasing the mutex.
-- Ensure error unwind paths clear core->cur_sess and reset
-  sess->status inside the lock.
-
-This prevents TOCTOU races, avoids data corruption when multiple
-sessions contend for the hardware, and ensures consistent session
-lifecycle management.
-
-Cc: Nicolas Dufresne <nicolas@ndufresne.ca>
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260525104345.C8D501F00A3C@smtp.kernel.org/
-Fixes: 3e7f51bd9607 ("media: meson: add v4l2 m2m video decoder driver")
-Signed-off-by: Anand Moon <linux.amoon@gmail.com>
+Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
+Acked-by: Shiqiang Zhang <shiyu.zsq@linux.alibaba.com>
+Acked-by: Simon Guo <wei.guo.simon@linux.alibaba.com>
 ---
- drivers/staging/media/meson/vdec/vdec.c | 62 ++++++++++++++++++-------
- 1 file changed, 46 insertions(+), 16 deletions(-)
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c      | 10 +++++++---
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom-debug.c |  2 +-
+ drivers/iommu/arm/arm-smmu/arm-smmu.c            | 13 ++++++++-----
+ drivers/iommu/arm/arm-smmu/qcom_iommu.c          | 11 +++++++----
+ 4 files changed, 23 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/staging/media/meson/vdec/vdec.c b/drivers/staging/media/meson/vdec/vdec.c
-index 4ffebba2341d..7233000e2232 100644
---- a/drivers/staging/media/meson/vdec/vdec.c
-+++ b/drivers/staging/media/meson/vdec/vdec.c
-@@ -286,11 +286,6 @@ static int vdec_start_streaming(struct vb2_queue *q, unsigned int count)
- 	struct vb2_v4l2_buffer *buf;
- 	int ret;
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+index e8d7dbe495f0..c9f356c75bc5 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+@@ -4069,14 +4069,18 @@ static void arm_smmu_iotlb_sync(struct iommu_domain *domain,
+ }
  
--	if (core->cur_sess && core->cur_sess != sess) {
--		ret = -EBUSY;
--		goto bufs_done;
--	}
--
- 	if (q->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE)
- 		sess->streamon_out = 1;
- 	else
-@@ -308,9 +303,29 @@ static int vdec_start_streaming(struct vb2_queue *q, unsigned int count)
- 	}
+ static phys_addr_t
+-arm_smmu_iova_to_phys(struct iommu_domain *domain, dma_addr_t iova)
++arm_smmu_iova_to_phys_length(struct iommu_domain *domain, dma_addr_t iova,
++			     size_t *mapped_length)
+ {
+ 	struct io_pgtable_ops *ops = to_smmu_domain(domain)->pgtbl_ops;
  
- 	if (sess->status == STATUS_RUNNING ||
--	    sess->status == STATUS_NEEDS_RESUME ||
--	    sess->status == STATUS_INIT)
-+	    sess->status == STATUS_NEEDS_RESUME)
-+		return 0;
++	if (mapped_length)
++		*mapped_length = 0;
 +
-+	/*
-+	 * Secure the core hardware lock before checking availability
-+	 * and updating session states to prevent STREAMON race conditions.
-+	 */
-+	mutex_lock(&core->lock);
-+	if (core->cur_sess && core->cur_sess != sess) {
-+		mutex_unlock(&core->lock);
-+		ret = -EBUSY;
-+		goto bufs_done;
-+	}
-+
-+	/* If already half-initialized, do not re-initialize */
-+	if (sess->status == STATUS_INIT) {
-+		mutex_unlock(&core->lock);
+ 	if (!ops)
  		return 0;
-+	}
-+
-+	sess->status = STATUS_INIT;
-+	core->cur_sess = sess;
-+	mutex_unlock(&core->lock);
  
- 	sess->vififo_size = SIZE_VIFIFO;
- 	sess->vififo_vaddr =
-@@ -341,8 +356,6 @@ static int vdec_start_streaming(struct vb2_queue *q, unsigned int count)
- 		sess->recycle_thread = kthread_run(vdec_recycle_thread, sess,
- 						   "vdec_recycle");
+-	return ops->iova_to_phys(ops, iova);
++	return ops->iova_to_phys_length(ops, iova, mapped_length);
+ }
  
--	sess->status = STATUS_INIT;
--	core->cur_sess = sess;
- 	schedule_work(&sess->esparser_queue_work);
- 	return 0;
- 
-@@ -350,6 +363,12 @@ static int vdec_start_streaming(struct vb2_queue *q, unsigned int count)
- 	dma_free_coherent(sess->core->dev, sess->vififo_size,
- 			  sess->vififo_vaddr, sess->vififo_paddr);
- bufs_done:
-+	mutex_lock(&core->lock);
-+	if (core->cur_sess == sess)
-+		core->cur_sess = NULL;
-+	sess->status = STATUS_STOPPED;
-+	mutex_unlock(&core->lock);
-+
- 	while ((buf = v4l2_m2m_src_buf_remove(sess->m2m_ctx)))
- 		v4l2_m2m_buf_done(buf, VB2_BUF_STATE_QUEUED);
- 	while ((buf = v4l2_m2m_dst_buf_remove(sess->m2m_ctx)))
-@@ -399,10 +418,23 @@ static void vdec_stop_streaming(struct vb2_queue *q)
- 	struct amvdec_codec_ops *codec_ops = sess->fmt_out->codec_ops;
- 	struct amvdec_core *core = sess->core;
- 	struct vb2_v4l2_buffer *buf;
-+	enum amvdec_status old_status;
- 
--	if (sess->status == STATUS_RUNNING ||
--	    sess->status == STATUS_INIT ||
--	    (sess->status == STATUS_NEEDS_RESUME &&
-+	/*
-+	 * Safely snapshot the status and clear the hardware owner inside
-+	 * the mutex to prevent data races with concurrent STREAMON requests.
-+	 */
-+	mutex_lock(&core->lock);
-+	old_status = sess->status;
-+	if (core->cur_sess == sess)
-+		core->cur_sess = NULL;
-+	sess->status = STATUS_STOPPED;
-+	mutex_unlock(&core->lock);
-+
-+	/* Evaluate the hardware state using our snapshot */
-+	if (old_status == STATUS_RUNNING ||
-+	    old_status == STATUS_INIT ||
-+	    (old_status == STATUS_NEEDS_RESUME &&
- 	     (!sess->streamon_out || !sess->streamon_cap))) {
- 		if (vdec_codec_needs_recycle(sess))
- 			kthread_stop(sess->recycle_thread);
-@@ -415,8 +447,6 @@ static void vdec_stop_streaming(struct vb2_queue *q)
- 		vdec_reset_bufs_recycle(sess);
- 		kfree(sess->priv);
- 		sess->priv = NULL;
--		core->cur_sess = NULL;
--		sess->status = STATUS_STOPPED;
+ static struct platform_driver arm_smmu_driver;
+@@ -4396,7 +4400,7 @@ static const struct iommu_ops arm_smmu_ops = {
+ 		.unmap_pages		= arm_smmu_unmap_pages,
+ 		.flush_iotlb_all	= arm_smmu_flush_iotlb_all,
+ 		.iotlb_sync		= arm_smmu_iotlb_sync,
+-		.iova_to_phys		= arm_smmu_iova_to_phys,
++		.iova_to_phys_length	= arm_smmu_iova_to_phys_length,
+ 		.free			= arm_smmu_domain_free_paging,
+ 	}
+ };
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom-debug.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom-debug.c
+index 65e0ef6539fe..4fd01341157f 100644
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom-debug.c
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom-debug.c
+@@ -415,7 +415,7 @@ irqreturn_t qcom_smmu_context_fault(int irq, void *dev)
+ 		return IRQ_HANDLED;
  	}
  
- 	if (q->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE) {
-@@ -425,8 +455,8 @@ static void vdec_stop_streaming(struct vb2_queue *q)
+-	phys_soft = ops->iova_to_phys(ops, cfi.iova);
++	phys_soft = ops->iova_to_phys_length(ops, cfi.iova, NULL);
  
- 		sess->streamon_out = 0;
- 	} else {
--		/* Drain remaining refs if was still running */
--		if (sess->status >= STATUS_RUNNING && codec_ops->drain)
-+		/* Drain remaining refs if was still running using the snapshot */
-+		if (old_status >= STATUS_RUNNING && codec_ops->drain)
- 			codec_ops->drain(sess);
+ 	tmp = report_iommu_fault(&smmu_domain->domain, NULL, cfi.iova,
+ 				 cfi.fsynr & ARM_SMMU_CB_FSYNR0_WNR ? IOMMU_FAULT_WRITE : IOMMU_FAULT_READ);
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+index 0bd21d206eb3..e29e0ea12f24 100644
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+@@ -1366,7 +1366,7 @@ static phys_addr_t arm_smmu_iova_to_phys_hard(struct iommu_domain *domain,
+ 			"iova to phys timed out on %pad. Falling back to software table walk.\n",
+ 			&iova);
+ 		arm_smmu_rpm_put(smmu);
+-		return ops->iova_to_phys(ops, iova);
++		return ops->iova_to_phys_length(ops, iova, NULL);
+ 	}
  
- 		while ((buf = v4l2_m2m_dst_buf_remove(sess->m2m_ctx)))
+ 	phys = arm_smmu_cb_readq(smmu, idx, ARM_SMMU_CB_PAR);
+@@ -1384,12 +1384,15 @@ static phys_addr_t arm_smmu_iova_to_phys_hard(struct iommu_domain *domain,
+ 	return addr;
+ }
+ 
+-static phys_addr_t arm_smmu_iova_to_phys(struct iommu_domain *domain,
+-					dma_addr_t iova)
++static phys_addr_t arm_smmu_iova_to_phys_length(struct iommu_domain *domain,
++					dma_addr_t iova, size_t *mapped_length)
+ {
+ 	struct arm_smmu_domain *smmu_domain = to_smmu_domain(domain);
+ 	struct io_pgtable_ops *ops = smmu_domain->pgtbl_ops;
+ 
++	if (mapped_length)
++		*mapped_length = 0;
++
+ 	if (!ops)
+ 		return 0;
+ 
+@@ -1397,7 +1400,7 @@ static phys_addr_t arm_smmu_iova_to_phys(struct iommu_domain *domain,
+ 			smmu_domain->stage == ARM_SMMU_DOMAIN_S1)
+ 		return arm_smmu_iova_to_phys_hard(domain, iova);
+ 
+-	return ops->iova_to_phys(ops, iova);
++	return ops->iova_to_phys_length(ops, iova, mapped_length);
+ }
+ 
+ static bool arm_smmu_capable(struct device *dev, enum iommu_cap cap)
+@@ -1652,7 +1655,7 @@ static const struct iommu_ops arm_smmu_ops = {
+ 		.unmap_pages		= arm_smmu_unmap_pages,
+ 		.flush_iotlb_all	= arm_smmu_flush_iotlb_all,
+ 		.iotlb_sync		= arm_smmu_iotlb_sync,
+-		.iova_to_phys		= arm_smmu_iova_to_phys,
++		.iova_to_phys_length	= arm_smmu_iova_to_phys_length,
+ 		.set_pgtable_quirks	= arm_smmu_set_pgtable_quirks,
+ 		.free			= arm_smmu_domain_free,
+ 	}
+diff --git a/drivers/iommu/arm/arm-smmu/qcom_iommu.c b/drivers/iommu/arm/arm-smmu/qcom_iommu.c
+index a1e8cf29f594..08bb6fce992f 100644
+--- a/drivers/iommu/arm/arm-smmu/qcom_iommu.c
++++ b/drivers/iommu/arm/arm-smmu/qcom_iommu.c
+@@ -489,19 +489,22 @@ static void qcom_iommu_iotlb_sync(struct iommu_domain *domain,
+ 	qcom_iommu_flush_iotlb_all(domain);
+ }
+ 
+-static phys_addr_t qcom_iommu_iova_to_phys(struct iommu_domain *domain,
+-					   dma_addr_t iova)
++static phys_addr_t qcom_iommu_iova_to_phys_length(struct iommu_domain *domain,
++					   dma_addr_t iova, size_t *mapped_length)
+ {
+ 	phys_addr_t ret;
+ 	unsigned long flags;
+ 	struct qcom_iommu_domain *qcom_domain = to_qcom_iommu_domain(domain);
+ 	struct io_pgtable_ops *ops = qcom_domain->pgtbl_ops;
+ 
++	if (mapped_length)
++		*mapped_length = 0;
++
+ 	if (!ops)
+ 		return 0;
+ 
+ 	spin_lock_irqsave(&qcom_domain->pgtbl_lock, flags);
+-	ret = ops->iova_to_phys(ops, iova);
++	ret = ops->iova_to_phys_length(ops, iova, mapped_length);
+ 	spin_unlock_irqrestore(&qcom_domain->pgtbl_lock, flags);
+ 
+ 	return ret;
+@@ -602,7 +605,7 @@ static const struct iommu_ops qcom_iommu_ops = {
+ 		.unmap_pages	= qcom_iommu_unmap,
+ 		.flush_iotlb_all = qcom_iommu_flush_iotlb_all,
+ 		.iotlb_sync	= qcom_iommu_iotlb_sync,
+-		.iova_to_phys	= qcom_iommu_iova_to_phys,
++		.iova_to_phys_length = qcom_iommu_iova_to_phys_length,
+ 		.free		= qcom_iommu_domain_free,
+ 	}
+ };
 -- 
-2.50.1
+2.43.7
 
