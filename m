@@ -4,93 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EB8DCD6E5E
-	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 13:58:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63C1DCD6E61
+	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 13:58:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05C9A112B4B;
-	Sun, 31 May 2026 13:58:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AEB710E4AF;
+	Sun, 31 May 2026 13:58:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iYjjPh13";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="RsUlA8Wu";
 	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B423E112758
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 09:44:53 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-2bd80b3aa13so96582855ad.0
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 02:44:53 -0700 (PDT)
+Received: from out30-131.freemail.mail.aliyun.com
+ (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAE1310E5B7
+ for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 09:41:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780134293; x=1780739093; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Eg9ggvkEkoQKR+hIDJPnP9lc/gF7VRqufBdsoqX52Vc=;
- b=iYjjPh13Uj/zvZr3HSAG8m1f3mbuK7d28mlNGuG4HhY+lYUvc3YT8dMziRVf4g3XFI
- qNOenKrf8bzKzpWeT+SRjdIws0IRIY1MyOP6uz8NXgWi73NobjrHjGEfwTHFg6v97s50
- qpNl/TyfnGGYTrQhlqB8SSX4xCa5Quh5Ll63nrEi5NxT2gLLLHbh7t0Kz84nzB3LxwO9
- f1MQOoD9iMDobsnyUvICq0wYfTJzbzQld0Y85+sZbivC9AnNMWaaYiAoDKKdety4SCsJ
- tPq/H1okr8EI5fc1ypig1QMNeHTiEIH07PPfwqgp6ya1kWSRM0MtVZbNQ3a+5k6UUegR
- 1Ezg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780134293; x=1780739093;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Eg9ggvkEkoQKR+hIDJPnP9lc/gF7VRqufBdsoqX52Vc=;
- b=HsA9rSQxa1e2ZU8oY/FnwnGZ3KrtDYQxPqvwiZKyc5Zu5LTXcyr88IQmM8YSYMyD/J
- 0FbYJO4lfhqHbTWk6Q1ObEjBis0jhRpW9z2iWieDOMld5krScjz+B1ykpj1oxR9MaCVE
- cGO8S1O/Vob3a+TDPaIemgYiAK9KCDXkHlOnKDre4OtEj7qTpoW7WrEB9jtX8kc0QicR
- OzkNXuYAFQZvJRjIEy3/EKQpzhLqk6v87nJnblePRbzQihKxeLjWcSuh689Yyg2xqpGB
- xr3URgwI81oPwLYFdXTNHlVHayGA3liDnbxZ9/fsRHm+VdNNMIMNn+sGMUWp/ZJ3e3Bd
- 1A6g==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8oH5W7pyIFHppCwf9p1ue8oWQYf8YYZnmC7KbY8q5brpkHs2WINnzaZwMmDhQUSEQtsoEpBmkYQeE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwL03y9hooHfEy0TzY8b0F9ZbZXW0yorN6C7TDw4pwSLwvsbYCF
- IifcDSBQNW/l7uWtap+diYDFMZ3/j7iAb28I3Db5U79wn29X1zZj/zXL
-X-Gm-Gg: Acq92OEP/cTnZOJkjuaEoWJZNpoDTwyNUEDvd1xwGf6TnhvVkv34v+58CawW5he4kVo
- xDD+iM4u4bgskLAgYiqYwpwVCSyTdV36l/MLsbltMRNlsRz8DPFSxnC1iNq/ITmS3Z/ZUMugQcw
- JZGAhoyNsC09akR6SV6DDx8/j7600jIMFWR/t8SC81ZZAW9NLLXWIAUedSniSaq73OlfMe1Gvcm
- vfWgOzQHKTWojoZrObK6tjJALaiN1PABI7xKgGek40svsKx2jFmiYBxKz3r60TcQ9aPE+NlYKu2
- 2fFiUsP107mLsarM6whsAsnrSh5zebEAENMD9w5ZQI2VSaWFs/B+hkq30Ik1i1ZLguedCtCvh+G
- iA36oXQh9D5RRjMKfq8IWpxYnlCC70UNfjMNXe8bVZH8+iXjBvR+4h/EaWjjSx7ml7FyryrW4vV
- kYNL7rzDSPPKVHKYcoq2b8Uzt6zKUEHRw=
-X-Received: by 2002:a17:902:c94c:b0:2b2:be01:5532 with SMTP id
- d9443c01a7336-2bf3686d1dcmr41074635ad.35.1780134293228; 
- Sat, 30 May 2026 02:44:53 -0700 (PDT)
-Received: from rockpi-5b ([45.112.0.191]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2bf239e700csm61529945ad.10.2026.05.30.02.44.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 30 May 2026 02:44:52 -0700 (PDT)
-From: Anand Moon <linux.amoon@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Hans Verkuil <hverkuil@kernel.org>, Maxime Jourdan <mjourdan@baylibre.com>,
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS FOR AMLOGIC SOCS),
- linux-amlogic@lists.infradead.org (open list:DRM DRIVERS FOR AMLOGIC SOCS),
- linux-arm-kernel@lists.infradead.org (moderated list:ARM/Amlogic Meson SoC
- support), linux-kernel@vger.kernel.org (open list),
- linux-media@vger.kernel.org (open list:MESON VIDEO DECODER DRIVER FOR AMLOGIC
- SOCS), linux-staging@lists.linux.dev (open list:STAGING SUBSYSTEM)
-Cc: Anand Moon <linux.amoon@gmail.com>,
- Nicolas Dufresne <nicolas@ndufresne.ca>, Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v6 5/8] media: meson: vdec: Cancel esparser work during
- teardown
-Date: Sat, 30 May 2026 15:12:51 +0530
-Message-ID: <20260530094326.11892-6-linux.amoon@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260530094326.11892-1-linux.amoon@gmail.com>
-References: <20260530094326.11892-1-linux.amoon@gmail.com>
+ d=linux.alibaba.com; s=default;
+ t=1780220517; h=From:To:Subject:Date:Message-ID:MIME-Version;
+ bh=9GYfPp1sU1WLVHRudSCocbfBnHaSnI+DlgtBGa8tOy0=;
+ b=RsUlA8Wu7vuY6UL/XseYcPYeVLFNoiyQsb2MkyKzAF+BdUg9HG//AtwrvSrwt7wOAwMTX5N2VYZWrgeonGbqY22aDml/D1+a/GAwTZH4XiT2O2O6h02vJ/NQvx0ldxf5yW/i9lWTngCyC8IAq5oDfLXRltxke874fKGtkeGc1GA=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R131e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033032089153;
+ MF=guanghuifeng@linux.alibaba.com; NM=1; PH=DS; RN=27; SR=0;
+ TI=SMTPD_---0X3tRVqi_1780220213; 
+Received: from
+ VM20241011-104.tbsite.net(mailfrom:guanghuifeng@linux.alibaba.com
+ fp:SMTPD_---0X3tRVqi_1780220213 cluster:ay36) by smtp.aliyun-inc.com;
+ Sun, 31 May 2026 17:36:53 +0800
+From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
+To: boris.brezillon@collabora.com, robh@kernel.org, steven.price@arm.com,
+ adrian.larumbe@collabora.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ liviu.dudau@arm.com, joro@8bytes.org, will@kernel.org,
+ robin.murphy@arm.com, alex@shazbot.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, kvm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, jgg@ziepe.ca, kevin.tian@intel.com,
+ baolu.lu@linux.intel.com, suravee.suthikulpanit@amd.com,
+ dwmw2@infradead.org
+Cc: xlpang@linux.alibaba.com, oliver.yang@linux.alibaba.com,
+ shiyu.zsq@linux.alibaba.com, wei.guo.simon@linux.alibaba.com
+Subject: [PATCH 7/9] vfio/iommufd: use iova_to_phys_length for efficient unmap
+Date: Sun, 31 May 2026 17:36:35 +0800
+Message-ID: <20260531093637.3893199-8-guanghuifeng@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20260531093637.3893199-1-guanghuifeng@linux.alibaba.com>
+References: <20260529115116.GR2487554@ziepe.ca>
+ <20260531093637.3893199-1-guanghuifeng@linux.alibaba.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sun, 31 May 2026 13:58:31 +0000
+X-Mailman-Approved-At: Sun, 31 May 2026 13:58:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,95 +66,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The esparser workqueue could remain active during error unwind,
-streaming stop, or device close, leading to use‑after‑free when
-work items accessed freed session memory.
+Use iommu_iova_to_phys_length() to get PTE page size, allowing
+traversal by actual mapping granularity instead of PAGE_SIZE steps.
 
-Fix this by explicitly cancelling the work in all teardown paths:
-
-- Call cancel_work_sync(&sess->esparser_queue_work) in
-  vdec_start_streaming() error unwind, vdec_stop_streaming(),
-  and vdec_close().
-- Ensure the workqueue is drained before releasing session
-  state and buffers.
-- Move codec_ops->drain() evaluation earlier in stop_streaming()
-  using the status snapshot, so draining occurs before buffer
-  cleanup.
-
-Following change prevents dangling work execution, eliminates
-use‑after‑free hazards, and ensures orderly teardown of decoder
-resources.
-
-Cc: Nicolas Dufresne <nicolas@ndufresne.ca>
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260521090944.F35401F00A3D@smtp.kernel.org/
-Fixes: 3e7f51bd9607 ("media: meson: add v4l2 m2m video decoder driver")
-Signed-off-by: Anand Moon <linux.amoon@gmail.com>
+Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
+Acked-by: Shiqiang Zhang <shiyu.zsq@linux.alibaba.com>
+Acked-by: Simon Guo <wei.guo.simon@linux.alibaba.com>
 ---
- drivers/staging/media/meson/vdec/vdec.c | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
+ drivers/iommu/iommufd/pages.c    | 71 ++++++++++++++++++++++++++------
+ drivers/iommu/iommufd/selftest.c |  2 +-
+ drivers/vfio/vfio_iommu_type1.c  | 24 +++++++++--
+ 3 files changed, 80 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/staging/media/meson/vdec/vdec.c b/drivers/staging/media/meson/vdec/vdec.c
-index 698a95566ad2..4884ee04b352 100644
---- a/drivers/staging/media/meson/vdec/vdec.c
-+++ b/drivers/staging/media/meson/vdec/vdec.c
-@@ -380,6 +380,8 @@ static int vdec_start_streaming(struct vb2_queue *q, unsigned int count)
- 			  sess->vififo_vaddr, sess->vififo_paddr);
- 	sess->vififo_vaddr = NULL;
- bufs_done:
-+	cancel_work_sync(&sess->esparser_queue_work);
+diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
+index 9bdb2945afe1..d67e564035b4 100644
+--- a/drivers/iommu/iommufd/pages.c
++++ b/drivers/iommu/iommufd/pages.c
+@@ -417,17 +417,42 @@ static void batch_from_domain(struct pfn_batch *batch,
+ 	if (start_index == iopt_area_index(area))
+ 		page_offset = area->page_offset;
+ 	while (start_index <= last_index) {
++		size_t pgsize;
++		unsigned long npages;
++		unsigned long i;
 +
- 	mutex_lock(&core->lock);
- 	if (core->cur_sess == sess)
- 		core->cur_sess = NULL;
-@@ -437,6 +439,8 @@ static void vdec_stop_streaming(struct vb2_queue *q)
- 	struct vb2_v4l2_buffer *buf;
- 	enum amvdec_status old_status;
- 
-+	cancel_work_sync(&sess->esparser_queue_work);
+ 		/*
+-		 * This is pretty slow, it would be nice to get the page size
+-		 * back from the driver, or have the driver directly fill the
+-		 * batch.
++		 * Use iova_to_phys_length to get both the physical address
++		 * and the PTE page size in a single page table walk, allowing
++		 * us to skip ahead by the contiguous region size instead of
++		 * walking the page tables for every PAGE_SIZE step.
+ 		 */
+-		phys = iommu_iova_to_phys(domain, iova) - page_offset;
+-		if (!batch_add_pfn(batch, PHYS_PFN(phys)))
+-			return;
+-		iova += PAGE_SIZE - page_offset;
++		phys = iommu_iova_to_phys_length(domain, iova, &pgsize) -
++		       page_offset;
++		if (!pgsize || pgsize < PAGE_SIZE)
++			pgsize = PAGE_SIZE;
 +
- 	/*
- 	 * Safely snapshot the status and clear the hardware owner inside
- 	 * the mutex to prevent data races with concurrent STREAMON requests.
-@@ -448,7 +452,11 @@ static void vdec_stop_streaming(struct vb2_queue *q)
- 	sess->status = STATUS_STOPPED;
- 	mutex_unlock(&core->lock);
- 
--	/* Evaluate the hardware state using our snapshot */
-+	if (q->type != V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE) {
-+		if (old_status >= STATUS_RUNNING && codec_ops->drain)
-+			codec_ops->drain(sess);
-+	}
++		/*
++		 * Calculate contiguous pages within this PTE from our
++		 * position. phys points to the page-aligned start (backed
++		 * up by page_offset), so pages available = bytes from phys
++		 * to PTE end divided by PAGE_SIZE.
++		 */
++		npages = (pgsize - (iova & (pgsize - 1)) + page_offset) /
++			 PAGE_SIZE;
++		npages = min_t(unsigned long, npages,
++			       last_index - start_index + 1);
++		if (!npages)
++			npages = 1;
 +
- 	if (old_status == STATUS_RUNNING ||
- 	    old_status == STATUS_INIT ||
- 	    (old_status == STATUS_NEEDS_RESUME &&
-@@ -472,16 +480,10 @@ static void vdec_stop_streaming(struct vb2_queue *q)
- 	if (q->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE) {
- 		while ((buf = v4l2_m2m_src_buf_remove(sess->m2m_ctx)))
- 			v4l2_m2m_buf_done(buf, VB2_BUF_STATE_ERROR);
--
- 		sess->streamon_out = 0;
- 	} else {
--		/* Drain remaining refs if was still running using the snapshot */
--		if (old_status >= STATUS_RUNNING && codec_ops->drain)
--			codec_ops->drain(sess);
--
- 		while ((buf = v4l2_m2m_dst_buf_remove(sess->m2m_ctx)))
- 			v4l2_m2m_buf_done(buf, VB2_BUF_STATE_ERROR);
--
- 		sess->streamon_cap = 0;
++		for (i = 0; i < npages; i++) {
++			if (!batch_add_pfn(batch, PHYS_PFN(phys) + i))
++				return;
++		}
++
++		iova += npages * PAGE_SIZE - page_offset;
+ 		page_offset = 0;
+-		start_index++;
++		start_index += npages;
  	}
  }
-@@ -967,6 +969,8 @@ static int vdec_close(struct file *file)
- {
- 	struct amvdec_session *sess = file_to_amvdec_session(file);
  
-+	cancel_work_sync(&sess->esparser_queue_work);
+@@ -445,11 +470,33 @@ static struct page **raw_pages_from_domain(struct iommu_domain *domain,
+ 	if (start_index == iopt_area_index(area))
+ 		page_offset = area->page_offset;
+ 	while (start_index <= last_index) {
+-		phys = iommu_iova_to_phys(domain, iova) - page_offset;
+-		*(out_pages++) = pfn_to_page(PHYS_PFN(phys));
+-		iova += PAGE_SIZE - page_offset;
++		size_t pgsize;
++		unsigned long npages;
++		unsigned long i;
 +
- 	v4l2_m2m_ctx_release(sess->m2m_ctx);
- 	v4l2_fh_del(&sess->fh, file);
- 	v4l2_fh_exit(&sess->fh);
++		/*
++		 * Resolve the PTE page size together with the physical
++		 * address so we can fill multiple struct page pointers per
++		 * page table walk when the IOMMU uses large pages.
++		 */
++		phys = iommu_iova_to_phys_length(domain, iova, &pgsize) -
++		       page_offset;
++		if (!pgsize || pgsize < PAGE_SIZE)
++			pgsize = PAGE_SIZE;
++
++		npages = (pgsize - (iova & (pgsize - 1)) + page_offset) /
++			 PAGE_SIZE;
++		npages = min_t(unsigned long, npages,
++			       last_index - start_index + 1);
++		if (!npages)
++			npages = 1;
++
++		for (i = 0; i < npages; i++)
++			*(out_pages++) = pfn_to_page(PHYS_PFN(phys) + i);
++
++		iova += npages * PAGE_SIZE - page_offset;
+ 		page_offset = 0;
+-		start_index++;
++		start_index += npages;
+ 	}
+ 	return out_pages;
+ }
+diff --git a/drivers/iommu/iommufd/selftest.c b/drivers/iommu/iommufd/selftest.c
+index af07c642a526..4b9c3ffc9523 100644
+--- a/drivers/iommu/iommufd/selftest.c
++++ b/drivers/iommu/iommufd/selftest.c
+@@ -1214,7 +1214,7 @@ static int iommufd_test_md_check_pa(struct iommufd_ucmd *ucmd,
+ 		pfn = page_to_pfn(pages[0]);
+ 		put_page(pages[0]);
+ 
+-		io_phys = mock->domain.ops->iova_to_phys(&mock->domain, iova);
++		io_phys = iommu_iova_to_phys(&mock->domain, iova);
+ 		if (io_phys !=
+ 		    pfn * PAGE_SIZE + ((uintptr_t)uptr % PAGE_SIZE)) {
+ 			rc = -EINVAL;
+diff --git a/drivers/vfio/vfio_iommu_type1.c b/drivers/vfio/vfio_iommu_type1.c
+index c8151ba54de3..393f9e8f1511 100644
+--- a/drivers/vfio/vfio_iommu_type1.c
++++ b/drivers/vfio/vfio_iommu_type1.c
+@@ -1177,25 +1177,41 @@ static long vfio_unmap_unpin(struct vfio_iommu *iommu, struct vfio_dma *dma,
+ 
+ 	iommu_iotlb_gather_init(&iotlb_gather);
+ 	while (pos < dma->size) {
+-		size_t unmapped, len;
++		size_t unmapped, len, pgsize;
+ 		phys_addr_t phys, next;
+ 		dma_addr_t iova = dma->iova + pos;
+ 
+-		phys = iommu_iova_to_phys(domain->domain, iova);
++		/* Single page table walk returns both phys and PTE size */
++		phys = iommu_iova_to_phys_length(domain->domain, iova,
++						  &pgsize);
+ 		if (WARN_ON(!phys)) {
+ 			pos += PAGE_SIZE;
+ 			continue;
+ 		}
++		if (!pgsize || pgsize < PAGE_SIZE)
++			pgsize = PAGE_SIZE;
+ 
+ 		/*
+ 		 * To optimize for fewer iommu_unmap() calls, each of which
+ 		 * may require hardware cache flushing, try to find the
+ 		 * largest contiguous physical memory chunk to unmap.
++		 *
++		 * Calculate remaining contiguous bytes within this PTE from
++		 * our position, then try to join following physically
++		 * contiguous PTEs.
+ 		 */
+-		for (len = PAGE_SIZE; pos + len < dma->size; len += PAGE_SIZE) {
+-			next = iommu_iova_to_phys(domain->domain, iova + len);
++		len = pgsize - (iova & (pgsize - 1));
++		for (; pos + len < dma->size; ) {
++			size_t next_pgsize;
++
++			next = iommu_iova_to_phys_length(domain->domain,
++							  iova + len,
++							  &next_pgsize);
+ 			if (next != phys + len)
+ 				break;
++			if (!next_pgsize || next_pgsize < PAGE_SIZE)
++				next_pgsize = PAGE_SIZE;
++			len += next_pgsize;
+ 		}
+ 
+ 		/*
 -- 
-2.50.1
+2.43.7
 
