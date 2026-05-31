@@ -4,116 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E291CD6E5E
-	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 13:58:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 749A1CD6E5F
+	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 13:58:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A36EE112B62;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B11BC112B64;
 	Sun, 31 May 2026 13:58:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="aFOrkf+6";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="dETHnyRT";
 	dkim-atps=neutral
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92F8D1128EB
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 16:30:09 +0000 (UTC)
-Received: from submission (posteo.de [185.67.36.169]) 
- by mout02.posteo.de (Postfix) with ESMTPS id 751A7240106
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 18:30:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
- t=1780158608; bh=IzWwiXoNDJJYymeauA4VceeTQ7BsvJ5+IlCouBR83fs=;
- h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
- MIME-Version:OpenPGP:From;
- b=aFOrkf+6gVTszv4C85phxTXCt6KYLS5s6hYIUe3V4OFWYFygfLu8xrWbgMGDBg4JB
- mGYk5vrYthqxIUCBsu0mE8MVYIvUqY42OUxz6pdzqZtPISKh1BvmokAy72h6PH2Jmq
- Wb0GbGPGPZU9p/MCibM9ErBxYqHikey/f+V6iyKTiCtk7UcYlN6FfIh0ybTBXyiiZu
- nfmjtMIpw2IbT/la7toVaOBTfHNDarJ22pKvhUEi45CqcttEt1QNseMN+Gf41OUKcR
- /NBn25UIN8dOzNspF+UG0MtRASQ2qipuxlWgFJXmxUili3w5TG4BYD5lyAb90zemuh
- 0nUDbEXM3m6GA==
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4gSQgJ6hFKz6tsb;
- Sat, 30 May 2026 18:30:04 +0200 (CEST)
-Message-ID: <be835bce958c99e9623ea240b67282d3b429ae9f.camel@posteo.de>
-Subject: Re: [PATCH v8 3/5] rust: add basic serial device bus abstractions
-From: Markus Probst <markus.probst@posteo.de>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Markus Probst via B4 Relay <devnull+markus.probst.posteo.de@kernel.org>,
- Rob Herring <robh@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Jiri Slaby	 <jirislaby@kernel.org>, Miguel
- Ojeda <ojeda@kernel.org>, Gary Guo	 <gary@garyguo.net>,
- =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	 <bjorn3_gh@protonmail.com>, Benno
- Lossin <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>, Kari
- Argillander <kari.argillander@gmail.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng
- <boqun@kernel.org>,  David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, linux-serial@vger.kernel.org, 
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-pm@vger.kernel.org, driver-core@lists.linux.dev, 
- dri-devel@lists.freedesktop.org
-Date: Sat, 30 May 2026 16:30:07 +0000
-In-Reply-To: <DIW5HXH3HYDB.17132XFBBDBJL@kernel.org>
-References: <20260530-rust_serdev-v8-0-2a95f1da22a7@posteo.de>
- <20260530-rust_serdev-v8-3-2a95f1da22a7@posteo.de>
- <DIW1B4FUIXO7.28GSUA0CEA4EV@kernel.org>
- <4638946fc49a38797b716ea173c93327eb751479.camel@posteo.de>
- <ad98dfb1d8469022519d37364e8a068bed3b5687.camel@posteo.de>
- <888dc39c52bb6ddac1a1eed7876c4573bdbef002.camel@posteo.de>
- <DIW2JUUL6A6J.96VI4IQN6HYU@kernel.org>
- <55eae11ea68f129508d0f7e30ac457ba919812b2.camel@posteo.de>
- <DIW34DX6BSUS.ANXBOP9687B0@kernel.org>
- <25dc9a4bbde0b542abf608be1b3305f1421a4502.camel@posteo.de>
- <DIW587AGXYCS.39MR1B4TVSO9@kernel.org>
- <6e5fd4275c2bbaeeac95a0ad4fe15bb8237d6a22.camel@posteo.de>
- <DIW5HXH3HYDB.17132XFBBDBJL@kernel.org>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-NdO1rLB0FIR+4lfpB0do"
+Received: from out30-112.freemail.mail.aliyun.com
+ (out30-112.freemail.mail.aliyun.com [115.124.30.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C00E410E5B7
+ for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 09:41:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux.alibaba.com; s=default;
+ t=1780220512; h=From:To:Subject:Date:Message-ID:MIME-Version;
+ bh=WCcyCK7AkmgAFVYPsCQjJr2AQljQ2E/AGKpawKYklUI=;
+ b=dETHnyRTIkLvhKO27xMwNzzs/uDFlNOXZhHOxIOT6qcHYk8Jt2V6U9OGJIkfuQURDNnFfmzrs43GACqGJsHAcSJwlKRaNon+P/6kvkaEkkpnzRjhABxHqhdIVWQilf9jgvH4CUg3CGCJK6l8wuM4wktnytvOLyMxXTRFQaeciL0=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R191e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033045098064;
+ MF=guanghuifeng@linux.alibaba.com; NM=1; PH=DS; RN=27; SR=0;
+ TI=SMTPD_---0X3tRVog_1780220207; 
+Received: from
+ VM20241011-104.tbsite.net(mailfrom:guanghuifeng@linux.alibaba.com
+ fp:SMTPD_---0X3tRVog_1780220207 cluster:ay36) by smtp.aliyun-inc.com;
+ Sun, 31 May 2026 17:36:48 +0800
+From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
+To: boris.brezillon@collabora.com, robh@kernel.org, steven.price@arm.com,
+ adrian.larumbe@collabora.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ liviu.dudau@arm.com, joro@8bytes.org, will@kernel.org,
+ robin.murphy@arm.com, alex@shazbot.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, kvm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, jgg@ziepe.ca, kevin.tian@intel.com,
+ baolu.lu@linux.intel.com, suravee.suthikulpanit@amd.com,
+ dwmw2@infradead.org
+Cc: xlpang@linux.alibaba.com, oliver.yang@linux.alibaba.com,
+ shiyu.zsq@linux.alibaba.com, wei.guo.simon@linux.alibaba.com
+Subject: [PATCH 2/9] iommu/io-pgtable: introduce iova_to_phys_length in
+ io_pgtable_ops
+Date: Sun, 31 May 2026 17:36:30 +0800
+Message-ID: <20260531093637.3893199-3-guanghuifeng@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20260531093637.3893199-1-guanghuifeng@linux.alibaba.com>
+References: <20260529115116.GR2487554@ziepe.ca>
+ <20260531093637.3893199-1-guanghuifeng@linux.alibaba.com>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
- preference=encrypt
-X-Mailman-Approved-At: Sun, 31 May 2026 13:58:31 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sun, 31 May 2026 13:58:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,96 +67,253 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Add iova_to_phys_length to struct io_pgtable_ops alongside iova_to_phys.
+The new callback additionally returns the block/page size of the PTE
+entry through the mapped_length parameter.
 
---=-NdO1rLB0FIR+4lfpB0do
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Implement in all three io-pgtable backends:
+- ARM LPAE: returns ARM_LPAE_BLOCK_SIZE at the resolved level
+- ARM v7s: returns block size derived from level mask
+- DART: returns pgsize_bitmap (single fixed page size)
 
-On Sat, 2026-05-30 at 18:27 +0200, Danilo Krummrich wrote:
-> On Sat May 30, 2026 at 6:23 PM CEST, Markus Probst wrote:
-> > On Sat, 2026-05-30 at 18:14 +0200, Danilo Krummrich wrote:
-> > > On Sat May 30, 2026 at 4:51 PM CEST, Markus Probst wrote:
-> > > > On Sat, 2026-05-30 at 16:35 +0200, Danilo Krummrich wrote:
-> > > > > On Sat May 30, 2026 at 4:27 PM CEST, Markus Probst wrote:
-> > > > > > This would work, but I don't see how it would get rid of rust_p=
-rivate_data in
-> > > > > > this way. The device private data will but the private bus abst=
-raction data
-> > > > > > needs to outlive the devres callbacks (which is done by rust_pr=
-ivate_data).
-> > > > >=20
-> > > > > Why? You only ever use it in the receive callback, which won't be=
- called after
-> > > > > device unbind anymore.
-> > > > Because the possibility exists that some classdev ops or Drop calls
-> > > > e.g. sdev.set_baudrate. This is a null pointer dereference after
-> > > > serdev_device_close has been called. I interpreted it to add a stat=
-e to
-> > > > the abstraction private data which would prevent those calls (early
-> > > > return with error) after serdev_device_close has been called, but t=
-his
-> > > > would only work if it outlives these calls.
-> > > >=20
-> > > > But it seems you were refering to something else with the state?
-> > >=20
-> > > Yes, but I just notice that I'm a step ahead. With the lifetime model=
- class
-> > > device registrations shouldn't be guarded with Devres anymore, but wi=
-th a
-> > > lifetime.
-> > >=20
-> > > (This also entirely eliminates the need for having different devres s=
-tages to
-> > > prevent drivers from smuggling a newly created Devres object into an =
-existing
-> > > Devres<Registration<T>>'s data, which would be unsound for obvious re=
-asons.)
-> > >=20
-> > > With this there is no way there are still class device callbacks afte=
-r the bus
-> > > device private data has been dropped in the first place.
-> > There would still be Drop, which can access the device.
-> > Drop happens after remove_callback.
->=20
-> But you control drop(), so can order it such that first the driver's bus =
-device
-> private data drops and after this the private data of the bus wrapping it=
- (which
-> will also call serdev_device_close()).
-Yes.
+The old iova_to_phys is kept as a thin wrapper for backward compat.
 
-It seems I also have to rebase led then, as it currently uses Devres.
+Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
+Acked-by: Shiqiang Zhang <shiyu.zsq@linux.alibaba.com>
+Acked-by: Simon Guo <wei.guo.simon@linux.alibaba.com>
+---
+ drivers/iommu/io-pgtable-arm-v7s.c | 30 ++++++++++++++++++++++++------
+ drivers/iommu/io-pgtable-arm.c     | 19 ++++++++++++++++++-
+ drivers/iommu/io-pgtable-dart.c    | 26 +++++++++++++++++++++-----
+ include/linux/io-pgtable.h         |  7 +++++++
+ 4 files changed, 70 insertions(+), 12 deletions(-)
 
-Thanks
-- Markus Probst
+diff --git a/drivers/iommu/io-pgtable-arm-v7s.c b/drivers/iommu/io-pgtable-arm-v7s.c
+index 40e33257d3c2..54e8cc673eb6 100644
+--- a/drivers/iommu/io-pgtable-arm-v7s.c
++++ b/drivers/iommu/io-pgtable-arm-v7s.c
+@@ -641,13 +641,25 @@ static size_t arm_v7s_unmap_pages(struct io_pgtable_ops *ops, unsigned long iova
+ 	return unmapped;
+ }
+ 
++static phys_addr_t arm_v7s_iova_to_phys_length(struct io_pgtable_ops *ops,
++						unsigned long iova,
++						size_t *mapped_length);
++
+ static phys_addr_t arm_v7s_iova_to_phys(struct io_pgtable_ops *ops,
+ 					unsigned long iova)
++{
++	return arm_v7s_iova_to_phys_length(ops, iova, NULL);
++}
++
++static phys_addr_t arm_v7s_iova_to_phys_length(struct io_pgtable_ops *ops,
++						unsigned long iova,
++						size_t *mapped_length)
+ {
+ 	struct arm_v7s_io_pgtable *data = io_pgtable_ops_to_data(ops);
+ 	arm_v7s_iopte *ptep = data->pgd, pte;
+ 	int lvl = 0;
+ 	u32 mask;
++	size_t blk_size;
+ 
+ 	do {
+ 		ptep += ARM_V7S_LVL_IDX(iova, ++lvl, &data->iop.cfg);
+@@ -661,6 +673,11 @@ static phys_addr_t arm_v7s_iova_to_phys(struct io_pgtable_ops *ops,
+ 	mask = ARM_V7S_LVL_MASK(lvl);
+ 	if (arm_v7s_pte_is_cont(pte, lvl))
+ 		mask *= ARM_V7S_CONT_PAGES;
++
++	blk_size = ~mask + 1U;
++	if (mapped_length)
++		*mapped_length = blk_size;
++
+ 	return iopte_to_paddr(pte, lvl, &data->iop.cfg) | (iova & ~mask);
+ }
+ 
+@@ -714,6 +731,7 @@ static struct io_pgtable *arm_v7s_alloc_pgtable(struct io_pgtable_cfg *cfg,
+ 		.map_pages	= arm_v7s_map_pages,
+ 		.unmap_pages	= arm_v7s_unmap_pages,
+ 		.iova_to_phys	= arm_v7s_iova_to_phys,
++		.iova_to_phys_length	= arm_v7s_iova_to_phys_length,
+ 	};
+ 
+ 	/* We have to do this early for __arm_v7s_alloc_table to work... */
+@@ -837,13 +855,13 @@ static int __init arm_v7s_do_selftests(void)
+ 	 * Initial sanity checks.
+ 	 * Empty page tables shouldn't provide any translations.
+ 	 */
+-	if (ops->iova_to_phys(ops, 42))
++	if (ops->iova_to_phys_length(ops, 42, NULL))
+ 		return __FAIL(ops);
+ 
+-	if (ops->iova_to_phys(ops, SZ_1G + 42))
++	if (ops->iova_to_phys_length(ops, SZ_1G + 42, NULL))
+ 		return __FAIL(ops);
+ 
+-	if (ops->iova_to_phys(ops, SZ_2G + 42))
++	if (ops->iova_to_phys_length(ops, SZ_2G + 42, NULL))
+ 		return __FAIL(ops);
+ 
+ 	/*
+@@ -864,7 +882,7 @@ static int __init arm_v7s_do_selftests(void)
+ 				    &mapped))
+ 			return __FAIL(ops);
+ 
+-		if (ops->iova_to_phys(ops, iova + 42) != (iova + 42))
++		if (ops->iova_to_phys_length(ops, iova + 42, NULL) != (iova + 42))
+ 			return __FAIL(ops);
+ 
+ 		iova += SZ_16M;
+@@ -878,7 +896,7 @@ static int __init arm_v7s_do_selftests(void)
+ 		if (ops->unmap_pages(ops, iova, size, 1, NULL) != size)
+ 			return __FAIL(ops);
+ 
+-		if (ops->iova_to_phys(ops, iova + 42))
++		if (ops->iova_to_phys_length(ops, iova + 42, NULL))
+ 			return __FAIL(ops);
+ 
+ 		/* Remap full block */
+@@ -886,7 +904,7 @@ static int __init arm_v7s_do_selftests(void)
+ 				   GFP_KERNEL, &mapped))
+ 			return __FAIL(ops);
+ 
+-		if (ops->iova_to_phys(ops, iova + 42) != (iova + 42))
++		if (ops->iova_to_phys_length(ops, iova + 42, NULL) != (iova + 42))
+ 			return __FAIL(ops);
+ 
+ 		iova += SZ_16M;
+diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-arm.c
+index 0208e5897c29..e2ea84669fbf 100644
+--- a/drivers/iommu/io-pgtable-arm.c
++++ b/drivers/iommu/io-pgtable-arm.c
+@@ -731,8 +731,19 @@ static int visit_iova_to_phys(struct io_pgtable_walk_data *walk_data, int lvl,
+ 	return 0;
+ }
+ 
++static phys_addr_t arm_lpae_iova_to_phys_length(struct io_pgtable_ops *ops,
++						 unsigned long iova,
++						 size_t *mapped_length);
++
+ static phys_addr_t arm_lpae_iova_to_phys(struct io_pgtable_ops *ops,
+ 					 unsigned long iova)
++{
++	return arm_lpae_iova_to_phys_length(ops, iova, NULL);
++}
++
++static phys_addr_t arm_lpae_iova_to_phys_length(struct io_pgtable_ops *ops,
++						 unsigned long iova,
++						 size_t *mapped_length)
+ {
+ 	struct arm_lpae_io_pgtable *data = io_pgtable_ops_to_data(ops);
+ 	struct iova_to_phys_data d;
+@@ -742,13 +753,18 @@ static phys_addr_t arm_lpae_iova_to_phys(struct io_pgtable_ops *ops,
+ 		.addr = iova,
+ 		.end = iova + 1,
+ 	};
++	size_t block_size;
+ 	int ret;
+ 
+ 	ret = __arm_lpae_iopte_walk(data, &walk_data, data->pgd, data->start_level);
+ 	if (ret)
+ 		return 0;
+ 
+-	iova &= (ARM_LPAE_BLOCK_SIZE(d.lvl, data) - 1);
++	block_size = ARM_LPAE_BLOCK_SIZE(d.lvl, data);
++	if (mapped_length)
++		*mapped_length = block_size;
++
++	iova &= (block_size - 1);
+ 	return iopte_to_paddr(d.pte, data) | iova;
+ }
+ 
+@@ -948,6 +964,7 @@ arm_lpae_alloc_pgtable(struct io_pgtable_cfg *cfg)
+ 		.map_pages	= arm_lpae_map_pages,
+ 		.unmap_pages	= arm_lpae_unmap_pages,
+ 		.iova_to_phys	= arm_lpae_iova_to_phys,
++		.iova_to_phys_length	= arm_lpae_iova_to_phys_length,
+ 		.read_and_clear_dirty = arm_lpae_read_and_clear_dirty,
+ 		.pgtable_walk	= arm_lpae_pgtable_walk,
+ 	};
+diff --git a/drivers/iommu/io-pgtable-dart.c b/drivers/iommu/io-pgtable-dart.c
+index cbc5d6aa2daa..fa250f5d16ed 100644
+--- a/drivers/iommu/io-pgtable-dart.c
++++ b/drivers/iommu/io-pgtable-dart.c
+@@ -333,11 +333,23 @@ static size_t dart_unmap_pages(struct io_pgtable_ops *ops, unsigned long iova,
+ 	return i * pgsize;
+ }
+ 
++static phys_addr_t dart_iova_to_phys_length(struct io_pgtable_ops *ops,
++					    unsigned long iova,
++					    size_t *mapped_length);
++
+ static phys_addr_t dart_iova_to_phys(struct io_pgtable_ops *ops,
+-					 unsigned long iova)
++				     unsigned long iova)
++{
++	return dart_iova_to_phys_length(ops, iova, NULL);
++}
++
++static phys_addr_t dart_iova_to_phys_length(struct io_pgtable_ops *ops,
++					    unsigned long iova,
++					    size_t *mapped_length)
+ {
+ 	struct dart_io_pgtable *data = io_pgtable_ops_to_data(ops);
+ 	dart_iopte pte, *ptep;
++	size_t pgsize;
+ 
+ 	ptep = dart_get_last(data, iova);
+ 
+@@ -350,7 +362,10 @@ static phys_addr_t dart_iova_to_phys(struct io_pgtable_ops *ops,
+ 	pte = READ_ONCE(*ptep);
+ 	/* Found translation */
+ 	if (pte) {
+-		iova &= (data->iop.cfg.pgsize_bitmap - 1);
++		pgsize = data->iop.cfg.pgsize_bitmap;
++		if (mapped_length)
++			*mapped_length = pgsize;
++		iova &= (pgsize - 1);
+ 		return iopte_to_paddr(pte, data) | iova;
+ 	}
+ 
+@@ -397,9 +412,10 @@ dart_alloc_pgtable(struct io_pgtable_cfg *cfg)
+ 	data->bits_per_level = bits_per_level;
+ 
+ 	data->iop.ops = (struct io_pgtable_ops) {
+-		.map_pages	= dart_map_pages,
+-		.unmap_pages	= dart_unmap_pages,
+-		.iova_to_phys	= dart_iova_to_phys,
++		.map_pages		= dart_map_pages,
++		.unmap_pages		= dart_unmap_pages,
++		.iova_to_phys		= dart_iova_to_phys,
++		.iova_to_phys_length	= dart_iova_to_phys_length,
+ 	};
+ 
+ 	return data;
+diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
+index e19872e37e06..42bcdd309b88 100644
+--- a/include/linux/io-pgtable.h
++++ b/include/linux/io-pgtable.h
+@@ -203,6 +203,10 @@ struct arm_lpae_io_pgtable_walk_data {
+  * @map_pages:    Map a physically contiguous range of pages of the same size.
+  * @unmap_pages:  Unmap a range of virtually contiguous pages of the same size.
+  * @iova_to_phys: Translate iova to physical address.
++ * @iova_to_phys_length: Translate iova to physical address and return the
++ *			  remaining mapped length from iova to the end of the
++ *			  mapping entry via @mapped_length. If @mapped_length is
++ *			  NULL, only the physical address is returned.
+  * @pgtable_walk: (optional) Perform a page table walk for a given iova.
+  * @read_and_clear_dirty: Record dirty info per IOVA. If an IOVA is dirty,
+  *			  clear its dirty state from the PTE unless the
+@@ -220,6 +224,9 @@ struct io_pgtable_ops {
+ 			      struct iommu_iotlb_gather *gather);
+ 	phys_addr_t (*iova_to_phys)(struct io_pgtable_ops *ops,
+ 				    unsigned long iova);
++	phys_addr_t (*iova_to_phys_length)(struct io_pgtable_ops *ops,
++					   unsigned long iova,
++					   size_t *mapped_length);
+ 	int (*pgtable_walk)(struct io_pgtable_ops *ops, unsigned long iova, void *wd);
+ 	int (*read_and_clear_dirty)(struct io_pgtable_ops *ops,
+ 				    unsigned long iova, size_t size,
+-- 
+2.43.7
 
->=20
-> > Might be simpler for now: I can use a mutex to prevent calls in
-> > receive_buf after remove_callback has been called.
-> >=20
-> > Thanks
-> > - Markus Probst
-
---=-NdO1rLB0FIR+4lfpB0do
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmobEIsbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSwTUP/RtLybkJjeY75/6rR1z6
-v8gVJLIWXafyklqhLr59QOolNHCHs91NmxiU2mFhpPG8XoanZWH623iTArP0Aq+c
-OXSbuZHZRVMW+5G0Sb9cVKllMFiR25QYcxhqGTkzE7jTThhwssN/8/3YrinlxBEm
-Tk54A1tEfW2SCB1yrAEKiPojAsdfw0IAdQJZTV80wzbaTl7LSIKobuH4bNrqIt0k
-fZ58XkOJMmeVzWPuRlh54kDfT9F8tuZkotA3GoaN/4nJDd6JuIZfhk6RFx+EnmAa
-DduvV1uNgUdQfAcrcdHkFbGUzkgLsecY4WHdC9+ZgZgdKUSbI/m4D+c8W/9vhtQ4
-29AckBCjrtU03XNym2UhFbvnv6aMoRyWzeb1gz6Kw7zYgHOBrn5lQlxDjG/MV5Ux
-+OD8hgQLxNau/BZLgzGjuTaUTqeYUMiulI/MV/mcpotOxBYFR/zkfw3KunPIEKGN
-cY5kSG5406v7HomI6Pua/UwzzHS4i8tv9Tu9eWD6q49NAwLL/mI4vI5VHiZVWXK8
-1DYwCuHIAB0KQRv9xjAi4f49ZOtUTOrQ0mg0lphFMipxfDQN8l9WG15J6tV35VH2
-pipnKvEhDaAQzyVjlIfQU8g1N/PFS3HFnE/+NgBd4a23dK1svUYp5aiOeY5X7mru
-ZsERn7N+Q0bzGCMGor5YEpmQ
-=XatZ
------END PGP SIGNATURE-----
-
---=-NdO1rLB0FIR+4lfpB0do--
