@@ -4,62 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54FACCD6E52
-	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 20:19:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45112CD6E56
+	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 20:19:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F40310E50D;
-	Sun, 31 May 2026 20:19:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6615610E537;
+	Sun, 31 May 2026 20:19:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="AHDaRqNZ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FiNPCmx7";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6514810E50D
- for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 20:19:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2B5A10E536
+ for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 20:19:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
- Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=QpGaYgr6Qtu17GRuSnJT6BZDx5iVwF8//EP6Gbc8Hwg=; b=AHDaRqNZUEoElsvlloOA9RT1AM
- tAX4nqjuw7qU12+UsAEoX1jiXgz0l+AszDDo7fPz38hmiNSav190Ruk2zO2UrQ9+5nd3BJ7/OkEtC
- PkDIiIbgsV26KF9lyo/puXhOJ4+YOuHNTAW6ilmcojh+aCSCh86Cdmc8Kg+W7alZvQ/gKl22vEITv
- Y5RzduCS+LdImAncm8CaSBsm7TfZlCHAljUhCfN7CrFE+nq8lozDd8cAtp8+D9WgSuKcgHcPldbcN
- FpzlX/7p97EshK+vNEn7zsszNLHkC2eftnmAOlRdxnlA6f7OUWi/JSnzyaR5nUQ02EpptlHpBxEtg
- KJ/5UBig==;
+ s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
+ Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
+ Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+ :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=iNbA1Zb5nGY3JWFWoXXUB78sDJAYUz80700LYxUSUNY=; b=FiNPCmx74oW0HQxBTsAbMlQyVH
+ 00Yz6QRgmmbaIkncTTRR/cYoFypaqI+bznlKwLYqvZHfjPvg13u/DlHp6YEwb7aYE+V391bYhHFM8
+ IRGApqll+KeABw4EjQJWz/HpWMwm3tbB2feenz9HABefugbQrEY5YPo+OWDdm/C/CwCqcE1USeG5e
+ rmlKYsMeP7v77bEp6aJleshVaLu72jINqc1qzy9wF+DbRfXx1mRT94KUi1el8c4vs8SnBpfAjVdvI
+ gO1oFbnvKvu1OqFIzV9ZaYWPpct/rmydgejiE938RvASwrUCLpB36HvjMLgidY6DY5y3PR+4YbHox
+ IeylGEaQ==;
 Received: from [189.7.87.67] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wTmcr-00Agcp-BW; Sun, 31 May 2026 22:19:13 +0200
+ id 1wTmd1-00Agcp-JC; Sun, 31 May 2026 22:19:23 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Subject: [PATCH v2 0/4] drm/v3d: Fix perfmon locking and cross-queue isolation
-Date: Sun, 31 May 2026 17:18:54 -0300
-Message-Id: <20260531-v3d-perfmon-lifetime-v2-0-60ed4485a203@igalia.com>
+Date: Sun, 31 May 2026 17:18:57 -0300
+Subject: [PATCH v2 3/4] drm/v3d: Serialize jobs across queues when a
+ perfmon is attached
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22PS27EIBBEr2KxTkeAAX9WuUc0CxuacUuDPQEHJ
- Rr57sFMpGyyrJL6veoHSxgJExubB4uYKdG2liBfGmaXab0ikCuZSS4N11xDbh3cMfqwrXAjjzs
- FBNXbwaETfBAzK6f3iJ6+Kvb98swRPz4LfX+Wf/DiOtGKdxWd7IIOAiULlQBGtl07cNGhbscsT
- /o8JQS7hUD72CgrDQojB9V5droWSvsWv+tHWVTZ7/j+//FZAAevZ22UtLzX/o2u042m16Jgl+M
- 4fgCeIj39JQEAAA==
-X-Change-ID: 20260505-v3d-perfmon-lifetime-48c9ded1091b
+Message-Id: <20260531-v3d-perfmon-lifetime-v2-3-60ed4485a203@igalia.com>
+References: <20260531-v3d-perfmon-lifetime-v2-0-60ed4485a203@igalia.com>
+In-Reply-To: <20260531-v3d-perfmon-lifetime-v2-0-60ed4485a203@igalia.com>
 To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- stable@vger.kernel.org, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6009; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=vOQF8BMPHnIfgndK06j3IO4dzVdZ364JXK3m48gBNqE=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqHJe9INo0XI8giHAFn3G0ygvrhGOQdvbRAOeTE
- W/3BE/tt9GJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCahyXvQAKCRA/8w6Kdoj6
- qobRB/9nDHgz2WGhGRyHSsJfM6JUkolUPPh4Rw4DoPaAd7mgAvhBk5l4gtHsDveby7+cNct5wG4
- dTImkXo+TIOcti6UBgEfhWGt+AG2vZnFPRqDA71KomKlEXDuTPZ9v1R7w5B5Jnc7tKdKrLECSL/
- Yv9GgnB/EKVSW4KTEa3iNCj4DnkwOODM1ziKeY4m7cj2my8GwfdbIw5m0toLqEMtoAMFg5en6Ds
- mm8Vv2W0I2dCpWXAxc9Ot35y2kqccIoO7s2FWaotfXSP9ZXYqOjGr2//F5vPFoUyuLKUpfcxGYY
- nSljjF+ZXXSxwPbwqdMFWPJYAhKi277e5Ln+L3D43+qaB+7Z
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7934; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=GidoTRx1+ESYxZhx/IOL4hNdmEn+xBEHZ0PGigMusJM=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqHJe9Py8Ro0jHf1os1qLr9luLxscMSXrlr5gqo
+ hnmfbYVRIOJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCahyXvQAKCRA/8w6Kdoj6
+ qmAxCAC+sEiBJ/tF7un6Q74lfrUyU5Tx/xlLgLJ1ok6herKkTiiiaxDlBvx9+dIu8YmczeakF22
+ EEpKhSeEXykRswRMxa6Em1LeU0hxewb5z1Ep69BpLHbRMEj6Tg7iDtq502rPcsOI0PZfZQtWd+x
+ WruJ0z0MshatsVEKn1jGA8mynLAu2fLnVoXGTFj+DL+9dzaxPG5GagAJQW+J0sElV8yp2IHcHU3
+ r+2nrSqcq7Zea/adoEiyXaidoaynL9f5r5WLxkNm699n5NSVWmiYPaYArl15Oc5Gd1xMUvfMNy5
+ AsqDSByykzvtCA75G7XX7jt/arWyyB2GLHMPL3Fd5TQ6lfuO
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -77,123 +73,224 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A v3d core is able to expose a single set of HW performance counters, so at
-any moment at most one perfmon can be programmed in HW. Currently, the
-driver tracks the active perfmon with v3d_dev->active_perfmon, but three
-long-standing issues makes perfmon handling unreliable:
+A non-global perfmon is meant to count events generated by a specific
+submission, but the scheduler can run jobs from different queues
+concurrently on the same V3D core. Without explicit serialization, an
+unrelated job running in parallel with a perfmon-carrying job pollutes
+the counters and generates unusable results.
 
-1. The active_perfmon pointer is accessed lock-free from scheduler
-   callbacks, the GPU-reset path and the perfmon ioctls. Note that the
-   v3d_perfmon->lock mutex serialized start/stop of one perfmon object
-   against itself, but the invariant that needs protection is device-wide.
+To address such issue, we must enforce cross-queue serialization when we
+detect a perfmon-carrying submission. It's possible to implement
+serialization by enforcing two rules:
 
-2. perfmon start/stop is hooked exclusively to run_job() callbacks via
-   v3d_switch_perfmon(). If nothing is queued behind a perfmon-carrying
-   job, the perfmon is never actually stopped.
+  1. A job that carries a non-global perfmon must wait for every job
+    currently in-flight across all HW queues to finish.
 
-3. A non-global perfmon should count events generated by a specific
-   submission, but the scheduler can run jobs from different queues
-   concurrently. Without explicit cross-queue serialization, an unrelated
-   job running in parallel pollutes the counters and produces unusable
-   results.
+  2. While a perfmon-carrying job is still in-flight, all subsequently
+    submitted jobs must wait for it.
 
-This series aims to address all three issues.
+Note that serialization is not needed in the global perfmon case, as the
+global perfmon tracks activity from all jobs, so concurrency is desirable.
 
-PATCH 1 is a minimal, stable-targeted fix for a separate problem: the
-SET_GLOBAL ioctl leaks the perfmon reference on several paths. It is kept
-self-contained so it can be backported on its own.
+Therefore, check if serialization is needed during job submission and if
+so, attach fence dependences to enforce cross-queue serialization.
 
-PATCH 2 moves the locking to where the invariant actually lives (fixing
-issue #1) and replaces the sleeping mutex with a spinlock, which allows us
-to stop the perfmon from the IRQ handler at job-completion time (the
-natural boundary for "active perfmon follows the active job") and fixes
-issue #2.
-
-PATCH 3 addresses issue #3 by building on the new locking to enforce
-cross-queue serialization when a non-global perfmon is attached, by adding
-scheduler fence dependencies during submission. The fence dependencies
-allow us to enforce two rules:
-
-1. A job that carries a non-global perfmon waits for every job currently
-   in-flight across all HW queues to finish.
-
-2. While such a job is in-flight, any subsequently submitted job waits
-   for it.
-
-This allows us to ensure cross-queue isolation and the reliability of
-the performance counter values.
-
-PATCH 4 is a cleanup that drops the now-redundant queue argument from
-v3d_job_add_syncobjs(), as struct v3d_job carries its submission queue
-after PATCH 3.
-
-To make sure that this series actually produces the expected results and
-improves the overall reliability of v3d's performance monitors, this
-series is accompanied by a IGT series [1], which was already merged.
-
-This series depends on [2].
-
-[1] https://lore.kernel.org/igt-dev/20260514201637.1811428-1-mcanal@igalia.com/T/
-[2] https://lore.kernel.org/dri-devel/20260510-v3d-sched-misc-fixes-v2-0-ca4aba343ef6@igalia.com/T/
-
-Best regards,
-- Maíra
-
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
-v1 -> v2: https://lore.kernel.org/r/20260508-v3d-perfmon-lifetime-v1-0-f5b5642c085f@igalia.com
+ drivers/gpu/drm/v3d/v3d_drv.h     | 35 ++++++++++++++++++----
+ drivers/gpu/drm/v3d/v3d_gem.c     |  3 ++
+ drivers/gpu/drm/v3d/v3d_perfmon.c |  6 ++++
+ drivers/gpu/drm/v3d/v3d_submit.c  | 63 +++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 101 insertions(+), 6 deletions(-)
 
-- Rebased on top of "[PATCH v2 00/14] drm/v3d: Scheduler and submission
-  fixes and refactoring"
-- [1/4] NEW PATCH: "drm/v3d: Fix global performance monitor reference counting"
-        - Minimal patch for stable branches only fixing the reference leaks
-          in global perfmons.
-- [2/4] Start/stop the global perfmon inside the set_global_perfmon ioctl and
-        simplify global perfmon management across the helpers (Iago Toral)
-        - In the reset path, before stopping the perfmon for the HW reset,
-          v3d_reset() now re-arms the global perfmon with v3d_perfmon_resume(),
-          as the global perfmon's start/stop points live only in the IOCTL.
-        - v3d_perfmon_get_values_ioctl() no longer stops the perfmon, it
-          only captures the values. Lifecycle management is left to the job
-          (per-job perfmons) or the SET_GLOBAL ioctl (global perfmon).
-- [2/4] In v3d_perfmon_delete(), first, stop the perfmon and then, check if
-        it's a global perfmon (Iago Toral)
-- [2/4] Add some comments to explain the refcount logic for global perfmons
-        (Iago Toral)
-- [3/4] Move the job->queue introduction to this patch instead of the
-        previous one.
-- [4/4] NEW PATCH: "drm/v3d: Drop the queue argument from v3d_job_add_syncobjs()"
+diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
+index 51486af68cf4..cdf4926d51f2 100644
+--- a/drivers/gpu/drm/v3d/v3d_drv.h
++++ b/drivers/gpu/drm/v3d/v3d_drv.h
+@@ -74,11 +74,13 @@ struct v3d_queue_state {
+ 	spinlock_t queue_lock;
+ };
+ 
+-/* Performance monitor object. The perform lifetime is controlled by userspace
+- * using perfmon related ioctls. A perfmon can be attached to a submit_cl
+- * request, and when this is the case, HW perf counters will be activated just
+- * before the submit_cl is submitted to the GPU and disabled when the job is
+- * done. This way, only events related to a specific job will be counted.
++/* Performance monitor object
++ *
++ * The performance monitor (perfmon) lifetime is controlled by userspace using
++ * perfmon related ioctls. A perfmon can be attached to a CL or CSD submission
++ * request, and when it is, HW performance counters will be activated just
++ * before the job is submitted to the GPU and disabled when the job is done.
++ * This way, only events related to a specific submission will be counted.
+  */
+ struct v3d_perfmon {
+ 	/* Tracks the number of users of the perfmon, when this counter reaches
+@@ -167,13 +169,31 @@ struct v3d_dev {
+ 
+ 	struct v3d_queue_state queue[V3D_MAX_QUEUES];
+ 
+-	/* Tracks the performance monitor state. */
++	/*
++	 * Tracks the performance monitor state and consistency.
++	 *
++	 * When a non-global perfmon is attached to a job, the scheduler must
++	 * not run any other job on the HW concurrently (otherwise, the
++	 * counters would be polluted by unrelated work).
++	 */
+ 	struct {
+ 		/* Protects @active. */
+ 		spinlock_t lock;
+ 
+ 		/* Perfmon currently programmed in HW (or NULL if none). */
+ 		struct v3d_perfmon *active;
++
++		/* Finished fence of the most recently submitted job that
++		 * opened a serialization window (i.e. a job with a non-global
++		 * perfmon attached).
++		 */
++		struct dma_fence *fence;
++
++		/* Finished fence of the most recently submitted job on each HW
++		 * queue. Used so that a new perfmon-carrying job can depend on
++		 * every job currently in-flight across all queues.
++		 */
++		struct dma_fence *last_hw_fence[V3D_MAX_QUEUES];
+ 	} perfmon_state;
+ 
+ 	/* Protects bo_stats */
+@@ -319,6 +339,9 @@ struct v3d_job {
+ 
+ 	struct v3d_dev *v3d;
+ 
++	/* The queue that the job was submitted on. */
++	enum v3d_queue queue;
++
+ 	/* This is the array of BOs that were looked up at the start
+ 	 * of submission.
+ 	 */
+diff --git a/drivers/gpu/drm/v3d/v3d_gem.c b/drivers/gpu/drm/v3d/v3d_gem.c
+index 9487ab7acd03..0b415486f5b4 100644
+--- a/drivers/gpu/drm/v3d/v3d_gem.c
++++ b/drivers/gpu/drm/v3d/v3d_gem.c
+@@ -363,8 +363,11 @@ v3d_gem_destroy(struct drm_device *dev)
+ 	for (q = 0; q < V3D_MAX_QUEUES; q++) {
+ 		WARN_ON(v3d->queue[q].active_job);
+ 		v3d_stats_put(v3d->queue[q].stats);
++		dma_fence_put(v3d->perfmon_state.last_hw_fence[q]);
+ 	}
+ 
++	dma_fence_put(v3d->perfmon_state.fence);
++
+ 	drm_mm_takedown(&v3d->mm);
+ 
+ 	dma_free_coherent(v3d->drm.dev, 4096 * 1024, (void *)v3d->pt,
+diff --git a/drivers/gpu/drm/v3d/v3d_perfmon.c b/drivers/gpu/drm/v3d/v3d_perfmon.c
+index 3ad0f022753c..07dab7fb3060 100644
+--- a/drivers/gpu/drm/v3d/v3d_perfmon.c
++++ b/drivers/gpu/drm/v3d/v3d_perfmon.c
+@@ -275,6 +275,12 @@ void v3d_perfmon_start(struct v3d_dev *v3d, struct v3d_perfmon *perfmon)
+ 	if (!perfmon || v3d->global_perfmon)
+ 		return;
+ 
++	/* Cross-queue serialization should have drained any previous perfmon
++	 * job before this one runs.
++	 */
++	if (WARN_ON_ONCE(v3d->perfmon_state.active))
++		return;
++
+ 	if (!pm_runtime_get_if_active(v3d->drm.dev))
+ 		return;
+ 
+diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
+index 4c526aafc4e0..46fc88bacc95 100644
+--- a/drivers/gpu/drm/v3d/v3d_submit.c
++++ b/drivers/gpu/drm/v3d/v3d_submit.c
+@@ -234,6 +234,7 @@ v3d_submit_add_job(struct v3d_submit *submit, void **container, size_t size,
+ 	job->v3d = v3d;
+ 	job->free = free;
+ 	job->file_priv = v3d_priv;
++	job->queue = queue;
+ 
+ 	ret = drm_sched_job_init(&job->base, &v3d_priv->sched_entity[queue],
+ 				 1, v3d_priv, submit->file_priv->client_id);
+@@ -293,6 +294,62 @@ v3d_attach_perfmon_to_jobs(struct v3d_submit *submit, u32 perfmon_id)
+ 	return 0;
+ }
+ 
++/*
++ * Prepare fences to enforce job serialization when a perfmon is active. A job
++ * that carries a non-global perfmon must wait for every job currently in-flight
++ * across all HW queues to finish, otherwise concurrent unrelated work on the
++ * same core would pollute the performance counters. Symmetrically, while such a
++ * job is still in-flight, all subsequently submitted jobs must wait for it.
++ *
++ * We don't serialize the jobs when using a global perfmon as it's expected to
++ * track concurrent activity from all jobs.
++ */
++static int
++v3d_serialize_for_perfmon(struct v3d_job *job)
++{
++	struct v3d_dev *v3d = job->v3d;
++	bool is_global_perfmon;
++	int ret;
++
++	lockdep_assert_held(&v3d->sched_lock);
++
++	scoped_guard(spinlock_irqsave, &v3d->perfmon_state.lock)
++		is_global_perfmon = !!v3d->global_perfmon;
++
++	if (is_global_perfmon)
++		goto publish;
++
++	if (job->perfmon) {
++		for (enum v3d_queue q = 0; q < V3D_MAX_QUEUES; q++) {
++			struct dma_fence *f = v3d->perfmon_state.last_hw_fence[q];
++
++			if (!f || dma_fence_is_signaled(f))
++				continue;
++
++			ret = drm_sched_job_add_dependency(&job->base, dma_fence_get(f));
++			if (ret)
++				return ret;
++		}
++	} else if (v3d->perfmon_state.fence &&
++		   !dma_fence_is_signaled(v3d->perfmon_state.fence)) {
++		ret = drm_sched_job_add_dependency(&job->base,
++						   dma_fence_get(v3d->perfmon_state.fence));
++		if (ret)
++			return ret;
++	}
++
++publish:
++	dma_fence_put(v3d->perfmon_state.last_hw_fence[job->queue]);
++	v3d->perfmon_state.last_hw_fence[job->queue] = dma_fence_get(job->done_fence);
++
++	if (job->perfmon && !is_global_perfmon) {
++		dma_fence_put(v3d->perfmon_state.fence);
++		v3d->perfmon_state.fence = dma_fence_get(job->done_fence);
++	}
++
++	return 0;
++}
++
+ static void
+ v3d_submit_attach_object_fences(struct v3d_submit *submit)
+ {
+@@ -337,6 +394,12 @@ v3d_submit_jobs(struct v3d_submit *submit)
+ 			goto err;
+ 	}
+ 
++	for (int i = 0; i < submit->job_count; i++) {
++		ret = v3d_serialize_for_perfmon(submit->jobs[i]);
++		if (ret)
++			goto err;
++	}
++
+ 	for (int i = 0; i < submit->job_count; i++)
+ 		drm_sched_entity_push_job(&submit->jobs[i]->base);
+ 
 
----
-Maíra Canal (4):
-      drm/v3d: Fix global performance monitor reference counting
-      drm/v3d: Refactor perfmon locking
-      drm/v3d: Serialize jobs across queues when a perfmon is attached
-      drm/v3d: Drop the queue argument from v3d_job_add_syncobjs()
-
- drivers/gpu/drm/v3d/v3d_drv.h     |  50 ++++++++--
- drivers/gpu/drm/v3d/v3d_gem.c     |   7 +-
- drivers/gpu/drm/v3d/v3d_irq.c     |   7 +-
- drivers/gpu/drm/v3d/v3d_perfmon.c | 195 +++++++++++++++++++++++++++++---------
- drivers/gpu/drm/v3d/v3d_power.c   |   4 +
- drivers/gpu/drm/v3d/v3d_sched.c   |  26 +----
- drivers/gpu/drm/v3d/v3d_submit.c  |  85 ++++++++++++++---
- 7 files changed, 282 insertions(+), 92 deletions(-)
----
-base-commit: 4c26e162947f91aa78ba57dd4fddd38fc80e7d60
-change-id: 20260505-v3d-perfmon-lifetime-48c9ded1091b
-prerequisite-change-id: 20260407-v3d-sched-misc-fixes-623739017e53:v2
-prerequisite-patch-id: 01823e165a822ddec72b0b18e49c096d35149e9a
-prerequisite-patch-id: 1df1c11ec62617336e2ed5445c24bbb912570035
-prerequisite-patch-id: 738852cd3115283b43cef336ba8fe88616f28a88
-prerequisite-patch-id: e1fa04bb45b0c1eb1478b2893b0dedcb6a825255
-prerequisite-patch-id: 32c804d9921bcf259b236b3f1d74f7972aec02f2
-prerequisite-patch-id: b1b437650405dd43ed324f9c02a0e591a793aec5
-prerequisite-patch-id: f13898126dac8b6f14d8e1fba8804123f012889e
-prerequisite-patch-id: e03f525b4491a3475ed0efa68bc8049f92be0bd0
-prerequisite-patch-id: 971ac9100d4958aa2c0da2d734533eb9ea9d80b3
-prerequisite-patch-id: 9d3d40ef80c032c0c05b058f6c397d04d1879236
-prerequisite-patch-id: fb2e7a320a7ec3df75b74cfa6683a558f87135a2
-prerequisite-patch-id: 29537da4c8f3c2a97f1350638e9da035cf3e7057
-prerequisite-patch-id: 7303a43285dabde083921fe380a294c9026ef6e9
-prerequisite-patch-id: bc42b0633cf33b2a693cc17534a6090f3813cc60
+-- 
+2.54.0
 
