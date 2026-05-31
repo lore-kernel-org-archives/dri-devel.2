@@ -4,42 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 220A8CD5BD1
-	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 11:49:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C84E3CD6E53
+	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 11:49:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 228F7112AE3;
-	Sun, 31 May 2026 11:49:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BB7A112AE6;
+	Sun, 31 May 2026 11:49:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VL+LXXyv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FHRVu1Ec";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 885DC112AE1;
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4D60112AE1;
  Sun, 31 May 2026 11:49:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 31ECF4456E;
- Sun, 31 May 2026 11:49:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B09301F00898;
+ by tor.source.kernel.org (Postfix) with ESMTP id BB32760123;
+ Sun, 31 May 2026 11:49:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18AD41F00893;
  Sun, 31 May 2026 11:49:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780228156;
- bh=llV6/OzX1c//DkiowHxie2fzB9cbWHYDsc1iY8I5uZY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=VL+LXXyvKk9Zl9OnCSYuy/glgTuzmKo16cUiLlMiScsbBoHrzu82dfok75sBY/l+j
- 2CEvuX+Ogpa7ulg/utuSaG7wpkKPgeev3TBWsAmrl+xi5s/0Q33RcKYhq8m/MYiQBs
- 7WtgQjyoQy6DxKwjfxVMBWdgZYNleaLQsJzXSrESlqJYXjLV8YDArN1sVwDwiFvlVG
- XEkbeDySruGeQLU91jSoqQ0cJLN4rkwsUwlwit9eIIkF2g/Jjo77pNvB6/UpI30X7C
- 0Ml/2eN7YJeCUmzNBErguL77kM0Uv89nL9jax6RM7A3KYhjfFxvWBMFRaiZqk7cVtU
- TQgIETNjTKN1A==
+ s=k20260515; t=1780228155;
+ bh=MQT9vVgz4HegpDjfH+RJO0/pEzwdH74lXx7OVPfGEAs=;
+ h=From:To:Cc:Subject:Date;
+ b=FHRVu1EcpIn0soQD4dZYEaguxHdsQB58eYF7zjdMjgtwOypHm9cNB/oXQh89l7DSZ
+ HMv9FsjNcg5R7KvSNN4vbgalo1lPtYFxWF/S0Z8XMRHi4C4TFz8vjsXJ6/C0P5cfV7
+ SlsELSkqQqA4TYdDstUk50wySAw6Xtfvs3/wziLJikw5FfOoIB1DyXXONhmDbrSCk4
+ ru42w62NAxMX6OEn10Yciy8pDQcN9CxekqYq9cwsK8hKZfKotUkoUwa8fr9CJL8Y+2
+ GINllVUz7GXaRRz1SMeYgTzEE1WKiPRFJBWB/kR1+yX7y4+bj/cSIzNkRyeffePX+D
+ ZEtgQfnRH5i8Q==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
 To: dri-devel@lists.freedesktop.org
 Cc: amd-gfx@lists.freedesktop.org,
  "Mario Limonciello (AMD)" <superm1@kernel.org>
-Subject: [PATCH v5 01/11] Revert "backlight: Remove notifier"
-Date: Sun, 31 May 2026 06:48:58 -0500
-Message-ID: <20260531114908.1693426-2-superm1@kernel.org>
+Subject: [PATCH v5 00/11] Add support for a DRM backlight capability
+Date: Sun, 31 May 2026 06:48:57 -0500
+Message-ID: <20260531114908.1693426-1-superm1@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260531114908.1693426-1-superm1@kernel.org>
-References: <20260531114908.1693426-1-superm1@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -57,135 +55,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This reverts commit 5461f3fd74a89757f95f351eb0bc26aafc2a2e91.
-The backlight notifier support is needed in order to add backlight
-control support into DRM connectors.
+At Display Next Hackfest 2026 we reviewed progress moving brightness
+control into the DRM connector properties.
 
-Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+There is a range LUMINANCE property that will default to 0->0.
+Once a driver attaches a backlight it will be updated to 1->max.
+If the panel supports the minimum backlight turning off the display
+the range can later be updated to 0->max instead of 1->max.
+
+The legacy sysfs interface is synchronized with the DRM connector.
+When a compositor using this feature is loaded, sysfs writes are disabled
+to prevent legacy tools from going out of sync with the compositor.
+
+This has an implementation initially for amdgpu, i915, and Xe with eDP
+connectors.  It can be extended to other connectors like DP for displays
+that can be controlled via DDC as well later.
+
+For ease of testing; this series is also available on this branch:
+https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/log/?h=superm1/backlight-property-v5
+
+This tree is:
+ * 7.1-rc5 +
+ * Various patches coming from drm-next for amdgpu vblank handling +
+ * This series
+
+These patches are backported into that branch due to timing bugs being exposed
+with this series. If this series is applied to drm-next those patches are not
+needed.
+
+The following compositors have implemented matching support:
+ * Kwin: https://invent.kde.org/plasma/kwin/-/merge_requests/9298
+ * Mutter: https://gitlab.gnome.org/swick/mutter/-/commits/wip/kms-luminance-prop
+ * Wlroots: https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/5384
+
 ---
- drivers/video/backlight/backlight.c | 42 +++++++++++++++++++++++++++++
- include/linux/backlight.h           | 20 ++++++++++++++
- 2 files changed, 62 insertions(+)
+v4->v5:
+ * Add i915/xe support (Tested by Simon)
+ * Drop driver indicating support as drivers will just add property to connectors
+ * Lots of internal cleanups (see patches for details)
+ * Add testing tags
+ * Changes for bugs found in amdgpu handling when testing with Kwin
+ * Use 1->max for default range, reserving 0 specifically for displays that
+   are confirmed to turn off at minimum luminance.
+ * Drop worker thread to notify brightness changes (handle part of the commit)
+ * Drop amdgpu brightness caching
 
-diff --git a/drivers/video/backlight/backlight.c b/drivers/video/backlight/backlight.c
-index a22d0bbb6e63..ff2c2084c73a 100644
---- a/drivers/video/backlight/backlight.c
-+++ b/drivers/video/backlight/backlight.c
-@@ -65,6 +65,7 @@
- 
- static struct list_head backlight_dev_list;
- static struct mutex backlight_dev_list_mutex;
-+static struct blocking_notifier_head backlight_notifier;
- 
- static const char *const backlight_types[] = {
- 	[BACKLIGHT_RAW] = "raw",
-@@ -415,6 +416,9 @@ struct backlight_device *backlight_device_register(const char *name,
- 	list_add(&new_bd->entry, &backlight_dev_list);
- 	mutex_unlock(&backlight_dev_list_mutex);
- 
-+	blocking_notifier_call_chain(&backlight_notifier,
-+				     BACKLIGHT_REGISTERED, new_bd);
-+
- 	return new_bd;
- }
- EXPORT_SYMBOL(backlight_device_register);
-@@ -484,6 +488,9 @@ void backlight_device_unregister(struct backlight_device *bd)
- 	mutex_unlock(&pmac_backlight_mutex);
- #endif
- 
-+	blocking_notifier_call_chain(&backlight_notifier,
-+				     BACKLIGHT_UNREGISTERED, bd);
-+
- 	mutex_lock(&bd->ops_lock);
- 	bd->ops = NULL;
- 	mutex_unlock(&bd->ops_lock);
-@@ -507,6 +514,40 @@ static int devm_backlight_device_match(struct device *dev, void *res,
- 	return *r == data;
- }
- 
-+/**
-+ * backlight_register_notifier - get notified of backlight (un)registration
-+ * @nb: notifier block with the notifier to call on backlight (un)registration
-+ *
-+ * Register a notifier to get notified when backlight devices get registered
-+ * or unregistered.
-+ *
-+ * RETURNS:
-+ *
-+ * 0 on success, otherwise a negative error code
-+ */
-+int backlight_register_notifier(struct notifier_block *nb)
-+{
-+	return blocking_notifier_chain_register(&backlight_notifier, nb);
-+}
-+EXPORT_SYMBOL(backlight_register_notifier);
-+
-+/**
-+ * backlight_unregister_notifier - unregister a backlight notifier
-+ * @nb: notifier block to unregister
-+ *
-+ * Register a notifier to get notified when backlight devices get registered
-+ * or unregistered.
-+ *
-+ * RETURNS:
-+ *
-+ * 0 on success, otherwise a negative error code
-+ */
-+int backlight_unregister_notifier(struct notifier_block *nb)
-+{
-+	return blocking_notifier_chain_unregister(&backlight_notifier, nb);
-+}
-+EXPORT_SYMBOL(backlight_unregister_notifier);
-+
- /**
-  * devm_backlight_device_register - register a new backlight device
-  * @dev: the device to register
-@@ -674,6 +715,7 @@ static int __init backlight_class_init(void)
- 
- 	INIT_LIST_HEAD(&backlight_dev_list);
- 	mutex_init(&backlight_dev_list_mutex);
-+	BLOCKING_INIT_NOTIFIER_HEAD(&backlight_notifier);
- 
- 	return 0;
- }
-diff --git a/include/linux/backlight.h b/include/linux/backlight.h
-index f29a9ef1052e..d905173c7f73 100644
---- a/include/linux/backlight.h
-+++ b/include/linux/backlight.h
-@@ -64,6 +64,24 @@ enum backlight_type {
- 	BACKLIGHT_TYPE_MAX,
- };
- 
-+/**
-+ * enum backlight_notification - the type of notification
-+ *
-+ * The notifications that is used for notification sent to the receiver
-+ * that registered notifications using backlight_register_notifier().
-+ */
-+enum backlight_notification {
-+	/**
-+	 * @BACKLIGHT_REGISTERED: The backlight device is registered.
-+	 */
-+	BACKLIGHT_REGISTERED,
-+
-+	/**
-+	 * @BACKLIGHT_UNREGISTERED: The backlight revice is unregistered.
-+	 */
-+	BACKLIGHT_UNREGISTERED,
-+};
-+
- /** enum backlight_scale - the type of scale used for brightness values
-  *
-  * The type of scale used for brightness values.
-@@ -388,6 +406,8 @@ void devm_backlight_device_unregister(struct device *dev,
- 				      struct backlight_device *bd);
- void backlight_force_update(struct backlight_device *bd,
- 			    enum backlight_update_reason reason);
-+int backlight_register_notifier(struct notifier_block *nb);
-+int backlight_unregister_notifier(struct notifier_block *nb);
- struct backlight_device *backlight_device_get_by_name(const char *name);
- struct backlight_device *backlight_device_get_by_type(enum backlight_type type);
- int backlight_device_set_brightness(struct backlight_device *bd,
+Mario Limonciello (AMD) (11):
+  Revert "backlight: Remove notifier"
+  backlight: add kernel-internal backlight API
+  drm: link connectors to backlight devices
+  DRM: Add support for client indicating support for luminance
+  drm/amd/display: Pass up errors reading actual brightness
+  drm/amd/display: Allow backlight registration to fail
+  drm/amd/display: Move backlight tracing out of the dc lock
+  drm/amd/display: use drm backlight
+  drm/amd/display: Drop brightness caching in amdgpu_dm
+  drm/bridge: auto-link panel backlight in bridge connector
+  drm/i915/display: use drm backlight
+
+ drivers/gpu/drm/Kconfig                       |   1 +
+ drivers/gpu/drm/Makefile                      |   1 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 117 ++---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  13 -
+ drivers/gpu/drm/bridge/panel.c                |  15 +
+ .../gpu/drm/display/drm_bridge_connector.c    |  15 +-
+ drivers/gpu/drm/drm_atomic_helper.c           |   7 +
+ drivers/gpu/drm/drm_atomic_uapi.c             |  59 ++-
+ drivers/gpu/drm/drm_backlight.c               | 441 ++++++++++++++++++
+ drivers/gpu/drm/drm_connector.c               |  63 +++
+ drivers/gpu/drm/drm_drv.c                     |   8 +
+ drivers/gpu/drm/drm_file.c                    |   5 +
+ drivers/gpu/drm/drm_ioctl.c                   |  15 +
+ drivers/gpu/drm/drm_mode_config.c             |   7 +
+ drivers/gpu/drm/drm_mode_object.c             |  66 ++-
+ drivers/gpu/drm/drm_property.c                |   6 +
+ drivers/gpu/drm/drm_sysfs.c                   |  28 +-
+ .../gpu/drm/i915/display/intel_backlight.c    |   4 +
+ drivers/gpu/drm/i915/display/intel_dp.c       |   8 +
+ drivers/video/backlight/backlight.c           |  97 ++++
+ include/drm/drm_backlight.h                   |  51 ++
+ include/drm/drm_bridge.h                      |   1 +
+ include/drm/drm_connector.h                   |   8 +
+ include/drm/drm_file.h                        |   8 +
+ include/drm/drm_mode_config.h                 |   5 +
+ include/linux/backlight.h                     |  56 +++
+ include/uapi/drm/drm.h                        |  22 +
+ 27 files changed, 1038 insertions(+), 89 deletions(-)
+ create mode 100644 drivers/gpu/drm/drm_backlight.c
+ create mode 100644 include/drm/drm_backlight.h
+
 -- 
 2.54.0
 
