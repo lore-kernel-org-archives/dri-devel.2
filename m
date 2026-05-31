@@ -4,69 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF72FCD6E55
-	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 21:16:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B431FCD6E57
+	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 21:49:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E08BC112C3D;
-	Sun, 31 May 2026 21:16:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 941E8112C63;
+	Sun, 31 May 2026 21:49:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D3arLX5a";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gezCKlVM";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 965F1112C3C;
- Sun, 31 May 2026 21:16:57 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id BA642601FE;
- Sun, 31 May 2026 21:16:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4BC42C2BCB4;
- Sun, 31 May 2026 21:16:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1780262216;
- bh=UqwX8U2pzE4HKkUAjku0ECYLVr1qdFYS0RFI2hwaBog=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=D3arLX5aI01X6W63GSr5RaxqFBnP+NlftlN4rhQh18RVSKIKic3pgUbSkXXk4I9Ta
- 70uU00SnoOEJ8VFSreqdnrljuaJ4gEIq0k0GPcFGZN+3FeZMLucUgDlxhPY5fBBuD3
- DpjPCjwd/KP1iFJB2vzPLgZaskQX5U2zW96NDFCcwY2wkSCyqv4mHhKQ49Y/SoK8De
- gZ50WSZvEJ06fvSyvvYeHgQIeSB8ct6izoa2pRArVTfpHNOh716iQ6kyi1wEHGc3jJ
- XxWCck3HTSmGhS4y8Lh7zCSvXMFpakRHDrsGFYNYb+5Fs8XwET1lnxv2quZwcr4rhC
- 6Lh45u62SQyKQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 2F650CD6E57;
- Sun, 31 May 2026 21:16:56 +0000 (UTC)
-From: Jens Glathe via B4 Relay
- <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org>
-Date: Sun, 31 May 2026 23:16:51 +0200
-Subject: [PATCH] drm/msm/dp: add EDID re-read retry in msm_dp_panel_get_modes()
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260531-drm_plug_flaky_edid-v1-1-2708c16dce97@oldschoolsolutions.biz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avErBNM+6GuEiGiYw2VhVIU0d2Tl
- t/ivQciBsIIXfZAwJMibT6hyDMwk/YjMrLJILioeSULZsOq9uUYlVv0fCu0ZJkxTVNKV7uWt5D
- KPaCj67/2w/t+pFTkKmUAAAA=
-X-Change-ID: 20260531-drm_plug_flaky_edid-cc7743f6f909
-To: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780262215; l=2645;
- i=jens.glathe@oldschoolsolutions.biz; s=20240919;
- h=from:subject:message-id;
- bh=LLV/YX7XX1GqZAGEgoltmCK2iL/5xctBrdp5zxAObKo=;
- b=GLYLpyJ3FvnDVIbCdCUxHGXOTUaswQADP+GHzOeIi2qhcCoAlZ0jzcODmoI9JDRZtetZK6chQ
- gVkQC5yQIGPDzai1VWFPfxL0t+lcFo2vpqclOYDlQGoYhwoCzMPgEqp
-X-Developer-Key: i=jens.glathe@oldschoolsolutions.biz; a=ed25519;
- pk=JcRJqJc/y8LsxOlPakALD3juGfOKmFBWtO+GfELMJVg=
-X-Endpoint-Received: by B4 Relay for
- jens.glathe@oldschoolsolutions.biz/20240919 with auth_id=216
-X-Original-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF61E112C4C
+ for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 21:49:07 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 08E71601FE;
+ Sun, 31 May 2026 21:49:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D2211F00893;
+ Sun, 31 May 2026 21:49:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780264146;
+ bh=L+ffRUF60vNQKYusqHpysiqlE6F10p7SF3tPVvi3AmA=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=gezCKlVMpK/cNhif0323MPZ5yTHiTdOBBH7LLBsRzD+yhKZAmNe67+tH2KRprtphm
+ +3SbrLyMWbH//guqNJpELaJpYEN+1gbFiuMVselAJ8RYh+grES/nfyDWiJIf5RhiP+
+ 31IIG9YuVzY+bkicD3y2Oep7XrqP0l2gaORBB1HPsYyxYl/KnSgrlsqDfJOBev/Dra
+ 1/pANUFgjwYpNIHbkGocM63nvQuYdOLU60hnDmPZlfeQ20qlbLOoTfd7E5zIbjLl5Q
+ mQ2YTpzeWOOrIER5JTf0bcXLcrTDUTTpp4YDBWy/WYQQ77O8mtl2fta7Wd9v9Uhm4u
+ 2ZRBk14QW5GjQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 31 May 2026 23:49:00 +0200
+Message-Id: <DIX6YVWRDL67.3TXDMTAMASCVZ@kernel.org>
+Subject: Re: [PATCH v11 1/3] rust: add basic serial device bus abstractions
+Cc: "Markus Probst via B4 Relay"
+ <devnull+markus.probst.posteo.de@kernel.org>, "Rob Herring"
+ <robh@kernel.org>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Jiri
+ Slaby" <jirislaby@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Gary
+ Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Kari Argillander"
+ <kari.argillander@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ "Viresh Kumar" <viresh.kumar@linaro.org>, "Boqun Feng" <boqun@kernel.org>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ <linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-pm@vger.kernel.org>,
+ <driver-core@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+To: "Markus Probst" <markus.probst@posteo.de>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260531-rust_serdev-v11-0-dee8e0d830f1@posteo.de>
+ <20260531-rust_serdev-v11-1-dee8e0d830f1@posteo.de>
+ <DIWEXUCNLURG.136XXDBHSBNVR@kernel.org>
+ <12fa6237168ecf6dc65ebf46118beeb5c51f3d1c.camel@posteo.de>
+In-Reply-To: <12fa6237168ecf6dc65ebf46118beeb5c51f3d1c.camel@posteo.de>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,90 +69,36 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: jens.glathe@oldschoolsolutions.biz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+On Sun May 31, 2026 at 9:42 PM CEST, Markus Probst wrote:
+> I just noticed, is it even possible to use SRCU here? Currently the mutex=
+ not
+> only ensures that no drvdata access happens after drvdata drop, but also =
+that
+> the receive_buf waits for the probe to complete, as the drvdata hasn't be=
+en
+> initialized yet.
 
-drm_edid_read_ddc() can return a structurally valid EDID from which
-drm_edid_connector_add_modes() still returns zero modes. This triggers
-the error:
+Yeah, if you drop the completion, you need the mutex.
 
-  [drm:msm_dp_bridge_get_modes [msm]] *ERROR* failed to get DP sink
-   modes, rc=0
+(In case it wasn't discussed in previous versions already, there is also th=
+e
+option to just attach separate private data to the receive callback, which =
+would
+avoid this synchonization problem in the first place.
 
-even though the link is ready. Since the EDID is only read once, this
-error persists and the display comes up with 640x480 resolution.
+You could have serdev::Device<Core>::open(), which takes its own private da=
+ta
+and a corresponding close(), this way you'd allow drivers to control whethe=
+r
+they want the serial line "open" or not. You just need to make sure it is c=
+losed
+eventually.)
 
-Add a retry of drm_edid_read_ddc() inside get_modes() when the initial
-read produces no usable modes. The bad EDID is freed before retrying
-and container_of ensures access to the DDC channel. This directly
-addresses the observed "valid but empty/garbage" EDID case on
-flaky DP plugs and adapters.
-
-I tested this on a few of my "flaky" type-c to HDMI adapters and hubs,
-getting no "retry failed" messages and the desired resolution. Without
-the patch most plugs would result in 640x480 external display.
-
-Fixes: [5bea90ad9743d2] "drm/msm/dp: switch to struct drm_edid"
-
-Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
----
- drivers/gpu/drm/msm/dp/dp_panel.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index 6bb021820d7c5..4f27c8129b0ef 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.c
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -327,11 +327,39 @@ u32 msm_dp_panel_get_mode_bpp(struct msm_dp_panel *msm_dp_panel,
- int msm_dp_panel_get_modes(struct msm_dp_panel *msm_dp_panel,
- 	struct drm_connector *connector)
- {
-+	int modes;
-+	int retry;
-+	struct msm_dp_panel_private *panel;
-+
- 	if (!msm_dp_panel) {
- 		DRM_ERROR("invalid input\n");
- 		return -EINVAL;
- 	}
- 
-+	panel = container_of(msm_dp_panel, struct msm_dp_panel_private, msm_dp_panel);
-+
-+	if (msm_dp_panel->drm_edid) {
-+		modes = drm_edid_connector_add_modes(connector);
-+		if (modes > 0)
-+			return modes;
-+
-+		drm_edid_free(msm_dp_panel->drm_edid);
-+		msm_dp_panel->drm_edid = NULL;
-+	}
-+
-+	for (retry = 0; retry < 5; retry++) {
-+		usleep_range(20000, 25000);
-+		msm_dp_panel->drm_edid =
-+			drm_edid_read_ddc(connector, &panel->aux->ddc);
-+		if (msm_dp_panel->drm_edid)
-+			break;
-+
-+		drm_dbg_dp(connector->dev,
-+			   "get_modes re-read attempt %d/5 failed\n",
-+			   retry + 1);
-+	}
-+
-+	drm_edid_connector_update(connector, msm_dp_panel->drm_edid);
- 	if (msm_dp_panel->drm_edid)
- 		return drm_edid_connector_add_modes(connector);
- 
-
----
-base-commit: 7da7f07112610a520567421dd2ffcb51beaefbcc
-change-id: 20260531-drm_plug_flaky_edid-cc7743f6f909
-
-Best regards,
--- 
-Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-
-
+That said, I don't know what turns out to be the better approach. And maybe=
+ it
+simply isn't something this initial series has to tackle? I think your driv=
+er
+does not implement the receive callback?
