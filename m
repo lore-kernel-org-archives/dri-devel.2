@@ -4,111 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B0E8CD6E52
-	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 13:59:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D5C5CD6E5D
+	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 13:59:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 027F9112B6E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D797112B70;
 	Sun, 31 May 2026 13:59:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="YBKVNTp2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oZjhI7m/";
 	dkim-atps=neutral
-X-Greylist: delayed 451 seconds by postgrey-1.36 at gabe;
- Sat, 30 May 2026 14:35:29 UTC
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF20E11286E
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 14:35:29 +0000 (UTC)
-Received: from submission (posteo.de [185.67.36.169]) 
- by mout01.posteo.de (Postfix) with ESMTPS id 8D45C240027
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 16:27:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
- t=1780151275; bh=OV0WtdKIh/EWDg3JBKBO30RbXcVfWIjYzB/Nc1JXcds=;
- h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
- MIME-Version:OpenPGP:From;
- b=YBKVNTp2QJv8mbAW04lyH5ptaECCmN4Kf8MJGJG/NE7cD23BlsxqwzVjj/zvx3O0S
- D7RoWeot2sHtXgflTCcJqP+3eRxUNqmdA0cZxHwBMFOGG1CNysD3ilS0JkARSrPRoa
- tNtwKEJdNNQHbpCOcMloLPZHmzNJmoIJdnwbwC3rZ50kvZg2pdMjWrpXlZzCflcnKo
- PCFHZ0bRofxugZkR2Q8XfbQGGqNFGeALVrNdRSiz/hjmGETzQuC9/vptd/rvEM1OuI
- hzWguzkoBem72tQf2jPeNgWskEBQM/3iGgurASzWss8rzRI12nEGUgErQk75TOs1kx
- qGR7XWKIDpOPQ==
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4gSMyK16Nsz6twP;
- Sat, 30 May 2026 16:27:53 +0200 (CEST)
-Message-ID: <55eae11ea68f129508d0f7e30ac457ba919812b2.camel@posteo.de>
-Subject: Re: [PATCH v8 3/5] rust: add basic serial device bus abstractions
-From: Markus Probst <markus.probst@posteo.de>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Markus Probst via B4 Relay <devnull+markus.probst.posteo.de@kernel.org>,
- Rob Herring <robh@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Jiri Slaby	 <jirislaby@kernel.org>, Miguel
- Ojeda <ojeda@kernel.org>, Gary Guo	 <gary@garyguo.net>,
- =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	 <bjorn3_gh@protonmail.com>, Benno
- Lossin <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>, Kari
- Argillander <kari.argillander@gmail.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng
- <boqun@kernel.org>,  David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, linux-serial@vger.kernel.org, 
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-pm@vger.kernel.org, driver-core@lists.linux.dev, 
- dri-devel@lists.freedesktop.org
-Date: Sat, 30 May 2026 14:27:54 +0000
-In-Reply-To: <DIW2JUUL6A6J.96VI4IQN6HYU@kernel.org>
-References: <20260530-rust_serdev-v8-0-2a95f1da22a7@posteo.de>
- <20260530-rust_serdev-v8-3-2a95f1da22a7@posteo.de>
- <DIW1B4FUIXO7.28GSUA0CEA4EV@kernel.org>
- <4638946fc49a38797b716ea173c93327eb751479.camel@posteo.de>
- <ad98dfb1d8469022519d37364e8a068bed3b5687.camel@posteo.de>
- <888dc39c52bb6ddac1a1eed7876c4573bdbef002.camel@posteo.de>
- <DIW2JUUL6A6J.96VI4IQN6HYU@kernel.org>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-5n5DmuF5EoUNZfpNVw0Z"
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E86B10E457
+ for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 07:37:25 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-36da8439078so81264a91.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 00:37:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780213045; x=1780817845; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=g7Nfdh9lJmyo73Y+RAkYTNq+7+iO9zy7FykzaU5yHn8=;
+ b=oZjhI7m/E2gSflYe8doUGgdh9ymKASmByDptvkmYGaE/aROp51fwVmBMWmgVS4M75p
+ tRfEoXBL/A1xXtRg/18K/7Ls9YXX2LWguWYHZ1x+vIY2dVpAcBWxw7GqVrhbt+/IGpKB
+ LhgNY+4JbZWwNkTI6GpIQu5C+8DugkyDgxwF2XJTy+WmtKGdq4ui9IhSPu+vLdnWgGty
+ 1vX4v+aVTnGbpSRoXdVoncq4Kd1a9d103dJpMpnFsw4Wxx3SglUe5ygzlmx6gyzpitSe
+ 0M/6+HwajZCOZ/pP3+BVw41tdBVI6ImX0jAP5azJmG6uah603jGcTpDuk9hOsWgJwgr+
+ Stzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780213045; x=1780817845;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=g7Nfdh9lJmyo73Y+RAkYTNq+7+iO9zy7FykzaU5yHn8=;
+ b=mEogJ2AvEB47D7XWbWE4J9upjKq7T69L63XewsQLgzP9ql+tzv1U0o2Av12Bf1LP0z
+ CjRZM0zR0kU0DJ16RSkWVBoHto2wy5qD3NiaEryq5JKe4XgzWF9RlGIFopUsoOfywnZQ
+ 38md3bgWI5ukU8RcYJlvd0Wu195VFOths+FqIjhsLoWpCAmKUhLH0hAT9S/gjUl52anK
+ 8XggjkT/G/PEw+iPqr6AOyoDG5bvw2bIBEDDG6T+jHqd+z5VVyPhNJxGBmXJAeM8rOT+
+ Uoq0GqtvV+/hj7cH5bwKvck148O+mK36P1yM9wrgEIZLnDBpc5TxPoS2M9Rd8q7++M06
+ /86A==
+X-Gm-Message-State: AOJu0YxAiemcUQzkLvsaIcmpmGzUTFt9n7+8R13SuXnspQ0R9vCFFXoo
+ Wj5Rre77W6GKNEHyTcbtnUl90bXvXsUolrK8ljlMAlYZvWN0z60k1oMINDzaHLD+
+X-Gm-Gg: Acq92OHVHSIHJlEEd2m7U05MQq/hh3rdhDaGil5D4DROoOxQxwU0aCk7zxi4HDbmvO7
+ gRON5KulnSSrqYKJsZCv7dn6LsgNerTdrqVNHnfOpKWJ4ob0ylycFLvlRhhitH/kRHcHwUfax7J
+ 4zrwSyB1o1Tl6VMpw7SurSW91Qrd8fEWBOtD4+6tN+o3aQQTebk6D2RTLpaWxLiCVfsnUFQJ9Zs
+ m+WWfR/HOcmmSA/n+Q+Lk38p4ke4s33Zj/PIc2teLxqZQ94JhZZZO5AiYFozXPEE0Qmgg7t6xH+
+ MWaVQzcJge7tkJijcs1qei7ljz1G151oQPs+SUTDy7AKwz5BuBI6WDTCQHCmN4prdpMgt14MEEO
+ Ldg/K9reSDjw15mCtTtTY5FtG53poVhoCamjRpGo6vqK+aKdafGg7JcA/v/Hvy9SDHuTzuzPf4S
+ 3nFg3l0E1uUOagCyu1gqThm2o7zQ05hnn/hXDoYKCGnA==
+X-Received: by 2002:a05:6a20:d04e:b0:39f:3ca8:a33b with SMTP id
+ adf61e73a8af0-3b427fe4d91mr6837181637.17.1780213044907; 
+ Sun, 31 May 2026 00:37:24 -0700 (PDT)
+Received: from Naman.Naman ([2401:4900:1f39:4c4a:1e56:d301:ce43:ac25])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8422e712309sm3760709b3a.59.2026.05.31.00.37.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 31 May 2026 00:37:23 -0700 (PDT)
+From: Naman Arora <namanarora029@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: tzimmermann@suse.de, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ airlied@gmail.com, simona@ffwll.ch, stefan@agner.ch, alison.wang@nxp.com,
+ jyri.sarha@iki.fi, tomi.valkeinen@ideasonboard.com, kraxel@redhat.com,
+ dmitry.osipenko@collabora.com, neil.armstrong@linaro.org,
+ khilman@baylibre.com, linux-kernel@vger.kernel.org,
+ virtualization@lists.linux.dev, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Naman Arora <namanarora029@gmail.com>
+Subject: [PATCH 3/6] drm/virtio: Open-code drm_simple_encoder_init()
+Date: Sun, 31 May 2026 13:05:29 +0530
+Message-Id: <20260531073532.8609-4-namanarora029@gmail.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20260531073532.8609-1-namanarora029@gmail.com>
+References: <20260531073532.8609-1-namanarora029@gmail.com>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
- preference=encrypt
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 31 May 2026 13:58:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -125,62 +93,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+The helper drm_simple_encoder_init() is a thin wrapper around
+drm_encoder_init() with a simple destroy-only encoder funcs struct.
+Remove the dependency on drm_simple_kms_helper by open-coding the
+encoder initialization directly in the driver.
 
---=-5n5DmuF5EoUNZfpNVw0Z
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Naman Arora <namanarora029@gmail.com>
+---
+ drivers/gpu/drm/virtio/virtgpu_display.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-On Sat, 2026-05-30 at 16:08 +0200, Danilo Krummrich wrote:
-> On Sat May 30, 2026 at 4:00 PM CEST, Markus Probst wrote:
-> > On Sat, 2026-05-30 at 15:53 +0200, Markus Probst wrote:
-> > > On Sat, 2026-05-30 at 15:37 +0200, Markus Probst wrote:
-> > > > If I think about it, I can't even close it inside remove_callback a=
-fter
-> > > > `T::unbind`. With the driver lifetimes, the driver could store the
-> > > > `serdev::Device<Bound>` pointer in its DriverData and could still m=
-ake
-> > > > calls to the device.
-> > > >=20
-> > > > Any suggestions?
->=20
-> Now that there is no public drvdata() accessor anymore, all bus device pr=
-ivate
-> data accesses go through the bus abstraction.
->=20
-> So, you could go back to your original approach and wrap the state in a b=
-us
-> specific bus device private data wrapper type, which would also get you r=
-id of
-> the rust_private_data pointer you add to struct serdev_device.
-This would work, but I don't see how it would get rid of
-rust_private_data in this way. The device private data will
-automatically be dropped after the remove_callback, but the private bus
-abstraction data needs to outlive the devres callbacks (which is done
-by rust_private_data).
+diff --git a/drivers/gpu/drm/virtio/virtgpu_display.c b/drivers/gpu/drm/virtio/virtgpu_display.c
+index f1dae9569..5b99cce17 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_display.c
++++ b/drivers/gpu/drm/virtio/virtgpu_display.c
+@@ -32,7 +32,6 @@
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ #include <drm/drm_vblank.h>
+ #include <drm/drm_vblank_helper.h>
+ 
+@@ -271,6 +270,10 @@ static const struct drm_connector_funcs virtio_gpu_connector_funcs = {
+ 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+ };
+ 
++static const struct drm_encoder_funcs virtio_gpu_drm_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static int vgdev_output_init(struct virtio_gpu_device *vgdev, int index)
+ {
+ 	struct drm_device *dev = vgdev->ddev;
+@@ -306,7 +309,8 @@ static int vgdev_output_init(struct virtio_gpu_device *vgdev, int index)
+ 	if (vgdev->has_edid)
+ 		drm_connector_attach_edid_property(connector);
+ 
+-	drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_VIRTUAL);
++	drm_encoder_init(dev, encoder, &virtio_gpu_drm_encoder_funcs,
++			 DRM_MODE_ENCODER_VIRTUAL, NULL);
+ 	drm_encoder_helper_add(encoder, &virtio_gpu_enc_helper_funcs);
+ 	encoder->possible_crtcs = 1 << index;
+ 
+-- 
+2.20.1
 
-Thanks
-- Markus Probst
-
---=-5n5DmuF5EoUNZfpNVw0Z
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmoa8+EbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSTH8P/j4F/+FNN0HxvqVzHkB8
-1EYiOypsHuC8DcCf+bpQFjaQycHc7JKKIuT3jKA/dfoMCqRI4Ldv7OKhEC3rYhIc
-fVHtOkOPOWvUG40y7HqmC82NUt7WC+Z64Nhvr371XBmth7/ybxNj6pbwfNziraXJ
-d77aIuGzxy9zt8+4LINRU3f6lgACy4hc725UEU6mxnfmERLSw/UbhhGg/3F6Xr79
-gyxo3c3T0FtBkksMX5vh8lWlVpD/p85jaivn5i8ByiNFTFNzyNfDOTTkOW59xz3b
-o1719bvekVEu9522xQGfLJxlncf6AJF2sxttDWF6t68xT3+XzjUcQSS745vMDv8c
-yM0uwsou2qeXFtDnCglds796qnh6Ul5p8elhRHdWSEzo/mP1wBUO2Hrc4knla1m5
-tmMXxWOIvR1CTgHTt0QUY45GvYYDM1yPQN7FnQl/MB0SnI+XOcFV/tGKUFvj116/
-EDBSp9BYxDMGlfhL3b6nqz8yqHasFuaKBpmnsZZd7ab/TEL5+wbrGJdOFO0pJckV
-ELEg0svqkJNfEZtYsWIBEe2o012ZW/ls3NnZDOeKsl9oY1GO/fII96M4Yu3hSmfx
-/mYEZ1J76H6MrozpwVJvFaUYavySUFsBERHwsGR72QpyiHLUqn/paQO696yQ52Ih
-75rv/H5ZUIepLVAQ03yImpnC
-=Zj1/
------END PGP SIGNATURE-----
-
---=-5n5DmuF5EoUNZfpNVw0Z--
