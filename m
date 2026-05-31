@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10BF0CD6E56
-	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 20:19:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 423F3CD6E52
+	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 20:19:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 841AE10E539;
-	Sun, 31 May 2026 20:19:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E01A10E53C;
+	Sun, 31 May 2026 20:19:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CrONobff";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="XqJWAJr8";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B095C10E536
- for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 20:19:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD15E10E53C
+ for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 20:19:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
  Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
  Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
  :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=E0rjxWmoNcbNKwHu4CgukgacZoEKXMHSddfZ+0ZXRUE=; b=CrONobffm+Y+kr5n10+EYfWqpc
- qfBRfUWtQ8GEs1Fl1oCndawFa/gbA4njUanVvHx+6hpZjrVv5/S5kb3CCQiQmfXLX/NxIF8yLBHKp
- kR0F2OscgiqiOFi3y347/t4t7OQhrRKn2olN5ux970Xfrjy776PWMnkMt49BfW1Qz9dfh338VAWO2
- 4R/R5JZck/i9cef8BsLRprt8/iQ4GqHs+2732jHH1yllmLEwXyM4/3wLIsdPdPivCfLk/qmxrHYY4
- aod7WSQCek91dB61zrBdUXzHRgra5/Eh56Oj4ZTh4sVlXJdDmQTA/WSl0cXm7Fo3b0SWXEXpkZiUb
- W1yIvalw==;
+ bh=7MCAvQp0Lmq6y+f6Jti83WxbuI8aSD6ctUaY7gC/PIs=; b=XqJWAJr8wmtmPqRM2tg+IPczpr
+ Sl1FAqhTXTj04fuCdao8xbVtQhR+K0Gu+3s1x089rFOPeksOHRDcCKzCu7kYFqX9GOL+pbfxCUu1X
+ Ts0dAzcSzOpMJHdMiam9sRGkJ+/EJHipDwxsOuDTTRswtrzRztPKhuBwzn+ab5rW6qstHXeFp6iz2
+ YaqgFJ4WU9R4rDA49YnEX/Ob5FHKWOVl7KgWOVkZCR/mdgqhMh038YeCn6LxvHfMNAUUlqSqPlxsl
+ 5PWlFIZ8WWBZQcrBQAAh531JNpNq+ZFVJnYZJwNXWcYRcpMzNl0gqSdWjkSMyASQbrJ82h0Sgfrd9
+ 5o9uBxgQ==;
 Received: from [189.7.87.67] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wTmcy-00Agcp-3g; Sun, 31 May 2026 22:19:20 +0200
+ id 1wTmd4-00Agcp-Oo; Sun, 31 May 2026 22:19:27 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Sun, 31 May 2026 17:18:56 -0300
-Subject: [PATCH v2 2/4] drm/v3d: Refactor perfmon locking
+Date: Sun, 31 May 2026 17:18:58 -0300
+Subject: [PATCH v2 4/4] drm/v3d: Drop the queue argument from
+ v3d_job_add_syncobjs()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260531-v3d-perfmon-lifetime-v2-2-60ed4485a203@igalia.com>
+Message-Id: <20260531-v3d-perfmon-lifetime-v2-4-60ed4485a203@igalia.com>
 References: <20260531-v3d-perfmon-lifetime-v2-0-60ed4485a203@igalia.com>
 In-Reply-To: <20260531-v3d-perfmon-lifetime-v2-0-60ed4485a203@igalia.com>
 To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
@@ -46,15 +47,15 @@ To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=16864; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=AweGswWReDGFITS1RhNNNm7Es16FFx24bgi0yySqUUg=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqHJe92Q6hO2Wt3M1DP3FRcCrUILzkogHJlpZnu
- Tf4Wvt0AnqJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCahyXvQAKCRA/8w6Kdoj6
- qpwuB/9+0/PRseSZ74eTBRo/bnS3wDHlT4MDDeJMJdSA6J37Tqzbj2W3UlSgk6j4wXp0M25HNhY
- k0Fj/Lk2iWnuR5wJU/WOJmwkFxrPWWHQabClirKKm2JzZ32A3iaVhuIQ5aojqialvAHovMBA8aQ
- LShRPUvbcn8hn0nVYm0gsfjbGzJ3umEGdFWuKmZ3WZVMJzYrtusqF/ntkF4WesASepI/aHI7bvq
- h0PG5B0/2jtE0IAvqGEx7GjC7w4gjWGrtsEUwk07HVTuuqZ/b0S0DuTFcZDYrMp/nRbodNBk5tW
- Ca12eC3Xg+yuD+/nq84NtXXY/ASR6Y9pIQhosSdr5QhpZhq2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2829; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=OrImHJ5bRLHISUr16khFJZzEOfQxpgA1jC0duYEC47M=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqHJe9Ss/bNVxa3QGyHS4kzzBZECs+iKEnZe6Zw
+ PhV7tyHXKyJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCahyXvQAKCRA/8w6Kdoj6
+ qugaCACXQxjcGtVwclLJz0Blx6GaG0waUU+u9s3rZqmhK7MXXpNQ5XkwiF1WjSi+cFqo52K/wrh
+ oFPbj6gMdNx+hOfyebdOFWsLKJhbQGTeoAi8Keh9KpTSWZNuYcRM80DyOukcXdhp20WUHrFSe4T
+ bD0R1gasZdcK37OUGqF2Y2FkdMdJ572hkW0HrsvmLFjVqREHGJy8XCMQ7TTtcPiLmaVOJabfIVB
+ 7fDb46/x2Y2f2L0knoDpSEsEcCRtwEOUKzjSByXYyvq2g8XsoeKRTMO8lFJm2+UcPnoxCHoWH2y
+ 1a1iieRbJx0saploiNIK+xfTePbu51eXhH8tmdZg922NBHtX
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -72,515 +73,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-v3d exposes a single set of performance counters per core, so at any
-moment at most one performance monitor can be programmed in HW. In
-software, this singleton is represented by v3d_dev->active_perfmon, but
-until now nothing actually serialized access to it: scheduler callbacks,
-the GPU-reset path, and perfmon ioctls all read and wrote that field
-lock-free.
-
-The existence of v3d_perfmon->lock mutex did not close the gap. It
-serialized start/stop of *one* perfmon object against itself, but the
-invariant that needs protection is device-wide: there can be exactly one
-active perfmon at any moment in HW. Two threads acting on different
-perfmon objects could race through v3d_dev->active_perfmon and the
-counter registers, leaving software and HW out of sync.
-
-This commit moves the locking to where the invariant actually lives. Group
-the active perfmon pointer with a device-wide spinlock and route every
-state transition (job start, job completion, set global, reset,
-suspend/resume, destruction) through a small set of locked entry points
-that are the only mutators of the HW counters.
-
-Some design improvements needed to be made for the refactor:
-
-  1. Stop the perfmon from the IRQ handler at job-completion time (the
-     natural boundary for "active perfmon follows the active job"). This
-     required a change from a mutex to a spinlock. This solves another
-     issue of the existing design: perfmon start/stop was exclusively
-     attached to run_job() callbacks, which means that if nothing was
-     further queued up, a perfmon would never actually be stopped.
-
-  2. Pause/resume the HW counters across runtime-PM transitions without
-     dropping the software reference. This preserves the perfmon state
-     while the device is idle.
-
-  3. Move the global perfmon lifecycle management to the set_global
-     IOCTL. This simplifies the logic in v3d_perfmon_start() and
-     v3d_perfmon_stop(), as there is no need to always check if the
-     global perfmon is enabled.
-
-  4. v3d_perfmon_get_values_ioctl() doesn't stop the perfmon when
-     capturing the values. All lifecycle management is handled by the
-     job (for per-job perfmons) or the set_global IOCTL (for global
-     perfmons).
+The struct v3d_job now carries its submission queue. The explicit queue
+parameter passed alongside the job is therefore redundant, as it can be
+read through job->queue directly.
 
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/v3d/v3d_drv.h     |  17 ++--
- drivers/gpu/drm/v3d/v3d_gem.c     |   4 +-
- drivers/gpu/drm/v3d/v3d_irq.c     |   7 +-
- drivers/gpu/drm/v3d/v3d_perfmon.c | 183 +++++++++++++++++++++++++++-----------
- drivers/gpu/drm/v3d/v3d_power.c   |   4 +
- drivers/gpu/drm/v3d/v3d_sched.c   |  26 ++----
- drivers/gpu/drm/v3d/v3d_submit.c  |   6 +-
- 7 files changed, 165 insertions(+), 82 deletions(-)
+ drivers/gpu/drm/v3d/v3d_submit.c | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
-index 071d919fe860..51486af68cf4 100644
---- a/drivers/gpu/drm/v3d/v3d_drv.h
-+++ b/drivers/gpu/drm/v3d/v3d_drv.h
-@@ -86,9 +86,6 @@ struct v3d_perfmon {
- 	 */
- 	refcount_t refcnt;
- 
--	/* Protects perfmon stop, as it can be invoked from multiple places. */
--	struct mutex lock;
--
- 	/* Number of counters activated in this perfmon instance
- 	 * (should be less than DRM_V3D_MAX_PERF_COUNTERS).
- 	 */
-@@ -170,8 +167,14 @@ struct v3d_dev {
- 
- 	struct v3d_queue_state queue[V3D_MAX_QUEUES];
- 
--	/* Used to track the active perfmon if any. */
--	struct v3d_perfmon *active_perfmon;
-+	/* Tracks the performance monitor state. */
-+	struct {
-+		/* Protects @active. */
-+		spinlock_t lock;
-+
-+		/* Perfmon currently programmed in HW (or NULL if none). */
-+		struct v3d_perfmon *active;
-+	} perfmon_state;
- 
- 	/* Protects bo_stats */
- 	struct mutex bo_lock;
-@@ -663,6 +666,10 @@ void v3d_perfmon_put(struct v3d_perfmon *perfmon);
- void v3d_perfmon_start(struct v3d_dev *v3d, struct v3d_perfmon *perfmon);
- void v3d_perfmon_stop(struct v3d_dev *v3d, struct v3d_perfmon *perfmon,
- 		      bool capture);
-+void v3d_perfmon_stop_locked(struct v3d_dev *v3d, struct v3d_perfmon *perfmon,
-+			     bool capture);
-+void v3d_perfmon_suspend(struct v3d_dev *v3d);
-+void v3d_perfmon_resume(struct v3d_dev *v3d);
- struct v3d_perfmon *v3d_perfmon_find(struct v3d_file_priv *v3d_priv, int id);
- void v3d_perfmon_open_file(struct v3d_file_priv *v3d_priv);
- void v3d_perfmon_close_file(struct v3d_file_priv *v3d_priv);
-diff --git a/drivers/gpu/drm/v3d/v3d_gem.c b/drivers/gpu/drm/v3d/v3d_gem.c
-index 1ee3c038d5f6..9487ab7acd03 100644
---- a/drivers/gpu/drm/v3d/v3d_gem.c
-+++ b/drivers/gpu/drm/v3d/v3d_gem.c
-@@ -137,7 +137,8 @@ v3d_reset(struct v3d_dev *v3d)
- 	v3d_mmu_set_page_table(v3d);
- 	v3d_irq_reset(v3d);
- 
--	v3d_perfmon_stop(v3d, v3d->active_perfmon, false);
-+	/* Re-arm the global perfmon HW counters that the reset zeroed. */
-+	v3d_perfmon_resume(v3d);
- 
- 	trace_v3d_reset_end(dev);
- }
-@@ -299,6 +300,7 @@ v3d_gem_init(struct drm_device *dev)
- 	}
- 
- 	spin_lock_init(&v3d->mm_lock);
-+	spin_lock_init(&v3d->perfmon_state.lock);
- 	ret = drmm_mutex_init(dev, &v3d->bo_lock);
- 	if (ret)
- 		goto err_stats;
-diff --git a/drivers/gpu/drm/v3d/v3d_irq.c b/drivers/gpu/drm/v3d/v3d_irq.c
-index 754a969b862b..41fce1f8f96c 100644
---- a/drivers/gpu/drm/v3d/v3d_irq.c
-+++ b/drivers/gpu/drm/v3d/v3d_irq.c
-@@ -87,9 +87,12 @@ v3d_irq_signal_fence(struct v3d_dev *v3d, enum v3d_queue q,
- 		     void (*trace_irq)(struct drm_device *, uint64_t))
- {
- 	struct v3d_queue_state *queue = &v3d->queue[q];
--	struct v3d_fence *fence = to_v3d_fence(queue->active_job->irq_fence);
-+	struct v3d_job *job = queue->active_job;
-+	struct v3d_fence *fence = to_v3d_fence(job->irq_fence);
- 
--	v3d_job_update_stats(queue->active_job);
-+	v3d_perfmon_stop(v3d, job->perfmon, true);
-+
-+	v3d_job_update_stats(job);
- 	trace_irq(&v3d->drm, fence->seqno);
- 
- 	queue->active_job = NULL;
-diff --git a/drivers/gpu/drm/v3d/v3d_perfmon.c b/drivers/gpu/drm/v3d/v3d_perfmon.c
-index 48ae748247be..3ad0f022753c 100644
---- a/drivers/gpu/drm/v3d/v3d_perfmon.c
-+++ b/drivers/gpu/drm/v3d/v3d_perfmon.c
-@@ -217,26 +217,15 @@ void v3d_perfmon_get(struct v3d_perfmon *perfmon)
- 
- void v3d_perfmon_put(struct v3d_perfmon *perfmon)
- {
--	if (perfmon && refcount_dec_and_test(&perfmon->refcnt)) {
--		mutex_destroy(&perfmon->lock);
-+	if (perfmon && refcount_dec_and_test(&perfmon->refcnt))
- 		kfree(perfmon);
--	}
- }
- 
--void v3d_perfmon_start(struct v3d_dev *v3d, struct v3d_perfmon *perfmon)
-+static void v3d_perfmon_hw_start(struct v3d_dev *v3d, struct v3d_perfmon *perfmon)
- {
-+	u8 ncounters = perfmon->ncounters;
-+	u32 mask = GENMASK(ncounters - 1, 0);
- 	unsigned int i;
--	u32 mask;
--	u8 ncounters;
--
--	if (WARN_ON_ONCE(!perfmon || v3d->active_perfmon))
--		return;
--
--	if (!pm_runtime_get_if_active(v3d->drm.dev))
--		return;
--
--	ncounters = perfmon->ncounters;
--	mask = GENMASK(ncounters - 1, 0);
- 
- 	for (i = 0; i < ncounters; i++) {
- 		u32 source = i / 4;
-@@ -258,39 +247,106 @@ void v3d_perfmon_start(struct v3d_dev *v3d, struct v3d_perfmon *perfmon)
- 	V3D_CORE_WRITE(0, V3D_V4_PCTR_0_EN, mask);
- 	V3D_CORE_WRITE(0, V3D_V4_PCTR_0_CLR, mask);
- 	V3D_CORE_WRITE(0, V3D_PCTR_0_OVERFLOW, mask);
-+}
- 
--	v3d->active_perfmon = perfmon;
-+static void v3d_perfmon_hw_capture(struct v3d_dev *v3d, struct v3d_perfmon *perfmon)
-+{
-+	u32 mask = GENMASK(perfmon->ncounters - 1, 0);
- 
-+	for (int i = 0; i < perfmon->ncounters; i++)
-+		perfmon->values[i] += V3D_CORE_READ(0, V3D_PCTR_0_PCTRX(i));
-+
-+	V3D_CORE_WRITE(0, V3D_V4_PCTR_0_CLR, mask);
-+}
-+
-+static void v3d_perfmon_hw_stop(struct v3d_dev *v3d, struct v3d_perfmon *perfmon,
-+				bool capture)
-+{
-+	if (capture)
-+		v3d_perfmon_hw_capture(v3d, perfmon);
-+
-+	V3D_CORE_WRITE(0, V3D_V4_PCTR_0_EN, 0);
-+}
-+
-+void v3d_perfmon_start(struct v3d_dev *v3d, struct v3d_perfmon *perfmon)
-+{
-+	guard(spinlock_irqsave)(&v3d->perfmon_state.lock);
-+
-+	if (!perfmon || v3d->global_perfmon)
-+		return;
-+
-+	if (!pm_runtime_get_if_active(v3d->drm.dev))
-+		return;
-+
-+	v3d_perfmon_hw_start(v3d, perfmon);
-+	v3d->perfmon_state.active = perfmon;
-+
-+	v3d_pm_runtime_put(v3d);
-+}
-+
-+static void v3d_perfmon_capture_locked(struct v3d_dev *v3d,
-+				       struct v3d_perfmon *perfmon)
-+{
-+	lockdep_assert_held(&v3d->perfmon_state.lock);
-+
-+	if (!perfmon || perfmon != v3d->perfmon_state.active)
-+		return;
-+
-+	if (!pm_runtime_get_if_active(v3d->drm.dev))
-+		return;
-+
-+	v3d_perfmon_hw_capture(v3d, perfmon);
-+	v3d_pm_runtime_put(v3d);
-+}
-+
-+void v3d_perfmon_stop_locked(struct v3d_dev *v3d, struct v3d_perfmon *perfmon,
-+			     bool capture)
-+{
-+	lockdep_assert_held(&v3d->perfmon_state.lock);
-+
-+	if (!perfmon || perfmon != v3d->perfmon_state.active)
-+		return;
-+
-+	v3d->perfmon_state.active = NULL;
-+
-+	/* If the device is suspended, the HW has already stopped counting. */
-+	if (!pm_runtime_get_if_active(v3d->drm.dev))
-+		return;
-+
-+	v3d_perfmon_hw_stop(v3d, perfmon, capture);
- 	v3d_pm_runtime_put(v3d);
- }
- 
- void v3d_perfmon_stop(struct v3d_dev *v3d, struct v3d_perfmon *perfmon,
- 		      bool capture)
- {
--	unsigned int i;
--
--	if (!perfmon || !v3d->active_perfmon)
-+	if (!perfmon)
- 		return;
- 
--	mutex_lock(&perfmon->lock);
--	if (perfmon != v3d->active_perfmon)
--		goto out;
-+	guard(spinlock_irqsave)(&v3d->perfmon_state.lock);
-+	v3d_perfmon_stop_locked(v3d, perfmon, capture);
-+}
- 
--	if (!pm_runtime_get_if_active(v3d->drm.dev))
--		goto out_clear;
-+void
-+v3d_perfmon_suspend(struct v3d_dev *v3d)
-+{
-+	guard(spinlock_irqsave)(&v3d->perfmon_state.lock);
- 
--	if (capture)
--		for (i = 0; i < perfmon->ncounters; i++)
--			perfmon->values[i] += V3D_CORE_READ(0, V3D_PCTR_0_PCTRX(i));
-+	if (!v3d->perfmon_state.active)
-+		return;
- 
--	V3D_CORE_WRITE(0, V3D_V4_PCTR_0_EN, 0);
-+	v3d_perfmon_hw_stop(v3d, v3d->perfmon_state.active, true);
-+}
- 
--	v3d_pm_runtime_put(v3d);
-+void
-+v3d_perfmon_resume(struct v3d_dev *v3d)
-+{
-+	guard(spinlock_irqsave)(&v3d->perfmon_state.lock);
- 
--out_clear:
--	v3d->active_perfmon = NULL;
--out:
--	mutex_unlock(&perfmon->lock);
-+	if (!v3d->perfmon_state.active)
-+		return;
-+
-+	v3d_perfmon_hw_start(v3d, v3d->perfmon_state.active);
- }
- 
- struct v3d_perfmon *v3d_perfmon_find(struct v3d_file_priv *v3d_priv, int id)
-@@ -316,14 +372,17 @@ static void v3d_perfmon_delete(struct v3d_file_priv *v3d_priv,
- 	struct v3d_dev *v3d = v3d_priv->v3d;
- 
- 	/* If the active perfmon is being destroyed, stop it first */
--	if (perfmon == v3d->active_perfmon)
--		v3d_perfmon_stop(v3d, perfmon, false);
-+	scoped_guard(spinlock_irqsave, &v3d->perfmon_state.lock) {
-+		v3d_perfmon_stop_locked(v3d, perfmon, false);
- 
--	/* If the global perfmon is being destroyed, clean it and release
--	 * the reference stashed in v3d_perfmon_set_global_ioctl().
--	 */
--	if (cmpxchg(&v3d->global_perfmon, perfmon, NULL) == perfmon)
--		v3d_perfmon_put(perfmon);
-+		/* If the global perfmon is being destroyed, clean it and release
-+		 * the reference stashed in v3d_perfmon_set_global_ioctl().
-+		 */
-+		if (v3d->global_perfmon == perfmon) {
-+			v3d_perfmon_put(v3d->global_perfmon);
-+			v3d->global_perfmon = NULL;
-+		}
-+	}
- 
- 	v3d_perfmon_put(perfmon);
- }
-@@ -371,12 +430,10 @@ int v3d_perfmon_create_ioctl(struct drm_device *dev, void *data,
- 	perfmon->ncounters = req->ncounters;
- 
- 	refcount_set(&perfmon->refcnt, 1);
--	mutex_init(&perfmon->lock);
- 
- 	ret = xa_alloc(&v3d_priv->perfmons, &id, perfmon, xa_limit_32b,
- 		       GFP_KERNEL);
- 	if (ret < 0) {
--		mutex_destroy(&perfmon->lock);
- 		kfree(perfmon);
- 		return ret;
- 	}
-@@ -408,7 +465,9 @@ int v3d_perfmon_get_values_ioctl(struct drm_device *dev, void *data,
- 	struct v3d_dev *v3d = to_v3d_dev(dev);
- 	struct v3d_file_priv *v3d_priv = file_priv->driver_priv;
- 	struct drm_v3d_perfmon_get_values *req = data;
-+	u64 values[DRM_V3D_MAX_PERF_COUNTERS];
- 	struct v3d_perfmon *perfmon;
-+	size_t size;
- 	int ret = 0;
- 
- 	if (req->pad != 0)
-@@ -418,10 +477,14 @@ int v3d_perfmon_get_values_ioctl(struct drm_device *dev, void *data,
- 	if (!perfmon)
- 		return -EINVAL;
- 
--	v3d_perfmon_stop(v3d, perfmon, true);
-+	size = perfmon->ncounters * sizeof(u64);
- 
--	if (copy_to_user(u64_to_user_ptr(req->values_ptr), perfmon->values,
--			 perfmon->ncounters * sizeof(u64)))
-+	scoped_guard(spinlock_irqsave, &v3d->perfmon_state.lock) {
-+		v3d_perfmon_capture_locked(v3d, perfmon);
-+		memcpy(values, perfmon->values, size);
-+	}
-+
-+	if (copy_to_user(u64_to_user_ptr(req->values_ptr), values, size))
- 		ret = -EFAULT;
- 
- 	v3d_perfmon_put(perfmon);
-@@ -482,18 +545,36 @@ int v3d_perfmon_set_global_ioctl(struct drm_device *dev, void *data,
- 		 */
- 		v3d_perfmon_put(perfmon);
- 
--		old = xchg(&v3d->global_perfmon, NULL);
--		if (!old)
--			return -EINVAL;
-+		scoped_guard(spinlock_irqsave, &v3d->perfmon_state.lock) {
-+			old = v3d->global_perfmon;
-+			if (!old)
-+				return -EINVAL;
-+
-+			v3d_perfmon_stop_locked(v3d, old, true);
-+			v3d->global_perfmon = NULL;
-+		}
- 
- 		v3d_perfmon_put(old);
- 
- 		return 0;
- 	}
- 
--	if (cmpxchg(&v3d->global_perfmon, NULL, perfmon)) {
--		v3d_perfmon_put(perfmon);
--		return -EBUSY;
-+	scoped_guard(spinlock_irqsave, &v3d->perfmon_state.lock) {
-+		if (v3d->perfmon_state.active || v3d->global_perfmon) {
-+			v3d_perfmon_put(perfmon);
-+			return -EBUSY;
-+		}
-+
-+		v3d->global_perfmon = perfmon;
-+		v3d->perfmon_state.active = perfmon;
-+
-+		/* If the device is suspended, v3d_perfmon_resume() will
-+		 * program the HW on the next resume.
-+		 */
-+		if (pm_runtime_get_if_active(v3d->drm.dev)) {
-+			v3d_perfmon_hw_start(v3d, perfmon);
-+			v3d_pm_runtime_put(v3d);
-+		}
- 	}
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/v3d/v3d_power.c b/drivers/gpu/drm/v3d/v3d_power.c
-index 769e90032b04..1a4b651a2c5f 100644
---- a/drivers/gpu/drm/v3d/v3d_power.c
-+++ b/drivers/gpu/drm/v3d/v3d_power.c
-@@ -50,6 +50,8 @@ int v3d_power_suspend(struct device *dev)
- 	struct v3d_dev *v3d = to_v3d_dev(drm);
- 	int ret;
- 
-+	v3d_perfmon_suspend(v3d);
-+
- 	v3d_irq_disable(v3d);
- 
- 	ret = v3d_suspend_sms(v3d);
-@@ -83,5 +85,7 @@ int v3d_power_resume(struct device *dev)
- 	v3d_mmu_set_page_table(v3d);
- 	v3d_irq_enable(v3d);
- 
-+	v3d_perfmon_resume(v3d);
-+
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-index c16a9d4d41e6..4d2b91d49542 100644
---- a/drivers/gpu/drm/v3d/v3d_sched.c
-+++ b/drivers/gpu/drm/v3d/v3d_sched.c
-@@ -125,24 +125,6 @@ v3d_performance_query_info_free(struct v3d_performance_query_info *query_info,
- 	}
- }
- 
--static void
--v3d_switch_perfmon(struct v3d_dev *v3d, struct v3d_job *job)
--{
--	struct v3d_perfmon *perfmon = v3d->global_perfmon;
--
--	if (!perfmon)
--		perfmon = job->perfmon;
--
--	if (perfmon == v3d->active_perfmon)
--		return;
--
--	if (perfmon != v3d->active_perfmon)
--		v3d_perfmon_stop(v3d, v3d->active_perfmon, true);
--
--	if (perfmon && v3d->active_perfmon != perfmon)
--		v3d_perfmon_start(v3d, perfmon);
--}
--
- static void
- v3d_stats_start(struct v3d_stats *stats, u64 now)
- {
-@@ -219,7 +201,7 @@ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
- 			    job->start, job->end);
- 
- 	v3d_job_start_stats(&job->base);
--	v3d_switch_perfmon(v3d, &job->base);
-+	v3d_perfmon_start(v3d, job->base.perfmon);
- 
- 	/* Set the current and end address of the control list.
- 	 * Writing the end register is what starts the job.
-@@ -277,7 +259,7 @@ static struct dma_fence *v3d_render_job_run(struct drm_sched_job *sched_job)
- 			    job->start, job->end);
- 
- 	v3d_job_start_stats(&job->base);
--	v3d_switch_perfmon(v3d, &job->base);
-+	v3d_perfmon_start(v3d, job->base.perfmon);
- 
- 	/* XXX: Set the QCFG */
- 
-@@ -370,7 +352,7 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
- 	trace_v3d_submit_csd(dev, to_v3d_fence(fence)->seqno);
- 
- 	v3d_job_start_stats(&job->base);
--	v3d_switch_perfmon(v3d, &job->base);
-+	v3d_perfmon_start(v3d, job->base.perfmon);
- 
- 	csd_cfg0_reg = V3D_CSD_QUEUED_CFG0(v3d->ver);
- 	for (i = 1; i <= 6; i++)
-@@ -711,6 +693,8 @@ v3d_gpu_reset_for_timeout(struct v3d_dev *v3d, struct drm_sched_job *sched_job,
- 	if (sched_job)
- 		drm_sched_increase_karma(sched_job);
- 
-+	v3d_perfmon_stop(v3d, job->perfmon, false);
-+
- 	/* get the GPU back into the init state */
- 	v3d_reset(v3d);
- 
 diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
-index 02441d4f495d..4c526aafc4e0 100644
+index 46fc88bacc95..bfd99935c2ef 100644
 --- a/drivers/gpu/drm/v3d/v3d_submit.c
 +++ b/drivers/gpu/drm/v3d/v3d_submit.c
-@@ -275,8 +275,10 @@ v3d_attach_perfmon_to_jobs(struct v3d_submit *submit, u32 perfmon_id)
- 	if (!perfmon_id)
- 		return 0;
+@@ -179,7 +179,7 @@ void v3d_job_put(struct v3d_job *job)
  
--	if (v3d->global_perfmon)
--		return -EAGAIN;
-+	scoped_guard(spinlock_irqsave, &v3d->perfmon_state.lock) {
-+		if (v3d->global_perfmon)
-+			return -EAGAIN;
-+	}
+ static int
+ v3d_job_add_syncobjs(struct v3d_job *job, struct drm_file *file_priv,
+-		     u32 in_sync, struct v3d_submit_ext *se, enum v3d_queue queue)
++		     u32 in_sync, struct v3d_submit_ext *se)
+ {
+ 	bool has_multisync = se && (se->flags & DRM_V3D_EXT_ID_MULTI_SYNC);
+ 	struct v3d_dev *v3d = job->v3d;
+@@ -193,7 +193,7 @@ v3d_job_add_syncobjs(struct v3d_job *job, struct drm_file *file_priv,
+ 		return ret;
+ 	}
  
- 	perfmon = v3d_perfmon_find(v3d_priv, perfmon_id);
- 	if (!perfmon)
+-	if (se->in_sync_count && se->wait_stage == queue) {
++	if (se->in_sync_count && se->wait_stage == job->queue) {
+ 		struct drm_v3d_sem __user *handle = u64_to_user_ptr(se->in_syncs);
+ 
+ 		for (int i = 0; i < se->in_sync_count; i++) {
+@@ -481,8 +481,7 @@ v3d_setup_csd_jobs_and_bos(struct v3d_submit *submit,
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = v3d_job_add_syncobjs(&job->base, submit->file_priv, args->in_sync,
+-				   se, V3D_CSD);
++	ret = v3d_job_add_syncobjs(&job->base, submit->file_priv, args->in_sync, se);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -1112,7 +1111,7 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+ 		bin->qts = args->qts;
+ 
+ 		ret = v3d_job_add_syncobjs(&bin->base, file_priv,
+-					   args->in_sync_bcl, &se, V3D_BIN);
++					   args->in_sync_bcl, &se);
+ 		if (ret)
+ 			goto fail;
+ 	}
+@@ -1129,8 +1128,7 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+ 	if (bin)
+ 		bin->render = render;
+ 
+-	ret = v3d_job_add_syncobjs(&render->base, file_priv, args->in_sync_rcl,
+-				   &se, V3D_RENDER);
++	ret = v3d_job_add_syncobjs(&render->base, file_priv, args->in_sync_rcl, &se);
+ 	if (ret)
+ 		goto fail;
+ 
+@@ -1221,7 +1219,7 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
+ 	if (ret)
+ 		goto fail;
+ 
+-	ret = v3d_job_add_syncobjs(&job->base, file_priv, args->in_sync, &se, V3D_TFU);
++	ret = v3d_job_add_syncobjs(&job->base, file_priv, args->in_sync, &se);
+ 	if (ret)
+ 		goto fail;
+ 
+@@ -1413,7 +1411,7 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+ 
+ 	trace_v3d_submit_cpu_ioctl(dev, cpu_job->job_type);
+ 
+-	ret = v3d_job_add_syncobjs(&cpu_job->base, file_priv, 0, &se, V3D_CPU);
++	ret = v3d_job_add_syncobjs(&cpu_job->base, file_priv, 0, &se);
+ 	if (ret)
+ 		goto fail;
+ 
 
 -- 
 2.54.0
