@@ -4,104 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E4F5CD6E56
-	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 19:42:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 348D7CD6E52
+	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 19:55:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8ED7710E1E2;
-	Sun, 31 May 2026 19:42:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E6C3112C14;
+	Sun, 31 May 2026 19:55:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="owDtBQDL";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=al2klimov.de header.i=@al2klimov.de header.b="KlI1Nk1I";
 	dkim-atps=neutral
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BD1B10E1E2
- for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 19:42:25 +0000 (UTC)
-Received: from submission (posteo.de [185.67.36.169]) 
- by mout01.posteo.de (Postfix) with ESMTPS id 56AB2240029
- for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 21:42:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
- t=1780256542; bh=hUSWLp5mi7L5MOKZrN3iLNpIOwJb8J5/4ZNT2N3R2ww=;
- h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
- MIME-Version:OpenPGP:From;
- b=owDtBQDLgsKiOMwEXQi/IAIQCjwA+Mqa/23jbm94R7/6pOWMci10NYImeUg9+ZqOh
- hSTeeMChegEgibluJl0M5AYfLA03DvUI4zALnx++jSJpn/0n+w7nyOTJOvbgHBmu3w
- /g2MllJ4PJ3DVODZbQNDq8FVdFD7B/lAqrfZuC/bUsvez23YPKBR6llHk8FLFWrrlt
- 5mw9Y+msoVUySj1+r0yIPFFeDWNJuGKlRIjbWSSKpsJOK9m6SzWSSnFf2EHb1BVhZU
- +OnxNhzKryONTUSNs2j7CTYDMXVkAz5sqCtaGQe/ZSM4jKM4SuDYgdnE8MASFrz8Cd
- AhGQCHXHyYjSw==
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4gT6tg2ngKz6tyt;
- Sun, 31 May 2026 21:42:19 +0200 (CEST)
-Message-ID: <12fa6237168ecf6dc65ebf46118beeb5c51f3d1c.camel@posteo.de>
-Subject: Re: [PATCH v11 1/3] rust: add basic serial device bus abstractions
-From: Markus Probst <markus.probst@posteo.de>
-To: Danilo Krummrich <dakr@kernel.org>, Markus Probst via B4 Relay
- <devnull+markus.probst.posteo.de@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Greg Kroah-Hartman	
- <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, Miguel
- Ojeda	 <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
- <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>, Kari Argillander
- <kari.argillander@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-serial@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, 	linux-pm@vger.kernel.org,
- driver-core@lists.linux.dev, 	dri-devel@lists.freedesktop.org
-Date: Sun, 31 May 2026 19:42:21 +0000
-In-Reply-To: <DIWEXUCNLURG.136XXDBHSBNVR@kernel.org>
-References: <20260531-rust_serdev-v11-0-dee8e0d830f1@posteo.de>
- <20260531-rust_serdev-v11-1-dee8e0d830f1@posteo.de>
- <DIWEXUCNLURG.136XXDBHSBNVR@kernel.org>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-i+uPwUkDiLZ5y8MtsrTf"
+Received: from mta.al2klimov.de (mta.al2klimov.de [162.55.223.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABD53112C14
+ for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 19:55:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; s=default; bh=ZoukwfSF8bc4
+ T0zOTYJl0C8sMTVJuamWQpd1iB8O5oY=;
+ h=references:in-reply-to:date:
+ subject:cc:to:from; d=al2klimov.de; b=KlI1Nk1IOl7Xplg+KLj9PasHUyKo26zW
+ v28XKYaCn9XtSp0HAIfaO8UMXsl8cxjmvHwqi0u8PcTsJcxgNE71K0HH9jp2oL6YY/k7QP
+ FUb70eJWpnX1Q0tCl+UsGKhhGtcBrmX42C4Xto3lpk4Y1d9HGGocI197vR9Rlekqxy745Y
+ NNq2qmcLXwccal2GtxXAcjIFrtopqKgBYZL3V7QstMMtTKzeD6MjwbRlUyBGqdOFva5EL+
+ zZAviDp1BtEppsXVYgs+V2Bv6FUkjz4ze7G4hx/xzLeYKo3lj1nTcByka5O630M2hyO18C
+ HD5SodwmJhkiySidSSxQgoeT59YxVg==
+Received: from cachy-ak (88.215.123.80.dyn.pyur.net [88.215.123.80])
+ by mta.al2klimov.de (OpenSMTPD) with ESMTPSA id e9e32a2c
+ (TLSv1.3:TLS_CHACHA20_POLY1305_SHA256:256:NO); 
+ Sun, 31 May 2026 19:55:34 +0000 (UTC)
+From: "Alexander A. Klimov" <grandmaster@al2klimov.de>
+To: 
+Cc: "Alexander A. Klimov" <grandmaster@al2klimov.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Eric Anholt <eric@anholt.net>,
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list),
+ llvm@lists.linux.dev (open list:CLANG/LLVM BUILD
+ SUPPORT:Keyword:\b(?i:clang|llvm)\b)
+Subject: [PATCH v2] drm/vc4: fix krealloc() memory leak
+Date: Sun, 31 May 2026 21:55:10 +0200
+Message-ID: <20260531195515.99623-1-grandmaster@al2klimov.de>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <2b602ec6-d563-4fa0-a0c5-89b97a46abf9@igalia.com>
+References: <2b602ec6-d563-4fa0-a0c5-89b97a46abf9@igalia.com>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
- preference=encrypt
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,140 +69,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Don't just overwrite the original pointer passed to krealloc()
+with its return value without checking latter:
 
---=-i+uPwUkDiLZ5y8MtsrTf
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+    MEM = krealloc(MEM, SZ, GFP);
 
-On Sun, 2026-05-31 at 01:51 +0200, Danilo Krummrich wrote:
-> On Sun May 31, 2026 at 12:51 AM CEST, Markus Probst via B4 Relay wrote:
-> > +#[pinned_drop]
-> > +impl<T: Driver> PinnedDrop for PrivateData<'_, T> {
-> > +    fn drop(self: Pin<&mut Self>) {
-> > +        let mut active =3D self.active.lock();
-> > +        if *active {
-> > +            // SAFETY:
-> > +            // - We have exclusive access to `self.driver`.
-> > +            // - `self.driver` is guaranteed to be initialized.
-> > +            unsafe { (*self.driver.get()).assume_init_drop() };
-> > +            *active =3D false;
-> > +        }
-> > +
-> > +        // SAFETY: We have exclusive access to `self.open`.
-> > +        if unsafe { *self.open.get() } {
-> > +            // SAFETY: `self.sdev.as_raw()` is guaranteed to be a poin=
-ter to a valid
-> > +            // `struct serdev_device`.
-> > +            unsafe { bindings::serdev_device_close(self.sdev.as_raw())=
- };
-> > +        }
-> > +    }
-> > +}
->=20
-> Just in case it came across otherwise, I did not mean to push for you to =
-go for
-> this approach. We just kept discussing it because it let to the (to me mo=
-re
-> interesting) discussion around the LED class device abstraction.
->=20
-> While this approach gets us rid of an extra allocation and the rust_priva=
-te_data
-> pointer in struct serdev_device it also turns out a bit more convoluted.
->=20
-> That said, both are correct, and I won't object either one; up to you and=
- the
-> serdev / tty maintainers.
->=20
-> Please wait a bit before resending, so other people can comment on this a=
-s well.
->=20
-> > +    extern "C" fn receive_buf_callback(
-> > +        sdev: *mut bindings::serdev_device,
-> > +        buf: *const u8,
-> > +        length: usize,
-> > +    ) -> usize {
-> > +        // SAFETY: The serial device bus only ever calls the receive b=
-uf callback with a valid
-> > +        // pointer to a `struct serdev_device`.
-> > +        //
-> > +        // INVARIANT: `sdev` is valid for the duration of `receive_buf=
-_callback()`.
-> > +        let sdev =3D unsafe { &*sdev.cast::<Device<device::CoreInterna=
-l<'_>>>() };
->=20
-> CoreInternal snuck back in, should be BoundInternal.
->=20
-> > +
-> > +        // SAFETY: `receive_buf_callback` is only ever called after a =
-successful call to
-> > +        // `probe_callback`, hence it's guaranteed that `Device::set_d=
-rvdata()` has been called
-> > +        // and stored a `Pin<KBox<PrivateData<'_, T>>>`.
-> > +        let private_data =3D unsafe { sdev.as_ref().drvdata_borrow::<P=
-rivateData<'_, T>>() };
-> > +        let active =3D private_data.active.lock();
->=20
-> I think SRCU would be a much better fit, but the code didn't land yet, so=
- the
-> mutex seems fine for now. But I'd probably add a TODO.
-I just noticed, is it even possible to use SRCU here? Currently the
-mutex not only ensures that no drvdata access happens after drvdata
-drop, but also that the receive_buf waits for the probe to complete, as
-the drvdata hasn't been initialized yet.
+If krealloc() returns NULL, that erases the pointer
+to the still allocated memory, hence leaks this memory.
+Instead, use a temporary variable, check it's not NULL
+and only then assign it to the original pointer:
 
-(drvdata refers to PrivateData.driver in this context, not the whole
-PrivateData)
+    TMP = krealloc(MEM, SZ, GFP);
+    if (!TMP) return;
+    MEM = TMP;
 
-Thanks
-- Markus Probst
+Fixes: 6d45c81d229d ("drm/vc4: Add support for branching in shader validation.")
+Signed-off-by: Alexander A. Klimov <grandmaster@al2klimov.de>
+---
+ v2: Declare the variable explicitly
+ v2: Instead of void *, use u32 *
+ v2: While on it, enhance variable name
 
->=20
-> > +
-> > +        if !*active {
-> > +            return length;
-> > +        }
-> > +
-> > +        // SAFETY: No one has exclusive access to `private_data.driver=
-`.
-> > +        let data =3D unsafe { &*private_data.driver.get() };
-> > +        // SAFETY:
-> > +        // - `private_data.driver` is pinned.
-> > +        // - `receive_buf_callback` is only ever called after a succes=
-sful call to `probe_callback`,
-> > +        //   hence it's guaranteed that `private_data.driver` was init=
-ialized.
-> > +        let data_pinned =3D unsafe { Pin::new_unchecked(data.assume_in=
-it_ref()) };
-> > +
-> > +        // SAFETY: `buf` is guaranteed to be non-null and has the size=
- of `length`.
-> > +        let buf =3D unsafe { core::slice::from_raw_parts(buf, length) =
-};
-> > +
-> > +        T::receive(sdev, data_pinned, buf)
-> > +    }
-> > +}
+ [✓] scripts/checkpatch.pl --strict
+ [✓] allmodconfig compiled (i686, LLVM)
+ [✓] localyesconfig booted (IBM T43)
 
---=-i+uPwUkDiLZ5y8MtsrTf
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+ Note to myself: use --in-reply-to=2b602ec6-d563-4fa0-a0c5-89b97a46abf9@igalia.com
 
------BEGIN PGP SIGNATURE-----
+ drivers/gpu/drm/vc4/vc4_validate_shaders.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmocjxobFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSpGMQALexWGRaLmUISqGonZYw
-CeOMrMEudQuPoIAC1NbyIgnpT3ir0TLAP0G5nEwbQDKSeB3syHQqjEB8wMYaYjHX
-RUFlkm1ITINn5Yc3Pj0gL6FI3RC96G/1NZjtDhLxct+qeYzovYfe5ECfU6Cch65c
-H2LCNtBQdLOWc//PCXrz7gX6HYZnv4pGVlZrWxxvDLt21MFCAKJEpt+xDvIkU+BK
-KX40c+lHqUNNlafCLiZnKTGw6XusWT6ziCN8OaQcCLkbhXKIoka1rSQh6e40HNRG
-S7Cjj4o/8ix5JLmURMpNXtxUV2G51F9St9oG/iGYIuwMxwRA5HdRFoats9NwdSa9
-GLrhaCdaqJ3awv57Bp+k/HVCG6pta0KkNs/BPbHQ2dtkHNCn5d7QZk3IZ2ilU/pY
-qrAqDMylJc2gCRoQqhQKZRk9XMZ1iubnHUEojgEJGH1Eo0zf72R6IIVvAN5/3gZI
-RaAbCMzYr7Fnt0eQf0I8VIpkSf6EcfOeD0IVkGiEsqA64h0fM/XFeuXMa7i7Mwhv
-LDvHWpQWpknQ3SpwuMkgpMOUkqmpmrCjJ8PEtofApBxCigw0jyzVfR783WE3Xvhg
-r+f+Lvm5kiBMp9Whdqg74ybQ/w4MRjC42y8bQ9bOdfinP5+7mTOimsDvMADhcLbM
-rchoKeYTBB0SYYICElpnVTmL
-=ADNr
------END PGP SIGNATURE-----
+diff --git a/drivers/gpu/drm/vc4/vc4_validate_shaders.c b/drivers/gpu/drm/vc4/vc4_validate_shaders.c
+index d48cf76983c0..6f52b4db9cc9 100644
+--- a/drivers/gpu/drm/vc4/vc4_validate_shaders.c
++++ b/drivers/gpu/drm/vc4/vc4_validate_shaders.c
+@@ -290,15 +290,16 @@ static bool require_uniform_address_uniform(struct vc4_validated_shader_info *va
+ {
+ 	uint32_t o = validated_shader->num_uniform_addr_offsets;
+ 	uint32_t num_uniforms = validated_shader->uniforms_size / 4;
++	u32 *offsets;
+ 
+-	validated_shader->uniform_addr_offsets =
+-		krealloc(validated_shader->uniform_addr_offsets,
+-			 (o + 1) *
+-			 sizeof(*validated_shader->uniform_addr_offsets),
+-			 GFP_KERNEL);
+-	if (!validated_shader->uniform_addr_offsets)
++	offsets = krealloc(validated_shader->uniform_addr_offsets,
++			   (o + 1) *
++			   sizeof(*validated_shader->uniform_addr_offsets),
++			   GFP_KERNEL);
++	if (!offsets)
+ 		return false;
+ 
++	validated_shader->uniform_addr_offsets = offsets;
+ 	validated_shader->uniform_addr_offsets[o] = num_uniforms;
+ 	validated_shader->num_uniform_addr_offsets++;
+ 
+-- 
+2.54.0
 
---=-i+uPwUkDiLZ5y8MtsrTf--
