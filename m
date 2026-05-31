@@ -4,113 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6B74CD6E5E
-	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 14:00:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C504FCD6E5F
+	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 14:00:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BB94112B66;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC9D9112B79;
 	Sun, 31 May 2026 14:00:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="AQzQ81Jg";
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="FbxOMPIP";
 	dkim-atps=neutral
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A9EE10E3AA
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 18:55:42 +0000 (UTC)
-Received: from submission (posteo.de [185.67.36.169]) 
- by mout01.posteo.de (Postfix) with ESMTPS id 117FB240027
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 20:55:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
- t=1780167340; bh=7liBuoUJTQfvwd86ABlHP9P2JYcIto0EGU7InnY/XZE=;
- h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
- MIME-Version:OpenPGP:From;
- b=AQzQ81JgcCAk3BTpUjk0I4TLHSFS80/+mtyz2ZZOY7GM2xGYhUCj70T0ddlGXO/Zs
- MJ42QTZomfzuu6DrUSYqD8aXKpZlxpQIXaywBuwh0IrViSU/61+DwNSIgH4PEMVLuh
- 0cvVIcGk+kr3YHoZxV1UD9sBWu7c1Hkt8EbXZaeCXC0q6oXX2yr9b9gc7n3JjXUe5l
- 9WPyI36EAsdQTlgdF/xd6tosqx6yqhUDcT3E0LKmNwVIbN+RWlbh7kJESNS2lDMrLJ
- ChRHCmkDizMg4x0XpJQ2mXWxQ6RrCAWKSzbuBuULDEFWR2+CqSg4Odk6g4pE8LTWeA
- bDJtvsE7kaNuw==
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4gSTvF0TB4z6tw4;
- Sat, 30 May 2026 20:55:37 +0200 (CEST)
-Message-ID: <01e20401845ce5eab5731698ca8a0f8f44ed3eb9.camel@posteo.de>
-Subject: Re: [PATCH v8 3/5] rust: add basic serial device bus abstractions
-From: Markus Probst <markus.probst@posteo.de>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Markus Probst via B4 Relay <devnull+markus.probst.posteo.de@kernel.org>,
- Rob Herring <robh@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Jiri Slaby	 <jirislaby@kernel.org>, Miguel
- Ojeda <ojeda@kernel.org>, Gary Guo	 <gary@garyguo.net>,
- =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	 <bjorn3_gh@protonmail.com>, Benno
- Lossin <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>, Kari
- Argillander <kari.argillander@gmail.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng
- <boqun@kernel.org>,  David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, linux-serial@vger.kernel.org, 
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-pm@vger.kernel.org, driver-core@lists.linux.dev, 
- dri-devel@lists.freedesktop.org
-Date: Sat, 30 May 2026 18:55:39 +0000
-In-Reply-To: <DIW587AGXYCS.39MR1B4TVSO9@kernel.org>
-References: <20260530-rust_serdev-v8-0-2a95f1da22a7@posteo.de>
- <20260530-rust_serdev-v8-3-2a95f1da22a7@posteo.de>
- <DIW1B4FUIXO7.28GSUA0CEA4EV@kernel.org>
- <4638946fc49a38797b716ea173c93327eb751479.camel@posteo.de>
- <ad98dfb1d8469022519d37364e8a068bed3b5687.camel@posteo.de>
- <888dc39c52bb6ddac1a1eed7876c4573bdbef002.camel@posteo.de>
- <DIW2JUUL6A6J.96VI4IQN6HYU@kernel.org>
- <55eae11ea68f129508d0f7e30ac457ba919812b2.camel@posteo.de>
- <DIW34DX6BSUS.ANXBOP9687B0@kernel.org>
- <25dc9a4bbde0b542abf608be1b3305f1421a4502.camel@posteo.de>
- <DIW587AGXYCS.39MR1B4TVSO9@kernel.org>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-KF9YFnMuz2Ii19euSWzF"
+Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D5D0112A90
+ for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 05:30:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+ s=protonmail3; t=1780205406; x=1780464606;
+ bh=FREyGfEkZwp/eiF+nf2+e3tagGyUid2YcD0QWCvs2J8=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=FbxOMPIPIoCq2Sga77+4gLpGGBTnW90cdCIb7S547XGFpMBPYvLT7s6hDjkAB42pY
+ pgEDzskiepip3sxl4MuHnKF+WV1VJ96aL9743dWbm0zsV0lFvdlL9HFDle4SUZfRUF
+ qcO2iSAQJqsoYErzS80v3vXKrwpel+5Hf6WKNnCdOpo5PSquiqdO0vXGdVjBBV0rWA
+ TyacxLQ2Q9WvOc8enmhhOsYpvUvw+akpSYH6YqJvRCIxNDz5pTDxfrlkYPbzqjktMk
+ 9LbujSO/0cV4d4gzU0ZePbqdcIenQSkP1sFJRRVtlGcmoNjBZeczWhPjN+hpCFSbak
+ oscUJ9qBmlhow==
+Date: Sun, 31 May 2026 05:30:02 +0000
+To: dri-devel@lists.freedesktop.org
+From: =?utf-8?Q?Gustavo_Kenji_Mendon=C3=A7a_Kaneko?= <kaneko.dev@pm.me>
+Cc: liviu.dudau@arm.com, airlied@gmail.com, simona@ffwll.ch,
+ linux-kernel@vger.kernel.org,
+ =?utf-8?Q?Gustavo_Kenji_Mendon=C3=A7a_Kaneko?= <kaneko.dev@pm.me>
+Subject: [PATCH 2/2] drm/arm/komeda: fix ignored clk_prepare_enable() return
+ value in resume
+Message-ID: <20260531052945.65117-2-kaneko.dev@pm.me>
+In-Reply-To: <20260531052945.65117-1-kaneko.dev@pm.me>
+References: <20260531052945.65117-1-kaneko.dev@pm.me>
+Feedback-ID: 165279626:user:proton
+X-Pm-Message-ID: d8c93e45b1a28835a390ed888eb45bfb4ae7b22e
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
- preference=encrypt
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Sun, 31 May 2026 13:58:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -127,78 +59,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+komeda_dev_resume() calls clk_prepare_enable() without checking the
+return value. If the clock fails to enable, the function returns 0
+(success) while IRQs are enabled and IOMMU is connected on potentially
+unclocked hardware, causing undefined behavior on resume.
 
---=-KF9YFnMuz2Ii19euSWzF
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Propagate the error from clk_prepare_enable() and return early on
+failure to prevent hardware access without a valid clock.
 
-On Sat, 2026-05-30 at 18:14 +0200, Danilo Krummrich wrote:
-> On Sat May 30, 2026 at 4:51 PM CEST, Markus Probst wrote:
-> > On Sat, 2026-05-30 at 16:35 +0200, Danilo Krummrich wrote:
-> > > On Sat May 30, 2026 at 4:27 PM CEST, Markus Probst wrote:
-> > > > This would work, but I don't see how it would get rid of rust_priva=
-te_data in
-> > > > this way. The device private data will but the private bus abstract=
-ion data
-> > > > needs to outlive the devres callbacks (which is done by rust_privat=
-e_data).
-> > >=20
-> > > Why? You only ever use it in the receive callback, which won't be cal=
-led after
-> > > device unbind anymore.
-> > Because the possibility exists that some classdev ops or Drop calls
-> > e.g. sdev.set_baudrate. This is a null pointer dereference after
-> > serdev_device_close has been called. I interpreted it to add a state to
-> > the abstraction private data which would prevent those calls (early
-> > return with error) after serdev_device_close has been called, but this
-> > would only work if it outlives these calls.
-> >=20
-> > But it seems you were refering to something else with the state?
->=20
-> Yes, but I just notice that I'm a step ahead. With the lifetime model cla=
-ss
-> device registrations shouldn't be guarded with Devres anymore, but with a
-> lifetime.
-That might be an issue. pin-init doesn't have enum support yet, so at
-least in my driver devres is still required for now.
+This issue was found by code review without access to Komeda hardware.
 
-I will readd the rust_private_data field.
+Signed-off-by: Gustavo Kenji Mendon=C3=A7a Kaneko <kaneko.dev@pm.me>
+---
+ drivers/gpu/drm/arm/display/komeda/komeda_dev.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Thanks
-- Markus Probst
+diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_dev.c b/drivers/gpu/=
+drm/arm/display/komeda/komeda_dev.c
+index 5ba62e637a61..9aad1d1d28ec 100644
+--- a/drivers/gpu/drm/arm/display/komeda/komeda_dev.c
++++ b/drivers/gpu/drm/arm/display/komeda/komeda_dev.c
+@@ -313,7 +313,11 @@ void komeda_dev_destroy(struct komeda_dev *mdev)
+=20
+ int komeda_dev_resume(struct komeda_dev *mdev)
+ {
+-=09clk_prepare_enable(mdev->aclk);
++=09int err;
++
++=09err =3D clk_prepare_enable(mdev->aclk);
++=09if (err)
++=09=09return err;
+=20
+ =09mdev->funcs->enable_irq(mdev);
+=20
+--=20
+2.54.0
 
->=20
-> (This also entirely eliminates the need for having different devres stage=
-s to
-> prevent drivers from smuggling a newly created Devres object into an exis=
-ting
-> Devres<Registration<T>>'s data, which would be unsound for obvious reason=
-s.)
->=20
-> With this there is no way there are still class device callbacks after th=
-e bus
-> device private data has been dropped in the first place.
 
---=-KF9YFnMuz2Ii19euSWzF
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmobMqgbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSsP4QAJvgDX/oBlDfYv2tZ9/k
-iqvykK+GkeeYAJsEMKKFHnbChReKuA8Ot+MHfe3ZXFFbUaQ9CuGWH0IH3Ve5aBrw
-/LVBWhhD9oGFkZiTl6d/JxBBEWw6d4diLm+G4hmD2E05opEe+lH/16V5ZQ+7nTgP
-0N7TCKrRudJIFg9gX31C1hJSDdUV/q1S4LBue2EOg67YX2nUVuVGyl4pxLoIZ5oM
-p7C+3Fr0EtetHiJEx5YLjNg56LybwCYIY2r1r9roln/Gh02CeoFOGeTAf7YZErbP
-4qUp6oQDfNZhBWWrjiCAKyeK7054GVyXL+Js+ECe+2EsK6eecj9vPjpPkGSlJCMW
-na564sEOpKt8IbPB65E+h8qqroFns2GPsoGLq7QX07DrUMoXRI8KdxemjpmjfjL7
-SUNDAKLCKRWC6q9WLyOWgTvr2xjFq12wf85rwFSJ02e1ibXMH4XkCzfkT/BGZSBb
-I8GmSQuaEb0+ht12v/86Iy5xwqdNITJMvE+gGSvvFVVOf7tUzinkA2fRjNzDuER7
-XkeESS26C36GmbI5924+gCiAYGP+Z1CfOLZWIVIyL2vsfl8koo2ox3cJOJVFmj3Y
-aWUces/kyUVV4jDpSvJD/th6XTpEY35vxtTcHWSlTJAq+ujhl58RWsxAw9VI/FxJ
-sZU2iF3gffqVfJX3mmzDz1KZ
-=ujLv
------END PGP SIGNATURE-----
-
---=-KF9YFnMuz2Ii19euSWzF--
