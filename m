@@ -4,104 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3674CD6E52
-	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 13:58:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A3C5CD6E60
+	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 13:58:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B4B8112B4E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5A29112B55;
 	Sun, 31 May 2026 13:58:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="Fu4RwBSb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="p8dC+5+f";
 	dkim-atps=neutral
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8412E10E338
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 13:37:32 +0000 (UTC)
-Received: from submission (posteo.de [185.67.36.169]) 
- by mout02.posteo.de (Postfix) with ESMTPS id DB544240101
- for <dri-devel@lists.freedesktop.org>; Sat, 30 May 2026 15:37:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
- t=1780148250; bh=SXr32rjKJbNyYUQ0Dql4qeVjTj4pPxg4GyHhz4KKolU=;
- h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
- MIME-Version:OpenPGP:From;
- b=Fu4RwBSbBi08AqYeH7dM6yfW3BxPXIAY/3uBqbZh6Ta9vs2/wjxiz/6qvnvnMK/fC
- MvLlpdyGSgZSgfp9utRx29qNpEg4s/rzxtlmIBSK1qaY/B0uOWAcrOxABlHB5cJcYZ
- jYEAXwHPShhrCOQw4Z/qaQkKlVZm80umHxzgJwfNM0dONJr+4NQcosWOg9yfCgJ/0I
- YCwXJDZUDtotM1hWhOvElDm8WqressVkJRfgSmySMruXK+G6SEL3wfcQ9DEbeJrJpG
- gim3+6yh0jJbZ3ob/GBlpccoYZoxdiDNvTNIEhiOwaaNyFE1hY3LyfPrYd1I6PZ8YR
- yZEM0kwMnN1GA==
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4gSLr75bylz9rxF;
- Sat, 30 May 2026 15:37:27 +0200 (CEST)
-Message-ID: <4638946fc49a38797b716ea173c93327eb751479.camel@posteo.de>
-Subject: Re: [PATCH v8 3/5] rust: add basic serial device bus abstractions
-From: Markus Probst <markus.probst@posteo.de>
-To: Danilo Krummrich <dakr@kernel.org>, Markus Probst via B4 Relay
- <devnull+markus.probst.posteo.de@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Greg Kroah-Hartman	
- <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, Miguel
- Ojeda	 <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
- <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>, Kari Argillander
- <kari.argillander@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-serial@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, 	linux-pm@vger.kernel.org,
- driver-core@lists.linux.dev, 	dri-devel@lists.freedesktop.org
-Date: Sat, 30 May 2026 13:37:30 +0000
-In-Reply-To: <DIW1B4FUIXO7.28GSUA0CEA4EV@kernel.org>
-References: <20260530-rust_serdev-v8-0-2a95f1da22a7@posteo.de>
- <20260530-rust_serdev-v8-3-2a95f1da22a7@posteo.de>
- <DIW1B4FUIXO7.28GSUA0CEA4EV@kernel.org>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-mbJrtKM2BegUzHyWsn7m"
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
+ [209.85.215.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C932710E164
+ for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 07:47:03 +0000 (UTC)
+Received: by mail-pg1-f172.google.com with SMTP id
+ 41be03b00d2f7-c85825bbc4fso828696a12.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 00:47:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780213623; x=1780818423; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ZZ904ivttfHdS60TN1sr5eWp6rmZB5uxbrG2ujQs++w=;
+ b=p8dC+5+fFOoGtfRN9Zlm6nO3J3lphZjPCn7sf7TjhZBLehmwaxL/Lvca9Yjn3yqxZK
+ 2GKAf6vEJKOB28YkyK80MfMMZJWqaAsiVihjnR7VpyooyvdUyitdfnajedeMrrRAhTM/
+ 4zR/lx0wDffOFtiXFizXEas6yBbgeEGjR3dtaST5SaDIvgQSw1V0Y+XbPqGvwYgxqw3L
+ GvMVRvlH4znJtixfNYUeri/jiWGYEVwP5U+nZDl7lqlFK53/qHR2XcumPxEI271vbZ9X
+ AvCcBQ0u1B2sG3U5EYDyI7AG0/o+wX/BpZtIgpwbZddOrNnG352mJKM20e/Y+AZwazHH
+ sfAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780213623; x=1780818423;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=ZZ904ivttfHdS60TN1sr5eWp6rmZB5uxbrG2ujQs++w=;
+ b=SsY84kdPaLMF7hCVaZc7LX8kxsFYFhVPXzP17XsxAe92q3hsXW086SqjUrJhyzwPbJ
+ XN5sKKZJBHJWJ2+FnmdQN+RmQQgsmYQJ2rV0cpkqi7bagxOD0TKxHEj3jwH+Xcz4t4JY
+ EI1s2GMQvZ66ZUFm9Jueis19kI+wzmJ6YgwC3mDc18jltZ+J5Fy1sXGRBA+cimpQRGz/
+ j1e2fLAJuiX12V92r1E2k7JWsCFk1PKBiW4ZrI81SxQtwBYAQkKFIQaGmAoztL8Ak/bP
+ 2d46YLu33xJhRWbAN/F3iUA7w22gx92IzHxvG+Hi0iE7FLWZ3EbhoPQIv2goybEiRW3Q
+ VwHg==
+X-Gm-Message-State: AOJu0YyyOIyHLWkMbppgU7/AE765ynwzRKy1NqrUg/G6Ho9IRaLbXGjQ
+ o09izxIZ8tZRgKg7qJtwF6gyTSPZq0zk5GdnIofxfvpZyCMQL50lO1Xe+zGMA+x6
+X-Gm-Gg: Acq92OHr8Sf3Univ+YjdvATds/DZjGtDrsbeiNFbGGGxG3gjPESLkOYuYpzwFQitLfE
+ Ju1D5lCCrNXs7Z1pWKNVdRxUCQ8AlJ/SUlbtndAs3AlII8a/vB21BXj4HTA1yclM4YDgxpgAaPh
+ P5liXLVIdz9SftOUMuBimT4Extof98lvo+bdsJGTIXjlyeb+EYhvPSWQ0NvQ/wVQsRxxz8NBtEk
+ hWH5J2w3qR91rfW0y/Xo0E20KVFdwZ+AklxQ7Gb52/uGzaRGPv8Thor1trZg96StwNTC6u2PtU+
+ doUB4vzt45+2u9NNI2DyRf+//XjC/pnh+XLcEDOm4taUVvGSo/gwyPoCiZPHpcLoHUo2AW6pK3T
+ mIcmu5h6aRr0UcpA3RQ+TOIVQFTYcM6W1OZDyMcNa5jnnsJuyGiLqp9EPi9TSz0Jax11Zt5HFtM
+ KG1LS2M4k5ktTlQvVy10sSfvCwi5DzoY317DdsncMqOw==
+X-Received: by 2002:a05:6a00:a211:b0:82d:162c:581f with SMTP id
+ d2e1a72fcca58-84225a087c4mr5251686b3a.48.1780213623224; 
+ Sun, 31 May 2026 00:47:03 -0700 (PDT)
+Received: from Naman.Naman ([2401:4900:1f39:4c4a:1e56:d301:ce43:ac25])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-84246844780sm933636b3a.30.2026.05.31.00.46.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 31 May 2026 00:47:02 -0700 (PDT)
+From: Naman Arora <namanarora029@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: tzimmermann@suse.de, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ airlied@gmail.com, simona@ffwll.ch, neil.armstrong@linaro.org,
+ khilman@baylibre.com, linux-kernel@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Naman Arora <namanarora029@gmail.com>
+Subject: [PATCH 6/6] drm/meson: Open-code drm_simple_encoder_init() in
+ encoder_dsi
+Date: Sun, 31 May 2026 13:16:27 +0530
+Message-Id: <20260531074627.8936-3-namanarora029@gmail.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20260531074627.8936-1-namanarora029@gmail.com>
+References: <20260531073532.8609-1-namanarora029@gmail.com>
+ <20260531074627.8936-1-namanarora029@gmail.com>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
- preference=encrypt
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 31 May 2026 13:58:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -118,205 +93,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+The helper drm_simple_encoder_init() is a thin wrapper around
+drm_encoder_init() with a simple destroy-only encoder funcs struct.
+Remove the dependency on drm_simple_kms_helper by open-coding the
+encoder initialization directly in the driver.
 
---=-mbJrtKM2BegUzHyWsn7m
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Naman Arora <namanarora029@gmail.com>
+---
+ drivers/gpu/drm/meson/meson_encoder_dsi.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-On Sat, 2026-05-30 at 15:10 +0200, Danilo Krummrich wrote:
-> On Sat May 30, 2026 at 3:13 AM CEST, Markus Probst via B4 Relay wrote:
-> > +    extern "C" fn probe_callback(sdev: *mut bindings::serdev_device) -=
-> kernel::ffi::c_int {
-> > +        // SAFETY: The serial device bus only ever calls the probe cal=
-lback with a valid pointer to
-> > +        // a `struct serdev_device`.
-> > +        //
-> > +        // INVARIANT: `sdev` is valid for the duration of `probe_callb=
-ack()`.
-> > +        let sdev =3D unsafe { &*sdev.cast::<Device<device::CoreInterna=
-l<'_>>>() };
-> > +        let info =3D <Self as driver::Adapter>::id_info(sdev.as_ref())=
-;
-> > +
-> > +        from_result(|| {
-> > +            let private_data =3D devres::register(
-> > +                sdev.as_ref(),
-> > +                try_pin_init!(PrivateData {
-> > +                    probe_complete <- Completion::new(),
-> > +                    error: false.into(),
-> > +                }),
-> > +                GFP_KERNEL,
-> > +            )?;
-> > +
-> > +            // SAFETY: `sdev.as_raw()` is guaranteed to be a valid poi=
-nter to `serdev_device`.
-> > +            unsafe {
-> > +                (*sdev.as_raw()).rust_private_data =3D
-> > +                    (&raw const *private_data).cast::<c_void>().cast_m=
-ut()
-> > +            };
-> > +
-> > +            // SAFETY: `sdev.as_raw()` is guaranteed to be a valid poi=
-nter to `serdev_device`.
-> > +            unsafe { bindings::serdev_device_set_client_ops(sdev.as_ra=
-w(), Self::OPS) };
-> > +
-> > +            // SAFETY: The serial device bus only ever calls the probe=
- callback with a valid pointer
-> > +            // to a `serdev_device`.
-> > +            to_result(unsafe {
-> > +                bindings::devm_serdev_device_open(sdev.as_ref().as_raw=
-(), sdev.as_raw())
-> > +            })?;
->=20
-> The bus device private data drops before devres callbacks run, thus you c=
-an't
-> use the devm helper here. I suggest to use serdev_device_open() and call
-> serdev_device_close() from remove_callback() instead.
->=20
-> You may also want to consider whether you potentially want T::unbind() to=
- allow
-> to have concurrent transmits in flight regardless. IOW, you may want to c=
-all
-> serdev_device_close() before T::unbind() anyway.
-`serdev::Device<Core>` will be passed as argument to unbind, i.e.
-set_baudrate, set_flow_control etc. calls are possible. If we close the
-serdev device before unbind, calling those would result in a null
-pointer dereference. Maybe a driver even wants to send a message here,
-so it should stay open.
+diff --git a/drivers/gpu/drm/meson/meson_encoder_dsi.c b/drivers/gpu/drm/meson/meson_encoder_dsi.c
+index eba246791..e14da1f71 100644
+--- a/drivers/gpu/drm/meson/meson_encoder_dsi.c
++++ b/drivers/gpu/drm/meson/meson_encoder_dsi.c
+@@ -10,7 +10,6 @@
+ #include <linux/of_graph.h>
+ 
+ #include <drm/drm_atomic_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_bridge_connector.h>
+ #include <drm/drm_device.h>
+@@ -99,6 +98,10 @@ static const struct drm_bridge_funcs meson_encoder_dsi_bridge_funcs = {
+ 	.atomic_reset = drm_atomic_helper_bridge_reset,
+ };
+ 
++static const struct drm_encoder_funcs meson_encoder_dsi_drm_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ int meson_encoder_dsi_probe(struct meson_drm *priv)
+ {
+ 	struct meson_encoder_dsi *meson_encoder_dsi;
+@@ -133,8 +136,9 @@ int meson_encoder_dsi_probe(struct meson_drm *priv)
+ 	meson_encoder_dsi->priv = priv;
+ 
+ 	/* Encoder */
+-	ret = drm_simple_encoder_init(priv->drm, &meson_encoder_dsi->encoder,
+-				      DRM_MODE_ENCODER_DSI);
++	ret = drm_encoder_init(priv->drm, &meson_encoder_dsi->encoder,
++			       &meson_encoder_dsi_drm_encoder_funcs,
++			       DRM_MODE_ENCODER_DSI, NULL);
+ 	if (ret)
+ 		return dev_err_probe(priv->dev, ret,
+ 				     "Failed to init DSI encoder\n");
+-- 
+2.20.1
 
-If I think about it, I can't even close it inside remove_callback after
-`T::unbind`. With the driver lifetimes, the driver could store the
-`serdev::Device<Bound>` pointer in its DriverData and could still make
-calls to the device.
-
-Any suggestions?
-
->=20
-> > +
-> > +            let data =3D T::probe(sdev, info);
-> > +            let result =3D sdev.as_ref().set_drvdata(data);
-> > +
-> > +            // SAFETY: We have exclusive access to `private_data.error=
-`.
-> > +            unsafe { *private_data.error.get() =3D result.is_err() };
-> > +
-> > +            private_data.probe_complete.complete_all();
-> > +
-> > +            result.map(|()| 0)
-> > +        })
-> > +    }
-> > +
-> > +    extern "C" fn remove_callback(sdev: *mut bindings::serdev_device) =
-{
-> > +        // SAFETY: The serial device bus only ever calls the remove ca=
-llback with a valid pointer
-> > +        // to a `struct serdev_device`.
-> > +        //
-> > +        // INVARIANT: `sdev` is valid for the duration of `remove_call=
-back()`.
-> > +        let sdev =3D unsafe { &*sdev.cast::<Device<device::CoreInterna=
-l<'_>>>() };
-> > +
-> > +        // SAFETY: `remove_callback` is only ever called after a succe=
-ssful call to
-> > +        // `probe_callback`, hence it's guaranteed that `Device::set_d=
-rvdata()` has been called
-> > +        // and stored a `Pin<KBox<T::Data<'_>>>`.
-> > +        let data =3D unsafe { sdev.as_ref().drvdata_borrow::<T::Data<'=
-_>>() };
-> > +
-> > +        T::unbind(sdev, data);
-> > +    }
-> > +
-> > +    extern "C" fn receive_buf_callback(
-> > +        sdev: *mut bindings::serdev_device,
-> > +        buf: *const u8,
-> > +        length: usize,
-> > +    ) -> usize {
-> > +        // SAFETY: The serial device bus only ever calls the receive b=
-uf callback with a valid
-> > +        // pointer to a `struct serdev_device`.
-> > +        //
-> > +        // INVARIANT: `sdev` is valid for the duration of `receive_buf=
-_callback()`.
-> > +        let sdev =3D unsafe { &*sdev.cast::<Device<device::CoreInterna=
-l<'_>>>() };
->=20
-> CoreInternal dereferences to Core, which is technically unsound within th=
-is
-> callback.
->=20
-> I think you want CoreInternal for drvdata_borrow(), so we should add a
-> BoundInternal type state for this; I will send a patch for this.
->=20
-> With this and the above fixed,
->=20
-> Reviewed-by: Danilo Krummrich <dakr@kernel.org>
->=20
-> from the driver-core side of things.
->=20
-> > +        // SAFETY:
-> > +        // - The serial device bus only ever calls the receive buf cal=
-lback with a valid pointer to
-> > +        //   a `struct serdev_device`.
-> > +        // - `receive_buf_callback` is only ever called after a succes=
-sful call to
-> > +        //   `probe_callback`, hence it's guaranteed that `sdev.privat=
-e_data` is a pointer
-> > +        //   to a valid `PrivateData`.
-> > +        let private_data =3D unsafe { &*(*sdev.as_raw()).rust_private_=
-data.cast::<PrivateData>() };
-> > +
-> > +        private_data.probe_complete.wait_for_completion();
-> > +
-> > +        // SAFETY: No one has exclusive access to `private_data.error`=
-.
-> > +        if unsafe { *private_data.error.get() } {
-> > +            return length;
-> > +        }
-> > +
-> > +        // SAFETY: `receive_buf_callback` is only ever called after a =
-successful call to
-> > +        // `probe_callback`, hence it's guaranteed that `Device::set_d=
-rvdata()` has been called
-> > +        // and stored a `Pin<KBox<T::Data<'_>>>`.
-> > +        let data =3D unsafe { sdev.as_ref().drvdata_borrow::<T::Data<'=
-_>>() };
-> > +
-> > +        // SAFETY: `buf` is guaranteed to be non-null and has the size=
- of `length`.
-> > +        let buf =3D unsafe { core::slice::from_raw_parts(buf, length) =
-};
-> > +
-> > +        T::receive(sdev, data, buf)
-> > +    }
-> > +}
-
-Thanks
-- Markus Probst
-
-
---=-mbJrtKM2BegUzHyWsn7m
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmoa6BYbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPS+LUP/0Jxc80EuLpjY2G+uAqc
-WpowXEcHOtta/A+Qn721xtuJ+vxEGhbtXU9YmjzX4op7muKMFC8puoYIVZLKpfxq
-ndGzvOeZaFJacPKbKREvYpY26uMxxF1+TZ51MzYH9/Hetc2eKTBDWis7vBjPvaXu
-uNyb5CbX6BJu0N+JFYv6u4jxb5frq/0RDVVqeutapi/srSX/p+S7R2WMdO8y9flr
-H7Vt3+YZUcWKBAZpY6wTQz2XTU5lGMNEcj5HM7g4/ghcBkW8LJUVGXKI1miZPVGg
-uFzFtfIOZnTd99XtpAmep7SoJTN97KqRG2AYSuFDLuBjDXPPsz+Ubx+W7Q3Piu5f
-agzQzS1nBNNNEFOex0TyER+eVS728c/3LVAKbPJWKG4FiBs6eeDaoerJVdmLx/DR
-4+ifHvfCWPa5rDwfHfINeYzqGDTyGKUgCcKCTESv1gTlAl/QmSOR7MEc5u4b5x+9
-7ebt8+ueewqPTWu6+oYu68mmzysJX63wwgNDjhPKUxxwMfhcTyFciVSsJCffYE8X
-RYrwlKK+0TPhzW1qKYFqVkNlFfaFu4JA13KcwIpfCt/sVdaYPNT0APCbfktyPN7c
-yHqb1e6AiPWc+C+tHqz0cFVeN6I3FL8LMENOJ0Bq+Tog6282EFgiDZpz7dDDmizi
-X9ylbe+R2PRnxVTjAv0ITPBS
-=Bo67
------END PGP SIGNATURE-----
-
---=-mbJrtKM2BegUzHyWsn7m--
