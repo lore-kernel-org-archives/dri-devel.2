@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 978C4CD6E5E
-	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 11:49:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 448A4CD5BD1
+	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 11:49:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C922112AF8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CB97112AF9;
 	Sun, 31 May 2026 11:49:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iXyvi0f0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iqq6hqGF";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58183112AEC;
- Sun, 31 May 2026 11:49:22 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A672E112AE6;
+ Sun, 31 May 2026 11:49:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3FCCC44635;
- Sun, 31 May 2026 11:49:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9CF31F00898;
- Sun, 31 May 2026 11:49:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 25FC760123;
+ Sun, 31 May 2026 11:49:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 527661F00893;
+ Sun, 31 May 2026 11:49:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780228162;
- bh=OCmzLrDf11CowVnaLX9u60t3iwYDZIlAE1pIoNvP2BY=;
+ s=k20260515; t=1780228156;
+ bh=OJ5eWOpeWC1rYPnlhJy7ylMio7oO+YtTUhZjJYgersk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=iXyvi0f0U6r8UnczNjbKHTyDkq+BJKNuRfcMfq/Oa7isv0oJYXV4kcQgzN1pao2Az
- Wa/ENw2B/eJg8Ay0dlJPMjNAm2NGNkAFlECI2hXXnFjG1v+jheJ1mtUA2qG5ikIfzA
- BdsmlZrSn2Z7PiJu5k8ERDSGK3U63McowqQwIc7S8xI4IEwfE0zoczVIR4JR4JrvQM
- 58jSK7S/bj0zxSt+rVN40E0UAVlqjE0gdiIKGmIGpK396l0IuXhvr7kzV0b9EtYIjb
- PxYpDpS5nOzsQrtzIe4lEszOq9SF+G6XnfkI5T67Mtp19oEZYh0QpxBN1Yy6LQ4FSl
- jaizrHvFKVYVA==
+ b=iqq6hqGF7mspvgWEiQ/XfZX/yHbnVBOjXo0cTKzlKG5kw0VOOA/n8o9PrMlrrPaFa
+ 8c7OE2FL04yhrBkUmCmyQR5p1JvOZ3X+xcdR64ZCErhJXom4c4x/9QZDRwPZ/4etBU
+ 0D6fDTXyhEnm80Y5NID1WiBz81lR6BLdGPX9dAW1xQLRUXxR/1xHYDfAjYVEU8sqiU
+ WaokdSa9dtfYmsvDsOgZtOb40O0gYSJAgqktBVMORU0rpe70wUPUlEtuHYngEYSz6d
+ 2xWFqMCuI7vZvebqb8sus8mpYFTLazl4rC2m9JqS/OfZEXjDc2iB07mFE5SJp3TeMj
+ 1EN4wvHkibMiA==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
 To: dri-devel@lists.freedesktop.org
 Cc: amd-gfx@lists.freedesktop.org,
  "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v5 10/11] drm/bridge: auto-link panel backlight in bridge
- connector
-Date: Sun, 31 May 2026 06:49:07 -0500
-Message-ID: <20260531114908.1693426-11-superm1@kernel.org>
+ David Herrmann <dh.herrmann@gmail.com>,
+ Marta Lofstedt <marta.lofstedt@intel.com>
+Subject: [PATCH v5 02/11] backlight: add kernel-internal backlight API
+Date: Sun, 31 May 2026 06:48:59 -0500
+Message-ID: <20260531114908.1693426-3-superm1@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260531114908.1693426-1-superm1@kernel.org>
 References: <20260531114908.1693426-1-superm1@kernel.org>
@@ -59,93 +59,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The link should allow clients to change luminance property.
+So far backlights have only been controlled via sysfs. However, sysfs is
+not a proper user-space API for runtime modifications, and never was
+intended to provide such. The DRM drivers are now prepared to provide
+such a backlight link so user-space can control backlight via DRM
+connector properties. This allows us to employ the same access-management
+we use for mode-setting.
 
-Tested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> # SM8150-HDK
+This patch adds few kernel-internal backlight helpers so we can modify
+backlights from within DRM.
+
+Signed-off-by: David Herrmann <dh.herrmann@gmail.com>
+
+V2: Marta Lofstedt <marta.lofstedt@intel.com>
+- rebase
+- minor edit for checkpatch warning
+
+Signed-off-by: Marta Lofstedt <marta.lofstedt@intel.com>
+
+V3: Mario Limonciello (AMD) <superm1@kernel.org>
+ - rebase
+ - Use guard(mutex)
+
+V4: Mario Limonciello (AMD) <superm1@kernel.org>
+ - Adjust return type for backlight_set_brightness() to return errors
+ - Stop clamping in backlight_set_brightness()
+ - Drop backlight_device_lookup()
+
+V5: Mario Limonciello (AMD) <superm1@kernel.org>
+ - Drop unnecessary dynamic debug message as backlight_generate_event()
+   sends a netlink event.
+
 Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
 ---
-v5:
- * Add tag
----
- drivers/gpu/drm/bridge/panel.c                 | 15 +++++++++++++++
- drivers/gpu/drm/display/drm_bridge_connector.c | 15 ++++++++++++++-
- include/drm/drm_bridge.h                       |  1 +
- 3 files changed, 30 insertions(+), 1 deletion(-)
+ drivers/video/backlight/backlight.c | 31 +++++++++++++++++++++++++++++
+ include/linux/backlight.h           | 15 ++++++++++++++
+ 2 files changed, 46 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/panel.c b/drivers/gpu/drm/bridge/panel.c
-index 184a8b7049a7..1dbd3ba75903 100644
---- a/drivers/gpu/drm/bridge/panel.c
-+++ b/drivers/gpu/drm/bridge/panel.c
-@@ -233,6 +233,21 @@ bool drm_bridge_is_panel(const struct drm_bridge *bridge)
+diff --git a/drivers/video/backlight/backlight.c b/drivers/video/backlight/backlight.c
+index ff2c2084c73a..cd1a161ae7bc 100644
+--- a/drivers/video/backlight/backlight.c
++++ b/drivers/video/backlight/backlight.c
+@@ -514,6 +514,37 @@ static int devm_backlight_device_match(struct device *dev, void *res,
+ 	return *r == data;
  }
- EXPORT_SYMBOL(drm_bridge_is_panel);
  
 +/**
-+ * drm_panel_bridge_to_panel - get the drm_panel wrapped by a panel bridge
-+ * @bridge: the panel bridge
++ * backlight_set_brightness - set brightness on a backlight device
++ * @bd: backlight device to operate on
++ * @value: brightness value to set on the device
++ * @reason: backlight-change reason to use for notifications
 + *
-+ * Returns the &drm_panel wrapped by @bridge, or NULL if @bridge is not a
-+ * panel bridge.
++ * This is the in-kernel API equivalent of writing into the 'brightness' sysfs
++ * file. It calls into the underlying backlight driver to change the brightness
++ * value.
++ * A uevent notification is sent with the reason set to @reason.
++ * Return: 0 if successfully notified, -EINVAL for invalid values
 + */
-+struct drm_panel *drm_panel_bridge_to_panel(struct drm_bridge *bridge)
++int backlight_set_brightness(struct backlight_device *bd, unsigned int value,
++			      enum backlight_update_reason reason)
 +{
-+	if (!drm_bridge_is_panel(bridge))
-+		return NULL;
-+	return drm_bridge_to_panel_bridge(bridge)->panel;
++	int rc = 0;
++
++	guard(mutex)(&bd->ops_lock);
++	if (bd->ops) {
++		if (value > bd->props.max_brightness)
++			return -EINVAL;
++		bd->props.brightness = value;
++		rc = backlight_update_status(bd);
++	}
++	if (rc == 0)
++		backlight_generate_event(bd, reason);
++
++	return rc;
 +}
-+EXPORT_SYMBOL(drm_panel_bridge_to_panel);
++EXPORT_SYMBOL_GPL(backlight_set_brightness);
 +
  /**
-  * drm_panel_bridge_add - Creates a &drm_bridge and &drm_connector that
-  * just calls the appropriate functions from &drm_panel.
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 39cc18f78eda..a1d54f7bac6a 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -11,7 +11,9 @@
- #include <linux/slab.h>
+  * backlight_register_notifier - get notified of backlight (un)registration
+  * @nb: notifier block with the notifier to call on backlight (un)registration
+diff --git a/include/linux/backlight.h b/include/linux/backlight.h
+index d905173c7f73..204eea9256fd 100644
+--- a/include/linux/backlight.h
++++ b/include/linux/backlight.h
+@@ -429,6 +429,21 @@ static inline void backlight_notify_blank_all(struct device *display_dev,
+ { }
+ #endif
  
- #include <drm/drm_atomic_state_helper.h>
-+#include <drm/drm_backlight.h>
- #include <drm/drm_bridge.h>
-+#include <drm/drm_panel.h>
- #include <drm/drm_bridge_connector.h>
- #include <drm/drm_connector.h>
- #include <drm/drm_device.h>
-@@ -1048,9 +1050,20 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 		connector->polled = DRM_CONNECTOR_POLL_CONNECT
- 				  | DRM_CONNECTOR_POLL_DISCONNECT;
- 
--	if (panel_bridge)
-+	if (panel_bridge) {
-+		struct drm_panel *panel;
++int backlight_set_brightness(struct backlight_device *bd, unsigned int value,
++			      enum backlight_update_reason reason);
 +
- 		drm_panel_bridge_set_orientation(connector, panel_bridge);
- 
-+		panel = drm_panel_bridge_to_panel(panel_bridge);
-+		if (panel && panel->backlight) {
-+			ret = drm_backlight_alloc(connector);
-+			if (!ret)
-+				drm_backlight_link(connector->backlight,
-+						   panel->backlight);
-+		}
-+	}
++static inline void backlight_device_ref(struct backlight_device *bd)
++{
++	if (bd)
++		get_device(&bd->dev);
++}
 +
- 	if (support_hdcp && IS_REACHABLE(CONFIG_DRM_DISPLAY_HELPER) &&
- 	    IS_ENABLED(CONFIG_DRM_DISPLAY_HDCP_HELPER))
- 		drm_connector_attach_content_protection_property(connector, true);
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index a8d67bd9ee50..6cc2a22b2dec 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -1558,6 +1558,7 @@ void drm_bridge_hpd_notify(struct drm_bridge *bridge,
++static inline void backlight_device_unref(struct backlight_device *bd)
++{
++	if (bd)
++		put_device(&bd->dev);
++}
++
+ #define to_backlight_device(obj) container_of(obj, struct backlight_device, dev)
  
- #ifdef CONFIG_DRM_PANEL_BRIDGE
- bool drm_bridge_is_panel(const struct drm_bridge *bridge);
-+struct drm_panel *drm_panel_bridge_to_panel(struct drm_bridge *bridge);
- struct drm_bridge *drm_panel_bridge_add(struct drm_panel *panel);
- struct drm_bridge *drm_panel_bridge_add_typed(struct drm_panel *panel,
- 					      u32 connector_type);
+ /**
 -- 
 2.54.0
 
