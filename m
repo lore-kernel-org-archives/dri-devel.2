@@ -4,70 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5A5CCD6E55
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 20:00:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6C91CD6E55
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 21:20:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 341E410E906;
-	Mon,  1 Jun 2026 20:00:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E7CE10E568;
+	Mon,  1 Jun 2026 21:20:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="JIKmLqKd";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NEDi/VSc";
 	dkim-atps=neutral
-Received: from mail-qk1-f202.google.com (mail-qk1-f202.google.com
- [209.85.222.202])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1685810E906
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 20:00:17 +0000 (UTC)
-Received: by mail-qk1-f202.google.com with SMTP id
- af79cd13be357-91550eceb13so354923085a.1
- for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 13:00:17 -0700 (PDT)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F0AA10E9BA
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 21:20:04 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-490a7629380so18298825e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 14:20:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1780344016; x=1780948816;
- darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=msbNDh9TiShw7R12hj6rcfm+XGYU44qZJxoBlWEONAk=;
- b=JIKmLqKdq7OVMw1Gnvl0VnnN7U2M5si4VQ2KsB2cfg2+6cgU5+TLbNkSY0mZwYfrqv
- iKdyzlzlyTUpfgudTb4AORglDnt6opvNWFn4xw0CROHySjOG2Ut6/FFtMT4xUczCw5IY
- 5Dq+gOAt5DczH5pkpo1NI9gHYGy1B8ZyY0prHYGZ3u5LbGzbujnlCCyUT9xn9vofUlTW
- Ce3ZIe5xkCStmH3odAgny6T/V4nKYb7JBCb+5Wo+GGln7aNgyU5wesKIDkEmHOPTaGok
- 5RWQsTtxBqra98FziOVMsPEuiR9orKQTwiVn0XX7+ZvuXZjLsNYOlnIQNcqg6hmELgDF
- bD0A==
+ d=gmail.com; s=20251104; t=1780348803; x=1780953603; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=qnwAsy6Fhk/v2/m0U2Y/k7DuV+rs4ovp810ofu9BhuY=;
+ b=NEDi/VScMjuj5aFKmTiM5JRYCjNNrMXAKTFYWWbpK+wuqXkZa1JGF0m+lfoA84OkDF
+ 00fIXxQMWY8qfFys1C6JAGrodAvx532OofEuy0Pzh6kTGr6Y7DG98FasV0xT0MpsAeI9
+ +szfIZk91586GAMJ8ZqNWJzOUeykl6bbHIFjtMHCDA37xqz9a9RdP9iiks9sRPophwpo
+ bKtzx4nPcvq5C/pcGVcq8Ir+PsKJ0KL2K9LW3OdsIqYwfgNf2jdf1xmISWLpD/Wcy1aw
+ vvYg07qFVGgVgWbg/lVIKbiVVTncyUa2Cj8GWmlPclGYYTIYUYvuOGePgzMXlBa6UZJf
+ Rmkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780344016; x=1780948816;
- h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=msbNDh9TiShw7R12hj6rcfm+XGYU44qZJxoBlWEONAk=;
- b=BcmpF9/OgKr0Y5vcsyg17u/VKwMOtCUGpl0Pg+m9jvRbVZ8vYBZ51NPwbE4eVDHcqI
- d7fjhv+82Qe6vuBnob43URPLpIc98mmxvl2pthMtNrSshKKQ/YHroFfzLixDMONYvU15
- +kfh6gDIEOBEyr/owJ66rmKpSB6qZ2ynax05utpayKskg6lY6itlQTTVbuw9FYng5CVe
- NyeA9BT5NHKSrOSL8Yw6+TnzRStK0CmUylPyg0cXOqlWvReirt8n/YiBrqG4JRdioiLY
- 3UohxzCITZ78nUw86NiIMd/GRH6gGaHnM/Kg+uxYJy822lPK2Xh5EHKpa9h9y+DK9p3u
- PA+w==
+ d=1e100.net; s=20251104; t=1780348803; x=1780953603;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=qnwAsy6Fhk/v2/m0U2Y/k7DuV+rs4ovp810ofu9BhuY=;
+ b=B9nddb22qnWduKT94jRmwoXdez0tj6VYyPTTfthPrSFD/63m8IaZBtZLBMISnKSJfu
+ SVELfVyGAHrBFPKzEpQfQivz9vdxwQeXyPludBd+UALzDQ6h3Z2RItR/H5jzo3BzbmFw
+ 1Awz80qayXTZYnESlN4j/XnYX1y+zkMvz601reezBd6IIp/3puhWW/tt3WwF6ko5ycO4
+ eDJFyRnB1wJlESlG6cs4Wj4EuMd0djpQDl9E5MqwrjlGC3+PmTfq/OL7GKW7HNYWRFkm
+ wtbkuvgtRx+8B7xBuIQoUEsdX4a9/CozQheIz3WKTdzHqY9VluH9gP2hKcKgfxHfgHQC
+ RLcw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8XcrexZ3CZSU7IFEtgxPsliNVgpSCImPAgTDa0YBpUf1hb+B+sPvccw6i2FfBABg/Ofo2prkSOPTI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzboly+hDMDFgVeCXt+40Xk5Rl3MiPon3Ba82Ffvt34rycIiX+M
- ocmHroACzBPath6J35QDl51ZBqXddFQvIfEjVALCrGLysiBvpmUVh7IgUZf0qVZmQRftI4CX8kg
- OhNnzRzG5Hw70
-X-Received: from qknxz25.prod.google.com ([2002:a05:620a:5e19:b0:910:b90:6ec6])
- (user=xuehaohu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:620a:4612:b0:915:5930:94f1 with SMTP id
- af79cd13be357-91559309603mr1224141185a.47.1780344015096; 
- Mon, 01 Jun 2026 13:00:15 -0700 (PDT)
-Date: Mon,  1 Jun 2026 20:00:12 +0000
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.54.0.929.g9b7fa37559-goog
-Message-ID: <20260601200012.3872274-1-xuehaohu@google.com>
-Subject: [PATCH v5] dma-buf: Fix silent overflow for phys vec to sgt
-From: David Hu <xuehaohu@google.com>
-To: Sumit Semwal <sumit.semwal@linaro.org>, 
- "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>,
- Leon Romanovsky <leon@kernel.org>, 
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, 
- Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, jmoroni@google.com, 
- praan@google.com, David Hu <xuehaohu@google.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+ AFNElJ88PStLxVblN3q/c+m8977/fBo4J4A/JCn2Pzzef/ud9qNFoOkjMNW5ZokTbL0jTYfxfrybOlQoPA0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwH8gt3qfvVrD3qUpFvdbgicBqLz8VmKAAKcqHsYoeYNRxYifDU
+ VOuhfQnJHdYPS7j+JYJUkom2MLU73UBA8XitcohrPkK2yuVWDwn4cCVD
+X-Gm-Gg: Acq92OF4Wf7XBeQquzMZ6BTFEwzatMU1zWd7Q+iwaXoLRrPf/66kmOThhtmABTOI6vP
+ OwPMRHgdQKNpl9JqSXaRAHuzIFvCFpLW8DwW5u4zxjk3FEwZLpRv4fymMRMkvzMNhl3XkOz0ogI
+ 1lxkIh9a7p+FsgEepdbYchKEWjm/dZYoC/45O/Pydmk1H2xRK8ah/L0eoAqJ6joJvkCorx2iE0K
+ Q+FfqKvJwcgc/Odr6ZBo7Q7eNV+oNa+IiI7+nlvP4zl0Ka+9ZtTacmP0x86aqxkrf/QGfVys53N
+ D8c5LbXeqnpbTmu76g++4msQxMLXOV8499UOo4T8vgL4oGKQQB8iUAbqFCiEADa1BYFdjkqS9cO
+ 1UbQd5w7gdSPQBeBv5PAX3ofn0a40zXxWCr0fJlll52v9BsP+f+XfPPXImN5811u6UwuhztXgXC
+ rBsM870pswM+0i2G5Pt+4D7+X7pFvKGjNPAkqx0ovkrhvKjt93
+X-Received: by 2002:a05:600c:4fc4:b0:490:6889:202 with SMTP id
+ 5b1f17b1804b1-490a29639e6mr225017555e9.29.1780348802385; 
+ Mon, 01 Jun 2026 14:20:02 -0700 (PDT)
+Received: from skylab.fritz.box ([2a06:4944:10fb:f400:8383:b4e3:3885:b00a])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-490ad63b34dsm19778925e9.27.2026.06.01.14.20.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Jun 2026 14:20:01 -0700 (PDT)
+From: Gilles Risch <gilles.risch@gmail.com>
+To: alexander.deucher@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Gilles Risch <gilles.risch@gmail.com>
+Subject: [PATCH v5] drm/radeon: fix internal display on iMac11,
+ 1 (RV770/DCE3.1)
+Date: Mon,  1 Jun 2026 23:19:32 +0200
+Message-ID: <20260601211931.2837-2-gilles.risch@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CADnq5_Os2Bk8Dd9d8m_CkK9nYSporzUqbiRA=YD85nRBB6XjMw@mail.gmail.com>
+References: <CADnq5_Os2Bk8Dd9d8m_CkK9nYSporzUqbiRA=YD85nRBB6XjMw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,107 +90,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In case MMIO size is bigger than 4G and peer2peer DMA goes
-through host bridge, we trigger a code path that assigns the
-total linked IOVA (which is greater than 4G) to mapped_len.
+The Apple iMac11,1 (27-inch, Late 2009) uses a Mobility Radeon HD 4850
+(RV770/DCE3.1) with a 2560x1440 internal panel on an internal
+DisplayPort path. Without this fix the display stays dark under KMS.
 
-Previously, `mapped_len` was declared as 32-bit `unsigned int`.
-When accumulating `size_t` lengths, this leads to a silent wrap-around.
-This truncation causes truncated lengths to be passed to functions
-like `fill_sg_entry()`.
+This machine suffers from the same issue as iMac10,1 and iMac11,2:
+Apple routes the internal display through Link B of the DIG encoder
+instead of Link A. Add iMac11,1 to the existing DMI quirk and move
+the Apple-specific encoder assignment into its own block, independent
+of the DCE version check.
 
-Fix this by changing `mapped_len` to `size_t` (64-bit). While
-at it, fix similar potential overflow issues in `calc_sg_nents`
-by using `size_t` for `nents` and checking against `UINT_MAX`
-and using `unsigned int` for the loop iterator in `fill_sg_entry`
-to match.
+Additionally, the 2560x1440 panel requires RADEON_PLL_USE_FRAC_FB_DIV
+and ATOM_ENCODER_CMD_DP_VIDEO_ON, limited to iMac11,1 via dmi_match()
+to avoid affecting other boards.
 
-Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
-Cc: stable@vger.kernel.org
-Cc: iommu@lists.linux.dev
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
-Signed-off-by: David Hu <xuehaohu@google.com>
+Signed-off-by: Gilles Risch <gilles.risch@gmail.com>
 ---
-Changes in v5:
- - Removed WARN_ON_ONCE from calc_sg_nents() to avoid log noise (Jason).
- - Added explicit check for `!nents` in dma_buf_phys_vec_to_sgt() to
-   cleanly return -EINVAL on overflow (Jason).
+ drivers/gpu/drm/radeon/atombios_crtc.c     |  5 ++++-
+ drivers/gpu/drm/radeon/atombios_encoders.c | 23 ++++++++++++----------
+ 2 files changed, 17 insertions(+), 11 deletions(-)
 
-Changes in v4:
- - Added WARN_ON_ONCE() to the nents overflow check to prevent silent
-   failures (Claude Bot).
-
-Changes in v3:
- - Removed leftover sentence fragment from the commit message.
- - Kept `nents = 0` initialization (previously stated as removed in the
-   v2 changelog) as it is strictly required for the `+=` accumulation
-   loop in `calc_sg_nents()`.
-
-Changes in v2:
- - Fixed 'IVOA' -> 'IOVA' typo and expanded commit message (Claude Bot).
- - Added Reverse Xmas tree formatting (Pranjal).
- - Folded in extra bounds checking for calc_sg_nents() (Pranjal).
- - Folded in type consistency fix for fill_sg_entry() (Pranjal).
-
- drivers/dma-buf/dma-buf-mapping.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-index 794acff2546a..607b7998463d 100644
---- a/drivers/dma-buf/dma-buf-mapping.c
-+++ b/drivers/dma-buf/dma-buf-mapping.c
-@@ -10,7 +10,7 @@ static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
- 					 dma_addr_t addr)
- {
- 	unsigned int len, nents;
--	int i;
-+	unsigned int i;
+diff --git a/drivers/gpu/drm/radeon/atombios_crtc.c b/drivers/gpu/drm/radeon/atombios_crtc.c
+index 2fc0334e0..075eba2d4 100644
+--- a/drivers/gpu/drm/radeon/atombios_crtc.c
++++ b/drivers/gpu/drm/radeon/atombios_crtc.c
+@@ -24,6 +24,8 @@
+  *          Alex Deucher
+  */
  
- 	nents = DIV_ROUND_UP(length, UINT_MAX);
- 	for (i = 0; i < nents; i++) {
-@@ -36,7 +36,7 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
- 				  struct phys_vec *phys_vec, size_t nr_ranges,
- 				  size_t size)
- {
--	unsigned int nents = 0;
-+	size_t nents = 0;
- 	size_t i;
- 
- 	if (!state || !dma_use_iova(state)) {
-@@ -51,6 +51,9 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
- 		nents = DIV_ROUND_UP(size, UINT_MAX);
- 	}
- 
-+	if (nents > UINT_MAX)
-+		return 0;
++#include <linux/dmi.h>
 +
- 	return nents;
- }
- 
-@@ -95,9 +98,10 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
- 					 size_t nr_ranges, size_t size,
- 					 enum dma_data_direction dir)
- {
--	unsigned int nents, mapped_len = 0;
- 	struct dma_buf_dma *dma;
- 	struct scatterlist *sgl;
-+	size_t mapped_len = 0;
-+	unsigned int nents;
- 	dma_addr_t addr;
- 	size_t i;
- 	int ret;
-@@ -133,6 +137,11 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
+ #include <drm/drm_fixed.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_framebuffer.h>
+@@ -594,7 +596,8 @@ static u32 atombios_adjust_pll(struct drm_crtc *crtc,
+ 		if (((rdev->family == CHIP_RS780) || (rdev->family == CHIP_RS880))
+ 		    && !radeon_crtc->ss_enabled)
+ 			radeon_crtc->pll_flags |= RADEON_PLL_USE_FRAC_FB_DIV;
+-		if (ASIC_IS_DCE32(rdev) && mode->clock > 165000)
++		if ((ASIC_IS_DCE32(rdev) || dmi_match(DMI_PRODUCT_NAME, "iMac11,1"))
++		    && mode->clock > 165000)
+ 			radeon_crtc->pll_flags |= RADEON_PLL_USE_FRAC_FB_DIV;
+ 	} else {
+ 		radeon_crtc->pll_flags |= RADEON_PLL_LEGACY;
+diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm/radeon/atombios_encoders.c
+index 5cfd8fcfa..8b3f8303a 100644
+--- a/drivers/gpu/drm/radeon/atombios_encoders.c
++++ b/drivers/gpu/drm/radeon/atombios_encoders.c
+@@ -1707,7 +1707,7 @@ radeon_atom_encoder_dpms_dig(struct drm_encoder *encoder, int mode)
+ 		if (ENCODER_MODE_IS_DP(atombios_get_encoder_mode(encoder)) && connector) {
+ 			/* DP_SET_POWER_D0 is set in radeon_dp_link_train */
+ 			radeon_dp_link_train(encoder, connector);
+-			if (ASIC_IS_DCE4(rdev))
++			if (ASIC_IS_DCE4(rdev) || dmi_match(DMI_PRODUCT_NAME, "iMac11,1"))
+ 				atombios_dig_encoder_setup(encoder, ATOM_ENCODER_CMD_DP_VIDEO_ON, 0);
+ 		}
+ 		if (radeon_encoder->devices & (ATOM_DEVICE_LCD_SUPPORT)) {
+@@ -2123,17 +2123,20 @@ int radeon_atom_pick_dig_encoder(struct drm_encoder *encoder, int fe_idx)
  	}
  
- 	nents = calc_sg_nents(dma->state, phys_vec, nr_ranges, size);
-+	if (!nents) {
-+		ret = -EINVAL;
-+		goto err_free_state;
+ 	/*
+-	 * On DCE32 any encoder can drive any block so usually just use crtc id,
+-	 * but Apple thinks different at least on iMac10,1 and iMac11,2, so there use linkb,
+-	 * otherwise the internal eDP panel will stay dark.
++	 * Apple routes the internal eDP panel through Link B of the DIG encoder
++	 * instead of Link A on the iMac10,1, iMac11,1 and iMac11,2.
++	 * Use linkb to avoid a dark display.
+ 	 */
+-	if (ASIC_IS_DCE32(rdev)) {
+-		if (dmi_match(DMI_PRODUCT_NAME, "iMac10,1") ||
+-		    dmi_match(DMI_PRODUCT_NAME, "iMac11,2"))
+-			enc_idx = (dig->linkb) ? 1 : 0;
+-		else
+-			enc_idx = radeon_crtc->crtc_id;
++	if (dmi_match(DMI_PRODUCT_NAME, "iMac10,1") ||
++	    dmi_match(DMI_PRODUCT_NAME, "iMac11,1") ||
++	    dmi_match(DMI_PRODUCT_NAME, "iMac11,2")) {
++		enc_idx = (dig->linkb) ? 1 : 0;
++		goto assigned;
 +	}
-+
- 	ret = sg_alloc_table(&dma->sgt, nents, GFP_KERNEL | __GFP_ZERO);
- 	if (ret)
- 		goto err_free_state;
+ 
++	/* on DCE32 and encoder can driver any block so just crtc id */
++	if (ASIC_IS_DCE32(rdev)) {
++		enc_idx = radeon_crtc->crtc_id;
+ 		goto assigned;
+ 	}
+ 
 -- 
-2.54.0.929.g9b7fa37559-goog
+2.47.3
 
