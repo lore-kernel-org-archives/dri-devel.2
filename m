@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6881CD6E67
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:45:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B448BCD6E68
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:45:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BB1111377E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7295111377D;
 	Mon,  1 Jun 2026 22:45:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NJLR5tlh";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="nlUMAZ60";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC1A3113776
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:45:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4548911378E
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:45:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1780353921;
- bh=9Sn0cgy0Ujy9Ad4R+4LyrDZu4ahIQTS8kZpAqsHqH24=;
+ s=mail; t=1780353924;
+ bh=6E6xBHA62toRrtBV3Ev5KvntPSsFKRs99+xMXbjyuoQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=NJLR5tlhghmBb4UmvCDG1zMfszPflRCEwYFAXkzMvYMNqxZbVnQbe3qBPOavpfou2
- Jn400mcv4ZvgNV1wtunjbJe15PM/TyNgWdyvvRWJsllLI5n+Qk9oGq85gdOFrLO8wb
- 9wIYFM5i1AFafpnKeTQzdYOhcdOqTpnkQwkyufNcJHe3cvV1/+i6IYf0SuHjZ2qwaD
- mV5gs8uZPjkvM8/0mIxBQdf+QOG4YwxClBS605oHdGqi37ArS0bFe/gRwbYoFiyaBO
- kTONNLlL5A/t7G7PZgMlkCtr2gLz9Q26FGUOjHaa7m0ccpMYwQQfNSrHC6+HkTsj7x
- UrcaHzS2hUSDQ==
+ b=nlUMAZ60TVPo06oxGnTNteoKT3WR8494Q5u/aZrUkBYtaUs0iXWDBlNrdbJr4mR7T
+ 3LlDlncWg5gbq0V+oiGwIujhxyXNs+CHmZOw33RUAUlEDc0/FJcmPWWd1NV62kvMb7
+ 4d1B/uWJOKkesqCdAhINFb5rc0W1DI3Xhq/Q9fMC8A0obKCKCOXiUwv2fJk+ajlr19
+ eDI2cRjEBiA9O3AjlBQC2ffePQPmCRvgSIqUg4vI4HqTTu3tz8J4I9vbaTsPrrNw4U
+ LwzDbH7xVg95ajxAuFSrlL2/Bq/HMwOwbqr0DHQoiM9cYPuS9v4awqcQCScxKjAYjR
+ yotESvqGfJMYw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 8136B17E0B66;
- Tue,  2 Jun 2026 00:45:21 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id DAB9A17E0E3F;
+ Tue,  2 Jun 2026 00:45:23 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 02 Jun 2026 01:44:15 +0300
-Subject: [PATCH v7 15/30] drm/bridge: dw-hdmi-qp: Provide
- dw_hdmi_qp_hpd_notify() helper
+Date: Tue, 02 Jun 2026 01:44:18 +0300
+Subject: [PATCH v7 18/30] drm/rockchip: dw_hdmi_qp: Drop unnecessary #include
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-dw-hdmi-qp-scramb-v7-15-445eb54ee1ed@collabora.com>
+Message-Id: <20260602-dw-hdmi-qp-scramb-v7-18-445eb54ee1ed@collabora.com>
 References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
 In-Reply-To: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -75,82 +74,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Export dw_hdmi_qp_hpd_notify() for platform drivers to report hot-plug
-detection events.  Unlike drm_helper_hpd_irq_event() which polls all
-connectors, this helper targets only the affected connector and ensures
-.detect_ctx() is invoked on reconnection events to trigger SCDC state
-recovery.
-
-Note that this helper may sleep, so it must only be called from a
-threaded HPD interrupt handler or a work function.
+Remove superfluous drm_simple_kms_helper.h include, which has no users
+in this file since commit e1f7b7cbd74c ("drm/rockchip: dw_hdmi_qp:
+Switch to drmm_encoder_init()").
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 31 ++++++++++++++++++++++++++++
- include/drm/bridge/dw_hdmi_qp.h              |  1 +
- 2 files changed, 32 insertions(+)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index 0250ddd8f91a..999229705ffb 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -29,6 +29,7 @@
- #include <drm/drm_edid.h>
- #include <drm/drm_modes.h>
- #include <drm/drm_print.h>
-+#include <drm/drm_probe_helper.h>
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index 46df5abe31a4..8d64b76a1aa5 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -24,7 +24,6 @@
+ #include <drm/drm_managed.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
  
- #include <media/cec.h>
+ #include "rockchip_drm_drv.h"
  
-@@ -1433,6 +1434,36 @@ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
- }
- EXPORT_SYMBOL_GPL(dw_hdmi_qp_bind);
- 
-+/**
-+ * dw_hdmi_qp_hpd_notify() - Notify a hot-plug detection event
-+ * @hdmi: pointer to the DW HDMI QP controller
-+ *
-+ * Platform drivers should call this from their threaded IRQ handler or work
-+ * function to notify the bridge of a connection status change.
-+ * The bridge's .read_hpd() phy_ops callback is used to read the current
-+ * connection status.
-+ */
-+void dw_hdmi_qp_hpd_notify(struct dw_hdmi_qp *hdmi)
-+{
-+	enum drm_connector_status status;
-+
-+	status = hdmi->phy.ops->read_hpd(hdmi, hdmi->phy.data);
-+	dev_dbg(hdmi->dev, "%s status=%d\n", __func__, status);
-+
-+	/*
-+	 * When the display pipeline has been already active, switch to
-+	 * drm_connector_helper_hpd_irq_event() to ensure .detect_ctx()
-+	 * gets invoked, i.e. via drm_helper_probe_detect(), because
-+	 * drm_bridge_hpd_notify() defers to a delayed hotplug path in
-+	 * this case.
-+	 */
-+	if (hdmi->curr_conn && status == connector_status_connected)
-+		drm_connector_helper_hpd_irq_event(hdmi->curr_conn);
-+	else
-+		drm_bridge_hpd_notify(&hdmi->bridge, status);
-+}
-+EXPORT_SYMBOL_GPL(dw_hdmi_qp_hpd_notify);
-+
- void dw_hdmi_qp_suspend(struct device *dev, struct dw_hdmi_qp *hdmi)
- {
- 	disable_irq(hdmi->main_irq);
-diff --git a/include/drm/bridge/dw_hdmi_qp.h b/include/drm/bridge/dw_hdmi_qp.h
-index b80fceffc315..b4fb1c578a5b 100644
---- a/include/drm/bridge/dw_hdmi_qp.h
-+++ b/include/drm/bridge/dw_hdmi_qp.h
-@@ -36,6 +36,7 @@ struct dw_hdmi_qp_plat_data {
- struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
- 				   struct drm_encoder *encoder,
- 				   const struct dw_hdmi_qp_plat_data *plat_data);
-+void dw_hdmi_qp_hpd_notify(struct dw_hdmi_qp *hdmi);
- void dw_hdmi_qp_suspend(struct device *dev, struct dw_hdmi_qp *hdmi);
- void dw_hdmi_qp_resume(struct device *dev, struct dw_hdmi_qp *hdmi);
- #endif /* __DW_HDMI_QP__ */
 
 -- 
 2.54.0
