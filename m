@@ -4,100 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33D30CD6E56
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 09:59:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC187CD6E56
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 10:00:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D9591130AA;
-	Mon,  1 Jun 2026 09:59:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DF091130EE;
+	Mon,  1 Jun 2026 10:00:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eqiA5y9O";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Rr+5CKkJ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 837381130AA
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 09:59:36 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5B1D0407C5;
- Mon,  1 Jun 2026 09:59:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 579BC1F00898;
- Mon,  1 Jun 2026 09:59:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780307976;
- bh=oXpXPYTM/iT+KpypqwBxjU716QAjrBpdfpoXXBX+vJE=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=eqiA5y9OELP64EOrE9rjznhcC09/EzxQ0gq9mwgLGX5Bn6StQq1PQkxp4/zKIzS0v
- R0tVQPojl2SgjrZ0gJH49BAioZPwsogYeQIq8DWiWaEmEPSl1nkLFkoQg/JsGCFGw5
- 4gTn6i+tr1k/kovnNVAB859L8u6a1U0btT715PtKeovT5HvxV8zZMoUdcIaL5fIRHm
- u8amPdd1Yr52S6qXeOQ5Syu8MQW8aEYBU/WqOqprkt7ZOqYSodbLP7E0LfvwjShrnY
- aRUw9GRAqW+wpSJF2Iq4VlkPqqMERmO+l61YbLbF95d0lM/SKMyl4OlBSWHC9eCtvq
- pNicZoHXVPesg==
-Message-ID: <c9aacef4-d10d-4f9f-8bf3-fd53501a1831@kernel.org>
-Date: Mon, 1 Jun 2026 11:59:27 +0200
-MIME-Version: 1.0
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010049.outbound.protection.outlook.com
+ [40.93.198.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 627DE1130EE
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 10:00:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Pcl07eVHrtUfXTC/Nf/r6V5Lev//GvpJaJKsyLQiYKpFDFRMYE+NOBnvhFiTziLw1Z/kAkkOPZ/+SDl5AhuNTDuozJsPvWV8AsfkG3LgrHSV/z6MCXpWAvzBmSc6dDqh2peGyzMiBt01rdVIdlI79RcMKzQq5b9imoU1X+ymDTp+uTYbDIaTADwMZy1NF7uwrLT04NH+5EvOQz6vxcEUj+qziCi3Zc6U99PuNLQutypPDEYBha/EjSIlgzv7Vp7miZOKtFwj3ls3rOQdUy50iDWoZb0bCx9ZR/O/CR0JmWK3nlPTRWMQj+xn+fWjDBW7Dhzam6oP1eC3eiJv9kGLNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3l92iOARTwmDkmKu6zg/eRb0411K0MdXD68y5AhOFvA=;
+ b=QEVO0CNh14ptvbJglN4ZBiLpW5ZsFrE434k7HanW5XWbgC+Gt0y1qMm3+srOFZWoYVeveIfwqS2MXNJbeAkN8N136mj8GsnZ4ReiBGmA6xmSYQvJMC6VTu0cfz0ihioGtDH8R7dl5PeFAn9Wl2wyiabnMsr357oHGpJch/BPhV0ovX6RL+ZjaHkCzr5bTx0JswBZgz9Zu6IP0u4RCHdns2cI97ofJjss0l+XGPsR0fm/EJEFBRYb9k8ExPsqN8B4D7X9oaMWRwathXHMJX/QJHP6Z/nq9KUwNxtj2FwpY1KWpaltOkdg9Oa3Vk4UbML9GDgqZeGJDAqfrGaoWnjuQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3l92iOARTwmDkmKu6zg/eRb0411K0MdXD68y5AhOFvA=;
+ b=Rr+5CKkJTYA0/we3l1b6UAS1YAz3kCGwiOiGThgUl6VKP84BGLxcBMZ1Niy4hwkpSqrap7o8m2103ONo2IZEUZjiesaH3arl7tDO53gAr3PyUACQRZMOhGHB3sU4byLFZbglKw+48h/itfPdlZC1lxMLpy9aSlhzCeGQMgY2E5Q=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH0PR12MB8176.namprd12.prod.outlook.com (2603:10b6:510:290::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Mon, 1 Jun 2026
+ 10:00:03 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0071.011; Mon, 1 Jun 2026
+ 10:00:03 +0000
+Message-ID: <190a1eeb-bd70-4b7b-93a4-60e14f0d6c7e@amd.com>
+Date: Mon, 1 Jun 2026 11:59:55 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: misc: qcom,fastrpc: Add Maili FastRPC
- compatible
-To: Yijie Yang <yijie.yang@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260525-fastrpc-v1-1-ae9add881952@oss.qualcomm.com>
- <meuxtcs3quchupl6gf4vtjiosmoig7zs2tc2vr2xthetem5hll@l4op77zr2srj>
- <a7b4c0ea-0e02-4ede-8d51-a4c038d55a5a@oss.qualcomm.com>
- <moeb7zqqhengrd2nrqyuqydyq4pk4imd2uylmr4tf2ypn65h34@z33iifvtf7al>
- <20260530-wise-discreet-woodpecker-3c7d0c@quoll>
- <e00a4089-021b-4c26-8a6e-ba1faf86218f@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v5 0/4] vfio/dma-buf: add TPH support for peer-to-peer
+ access
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Zhiping Zhang <zhipingz@meta.com>, Alex Williamson <alex@shazbot.org>,
+ Leon Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Bjorn Helgaas <helgaas@kernel.org>, kvm@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
+ netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Keith Busch <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>,
+ Yishai Hadas <yishaih@nvidia.com>,
+ Linus Torvalds <torvalds@linuxfoundation.org>
+References: <20260526144401.1485788-1-zhipingz@meta.com>
+ <a8cd01ab-d7aa-465d-bfa3-431f78f33ee1@amd.com>
+ <20260527121438.GJ2487554@ziepe.ca>
+ <ff247643-73e7-44e2-b3d5-8ac0a8efb871@amd.com>
+ <20260527123634.GK2487554@ziepe.ca>
+ <a5ff1930-e9fb-43f5-82ab-9875d7a28421@amd.com>
+ <CAH3zFs2KALuHXReLZG_uoqvBBWvBzU6rHKakmt6HBV7PZEsD=w@mail.gmail.com>
+ <71302a7a-6b9f-40da-af81-b1862dbd637a@amd.com>
+ <CAH3zFs036sr93duQKx613pCyOYw4t0_x_TdSza1xBCaEmqijyA@mail.gmail.com>
+ <8d9bb0b7-182d-4930-b683-d5d24da6b2ab@amd.com>
+ <20260529201130.GU2487554@ziepe.ca>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <e00a4089-021b-4c26-8a6e-ba1faf86218f@oss.qualcomm.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260529201130.GU2487554@ziepe.ca>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0133.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b9::14) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH0PR12MB8176:EE_
+X-MS-Office365-Filtering-Correlation-Id: 65f4afc6-e365-4d26-dc67-08debfc48cde
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|366016|22082099003|18002099003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: FFPJ2aPDT4zhONHf8YV6ZGnTQvWtHmK+pwer8otps/Rq1sRuVjujo2Z4HGMlsW5WaYSAd7rcp7YosUTgJrqIiwh5fiCCRnip7oUTYUCaoe5LSfwrN0qB0q4Fkd4WVSqXLTllo2dgr7U7buUqJNUCRzpxe/9BYBvaMBhSysjkNuZERMNG2b7nmF27ME9e1pjpeXySRHuDqkcIwYA8chyKq4iPTEBqtp4+cqpg4y/qgrDAkXdkD/I92dmn+q2rpEG3q/vpcUw9RP/5dvC9FlvsSHPewvczRO18CL+vjiyYDOohi++qKr8lU9DKHvQWFf9j2CBDyXb6G7V48AoCZ/N78QV/P41Nz3DJBhbenGBFbPnd1iaR9c+h/c9x6fcSISpTkdHXg8LmYBve+L6sShqangM1+pbwfZJ7UWmaQz/6uF71XwfuUFW9M5ZgAeIf8isSyuAxmYSNh/7t+vbb7YUi7/mAuTbmQ+FbSwneL9QTMz9eKu3sKoxuAt01lXtvNfzMplSjm206fxVWHG9rqeR15WAks2JWmfixkQFp6Q6PzWPmmVjPzPpbsiFIYSQLVUnpbUuDfgz1i8OShnoXEOVvVnkJAMBmSaTuWwg7dg46ZnwF+OQBcgrLyj+LwHQqnYkYvo/7JxknWdv2JbQ/NMZpayJuk5CX3VxOXW5hQt7QhOCTvG5wy5t8tfVVBFj522kIQa7/PBbL7HLYqvKran7eCg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TzY4NHpGMzBpaUowREczbjRxWllDNlpjRU9ndWx6MjdHNmFmSEVyS1ZnYm52?=
+ =?utf-8?B?VXBCQk9zb1NwTDFmSDEvVWhUWmtkS1d4cUFWS1U4eW5RY3BYN3VQR0NpUThN?=
+ =?utf-8?B?U2hSblBndHFsdGVPa2l4Y2drZldvSHVvM2greTR2cjJRTGM1VTlMSTZ5NGxZ?=
+ =?utf-8?B?MjV4dkJUZlkwRkJaMHJXS3Q1dFBBanVpNC9CZThSZ1JGUTNyeDlISHVSdnFR?=
+ =?utf-8?B?MG1ibjJkOGdxQzVwYVQxV1NISXBpR1hYRWR5cUhGVnJJeTRBRjNRanZrYjJ0?=
+ =?utf-8?B?TENMMTJkSUhGaXowOVljc2dyK2lNaUc2Z2FHUDE5NXJUMHZqUTRFRjJ4QkJt?=
+ =?utf-8?B?SmRRRmV2RzVCNnE5eHNIa3Y1SHlrb290eXhUZWdlQnYrdTN6RXB3K1dhNGFC?=
+ =?utf-8?B?OS9GMGFrWGRKQVozc3hEb2k1TFZNWWszTS9FU0RSSHlFOERRa0U3S1Z4bXlk?=
+ =?utf-8?B?VkZOMFB3N2VzTFh5N3FQYm9OR09rNmQ1UCs0YTl5SWNkVjdBSnVyQUdoODN1?=
+ =?utf-8?B?V2g0azMrR1lGNHE5cHI1L0k2L0g1OXRDYTZjT0FjSEkxcTdKeURtT2pJV1Rs?=
+ =?utf-8?B?c01aeXpDa2Y1VDRkcG1zSGZZMkRhd0VxVE9Tem5HV2djaVZlY0g3cmk3ZTJr?=
+ =?utf-8?B?MFJSN3ZObXp6aTA5QW0zUG5UNVBUeDFQSzBORHcva1EvZEN1ZmtoYXp6di91?=
+ =?utf-8?B?Y1QyQ0QrWnFleXpIbGk3TEFTRXBIT3ZjSDNwVVE3QlNOUkZOVXdSOEM4YXVO?=
+ =?utf-8?B?RStMdTM5ZEVpY2hXYnlGRHBFRGdMSGlGTlZObXN3VUNjZmNHUUl6cGlRNDRS?=
+ =?utf-8?B?U1RzQjFPdHpmM1lZYzhaZkZSd3FoWVZHcDlPRUZkaHRqUFJxOXRvUjhKeCtG?=
+ =?utf-8?B?aFoveVl2eVRPNDJxTUZ5K1FjdW1aSFJMUHh5RmhWUjR0cXd1dzVQZEtvWm9I?=
+ =?utf-8?B?NVp5UVVLMWh1ZUtwVTQ5YyttNjgzdzlwZVQ2emFOMEJyMjdjNHBFNG44bWxG?=
+ =?utf-8?B?Mzk0Z0I1eTlidlhOd29ram1lbGxYMXNtL3hnbXYyNGVqTS9sRG9UZ1M0eTVE?=
+ =?utf-8?B?ditIWU1UdmFqZ2hDemtDaVRFWGdPSWp6WjlTMXFHbXo2VytEYWJCSHlxL1pu?=
+ =?utf-8?B?SGxtb0VmSTJ2M0dGU0VYdnQ3N09zUXI2b21zMXRwOG5qSUNnWVBuUzdGRW0y?=
+ =?utf-8?B?ZnVJTkc2N3lrZWZSWHBaVFFmOUtzZVFTMFN0VnRsRjJWSHVxVXU0cTJZWUhm?=
+ =?utf-8?B?L2FHaGxsK0FRelgyREphQXl2WjR4dW1zSUExZGhmRVJxSVpSUWdMdHdrS2NL?=
+ =?utf-8?B?Rk15K3ZGamZFcWZvWWxKVUE4a1MreDZzZDI2WEQ2cDdCT2lDeXFIUDJ2SGlH?=
+ =?utf-8?B?LzQ3eVVKZnR6dnpFRmsvRy85R0t5Q3ZVdTd0OW1aMmw2MTdIRnJHWWdiTHlo?=
+ =?utf-8?B?VjM4dXVyL1ZIWDgwOFN4NzR0dGpEakZ5RlpPTjQrNWk5UHVZVFEzV1AySEND?=
+ =?utf-8?B?dGcxd2RMV24xWjRZeTFURC9oSnlKVGRBTmFUOWVOcTA2ZVMzdDg1VkRRTVdN?=
+ =?utf-8?B?c2JDTk55WjU5Zkl6TFNPQzNxUjNFaGdydWQxdkgrZmRIcnV1b0k5Q3dmTDR3?=
+ =?utf-8?B?Y2puc1RUR2wxbHoxSWZzUDJmai9UUnFid2NRUFZXbE8zTExMWFAxS0hhb2Nm?=
+ =?utf-8?B?MURSU013dEw1SGhKalJUSXpnL3cvOWVHbFBFeWpFbGhpbmVwNkpTS1dBbVhD?=
+ =?utf-8?B?WjBwbkFadUw4TmxvanBkUDQ1azhNbktZRkJ4OVRBT1hBbERLZkZSU1VZWGJE?=
+ =?utf-8?B?OWJQQmtQeUdlWUt3Mlovem9vUDdWQjlUczVaYnRWUzVvNFI5Mjh2QU12OHl2?=
+ =?utf-8?B?eEIvUWg5dHVYMGVhbHFuam5lQkZrM0sxTzNMbGoyRkJZUVdLaHVkcGg1cjEv?=
+ =?utf-8?B?ZEE0SjNLWWFWclUrODhMb2ZQdWhFb21pNVpHVkl0TVpWNjE4ZXdIdGR6dTYw?=
+ =?utf-8?B?K21KTUNJRFNMZnhnRnRyeDRueUgvdnE2UzNSenphbzZqYjdsMXhiRGFyUFF5?=
+ =?utf-8?B?WjloNmFzNnJ5aldkdHkwL1RoajRrNFd6N3U3UWtpNDl3ekxVck81TG1FRDR3?=
+ =?utf-8?B?a2NwNTFBa1R1dFFBd3N3M0xxUmhlbmVyQzd0dWRCSi9BbUQzTWdKQTJtRW1a?=
+ =?utf-8?B?UHNEYzVwYjM5cVJxakE0ZzM0NTIyRFRsY0FPaWpHSTh0ZXVIU1JXcTFrZDVv?=
+ =?utf-8?B?ejJCRXJnRzNQZ2JQSUtKZTlvQkxlbFN3aTUwZ0M4ZmZNWlJ2eGtPVDVZV2dQ?=
+ =?utf-8?Q?0GIWqteTHtqfH5+oGd?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65f4afc6-e365-4d26-dc67-08debfc48cde
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 10:00:03.2668 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xt99rZFbHzQeTQR1U+GWmYElZXvcW3213FlLGVyjbbo13EQyutZAhcW+SojRpg6g
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8176
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,32 +153,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 01/06/2026 03:23, Yijie Yang wrote:
->>>
->>> Okay...
+On 5/29/26 22:11, Jason Gunthorpe wrote:
+> On Fri, May 29, 2026 at 09:36:00AM +0200, Christian König wrote:
+>> On 5/29/26 08:34, Zhiping Zhang wrote:
+>> ...
+>>> There's no in-tree vendor PF driver
 >>
->> If a human cannot write and validate this one, I see as putting effort
->> on maintainers.
->>
->> Dropping from patchwork.
+>> Well I have to admit it's a bit on the edge but this sentence is a
+>> show stopper.
 > 
-> I will write and validate this myself and then remove this tag.
+> I think he means the device is not SRIOV. vfio-pci is the in-kernel PF
+> driver.
+> 
+>> DMA-buf is an in kernel interface for buffer sharing between drivers
+>> and any change to it needs an in kernel driver as justification for
+>> the added complexity.
+> 
+> vfio is the in-kernel driver, this series fully shows the in-kernel
+> API using vfio as the exporter and mlx5 as the importer. It certainly
+> meets the standard required to show in-tree users.
+> 
+>> When you have a complete open source driver stack which utilizes
+>> VFIO passthrough as the interface to communicate with the kernel
+>> drivers then we can eventually talk about that.
+> 
+> That decision is not up to dmabuf
 
-Upstream maintainer's task is not to review AI generated code, but
-review people's code. I have no clue which case is here and
-unfortunately I make assumptions, usually in favor of less work for me.
+Yes it is. This is the DMA-buf API which is added here.
 
-If contributors send us AI code, then basically contributors are proxies
-between the AI model and maintainer. I don't want to talk with your AI
-through you, I have no such interests (and such process would not
-scale). Reviewing AI code does not give me actual pleasure of work - I
-have zero emotional connection to such code, no pleasure, I simply do
-not care and decide to spend my time on something else.
+> - what VFIO subsystem requires to
+> accept a new UAPI is up to the VFIO maintainers.
 
-Whether you actually use AI is a different thing, just like using other
-tools, but if a trivial patch is done with AI, I don't believe it was
-reviewed by you, because writing it is a similar amount of effort, so
-obvious choice for me would be to write it by myself.
+As far as I can see vfio-pci is used as a stub driver to avoid opening up the real driver.
 
-Best regards,
-Krzysztof
+Upstreaming an API changes only makes sense if others can use it and this here is something completely special to this particular use case, without all components involved nobody else can use it.
+
+So as far as I can see that here is a no-go. But at the end of the day it's Linus who needs to say if that's ok or not, that's why I put him on CC.
+
+Regards,
+Christian.
+
+> DRM and VFIO have very different views on what is required to merge a
+> new uAPI.
+> 
+> Jason
+
