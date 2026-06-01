@@ -4,67 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A3EFCD6E56
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 11:48:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 711DCCD6E56
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 11:48:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C0DD11323C;
-	Mon,  1 Jun 2026 11:48:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFD3A11323E;
+	Mon,  1 Jun 2026 11:48:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="f6guXCpi";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Z1zBm3G9";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CX3D8qSt";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="sbqX6kPe";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="dN1temQ3";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="KajfZYcL";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="dN1temQ3";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="KajfZYcL";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49E3911323C
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 11:48:07 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6ED011323E
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 11:48:11 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2C32E68238;
- Mon,  1 Jun 2026 11:48:01 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0CDF46BD74;
+ Mon,  1 Jun 2026 11:48:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780314482; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=eX5LCwHmzTtL0/zNYbMXlZ0Hw9ptYnpry332rkN2zRE=;
- b=f6guXCpihg0DDuf2neuq4bFKtLhGUONe2F3phVPYzLGOQ0IjYBfpOIVRPWr8gGHDza2v3c
- lhXSKSC35AGeykESIlYiZYSg04sSV5+Ivosk7PabYY9Lam0lYrmJBcx0jfynBsB0qifGuU
- PtFn2czD4l8p1kP1cWXmfGlxn2udwyg=
+ t=1780314483; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=yHCsIlNXHp7HnbYcjmQO+HqYTgOrOxa1rQTQSsxyGvQ=;
+ b=dN1temQ36t6LRYcbHCEgJmQAeKvnfSF+EDc36OXROFOY3/uA0lCD5MTLICXEjwBIvF9Lnd
+ k1qe+BujezwLq+eT0O7PWogKsngcgx3mw8ElINzNnJzjSbctpO+wqyPHSVdPm1l/bFTQMg
+ zvYM/OKwp5VVZY/G3lRBsPoBnKGPM5g=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780314482;
+ s=susede2_ed25519; t=1780314483;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=eX5LCwHmzTtL0/zNYbMXlZ0Hw9ptYnpry332rkN2zRE=;
- b=Z1zBm3G9WxllEtewiRAasjPbnBrw0OB5Wg5o7j/nqWrKuoa0e97nbcg/zn+xJ/HvqFxj7l
- JBx7atoHhVrAewBQ==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=CX3D8qSt;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=sbqX6kPe
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=yHCsIlNXHp7HnbYcjmQO+HqYTgOrOxa1rQTQSsxyGvQ=;
+ b=KajfZYcLHvBc4MCSU5dEgB6UFZbh4uXWPdFdD+wUjeSZEIWsY5dYXMPjI0km4DZzHUqgo+
+ VQK8hwLW7CZHoVCg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=dN1temQ3;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=KajfZYcL
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780314481; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=eX5LCwHmzTtL0/zNYbMXlZ0Hw9ptYnpry332rkN2zRE=;
- b=CX3D8qSt6Itv0Wsmr3wXv8G31iByzWGAXcZc9VV7lpDX/Hf8+JXN4rvJPLttghB5mu5Fkk
- Z6lVoLfVBtpLwXaVERsoLvVrn6EpaGHEbnRgZ1PKkpGOrkuGzfWegpop/Neks44FwfqCh4
- p8uHoqea2CjzjZyu9KZSsxjGahnZT5Q=
+ t=1780314483; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=yHCsIlNXHp7HnbYcjmQO+HqYTgOrOxa1rQTQSsxyGvQ=;
+ b=dN1temQ36t6LRYcbHCEgJmQAeKvnfSF+EDc36OXROFOY3/uA0lCD5MTLICXEjwBIvF9Lnd
+ k1qe+BujezwLq+eT0O7PWogKsngcgx3mw8ElINzNnJzjSbctpO+wqyPHSVdPm1l/bFTQMg
+ zvYM/OKwp5VVZY/G3lRBsPoBnKGPM5g=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780314481;
+ s=susede2_ed25519; t=1780314483;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=eX5LCwHmzTtL0/zNYbMXlZ0Hw9ptYnpry332rkN2zRE=;
- b=sbqX6kPetwjlZ+TrhL6oHH2LJJlnbW6jPeJ2ExgjnsL8GbLmM17Yanguxl0VkGCMEgS5Ti
- wGc/XQ/PJxWwRCAQ==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=yHCsIlNXHp7HnbYcjmQO+HqYTgOrOxa1rQTQSsxyGvQ=;
+ b=KajfZYcLHvBc4MCSU5dEgB6UFZbh4uXWPdFdD+wUjeSZEIWsY5dYXMPjI0km4DZzHUqgo+
+ VQK8hwLW7CZHoVCg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C4A90779A7;
- Mon,  1 Jun 2026 11:48:00 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A6401779A9;
+ Mon,  1 Jun 2026 11:48:02 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id A2GgLnBxHWq0XAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 01 Jun 2026 11:48:00 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id MLsuJ3JxHWq0XAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 01 Jun 2026 11:48:02 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: shiyongbang@huawei.com, xinliang.liu@linaro.org, tiantao6@hisilicon.com,
  kong.kongxinwei@hisilicon.com, sumit.semwal@linaro.org,
@@ -73,32 +81,37 @@ To: shiyongbang@huawei.com, xinliang.liu@linaro.org, tiantao6@hisilicon.com,
  simona@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org,
 	Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v3 0/4] drm/hibmc: Fix plane helpers and convert to gem-shmem
-Date: Mon,  1 Jun 2026 13:45:14 +0200
-Message-ID: <20260601114756.51953-1-tzimmermann@suse.de>
+Subject: [PATCH v3 4/4] drm/hibmc: Use gem-shmem with shadow-plane helpers for
+ memory management
+Date: Mon,  1 Jun 2026 13:45:18 +0200
+Message-ID: <20260601114756.51953-5-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260601114756.51953-1-tzimmermann@suse.de>
+References: <20260601114756.51953-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 2C32E68238
+X-Rspamd-Queue-Id: 0CDF46BD74
 X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
  R_MISSING_CHARSET(0.50)[];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-0.998]; MIME_GOOD(-0.10)[text/plain];
  MX_GOOD(-0.01)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[13];
- ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  FREEMAIL_TO(0.00)[huawei.com,linaro.org,hisilicon.com,google.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+]
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[13]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+ FROM_EQ_ENVFROM(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLqtkr6cif1ebgurukgmwdm7xc)];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,49 +127,373 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Convert hibmc's memory management from gem-vram ot gem-shmem. Fix a
-number of bugs in preparation.
+Replace the gem-vram memory manager with gem-shmem. Makes the driver more
+robust and enables dma-buf sharing with other hardware.
 
-Patches 1 to 3 fix various bugs in the plane code.
+Gem-vram was created from various drivers that used TTM for their memory
+management. All these drivers have meanwhile been converted to gem-shmem.
+Using gem-vram is deprecated because it has several problems.
 
-Patch 4 replaces gem-vram with gem-shmem. The rational is that gem-vram
-has corner cases on low-end devices and is limited in functionality. The
-commit messages state a list of possible issues.
+* TTM requires significant overcommitment of video memory for reliable
+page flips. There needs to be 3 times the size of the largest possible
+framebuffer available or page flips can fail. This leaves the display
+dark without further warning. Hibmc hardware with 32 MiB and a maximum
+framebuffer size of 1920x2000 is at the limit.
 
-Switching to gem-shmem avoids these problems. It also enables buffer
-sharing via dma_buf, which improves the hibmc driver's integration with
-the overall graphics ecosystem.
+* No dma-buf sharing without GTT support. Neither gem-vram nor hibmc
+hardware support a GTT address space. This is required to share buffers
+with other devices via dma-buf interfaces.
 
-We've done these changes on drivers for similar hardware, such as ast and
-mgag200. Hibmc is the last of these drivers to run on gem-shmem. Gem-vram
-instead is deprecated and can hopefully be removed in a later release.
+* TTM requires hardware-accelerated rendering into video memory for
+optimal results. As hibmc hardware cannot do this, hibmc renders in
+system memory and copies the result to video memory. This can be more
+effectively implemented with gem-shmem and DRM's shadow-plane helpers.
 
-Tested on an RH1288 v3 system.
+Converting hibmc to gem-shmem and shadow-plane helpers.
+
+* Replace gem-vram entry points in struct drm_driver with gem-shmem
+equivalents. This makes the driver allocate struct drm_gem_shmem_object
+for its buffers.
+
+* Use DRM_GEM_SHADOW_*_PLANE for its plane funcs and plane-helper
+funcs. The shadow-plane helpers map a plane's gem buffer objects into
+kernel address space during a page flip, so that atomic_update can
+copy them to video memory.
+
+* Handle framebuffer damage in hibmc_plane_atomic_update(). This updates
+video memory from the plane's framebuffer. It automatically synchronizes
+shared buffers with other devices. Create the framebuffer with
+drm_gem_fb_create_with_dirty() to trigger the update on each page flip.
+
+* Initialize the plane with drm_plane_enable_fb_damage_clips() to limit
+the damage updates to the framebuffer areas that changed. We don't want
+to do a full-buffer memcpy if only a small area has changed.
+
+* Test display modes against the available video memory in
+hibmc_mode_config_mode_valid(). We only want to announce display modes
+that fit into display memory.
+
+* Map the display memory itself into kernel address space.
+
+* Do not set drm_mode_config.prefer_shadow. This would advise user space
+to install a shadow buffer. But with gem-shmem, the gem buffer object
+already acts as a shadow buffer for video memory.
+
+We use these patterns in many other drivers with similar limitation as
+hibmc and its hardware. With these changes in place, hibmc is more robust
+and better integrated into the overall DRM framework.
 
 v3:
 - fix coding style
-- rebase on display-detection fixes
 v2:
-- extend commit message of patch 2 (Yongbang)
-- so not select TTM any longer
+- do not select TTM symbols
 
-Thomas Zimmermann (4):
-  drm/hibmc: Use drm_atomic_helper_check_plane_state()
-  drm/hibmc: Fix list of formats on the primary plane
-  drm/hibmc: Do not use cpp from struct drm_format_info
-  drm/hibmc: Use gem-shmem with shadow-plane helpers for memory
-    management
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/drm_gem_shmem_helper.c        | 22 +++++--
+ drivers/gpu/drm/hisilicon/hibmc/Kconfig       |  4 +-
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 42 ++++++++-----
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 62 ++++++++++++++-----
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |  5 ++
+ include/drm/drm_gem_shmem_helper.h            |  4 ++
+ 6 files changed, 102 insertions(+), 37 deletions(-)
 
- drivers/gpu/drm/drm_gem_shmem_helper.c        |  22 +++-
- drivers/gpu/drm/hisilicon/hibmc/Kconfig       |   4 +-
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 110 +++++++++---------
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |  62 +++++++---
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |   5 +
- include/drm/drm_gem_shmem_helper.h            |   4 +
- 6 files changed, 129 insertions(+), 78 deletions(-)
-
-
-base-commit: 4f554688dffcacf48630c14f9fb77a9f60394c1c
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index 545933c7f712..d4ace2a1c47d 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -453,10 +453,23 @@ void drm_gem_shmem_vunmap_locked(struct drm_gem_shmem_object *shmem,
+ }
+ EXPORT_SYMBOL_GPL(drm_gem_shmem_vunmap_locked);
+ 
+-static int
+-drm_gem_shmem_create_with_handle(struct drm_file *file_priv,
+-				 struct drm_device *dev, size_t size,
+-				 uint32_t *handle)
++/**
++ * drm_gem_shmem_create_with_handle - Allocate an object with the given size and
++ *	returns a GEM handle
++ * @file_priv: DRM file structure to create the dumb buffer for
++ * @dev: DRM device
++ * @size: Size of the object to allocate
++ * @handle: Returns the GEM handle on success
++ *
++ * Allocates an shmem GEM buffer using drm_gem_shmem_create() and returns
++ * a GEM handle to it.
++ *
++ * Returns:
++ * Zero on success, or an error code otherwise.
++ */
++int drm_gem_shmem_create_with_handle(struct drm_file *file_priv,
++				     struct drm_device *dev, size_t size,
++				     uint32_t *handle)
+ {
+ 	struct drm_gem_shmem_object *shmem;
+ 	int ret;
+@@ -475,6 +488,7 @@ drm_gem_shmem_create_with_handle(struct drm_file *file_priv,
+ 
+ 	return ret;
+ }
++EXPORT_SYMBOL_GPL(drm_gem_shmem_create_with_handle);
+ 
+ /* Update madvise status, returns true if not purged, else
+  * false or -errno.
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/Kconfig b/drivers/gpu/drm/hisilicon/hibmc/Kconfig
+index d1f3f5793f34..adf4516bf8f6 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/Kconfig
++++ b/drivers/gpu/drm/hisilicon/hibmc/Kconfig
+@@ -5,10 +5,8 @@ config DRM_HISI_HIBMC
+ 	select DRM_CLIENT_SELECTION
+ 	select DRM_DISPLAY_HELPER
+ 	select DRM_DISPLAY_DP_HELPER
++	select DRM_GEM_SHMEM_HELPER
+ 	select DRM_KMS_HELPER
+-	select DRM_VRAM_HELPER
+-	select DRM_TTM
+-	select DRM_TTM_HELPER
+ 	select I2C
+ 	select I2C_ALGOBIT
+ 	help
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+index 79c33c778d2c..b4ab53db1c08 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+@@ -15,8 +15,10 @@
+ 
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_damage_helper.h>
+ #include <drm/drm_fourcc.h>
+-#include <drm/drm_gem_vram_helper.h>
++#include <drm/drm_gem_atomic_helper.h>
++#include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_vblank.h>
+ 
+ #include "hibmc_drm_drv.h"
+@@ -100,28 +102,41 @@ static int hibmc_plane_atomic_check(struct drm_plane *plane,
+ static void hibmc_plane_atomic_update(struct drm_plane *plane,
+ 				      struct drm_atomic_commit *state)
+ {
++	struct hibmc_drm_private *priv = to_hibmc_drm_private(plane->dev);
+ 	struct drm_plane_state *new_state = drm_atomic_get_new_plane_state(state, plane);
++	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(new_state);
+ 	struct drm_framebuffer *fb = new_state->fb;
++	struct drm_plane_state *old_state = drm_atomic_get_old_plane_state(state, plane);
++	u32 gpu_addr = 0;
+ 	u32 reg;
+-	s64 gpu_addr = 0;
+ 	u32 line_l;
+-	struct hibmc_drm_private *priv = to_hibmc_drm_private(plane->dev);
+-	struct drm_gem_vram_object *gbo;
+ 
+-	if (!new_state->fb)
++	if (!fb)
+ 		return;
+ 
+-	gbo = drm_gem_vram_of_gem(new_state->fb->obj[0]);
++	if (drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE) == 0) {
++		struct drm_rect damage;
++		struct drm_atomic_helper_damage_iter iter;
++
++		drm_atomic_helper_damage_iter_init(&iter, old_state, new_state);
++		drm_atomic_for_each_plane_damage(&iter, &damage) {
++			struct iosys_map dst[DRM_FORMAT_MAX_PLANES] = {
++				IOSYS_MAP_INIT_VADDR_IOMEM(priv->vram + gpu_addr),
++			};
+ 
+-	gpu_addr = drm_gem_vram_offset(gbo);
+-	if (WARN_ON_ONCE(gpu_addr < 0))
+-		return; /* Bug: we didn't pin the BO to VRAM in prepare_fb. */
++			iosys_map_incr(&dst[0],
++				       drm_fb_clip_offset(fb->pitches[0], fb->format, &damage));
++			drm_fb_memcpy(dst, fb->pitches, shadow_plane_state->data, fb, &damage);
++		}
++
++		drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
++	}
+ 
+ 	writel(gpu_addr, priv->mmio + HIBMC_CRT_FB_ADDRESS);
+ 
+ 	reg = drm_format_info_min_pitch(fb->format, 0, fb->width);
+ 
+-	line_l = new_state->fb->pitches[0];
++	line_l = fb->pitches[0];
+ 	writel(HIBMC_FIELD(HIBMC_CRT_FB_WIDTH_WIDTH, reg) |
+ 	       HIBMC_FIELD(HIBMC_CRT_FB_WIDTH_OFFS, line_l),
+ 	       priv->mmio + HIBMC_CRT_FB_WIDTH);
+@@ -149,13 +164,11 @@ static const struct drm_plane_funcs hibmc_plane_funcs = {
+ 	.update_plane	= drm_atomic_helper_update_plane,
+ 	.disable_plane	= drm_atomic_helper_disable_plane,
+ 	.destroy = drm_plane_cleanup,
+-	.reset = drm_atomic_helper_plane_reset,
+-	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
+-	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
++	DRM_GEM_SHADOW_PLANE_FUNCS,
+ };
+ 
+ static const struct drm_plane_helper_funcs hibmc_plane_helper_funcs = {
+-	DRM_GEM_VRAM_PLANE_HELPER_FUNCS,
++	DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
+ 	.atomic_check = hibmc_plane_atomic_check,
+ 	.atomic_update = hibmc_plane_atomic_update,
+ };
+@@ -515,6 +528,7 @@ int hibmc_de_init(struct hibmc_drm_private *priv)
+ 	}
+ 
+ 	drm_plane_helper_add(plane, &hibmc_plane_helper_funcs);
++	drm_plane_enable_fb_damage_clips(plane);
+ 
+ 	ret = drm_crtc_init_with_planes(dev, crtc, plane,
+ 					NULL, &hibmc_crtc_funcs, NULL);
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+index 99b36de1fe13..19d3193e2f76 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+@@ -18,9 +18,10 @@
+ #include <drm/clients/drm_client_setup.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_drv.h>
+-#include <drm/drm_fbdev_ttm.h>
++#include <drm/drm_dumb_buffers.h>
++#include <drm/drm_fbdev_shmem.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+-#include <drm/drm_gem_vram_helper.h>
++#include <drm/drm_gem_shmem_helper.h>
+ #include <drm/drm_managed.h>
+ #include <drm/drm_module.h>
+ #include <drm/drm_vblank.h>
+@@ -71,7 +72,13 @@ static irqreturn_t hibmc_dp_interrupt(int irq, void *arg)
+ static int hibmc_dumb_create(struct drm_file *file, struct drm_device *dev,
+ 			     struct drm_mode_create_dumb *args)
+ {
+-	return drm_gem_vram_fill_create_dumb(file, dev, 0, 128, args);
++	int ret;
++
++	ret = drm_mode_size_dumb(dev, args, SZ_128, 0);
++	if (ret)
++		return ret;
++
++	return drm_gem_shmem_create_with_handle(file, dev, args->size, &args->handle);
+ }
+ 
+ static const struct drm_driver hibmc_driver = {
+@@ -81,10 +88,9 @@ static const struct drm_driver hibmc_driver = {
+ 	.desc			= "hibmc drm driver",
+ 	.major			= 1,
+ 	.minor			= 0,
+-	.debugfs_init		= drm_vram_mm_debugfs_init,
+-	.dumb_create            = hibmc_dumb_create,
+-	.dumb_map_offset        = drm_gem_ttm_dumb_map_offset,
+-	DRM_FBDEV_TTM_DRIVER_OPS,
++	.gem_prime_import	= drm_gem_shmem_prime_import_no_map,
++	.dumb_create		= hibmc_dumb_create,
++	DRM_FBDEV_SHMEM_DRIVER_OPS,
+ };
+ 
+ static int __maybe_unused hibmc_pm_suspend(struct device *dev)
+@@ -106,11 +112,32 @@ static const struct dev_pm_ops hibmc_pm_ops = {
+ 				hibmc_pm_resume)
+ };
+ 
++static enum drm_mode_status hibmc_mode_config_mode_valid(struct drm_device *dev,
++							 const struct drm_display_mode *mode)
++{
++	const struct drm_format_info *info =
++		drm_get_format_info(dev, DRM_FORMAT_XRGB8888, DRM_FORMAT_MOD_LINEAR);
++	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
++	unsigned long max_fb_size = priv->vram_size;
++	u64 pitch;
++
++	if (drm_WARN_ON_ONCE(dev, !info))
++		return MODE_ERROR; /* driver bug */
++
++	pitch = drm_format_info_min_pitch(info, 0, mode->hdisplay);
++	if (!pitch)
++		return MODE_BAD_WIDTH;
++	else if (pitch > max_fb_size / mode->vdisplay)
++		return MODE_MEM;
++
++	return MODE_OK;
++}
++
+ static const struct drm_mode_config_funcs hibmc_mode_funcs = {
+-	.mode_valid = drm_vram_helper_mode_valid,
++	.mode_valid = hibmc_mode_config_mode_valid,
+ 	.atomic_check = drm_atomic_helper_check,
+ 	.atomic_commit = drm_atomic_helper_commit,
+-	.fb_create = drm_gem_fb_create,
++	.fb_create = drm_gem_fb_create_with_dirty,
+ };
+ 
+ static int hibmc_kms_init(struct hibmc_drm_private *priv)
+@@ -130,7 +157,6 @@ static int hibmc_kms_init(struct hibmc_drm_private *priv)
+ 	dev->mode_config.max_height = 1200;
+ 
+ 	dev->mode_config.preferred_depth = 24;
+-	dev->mode_config.prefer_shadow = 1;
+ 
+ 	dev->mode_config.funcs = (void *)&hibmc_mode_funcs;
+ 
+@@ -335,18 +361,22 @@ static int hibmc_load(struct drm_device *dev)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(dev->dev);
+ 	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
++	resource_size_t vram_base, vram_size;
+ 	int ret;
+ 
+ 	ret = hibmc_hw_init(priv);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = drmm_vram_helper_init(dev, pci_resource_start(pdev, 0),
+-				    pci_resource_len(pdev, 0));
+-	if (ret) {
+-		drm_err(dev, "Error initializing VRAM MM; %d\n", ret);
+-		return ret;
+-	}
++	vram_base = pci_resource_start(pdev, 0);
++	vram_size = pci_resource_len(pdev, 0);
++
++	priv->vram = devm_ioremap_wc(dev->dev, vram_base, vram_size);
++	if (!priv->vram)
++		return -ENOMEM;
++
++	priv->vram_base = vram_base;
++	priv->vram_size = vram_size;
+ 
+ 	ret = hibmc_kms_init(priv);
+ 	if (ret)
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
+index cd3a3fca1fe6..dce8572bf63e 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
+@@ -38,6 +38,11 @@ struct hibmc_drm_private {
+ 	/* hw */
+ 	void __iomem   *mmio;
+ 
++	/* vram */
++	void __iomem *vram;
++	resource_size_t	vram_base;
++	resource_size_t	vram_size;
++
+ 	/* drm */
+ 	struct drm_device dev;
+ 	struct drm_plane primary_plane;
+diff --git a/include/drm/drm_gem_shmem_helper.h b/include/drm/drm_gem_shmem_helper.h
+index 5ccdae21b94a..86b967174b60 100644
+--- a/include/drm/drm_gem_shmem_helper.h
++++ b/include/drm/drm_gem_shmem_helper.h
+@@ -141,6 +141,10 @@ struct sg_table *drm_gem_shmem_get_pages_sgt(struct drm_gem_shmem_object *shmem)
+ void drm_gem_shmem_print_info(const struct drm_gem_shmem_object *shmem,
+ 			      struct drm_printer *p, unsigned int indent);
+ 
++int drm_gem_shmem_create_with_handle(struct drm_file *file_priv,
++				     struct drm_device *dev, size_t size,
++				     uint32_t *handle);
++
+ extern const struct vm_operations_struct drm_gem_shmem_vm_ops;
+ 
+ /*
 -- 
 2.54.0
 
