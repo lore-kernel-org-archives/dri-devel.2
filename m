@@ -4,73 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A06ADCD6E55
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:09:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1575CCD6E55
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:13:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BADDB10E9F6;
-	Mon,  1 Jun 2026 22:09:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DB2D10E9FE;
+	Mon,  1 Jun 2026 22:13:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="BUIQ3fbn";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="JD/rgItE";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5744D10E9F6
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:09:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1780351738; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=DFTvSjlq6jnIXNf0M9KS2sJ/lMP29aQTGqrIezRk3x0RGNMbLqF03kl/DA4yD8aJsNSkH1COokzAXzNNXe71ZJVxyHB+AGlcVdEch2FxEhpUeOqe1CnU/Uz2dPd/FMfYt3l9Wpriicp8dRyO/R2fOQWzHTNznefdxS8HMEtTTmo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1780351738;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=1lK1yNZdrKT8RuPFT6vih0wWSf1jo44LoNBqX+KfL0M=; 
- b=KH/4V1Ldup46P6gqKWWlb8LM0fPlt2BDHkk813kn6x7F7A0vc44ppp5HUCFuF3LbFwGglUkfI4MpOkIZ/n2Wfel8CIQekOrw42gr5P+zy8du1QWfeuQ5qZ9VzWVM03b4iexSdd8wfqde7urVU+0ks5FHGqkiROvoeDcVyXXlcI0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
- dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780351737; 
- s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=1lK1yNZdrKT8RuPFT6vih0wWSf1jo44LoNBqX+KfL0M=;
- b=BUIQ3fbngH6E2GT5G7rpUSBewxAJyxIl+lR3yFYwvtS2tqoPkRt7+/Muq5CFSNaL
- mV6NLFOKmwKjS6jyoO/Wjw5dePkldz5YHfYGq0wbVLSyK6vPS9caCalpe7Tp2HCHLWC
- sX1JY7n/mW01G2j7r4weTdsWLFO2IWm3ZmbWPssc=
-Received: by mx.zohomail.com with SMTPS id 1780351733835755.6229336935343;
- Mon, 1 Jun 2026 15:08:53 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
- id D5550183854; Tue, 02 Jun 2026 00:08:46 +0200 (CEST)
-Date: Tue, 2 Jun 2026 00:08:46 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Chaoyi Chen <kernel@airkyi.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Vinod Koul <vkoul@kernel.org>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-phy@lists.infradead.org, Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Subject: Re: [PATCH 1/5] drm/bridge: Implement generic USB Type-C DP HPD bridge
-Message-ID: <ah3-auKugGCVojOp@venus>
-References: <20260521032854.103-1-kernel@airkyi.com>
- <20260521032854.103-2-kernel@airkyi.com>
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FD8710E944;
+ Mon,  1 Jun 2026 20:25:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=6/5W0G6Gs1Q9GB3IxcldPERQvThA7tz7U249bqa4a9U=; b=JD/rgItEItTF3waKZU0fyhZfOO
+ p6KhOF2dIKsWbBlXDH6Szda6v6pwxYE0KSLQ6p9Jvu4aC0kMd1Jp91bHbXXGW1JY4kLAuzDZFSXs9
+ P7bQk5/xrqJRa6GrGWdxnMhnM9cOr/Mh7DhOreUlDgBnF2TcRdtGfQbRd9WsBVDwHFqfKKNmW2p+o
+ Eq81r5ZCto6v0j62Ti/4LX0nmYsBAqhcbZ6JenvK3VL8pcuJJabuzAf2wJL1ohACsCSDs/sp5+nbD
+ m2tuZulS6JhmLQAZ2oWemvoJrOfuaHp1Sctzmp2YTWfFeramTBO8sylg/IQVtL1hc2i3NQH4Kt9qQ
+ +ovW+CfA==;
+Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red
+ Hat Linux)) id 1wU9Av-00000000iHG-2DOC;
+ Mon, 01 Jun 2026 20:23:53 +0000
+Date: Mon, 1 Jun 2026 21:23:53 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Kees Cook <kees@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>,
+ Pengpeng Hou <pengpeng@iscas.ac.cn>, stable@vger.kernel.org,
+ Petr Pavlu <petr.pavlu@suse.com>, Richard Weinberger <richard@nod.at>,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Len Brown <lenb@kernel.org>, Corey Minyard <corey@minyard.net>,
+ Gabriel Somlo <somlo@cmu.edu>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bart Van Assche <bvanassche@acm.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Hans de Goede <hansg@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Hannes Reinecke <hare@suse.de>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Alan Stern <stern@rowland.harvard.edu>,
+ Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+ Jason Baron <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>,
+ Tiwei Bie <tiwei.btw@antgroup.com>,
+ Benjamin Berg <benjamin.berg@intel.com>,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "David E. Box" <david.e.box@linux.intel.com>,
+ "Maciej W. Rozycki" <macro@orcam.me.uk>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Peter Zijlstra <peterz@infradead.org>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>,
+ Alexander Potapenko <glider@google.com>,
+ Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ John Johansen <john.johansen@canonical.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Georgia Garcia <georgia.garcia@canonical.com>, kvm@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-modules@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-mm@kvack.org,
+ apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
+ linux-um@lists.infradead.org, linux-acpi@vger.kernel.org,
+ openipmi-developer@lists.sourceforge.net, qemu-devel@nongnu.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-serial@vger.kernel.org, linux-usb@vger.kernel.org,
+ usb-storage@lists.one-eyed-alien.net,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-arch@vger.kernel.org, netdev@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH 01/11] params: bound array element output to the caller's
+ page buffer
+Message-ID: <ah3qWZ4cqhrbHZcl@casper.infradead.org>
+References: <20260521133315.work.845-kees@kernel.org>
+ <20260521133326.2465264-1-kees@kernel.org>
+ <20260521174631.71a06440@pumpkin>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="2wjtyeyqji5ix4fa"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260521032854.103-2-kernel@airkyi.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.2.1.5.2/280.325.56
-X-ZohoMailClient: External
+In-Reply-To: <20260521174631.71a06440@pumpkin>
+X-Mailman-Approved-At: Mon, 01 Jun 2026 22:12:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,184 +123,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu, May 21, 2026 at 05:46:31PM +0100, David Laight wrote:
+> On Thu, 21 May 2026 06:33:14 -0700
+> Kees Cook <kees@kernel.org> wrote:
+> > Collect each element into a temporary PAGE_SIZE buffer first and then
+> > copy only the remaining space into the caller's page buffer.
+> 
+> Should this be using a 4k buffer on all architectures?
+> Initially perhaps just using a different name for the constant until
+> all the associated PAGE_SIZE limits have been removed.
 
---2wjtyeyqji5ix4fa
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/5] drm/bridge: Implement generic USB Type-C DP HPD
- bridge
-MIME-Version: 1.0
-
-Hi,
-
-On Thu, May 21, 2026 at 11:28:50AM +0800, Chaoyi Chen wrote:
-> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
->=20
-> The HPD function of Type-C DP is implemented through
-> drm_connector_oob_hotplug_event(). For embedded DP, it is required
-> that the DRM connector fwnode corresponds to the Type-C port fwnode.
->=20
-> To describe the relationship between the DP controller and the Type-C
-> port device, we usually using drm_bridge to build a bridge chain.
->=20
-> Now several USB-C controller drivers have already implemented the DP
-> HPD bridge function provided by aux-hpd-bridge.c, it will build a DP
-> HPD bridge on USB-C connector port device.
->=20
-> But this requires the USB-C controller driver to manually register the
-> HPD bridge. If the driver does not implement this feature, the bridge
-> will not be create.
->=20
-> So this patch implements a generic DP HPD bridge based on
-> aux-hpd-bridge.c. It will monitor Type-C bus events, and when a
-> Type-C port device containing the DP svid is registered, it will
-> create an HPD bridge for it without the need for the USB-C controller
-> driver to implement it.
->=20
-> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> ---
->  drivers/gpu/drm/bridge/Kconfig                | 10 ++++
->  drivers/gpu/drm/bridge/Makefile               |  1 +
->  .../gpu/drm/bridge/aux-hpd-typec-dp-bridge.c  | 49 +++++++++++++++++++
-
-Doesn't this require removing the manual registration of the HPD
-auxillary bridge in the USB-C controller drivers to avoid that
-two bridges are registered for them?
-
->  3 files changed, 60 insertions(+)
->  create mode 100644 drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
->=20
-> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kcon=
-fig
-> index c3209b0f4678..d92e93875793 100644
-> --- a/drivers/gpu/drm/bridge/Kconfig
-> +++ b/drivers/gpu/drm/bridge/Kconfig
-> @@ -30,6 +30,16 @@ config DRM_AUX_HPD_BRIDGE
->  	  Simple bridge that terminates the bridge chain and provides HPD
->  	  support.
-> =20
-> +if DRM_AUX_HPD_BRIDGE
-> +config DRM_AUX_HPD_TYPEC_BRIDGE
-> +	tristate
-> +	depends on TYPEC || !TYPEC
-> +	default TYPEC
-> +	help
-> +	  Simple bridge that terminates the bridge chain and provides HPD
-> +	  support. It build bridge on each USB-C connector device node.
-> +endif
-> +
->  menu "Display Interface Bridges"
->  	depends on DRM && DRM_BRIDGE
-> =20
-> diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Mak=
-efile
-> index beab5b695a6e..c4761526ba0a 100644
-> --- a/drivers/gpu/drm/bridge/Makefile
-> +++ b/drivers/gpu/drm/bridge/Makefile
-> @@ -1,6 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0
->  obj-$(CONFIG_DRM_AUX_BRIDGE) +=3D aux-bridge.o
->  obj-$(CONFIG_DRM_AUX_HPD_BRIDGE) +=3D aux-hpd-bridge.o
-> +obj-$(CONFIG_DRM_AUX_HPD_TYPEC_BRIDGE) +=3D aux-hpd-typec-dp-bridge.o
->  obj-$(CONFIG_DRM_CHIPONE_ICN6211) +=3D chipone-icn6211.o
->  obj-$(CONFIG_DRM_CHRONTEL_CH7033) +=3D chrontel-ch7033.o
->  obj-$(CONFIG_DRM_CROS_EC_ANX7688) +=3D cros-ec-anx7688.o
-> diff --git a/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c b/drivers/g=
-pu/drm/bridge/aux-hpd-typec-dp-bridge.c
-> new file mode 100644
-> index 000000000000..d915e0fb0668
-> --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
-> @@ -0,0 +1,49 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +#include <linux/of.h>
-> +#include <linux/usb/typec_altmode.h>
-> +#include <linux/usb/typec_dp.h>
-> +
-> +#include <drm/bridge/aux-bridge.h>
-> +
-> +static int drm_typec_bus_event(struct notifier_block *nb,
-> +			       unsigned long action, void *data)
-> +{
-> +	struct device *dev =3D (struct device *)data;
-> +	struct typec_altmode *alt =3D to_typec_altmode(dev);
-> +
-> +	if (action !=3D BUS_NOTIFY_ADD_DEVICE)
-> +		goto done;
-> +
-> +	/*
-> +	 * alt->dev.parent->parent : USB-C controller device
-> +	 * alt->dev.parent         : USB-C connector device
-> +	 */
-> +	if (is_typec_port_altmode(&alt->dev) && alt->svid =3D=3D USB_TYPEC_DP_S=
-ID)
-> +		drm_dp_hpd_bridge_register(alt->dev.parent->parent,
-> +					   to_of_node(alt->dev.parent->fwnode));
-
-IIUIC this is called when the USB-C controller spawns a sub-device
-for the DP AltMode and then registers a HPD bridge to the USB-C
-controller itself. Wouldn't that register new HPD bridges on every
-USB-C replug?
-
-Also doesn't this result in the bridge not being registered when
-nothing is plugged and thus the DRM pipeline not being able to bind
-properly?
-
-Greetings,
-
--- Sebastian
-
-> +
-> +done:
-> +	return NOTIFY_OK;
-> +}
-> +
-> +static struct notifier_block drm_typec_event_nb =3D {
-> +	.notifier_call =3D drm_typec_bus_event,
-> +};
-> +
-> +static void drm_aux_hpd_typec_dp_bridge_module_exit(void)
-> +{
-> +	bus_unregister_notifier(&typec_bus, &drm_typec_event_nb);
-> +}
-> +
-> +static int __init drm_aux_hpd_typec_dp_bridge_module_init(void)
-> +{
-> +	bus_register_notifier(&typec_bus, &drm_typec_event_nb);
-> +
-> +	return 0;
-> +}
-> +
-> +module_init(drm_aux_hpd_typec_dp_bridge_module_init);
-> +module_exit(drm_aux_hpd_typec_dp_bridge_module_exit);
-> +
-> +MODULE_DESCRIPTION("DRM TYPEC DP HPD BRIDGE");
-> +MODULE_LICENSE("GPL");
-> --=20
-> 2.53.0
->=20
->=20
-
---2wjtyeyqji5ix4fa
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmoeAusACgkQ2O7X88g7
-+poFDhAAqmoRFuBnWXN9ThmBhdcTbKmP9xRiRbmFvKqyJCJGzQ3m9vJWXeRgnm2p
-xp0Pd6zOCm4m4snw4PElFYmAJACJZbKD19oPGRUy7ClzIHqyQUmh/DweeHexRcwb
-iS7XC9qxSrCmkWu2/CVYnIVDb+YeC7/aMwjMG5nn6PL3i0ftBqiMGM2TFbka3O+1
-THzO03GrjEl3f2mNJm2HYI//Lsl27+WXebGweEhyGtZIoI+BGi3uCMLq7afmeKc+
-BhTXSJAjHQDo76RglJLBiOi1PfeLQT8SLxu6cfqTIrjVnBoy7iPTtopTpuQK5a8g
-nVh8C7wuSwHhO0FAp2kt6JeFYTzLRQj6YCdMdzIS8fw9vc9dSKgwFhTk6wDbDzds
-Z6qmigIPYvawBo3cWy20RHQynxXchqaKbSqT9IJ3QxdHgGiNdPc5AzrS3V/Oyi/s
-q4QWtaqoLN1qCTGVNOnqJ+1vQhzBuLZCZJt/g8nlJMYSVUe0RYGXRUjOgK9f1B97
-Vc1myj5dNB1u5EwcRhcDopxmw6S95GqAPZydo9yduYUIj2Uu5adlFGDZiaJMoZvz
-w/51Wmp/n+azkiSyBhjPLr9ieZD/WKuUpbAwzeLv/B9cL+L2i3n1PtAwwj/W3Tgx
-VP8/olbfezC3hFV6Wwzap+LPLW91JARUpjYwZuptpDcuDDfsVho=
-=0qDd
------END PGP SIGNATURE-----
-
---2wjtyeyqji5ix4fa--
+If we're acually going to think about this, even 4KiB is too big.
+An 80x25 terminal is 2000 bytes (assuming no utf8), so 4KiB is two
+entire screenfuls.  Limiting to 2048 would seem reasonable to me.
