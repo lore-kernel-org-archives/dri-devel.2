@@ -4,54 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F40C8CD6E56
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 10:59:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05071CD6E56
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 10:59:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 605E91131D2;
-	Mon,  1 Jun 2026 10:59:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DB511131D4;
+	Mon,  1 Jun 2026 10:59:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="AH7EC9Ux";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="jDT3G3Jb";
 	dkim-atps=neutral
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Mon, 01 Jun 2026 10:59:31 UTC
-Received: from mail-m158195.netease.com (mail-m158195.netease.com
- [47.251.158.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53A231131D2
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 10:59:31 +0000 (UTC)
-Received: from [172.16.12.77] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 4097ac413;
- Mon, 1 Jun 2026 18:54:25 +0800 (GMT+08:00)
-Message-ID: <2d2b6308-ae46-46fd-b1ce-e4f199b6eb27@rock-chips.com>
-Date: Mon, 1 Jun 2026 18:54:25 +0800
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36C161131D4
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 10:59:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1780311580;
+ bh=Oj7qS6tCatuQd6v/AdPdQ1yTq6EBjPpukk1n6mBZaDY=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=jDT3G3JbDb4+8nGVmGp41Da6WyNqifQEpLVE2rktUe7VEhM4wwEzU4zxPEO0mRCAZ
+ S54cSYDjRxD8i73BAg8QcPiKMhCmTQlsa2eUnXeCBzbkLLyk0rlHfeeMa+sAN3nFig
+ 7Pim0wDrdbyRkB0oZjtsguBfJpnrUPphEp85nC3TlCJDVzjL8NGrJc1OKUu4HVx/tK
+ x6AYIk5mNJk0r9a3z9n7SNSnTjmSoYUEy4l90Op/WJxMxMD2osYYyHDqpJeTuz2xVD
+ 8QATTOHpmh9+mdxg/7B5BqOCwYgiH/sppl30tsGDS276dRqxW2phCf1oaNzuNL83f1
+ yRoJrH22VFiwg==
+Received: from fedora-2.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 6223C17E03DA;
+ Mon,  1 Jun 2026 12:59:39 +0200 (CEST)
+Date: Mon, 1 Jun 2026 12:59:33 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Philipp Stanner <phasta@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, "
+ =?UTF-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>, Benno Lossin
+ <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross
+ <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>, "Christian =?UTF-8?B?S8O2bmln?="
+ <christian.koenig@amd.com>, "Paul E. McKenney" <paulmck@kernel.org>,
+ Frederic Weisbecker <frederic@kernel.org>, Neeraj Upadhyay
+ <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, Josh
+ Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
+ Zqiang <qiang.zhang@linux.dev>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Igor Korotin <igor.korotin@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>, Krishna Ketan Rai
+ <prafulrai522@gmail.com>, Shankari Anand <shankari.ak0208@gmail.com>,
+ manos@pitsidianak.is, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ rcu@vger.kernel.org
+Subject: Re: [PATCH 3/4] rust: Add dma_fence abstractions
+Message-ID: <20260601125933.17ca4dd5@fedora-2.home>
+In-Reply-To: <ah1glmXDM-OAKa5h@google.com>
+References: <20260530143541.229628-2-phasta@kernel.org>
+ <20260530143541.229628-5-phasta@kernel.org>
+ <ah1glmXDM-OAKa5h@google.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] drm/rockchip: vop2: Fix layer cfg done timeout on
- multi-output setups
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260504-vop2-layer-cfg-tmout-v1-0-730226a7331e@collabora.com>
-Content-Language: en-US
-From: Andy Yan <andy.yan@rock-chips.com>
-In-Reply-To: <20260504-vop2-layer-cfg-tmout-v1-0-730226a7331e@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9e82d20feb09d8kunmd8c5247738e1b1
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGRgZVh0aH05NTxoaSRlDS1YVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
- 9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=AH7EC9UxGBcgm/HY6FSXgbL+vmU1rG73HwI+2in9EM4d1KmBz3MCI0Lvcr8fTfIbF3+4DsiJd/N/f3rVwvxvq4dmDLaQ3xLM56AzMJgsqrVnOtQF31VVxXnJdc7spp+mgHqfXFP8VLgXCcgyoKRjZTSP+APE8DT+CyswWQg+9/I=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=0FP/SMdxTBNjb7CmLP/yRXS7a+fzZXcGFTKpDYjQ04I=;
- h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,50 +84,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Cristian,
+On Mon, 1 Jun 2026 10:36:06 +0000
+Alice Ryhl <aliceryhl@google.com> wrote:
 
-On 5/5/26 02:23, Cristian Ciocaltea wrote:
-> On RK3588/RK3568 boards with multiple active display outputs, start/stop
-> transitions may trigger a timeout during overlay layer configuration:
+> > +};
+> > +
+> > +use bindings::ECANCELED;
+> > +
+> > +use kernel::str::CString;
+> > +use kernel::sync::{
+> > +    aref::{
+> > +        ARef,
+> > +        AlwaysRefCounted, //
+> > +    },
+> > +    Arc,
+> > +    ArcBorrow, //
+> > +};
+> > +
+> > +/// VTable for dma_fence backend_ops callbacks.
+> > +//
+> > +// Mandatory dma_fence backend_ops are implemented implicitly through
+> > +// [`FenceCtx`]. Additional ones shall get implemented on this trait, which then
+> > +// shall be demanded for the fence context data.
+> > +pub trait FenceCtxOps {}  
 > 
->    rockchip-drm display-subsystem: [drm] *ERROR* wait layer cfg done timeout
-> 
-> The shared OVL_LAYER_SEL and OVL_PORT_SEL shadow registers are committed
-> to the active configuration at the vsync of whichever Video Port is
-> selected by LAYERSEL_REGDONE_SEL.  When two Video Ports race through
-> atomic commits, rk3568_vop2_setup_layer_mixer() has two issues that
-> cause the wait to poll for a value the hardware might not be able to
-> produce.
-> 
-> Patch 1 fixes passing the wrong target to the wait function, since the
-> expected value was already overwritten with the current VP's new
-> layer_sel before reaching the wait.
-> 
-> Patch 2 moves the wait before the LAYERSEL_REGDONE_SEL switch, so the
-> previous VP's vsync can still latch the pending configuration.
-> 
-> Patches 3 through 5 contain only minor follow-up cleanup.
-> 
-> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> This empty trait is unused.
 
+I had initially suggested to add the F type (AKA FenceData) passed
+around in multiple places type as an associated type
 
-Thank you very much for your work, these fixes all look sensible.
-However, I haven't been able to construct a scenario via weston that
-reproduce these issues. Could you please tell me how you triggered them?
+pub trait FenceCtxOps {
+   type FenceData: Send + Sync;
+}
 
-> ---
-> Cristian Ciocaltea (5):
->        drm/rockchip: vop2: Fix wrong wait target in layer cfg done check
->        drm/rockchip: vop2: Wait for layer cfg done before switching LAYERSEL_REGDONE_SEL
->        drm/rockchip: vop2: Delay old_{layer|port}_sel updates in setup_layer_mixer()
->        drm/rockchip: vop2: Drop redundant zero-init in setup_layer_mixer()
->        drm/rockchip: vop2: Use vop2->old_layer_sel directly in wait_for_layer_cfg_done()
-> 
->   drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 46 +++++++++++++---------------
->   1 file changed, 22 insertions(+), 24 deletions(-)
-> ---
-> base-commit: d4c14903bf5e28e740516c4fbb7db01e0dedf3af
-> change-id: 20260504-vop2-layer-cfg-tmout-73617a0a103c
-> 
-> 
+so we don't have to pass both F and C. The reasoning here is that:
 
+1. We expect we'll have to define more methods to the FenceCtxOps trait
+at some point, so adding it now kinda makes sense.
+
+2. In the current design, we've assumed that a Fence can't live/be
+created outside of a given context, so there's no world where the
+FenceData wouldn't be known by the FenceCtx implementation, and forcing
+users to pass F and C around seems needlessly verbose.
