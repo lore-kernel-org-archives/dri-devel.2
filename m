@@ -4,47 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC440CD5BD1
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 16:14:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76333CD6E55
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 16:14:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4690F11356E;
-	Mon,  1 Jun 2026 16:14:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B9FC11356F;
+	Mon,  1 Jun 2026 16:14:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="h95Ovt9v";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="MNnmM6iM";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7744211356C
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 16:14:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23CFC11356C
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 16:14:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1780330443;
- bh=aaEpI9GXRz3EZr4yshfNJTwzGYvwXpQNt8splWEouIY=;
- h=From:Subject:Date:To:Cc:From;
- b=h95Ovt9vxHfhP69JU5VlaXfKvtrXpGwFxoAa8Vw127ZPodNDTXGRZj0GsmTFroLT+
- zjHXPtnm/VDLWYM6vr3R9awCwZm4gulwulHl02nrt84lDPQEnkIEP6uW9PC2RrgLTH
- sHAi+kA259VUJP2x78xF63bLtj6XXDmzCrWPS6XoCB2kFg9M2M2pI+swqoexCoq2jp
- QWScb3SY6SuPinuXN721ZQ1AZXK2iQ/O8+t7MsmHOwXijMg13QRDNsnRsJINEqNmFu
- ajSWOj2lHuJPuxUFhwF4SNfrCcVo4E6Gwccz4eShtexHodUGVvA8sz+fz8cSJzuRKx
- k/kS8KrZVwKvQ==
+ bh=sokoSsyWgTcHZSa0ZifzWSPZUKXC898Oh68D+flm33o=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=MNnmM6iM84BXz/e4nyF14i+tXwAgEt2hMDyAlks6zFbKuGBM3Amvn+oKFW3+b1ueB
+ qnh3duYa8i+7iRSP5ijgSJBo00qSMYf18G4oXZEMRNFc3hsPqrOyxfhw1lc9wKoeg8
+ qljgV9aNXGiMmMoiaB0co7fWG7SntMNPN0VJNGBirH4rCTR//aTqAamGAkrjh3vLOg
+ ltS3WscDp4h+m/j/sld6SKJYuOb75adbgdq6jXKLH5u59Pjvfz7H4ytnuHDJzPzim8
+ 9WL6w5uzLs3+xPYfTRUJ6lUoQ6QxVGcJwBDsr81HWniyC+VapUQHPFaRvcWz9PcUSy
+ FROAbHDIW+Fog==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E7E2417E045E;
- Mon,  1 Jun 2026 18:14:02 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id AE09E17E05DE;
+ Mon,  1 Jun 2026 18:14:03 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Subject: [PATCH v4 0/3] Rockchip DRM use-after-free & null-ptr-deref fixes
-Date: Mon, 01 Jun 2026 19:13:43 +0300
-Message-Id: <20260601-drm-rk-fixes-v4-0-c3f3f123e1da@collabora.com>
+Date: Mon, 01 Jun 2026 19:13:44 +0300
+Subject: [PATCH v4 1/3] drm/bridge: synopsys: dw-dp: Support unregistering
+ the AUX channel
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XMTQ6CMBCG4auYrq1pp3/gynsYF1Cm0gjUtIZoC
- He3sNEQXb4z+Z6JJIweEznuJhJx9MmHIYfc74htq+GK1De5CTDQjAPQJvY03qjzT0y0MhrAGq6
- UQJIn94jrIy/Ol9ytT48QX6s+8uX6Bxo5ZVSUEhwvlFEMTzZ0XVWHWB1s6MmCjfABBGcbADKgp
- ULraimcLH8B4gsAswFEBlwDqEvGLCvsFpjn+Q2k/8Z4LgEAAA==
-X-Change-ID: 20260122-drm-rk-fixes-a7622c71553e
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260601-drm-rk-fixes-v4-1-c3f3f123e1da@collabora.com>
+References: <20260601-drm-rk-fixes-v4-0-c3f3f123e1da@collabora.com>
+In-Reply-To: <20260601-drm-rk-fixes-v4-0-c3f3f123e1da@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
  =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
  Andy Yan <andy.yan@rock-chips.com>, 
@@ -77,73 +75,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The first three patches in the series are fixes for use-after-free &
-null-ptr-deref related issues found in dw_dp and inno-hdmi Rockchip DRM
-drivers.
+The DisplayPort AUX channel gets initialized and registered during
+dw_dp_bind(), but it is never unregistered, which may lead to resource
+leaks and/or use-after-free.
 
-The following three patches provide a few minor improvements to dw_dp
-and dw_hdmi_qp, while the remaining two address use-after-free and
-memory allocation in DW DP core library.
+Add the missing dw_dp_unbind() function to allow the users of the
+library to handle the required cleanup, i.e. unregister the AUX adapter.
 
+Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
+Reviewed-by: Andy Yan <andy.yan@rock-chips.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
-Changes in v4:
-- Collected R-b from Andy
-- Fixed a conflict while rebasing onto latest drm-misc-next
-- Added new patch: drm/rockchip: dw_dp: Add missing newline in
-  dev_err_probe() message
-- Link to v3: https://lore.kernel.org/r/20260327-drm-rk-fixes-v3-0-fd2e6900c08c@collabora.com
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 6 ++++++
+ include/drm/bridge/dw_dp.h              | 1 +
+ 2 files changed, 7 insertions(+)
 
-Changes in v3:
-- Dropped patches 1..6,8 already applied by Heiko
-- Reworked remaining patch "drm/bridge: synopsys: dw-dp: Unregister AUX
-  channel on bridge detach" into:
-  * drm/bridge: synopsys: dw-dp: Support unregistering the AUX channel
-  * drm/rockchip: dw_dp: Release core resources
-- Link to v2: https://lore.kernel.org/r/20260310-drm-rk-fixes-v2-0-645ecfb43f49@collabora.com
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index 21541be094c4..36ee6e027af5 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -2093,6 +2093,12 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+ }
+ EXPORT_SYMBOL_GPL(dw_dp_bind);
+ 
++void dw_dp_unbind(struct dw_dp *dp)
++{
++	drm_dp_aux_unregister(&dp->aux);
++}
++EXPORT_SYMBOL_GPL(dw_dp_unbind);
++
+ MODULE_AUTHOR("Andy Yan <andyshrk@163.com>");
+ MODULE_DESCRIPTION("DW DP Core Library");
+ MODULE_LICENSE("GPL");
+diff --git a/include/drm/bridge/dw_dp.h b/include/drm/bridge/dw_dp.h
+index 25363541e69d..22105c3e8e4d 100644
+--- a/include/drm/bridge/dw_dp.h
++++ b/include/drm/bridge/dw_dp.h
+@@ -24,4 +24,5 @@ struct dw_dp_plat_data {
+ 
+ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+ 			 const struct dw_dp_plat_data *plat_data);
++void dw_dp_unbind(struct dw_dp *dp);
+ #endif /* __DW_DP__ */
 
-Changes in v2:
-- Fixed conflicts while rebasing onto latest drm-misc-next
-- Added two more patches:
-  * drm/bridge: synopsys: dw-dp: Unregister AUX channel on bridge detach
-  * drm/bridge: synopsys: dw-dp: Drop useless memory allocation
-- Link to v1: https://lore.kernel.org/r/20260122-drm-rk-fixes-v1-0-3942f185750e@collabora.com
-
-To: Andy Yan <andy.yan@rock-chips.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Robert Foss <rfoss@kernel.org>
-To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-To: Jonas Karlman <jonas@kwiboo.se>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Sandy Huang <hjc@rock-chips.com>
-To: Heiko Stübner <heiko@sntech.de>
-To: Dmitry Baryshkov <lumag@kernel.org>
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: kernel@collabora.com
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-rockchip@lists.infradead.org
-
----
-Cristian Ciocaltea (3):
-      drm/bridge: synopsys: dw-dp: Support unregistering the AUX channel
-      drm/rockchip: dw_dp: Add missing newline in dev_err_probe() message
-      drm/rockchip: dw_dp: Release core resources
-
- drivers/gpu/drm/bridge/synopsys/dw-dp.c   |  6 ++++++
- drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 15 +++++++++++++--
- include/drm/bridge/dw_dp.h                |  1 +
- 3 files changed, 20 insertions(+), 2 deletions(-)
----
-base-commit: e84b07e0a30b371117f9a1120a4645c213f39cd9
-change-id: 20260122-drm-rk-fixes-a7622c71553e
+-- 
+2.54.0
 
