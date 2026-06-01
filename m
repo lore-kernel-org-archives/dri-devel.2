@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE978CD6E65
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 14:19:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F286CD6E67
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 14:19:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A270C1133E2;
-	Mon,  1 Jun 2026 14:19:35 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 076371133E7
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 14:19:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F3881133EB;
+	Mon,  1 Jun 2026 14:19:39 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E85C91133EA
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 14:19:37 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5C32A67222;
- Mon,  1 Jun 2026 14:19:28 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DFE026AE89;
+ Mon,  1 Jun 2026 14:19:29 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 077B7779A7;
- Mon,  1 Jun 2026 14:19:28 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 896B3779A7;
+ Mon,  1 Jun 2026 14:19:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id YACkAPCUHWpSdwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 01 Jun 2026 14:19:28 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 0CleIPGUHWpSdwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 01 Jun 2026 14:19:29 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: simona@ffwll.ch, michel.daenzer@mailbox.org, louis.chauvet@bootlin.com,
  ville.syrjala@linux.intel.com, jani.nikula@intel.com, mhklkml@zohomail.com,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  virtualization@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 2/7] drm/vblank: timer: Fix timestamp calculation
-Date: Mon,  1 Jun 2026 16:08:30 +0200
-Message-ID: <20260601141922.91498-3-tzimmermann@suse.de>
+Subject: [PATCH 6/7] drm/vblank: timer: Verify that expiry time is in the
+ future
+Date: Mon,  1 Jun 2026 16:08:34 +0200
+Message-ID: <20260601141922.91498-7-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260601141922.91498-1-tzimmermann@suse.de>
 References: <20260601141922.91498-1-tzimmermann@suse.de>
@@ -51,7 +52,7 @@ X-Rspamd-Pre-Result: action=no action; module=replies;
 X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Spamd-Result: default: False [-4.00 / 50.00];
 	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: 5C32A67222
+X-Rspamd-Queue-Id: DFE026AE89
 X-Rspamd-Action: no action
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,93 +69,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In drm_crtc_vblank_get_vblank_timeout(), return the timestamp of the
-first visible scanline after the last vblank timeout. This is what the
-caller expects.
-
-A vblank phase starts with a vblank timeout. At this point the display
-is blanked for several scanlines. Afterwards the display is unblanked
-until the next vblank timeout occurs. The display content is only visible
-during that second part.
-
-The current implementation of drm_crtc_vblank_get_vblank_timeout()
-returns the timestamp of the last vblank timeout that started the current
-vblank phase. But the display only unblanks after 20 to 30 percent of
-the overall frame duration. The returned timestamp is therefore too early.
-
-The next vblank timeout is already known when calculating the returned
-timestamp. Instead of subtracting the duration of a full frame from the
-value, only subtract the duration of the active, visible part. The result
-is the timestamp of the first visible scanline, as expected by the caller.
-
-This bug was not introduced by the generic vblank timer. It appears that
-the get_vblank_timeout logic has always been buggy since it was first
-added in commit 3a0709928b17 ("drm/vkms: Add vblank events simulated by
-hrtimers").
+The timer expiry must be later than the current vblank timestamp. By
+testing with !ktime_compare(), the expiry time could also be before
+the vblank timestamp. Use ktime_after() to verify that the timer expires
+in the future.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/drm_vblank.c | 32 +++++++++++++++++++++++++-------
- 1 file changed, 25 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/drm_vblank.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-index 96d70c3d4522..d52df247d04e 100644
+index b5d2fb741b2d..75e2183be0ab 100644
 --- a/drivers/gpu/drm/drm_vblank.c
 +++ b/drivers/gpu/drm/drm_vblank.c
-@@ -2293,10 +2293,19 @@ EXPORT_SYMBOL(drm_crtc_vblank_cancel_timer);
-  */
- bool drm_crtc_vblank_get_vblank_timeout(struct drm_crtc *crtc, ktime_t *vblank_time)
- {
-+	struct drm_device *dev = crtc->dev;
- 	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
- 	struct drm_vblank_crtc_timer *vtimer = &vblank->vblank_timer;
-+	const struct drm_display_mode *mode;
- 	u64 cur_count;
- 	ktime_t cur_time;
-+	s64 framedur_ns;
-+	s64 activedur_ns;
-+
-+	if (drm_drv_uses_atomic_modeset(dev))
-+		mode = &vblank->hwmode;
-+	else
-+		mode = &crtc->hwmode;
+@@ -2329,7 +2329,7 @@ bool drm_crtc_vblank_get_vblank_timeout(struct drm_crtc *crtc, ktime_t *vblank_t
+ 			*vblank_time = READ_ONCE(vtimer->timer.node.expires);
+ 		} while (cur_count != drm_crtc_vblank_count_and_time(crtc, &cur_time));
  
- 	if (!READ_ONCE(vblank->enabled))
- 		return false;
-@@ -2312,17 +2321,26 @@ bool drm_crtc_vblank_get_vblank_timeout(struct drm_crtc *crtc, ktime_t *vblank_t
- 		*vblank_time = READ_ONCE(vtimer->timer.node.expires);
- 	} while (cur_count != drm_crtc_vblank_count_and_time(crtc, &cur_time));
+-		if (drm_WARN_ON(dev, !ktime_compare(*vblank_time, cur_time)))
++		if (drm_WARN_ON(dev, !ktime_after(*vblank_time, cur_time)))
+ 			return false; /* already expired */
  
--	if (drm_WARN_ON(crtc->dev, !ktime_compare(*vblank_time, cur_time)))
-+	if (drm_WARN_ON(dev, !ktime_compare(*vblank_time, cur_time)))
- 		return false; /* Already expired */
- 
-+	framedur_ns = vblank->framedur_ns;
-+
- 	/*
--	 * To prevent races we roll the hrtimer forward before we do any
--	 * interrupt processing - this is how real hw works (the interrupt
--	 * is only generated after all the vblank registers are updated)
--	 * and what the vblank core expects. Therefore we need to always
--	 * correct the timestamp by one frame.
-+	 * To prevent races we rolled the hrtimer forward before we did any
-+	 * timeout processing - this is how real hw works (the interrupt is
-+	 * only generated after all the vblank registers are updated) and what
-+	 * the vblank core expects.
-+	 *
-+	 * Therefore we always need to correct the timestamp. The returned
-+	 * time should be the time of the first active scanline after the
-+	 * previous vblank. Hence subtract the active phase's duration from
-+	 * the next expiration time.
- 	 */
--	*vblank_time = ktime_sub(*vblank_time, vtimer->interval);
-+	if (drm_WARN_ON(dev, !mode->crtc_vtotal))
-+		return false;
-+	activedur_ns = div_s64(framedur_ns * mode->crtc_vdisplay, mode->crtc_vtotal);
-+	*vblank_time = ktime_sub_ns(*vblank_time, activedur_ns);
- 
- 	return true;
- }
+ 		framedur_ns = vblank->framedur_ns;
 -- 
 2.54.0
 
