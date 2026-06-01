@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 631EDCD5BD1
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:45:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEDB2CD6E57
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:45:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5063112B56;
-	Mon,  1 Jun 2026 22:45:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 558F8113776;
+	Mon,  1 Jun 2026 22:45:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="mfbaYLu+";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="O97dHyck";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD37C112B56
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:45:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66A5B112B56
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:45:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1780353918;
- bh=xO+14mBjTOvVDX8C6FH5vurdj8sQ1RCHp2uwEvfr4jQ=;
+ s=mail; t=1780353920;
+ bh=pOLKcJluwdl4dR4SYTYCdJO0qZsDIUNN5uK3N2fcug8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=mfbaYLu+KLmyXsAr3IlTKrZ2HUvXoFHUKgokOazPBWn8qYxGhVwDJ9LXNlxwvVlYi
- 1EMZBWBBrskpV9gpLZMRSiRMkXyrn88pQia+47R1a4QJ8AAfamngC4xpr4bzwwL30o
- lfZA5qOHDkTXgrs0tuo8buNLT4baW5Ob7pBT3ga6JCRJoqMnnKQpVpIceAfUPZ/zTX
- 4nCD8GMBrWcSd+VB34CILIW0wf/FIaGICrYI60GD9YpS6cE0fFts1vW1Hg+I6L6t09
- FZUT5XrU49yMtDvMbr8pTO0VycsIwvrSkCMiN5axTTmdVCO/hh4+tH32jrnILjyO0/
- tXCsAVtTS3PBA==
+ b=O97dHyckQg7AYiBjI72hk5WdF7GPbH5OafSKUpRt5krhegCt9zBu3rdcWbiSwPned
+ eL1B13hc/kl8HAsytFrTNKo12chbjfHIUAl1xt6HORvWA6cFTcowsuDvYtlWow3IXx
+ dFBL1P+qEb4QQEIjpsC8CDkAapcAfzv2s8Nb85mUXm/pc1w4x/HyDCJwDrx5Ee6Bmz
+ KtVHzQuhTNLBVTKbzxKdbVC+z6c/HB/JwT8p/wnWAXfzFpcuvT6bKFWI2QNwl8gdeW
+ h80I0hNw9LlmqeOKR14vPimRoV3tiKwVxHUDljud0Qn2H/6z27c2XNYcfr4S72xVeg
+ zh4r9/tjJo8Xg==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 888BE17E045E;
- Tue,  2 Jun 2026 00:45:18 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 11D0917E0DE9;
+ Tue,  2 Jun 2026 00:45:20 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 02 Jun 2026 01:44:11 +0300
-Subject: [PATCH v7 11/30] drm/display: bridge_connector: Wire up HDMI 2.0
- scrambler callbacks
+Date: Tue, 02 Jun 2026 01:44:13 +0300
+Subject: [PATCH v7 13/30] drm/bridge: dw-hdmi-qp: Provide
+ .{enable|disable}_hpd() PHY ops
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-dw-hdmi-qp-scramb-v7-11-445eb54ee1ed@collabora.com>
+Message-Id: <20260602-dw-hdmi-qp-scramb-v7-13-445eb54ee1ed@collabora.com>
 References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
 In-Reply-To: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -75,92 +75,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Connect the bridge connector's .scrambler_{enable|disable} callbacks to
-the underlying bridge's .hdmi_scrambler_{enable|disable} funcs when
-DRM_BRIDGE_OP_HDMI_SCRAMBLER is advertised.
+Implement the .hpd_enable() and .hpd_disable() bridge callbacks and
+extend dw_hdmi_qp_phy_ops with corresponding hooks.
 
-This completes the bridge connector plumbing so that the SCDC
-scrambling helpers can control source-side scrambling through the
-bridge chain.
+This enables the DRM core to control when HPD interrupts are armed,
+which is needed to prevent premature interrupt delivery before the
+connector is fully initialized, and to properly quiesce HPD during
+suspend.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/display/drm_bridge_connector.c | 41 +++++++++++++++++++++++++-
- 1 file changed, 40 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 18 ++++++++++++++++++
+ include/drm/bridge/dw_hdmi_qp.h              |  2 ++
+ 2 files changed, 20 insertions(+)
 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 9d21b1b57b0d..d048ab49eade 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -555,6 +555,32 @@ static int drm_bridge_connector_write_spd_infoframe(struct drm_connector *connec
- 	return bridge->funcs->hdmi_write_spd_infoframe(bridge, buffer, len);
- }
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index b3318655ceab..3f72bea20ba4 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -1189,6 +1189,22 @@ static int dw_hdmi_qp_cec_transmit(struct drm_bridge *bridge, u8 attempts,
+ #define dw_hdmi_qp_cec_transmit NULL
+ #endif /* CONFIG_DRM_DW_HDMI_QP_CEC */
  
-+static int drm_bridge_connector_scrambler_enable(struct drm_connector *connector)
++static void dw_hdmi_qp_bridge_hpd_enable(struct drm_bridge *bridge)
 +{
-+	struct drm_bridge_connector *bridge_connector =
-+		to_drm_bridge_connector(connector);
-+	struct drm_bridge *bridge;
++	struct dw_hdmi_qp *hdmi = bridge->driver_private;
 +
-+	bridge = bridge_connector->bridge_hdmi;
-+	if (!bridge)
-+		return -EINVAL;
-+
-+	return bridge->funcs->hdmi_scrambler_enable(bridge);
++	if (hdmi->phy.ops->enable_hpd)
++		hdmi->phy.ops->enable_hpd(hdmi, hdmi->phy.data);
 +}
 +
-+static int drm_bridge_connector_scrambler_disable(struct drm_connector *connector)
++static void dw_hdmi_qp_bridge_hpd_disable(struct drm_bridge *bridge)
 +{
-+	struct drm_bridge_connector *bridge_connector =
-+		to_drm_bridge_connector(connector);
-+	struct drm_bridge *bridge;
++	struct dw_hdmi_qp *hdmi = bridge->driver_private;
 +
-+	bridge = bridge_connector->bridge_hdmi;
-+	if (!bridge)
-+		return -EINVAL;
-+
-+	return bridge->funcs->hdmi_scrambler_disable(bridge);
++	if (hdmi->phy.ops->disable_hpd)
++		hdmi->phy.ops->disable_hpd(hdmi, hdmi->phy.data);
 +}
 +
- static const struct drm_edid *
- drm_bridge_connector_read_edid(struct drm_connector *connector)
- {
-@@ -580,7 +606,7 @@ static const struct drm_connector_hdmi_funcs drm_bridge_connector_hdmi_funcs = {
- 		.clear_infoframe = drm_bridge_connector_clear_hdmi_infoframe,
- 		.write_infoframe = drm_bridge_connector_write_hdmi_infoframe,
- 	},
--	/* audio, hdr_drm and spd are set dynamically during init */
-+	/* scrambler, audio, hdr_drm and spd are set dynamically during init */
+ static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
+ 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+@@ -1196,6 +1212,8 @@ static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
+ 	.atomic_enable = dw_hdmi_qp_bridge_atomic_enable,
+ 	.atomic_disable = dw_hdmi_qp_bridge_atomic_disable,
+ 	.detect = dw_hdmi_qp_bridge_detect,
++	.hpd_enable = dw_hdmi_qp_bridge_hpd_enable,
++	.hpd_disable = dw_hdmi_qp_bridge_hpd_disable,
+ 	.edid_read = dw_hdmi_qp_bridge_edid_read,
+ 	.hdmi_tmds_char_rate_valid = dw_hdmi_qp_bridge_tmds_char_rate_valid,
+ 	.hdmi_clear_avi_infoframe = dw_hdmi_qp_bridge_clear_avi_infoframe,
+diff --git a/include/drm/bridge/dw_hdmi_qp.h b/include/drm/bridge/dw_hdmi_qp.h
+index 6ea9c561cfef..b80fceffc315 100644
+--- a/include/drm/bridge/dw_hdmi_qp.h
++++ b/include/drm/bridge/dw_hdmi_qp.h
+@@ -17,6 +17,8 @@ struct dw_hdmi_qp_phy_ops {
+ 	void (*disable)(struct dw_hdmi_qp *hdmi, void *data);
+ 	enum drm_connector_status (*read_hpd)(struct dw_hdmi_qp *hdmi, void *data);
+ 	void (*setup_hpd)(struct dw_hdmi_qp *hdmi, void *data);
++	void (*enable_hpd)(struct dw_hdmi_qp *hdmi, void *data);
++	void (*disable_hpd)(struct dw_hdmi_qp *hdmi, void *data);
  };
  
- static const struct drm_connector_infoframe_funcs drm_bridge_connector_hdmi_audio_infoframe = {
-@@ -886,6 +912,11 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 			     !bridge->funcs->hdmi_clear_spd_infoframe))
- 				return ERR_PTR(-EINVAL);
- 
-+			if (bridge->ops & DRM_BRIDGE_OP_HDMI_SCRAMBLER &&
-+			    (!bridge->funcs->hdmi_scrambler_enable ||
-+			     !bridge->funcs->hdmi_scrambler_disable))
-+				return ERR_PTR(-EINVAL);
-+
- 			bridge_connector->bridge_hdmi = drm_bridge_get(bridge);
- 
- 			if (bridge->supported_formats)
-@@ -990,6 +1021,14 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 			bridge_connector->hdmi_funcs.spd =
- 				drm_bridge_connector_hdmi_spd_infoframe;
- 
-+		if (bridge_connector->bridge_hdmi->ops & DRM_BRIDGE_OP_HDMI_SCRAMBLER) {
-+			bridge_connector->hdmi_funcs.scrambler_enable =
-+				drm_bridge_connector_scrambler_enable;
-+			bridge_connector->hdmi_funcs.scrambler_disable =
-+				drm_bridge_connector_scrambler_disable;
-+			connector->hdmi.scrambler_supported = true;
-+		}
-+
- 		ret = drmm_connector_hdmi_init(drm, connector,
- 					       bridge_connector->bridge_hdmi->vendor,
- 					       bridge_connector->bridge_hdmi->product,
+ struct dw_hdmi_qp_plat_data {
 
 -- 
 2.54.0
