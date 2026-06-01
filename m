@@ -4,82 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E56F2CD5BD1
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 14:32:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 979EACD5BD1
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 14:32:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C0F7113404;
-	Mon,  1 Jun 2026 14:32:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0687F113405;
+	Mon,  1 Jun 2026 14:32:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="q5it/+/7";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="QdX5TE/r";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88AC3113403
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 14:32:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=jau6SvNHV7jaHSdexNe2NCHP2Edy4J8TnxN8KquIrso=; b=q5it/+/7CptFKqMF37w5PdPLCm
- elNsTscJsJIoKLffyYebL5DutuE29W1GpDfWJtE84UkHPpufINx2ZePm0MjElS2BiKufox1dB+M5m
- d3f6FGXJc2jQRBFvt23gLI0x6oAMuwW/j7R0HJOmgUy2O71GV6ASVikcZzP/5fUB0Anc+oFOlKAbb
- +i3Q7zKSPcOEAmdQFfIaqDuWGAqpuGPa1NzGMRQXQrqaAj0IwRL147dytgqgjPSy4qD5hYJqxVCnF
- IALyIA/q54aKYXlljLckbNU/CZfw0+paNEwUAuOjucvubQlX8tqxYGR+kuxAbv5sELY9NlTmIWSjv
- 3i4W07lA==;
-Received: from [189.7.87.67] (helo=[192.168.0.2])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wU3gf-00B3Xa-AN; Mon, 01 Jun 2026 16:32:17 +0200
-Message-ID: <3aa95103-320e-4366-9e85-270502264d3a@igalia.com>
-Date: Mon, 1 Jun 2026 11:32:09 -0300
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
+ [209.85.222.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4988113405
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 14:32:53 +0000 (UTC)
+Received: by mail-qk1-f169.google.com with SMTP id
+ af79cd13be357-9156b74006aso44570185a.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 07:32:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1780324373; x=1780929173; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=mi2AxBnDBuiwVVwwXIXlKf9rcXdvhFLnG5wAFAlVNdc=;
+ b=QdX5TE/r2MoZ6r/xCrEGik08wHCB7czZ8JpO+P5r8DRvktYW+3pohQShTNjxlgxoY3
+ T2JtjuTZoq31L2REX+LZT0bYjmxO9nql9qz47bY3vJ3bPiDe8z+NmhJdTRl8hD5+aAp8
+ L2PmNE2r/FGWxucoT7zrCIjyapUuzCWrXH0SarjkRQKeAesrI5Xrn4tZECLZaGWM8Okh
+ WZrknNX7sBXD3vTrACHvrtXbjWuRrIBRYLDv4um7ilSXsbmOJHKhZ8vbkZUqprhpxTrW
+ nGPf969IIMek9a2yu56kLPABpdIdIkfvBM5T8Y9q4PSyNYpu7hIk9/Vxsv4JXC25DWlY
+ 67gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780324373; x=1780929173;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=mi2AxBnDBuiwVVwwXIXlKf9rcXdvhFLnG5wAFAlVNdc=;
+ b=V5J8O/NRikfu/5WFWiqK9PJHJVX4QMpVMQ91rWdSUsaCtUiZhAvQ/UKhFHk0jJWQhR
+ JG9H9w2no4F/OSJ8cY/WdxcG0uBQqoOk5GKI3+qvznVyNyioZ6yka4q4ri/3KNqyGyCK
+ 3FSo7eVnHWj7ngV+9yoq0iMXysO2AXDn9QTfNCpny+Ij2KFDmOJ45i1t/qHQuFAK7oiJ
+ ZJJI7Hxuli4atJYIcbsboTjSvB7ZP7VW90t3eBmVQO8NAq8Itwe5zhLxyu/F5vQDG533
+ 3crfZHA+z4qrbKylI2J96RVzxtrNotPaAYCEeiwd8ol8XHUaTW0I9yIfyi/8CTVfGqkV
+ fp6w==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8L3T3wZeFvqNqDJsEOkTgSmqQ9cx29t7znLf5VF9l6Hw2KIdQj48GciN58aZ2kblO1B1TTwr7ceqw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzBtJLVdDDouQdYmyEQkkp6razXCQOiJzdJjnlLxno6DQcSQDUA
+ mpyP1PekzW+yAJP2RhBMxvmPYtLt8OOiIti6SYpjrpuJ8x+7xanOIQ2oAeD2iObyHrA=
+X-Gm-Gg: Acq92OEhS0GO7F4HQxBjBxRC8bKXKYkt3FyTPP66JeNgYfn0UVgcnQvM9AGvT4IabTn
+ Z0zMU4e8siEwv/xTnuruP7r61Sf1jKqW5B7l6hkk6cntT3Eq3EqP0Jipq8bnOWMzmZKnbdSSt+H
+ p14EZajxXSJj/yPK2rowMbx1dUm7SinQP0s51v9n8yc+ej82ayAXGa59EpTHPnwykUdtIwN7SiS
+ cY8fafurr5wWWveBjG08AlAcIrjIBAaCT2cvLv/WCmq6MS/GQ0tZOhq0l06crfuRA4svYwxlZFf
+ vx5qX09mptTu+FnuWU0Er6F5hgCw5E75yiC9VtGAV2aqZeSq7SkQQNVmQElDTT5zHNVXSdE6xEr
+ Lk4VhlB9j9qcW7Ia22K+ssh0zyvBbTNQPS+U9VQsvOfWggNgaTiD3SPI1klJLCouYkY/yYDBw05
+ 1B8jKx76/Yu8e8AILox8+edODPRK9e0jlkfzuVIWiad/NaE75V2SbcwL3qNJ99MhIMM+vdBO8Zz
+ yVTAbk6S5AOf3mq
+X-Received: by 2002:a05:620a:701b:b0:915:4213:eb98 with SMTP id
+ af79cd13be357-91542140a21mr1632452385a.56.1780324372641; 
+ Mon, 01 Jun 2026 07:32:52 -0700 (PDT)
+Received: from ziepe.ca
+ (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
+ [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-91570271853sm113463685a.24.2026.06.01.07.32.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Jun 2026 07:32:51 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1wU3hC-00000001n2t-2ubv;
+ Mon, 01 Jun 2026 11:32:50 -0300
+Date: Mon, 1 Jun 2026 11:32:50 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "guanghuifeng@linux.alibaba.com" <guanghuifeng@linux.alibaba.com>
+Cc: boris.brezillon@collabora.com, robh@kernel.org, steven.price@arm.com,
+ adrian.larumbe@collabora.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ liviu.dudau@arm.com, joro@8bytes.org, will@kernel.org,
+ robin.murphy@arm.com, alex@shazbot.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux.dev, kvm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, kevin.tian@intel.com,
+ baolu.lu@linux.intel.com, suravee.suthikulpanit@amd.com,
+ dwmw2@infradead.org, xlpang@linux.alibaba.com,
+ oliver.yang@linux.alibaba.com, shiyu.zsq@linux.alibaba.com,
+ wei.guo.simon@linux.alibaba.com,
+ alikernel-developer <alikernel-developer@linux.alibaba.com>
+Subject: Re: [PATCH 3/9] iommu/generic_pt: implement iova_to_phys_length
+Message-ID: <20260601143250.GA2487554@ziepe.ca>
+References: <20260529115116.GR2487554@ziepe.ca>
+ <20260531093637.3893199-1-guanghuifeng@linux.alibaba.com>
+ <20260531093637.3893199-4-guanghuifeng@linux.alibaba.com>
+ <20260531235421.GW2487554@ziepe.ca>
+ <fa924b86-1ca9-4819-8330-0d5f6ede8923@linux.alibaba.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 69/76] drm/vc4: dsi: Switch to atomic_create_state
-To: Maxime Ripard <mripard@kernel.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-References: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
- <20260530-drm-no-more-bridge-reset-v1-69-875d828d31bc@kernel.org>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20260530-drm-no-more-bridge-reset-v1-69-875d828d31bc@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fa924b86-1ca9-4819-8330-0d5f6ede8923@linux.alibaba.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,48 +108,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maxime,
+On Mon, Jun 01, 2026 at 10:24:14PM +0800, guanghuifeng@linux.alibaba.com wrote:
+ 
+>    Therefore, currently only the PTE mapping size of the iova is returned.
+>    The current commit has a large number of changes; this issue will be
+>    fixed  in a subsequent series patch.
 
-On 30/05/26 11:00, Maxime Ripard wrote:
-> The drm_bridge_funcs.atomic_reset callback and its
-> drm_atomic_helper_bridge_reset() helper are deprecated.
-> 
-> Switch to the atomic_create_state callback and its
-> drm_atomic_helper_bridge_create_state() counterpart.
-> 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+No, do not introduce the wrong API to start. The iommupt version
+should be easy enough to do this.
 
-Acked-by: Maíra Canal <mcanal@igalia.com>
-
-Best regards,
-- Maíra
-
-> 
-> ---
-> To: Maxime Ripard <mripard@kernel.org>
-> To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> Cc: "Maíra Canal" <mcanal@igalia.com>
-> Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-> ---
->   drivers/gpu/drm/vc4/vc4_dsi.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-> index fc76018b044c..0148f2befed1 100644
-> --- a/drivers/gpu/drm/vc4/vc4_dsi.c
-> +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-> @@ -1409,11 +1409,11 @@ static const struct mipi_dsi_host_ops vc4_dsi_host_ops = {
->   };
->   
->   static const struct drm_bridge_funcs vc4_dsi_bridge_funcs = {
->   	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
->   	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-> -	.atomic_reset = drm_atomic_helper_bridge_reset,
-> +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
->   	.atomic_pre_enable = vc4_dsi_bridge_pre_enable,
->   	.atomic_enable = vc4_dsi_bridge_enable,
->   	.atomic_disable = vc4_dsi_bridge_disable,
->   	.atomic_post_disable = vc4_dsi_bridge_post_disable,
->   	.attach = vc4_dsi_bridge_attach,
-> 
-
+Jason
