@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80A58CD6E55
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:00:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A06ADCD6E55
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:09:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5AB810E9FD;
-	Mon,  1 Jun 2026 22:00:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BADDB10E9F6;
+	Mon,  1 Jun 2026 22:09:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="JifaOx9K";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="BUIQ3fbn";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC65510E9F1
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:00:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Reply-To:To:
- From:References:Subject:MIME-Version:Date:Message-ID:Sender:Cc:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=v5ztsX8Qt/KGgT1kKuIJVZdwn8mIAqSwZwzeBf5Dwfk=; b=JifaOx9KP07VCcxqERRHtM3x/U
- Mq1PztbeKYhGktyr7F4S5FEvKuZad+tmjgKKBttcmygmCrhcXsq2xRKoDc3uD0ePw3dVnygSIeC+Z
- WtGfi7spjpRP/CTFq8n8QrHpn84LHi6L7Mw9UL9+EyClo2tBWcONMBBHpGj4Sjf86XowDZl8D+rpP
- N+XZNtikU/RMKuR0U0sPbai3U/+i7seOWDUWdLtOh/bm7xLkvk9aBUcbbyiCGuyZwztvyeVkeKSdH
- dWWqfaVGcCYDatwv8TaAoUxM10zRy1lYpEHezVVtPF71fb9VhEMDPyeeD6XoNT2ptsm/KqMaFYnOv
- kYsngKxg==;
-Received: from [189.7.87.67] (helo=[192.168.0.2])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wUAgU-00BQ99-3M; Tue, 02 Jun 2026 00:00:34 +0200
-Message-ID: <eb4cb238-05aa-4998-a098-516de49e8136@igalia.com>
-Date: Mon, 1 Jun 2026 19:00:30 -0300
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5744D10E9F6
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:09:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1780351738; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=DFTvSjlq6jnIXNf0M9KS2sJ/lMP29aQTGqrIezRk3x0RGNMbLqF03kl/DA4yD8aJsNSkH1COokzAXzNNXe71ZJVxyHB+AGlcVdEch2FxEhpUeOqe1CnU/Uz2dPd/FMfYt3l9Wpriicp8dRyO/R2fOQWzHTNznefdxS8HMEtTTmo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1780351738;
+ h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=1lK1yNZdrKT8RuPFT6vih0wWSf1jo44LoNBqX+KfL0M=; 
+ b=KH/4V1Ldup46P6gqKWWlb8LM0fPlt2BDHkk813kn6x7F7A0vc44ppp5HUCFuF3LbFwGglUkfI4MpOkIZ/n2Wfel8CIQekOrw42gr5P+zy8du1QWfeuQ5qZ9VzWVM03b4iexSdd8wfqde7urVU+0ks5FHGqkiROvoeDcVyXXlcI0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+ dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780351737; 
+ s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+ bh=1lK1yNZdrKT8RuPFT6vih0wWSf1jo44LoNBqX+KfL0M=;
+ b=BUIQ3fbngH6E2GT5G7rpUSBewxAJyxIl+lR3yFYwvtS2tqoPkRt7+/Muq5CFSNaL
+ mV6NLFOKmwKjS6jyoO/Wjw5dePkldz5YHfYGq0wbVLSyK6vPS9caCalpe7Tp2HCHLWC
+ sX1JY7n/mW01G2j7r4weTdsWLFO2IWm3ZmbWPssc=
+Received: by mx.zohomail.com with SMTPS id 1780351733835755.6229336935343;
+ Mon, 1 Jun 2026 15:08:53 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+ id D5550183854; Tue, 02 Jun 2026 00:08:46 +0200 (CEST)
+Date: Tue, 2 Jun 2026 00:08:46 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Chaoyi Chen <kernel@airkyi.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Vinod Koul <vkoul@kernel.org>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-phy@lists.infradead.org, Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Subject: Re: [PATCH 1/5] drm/bridge: Implement generic USB Type-C DP HPD bridge
+Message-ID: <ah3-auKugGCVojOp@venus>
+References: <20260521032854.103-1-kernel@airkyi.com>
+ <20260521032854.103-2-kernel@airkyi.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Fwd: [PATCH 0/4] drm/v3d: Fix RPi 4 system hangs from stale cache and
- MMU state
-References: <31fc0cbbed1e844f179d87ab407511db8b4d8145.camel@igalia.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-To: DRI Development <dri-devel@lists.freedesktop.org>,
- Iago Toral <itoral@igalia.com>, Melissa Wen <mwen@igalia.com>
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <31fc0cbbed1e844f179d87ab407511db8b4d8145.camel@igalia.com>
-X-Forwarded-Message-Id: <31fc0cbbed1e844f179d87ab407511db8b4d8145.camel@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="2wjtyeyqji5ix4fa"
+Content-Disposition: inline
+In-Reply-To: <20260521032854.103-2-kernel@airkyi.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.2.1.5.2/280.325.56
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,93 +83,187 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: 20260530-v3d-fix-rpi4-freezes-v1-0-c2c8307da6ce@igalia.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thanks, Iago!
 
-- PATCH 1 was applied to drm-misc-fixes.
-- PATCH 2 and 3 were applied to drm-misc-next-fixes.
-- PATCH 4 was applied to drm-misc-next.
+--2wjtyeyqji5ix4fa
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/5] drm/bridge: Implement generic USB Type-C DP HPD
+ bridge
+MIME-Version: 1.0
 
-Best regards,
-- Maíra
+Hi,
 
--------- Forwarded Message --------
-Subject: Re: [PATCH 0/4] drm/v3d: Fix RPi 4 system hangs from stale 
-cache and MMU state
-Date: Mon, 01 Jun 2026 11:51:52 +0200
-From: Iago Toral <itoral@igalia.com>
-To: Maíra Canal <mcanal@igalia.com>
-
-Thanks Maíra:
-
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
-
-Iago
-
-El sáb, 30-05-2026 a las 15:37 -0300, Maíra Canal escribió:
-> Some users have reported hard system hangs on the Raspberry Pi 4 (V3D
-> 4.2)
-> under GPU load [1][2][3]. Investigation had traced these to V3D
-> caches and
-> MMU being left in an inconsistent state across PM transitions. This
-> series
-> addresses three distinct issues in the cache and MMU maintenance:
-> 
->   1. PATCH 1: Addresses an issue on pre-V3D 7.1 hardware, in which
->      starting a clean while an L2T flush is still pending can clobber
-> bits
->      in L2TCACTL and leave the caches inconsistent. This issue
-> existed
->      before the runtime PM series.
-> 
->   2. PATCH 2: Fixes the MMU TLB/cache flush in
-> v3d_mmu_set_page_table()
->      being silently skipped during runtime resume. Directly addresses
->      the system hangs reported by the users.
-> 
->   3. PATCH 3: Cleans the V3D caches on runtime suspend, so all dirty
-> lines
->      are written back to memory before the power domain is shut down.
->      Directly addresses the error `v3d fec00000.v3d: MMU error from
->      client L2T (7) at 0xff877600, pte invalid` reported during the
->      hangs.
-> 
-> Together these restore correct cache/MMU coherency around runtime PM,
-> addressing the reported hangs. Moreover, with this fixes, it was
-> possible
-> to reduce the autosuspend delay, which was increased as the shorter
-> delays
-> used to cause more frequent runtime suspend/resume cycles, which
-> exposed
-> the cache and MMU coherency bugs as random GPU hangs. With those
-> fixed,
-> we can reduce the autosuspend delay to a more reasonable value.
-> 
-> [1] https://github.com/raspberrypi/linux/issues/7381
-> [2] https://github.com/raspberrypi/linux/issues/7396
-> [3] https://github.com/raspberrypi/linux/issues/7397
-> 
-> Best regards,
-> - Maíra
-> 
+On Thu, May 21, 2026 at 11:28:50AM +0800, Chaoyi Chen wrote:
+> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+>=20
+> The HPD function of Type-C DP is implemented through
+> drm_connector_oob_hotplug_event(). For embedded DP, it is required
+> that the DRM connector fwnode corresponds to the Type-C port fwnode.
+>=20
+> To describe the relationship between the DP controller and the Type-C
+> port device, we usually using drm_bridge to build a bridge chain.
+>=20
+> Now several USB-C controller drivers have already implemented the DP
+> HPD bridge function provided by aux-hpd-bridge.c, it will build a DP
+> HPD bridge on USB-C connector port device.
+>=20
+> But this requires the USB-C controller driver to manually register the
+> HPD bridge. If the driver does not implement this feature, the bridge
+> will not be create.
+>=20
+> So this patch implements a generic DP HPD bridge based on
+> aux-hpd-bridge.c. It will monitor Type-C bus events, and when a
+> Type-C port device containing the DP svid is registered, it will
+> create an HPD bridge for it without the need for the USB-C controller
+> driver to implement it.
+>=20
+> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 > ---
-> Maíra Canal (4):
->       drm/v3d: Wait for pending L2T flush before cleaning caches
->       drm/v3d: Flush MMU TLB and cache during runtime resume
->       drm/v3d: Clean caches before runtime suspend
->       drm/v3d: Reduce PM runtime autosuspend delay
-> 
->  drivers/gpu/drm/v3d/v3d_drv.c   |  2 +-
->  drivers/gpu/drm/v3d/v3d_gem.c   |  8 ++++++++
->  drivers/gpu/drm/v3d/v3d_mmu.c   | 31 ++++++++++++++++++++++---------
->  drivers/gpu/drm/v3d/v3d_power.c |  2 ++
->  4 files changed, 33 insertions(+), 10 deletions(-)
-> ---
-> base-commit: 61de054a772a1feda6364931ab1baf9038abf1c8
-> change-id: 20260528-v3d-fix-rpi4-freezes-8bae519d04ce
-> 
-> 
+>  drivers/gpu/drm/bridge/Kconfig                | 10 ++++
+>  drivers/gpu/drm/bridge/Makefile               |  1 +
+>  .../gpu/drm/bridge/aux-hpd-typec-dp-bridge.c  | 49 +++++++++++++++++++
 
+Doesn't this require removing the manual registration of the HPD
+auxillary bridge in the USB-C controller drivers to avoid that
+two bridges are registered for them?
+
+>  3 files changed, 60 insertions(+)
+>  create mode 100644 drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
+>=20
+> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kcon=
+fig
+> index c3209b0f4678..d92e93875793 100644
+> --- a/drivers/gpu/drm/bridge/Kconfig
+> +++ b/drivers/gpu/drm/bridge/Kconfig
+> @@ -30,6 +30,16 @@ config DRM_AUX_HPD_BRIDGE
+>  	  Simple bridge that terminates the bridge chain and provides HPD
+>  	  support.
+> =20
+> +if DRM_AUX_HPD_BRIDGE
+> +config DRM_AUX_HPD_TYPEC_BRIDGE
+> +	tristate
+> +	depends on TYPEC || !TYPEC
+> +	default TYPEC
+> +	help
+> +	  Simple bridge that terminates the bridge chain and provides HPD
+> +	  support. It build bridge on each USB-C connector device node.
+> +endif
+> +
+>  menu "Display Interface Bridges"
+>  	depends on DRM && DRM_BRIDGE
+> =20
+> diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Mak=
+efile
+> index beab5b695a6e..c4761526ba0a 100644
+> --- a/drivers/gpu/drm/bridge/Makefile
+> +++ b/drivers/gpu/drm/bridge/Makefile
+> @@ -1,6 +1,7 @@
+>  # SPDX-License-Identifier: GPL-2.0
+>  obj-$(CONFIG_DRM_AUX_BRIDGE) +=3D aux-bridge.o
+>  obj-$(CONFIG_DRM_AUX_HPD_BRIDGE) +=3D aux-hpd-bridge.o
+> +obj-$(CONFIG_DRM_AUX_HPD_TYPEC_BRIDGE) +=3D aux-hpd-typec-dp-bridge.o
+>  obj-$(CONFIG_DRM_CHIPONE_ICN6211) +=3D chipone-icn6211.o
+>  obj-$(CONFIG_DRM_CHRONTEL_CH7033) +=3D chrontel-ch7033.o
+>  obj-$(CONFIG_DRM_CROS_EC_ANX7688) +=3D cros-ec-anx7688.o
+> diff --git a/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c b/drivers/g=
+pu/drm/bridge/aux-hpd-typec-dp-bridge.c
+> new file mode 100644
+> index 000000000000..d915e0fb0668
+> --- /dev/null
+> +++ b/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
+> @@ -0,0 +1,49 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +#include <linux/of.h>
+> +#include <linux/usb/typec_altmode.h>
+> +#include <linux/usb/typec_dp.h>
+> +
+> +#include <drm/bridge/aux-bridge.h>
+> +
+> +static int drm_typec_bus_event(struct notifier_block *nb,
+> +			       unsigned long action, void *data)
+> +{
+> +	struct device *dev =3D (struct device *)data;
+> +	struct typec_altmode *alt =3D to_typec_altmode(dev);
+> +
+> +	if (action !=3D BUS_NOTIFY_ADD_DEVICE)
+> +		goto done;
+> +
+> +	/*
+> +	 * alt->dev.parent->parent : USB-C controller device
+> +	 * alt->dev.parent         : USB-C connector device
+> +	 */
+> +	if (is_typec_port_altmode(&alt->dev) && alt->svid =3D=3D USB_TYPEC_DP_S=
+ID)
+> +		drm_dp_hpd_bridge_register(alt->dev.parent->parent,
+> +					   to_of_node(alt->dev.parent->fwnode));
+
+IIUIC this is called when the USB-C controller spawns a sub-device
+for the DP AltMode and then registers a HPD bridge to the USB-C
+controller itself. Wouldn't that register new HPD bridges on every
+USB-C replug?
+
+Also doesn't this result in the bridge not being registered when
+nothing is plugged and thus the DRM pipeline not being able to bind
+properly?
+
+Greetings,
+
+-- Sebastian
+
+> +
+> +done:
+> +	return NOTIFY_OK;
+> +}
+> +
+> +static struct notifier_block drm_typec_event_nb =3D {
+> +	.notifier_call =3D drm_typec_bus_event,
+> +};
+> +
+> +static void drm_aux_hpd_typec_dp_bridge_module_exit(void)
+> +{
+> +	bus_unregister_notifier(&typec_bus, &drm_typec_event_nb);
+> +}
+> +
+> +static int __init drm_aux_hpd_typec_dp_bridge_module_init(void)
+> +{
+> +	bus_register_notifier(&typec_bus, &drm_typec_event_nb);
+> +
+> +	return 0;
+> +}
+> +
+> +module_init(drm_aux_hpd_typec_dp_bridge_module_init);
+> +module_exit(drm_aux_hpd_typec_dp_bridge_module_exit);
+> +
+> +MODULE_DESCRIPTION("DRM TYPEC DP HPD BRIDGE");
+> +MODULE_LICENSE("GPL");
+> --=20
+> 2.53.0
+>=20
+>=20
+
+--2wjtyeyqji5ix4fa
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmoeAusACgkQ2O7X88g7
++poFDhAAqmoRFuBnWXN9ThmBhdcTbKmP9xRiRbmFvKqyJCJGzQ3m9vJWXeRgnm2p
+xp0Pd6zOCm4m4snw4PElFYmAJACJZbKD19oPGRUy7ClzIHqyQUmh/DweeHexRcwb
+iS7XC9qxSrCmkWu2/CVYnIVDb+YeC7/aMwjMG5nn6PL3i0ftBqiMGM2TFbka3O+1
+THzO03GrjEl3f2mNJm2HYI//Lsl27+WXebGweEhyGtZIoI+BGi3uCMLq7afmeKc+
+BhTXSJAjHQDo76RglJLBiOi1PfeLQT8SLxu6cfqTIrjVnBoy7iPTtopTpuQK5a8g
+nVh8C7wuSwHhO0FAp2kt6JeFYTzLRQj6YCdMdzIS8fw9vc9dSKgwFhTk6wDbDzds
+Z6qmigIPYvawBo3cWy20RHQynxXchqaKbSqT9IJ3QxdHgGiNdPc5AzrS3V/Oyi/s
+q4QWtaqoLN1qCTGVNOnqJ+1vQhzBuLZCZJt/g8nlJMYSVUe0RYGXRUjOgK9f1B97
+Vc1myj5dNB1u5EwcRhcDopxmw6S95GqAPZydo9yduYUIj2Uu5adlFGDZiaJMoZvz
+w/51Wmp/n+azkiSyBhjPLr9ieZD/WKuUpbAwzeLv/B9cL+L2i3n1PtAwwj/W3Tgx
+VP8/olbfezC3hFV6Wwzap+LPLW91JARUpjYwZuptpDcuDDfsVho=
+=0qDd
+-----END PGP SIGNATURE-----
+
+--2wjtyeyqji5ix4fa--
