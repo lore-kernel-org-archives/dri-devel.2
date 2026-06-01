@@ -4,65 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E392CD6E4C
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 06:22:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EFA0CD5BD1
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 06:39:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F097112E25;
-	Mon,  1 Jun 2026 06:22:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6901B112E49;
+	Mon,  1 Jun 2026 06:39:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VPIpSBg9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="deU2ejyR";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B51DB112E25;
- Mon,  1 Jun 2026 06:22:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780294962; x=1811830962;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=Sx5zVba1AnX22ZdgFk3iq6VA/32aXNUgrcVM0sKLbKs=;
- b=VPIpSBg90V/r1SiKzRqr/QyzvJGCV0BWnDqKP29EdVpHoC0RQ1M9sZOd
- 3EvF6QX+y9LwRCrckO4qBQeGEPysnF2y5FIs46W8QpPWycYnhqH2fbQq2
- H2CKfvT/uXPwnVLef1M62DzBjhLT31tPFwxp/KdQsqxT0YGtEixF6QI0F
- 9xlsoVlXxO6r5nK3bEwOqINIhamf7ZqPbz5XA+MLnGPMZnfrguYjLQJPi
- Kr3Bw13a44C7fpYmDr5KVp+pUa60EXh9n5Y7GBLMvgYJ2h84e11vhnvS2
- 8OaTBB2pqersuNi2Z6+ZqIoqWSfQcUGDQGvyln/56OLX5eQjXVvLrJSsC Q==;
-X-CSE-ConnectionGUID: KIHSqCX6T2KUhqKsCteUtg==
-X-CSE-MsgGUID: Tz2SaB/jRr6Y8GqpcEMNYw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11803"; a="103715407"
-X-IronPort-AV: E=Sophos;i="6.24,180,1774335600"; d="scan'208";a="103715407"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2026 23:22:41 -0700
-X-CSE-ConnectionGUID: ufpCYVqRRF2F1Oh/RIvP4A==
-X-CSE-MsgGUID: npbwBp4JQJiUwauMNi5VfA==
-X-ExtLoop1: 1
-Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2026 23:22:36 -0700
-Date: Mon, 1 Jun 2026 08:22:33 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: Riana Tauro <riana.tauro@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- netdev@vger.kernel.org, aravind.iddamsetty@linux.intel.com,
- anshuman.gupta@intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, kuba@kernel.org,
- simona.vetter@ffwll.ch, airlied@gmail.com, pratik.bari@intel.com,
- joshua.santosh.ranjan@intel.com, ashwin.kumar.kulkarni@intel.com,
- shubham.kumar@intel.com, ravi.kishore.koppuravuri@intel.com,
- maarten.lankhorst@linux.intel.com, mallesh.koujalagi@intel.com,
- soham.purkait@intel.com, Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- "David S. Miller" <davem@davemloft.net>,
- Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>
-Subject: Re: [PATCH 1/2] drm/drm_ras: Add drm_ras netlink error event
-Message-ID: <ah0lKbnM9CD3JQoG@black.igk.intel.com>
-References: <20260518112048.1746280-4-riana.tauro@intel.com>
- <20260518112048.1746280-5-riana.tauro@intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A4D6112E49;
+ Mon,  1 Jun 2026 06:39:15 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C506F60018;
+ Mon,  1 Jun 2026 06:39:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C03E81F00893;
+ Mon,  1 Jun 2026 06:39:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780295954;
+ bh=rKk6j/n9sj1IniX/7VKjNeDlTH/D2W3IN/BVvbihauI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=deU2ejyRoOMJVQywPOlLu1PqH70E+zWfsku4xW3ejYZB8yKEwCBukyd+rzzgKkdmf
+ vGfMeLir+q2+YLlqYJ/AzObbKzdRw866F6HyGjCNfk4XHBFW0DBz7SfQREAKIrqTih
+ eBi6cugoUG+CYfTUshTd0CccN+PQjgSzwSv7queVBc6p52Wolbj/6fOndd0MpYLxG2
+ cWd4oZ+vbxMMcHUxBTZyTjrMsQm3x2s3VngOun20ayrnEQkV5sF8YIYLuI3Ny72DXa
+ BZJwi4+K5b9H+0C3rpQ6FfqPHiUwR1FUO2dIJha1fHRhWnIHL6s3QX/hRpXpWMsXxA
+ Afp4/cf9Y5iIg==
+Message-ID: <5f3ba603-a6ad-4cf2-9a54-aebc10273c59@kernel.org>
+Date: Mon, 1 Jun 2026 15:39:06 +0900
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260518112048.1746280-5-riana.tauro@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/slab: improve kmem_cache_alloc_bulk
+To: Christoph Hellwig <hch@lst.de>, "Vlastimil Babka (SUSE)"
+ <vbabka@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Mark Brown
+ <broonie@kernel.org>, Hao Li <hao.li@linux.dev>,
+ Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Jesper Dangaard Brouer <hawk@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, io-uring@vger.kernel.org,
+ kasan-dev@googlegroups.com, bpf@vger.kernel.org, netdev@vger.kernel.org,
+ Alexander Lobakin <aleksander.lobakin@intel.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>
+References: <20260528093437.2519248-1-hch@lst.de>
+ <20260528093437.2519248-2-hch@lst.de>
+ <5f7f90d8-cb32-4ffb-8f1c-0722aafbe869@kernel.org>
+ <20260529135045.GA10647@lst.de>
+Content-Language: en-US
+From: Harry Yoo <harry@kernel.org>
+In-Reply-To: <20260529135045.GA10647@lst.de>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------HMU1xMsen67VgPzLuGJEEdMK"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,357 +72,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 18, 2026 at 04:50:50PM +0530, Riana Tauro wrote:
-> Define a new netlink event 'error-event' and a new multicast group
-> 'error-notify' in drm_ras. Each event contains device name, node and
-> error information to identify the error triggering the event.
-> 
-> Add drm_ras_nl_error_event() to trigger an event from the driver.
-> Userspace must subscribe to 'error-notify' to receive 'error-event'
-> notifications.
-> 
-> Usage:
-> 
->     $ sudo ./tools/net/ynl/pyynl/cli.py --family drm_ras \
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------HMU1xMsen67VgPzLuGJEEdMK
+Content-Type: multipart/mixed; boundary="------------ub6P4aBhniaWwf9dwX4fSUIh";
+ protected-headers="v1"
+From: Harry Yoo <harry@kernel.org>
+To: Christoph Hellwig <hch@lst.de>, "Vlastimil Babka (SUSE)"
+ <vbabka@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Mark Brown
+ <broonie@kernel.org>, Hao Li <hao.li@linux.dev>,
+ Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Jesper Dangaard Brouer <hawk@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, io-uring@vger.kernel.org,
+ kasan-dev@googlegroups.com, bpf@vger.kernel.org, netdev@vger.kernel.org,
+ Alexander Lobakin <aleksander.lobakin@intel.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>
+Message-ID: <5f3ba603-a6ad-4cf2-9a54-aebc10273c59@kernel.org>
+Subject: Re: [PATCH] mm/slab: improve kmem_cache_alloc_bulk
+References: <20260528093437.2519248-1-hch@lst.de>
+ <20260528093437.2519248-2-hch@lst.de>
+ <5f7f90d8-cb32-4ffb-8f1c-0722aafbe869@kernel.org>
+ <20260529135045.GA10647@lst.de>
+In-Reply-To: <20260529135045.GA10647@lst.de>
 
-Nit: Make the leading space consistent with other patches.
+--------------ub6P4aBhniaWwf9dwX4fSUIh
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
->       --subscribe error-notify
-> 
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Cc: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
-> Cc: Lijo Lazar <lijo.lazar@amd.com>
-> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-> Cc: David S. Miller <davem@davemloft.net>
-> Cc: Paolo Abeni <pabeni@redhat.com>
-> Cc: Eric Dumazet <edumazet@google.com>
-> Signed-off-by: Riana Tauro <riana.tauro@intel.com>
-> ---
->  Documentation/gpu/drm-ras.rst            | 21 ++++++
->  Documentation/netlink/specs/drm_ras.yaml | 50 ++++++++++++++
->  drivers/gpu/drm/drm_ras.c                | 86 ++++++++++++++++++++++++
->  drivers/gpu/drm/drm_ras_nl.c             |  6 ++
->  drivers/gpu/drm/drm_ras_nl.h             |  4 ++
->  include/drm/drm_ras.h                    |  5 ++
->  include/uapi/drm/drm_ras.h               | 15 +++++
->  7 files changed, 187 insertions(+)
-> 
-> diff --git a/Documentation/gpu/drm-ras.rst b/Documentation/gpu/drm-ras.rst
-> index 83c21853b74b..5a96dde75539 100644
-> --- a/Documentation/gpu/drm-ras.rst
-> +++ b/Documentation/gpu/drm-ras.rst
-> @@ -56,6 +56,7 @@ User space tools can:
->    ``node-id`` and ``error-id`` as parameters.
->  * Clear specific error counters with the ``clear-error-counter`` command, using both
->    ``node-id`` and ``error-id`` as parameters.
-> +* Subscribe to the ``error-notify`` multicast group to receive ``error-event`` notifications.
->  
->  YAML-based Interface
->  --------------------
-> @@ -111,3 +112,23 @@ Example: Clear an error counter for a given node
->  
->      sudo ynl --family drm_ras --do clear-error-counter --json '{"node-id":0, "error-id":1}'
->      None
-> +
-> +Example: Subscribe to ``error-notify`` multicast group
-> +
-> +.. code-block:: bash
-> +
-> +    sudo ./tools/net/ynl/pyynl/cli.py --family drm_ras --output-json --subscribe error-notify
 
-So ynl can't do this? If yes, make it consistent with other commands
-(and also in commit message). If no, please document it.
 
-> +
-> +.. code-block:: json
-> +
-> +    {
-> +        "name": "error-event",
-> +        "msg": {
-> +            "device-name": "0000:03:00.0",
-> +            "node-id": 1,
-> +            "node-name": "uncorrectable-errors",
-> +            "error-id": 1,
-> +            "error-name": "error_name1",
-> +            "error-value": 1
-> +        }
-> +    }
-> diff --git a/Documentation/netlink/specs/drm_ras.yaml b/Documentation/netlink/specs/drm_ras.yaml
-> index e113056f8c01..d94c73a61aea 100644
-> --- a/Documentation/netlink/specs/drm_ras.yaml
-> +++ b/Documentation/netlink/specs/drm_ras.yaml
-> @@ -69,6 +69,35 @@ attribute-sets:
->          name: error-value
->          type: u32
->          doc: Current value of the requested error counter.
-> +  -
-> +    name: error-event-attrs
-> +    attributes:
-> +      -
-> +        name: device-name
-> +        type: string
-> +        doc: >-
-> +             Device name chosen by the driver at registration.
-> +             Can be a PCI BDF, UUID, or module name if unique.
-> +      -
-> +        name: node-id
+On 5/29/26 10:50 PM, Christoph Hellwig wrote:
+> On Fri, May 29, 2026 at 01:54:48PM +0200, Vlastimil Babka (SUSE) wrote:=
 
-Curious, can we reuse existing partial attr-set?
+>> Thanks, I applied it to slab/for-7.2/alloc_bulk and merged to slab/for=
+-next
+>> (it's still yankable in case of issues)
+>>
+>> Did some fixups below (the comment was stale prior to the patch; resto=
+red
+>> unlikely(), simplified one line).
+>>
+>> A test merge into yesterday's -next found a conflict in drivers/gpu/dr=
+m/
+>> panthor/panthor_mmu.c. Commit 1013bf53650e ("drm/panthor: Split
+>> panthor_vm_prepare_map_op_ctx() to prepare for reclaim") moved the cha=
+nged
+>> codeto a new function panthor_vm_op_ctx_prealloc_pts().
+>> But it's solvable so no need for a complicated coordination I think.
+>=20
+> Ok, thanks.  The two Sashiko complains also look like they had merrits,=
 
-> +        type: u32
-> +        doc: Node ID of the node that triggered the event.
-> +      -
-> +        name: node-name
-> +        type: string
-> +        doc: Node name of the node that triggered the event.
-> +      -
-> +        name: error-id
-> +        type: u32
-> +        doc: Error ID of the counter that triggered the event.
-> +      -
-> +        name: error-name
-> +        type: string
-> +        doc: Name of the error that triggered the event.
-> +      -
-> +        name: error-value
-> +        type: u32
-> +        doc: Current value of the error counter.
->  
->  operations:
->    list:
-> @@ -124,3 +153,24 @@ operations:
->        do:
->          request:
->            attributes: *id-attrs
-> +    -
-> +      name: error-event
-> +      doc: >-
-> +           Notify userspace of an error event.
-> +           The event includes the device, node and error information
-> +           of the error that triggered the event.
-> +      attribute-set: error-event-attrs
-> +      mcgrp: error-notify
-> +      event:
-> +        attributes:
-> +          - device-name
-> +          - node-id
-> +          - node-name
-> +          - error-id
-> +          - error-name
-> +          - error-value
-> +
-> +mcast-groups:
-> +  list:
-> +    -
-> +      name: error-notify
-> diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
-> index d6eab29a1394..6696ec21782e 100644
-> --- a/drivers/gpu/drm/drm_ras.c
-> +++ b/drivers/gpu/drm/drm_ras.c
-> @@ -41,6 +41,11 @@
->   *    Userspace must provide Node ID, Error ID.
->   *    Clears specific error counter of a node if supported.
->   *
-> + * 4. ERROR_NOTIFY: Subscribe to this multicast group to receive error events
-> + *
-> + * 5. ERROR_EVENT: Notify userspace of an error event. The event contains device, node
-> + *    and error information that triggered the event.
-> + *
->   * Node registration:
->   *
->   * - drm_ras_node_register(): Registers a new node and assigns
-> @@ -186,6 +191,34 @@ static int msg_reply_value(struct sk_buff *msg, u32 error_id,
->  			   value);
->  }
->  
-> +static int msg_put_error_event_attrs(struct sk_buff *msg, struct drm_ras_node *node,
-> +				     u32 error_id, const char *error_name, u32 value)
-> +{
-> +	int ret;
-> +
-> +	ret = nla_put_string(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_DEVICE_NAME, node->device_name);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = nla_put_u32(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_NODE_ID, node->id);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = nla_put_string(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_NODE_NAME, node->node_name);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = nla_put_u32(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_ID, error_id);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = nla_put_string(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_NAME, error_name);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return nla_put_u32(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_VALUE, value);
-> +}
-> +
->  static int doit_reply_value(struct genl_info *info, u32 node_id,
->  			    u32 error_id)
->  {
-> @@ -222,6 +255,59 @@ static int doit_reply_value(struct genl_info *info, u32 node_id,
->  	return genlmsg_reply(msg, info);
->  }
->  
-> +/**
-> + * drm_ras_nl_error_event() - Notify listeners of an error event
-> + * @node: Node structure
-> + * @error_id: ID of the error
-> + * @error_name: Name of the error
-> + * @value: Value associated with the error
-> + * @flags: GFP flags for memory allocation
-> + *
-> + * Sends a notification to all listeners about an error event on a specific
-> + * RAS node.
-> + *
-> + * Return: 0 on success, or negative errno on failure.
-> + */
-> +int drm_ras_nl_error_event(struct drm_ras_node *node, u32 error_id, const char *error_name,
-> +			   u32 value, gfp_t flags)
-> +{
-> +	struct genl_info info;
-> +	struct sk_buff *msg;
-> +	struct nlattr *hdr;
-> +	int err = -EMSGSIZE;
+> but I won't get to looking into them until Monday.
+The review:
+https://sashiko.dev/#/patchset/20260528093437.2519248-2-hch%40lst.de
 
-Redundant initialization, see below.
+So there is a user who might call kmem_cache_alloc_bulk() with size =3D 0=
 
-> +	if (!error_name)
-> +		return -EINVAL;
-> +
-> +	if (!genl_has_listeners(&drm_ras_nl_family, &init_net, DRM_RAS_NLGRP_ERROR_NOTIFY))
-> +		return 0;
-> +
-> +	genl_info_init_ntf(&info, &drm_ras_nl_family, DRM_RAS_CMD_ERROR_EVENT);
-> +	msg = genlmsg_new(NLMSG_GOODSIZE, flags);
-> +	if (!msg)
-> +		return -ENOMEM;
-> +
-> +	hdr = genlmsg_iput(msg, &info);
+(although the comment says @size must be larger than 0!) and
+kmem_cache_alloc_bulk() returning 0 was considered a success in that case=
+=2E
 
-Make this part of below and return err directly.
+Either fixing kmem_cache_alloc_bulk() (and the comment) or fixing the
+user sounds fine to me.
 
-> +	if (!hdr)
-> +		goto err_free_msg;
-> +
-> +	err = msg_put_error_event_attrs(msg, node, error_id, error_name, value);
-> +	if (err)
-> +		goto err_cancel;
-> +
-> +	genlmsg_end(msg, hdr);
-> +	genlmsg_multicast(&drm_ras_nl_family, msg, 0, DRM_RAS_NLGRP_ERROR_NOTIFY, flags);
-> +	return 0;
-> +
-> +err_cancel:
-> +	genlmsg_cancel(msg, hdr);
-> +err_free_msg:
-> +	nlmsg_free(msg);
-> +	return err;
-> +}
-> +EXPORT_SYMBOL(drm_ras_nl_error_event);
-> +
->  /**
->   * drm_ras_nl_get_error_counter_dumpit() - Dump all Error Counters
->   * @skb: Netlink message buffer
-> diff --git a/drivers/gpu/drm/drm_ras_nl.c b/drivers/gpu/drm/drm_ras_nl.c
-> index dea1c1b2494e..ac724bb87a3b 100644
-> --- a/drivers/gpu/drm/drm_ras_nl.c
-> +++ b/drivers/gpu/drm/drm_ras_nl.c
-> @@ -58,6 +58,10 @@ static const struct genl_split_ops drm_ras_nl_ops[] = {
->  	},
->  };
->  
-> +static const struct genl_multicast_group drm_ras_nl_mcgrps[] = {
-> +	[DRM_RAS_NLGRP_ERROR_NOTIFY] = { "error-notify", },
-> +};
-> +
->  struct genl_family drm_ras_nl_family __ro_after_init = {
->  	.name		= DRM_RAS_FAMILY_NAME,
->  	.version	= DRM_RAS_FAMILY_VERSION,
-> @@ -66,4 +70,6 @@ struct genl_family drm_ras_nl_family __ro_after_init = {
->  	.module		= THIS_MODULE,
->  	.split_ops	= drm_ras_nl_ops,
->  	.n_split_ops	= ARRAY_SIZE(drm_ras_nl_ops),
-> +	.mcgrps		= drm_ras_nl_mcgrps,
-> +	.n_mcgrps	= ARRAY_SIZE(drm_ras_nl_mcgrps),
->  };
-> diff --git a/drivers/gpu/drm/drm_ras_nl.h b/drivers/gpu/drm/drm_ras_nl.h
-> index a398643572a5..17e1af8cc3b3 100644
-> --- a/drivers/gpu/drm/drm_ras_nl.h
-> +++ b/drivers/gpu/drm/drm_ras_nl.h
-> @@ -21,6 +21,10 @@ int drm_ras_nl_get_error_counter_dumpit(struct sk_buff *skb,
->  int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
->  					struct genl_info *info);
->  
-> +enum {
-> +	DRM_RAS_NLGRP_ERROR_NOTIFY,
-> +};
-> +
->  extern struct genl_family drm_ras_nl_family;
->  
->  #endif /* _LINUX_DRM_RAS_GEN_H */
-> diff --git a/include/drm/drm_ras.h b/include/drm/drm_ras.h
-> index f2a787bc4f64..d4a275efdbb0 100644
-> --- a/include/drm/drm_ras.h
-> +++ b/include/drm/drm_ras.h
-> @@ -78,9 +78,14 @@ struct drm_device;
->  #if IS_ENABLED(CONFIG_DRM_RAS)
->  int drm_ras_node_register(struct drm_ras_node *node);
->  void drm_ras_node_unregister(struct drm_ras_node *node);
-> +int drm_ras_nl_error_event(struct drm_ras_node *node, u32 error_id, const char *error_name,
-> +			   u32 value, gfp_t flags);
->  #else
->  static inline int drm_ras_node_register(struct drm_ras_node *node) { return 0; }
->  static inline void drm_ras_node_unregister(struct drm_ras_node *node) { }
-> +static inline int drm_ras_nl_error_event(struct drm_ras_node *node, u32 error_id,
-> +					 const char *error_name, u32 value, gfp_t flags)
-> +{ return 0; }
->  #endif
->  
->  #endif
-> diff --git a/include/uapi/drm/drm_ras.h b/include/uapi/drm/drm_ras.h
-> index 218a3ee86805..bb2a8a872a44 100644
-> --- a/include/uapi/drm/drm_ras.h
-> +++ b/include/uapi/drm/drm_ras.h
-> @@ -38,13 +38,28 @@ enum {
->  	DRM_RAS_A_ERROR_COUNTER_ATTRS_MAX = (__DRM_RAS_A_ERROR_COUNTER_ATTRS_MAX - 1)
->  };
->  
-> +enum {
-> +	DRM_RAS_A_ERROR_EVENT_ATTRS_DEVICE_NAME = 1,
-> +	DRM_RAS_A_ERROR_EVENT_ATTRS_NODE_ID,
-> +	DRM_RAS_A_ERROR_EVENT_ATTRS_NODE_NAME,
-> +	DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_ID,
-> +	DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_NAME,
-> +	DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_VALUE,
-> +
-> +	__DRM_RAS_A_ERROR_EVENT_ATTRS_MAX,
-> +	DRM_RAS_A_ERROR_EVENT_ATTRS_MAX = (__DRM_RAS_A_ERROR_EVENT_ATTRS_MAX - 1)
-> +};
-> +
->  enum {
->  	DRM_RAS_CMD_LIST_NODES = 1,
->  	DRM_RAS_CMD_GET_ERROR_COUNTER,
->  	DRM_RAS_CMD_CLEAR_ERROR_COUNTER,
-> +	DRM_RAS_CMD_ERROR_EVENT,
->  
->  	__DRM_RAS_CMD_MAX,
->  	DRM_RAS_CMD_MAX = (__DRM_RAS_CMD_MAX - 1)
->  };
->  
-> +#define DRM_RAS_MCGRP_ERROR_NOTIFY	"error-notify"
+And yeah freeing an object via kfree() allocated via kvmalloc is a bug...=
 
-Where is this used?
 
-Raag
+--=20
+Cheers,
+Harry / Hyeonggon
 
->  #endif /* _UAPI_LINUX_DRM_RAS_H */
-> -- 
-> 2.47.1
-> 
+
+--------------ub6P4aBhniaWwf9dwX4fSUIh--
+
+--------------HMU1xMsen67VgPzLuGJEEdMK
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQQQ1ub6gR5ogjaKRmOGXBN6rc5S1gUCah0pCgAKCRCGXBN6rc5S
+1rmyAP4xYSWajEqm+MA0a6gB0YMw8PYGMERv/Liiv8qq9FfVwQEA0LaAVOUS0vOJ
+pFwKYpvxOLNGK+0ssT0N7hdbranbAAA=
+=ebwI
+-----END PGP SIGNATURE-----
+
+--------------HMU1xMsen67VgPzLuGJEEdMK--
