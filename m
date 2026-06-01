@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39216CD5BD1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00698CD6E57
 	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:45:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05D9510FD74;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CAD911276B;
 	Mon,  1 Jun 2026 22:45:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="pa9AIksV";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="aU9LyL6P";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75DF810F817
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:45:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43BB710FA6F
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:45:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1780353915;
- bh=nrOKDTe1HmXsLH2kqmhLmoDqq6g4GvbMXtZ492I514E=;
+ bh=QCn0pWH6R490QoGfBT3a1Vn0/GvOOWVICGTR08194MA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=pa9AIksVwxUHazLrV3OYVJTlSkSaPcg3SetCh2RRQsKs9jjbtIF6AobBvXV3iShS3
- UFYagSZfJbu9XTry7vFY2Ah7P/4GmUYkn3K8jYu3qinBL/+NYtuVknXQVPtO5/wCt2
- Phkq+mkZ9sel5Sx8E2WLlQKIMvAVd0+UTKMADf0H+thvxrDBumeC+kwCpA0dNsOxXA
- yr/gMxk2IH3l4YsgHvFSIS5sSZgpzgOKtGLpuw8Sjat+wgi5wD50JtSODmbutFs1Xo
- 3FwPLBBfOvvPcnXQ3+RpzxVnoUeLA3879sw2xwbkdcJLFfvRpfY9euV/YUrjOmPJtG
- TRf+jPUyK99pg==
+ b=aU9LyL6PqthadcIa1yCskb+xzzuyS66ZVTNen2vYlCXieLBBOxUSwoyVsI1TtT1od
+ ox2RzYLlHY++/iDP2xqC68XunTnblqmtZ7s/DkMON92XcMocT3pXvW42QjFdRtStGP
+ OvJ2h/u+KGk22iNd2O73FnTjZ4lGomU7l35azVMnjg/6/oMXYCJdChBy5/Bp+nFslv
+ LGL2K0BmhUrZeliiM86NikCissaD4ngOeUgs7M4/DC4lxtr3HOmmririIuhVY3gNSL
+ caLG2tZaProkmAuRtCnH0tdcig+73wndljYcl8Lcq0DIgFeG5Hw7PiaMXzrjc9ZvKP
+ +4RfomGb+RXLA==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id C244517E0C54;
- Tue,  2 Jun 2026 00:45:14 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 8882B17E0C88;
+ Tue,  2 Jun 2026 00:45:15 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 02 Jun 2026 01:44:06 +0300
-Subject: [PATCH v7 06/30] drm/display: hdmi_state_helper: Plumb HDMI 2.0
- source scrambling capability
+Date: Tue, 02 Jun 2026 01:44:07 +0300
+Subject: [PATCH v7 07/30] drm/bridge: Remove redundant error check in
+ drm_bridge_helper_reset_crtc()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-dw-hdmi-qp-scramb-v7-6-445eb54ee1ed@collabora.com>
+Message-Id: <20260602-dw-hdmi-qp-scramb-v7-7-445eb54ee1ed@collabora.com>
 References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
 In-Reply-To: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -58,7 +58,8 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
 Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org
+ linux-rockchip@lists.infradead.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,48 +76,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Toggle drm_connector_hdmi_state.scrambler_needed flag when the TMDS
-character rate exceeds 340 MHz and both the source and the sink advertise
-SCDC scrambling capability.  Drivers no longer need to open-code this
-check.
+Remove the no-op error check after drm_atomic_helper_reset_crtc() since
+the goto target is the immediately following label and the return value
+is already propagated correctly without it.
 
-According to HDMI 2.0 spec, scrambling is only mandatory above 340 MHz;
-the optional sub-340 MHz scrambling path is intentionally not requested.
-
-Once all drivers are converted to advertise the scrambler support, the
-unsupported HDMI 2.0 modes could be simply rejected.
-
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/display/drm_hdmi_state_helper.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ drivers/gpu/drm/drm_bridge_helper.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-index a96d81cbf94f..7cb880dcedfe 100644
---- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-@@ -588,6 +588,21 @@ hdmi_compute_clock(const struct drm_connector *connector,
- 	if (status != MODE_OK)
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/drm_bridge_helper.c b/drivers/gpu/drm/drm_bridge_helper.c
+index 420f29cf3e54..0a3c8fee66b3 100644
+--- a/drivers/gpu/drm/drm_bridge_helper.c
++++ b/drivers/gpu/drm/drm_bridge_helper.c
+@@ -50,8 +50,6 @@ int drm_bridge_helper_reset_crtc(struct drm_bridge *bridge,
  
-+	if (clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ) {
-+		const struct drm_display_info *info = &connector->display_info;
-+
-+		/*
-+		 * TODO: Reject unsupported HDMI 2.0 modes once all drivers
-+		 *	 advertise their scrambler capability.
-+		 */
-+		conn_state->hdmi.scrambler_needed = connector->hdmi.scrambler_supported &&
-+						    info->is_hdmi &&
-+						    info->hdmi.scdc.supported &&
-+						    info->hdmi.scdc.scrambling.supported;
-+	} else {
-+		conn_state->hdmi.scrambler_needed = false;
-+	}
-+
- 	conn_state->hdmi.tmds_char_rate = clock;
+ 	crtc = connector->state->crtc;
+ 	ret = drm_atomic_helper_reset_crtc(crtc, ctx);
+-	if (ret)
+-		goto out;
  
- 	return 0;
+ out:
+ 	drm_modeset_unlock(&dev->mode_config.connection_mutex);
 
 -- 
 2.54.0
