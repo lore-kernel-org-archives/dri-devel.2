@@ -4,59 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2430FCD5BD1
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 14:14:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C7D1CD5BD1
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 14:19:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CF3A10E00C;
-	Mon,  1 Jun 2026 14:14:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D23E1133E0;
+	Mon,  1 Jun 2026 14:19:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="gwLIqaFb";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="PD3oWoSN";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kFdkoam1";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="PD3oWoSN";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kFdkoam1";
 	dkim-atps=neutral
-Received: from out30-99.freemail.mail.aliyun.com
- (out30-99.freemail.mail.aliyun.com [115.124.30.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F5AA10E00C
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 14:14:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux.alibaba.com; s=default;
- t=1780323279; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
- bh=Jba/OcUQqUC+iKtXDpfu65FCyEQVy/d/ssT/VTffXaE=;
- b=gwLIqaFbzGkhrl7tQDxlibCGbR4BUbOkctp/0bV6SpGrvW7gA1/jhOPjpmks4Aaw45KLabKgDJRMzrDtGjlMBlBQDXo6FT0mhv8HSTqS6YkrXUgOcxZkxrm3LanNKtNAXlwAQoHVCVVtvW1NhzIhI2enTrj93GBFZWP6Uva/d68=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R681e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033045098064;
- MF=guanghuifeng@linux.alibaba.com; NM=1; PH=DS; RN=28; SR=0;
- TI=SMTPD_---0X40RrRa_1780323268; 
-Received: from 30.221.133.117(mailfrom:guanghuifeng@linux.alibaba.com
- fp:SMTPD_---0X40RrRa_1780323268 cluster:ay36) by smtp.aliyun-inc.com;
- Mon, 01 Jun 2026 22:14:37 +0800
-Message-ID: <ff2a4364-8463-42cb-9a2b-fae1ef64c423@linux.alibaba.com>
-Date: Mon, 1 Jun 2026 22:14:27 +0800
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7AE71133E0
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 14:19:28 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 980416ABFE;
+ Mon,  1 Jun 2026 14:19:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780323567; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=AR3xA5zcPnacGPzvxoEEDF5FVLEWtEBpLQoIFPOUVm0=;
+ b=PD3oWoSNEFtNGwyN6IK92t0ZsjjN9g2oael27TKdx7u5tfGP8HRAkTzVfpbASOH9Z/igMw
+ MxrKATOQZIp8Yxc7fpHqkRZgbl95b83/RtuJwCcm2eDtcFPYX9RqTyf+B9r1pPIoqRrYuh
+ JmgfaUYnQHgZUc0/p4cJnr7OLoPLYgs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780323567;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=AR3xA5zcPnacGPzvxoEEDF5FVLEWtEBpLQoIFPOUVm0=;
+ b=kFdkoam1sKfsAFsgx00LfxAOCnAvYHR9u49Ao5gduVjcq1bOOIcwqtElvim2lEblQQ+8JH
+ YEdXMQ6CP0+JJUDg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780323567; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=AR3xA5zcPnacGPzvxoEEDF5FVLEWtEBpLQoIFPOUVm0=;
+ b=PD3oWoSNEFtNGwyN6IK92t0ZsjjN9g2oael27TKdx7u5tfGP8HRAkTzVfpbASOH9Z/igMw
+ MxrKATOQZIp8Yxc7fpHqkRZgbl95b83/RtuJwCcm2eDtcFPYX9RqTyf+B9r1pPIoqRrYuh
+ JmgfaUYnQHgZUc0/p4cJnr7OLoPLYgs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780323567;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=AR3xA5zcPnacGPzvxoEEDF5FVLEWtEBpLQoIFPOUVm0=;
+ b=kFdkoam1sKfsAFsgx00LfxAOCnAvYHR9u49Ao5gduVjcq1bOOIcwqtElvim2lEblQQ+8JH
+ YEdXMQ6CP0+JJUDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 423C5779A7;
+ Mon,  1 Jun 2026 14:19:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id kqG8Du+UHWpSdwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 01 Jun 2026 14:19:27 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: simona@ffwll.ch, michel.daenzer@mailbox.org, louis.chauvet@bootlin.com,
+ ville.syrjala@linux.intel.com, jani.nikula@intel.com, mhklkml@zohomail.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH 0/7] drm/vblank: timer: Fix timestamps and improve reliabilty
+Date: Mon,  1 Jun 2026 16:08:28 +0200
+Message-ID: <20260601141922.91498-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/9] iommu: introduce iova_to_phys_length in
- iommu_domain_ops
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: boris.brezillon@collabora.com, robh@kernel.org, steven.price@arm.com,
- adrian.larumbe@collabora.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- liviu.dudau@arm.com, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
- alex@shazbot.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, kvm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kevin.tian@intel.com,
- baolu.lu@linux.intel.com, suravee.suthikulpanit@amd.com,
- dwmw2@infradead.org, xlpang@linux.alibaba.com,
- oliver.yang@linux.alibaba.com, shiyu.zsq@linux.alibaba.com,
- wei.guo.simon@linux.alibaba.com,
- alikernel-developer <alikernel-developer@linux.alibaba.com>
-References: <20260529115116.GR2487554@ziepe.ca>
- <20260531093637.3893199-1-guanghuifeng@linux.alibaba.com>
- <20260531093637.3893199-2-guanghuifeng@linux.alibaba.com>
- <20260531235148.GV2487554@ziepe.ca>
- <a0875d9f-4aed-4164-861c-6fbbdfe04080@linux.alibaba.com>
- <20260601134322.GY2487554@ziepe.ca>
-From: "guanghuifeng@linux.alibaba.com" <guanghuifeng@linux.alibaba.com>
-In-Reply-To: <20260601134322.GY2487554@ziepe.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-3.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[13];
+ FREEMAIL_TO(0.00)[ffwll.ch,mailbox.org,bootlin.com,linux.intel.com,intel.com,zohomail.com,kernel.org,gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,65 +108,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+It appears that the DRM's vblank timers have always been somewhat buggy
+in their timestamp calculations. Fix the generic implementation and
+improve reliability.
 
-在 2026/6/1 21:43, Jason Gunthorpe 写道:
-> On Mon, Jun 01, 2026 at 04:41:48PM +0800, guanghuifeng@linux.alibaba.com wrote:
->>>> +/**
->>>> + * iommu_iova_to_phys_length - Translate IOVA and return mapping page size
->>>> + * @domain: IOMMU domain to query
->>>> + * @iova: IO virtual address to translate
->>>> + * @mapped_length: Output parameter for the PTE page size (e.g. 4KB/2MB/1GB)
->>>> + *
->>>> + * Like iommu_iova_to_phys() but additionally returns the page size of the
->>>> + * PTE mapping at @iova through @mapped_length.
->>>> + *
->>>> + * Return: The physical address for the given IOVA, or 0 if no translation.
->>>> + */
->>> When introducing the new function I would like to fix this 0 error as
->>> well, it should return PHYS_MAX for error
->> Implementations such as arm_smmu_iova_to_phys/DOMAIN_NS(iova_to_phys)
->> all use a return value of 0 as an invalid state, so 0 is used as the
->> representation of an invalid state to maintain compatibility.
-> I know, but this bad choice has already caused bugs so if we are
-> changing everything I would prefer we fix it.
+Patch 1 returns success/failure to the caller, as expected by DRM.
 
-OK, there are a lot of changes in the current commit. This issue will be 
-fixed in a subsequent series patch.
+Patch 2 fixes the timestamp calculation to return the time of the first
+visible scanline in the current vblank phase.
 
->>>> +phys_addr_t iommu_iova_to_phys_length(struct iommu_domain *domain,
->>>> +				       dma_addr_t iova,
->>>> +				       size_t *mapped_length)
->>>>    {
->>>> +	if (mapped_length)
->>>> +		*mapped_length = 0;
->>>> +
->>>>    	if (domain->type == IOMMU_DOMAIN_IDENTITY)
->>>>    		return iova;
->>>>    	if (domain->type == IOMMU_DOMAIN_BLOCKED)
->>>>    		return 0;
->>> Any domain that doesn't have an op should fail, blocked is one example
->> In accordance with the implementation of iommu_iova_to_phys, it returns a
->> phy value of 0 in invalid states.
-> Detect the invalid states by looking at ops not domain->type
->
->>> I suggest you approach the patch plan a little differently, the first
->>> patches should implement the new function and an iommput
->>> implementation
->>>
->>> Arrange things so the normal iova_to_phys calls the new function if it
->>> is available and discards the length.
->>>
->>> Then convert callers that can take advantage of it. Have the fallback
->>> path also compute the length by iterating internally.
->>>
->>> Finally one patch per driver implementing the new op, this could even
->>> be a second series.
->>>
->>> Don't remove iova_to_phys(), it is fine for things that don't need the
->>> length.
->> Does this mean retaining the iommu_iova_to_phys implementation but
->> implementing it through domain->ops->iova_to_phys_length (mapped_length is
->> NULL)?
-> Yes
->
-> Jason
+Patch 3 switches the hrtimer to absolute values since boot, so that it's
+easier to work with and we can predict future timestamps reliably.
+
+Patches 4 and 5 allow for estimating timestamps even with the timer
+being disabled.
+
+Patches 6 and 7 improve the retrieval of the next vblank timeout's
+timestamp.
+
+Tested under heavy CPU-load on bochs and virtio. No ersors or warnings
+showed up.
+
+There have been reports about vblank timeouts being handled so late,
+that they trigger DRM's internal error checks. Maybe these fixes and
+adjustments can help to further avoid hick ups from delayed vblank
+timers.
+
+Thomas Zimmermann (7):
+  drm/vblank: timer: Return success status from get_vblank_timeout
+  drm/vblank: timer: Fix timestamp calculation
+  drm/vblank: timer: Use absolute timer since boot
+  drm/vblank: timer: Reorganize get_vblank_timeout
+  drm/vblank: timer: Estimate vblank timeout if timer is disabled
+  drm/vblank: timer: Verify that expiry time is in the future
+  drm/vblank: timer: Avoid reading the vblank time unnecessarily
+
+ drivers/gpu/drm/drm_vblank.c        | 105 ++++++++++++++++++++--------
+ drivers/gpu/drm/drm_vblank_helper.c |   4 +-
+ include/drm/drm_vblank.h            |   2 +-
+ 3 files changed, 79 insertions(+), 32 deletions(-)
+
+
+base-commit: 4f554688dffcacf48630c14f9fb77a9f60394c1c
+-- 
+2.54.0
+
