@@ -4,65 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 832B8CD6E57
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 15:49:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AA82CD5BD1
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 16:01:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83473113506;
-	Mon,  1 Jun 2026 15:49:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70E06113532;
+	Mon,  1 Jun 2026 16:01:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="U1IEqtJb";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="h0u1hGjE";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B426113505;
- Mon,  1 Jun 2026 15:49:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780328958; x=1811864958;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=mU9NP52Txgjd/Xj8Ln8Hw8lWpp3A7JJN0mbm160/1Eo=;
- b=U1IEqtJbxZ6m3P8Poa1mQ7i4oEFf+Jm1yoErbhTxfN71ZP/7Q6qszmyc
- O4qPTH8lQXwFeDhuX0SrbDXqtUN/M3rfA0JtZxTI4rux71jzOfgjrTMoh
- AOAB1+wrHZKwlAtjGPb+4wcASvKjJunx0gZ2kUSSJl+TyQJH0e/sMU3Xm
- oV4hC8foV35IRDfpehy+ODhUeQJ5kyPpZXGM6YzfSiLOykVogUyo8LchK
- LhsgFm/FiydaxkO9P7KBUPD2/BqsrpsZBXqTyhXhcfdS8AIx30ogqNVTc
- SZ1IJKJMOvZr+RNWbHTdONU2osqtx/Njkcmt6S0KLSITwcwtP14ZFar/x A==;
-X-CSE-ConnectionGUID: FOAC+EC1RsW7Hwlq0DOGdg==
-X-CSE-MsgGUID: 41zpkB44TT+DCOuCtvOlSA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="92203298"
-X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="92203298"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2026 08:49:17 -0700
-X-CSE-ConnectionGUID: jDHDHS1NTWevVpjgRwB6nA==
-X-CSE-MsgGUID: NMKyajc5S5GD/qQaXxPymA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="243715787"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.121])
- by orviesa009-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 08:49:11 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, Dave Airlie
- <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas
- Zimmermann <tzimmermann@suse.de>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, Thomas =?utf-8?Q?Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, Oded Gabbay <ogabbay@kernel.org>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Subject: Re: [PULL] drm-misc-fixes
-In-Reply-To: <e1a2cc27fb04a88be23973d3cb7868f3d4471d0d@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260529070009.GA313534@linux.fritz.box>
- <ddf0233e50044059c85279f928661563ef6a55bf@intel.com>
- <e1a2cc27fb04a88be23973d3cb7868f3d4471d0d@intel.com>
-Date: Mon, 01 Jun 2026 18:49:09 +0300
-Message-ID: <d479f1185cd1ae6eb52a7d44e944408c3447c8e4@intel.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63AF3113530
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 16:01:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1780329678; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Xz46wNfnlz0b8gUAF9eu84SORf+31YzJYeqWTAshuiIWSrQOmUYHmPL0A91lX345YMcrpvIA1h02WDA0M7W0oQzN3q6Iah1l2WeP2WqF/N5V7FRW7TiQMHrLwf5YpsfAyIZMWxuXlDccNDMCAvIZDGFVG8Rq4FlvExbWAgOEsGc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1780329678;
+ h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=M6RUKK6Dv4KYmFZJqR7uG26GOOxK74QJpHTVhXZZ0XE=; 
+ b=g12wVPffJgxv62LUT2MhD5HpzJZQp5Hg9JdjylXbRdBa1l4QdyugySkalrZlpZIO3xEBeZvGl2gqIc+cDp8ZZuO9hnt/k5vx6eWoxlP/H2t3urFVz1zxoDlaB8tvAHDU5c1FoW3/yV9FZzWL6HN5dfNrEB3Itb12KP0XFB4lTes=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+ dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780329678; 
+ s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+ bh=M6RUKK6Dv4KYmFZJqR7uG26GOOxK74QJpHTVhXZZ0XE=;
+ b=h0u1hGjE4VNbXcRp6R8oXgSTgMuPAY89H8m59YLeA0S4y7Y71+/fM5s8VytD9ngW
+ cBbGvJTfrnfhpzSr2Qn4FRdQKHrb1vLyI40ylrqRyN+A4pIk8NA8xwFB8/ADKzLjNFp
+ 4gyT1IgyrOyy/NwQlzUdqdX0zareSCxjH4UsWi30=
+Received: by mx.zohomail.com with SMTPS id 1780329676984725.7810970568634;
+ Mon, 1 Jun 2026 09:01:16 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+ id 5D356181D80; Mon, 01 Jun 2026 18:01:12 +0200 (CEST)
+Date: Mon, 1 Jun 2026 18:01:12 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Tomi Valkeinen <tomi.valkeinen@ti.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Sam Ravnborg <sam@ravnborg.org>, Yongxing Mou <yongxing.mou@oss.qualcomm.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] drm/bridge: split hpd_mutex into two mutexes
+Message-ID: <ah2smWb3vurXHg1X@venus>
+References: <20260528-dp-connector-hpd-v3-0-d656eb1079b7@oss.qualcomm.com>
+ <20260528-dp-connector-hpd-v3-1-d656eb1079b7@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="sukuz4zqzekqlssz"
+Content-Disposition: inline
+In-Reply-To: <20260528-dp-connector-hpd-v3-1-d656eb1079b7@oss.qualcomm.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.2.1.5.2/280.325.56
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,70 +81,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 01 Jun 2026, Jani Nikula <jani.nikula@linux.intel.com> wrote:
-> On Mon, 01 Jun 2026, Jani Nikula <jani.nikula@linux.intel.com> wrote:
->> On Fri, 29 May 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->>> Rajat Gupta (1):
->>>       drm: prevent integer overflows in dumb buffer creation helpers
->>
->> Looks like this commit 5ab62dd3687b ("drm: prevent integer overflows in
->> dumb buffer creation helpers") regressed in our CI, awaiting
->> confirmation.
->
-> The IGT test kms_big_fb uses max width and height from GetResources, and
-> i915 and xe use max_width 16384 and max_height 16384 in mode config.
->
-> The regressing commit adds random hard limits not based on anything:
->
-> +       /* Reject unreasonable inputs early.  Dumb buffers are for software
-> +        * rendering; nothing legitimate needs more than 8192x8192 at 32bpp.
-> +        * This prevents overflows in downstream alignment helpers.
-> +        */
-> +       if (args->width >= 8192 || args->height >= 8192 || args->bpp > 32)
-> +               return -EINVAL;
->
-> This is now in v7.1-rc6. Please revert ASAP.
 
-Ah, missed this clue in the pull request:
+--sukuz4zqzekqlssz
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 1/3] drm/bridge: split hpd_mutex into two mutexes
+MIME-Version: 1.0
 
-On Fri, 29 May 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> here is this week's PR from drm-misc-fixes. There's one cross-subsys
-> commit to the dma-buf code. Commit 5ab62dd3687b ("drm: prevent integer
-> overflows in dumb buffer creation helpers") has not Link tag because
-> it went through the security list.
+Hi,
 
-We have the whole review and CI processes in place to catch silly
-mistakes, and then we proceed to shoot ourselves in the foot and bypass
-all of that because "security", and expedite the regressions
-everywhere. I'll bet this will be in stable kernels in no time too. This
-is stupid.
+On Thu, May 28, 2026 at 10:10:48AM +0300, Dmitry Baryshkov wrote:
+> Currently almost all bridge drivers which implement hpd_enable /
+> hpd_disable callbacks simply toggle the hardware registers generating
+> the interrupt. However, as pointed out by Jonas Karlman and Sashiko bot,
+> using those callbacks for enable_irq() / disable_irq() calls or
+> scheduling and cancelling the work can cause a AB-BA deadlock (between
+> hpd_mutex lock and the corresponding lock).
+>=20
+> Split the hpd_mutex into two locks: one simply making sure that hpd_cb /
+> hpd_data are consistent and another one, hpd_state_mutex, making sure
+> that concurrent drm_bridge_hpd_enable() / drm_bridge_hpd_disable() calls
+> can't end up with inconsistency between hpd_cb/_data and bridge's
+> internal state.
+>=20
+> Link: https://lore.kernel.org/dri-devel/9aa4bd35-bff6-4009-a959-ce31010c7=
+b35@kwiboo.se
+> Link: https://sashiko.dev/#/patchset/20260513-dp-connector-hpd-v2-0-42f75=
+7bfcbf9%40oss.qualcomm.com
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
 
-Please also read [1] with its recent updates.
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
+-- Sebastian
 
-BR,
-Jani.
+>  drivers/gpu/drm/drm_bridge.c | 16 +++++++++++++---
+>  include/drm/drm_bridge.h     |  4 ++++
+>  2 files changed, 17 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+> index 687b36eea0c7..9a185032a3bd 100644
+> --- a/drivers/gpu/drm/drm_bridge.c
+> +++ b/drivers/gpu/drm/drm_bridge.c
+> @@ -417,6 +417,7 @@ void drm_bridge_add(struct drm_bridge *bridge)
+>  	if (!list_empty(&bridge->list))
+>  		list_del_init(&bridge->list);
+> =20
+> +	mutex_init(&bridge->hpd_state_mutex);
+>  	mutex_init(&bridge->hpd_mutex);
+> =20
+>  	if (bridge->ops & DRM_BRIDGE_OP_HDMI)
+> @@ -469,6 +470,7 @@ void drm_bridge_remove(struct drm_bridge *bridge)
+>  	mutex_unlock(&bridge_lock);
+> =20
+>  	mutex_destroy(&bridge->hpd_mutex);
+> +	mutex_destroy(&bridge->hpd_state_mutex);
+> =20
+>  	drm_bridge_put(bridge);
+>  }
+> @@ -1451,19 +1453,25 @@ void drm_bridge_hpd_enable(struct drm_bridge *bri=
+dge,
+>  	if (!(bridge->ops & DRM_BRIDGE_OP_HPD))
+>  		return;
+> =20
+> +	mutex_lock(&bridge->hpd_state_mutex);
+> +
+>  	mutex_lock(&bridge->hpd_mutex);
+> =20
+> -	if (WARN(bridge->hpd_cb, "Hot plug detection already enabled\n"))
+> +	if (WARN(bridge->hpd_cb, "Hot plug detection already enabled\n")) {
+> +		mutex_unlock(&bridge->hpd_mutex);
+>  		goto unlock;
+> +	}
+> =20
+>  	bridge->hpd_cb =3D cb;
+>  	bridge->hpd_data =3D data;
+> =20
+> +	mutex_unlock(&bridge->hpd_mutex);
+> +
+>  	if (bridge->funcs->hpd_enable)
+>  		bridge->funcs->hpd_enable(bridge);
+> =20
+>  unlock:
+> -	mutex_unlock(&bridge->hpd_mutex);
+> +	mutex_unlock(&bridge->hpd_state_mutex);
+>  }
+>  EXPORT_SYMBOL_GPL(drm_bridge_hpd_enable);
+> =20
+> @@ -1484,13 +1492,15 @@ void drm_bridge_hpd_disable(struct drm_bridge *br=
+idge)
+>  	if (!(bridge->ops & DRM_BRIDGE_OP_HPD))
+>  		return;
+> =20
+> -	mutex_lock(&bridge->hpd_mutex);
+> +	mutex_lock(&bridge->hpd_state_mutex);
+>  	if (bridge->funcs->hpd_disable)
+>  		bridge->funcs->hpd_disable(bridge);
+> =20
+> +	mutex_lock(&bridge->hpd_mutex);
+>  	bridge->hpd_cb =3D NULL;
+>  	bridge->hpd_data =3D NULL;
+>  	mutex_unlock(&bridge->hpd_mutex);
+> +	mutex_unlock(&bridge->hpd_state_mutex);
+>  }
+>  EXPORT_SYMBOL_GPL(drm_bridge_hpd_disable);
+> =20
+> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+> index 4ba3a5deef9a..00a95f927e34 100644
+> --- a/include/drm/drm_bridge.h
+> +++ b/include/drm/drm_bridge.h
+> @@ -1256,6 +1256,10 @@ struct drm_bridge {
+>  	 * @hpd_mutex: Protects the @hpd_cb and @hpd_data fields.
+>  	 */
+>  	struct mutex hpd_mutex;
+> +	/**
+> +	 * @hpd_state_mutex: Protects the HPD en/disablement state for the brid=
+ge.
+> +	 */
+> +	struct mutex hpd_state_mutex;
+>  	/**
+>  	 * @hpd_cb: Hot plug detection callback, registered with
+>  	 * drm_bridge_hpd_enable().
+>=20
+> --=20
+> 2.47.3
+>=20
 
+--sukuz4zqzekqlssz
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[1] https://docs.kernel.org/process/security-bugs.html#what-qualifies-as-a-security-bug
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmodrMQACgkQ2O7X88g7
++pqUPA//cGkiPvhmcQq+CSXgsvzW8DDCzoNFeoVaa15FM2vyov1HuzIQ3lfffo1T
+JmUxqXK7QGKR/5HrNKjcY8chBjBY7thj/uc4yWV35IEal+LGeUpEilurqpHgIjrU
+Q2TMo4UFqguyExGeuPlB/PMbupsNCexIXwwdcJijROnRXIpARqsrsbwqyH68/Vmg
+erjVJ0QwOv92jPxoRX4xSy8rpC426lVnWBHhnQch0+XVfcNseXU/yvBvMSNaQosF
+PHOnWy2PIBvn7SNm75oUvjN2uyazlXwuS6xdJjxNBYxLcTxIrGUsnmW1Gd92Xtt9
+YwmMLiYLd7l/UESdUmf+nOx4IxQU6vi58CJJYyxIhKCv3ExD7VyPlmXRLJOIg6Nj
+9imcFAaDLwHOupXc+bVisUcX5Z7X1hvzpNvNav2Pwa+pNG10NVIpzmyOoyiGkT+e
+0mbjEodUXd6ZtJxFrVdxXRTHPXWsX6mw7Eem7rHRu5mPBvNTduacybBfEWsTOX1M
+bOsx8yWAYK2CWWMvzHxt6QMNUYPuRu3de6BvFGlqOZ5LLG/dL3im3g7MZB5MyebS
+6zZmLTL7hDarO2mboe2xGDqCaQUQH8ge96g3xlajIMwQlyCwbrn/3mpCOQmRlP0s
+h2txyY6EL6Yd94B4poND20o6DQGf4c8mxW+Eye6l+xu6JgG75Zg=
+=kR2R
+-----END PGP SIGNATURE-----
 
->
->
-> BR,
-> Jani.
->
->
->>
->> No matter what, it's immediately suspect because AFAICT it was not
->> posted on the lists, and the commit doesn't have a Link: trailer
->> pointing at the patch.
->>
->> This is not how we're supposed to roll. What's going on?
->>
->>
->> BR,
->> Jani.
-
--- 
-Jani Nikula, Intel
+--sukuz4zqzekqlssz--
