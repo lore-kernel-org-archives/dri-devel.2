@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12AF2CD6E66
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6881CD6E67
 	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:45:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2480711376C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BB1111377E;
 	Mon,  1 Jun 2026 22:45:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="M3tWroIm";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NJLR5tlh";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DF7F11376C
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:45:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC1A3113776
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:45:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1780353923;
- bh=ZJkZbZinkYW2/9ujWgQTHHbPgel0K7gaSQEekVmR0Ys=;
+ s=mail; t=1780353921;
+ bh=9Sn0cgy0Ujy9Ad4R+4LyrDZu4ahIQTS8kZpAqsHqH24=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=M3tWroImPEASepXoPGVR+eBuf3khOqiLQC/DdeiiE4bp+qdtbv+Aq247Gadm3czX+
- IHioIRMNdejmVsuCuIqyWOqf8O+CLrtjJUD53/ljhMoLIEFMYYcfWWv+JODN2SV6rO
- Y1oewhn0fE5pIKaNTDvoRksi9o9V4ajriPEa1AwEwuKpuyVG3dBYE/3KNJgC2lu3XC
- WqesGbNHfrx3ke6O1t8TEEa38L5ae3z3/9Z6GJe/8U8zA9L23M0fGuto7SMexKIfwZ
- itxTeWrEDIasKjesZcHC79KdPWd/pHxDWs2ZgWX2AHBFFocwh+UAcNimfoOGZQhI+0
- YRz/Fw9l5+0zg==
+ b=NJLR5tlhghmBb4UmvCDG1zMfszPflRCEwYFAXkzMvYMNqxZbVnQbe3qBPOavpfou2
+ Jn400mcv4ZvgNV1wtunjbJe15PM/TyNgWdyvvRWJsllLI5n+Qk9oGq85gdOFrLO8wb
+ 9wIYFM5i1AFafpnKeTQzdYOhcdOqTpnkQwkyufNcJHe3cvV1/+i6IYf0SuHjZ2qwaD
+ mV5gs8uZPjkvM8/0mIxBQdf+QOG4YwxClBS605oHdGqi37ArS0bFe/gRwbYoFiyaBO
+ kTONNLlL5A/t7G7PZgMlkCtr2gLz9Q26FGUOjHaa7m0ccpMYwQQfNSrHC6+HkTsj7x
+ UrcaHzS2hUSDQ==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 206B217E0B69;
- Tue,  2 Jun 2026 00:45:23 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 8136B17E0B66;
+ Tue,  2 Jun 2026 00:45:21 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 02 Jun 2026 01:44:17 +0300
-Subject: [PATCH v7 17/30] drm/rockchip: dw_hdmi_qp: Use local dev variable
- consistently in bind()
+Date: Tue, 02 Jun 2026 01:44:15 +0300
+Subject: [PATCH v7 15/30] drm/bridge: dw-hdmi-qp: Provide
+ dw_hdmi_qp_hpd_notify() helper
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-dw-hdmi-qp-scramb-v7-17-445eb54ee1ed@collabora.com>
+Message-Id: <20260602-dw-hdmi-qp-scramb-v7-15-445eb54ee1ed@collabora.com>
 References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
 In-Reply-To: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -75,125 +75,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace indirect struct device accesses via hdmi->dev and pdev->dev with
-the local dev parameter already available in dw_hdmi_qp_rockchip_bind(),
-for consistency and readability.
+Export dw_hdmi_qp_hpd_notify() for platform drivers to report hot-plug
+detection events.  Unlike drm_helper_hpd_irq_event() which polls all
+connectors, this helper targets only the affected connector and ensures
+.detect_ctx() is invoked on reconnection events to trigger SCDC state
+recovery.
 
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+Note that this helper may sleep, so it must only be called from a
+threaded HPD interrupt handler or a work function.
+
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 33 +++++++++++++-------------
- 1 file changed, 16 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 31 ++++++++++++++++++++++++++++
+ include/drm/bridge/dw_hdmi_qp.h              |  1 +
+ 2 files changed, 32 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 296f9a3ba66a..46df5abe31a4 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -475,7 +475,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	struct clk *ref_clk;
- 	int ret, irq, i;
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index 0250ddd8f91a..999229705ffb 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -29,6 +29,7 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_modes.h>
+ #include <drm/drm_print.h>
++#include <drm/drm_probe_helper.h>
  
--	if (!pdev->dev.of_node)
-+	if (!dev->of_node)
- 		return -ENODEV;
+ #include <media/cec.h>
  
- 	hdmi = drmm_kzalloc(drm, sizeof(*hdmi), GFP_KERNEL);
-@@ -495,7 +495,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 		return dev_err_probe(dev, -ENODEV, "Missing platform ctrl ops\n");
+@@ -1433,6 +1434,36 @@ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
+ }
+ EXPORT_SYMBOL_GPL(dw_hdmi_qp_bind);
  
- 	hdmi->ctrl_ops = cfg->ctrl_ops;
--	hdmi->dev = &pdev->dev;
-+	hdmi->dev = dev;
- 	hdmi->port_id = -ENODEV;
- 
- 	/* Identify port ID by matching base IO address */
-@@ -506,7 +506,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 		}
- 	}
- 	if (hdmi->port_id < 0)
--		return dev_err_probe(hdmi->dev, hdmi->port_id,
-+		return dev_err_probe(dev, hdmi->port_id,
- 				     "Failed to match HDMI port ID\n");
- 
- 	plat_data.phy_ops = cfg->phy_ops;
-@@ -530,37 +530,36 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	hdmi->regmap = syscon_regmap_lookup_by_phandle(dev->of_node,
- 						       "rockchip,grf");
- 	if (IS_ERR(hdmi->regmap))
--		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->regmap),
-+		return dev_err_probe(dev, PTR_ERR(hdmi->regmap),
- 				     "Unable to get rockchip,grf\n");
- 
- 	hdmi->vo_regmap = syscon_regmap_lookup_by_phandle(dev->of_node,
- 							  "rockchip,vo-grf");
- 	if (IS_ERR(hdmi->vo_regmap))
--		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->vo_regmap),
-+		return dev_err_probe(dev, PTR_ERR(hdmi->vo_regmap),
- 				     "Unable to get rockchip,vo-grf\n");
- 
--	ret = devm_clk_bulk_get_all_enabled(hdmi->dev, &clks);
-+	ret = devm_clk_bulk_get_all_enabled(dev, &clks);
- 	if (ret < 0)
--		return dev_err_probe(hdmi->dev, ret, "Failed to get clocks\n");
-+		return dev_err_probe(dev, ret, "Failed to get clocks\n");
- 
--	ref_clk = clk_get(hdmi->dev, "ref");
-+	ref_clk = clk_get(dev, "ref");
- 	if (IS_ERR(ref_clk))
--		return dev_err_probe(hdmi->dev, PTR_ERR(ref_clk),
-+		return dev_err_probe(dev, PTR_ERR(ref_clk),
- 				     "Failed to get ref clock\n");
- 
- 	plat_data.ref_clk_rate = clk_get_rate(ref_clk);
- 	clk_put(ref_clk);
- 
--	hdmi->frl_enable_gpio = devm_gpiod_get_optional(hdmi->dev, "frl-enable",
-+	hdmi->frl_enable_gpio = devm_gpiod_get_optional(dev, "frl-enable",
- 							GPIOD_OUT_LOW);
- 	if (IS_ERR(hdmi->frl_enable_gpio))
--		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->frl_enable_gpio),
-+		return dev_err_probe(dev, PTR_ERR(hdmi->frl_enable_gpio),
- 				     "Failed to request FRL enable GPIO\n");
- 
- 	hdmi->phy = devm_of_phy_get_by_index(dev, dev->of_node, 0);
- 	if (IS_ERR(hdmi->phy))
--		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->phy),
--				     "Failed to get phy\n");
-+		return dev_err_probe(dev, PTR_ERR(hdmi->phy), "Failed to get phy\n");
- 
- 	cfg->ctrl_ops->io_init(hdmi);
- 
-@@ -578,7 +577,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	if (irq < 0)
- 		return irq;
- 
--	ret = devm_request_threaded_irq(hdmi->dev, irq,
-+	ret = devm_request_threaded_irq(dev, irq,
- 					cfg->ctrl_ops->hardirq_callback,
- 					cfg->ctrl_ops->irq_callback,
- 					IRQF_SHARED, "dw-hdmi-qp-hpd",
-@@ -589,18 +588,18 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	drm_encoder_helper_add(encoder, &dw_hdmi_qp_rockchip_encoder_helper_funcs);
- 	ret = drmm_encoder_init(drm, encoder, NULL, DRM_MODE_ENCODER_TMDS, NULL);
- 	if (ret)
--		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder\n");
-+		return dev_err_probe(dev, ret, "Failed to init encoder\n");
- 
- 	platform_set_drvdata(pdev, hdmi);
- 
- 	hdmi->hdmi = dw_hdmi_qp_bind(pdev, encoder, &plat_data);
- 	if (IS_ERR(hdmi->hdmi))
--		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->hdmi),
-+		return dev_err_probe(dev, PTR_ERR(hdmi->hdmi),
- 				     "Failed to bind dw-hdmi-qp\n");
- 
- 	connector = drm_bridge_connector_init(drm, encoder);
- 	if (IS_ERR(connector))
--		return dev_err_probe(hdmi->dev, PTR_ERR(connector),
-+		return dev_err_probe(dev, PTR_ERR(connector),
- 				     "Failed to init bridge connector\n");
- 
- 	return 0;
++/**
++ * dw_hdmi_qp_hpd_notify() - Notify a hot-plug detection event
++ * @hdmi: pointer to the DW HDMI QP controller
++ *
++ * Platform drivers should call this from their threaded IRQ handler or work
++ * function to notify the bridge of a connection status change.
++ * The bridge's .read_hpd() phy_ops callback is used to read the current
++ * connection status.
++ */
++void dw_hdmi_qp_hpd_notify(struct dw_hdmi_qp *hdmi)
++{
++	enum drm_connector_status status;
++
++	status = hdmi->phy.ops->read_hpd(hdmi, hdmi->phy.data);
++	dev_dbg(hdmi->dev, "%s status=%d\n", __func__, status);
++
++	/*
++	 * When the display pipeline has been already active, switch to
++	 * drm_connector_helper_hpd_irq_event() to ensure .detect_ctx()
++	 * gets invoked, i.e. via drm_helper_probe_detect(), because
++	 * drm_bridge_hpd_notify() defers to a delayed hotplug path in
++	 * this case.
++	 */
++	if (hdmi->curr_conn && status == connector_status_connected)
++		drm_connector_helper_hpd_irq_event(hdmi->curr_conn);
++	else
++		drm_bridge_hpd_notify(&hdmi->bridge, status);
++}
++EXPORT_SYMBOL_GPL(dw_hdmi_qp_hpd_notify);
++
+ void dw_hdmi_qp_suspend(struct device *dev, struct dw_hdmi_qp *hdmi)
+ {
+ 	disable_irq(hdmi->main_irq);
+diff --git a/include/drm/bridge/dw_hdmi_qp.h b/include/drm/bridge/dw_hdmi_qp.h
+index b80fceffc315..b4fb1c578a5b 100644
+--- a/include/drm/bridge/dw_hdmi_qp.h
++++ b/include/drm/bridge/dw_hdmi_qp.h
+@@ -36,6 +36,7 @@ struct dw_hdmi_qp_plat_data {
+ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
+ 				   struct drm_encoder *encoder,
+ 				   const struct dw_hdmi_qp_plat_data *plat_data);
++void dw_hdmi_qp_hpd_notify(struct dw_hdmi_qp *hdmi);
+ void dw_hdmi_qp_suspend(struct device *dev, struct dw_hdmi_qp *hdmi);
+ void dw_hdmi_qp_resume(struct device *dev, struct dw_hdmi_qp *hdmi);
+ #endif /* __DW_HDMI_QP__ */
 
 -- 
 2.54.0
