@@ -4,97 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 056F1CD5BD1
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 08:16:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AFEACD6E4C
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 08:24:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6ECB4112F5A;
-	Mon,  1 Jun 2026 08:16:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91EF8112F6E;
+	Mon,  1 Jun 2026 08:24:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BapgHXqm";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BpPWRV0a";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B13DB112F5A;
- Mon,  1 Jun 2026 08:16:36 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7D8A741574;
- Mon,  1 Jun 2026 08:16:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4A2A1F00893;
- Mon,  1 Jun 2026 08:16:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780301796;
- bh=7jvZqi8VkeRODB5KZOUNHa6HlOqHzuN+bUrucImc84I=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=BapgHXqmzEjlmgIoOeYSUlyeZ51lqH/ZOhNVuDeecVA6Z2r+IiW/BU4ZCKwAlXtgO
- DHxzBeLpOvsdHOAmSXVtET9xfot7Tefb/TJDvKr1ooDumPMiEbfuSLJTJ8wbsDGLCg
- MC1yp+/WAl6sEnceRcUzLtBPKj85SOfRCBtHzq76r5dnmEca8i4cLaN5PyrYUL0qmP
- 9dLAtNC/cJ5sCQP9BIyz0mfSIxAALpYHIYYnJZ2G+NBfLN8HSuaZUXKwTVlax/x0JR
- dBYR6a8d2a/nXD3M0+hcCj/ZsKcUHXZyEjsF6Q1DeY10FKa//I0x9xqYF7z/6FTzMi
- HjcK3n+tskndA==
-Message-ID: <58cc76e7-2348-443d-a989-2a06e61178af@kernel.org>
-Date: Mon, 1 Jun 2026 10:16:30 +0200
-MIME-Version: 1.0
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012004.outbound.protection.outlook.com [52.101.48.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1605112F6E
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 08:24:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Dd4Gq29iMKdvsaUvWfFGVhG1QlSzPxD7SipxW4JyHBokJORTCzUlhQT+UAFHNA1NUaqUEE61gTjx1F/VQk5p0Z5EJmVVYKj3y74Gcd1UmXQNcLFgNxxYiubjLDGbRwwBj0YDl2hHcJ4rOwDZSnl4mXk1YNJBXNjVYPdXHv/vMEtdieeM8iMvzSOs8xSWItLl8M5CWalNg7eSDap5FAt04M6hKrF53dT+s5w2mdap1uFizL2nSt20Tzc/Ma3hlvuZ6qBBWkCrV2Key/lfMO23/apDPWueLeQ4Xu2+IjidkXOELHWFtu9wwOocfv2mqGTR6v/z/OVtpIWmJ0+84eUbDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZKQrcU8Mxi/rySN1zniWf8jMNIA5LVdj6emqu4N8TyI=;
+ b=hIB+ZKb5afhrp7/X3apuDDcaAf0KysN0dIsV/+3vV0SI0yyqXPkG7L5pHod5eYxgC0dgM7hDV76o1defnIBDPY+HKmpkEO+FcV6z6Q9LJ5pptQtU/F/103MHZYpFUqTILcbYxm1WDiX3yj3tFEosq1vIMrlNr3NAOupBFMhFdAFqjRUqdcEiYWAmMMeEjHPbngq0jReXXQif4f26aU+SbtpCJefnWElqCFdz5Al0gi8SnDOZOmF28ThE2uJ3dg8wEQ5Vw8yvxtMFCdjZt6NnV/0wK6K1igqjuSotZcyfYVp/he22Aj0/lPXNmx+9N24OQGZ4EQQPMlR/dOBZZQXu/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZKQrcU8Mxi/rySN1zniWf8jMNIA5LVdj6emqu4N8TyI=;
+ b=BpPWRV0a+8hFNNESL78PV1EzUo7yVjfdpBNltLB1GTTuf2SSSCmRQX2aG0+3uiJqgNYMolbjYaz35uNG4JO8JXw+khn1h07dOC3VhgCfypMhahj1sE9pqsPCBvDqqzxRX36mlwYEkTm0P0ii9wqw2INTrjgL7mVo6r7jDyRB/E4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA1PR12MB6726.namprd12.prod.outlook.com (2603:10b6:806:255::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Mon, 1 Jun 2026
+ 08:24:35 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0071.011; Mon, 1 Jun 2026
+ 08:24:35 +0000
+Message-ID: <27e74975-a6f1-4ef5-8f9c-0f834a580030@amd.com>
+Date: Mon, 1 Jun 2026 10:24:29 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/slab: improve kmem_cache_alloc_bulk
+Subject: Re: [PATCH v3] dma-fence: Clarify external lock use case in
+ dma_fence_init() docs
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Philipp Stanner <phasta@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ kernel-dev@igalia.com
+References: <20260531125115.1136036-1-mcanal@igalia.com>
 Content-Language: en-US
-To: Harry Yoo <harry@kernel.org>, Christoph Hellwig <hch@lst.de>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Mark Brown
- <broonie@kernel.org>, Hao Li <hao.li@linux.dev>,
- Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Jesper Dangaard Brouer <hawk@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, io-uring@vger.kernel.org,
- kasan-dev@googlegroups.com, bpf@vger.kernel.org, netdev@vger.kernel.org,
- Alexander Lobakin <aleksander.lobakin@intel.com>,
- Boris Brezillon <boris.brezillon@collabora.com>
-References: <20260528093437.2519248-1-hch@lst.de>
- <20260528093437.2519248-2-hch@lst.de>
- <5f7f90d8-cb32-4ffb-8f1c-0722aafbe869@kernel.org>
- <20260529135045.GA10647@lst.de>
- <5f3ba603-a6ad-4cf2-9a54-aebc10273c59@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <5f3ba603-a6ad-4cf2-9a54-aebc10273c59@kernel.org>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260531125115.1136036-1-mcanal@igalia.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0118.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a8::19) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB6726:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5b0a2dbe-96c4-4c8c-12f6-08debfb7369d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: veWTy/rD8+oR0Mrnenbi4BP0RHGjVj1Lqwr4kqS2Kz7KPxyEq387Xg5Rk/IxpH0o7k95ye6fQU0im6XOQ3rxC6QAAbF9vwaUcx5WYU6TUd3ireN0hB1BEFykCV0Swnl/OjuEvKCQj6iswlvRBxePWrvdrxMDmXMkOrzIn3FOCjB82uUzgo1RUzXTGK8iDXcF7cygsa7nJ0tIEbBGBDAq5HLlE0WMUAW8p2fLRHN7LhObr8LUpdI81jpciB9dIDkAUjX6b4xmyJyYlouTVJBKXkK4TmCM04WDXWivnr/EINkct2jDwG519XIgJINt26S1oOR99DrIkIz6nPZ4VUxAph4pBSyglhz4RImgr5js3DGcX/qAHkd+nEHdbRBQJakuYY76XsYLk4n2cZ0eCkzqCg1UYK8dqdKdxSRzs3Qwhl6AHiQ1PRlX+p/oub+UeBdKFkrcVwFV2+8btKEumdQ7vw1eqbzHnYXZ1eW1pYYyQjieoBXhK/9iDu/va8jBu6a3PM9YFTnpNZU6bjYX+UZk9fnHizlS82SWkkxSS+TFOptKXdGXh0K4rtWBDx4Akg2jSRVLV9VVTce1Pek0RnyisACYJrncNX/cTQvGrIu3OlsUKt4HvDypt/MXo3xro3jGdyxEIMBheLwmjOMVLGMiNw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(18002099003)(22082099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N1ZZSnR1c3NxYy95aHlnb2VIbElxMmRTWnppQTlJTDVLVTdYOWNCak5oSkE0?=
+ =?utf-8?B?eG4wMXZReG5mTVlIeGdleEtuSG8yKyt5QTlmWEFoWHo0SHU0elByMW5DeE9P?=
+ =?utf-8?B?UGdCTms0aWdxOWo0anVmSDlPRlBxRUswN2kxaVkxNllvbjVHZk1adTJyL0JW?=
+ =?utf-8?B?SWdia0hRcmIreFFiMXVFNjQ5dzdNRXdwYmlZRjFUaUNXaWJENDUrQ3pmaGVW?=
+ =?utf-8?B?RzZHcmRRTDA2ZVQzQ2dFd2Uxd3ZQbUZFaiszOTBOOGVwWUkrZ2Fhb2FNWS9y?=
+ =?utf-8?B?cENiUU44a1N6UWRWNSt0MHdFcm5pYWNFMU1UVU1HZXlMZldleWpnV0hHN3lm?=
+ =?utf-8?B?MG5uWVlHbCtyYnlxejB0RWZSOTI2SVBqR2FPejd1cENwY3ZLZW5XZ3FPejFQ?=
+ =?utf-8?B?WDVIWkhsZE4ybUttZkVwZlF0RHd4NkxEcEh3L3VTM2RVbEJLTDRJNXBpdzMv?=
+ =?utf-8?B?ekVVbVdqd1lWVVQrNHY3WGtIQzMxOWVPYmttMUtJOXpaWlZjY3ZwRkNKVUMz?=
+ =?utf-8?B?ZTlZREZ1TnY1OFIvUWQ1Y0xFd1BUVTdCMVAxRTJpUjg4QU93Z1VtQlpBUC9V?=
+ =?utf-8?B?OTNrWHNNaDB0Tit4d0hDZytsRFJseWd4c3lhbVVCMnNBejI5NkhnZG1aQkZr?=
+ =?utf-8?B?V0ljOGxwVnlQMmdEQ3dxR21vRzhKY0hIM21LNHVZbXBxbmYzclNFR0lVUU41?=
+ =?utf-8?B?RVM2TG5JT2RWT0NTYzloZWFpaDR3d2RwMVNrMkpvSU5LeUdsd2RWRWNDdGFG?=
+ =?utf-8?B?dlZuN0ttT0NKWUphM3R2Y3laUEdaUUFnbEZPSm52MTJ0MzIzcWVFMFFQTnhX?=
+ =?utf-8?B?cFhBWm9QdHg0UUxFZ1A1SjZFQ3RyaHhoZHZMeEJKSHlhdFhBOEdSYVd2dFlx?=
+ =?utf-8?B?UmxCKy9pdmU1K0hvaXp5bWJxcWgwVm0xZUFlMjVxT2hZR2JFakFRRFZYRjJ6?=
+ =?utf-8?B?ZXdRdTRtRkpMemptM1Bwb0VwRndXR3laL2toWGRWYmpOeXZTaWNNZjhSendR?=
+ =?utf-8?B?TGFxYmg5QURIc3VHVnpOSHcyb1pXcW1RNzNuSFo3eTFwVzNKVnJ6SHAwRExK?=
+ =?utf-8?B?eGYvdEt3dFZTVlZ2dzhLQVJtVUFqN2pvT2d4T250ejZkNEpxQmcyYUtPenNU?=
+ =?utf-8?B?WGxFRFhvWDNFTmFSWGVEeW5KcWhnZWVYNGx6ZmlMUlJuWkZzQWJiTlVxZDRJ?=
+ =?utf-8?B?SVUxUStBUzQxblcwQVJkU1RXY1JUTHJTaUtQT2I0dDBzUS9jUGVNVlhucWg5?=
+ =?utf-8?B?Y1JaOTZPc25MODlmbzh2YUk1dURTelB0cGxwMGgvcnBrVGFaYUNxdDN5eWZQ?=
+ =?utf-8?B?ejc4aWsxOXhCUzFqL0J3bzJNc3lubEMyWTRnTy9DM1h2L2VFZFZwYVdBV1J2?=
+ =?utf-8?B?U3I0N2xpUnJ4T1prS3J1R0ppZmkwWUJhRFNiaDRVWFU4RnNSU1YwY1Y5Rnh4?=
+ =?utf-8?B?b0N2S2RoUkV1VmxFVXhkUUlJQnZQYjYzMG5pTWp4ajdNMzVETnA1UzBzdjJM?=
+ =?utf-8?B?WEJnV3NsTEVQWFIzUUdMY2RZcjFvZysyaVI2eWpuOVlSYm5Cd1NzRmxjUStl?=
+ =?utf-8?B?NGI1OVk1UnBOMi8vUzZ4TDRwVHA3dE8yOUNudm8zVERLK3R5eTVXUHdCamsx?=
+ =?utf-8?B?RHBjS01JRVhuZS9NMHFmdWJkaWJuM0JUY2Frak5pckRNdTBCcndQQWNOZFZT?=
+ =?utf-8?B?Nk52elczRG1tUjhwNE1ZcFpOOXdCQS9zbUhvNk8ybCtValJHc0p3MW9rN3dI?=
+ =?utf-8?B?d2svNHJpdTl4eTRIT3JuN1RUbDJPZUFCQnBISUVSVVMvVnM4dDhMcVhGMjlK?=
+ =?utf-8?B?eStieGZidHM0QmVkc0pQMXNXQ2EvRmZwRzU1d3hGSXlIR1MyWUIxWTFPMnZ2?=
+ =?utf-8?B?UjhjcndISE9qNE4zOTc3a0tsSlEvV3RCQXQ5S0J4VUJXbFpBRENITDIxK2Zw?=
+ =?utf-8?B?SFc0Umx5SUZwZ3BjL2ZSWFdtVjY3QnRUUG5qQWIyWkk4bllMdi85cGVXbzlV?=
+ =?utf-8?B?VWY1NHZZS3VBMklUUldLMVcwbjFKOGcyM0IzVko1aFJsV1lFdTluYlZvMWtp?=
+ =?utf-8?B?Sk9RamxaejNnRFE0U1BtU2FORXVJZzB4VlJzZVd2YVltMEpiOVpXc01RSDE4?=
+ =?utf-8?B?d0twdS9pYnYyU3E3b0JLSkZrRVJsSGZBYjFOYXVGdUFXZkRSSlRrRzFqaDM1?=
+ =?utf-8?B?S1JKakJMdG1vL3lNeTYwL2xyWlM0cWtTYVE2d3VVTmdzSUIrS0ZiTlpyOFZ0?=
+ =?utf-8?B?WGUvTUxmdytUUTBtenYxQWcrTEovRS8yUTdXWDh2MkMwSVNxNC8xRnA5OGky?=
+ =?utf-8?Q?zaRPEeePVmbCK2mCJC?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b0a2dbe-96c4-4c8c-12f6-08debfb7369d
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 08:24:35.0865 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lplwT7Nx8wEjGpaK7LEc0yVEExW2U3cXoveu1idWrYSpd1M/gGPRWLABT+KYcFVr
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6726
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,45 +141,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/1/26 08:39, Harry Yoo wrote:
+
+
+On 5/31/26 14:49, Maíra Canal wrote:
+> The kerneldoc comment on dma_fence_init() and dma_fence_init64() describe
+> the legacy reason to pass an external lock as a need to prevent multiple
+> fences "from signaling out of order". However, this wording is a bit
+> misleading: a shared spinlock does not (and cannot) prevent the signaler
+> from signaling out of order. Signaling order is the driver's responsibility
+> regardless of whether the lock is shared or per-fence.
 > 
+> Reword both comments to better describe the legacy use cases where a
+> shared lock was needed.
 > 
-> On 5/29/26 10:50 PM, Christoph Hellwig wrote:
->> On Fri, May 29, 2026 at 01:54:48PM +0200, Vlastimil Babka (SUSE) wrote:
->>> Thanks, I applied it to slab/for-7.2/alloc_bulk and merged to slab/for-next
->>> (it's still yankable in case of issues)
->>>
->>> Did some fixups below (the comment was stale prior to the patch; restored
->>> unlikely(), simplified one line).
->>>
->>> A test merge into yesterday's -next found a conflict in drivers/gpu/drm/
->>> panthor/panthor_mmu.c. Commit 1013bf53650e ("drm/panthor: Split
->>> panthor_vm_prepare_map_op_ctx() to prepare for reclaim") moved the changed
->>> codeto a new function panthor_vm_op_ctx_prealloc_pts().
->>> But it's solvable so no need for a complicated coordination I think.
->> 
->> Ok, thanks.  The two Sashiko complains also look like they had merrits,
->> but I won't get to looking into them until Monday.
-> The review:
-> https://sashiko.dev/#/patchset/20260528093437.2519248-2-hch%40lst.de
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+
+I'm going to push this to drm-misc-next.
+
+Thanks,
+Christian.
+
 > 
-> So there is a user who might call kmem_cache_alloc_bulk() with size = 0
-
-I don't know if it can really happen there, but maybe DRM folks can tell us.
-
-> (although the comment says @size must be larger than 0!) and
-
-The comment is however new, the caller existed when there was no comment and
-the return value 0 when asked for 0 was working there.
-
-> kmem_cache_alloc_bulk() returning 0 was considered a success in that case.
+> ---
 > 
-> Either fixing kmem_cache_alloc_bulk() (and the comment) or fixing the
-> user sounds fine to me.
+> v1 -> v2: https://lore.kernel.org/dri-devel/20260411185756.1887119-4-mcanal@igalia.com/
+> 
+> - Be more explicit about not allowing new users to use an external lock.
+> - De-duplicate the explanation in dma_fence_init64() by pointing to the
+>   dma_fence_init() documentation.
+> 
+> v2 -> v3: https://lore.kernel.org/dri-devel/20260419134943.54833-2-mcanal@igalia.com/T/
+> 
+> - Apply Christian's suggestion with small readability improvements.
+> 
+> ---
+>  drivers/dma-buf/dma-fence.c | 14 ++++++++------
+>  1 file changed, 8 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index b3bfa6943a8e..c7ea1e75d38a 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -1102,9 +1102,12 @@ __dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+>   * context and seqno are used for easy comparison between fences, allowing
+>   * to check which fence is later by simply using dma_fence_later().
+>   *
+> - * It is strongly discouraged to provide an external lock because this couples
+> - * lock and fence life time. This is only allowed for legacy use cases when
+> - * multiple fences need to be prevented from signaling out of order.
+> + * External locks are a relic of legacy use cases that needed a shared lock
+> + * to serialize signaling when no out-of-order signaling was possible through
+> + * &dma_fence_ops.signaled. Drivers have abandoned this concept since the
+> + * introduction of the callback, but the external lock is still around. New
+> + * users MUST NOT use external locks, as they force the issuer to outlive all
+> + * fences that reference the lock.
+>   */
+>  void
+>  dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+> @@ -1129,9 +1132,8 @@ EXPORT_SYMBOL(dma_fence_init);
+>   * Context and seqno are used for easy comparison between fences, allowing
+>   * to check which fence is later by simply using dma_fence_later().
+>   *
+> - * It is strongly discouraged to provide an external lock because this couples
+> - * lock and fence life time. This is only allowed for legacy use cases when
+> - * multiple fences need to be prevented from signaling out of order.
+> + * New users MUST NOT use external locks. Check the documentation in
+> + * dma_fence_init() to understand the motives behind the legacy use cases.
+>   */
+>  void
+>  dma_fence_init64(struct dma_fence *fence, const struct dma_fence_ops *ops,
 
-Would it be wrong if we just returned true for size of 0? Would something
-else break?
-
-> And yeah freeing an object via kfree() allocated via kvmalloc is a bug...
-
-Yep.
