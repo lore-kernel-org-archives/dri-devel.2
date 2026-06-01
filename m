@@ -4,124 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 930C5CD6E55
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 13:27:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06D58CD5BD1
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 13:32:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0166110E7C3;
-	Mon,  1 Jun 2026 13:27:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4284411334F;
+	Mon,  1 Jun 2026 13:32:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="o9S+8kAI";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PFt2RAar";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DuapfhhQ";
 	dkim-atps=neutral
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FDE210E7D1
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 13:27:23 +0000 (UTC)
-Received: by mail-dl1-f54.google.com with SMTP id
- a92af1059eb24-137d452574cso2984551c88.0
- for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 06:27:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780320442; cv=none;
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37A8411334E
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 13:32:52 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6518fdqm4065896
+ for <dri-devel@lists.freedesktop.org>; Mon, 1 Jun 2026 13:32:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=iSWiEO3+qeWSnedTIbwacWBgpl1B0hKJbCUNlgrD+t8=; b=PF
+ t2RAar6Rx4C+bsZIRoMqTfW1WZG9nbsuJlWkqn83U135u0Z0bylMV0sOgc7F72gV
+ sqKCXLPyNmXIQQ/LM30PPnvWdr+IvT+bUtFdYo+RGnFTWLchsKVSlh0FDoPSne/x
+ pT8kRmrDo3AgwU10bbeSYRFnjrk+ckhVN2RePt2wOCFetIxgLNKUCdTFwqKwNPpH
+ /4urPc305YRMDkPdekrkeylcnqus27uRpJqJZU23OIJXdUhw1wsfdevOrPX/7UiD
+ bCTMtjBiSsut7/eI+6phiKEIvPexyRmaB5KOJrOAmfDDzb3RzByJ1NpduMDLwrt5
+ I75z8vm444bwcKCfbr9A==
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
+ [209.85.167.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eh6sws4xa-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 13:32:51 +0000 (GMT)
+Received: by mail-oi1-f199.google.com with SMTP id
+ 5614622812f47-4863abb79b0so131774b6e.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 06:32:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780320771; cv=none;
  d=google.com; s=arc-20240605;
- b=el5WLyeqTq9barI8y9u/tEwGmRH0zFiR9uYcGiq/54nR2Xden4jpuFhdd77marp1Fo
- BA2GreYmgIGUI+8u6wmLPlxzzy/yFsPpHRMMWdJUXxoXb284LfFl4mOt8R3QjFgVi3dy
- 84UFU9+6YXpY/vkXGdRJzvjatJgKyBmGX0JaWyUghQtCQSR7scSxbZZvlYWt7rAdwZDx
- gajguKr3rqJKgRjUBkbjcmcMhR8GwGwOPDmah53pv7lR3gFz4ZGN/rBoJ0WrzCb9lneS
- BUbxFvD4OcSvwIhrpGTg7cbhtr+FtDeVP3HjkKKO7nv5Z7VtHiXTLaUfoXHYezzZx/4T
- 3W9w==
+ b=E2yjz3qcNuluxDUO1HUqwrPNk8tdTLTEOcX8Q+Q+Oha0XHos+HmVPuzRJ1AiuzM3uS
+ 6L3i0lBOX2DJWiw3FNKq8ANGMpKfkfnCcpNFfdvTpwZvMrRVlT3daXdGRJ6znDTPd/1Y
+ A1JjmAk+oW8f+Nrz9qE/D6x2F0V/DvP0KH6YvURDn/222A1ooB7DyWucZejzJfCqXKXO
+ Ns06pEEag11Hl4HiKa5r0lktH3CA7/uw48zbB2AaRhQjxJyVeuIVHwE5gb93sOifg9Uj
+ WPVbb/qFcJHVxV89h4bJhhxj27jHVZSI42833JTvPYmG+KwOwXiTNnAgOwggvq3KrZOD
+ MqdQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Ri49UqDlI7T6GkNPLNf+vktr0M6I1uPdwQQUuW9VuW4=;
- fh=C4HuYGBJzWML69NHLo54GI1rRGoorDdZTBZQOvW083M=;
- b=CaVi8AuCRWb5WX3RuAg4ydeLx5jB6VXxu9EXMVZKm22PAZtS7zKfysnUFcY6uNHYXC
- d7cwMHXtHgMG7z4MhJUPKWjdLkODmxCVPdikl99C2j1VSfjLt8OOs6F7TVJR+qWtR8JG
- PL2F9jX9Vju6PFbEYTM/+vzlvrPbsLz6VPxNNp6QRHplYJzlV3WVRjlIdKX7pNghljjt
- Dirog7p9y/AJVpa4L3AhR0+gUgvp9avoNZ7BzpbgIw7Lm6Oed0NBFNCDcyJbw2E3AY7t
- GK4F4okn+2Ilv7CMb/ccCMhiRnqMNE3SReZmXgkROTHxSQqMJOIGYl2Xtcc9iAyJs3CQ
- SHYA==; darn=lists.freedesktop.org
+ :reply-to:in-reply-to:references:mime-version:dkim-signature;
+ bh=iSWiEO3+qeWSnedTIbwacWBgpl1B0hKJbCUNlgrD+t8=;
+ fh=YgvLJdChKTd4gKVMVV6lXZEBOoHG3entlpePM3mgptM=;
+ b=URUh1mrrseAuJQNOFmXPYMO8SHQRc5d4vJ6y0bd1YqvME358/XQKLL/dh2GBb+HDLw
+ z9AEVeqaglIRwUZv9f0fh8NYWg9IOV2F5kUFQSCrXtECdKhg2ZIeYik4Oh5GkmmQw3Ha
+ YAYQ+RpHhXvwAr1qVrH2lXTkEeKUkt3UTm3rWDCDG7TVXdLK2Zv0nGBVnIDH2d2sh3s/
+ uKmD9KNe12hblYXgjaM3+tJ3xb7+OCJcrJYJXNk4Z7Yz8vDm7goVsAKppMI6EB3ekQwD
+ oeUNZ+Jbll7iRzIhIWTKwSZ/pzXy3Qpty4+wmfx6Rjakr4QFSlSG/M4B31d2jgjl/Q3l
+ blKA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1780320442; x=1780925242;
+ d=oss.qualcomm.com; s=google; t=1780320771; x=1780925571;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Ri49UqDlI7T6GkNPLNf+vktr0M6I1uPdwQQUuW9VuW4=;
- b=o9S+8kAImEy9Dby2YJHX7Y/HynkCTF+xDHzMr2zctqUc3/7zS/BIbaNpyHeJwCe3mT
- wssXZMBR470Idipui/rSuB2fxexoO0Uyx9ZqbLTMN0U0rH/g28acx5cbuevcwUEjzzBs
- PISrr0khBybKDDGSCcd8Q3bN+4mMPEHaizHbwztGIQaGHXZWplDUdDlgfu43f8J3dHsI
- 6MljTyorR5uCzzhJjDGglq/LZ2E8IimPZ+N3Jk90GkQuxQUsktUb9AjJsFdtdndvtySb
- KZWk1x3pap+VBY1OBx45uTpygR5n68ypdr6ex4hD/vW8Lpw8icff8aMAxMZNX7UjgC+x
- a78w==
+ :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=iSWiEO3+qeWSnedTIbwacWBgpl1B0hKJbCUNlgrD+t8=;
+ b=DuapfhhQiR94EHguw0bdTE1BPg00NYMyO4NNYh2acb6jaJY4LfgWgBO3V9yInOXCQ9
+ qSNT0FFs/ocPVZkHqs+E7ownRKQqYqvdAeDI23/1QIBdmf25r7sPAjUelHNqQsyf+SGs
+ H265KSIgec+uV0EdOGRN3LgWGc/jeW3StVzkwR4MZWWYcgUsvVDm6v542VFiwkRdtU6q
+ TjYQbO8i6FilWznLrH1w3bmyyYE1hNJW4qdlgU1n59gQzdgV93vSgcff0uBs2qSKbSv6
+ Qx0rgm4cEhsLOXmee4y9dYKngwPBfPhXZyNH1I9bedjvBQsWa/6ImXOGiG5K76YmLWXq
+ PxqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780320442; x=1780925242;
+ d=1e100.net; s=20251104; t=1780320771; x=1780925571;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Ri49UqDlI7T6GkNPLNf+vktr0M6I1uPdwQQUuW9VuW4=;
- b=aXTTsSnF8lIMV+vW5l4hdjVOy1j7EtXt9A25ZHEgywtHhJcD11chiX6N3VTrOWur+E
- +zBjxLnOVdrKwNHyXYavWVh2kYiSJqeUyPPe/JlLM5c57swztNWjypy9sAhW1FjhPBI2
- WNkmoSizlfY8A8vRdHjx36fcHP0ahfLiyXwojvZIz0gsYrK9F9uEzmv0d/Nhwi1k6QAc
- 4LumQ9RFpcj7esPT6vC/4/1SUSVmBHeMJaOImCJe97YRWV0QuyEIqBmk91DX0fSr8zkf
- 6ZVWQkOmLiNzx7P/R9oZaMezj91hPvq63tclGF5roCC/j+vfxbVUWvbYtGuOIYREBNrd
- yU7A==
+ :reply-to:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=iSWiEO3+qeWSnedTIbwacWBgpl1B0hKJbCUNlgrD+t8=;
+ b=FgvlIVC9AmJcmjSAjBRv3xMVZvrxBgTYcHqEZ0Q2eZpa1Q0jNs25ZZ5uC5HWrHFoRM
+ 38TCcrSCPaBCMeimgze+0uc88ixE1CDxGUGfaNDQdyVORcvkFZPPxBhPw6InTsgJBD/c
+ YcrCLsbCV4TNWRIR6ogJtNNEaGjtFWM2k91E/NgYHUUUIedHedSgYYrnayM+fv96jQSY
+ RBtm+/+1zLThe56hMdgCwXZVKBQOi3ocfIiurB3ZVRo925D4oXH2DkrIAohkas6hGIgN
+ 2ROOlQ1odQ+Rx6Y7O4G41jZW/RzX+A3/egjycTvfUrpWqell0YsFdAqbFOmb3i/vlDHL
+ YtAw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9V7nK3khUhHjoH3uqcE+Ndzx8SeFRBc6W1rb0/gzIDwkVj2NYDeepfK0rabR3oHBoFNAvf+Pt7y4g=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyLM2/JMCxmHvA+1yoU6/N+CqJ5WTKazUEdKFG/00pjuwipQ0IJ
- l4/1YXid1o9Va5DCALkEdnBlRqUAkHrVAbA3ZT7JcjJbLntHabSNlrOmw5rnFe7W2tnP8pJgetS
- 0MEx3BlcDbsKHGLdlQVdL9cjzKfYO4HiCyFcml71z
-X-Gm-Gg: Acq92OE9D5vwpbGZNeRKmXiwfSSC0hl4eqm6RJlyTdTbR/fYS0F9wkbnOQbc/YJUX4P
- nVXPtLbtBgyUXdzsynqwU3l3KHQAEDDyhObp6WedZb89JHGnnbnj9Av0/YLu5fn+qLlrccF1cga
- g1DUd/N+QzG11tdru6EMTfad94bTSDan9CvFQyinyqJSEVdiYoHhbJmL4a+MzJob5YnGus6jRkI
- LKg9iKvH9uEilBtAgem3htmaSPKRoRzDBcIE/Quq6J3eWJ3IiM19apdDKgzdpLMpCiYIXmrPnx4
- LK/11WG0zy3K0xg7C12NA2rG+GrMFVb2Y1NhwMwLqBAJSGg9x+vpzelV92NaNyoDAV3u1EuqxaO
- VR14=
-X-Received: by 2002:a05:7300:2201:b0:304:d8cb:8424 with SMTP id
- 5a478bee46e88-304fa546886mr4919952eec.9.1780320441610; Mon, 01 Jun 2026
- 06:27:21 -0700 (PDT)
+ AFNElJ9IRd8DEZ1AJciU7uQ8925hZXCWfgT4ySpATr1cdxu0q0QwMxQm+XRz5f3CIuzylgElA34RINTUfDs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx5so2GgXnjTqacY+CWE6xeJUV011XUqVW+QDyWBEsN6ZJEkP46
+ QNbMK+AykWV+wcdMR9vUOvIgbs4V+akXUEtKEl9DccbYQ/I/K2fCQ09d+ccWHUmHnMOw7khVgFL
+ sr+aV48UiJVrjiBP2elmO72lOF3WErRKuE1SSpx18yEjfs+p3rWEGv1ni6UFB/xTFJoDIeVgne7
+ Vzz3d6DOgUF45Kwh/7sPjwfO1HGEnyxTT+k90qhCwDTPlUtw==
+X-Gm-Gg: Acq92OFwNL0vyztjpFztSkZ9eRlkqKaDb21j63JDfkxv5LzM/f2Qs0yUtGiAdiE64Su
+ o21yrTId9X1GP8A3l/0Oee4UJNtd1kshGnaiv+ZaaqqUcFQT9Uyt6IYivoLO/N6JD03dB8Y+MVS
+ ztguKjVJLO4z9UAbbmHr49PGKnI5qT7hA4Nywc4numDZP6yNOVbRb2pt1/nyZWpEFReml/YME8J
+ waZBciVeonj2g==
+X-Received: by 2002:a05:6808:c413:b0:472:c4ba:32d9 with SMTP id
+ 5614622812f47-485e73685aemr7697317b6e.20.1780320770641; 
+ Mon, 01 Jun 2026 06:32:50 -0700 (PDT)
+X-Received: by 2002:a05:6808:c413:b0:472:c4ba:32d9 with SMTP id
+ 5614622812f47-485e73685aemr7697281b6e.20.1780320770193; Mon, 01 Jun 2026
+ 06:32:50 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260530143541.229628-2-phasta@kernel.org>
- <20260530143541.229628-5-phasta@kernel.org>
- <ah1glmXDM-OAKa5h@google.com>
- <0ea6b6fdd1e3f1e07445f17c0bf672524938dc85.camel@mailbox.org>
- <ah19ZVkr7b3m7V_u@google.com>
- <3b216f24afb406b797b8bbb73b3f5c0eec2fdc6c.camel@mailbox.org>
- <CAH5fLgiZb5fqfXGQMicPp+UbBi3JMN8ZNG_Ldt5KiSk+btVCSA@mail.gmail.com>
- <3829028571be1886b99018040782ef94369b9523.camel@mailbox.org>
-In-Reply-To: <3829028571be1886b99018040782ef94369b9523.camel@mailbox.org>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Mon, 1 Jun 2026 15:27:06 +0200
-X-Gm-Features: AVHnY4IJXBoMvh-rw5Yz6dkN_FCzB34R7ldudBtNs3IR1XQFjKtmqNv3cEC-Bt4
-Message-ID: <CAH5fLggFHp6bLZ-g8aTQKY_sHRJ0aEmB+-2XWG3RMS1yBXO+8A@mail.gmail.com>
-Subject: Re: [PATCH 3/4] rust: Add dma_fence abstractions
-To: phasta@kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- "Paul E. McKenney" <paulmck@kernel.org>,
- Frederic Weisbecker <frederic@kernel.org>, 
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
- Joel Fernandes <joelagnelf@nvidia.com>, 
- Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>, 
- Steven Rostedt <rostedt@goodmis.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Igor Korotin <igor.korotin@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Krishna Ketan Rai <prafulrai522@gmail.com>, 
- Shankari Anand <shankari.ak0208@gmail.com>, manos@pitsidianak.is, 
- Boris Brezillon <boris.brezillon@collabora.com>, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- rcu@vger.kernel.org
+References: <20260528093437.2519248-1-hch@lst.de>
+ <20260528093437.2519248-2-hch@lst.de>
+ <5f7f90d8-cb32-4ffb-8f1c-0722aafbe869@kernel.org>
+ <20260529135045.GA10647@lst.de>
+ <5f3ba603-a6ad-4cf2-9a54-aebc10273c59@kernel.org>
+ <58cc76e7-2348-443d-a989-2a06e61178af@kernel.org>
+ <20260601113831.GA25535@lst.de>
+ <d7b08296-7f6e-4d89-ab3b-04e43d04929e@kernel.org>
+In-Reply-To: <d7b08296-7f6e-4d89-ab3b-04e43d04929e@kernel.org>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Mon, 1 Jun 2026 06:32:38 -0700
+X-Gm-Features: AVHnY4IDUhXdIIQ59yCVYlfBYI5ZXqh2r6jh6SDaQfttaiXqq2hNkv_bQjj9LiA
+Message-ID: <CACSVV00k-fxW6+waHNqvmYcnVNDkRexoWWprFzfayZfqdyMuuA@mail.gmail.com>
+Subject: Re: [PATCH] mm/slab: improve kmem_cache_alloc_bulk
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, Harry Yoo <harry@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Mark Brown <broonie@kernel.org>, Hao Li <hao.li@linux.dev>,
+ Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, io-uring@vger.kernel.org,
+ kasan-dev@googlegroups.com, bpf@vger.kernel.org, netdev@vger.kernel.org,
+ Alexander Lobakin <aleksander.lobakin@intel.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=Z4Hc2nRA c=1 sm=1 tr=0 ts=6a1d8a03 cx=c_pps
+ a=yymyAM/LQ7lj/HqAiIiKTw==:117 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8 a=gxV2vm59AnE_F2JHV74A:9
+ a=QEXdDO2ut3YA:10 a=efpaJB4zofY2dbm2aIRb:22
+X-Proofpoint-GUID: yI8iznfP_iWTvWYHVDQfYjlJDuBfzc8a
+X-Proofpoint-ORIG-GUID: yI8iznfP_iWTvWYHVDQfYjlJDuBfzc8a
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAxMDEzNSBTYWx0ZWRfX1S2sjqtevG21
+ w6SZhZ61ZYKI8B9GhYpfcnqMPVhj8cx3liGXrw98wXYelokEiPIEZWt4q1fEFLcF8yJekoxnfxi
+ B03LXfVDnuLTxyA3OEqSeWPbmbIYMEja3pyIBCqeNXUMjyGlz+jODzZirdRBPSBn8Yd9SDnpvNy
+ VWt/K/77cfF6qO6GTySjuSYa9yoAyQiRzedRieqtd2cBABdkLY8iEcxulKVeFaUw9dQQ0XlTRrf
+ yLJAHLBFGlxy++rmDiycajlrvoXF6gTxGTv0UKFED+xYnPp9gXX+mLk59/Rvg4hjMxpVBkQjyE2
+ pu+7R2F2EOg/5E85K7EsIgZSqXglB8Xga2sSHqV5QWJI9cMH26YpLJTifAJQP8LH4lX8NSYhVev
+ O3+w8SwdRQgAfpJQ0lTYS7EOMOXFp2F8FztCjOnaZgzO34WKRV39StVgCNY/iDgstwQj6lIXD2I
+ w8SC7QJtuStI6UGT7+Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-01_04,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 adultscore=0 phishscore=0
+ impostorscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606010135
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,99 +166,54 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 1, 2026 at 3:24=E2=80=AFPM Philipp Stanner <phasta@mailbox.org>=
- wrote:
+On Mon, Jun 1, 2026 at 5:50=E2=80=AFAM Vlastimil Babka (SUSE) <vbabka@kerne=
+l.org> wrote:
 >
-> On Mon, 2026-06-01 at 15:22 +0200, Alice Ryhl wrote:
-> > On Mon, Jun 1, 2026 at 2:47=E2=80=AFPM Philipp Stanner <phasta@mailbox.=
-org> wrote:
-> > >
-> > > On Mon, 2026-06-01 at 12:39 +0000, Alice Ryhl wrote:
-> > > > On Mon, Jun 01, 2026 at 02:26:17PM +0200, Philipp Stanner wrote:
-> > > > > On Mon, 2026-06-01 at 10:36 +0000, Alice Ryhl wrote:
-> > > > > > On Sat, May 30, 2026 at 04:35:11PM +0200, Philipp Stanner wrote=
-:
-> > > > > > > +/// A trait to enforce that all data in a [`DriverFence`] ei=
-ther does not need
-> > > > > > > +/// drop, or lives in a [`RcuBox`].
-> > > > > > > +pub trait DriverFenceAllowedData: private::Sealed {}
-> > > > > > > +
-> > > > > > > +mod private {
-> > > > > > > +    pub trait Sealed {}
-> > > > > > > +}
-> > > > > > > +
-> > > > > > > +impl<F: Copy> DriverFenceAllowedData for F {}
-> > > > > > > +impl<F: Send> DriverFenceAllowedData for RcuBox<F> {}
-> > > > > > > +
-> > > > > > > +impl<F: Copy> private::Sealed for F {}
-> > > > > > > +impl<F: Send> private::Sealed for RcuBox<F> {}
-> > > > > >
-> > > > > > Why sealed? Just make the trait unsafe and require the things y=
-ou
-> > > > > > require from the user.
-> > > > >
-> > > > > This is far better. We definitely only allow the user to pass A o=
-r B,
-> > > > > and only then it compiles.
-> > > >
-> > > > What if I have another type that I want to use here? For example, m=
-aybe
-> > > > I have a struct containing a copy field and an RcuBox. Or maybe I h=
-ave
-> > > > an ARef<_> of some C type that uses rcu for cleanup. Then I must ed=
-it
-> > > > this file to add support for it?
-> > > >
-> > > > > The unsafe implementation could be messed up.
-> > > > >
-> > > > > I thought that's what Sealed is for. Or isn't it?
-> > > >
-> > > > Sealed is for making 100% sure that downstream crates/drivers canno=
-t
-> > > > provide their own implementations. But I don't see why you need tha=
-t.
-> > > > All you require is that the value remains valid for one grace perio=
-d
-> > > > after cleanup begins. As long as the type satisfies that, you are h=
-appy.
-> > > > An unsafe trait can require that sort of requirement from the user.
-> > > >
-> > > > I think what you want is expressed well by `RcuFreeSafe` from this
-> > > > thread:
-> > > > https://rust-for-linux.zulipchat.com/#narrow/channel/291566-Library=
-/topic/Consolidate.20.60PollCondVarBox.60.20into.20.60Rcu.2ABox.60/near/598=
-726724
-> > > >
-> > >
-> > > I guess this is a question of design principles. If you demand an
-> > > RcuBox, you have a guarantee that it's safe.
-> > >
-> > > If you demand an unsafe trait, you open the possibility for people
-> > > messing up.
-> > >
-> > > Due to the unsafe-contract you'd have moved the responsibility for th=
+> On 6/1/26 13:38, Christoph Hellwig wrote:
+> > On Mon, Jun 01, 2026 at 10:16:30AM +0200, Vlastimil Babka (SUSE) wrote:
+> >> > kmem_cache_alloc_bulk() returning 0 was considered a success in that=
+ case.
+> >> >
+> >> > Either fixing kmem_cache_alloc_bulk() (and the comment) or fixing th=
 e
-> > > soundness to the driver.
-> > >
-> > > I would not want to block your suggestion, but I am not sure whether
-> > > that's really the better design idea.
+> >> > user sounds fine to me.
+> >>
+> >> Would it be wrong if we just returned true for size of 0? Would someth=
+ing
+> >> else break?
 > >
-> > Yes, it's a design principle. You are saying that if someone needs to
-> > do X but might get it wrong, we should take away the ability to do X?
-> > I fundamentally disagree with that principle. Unsafe traits is the
-> > tool Rust created for the exact problem you have; marking places where
-> > you should be careful is the entire point of 'unsafe'.
+> > I don't think it is wrong per se, but it feels like the wrong kind of
+> > API.  I.e. I don't think the MSM caller actually wants this, as they'd
+> > also do a zero-sized kvmalloc.
 >
-> I mean, fine by me if the others don't disagree.
+> If p->count is 0 then indeed there's a zero-sized kvmalloc so p->pages =
+=3D=3D
+> ZERO_SIZE_PTR but then nothing breaks because nothing tries to dereferenc=
+e it?
 >
-> But when then do you ever really want a Sealed trait?
+> msm_iommu_pagetable_prealloc_cleanup() has a "if (p->count > 0)" branch s=
+o
+> it seems it's considered possible. But then the rest of the functions als=
+o
+> seems working fine, i.e. kmem_cache_free_bulk() of zero size does nothing=
+,
+> kvfree() of ZERO_SIZE_PTR does nothing.
+>
+> It seems to me kmem_cache_alloc_bulk() returning true for size =3D=3D 0 f=
+its
+> naturally in this world and is less likely to result in a gotcha?
 
-Sealed traits are a very niche feature. The main use-case is
-forwards-compatibility. It's not a breaking change to add a new method
-to a sealed trait because no downstream crates could implement the
-trait.
+I think I was probably expecting kvmalloc(0) =3D> NULL ... but it
+happened to work out before
 
-Alice
+Adding an "if (!p->count) return 0;" at the top of
+msm_iommu_pagetable_prealloc_allocate() seems like the thing to do..
+if you want, I can send that patch (but traveling this week... so
+let's see what I can do)
+
+BR,
+-R
