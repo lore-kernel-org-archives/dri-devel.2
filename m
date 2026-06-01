@@ -4,94 +4,168 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B96D6CD6E56
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 12:06:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F88ACD6E5D
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 12:19:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22037113284;
-	Mon,  1 Jun 2026 12:06:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DB401132A6;
+	Mon,  1 Jun 2026 12:19:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZK0kciYt";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="h0yuvVk/";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BDFA113284
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 12:06:02 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-49068493267so55514705e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 05:06:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780315561; x=1780920361; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=vU7EFGuwqCZWgkJhEpDIGpXxPiY17lJwErVDlJ76auc=;
- b=ZK0kciYtLXfnEZ3UV9BcpB5eD41yQWgfWE/BOK6zAg8K57Mm+4wI6i6Uv78Da/xpxb
- db1snmRDkJgNL1uLf7aj5K9AqQKKZKvX1uGb1CjXEMshPoR4arlsdJ5o+HzWgZ8Oxu4g
- 6wKpYOagTp5K9ge/+xo8ZXGbd4FTzK6fD1QhNUv7D/ROIcQAdt0yRlu+kxkcyQKCZr27
- paW6HxvtCyaIJvcwgdL53ZEQr3y6I9ajLRur4Fpb+m8tglcCwLWSZ3vZtN1+IHnGtGKq
- vHrucEHETno7+KbrVjZgugnE0RDsklrFHLDO9YkeI8gdfQnrDJ2T4jsSKnV9euP/OZ7A
- FlBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780315561; x=1780920361;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=vU7EFGuwqCZWgkJhEpDIGpXxPiY17lJwErVDlJ76auc=;
- b=Tn9NIZYVJax4uZ6QQapRmHVgN0iexgldgYcDkTxNHtl8/IFEGiWUB7NyNMlJOzTlhI
- 7U2xJIEvMF0SaOj/U7EsuyfYs2OaGL8Mt9AaKo+xoUhmwL6Id34qx6WTSsaRKME3YLB9
- LEEThL3QX38m5pTGXicdaYI03V15cGZGbQlMvq6sKQj4/8cxJddeucvSd8lm6qkHBdKx
- QeK251FK1yB0Knp2xfFrfJgHWRYBgnPzrxCZN0C3Dx9ljoCXaJD4Ho+obITQgf2J1p9p
- YCdELCxFy4cTxduZsniM5xKFRXMxtlbfb++A07Sm3oA+OdmtBSMME2SPAQuu23jkKbdt
- AxbQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9Cu6bTe1gu0sEll6tpgKuUqawl1xL+YyPprbYoy3v2Hf7xkWJvWFwkIMIxQh/800iIl/IdXn6ejvQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzcwfF6MnpXPVtN6qnUN0cnkzPr9XsvPL8LiJSoBaAzN4X6yuOz
- mO/ySropRUYSbT7p3MKPprd8xBGU8Yn3deYhStUg4g0tqpiw9RBFVzJb
-X-Gm-Gg: Acq92OHv5FGtSw+/RkcEYzhRBTT5qXm76plHLOGAVuRk4wRoTLQoMzQr+A+juhD3ou9
- vjggAf3Qh5UGYjJgdFQD37i1ZyQ/wsvoKl6yssp+/iOdbzPTA8ly7V76CLgA66hZ1OgiNemZnvZ
- hFM1rxEeVEgmKfzCiHF0rDghI8iwlzuu+1qTEE+NG7zDEoV3LRTKWMIHk3PKIYbnJwHmBx5N8hd
- HObhWwJZCSDZso8dW4WVE0uDdRwmNZrbC7zinKjTq8jZjgcvTmw8+blTpm7r9HhrsR3jmZCgR4n
- 5w5hZLTjKGCooP5Akk21JzIQ+qji+yRaU5K1O4GEUNe7byuY0X3xS6/YEEr8wcy0wK+cVfoMYnB
- gYEUZdsQc7+Hdd1AOPxLb/+2mZyeTiS8eqe1cF3YC4Um4fQELFZsTyh8LpdrvJGPTnav5ZlotvD
- U6nlOdEwH8xJGnpZmjCF7Z89U9pfCdh++XmX5f3cIZDA==
-X-Received: by 2002:a05:600c:4e92:b0:490:8fd1:72a with SMTP id
- 5b1f17b1804b1-490a2900dacmr202132615e9.3.1780315560582; 
- Mon, 01 Jun 2026 05:06:00 -0700 (PDT)
-Received: from [172.16.188.153] ([213.181.114.83])
- by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-4909c152570sm103972805e9.9.2026.06.01.05.05.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2026 05:06:00 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-Date: Mon, 01 Jun 2026 12:05:10 +0000
-Subject: [PATCH v3 24/24] dynamic_debug: use KBUILD_MODFILE for unique
- builtin module names
-MIME-Version: 1.0
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B9481132A6;
+ Mon,  1 Jun 2026 12:19:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780316368; x=1811852368;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=Z67mZonzClLHvNrRkavFqk9PMZu+ZmyMS9snIt9SOwk=;
+ b=h0yuvVk/sFS15WJPDtBgIARZTHYWKLNVhdH5IzjzCBumWHNIgGi81BJG
+ AA30iqqzaOA/rHqtwX4w7jJVzmpGCpeFX8LyKkVpMc704srPcMA6v9Wt8
+ cgCaavZpPAra5AhhuSzJyE6HvhkiS5Gf1w3quKuJt0Jy1jG2uXn1gpvW5
+ qpA8vMgVSu5lkjP4rGQBog1ynFhbASMTkAxSjTR02Kqr2U/CDbFfh+/0r
+ kbTlONb89UIN4L3qIRKzayH8/xxc4eTC5iyPCgFKNMpA/lA/z33/iR3WT
+ C2hQxOu8ixncbi0524AZyiobVYaPK8eV5vUnXImscjjUV6v4+JYw2veUB g==;
+X-CSE-ConnectionGUID: do+9RMIsSR2rLHDgHEd0pQ==
+X-CSE-MsgGUID: HBLIhaLcR8KivOogFuy12A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11803"; a="92547148"
+X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="92547148"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jun 2026 05:19:28 -0700
+X-CSE-ConnectionGUID: 3jUzlpxOT3uEZCbkQ/aOpA==
+X-CSE-MsgGUID: k0H6oV4jR62Xvw2/gRhWqw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="243388578"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jun 2026 05:19:29 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 1 Jun 2026 05:19:27 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Mon, 1 Jun 2026 05:19:27 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.19) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 1 Jun 2026 05:19:26 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iF6MbbyYo+h710F9ZWXDmXMJT4B7x6uaxDCiIkh0nK6JK8Jp860SQC1L4r1ABO0wNZxTP28/ksOFlANTi2KF3+Ys0uCSGGP2BL9kN3CqDG1bw4EGZaoBQpdzER0PpSiPEjG0iZXoLC8TMiXqwqrplZC7wb0VHppvp5yLWCnnGWPbbriuLAPEoGfW6AayYG8scMz/EfpIWpdpY3MSF5uyu4OXrDxxCRd5fEEa8fduozQHXfGcZjuUMS4fbvte0myoa37MNLOfZpzqYF7Dh4BEK0y8LxJVNnyU1GTELXtu5nwWUUOgv7y83ociD4p5q8lt/PE1t9LphmKWP3tZjuwdlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z67mZonzClLHvNrRkavFqk9PMZu+ZmyMS9snIt9SOwk=;
+ b=lbjI4ncrJoIV5AbwMphtXfSzJLSjkWMwpdd3lmoR+hvJ/A03qcA9Ok7ArWMm/MbA2Luss8FsLa0m88OdcoemtJ+VWoi81TuDtQ9805FtJvWsWSZJMv6idPJuwRql9yhLORXXx9aHMt3BSzsvaHMNFYnJWJx/4psBJSl97vPpyMa8fhoH20OmKecZLs2H2/WysN4IRa77ycQJOnVAFIavRxM1A4plw0HoRr6W5LNznz0oO0BzHrrAx7CM/aTa5dDmzfjTNcCNPs4YdRdCyWJvcTMqBg/9QxWLyV2G5pDsp3eD/fk+a5GMAIsrPH85zXvuRLm6wo6cHuYwKiR4v763FQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DS0PR11MB8718.namprd11.prod.outlook.com (2603:10b6:8:1b9::20)
+ by PH7PR11MB8527.namprd11.prod.outlook.com (2603:10b6:510:2ff::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Mon, 1 Jun 2026
+ 12:19:17 +0000
+Received: from DS0PR11MB8718.namprd11.prod.outlook.com
+ ([fe80::6aa:411d:4bfa:619c]) by DS0PR11MB8718.namprd11.prod.outlook.com
+ ([fe80::6aa:411d:4bfa:619c%5]) with mapi id 15.21.0071.014; Mon, 1 Jun 2026
+ 12:19:14 +0000
+From: "Upadhyay, Tejas" <tejas.upadhyay@intel.com>
+To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+CC: "Auld, Matthew" <matthew.auld@intel.com>, "Brost, Matthew"
+ <matthew.brost@intel.com>, "thomas.hellstrom@linux.intel.com"
+ <thomas.hellstrom@linux.intel.com>, "Ghimiray, Himal Prasad"
+ <himal.prasad.ghimiray@intel.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>
+Subject: RE: [PATCH V10 03/10] drm/gpu: Add gpu_buddy_allocated_addr_to_block
+ helper
+Thread-Topic: [PATCH V10 03/10] drm/gpu: Add gpu_buddy_allocated_addr_to_block
+ helper
+Thread-Index: AQHc54sVkWg3vZ8iC0KRpDwXur9Kf7YWnVkAgAAYUlCAAvLDAIAH/RTwgAgM7gA=
+Date: Mon, 1 Jun 2026 12:19:13 +0000
+Message-ID: <DS0PR11MB8718D3EB3D6DB27623E0A7B181152@DS0PR11MB8718.namprd11.prod.outlook.com>
+References: <20260519122817.45770-12-tejas.upadhyay@intel.com>
+ <20260519122817.45770-15-tejas.upadhyay@intel.com>
+ <835d204d-0c2a-4a81-8c60-9d047809f6ef@amd.com>
+ <DS0PR11MB871852B659D0736A9582D23081012@DS0PR11MB8718.namprd11.prod.outlook.com>
+ <468b9064-9eed-4651-b54a-4a15c7c4400f@amd.com>
+ <DS0PR11MB8718D8AFC4B935BCD917255D81082@DS0PR11MB8718.namprd11.prod.outlook.com>
+In-Reply-To: <DS0PR11MB8718D8AFC4B935BCD917255D81082@DS0PR11MB8718.namprd11.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR11MB8718:EE_|PH7PR11MB8527:EE_
+x-ms-office365-filtering-correlation-id: 358bff72-53d3-4cee-4729-08debfd7fe5f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|38070700021|18002099003|22082099003|11063799006|56012099006|4143699003;
+x-microsoft-antispam-message-info: RP9YNPznF+ihcXo/dbT+1O+3cbHHggfpLFLIeszQWzKXul1l++SEMKvQwiIRtt4E1qUZr72USFwkshQ9+gl2BhQKWawBsI+ubs8wVRnhXIiV2FMsycIDKGy38Vd2YPJPrxWp5s+SQsLI+leTycFMkfrun0eZ63KX3mbdWKC+UFMj3fdUQ0xaMQZWf60I1xrNI0ImZ7PJUvUbSsibX5kjib/EfrwI7oXaS1BbujE9GAjeGfQMPF1LgaQ4tcrdAuPE5MZCnetNmUXSMXRRgL8aZoBaA9nXXBSYbjt22sc4R5YA+BPz+dhkXFFAUlkpcSmHTbWeAlKvS3xhETieVmT1OyP6hNKKXa5H/zKmArfjK5yg7nG8ZciMalCmyDj49GqZWrP1nGyDYCHUqFiY1rQdmQAojNOZZ0hlLy7dEJRLCNXarshpymXw48SoarWoXB258eyRbZ4JMtZ/UkcY28v5MLskXomC3r2vuJ+ZwLm2iCs9AFZHja2wAcqJAtih9B02V304SUzeELvBtymf/e8EZVH3ymGIhf8IHUzXEH2M+huNA14S5KS3+9106wHn1DaN6k8zj91aeXfmlAuJvdPiE2YnwhMZq3j+lNd8xCOfB5ltAQ5glSBx6NjbZOpvIFSQfGkSdaa3ILcCEzrojARQKUpFVi+AvelxKK9Cb5s8Vrxa2r3pJhnifDEL0Yfteg7g+UPazd/GvDuHOfDAR8pDWQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB8718.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(18002099003)(22082099003)(11063799006)(56012099006)(4143699003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?cG9IbTRKRHhZMXRFRk8wbGFVMUk2am5yMXoxZWRBemFiTXV4c3pKUWdDWlZm?=
+ =?utf-8?B?dnlKVDd5czFxcDRvOXZRRXZudnJBRVBWZHlLUWZNNmtVM2RKMjk1dVJmc1Bw?=
+ =?utf-8?B?ejNtMk1sdjN4ajFyMk1rNHlMcnB3V2E4akRUS2FFcjFPYmI5WG5JU0xFTzZ6?=
+ =?utf-8?B?b3hqOHJBcXhVSitaRUhrTXJUOU5CZ2laakN0WjFBU0RnSGx1eVJiVWhDakZl?=
+ =?utf-8?B?MTRMWU1GTUprRzF6YmN6a1BNVkR6WlZ1TzY3SXFOOXN4bk1pckRFdzNILzZV?=
+ =?utf-8?B?clJFdE1XSHZPd1lYV3hzR1FCQzg1UUNnQXc4QWlKWTE4UmZsS1JsbG5pQUNo?=
+ =?utf-8?B?VmQ1ai9VazBPMXJsT3hsVVlBaTl3aGhvS2FIVXJtYVNUWU9vRzcrb3JXR2RE?=
+ =?utf-8?B?ZEJqM3VleE9LRWsxSjZWbmNXV3JzQm82N1dNUGdadk5SOGVXb1BEY3FveXQv?=
+ =?utf-8?B?YmJiNTcvTk1KeDFpMmdMUGxjOHp2MG5wa09ka0lVSzdaUVhRMlpZejJsTjUy?=
+ =?utf-8?B?SzRBUUNaVGNvbG5Tb3UxU3E0YktadzBVRTdyd3IrNGdKWlJQeEk2Wk5aZWg2?=
+ =?utf-8?B?YmVOaHdGQkZXR28vTXNmMENpSlJmK0I5dm5TejIrQTN5b2dEc1NmeC9xSkp2?=
+ =?utf-8?B?R0N0TWtCMHRvR21TVkdQTldkYnNpSnR0TElFNU9WdmllaUdvbk5iS29XOTdN?=
+ =?utf-8?B?VEpGRTZuSUFXYmJFWVBybUhxVEZ0dnA5L3Zhc1VPYmdwM0t2WHRpNTZBZ3Vw?=
+ =?utf-8?B?MUFoZWFMdXBQU1dGVEp2U0RTS1BzcTV0MFJNR3pTMEVTQlo2eE5ubktnTzkr?=
+ =?utf-8?B?YnBndHlDN1hLZnJtcE1XNUlNMkM2S3NybVFQMjRGcldZYWNudXh3cXhTcmZj?=
+ =?utf-8?B?aUdLWS9QK3diekFJalYvSWdsZVU0MW9saEdZbXJURWxoMlJRYko0K0Nsbkt4?=
+ =?utf-8?B?eXVXazNsOG50Z2t3UDNyRkVyclg3R2I3RVNmK1Nnb0lLWVkwaGh1ZlBSKzNn?=
+ =?utf-8?B?YVNsc0VwbTB6SDY1WVcwMGsxSEdrY2lmTUhMU29XMXJuV2JYcjlGUjdJanFI?=
+ =?utf-8?B?T01Ud3RlZi9nLzVQWW1hNVlUT3B3MTJ6dDFsQVd2ZkRYdGNCOElHSENPYUx4?=
+ =?utf-8?B?U1JCNDYxUkFmLzIzMFc1RnhURlBFSFUwMkJENklmTnlucG1vUVZ1RGJRbGxi?=
+ =?utf-8?B?V3ZlMmJ3RW5BbW1hbVh0Y0d0YXR3Si9zU01TNFNnekRJK254ZnFibS84bTlX?=
+ =?utf-8?B?bDFQNmd0a2x1cllGQ1FsV28yUWd2L1Via1VId0h1TkNwRU8rbmdVNkZJN3E0?=
+ =?utf-8?B?S29RT2xRTEpzODVId0NOUGtVQys3aEptZ0NlUTJSQnJieDBYRTNoMnM0eDNt?=
+ =?utf-8?B?V2tCY1g0b2xjOXNqSmkwL3NhNVFCU0J5VUFQZ1VPVVFBaFlIS3NUSUhJYXY4?=
+ =?utf-8?B?WTNHMndUQXIvS1Y4SlVFYWdGOFlKWDNjaWZMSmVWenpwNmJHd0F0bmpKZi81?=
+ =?utf-8?B?SHdVczVEZTJjZWxqQVJZRXlVV1ExbWhKSEFqdGh6ZUk1OUllUFJIYnlPc3FO?=
+ =?utf-8?B?YUN4Ty9vVGtaM2lRamVscGVlQlRMR2hFWnVFZnRzakhLRXdmZXRueEo3aUxH?=
+ =?utf-8?B?NTRzY3RTQTNNbm94eUdvaC9veGFhTElwV1E4Wmw2Z0hLYzdkRU85WGVMaGIy?=
+ =?utf-8?B?eEwwRW1KaTltRGhQVDZvT0xZOStiZGQvZ1AydnBickYxS1FXSUdKVVhsVXlB?=
+ =?utf-8?B?Qm1TS3JCNzBUNGZhS1I3RVh5Sk1UNTJiU2ZQYVhKVkhsbVVLeGxwbDBYVkh3?=
+ =?utf-8?B?STM3cDE4Wi9wR2NrV0t6ZEFxcFN1ZGV4VjRjMElKNG5Ud0cyVmpXZjJiWStj?=
+ =?utf-8?B?SXZ5NGc2OFI0Z1I1ejFya3lOZE42VjYwdENKTGljdHhCYVlkRG1QdjNHNDdz?=
+ =?utf-8?B?ZElnMVlGbkFsUUtSanVpRGQwazE1blNYejZPczVCV2c0ZUlIdlNFRHQxenlG?=
+ =?utf-8?B?c2w5TmxFU202VHJhK1ZLajJmSUVqQnRTY3dBMlM5R2lxZnFPYzJZcTB1eEZr?=
+ =?utf-8?B?aGFCNUtQSGc4bE5SOTZjWURTTHVKcG5Id0N5a2FuTnRaVGlwZ29TTTF0Z1o5?=
+ =?utf-8?B?Nk5Oa1pHZldBTHBzYzJwTlI2d3E5Y3Y4bFVtRjNHSERlY0hCZURvMUd2bVRJ?=
+ =?utf-8?B?blNEazQrM1NxUmpOcGR1a1JkSUdUL2NHZnlEbDlnNmxHUkh6TFkzdk5nRC92?=
+ =?utf-8?B?YzRPZEhNMWYxS0xXWGlWSlpUZ2lCWFFOTkVwL0dOLzY1MDQ1QzJaRndER251?=
+ =?utf-8?B?YkZqWFRpSmVTdTNQSjNWaGU2Ly9xL1M3cXpIWWhMMWQyZThidXBodz09?=
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260601-dd-maint-2-v3-24-4a15b241bd3c@gmail.com>
-References: <20260601-dd-maint-2-v3-0-4a15b241bd3c@gmail.com>
-In-Reply-To: <20260601-dd-maint-2-v3-0-4a15b241bd3c@gmail.com>
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
- Jason Baron <jbaron@akamai.com>, Luis Chamberlain <mcgrof@kernel.org>, 
- Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Shuah Khan <shuah@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-modules@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- Jim Cromie <jim.cromie@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780315495; l=11525;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=sEO7u0MUmNyTUFNIPBYBwtZCCgzYuBjfxfoGHbMv0oE=;
- b=DPwcRKWEUYRhXRmC55DFt4XbR2ofmt1arOnS2i/wN8YubW92I1k8pJhvFDor9/LqQslDrC/N3
- VZ62XvXMhV/CsYupwAafT1pAtBZ/E9i8lMFkaVFl/5C4jYDJWbI3ouy
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: kaIJW8YyikZaZohRxWGUeZWiOre+nXYe6bXGSKP4U2cG1FSVghuwj1HwLk949sr4zoyxxfv9S2PppPqzO/dblxSHcSh2D3c+JtlUuhhoC4ZoTdwmSOgw622G6XXNoOS23oEqkHaaNHiJpk9CbXXG+pOA75qglfFzIl59Q8KlMATK40molDa8Gbd57/CerLkHpoIDj6Ryxi05dc/eUY9uy0r3BeL/Og+5YzcXhm8yvjDV55n4ZyOScBlZl6ey2d/sXZaoaub0siFr6Iur07RRBXmk2ddSTWwux8G4hvHMSqDtxgV7SKaSpjIZ4yTBdO8b4VpycEePn5zauM4ivJfBJQ==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8718.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 358bff72-53d3-4cee-4729-08debfd7fe5f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jun 2026 12:19:13.9618 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: L3RPW4tjymtsUmRestIg0KgaCX+YP9jPeE1BQyu39G2ERz8TLu1Lv9xur9oDTLivkqqXNNKx3IJq4bNdrW5wsbr7aCDjoZ4GkMuh2nQI7c4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB8527
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,270 +181,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Historically dynamic-debug gets its module names from KBUILD_MODNAME.
-This works well for loadable modules, as the module loader has always
-required them to have unique names, but for builtins it is basically
-kbasename(srcfile), which sadly gives us many modules named "main".
-
-This makes the following ambiguous:
-  bash-5.3# echo module main +m > /proc/dynamic_debug/control
-
-since it would affect 4 independent modules named main:
-  bash-5.3# ddgrep =m
-  init/main.c:1265 [main]initcall_blacklist =m "blacklisting initcall %s\n"
-  kernel/power/main.c:49 [main]pm_restore_gfp_mask =m "GFP mask restored\n"
-  kernel/module/main.c:2862 [main]move_module =m "\t0x%lx 0x%.8lx %s\n"
-  drivers/base/power/main.c:149 [main]device_pm_add =m "Adding info for %s:%s\n"
-
-We can improve this by using KBUILD_MODFILE for dyndbg's modname in
-builtins, and KBUILD_MODNAME for loadables.
-
-The above control-file entries then become:
-  init/main.c:1265 [init/main]initcall_blacklist ...
-  kernel/power/main.c:49 [kernel/power/main]pm_restore_gfp_mask ...
-  kernel/module/main.c:2862 [kernel/module/main]move_module ...
-  drivers/base/power/main.c:149 [drivers/base/power/main]device_pm_add ...
-
-While this is a user visible change; [params] becomes [kernel/params],
-it is not a behavior change; we now match the query-module against the
-subsystem/module name or its kbasename (the simple-modname), which as
-before, matches all 4 modules.
-
-This allows queries to be specific when desired: "module init/main",
-while preserving the existing meaning of "module main"
-
-The deeper reason for this change is not obvious.  If any builtin
-"main" module were to add a classmap, it would attach to all "main"
-modules.  If 2 "main" modules defined separate classmaps, both modules
-would inadvertently share both classmaps.  Since classmaps map
-classnames to 0..62, and independently defined classmaps are most
-likely to start at 0 (unless author is planning to share the 0..62
-range with other classmaps), we have a setup for later reserved range
-conflicts.  Having unique names prevents future conflicts.
-
-This solution isn't perfect:
-1. it changes displayed [params] to [kernel/params] etc
-2. its mostly redundant with "filename */main.*"
-3. "module power", "module module", "module base/power" might be better
-   but would break old queries.
-
-Adapt dynamic-debug selftest:
-1- Add 'test_subsystem_module_queries' to verify path-based module matching.
-2- Use dynamic counting with precise regexes to determine expectations.
-3- Reorder tests to run slash-query verification immediately after
-   basic tests.
-4- Update basic_tests and comma_terminator_tests to use 'kernel/params'
-   instead of 'params' to match new path-based names for built-ins.
-
-And adjust Documentation
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
-v3: new patch in rev-3
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- Documentation/admin-guide/dynamic-debug-howto.rst  | 40 ++++++++++----------
- include/linux/dynamic_debug.h                      | 17 +++++++--
- lib/dynamic_debug.c                                |  3 +-
- .../selftests/dynamic_debug/dyndbg_selftest.sh     | 44 ++++++++++++++++++++--
- 4 files changed, 77 insertions(+), 27 deletions(-)
-
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index 9c2f096ed1d8..8befb69575b7 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -38,12 +38,12 @@ You can view the currently configured behaviour in the *prdbg* catalog::
- 
-   :#> head -n7 /proc/dynamic_debug/control
-   # filename:lineno [module]function flags format
--  init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\n"
--  init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\n"
--  init/main.c:1424 [main]run_init_process =_ "  with arguments:\n"
--  init/main.c:1426 [main]run_init_process =_ "    %s\n"
--  init/main.c:1427 [main]run_init_process =_ "  with environment:\n"
--  init/main.c:1429 [main]run_init_process =_ "    %s\n"
-+  init/main.c:1179 [init/main]initcall_blacklist =_ "blacklisting initcall %s\n"
-+  init/main.c:1218 [init/main]initcall_blacklisted =_ "initcall %s blacklisted\n"
-+  init/main.c:1424 [init/main]run_init_process =_ "  with arguments:\n"
-+  init/main.c:1426 [init/main]run_init_process =_ "    %s\n"
-+  init/main.c:1427 [init/main]run_init_process =_ "  with environment:\n"
-+  init/main.c:1429 [init/main]run_init_process =_ "    %s\n"
- 
- The 3rd space-delimited column shows the current flags, preceded by
- a ``=`` for easy use with grep/cut. ``=p`` shows enabled callsites.
-@@ -59,10 +59,10 @@ query/commands to the control file.  Example::
- 
-   :#> ddcmd '-p; module main func run* +p'
-   :#> grep =p /proc/dynamic_debug/control
--  init/main.c:1424 [main]run_init_process =p "  with arguments:\n"
--  init/main.c:1426 [main]run_init_process =p "    %s\n"
--  init/main.c:1427 [main]run_init_process =p "  with environment:\n"
--  init/main.c:1429 [main]run_init_process =p "    %s\n"
-+  init/main.c:1424 [init/main]run_init_process =p "  with arguments:\n"
-+  init/main.c:1426 [init/main]run_init_process =p "    %s\n"
-+  init/main.c:1427 [init/main]run_init_process =p "  with environment:\n"
-+  init/main.c:1429 [init/main]run_init_process =p "    %s\n"
- 
- Error messages go to console/syslog::
- 
-@@ -161,17 +161,19 @@ file
- 	file kernel/freezer.c	# ie column 1 of control file
- 	file drivers/usb/*	# all callsites under it
- 	file inode.c:start_*	# parse :tail as a func (above)
--	file inode.c:1-100	# parse :tail as a line-range (above)
-+	file inode.c:1-100	# parse :tail as a line-range (below)
- 
- module
--    The given string is compared against the module name
--    of each callsite.  The module name is the string as
--    seen in ``lsmod``, i.e. without the directory or the ``.ko``
--    suffix and with ``-`` changed to ``_``.  Examples::
--
--	module sunrpc
--	module nfsd
--	module drm*	# both drm, drm_kms_helper
-+    The query string is compared against the subsystem module name of
-+    each callsite, as shown in the control file.  The simple module
-+    name is the string as seen in ``lsmod``, i.e. without the
-+    directory or the ``.ko`` suffix and with ``-`` changed to ``_``.
-+
-+    Examples::
-+
-+	module nfsd        # simple modname (as from lsmod)
-+	module init/main   # subsystem modname (as in control file)
-+	module drm*	   # both drm, drm_kms_helper
- 
- format
-     The given string is searched for in the dynamic debug format
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 2d6983186f37..aee6f3d0916f 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -8,6 +8,17 @@
- 
- #include <linux/build_bug.h>
- 
-+/*
-+ * Pick the best name for the module:
-+ * KBUILD_MODFILE includes the path (e.g., drivers/usb/core/usbcore) for built-ins.
-+ * Fall back to KBUILD_MODNAME for modules (loader requires unique names).
-+ */
-+#ifdef KBUILD_MODFILE
-+# define DDEBUG_MODNAME KBUILD_MODFILE
-+#else
-+# define DDEBUG_MODNAME KBUILD_MODNAME
-+#endif
-+
- /*
-  * An instance of this structure is created in a special
-  * ELF section at every dynamic debug callsite.  At runtime,
-@@ -128,9 +139,9 @@ struct _ddebug_class_param {
- #define DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, ...)		\
- 	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
- 	static struct _ddebug_class_map __aligned(8) __used		\
--		__section("__dyndbg_class_maps") _var = {			\
-+	__section("__dyndbg_class_maps") _var = {			\
- 		.mod = THIS_MODULE,					\
--		.mod_name = KBUILD_MODNAME,				\
-+		.mod_name = DDEBUG_MODNAME,				\
- 		.base = _base,						\
- 		.map_type = _maptype,					\
- 		.length = ARRAY_SIZE(_var##_classnames),		\
-@@ -169,7 +180,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- #define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)	\
- 	static struct _ddebug  __aligned(8)			\
- 	__section("__dyndbg_descs") name = {			\
--		.modname = KBUILD_MODNAME,			\
-+		.modname = DDEBUG_MODNAME,			\
- 		.function = __func__,				\
- 		.filename = __FILE__,				\
- 		.format = (fmt),				\
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index fdb730db385e..7f78c6b3eeaf 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -248,7 +248,8 @@ static int ddebug_change(const struct ddebug_query *query,
- 
- 		/* match against the module name */
- 		if (query->module &&
--		    !match_wildcard(query->module, di->mod_name))
-+		    !match_wildcard(query->module, di->mod_name) &&
-+		    !match_wildcard(query->module, kbasename(di->mod_name)))
- 			continue;
- 
- 		if (query->class_string) {
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index 8b2b7388678e..541a2ea7bcb3 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -76,9 +76,9 @@ function handle_exit_code() {
- # $1 - pattern to match, pattern in $1 is enclosed by spaces for a match ""\s$1\s"
- # $2 - number of times the pattern passed in $1 is expected to match
- # $3 - optional can be set either to "-r" or "-v"
--#       "-r" means relaxed matching in this case pattern provided in $1 is passed
--#       as is without enclosing it with spaces
--#       "-v" prints matching lines
-+#       "-r" means relaxed matching in this case pattern provided in
-+#       $1 is passed as is without enclosing it with spaces "-v"
-+#       prints matching lines
- # $4 - optional when $3 is set to "-r" then $4 can be used to pass "-v"
- function check_match_ct {
-     pattern="\s$1\s"
-@@ -223,7 +223,7 @@ function basic_tests {
-     check_match_ct =p 0
- 
-     # module params are builtin to handle boot args
--    check_match_ct '\[params\]' 4 -r
-+    check_match_ct '\[kernel/params\]' 4 -r
-     ddcmd module params +mpf
-     check_match_ct =pmf 4
- 
-@@ -238,8 +238,44 @@ EOF
-     ddcmd =_
- }
- 
-+function test_subsystem_module_queries {
-+    echo -e "${GREEN}# TEST_SUBSYTEM_MODULE_QUERIES ${NC}"
-+    ddcmd =_
-+
-+    # Find how many 'main' modules we have in total (by basename)
-+    # Use a more precise regex to avoid false positives like [irqdomain]
-+    local total_main=$(grep -c "\[\([^]]*/\)\?main\]" /proc/dynamic_debug/control)
-+    echo "# found $total_main total 'main' modules"
-+
-+    if [ $total_main -eq 0 ]; then
-+        echo "SKIP - no 'main' modules found to test slashes"
-+        return
-+    fi
-+
-+    echo "# testing 'module */main'"
-+    ddcmd module "*/main" +p
-+    # This should match modules that HAVE a slash and end in /main
-+    local slash_main=$(grep -c "\[[^]]*/main\]" /proc/dynamic_debug/control)
-+    check_match_ct =p $slash_main -r
-+
-+    echo "# testing 'module init/main' (specific path)"
-+    ddcmd =_
-+    ddcmd module "init/main" +p
-+    local init_main=$(grep -c "\[init/main\]" /proc/dynamic_debug/control)
-+    check_match_ct =p $init_main
-+
-+    echo "# testing 'module main' (basename match)"
-+    ddcmd =_
-+    ddcmd module main +p
-+    # This should match ALL $total_main entries due to kbasename matching
-+    check_match_ct =p $total_main
-+
-+    ddcmd =_
-+}
-+
- tests_list=(
-     basic_tests
-+    test_subsystem_module_queries
- )
- 
- # Run tests
-
--- 
-2.54.0
-
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogVXBhZGh5YXksIFRlamFz
+DQo+IFNlbnQ6IDI3IE1heSAyMDI2IDE0OjU1DQo+IFRvOiBBcnVucHJhdmluIFBhbmVlciBTZWx2
+YW0gPGFydW5wcmF2aW4ucGFuZWVyc2VsdmFtQGFtZC5jb20+OyBpbnRlbC0NCj4geGVAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBBdWxkLCBNYXR0aGV3IDxtYXR0aGV3LmF1bGRAaW50ZWwu
+Y29tPjsgQnJvc3QsIE1hdHRoZXcNCj4gPG1hdHRoZXcuYnJvc3RAaW50ZWwuY29tPjsgdGhvbWFz
+LmhlbGxzdHJvbUBsaW51eC5pbnRlbC5jb207IEdoaW1pcmF5LA0KPiBIaW1hbCBQcmFzYWQgPGhp
+bWFsLnByYXNhZC5naGltaXJheUBpbnRlbC5jb20+OyBkcmktDQo+IGRldmVsQGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZw0KPiBTdWJqZWN0OiBSRTogW1BBVENIIFYxMCAwMy8xMF0gZHJtL2dwdTogQWRk
+DQo+IGdwdV9idWRkeV9hbGxvY2F0ZWRfYWRkcl90b19ibG9jayBoZWxwZXINCj4gDQo+IA0KPiAN
+Cj4gPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiA+IEZyb206IEFydW5wcmF2aW4gUGFu
+ZWVyIFNlbHZhbSA8YXJ1bnByYXZpbi5wYW5lZXJzZWx2YW1AYW1kLmNvbT4NCj4gPiBTZW50OiAy
+MiBNYXkgMjAyNiAxMjo1Mw0KPiA+IFRvOiBVcGFkaHlheSwgVGVqYXMgPHRlamFzLnVwYWRoeWF5
+QGludGVsLmNvbT47IGludGVsLQ0KPiA+IHhlQGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiA+IENj
+OiBBdWxkLCBNYXR0aGV3IDxtYXR0aGV3LmF1bGRAaW50ZWwuY29tPjsgQnJvc3QsIE1hdHRoZXcN
+Cj4gPiA8bWF0dGhldy5icm9zdEBpbnRlbC5jb20+OyB0aG9tYXMuaGVsbHN0cm9tQGxpbnV4Lmlu
+dGVsLmNvbTsgR2hpbWlyYXksDQo+ID4gSGltYWwgUHJhc2FkIDxoaW1hbC5wcmFzYWQuZ2hpbWly
+YXlAaW50ZWwuY29tPjsgZHJpLQ0KPiA+IGRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiA+
+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggVjEwIDAzLzEwXSBkcm0vZ3B1OiBBZGQNCj4gPiBncHVfYnVk
+ZHlfYWxsb2NhdGVkX2FkZHJfdG9fYmxvY2sgaGVscGVyDQo+ID4NCj4gPg0KPiA+DQo+ID4gT24g
+NS8yMC8yMDI2IDM6NTIgUE0sIFVwYWRoeWF5LCBUZWphcyB3cm90ZToNCj4gPiA+DQo+ID4gPj4g
+LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gPiA+PiBGcm9tOiBBcnVucHJhdmluIFBhbmVl
+ciBTZWx2YW0gPGFydW5wcmF2aW4ucGFuZWVyc2VsdmFtQGFtZC5jb20+DQo+ID4gPj4gU2VudDog
+MjAgTWF5IDIwMjYgMTQ6MjQNCj4gPiA+PiBUbzogVXBhZGh5YXksIFRlamFzIDx0ZWphcy51cGFk
+aHlheUBpbnRlbC5jb20+OyBpbnRlbC0NCj4gPiA+PiB4ZUBsaXN0cy5mcmVlZGVza3RvcC5vcmcN
+Cj4gPiA+PiBDYzogQXVsZCwgTWF0dGhldyA8bWF0dGhldy5hdWxkQGludGVsLmNvbT47IEJyb3N0
+LCBNYXR0aGV3DQo+ID4gPj4gPG1hdHRoZXcuYnJvc3RAaW50ZWwuY29tPjsgdGhvbWFzLmhlbGxz
+dHJvbUBsaW51eC5pbnRlbC5jb207DQo+ID4gPj4gR2hpbWlyYXksIEhpbWFsIFByYXNhZCA8aGlt
+YWwucHJhc2FkLmdoaW1pcmF5QGludGVsLmNvbT47IGRyaS0NCj4gPiA+PiBkZXZlbEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcNCj4gPiA+PiBTdWJqZWN0OiBSZTogW1BBVENIIFYxMCAwMy8xMF0gZHJt
+L2dwdTogQWRkDQo+ID4gPj4gZ3B1X2J1ZGR5X2FsbG9jYXRlZF9hZGRyX3RvX2Jsb2NrIGhlbHBl
+cg0KPiA+ID4+DQo+ID4gPj4NCj4gPiA+Pg0KPiA+ID4+IE9uIDUvMTkvMjAyNiA1OjU4IFBNLCBU
+ZWphcyBVcGFkaHlheSB3cm90ZToNCj4gPiA+Pj4gQWRkIGhlbHBlciB3aXRoIHByaW1hcnkgcHVy
+cG9zZSBpcyB0byBlZmZpY2llbnRseSB0cmFjZSBhIHNwZWNpZmljDQo+ID4gPj4+IHBoeXNpY2Fs
+IG1lbW9yeSBhZGRyZXNzIGJhY2sgdG8gaXRzIGNvcnJlc3BvbmRpbmcgVFRNIGJ1ZmZlciBvYmpl
+Y3QuDQo+ID4gPj4+DQo+ID4gPj4+IHYyOg0KPiA+ID4+PiAtDQo+ID4gPj4NCj4gPg0KPiAlcy9n
+cHVfYnVkZHlfYWRkcl90b19ibG9jay9ncHVfYnVkZHlfYWxsb2NhdGVkX2FkZHJfdG9fYmxvY2so
+TWF0dEEpDQo+ID4gPj4+IC0gcmVtb3ZlIGNsZWFyLT5hdmFpbCBhbmQgc3BsaXQgbm9kZXMgY2hl
+Y2soTWF0dEEpDQo+ID4gPj4+IC0gQWRhcHQgbG9ja2RlcChNYXR0QikNCj4gPiA+Pj4NCj4gPiA+
+Pj4gU2lnbmVkLW9mZi1ieTogVGVqYXMgVXBhZGh5YXkgPHRlamFzLnVwYWRoeWF5QGludGVsLmNv
+bT4NCj4gPiA+Pj4gQ2M6IEFydW5wcmF2aW4gUGFuZWVyIFNlbHZhbSA8YXJ1bnByYXZpbi5wYW5l
+ZXJzZWx2YW1AYW1kLmNvbT4NCj4gPiA+Pj4gQ2M6IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcNCj4gPiA+Pj4gLS0tDQo+ID4gPj4+ICAgIGRyaXZlcnMvZ3B1L2J1ZGR5LmMgICAgICAg
+fCA1Mw0KPiA+ID4+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKw0KPiA+
+ID4+PiAgICBpbmNsdWRlL2xpbnV4L2dwdV9idWRkeS5oIHwgIDIgKysNCj4gPiA+Pj4gICAgMiBm
+aWxlcyBjaGFuZ2VkLCA1NSBpbnNlcnRpb25zKCspDQo+ID4gPj4+DQo+ID4gPj4+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9idWRkeS5jIGIvZHJpdmVycy9ncHUvYnVkZHkuYyBpbmRleA0KPiA+
+ID4+PiBlYjE0NTczNzYzMDcuLjlkZTk4NzIyOTRhNiAxMDA2NDQNCj4gPiA+Pj4gLS0tIGEvZHJp
+dmVycy9ncHUvYnVkZHkuYw0KPiA+ID4+PiArKysgYi9kcml2ZXJzL2dwdS9idWRkeS5jDQo+ID4g
+Pj4+IEBAIC01OTQsNiArNTk0LDU5IEBAIHZvaWQgZ3B1X2J1ZGR5X2ZyZWVfYmxvY2soc3RydWN0
+IGdwdV9idWRkeQ0KPiA+ID4+ICptbSwNCj4gPiA+Pj4gICAgfQ0KPiA+ID4+PiAgICBFWFBPUlRf
+U1lNQk9MKGdwdV9idWRkeV9mcmVlX2Jsb2NrKTsNCj4gPiA+Pj4NCj4gPiA+Pj4gKy8qKg0KPiA+
+ID4+PiArICogZ3B1X2J1ZGR5X2FsbG9jYXRlZF9hZGRyX3RvX2Jsb2NrIC0gZ2l2ZW4gcmVsYXRp
+dmUgYWRkcmVzcw0KPiA+ID4+PiArZmluZCB0aGUgYWxsb2NhdGVkIGJsb2NrDQo+ID4gPj4+ICsg
+Kg0KPiA+ID4+PiArICogQG1tOiBHUFUgYnVkZHkgbWFuYWdlcg0KPiA+ID4+PiArICogQGFkZHI6
+IFJlbGF0aXZlIGFkZHJlc3MNCj4gPiA+Pj4gKyAqDQo+ID4gPj4+ICsgKiBSZXR1cm5zOg0KPiA+
+ID4+PiArICogZ3B1X2J1ZGR5X2Jsb2NrIG9uIHN1Y2Nlc3MsIE5VTEwgb3IgZXJyb3IgY29kZSBv
+biBmYWlsdXJlICAqLw0KPiA+ID4+PiArc3RydWN0IGdwdV9idWRkeV9ibG9jayAqZ3B1X2J1ZGR5
+X2FsbG9jYXRlZF9hZGRyX3RvX2Jsb2NrKHN0cnVjdA0KPiA+ID4+PiArZ3B1X2J1ZGR5ICptbSwg
+dTY0IGFkZHIpIHsNCj4gPiA+Pj4gKwlzdHJ1Y3QgZ3B1X2J1ZGR5X2Jsb2NrICpibG9jazsNCj4g
+PiA+Pj4gKwlMSVNUX0hFQUQoZGZzKTsNCj4gPiA+Pj4gKwl1NjQgZW5kOw0KPiA+ID4+PiArCWlu
+dCBpOw0KPiA+ID4+PiArDQo+ID4gPj4+ICsJZ3B1X2J1ZGR5X2RyaXZlcl9sb2NrX2hlbGQobW0p
+Ow0KPiA+ID4+PiArDQo+ID4gPj4+ICsJZW5kID0gYWRkciArIFNaXzRLIC0gMTsNCj4gPiBUaGUg
+bG9va3VwIHJhbmdlIGlzIGRlZmluZWQgdXNpbmcgU1pfNEssIHdoaWxlIHRoZSBhbGxvY2F0b3Ig
+aXRzZWxmDQo+ID4gb3BlcmF0ZXMgaW4gdW5pdHMgb2YgY2h1bmtfc2l6ZS4NCj4gPiBUaGlzIHdv
+cmtzIHdoZW4gY2h1bmtfc2l6ZSA9PSA0SywgYnV0IGl0IGNyZWF0ZXMgYSBtaXNtYXRjaCBpZiB0
+aGUNCj4gPiBhbGxvY2F0b3IgaXMgY29uZmlndXJlZCBkaWZmZXJlbnRseSAoZS5nLiBsYXJnZXIg
+Y2h1bmsgc2l6ZXMpLg0KPiA+IFNob3VsZCB0aGlzIGhlbHBlciBiZSB0aWVkIHRvIGFsbG9jYXRv
+ciBncmFudWxhcml0eSAoaS5lLiB1c2UNCj4gPiBtbS0+Y2h1bmtfc2l6ZSkgaW5zdGVhZD8NCj4g
+DQo+IFlvdSBhcmUgcmlnaHQsIGZvciBhbGwgYXJjaHMgb3IgcGFnZXNpemUgdG8gd29yaywgaGVy
+ZSBJIHNob3VsZCBjaGFuZ2UgdG8gZW5kID0NCj4gYWRkciArIG1tLT5jaHVua19zaXplIC0gMTsu
+IFRoYW5rcyBmb3IgcmV2aWV3IGhlcmUuIFdpdGggdGhhdCBjaGFuZ2UsIGlzDQo+IHBhdGNoIGFw
+cHJvdmVkPyBPciB5b3UgaGF2ZSBmdXJ0aGVyIGNvbW1lbnRzPw0KDQpBbHNvIGNvbW1lbnQgYXBw
+cmVjaWF0ZWQgb24gaHR0cHM6Ly9wYXRjaHdvcmsuZnJlZWRlc2t0b3Aub3JnL3BhdGNoLzcyNjI1
+NS8/c2VyaWVzPTE2MTQ3MyZyZXY9MTAgYXMgd2VsbC4NCg0KVGVqYXMNCj4gDQo+IFRlamFzDQo+
+ID4NCj4gPiBSZWdhcmRzLA0KPiA+IEFydW4uDQo+ID4gPj4+ICsJZm9yIChpID0gMDsgaSA8IG1t
+LT5uX3Jvb3RzOyArK2kpDQo+ID4gPj4+ICsJCWxpc3RfYWRkX3RhaWwoJm1tLT5yb290c1tpXS0+
+dG1wX2xpbmssICZkZnMpOw0KPiA+ID4+PiArDQo+ID4gPj4+ICsJZG8gew0KPiA+ID4+PiArCQl1
+NjQgYmxvY2tfc3RhcnQ7DQo+ID4gPj4+ICsJCXU2NCBibG9ja19lbmQ7DQo+ID4gPj4+ICsNCj4g
+PiA+Pj4gKwkJYmxvY2sgPSBsaXN0X2ZpcnN0X2VudHJ5X29yX251bGwoJmRmcywNCj4gPiA+Pj4g
+KwkJCQkJCSBzdHJ1Y3QgZ3B1X2J1ZGR5X2Jsb2NrLA0KPiA+ID4+PiArCQkJCQkJIHRtcF9saW5r
+KTsNCj4gPiA+Pj4gKwkJaWYgKCFibG9jaykNCj4gPiA+Pj4gKwkJCWJyZWFrOw0KPiA+ID4+PiAr
+DQo+ID4gPj4+ICsJCWxpc3RfZGVsKCZibG9jay0+dG1wX2xpbmspOw0KPiA+ID4+PiArDQo+ID4g
+Pj4+ICsJCWJsb2NrX3N0YXJ0ID0gZ3B1X2J1ZGR5X2Jsb2NrX29mZnNldChibG9jayk7DQo+ID4g
+Pj4+ICsJCWJsb2NrX2VuZCA9IGJsb2NrX3N0YXJ0ICsgZ3B1X2J1ZGR5X2Jsb2NrX3NpemUobW0s
+IGJsb2NrKSAtDQo+ID4gPj4gMTsNCj4gPiA+Pj4gKw0KPiA+ID4+PiArCQlpZiAoIW92ZXJsYXBz
+KGFkZHIsIGVuZCwgYmxvY2tfc3RhcnQsIGJsb2NrX2VuZCkpDQo+ID4gPj4+ICsJCQljb250aW51
+ZTsNCj4gPiA+Pj4gKw0KPiA+ID4+PiArCQlpZiAoZ3B1X2J1ZGR5X2Jsb2NrX2lzX2FsbG9jYXRl
+ZChibG9jaykpDQo+ID4gPj4+ICsJCQlyZXR1cm4gYmxvY2s7DQo+ID4gPj4+ICsJCWVsc2UgaWYg
+KGdwdV9idWRkeV9ibG9ja19pc19mcmVlKGJsb2NrKSkNCj4gPiA+Pj4gKwkJCXJldHVybiBOVUxM
+Ow0KPiA+ID4+PiArDQo+ID4gPj4+ICsJCWxpc3RfYWRkKCZibG9jay0+cmlnaHQtPnRtcF9saW5r
+LCAmZGZzKTsNCj4gPiA+Pj4gKwkJbGlzdF9hZGQoJmJsb2NrLT5sZWZ0LT50bXBfbGluaywgJmRm
+cyk7DQo+ID4gPj4+ICsJfSB3aGlsZSAoMSk7DQo+ID4gPj4+ICsNCj4gPiA+Pj4gKwlyZXR1cm4g
+RVJSX1BUUigtRU5YSU8pOw0KPiA+ID4+PiArfQ0KPiA+ID4+PiArRVhQT1JUX1NZTUJPTChncHVf
+YnVkZHlfYWxsb2NhdGVkX2FkZHJfdG9fYmxvY2spOw0KPiA+ID4+PiArDQo+ID4gPj4+ICAgIHN0
+YXRpYyB2b2lkIF9fZ3B1X2J1ZGR5X2ZyZWVfbGlzdChzdHJ1Y3QgZ3B1X2J1ZGR5ICptbSwNCj4g
+PiA+Pj4gICAgCQkJCSAgc3RydWN0IGxpc3RfaGVhZCAqb2JqZWN0cywNCj4gPiA+Pj4gICAgCQkJ
+CSAgYm9vbCBtYXJrX2NsZWFyLA0KPiA+ID4+PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9saW51eC9n
+cHVfYnVkZHkuaCBiL2luY2x1ZGUvbGludXgvZ3B1X2J1ZGR5LmgNCj4gPiA+Pj4gaW5kZXggNzE5
+NDFhMDM5NjQ4Li5lN2UyMmZhMDVlZTIgMTAwNjQ0DQo+ID4gPj4+IC0tLSBhL2luY2x1ZGUvbGlu
+dXgvZ3B1X2J1ZGR5LmgNCj4gPiA+Pj4gKysrIGIvaW5jbHVkZS9saW51eC9ncHVfYnVkZHkuaA0K
+PiA+ID4+PiBAQCAtMjcyLDYgKzI3Miw4IEBAIHZvaWQgZ3B1X2J1ZGR5X3Jlc2V0X2NsZWFyKHN0
+cnVjdCBncHVfYnVkZHkNCj4gPiA+PiAqbW0sDQo+ID4gPj4+IGJvb2wgaXNfY2xlYXIpOw0KPiA+
+ID4+Pg0KPiA+ID4+PiAgICB2b2lkIGdwdV9idWRkeV9mcmVlX2Jsb2NrKHN0cnVjdCBncHVfYnVk
+ZHkgKm1tLCBzdHJ1Y3QNCj4gPiA+Pj4gZ3B1X2J1ZGR5X2Jsb2NrICpibG9jayk7DQo+ID4gPj4+
+DQo+ID4gPj4+ICtzdHJ1Y3QgZ3B1X2J1ZGR5X2Jsb2NrICpncHVfYnVkZHlfYWxsb2NhdGVkX2Fk
+ZHJfdG9fYmxvY2soc3RydWN0DQo+ID4gPj4+ICtncHVfYnVkZHkgKm1tLCB1NjQgYWRkcik7DQo+
+ID4gPj4gQ291bGQgeW91IHBsZWFzZSBjbGFyaWZ5IHdoZXJlIHdlIHBsYW4gdG8gdXNlIHRoaXMg
+aGVscGVyIGZ1bmN0aW9uDQo+ID4gPj4gaW4gdGhlIGNvZGUgcGF0aD8gSSBkbyBub3Qgc2VlIGFu
+eSBjYWxsZXJzIGFkZGVkIGluIHRoZSBjdXJyZW50IHBhdGNoDQo+IHNlcmllcy4NCj4gPiA+IFN1
+cmUsIGl0IGlzIGdldHRpbmcgY2FsbGVkIGluIEFQSSB4ZV90dG1fdnJhbV9yZXNlcnZlX3BhZ2Vf
+YXRfYWRkcigpDQo+ID4gPiBhdA0KPiA+ID4NCj4gPg0KPiBodHRwczovL3BhdGNod29yay5mcmVl
+ZGVza3RvcC5vcmcvcGF0Y2gvNzI2MjUyLz9zZXJpZXM9MTYxNDczJnJldj0xMA0KPiA+ID4NCj4g
+PiA+IFRlamFzDQo+ID4gPj4gUmVnYXJkcywNCj4gPiA+PiBBcnVuLg0KPiA+ID4+PiArDQo+ID4g
+Pj4+ICAgIHZvaWQgZ3B1X2J1ZGR5X2ZyZWVfbGlzdChzdHJ1Y3QgZ3B1X2J1ZGR5ICptbSwNCj4g
+PiA+Pj4gICAgCQkJIHN0cnVjdCBsaXN0X2hlYWQgKm9iamVjdHMsDQo+ID4gPj4+ICAgIAkJCSB1
+bnNpZ25lZCBpbnQgZmxhZ3MpOw0KDQo=
