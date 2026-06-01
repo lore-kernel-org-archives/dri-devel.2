@@ -4,59 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A8E8CD5BD1
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 09:57:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33D30CD6E56
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 09:59:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67874113126;
-	Mon,  1 Jun 2026 09:57:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D9591130AA;
+	Mon,  1 Jun 2026 09:59:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Q858CoPL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eqiA5y9O";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E007113126;
- Mon,  1 Jun 2026 09:57:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780307846; x=1811843846;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=pTjlChPJzgavu9HtH3HlamrUFdRzFwSEgvot7/KhuHc=;
- b=Q858CoPLviP//uVL0PUjDcTZhzJmI0+NcXFyxzKdOv8jxlTjfr3cfeFx
- oYpnk9Zs3bpECpjp5lZCX6blQ5Df4Q6hFmpLg1Bo6Fb7Zkfi03Jiy0Uhm
- 8TKlIpoHTtydYTzUS75NgKOsl6KOJKPzOUdHP01m9YnOcik3qye6LGlc4
- V5mScLYDFuyAAxLwHuf/uipNUzu/ojB1YC7cGzY9PN7OUb/RA00hskB/K
- Y64Jdq4rUUlWa7hZPQvxKH4g2Jxwh7RXPF+NpH3EWUBZiRxVDCwpD41eJ
- r5ip8MTWapoZck0MHvuruFDMwuGPqDgOaP/h7QGDFIo8hhmXsprxS4sHr Q==;
-X-CSE-ConnectionGUID: PMPcr+ygTQCjgLHeXpdvQg==
-X-CSE-MsgGUID: SNcYg1nhQ9+Wq78UouPh1w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11803"; a="92177776"
-X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="92177776"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2026 02:57:26 -0700
-X-CSE-ConnectionGUID: hezSgFZWSDO5j5nynBW03A==
-X-CSE-MsgGUID: GnaJcyPdS1mT8OZUAUAaYg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="248448162"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.121])
- by orviesa005-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 02:57:23 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Kunal Zodape <kunal.devanandzodape@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Alex
- Deucher <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Rahul Kumar <Rahul.Kumar1@amd.com>, Prateek
- Gupta <Prateek1.Gupta@amd.com>, Kunal Zodape <kunal.devanandzodape@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: use ACK polling for page-write completion
-In-Reply-To: <20260601093226.1255621-1-kunal.devanandzodape@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260601093226.1255621-1-kunal.devanandzodape@amd.com>
-Date: Mon, 01 Jun 2026 12:57:19 +0300
-Message-ID: <3206d5c3e94f694b4f0a5b5db4dc1ebaaa86aac9@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 837381130AA
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 09:59:36 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5B1D0407C5;
+ Mon,  1 Jun 2026 09:59:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 579BC1F00898;
+ Mon,  1 Jun 2026 09:59:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780307976;
+ bh=oXpXPYTM/iT+KpypqwBxjU716QAjrBpdfpoXXBX+vJE=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=eqiA5y9OELP64EOrE9rjznhcC09/EzxQ0gq9mwgLGX5Bn6StQq1PQkxp4/zKIzS0v
+ R0tVQPojl2SgjrZ0gJH49BAioZPwsogYeQIq8DWiWaEmEPSl1nkLFkoQg/JsGCFGw5
+ 4gTn6i+tr1k/kovnNVAB859L8u6a1U0btT715PtKeovT5HvxV8zZMoUdcIaL5fIRHm
+ u8amPdd1Yr52S6qXeOQ5Syu8MQW8aEYBU/WqOqprkt7ZOqYSodbLP7E0LfvwjShrnY
+ aRUw9GRAqW+wpSJF2Iq4VlkPqqMERmO+l61YbLbF95d0lM/SKMyl4OlBSWHC9eCtvq
+ pNicZoHXVPesg==
+Message-ID: <c9aacef4-d10d-4f9f-8bf3-fd53501a1831@kernel.org>
+Date: Mon, 1 Jun 2026 11:59:27 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: misc: qcom,fastrpc: Add Maili FastRPC
+ compatible
+To: Yijie Yang <yijie.yang@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260525-fastrpc-v1-1-ae9add881952@oss.qualcomm.com>
+ <meuxtcs3quchupl6gf4vtjiosmoig7zs2tc2vr2xthetem5hll@l4op77zr2srj>
+ <a7b4c0ea-0e02-4ede-8d51-a4c038d55a5a@oss.qualcomm.com>
+ <moeb7zqqhengrd2nrqyuqydyq4pk4imd2uylmr4tf2ypn65h34@z33iifvtf7al>
+ <20260530-wise-discreet-woodpecker-3c7d0c@quoll>
+ <e00a4089-021b-4c26-8a6e-ba1faf86218f@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <e00a4089-021b-4c26-8a6e-ba1faf86218f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,72 +113,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 01 Jun 2026, Kunal Zodape <kunal.devanandzodape@amd.com> wrote:
-> The EEPROM write path currently waits a fixed 10 ms after each page
-> write to cover the maximum write-cycle time.
->
-> Replace the fixed delay with ACK polling so the driver can continue as
-> soon as the EEPROM finishes its internal write cycle. Since the SMU I2C
-> adapter used for these EEPROM accesses does not support zero-length
-> transfers, poll readiness with an offset-only dummy write.
->
-> Keep the existing 10 ms timeout as the upper bound for the polling loop.
->
-> Tested on MI200 (ALDEBARAN) with ras_eeprom_reset confirming clean
-> write/read-back with no I2C errors.
->
-> Signed-off-by: Kunal Zodape <kunal.devanandzodape@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c | 28 +++++++++++++++-------
->  1 file changed, 20 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-> index 8cd69836dd99..53be5a31c40c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-> @@ -153,15 +153,27 @@ static int __amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap, u32 eeprom_addr,
->  			break;
->  
->  		if (!read) {
-> -			/* According to EEPROM specs the length of the
-> -			 * self-writing cycle, tWR (tW), is 10 ms.
-> -			 *
-> -			 * TODO: Use polling on ACK, aka Acknowledge
-> -			 * Polling, to minimize waiting for the
-> -			 * internal write cycle to complete, as it is
-> -			 * usually smaller than tWR (tW).
-> +			ktime_t timeout = ktime_add_ms(ktime_get(), 10);
-> +
-> +			/* Poll for ACK to detect when the self-timed
-> +			 * internal write cycle has completed, as per
-> +			 * Acknowledge Polling described in the AT24CM02
-> +			 * datasheet, Section 7.4. The SMU I2C adapter
-> +			 * used by these EEPROM paths does not support
-> +			 * zero-length messages, so use an offset-only
-> +			 * dummy write to probe for the ACK. The address
-> +			 * pointer update is harmless because each real
-> +			 * transfer reprograms it before use.
->  			 */
-> -			msleep(10);
-> +			do {
-> +				r = i2c_transfer(i2c_adap, &msgs[0], 1);
-> +				if (r == 1)
-> +					break;
-> +				usleep_range(100, 200);
-> +			} while (ktime_before(ktime_get(), timeout));
-> +
-> +			if (r != 1)
-> +				break;
+On 01/06/2026 03:23, Yijie Yang wrote:
+>>>
+>>> Okay...
+>>
+>> If a human cannot write and validate this one, I see as putting effort
+>> on maintainers.
+>>
+>> Dropping from patchwork.
+> 
+> I will write and validate this myself and then remove this tag.
 
-See poll_timeout_us().
+Upstream maintainer's task is not to review AI generated code, but
+review people's code. I have no clue which case is here and
+unfortunately I make assumptions, usually in favor of less work for me.
 
+If contributors send us AI code, then basically contributors are proxies
+between the AI model and maintainer. I don't want to talk with your AI
+through you, I have no such interests (and such process would not
+scale). Reviewing AI code does not give me actual pleasure of work - I
+have zero emotional connection to such code, no pleasure, I simply do
+not care and decide to spend my time on something else.
 
-BR,
-Jani.
+Whether you actually use AI is a different thing, just like using other
+tools, but if a trivial patch is done with AI, I don't believe it was
+reviewed by you, because writing it is a similar amount of effort, so
+obvious choice for me would be to write it by myself.
 
-
->  		}
->  	}
-
--- 
-Jani Nikula, Intel
+Best regards,
+Krzysztof
