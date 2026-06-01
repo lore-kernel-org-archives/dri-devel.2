@@ -4,89 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B76DCD5BD1
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 09:46:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F0A5CD6E60
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 09:50:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C498113100;
-	Mon,  1 Jun 2026 09:46:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7B371130E0;
+	Mon,  1 Jun 2026 09:50:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="Wr4noz90";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WwNjMwsg";
 	dkim-atps=neutral
-Received: from mail-ed1-f74.google.com (mail-ed1-f74.google.com
- [209.85.208.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A09D9113100
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 09:46:03 +0000 (UTC)
-Received: by mail-ed1-f74.google.com with SMTP id
- 4fb4d7f45d1cf-68c19f1f654so2846606a12.2
- for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 02:46:03 -0700 (PDT)
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com
+ [209.85.210.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C55B1130E0
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 09:50:28 +0000 (UTC)
+Received: by mail-ot1-f51.google.com with SMTP id
+ 46e09a7af769-7e6b5ff3fb8so990701a34.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 02:50:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780307428; cv=none;
+ d=google.com; s=arc-20240605;
+ b=PflI8B62YHtg3AyPvQEMQG2XI+KAMlNcvTxsIL9Ad73/SKPCe6iLz8YoW5IHL1gPUS
+ i2Z3KT4oBKv0laT4Dqd1yoq2mKRKMfMyx0/wM3CLUtuUf7CY/8VUTEr1XUMOz2lv4/M5
+ 1wVOuveRc/2v+sXbaNUhfgAzY2zHWBY6qo8wfhIPojHshUnw/YFCEzYv2PquBRxrUtBM
+ ueV72Fc2gGoLM1fx0DeyxjJlBZgulbn/5r5JwbCkXjv83bapg/BrS7pjJ7UcczDfXg3q
+ M256mZsCuWOhGErUyDfBnOgT4P594+DDyi72FdM7l7vXQu7T/REgwkG2Iuv+AsJos+vo
+ V2rA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=bnswxpP7ou+7v1EMFzriHdHW22x/DG+2T+rNmbrQnJY=;
+ fh=EUwDFIygQGIawKyXF7a94ksfdCiZOR7VDzhg6CEiJwE=;
+ b=B8HPQXyxCBaUg6ceREKES7cjudA3f+wCsnMMa4btUn00m3Fs5haMM4ntfV2g/B96pA
+ vpbuRXjukNhYCaDS4vjybzjXuQnxOC1ZN666jjgP7aVMNXmaWZtxOh5ZHJyDK9tajhpk
+ tO97n7UVvIl02xpPFRsLZuHAC6pxg9ut1M733accvLofJFTzVeLjA6fNprtdZk5g/6Vw
+ SRANGJD6YDdT2bT9Zbw2RzYslFauEGuuMOoKqnMBBGpeMe06eKMWHXeT5uoZjfn6W70c
+ l3uwCqlqWhRxrIWvtDywv/pY3tI9spYdQkx3NKvCnS3l5MDg8z5YkH5OC9u+k4bfAzkm
+ 33Rg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1780307162; x=1780911962;
- darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=F2mLiP05KImuXhLYRlm3itUuIPBG7j9sX+uByjRaID4=;
- b=Wr4noz90uNFCw3xQQUuiyLZa/rBoEhvdCvNTgc1VHN+jImGSnWfvTS3M9hqhxHgBYk
- ekKOlgKtLTG+kbnY+tgUicmN7p25a9z8h413hi1umAXeImngFW+AJARb+WNj7J0Gmvrr
- n/6vNLSye3oWs0xxVqE+9cVON2xwlymt5y21taDhiBEKdUIzaNZVT2JFYIufB+fV0uo/
- FzBsn4j0DglVECtGmFcHVt7AonEQqmZYrktkSx22ksQsPB5wemZqg6Tgn07Vxm4V+Ocv
- gdFGe7Ee3wRJFg6WpCdbF4KTCTa/Dhxi/CnUw9k2aAflu6yDeqRmRJwSAfHFqkr6Bu7X
- Q+WQ==
+ d=gmail.com; s=20251104; t=1780307428; x=1780912228; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bnswxpP7ou+7v1EMFzriHdHW22x/DG+2T+rNmbrQnJY=;
+ b=WwNjMwsgVijvPA3n++9hpLfbpP8785+zEVCCgrgUC7bew8qqMSn9Yh7U2LDtq6bi7F
+ X+s9Za6nnzKcMCnNfDmg4kyexLXYN+sV2PznfJ8gIG06afVY3/B4CaMnmAjp7O861tjy
+ fjWxkIXKxqtVVqiIrxbUCS0wmhTBluf8mhTgDWvNbY36BqRblCm9UqyBR2rNaazDs+p9
+ 1G16as/XZDr9LRemQ5WaRxhJ2DG5Z7tEof1TbGgFIjV+2N1ZC5kYSlUZXsIe9qf/xpKV
+ Ie2Mumwc9O2PzIfz2fz4JMmRyumSlmiubt5newmRg7PU0UmDK9MAUJ68xhCvBBg55cbn
+ qEbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780307162; x=1780911962;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=F2mLiP05KImuXhLYRlm3itUuIPBG7j9sX+uByjRaID4=;
- b=VVgmTiKDqOqY4tpErjucueKtJUD4mtUU2aCvZ4LRbrY1S8Tov54PE2NDvNIkDkEEvY
- ljZSXON5/7dwtC6zSB5MZphV25pHTJgu9cZNogCS8uFuu9b4VyzDZEU7fiaXl98kcpqw
- I8ux3YRwpR61B4eXlvWSZOBm0JEJEYRH250FjDgVUNJNPcSY7DpQImo7nknixrqWd+lo
- temYVedTGSAajFbi50/wu6WiAxpph9baOIY1xfoe3jf6984m16QOUxSi4ycqGEBem9F4
- VCvWwHojXf+FXaZxj9FnnuNGP18dKEg0/3X6O2aIDWFBEG2mfUKXiuXXLj0kMj/thN/h
- Lq4Q==
+ d=1e100.net; s=20251104; t=1780307428; x=1780912228;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=bnswxpP7ou+7v1EMFzriHdHW22x/DG+2T+rNmbrQnJY=;
+ b=j0ex7kXxWnOgAc/XGB20tMU7IMmd8aaEnlGgOPZuK8ELvq5GzkAG29Yxgg0Bvw8dmy
+ +JO1yGbaUeG5R0Ea0I2D/igSlVESoa3Y4mXfHGVZssokJI+1C0aqICGlEGwTgLP2C2h7
+ pAMQta1eu1eOgqS17lbdPCJhQuuieF4VyGCQJhlXQPPzyEIr+PDvPLTzYTsC6U3TGiUS
+ w/uLgMWTLGtNrQYqW5T8ZXvBTJEitFEGHTiXe7GmxjjmfzIv79K26FN+d5zxvsRpedoT
+ 3HlDOr0YLB+AhQMkZ6/fVRheqsulxFsNicC8noU+HCVj2VM4VlFedkByj8Agtzwpn4Ch
+ Y77g==
 X-Forwarded-Encrypted: i=1;
- AFNElJ89actD336Ixe3DwZNjLJepotouoFRihJN522IakG/r4eP4SWd7Z/SdUoUnYS8uT17Z3r2reEawERA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwT8DtCbPo+ldGceHm9uZb7YM8hnaxRCOcD9y9XUuLhzvPtDFtN
- VqcDu/apjFO+8T9ZP/U5XgyVlffD+n99CntK+X2e6TACkbYisUpBrXc0x1YoW1EC0RmIbGPa5Nq
- pP+J1IHJbpEwK52/+nA==
-X-Received: from ejcmy11.prod.google.com ([2002:a17:906:5a4b:b0:beb:3773:86c7])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:e158:b0:beb:7979:47dd with SMTP id
- a640c23a62f3a-beb797959f7mr242224566b.27.1780307161830; 
- Mon, 01 Jun 2026 02:46:01 -0700 (PDT)
-Date: Mon, 1 Jun 2026 09:46:00 +0000
-In-Reply-To: <20260530143541.229628-3-phasta@kernel.org>
-Mime-Version: 1.0
-References: <20260530143541.229628-2-phasta@kernel.org>
- <20260530143541.229628-3-phasta@kernel.org>
-Message-ID: <ah1U2P8ppTjprYwR@google.com>
-Subject: Re: [PATCH 1/4] rust: types: implement ForeignOwnable for ARef<T>
-From: Alice Ryhl <aliceryhl@google.com>
-To: Philipp Stanner <phasta@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, 
- "=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
- "Christian =?utf-8?B?S8O2bmln?=" <christian.koenig@amd.com>,
- "Paul E. McKenney" <paulmck@kernel.org>, 
- Frederic Weisbecker <frederic@kernel.org>,
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
- Joel Fernandes <joelagnelf@nvidia.com>, Josh Triplett <josh@joshtriplett.org>, 
- Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Lai Jiangshan <jiangshanlai@gmail.com>, 
- Zqiang <qiang.zhang@linux.dev>, Daniel Almeida <daniel.almeida@collabora.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Igor Korotin <igor.korotin@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Krishna Ketan Rai <prafulrai522@gmail.com>, 
- Shankari Anand <shankari.ak0208@gmail.com>, manos@pitsidianak.is, 
- Boris Brezillon <boris.brezillon@collabora.com>, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- rcu@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+ AFNElJ9PLaEH+SuxHXuuAFgHe4Z8Z8u1G9AjZXt6q0KFm5VDbexY2cniJdeZKoo3DVOGh83QfWqR00lYnTM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwAZPksz+oGNlUrokPpy8rqDkI7kWwDJeenoul0KcURGzSNBC/G
+ 4w8UCtdfmn6ZuNHy+lu8Y+Um3UqEAJxApSjogWXrvIGrbOT5V+dlyL6/BYymWO6m0mHyMCXplBP
+ KOPwg10wWaACj9OE/8NgG/b2j2TbeOQI=
+X-Gm-Gg: Acq92OFpoTH1pvruMqQ7AYMqO4iEKnSQpiJ42FvPPyndh2bH14CmpJrjQ2OHoetiLQR
+ q0fIxLIe8NksuYZgwa/tZ9v24uei1a9JTO3gVHR412Epr7R18zKwk5+ecpiH0lzy/erVQg6aFZJ
+ 3cdneDNLW+EDh8aV5c6VJeU6dw4jO6SgwYkdBdq/y59BBj+6evJejY7gmmCKY+vVwPGqTybO7S+
+ xGltaRTR+E14cLKVvTD6Wv7UUtYa+fRAbpfg9CKdHzNZel3k2ZEM+ncvYEcP8OlqFrMv7LZbv+c
+ ly0obyeviYkvxwhASQ==
+X-Received: by 2002:a05:6830:630e:b0:7dc:a51c:9197 with SMTP id
+ 46e09a7af769-7e6a2f09a9cmr5370526a34.7.1780307427747; Mon, 01 Jun 2026
+ 02:50:27 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260524155735.13865-1-mhun512@gmail.com>
+In-Reply-To: <20260524155735.13865-1-mhun512@gmail.com>
+From: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+Date: Mon, 1 Jun 2026 11:50:16 +0200
+X-Gm-Features: AVHnY4J2P8yeU1a3Iz_kc4BmXJmEswG7u61lK5rEkMW2S9QxXA_I8prY59LNgYw
+Message-ID: <CAMeQTsYVf_YRyuXx2XpBG822N=nMhnRbKnUNRu8OrsSthzrMrg@mail.gmail.com>
+Subject: Re: [PATCH] drm/gma500: clean up modeset on backlight init failure
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,15 +109,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, May 30, 2026 at 04:35:09PM +0200, Philipp Stanner wrote:
-> From: Danilo Krummrich <dakr@kernel.org>
-> 
-> Implement ForeignOwnable for ARef<T>, making it possible for C code to
-> own an ARef<T>.
-> 
-> Since ARef represents shared ownership, BorrowedMut is &T rather than
-> &mut T, matching the semantics of the underlying reference-counted type.
-> 
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+On Sun, May 24, 2026 at 5:57=E2=80=AFPM Myeonghun Pak <mhun512@gmail.com> w=
+rote:
+>
+> psb_driver_load() initializes KMS polling before it attempts to
+> initialize backlight support. If gma_backlight_init() fails, the
+> function returns directly and skips psb_driver_unload(), leaving
+> drm_kms_helper_poll_fini() uncalled.
+>
+> Use the existing error path so the partially initialized modeset state
+> is unwound before probe fails.
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Hi,
+Yes the existing code is faulty but calling psb_driver_unload() to
+unwind the init could call backlight_device_unregister() on an ERR_PTR
+backlight_device which is guaranteed to fail.
+
+The correct fix would be to convert psb_driver_load() to use devm
+and/or goto unwind pattern.
+
+-Patrik
+
+>
+> This issue was identified during our ongoing static-analysis research whi=
+le
+> reviewing kernel code.
+>
+> Fixes: 1f90b1232773 ("drm/gma500: Refactor backlight support (v2)")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+>  drivers/gpu/drm/gma500/psb_drv.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/gma500/psb_drv.c b/drivers/gpu/drm/gma500/ps=
+b_drv.c
+> index 005ab7f535..7218026fe2 100644
+> --- a/drivers/gpu/drm/gma500/psb_drv.c
+> +++ b/drivers/gpu/drm/gma500/psb_drv.c
+> @@ -406,7 +406,7 @@ static int psb_driver_load(struct drm_device *dev, un=
+signed long flags)
+>         drm_connector_list_iter_end(&conn_iter);
+>
+>         if (ret)
+> -               return ret;
+> +               goto out_err;
+>         psb_intel_opregion_enable_asle(dev);
+>
+>         return devm_add_action_or_reset(dev->dev, psb_device_release, dev=
+);
+> --
+> 2.47.1
+>
