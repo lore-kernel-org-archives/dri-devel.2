@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89D70CD6E55
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 10:54:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03528CD6E56
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 10:57:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D651D10E1F3;
-	Mon,  1 Jun 2026 10:54:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 682D01131C7;
+	Mon,  1 Jun 2026 10:57:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YN7LAJIQ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ViGaO25U";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90F1810E17F;
- Mon,  1 Jun 2026 10:54:36 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A96AA1131A7;
+ Mon,  1 Jun 2026 10:57:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780311277; x=1811847277;
+ t=1780311467; x=1811847467;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version;
- bh=vl8pAI1oik1lLhgRq6fMHBXq4BU0JIxGE8qnAnuXtKQ=;
- b=YN7LAJIQJ3cKt4udrHZDZyj2/et0xs1DtLG5Aam5TNE1uilRvV8uv9Ac
- KRByOqchXwmX92RGvenz6pOqNUoauB+7762+/VTTnqFjWeHGXz6DliPIZ
- NUKEoPjdT3rR1Hcfex6FScKvFT3n85or2IWq7ceSQ3OVj7RC2RxcITzhs
- SLVW/MPj0yx+KJikGZlRHb/UMAz0w04Ei5c7OstINrIfPOXAg5QuzeAzA
- KgtMklHnCWGMmElFLfrQB0g53qxWAW5dukfUXn1ple7vq8SYbALvcgjh9
- t18yb1oaMRRGH2WqEdGV7S+962zfI0rmFKrRkC/X7qpHOdiP9FRrGtyqV A==;
-X-CSE-ConnectionGUID: JPJCI2xJTvKUeKIB7ZwzgQ==
-X-CSE-MsgGUID: FijYYzvqQ1efGpQLVoFspw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11803"; a="81251485"
-X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="81251485"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2026 03:54:36 -0700
-X-CSE-ConnectionGUID: LYPia3kJRLujVbnAOjaOig==
-X-CSE-MsgGUID: DCBerR4HSZ2qVSztYFNrgw==
+ bh=SENj6mQt3J3p63B2Cfwtu91pY2xE/PRwC/9bAfUJe94=;
+ b=ViGaO25U2/FdYG3o1ry3Ehas6TFuYDYp2Cie8A9xRBkOhunnFRrCgsZ9
+ 8oCI4wBP/EOAbcSNQhgQmmUvlZPcecgA/A6Bl9rrkeiEwS6PXV1rMBkIh
+ puzWTvNOGS7klXUua/KpBOk+5wIBonk0FpzZeoWwd9yqi4RhduBw20/gy
+ hpqRYmjnFK6bE3iyhzXSqBZrlAyXj7m800EVIaqh0XMe6PDA1NBW0u3NK
+ ZKkKqypt1PD/4Bi4k+UP+73ymRF8Hs5bbBtcpE8YYtA4M0gaw+jI6z38X
+ 6KJG7q4+VBU3W3YFwK5JM3BxEXe4Vpr2YkXVf7vT0xpUziXyUKnYMo4si g==;
+X-CSE-ConnectionGUID: bFVFmYGvSJ+UjB+E9J9XtQ==
+X-CSE-MsgGUID: BUvFbaGXQ062VqyUju0/Yg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11803"; a="91376561"
+X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="91376561"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jun 2026 03:57:47 -0700
+X-CSE-ConnectionGUID: gezfP2+aT/WzG+HhXomp7g==
+X-CSE-MsgGUID: QUrIEYc3Svyh39Wbd/WxmQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="242496604"
+X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="247510567"
 Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.121])
- by orviesa006-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 03:54:32 -0700
+ by ORVIESA003-auth.jf.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 03:57:42 -0700
 From: Jani Nikula <jani.nikula@linux.intel.com>
 To: Jens Glathe via B4 Relay
  <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org>, Rob Clark
@@ -58,8 +58,8 @@ In-Reply-To: <20260531-drm_plug_flaky_edid-v1-1-2708c16dce97@oldschoolsolutions.
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 References: <20260531-drm_plug_flaky_edid-v1-1-2708c16dce97@oldschoolsolutions.biz>
-Date: Mon, 01 Jun 2026 13:54:29 +0300
-Message-ID: <9e20789b198624172bd87649370de52e26c79a70@intel.com>
+Date: Mon, 01 Jun 2026 13:57:39 +0300
+Message-ID: <d50293fab9e6292220b1817a8e85bbd89743b708@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,24 +83,6 @@ On Sun, 31 May 2026, Jens Glathe via B4 Relay <devnull+jens.glathe.oldschoolsolu
 > drm_edid_read_ddc() can return a structurally valid EDID from which
 > drm_edid_connector_add_modes() still returns zero modes. This triggers
 > the error:
-
-What are the EDID contents in that case?
-
-Where does it originate from? A valid but "not what you wanted" EDID
-doesn't show up from thin air.
-
-Perhaps it's the hub/adapter replying with some placeholder EDID instead
-of the actual sink EDID. Maybe it's the timing and/or ordering.
-
-Feels like root causing would be in order before adding hacks like this
-that are notoriously difficult to remove in the future, and will easily
-block future progress.
-
-
-BR,
-Jani.
-
-
 >
 >   [drm:msm_dp_bridge_get_modes [msm]] *ERROR* failed to get DP sink
 >    modes, rc=0
@@ -119,6 +101,12 @@ Jani.
 > the patch most plugs would result in 640x480 external display.
 >
 > Fixes: [5bea90ad9743d2] "drm/msm/dp: switch to struct drm_edid"
+
+Did you actually bisect to this commit? It's a bit of a surprise.
+
+Side note, the Fixes: trailer has a strict format. Please look at git
+logs for what it should be like.
+
 >
 > Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 > ---
