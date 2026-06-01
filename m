@@ -4,55 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D6D6CD6E4A
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 12:03:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DF19CD6E64
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 12:07:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF79410F004;
-	Tue,  2 Jun 2026 12:03:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CB6510F00F;
+	Tue,  2 Jun 2026 12:07:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="ATen+nHh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ACGTTxa8";
 	dkim-atps=neutral
-Received: from mail-m9355.xmail.ntesmail.com (mail-m9355.xmail.ntesmail.com
- [103.126.93.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFAEA10F004;
- Tue,  2 Jun 2026 12:03:54 +0000 (UTC)
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-Message-ID: <ABsAYQCHKVHHoT1psMAfDKqi.3.1780401831750.Hmail.220255722@seu.edu.cn>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: alexander.deucher@amd.com, airlied@gmail.com, simona@ffwll.ch, 
- kenneth.feng@amd.com, kevinyang.wang@amd.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn
-Subject: =?UTF-8?B?UmU6UmU6IFtQQVRDSCAxLzJdIGRybS9hbWRncHUvbWVzMTE6IGZpeCBxdWV1ZSBpbml0IHdwdHIgcmVzZXQ=?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
-X-Originating-IP: 36.154.113.95
-In-Reply-To: <6d0aba3d-2f53-453b-b5b1-39a0cf12c551@amd.com>
-References: <20260602050354.2237095-1-runyu.xiao@seu.edu.cn>
- <20260602050354.2237095-2-runyu.xiao@seu.edu.cn>
- <bb4e417d-5669-4d06-a731-c9aa369f6bd7@amd.com>
- <AMgAqgBUKT9GR95Sm49u6arg.3.1780397583210.Hmail.220255722@seu.edu.cn>
- <6d0aba3d-2f53-453b-b5b1-39a0cf12c551@amd.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E2EC10F00F
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 12:07:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0D51A4022C;
+ Tue,  2 Jun 2026 12:07:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C2DF1F00893;
+ Tue,  2 Jun 2026 12:07:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780402051;
+ bh=yf9fztpSi4K+ljlndUdAbTgpH8FO9UBENIcySmefiuo=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date;
+ b=ACGTTxa8FbXBbbfTxT10geybgu/iGCQ5gAPvgGW65pwToitHKMb7oXIvmJwag/Gl9
+ 7+Tz6MWHzmRjkbVhxq7H7CY1ekgHUKDFDvqts6yhC4KPN9pbt4W0DDnvGn2BeJEgE/
+ NQ6TYrDN1EndBuecSRzsbbGV8VvQqGaRoDi/PLx1GzGNzPEZq8D7kWHmo5/Lan8Rcy
+ 6mGAQmbNWcZbrkR2CmvqVo2j+F2q79QB1IF38Pf6DeY2xyMYugYYxB7ILjPzTw0dGw
+ 4GY2pVtyDg41+ZprebAb0wvC1wAPMg23p0L3JL3wIZ2hjKhPe5o8c4PF9bQK3ZmZSq
+ +PRLqakkNBakw==
+From: Mark Brown <broonie@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Sowjanya Komatineni <skomatineni@nvidia.com>, 
+ Laxman Dewangan <ldewangan@nvidia.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Aaron Kling <webgeek1234@gmail.com>
+Cc: linux-tegra@vger.kernel.org, linux-spi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ devicetree@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+In-Reply-To: <20260525-tegra194-qspi-iommu-v2-0-a11c53f804b2@gmail.com>
+References: <20260525-tegra194-qspi-iommu-v2-0-a11c53f804b2@gmail.com>
+Subject: Re: (subset) [PATCH v2 0/2] arm64: tegra: Enable DMA Support on
+ Tegra194 QSPI
+Message-Id: <178032313909.44654.17999841515127150550.b4-ty@b4>
+Date: Mon, 01 Jun 2026 15:12:19 +0100
 MIME-Version: 1.0
-Received: from 220255722@seu.edu.cn( [36.154.113.95] ) by ajax-webmail (
- [127.0.0.1] ) ; Tue, 2 Jun 2026 20:03:51 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Date: Tue, 2 Jun 2026 20:03:51 +0800 (GMT+08:00)
-X-HM-Tid: 0a9e88336e9e02f2kunm3d6b082a172ae
-X-HM-MType: 1
-X-HM-NTES-SC: AL0_4z5B86Wr4Tz9jdMF+bhXMdx4Gk9TojlCNw7tyeABf3pHtCqLbYOkFBtNuQ
- eKMqJLwxE4yuoq3Z/LDw3/nFtMApknDAcoIznsgK2cQHwtBBrhOyq0Xsi+/8ipSBwNbfOwu9byMH
- ug8FXgK1IHbIoUFR2eShRUAtSsCcoDnQYXX7E=
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaS0tDVh1PQkMeSk1JHhkeTVYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKTk9VSkpIVUJOWVdZFhoPEhUdFFlBWU9LSFVKS0
- hKTkxJVUpLS1VKQktLWQY+
-DKIM-Signature: a=rsa-sha256;
- b=ATen+nHhmsZu67KiAA9nkXRgXxlSkggRkSx3ii/UmDkVq1gKGbRnc8uY3LnyvhAJpJXCrL5bRi72Z75QLFBgCTJLBWKlXxJx4EHKo99IVgE+dyCZYwiqyi16wvnnIBsIr+K9DWT0u7NrtYtJXslquaG932Ffu0jVOkqs51V/G/E=;
- c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
- bh=kuXh+OPAabOss1B3mKCT+V/+mkjtYYfzQUtWwO6Wzww=;
- h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1428; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=CXeJ9bvnJoexsr0ZqogM4Dl8ae1EzlAlaa7aCsJn7q8=;
+ b=owGbwMvMwMWocq27KDak/QLjabUkhiy54/XyPcEnBT53/v2Y89Ssy7P91+LkqBPJnziq4yQyu
+ iZ4yRp2MhqzMDByMciKKbKsfZaxKj1cYuv8R/NfwQxiZQKZwsDFKQATSWpg/ytzi/0SS/F8eY6S
+ 3m9uifbs2fVZW8VOv5hQMd9/DnuY1L/MNR71RQK+z3+nXEiPKnc+L1pikeIVnFhT4eOz8F/TksV
+ 87Admvej7Y/ch/mZrUChvkZaTUOe9tDs8zlKdhTt19YqZOcrkq9o8/6TL8Avu/HHn6/oTwS3KK6
+ 2+PqhP57GbesA2+bzLmnthiy/liPeqmp3/E3OCh++/85nFD7eeDNo/galh569m8z0LRFPvPXr/Q
+ yOOR8np1tNvWyMtzWbbvlda2BZ12EHlYaVAwKFEvlV3+B89rF9/p9bpbMn1dRcNHD1kMtg0ypYu
+ O71tRtGTxFJX1YiVSfvVH3qteJJuH8D8xUb46NN96v+LAA==
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,53 +79,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-CgpIaSBDaHJpc3RpYW4sCgoKVGhhbmtzLCB0aGF0IG1ha2VzIHNlbnNlLgoKCkkgd2lsbCByZXdv
-cmsgdGhpcyBhcm91bmQgdHlwZWQgcnB0ci93cHRyX2NwdV9hZGRyIGFjY2Vzc2VzIGluc3RlYWQg
-b2YKdGhlIGF0b21pYzY0X3QgY2FzdCwgYW5kIEkgd2lsbCBpbmNsdWRlIHRoZSByZWxhdGVkIHJw
-dHIgZml4ZXMgaW4gdGhlCnNhbWUgcGF0Y2ggc2V0LgoKClRoYW5rcywKUnVueXUKPj4gCQo+PiAK
-Pj4gSGkgQ2hyaXN0aWFuLAo+PiAKPj4gVGhhbmtzLCB1bmRlcnN0b29kLgo+PiAKPj4gVG8gbWFr
-ZSBzdXJlIEkgcmV3b3JrIHRoaXMgaW4gdGhlIHJpZ2h0IGRpcmVjdGlvbjogd291bGQgeW91IGV4
-cGVjdAo+PiB0aGlzIHJlc2V0IHBhdGggdG8gZG8KPj4gCj4+IMKgIHJpbmctPndwdHIgPSAwOwo+
-PiDCoCBhbWRncHVfcmluZ19zZXRfd3B0cihyaW5nKTsKPj4gCj4+IGluc3RlYWQgb2Ygd3JpdGlu
-ZyB3cHRyX2NwdV9hZGRyIGRpcmVjdGx5Pwo+PiAKPj4gSSBhbSBhc2tpbmcgYmVjYXVzZSBhbWRn
-cHVfcmluZ19zZXRfd3B0cigpIGFsc28gdXBkYXRlcyB0aGUgZG9vcmJlbGwsCj4+IHNvIEkgd2Fu
-dCB0byBjb25maXJtIHRoYXQgdGhpcyBpcyB0aGUgaW50ZW5kZWQgc2VxdWVuY2UgZm9yIHRoZQo+
-PiByZXNldC9zdXNwZW5kIGNhc2UgaGVyZS4KPgo+WWVhaCBJIHdhcyB3b25kZXJpbmcgdGhlIHNh
-bWUgdGhpbmcuCj4KPkkgdGhpbmsgdGhlIGNvcnJlY3QgYXBwcm9hY2ggd291bGQgYmUgdG8gbWFr
-ZSBib3RoIHJwdHJfY3B1X2FkZHIgYW5kIHdwdHJfY3B1X2FkZHIgdm9pZCogaW4gdGhlIGFtZGdw
-dV9yaW5nLmggc3RydWN0dXJlIGluc3RlYWQgb2YgdTMyKiBhbmQgdGhlbiBjYXN0IHRoYXQgdG8g
-ZWl0aGVyICh1NjQqKSBvciAodTMyKikgZGVwZW5kaW5nIG9uIHRoZSByaW5nIHR5cGUuCj4KPlRo
-ZSBhdG9taWM2NF90IGhhY2sgc2hvdWxkIHJlYWxseSBiZSByZW1vdmVkLgo+Cj5CVFcgUmVhZGlu
-ZyB0aGUgcnB0ciBpcyB3cm9uZyBvbiBtdWx0aXBsZSBpbnN0YW5jZXMgYXMgd2VsbCBhbmQgc2hv
-dWxkIHByb2JhYmx5IGJlIGZpeGVkIGluIHRoZSBzYW1lIHBhdGNoIHNldC4KPgo+UmVnYXJkcywK
-PkNocmlzdGlhbi4KPgo+PiAKPj4gVGhhbmtzLAo+PiBSdW55dQo+PiAKPj4gT24gVHVlLCBKdW4g
-MiwgMjAyNiBhdCAxMTo0OTowNUFNICswMjAwLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4g
-Q2xlYXIgTkFLLgo+Pj4KPj4+IFRoZSBhdG9taWM2NF90IGNhc3QgaGFjayBpcyBqdXN0IHNvbWV0
-aGluZyB3ZSBkaWQgZm9yIG9sZGVyCj4+PiBnZW5lcmF0aW9ucyBhbmQgaXMgbm90IHNvbWV0aGlu
-ZyB3aGljaCBpcyBuZWNlc3Nhcnkgbm9yIHNob3VsZAo+Pj4gYmUgZG9uZSBoZXJlLgo+Pj4KPj4+
-IFdoYXQgY291bGQgYmUgcG9zc2libGUgaXMgdGhhdCB3ZSBuZWVkIHRvIHVzZSBhbWRncHVfcmlu
-Z19zZXRfd3B0cigpCj4+PiBoZXJlIHRvIGNvcnJlY3RseSBkaXN0aW5ndWlzaCBiZXR3ZWVuIHF1
-ZXVlcyB3aXRoIDMyYml0IGFuZCA2NGJpdAo+Pj4gd3B0cnMuCj4+IAo+Cj4KCj4+IAkKPj4gCj4+
-IEhpIENocmlzdGlhbiwKPj4gCj4+IFRoYW5rcywgdW5kZXJzdG9vZC4KPj4gCj4+IFRvIG1ha2Ug
-c3VyZSBJIHJld29yayB0aGlzIGluIHRoZSByaWdodCBkaXJlY3Rpb246IHdvdWxkIHlvdSBleHBl
-Y3QKPj4gdGhpcyByZXNldCBwYXRoIHRvIGRvCj4+IAo+PiDCoCByaW5nLT53cHRyID0gMDsKPj4g
-wqAgYW1kZ3B1X3Jpbmdfc2V0X3dwdHIocmluZyk7Cj4+IAo+PiBpbnN0ZWFkIG9mIHdyaXRpbmcg
-d3B0cl9jcHVfYWRkciBkaXJlY3RseT8KPj4gCj4+IEkgYW0gYXNraW5nIGJlY2F1c2UgYW1kZ3B1
-X3Jpbmdfc2V0X3dwdHIoKSBhbHNvIHVwZGF0ZXMgdGhlIGRvb3JiZWxsLAo+PiBzbyBJIHdhbnQg
-dG8gY29uZmlybSB0aGF0IHRoaXMgaXMgdGhlIGludGVuZGVkIHNlcXVlbmNlIGZvciB0aGUKPj4g
-cmVzZXQvc3VzcGVuZCBjYXNlIGhlcmUuCj4KPlllYWggSSB3YXMgd29uZGVyaW5nIHRoZSBzYW1l
-IHRoaW5nLgo+Cj5JIHRoaW5rIHRoZSBjb3JyZWN0IGFwcHJvYWNoIHdvdWxkIGJlIHRvIG1ha2Ug
-Ym90aCBycHRyX2NwdV9hZGRyIGFuZCB3cHRyX2NwdV9hZGRyIHZvaWQqIGluIHRoZSBhbWRncHVf
-cmluZy5oIHN0cnVjdHVyZSBpbnN0ZWFkIG9mIHUzMiogYW5kIHRoZW4gY2FzdCB0aGF0IHRvIGVp
-dGhlciAodTY0Kikgb3IgKHUzMiopIGRlcGVuZGluZyBvbiB0aGUgcmluZyB0eXBlLgo+Cj5UaGUg
-YXRvbWljNjRfdCBoYWNrIHNob3VsZCByZWFsbHkgYmUgcmVtb3ZlZC4KPgo+QlRXIFJlYWRpbmcg
-dGhlIHJwdHIgaXMgd3Jvbmcgb24gbXVsdGlwbGUgaW5zdGFuY2VzIGFzIHdlbGwgYW5kIHNob3Vs
-ZCBwcm9iYWJseSBiZSBmaXhlZCBpbiB0aGUgc2FtZSBwYXRjaCBzZXQuCj4KPlJlZ2FyZHMsCj5D
-aHJpc3RpYW4uCj4KPj4gCj4+IFRoYW5rcywKPj4gUnVueXUKPj4gCj4+IE9uIFR1ZSwgSnVuIDIs
-IDIwMjYgYXQgMTE6NDk6MDVBTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4+IENs
-ZWFyIE5BSy4KPj4+Cj4+PiBUaGUgYXRvbWljNjRfdCBjYXN0IGhhY2sgaXMganVzdCBzb21ldGhp
-bmcgd2UgZGlkIGZvciBvbGRlcgo+Pj4gZ2VuZXJhdGlvbnMgYW5kIGlzIG5vdCBzb21ldGhpbmcg
-d2hpY2ggaXMgbmVjZXNzYXJ5IG5vciBzaG91bGQKPj4+IGJlIGRvbmUgaGVyZS4KPj4+Cj4+PiBX
-aGF0IGNvdWxkIGJlIHBvc3NpYmxlIGlzIHRoYXQgd2UgbmVlZCB0byB1c2UgYW1kZ3B1X3Jpbmdf
-c2V0X3dwdHIoKQo+Pj4gaGVyZSB0byBjb3JyZWN0bHkgZGlzdGluZ3Vpc2ggYmV0d2VlbiBxdWV1
-ZXMgd2l0aCAzMmJpdCBhbmQgNjRiaXQKPj4+IHdwdHJzLgo+PiAKPgo+Cg==
+On Mon, 25 May 2026 01:47:43 -0500, Aaron Kling wrote:
+> arm64: tegra: Enable DMA Support on Tegra194 QSPI
+> 
+> The reason for this is to properly support the spi nor chip on the
+> Jetson Xavier NX module. Prior to this, it would time out on all
+> transfers and sometimes even trigger a cbb fault, locking up the entire
+> unit. With this, reading and writing to the flash memory works as
+> expected.
+> 
+> [...]
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.2
+
+Thanks!
+
+[1/2] spi: tegra210-quad: Allocate DMA memory for DMA engine
+      https://git.kernel.org/broonie/spi/c/f469138a77ac
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
