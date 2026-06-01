@@ -4,41 +4,163 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8915CD5BD1
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 05:45:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B7DBCD6E5E
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 06:04:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28498112DA5;
-	Mon,  1 Jun 2026 05:45:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81EF6112DF6;
+	Mon,  1 Jun 2026 06:04:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y9SD/6OB";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QQ66Od/k";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 643AF112DA5
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 05:45:30 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 54EC760018;
- Mon,  1 Jun 2026 05:45:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A8F31F00893;
- Mon,  1 Jun 2026 05:45:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1780292729;
- bh=dryJxJkomuWU7M3myzEaD2QKxPzT0+x9I5gV0266eeA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Y9SD/6OB0HmVQ7cXSkQzFThV+pLRGz5r2olxPr0vQ1gO02PkTbCzdul57kCneWp3t
- yVCHlarjuYZmglGHNbTsMN8mUS26vmYMDcAg7TaprRDjmNA5zaVkMmLpLh1uC9uujM
- mi/L6qckTVQ8/vNHpFr2vOkTKt7icT1d6zHy2DnA=
-Date: Mon, 1 Jun 2026 07:44:33 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Enchanted Hunter <enchantedredhunter@gmail.com>
-Cc: linux-staging@lists.linux.dev, andy@kernel.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] staging: fbtft: replace sprintf with snprintf
-Message-ID: <2026060110-unlisted-headache-aec7@gregkh>
-References: <CAOSULec2OpwTGB3OUb_n3CdKO6H_DGJnxw=qsBswbd+JBjemKA@mail.gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76977112DF4;
+ Mon,  1 Jun 2026 06:04:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780293893; x=1811829893;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=iQBZ4bfVzKjRj6tC4L8qCVxAomRuf5g6G4jNfLedYY4=;
+ b=QQ66Od/kOqrrcHJDACAXnHHf+rD+Ap+RSkLayy9oLoN9yXOIoQEs09IR
+ TEPiPLrOfH3g1u6aQzLJ+QEDLQVAOpMuYzEwgXF3BNRoIQp4zM7TLnyEt
+ IQIBEtEqd5jE0bWa5WXpXkMpzpJqt64eytMOJyijemne1XYiB9jNipPYM
+ aRSV4zag1w3mdSWwb6OJ4L9AU2jJXyPOF+ZPjviibVuaVfgKmogBus3iC
+ 88qDeQQ/tky9E8kEHg14s3pJvRCs+pBWCA+sMDd9jM6GWVxTbf9150Oux
+ jD2UHb6VIDmZElDqBqYI4QGgVAmD9xFiePgU0Ysjyg8cQSo0LZUUSASNH w==;
+X-CSE-ConnectionGUID: dhyVs/LWSk+Lh7rtSmFvLA==
+X-CSE-MsgGUID: oOOBbsYhTYS9AG7b0S1w1g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11803"; a="98611573"
+X-IronPort-AV: E=Sophos;i="6.24,180,1774335600"; d="scan'208";a="98611573"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 May 2026 23:04:53 -0700
+X-CSE-ConnectionGUID: aj4xpgZNTEqq4/6YEYAwEQ==
+X-CSE-MsgGUID: U64+SJXyQqqUhmxsduXBbA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,180,1774335600"; d="scan'208";a="239071066"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 May 2026 23:04:53 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Sun, 31 May 2026 23:04:51 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Sun, 31 May 2026 23:04:51 -0700
+Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.41) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Sun, 31 May 2026 23:04:49 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nozSH37/4qRrIoAeIdfIjX3e63AN8+c78weW6xWs2qN6Bighh/Q0IpGI70QJ8mdulhmMho6xBUKo/bhjkoV2hrPPxPN833n9VkXxF4t4UPiKrqoEXGnVO3cUlwE3jQ3Zc3R2vN+URXM8jStSXeyj70BJO4ruFp25ez97lCX+L+7gROc4PQFaE7XgZNNYI1O2m8WdMWMjssE2G1k7Lu81hdmWL+i8pGzDQDg3oVuKqyWd1TIYTJaFg5JHfxx8iV1a/nA0ttxioAEou4zugnsFiymu7+ePf+/PfsYP6vDaQZVtxPMQNg8GyAuEa7m43s7RkY9tUDO0Jd3Pi7G6GBWPdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2eJx3ixyrI2ftd7OvlQCqOmc6Z1CarZejNsUp2HarBs=;
+ b=gmmTbxEhA69cj9K5I4Xf5XgVeWEAIm5nA4XijUR1sMtpnFQiLjqdk4vgzhE1hbxYczqffu8wT05RemKPGxaRmNhfXw7DdV5zWLlzPrgzi4PZmvMGL4fYyi0iQtVAwUVWUzGinLXOT2llXUqKOzzyj1yd1p5qiExkDdYi4Ud2AEXaBjmXEtwjvFic06lb9epSJECofDEwnde4fY5V/ygZtU4YY6ZUdCxC3qVX8nqwhFC8R4/qK5Xendrprz1ZZOYuKVQPei/KH3z5CB0oLfFFDVJJeiUYfraBMBbAxCzefXcj8n1rXxGFsGExgZW1imf32yyyOrc7lCl3QKGRPSSRVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
+ by SN7PR11MB7993.namprd11.prod.outlook.com (2603:10b6:806:2e5::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Mon, 1 Jun 2026
+ 06:04:42 +0000
+Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
+ ([fe80::45f:5907:efdb:cb5b]) by SJ1PR11MB6129.namprd11.prod.outlook.com
+ ([fe80::45f:5907:efdb:cb5b%3]) with mapi id 15.21.0071.011; Mon, 1 Jun 2026
+ 06:04:41 +0000
+Message-ID: <3798d16f-fe08-4a6e-8cd9-06cf7bc692ed@intel.com>
+Date: Mon, 1 Jun 2026 11:34:33 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] drm/i915/color: Fix step discontinuity in Pre-CSC
+ Gamma LUT
+To: Sean Paul <sean@poorly.run>, <intel-gfx@lists.freedesktop.org>,
+ <jani.nikula@linux.intel.com>
+CC: Sean Paul <seanpaul@google.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>
+References: <20260528230817.2455072-1-sean@poorly.run>
+ <20260528230817.2455072-2-sean@poorly.run>
+Content-Language: en-GB
+From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+In-Reply-To: <20260528230817.2455072-2-sean@poorly.run>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0027.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:178::15) To SJ1PR11MB6129.namprd11.prod.outlook.com
+ (2603:10b6:a03:488::12)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAOSULec2OpwTGB3OUb_n3CdKO6H_DGJnxw=qsBswbd+JBjemKA@mail.gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PR11MB6129:EE_|SN7PR11MB7993:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc7202d5-d250-4d49-4851-08debfa3abb1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|1800799024|18002099003|22082099003|4143699003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: sA3kagvEwU+qkHkvIu2Dpp67Q3AsGrgsyhl/oxyIclHH9dS6pM3tFpe81wXewjTOPH5uEUN4aa3GLo91MXN1Sz3v/9MkBkt/O36E39HJt4TrkBbDnb/wK+xN85Xn5CVk/k/xsRREvOcH1fpi6/H5jXGjpoKerRBA/yooSuaSN70l/rFhF+etRUzxm95Ml4TAgMF4PiXXNunhtWqgxd9EOBL0bgai5SSMf1kU0AiBHhXTnLuBDu+zrBcK02vstgOGTLTJbgm2k2C2ZGiK5ReYN1bbzJlJkcz59HwzMJtKlTiCVjyUEyAInUYHU5YAoX8Sv5/3NghdZbXWJavTiscAxrnSbbywF5ZJBhirTzeYqBombpT/YNcKWIeicQx7DE2VeQEuLKBBGnK7EChfjL4ReTAmEOWwc5NSRwKGPmoCXWYCVUeRh8MWhDXdlxgUD9/Zl5feaZMAr+yXY+gV0wIcv7Leb/2yTb9OpuHgNZ0KK7U9iZsnTdq43zQwSogRnJMJ1jdjZXUMADJKHyRBxkqxZNvlx4lJ7zBgl82usDhrYMcg0Gvfov5H35qolbaDPN2o/MXcCEdSJaT8KWT2ImDJDbstfkH2OmOQMBE7YSAWx/rjveM+jK/Nh/66V2J72g/PclXvqmLhWHD6u/Znth5dZoSzGbUxZF3V08p3RWYNiHvTQASk4DKNMxxp0Lv9ugH43j3e04kClu6ZTscqB7VQ6w==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?blBkRG9QT3FYYzZDb2FXR2pIV0R4aGVjRldqYlBpQ3VGenlQdzFXai9mZVc1?=
+ =?utf-8?B?TndEMCtQR25zZEl4MWR1YklwdDd3UFdMUTZsMVBINmRWQXJLYnE5TlJRcFgr?=
+ =?utf-8?B?d3hyQ3NNWERkYmZld2hiYnoxRUJudzNtSndhendvdWlzM091Q3ZNckxVUGR1?=
+ =?utf-8?B?NzVzR3ovdTdMWDVhOC9aZTZCOFowN01tR3huaXloSEtkT1U1REl4cEY3Ympu?=
+ =?utf-8?B?TGMzR0d3UXc4QmR4WUhndHR0NzZWaXBXWVhLUEFTSU9DaTVKVFplRjQ0NXA4?=
+ =?utf-8?B?WjlXeldhTlE2K09oZm1lUHJSdkhYcTkrU0ViaXFnUmZXbEZxcFJrb0dvR05h?=
+ =?utf-8?B?MlNIVHJhWkpyQ0JMeElnQm9RNW1RYXRpbmUzclhhdUMvVEtSVDhYa2w3UU9I?=
+ =?utf-8?B?OEx0NFlyeTVZTTB3akRQV25ZODREd3RpQ2tuVDhPOU9ncEpiTm1hNU9paDUx?=
+ =?utf-8?B?NHhPQ1lyRXg4NCtMN09TeTAzQm1HRWFmcjQzS0l0Nnh3QTExRXVpNHRNVDdD?=
+ =?utf-8?B?NTlmSGJqUzlIWEczK3RKdDhOdElWeHdJZk5UbE9PYUFJNGU2THlWWlNlSzI1?=
+ =?utf-8?B?WjJYNUJhRnVYWFMwSlR1U2xxK1lUQmZtN05lZ3o3ZTZnNlc4U0dTckRhWVNy?=
+ =?utf-8?B?K3ZBdzVwRURrdXpLNjA0ei9Qb2tDcnJpZTZ2Q0sxbC9DcC9xOWpVM05rdm81?=
+ =?utf-8?B?b0J0dVRIM241a3M5bU9uczRWSWVieWFqV0wxS0RHWnhmeVBka1JZYkxxSnFu?=
+ =?utf-8?B?RVNRK01aVnBkOUV1aHZhb05pS1VjMElYcWJpYXFhbmoybmM3dDFFSlh2eXk5?=
+ =?utf-8?B?UUVWUVdlSEdBb2JBTXRoMTdya05IZGpIMjVyUm52ckdpRnI2d0IrZklDQzUw?=
+ =?utf-8?B?NDFCQjFIVGo5L1JxQzYyQTkyZndJS1VuSU0wcSs4a1VuQlgzRVdIRnQwS0RC?=
+ =?utf-8?B?eUhiL0NLMGtvN3dVVlZ3MXdaY0xtbWs5eG4zK0EzSENhNi9WZWdkYVVDL0tq?=
+ =?utf-8?B?cDJUcWYvV2dqMi9UNk5HRmhrQmV3cEpCNS9hV3dpVnpuclhWdUtBUmJvRkZP?=
+ =?utf-8?B?Y3RFWTJDK1NkeXpkTUpHcmpIbi9lVGJUR3BuSVQwOW5NeUtQVjVlWEZlcENq?=
+ =?utf-8?B?czlGcU1yWkg2QW1qUmhLcWtDQUFWSG96YklPVGQvbURCRXBiODI0WDlBdjgy?=
+ =?utf-8?B?dm56cmNDWStXckUrbUhsd3JSRkFEU3F0ak9RK3dGakNBaXhURVE4V3JybkpL?=
+ =?utf-8?B?dHNiMkZDQUhLM0E2dkd4c3Q5cDJ5U2x0Z1BZTVhNNnM3aHJkODU2TVVrZHJs?=
+ =?utf-8?B?YnYzejRuKzB4UUlJazU3b3hXREFkZTlKUlA0NllJL09tU3FKNUVJWnNLcDBJ?=
+ =?utf-8?B?TTdqT2JXemlJNVVyMHVmZmQ4ZzJwT2lkcUR5bFpWcUV4RDkzMC9Dd1NURHlt?=
+ =?utf-8?B?Mk8vd3NrY0ZWOWViNU1DcG9hNU9NVU1MZHp0dFlnUUtWdEpGbHVpR01md2VH?=
+ =?utf-8?B?NktRWmVhUlFMUndjcjBBem8vdFF0WVlXWDd0SkdrdEp3eSttc2N4bDZYYzFx?=
+ =?utf-8?B?KzI5K2xleXJtdUdXTnp4VFhjVHkxYXdYUGUzTjRKN2NnSmc4eW9TTkhOSDdV?=
+ =?utf-8?B?MndyM2tWekxEdHl2MmJXa3lCWXgvbUI1elRmVFVxcSt3Q3JuQnpJZFZ0RFpV?=
+ =?utf-8?B?ODhyODNmUlRPUVdTT0wvVmlPbS95SVhCTElLU2ZGODVlVlZDbjBCTllEMXQ0?=
+ =?utf-8?B?Nml3K1NEUWhnNjcxdDI4NmJFMTZrV256TXRGdWpHS05uSDVTaEdPM1V5cmZ5?=
+ =?utf-8?B?V2pUN0trQ3M2RS92U3kyQ3F0MS8vVVc5OHF0VHF4d1h3SlZEMllialprQWxp?=
+ =?utf-8?B?TnpDbGJuckFzRDRaREV0RGR2bHdBSklOdlRyYkR3NXVkSEhPMkRWd3hPOG9i?=
+ =?utf-8?B?NGhpUU1sckRHOXdSM2lJMUdRZzRUd1NwVDVwamF6WTFTZDIrQVFaRUVqNGps?=
+ =?utf-8?B?TzBZaEJrOUdvem9NbGo0U2FMbEJwbGlpMDJxMjdYbFlQcWdPRHhocGJyMERI?=
+ =?utf-8?B?QXFzNTFjVXVnMUpTM2s5UGJIOURYRE01OC92aGY2Y0MxOENDV1NGRy82eVRM?=
+ =?utf-8?B?aUJCU2tac3BXb0lSZmRwUmhXSFZPNWhYZ1AyN3VWTXV2bll3ci85dHROSkdO?=
+ =?utf-8?B?eHNOeDhscWdQKzQwNHpZR1NETTNsTmcvSmg0dmhaOUxUTHd1REZxU3pFVHla?=
+ =?utf-8?B?YTkxV2hXa0k2elVrUEtPZWFHUWxMcWl2SHN3dDBVc0FIRllLTDlVRmdZZlFv?=
+ =?utf-8?B?VXNBZUdTN0xZak95WFdaYnhVeE1KMGdFV3hsWWhVT3hIbHpYLzF6WW5TaTVv?=
+ =?utf-8?Q?nPP00FEOLxdDE6hU=3D?=
+X-Exchange-RoutingPolicyChecked: S7ZlBjKmYDa0vAjVbtU4xk0h3Dc4J4Nz74WpE2I2jLRJ0YRfLt1wnX2YLnHVWDywdd1NVnXhsgq/ZASHKnVF3rAoNUwAG4BAy3zk3xwDC6PuNLzk/HKOjyFNxiU6n1oHfMGiV8IZEYUg6qXtT1k73GbxjKLNqehUBdrc2MmvUVf/CuYa1hxc3dh/lo4pUT2yjDH5Fz7/Hu3SY7zf8oxcu3+IV46IX7RTpjF0+YbX6WHjBGkM8eOKEgYYvZzlPAw4p1mbn5A6UHFEd3bhGOyRvUTk9yt4HXm3/ER6jTFfOfz1Hrah5Rm3dFI+rPcQCASgUbArXvP2IklwMTIRaMsJKQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc7202d5-d250-4d49-4851-08debfa3abb1
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 06:04:41.8029 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VH1RMGGh3RHmwEJyyqZYxBDKdDZlA+5i+5MaG4iXAt2LbsaSI7ZgMmG9a9PDiIOA7X87g7tszqh36x2sj4XwHlzLR5T59my5zj3gbeN9yKM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB7993
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,84 +176,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 01, 2026 at 03:43:55AM +0300, Enchanted Hunter wrote:
-> This patch replaces unsafe sprintf calls with snprintf
-> infbtft_register_framebuffer() to prevent potential buffer
-> overflow.Signed-off-by: rat1bor <enchantedredhunter@gmail.com>
 
-> From a79c6098f2e8bb2ee9e276d339710522175db977 Mon Sep 17 00:00:00 2001
-> From: rat1bor <enchantedredhunter@gmail.com>
-> Date: Mon, 1 Jun 2026 03:18:59 +0300
-> Subject: [PATCH] staging: fbtft: replace sprintf with snprintf
+
+On 5/29/2026 4:37 AM, Sean Paul wrote:
+> From: Sean Paul <seanpaul@google.com>
 > 
-> Signed-off-by: rat1bor <enchantedredhunter@gmail.com>
+> Clamp Segment 2 to the last user-provided LUT entry value instead of
+> hardcoding it to 1.0 (1 << 24) to fix a step discontinuity.
+> 
+
+It defintely make sense to me that the point corresponding to 1.0 should 
+be programmed to the max lut value that user-space provide. I am not 
+quite sure what should be the case for 3.0 and 7.0, however, I presume 
+it should be harmless for now. So as of now LGTM.
+
+Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+
+> Signed-off-by: Sean Paul <seanpaul@google.com>
+> Link: https://lore.kernel.org/intel-gfx/20260521180143.2143262-1-sean@poorly.run/ #v1
+> Link: https://lore.kernel.org/intel-gfx/20260525135730.1122696-2-sean@poorly.run/ #v2
+> 
+> Changes in v2:
+> - Split out into separate patches for pre/post csc fixes
+> - Dropped loop bounds fix in favor of [1]
+> Changes in v3:
+> - Fix stale commit message
+> 
+> [1]- https://lore.kernel.org/r/20260519075245.383864-1-pranay.samala@intel.com
 > ---
->  drivers/staging/fbtft/fbtft-core.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
+>   drivers/gpu/drm/i915/display/intel_color.c | 5 +++--
+>   1 file changed, 3 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/staging/fbtft/fbtft-core.c b/drivers/staging/fbtft/fbtft-core.c
-> index ca0c38221c16..66509347255a 100644
-> --- a/drivers/staging/fbtft/fbtft-core.c
-> +++ b/drivers/staging/fbtft/fbtft-core.c
-> @@ -784,10 +784,11 @@ int fbtft_register_framebuffer(struct fb_info *fb_info)
->  	fbtft_sysfs_init(par);
->  
->  	if (par->txbuf.buf && par->txbuf.len >= 1024)
-> -		sprintf(text1, ", %zu KiB buffer memory", par->txbuf.len >> 10);
-> +		snprintf(text1, sizeof(text1), ", %zu KiB buffer memory", par->txbuf.len >> 10);
->  	if (spi)
-> -		sprintf(text2, ", spi%d.%d at %d MHz", spi->controller->bus_num,
-> -			spi_get_chipselect(spi, 0), spi->max_speed_hz / 1000000);
-> +		snprintf(text2, sizeof(text2), ", spi%d.%d at %d MHz",
-> +			 spi->controller->bus_num, spi_get_chipselect(spi, 0),
-> +			 spi->max_speed_hz / 1000000);
->  	fb_dbg(fb_info,
->  	       "%s frame buffer, %dx%d, %d KiB video memory%s, fps=%lu%s\n",
->  	       fb_info->fix.id, fb_info->var.xres, fb_info->var.yres,
-> -- 
-> 2.34.1
-> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+> index 7185f3628dcf..458508bcf1f4 100644
+> --- a/drivers/gpu/drm/i915/display/intel_color.c
+> +++ b/drivers/gpu/drm/i915/display/intel_color.c
+> @@ -3968,6 +3968,7 @@ xelpd_program_plane_pre_csc_lut(struct intel_dsb *dsb,
+>   	enum plane_id plane = to_intel_plane(state->plane)->id;
+>   	const struct drm_color_lut32 *pre_csc_lut = plane_state->hw.degamma_lut->data;
+>   	u32 i, lut_size;
+> +	u32 lut_val = 1 << 24;
+>   
+>   	if (icl_is_hdr_plane(display, plane)) {
+>   		lut_size = 128;
+> @@ -3978,7 +3979,7 @@ xelpd_program_plane_pre_csc_lut(struct intel_dsb *dsb,
+>   
+>   		if (pre_csc_lut) {
+>   			for (i = 0; i < lut_size; i++) {
+> -				u32 lut_val = drm_color_lut32_extract(pre_csc_lut[i].green, 24);
+> +				lut_val = drm_color_lut32_extract(pre_csc_lut[i].green, 24);
+>   
+>   				intel_de_write_dsb(display, dsb,
+>   						   PLANE_PRE_CSC_GAMC_DATA_ENH(pipe, plane, 0),
+> @@ -3990,7 +3991,7 @@ xelpd_program_plane_pre_csc_lut(struct intel_dsb *dsb,
+>   			do {
+>   				intel_de_write_dsb(display, dsb,
+>   						   PLANE_PRE_CSC_GAMC_DATA_ENH(pipe, plane, 0),
+> -						   (1 << 24));
+> +						   lut_val);
+>   			} while (i++ < 130);
+>   		} else {
+>   			for (i = 0; i < lut_size; i++) {
 
-
-Hi,
-
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
-
-You are receiving this message because of the following common error(s)
-as indicated below:
-
-- Your patch was attached, please place it inline so that it can be
-  applied directly from the email message itself.
-
-- You did not specify a description of why the patch is needed, or
-  possibly, any description at all, in the email body.  Please read the
-  section entitled "The canonical patch format" in the kernel file,
-  Documentation/process/submitting-patches.rst for what is needed in
-  order to properly describe the change.
-
-- You did not write a descriptive Subject: for the patch, allowing Greg,
-  and everyone else, to know what this patch is all about.  Please read
-  the section entitled "The canonical patch format" in the kernel file,
-  Documentation/process/submitting-patches.rst for what a proper
-  Subject: line should look like.
-
-- It looks like you did not use your "real" name for the patch on either
-  the Signed-off-by: line, or the From: line (both of which have to
-  match).  Please read the kernel file,
-  Documentation/process/submitting-patches.rst for how to do this
-  correctly.
-
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
-
-thanks,
-
-greg k-h's patch email bot
