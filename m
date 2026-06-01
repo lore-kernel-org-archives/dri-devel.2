@@ -4,93 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DC87CD6E56
-	for <dri-devel@archiver.kernel.org>; Sun, 31 May 2026 23:58:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24856CD6E56
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 00:13:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FD60112C95;
-	Sun, 31 May 2026 23:58:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28A7B112CA8;
+	Mon,  1 Jun 2026 00:13:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="BCC7OLER";
+	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="rGX3uobs";
 	dkim-atps=neutral
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com
- [209.85.222.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCBD6112C95
- for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 23:58:37 +0000 (UTC)
-Received: by mail-qk1-f173.google.com with SMTP id
- af79cd13be357-91562bf6c12so19208985a.2
- for <dri-devel@lists.freedesktop.org>; Sun, 31 May 2026 16:58:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1780271917; x=1780876717; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=hTfGHM2qB3g/FLyvX8FCIrm9+eNCgSr89Naia4gruos=;
- b=BCC7OLERDmR6ifwfBkep2tJfoAKFnIE2C1/7sTAecM5/5arv3f7kSi8YR90WRLBQYt
- npsFSO4HLshWjPnngU8hAxSx9+eXB17MLyrTO1kdjQTEtehwRwFeHXhupcxuZQrjkC8R
- 0s/+NHdLBCY+yvUWP5FdI8vgB/QHDNpBnhQOVgzCz7SQVZ7fZpfBxc4OKF9EhuoAvO8q
- /5/srQF0aNFhb8e0KDFEgPe3XAW1ewHxovQKEGLM/sD2BPscSytoCucQXw+0CCPCijiQ
- YVY8JzD6NkydmRhGNPl8x/fN3ltbJp82etwWLhF0gbgeYj+U158Qk5VgX/4s1znu88Wb
- dwGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780271917; x=1780876717;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=hTfGHM2qB3g/FLyvX8FCIrm9+eNCgSr89Naia4gruos=;
- b=Ha0zJM6YcD2ufcfpnFoME3+n5k2B60r11ZaHIUp0vGqqWyrBVDLMcu+qHxahX9kJTG
- mhbDTctbUPXMDHmDIRpw/mGfx5ARnj6vh/VdbstjU3ggWAqf6jDA0icBruO6lk0WhaeF
- dNfrOC+uSefrEp7lDMsaX/6bP9SbITwWPde9hJ4cNL50PDFbpeAJrqrazu8VtSLOLX0Q
- ucWGwBK0DWDcZCtACX9xNyjoDjd0nVV6N50KSiO/LKEKmVxuqk2sE8BQ+NuHHGSBWKk9
- 0O2krARjwgNOBA0qTRKNUPeNpRsK1QYCvML1UgSapfTLhnQIkuSLwOxu7Syb7Nhu7htO
- 1GOQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9AwQ72JFO/i0Jpld9K/c2mmmPdQhk4SFOE4LsubZxn1cpO0Y6IIYsZHUyIdhthWJssAHyndxibk3U=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzyor3QmVZkpUEP1vrz3Yj9emLLEVMGEFVUYAtBpxgwlAcDy8z0
- lqgoLGSVvChGnZc9zZiFUpmKyCPPgR1J4P+uc9uYOl10c7iuOS47n2E6Rvbue3hRyvA=
-X-Gm-Gg: Acq92OFb4f0UCewdPozfIy9FjE2Ro1a0kb6/XQuf3LEc547gG0L7U+pxlkDUj17JhMq
- vlQqIYPM7VDveGIFWvpLUGtLPREhewRC2ah2J/gmzJOd7pCA5oGRze1KQrGhROdJKau7+R+K71n
- o1iXcQ8HHWErY+UlP42YhqU5DkVien/Qc6DGiGKJz61ktUYioRjwS2tS4Es35On3YduAasYN2ch
- gYxm5f0VZwIFRRkBUB+CkcPUD7ks61yDuJNZR19YDgpZMj9eNpdDwOz3bHVgMa/pWlSM1wQ9QIU
- zoRCuF4ifuLbzM70/aetBZAvJQ9lu0cPm50Db5odOpwjYACFljhCf99ZJUc4H68+Sdvq0J09VLG
- XeWQ5JwLUYujm8x0oprIVQAyBnwTGOjRoMNXApGXdjkT1H16b11hi3jx9ZiGyX8fagFlV8RsBzZ
- d3mbbM0MSv8K/VfJlzDbQ9Tr4nBD9tmk2p3UEaNQGYiK8nvrDI8j//o34DW2LFx0Rlt+LuQmLH6
- M3/E8WKFmd8HOml
-X-Received: by 2002:a05:620a:bc8:b0:8cd:97de:bb52 with SMTP id
- af79cd13be357-9153d9703b8mr1495082185a.22.1780271916895; 
- Sun, 31 May 2026 16:58:36 -0700 (PDT)
-Received: from ziepe.ca
- (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
- [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9153262e2a6sm837284285a.40.2026.05.31.16.58.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 31 May 2026 16:58:36 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1wTq39-00000001Lt5-3GHA;
- Sun, 31 May 2026 20:58:35 -0300
-Date: Sun, 31 May 2026 20:58:35 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Guanghui Feng <guanghuifeng@linux.alibaba.com>
-Cc: boris.brezillon@collabora.com, robh@kernel.org, steven.price@arm.com,
- adrian.larumbe@collabora.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- liviu.dudau@arm.com, joro@8bytes.org, will@kernel.org,
- robin.murphy@arm.com, alex@shazbot.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev, kvm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kevin.tian@intel.com,
- baolu.lu@linux.intel.com, suravee.suthikulpanit@amd.com,
- dwmw2@infradead.org, xlpang@linux.alibaba.com,
- oliver.yang@linux.alibaba.com, shiyu.zsq@linux.alibaba.com,
- wei.guo.simon@linux.alibaba.com
-Subject: Re: [PATCH 7/9] vfio/iommufd: use iova_to_phys_length for efficient
- unmap
-Message-ID: <20260531235835.GX2487554@ziepe.ca>
-References: <20260529115116.GR2487554@ziepe.ca>
- <20260531093637.3893199-1-guanghuifeng@linux.alibaba.com>
- <20260531093637.3893199-8-guanghuifeng@linux.alibaba.com>
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9385C112CA8
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 00:13:48 +0000 (UTC)
+Received: from submission (posteo.de [185.67.36.169]) 
+ by mout01.posteo.de (Postfix) with ESMTPS id 99895240028
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 02:13:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
+ t=1780272826; bh=58DM2kFGXRR5SmndG7V65q0M9IaBZ64o8CgjV+M6VW4=;
+ h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+ MIME-Version:OpenPGP:From;
+ b=rGX3uobsJNPgjuOz2UMw14IrjFLfcBVZ5BqPQqTYw7daSKrrOx4cNGsZfO/Ip7yjq
+ VbNtvt4wXslom4Rw9FmdGt6xvXOhqAFtnxZk4YcPvoHBRGhm/r3d6V1MhyWtc+rGlO
+ oDOblvKAlza/5J2vLNJxQ6CeV6XhPHuvH7jGG5PwqBWzO9ZixEb4zVC3RDiKJcxz9b
+ j0+P1m2patrY2OtMmwLWo7YDMSXlrc3J/BtYRaI1fzBnNeqq3wZVIS/QbDyXFRHMp9
+ L7X2wAiIWGQV1nz4a99ORAF347NJCsF05d6BDdEyLU5N/3yc0doy3vtGMqk1LQtn8J
+ 273iMW/a4l+SA==
+Received: from customer (localhost [127.0.0.1])
+ by submission (posteo.de) with ESMTPSA id 4gTDvq6Y2sz6trs;
+ Mon,  1 Jun 2026 02:13:43 +0200 (CEST)
+Message-ID: <fda7602dc453231580be8fd7f8b56c7984b1efd1.camel@posteo.de>
+Subject: Re: [PATCH v11 1/3] rust: add basic serial device bus abstractions
+From: Markus Probst <markus.probst@posteo.de>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Markus Probst via B4 Relay <devnull+markus.probst.posteo.de@kernel.org>,
+ Rob Herring <robh@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Jiri Slaby	 <jirislaby@kernel.org>, Miguel
+ Ojeda <ojeda@kernel.org>, Gary Guo	 <gary@garyguo.net>,
+ =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	 <bjorn3_gh@protonmail.com>, Benno
+ Lossin <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>, Kari
+ Argillander <kari.argillander@gmail.com>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng
+ <boqun@kernel.org>,  David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, linux-serial@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-pm@vger.kernel.org, driver-core@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org
+Date: Mon, 01 Jun 2026 00:13:45 +0000
+In-Reply-To: <DIX7W3C7F1UZ.3P1LHOQSD5VMR@kernel.org>
+References: <20260531-rust_serdev-v11-0-dee8e0d830f1@posteo.de>
+ <20260531-rust_serdev-v11-1-dee8e0d830f1@posteo.de>
+ <DIWEXUCNLURG.136XXDBHSBNVR@kernel.org>
+ <12fa6237168ecf6dc65ebf46118beeb5c51f3d1c.camel@posteo.de>
+ <DIX6YVWRDL67.3TXDMTAMASCVZ@kernel.org>
+ <7c30276759aaba8127275e602cb78783ec33bbe9.camel@posteo.de>
+ <DIX7W3C7F1UZ.3P1LHOQSD5VMR@kernel.org>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-bug7M99IW+HdQKCtqoS/"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260531093637.3893199-8-guanghuifeng@linux.alibaba.com>
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
+ preference=encrypt
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,68 +122,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, May 31, 2026 at 05:36:35PM +0800, Guanghui Feng wrote:
->  		/*
-> -		 * This is pretty slow, it would be nice to get the page size
-> -		 * back from the driver, or have the driver directly fill the
-> -		 * batch.
-> +		 * Use iova_to_phys_length to get both the physical address
-> +		 * and the PTE page size in a single page table walk, allowing
-> +		 * us to skip ahead by the contiguous region size instead of
-> +		 * walking the page tables for every PAGE_SIZE step.
->  		 */
-> -		phys = iommu_iova_to_phys(domain, iova) - page_offset;
-> -		if (!batch_add_pfn(batch, PHYS_PFN(phys)))
-> -			return;
-> -		iova += PAGE_SIZE - page_offset;
-> +		phys = iommu_iova_to_phys_length(domain, iova, &pgsize) -
-> +		       page_offset;
-> +		if (!pgsize || pgsize < PAGE_SIZE)
-> +			pgsize = PAGE_SIZE;
 
-It is actually a bug if it returns something < PAGE_SIZE, it should
-WARN_ON and try to continue.
+--=-bug7M99IW+HdQKCtqoS/
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> @@ -1177,25 +1177,41 @@ static long vfio_unmap_unpin(struct vfio_iommu *iommu, struct vfio_dma *dma,
->  
->  	iommu_iotlb_gather_init(&iotlb_gather);
->  	while (pos < dma->size) {
-> -		size_t unmapped, len;
-> +		size_t unmapped, len, pgsize;
->  		phys_addr_t phys, next;
->  		dma_addr_t iova = dma->iova + pos;
->  
-> -		phys = iommu_iova_to_phys(domain->domain, iova);
-> +		/* Single page table walk returns both phys and PTE size */
-> +		phys = iommu_iova_to_phys_length(domain->domain, iova,
-> +						  &pgsize);
->  		if (WARN_ON(!phys)) {
->  			pos += PAGE_SIZE;
->  			continue;
->  		}
-> +		if (!pgsize || pgsize < PAGE_SIZE)
-> +			pgsize = PAGE_SIZE;
->  
->  		/*
->  		 * To optimize for fewer iommu_unmap() calls, each of which
->  		 * may require hardware cache flushing, try to find the
->  		 * largest contiguous physical memory chunk to unmap.
-> +		 *
-> +		 * Calculate remaining contiguous bytes within this PTE from
-> +		 * our position, then try to join following physically
-> +		 * contiguous PTEs.
->  		 */
-> -		for (len = PAGE_SIZE; pos + len < dma->size; len += PAGE_SIZE) {
-> -			next = iommu_iova_to_phys(domain->domain, iova + len);
-> +		len = pgsize - (iova & (pgsize - 1));
-> +		for (; pos + len < dma->size; ) {
-> +			size_t next_pgsize;
+On Mon, 2026-06-01 at 00:32 +0200, Danilo Krummrich wrote:
+> On Mon Jun 1, 2026 at 12:00 AM CEST, Markus Probst wrote:
+> > On Sun, 2026-05-31 at 23:49 +0200, Danilo Krummrich wrote:
+> > > On Sun May 31, 2026 at 9:42 PM CEST, Markus Probst wrote:
+> > > > I just noticed, is it even possible to use SRCU here? Currently the=
+ mutex not
+> > > > only ensures that no drvdata access happens after drvdata drop, but=
+ also that
+> > > > the receive_buf waits for the probe to complete, as the drvdata has=
+n't been
+> > > > initialized yet.
+> > >=20
+> > > Yeah, if you drop the completion, you need the mutex.
+> > Is the performance impact on an mutex or on srcu + completion higher?
+>=20
+> Weighing in the completion, the mutex probably wins as it will always be
+> uncontested under normal operation.
+>=20
+> > >=20
+> > > (In case it wasn't discussed in previous versions already, there is a=
+lso the
+> > > option to just attach separate private data to the receive callback, =
+which would
+> > > avoid this synchonization problem in the first place.
+> > >=20
+> > > You could have serdev::Device<Core>::open(), which takes its own priv=
+ate data
+> > > and a corresponding close(), this way you'd allow drivers to control =
+whether
+> > > they want the serial line "open" or not. You just need to make sure i=
+t is closed
+> > > eventually.)
+> > This would add complexity with types, as we need to ensure that write,
+> > set_baudrate, set_parity etc. does not run when closed.
+>=20
+> Right, but looking at a few serdev drivers, there seem to be a few cases =
+where
+> drivers need to close and re-open.
+That is something we could consider once there is a user.
 
-Things should be arranged so the iommu_iova_to_phys_length() always
-returns the best length, either because it called into iommupt to get
-it or because it accumulated internally on an old driver.
+I am certain it would make it more complex, not less.
+>=20
+> > > That said, I don't know what turns out to be the better approach. And=
+ maybe it
+> > > simply isn't something this initial series has to tackle? I think you=
+r driver
+> > > does not implement the receive callback?
+> > The initial driver with only leds: no.
+> >=20
+> > That changes once the driver also takes care of hwmon (ADC sensor and
+> > fan failure) and input (power button and possibly other buttons).
+>=20
+> Maybe drop it from this initial series then and revisit with the first us=
+er?
+I would prefer it with this series.
 
-Probably to make this work well the API should include the last
-address to reach so it can stop iterating at the right point.
+Except for probe and remove there should be no overhead if receive_buf
+is not implemented.
 
-Jason
+As it will be needed eventually and it is basic serdev functionality, I
+don't see a reason to not include it now.
+
+Thanks
+- Markus Probst
+
+
+--=-bug7M99IW+HdQKCtqoS/
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmoczq8bFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSZ+0P/2ylwrHvfHKKiTVBl/XF
+UL+HU/pmQkc3qwxSFyW3P7DLtY10V0r8kzPH2o35AC24avXePqjgo8hW2A5zAGqO
+u2gh9IV2XNBUKsF1CpV6bGaw/xCd3iUdmS8R8sIJfoNQJFj/EjDpL0SecHKz0iVd
+ARYzYY+xPCHLPGz8dxtGLgHq1pU4kIafkJ0K2+TYmSDVA9PRPlqhKgxDsWtFWVMb
+MnK6e+4HAqJaVNpITF7YmojKKIObqCmv8RnQWon6MaSQp1QK7F9b7Szyz1jN6435
+iXMUcatC+McjLHNTvnRJgn0G50CNFX+/ETmnGHH6VVt/Mf4M+55B6HV9ziq72RD0
+jnczWTHHTZwDgNjPgqQgRjeOOWHuKu4T9QKpJclOlcg6F3dmP7SYNTKX6iYYk1QQ
+1cjwkUShY8HfcdcyWBf2ME3+D2fj73z/f59y/gFgIfKcMZGNuUHdbMTgGpUm9tcj
+GDgupxz7qS+CKzEBHzySTp9gKg6xzvA4gTcvzjoAk+3RrLhtFL/kFa8jvB5pvwlh
+CO1GwHsgiR6pPzqj4pAFI/JDF2/gcIMeOERTNAuAz1In8LpLCRzJuMFkmXXJ/XRy
+NYZyHMUT0PzUmfA1869YY2zN+FIRV0ykMAp0aKV4HhWm5qQpb3HYmGRMOhOJriVI
+sTK0zERHauHUMCm8i58Nnlf1
+=TScp
+-----END PGP SIGNATURE-----
+
+--=-bug7M99IW+HdQKCtqoS/--
