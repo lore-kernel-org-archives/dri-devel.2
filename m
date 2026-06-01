@@ -4,84 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 203B8CD6E57
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 15:19:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2283ECD6E55
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 15:19:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B1C51134B2;
-	Mon,  1 Jun 2026 15:19:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57EE71134AF;
+	Mon,  1 Jun 2026 15:19:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="shLZdV9/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YvgtSgCp";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B5791134A4
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010021.outbound.protection.outlook.com [52.101.46.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A09E71134A6
  for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 15:19:05 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-490af320e2aso4146125e9.2
- for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 08:19:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780327144; x=1780931944; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=kHipHX0fj9UFI6kqkRtr6SnJM0WlhcDH4RQJ2Kh7RME=;
- b=shLZdV9/yRNXl93qZGv+rotMYqsTbczyjjQpIg6CVuYpQTmxBoMlaCXaCNGfBILgVw
- 2/aErAfpsnRJVca0yLj4+QIKvoWL8IvU2wg7VrQHqX4rQCeqWARc4bEehrBZ9Sm0GkcN
- K/mbUWZhXykFUs3JOCpAuKS7Lw6LUNUnUea85BwGQ6mPvG8iGgQRdxJ24xYeAz+t8hAH
- a9D7SWOOw2F45woC2OYdP/hJ5/rV/QOdtszh7BvkyZjNg8rhobzIwsrnOdMyr0ma2MMn
- gF2iX3j6Q0HMGoSChj9ZfDqWM+g+5zTfN8YF4PcwM+lk2uuF+x3i+INufJNs8yQoFHXw
- 08Kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780327144; x=1780931944;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=kHipHX0fj9UFI6kqkRtr6SnJM0WlhcDH4RQJ2Kh7RME=;
- b=gxnHDqq79PuLYCp2dm+PglQad1/mpv3pc6cDCgncyRJPWwkBF4t1qf9dyxeULCMvq0
- fAH/KUKMgz/Xknh8Nq6k6fEyXFH2ORFzBIwiPjFPguMLmkskbhBz35bbU7/TCZ/qmsKA
- QRedmrGhnfoKN8Q9sg9/7MOU5X3q0BNacrWxv6h5BGkH3mXotnxKqMXs0SZU/mnirCaY
- P7x2+4PIPlj5vzVtnw0ywz9O49RKXsvMhbVldajlNRSmG3HhOsvYnkmvjUn3dlAQxyYA
- /WRJ/L+QskKbimtWHBdlk2RPXSvICWGqdN6QviTKDdkzrvypDht6BxfB1xmBFeOZ9wST
- fA7g==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8Q7K3I/vgLJSuKSZ2d/3q+euRvJUZXURNevZqULj3QYpF3aSNQ7+Zx5cHaLtsNQGl9j8fj2nqJ5zU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyXcUsYOQWpE3TDf34G56j8ctNeVK6cGiwuG7XBG65hHs4GcNri
- PCLnZc7w+OLqko918G60u2o+S/kAyNuZSSEEJ1YOpN2NXJhymi+SEwpC
-X-Gm-Gg: Acq92OGQ3TSSCG+Nad4E5AskMVjm4g5F5GjPK2qzyokgcHD8bIGPXT6Eagk/vig58Po
- l+sxSKB++Nhicpd24b7KddjeiMVnUq0kN8npd/kXW2nHDb+mywiAGXS+LqD4sOwQ8AV17auCcr7
- 8E5gHtoGE5r9SLT6FcuWvkEImtDi/WTUtCt42elA7rfomebBB09F5J6FzxSBkD2OnaiJrsUJJ4G
- EyfwP5aql5XE9Y8YV27WjDxi5EeP8m7SlapZbuIdVyLpbsW0sa4N/gWAOdC5EVfft48zCAp+tj6
- f4UYzKkrFGzFRlhpVs3WMsK7s+V0aD/P16jNbTbdNedwZd8z6DoLDDBLuF7Zhd9yTIeqykrxRt7
- 9j3EhMjkAhXMimuD7jumT4+CC3hFFhAX56MXVIPLNURgBhPi+X9nG/NKyVOkk/RoIYwR3o0zVoM
- nM72NymtMUNX9EUtRBDcFY5os=
-X-Received: by 2002:a05:600d:8444:20b0:490:7136:ad02 with SMTP id
- 5b1f17b1804b1-490b078f2d5mr5481165e9.7.1780327143862; 
- Mon, 01 Jun 2026 08:19:03 -0700 (PDT)
-Received: from xeon ([188.163.112.61]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45ef354cd7csm25753103f8f.18.2026.06.01.08.19.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2026 08:19:03 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>,
- =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
- Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-fbdev@vger.kernel.org
-Subject: [PATCH v3 04/11] mfd: lm3533-core: Remove redundant pdata helpers
-Date: Mon,  1 Jun 2026 18:18:24 +0300
-Message-ID: <20260601151831.76350-5-clamor95@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260601151831.76350-1-clamor95@gmail.com>
-References: <20260601151831.76350-1-clamor95@gmail.com>
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y7gUwFF3KVxg8RDbCf0c8xO+W99nIqUyG5HQ4H7n5WgRAv1yG3rWq+QZyav7t8fNvyeni/9K1ZTWXobt1iX8PWeG3O14NlalwsOQwuxofo5ejlrpOoQn9IGe3vzt0ubXYVdRkpaIYHjFUZzHoeCmDaqLYySaJbPQuHAtnIhjLbNHrBCpG/4JUvINZDBPxsuM29L2tD/WVG2I9wjUwFWLxJWlDoHrMZBZZGOkx/Gqeu7Mu5SfcMXpcudiDT9efBBOCH53swl5W2Q2UQWRuPxlLh0n1DokP2irq8AKQ1hxAW1s5nkEB2Zi2CWUgia/9k6XJSrRTw6V7q4svB8/XhzMeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ee5ga6A5MkUwXW25nwRod/eoXVkNUm/Ah2pUZ3GswLs=;
+ b=MqAfGL9Kdnj6uBgKKbiajdojzwnUSrvodzY9MH2emPXa8Si8xEY9gFzutH1FUvUAeMRdmPaVMk985tiUMwinLV4YzQvUjYpqObQJFEaVyzRy5jvWsEYQFkPBr1ISEVA1/KwBfVZs5f7SYmcbT+jLlUCgWrXhymqDCMx4ulGwYEcUUiLvHT2JUxk70kjcXA46x21bXJjwFbZA+5hNGEuoHOBi5otjKyxoR3+J5iwRp3OErx+LBP7/Yj1nJb2z6niZtidUcYm/rWgVSUOtKtuHfmjheVJjclehTiQMv4ZqawKNrrayJlKP0suzUdEWxx7bDDtQ4tfKfK3oJFPPiHEPqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ee5ga6A5MkUwXW25nwRod/eoXVkNUm/Ah2pUZ3GswLs=;
+ b=YvgtSgCp9M9L5Fzl2q3uIKWl7FMzKfYV8Skl38lq7tjQy1dirlEdCQd7d8Gn5hEztJH9UzrcjOoJ1Hc0LMhyAmm+J9+J92Jpg8by3F8P8ELG4AWHhrGZCfpHIe5KZ0kSiDGuC1dkxiEAS+OpG4xyWbfrqwFTaqwP7/FckYxvjB8=
+Received: from BY3PR05CA0002.namprd05.prod.outlook.com (2603:10b6:a03:254::7)
+ by IA1PR12MB6409.namprd12.prod.outlook.com (2603:10b6:208:38b::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Mon, 1 Jun 2026
+ 15:18:57 +0000
+Received: from SJ5PEPF000001D6.namprd05.prod.outlook.com
+ (2603:10b6:a03:254:cafe::79) by BY3PR05CA0002.outlook.office365.com
+ (2603:10b6:a03:254::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.6 via Frontend Transport; Mon, 1
+ Jun 2026 15:18:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF000001D6.mail.protection.outlook.com (10.167.242.58) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Mon, 1 Jun 2026 15:18:56 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 1 Jun
+ 2026 10:18:56 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 1 Jun
+ 2026 08:18:56 -0700
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Mon, 1 Jun 2026 10:18:55 -0500
+Message-ID: <f8cce943-4f7b-04e9-8596-fc652ad22398@amd.com>
+Date: Mon, 1 Jun 2026 08:18:53 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V1] accel/amdxdna: Remove drv_cmd tracing from job free
+ callback
+Content-Language: en-US
+To: Mario Limonciello <mario.limonciello@amd.com>, <ogabbay@kernel.org>,
+ <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+ <karol.wachowski@linux.intel.com>
+CC: <linux-kernel@vger.kernel.org>, <max.zhen@amd.com>, <sonal.santan@amd.com>
+References: <20260529152837.1973405-1-lizhi.hou@amd.com>
+ <dd84217b-d0b0-42b0-b822-cb897b6f71a8@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <dd84217b-d0b0-42b0-b822-cb897b6f71a8@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D6:EE_|IA1PR12MB6409:EE_
+X-MS-Office365-Filtering-Correlation-Id: 77410f03-8def-4953-9fb8-08debff11980
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700016|376014|1800799024|4143699003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 2KGtDoQJaT9SssNh88U6oEtdKkCrp//ncL6ZkvCYTVKsBhO9IL+lSOE94eK9M4FqjTwiaFYyRcg7esvSPP/EgO1c7ZfZ6TFJqAQOCFWwi9mZbRssKvk+nUuuyzEGX9YEq44YyHqREHhzqtaGlwHqsT8ICZOol19BP7OsQ5ze4Qsdv2LZzrK80dvKlU7WdAmufcCX3xeG1ZmYPOjfVroF2NgyHJx9+jBbrTNFJwW31ljsS6XllyPHOxlyQDLJ5PEEN529I/havCb37LuFRoUGVStb7VHF8bzRpOtW8US/jFCGDFbYT4tdNEWOrlQbUr+H/RUiS3I2TjHWv1bQ2Ca/IqXRGDvZci5+3AunPDMZRVWCmMvNi7stjkKxyuRzbvwRYW02CTpTYpBXmJk5ha2b0QsFIE40Ik46cL4KstmVCdjcgqyQ0PwAwtOZbU+PBrZy3wop3eRXFLNwFtgl6LzRpGr7P1ANuQHw7OzVjOjZkHm8UqxjFoaOE6sJ9CsmLy1c51yk7thtfuyz4ILrvsqbmqlTxxv6Cle50vQGGRthRvpoLXFa93eBTreCoRQBmyZwTola3yejwTGIAAg2HhwZl6bBhvuHAr3ExNcBQWDOsDe9TRAAi8ABeZB3+oOmizUnI0+43CRQLbEK/pI6vzpUk1CVUj3iy35tZoUBAZGNjfqXa1E0MOPOBtyy7eGv5NPipOExT3ndrEo9WubVg6qElEpU9uEBG/YEY5T5Umg/wH4=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: iXUvUYtccUxEN/bqjBun4Ja0nUz6akV7vvS1vm6jIr2SzVSHA3f8xD2WdRnEHKab7QdGepTOFYE8ovZ9mWyV24dokrQs8LeBZBY953ixYA0QRyY1IbTPc5AtsPWwbdf5xOb/l8PuCMznz9zIK8oxzKkMs4/YLlwJBuQY4jtiT4RfBpifa452IL0Z0y9TE6zmkncnxrZsI/2HaI0uUWYxwC5ExbGCd7VJ9/+fAAWpVfHjeaFYs3ZQZtaDPJF/vOoh/5lYqDaFuYfEfbtawkmSwVUCPr62YgWtr9LgGqkJ85tRO9VZIsd3DfD5HFewbs3pTFSJ8h581gG+lungPywHIIZhwMADYeghIvOTOB/uOdXZGFklR4cIicxHn2KARqi4MuqQ6Ufpcz7B7WJEbfg3nVxdcyWUWcxvxXFMTybuiiPw0HAgMKwRPIw5FgmEdw/0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 15:18:56.7725 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77410f03-8def-4953-9fb8-08debff11980
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6409
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,99 +120,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The lm3533_set_boost_freq and lm3533_set_boost_ovp functions are used only
-in lm3533_device_setup, which in turn is only called by
-lm3533_device_init. Incorporate their code directly into
-lm3533_device_init to simplify driver readability.
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/mfd/lm3533-core.c | 57 ++++++++++-----------------------------
- 1 file changed, 14 insertions(+), 43 deletions(-)
+On 5/31/26 07:18, Mario Limonciello wrote:
+>
+>
+> On 5/29/26 17:28, Lizhi Hou wrote:
+>> aie2_sched_job_free() accesses job->drv_cmd for tracing purposes. 
+>> However,
+>> job->drv_cmd is owned by the caller and may already have been freed when
+>> the job free callback runs, leading to a potential use-after-free.
+>>
+>> Remove the job->drv_cmd access from aie2_sched_job_free().
+>>
+>> Fixes: 8711eb2dde2e ("accel/amdxdna: Improve tracing for job 
+>> lifecycle and mailbox RX worker")
+>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+>> ---
+>>   drivers/accel/amdxdna/aie2_ctx.c | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/accel/amdxdna/aie2_ctx.c 
+>> b/drivers/accel/amdxdna/aie2_ctx.c
+>> index 658a5fb1fda6..2ad343728782 100644
+>> --- a/drivers/accel/amdxdna/aie2_ctx.c
+>> +++ b/drivers/accel/amdxdna/aie2_ctx.c
+>> @@ -437,8 +437,9 @@ static void aie2_sched_job_free(struct 
+>> drm_sched_job *sched_job)
+>>       struct amdxdna_sched_job *job = drm_job_to_xdna_job(sched_job);
+>>       struct amdxdna_hwctx *hwctx = job->hwctx;
+>>   +    /* job->drv_cmd could be freed, so use DEFAULT_IO */
+>>       trace_xdna_job(sched_job, hwctx->name, "job free",
+>> -               job->seq, job->drv_cmd ? job->drv_cmd->opcode : 
+>> DEFAULT_IO);
+>> +               job->seq, DEFAULT_IO);
+>
+> Could this still be a race with dov->drv_cmd being valid when the 
+> first part of the expression is evaluated (job->drv_cmd) but invalid 
+> when job->drv_cmd->opcode is accessed?
 
-diff --git a/drivers/mfd/lm3533-core.c b/drivers/mfd/lm3533-core.c
-index f9bdc0a1d9be..45e7f7481aa0 100644
---- a/drivers/mfd/lm3533-core.c
-+++ b/drivers/mfd/lm3533-core.c
-@@ -80,35 +80,6 @@ static struct mfd_cell lm3533_led_devs[] = {
- 	},
- };
- 
--static int lm3533_set_boost_freq(struct lm3533 *lm3533,
--						enum lm3533_boost_freq freq)
--{
--	int ret;
--
--	ret = regmap_update_bits(lm3533->regmap, LM3533_REG_BOOST_PWM,
--				 LM3533_BOOST_FREQ_MASK,
--				 freq << LM3533_BOOST_FREQ_SHIFT);
--	if (ret)
--		dev_err(lm3533->dev, "failed to set boost frequency\n");
--
--	return ret;
--}
--
--
--static int lm3533_set_boost_ovp(struct lm3533 *lm3533,
--						enum lm3533_boost_ovp ovp)
--{
--	int ret;
--
--	ret = regmap_update_bits(lm3533->regmap, LM3533_REG_BOOST_PWM,
--				 LM3533_BOOST_OVP_MASK,
--				 ovp << LM3533_BOOST_OVP_SHIFT);
--	if (ret)
--		dev_err(lm3533->dev, "failed to set boost ovp\n");
--
--	return ret;
--}
--
- /*
-  * HVLED output config -- output hvled controlled by backlight bl
-  */
-@@ -406,18 +377,6 @@ static int lm3533_device_led_init(struct lm3533 *lm3533)
- 	return 0;
- }
- 
--static int lm3533_device_setup(struct lm3533 *lm3533,
--					struct lm3533_platform_data *pdata)
--{
--	int ret;
--
--	ret = lm3533_set_boost_freq(lm3533, pdata->boost_freq);
--	if (ret)
--		return ret;
--
--	return lm3533_set_boost_ovp(lm3533, pdata->boost_ovp);
--}
--
- static int lm3533_device_init(struct lm3533 *lm3533)
- {
- 	struct lm3533_platform_data *pdata = dev_get_platdata(lm3533->dev);
-@@ -437,9 +396,21 @@ static int lm3533_device_init(struct lm3533 *lm3533)
- 
- 	lm3533_enable(lm3533);
- 
--	ret = lm3533_device_setup(lm3533, pdata);
--	if (ret)
-+	ret = regmap_update_bits(lm3533->regmap, LM3533_REG_BOOST_PWM,
-+				 LM3533_BOOST_FREQ_MASK,
-+				 pdata->boost_freq << LM3533_BOOST_FREQ_SHIFT);
-+	if (ret) {
-+		dev_err(lm3533->dev, "failed to set boost frequency\n");
- 		goto err_disable;
-+	}
-+
-+	ret = regmap_update_bits(lm3533->regmap, LM3533_REG_BOOST_PWM,
-+				 LM3533_BOOST_OVP_MASK,
-+				 pdata->boost_ovp << LM3533_BOOST_OVP_SHIFT);
-+	if (ret) {
-+		dev_err(lm3533->dev, "failed to set boost ovp\n");
-+		goto err_disable;
-+	}
- 
- 	lm3533_device_als_init(lm3533);
- 	lm3533_device_bl_init(lm3533);
--- 
-2.51.0
+When aie2_sched_job_free() is called, the job->drv_cmd could already be 
+freed. So it should never access job->drv_cmd at all. The entire 
+expression "job->drv_cmd ? job->drv_cmd->opcode :  DEFAULT_IO" is removed.
 
+Lizhi
+
+>
+>>       if (!job->job_done)
+>>           up(&hwctx->priv->job_sem);
+>
