@@ -4,56 +4,175 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BB32CD6E56
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 09:23:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74EA1CD6E60
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 09:24:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 947DD11306A;
-	Mon,  1 Jun 2026 09:23:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9455C113080;
+	Mon,  1 Jun 2026 09:24:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="rWGws0rT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gQvD67wq";
 	dkim-atps=neutral
-Received: from out30-131.freemail.mail.aliyun.com
- (out30-131.freemail.mail.aliyun.com [115.124.30.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DE9B11306A
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 09:23:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux.alibaba.com; s=default;
- t=1780305821; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
- bh=ep5nKo6DRclkdaB0Yg7vYnUiOGxV48mwn6/e9YS/4RY=;
- b=rWGws0rTyXK4FtsX90kzbGqooV63l8stf01h2B5IOl4faHEUaFXlO7FCMHjtDVxhxqMrAG08CYhmTIpDd5W70/BYzkBHfHvzQK99tbL299Efa8VqMhbQzwqtxcmfqXuo6kouRTVSYLcO81u4XQuv/4mKaatZunbNP15w4o1LaUI=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R341e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam011083073210;
- MF=guanghuifeng@linux.alibaba.com; NM=1; PH=DS; RN=28; SR=0;
- TI=SMTPD_---0X3zS2An_1780305818; 
-Received: from 30.221.133.117(mailfrom:guanghuifeng@linux.alibaba.com
- fp:SMTPD_---0X3zS2An_1780305818 cluster:ay36) by smtp.aliyun-inc.com;
- Mon, 01 Jun 2026 17:23:39 +0800
-Message-ID: <87bd39ee-6fd6-451e-9ae6-ca2faad84ce9@linux.alibaba.com>
-Date: Mon, 1 Jun 2026 17:23:38 +0800
-MIME-Version: 1.0
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B225113072;
+ Mon,  1 Jun 2026 09:24:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780305859; x=1811841859;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=4DyBcubFA7gD8y6yCyey20PPutFVrky47LuprbUlbUc=;
+ b=gQvD67wqY8DUgAscQe8a3RxPJLw/24tSyzO2XS41PDkoPxQy6hNrtbTq
+ JzYsLPC+Nk+nN4JV/UvpIWV/K8GXB3KpJtSWtdhr0uQeMlbg50dLLyUdz
+ vqdXSlovKZTYzXTs6jg67Sezs1AcA+arCk32Ezb8GnbHwNwaUnXVxU3h8
+ lPkTZzTDhTDraW7p/FuvM4gVhnnjnHVmgHZ2CosG7WExVv6koiILLwbv2
+ pj/ylO2MXgqUPvbbs8hYZBYZEhUAM0+J16zOMxA1AedgBjHsT8MDXJ6++
+ 1hNwT90PChF7fAukVIzQ9IeFcVzH4nqjPtuOmIQVQXe2RewRWIdeMWGJ3 w==;
+X-CSE-ConnectionGUID: +abLPvAgTDSWqGGVPxcRjg==
+X-CSE-MsgGUID: P3znrCsVRIqTdsoJU1Ug8g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11803"; a="84948706"
+X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="84948706"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jun 2026 02:24:18 -0700
+X-CSE-ConnectionGUID: 9QAFIKxtT2G0SamYqufQyg==
+X-CSE-MsgGUID: mq0cysqeTsGIg/vv6/dlLQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="243620570"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jun 2026 02:24:19 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 1 Jun 2026 02:24:18 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Mon, 1 Jun 2026 02:24:18 -0700
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.29)
+ by edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 1 Jun 2026 02:24:18 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=B29BVLru1friHt7ufqeaH9EIYutbLDPahFkBJWf/P0/In4ZtCAjjDtOrO9XxCjkMkFlMOXNNPkSfugaiq52sUzkxpGe+QgGk0WhHkXL377CODwDDBiLTwS1FV68a8sYWoKDh3LWYtI8hPx6hDnZMqXxJ73EPzTYdj0fuJtNVoKh1jbnqXRAO3Wd77pYxph4AC8Qc/xzcjDEcQ0VuDoloMHGd6paWo/UAXpg2+F98CFrd44xCCvzf1dOyJpKEriveeondXdrT5sFIM9J22KrzDIcfUCIRgEUru5LoENVkM62zI0NAYUZ1bDBDXpCeaonrV0kQQMaRoCvF04DPitNOXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZDt4+FYNOMw+GNGpk+n+VAxUja2/0YiJx7ZwJ1EPtTA=;
+ b=GY4yBCou7x7mAuqhiXm7JNhNmswgSpnr9+LWWP3YF6k9MbCkQTT58VBFxBDnIYklj6HzPqvKjt2wASJq8VwxN5YN7SVVPQ/7UC28QWo8KuLBUPjCmcJXi0r/xzxMISGBZ9JSamJFUbIuMDRObcV2ZISy4+dQrv8UVLPLWY5k1KrFn3jft4PqeHLYJrqKh3NImrQSNl6STVR97vv4tO7I7ENQ5KbmspJOcdMWx4Ii6NyIjnGW3yHFtsiCIpcmUafwwa4zIWOTd4V8srsTyw1AZVhGrI39r0ZYqR+A5HtZgAvpdV6neqibuM8AJSdSIGU+ZKv35deXTQG9roJirH0vVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
+ by MN2PR11MB4535.namprd11.prod.outlook.com (2603:10b6:208:24e::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.18; Mon, 1 Jun 2026
+ 09:24:15 +0000
+Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
+ ([fe80::45f:5907:efdb:cb5b]) by SJ1PR11MB6129.namprd11.prod.outlook.com
+ ([fe80::45f:5907:efdb:cb5b%3]) with mapi id 15.21.0071.011; Mon, 1 Jun 2026
+ 09:24:15 +0000
+Message-ID: <f9e5f9ed-ed15-40ae-9330-44f8c42f5f98@intel.com>
+Date: Mon, 1 Jun 2026 14:54:01 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/9] iommu/generic_pt: implement iova_to_phys_length
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: boris.brezillon@collabora.com, robh@kernel.org, steven.price@arm.com,
- adrian.larumbe@collabora.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- liviu.dudau@arm.com, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
- alex@shazbot.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, kvm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kevin.tian@intel.com,
- baolu.lu@linux.intel.com, suravee.suthikulpanit@amd.com,
- dwmw2@infradead.org, xlpang@linux.alibaba.com,
- oliver.yang@linux.alibaba.com, shiyu.zsq@linux.alibaba.com,
- wei.guo.simon@linux.alibaba.com,
- alikernel-developer <alikernel-developer@linux.alibaba.com>
-References: <20260529115116.GR2487554@ziepe.ca>
- <20260531093637.3893199-1-guanghuifeng@linux.alibaba.com>
- <20260531093637.3893199-4-guanghuifeng@linux.alibaba.com>
- <20260531235421.GW2487554@ziepe.ca>
-From: "guanghuifeng@linux.alibaba.com" <guanghuifeng@linux.alibaba.com>
-In-Reply-To: <20260531235421.GW2487554@ziepe.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 1/3] drm/atomic: only add states of active or transient
+ active colorops
+Content-Language: en-GB
+To: Jani Nikula <jani.nikula@linux.intel.com>, Alex Hung <alex.hung@amd.com>, 
+ Melissa Wen <mwen@igalia.com>, <airlied@gmail.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <simona@ffwll.ch>, 
+ <tzimmermann@suse.de>
+CC: Simon Ser <contact@emersion.fr>, Uma Shankar <uma.shankar@intel.com>,
+ Xaver Hugl <xaver.hugl@kde.org>, Pekka Paalanen
+ <pekka.paalanen@collabora.com>, Louis Chauvet <louis.chauvet@bootlin.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>, John Harrison
+ <John.Harrison@Igalia.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ <amd-gfx@lists.freedesktop.org>, <kernel-dev@igalia.com>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, "Abhinav
+ Kumar" <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ "Sean Paul" <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ "harry.wentland@amd.com" <harry.wentland@amd.com>
+References: <20260526142940.504911-1-mwen@igalia.com>
+ <20260526142940.504911-2-mwen@igalia.com>
+ <e8aaf4da-8fb6-4d6a-95d6-563ac0562b49@amd.com>
+ <4452e675c4853faf665b520a8932a960946206bb@intel.com>
+From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+In-Reply-To: <4452e675c4853faf665b520a8932a960946206bb@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0133.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d5::18) To SJ1PR11MB6129.namprd11.prod.outlook.com
+ (2603:10b6:a03:488::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PR11MB6129:EE_|MN2PR11MB4535:EE_
+X-MS-Office365-Filtering-Correlation-Id: fd72ede6-df0e-4ac2-c09b-08debfbf8cae
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|7416014|4143699003|11063799006|18002099003|22082099003|6133799003|56012099006;
+X-Microsoft-Antispam-Message-Info: IBif2xE355/n+fr4MBEbvqkAy2WL1SNtm7NKi7fuveY8VA48qaQIymqF2s2m0pOYsd8ViT+AH0JavjiORitf4cp/Z7rIRRCzLkle8JZg7nJ2NrCuanxGT48c/oz7O2OpL81hrwttUBo2Nmp2/KXsgxTwBKKDlEctFgpU9bgV/KibuNaK+B+p2Lxydhi135DXDSCyUHWV7jRrqE1wRLStlKMqypc7kZC6C7NC2y5GQHP/LEmBYgsfsg1CoTn/PDBlo3t6kNv3Zh8jYBcrOYV580cKzDeApNQYQZ7d/BGbweoVUMiwU4GFO1a2xyVHKHN8JmFqwZ0vrwegw6WHqbHM3a5shxOSXi8XkYvzfz6KmEcZC2jSJ/DsvxdDLjICauMTRPuqu1KrH2GICyVorKrIoB6Gt/LqUrnQuwB4iIvukwOnUD8KRIeWntWUuL98CFGt1TBU1XxezAeZSlb4ViBb/KGtS8VLWOZvzI5PvGw4PQMVFGGQjlXskB6fRPxLD+4JDNFLiGfjpSqKQW/XDHWoP13NymnOJWT4TYXL18uoYCDgzwl5GOCyiWBbPihcsWH1RCfMQgBrH0y5h7B9OE7NT8MqhI9Vw+ZYYf12urlQ0K3HcRDUP1CAb8uN3YQGq4L5AbyWHGdVgveatPopH2DrMUwCGkecQ15zVZCizx++Bz7QQl44Qw7l7U2uPxglNnC0hrRcK4h+sRpyg8xn9mDy+w==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(7416014)(4143699003)(11063799006)(18002099003)(22082099003)(6133799003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXp1V2grUmdzamwydU9RdStXSHBpejE4L25MaG96ZGwvSFlXR0llRGNHV2JZ?=
+ =?utf-8?B?WGs1M3MwaVRpMzZHY1JNZk4zb1MzKzVUR0hjeFF2M1BNZmZjL2c5czdrWXc1?=
+ =?utf-8?B?c3Z5a2J0amtUWnlTbXpTVVdSNXQzMnh6VU1zRmpsRVJ5OFV2UHVSRG1DZnRX?=
+ =?utf-8?B?STFNZHFENFRtVWZhWXF3bmZxaVVBc0h4WXN4SmVScGNGZUtkaTF5ZFJSZ3VF?=
+ =?utf-8?B?bEZobkZVTVRrL1hYVE95K2xyVFJRRUpTcGJKQ2xCb3ppTHRxa3loQXB4NWxI?=
+ =?utf-8?B?VWViTzlBd2ljU041NTJuY3ZQSFFNK1NWaE1OTGpkc2JoVTFMc2pIOXlXRWhY?=
+ =?utf-8?B?VHRSSnhRQWxwL0tMWW5PQm5Mb0JwZEhsZTVGaXpKZUVnY3lDejE0NW9MWUhj?=
+ =?utf-8?B?cEVFSDJGSnBJNnQrNndtMWVqcEs3eW1GUWhSUnUrcHZZZkNRTFJyUlQxRXFU?=
+ =?utf-8?B?ZVFmUkg2T3ZaR1o5T2ExOXV1a0I4Q3B1VmJWUElLcXpIbVh5R21MQlZRUUkw?=
+ =?utf-8?B?SlBsYzRNeG9qcW5UeDd6ZkZ3N2UvOElzRHlRS3MxcFpFQUxNUU9ma2YyQ1My?=
+ =?utf-8?B?OFRmTHZ5YkUvNzBhOWIxUDdCU01hRnhIZWFpUzFsaW1FZFp2Um0wMjBxQ0Y2?=
+ =?utf-8?B?YzkyZzhoNml5cXVnVDdnNzhrazI1citPd2RPWlFQTnMwQnVBWHRXOWtETFFK?=
+ =?utf-8?B?ZUZxaFZnK2hrVkxCTmtVZmFNbWViZGpNVUpXQVkwTU55SkVFQlhSOE00cVA3?=
+ =?utf-8?B?LzF0WWpRT3F0SzhHaUVCMVZINFViVUJQbkdsRXNiUWFxU0wvdzU5dnFpZFBq?=
+ =?utf-8?B?b1VKMXB4YXIrbTNBRXQxYUdjNkdyVllhKy9HVzhSUFMwZkFLUC9EL3J3TFJ2?=
+ =?utf-8?B?alhZQ05XKzZ0ZDJnalVON09RZWFtR1EvcmxxanlRVFpqYUZIWFhVWGtlalRT?=
+ =?utf-8?B?ZERvcXJjSXJ5U3hVV0p6d2puNGo3bExiV3dEK3E0UE9uUGJtOVJ4QTdBMXY0?=
+ =?utf-8?B?ZUJ0T1hxZ092ZW1nN0d3a0xZU0tocUY0OWRsN3FsY0M1QzdpNEp6ZDJMenBJ?=
+ =?utf-8?B?a05jRnNGU2VJdDljSXdHbjd0SFZaTFVWTW1uQXAvekgwNWlDMjEwODI2bGYr?=
+ =?utf-8?B?QWtlaWJCV1hQRDhVUEhBenhWaXlTZ0ZpN1JTOEd3a1gvUVNCcWNKRWJKOU9X?=
+ =?utf-8?B?ZkErb1Z2ZTRDK1VqZThiUkNwbHZ5U1dNVlJJanpkcHNyd3Zkdnl5U2JrVWZT?=
+ =?utf-8?B?K1FqWTUwMEJvbkhGMUZUQzNMSGsxNjh4SUdZK3F4b2htNnVOM294WkFkZzE3?=
+ =?utf-8?B?VmlGZmFVQkN0NWhDd0NvWmg3YXFPVUF1YzJ2MFBSeUxTV0hTa3UyNHMyWjhk?=
+ =?utf-8?B?TFNwdHY3bjBSM1dqNGVhYXJHVjlRUWU3ODZCREhNeE1OUk5UV3hxZ3hpaTdZ?=
+ =?utf-8?B?U3JJRzVUamNGSnV3ZFNlM0c1aVhMR01LYzFnbTNWRGZXNlNUVUJJUjJDYmgy?=
+ =?utf-8?B?ZnJMUnBrNndGTnprbDREZ0ZYL2p2S0FkMGtxb1FkQjBtZW9qcmZWZVNMNFNz?=
+ =?utf-8?B?WXM5S04wdi9jYUJqckhGak51MkNxKzBUY0c5WW1WcFl2bW40YWxOL01wUGI4?=
+ =?utf-8?B?VmcycmZKbitNWHo5S3k2aFM5UFpjOHlnMGZYUE1VNENqUFc3aVNoZi9xUWNH?=
+ =?utf-8?B?YTBLNDFveDdqaHFKWm8vOE9SV0hnQzhsS3BkL0xzWlBpenlqa2I1eE1mK1hV?=
+ =?utf-8?B?eTVublJid1lBeWRHVHZpY3lmWDZ3YmEycFlrbzRUK1RSTklvZE8wV1p3QjNn?=
+ =?utf-8?B?UEhaY1RtYVBDZXRwSitZeWNnbFMvcGVYYTlZRS9yUG9sMFVWSU9OU2NIeEto?=
+ =?utf-8?B?U3VyQjk2L3l5NnFmTGp3RE82dTZXS2RkVmV4UUx0bDJOQ2NDMEJDelUxcmI5?=
+ =?utf-8?B?ejlrY3F2TmdvUm1WNXhOaDlGelM5ZmVYMWRhQTNBeEw3S2xIQytzZWxma2Vn?=
+ =?utf-8?B?ZFUya0tOVkZNNTdQN29VclU0em5RYVZzRXRlb3VmRzRpeHhNU0szS3pMTjBO?=
+ =?utf-8?B?K3JWcXFVUmtLSVlsVlp1THE4Q1grNkcwMEMvcGRESWw5d0JoL0pnem0xdW5H?=
+ =?utf-8?B?K2piNU9sbnFJV1Voc2dSM0dtK1JZWGMzZVRmZ3NreVczS0JyTEpWRnVUdTJi?=
+ =?utf-8?B?djBGZlB5aWl0R0Z3UlNoYkNQcS9sdS94RzMxK0FVcWw5SVlQN0M1WDcwSzFX?=
+ =?utf-8?B?YmVWV1dyMWpIdEg3VGZEVG8yOTJlS0FabGJ3UFBGUDJKTS9yMXMzZEFCZzdw?=
+ =?utf-8?B?a0tWMnhnT1dLc2NIWGZTekZsM1VCaThHS3ZjREhIVGdZNCtEK3UyN0V5VjdB?=
+ =?utf-8?Q?+ayHZCrUjs5DHjWI=3D?=
+X-Exchange-RoutingPolicyChecked: OaUHc44+GW6Vw6GdbTJpdKImPO2z1vCNlvS6P2XAV++psCQ9bO7PZFUeSAzEiYUmsGU5sVPTk9tenKODKEcXVruqhzfXueGKXjPG0E9LqsdUcneZkIyzryAEvC7ncgBiJc/KrJfIcb5JaG4K496wA5lsIq+xJB+Kn3nLtvHObHpAnBMbpRoB4Kobe7tmaACHRKdFjOFrmbJ2MDrVdQPmyguP/uJcuaK/rtTKk9eDyi0ABP/2tw0LFGIFm1lMKris84R+bh5S5omhaltpGLJ7B4P5xrVj6PQ61oANIzgJGY/0AXN7oiA437Bwp6cLCf8j0XAHbKQBzi1MF2zFljbIPg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: fd72ede6-df0e-4ac2-c09b-08debfbf8cae
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 09:24:15.6662 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oWcz3mR/apzHFk0UQe+KJl2BnkPdaRFdd3rw+UmpbC22MBKIkrf1p3rdeERLyIGnRlxr2aMLQuLZlg3RS2z3i1snGrtxT4NwXTQGFrPNa6A=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB4535
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,25 +189,137 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-在 2026/6/1 7:54, Jason Gunthorpe 写道:
-> On Sun, May 31, 2026 at 05:36:31PM +0800, Guanghui Feng wrote:
->> @@ -159,45 +164,51 @@ static __always_inline int __do_iova_to_phys(struct pt_range *range, void *arg,
->>   	case PT_ENTRY_TABLE:
->>   		return pt_descend(&pts, arg, descend_fn);
->>   	case PT_ENTRY_OA:
->> -		*res = pt_entry_oa_exact(&pts);
->> +		data->phys = pt_entry_oa_exact(&pts);
->> +		data->length = BIT(pt_entry_oa_lg2sz(&pts));
-> BIT is the wrong function, it uses the wrong type. log2_to_int() is
-> type'd properly
 
-Yes, log2_to_int should be used.
+On 5/29/2026 7:16 PM, Jani Nikula wrote:
+> On Tue, 26 May 2026, Alex Hung <alex.hung@amd.com> wrote:
+>> On 5/26/26 08:17, Melissa Wen wrote:
+>>> Only consider affected colorop states those that are part of an active
+>>> color pipeline or a pipeline that is about to be activated or
+>>> deactivated in the same atomic commit, i.e., colorop is in the chain of
+>>> old/new plane color pipeline property. To cover color_pipeline
+>>> deactivation, remove the condition for plane_state->color_pipeline.
+>>>
+>>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>>> ---
+>>>    drivers/gpu/drm/drm_atomic.c | 67 +++++++++++++++++++++++++++++++-----
+>>>    1 file changed, 58 insertions(+), 9 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+>>> index 170de30c28ae..4fb3a23e862a 100644
+>>> --- a/drivers/gpu/drm/drm_atomic.c
+>>> +++ b/drivers/gpu/drm/drm_atomic.c
+>>> @@ -812,6 +812,59 @@ static int drm_atomic_plane_check(const struct drm_plane_state *old_plane_state,
+>>>    	return 0;
+>>>    }
+>>>    
+>>> +/*
+>>> + * This function walks old and new plane state color pipelines and adds all
+>>> + * colorops in use by @plane to the atomic configuration @state. This is useful
+>>> + * when an atomic commit needs to check all currently enabled or about to be
+>>> + * enabled colorop on @plane, e.g. when changing the mode. This also avoids
+>>> + * including colorop states that are not part of the atomic state.
+>>> + *
+>>> + * Returns:
+>>> + * 0 on success or can fail with -EDEADLK or -ENOMEM. When the error is EDEADLK
+>>> + * then the w/w mutex code has detected a deadlock and the entire atomic
+>>> + * sequence must be restarted. All other errors are fatal.
+>>> + */
+>>> +static int
+>>> +drm_atomic_add_pipeline_colorops(struct drm_atomic_commit *state,
+>>> +				 struct drm_plane *plane)
+>>> +{
+>>> +	struct drm_colorop *colorop;
+>>> +	struct drm_colorop_state *colorop_state;
+>>> +	struct drm_plane_state *new_plane_state, *old_plane_state;
+>>> +
+>>> +	new_plane_state = drm_atomic_get_new_plane_state(state, plane);
+>>> +	old_plane_state = drm_atomic_get_old_plane_state(state, plane);
+>>> +
+>>> +	if (WARN_ON(!new_plane_state || !old_plane_state))
+>>> +		return -EINVAL;
+>>> +
+>>> +	drm_dbg_atomic(plane->dev,
+>>> +		       "Adding old+new pipeline colorops for [PLANE:%d:%s]\n",
+>>> +		       plane->base.id, plane->name);
+>>> +
+>>> +	for (colorop = new_plane_state->color_pipeline;
+>>> +	     colorop;
+>>> +	     colorop = colorop->next) {
+>>
+>> This for-loop is used 5 times in this patchset. How about a macro in
+>> drm_colorop.h?
+>>
+>> #define drm_for_each_colorop_in_pipeline(colorop, pipeline) \
+>>       for ((colorop) = (pipeline); (colorop); (colorop) = (colorop)->next)
+> 
+> Is there a reason struct drm_colorop reinvents lists and doesn't have
+> struct list_head node?
+> 
 
-> This also needs to keep walking and accumulating length for
-> consecutive PTEs until it reaches a non-contiguity.
->
-> The other drivers don't need to have that complexity.
+I believe that's because the "next" colorop is exposed as a property (of 
+the current colorop) to userspace. Since the chain is already described 
+by the property, a struct list_head would be redundant.
 
-Yes
+Harry, others can chime in.
 
-> Jason
+==
+Chaitanya
+
+> BR,
+> Jani.
+> 
+>>
+>>> +		colorop_state = drm_atomic_get_colorop_state(state, colorop);
+>>> +		if (IS_ERR(colorop_state))
+>>> +			return PTR_ERR(colorop_state);
+>>> +	}
+>>> +
+>>> +	/* Same color pipeline as new; no point walking old. */
+>>> +	if (new_plane_state->color_pipeline == old_plane_state->color_pipeline)
+>>> +		return 0;
+>>> +
+>>> +	for (colorop = old_plane_state->color_pipeline;
+>>> +	     colorop;
+>>> +	     colorop = colorop->next) {
+>>> +		colorop_state = drm_atomic_get_colorop_state(state, colorop);
+>>> +		if (IS_ERR(colorop_state))
+>>> +			return PTR_ERR(colorop_state);
+>>> +	}
+>>> +
+>>> +	return 0;
+>>> +}
+>>> +
+>>>    static void drm_atomic_colorop_print_state(struct drm_printer *p,
+>>>    					   const struct drm_colorop_state *state)
+>>>    {
+>>> @@ -1591,11 +1644,9 @@ drm_atomic_add_affected_planes(struct drm_atomic_commit *state,
+>>>    		if (IS_ERR(plane_state))
+>>>    			return PTR_ERR(plane_state);
+>>>    
+>>> -		if (plane_state->color_pipeline) {
+>>> -			ret = drm_atomic_add_affected_colorops(state, plane);
+>>> -			if (ret)
+>>> -				return ret;
+>>> -		}
+>>> +		ret = drm_atomic_add_pipeline_colorops(state, plane);
+>>> +		if (ret)
+>>> +			return ret;
+>>>    	}
+>>>    	return 0;
+>>>    }
+>>> @@ -1607,10 +1658,8 @@ EXPORT_SYMBOL(drm_atomic_add_affected_planes);
+>>>     * @plane: DRM plane
+>>>     *
+>>>     * This function walks the current configuration and adds all colorops
+>>> - * currently used by @plane to the atomic configuration @state. This is useful
+>>> - * when an atomic commit also needs to check all currently enabled colorop on
+>>> - * @plane, e.g. when changing the mode. It's also useful when re-enabling a plane
+>>> - * to avoid special code to force-enable all colorops.
+>>> + * currently used by @plane to the atomic configuration @state. It's useful
+>>> + * when re-enabling a plane to avoid special code to force-enable all colorops.
+>>>     *
+>>>     * Since acquiring a colorop state will always also acquire the w/w mutex of the
+>>>     * current plane for that colorop (if there is any) adding all the colorop states for
+>>
+> 
+
