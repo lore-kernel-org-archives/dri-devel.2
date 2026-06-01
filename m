@@ -4,55 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EA40CD5BD1
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 16:24:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1B2DCD6E61
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 16:29:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71D8D11358F;
-	Mon,  1 Jun 2026 16:24:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FC511135A8;
+	Mon,  1 Jun 2026 16:29:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="axJheYgo";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="pr5OgAn/";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 201E311358E;
- Mon,  1 Jun 2026 16:24:51 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gTfSH35yzz9tlb;
- Mon,  1 Jun 2026 18:24:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1780331087;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=5OsG5f6qI2vpSgryFaskoOk1T0iCF3vYgd+hbVzXs7w=;
- b=axJheYgoGVCw7aFQMscciuscnXkGicoLCrAgNlvVujLfctHGliyJ6qY7RuZNShzQ+I842m
- H3a5EMHrlYlLgHizTV5zpBUckc0LfoJA/482VZxGuXsDWpNWsIMg75Cq3k6SzlNZsC+ZYK
- q2YMvmQn6DTH7x2d6Pe10Hp5k9SE8LxGEf6AideNgP5ki03Mb3nGkC0VoZSrMtKvnF9sGW
- j+JZ7tTqqrgZ0ugLmyVkgHXwtnd5GqjAs29lkp0c3L0gih3+0dB3eoxF8UxFsI74jskaNS
- Qc6zUCPwvN3sxHcpCudqOj/+sbkvEzLVrWwitJMu9sTCKg9W43P51b7gI4xTFg==
-Message-ID: <c048fbcb-d318-414f-805f-18816cfa86f3@mailbox.org>
-Date: Mon, 1 Jun 2026 18:24:43 +0200
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E25801135A9
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 16:29:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1780331365;
+ bh=PZdBZiNLVlObz9gIrGHHxQf6Y+iC4DcySdXN9+n6CRY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=pr5OgAn/UEt4PWmI+wiOEBwRWMriWCL5/bihJWujDGLVriMS6CRzxjKXj1mPcqvfC
+ r6kznu2r94sxfHvK5P1s0vyaqKbCLtrMv1mkPAsfY4y9MzX/5S77dljyhQ9Eo/g+Ai
+ yBy3TgxWm0zkFhXgWmvrFvnb/0e2M6jhYVzARpEoHO5hB9JbT72mFx6wmy1dpReWXI
+ 6igJBLRgPj0Scx2BRxGMQx0QOnFA1KmSkW0ZCHnLCtuU/YeQJZbQQv99hiyQdsrB4g
+ 1zBhW1L8CCKyThvLEJrVTQ5ZZQfzUCAcsTGsK/7aCLwl9lgtvxySDGoNcDSoFEeq4y
+ ga3CnwA0Dut3A==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C139317E03A6;
+ Mon,  1 Jun 2026 18:29:24 +0200 (CEST)
+Message-ID: <b0fc7c12-51e3-4bb7-9ed7-fda1a30d4e9d@collabora.com>
+Date: Mon, 1 Jun 2026 19:29:24 +0300
 MIME-Version: 1.0
-Subject: Re: [PATCH 2/7] drm/vblank: timer: Fix timestamp calculation
-To: Thomas Zimmermann <tzimmermann@suse.de>, simona@ffwll.ch,
- louis.chauvet@bootlin.com, ville.syrjala@linux.intel.com,
- jani.nikula@intel.com, mhklkml@zohomail.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- virtualization@lists.linux.dev
-References: <20260601141922.91498-1-tzimmermann@suse.de>
- <20260601141922.91498-3-tzimmermann@suse.de>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Language: en-CA
-In-Reply-To: <20260601141922.91498-3-tzimmermann@suse.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 05/10] drm/bridge: dw-hdmi-qp: Add HDMI 2.0 SCDC
+ scrambling and high TMDS clock ratio support
+To: Andy Yan <andy.yan@rock-chips.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ Maud Spierings <maud_spierings@hotmail.com>
+References: <20260426-dw-hdmi-qp-scramb-v5-0-d778e70c317b@collabora.com>
+ <20260426-dw-hdmi-qp-scramb-v5-5-d778e70c317b@collabora.com>
+ <9a7855a7-6b0c-4aa2-8516-13d94beabac6@rock-chips.com>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <9a7855a7-6b0c-4aa2-8516-13d94beabac6@rock-chips.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: 9gxdnuy37fg41doyhfwinpnfmtkrkjuk
-X-MBO-RS-ID: 9c17df5033fb181c77d
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,78 +76,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/1/26 16:08, Thomas Zimmermann wrote:
-> In drm_crtc_vblank_get_vblank_timeout(), return the timestamp of the
-> first visible scanline after the last vblank timeout. This is what the
-> caller expects.
-> 
-> A vblank phase starts with a vblank timeout. At this point the display
-> is blanked for several scanlines. Afterwards the display is unblanked
-> until the next vblank timeout occurs. The display content is only visible
-> during that second part.
-> 
-> The current implementation of drm_crtc_vblank_get_vblank_timeout()
-> returns the timestamp of the last vblank timeout that started the current
-> vblank phase. But the display only unblanks after 20 to 30 percent of
-> the overall frame duration. The returned timestamp is therefore too early.
-> 
-> The next vblank timeout is already known when calculating the returned
-> timestamp. Instead of subtracting the duration of a full frame from the
-> value, only subtract the duration of the active, visible part. The result
-> is the timestamp of the first visible scanline, as expected by the caller.
-> 
-> This bug was not introduced by the generic vblank timer. It appears that
-> the get_vblank_timeout logic has always been buggy since it was first
-> added in commit 3a0709928b17 ("drm/vkms: Add vblank events simulated by
-> hrtimers").
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->  drivers/gpu/drm/drm_vblank.c | 32 +++++++++++++++++++++++++-------
->  1 file changed, 25 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-> index 96d70c3d4522..d52df247d04e 100644
-> --- a/drivers/gpu/drm/drm_vblank.c
-> +++ b/drivers/gpu/drm/drm_vblank.c
-> [...]
-> @@ -2312,17 +2321,26 @@ bool drm_crtc_vblank_get_vblank_timeout(struct drm_crtc *crtc, ktime_t *vblank_t
->  		*vblank_time = READ_ONCE(vtimer->timer.node.expires);
->  	} while (cur_count != drm_crtc_vblank_count_and_time(crtc, &cur_time));
->  
-> -	if (drm_WARN_ON(crtc->dev, !ktime_compare(*vblank_time, cur_time)))
-> +	if (drm_WARN_ON(dev, !ktime_compare(*vblank_time, cur_time)))
->  		return false; /* Already expired */
->  
-> +	framedur_ns = vblank->framedur_ns;
-> +
->  	/*
-> -	 * To prevent races we roll the hrtimer forward before we do any
-> -	 * interrupt processing - this is how real hw works (the interrupt
-> -	 * is only generated after all the vblank registers are updated)
-> -	 * and what the vblank core expects. Therefore we need to always
-> -	 * correct the timestamp by one frame.
-> +	 * To prevent races we rolled the hrtimer forward before we did any
-> +	 * timeout processing - this is how real hw works (the interrupt is
-> +	 * only generated after all the vblank registers are updated) and what
-> +	 * the vblank core expects.
-> +	 *
-> +	 * Therefore we always need to correct the timestamp. The returned
-> +	 * time should be the time of the first active scanline after the
-> +	 * previous vblank. Hence subtract the active phase's duration from
-> +	 * the next expiration time.
->  	 */
-> -	*vblank_time = ktime_sub(*vblank_time, vtimer->interval);
-> +	if (drm_WARN_ON(dev, !mode->crtc_vtotal))
-> +		return false;
-> +	activedur_ns = div_s64(framedur_ns * mode->crtc_vdisplay, mode->crtc_vtotal);
-> +	*vblank_time = ktime_sub_ns(*vblank_time, activedur_ns);
+Hi Andy,
 
-Normally the timestamp returned by drm_crtc_vblank_count_and_time is supposed to correspond to the end of vertical blank / start of active, in which case the new code here looks wrong.
+On 6/1/26 7:06 AM, Andy Yan wrote:
+> Hello,
+> 
+> On 4/26/26 08:20, Cristian Ciocaltea wrote:
+>> Enable HDMI 2.0 display modes (e.g. 4K@60Hz) by adding SCDC management
+>> for the high TMDS clock ratio and scrambling, required when the TMDS
+>> character rate exceeds the 340 MHz HDMI 1.4b limit.
+>>
+>> A periodic work item monitors the sink's scrambling status to recover
+>> from sink-side resets.  On hotplug detect, if SCDC scrambling state is
+>> out of sync with the driver, trigger a CRTC reset to re-establish the
+>> link.
+>>
+>> Reject modes requiring TMDS rates above 600 MHz, as those fall in the
+>> HDMI 2.1 FRL domain which is not supported. In no_hpd configurations,
+>> further restrict to 340 MHz since SCDC requires a connected sink.
+>>
+>> Tested-by: Diederik de Haas <diederik@cknow-tech.com>
+>> Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+>> ---
+>>   drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 188 ++++++++++++++++++++++++---
+>>   1 file changed, 172 insertions(+), 16 deletions(-)
 
-Also, while the current time is inside an active area, it's supposed to return the timestamp corresponding to the start of the current active area, not the next one.
+[...]
 
+>>   }
+>>     static const struct drm_edid *
+>> @@ -832,12 +986,12 @@ dw_hdmi_qp_bridge_tmds_char_rate_valid(const struct drm_bridge *bridge,
+>>   {
+>>       struct dw_hdmi_qp *hdmi = bridge->driver_private;
+>>   -    /*
+>> -     * TODO: when hdmi->no_hpd is 1 we must not support modes that
+>> -     * require scrambling, including every mode with a clock above
+>> -     * HDMI14_MAX_TMDSCLK.
+>> -     */
+>> -    if (rate > HDMI14_MAX_TMDSCLK) {
+> 
+> The locally defined HDMI14_MAX_TMDSCLK has been removed, we should now use
+> HDMI_1_3_CHAR_RATE_MAX, and I think we should apply the same change to
+> HDMI20_MAX_TMDSRATE
 
--- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
+Yep, already addressed in my local dev branch.  Please note this revision is
+obsolete, there's already v6 available and I'm going to submit v7 a bit later
+today.
+
+Thanks,
+Cristian
