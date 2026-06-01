@@ -4,67 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81A40CD5BD1
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 19:52:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30767CD5BD1
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 19:57:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D29410E8EA;
-	Mon,  1 Jun 2026 19:52:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8068710E8F1;
+	Mon,  1 Jun 2026 19:57:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QyGXJkQa";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=derek.foreman@collabora.com header.b="g+TAfFKM";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FD1410E8E9;
- Mon,  1 Jun 2026 19:52:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780343528; x=1811879528;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=kcoZ0HqwTkFisxUb4c2CrruoAAmphlVicQ9/aPV60q0=;
- b=QyGXJkQapmqLPNw7SHt0ZhO8fEUuyBmnkeKqshf+dt7s+G5T3Pjg/A8i
- xOUAK2qYGwUjfW8lSYfqN0NwtbA1fCZpZqL6xd/Fr25VQnOhVbQ5XawVY
- oDaB45ojChfXo7nQP+TvAGaWwGRRc7hiH9QfElYDVI+5ZenbAzweHNqf6
- PYYUg8BOahrbUb76HsCX9YzY8Ks2vTqyBJGO2fzwr3plor+/BvqyDHami
- 1trzDn3B1hRA1KyhclNt8zrXmDd4UuQ532p0lXrTDvWNWDvn8iMtAy+HZ
- 2L09o9BsViE+ZU3/aIZ0SmK4ASN4YYXOFBywD7btEE8x/yQtD+9PI4xPQ Q==;
-X-CSE-ConnectionGUID: rcAdHvZfQDKVEs3taAS5OQ==
-X-CSE-MsgGUID: kijHQzH9Qvi+w5RHBOS9TQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="84968226"
-X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="84968226"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2026 12:52:07 -0700
-X-CSE-ConnectionGUID: kvGwteXORg6nd1ie53dcTg==
-X-CSE-MsgGUID: TtHMA+6FTdyHv5xpNzKpvg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="245490895"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.121])
- by fmviesa004-auth.fm.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 12:52:03 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, Dave Airlie
- <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Matthew Brost <matthew.brost@intel.com>, Thomas
- =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, Oded Gabbay
- <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dim-tools@lists.freedesktop.org
-Subject: Re: [PULL] drm-misc-fixes
-In-Reply-To: <24042986-6ef1-49a2-a060-aabf6e189473@suse.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260529070009.GA313534@linux.fritz.box>
- <ddf0233e50044059c85279f928661563ef6a55bf@intel.com>
- <e1a2cc27fb04a88be23973d3cb7868f3d4471d0d@intel.com>
- <d479f1185cd1ae6eb52a7d44e944408c3447c8e4@intel.com>
- <24042986-6ef1-49a2-a060-aabf6e189473@suse.de>
-Date: Mon, 01 Jun 2026 22:52:00 +0300
-Message-ID: <7b9794c1b6a948b6d509c6fa885e1c3c1912aa9d@intel.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99A2810E8F1
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 19:57:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1780343865; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=GpQgn32YZibdsmcGEN8BCO+8OL2njj0kA6Vc2MnpTxrL1m8qJwY6Bg4hjJW5s7tdOBS5LUlzHZzK0R4H29HmjOtEOKJaJjJy8btX7fQQ4C/IMXoX53W4mCgL1rr67+VwTU43FEh9w8jNEaDsA7qb83BdLYSWHDFhp4gNwydupO0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1780343865;
+ h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=QbVg9yobG/DIvE8IiB8zWT3u+0k3okH85eP1wnm1lU4=; 
+ b=k4D7yEG7n7swfwitWQ+JoSLLWKS7TU+3pcrS8bJebB41sO8Tw3XZfQoTlXXyYQTWWyCpD/cqOFBKN1iFAh8wgd2i7NpU/sRfJU60gusexGLBbS97/XM/d0Gk6rI8+gG6NRX5b64HgYZRFRg4bADkh7atAWIZxkkm2zOADwXags4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=derek.foreman@collabora.com;
+ dmarc=pass header.from=<derek.foreman@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780343865; 
+ s=zohomail; d=collabora.com; i=derek.foreman@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=QbVg9yobG/DIvE8IiB8zWT3u+0k3okH85eP1wnm1lU4=;
+ b=g+TAfFKMOuwC14FbS4o3beFf9Eh+EiuIwIG6ucYH7ilWWEWDIfQAis7d5jsVZopx
+ ITBPecSATXCTlRPmEvVJgUmTXwn1eD35BBpS/lAqcatGtE8EuIVJh05RpWoJYnm6o5S
+ kpoVH+aJFezywTgGacsl7z1euEI7rKtZXH8jp/mw=
+Received: by mx.zohomail.com with SMTPS id 1780343863347724.8151694120326;
+ Mon, 1 Jun 2026 12:57:43 -0700 (PDT)
+From: Derek Foreman <derek.foreman@collabora.com>
+To: dri-devel@lists.freedesktop.org
+Cc: kernel@collabora.com, Derek Foreman <derek.foreman@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH] drm: writeback: Document behaviour for framebuffer size
+ mismatch
+Date: Mon,  1 Jun 2026 14:57:32 -0500
+Message-ID: <20260601195732.72538-1-derek.foreman@collabora.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,79 +67,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 01 Jun 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> Hi
->
-> Am 01.06.26 um 17:49 schrieb Jani Nikula:
->> On Mon, 01 Jun 2026, Jani Nikula <jani.nikula@linux.intel.com> wrote:
->>> On Mon, 01 Jun 2026, Jani Nikula <jani.nikula@linux.intel.com> wrote:
->>>> On Fri, 29 May 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->>>>> Rajat Gupta (1):
->>>>>        drm: prevent integer overflows in dumb buffer creation helpers
->>>> Looks like this commit 5ab62dd3687b ("drm: prevent integer overflows in
->>>> dumb buffer creation helpers") regressed in our CI, awaiting
->>>> confirmation.
->
-> That CI report is where?
+Currently we have not explicitly defined the behaviour when the width
+and height of the writeback framebuffer do not match the width and
+height of the attached CRTC.
 
-It's currently really thin on details, I'm afraid [1].
+Allow the driver to perform a scale operation to fit the content, so
+systems with scaling blocks in the writeback path can easily expose them.
+Failure remains an option for all the systems that don't have a scaler.
 
-[1] https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16308
+Cropping would make less sense, as the region to crop is underspecified
+without some other properties to define an origin.
 
->>> The IGT test kms_big_fb uses max width and height from GetResources, and
->>> i915 and xe use max_width 16384 and max_height 16384 in mode config.
->>>
->>> The regressing commit adds random hard limits not based on anything:
->>>
->>> +       /* Reject unreasonable inputs early.  Dumb buffers are for software
->>> +        * rendering; nothing legitimate needs more than 8192x8192 at 32bpp.
->>> +        * This prevents overflows in downstream alignment helpers.
->>> +        */
->>> +       if (args->width >= 8192 || args->height >= 8192 || args->bpp > 32)
->>> +               return -EINVAL;
->>>
->>> This is now in v7.1-rc6. Please revert ASAP.
->> Ah, missed this clue in the pull request:
->>
->> On Fri, 29 May 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->>> here is this week's PR from drm-misc-fixes. There's one cross-subsys
->>> commit to the dma-buf code. Commit 5ab62dd3687b ("drm: prevent integer
->>> overflows in dumb buffer creation helpers") has not Link tag because
->>> it went through the security list.
->> We have the whole review and CI processes in place to catch silly
->> mistakes, and then we proceed to shoot ourselves in the foot and bypass
->> all of that because "security", and expedite the regressions
->> everywhere. I'll bet this will be in stable kernels in no time too. This
->> is stupid.
->
-> Indeed. But that's how this fix got in.
->
-> It fixes a possible overflow elsewhere and using dumb buffers with 
-> higher values that given here is questionable. Instead of outright 
-> reverting this, let's first look what actually broke.
+Signed-off-by: Derek Foreman <derek.foreman@collabora.com>
+---
 
-There's the kms_big_fb.c test [2]. It uses drmModeGetResources() to get
-the max framebuffer size for the device. It's 16384x16384 for most Intel
-devices that aren't ancient [3]. (Ditto for AMD I think.) Now the
-CREATE_DUMB ioctl fails, because 5ab62dd3687b introduced new arbitrary
-fixed scanout size limits that don't reflect the actual device limits.
+I have a draft merge request against weston for this at:
+ https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2071
 
-Why is it questionable to use dumb buffers that are within the device
-limits? Why is it not questionable to add arbitrary fixed limits?
+ drivers/gpu/drm/drm_writeback.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Don't get me wrong, fixing overflows is great, but this part is an
-unwarranted UABI change, and they shouldn't be rushed in masqueraded as
-security fixes.
-
-
-BR,
-Jani.
-
-
-[2] https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/blob/master/tests/intel/kms_big_fb.c?ref_type=heads#L994
-
-[3] https://gitlab.freedesktop.org/drm/i915/kernel/-/blob/drm-intel-next/drivers/gpu/drm/i915/display/intel_display_driver.c?ref_type=heads#L133
-
-
+diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
+index 4da5d6094721..735a3cdff79a 100644
+--- a/drivers/gpu/drm/drm_writeback.c
++++ b/drivers/gpu/drm/drm_writeback.c
+@@ -58,6 +58,9 @@
+  *	framebuffer to be written by the writeback connector. This property is
+  *	similar to the FB_ID property on planes, but will always read as zero
+  *	and is not preserved across commits.
++ *	If the width and height of the framebuffer do not match those of the
++ *	attached CRTC, the driver may either fail or scale (not crop) the
++ *	content to fit the framebuffer.
+  *	Userspace must set this property to an output buffer every time it
+  *	wishes the buffer to get filled.
+  *
 -- 
-Jani Nikula, Intel
+2.53.0
+
