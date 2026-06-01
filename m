@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01BD3CD6E72
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:45:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F842CD6E73
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:45:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78681113772;
-	Mon,  1 Jun 2026 22:45:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08ACF113786;
+	Mon,  1 Jun 2026 22:45:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="EUgjpbdZ";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Ep/xlSqC";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5D2B10FA6F
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:45:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6019113787
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:45:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1780353928;
- bh=yIFZkXQvWRCtoEOG6bwT3y8io/QLub6eDXCjsunphsk=;
+ s=mail; t=1780353925;
+ bh=zyVYCq2WRoxnKrGeF/o7p+aT7ASCbQqm8Mt8MtlMBZo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=EUgjpbdZYiKTXCLlgnCboqOG/g6s9e2ADIb46uc0AGnPo6io4OE4uqGJMwhS9vrj9
- aDlQ8MtBv1pz1ZwrAC949JaGUvGepff4e400fL4mIPylxa9ewBgSeh+hhmjs4ig89H
- IeORvyLoG7h0zjp3m5gYsTRBn0a5Il+qRCQE5mAUm0IkUw6+doGjvccnBgEZ+rxE7f
- 68xhMKwzsMM5sJFMoUm+OaOPFX1IwGFh2kAGhoD2mSldDMM/uBT4sBFRNkgVkt36YL
- Hqpuf/skLRRVZ4N7OeUomO3jAwc8RIQjYjNxC0nNYvBkRfLioxmpGvEWBGVVVUoq2e
- EaeQQLyWdgUDQ==
+ b=Ep/xlSqCmxWexIU2a3Cr6BPuFsWOJJ14AiBv+4o7bwgbTA1DSGeWhBPEJysKHt+rM
+ +t5gSBDZUJVYZJxk2DU+zIPUOZcdLTMLVKI1A/KwmxAWPIF/qfwK7Z/nhaxKaKJzjE
+ /kyGN5+4vzUuDLEoGdRAuw9w87U0reb8mGOMZOykdOYsBUUnypaKcmclMX5aI8Ti5s
+ 8l1am+fX4Xh5qaeHie0kfasic7U6lEOxPU0CwsWZ85NbYHl1G4i63U6MgSxVbAW/Nl
+ +7t90gVHgQctRrqYHYf48WW2gh4H9Y38jdLsk6Ce++G4hPurxJ/PHNZexulwNOa9Tg
+ +q8AN05hbt9dQ==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 7088E17E0DE1;
- Tue,  2 Jun 2026 00:45:28 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 7033717E0086;
+ Tue,  2 Jun 2026 00:45:25 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 02 Jun 2026 01:44:24 +0300
-Subject: [PATCH v7 24/30] drm/vc4: hdmi: Use common TMDS char rate
- constants
+Date: Tue, 02 Jun 2026 01:44:20 +0300
+Subject: [PATCH v7 20/30] drm/rockchip: dw_hdmi_qp: Mask HPD IRQ in
+ rk3576_io_init()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-dw-hdmi-qp-scramb-v7-24-445eb54ee1ed@collabora.com>
+Message-Id: <20260602-dw-hdmi-qp-scramb-v7-20-445eb54ee1ed@collabora.com>
 References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
 In-Reply-To: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -75,103 +75,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace HDMI_14_MAX_TMDS_CLK defined locally with
-HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ provided by linux/hdmi.h.  Note this
-incorrectly referenced HDMI 1.4, as the 340 MHz maximum TMDS character
-rate was actually introduced in HDMI 1.3.
-
-Similarly, use HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ instead of the 600000000
-magic number.
+Mask the RK3576 HPD interrupt in io_init() so it starts disabled,
+matching the RK3588 behavior.  This prevents spurious interrupts before
+the bridge framework enables HPD via the .hpd_enable() callback.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 74dce4be0c00..046ac4f43ba8 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -45,6 +45,7 @@
- #include <linux/clk.h>
- #include <linux/component.h>
- #include <linux/gpio/consumer.h>
-+#include <linux/hdmi.h>
- #include <linux/i2c.h>
- #include <linux/of.h>
- #include <linux/of_address.h>
-@@ -113,8 +114,6 @@
- #define HSM_MIN_CLOCK_FREQ	120000000
- #define CEC_CLOCK_FREQ 40000
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index 27342094958c..62ea5c7cbbe6 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -346,7 +346,7 @@ static void dw_hdmi_qp_rk3576_io_init(struct rockchip_hdmi_qp *hdmi)
  
--#define HDMI_14_MAX_TMDS_CLK   (340 * 1000 * 1000)
--
- static bool vc4_hdmi_supports_scrambling(struct vc4_hdmi *vc4_hdmi)
- {
- 	struct drm_display_info *display = &vc4_hdmi->connector.display_info;
-@@ -137,7 +136,7 @@ static bool vc4_hdmi_mode_needs_scrambling(const struct drm_display_mode *mode,
- {
- 	unsigned long long clock = drm_hdmi_compute_mode_clock(mode, bpc, fmt);
+ 	regmap_write(hdmi->vo_regmap, RK3576_VO0_GRF_SOC_CON14, val);
  
--	return clock > HDMI_14_MAX_TMDS_CLK;
-+	return clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
+-	val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 0);
++	val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 1);
+ 	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
  }
  
- static int vc4_hdmi_debugfs_regs(struct seq_file *m, void *unused)
-@@ -1727,7 +1726,7 @@ vc4_hdmi_connector_clock_valid(const struct drm_connector *connector,
- 	if (clock > vc4_hdmi->variant->max_pixel_clock)
- 		return MODE_CLOCK_HIGH;
- 
--	if (!vc4->hvs->vc5_hdmi_enable_hdmi_20 && clock > HDMI_14_MAX_TMDS_CLK)
-+	if (!vc4->hvs->vc5_hdmi_enable_hdmi_20 && clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ)
- 		return MODE_CLOCK_HIGH;
- 
- 	/* 4096x2160@60 is not reliable without overclocking core */
-@@ -3253,7 +3252,7 @@ static int vc4_hdmi_bind(struct device *dev, struct device *master, void *data)
- 	 * vc4_hdmi_disable_scrambling() will thus run at boot, make
- 	 * sure it's disabled, and avoid any inconsistency.
- 	 */
--	if (variant->max_pixel_clock > HDMI_14_MAX_TMDS_CLK)
-+	if (variant->max_pixel_clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ)
- 		vc4_hdmi->scdc_enabled = true;
- 
- 	ret = variant->init_resources(drm, vc4_hdmi);
-@@ -3383,7 +3382,7 @@ static const struct vc4_hdmi_variant bcm2711_hdmi0_variant = {
- 	.encoder_type		= VC4_ENCODER_TYPE_HDMI0,
- 	.debugfs_name		= "hdmi0_regs",
- 	.card_name		= "vc4-hdmi-0",
--	.max_pixel_clock	= 600000000,
-+	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
- 	.registers		= vc5_hdmi_hdmi0_fields,
- 	.num_registers		= ARRAY_SIZE(vc5_hdmi_hdmi0_fields),
- 	.phy_lane_mapping	= {
-@@ -3412,7 +3411,7 @@ static const struct vc4_hdmi_variant bcm2711_hdmi1_variant = {
- 	.encoder_type		= VC4_ENCODER_TYPE_HDMI1,
- 	.debugfs_name		= "hdmi1_regs",
- 	.card_name		= "vc4-hdmi-1",
--	.max_pixel_clock	= HDMI_14_MAX_TMDS_CLK,
-+	.max_pixel_clock	= HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ,
- 	.registers		= vc5_hdmi_hdmi1_fields,
- 	.num_registers		= ARRAY_SIZE(vc5_hdmi_hdmi1_fields),
- 	.phy_lane_mapping	= {
-@@ -3441,7 +3440,7 @@ static const struct vc4_hdmi_variant bcm2712_hdmi0_variant = {
- 	.encoder_type		= VC4_ENCODER_TYPE_HDMI0,
- 	.debugfs_name		= "hdmi0_regs",
- 	.card_name		= "vc4-hdmi-0",
--	.max_pixel_clock	= 600000000,
-+	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
- 	.registers		= vc6_hdmi_hdmi0_fields,
- 	.num_registers		= ARRAY_SIZE(vc6_hdmi_hdmi0_fields),
- 	.phy_lane_mapping	= {
-@@ -3468,7 +3467,7 @@ static const struct vc4_hdmi_variant bcm2712_hdmi1_variant = {
- 	.encoder_type		= VC4_ENCODER_TYPE_HDMI1,
- 	.debugfs_name		= "hdmi1_regs",
- 	.card_name		= "vc4-hdmi-1",
--	.max_pixel_clock	= 600000000,
-+	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
- 	.registers		= vc6_hdmi_hdmi1_fields,
- 	.num_registers		= ARRAY_SIZE(vc6_hdmi_hdmi1_fields),
- 	.phy_lane_mapping	= {
 
 -- 
 2.54.0
