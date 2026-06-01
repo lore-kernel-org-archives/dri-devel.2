@@ -4,133 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91BDECD6E55
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 11:21:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40352CD6E56
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 11:23:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E88FD10E76D;
-	Mon,  1 Jun 2026 11:21:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC92D11320C;
+	Mon,  1 Jun 2026 11:23:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Boo0sc1U";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LAIfDLNd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="reZ9rcC7";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FF6910E76D
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 11:21:04 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6518fTK0145352
- for <dri-devel@lists.freedesktop.org>; Mon, 1 Jun 2026 11:21:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=nAio+lLQC+YDqx1dS8BKrM60
- KnX/EDWZH36PWtgdsxw=; b=Boo0sc1ULHvTyQgzVDQFRX5hHFtntVVWTcb/gIbC
- i5V+YQ8R57+6xG6OcK0mexqWZccs5DTzoofaURCpRjp0sKFrjWywz+Cu4fxe2E2j
- Npf+zGDC+3i1qVVnlpQgwKnpAHFsIrbLl8v+nDR92gDYb1TNiigGT8N0MOifqVZh
- uRNP/WlkDLY0KC+4zpV3mXNb6zR7tpq/S7WxjRVfNHbBC9Wfg8pnVyYYHd/ednDa
- xNsCv/lh21qMITtktTA93ABNSuuqeO+NQg5Wq/C5NOEaCsyrkwoUZhWYWLAyTrqL
- VZ0mlPq/yBLPST242ONnpeB4BL1kO+xS4OVLsOcdf7X3jw==
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com
- [209.85.222.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eh6strkm5-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 11:21:03 +0000 (GMT)
-Received: by mail-ua1-f69.google.com with SMTP id
- a1e0cc1a2514c-963907b1ddeso3388744241.2
- for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 04:21:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1780312862; x=1780917662;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=nAio+lLQC+YDqx1dS8BKrM60KnX/EDWZH36PWtgdsxw=;
- b=LAIfDLNdBjg5GXG/z+1vYNFUcWY1AwveUmeYd3s3b1wG9woH2tsyrsogtyv/kmDsJt
- s/hIbl6TXM98rTGVSCFnW99WI/6ZmogW7OSo46cnAk4LWXw6+0QvvtnoDY5DTg8LqaWb
- dRlXe1dTCVsU0RtwJWsKUL5fomeHskdS4zEKr4P94agC0GfIN974rVrDdKS+N7+exs5T
- 7WPeq2dzNV3xCYCxQVyOgg3XSLuwCzXsFj+cyoJyJ7ZcSfxhyCteeEH5v1PQwRfVnNh6
- cQyjVsc2zLDZQvGvZ540A+mw1pgHVsfGQuD53a5zqYThLRewmf9ak+/SqOHN0fBZ99e6
- kcGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780312862; x=1780917662;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=nAio+lLQC+YDqx1dS8BKrM60KnX/EDWZH36PWtgdsxw=;
- b=bcf8xD8keRWwqgjSey2Fyy9mds9EbbAi1Ty/BU07JtjflZsLd8b1sdtMkxhRarllk8
- Pyd2fdm9ABXURriTDl6hXOgplNwuulkkBp7yxuByTFnI/R/1Cj9rCAxMXJlOZkayvCY1
- +IixJimPZCWINFtS20OkJiBIv5a1YUsu9C78Kg/t5GMY3/CVCoC9Itw+rWT+vcb1jB0i
- URgERyJNdMyL2YsXDqOAMXbuPna7QJIzK9uLyd3LTzAfL24VRmYrw+SnG6su3Xrlosj5
- V00FQuv9V/GRzkcxwhlQUqZZxc4N9/JX/i8Dty/6ghJM3FbA/0WD3wUpdPOU+bJPx1RR
- SYqg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+EfySqHOfP4E4cxX13tYe6768x9SHoY+eTDJstrD3t/WYg4Vy8XG2C2z8YSdhRKNIM6ljNTM8YJiE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxLeGuFC9S5ocoqKebh377tsby0jWn0FESyUC9t5H5nvjvuDtws
- XFQe5HFJRGkCJre36ywDTpy9TW0ZscYMiOViTJ1HpLN556gnSzCOMvYgfFmzxZUCgne2UzuqI3A
- KhGpF5NAgI1ommJrQtduqQq01G4uAFCDMP+jRfF//jXgfXdX118mS/j4TkTEWgTRT2maQpvs=
-X-Gm-Gg: Acq92OG3zNH/bs2gxOEZsJYusmU6IqCPyKPceuIXAxJwhghdyYObgrIoyOfNaCz6jdJ
- ThbyfPHeiXa8FWVOwLt8J5F5saiZFFSW4fOQzVgibzbAnPceASn4B+XSWpG+K29EEhYuQLX+vZU
- QDhSLGvk7DrTsH/WvU+JSNIrE1L0njnN0H4x1bXrNZNjHwlf/OiLW0n8wNMFxrZJWp6mYvO0z2B
- aChIqtS+UhCjiqPLkUU7/xZ7Tg9B3Uj9G3ibH/jbgPcnSQaMgGi2AqQG4yEVu9b4tdgFdUfx1hZ
- p1xseho5H8qtQvjpYiyJwUBB0vhzRy4eXFWlFPfnujX7/PUzlZpoxAHzFaUUoBjcK2jSOGKvG6n
- 1Xg7a+Kjld9QSVT9Ky0CG7wYjImE6b0TuJD98kFqgDhiuwUscI2YaMDN0XT4lf4Bz1GkEbHErFf
- YpIw78frUlbw4A4MuhK0WwzmThI6p0jUGZp+x36dAWCS3lkg==
-X-Received: by 2002:a05:6102:fa0:b0:631:ec2d:12bd with SMTP id
- ada2fe7eead31-6c68236ff4dmr4630748137.5.1780312862070; 
- Mon, 01 Jun 2026 04:21:02 -0700 (PDT)
-X-Received: by 2002:a05:6102:fa0:b0:631:ec2d:12bd with SMTP id
- ada2fe7eead31-6c68236ff4dmr4630742137.5.1780312861692; 
- Mon, 01 Jun 2026 04:21:01 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5aa5b07c70fsm1967798e87.35.2026.06.01.04.20.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2026 04:21:00 -0700 (PDT)
-Date: Mon, 1 Jun 2026 14:20:58 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: jens.glathe@oldschoolsolutions.biz
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dp: add EDID re-read retry in
- msm_dp_panel_get_modes()
-Message-ID: <6r7evbpymph4grxu2qdazdjeuwaioyjf73st3vjnlw7zwkeyrp@m45kn6wzegky>
-References: <20260531-drm_plug_flaky_edid-v1-1-2708c16dce97@oldschoolsolutions.biz>
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013033.outbound.protection.outlook.com
+ [40.93.196.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 533AB11320B;
+ Mon,  1 Jun 2026 11:23:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GoSMsVgPBjwTDQiQXEn2WXyOdJrpKxLwCr0Tbuw9fuSjFGaW8Z5a9G0+RzcWeCQwt0IiRQFBZPPWmBtihhiFYoI2nE57o3GgBrmW9cjfPKGOPu/vdSiHxzYtyPELmi4vQnEpxS+j5tRUSd6fHYDF0TRP8xlJtlP2uTyI9bKWCrxehuAV0OWKTmpBvVP5mcifxmUQux+3zZEw2N8SeVl1L7BitB7SGbJUweBmfcwotUyTD0PWB5QvoGlYHYXqu69vXFpZQdi4UVQlhoRv/Szo3HapppP9Pkyd3pil9eI2dAbEvBGu06W+JRrI7Kr0+UXlfSowd/1iY7Xqg/RFGoYcrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6IKbyPys2yxTeF8iXXi3atdl0vgXHzvqJlNRKYAj3P4=;
+ b=h/nlWoj2TB5g+z1J6MesJOLrMDxKgqwStiv5HgDuGqBytu3y/A8blGR1MbYjgL6E65x2yNcJ9BaZHUo8X0PujWgzW2Q3AT8x88N2fC0OZXDROXqwy75LPL/aebUB7ur+zBiKsvZebGOFymFdMt42efB3Axl7WbKSZ9ksZ1s6/3Sqn0bqmhyYfo+pw7LmoDfY6VwP+UTmAU/AVe3AHYfIsAIRzD2PUZfJwJ2oLeOqnv2Lu2ilsWcbgi6fZsRG78OMJuDJLl3wyojODjsdJw8MwnBF5U6mtN32znXStHiAKODeMVyj2LF2wO+PYoKACllSA6K9OZKlleAZqHEuYZySzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6IKbyPys2yxTeF8iXXi3atdl0vgXHzvqJlNRKYAj3P4=;
+ b=reZ9rcC7lWLARE5wVcowl0yhHezA4IUe8II2E5IUqdlUCw56UuoHdi9ZeK3f3EDTsl71UvMfwDEfzujpc1YJOvhKXuNoxRCgmSbnAzPJI98zAFJtnTjOmfdh2SxeQ4rq+mfV0IC94S7bUelANq3RnZXr1+8qX6VovOKtoZDJhC4=
+Received: from BL1PR13CA0342.namprd13.prod.outlook.com (2603:10b6:208:2c6::17)
+ by SJ2PR12MB7963.namprd12.prod.outlook.com (2603:10b6:a03:4c1::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Mon, 1 Jun 2026
+ 11:23:44 +0000
+Received: from BL6PEPF0001AB71.namprd02.prod.outlook.com
+ (2603:10b6:208:2c6:cafe::2e) by BL1PR13CA0342.outlook.office365.com
+ (2603:10b6:208:2c6::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.7 via Frontend Transport; Mon, 1
+ Jun 2026 11:23:44 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF0001AB71.mail.protection.outlook.com (10.167.242.164) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Mon, 1 Jun 2026 11:23:43 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 1 Jun
+ 2026 06:23:43 -0500
+Received: from yocto.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Mon, 1 Jun 2026 06:23:40 -0500
+From: Kunal Zodape <kunal.devanandzodape@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Alex
+ Deucher" <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Rahul Kumar <Rahul.Kumar1@amd.com>, Prateek Gupta
+ <Prateek1.Gupta@amd.com>, Kunal Zodape <kunal.devanandzodape@amd.com>
+Subject: [PATCH v2] drm/amdgpu: use ACK polling for page-write completion
+Date: Mon, 1 Jun 2026 11:23:36 +0000
+Message-ID: <20260601112336.2277724-1-kunal.devanandzodape@amd.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20260601093226.1255621-1-kunal.devanandzodape@amd.com>
+References: <20260601093226.1255621-1-kunal.devanandzodape@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260531-drm_plug_flaky_edid-v1-1-2708c16dce97@oldschoolsolutions.biz>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAxMDExMyBTYWx0ZWRfX/WGxutksDbRS
- e+8PVpxIHWsQckD24DN47V6NDnFJOCpq8h+9qsSr97WwB7kfJw2agh3Ya81YPv2Aie8kyLNYlss
- rJ0iyEm+RcOsCB7QbPuzpF/DUmOsHE5Uz9td+5fbaL1jwmctPHRsnu6BnKxq/T91Rf1JSmfsTvQ
- pX+egg7lPTjt0P30twde9vVlQ6jZz6Kryizuz0i8Q93sI0DYdoP2fBPHZB6ibL8AF12pAMf76fO
- bV9J4Z9SLwklYPbzDkxGsZXhPQ5ewbAF1ciGL4l9u5KFWUTDp47wtD2m7bZMOO97IaTIxGHAbEt
- 96gp4wAQTwq4vm+UK5jJTYkCTFoxzURXh62qou34nB/Kp/ixvagryRzZW3NRPJ4kB37RwBI70xb
- nl+gRJDNL29Y0HdOMmxQaT/lC5poXdz67RzxzBNo/CBUnmBzkK1W53GgjzQruuNsc3TcLatB6Ys
- vK/cMJ5mjPl9KlwTp5A==
-X-Proofpoint-ORIG-GUID: y_1HHa6tC2OirsS6QZcyZnIFfcC4reCT
-X-Authority-Analysis: v=2.4 cv=HrNG3UTS c=1 sm=1 tr=0 ts=6a1d6b1f cx=c_pps
- a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=gxl3bz0cAAAA:8
- a=ZCn7-noLd4lGRSYnUTgA:9 a=CjuIK1q_8ugA:10 a=TOPH6uDL9cOC6tEoww4z:22
- a=kiRiLd-pWN9FGgpmzFdl:22
-X-Proofpoint-GUID: y_1HHa6tC2OirsS6QZcyZnIFfcC4reCT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-01_03,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 lowpriorityscore=0 bulkscore=0
- clxscore=1015 impostorscore=0 adultscore=0 malwarescore=0 phishscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606010113
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB71:EE_|SJ2PR12MB7963:EE_
+X-MS-Office365-Filtering-Correlation-Id: d2ef131e-bbe8-4467-3a80-08debfd03d82
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|36860700016|1800799024|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: j2OtpVNc4EqpdmNqLIHIcyYIaXnYda4VS3MnCedX2fBXCZP7XpH91uEpMcB7yRHLg4gkhNql00rlkzoWbJ2Elt4JLWHrhlHUSxjcoiC91udee64wYCAIZSjmJgCmMc6ZJ54/89/p0Ezy2Z21Z8DhNumPsccgTODEAdGA9WEGRy7rjtoj72qFDy7zdS3n414+E0HQzq8dkfpyL+Qv7iE6vtx1j5H9yctjeRpLGUNYKjK/Ck3QfKs5wlaFzTXCsA6ZrwhuAGfH9DfJCeIJc4qQPCDH+VdTlL2g63qWjXfahzIEwjWSMHe6koYfMS4ZsSn8IAYLIhPkJ2AgI3apYh8VKE3RmS8gOW9lVJ10VUSORQkFwQF9ni+a03iicq86A8/nJcRaYs0e2TOH2god5kXIgPibqhJ0CPJiZQfVAoh64JO/qIFwXM8U+oAK55SWj1cvb5mInhTYmxSCmle9OqUrHh8QmjaUd06f5IhcO1N1IGwCrkojjH08XjApz96H3VRTeC0Lc5pahrdxpzhFoVwOw3wMshLDcuGGcg8iPtq6zU/LB3/YOaVaC3S6pMJN0lOOKBbU04SWtKsE9s5WoPimvXUEcob6lrmrZfVNNpATgIFn9Uf/KH3qtFBRC2zZHkd40YmFhcBI/9X6REbMixI3e4OQ4AgZw1jFQMW+db0FHsh0c4xC2lXbFdve3mEQJ9IPp1VFiVcCQq9UqyGUbl7wUcs91UkDAKwJC3ZLe8c92cc=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(18002099003)(22082099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: njuCieNnMervDUfsbCHkAh/qRR8+U4Em0Kw5j1Z6XhShsSM47zpGv7L1K6KQdAbCeOmRUoXvaKfQ1dfPB8x+MBVLtOXHLYDbbC9uIl5Z7bKlUxItYGZDiRaNSKE2cviV6gLQAe7N5gJ9FQNSCc8nHlrl9soKDQVLh+G2b0qWu9Y+1WlXENjw59NPI/OQHyTYzeaIRxkM7NugrdINdHWGTgdQ+1hEw2K50ZwdKXak4cUaKJVi7s6BXgit0TwIMQKuqZlp9LhTstVEGNXiXnTmqHca46QiUNgtPD+leYi4HMcqRg7D4irgbd2Q5Nf6ubz3fqdsxMrBDGdXpsAEKrEf3kcNHEgiieoZzAzwt3ug40HS8r1r69++j7C0dUntA+VbSKim/UOkj7uvekHhTG2UM1TJ4DkoIuT641DkbYyHMHMTPENEv3QcugnRiLjhV3PP
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 11:23:43.8894 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2ef131e-bbe8-4467-3a80-08debfd03d82
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB71.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7963
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,52 +114,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, May 31, 2026 at 11:16:51PM +0200, Jens Glathe via B4 Relay wrote:
-> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> 
-> drm_edid_read_ddc() can return a structurally valid EDID from which
+The EEPROM write path currently waits a fixed 10 ms after each page
+write to cover the maximum write-cycle time.
 
-When?
+Replace the fixed delay with ACK polling so the driver can continue as
+soon as the EEPROM finishes its internal write cycle. Since the SMU I2C
+adapter used for these EEPROM accesses does not support zero-length
+transfers, poll readiness with an offset-only dummy write.
 
-> drm_edid_connector_add_modes() still returns zero modes. This triggers
-> the error:
+Keep the existing 10 ms timeout as the upper bound for the polling loop.
 
-Please at least add EDID contents.
+Tested on MI200 (ALDEBARAN) with ras_eeprom_reset confirming clean
+write/read-back with no I2C errors.
 
-> 
->   [drm:msm_dp_bridge_get_modes [msm]] *ERROR* failed to get DP sink
->    modes, rc=0
-> 
-> even though the link is ready. Since the EDID is only read once, this
-> error persists and the display comes up with 640x480 resolution.
+Suggested-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Kunal Zodape <kunal.devanandzodape@amd.com>
+---
+v2: Use read_poll_timeout() instead of open-coded ktime + do-while loop
+    as suggested
 
-Please check with the current next tree, we have reworked HPD handling a
-bit. Also, it might be the case that the dongle sends a placeholder
-first and then sends a HPD or IRQ_HPD event. Please check if that's the
-case.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c | 27 +++++++++++++++-------
+ 1 file changed, 19 insertions(+), 8 deletions(-)
 
-> 
-> Add a retry of drm_edid_read_ddc() inside get_modes() when the initial
-> read produces no usable modes. The bad EDID is freed before retrying
-> and container_of ensures access to the DDC channel. This directly
-> addresses the observed "valid but empty/garbage" EDID case on
-> flaky DP plugs and adapters.
-> 
-> I tested this on a few of my "flaky" type-c to HDMI adapters and hubs,
-> getting no "retry failed" messages and the desired resolution. Without
-> the patch most plugs would result in 640x480 external display.
-> 
-> Fixes: [5bea90ad9743d2] "drm/msm/dp: switch to struct drm_edid"
-
-Hard to believe.
-
-> 
-> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> ---
->  drivers/gpu/drm/msm/dp/dp_panel.c | 28 ++++++++++++++++++++++++++++
->  1 file changed, 28 insertions(+)
-> 
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+index 8cd69836dd99..9dc538073bb8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+@@ -21,6 +21,7 @@
+  *
+  */
+ 
++#include <linux/iopoll.h>
+ #include "amdgpu_eeprom.h"
+ #include "amdgpu.h"
+ 
+@@ -153,15 +154,25 @@ static int __amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap, u32 eeprom_addr,
+ 			break;
+ 
+ 		if (!read) {
+-			/* According to EEPROM specs the length of the
+-			 * self-writing cycle, tWR (tW), is 10 ms.
+-			 *
+-			 * TODO: Use polling on ACK, aka Acknowledge
+-			 * Polling, to minimize waiting for the
+-			 * internal write cycle to complete, as it is
+-			 * usually smaller than tWR (tW).
++			int ret;
++
++			/* Poll for ACK to detect when the self-timed
++			 * internal write cycle has completed, as per
++			 * Acknowledge Polling described in the AT24CM02
++			 * datasheet, Section 7.4. The SMU I2C adapter
++			 * used by these EEPROM paths does not support
++			 * zero-length messages, so use an offset-only
++			 * dummy write to probe for the ACK. The address
++			 * pointer update is harmless because each real
++			 * transfer reprograms it before use.
+ 			 */
+-			msleep(10);
++			ret = read_poll_timeout(i2c_transfer, r,
++						 r == 1,
++						 200, 10 * USEC_PER_MSEC,
++						 false,
++						 i2c_adap, &msgs[0], 1);
++			if (ret)
++				break;
+ 		}
+ 	}
+ 
 -- 
-With best wishes
-Dmitry
+2.17.1
+
