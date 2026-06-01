@@ -4,61 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEFE6CD6E55
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 11:39:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89574CD6E55
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 11:48:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 127B811321E;
-	Mon,  1 Jun 2026 11:39:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEBE8113238;
+	Mon,  1 Jun 2026 11:48:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fhQbD7Wt";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="1IBHuQRq";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="OJfiPScB";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1IBHuQRq";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="OJfiPScB";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29A0B1130FF;
- Mon,  1 Jun 2026 11:39:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 787396001A;
- Mon,  1 Jun 2026 11:39:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E21B1F00893;
- Mon,  1 Jun 2026 11:39:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780313989;
- bh=5MMXZTkE9Ksy8r/e1+0LdFptK92/DrsLI/CT08d5UQ8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=fhQbD7WtYmzfm3aO27P3MUdk1PYXtWtZRyjEbt1BF4stHyg0uRK+76axAKeOrgWDi
- +MDRJzoDAjER/TkerBiZ6pMsxnVf+EI5Sbm6Cq3INBW+ZBsyIzYpL3iBZYgt1lB4+u
- HjQ+nGLuY8hFZur08h5UjnV+3mEoTJiHhdlZSr6qVL4bZzZhLX1zKwlGyj5QD1jic0
- UkDzGkcO1Z5agDNQLNVSXMQoNuE17jqfJy33oa27Z1JSDerxJk1wpv48niFk3Df/7s
- W/FrJHStGRgZmeMdYp1ZcncnjGDoCc6TCD43KfzJKdGvUYNlcBcSVthzLF9qDJG5Va
- qQREa+iz/Gd9g==
-Message-ID: <aad27c5f-01a6-4a2a-a55c-c7e411c4dd05@kernel.org>
-Date: Mon, 1 Jun 2026 20:39:40 +0900
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1650D113238
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 11:48:03 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B34E46BD62;
+ Mon,  1 Jun 2026 11:48:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780314481; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=FiHa3tcGzOa5FM/qNGPUEGPLZiMPAqSqaI28VPiHwUg=;
+ b=1IBHuQRqWNCO1dDPHm9SksVSrEdviZSssRV5zCQL8I6EMiDy/Hb2PQNb6L9xcPlaxq3XN7
+ xqmFX2M2cXRvK+g5KLvNyEn7IXx6PT50eH2k4OO2IAzbeN8vO5wEQV3CrDRlGm84aJZP00
+ hJ3Ll98n+XMJCCar3RQLmEswrKpbLPY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780314481;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=FiHa3tcGzOa5FM/qNGPUEGPLZiMPAqSqaI28VPiHwUg=;
+ b=OJfiPScBIgYn6RI4+U8dipDMjQvIYB2GLzhyG6XpEHv9tcxhIQ18hTXqSq+znribP3HSn0
+ yKVhCeK/jlqtptBw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780314481; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=FiHa3tcGzOa5FM/qNGPUEGPLZiMPAqSqaI28VPiHwUg=;
+ b=1IBHuQRqWNCO1dDPHm9SksVSrEdviZSssRV5zCQL8I6EMiDy/Hb2PQNb6L9xcPlaxq3XN7
+ xqmFX2M2cXRvK+g5KLvNyEn7IXx6PT50eH2k4OO2IAzbeN8vO5wEQV3CrDRlGm84aJZP00
+ hJ3Ll98n+XMJCCar3RQLmEswrKpbLPY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780314481;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=FiHa3tcGzOa5FM/qNGPUEGPLZiMPAqSqaI28VPiHwUg=;
+ b=OJfiPScBIgYn6RI4+U8dipDMjQvIYB2GLzhyG6XpEHv9tcxhIQ18hTXqSq+znribP3HSn0
+ yKVhCeK/jlqtptBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 35331779A8;
+ Mon,  1 Jun 2026 11:48:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id ULmQC3FxHWq0XAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 01 Jun 2026 11:48:01 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: shiyongbang@huawei.com, xinliang.liu@linaro.org, tiantao6@hisilicon.com,
+ kong.kongxinwei@hisilicon.com, sumit.semwal@linaro.org,
+ yongqin.liu@linaro.org, jstultz@google.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rongrong Zou <zourongrong@gmail.com>, Sean Paul <seanpaul@chromium.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, Baihan Li <libaihan@huawei.com>,
+ stable@vger.kernel.org
+Subject: [PATCH v3 1/4] drm/hibmc: Use drm_atomic_helper_check_plane_state()
+Date: Mon,  1 Jun 2026 13:45:15 +0200
+Message-ID: <20260601114756.51953-2-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260601114756.51953-1-tzimmermann@suse.de>
+References: <20260601114756.51953-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/slab: improve kmem_cache_alloc_bulk
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
- Christoph Hellwig <hch@lst.de>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Mark Brown
- <broonie@kernel.org>, Hao Li <hao.li@linux.dev>,
- Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Jesper Dangaard Brouer <hawk@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, io-uring@vger.kernel.org,
- kasan-dev@googlegroups.com, bpf@vger.kernel.org, netdev@vger.kernel.org,
- Alexander Lobakin <aleksander.lobakin@intel.com>,
- Boris Brezillon <boris.brezillon@collabora.com>
-References: <20260528093437.2519248-1-hch@lst.de>
- <20260528093437.2519248-2-hch@lst.de>
- <5f7f90d8-cb32-4ffb-8f1c-0722aafbe869@kernel.org>
- <20260529135045.GA10647@lst.de>
- <5f3ba603-a6ad-4cf2-9a54-aebc10273c59@kernel.org>
- <58cc76e7-2348-443d-a989-2a06e61178af@kernel.org>
-Content-Language: en-US
-From: Harry Yoo <harry@kernel.org>
-In-Reply-To: <58cc76e7-2348-443d-a989-2a06e61178af@kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------YwQVGEEKxGzkrAPA10HjJL0h"
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-0.988];
+ MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_CC(0.00)[lists.freedesktop.org,suse.de,gmail.com,chromium.org,kernel.org,huawei.com,vger.kernel.org];
+ RCPT_COUNT_TWELVE(0.00)[18];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[chromium.org:email,huawei.com:email,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid,linaro.org:email];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ URIBL_BLOCKED(0.00)[linaro.org:email,imap1.dmz-prg2.suse.org:helo,huawei.com:email,suse.de:email,suse.de:mid];
+ RCVD_COUNT_TWO(0.00)[2];
+ FREEMAIL_TO(0.00)[huawei.com,linaro.org,hisilicon.com,google.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ FROM_EQ_ENVFROM(0.00)[]; TO_DN_SOME(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,116 +120,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------YwQVGEEKxGzkrAPA10HjJL0h
-Content-Type: multipart/mixed; boundary="------------Fos0wBgvdCggrd0C0H32WobZ";
- protected-headers="v1"
-From: Harry Yoo <harry@kernel.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
- Christoph Hellwig <hch@lst.de>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Mark Brown
- <broonie@kernel.org>, Hao Li <hao.li@linux.dev>,
- Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Jesper Dangaard Brouer <hawk@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, io-uring@vger.kernel.org,
- kasan-dev@googlegroups.com, bpf@vger.kernel.org, netdev@vger.kernel.org,
- Alexander Lobakin <aleksander.lobakin@intel.com>,
- Boris Brezillon <boris.brezillon@collabora.com>
-Message-ID: <aad27c5f-01a6-4a2a-a55c-c7e411c4dd05@kernel.org>
-Subject: Re: [PATCH] mm/slab: improve kmem_cache_alloc_bulk
-References: <20260528093437.2519248-1-hch@lst.de>
- <20260528093437.2519248-2-hch@lst.de>
- <5f7f90d8-cb32-4ffb-8f1c-0722aafbe869@kernel.org>
- <20260529135045.GA10647@lst.de>
- <5f3ba603-a6ad-4cf2-9a54-aebc10273c59@kernel.org>
- <58cc76e7-2348-443d-a989-2a06e61178af@kernel.org>
-In-Reply-To: <58cc76e7-2348-443d-a989-2a06e61178af@kernel.org>
+Call drm_atomic_helper_check_plane_state() from the primary plane's
+atomic-check helper and replace the custom implementation.
 
---------------Fos0wBgvdCggrd0C0H32WobZ
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+All plane's implementations of atomic_check should call the shared
+_check_plane_state() helper first. It adjusts the plane state for
+correct positioning, rotation and scaling of the plane. Do this
+even if the plane's CRTC has been disabled by setting the parameter
+can_update_disabled. The original code returned early in this case,
+but it's safe to so and cleaner to have all plane state initialized.
 
+As we don't set can_position, drm_atomic_helper_check_plane_state()'s
+visibility check tests if the plane covers all of the CRTC. This is
+a small change from the original code, which tested if the plane is
+exactly the size of the CRTC. With the new test, the plane still has
+to cover all of the CRTC, but can be larger than the CRTC's size. A
+later patch can fully implement this feature in hibmc.
 
+If the plane is disabled, the helper clears the visibility flag in the
+plane state. On errors or if the plane is not visible, the atomic-check
+helper can return early. Implement all this in hibmc and drop the custom
+code that does some of it.
 
-On 6/1/26 5:16 PM, Vlastimil Babka (SUSE) wrote:
-> On 6/1/26 08:39, Harry Yoo wrote:
->>
->>
->> On 5/29/26 10:50 PM, Christoph Hellwig wrote:
->>> On Fri, May 29, 2026 at 01:54:48PM +0200, Vlastimil Babka (SUSE) wrot=
-e:
->>>> Thanks, I applied it to slab/for-7.2/alloc_bulk and merged to slab/f=
-or-next
->>>> (it's still yankable in case of issues)
->>>>
->>>> Did some fixups below (the comment was stale prior to the patch; res=
-tored
->>>> unlikely(), simplified one line).
->>>>
->>>> A test merge into yesterday's -next found a conflict in drivers/gpu/=
-drm/
->>>> panthor/panthor_mmu.c. Commit 1013bf53650e ("drm/panthor: Split
->>>> panthor_vm_prepare_map_op_ctx() to prepare for reclaim") moved the c=
-hanged
->>>> codeto a new function panthor_vm_op_ctx_prealloc_pts().
->>>> But it's solvable so no need for a complicated coordination I think.=
+v2:
+- extend the commit description (Yongbang)
 
->>>
->>> Ok, thanks.  The two Sashiko complains also look like they had merrit=
-s,
->>> but I won't get to looking into them until Monday.
->> The review:
->> https://sashiko.dev/#/patchset/20260528093437.2519248-2-hch%40lst.de
->>
->> So there is a user who might call kmem_cache_alloc_bulk() with size =3D=
- 0
->=20
-> I don't know if it can really happen there, but maybe DRM folks can tel=
-l us.
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: da52605eea8f ("drm/hisilicon/hibmc: Add support for display engine")
+Reviewed-by: Yongbang Shi <shiyongbang@huawei.com>
+Cc: Rongrong Zou <zourongrong@gmail.com>
+Cc: Sean Paul <seanpaul@chromium.org>
+Cc: Xinliang Liu <xinliang.liu@linaro.org>
+Cc: Dmitry Baryshkov <lumag@kernel.org>
+Cc: Baihan Li <libaihan@huawei.com>
+Cc: Yongbang Shi <shiyongbang@huawei.com>
+Cc: <stable@vger.kernel.org> # v4.10+
+---
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 46 ++++++-------------
+ 1 file changed, 14 insertions(+), 32 deletions(-)
 
-Yeah beyond my area :)
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+index 3066dc9ebc64..7c0b88c774b5 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+@@ -72,46 +72,28 @@ static int hibmc_get_best_clock_idx(const struct drm_display_mode *mode)
+ static int hibmc_plane_atomic_check(struct drm_plane *plane,
+ 				    struct drm_atomic_commit *state)
+ {
+-	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
+-										 plane);
+-	struct drm_framebuffer *fb = new_plane_state->fb;
+-	struct drm_crtc *crtc = new_plane_state->crtc;
+-	struct drm_crtc_state *crtc_state;
+-	u32 src_w = new_plane_state->src_w >> 16;
+-	u32 src_h = new_plane_state->src_h >> 16;
+-
+-	if (!crtc || !fb)
+-		return 0;
++	struct drm_plane_state *new_plane_state =
++		drm_atomic_get_new_plane_state(state, plane);
++	struct drm_crtc_state *new_crtc_state = NULL;
++	int ret;
+ 
+-	crtc_state = drm_atomic_get_crtc_state(state, crtc);
+-	if (IS_ERR(crtc_state))
+-		return PTR_ERR(crtc_state);
++	if (new_plane_state->crtc)
++		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
+ 
+-	if (src_w != new_plane_state->crtc_w || src_h != new_plane_state->crtc_h) {
+-		drm_dbg_atomic(plane->dev, "scale not support\n");
+-		return -EINVAL;
+-	}
+-
+-	if (new_plane_state->crtc_x < 0 || new_plane_state->crtc_y < 0) {
+-		drm_dbg_atomic(plane->dev, "crtc_x/y of drm_plane state is invalid\n");
+-		return -EINVAL;
+-	}
+-
+-	if (!crtc_state->enable)
++	ret = drm_atomic_helper_check_plane_state(new_plane_state, new_crtc_state,
++						  DRM_PLANE_NO_SCALING,
++						  DRM_PLANE_NO_SCALING,
++						  false, true);
++	if (ret)
++		return ret;
++	else if (!new_plane_state->visible)
+ 		return 0;
+ 
+-	if (new_plane_state->crtc_x + new_plane_state->crtc_w >
+-	    crtc_state->adjusted_mode.hdisplay ||
+-	    new_plane_state->crtc_y + new_plane_state->crtc_h >
+-	    crtc_state->adjusted_mode.vdisplay) {
+-		drm_dbg_atomic(plane->dev, "visible portion of plane is invalid\n");
+-		return -EINVAL;
+-	}
+-
+ 	if (new_plane_state->fb->pitches[0] % 128 != 0) {
+ 		drm_dbg_atomic(plane->dev, "wrong stride with 128-byte aligned\n");
+ 		return -EINVAL;
+ 	}
++
+ 	return 0;
+ }
+ 
+-- 
+2.54.0
 
->> (although the comment says @size must be larger than 0!) and
->=20
-> The comment is however new, the caller existed when there was no commen=
-t and
-> the return value 0 when asked for 0 was working there.
-
-Haha, you're right. Didn't notice that...
-
->> kmem_cache_alloc_bulk() returning 0 was considered a success in that c=
-ase.
->>
->> Either fixing kmem_cache_alloc_bulk() (and the comment) or fixing the
->> user sounds fine to me.
->=20
-> Would it be wrong if we just returned true for size of 0? Would somethi=
-ng
-> else break?
-
-I think it won't break as nobody should be accessing an array of size 0,
-and it matches the previous behavior.
-
---=20
-Cheers,
-Harry / Hyeonggon
-
-
---------------Fos0wBgvdCggrd0C0H32WobZ--
-
---------------YwQVGEEKxGzkrAPA10HjJL0h
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQQQ1ub6gR5ogjaKRmOGXBN6rc5S1gUCah1vfAAKCRCGXBN6rc5S
-1n8cAQCqp4CsOu+ZPkt9JTKGMEjAbun8lhAPjYEe5ZxQbjlUnQD/Yqc0JkpGdJ3B
-cq4AV3Pw4qMLNMrm3+rVRHMdUu9OmQ0=
-=RNAw
------END PGP SIGNATURE-----
-
---------------YwQVGEEKxGzkrAPA10HjJL0h--
