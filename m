@@ -4,89 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE4D8CD6E55
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:26:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD107CD5BD1
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:28:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A6CB10EA14;
-	Mon,  1 Jun 2026 22:26:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A026110EA1C;
+	Mon,  1 Jun 2026 22:28:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="XabdzBz3";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="I/NlyQ3Q";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EE6610EA14
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:26:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1780352769;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=KEKGZD7wPG4K2tO6rX2z5E8F6yamjZqlTqEu1Uo9K0c=;
- b=XabdzBz3UzQZ59ZYp+pepiAEs6O+ztIej2pq1sP1QFDvuILKvT15RaSK7lG/y2QqV+TAse
- vA6nn7DLUpy648Uc/Pqn0nwViR0dVZ6xsuFEkn9SpuIDdg6BGwGv6HWv1FJnRiTNWmFYG7
- fFs2kJTg8RJ7v6Pu+PH9VOaCtnW9inE=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-50-fdCjhA67MKKrSljMUkpt1A-1; Mon, 01 Jun 2026 18:26:06 -0400
-X-MC-Unique: fdCjhA67MKKrSljMUkpt1A-1
-X-Mimecast-MFC-AGG-ID: fdCjhA67MKKrSljMUkpt1A_1780352766
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-8ccebf7e86aso81874396d6.0
- for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 15:26:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780352766; x=1780957566;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=KEKGZD7wPG4K2tO6rX2z5E8F6yamjZqlTqEu1Uo9K0c=;
- b=lMI0CYa7hc8DhSZwP2zgaUsRNvlTggUlIRx6mP21tb5FbOGwlimFpAYkd78uzAOuJO
- ziazPPbkAtf/haj91PvNgGpR32gEgq9mocVn7c1SWHcxRB2ccvZhn+ddvXx1lw0s2/7d
- MiHBohvt3nLWQPE1gnTC4SbG78fsgW2d7xD/02WbMp/4S1AMybLFbJBfuYLPTFyOZVA+
- MUYIogK7GuLf8bljOz8g5Y3siz05R2Dt52Def08GhKiCuHQLGOscRdDv3HwjtRBa+2oB
- /GRnWS7dbQHYjooe/ZgQ6a/VADdIvFQ6jbi+4YsGQMIACsia2Hv7GDhb9ktEQ7X2Fkp8
- AeHQ==
-X-Gm-Message-State: AOJu0YwWHlth7ljjjatwjbu7f2V8Jhs/bH+9PFoCaduPPyzsDjIJUXzp
- 4HJ8e0oSRE7Bl0mxuPDuB6gfmAFqxpUh1a9yiwAvpR79W70FSHcGDmVSDNzmeakX8cu0g+2MkcD
- cFUMYwi8d0fy5up7oLvfnqxqU2vJZxnTyjSrc6RZGLkjTLi8Tgpn2amqkjie0AGq6Y0v36g==
-X-Gm-Gg: Acq92OF/IRsXyElYeKgcjcULXlaxOpFUy7g2b9kSc2K9YHT8CqaR9ZMmGINNCZ2ybM6
- qiJDksb7+b6HY8Os2V1+EcslHWWbzol6HJVgxZrAbsZv4LP/WH9Y09VzWiC1x29dF4SJAqpSRsE
- jQGHH3vTICemsk/fMv+kL2UoeWZw77W8ff51NYCOGNRHDcU9NSjmAiJosHM9S/HhU6j+jAIUv0u
- eZzUuzZD4iC+0gYJaY62ABPR4BAH2Qdown1tHyQxjkP0lDSqIA+Em6Z5foZPwb0/h5xiYByFM7n
- KnSx6XHJcbIa/aB59Qct7YTHQJTbgI7rWJ9TAAEeQe5b+MIll2NpA8efsvBlQEElF8KjlgYc9mf
- xVHJBTfnsiNXxjKdFN4WOF+knXySu
-X-Received: by 2002:ad4:5947:0:b0:8cc:f5b7:4e13 with SMTP id
- 6a1803df08f44-8cebf53afdbmr26107466d6.24.1780352765758; 
- Mon, 01 Jun 2026 15:26:05 -0700 (PDT)
-X-Received: by 2002:ad4:5947:0:b0:8cc:f5b7:4e13 with SMTP id
- 6a1803df08f44-8cebf53afdbmr26107066d6.24.1780352765346; 
- Mon, 01 Jun 2026 15:26:05 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8ccebb681f6sm99921236d6.4.2026.06.01.15.26.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2026 15:26:04 -0700 (PDT)
-Message-ID: <fe3c191db743897eace3e50d9994269b45f16d3f.camel@redhat.com>
-Subject: Re: [PATCH v2 2/2] rust: sync: Introduce LazyInit
-From: lyude@redhat.com
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, Gary Guo <gary@garyguo.net>, Ingo Molnar	
- <mingo@redhat.com>, Miguel Ojeda <ojeda@kernel.org>, Tamir Duberstein	
- <tamird@kernel.org>, Boqun Feng <boqun@kernel.org>, Peter Zijlstra	
- <peterz@infradead.org>, Viresh Kumar <viresh.kumar@linaro.org>, Benno
- Lossin	 <lossin@kernel.org>, Will Deacon <will@kernel.org>
-Date: Mon, 01 Jun 2026 18:26:04 -0400
-In-Reply-To: <ah1CarNtFhCvAAav@google.com>
-References: <20260529173137.303717-1-lyude@redhat.com>
- <20260529173137.303717-3-lyude@redhat.com> <ah1CarNtFhCvAAav@google.com>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FBC410EA1B
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:28:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1780352881; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=PVFgPC70ErGaEqeSeHjwE2C+cB5bHar7/PSYof40VZPvXovCrOnKYTpSgecOjAGXESM2WrhArffEO92DABYXv/MxbRDraiE7udlw7YgdvRhBGAU3KmANVRwlbkpczO2MMZQ7Vm1iPXuajjfOtdgAlP0Xkfgy4HUhBxCpr7E6xuE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1780352881;
+ h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=BUpb7HT4m15XVVBLdFS9FongkPN47oZiE3d0bUHdpT8=; 
+ b=WGgU/IrWHyxgNT2lx0ISRqqyAsgubwNaSJyyd3guT6LnC49oBN12F8r2MX7BSAwyYh6l2VAQqzMApiW7oi1WEqC7hv4+iAYS517knha5cKALMtajpIKgd/c0IXuQ4t2ZyvTKVxdUOkwRgGjsCpRTK4AxONpOzzrdE31ZG/vjKE4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+ dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780352881; 
+ s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+ bh=BUpb7HT4m15XVVBLdFS9FongkPN47oZiE3d0bUHdpT8=;
+ b=I/NlyQ3Q6+Ye1gVvzV2ArOX9glIRXM7xR5m/PVVvimlFqn9UmtHhH71v7AoywFON
+ zNXCzPKXKy02ILEhHbM2H4o3PqosEYlGIoevZfh7HKy9bUDKsDUTOPZyeJgqIe1l0TD
+ qkREDonolDGSFmZ/rc/UWG1Xx1vydAuLYFirsjA4=
+Received: by mx.zohomail.com with SMTPS id 1780352878700771.4001220854549;
+ Mon, 1 Jun 2026 15:27:58 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+ id 8CFFE183854; Tue, 02 Jun 2026 00:27:51 +0200 (CEST)
+Date: Tue, 2 Jun 2026 00:27:51 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Chaoyi Chen <kernel@airkyi.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Vinod Koul <vkoul@kernel.org>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-phy@lists.infradead.org, Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Subject: Re: [PATCH 2/5] drm/bridge: aux: Add
+ drm_aux_bridge_register_from_node()
+Message-ID: <ah4HP0VuZEFUaLlt@venus>
+References: <20260521032854.103-1-kernel@airkyi.com>
+ <20260521032854.103-3-kernel@airkyi.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 3qe9p91qqLMKaX0lYI3jcmeUZDlBIlR2d2C_8T787ls_1780352766
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="2xib44wq3r7nfz4n"
+Content-Disposition: inline
+In-Reply-To: <20260521032854.103-3-kernel@airkyi.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.2.1.5.2/280.325.56
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,39 +87,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-06-01 at 08:27 +0000, Alice Ryhl wrote:
-> I'm not a big fan of using these kinds of tricks to access the
-> contents
-> of a mutex after unlocking it. Could we instead use a struct like
-> this:
->=20
-> struct LazyInit<T> {
-> =C2=A0=C2=A0=C2=A0 data: UnsafeCell<MaybeUninit<T>>,
-> =C2=A0=C2=A0=C2=A0 set: AtomicBool,
-> =C2=A0=C2=A0=C2=A0 lock: Mutex<()>,
-> }
->=20
-> or even:
->=20
-> struct LazyInit<T> {
-> =C2=A0=C2=A0=C2=A0 data: SetOnce<T>,
-> =C2=A0=C2=A0=C2=A0 lock: Mutex<()>,
-> }
->=20
-> I think this logic will be simpler for everyone.
 
-> By the way, another option is to use a similar strategy to
-> https://lore.kernel.org/rust-for-linux/20260523-upgrade-poll-v4-2-f5b4c74=
-7eac2@google.com/
-> where you just use SetOnce and protect calls to `populate` by another
-> mutex in the structure. Then you don't need a separate LazyInit.
+--2xib44wq3r7nfz4n
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/5] drm/bridge: aux: Add
+ drm_aux_bridge_register_from_node()
+MIME-Version: 1.0
 
-ooo - yeah, that definitely works for me and would be preferable. I
-still will like to make one change to SetOnce that I think isn't too
-crazy: writing up a `reset()` function for SetOnce that works through a
-&mut like what I had here for LazyInit, since that would be quite
-helpful to have in the gem shmem free_callback() function.
+Hi,
 
+On Thu, May 21, 2026 at 11:28:51AM +0800, Chaoyi Chen wrote:
+> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 >=20
-> Alice
+> The drm_aux_bridge_register() uses the device->of_node as the
+> bridge->of_node.
+>=20
+> This patch adds drm_aux_bridge_register_from_node() to allow
+> specifying the of_node corresponding to the bridge.
+>=20
+> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> ---
 
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+
+Greetings,
+
+-- Sebastian
+
+>  drivers/gpu/drm/bridge/aux-bridge.c | 24 ++++++++++++++++++++++--
+>  include/drm/bridge/aux-bridge.h     |  6 ++++++
+>  2 files changed, 28 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/bridge/aux-bridge.c b/drivers/gpu/drm/bridge=
+/aux-bridge.c
+> index 1ed21a8713bf..f50283abed5f 100644
+> --- a/drivers/gpu/drm/bridge/aux-bridge.c
+> +++ b/drivers/gpu/drm/bridge/aux-bridge.c
+> @@ -35,6 +35,7 @@ static void drm_aux_bridge_unregister_adev(void *_adev)
+>  /**
+>   * drm_aux_bridge_register - Create a simple bridge device to link the c=
+hain
+>   * @parent: device instance providing this bridge
+> + * @np: device node pointer corresponding to this bridge instance
+>   *
+>   * Creates a simple DRM bridge that doesn't implement any drm_bridge
+>   * operations. Such bridges merely fill a place in the bridge chain link=
+ing
+> @@ -42,7 +43,7 @@ static void drm_aux_bridge_unregister_adev(void *_adev)
+>   *
+>   * Return: zero on success, negative error code on failure
+>   */
+> -int drm_aux_bridge_register(struct device *parent)
+> +int drm_aux_bridge_register_from_node(struct device *parent, struct devi=
+ce_node *np)
+>  {
+>  	struct auxiliary_device *adev;
+>  	int ret;
+> @@ -62,7 +63,10 @@ int drm_aux_bridge_register(struct device *parent)
+>  	adev->dev.parent =3D parent;
+>  	adev->dev.release =3D drm_aux_bridge_release;
+> =20
+> -	device_set_of_node_from_dev(&adev->dev, parent);
+> +	if (np)
+> +		device_set_node(&adev->dev, of_fwnode_handle(np));
+> +	else
+> +		device_set_of_node_from_dev(&adev->dev, parent);
+> =20
+>  	ret =3D auxiliary_device_init(adev);
+>  	if (ret) {
+> @@ -80,6 +84,22 @@ int drm_aux_bridge_register(struct device *parent)
+> =20
+>  	return devm_add_action_or_reset(parent, drm_aux_bridge_unregister_adev,=
+ adev);
+>  }
+> +EXPORT_SYMBOL_GPL(drm_aux_bridge_register_from_node);
+> +
+> +/**
+> + * drm_aux_bridge_register - Create a simple bridge device to link the c=
+hain
+> + * @parent: device instance providing this bridge
+> + *
+> + * Creates a simple DRM bridge that doesn't implement any drm_bridge
+> + * operations. Such bridges merely fill a place in the bridge chain link=
+ing
+> + * surrounding DRM bridges.
+> + *
+> + * Return: zero on success, negative error code on failure
+> + */
+> +int drm_aux_bridge_register(struct device *parent)
+> +{
+> +	return drm_aux_bridge_register_from_node(parent, NULL);
+> +}
+>  EXPORT_SYMBOL_GPL(drm_aux_bridge_register);
+> =20
+>  struct drm_aux_bridge_data {
+> diff --git a/include/drm/bridge/aux-bridge.h b/include/drm/bridge/aux-bri=
+dge.h
+> index c2f5a855512f..7dd1f17a1354 100644
+> --- a/include/drm/bridge/aux-bridge.h
+> +++ b/include/drm/bridge/aux-bridge.h
+> @@ -13,11 +13,17 @@ struct auxiliary_device;
+> =20
+>  #if IS_ENABLED(CONFIG_DRM_AUX_BRIDGE)
+>  int drm_aux_bridge_register(struct device *parent);
+> +int drm_aux_bridge_register_from_node(struct device *parent, struct devi=
+ce_node *np);
+>  #else
+>  static inline int drm_aux_bridge_register(struct device *parent)
+>  {
+>  	return 0;
+>  }
+> +
+> +static inline int drm_aux_bridge_register_from_node(struct device *paren=
+t, struct device_node *np)
+> +{
+> +	return 0;
+> +}
+>  #endif
+> =20
+>  #if IS_ENABLED(CONFIG_DRM_AUX_HPD_BRIDGE)
+> --=20
+> 2.53.0
+>=20
+>=20
+
+--2xib44wq3r7nfz4n
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmoeB18ACgkQ2O7X88g7
++ppogQ//WqinHkPcYFScjtlm9f1ggBxhA9aLxXMnPrZaONmiRW25hCm83sEXJU4H
+g/uQA6oeHUzF3zuaZ4U2ObSMC8X6CBSTbzPZ5LpKZxE1767quTuqL92tNgiyYfwr
+Jm1EJdNzw/Ij/X4D8D3V7fyqJEbr/YhMMsNRX32RPJXyz8sq7rWs7UORhJL9H83N
++v62SxuuL6dTn5f1B60Bjq5zdL/pq2pxrdgDzd+QiRVX6u/4UIlk1iP5NM+Wgchc
+WsPwbUOryyXkVhAu+TAvC+nKxxYg4fuQdC+dnmgXnLc0CaKfOZf8MChaRhVxKhOT
+CAqamGlaWX8kEiPcUNk83H6qFA36zJcpzS+H2vwceJqzW/WfE/WrBj5r2KvTs+Ze
+OTYAr+BRXA/193Mqd5VuvZ8dzldMj4SdygcuYfoNOl43nFs/UJxs/KyEH7KHtLXp
+kyfTlskWVlm7ddDXI2SSBaoftjI/ZmcuT6Sd0lJH+fYTqsQfePz3pZIb9hRK36Es
++3ASREKLL9x/2C0eM++BVx6jK8KAlE3tlO8xNgi/0pLnW/vUI4Zvm6UNftxY6gIo
+wfpY1pWgWlz4MVBCHA2ifWqUmU86zuFVOuLsQVriO6R9PfaqkuG53ZX7Dmobh4iY
+oZOEX5QW60mRzh+zeTWiOQ0IklFhzR7bUEG/GH313hqf+scDbsU=
+=aeh0
+-----END PGP SIGNATURE-----
+
+--2xib44wq3r7nfz4n--
