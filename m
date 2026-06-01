@@ -4,132 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA968CD5BD1
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 01:44:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62D5ECD6E56
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 02:11:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51E73112CD7;
-	Mon,  1 Jun 2026 01:44:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82A95112CE8;
+	Mon,  1 Jun 2026 02:11:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="HAt3s4/b";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="MomANC4G";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010024.outbound.protection.outlook.com [52.101.46.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52783112CD7
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 01:44:47 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013057.outbound.protection.outlook.com
+ [40.93.196.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E86DD112CE8;
+ Mon,  1 Jun 2026 02:10:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ylqKP3hHVRfJ1GNd+2Y0g9jV6YAdgpMEhaqZ5N2o+q7WXvJcK5icNNsUniJz/nUQwwB8V+SumBaY47W3EyhOcKRe8FfAzCAVMDLTWIpsFifCqTWs5y7yyMWfYtSPJSLDrv87l+BXBeZZgvVJULGgBXKCvB31SJ46WZDl4pwmOt/8hihE4eEvVWgla8LAxkFrjerYhclNAzTn1HW1AePkotKlBNWmu/WEpmapyzddGW2kINr/jd0jJP78ywqG9Bl/0I+Io9OnBksJb7exf/D2Zbjk/c4LxJo2/3gUieF/xpvpL057eVxfPYyjaU/oKodLWmcy15bVQT/ikdwSZi/2sA==
+ b=U2RIKzEITL88cNhd6y60vTLJ2/9WP+n4EFBHrYsng9qCMDwYnr5ib0Tz/pJQsJKIJiXstAtMzKzLZhGvIHZkSVTLmXs1n4tdt2uh2rud9M6Lck9V3B6tcf7HutkPMhAfLUkuYWsLFLd8SKuM10LI1LgyXh+SzCETtEh0eMDomW4pSQcJfaKQkWN98z91EO3AtRfn4nEz4qGz13j8Kj1ouex/UoD8rDJvjed9s9I15/ykHOpJo0UIIgBF0bUUIn0V69fyCZxJJ65lexbOwqyRewno3uDi8zO3w4MMXUXaE1tw0mDVmA5cRNjctY2azetU2nG/9A7KpCggTAG/vB9NEQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SC9sf93Q4j2nOL/LNLJPqZlePeL9zSikTqyce6bzi/0=;
- b=ubiyPAp/ltX73z9QVp3Y7GPP/JssgYq6zyqqzqkPi/M4HICFH13ojBUiQ78nQwla/HCtX8L93l2zshMiyHN7mOiodqIxw/84D1BfNTOMrh2WK0nlJk3xrUFHSmsiFOXqUTUgRRIR1jKG3qaIk/ofXM3dGTq4OO8yxpySsWQWNgdJAmarW6UlidxgWFtirM6t223bMrdtVjQd3MY3CUub6C6JNFefMQq9/P+yoJRQwIOaJOqAWFqmH3JAXozCkqcXalvFo5UhFjxxeUfJDVQ1nhediqDSdOgXzmiosdu0FimPvZCxoRpXgjWVFUikrgyVwLf4HgGFu+4SrRNOmPq+5Q==
+ bh=lK25zEuk3hkRxtcJYLKIoKUbc7RuoYwhAr3cfVhu8pM=;
+ b=RlloaudO09L4cQW5o1L0tvVAEsI8ld/hIrBCrtvHZx4G4TFEJuWNWa3kOzY4+WEPN2bt6FduWk2hF8gh8PLS8XbX+QjrGgRSvI74fppjd7RPdnXwQzkI8TWurUUoXUeZle07dW0vIo2EHKU6mSh1Y9V9AbT7I94OjW0QxDFRfVJPJh/VX5OaNHXXW9Ww182OsKZY4YfP+m0GmZquF5LyYTPIpZ2LXL9jjzMDUNwZSByUGLukas7JIMDydcho1x0zEjsVw/SVqMZxS4ZOv+tYOBLIcpQTsQZb+x1yuCOcv7USnnwUQWTN5djr0IpvKAFvheWytjriHCfkR4AHEoqkSA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SC9sf93Q4j2nOL/LNLJPqZlePeL9zSikTqyce6bzi/0=;
- b=HAt3s4/br4mNdI95xMzZLvIFGgzykAgLKeuBsJKMk/EbAzjB7jsl7qcR7alZuLdh1sIjquLl8+EyXFtTP2smvihsZlCX3QqoATAYVWqJb8rLKrzTNoWW6bnDbQeevDjyiYJCp6Yh0+er2owdkOChvVieI8rCWew8N9jGqX4QmGF5RxC4FQa/KLDcki1DwdSbjUK8Zws80c15Y9eKXqbsrQwEpqDBmrT/F2BIMk79z7Mh08xWozcoBAeBOBD6k+M4Nitz4ku0VgXKMhezJ6VVD8CAAWP2kptUwBnwJV1Dv5wICb/qzzENZqC/f+IyjOzuEkEvqg3SLESwx32axe9Kxg==
+ bh=lK25zEuk3hkRxtcJYLKIoKUbc7RuoYwhAr3cfVhu8pM=;
+ b=MomANC4GE7Lk87jzXNvUjR0pl7kDASrZhtK3of2rcIOLwqRakuZ03xnA0gysZ6OooDW7qUvuxcZayhC9sK6MEPp/6FSwWZ6DgFZ+vYo94f6Ch4zkvlcLYO0rHCHlHXXuyP4vbU/BM/0xUJkYw6M0cGZ4zVhek6GAfGr82m4CjFdmLLtlmXHJbIx4k8AbGpR9713V6Z0BVf5sV9rJkghyoPwERH/G2RvXmN9uUUnGbiB8nUmHUDlkVAGOxtJeyerZeyypqQrvHDC9Thk4uhB3Mf+k3VDr7v+wEqboQJW0N+ZjfRgFcMqkxOcI9kFYihEuKHtFE3eVEg8c7QI/EnlimQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by DM4PR12MB7623.namprd12.prod.outlook.com (2603:10b6:8:108::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Mon, 1 Jun 2026
- 01:44:43 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0071.011; Mon, 1 Jun 2026
- 01:44:43 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by LV9PR12MB9781.namprd12.prod.outlook.com (2603:10b6:408:2f6::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Mon, 1 Jun 2026
+ 02:10:56 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0071.015; Mon, 1 Jun 2026
+ 02:10:56 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 01 Jun 2026 10:44:39 +0900
-Message-Id: <DIXBZAZ9EKVY.3GG9PWHU1Q9Z0@nvidia.com>
+Date: Mon, 01 Jun 2026 11:10:52 +0900
+Message-Id: <DIXCJDV6UQW2.E1SHSJ8KLMFG@nvidia.com>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ "Sashiko" <sashiko-bot@kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
 Subject: Re: [PATCH] gpu: nova-core: gsp: tu102: keep unloading if FWSEC-SB
  fails
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Timur Tabi" <ttabi@nvidia.com>
-Cc: "dakr@kernel.org" <dakr@kernel.org>, "aliceryhl@google.com"
- <aliceryhl@google.com>, "airlied@gmail.com" <airlied@gmail.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "Alistair Popple" <apopple@nvidia.com>,
- "Zhi Wang" <zhiw@nvidia.com>, "sashiko-bot@kernel.org"
- <sashiko-bot@kernel.org>, "nova-gpu@lists.linux.dev"
- <nova-gpu@lists.linux.dev>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "John Hubbard" <jhubbard@nvidia.com>
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
 References: <20260531-nova-unload-fix-v1-1-c8dcdc769b53@nvidia.com>
- <312f8467da270e33f881cab7780692a49756871a.camel@nvidia.com>
-In-Reply-To: <312f8467da270e33f881cab7780692a49756871a.camel@nvidia.com>
-X-ClientProxiedBy: OS7PR01CA0112.jpnprd01.prod.outlook.com
- (2603:1096:604:258::10) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+In-Reply-To: <20260531-nova-unload-fix-v1-1-c8dcdc769b53@nvidia.com>
+X-ClientProxiedBy: TYCPR01CA0114.jpnprd01.prod.outlook.com
+ (2603:1096:405:4::30) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DM4PR12MB7623:EE_
-X-MS-Office365-Filtering-Correlation-Id: 596a053f-9019-4221-e1d8-08debf7f5a40
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|LV9PR12MB9781:EE_
+X-MS-Office365-Filtering-Correlation-Id: 52e93cdc-f7d8-4a4d-bf50-08debf830429
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|10070799003|4143699003|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: x/wkUrku8+krBdaxgJLh1BJsfOmTOrB3SQe34BX0ZpeylU+C+M1Eqcsf9Vc0GVy/u8ZpwGW17MnJz10wH38Jikq3LU4pcurbLIut7nH8gVIq/m5n0lm2YeTBo7o5ldP2pp2Qy2VqbLdF53IzBnORaHUnTl6HJ7+j4yOmRY4e2eUPpi5JaTqRdg+H67aFDiqFWe6w4Ohcu6FEebO9MRT69akOv+wEmspkdACN7dn9NLFSH+RNY19U40dUXFhSVVDxIJNlkXkQqKK2yOLXIkh28JMIDXsQ2z1XhGCKqE91LbNquEgQeaEWB7j6oD2r9sBSEDRLRejN1vwQ2wbZabNhY/v6At0l1jdeFEX88eQZi3d74jpTAokC0pjhycayl1eJz6Da75EZuOJXC4j8t/FwTs3w2QPxmspKH4jPlkKz0PnWzzMTzJVKcEBUbVHjaqmJCyL6NjZawQmVzcpC9QhUBsYh98mcVAnW/22Q9CI8vGqMcJalGHuFO9kBXqO69A7hx3CZMZgGbUhSWS8t1OdK270MLdo4oRj8n/S4hb130lr0/iEs3QQ1P8VRHz/3B4/DIACNES85ZTAWiTXYGGNy1Cp9k390HbKkwXGffrdrQ9g/PfddTrIZ2JihtqUCs1jIAZbcz/tWCg/+JcHRWKwbH2l1N0NS56oIXHescU+TUfJUODVsE+E1vxNNGMeZgrQP
+ ARA:13230040|1800799024|10070799003|366016|376014|22082099003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: nUrQpIUwj1nD43+Fe+Lpo+t7Hqm3pv+wvN4YCEpfVPy8CDz9xiIxjiVkFe/LzjRmhuVq1Yv9W7xjp2RSfN1xYLdpGmKLGU5nq1X6ykeDGw1b8a37gfUCFmXnqOuXFo1Vuc4DUtj6ewA8nIdcDzbuydsR/Oq4NtPpRYyF6ZNYzrZug2pdAK5KNpFBWUjfarEuPi0K0n4Q6uLFlEWgwLS3/f5LWUYU5U0fpg5NHHvpW1CTbibBJpjnejM5gVeiCtyFrh92P+vaJkNK1YtZ3pGqXH+xiNbUBaeCw6/xy4bn/CJ0t1z3GmsyE36ANGGphSNCbdoNDxhjS16Kh8FaoQ7xOLcZhoZCyoOF+ApIJTNfIa5PYVXS3dNt1WiyvBGjYCFDAmdXKA41Y3YR7xJnfcSXXRBlGzazwaqdyyaKtC/eqGw4RQE5vbQkfuou/UCyLa7VjMnSbpaF3nIcVN0rxlU09cObp+6IXRgU1r8rKQY5xZPV87L51j+qAoahT/w42Ln1yqsUC5UdUJuZupK9Nu+0WRO3MjSpgs1p5bqYyVo0oFLBwY0QIN8G1znMaPPM/1jSdrmdAobzdSZcO5t2rmol9KvUx68noNX11dCFhl1JLtRj0UsnfsJS6VyXmHWuRvrw+P9Yyoc1yRdbDjIpNlBYD8cgmrv9Np6ZxqC4mao3YsGS/yiADnY+7xUvXxlZSlxv
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(10070799003)(4143699003)(18002099003)(22082099003)(56012099006)(11063799006);
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(10070799003)(366016)(376014)(22082099003)(18002099003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UTZLVDdqQ1JneFdzaWI1RHJabmJHaTUwd1VJZHBwYWtSQlZhSmF4NzE3QlEv?=
- =?utf-8?B?TGorQ2J4b3czTlM3VGgvVW9yUTNDMlo2Q3VnQXFGa2ZVSUpsZmc3dUcrSkxL?=
- =?utf-8?B?SlMyalIydEs5SnlDMDlGYWxYR1RjT29oSTJ2VjFwTHJTUzRvS3ZvSEREaVU4?=
- =?utf-8?B?MXB0d3JqYWlPdnBDdk52WW9hcFVIN2RvVXJzaUZmT2Z0VnNYL0FKWHFsdUsz?=
- =?utf-8?B?aWQ5M3lTcDNYSENVTnJ0OUN4bmlSQm5jekNrMGRsNEsrZ2tPM1ZZcHRzYjQz?=
- =?utf-8?B?K0ZTczFFcWpUK0EraTlKUDA4MWhHRVU3QjJmNk8wTUJibGpkdG1zaXNrTHU3?=
- =?utf-8?B?WGxjeVh6WmdRWEpnbG5jZ3d4NXd3Nk5QQ2ZzN0t4UDZZUnJwQmJORlN6akVn?=
- =?utf-8?B?TmlUSXNBeXNrR0pVZE1Yc3ZEWnMvTENaczRLZ01wNFFuQkY2Q0pjYnZWNlRx?=
- =?utf-8?B?cVFJNHhRdDc0dzRvMkltaFJsWmNqTjJkOFh4U050cEl2cTl1Z1J3U1E3dm1h?=
- =?utf-8?B?enJvNmZZYm91V0lsRVZuWDRtQ3U5b3ZJTmZ2cFI2NmdBVWZMdGhmSmVCZjl1?=
- =?utf-8?B?dGs0MkpYUEUrdnlqRGFDRjJsbCs2NHZ4U3VzeFh2VHNBcHlYK3JUTXZUTW5P?=
- =?utf-8?B?a2dBRSs2WXUva3pMNmNqakUwVjRJalhjSnhVU0MrR2dDSGMrZjFuOHRXcmF2?=
- =?utf-8?B?UVZzM3oyRDBuSVgxK2hVYmhLN0w0dmJWbXY2Ni9XeTB4d0ttc2tGNEZQaHJ4?=
- =?utf-8?B?M2lIQWRGSnducExveFU3d3BURzlyMDJpSzNNY0Y4Q0xkdmtiV3NEM1QxOGlJ?=
- =?utf-8?B?d3pvMjExQ2RXRkFpWmxFRDJUczFZU2o5WWFSLzRZZjRyeUtTNlVCd3RzNUds?=
- =?utf-8?B?Q1FJcmZVeC94UWpxeENTaWpSM3JobkRJWDFRUnpwekdwTWJnLzkvUVMzenRI?=
- =?utf-8?B?UDNVVk9mT2FUdStpMXFtdDFDVkxQQk5sbjkzWStjMk9HdHJ4OXA1RmovNnNZ?=
- =?utf-8?B?KzRldFdXdjVSQlNqUVhxd1Bpb0tZVzNMcTJPd2REc2Y0djFWbmVKRkhXcXhl?=
- =?utf-8?B?dGRvZ1phWG56WmlMQUZSYjhTZ3FrWk9OZWgwU2c2RFgzcDB0NDllRnlwVndM?=
- =?utf-8?B?eUZxR1lSbzJ0V1Q4SFVFaFRtelUxS3BTZjhXVllybGZqbFM3VzhBRHl6S202?=
- =?utf-8?B?SFZzK2R4cERPZ0VpY2V5Y21HSWplRTdNeGk2N1JFbVZpWVRQU1daLzBESEtG?=
- =?utf-8?B?YW1EcUptRlkrYkxtRm9UVFNWUjA2bnhwTm53ZUx5NGMwQWwyUHoyMW83Ykdi?=
- =?utf-8?B?Vy9IR1AzMXF0ZVF5UWw2QVhVTk1aRTJDQ0FVYlpNenRMMDVQQXZPZTYvTmxn?=
- =?utf-8?B?d0RXNmFpc3YxWUFIOVJYVGRSbkp1bHhnN3RFcDhFUXl6OTRvRWRZMnJQdFZy?=
- =?utf-8?B?eVpkcUxEdGJJdEFXSnNpSFJhdFcrbGRnaFFPREFwL0hKeXFQanFab2lvc2VO?=
- =?utf-8?B?c1hZenlBaEFIR0RGT2k4MXVtM3NTNktXcjRaajhDam55WFErd2h6QkdoZFhF?=
- =?utf-8?B?TTE1dllGZjFYUWRLRE1hajV0VEpHMXJkTWNsdlJscy9iWWVWM1FZMEdlZHZH?=
- =?utf-8?B?dzQ3RGNsT1FGeVd0QURqbnpDdEJVN3RRNFYyQ1VqVEZUU2M5QWNFRWVPUVB3?=
- =?utf-8?B?THF6Q3h4OVlVcS9VUUR0dkROTTVJU2prUXRrSnFaYUZJNmM3SFlsMTdaUWFv?=
- =?utf-8?B?T3dVK083emdxZWNtWHVIUWlCbVBPZWIxN3ZDN2s4NEhSTGZNTjBSUTRpQUds?=
- =?utf-8?B?b21VOXpKbm5QLzlmWWhEQklKcmQ2L04wZUplanJXVjdGOWhDaWZRWmZGQ3Vr?=
- =?utf-8?B?dUVXemRnZUtzNXp6N3JnWVV0SnByTERveXFuV1FFcVZXT1NNUkNnNHRwc2sy?=
- =?utf-8?B?TVhNejhFdGNES28vcFk4ZnhDU2gxSGJja2VOVkx5RzRqcjhwNEhvdUhFQnU0?=
- =?utf-8?B?VlUydmdlWXp1VVNlT1l2SUdwZjBweG93SDFNcVhGaGZWNlhwZEFJMUlITmV3?=
- =?utf-8?B?Ynd1VzN2M0JxelVRSVdPTERtUkhKU3l5d0F2SHpsL2lKOFNkUUJxRnVWTzNt?=
- =?utf-8?B?MEpjTmJ2ZzFDQjNqUGF1U2xHZlVnRmtyOTRGZG0yMzJlOG1lSU94cFJMQkpk?=
- =?utf-8?B?bEx2WVFpUWltMHhyTjQ2aG11QmZOaEVTc3NhYmZKaXdCM0d4WTlac1hqcStk?=
- =?utf-8?B?RndLYWpvV0hBZDFYRjVaV0pWYTB1aU5oalB0dEduZ0MyRTdncnZtY29LcVlR?=
- =?utf-8?B?eTRaTnU3Q1RGc2VsakxROENySGRja2hpb0hTcTF1OXR3bHFCeFNSZWhkT2lh?=
- =?utf-8?Q?pKrHaZIW2EVdufho0f81gjyMlrIzcOta9bH2n1S0c+l5/?=
-X-MS-Exchange-AntiSpam-MessageData-1: rnGSjZNr+DEMTQ==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U1VFNHRxeHNjeXFHS01jSXJUckRoaGNaM3ozaVhKWjRIMERNaVg0VzZQMHdG?=
+ =?utf-8?B?TlpEaGZ6MWRCQlhxbVQxTEVMNE4wSHJBaFlUWDg5Ukl4c0Q1WjZZUTY1Q1ZZ?=
+ =?utf-8?B?d3EzdHBnT1VUUlgvM2x3c01BRXlXam5RZG5Yc3VoWDlNMVU1YVZxRUxCcEVm?=
+ =?utf-8?B?Y0JBODBuQXFGNE12RnJuRTk5czJYbmE4eEJWS1RyQzAyWUFtbTRTZWd4NjBJ?=
+ =?utf-8?B?ZzZJb0FSN3BOZCtpdTBYUGxIdXAyM2dGQWF6bVg3RlpqeWlCLzdPMDlmWmlU?=
+ =?utf-8?B?OExxUE16T0NsWGdCLzFPNnVNM0I5akxUWU9jMHcwbGJ0cmhGa0pSb2ZiK2NS?=
+ =?utf-8?B?VDVVektMd3huRitBTFpUcEhvaGo4cU5DZ2VGTEVjSlFsVEI4M1pPL1VVeG9U?=
+ =?utf-8?B?RjhIajUvT2Vkci9Fb0p1bU9Da1Y5aEhHUUMrelFWSmJDUWZWNm0xZmNiNkEr?=
+ =?utf-8?B?Q2VkOENhSkQ1cDFIcVROT2dJRU9rUWpNcmNtYk80Zm5wYndRNDdqdUJSaEdW?=
+ =?utf-8?B?SnVMbmdJSGZhR0ROb3AwRU9RUFJZeXQ2d3FJOHdSd0I2STJpbFZLYkZ2VUFo?=
+ =?utf-8?B?V1RIeTVESFAvUEFBaW8xRW4vY2lVNWZselVKUWtLUTkydWp5b1JybmI3VVRV?=
+ =?utf-8?B?dUVXbk5vdHZWbC8vNllZSm9HWUNvRW9qdUs2MnlWN3hYNEtwbS9HMkg3RG9L?=
+ =?utf-8?B?b0FHRVR1MEJ3cndBTnBJVFpSazc4a1E5RzQwUTk0M2doamkwRVJ3RnE3SGZX?=
+ =?utf-8?B?Ukt6b2gvSUNhZVBaS0pzVEpodGdpM01tRjJQNE1oOWtIbFhaTGVjMTdWZCsw?=
+ =?utf-8?B?aGNpRyt4YVN3aDFHekJRWTNYeDNvbmxDRm56WCs4SlUwbForSXlDYjBSN1dK?=
+ =?utf-8?B?ZEExUXFOTVlycE1qU3FJUXFEaFZNdVNZTGJENEdPQVVOajBjSEEwQlY2YlVt?=
+ =?utf-8?B?bWIyOW9hcThrV2NwWEp6Smp5cURTamlJUkdLUUNpSGp6d3ByTlRjS2hiQytv?=
+ =?utf-8?B?SjV1bjJjc1E0R3V4dEd1QlpQeGpIQ0k5NVBRNUZidmlzczVvcDF0OHdSOFJK?=
+ =?utf-8?B?T01lUW9JcVBJSjdjZ2FNUHM2WVdxNGl6R29xbGRSK2hjMWYwTHlXbUZoYU9C?=
+ =?utf-8?B?ejVWUVV6dG5CRkJJUTBZVVlZVGJyNURDeGlTaHhkZ0RDQTM1YVlJZzFhSCtL?=
+ =?utf-8?B?c3BqSEhWa1ZTMEV1NjNyTjkxcnZXOENJaXVXYzNLQWNZUlMyaVB5cEJxb3dD?=
+ =?utf-8?B?bzhiTWI3UnBTUWdFQ20rNytpMmk5akkyTW91S3ZtWmlRdkJMVWNBV2JjOEtO?=
+ =?utf-8?B?VDF1TENzSGUwcU5vdk55YXBhYytpZmJOMUVweVl6VzF6MkkvTEdXV0pvWk1G?=
+ =?utf-8?B?c1VoSnN1R2ZTdzlSR1NwN1U0VVVFN2FxblhESWhZak9jeWx2TTBuU3BnMWpP?=
+ =?utf-8?B?UzNLTVZ4NlJlUU5ObWZyREYxZzlZcGM3RHBmNjZZLzY0Rm11UkYyQ0kvVGdn?=
+ =?utf-8?B?RENMSjlLbW1nS09PUzBjL0pnNzZEZHVWMVRsc09LMGFUWlRhVFpQZ0ljN1pW?=
+ =?utf-8?B?QVdjM1BkSStJbmc4YWZPNHhSdXJIcHhXbVc3R3dxWk1yQkxFaXpLdndUQWVN?=
+ =?utf-8?B?T0lLa3daTmpYUC94RVhsNWd4NitnQlRaMjRVMmswQ0tobHF1dFowMy9ZamNt?=
+ =?utf-8?B?QlB5b0tkTjdJczNJK0NQSjkyNEpYVjV3b0RRcGF3bkVSK1dpWDMxNFJHMmNy?=
+ =?utf-8?B?ZDdmMjJlbUs5eS8xMzQ0amZaTkd2Sk1jSEIyUFdMRmhBYldMR1JaTWdqSk9L?=
+ =?utf-8?B?S0Z6bzk0cFAwY012MlBxNEdUWjU4ZDJVMW9qT3FtMXRja1FHTXdnUHE3QWkx?=
+ =?utf-8?B?ZnROZ2NNZnorSjNhRGpvcXprbUFUZ0NYY1dLczJ0eE5mMGhqU3JwL1AxUE9w?=
+ =?utf-8?B?K1NGUVg1ZnZ0ZlpmOFAwcTNWdlpIMkgxV1JrUjVWTWY3OEk1VlNyWExLVk1p?=
+ =?utf-8?B?RmJ0R2U3Q2VQWFhSSlBKNkIxbjhqeDR2RWhxNnI4MUVOcUtVWFFWb3VuTzNs?=
+ =?utf-8?B?c1lxTnFBUkdlbkwwTkNGbExuVTZhSzF5RXRGa1B3cXNDUDNteU0vN0d1clNn?=
+ =?utf-8?B?b29POWZHWWFDNElDYi9LWmR2bVVhU0lZa0ZCZUpoWEF0eFNmUXg3YzVTa0lR?=
+ =?utf-8?B?V20xd2dVS2drSkR1Y0xwV3NKbVlnZGxiai9VeGVnU1I1T04xYjUrclRnV3hZ?=
+ =?utf-8?B?UjNVNVpxa002Ni9oSVZzL2xoWmpuU1lvMStzZHlENHRUMGtBTjhVcFU5L3Q4?=
+ =?utf-8?B?eEpyQ0ZkNzAzZ0F5VklOSDY3R0xCdjVQbFIyb0F4RWxRcGtEMjkwSUhoT29j?=
+ =?utf-8?Q?AK/pxApk7HHHSpFaxJJdMQyALQxm4F9fLYWw9Ep/oEAvT?=
+X-MS-Exchange-AntiSpam-MessageData-1: E580vyehkcbpGA==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 596a053f-9019-4221-e1d8-08debf7f5a40
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52e93cdc-f7d8-4a4d-bf50-08debf830429
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 01:44:43.3764 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 02:10:56.6401 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XJKtNOoFV0yvUGrjVgR2QZH2ry0yIPFSdBf0fhdpRd/p3N2TZO/iP9BcS8Esb2VfjYoZdBFiRR8TmM357g6cew==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7623
+X-MS-Exchange-CrossTenant-UserPrincipalName: lPU+KgBA1EhZbxs7lsO1a3M96kfvnp3PC6nJlcOWO2ZYyF5sKi88HTKzPrdxGTYA41Lh3Ki6Up5OaiXriDP/pw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9781
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,79 +146,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Jun 1, 2026 at 3:41 AM JST, Timur Tabi wrote:
-> On Sun, 2026-05-31 at 21:37 +0900, Alexandre Courbot wrote:
->> On Turing and Ampere, resetting the GSP involves running two firmware
->> images: FWSEC-SB and Booter Unloader. They are independent from one
->> another, and we should do whatever is possible to restore the GSP's
->> unloaded state even if a failure occurs along the way.
->>=20
->> Thus, keep going and run Booter Unloader even if the execution of
->> FWSEC-SB failed.
->>=20
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Closes:
->> https://sashiko.dev/#/patchset/20260529-nova-unload-v7-0-678f39209e00%40=
-nvidia.com?part=3D3
->> Fixes: adb99ce3cc78 ("gpu: nova-core: run Booter Unloader and FWSEC-SB u=
-pon unbinding")
->> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
->> ---
->> This was caught by Sashiko; I unfortunately noticed it after pushing the
->> series, but having it as a follow-up is beneficial regardless as it
->> allows more time for review.
->> ---
->> =C2=A0drivers/gpu/nova-core/gsp/hal/tu102.rs | 18 ++++++++++++++----
->> =C2=A01 file changed, 14 insertions(+), 4 deletions(-)
->>=20
->> diff --git a/drivers/gpu/nova-core/gsp/hal/tu102.rs b/drivers/gpu/nova-c=
-ore/gsp/hal/tu102.rs
->> index a033bc892066..b10215190257 100644
->> --- a/drivers/gpu/nova-core/gsp/hal/tu102.rs
->> +++ b/drivers/gpu/nova-core/gsp/hal/tu102.rs
->> @@ -134,11 +134,19 @@ fn run(
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sec2_falcon: &Falcon<Se=
-c2>,
->> =C2=A0=C2=A0=C2=A0=C2=A0 ) -> Result {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // Run FWSEC-SB to rese=
-t the GSP falcon to its pre-libos state.
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 self.fwsec_sb.run(dev, bar, =
-gsp_falcon)?;
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // Log errors but keep going=
- if it fails.
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let fwsec_sb_res =3D self
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .fws=
-ec_sb
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .run=
-(dev, bar, gsp_falcon)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .ins=
-pect_err(|e| dev_err!(dev, "FWSEC-SB failed to run: {:?}\n", e));
+On Sun May 31, 2026 at 9:37 PM JST, Alexandre Courbot wrote:
+> On Turing and Ampere, resetting the GSP involves running two firmware
+> images: FWSEC-SB and Booter Unloader. They are independent from one
+> another, and we should do whatever is possible to restore the GSP's
+> unloaded state even if a failure occurs along the way.
 >
-> Shouldn't this be dev_warn?
-
-I guess that's subjective, but since it is technically an error that is
-likely to prevent the driver the reload I think `dev_err` is the right
-level here.
-
+> Thus, keep going and run Booter Unloader even if the execution of
+> FWSEC-SB failed.
 >
-> Also, how did you test this?  Have you tried breaking the FWSEC-SB code a=
-nd telling
-> booter_unload run anyway, and seeing if you can still reload the driver? =
- Sashiko said this:
->
->> Since FWSEC-SB (running on gsp_falcon) and the Booter Unloader (running
-> on sec2_falcon) are independent cleanup steps, returning early here bypas=
-ses
-> the Booter Unloader execution entirely.
->
-> Are we sure they really are independent?  What does RM do?
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260529-nova-unload-v7-0-678f3920=
+9e00%40nvidia.com?part=3D3
+> Fixes: adb99ce3cc78 ("gpu: nova-core: run Booter Unloader and FWSEC-SB up=
+on unbinding")
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> ---
 
-This is not really about being able to reload the driver afterwards if
-FWSEC-SB fails - in all likelihood we won't be able to, although that
-ultimately depends on where and how hard FWSEC-SB fails.
+It seems that in openrm and nouveau AFAICT these two cleanups are both
+done regardless if either fails.
 
-The reason for doing this is more to stay consistent with our teardown
-policy [1], which is to keep going even if one step fails.
+Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
 
-[1] https://lore.kernel.org/all/b5fb1462-c409-4ddc-a6c4-a83dcfaeae63@nvidia=
-.com/
+nit: it seems odd to me to log on fwsec-sb failure but not on booter
+unloader failure.
