@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA8CDCD6E57
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 16:14:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29C95CD6E64
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 16:14:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3AE211357B;
-	Mon,  1 Jun 2026 16:14:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20BBD11356A;
+	Mon,  1 Jun 2026 16:14:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="MN34eHFV";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="VdwC11Cu";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D65F111356A
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 16:14:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8812A11357B
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 16:14:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1780330444;
- bh=VlC/qSkXRHe1XHonNDu7WZ4SGBpZ/1wCRHaV181IEg0=;
+ s=mail; t=1780330445;
+ bh=oWaRZrCK6p6EhmYmIaUvimw67y77UHwLcU6Pm0N+SeM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=MN34eHFVkCDT20BHVot1vjZ8uiNSZRY6VBXX5g6qZZ4+I3yyoNWUbCPhhGq33vBW+
- ccG6TU8SI3vn5XyZDP/o9ZI0YOsyMY4rVoy9r4I6TeoCiEy0ZEm8jn1k9rpN5F1SES
- y5unEMQ08MWEQxIDg6CRllM+1BJGpTito1EHsqACHx7O0kxHXp9xoU7t00AmAtiyR0
- HVqre3RqAUk7SURh/k/GYvWOU1cnLJmh8EerjOYYFxxkp9+zT9ltghyOnaBUG5WP3C
- UKV1iKgIPePC24cMSG3itCGCI5BOiMbl8tIdO5IH7bwy6QteQvq+yznZThx2DLAu1r
- 0I82/K+FoWq3g==
+ b=VdwC11CumGLjmVexkqo9rjyudUduE8Hcdwz2Y/imx5cgfXqMyjVp6GqgyO2R3XZEk
+ XdhXVL4wIheu797YPSxgNh4kxVuYlHMiWdH8+wLlRalHGv5lxbxcNe7jY8vAoCInoX
+ RBUVxTmjo6UWp3TlT2XjQky0LaDAxaIqYROl0Y9OyAKWrriyEDwzvjRobD3eUkmo6C
+ muMJP6Zrkt+ELYcqrTTryGKTKO4PLh6qfmBGZuSAA6migPhMZxbw4zxzE6rV6YaHf6
+ dUzX928vOVVAOJ1+QZyjLHK5MZDuAc0sB4mVlfdv+NqCVkaflSS9nYkc/JAuzZxWGX
+ +4cvj3BwNPEjw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 69AAC17E093F;
- Mon,  1 Jun 2026 18:14:04 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 2A35B17E09A3;
+ Mon,  1 Jun 2026 18:14:05 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Mon, 01 Jun 2026 19:13:45 +0300
-Subject: [PATCH v4 2/3] drm/rockchip: dw_dp: Add missing newline in
- dev_err_probe() message
+Date: Mon, 01 Jun 2026 19:13:46 +0300
+Subject: [PATCH v4 3/3] drm/rockchip: dw_dp: Release core resources
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260601-drm-rk-fixes-v4-2-c3f3f123e1da@collabora.com>
+Message-Id: <20260601-drm-rk-fixes-v4-3-c3f3f123e1da@collabora.com>
 References: <20260601-drm-rk-fixes-v4-0-c3f3f123e1da@collabora.com>
 In-Reply-To: <20260601-drm-rk-fixes-v4-0-c3f3f123e1da@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -75,29 +74,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the missing trailing newline to dev_err_probe() call in
-dw_dp_rockchip_bind().
+Core resources such as the DisplayPort AUX channel get initialized and
+registered during dw_dp_bind(), but are never unregistered, which may
+lead to memory leaks and/or use-after-free:
+
+[  224.661371] BUG: KASAN: slab-use-after-free in device_is_dependent+0xe0/0x2b0
+[  224.662015] Read of size 8 at addr ffff00011aee8550 by task modprobe/658
+[  224.662612]
+[  224.662752] CPU: 7 UID: 0 PID: 658 Comm: modprobe Not tainted 7.0.0-rc2-next-20260305 #14 PREEMPT
+[  224.662759] Hardware name: Radxa ROCK 5B (DT)
+[  224.662762] Call trace:
+[  224.662764]  show_stack+0x20/0x38 (C)
+[  224.662772]  dump_stack_lvl+0x6c/0x98
+[  224.662777]  print_report+0x160/0x4b8
+[  224.662783]  kasan_report+0xb4/0xe0
+[  224.662790]  __asan_report_load8_noabort+0x20/0x30
+[  224.662796]  device_is_dependent+0xe0/0x2b0
+[  224.662802]  device_is_dependent+0x108/0x2b0
+[  224.662808]  device_link_add+0x1f8/0x10b0
+[  224.662813]  devm_of_phy_get_by_index+0x120/0x200
+[  224.662819]  dw_dp_bind+0x34c/0xb10 [dw_dp]
+[  224.662830]  dw_dp_rockchip_bind+0x194/0x250 [rockchipdrm]
+[  224.662864]  component_bind_all+0x3a8/0x720
+[  224.662869]  rockchip_drm_bind+0x120/0x390 [rockchipdrm]
+[  224.662899]  try_to_bring_up_aggregate_device+0x76c/0x838
+[  224.662904]  component_master_add_with_match+0x1f4/0x230
+[  224.662909]  rockchip_drm_platform_probe+0x420/0x538 [rockchipdrm]
+[  224.662939]  platform_probe+0xe8/0x168
+[  224.662945]  really_probe+0x340/0x828
+[  224.662950]  __driver_probe_device+0x2e0/0x350
+[  224.662954]  driver_probe_device+0x80/0x140
+[  224.662959]  __driver_attach+0x398/0x460
+[  224.662964]  bus_for_each_dev+0xe0/0x198
+[  224.662968]  driver_attach+0x50/0x68
+[  224.662972]  bus_add_driver+0x2a0/0x4c0
+[  224.662977]  driver_register+0x294/0x360
+[  224.662982]  __platform_driver_register+0x7c/0x98
+[  224.662987]  rockchip_drm_init+0xc4/0xff8 [rockchipdrm]
+
+Since a previous commit exported dw_dp_unbind() function in DW DP core
+library to take care of the necessary cleanup, use this in the
+component's unbind() callback, as well as in its bind() error path.
 
 Fixes: d68ba7bac955 ("drm/rockchip: Add RK3588 DPTX output support")
-Fixes: 26cb3e26efa7 ("drm/rockchip: dw_dp: Simplify error handling")
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-index 32bc73a1d5e4..f137f699737c 100644
+index f137f699737c..0de822360c8d 100644
 --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
 +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-@@ -109,7 +109,7 @@ static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *
+@@ -107,15 +107,26 @@ static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *
+ 		return PTR_ERR(dp->base);
+ 
  	connector = drm_bridge_connector_init(drm_dev, encoder);
- 	if (IS_ERR(connector))
+-	if (IS_ERR(connector))
++	if (IS_ERR(connector)) {
++		dw_dp_unbind(dp->base);
  		return dev_err_probe(dev, PTR_ERR(connector),
--				     "Failed to init bridge connector");
-+				     "Failed to init bridge connector\n");
+ 				     "Failed to init bridge connector\n");
++	}
  
  	return 0;
  }
+ 
++static void dw_dp_rockchip_unbind(struct device *dev, struct device *master,
++				  void *data)
++{
++	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
++
++	dw_dp_unbind(dp->base);
++}
++
+ static const struct component_ops dw_dp_rockchip_component_ops = {
+ 	.bind = dw_dp_rockchip_bind,
++	.unbind = dw_dp_rockchip_unbind,
+ };
+ 
+ static int dw_dp_probe(struct platform_device *pdev)
 
 -- 
 2.54.0
