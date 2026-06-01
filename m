@@ -4,74 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E17D3CD6E56
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 11:17:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19C5BCD6E56
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 11:18:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 522301131FA;
-	Mon,  1 Jun 2026 11:17:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 772B91131FB;
+	Mon,  1 Jun 2026 11:18:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="cPbFnAeS";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="UaQKAz1Q";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8D771131FA
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 11:17:43 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gTWdw0pXfz9tZ4;
- Mon,  1 Jun 2026 13:17:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1780312660; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=D04O1XsCuuemXbY2YVN0rSer7xhr48HKYGRqzuFlAPQ=;
- b=cPbFnAeSy9iiIQhi43evWGZcVGFHTXNPXi90ZHOokjf+XuWUCknF67LUcSNjDtcSTfW6J0
- M3Q7eVk0KtSZVwvmLiX0nE77hu9cIojWChsZv0J/XTVlU99Bi/9nfwZzkjJU42dVIXyMhG
- ZYdaq1qcoGXROeuiPa1vTaDuI0cgs4L9uEy5Gy9KNcrLJDBMUXa+aCuyBi5IhFo1kcgCfj
- 0I8T3aZMcEXrHP4wdyYzMnr4wbIDJPYLp8MoDAuRCFstfuUs7HQb85JEOBjMt2uepu7+oB
- JELjiEK73LfBi3MjC4qn4bGNbFTYTBQtF4ABkbVVGotTOUTaoXz6SH6udW6HmA==
-Message-ID: <df2daf200c9a69f497f4285074d2a95425b3dbdd.camel@mailbox.org>
-Subject: Re: [PATCH 3/4] rust: Add dma_fence abstractions
-From: Philipp Stanner <phasta@mailbox.org>
-To: Boris Brezillon <boris.brezillon@collabora.com>, Alice Ryhl
- <aliceryhl@google.com>
-Cc: Philipp Stanner <phasta@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	 <bjorn3_gh@protonmail.com>, Benno
- Lossin <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich	 <dakr@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, "Paul E. McKenney" <paulmck@kernel.org>, 
- Frederic Weisbecker	 <frederic@kernel.org>, Neeraj Upadhyay
- <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, Josh
- Triplett <josh@joshtriplett.org>, Uladzislau Rezki	 <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>, Mathieu Desnoyers	
- <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>, 
- Zqiang <qiang.zhang@linux.dev>, Daniel Almeida
- <daniel.almeida@collabora.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Igor Korotin <igor.korotin@linux.dev>,
- Lorenzo Stoakes	 <ljs@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
- FUJITA Tomonori	 <fujita.tomonori@gmail.com>, Krishna Ketan Rai
- <prafulrai522@gmail.com>,  Shankari Anand <shankari.ak0208@gmail.com>,
- manos@pitsidianak.is, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- rcu@vger.kernel.org
-Date: Mon, 01 Jun 2026 13:17:27 +0200
-In-Reply-To: <20260601125933.17ca4dd5@fedora-2.home>
-References: <20260530143541.229628-2-phasta@kernel.org>
- <20260530143541.229628-5-phasta@kernel.org>	<ah1glmXDM-OAKa5h@google.com>
- <20260601125933.17ca4dd5@fedora-2.home>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56FB91131FB
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 11:18:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1780312667; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=MtOIe2F2NDU7+6mRWpfmiGDgJgT9if9OJXK+XzOhhP3mWFk6jInA9u7uaOKBK1A14n6BCmDPM5MX48j50/0AUFFfzv37mT6StsL9Xv9riA5VP4j9pQ0d27AD/kLKQkeiBBWzlxICwY5W8/8gwBH20zu6bico+q11hVwl6JDMfn8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1780312667;
+ h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=OXhsAs0eCmvLurN/cUXZy1negkPi8CtoEtem/pwCT58=; 
+ b=a4gkjZ3BXGtg4eM0EUHe97RGPxrctKIW3IMWgF1jJZPH4MVHh5qO4kikmzEK3ee2Lq3Brl6QdlKMZI0N6aXgS8tEXgQADzX3n5+fDMFMGiLHMmSv0KYk9gOd0kg3vPwenJAHFleUwuzxV8X27bMJbhERXElqQ5vU0elDhxv6m9U=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+ dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780312667; 
+ s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+ bh=OXhsAs0eCmvLurN/cUXZy1negkPi8CtoEtem/pwCT58=;
+ b=UaQKAz1Qgs2xRvCGBSg9mdYEpg9ZgRAPZ2sPvm8EMEoeuUZM64vsW69Vfnps9rMx
+ TGU7x4exz8BPM8o7ZeTSjpAx+N4I2Kx9cmeTUL+YjXBNNvZgDu5s0wrhAgiHIIP+bPR
+ WPIpGtO3yKMmfOZ1uMSvd0y0uHQqHtv+NHzHH6a0=
+Received: by mx.zohomail.com with SMTPS id 1780312664410658.9277971875678;
+ Mon, 1 Jun 2026 04:17:44 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+ id 03508181D80; Mon, 01 Jun 2026 13:17:39 +0200 (CEST)
+Date: Mon, 1 Jun 2026 13:17:39 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Detlev Casanova <detlev.casanova@collabora.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, kernel@collabora.com
+Subject: Re: [PATCH] drm/bridge: dw-hdmi-qp: Return -EOPNOTSUPP in HDMI audio
+ functions
+Message-ID: <ah1pBCZhCSuoHIBk@venus>
+References: <20260519-fix-hdmi-audio-warnings-v1-1-9608966c993f@collabora.com>
 MIME-Version: 1.0
-X-MBO-RS-META: e4utjoyocfe4p1fqaetun1euskdi8cyn
-X-MBO-RS-ID: b921df505de11e783e6
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="jkxgxidvvfygd4in"
+Content-Disposition: inline
+In-Reply-To: <20260519-fix-hdmi-audio-warnings-v1-1-9608966c993f@collabora.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.2.1.5.2/280.300.36
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,74 +76,108 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-06-01 at 12:59 +0200, Boris Brezillon wrote:
-> On Mon, 1 Jun 2026 10:36:06 +0000
-> Alice Ryhl <aliceryhl@google.com> wrote:
+
+--jkxgxidvvfygd4in
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] drm/bridge: dw-hdmi-qp: Return -EOPNOTSUPP in HDMI audio
+ functions
+MIME-Version: 1.0
+
+Hello Detlev,
+
+On Tue, May 19, 2026 at 02:00:11PM -0400, Detlev Casanova wrote:
+> -EOPNOTSUPP is not logged as an error by the ASoC subsystem, but -ENODEV
+> is.
+> It also better represents the situation: The operation is currently not
+> supported (because clocks are not enabled and tmds_char_rate is
+> unavailable), but the hardware is present.
 >=20
-> > > +};
-> > > +
-> > > +use bindings::ECANCELED;
-> > > +
-> > > +use kernel::str::CString;
-> > > +use kernel::sync::{
-> > > +=C2=A0=C2=A0=C2=A0 aref::{
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ARef,
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 AlwaysRefCounted, //
-> > > +=C2=A0=C2=A0=C2=A0 },
-> > > +=C2=A0=C2=A0=C2=A0 Arc,
-> > > +=C2=A0=C2=A0=C2=A0 ArcBorrow, //
-> > > +};
-> > > +
-> > > +/// VTable for dma_fence backend_ops callbacks.
-> > > +//
-> > > +// Mandatory dma_fence backend_ops are implemented implicitly throug=
-h
-> > > +// [`FenceCtx`]. Additional ones shall get implemented on this trait=
-, which then
-> > > +// shall be demanded for the fence context data.
-> > > +pub trait FenceCtxOps {}=C2=A0=20
-> >=20
-> > This empty trait is unused.
+> Using -EOPNOTSUPP in the audio_prepare callback removes possible repeated
+> warning log lines when HDMI is not connected.
 >=20
-> I had initially suggested to add the F type (AKA FenceData) passed
-> around in multiple places type as an associated type
+> Returning -EOPNOTSUPP in the audio_enable callback is also needed as it
+> avoids logging 0-valued ELD errors.
 >=20
-> pub trait FenceCtxOps {
-> =C2=A0=C2=A0 type FenceData: Send + Sync;
-> }
+> When tmds_char_rate is available, the clocks are enabled and the
+> functions will keep returning 0 as before.
 >=20
-> so we don't have to pass both F and C. The reasoning here is that:
+> Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
+
+Fixes: fd0141d1a8a2a ("drm/bridge: synopsys: Add audio support for dw-hdmi-=
+qp")
+
+Greetings,
+
+-- Sebastian
+
+> ---
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
 >=20
-> 1. We expect we'll have to define more methods to the FenceCtxOps trait
-> at some point, so adding it now kinda makes sense.
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/d=
+rm/bridge/synopsys/dw-hdmi-qp.c
+> index d649a1cf07f5..270c8c47d853 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> @@ -469,8 +469,10 @@ static int dw_hdmi_qp_audio_enable(struct drm_bridge=
+ *bridge,
+>  {
+>  	struct dw_hdmi_qp *hdmi =3D dw_hdmi_qp_from_bridge(bridge);
+> =20
+> -	if (hdmi->tmds_char_rate)
+> -		dw_hdmi_qp_mod(hdmi, 0, AVP_DATAPATH_PACKET_AUDIO_SWDISABLE, GLOBAL_SW=
+DISABLE);
+> +	if (!hdmi->tmds_char_rate)
+> +		return -EOPNOTSUPP;
+> +
+> +	dw_hdmi_qp_mod(hdmi, 0, AVP_DATAPATH_PACKET_AUDIO_SWDISABLE, GLOBAL_SWD=
+ISABLE);
+> =20
+>  	return 0;
+>  }
+> @@ -484,7 +486,7 @@ static int dw_hdmi_qp_audio_prepare(struct drm_bridge=
+ *bridge,
+>  	bool ref2stream =3D false;
+> =20
+>  	if (!hdmi->tmds_char_rate)
+> -		return -ENODEV;
+> +		return -EOPNOTSUPP;
+> =20
+>  	if (fmt->bit_clk_provider | fmt->frame_clk_provider) {
+>  		dev_err(hdmi->dev, "unsupported clock settings\n");
 >=20
-> 2. In the current design, we've assumed that a Fence can't live/be
-> created outside of a given context, so there's no world where the
-> FenceData wouldn't be known by the FenceCtx implementation, and forcing
-> users to pass F and C around seems needlessly verbose.
+> ---
+> base-commit: 1a2ab0feaa23147e347b4d4cb79cb3fc392118eb
+> change-id: 20260519-fix-hdmi-audio-warnings-139062ec00b9
+>=20
+> Best regards,
+> -- =20
+> Detlev Casanova <detlev.casanova@collabora.com>
+>=20
 
-I had investigated that, but found that this causes us to write things
-like
+--jkxgxidvvfygd4in
+Content-Type: application/pgp-signature; name="signature.asc"
 
-DriverFence<T> (where T is the FencCtx generic)
+-----BEGIN PGP SIGNATURE-----
 
-and then in the actual implementation use
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmodakcACgkQ2O7X88g7
++pppiRAAnOCwUHwGAXwKknIc6RDWsixgxUqdd3h2PptUCxTZsmbHOoDuMsvS02it
+ciD4i6wF0/9VeljJYQgEulE8fFlIAy5JF/S7b6+xusjQVNGH60q1+3l+PPKtlXcD
+IumpN5EP9xq9DYOOsRpbRCjyoRIBd592N7QbxcWTZKL+hM/4fiQi/1a3BZM6K1xy
++LEVkiM5JY7kifxsddFnbW4b37nPSuT+1pznd4OQImGq0QRqD2jDUXIB9ivJjIrC
+s8Z2ya29NahHTKqnurrXKlN/HRYYWL/Tw9XPVEGLUE1YovIxtsVVDYwRSI39/MjU
+vqh0JaQZzwIUjD6BGOczdthn1j0S51Mwi4jMVB+auzKGUtAZWkx8R/jusFnqvxgC
+TPDPTw2haz5ATjCW7STwI99BTPz08Q0UUE8Tt6mhTa2np0A8qI30GjAuEQ5RZ/OC
+muAytgfezVfCEOfttXnSDWs1rK2EV4LpQSDrrfLbZz7sUKFMKEnESphBUZlQBaIM
+KA9pXnfke4Ra0Ai9A6WT38WmSHz2y08f/KgBEFoUdh6bjwyENh51XDcgnz9ZsKpA
+hxmRkG9pat/u8W6zOCNihcq4L1VYpyob/6wkiLxzA/c1rRaF3wIYJuDrktXTfWio
+RnO/+HeBf+AbdyB2rs968CQWzg5FDqbr/abQwQQiq9kiRwgZwrw=
+=hu1F
+-----END PGP SIGNATURE-----
 
-T::FenceData
-
-which reads very weird IMO. Because now for reasons a fence's own data
-are not referred to in its own implementation, but you derive it from
-the context.
-
-I do prefer it in a way where the DriverFence generic does appear in
-said fence's actual code, on equal rank with the FenceCtx.
-
-I suppose that is actually one use case for which PhantomData does
-exist.
-
-
-P.
+--jkxgxidvvfygd4in--
