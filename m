@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD157CD6E62
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 10:30:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7E3FCD6E55
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 10:30:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAEF8113190;
-	Mon,  1 Jun 2026 10:30:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2840011317D;
+	Mon,  1 Jun 2026 10:30:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="ZX6x9eiB";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="GQm6PenR";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 422EE113195
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 10:30:04 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FFFC11317D
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 10:30:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1780309803;
+ s=mimecast20190719; t=1780309828;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Wi97KWGdJTdWq3IdYpsAWLx4xopc99EofOMqrefmH9Q=;
- b=ZX6x9eiBPV38y8Bjz6hiGqz3TItoF+lCpb9j6fw+st8riYtmvSsQRYg4OF3YhGc+reI/Xa
- 348RIHXwT5aIiala50ZB8/GarJFHxjeF16d22Kpbt/FXc+euOfsA53i0Wfv7rAqYmfVuyB
- eR0zxHGFKuRt8YreH7uy9/zLCDPEbBk=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=m5PnIUHVz9ACSP+/e7SnC4cD1TL+Z3tg4EIuDM06718=;
+ b=GQm6PenRqlHE5fwAvh+yBpQ2UAw1QmnxoIow7O6zDOsku8TzYA8QdOyu3j6l42Q8L6yizA
+ 5a51IR6zIJR1uWwRz+k2MmEajcFk0WuFqy9wnSqKh5LCcXCM5yv89TPmlIFNRY2FRoVaWv
+ s6u9HfZ18Lg58gep2XyVg2OvnJBRT1w=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-673-Op4qeAhCOD-Kzpk3mfR0Vw-1; Mon, 01 Jun 2026 06:30:02 -0400
-X-MC-Unique: Op4qeAhCOD-Kzpk3mfR0Vw-1
-X-Mimecast-MFC-AGG-ID: Op4qeAhCOD-Kzpk3mfR0Vw_1780309801
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-45eebc943bfso1906422f8f.0
- for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 03:30:02 -0700 (PDT)
+ us-mta-428-M1AIPUtyO8CTz6ZLvOXBmg-1; Mon, 01 Jun 2026 06:30:27 -0400
+X-MC-Unique: M1AIPUtyO8CTz6ZLvOXBmg-1
+X-Mimecast-MFC-AGG-ID: M1AIPUtyO8CTz6ZLvOXBmg_1780309826
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-49045f93baeso68353425e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 03:30:27 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780309801; x=1780914601;
+ d=1e100.net; s=20251104; t=1780309826; x=1780914626;
  h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
  :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Wi97KWGdJTdWq3IdYpsAWLx4xopc99EofOMqrefmH9Q=;
- b=CCvk8guUCNqo2ReT5341GB783vqD6k1E87zzW+NvdA8nrGlqH5bz+1RP+5EiB1rs6E
- Tjv3JeiG9eeUobqiYeSfpl/qMq88mSDTIlVCO15c7tEJKW9QMmiZJaB/RIPx9fHNHR1i
- GBZcsMCTfBkBZE/ls31+U+XDDK7Mv9Dqj5vpSXc2VIZv64G7MD53kKsq+jcONpUY9ARV
- IO20Vhcj4Zxbi2v1EyLReDypwkTYq+wDqqJZ+3e1ya7aObPWXQ/o2dTpv7JzWBDm3Ave
- 6fBNi9cctU58uu58fdqNg76yibLi3NtG3/YmrC7VCy0bklf6V1D9LE199i2/ecwGJRvX
- yQsQ==
-X-Gm-Message-State: AOJu0YxDO0MFHsvjn9pPHzsrz9InUCrF2ooj58ivdKbymzY/3ak124dt
- STxgF7HLl5rffUtsyESIknKdy0pGeBFsfm7e0eYk8VZSpUXnlwEOyOgX5xWWeXwG/3y1xC8W4HE
- dulf5GBRSar4Lo/FC86+5h9UTtATyc3STZvi/J10Zt0okXWNkTZlnQEixwOS8MCqy6t9FZQ==
-X-Gm-Gg: Acq92OHCSDAvi/njn8U9oPaupbrRq3GaW1FNz8nwRC4pW9KNjBr80y/gcqam2vXyvaO
- zN0rUjAuyKGoNQzNq3QQ1LLqInNKH2zIIcdYTedphWD0OCR+/XxUEnFQz1y7L5NuS8MQB8tL7W3
- bI41kf0AG9xV8f43+MxKegw2zUYPD8gNWKYBjQ9wUa57nh7jP80IFobpto/LftiVZ2DRHV8ERW3
- 9cSb7H2JqvkAXF/6zonbJNO4VLFVH8Fg7DF5O92CQ6DEC24MJ8CMI2fd20/MK8236L2NZ4eid2U
- f8SV/RNWDk23hYb5IiKDLYjUdJndnSQFoNoyY+7/Lxjap9FVxdTL/ImlyvsqeiCHr1+Q/DT+vH7
- FCApcgsFPyb9O7P+FGCb0k55lA9Drh6Qa2+22bWgYMSSXp9ZZxandwKU/r18hMxHqbFOkagP0H/
- N4YB/3re1KIySq6Z4=
-X-Received: by 2002:a05:600c:1d0f:b0:489:32b:ac0b with SMTP id
- 5b1f17b1804b1-490a2a22bb4mr148349615e9.6.1780309800957; 
- Mon, 01 Jun 2026 03:30:00 -0700 (PDT)
-X-Received: by 2002:a05:600c:1d0f:b0:489:32b:ac0b with SMTP id
- 5b1f17b1804b1-490a2a22bb4mr148349225e9.6.1780309800553; 
- Mon, 01 Jun 2026 03:30:00 -0700 (PDT)
+ bh=m5PnIUHVz9ACSP+/e7SnC4cD1TL+Z3tg4EIuDM06718=;
+ b=OLbL6cv5d+2ghRgDHA/mELtKjwwFv0Byw9lCefOVG1EsBkGLDrnB8Oi+I2dofAxrGg
+ XnnyZzOUksBI4tPmplVoZ/mGSg9nyUy+/w2PIQYV13zZGUEM/aFr53atyPVCAByoHFN+
+ YhbSrDGmUwk4nhaD9eydQeOPj1RVR/OR23lxUgMWaVcMlifNwCB9ve9ZoCdIZ91YHeiR
+ Kje8XheDPf8AnBYN/4AbFwSdP4YY9FR0hGr3nNwg1I+S6rR0c32XH5rGc7zEM4zRwgPN
+ Y2WEI4nieZeJmapH08fnjnF/PaGaTPJNo5UxS3WdcoAwtVtx9QVAZ5tiS/GKYk3baojA
+ hM7A==
+X-Gm-Message-State: AOJu0Yz5q1C+YywgGwga5sBOaJkB3HcXeC2uhqTF1w1XVnd3THe1bjFa
+ keUfxIOu9w35p/JJjIC4rf5Ot908/ianqW8OlpihkvJKNKT85I6+bRAYDTxyVocBGMTnQE5urhA
+ Bckj6qyKJ0i1AR+e28kpjLTSkBZbAZHX6+7dCMcADdgTxEMU5PD9RApbUMDPXzHF0i39kSQ==
+X-Gm-Gg: Acq92OHvpCgpdbhrnwAgtxJpLRBNDXLZ8+NEZ20HYdTuD5djs565OA/LppwDCbqmJW0
+ RHqM5cvUA9OxtSrUMmTHFFSdrfL9LOAFdlGWfpi3Iqm5TFLfOhsgbzaJ1xF9cIWhMlS8nqpmo9u
+ NIt+7euAAtKEagX6hQAUDqjoLnSxWXn2TiiV34f4YECrl4IIBPbgRP5jaIA3Z3gu3psTyOB4aqt
+ 0pjOYUnYMJ3Xg5MA3NqhxCZ3lbS6VL3hr3sE7nsz9rmx2nliuYSaO9hX2+OW+csK9uRnm04om5J
+ YyEOhJ6AAObMHY7u8hjTW0rFtill3MDH2E1lkqR/B1+PMXmGjxQpTH0z5QKjgM93J7Q8qn1/4uY
+ h0nl9O5XGQzoUX0MPLAfV5x2Va9VvUEfDSPF3PQlbDiZxdeoob8ufbh9hr7kZ16cjFsQY3as0sM
+ 2NglDqEg8yWFcO9/U=
+X-Received: by 2002:a05:600c:8582:b0:490:51e9:deba with SMTP id
+ 5b1f17b1804b1-490a293b7c1mr147144675e9.27.1780309826049; 
+ Mon, 01 Jun 2026 03:30:26 -0700 (PDT)
+X-Received: by 2002:a05:600c:8582:b0:490:51e9:deba with SMTP id
+ 5b1f17b1804b1-490a293b7c1mr147143955e9.27.1780309825482; 
+ Mon, 01 Jun 2026 03:30:25 -0700 (PDT)
 Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490af0babdcsm4375085e9.0.2026.06.01.03.29.59
+ 5b1f17b1804b1-490adb4381csm24027695e9.3.2026.06.01.03.30.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2026 03:30:00 -0700 (PDT)
+ Mon, 01 Jun 2026 03:30:24 -0700 (PDT)
 From: Javier Martinez Canillas <javierm@redhat.com>
 To: Thomas Zimmermann <tzimmermann@suse.de>, mripard@kernel.org,
  maarten.lankhorst@linux.intel.com, airlied@redhat.com, airlied@gmail.com,
@@ -77,16 +77,16 @@ Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  linux-mips@vger.kernel.org, virtualization@lists.linux.dev, Thomas
  Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v4 09/10] drm/damage-helper: Rename state parameters in
- damage helpers
-In-Reply-To: <20260530185716.65688-10-tzimmermann@suse.de>
+Subject: Re: [PATCH v4 10/10] drm/vmwgfx: Remove unused field struct
+ vmwgfx_du_update_plane.old_state
+In-Reply-To: <20260530185716.65688-11-tzimmermann@suse.de>
 References: <20260530185716.65688-1-tzimmermann@suse.de>
- <20260530185716.65688-10-tzimmermann@suse.de>
-Date: Mon, 01 Jun 2026 12:29:59 +0200
-Message-ID: <87bjdulfiw.fsf@ocarina.mail-host-address-is-not-set>
+ <20260530185716.65688-11-tzimmermann@suse.de>
+Date: Mon, 01 Jun 2026 12:30:23 +0200
+Message-ID: <878q8ylfi8.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 37nzCovq2Jf5wd6AaAmrIU3d0ZQwTzcq2OIreRj8DIc_1780309801
+X-Mimecast-MFC-PROC-ID: 5bdHH4z9nQ1SXRabheKuX86xws_fYdd_joIu01fTS_Q_1780309826
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -106,11 +106,11 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thomas Zimmermann <tzimmermann@suse.de> writes:
 
-> Rename some of the state parameters of the damage-helper functions to
-> align them with each other and other helpers. No functional changes.
+> Plane updates no longer require the old plane state. Remove the field
+> from struct vmwgfx_du_update_plane and fix all callers.
 >
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Acked-by: Zack Rusin <zack.rusin@broadcom.com>
+> Reviewed-by: Zack Rusin <zack.rusin@broadcom.com>
 > ---
 
 Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
