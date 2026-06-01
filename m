@@ -4,101 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52600CD6E60
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 19:26:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81A40CD5BD1
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 19:52:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAD7510E288;
-	Mon,  1 Jun 2026 19:26:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D29410E8EA;
+	Mon,  1 Jun 2026 19:52:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="e+qS+iWb";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QyGXJkQa";
 	dkim-atps=neutral
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
- [209.85.167.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E15A10E288
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 19:26:34 +0000 (UTC)
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-5aa67ddcf56so159e87.1
- for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 12:26:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780341993; cv=none;
- d=google.com; s=arc-20240605;
- b=TypI8dSbFfztSRpWJgnA0wIvqVLPOmzgfq57BRVHVPCu+p/Bc2RGf0FfpAXKc40g64
- JRonT0Sg9jT7u11/c2Lh/cxyFrOditoteHHkFP56otmXZrIf/9raBoYL7EYfwmNRxuAf
- xcqROVBpdXu14XBJWfgp0Orpn3kJcdApPaWmB2aQo+5R7+UaNyibfDDNSba6EaiGHqM+
- uytT2rvWy+sLYS+YxmEgeITmSKFq+PoCAEnGNAvazqpzolHgs1kePypjnCriQt7GFBcU
- WRv0vkmKD2voE75QA9eHZsfYFaLFS9nGJU+hcTE4R0oJMW87P5WQyVJOWsS/UWgzOymH
- zm1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=RUETtszvlgjxvwcIcmAnMCzPRiN6e9NnLidclBHMCNQ=;
- fh=+Lkeb3uUhlWBKLQMIXFoKc+89wzoqTtM3dPLbTFugx0=;
- b=keHXqSN7RgrNQayg0f/dVfANNtbey40R9va7EMHXp5aCM9F0dsxrHHViMDGipqsiol
- qHc2Bx/04T8NQQqa2fVm3TzeXPiIl119NqReYa/T70kKm0TpV9wOn/eKusjOcoIOTATU
- nFQ6H21HFNoLyXC5bju3DhJTsOF952NsigNR6Hlc47XDOshXxvHYDFvvxdRjI6bHIc5E
- v/3gGcHWdMxnX5bhsrkgvLqT+zMyOBs0YKZlY4GYGsnpeDjyUdQfJD7wtdHKfH9OYdHW
- 5xONOlMXENU+OY2nSFJEiQ7sNu/WIQgtxKaGOytHK5cystHGn53iAV9L0bfl+MUWyAJ6
- I6XA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1780341993; x=1780946793;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RUETtszvlgjxvwcIcmAnMCzPRiN6e9NnLidclBHMCNQ=;
- b=e+qS+iWb1xpl+x/W1y2kxC5hHQIzfwbXJeh49d+S98cMhRdsl6TGF9Sk0nDoUhiOfk
- qyKiaL3yOuSF0xsKJKf+MHO7lY5yteXcFLLdRgN07QCBMyJQz+fW/IIQR6qeClPIVCEF
- WMDXBEU566/1mc4RsMrD65D4P0/150bXQRL/48MCP9EuzQhwePmBy2yG9HNsmKfkB+fU
- xK8ecE1+v6CS9WInU9TKeW1eNDOu05O5mMKdCebwHLqSbcQe5EkKuYJpjjQTt2l/yox2
- vZjHMtdIRn8BUQwakEuODlhTb1YeHJbweoW581KnRYQLyfD9plERRD8Bg65Ga67PhTgP
- B0Vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780341993; x=1780946793;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=RUETtszvlgjxvwcIcmAnMCzPRiN6e9NnLidclBHMCNQ=;
- b=srUwBaKSdD/UBsgF9//UZaGhJxBp5jGtisJiNeOWttClZwEiTQC8Y5VxMwg5Pc6Ja4
- 7z374HEdkb1E3DoyTYFs5opei61p/D8Khtn4BACKdALD/SdMyY3TYb5CHdnp3x5OFmB+
- +BZWKONT2Rmdscmj6i+VfwQ0/P+KEkIqA8+OyxncOW0eL4LEipvRw8Wqtr+x+OhfExGN
- rLRup56hs+v+i13NYFjiQFkgpXB8Rq2ygGo9NZL7+r3ZedTv5an247SIyNqe5kDPcn7Z
- z8+jWAtz4Ff64ZYK6Yr0W+3jZpPBquphgauRtlmzehyy3zXiYYZQY4XgxCop0NARd1y4
- wdDw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+qQc+69YDh4e9QGS8rURJreTpJNXYVxebZbEdb+KMLCFjyyvDVyNRMyaj9C5pxqTyeByN0Fi01CHs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzTC0m6QxKiaeSDYzpLEQhvKbEhAPj4WSzgaJ8zB9uMzmZDL601
- EF989atcGuy3ZDe30BmPcaZ/KhLN3owYN5ldRC2dvTSRuAhOKKfC+tNh3pH9QGyTLn9FVzQzv4/
- IJ/bs/OG/pNVXsq6pT4sWvHuksMhpX6v2pwMaw6U=
-X-Gm-Gg: Acq92OH+Ue5DwJ3hgIhzYK0tGubWeOdhCpsbErJw3uuERjRqoHyqeSpZ0A9hMT7koC3
- P39Z4kbqvbJO5gdP9wVGi9SX6+2bVoxgp6BVx0FEYtv38uLnBoLzl+zwUjU2Boqa+W1sfzME+TG
- 7u2nMazOS9g2Zwp1d1TuB3hmbKuGansOqTKJ00HCLryXcitXZYYv1d91zVCj+mbrQEaqXNVcaXS
- zrx7xtXgooG4FXSDxE/pJgYHOS/27jGR9dpyvynbnOzvDM59//kuZjQ7UbSt6sLZYpM1tz1tDdj
- UMCSM8FarzGULUO1E71NW5K+xO/EdBVx+laypMXmrJ9X2Hk=
-X-Received: by 2002:a05:6512:3a8d:b0:5a2:9b28:d64a with SMTP id
- 2adb3069b0e04-5aa75b3495amr52247e87.8.1780341992156; Mon, 01 Jun 2026
- 12:26:32 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FD1410E8E9;
+ Mon,  1 Jun 2026 19:52:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780343528; x=1811879528;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=kcoZ0HqwTkFisxUb4c2CrruoAAmphlVicQ9/aPV60q0=;
+ b=QyGXJkQapmqLPNw7SHt0ZhO8fEUuyBmnkeKqshf+dt7s+G5T3Pjg/A8i
+ xOUAK2qYGwUjfW8lSYfqN0NwtbA1fCZpZqL6xd/Fr25VQnOhVbQ5XawVY
+ oDaB45ojChfXo7nQP+TvAGaWwGRRc7hiH9QfElYDVI+5ZenbAzweHNqf6
+ PYYUg8BOahrbUb76HsCX9YzY8Ks2vTqyBJGO2fzwr3plor+/BvqyDHami
+ 1trzDn3B1hRA1KyhclNt8zrXmDd4UuQ532p0lXrTDvWNWDvn8iMtAy+HZ
+ 2L09o9BsViE+ZU3/aIZ0SmK4ASN4YYXOFBywD7btEE8x/yQtD+9PI4xPQ Q==;
+X-CSE-ConnectionGUID: rcAdHvZfQDKVEs3taAS5OQ==
+X-CSE-MsgGUID: kijHQzH9Qvi+w5RHBOS9TQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="84968226"
+X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="84968226"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jun 2026 12:52:07 -0700
+X-CSE-ConnectionGUID: kvGwteXORg6nd1ie53dcTg==
+X-CSE-MsgGUID: TtHMA+6FTdyHv5xpNzKpvg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="245490895"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.121])
+ by fmviesa004-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 12:52:03 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, Dave Airlie
+ <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Matthew Brost <matthew.brost@intel.com>, Thomas
+ =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, Oded Gabbay
+ <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dim-tools@lists.freedesktop.org
+Subject: Re: [PULL] drm-misc-fixes
+In-Reply-To: <24042986-6ef1-49a2-a060-aabf6e189473@suse.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260529070009.GA313534@linux.fritz.box>
+ <ddf0233e50044059c85279f928661563ef6a55bf@intel.com>
+ <e1a2cc27fb04a88be23973d3cb7868f3d4471d0d@intel.com>
+ <d479f1185cd1ae6eb52a7d44e944408c3447c8e4@intel.com>
+ <24042986-6ef1-49a2-a060-aabf6e189473@suse.de>
+Date: Mon, 01 Jun 2026 22:52:00 +0300
+Message-ID: <7b9794c1b6a948b6d509c6fa885e1c3c1912aa9d@intel.com>
 MIME-Version: 1.0
-References: <20260528191658.2506362-1-xuehaohu@google.com>
- <20260601175252.GD2487554@ziepe.ca>
-In-Reply-To: <20260601175252.GD2487554@ziepe.ca>
-From: David Hu <xuehaohu@google.com>
-Date: Mon, 1 Jun 2026 15:26:19 -0400
-X-Gm-Features: AVHnY4KmXOz7naPVQt3RnYf5-sps0yuGM1iGSV6Zi0v2ewCpGm4R4O7z_6CO-gk
-Message-ID: <CAPd9Lg8Um=0LJWB-QCqLyFksX=dTsu3hwuVXK9_CGRWTVBJppQ@mail.gmail.com>
-Subject: Re: [PATCH v4] dma-buf: Fix silent overflow for phys vec to sgt
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Nicolin Chen <nicolinc@nvidia.com>, Leon Romanovsky <leon@kernel.org>,
- Kevin Tian <kevin.tian@intel.com>, 
- Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>,
- linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-kernel@vger.kernel.org, jmoroni@google.com, praan@google.com, 
- stable@vger.kernel.org, iommu@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,37 +80,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 1, 2026 at 1:52=E2=80=AFPM Jason Gunthorpe <jgg@ziepe.ca> wrote=
-:
+On Mon, 01 Jun 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> Hi
 >
-> On Thu, May 28, 2026 at 07:16:58PM +0000, David Hu wrote:
-> > diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-bu=
-f-mapping.c
-> > index 794acff2546a..1aabc0ee70bb 100644
-> > --- a/drivers/dma-buf/dma-buf-mapping.c
-> > +++ b/drivers/dma-buf/dma-buf-mapping.c
-> > @@ -51,6 +51,9 @@ static unsigned int calc_sg_nents(struct dma_iova_sta=
-te *state,
-> >               nents =3D DIV_ROUND_UP(size, UINT_MAX);
-> >       }
-> >
-> > +     if (WARN_ON_ONCE(nents > UINT_MAX))
-> > +             return 0;
+> Am 01.06.26 um 17:49 schrieb Jani Nikula:
+>> On Mon, 01 Jun 2026, Jani Nikula <jani.nikula@linux.intel.com> wrote:
+>>> On Mon, 01 Jun 2026, Jani Nikula <jani.nikula@linux.intel.com> wrote:
+>>>> On Fri, 29 May 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>>>>> Rajat Gupta (1):
+>>>>>        drm: prevent integer overflows in dumb buffer creation helpers
+>>>> Looks like this commit 5ab62dd3687b ("drm: prevent integer overflows in
+>>>> dumb buffer creation helpers") regressed in our CI, awaiting
+>>>> confirmation.
 >
-> The WARN seems a bit much, but if you have it then it should be
-> arranged so the caller ultimately fails.
->
-> But otherwise I think correcting the types is a good idea
->
-> Jason
-Hi Jason,
+> That CI report is where?
 
-Thank you for the feedback. That makes complete sense. I will remove
-WARN_ON_ONCE() to avoid dmesg noise, and instead add an explicit check
-in dma_buf_phys_vec_to_sgt() to fail with -EINVAL if calc_sg_nents()
-returns 0 (on overflow).
+It's currently really thin on details, I'm afraid [1].
 
-I will send out v5 with these changes shortly.
+[1] https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16308
 
-Regards,
-David
+>>> The IGT test kms_big_fb uses max width and height from GetResources, and
+>>> i915 and xe use max_width 16384 and max_height 16384 in mode config.
+>>>
+>>> The regressing commit adds random hard limits not based on anything:
+>>>
+>>> +       /* Reject unreasonable inputs early.  Dumb buffers are for software
+>>> +        * rendering; nothing legitimate needs more than 8192x8192 at 32bpp.
+>>> +        * This prevents overflows in downstream alignment helpers.
+>>> +        */
+>>> +       if (args->width >= 8192 || args->height >= 8192 || args->bpp > 32)
+>>> +               return -EINVAL;
+>>>
+>>> This is now in v7.1-rc6. Please revert ASAP.
+>> Ah, missed this clue in the pull request:
+>>
+>> On Fri, 29 May 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>>> here is this week's PR from drm-misc-fixes. There's one cross-subsys
+>>> commit to the dma-buf code. Commit 5ab62dd3687b ("drm: prevent integer
+>>> overflows in dumb buffer creation helpers") has not Link tag because
+>>> it went through the security list.
+>> We have the whole review and CI processes in place to catch silly
+>> mistakes, and then we proceed to shoot ourselves in the foot and bypass
+>> all of that because "security", and expedite the regressions
+>> everywhere. I'll bet this will be in stable kernels in no time too. This
+>> is stupid.
+>
+> Indeed. But that's how this fix got in.
+>
+> It fixes a possible overflow elsewhere and using dumb buffers with 
+> higher values that given here is questionable. Instead of outright 
+> reverting this, let's first look what actually broke.
+
+There's the kms_big_fb.c test [2]. It uses drmModeGetResources() to get
+the max framebuffer size for the device. It's 16384x16384 for most Intel
+devices that aren't ancient [3]. (Ditto for AMD I think.) Now the
+CREATE_DUMB ioctl fails, because 5ab62dd3687b introduced new arbitrary
+fixed scanout size limits that don't reflect the actual device limits.
+
+Why is it questionable to use dumb buffers that are within the device
+limits? Why is it not questionable to add arbitrary fixed limits?
+
+Don't get me wrong, fixing overflows is great, but this part is an
+unwarranted UABI change, and they shouldn't be rushed in masqueraded as
+security fixes.
+
+
+BR,
+Jani.
+
+
+[2] https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/blob/master/tests/intel/kms_big_fb.c?ref_type=heads#L994
+
+[3] https://gitlab.freedesktop.org/drm/i915/kernel/-/blob/drm-intel-next/drivers/gpu/drm/i915/display/intel_display_driver.c?ref_type=heads#L133
+
+
+-- 
+Jani Nikula, Intel
