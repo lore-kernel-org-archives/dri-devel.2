@@ -4,53 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3255CD5BD1
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 18:08:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E36FCD6E55
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 18:17:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FC191136D4;
-	Mon,  1 Jun 2026 18:08:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC8FC1136EF;
+	Mon,  1 Jun 2026 18:17:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ptSoRfoa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ioD+Aa7K";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D5ED1136D4
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 18:08:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1780337330;
- bh=zc9LCVVcm97BP3J6QkyrVJS3s4P86SybatYOdqgAcEU=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=ptSoRfoa2oyn2v1Zeqoh/5J3GWxNhTZ7ofgdohodHHctrhSNcAh+zOURRxs28mlsd
- o7+zLHXBe5LHI+smwgn4R6N1OPVG1KyXQ2poscNxrWpC5q5NXbRVbOaPV5n5VO+cYi
- pCDLejTaIqpNh74HKkFf75lz53yGEdEmXcfX4upUwL/xEK1dqAztFZ5KcHNy9Og+fP
- dVqLxMo4dnzgSyaFq4Z4WIbk+KPl0MyfJ4a2m2dc6s80o3hZeRPIB+4nHOR3BGJ2s0
- yY8WxyxjUbaqvfiFdHGS/SXKoWYpCXzr8r2w0+ZGHszIKOnzIbANpbj79hA3CQG4p7
- YpGytQiAjbr/Q==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 6DDDC17E03A6;
- Mon,  1 Jun 2026 20:08:50 +0200 (CEST)
-Message-ID: <b0a60e27-03ec-425e-8ecd-b8f9bdaadf93@collabora.com>
-Date: Mon, 1 Jun 2026 21:08:49 +0300
-MIME-Version: 1.0
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010006.outbound.protection.outlook.com [52.101.46.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA83A113704
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 18:17:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cNqHuSoG9G9SiYFsL44EGGTrwQvNYsXYLJchfTzpG57lJPcmyfEDMT4pspaoYKMC0kTmPYm5Oy1czpe7a7vWUdz2VJHCKX7o3cGkVFppvjp+zDZvl8tYpi/W2cOVpHcQ3eP1M8uJ4NNdmcZN9dLjiEz3RBZW07pratFHo8hrhvbrflFPXtSfkuUwti5s8KJKO1luWPhgWywoOx9z+GH8bm5iOJQnQwk0QFOMH590y5JZ5bXjDgyJbnaDvsGhy9BZYBb3lSdcgdj5tJauJS2dAKaNHpdoJuWl2qAZaQZ/+xOsRuG7gvpDAhvxnwjE72O0BUDbXNPU8GevSaBP5UcfVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Yx9FY8LA5mQhznJL03ZONts/ChEQOkybRbJMeLw6pnc=;
+ b=M/vLqtwMiS36KVyup6AlvGpv/7RZyi8Bqi868OWe2pyNbQYhT9fbXGncDKa4PlVNtGDikVS3Ql7vDwNyHGOqHZnhQeK0Gl94EIQu1vPAVgIvHzDRkYuFMw+yqRXj2FZt20g4hfc1hjlOjT+sZ9uz+y8QMJgPSzKM6tBznH2OZ9mowU7N3lp+15GATLxUcZdtL6AwRPdw14VoxMw2UAUKQPYbcB8L3YpWLAkGM1KkQo7VbxTtiiLpfvgIpaeh7kZKGDi1ZyOdPpMrRwS8fqi5Yim77YmpQ1x8hGRImP0mrv1Ud8Pk7g3ybwRRyOGdo/I4G+qeLNPY22DabdldsHO65w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Yx9FY8LA5mQhznJL03ZONts/ChEQOkybRbJMeLw6pnc=;
+ b=ioD+Aa7KqCfBa4TgrS1bW8g/pMfOC6O9GbFjBMNqxjjbN5iHwLeFkRma1iNUsn0EmDoyCFFzIiCTQlsXT77/imzPuOyhxE/0xbfJ3AEjlXxioJKrvWxq+MxdgPjOHFlUx7DVQFJ9LNzJen919z/SwmZlGqSXiA3l0HqBBgYFgoM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by LV8PR12MB9359.namprd12.prod.outlook.com (2603:10b6:408:1fe::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Mon, 1 Jun 2026
+ 18:17:21 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0071.011; Mon, 1 Jun 2026
+ 18:17:21 +0000
+Message-ID: <dedd8e8f-118c-4ee5-9552-cd2220dbdd23@amd.com>
+Date: Mon, 1 Jun 2026 20:17:15 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] YUV support for VOP2 background color
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-To: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260601-vop2-bg-yuv-v2-0-e5aef1d16fec@collabora.com>
+Subject: Re: [PATCH v5 0/4] vfio/dma-buf: add TPH support for peer-to-peer
+ access
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Zhiping Zhang <zhipingz@meta.com>, Alex Williamson <alex@shazbot.org>,
+ Leon Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Bjorn Helgaas <helgaas@kernel.org>, kvm@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
+ netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Keith Busch <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>,
+ Yishai Hadas <yishaih@nvidia.com>,
+ Linus Torvalds <torvalds@linuxfoundation.org>
+References: <20260527121438.GJ2487554@ziepe.ca>
+ <ff247643-73e7-44e2-b3d5-8ac0a8efb871@amd.com>
+ <20260527123634.GK2487554@ziepe.ca>
+ <a5ff1930-e9fb-43f5-82ab-9875d7a28421@amd.com>
+ <CAH3zFs2KALuHXReLZG_uoqvBBWvBzU6rHKakmt6HBV7PZEsD=w@mail.gmail.com>
+ <71302a7a-6b9f-40da-af81-b1862dbd637a@amd.com>
+ <CAH3zFs036sr93duQKx613pCyOYw4t0_x_TdSza1xBCaEmqijyA@mail.gmail.com>
+ <8d9bb0b7-182d-4930-b683-d5d24da6b2ab@amd.com>
+ <20260529201130.GU2487554@ziepe.ca>
+ <190a1eeb-bd70-4b7b-93a4-60e14f0d6c7e@amd.com>
+ <20260601174734.GB2487554@ziepe.ca>
 Content-Language: en-US
-In-Reply-To: <20260601-vop2-bg-yuv-v2-0-e5aef1d16fec@collabora.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260601174734.GB2487554@ziepe.ca>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: IA4P220CA0011.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:208:558::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV8PR12MB9359:EE_
+X-MS-Office365-Filtering-Correlation-Id: 272d8bbf-52aa-450f-6010-08dec00a0579
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|366016|6133799003|5023799004|4143699003|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: sumCnbjVyH84fMyuyA0F+4HdGVmXKAnVUk0dplayfl7BY5V146ja4WnghI9RCyNZCz06gpXv4KowZEnvpU+y5t1x7mNZqSSVa/URn6l6xRjuD054XM1BbcYHJzJfh7izPqsxRojWum+lsD9jtyWEbnqBWiRoPIb1ToWew1U06Rt2wcAvGggPr0zbQaw7ZTg46e8vM6gQBheeqpEZH2fLq6dLRxNjuAJj98M6XxMVmCDblO/7/QUr/zkXTiGkdTuI5BUkdKabbb2/P/PaFTlt3xl0+qOthPn71PI9y5Ano12olc0nJZPi9Hur7duoYU7AG2EJD3WG5Fty+WP4RX0Ikmttsq6hHu5ePvqsptoTV85YfRRIeQ29+OmKTdmpN4U3ucituR40rlE14O7SjT1ZIwK6B3L2SqdmeP8bKjN+XGpwd+MBPjx8zp2rpw8ZEHYoB0ahLv4Cwcg7YcV2LSxGYRoljDskGbCcmrMzXUyFjDNZws1b7bAuGwrV7EOiHIHwM+ZgtchF8H0aWDiufvhHgowQTjjrJDyP1CZz0bDeY529M26mwEQePHBg3OzV3UzFMnRcqoJ5n8kwZRkH03MmwF0qzLlsSVhStLrtZUlI8F6eI1L0vE/TkFNKmOfKMXQsPV5eMFfBU3E+NKhzQVVF9vkxlKN7t3kccVNF7Mm5m4wKyd8/F7pG0WJ500gPF5Nt
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016)(6133799003)(5023799004)(4143699003)(18002099003)(22082099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SWMxZHJETkJqNjJOa3JhMXVqaXdrdzNZcUpjL0o1T1M5aHRTMmpqUkZsMDJk?=
+ =?utf-8?B?KzhabFFoOGV5K1ZRVUZZNzF0NWsvQlo3RG03WG9GR2lSQWE3Y05tUlgvWGJn?=
+ =?utf-8?B?NWVCNDA2ZnJESEYwUUNvZG9yOUorV3RTME5WaUZaU1J5UTFCNVh1TEtUcHQ2?=
+ =?utf-8?B?eVV4MmNJNXhlditsUlN0WlU1eFk5T3F5VXA5c2ttc25lZU0xTkxIMy81dDl4?=
+ =?utf-8?B?VEJwNUdFVlBGVlZ1cWJVZnlZK2VSL1hFVnNKQzF4YlJJc01IZm1hY2dqejJV?=
+ =?utf-8?B?S0NvWmVqbVZFVVBqV013Zy9mbnJrOWZST3BYN3d5ZVFXUGNLZERONUY5c2cz?=
+ =?utf-8?B?cE9hSTI1akhxMWtCdXNielJmbGtHRVl2RXNZdStuWndLMXpGRk1YWGtQME02?=
+ =?utf-8?B?TXR3VFVtUlBVTGtRbkFGTC91ck93V20zWnZYclF4dmpJOHpqbG5jRm81cFhq?=
+ =?utf-8?B?Z2w0LytWTWQxNys0d2kzMDNqOUVreS9CaU9qNFdNem9iWVJFRGxXRE1MT2cy?=
+ =?utf-8?B?ejdOQXd1S1dOZlJ1S2dWb0lTMFlUcnhNNS9nZ3gwUFl2UFZmT1hBdFh6SWJY?=
+ =?utf-8?B?ZGtCc3l0aWU0OVVNYk1ibENuWkxDVzRlNzY4aWEzaEVISnJCQ3ZwdFpMakls?=
+ =?utf-8?B?Q1ZnWkU2M2NIZkZpVFBhYjVWcWl2ZUpNZTBpWlNMUGJmSS8zakMwQ0gwSnJV?=
+ =?utf-8?B?WWZZY3NZT0FXeldPUEZFRktkWmY0Rzk1dCtNNFF5QzhFUElpY3p5NWFHZkhW?=
+ =?utf-8?B?ZXp2R3oyTXZnS3ppSk8zZkRJcXNRMUhhZDJBUDl6WnYvSTRFTUlvUVIzNUlZ?=
+ =?utf-8?B?a2l1andsSVVIY05ZalN5YkY3U2pDN2VldFM2UllCRkRvTnQxTnEzRDYwYmRS?=
+ =?utf-8?B?eE9idDA0YW5RUnFOWXZQVVRKRVZqNEdQNk9SaVo3SU0vcUlVTkpiNmxiTk4x?=
+ =?utf-8?B?UlIwSUFGQUpCWVJxTFduS0VQVGJaMDliczFTNHdIam5tMEpmVWpEL2VQalBF?=
+ =?utf-8?B?OGJ0eTV5REs0cVl5bEE1OGFPZ2tRNS92SktPem5IWHR1TWdkMTU1cDQ2dlIv?=
+ =?utf-8?B?TFp4eVMxeXhoWGplbWxnQVRYY1czc2hYeU13Ykl5RjlFQ0MvQndUVXhZL1Qw?=
+ =?utf-8?B?SUcvU3VIYkZKVE85bG9nWmdTbUpnV05Ma2FscS9LcFNKSmkveXdXUTZMMG9r?=
+ =?utf-8?B?UjlSSEtHMHU1Z2VzdnByTlpEbG40T0ZQVDY3S2FwNHlhdnkxWmltaGRNRWcx?=
+ =?utf-8?B?QUpkQzY1VU1QazYzVXFvYmxKTVlHR3hTOWFtRW1KbGtSQ1Y2RkMwNGcyUDlm?=
+ =?utf-8?B?NWZKci9NN3RMRzh5RlFxY2MwYlp0MkRFakZldDNxYlJ3R2FJdS9LVEhvRnlt?=
+ =?utf-8?B?OEFnckg4eEhmcUpneHprdDRadzZ2NmR3Y2I2emxGZVpmdjNWOHlKL3gvck9N?=
+ =?utf-8?B?cjFBOTJ3RnhXSm9WNUgrMVVTaGx0YmN3UGFhL095allHekVNa1Y1VmUxUXVV?=
+ =?utf-8?B?NTZrdW9JMHlRa1J0akxlS0lFOGd5UVd5L0h0OHZpTnR3YTQ1VWNkRkpRRUda?=
+ =?utf-8?B?U3lCcjFIVEZxZE8vbjgweVd5SnZNZytFTGZHNjE4RzlTWmFlQ3JSTUYwZ3BZ?=
+ =?utf-8?B?VExVY3FHOE5MUm83SEJDaXY1NXJ6RTFNK2ZMaDJUM3o4L0tUTzFQckZCQi8z?=
+ =?utf-8?B?K0U1aGlhdzRVTk5wZ2ZVWnpMOHdIU0xzaUpvYTk3ZzV1YXluTnVVVTdpbEUz?=
+ =?utf-8?B?WTk1R21aeHdGaEdoOFdacGlQU0lmNzkwU01HRkVvWGRROUQ0WmxpQ3g0SktJ?=
+ =?utf-8?B?YnZEUmlQREdxSnRPQmNDbTE2dFdEekl0T3lGRGVzRVpjZHNGeGd5UTQyc0x0?=
+ =?utf-8?B?S082MHNuV09WcG9jSGlpaG1ybnlNTzcwRHFPRDdCMmdkanpmSFlNT1dLSUtE?=
+ =?utf-8?B?OGsrRmVyaFV2QXY0eWM0RzRxY1U0NkE0SURqaUllbHg2UVk0MThhM2Nnd3Bu?=
+ =?utf-8?B?Yk9KdHQrZEt2eG1GcUsxbG53RFZhZFFkOGxreVFwam1aeDBNYUtYbVhpMHpn?=
+ =?utf-8?B?ZDgyWWVVSFFLbDA0VE45VFM2cVUwN2VKN0VPSmRSWllGaHNNU0MrOTRIT0FT?=
+ =?utf-8?B?QTBqbUxYRXh3ZkhoK3UyRVhZcTBwYmcrTlJTL0pDeURYRXZ6Tm1mZ1FNRStp?=
+ =?utf-8?B?QkxJK3g0K0lzQk0rNlRwYXN3b2lNWkc2KzBRb2tORk1zVmdoclViS0I2NmdQ?=
+ =?utf-8?B?aUMwVitETWRmV2ZuVTZ4SkkzOE9GS2xJYzV5Z09QYUJYY2ZCRzJhSUJlS1JX?=
+ =?utf-8?Q?xR/OdxP8ZsXSmch59W?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 272d8bbf-52aa-450f-6010-08dec00a0579
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 18:17:20.9571 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oeT9AAq5795w8gdHNmI0d8IWBIgq2D7yr8F70r0sEy43l+W6Nk3qzKdL4KUFO6t2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9359
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,40 +152,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Something got messed by while preparing the cover letter.
-Fixed manually..
+On 6/1/26 19:47, Jason Gunthorpe wrote:
+> On Mon, Jun 01, 2026 at 11:59:55AM +0200, Christian König wrote:
+>>>> When you have a complete open source driver stack which utilizes
+>>>> VFIO passthrough as the interface to communicate with the kernel
+>>>> drivers then we can eventually talk about that.
+>>>
+>>> That decision is not up to dmabuf
+>>
+>> Yes it is. This is the DMA-buf API which is added here.
+> 
+> It is a DMA-buf kernel API that is added, I think it is overreaching
+> to try to veto a VFIO uAPI that calls it..
 
-On 6/1/26 9:00 PM, Cristian Ciocaltea wrote:
-> Since commit bec7cbfa7d4f ("drm/rockchip: vop2: Support setting custom
-> background color") the VOP2 display controller allows configuring the
-> background color of each video output port.
+Well as long as that is a private interface between VFIO and mlx5 I have no objection at all.
+
+But when it starts to affect DMA-buf I need to make sure that it works for everybody. And without even being able to test it that becomes really tricky.
+
+>>> - what VFIO subsystem requires to
+>>> accept a new UAPI is up to the VFIO maintainers.
+>>
+>> As far as I can see vfio-pci is used as a stub driver to avoid
+>> opening up the real driver.
 > 
-> However, this is currently limited to RGB formats.  When operating in
-> YUV overlay mode, the color must be programmed using YUV format.
+> Yeah, that's probably true.
 > 
-> Add the necessary RGB-to-YCbCr conversion logic, covering all color
-> spaces supported by the display controller: BT601L, BT601F, BT709L and
-> BT2020L.
+> Frankly, I'd rather they use VFIO like this than to upstream another
+> driver for proprietary custom built HW which nobody except Meta even
+> has, let alone can use.
+
+Yeah, that's a good point.
+
+>> Upstreaming an API changes only makes sense if others can use it and
+>> this here is something completely special to this particular use
+>> case, without all components involved nobody else can use it.
 > 
-> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-> ---
-> Changes in v2:
-> - Used vop2_convert_csc_mode() helper to address an issue reported by
->   Sashiko: vop2_rgb16_to_yuv16() expects an enum vop_csc_format, but
->   vcstate->color_space holds a V4L2 colorspace enum
-> - Rebased onto latest drm-misc-next
-> - Link to v1: https://patch.msgid.link/20260524-vop2-bg-yuv-v1-0-dcb6a52923f5@collabora.com
+> It is not 'nobody else can use it', if it was true VFIO wouldn't be
+> leaning toward the uAPI being OK.
 > 
-> ---
-> Cristian Ciocaltea (2):
->       drm/rockchip: vop2: Rename CSC_BT2020 to CSC_BT2020L
->       drm/rockchip: vop2: Add YUV support to background color
+> This exposes a PCI SIG defined TPH capability in a reasonable simple
+> VFIO uAPI that can be re-used by any other device that happens to
+> support TPH on inbound MMIO. The uAPI has sensible general semantics
+> based around the PCI spec.
+
+That it's implementing an official PCI spec is a good argument.
+
+But on the other hand looking at the spec it's not really specifying much since everything is architecture specific.
+
+> Anyone can repeat the demonstration Meta outlined in their cover
+> letter: Use this new VFIO uAPI, import the DMABUF to mlx5, use a PCI
+> analyzer and you will see the PCI SIG defined TPH bits set the way the
+> VFIO uAPI says they should be set.
 > 
->  drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 155 ++++++++++++++++++++++++---
->  drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |   2 +-
->  2 files changed, 140 insertions(+), 17 deletions(-)
-> ---
-> base-commit: e84b07e0a30b371117f9a1120a4645c213f39cd9
-> change-id: 20260524-vop2-bg-yuv-1b0e6a09c579
+> There is nothing uniquely tied to Meta's device here, or unusable by
+> someone else's devices. Arguably this is actually a mlx5 feature to
+> allow VFIO to control its TPH generation HW.
+
+Would it be possible to demonstrate the functionality with some FPGA implementing an PCIe endpoint?
+
+Doesn't needs to be anything funky, just the ability to exercise this for basically everybody who can spend a few $ on the HW.
+
+Regards,
+Christian.
+
+> For a long time the general kernel has had a philosophy that as long
+> as these niche features are generally implemented and *in theory*
+> usable by anyone who wants it is OK. Every knows the initial userspace
+> implementations of *alot* of stuff starts locked up in proprietary
+> software owned by database, and now cloud, companies. Yes, some
+> subystems are stricter, that's OK too.
 > 
+>> So as far as I can see that here is a no-go. But at the end of the
+>> day it's Linus who needs to say if that's ok or not, that's why I
+>> put him on CC.
+> 
+> Well, based on what I heard when I argued for fwctl, and the
+> discussion with sched_ext, I don't think implementing functionality a
+> standards body defined in a logical way is going to raise concerns..
+> 
+> Jason
 
