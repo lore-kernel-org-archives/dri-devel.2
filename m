@@ -4,63 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB0B1CD6E4C
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 06:50:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B3F2CD6E4C
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 06:51:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50100112E5C;
-	Mon,  1 Jun 2026 06:50:13 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18F60112E5C;
- Mon,  1 Jun 2026 06:50:10 +0000 (UTC)
-X-UUID: 1cc5b50a5d8611f1aa26b74ffac11d73-20260601
-X-CTIC-Tags: HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME,
- HR_CTE_8B
- HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
- HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
- HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NAME
- IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_EXISTED, SN_UNTRUSTED
- SN_LOWREP, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
- CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU
- AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12, REQID:9141a37e-99f4-4c68-bf0c-8f204331b8a1, IP:15,
- URL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
- N:release,TS:40
-X-CID-INFO: VERSION:1.3.12, REQID:9141a37e-99f4-4c68-bf0c-8f204331b8a1, IP:15,
- UR
- L:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:40
-X-CID-META: VersionHash:e7bac3a, CLOUDID:f5e781a86ea50dcfb8d7a5270d7ec517,
- BulkI
- D:2606011450037SPS48DF,BulkQuantity:0,Recheck:0,SF:17|19|66|78|102|127|850
- |865|898,TC:nil,Content:0|15|50,EDM:5,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil
- ,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:
- 0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 1cc5b50a5d8611f1aa26b74ffac11d73-20260601
-X-User: lihongtao@kylinos.cn
-Received: from localhost.localdomain [(116.128.244.171)] by mailgw.kylinos.cn
- (envelope-from <lihongtao@kylinos.cn>) (Generic MTA)
- with ESMTP id 2054400866; Mon, 01 Jun 2026 14:50:01 +0800
-From: Hongtao Lee <lihongtao@kylinos.cn>
-To: Dave Airlie <airlied@redhat.com>
-Cc: Gerd Hoffmann <kraxel@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Hongtao Lee <lihongtao@kylinos.cn>
-Subject: [PATCH] drm/qxl: fix local_gobj leak in
- qxl_gem_object_create_with_handle
-Date: Mon,  1 Jun 2026 14:49:32 +0800
-Message-Id: <20260601064932.227375-1-lihongtao@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A708112E65;
+	Mon,  1 Jun 2026 06:51:09 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="BbEFmojq";
+	dkim-atps=neutral
+Received: from mail-m25477.xmail.ntesmail.com (mail-m25477.xmail.ntesmail.com
+ [103.129.254.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA541112E63
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 06:51:07 +0000 (UTC)
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 408ded03f;
+ Mon, 1 Jun 2026 14:51:04 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
+ cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
+ dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
+ dianders@chromium.org, m.szyprowski@samsung.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v10 00/11] Add eDP support for RK3576
+Date: Mon,  1 Jun 2026 14:50:49 +0800
+Message-Id: <20260601065100.1103873-1-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e81f344ad03a8kunm111da268257dd3
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSkIZVktLTkgdGEsYGEpJGVYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=BbEFmojqL5VuWNR/cP/JHKYZGtkKTBQPNDakZkYZftYU2sRev9DDh51Wbt9c2yXBsAgIWDNe2pNxfSuM20F9QTQZoac5kzhw65vcb9qGLOggxpsw0lpXPrytSp7R83FtA49PaLeuYGovGLaH3BRkFGKWHKTMoPcibWrtlieebS0=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=B0wiE8GgyXz8eIceQeCC4HinJBNyLgrIHBKykFHjKJ4=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,31 +65,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-If drm_gem_handle_create fails, the reference count of local_gobj
-will never be released, resulting in a leak of local_gobj.
+Patch 1-5 are to add missing clock "hclk" for RK3588 eDP nodes.
+Patch 6 is to use automatic cleanup to fix OF node reference leak
+        reported by Sashiko.
+Patch 7-8 are to add the RK3576 eDP node.
+Patch 9-11 are to support the RK3576 Analogix DP controller.
 
-Fixes: f64122c1f6ad("drm: add new QXL driver. (v1.4)")
-Signed-off-by: Hongtao Lee <lihongtao@kylinos.cn>
+Damon Ding (11):
+  dt-bindings: display: rockchip: analogix-dp: Fix hclk as third clock
+    for RK3588
+  dt-bindings: display: rockchip: analogix-dp: Add per-clock
+    descriptions
+  arm64: dts: rockchip: Add missing hclk for RK3588 eDP0
+  arm64: dts: rockchip: Add missing hclk for RK3588 eDP1
+  drm/rockchip: analogix_dp: Enable hclk for RK3588
+  drm/rockchip: analogix_dp: Fix OF node reference leak via auto cleanup
+  dt-bindings: display: rockchip: analogix-dp: Add support for RK3576
+  arm64: dts: rockchip: Add eDP node for RK3576
+  drm/bridge: analogix_dp: Rename and simplify is_rockchip()
+  drm/bridge: analogix_dp: Add support for RK3576
+  drm/rockchip: analogix_dp: Add support for RK3576
+
+ .../rockchip/rockchip,analogix-dp.yaml        | 47 ++++++++++++++++++-
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi      | 28 +++++++++++
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi |  4 +-
+ .../arm64/boot/dts/rockchip/rk3588-extra.dtsi |  4 +-
+ .../drm/bridge/analogix/analogix_dp_core.c    |  3 +-
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 18 +++----
+ .../gpu/drm/rockchip/analogix_dp-rockchip.c   | 31 +++++++++---
+ include/drm/bridge/analogix_dp.h              | 13 ++++-
+ 8 files changed, 124 insertions(+), 24 deletions(-)
+
 ---
- drivers/gpu/drm/qxl/qxl_gem.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/qxl/qxl_gem.c b/drivers/gpu/drm/qxl/qxl_gem.c
-index 4939b57a2a48..2bdff4cee952 100644
---- a/drivers/gpu/drm/qxl/qxl_gem.c
-+++ b/drivers/gpu/drm/qxl/qxl_gem.c
-@@ -99,8 +99,10 @@ int qxl_gem_object_create_with_handle(struct qxl_device *qdev,
- 	if (r)
- 		return -ENOMEM;
- 	r = drm_gem_handle_create(file_priv, local_gobj, handle);
--	if (r)
-+	if (r) {
-+		drm_gem_object_put(local_gobj);
- 		return r;
-+	}
- 
- 	if (gobj)
- 		*gobj = local_gobj;
+Changes in v2:
+- Split out separate patches to add the "hclk" clock reference.
+- Split out separate patches to enable the "hclk" clock.
+- Add Reviewed-by tag.
+
+Changes in v3:
+- Add a patch to expand descriptions for clocks of the eDP node.
+- Add Reviewed-by tag.
+
+Changes in v4:
+- Modify commit msg.
+
+Changes in v5:
+- Enforce the correct third clock name on a per-compatible basis.
+- Modify the commit msg simultaneously.
+- Add Acked-by tag.
+
+Changes in v6:
+- Expand more detail commit msg about using hclk instead of grf clock.
+
+Changes in v7:
+- List all valid clock names at the top level, and constrain the clock
+  count for each platform with minItems/maxItems in allOf.
+
+Changes in v8:
+- Fix indentation to 10 for enum in clock-names property.
+
+Changes in v9:
+- Restore the explicit clock-names for RK3399 and RK3588 eDP dt-bindings.
+
+Changes in v10:
+- Use automatic cleanup to fix OF node reference leak reported by
+  Sashiko.
+
 -- 
-2.25.1
+2.34.1
 
