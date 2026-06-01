@@ -4,86 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5D1FCD6E56
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 11:19:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C20FCD6E55
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 11:19:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51635113203;
-	Mon,  1 Jun 2026 11:19:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9C7C10E65C;
+	Mon,  1 Jun 2026 11:19:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="gJRAuC0l";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="C6/3IcaG";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03AA3113203
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 11:19:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C877610E65C
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 11:19:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1780312760;
+ s=mimecast20190719; t=1780312782;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=GuGEK1SkcuHAPgz9gEDQStCi7pNGC+sChcUFL1++fKI=;
- b=gJRAuC0l/J6zxlW9l0X68odnyV+3wT9E2M7oE0h1zdpIV38BDZPvxEWUdSHUyVqPxgahQP
- k0bC5f6MSyfhVGRkI+tr6j6WhbTHjU7Rtl/Ltmb/3XkJ7hQ07z7ksSl3VVlNDvv64EOvsh
- jNsSR1GhEkeMLFSVk2EnNafte3z4C+Q=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=rDdMHQ4QMIhEirSuORxkFsO4/PRX5BsSB4zaAcWgpLM=;
+ b=C6/3IcaGuOZ1GkX6mhPcjkBFcOAr8jR97Cv46IcQq9QpGazwogNHG+ApCIm413CZVuY6Wx
+ FnsqJIWYB1xm4lpjwHRVzAKvAINLmmrdI/qqQJTtc68yKSImuiV9Z9kHAa275+CadAmxGN
+ SIc988xmnCqos+lly1c+5EBCqbhRmfE=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-310-0Gz22vy8PeKtwFaWGNONDA-1; Mon, 01 Jun 2026 07:19:19 -0400
-X-MC-Unique: 0Gz22vy8PeKtwFaWGNONDA-1
-X-Mimecast-MFC-AGG-ID: 0Gz22vy8PeKtwFaWGNONDA_1780312758
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-490a762bcbaso11121095e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 04:19:18 -0700 (PDT)
+ us-mta-260-gCydXX-QPj2wRtd4UX-uHA-1; Mon, 01 Jun 2026 07:19:41 -0400
+X-MC-Unique: gCydXX-QPj2wRtd4UX-uHA-1
+X-Mimecast-MFC-AGG-ID: gCydXX-QPj2wRtd4UX-uHA_1780312781
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-45ef5e38a18so1260559f8f.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 04:19:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780312758; x=1780917558;
+ d=1e100.net; s=20251104; t=1780312780; x=1780917580;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=GuGEK1SkcuHAPgz9gEDQStCi7pNGC+sChcUFL1++fKI=;
- b=Fmw1EXFAQQs63TRzeSf1tevVjO86AM+bNtkgqa9RggNCis22kVGdNXDd9YHWtyNmyQ
- X+rBNru4+Ye91CLnbXB7/+Qdkx8WK5BU5UB5PT4WoZBT5Atm2G4v4TTje/Zd/qO0wTl2
- WLu8BS3lRHctuUMxSdwAvAIaxtquZhBahRFTtMxlGGjbEwT7yu5h6apbkOIp7JPMGSXp
- NWDKPClOH7woAKEA+qtaSE1tEIMLNn3+kT5trcCf24Ewj8BWN57wwS33cLP7GNPr563d
- vtABGd/xKTJS1ma08C5eOQncnpbo45opxD3ocVKaPGqnmbt3abIue9giUUuBpvoE623j
- F3Sw==
-X-Gm-Message-State: AOJu0YxuEOyOJ2jo3VdP8E7V9DyzHngj198UXCJeYAPH9P4+hFKlD8XD
- yv7M0kr698n77kkXXlLow6cltkB71pYgk39aqYV6PWT21yKIkyDBTmYVWOmADSY5cpbrxcnJXEk
- 5LGmCkCpWAUZBeF2g7a3FBY+dh/aplBb1ePzcEstKIqU3Hnj8loWUXIdKFIs1D9IturP4og==
-X-Gm-Gg: Acq92OFD4VQsqeWm2ctIjDnNZ72y7hkKDQ35xnCoiAmw/Zrz1kDRupsHg9jDHBOW9oN
- sjK+b75M+535ITXIAhrdUFtlmd5vbTZiGcfkoCUDuh+KgBwVM04hvomlhv0gQEvhn5VyAA+gcoO
- kf2coR6iuHGsuhewACezlVrMKe1zC+1z059gCXSkJpTHjGnYxxSvLIwgObGIDOMlgc7A3AXrzIu
- lAIHtcBTN6t/MV9i+tNumBVYX4ghMtQzQLO+2IsX9liplWO98MuLjWoiY52+UHjueBhWSy1XWY0
- bpHN40xCmrWrzqQZjvvsVeqBJ5QUZyGX4Z2G5PdqfsTsE8C8cNBRM2iT7XSymNReHgTfQRmj7Dl
- atTeK9PTeFOQaCn1SbfRIIzvcJY+m2ggH5WhRhLKuDfLBBp2lyDW8Iqgo7LCJ9lI6+r+3kUSK
-X-Received: by 2002:a05:600c:1d2a:b0:490:a964:14f8 with SMTP id
- 5b1f17b1804b1-490a9641586mr78813375e9.8.1780312756557; 
- Mon, 01 Jun 2026 04:19:16 -0700 (PDT)
-X-Received: by 2002:a05:600c:1d2a:b0:490:a964:14f8 with SMTP id
- 5b1f17b1804b1-490a9641586mr78811755e9.8.1780312755336; 
- Mon, 01 Jun 2026 04:19:15 -0700 (PDT)
+ bh=rDdMHQ4QMIhEirSuORxkFsO4/PRX5BsSB4zaAcWgpLM=;
+ b=S/masnm/s7j0V1id2bZqGFoE1fbtEZhXlpc1UTq13Q90Zn7SLSBDR0lVbcuGVUnm49
+ W8hVzD0BX1+WYy0l7CDVI8ooGsuYZat6CGI8jSiX+s2JP4XCLqpWR2VW6HPexXEIv+2N
+ 7a6rIBGtQfokoy/9ovnI7ngHvkOti/DKXYCNdq99CW/y6jPgpRIDGU7f//utajf9pIcU
+ O67vZpMMTo8hFkvKIvS/fRZSW2vucoWYVN9hsptoTiJrYtx+YmuTsOJf551DEvPULOci
+ 36Pz4HOBasRWO8R6A8k/VxSP0qS87ri7WGm4gYZYicyasylpEe3vXrWq6fDBVrhwsdNZ
+ zxIA==
+X-Gm-Message-State: AOJu0Yw0TnFK/T73aY2Ovn2CpmKPnZaCJTJYIFcnbU2Im6rd8uVKx80Q
+ DeAny2DaI5DA7/qTGOAI5tmH20LYOSFEH/T8xvm1vkKO05EchTwtvPFmxoJ3zY1Z/A95cqWQ5NC
+ QKkzos3K0IgVyb/qj3bGl2b5ua522ElGY+J+nyBGN31lTO9LnVIZT854UT394JR8itxFdWfkLrR
+ Wqsg==
+X-Gm-Gg: Acq92OE1i8dXpHmIPI1JThDIXsoA5sF6eC/T8RXEpBwMsBUXrY8RaY9s/NeDEM3Ar4d
+ PqdcaK1+6BJhFPcGCfYkpZ6xaU9+9VVxioKW+VGwJtM+CAYwEAi1e//iUO1BV0mKf7lhU7qIBaF
+ bbt+Px6XUX6tzwJQjaSmtirCicLY4DwDlQtB+0dVtSumnrGYGk3feDjY02htokqkQOJY3e4iGWB
+ zYffVc3v71jNdAs+keWAhV0oCP8dQwgFZ1wA4utNYsGvjxI6ikJ5rNQ0AjcplAgITnXnG4oBKht
+ l4WQNury20DSatnQaHgyO3U1WKtlskH4H/SKmHFBrPibYhQhvGzbsAeObrdT1JjU5QAZizcBDlm
+ N9e/iRxKZ3WKOpSr/aFn3pjN48mYcTft/sk7rlS01h7nLqhaLw1JRZIWOpfeFZmGg79AH0QtO
+X-Received: by 2002:a05:600c:8b10:b0:490:5cb3:e94a with SMTP id
+ 5b1f17b1804b1-490a2900d9dmr190001895e9.2.1780312780551; 
+ Mon, 01 Jun 2026 04:19:40 -0700 (PDT)
+X-Received: by 2002:a05:600c:8b10:b0:490:5cb3:e94a with SMTP id
+ 5b1f17b1804b1-490a2900d9dmr190001155e9.2.1780312780147; 
+ Mon, 01 Jun 2026 04:19:40 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:c:37e0:ec71:10ae:399e:d3c8?
  ([2a01:e0a:c:37e0:ec71:10ae:399e:d3c8])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4909c0e8c1bsm100153935e9.3.2026.06.01.04.19.14
+ 5b1f17b1804b1-4909d68a925sm372611805e9.2.2026.06.01.04.19.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Jun 2026 04:19:14 -0700 (PDT)
-Message-ID: <864d92ed-3f54-45c4-8000-167ccc343f11@redhat.com>
-Date: Mon, 1 Jun 2026 13:19:13 +0200
+ Mon, 01 Jun 2026 04:19:39 -0700 (PDT)
+Message-ID: <f66a0169-305b-4b72-a9bb-c114a81ed30e@redhat.com>
+Date: Mon, 1 Jun 2026 13:19:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] drm/client: log: Look up glyph shape with font helper
+Subject: Re: [PATCH 3/4] drm/panic: Look up glyph shape with font helper
 To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
  deller@gmx.de, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
  airlied@gmail.com, simona@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org
 References: <20260529140759.529929-1-tzimmermann@suse.de>
- <20260529140759.529929-3-tzimmermann@suse.de>
+ <20260529140759.529929-4-tzimmermann@suse.de>
 From: Jocelyn Falempe <jfalempe@redhat.com>
-In-Reply-To: <20260529140759.529929-3-tzimmermann@suse.de>
+In-Reply-To: <20260529140759.529929-4-tzimmermann@suse.de>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: KlPveA014htgCUc3MN7fBFCYYLgOh5ohuBVHlhZUcbg_1780312758
+X-Mimecast-MFC-PROC-ID: THeOQZkIbS2zEd0rZqq7j_kUF8fkKdpaRbRSJURHhHI_1780312781
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US, fr
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -110,31 +111,30 @@ On 29/05/2026 16:01, Thomas Zimmermann wrote:
 Thanks, it looks good to me.
 
 Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
+
+
 > 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
->   drivers/gpu/drm/clients/drm_log.c | 10 ++++++----
->   1 file changed, 6 insertions(+), 4 deletions(-)
+>   drivers/gpu/drm/drm_panic.c | 6 ++++--
+>   1 file changed, 4 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/clients/drm_log.c b/drivers/gpu/drm/clients/drm_log.c
-> index 8d21b785bead..e3e02c84a4cf 100644
-> --- a/drivers/gpu/drm/clients/drm_log.c
-> +++ b/drivers/gpu/drm/clients/drm_log.c
-> @@ -122,10 +122,12 @@ static void drm_log_draw_line(struct drm_log_scanout *scanout, const char *s,
->   	iosys_map_incr(&map, r.y1 * fb->pitches[0]);
->   	for (i = 0; i < len && i < scanout->columns; i++) {
->   		u32 color = (i < prefix_len) ? scanout->prefix_color : scanout->front_color;
-> -		src = drm_draw_get_char_bitmap(font, s[i], font_pitch);
-> -		drm_log_blit(&map, fb->pitches[0], src, font_pitch,
-> -			     scanout->scaled_font_h, scanout->scaled_font_w,
-> -			     px_width, color);
-> +		src = font_data_glyph_buf(font->data, font->width, font->height,
-> +					  (unsigned char)s[i]);
-> +		if (src)
-> +			drm_log_blit(&map, fb->pitches[0], src, font_pitch,
-> +				     scanout->scaled_font_h, scanout->scaled_font_w,
-> +				     px_width, color);
->   		iosys_map_incr(&map, scanout->scaled_font_w * px_width);
->   	}
+> diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
+> index d6d3b8d85dea..e576c4791861 100644
+> --- a/drivers/gpu/drm/drm_panic.c
+> +++ b/drivers/gpu/drm/drm_panic.c
+> @@ -443,9 +443,11 @@ static void draw_txt_rectangle(struct drm_scanout_buffer *sb,
+>   			rec.x1 += (drm_rect_width(clip) - (line_len * font->width)) / 2;
 >   
+>   		for (j = 0; j < line_len; j++) {
+> -			src = drm_draw_get_char_bitmap(font, msg[i].txt[j], font_pitch);
+> +			src = font_data_glyph_buf(font->data, font->width, font->height,
+> +						  (unsigned char)msg[i].txt[j]);
+>   			rec.x2 = rec.x1 + font->width;
+> -			drm_panic_blit(sb, &rec, src, font_pitch, 1, color);
+> +			if (src)
+> +				drm_panic_blit(sb, &rec, src, font_pitch, 1, color);
+>   			rec.x1 += font->width;
+>   		}
+>   	}
 
