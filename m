@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3B5BCD6E57
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 15:19:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79A6ECD6E55
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 15:19:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48E3F113496;
-	Mon,  1 Jun 2026 15:19:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5246411349B;
+	Mon,  1 Jun 2026 15:19:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ULqR50qE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="q1ZTzYjo";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3230113496
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 15:19:00 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4903997fcb5so105780885e9.2
- for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 08:19:00 -0700 (PDT)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92376113497
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 15:19:02 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-490a7876f8cso13908035e9.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 08:19:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780327139; x=1780931939; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1780327141; x=1780931941; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=/6+moLw/JKUO1sAY74jZ/JznO1AkiBJL3Ukd8DYl1yY=;
- b=ULqR50qE5i0S46wdJIjBGdlQiWV+iZt/KQYsehku+DlHFeP6nUe81O3GBfzLdHGjlZ
- GW960mIfTAds26/CQf1kudiJgjHn9rBFkY5+xlHviWJb6Hgoz/WWAKpHOTAo6Zdl0mmH
- 55Qeoapjp885SwKs+SHlq3gIk3Cjy9eiuP8tndoqUtPTkdoWHX9JMFBHhwUUSNjxX2YB
- gqhNXplzVIAGcWh7mrhXpjgUhNmPELP4pSBQAKQXag0fyBOB9GPyKK1vyWmfYm/yGRHA
- lJbztBf4VpOXmYJN6O4EI7vN/ZLWsKbSSPO9FZK7KfJvVKsMKUSknaXIMw+yTIFGn0FH
- 3+Sg==
+ bh=6lilqAuiij9iv6kzYPCZqnmLSIUj1rZr1BJG3cusMtw=;
+ b=q1ZTzYjoUK4d2ZqeXQHKpgxvMEPdj0pq/HZ3pBbJea/w6ZibOA3GsPQKvUvmdAJSV8
+ sQWSzC0Y9WohxlD3qrvWxeLp0lTbv89EQuy+MlC2KdVYLCth40ujNDj8Dc9m7oi/0iYx
+ 5WLNfj6VHTIzYxSSsg4crT4MYLewZSRJ6OTyxVnFH5d0XvitjmEpX9BlK07SqivSyhNg
+ QPqD2klyLXmgAIvWQDeu+Fs0jyKzgSX4RJmzq8Q6HgoMgqlfoI3n4ZoHrH/UA954zzdl
+ gvQsBHJ/rjHUY/PBs2AgNrKWE8L9HUOv5Q8xIs9g3itlTzCMw9LAwp8kG4xqgkF4VWUC
+ 1cCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780327139; x=1780931939;
+ d=1e100.net; s=20251104; t=1780327141; x=1780931941;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=/6+moLw/JKUO1sAY74jZ/JznO1AkiBJL3Ukd8DYl1yY=;
- b=UgYSwXO93AODpto6tOCqSoThLX7l/B9bmZ70uzhm+QRJWu0YuscR23bP9+V7KRHM8E
- gBhIigDFmmD+LsXGNy+x9ByvJvxD3oegpWiIjT7aCAG4zkem0mHXg6FboClijE6uz5L8
- JhH4PjI/34B1BgedDKYiQKDZmsc7Ax9Rh39NI1aHQKiL9syGF5AfEmQZtskw/9vkSk4Q
- WqrGaGRe0IxULcyu5jXZ1k8IEKo1zFWgYe01Sk3NTDLxhNTdkDwYVMQtCLM8+Pk33ss9
- Z46Fu2zAWNszPWYqbYW2Ddk6m6MZUfvLOOxpvQTYeo7dkvzD5h3RowNKDmXR0dXo2yUO
- m5jw==
+ bh=6lilqAuiij9iv6kzYPCZqnmLSIUj1rZr1BJG3cusMtw=;
+ b=hdrOOZsHYQFB81sEGd98Ca9s+r3PY8pCQ8J4BcgSKRG+riSHrUPFfOlK/DJqwnN09j
+ K6Aqz1dnxLh4OnH+dNDqPyF88nvHvyGfV/rT9yWZP4h7OMUQ4j/RDeQhvljzK3Q9mwaj
+ WK5eLI9iWLuk1eWFKQXKVD3ps8yCDw4mjpLyiF5LUy/fYp97Db/tCOR78xdRseaLSLKN
+ 9RvTQ9Pu9YNpCYwt8KQtAP2PYT5/JE2kfjbTKqOc0Kuxly1C4g50EQFkqyIuyAHDUzos
+ iaqcP+eVthX1/x/h1Fo8LljkvCZEurHI6CqDJq9tg4oEOATvhZSSSWczTgKXdPx4T4wF
+ 98/Q==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+YX0dcwEI8iSg4OMhi/R77dGDhAls2Lf68Mo3sFEIY6n0CiIFSpGdbQkdJ2KbYFTu8C1D8J5ntzuc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyRNNu/AGHLIg2nEmh0xDJ2D67x6Dh4CU9KOPnTuaRTZ+Yb2wq2
- ncDctr8Sn62vYn7l7G98pVSssPqFL4ni9QoY45wvNqVRcUcsnORm/P1M
-X-Gm-Gg: Acq92OHSXYSVoPbWZE39SCGutJMgaUuxDSUYoLpTbTsZt0nmEY1Gf5p9lC4HbubmqXy
- cEmhxdO27m1K3v2hLsR8r6YwvA59844nzEpN0LU+Z66X0EJJHNhQi3iXMopWIzCDtRvyhoQsufK
- aS9EA0aqBrMJAHlaiZzr813I1TObSPWuGOYYZsnSURVpoFQG75WVsHxP/pEQ/k2KD3ppNVMuTWG
- m1GfYpDdNg0seTBVdvo1rNcG97OqS4YGzPtShTuw6RrHIhnnd1+no4G7a02FzF8fiZXgygfAw5x
- C6T/J82K4p6Pk1paN3ML+GeLoehG6WcOPHNzRa5Re1iAO47ZW9xYQRHzBpDN3zae17tC2mhNf3R
- VHDOfq2Kowt9js+Jq6M6ZR2EL+nLTZSXpqMnxeI4aB8yjUnF+ziIKvMl4yiProhWylOpuw27xw/
- Kp57WZsbBA5BSN/FDafZtm4g8=
-X-Received: by 2002:a05:600c:c092:b0:489:1ba8:5bf0 with SMTP id
- 5b1f17b1804b1-490a2959113mr190065465e9.21.1780327139267; 
- Mon, 01 Jun 2026 08:18:59 -0700 (PDT)
+ AFNElJ9tf5I16bDcfIPH2MQxpV0miMhAqcOnPprfSubRHy7i7Ju/nq/Ka9FpdAw9LbEvF5kSz6Yt9oSOUMg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YznqDOo4TKVH69UKO+zd6xSm6LcrqAsxNO4XIlVL5puqaj4S4En
+ TaKhPBdJbHBkRCOuYFqiujh5OmGfgGH31wHrDfY+f1hH1zT5KJONng0S
+X-Gm-Gg: Acq92OFwCmr24Fv8k7RYYEH5eyqAhNkwxJtEZ3m+RigPcMF6dmJyhKz/mpypQevvmEp
+ FFbJpVscH6ffiYEXJwkvXgJsMwx+RmH3MWupjKuJzGXTVI0BdShIHErFdEXAOL8q8r9UM+2EJqm
+ bFctD88NayuSe1AB/Lq1GRPk1WYg0cIXhdoKFuVC9EhrP4twO0idaj2Nwxw2S3NwwPp5P5Y4bux
+ bU70p3fnGr/BcrFRXypGmIt2BvllyA3s4hMAY4pMhrUBPnHxzMSXKYSFRKxORhE9VEXSEBmqnG0
+ wpNbAwiUxlIDyHkUl7//zISg8Z6J6w3ut9RalnHAemnGKL+FOE4tIJzjATNMPehK258NbG1PuTN
+ G3KDhGilRXBGsSleYixGUWmNNM8nEWy8tYQXZzANTaaqxWHkcSUoU4zd96whuaIdt3caT5yikno
+ f94j3tq8149j0o+frjMg4e65E=
+X-Received: by 2002:a05:600c:6287:b0:490:9d1b:f068 with SMTP id
+ 5b1f17b1804b1-490a295d9c6mr209410175e9.29.1780327140831; 
+ Mon, 01 Jun 2026 08:19:00 -0700 (PDT)
 Received: from xeon ([188.163.112.61]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45ef354cd7csm25753103f8f.18.2026.06.01.08.18.57
+ ffacd0b85a97d-45ef354cd7csm25753103f8f.18.2026.06.01.08.18.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2026 08:18:58 -0700 (PDT)
+ Mon, 01 Jun 2026 08:19:00 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
  Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
@@ -74,9 +74,9 @@ Cc: Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
  linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
  linux-fbdev@vger.kernel.org
-Subject: [PATCH v3 01/11] dt-bindings: leds: Document TI LM3533 LED controller
-Date: Mon,  1 Jun 2026 18:18:21 +0300
-Message-ID: <20260601151831.76350-2-clamor95@gmail.com>
+Subject: [PATCH v3 02/11] mfd: lm3533: Remove driver specific regmap wrappers
+Date: Mon,  1 Jun 2026 18:18:22 +0300
+Message-ID: <20260601151831.76350-3-clamor95@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260601151831.76350-1-clamor95@gmail.com>
 References: <20260601151831.76350-1-clamor95@gmail.com>
@@ -97,345 +97,703 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Document the LM3533 - a complete power source for backlight, keypad and
-indicator LEDs in smartphone handsets. The high-voltage inductive boost
-converter provides the power for two series LED strings display backlight
-and keypad functions.
+Remove driver-specific regmap wrappers in favor of using regmap helpers
+directly. The wrappers are mostly equivalent to the standard helpers, with
+two exceptions: regmap_read requires an unsigned int pointer, and
+regmap_update_bits has the mask and value arguments swapped. These
+differences were accounted for and adjusted accordingly.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-Reviewed-by: Jonathan Cameron <jic23@kernel.org> #for light sensor
 ---
- .../leds/backlight/ti,lm3533-backlight.yaml   |  69 +++++++
- .../bindings/leds/ti,lm3533-leds.yaml         |  67 +++++++
- .../devicetree/bindings/leds/ti,lm3533.yaml   | 169 ++++++++++++++++++
- 3 files changed, 305 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/leds/backlight/ti,lm3533-backlight.yaml
- create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3533-leds.yaml
- create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3533.yaml
+ drivers/iio/light/lm3533-als.c      | 57 ++++++++++++----------
+ drivers/leds/leds-lm3533.c          | 34 +++++++-------
+ drivers/mfd/lm3533-core.c           | 73 +++++------------------------
+ drivers/mfd/lm3533-ctrlbank.c       | 22 +++++----
+ drivers/video/backlight/lm3533_bl.c | 21 +++++----
+ include/linux/mfd/lm3533.h          |  8 +---
+ 6 files changed, 86 insertions(+), 129 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/leds/backlight/ti,lm3533-backlight.yaml b/Documentation/devicetree/bindings/leds/backlight/ti,lm3533-backlight.yaml
-new file mode 100644
-index 000000000000..a25846e9b375
---- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/backlight/ti,lm3533-backlight.yaml
-@@ -0,0 +1,69 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/backlight/ti,lm3533-backlight.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI LM3533 high voltage series LED strings
-+
-+description:
-+  This is part of the TI LM3533 MFD device. It represents two high voltage series
-+  LED strings for display backlight controlled by the TI LM3533.
-+
-+maintainers:
-+  - Svyatoslav Ryhel <clamor95@gmail.com>
-+
-+allOf:
-+  - $ref: /schemas/leds/backlight/common.yaml#
-+
-+properties:
-+  compatible:
-+    const: ti,lm3533-backlight
-+
-+  reg:
-+    description: Control bank selection (0 = bank A, 1 = bank B).
-+    maximum: 1
-+
-+  led-max-microamp:
-+    description: maximum current in uA with a 800 uA step.
-+    minimum: 5000
-+    maximum: 29800
-+    default: 5000
-+
-+  led-sources:
-+    description: |
-+      HVLED strings associated with this control bank:
-+        0 - HVLED1
-+        1 - HVLED2
-+    minItems: 1
-+    maxItems: 2
-+    items:
-+      maximum: 1
-+
-+  ti,pwm-config-mask:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: |
-+      Control Bank PWM Configuration Register mask that allows to configure
-+      PWM input in Zones 0-4
-+      BIT(0) - PWM Input is enabled
-+      BIT(1) - PWM Input is enabled in Zone 0
-+      BIT(2) - PWM Input is enabled in Zone 1
-+      BIT(3) - PWM Input is enabled in Zone 2
-+      BIT(4) - PWM Input is enabled in Zone 3
-+      BIT(5) - PWM Input is enabled in Zone 4
-+    default: 0
-+
-+  ti,linear-mapping-mode:
-+    description:
-+      Enable linear mapping mode. If disabled, then it will use exponential
-+      mapping mode in which the ramp up/down appears to have a more uniform
-+      transition to the human eye.
-+    type: boolean
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+# see ti,lm3533.yaml for an example
-diff --git a/Documentation/devicetree/bindings/leds/ti,lm3533-leds.yaml b/Documentation/devicetree/bindings/leds/ti,lm3533-leds.yaml
-new file mode 100644
-index 000000000000..d8dbefef3323
---- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/ti,lm3533-leds.yaml
-@@ -0,0 +1,67 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/ti,lm3533-leds.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI LM3533 low voltage control banks for individual LEDs
-+
-+description:
-+  This is part of the TI LM3533 MFD device. It represents four low voltage
-+  control banks for individual LEDs provided by the TI LM3533.
-+
-+maintainers:
-+  - Svyatoslav Ryhel <clamor95@gmail.com>
-+
-+allOf:
-+  - $ref: /schemas/leds/common.yaml#
-+
-+properties:
-+  compatible:
-+    const: ti,lm3533-leds
-+
-+  reg:
-+    description:
-+      Control bank selection (2 = bank C, 3 = bank D, 4 = bank E, 5 = bank F).
-+    minimum: 2
-+    maximum: 5
-+
-+  led-max-microamp:
-+    description: maximum current in uA with a 800 uA step.
-+    minimum: 5000
-+    maximum: 29800
-+    default: 5000
-+
-+  led-sources:
-+    description: |
-+      LVLED associated with this control bank. May be more than 1 source per bank.
-+        0 - LVLED1
-+        1 - LVLED2
-+        2 - LVLED3
-+        3 - LVLED4
-+        4 - LVLED5
-+    minItems: 1
-+    maxItems: 5
-+    items:
-+      maximum: 4
-+
-+  ti,pwm-config-mask:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: |
-+      Control Bank PWM Configuration Register mask that allows to configure
-+      PWM input in Zones 0-4
-+      BIT(0) - PWM Input is enabled
-+      BIT(1) - PWM Input is enabled in Zone 0
-+      BIT(2) - PWM Input is enabled in Zone 1
-+      BIT(3) - PWM Input is enabled in Zone 2
-+      BIT(4) - PWM Input is enabled in Zone 3
-+      BIT(5) - PWM Input is enabled in Zone 4
-+    default: 0
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+# see ti,lm3533.yaml for an example
-diff --git a/Documentation/devicetree/bindings/leds/ti,lm3533.yaml b/Documentation/devicetree/bindings/leds/ti,lm3533.yaml
-new file mode 100644
-index 000000000000..bdc05a9f3d66
---- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/ti,lm3533.yaml
-@@ -0,0 +1,169 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/ti,lm3533.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI LM3533 Complete Lighting Power Solution
-+
-+description: >
-+  The LM3533 is a complete power source for backlight, keypad, and indicator LEDs
-+  in smartphone handsets. The high-voltage inductive boost converter provides the
-+  power for two high voltage series LED strings for display backlight and four low
-+  voltage control banks for individual LEDs. Additionally, LM3533 features an
-+  interface for an external light sensor.
-+
-+  https://www.ti.com/product/LM3533
-+
-+maintainers:
-+  - Svyatoslav Ryhel <clamor95@gmail.com>
-+
-+properties:
-+  compatible:
-+    const: ti,lm3533
-+
-+  reg:
-+    maxItems: 1
-+
-+  enable-gpios:
-+    description: GPIO connected to the HWEN pin.
-+    maxItems: 1
-+
-+  vin-supply:
-+    description: Supply connected to the IN line (2.7 V to 5.5 V).
-+
-+  '#address-cells':
-+    const: 1
-+
-+  '#size-cells':
-+    const: 0
-+
-+  ti,boost-ovp-microvolt:
-+    description: boost OVP select (16V, 24V, 32V, 40V)
-+    enum: [ 16000000, 24000000, 32000000, 40000000 ]
-+    default: 16000000
-+
-+  ti,boost-freq-hz:
-+    description: boost frequency select (500KHz or 1MHz)
-+    enum: [ 500000, 1000000 ]
-+    default: 500000
-+
-+  light-sensor:
-+    type: object
-+    additionalProperties: false
-+
-+    properties:
-+      compatible:
-+        const: ti,lm3533-als
-+
-+      interrupts:
-+        maxItems: 1
-+
-+      ti,resistor-ohms:
-+        description:
-+          Internal configuration resistor value when light sensor is in
-+          Analog Sensor mode and PWM mode is disabled. The expectation is
-+          the input is a current from the external analog light sensor and
-+          this is used to convert it to a voltage within the target range.
-+        minimum: 1575
-+        maximum: 200000
-+
-+      ti,pwm-mode:
-+        type: boolean
-+        description:
-+          Switch for mode in which light sensor interface is running. If
-+          this property is set then the light sensor interface is running
-+          in PWM mode, internal resistor value is set to high-impedance (0)
-+          and ti,resistor-ohms property is ignored.
-+
-+    required:
-+      - compatible
-+
-+    oneOf:
-+      - required:
-+          - ti,resistor-ohms
-+      - required:
-+          - ti,pwm-mode
-+
-+patternProperties:
-+  "^backlight@[01]$":
-+    $ref: /schemas/leds/backlight/ti,lm3533-backlight.yaml#
-+
-+  "^led@[2-5]$":
-+    $ref: /schemas/leds/ti,lm3533-leds.yaml#
-+
-+required:
-+  - compatible
-+  - reg
-+  - '#address-cells'
-+  - '#size-cells'
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        led-controller@36 {
-+            compatible = "ti,lm3533";
-+            reg = <0x36>;
-+
-+            enable-gpios = <&gpio 110 GPIO_ACTIVE_HIGH>;
-+            vin-supply = <&vdd_3v3_bat>;
-+
-+            ti,boost-ovp-microvolt = <24000000>;
-+            ti,boost-freq-hz = <500000>;
-+
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            backlight@0 {
-+                compatible = "ti,lm3533-backlight";
-+                reg = <0>;
-+
-+                default-brightness = <113>;
-+
-+                led-max-microamp = <23400>;
-+                led-sources = <0 1>;
-+            };
-+
-+            led@2 {
-+                compatible = "ti,lm3533-leds";
-+                reg = <2>;
-+
-+                led-max-microamp = <23400>;
-+                led-sources = <0 1>;
-+            };
-+
-+            led@4 {
-+                compatible = "ti,lm3533-leds";
-+                reg = <4>;
-+
-+                led-max-microamp = <23400>;
-+                led-sources = <2>;
-+            };
-+
-+            led@5 {
-+                compatible = "ti,lm3533-leds";
-+                reg = <5>;
-+
-+                led-max-microamp = <23400>;
-+                led-sources = <3 4>;
-+            };
-+
-+            light-sensor {
-+                compatible = "ti,lm3533-als";
-+
-+                interrupt-parent = <&gpio>;
-+                interrupts = <80 IRQ_TYPE_LEVEL_LOW>;
-+
-+                ti,pwm-mode;
-+            };
-+        };
-+    };
-+...
+diff --git a/drivers/iio/light/lm3533-als.c b/drivers/iio/light/lm3533-als.c
+index 99f0b903018c..fb61904f110f 100644
+--- a/drivers/iio/light/lm3533-als.c
++++ b/drivers/iio/light/lm3533-als.c
+@@ -17,6 +17,7 @@
+ #include <linux/mutex.h>
+ #include <linux/mfd/core.h>
+ #include <linux/platform_device.h>
++#include <linux/regmap.h>
+ #include <linux/slab.h>
+ #include <linux/uaccess.h>
+ 
+@@ -64,7 +65,7 @@ static int lm3533_als_get_adc(struct iio_dev *indio_dev, bool average,
+ {
+ 	struct lm3533_als *als = iio_priv(indio_dev);
+ 	u8 reg;
+-	u8 val;
++	u32 val;
+ 	int ret;
+ 
+ 	if (average)
+@@ -72,7 +73,7 @@ static int lm3533_als_get_adc(struct iio_dev *indio_dev, bool average,
+ 	else
+ 		reg = LM3533_REG_ALS_READ_ADC_RAW;
+ 
+-	ret = lm3533_read(als->lm3533, reg, &val);
++	ret = regmap_read(als->lm3533->regmap, reg, &val);
+ 	if (ret) {
+ 		dev_err(&indio_dev->dev, "failed to read adc\n");
+ 		return ret;
+@@ -86,10 +87,10 @@ static int lm3533_als_get_adc(struct iio_dev *indio_dev, bool average,
+ static int _lm3533_als_get_zone(struct iio_dev *indio_dev, u8 *zone)
+ {
+ 	struct lm3533_als *als = iio_priv(indio_dev);
+-	u8 val;
++	u32 val;
+ 	int ret;
+ 
+-	ret = lm3533_read(als->lm3533, LM3533_REG_ALS_ZONE_INFO, &val);
++	ret = regmap_read(als->lm3533->regmap, LM3533_REG_ALS_ZONE_INFO, &val);
+ 	if (ret) {
+ 		dev_err(&indio_dev->dev, "failed to read zone\n");
+ 		return ret;
+@@ -127,7 +128,7 @@ static inline u8 lm3533_als_get_target_reg(unsigned channel, unsigned zone)
+ }
+ 
+ static int lm3533_als_get_target(struct iio_dev *indio_dev, unsigned channel,
+-							unsigned zone, u8 *val)
++				 unsigned zone, u32 *val)
+ {
+ 	struct lm3533_als *als = iio_priv(indio_dev);
+ 	u8 reg;
+@@ -140,7 +141,7 @@ static int lm3533_als_get_target(struct iio_dev *indio_dev, unsigned channel,
+ 		return -EINVAL;
+ 
+ 	reg = lm3533_als_get_target_reg(channel, zone);
+-	ret = lm3533_read(als->lm3533, reg, val);
++	ret = regmap_read(als->lm3533->regmap, reg, val);
+ 	if (ret)
+ 		dev_err(&indio_dev->dev, "failed to get target current\n");
+ 
+@@ -161,7 +162,7 @@ static int lm3533_als_set_target(struct iio_dev *indio_dev, unsigned channel,
+ 		return -EINVAL;
+ 
+ 	reg = lm3533_als_get_target_reg(channel, zone);
+-	ret = lm3533_write(als->lm3533, reg, val);
++	ret = regmap_write(als->lm3533->regmap, reg, val);
+ 	if (ret)
+ 		dev_err(&indio_dev->dev, "failed to set target current\n");
+ 
+@@ -172,7 +173,7 @@ static int lm3533_als_get_current(struct iio_dev *indio_dev, unsigned channel,
+ 								int *val)
+ {
+ 	u8 zone;
+-	u8 target;
++	u32 target;
+ 	int ret;
+ 
+ 	ret = lm3533_als_get_zone(indio_dev, &zone);
+@@ -280,7 +281,8 @@ static int lm3533_als_set_int_mode(struct iio_dev *indio_dev, int enable)
+ 	else
+ 		val = 0;
+ 
+-	ret = lm3533_update(als->lm3533, LM3533_REG_ALS_ZONE_INFO, val, mask);
++	ret = regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_ZONE_INFO,
++				 val, mask);
+ 	if (ret) {
+ 		dev_err(&indio_dev->dev, "failed to set int mode %d\n",
+ 								enable);
+@@ -294,10 +296,10 @@ static int lm3533_als_get_int_mode(struct iio_dev *indio_dev, int *enable)
+ {
+ 	struct lm3533_als *als = iio_priv(indio_dev);
+ 	u8 mask = LM3533_ALS_INT_ENABLE_MASK;
+-	u8 val;
++	u32 val;
+ 	int ret;
+ 
+-	ret = lm3533_read(als->lm3533, LM3533_REG_ALS_ZONE_INFO, &val);
++	ret = regmap_read(als->lm3533->regmap, LM3533_REG_ALS_ZONE_INFO, &val);
+ 	if (ret) {
+ 		dev_err(&indio_dev->dev, "failed to get int mode\n");
+ 		return ret;
+@@ -316,7 +318,7 @@ static inline u8 lm3533_als_get_threshold_reg(unsigned nr, bool raising)
+ }
+ 
+ static int lm3533_als_get_threshold(struct iio_dev *indio_dev, unsigned nr,
+-							bool raising, u8 *val)
++				    bool raising, u32 *val)
+ {
+ 	struct lm3533_als *als = iio_priv(indio_dev);
+ 	u8 reg;
+@@ -326,7 +328,7 @@ static int lm3533_als_get_threshold(struct iio_dev *indio_dev, unsigned nr,
+ 		return -EINVAL;
+ 
+ 	reg = lm3533_als_get_threshold_reg(nr, raising);
+-	ret = lm3533_read(als->lm3533, reg, val);
++	ret = regmap_read(als->lm3533->regmap, reg, val);
+ 	if (ret)
+ 		dev_err(&indio_dev->dev, "failed to get threshold\n");
+ 
+@@ -337,7 +339,7 @@ static int lm3533_als_set_threshold(struct iio_dev *indio_dev, unsigned nr,
+ 							bool raising, u8 val)
+ {
+ 	struct lm3533_als *als = iio_priv(indio_dev);
+-	u8 val2;
++	u32 val2;
+ 	u8 reg, reg2;
+ 	int ret;
+ 
+@@ -348,7 +350,7 @@ static int lm3533_als_set_threshold(struct iio_dev *indio_dev, unsigned nr,
+ 	reg2 = lm3533_als_get_threshold_reg(nr, !raising);
+ 
+ 	mutex_lock(&als->thresh_mutex);
+-	ret = lm3533_read(als->lm3533, reg2, &val2);
++	ret = regmap_read(als->lm3533->regmap, reg2, &val2);
+ 	if (ret) {
+ 		dev_err(&indio_dev->dev, "failed to get threshold\n");
+ 		goto out;
+@@ -363,7 +365,7 @@ static int lm3533_als_set_threshold(struct iio_dev *indio_dev, unsigned nr,
+ 		goto out;
+ 	}
+ 
+-	ret = lm3533_write(als->lm3533, reg, val);
++	ret = regmap_write(als->lm3533->regmap, reg, val);
+ 	if (ret) {
+ 		dev_err(&indio_dev->dev, "failed to set threshold\n");
+ 		goto out;
+@@ -375,11 +377,11 @@ static int lm3533_als_set_threshold(struct iio_dev *indio_dev, unsigned nr,
+ }
+ 
+ static int lm3533_als_get_hysteresis(struct iio_dev *indio_dev, unsigned nr,
+-								u8 *val)
++				     u32 *val)
+ {
+ 	struct lm3533_als *als = iio_priv(indio_dev);
+-	u8 falling;
+-	u8 raising;
++	u32 falling;
++	u32 raising;
+ 	int ret;
+ 
+ 	if (nr > LM3533_ALS_THRESH_MAX)
+@@ -503,7 +505,7 @@ static ssize_t show_als_attr(struct device *dev,
+ {
+ 	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
+ 	struct lm3533_als_attribute *als_attr = to_lm3533_als_attr(attr);
+-	u8 val;
++	u32 val;
+ 	int ret;
+ 
+ 	switch (als_attr->type) {
+@@ -725,7 +727,8 @@ static int lm3533_als_set_input_mode(struct lm3533_als *als, bool pwm_mode)
+ 	else
+ 		val = 0;	/* analog input */
+ 
+-	ret = lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, val, mask);
++	ret = regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_CONF,
++				 mask, val);
+ 	if (ret) {
+ 		dev_err(&als->pdev->dev, "failed to set input mode %d\n",
+ 								pwm_mode);
+@@ -744,7 +747,8 @@ static int lm3533_als_set_resistor(struct lm3533_als *als, u8 val)
+ 		return -EINVAL;
+ 	}
+ 
+-	ret = lm3533_write(als->lm3533, LM3533_REG_ALS_RESISTOR_SELECT, val);
++	ret = regmap_write(als->lm3533->regmap, LM3533_REG_ALS_RESISTOR_SELECT,
++			   val);
+ 	if (ret) {
+ 		dev_err(&als->pdev->dev, "failed to set resistor\n");
+ 		return ret;
+@@ -778,7 +782,8 @@ static int lm3533_als_setup_irq(struct lm3533_als *als, void *dev)
+ 	int ret;
+ 
+ 	/* Make sure interrupts are disabled. */
+-	ret = lm3533_update(als->lm3533, LM3533_REG_ALS_ZONE_INFO, 0, mask);
++	ret = regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_ZONE_INFO,
++				 mask, 0);
+ 	if (ret) {
+ 		dev_err(&als->pdev->dev, "failed to disable interrupts\n");
+ 		return ret;
+@@ -801,7 +806,8 @@ static int lm3533_als_enable(struct lm3533_als *als)
+ 	u8 mask = LM3533_ALS_ENABLE_MASK;
+ 	int ret;
+ 
+-	ret = lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, mask, mask);
++	ret = regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_CONF,
++				 mask, mask);
+ 	if (ret)
+ 		dev_err(&als->pdev->dev, "failed to enable ALS\n");
+ 
+@@ -813,7 +819,8 @@ static int lm3533_als_disable(struct lm3533_als *als)
+ 	u8 mask = LM3533_ALS_ENABLE_MASK;
+ 	int ret;
+ 
+-	ret = lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, 0, mask);
++	ret = regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_CONF,
++				 mask, 0);
+ 	if (ret)
+ 		dev_err(&als->pdev->dev, "failed to disable ALS\n");
+ 
+diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
+index 45795f2a1042..51ff61aee75c 100644
+--- a/drivers/leds/leds-lm3533.c
++++ b/drivers/leds/leds-lm3533.c
+@@ -12,6 +12,7 @@
+ #include <linux/mfd/core.h>
+ #include <linux/mutex.h>
+ #include <linux/platform_device.h>
++#include <linux/regmap.h>
+ #include <linux/slab.h>
+ 
+ #include <linux/mfd/lm3533.h>
+@@ -101,7 +102,8 @@ static int lm3533_led_pattern_enable(struct lm3533_led *led, int enable)
+ 	else
+ 		val = 0;
+ 
+-	ret = lm3533_update(led->lm3533, LM3533_REG_PATTERN_ENABLE, val, mask);
++	ret = regmap_update_bits(led->lm3533->regmap,
++				 LM3533_REG_PATTERN_ENABLE, mask, val);
+ 	if (ret) {
+ 		dev_err(led->cdev.dev, "failed to enable pattern %d (%d)\n",
+ 							pattern, enable);
+@@ -131,7 +133,7 @@ static int lm3533_led_set(struct led_classdev *cdev,
+ static enum led_brightness lm3533_led_get(struct led_classdev *cdev)
+ {
+ 	struct lm3533_led *led = to_lm3533_led(cdev);
+-	u8 val;
++	u32 val;
+ 	int ret;
+ 
+ 	ret = lm3533_ctrlbank_get_brightness(&led->cb, &val);
+@@ -259,7 +261,7 @@ static u8 lm3533_led_delay_set(struct lm3533_led *led, u8 base,
+ 	dev_dbg(led->cdev.dev, "%s - %lu: %u (0x%02x)\n", __func__,
+ 							*delay, t, val);
+ 	reg = lm3533_led_get_pattern_reg(led, base);
+-	ret = lm3533_write(led->lm3533, reg, val);
++	ret = regmap_write(led->lm3533->regmap, reg, val);
+ 	if (ret)
+ 		dev_err(led->cdev.dev, "failed to set delay (%02x)\n", reg);
+ 
+@@ -337,10 +339,10 @@ static ssize_t show_risefalltime(struct device *dev,
+ 	struct lm3533_led *led = to_lm3533_led(led_cdev);
+ 	ssize_t ret;
+ 	u8 reg;
+-	u8 val;
++	u32 val;
+ 
+ 	reg = lm3533_led_get_pattern_reg(led, base);
+-	ret = lm3533_read(led->lm3533, reg, &val);
++	ret = regmap_read(led->lm3533->regmap, reg, &val);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -375,7 +377,7 @@ static ssize_t store_risefalltime(struct device *dev,
+ 		return -EINVAL;
+ 
+ 	reg = lm3533_led_get_pattern_reg(led, base);
+-	ret = lm3533_write(led->lm3533, reg, val);
++	ret = regmap_write(led->lm3533->regmap, reg, val);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -405,11 +407,11 @@ static ssize_t show_als_channel(struct device *dev,
+ 	struct lm3533_led *led = to_lm3533_led(led_cdev);
+ 	unsigned channel;
+ 	u8 reg;
+-	u8 val;
++	u32 val;
+ 	int ret;
+ 
+ 	reg = lm3533_led_get_lv_reg(led, LM3533_REG_CTRLBANK_BCONF_BASE);
+-	ret = lm3533_read(led->lm3533, reg, &val);
++	ret = regmap_read(led->lm3533->regmap, reg, &val);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -441,7 +443,7 @@ static ssize_t store_als_channel(struct device *dev,
+ 	mask = LM3533_REG_CTRLBANK_BCONF_ALS_CHANNEL_MASK;
+ 	val = channel - 1;
+ 
+-	ret = lm3533_update(led->lm3533, reg, val, mask);
++	ret = regmap_update_bits(led->lm3533->regmap, reg, mask, val);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -455,11 +457,11 @@ static ssize_t show_als_en(struct device *dev,
+ 	struct lm3533_led *led = to_lm3533_led(led_cdev);
+ 	bool enable;
+ 	u8 reg;
+-	u8 val;
++	u32 val;
+ 	int ret;
+ 
+ 	reg = lm3533_led_get_lv_reg(led, LM3533_REG_CTRLBANK_BCONF_BASE);
+-	ret = lm3533_read(led->lm3533, reg, &val);
++	ret = regmap_read(led->lm3533->regmap, reg, &val);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -491,7 +493,7 @@ static ssize_t store_als_en(struct device *dev,
+ 	else
+ 		val = 0;
+ 
+-	ret = lm3533_update(led->lm3533, reg, val, mask);
++	ret = regmap_update_bits(led->lm3533->regmap, reg, mask, val);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -504,12 +506,12 @@ static ssize_t show_linear(struct device *dev,
+ 	struct led_classdev *led_cdev = dev_get_drvdata(dev);
+ 	struct lm3533_led *led = to_lm3533_led(led_cdev);
+ 	u8 reg;
+-	u8 val;
++	u32 val;
+ 	int linear;
+ 	int ret;
+ 
+ 	reg = lm3533_led_get_lv_reg(led, LM3533_REG_CTRLBANK_BCONF_BASE);
+-	ret = lm3533_read(led->lm3533, reg, &val);
++	ret = regmap_read(led->lm3533->regmap, reg, &val);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -544,7 +546,7 @@ static ssize_t store_linear(struct device *dev,
+ 	else
+ 		val = 0;
+ 
+-	ret = lm3533_update(led->lm3533, reg, val, mask);
++	ret = regmap_update_bits(led->lm3533->regmap, reg, mask, val);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -557,7 +559,7 @@ static ssize_t show_pwm(struct device *dev,
+ {
+ 	struct led_classdev *led_cdev = dev_get_drvdata(dev);
+ 	struct lm3533_led *led = to_lm3533_led(led_cdev);
+-	u8 val;
++	u32 val;
+ 	int ret;
+ 
+ 	ret = lm3533_ctrlbank_get_pwm(&led->cb, &val);
+diff --git a/drivers/mfd/lm3533-core.c b/drivers/mfd/lm3533-core.c
+index 0a2409d00b2e..f9bdc0a1d9be 100644
+--- a/drivers/mfd/lm3533-core.c
++++ b/drivers/mfd/lm3533-core.c
+@@ -80,66 +80,14 @@ static struct mfd_cell lm3533_led_devs[] = {
+ 	},
+ };
+ 
+-int lm3533_read(struct lm3533 *lm3533, u8 reg, u8 *val)
+-{
+-	int tmp;
+-	int ret;
+-
+-	ret = regmap_read(lm3533->regmap, reg, &tmp);
+-	if (ret < 0) {
+-		dev_err(lm3533->dev, "failed to read register %02x: %d\n",
+-								reg, ret);
+-		return ret;
+-	}
+-
+-	*val = tmp;
+-
+-	dev_dbg(lm3533->dev, "read [%02x]: %02x\n", reg, *val);
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(lm3533_read);
+-
+-int lm3533_write(struct lm3533 *lm3533, u8 reg, u8 val)
+-{
+-	int ret;
+-
+-	dev_dbg(lm3533->dev, "write [%02x]: %02x\n", reg, val);
+-
+-	ret = regmap_write(lm3533->regmap, reg, val);
+-	if (ret < 0) {
+-		dev_err(lm3533->dev, "failed to write register %02x: %d\n",
+-								reg, ret);
+-	}
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(lm3533_write);
+-
+-int lm3533_update(struct lm3533 *lm3533, u8 reg, u8 val, u8 mask)
+-{
+-	int ret;
+-
+-	dev_dbg(lm3533->dev, "update [%02x]: %02x/%02x\n", reg, val, mask);
+-
+-	ret = regmap_update_bits(lm3533->regmap, reg, mask, val);
+-	if (ret < 0) {
+-		dev_err(lm3533->dev, "failed to update register %02x: %d\n",
+-								reg, ret);
+-	}
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(lm3533_update);
+-
+ static int lm3533_set_boost_freq(struct lm3533 *lm3533,
+ 						enum lm3533_boost_freq freq)
+ {
+ 	int ret;
+ 
+-	ret = lm3533_update(lm3533, LM3533_REG_BOOST_PWM,
+-					freq << LM3533_BOOST_FREQ_SHIFT,
+-					LM3533_BOOST_FREQ_MASK);
++	ret = regmap_update_bits(lm3533->regmap, LM3533_REG_BOOST_PWM,
++				 LM3533_BOOST_FREQ_MASK,
++				 freq << LM3533_BOOST_FREQ_SHIFT);
+ 	if (ret)
+ 		dev_err(lm3533->dev, "failed to set boost frequency\n");
+ 
+@@ -152,9 +100,9 @@ static int lm3533_set_boost_ovp(struct lm3533 *lm3533,
+ {
+ 	int ret;
+ 
+-	ret = lm3533_update(lm3533, LM3533_REG_BOOST_PWM,
+-					ovp << LM3533_BOOST_OVP_SHIFT,
+-					LM3533_BOOST_OVP_MASK);
++	ret = regmap_update_bits(lm3533->regmap, LM3533_REG_BOOST_PWM,
++				 LM3533_BOOST_OVP_MASK,
++				 ovp << LM3533_BOOST_OVP_SHIFT);
+ 	if (ret)
+ 		dev_err(lm3533->dev, "failed to set boost ovp\n");
+ 
+@@ -181,7 +129,8 @@ static int lm3533_set_hvled_config(struct lm3533 *lm3533, u8 hvled, u8 bl)
+ 	mask = LM3533_BL_ID_MASK << shift;
+ 	val = bl << shift;
+ 
+-	ret = lm3533_update(lm3533, LM3533_REG_OUTPUT_CONF1, val, mask);
++	ret = regmap_update_bits(lm3533->regmap, LM3533_REG_OUTPUT_CONF1,
++				 mask, val);
+ 	if (ret)
+ 		dev_err(lm3533->dev, "failed to set hvled config\n");
+ 
+@@ -216,7 +165,7 @@ static int lm3533_set_lvled_config(struct lm3533 *lm3533, u8 lvled, u8 led)
+ 	mask = LM3533_LED_ID_MASK << shift;
+ 	val = led << shift;
+ 
+-	ret = lm3533_update(lm3533, reg, val, mask);
++	ret = regmap_update_bits(lm3533->regmap, reg, mask, val);
+ 	if (ret)
+ 		dev_err(lm3533->dev, "failed to set lvled config\n");
+ 
+@@ -258,7 +207,7 @@ static ssize_t show_output(struct device *dev,
+ 	struct lm3533_device_attribute *lattr = to_lm3533_dev_attr(attr);
+ 	int id = lattr->u.output.id;
+ 	u8 reg;
+-	u8 val;
++	u32 val;
+ 	u8 mask;
+ 	int shift;
+ 	int ret;
+@@ -278,7 +227,7 @@ static ssize_t show_output(struct device *dev,
+ 		mask = LM3533_LED_ID_MASK << shift;
+ 	}
+ 
+-	ret = lm3533_read(lm3533, reg, &val);
++	ret = regmap_read(lm3533->regmap, reg, &val);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/drivers/mfd/lm3533-ctrlbank.c b/drivers/mfd/lm3533-ctrlbank.c
+index 2537dfade51c..37bae279f41e 100644
+--- a/drivers/mfd/lm3533-ctrlbank.c
++++ b/drivers/mfd/lm3533-ctrlbank.c
+@@ -9,6 +9,7 @@
+ 
+ #include <linux/device.h>
+ #include <linux/module.h>
++#include <linux/regmap.h>
+ 
+ #include <linux/mfd/lm3533.h>
+ 
+@@ -38,8 +39,8 @@ int lm3533_ctrlbank_enable(struct lm3533_ctrlbank *cb)
+ 	dev_dbg(cb->dev, "%s - %d\n", __func__, cb->id);
+ 
+ 	mask = 1 << cb->id;
+-	ret = lm3533_update(cb->lm3533, LM3533_REG_CTRLBANK_ENABLE,
+-								mask, mask);
++	ret = regmap_update_bits(cb->lm3533->regmap, LM3533_REG_CTRLBANK_ENABLE,
++				 mask, mask);
+ 	if (ret)
+ 		dev_err(cb->dev, "failed to enable ctrlbank %d\n", cb->id);
+ 
+@@ -55,7 +56,8 @@ int lm3533_ctrlbank_disable(struct lm3533_ctrlbank *cb)
+ 	dev_dbg(cb->dev, "%s - %d\n", __func__, cb->id);
+ 
+ 	mask = 1 << cb->id;
+-	ret = lm3533_update(cb->lm3533, LM3533_REG_CTRLBANK_ENABLE, 0, mask);
++	ret = regmap_update_bits(cb->lm3533->regmap, LM3533_REG_CTRLBANK_ENABLE,
++				 mask, 0);
+ 	if (ret)
+ 		dev_err(cb->dev, "failed to disable ctrlbank %d\n", cb->id);
+ 
+@@ -80,7 +82,7 @@ int lm3533_ctrlbank_set_max_current(struct lm3533_ctrlbank *cb, u16 imax)
+ 	val = (imax - LM3533_MAX_CURRENT_MIN) / LM3533_MAX_CURRENT_STEP;
+ 
+ 	reg = lm3533_ctrlbank_get_reg(cb, LM3533_REG_MAX_CURRENT_BASE);
+-	ret = lm3533_write(cb->lm3533, reg, val);
++	ret = regmap_write(cb->lm3533->regmap, reg, val);
+ 	if (ret)
+ 		dev_err(cb->dev, "failed to set max current\n");
+ 
+@@ -94,7 +96,7 @@ int lm3533_ctrlbank_set_brightness(struct lm3533_ctrlbank *cb, u8 val)
+ 	int ret;
+ 
+ 	reg = lm3533_ctrlbank_get_reg(cb, LM3533_REG_BRIGHTNESS_BASE);
+-	ret = lm3533_write(cb->lm3533, reg, val);
++	ret = regmap_write(cb->lm3533->regmap, reg, val);
+ 	if (ret)
+ 		dev_err(cb->dev, "failed to set brightness\n");
+ 
+@@ -102,13 +104,13 @@ int lm3533_ctrlbank_set_brightness(struct lm3533_ctrlbank *cb, u8 val)
+ }
+ EXPORT_SYMBOL_GPL(lm3533_ctrlbank_set_brightness);
+ 
+-int lm3533_ctrlbank_get_brightness(struct lm3533_ctrlbank *cb, u8 *val)
++int lm3533_ctrlbank_get_brightness(struct lm3533_ctrlbank *cb, u32 *val)
+ {
+ 	u8 reg;
+ 	int ret;
+ 
+ 	reg = lm3533_ctrlbank_get_reg(cb, LM3533_REG_BRIGHTNESS_BASE);
+-	ret = lm3533_read(cb->lm3533, reg, val);
++	ret = regmap_read(cb->lm3533->regmap, reg, val);
+ 	if (ret)
+ 		dev_err(cb->dev, "failed to get brightness\n");
+ 
+@@ -135,7 +137,7 @@ int lm3533_ctrlbank_set_pwm(struct lm3533_ctrlbank *cb, u8 val)
+ 		return -EINVAL;
+ 
+ 	reg = lm3533_ctrlbank_get_reg(cb, LM3533_REG_PWM_BASE);
+-	ret = lm3533_write(cb->lm3533, reg, val);
++	ret = regmap_write(cb->lm3533->regmap, reg, val);
+ 	if (ret)
+ 		dev_err(cb->dev, "failed to set PWM mask\n");
+ 
+@@ -143,13 +145,13 @@ int lm3533_ctrlbank_set_pwm(struct lm3533_ctrlbank *cb, u8 val)
+ }
+ EXPORT_SYMBOL_GPL(lm3533_ctrlbank_set_pwm);
+ 
+-int lm3533_ctrlbank_get_pwm(struct lm3533_ctrlbank *cb, u8 *val)
++int lm3533_ctrlbank_get_pwm(struct lm3533_ctrlbank *cb, u32 *val)
+ {
+ 	u8 reg;
+ 	int ret;
+ 
+ 	reg = lm3533_ctrlbank_get_reg(cb, LM3533_REG_PWM_BASE);
+-	ret = lm3533_read(cb->lm3533, reg, val);
++	ret = regmap_read(cb->lm3533->regmap, reg, val);
+ 	if (ret)
+ 		dev_err(cb->dev, "failed to get PWM mask\n");
+ 
+diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backlight/lm3533_bl.c
+index babfd3ceec86..5c8e69087860 100644
+--- a/drivers/video/backlight/lm3533_bl.c
++++ b/drivers/video/backlight/lm3533_bl.c
+@@ -11,6 +11,7 @@
+ #include <linux/init.h>
+ #include <linux/platform_device.h>
+ #include <linux/backlight.h>
++#include <linux/regmap.h>
+ #include <linux/slab.h>
+ 
+ #include <linux/mfd/lm3533.h>
+@@ -45,7 +46,7 @@ static int lm3533_bl_update_status(struct backlight_device *bd)
+ static int lm3533_bl_get_brightness(struct backlight_device *bd)
+ {
+ 	struct lm3533_bl *bl = bl_get_data(bd);
+-	u8 val;
++	u32 val;
+ 	int ret;
+ 
+ 	ret = lm3533_ctrlbank_get_brightness(&bl->cb, &val);
+@@ -82,12 +83,12 @@ static ssize_t show_als_en(struct device *dev,
+ {
+ 	struct lm3533_bl *bl = dev_get_drvdata(dev);
+ 	int ctrlbank = lm3533_bl_get_ctrlbank_id(bl);
+-	u8 val;
++	u32 val;
+ 	u8 mask;
+ 	bool enable;
+ 	int ret;
+ 
+-	ret = lm3533_read(bl->lm3533, LM3533_REG_CTRLBANK_AB_BCONF, &val);
++	ret = regmap_read(bl->lm3533->regmap, LM3533_REG_CTRLBANK_AB_BCONF, &val);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -118,8 +119,8 @@ static ssize_t store_als_en(struct device *dev,
+ 	else
+ 		val = 0;
+ 
+-	ret = lm3533_update(bl->lm3533, LM3533_REG_CTRLBANK_AB_BCONF, val,
+-									mask);
++	ret = regmap_update_bits(bl->lm3533->regmap, LM3533_REG_CTRLBANK_AB_BCONF,
++				 mask, val);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -130,12 +131,12 @@ static ssize_t show_linear(struct device *dev,
+ 				struct device_attribute *attr, char *buf)
+ {
+ 	struct lm3533_bl *bl = dev_get_drvdata(dev);
+-	u8 val;
++	u32 val;
+ 	u8 mask;
+ 	int linear;
+ 	int ret;
+ 
+-	ret = lm3533_read(bl->lm3533, LM3533_REG_CTRLBANK_AB_BCONF, &val);
++	ret = regmap_read(bl->lm3533->regmap, LM3533_REG_CTRLBANK_AB_BCONF, &val);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -169,8 +170,8 @@ static ssize_t store_linear(struct device *dev,
+ 	else
+ 		val = 0;
+ 
+-	ret = lm3533_update(bl->lm3533, LM3533_REG_CTRLBANK_AB_BCONF, val,
+-									mask);
++	ret = regmap_update_bits(bl->lm3533->regmap, LM3533_REG_CTRLBANK_AB_BCONF,
++				 mask, val);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -182,7 +183,7 @@ static ssize_t show_pwm(struct device *dev,
+ 					char *buf)
+ {
+ 	struct lm3533_bl *bl = dev_get_drvdata(dev);
+-	u8 val;
++	u32 val;
+ 	int ret;
+ 
+ 	ret = lm3533_ctrlbank_get_pwm(&bl->cb, &val);
+diff --git a/include/linux/mfd/lm3533.h b/include/linux/mfd/lm3533.h
+index 69059a7a2ce5..db0a5e5c9e39 100644
+--- a/include/linux/mfd/lm3533.h
++++ b/include/linux/mfd/lm3533.h
+@@ -86,14 +86,10 @@ extern int lm3533_ctrlbank_enable(struct lm3533_ctrlbank *cb);
+ extern int lm3533_ctrlbank_disable(struct lm3533_ctrlbank *cb);
+ 
+ extern int lm3533_ctrlbank_set_brightness(struct lm3533_ctrlbank *cb, u8 val);
+-extern int lm3533_ctrlbank_get_brightness(struct lm3533_ctrlbank *cb, u8 *val);
++extern int lm3533_ctrlbank_get_brightness(struct lm3533_ctrlbank *cb, u32 *val);
+ extern int lm3533_ctrlbank_set_max_current(struct lm3533_ctrlbank *cb,
+ 								u16 imax);
+ extern int lm3533_ctrlbank_set_pwm(struct lm3533_ctrlbank *cb, u8 val);
+-extern int lm3533_ctrlbank_get_pwm(struct lm3533_ctrlbank *cb, u8 *val);
+-
+-extern int lm3533_read(struct lm3533 *lm3533, u8 reg, u8 *val);
+-extern int lm3533_write(struct lm3533 *lm3533, u8 reg, u8 val);
+-extern int lm3533_update(struct lm3533 *lm3533, u8 reg, u8 val, u8 mask);
++extern int lm3533_ctrlbank_get_pwm(struct lm3533_ctrlbank *cb, u32 *val);
+ 
+ #endif	/* __LINUX_MFD_LM3533_H */
 -- 
 2.51.0
 
