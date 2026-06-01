@@ -4,99 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AB14CD5BD1
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 12:50:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4380ECD6E56
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 13:05:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 637E41132F2;
-	Mon,  1 Jun 2026 12:50:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E4E211331F;
+	Mon,  1 Jun 2026 13:05:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iRzWzLox";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AmY7JA1l";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 982651132F1;
- Mon,  1 Jun 2026 12:50:26 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C988D60018;
- Mon,  1 Jun 2026 12:50:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D50B81F00893;
- Mon,  1 Jun 2026 12:50:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780318225;
- bh=NiO5RIOjFIjhX80InovlNJiMWsaq00sNfFpnk2xz4IU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=iRzWzLoxQbdLcwQM9CdEweJdKhVuPzgfMWkbGxgQp03XaBS6MW1UO2dMb1zXTv8gf
- Lc37QA55GKb4mm3qFObJW4zQf7Pz9qC7xV6ikZyYxHWeXlpofGZ8kKZRfyHkVJtovX
- c2ZkuL1UYH+UTxuATU7dzZzfpA6IEKpFDWOB6hVdJaxSbAlTvcO0HpBEBh4M1IOiWK
- xME9N7IGEufKWMYRgGc4BLlvBFLWjK3g3gy4mJixcfwwu9iob8jkrzwNnj/CAUTDZA
- b3Bt2jxBtQkY2ceqVr80cx5EueZj8hSqFEYX6B+N8EfmU7ZAiX0ieACScg+Y4VnUDc
- WH8lM0xfD2KIA==
-Message-ID: <d7b08296-7f6e-4d89-ab3b-04e43d04929e@kernel.org>
-Date: Mon, 1 Jun 2026 14:50:19 +0200
-MIME-Version: 1.0
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010013.outbound.protection.outlook.com [52.101.201.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0100511331F;
+ Mon,  1 Jun 2026 13:05:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ddofpriue1+F6XCyCFlCPA5QByV5vnXPCwb/rrfU2rOMZ6IinqYEn70f/rh6KFdYT9WqLITn4p6pRWUqnahn+OxGvN/B1jTO4A0K4tt/9RlbnUtGxxjjnk1p7izo4JL9KwguaqHtDAxscN+QYknHM5MGC/7V5Jkc27GmsoE3hzjgIBF1J+L4jGE53RTYvmu4ZnshiR3lq52Vsa8VQn/f1oa3ecJtLz12/lWbAD38f2Cscch0OjANgKEBzTFKfUgz8mTLb7HYLoveZQy1ce3nyOGwi6L0oBB06ZKvz9KgQsoFlJb/+I3PFRA5GOUYYXlc3Li1PX3EGnYbA4YmmuyBJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8hTGup22i68AmWhiUV4xcp1s8oqi08bLpp+nB6yq3ro=;
+ b=LjgS/yesNSThdHhNtFwKglfI99f/IYDtan5pjK7XwDdymnyau0MvuxjbGrMfswpmaYUJXVIqjsYO5TfeEWgRCd7PdH+uJehg34ZeSifCgji2Ruoo/h18SW8aMtxXbeIyKUtqrUJy4OOCQPtRA1a0di9MAlG2l6sjjnMHkvljnejGinlSKQNB2CzWY4upcy/svuytwok7JP/oNKLx0a5XGNc+RfVzqFC5Lb/D8e0FZh94MQ/xtyynGELB0xnkWZqg1qwR2icz8NT1l6Z07uhnDEe/SSLO7cs3HC4zEl6UUXx00Fh3WcOcqop28Un1vl20+SnChKw8xZzkKYYkFUTVHA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8hTGup22i68AmWhiUV4xcp1s8oqi08bLpp+nB6yq3ro=;
+ b=AmY7JA1lzJ3tdrdDNQwIUdMfFRBv/QPYUk48FQAx4U8vDqKDTiH94VO5XUCMYprhEstI7tTOJ2MNmf8VyQQ0+Ng0KJozJXkhIsuP5rOup6jBs5UV8W1kJmjgyfFDLusHmNjX/Iqb/PC63+VzcDuOve7VGZEsR0fs3n0YnBxrKkY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by SJ0PR12MB6853.namprd12.prod.outlook.com (2603:10b6:a03:47b::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Mon, 1 Jun 2026
+ 13:05:09 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%3]) with mapi id 15.21.0071.011; Mon, 1 Jun 2026
+ 13:05:09 +0000
+Message-ID: <7237b5c9-f97d-408f-8fd5-15ccbc9c08d8@amd.com>
+Date: Mon, 1 Jun 2026 18:35:02 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/slab: improve kmem_cache_alloc_bulk
+Subject: Re: [PATCH v2] drm/amdgpu: use ACK polling for page-write completion
+To: Kunal Zodape <kunal.devanandzodape@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rahul Kumar <Rahul.Kumar1@amd.com>, Prateek Gupta <Prateek1.Gupta@amd.com>
+References: <20260601093226.1255621-1-kunal.devanandzodape@amd.com>
+ <20260601112336.2277724-1-kunal.devanandzodape@amd.com>
 Content-Language: en-US
-To: Christoph Hellwig <hch@lst.de>
-Cc: Harry Yoo <harry@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Mark Brown <broonie@kernel.org>, Hao Li <hao.li@linux.dev>,
- Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Jesper Dangaard Brouer <hawk@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, io-uring@vger.kernel.org,
- kasan-dev@googlegroups.com, bpf@vger.kernel.org, netdev@vger.kernel.org,
- Alexander Lobakin <aleksander.lobakin@intel.com>,
- Boris Brezillon <boris.brezillon@collabora.com>
-References: <20260528093437.2519248-1-hch@lst.de>
- <20260528093437.2519248-2-hch@lst.de>
- <5f7f90d8-cb32-4ffb-8f1c-0722aafbe869@kernel.org>
- <20260529135045.GA10647@lst.de>
- <5f3ba603-a6ad-4cf2-9a54-aebc10273c59@kernel.org>
- <58cc76e7-2348-443d-a989-2a06e61178af@kernel.org>
- <20260601113831.GA25535@lst.de>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20260601113831.GA25535@lst.de>
-Content-Type: text/plain; charset=UTF-8
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20260601112336.2277724-1-kunal.devanandzodape@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0082.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1ad::8) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SJ0PR12MB6853:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0627b1d4-f2bb-448a-772f-08debfde6850
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|18002099003|22082099003|11063799006|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info: jknw3Qi7EYbbJvCEECNvgFWsw4rFJgdlDvwFn+KZC3LPlO7B9Q1EEKyO2rQ0bVbdU2yKtDIsA0LqP9wNk0vy/x4VL8eDvf6TwSkSSli53IjrqMC2Gjlx0tMVv2Iwup49x33assufbA8UYUNb7ZKfZnF2cL1a1g8Fr1JFfS8qqO1KRYp26FkoFJhk+m63o7cE2cY1qGleXBdJ4oi/LyPIlA0ELvMWqB6Jd+fvjujaLzOa2j7d62Y232xJplcOlfn12jpFMBfUyAUGos5qS0RLXug5EnaKunVHeETRvnqGlidFkxVO5pA+M1fOlJTO03XMGrdOem1wlcz8iPxNYoOVP6mHuc3Ay9jrspdf67ifUEDZlpqNR7BPj2f2VMdi1/ki+txigH9tP7D3gx0a08JlPFKhR+CXIVPCvUKTXDIJmUV02ttRPeU2NWo1XFy4ag+JpdlOsZ2swrd1pk464UpJz5xAVdCXgr6HCycBPnAq0epvTUqpA1dRpBDt8UDfXlKxXDrrN3Vk4krPXhdDfTVtif0UNhZBARqd9HrQvJOpa1EPNG7DXHBUBvqcf4CYkp57khLv9ZeiNXiEEN1U+Y9oXi2peFp7WY2NYo7SkEwilBVFeCuEGeTdzxAJXCVkwHgt+JmpZFomhS+RqAVmFa6q89NphfiMIDIIy41tDpVEuM9BJn1PdLe3e/DWrxuUDZgu
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(18002099003)(22082099003)(11063799006)(56012099006)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cnh6N25wRnhJSnNPc3IzcmtxMlFuZTc3TmNaUHZTc2tERVZFaW85Zm83cDBa?=
+ =?utf-8?B?TW01UzluUzdDeWxxVnJraWxRdTl6Wmt3S1BOUmVBM1hWcUtkMVFDanpwdVFJ?=
+ =?utf-8?B?UnlnQkc2bHVGUDY2WlYrbGNQcnNhYXNXWE5PMUozVTBiNXRhRDV1VjEwdkky?=
+ =?utf-8?B?eVo5MUFrbHROZTlGeENuZ2FUL0c4SWMrY2VRV1Q4YzZtbkcyelJmMDVZRS9N?=
+ =?utf-8?B?Vzg4aHQxKzZ5SUNqMm5MbzQ0ZmprTzd3SVFYdEFOdzdUUTM2ZnBLYS9XaUFo?=
+ =?utf-8?B?RThiZU1LWnFOclN4cEwyTEhlckFIaFRwMjhxY0M5RWlIcHRjdW1NKzdYMUl4?=
+ =?utf-8?B?dlF3bmpvaUVjV1RyNXFJckdyNnJPT1o4ckllL1F5RUtMTHh5T1pXRUMvZWNC?=
+ =?utf-8?B?WnJ1ZnYxSThCNlZUZmQvOERLRWl0QXdzaWRzQnZEVDVCUktIc0IzVk1tdzZZ?=
+ =?utf-8?B?VmtiNTJmMHJWWHNrNGZRZjJxazlJaiszdjhSTDI1WnFwNXYzRW82cndTTTZF?=
+ =?utf-8?B?dWJMczZVdElKcjU2ZmRTdXM5YmRHRE16MnBCUkk3djdkaFBkOHBHdUhwOHBH?=
+ =?utf-8?B?RGlpc2RuNldjMllVVWkxWWd5WVQwQ0RIMVpKUTI0enl0MWtTZ3NCUXZQWmh0?=
+ =?utf-8?B?WHhSazlnalJ4RnlBRzZoZVZUTmE0WXp2bTFxd1NEYzc5UjJpaEVFci9yK0JZ?=
+ =?utf-8?B?ZDB6RU9MaFRjNE4wclNpTGw0aFRjZ3UwdndHWGxIMmMxNGZqSmwzbDJlaGIz?=
+ =?utf-8?B?RW9jSDBNSXk2aEhHVk93aXJLOHhLeHN1TTByK3FTcW9VbTlpQTV0UytOY3hH?=
+ =?utf-8?B?YkhzejdlK1VMV0IvVWpLejU0OEZ0clJtaCtxWVVHd2F1OUZBV05sWWxrd0NN?=
+ =?utf-8?B?RW5FekVQQjFwSGs0eUdNK3R6aWsrSU95WWZ3OG9LeHFHQlBvN0d3ZTUrTUhs?=
+ =?utf-8?B?RlFZS29ibTEyLzYxV2N0Q0tzcXhmWUdqb0Fld2tUQXRZTVNtalJNeUNud3B6?=
+ =?utf-8?B?MllSeVB3cEhKWENHWFh3emlEdzJFejVIbUg3Qndvc2dpUjNkbnZxMEFPREZw?=
+ =?utf-8?B?VVM3WHdRV0V3WXloNE1UMXZPRStVbHU0MW1nUnFtYTRpSG1hUzdUKzlXcmVR?=
+ =?utf-8?B?WnpHR04wQXc4VXVVd3pjYTBUeGR1YjJucHhjR2ZKd1NlQlV5aW5oVlNqY3NF?=
+ =?utf-8?B?MXJ6OXgxNjRSVWJScG1YTExyRDJnejFBa2laakxvNFg0b09rb29nbkpPSVND?=
+ =?utf-8?B?VDhPMlNvK09YOVVNYTZtQi93NGhMdG8rNmZ4YXBsUGEwYkRBUGM5ajN2UXA5?=
+ =?utf-8?B?T1F2KzRUVkY4emplOTNZT0l6NWZwRExNVjdBbWFadTBUMEd3NG9wVTc2c25L?=
+ =?utf-8?B?dGtEamIrUUtBWjRGN09Uckl5dUJ5WWRiQXJqSXArVnF3Z1VrWW9WMmpJaEVB?=
+ =?utf-8?B?RWkyaitoa1k4UFpjUVB6SnVoZjl3Rm9ObVR2MUNoZ1JjaEJta05hTXZ1VWg0?=
+ =?utf-8?B?ektJRDM1OStZY3ZySzlueWt6VkpSR0grKzdDNUZOMmMxYXJ5WS9sWW9raWli?=
+ =?utf-8?B?cThSM1hyQkpsMy81c0ZPM1dZVmMrcWtPRm00cGtRTnNtQjl0SDVobHd0U25Q?=
+ =?utf-8?B?S0I1eFpxZVpwOGtpeTFnK0o1czJUejdReWc4SWxzMDY4S1BNZXZCK1BrY1Mz?=
+ =?utf-8?B?enc2UnY1VUM2eDlod01tNjBLV2lFckFqeUYrWXlBWk8vNDgyUVBkbG9LTkFI?=
+ =?utf-8?B?UVZ6RWQ3REpmeHJVU2xBY3gyNE1ISVZob3kreFRtd0VQMzBFZzRNaDhlekJQ?=
+ =?utf-8?B?ektTbURpZ0NUSnFEdlpMVFBXNldzcjJsOTBXYzR5YlRXQnNYWElrbFFTcXV6?=
+ =?utf-8?B?N0dwQW5hQ2tWNTR0RktkRTVSVjNDemJ4RGZNUmJ4R1ppcDlIMUhNQzJjNDJP?=
+ =?utf-8?B?Sm1MUlY4c0NMWjJCYjFMYXV3SGNrT1p4S1FEUnRQaEwrMjlIc01ya2J5QTRL?=
+ =?utf-8?B?bUpvcklEMm5adW9tMHZMR083NjVrcjNHZ0NPT3F4aGxoamFpZ1RsQ3JjWTdD?=
+ =?utf-8?B?QktyRnhyYi9hR2FvaFBINmZKbTJUUW92OVBNR00zbnh4MEg4c3htYVduVzJk?=
+ =?utf-8?B?czNkKzVoS2cra0RDQnJBdURWTjhLQmJjN0RGYnJKN3JYMlg1R3BjY0t2UVFO?=
+ =?utf-8?B?Nm1leWlMbTlncUdNaGtKK3dpZEtkdW0yWTkwa01LYUFHeHU5RHYzSHVuYWhH?=
+ =?utf-8?B?engrL2xBd0x6bTFuVFZQMWxHandnaW1TcDQwY0o2cHBVZkhqMGVwd0dYazcz?=
+ =?utf-8?B?RlVOM3RQT3FTMmRoT1VITnpuZUJDYlZVU0tvNUFubmJuMi9HUHFEdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0627b1d4-f2bb-448a-772f-08debfde6850
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 13:05:09.0121 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rCcjKOIOkmJHokcFgvpU83L2O/txudY1aq/Q4W2gI9NKXPb0spgZObDUd2qOLoD6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6853
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,27 +139,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/1/26 13:38, Christoph Hellwig wrote:
-> On Mon, Jun 01, 2026 at 10:16:30AM +0200, Vlastimil Babka (SUSE) wrote:
->> > kmem_cache_alloc_bulk() returning 0 was considered a success in that case.
->> > 
->> > Either fixing kmem_cache_alloc_bulk() (and the comment) or fixing the
->> > user sounds fine to me.
->> 
->> Would it be wrong if we just returned true for size of 0? Would something
->> else break?
+
+
+On 01-Jun-26 4:53 PM, Kunal Zodape wrote:
+> [Some people who received this message don't often get email from kunal.devanandzodape@amd.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
 > 
-> I don't think it is wrong per se, but it feels like the wrong kind of
-> API.  I.e. I don't think the MSM caller actually wants this, as they'd
-> also do a zero-sized kvmalloc.
+> The EEPROM write path currently waits a fixed 10 ms after each page
+> write to cover the maximum write-cycle time.
+> 
+> Replace the fixed delay with ACK polling so the driver can continue as
+> soon as the EEPROM finishes its internal write cycle. Since the SMU I2C
+> adapter used for these EEPROM accesses does not support zero-length
+> transfers, poll readiness with an offset-only dummy write.
+> 
+> Keep the existing 10 ms timeout as the upper bound for the polling loop.
+> 
+> Tested on MI200 (ALDEBARAN) with ras_eeprom_reset confirming clean
+> write/read-back with no I2C errors.
 
-If p->count is 0 then indeed there's a zero-sized kvmalloc so p->pages ==
-ZERO_SIZE_PTR but then nothing breaks because nothing tries to dereference it?
+The current sleep logic may be better than sending a dummy transfter 
+through firmware. That has the overhead of FW message logic and other 
+clients accessing i2c bus.
 
-msm_iommu_pagetable_prealloc_cleanup() has a "if (p->count > 0)" branch so
-it seems it's considered possible. But then the rest of the functions also
-seems working fine, i.e. kmem_cache_free_bulk() of zero size does nothing,
-kvfree() of ZERO_SIZE_PTR does nothing.
+The original comments in the code logic are valid for optimization only 
+if driver has direct access to the i2c bus.
 
-It seems to me kmem_cache_alloc_bulk() returning true for size == 0 fits
-naturally in this world and is less likely to result in a gotcha?
+Thanks,
+Lijo
+
+> 
+> Suggested-by: Jani Nikula <jani.nikula@intel.com>
+> Signed-off-by: Kunal Zodape <kunal.devanandzodape@amd.com>
+> ---
+> v2: Use read_poll_timeout() instead of open-coded ktime + do-while loop
+>      as suggested
+> 
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c | 27 +++++++++++++++-------
+>   1 file changed, 19 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+> index 8cd69836dd99..9dc538073bb8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+> @@ -21,6 +21,7 @@
+>    *
+>    */
+> 
+> +#include <linux/iopoll.h>
+>   #include "amdgpu_eeprom.h"
+>   #include "amdgpu.h"
+> 
+> @@ -153,15 +154,25 @@ static int __amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap, u32 eeprom_addr,
+>                          break;
+> 
+>                  if (!read) {
+> -                       /* According to EEPROM specs the length of the
+> -                        * self-writing cycle, tWR (tW), is 10 ms.
+> -                        *
+> -                        * TODO: Use polling on ACK, aka Acknowledge
+> -                        * Polling, to minimize waiting for the
+> -                        * internal write cycle to complete, as it is
+> -                        * usually smaller than tWR (tW).
+> +                       int ret;
+> +
+> +                       /* Poll for ACK to detect when the self-timed
+> +                        * internal write cycle has completed, as per
+> +                        * Acknowledge Polling described in the AT24CM02
+> +                        * datasheet, Section 7.4. The SMU I2C adapter
+> +                        * used by these EEPROM paths does not support
+> +                        * zero-length messages, so use an offset-only
+> +                        * dummy write to probe for the ACK. The address
+> +                        * pointer update is harmless because each real
+> +                        * transfer reprograms it before use.
+>                           */
+> -                       msleep(10);
+> +                       ret = read_poll_timeout(i2c_transfer, r,
+> +                                                r == 1,
+> +                                                200, 10 * USEC_PER_MSEC,
+> +                                                false,
+> +                                                i2c_adap, &msgs[0], 1);
+> +                       if (ret)
+> +                               break;
+>                  }
+>          }
+> 
+> --
+> 2.17.1
+> 
+
