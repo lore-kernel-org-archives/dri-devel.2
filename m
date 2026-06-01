@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8987BCD6E61
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:45:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6323ACD6E6D
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:45:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04C39113780;
-	Mon,  1 Jun 2026 22:45:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B7DA10EA3E;
+	Mon,  1 Jun 2026 22:45:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="M0ZqzIgj";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="a8gEHTPl";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D76310FA6F
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:45:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1988811379C
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:45:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1780353927;
- bh=EOy1hBtmV/oLRhDhHglDR1BtGwYAUjW4vfi4FuA2Xr8=;
+ s=mail; t=1780353924;
+ bh=rWwG8Tc5P19fndsb7w+Dxe1sCr7RUtnyYEv1AsNrqpA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=M0ZqzIgj4WCm7FRTKUrerbJ2UAwMqUVL77prB+lCynle8tGQ31UlKLIx/nQdgkjhv
- 5tj8y8o5M101KCDLgvxGoE5cDSAlb9ibt8Y24h0JDrC0iPDzKvLJOL7xZ4pmholeww
- 0QYG7yTWWyIn2dJEAp+ivWjb8qCNuVNeoG3XlbdxCS8DswdNmegJMIKa6ZXkpK257K
- C1F1aLvtnnSpqLqptJH6mf74DxoN6EOO5ICKkmr65X5kO5dnLReweRr4F2aT/4KxO2
- 8jJfGIGR2f+h18cQsgU0Nh3lNd8/q6jdQmNBaAzItbuLkpGEAL1ARXtr5V1o34HZ67
- IX+dgRhbwbyMw==
+ b=a8gEHTPlI39ghXXfwH1xR1lpaPPfhinzj179kgVZxEmxts52zrM2davPTt2A2iquY
+ aX+z12CIyZofGhgua6hUeERUictta7l9929hYeEE7B1X4gF20TDlFNBY3qwg27Mos1
+ ahSAKSYchhvpbgIRdjAMLppk7V5l8z332tWJ13RQzsnhl8KjZFt2AoLPEk7CFmBW12
+ 0kdeNoLB5iKFQ8e3jA+S8gvt0sVwVrdhEaaitOzL+xRzBx6DNs9Jmxrx7BX1tl+Kk5
+ CXA1ng0GPhndaHe9q6zdWFyOHdu555HKVZqHM12pe3n0cxVs5qzXsf8XbFR51H4Jqk
+ 45F+YIR6+vC4Q==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id DFADF17E0A6C;
- Tue,  2 Jun 2026 00:45:26 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A72A517E0E4C;
+ Tue,  2 Jun 2026 00:45:24 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 02 Jun 2026 01:44:22 +0300
-Subject: [PATCH v7 22/30] drm/rockchip: dw_hdmi_qp: Switch to
- dw_hdmi_qp_hpd_notify()
+Date: Tue, 02 Jun 2026 01:44:19 +0300
+Subject: [PATCH v7 19/30] drm/rockchip: dw_hdmi_qp: Defer HPD IRQ enable
+ until after connector setup
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-dw-hdmi-qp-scramb-v7-22-445eb54ee1ed@collabora.com>
+Message-Id: <20260602-dw-hdmi-qp-scramb-v7-19-445eb54ee1ed@collabora.com>
 References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
 In-Reply-To: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -58,7 +58,8 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
 Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org
+ linux-rockchip@lists.infradead.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,56 +76,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Switch from drm_helper_hpd_irq_event(), which polls all connectors, to
-the recently introduced dw_hdmi_qp_hpd_notify() helper, which runs the
-detect cycle only on the affected connector.
+Request the HPD IRQ early in bind() with IRQF_NO_AUTOEN, keeping it
+disabled until all DRM resources are fully initialized, at which point
+enable_irq() arms it.  This prevents premature interrupt delivery
+without forcing devm_request_threaded_irq() to the very end of the
+initialization sequence, which would complicate error unwinding.
 
-This avoids unnecessary work and redundant detect calls on unrelated
-connectors.
+Note that IRQF_NO_AUTOEN is incompatible with IRQF_SHARED; the latter is
+dropped as this IRQ has no other users.
 
+Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 12 ++----------
- 1 file changed, 2 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index b9e0ea56efd8..666631fc9162 100644
+index 8d64b76a1aa5..27342094958c 100644
 --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
 +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -23,7 +23,6 @@
- #include <drm/drm_bridge_connector.h>
- #include <drm/drm_managed.h>
- #include <drm/drm_of.h>
--#include <drm/drm_probe_helper.h>
+@@ -579,7 +579,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+ 	ret = devm_request_threaded_irq(dev, irq,
+ 					cfg->ctrl_ops->hardirq_callback,
+ 					cfg->ctrl_ops->irq_callback,
+-					IRQF_SHARED, "dw-hdmi-qp-hpd",
++					IRQF_NO_AUTOEN, "dw-hdmi-qp-hpd",
+ 					hdmi);
+ 	if (ret)
+ 		return ret;
+@@ -601,6 +601,8 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+ 		return dev_err_probe(dev, PTR_ERR(connector),
+ 				     "Failed to init bridge connector\n");
  
- #include "rockchip_drm_drv.h"
- 
-@@ -273,14 +272,8 @@ static void dw_hdmi_qp_rk3588_hpd_work(struct work_struct *work)
- 	struct rockchip_hdmi_qp *hdmi = container_of(work,
- 						     struct rockchip_hdmi_qp,
- 						     hpd_work.work);
--	struct drm_device *drm = hdmi->encoder.encoder.dev;
--	bool changed;
- 
--	if (drm) {
--		changed = drm_helper_hpd_irq_event(drm);
--		if (changed)
--			dev_dbg(hdmi->dev, "connector status changed\n");
--	}
-+	dw_hdmi_qp_hpd_notify(hdmi->hdmi);
- }
- 
- static irqreturn_t dw_hdmi_qp_rk3576_hardirq(int irq, void *dev_id)
-@@ -645,8 +638,7 @@ static int __maybe_unused dw_hdmi_qp_rockchip_resume(struct device *dev)
- 
- 	dw_hdmi_qp_resume(dev, hdmi->hdmi);
- 
--	if (hdmi->encoder.encoder.dev)
--		drm_helper_hpd_irq_event(hdmi->encoder.encoder.dev);
-+	dw_hdmi_qp_hpd_notify(hdmi->hdmi);
- 
++	enable_irq(irq);
++
  	return 0;
  }
+ 
 
 -- 
 2.54.0
