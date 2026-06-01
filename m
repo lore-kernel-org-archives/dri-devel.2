@@ -4,68 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21E9BCD6E56
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 10:13:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80BD1CD6E62
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 10:16:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83B19113144;
-	Mon,  1 Jun 2026 10:13:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4CC81130DE;
+	Mon,  1 Jun 2026 10:16:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Pd8ZT5BK";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="gfbU4dVM";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F75A113144
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 10:13:47 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 59E0743E36;
- Mon,  1 Jun 2026 10:13:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 425C21F00893;
- Mon,  1 Jun 2026 10:13:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780308827;
- bh=3Ts6lB+NKnhLtXYHmT257yvnWMD6Ph1yqe+TlwPK+oM=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=Pd8ZT5BK2RvzgTUlsXOQVBEiMwZGkMyUoMd8Lx5ODzTdFIWZswBajI/tODyqROqWT
- to5Yfm2ruJGsFd7Aaqg5YI78s6jRh8vdyPShR3BzPDi0KAtBFul22aTc8Gw2fRrPyU
- 415n2lb7D2q/yed7aDWBBAXuFXxW8frBXPM1v6tiAg9tphhbwFI8zO4a0Z8dtR2zDI
- vsoh7J7e32jR6yQKssPu7IRwWXZNZ3yCtIwpB4nto02HbgaYuXtIWLC5SNmvl/u1eu
- Nw//bc5n+3e3w5IED5m33qGD9XEW0gruuh669lKpNd15WbUaIAG0a70JOKA5dT7gd8
- VGaNX/Kx7TrDg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 01 Jun 2026 12:13:38 +0200
-Message-Id: <DIXMT0KKU8D9.2XLDHIGBCM1PZ@kernel.org>
-Subject: Re: [PATCH 3/4] rust: Add dma_fence abstractions
-Cc: <phasta@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Sumit
- Semwal" <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Paul E. McKenney" <paulmck@kernel.org>,
- "Frederic Weisbecker" <frederic@kernel.org>, "Neeraj Upadhyay"
- <neeraj.upadhyay@kernel.org>, "Joel Fernandes" <joelagnelf@nvidia.com>,
- "Josh Triplett" <josh@joshtriplett.org>, "Uladzislau Rezki"
- <urezki@gmail.com>, "Steven Rostedt" <rostedt@goodmis.org>, "Mathieu
- Desnoyers" <mathieu.desnoyers@efficios.com>, "Lai Jiangshan"
- <jiangshanlai@gmail.com>, "Zqiang" <qiang.zhang@linux.dev>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Igor Korotin" <igor.korotin@linux.dev>,
- "Lorenzo Stoakes" <ljs@kernel.org>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "FUJITA Tomonori" <fujita.tomonori@gmail.com>,
- "Krishna Ketan Rai" <prafulrai522@gmail.com>, "Shankari Anand"
- <shankari.ak0208@gmail.com>, <manos@pitsidianak.is>, "Boris Brezillon"
- <boris.brezillon@collabora.com>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
- <rcu@vger.kernel.org>
-To: "Philipp Stanner" <phasta@mailbox.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260530143541.229628-2-phasta@kernel.org>
- <20260530143541.229628-5-phasta@kernel.org>
- <DIW3ZK5NLKU3.1QYMQB0ISHFBG@kernel.org>
- <08b87b07279e7774c76c0267b1d6c337f705acda.camel@mailbox.org>
-In-Reply-To: <08b87b07279e7774c76c0267b1d6c337f705acda.camel@mailbox.org>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E4821130DE
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 10:16:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1780308966;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Ec/J4tNvrAMdwkOq5RTOf80WrT+IRWDMG7cFT7/0gaw=;
+ b=gfbU4dVMY/wH4c/7itvNad/Ic1zKdnn38GuaLQZFUumSCV2pFHlOB7Nw6wjEGSW4ZpK9m3
+ viIPYyifpvhzOFK+YlWcEkALX4178HepizE86qMu9JxHsE2QSuluj2gK0fB3xaTjgHtyYT
+ K3Xm3lmHoa0WYReKDXDXJmQ2Te+0xnE=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-609-8lIzJxSuP8-zuw_SJCVg9A-1; Mon, 01 Jun 2026 06:16:03 -0400
+X-MC-Unique: 8lIzJxSuP8-zuw_SJCVg9A-1
+X-Mimecast-MFC-AGG-ID: 8lIzJxSuP8-zuw_SJCVg9A_1780308962
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-4909ea0ffbeso22693115e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 03:16:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780308962; x=1780913762;
+ h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Ec/J4tNvrAMdwkOq5RTOf80WrT+IRWDMG7cFT7/0gaw=;
+ b=lxjEiFJX6Ae12xFR/gWHGAcrxVJqLN+tZeKQ9fD6LTnl4PrCF4z7OZdprReHXt6YEQ
+ Au82VwaPEH7mLvIy7QF3nV1O/5TeNQfUX+BesLFRUFgmYoBr+UDDTF5PBSxXdIeeWDGY
+ pBxqtRHnqlok0t3Gz/tuLR58qPyNPOcqeogQ7Js07SEvg/bOtEaJ/JbFsMVMQJ4nTN0s
+ +1EOmwKqlIspO12P2iptOUwQ15MNHAi8tsCuPolfgDYLf75j73DRo2O/LrK8Hq7o08g6
+ 6lCEs+GVEBF0efdQcF/9ilNiAQwGgm3F/6zfQ5yPRO9ApGewO76GY5APe1lXRlr5cLGT
+ lS+g==
+X-Gm-Message-State: AOJu0YwzzQzdrdCsgq7qwNY5y8vdHKfElwMHffeDoFEv6K2FFo+6lk3p
+ dCOBynhORpBl9NIpuZkSTp4wmFrRtdo2u3DZnQaRqenzpHDI8FndDvbrc3mWwF9C7AysPucCDnm
+ yECTMiOUxUaBjUOW00sOOdD2jXimBfibOHuToXARlyAqO/RIpre67SGym0bxwXV9YkLRSQA==
+X-Gm-Gg: Acq92OF1drii8tqmLhpfGs2sftXLooOikgZitJOxGeUJSvRlnxn+q15r4R3t4FoyOB4
+ p8svZNdIGAl53kM2lq5ccyifjTsLutSoy++KydjEUxT5CUW6XWu4Sdt4BNsCpm3t1C6xNie1WsR
+ z+l7/JtzdPIisTbCCWBK3Rohjjr6YEmlK278yv7XMa83V3GhS2fFzayRUMqBn5DCiSum/egi9K0
+ PPeUFhW+QSSP1x+LKEFtt/o45IKbKD9rTpPd+EPOlOoVIAlA2czVzp9ipfmXPo0vC+qNvd0PBXM
+ ZZNUKxinEBaXy+H4oknVxQF/HYja0U7vgq4AaLA0f8zGBCv2mrOiYmcWYXRcrxVpgVjMhlkY+85
+ Y8+aF4nGQVUjZXIK9vVID2E09vpmIEwmwfAjMpxz4uqSPRJOEqsqv6S8ivS9+ywJHQC6kJxPzRp
+ xFCOOO4xDKwadUhNU=
+X-Received: by 2002:a05:600c:1c06:b0:490:a298:3859 with SMTP id
+ 5b1f17b1804b1-490a29838b6mr211911585e9.24.1780308962214; 
+ Mon, 01 Jun 2026 03:16:02 -0700 (PDT)
+X-Received: by 2002:a05:600c:1c06:b0:490:a298:3859 with SMTP id
+ 5b1f17b1804b1-490a29838b6mr211910935e9.24.1780308961705; 
+ Mon, 01 Jun 2026 03:16:01 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-45ef32fabcasm23621879f8f.0.2026.06.01.03.16.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Jun 2026 03:16:01 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, airlied@redhat.com, airlied@gmail.com,
+ simona@ffwll.ch, admin@kodeit.net, gargaditya08@proton.me,
+ paul@crapouillou.net, jani.nikula@linux.intel.com, mhklinux@outlook.com,
+ zack.rusin@broadcom.com, bcm-kernel-feedback-list@broadcom.com
+Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-mips@vger.kernel.org, virtualization@lists.linux.dev, Thomas
+ Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org
+Subject: Re: [PATCH v4 01/10] drm/damage-helper: Do not alter damage clips
+ on modeset, but ignore them
+In-Reply-To: <20260530185716.65688-2-tzimmermann@suse.de>
+References: <20260530185716.65688-1-tzimmermann@suse.de>
+ <20260530185716.65688-2-tzimmermann@suse.de>
+Date: Mon, 01 Jun 2026 12:16:00 +0200
+Message-ID: <87y0gylg67.fsf@ocarina.mail-host-address-is-not-set>
+MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: MVdupdL886IalMX9mu3jCJOGxNGnbYOqHGJpBDo-WIM_1780308962
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,69 +104,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Jun 1, 2026 at 10:46 AM CEST, Philipp Stanner wrote:
-> On Sat, 2026-05-30 at 17:16 +0200, Danilo Krummrich wrote:
->> (Not a full review, but a few drive-by comments.)
->>=20
->> On Sat May 30, 2026 at 4:35 PM CEST, Philipp Stanner wrote:
->> > +#[allow(unused_unsafe)]
->>=20
->> What is this needed for?
+Thomas Zimmermann <tzimmermann@suse.de> writes:
+
+Hello Thomas,
+
+> User space supplies rectangles for damage clipping in a plane property.
+> For full mode sets, drivers still require a full plane update. In this
+> case, leave the information as-is and set the ignore_damage_clips flag
+> instead. The damage iterator will later ignore any damage information.
 >
-> You know that :-P
-
-I don't, it's a serious question.
-
->> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: Once a `DriverF=
-ence` is initialized, the inner `fence` is
->> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // valid and initialized. =
-It is valid until the refcount drops
->> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // to 0, which can earlies=
-t happen once the `DriverFence` has been dropped.
->> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe {
->> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bi=
-ndings::dma_fence_lock_irqsave(fence, flag_ptr);
->> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if=
- !bindings::dma_fence_is_signaled_locked(fence) {
->> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 if let Err(err) =3D res {
->> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bindings::dma_fence_set_error=
-(fence, err.to_errno());
->> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 }
->> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 bindings::dma_fence_signal_locked(fence);
->> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bi=
-ndings::dma_fence_unlock_irqrestore(fence, flag_ptr);
->> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>=20
->> Please use a single unsafe block per unsafe function call, here and in a=
- few
->> other places.
+> Also fixes a bug where ignore_damage_clips was not cleared across plane-
+> state duplications.
 >
-> Is that an official rule? If so, the linters should inform about it.
+> Leaving the damage information as-is might be helpful to drivers that
+> benefit from this information even on full modesets (e.g., for cache
+> management). It will also help with consolidating the damage-handling
+> logic.
 >
-> At first glance, I don't see any advantage to it and the disadvantage
-> of greatly reducing readability.
+> Also add a new unit test that evaluates the ignore_damage_clips flag. It
+> sets two damage clips plus the flag and tests if the reported damage
+> covers the entire framebuffer.
+>
+> v4:
+> - slightly reword the commit description
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Fixes: 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers to ignore damage clips")
+> Acked-by: Zack Rusin <zack.rusin@broadcom.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: <stable@vger.kernel.org> # v6.10+
+> ---
+>  drivers/gpu/drm/drm_atomic_state_helper.c     |  1 +
+>  drivers/gpu/drm/drm_damage_helper.c           |  6 ++--
+>  .../gpu/drm/tests/drm_damage_helper_test.c    | 28 +++++++++++++++++++
+>  3 files changed, 31 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+> index cc70508d4fdb..84d5231ccac1 100644
+> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+> @@ -359,6 +359,7 @@ void __drm_atomic_helper_plane_duplicate_state(struct drm_plane *plane,
+>  	state->fence = NULL;
+>  	state->commit = NULL;
+>  	state->fb_damage_clips = NULL;
+> +	state->ignore_damage_clips = false;
+>  	state->color_mgmt_changed = false;
+>  }
 
-The advantage is that it separates the safety justifications per unsafe cal=
-l,
-which increases the chances of catching a bug, makes it easier for the read=
-er to
-match requirements against justifications and potentially allows tooling to
-perform checks of the justification against the requirement.
+I would split this as a separate patch since is the bug you are fixing for
+commit 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers to
+ignore damage clips").
 
-For the specific case above, there's no documented requirements in the sens=
-e of
-Rust safety requirements of course, as they are all FFI calls, but
-dma_fence_signal_locked() for instance has the obvious requirement that it =
-must
-only be called with the fence lock held and dma_fence_set_error() must only=
- be
-called when the fence is actually signaled.
+>  EXPORT_SYMBOL(__drm_atomic_helper_plane_duplicate_state);
+> diff --git a/drivers/gpu/drm/drm_damage_helper.c b/drivers/gpu/drm/drm_damage_helper.c
+> index 74a7f4252ecf..945fac8dc27b 100644
+> --- a/drivers/gpu/drm/drm_damage_helper.c
+> +++ b/drivers/gpu/drm/drm_damage_helper.c
+> @@ -78,10 +78,8 @@ void drm_atomic_helper_check_plane_damage(struct drm_atomic_commit *state,
+>  		if (WARN_ON(!crtc_state))
+>  			return;
+>  
+> -		if (drm_atomic_crtc_needs_modeset(crtc_state)) {
+> -			drm_property_blob_put(plane_state->fb_damage_clips);
+> -			plane_state->fb_damage_clips = NULL;
+> -		}
+> +		if (drm_atomic_crtc_needs_modeset(crtc_state))
+> +			plane_state->ignore_damage_clips = true;
+>  	}
+>  }
 
-Besides that, since this pattern seems to occur at least twice, you could a=
-lso
-consider adding a lock guard.
+This makes sense to me as well and I agree that re-using the flag for this
+is better than making plane_state->fb_damage_clips == NULL the condition.
+
+As mentioned though, I would make it a separate patch. Both changes look
+good to me:
+
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+
+-- 
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
