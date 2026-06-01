@@ -4,66 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19C5BCD6E56
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 11:18:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80377CD6E56
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 11:18:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 772B91131FB;
-	Mon,  1 Jun 2026 11:18:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5D74113200;
+	Mon,  1 Jun 2026 11:18:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="UaQKAz1Q";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="LeCY7vSI";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56FB91131FB
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 11:18:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1780312667; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=MtOIe2F2NDU7+6mRWpfmiGDgJgT9if9OJXK+XzOhhP3mWFk6jInA9u7uaOKBK1A14n6BCmDPM5MX48j50/0AUFFfzv37mT6StsL9Xv9riA5VP4j9pQ0d27AD/kLKQkeiBBWzlxICwY5W8/8gwBH20zu6bico+q11hVwl6JDMfn8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1780312667;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=OXhsAs0eCmvLurN/cUXZy1negkPi8CtoEtem/pwCT58=; 
- b=a4gkjZ3BXGtg4eM0EUHe97RGPxrctKIW3IMWgF1jJZPH4MVHh5qO4kikmzEK3ee2Lq3Brl6QdlKMZI0N6aXgS8tEXgQADzX3n5+fDMFMGiLHMmSv0KYk9gOd0kg3vPwenJAHFleUwuzxV8X27bMJbhERXElqQ5vU0elDhxv6m9U=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
- dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780312667; 
- s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=OXhsAs0eCmvLurN/cUXZy1negkPi8CtoEtem/pwCT58=;
- b=UaQKAz1Qgs2xRvCGBSg9mdYEpg9ZgRAPZ2sPvm8EMEoeuUZM64vsW69Vfnps9rMx
- TGU7x4exz8BPM8o7ZeTSjpAx+N4I2Kx9cmeTUL+YjXBNNvZgDu5s0wrhAgiHIIP+bPR
- WPIpGtO3yKMmfOZ1uMSvd0y0uHQqHtv+NHzHH6a0=
-Received: by mx.zohomail.com with SMTPS id 1780312664410658.9277971875678;
- Mon, 1 Jun 2026 04:17:44 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
- id 03508181D80; Mon, 01 Jun 2026 13:17:39 +0200 (CEST)
-Date: Mon, 1 Jun 2026 13:17:39 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Detlev Casanova <detlev.casanova@collabora.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, kernel@collabora.com
-Subject: Re: [PATCH] drm/bridge: dw-hdmi-qp: Return -EOPNOTSUPP in HDMI audio
- functions
-Message-ID: <ah1pBCZhCSuoHIBk@venus>
-References: <20260519-fix-hdmi-audio-warnings-v1-1-9608966c993f@collabora.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A12DD1131FE
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 11:18:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1780312725;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=G6mo8ZBNI+D8bVnfzYhv3FnsH9wtvJpIKQXiEBDOnCQ=;
+ b=LeCY7vSIg9hZfIVVFMp+Mo827u/9QDAmLOr7QTUUq2LKJUCefeoQ3f7o/pZ/G4sln9bNix
+ HNi3kvjUSZ+vRBfpwnA0X6ko4jwOoUDPTj99wqOZ1RF5QnFcoZ+CffpBuqc5RT3/hv8urk
+ CIA6WY8EAqLNKc7X5P3+54voAFOqR9s=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-31-t279Rr0SMUOy7rwsaTzytg-1; Mon, 01 Jun 2026 07:18:44 -0400
+X-MC-Unique: t279Rr0SMUOy7rwsaTzytg-1
+X-Mimecast-MFC-AGG-ID: t279Rr0SMUOy7rwsaTzytg_1780312723
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-4903dcb32f8so86661295e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 04:18:44 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780312723; x=1780917523;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=G6mo8ZBNI+D8bVnfzYhv3FnsH9wtvJpIKQXiEBDOnCQ=;
+ b=EnHpU45Nk40IOT6iqCuYxUDfP9zPoUJdRm1MdRgFaC7AhBvJc+CW5PxyDy6XvIl545
+ i8rrdV87DDz7RVG1q+EOZr3FMtCdgOd8+8r/hs3kX27dCHP2BHER6qES6Ceck6fM5UVO
+ bj4HVPKZXmOGzTY58LgpNNyTOuB+xUcGXRDDAX6C1rtqoPvOD7ttudkIJWqlLxD5Flkn
+ ffUEnfa26k/1sbVEhZsdxZmMdY+38GwnsBOwqIJJa+c2uxFHpYBDKqs/faqEslfoN2+F
+ LAWTJ1it2dslHIN3WV66N3rgqUvou/oOUYkCkpUNGiBk0QRFnzuFvgp7DUHsCW8tIoIq
+ VRug==
+X-Gm-Message-State: AOJu0Yyjbocx4fCVHk9X+zDiWHwXtAcYpNBGcpGFPIwKyvHVtHChelOY
+ PURpC7mzxMiLGMRFKvzeQ32BqztFnBUuZHl9z1X/ZCKfHOJHEG0M7ay0VNxu/k3lf2bNy89UdE5
+ UZVDo38CmrwjcyItBIgsm9sonLa+YjN2OoAyt5TwX/xJoEQCvs/PfqR/V+F3zXi9pZq2qSg==
+X-Gm-Gg: Acq92OHT9bMLHXfRmoa4GH3DynYCA+gRJiRV/bQxH/9i8iJjwAVew3ThoEpnj8gA784
+ LA824HhJQdhlOsZ5nImc9635tXctUVZVR6SBOxhRkfEuWAUvY7y4My4hoQLMluIOcM7YwgF+7cV
+ hF56pukdjI7INRyoAOI6XZ7kOIc0+BNGNO111oiHRRiM0chzgDrQRA1oFFgm6whcyJFMkudbEvd
+ Q25TCnRVDrRM+xIDoTDO6YqPfsGTmW9WGCyEm+9DGo77Jbnh0PJcvPgx6JflbECngM0NUqjuucV
+ qDZD92E7Xa11igHYKPiw3KnGrmosBIb9SUHxk3Le3j+6cOi0Fmmgbg3wXrozwp+9T7LkQ8XZoLi
+ HCsdcp0JVsvuDHccMDHLcOZv8m0DzRX3Br+FPJuC8c/Dx71ZkUo5Em2OUcDrI7F0B4pEIz2ga
+X-Received: by 2002:a05:600c:2242:b0:490:5321:2466 with SMTP id
+ 5b1f17b1804b1-490a2941ea3mr123965175e9.20.1780312723041; 
+ Mon, 01 Jun 2026 04:18:43 -0700 (PDT)
+X-Received: by 2002:a05:600c:2242:b0:490:5321:2466 with SMTP id
+ 5b1f17b1804b1-490a2941ea3mr123964885e9.20.1780312722684; 
+ Mon, 01 Jun 2026 04:18:42 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:c:37e0:ec71:10ae:399e:d3c8?
+ ([2a01:e0a:c:37e0:ec71:10ae:399e:d3c8])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-45ef34a04e2sm22332510f8f.1.2026.06.01.04.18.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 01 Jun 2026 04:18:42 -0700 (PDT)
+Message-ID: <db9abca9-0174-46fc-8952-aaa23a4e4574@redhat.com>
+Date: Mon, 1 Jun 2026 13:18:40 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="jkxgxidvvfygd4in"
-Content-Disposition: inline
-In-Reply-To: <20260519-fix-hdmi-audio-warnings-v1-1-9608966c993f@collabora.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.2.1.5.2/280.300.36
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] lib/fonts: Look up glyph data with
+ font_data_glyph_buf()
+To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
+ deller@gmx.de, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+References: <20260529140759.529929-1-tzimmermann@suse.de>
+ <20260529140759.529929-2-tzimmermann@suse.de>
+From: Jocelyn Falempe <jfalempe@redhat.com>
+In-Reply-To: <20260529140759.529929-2-tzimmermann@suse.de>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: qRZI02-HqT0y_dHE1jyn2v7Vt_RkViCA_0trMzFGxws_1780312723
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US, fr
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,105 +104,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 29/05/2026 16:01, Thomas Zimmermann wrote:
+> Add font_data_glyph_buf() to retrieve a character's glyph data or NULL
+> otherwise. Console fonts can currently contain 256 or 512 glyphs. The
+> kernel-internal characters are of type char, unsigned short or unsigned
+> int. Catch all of them by accepting unsigned int. Callers possibly have
+> to cast from signed to unsigned types to reach all glyphs in a font.
 
---jkxgxidvvfygd4in
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] drm/bridge: dw-hdmi-qp: Return -EOPNOTSUPP in HDMI audio
- functions
-MIME-Version: 1.0
+Thanks, yes I missed to check font_data_num_glyphs(), and using signed 
+index is also problematic.
 
-Hello Detlev,
+Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
 
-On Tue, May 19, 2026 at 02:00:11PM -0400, Detlev Casanova wrote:
-> -EOPNOTSUPP is not logged as an error by the ASoC subsystem, but -ENODEV
-> is.
-> It also better represents the situation: The operation is currently not
-> supported (because clocks are not enabled and tmds_char_rate is
-> unavailable), but the hardware is present.
->=20
-> Using -EOPNOTSUPP in the audio_prepare callback removes possible repeated
-> warning log lines when HDMI is not connected.
->=20
-> Returning -EOPNOTSUPP in the audio_enable callback is also needed as it
-> avoids logging 0-valued ELD errors.
->=20
-> When tmds_char_rate is available, the clocks are enabled and the
-> functions will keep returning 0 as before.
->=20
-> Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
-
-Fixes: fd0141d1a8a2a ("drm/bridge: synopsys: Add audio support for dw-hdmi-=
-qp")
-
-Greetings,
-
--- Sebastian
-
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
->  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/d=
-rm/bridge/synopsys/dw-hdmi-qp.c
-> index d649a1cf07f5..270c8c47d853 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> @@ -469,8 +469,10 @@ static int dw_hdmi_qp_audio_enable(struct drm_bridge=
- *bridge,
->  {
->  	struct dw_hdmi_qp *hdmi =3D dw_hdmi_qp_from_bridge(bridge);
-> =20
-> -	if (hdmi->tmds_char_rate)
-> -		dw_hdmi_qp_mod(hdmi, 0, AVP_DATAPATH_PACKET_AUDIO_SWDISABLE, GLOBAL_SW=
-DISABLE);
-> +	if (!hdmi->tmds_char_rate)
-> +		return -EOPNOTSUPP;
+>   include/linux/font.h |  3 +++
+>   lib/fonts/fonts.c    | 31 +++++++++++++++++++++++++++++++
+>   2 files changed, 34 insertions(+)
+> 
+> diff --git a/include/linux/font.h b/include/linux/font.h
+> index 6845f02d739a..ea23b727388b 100644
+> --- a/include/linux/font.h
+> +++ b/include/linux/font.h
+> @@ -101,6 +101,9 @@ font_data_t *font_data_import(const struct console_font *font, unsigned int vpit
+>   void font_data_get(font_data_t *fd);
+>   bool font_data_put(font_data_t *fd);
+>   unsigned int font_data_size(font_data_t *fd);
+> +const unsigned char *font_data_glyph_buf(font_data_t *fd,
+> +					 unsigned int width, unsigned int vpitch,
+> +					 unsigned int c);
+>   bool font_data_is_equal(font_data_t *lhs, font_data_t *rhs);
+>   int font_data_export(font_data_t *fd, struct console_font *font, unsigned int vpitch);
+>   
+> diff --git a/lib/fonts/fonts.c b/lib/fonts/fonts.c
+> index f5d5333450a0..4fc66722d00d 100644
+> --- a/lib/fonts/fonts.c
+> +++ b/lib/fonts/fonts.c
+> @@ -178,6 +178,37 @@ unsigned int font_data_size(font_data_t *fd)
+>   }
+>   EXPORT_SYMBOL_GPL(font_data_size);
+>   
+> +static unsigned int font_data_num_glyphs(font_data_t *fd, unsigned int width, unsigned int height)
+> +{
+> +	return font_data_size(fd) / font_glyph_size(width, height);
+> +}
 > +
-> +	dw_hdmi_qp_mod(hdmi, 0, AVP_DATAPATH_PACKET_AUDIO_SWDISABLE, GLOBAL_SWD=
-ISABLE);
-> =20
->  	return 0;
->  }
-> @@ -484,7 +486,7 @@ static int dw_hdmi_qp_audio_prepare(struct drm_bridge=
- *bridge,
->  	bool ref2stream =3D false;
-> =20
->  	if (!hdmi->tmds_char_rate)
-> -		return -ENODEV;
-> +		return -EOPNOTSUPP;
-> =20
->  	if (fmt->bit_clk_provider | fmt->frame_clk_provider) {
->  		dev_err(hdmi->dev, "unsupported clock settings\n");
->=20
-> ---
-> base-commit: 1a2ab0feaa23147e347b4d4cb79cb3fc392118eb
-> change-id: 20260519-fix-hdmi-audio-warnings-139062ec00b9
->=20
-> Best regards,
-> -- =20
-> Detlev Casanova <detlev.casanova@collabora.com>
->=20
+> +/**
+> + * font_data_glyph_buf() - Returns the glyph for a specific character as raw bytes
+> + * @fd: The font data
+> + * @width: The glyph width in bits per scanline
+> + * @vpitch: The number of scanlines per glyph
+> + * @c: The character
+> + *
+> + * Glyphs start at fixed intervals within the font data. font_data_glyph_buf()
+> + * returns the glyph shape of the specified character. If no such glyph
+> + * exists in the font, it returns NULL.
+> + *
+> + * Returns:
+> + * The character's raw glyph shape, or NULL if no glyph exists for the character. The
+> + * provided buffer is read-only.
+> + */
+> +const unsigned char *font_data_glyph_buf(font_data_t *fd,
+> +					 unsigned int width, unsigned int vpitch,
+> +					 unsigned int c)
+> +{
+> +	if (c >= font_data_num_glyphs(fd, width, vpitch))
+> +		return NULL;
+> +
+> +	return font_data_buf(fd) + font_glyph_size(width, vpitch) * c;
+> +}
+> +EXPORT_SYMBOL_GPL(font_data_glyph_buf);
+> +
+>   /**
+>    * font_data_is_equal - Compares font data for equality
+>    * @lhs: Left-hand side font data
 
---jkxgxidvvfygd4in
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmodakcACgkQ2O7X88g7
-+pppiRAAnOCwUHwGAXwKknIc6RDWsixgxUqdd3h2PptUCxTZsmbHOoDuMsvS02it
-ciD4i6wF0/9VeljJYQgEulE8fFlIAy5JF/S7b6+xusjQVNGH60q1+3l+PPKtlXcD
-IumpN5EP9xq9DYOOsRpbRCjyoRIBd592N7QbxcWTZKL+hM/4fiQi/1a3BZM6K1xy
-+LEVkiM5JY7kifxsddFnbW4b37nPSuT+1pznd4OQImGq0QRqD2jDUXIB9ivJjIrC
-s8Z2ya29NahHTKqnurrXKlN/HRYYWL/Tw9XPVEGLUE1YovIxtsVVDYwRSI39/MjU
-vqh0JaQZzwIUjD6BGOczdthn1j0S51Mwi4jMVB+auzKGUtAZWkx8R/jusFnqvxgC
-TPDPTw2haz5ATjCW7STwI99BTPz08Q0UUE8Tt6mhTa2np0A8qI30GjAuEQ5RZ/OC
-muAytgfezVfCEOfttXnSDWs1rK2EV4LpQSDrrfLbZz7sUKFMKEnESphBUZlQBaIM
-KA9pXnfke4Ra0Ai9A6WT38WmSHz2y08f/KgBEFoUdh6bjwyENh51XDcgnz9ZsKpA
-hxmRkG9pat/u8W6zOCNihcq4L1VYpyob/6wkiLxzA/c1rRaF3wIYJuDrktXTfWio
-RnO/+HeBf+AbdyB2rs968CQWzg5FDqbr/abQwQQiq9kiRwgZwrw=
-=hu1F
------END PGP SIGNATURE-----
-
---jkxgxidvvfygd4in--
