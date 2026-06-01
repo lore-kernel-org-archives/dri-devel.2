@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DA40CD6E61
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:45:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABF5FCD6E65
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:45:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29BC1113770;
-	Mon,  1 Jun 2026 22:45:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BA43113783;
+	Mon,  1 Jun 2026 22:45:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="K/6ZhbKW";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="RwDyxlCN";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6C18112B56
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:45:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 738BD11276B
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:45:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1780353919;
- bh=CqrlMo21uLSDERPACdFjyTESttbjzijb5VGmtS4m04U=;
+ s=mail; t=1780353917;
+ bh=D3WLI0/xqh09WqxG7OJ3t8fiOSfKDxrH6DTK/8B7zCk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=K/6ZhbKWrrUNMfKwYutN3ZLitktfoN/XlhjVpSSZhj4MvVO9v6ejn3dW5XyGHPm9Y
- 9DlEZqyVLc5fNKvnyxRdn8JGDlbWIJl49jZijqF98dyY6EFrfOCmVGSffPie/j6QrX
- 1v6uRkB8//B18zL5fH5n3TtfqXO29TVfLiTFSZjghG/BKwqoE8hbcmufDHySlx07If
- T69dNQioTui4NE1DtF829l5LF/999quy2CyDNd4+RB7XHguYshHPSkuPrSPsCN0bX4
- ohsmrbYMz4WYgm0/hzeNL1slt41ZfjnAkrswOgHDjD8036q763WMSttmNKr3vV/Xxo
- y/slxs7QKyMsQ==
+ b=RwDyxlCNWPnXikCNbriDKEBPlsl0KcnHcyame3jfWh1AJToS0H5fYhr5YHDI/RpeD
+ tM39Z0MlhozOFgKj+xVQ5DUYLOE0pNEDVGwBhAKY3cTcG7WzdGhg7FlVeLgns4riH9
+ ZBwMMTQs3LeEd47Gupe9Wixaxkb3rYiOLEVAQ/2MBHilaN/Iw/KDKuxSpRfaO188C2
+ fRfdyhHJQ9Ui0yYfWpEqZ6zrEK8/al4mG8mlGDm36dVKn6j0/Fg1eR8k5X+MD7nnBJ
+ Pi11g3pXOYuMuahEooYvV2u6muofosdN4RqQLBPlb2eqfKY9kFzFgNH2vhX0/LIHqZ
+ L47rYYcFjbINw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 484AE17E0DE1;
- Tue,  2 Jun 2026 00:45:19 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 0AB7217E0D07;
+ Tue,  2 Jun 2026 00:45:17 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 02 Jun 2026 01:44:12 +0300
-Subject: [PATCH v7 12/30] drm/bridge: dw-hdmi-qp: Rate limit i2c read error
- messages
+Date: Tue, 02 Jun 2026 01:44:09 +0300
+Subject: [PATCH v7 09/30] drm/display: bridge_connector: Use cached
+ connector status in .get_modes()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-dw-hdmi-qp-scramb-v7-12-445eb54ee1ed@collabora.com>
+Message-Id: <20260602-dw-hdmi-qp-scramb-v7-9-445eb54ee1ed@collabora.com>
 References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
 In-Reply-To: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -58,7 +58,8 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
 Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org
+ linux-rockchip@lists.infradead.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,45 +76,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-During EDID reads, repeated i2c errors can flood the kernel log:
+Replace the active drm_bridge_connector_detect() call in get_modes()
+with a read of the already-cached connector->status.
 
-[   25.361716] dwhdmiqp-rockchip fde80000.hdmi: i2c read error
-[   25.363376] dwhdmiqp-rockchip fde80000.hdmi: i2c read error
-...
-[   25.368671] dwhdmiqp-rockchip fde80000.hdmi: i2c read error
-[   25.369440] dwhdmiqp-rockchip fde80000.hdmi: failed to get edid
+The .get_modes() callback is only invoked from
+drm_helper_probe_single_connector_modes(), which has already retrieved
+the connector status.  Calling detect again is redundant and triggers a
+duplicate hotplug event.  This is also a prerequisite for switching to
+the .detect_ctx() hook, which requires a drm_modeset_acquire_ctx not
+available in the .get_modes() path.
 
-Switch to dev_err_ratelimited() in dw_hdmi_qp_i2c_read() to reduce log
-spam while still reporting the condition.
-
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/display/drm_bridge_connector.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index 1c214a8e6dc2..b3318655ceab 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -561,7 +561,7 @@ static int dw_hdmi_qp_i2c_read(struct dw_hdmi_qp *hdmi,
- 				dev_dbg_ratelimited(hdmi->dev,
- 						    "i2c read timed out\n");
- 			else
--				dev_err(hdmi->dev, "i2c read timed out\n");
-+				dev_err_ratelimited(hdmi->dev, "i2c read timed out\n");
- 			dw_hdmi_qp_write(hdmi, 0x01, I2CM_CONTROL0);
- 			return -EAGAIN;
- 		}
-@@ -572,7 +572,7 @@ static int dw_hdmi_qp_i2c_read(struct dw_hdmi_qp *hdmi,
- 				dev_dbg_ratelimited(hdmi->dev,
- 						    "i2c read error\n");
- 			else
--				dev_err(hdmi->dev, "i2c read error\n");
-+				dev_err_ratelimited(hdmi->dev, "i2c read error\n");
- 			dw_hdmi_qp_write(hdmi, 0x01, I2CM_CONTROL0);
- 			return -EIO;
- 		}
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+index cafa498c3848..61c2a46edaf3 100644
+--- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -301,12 +301,10 @@ static const struct drm_connector_funcs drm_bridge_connector_funcs = {
+ static int drm_bridge_connector_get_modes_edid(struct drm_connector *connector,
+ 					       struct drm_bridge *bridge)
+ {
+-	enum drm_connector_status status;
+ 	const struct drm_edid *drm_edid;
+ 	int n;
+ 
+-	status = drm_bridge_connector_detect(connector, false);
+-	if (status != connector_status_connected)
++	if (connector->status != connector_status_connected)
+ 		goto no_edid;
+ 
+ 	drm_edid = drm_bridge_edid_read(bridge, connector);
 
 -- 
 2.54.0
