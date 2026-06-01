@@ -4,162 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AECD9CD6E5E
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 06:21:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E392CD6E4C
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 06:22:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DA4A112E24;
-	Mon,  1 Jun 2026 06:21:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F097112E25;
+	Mon,  1 Jun 2026 06:22:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eUX7ySdd";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VPIpSBg9";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8844C112E1E;
- Mon,  1 Jun 2026 06:21:24 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B51DB112E25;
+ Mon,  1 Jun 2026 06:22:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780294884; x=1811830884;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=e3JR/92KJrPB7t+LLvWjOv1KxXlbsBTnw80+0TxImGE=;
- b=eUX7ySddUTCfzKTgQWHWKCeQ3zSjB6IW2khT8wjr92unPLswuRptvYmT
- JP0JwDghlm1eyeIccE7s+tvmDUxUqKCxEKB1ja2BvEUIMyoWHdArevG0x
- bSHUJToDJBCoxh1aXGTNyWmsusAp3acjPLRRGwbT2zq/QHzZQaaZ7A8+z
- agpr0jUIkjL6aT9Hshl5zHvPlAptn3QvgnL+H5/aqwcRICjlelmM4aIfk
- SR0Ee4+PM0sVJEVB5fr7zotUrRSOOnYpHz+l27L0VrSkmVKs6409Hq0h+
- SxaOlyC/C2fCtaXARjO3nrE6Q4KddkvgKJKo9NsgAO+cSlPJn5HDMPLZ0 w==;
-X-CSE-ConnectionGUID: yxJd6F4rTeaFcKuZLjKlrw==
-X-CSE-MsgGUID: McTI70zoSCibFSdNpZpgXw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11803"; a="84905040"
-X-IronPort-AV: E=Sophos;i="6.24,180,1774335600"; d="scan'208";a="84905040"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2026 23:21:24 -0700
-X-CSE-ConnectionGUID: tH9Is8yBTmqDUH06qE98Xg==
-X-CSE-MsgGUID: yJJ3EZfQTWeNMvZHiD489Q==
+ t=1780294962; x=1811830962;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Sx5zVba1AnX22ZdgFk3iq6VA/32aXNUgrcVM0sKLbKs=;
+ b=VPIpSBg90V/r1SiKzRqr/QyzvJGCV0BWnDqKP29EdVpHoC0RQ1M9sZOd
+ 3EvF6QX+y9LwRCrckO4qBQeGEPysnF2y5FIs46W8QpPWycYnhqH2fbQq2
+ H2CKfvT/uXPwnVLef1M62DzBjhLT31tPFwxp/KdQsqxT0YGtEixF6QI0F
+ 9xlsoVlXxO6r5nK3bEwOqINIhamf7ZqPbz5XA+MLnGPMZnfrguYjLQJPi
+ Kr3Bw13a44C7fpYmDr5KVp+pUa60EXh9n5Y7GBLMvgYJ2h84e11vhnvS2
+ 8OaTBB2pqersuNi2Z6+ZqIoqWSfQcUGDQGvyln/56OLX5eQjXVvLrJSsC Q==;
+X-CSE-ConnectionGUID: KIHSqCX6T2KUhqKsCteUtg==
+X-CSE-MsgGUID: Tz2SaB/jRr6Y8GqpcEMNYw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11803"; a="103715407"
+X-IronPort-AV: E=Sophos;i="6.24,180,1774335600"; d="scan'208";a="103715407"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 May 2026 23:22:41 -0700
+X-CSE-ConnectionGUID: ufpCYVqRRF2F1Oh/RIvP4A==
+X-CSE-MsgGUID: npbwBp4JQJiUwauMNi5VfA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,180,1774335600"; d="scan'208";a="245307166"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2026 23:21:24 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Sun, 31 May 2026 23:21:23 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Sun, 31 May 2026 23:21:23 -0700
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.69) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Sun, 31 May 2026 23:21:22 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pDBmRQDK4Of810BgMOPM2rLU6T/PqQv8uB25h3VBNl5jBaUo2nf13d5P1nyIzWqAGPw0veZcKF+1talFDC13MhSa7SWhzQqYYkipZmr7gMTpmbYqwudaqoVeOlEvRE0usQl40TMASHfJYFFxouapoLKyzlEhgtAXXCkxVGjgL3NUgddZIh5JxUSjEvnuYUNidYVit45lL6u2JYu3IY3pJGPJS1ztPjqklnHhxpFpVvGtEv+mu72gtk/vgpYuYNVnE9+pXRgGPyeRd6YCk9/Sw5RXLwXFQShz0pONZE7JyGHD6Y/nezAxZD0Xxl1TzHDRDHs4Jmvvt+b6h6APvGD2Wg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vRGz9gOA/uZOBKAPYBzDAcfeFqxvhjddZ/28W7tqRzQ=;
- b=MPseiAK0spsnTDyH6NMU6X5/73pop9itggjwAgFyvzHhoYS29GvRTZd12WPblYmrBBQAoCvLIyFnL6F/e6dy3aNV+u+e7SX890dSMY9nfD4ce9uptTd8Qle/46osl/Sht7jx1+bJXwI6PlNessbyJGuMsIsomkx1KyXLMooqLSsPQp4OH4bRoK0iQG8vW6t9CtFz/8E8JWO6NOjPuv/zhJ2WIZE1AZwA6Cqfb/BQEFNkDWBtJ+FWIHeBx57NmLIb4cqsQp85qy6csob3XknolNJqzYVkZidMEFBzOLwHhcxciXhef0yitQVknP5KwPA69qnULXWq93ID55/eSjQV/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
- by SA2PR11MB5163.namprd11.prod.outlook.com (2603:10b6:806:113::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Mon, 1 Jun 2026
- 06:21:19 +0000
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::45f:5907:efdb:cb5b]) by SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::45f:5907:efdb:cb5b%3]) with mapi id 15.21.0071.011; Mon, 1 Jun 2026
- 06:21:19 +0000
-Message-ID: <d5737f38-0339-4a6a-9c81-eeac3930602a@intel.com>
-Date: Mon, 1 Jun 2026 11:51:10 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] drm/i915/color: Fix step discontinuity in Post-CSC
- Gamma LUT
-Content-Language: en-GB
-To: Sean Paul <sean@poorly.run>, <intel-gfx@lists.freedesktop.org>,
- <jani.nikula@linux.intel.com>
-CC: Sean Paul <seanpaul@google.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>
-References: <20260528230817.2455072-1-sean@poorly.run>
-From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-In-Reply-To: <20260528230817.2455072-1-sean@poorly.run>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0025.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:17a::15) To SJ1PR11MB6129.namprd11.prod.outlook.com
- (2603:10b6:a03:488::12)
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 May 2026 23:22:36 -0700
+Date: Mon, 1 Jun 2026 08:22:33 +0200
+From: Raag Jadav <raag.jadav@intel.com>
+To: Riana Tauro <riana.tauro@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ netdev@vger.kernel.org, aravind.iddamsetty@linux.intel.com,
+ anshuman.gupta@intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, kuba@kernel.org,
+ simona.vetter@ffwll.ch, airlied@gmail.com, pratik.bari@intel.com,
+ joshua.santosh.ranjan@intel.com, ashwin.kumar.kulkarni@intel.com,
+ shubham.kumar@intel.com, ravi.kishore.koppuravuri@intel.com,
+ maarten.lankhorst@linux.intel.com, mallesh.koujalagi@intel.com,
+ soham.purkait@intel.com, Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>
+Subject: Re: [PATCH 1/2] drm/drm_ras: Add drm_ras netlink error event
+Message-ID: <ah0lKbnM9CD3JQoG@black.igk.intel.com>
+References: <20260518112048.1746280-4-riana.tauro@intel.com>
+ <20260518112048.1746280-5-riana.tauro@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PR11MB6129:EE_|SA2PR11MB5163:EE_
-X-MS-Office365-Filtering-Correlation-Id: 54516fe4-0bb6-4abd-afc3-08debfa5fe4d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|6133799003|11063799006|18002099003|56012099006|22082099003;
-X-Microsoft-Antispam-Message-Info: pbLnLtNOpA3qfBjl2BcHhLw/fZegZJWz8OR5AfPV9SLUqbz1CHUkWoZQ2gh+FctTEXcUYHkTttr/gvRwtGYVgUY3PUdKQDrlDJ3qJU1/J+Dp35tXWrV7+JRHWOQZxtmVL22bilCRm4C0tEgtPddkvqkKJr/ocor2f1sXODADFG0Oh9gNSZgsjjZhxO+t05iyDoij06U9Ktx1xcyL1fVSr/Mc5oPbhpOaPg4JX3/AryviKvLk0O5ynCc8HUHOy5dRf0xZQjk8G0C3TAl7tqme8B+MiP3iDLHvNJcOEmAscvJc7ZK54odr0g77R8gz/W1hvPtVXRqkdaGSxhkoLxldE0PXZYlOqCVuxzE7sC1kXtqq9Tu0BHmHwnugxSy6zfPJkv+aNeifUZHYUzmaHNuMEq8Kq7c8oS0Cd2VmN3o/joFVkX1e2AmL0e8hiJeZP0BpqC62TDftJtQdEpiB1hqb3yn1gMyfXATw0Z0HvfFIZBvh67xyCKsVdp5dODRk+mlVXEoNgxnQ2KbihFG2gfI+QsJf3Hp+5U+xgk8cjstGqpsFeeLx8Ef0TuE9QL2sklQDvG5sffDdGdH9yQcRE5SGwHaJiiYk5TqK6kVPvSM+FU+6sfE7hYZBqtlc0Qtz17NthrM2JxzuOM5sqYV5vhbMxg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(6133799003)(11063799006)(18002099003)(56012099006)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d1BkblAveDljNllLa1dwek5wNVBrUEt5U21YK3k5MWdJSmFkZlpWYjRKdUwx?=
- =?utf-8?B?N3BRNnNPRVN1bkJiRnBKbllQcmhPd2JUTHB0MS9nenUwamVxeFNYV2VUWm43?=
- =?utf-8?B?RjRmTzNEQlkwTmhCODl4c3BDTGFiaHMrU1JRRTc3aGtWSVVidmxZS1NxaDJV?=
- =?utf-8?B?MDVNZTN0REc3T2gxY09RdHpqYXh1NzVuTWVreTF6Sm5jazNxV3pvZnRVSjlw?=
- =?utf-8?B?cmNxdjZQWWhyaG83TFlBRjVQM0dIcmtnRmt4bnBGWnZhaGt5dzlqOW5YeTU1?=
- =?utf-8?B?Mm40ZDcyTUMwSTZ0akV4NU9oSlF2ODFaRFRaRjVSVG9qT2RKZEM1YnMwS2VH?=
- =?utf-8?B?TTFCVlhDS1ZiaGJVWmlkeVlUWkxIVEhRK1lsOW90OXcwemlManZpRUxDNFJ2?=
- =?utf-8?B?Q2grOS8vWDd6dUN2S2I4TWQ4UVRTSnpGbjlyUkU2L1BwN3dJM0FHS0dNZjFy?=
- =?utf-8?B?MHdqWXFNUTJQa09Hc0JjU0NRNmZ5aERFWnJtYm1QckFEUVhUNzdOQldKNm5Z?=
- =?utf-8?B?N25NT1ZQalBxbW5NRUlvbXhtMU9XUnlyV3JaQlg4czRzWisrS3RUM3lvemsw?=
- =?utf-8?B?L0VKcGFweElvRk5uVTdIcitHc01QRGRJa2Q0K3FnVCtUc2dxSiswS252SWlT?=
- =?utf-8?B?d3NET0Y5OWwrN2Z3OVZzQ2FiL2hFdFoyM3oyYVdZSUZnR0VlR1JYdWJaNXNM?=
- =?utf-8?B?SnZSb3NTUU5Sc2tEOXBkMUVwU1VseGI4Zm5icElPMHNBNUZBY2h6S1doZmRZ?=
- =?utf-8?B?blNvYXZZSnFiT0F2S3E3YnRuRU4zZm45WnJPTStkNTExUnpVU0lncmo0YVhl?=
- =?utf-8?B?WTVLTFlvbkFBRG9XMVovOHZVYndsWHBUMFdadkxnLzUyMXVHbEFtZXJSVGlr?=
- =?utf-8?B?SHNRWDNSZlM2R1U3R3p4QmNuUnBtN25ZTyttdDNZa0hEU1g1dDFoN2QvQWNF?=
- =?utf-8?B?emIxWjk3a1hrUVhlSVZoMHo5TUgwOGlhaE4xMGNCeVdZa2lCYUxmRjV2bEZl?=
- =?utf-8?B?K0FFN21lWkx2ZEVMYjFiT2RxWWt0Y0RnMlRmRlNVU0ErUmlNSW96aHNXeHc4?=
- =?utf-8?B?VWpsY0hPTTk2NWJkenRFOG1BTHIrU0xOT0t2c1E4b1Era0RsQlgyaU9SNm14?=
- =?utf-8?B?endnUjB2Q3ZHK2xaUWJFa0YwL2JiSlNQeFRQODJob1Z6WERoSVNEU2Z6OE05?=
- =?utf-8?B?ZXJFdG1WSU05d0czVHg3VnVGandwUUVJcXNsRDI5VHE4SXFscEFFeHZVT2FB?=
- =?utf-8?B?bnZPM3FKc3c4aHVOajBTd3pGUEYrelg5cEhRUHBWbmNkUlhlcWIwOW9NWGox?=
- =?utf-8?B?VUtCWFVnZVdvTk4rQjlPdUg0SmtBSkR1SUJqOEh6ZnRiVW9jbzBmUWNod081?=
- =?utf-8?B?VG9TSld0SXhlWVUzY0c0NDRwamRCVGxjU001YWJNVTZSUnR2UDJUVURXZnJu?=
- =?utf-8?B?bHpOQlR1M05WTUdEMXVaanZ4MHBBUUlzbEt0dWpmTS9DY1NCTFFuYnlQVkJw?=
- =?utf-8?B?NnNhZVhTS3huT2FmUXRJeUNYOGlmQU5iWE5meTZYeWora0x2UkVadkt3UVVN?=
- =?utf-8?B?RTR0QjAxdnBuWlJ0dTlXS1pRQVhmVDNFZWR0bHZqMDJ5ZFg3eW5NRE4zZ0I0?=
- =?utf-8?B?a3JpWHUxS0hWZys2MGdjM2h4WFlSYTdnbEdXVEhneWJJNlczTFVGWlppQlAy?=
- =?utf-8?B?bUdBc2xPQ3VpNTdkWCtVcElGTE1EbW5zd01OMjFLRmxzZCt3WXQ3Vk80RXM0?=
- =?utf-8?B?S004OFZvOVU1RUczYkVVS20xNUE5dFYwcUZaVGE4S1Zub2NnQ3o0bS9zQjBw?=
- =?utf-8?B?Unc5TldITTFjTjM1em91aDJkQkZYcU1tMFlTcXF1MGFudVVJUlRxcExXTnkv?=
- =?utf-8?B?MnBJdDFiMWpNc2dnZmtKQk1MQUdOaVRZV0dtN3lySzd5aU54d0oxVXp4QmFU?=
- =?utf-8?B?WDhzRFVPcFM5K1BvRGZod3lzNzNjOWNjb05BUnRzNXhEVVM1Tk9nOFVMTzBy?=
- =?utf-8?B?eEdzTGE1bzl0Zjh1NWM1czFIOFBMM0pzMXRuV3FtMGk4K1NKZThWRUsza2U0?=
- =?utf-8?B?UDFiQ1ZBWExzUDdrbDNaV0dLQ2QrUkJkRmJRUDcwQVFXM2J4MDdUWS96Rzl5?=
- =?utf-8?B?cmc4WE5PYzIxZklHQnh0dGJGajlvNVV1bndNN29MOFBTazB3ZlVWS2dtVmhO?=
- =?utf-8?B?ekliUTNyUTQ2SXhXY2xVK3Q3OC9jZ3cvVGNRaDlSbE5RQ1E4Mm1JZGhDSDVE?=
- =?utf-8?B?a3BHNkJlKzFRMUFhSTlNN2R0T1JHVThMb01qZ3hpZVdwTFRNSUFMZFpxd0Ex?=
- =?utf-8?B?RklyNFZZcDZTTm9OWVVKMkc3UWxUaEg0NC9EQU5vSnVQcjNmZzhKU2E0UjNi?=
- =?utf-8?Q?LTnwLwDQqv1MNb4A=3D?=
-X-Exchange-RoutingPolicyChecked: fORaKgfYpk/AvPAv2vsF4aufpTakpq81bO6xL6uidVy6bRC8Rzbkg/lQZomtBFrlctyvl56YDwqmDvMSS4DMALQLhuK8qgQsOI/xySYA6cqmCyOzda1shG4cvTm/DL7DQrgoH+YcTTcHC7Pwn33/wtEevueHbK9Gse7B96ywXDZrTa1sVNpfyKFGe0vANjzloWztaCVj8o+E6hTBx4mBGXgjM2jLNafP9t63Bnn8wAdVaGvKvlaKVgiwF+N2yfj/OoLHwinHde+FhGJ4gE+nt3DBsC1Y5XnErOPl6bEvUS/zyXAcuCf/P4UGUt9w1wAayrGNzPVnrgVIxJgYEyWbUQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54516fe4-0bb6-4abd-afc3-08debfa5fe4d
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 06:21:19.3237 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: L1ATFAGarMbFJIdPrBzu4gesdzRQH8+PhOy5Ac1epVpdOQRJCXAqv89+sAUjR68NcE4ARPOPqOfHMOJFHKpRFALKcIlTG01OtufQrWsPBXI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB5163
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260518112048.1746280-5-riana.tauro@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -175,58 +78,357 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Sean,
-
-On 5/29/2026 4:37 AM, Sean Paul wrote:
-> From: Sean Paul <seanpaul@google.com>
+On Mon, May 18, 2026 at 04:50:50PM +0530, Riana Tauro wrote:
+> Define a new netlink event 'error-event' and a new multicast group
+> 'error-notify' in drm_ras. Each event contains device name, node and
+> error information to identify the error triggering the event.
 > 
-> Fix a step discontinuity in the Post-CSC Gamma LUT when SDR dimming
-> is active by clamping Segment 2 to the last user-provided LUT entry
-> value instead of hardcoding it to 1.0 (1 << 24).
+> Add drm_ras_nl_error_event() to trigger an event from the driver.
+> Userspace must subscribe to 'error-notify' to receive 'error-event'
+> notifications.
 > 
-> Signed-off-by: Sean Paul <seanpaul@google.com>
-> Link: https://lore.kernel.org/intel-gfx/20260521180143.2143262-1-sean@poorly.run/ #v1
-> Link: https://lore.kernel.org/intel-gfx/20260525135730.1122696-1-sean@poorly.run/ #v2
+> Usage:
 > 
+>     $ sudo ./tools/net/ynl/pyynl/cli.py --family drm_ras \
 
-We might need to trigger a CI run on intel-xe/intel-gfx since your 
-"poorly.run" e-mail id (unlike your google.com id) is not part of the 
-"allow-list".
+Nit: Make the leading space consistent with other patches.
 
-Otherwise, with the assumption made in [1], LGTM
-
-Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-
-[1] 
-https://lore.kernel.org/intel-gfx/DM4PR11MB636049BA2E517A22FB43A404F4142@DM4PR11MB6360.namprd11.prod.outlook.com/T/#t
-
-> Changes in v2:
-> - Split out into separate patches for pre/post csc fixes
-> - Dropped loop bounds fix in favor of [1]
-> Changes in v3:
-> - None
+>       --subscribe error-notify
 > 
-> [1]- https://lore.kernel.org/r/20260519075245.383864-1-pranay.samala@intel.com
+> Cc: Jakub Kicinski <kuba@kernel.org>
+> Cc: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
+> Cc: Lijo Lazar <lijo.lazar@amd.com>
+> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+> Cc: David S. Miller <davem@davemloft.net>
+> Cc: Paolo Abeni <pabeni@redhat.com>
+> Cc: Eric Dumazet <edumazet@google.com>
+> Signed-off-by: Riana Tauro <riana.tauro@intel.com>
 > ---
->   drivers/gpu/drm/i915/display/intel_color.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
+>  Documentation/gpu/drm-ras.rst            | 21 ++++++
+>  Documentation/netlink/specs/drm_ras.yaml | 50 ++++++++++++++
+>  drivers/gpu/drm/drm_ras.c                | 86 ++++++++++++++++++++++++
+>  drivers/gpu/drm/drm_ras_nl.c             |  6 ++
+>  drivers/gpu/drm/drm_ras_nl.h             |  4 ++
+>  include/drm/drm_ras.h                    |  5 ++
+>  include/uapi/drm/drm_ras.h               | 15 +++++
+>  7 files changed, 187 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-> index 7ef870cd9a16..7185f3628dcf 100644
-> --- a/drivers/gpu/drm/i915/display/intel_color.c
-> +++ b/drivers/gpu/drm/i915/display/intel_color.c
-> @@ -4038,11 +4038,11 @@ xelpd_program_plane_post_csc_lut(struct intel_dsb *dsb,
->   						   lut_val);
->   			}
->   
-> -			/* Segment 2 */
-> +			/* Segment 2 - clamp to the last LUT value to prevent step discontinuity */
->   			do {
->   				intel_de_write_dsb(display, dsb,
->   						   PLANE_POST_CSC_GAMC_DATA_ENH(pipe, plane, 0),
-> -						   (1 << 24));
-> +						   lut_val);
->   			} while (i++ < 34);
->   		} else {
->   			/*TODO: Add for segment 0 */
+> diff --git a/Documentation/gpu/drm-ras.rst b/Documentation/gpu/drm-ras.rst
+> index 83c21853b74b..5a96dde75539 100644
+> --- a/Documentation/gpu/drm-ras.rst
+> +++ b/Documentation/gpu/drm-ras.rst
+> @@ -56,6 +56,7 @@ User space tools can:
+>    ``node-id`` and ``error-id`` as parameters.
+>  * Clear specific error counters with the ``clear-error-counter`` command, using both
+>    ``node-id`` and ``error-id`` as parameters.
+> +* Subscribe to the ``error-notify`` multicast group to receive ``error-event`` notifications.
+>  
+>  YAML-based Interface
+>  --------------------
+> @@ -111,3 +112,23 @@ Example: Clear an error counter for a given node
+>  
+>      sudo ynl --family drm_ras --do clear-error-counter --json '{"node-id":0, "error-id":1}'
+>      None
+> +
+> +Example: Subscribe to ``error-notify`` multicast group
+> +
+> +.. code-block:: bash
+> +
+> +    sudo ./tools/net/ynl/pyynl/cli.py --family drm_ras --output-json --subscribe error-notify
 
+So ynl can't do this? If yes, make it consistent with other commands
+(and also in commit message). If no, please document it.
+
+> +
+> +.. code-block:: json
+> +
+> +    {
+> +        "name": "error-event",
+> +        "msg": {
+> +            "device-name": "0000:03:00.0",
+> +            "node-id": 1,
+> +            "node-name": "uncorrectable-errors",
+> +            "error-id": 1,
+> +            "error-name": "error_name1",
+> +            "error-value": 1
+> +        }
+> +    }
+> diff --git a/Documentation/netlink/specs/drm_ras.yaml b/Documentation/netlink/specs/drm_ras.yaml
+> index e113056f8c01..d94c73a61aea 100644
+> --- a/Documentation/netlink/specs/drm_ras.yaml
+> +++ b/Documentation/netlink/specs/drm_ras.yaml
+> @@ -69,6 +69,35 @@ attribute-sets:
+>          name: error-value
+>          type: u32
+>          doc: Current value of the requested error counter.
+> +  -
+> +    name: error-event-attrs
+> +    attributes:
+> +      -
+> +        name: device-name
+> +        type: string
+> +        doc: >-
+> +             Device name chosen by the driver at registration.
+> +             Can be a PCI BDF, UUID, or module name if unique.
+> +      -
+> +        name: node-id
+
+Curious, can we reuse existing partial attr-set?
+
+> +        type: u32
+> +        doc: Node ID of the node that triggered the event.
+> +      -
+> +        name: node-name
+> +        type: string
+> +        doc: Node name of the node that triggered the event.
+> +      -
+> +        name: error-id
+> +        type: u32
+> +        doc: Error ID of the counter that triggered the event.
+> +      -
+> +        name: error-name
+> +        type: string
+> +        doc: Name of the error that triggered the event.
+> +      -
+> +        name: error-value
+> +        type: u32
+> +        doc: Current value of the error counter.
+>  
+>  operations:
+>    list:
+> @@ -124,3 +153,24 @@ operations:
+>        do:
+>          request:
+>            attributes: *id-attrs
+> +    -
+> +      name: error-event
+> +      doc: >-
+> +           Notify userspace of an error event.
+> +           The event includes the device, node and error information
+> +           of the error that triggered the event.
+> +      attribute-set: error-event-attrs
+> +      mcgrp: error-notify
+> +      event:
+> +        attributes:
+> +          - device-name
+> +          - node-id
+> +          - node-name
+> +          - error-id
+> +          - error-name
+> +          - error-value
+> +
+> +mcast-groups:
+> +  list:
+> +    -
+> +      name: error-notify
+> diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
+> index d6eab29a1394..6696ec21782e 100644
+> --- a/drivers/gpu/drm/drm_ras.c
+> +++ b/drivers/gpu/drm/drm_ras.c
+> @@ -41,6 +41,11 @@
+>   *    Userspace must provide Node ID, Error ID.
+>   *    Clears specific error counter of a node if supported.
+>   *
+> + * 4. ERROR_NOTIFY: Subscribe to this multicast group to receive error events
+> + *
+> + * 5. ERROR_EVENT: Notify userspace of an error event. The event contains device, node
+> + *    and error information that triggered the event.
+> + *
+>   * Node registration:
+>   *
+>   * - drm_ras_node_register(): Registers a new node and assigns
+> @@ -186,6 +191,34 @@ static int msg_reply_value(struct sk_buff *msg, u32 error_id,
+>  			   value);
+>  }
+>  
+> +static int msg_put_error_event_attrs(struct sk_buff *msg, struct drm_ras_node *node,
+> +				     u32 error_id, const char *error_name, u32 value)
+> +{
+> +	int ret;
+> +
+> +	ret = nla_put_string(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_DEVICE_NAME, node->device_name);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = nla_put_u32(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_NODE_ID, node->id);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = nla_put_string(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_NODE_NAME, node->node_name);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = nla_put_u32(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_ID, error_id);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = nla_put_string(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_NAME, error_name);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return nla_put_u32(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_VALUE, value);
+> +}
+> +
+>  static int doit_reply_value(struct genl_info *info, u32 node_id,
+>  			    u32 error_id)
+>  {
+> @@ -222,6 +255,59 @@ static int doit_reply_value(struct genl_info *info, u32 node_id,
+>  	return genlmsg_reply(msg, info);
+>  }
+>  
+> +/**
+> + * drm_ras_nl_error_event() - Notify listeners of an error event
+> + * @node: Node structure
+> + * @error_id: ID of the error
+> + * @error_name: Name of the error
+> + * @value: Value associated with the error
+> + * @flags: GFP flags for memory allocation
+> + *
+> + * Sends a notification to all listeners about an error event on a specific
+> + * RAS node.
+> + *
+> + * Return: 0 on success, or negative errno on failure.
+> + */
+> +int drm_ras_nl_error_event(struct drm_ras_node *node, u32 error_id, const char *error_name,
+> +			   u32 value, gfp_t flags)
+> +{
+> +	struct genl_info info;
+> +	struct sk_buff *msg;
+> +	struct nlattr *hdr;
+> +	int err = -EMSGSIZE;
+
+Redundant initialization, see below.
+
+> +	if (!error_name)
+> +		return -EINVAL;
+> +
+> +	if (!genl_has_listeners(&drm_ras_nl_family, &init_net, DRM_RAS_NLGRP_ERROR_NOTIFY))
+> +		return 0;
+> +
+> +	genl_info_init_ntf(&info, &drm_ras_nl_family, DRM_RAS_CMD_ERROR_EVENT);
+> +	msg = genlmsg_new(NLMSG_GOODSIZE, flags);
+> +	if (!msg)
+> +		return -ENOMEM;
+> +
+> +	hdr = genlmsg_iput(msg, &info);
+
+Make this part of below and return err directly.
+
+> +	if (!hdr)
+> +		goto err_free_msg;
+> +
+> +	err = msg_put_error_event_attrs(msg, node, error_id, error_name, value);
+> +	if (err)
+> +		goto err_cancel;
+> +
+> +	genlmsg_end(msg, hdr);
+> +	genlmsg_multicast(&drm_ras_nl_family, msg, 0, DRM_RAS_NLGRP_ERROR_NOTIFY, flags);
+> +	return 0;
+> +
+> +err_cancel:
+> +	genlmsg_cancel(msg, hdr);
+> +err_free_msg:
+> +	nlmsg_free(msg);
+> +	return err;
+> +}
+> +EXPORT_SYMBOL(drm_ras_nl_error_event);
+> +
+>  /**
+>   * drm_ras_nl_get_error_counter_dumpit() - Dump all Error Counters
+>   * @skb: Netlink message buffer
+> diff --git a/drivers/gpu/drm/drm_ras_nl.c b/drivers/gpu/drm/drm_ras_nl.c
+> index dea1c1b2494e..ac724bb87a3b 100644
+> --- a/drivers/gpu/drm/drm_ras_nl.c
+> +++ b/drivers/gpu/drm/drm_ras_nl.c
+> @@ -58,6 +58,10 @@ static const struct genl_split_ops drm_ras_nl_ops[] = {
+>  	},
+>  };
+>  
+> +static const struct genl_multicast_group drm_ras_nl_mcgrps[] = {
+> +	[DRM_RAS_NLGRP_ERROR_NOTIFY] = { "error-notify", },
+> +};
+> +
+>  struct genl_family drm_ras_nl_family __ro_after_init = {
+>  	.name		= DRM_RAS_FAMILY_NAME,
+>  	.version	= DRM_RAS_FAMILY_VERSION,
+> @@ -66,4 +70,6 @@ struct genl_family drm_ras_nl_family __ro_after_init = {
+>  	.module		= THIS_MODULE,
+>  	.split_ops	= drm_ras_nl_ops,
+>  	.n_split_ops	= ARRAY_SIZE(drm_ras_nl_ops),
+> +	.mcgrps		= drm_ras_nl_mcgrps,
+> +	.n_mcgrps	= ARRAY_SIZE(drm_ras_nl_mcgrps),
+>  };
+> diff --git a/drivers/gpu/drm/drm_ras_nl.h b/drivers/gpu/drm/drm_ras_nl.h
+> index a398643572a5..17e1af8cc3b3 100644
+> --- a/drivers/gpu/drm/drm_ras_nl.h
+> +++ b/drivers/gpu/drm/drm_ras_nl.h
+> @@ -21,6 +21,10 @@ int drm_ras_nl_get_error_counter_dumpit(struct sk_buff *skb,
+>  int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
+>  					struct genl_info *info);
+>  
+> +enum {
+> +	DRM_RAS_NLGRP_ERROR_NOTIFY,
+> +};
+> +
+>  extern struct genl_family drm_ras_nl_family;
+>  
+>  #endif /* _LINUX_DRM_RAS_GEN_H */
+> diff --git a/include/drm/drm_ras.h b/include/drm/drm_ras.h
+> index f2a787bc4f64..d4a275efdbb0 100644
+> --- a/include/drm/drm_ras.h
+> +++ b/include/drm/drm_ras.h
+> @@ -78,9 +78,14 @@ struct drm_device;
+>  #if IS_ENABLED(CONFIG_DRM_RAS)
+>  int drm_ras_node_register(struct drm_ras_node *node);
+>  void drm_ras_node_unregister(struct drm_ras_node *node);
+> +int drm_ras_nl_error_event(struct drm_ras_node *node, u32 error_id, const char *error_name,
+> +			   u32 value, gfp_t flags);
+>  #else
+>  static inline int drm_ras_node_register(struct drm_ras_node *node) { return 0; }
+>  static inline void drm_ras_node_unregister(struct drm_ras_node *node) { }
+> +static inline int drm_ras_nl_error_event(struct drm_ras_node *node, u32 error_id,
+> +					 const char *error_name, u32 value, gfp_t flags)
+> +{ return 0; }
+>  #endif
+>  
+>  #endif
+> diff --git a/include/uapi/drm/drm_ras.h b/include/uapi/drm/drm_ras.h
+> index 218a3ee86805..bb2a8a872a44 100644
+> --- a/include/uapi/drm/drm_ras.h
+> +++ b/include/uapi/drm/drm_ras.h
+> @@ -38,13 +38,28 @@ enum {
+>  	DRM_RAS_A_ERROR_COUNTER_ATTRS_MAX = (__DRM_RAS_A_ERROR_COUNTER_ATTRS_MAX - 1)
+>  };
+>  
+> +enum {
+> +	DRM_RAS_A_ERROR_EVENT_ATTRS_DEVICE_NAME = 1,
+> +	DRM_RAS_A_ERROR_EVENT_ATTRS_NODE_ID,
+> +	DRM_RAS_A_ERROR_EVENT_ATTRS_NODE_NAME,
+> +	DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_ID,
+> +	DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_NAME,
+> +	DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_VALUE,
+> +
+> +	__DRM_RAS_A_ERROR_EVENT_ATTRS_MAX,
+> +	DRM_RAS_A_ERROR_EVENT_ATTRS_MAX = (__DRM_RAS_A_ERROR_EVENT_ATTRS_MAX - 1)
+> +};
+> +
+>  enum {
+>  	DRM_RAS_CMD_LIST_NODES = 1,
+>  	DRM_RAS_CMD_GET_ERROR_COUNTER,
+>  	DRM_RAS_CMD_CLEAR_ERROR_COUNTER,
+> +	DRM_RAS_CMD_ERROR_EVENT,
+>  
+>  	__DRM_RAS_CMD_MAX,
+>  	DRM_RAS_CMD_MAX = (__DRM_RAS_CMD_MAX - 1)
+>  };
+>  
+> +#define DRM_RAS_MCGRP_ERROR_NOTIFY	"error-notify"
+
+Where is this used?
+
+Raag
+
+>  #endif /* _UAPI_LINUX_DRM_RAS_H */
+> -- 
+> 2.47.1
+> 
