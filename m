@@ -4,62 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 802A6CD6E55
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:45:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0ED07CD5BD1
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 23:35:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BBFE11378C;
-	Mon,  1 Jun 2026 22:45:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C1C410EA6F;
+	Mon,  1 Jun 2026 23:35:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="K7a74rkE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bwFeM+dK";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 060DD113781
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:45:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1780353930;
- bh=MevDvGZ18yJpfUWkQpvx/6/Xn9V/IwMY7jgZGAE3dXM=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=K7a74rkENfEq7Z18cF7M/X9/J1fB3Gll3mxbF8if8XIA3ImbRelaOpg5uqC7rp+/x
- sdfVo7WsN7Xzh19kgiBnoS2PHyV5n16dRJva53i+ErButBysIxVrV0vH2gAp+Q0oO2
- QqI0qgdo2oH+QNI7Z3ZrkK/5zH8X862rq3YN9+V540HerPgB0YSyMU8GxvKRtr8zCr
- un5K2LSqa94Blv/Ixd8IghWl3xklPxyLvcr7ChaVZVoECM83FkXt7eAtBhJJv28g0w
- gn63huxszceZUZ8cI6NhWi6kJPLO8Z4VhhwxnHw5GzNE6kCBsADvTAOZ2LOJeL6PFa
- rYEsXPIoM+QaQ==
-Received: from localhost (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id A2A0D17E01B6;
- Tue,  2 Jun 2026 00:45:30 +0200 (CEST)
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 02 Jun 2026 01:44:27 +0300
-Subject: [PATCH v7 27/30] drm/tests: edid: Add 4K@60Hz EDID with 600MHz
- TMDS
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35A4B10EA6C;
+ Mon,  1 Jun 2026 23:35:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id B2AA7419E3;
+ Mon,  1 Jun 2026 23:35:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5639F1F00893;
+ Mon,  1 Jun 2026 23:35:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780356949;
+ bh=BsNyXchE0cQ+WrTEzbPCgdBZhaTxYz8ZYh6ODfO6Thc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=bwFeM+dKJids5MGHkWeT2lqLmOE+Z22fpYZVG8IarCaPIkYd1ClJLTF0P+KK4TZC1
+ t1HfBIbIgLm2lF9d6SD2H1GRY5GUIy6SJwL9v8EZ3L20jIK/NaVXSt1XPTueO0oIGy
+ y19iXABriAlFUODdDTo2f2+FK6UaosZlP/s7kW+eWFj9kPjNXvxZUpQLix9fiYAVMs
+ qutOmIhrfL9fMTHLsw3ErfIZs150qZpCJg1stHoIzdshVCQp8iYW9sI4ko81gCNtbL
+ eRcz3oBpBUe09WQM6FxiPQKCgb0o3dANEdBD5y5Egf4yKaQOgk8QwaFZYGWRDLloCl
+ 38TEpySFeTuzg==
+Date: Mon, 1 Jun 2026 18:35:48 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Lee Jones <lee@kernel.org>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Doug Berger <opendmb@gmail.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Bin Liu <b-liu@ti.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Thierry Reding <thierry.reding@avionic-design.de>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, brgl@kernel.org,
+ Eric Dumazet <edumazet@google.com>, Fabio Estevam <festevam@gmail.com>,
+ David Airlie <airlied@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Will Deacon <will@kernel.org>, iommu@lists.linux.dev,
+ Ulf Hansson <ulfh@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org,
+ "David S. Miller" <davem@davemloft.net>,
+ intel-xe@lists.freedesktop.org, Andi Shyti <andi.shyti@kernel.org>,
+ linux-kernel@vger.kernel.org,
+ "Rafael J. Wysocki" <rafael@kernel.org>, netdev@vger.kernel.org,
+ linux-sound@vger.kernel.org, Srinivas Kandagatla <srini@kernel.org>,
+ linux-mips@vger.kernel.org,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ driver-core@lists.linux.dev,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ imx@lists.linux.dev, Vinod Koul <vkoul@kernel.org>,
+ Peter Chen <peter.chen@kernel.org>, linux-usb@vger.kernel.org,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Joerg Roedel <joro@8bytes.org>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Mark Brown <broonie@opensource.wolfsonmicro.com>,
+ Robin Murphy <robin.murphy@arm.com>, Frank Li <Frank.Li@nxp.com>,
+ devicetree@vger.kernel.org, linux-i2c@vger.kernel.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, linuxppc-dev@lists.ozlabs.org,
+ Saravana Kannan <saravanak@kernel.org>,
+ Maximilian Luz <luzmaximilian@gmail.com>, linux-pm@vger.kernel.org,
+ Hans de Goede <hansg@kernel.org>, dri-devel@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH 09/23] of: platform: use platform_device_set_of_node()
+Message-ID: <178035694685.195552.1114165096275774254.robh@kernel.org>
+References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
+ <20260521-pdev-fwnode-ref-v1-9-88c324a1b8d2@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-dw-hdmi-qp-scramb-v7-27-445eb54ee1ed@collabora.com>
-References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
-In-Reply-To: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260521-pdev-fwnode-ref-v1-9-88c324a1b8d2@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,185 +103,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a new test EDID advertising the following capabilities:
 
-Max resolution: 3840x2160@60Hz with RGB, YUV444, YUV422, YUV420
-Max BPC:        16
-Max TMDS clock: 600 MHz
+On Thu, 21 May 2026 10:36:32 +0200, Bartosz Golaszewski wrote:
+> Ahead of reworking the reference counting logic for platform devices,
+> encapsulate the assignment of the OF node for dynamically allocated
+> platform devices with the provided helper.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+>  drivers/of/platform.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
 
-This is needed to exercise the new HDMI infrastructure that decides
-whether scrambling needs to be enabled for a given display mode and
-to validate that high-rate modes are properly rejected/accepted
-depending on the source/sink scrambling capability.
-
-The EDID is derived from test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz
-with the following changes:
-
-- Upgraded the first DTD from 3840x2160@30 (297 MHz) to 3840x2160@60
-  (594 MHz).  The H/V totals (4400x2250) and porches already match the
-  HDMI 2.0 4K@60Hz standard timing, so only the pixel clock had to be
-  bumped.
-- Widened Display Range Limits descriptor to cover the new timing, i.e.
-  24-140 kHz H, max dotclock 600 MHz.
-- Updated CTA-861 Video Data Block to advertise VIC 97 (4K@60Hz) instead
-  of VIC 95 (4k30).
-- Bumped HF-VSDB Max TMDS Character Rate to 600 MHz, keeping
-  SCDC_Present set so that the sink advertises scrambling support.
-- Cleared HDMI VSDB Max TMDS clock byte, as required by HDMI 2.0 when
-  the HF-VSDB declares a Max TMDS Character Rate above 340 MHz.
-- Provided a Video Capability Data Block advertising selectable RGB and
-  YCC quantization range plus underscan for IT/CE formats; also set the
-  'IT Video Formats Underscanned' bit in the CTA-861 extension header to
-  match.
-- Aligned base block image size with the DTD (160x90 cm) and replaced
-  the bogus 'Week of Manufacture = 0xff' with the Model Year code, both
-  fixing inherited EDID conformity warnings.
-- Dropped the empty YCbCr 4:2:0 Video Data Block inherited from the
-  parent EDID, which is flagged as a failure by edid-decode v1.33.0
-
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
----
- drivers/gpu/drm/tests/drm_kunit_edid.h | 128 +++++++++++++++++++++++++++++++++
- 1 file changed, 128 insertions(+)
-
-diff --git a/drivers/gpu/drm/tests/drm_kunit_edid.h b/drivers/gpu/drm/tests/drm_kunit_edid.h
-index f4923157f5bf..9b318f7d364e 100644
---- a/drivers/gpu/drm/tests/drm_kunit_edid.h
-+++ b/drivers/gpu/drm/tests/drm_kunit_edid.h
-@@ -980,4 +980,132 @@ static const unsigned char test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz[] = {
- 	0x00, 0x00, 0x00, 0x84
- };
- 
-+/*
-+ * Max resolution: 3840x2160@60Hz with RGB, YUV444, YUV422, YUV420
-+ * Max BPC:        16 for all modes
-+ * Max TMDS clock: 600 MHz
-+ *
-+ * edid-decode (hex):
-+ *
-+ * 00 ff ff ff ff ff ff 00 31 d8 34 00 00 00 00 00
-+ * 00 23 01 03 80 a0 5a 78 0f ee 91 a3 54 4c 99 26
-+ * 0f 50 54 20 00 00 01 01 01 01 01 01 01 01 01 01
-+ * 01 01 01 01 01 01 08 e8 00 30 f2 70 5a 80 b0 58
-+ * 8a 00 40 84 63 00 00 1e 00 00 00 fc 00 54 65 73
-+ * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 18
-+ * 55 18 8c 3c 00 0a 20 20 20 20 20 20 00 00 00 10
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 a9
-+ *
-+ * 02 03 28 b1 41 61 6c 03 0c 00 10 00 78 00 20 00
-+ * 00 01 03 6d d8 5d c4 01 78 80 07 00 00 00 00 00
-+ * 00 e2 00 ca e3 0f 01 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 54
-+ *
-+ * ----------------
-+ *
-+ * Block 0, Base EDID:
-+ *   EDID Structure Version & Revision: 1.3
-+ *   Vendor & Product Identification:
-+ *     Manufacturer: LNX
-+ *     Model: 52
-+ *     Made in: 2025
-+ *   Basic Display Parameters & Features:
-+ *     Digital display
-+ *     Maximum image size: 160 cm x 90 cm
-+ *     Gamma: 2.20
-+ *     RGB color display
-+ *     Default (sRGB) color space is primary color space
-+ *     First detailed timing is the preferred timing
-+ *     Supports GTF timings within operating range
-+ *   Color Characteristics:
-+ *     Red  : 0.6396, 0.3300
-+ *     Green: 0.2998, 0.5996
-+ *     Blue : 0.1503, 0.0595
-+ *     White: 0.3125, 0.3291
-+ *   Established Timings I & II:
-+ *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
-+ *   Standard Timings: none
-+ *   Detailed Timing Descriptors:
-+ *     DTD 1:  3840x2160   60.000000 Hz  16:9    135.000 kHz    594.000000 MHz (1600 mm x 900 mm)
-+ *                  Hfront  176 Hsync  88 Hback  296 Hpol P
-+ *                  Vfront    8 Vsync  10 Vback   72 Vpol P
-+ *     Display Product Name: 'Test EDID'
-+ *     Display Range Limits:
-+ *       Monitor ranges (GTF): 24-85 Hz V, 24-140 kHz H, max dotclock 600 MHz
-+ *     Dummy Descriptor:
-+ *   Extension blocks: 1
-+ * Checksum: 0xa9
-+ *
-+ * ----------------
-+ *
-+ * Block 1, CTA-861 Extension Block:
-+ *   Revision: 3
-+ *   Underscans IT Video Formats by default
-+ *   Supports YCbCr 4:4:4
-+ *   Supports YCbCr 4:2:2
-+ *   Native detailed modes: 1
-+ *   Video Data Block:
-+ *     VIC  97:  3840x2160   60.000000 Hz  16:9    135.000 kHz    594.000000 MHz
-+ *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
-+ *     Source physical address: 1.0.0.0
-+ *     DC_48bit
-+ *     DC_36bit
-+ *     DC_30bit
-+ *     DC_Y444
-+ *     Maximum TMDS clock: 0 MHz
-+ *     Extended HDMI video details:
-+ *   Vendor-Specific Data Block (HDMI Forum), OUI C4-5D-D8:
-+ *     Version: 1
-+ *     Maximum TMDS Character Rate: 600 MHz
-+ *     SCDC Present
-+ *     Supports 16-bits/component Deep Color 4:2:0 Pixel Encoding
-+ *     Supports 12-bits/component Deep Color 4:2:0 Pixel Encoding
-+ *     Supports 10-bits/component Deep Color 4:2:0 Pixel Encoding
-+ *     VRRmin: 0 Hz
-+ *     VRRmax: 0 Hz
-+ *   Video Capability Data Block:
-+ *     YCbCr quantization: Selectable (via AVI YQ)
-+ *     RGB quantization: Selectable (via AVI Q)
-+ *     PT scan behavior: No Data
-+ *     IT scan behavior: Always Underscanned
-+ *     CE scan behavior: Always Underscanned
-+ *   YCbCr 4:2:0 Capability Map Data Block:
-+ *     VIC  97:  3840x2160   60.000000 Hz  16:9    135.000 kHz    594.000000 MHz
-+ * Checksum: 0x54  Unused space in Extension Block: 87 bytes
-+ *
-+ * ----------------
-+ *
-+ * edid-decode 1.33.0
-+ *
-+ * EDID conformity: PASS
-+ */
-+static const unsigned char test_edid_hdmi_4k_rgb_yuv420_dc_max_600mhz[] = {
-+	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x34, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x23, 0x01, 0x03, 0x80, 0xa0, 0x5a, 0x78,
-+	0x0f, 0xee, 0x91, 0xa3, 0x54, 0x4c, 0x99, 0x26, 0x0f, 0x50, 0x54, 0x20,
-+	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-+	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x08, 0xe8, 0x00, 0x30, 0xf2, 0x70,
-+	0x5a, 0x80, 0xb0, 0x58, 0x8a, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
-+	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
-+	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x18,
-+	0x55, 0x18, 0x8c, 0x3c, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-+	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xa9, 0x02, 0x03, 0x28, 0xb1,
-+	0x41, 0x61, 0x6c, 0x03, 0x0c, 0x00, 0x10, 0x00, 0x78, 0x00, 0x20, 0x00,
-+	0x00, 0x01, 0x03, 0x6d, 0xd8, 0x5d, 0xc4, 0x01, 0x78, 0x80, 0x07, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0xe2, 0x00, 0xca, 0xe3, 0x0f, 0x01, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x54,
-+};
-+
- #endif // DRM_KUNIT_EDID_H_
-
--- 
-2.54.0
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
