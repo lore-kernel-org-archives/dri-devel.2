@@ -4,62 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1C6ACD5BD1
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:13:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE4D8CD6E55
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:26:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEA5910EA04;
-	Mon,  1 Jun 2026 22:13:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A6CB10EA14;
+	Mon,  1 Jun 2026 22:26:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=126.com header.i=@126.com header.b="SQuf0+UC";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="XabdzBz3";
 	dkim-atps=neutral
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E03E10E64F;
- Mon,  1 Jun 2026 10:05:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=Message-ID:Date:From:MIME-Version:To:Subject:
- Content-Type; bh=GpqjxkI6HTsNPXTHknXZXvJU5tQpuWx9d1v/8ydLUPY=;
- b=SQuf0+UC/7nFo/+HlOKZzqH/gWx8d2ASi+g6yJSc2qaaqNMhs2D3lo8Q0xEGyS
- KJ7estbu2mNLl6XsvrrXb6gI5cvKxsBxXbyDyXeWoXbv+2a1QjIZZghL8FDWf2xM
- vtD1tFTW73rY9CLYQseJxjUPcMKyU+iVUp0re0P8YQQcE=
-Received: from localhost.localdomain (unknown [])
- by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id
- _____wDn106zVx1q+XTYAg--.13632S2; 
- Mon, 01 Jun 2026 17:58:12 +0800 (CST)
-Message-ID: <6A1D57B9.6000504@126.com>
-Date: Mon, 01 Jun 2026 17:58:17 +0800
-From: Hongling Zeng <zhongling0719@126.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
- rv:31.0) Gecko/20100101 Thunderbird/31.2.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EE6610EA14
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:26:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1780352769;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=KEKGZD7wPG4K2tO6rX2z5E8F6yamjZqlTqEu1Uo9K0c=;
+ b=XabdzBz3UzQZ59ZYp+pepiAEs6O+ztIej2pq1sP1QFDvuILKvT15RaSK7lG/y2QqV+TAse
+ vA6nn7DLUpy648Uc/Pqn0nwViR0dVZ6xsuFEkn9SpuIDdg6BGwGv6HWv1FJnRiTNWmFYG7
+ fFs2kJTg8RJ7v6Pu+PH9VOaCtnW9inE=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-50-fdCjhA67MKKrSljMUkpt1A-1; Mon, 01 Jun 2026 18:26:06 -0400
+X-MC-Unique: fdCjhA67MKKrSljMUkpt1A-1
+X-Mimecast-MFC-AGG-ID: fdCjhA67MKKrSljMUkpt1A_1780352766
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-8ccebf7e86aso81874396d6.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 15:26:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780352766; x=1780957566;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=KEKGZD7wPG4K2tO6rX2z5E8F6yamjZqlTqEu1Uo9K0c=;
+ b=lMI0CYa7hc8DhSZwP2zgaUsRNvlTggUlIRx6mP21tb5FbOGwlimFpAYkd78uzAOuJO
+ ziazPPbkAtf/haj91PvNgGpR32gEgq9mocVn7c1SWHcxRB2ccvZhn+ddvXx1lw0s2/7d
+ MiHBohvt3nLWQPE1gnTC4SbG78fsgW2d7xD/02WbMp/4S1AMybLFbJBfuYLPTFyOZVA+
+ MUYIogK7GuLf8bljOz8g5Y3siz05R2Dt52Def08GhKiCuHQLGOscRdDv3HwjtRBa+2oB
+ /GRnWS7dbQHYjooe/ZgQ6a/VADdIvFQ6jbi+4YsGQMIACsia2Hv7GDhb9ktEQ7X2Fkp8
+ AeHQ==
+X-Gm-Message-State: AOJu0YwWHlth7ljjjatwjbu7f2V8Jhs/bH+9PFoCaduPPyzsDjIJUXzp
+ 4HJ8e0oSRE7Bl0mxuPDuB6gfmAFqxpUh1a9yiwAvpR79W70FSHcGDmVSDNzmeakX8cu0g+2MkcD
+ cFUMYwi8d0fy5up7oLvfnqxqU2vJZxnTyjSrc6RZGLkjTLi8Tgpn2amqkjie0AGq6Y0v36g==
+X-Gm-Gg: Acq92OF/IRsXyElYeKgcjcULXlaxOpFUy7g2b9kSc2K9YHT8CqaR9ZMmGINNCZ2ybM6
+ qiJDksb7+b6HY8Os2V1+EcslHWWbzol6HJVgxZrAbsZv4LP/WH9Y09VzWiC1x29dF4SJAqpSRsE
+ jQGHH3vTICemsk/fMv+kL2UoeWZw77W8ff51NYCOGNRHDcU9NSjmAiJosHM9S/HhU6j+jAIUv0u
+ eZzUuzZD4iC+0gYJaY62ABPR4BAH2Qdown1tHyQxjkP0lDSqIA+Em6Z5foZPwb0/h5xiYByFM7n
+ KnSx6XHJcbIa/aB59Qct7YTHQJTbgI7rWJ9TAAEeQe5b+MIll2NpA8efsvBlQEElF8KjlgYc9mf
+ xVHJBTfnsiNXxjKdFN4WOF+knXySu
+X-Received: by 2002:ad4:5947:0:b0:8cc:f5b7:4e13 with SMTP id
+ 6a1803df08f44-8cebf53afdbmr26107466d6.24.1780352765758; 
+ Mon, 01 Jun 2026 15:26:05 -0700 (PDT)
+X-Received: by 2002:ad4:5947:0:b0:8cc:f5b7:4e13 with SMTP id
+ 6a1803df08f44-8cebf53afdbmr26107066d6.24.1780352765346; 
+ Mon, 01 Jun 2026 15:26:05 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8ccebb681f6sm99921236d6.4.2026.06.01.15.26.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Jun 2026 15:26:04 -0700 (PDT)
+Message-ID: <fe3c191db743897eace3e50d9994269b45f16d3f.camel@redhat.com>
+Subject: Re: [PATCH v2 2/2] rust: sync: Introduce LazyInit
+From: lyude@redhat.com
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, Gary Guo <gary@garyguo.net>, Ingo Molnar	
+ <mingo@redhat.com>, Miguel Ojeda <ojeda@kernel.org>, Tamir Duberstein	
+ <tamird@kernel.org>, Boqun Feng <boqun@kernel.org>, Peter Zijlstra	
+ <peterz@infradead.org>, Viresh Kumar <viresh.kumar@linaro.org>, Benno
+ Lossin	 <lossin@kernel.org>, Will Deacon <will@kernel.org>
+Date: Mon, 01 Jun 2026 18:26:04 -0400
+In-Reply-To: <ah1CarNtFhCvAAav@google.com>
+References: <20260529173137.303717-1-lyude@redhat.com>
+ <20260529173137.303717-3-lyude@redhat.com> <ah1CarNtFhCvAAav@google.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-To: Danilo Krummrich <dakr@kernel.org>
-CC: =?UTF-8?B?5pu+57qi546y?= <zenghongling@kylinos.cn>, 
- Timur Tabi <ttabi@nvidia.com>, "lyude@redhat.com" <lyude@redhat.com>, 
- "rongqianfeng@vivo.com" <rongqianfeng@vivo.com>,
- "airlied@gmail.com" <airlied@gmail.com>, 
- "kees@kernel.org" <kees@kernel.org>, "simona@ffwll.ch" <simona@ffwll.ch>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Zhi Wang <zhiw@nvidia.com>, 
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "airlied@redhat.com" <airlied@redhat.com>, 
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "mripard@kernel.org" <mripard@kernel.org>
-Subject: Re: =?UTF-8?B?5Zue5aSNOiBSZTogW1BBVENIIDAvNV0gUmV2ZXJ0IGNsZWFudXA=?=
- =?UTF-8?B?cyBmb3IgSVNfRVJSX09SX05VTEwoKSB1c2FnZQ==?=
-References: DIULSRTZPQ0H.39RB5RF1NTFYA@kernel.org
- <823rnittrvj-82932fejdy8@nsmail8.2--kylin--1>
-In-Reply-To: <823rnittrvj-82932fejdy8@nsmail8.2--kylin--1>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wDn106zVx1q+XTYAg--.13632S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZw4xJw13WFWrury8Jw4rGrg_yoWrWFW7pw
- 13K3yqka1qkF93tFy2va1rA3WfAr4fKF48uas3ta9xZw15XF9xJF40qF1Y9a4rCr4rua1j
- q39FgFWrZw1DA3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U5PEfUUUUU=
-X-Originating-IP: [112.64.161.44]
-X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBrxTktWodV7Q1eQAA3y
-X-Mailman-Approved-At: Mon, 01 Jun 2026 22:13:44 +0000
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 3qe9p91qqLMKaX0lYI3jcmeUZDlBIlR2d2C_8T787ls_1780352766
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,98 +102,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-   Hi Danilo,
+On Mon, 2026-06-01 at 08:27 +0000, Alice Ryhl wrote:
+> I'm not a big fan of using these kinds of tricks to access the
+> contents
+> of a mutex after unlocking it. Could we instead use a struct like
+> this:
+>=20
+> struct LazyInit<T> {
+> =C2=A0=C2=A0=C2=A0 data: UnsafeCell<MaybeUninit<T>>,
+> =C2=A0=C2=A0=C2=A0 set: AtomicBool,
+> =C2=A0=C2=A0=C2=A0 lock: Mutex<()>,
+> }
+>=20
+> or even:
+>=20
+> struct LazyInit<T> {
+> =C2=A0=C2=A0=C2=A0 data: SetOnce<T>,
+> =C2=A0=C2=A0=C2=A0 lock: Mutex<()>,
+> }
+>=20
+> I think this logic will be simpler for everyone.
 
-   I apologize for the confusion with my previous patch submission. 
-Please disregard the  patches I submitted earlier.
+> By the way, another option is to use a similar strategy to
+> https://lore.kernel.org/rust-for-linux/20260523-upgrade-poll-v4-2-f5b4c74=
+7eac2@google.com/
+> where you just use SetOnce and protect calls to `populate` by another
+> mutex in the structure. Then you don't need a separate LazyInit.
 
-   I have now regenerated a v2 patch series following your requirements 
-to properly document return value contracts and clean up IS_ERR_OR_NULL
-   usage.
+ooo - yeah, that definitely works for me and would be preferable. I
+still will like to make one change to SetOnce that I think isn't too
+crazy: writing up a `reset()` function for SetOnce that works through a
+&mut like what I had here for LazyInit, since that would be quite
+helpful to have in the gem shmem free_callback() function.
 
-   Return value analysis:
-   - r535_gsp_msgq_peek(): Never returns NULL
-   - r5sp_msgq_recv_one_elem(): Never returns NULL
-   - r535_gsp_msgq_recv(): CAN return NULL (when RPC length invalid)
-   - r535_gsp_msg_recv(): CAN return NULL (queue drained/no matching 
-message)
-   - r535_gsp_rpc_get(): Never returns NULL
-   - r535_gsp_rpc_handle_reply(): CAN return NULL (NOWAIT/NOSEQ policies)
-   - r535_gsp_rpc_send(): CAN return NULL (via handle_reply)
-   - r535_gsp_rpc_push(): CAN return NULL (via handle_reply)
-
-   I've been careful to only clean up IS_ERR_OR_NULL() for functions 
-that actually never return NULL, while preserving the checks for functions
-   that can return NULL (like r5_gsp_msg_recv() and r535_gsp_msg_recv()).
-
-   Could you please review if this approach is correct?
-
-   Thanks,
-   Hongling
-
-
-
-在 2026年05月29日 17:40, 曾红玲 写道:
->
-> Hi Danilo Krummrich:
->
-> like this?
->
->  1. r535_gsp_msgq_peek(): ERR_PTR on error, valid pointer on success, 
-> never NULL
-> 2. r535_gsp_msgq_recv_one_elem(): ERR_PTR on error, valid pointer on 
-> success, never NULL
-> 3. r535_gsp_msgq_recv(): ERR_PTR on error, valid pointer on success, 
-> never NULL
-> 4. r535_gsp_msg_recv(): ERR_PTR on error, valid pointer on success, 
-> NULL for queue drained or no payload
-> 5. r535_gsp_rpc_get(): ERR_PTR on error, valid pointer on success, 
-> never NULL
-> 6. r535_gsp_rpc_handle_reply(): Depends on policy, can return NULL
->
-> TKS!
->
->
->
->
-> *主   题：*Re: [PATCH 0/5] Revert cleanups for IS_ERR_OR_NULL() usage
-> *日   期：*2026年05月29日04:48
-> *发件人：*Danilo Krummrich
-> *收件人：*Timur Tabi,Danilo Krummrich
-> *抄送 
-> 人：*lyude@redhat.com,rongqianfeng@vivo.com,airlied@gmail.com,kees@kernel.org,simona@ffwll.ch,dri- 
-> devel@lists.freedesktop.org,Zhi 
-> Wang,nouveau@lists.freedesktop.org,airlied@redhat.com,maarten.lankhorst@linux.intel.com,tzimmermann@suse.de,linux-kernel@vger.kernel.org,mripard@kernel.org
->
-> On Thu May 28, 2026 at 10:23 PM CEST, Timur Tabi wrote: > On Thu, 
-> 2026-05-28 at 21:44 +0200, Danilo Krummrich wrote: >> >> @Timur: I do 
-> think cleaning this up is the right call in general though, and I >> 
-> also don't think that the whole driver necessarily needs to be 
-> consistent on >> whether IS_ERR_OR_NULL() or IS_ERR() is used -- it 
-> depends on the context >> (although I usually prefer not to mix up 
-> NULL and ERR semantics in the first >> place). >> >> It should however 
-> be consistent in terms of what functions can actually return. >> >> 
-> ret = foo(); >> if (IS_ERR_OR_NULL(ret)) >> return ret; >> >> If foo() 
-> can never return NULL, the above is misleading, as it puts an >> 
-> obligation on the caller to somehow handle the NULL case and come up 
-> with an >> actual error code for it. > > Sure, I get that. My point is 
-> that it's often not clear whether foo() actually can never return > 
-> NULL. > > It's been a while since I've dug through the RPC call chains 
-> in Nouveau, so my memory is a little > hazy here. I do remember 
-> noticing that Nouveau frequently has situations where foo() call 
-> bar1() > and bar2(), where bar1() can return NULL but bar2() can't. So 
-> the question is not whether foo() can > return NULL, it's whether 
-> bar1() should not return NULL, or whether bar2() should. If there are 
-> multiple, it has to be the superset of course. >> So, I think it is 
-> the right call to align that to what functions can actually >> return, 
-> but while doing this, the contract should be properly documented, such 
-> >> that subsequent changes can be properly validated. > > "Properly 
-> documented" and "Nouveau" are not two things that go together. 
-> Unfortunately -- but the changes submitted by Hongling can add the 
-> documentation for the places that are touched. @Hongling, can you 
-> consider this in a v2 please? Thanks, Danilo
->
->
-> ---
->
+>=20
+> Alice
 
