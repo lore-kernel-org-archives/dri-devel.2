@@ -4,21 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B599CD5BD1
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 06:51:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1357CD6E56
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 06:51:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CD37112E6A;
-	Mon,  1 Jun 2026 06:51:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BE9E112E6B;
+	Mon,  1 Jun 2026 06:51:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="FOaOZdFU";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="deFm5InC";
 	dkim-atps=neutral
-Received: from mail-m10165.netease.com (mail-m10165.netease.com
- [154.81.10.165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F4D5112E6D
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 06:51:13 +0000 (UTC)
+Received: from mail-m9322.xmail.ntesmail.com (mail-m9322.xmail.ntesmail.com
+ [103.126.93.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2903A112E6B
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 06:51:15 +0000 (UTC)
 Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 408ded06b;
- Mon, 1 Jun 2026 14:51:09 +0800 (GMT+08:00)
+ by smtp.qiye.163.com (Hmail) with ESMTP id 408ded083;
+ Mon, 1 Jun 2026 14:51:12 +0800 (GMT+08:00)
 From: Damon Ding <damon.ding@rock-chips.com>
 To: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
@@ -33,25 +33,25 @@ Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org, Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v10 04/11] arm64: dts: rockchip: Add missing hclk for RK3588
- eDP1
-Date: Mon,  1 Jun 2026 14:50:53 +0800
-Message-Id: <20260601065100.1103873-5-damon.ding@rock-chips.com>
+Subject: [PATCH v10 06/11] drm/rockchip: analogix_dp: Fix OF node reference
+ leak via auto cleanup
+Date: Mon,  1 Jun 2026 14:50:55 +0800
+Message-Id: <20260601065100.1103873-7-damon.ding@rock-chips.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260601065100.1103873-1-damon.ding@rock-chips.com>
 References: <20260601065100.1103873-1-damon.ding@rock-chips.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e81f3597d03a8kunm111da268257e0e
+X-HM-Tid: 0a9e81f363b403a8kunm111da268257e31
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHhpOVhhPTk1MSRhPQh0aTFYVFA
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTBhDVk9LH0JLGBkfTUxNSVYVFA
  kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
  pKQk1VSktLVUpCWQY+
 DKIM-Signature: a=rsa-sha256;
- b=FOaOZdFUo5b36/m/fOHE8C895iDtTBOf/SAuHGdBZQxu0lrf4D72hE2e//ay7N4SfIxdSUQoufkpRpd7wdx2rmY8JHf5FFm3CjyvedDA5SYZJ58bFFG5BnuSN9VvWhs9OLsrP87gjrnU+Lst/qlxsUeWsb1U/8x+jE1a8m7UuBo=;
+ b=deFm5InC/687QsO2wD9nxR5fYYZQR36H5WyR7KJF0KeTUyaPkU8STH2VQz9pvWnj+2TE+JLIUqml7W+sBG58qJPg7nIH26eVRdsz0uOZkpOrBsfWXBoefa1qhQuMveCPVho4oNMRF65guiFZTdh8hDTp8lOke0EzfjvWwkH81kY=;
  c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=FSnd82QhzgsTc9VLihugRZhMWxwKpTg7Bj65m7IRRDM=;
+ bh=yJZuY68i6MDKTHNn2ykBZ5f5HU1REKA2FFFIWObwSW8=;
  h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,39 +68,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the required HCLK_VO1 bus clock to RK3588 eDP1 node with
-corresponding clock-name "hclk". This clock is necessary for
-the eDP controller to access video output GRF and work properly.
+Sashiko reported a reference leak in rockchip_dp_drm_encoder_enable(),
+the of_get_child_by_name() function does not call of_node_put() in a
+symmetrical way [1].
 
-Previously the clock was enabled implicitly via GRF phandle
-reference. Add it explicitly now to align with updated binding.
+Fix the device node reference leak by using __free(device_node) to
+automatically manage of_node_put() for all device nodes.
 
-Fixes: a481bb0b1ad9 ("arm64: dts: rockchip: Add eDP1 dt node for rk3588")
+Fixes: 729f8eefdcad ("drm/rockchip: analogix_dp: Add support for RK3588")
+Link: https://sashiko.dev/#/patchset/20260527024336.191433-1-damon.ding@rock-chips.com?part=5 #1
 Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-
 ---
+ drivers/gpu/drm/rockchip/analogix_dp-rockchip.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-Changes in v4:
-- Modify the commit msg.
----
- arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
-index a2640014ee04..b251bb129cdb 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
-@@ -285,8 +285,8 @@ hdmi1_out: port@1 {
- 	edp1: edp@fded0000 {
- 		compatible = "rockchip,rk3588-edp";
- 		reg = <0x0 0xfded0000 0x0 0x1000>;
--		clocks = <&cru CLK_EDP1_24M>, <&cru PCLK_EDP1>;
--		clock-names = "dp", "pclk";
-+		clocks = <&cru CLK_EDP1_24M>, <&cru PCLK_EDP1>, <&cru HCLK_VO1>;
-+		clock-names = "dp", "pclk", "hclk";
- 		interrupts = <GIC_SPI 164 IRQ_TYPE_LEVEL_HIGH 0>;
- 		phys = <&hdptxphy1>;
- 		phy-names = "dp";
+diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+index d2af5eb29dbb..b1ed25cefe5e 100644
+--- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+@@ -8,6 +8,7 @@
+  *         Jeff Chen <jeff.chen@rock-chips.com>
+  */
+ 
++#include <linux/cleanup.h>
+ #include <linux/component.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/of.h>
+@@ -206,7 +207,6 @@ static void rockchip_dp_drm_encoder_enable(struct drm_encoder *encoder,
+ 	struct drm_crtc *crtc;
+ 	struct drm_crtc_state *old_crtc_state;
+ 	struct of_endpoint endpoint;
+-	struct device_node *remote_port, *remote_port_parent;
+ 	char name[32];
+ 	u32 port_id;
+ 	int ret;
+@@ -230,18 +230,22 @@ static void rockchip_dp_drm_encoder_enable(struct drm_encoder *encoder,
+ 	if (ret < 0)
+ 		return;
+ 
+-	remote_port_parent = of_graph_get_remote_port_parent(endpoint.local_node);
++	struct device_node *remote_port_parent __free(device_node) =
++		of_graph_get_remote_port_parent(endpoint.local_node);
+ 	if (remote_port_parent) {
+-		if (of_get_child_by_name(remote_port_parent, "ports")) {
+-			remote_port = of_graph_get_remote_port(endpoint.local_node);
++		struct device_node *ports __free(device_node) =
++			of_get_child_by_name(remote_port_parent, "ports");
++
++		if (ports) {
++			struct device_node *remote_port __free(device_node) =
++				of_graph_get_remote_port(endpoint.local_node);
++
+ 			of_property_read_u32(remote_port, "reg", &port_id);
+-			of_node_put(remote_port);
+ 			sprintf(name, "%s vp%d", remote_port_parent->full_name, port_id);
+ 		} else {
+ 			sprintf(name, "%s %s",
+ 				remote_port_parent->full_name, endpoint.id ? "vopl" : "vopb");
+ 		}
+-		of_node_put(remote_port_parent);
+ 
+ 		DRM_DEV_DEBUG(dp->dev, "vop %s output to dp\n", (ret) ? "LIT" : "BIG");
+ 	}
 -- 
 2.34.1
 
