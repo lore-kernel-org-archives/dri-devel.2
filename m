@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A9BFCD6E57
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:45:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7993CD6E55
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:45:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8ABAA10EA3B;
-	Mon,  1 Jun 2026 22:45:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 153C010EA3C;
+	Mon,  1 Jun 2026 22:45:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="TSOvRfFw";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="I1v1vuS5";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8A1D10EA37
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:45:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1419310EA3B
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:45:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1780353911;
- bh=1TxawDU3yjqoMhD2RXj7CT9lQcvokN1vb2eWoTYf5Z4=;
+ s=mail; t=1780353912;
+ bh=rpL3MHwmbukVAMlSNrXnpHWWnXcNs/kbJP+qO9PfFXw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=TSOvRfFw5F3RtSqH3MW9Q5fC8Y58+untt3VP+tevALOHtUb5jwKJhjoHnOaeiwymu
- BIvlgQ00gYQwP55hA3+aQKsVInMQ5ky8I1KUs0c2xBoQeJSYP9a8h8BcOKqL+Xm3NG
- XcuAauYfJEBgBrnDlhKFnXOYgGqURxU4YTdHDgsJgXcChjAYdWB9WYrkAku2KKlXNf
- ApB1jdqevU9Z7zUEwmN/6y9/h8I6cNXMhi7KaDlhlurDYbl4a9XHhPc6mf2kE44zvi
- XN1zDxD9DeXOgcIW1oqCDwbZxxuTKyx5eNRtNljtEaYmClqxPbbMcyx/91dye7HBIf
- hqPXgpW2a9lrg==
+ b=I1v1vuS5ZqOMXJ1VecZnWOGHAFaqHZFuKyUmSOcDNY3/4SZ+nM7yBeo3Jyx/NED7S
+ rKmkH3SBRA9bHzL1p+KyiJh08WevT+WZ5gDZQXAjl9+/h66ylEjb7oMU2uqY9/5sAo
+ EarPIsmu47wefj2cQRciNErVejVeo4A3bEaFPdB6ShGGB/38RblVfymFYjGAXe7eTg
+ azV8zgrro4rKn90UPQ2Ihg8Pho8eekTjhrVW84+ea+cM00fXS4sZIOWxCw3XOfoSA/
+ MxU4AU+B7fb20pHLVioFtN0awq+YqRDN2pZa+x3LZ13ULwr1DNlW0iP7gtvjCzffHb
+ d17VbA7bYh4Fw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 078C017E01B6;
- Tue,  2 Jun 2026 00:45:11 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 86BC617E0A6C;
+ Tue,  2 Jun 2026 00:45:12 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 02 Jun 2026 01:44:01 +0300
-Subject: [PATCH v7 01/30] drm/fb-helper: Remove unused local variable in
- hotplug_event()
+Date: Tue, 02 Jun 2026 01:44:03 +0300
+Subject: [PATCH v7 03/30] drm/display: scdc_helper: Add macro for
+ connector-prefixed debug messages
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-dw-hdmi-qp-scramb-v7-1-445eb54ee1ed@collabora.com>
+Message-Id: <20260602-dw-hdmi-qp-scramb-v7-3-445eb54ee1ed@collabora.com>
 References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
 In-Reply-To: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -75,49 +75,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Remove the 'err' local variable in drm_fb_helper_hotplug_event() which
-only stores a return value that is never used beyond the immediate
-return statement.  This simplifies the code without behavior changes.
+Introduce the drm_scdc_dbg() wrapper over drm_dbg_kms() to help getting
+rid of the boilerplate around prefixing the debug messages with the
+connector information.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/drm_fb_helper.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/display/drm_scdc_helper.c | 24 +++++++++---------------
+ 1 file changed, 9 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index 7b11a582f8ec..3316bb00a662 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -1744,21 +1744,17 @@ EXPORT_SYMBOL(drm_fb_helper_initial_config);
-  */
- int drm_fb_helper_hotplug_event(struct drm_fb_helper *fb_helper)
- {
--	int err = 0;
--
- 	if (!drm_fbdev_emulation || !fb_helper)
- 		return 0;
+diff --git a/drivers/gpu/drm/display/drm_scdc_helper.c b/drivers/gpu/drm/display/drm_scdc_helper.c
+index df878aad4a36..cb6632346aad 100644
+--- a/drivers/gpu/drm/display/drm_scdc_helper.c
++++ b/drivers/gpu/drm/display/drm_scdc_helper.c
+@@ -55,6 +55,10 @@
  
- 	mutex_lock(&fb_helper->lock);
--	if (fb_helper->deferred_setup) {
--		err = __drm_fb_helper_initial_config_and_unlock(fb_helper);
--		return err;
--	}
-+	if (fb_helper->deferred_setup)
-+		return __drm_fb_helper_initial_config_and_unlock(fb_helper);
+ #define SCDC_I2C_SLAVE_ADDRESS 0x54
  
- 	if (!fb_helper->fb || !drm_master_internal_acquire(fb_helper->dev)) {
- 		fb_helper->delayed_hotplug = true;
- 		mutex_unlock(&fb_helper->lock);
--		return err;
-+		return 0;
++#define drm_scdc_dbg(connector, fmt, ...)					\
++	drm_dbg_kms((connector)->dev, "[CONNECTOR:%d:%s] " fmt,			\
++		    (connector)->base.id, (connector)->name, ##__VA_ARGS__)
++
+ /**
+  * drm_scdc_read - read a block of data from SCDC
+  * @adapter: I2C controller
+@@ -158,9 +162,7 @@ bool drm_scdc_get_scrambling_status(struct drm_connector *connector)
+ 
+ 	ret = drm_scdc_readb(connector->ddc, SCDC_SCRAMBLER_STATUS, &status);
+ 	if (ret < 0) {
+-		drm_dbg_kms(connector->dev,
+-			    "[CONNECTOR:%d:%s] Failed to read scrambling status: %d\n",
+-			    connector->base.id, connector->name, ret);
++		drm_scdc_dbg(connector, "Failed to read scrambling status: %d\n", ret);
+ 		return false;
  	}
  
- 	drm_master_internal_release(fb_helper->dev);
-@@ -1802,4 +1798,3 @@ bool drm_fb_helper_gem_is_fb(const struct drm_fb_helper *fb_helper,
- 	return gem == obj;
- }
- EXPORT_SYMBOL_GPL(drm_fb_helper_gem_is_fb);
--
+@@ -188,9 +190,7 @@ bool drm_scdc_set_scrambling(struct drm_connector *connector,
+ 
+ 	ret = drm_scdc_readb(connector->ddc, SCDC_TMDS_CONFIG, &config);
+ 	if (ret < 0) {
+-		drm_dbg_kms(connector->dev,
+-			    "[CONNECTOR:%d:%s] Failed to read TMDS config: %d\n",
+-			    connector->base.id, connector->name, ret);
++		drm_scdc_dbg(connector, "Failed to read TMDS config: %d\n", ret);
+ 		return false;
+ 	}
+ 
+@@ -201,9 +201,7 @@ bool drm_scdc_set_scrambling(struct drm_connector *connector,
+ 
+ 	ret = drm_scdc_writeb(connector->ddc, SCDC_TMDS_CONFIG, config);
+ 	if (ret < 0) {
+-		drm_dbg_kms(connector->dev,
+-			    "[CONNECTOR:%d:%s] Failed to enable scrambling: %d\n",
+-			    connector->base.id, connector->name, ret);
++		drm_scdc_dbg(connector, "Failed to enable scrambling: %d\n", ret);
+ 		return false;
+ 	}
+ 
+@@ -248,9 +246,7 @@ bool drm_scdc_set_high_tmds_clock_ratio(struct drm_connector *connector,
+ 
+ 	ret = drm_scdc_readb(connector->ddc, SCDC_TMDS_CONFIG, &config);
+ 	if (ret < 0) {
+-		drm_dbg_kms(connector->dev,
+-			    "[CONNECTOR:%d:%s] Failed to read TMDS config: %d\n",
+-			    connector->base.id, connector->name, ret);
++		drm_scdc_dbg(connector, "Failed to read TMDS config: %d\n", ret);
+ 		return false;
+ 	}
+ 
+@@ -261,9 +257,7 @@ bool drm_scdc_set_high_tmds_clock_ratio(struct drm_connector *connector,
+ 
+ 	ret = drm_scdc_writeb(connector->ddc, SCDC_TMDS_CONFIG, config);
+ 	if (ret < 0) {
+-		drm_dbg_kms(connector->dev,
+-			    "[CONNECTOR:%d:%s] Failed to set TMDS clock ratio: %d\n",
+-			    connector->base.id, connector->name, ret);
++		drm_scdc_dbg(connector, "Failed to set TMDS clock ratio: %d\n", ret);
+ 		return false;
+ 	}
+ 
 
 -- 
 2.54.0
