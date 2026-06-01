@@ -4,47 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0F34CD5BD1
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 18:00:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DA82CD6E60
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 18:00:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 253361136A3;
-	Mon,  1 Jun 2026 18:00:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70D9A1136A6;
+	Mon,  1 Jun 2026 18:00:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kGIUJ8ve";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="dnN9m+Bj";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD0861136A3
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 18:00:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB3DB1136A3
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 18:00:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1780336832;
- bh=f3hUMNFcEdyqeQuUHaPUg6wYaJ5ED/dmqbO5zRa5LnM=;
- h=From:Subject:Date:To:Cc:From;
- b=kGIUJ8ve3/hI+JQuzo60CZ83t7lc3FfA6ay+h3etetqrznxwIkEW4spp7rfFmdSxS
- IIv7VBp2eGjVhVm/YTyZT8BEfUnHxvLjzAqbUsr1/GrExPomvXqMvH82qdvSIHNWb9
- wqY021pJKPqh9Hb3VrKFL18ey8VV0zzUNIcHzqSuJhbX4H5FaIPUoivzYCqTQwgTAQ
- WmYQRU15/4kzc/xsz4J0C7OegRSQaNJfBDZRlcVDA0V2YHi/Z0p/0JOc3v2XF+hFHN
- 7SFKpRa3AcWCLCk7Eb914qC2qHZCuevZdF8Kck/DrFFHmsFbI9HK5NhPOLKnPpAdMN
- iWK57FPpVIqUQ==
+ s=mail; t=1780336833;
+ bh=3XI839pwxOLRxjr8d7Rv3qpB1MWRN40cGsaWsPNwOV0=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=dnN9m+BjboXP/4GJ5kNEjfW0uKCvzUfr5qLFwuWVENzx8z4eocbCaF+zDxcUd4r54
+ LQNGMP28w+hGfYM+jvDg1l8kUtLtmfP6PWAUTsr2hwZcyZtXlVcSJRWpCqoZ5nh4Py
+ uYsOLjxCPpf43xmAi4nPSK1Q97ioZUIpI3yAqt3VJqeW4tJhQ0TX3r9fTztGWv6Awn
+ E7AyfqFbsxcGWYrqs7UldhNxCCCIToqcc9OqARwiwRG3pobNdRtIGini1IKXPAS4nP
+ uL9U0Nt0Xv5+sLgl3YKYS+SOz4tGx+TLJSosz0MPlX63zoRLwLQBkc4ogz1dzXjHGs
+ /F48Zqw1/fbHw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 62CF417E03DA;
- Mon,  1 Jun 2026 20:00:32 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 3D46B17E05B8;
+ Mon,  1 Jun 2026 20:00:33 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Subject: [PATCH v2 0/2] YUV support for VOP2 background color
-Date: Mon, 01 Jun 2026 21:00:02 +0300
-Message-Id: <20260601-vop2-bg-yuv-v2-0-e5aef1d16fec@collabora.com>
+Date: Mon, 01 Jun 2026 21:00:03 +0300
+Subject: [PATCH v2 1/2] drm/rockchip: vop2: Rename CSC_BT2020 to
+ CSC_BT2020L
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQ6CMBBFr0Jm7ZgyWgyuvIdh0ZYBapCSFhoJ4
- e4W3Lp8yfvvrxDYWw5wz1bwHG2wbkhApwxMp4aW0daJgQQVQtIVoxsJdYvLHDHXggslSiNvJaT
- F6Lmxn6P2rH4cZv1iM+2J3ehsmJxfjruY797/csxRYG10oSSVdGnkw7i+V9p5dTbuDdW2bV/F8
- 53YvAAAAA==
-X-Change-ID: 20260524-vop2-bg-yuv-1b0e6a09c579
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260601-vop2-bg-yuv-v2-1-e5aef1d16fec@collabora.com>
+References: <20260601-vop2-bg-yuv-v2-0-e5aef1d16fec@collabora.com>
+In-Reply-To: <20260601-vop2-bg-yuv-v2-0-e5aef1d16fec@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
  =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
  Andy Yan <andy.yan@rock-chips.com>, 
@@ -70,49 +68,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since commit bec7cbfa7d4f ("drm/rockchip: vop2: Support setting custom
-background color") the VOP2 display controller allows configuring the
-background color of each video output port.
-
-However, this is currently limited to RGB formats.  When operating in
-YUV overlay mode, the color must be programmed using YUV format.
-
-Add the necessary RGB-to-YCbCr conversion logic, covering all color
-spaces supported by the display controller: BT601L, BT601F, BT709L and
-BT2020L.
+Rename CSC_BT2020 to CSC_BT2020L for consistency with the other
+limited-range enum members (CSC_BT601L, CSC_BT709L) and to distinguish
+it from a potential future full-range BT.2020 variant.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
-Changes in v2:
-- Used vop2_convert_csc_mode() helper to address an issue reported by
-  vcstate->color_space holds a V4L2 colorspace enum
-- Rebased onto latest drm-misc-next
-- Link to v1: https://patch.msgid.link/20260524-vop2-bg-yuv-v1-0-dcb6a52923f5@collabora.com
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-To: Sandy Huang <hjc@rock-chips.com>
-To: Heiko Stübner <heiko@sntech.de>
-To: Andy Yan <andy.yan@rock-chips.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-Cc: kernel@collabora.com
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-rockchip@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Sashiko: vop2_rgb16_to_yuv16() expects an enum vop_csc_format, but
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index a160077a507f..64ac07cb1b0d 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -658,7 +658,7 @@ static int vop2_convert_csc_mode(int csc_mode)
+ 	case V4L2_COLORSPACE_JPEG:
+ 		return CSC_BT601F;
+ 	case V4L2_COLORSPACE_BT2020:
+-		return CSC_BT2020;
++		return CSC_BT2020L;
+ 	default:
+ 		return CSC_BT709L;
+ 	}
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+index 37722652844a..ffcb39c130aa 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+@@ -373,7 +373,7 @@ enum vop_csc_format {
+ 	CSC_BT601L,
+ 	CSC_BT709L,
+ 	CSC_BT601F,
+-	CSC_BT2020,
++	CSC_BT2020L,
+ };
+ 
+ enum src_factor_mode {
 
----
-Cristian Ciocaltea (2):
-      drm/rockchip: vop2: Rename CSC_BT2020 to CSC_BT2020L
-      drm/rockchip: vop2: Add YUV support to background color
-
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 155 ++++++++++++++++++++++++---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |   2 +-
- 2 files changed, 140 insertions(+), 17 deletions(-)
----
-base-commit: e84b07e0a30b371117f9a1120a4645c213f39cd9
-change-id: 20260524-vop2-bg-yuv-1b0e6a09c579
+-- 
+2.54.0
 
