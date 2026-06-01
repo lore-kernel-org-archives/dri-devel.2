@@ -4,67 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6CD4CD6E55
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:29:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B154DCD5BD1
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 22:45:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F157610EA20;
-	Mon,  1 Jun 2026 22:29:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C9D510EA37;
+	Mon,  1 Jun 2026 22:45:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SaJTlJhK";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="eoDsR93T";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A25F310EA20
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:29:42 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 22DBD43F42;
- Mon,  1 Jun 2026 22:29:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C40D51F00893;
- Mon,  1 Jun 2026 22:29:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780352982;
- bh=/HbVmBTAdh9kW2ThMT64QyOB1B4v8smPiZkMMv2zMV4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=SaJTlJhK4GvqFkgTBNDp05nUL2BcF06+muHqRcAFraDY7DFcvF8V+em6dKteyDyMx
- D0mPJtMB6tKI5OyuOCY1Hpsyd7cqU4umFKDDvZBeeOaLtQWCfoLDKwGuOlFpx8uvAa
- JN8HUn0m6m80f8Y03Zwzqu44Jaznb6C+ia7azbw2QWAg7YWl/29hPW0CHDkJe1vqwr
- IHHcl6Rhdzm4kan7/oVBVS2gu/z/9uamfzlKJYFFeKjnoi9r9lZS2zZ2aRpk5cv1kL
- pF4v4JLsLRIqITS+bXntFsy33kqv2/rcg/VWgno7u9lI+b51wtx0smrHivLXeSNBS7
- HKb1bPhJwjU0g==
-Date: Mon, 1 Jun 2026 17:29:41 -0500
-From: Rob Herring <robh@kernel.org>
-To: Marco Felsch <m.felsch@pengutronix.de>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, laurentiu.palcu@oss.nxp.com,
- victor.liu@nxp.com, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 2/4] Revert "dt-bindings: display: bridge: ldb: Fill in
- reg property"
-Message-ID: <20260601222941.GA101404-robh@kernel.org>
-References: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
- <20260504-v7-1-topic-ldb-fixes-v1-2-0125d937ff7f@pengutronix.de>
- <20260505141538.GA2547282-robh@kernel.org>
- <2bl2mwpk57xgkuye2gydliymjkzikiovnb7ovnb73olwtfkjwn@byn3732grvnh>
- <CAL_JsqLYS1sgU680KNR60+OvtNwEVKWovht7K2APO3sqeJe6Nw@mail.gmail.com>
- <zbbez4lpme7szgnsd7fqufbuhmvcftw4sqrmwwwzyxu64i2ppb@fh2fgdkc6tat>
- <CAL_JsqJWyRPh_hmJW8p7+VvtcqpS0a_azjMO-PyQgkqQUfLAGA@mail.gmail.com>
- <uyh5s6g7bvuufnhfjrmungp5dbyllxfrgfzaxno22knpxxojmj@qqvh75ezblpp>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F79910EA37
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 22:45:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1780353910;
+ bh=cAqftLyfQAtWfgWjiuHLv7erkytA2txmu2JyZUOzW+w=;
+ h=From:Subject:Date:To:Cc:From;
+ b=eoDsR93TM1cIr2Y4P3TiwvdZkAUTKwYShPlOD0u2LM+NgvkLL+/avXWSB7v1c3c96
+ jaP+Nr3I3QOVWm5Ate0jbYEpwwhcoZWbzoLgQpueRuMkkhQsQ7XimRlc7YhRIocOge
+ SwWZP3AAqWYkZn2SOAOzFT8g8Ue6UeTp7O7gwvqshA397DzMluPDvm+/CDsg/cZq9t
+ GGVEGp69tg199DdBWjVilSAEir4gQbr1ttJ2CN7DR1npunEprB3/ebWryItHiPTfRK
+ rCZvZ5jlQJHU8o/e1ElMejXalEQACOUaL2KyV2cOW67OylgCDQIQo5Xw+pUQT/H0Vi
+ L6yDxjV87q9mA==
+Received: from localhost (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 38AF617E0086;
+ Tue,  2 Jun 2026 00:45:10 +0200 (CEST)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Subject: [PATCH v7 00/30] Add HDMI 2.0 support to DW HDMI QP TX
+Date: Tue, 02 Jun 2026 01:44:00 +0300
+Message-Id: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <uyh5s6g7bvuufnhfjrmungp5dbyllxfrgfzaxno22knpxxojmj@qqvh75ezblpp>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33P20rEMBAG4FdZcm0kMzl2r3wP8SKn2sB2s6ZSl
+ aXv7uyCVCR4+Q/MN/Nf2ZJbyQs7Hq6s5bUspZ4p2IcDi5M/v2ZeEmWGAjWgkDx98CnNhb9d+BK
+ bnwOPKSQXtI1xHBjtXVoey+fdfH6hPJXlvbav+4kVbtP/tBW44E6aMVslwJvhKdbTyYfa/GOsM
+ 7uJK/4oRgB0FSTFZxswapdQpZ4ifytDT5GkUDkDYKUYI/QUtSuy30iRIsEmGVxICN1GelcUmp6
+ iSUnWumxFJC30FLMrGkVPMaSgClbRt8E6/Kts2/YNFySK4hQCAAA=
+X-Change-ID: 20251203-dw-hdmi-qp-scramb-cdbd8b57ccf9
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Diederik de Haas <diederik@cknow-tech.com>, 
+ Maud Spierings <maud_spierings@hotmail.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,129 +81,183 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, May 13, 2026 at 12:26:40PM +0200, Marco Felsch wrote:
-> On 26-05-07, Rob Herring wrote:
-> > On Thu, May 7, 2026 at 6:55 AM Marco Felsch <m.felsch@pengutronix.de> wrote:
-> 
-> ...
-> 
-> > > > But nowhere have you said the LDB registers are mixed with other
-> > > > functions. If they aren't, then there is absolutely nothing to change
-> > > > in the binding. If they are, then yes, we shouldn't have 'reg'.
-> > >
-> > > No they aren't mixed with other functions (for now).
-> > 
-> > For now? Is the h/w going to change or is the binding *still* incomplete.
-> 
-> Sorry for the confusion. By for now I mean that NXP tend to reuse IPs
-> but with minor changes. So no, the binding is not incomplete with our
-> current HW knowledge.
+Enable HDMI 2.0 display modes (e.g. 4K@60Hz) on the Synopsys DW HDMI QP
+TX controller, as found in Rockchip RK3576 & RK3588 SoCs, by adding SCDC
+management for high TMDS clock ratio and scrambling.
 
-If such changes occur, then we can deal with it at that time.
+Since SCDC state is lost on sink disconnects, the bridge driver needs to
+trigger a CRTC reset during connector detection.  To support this, the
+series introduces the connector and bridge scrambling infrastructure
+(patches 1-8), wires it up through the bridge connector layer with an
+atomic-aware detect_ctx hook (patches 9-11), then implements the SCDC
+scrambling feature in the DW HDMI QP bridge driver (patches 12-15).
 
+Patches 16-18 are minor cleanups in the Rockchip platform driver.
+Patches 19-23 improve HPD handling by deferring IRQ registration until
+the connector is fully initialized, adding .enable_hpd()/.disable_hpd()
+PHY ops, and restricting HPD events to the affected connector.
 
-> > > Can you please
-> > > confirm that mixing 'reg' based sub-device nodes with non 'reg' based
-> > > sub-device nodes  is allowed? E.g. if the below example is allowed?
-> > >
-> > >         system-controller@4ac10000 {
-> > >                 compatible = "fsl,imx93-media-blk-ctrl", "syscon";
-> > >                 reg = <0x4ac10000 0x10000>;
-> > >                 #address-cells = <1>;
-> > >                 #size-cells = <1>;
-> > >
-> > >                 ...
-> > >
-> > >                 bridge@5c {
-> > >                         compatible = "fsl,imx8mp-ldb";
-> > >                         reg = <0x5c 0x4>, <0x128 0x4>;
-> > >                         reg-names = "ldb", "lvds";
-> > >
-> > >                         ...
-> > >                 };
-> > >
-> > >                 dpi-bridge {
-> > >                         compatible = "nxp,imx93-pdfc";
-> > >
-> > >                         ...
-> > 
-> > Depends what is in "...". If only a compatible, then no. If there are
-> > actual resources defined, then yes.
-> 
-> Please see the below full example, is this allowed?
-> 
-> system-controller@4ac10000 {
-> 	compatible = "fsl,imx93-media-blk-ctrl", "syscon";
-> 	reg = <0x4ac10000 0x10000>;
-> 	#address-cells = <1>;
-> 	#size-cells = <1>;
-> 
-> 	...
-> 
-> 	bridge@5c {
-> 		compatible = "fsl,imx8mp-ldb";
-> 		reg = <0x5c 0x4>, <0x128 0x4>;
-> 		reg-names = "ldb", "lvds";
-> 		clocks = <&clk IMX8MP_CLK_MEDIA_LDB_ROOT>;
-> 		clock-names = "ldb";
-> 		assigned-clocks = <&clk IMX8MP_CLK_MEDIA_LDB>;
-> 		assigned-clock-parents = <&clk IMX8MP_VIDEO_PLL1_OUT>;
-> 		status = "disabled";
-> 
-> 		ports {
-> 			#address-cells = <1>;
-> 			#size-cells = <0>;
-> 
-> 			port@0 {
-> 				reg = <0>;
-> 
-> 				ldb_from_lcdif2: endpoint {
-> 					remote-endpoint = <&lcdif2_to_ldb>;
-> 				};
-> 			};
-> 
-> 			port@1 {
-> 				reg = <1>;
-> 
-> 				ldb_lvds_ch0: endpoint {
-> 				};
-> 			};
-> 
-> 			port@2 {
-> 				reg = <2>;
-> 
-> 				ldb_lvds_ch1: endpoint {
-> 				};
-> 			};
-> 		};
-> 	};
-> 
-> 	dpi-bridge {
-> 		compatible = "nxp,imx93-pdfc";
-> 		status = "disabled";
-> 
-> 		ports {
-> 			#address-cells = <1>;
-> 			#size-cells = <0>;
-> 
-> 			port@0 {
-> 				reg = <0>;
-> 
-> 				dpi_from_lcdif: endpoint {
-> 					remote-endpoint = <&lcdif_to_dpi>;
-> 				};
-> 			};
-> 
-> 			port@1 {
-> 				reg = <1>;
-> 
-> 				dpi_to_panel: endpoint {
-> 				};
-> 			};
-> 		};
-> 	};
-> };
+Patches 24-25 convert vc4 HDMI to the common SCDC scrambling helpers as
+a proof of reuse, replacing the driver-local scrambling implementation.
 
-Yes, this seems fine.
+Patches 26-30 add KUnit tests: connector scrambler validation, a new
+4K@60Hz 600MHz EDID, hdmi_state_helper scrambling tests, and EDID
+conformity fixes for some of the existing test blobs.
 
-Rob
+This has been tested on the following boards:
+
+* Radxa ROCK 5B (RK3588)
+* Radxa ROCK 4D (RK3576)
+* Raspberry Pi 5 Model B Rev 1.1 (BCM2712 D0)
+
+Regards,
+Cristian
+
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+---
+Changes in v7:
+- Split the scrambler_needed flag computation from the SCDC scrambling
+  helpers into a standalone hdmi_state_helper patch for clarity (new
+  patch 6)
+- Added vc4 HDMI conversion to common TMDS char rate constants and SCDC
+  scrambling helpers as a proof of reuse (new patches 24-25)
+- Added KUnit tests for connector scrambler_supported/callback
+  consistency validation (new patch 26)
+- Added 4K@60Hz 600MHz TMDS test EDID for high-rate scrambling coverage
+  (new patch 27)
+- Added KUnit tests for hdmi_state_helper scrambler_needed flag:
+  low-rate, high-rate, and source-no-support cases (new patch 28)
+- Fixed EDID conformity issues (edid-decode v1.33.0 failures) in the
+  existing 1080p+4K YUV420 200MHz and 4K RGB/YUV 340MHz test EDIDs
+  without changing the capabilities used by existing tests (new patches
+  29-30)
+- Rebased onto latest drm-misc-next
+- Link to v6: https://patch.msgid.link/20260520-dw-hdmi-qp-scramb-v6-0-24b74603b782@collabora.com
+
+Changes in v6:
+- Collected R-b & A-b tags from Dmitry and Heiko
+- Restructured the series from 10 into 22 patches, splitting the SCDC
+  scrambling helpers, connector infrastructure, bridge operations,
+  bridge_connector plumbing, dw-hdmi-qp implementation, and Rockchip
+  platform changes into distinct commits
+- Added drm_scdc_dbg() macro to simplify debug messages (new patch)
+- Added drm_scdc_start/stop/sync_status() helpers for full scrambling
+  lifecycle management (reworked from v5 patch 5)
+- Added drm_atomic_helper_connector_hdmi_hotplug_ctx() to propagate
+  modeset acquire context for SCDC sync on hotplug (new patch)
+- Added connector scrambler callbacks and SCDC work/flag infrastructure
+  as a separate patch (split from v5 patch 5)
+- Added DRM_BRIDGE_OP_HDMI_SCRAMBLER bridge operation with
+  hdmi_scrambler_enable/disable callbacks (new patch)
+- Implemented bridge_connector scrambler interface wiring (new patch)
+- Added .enable_hpd()/.disable_hpd() PHY ops for dw-hdmi-qp bridge and
+  Rockchip platform drivers, replacing the obsolete .setup_hpd() op
+- Added dw_hdmi_qp_hpd_notify() helper for targeted connector-only HPD
+  notification (split from v5 patch 10)
+- Dropped drm_fb_helper_hotplug_event() unused variable (new cleanup)
+- Dropped unused drm_simple_kms_helper.h include (new cleanup)
+- Masked RK3576 HPD IRQ in io_init() for consistency with RK3588
+- Rebased onto latest drm-misc-next
+- Link to v5: https://patch.msgid.link/20260426-dw-hdmi-qp-scramb-v5-0-d778e70c317b@collabora.com
+
+Changes in v5:
+- Added new patches: 1/10, 3/10, 6/10, 7/10, 8/10
+- Removed redundant no-op error check in drm_bridge_helper_reset_crtc()
+  (patch 1)
+- Removed the EDEADLK retry loop from the bridge .detect_ctx() callback,
+  as that's already handled in the drm_bridge_detect_ctx() helper or by
+  the caller when ctx is provided (patch 2)
+- Refactored drm_bridge_detect() to delegate to drm_bridge_detect_ctx()
+  and added a WARN_ON for unexpected negative return values (patch 2)
+- Split the bridge-connector .detect_ctx() switch into a preparatory
+  patch to use cached connector status in .get_modes() (patch 3)
+- Improved error handling in SCDC scrambling setup: roll back high TMDS
+  clock ratio on scrambling failure, reset scramb_enabled flag on
+  set_scramb failure, and add SCDC version read/write error checks
+  (patch 5)
+- Annotated scramb_enabled with READ_ONCE/WRITE_ONCE for cross-context
+  access between modeset paths and the scrambling work item (patch 5)
+- Renamed SCDC_MIN_SOURCE_VERSION to SCDC_MAX_SOURCE_VERSION (patch 5)
+- Rate limited i2c error messages (patch 6)
+- Added missing newlines in dev_err_probe() messages (patch 7)
+- Replaced indirect device pointer accesses with local dev variable in
+  bind() (patch 8)
+- Split the HPD connector restriction (formerly patch 4/4): register HPD
+  IRQ after connector setup first (patch 9), then restrict HPD event to
+  the affected connector (patch 10); also collected R-b from Heiko
+- Rebased onto latest drm-misc-next
+- Link to v4: https://lore.kernel.org/r/20260303-dw-hdmi-qp-scramb-v4-0-317d3b8bd219@collabora.com
+
+Changes in v4:
+- Fixed conflicts while rebasing onto latest drm-misc-next
+- Link to v3: https://lore.kernel.org/r/20260119-dw-hdmi-qp-scramb-v3-0-bd8611730fc1@collabora.com
+
+Changes in v3:
+- Used drm_bridge_helper_reset_crtc() helper to reset the display
+  pipeline and got rid of some boilerplate code (Maxime)
+- Rebased onto latest drm-misc-next
+- Link to v2: https://lore.kernel.org/r/20260113-dw-hdmi-qp-scramb-v2-0-ae7b2c58d24d@collabora.com
+
+Changes in v2:
+- Collected Tested-by tags from Diederik and Maud
+- Rebased onto latest drm-misc-next
+- Ensured the recently introduced 'no-hpd' support for dealing with
+  unconnected/repurposed/broken HPD pin is limited to HDMI 1.4 rates
+- Link to v1: https://lore.kernel.org/r/20251203-dw-hdmi-qp-scramb-v1-0-836fe7401a69@collabora.com
+
+---
+Cristian Ciocaltea (30):
+      drm/fb-helper: Remove unused local variable in hotplug_event()
+      drm/connector: Add HDMI 2.0 scrambler infrastructure
+      drm/display: scdc_helper: Add macro for connector-prefixed debug messages
+      drm/display: scdc_helper: Add HDMI 2.0 scrambling management helpers
+      drm/display: hdmi_state_helper: Add ctx-aware hotplug helper for SCDC sync
+      drm/display: hdmi_state_helper: Plumb HDMI 2.0 source scrambling capability
+      drm/bridge: Remove redundant error check in drm_bridge_helper_reset_crtc()
+      drm/bridge: Add HDMI 2.0 scrambler bridge operation and callbacks
+      drm/display: bridge_connector: Use cached connector status in .get_modes()
+      drm/display: bridge_connector: Switch to .detect_ctx() connector helper
+      drm/display: bridge_connector: Wire up HDMI 2.0 scrambler callbacks
+      drm/bridge: dw-hdmi-qp: Rate limit i2c read error messages
+      drm/bridge: dw-hdmi-qp: Provide .{enable|disable}_hpd() PHY ops
+      drm/bridge: dw-hdmi-qp: Add HDMI 2.0 SCDC scrambling support
+      drm/bridge: dw-hdmi-qp: Provide dw_hdmi_qp_hpd_notify() helper
+      drm/rockchip: dw_hdmi_qp: Add missing newlines in dev_err_probe() messages
+      drm/rockchip: dw_hdmi_qp: Use local dev variable consistently in bind()
+      drm/rockchip: dw_hdmi_qp: Drop unnecessary #include
+      drm/rockchip: dw_hdmi_qp: Defer HPD IRQ enable until after connector setup
+      drm/rockchip: dw_hdmi_qp: Mask HPD IRQ in rk3576_io_init()
+      drm/rockchip: dw_hdmi_qp: Implement .{enable|disable}_hpd() PHY ops
+      drm/rockchip: dw_hdmi_qp: Switch to dw_hdmi_qp_hpd_notify()
+      drm/bridge: dw-hdmi-qp: Remove obsolete .setup_hpd() phy op
+      drm/vc4: hdmi: Use common TMDS char rate constants
+      drm/vc4: hdmi: Convert to common HDMI 2.0 SCDC scrambling helpers
+      drm/tests: connector: Add HDMI source-side scrambler capability tests
+      drm/tests: edid: Add 4K@60Hz EDID with 600MHz TMDS
+      drm/tests: hdmi_state_helper: Add HDMI 2.0 scrambling tests
+      drm/tests: edid: Fix conformity for 1080p+4K YUV420 200MHz EDID
+      drm/tests: edid: Fix conformity for 4K RGB/YUV 340MHz EDID
+
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c       | 132 ++++++++--
+ drivers/gpu/drm/display/drm_bridge_connector.c     | 119 ++++++---
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c    |  55 +++-
+ drivers/gpu/drm/display/drm_scdc_helper.c          | 269 ++++++++++++++++++--
+ drivers/gpu/drm/drm_bridge_helper.c                |   2 -
+ drivers/gpu/drm/drm_connector.c                    |  18 ++
+ drivers/gpu/drm/drm_fb_helper.c                    |  11 +-
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c     | 130 +++++-----
+ drivers/gpu/drm/tests/drm_connector_test.c         | 132 ++++++++++
+ drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 219 ++++++++++++++++
+ drivers/gpu/drm/tests/drm_kunit_edid.h             | 250 ++++++++++++++----
+ drivers/gpu/drm/vc4/vc4_hdmi.c                     | 278 +++------------------
+ drivers/gpu/drm/vc4/vc4_hdmi.h                     |   8 -
+ include/drm/bridge/dw_hdmi_qp.h                    |   4 +-
+ include/drm/display/drm_hdmi_state_helper.h        |   4 +
+ include/drm/display/drm_scdc_helper.h              |   6 +-
+ include/drm/drm_bridge.h                           |  26 ++
+ include/drm/drm_connector.h                        |  81 ++++++
+ 18 files changed, 1285 insertions(+), 459 deletions(-)
+---
+base-commit: e84b07e0a30b371117f9a1120a4645c213f39cd9
+change-id: 20251203-dw-hdmi-qp-scramb-cdbd8b57ccf9
+
