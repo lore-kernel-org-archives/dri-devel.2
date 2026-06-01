@@ -4,137 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E312CD6E56
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 10:04:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E835ACD6E56
+	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 10:11:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3D33113115;
-	Mon,  1 Jun 2026 10:04:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E40511313C;
+	Mon,  1 Jun 2026 10:11:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NCxIom99";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qLkav5iT";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011031.outbound.protection.outlook.com [52.101.57.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2937E113115
- for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 10:04:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uH+99+w3IZlqcmNJpJBgAHsiHtrLp5rc4/MNYdsyjrPB2NJzUpvBbKxV3ng/A9u8DqQYJgYJq/JJ9iDqicZIc3Jw9Sq77RGYjRFmr9qESyE+5ahfs8LBKzjf4T7LQ1zLVhywZz3BWDXm0IhnBrTCBW0JLdirLAMlK/2nGJpRVlgIeEUfuxLlzGYuq9GW0Z8U8XIo7sF8lKMUfDk+SJR2U+v4RYcJOFjH98bnK1iUY+bryPCy8wzPt1Ll/RlIAe5gY6V6E8noDlyy06me6fkgI4r3XF4/qlJ6sZHtYuT72G5p488okYR5F+K2iAsXhc38XnY7vjyaoGEA9ydP/WT/cQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=J9J3ZW/YwFh+foa2AV0Pfgha1panoCoBX7Phvsz0+qE=;
- b=Xo3+vC7gQNncpSvXbNcbb+ZfEBgoDTYzJV6bAmwdSXTmDroL+lZv8Ckj3fcimTfnCv83HD9GA2tvXN/0/CjKtVfcBBF1w5+o0x32RMyvDVvwXcgwLrKuty/bH2+43ci/w8Pq2ZZZgjSlT6++UFMNSAHPQ3PBrJgHo4T6uaCG0790jiuIA7Vcj4TbprPg3/1nEjjuBhK4ZXzq8t7e6iVToEHV/qv4MWrXUO8BWX1C8S7JmTbKv9moV/o1IphOhRL4wbUg4SrvBj5ofc/AZs+GzNm084FRRxL/92B95Mmm1Pbj2r87wZXFgK75gqe0+SZslQGtOgePyMRN2SoIfqZ0mg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J9J3ZW/YwFh+foa2AV0Pfgha1panoCoBX7Phvsz0+qE=;
- b=NCxIom99rrPtVXdwPQXEdqUoXR4iMh+9dIIJryv8ADmdg1mmifYYlbXyNPIQFJ/kfdPVOSmAYPmk1Z4aP4uLj4fmSv6l2T40c/HlsuR4EbHjLtZOcYOhIHCqHwVBb95YnDqcOfxo10/xo79HbgbqlxdoilZ1olEsSMyozpBl4cI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA0PR12MB7462.namprd12.prod.outlook.com (2603:10b6:806:24b::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Mon, 1 Jun 2026
- 10:04:00 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0071.011; Mon, 1 Jun 2026
- 10:04:00 +0000
-Message-ID: <072c6d92-0481-4f77-b878-e94a9786d16a@amd.com>
-Date: Mon, 1 Jun 2026 12:03:53 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/4] vfio/dma-buf: add TPH support for peer-to-peer
- access
-To: Keith Busch <kbusch@kernel.org>
-Cc: Zhiping Zhang <zhipingz@meta.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Bjorn Helgaas <helgaas@kernel.org>,
- kvm@vger.kernel.org, linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
- netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Yochai Cohen <yochai@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
- Linus Torvalds <torvalds@linuxfoundation.org>
-References: <20260526144401.1485788-1-zhipingz@meta.com>
- <a8cd01ab-d7aa-465d-bfa3-431f78f33ee1@amd.com>
- <20260527121438.GJ2487554@ziepe.ca>
- <ff247643-73e7-44e2-b3d5-8ac0a8efb871@amd.com>
- <20260527123634.GK2487554@ziepe.ca>
- <a5ff1930-e9fb-43f5-82ab-9875d7a28421@amd.com>
- <CAH3zFs2KALuHXReLZG_uoqvBBWvBzU6rHKakmt6HBV7PZEsD=w@mail.gmail.com>
- <71302a7a-6b9f-40da-af81-b1862dbd637a@amd.com>
- <CAH3zFs036sr93duQKx613pCyOYw4t0_x_TdSza1xBCaEmqijyA@mail.gmail.com>
- <8d9bb0b7-182d-4930-b683-d5d24da6b2ab@amd.com> <ahn3ovmkEq-Y-LKt@kbusch-mbp>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <ahn3ovmkEq-Y-LKt@kbusch-mbp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0142.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:98::8) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9310C11313C
+ for <dri-devel@lists.freedesktop.org>; Mon,  1 Jun 2026 10:11:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+ In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=3NNJq5se+S0sYBMco9FFh7hZ/lpbqS+JiOZ8c2N40CU=; b=qLkav5iT4am9euQJ5OrRYPF10E
+ p83ZqwMTBuLuWj8OfKw+Ia8fjGNVBbsXBsbYXwbeKURMp9mW44e0zM1Ri7tTMK9VWqoXPBdg0vNdJ
+ eknjvKlOBp4v5r3oC+DB8ejeXaMctfHudR59YjzQpV6Z9H3w4/4LpvbL/suMsbNt64+xMVNVcpavM
+ MhArAswBqkxTg6/P6OrasuwjrKVJ8J6eT29smlGmAuD+0RGtIty93D8EZeuKPYWtbi6SreuPmtuLm
+ bs2Xp48TubwePRXjHwYR7jAJSNJrLCJB6oqApTDCzpStfC8ggGD9WhxPvMdXQhAH3oFffqhYXWyME
+ CIXZcjJA==;
+Received: from static-234-112-85-188.ipcom.comunitel.net ([188.85.112.234]
+ helo=[192.168.0.17]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wTzcJ-00AxPj-Qi; Mon, 01 Jun 2026 12:11:31 +0200
+Message-ID: <47df01b2fab27fc3df9074d18d417f5a7d1b4db1.camel@igalia.com>
+Subject: Re: [PATCH 2/2] drm/v3d: Skip CSD when it has zeroed workgroups
+From: Iago Toral <itoral@igalia.com>
+To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
+ <mwen@igalia.com>, Jose Maria Casanova Crespo <jmcasanova@igalia.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ stable@vger.kernel.org
+Date: Mon, 01 Jun 2026 12:11:21 +0200
+In-Reply-To: <20260530-v3d-fix-indirect-csd-v1-2-15533948663f@igalia.com>
+References: <20260530-v3d-fix-indirect-csd-v1-0-15533948663f@igalia.com>
+ <20260530-v3d-fix-indirect-csd-v1-2-15533948663f@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA0PR12MB7462:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe418be1-7ee4-46cc-d799-08debfc51a55
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7416014|11063799006|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 9cHBKVoiefc4xNQhaMbqnA9yE0TAxFw2FV3WLC9oCWD7xSpuR7Z3/U64TOWu4yAjev3G90pQbSm8DQIpl5kFKW1xIYAyyM6vBYRg97Abk8CEo5KffDEaP9HhQaRR/Dggj5arcKHMvPA6y4ZAQhQPILijB5gQLkKjPh2sbYwkw2VJuwkH4FKHuQlkaZ7d2f7QFCJdNQL+yXQLYZBRZsR/wMH9Z3Dc5Y9R68Ko23C0kHFLntU2XBqDwigjbmQtq0r4PCpvB2hUO6C9NQw+T9Aw1pOoHIyLGX4Zq/eh8udVGFI8NiORzc0UOHbqlaH4+3eYkOMKl5KksGUjuWdUodlwRCTCP8Fhf837RfurC33u76BjxyhDQEUHvpAsSgkHqTCfC6mvJ1d7n+rrxqvNPISUGovr7jKdiAKKfj0IYXOZFoS34IrK+49q51fYf0H+oP2dfOAoVGFbNBPOKJ7PmRKsoNoBG4njlFUjbTlmZR8x1W/w3ZO7EF+0R+E1b4AVzHz1w3PbogpXLOFBh19rwbJASoPV3zdcfbSTyijH7Ta28Klue5cF8Q1rI49lP0g1ubMrw1tp2dbwL8xYA72MS0D9HZv0vlP1fwjp2KzmDsXw72lYrK97nnnXBLiOC09uHVOHKLTqDJilcNdKser5QDPuzceC2ISPpdd12uU9uqGsEh4QfZF1hR7S1ziZsky+xLyWAOfzZxTjVaNkK+fTKdddvw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7416014)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?REFYLzRFNmRhN1dEamFxbW1rakRwbWtncTROSnh6aS8vckhXU0x6Y1JETnVN?=
- =?utf-8?B?SkRIYkhVU3RBak5Lb0VRdlBDY0RrT3A0cGVRMnRyMVUyQzhDOXh0bVFSK2Q2?=
- =?utf-8?B?ODU1d3hwejZxQ3p3SDFEdWp0aEc2VG5ja2dJS2ljZDJTVE1lcU54eEwwVTZD?=
- =?utf-8?B?c2NaODJyaXBoUE9iZUZYZ3QwOEpGSHpOWCs2UzA3YlpHM3o4eVdCN05UK1Qz?=
- =?utf-8?B?b3h5SHRkcm9xMWRHak05QmdsaUNhNWdocFJwOEZsdEV2RUJhdk4yNkxlajY1?=
- =?utf-8?B?S0hHYnZCeUd6TFFXTXVFTkdMMjRiNTFkcVZSc1BTWEllRFo3Q1dScWNVaE52?=
- =?utf-8?B?b3F0MXJTWEFQSTV6OGZhTjIyVENESzN6MkRaa0FDcXh0SGZTcC9GT1l5TnpZ?=
- =?utf-8?B?R1JJMHR4UTRKNUhKWlMwWW1Fenp3V2dWSWhweW1HR3hBdWFIOHRTdFFvNlF3?=
- =?utf-8?B?MU5uVHNVU0RWOFVpdVUraE1wNzhEOVlDWFZUSkVGTFViTWM1WTllK0xMYThT?=
- =?utf-8?B?Q2ZqeGZhVlJEUW92cjREQzN4bnUxZEp6ZDJtb1VIUFJmQk5QbXk3dWxuQUpr?=
- =?utf-8?B?SElIR3NQd0ZqMEFGR2pMTXdqZE4xK1ZGdXh1RElCdU9MOG5oRkthYm5YVVZH?=
- =?utf-8?B?QUZ6QWQzMW44UmZuT0FqaWF3b1FyeHBDUmRtQldoUkFIQ0dtOXFoMWtITnZC?=
- =?utf-8?B?ZkV4RFZZRGVjTzhGbTN4QXVodGdhQ2xkdTdSdDVsR2pqNU8wWVVGUGNlclph?=
- =?utf-8?B?N1FIdjNZRlZDb08xWkxPOXZHUW9QcStXU3VrbFc3NjdFYzl5Z2RwYWdENjQ0?=
- =?utf-8?B?VFJUMXFKQjJnWVJTZ0V3dGEyYkovbTNwQ0dJR3VsSU16ZHVrc2FrNjJ3T3k4?=
- =?utf-8?B?M3ZIRkhOb3B4b1BWWnAybWt3NThHaC9QbGxxWk1HdEJmZCtsREpxN1lobXdU?=
- =?utf-8?B?S2p1SUw5S3BzVnRQcmNWZmc4dG1Bb1lWWG1HWjNITjR4WEt5eUprVFJNM0Y0?=
- =?utf-8?B?L1dKdzdLaXRvTUhDSlQ1WkxzK1FFcGVHdW1FVFUyOUNQdFMyak9qRW1zTzhQ?=
- =?utf-8?B?cVZxT1dFRVhuOUdCUUorOCtjVHVWL2EvNXJwNGFRRkpxeFJrQmVzK3pnSWFo?=
- =?utf-8?B?RUlUeFp1TE1DY1pCa0x1TXJ5ZVJqVDVHRmpWbmtyUzk2Vm1sL2VWYkd1ZGUz?=
- =?utf-8?B?RnZ6L2dYNEVlbW5vbGFJV2psdkk3aDBxYnd5WFg5Zm9VUFRzdnZzcWFUeVhC?=
- =?utf-8?B?SWtRbXY0a01ENUZOVGJyeCtOZjFSejBYMTVYOVUwcWxGYmgvbTlWZ1F3U25i?=
- =?utf-8?B?VVNmZXR5YVdTdVlDVE5yMlJPaGpFVlFYRzFTMkczUUpXM1htdWFva3ZDWjR2?=
- =?utf-8?B?MlJPbUVOQnNDcmdBd0hYNnJLNnIzS0tiT2ZOTDBVRUhDS2JvMTZwT0Y1SG90?=
- =?utf-8?B?MWVqT2Z6U29mNWhJVmUwV2JVT2loQ1p5a2c2R3FUaUhiWjhyMFdqNGZjbjN2?=
- =?utf-8?B?WFg0SU9JT3lmc1ZwL1lDM2duZTcxU05Xb0dYK3loMmEweElGcnFIeUNBa2xl?=
- =?utf-8?B?UWdCNmJ2dElLNm00dVhZVnJJWTM2UjFpYTVvc1gvYmwyZWpwVlhJMXZjc284?=
- =?utf-8?B?c2NPM3hEU3V0ZTJPS1hldFMvY2tKQVRUYVJ5Q0VqeHFUbVhRdy9yMXEyL21l?=
- =?utf-8?B?QWx1QmFJRHlmaHQzM3NicEs3M3VqQk4za1RLazZZTUxKWGprOHdyUExaM3lq?=
- =?utf-8?B?WjV3ZWNQTEdvVU1TTEhpbm5SRG4xVXhEVnJOMjBVemw2NFg3VEJoaDBQNzBT?=
- =?utf-8?B?Y1U3SFlEUjhiSC93OWh6NDROMmJLSkNMSkdBdHE1cG5Xc0dxYTBseFdYNHor?=
- =?utf-8?B?dTZ2N3NmZlNkdFZoQ0Z6NmUyM05rODhVODAva21IV3drWUZqYUVoWFVWN2l4?=
- =?utf-8?B?VGxKdkNKeHpDQzlsWTRkRFF2RkxzUmFDeTdxdTdtdVlUY1VSWEhCMkZ0VUp1?=
- =?utf-8?B?THlhUUxqVWVJTWZjUDlpRjA0NTFOYnVtc04rK0RTTTlpYTBLMmFyN3pIa09H?=
- =?utf-8?B?N3p4Y29PaVdCSGVCS21qWGQrQWgwTXQ2VjhVWjNBS3pBdFA2R1VjYU5sOTEz?=
- =?utf-8?B?OFJ1TlI3dURvYzhHaDBhcDN0SGZjb0p6RjBzaGU0OFI3V0hMZW1zSEROMmp3?=
- =?utf-8?B?WXJIcmVlUHZ0NHZCTDY4U1JzY0FtN1JRQ25SNndad05IYmFwTFVjWWFUdjdz?=
- =?utf-8?B?R2RoUXh6QUJVdnpXSm1xRXVDcHJqOEZPVm5pall0c0NHOU1oYThzSFJDa1Va?=
- =?utf-8?Q?i4QjpF6ALapwSYPxPw?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe418be1-7ee4-46cc-d799-08debfc51a55
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 10:04:00.5826 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wKiHQiJ3m1Rra3aWpBqwn46Brmc1VUVzv0A6kSA35/XNHE4PAHmc+BBtQ9XkuXjO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7462
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,42 +62,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/29/26 22:31, Keith Busch wrote:
-> On Fri, May 29, 2026 at 09:36:00AM +0200, Christian König wrote:
->> On 5/29/26 08:34, Zhiping Zhang wrote:
->> ...
->>> There's no in-tree vendor PF driver
->>
->> Well I have to admit it's a bit on the edge but this sentence is a show stopper.
->>
->> DMA-buf is an in kernel interface for buffer sharing between drivers and any change to it needs an in kernel driver as justification for the added complexity.
->>
->>> - the device is a Meta MTIA
->>> accelerator managed entirely from userspace via VFIO passthrough.
->>
->> When you have a complete open source driver stack which utilizes VFIO passthrough as the interface to communicate with the kernel drivers then we can eventually talk about that.
->>
->> But as far as I can see without upstreaming or at least open sourcing the full stack to utilize this functionality it's a clear NAK to upstreaming this.
-> 
-> But the existing dmabuf for vfio-pci was accepted upstream without these
-> requirements. I see you had concerns about even that, but still Acked
-> under the same model that's propsed in this series:
-> 
->   https://lore.kernel.org/linux-pci/57b8876f-1399-4e4d-a44b-1177787aa17d@amd.com/
+El s=C3=A1b, 30-05-2026 a las 16:51 -0300, Ma=C3=ADra Canal escribi=C3=B3:
+> A compute shader dispatch encodes its workgroup counts in the
+> CFG0..CFG2
+> registers. Kicking off a dispatch with a zero count in any of the
+> three
+> dimensions is invalid. First, the hardware will process 0 as 65536,
+> causing an illegitimate submission. But over that, a submission with
+> a
+> zeroed workgroup dimension should be a no-op.
+>=20
+> These zeroed counts can reach the dispatch path through an indirect
+> CSD
+> job, whose workgroup counts are only known once the indirect buffer
+> is
+> read and may legitimately be zero, but such scenario should only
+> result in
+> a no-op.
+>=20
+> Don't submit the job to the hardware when any of the workgroup counts
+> is
+> zero, so the job completes immediately instead of running the shader.
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: d223f98f0209 ("drm/v3d: Add support for compute shader
+> dispatch.")
+> Suggested-by: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
+> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
+> ---
+> =C2=A0drivers/gpu/drm/v3d/v3d_sched.c | 3 +++
+> =C2=A01 file changed, 3 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c
+> b/drivers/gpu/drm/v3d/v3d_sched.c
+> index 47f83936cd73..5476fcf43793 100644
+> --- a/drivers/gpu/drm/v3d/v3d_sched.c
+> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
+> @@ -352,6 +352,9 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
+> =C2=A0		return NULL;
+> =C2=A0	}
+> =C2=A0
+> +	if (!job->args.cfg[0] || !job->args.cfg[1] || !job-
+> >args.cfg[2])
+> +		return NULL;
 
-Well that wasn't driver to driver API but just some helpers which we didn't know where else to but.
+I think this is not correct: cfg[0-2] have the actual dispatch sizes
+encoded in the 16 MSB bits of these registers, allowing the lower 16-
+bit to specify a base offset for the generated workgroup ids that may
+not be zero. Therefore, I think we would want to rewrite this check as:
 
-This here is an addition to the inter driver API which as far as I can see is currently not beneficial to anybody else.
+if ((job->args.cfg[0] & 0xffff0000u) =3D=3D 0 ||
+    (job->args.cfg[1] & 0xffff0000u) =3D=3D 0 ||
+    (job->args.cfg[2] & 0xffff0000u) =3D=3D 0) {
+        return NULL;
+}
 
-> So with vfio-pci and mlx5 both in-tree dmabuf users, implementing and
-> consuming the callback, does this not satisfy the requirement? The
-> userspace-driven semantics are inherent to VFIO's design. I don't see
-> what additional value open sourcing the user-side provides for the
-> kernel-side review process.
+Also, we probably want to add a comment here explaining that at the hw
+level, 0 is interpreted as 65536 but the user-space driver only exposes
+65535 as the maximum workgroup size allowed.
 
-Well upstreaming something into Linus tree only makes sense if others can use it.
+Iago
 
-And as far as I can see without all components available this is not the case.
+> +
+> =C2=A0	v3d->queue[V3D_CSD].active_job =3D &job->base;
+> =C2=A0
+> =C2=A0	v3d_invalidate_caches(v3d);
+>=20
 
-Regards,
-Christian.
