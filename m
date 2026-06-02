@@ -4,56 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31258CD6E60
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 22:31:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC03ACD5BD1
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 22:31:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2A8810F60C;
-	Tue,  2 Jun 2026 22:31:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5151C10F615;
+	Tue,  2 Jun 2026 22:31:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="hN6ompbH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qnyyoxL3";
 	dkim-atps=neutral
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Tue, 02 Jun 2026 10:58:09 UTC
-Received: from mail-m128189.netease.com (mail-m128189.netease.com
- [103.209.128.189])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AF7710EF24;
- Tue,  2 Jun 2026 10:58:08 +0000 (UTC)
-Content-Type: multipart/alternative;
- BOUNDARY="=_Part_346146_266324616.1780397583210"
-Message-ID: <AMgAqgBUKT9GR95Sm49u6arg.3.1780397583210.Hmail.220255722@seu.edu.cn>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: alexander.deucher@amd.com, airlied@gmail.com, simona@ffwll.ch, 
- kenneth.feng@amd.com, kevinyang.wang@amd.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn, 
- stable@vger.kernel.org
-Subject: =?UTF-8?B?UmU6UmU6IFtQQVRDSCAxLzJdIGRybS9hbWRncHUvbWVzMTE6IGZpeCBxdWV1ZSBpbml0IHdwdHIgcmVzZXQ=?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
-X-Originating-IP: 222.191.246.242
-In-Reply-To: <bb4e417d-5669-4d06-a731-c9aa369f6bd7@amd.com>
-References: <20260602050354.2237095-1-runyu.xiao@seu.edu.cn>
- <20260602050354.2237095-2-runyu.xiao@seu.edu.cn>
- <bb4e417d-5669-4d06-a731-c9aa369f6bd7@amd.com>
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E42F10F384
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 17:13:12 +0000 (UTC)
+Received: by mail-dl1-f44.google.com with SMTP id
+ a92af1059eb24-13721dfd471so11302383c88.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 10:13:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780420391; cv=none;
+ d=google.com; s=arc-20240605;
+ b=k62uynoflzZFRA3l6BcGJoTb7pa4ZkxcG/VTrWvLbDVYn+0HfywOeNgm+vcPNAGp/h
+ Cad6wPeniHwQcv8Mq/OFBFaV2d8HFSdoy9Pv8JzEEp9NkkR4tGeArnnxfEwE/2X3D75y
+ vnZQMZCAECSc++KudVg6D5YfD7bQjaZHwdz02CjFyUezUJ711t3xZNTHjGehM47az/9V
+ V3A3WpjAW5SgcMz+zBufabiXxAFgXNiaAfl9vJMHdb8kYtzMTLzugwbuJoS9dAJOFNow
+ S5aVXymIl8SWHsf4LqTzeCN29bwtaGGltWAtVgrP67qYUuoP0wdL54P0ZzB23Lg9hsh+
+ aWEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=TJfYQ7SmCYveUNo/x4CT0V08Q6uDUd9j8xLNrCB/Pls=;
+ fh=RVswXDqsQTDVsijUtrUw8gjAxo+65mR17cx2EQga3d4=;
+ b=Hc995dmuWRL/lMGWgEXfO7FgXKJv64yFYtTMAoGF61J6mxw1c+LwdA9s5jD3IvUhI2
+ CAJstSLQPYzZjzolVBchkyz33MZ+RrJn5p5tCqH6YTiwh4Rz38TG8q3Ep0LaeenNmnJI
+ MOaThonYQC9MOX/BKTuZb2YphRIlrVTtOr/nxWKaFMMC5v+owz9RTiIGqH7VfjRrAGm/
+ QSEivetEYioNbZ8R+3UHzymmExw6IRCsLg1FTX3Z2Y/yJxlnepxIebv+a1PeQeyR4BJp
+ Y9eQZr4HzXoDaWbVzW4FC6w938dOOsgu+rIp26FrfCnDyCXn4eEIPHmvKRkEh/Vw2PPZ
+ uckQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780420391; x=1781025191; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=TJfYQ7SmCYveUNo/x4CT0V08Q6uDUd9j8xLNrCB/Pls=;
+ b=qnyyoxL3mv2DjQGBcckzm0gEx7yetrXw0MCM6Za8AC/hQk35Dn73Z5eKzHoXPmGjzL
+ lxr2zJaT6gZI8C3cjBdQlKeGJWlqi0mDWdo508S8QGnns0okV9+lVZhEtbMBjwwBqiel
+ dm1H2L20uyhlTfqjmlDP2b1vlOBd+WayejfvJ0C56KFaYKirWRvxh54NU5E4d5HbNmC6
+ 0HDzyptGKb6CaP7qNhbj7MAbv3Hj7K/yRFf3P/YKqd5R9v/bGun1R6kJjZQJ+yf1RiRM
+ 1EBnnOuBNKh4mgEKLmEKghAiuiQTaWIfhBd6uy7nTvsfPY92bhkmFgein5LBtEqKxvlg
+ wKiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780420391; x=1781025191;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TJfYQ7SmCYveUNo/x4CT0V08Q6uDUd9j8xLNrCB/Pls=;
+ b=a3Dioj/69/q8iG5d7eUzHOJT3b0ShkbTxlRe5ZUNcpK/8iJStqpO2K6QzKg9Cedzsb
+ MqsdyJ1FpP1CpyaWwwwaFm2O/Z+Oa2iDDOnEdKLwYOPvl6DsNdcuUhlfYz4Y02O0ZWNl
+ AXAogR1Zi//+u20MQT7R1f3hoO3Fv1EA9sMgMSJUfgB87ffwBBgJQ7iv3SEPNk2JF4uo
+ eGjtTkeWBg+gaTS/zeCtbN8rCJt65GlQc/mz6sxNyIJcAx1fRUhbI7d4nEUrRWXHoZ5V
+ oX+OVMvOhE3br121bvp6m1OZyfKcXdiFkSz45GuWS2WaGXWCrovuBtHzOmCnLq1j51p5
+ akpQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9ONHvo6y2yAV+ndbDcbQJkeOfkGh2z5Fz3yJI9+2K0Vfbv74JgPculcp4W29LR3n89dpbjgwCxzH0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwXNAudlqUtnFoYhXrnSLA8jZeb4ABY6u1lUYneJ7LNdHZ73eyK
+ 7lbq+ZgRBufegj/yw6G5Mofjn/SMhU4a9tYLIaZMTlEJEoes5rIKbdR+oPlSXHt/FQjUuoL4CvQ
+ bXerPE0WKlEvZQ4vOUnj3B/eUwVFyUfw=
+X-Gm-Gg: Acq92OEdd8zmPPVfWajmYfRYygzkiG3db1RwlRKPf4urWyIYvKZOYy4IHf5hAlkB6t8
+ qsNf8AjEGsduut+YTfT8oCxyKSDwSXMqu2vCE/eV1bef3LKBupQbFGw/NpgnV0Kiz4tkxp4wWc6
+ cLPrT0w7xxtEEKp6DTECfClPRvs4o2DAthAZ3KprXjFHMLsXLXP+kGFOLkpG1JMCsZ8/TuB7NZg
+ eQCLSVrBf3LR9LiIhacUGXTadL9IXtU4B6Dnhs6mjQpWZxbhoHmLrtO8KC1F49UjNSUFQpe+BM5
+ bk05Hl6W5Vv2rcGdQ8xGI+HuxApS
+X-Received: by 2002:a05:693c:65d3:b0:306:f474:738c with SMTP id
+ 5a478bee46e88-306f4747844mr3906088eec.13.1780420391306; Tue, 02 Jun 2026
+ 10:13:11 -0700 (PDT)
 MIME-Version: 1.0
-Received: from 220255722@seu.edu.cn( [222.191.246.242] ) by ajax-webmail (
- [127.0.0.1] ) ; Tue, 2 Jun 2026 18:53:03 +0800 (GMT+08:00)
-From: =?UTF-8?B?6IKW5ram5a6H?= <220255722@seu.edu.cn>
-Date: Tue, 2 Jun 2026 18:53:03 +0800 (GMT+08:00)
-X-HM-Tid: 0a9e87f6543102f2kunm0d74ac9f170cb
-X-HM-MType: 1
-X-HM-NTES-SC: AL0_4z5B86Wr4Tz9jdMF+bhXMRHhhMlSfSSYXdeQQDCaqSOqI2l1LHfZmsz6cZ
- FRhMgPe8OqJWIAOHTDwR6VMoRq5X3qwebwsk2/w4DaRPv01J09AtWNeTGmIl4159XnlaQYOOPbWn
- +TdFtoO5JuZD7IMeUaL0dJSsbSxiJ9KSsWPYU=
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZT00aVklMGkkeSR1MS0JLS1YVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVU
- pLSEpOTE5VSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=hN6ompbHdZ4MQ+YfBW0y1UDSYyKVQ05JEew7BnWtr93SfbI6Pnuk9qGNn7XeAfXcrzVDdFTtQdpeoFxmel+Fy+fPUcD9zuHIX3jH7XNd8PM87mIRNym+uzXJ6W1Bbb3U1UfHTsuZr5SOc5l10r1dCPBBIK49YxLkp19IeUFIPOg=;
- c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
- bh=NZNGTT1zeJYU3+aVD8k3rsYCqlBgY/+alboxcBcQZoQ=;
- h=date:mime-version:subject:message-id:from;
+References: <CAOSULec2OpwTGB3OUb_n3CdKO6H_DGJnxw=qsBswbd+JBjemKA@mail.gmail.com>
+ <CAHp75Vc15t7zmNGeuNG_fLHwCN=Ym9w5Cn92+eqbtsioGxFzCQ@mail.gmail.com>
+In-Reply-To: <CAHp75Vc15t7zmNGeuNG_fLHwCN=Ym9w5Cn92+eqbtsioGxFzCQ@mail.gmail.com>
+From: Enchanted Hunter <enchantedredhunter@gmail.com>
+Date: Tue, 2 Jun 2026 20:12:59 +0300
+X-Gm-Features: AVHnY4Ifjlgm3bm0rKt2KU-jSQcSx3CANtRAMdJpDQffQKA68-z0GjolTx4_bnc
+Message-ID: <CAOSULedF6GUK_e_3KRPB+D0Jxgtow38OjQu9B1=vG-XTfsdYOA@mail.gmail.com>
+Subject: Re: [PATCH] staging: fbtft: replace sprintf with snprintf
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: gregkh@linuxfoundation.org, linux-staging@lists.linux.dev, andy@kernel.org,
+ dri-devel@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="000000000000f988e10653486cad"
 X-Mailman-Approved-At: Tue, 02 Jun 2026 22:31:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,88 +104,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---=_Part_346146_266324616.1780397583210
+--000000000000f988e10653486cad
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: quoted-printable
 
-SGkgQ2hyaXN0aWFuLAoKClRoYW5rcywgdW5kZXJzdG9vZC4KCgpUbyBtYWtlIHN1cmUgSSByZXdv
-cmsgdGhpcyBpbiB0aGUgcmlnaHQgZGlyZWN0aW9uOiB3b3VsZCB5b3UgZXhwZWN0CnRoaXMgcmVz
-ZXQgcGF0aCB0byBkbwoKCiAgcmluZy0+d3B0ciA9IDA7CiAgYW1kZ3B1X3Jpbmdfc2V0X3dwdHIo
-cmluZyk7CgoKaW5zdGVhZCBvZiB3cml0aW5nIHdwdHJfY3B1X2FkZHIgZGlyZWN0bHk/CgoKSSBh
-bSBhc2tpbmcgYmVjYXVzZSBhbWRncHVfcmluZ19zZXRfd3B0cigpIGFsc28gdXBkYXRlcyB0aGUg
-ZG9vcmJlbGwsCnNvIEkgd2FudCB0byBjb25maXJtIHRoYXQgdGhpcyBpcyB0aGUgaW50ZW5kZWQg
-c2VxdWVuY2UgZm9yIHRoZQpyZXNldC9zdXNwZW5kIGNhc2UgaGVyZS4KCgpUaGFua3MsClJ1bnl1
-CgoKT24gVHVlLCBKdW4gMiwgMjAyNiBhdCAxMTo0OTowNUFNICswMjAwLCBDaHJpc3RpYW4gS8O2
-bmlnIHdyb3RlOgo+IENsZWFyIE5BSy4KPgo+IFRoZSBhdG9taWM2NF90IGNhc3QgaGFjayBpcyBq
-dXN0IHNvbWV0aGluZyB3ZSBkaWQgZm9yIG9sZGVyCj4gZ2VuZXJhdGlvbnMgYW5kIGlzIG5vdCBz
-b21ldGhpbmcgd2hpY2ggaXMgbmVjZXNzYXJ5IG5vciBzaG91bGQKPiBiZSBkb25lIGhlcmUuCj4K
-PiBXaGF0IGNvdWxkIGJlIHBvc3NpYmxlIGlzIHRoYXQgd2UgbmVlZCB0byB1c2UgYW1kZ3B1X3Jp
-bmdfc2V0X3dwdHIoKQo+IGhlcmUgdG8gY29ycmVjdGx5IGRpc3Rpbmd1aXNoIGJldHdlZW4gcXVl
-dWVzIHdpdGggMzJiaXQgYW5kIDY0Yml0Cj4gd3B0cnMuCgo=
---=_Part_346146_266324616.1780397583210
+Overall, it doesn't address any compiler warnings, but this is my first
+patch. I wanted to start with something concrete, and I saw an unsafe
+function and tried to fix it. The fact that the compilation behavior won't
+change is true, but the code will become a bit more formal =E2=80=94 maybe =
+that's a
+good thing.
+
+=D0=BF=D0=BD, 1 =D0=B8=D1=8E=D0=BD. 2026=E2=80=AF=D0=B3. =D0=B2 11:25, Andy=
+ Shevchenko <andy.shevchenko@gmail.com>:
+
+> On Mon, Jun 1, 2026 at 3:44=E2=80=AFAM Enchanted Hunter
+> <enchantedredhunter@gmail.com> wrote:
+> >
+> > This patch replaces unsafe sprintf calls with snprintf in
+> > fbtft_register_framebuffer() to prevent potential buffer overflow.
+> >
+> > Signed-off-by: rat1bor <enchantedredhunter@gmail.com>
+>
+> Does this change address any compiler warning or something like that?
+> At a glance I do not see any usefulness of this patch except an
+> unneeded churn.
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+
+--000000000000f988e10653486cad
 Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: quoted-printable
 
-PGRpdiBzdHlsZT0ibGluZS1oZWlnaHQ6MS43O2NvbG9yOiMwMDAwMDA7Zm9udC1zaXplOjE0cHg7
-Zm9udC1mYW1pbHk6QXJpYWwiPjxwcmU+PGRpdj48Zm9udCBmYWNlPSJBcmlhbCI+PHNwYW4gc3R5
-bGU9IndoaXRlLXNwYWNlLWNvbGxhcHNlOiBjb2xsYXBzZTsiPkhpIENocmlzdGlhbiw8L3NwYW4+
-PC9mb250PjwvZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwiPjxzcGFuIHN0eWxlPSJ3aGl0ZS1z
-cGFjZS1jb2xsYXBzZTogY29sbGFwc2U7Ij48YnI+PC9zcGFuPjwvZm9udD48L2Rpdj48ZGl2Pjxm
-b250IGZhY2U9IkFyaWFsIj48c3BhbiBzdHlsZT0id2hpdGUtc3BhY2UtY29sbGFwc2U6IGNvbGxh
-cHNlOyI+VGhhbmtzLCB1bmRlcnN0b29kLjwvc3Bhbj48L2ZvbnQ+PC9kaXY+PGRpdj48Zm9udCBm
-YWNlPSJBcmlhbCI+PHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlLWNvbGxhcHNlOiBjb2xsYXBzZTsi
-Pjxicj48L3NwYW4+PC9mb250PjwvZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwiPjxzcGFuIHN0
-eWxlPSJ3aGl0ZS1zcGFjZS1jb2xsYXBzZTogY29sbGFwc2U7Ij5UbyBtYWtlIHN1cmUgSSByZXdv
-cmsgdGhpcyBpbiB0aGUgcmlnaHQgZGlyZWN0aW9uOiB3b3VsZCB5b3UgZXhwZWN0PC9zcGFuPjwv
-Zm9udD48L2Rpdj48ZGl2Pjxmb250IGZhY2U9IkFyaWFsIj48c3BhbiBzdHlsZT0id2hpdGUtc3Bh
-Y2UtY29sbGFwc2U6IGNvbGxhcHNlOyI+dGhpcyByZXNldCBwYXRoIHRvIGRvPC9zcGFuPjwvZm9u
-dD48L2Rpdj48ZGl2Pjxmb250IGZhY2U9IkFyaWFsIj48c3BhbiBzdHlsZT0id2hpdGUtc3BhY2Ut
-Y29sbGFwc2U6IGNvbGxhcHNlOyI+PGJyPjwvc3Bhbj48L2ZvbnQ+PC9kaXY+PGRpdj48Zm9udCBm
-YWNlPSJBcmlhbCI+PHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlLWNvbGxhcHNlOiBjb2xsYXBzZTsi
-PiZuYnNwOyByaW5nLSZndDt3cHRyID0gMDs8L3NwYW4+PC9mb250PjwvZGl2PjxkaXY+PGZvbnQg
-ZmFjZT0iQXJpYWwiPjxzcGFuIHN0eWxlPSJ3aGl0ZS1zcGFjZS1jb2xsYXBzZTogY29sbGFwc2U7
-Ij4mbmJzcDsgYW1kZ3B1X3Jpbmdfc2V0X3dwdHIocmluZyk7PC9zcGFuPjwvZm9udD48L2Rpdj48
-ZGl2Pjxmb250IGZhY2U9IkFyaWFsIj48c3BhbiBzdHlsZT0id2hpdGUtc3BhY2UtY29sbGFwc2U6
-IGNvbGxhcHNlOyI+PGJyPjwvc3Bhbj48L2ZvbnQ+PC9kaXY+PGRpdj48Zm9udCBmYWNlPSJBcmlh
-bCI+PHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlLWNvbGxhcHNlOiBjb2xsYXBzZTsiPmluc3RlYWQg
-b2Ygd3JpdGluZyB3cHRyX2NwdV9hZGRyIGRpcmVjdGx5Pzwvc3Bhbj48L2ZvbnQ+PC9kaXY+PGRp
-dj48Zm9udCBmYWNlPSJBcmlhbCI+PHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlLWNvbGxhcHNlOiBj
-b2xsYXBzZTsiPjxicj48L3NwYW4+PC9mb250PjwvZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwi
-PjxzcGFuIHN0eWxlPSJ3aGl0ZS1zcGFjZS1jb2xsYXBzZTogY29sbGFwc2U7Ij5JIGFtIGFza2lu
-ZyBiZWNhdXNlIGFtZGdwdV9yaW5nX3NldF93cHRyKCkgYWxzbyB1cGRhdGVzIHRoZSBkb29yYmVs
-bCw8L3NwYW4+PC9mb250PjwvZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwiPjxzcGFuIHN0eWxl
-PSJ3aGl0ZS1zcGFjZS1jb2xsYXBzZTogY29sbGFwc2U7Ij5zbyBJIHdhbnQgdG8gY29uZmlybSB0
-aGF0IHRoaXMgaXMgdGhlIGludGVuZGVkIHNlcXVlbmNlIGZvciB0aGU8L3NwYW4+PC9mb250Pjwv
-ZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwiPjxzcGFuIHN0eWxlPSJ3aGl0ZS1zcGFjZS1jb2xs
-YXBzZTogY29sbGFwc2U7Ij5yZXNldC9zdXNwZW5kIGNhc2UgaGVyZS48L3NwYW4+PC9mb250Pjwv
-ZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwiPjxzcGFuIHN0eWxlPSJ3aGl0ZS1zcGFjZS1jb2xs
-YXBzZTogY29sbGFwc2U7Ij48YnI+PC9zcGFuPjwvZm9udD48L2Rpdj48ZGl2Pjxmb250IGZhY2U9
-IkFyaWFsIj48c3BhbiBzdHlsZT0id2hpdGUtc3BhY2UtY29sbGFwc2U6IGNvbGxhcHNlOyI+VGhh
-bmtzLDwvc3Bhbj48L2ZvbnQ+PC9kaXY+PGRpdj48Zm9udCBmYWNlPSJBcmlhbCI+PHNwYW4gc3R5
-bGU9IndoaXRlLXNwYWNlLWNvbGxhcHNlOiBjb2xsYXBzZTsiPlJ1bnl1PC9zcGFuPjwvZm9udD48
-L2Rpdj48ZGl2Pjxmb250IGZhY2U9IkFyaWFsIj48c3BhbiBzdHlsZT0id2hpdGUtc3BhY2UtY29s
-bGFwc2U6IGNvbGxhcHNlOyI+PGJyPjwvc3Bhbj48L2ZvbnQ+PC9kaXY+PGRpdj48Zm9udCBmYWNl
-PSJBcmlhbCI+PHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlLWNvbGxhcHNlOiBjb2xsYXBzZTsiPk9u
-IFR1ZSwgSnVuIDIsIDIwMjYgYXQgMTE6NDk6MDVBTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5pZyB3
-cm90ZTo8L3NwYW4+PC9mb250PjwvZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwiPjxzcGFuIHN0
-eWxlPSJ3aGl0ZS1zcGFjZS1jb2xsYXBzZTogY29sbGFwc2U7Ij4mZ3Q7IENsZWFyIE5BSy48L3Nw
-YW4+PC9mb250PjwvZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwiPjxzcGFuIHN0eWxlPSJ3aGl0
-ZS1zcGFjZS1jb2xsYXBzZTogY29sbGFwc2U7Ij4mZ3Q7PC9zcGFuPjwvZm9udD48L2Rpdj48ZGl2
-Pjxmb250IGZhY2U9IkFyaWFsIj48c3BhbiBzdHlsZT0id2hpdGUtc3BhY2UtY29sbGFwc2U6IGNv
-bGxhcHNlOyI+Jmd0OyBUaGUgYXRvbWljNjRfdCBjYXN0IGhhY2sgaXMganVzdCBzb21ldGhpbmcg
-d2UgZGlkIGZvciBvbGRlcjwvc3Bhbj48L2ZvbnQ+PC9kaXY+PGRpdj48Zm9udCBmYWNlPSJBcmlh
-bCI+PHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlLWNvbGxhcHNlOiBjb2xsYXBzZTsiPiZndDsgZ2Vu
-ZXJhdGlvbnMgYW5kIGlzIG5vdCBzb21ldGhpbmcgd2hpY2ggaXMgbmVjZXNzYXJ5IG5vciBzaG91
-bGQ8L3NwYW4+PC9mb250PjwvZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwiPjxzcGFuIHN0eWxl
-PSJ3aGl0ZS1zcGFjZS1jb2xsYXBzZTogY29sbGFwc2U7Ij4mZ3Q7IGJlIGRvbmUgaGVyZS48L3Nw
-YW4+PC9mb250PjwvZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwiPjxzcGFuIHN0eWxlPSJ3aGl0
-ZS1zcGFjZS1jb2xsYXBzZTogY29sbGFwc2U7Ij4mZ3Q7PC9zcGFuPjwvZm9udD48L2Rpdj48ZGl2
-Pjxmb250IGZhY2U9IkFyaWFsIj48c3BhbiBzdHlsZT0id2hpdGUtc3BhY2UtY29sbGFwc2U6IGNv
-bGxhcHNlOyI+Jmd0OyBXaGF0IGNvdWxkIGJlIHBvc3NpYmxlIGlzIHRoYXQgd2UgbmVlZCB0byB1
-c2UgYW1kZ3B1X3Jpbmdfc2V0X3dwdHIoKTwvc3Bhbj48L2ZvbnQ+PC9kaXY+PGRpdj48Zm9udCBm
-YWNlPSJBcmlhbCI+PHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlLWNvbGxhcHNlOiBjb2xsYXBzZTsi
-PiZndDsgaGVyZSB0byBjb3JyZWN0bHkgZGlzdGluZ3Vpc2ggYmV0d2VlbiBxdWV1ZXMgd2l0aCAz
-MmJpdCBhbmQgNjRiaXQ8L3NwYW4+PC9mb250PjwvZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwi
-PjxzcGFuIHN0eWxlPSJ3aGl0ZS1zcGFjZS1jb2xsYXBzZTogY29sbGFwc2U7Ij4mZ3Q7IHdwdHJz
-Ljwvc3Bhbj48L2ZvbnQ+PC9kaXY+PC9wcmU+PC9kaXY+
---=_Part_346146_266324616.1780397583210--
+<div dir=3D"ltr"><div dir=3D"ltr"><span>Overall, it doesn&#39;t address any=
+ compiler=20
+warnings, but this is my first patch. I wanted to start with something=20
+concrete, and I saw an unsafe function and tried to fix it. The fact=20
+that the compilation behavior won&#39;t change is true, but the code will=
+=20
+become a bit more formal =E2=80=94 maybe that&#39;s a good thing.</span></d=
+iv><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">=D0=
+=BF=D0=BD, 1 =D0=B8=D1=8E=D0=BD. 2026=E2=80=AF=D0=B3. =D0=B2 11:25, Andy Sh=
+evchenko &lt;<a href=3D"mailto:andy.shevchenko@gmail.com" target=3D"_blank"=
+>andy.shevchenko@gmail.com</a>&gt;:<br></div><blockquote class=3D"gmail_quo=
+te" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204=
+);padding-left:1ex">On Mon, Jun 1, 2026 at 3:44=E2=80=AFAM Enchanted Hunter=
+<br>
+&lt;<a href=3D"mailto:enchantedredhunter@gmail.com" target=3D"_blank">encha=
+ntedredhunter@gmail.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; This patch replaces unsafe sprintf calls with snprintf in<br>
+&gt; fbtft_register_framebuffer() to prevent potential buffer overflow.<br>
+&gt;<br>
+&gt; Signed-off-by: rat1bor &lt;<a href=3D"mailto:enchantedredhunter@gmail.=
+com" target=3D"_blank">enchantedredhunter@gmail.com</a>&gt;<br>
+<br>
+Does this change address any compiler warning or something like that?<br>
+At a glance I do not see any usefulness of this patch except an<br>
+unneeded churn.<br>
+<br>
+-- <br>
+With Best Regards,<br>
+Andy Shevchenko<br>
+</blockquote></div>
+</div>
+
+--000000000000f988e10653486cad--
