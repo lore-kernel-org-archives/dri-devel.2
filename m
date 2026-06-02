@@ -4,51 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10D6DC5DF71
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 06:40:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 527A2C5DF71
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 06:41:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7011810EC44;
-	Tue,  2 Jun 2026 06:40:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A677410EC47;
+	Tue,  2 Jun 2026 06:41:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="fWnrKExD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BYvvW2e8";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85FD810EC44
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 06:40:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1780382445;
- bh=jl2nMSoVVJ4DyVjw9OL/RKqK6+ZYOFx277e056b+nwc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=fWnrKExDGqTy/dz7UQV4Z8KmpgItlp/69zNJ8fRlO5aVR5ea4pqiGJ/V1Nm2Saw8B
- 4OUC2qOqX2G5+5bghPK+RPpXPZw2pZPNHyA9U5lxzTfyIITJ2Ws/FIByQr2w+N35OC
- YmWE04odtEDUwWwCV/Aks9cC8J4k8GAHCzEN5CAMtad00m0h4IqiaIkrNK6oPm5zOU
- 51CgArEgXPIrCUEaamZLkCQlfDs+nYk3Fqe51t+jzGcxLL+PP7vRA9akS7TfvG1nbS
- 3fCDpug2f2eYYzBQDBVLtM9vdROio/uoYpbvg4meUKlJTReZTRw8Ok4be0FzYw6yYe
- mmTYlXRKkpUVw==
-Received: from fedora-2.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id D0DB717E09B8;
- Tue,  2 Jun 2026 08:40:44 +0200 (CEST)
-Date: Tue, 2 Jun 2026 08:40:40 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: aliceryhl@google.com, daniel.almeida@collabora.com,
- deborah.brouwer@collabora.com, gary@garyguo.net,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, Eliot
- Courtney <ecourtney@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>
-Subject: Re: [PATCH v2 2/2] drm/tyr: use IoMem directly instead of Devres
-Message-ID: <20260602084040.7c63e06d@fedora-2.home>
-In-Reply-To: <20260529000106.2257996-3-dakr@kernel.org>
-References: <20260529000106.2257996-1-dakr@kernel.org>
- <20260529000106.2257996-3-dakr@kernel.org>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F40B10EC47
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 06:41:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8773E42B8E;
+ Tue,  2 Jun 2026 06:41:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACB5C1F00893;
+ Tue,  2 Jun 2026 06:41:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780382466;
+ bh=hf+zz5RBfcwn5BptzXmxGDV1gackBwjXE2k/ZdWhNxU=;
+ h=Date:From:Subject:To:Cc:References:In-Reply-To;
+ b=BYvvW2e8bhG5PAsR6Vg6h2LwrL4zH9vJyULpe6xEoktDLrcN7ZI6W3zalRO2vLq24
+ f4eSl3RSbEj0+llgtXdqgR3kWvk2mlliecI35+XtHmVbdZhAXCiHfke+uNZ8l4i1nf
+ yMGsa1k3jiGHHZloGxAlfVtWooVJyLkFVmeIkffipEyExUgSQqKsayQ4ORyYoQZXHV
+ w86mk9ZE6d47MONvzN0z/NXfx6Dzst3HV1T6M4Qwcg4ScVtoFGQh97nz2d4Kb8eM2R
+ R1m+CxBLONxk9J7jbYX3bkPz//QdI53tOyJzvx7xHOSVCQKZQKRaDvVNxk19ITJB3g
+ oud00/qdCr92A==
+Message-ID: <22a13916-db59-4275-8361-59e4bea2428a@kernel.org>
+Date: Tue, 2 Jun 2026 08:41:01 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v4 3/4] drm/display: bridge_connector: init scdc debugfs
+ for HDMI
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Daniel Stone <daniel@fooishbar.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel@collabora.com, Daniel Stone <daniels@collabora.com>
+References: <20260527-scdc-link-health-v4-0-622ea40a1f59@collabora.com>
+ <20260527-scdc-link-health-v4-3-622ea40a1f59@collabora.com>
+Content-Language: en-US, nl
+In-Reply-To: <20260527-scdc-link-health-v4-3-622ea40a1f59@collabora.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,145 +71,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 29 May 2026 02:00:54 +0200
-Danilo Krummrich <dakr@kernel.org> wrote:
-
-> Now that IoMem is lifetime-parameterized, use it directly in probe
-> rather than wrapping it in Devres and Arc. The I/O memory mapping is
-> only used during probe and not stored in driver data, so device-managed
-> revocation is unnecessary.
+On 27/05/2026 16:03, Nicolas Frattaroli wrote:
+> On drm_bridge_connectors that contain an HDMI bridge, initialise the
+> SCDC debugfs entry under the connector's debugfs root.
 > 
-> This removes the Devres access(dev) pattern from issue_soft_reset(),
-> GpuInfo::new(), and l2_power_on(), simplifying register access.
-> 
-> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> Reviewed-by: Daniel Stone <daniels@collabora.com>
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 
+Regards,
+
+	Hans
+
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 > ---
->  drivers/gpu/drm/tyr/driver.rs | 19 ++++++-------------
->  drivers/gpu/drm/tyr/gpu.rs    | 17 +++++------------
->  2 files changed, 11 insertions(+), 25 deletions(-)
+>  drivers/gpu/drm/display/drm_bridge_connector.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-> index 6276e9743c32..227ea2adccea 100644
-> --- a/drivers/gpu/drm/tyr/driver.rs
-> +++ b/drivers/gpu/drm/tyr/driver.rs
-> @@ -6,11 +6,9 @@
->          OptionalClk, //
->      },
->      device::{
-> -        Bound,
->          Core,
->          Device, //
->      },
-> -    devres::Devres,
->      dma::{
->          Device as DmaDevice,
->          DmaMask, //
-> @@ -30,7 +28,6 @@
->      sizes::SZ_2M,
->      sync::{
->          aref::ARef,
-> -        Arc,
->          Mutex, //
->      },
->      time, //
-> @@ -44,7 +41,7 @@
->      regs::gpu_control::*, //
->  };
+> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+> index 649969fca141..8c2c890bd95d 100644
+> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
+> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+> @@ -25,6 +25,7 @@
+>  #include <drm/display/drm_hdmi_cec_helper.h>
+>  #include <drm/display/drm_hdmi_helper.h>
+>  #include <drm/display/drm_hdmi_state_helper.h>
+> +#include <drm/display/drm_scdc_helper.h>
 >  
-> -pub(crate) type IoMem = kernel::io::mem::IoMem<'static, SZ_2M>;
-> +pub(crate) type IoMem<'a> = kernel::io::mem::IoMem<'a, SZ_2M>;
->  
->  pub(crate) struct TyrDrmDriver;
->  
-> @@ -74,15 +71,11 @@ pub(crate) struct TyrDrmDeviceData {
->      pub(crate) gpu_info: GpuInfo,
+>  /**
+>   * DOC: overview
+> @@ -263,6 +264,9 @@ static void drm_bridge_connector_debugfs_init(struct drm_connector *connector,
+>  		if (bridge->funcs->debugfs_init)
+>  			bridge->funcs->debugfs_init(bridge, root);
+>  	}
+> +
+> +	if (bridge_connector->bridge_hdmi)
+> +		drm_scdc_debugfs_init(connector, root);
 >  }
 >  
-> -fn issue_soft_reset(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result {
-> -    let io = (*iomem).access(dev)?;
-> -    io.write_reg(GPU_COMMAND::reset(ResetMode::SoftReset));
-> +fn issue_soft_reset(dev: &Device, iomem: &IoMem<'_>) -> Result {
-> +    iomem.write_reg(GPU_COMMAND::reset(ResetMode::SoftReset));
->  
->      poll::read_poll_timeout(
-> -        || {
-> -            let io = (*iomem).access(dev)?;
-> -            Ok(io.read(GPU_IRQ_RAWSTAT))
-> -        },
-> +        || Ok(iomem.read(GPU_IRQ_RAWSTAT)),
->          |status| status.reset_completed(),
->          time::Delta::from_millis(1),
->          time::Delta::from_millis(100),
-> @@ -123,12 +116,12 @@ fn probe<'bound>(
->          let sram_regulator = Regulator::<regulator::Enabled>::get(pdev.as_ref(), c"sram")?;
->  
->          let request = pdev.io_request_by_index(0).ok_or(ENODEV)?;
-> -        let iomem = Arc::new(request.iomap_sized::<SZ_2M>()?.into_devres()?, GFP_KERNEL)?;
-> +        let iomem = request.iomap_sized::<SZ_2M>()?;
->  
->          issue_soft_reset(pdev.as_ref(), &iomem)?;
->          gpu::l2_power_on(pdev.as_ref(), &iomem)?;
->  
-> -        let gpu_info = GpuInfo::new(pdev.as_ref(), &iomem)?;
-> +        let gpu_info = GpuInfo::new(&iomem);
->          gpu_info.log(pdev.as_ref());
->  
->          let pa_bits = MMU_FEATURES::from_raw(gpu_info.mmu_features)
-> diff --git a/drivers/gpu/drm/tyr/gpu.rs b/drivers/gpu/drm/tyr/gpu.rs
-> index 652556026f50..592b8bb16eba 100644
-> --- a/drivers/gpu/drm/tyr/gpu.rs
-> +++ b/drivers/gpu/drm/tyr/gpu.rs
-> @@ -9,7 +9,6 @@
->          Bound,
->          Device, //
->      },
-> -    devres::Devres,
->      io::{
->          poll,
->          register::Array,
-> @@ -40,10 +39,8 @@
->  pub(crate) struct GpuInfo(pub(crate) uapi::drm_panthor_gpu_info);
->  
->  impl GpuInfo {
-> -    pub(crate) fn new(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result<Self> {
-> -        let io = (*iomem).access(dev)?;
-> -
-> -        Ok(Self(uapi::drm_panthor_gpu_info {
-> +    pub(crate) fn new(io: &IoMem<'_>) -> Self {
-> +        Self(uapi::drm_panthor_gpu_info {
->              gpu_id: io.read(GPU_ID).into_raw(),
->              gpu_rev: io.read(REVIDR).into_raw(),
->              csf_id: io.read(CSF_ID).into_raw(),
-> @@ -81,7 +78,7 @@ pub(crate) fn new(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result<Self> {
->              pad: 0,
->              //GPU_FEATURES register is not available; it was introduced in arch 11.x.
->              gpu_features: 0,
-> -        }))
-> +        })
->      }
->  
->      pub(crate) fn log(&self, dev: &Device<Bound>) {
-> @@ -163,15 +160,11 @@ struct GpuModels {
->  }];
->  
->  /// Powers on the l2 block.
-> -pub(crate) fn l2_power_on(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result {
-> -    let io = (*iomem).access(dev)?;
-> +pub(crate) fn l2_power_on(dev: &Device, io: &IoMem<'_>) -> Result {
->      io.write_reg(L2_PWRON_LO::zeroed().with_const_request::<1>());
->  
->      poll::read_poll_timeout(
-> -        || {
-> -            let io = (*iomem).access(dev)?;
-> -            Ok(io.read(L2_READY_LO))
-> -        },
-> +        || Ok(io.read(L2_READY_LO)),
->          |status| status.ready() == 1,
->          Delta::from_millis(1),
->          Delta::from_millis(100),
+>  static void drm_bridge_connector_reset(struct drm_connector *connector)
+> 
 
