@@ -4,105 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 166A2CD6E60
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 12:00:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D6D6CD6E4A
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 12:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74CF010EFFB;
-	Tue,  2 Jun 2026 12:00:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF79410F004;
+	Tue,  2 Jun 2026 12:03:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Lue3vKup";
+	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="ATen+nHh";
 	dkim-atps=neutral
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
- [74.125.82.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DD8310EFFB
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 12:00:33 +0000 (UTC)
-Received: by mail-dy1-f176.google.com with SMTP id
- 5a478bee46e88-307263ad0cbso2226592eec.0
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 05:00:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780401632; cv=none;
- d=google.com; s=arc-20240605;
- b=Yq93RdzhzWAHzkc6FR9rDBiAaY0ehT5HDdDx1phydlOgrf0ghqOxS6UvDvLQhKiYri
- 1PTt4QnlAJpfaRMPdeK2iQbvbMnkdeGJyCpAXkZugouSQJwFE4YRNmRnfrIMY1v1hkrk
- VHohiOGyOki5xNtln+SszRlmuyd9xEsi07uC3DKvgVSJOjipBGMr8zK8DoDI6fmb3uFF
- FhrOBNcUSj5ewV2J8Kv1AM4ToUvEWUuPwMvSauIVivu4Np8lQNsG4peCo8RYE0sNVGZ1
- STg3oRMRdgk167Fay/6hhpCBkCMp0Uy06SjyjCbM7rVaePcAqFMhVJ5qyDEcvPB8QK/c
- a9sA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=ltXCCc4wpurtipYSrGSPv75JAWyLn0B0neQXenFUA+U=;
- fh=tb84XwqVu+myrqL8zNfGeeeBzIPk3uJwwSU1fdJ52+I=;
- b=fGNb9UjKo1Is5eBz7RoDaqEpVd8923zF4DfuhKQ+eMDf54oHDTE8Y2xJg6y6ZRnZgR
- iyRe6zd0KfADt+o0wjetXP6qiRW8asyuVuiWDQOeMGGb36i1JhewuMs/skZQi9vG95dt
- ILoZX66VmwW5kLz+JnkTs0nVH6lA2IGzA80ZgwkrI+SP91sXAa/kYGFkuPpCVLNYJNJu
- 8TPFkBZ7zFYwoRVHlCEdxgDJAvCcRPeNXAkqNgXTJHsJONbjPV+EI0zMGFeXRNRAmh9R
- 4k8M4q0JE2HDwbzEwQ+CXb+bO3ghYoOqUMvULxDt/7q8/02MrwJY9QKQuK7ONrEHxG0S
- xgpg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780401632; x=1781006432; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ltXCCc4wpurtipYSrGSPv75JAWyLn0B0neQXenFUA+U=;
- b=Lue3vKupE+pwxfYDZdcWsau0qFmI75JvXZBYubrnsD5f+cs8ZiUouO3yt+4zPL4ge5
- LMucPFncbVc/68DOcpKnxfURQAPAp98tcyjRhHNT3x9WlIg1SkR9DV2NWYnYxoa946yw
- cI8Azub/EcYNPVBet9RQ845gF2AsTc5yFNx+uOB5ii9fT9LjZnSjTJfVzHs3Zoxw/XG+
- Bi2BaR4HHkmdMkLfmMI8nPIW1VY3n34PQJlNuDMsgfYW2GZMDBR5cWe9GcmbqalvOv/W
- blruRMmNC2F9RaF1NUbpqGAjpSPKq+Tir3U4FAHNkhXf0EIW5uVWsEQbn11vtS1ogz5k
- wlXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780401632; x=1781006432;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=ltXCCc4wpurtipYSrGSPv75JAWyLn0B0neQXenFUA+U=;
- b=b+Rl16QSHSqYPzhbG2uN0IbiGvYyv2Buk+HHAdTBv3v0bmqkR4F02TCXjEd4S5Bp0A
- xoC4m6U9S9Qp/Ct6d3IGy7TLksJtj9FcbzS4uChv1bPqYrv1Nx+3Nd+VM8q35eoXMnOK
- gcdO2Tl2bsVcOQGIg0Atggro4JwZ8gh+R7YkdA4t4t1Ps3mC7+l2rIsJmsEJxGYt+jUc
- qYNHezWRLrN6+LSZEiSuobkMaZdVeRxFbANQSqEf4u7XfUg/xVVfmUJo/ESzF60SNx63
- vXUe0rBkvydvf2iEJrHUBGT9nG+2aa2m6ecpLcBZnh2W5AmopYgzc3kxQIsZ7zpH5GnP
- 3PjQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8qfZGBIGcCdVgrl+IaoYpTIxCsOpSdviJ3qRy830AFsbH07Ih1Vz8ErW5Hu5IKosSzrIEaWw11oak=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwKAKbyzRoVI3zKVG3wVXXu0bzYlcm+Q6y/l1hDiITo474Om4aF
- QXnkTlyapXW9DWEJwqwwGOE66v2MO/YJp7H5Iws9DlxqeTUlCxAYwAKyAgVzCMkg+9CQFX7ayL4
- 4Em2aGMLk4HfPhPtXW3y3JOvZzZjdx9U=
-X-Gm-Gg: Acq92OH+muRosueIxxRmIM9DwNanvuGDSdb884ZlEgNGKNQSYpd+vsGamEU/aFMXlEW
- 9MBOSfpY7oKiqLhB6tdbzwf2UhO+ItdLZefUaGFnMrI8+lvx9Bqtz4mbGlnTUq2UKdgzUQanbTq
- jLDaqYupPiB6C+Z/rj76Yotl7BhdeN0OPQXkEUfm1q8WaHgxXeEJyqvNsg0ErZxPmitzEsx+9mt
- qWt/2qAyc0NljUbeaiQWcc24kWoY+G8jERTyjgJJZcNAJZK9w6zo+t1vTqk5YIGO/R34pkrt1gJ
- 9LvMJMVLEHiOb2Wje/E=
-X-Received: by 2002:a05:7300:6da3:b0:304:cf6c:4cfe with SMTP id
- 5a478bee46e88-304fa4d506emr7133140eec.9.1780401626958; Tue, 02 Jun 2026
- 05:00:26 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260601151831.76350-1-clamor95@gmail.com>
- <20260601151831.76350-6-clamor95@gmail.com>
- <ah6TGjRNnDpQGO60@ashevche-desk.local>
- <CAPVz0n21RGAaJc1sda4xyp1h0z+6R6FJ4=XWdOtB1mgtV8=RUA@mail.gmail.com>
- <ah648F2plc4UHTM1@ashevche-desk.local>
-In-Reply-To: <ah648F2plc4UHTM1@ashevche-desk.local>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 2 Jun 2026 15:00:15 +0300
-X-Gm-Features: AVHnY4JW9CHRHy50Nkm6GtBSzM61Oxt7rnaqb6kAIuOEvYU0rp0GBajm0chAidM
-Message-ID: <CAPVz0n2J6cmWyYWL5aQcFJeDEezD0P_ianTjqUzXiFuDsYbVmQ@mail.gmail.com>
-Subject: Re: [PATCH v3 05/11] mfd: lm3533: Convert to use OF bindings
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
- Johan Hovold <johan@kernel.org>, 
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
+Received: from mail-m9355.xmail.ntesmail.com (mail-m9355.xmail.ntesmail.com
+ [103.126.93.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFAEA10F004;
+ Tue,  2 Jun 2026 12:03:54 +0000 (UTC)
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
+Message-ID: <ABsAYQCHKVHHoT1psMAfDKqi.3.1780401831750.Hmail.220255722@seu.edu.cn>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: alexander.deucher@amd.com, airlied@gmail.com, simona@ffwll.ch, 
+ kenneth.feng@amd.com, kevinyang.wang@amd.com, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn
+Subject: =?UTF-8?B?UmU6UmU6IFtQQVRDSCAxLzJdIGRybS9hbWRncHUvbWVzMTE6IGZpeCBxdWV1ZSBpbml0IHdwdHIgcmVzZXQ=?=
+X-Priority: 3
+X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
+X-Originating-IP: 36.154.113.95
+In-Reply-To: <6d0aba3d-2f53-453b-b5b1-39a0cf12c551@amd.com>
+References: <20260602050354.2237095-1-runyu.xiao@seu.edu.cn>
+ <20260602050354.2237095-2-runyu.xiao@seu.edu.cn>
+ <bb4e417d-5669-4d06-a731-c9aa369f6bd7@amd.com>
+ <AMgAqgBUKT9GR95Sm49u6arg.3.1780397583210.Hmail.220255722@seu.edu.cn>
+ <6d0aba3d-2f53-453b-b5b1-39a0cf12c551@amd.com>
+MIME-Version: 1.0
+Received: from 220255722@seu.edu.cn( [36.154.113.95] ) by ajax-webmail (
+ [127.0.0.1] ) ; Tue, 2 Jun 2026 20:03:51 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Date: Tue, 2 Jun 2026 20:03:51 +0800 (GMT+08:00)
+X-HM-Tid: 0a9e88336e9e02f2kunm3d6b082a172ae
+X-HM-MType: 1
+X-HM-NTES-SC: AL0_4z5B86Wr4Tz9jdMF+bhXMdx4Gk9TojlCNw7tyeABf3pHtCqLbYOkFBtNuQ
+ eKMqJLwxE4yuoq3Z/LDw3/nFtMApknDAcoIznsgK2cQHwtBBrhOyq0Xsi+/8ipSBwNbfOwu9byMH
+ ug8FXgK1IHbIoUFR2eShRUAtSsCcoDnQYXX7E=
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaS0tDVh1PQkMeSk1JHhkeTVYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKTk9VSkpIVUJOWVdZFhoPEhUdFFlBWU9LSFVKS0
+ hKTkxJVUpLS1VKQktLWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=ATen+nHhmsZu67KiAA9nkXRgXxlSkggRkSx3ii/UmDkVq1gKGbRnc8uY3LnyvhAJpJXCrL5bRi72Z75QLFBgCTJLBWKlXxJx4EHKo99IVgE+dyCZYwiqyi16wvnnIBsIr+K9DWT0u7NrtYtJXslquaG932Ffu0jVOkqs51V/G/E=;
+ c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
+ bh=kuXh+OPAabOss1B3mKCT+V/+mkjtYYfzQUtWwO6Wzww=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,83 +68,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=D0=B2=D1=82, 2 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 14:05=
- Andy Shevchenko <andriy.shevchenko@intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Tue, Jun 02, 2026 at 01:31:44PM +0300, Svyatoslav Ryhel wrote:
-> > =D0=B2=D1=82, 2 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 1=
-1:24 Andy Shevchenko <andriy.shevchenko@intel.com> =D0=BF=D0=B8=D1=88=D0=B5=
-:
-> > > On Mon, Jun 01, 2026 at 06:18:25PM +0300, Svyatoslav Ryhel wrote:
->
->
-> ...
->
-> > > > +     device_for_each_child_node_scoped(lm3533->dev, child) {
-> > >
-> > > > +             if (!fwnode_device_is_available(child))
-> > > > +                     continue;
-> > >
-> > > Do we need this check?
-> >
-> > This is nice to have if the node is disabled. If we assume that there
-> > are no disabled nodes, I can remove it.
->
-> It's already implied. See
->
-> static struct fwnode_handle *
-> of_fwnode_get_next_child_node(const struct fwnode_handle *fwnode, struct =
-fwnode_handle *child)
-> {
->         return of_fwnode_handle(of_get_next_available_child(to_of_node(fw=
-node), to_of_node(child)));
-> }
->
-> And I believe it's written somewhere in the documentation (if not, feel f=
-ree to
-> patch that).
->
-
-Very nice. Thank you.
-
-> ...
->
-> > > > +     ret =3D sysfs_create_group(&dev->kobj, &lm3533_attribute_grou=
-p);
-> > >
-> > > No way. You should use .dev_groups.
-> >
-> > I did not change how driver does this, just swapped lm3533->dev to
-> > dev. I will set is back as it was.
->
-> This is a serious race condition that needs to be addressed. Since you ar=
-e
-> touching this driver the fixes against known issues probably are the firs=
-t
-> things that have to be done.
->
-
-Fine, I will have a look.
-
-> > > > +     if (ret) {
-> > > > +             dev_err(dev, "failed to create sysfs attributes\n");
-> > > >               goto err_unregister;
-> > > >       }
->
-> ...
->
-> > > Can you think on how to split this change to smaller steps? I believe=
- it's
-> > > possible.
-> >
-> > No, I am done with tinkering with this patchset. It is broken enough
-> > and it has inflated enough.
->
-> Probably you don't want this to be reviewed then? I believe other kernel
-> developers and maintainers will ask you the same.
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+CgpIaSBDaHJpc3RpYW4sCgoKVGhhbmtzLCB0aGF0IG1ha2VzIHNlbnNlLgoKCkkgd2lsbCByZXdv
+cmsgdGhpcyBhcm91bmQgdHlwZWQgcnB0ci93cHRyX2NwdV9hZGRyIGFjY2Vzc2VzIGluc3RlYWQg
+b2YKdGhlIGF0b21pYzY0X3QgY2FzdCwgYW5kIEkgd2lsbCBpbmNsdWRlIHRoZSByZWxhdGVkIHJw
+dHIgZml4ZXMgaW4gdGhlCnNhbWUgcGF0Y2ggc2V0LgoKClRoYW5rcywKUnVueXUKPj4gCQo+PiAK
+Pj4gSGkgQ2hyaXN0aWFuLAo+PiAKPj4gVGhhbmtzLCB1bmRlcnN0b29kLgo+PiAKPj4gVG8gbWFr
+ZSBzdXJlIEkgcmV3b3JrIHRoaXMgaW4gdGhlIHJpZ2h0IGRpcmVjdGlvbjogd291bGQgeW91IGV4
+cGVjdAo+PiB0aGlzIHJlc2V0IHBhdGggdG8gZG8KPj4gCj4+IMKgIHJpbmctPndwdHIgPSAwOwo+
+PiDCoCBhbWRncHVfcmluZ19zZXRfd3B0cihyaW5nKTsKPj4gCj4+IGluc3RlYWQgb2Ygd3JpdGlu
+ZyB3cHRyX2NwdV9hZGRyIGRpcmVjdGx5Pwo+PiAKPj4gSSBhbSBhc2tpbmcgYmVjYXVzZSBhbWRn
+cHVfcmluZ19zZXRfd3B0cigpIGFsc28gdXBkYXRlcyB0aGUgZG9vcmJlbGwsCj4+IHNvIEkgd2Fu
+dCB0byBjb25maXJtIHRoYXQgdGhpcyBpcyB0aGUgaW50ZW5kZWQgc2VxdWVuY2UgZm9yIHRoZQo+
+PiByZXNldC9zdXNwZW5kIGNhc2UgaGVyZS4KPgo+WWVhaCBJIHdhcyB3b25kZXJpbmcgdGhlIHNh
+bWUgdGhpbmcuCj4KPkkgdGhpbmsgdGhlIGNvcnJlY3QgYXBwcm9hY2ggd291bGQgYmUgdG8gbWFr
+ZSBib3RoIHJwdHJfY3B1X2FkZHIgYW5kIHdwdHJfY3B1X2FkZHIgdm9pZCogaW4gdGhlIGFtZGdw
+dV9yaW5nLmggc3RydWN0dXJlIGluc3RlYWQgb2YgdTMyKiBhbmQgdGhlbiBjYXN0IHRoYXQgdG8g
+ZWl0aGVyICh1NjQqKSBvciAodTMyKikgZGVwZW5kaW5nIG9uIHRoZSByaW5nIHR5cGUuCj4KPlRo
+ZSBhdG9taWM2NF90IGhhY2sgc2hvdWxkIHJlYWxseSBiZSByZW1vdmVkLgo+Cj5CVFcgUmVhZGlu
+ZyB0aGUgcnB0ciBpcyB3cm9uZyBvbiBtdWx0aXBsZSBpbnN0YW5jZXMgYXMgd2VsbCBhbmQgc2hv
+dWxkIHByb2JhYmx5IGJlIGZpeGVkIGluIHRoZSBzYW1lIHBhdGNoIHNldC4KPgo+UmVnYXJkcywK
+PkNocmlzdGlhbi4KPgo+PiAKPj4gVGhhbmtzLAo+PiBSdW55dQo+PiAKPj4gT24gVHVlLCBKdW4g
+MiwgMjAyNiBhdCAxMTo0OTowNUFNICswMjAwLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4g
+Q2xlYXIgTkFLLgo+Pj4KPj4+IFRoZSBhdG9taWM2NF90IGNhc3QgaGFjayBpcyBqdXN0IHNvbWV0
+aGluZyB3ZSBkaWQgZm9yIG9sZGVyCj4+PiBnZW5lcmF0aW9ucyBhbmQgaXMgbm90IHNvbWV0aGlu
+ZyB3aGljaCBpcyBuZWNlc3Nhcnkgbm9yIHNob3VsZAo+Pj4gYmUgZG9uZSBoZXJlLgo+Pj4KPj4+
+IFdoYXQgY291bGQgYmUgcG9zc2libGUgaXMgdGhhdCB3ZSBuZWVkIHRvIHVzZSBhbWRncHVfcmlu
+Z19zZXRfd3B0cigpCj4+PiBoZXJlIHRvIGNvcnJlY3RseSBkaXN0aW5ndWlzaCBiZXR3ZWVuIHF1
+ZXVlcyB3aXRoIDMyYml0IGFuZCA2NGJpdAo+Pj4gd3B0cnMuCj4+IAo+Cj4KCj4+IAkKPj4gCj4+
+IEhpIENocmlzdGlhbiwKPj4gCj4+IFRoYW5rcywgdW5kZXJzdG9vZC4KPj4gCj4+IFRvIG1ha2Ug
+c3VyZSBJIHJld29yayB0aGlzIGluIHRoZSByaWdodCBkaXJlY3Rpb246IHdvdWxkIHlvdSBleHBl
+Y3QKPj4gdGhpcyByZXNldCBwYXRoIHRvIGRvCj4+IAo+PiDCoCByaW5nLT53cHRyID0gMDsKPj4g
+wqAgYW1kZ3B1X3Jpbmdfc2V0X3dwdHIocmluZyk7Cj4+IAo+PiBpbnN0ZWFkIG9mIHdyaXRpbmcg
+d3B0cl9jcHVfYWRkciBkaXJlY3RseT8KPj4gCj4+IEkgYW0gYXNraW5nIGJlY2F1c2UgYW1kZ3B1
+X3Jpbmdfc2V0X3dwdHIoKSBhbHNvIHVwZGF0ZXMgdGhlIGRvb3JiZWxsLAo+PiBzbyBJIHdhbnQg
+dG8gY29uZmlybSB0aGF0IHRoaXMgaXMgdGhlIGludGVuZGVkIHNlcXVlbmNlIGZvciB0aGUKPj4g
+cmVzZXQvc3VzcGVuZCBjYXNlIGhlcmUuCj4KPlllYWggSSB3YXMgd29uZGVyaW5nIHRoZSBzYW1l
+IHRoaW5nLgo+Cj5JIHRoaW5rIHRoZSBjb3JyZWN0IGFwcHJvYWNoIHdvdWxkIGJlIHRvIG1ha2Ug
+Ym90aCBycHRyX2NwdV9hZGRyIGFuZCB3cHRyX2NwdV9hZGRyIHZvaWQqIGluIHRoZSBhbWRncHVf
+cmluZy5oIHN0cnVjdHVyZSBpbnN0ZWFkIG9mIHUzMiogYW5kIHRoZW4gY2FzdCB0aGF0IHRvIGVp
+dGhlciAodTY0Kikgb3IgKHUzMiopIGRlcGVuZGluZyBvbiB0aGUgcmluZyB0eXBlLgo+Cj5UaGUg
+YXRvbWljNjRfdCBoYWNrIHNob3VsZCByZWFsbHkgYmUgcmVtb3ZlZC4KPgo+QlRXIFJlYWRpbmcg
+dGhlIHJwdHIgaXMgd3Jvbmcgb24gbXVsdGlwbGUgaW5zdGFuY2VzIGFzIHdlbGwgYW5kIHNob3Vs
+ZCBwcm9iYWJseSBiZSBmaXhlZCBpbiB0aGUgc2FtZSBwYXRjaCBzZXQuCj4KPlJlZ2FyZHMsCj5D
+aHJpc3RpYW4uCj4KPj4gCj4+IFRoYW5rcywKPj4gUnVueXUKPj4gCj4+IE9uIFR1ZSwgSnVuIDIs
+IDIwMjYgYXQgMTE6NDk6MDVBTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4+IENs
+ZWFyIE5BSy4KPj4+Cj4+PiBUaGUgYXRvbWljNjRfdCBjYXN0IGhhY2sgaXMganVzdCBzb21ldGhp
+bmcgd2UgZGlkIGZvciBvbGRlcgo+Pj4gZ2VuZXJhdGlvbnMgYW5kIGlzIG5vdCBzb21ldGhpbmcg
+d2hpY2ggaXMgbmVjZXNzYXJ5IG5vciBzaG91bGQKPj4+IGJlIGRvbmUgaGVyZS4KPj4+Cj4+PiBX
+aGF0IGNvdWxkIGJlIHBvc3NpYmxlIGlzIHRoYXQgd2UgbmVlZCB0byB1c2UgYW1kZ3B1X3Jpbmdf
+c2V0X3dwdHIoKQo+Pj4gaGVyZSB0byBjb3JyZWN0bHkgZGlzdGluZ3Vpc2ggYmV0d2VlbiBxdWV1
+ZXMgd2l0aCAzMmJpdCBhbmQgNjRiaXQKPj4+IHdwdHJzLgo+PiAKPgo+Cg==
