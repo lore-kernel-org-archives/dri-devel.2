@@ -4,55 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 430A6CD6E57
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 14:06:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20327CD6E57
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 14:15:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BD6A113A21;
-	Tue,  2 Jun 2026 14:06:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F8F210F218;
+	Tue,  2 Jun 2026 14:15:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bdv/8kjZ";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="XuXUz46u";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A20D8113A21
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 14:06:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 094F96001A;
- Tue,  2 Jun 2026 14:06:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 481F71F00893;
- Tue,  2 Jun 2026 14:06:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780409170;
- bh=jjkON13fuXPua8qhknMzbj0t+F8+cBDpmMJLaAHfpt4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=bdv/8kjZHcHOa++NveCq8QUeOX+VUa6c3IH4/LJsrMwwnlqduTsXJI8EK6vpGiYfD
- TSPo8ZO2NAK5ZlGElKZQwlK8MmFpnnlVaN2KSFMt/7bouHU6+DiaEXncnPWfMsS2pz
- ZzVkSUWlOej5wsF6moEGkgFnVVYYiSOMqLS4YBLc0T+MfWK9VRDZx54FuOeoEh//hi
- KOK1sZfp+dyWqx777OOjJ4xP1SUZHzAMwax7WZbCDiFPsTkx0ADGEWnZ3Y1NXcyc6i
- VdY23ykWAGnocLGnSr9sTTke5xSWg72cVRUtiothsWt09Imqp2VRMVZ9Auop8Dy1fj
- pd/sOvb5Qy0Cw==
-Date: Tue, 2 Jun 2026 15:06:04 +0100
-From: Daniel Thompson <danielt@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>,
- Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
- Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v3 10/11] video: backlight: lm3533_bl: Implement
- backlight_scale property
-Message-ID: <ah7jTGHj6c6aJ1RO@aspen.lan>
-References: <20260601151831.76350-1-clamor95@gmail.com>
- <20260601151831.76350-11-clamor95@gmail.com>
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27D8710F218;
+ Tue,  2 Jun 2026 14:15:05 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gVCX52fZ8z9v6N;
+ Tue,  2 Jun 2026 16:15:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1780409701;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=l7/AcZtZToYRTvZuUuWy28MPHxTQ+KcSEwPyByUYuKY=;
+ b=XuXUz46u9k+9jzKogmteS4rsOaSVF3J3S3VTbVvCCqUGXWVtwOoDnvlimNvvCwfYV8ZtP4
+ WeJSyI2167YwJwGsVu3n+iRjJX0NjW1HOAjEL9he/beY21DBe/CuVnQ+kIbNZuhLJ800Y8
+ MpAipGzr++ZfD3e0RfiqEIGrn87mFirR/sEkuRQK634VMUT5ZiPPaiuDhIiQmGDWQjNSSh
+ IgDx7PJSi1ErzDJCuZm5VtZATF5Zwp0shLxh/zTLt8ybJt9cWzUVMGSwjWJGUAydeVzHWL
+ 9D1JfmEZdjrVfYRS17NiTWusTna+JyCmiFgAEYgay2UzQKfYhliwCpHxRm2syA==
+Message-ID: <8b02c8c1-bdb2-4135-8431-76c3a5f50335@mailbox.org>
+Date: Tue, 2 Jun 2026 16:14:57 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260601151831.76350-11-clamor95@gmail.com>
+Subject: Re: [PATCH 2/7] drm/vblank: timer: Fix timestamp calculation
+To: Thomas Zimmermann <tzimmermann@suse.de>, simona@ffwll.ch,
+ louis.chauvet@bootlin.com, ville.syrjala@linux.intel.com,
+ jani.nikula@intel.com, mhklkml@zohomail.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux.dev
+References: <20260601141922.91498-1-tzimmermann@suse.de>
+ <20260601141922.91498-3-tzimmermann@suse.de>
+ <c048fbcb-d318-414f-805f-18816cfa86f3@mailbox.org>
+ <f7f53f9b-2576-4488-b0c1-35b6998d123c@suse.de>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Language: en-CA
+In-Reply-To: <f7f53f9b-2576-4488-b0c1-35b6998d123c@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: e905d480509e9a10fe1
+X-MBO-RS-META: g89th51z75684wgz76akoycmfr9whj5c
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,15 +69,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 01, 2026 at 06:18:30PM +0300, Svyatoslav Ryhel wrote:
-> Since the device supports linear and non-linear modes, implement the
-> backlight_scale property to describe this state.
->
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+On 6/1/26 19:30, Thomas Zimmermann wrote:
+> Am 01.06.26 um 18:24 schrieb Michel Dänzer:
+>> On 6/1/26 16:08, Thomas Zimmermann wrote:
+>>> In drm_crtc_vblank_get_vblank_timeout(), return the timestamp of the
+>>> first visible scanline after the last vblank timeout. This is what the
+>>> caller expects.
+>>>
+>>> A vblank phase starts with a vblank timeout. At this point the display
+>>> is blanked for several scanlines. Afterwards the display is unblanked
+>>> until the next vblank timeout occurs. The display content is only visible
+>>> during that second part.
+>>>
+>>> The current implementation of drm_crtc_vblank_get_vblank_timeout()
+>>> returns the timestamp of the last vblank timeout that started the current
+>>> vblank phase. But the display only unblanks after 20 to 30 percent of
+>>> the overall frame duration. The returned timestamp is therefore too early.
+>>>
+>>> The next vblank timeout is already known when calculating the returned
+>>> timestamp. Instead of subtracting the duration of a full frame from the
+>>> value, only subtract the duration of the active, visible part. The result
+>>> is the timestamp of the first visible scanline, as expected by the caller.
+>>>
+>>> This bug was not introduced by the generic vblank timer. It appears that
+>>> the get_vblank_timeout logic has always been buggy since it was first
+>>> added in commit 3a0709928b17 ("drm/vkms: Add vblank events simulated by
+>>> hrtimers").
+>>>
+>>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>> ---
+>>>   drivers/gpu/drm/drm_vblank.c | 32 +++++++++++++++++++++++++-------
+>>>   1 file changed, 25 insertions(+), 7 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+>>> index 96d70c3d4522..d52df247d04e 100644
+>>> --- a/drivers/gpu/drm/drm_vblank.c
+>>> +++ b/drivers/gpu/drm/drm_vblank.c
+>>> [...]
+>>> @@ -2312,17 +2321,26 @@ bool drm_crtc_vblank_get_vblank_timeout(struct drm_crtc *crtc, ktime_t *vblank_t
+>>>           *vblank_time = READ_ONCE(vtimer->timer.node.expires);
+>>>       } while (cur_count != drm_crtc_vblank_count_and_time(crtc, &cur_time));
+>>>   -    if (drm_WARN_ON(crtc->dev, !ktime_compare(*vblank_time, cur_time)))
+>>> +    if (drm_WARN_ON(dev, !ktime_compare(*vblank_time, cur_time)))
+>>>           return false; /* Already expired */
+>>>   +    framedur_ns = vblank->framedur_ns;
+>>> +
+>>>       /*
+>>> -     * To prevent races we roll the hrtimer forward before we do any
+>>> -     * interrupt processing - this is how real hw works (the interrupt
+>>> -     * is only generated after all the vblank registers are updated)
+>>> -     * and what the vblank core expects. Therefore we need to always
+>>> -     * correct the timestamp by one frame.
+>>> +     * To prevent races we rolled the hrtimer forward before we did any
+>>> +     * timeout processing - this is how real hw works (the interrupt is
+>>> +     * only generated after all the vblank registers are updated) and what
+>>> +     * the vblank core expects.
+>>> +     *
+>>> +     * Therefore we always need to correct the timestamp. The returned
+>>> +     * time should be the time of the first active scanline after the
+>>> +     * previous vblank. Hence subtract the active phase's duration from
+>>> +     * the next expiration time.
+>>>        */
+>>> -    *vblank_time = ktime_sub(*vblank_time, vtimer->interval);
+>>> +    if (drm_WARN_ON(dev, !mode->crtc_vtotal))
+>>> +        return false;
+>>> +    activedur_ns = div_s64(framedur_ns * mode->crtc_vdisplay, mode->crtc_vtotal);
+>>> +    *vblank_time = ktime_sub_ns(*vblank_time, activedur_ns);
+>> Normally the timestamp returned by drm_crtc_vblank_count_and_time is supposed to correspond to the end of vertical blank / start of active, in which case the new code here looks wrong.
+>>
+>> Also, while the current time is inside an active area, it's supposed to return the timestamp corresponding to the start of the current active area, not the next one.
+> 
+> The initial value of *vblank_time is when the vblank timer fires _next_ and the display blanks. Subtracting the length of the active period should give the time of the first active scanline within the current vblank phase.
+> 
+> Isn't that exactly what you describe?
 
-Thanks!
+I don't think so.
 
-Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
+It means that the timestamp returned by drm_(crtc_)vblank_count_and_time (which also used e.g. in events sent to user space) corresponds to the end of active / start of vblank, not to the end of vblank / start of active as it should (and does when the vblank timer isn't used).
 
 
-Daniel.
+-- 
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
