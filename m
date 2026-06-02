@@ -4,107 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A626FCD6E60
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 15:40:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7678DCD6E57
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 15:41:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F5CD10F32A;
-	Tue,  2 Jun 2026 15:40:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBB1C10F330;
+	Tue,  2 Jun 2026 15:41:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ujO8vf85";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IUV7UxWh";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011052.outbound.protection.outlook.com [52.101.52.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B45710F311
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 15:40:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uANJ9vqpkefo8k5gbUq52zyJcVgtsU6vLch27FQllJlcchQ2KUXn0vpOC1SWtmgj8joYyQhw7YRmii3yjviHH1ImRBare013WrR/KY5xw7ABWL2Zop+VncXFulup7MnFLaZcnPbjs22mAh/F19UpYi3wLkyw3M8bzI2BRu5Zli1evCqkZY/ipALrSDZkJX8p9hxGf1koqGE0OdzydHfWNhf9K4vqd/ViJgyC+wSZE2bGNiNDnWQxE0IB7lWS34KL8PJqZ6mJCaqp88ReMWxfRF+k9NcwBSCsDfEbsxTQqgEp8kWVaaxpPJYrtvBoMbpHojmjmIuOc6SCfsUSlhqDXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iANzVSyFUoog30JldP7OCNeJvUiVqypIZVOoaFPWTxc=;
- b=B/sBFZ1ga0H3HEkLsmzduFhWY2bflFe+cZaZ+jpkNA+wa6Yy6MtXb32sWYnC5NNMZ0rFIqYNAAFTX0uS07vDIvPVfGdvPrDoYWewm6Wb5prOOxkmEtBB6ArqisPZ9qcmEtDMo04LC1Ra94qSvOPBExUXIw55sOjnlKLvcsK4Mv/WTGHtcRxuGC2BjUpMWC7RjecCfuEKZnrOREzwS0sfsvHala+x7tvpWjepdJOMMWIPrqT1JwPuOkQFAa/QEPzLtP2i+6+fMrvrKGjOr3PGX10IMgc940DjUJs3z6741I3t2iYNmES7u30yPkRau+S971MsvrznPr0iq9Psy1RBtQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iANzVSyFUoog30JldP7OCNeJvUiVqypIZVOoaFPWTxc=;
- b=ujO8vf85dY+kgi4n9QkcvPzMJRYRbhfVZydZgQxLm5mqbzRDPh1yBSG8K8NGBkqzuk5X69vtSbGlD2r9/Q3dn4vuIpYd1IUyUjatWvGubDJQ8PuJyUFOLS5Dwjen1duDq+r0u2aHFoFN1RVFs9c69tIXgbo1jDKSgUp2eWcqzAs=
-Received: from BL0PR05CA0017.namprd05.prod.outlook.com (2603:10b6:208:91::27)
- by SA3PR12MB8811.namprd12.prod.outlook.com (2603:10b6:806:312::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Tue, 2 Jun 2026
- 15:40:40 +0000
-Received: from BN2PEPF000055DD.namprd21.prod.outlook.com
- (2603:10b6:208:91:cafe::2d) by BL0PR05CA0017.outlook.office365.com
- (2603:10b6:208:91::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.7 via Frontend Transport; Tue, 2
- Jun 2026 15:40:40 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000055DD.mail.protection.outlook.com (10.167.245.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.0 via Frontend Transport; Tue, 2 Jun 2026 15:40:39 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 2 Jun
- 2026 10:40:39 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 2 Jun
- 2026 10:40:39 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Tue, 2 Jun 2026 10:40:38 -0500
-Message-ID: <de555b4a-61fa-2905-0b8b-8cc4acde73d1@amd.com>
-Date: Tue, 2 Jun 2026 08:40:33 -0700
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1EB510F330
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 15:41:34 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-36bdda53d99so1709470a91.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 08:41:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780414894; cv=none;
+ d=google.com; s=arc-20240605;
+ b=AGICKE2BNpShDbaO4YRyv3zUcBQ6HZqwR2qohCO53jvnDVEj3cLAX1NZ2M12ph67Jr
+ 0pHswXWnR8w48ZMHY2aIwsdF1yns2nEsReRjMJ5YRv2jA1rH57h/7bejTEQdpuRPsZLr
+ LW2cXlFlRwz9n6tp5R7ezA1/GhnLIEpXfNXMLVgZu2S8bh+9ppbSlESNLPuLXNND0bE4
+ c/sL6ZkwA0H3BvVKBtGa6bK+s6EpglgeELJV0QUsX958i4NTy2JYVVcSY+KcIicb2qiA
+ sn34170m1aeOiFi/5HYQm6lm2nIAhh6cEhDcTpEe7GZ3idGim4isFHRXmE2HZS5UD2Os
+ 1QOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=DuB5aq9eKeu207VyIAsxwpZln/RB5Nwc2vs7XjeZSso=;
+ fh=KZEvLFzeo/odSQjKhW5sw5GfoWPRGAWAecQwBPXoo7o=;
+ b=gDwNKe5iuWc256Tb0gwjn6kqMI7sMqwl7rUOqwmhiunaqbsCcarF3TkgPWqVk/mPh2
+ CmHLHTbTiORaBbSASmVzqmc0QKSeb6eG8jPbb+rvPSptpIuH1zzB02kyZY6e5MCTADrN
+ QvbvYYWgstXhuoz1vlUwi3K55+njz4EF6o0nAkR90yDavOmOmLyY/eqLmdMzBxPf/RlG
+ y37E4Ksfp6ncelKmRO9taju9ZyW6pgdNgq8IA7g0hyxFK6LsREriloOHBDotKXbnjplq
+ pv+f1h5Mco5NCcdD3I5GjiZXB8BODZlmrvW9Muh7CkhkG00tJDUKONZwOY5mzyvO9g26
+ cr8g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780414894; x=1781019694; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=DuB5aq9eKeu207VyIAsxwpZln/RB5Nwc2vs7XjeZSso=;
+ b=IUV7UxWh/z2qUiImOz3rHv6Nr262eGQ8IA5nWULs1t7R5TPRcE54yetEQulkDfRwKi
+ B3UPGIeI/pwFrRH/rE2EH7XqHsmj2b7u7krvpy+QU1Hal8Z8dAYqapbPPUqgmU0TVA9D
+ JhZ0A5OyMvHLG3RqRjgxDjy5YXdKOpc8FtVxRBqXVb3rY1FnSxQwb2YQN567yvVbBtTR
+ 3T3VrFYxK0srgde6Im4C/tAB/p+cH1CzyLwv6X8FTUZylH8zMBHCx4GEvX/N5ke8/ufZ
+ Lk2rBisalhtwj8yqPnN4LxsSc/Ch8cXkWRTYhRdtGwP2Y72HzFPN1G+iswR7dGnXFKm3
+ jByQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780414894; x=1781019694;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=DuB5aq9eKeu207VyIAsxwpZln/RB5Nwc2vs7XjeZSso=;
+ b=gIibyL3IY00nhU60i/N6yQNyNKCHQ7/Hq/npgIq2m15GdiCGfaglkhsIIUxzwfBYcp
+ WnGwQAWip/SPN2hXJm6PHsTJTDSJu4FeA/XZvEQAa2YONPYqAnBuwTAVEdhg+FVUNxJ8
+ H/n+yWJg85XF97s8TIlO/VwKAFlEdTofqSOwtHDGwvd+RZU/jty9YY5Zs3yvUAvcw+dX
+ 98/lexvPrQqzIPOVAZf7yfC3TwucqxOtgrh68Cf3dOEwFrn7zrLYFcbIquYdqBO0Dfe1
+ UsLlSz9OsBM5bc5H1fhgDEWgDyyaCErl4sXod3bXUWhm1SBbwqtROks9bjM6gbP15MZU
+ kFUw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9KKx/7hDy1lzAjEj9fpC+RvAowFa3P5NsTcc0KnJvpBIhj0oSxccHS7oPzoaidGnPmWrzfKK9e2Xo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx9FGvKjFUUZGL93G6fahnEb3T+3RX5P/sBLWoE0uix/EnciKZ3
+ Z3/aTikuyxemxuE0BBszA9iqRXzTIV3PDjDjanbm4Csu/kuGE4LaRxrPPevsqcRuULayM9PBxnJ
+ 6zhA6FJp4vJQX+TFMiCbVYGRuy0QAjPs=
+X-Gm-Gg: Acq92OHKL+H5ZJrPYaZQ8OR+Sq1jGktogl8tY8IPHncu70mZYV33iM7hZHAj+gTu7Di
+ miP5ngtXv2dQXOKjgt5rmLwSH+v5vEowmHUJXxre7+NL4uY5gYWkOW8NMxC5EEPxj7+6S8p0T/m
+ bnwc15LNB4n1cXzotPXHem5QT1SB8eY/l5ZGGYNXc6dqlItweIQ1kBdemIrgmAk6QuICqrncYdx
+ BxUcFUZazHdj5ORQ25qsdd1Luh6k0VhCILS0GCDHu7NeZfk7myyVNJDT5BzYJ3zOenbO1LyvVo0
+ 9NuD2tGrbX8C7w==
+X-Received: by 2002:a17:90b:5704:b0:368:b01c:85a0 with SMTP id
+ 98e67ed59e1d1-36c501db7b8mr16243474a91.14.1780414893981; Tue, 02 Jun 2026
+ 08:41:33 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V1] accel/amdxdna: Preserve user address when PASID is
- disabled
-Content-Language: en-US
-To: Mario Limonciello <superm1@kernel.org>, <ogabbay@kernel.org>,
- <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
- <karol.wachowski@linux.intel.com>
-CC: <linux-kernel@vger.kernel.org>, <max.zhen@amd.com>, <sonal.santan@amd.com>
-References: <20260602040624.2206774-1-lizhi.hou@amd.com>
- <eec37a38-39b3-4a83-9024-a0e6d916ce54@kernel.org>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <eec37a38-39b3-4a83-9024-a0e6d916ce54@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DD:EE_|SA3PR12MB8811:EE_
-X-MS-Office365-Filtering-Correlation-Id: 22cd002f-d1a5-4cfa-d12f-08dec0bd4c95
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|82310400026|1800799024|4143699003|18002099003|22082099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: 0kx9Fsgco/xBnybsRjPoQuT4wBZunVtDUOJsueBBlx+gNMFOWY3+pTxP5bbJcI5G4Kyaf0cMfOIByea/jgIYgTcQ/wgwLcJJy3//nCLWWvJpEBGFa4EF+/IDnCSHlpzlV5hRSxiQbd4HxmGU476ANpCtuBToZhEcErhzLz14/yO7U2ZlZCLl/SSyiJ8VROIXkqEiOIgVBSYll1J5bWQAOo+T+s8LAMqmb264+pCrVR0BcMyr92yJE9Mb2F3RDTiOhOxAXT+Vi2ihpBV7UMTiQQgx+lKr9N7xB0jLgHsSwEez4a+yNa0CdPO6rG1iNRD0vEzoaWq8Wx9/YFz5bMoh9LZNxDaJ9LtzHfR6TEQMa50BV7trF2KxJKFvWkZrBcsY8EbF6WNjoReZoUjFuumpvpKHccHRLYHE8ypGdooJaWteEWcapcA3vu/U9Y2B89w+FqCpG5D7Ncorx1gdNAWNVAQwJ+aSLRu7fiP2jN0bf8usfDQQVzSrRYRTJUnP5jb3rUSkgiWP0tREjLHBJLdHgzh3BGvMX9On3pRn9owfDEpVe9pHm7bDGnT+5u0uaZO4lpg3RL2vZWloY8xGE0jAVzJPN23kXUGf0Rl9+v/zK+zIJOgERhh6lz8aP2R3kUVmt9pDf5VUjoVG02CX2h/+hkHZI5CLw/LnaJ05rGGEUMBxVJd+kTkQz47guhbmqtM8fsRkND6rZbLQEGv3UapiV04Liy+HR+bBnRqlqSWP7/0=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(4143699003)(18002099003)(22082099003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: yJlDoTN8QlaG7yUWqUjoMXu33tNjMfwZOIb+cxqSwBxidpChsNHEvnQ63mh30ZkX1jeX5WAHtHsaMprrwvaA63TXEjKGJGCrWwvaH3XIsAIR6/zE2qxi644G5vSb58Wc8ujnUgxyLr1dV2P2reqvdo3IlEciELWZXqPKiS/2Lrp3Lci7oNTIU1LSMmjZ6TCeODp5aPejWXrKJ9/hhC+6ZG2I48jq8gPvCW+XIKPMjM62ibezCPNyjE1F84JyfZFs19jO7/3Faz3T70JG+DkjKLG8mVZNGj5W3JtYGYFylWhYARE2gVePCgCD1YOGjq+UBssXjlE07SKtGvCpSNT2QfV1ws1JqDHEcYp52WxeXgJrmgqT2X0IHwxXGsdB4SpODTLj9M1x+I0KPrJ7VMhCZ1bvW2/ttpQUna9gSZIHA2u1qh27Cu5XYhXA4BKiz/Yu
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 15:40:39.9022 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 22cd002f-d1a5-4cfa-d12f-08dec0bd4c95
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055DD.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8811
+References: <20260525140422.1545327-1-aha310510@gmail.com>
+ <9956a72e-57ad-4bad-a3f6-87710eb4924d@igalia.com>
+In-Reply-To: <9956a72e-57ad-4bad-a3f6-87710eb4924d@igalia.com>
+From: Jeongjun Park <aha310510@gmail.com>
+Date: Wed, 3 Jun 2026 00:41:21 +0900
+X-Gm-Features: AVHnY4I0_jOc9FccwbCyX5X8rcZfR5ER5QJnDnBTcP1bMKaXPnYiuiyVra6NARU
+Message-ID: <CAO9qdTGB=7K0SJCiCpP9TYOk_3Z6wETM43m49FqvD6iw9ApOEA@mail.gmail.com>
+Subject: Re: [PATCH] drm/v3d: fix to avoid cleaning up uninitialized CPU jobs
+To: =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
+Cc: Melissa Wen <mwen@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Iago Toral Quiroga <itoral@igalia.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,42 +110,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied to drm-misc-next-fixes
+Hi Ma=C3=ADra,
 
-On 6/2/26 07:15, Mario Limonciello wrote:
+Ma=C3=ADra Canal <mcanal@igalia.com> wrote:
 >
+> Hi Jeongjun,
 >
-> On 6/1/26 23:06, Lizhi Hou wrote:
->> When PASID is not used, the buffer user address is set to
->> AMDXDNA_INVALID_ADDR. As a result, heap buffer user address validation
->> fails even though the original userspace address is available.
->>
->> Preserve the userspace address regardless of PASID usage so heap buffer
->> address validation works correctly.
->>
->> Fixes: dbc8fd7a03cb ("accel/amdxdna: Add expandable device heap 
->> support")
->> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
->> ---
->>   drivers/accel/amdxdna/amdxdna_gem.c | 5 ++++-
->>   1 file changed, 4 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c 
->> b/drivers/accel/amdxdna/amdxdna_gem.c
->> index 77e5fad08ae5..33cf5af98ceb 100644
->> --- a/drivers/accel/amdxdna/amdxdna_gem.c
->> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
->> @@ -349,8 +349,11 @@ static int amdxdna_hmm_register(struct 
->> amdxdna_gem_obj *abo,
->>       u32 nr_pages;
->>       int ret;
->>   -    if (!amdxdna_pasid_on(abo->client))
->> +    if (!amdxdna_pasid_on(abo->client)) {
->> +        /* Need to set uva for heap uva validation */
->> +        abo->mem.uva = addr;
->>           return 0;
->> +    }
->>         mapp = kzalloc_obj(*mapp);
->>       if (!mapp)
+> On 25/05/26 11:04, Jeongjun Park wrote:
+> > The CPU submit ioctl checks cpu_job->job_type before the CPU job has be=
+en
+> > initialized with v3d_job_init(). When no CPU job extension is supplied,
+> > the check fails and the ioctl goes to the common error path.
+> >
+> > That path calls v3d_job_cleanup(), which expects a fully initialized
+> > v3d_job. However at this point the CPU job has only been allocated,
+> > so the embedded DRM scheduler job state has not been initialized yet.
+> >
+> > Initialize the CPU job after parsing extensions, but before validating
+> > the CPU job type and BO count. Keep pre-initialization failures on a
 >
+> Considering that this is a minimal fix for stable, could you explain me
+> why do you believe moving v3d_job_init() is the best solution?
+>
+
+Because according to the implementation of v3d_submit_cpu_ioctl(),
+v3d_job_cleanup() should never be called when v3d_job_init() fails to
+execute successfully, but it is currently being called.
+
+Therefore, I called the init function before the job_type check and added
+the missing v3d_job_deallocate(), which should be called when
+v3d_get_extensions() fails. However, upon re-analysis, it appears that
+adding the fail_init label is unnecessary now, and I have discovered
+another serious issue.
+
+If v3d_job_init() fails after v3d_get_extensions() succeeds, a memory leak
+may occur in the memory allocated by v3d_get_extensions(). In such cases,
+v3d_job_cleanup() cannot be called, and consequently, v3d_cpu_job_free()
+cannot be used either. Therefore, it seems necessary to add a separate
+helper function to handle this case.
+
+I will quickly write a v2 patch reflecting these changes.
+
+> Best regards,
+> - Ma=C3=ADra
+>
+
+Regards,
+Jeongjun Park
