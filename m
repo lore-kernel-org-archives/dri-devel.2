@@ -4,79 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6DD8CD6E57
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 07:03:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B388CD6E4A
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 07:04:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C85B11388D;
-	Tue,  2 Jun 2026 07:03:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 665F5113893;
+	Tue,  2 Jun 2026 07:04:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="sDTW5G6u";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="JoStsoah";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0GzCoM7w";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="AIw8XtRJ";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="f0I3fILU";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2VP9wB3N";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="dFvz5TKj";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MYAFlN5r";
 	dkim-atps=neutral
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32E7A11388D
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 07:03:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 943BB11388F
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 07:04:01 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A056867AB4;
- Tue,  2 Jun 2026 07:03:42 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 36156682F8;
+ Tue,  2 Jun 2026 07:03:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780383823; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1780383840; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=pTyoN3SKlLwpPGaO0cx9XrDnrOOTlUGpdhnGBX31Ay8=;
- b=sDTW5G6umn1I3JnWM3XB8riAXq0j4uBA0Lm5j0I9BBeP/sRcIHHU9cN8aQ+Wtoq5Ii79dR
- XSOUHeBt7F+sHSI0TUf2O8SF5H/IC6ZH/DmitGsDvpdtFEnF8xSGhIyJ6W0aUSgfxVCq22
- UZV6fuv0WcCeBlLexOGOrKNEIIeZEvQ=
+ bh=vCLVz4Ny02ykXSMd6XQto1pdK/ycW1OygOhuDeG9yEc=;
+ b=f0I3fILUFB92sKIAog0/RqMPNo7cAyu6I2hPcN25S5q+sQzDlO0cz7XdNOZcqGuOwUyMfy
+ zn5+DSL0t+paqgBO8fjj2epMwcKJO8qQ+yfUSOslmavNn3lELc6pJ8Kb3Gzhr5UnNpocnR
+ TqSz2Nn8q47vPsCBS+4kmxdag8VF6t4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780383823;
+ s=susede2_ed25519; t=1780383840;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=pTyoN3SKlLwpPGaO0cx9XrDnrOOTlUGpdhnGBX31Ay8=;
- b=JoStsoahz6rvFYJkOFMhotgUpcgxq/n0yR/6cijQwB6ZtoFRNu6EUPa3HJPpi9sQBElt7M
- e3ZbLsoRyl3EPsBw==
+ bh=vCLVz4Ny02ykXSMd6XQto1pdK/ycW1OygOhuDeG9yEc=;
+ b=2VP9wB3Nuiie5MiL66TPLMjf79RCVaGSSBKOGU7FQgah7r09gayQsLu9oyz3y41A/+wRMk
+ DG9PM/Aq65Adi2Bg==
 Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780383822; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1780383839; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=pTyoN3SKlLwpPGaO0cx9XrDnrOOTlUGpdhnGBX31Ay8=;
- b=0GzCoM7w8kbPv1wsx3vCJfJEAUkebGlwqTMz66GkMwkl9UoqIJK5hF0xA755+DmNn3RUGc
- xkChwLmDua+2jW6mZxQJUsco/78Oct3o668WX1uK1zhoSDOB/+/1Zl8wiH7aHr+gFIXA41
- +8hS8xQLH5UK1wjQ63vmrrCugqC+5Wk=
+ bh=vCLVz4Ny02ykXSMd6XQto1pdK/ycW1OygOhuDeG9yEc=;
+ b=dFvz5TKjwhYzlchYRoDvWo1W/SmBeHJowVfRhZ3TfQoBhodf0qwan73nlp52nMlfIeF45v
+ X2lGvRfQceXYZWCMUw4vTTfOCjFu+2DseRDmvVzzo55A2AW1CQnCMUaGinaApHaOWGaj6/
+ MsXbV8hwQiJrtVSZSPzBSzpeFkP0yYs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780383822;
+ s=susede2_ed25519; t=1780383839;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=pTyoN3SKlLwpPGaO0cx9XrDnrOOTlUGpdhnGBX31Ay8=;
- b=AIw8XtRJgLOwJgQZ4KD8xVRUbY5S5RADyB/HFl3pWJAXf2EFVl7iTxeGSFB9elGEpThQf6
- +XXJg7qo15195/Dg==
+ bh=vCLVz4Ny02ykXSMd6XQto1pdK/ycW1OygOhuDeG9yEc=;
+ b=MYAFlN5rrtpJOrKBz+qLqoMv7D5oIS+pMNpGezRJqCxBscVhYxynx4d0v1CHKosIAIP82p
+ OPC4Wmr28+knE7Dw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3C5D5779A7;
- Tue,  2 Jun 2026 07:03:42 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D851A779A7;
+ Tue,  2 Jun 2026 07:03:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id KA1MDU6AHmoGPgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 02 Jun 2026 07:03:42 +0000
-Message-ID: <d95861de-f5f9-4139-92a3-b2d666f59fca@suse.de>
-Date: Tue, 2 Jun 2026 09:03:41 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id lDspM16AHmqVPgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 02 Jun 2026 07:03:58 +0000
+Message-ID: <cebd7c2c-cfd4-4f1c-a334-3783fabfae71@suse.de>
+Date: Tue, 2 Jun 2026 09:03:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/76] drm/atomic-state-helper: Rename
- __drm_atomic_helper_bridge_reset()
+Subject: Re: [PATCH 02/76] drm/atomic-state-helper: Reorder
+ __drm_atomic_helper_bridge_state_init() arguments
 To: Maxime Ripard <mripard@kernel.org>,
  Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -87,7 +87,7 @@ To: Maxime Ripard <mripard@kernel.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org
 References: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
- <20260530-drm-no-more-bridge-reset-v1-1-875d828d31bc@kernel.org>
+ <20260530-drm-no-more-bridge-reset-v1-2-875d828d31bc@kernel.org>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -114,7 +114,7 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260530-drm-no-more-bridge-reset-v1-1-875d828d31bc@kernel.org>
+In-Reply-To: <20260530-drm-no-more-bridge-reset-v1-2-875d828d31bc@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
@@ -129,8 +129,8 @@ X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
  RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:email,
- suse.de:mid, suse.com:url]
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:mid, suse.com:url,
+ imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,19 +149,12 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 Am 30.05.26 um 15:59 schrieb Maxime Ripard:
-> __drm_atomic_helper_bridge_reset() is used to initialize a
-> newly allocated drm_bridge_state, and is being typically called by the
-> drm_bridge_funcs.atomic_reset implementation.
+> The convention for state init helpers is to pass the state pointer
+> as the first argument and the object pointer second.
 >
-> Since we want to consolidate DRM objects state allocation around the
-> atomic_create_state callback that will only allocate and initialize a
-> new drm_bridge_state instance, we will need to call
-> __drm_atomic_helper_bridge_reset() from both the atomic_reset and
-> atomic_create_state hooks.
->
-> To avoid any confusion, we can thus rename
-> __drm_atomic_helper_bridge_reset() to
-> __drm_atomic_helper_bridge_state_init().
+> __drm_atomic_helper_bridge_state_init() has them in the opposite
+> order. Swap the arguments to follow the convention, and update the
+> cdns-mhdp8546 caller.
 >
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
@@ -169,12 +162,12 @@ Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
 > ---
 >   drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c | 2 +-
->   drivers/gpu/drm/drm_atomic_state_helper.c           | 6 +++---
->   include/drm/drm_atomic_state_helper.h               | 2 +-
->   3 files changed, 5 insertions(+), 5 deletions(-)
+>   drivers/gpu/drm/drm_atomic_state_helper.c           | 8 ++++----
+>   include/drm/drm_atomic_state_helper.h               | 4 ++--
+>   3 files changed, 7 insertions(+), 7 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> index 36c07b71fe04..4e3015d10a97 100644
+> index 4e3015d10a97..063f073034c1 100644
 > --- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
 > +++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
 > @@ -1927,11 +1927,11 @@ cdns_mhdp_bridge_atomic_reset(struct drm_bridge *bridge)
@@ -183,50 +176,53 @@ Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 >   	if (!cdns_mhdp_state)
 >   		return NULL;
 >   
-> -	__drm_atomic_helper_bridge_reset(bridge, &cdns_mhdp_state->base);
-> +	__drm_atomic_helper_bridge_state_init(bridge, &cdns_mhdp_state->base);
+> -	__drm_atomic_helper_bridge_state_init(bridge, &cdns_mhdp_state->base);
+> +	__drm_atomic_helper_bridge_state_init(&cdns_mhdp_state->base, bridge);
 >   
 >   	return &cdns_mhdp_state->base;
 >   }
 >   
 >   static u32 *cdns_mhdp_get_input_bus_fmts(struct drm_bridge *bridge,
 > diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-> index 07686e94aae0..c38e514f336f 100644
+> index c38e514f336f..8f04eae7a754 100644
 > --- a/drivers/gpu/drm/drm_atomic_state_helper.c
 > +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-> @@ -884,27 +884,27 @@ void drm_atomic_helper_bridge_destroy_state(struct drm_bridge *bridge,
->   	kfree(state);
->   }
+> @@ -886,19 +886,19 @@ void drm_atomic_helper_bridge_destroy_state(struct drm_bridge *bridge,
 >   EXPORT_SYMBOL(drm_atomic_helper_bridge_destroy_state);
 >   
 >   /**
-> - * __drm_atomic_helper_bridge_reset() - Initialize a bridge state to its
-> + * __drm_atomic_helper_bridge_state_init() - Initialize a bridge state to its
+>    * __drm_atomic_helper_bridge_state_init() - Initialize a bridge state to its
 >    *					default
->    * @bridge: the bridge this state refers to
+> - * @bridge: the bridge this state refers to
 >    * @state: bridge state to initialize
+> + * @bridge: the bridge this state refers to
 >    *
 >    * Initializes the bridge state to default values. This is meant to be called
 >    * by the bridge &drm_bridge_funcs.atomic_reset hook for bridges that subclass
 >    * the bridge state.
 >    */
-> -void __drm_atomic_helper_bridge_reset(struct drm_bridge *bridge,
-> +void __drm_atomic_helper_bridge_state_init(struct drm_bridge *bridge,
->   				      struct drm_bridge_state *state)
+> -void __drm_atomic_helper_bridge_state_init(struct drm_bridge *bridge,
+> -				      struct drm_bridge_state *state)
+> +void __drm_atomic_helper_bridge_state_init(struct drm_bridge_state *state,
+> +					   struct drm_bridge *bridge)
 >   {
 >   	memset(state, 0, sizeof(*state));
 >   	__drm_atomic_helper_private_obj_create_state(&bridge->base, &state->base);
 >   	state->bridge = bridge;
 >   }
-> -EXPORT_SYMBOL(__drm_atomic_helper_bridge_reset);
-> +EXPORT_SYMBOL(__drm_atomic_helper_bridge_state_init);
+> @@ -920,9 +920,9 @@ drm_atomic_helper_bridge_reset(struct drm_bridge *bridge)
 >   
->   /**
->    * drm_atomic_helper_bridge_reset() - Allocate and initialize a bridge state
->    *				      to its default
->    * @bridge: the bridge this state refers to
+>   	bridge_state = kzalloc_obj(*bridge_state);
+>   	if (!bridge_state)
+>   		return ERR_PTR(-ENOMEM);
+>   
+> -	__drm_atomic_helper_bridge_reset(bridge, bridge_state);
+> +	__drm_atomic_helper_bridge_state_init(bridge_state, bridge);
+>   	return bridge_state;
+>   }
+>   EXPORT_SYMBOL(drm_atomic_helper_bridge_reset);
 > diff --git a/include/drm/drm_atomic_state_helper.h b/include/drm/drm_atomic_state_helper.h
-> index f4b6d8833bc2..6a715d8e1f4a 100644
+> index 6a715d8e1f4a..cbc760598b9e 100644
 > --- a/include/drm/drm_atomic_state_helper.h
 > +++ b/include/drm/drm_atomic_state_helper.h
 > @@ -100,9 +100,9 @@ void __drm_atomic_helper_bridge_duplicate_state(struct drm_bridge *bridge,
@@ -235,9 +231,10 @@ Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 >   drm_atomic_helper_bridge_duplicate_state(struct drm_bridge *bridge);
 >   void drm_atomic_helper_bridge_destroy_state(struct drm_bridge *bridge,
 >   					    struct drm_bridge_state *state);
-> -void __drm_atomic_helper_bridge_reset(struct drm_bridge *bridge,
-> +void __drm_atomic_helper_bridge_state_init(struct drm_bridge *bridge,
->   				      struct drm_bridge_state *state);
+> -void __drm_atomic_helper_bridge_state_init(struct drm_bridge *bridge,
+> -				      struct drm_bridge_state *state);
+> +void __drm_atomic_helper_bridge_state_init(struct drm_bridge_state *state,
+> +					   struct drm_bridge *bridge);
 >   struct drm_bridge_state *
 >   drm_atomic_helper_bridge_reset(struct drm_bridge *bridge);
 >
