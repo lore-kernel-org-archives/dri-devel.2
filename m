@@ -4,37 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2D35CD6E5D
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 18:44:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 615E3CD6E57
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 18:47:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A464510F4C4;
-	Tue,  2 Jun 2026 18:44:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C21F510F4CF;
+	Tue,  2 Jun 2026 18:47:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=grimler.se header.i=@grimler.se header.b="lyLKTlSB";
+	dkim=pass (1024-bit key; secure) header.d=grimler.se header.i=@grimler.se header.b="Wh7rVw1t";
 	dkim-atps=neutral
-Received: from out-180.mta0.migadu.com (out-180.mta0.migadu.com
- [91.218.175.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8685F10F4C3
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 18:44:47 +0000 (UTC)
+Received: from out-171.mta0.migadu.com (out-171.mta0.migadu.com
+ [91.218.175.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B01A910F4CE
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 18:47:47 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grimler.se; s=key1;
- t=1780425462;
+ t=1780425475;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=ifzs265vUAPV6IFIZqod6woQ6e3KxesGPyzpRuY/iQY=;
- b=lyLKTlSBQSQJUwrUC6x4vG/WGdEJePCQnq6NVERHIGUwOlV7NeAqpEC2A5PYYTeRM4YwQT
- 3if7BAnbRhIm5dZwAO8amUxkTsAlByPdU7nS5e6/8Wp6P/vFoXwRzJDr5pCqluka3qY3Cm
- PCkNjWRi11HbsnuNPylJomeG2W1CbLY=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=WxMYC4T1LGG7DL25LkdKxvkXEaCcM5nAzX/5lfuA2Hc=;
+ b=Wh7rVw1tYHNqYWPTzBP57ZGQzQKY5xTG+zrHYG3pqe+SfeghdLE3Somd74L5h2hsg99yE2
+ YRx4+4iF59XrFjiSKKnPVgXW81wNMxTrTf3rHXFFLsOxl7k2Covu6eKsmqRBOxDf0dQhsi
+ lTD0UBAFPcsJDhCTfKiUZPI75tp8IXA=
 From: Henrik Grimler <henrik@grimler.se>
-Subject: [PATCH RESEND v4 0/3] drm/bridge: sii9234: use extcon to detect
- cable attachment
-Date: Tue, 02 Jun 2026 20:36:47 +0200
-Message-Id: <20260602-exynos4-sii9234-driver-v4-0-9b2fc38e104a@grimler.se>
+Date: Tue, 02 Jun 2026 20:36:50 +0200
+Subject: [PATCH RESEND v4 3/3] drm/bridge: sii9234: use extcon cable
+ detection logic to detect MHL
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260602-exynos4-sii9234-driver-v4-3-9b2fc38e104a@grimler.se>
+References: <20260602-exynos4-sii9234-driver-v4-0-9b2fc38e104a@grimler.se>
+In-Reply-To: <20260602-exynos4-sii9234-driver-v4-0-9b2fc38e104a@grimler.se>
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
  Marek Szyprowski <m.szyprowski@samsung.com>, 
  Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -47,15 +50,15 @@ To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org, 
  ~postmarketos/upstreaming@lists.sr.ht, replicant@osuosl.org, 
  linux-kernel@vger.kernel.org, Henrik Grimler <henrik@grimler.se>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2044; i=henrik@grimler.se;
- h=from:subject:message-id; bh=+9icRJM878guDktkvKRdV7M11E818HdtxnWGnfxrGmU=;
- b=owEBbQGS/pANAwAKAbAHbkkLcWFrAcsmYgBqHyLk9cgk+1xEeOBEHFUSpeRNgrTIniPD26alJ
- mpxLsjrnnWJATMEAAEKAB0WIQQsfymul4kfZBmp4s2wB25JC3FhawUCah8i5AAKCRCwB25JC3Fh
- a1hBB/9Sv18iNp9etcxbIHTuwjpTLL2QqfhikCmtehealHMm8Dd7N3r71Bx7InayxC/j2KNDfod
- mPC61myClxgXnxatDXBDhhr6N+OlsBJrVuAYCRtIbehKvul4unwOD5JspIfECEK2YUxPWiC1TnH
- x8oTDDy/a1aQ27N1H4q6EkFEP2+MMmm8ZhmZTqzkqf7oJG5eoJATscB2x6uyWatK2YGej0OxJqo
- jx8aWRp+UNqv/Dj3Tq3tFQ5s0zmEqi9hwm0vDw45mu4EKBjbn1nrVRFbkNWMLRio5HVVFUapxjj
- 822T2mk5dFJjygbST/RDFskh61NnUrey1ARv5cjOg+I42moL
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4934; i=henrik@grimler.se;
+ h=from:subject:message-id; bh=J2VrdZZdHdrUSvVv2/0hRbTGcr86aySVkMiUCH39Ld4=;
+ b=owEBbQGS/pANAwAKAbAHbkkLcWFrAcsmYgBqHyLv132KVuTm+PwuW9cyhgbWox+p1MI5l8ytv
+ Lc6CdMzpuSJATMEAAEKAB0WIQQsfymul4kfZBmp4s2wB25JC3FhawUCah8i7wAKCRCwB25JC3Fh
+ a85yB/9pljhUB9wE1+ub5xWBjYeuyWheF5e3cs9FG332jfHA7MNhxV3jAy6ph44Dt2NwElbxhZk
+ MJdh6JkGO1EKm/L5euXIEJjZq2LUooo4zQJXIXjEzmEj7LunTbJbwq3l+d1Obyyg/eLxQokugWC
+ a5kojU/pnRDnfLkUvxvbqaKonQWFkDhLd5MNJJQtlG1rC3idlEGwUD/tbgQJLe0ttuLhONv79na
+ Zw9c4hXWAUXPUHFbCJF/N9gSpUh19fm04xTePQFEQqWbNWBzYIwMN7qVsc5ThmvTMlpEX98CAkF
+ YfVyb5whq2UwCMmH6hZErjM6DH7RiP0kAFSshpa8M3LWZ0iT
 X-Developer-Key: i=henrik@grimler.se; a=openpgp;
  fpr=2C7F29AE97891F6419A9E2CDB0076E490B71616B
 X-Migadu-Flow: FLOW_OUT
@@ -74,56 +77,177 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+To use MHL we currently need the MHL chip to be permanently on, which
+consumes unnecessary power. Let's use extcon attached to MUIC to enable
+the MHL chip only if it detects an MHL cable.
 
-This series fixes so HDMI through the sii9234 MHL chip works when
-cable is hotplugged, by making the MHL chip use extcon cable detection
-functions. Patch 3, that actually implements the extcon parts, is heavily
-inspired by commit 688838442147 ("drm/bridge/sii8620: use micro-USB
-cable detection logic to detect MHL") by Maciej Purski.
-
-Before these changes, HDMI only worked if cable was plugged in before
-booting. If no cable was connected, then wlr-randr still showed HDMI
-as connected, with 0x0 px, which confused at least some UIs (phosh)
-and caused problems:
-https://gitlab.gnome.org/World/Phosh/phosh/-/issues/828
-
-Tested on exynos4412-i9305.
-
-Best regards,
-Henrik Grimler
-
+Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
 Signed-off-by: Henrik Grimler <henrik@grimler.se>
 ---
-Changes in v4:
-- Collect tags
-- Link to v3: https://lore.kernel.org/r/20250824-exynos4-sii9234-driver-v3-0-80849e716a37@grimler.se
-
-Changes in v3:
-- Fix return of dev_err_probe in patch 2 and patch 3, spotted by
-  Dmitry and Marek respectively.
-- Change to depends on EXTCON || !EXTCON instead of select
-- Collect tags for patch 1 (not 3 since there were (minor) changes)
-- Link to v2: https://lore.kernel.org/r/20250724-exynos4-sii9234-driver-v2-0-faee244f1d40@grimler.se
-
-Changes in v2:
-- Add dependency on extcon in patch 3. Issue reported by kernel test robot <lkp@intel.com>
-- Link to v1: https://lore.kernel.org/r/20250721-exynos4-sii9234-driver-v1-0-2e47ed02f677@grimler.se
-
+v4: collect tags
+v3: add missing return in error path, spotted by Marek
+    Use depends on EXTCON || !EXTCON instead of select
+v2: add dependency on extcon. Issue reported by kernel test robot
+    <lkp@intel.com>
 ---
-Henrik Grimler (3):
-      drm/bridge: sii9234: fix some typos in comments and messages
-      drm/bridge: sii9234: use dev_err_probe where applicable
-      drm/bridge: sii9234: use extcon cable detection logic to detect MHL
+ drivers/gpu/drm/bridge/Kconfig   |  1 +
+ drivers/gpu/drm/bridge/sii9234.c | 89 ++++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 87 insertions(+), 3 deletions(-)
 
- drivers/gpu/drm/bridge/Kconfig   |   1 +
- drivers/gpu/drm/bridge/sii9234.c | 124 +++++++++++++++++++++++++++++++--------
- 2 files changed, 102 insertions(+), 23 deletions(-)
----
-base-commit: a87fef0880c4f52769b5a3c2fc1b2d73aaa04eb3
-change-id: 20231218-exynos4-sii9234-driver-d817d4b511d5
+diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+index 39385deafc68..a8343df2d424 100644
+--- a/drivers/gpu/drm/bridge/Kconfig
++++ b/drivers/gpu/drm/bridge/Kconfig
+@@ -310,6 +310,7 @@ config DRM_SII902X
+ config DRM_SII9234
+ 	tristate "Silicon Image SII9234 HDMI/MHL bridge"
+ 	depends on OF
++	depends on EXTCON || !EXTCON
+ 	help
+ 	  Say Y here if you want support for the MHL interface.
+ 	  It is an I2C driver, that detects connection of MHL bridge
+diff --git a/drivers/gpu/drm/bridge/sii9234.c b/drivers/gpu/drm/bridge/sii9234.c
+index e43248e515b3..72c6aeed6e12 100644
+--- a/drivers/gpu/drm/bridge/sii9234.c
++++ b/drivers/gpu/drm/bridge/sii9234.c
+@@ -19,6 +19,7 @@
+ 
+ #include <linux/delay.h>
+ #include <linux/err.h>
++#include <linux/extcon.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/i2c.h>
+ #include <linux/interrupt.h>
+@@ -26,6 +27,7 @@
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
++#include <linux/of_graph.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/slab.h>
+ 
+@@ -170,8 +172,12 @@ struct sii9234 {
+ 	struct drm_bridge bridge;
+ 	struct device *dev;
+ 	struct gpio_desc *gpio_reset;
+-	int i2c_error;
+ 	struct regulator_bulk_data supplies[4];
++	struct extcon_dev *extcon;
++	struct notifier_block extcon_nb;
++	struct work_struct extcon_wq;
++	int cable_state;
++	int i2c_error;
+ 
+ 	struct mutex lock; /* Protects fields below and device registers */
+ 	enum sii9234_state state;
+@@ -863,6 +869,70 @@ static int sii9234_init_resources(struct sii9234 *ctx,
+ 	return 0;
+ }
+ 
++static void sii9234_extcon_work(struct work_struct *work)
++{
++	struct sii9234 *ctx =
++		container_of(work, struct sii9234, extcon_wq);
++	int state = extcon_get_state(ctx->extcon, EXTCON_DISP_MHL);
++
++	if (state == ctx->cable_state)
++		return;
++
++	ctx->cable_state = state;
++
++	if (state > 0)
++		sii9234_cable_in(ctx);
++	else
++		sii9234_cable_out(ctx);
++}
++
++static int sii9234_extcon_notifier(struct notifier_block *self,
++			unsigned long event, void *ptr)
++{
++	struct sii9234 *ctx =
++		container_of(self, struct sii9234, extcon_nb);
++
++	schedule_work(&ctx->extcon_wq);
++
++	return NOTIFY_DONE;
++}
++
++static int sii9234_extcon_init(struct sii9234 *ctx)
++{
++	struct extcon_dev *edev;
++	struct device_node *musb, *muic;
++	int ret;
++
++	/* Get micro-USB connector node */
++	musb = of_graph_get_remote_node(ctx->dev->of_node, 1, -1);
++	/* Then get micro-USB Interface Controller node */
++	muic = of_get_next_parent(musb);
++
++	if (!muic) {
++		dev_info(ctx->dev,
++			 "no extcon found, switching to 'always on' mode\n");
++		return 0;
++	}
++
++	edev = extcon_find_edev_by_node(muic);
++	of_node_put(muic);
++	if (IS_ERR(edev)) {
++		return dev_err_probe(ctx->dev, PTR_ERR(edev),
++			      "invalid or missing extcon\n");
++	}
++
++	ctx->extcon = edev;
++	ctx->extcon_nb.notifier_call = sii9234_extcon_notifier;
++	INIT_WORK(&ctx->extcon_wq, sii9234_extcon_work);
++	ret = extcon_register_notifier(edev, EXTCON_DISP_MHL, &ctx->extcon_nb);
++	if (ret) {
++		dev_err(ctx->dev, "failed to register notifier for MHL\n");
++		return ret;
++	}
++
++	return 0;
++}
++
+ static enum drm_mode_status sii9234_mode_valid(struct drm_bridge *bridge,
+ 					 const struct drm_display_info *info,
+ 					 const struct drm_display_mode *mode)
+@@ -915,12 +985,17 @@ static int sii9234_probe(struct i2c_client *client)
+ 	if (ret < 0)
+ 		return ret;
+ 
++	ret = sii9234_extcon_init(ctx);
++	if (ret < 0)
++		return ret;
++
+ 	i2c_set_clientdata(client, ctx);
+ 
+ 	ctx->bridge.of_node = dev->of_node;
+ 	drm_bridge_add(&ctx->bridge);
+ 
+-	sii9234_cable_in(ctx);
++	if (!ctx->extcon)
++		sii9234_cable_in(ctx);
+ 
+ 	return 0;
+ }
+@@ -929,7 +1004,15 @@ static void sii9234_remove(struct i2c_client *client)
+ {
+ 	struct sii9234 *ctx = i2c_get_clientdata(client);
+ 
+-	sii9234_cable_out(ctx);
++	if (ctx->extcon) {
++		extcon_unregister_notifier(ctx->extcon, EXTCON_DISP_MHL,
++					   &ctx->extcon_nb);
++		flush_work(&ctx->extcon_wq);
++		if (ctx->cable_state > 0)
++			sii9234_cable_out(ctx);
++	} else {
++		sii9234_cable_out(ctx);
++	}
+ 	drm_bridge_remove(&ctx->bridge);
+ }
+ 
 
-Best regards,
 -- 
-Henrik Grimler <henrik@grimler.se>
+2.54.0
 
