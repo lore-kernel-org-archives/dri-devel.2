@@ -4,55 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7F5ACD6E4A
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 07:26:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0F95CD6E64
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 07:30:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 181A910ECB8;
-	Tue,  2 Jun 2026 07:26:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0458F11389C;
+	Tue,  2 Jun 2026 07:30:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZnzRxF/n";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="BTJYK8Ao";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="0E89DKlf";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0GdDlpn2";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qrPcLgnx";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2B0010ECB8
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 07:26:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 742CD43AC3;
- Tue,  2 Jun 2026 07:26:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D47041F00893;
- Tue,  2 Jun 2026 07:26:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780385216;
- bh=RaTDutm8O4FL25joYfr3D0S/a1yEhSmexHrithL7bnI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=ZnzRxF/n2F4Qt4Agm4HXQQMVObn0qCsso94xWd+qq/IvBA0yW3Y7HKoTY/FDs/ESh
- momTMcRn5YcekgJPKll0T6ODTma0A/dLvZK7MV2yfPBMG4tjfg7BII9ao2deO8KWfE
- r9N8F8HtpYKM44VKq2d0Bw4OzDiE07MXqx9AwDHrH5u+qdVncQi2XzRnXr6a+Nw5Km
- XrbOMu7XoMENeC7HDXGKOgQzMDkCjXGpmt/Xmt9yS4unyyiKNdAoLsGlQWsihFT1xR
- TFaT0N6NcS0g5y0oPxiEXP675OeMawI7rOoQWfMj0K/ZvFjAQcLUIVJ6ePOxXIG/9q
- wu/tKF5d1zMkg==
-Date: Tue, 2 Jun 2026 09:26:53 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>, 
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 04/76] drm/bridge: Add new atomic_create_state callback
-Message-ID: <20260602-burrowing-fox-of-expression-e0ac77@houat>
-References: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
- <20260530-drm-no-more-bridge-reset-v1-4-875d828d31bc@kernel.org>
- <d640577b-ea48-43ce-ad2f-c0e92b6f1248@suse.de>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DEA3113899
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 07:30:35 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6F91B68473;
+ Tue,  2 Jun 2026 07:30:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780385433; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=s/75GimBigkxhsh+VnHz8Wg6OaoHBP1HNwvMdh08414=;
+ b=BTJYK8AovGHx1pALR4/+91YUvNeRgWrNRlVgnyVqZJq9rYwuE9YyFz1izdNFqM2IHinsO+
+ 74LKAbRJ6Nj1Rw8gxgkyYinsLCPRhWvKMe5E02H9uJWQ4PQY65yzXXbZWtk5sZIAE1VYfx
+ J4jamPBDKIC6xbJH7tBjKcYzhROEaLk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780385433;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=s/75GimBigkxhsh+VnHz8Wg6OaoHBP1HNwvMdh08414=;
+ b=0E89DKlfBTv9kp18urJ8lhAWbjVJm+D4DMVNINaoTfnkVjZKaJFXRj0OlT89wVFS+51FXV
+ jxe7QEwUbakJ8dBw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=0GdDlpn2;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=qrPcLgnx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780385432; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=s/75GimBigkxhsh+VnHz8Wg6OaoHBP1HNwvMdh08414=;
+ b=0GdDlpn2aIzQaASOFAqIMWqDb6BvU/MdSY5D8vaQnzVHiA1qPrHklcU+mpWpAJqcfLEqMl
+ x47VnCuErPBN44IfmtfikDla2i70fOT1qF8mRPf1BPQh0oSviuR2rQBpokNYDxG50KFiRE
+ 4bXL4cT+mBxYXgN9p5zw7IvodVW2GgU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780385432;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=s/75GimBigkxhsh+VnHz8Wg6OaoHBP1HNwvMdh08414=;
+ b=qrPcLgnxHDcxrwJCo84V1SuQVskbV9v7HHhgi4bmj8wKza+gnp5rBF0Y7itHp66/QFI54q
+ 8aCh5+3PU2z+k4CQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1CD67779A7;
+ Tue,  2 Jun 2026 07:30:32 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id RSmNBZiGHmq/VwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 02 Jun 2026 07:30:32 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: rajat.gupta@oss.qualcomm.com, jani.nikula@linux.intel.com,
+ jani.saarinen@intel.com, simona@ffwll.ch, airlied@gmail.com,
+ mripard@kernel.org, maarten.lankhorst@linux.intel.com
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH] drm/dumb-buffers: Increase size limits to match current
+ devices
+Date: Tue,  2 Jun 2026 09:30:14 +0200
+Message-ID: <20260602073027.192758-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="7wixheqhfdbz2ric"
-Content-Disposition: inline
-In-Reply-To: <d640577b-ea48-43ce-ad2f-c0e92b6f1248@suse.de>
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[]; ARC_NA(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ MIME_TRACE(0.00)[0:+];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ FREEMAIL_TO(0.00)[oss.qualcomm.com,linux.intel.com,intel.com,ffwll.ch,gmail.com,kernel.org];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,intel.com:email,qualcomm.com:email];
+ RCPT_COUNT_SEVEN(0.00)[11];
+ DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 6F91B68473
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,135 +116,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Increase the limits for dumb-buffer arguments to sizes of 16384x16384
+at 64 bpp. Such buffer sizes are still within 32-bit unsigned limits.
+Fixes CI and high-end devices.
 
---7wixheqhfdbz2ric
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 04/76] drm/bridge: Add new atomic_create_state callback
-MIME-Version: 1.0
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 5ab62dd3687b ("drm: prevent integer overflows in dumb buffer creation helpers")
+Reported-by: Jani Nikula <jani.nikula@linux.intel.com>
+Closes: https://lore.kernel.org/dri-devel/ddf0233e50044059c85279f928661563ef6a55bf@intel.com/
+Cc: Rajat Gupta <rajat.gupta@oss.qualcomm.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+---
+ drivers/gpu/drm/drm_dumb_buffers.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-On Tue, Jun 02, 2026 at 09:24:29AM +0200, Thomas Zimmermann wrote:
-> Hi
->=20
-> Am 30.05.26 um 15:59 schrieb Maxime Ripard:
-> > Commit 47b5ac7daa46 ("drm/atomic: Add new atomic_create_state callback
-> > to drm_private_obj") introduced a new pattern for allocating drm object
-> > states: atomic_create_state, a dedicated hook that allocates and
-> > initializes a pristine state without any side effect.
-> >=20
-> > The bridge atomic_reset callback is already fallible and in practice
-> > only allocates and initializes state without touching hardware.
-> > However, the reset name does not make this contract clear: callers
-> > and implementers cannot tell from the name alone whether the hardware
-> > will be affected or when the hook is safe to call.
-> >=20
-> > Add an atomic_create_state callback to drm_bridge_funcs to make the
-> > contract explicit: allocate a pristine state, initialize it, no side
-> > effects. The core calls it when available, falling back to
-> > atomic_reset otherwise.
-> >=20
-> > Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> > ---
-> >   drivers/gpu/drm/drm_bridge.c |  8 ++++++--
-> >   include/drm/drm_bridge.h     | 33 +++++++++++----------------------
-> >   2 files changed, 17 insertions(+), 24 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> > index 687b36eea0c7..ef06c1aa509a 100644
-> > --- a/drivers/gpu/drm/drm_bridge.c
-> > +++ b/drivers/gpu/drm/drm_bridge.c
-> > @@ -498,11 +498,14 @@ static struct drm_private_state *
-> >   drm_bridge_atomic_create_priv_state(struct drm_private_obj *obj)
-> >   {
-> >   	struct drm_bridge *bridge =3D drm_priv_to_bridge(obj);
-> >   	struct drm_bridge_state *state;
-> > -	state =3D bridge->funcs->atomic_reset(bridge);
-> > +	if (bridge->funcs->atomic_create_state)
-> > +		state =3D bridge->funcs->atomic_create_state(bridge);
-> > +	else
-> > +		state =3D bridge->funcs->atomic_reset(bridge);
-> >   	if (IS_ERR(state))
-> >   		return ERR_CAST(state);
-> >   	return &state->base;
-> >   }
-> > @@ -513,11 +516,12 @@ static const struct drm_private_state_funcs drm_b=
-ridge_priv_state_funcs =3D {
-> >   	.atomic_destroy_state =3D drm_bridge_atomic_destroy_priv_state,
-> >   };
-> >   static bool drm_bridge_is_atomic(struct drm_bridge *bridge)
-> >   {
-> > -	return bridge->funcs->atomic_reset !=3D NULL;
-> > +	return (bridge->funcs->atomic_create_state ||
-> > +		bridge->funcs->atomic_reset);
-> >   }
-> >   /**
-> >    * drm_bridge_attach - attach the bridge to an encoder's chain
-> >    *
-> > diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-> > index 4ba3a5deef9a..a6c07d339afa 100644
-> > --- a/include/drm/drm_bridge.h
-> > +++ b/include/drm/drm_bridge.h
-> > @@ -502,35 +502,24 @@ struct drm_bridge_funcs {
-> >   			    struct drm_bridge_state *bridge_state,
-> >   			    struct drm_crtc_state *crtc_state,
-> >   			    struct drm_connector_state *conn_state);
-> >   	/**
-> > -	 * @atomic_reset:
-> > +	 * @atomic_create_state:
-> >   	 *
-> > -	 * Reset the bridge to a predefined state (or retrieve its current
-> > -	 * state) and return a &drm_bridge_state object matching this state.
-> > -	 * This function is called at attach time.
-> > -	 *
-> > -	 * The atomic_reset hook is mandatory if the bridge implements any of
-> > -	 * the atomic hooks, and should be left unassigned otherwise. For
-> > -	 * bridges that don't subclass &drm_bridge_state, the
-> > -	 * drm_atomic_helper_bridge_reset() helper function shall be used to
-> > -	 * implement this hook.
-> > -	 *
-> > -	 * Note that the atomic_reset() semantics is not exactly matching the
-> > -	 * reset() semantics found on other components (connector, plane, ...=
-).
-> > -	 *
-> > -	 * 1. The reset operation happens when the bridge is attached, not wh=
-en
-> > -	 *    drm_mode_config_reset() is called
-> > -	 * 2. It's meant to be used exclusively on bridges that have been
-> > -	 *    converted to the ATOMIC API
-> > +	 * Allocate a pristine, initialized, state for the bridge
-> > +	 * object and return it. This callback must have no side
-> > +	 * effects: in particular, the returned state must not be
-> > +	 * assigned to the object's state pointer and it must not affect
-> > +	 * the hardware state.
-> >   	 *
-> >   	 * RETURNS:
-> > -	 * A valid drm_bridge_state object in case of success, an ERR_PTR()
-> > -	 * giving the reason of the failure otherwise.
-> > +	 *
-> > +	 * A new, pristine, bridge state instance or an error pointer
-> > +	 * on failure.
-> >   	 */
-> > -	struct drm_bridge_state *(*atomic_reset)(struct drm_bridge *bridge);
->=20
-> This needs to remain for now, right?
+diff --git a/drivers/gpu/drm/drm_dumb_buffers.c b/drivers/gpu/drm/drm_dumb_buffers.c
+index e60130b2bb0c..9c4cfb3210aa 100644
+--- a/drivers/gpu/drm/drm_dumb_buffers.c
++++ b/drivers/gpu/drm/drm_dumb_buffers.c
+@@ -201,11 +201,12 @@ int drm_mode_create_dumb(struct drm_device *dev,
+ 	if (!args->width || !args->height || !args->bpp)
+ 		return -EINVAL;
+ 
+-	/* Reject unreasonable inputs early.  Dumb buffers are for software
+-	 * rendering; nothing legitimate needs more than 8192x8192 at 32bpp.
+-	 * This prevents overflows in downstream alignment helpers.
++	/*
++	 * Reject unreasonable inputs early. Dumb buffers are for software
++	 * rendering; nothing legitimate needs more than 16384x16384 at
++	 * 64 bpp. This prevents overflows in downstream alignment helpers.
+ 	 */
+-	if (args->width >= 8192 || args->height >= 8192 || args->bpp > 32)
++	if (args->width > 16384 || args->height > 16384 || args->bpp > 64)
+ 		return -EINVAL;
+ 
+ 	/* overflow checks for 32bit size calculations */
 
-Yeah, Liu Ying pointed it out too, it's a screwup. I'll keep
-atomic_reset until all drivers are converted.
+base-commit: a980196655477a8f5067112946401fe52e510664
+-- 
+2.54.0
 
-Thanks for your review!
-Maxime
-
---7wixheqhfdbz2ric
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCah6FtAAKCRAnX84Zoj2+
-dozsAYC3ZIN8AEKgvFe68QxItepTU7sBvTsSWJueiB/4xi/JH0m00yQtG/2VLpeL
-u1JBMZgBf11i1BO8Bia2VLpsnEmRV4Nj1GSpfAhVKKNU9fONSg3p0A+z7e1pKqwM
-2K0oizJMsg==
-=8Ynx
------END PGP SIGNATURE-----
-
---7wixheqhfdbz2ric--
