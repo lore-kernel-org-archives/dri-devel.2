@@ -4,128 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E74F1CD6E4A
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 11:19:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED07DCD6E4A
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 11:23:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BFA610EF6A;
-	Tue,  2 Jun 2026 11:19:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 280C410EF7A;
+	Tue,  2 Jun 2026 11:23:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="T0rpCcGC";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="sEVO3Ijn";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="C2aliXHX";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="sEVO3Ijn";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="C2aliXHX";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012069.outbound.protection.outlook.com
- [40.93.195.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F39C10EF66;
- Tue,  2 Jun 2026 11:19:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V6SEHWFv6/ROIUKThT/dVXL+1lgkWOUHCBX3E5aev1EC/AEF707Llxt4l4mkEeWIs7hsBTPW0OFj2ikyPmbpqeKyvIKicwZPUHPSJCU8HO4UiLm7aq2Cu9ooSxq33in4/XjxHM3Ot4BR5Wi2YgLvCrWKcRoaawbwn1crhuW2pYNmMqDHnfVHqSXu++tSiSiaKLuGIkiM0Xqmfo9TlurHXQh/Sks3G4h5tXD5mQY7bqoDpj44d3VGss0AfrvNeqzfuVNuAfwy0pcWRqIPfKoPObkNLOD6cV8xTV2tzq/ryUfaSz/dgz11q40ghUnya0LJbQUhpqUC/EZ6azQwrV8TUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gXG6RYaoegMiPAZauJKZCxwsP8DPmmfUs3bZnqmW6xo=;
- b=OSUHmYr4MIRXkiCWVn92UkYYoSQXPu9/BvZUbOc+blLeRPyi64/dEdZDZWX3kDHOXmQRUHbrQX8EOBW8Foqk2LtvE/bGhqvhNxtl4qM6cSjPCotph+UcDvz2W2Tu5YSKR49qLhH8FDhnwa9+sowQjeoyXd9VJ4UX7SoNynF7LZfBGmTplz6TvDmmnOzADMRste1rqrjsEqdQqMz/LOGMhkykcFYhMxYX1wpHKQEqzOwz6OS2rJ4Su1rFUN2YnME6OkFXTi5DaaUuTP1KLekljBMYl9vVAS1I05AuCdLS2OTHAZ/OaCOqOofQDoymXBTk7wErZsRF1OjTZmP1pik28g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gXG6RYaoegMiPAZauJKZCxwsP8DPmmfUs3bZnqmW6xo=;
- b=T0rpCcGCEfCZqsLg0bXs7kA4o3lLVXRYbZCz35S3swRExPYgVSl2mikmoKGje5dQMbtaR9vaPIlZ9T8ZMnOLB6mwXsLPC6FJjaXF92ChdghxoEaZHG8zcEAHzvHaqUDNrOA6ShfOVFE4CJOllIMpPPKlzeZNucO2B/fQekPvgOo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH0PR12MB8550.namprd12.prod.outlook.com (2603:10b6:610:192::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Tue, 2 Jun 2026
- 11:19:33 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0071.011; Tue, 2 Jun 2026
- 11:19:32 +0000
-Message-ID: <6d0aba3d-2f53-453b-b5b1-39a0cf12c551@amd.com>
-Date: Tue, 2 Jun 2026 13:19:27 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu/mes11: fix queue init wptr reset
-To: =?UTF-8?B?6IKW5ram5a6H?= <220255722@seu.edu.cn>
-Cc: alexander.deucher@amd.com, airlied@gmail.com, simona@ffwll.ch,
- kenneth.feng@amd.com, kevinyang.wang@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- jianhao.xu@seu.edu.cn, stable@vger.kernel.org
-References: <20260602050354.2237095-1-runyu.xiao@seu.edu.cn>
- <20260602050354.2237095-2-runyu.xiao@seu.edu.cn>
- <bb4e417d-5669-4d06-a731-c9aa369f6bd7@amd.com>
- <AMgAqgBUKT9GR95Sm49u6arg.3.1780397583210.Hmail.220255722@seu.edu.cn>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <AMgAqgBUKT9GR95Sm49u6arg.3.1780397583210.Hmail.220255722@seu.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0178.namprd13.prod.outlook.com
- (2603:10b6:208:2bd::33) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AADE710EF7D
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 11:23:15 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 32D646A8A7;
+ Tue,  2 Jun 2026 11:23:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780399394; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=cof2ipM+x0CWa/f1vOlZ/iw2a5IthrZAjRvKs+9jnTk=;
+ b=sEVO3IjnLEHwuBD311nyOQcAu5mJpBfGeCc+25IeNYtY6OOzgT44OAbUVRvXJjTk2npbmo
+ mYXDZx5QpOcIBh8L4kFr7xZZ2W5b9hH9jd3a0tjGYCQLcZwhQr+QID0j5Py/WUIaEa488r
+ jIHYlhtiw2utvlhcZQDCbFEzu00CZl8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780399394;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=cof2ipM+x0CWa/f1vOlZ/iw2a5IthrZAjRvKs+9jnTk=;
+ b=C2aliXHXCbujCwIy6eTPZp8OjA92tWwvAQYTUluvMRf9v+3J/dTQYVr39RovBpI+T1JYyQ
+ 3AJtQqqMZOSpbbCA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780399394; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=cof2ipM+x0CWa/f1vOlZ/iw2a5IthrZAjRvKs+9jnTk=;
+ b=sEVO3IjnLEHwuBD311nyOQcAu5mJpBfGeCc+25IeNYtY6OOzgT44OAbUVRvXJjTk2npbmo
+ mYXDZx5QpOcIBh8L4kFr7xZZ2W5b9hH9jd3a0tjGYCQLcZwhQr+QID0j5Py/WUIaEa488r
+ jIHYlhtiw2utvlhcZQDCbFEzu00CZl8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780399394;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=cof2ipM+x0CWa/f1vOlZ/iw2a5IthrZAjRvKs+9jnTk=;
+ b=C2aliXHXCbujCwIy6eTPZp8OjA92tWwvAQYTUluvMRf9v+3J/dTQYVr39RovBpI+T1JYyQ
+ 3AJtQqqMZOSpbbCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DBADB779A7;
+ Tue,  2 Jun 2026 11:23:13 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id B4JuNCG9HmrKPgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 02 Jun 2026 11:23:13 +0000
+Message-ID: <bec1d275-8c6e-48d9-8611-137dfaf52acf@suse.de>
+Date: Tue, 2 Jun 2026 13:23:13 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH0PR12MB8550:EE_
-X-MS-Office365-Filtering-Correlation-Id: 234f985d-9a80-43e6-7d8a-08dec098d1b8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|56012099006|11063799006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: FoHVBuCKOMXBMc6OuGxKUmfJWKZOuIaXB2cvG7UAyVLyHCq4hG9nrCRYrRJbX0CdlmREIAq+PHgnkeG3Vgp7RDbjHGP//AHt2cU0Jzw4RZtQRz58JBfrcxnWb90nRnivkwlTmZ4fy7+1TC1Nl5PyOE+6yA2I0InM3bKcDKQ16M7na8lV9qW0TKQkcnH5LpTtULx9aEzJPZqgzLcRczgH26zAIAql4/p6jZELaf+wAarfBi3avEjUKk0QWC+67V/9b8llHJjK3TA0V9XPIRD73cbjk3QRGp/seS/guzoVscdXUz98so3h0SWKy/JWPbXf4stkMqSnx3yUUQMVPEZVp6uBi++WC1IGXwY6wFU4nJMeiZSvstWhOJ3WbS8ou0AASbqQWq9jy5es3PfuGxpfu0qsk4o8G6qQ6yGMFNhb9c+Cf2tykNFVK6lhD85jDFIuxN5DlxsYqhh8tFsN08Hz0RajV2D7Rd+LMHt0Kirkwk+Ymfow4jOUR3dNIKokR9C/BJRZP9In8K2U5Xc6ttCWfPt3HDwFAv0uW7xNj/5VvMZp0MFS+o0OM7inb06898yNaXRV8cYiM7ujhwLHs1A0hi59E6c5mLiEejHOrKmZrp9KL1ayPzBIZqqGO33cssMsM1yWE3805Rg9sm6LJElvEGgb5s3IUfCJAZIgtOtNK96hSUslKrpsYTFaSERuFxYH
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RDlCWWtzVHpxVUVicG9HcHFCZkI3MGJsTGVkNUtqWFF1aXpuU2xHTVhvdlVN?=
- =?utf-8?B?dU8xMjRIVVlDQ2ljS1BnajNDVm1HWEQwekZXR0VBSlN5M2FQSXAvZTlSZEE5?=
- =?utf-8?B?ZzJ3dy9zTERlVStKSXk2em4wMXE2MGIrdmJUNjRVQ3JjMEFUN0w1QUVoZ1Qy?=
- =?utf-8?B?Ump3ZmZrUlR0L08vaW5oeXBvVWZNYnh3SzBGSFZOcUNZUndoK2UyZmI4dnNV?=
- =?utf-8?B?QkxQRDVSL2dhUU1DTEZaTFB2U1Y1aEpNek9rRlVxUGg1VE5oaWR4cURIUEJV?=
- =?utf-8?B?cnQ3RnFnQk9LYURuQjdSMjlvOEFaNmRuMzFmektSbXVXaTJ5NmlWczJhbUdx?=
- =?utf-8?B?ZkFOaXFhY0R4eEdMdXM2YzErSGlFUFZqUVBBL3ptWk1pbFYzSlVIL3lzTnVR?=
- =?utf-8?B?aEd6TmMrd1hmamo5aTd5OWdVSFIxNVZjZE9lRzVSZE9TUnl4UWJwZ1BSZi9W?=
- =?utf-8?B?bVBWUGU3MDI2c3pxN1ZGblN0VWY5U0ZRaHRtcWZwbXBQVkgrbExUbUhNY0V0?=
- =?utf-8?B?ekFia21KMXQyeDhMQVN0a0h2VnN1bStnWi8xVGFIMkZIM0ZkOG1PbGZrUHBH?=
- =?utf-8?B?WWE2WVMwQlNTdjh2WEc3b3dXKzdST01LY2o3Z1JXRDNBQWFyUUxwTzY0Q3FD?=
- =?utf-8?B?VHNIbUNmbUhhbkZ1cmpIWE1RN3FEOFpIYW9OSzhuQjdveGFKMjBXSnVhcGJK?=
- =?utf-8?B?cXlTQUZndS95SjFxbjRRTXJyaVN2blJ2ZnJmOXF1ZkVNaGRaR1ZtUVZvazRx?=
- =?utf-8?B?a1VRWFZENmRhUUdvK1AzRHRNQ3lUYXY3RHZFcDA5QkdGS0kxSGZKZ3BqRUd1?=
- =?utf-8?B?YlVLNW9nUDJmUnNsR0NSSkVxNGdVV25jcUVlRktmYXRmNXVaZVpDNVpMOUNM?=
- =?utf-8?B?Uk5WaS9MYXpjQkRtY21paWR6YUhyZ2hrNVdxdkxQcHRYUmJuOHNDNzNKRzAw?=
- =?utf-8?B?WUY1UCs0Y21mQTJEMkdpSWdoR3Q1M0NXRjdkbTBMR3dzeG5yMms3aWlpWUNt?=
- =?utf-8?B?c0VDR0QzdHdSWGNDb1cvSmp3cTFpSDdGRFhVL1Q2R2E3RFhPdUV1UFY0cWMz?=
- =?utf-8?B?cVYxcm96RkRMRWZrWHFiU3RWcjVCMW8rMzBHMFhpekNaVnNCN2xRa0c3S1Jy?=
- =?utf-8?B?eElra0xNdUVUcU5zMS9tNG1TaUpMdHovTHN4SFVmOFFXTGMveW03ZGtzOG9w?=
- =?utf-8?B?TmE5c05vZlBOTFhGeGVRYXhDK2swOTBXdTllSUxxNEZ0TG5GQXZtcnF3NG9p?=
- =?utf-8?B?UStLUTFTM09HRkV1K2VrVVBRYVRXSEJadGg2YXQ3T2MxNWhKVElKOXUzdENE?=
- =?utf-8?B?K1VTazk3MlRJQUpOYkR4VWlWSkVRWnRkSks5Y2hLZGFzaG4zSmZibEpPT0hl?=
- =?utf-8?B?NzFJUG5wT2FCVnM4M3RQOWRlajNqdE8rQzgxd3BrYXBaaFY5UUExVENFNFhB?=
- =?utf-8?B?Z2grVW1iRzBoTVJjdlRnTHppKzNUOE04bWU4dC9KMVlFelV0ckgwRkt4UmxD?=
- =?utf-8?B?SS9XbXM5VFZxb3h4UlVnaStLZkh3cmxJRGhqK0dOU1FMN2FDSTN0TkZIRkg5?=
- =?utf-8?B?M09RaGQ2czVJUjF1ZW85Q1ltWERjZXZtdzNHd0prQ040d0ZoUkU3SitpRzRj?=
- =?utf-8?B?b2RQL0Y0b0grSGVuYzhMa2NoejVjU1pYbDJacHlhRGRCeisxNk1LTm1kQ2h3?=
- =?utf-8?B?SVl5bUpOeW1ieThxU2FIMjc2OUdTanZOb25waVVTTEg1T1pQdTFzb3pnVWoz?=
- =?utf-8?B?R0JqaTdvQTNxSjlSZmJWQ1A0QnVIcGJuM01CRWl0a016bDZJeGRqT2dDbjEz?=
- =?utf-8?B?dzRXVXhJTFdXUmh4RHgxMHZxWE9pUnRzcFJxL29sbDBUZ1FvUE0wVHh2aG9M?=
- =?utf-8?B?RTJhY0sydk9jSmhBdCtiL2t5LzdHVGFCSnY4VEVmYXFFZytDa2NBRUVsVkt6?=
- =?utf-8?B?dmdwQzJMeVkwaUVyREMyT251WFczNy9aVWN0dzU3TXVVNVdqdythUXdRMTVt?=
- =?utf-8?B?bEFhTkFpT2crR1llQ05HNlVKUEtzeS9vRWJRTmhtaWpVSUs1V1BQL0RYd0NL?=
- =?utf-8?B?NkMxR3Nyc2N0UHNFb1IvcytuWldQNTJwSlVUbjZBSmphY2p1WVI5UDhxVllx?=
- =?utf-8?B?QXppMDZETE1rVUZLVFF1U3lIWFpyaEhFeVY0MTJ3N2pSbWZPMy9MV3NEd244?=
- =?utf-8?B?Yjh2RW40Zm9Oa3hzenhvQzhvOWRpRFpCaVpSMHZVekRNazdCV0x2ZitnT2VU?=
- =?utf-8?B?MDFYR29QR3dGMnJFT0tTL3NGbDFsMVlRSDNQTjkwNWlQZ2hxRldEUmswOWxr?=
- =?utf-8?Q?loifMDJVaFc4WFjNcZ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 234f985d-9a80-43e6-7d8a-08dec098d1b8
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 11:19:32.4926 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eYKAejecXYbGEQZXQAmtUnn+OcnfvknYEh42M3QYsfIVEQDPbz6QarLKeKHxM20e
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8550
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/dumb-buffers: Increase size limits to match current
+ devices
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ "Saarinen, Jani" <jani.saarinen@intel.com>,
+ "rajat.gupta@oss.qualcomm.com" <rajat.gupta@oss.qualcomm.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "airlied@gmail.com"
+ <airlied@gmail.com>, "mripard@kernel.org" <mripard@kernel.org>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "Syrjala, Ville" <ville.syrjala@intel.com>
+References: <20260602073027.192758-1-tzimmermann@suse.de>
+ <PH3PPFAB42632359128CE02EC820D17E137E0122@PH3PPFAB4263235.namprd11.prod.outlook.com>
+ <577c2e6c08b96844a5144bee0d5a0536b4ab939e@intel.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <577c2e6c08b96844a5144bee0d5a0536b4ab939e@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ ARC_NA(0.00)[];
+ FREEMAIL_TO(0.00)[linux.intel.com,intel.com,oss.qualcomm.com,ffwll.ch,gmail.com,kernel.org];
+ MIME_TRACE(0.00)[0:+]; TO_DN_EQ_ADDR_SOME(0.00)[];
+ RCPT_COUNT_SEVEN(0.00)[11]; MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:mid, intel.com:email,
+ lists.freedesktop.org:email, 01.org:url, suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,51 +149,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/2/26 12:53, 肖润宇 wrote:
-> 	
-> Some people who received this message don't often get email from 220255722@seu.edu.cn. Learn why this is important <https://aka.ms/LearnAboutSenderIdentification>
-> 	
-> 
-> Hi Christian,
-> 
-> Thanks, understood.
-> 
-> To make sure I rework this in the right direction: would you expect
-> this reset path to do
-> 
->   ring->wptr = 0;
->   amdgpu_ring_set_wptr(ring);
-> 
-> instead of writing wptr_cpu_addr directly?
-> 
-> I am asking because amdgpu_ring_set_wptr() also updates the doorbell,
-> so I want to confirm that this is the intended sequence for the
-> reset/suspend case here.
+Hi
 
-Yeah I was wondering the same thing.
+Am 02.06.26 um 12:53 schrieb Jani Nikula:
+> On Tue, 02 Jun 2026, "Saarinen, Jani" <jani.saarinen@intel.com> wrote:
+>> Hi,
+>>> -----Original Message-----
+>>> From: Thomas Zimmermann <tzimmermann@suse.de>
+>>> Sent: Tuesday, 2 June 2026 10.30
+>>> To: rajat.gupta@oss.qualcomm.com; jani.nikula@linux.intel.com; Saarinen,
+>>> Jani <jani.saarinen@intel.com>; simona@ffwll.ch; airlied@gmail.com;
+>>> mripard@kernel.org; maarten.lankhorst@linux.intel.com
+>>> Cc: dri-devel@lists.freedesktop.org; intel-gfx@lists.freedesktop.org; intel-
+>>> xe@lists.freedesktop.org; Thomas Zimmermann <tzimmermann@suse.de>
+>>> Subject: [PATCH] drm/dumb-buffers: Increase size limits to match current
+>>> devices
+>>>
+>>> Increase the limits for dumb-buffer arguments to sizes of 16384x16384 at 64
+>>> bpp. Such buffer sizes are still within 32-bit unsigned limits.
+>>> Fixes CI and high-end devices.
+>>>
+>>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>> Fixes: 5ab62dd3687b ("drm: prevent integer overflows in dumb buffer
+>>> creation helpers")
+>>> Reported-by: Jani Nikula <jani.nikula@linux.intel.com>
+>>> Closes: https://lore.kernel.org/dri-
+>>> devel/ddf0233e50044059c85279f928661563ef6a55bf@intel.com/
+>> Seems not helping on i915 CI BAT issue https://lore.kernel.org/intel-gfx/178038951063.34290.3796875109342598028@6beec6c84f66/T/#u
+>> => https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167719v1/index.html?
+> Right, so vgem_basic has this, among other things:
+>
+> 	bo.width = 1<<15;
+> 	bo.height = 1<<15;
+> 	bo.bpp = 16;
+> 	vgem_create(fd, &bo);
+>
+> i.e. 32768x32768.
+>
+> Not so sure about this one.
+>
+> Anyone else care to chime in?
 
-I think the correct approach would be to make both rptr_cpu_addr and wptr_cpu_addr void* in the amdgpu_ring.h structure instead of u32* and then cast that to either (u64*) or (u32*) depending on the ring type.
+I give up. I'll send out a patch to remove the size limits in a bit. The 
+rest of the overflow fixes in the broken patch should not be a problem, 
+I think.
 
-The atomic64_t hack should really be removed.
+But TBH allocating a dumb buffer of that size makes no sense. Who uses a 
+2-GiB buffer for software rendering?
 
-BTW Reading the rptr is wrong on multiple instances as well and should probably be fixed in the same patch set.
+And as I mentioned elsewhere, there are reports about devices with GiBs 
+of VRAM but only a few hundered MiB of PCI-BAR ranges. As we don't have 
+DMA here, there will be some size limits required to make mmap work 
+correctly.
 
-Regards,
-Christian.
+Best regards
+Thomas
 
-> 
-> Thanks,
-> Runyu
-> 
-> On Tue, Jun 2, 2026 at 11:49:05AM +0200, Christian König wrote:
->> Clear NAK.
+>
+>
+> BR,
+> Jani.
+>
+>>> Cc: Rajat Gupta <rajat.gupta@oss.qualcomm.com>
+>>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>>> Cc: Maxime Ripard <mripard@kernel.org>
+>> Br,
+>> Jani
 >>
->> The atomic64_t cast hack is just something we did for older
->> generations and is not something which is necessary nor should
->> be done here.
->>
->> What could be possible is that we need to use amdgpu_ring_set_wptr()
->> here to correctly distinguish between queues with 32bit and 64bit
->> wptrs.
-> 
+>>> ---
+>>>   drivers/gpu/drm/drm_dumb_buffers.c | 9 +++++----
+>>>   1 file changed, 5 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_dumb_buffers.c
+>>> b/drivers/gpu/drm/drm_dumb_buffers.c
+>>> index e60130b2bb0c..9c4cfb3210aa 100644
+>>> --- a/drivers/gpu/drm/drm_dumb_buffers.c
+>>> +++ b/drivers/gpu/drm/drm_dumb_buffers.c
+>>> @@ -201,11 +201,12 @@ int drm_mode_create_dumb(struct drm_device
+>>> *dev,
+>>>   	if (!args->width || !args->height || !args->bpp)
+>>>   		return -EINVAL;
+>>>
+>>> -	/* Reject unreasonable inputs early.  Dumb buffers are for software
+>>> -	 * rendering; nothing legitimate needs more than 8192x8192 at
+>>> 32bpp.
+>>> -	 * This prevents overflows in downstream alignment helpers.
+>>> +	/*
+>>> +	 * Reject unreasonable inputs early. Dumb buffers are for software
+>>> +	 * rendering; nothing legitimate needs more than 16384x16384 at
+>>> +	 * 64 bpp. This prevents overflows in downstream alignment helpers.
+>>>   	 */
+>>> -	if (args->width >= 8192 || args->height >= 8192 || args->bpp > 32)
+>>> +	if (args->width > 16384 || args->height > 16384 || args->bpp > 64)
+>>>   		return -EINVAL;
+>>>
+>>>   	/* overflow checks for 32bit size calculations */
+>>>
+>>> base-commit: a980196655477a8f5067112946401fe52e510664
+>>> --
+>>> 2.54.0
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
