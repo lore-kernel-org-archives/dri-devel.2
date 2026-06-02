@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99D43CD6E4A
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 10:33:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 191C0CD6E4A
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 10:34:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0032710EE9B;
-	Tue,  2 Jun 2026 10:33:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A9FE10EEA6;
+	Tue,  2 Jun 2026 10:34:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="HGBC4leZ";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="QF6ojkgt";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id C9C6710EE9B
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 10:33:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8EB5A10EEA5
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 10:34:23 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7C067353D
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 03:33:02 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 268B12364
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 03:34:18 -0700 (PDT)
 Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
  by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 3293A3F93E
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 03:33:07 -0700 (PDT)
+ D6E813F632
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 03:34:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1780396387; bh=iOHUK6brXgyIm879Y6Al2FeqYaz5id6uidKZL33WOWI=;
+ t=1780396463; bh=sSLG3wXzMGkuchBhOWXlkifyhi6ZS+mT6rRQfEDVsGo=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=HGBC4leZNohwQyphX/3IryBRBxWRH1mskr33fFwojF+eMFlFxxn8GE55YqP8JbbsQ
- 9YLegGqHkssXaW59v/k4HvXh8u0VbbRpU7R3KJQutZXWUe1x4FhrnWxoa8jzippgPF
- J2Un9AV4ueLv53KNibnTbaMZnrDEvoyVuxR47nVw=
-Date: Tue, 2 Jun 2026 11:32:32 +0100
+ b=QF6ojkgtfiWKB1BYJI9sFqp9mR8BcJmh8pFTtZFq4qB/yT7RAwg3w5+HD9+yNIYRn
+ 05ezoegyc7N7nB4wjpy6o7XufCW9osPaS61KfwK/gRNdabPuvVKgLJ092bySfX5noE
+ pR0P+py2QqFTrmAmRktW0rkOcSNKx9ZzKU+ZOmqs=
+Date: Tue, 2 Jun 2026 11:33:49 +0100
 From: Liviu Dudau <liviu.dudau@arm.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Jani Nikula <jani.nikula@linux.intel.com>,
@@ -59,15 +59,15 @@ Cc: Jani Nikula <jani.nikula@linux.intel.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v5 3/8] drm/komeda: use drmm_writeback_connector_init()
-Message-ID: <ah6xQEWemicF_ECc@e142607>
+Subject: Re: [PATCH v5 4/8] drm/mali: use drmm_writeback_connector_init()
+Message-ID: <ah6xjR_vHhsXqvyI@e142607>
 References: <20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com>
- <20260505-wb-drop-encoder-v5-3-42567b7c7af2@oss.qualcomm.com>
+ <20260505-wb-drop-encoder-v5-4-42567b7c7af2@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260505-wb-drop-encoder-v5-3-42567b7c7af2@oss.qualcomm.com>
+In-Reply-To: <20260505-wb-drop-encoder-v5-4-42567b7c7af2@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,7 +83,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 05, 2026 at 03:25:00AM +0300, Dmitry Baryshkov wrote:
+On Tue, May 05, 2026 at 03:25:01AM +0300, Dmitry Baryshkov wrote:
 > The driver uses drm_writeback_connector_init() instead of its drmm
 > counterpart, but it doesn't perform the job queue cleanup (neither
 > manually nor by calling drm_writeback_connector_cleanup()). On the
@@ -104,81 +104,66 @@ Best regards,
 Liviu
 
 > ---
->  .../drm/arm/display/komeda/komeda_wb_connector.c   | 30 ++++++++++++----------
->  1 file changed, 17 insertions(+), 13 deletions(-)
+>  drivers/gpu/drm/arm/malidp_mw.c | 25 ++++++++++++++-----------
+>  1 file changed, 14 insertions(+), 11 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
-> index 41cc3e080dc9..bcc53d4015f1 100644
-> --- a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
-> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
-> @@ -5,6 +5,7 @@
->   *
->   */
->  #include <drm/drm_framebuffer.h>
-> +#include <drm/drm_managed.h>
->  #include "komeda_dev.h"
->  #include "komeda_kms.h"
->  
-> @@ -121,17 +122,10 @@ komeda_wb_connector_fill_modes(struct drm_connector *connector,
->  	return 0;
+> diff --git a/drivers/gpu/drm/arm/malidp_mw.c b/drivers/gpu/drm/arm/malidp_mw.c
+> index fad343842038..6e0c78e998aa 100644
+> --- a/drivers/gpu/drm/arm/malidp_mw.c
+> +++ b/drivers/gpu/drm/arm/malidp_mw.c
+> @@ -84,11 +84,6 @@ malidp_mw_connector_detect(struct drm_connector *connector, bool force)
+>  	return connector_status_connected;
 >  }
 >  
-> -static void komeda_wb_connector_destroy(struct drm_connector *connector)
+> -static void malidp_mw_connector_destroy(struct drm_connector *connector)
 > -{
 > -	drm_connector_cleanup(connector);
-> -	kfree(to_kconn(to_wb_conn(connector)));
 > -}
 > -
->  static const struct drm_connector_funcs komeda_wb_connector_funcs = {
->  	.reset			= drm_atomic_helper_connector_reset,
->  	.detect			= komeda_wb_connector_detect,
->  	.fill_modes		= komeda_wb_connector_fill_modes,
-> -	.destroy		= komeda_wb_connector_destroy,
->  	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
->  	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
+>  static struct drm_connector_state *
+>  malidp_mw_connector_duplicate_state(struct drm_connector *connector)
+>  {
+> @@ -114,7 +109,6 @@ static const struct drm_connector_funcs malidp_mw_connector_funcs = {
+>  	.reset = malidp_mw_connector_reset,
+>  	.detect = malidp_mw_connector_detect,
+>  	.fill_modes = drm_helper_probe_single_connector_modes,
+> -	.destroy = malidp_mw_connector_destroy,
+>  	.atomic_duplicate_state = malidp_mw_connector_duplicate_state,
+>  	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
 >  };
-> @@ -143,13 +137,15 @@ static int komeda_wb_connector_add(struct komeda_kms_dev *kms,
->  	struct komeda_wb_connector *kwb_conn;
->  	struct drm_writeback_connector *wb_conn;
->  	struct drm_display_info *info;
+> @@ -211,6 +205,7 @@ static u32 *get_writeback_formats(struct malidp_drm *malidp, int *n_formats)
+>  int malidp_mw_connector_init(struct drm_device *drm)
+>  {
+>  	struct malidp_drm *malidp = drm_to_malidp(drm);
 > +	struct drm_encoder *encoder;
-> +
->  	u32 *formats, n_formats = 0;
->  	int err;
+>  	u32 *formats;
+>  	int ret, n_formats;
 >  
->  	if (!kcrtc->master->wb_layer)
->  		return 0;
->  
-> -	kwb_conn = kzalloc_obj(*kwb_conn);
-> +	kwb_conn = drmm_kzalloc(&kms->base, sizeof(*kwb_conn), GFP_KERNEL);
->  	if (!kwb_conn)
+> @@ -224,11 +219,19 @@ int malidp_mw_connector_init(struct drm_device *drm)
+>  	if (!formats)
 >  		return -ENOMEM;
 >  
-> @@ -165,11 +161,19 @@ static int komeda_wb_connector_add(struct komeda_kms_dev *kms,
->  		return -ENOMEM;
->  	}
->  
-> -	err = drm_writeback_connector_init(&kms->base, wb_conn,
-> -					   &komeda_wb_connector_funcs,
-> -					   &komeda_wb_encoder_helper_funcs,
+> -	ret = drm_writeback_connector_init(drm, &malidp->mw_connector,
+> -					   &malidp_mw_connector_funcs,
+> -					   &malidp_mw_encoder_helper_funcs,
 > -					   formats, n_formats,
-> -					   BIT(drm_crtc_index(&kcrtc->base)));
-> +	encoder = drmm_plain_encoder_alloc(&kms->base, NULL,
-> +					   DRM_MODE_ENCODER_VIRTUAL, NULL);
+> -					   1 << drm_crtc_index(&malidp->crtc));
+> +	encoder = drmm_plain_encoder_alloc(drm, NULL, DRM_MODE_ENCODER_VIRTUAL,
+> +					   NULL);
 > +	if (IS_ERR(encoder))
 > +		return PTR_ERR(encoder);
 > +
-> +	drm_encoder_helper_add(encoder, &komeda_wb_encoder_helper_funcs);
+> +	drm_encoder_helper_add(encoder, &malidp_mw_encoder_helper_funcs);
 > +
-> +	encoder->possible_crtcs = drm_crtc_mask(&kcrtc->base);
+> +	encoder->possible_crtcs = drm_crtc_mask(&malidp->crtc);
 > +
-> +	err = drmm_writeback_connector_init(&kms->base, wb_conn,
-> +					    &komeda_wb_connector_funcs,
+> +	ret = drmm_writeback_connector_init(drm, &malidp->mw_connector,
+> +					    &malidp_mw_connector_funcs,
 > +					    encoder,
 > +					    formats, n_formats);
->  	komeda_put_fourcc_list(formats);
->  	if (err) {
->  		kfree(kwb_conn);
+>  	kfree(formats);
+>  	if (ret)
+>  		return ret;
 > 
 > -- 
 > 2.47.3
