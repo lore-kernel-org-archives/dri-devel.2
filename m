@@ -4,71 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48F3ECD5BD1
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 22:48:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBA99CD6E57
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 22:48:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A918510F64C;
-	Tue,  2 Jun 2026 22:48:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4672210F64E;
+	Tue,  2 Jun 2026 22:48:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gScpHOXm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KdCZvhkR";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC16510F64C
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 22:48:20 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-490686877a1so554905e9.0
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 15:48:20 -0700 (PDT)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F05810F64E
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 22:48:23 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-45eecb8bf67so4335610f8f.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 15:48:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780440499; x=1781045299; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1780440502; x=1781045302; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=AgjU2Qt2uFal6066puOiKcG/bH5c3F/sQ7Yrgz0f2yo=;
- b=gScpHOXmbMH17LZ/T3ClFKgIKKZQRlYfRBElnSk303dpBVpr3ErJn4Z2gaUZJxKdv1
- +K6HwpS3duikeZGs9SzBz6OpkJjnS2b7w6ZEbs9zRQkoUZQaI8Y3cV0UrfnYMdoBA/6G
- mkXVYPZZc5mDxDDjrrNPHSdTSFgoP7NAmi5mjs7xyswp15eSzb7oxIIGrw0DM11xKl/M
- rC+n21uiYfFEJ0WLT0/AaINo5xF4pCalHfEEsuVthl41JCjIQ2b/aebZtM9++9YbvJgC
- ERhpOm60dzsRlMLJM/6ejQcYrra7ug+KPZ2SyKANXTL7D36eMgGfSrIQU4yaCwjBnM6t
- eJCA==
+ :reply-to; bh=GsoCp+QEhPQqcC7YciJ1pPB6BZ3pQYi3CKXlL70tQeM=;
+ b=KdCZvhkRjC0Ngn3fqpOBkDP7xfrXW1dVRxRrOEIuhhKnP3SNFVREUv6taTz9V6ABuV
+ rnAR9Pf1A9eBQSr4/YdoplHQg/zHbujStLt8onBmCxwMBdD9SEWdxRZ45z4xFwNgyCQT
+ ZQnaR3aJZLmUbgIj/ZHuhM4dm6NbIQv5TBlM3dLYHAXCjOulIZ4QSYt5pJVllu+8DfOl
+ QlSZWjjdN4AA6+8cmBsB9KdCCqUxgUWzVuEJqmEruNGYnYO95kfN17fwW+QUbpfylisS
+ B5KzVFw2KsK2k+ahNobOoFLpAeqOBoSS41gJkUIikxmkN+yIFkqWeMh9SDfwZaO08ArG
+ /TbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780440499; x=1781045299;
+ d=1e100.net; s=20251104; t=1780440502; x=1781045302;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=AgjU2Qt2uFal6066puOiKcG/bH5c3F/sQ7Yrgz0f2yo=;
- b=S/vUKn93vsVMHvnYEzSfz+fVIkJF7wKhwu1yxXq0bXtLOuxxLR//+7fE5xcSPGEEn4
- Q+c0UTANDNsX4jo5EFHAht/F6Ws/LvRpv9zp9pkYdsc3WuTPHTQu1QL/ZNoP/fgM8Dof
- zotlepyPx4UrdBXdYksV1GTqzz72r3+miEHM6KnBM0jn9LKHLMPnY7MCAZcE0A30FJ15
- TO1kS5J4PwDztq0KGH6zlkWQhMSBWcck9kxKQ90yRkJwWbRekCmVy3ahcD5M55QQy4jI
- 6rKI2Ur3cGyc/ziVbY/n5zXWynr7ABKkGlCer7bpQWYh/f3C7BbQCPltH/jj8xt4hWpm
- 9B5g==
+ bh=GsoCp+QEhPQqcC7YciJ1pPB6BZ3pQYi3CKXlL70tQeM=;
+ b=CeCSEaQfX21ftBc10YXPiVN8Vx9Os6ziH57En86f6ex2dnj9omuN/+aWe6OGKHjUkV
+ bmxa0Trv33jiUDmuhQvAl7PGg7APAfqZ2i9W3jOC8at9XZCI3ZgRIyrwE3PtGj3jmRg3
+ FvJlu1TrkKtKoEJm9aHXOmsiTkQPj3o+tz3P6LDGIw5zVk3aKN6+S1UrRn5UWIF13Ht1
+ zuqLkPISn00dJApsm4p6lrHMdSSqldbGwluntM/5K/rSBsvRgWNOl2i3pUCa0cgL1hzp
+ lGWVOr2QzraatO+Lu0Z5fy4aoylIDqzKduz2XjE8qrnCQlaBkvxmLuSmMMkijvmcu8dx
+ QwJA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+mHeW75my3TqiIOrdJxNEIkfuz4ruZAR1BOsSczp1gcx7rmS7bFm6SapwnvU5VVU/v+DWHaj52Gl4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwApR+Xj8DB7vrWHd65XrSnTN8QWVN0/dxIsMmIaYScvuch3973
- x4MGKpUmKzK9nv/Q0x1tBb8ILvUlBd9NMjLQHd4OwIl/8BYmaRoTV42w
-X-Gm-Gg: Acq92OEQdcVJswSFcvucgGhFUYYDYXFesBIkQ8WunGwpiJcQOxGAKNXUS9QV3FxtSbv
- /mw14n3aQs7qCU1Sv8VlJmsvKrotn5Jv+ZpJPX4vx3p53kD6I9VEFbMpweVmc7ysJsNIbuaNy73
- HAAuOn0edM92HIeHPvB4zM3+wRNW+ccW1+4I8fmvciyC1rPsDfauwhpQX6B88l2uHAff/cnj+dw
- NWnLDUY1VF4aRuqEw/aP2c1MovrCaW9HrgtVihde3Z2vxleBhP/HgSMRKNaa96xT01TkTjCFuCJ
- rmDgfucv0BChidcdz1OPWm04owGY7acxAOrGzPlsmHQy0Kl5BbNCiJJZLYCkVsZOd7TM039GxXj
- g4vEr4L9AWeb/V31tELvRU0M1n/lVfBr+79U9zO2Nr+r17QWLddujrpYMdNvvnJRLOBa8EmQx8G
- +MAbT0ggALXGCnAI4U500hasxyNPNiqW8a5WmZVQbW5g==
-X-Received: by 2002:a05:600c:3586:b0:490:b080:4835 with SMTP id
- 5b1f17b1804b1-490b5ed385fmr9521615e9.0.1780440499499; 
- Tue, 02 Jun 2026 15:48:19 -0700 (PDT)
+ AFNElJ8t/mT0FFhaaquqb6I6MeTmEfNCDPw5/vG9AuWNvU2SbNz7/cr8GuHvbCeg+3vZ4TWMI+Hk7Dvck0c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwlPm2u2vEjx7miqx1c+c51J3Gj496USvUgPHgRw4YhqVSZYUUn
+ 31UdGSMA1VQpJgLxPLeuJvzkioDyBHAK5YKdsXiXXaG7c8XeskJwY90Q
+X-Gm-Gg: Acq92OHba6fjpEbArJolX/gSTiH8kZsaeJ2JvCCc/cbF3XjwkiuYjcQfidwuLzb3oAN
+ kl7ro51PZp5Ntf4KyrVKroSDfmnBG6hIYf+6wWjD2Kudm2W7Ad3j3E03Lq7vvlcpav+58t7fRFU
+ v6dXKgK6UPLCtCETWv+HKhxt0HJJFXWkLWTtoiQ0JX9HtTiqB9oS3dvQFXS0X/odYwh9gF0fZxk
+ M1DGEb9NcsiRp0eodBhkrIMvieE4HKZw1uhjRE9Fg055H4vjiNLDSNhUdSIRiABBdTfswZ1fqR9
+ +DnJ7Vg7GB+smEjohQMDWYj0ayjJUlIQlLYN4IqX2I8rJ++LQyaF0Eg3AbMLsjeCX4kMP/wB6OF
+ YK1viTOcdi8iHO7w8CkM+ao0sKmX8f701QYNjFeK70QACCbTC661mke44kvWAUcPmik5Flhx4iJ
+ HNu4L6hYSMhPzqgJaT6BhXGuhXCCJeeKpKTF9cPtm/6B4redmDLedI
+X-Received: by 2002:a5d:4987:0:b0:45e:f780:6181 with SMTP id
+ ffacd0b85a97d-4602182cd9emr456749f8f.23.1780440501948; 
+ Tue, 02 Jun 2026 15:48:21 -0700 (PDT)
 Received: from [172.16.188.153] ([213.181.114.83])
  by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-4601f2f2710sm1999791f8f.14.2026.06.02.15.48.17
+ ffacd0b85a97d-4601f2f2710sm1999791f8f.14.2026.06.02.15.48.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jun 2026 15:48:19 -0700 (PDT)
+ Tue, 02 Jun 2026 15:48:21 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
-Date: Tue, 02 Jun 2026 22:48:00 +0000
-Subject: [PATCH v4 03/25] vmlinux.lds.h: refactor BOUNDED_SECTION_* macros
- into bounded_sections.lds.h
+Date: Tue, 02 Jun 2026 22:48:01 +0000
+Subject: [PATCH v4 04/25] vmlinux.lds.h: drop unused HEADERED_SECTION* macros
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-dd-maint-2-v4-3-19a1445585a8@gmail.com>
+Message-Id: <20260602-dd-maint-2-v4-4-19a1445585a8@gmail.com>
 References: <20260602-dd-maint-2-v4-0-19a1445585a8@gmail.com>
 In-Reply-To: <20260602-dd-maint-2-v4-0-19a1445585a8@gmail.com>
 To: Jonathan Corbet <corbet@lwn.net>, 
@@ -85,11 +84,11 @@ Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780440488; l=4249;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780440488; l=1428;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=pg9cpl0bo1AtFElQETrwEKQ1mUnu0drU6Mzj79jx4XY=;
- b=PCbuEwQZdW6szL958qPtN2q+zMt4zTLcoGfE6vSsy9ddJg9N8GB0rMqs9omnhc5qIM1axWwgb
- JWqDFwcoyPoBGXBOz9hnvLRwlK/S2RSIVu0TO650z7JAaGNP0niqcfU
+ bh=gyhl2dDHOhDRfo2EoLm//e3PBy86xHd/L/qSVe14+FQ=;
+ b=MvsNf/S/xSTGRA+QFVkd0l5ykeS++JYaB1FrXileFx3gCJmyjVcFCFJQIWqeiUZo7GqEj3BlU
+ 9d1r+RLMW7bDHjfviGujkjn0nEiFeEV5seia07THPaU+H02yfAvWuLZ
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -107,104 +106,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Move BOUNDED_SECTION_* macros to a new helper file:
-include/asm-generic/bounded_sections.lds.h and include it back into
-vmlinux.lds.h.  This allows its reuse later to fix a failure to keep
-dyndbg sections in some circumstances.
+These macros are unused, no point in carrying them any more.
 
-NOTES:
+NB: these macros were just moved to bounded_sections.lds.h, from
+vmlinux.lds.h, which is the known entity, and therefore more
+meaningful in the 1-line summary, so thats what I used as the topic.
 
-These macros are only for use in vmlinux.lds.h, where the _start &
-_end symbols are needed.  Modules keep sections separate in ELF
-sections, with their boundaries known, so the _start and _end are not
-useful, and may confuse tools not expecting them.
-
-This patch ignores a checkpatch warning, because new file is covered
-by "GENERIC INCLUDE/ASM HEADER FILES" in MAINTAINERS
-
-CC: Arnd Bergmann <arnd@arndb.de>
-CC: linux-arch@vger.kernel.org
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
-v3: move include to top
----
- include/asm-generic/bounded_sections.lds.h | 36 ++++++++++++++++++++++++++++++
- include/asm-generic/vmlinux.lds.h          | 31 +------------------------
- 2 files changed, 37 insertions(+), 30 deletions(-)
+ include/asm-generic/bounded_sections.lds.h | 15 ---------------
+ 1 file changed, 15 deletions(-)
 
 diff --git a/include/asm-generic/bounded_sections.lds.h b/include/asm-generic/bounded_sections.lds.h
-new file mode 100644
-index 000000000000..8c29293ca7fb
---- /dev/null
+index 8c29293ca7fb..268cdc34389b 100644
+--- a/include/asm-generic/bounded_sections.lds.h
 +++ b/include/asm-generic/bounded_sections.lds.h
-@@ -0,0 +1,36 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+
-+#ifndef _ASM_GENERIC_BOUNDED_SECTIONS_H
-+#define _ASM_GENERIC_BOUNDED_SECTIONS_H
-+
-+#define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+	_BEGIN_##_label_ = .;						\
-+	KEEP(*(_sec_))							\
-+	_END_##_label_ = .;
-+
-+#define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+	_label_##_BEGIN_ = .;						\
-+	KEEP(*(_sec_))							\
-+	_label_##_END_ = .;
-+
-+#define BOUNDED_SECTION_BY(_sec_, _label_)				\
-+	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
-+
-+#define BOUNDED_SECTION(_sec)	 BOUNDED_SECTION_BY(_sec, _sec)
-+
-+#define HEADERED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
-+	_HDR_##_label_	= .;						\
-+	KEEP(*(.gnu.linkonce.##_sec_))					\
-+	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)
-+
-+#define HEADERED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
-+	_label_##_HDR_ = .;						\
-+	KEEP(*(.gnu.linkonce.##_sec_))					\
-+	BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)
-+
-+#define HEADERED_SECTION_BY(_sec_, _label_)				\
-+	HEADERED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
-+
-+#define HEADERED_SECTION(_sec)	 HEADERED_SECTION_BY(_sec, _sec)
-+
-+#endif /* _ASM_GENERIC_BOUNDED_SECTIONS_H */
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index 60c8c22fd3e4..9c61dd083f26 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -50,6 +50,7 @@
-  *               [__nosave_begin, __nosave_end] for the nosave data
-  */
+@@ -18,19 +18,4 @@
  
-+#include <asm-generic/bounded_sections.lds.h>
- #include <asm-generic/codetag.lds.h>
+ #define BOUNDED_SECTION(_sec)	 BOUNDED_SECTION_BY(_sec, _sec)
  
- #ifndef LOAD_OFFSET
-@@ -211,36 +212,6 @@
- # endif
- #endif
- 
--#define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
--	_BEGIN_##_label_ = .;						\
--	KEEP(*(_sec_))							\
--	_END_##_label_ = .;
--
--#define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
--	_label_##_BEGIN_ = .;						\
--	KEEP(*(_sec_))							\
--	_label_##_END_ = .;
--
--#define BOUNDED_SECTION_BY(_sec_, _label_)				\
--	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
--
--#define BOUNDED_SECTION(_sec)	 BOUNDED_SECTION_BY(_sec, _sec)
--
 -#define HEADERED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
 -	_HDR_##_label_	= .;						\
 -	KEEP(*(.gnu.linkonce.##_sec_))					\
@@ -220,9 +140,7 @@ index 60c8c22fd3e4..9c61dd083f26 100644
 -
 -#define HEADERED_SECTION(_sec)	 HEADERED_SECTION_BY(_sec, _sec)
 -
- #ifdef CONFIG_TRACE_BRANCH_PROFILING
- #define LIKELY_PROFILE()						\
- 	BOUNDED_SECTION_BY(_ftrace_annotated_branch, _annotated_branch_profile)
+ #endif /* _ASM_GENERIC_BOUNDED_SECTIONS_H */
 
 -- 
 2.54.0
