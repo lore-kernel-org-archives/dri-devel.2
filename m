@@ -4,131 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF010CD6E4A
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 06:31:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7957CD6E57
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 06:36:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 244A110EC30;
-	Tue,  2 Jun 2026 06:31:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25BD910EC3A;
+	Tue,  2 Jun 2026 06:36:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WUMxVPIV";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="HqiuFM5s";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DUN3LXO1";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HqiuFM5s";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DUN3LXO1";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011068.outbound.protection.outlook.com [52.101.62.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B90BE10EC2E;
- Tue,  2 Jun 2026 06:31:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kU1xgnAGm5TuyPBPsV5k4a68kDlBP54nkugDPgjRovZgS4ivb0USDRut4fWhL2Z+D/EWSc0exFxRODG89TIkQFZCosPl+lTfnBLzNtCrjnKjv9rQxlHWHuzaSGOyzdwxW1fX++mk4Pp9urtEcjjl9SyCfQQBlIq0cF7r+fvsANzp0YjzACmAfDh2QXRNGzPzpH9+5vdi7BlCOFCRyDbwVGPQ03pro1VINruXtOQnRR83Y9cRWhLjgKFrAGnUyPkUASdc0lSySdgi/MQ4w7Hhs8znNak0/8K/gyvSFljuPqbqHscOQ5oVdXUh4mIs1f6Bw037BzsHZdoIRE6P/Mb7eQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PJqfDt8S6QJsMdXiyVqfsC0sElVm1ZPuWql7h9PfEhI=;
- b=ObLxqmslz82uFHMqD3r6zmd9c6aIVIxtlMcF/aNxIdjhkJhqogEo1UiE5ehDWqsgbGFACnSWDPrakdxXolg64ZYmGbkRq0NJA2lCgcMiU1Vng7E9IRmFTws4sDV83oyDkuZW1TzPhQBCcXb15mlQiP+xqkywL0v7KHn/5a6GO+gbWMoQ4IISO5qtpkdZ7ZyLcg6Ej1hpiF9oAt8suXSZheudsoNxwbV8WpMaKksenMECaeJuuXesMxktxKZgM53mbpKUZg4BGD4qADWs8AVCqK/ECJQBkrR6DrPJfFjFPc//IbFy9CR5TLxMrHf0GDdLJAvtOT733C+QSo5aBLzh7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PJqfDt8S6QJsMdXiyVqfsC0sElVm1ZPuWql7h9PfEhI=;
- b=WUMxVPIV0VgOC4UebvQ6az6O+AfJqz0+wz1qW39XVOtWm2+BH7Qjw56ow4pnNjA5MliYZINPnM8K7FOPerNbyiqcAspIGE0NJpkuUPeLA054Tpk1lrI97mw8XFVI1w+LvPJkYRSiQNfVy0LDto6trmvvk8LCWawFxwppwvPPEOc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by IA1PR12MB6459.namprd12.prod.outlook.com (2603:10b6:208:3a9::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Tue, 2 Jun 2026
- 06:31:33 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%3]) with mapi id 15.21.0071.015; Tue, 2 Jun 2026
- 06:31:33 +0000
-Message-ID: <9821fb29-aa49-44a7-a34b-dcb4a805be5c@amd.com>
-Date: Tue, 2 Jun 2026 12:01:02 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: use ACK polling for page-write completion
-To: "Devanand Zodape, Kunal" <Kunal.DevanandZodape@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- "Kumar1, Rahul" <Rahul.Kumar1@amd.com>,
- "Gupta, Prateek1" <Prateek1.Gupta@amd.com>
-References: <20260601093226.1255621-1-kunal.devanandzodape@amd.com>
- <20260601112336.2277724-1-kunal.devanandzodape@amd.com>
- <7237b5c9-f97d-408f-8fd5-15ccbc9c08d8@amd.com>
- <CY5PR12MB627679B46FC0317E69C047F298122@CY5PR12MB6276.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <CY5PR12MB627679B46FC0317E69C047F298122@CY5PR12MB6276.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0142.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d2::16) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C8B410EC3C
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 06:36:45 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7592868004;
+ Tue,  2 Jun 2026 06:36:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780382203; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=EBb9SeELIB9hdSpPti/1gUb6raRv1p0PjpsFb1wqqIM=;
+ b=HqiuFM5sn/PTrPL5dYtzZ02drXgBB8wvIOHNJw48Ri4bj/RFWKnspyr6GbZYNT+pUBAvKi
+ zePHD9VyDBGg/5NEb6+hs2eorcDrU80etkSimi1/bqQGwnQzZFy2GMf7UnN8ctLb6eebBO
+ QFWJHJt17+VNxELea1Nae2CfyDe4+gQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780382203;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=EBb9SeELIB9hdSpPti/1gUb6raRv1p0PjpsFb1wqqIM=;
+ b=DUN3LXO1GyNVAE8LWvdgh3SVGURx7JPGFL7ZT43fndYNiuVhp6cakKUVuGJprdIqD0haAl
+ kX4etFiFD1i2v/BA==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=HqiuFM5s;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=DUN3LXO1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780382203; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=EBb9SeELIB9hdSpPti/1gUb6raRv1p0PjpsFb1wqqIM=;
+ b=HqiuFM5sn/PTrPL5dYtzZ02drXgBB8wvIOHNJw48Ri4bj/RFWKnspyr6GbZYNT+pUBAvKi
+ zePHD9VyDBGg/5NEb6+hs2eorcDrU80etkSimi1/bqQGwnQzZFy2GMf7UnN8ctLb6eebBO
+ QFWJHJt17+VNxELea1Nae2CfyDe4+gQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780382203;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=EBb9SeELIB9hdSpPti/1gUb6raRv1p0PjpsFb1wqqIM=;
+ b=DUN3LXO1GyNVAE8LWvdgh3SVGURx7JPGFL7ZT43fndYNiuVhp6cakKUVuGJprdIqD0haAl
+ kX4etFiFD1i2v/BA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 106EE779A7;
+ Tue,  2 Jun 2026 06:36:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id ksXtAft5HmpcIwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 02 Jun 2026 06:36:43 +0000
+Message-ID: <2b72342a-10e4-4608-a571-ba57f16a4075@suse.de>
+Date: Tue, 2 Jun 2026 08:36:42 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|IA1PR12MB6459:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a7d5dad-f79c-4511-d97f-08dec07096ab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|3023799007|4143699003|11063799006|22082099003|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: voXjfK9B1DxW33uXirQCTIqnyWpN35+AM2eUUC0wPbzA7/Joiy9MqcSl4dQHFhSM1DXAYgnDzCx/EjKhbNwbujPxCE8r23gQrNR2c3DKHwaVWIgTS3KeWz/Iswg2OaWknnzO2qu5jcUrdJMQemORWxntmpi2V+3qf3IcD8hX9GOfbx+f8fdNN3ga9+8rkD6EDflyjHjk5szst2gvr0av40uBS0U7rulwRAWg0EawEJgnSjNsqZtgOeV/EeM66TfToYZJDbDOB8DIjAQGpYYUxKGLkKhn3+hUM+9NhX5STccoS8Lw0QHfs8t3bwy06l9tf+Fjllhrl7VM53zlIBgCsFeK6F8ua8GlYZNC2mXjhTKdjO/WWGlpe812S8H237gH6iRpghYrfMObTerm6zndITV+zZH7g06I0MM2vdYscg/qRwu+2LN6aD2dK/2rf0O3HJES6FHup0jqZG1iDeerdYhMldFzZeqGXA9dK9TGjh6xcQh2wPwISaX11/647RdHQNfBpeosOHFhfQa16LBZH7XPHapJKvQ+30wy50OWGCjOrAppLegYEFNNkmDDDpHOVKvDiPl1eGTy2WkKMY5LJauAskj4rIT0pIVc2FeKH/G1Nc+GXOw5/nNrpvoudPrxenv2k8NXGfAipLHq6wmSB7Gw2TawxcHFYWXLgdrhwhHvVAC4rdKJ60KVNBiGE+t6
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(3023799007)(4143699003)(11063799006)(22082099003)(56012099006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OUlxVVZnTlF3MUZyUW9FTjl3UGhiZUk3ejhJS2pQN1R3SVllSkxuaTdTSVlB?=
- =?utf-8?B?dTQ2Q0s5T25jOFdSR3lReG5ETzdoSTZtaDFNLzhMRGtVY1RvOFNvNno1TnlB?=
- =?utf-8?B?ZmZwbnl1RzdvaDlYdXJpZHZnQWZZc3l2eE5BeFJ2STM4ODd2TGpDMGpRV05P?=
- =?utf-8?B?dFN5L2FJTWVtcmpDaE1DY2U3dTcwdk5EaTl5c3BZc2FZL1BJcGd0ZlM3S01N?=
- =?utf-8?B?amZ5R3czS2k3VUU3WmNWNGZBZ1JURlNNQWwxRlVJMHU2aXVLSzg1cWc4ZkJu?=
- =?utf-8?B?ekY1RXF2ZWxtNW91T0szYm01dnJIV2lYa2padUlWVXhUODdJdTQ0bkdmUlgz?=
- =?utf-8?B?UWJHQ2dMaS9ndFBlNXltUDM2RVpneVBqL1dNSURCTDhxOXhtNkNNeWR6aFFC?=
- =?utf-8?B?aytNUzF3VUo1Qm8vK0lEZkJoT3FPcHBpWVlvTzJYdGh2anZFYUxyTjdHSnBT?=
- =?utf-8?B?YWo3cnJ2QXM0MWczL1AvYkRDcFZzVWNqK2NPSkEyaGpUV2pxU0JZbldoK0lK?=
- =?utf-8?B?WFNJbTl4N2xGbzBKVURxSWpUY244WkdyUFdwdDBkekZyWjI2V1RwZEQzTUFr?=
- =?utf-8?B?SmpnRWgrL0lsQVJETTBtRnV2NHVrT0VudEQxRnQ4UmVWcWdJK0wxbTMzRzlh?=
- =?utf-8?B?WXN5L2Y0c2NMSTYzWURucHdSYUNHVDlnaWJ0S2NmcDZMMGY0OThmY1dpTGlj?=
- =?utf-8?B?SGRVcjZxcE5pLy9rYU1vbXVrNCt2dzhQTXB1aTlIUGpvOFdmeEc4bWx0NkY3?=
- =?utf-8?B?czg0UlZSSWVBWTBpQ0tnaS85VTBCcDhKWnRGS0VRaGE0VXQraGtFMHhSRHA4?=
- =?utf-8?B?eWlYV3NZUURnRUluWTFrbnBWZ05QWkdPMnNkSlNWQ0RRTkk4aXU0eEltY2tx?=
- =?utf-8?B?VmlXQjVWUEY1Qk9rSkxscnJya09uOExOZ3p6T1dTaldOcWJodVo3cEo1djYr?=
- =?utf-8?B?SWlISG1PSmZJaXNia2NBWDdJUDhuNm8wTFNLNzliYVVkcjlCejF1bnVmREsw?=
- =?utf-8?B?WHNmbThxQ3hFK0MyNDJlbUp0T2lRcDR6bmo3TnJGNkdtTFFGbmlWUDYvdzVH?=
- =?utf-8?B?NVVXSk94TTREZEFNcWFZQVBSSHV6SHRtTmkyY3FKQVQ4Y1RjZzFvcFRxaWhW?=
- =?utf-8?B?b3U3UlhvMTR4WEppTmhRWGtxbVRid0dMWE1sNUtIRS9LQldTK3ZWcUN0NlR5?=
- =?utf-8?B?eThRYzBLMUlVb01JNjJxck9sU0c4N3crM2pZc1BZWDl0ODdZdi9qT3pTVmtj?=
- =?utf-8?B?c0lVVnVyK1VNU2wwMWh1Vks1ODJyRkVKdTFwQ2htdFEyQVFTT0Z4VWE2RlNp?=
- =?utf-8?B?L2ZiS2g0N09ha1JwNVpjZktoOG5aUjFhNGFsMGVyQTlNQWpQUkY5U0I3YVNJ?=
- =?utf-8?B?VHJSY2JRazZCY1lYSklKNjdPREorL2hxMlZxQ3Y2REdNQnlNbjNmaXRWR2pS?=
- =?utf-8?B?SU5Ia1hZckJ5c1g3aFQ3QnBIMi9uUFJWRWZsdElNc21jOHM5dVRjSXNVNkN1?=
- =?utf-8?B?RFpPVFcvQXVXa0N0VFpUQVVmMklPaEllSUd4aEJ4RU1MVWZvbGpJalFpZEVy?=
- =?utf-8?B?Ri9CdnduZy9hVDJjYkhZVUlIamg1Qks2NlBBWWVkaURmRm1zeTRZM3ZJa0pN?=
- =?utf-8?B?c2xqS0NuQ2cvM3h0T2N4dU8yNm9Fc1BnV1JsMCs1T2c3VDNRY1gwOU10U2pn?=
- =?utf-8?B?Z2pvWDZjRzJvbzd3OE5YVENBUlFYa1g1Wit6Uk44NHNXcy9QUkRsMFRVa3ln?=
- =?utf-8?B?RXRiRDBtTW9kaldaUFAwNTkzK1dJUjhJYnhxQlNEOXAvcUF3djE3VmlGamMx?=
- =?utf-8?B?Q0JVZHAxN1FpUEdvdUxBZnZyN2MvZFNuNUw0bU0vRGZ4cjUwZElDTnE4Uk5V?=
- =?utf-8?B?bDZ5Sm56WkNoODRrUlBYMW13MHJ3RWVDL1RmNGRqODRQRnJ0YWUwMXFGcDNM?=
- =?utf-8?B?OWZjTWNRbklVeDJrdStvODdUNkNkK0wweXNNcnBjMmtqRk1TTVo0cnREV05a?=
- =?utf-8?B?S3h4QjMwMTd4MWRtbHg0USsrSXo3Vk5CbDBKZUJaV1NmQitVaTdZVS9Cc0FV?=
- =?utf-8?B?cGNqNFF5T0lTS0VZZTJGTVRmM0ZtdWNpYnhWVW1MTHc1c1c3aGdIakpNMHJB?=
- =?utf-8?B?cEdRZ1g3Syt0MWJLQ1N3N3hHT0JWZm00TmJXWEppaUxaWHFRdGZNQXNvb3hB?=
- =?utf-8?B?a2tqMHNicXdza0xtbEkyaUsvNXBFQWRQWWs0WEt3M0IraU5rSkttZ2ZBNGZ1?=
- =?utf-8?B?OFlHQWJtU2JOY0wrNmd6cmRNc08zc2F3ak1zVWJVTWRYMkozYW0rbmx3Q3oy?=
- =?utf-8?Q?WgVmALCP2Pr6LIaNZL?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a7d5dad-f79c-4511-d97f-08dec07096ab
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 06:31:33.1398 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yCOb26x130+lBCgJ/f3jEC4I1RX72EiKSSaNgDHRgG4b1NiXTTofCMLUpyZId1d1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6459
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PULL] drm-misc-fixes
+To: Jani Nikula <jani.nikula@linux.intel.com>, Dave Airlie
+ <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dim-tools@lists.freedesktop.org
+References: <20260529070009.GA313534@linux.fritz.box>
+ <ddf0233e50044059c85279f928661563ef6a55bf@intel.com>
+ <e1a2cc27fb04a88be23973d3cb7868f3d4471d0d@intel.com>
+ <d479f1185cd1ae6eb52a7d44e944408c3447c8e4@intel.com>
+ <24042986-6ef1-49a2-a060-aabf6e189473@suse.de>
+ <7b9794c1b6a948b6d509c6fa885e1c3c1912aa9d@intel.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <7b9794c1b6a948b6d509c6fa885e1c3c1912aa9d@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 7592868004
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[15];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MIME_TRACE(0.00)[0:+];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FREEMAIL_TO(0.00)[linux.intel.com,gmail.com,ffwll.ch];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; MID_RHS_MATCH_FROM(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.freedesktop.org:url,suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,intel.com:email,suse.com:url];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,150 +160,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi
+
+Am 01.06.26 um 21:52 schrieb Jani Nikula:
+> On Mon, 01 Jun 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>> Hi
+>>
+>> Am 01.06.26 um 17:49 schrieb Jani Nikula:
+>>> On Mon, 01 Jun 2026, Jani Nikula <jani.nikula@linux.intel.com> wrote:
+>>>> On Mon, 01 Jun 2026, Jani Nikula <jani.nikula@linux.intel.com> wrote:
+>>>>> On Fri, 29 May 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>>>>>> Rajat Gupta (1):
+>>>>>>         drm: prevent integer overflows in dumb buffer creation helpers
+>>>>> Looks like this commit 5ab62dd3687b ("drm: prevent integer overflows in
+>>>>> dumb buffer creation helpers") regressed in our CI, awaiting
+>>>>> confirmation.
+>> That CI report is where?
+> It's currently really thin on details, I'm afraid [1].
+>
+> [1] https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16308
+>
+>>>> The IGT test kms_big_fb uses max width and height from GetResources, and
+>>>> i915 and xe use max_width 16384 and max_height 16384 in mode config.
+>>>>
+>>>> The regressing commit adds random hard limits not based on anything:
+>>>>
+>>>> +       /* Reject unreasonable inputs early.  Dumb buffers are for software
+>>>> +        * rendering; nothing legitimate needs more than 8192x8192 at 32bpp.
+>>>> +        * This prevents overflows in downstream alignment helpers.
+>>>> +        */
+>>>> +       if (args->width >= 8192 || args->height >= 8192 || args->bpp > 32)
+>>>> +               return -EINVAL;
+>>>>
+>>>> This is now in v7.1-rc6. Please revert ASAP.
+>>> Ah, missed this clue in the pull request:
+>>>
+>>> On Fri, 29 May 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>>>> here is this week's PR from drm-misc-fixes. There's one cross-subsys
+>>>> commit to the dma-buf code. Commit 5ab62dd3687b ("drm: prevent integer
+>>>> overflows in dumb buffer creation helpers") has not Link tag because
+>>>> it went through the security list.
+>>> We have the whole review and CI processes in place to catch silly
+>>> mistakes, and then we proceed to shoot ourselves in the foot and bypass
+>>> all of that because "security", and expedite the regressions
+>>> everywhere. I'll bet this will be in stable kernels in no time too. This
+>>> is stupid.
+>> Indeed. But that's how this fix got in.
+>>
+>> It fixes a possible overflow elsewhere and using dumb buffers with
+>> higher values that given here is questionable. Instead of outright
+>> reverting this, let's first look what actually broke.
+> There's the kms_big_fb.c test [2]. It uses drmModeGetResources() to get
+> the max framebuffer size for the device. It's 16384x16384 for most Intel
+> devices that aren't ancient [3]. (Ditto for AMD I think.) Now the
+> CREATE_DUMB ioctl fails, because 5ab62dd3687b introduced new arbitrary
+> fixed scanout size limits that don't reflect the actual device limits.
+
+Then let's increase the size limits to 16384 and the bpp to 64. That's 
+still within uint32 and (AFAICT) should support all devices.
+
+>
+> Why is it questionable to use dumb buffers that are within the device
+> limits? Why is it not questionable to add arbitrary fixed limits?
+
+Buffers of that size can be larger than the PCI BAR, which results in 
+mapping errors. So we'll have to enforce some limits on dumb buffers at 
+some point soon. (Driver-native ioctls is another story.)
 
 
-On 02-Jun-26 11:40 AM, Devanand Zodape, Kunal wrote:
-> AMD General
-> 
-> Hi Lijo,
-> 
-> Thanks for the review. I want to make sure the trade-off is genuinely favourable before standing by the patch.
-> 
-> The case for ACK polling rests on a couple of assumptions:
-> 
-> - The AT24CM02 datasheet specifies a maximum write-cycle time of 10 ms, but the typical time is considerably shorter (often in the 2-5 ms range). With a fixed msleep(10), we always pay the worst-case cost, whereas ACK polling allows the write path to proceed as soon as the device is ready.
-> 
-> - With sleep_us = 200, the polling loop runs at most ~50 times over the full 10 ms window. If the write typically completes around ~3 ms, this reduces to ~15 polling attempts. Whether this is beneficial depends on the per-transaction FW overhead, as you pointed out.
-> 
-> That said, if the firmware I2C path has non-trivial per-message overhead (e.g., > ~100 us per round-trip), or if bus contention is a concern on these platforms, then the fixed delay could indeed be the better choice.
-> 
+>
+> Don't get me wrong, fixing overflows is great, but this part is an
+> unwarranted UABI change, and they shouldn't be rushed in masqueraded as
+> security fixes.
 
-At a high level, FW protocol for i2c transfer is -
-	Populate a table in device memory with the desired i2c commands.
-	Send a message to the FW.
-	FW reads the table and processes the commands.
-	Wait for message response.
-	Read the content from the buffer
+It's all there to make it safe. [1] I've gone through drivers and 
+converted the majority of dumb-buffer code to the helpers, but it's 
+whack-a-mole in the end.
 
-This is the overhead for I2C transfer itself.
+[1] 
+https://elixir.bootlin.com/linux/v7.0.10/source/drivers/gpu/drm/drm_dumb_buffers.c#L94
 
-Besides,FW services only one message at a time and thus driver also 
-allows only one FW message to go through. Depending on the condition, 
-frequency of FW-driver interactions could vary. If the firmware happens 
-to service another message, say someone using a smi tool to monitor some 
-GPU metrics, then the wait may be longer to request another I2C transfer.
+Best regards
+Thomas
 
-Now the actual HW I2C bus side, there could be more than 1 device 
-connected and in some other cases (board specific) FW has to arbitrate 
-master access to the bus. If the FW has to get data from some other 
-device, that goes first, thus there could be more waits before this 
-transfer gets through.
+>
+>
+> BR,
+> Jani.
+>
+>
+> [2] https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/blob/master/tests/intel/kms_big_fb.c?ref_type=heads#L994
+>
+> [3] https://gitlab.freedesktop.org/drm/i915/kernel/-/blob/drm-intel-next/drivers/gpu/drm/i915/display/intel_display_driver.c?ref_type=heads#L133
+>
+>
 
-The max wait of 10ms is AT24CM02 specific, not sure about other EEPROM 
-devs (could be less). The optimization for < 10ms thus makes sense only 
-if driver has direct access to the bus and no arbitration for bus mastering.
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
 
-Thanks,
-Lijo
-
-> Do you have a sense of the typical FW round-trip latency on this path? That would help settle this.
-> 
-> Thanks,
-> Kunal
-> 
-> -----Original Message-----
-> From: Lazar, Lijo <Lijo.Lazar@amd.com>
-> Sent: 01 June 2026 18:35
-> To: Devanand Zodape, Kunal <Kunal.DevanandZodape@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; David Airlie <airlied@gmail.com>; Simona Vetter <simona@ffwll.ch>; Kumar1, Rahul <Rahul.Kumar1@amd.com>; Gupta, Prateek1 <Prateek1.Gupta@amd.com>
-> Subject: Re: [PATCH v2] drm/amdgpu: use ACK polling for page-write completion
-> 
-> 
-> 
-> On 01-Jun-26 4:53 PM, Kunal Zodape wrote:
->> [Some people who received this message don't often get email from
->> kunal.devanandzodape@amd.com. Learn why this is important at
->> https://aka.ms/LearnAboutSenderIdentification ]
->>
->> The EEPROM write path currently waits a fixed 10 ms after each page
->> write to cover the maximum write-cycle time.
->>
->> Replace the fixed delay with ACK polling so the driver can continue as
->> soon as the EEPROM finishes its internal write cycle. Since the SMU
->> I2C adapter used for these EEPROM accesses does not support
->> zero-length transfers, poll readiness with an offset-only dummy write.
->>
->> Keep the existing 10 ms timeout as the upper bound for the polling loop.
->>
->> Tested on MI200 (ALDEBARAN) with ras_eeprom_reset confirming clean
->> write/read-back with no I2C errors.
-> 
-> The current sleep logic may be better than sending a dummy transfter through firmware. That has the overhead of FW message logic and other clients accessing i2c bus.
-> 
-> The original comments in the code logic are valid for optimization only if driver has direct access to the i2c bus.
-> 
-> Thanks,
-> Lijo
-> 
->>
->> Suggested-by: Jani Nikula <jani.nikula@intel.com>
->> Signed-off-by: Kunal Zodape <kunal.devanandzodape@amd.com>
->> ---
->> v2: Use read_poll_timeout() instead of open-coded ktime + do-while loop
->>       as suggested
->>
->>    drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c | 27 +++++++++++++++-------
->>    1 file changed, 19 insertions(+), 8 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
->> index 8cd69836dd99..9dc538073bb8 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
->> @@ -21,6 +21,7 @@
->>     *
->>     */
->>
->> +#include <linux/iopoll.h>
->>    #include "amdgpu_eeprom.h"
->>    #include "amdgpu.h"
->>
->> @@ -153,15 +154,25 @@ static int __amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap, u32 eeprom_addr,
->>                           break;
->>
->>                   if (!read) {
->> -                       /* According to EEPROM specs the length of the
->> -                        * self-writing cycle, tWR (tW), is 10 ms.
->> -                        *
->> -                        * TODO: Use polling on ACK, aka Acknowledge
->> -                        * Polling, to minimize waiting for the
->> -                        * internal write cycle to complete, as it is
->> -                        * usually smaller than tWR (tW).
->> +                       int ret;
->> +
->> +                       /* Poll for ACK to detect when the self-timed
->> +                        * internal write cycle has completed, as per
->> +                        * Acknowledge Polling described in the AT24CM02
->> +                        * datasheet, Section 7.4. The SMU I2C adapter
->> +                        * used by these EEPROM paths does not support
->> +                        * zero-length messages, so use an offset-only
->> +                        * dummy write to probe for the ACK. The address
->> +                        * pointer update is harmless because each real
->> +                        * transfer reprograms it before use.
->>                            */
->> -                       msleep(10);
->> +                       ret = read_poll_timeout(i2c_transfer, r,
->> +                                                r == 1,
->> +                                                200, 10 * USEC_PER_MSEC,
->> +                                                false,
->> +                                                i2c_adap, &msgs[0], 1);
->> +                       if (ret)
->> +                               break;
->>                   }
->>           }
->>
->> --
->> 2.17.1
->>
-> 
 
