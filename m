@@ -4,52 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C27C3CD6E4A
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 04:53:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12C84CD6E60
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 04:53:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BD2810EBB6;
-	Tue,  2 Jun 2026 04:53:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 440BA10EBB7;
+	Tue,  2 Jun 2026 04:53:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="m2DVViLj";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ahfJv3ro";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 342A810EBB3;
- Tue,  2 Jun 2026 04:53:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8956010EBB4;
+ Tue,  2 Jun 2026 04:53:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780376003; x=1811912003;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=TZYrvbjldw+1KIlBDi/TDmjZVFVUX58xridHRA60fD8=;
- b=m2DVViLjTJQrV/H2xZP6lspnJQ7cYuJbQZSFThGYCScM6e6ge9lT5ZK2
- IACkof6SzSNcfBY1HJ527lt3ZCNm8Vf8vhAvW6Ov4pDbE9FKSQjDP84WB
- eToH9aCZP8rhRyrPvGXUdmu9KWqWeCZaiUwDNSYKhVwEDPONwgDZKyT09
- dBB0fKusVJ3aizsRrMFCagkXsnjYJKmlas0QXgDogZxDuffhGFCS+A+Oy
- j+uLGuDRmxfkMwPIqHExuCV8iAQB0BODalEmaqsgt9AqKT11ihljvar3C
- JW97ypwVQ4qvnxX8lEum002fOkSt0WJFw4h6UkcRtP41kDjSBNzHjj3Te Q==;
-X-CSE-ConnectionGUID: HxAcxOS5QtCL5OzWf+7EkA==
-X-CSE-MsgGUID: QnoWgZ5qTPa15VaUZfoX9g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="81120458"
-X-IronPort-AV: E=Sophos;i="6.24,182,1774335600"; d="scan'208";a="81120458"
+ t=1780376005; x=1811912005;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=BonxlASbrudEWQ9VqkFxYPYzf3PGM/pEI5og4/ogyA0=;
+ b=ahfJv3roctYZO0fvnirxCAMy5VGA0f+EU7kF03vDofGYWseAcV9QwX5p
+ BsSCVtu34RsP8gyK9MheouCsDfsHxGdCWujT7+FLS2G8m4dg9Ygtrnihr
+ m3cSYbofJTZFGwTcBCcO8VhwwgF5e8GvXZ8ugcY3VxvT7+7724gjtNltd
+ OB3YC5HGRbKNTEXfZhK0Duav2M0GWxznTkcOIBtn4uks6/S2+M45NWi4n
+ 4YP64pE72UF7BcKFoaj3o42DIJ9gR8sZ6n+LmmLmILBLZKtgtxUSHz2Ql
+ 15gpGPvT9spppEHCL7KmJe+U2m2L0i6irRNq/QeD8iR0uq8+Fr0R19AvF w==;
+X-CSE-ConnectionGUID: WqKfRktBQuCO1S3t+GSQkA==
+X-CSE-MsgGUID: oAuqkJR6Q8KJoXxIBfBt3g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="81120465"
+X-IronPort-AV: E=Sophos;i="6.24,182,1774335600"; d="scan'208";a="81120465"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2026 21:53:22 -0700
-X-CSE-ConnectionGUID: t1GAsqJ3SMm08A3nJzDtnA==
-X-CSE-MsgGUID: xRbz/FeRRKS4WmDZjFvF0Q==
+ 01 Jun 2026 21:53:25 -0700
+X-CSE-ConnectionGUID: hW255gCBRw+Ra8Q3ZCIs/A==
+X-CSE-MsgGUID: FEHHKfuJToqINre5RXEtyA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,182,1774335600"; d="scan'208";a="245604097"
+X-IronPort-AV: E=Sophos;i="6.24,182,1774335600"; d="scan'208";a="245604101"
 Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
- by fmviesa004.fm.intel.com with ESMTP; 01 Jun 2026 21:53:19 -0700
+ by fmviesa004.fm.intel.com with ESMTP; 01 Jun 2026 21:53:21 -0700
 From: Raag Jadav <raag.jadav@intel.com>
 To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  netdev@vger.kernel.org
 Cc: rodrigo.vivi@intel.com, riana.tauro@intel.com, dev@lankhorst.se,
  airlied@gmail.com, simona@ffwll.ch, kuba@kernel.org,
  Raag Jadav <raag.jadav@intel.com>
-Subject: [PATCH v3 0/4] DRM RAS Fixes
-Date: Tue,  2 Jun 2026 10:18:40 +0530
-Message-ID: <20260602044919.702209-1-raag.jadav@intel.com>
+Subject: [PATCH v3 1/4] drm/ras: Cancel and free message on get counter failure
+Date: Tue,  2 Jun 2026 10:18:41 +0530
+Message-ID: <20260602044919.702209-2-raag.jadav@intel.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260602044919.702209-1-raag.jadav@intel.com>
+References: <20260602044919.702209-1-raag.jadav@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -67,24 +69,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Detailed description in commit message.
+doit_reply_value() directly returns on get counter failure, which results
+in stale sk_buff and genetlink header that aren't cleaned up. Fix it and
+while at it, consolidate error handling using goto.
 
+Fixes: c36218dc49f5 ("drm/ras: Introduce the DRM RAS infrastructure over generic netlink")
+Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+Reviewed-by: Riana Tauro <riana.tauro@intel.com>
+---
 v2: Use goto (Riana)
-    Retain info as NULL on failure (Riana)
+---
+ drivers/gpu/drm/drm_ras.c | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
 
-v3: Prevent double free on drmm_add_action_or_reset() failure (Riana)
-
-Raag Jadav (4):
-  drm/ras: Cancel and free message on get counter failure
-  drm/xe/drm_ras: Make counter allocation drm managed
-  drm/xe/drm_ras: Add per node cleanup action
-  drm/xe/hw_error: Use HW_ERR prefix in log
-
- drivers/gpu/drm/drm_ras.c        | 19 +++++-----
- drivers/gpu/drm/xe/xe_drm_ras.c  | 61 +++++++++++++-------------------
- drivers/gpu/drm/xe/xe_hw_error.c | 12 +++----
- 3 files changed, 41 insertions(+), 51 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
+index d6eab29a1394..467a169026fc 100644
+--- a/drivers/gpu/drm/drm_ras.c
++++ b/drivers/gpu/drm/drm_ras.c
+@@ -201,25 +201,28 @@ static int doit_reply_value(struct genl_info *info, u32 node_id,
+ 
+ 	hdr = genlmsg_iput(msg, info);
+ 	if (!hdr) {
+-		nlmsg_free(msg);
+-		return -EMSGSIZE;
++		ret = -EMSGSIZE;
++		goto free_msg;
+ 	}
+ 
+ 	ret = get_node_error_counter(node_id, error_id,
+ 				     &error_name, &value);
+ 	if (ret)
+-		return ret;
++		goto cancel_msg;
+ 
+ 	ret = msg_reply_value(msg, error_id, error_name, value);
+-	if (ret) {
+-		genlmsg_cancel(msg, hdr);
+-		nlmsg_free(msg);
+-		return ret;
+-	}
++	if (ret)
++		goto cancel_msg;
+ 
+ 	genlmsg_end(msg, hdr);
+ 
+ 	return genlmsg_reply(msg, info);
++
++cancel_msg:
++	genlmsg_cancel(msg, hdr);
++free_msg:
++	nlmsg_free(msg);
++	return ret;
+ }
+ 
+ /**
 -- 
 2.43.0
 
