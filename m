@@ -4,133 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9C5DCD6E57
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 09:41:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCC52CD6E4A
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 09:49:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58939113986;
-	Tue,  2 Jun 2026 09:41:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DA021139AA;
+	Tue,  2 Jun 2026 09:49:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="aZbzSY+J";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fkzkczfY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xAdM+XdU";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44720113986
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 09:41:08 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6526Movl2767712
- for <dri-devel@lists.freedesktop.org>; Tue, 2 Jun 2026 09:41:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- oESplOGIONykfrvVga1RyEzgCLfort4w6L2n3L3CGBs=; b=aZbzSY+Je2M1WrLi
- kvRRVcmtzeV4Xv7janPqqotTd6cYY9pVwCmDrTk9GvNHE1TgUVepZyEomVu/++Br
- dMVcjqrV6dlAwxF0Fext7rWKdSESy98j8sjXnVEGOwZZ6h4J1PscJ7ZRZlBsmeNM
- lNBf0Z6KO3ACyYWuZf9cGexmpJoq8wyWC2tNC9tqAbRPb85JDGSD1kZON35/NQdL
- K1ingTcOtVEtjz/Fx7tKqNEqE1zC/bj7ceH5TWGZ8Ht3xphVmlAUlcvFSelc0ldY
- pFUEFd4lnBcYJyOmD60Qtiu5oG8zgCwKGeG8q2j9h3S2A8aD7JMCt54iA94WHnQb
- sMfozw==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ehsus0tcv-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 09:41:07 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2bf0b7425bbso93979525ad.0
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 02:41:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1780393267; x=1780998067;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=oESplOGIONykfrvVga1RyEzgCLfort4w6L2n3L3CGBs=;
- b=fkzkczfYc7Lg+ga33YINChsj4wZ9w52ZXkt07KSIxK2nGGHkj8x4HeSgp+RbO+CbSY
- WlxFotvQRVFyliRggdjBKnbvo6QoSTfTIrE0vHB6RiSYXYpbcQOwAUma99sXAHMdXy59
- sTCP4MiDyq+WyBHxlpszjItXL/kVuBN5j4KUIuS2Zl9Y5a3Y+uyHI+NQvW4zxYYvk487
- 9AhIkqUueq1hFma5yj4L5nW8tNhWTTtUb6ECQUp0s8v8WjIp7Rco5Zu/Bp+TJ3f2PCMN
- GzQ+JLnsgWfwzWfneZjTkejiZAEU7hVjauKMe0nTa1DpMe2KMHf63UPULKbeKeywDKAH
- JOtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780393267; x=1780998067;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=oESplOGIONykfrvVga1RyEzgCLfort4w6L2n3L3CGBs=;
- b=jKd9FO5+cwxEOTXI3M1k1aXjvxUPos/W4o9Uy1FG9qGZ/En+mwJU+OsX+mH1jE1V+V
- +M3QPT5HlETkS/I/x9vsCC2gRKxn952R6fxcjrFf0nM6EjbFGGDBZt0NsCMfCjtWWGR4
- K787TKSlH3qUp0y5UHoPLLlI0XNbZKTl1O5EcANaf+Vids6/FedPBMWIRJop0n+PqafC
- 4KKIAnIF56a8nM8SqnHyye+jh0vsiLs78qvY5KnI+Jrla7eZvqWkrNOwra8ljRfgCVQp
- 5jZOgT98SO50dPQxQUMGy5eCpTzqRnmJSEBBhEZ2BL38s9q8DkKA29X1ny6K5t4buPdR
- YB2A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9O8UBs5U6Ntw5pqV+I8zeOlT1CkEGGKzUUqyHPMNHm4/V2+HV0r9IL+Cy+iLi8vzq9GWdXRbHEXPM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwEZhxMmZBLgjkObblV/Fx/LCbR5sq8PUhn/LNjqsxr1O0QcETa
- uCBnUU21TrUMZudm7v7xNMJ0w0V7oN7cxZVzA/CGSJROplwJWlQlH5VMR6LpFiml/gGGbjWq4PR
- iXKOAcl6P8UAttnike7F9Nn0cLBgdB7P8gWUq6EWeKD0EO/NHVurK0Yg8gaEht0xfmYkUyCU=
-X-Gm-Gg: Acq92OEJmx8O2wLUozntuEsh0FEbY9oKavifBTTlbhX+nU59jekE45KI68MBlavYiJ+
- JrwOev4S03SnvnblWJMUsjMLtSyZoXhHalApDjn3k7iwocHB1M0uKl16XPTOF09BlPAt4YlH6R4
- /ziZfC0/Rab0Du9v/GKVtN8aWABG4ghEsE3NmlGJ3pimOof7FD1B23b/593xaUAGtsgmxggpHvh
- JYgu5z5SEq0Os3YDN1fJ81sEUOQQIxbTP1yQmaItxU4CXNUDq30eFaQjipHtZFNDLnWz3Nb8RQr
- yeqfx0zunFYG9uoX7nokFnt+ojRRw6T56seZZt+Mj4iTUrUUk02d5f04eWQm2u2IE8csBEI8r6O
- RMHR9XLwQoFiRHfNfzpvyWSQd2BJuyLf+sg64yli3MBxx5dSebUKhQxiCV8lmsECmOAYnqf5G+o
- ajW6P/SsYpjztWl6P+eV6ctA==
-X-Received: by 2002:a17:903:2389:b0:2b4:656b:aeb0 with SMTP id
- d9443c01a7336-2bf3685af15mr182356345ad.35.1780393266960; 
- Tue, 02 Jun 2026 02:41:06 -0700 (PDT)
-X-Received: by 2002:a17:903:2389:b0:2b4:656b:aeb0 with SMTP id
- d9443c01a7336-2bf3685af15mr182355955ad.35.1780393266399; 
- Tue, 02 Jun 2026 02:41:06 -0700 (PDT)
-Received: from [10.133.33.123] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2bf239fd8cdsm124904775ad.22.2026.06.02.02.41.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Jun 2026 02:41:05 -0700 (PDT)
-Message-ID: <e0efec0d-b99c-4b71-bac4-4c04f243c4f6@oss.qualcomm.com>
-Date: Tue, 2 Jun 2026 17:41:00 +0800
-MIME-Version: 1.0
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012056.outbound.protection.outlook.com
+ [40.107.200.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF4441139A8;
+ Tue,  2 Jun 2026 09:49:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VcGU9J3FyrrvthpFKkRvFojES/hAXIqg/Hy0ZaxcXCMUQeB4286gOIcrjGzYEMeceaa33kfG3V4gqLmZxNP4mq0efMFQnH/2Fago7NPbSOB9dX3tbctHyimnGiOKULBb5Db19ask/q70jYEYDVIeqPLKoI4dZyc+XOkqV4rKMVa6RRdk6P/SgN8kFqgAVy/1DOJOtO6r1qizVC+162pHoV7UMZvBp9YFvfm+5X86xY00IUY28LKLEWm8eeMoQvpc9E+P6jqPf21AxEUVrt4VpvHZ/eZSf6k10R9y0Oo7Nh4S8jeB1a9x0FTdyAcAPGlj4FRKGbAywhuFidhMkyrIIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FQftiW3WpOU2vaPmiuBQts+jIDPF8bMZINfgI5e+ivk=;
+ b=EPgJuXUMDIyBVMLbe7S/Uftf+BaNL5MeCGc1RgWdwNcxtdZtLEHoL+4BLAeCnyEuU3FRsi3lrvVlpiAxdMj/nA3YubxK0EGvMCaKWFkbDPyWLPZfo7bxeY2vt+zvCsFLUbk2CWNZe0Eg8fb9f+yc2g8FHU0UTNV14ZkVylA9OKb1gZ5hozdp/nZr9OxfJnpO1MzWYLfcOp03Cdw77Zj9e2NPbGx3DrwNKm+Olzoa91uHyqlx+AsMD4LEszHz542A3paV65bEj/+1UR2f6MbY8li2DxBhTjQr+Dp/VFQOQCTnEYw6CewyytpQa28SHwzmnM4en5H8t7Q7jTqE2Ee4Sw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FQftiW3WpOU2vaPmiuBQts+jIDPF8bMZINfgI5e+ivk=;
+ b=xAdM+XdUOrdUupxQTNMSa3VkF39+7xIAG6k0LymVHLDlsnsOgCOjyPNkGZE8l1l/XSAGXXnnzSEJkVHTmsmElTGljtbhZ0FEQ/lQ90qhsO0Ufc0Ujqxx8h1YtWh83OH8rvcGtmItj6cTx/zYLEwfJGetednTgT3DPqZw+lNOOhI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH0PR12MB8531.namprd12.prod.outlook.com (2603:10b6:610:181::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Tue, 2 Jun 2026
+ 09:49:12 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0071.011; Tue, 2 Jun 2026
+ 09:49:12 +0000
+Message-ID: <bb4e417d-5669-4d06-a731-c9aa369f6bd7@amd.com>
+Date: Tue, 2 Jun 2026 11:49:05 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 4/5] misc: fastrpc: Allocate entire reserved memory for
- Audio PD in probe
-To: Jianping Li <jianping.li@oss.qualcomm.com>, srini@kernel.org,
- amahesh@qti.qualcomm.com, arnd@arndb.de, gregkh@linuxfoundation.org,
- abelvesa@kernel.org, jorge.ramirez@oss.qualcomm.com
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, ekansh.gupta@oss.qualcomm.com,
- quic_chennak@quicinc.com, stable@kernel.org
-References: <20260602071750.526-1-jianping.li@oss.qualcomm.com>
- <20260602071750.526-5-jianping.li@oss.qualcomm.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu/mes11: fix queue init wptr reset
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>, alexander.deucher@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, kenneth.feng@amd.com,
+ kevinyang.wang@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ jianhao.xu@seu.edu.cn, stable@vger.kernel.org
+References: <20260602050354.2237095-1-runyu.xiao@seu.edu.cn>
+ <20260602050354.2237095-2-runyu.xiao@seu.edu.cn>
 Content-Language: en-US
-From: Jie Gan <jie.gan@oss.qualcomm.com>
-In-Reply-To: <20260602071750.526-5-jianping.li@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260602050354.2237095-2-runyu.xiao@seu.edu.cn>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: twH0H7IYeDAc6Pdw3r45i9esz-2b5AxE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAyMDA5MCBTYWx0ZWRfXxBiTg3cyr0yD
- KXHYheh9NsLc8r6bGDO4zZ1ppJAMTRnFDaq+kRlV3kjgJ9F6nlkrmtvLOCK2ZyAaQtFZ4XyWJ9f
- dh4OgBAgqEuo0QqclzfbXi4sLjjk6odX0HrQCbKWtMv3Hq+EtYHIpFb/MlFOZ1Y/sMNR0NBa+2R
- JO8sUlPTL9/uCEjgVn/KWbJ45Tkf/97NUoc9hX8Ly75dOx18VMLKV15ee72b0V2J/wkPaG8onGr
- +4MhRx8tCz8laijWcEyV87cwQveFjLLvQIqPY0t4USIxqa++VZnyb9cQOoOGuQHWjTi5Vymdho0
- cnDfPsr0nX/E9+f7Xx8VRjgykEMtSv0UNmt+oKWAe9XybDw2ZSNSDEvGevKcRcqayWoy30W8fsA
- rS/3NJie/YD7ZANDvDnK3YPpXNZqj7+qcgow+RF//flmd3d77PtMoJaexeD0RWYI2k8C0obIZtv
- 4ETUEVfhAtmE6ojz1VA==
-X-Authority-Analysis: v=2.4 cv=ZYAt8MVA c=1 sm=1 tr=0 ts=6a1ea533 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Hk-PcD55WIolp562rqUA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-GUID: twH0H7IYeDAc6Pdw3r45i9esz-2b5AxE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-02_01,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 clxscore=1015 adultscore=0 impostorscore=0
- spamscore=0 phishscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606020090
+X-ClientProxiedBy: BL1PR13CA0256.namprd13.prod.outlook.com
+ (2603:10b6:208:2ba::21) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH0PR12MB8531:EE_
+X-MS-Office365-Filtering-Correlation-Id: 907f4963-a9a5-4a79-30c3-08dec08c332d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|18002099003|22082099003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: 2L+c/NQ6oqZm+iR7Se0MBBbxxBCVdZcbf3p1aIs1Qj4qzktkFOGRdQBmBhyq/5MCs62qXDvOKVmWebDtI2XGPm0jg1W+26D9IvWP6Ddre1x3Fd7Zo/3TmxF+mqxmnsDh05F991J3KhMH8LSPV5HCinfdKXC+zrJFrnonwmqxel8CNH9lBt+tq2TyzEDGZ7U3+4edANHF6uLUCG2oe++uw45mcG43NP1FrL6AFTo2SUiHFEoJKgkXSJRNyNVQOI149f6ZA4K11D8MVI3N15eLvCA6BfSEmjQ2ITWe4KD/ruWDFecHOdSgHRBeZS4mvD6nx9kM2s0tj0bLuyk/cGJ+pZNmG1DeExuqDIj94pWrsoDCqBFI2tz2xYwN3MXmQKldKOgutAXvf9kR3KIVz87kA6WgsKWqZkLpoIvoenZj/xH0tH9iV/3jh6rF77TP6UftNW+tizoukVndT83nr5yQ5cwcQIPY+1no0mL0g7COa0GohY2V2HLfJ4Cp3UzznrZf6Hx8uXEm0fFo1rRnncMXlmfz4oePdi6VGHCBAKGXRieK3mEp+WQea3VZ4QgoX5xGdcdpv5M5D0JeTdFipyeEB6RWXow0uKDSD7d1zWc2cxTlENICg5lEOPC1aOUzgnxgqah2BYsu6jWam3B2K6jbos/JdHgnr2mI8V2fBWV2q81ND4PHEJ/93EdeMJi1CPO2
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RW5HTzJFbGVKVUdtOGJCQWQ4akhrQnRMMFhJdXR4U0VnWUVtREFRUHlRaUJJ?=
+ =?utf-8?B?cVBKMUdiVW5rYkRtUzN4Y0Z0Yi9VRGhweGgyT1NzSFY2bHdkTzhyTkZGdGVE?=
+ =?utf-8?B?N3hhMEhkMm1QUTdaYy9RTFdqbElRL0NFa2ZpS3B5QU15Mm9tV3kwM1hNMU1Q?=
+ =?utf-8?B?S0s5MWFYSUNmaklnMkt2ZWFwSDJuRmtma29VOEpIN1VUc3VXa3JQNmY2cTZn?=
+ =?utf-8?B?WFVQK3YzM1pFSWU4SFBndnhhZ1NTOWswdnkxRWdXVjF2OHhDQUFwWlN6WlQ5?=
+ =?utf-8?B?TWNiVnJVcHVQT0QwVnlla3JEaFBXTC9wWjdDVkFJbnNKSmNkVU5LK3V3N216?=
+ =?utf-8?B?MUVjTll6UzF1Qk9nTjNuemRDNVBTb3JSRjgzWmtFMDBFdXRuVGU3cllaNjM3?=
+ =?utf-8?B?U3RXRnRmT1ZNaE9uK3lhcjNKVGNCZkFZWmZOWW9LVmNtN0xQUVdLVkZTK3Y1?=
+ =?utf-8?B?UmliaFRQblYvajZTN3ppVGpzM3IvWnM3ek9yTFFkOEZVV0RtYXUreitVZTNp?=
+ =?utf-8?B?Ly9FbndSbEw5SmFPNnNMMXFiR3gzNk5BRWx5SlZwVmdWMzRkZDFuNGRXMFg3?=
+ =?utf-8?B?bkx5NVF6UERTM0k3bFM1Z2ZjZmk4R0l5RHkyVkdzUlBSVkdoeDBYSTFaK3ZW?=
+ =?utf-8?B?UGZJSFBobzNYN3BNRmRzaU1TTjVXUnltc0wrZS9aTHJNSVp5T1Y0cy81eVRL?=
+ =?utf-8?B?eXk1eThRM21aakF1N1FOQ0pBcldrTDN1N0N2SWhiSUNiYlZBbjZDQWJIV1By?=
+ =?utf-8?B?cU5KNkNpU1p0YWRtMk5sWGNYcDJrY2dUaXpmaTVlZjJ1b0o5SXVpNzlya1N2?=
+ =?utf-8?B?Ums5c3ZXZEp3SStnV1UrVnJnR3V6anFXQlFlOTd5NUZPWlBnR25tbkVVSWVF?=
+ =?utf-8?B?ZHlYL2FEV2JtQ0tzaktPQXFLMS96UjVwNy9ZZ0o0MlFydEJ6OTB6NGJDYVh0?=
+ =?utf-8?B?U1lyYmsrUGdjQ2wwbXJNUXRabDdDZXZXOVFLMm96Mit3djJxdFdTRm9OeW5u?=
+ =?utf-8?B?R2FoRy9QWW4vdk43U01HZUw3V3lKdGJlZVFsKzBCQkZRTU04b3ZyMmRmbFR6?=
+ =?utf-8?B?VlVBT1Y3V0o2QWtFL2x4bzFBWGFNcEtKRlBhZ1laVndMMkl4SC9DMnF0d0g1?=
+ =?utf-8?B?YnZLNW5Nc2lwU29MVmMybmpFb1pZaWUzTnJNelFjMHFmV1YvQzU5NW05d0Zt?=
+ =?utf-8?B?bFNDbjhJU0prS2pkdTl2aDdCakxnSGJVK0dsNkxoazVoaW9zMG0zS2FnelJn?=
+ =?utf-8?B?T2RYQUVmOCtCSSs0Zk1LNXFjaVBPVTdKS2RnK2lNTHVvSXhia3hDK3hHL01K?=
+ =?utf-8?B?cVFkZTdDVkNabnptZjRmeU5ZRjEvTFZNNDVnTEpzaXlJdzVvY2JDU3J0RGhU?=
+ =?utf-8?B?bFFtS3RGSmtjMGNJTWxZNXBDcE9xQytkd0ppV0NCM0lBZDUrQ0w2OU5IYjUz?=
+ =?utf-8?B?MDBIVlY2bGNQUXNWemY3V1ZDUHc5OGhteU1CYXdkcUtOb20yTFJ5SmVNYlhW?=
+ =?utf-8?B?RDFqV05xT3VZdzhRUFpnUnIxb0hncUZpcmFQcTgrSTNnYnE3bnlvb2N3UmlD?=
+ =?utf-8?B?MkVrZTZpL2hsbC9qQnBrd1BuNXhsd0NwQXhWNFdrcGFCR1Jac2szc3FUeXJs?=
+ =?utf-8?B?dGhBakZybGJnbWV0djZMYU4wdjRNK1RVRDNYUUIvaXRKdzdVNjFVckU1bnY3?=
+ =?utf-8?B?ekxvcTYxMGFUMEhyZHRpM1JnU09jTkU2ejhOZGUvQ1ZuY3FPMk4xUFlRcXhQ?=
+ =?utf-8?B?UDBHK2VNOEhxbEdiSG9ubGFvcDZucHpEa0lBbkw5ZndzTWhtQ3lNa0RyTmpW?=
+ =?utf-8?B?K0FLRWJuRllPT0k4ejZKbXdxWTZHODQraDRDS1JYWXl5MzZRUVhneWdwS0RO?=
+ =?utf-8?B?VFlNQy8zRTVGWXBXVDVPOS9lQUxQc1NQdWhtVEpySm9teHpzTmVHU04zcTdq?=
+ =?utf-8?B?RUliUWhGMHNOZ1A4cTIzcVVzY1FqUzF6VVVDQTlZVFFRMzBrZXZvYmRaaHEr?=
+ =?utf-8?B?eGM1M05PT3lHTGlVL2lHcllSYTZlYVpTTmJuMWVKOHdkNkdZWVhZOUV0NmNS?=
+ =?utf-8?B?T200TkdXdnk2NWluT09RM2FLRmZiY3RicEtNcWZYRjM0VU9vSS83bFRqSi96?=
+ =?utf-8?B?bTRDSDkxdjQ5Y245dVhrYmx2eUJyakNlY29oamdhTmgyTkc5ZFArQmptTkFv?=
+ =?utf-8?B?ZUZ5c05uYVV5dTFwam5ZNjhrcUNib2owOFRId0ZqYVA5SHVscmJoM1JzcUZu?=
+ =?utf-8?B?aUJqRUFoWjgyTU9vMC9qUUcvVXlJN1R4NXp5MnJLcWVGcU5aL1dhVkJSQWwr?=
+ =?utf-8?Q?2p08GUIeFky+6ulumi?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 907f4963-a9a5-4a79-30c3-08dec08c332d
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 09:49:12.2285 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: K72P3tjxBFWs7NweeCNoPzJ6irhTsgzPsuPuKLDPt//bd+P0F09z0bpfqg122ZZN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8531
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,222 +139,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 6/2/26 07:03, Runyu Xiao wrote:
+> mes_v11_0_queue_init() resets ring->wptr_cpu_addr with a plain 32-bit
+> store in the reset/suspend path even though the same carrier is
+> accessed with atomic64_set()/atomic64_read() and support_64bit_ptrs is
+> enabled.
+> 
+> This is not just a missing atomic annotation. The MES queue write
+> pointer is a shared 64-bit carrier, and *ring->wptr_cpu_addr = 0 only
+> clears the low 32 bits. A later atomic64_read() can then observe stale
+> high 32 bits instead of a real zeroed reset state.
+> 
+> Use atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0) so the reset
+> path updates the full 64-bit wptr with the same access family as the
+> existing readers and writers.
+> 
+> Build-tested by compiling mes_v11_0.o.
+> 
+> No AMDGPU hardware was available for end-to-end runtime testing.
 
+Clear NAK.
 
-On 6/2/2026 3:17 PM, Jianping Li wrote:
-> Allocating and freeing Audio PD memory from userspace is unsafe because
-> the kernel cannot reliably determine when the DSP has finished using the
-> memory. Userspace may free buffers while they are still in use by the DSP,
-> and remote free requests cannot be safely trusted.
+The atomic64_t cast hack is just something we did for older generations and is not something which is necessary not should be done here.
+
+What could be possible is that we need to use amdgpu_ring_set_wptr() here to correctly distinct between queues with 32bit and 64bit wptrs.
+
+Regards,
+Christian.
+
 > 
-> Additionally, the current implementation allows userspace to repeatedly
-> grow the Audio PD heap, but does not support shrinking it. This can lead
-> to unbounded memory usage over time, effectively causing a memory leak.
-> 
-> Fix this by allocating the entire Audio PD reserved-memory region during
-> rpmsg probe and tying its lifetime to the rpmsg channel. This removes
-> userspace-controlled alloc/free and ensures that memory is reclaimed only
-> when the DSP process is torn down.
-> 
-> Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
-> Cc: stable@kernel.org
-> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+> Fixes: d81d75c99936 ("drm/amdgpu/gfx11: enable kiq to map mes ring")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 > ---
->   drivers/misc/fastrpc.c | 96 +++++++++++++++++++-----------------------
->   1 file changed, 43 insertions(+), 53 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index f46a8f53970d..33be8bed6a0b 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -276,6 +276,8 @@ struct fastrpc_channel_ctx {
->   	struct kref refcount;
->   	/* Flag if dsp attributes are cached */
->   	bool valid_attributes;
-> +	/* Flag if audio PD init mem was allocated */
-> +	bool audio_init_mem;
->   	u32 dsp_attributes[FASTRPC_MAX_DSP_ATTRIBUTES];
->   	struct fastrpc_device *secure_fdevice;
->   	struct fastrpc_device *fdevice;
-> @@ -1344,15 +1346,16 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->   	struct fastrpc_init_create_static init;
->   	struct fastrpc_invoke_args *args;
->   	struct fastrpc_phy_page pages[1];
-> +	struct fastrpc_channel_ctx *cctx = fl->cctx;
->   	char *name;
->   	int err;
-> -	bool scm_done = false;
->   	struct {
->   		int client_id;
->   		u32 namelen;
->   		u32 pageslen;
->   	} inbuf;
->   	u32 sc;
-> +	unsigned long flags;
->   
->   	if (!fl->cctx->remote_heap ||
->   	    !fl->cctx->remote_heap->dma_addr ||
-> @@ -1383,31 +1386,6 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->   	inbuf.client_id = fl->client_id;
->   	inbuf.namelen = init.namelen;
->   	inbuf.pageslen = 0;
-> -	if (!fl->cctx->remote_heap) {
-> -		err = fastrpc_remote_heap_alloc(fl, fl->sctx->dev, init.memlen,
-> -						&fl->cctx->remote_heap);
-> -		if (err)
-> -			goto err_name;
-> -
-> -		/* Map if we have any heap VMIDs associated with this ADSP Static Process. */
-> -		if (fl->cctx->vmcount) {
-> -			u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
-> -
-> -			err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
-> -							(u64)fl->cctx->remote_heap->size,
-> -							&src_perms,
-> -							fl->cctx->vmperms, fl->cctx->vmcount);
-> -			if (err) {
-> -				dev_err(fl->sctx->dev,
-> -					"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
-> -					&fl->cctx->remote_heap->dma_addr,
-> -					fl->cctx->remote_heap->size, err);
-> -				goto err_map;
-> -			}
-> -			scm_done = true;
-> -			inbuf.pageslen = 1;
-> -		}
-> -	}
->   
->   	fl->pd = USER_PD;
->   
-> @@ -1419,8 +1397,17 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->   	args[1].length = inbuf.namelen;
->   	args[1].fd = -1;
->   
-> -	pages[0].addr = fl->cctx->remote_heap->dma_addr;
-> -	pages[0].size = fl->cctx->remote_heap->size;
-> +	spin_lock_irqsave(&cctx->lock, flags);
-> +	if (!fl->cctx->audio_init_mem) {
-> +		pages[0].addr = fl->cctx->remote_heap->dma_addr;
-> +		pages[0].size = fl->cctx->remote_heap->size;
-> +		fl->cctx->audio_init_mem = true;
-> +		inbuf.pageslen = 1;
-> +	} else {
-> +		pages[0].addr = 0;
-> +		pages[0].size = 0;
-> +	}
-> +	spin_unlock_irqrestore(&cctx->lock, flags);
->   
->   	args[2].ptr = (u64)(uintptr_t) pages;
->   	args[2].length = sizeof(*pages);
-> @@ -1438,27 +1425,7 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->   
->   	return 0;
->   err_invoke:
-> -	if (fl->cctx->vmcount && scm_done) {
-> -		u64 src_perms = 0;
-> -		struct qcom_scm_vmperm dst_perms;
-> -		u32 i;
-> -
-> -		for (i = 0; i < fl->cctx->vmcount; i++)
-> -			src_perms |= BIT(fl->cctx->vmperms[i].vmid);
-> -
-> -		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
-> -		dst_perms.perm = QCOM_SCM_PERM_RWX;
-> -		err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
-> -						(u64)fl->cctx->remote_heap->size,
-> -						&src_perms, &dst_perms, 1);
-> -		if (err)
-> -			dev_err(fl->sctx->dev, "Failed to assign memory dma_addr %pad size 0x%llx err %d\n",
-> -				&fl->cctx->remote_heap->dma_addr, fl->cctx->remote_heap->size, err);
-> -	}
-> -err_map:
-> -	fastrpc_buf_free(fl->cctx->remote_heap);
-> -	fl->cctx->remote_heap = NULL;
-> -err_name:
-> +	fl->cctx->audio_init_mem = false;
->   	kfree(name);
->   err:
->   	kfree(args);
-> @@ -2425,12 +2392,21 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
->   		}
->   	}
->   
-> -	if (domain_id == SDSP_DOMAIN_ID) {
-> +	if (domain_id == SDSP_DOMAIN_ID || domain_id == ADSP_DOMAIN_ID) {
->   		struct resource res;
->   		u64 src_perms;
->   
->   		err = of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
->   		if (!err) {
-> +			if (domain_id == ADSP_DOMAIN_ID) {
-> +				data->remote_heap =
-> +					kzalloc_obj(*data->remote_heap, GFP_KERNEL);
-> +				if (!data->remote_heap)
-> +					return -ENOMEM;
-
-allocated data never free with directly return.
-
-goto err_free_data;
-
-Beside, we also need free data->remote_heap in err_free_data path as you 
-added new memory allocation.
-
-> +
-> +				data->remote_heap->dma_addr = res.start;
-> +				data->remote_heap->size = resource_size(&res);
-> +			}
->   			src_perms = BIT(QCOM_SCM_VMID_HLOS);
->   
->   			err = qcom_scm_assign_mem(res.start, resource_size(&res), &src_perms,
-> @@ -2438,7 +2414,6 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
->   			if (err)
->   				goto err_free_data;
->   		}
-> -
->   	}
->   
->   	secure_dsp = !(of_property_read_bool(rdev->of_node, "qcom,non-secure-domain"));
-> @@ -2519,6 +2494,7 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
->   	struct fastrpc_buf *buf, *b;
->   	struct fastrpc_user *user;
->   	unsigned long flags;
-> +	int err;
->   
->   	/* No invocations past this point */
->   	spin_lock_irqsave(&cctx->lock, flags);
-> @@ -2536,8 +2512,22 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
->   	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
->   		list_del(&buf->node);
->   
-> -	if (cctx->remote_heap)
-> -		fastrpc_buf_free(cctx->remote_heap);
-
-after removed the code, the cctx->remote_heap is not freed:
-1. cctx->vmcount == 0
-2. if (!err) is false
-
-we should free the cctx->remote_heap unconditionally if it exists.
-
-Thanks,
-Jie
-
-> +	if (cctx->remote_heap && cctx->vmcount) {
-> +		u64 src_perms = 0;
-> +		struct qcom_scm_vmperm dst_perms;
-> +
-> +		for (u32 i = 0; i < cctx->vmcount; i++)
-> +			src_perms |= BIT(cctx->vmperms[i].vmid);
-> +
-> +		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
-> +		dst_perms.perm = QCOM_SCM_PERM_RWX;
-> +
-> +		err = qcom_scm_assign_mem(cctx->remote_heap->dma_addr,
-> +					  cctx->remote_heap->size, &src_perms,
-> +					  &dst_perms, 1);
-> +		if (!err)
-> +			kfree(cctx->remote_heap);
-> +	}
->   
->   	of_platform_depopulate(&rpdev->dev);
->   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> index a926a3307..e2f762c2e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> @@ -1308,7 +1308,7 @@ static int mes_v11_0_queue_init(struct amdgpu_device *adev,
+> 
+>         if ((pipe == AMDGPU_MES_SCHED_PIPE) &&
+>             (amdgpu_in_reset(adev) || adev->in_suspend)) {
+> -               *(ring->wptr_cpu_addr) = 0;
+> +               atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
+>                 *(ring->rptr_cpu_addr) = 0;
+>                 amdgpu_ring_clear_ring(ring);
+>         }
+> --
+> 2.34.1
 
