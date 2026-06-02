@@ -4,103 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6902CD6E4A
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 10:31:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99D43CD6E4A
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 10:33:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18A6910EE95;
-	Tue,  2 Jun 2026 10:31:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0032710EE9B;
+	Tue,  2 Jun 2026 10:33:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HuyD9beV";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="HGBC4leZ";
 	dkim-atps=neutral
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
- [74.125.82.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AF9F10EE93
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 10:31:56 +0000 (UTC)
-Received: by mail-dy1-f174.google.com with SMTP id
- 5a478bee46e88-304cf518c9dso7558672eec.1
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 03:31:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780396315; cv=none;
- d=google.com; s=arc-20240605;
- b=RjiHYyYidJp9PCGoWJcUf1XVgQ/g4CxreZAFevmTjegqIkYU7ggfZ2iFkNa99exMBi
- 4VzkDgckYFvvFeXfYYPhJT0potOTyLqgwKvtdcq77sES3h3Z3btaovqCa9XYnxwamm8x
- 18RHsA+njImquSA73O1UpZ0u6H8gTeZUkwRMdNTYURimJDtOEULPHo1PvXLXwwwnkfNB
- vQoqh8WNij34qL7vaJCFdg66LV0505h+BHypqo5D5w8L5BJjqXDHxJkGvWSfbCxejKqD
- JbHY5zDadZKY6n7NbA7rpQuzH726Mhm8ENqSLaXQx1B74eEYuc6WR1ZRq5LhiiSy3cNO
- lK1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=lDdI0YPykfuK0xhOe7sArc4RNqAa0Hyds1kbH01jcws=;
- fh=aZ6dvXWrV/bSfRf8HSieS8IQIqTfQoHj5EUvrU6FPEA=;
- b=GLWzlhILBgsQEK8JjOSr3qZBb0yrasMmjY8voRy4/G2Rkuvw/v1rLGnncY9szZSRwC
- 2Z1ucBwi5fNHUTIluQ7rvkgeB2ZjgVg85GIfGaOQrrMIx5FrPlRa+S3sjk6MyazZ+74u
- hydOPo28JoSgI1po6Bw7xCtKHlHCYJ4W0nPXu67rDKsMmGtdUruSI/aVtpVEQl4WIeZh
- T2LSI1xqJd10BqltsiQwCaLK4zlorxWqpi9fw1Q4lhVdHH563mPQlrquR32iNTO6ifya
- EC+bqifAjJB7CEC/FAYX8UxgBduvxPxfuqoDc83IUxEhhOVMAs5fhi5cFIQYja55yMzH
- XCdQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780396315; x=1781001115; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lDdI0YPykfuK0xhOe7sArc4RNqAa0Hyds1kbH01jcws=;
- b=HuyD9beVqV7Q2B0c9AUnbvEEd9GZtX7LpF32aje97hGyrE1m4WaRyKEJqBGAyYLxkC
- eY1MFiLM0jDGk+H5qoRm+gdcokHX4hXc6cx0gZC+83jb4mcoeC3h3teL1ZEufgIoMHem
- ee7XNE2rDoAAkzOtOKPIohXU5+ABda6OIgAbdjT4runiFTzPEHctxi3MWUTuDY7jSYzu
- IPY2K8eQ05geJ1fESF/zWWeZpl7iIGc4TfMnlP6xw59Y5mLHa2zRzazjAtT4w+g/z1+3
- /z5wq/NEsW9fX7YkXMqpymE525QV9DwIdHs1dqsxHqDHrbs7aO3lmE7WE0XKoyJO/cAg
- wRXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780396315; x=1781001115;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=lDdI0YPykfuK0xhOe7sArc4RNqAa0Hyds1kbH01jcws=;
- b=Al8t5+dX9lMZo5KptnM/dXEjMSiU6VEJ25QbA0s6OpY+BbSP80xGL5IHoeqRTH/me4
- wx4oMenVJvzxWPTMTrGmZfJaOCgFz8PJcj+N14tb+7oosqg/PvR1v+PjT+dKwFdokoRd
- dSa8GGbyI2NEei2W22BcNuq9Zpb2c83DU0D0m2SJM6p7EyPHwzWW926kjWzZUSkfFRB7
- M8UUPcLnEl6742Jzh8z4U3DERl81JGqWgzWNB7kOsewK4EkBeTgqGRK+Rx33Ld7UIOlF
- EyEbzWOYSMmkT+03yPsO7un7vqdBIs9HMcRHZaY8VpbT88S8cckc0MlRrkw7lX4PYRa1
- G5Gg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8uWn9LNikDFfz0hrl7aMywXRn2S5N2WmdwGovYoVjekPnXMMIZp2SF6ntfN8EsagMfYDy2AMeX12k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzKhFaEWMWVsXaZxrvsLBNJ9ZnynRQVuF+nAZaqxC7sHnqVnbbK
- TRjBqWAiP/AJSoFrd2CJdeXsCpoJDbLpxstMf16ljagib+O1fXwR0K8mMP0QGFUm8WQ8khXPTM6
- X4H0lERChZYeSQXFci6uSAqIBWOttFGE=
-X-Gm-Gg: Acq92OF6h+4bAl/k8ndip7e6ryagmwQfw81kayTpmOhKQNUESB304rHvGBf1MztEv8B
- TMpo718nfBrqEilBjrrM+FNhP5pFep1qdQj1cO9kMWYKAvSyLNmJT0nMEg3oSGnteqrikrwA7Vj
- gKDV4e/o3tpC5czFKQlgIPKqxh5iK3VmWokFYCLXhk6RhhgBDME+Z+c5W+eVm5gg/Cp9u5RWGOk
- 05mJf7qal2g0g6kvBjb2vdKXeQLfNND2LC1X9e6dJWvblvkRQyXQvWI2IX4Xb/kfqOsYGBuHmDw
- 3ykl1pV/rmW8VVc2xXuZ5d1/XRCBCg==
-X-Received: by 2002:a05:693c:2c86:b0:2c1:7793:7bbb with SMTP id
- 5a478bee46e88-304fa64c553mr7093613eec.27.1780396315135; Tue, 02 Jun 2026
- 03:31:55 -0700 (PDT)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C9C6710EE9B
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 10:33:07 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7C067353D
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 03:33:02 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 3293A3F93E
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 03:33:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1780396387; bh=iOHUK6brXgyIm879Y6Al2FeqYaz5id6uidKZL33WOWI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=HGBC4leZNohwQyphX/3IryBRBxWRH1mskr33fFwojF+eMFlFxxn8GE55YqP8JbbsQ
+ 9YLegGqHkssXaW59v/k4HvXh8u0VbbRpU7R3KJQutZXWUe1x4FhrnWxoa8jzippgPF
+ J2Un9AV4ueLv53KNibnTbaMZnrDEvoyVuxR47nVw=
+Date: Tue, 2 Jun 2026 11:32:32 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v5 3/8] drm/komeda: use drmm_writeback_connector_init()
+Message-ID: <ah6xQEWemicF_ECc@e142607>
+References: <20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com>
+ <20260505-wb-drop-encoder-v5-3-42567b7c7af2@oss.qualcomm.com>
 MIME-Version: 1.0
-References: <20260601151831.76350-1-clamor95@gmail.com>
- <20260601151831.76350-6-clamor95@gmail.com>
- <ah6TGjRNnDpQGO60@ashevche-desk.local>
-In-Reply-To: <ah6TGjRNnDpQGO60@ashevche-desk.local>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 2 Jun 2026 13:31:44 +0300
-X-Gm-Features: AVHnY4LWQiJbbknL3YlvePeYbIxJnooafI1v7YVQtfA6307ubpWpYRL37q4rijM
-Message-ID: <CAPVz0n21RGAaJc1sda4xyp1h0z+6R6FJ4=XWdOtB1mgtV8=RUA@mail.gmail.com>
-Subject: Re: [PATCH v3 05/11] mfd: lm3533: Convert to use OF bindings
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
- Johan Hovold <johan@kernel.org>, 
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260505-wb-drop-encoder-v5-3-42567b7c7af2@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,152 +83,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=D0=B2=D1=82, 2 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 11:24=
- Andy Shevchenko <andriy.shevchenko@intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Mon, Jun 01, 2026 at 06:18:25PM +0300, Svyatoslav Ryhel wrote:
-> > Since there are no users of this driver via platform data, remove the
-> > platform data support and switch to using Device Tree bindings.
->
-> ...
->
-> > @@ -57,6 +60,9 @@ struct lm3533_als {
-> >
-> >       atomic_t zone;
-> >       struct mutex thresh_mutex;
-> > +
-> > +     bool pwm_mode;
-> > +     u32 r_select;
-> >  };
->
-> Have you run `pahole`? Does it agree with the layout you made here?
->
+On Tue, May 05, 2026 at 03:25:00AM +0300, Dmitry Baryshkov wrote:
+> The driver uses drm_writeback_connector_init() instead of its drmm
+> counterpart, but it doesn't perform the job queue cleanup (neither
+> manually nor by calling drm_writeback_connector_cleanup()). On the
+> contrary, the drmm_writeback_connector_init() function ensures the
+> proper cleanup of the job queue.
+> 
+> Use drmm_plain_encoder_alloc() to allocate simple encoder and
+> drmm_writeback_connector_init() in order to initialize writeback
+> connector instance.
+> 
+> Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Noted.
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-> ...
->
-> > -     als->irq =3D lm3533->irq;
-> > +     als->irq =3D platform_get_irq_optional(pdev, 0);
->
-> > +
->
-> Redundant blank line.
->
+Best regards,
+Liviu
 
-Simplifies code perception, whatever.
+> ---
+>  .../drm/arm/display/komeda/komeda_wb_connector.c   | 30 ++++++++++++----------
+>  1 file changed, 17 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+> index 41cc3e080dc9..bcc53d4015f1 100644
+> --- a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+> @@ -5,6 +5,7 @@
+>   *
+>   */
+>  #include <drm/drm_framebuffer.h>
+> +#include <drm/drm_managed.h>
+>  #include "komeda_dev.h"
+>  #include "komeda_kms.h"
+>  
+> @@ -121,17 +122,10 @@ komeda_wb_connector_fill_modes(struct drm_connector *connector,
+>  	return 0;
+>  }
+>  
+> -static void komeda_wb_connector_destroy(struct drm_connector *connector)
+> -{
+> -	drm_connector_cleanup(connector);
+> -	kfree(to_kconn(to_wb_conn(connector)));
+> -}
+> -
+>  static const struct drm_connector_funcs komeda_wb_connector_funcs = {
+>  	.reset			= drm_atomic_helper_connector_reset,
+>  	.detect			= komeda_wb_connector_detect,
+>  	.fill_modes		= komeda_wb_connector_fill_modes,
+> -	.destroy		= komeda_wb_connector_destroy,
+>  	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
+>  	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
+>  };
+> @@ -143,13 +137,15 @@ static int komeda_wb_connector_add(struct komeda_kms_dev *kms,
+>  	struct komeda_wb_connector *kwb_conn;
+>  	struct drm_writeback_connector *wb_conn;
+>  	struct drm_display_info *info;
+> +	struct drm_encoder *encoder;
+> +
+>  	u32 *formats, n_formats = 0;
+>  	int err;
+>  
+>  	if (!kcrtc->master->wb_layer)
+>  		return 0;
+>  
+> -	kwb_conn = kzalloc_obj(*kwb_conn);
+> +	kwb_conn = drmm_kzalloc(&kms->base, sizeof(*kwb_conn), GFP_KERNEL);
+>  	if (!kwb_conn)
+>  		return -ENOMEM;
+>  
+> @@ -165,11 +161,19 @@ static int komeda_wb_connector_add(struct komeda_kms_dev *kms,
+>  		return -ENOMEM;
+>  	}
+>  
+> -	err = drm_writeback_connector_init(&kms->base, wb_conn,
+> -					   &komeda_wb_connector_funcs,
+> -					   &komeda_wb_encoder_helper_funcs,
+> -					   formats, n_formats,
+> -					   BIT(drm_crtc_index(&kcrtc->base)));
+> +	encoder = drmm_plain_encoder_alloc(&kms->base, NULL,
+> +					   DRM_MODE_ENCODER_VIRTUAL, NULL);
+> +	if (IS_ERR(encoder))
+> +		return PTR_ERR(encoder);
+> +
+> +	drm_encoder_helper_add(encoder, &komeda_wb_encoder_helper_funcs);
+> +
+> +	encoder->possible_crtcs = drm_crtc_mask(&kcrtc->base);
+> +
+> +	err = drmm_writeback_connector_init(&kms->base, wb_conn,
+> +					    &komeda_wb_connector_funcs,
+> +					    encoder,
+> +					    formats, n_formats);
+>  	komeda_put_fourcc_list(formats);
+>  	if (err) {
+>  		kfree(kwb_conn);
+> 
+> -- 
+> 2.47.3
+> 
 
-> > +     if (als->irq =3D=3D -EPROBE_DEFER)
-> > +             return -EPROBE_DEFER;
->
-> What about other error codes when IRQ is found by can't be retrieved for =
-some
-> reasons? IIRC we check against ENXIO in similar cases
->
-
-Then we treat it as no IRQ. Original implementation cares only if IRQ
-is present or no.
-
->         als->irq =3D platform_get_irq_optional(pdev, 0);
->         if (als->irq =3D=3D -ENXIO)
->                 als->irq =3D 0;
->         if (als->irq < 0)
->                 return als->irq;
->
-> ...
->
-> > +     led->pwm =3D 0;
->
-> Isn't it 0 by zalloc ?
-
-It is, thanks.
-
->
-> > +     device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &led->=
-pwm);
->
-> ...
->
-> >  #define LM3533_BOOST_FREQ_MASK               0x01
-> >  #define LM3533_BOOST_FREQ_SHIFT              0
-> > +#define LM3533_BOOST_FREQ_MIN                500000
-> > +#define LM3533_BOOST_FREQ_MAX                1000000
->
-> HZ_PER_KHZ  (since you included units.h)?
->
-
-500 * HZ_PER_KHZ
-1000 * HZ_PER_KHZ
-
-You meant this? Sure.
-
-> ...
->
-> > +     nchilds =3D device_get_child_node_count(dev);
-> > +     if (!nchilds || nchilds > LM3533_CELLS_MAX) {
-> > +             dev_err(dev, "num of child nodes is not supported\n");
-> > +             return -ENODEV;
->
-> Why not dev_err_probe() here and elsewhere? It looks inconsistent with th=
-is
-> patch.
->
-
-I must have overlooked it, thanks. WDYM elsewhere, this is the only occuran=
-ce.
-
-> >       }
->
-> ...
->
-> > +     device_for_each_child_node_scoped(lm3533->dev, child) {
->
-> > +             if (!fwnode_device_is_available(child))
-> > +                     continue;
->
-> Do we need this check?
->
-
-This is nice to have if the node is disabled. If we assume that there
-are no disabled nodes, I can remove it.
-
-> ...
->
-> > +                             dev_err(dev, "invalid LED node %s\n",
-> > +                                     fwnode_get_name(child));
->
-> %pfw
->
-
-Noted.
-
-> ...
->
-> > +     ret =3D sysfs_create_group(&dev->kobj, &lm3533_attribute_group);
->
-> No way. You should use .dev_groups.
->
-
-I did not change how driver does this, just swapped lm3533->dev to
-dev. I will set is back as it was.
-
-> > +     if (ret) {
-> > +             dev_err(dev, "failed to create sysfs attributes\n");
-> >               goto err_unregister;
-> >       }
->
-> ...
->
-> Can you think on how to split this change to smaller steps? I believe it'=
-s
-> possible.
->
-
-No, I am done with tinkering with this patchset. It is broken enough
-and it has inflated enough.
-
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
