@@ -4,83 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A673CD6E4A
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 08:26:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43100C5DF71
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 08:36:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A55EA11390C;
-	Tue,  2 Jun 2026 08:26:00 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7922F11390C
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 08:25:59 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <p.zabel@pengutronix.de>)
- id 1wUKQZ-0001Gf-0T; Tue, 02 Jun 2026 10:24:47 +0200
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e]
- helo=lupine)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <p.zabel@pengutronix.de>) id 1wUKQT-000iZa-13;
- Tue, 02 Jun 2026 10:24:41 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
- (envelope-from <p.zabel@pengutronix.de>) id 1wUKQT-000000003ba-0TqR;
- Tue, 02 Jun 2026 10:24:41 +0200
-Message-ID: <6af284545729f03a60d06479339862a2f08c6b7e.camel@pengutronix.de>
-Subject: Re: [PATCH 22/23] reset: rzg2l: use
- platform_device_set_of_node_from_dev()
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Lee Jones	
- <lee@kernel.org>, Mark Brown <broonie@opensource.wolfsonmicro.com>, Thierry
- Reding <thierry.reding@avionic-design.de>, Sebastian Hesselbarth	
- <sebastian.hesselbarth@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Srinivas Kandagatla <srini@kernel.org>, Greg
- Kroah-Hartman	 <gregkh@linuxfoundation.org>, Vinod Koul <vkoul@kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich
- <dakr@kernel.org>, Rob Herring <robh@kernel.org>,  Saravana Kannan
- <saravanak@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, Michael
- Ellerman	 <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Andi Shyti
- <andi.shyti@kernel.org>, Andy Shevchenko	
- <andriy.shevchenko@linux.intel.com>, Joerg Roedel <joro@8bytes.org>, Will
- Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Doug Berger
- <opendmb@gmail.com>,  Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list	
- <bcm-kernel-feedback-list@broadcom.com>, Ulf Hansson <ulfh@kernel.org>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team	 <kernel@pengutronix.de>, Fabio Estevam
- <festevam@gmail.com>, Matthew Brost	 <matthew.brost@intel.com>, Thomas
- =?ISO-8859-1?Q?Hellstr=F6m?=	 <thomas.hellstrom@linux.intel.com>, Rodrigo
- Vivi <rodrigo.vivi@intel.com>,  David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Peter Chen <peter.chen@kernel.org>,  Paul
- Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>, Maximilian Luz
- <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>, Ilpo
- =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,  Krzysztof
- Kozlowski	 <krzk@kernel.org>, Benjamin Herrenschmidt
- <benh@kernel.crashing.org>
-Cc: brgl@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
- driver-core@lists.linux.dev, devicetree@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
- iommu@lists.linux.dev, 	linux-pm@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org, 
- linux-mips@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Date: Tue, 02 Jun 2026 10:24:41 +0200
-In-Reply-To: <20260521-pdev-fwnode-ref-v1-22-88c324a1b8d2@oss.qualcomm.com>
-References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
- <20260521-pdev-fwnode-ref-v1-22-88c324a1b8d2@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1088113945;
+	Tue,  2 Jun 2026 08:36:08 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="QfBoCmyE";
+	dkim-atps=neutral
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Tue, 02 Jun 2026 08:36:07 UTC
+Received: from mail-m60122.netease.com (mail-m60122.netease.com
+ [210.79.60.122])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F502113945
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 08:36:06 +0000 (UTC)
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 40bc4550f;
+ Tue, 2 Jun 2026 16:31:00 +0800 (GMT+08:00)
+Message-ID: <4f4ff085-80ae-4144-b040-be9b136574ee@rock-chips.com>
+Date: Tue, 2 Jun 2026 16:30:59 +0800
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: dri-devel@lists.freedesktop.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/12] drm/rockchip: dw_dp: Implement out-of-band HPD
+ handling
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Alexey Charkov <alchark@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, kernel@collabora.com,
+ linux-arm-kernel@lists.infradead.org
+References: <20260501-synopsys-dw-dp-improvements-v2-0-d7e7f6bac77f@collabora.com>
+ <20260501-synopsys-dw-dp-improvements-v2-7-d7e7f6bac77f@collabora.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20260501-synopsys-dw-dp-improvements-v2-7-d7e7f6bac77f@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9e87751e4e03a7kunm8e11791c2d3216
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDQklJVkseS0pITE9KTUtOSFYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=QfBoCmyEgpoenhswOoF/yKeUbTuxC9EVhGvEaAxRGsfG65iwiUWilCqWRkQMXBJJJRpVEwrSs1M1osaREHDbW7weEXveiQmAc1431woQ92hbOWFgBun80jvoxHNSm4sVE50IyzGNKvhAwX5f3PfPxGXAK/ouRy8shvw1IMoYgS4=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=JAIbtg6t1nkmAMDBYVOgCCRD8NVdgH1lo/7QZXXpTgs=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,34 +80,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Do, 2026-05-21 at 10:36 +0200, Bartosz Golaszewski wrote:
-> Ahead of reworking the reference counting logic for platform devices,
-> encapsulate the assignment of the OF node from another device for
-> dynamically allocated platform devices with the provided helper.
->=20
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
->  drivers/reset/reset-rzg2l-usbphy-ctrl.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/reset/reset-rzg2l-usbphy-ctrl.c b/drivers/reset/rese=
-t-rzg2l-usbphy-ctrl.c
-> index fd75d9601a3bfde7b7e3f6db287ec8c5c45a20ab..f003b360629c90bb37ed0ade7=
-a675b5b0f28fa7e 100644
-> --- a/drivers/reset/reset-rzg2l-usbphy-ctrl.c
-> +++ b/drivers/reset/reset-rzg2l-usbphy-ctrl.c
-> @@ -249,7 +249,7 @@ static int rzg2l_usbphy_ctrl_probe(struct platform_de=
-vice *pdev)
->  	vdev->dev.parent =3D dev;
->  	priv->vdev =3D vdev;
-> =20
-> -	device_set_of_node_from_dev(&vdev->dev, dev);
-> +	platform_device_set_of_node_from_dev(vdev, dev);
->  	error =3D platform_device_add(vdev);
->  	if (error)
->  		goto err_device_put;
+Hi Sebastian,
 
-Acked-by: Philipp Zabel <p.zabel@pengutronix.de>
+On 5/1/2026 6:20 AM, Sebastian Reichel wrote:
+> Implement out-of-band hotplug handling, which will be used to receive
+> external hotplug information from the USB-C state machine. This is
+> currently handled by the USBDP PHY, which brings quite some trouble
+> as the register being accessed requires the power-domain from the DP
+> controller and also requires custom TypeC HPD info parsing in the
+> USBDP PHY driver.
+> 
+> In contrast to the USBDP PHY this does not just enable the hotplug
+> signal when a DP AltMode capable adapter is plugged in, but instead
+> properly detects if a cable is plugged in for things like USB-C to
+> HDMI adapters.
+> 
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-regards
-Philipp
+[...]
+
+> +static void dw_dp_rockchip_hpd_sw_cfg(void *data, bool hpd)
+> +{
+> +	struct rockchip_dw_dp *dp = data;
+> +	u32 hpd_reg = dp->pdata->hpd_reg[dp->id];
+> +
+> +	dev_dbg(dp->dev, "Force HPD connected=%s\n", str_yes_no(hpd));
+> +
+> +	dp->hpd_cfg = hpd;
+> +
+> +	regmap_write(dp->vo_grf, hpd_reg,
+> +		     FIELD_PREP_WM16_CONST(ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG, dp->hpd_cfg));
+
+FIELD_PREP_WM16() should be used here because "dp->hpd_cfg" is not a
+constant expression.
+
+Other patches in this series have similar issues. Doesn't your compiler
+warn you about this? Thanks.
+
+-- 
+Best, 
+Chaoyi
