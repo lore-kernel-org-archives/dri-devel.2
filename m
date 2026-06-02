@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11232CD6E5D
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 10:47:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46078CD6E6B
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 10:47:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 423FC10EEE0;
-	Tue,  2 Jun 2026 10:47:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87C1F10EEE3;
+	Tue,  2 Jun 2026 10:47:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="XHS10kZF";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="luRRR9q1";
 	dkim-atps=neutral
-Received: from out30-98.freemail.mail.aliyun.com
- (out30-98.freemail.mail.aliyun.com [115.124.30.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A03910EEDD
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 10:47:10 +0000 (UTC)
+Received: from out30-130.freemail.mail.aliyun.com
+ (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A74610EEE0
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 10:47:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux.alibaba.com; s=default;
- t=1780397229; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=Dmq5VZlTiHIu0DAcakOaUjD+KNjRLd5oRgXasfLjiiI=;
- b=XHS10kZF5bTHkqVtJX6j9hiT7GJ4TzXAypFSDmgvGnb7NjuMgLru8UypByoNCN8R7jM2p4ump0EpDAYwnkxDBs2BF2/Kdhurbj4VBeywLxBFh2KVFxbSzj9W2sP3IumLWbKJ4IokeAcG9PhCRCzJLr2CFwr4U7bbSAA2tf2lpZQ=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R121e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033045133197;
+ t=1780397230; h=From:To:Subject:Date:Message-ID:MIME-Version;
+ bh=i4l5Y0trE0yKZKVwzh0g8Q2sXJKWMQOzssN47hgN7EY=;
+ b=luRRR9q1uOBbZ5Kdku++wEQ99Zx6VVvL8obWvaJYfL2yDUfTEUqI0uokgfdNT+KFWWB3HMR7ylXfS7yumFvA3cUiL/cwq8ErRRBtQ9b7pNNpYUJxv9LT3IkMOWuUjUEavUETI70JV4H6yimOSQk3ARUI65VTnjY47BTq7Rkp7L4=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R871e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033037026112;
  MF=guanghuifeng@linux.alibaba.com; NM=1; PH=DS; RN=28; SR=0;
- TI=SMTPD_---0X44E97N_1780397226; 
+ TI=SMTPD_---0X44E97Y_1780397227; 
 Received: from
  VM20241011-104.tbsite.net(mailfrom:guanghuifeng@linux.alibaba.com
- fp:SMTPD_---0X44E97N_1780397226 cluster:ay36) by smtp.aliyun-inc.com;
- Tue, 02 Jun 2026 18:47:06 +0800
+ fp:SMTPD_---0X44E97Y_1780397227 cluster:ay36) by smtp.aliyun-inc.com;
+ Tue, 02 Jun 2026 18:47:08 +0800
 From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
 To: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
  baolu.lu@linux.intel.com, boris.brezillon@collabora.com,
@@ -42,9 +42,9 @@ To: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
  suravee.suthikulpanit@amd.com, tzimmermann@suse.de,
  wei.guo.simon@linux.alibaba.com, will@kernel.org, xlpang@linux.alibaba.com
 Cc: alikernel-developer@linux.alibaba.com
-Subject: [PATCH v2 19/30] iommu/sprd: implement iova_to_phys_length
-Date: Tue,  2 Jun 2026 18:46:26 +0800
-Message-ID: <20260602104637.1219810-20-guanghuifeng@linux.alibaba.com>
+Subject: [PATCH v2 20/30] iommu/sun50i: implement iova_to_phys_length
+Date: Tue,  2 Jun 2026 18:46:27 +0800
+Message-ID: <20260602104637.1219810-21-guanghuifeng@linux.alibaba.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20260602104637.1219810-1-guanghuifeng@linux.alibaba.com>
 References: <20260531093637.3893199-1-guanghuifeng@linux.alibaba.com>
@@ -66,65 +66,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Implement iova_to_phys_length for Spreadtrum IOMMU driver,
+Implement iova_to_phys_length for sun50i IOMMU driver,
 returning the actual PTE mapping size.
 
 Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
 ---
- drivers/iommu/sprd-iommu.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
+ drivers/iommu/sun50i-iommu.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/iommu/sprd-iommu.c b/drivers/iommu/sprd-iommu.c
-index c1a34445d244..f8dbe24c332a 100644
---- a/drivers/iommu/sprd-iommu.c
-+++ b/drivers/iommu/sprd-iommu.c
-@@ -366,8 +366,9 @@ static void sprd_iommu_sync(struct iommu_domain *domain,
- 	sprd_iommu_sync_map(domain, 0, 0);
+diff --git a/drivers/iommu/sun50i-iommu.c b/drivers/iommu/sun50i-iommu.c
+index be3f1ce696ba..dcd7d926886a 100644
+--- a/drivers/iommu/sun50i-iommu.c
++++ b/drivers/iommu/sun50i-iommu.c
+@@ -659,23 +659,30 @@ static size_t sun50i_iommu_unmap(struct iommu_domain *domain, unsigned long iova
+ 	return SZ_4K;
  }
  
--static phys_addr_t sprd_iommu_iova_to_phys(struct iommu_domain *domain,
--					   dma_addr_t iova)
-+static phys_addr_t sprd_iommu_iova_to_phys_length(struct iommu_domain *domain,
-+						  dma_addr_t iova,
-+						  size_t *mapped_length)
+-static phys_addr_t sun50i_iommu_iova_to_phys(struct iommu_domain *domain,
+-					     dma_addr_t iova)
++static phys_addr_t sun50i_iommu_iova_to_phys_length(struct iommu_domain *domain,
++						    dma_addr_t iova,
++						    size_t *mapped_length)
  {
- 	struct sprd_iommu_domain *dom = to_sprd_domain(domain);
- 	unsigned long flags;
-@@ -375,14 +376,23 @@ static phys_addr_t sprd_iommu_iova_to_phys(struct iommu_domain *domain,
- 	unsigned long start = domain->geometry.aperture_start;
- 	unsigned long end = domain->geometry.aperture_end;
+ 	struct sun50i_iommu_domain *sun50i_domain = to_sun50i_domain(domain);
+ 	phys_addr_t pt_phys;
+ 	u32 *page_table;
+ 	u32 dte, pte;
  
 +	if (mapped_length)
 +		*mapped_length = 0;
 +
- 	if (WARN_ON(iova < start || iova > end))
+ 	dte = sun50i_domain->dt[sun50i_iova_get_dte_index(iova)];
+ 	if (!sun50i_dte_is_pt_valid(dte))
 -		return 0;
 +		return PHYS_ADDR_MAX;
  
- 	spin_lock_irqsave(&dom->pgtlock, flags);
- 	pa = *(dom->pgt_va + ((iova - start) >> SPRD_IOMMU_PAGE_SHIFT));
--	pa = (pa << SPRD_IOMMU_PAGE_SHIFT) + ((iova - start) & (SPRD_IOMMU_PAGE_SIZE - 1));
- 	spin_unlock_irqrestore(&dom->pgtlock, flags);
- 
-+	if (!pa)
+ 	pt_phys = sun50i_dte_get_pt_address(dte);
+ 	page_table = (u32 *)phys_to_virt(pt_phys);
+ 	pte = page_table[sun50i_iova_get_pte_index(iova)];
+ 	if (!sun50i_pte_is_page_valid(pte))
+-		return 0;
 +		return PHYS_ADDR_MAX;
 +
-+	pa = (pa << SPRD_IOMMU_PAGE_SHIFT) + ((iova - start) & (SPRD_IOMMU_PAGE_SIZE - 1));
 +	if (mapped_length)
-+		*mapped_length = SPRD_IOMMU_PAGE_SIZE;
-+
- 	return pa;
- }
++		*mapped_length = SZ_4K;
  
-@@ -420,7 +430,7 @@ static const struct iommu_ops sprd_iommu_ops = {
- 		.unmap_pages	= sprd_iommu_unmap,
- 		.iotlb_sync_map	= sprd_iommu_sync_map,
- 		.iotlb_sync	= sprd_iommu_sync,
--		.iova_to_phys	= sprd_iommu_iova_to_phys,
-+		.iova_to_phys_length	= sprd_iommu_iova_to_phys_length,
- 		.free		= sprd_iommu_domain_free,
- 	}
- };
+ 	return sun50i_pte_get_page_address(pte) +
+ 		sun50i_iova_get_page_offset(iova);
+@@ -857,7 +864,7 @@ static const struct iommu_ops sun50i_iommu_ops = {
+ 		.flush_iotlb_all = sun50i_iommu_flush_iotlb_all,
+ 		.iotlb_sync_map = sun50i_iommu_iotlb_sync_map,
+ 		.iotlb_sync	= sun50i_iommu_iotlb_sync,
+-		.iova_to_phys	= sun50i_iommu_iova_to_phys,
++		.iova_to_phys_length	= sun50i_iommu_iova_to_phys_length,
+ 		.map_pages	= sun50i_iommu_map,
+ 		.unmap_pages	= sun50i_iommu_unmap,
+ 		.free		= sun50i_iommu_domain_free,
 -- 
 2.43.7
 
