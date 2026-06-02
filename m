@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76571CD5BD1
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 21:42:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C518CD6E5D
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 21:45:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C890F10F610;
-	Tue,  2 Jun 2026 21:42:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FA7B10F602;
+	Tue,  2 Jun 2026 21:45:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ays48kj7";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VaH44L8M";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CF0F10E7A5;
- Tue,  2 Jun 2026 21:42:09 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 992C210F601;
+ Tue,  2 Jun 2026 21:45:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780436529; x=1811972529;
+ t=1780436711; x=1811972711;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=y1ADfjlXNms8ZBUMtHS+kHppk6E04WG2MGtxZDw5VPQ=;
- b=Ays48kj7lZCaRXhxGIt9pgHjLSiSEy21HIc6u0dXimntKLB8q653XIit
- airOIkPCnPJ0G9QvvgId5C7LrAV8foLX+PiOnDO9pgrxOSayNcYcgXMTu
- 5ivOSAcCftpHRDIPa3WaHuGvVW5Nd+85Vi8xr5L25IDrtnowjebFBEL2F
- j6C8pg+8npnTzwaJu/r3DfW2yB1DfF1YNyrFql8ZT6tywrqKX92oIOMM5
- DESttfdbdPlLO96IUmG0jieSl514gMyUG+TfeOukPwA3Kf0KwC+6VfwDs
- 3VQsaqdPIYwj8vpT36MzPFFmeSCYFNVdeQCm81XFmXX9+njMLr9Qpyuil g==;
-X-CSE-ConnectionGUID: C9yl9J4DSyOW021swN/tPQ==
-X-CSE-MsgGUID: xsAj2SPFSYGehOrFtfPiCQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="91546442"
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="91546442"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2026 14:42:08 -0700
-X-CSE-ConnectionGUID: tgIXYpSsR9qp+knkNCaUJg==
-X-CSE-MsgGUID: nLO3XIOVTTyZUZFp+zTfGQ==
+ bh=9mAoO9H8Y2BWm5p5K9c3oIGIMMxULY9BhMvq3EtYzfM=;
+ b=VaH44L8MNVumZXyEXRK8AfdaQNRXXVbJOIqxBpfPga+NfruxtYz4WPWv
+ iFbOmuZwzUO0a+RHjpn0HZWq3fKiP8CgXIQyMECDulHQqlcn8F4orXntH
+ MCXcwudjW7kQIASkMedK3qtQRGfdtxuoF3HDavTP82HF13Hz+e2UP8DrG
+ xcvomKiruDpx02hN08hls/QIQbNMXX7GJhL8n6FQz+mFkv7C+8wvs3YSk
+ e3ybOfGgXyjEvanK+lFrEq7C0I1qXuKgvRWJi8PN1jnxgLAPA0XTbftLB
+ 14VNu04wwUABisJbvro324yTUitnZNnkYKHZ5OAtRfcKG5kH5TjXjrMyx w==;
+X-CSE-ConnectionGUID: RWrt+fRdT+OkUsAOsLfXDQ==
+X-CSE-MsgGUID: xg5+UHUbQwO2s8WyOE0kTA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="81209899"
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="81209899"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jun 2026 14:45:10 -0700
+X-CSE-ConnectionGUID: UvnADU78SIC781mCxKiYQg==
+X-CSE-MsgGUID: DRVbexEBQcalNu55EQ4gaw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="241042785"
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="237669752"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.245.244.116])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2026 14:41:55 -0700
-Date: Wed, 3 Jun 2026 00:41:53 +0300
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jun 2026 14:44:57 -0700
+Date: Wed, 3 Jun 2026 00:44:55 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Cc: Lee Jones <lee@kernel.org>,
@@ -90,15 +90,15 @@ Cc: Lee Jones <lee@kernel.org>,
  intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-usb@vger.kernel.org, linux-mips@vger.kernel.org,
  platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH 07/23] driver core: platform: provide
- platform_device_set_fwnode()
-Message-ID: <ah9OIVyrHEhcMHzN@ashevche-desk.local>
+Subject: Re: [PATCH 08/23] driver core: platform: provide
+ platform_device_set_of_node_from_dev()
+Message-ID: <ah9O15bMlAYgSlHx@ashevche-desk.local>
 References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
- <20260521-pdev-fwnode-ref-v1-7-88c324a1b8d2@oss.qualcomm.com>
+ <20260521-pdev-fwnode-ref-v1-8-88c324a1b8d2@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260521-pdev-fwnode-ref-v1-7-88c324a1b8d2@oss.qualcomm.com>
+In-Reply-To: <20260521-pdev-fwnode-ref-v1-8-88c324a1b8d2@oss.qualcomm.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -116,15 +116,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, May 21, 2026 at 10:36:30AM +0200, Bartosz Golaszewski wrote:
-> Provide a helper function encapsulating the logic of assigning firmware
-> nodes to platform devices created with platform_device_alloc(). Make the
-> kerneldoc state that this is the proper interface for assigning firmware
-> nodes to dynamically allocated platform devices. This will allow us to
-> switch to counting the references of the device's firmware nodes in the
-> future, not only the OF nodes.
+On Thu, May 21, 2026 at 10:36:31AM +0200, Bartosz Golaszewski wrote:
+> Provide a platform-specific variant of device_set_of_node_from_dev(). In
+> addition to bumping the reference count of the OF node being assigned,
+> it also assigns the fwnode of the platform device.
 
-But why different for of_node and fwnode to begin with?!
+Can we rather investigate the way how to make that of node reuse thingy
+(which is used solely by pin control) differently and then drop this confusing
+device_set_of_node_from_dev() call altogether?
 
 -- 
 With Best Regards,
