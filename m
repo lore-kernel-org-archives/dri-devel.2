@@ -4,96 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41543CD6E5D
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 19:14:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3500DCD6E57
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 19:18:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 870E810F50C;
-	Tue,  2 Jun 2026 19:14:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A3F110F50D;
+	Tue,  2 Jun 2026 19:18:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="fYi8WswM";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="gHZnmppg";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=derek.foreman@collabora.com header.b="JvyNR55g";
 	dkim-atps=neutral
-Received: from fhigh-b7-smtp.messagingengine.com
- (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 112A410F50C
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 19:14:22 +0000 (UTC)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailfhigh.stl.internal (Postfix) with ESMTP id DAE987A00A1;
- Tue,  2 Jun 2026 15:14:20 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Tue, 02 Jun 2026 15:14:21 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm3; t=1780427660;
- x=1780514060; bh=SpvDioedx7EBp7REkfmzqAAh1WhYtz7APHz8F+X6T5w=; b=
- fYi8WswM+/hkbi1Bd3EOzRsKS9w1UWkyvLNnwfILgyvyDaBqcCjA1b8c6n4DxuHQ
- Rufm0/3+n7fZ26/ntN0+xsHEmNNi3P8QbUAcLR8nsZUosIqvWis3u8AolZriPI5C
- YuWzbB1x/a5RsQQ1T3bRDmQy07wOdEr+RnzVSVcyClofhmTc1p89+VepqJFS1A2s
- boZQIsQD2T1hd72DAgKjy38GRJ3hZX/K0uCtHnvNzynsNlyEpmni5pyFIc3DvAA1
- 8mxM7s/xKW22LT3Tp2TeRal0XVGYLuqUPZFlA4P7fr3myk/3/p70msI7f0lMYXPR
- xsnJ7JUaM1wXfRmR3tavOg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1780427660; x=
- 1780514060; bh=SpvDioedx7EBp7REkfmzqAAh1WhYtz7APHz8F+X6T5w=; b=g
- HZnmppgaNPwItEsd4IStTSIXHz/n3NR53RCJvTj0RmQJN0ZSzjnWudHLZVX8hvc0
- yYJ/eY/QzBkPOiNbalDsZSWi42bWUKGCUmefFmVZ2IL1XHDBYKhAFOqHH37GSFd1
- jC8iVrtGTTz/cfIOQnCTAmWEsJFY7EhljeRoSD+1k+zlg7G3Jf94qulTJTOesJv3
- Hzhbzen7f4bxAYIByco1J7y33aGJDc/xd5c/co7lCx1KXDa6hc/gLo8Na6N+Pttt
- 0vW+LPbolONIOrIpL/GHLHus850xqwENSkNrZrJTbr1f6V9IdU4g0YuyK9cPKid4
- lDWDW3cMun2To0zyPP+iQ==
-X-ME-Sender: <xms:jCsfatLxzGt4VmdphbTdirJSQA1MpXYAMU1AMk1ebq0AnJs_1Jeu1w>
- <xme:jCsfak1ywB2nbz5-55Y0zhhPWofz1giRpo09yL9rwnimIX7i-assB9XOPGWFIRpr5
- XJp7_E0K6tzBljN9p4UzOSfH8JF1N-pauhM5PzpmGWB3k6DpC3swnM>
-X-ME-Received: <xmr:jCsfagYy5lIUmzqcyr8sK6G-KvfKQkqy25ngGic9PvuAbbyU2Qgn8s0qYKA>
-X-ME-Proxy-Cause: dmFkZTEbaR6LWAxxEP7bF1oueZFOpQlufeO72chHj023mPTzizOII6z5ldTM+xHFULHcJd
- KN0hIAhV7kszSpGu8UYILvRB9QwRkTWj6khZsy0V2rhu6mvc3076amoNLLnrXC8wle5U8k
- e19xr29yQwkD+fyr3WNDGif+swnmavasRDpBG5bCnmixecj00gr5lXamekgkoOQ078cPts
- CnXa3RTvGxPZyyfK6c2P8lMcR3Bqd7Dd7ndk2OxIQZ0W8xoZoK4MdeQC//3l03vQWShVsD
- EnUUq+uNCd37UWLpguugGlt1xZl9XZO9lvsgn8Ktzy5+1OPCSQ/Hf4drjV01A/xmVAV8CJ
- XpXvFZZpm977G6evGreJs5c5E24hbpdLz+gaYoOYEQSSTCNZea3/qiLwfKEbttRfEGlnH5
- eUXReTuUjJSZw0Vjd1jXIAisrp6/6CqkroxMamWciT724xZYyeqP+Ou6NNohqsy1JhZxYY
- wZWHdg+ejxcOFd2TKlDcMQsLQWZ5XnT4kPV9vb0StqKqW//5ig/43r+FnPSQFBBGWf3uvi
- axl7yZ8MoHUEOb/wAdyn6SUir2uA6YCrKa/Q1QYRUeanFm58uZvdaCc2O2wVqV3rulFM8Y
- Pa1Mrg8R7jNWd7YPWht2zrHTwn4TzEafYAgL7BMKCrlHQjzA7rkyTd0Ts6Zg
-X-ME-Proxy: <xmx:jCsfavX3pjxaVqCjv-vNEJkZoYem228vgb7Tlrw96X6YTaLmLZL0Dw>
- <xmx:jCsfajfxdiqfCns1rdUltuUBKkUkVuHpMkhTRGUDqFdzzagH_55Szg>
- <xmx:jCsfakMv7HPAAbuT9s2pnOQqBkP7VCw7ZvoO_vwFKLSo9goyHr3C9A>
- <xmx:jCsfajKkkggVbUx4PVdT_hrwyyf95lGKwviIP2ZwvTE3uw23DIrUXw>
- <xmx:jCsfarNoi6G6E-ic1DExI19pAuGQmsJuNEpE-Dvf8S4w2sXQo0GLhuNp>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 2 Jun 2026 15:14:18 -0400 (EDT)
-Date: Tue, 2 Jun 2026 13:14:17 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Matt Evans <mattev@meta.com>
-Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>, Logan
- Gunthorpe <logang@deltatee.com>, Mahmoud Adam <mngyadam@amazon.de>, David
- Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian
- <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, Pranjal
- Shrivastava <praan@google.com>, Alistair Popple <apopple@nvidia.com>, Vivek
- Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org, alex@shazbot.org
-Subject: Re: [PATCH v2 9/9] vfio/pci: Add mmap() attributes to DMABUF feature
-Message-ID: <20260602131417.41366391@shazbot.org>
-In-Reply-To: <8854824e-06c2-43b3-86c2-8c2c28f9ad63@meta.com>
-References: <20260527102319.100128-1-mattev@meta.com>
- <20260527102319.100128-10-mattev@meta.com>
- <20260528171432.771a1a30@shazbot.org>
- <8854824e-06c2-43b3-86c2-8c2c28f9ad63@meta.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com
+ [136.143.188.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D1A010F50D
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 19:18:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1780427886; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=F4dV1v/3wK0ycZDKoby1IgcGqwyg9JGCAkaoF3SFb2LQWaJ/CfjCnA0FSR3GikruW2OfRfhrFrcb8sk9+LqHEt8sL4biTWQ0Rzb7iPtvS9uLHmAl3eNbx9d4d8HuRVS+xDnZ1277fEyvkuytnrslpCNXMiliwvgZ9v5JzV6NTvY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1780427886;
+ h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=7waqqh91sUuQkV5a047XXhkyRVOzLEIZcLXOLapkxzQ=; 
+ b=CsJxTvPgDPfb757EOD3fyigEdxJf8byu+DcDnLgjAvtNZfD10pMCkhw7F8VGmE1KtVoUYJeAam8FFgPzdU1katAN77UMdOjxyZ+Op6tM+3N3Cqt06gFAyjI+s15p+sR49uY6byOUKHdo5PFTSysv0zCrd4vG3DFwhGkimIkgLvA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=derek.foreman@collabora.com;
+ dmarc=pass header.from=<derek.foreman@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780427886; 
+ s=zohomail; d=collabora.com; i=derek.foreman@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=7waqqh91sUuQkV5a047XXhkyRVOzLEIZcLXOLapkxzQ=;
+ b=JvyNR55gTm5GMwYC4XdsNab8VQ0KBRvbhGyGajbUTe/DQwoKNUIaXVDoifG5U1C5
+ 8X0SrtehvQGYfll2vDz9ZNnRSlWF1Tx9pFfhu/GZJQUmUtwsbtOrVl2bQ4dOwwW90E2
+ MPIWx0WvXpKyGPEv/2m3mXJ6GKoI8ApKaRrBdSh8=
+Received: by mx.zohomail.com with SMTPS id 1780427884879770.2268874405053;
+ Tue, 2 Jun 2026 12:18:04 -0700 (PDT)
+From: Derek Foreman <derek.foreman@collabora.com>
+To: dri-devel@lists.freedesktop.org
+Cc: kernel@collabora.com, Derek Foreman <derek.foreman@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH v2] drm: writeback: Document behaviour for framebuffer size
+ mismatch
+Date: Tue,  2 Jun 2026 14:17:53 -0500
+Message-ID: <20260602191754.79047-1-derek.foreman@collabora.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,34 +67,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 2 Jun 2026 17:50:04 +0100
-Matt Evans <mattev@meta.com> wrote:
-> On 29/05/2026 00:14, Alex Williamson wrote:
-> > On Wed, 27 May 2026 03:23:12 -0700
-> > Matt Evans <mattev@meta.com> wrote:
-> >> +		uint32_t old_attr = priv->memattr;
-> >> +
-> >> +		if (flags & VFIO_DEVICE_FEATURE_SET) {
-> >> +			switch(db_attr.memattr) {
-> >> +			case VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_NC:
-> >> +			case VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_WC:
-> >> +				priv->memattr = db_attr.memattr;
-> >> +				break;
-> >> +
-> >> +			default:
-> >> +				ret = -ENOTSUPP;  
-> > 
-> > -EINVAL  
-> 
-> I'd like to push back on this one; ENOTSUPP distinguishes trying to use 
-> a wild attribute value from all manner of other screwups such as
-> trying to GET (with it no longer supported), passing an fd that isn't a 
-> DMABUF, etc.
-> 
-> I'm not wed to the value ENOTSUPP, just something distinctive versus the 
-> other errors userspace might see, and that value seems appropriate.
+Currently we have not explicitly defined the behaviour when the width
+and height of the writeback framebuffer do not match the width and
+height of the attached CRTC.
 
-It needs to be a uAPI errno though, aiui ENOTSUPP is an internal NFS
-errno.  How about EOPNOTSUPP?  Thanks,
+Allow the driver to perform a scale operation to fit the content, so
+systems with scaling blocks in the writeback path can easily expose them.
+A partially filled buffer should never be returned, so failure remains
+an option for all the systems that don't have a scaler, or when scaler
+limits are exceeded.
 
-Alex
+Cropping would make less sense, as the region to crop is underspecified
+without some other properties to define an origin.
+
+Signed-off-by: Derek Foreman <derek.foreman@collabora.com>
+---
+I have a draft merge request against weston for this at:
+ https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2071
+
+Changes in v2:
+  - Make it clear that a buffer should not be partially filled
+
+ drivers/gpu/drm/drm_writeback.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
+index 4da5d6094721..b4a002e6d043 100644
+--- a/drivers/gpu/drm/drm_writeback.c
++++ b/drivers/gpu/drm/drm_writeback.c
+@@ -58,6 +58,12 @@
+  *	framebuffer to be written by the writeback connector. This property is
+  *	similar to the FB_ID property on planes, but will always read as zero
+  *	and is not preserved across commits.
++ *	If the width and height of the framebuffer do not match those of the
++ *	attached CRTC, the driver must either fail or scale (not crop) the
++ *	content to exactly fit the framebuffer.
++ *	If the driver is unable to exactly fill the framebuffer for any reason,
++ *	such as hardware scaler constraints or an odd width for a sub-sampled
++ *	format, the writeback must fail instead of partially filling the buffer.
+  *	Userspace must set this property to an output buffer every time it
+  *	wishes the buffer to get filled.
+  *
+-- 
+2.53.0
+
