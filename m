@@ -4,126 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCC52CD6E4A
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 09:49:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CA3ECD6E4A
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 10:18:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DA021139AA;
-	Tue,  2 Jun 2026 09:49:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 709FA10EE75;
+	Tue,  2 Jun 2026 10:18:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xAdM+XdU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kFu7932F";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012056.outbound.protection.outlook.com
- [40.107.200.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF4441139A8;
- Tue,  2 Jun 2026 09:49:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VcGU9J3FyrrvthpFKkRvFojES/hAXIqg/Hy0ZaxcXCMUQeB4286gOIcrjGzYEMeceaa33kfG3V4gqLmZxNP4mq0efMFQnH/2Fago7NPbSOB9dX3tbctHyimnGiOKULBb5Db19ask/q70jYEYDVIeqPLKoI4dZyc+XOkqV4rKMVa6RRdk6P/SgN8kFqgAVy/1DOJOtO6r1qizVC+162pHoV7UMZvBp9YFvfm+5X86xY00IUY28LKLEWm8eeMoQvpc9E+P6jqPf21AxEUVrt4VpvHZ/eZSf6k10R9y0Oo7Nh4S8jeB1a9x0FTdyAcAPGlj4FRKGbAywhuFidhMkyrIIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FQftiW3WpOU2vaPmiuBQts+jIDPF8bMZINfgI5e+ivk=;
- b=EPgJuXUMDIyBVMLbe7S/Uftf+BaNL5MeCGc1RgWdwNcxtdZtLEHoL+4BLAeCnyEuU3FRsi3lrvVlpiAxdMj/nA3YubxK0EGvMCaKWFkbDPyWLPZfo7bxeY2vt+zvCsFLUbk2CWNZe0Eg8fb9f+yc2g8FHU0UTNV14ZkVylA9OKb1gZ5hozdp/nZr9OxfJnpO1MzWYLfcOp03Cdw77Zj9e2NPbGx3DrwNKm+Olzoa91uHyqlx+AsMD4LEszHz542A3paV65bEj/+1UR2f6MbY8li2DxBhTjQr+Dp/VFQOQCTnEYw6CewyytpQa28SHwzmnM4en5H8t7Q7jTqE2Ee4Sw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FQftiW3WpOU2vaPmiuBQts+jIDPF8bMZINfgI5e+ivk=;
- b=xAdM+XdUOrdUupxQTNMSa3VkF39+7xIAG6k0LymVHLDlsnsOgCOjyPNkGZE8l1l/XSAGXXnnzSEJkVHTmsmElTGljtbhZ0FEQ/lQ90qhsO0Ufc0Ujqxx8h1YtWh83OH8rvcGtmItj6cTx/zYLEwfJGetednTgT3DPqZw+lNOOhI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH0PR12MB8531.namprd12.prod.outlook.com (2603:10b6:610:181::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Tue, 2 Jun 2026
- 09:49:12 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0071.011; Tue, 2 Jun 2026
- 09:49:12 +0000
-Message-ID: <bb4e417d-5669-4d06-a731-c9aa369f6bd7@amd.com>
-Date: Tue, 2 Jun 2026 11:49:05 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu/mes11: fix queue init wptr reset
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>, alexander.deucher@amd.com
-Cc: airlied@gmail.com, simona@ffwll.ch, kenneth.feng@amd.com,
- kevinyang.wang@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- jianhao.xu@seu.edu.cn, stable@vger.kernel.org
-References: <20260602050354.2237095-1-runyu.xiao@seu.edu.cn>
- <20260602050354.2237095-2-runyu.xiao@seu.edu.cn>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260602050354.2237095-2-runyu.xiao@seu.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1PR13CA0256.namprd13.prod.outlook.com
- (2603:10b6:208:2ba::21) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
+ [74.125.82.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C5DC10EE75
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 10:18:33 +0000 (UTC)
+Received: by mail-dy1-f172.google.com with SMTP id
+ 5a478bee46e88-304e58292d3so392103eec.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 03:18:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780395512; cv=none;
+ d=google.com; s=arc-20240605;
+ b=UPngSKyV32nfYwB4gC6hQ/SBO4BxhXuO4htmg8X/GFejZuqbpZ7wEFfUQuA73NdzbM
+ Ctb/dXGeNH0kjJII1a7ACD9aBYHvWs5oCb2+NDylg41jPzXDxCKkrWcMmtt6WUmYzNj8
+ 4TLvX654c1gJ1KK6NKSgE0g5XFIYU1JX8Y3srSax5P8ZIcLRBmxHSlbhPzlAI7RdzjYm
+ vfhGQu0RJos8W/tZadCCjuqDO8sXYZRrSfYtZFwwWDsFiumIs0Euy6n6qvGC9b8WxLiW
+ ykXVlGbV2uu2KyXZCjHoZRtYXQMASZPvkWOFg1Mz1tnYRWGUiWFpxvzn9w0lyP/UxCdf
+ Gvgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=OFZUuzZ+0IS+9EDZyoznNJZXjuYIGtdVqC67r/Z0ScE=;
+ fh=jNECQw3sbOScT6PXwQBgReIrL1aljr4yukUHKUtjgJc=;
+ b=T1jGzJymHHZVNmpwGnksHgsqPTipqxDjMXa5f861XGaPEJnW9SsBDFmO25arOusAx3
+ 5hSXdaplujSzWyBoi8JtUPtWEV8R4ikvUJvT+7dRFEFHOz4fb2YqfdhyaxnDHNCfoUo6
+ qKMSvUbldPrd0oYfT9btAbOWTnQYOZ0ORL37gqVbSRrQby0mETryFjKZaFASBBb7tAJ5
+ +5YwNXa4njWYQ0Vwz93CcMcR74p9lUnV3a/RelJ8ElriJRIw4wMd0ugiKkyXZJtLPpqw
+ 1sGKV32AFzlexCdv8phLw/b7Fd9Iuca5IheonciAwHYFw2uH2Km4KsO/qtyzCoylnPGF
+ dSCg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780395512; x=1781000312; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=OFZUuzZ+0IS+9EDZyoznNJZXjuYIGtdVqC67r/Z0ScE=;
+ b=kFu7932FmItfH2wdBQiYBePggbXa+89Wcv4aZgzomJSaEzNJ8uiZyQo6kSk7oVBKhM
+ FrOaE+mxWvsi7c6QtjRLYzfbK5fVo+Rl8LOUU7DpmojjpsejoABou2Z3aP0Q1mri/snC
+ 85ghTpgFrCACJZxXUza6X34r9RbdxGxqhnWIOh24fW8LDbFAPsil9RhXIIZE8uAG/n2V
+ B86O2FmAegFpjhWyYETjD1PnAAZa/36hhRqTtopE7dCPEh+Ok4Q+v4mMa1bbnJk6IbR+
+ 7oUlUpAvjIgFe6+2KSmLGi2KTyBmh4wMQxf6NJR/vo7kpf+RilEBsRfRO7BoFtcZm1Sg
+ 7mDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780395512; x=1781000312;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=OFZUuzZ+0IS+9EDZyoznNJZXjuYIGtdVqC67r/Z0ScE=;
+ b=JRq0J1/DRiwd4vQ6LmmFU3Io+KpiUrC1S6ofii5H9rdUe115h1G8kIWB0OrTUe2Jzp
+ XGZGG9A4G2JSVUaWSpXMvOjI3qLN1E35SfZdyTDLVd8wxANuY7RdVILCxW4qGW/YT+wQ
+ IyLRHRxqieoCTWA9Ao+WseRhTQUu42qVvQ3kgCmntnlhX8goVGN/TVdULxurfrg8kXfB
+ luph99vrdfiR+yfxlwZEKkktY+xTE4Y9KeXwDsBamQQpUKYG9k2L6ZURHE5p8otL4IoK
+ MnK0NaOHR3uzHT38ccoy42/CUNUbS/NVgljCYeHgSZWojY3UwarMN6xNU7y62bRjFT16
+ hSjQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9g3m1yUslplKRdanB/09M17f4vhwnIqbA4NgOnMAUAC/igWX0P919eISUCYmT1aNy6mZzQDl2UF4c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzm5DlEnMWdoIooJUGVbaN+dqGECynfNXLP5+JobOQgdzwoUAx5
+ HdETebCqvo+piYuTl4+huVff0BB1Adnj7PAEBsM7Z5XgNI78GYaFN7bTT1Ki3RhWOO6JpJPsNRU
+ g0cvBs4zgvNmZ0XZEVMS3+lpXlPWU2T4=
+X-Gm-Gg: Acq92OEN2Ivz2ztU7rAJqwa1Hi5kYKLI2FGKO8CsEJpVghOEX45brInMiPRwWFN3hcX
+ B+JRJOS8DkFLVvfMtZF3H+ty1LbTk0qXIUj8Tz24WzwjLlQVFSMNlB7EtOwPq+iGkDQHiQyQEuQ
+ lNncB+P9OPetz3qEeamiOQVHDFP21iqPxsMN+Jx5m8SV68PJCzwGhNnRi/TUKZhtQ4w6fWt2i+M
+ 4APcjam+LiFbkHVAz86T1Vd8qD0gbJNXXYTSQWArUcMlzHQkNqd8G6nBd3rS5WtirxHCIZ2zg5I
+ CdwSZTt0Qut9yEsOjb/MsD2049+0Ww==
+X-Received: by 2002:a05:7300:5726:b0:2e2:3381:2fba with SMTP id
+ 5a478bee46e88-304fa523d3amr7629148eec.3.1780395512175; Tue, 02 Jun 2026
+ 03:18:32 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH0PR12MB8531:EE_
-X-MS-Office365-Filtering-Correlation-Id: 907f4963-a9a5-4a79-30c3-08dec08c332d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|18002099003|22082099003|56012099006|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: 2L+c/NQ6oqZm+iR7Se0MBBbxxBCVdZcbf3p1aIs1Qj4qzktkFOGRdQBmBhyq/5MCs62qXDvOKVmWebDtI2XGPm0jg1W+26D9IvWP6Ddre1x3Fd7Zo/3TmxF+mqxmnsDh05F991J3KhMH8LSPV5HCinfdKXC+zrJFrnonwmqxel8CNH9lBt+tq2TyzEDGZ7U3+4edANHF6uLUCG2oe++uw45mcG43NP1FrL6AFTo2SUiHFEoJKgkXSJRNyNVQOI149f6ZA4K11D8MVI3N15eLvCA6BfSEmjQ2ITWe4KD/ruWDFecHOdSgHRBeZS4mvD6nx9kM2s0tj0bLuyk/cGJ+pZNmG1DeExuqDIj94pWrsoDCqBFI2tz2xYwN3MXmQKldKOgutAXvf9kR3KIVz87kA6WgsKWqZkLpoIvoenZj/xH0tH9iV/3jh6rF77TP6UftNW+tizoukVndT83nr5yQ5cwcQIPY+1no0mL0g7COa0GohY2V2HLfJ4Cp3UzznrZf6Hx8uXEm0fFo1rRnncMXlmfz4oePdi6VGHCBAKGXRieK3mEp+WQea3VZ4QgoX5xGdcdpv5M5D0JeTdFipyeEB6RWXow0uKDSD7d1zWc2cxTlENICg5lEOPC1aOUzgnxgqah2BYsu6jWam3B2K6jbos/JdHgnr2mI8V2fBWV2q81ND4PHEJ/93EdeMJi1CPO2
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RW5HTzJFbGVKVUdtOGJCQWQ4akhrQnRMMFhJdXR4U0VnWUVtREFRUHlRaUJJ?=
- =?utf-8?B?cVBKMUdiVW5rYkRtUzN4Y0Z0Yi9VRGhweGgyT1NzSFY2bHdkTzhyTkZGdGVE?=
- =?utf-8?B?N3hhMEhkMm1QUTdaYy9RTFdqbElRL0NFa2ZpS3B5QU15Mm9tV3kwM1hNMU1Q?=
- =?utf-8?B?S0s5MWFYSUNmaklnMkt2ZWFwSDJuRmtma29VOEpIN1VUc3VXa3JQNmY2cTZn?=
- =?utf-8?B?WFVQK3YzM1pFSWU4SFBndnhhZ1NTOWswdnkxRWdXVjF2OHhDQUFwWlN6WlQ5?=
- =?utf-8?B?TWNiVnJVcHVQT0QwVnlla3JEaFBXTC9wWjdDVkFJbnNKSmNkVU5LK3V3N216?=
- =?utf-8?B?MUVjTll6UzF1Qk9nTjNuemRDNVBTb3JSRjgzWmtFMDBFdXRuVGU3cllaNjM3?=
- =?utf-8?B?U3RXRnRmT1ZNaE9uK3lhcjNKVGNCZkFZWmZOWW9LVmNtN0xQUVdLVkZTK3Y1?=
- =?utf-8?B?UmliaFRQblYvajZTN3ppVGpzM3IvWnM3ek9yTFFkOEZVV0RtYXUreitVZTNp?=
- =?utf-8?B?Ly9FbndSbEw5SmFPNnNMMXFiR3gzNk5BRWx5SlZwVmdWMzRkZDFuNGRXMFg3?=
- =?utf-8?B?bkx5NVF6UERTM0k3bFM1Z2ZjZmk4R0l5RHkyVkdzUlBSVkdoeDBYSTFaK3ZW?=
- =?utf-8?B?UGZJSFBobzNYN3BNRmRzaU1TTjVXUnltc0wrZS9aTHJNSVp5T1Y0cy81eVRL?=
- =?utf-8?B?eXk1eThRM21aakF1N1FOQ0pBcldrTDN1N0N2SWhiSUNiYlZBbjZDQWJIV1By?=
- =?utf-8?B?cU5KNkNpU1p0YWRtMk5sWGNYcDJrY2dUaXpmaTVlZjJ1b0o5SXVpNzlya1N2?=
- =?utf-8?B?Ums5c3ZXZEp3SStnV1UrVnJnR3V6anFXQlFlOTd5NUZPWlBnR25tbkVVSWVF?=
- =?utf-8?B?ZHlYL2FEV2JtQ0tzaktPQXFLMS96UjVwNy9ZZ0o0MlFydEJ6OTB6NGJDYVh0?=
- =?utf-8?B?U1lyYmsrUGdjQ2wwbXJNUXRabDdDZXZXOVFLMm96Mit3djJxdFdTRm9OeW5u?=
- =?utf-8?B?R2FoRy9QWW4vdk43U01HZUw3V3lKdGJlZVFsKzBCQkZRTU04b3ZyMmRmbFR6?=
- =?utf-8?B?VlVBT1Y3V0o2QWtFL2x4bzFBWGFNcEtKRlBhZ1laVndMMkl4SC9DMnF0d0g1?=
- =?utf-8?B?YnZLNW5Nc2lwU29MVmMybmpFb1pZaWUzTnJNelFjMHFmV1YvQzU5NW05d0Zt?=
- =?utf-8?B?bFNDbjhJU0prS2pkdTl2aDdCakxnSGJVK0dsNkxoazVoaW9zMG0zS2FnelJn?=
- =?utf-8?B?T2RYQUVmOCtCSSs0Zk1LNXFjaVBPVTdKS2RnK2lNTHVvSXhia3hDK3hHL01K?=
- =?utf-8?B?cVFkZTdDVkNabnptZjRmeU5ZRjEvTFZNNDVnTEpzaXlJdzVvY2JDU3J0RGhU?=
- =?utf-8?B?bFFtS3RGSmtjMGNJTWxZNXBDcE9xQytkd0ppV0NCM0lBZDUrQ0w2OU5IYjUz?=
- =?utf-8?B?MDBIVlY2bGNQUXNWemY3V1ZDUHc5OGhteU1CYXdkcUtOb20yTFJ5SmVNYlhW?=
- =?utf-8?B?RDFqV05xT3VZdzhRUFpnUnIxb0hncUZpcmFQcTgrSTNnYnE3bnlvb2N3UmlD?=
- =?utf-8?B?MkVrZTZpL2hsbC9qQnBrd1BuNXhsd0NwQXhWNFdrcGFCR1Jac2szc3FUeXJs?=
- =?utf-8?B?dGhBakZybGJnbWV0djZMYU4wdjRNK1RVRDNYUUIvaXRKdzdVNjFVckU1bnY3?=
- =?utf-8?B?ekxvcTYxMGFUMEhyZHRpM1JnU09jTkU2ejhOZGUvQ1ZuY3FPMk4xUFlRcXhQ?=
- =?utf-8?B?UDBHK2VNOEhxbEdiSG9ubGFvcDZucHpEa0lBbkw5ZndzTWhtQ3lNa0RyTmpW?=
- =?utf-8?B?K0FLRWJuRllPT0k4ejZKbXdxWTZHODQraDRDS1JYWXl5MzZRUVhneWdwS0RO?=
- =?utf-8?B?VFlNQy8zRTVGWXBXVDVPOS9lQUxQc1NQdWhtVEpySm9teHpzTmVHU04zcTdq?=
- =?utf-8?B?RUliUWhGMHNOZ1A4cTIzcVVzY1FqUzF6VVVDQTlZVFFRMzBrZXZvYmRaaHEr?=
- =?utf-8?B?eGM1M05PT3lHTGlVL2lHcllSYTZlYVpTTmJuMWVKOHdkNkdZWVhZOUV0NmNS?=
- =?utf-8?B?T200TkdXdnk2NWluT09RM2FLRmZiY3RicEtNcWZYRjM0VU9vSS83bFRqSi96?=
- =?utf-8?B?bTRDSDkxdjQ5Y245dVhrYmx2eUJyakNlY29oamdhTmgyTkc5ZFArQmptTkFv?=
- =?utf-8?B?ZUZ5c05uYVV5dTFwam5ZNjhrcUNib2owOFRId0ZqYVA5SHVscmJoM1JzcUZu?=
- =?utf-8?B?aUJqRUFoWjgyTU9vMC9qUUcvVXlJN1R4NXp5MnJLcWVGcU5aL1dhVkJSQWwr?=
- =?utf-8?Q?2p08GUIeFky+6ulumi?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 907f4963-a9a5-4a79-30c3-08dec08c332d
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 09:49:12.2285 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: K72P3tjxBFWs7NweeCNoPzJ6irhTsgzPsuPuKLDPt//bd+P0F09z0bpfqg122ZZN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8531
+References: <20260601151831.76350-1-clamor95@gmail.com>
+ <20260601151831.76350-3-clamor95@gmail.com>
+ <ah6O1h8SPwjf3rV1@ashevche-desk.local>
+In-Reply-To: <ah6O1h8SPwjf3rV1@ashevche-desk.local>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Tue, 2 Jun 2026 13:18:20 +0300
+X-Gm-Features: AVHnY4JHC1yQblwim_AIT-fQGP6xAd5YIyw3Q9PUntQ6X-j1sNWq1k3TeFJP-_c
+Message-ID: <CAPVz0n2vRFMKagLP+Ssq7n0ECp4_4mT6k7Bo9z=rxrSNCfCRKg@mail.gmail.com>
+Subject: Re: [PATCH v3 02/11] mfd: lm3533: Remove driver specific regmap
+ wrappers
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+ Johan Hovold <johan@kernel.org>, 
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,55 +117,172 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/2/26 07:03, Runyu Xiao wrote:
-> mes_v11_0_queue_init() resets ring->wptr_cpu_addr with a plain 32-bit
-> store in the reset/suspend path even though the same carrier is
-> accessed with atomic64_set()/atomic64_read() and support_64bit_ptrs is
-> enabled.
-> 
-> This is not just a missing atomic annotation. The MES queue write
-> pointer is a shared 64-bit carrier, and *ring->wptr_cpu_addr = 0 only
-> clears the low 32 bits. A later atomic64_read() can then observe stale
-> high 32 bits instead of a real zeroed reset state.
-> 
-> Use atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0) so the reset
-> path updates the full 64-bit wptr with the same access family as the
-> existing readers and writers.
-> 
-> Build-tested by compiling mes_v11_0.o.
-> 
-> No AMDGPU hardware was available for end-to-end runtime testing.
+=D0=B2=D1=82, 2 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 11:05=
+ Andy Shevchenko <andriy.shevchenko@intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Mon, Jun 01, 2026 at 06:18:22PM +0300, Svyatoslav Ryhel wrote:
+> > Remove driver-specific regmap wrappers in favor of using regmap helpers
+> > directly. The wrappers are mostly equivalent to the standard helpers, w=
+ith
+> > two exceptions: regmap_read requires an unsigned int pointer, and
+> > regmap_update_bits has the mask and value arguments swapped. These
+> > differences were accounted for and adjusted accordingly.
+>
+> We refer to functions as func(), exempli gratia, regmap_read().
+>
 
-Clear NAK.
+Noted.
 
-The atomic64_t cast hack is just something we did for older generations and is not something which is necessary not should be done here.
+> ...
+>
+> > static int lm3533_als_get_current(struct iio_dev *indio_dev, unsigned c=
+hannel,
+> >                                                               int *val)
+> >  {
+> >       u8 zone;
+> > -     u8 target;
+> > +     u32 target;
+> >       int ret;
+>
+> While at it, move towards reversed xmas tree order
+>
+>         u32 target;
+>         u8 zone;
+>         int ret;
+>
 
-What could be possible is that we need to use amdgpu_ring_set_wptr() here to correctly distinct between queues with 32bit and 64bit wptrs.
+Noted.
 
-Regards,
-Christian.
+>
+> ...
+>
+> > -     ret =3D lm3533_update(als->lm3533, LM3533_REG_ALS_ZONE_INFO, val,=
+ mask);
+> > +     ret =3D regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_ZO=
+NE_INFO,
+> > +                              val, mask);
+>
+> It's better to replace this to use _set_bits()/_clear_bits() or even move=
+ from
+> the above conditional (not in this context) to _assign_bits().
+>
 
-> 
-> Fixes: d81d75c99936 ("drm/amdgpu/gfx11: enable kiq to map mes ring")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> index a926a3307..e2f762c2e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -1308,7 +1308,7 @@ static int mes_v11_0_queue_init(struct amdgpu_device *adev,
-> 
->         if ((pipe == AMDGPU_MES_SCHED_PIPE) &&
->             (amdgpu_in_reset(adev) || adev->in_suspend)) {
-> -               *(ring->wptr_cpu_addr) = 0;
-> +               atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
->                 *(ring->rptr_cpu_addr) = 0;
->                 amdgpu_ring_clear_ring(ring);
->         }
+I will take a look.
+
+> ...
+>
+> >       else
+> >               val =3D 0;        /* analog input */
+> >
+> > -     ret =3D lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, val, mask=
+);
+> > +     ret =3D regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_CO=
+NF,
+> > +                              mask, val);
+>
+> Ditto.
+>
+> >       if (ret) {
+> >               dev_err(&als->pdev->dev, "failed to set input mode %d\n",
+> >                                                               pwm_mode)=
+;
+>
+> ...
+>
+> >       /* Make sure interrupts are disabled. */
+> > -     ret =3D lm3533_update(als->lm3533, LM3533_REG_ALS_ZONE_INFO, 0, m=
+ask);
+> > +     ret =3D regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_ZO=
+NE_INFO,
+> > +                              mask, 0);
+>
+> _clear_bits().
+>
+> >       if (ret) {
+> >               dev_err(&als->pdev->dev, "failed to disable interrupts\n"=
+);
+> >               return ret;
+>
+> ...
+>
+> >       u8 mask =3D LM3533_ALS_ENABLE_MASK;
+> >       int ret;
+> >
+> > -     ret =3D lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, mask, mas=
+k);
+> > +     ret =3D regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_CO=
+NF,
+> > +                              mask, mask);
+>
+> _set_bits()
+>
+> >       if (ret)
+> >               dev_err(&als->pdev->dev, "failed to enable ALS\n");
+> >
+>
+> ...
+>
+> >       u8 mask =3D LM3533_ALS_ENABLE_MASK;
+> >       int ret;
+> >
+> > -     ret =3D lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, 0, mask);
+> > +     ret =3D regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_CO=
+NF,
+> > +                              mask, 0);
+>
+> _clear_bits()
+>
+> >       if (ret)
+> >               dev_err(&als->pdev->dev, "failed to disable ALS\n");
+>
+> ...
+>
+> >       else
+> >               val =3D 0;
+> >
+> > -     ret =3D lm3533_update(led->lm3533, LM3533_REG_PATTERN_ENABLE, val=
+, mask);
+> > +     ret =3D regmap_update_bits(led->lm3533->regmap,
+> > +                              LM3533_REG_PATTERN_ENABLE, mask, val);
+>
+> _assign_bits() and so on...
+>
+> >       if (ret) {
+> >               dev_err(led->cdev.dev, "failed to enable pattern %d (%d)\=
+n",
+> >                                                       pattern, enable);
+>
+> ...
+>
+> >  extern int lm3533_ctrlbank_set_brightness(struct lm3533_ctrlbank *cb, =
+u8 val);
+> > -extern int lm3533_ctrlbank_get_brightness(struct lm3533_ctrlbank *cb, =
+u8 *val);
+> > +extern int lm3533_ctrlbank_get_brightness(struct lm3533_ctrlbank *cb, =
+u32 *val);
+>
+> We don't need to keep 'extern' for ages.
+>
+
+I will no inflate this patchset further
+
+> >  extern int lm3533_ctrlbank_set_max_current(struct lm3533_ctrlbank *cb,
+> >                                                               u16 imax)=
+;
+> >  extern int lm3533_ctrlbank_set_pwm(struct lm3533_ctrlbank *cb, u8 val)=
+;
+> > -extern int lm3533_ctrlbank_get_pwm(struct lm3533_ctrlbank *cb, u8 *val=
+);
+> > -
+> > -extern int lm3533_read(struct lm3533 *lm3533, u8 reg, u8 *val);
+> > -extern int lm3533_write(struct lm3533 *lm3533, u8 reg, u8 val);
+> > -extern int lm3533_update(struct lm3533 *lm3533, u8 reg, u8 val, u8 mas=
+k);
+> > +extern int lm3533_ctrlbank_get_pwm(struct lm3533_ctrlbank *cb, u32 *va=
+l);
+>
 > --
-> 2.34.1
-
+> With Best Regards,
+> Andy Shevchenko
+>
+>
