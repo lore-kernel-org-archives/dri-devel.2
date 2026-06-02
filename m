@@ -4,62 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8C98CD6E55
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 01:33:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95ED9C5DF71
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 04:06:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B643B10EAFD;
-	Tue,  2 Jun 2026 01:33:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F02910EB7E;
+	Tue,  2 Jun 2026 04:06:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="R5sU8Xow";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ssamgDno";
 	dkim-atps=neutral
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Tue, 02 Jun 2026 01:33:39 UTC
-Received: from mail-m9355.xmail.ntesmail.com (mail-m9355.xmail.ntesmail.com
- [103.126.93.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2ABD710EAFD
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 01:33:38 +0000 (UTC)
-Received: from [172.16.12.90] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 40ab83ee7;
- Tue, 2 Jun 2026 09:28:33 +0800 (GMT+08:00)
-Message-ID: <bee9fdba-536f-4296-a9be-db35ab8d4172@rock-chips.com>
-Date: Tue, 2 Jun 2026 09:28:32 +0800
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012045.outbound.protection.outlook.com
+ [40.107.200.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B822810EB7E
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 04:06:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=H/NeQ/6rtv4BAd4EWafuO4GE8CnIf5eYO6IJC4D+jQE7PC77WBiqYRBOUu5RdOctD5u6wpZthpFiv3sTgjj0ZHIDyebylX8YUK751vg+uYXFAFjPX93zClJmlq8QDRBNG9VIP6fJWiqQG7/Nm8TqMOcRAmM1rMSoubQOtbvueeQqSau5X5iXqBGBrvihlV2Ad7L2m871rR6aSHBo706fnZUPbbad4q9i3Fo+yJMWdkfKwrdD8fjD0o9BV6tF9xo94vhGD4HCdko4G9ZQpk3KW38AoiF/SPXFbwU9e0VmOpz3Sk0Ez0/h7JtHt6K+1tqhMT0rOXar5iV2ehLThGGgGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9bWaTr6V3bjm6hvkW1U5V1nAKhmZAKbTZZAQR9AipkU=;
+ b=H7YtNSpRim9dbM34EmeG9/qxig4otRN4x/zwonjs0SAtAuXZ219gxSnR1RI2dQBBEy6b2e2cFRhH0HeZNicbd10cCr1Ycyh2yllMJHYd1/JPgyK+zMkAbc1OpSjKfpDwhyZF1vbCB7ea6k7Z6ShzVjZ1Fovc8BSj6fADanbnBeqEVPHYTOpn+JmdeHdH1QAloFRoSo11IYYEJpK0mNarvkMdKY3fEv6aCz4R/ZVSNIFj3043MUF4NGF0H4wDskfBJIPaB1I0NGkBG72mm3UhFYBI91x4gY04KTfsTHhoWauLUkp99caEFgZvx3b6kwLQd7wQN5DPOXj8Pf+24zeDBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9bWaTr6V3bjm6hvkW1U5V1nAKhmZAKbTZZAQR9AipkU=;
+ b=ssamgDnoTN2HnHhhEfdoSQVeDTRY5Cyv6RffzSfIHUHNQ3xoBiige2iXwni73h4CRedTsdNxstQOXdR1ux+ZSO1DnysTas+u+lv00Xtp8FBXoEQVQ/nPZTB4oWchLjgsPr6D03auwKR6WnAi7BQR1lf/oDSu/OQFeMZWoeqQb24=
+Received: from CYXPR02CA0013.namprd02.prod.outlook.com (2603:10b6:930:cf::24)
+ by IA1PR12MB6140.namprd12.prod.outlook.com (2603:10b6:208:3e8::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Tue, 2 Jun 2026
+ 04:06:33 +0000
+Received: from CH3PEPF00000011.namprd21.prod.outlook.com
+ (2603:10b6:930:cf:cafe::d) by CYXPR02CA0013.outlook.office365.com
+ (2603:10b6:930:cf::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.17 via Frontend Transport; Tue, 2
+ Jun 2026 04:06:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH3PEPF00000011.mail.protection.outlook.com (10.167.244.116) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.0 via Frontend Transport; Tue, 2 Jun 2026 04:06:33 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 1 Jun
+ 2026 23:06:33 -0500
+Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Mon, 1 Jun 2026 23:06:32 -0500
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+ <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+ <karol.wachowski@linux.intel.com>
+CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
+ <max.zhen@amd.com>, <sonal.santan@amd.com>
+Subject: [PATCH V1] accel/amdxdna: Preserve user address when PASID is disabled
+Date: Mon, 1 Jun 2026 21:06:24 -0700
+Message-ID: <20260602040624.2206774-1-lizhi.hou@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] drm/bridge: Implement generic USB Type-C DP HPD bridge
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Vinod Koul <vkoul@kernel.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-phy@lists.infradead.org
-References: <20260521032854.103-1-kernel@airkyi.com>
- <20260521032854.103-2-kernel@airkyi.com> <ah3-auKugGCVojOp@venus>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <ah3-auKugGCVojOp@venus>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9e85f25b4c03a7kunm8d21327629bc6f
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGRkaVk5KSElOSk9OTk1NS1YVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=R5sU8Xowx13A7b3tEpXEjh68l/6BcGouqkVH9cIcjydpMUe+bcLLnLBhrYB8NITiM2QDaYlcz8cbGbRu8/aEwYC4JinvABAmYkGevvUGt6KfDj8+JwsYZv/3TqtkLPaMIIVZ0S1pykGEATLAaBZHyX6+H1q3JDt8ZFS/sOK4O3o=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=gvBTxmnkMtYSMLhCFymsQ41jj4G+NLVy+qkjJoW9Up0=;
- h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000011:EE_|IA1PR12MB6140:EE_
+X-MS-Office365-Filtering-Correlation-Id: ae975519-9704-45c4-d8c7-08dec05c5544
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|376014|82310400026|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: In2UOtIVx5935AGl1oPQ5Q1wqO4j36JyksIgW3CFUMjnNds6Z26B6tEnDPBQpt90nK+FHlVbi6HziLhwSrb3U9+fjDNjMBqEcmidXw0qMVuRWN8FcdSrzOf4Z4nygg52RR6xY8pXwFdlWNatyh5N877NgnHnu53FG14IB2RJ81QA6nAO7cQm2qC56qcr+Wn4ipjjyMssVID2dBgqFUG/LFxQ6OWV/8/73+w3tEMsLzewSThMmw5kdxZ9eiROGaiyJK7lUYfDxurtI8FtxBYaQJPBFGPbZZMLiLmCNFc8JY6/xcqOGkyYqcuAn1naxHCb4/DiIwHJf6Nojhypw+3kw23ttYtbuZ4PJrxXK8ew03zITj4e2OLDG+NLyeR0wsdA8yO4fyN1sbZS7DDpPYqWWd7eMykxvioZKdpWJ+PJisTlEiLubHqLiVQugDc/4Rj7JwN9G7vkWrEksC2pGyDFoS3nQmrYGAZtCvXLvf6TfuLnNupGn/cTtmG1Tmg1VbO4rNbm4YoT+jEvWy3a0TFNAVtohw6jOTfaDYRVPKamBh4NKFX2ApRf8XfFPw8Dnmyx+PUaoTBNNKPg8Y2iIRDpB1M5VJ7IX4rIhTxcschLWErkZ90rLeR3sgcxn8PlFrPI0ziag2LT1uJO2ReLnFomzSkJEyAYx06H7PxBZSv9fOpMES6FUmjBH02Jai66QdNUY39dZQBJie0lgxzbeOpdbc4CpeKrK3DzQ7M92pJ3U6U=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(18002099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: paesZelWdqxOQuAFDEP/K4yWe34h2p6OBvS8HZTMPZbxObWhaRgJ1lLNVVhxqKRStI7dYfdWHg/Kj9WXE1jq52ck+qlFcNQEgoNFWSx9iTQ2ILRXbeU45ZwDC6SaPbKs1hbGAuTGXL8aVMfjZKXdnM09p+EKBFUwu/xu4lS94hSsdVB/MEJZDaQKfGEBhq5Kcs7qgNwOqJQQ/1stIHZtaFIyKInZg9kx8rTzqMaKlaE2OmuUAmSsBvufNDLv4G7MtfC+vjPixXex69BHWgl9SBDaMlD3BZSiy18F+zOtR9j94i5rpEwNmTdlNM99+wKxBJSUX4cjXP4c7jGyC8q00bKjgLHa78xPHDitxUUQs75NwbwocG+X01WNjmE6CuOqgoPmX8w5/oApkeU4v399jvBmofN4oR6uHwUsd9fyk+SBsv9mGOqIp0QVWQeFwgd9
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 04:06:33.2963 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae975519-9704-45c4-d8c7-08dec05c5544
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000011.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6140
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,135 +112,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Sebastian,
+When PASID is not used, the buffer user address is set to
+AMDXDNA_INVALID_ADDR. As a result, heap buffer user address validation
+fails even though the original userspace address is available.
 
-On 6/2/2026 6:08 AM, Sebastian Reichel wrote:
-> Hi,
-> 
-> On Thu, May 21, 2026 at 11:28:50AM +0800, Chaoyi Chen wrote:
->> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
->>
->> The HPD function of Type-C DP is implemented through
->> drm_connector_oob_hotplug_event(). For embedded DP, it is required
->> that the DRM connector fwnode corresponds to the Type-C port fwnode.
->>
->> To describe the relationship between the DP controller and the Type-C
->> port device, we usually using drm_bridge to build a bridge chain.
->>
->> Now several USB-C controller drivers have already implemented the DP
->> HPD bridge function provided by aux-hpd-bridge.c, it will build a DP
->> HPD bridge on USB-C connector port device.
->>
->> But this requires the USB-C controller driver to manually register the
->> HPD bridge. If the driver does not implement this feature, the bridge
->> will not be create.
->>
->> So this patch implements a generic DP HPD bridge based on
->> aux-hpd-bridge.c. It will monitor Type-C bus events, and when a
->> Type-C port device containing the DP svid is registered, it will
->> create an HPD bridge for it without the need for the USB-C controller
->> driver to implement it.
->>
->> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
->> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
->> ---
->>  drivers/gpu/drm/bridge/Kconfig                | 10 ++++
->>  drivers/gpu/drm/bridge/Makefile               |  1 +
->>  .../gpu/drm/bridge/aux-hpd-typec-dp-bridge.c  | 49 +++++++++++++++++++
-> 
-> Doesn't this require removing the manual registration of the HPD
-> auxillary bridge in the USB-C controller drivers to avoid that
-> two bridges are registered for them?
-> 
+Preserve the userspace address regardless of PASID usage so heap buffer
+address validation works correctly.
 
-I believe this will not affect existing controller drivers,
-as they call drm_bridge_attach during registration. Of course,
-while it won't affect the main bridge chain, you'll still see
-an additional HPD bridge.
+Fixes: dbc8fd7a03cb ("accel/amdxdna: Add expandable device heap support")
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+---
+ drivers/accel/amdxdna/amdxdna_gem.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
->>  3 files changed, 60 insertions(+)
->>  create mode 100644 drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
->>
->> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
->> index c3209b0f4678..d92e93875793 100644
->> --- a/drivers/gpu/drm/bridge/Kconfig
->> +++ b/drivers/gpu/drm/bridge/Kconfig
->> @@ -30,6 +30,16 @@ config DRM_AUX_HPD_BRIDGE
->>  	  Simple bridge that terminates the bridge chain and provides HPD
->>  	  support.
->>  
->> +if DRM_AUX_HPD_BRIDGE
->> +config DRM_AUX_HPD_TYPEC_BRIDGE
->> +	tristate
->> +	depends on TYPEC || !TYPEC
->> +	default TYPEC
->> +	help
->> +	  Simple bridge that terminates the bridge chain and provides HPD
->> +	  support. It build bridge on each USB-C connector device node.
->> +endif
->> +
->>  menu "Display Interface Bridges"
->>  	depends on DRM && DRM_BRIDGE
->>  
->> diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
->> index beab5b695a6e..c4761526ba0a 100644
->> --- a/drivers/gpu/drm/bridge/Makefile
->> +++ b/drivers/gpu/drm/bridge/Makefile
->> @@ -1,6 +1,7 @@
->>  # SPDX-License-Identifier: GPL-2.0
->>  obj-$(CONFIG_DRM_AUX_BRIDGE) += aux-bridge.o
->>  obj-$(CONFIG_DRM_AUX_HPD_BRIDGE) += aux-hpd-bridge.o
->> +obj-$(CONFIG_DRM_AUX_HPD_TYPEC_BRIDGE) += aux-hpd-typec-dp-bridge.o
->>  obj-$(CONFIG_DRM_CHIPONE_ICN6211) += chipone-icn6211.o
->>  obj-$(CONFIG_DRM_CHRONTEL_CH7033) += chrontel-ch7033.o
->>  obj-$(CONFIG_DRM_CROS_EC_ANX7688) += cros-ec-anx7688.o
->> diff --git a/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c b/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
->> new file mode 100644
->> index 000000000000..d915e0fb0668
->> --- /dev/null
->> +++ b/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
->> @@ -0,0 +1,49 @@
->> +// SPDX-License-Identifier: GPL-2.0+
->> +#include <linux/of.h>
->> +#include <linux/usb/typec_altmode.h>
->> +#include <linux/usb/typec_dp.h>
->> +
->> +#include <drm/bridge/aux-bridge.h>
->> +
->> +static int drm_typec_bus_event(struct notifier_block *nb,
->> +			       unsigned long action, void *data)
->> +{
->> +	struct device *dev = (struct device *)data;
->> +	struct typec_altmode *alt = to_typec_altmode(dev);
->> +
->> +	if (action != BUS_NOTIFY_ADD_DEVICE)
->> +		goto done;
->> +
->> +	/*
->> +	 * alt->dev.parent->parent : USB-C controller device
->> +	 * alt->dev.parent         : USB-C connector device
->> +	 */
->> +	if (is_typec_port_altmode(&alt->dev) && alt->svid == USB_TYPEC_DP_SID)
->> +		drm_dp_hpd_bridge_register(alt->dev.parent->parent,
->> +					   to_of_node(alt->dev.parent->fwnode));
-> 
-> IIUIC this is called when the USB-C controller spawns a sub-device
-> for the DP AltMode and then registers a HPD bridge to the USB-C
-> controller itself. Wouldn't that register new HPD bridges on every
-> USB-C replug?
-> 
-> Also doesn't this result in the bridge not being registered when
-> nothing is plugged and thus the DRM pipeline not being able to bind
-> properly?
->
-
-That's a good question. The port altmode device here is only registered
-once during initialization. While the parnter altmode device will
-register and unregister during the plugging and unplugging process.
-So you don't need to worry about that :)
-
-https://lore.kernel.org/all/4fddba9a-b073-4bca-bd13-64a415f4bc47@rock-chips.com/
-
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+index 77e5fad08ae5..33cf5af98ceb 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.c
++++ b/drivers/accel/amdxdna/amdxdna_gem.c
+@@ -349,8 +349,11 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
+ 	u32 nr_pages;
+ 	int ret;
+ 
+-	if (!amdxdna_pasid_on(abo->client))
++	if (!amdxdna_pasid_on(abo->client)) {
++		/* Need to set uva for heap uva validation */
++		abo->mem.uva = addr;
+ 		return 0;
++	}
+ 
+ 	mapp = kzalloc_obj(*mapp);
+ 	if (!mapp)
 -- 
-Best, 
-Chaoyi
+2.34.1
+
