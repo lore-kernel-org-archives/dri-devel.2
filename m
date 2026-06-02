@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9902DCD6E5D
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 21:49:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BF5ECD6E60
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 21:51:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00E6110F617;
-	Tue,  2 Jun 2026 21:49:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB38E10F62A;
+	Tue,  2 Jun 2026 21:51:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="A98gT+Fd";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GRnYAYlA";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57EC510F60F;
- Tue,  2 Jun 2026 21:49:48 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2708F10F620;
+ Tue,  2 Jun 2026 21:51:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780436988; x=1811972988;
+ t=1780437072; x=1811973072;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=DboyAh7hWgXk9QBiKXaDmMfe0ehQqRfCBx9xSYKHzj0=;
- b=A98gT+FdgcsxWc+7VOB1eDCYA37wBgSJe9naVIVUAnt6+qA8qsvuSdV2
- hTC9cadVypa8t44i+jxn7MSs9mveCeplHv7RaM4SXM9cEqpDsdTbheczi
- S83yudQDKcUOn7YTYCHjARNq7f/UzZI7ltHeMnnoAJOwuoJuWpXsEKoUc
- bTqAyiFFHwCDGKYvKcywtk6rjfFaEpgYfsV8pl5pVUU21DlLqRVh3vbI9
- 6luDduZ5OBI9QfDI908wUeemHyD8we4g0SbE44M6HCRjCPZeUwbXCW2zQ
- wRid3gohApeNegQJHSL83v6Ro49757tEwf/cYNdq/YDNna+dRVF5ellq7 A==;
-X-CSE-ConnectionGUID: mWthKJxhQ4+NshbafdL0SQ==
-X-CSE-MsgGUID: tvdcEL9STQWr+NDBVyXsdQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="91920893"
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="91920893"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2026 14:49:47 -0700
-X-CSE-ConnectionGUID: Y7ZlRnYdR3W1ACBKWyPdDA==
-X-CSE-MsgGUID: FAoy/eX/QYGVu9RU3sO6Mw==
+ bh=EMtJZdqo1l7PuMgqUpWruKxuLAbCNmct3ry5I+xdaqs=;
+ b=GRnYAYlAnUBYgS5jm7ILgtRv+Ct2zAw5Byaf0Ph6qSZowmB2QeEV9bfm
+ jI0X8Yd+wOHh/z5/1Wmu0ef2zie+EiA5waZ7ZH3kTlHc2SH23uWW+itTA
+ xmsqkNGMBzYGsPgwXbYaqFLqBzNGnejSS4SsETMm4OEqsK1q9zals0wWG
+ ZYYbw6WBzrrOXn83WI1dP/JhR+NKbOkhv3hzHZU9nlPxnpEwUPEly4RBP
+ mnUkMpe4cOQN+hO5vsgTGaUDjQcKysTMWZu0hP6m0fkmzDh33mo3+JXW/
+ CHJgjgJcq+gVuBqs0IMK6Xy5vuFEjH5gNnNjuhUSehhjEDaK0SUKYiVb1 A==;
+X-CSE-ConnectionGUID: MzJCcZhMS1uOmi6I5ZHbzg==
+X-CSE-MsgGUID: lbfHfugjQBGmHKXLGbIJJg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="83817683"
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="83817683"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jun 2026 14:51:12 -0700
+X-CSE-ConnectionGUID: FxauZrTcR3yWYpT8wIOh2g==
+X-CSE-MsgGUID: NogLWkvFSvK+PRofa+0loQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="248950576"
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="247977591"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.245.244.116])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2026 14:49:33 -0700
-Date: Wed, 3 Jun 2026 00:49:29 +0300
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jun 2026 14:50:56 -0700
+Date: Wed, 3 Jun 2026 00:50:54 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Cc: Lee Jones <lee@kernel.org>,
@@ -90,15 +90,15 @@ Cc: Lee Jones <lee@kernel.org>,
  intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-usb@vger.kernel.org, linux-mips@vger.kernel.org,
  platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH 20/23] usb: chipidea: use
+Subject: Re: [PATCH 21/23] usb: musb: use
  platform_device_set_of_node_from_dev()
-Message-ID: <ah9P6Xt9SyKgc2oJ@ashevche-desk.local>
+Message-ID: <ah9QPgco9BxEix7T@ashevche-desk.local>
 References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
- <20260521-pdev-fwnode-ref-v1-20-88c324a1b8d2@oss.qualcomm.com>
+ <20260521-pdev-fwnode-ref-v1-21-88c324a1b8d2@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260521-pdev-fwnode-ref-v1-20-88c324a1b8d2@oss.qualcomm.com>
+In-Reply-To: <20260521-pdev-fwnode-ref-v1-21-88c324a1b8d2@oss.qualcomm.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -116,18 +116,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, May 21, 2026 at 10:36:43AM +0200, Bartosz Golaszewski wrote:
+On Thu, May 21, 2026 at 10:36:44AM +0200, Bartosz Golaszewski wrote:
 > Ahead of reworking the reference counting logic for platform devices,
 > encapsulate the assignment of the OF node from another device for
 > dynamically allocated platform devices with the provided helper.
 
-...
+Same Q as per chipidea. Do they provide a pin control facility at the same time?
 
->  	pdev->dev.parent = dev;
-> -	device_set_of_node_from_dev(&pdev->dev, dev);
-> +	platform_device_set_of_node_from_dev(pdev, dev);
-
-Why do they even do that? Do they have a USB connected pin control?
+Otherwise simple device_set_node() or whatever platform analogue should suffice.
 
 -- 
 With Best Regards,
