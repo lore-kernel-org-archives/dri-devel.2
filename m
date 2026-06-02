@@ -4,58 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAD82CD6E4A
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 05:43:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FC2DC5DF71
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 05:49:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0301111385A;
-	Tue,  2 Jun 2026 05:43:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90035113864;
+	Tue,  2 Jun 2026 05:49:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JYAkLoHx";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="noO22Ui9";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C55F211385A
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 05:43:48 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E90776001A;
- Tue,  2 Jun 2026 05:43:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D55F1F00893;
- Tue,  2 Jun 2026 05:43:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780379027;
- bh=HO5T4hY4oc72i5yAiqIBqEAKJnsVhjoYb+g6SW4aadk=;
- h=Date:From:Subject:To:Cc:References:In-Reply-To;
- b=JYAkLoHxgLsddiRyD6WgoC6u2YtzcpUd5X6eajBqOUdW3sCf9sHmY8x8vjwdWpFok
- imRiFit2XT9p8560qsmT4YTu1OrGyID9DR2t2ZaXJy+nsh80bySUqmgnM/gKCJFNKa
- j/8nrzLtjtMvPX75KIcHkucxkwC912HA0mjs1V+X9bVrLDVNfDmbjMLBQUHoP+YYQM
- wU81CadENp+5ikPruN1NogklTtfq6dO+KpMviEWy3JJ31sSOZ3hZLIe4FVFx4gqd9j
- z0kunfjrhL0WdUzdwOTUyUjhOcniUSXZ3C/kKLH+qGofeyI5c+NfreGUtTHQR7HWDd
- MFQMOvW4dG4dA==
-Message-ID: <39961362-0a9e-434c-85f2-2f9f5c7846a9@kernel.org>
-Date: Tue, 2 Jun 2026 07:43:42 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ECA8113864
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 05:49:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780379371; x=1811915371;
+ h=message-id:date:mime-version:subject:from:to:cc:
+ references:in-reply-to:content-transfer-encoding;
+ bh=XiyYyAHDe/o5OzbJ6v9PhRD2lY35xaiYM1/wBqdFa8o=;
+ b=noO22Ui9QsSEjBzGjv9RCVK/AH27bdYzzgqmfs7Glt3XRaO+eU8niMYz
+ vLrPRmbhkVzObhynbI1EZAded3U6bv09By2ZUxyfGyZJADAGJXC6EZXVA
+ Pgat3MIu8J6xGyQW6yHiKyQAMJJUQgIEIqjDc0u0s/W48UVqQiKn32onw
+ mcwAlw68DL4yH1df3+SqBAkqlPJWRPsx8rW9omJpuoz8CqwRcWZahG6Tv
+ ROWALFC2J9R2rJpiiEBsgsetpXluKs8XncBLgEwbrOxLOrM7KFFDbI4ef
+ wBP8FMg3AUlI2BYO5krIhfrQ/6HKGt/eoF/uIc+5kgleCleiU9ahQYYv5 g==;
+X-CSE-ConnectionGUID: hqDmwU41TIOwGEFCTK9ClQ==
+X-CSE-MsgGUID: c7fn4OwGRd61360qkDD/ng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="85045059"
+X-IronPort-AV: E=Sophos;i="6.24,182,1774335600"; d="scan'208";a="85045059"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jun 2026 22:49:30 -0700
+X-CSE-ConnectionGUID: /g+LueiEQsu0jQDFl/Bbjw==
+X-CSE-MsgGUID: t10f2cToRSSnznqba1m3ew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,182,1774335600"; d="scan'208";a="267451367"
+Received: from martanox-mobl.ger.corp.intel.com (HELO [10.94.250.132])
+ ([10.94.250.132])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jun 2026 22:49:27 -0700
+Message-ID: <093b7951-a0f3-4935-adfa-dfd4fe45bea9@linux.intel.com>
+Date: Tue, 2 Jun 2026 07:49:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v4 1/4] drm/scdc-helper: Don't use ssize_t return type for
- scdc_read/write
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Daniel Stone <daniel@fooishbar.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel@collabora.com
-References: <20260527-scdc-link-health-v4-0-622ea40a1f59@collabora.com>
- <20260527-scdc-link-health-v4-1-622ea40a1f59@collabora.com>
-Content-Language: en-US, nl
-In-Reply-To: <20260527-scdc-link-health-v4-1-622ea40a1f59@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] accel/ivpu: Add bounds checks for firmware log indices
+From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
+To: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
+ dawid.osuchowski@linux.intel.com, stable@vger.kernel.org
+References: <20260529115842.135378-1-andrzej.kacprowski@linux.intel.com>
+ <9c0b071d-efd0-4b89-9e75-78b8355d90d4@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <9c0b071d-efd0-4b89-9e75-78b8355d90d4@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,77 +73,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 27/05/2026 16:03, Nicolas Frattaroli wrote:
-> drm_scdc_read and drm_scdc_write, both of which are only used within
-> drm_scdc_helper (although exported), use a ssize_t as their return type.
+On 29-May-26 14:06, Wachowski, Karol wrote:
+> On 29-May-26 13:58, Andrzej Kacprowski wrote:
+>> Add validation that read and write indices in the firmware log buffer
+>> are within valid bounds (< data_size) before using them. If
+>> out-of-bounds indices are encountered (from firmware), clamp them to
+>> safe values instead of proceeding with invalid offsets.
+>>
+>> This prevents potential out-of-bounds buffer access when firmware
+>> supplies invalid log indices.
+>>
+>> Fixes: 1fc1251149a7 ("accel/ivpu: Refactor functions in ivpu_fw_log.c")
+>> Cc: <stable@vger.kernel.org> # v6.18+
+>> Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
 > 
-> This would make sense if they returned the number of bytes read/written
-> on success, and negative errno otherwise. However, they return 0 on
-> success.
+> Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
 > 
-> Demote them to "int" as their return type, in order to avoid needlessly
-> using 64 bits when less suffices.
-> 
-> No functional change.
 
-Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Applied to drm-misc-fixes.
 
-Regards,
-
-	Hans
-
+>> ---
+>>   drivers/accel/ivpu/ivpu_fw_log.c | 5 +++++
+>>   1 file changed, 5 insertions(+)
+>>
+>> diff --git a/drivers/accel/ivpu/ivpu_fw_log.c b/drivers/accel/ivpu/ 
+>> ivpu_fw_log.c
+>> index 337c906b0210..275baf844b56 100644
+>> --- a/drivers/accel/ivpu/ivpu_fw_log.c
+>> +++ b/drivers/accel/ivpu/ivpu_fw_log.c
+>> @@ -98,6 +98,11 @@ static void fw_log_print_buffer(struct 
+>> vpu_tracing_buffer_header *log, const cha
+>>       u32 log_start = only_new_msgs ? READ_ONCE(log->read_index) : 0;
+>>       u32 log_end = READ_ONCE(log->write_index);
+>> +    if (log_start >= data_size)
+>> +        log_start = 0;
+>> +    if (log_end > data_size)
+>> +        log_end = data_size;
+>> +
+>>       if (log->wrap_count == log->read_wrap_count) {
+>>           if (log_end <= log_start) {
+>>               drm_printf(p, "==== %s \"%s\" log empty ====\n", prefix, 
+>> log->name);
 > 
-> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> ---
->  drivers/gpu/drm/display/drm_scdc_helper.c | 8 ++++----
->  include/drm/display/drm_scdc_helper.h     | 8 ++++----
->  2 files changed, 8 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/display/drm_scdc_helper.c b/drivers/gpu/drm/display/drm_scdc_helper.c
-> index df878aad4a36..8403f2390ab6 100644
-> --- a/drivers/gpu/drm/display/drm_scdc_helper.c
-> +++ b/drivers/gpu/drm/display/drm_scdc_helper.c
-> @@ -67,8 +67,8 @@
->   * Returns:
->   * 0 on success, negative error code on failure.
->   */
-> -ssize_t drm_scdc_read(struct i2c_adapter *adapter, u8 offset, void *buffer,
-> -		      size_t size)
-> +int drm_scdc_read(struct i2c_adapter *adapter, u8 offset, void *buffer,
-> +		  size_t size)
->  {
->  	int ret;
->  	struct i2c_msg msgs[2] = {
-> @@ -107,8 +107,8 @@ EXPORT_SYMBOL(drm_scdc_read);
->   * Returns:
->   * 0 on success, negative error code on failure.
->   */
-> -ssize_t drm_scdc_write(struct i2c_adapter *adapter, u8 offset,
-> -		       const void *buffer, size_t size)
-> +int drm_scdc_write(struct i2c_adapter *adapter, u8 offset, const void *buffer,
-> +		   size_t size)
->  {
->  	struct i2c_msg msg = {
->  		.addr = SCDC_I2C_SLAVE_ADDRESS,
-> diff --git a/include/drm/display/drm_scdc_helper.h b/include/drm/display/drm_scdc_helper.h
-> index 34600476a1b9..e9ccaeba56dd 100644
-> --- a/include/drm/display/drm_scdc_helper.h
-> +++ b/include/drm/display/drm_scdc_helper.h
-> @@ -31,10 +31,10 @@
->  struct drm_connector;
->  struct i2c_adapter;
->  
-> -ssize_t drm_scdc_read(struct i2c_adapter *adapter, u8 offset, void *buffer,
-> -		      size_t size);
-> -ssize_t drm_scdc_write(struct i2c_adapter *adapter, u8 offset,
-> -		       const void *buffer, size_t size);
-> +int drm_scdc_read(struct i2c_adapter *adapter, u8 offset, void *buffer,
-> +		  size_t size);
-> +int drm_scdc_write(struct i2c_adapter *adapter, u8 offset, const void *buffer,
-> +		   size_t size);
->  
->  /**
->   * drm_scdc_readb - read a single byte from SCDC
 > 
 
