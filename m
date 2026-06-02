@@ -4,40 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48D06CD6E57
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2D35CD6E5D
 	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 18:44:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A018110F4C3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A464510F4C4;
 	Tue,  2 Jun 2026 18:44:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=grimler.se header.i=@grimler.se header.b="Et/OyKEq";
+	dkim=pass (1024-bit key; secure) header.d=grimler.se header.i=@grimler.se header.b="lyLKTlSB";
 	dkim-atps=neutral
-Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com
- [91.218.175.186])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B13A610F4C4
+Received: from out-180.mta0.migadu.com (out-180.mta0.migadu.com
+ [91.218.175.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8685F10F4C3
  for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 18:44:47 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grimler.se; s=key1;
- t=1780425466;
+ t=1780425462;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=7FIRnKnjUEgwNKRFP5/LIIC27jGvHXMJS53DGStupNA=;
- b=Et/OyKEqDlCNwgBBSAxwg24mwBIGKpaAPg/nD9PdjfNMHte6RReHyoaiXE+1s1esIcI1l2
- e32gAzaEJl6vsA0U1W2tTgZm6sXrWG4Jhst6gyKh1k9Hlb4wyyum/e0JKP0vwluv/MUVyW
- cPls8YUocn/uw5F+w4Z04/f7xIg1NMM=
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ifzs265vUAPV6IFIZqod6woQ6e3KxesGPyzpRuY/iQY=;
+ b=lyLKTlSBQSQJUwrUC6x4vG/WGdEJePCQnq6NVERHIGUwOlV7NeAqpEC2A5PYYTeRM4YwQT
+ 3if7BAnbRhIm5dZwAO8amUxkTsAlByPdU7nS5e6/8Wp6P/vFoXwRzJDr5pCqluka3qY3Cm
+ PCkNjWRi11HbsnuNPylJomeG2W1CbLY=
 From: Henrik Grimler <henrik@grimler.se>
-Date: Tue, 02 Jun 2026 20:36:48 +0200
-Subject: [PATCH RESEND v4 1/3] drm/bridge: sii9234: fix some typos in
- comments and messages
+Subject: [PATCH RESEND v4 0/3] drm/bridge: sii9234: use extcon to detect
+ cable attachment
+Date: Tue, 02 Jun 2026 20:36:47 +0200
+Message-Id: <20260602-exynos4-sii9234-driver-v4-0-9b2fc38e104a@grimler.se>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-exynos4-sii9234-driver-v4-1-9b2fc38e104a@grimler.se>
-References: <20260602-exynos4-sii9234-driver-v4-0-9b2fc38e104a@grimler.se>
-In-Reply-To: <20260602-exynos4-sii9234-driver-v4-0-9b2fc38e104a@grimler.se>
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
  Marek Szyprowski <m.szyprowski@samsung.com>, 
  Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -50,15 +47,15 @@ To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org, 
  ~postmarketos/upstreaming@lists.sr.ht, replicant@osuosl.org, 
  linux-kernel@vger.kernel.org, Henrik Grimler <henrik@grimler.se>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2382; i=henrik@grimler.se;
- h=from:subject:message-id; bh=ov52qv09hURyivLgIT73m1vzdLOIqjhLJ2nQEw37YQE=;
- b=owEBbQGS/pANAwAKAbAHbkkLcWFrAcsmYgBqHyLokf4gb92s793rV1c2L9bTU6iH6/9jwx0pL
- 2yifYgO6M2JATMEAAEKAB0WIQQsfymul4kfZBmp4s2wB25JC3FhawUCah8i6AAKCRCwB25JC3Fh
- axtJB/9/R1jZ8CU5+J0KrHfzmNzGXAi0vkD3kVIRkSrWwXPRfj6gFpsJyNgulaFEHBk404EdS0R
- RzjfwjzpoS+BolcXKq9xoPMu2pk34tMk6HlAC58RPLB8v/yAHd3+awMUIV3YB/KkeWe3kuAHF/2
- xalZfxg3R0Gob0XuVaeL4QVp1MQMEWwBRpzV8/7KWOLzCVPffEOnh/+StGAyMN1EmJHA3WWjoUd
- pRFXdUXkiafcqNNbU2wGkhTfWJfdtYgrGNdjt20urZZzG5FDVVFRdvpslaQR816iD24yVyJBlBJ
- qMekqJFEclKY6o+4giXBSU9J0uzGpehLhHYO1LfPpXX/SdPi
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2044; i=henrik@grimler.se;
+ h=from:subject:message-id; bh=+9icRJM878guDktkvKRdV7M11E818HdtxnWGnfxrGmU=;
+ b=owEBbQGS/pANAwAKAbAHbkkLcWFrAcsmYgBqHyLk9cgk+1xEeOBEHFUSpeRNgrTIniPD26alJ
+ mpxLsjrnnWJATMEAAEKAB0WIQQsfymul4kfZBmp4s2wB25JC3FhawUCah8i5AAKCRCwB25JC3Fh
+ a1hBB/9Sv18iNp9etcxbIHTuwjpTLL2QqfhikCmtehealHMm8Dd7N3r71Bx7InayxC/j2KNDfod
+ mPC61myClxgXnxatDXBDhhr6N+OlsBJrVuAYCRtIbehKvul4unwOD5JspIfECEK2YUxPWiC1TnH
+ x8oTDDy/a1aQ27N1H4q6EkFEP2+MMmm8ZhmZTqzkqf7oJG5eoJATscB2x6uyWatK2YGej0OxJqo
+ jx8aWRp+UNqv/Dj3Tq3tFQ5s0zmEqi9hwm0vDw45mu4EKBjbn1nrVRFbkNWMLRio5HVVFUapxjj
+ 822T2mk5dFJjygbST/RDFskh61NnUrey1ARv5cjOg+I42moL
 X-Developer-Key: i=henrik@grimler.se; a=openpgp;
  fpr=2C7F29AE97891F6419A9E2CDB0076E490B71616B
 X-Migadu-Flow: FLOW_OUT
@@ -77,73 +74,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fix spelling and formatting so that the code is easier to follow, and
-so that it is more searchable.
+Hi,
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+This series fixes so HDMI through the sii9234 MHL chip works when
+cable is hotplugged, by making the MHL chip use extcon cable detection
+functions. Patch 3, that actually implements the extcon parts, is heavily
+inspired by commit 688838442147 ("drm/bridge/sii8620: use micro-USB
+cable detection logic to detect MHL") by Maciej Purski.
+
+Before these changes, HDMI only worked if cable was plugged in before
+booting. If no cable was connected, then wlr-randr still showed HDMI
+as connected, with 0x0 px, which confused at least some UIs (phosh)
+and caused problems:
+https://gitlab.gnome.org/World/Phosh/phosh/-/issues/828
+
+Tested on exynos4412-i9305.
+
+Best regards,
+Henrik Grimler
+
 Signed-off-by: Henrik Grimler <henrik@grimler.se>
 ---
-v4: no changes
-v3: collect tags
-v2: no changes
+Changes in v4:
+- Collect tags
+- Link to v3: https://lore.kernel.org/r/20250824-exynos4-sii9234-driver-v3-0-80849e716a37@grimler.se
+
+Changes in v3:
+- Fix return of dev_err_probe in patch 2 and patch 3, spotted by
+  Dmitry and Marek respectively.
+- Change to depends on EXTCON || !EXTCON instead of select
+- Collect tags for patch 1 (not 3 since there were (minor) changes)
+- Link to v2: https://lore.kernel.org/r/20250724-exynos4-sii9234-driver-v2-0-faee244f1d40@grimler.se
+
+Changes in v2:
+- Add dependency on extcon in patch 3. Issue reported by kernel test robot <lkp@intel.com>
+- Link to v1: https://lore.kernel.org/r/20250721-exynos4-sii9234-driver-v1-0-2e47ed02f677@grimler.se
+
 ---
- drivers/gpu/drm/bridge/sii9234.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+Henrik Grimler (3):
+      drm/bridge: sii9234: fix some typos in comments and messages
+      drm/bridge: sii9234: use dev_err_probe where applicable
+      drm/bridge: sii9234: use extcon cable detection logic to detect MHL
 
-diff --git a/drivers/gpu/drm/bridge/sii9234.c b/drivers/gpu/drm/bridge/sii9234.c
-index bb1bed03eb5b..930117bbba87 100644
---- a/drivers/gpu/drm/bridge/sii9234.c
-+++ b/drivers/gpu/drm/bridge/sii9234.c
-@@ -339,7 +339,7 @@ static int sii9234_cbus_reset(struct sii9234 *ctx)
- 	return sii9234_clear_error(ctx);
- }
- 
--/* Require to chek mhl imformation of samsung in cbus_init_register */
-+/* Require to check mhl information of samsung in cbus_init_register */
- static int sii9234_cbus_init(struct sii9234 *ctx)
- {
- 	cbus_writeb(ctx, 0x07, 0xF2);
-@@ -614,7 +614,7 @@ static void sii9234_cable_out(struct sii9234 *ctx)
- 
- 	disable_irq(to_i2c_client(ctx->dev)->irq);
- 	tpi_writeb(ctx, TPI_DPD_REG, 0);
--	/* Turn on&off hpd festure for only QCT HDMI */
-+	/* Turn on&off hpd feature for only QCT HDMI */
- 	sii9234_hw_off(ctx);
- 
- 	ctx->state = ST_OFF;
-@@ -708,7 +708,7 @@ static enum sii9234_state sii9234_rsen_change(struct sii9234 *ctx)
- {
- 	int value;
- 
--	/* Work_around code to handle wrong interrupt */
-+	/* Workaround code to handle wrong interrupt */
- 	if (ctx->state != ST_RGND_1K) {
- 		dev_err(ctx->dev, "RSEN_HIGH without RGND_1K\n");
- 		return ST_FAILURE;
-@@ -723,9 +723,9 @@ static enum sii9234_state sii9234_rsen_change(struct sii9234 *ctx)
- 	}
- 	dev_dbg(ctx->dev, "RSEN lost\n");
- 	/*
--	 * Once RSEN loss is confirmed,we need to check
--	 * based on cable status and chip power status,whether
--	 * it is SINK Loss(HDMI cable not connected, TV Off)
-+	 * Once RSEN loss is confirmed, we need to check
-+	 * based on cable status and chip power status, whether
-+	 * it is SINK Loss (HDMI cable not connected, TV Off)
- 	 * or MHL cable disconnection
- 	 * TODO: Define the below mhl_disconnection()
- 	 */
-@@ -820,7 +820,7 @@ static int sii9234_init_resources(struct sii9234 *ctx,
- 	int ret;
- 
- 	if (!ctx->dev->of_node) {
--		dev_err(ctx->dev, "not DT device\n");
-+		dev_err(ctx->dev, "no DT device\n");
- 		return -ENODEV;
- 	}
- 
+ drivers/gpu/drm/bridge/Kconfig   |   1 +
+ drivers/gpu/drm/bridge/sii9234.c | 124 +++++++++++++++++++++++++++++++--------
+ 2 files changed, 102 insertions(+), 23 deletions(-)
+---
+base-commit: a87fef0880c4f52769b5a3c2fc1b2d73aaa04eb3
+change-id: 20231218-exynos4-sii9234-driver-d817d4b511d5
 
+Best regards,
 -- 
-2.54.0
+Henrik Grimler <henrik@grimler.se>
 
