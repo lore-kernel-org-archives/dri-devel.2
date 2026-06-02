@@ -4,129 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F9E3CD6E4A
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 07:18:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A42CCD6E4A
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 07:18:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C50D10EC8E;
-	Tue,  2 Jun 2026 07:18:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAB3710EC90;
+	Tue,  2 Jun 2026 07:18:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="lZhhK0eW";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YgOIdseD";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ByZDtz2q";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R1bY4GDH";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F8CD10EC8E
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 07:18:22 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E508510EC90
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 07:18:26 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6526L97p2884844
- for <dri-devel@lists.freedesktop.org>; Tue, 2 Jun 2026 07:18:21 GMT
+ 65245guZ2691969
+ for <dri-devel@lists.freedesktop.org>; Tue, 2 Jun 2026 07:18:26 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=HU4ZtcghD0M
- 28On2VNhDRQP9LlC0xqJF34085t8tRAU=; b=lZhhK0eWBbNrvuuk9NZsrLbeJVC
- Fr2cHMY5Ev1KSDWse+dEPHqxxPOvyQo0NvHfUrNX0QfzkL3nvzxkhOwLyvgTF8VB
- ZJFBFKOIN9E/Kvg9WrkDKUJWaEADt4vnlhN0kI0ansOspTcJKSuz5BpUA3W+j9sF
- b+7BoRqAIRALrPocHNeE8LrMpN1AdvjTebCLOmavG+PQ0yO2Xks22cmtw4VrhMNT
- 6X1ndFN6N9zo+s5t12scC8B0vd9/24zKB0Sgea5eorKhnoXEHVk5gVW8P4M0Cjcq
- dZ+pgVK8A8fSFP4MGXs1KFgwlDZJkIs33KRVucojqkzO5BIMf0fb4sUNxmg==
+ :mime-version:references:subject:to; s=qcppdkim1; bh=XxSW8cHQ3wF
+ LpjGnuSGsblT6eUW8Bj573RsJWQBn06Q=; b=ByZDtz2qJQePO976gng7xi8Vjrw
+ Se1iBJREMQVB0NCv5VHkj/i6E6BC96Mf5pLS8ymFkolbmhskZh9kfrek7a36N0CP
+ WzycxL6DLH2l7B8Z4yznsMsfFgaO/d4FvNnld3cZ7rFegysezQYg1+LMBKP7QJnY
+ M9qP2lM05D64ferTiMvouAGa9Y8ZyuA2yH1QRcHchmwlVmSrH31seAANWu8G2HZt
+ tdzjxFTnsLQ8+JjUebx789Gjpkd1O+owDiJHBF1C6JK1De8VCsZG9MtQDkAcBqWd
+ zMjwnuw5ziress87revQOFIR3v2oaev4F2g/oCjoLAtKm1sp7amLNdLKh1w==
 Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
  [209.85.216.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ehsu1075e-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ehqumgq1y-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 07:18:21 +0000 (GMT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 07:18:26 +0000 (GMT)
 Received: by mail-pj1-f70.google.com with SMTP id
- 98e67ed59e1d1-36bd4146cb2so4050212a91.1
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 00:18:21 -0700 (PDT)
+ 98e67ed59e1d1-36bc54005a7so5248598a91.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 00:18:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1780384700; x=1780989500;
+ d=oss.qualcomm.com; s=google; t=1780384706; x=1780989506;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=HU4ZtcghD0M28On2VNhDRQP9LlC0xqJF34085t8tRAU=;
- b=YgOIdseDiFzCMdo1IFKxxsMnRABPAlUf5yCtnyD/bXgJD37K3p/yHjt875nPY5YTah
- aw9ziODPTWNYzqBubzfiMfhDmQhV9ckMWjIxSn43yp0dA8ISxgEIc15Q6326d+BpP23X
- 1zu//+BtuuMwhGk8kMZU5QzaZLLqMc9eCtdpAp8hLxqqE5jCuumUTPl5rUx2m5YotvNl
- EYMz5gBgx2Ubn+wC0jhZImd+wE9WS4i73V+NogcvgwccMPX3cdY0yVrm2PoBQh3G6RtH
- XUs4FRI/E6baNm2vVDRcPpCXUjVEPvksfMMMdGoZGF8dNtkAShGAZJWHdAHKH5qD25gc
- QT7w==
+ bh=XxSW8cHQ3wFLpjGnuSGsblT6eUW8Bj573RsJWQBn06Q=;
+ b=R1bY4GDHIpl0kw7TfDTDrajjKGqsxETESsbeXlH73fZqrbPXjyKHp3uDxaEuB5+j9Z
+ JFmIyOC/tCcZUSjyZWX3yKyke70ae54S78u8bbqj8O8qoqA+pCAv9zKkToyqNw18pDZb
+ o0rASx0CWHvtsmGFHjx1kaVlNcHcLqpzE/8wvjjGmEDMAXi+3vbfVn5v608lUdzft/Z7
+ hKK7Ec89nO5aymmuiErTV4T10GWLfantHFdxzHnq09z5syd3v8aHCx4DtiYQartsIeiS
+ aqjtaRhHmj1+pPJoG2Koxr2Qz5Lb0XLXrI6K6+CBvAQx7J0WT9AArcbSEGdhQkhOHRGy
+ 6IjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780384700; x=1780989500;
+ d=1e100.net; s=20251104; t=1780384706; x=1780989506;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=HU4ZtcghD0M28On2VNhDRQP9LlC0xqJF34085t8tRAU=;
- b=EYeUpdhSh19sONsbUAZTsPcXrnnUz1KVNCXkp56WX8rP9nnB7vL4U1jrj5+NKSgO7R
- 9HivTgqCT4EVrNNf0Mt7dyIOSootPLbs+A/dkg+CxX8FJVctXzDNhOh3er6i/ZjTEuIz
- qt4lH+E+n96/Ujiyo2Qij2oTFiAa2EVOgIe/XZspURf49CIamG7p5VKGTYQDNB2KjqD3
- YJqqDeQZEpMyxNQGo2cd15+qvYMEc/LMO4K4N+7g+KtAQ/JhMESD7PEoMUvquRu7Q9Qo
- g8awGkoUoN++9hx/kJj1t7jH1DO+ueZzkWnwCgtLUZP+VqL9Eah8ZmLwt/5MZyWm8h3a
- KY2Q==
+ bh=XxSW8cHQ3wFLpjGnuSGsblT6eUW8Bj573RsJWQBn06Q=;
+ b=hMZrEwVtN2WUjjxj/XqXj6+rAkxvrMpIba6382aytam8wl89s4E8wjpXPnnxn5Y2pv
+ pKn/B/GeCisW3ogiJIezv2jA8DQ4FKNdJ7YkRUthCse1mMQRNRjG185QimxKr4LHNvl/
+ TAhqZZRFtcgquzeArRPU0jTxTfyg+p+1PHkTNcgPYkhQKL+daWvc41ek94pWaXnJBz3K
+ /Ml2WHraQEJa2b235TWl2yBNb1calV65gh3LD3adqwnfHI+bt0zD77LSnp88RXuUXmsK
+ 3GiqGbUP87dgYdHQSqtZhe3B+g9UwV3fC5T/SsR1ahMXd9mczcDn5RU8yiGV4PLIumXf
+ YuEA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/NIp9KO8LXaWjKeXnXj4yaRZhus8Baa8J3Pt51fi9wO5odG+xKgToRalG7tbd3img3gHoVFIJ4IwE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyHK9F0VfokjO7rGHrupY6p2K7wE+Odv7sCNr1VljWyFMk6IgLr
- NNSyig+3Nu7to8WWORvmvgcNYdvwn5z24AEDqANPZVYFX7q/z3bdK/qd1I5hEhtYfiBvBafL9hT
- W48EfGhEGHaFq/faGMsd0YNGxHsQZfuD5fjPlbP04s/kQenLkyk3hvKCBQPthrxoM10VvXjE=
-X-Gm-Gg: Acq92OHUAFxax+0FIR+IJe3yM9foqHb4PocwCsqeKB1uFaoMesAOFZmMTPpIh+e8+ZQ
- MdJYJ2riA7zqQhtLcc+YLi76R4yiG7NK0WLRVFq4nteryEn15afKZUDDWN9JQcamH2ZHmCxibrJ
- xsDZY0ignyiW7acN14agklB1Q4z2CBChkY8q2pApj9nVb070+h9liE/C7mvUw0ftNzpJGDmncEu
- F5j7Jy3+jpmKcsXGbASVh79akcimpYJI4rxGk8uQZij7MV7B17yhoRckx6sDMppw8IP93Uf+dwr
- 4/qv+HEUpzbstxn2z1AokbeTNCygxhrKwT1sg2O5CPUCgrbyLa74OjZGGi82sAgt2brF6Zz823k
- o0rZxtBVBtscMEXMtIItNeGwR8FbdYXq+EJWVyaPfUmT0miX8phDZ4AJVsEe7Oe4Y5a5tsAPSbu
- E3LMZHe3t407hYeiHCSlXll8KrZ70myg==
-X-Received: by 2002:a17:90b:520a:b0:36b:a162:a1be with SMTP id
- 98e67ed59e1d1-36dd91f0f42mr2277832a91.4.1780384700329; 
- Tue, 02 Jun 2026 00:18:20 -0700 (PDT)
-X-Received: by 2002:a17:90b:520a:b0:36b:a162:a1be with SMTP id
- 98e67ed59e1d1-36dd91f0f42mr2277800a91.4.1780384699782; 
- Tue, 02 Jun 2026 00:18:19 -0700 (PDT)
+ AFNElJ8+Oeq2RT+vXQ2COp8MrIME8kHaapz8TQ/mgmJwT+2vWHSCuevwtQdo+4R/uFWlA9ZPAJfslUsWeYE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwbUlSJ6tMPgVUy31Mbf+mUWXTh4Ejg9ku4sNHt6qXE0TzddmWR
+ hMkdv2E7qKmys0EXItGiRUFnCFVDYyW6MExaKLblkZFRXYsCMow/kwC8mUFuvH41gYArKhU1FW0
+ n2XV+2SEkYoyUMXTfIg4VcFIyFgFEVfCqrfZTEHkX1wsV8qKDLvoh9sxFRQNtFQs6jqJ+TnA=
+X-Gm-Gg: Acq92OE1DAa09xqZK1+ofblLJ1DwsXcBVTiVNEunJQar8ZcomUECw2hYiG5WVTUhb5E
+ fV8ev+MCbtscBimAyTv00U+SdqHWUHZbbSwuGfKbAjWwfAXORc9juTKkUnfgL/lC/42LOZ83otj
+ /y9hD8nonIR/WkbqUtxHKh0MlfLnC+VgZtbLdWjMcc61+pDv4rdoNBoBjQf4qBsBnPa8+/WEvVQ
+ AILdQ7ZtS3OLI58LTkv36DysogCeZZHs4hglppzwD64AZ5nUpMP0HlleAiIP89OGVUCoyv0jfHU
+ cEDaOCT9YhFuY+/KrV5w3wDWdXwk2bKXaITuNkYo7l23JC5vQ4Whmio2jPzOaMF+dGoM0R5YOb8
+ yItLv/c0seJ0DOLqPNflWBAo5zDNL9PmJ/VZgQza6q37NP5PL5dL67JlWJiasqByefeFvjyKeFh
+ 0Hspl7YmOSofNNO3PPGbyTNWvbNfR6zg==
+X-Received: by 2002:a17:90a:fc4c:b0:36b:7f69:c152 with SMTP id
+ 98e67ed59e1d1-36c501b813cmr15173003a91.18.1780384705758; 
+ Tue, 02 Jun 2026 00:18:25 -0700 (PDT)
+X-Received: by 2002:a17:90a:fc4c:b0:36b:7f69:c152 with SMTP id
+ 98e67ed59e1d1-36c501b813cmr15172978a91.18.1780384705241; 
+ Tue, 02 Jun 2026 00:18:25 -0700 (PDT)
 Received: from QCOM-SocCW5bzXR.qualcomm.com
  (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-36dd91c9991sm1766279a91.7.2026.06.02.00.18.15
+ 98e67ed59e1d1-36dd91c9991sm1766279a91.7.2026.06.02.00.18.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jun 2026 00:18:19 -0700 (PDT)
+ Tue, 02 Jun 2026 00:18:24 -0700 (PDT)
 From: Jianping Li <jianping.li@oss.qualcomm.com>
 To: srini@kernel.org, amahesh@qti.qualcomm.com, arnd@arndb.de,
  gregkh@linuxfoundation.org, abelvesa@kernel.org,
  jorge.ramirez@oss.qualcomm.com
-Cc: Jianping Li <jianping.li@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- ekansh.gupta@oss.qualcomm.com, quic_chennak@quicinc.com, stable@kernel.org
-Subject: [PATCH v7 4/5] misc: fastrpc: Allocate entire reserved memory for
- Audio PD in probe
-Date: Tue,  2 Jun 2026 15:17:49 +0800
-Message-Id: <20260602071750.526-5-jianping.li@oss.qualcomm.com>
+Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Jianping Li <jianping.li@oss.qualcomm.com>
+Subject: [PATCH v7 5/5] misc: fastrpc: Allow fastrpc_buf_free() to accept NULL
+Date: Tue,  2 Jun 2026 15:17:50 +0800
+Message-Id: <20260602071750.526-6-jianping.li@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260602071750.526-1-jianping.li@oss.qualcomm.com>
 References: <20260602071750.526-1-jianping.li@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: 7N0pESPFGYZUmjfhPMN_23eeZL5DV9gO
-X-Proofpoint-GUID: 7N0pESPFGYZUmjfhPMN_23eeZL5DV9gO
-X-Authority-Analysis: v=2.4 cv=MKFQXsZl c=1 sm=1 tr=0 ts=6a1e83bd cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAyMDA2NiBTYWx0ZWRfX7w05R5oWZ98n
+ S2gn/SF4ODGWioE/6JoizhzL6FuqCRb2Esg+O+nIM06tcjv0nyBY0yKXrTlUpaUb8UaSuSvRTJq
+ Xx1VglubLuAUw/gQ2aGV+jG3IARfpD3D7puKHP7wgxTkNWqhm2vmywpfpbj/Ir2SnwuA9ouWcL1
+ 3i9hT+351NDoNIjXuFFrroy9JQcda9uhHnvvi26SFQcHxvMeRd0P1LCsU2EcG4AlQwrJ8fuqbXv
+ SaP7cKKcFtzeXiRA56V4JTJSgj9iD0YNYRbRftTOn7NOoAnrMM7khCyee9QC7wyNhX7nQXVvuGJ
+ 9ORKiWO5XB5AHnzptdPWLTcPOimYM4cqw1FSjCnvhJBxkdzsgl8kAyXclI9Mhdqr6hJ9V8Pf5os
+ z2NNzfphGTJTK74xhS434mXQYulUgnps8i3dNLTOrV2uU74XBLcueKXLlsF8p2wgNcGt1H2Ec11
+ p17dN1h1X+FcM18+Iiw==
+X-Proofpoint-ORIG-GUID: GQNlQEVAu8WRYbKy9ua3KXwL503b-Qun
+X-Proofpoint-GUID: GQNlQEVAu8WRYbKy9ua3KXwL503b-Qun
+X-Authority-Analysis: v=2.4 cv=Rrv16imK c=1 sm=1 tr=0 ts=6a1e83c2 cx=c_pps
  a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=vXPY0jRleWu_0xqwLycA:9 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAyMDA2NiBTYWx0ZWRfX8aQHSax47Ttp
- mfRZVJe6T4YKdZLXVmX1D5abDiEOqdrr2ug22wHFY39LVONymhgToun9yGXDyW9XB+PhVrCrtoQ
- CEubHrRF62SjqliOlLk9aROIt6tVSjVUzFDv+Ndh0J8YmDSn0O3w1ozX4Ikkeo8sr5vk98J5jOs
- J1gsLzWZyLg+PTo8qWvIPNRfmKPkqBe+1oPvD29vsjdkJQ/EUnA/N3FpW2IQJdwpOjTarFHsX61
- 6p7yz1T1/bw/vfUEpzJdt1VizBOdJWrm8G5Ke587SzYEH+BqH+muG9zlyBGOEDZqKWDoofXJFp8
- 0dkpTxWbrpDgTrsc73i4a8TWs7H0OHoXPazgzAQwYlCKPImQwUeMWiLUU/iU3CpodMlTjRniyAM
- t5j9E2jZJ2NtO4WsqhUKkY+q9aoPrzNUvdO0wTYVxnDfjShGtW7aacCymHSNGkxXhjgN3bxr348
- i5aWldd4vJ95F77uAaQ==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=XYmfcRj0Jzm9BuThv0sA:9 a=mQ_c8vxmzFEMiUWkPHU9:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-01_07,2026-05-28_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 impostorscore=0 adultscore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 clxscore=1015 suspectscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606020066
+ malwarescore=0 adultscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
+ suspectscore=0 impostorscore=0 phishscore=0 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606020066
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,203 +142,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Allocating and freeing Audio PD memory from userspace is unsafe because
-the kernel cannot reliably determine when the DSP has finished using the
-memory. Userspace may free buffers while they are still in use by the DSP,
-and remote free requests cannot be safely trusted.
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 
-Additionally, the current implementation allows userspace to repeatedly
-grow the Audio PD heap, but does not support shrinking it. This can lead
-to unbounded memory usage over time, effectively causing a memory leak.
+Make fastrpc_buf_free() a no-op when passed a NULL pointer, allowing
+callers to avoid open-coded NULL checks.
 
-Fix this by allocating the entire Audio PD reserved-memory region during
-rpmsg probe and tying its lifetime to the rpmsg channel. This removes
-userspace-controlled alloc/free and ensures that memory is reclaimed only
-when the DSP process is torn down.
-
-Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
-Cc: stable@kernel.org
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
 ---
- drivers/misc/fastrpc.c | 96 +++++++++++++++++++-----------------------
- 1 file changed, 43 insertions(+), 53 deletions(-)
+ drivers/misc/fastrpc.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index f46a8f53970d..33be8bed6a0b 100644
+index 33be8bed6a0b..370b4f9ca135 100644
 --- a/drivers/misc/fastrpc.c
 +++ b/drivers/misc/fastrpc.c
-@@ -276,6 +276,8 @@ struct fastrpc_channel_ctx {
- 	struct kref refcount;
- 	/* Flag if dsp attributes are cached */
- 	bool valid_attributes;
-+	/* Flag if audio PD init mem was allocated */
-+	bool audio_init_mem;
- 	u32 dsp_attributes[FASTRPC_MAX_DSP_ATTRIBUTES];
- 	struct fastrpc_device *secure_fdevice;
- 	struct fastrpc_device *fdevice;
-@@ -1344,15 +1346,16 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
- 	struct fastrpc_init_create_static init;
- 	struct fastrpc_invoke_args *args;
- 	struct fastrpc_phy_page pages[1];
-+	struct fastrpc_channel_ctx *cctx = fl->cctx;
- 	char *name;
- 	int err;
--	bool scm_done = false;
- 	struct {
- 		int client_id;
- 		u32 namelen;
- 		u32 pageslen;
- 	} inbuf;
- 	u32 sc;
-+	unsigned long flags;
+@@ -418,6 +418,9 @@ static int fastrpc_map_lookup(struct fastrpc_user *fl, int fd,
  
- 	if (!fl->cctx->remote_heap ||
- 	    !fl->cctx->remote_heap->dma_addr ||
-@@ -1383,31 +1386,6 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
- 	inbuf.client_id = fl->client_id;
- 	inbuf.namelen = init.namelen;
- 	inbuf.pageslen = 0;
--	if (!fl->cctx->remote_heap) {
--		err = fastrpc_remote_heap_alloc(fl, fl->sctx->dev, init.memlen,
--						&fl->cctx->remote_heap);
--		if (err)
--			goto err_name;
--
--		/* Map if we have any heap VMIDs associated with this ADSP Static Process. */
--		if (fl->cctx->vmcount) {
--			u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
--
--			err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
--							(u64)fl->cctx->remote_heap->size,
--							&src_perms,
--							fl->cctx->vmperms, fl->cctx->vmcount);
--			if (err) {
--				dev_err(fl->sctx->dev,
--					"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
--					&fl->cctx->remote_heap->dma_addr,
--					fl->cctx->remote_heap->size, err);
--				goto err_map;
--			}
--			scm_done = true;
--			inbuf.pageslen = 1;
--		}
--	}
- 
- 	fl->pd = USER_PD;
- 
-@@ -1419,8 +1397,17 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
- 	args[1].length = inbuf.namelen;
- 	args[1].fd = -1;
- 
--	pages[0].addr = fl->cctx->remote_heap->dma_addr;
--	pages[0].size = fl->cctx->remote_heap->size;
-+	spin_lock_irqsave(&cctx->lock, flags);
-+	if (!fl->cctx->audio_init_mem) {
-+		pages[0].addr = fl->cctx->remote_heap->dma_addr;
-+		pages[0].size = fl->cctx->remote_heap->size;
-+		fl->cctx->audio_init_mem = true;
-+		inbuf.pageslen = 1;
-+	} else {
-+		pages[0].addr = 0;
-+		pages[0].size = 0;
-+	}
-+	spin_unlock_irqrestore(&cctx->lock, flags);
- 
- 	args[2].ptr = (u64)(uintptr_t) pages;
- 	args[2].length = sizeof(*pages);
-@@ -1438,27 +1425,7 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
- 
- 	return 0;
- err_invoke:
--	if (fl->cctx->vmcount && scm_done) {
--		u64 src_perms = 0;
--		struct qcom_scm_vmperm dst_perms;
--		u32 i;
--
--		for (i = 0; i < fl->cctx->vmcount; i++)
--			src_perms |= BIT(fl->cctx->vmperms[i].vmid);
--
--		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
--		dst_perms.perm = QCOM_SCM_PERM_RWX;
--		err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
--						(u64)fl->cctx->remote_heap->size,
--						&src_perms, &dst_perms, 1);
--		if (err)
--			dev_err(fl->sctx->dev, "Failed to assign memory dma_addr %pad size 0x%llx err %d\n",
--				&fl->cctx->remote_heap->dma_addr, fl->cctx->remote_heap->size, err);
--	}
--err_map:
--	fastrpc_buf_free(fl->cctx->remote_heap);
--	fl->cctx->remote_heap = NULL;
--err_name:
-+	fl->cctx->audio_init_mem = false;
- 	kfree(name);
- err:
- 	kfree(args);
-@@ -2425,12 +2392,21 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 		}
- 	}
- 
--	if (domain_id == SDSP_DOMAIN_ID) {
-+	if (domain_id == SDSP_DOMAIN_ID || domain_id == ADSP_DOMAIN_ID) {
- 		struct resource res;
- 		u64 src_perms;
- 
- 		err = of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
- 		if (!err) {
-+			if (domain_id == ADSP_DOMAIN_ID) {
-+				data->remote_heap =
-+					kzalloc_obj(*data->remote_heap, GFP_KERNEL);
-+				if (!data->remote_heap)
-+					return -ENOMEM;
+ static void fastrpc_buf_free(struct fastrpc_buf *buf)
+ {
++	if (!buf)
++		return;
 +
-+				data->remote_heap->dma_addr = res.start;
-+				data->remote_heap->size = resource_size(&res);
-+			}
- 			src_perms = BIT(QCOM_SCM_VMID_HLOS);
- 
- 			err = qcom_scm_assign_mem(res.start, resource_size(&res), &src_perms,
-@@ -2438,7 +2414,6 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 			if (err)
- 				goto err_free_data;
- 		}
--
- 	}
- 
- 	secure_dsp = !(of_property_read_bool(rdev->of_node, "qcom,non-secure-domain"));
-@@ -2519,6 +2494,7 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+ 	dma_free_coherent(buf->dev, buf->size, buf->virt,
+ 			  fastrpc_ipa_to_dma_addr(buf->fl->cctx, buf->dma_addr));
+ 	kfree(buf);
+@@ -510,8 +513,7 @@ static void fastrpc_user_free(struct kref *ref)
+ 	struct fastrpc_map *map, *m;
  	struct fastrpc_buf *buf, *b;
- 	struct fastrpc_user *user;
- 	unsigned long flags;
-+	int err;
  
- 	/* No invocations past this point */
+-	if (fl->init_mem)
+-		fastrpc_buf_free(fl->init_mem);
++	fastrpc_buf_free(fl->init_mem);
+ 
+ 	list_for_each_entry_safe(ctx, n, &fl->pending, node) {
+ 		list_del(&ctx->node);
+@@ -556,8 +558,7 @@ static void fastrpc_context_free(struct kref *ref)
+ 	for (i = 0; i < ctx->nbufs; i++)
+ 		fastrpc_map_put(ctx->maps[i]);
+ 
+-	if (ctx->buf)
+-		fastrpc_buf_free(ctx->buf);
++	fastrpc_buf_free(ctx->buf);
+ 
  	spin_lock_irqsave(&cctx->lock, flags);
-@@ -2536,8 +2512,22 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
- 	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
- 		list_del(&buf->node);
- 
--	if (cctx->remote_heap)
--		fastrpc_buf_free(cctx->remote_heap);
-+	if (cctx->remote_heap && cctx->vmcount) {
-+		u64 src_perms = 0;
-+		struct qcom_scm_vmperm dst_perms;
-+
-+		for (u32 i = 0; i < cctx->vmcount; i++)
-+			src_perms |= BIT(cctx->vmperms[i].vmid);
-+
-+		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
-+		dst_perms.perm = QCOM_SCM_PERM_RWX;
-+
-+		err = qcom_scm_assign_mem(cctx->remote_heap->dma_addr,
-+					  cctx->remote_heap->size, &src_perms,
-+					  &dst_perms, 1);
-+		if (!err)
-+			kfree(cctx->remote_heap);
-+	}
- 
- 	of_platform_depopulate(&rpdev->dev);
- 
+ 	idr_remove(&cctx->ctx_idr, ctx->ctxid >> 4);
 -- 
 2.43.0
 
