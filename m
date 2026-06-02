@@ -4,143 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04234C5DF71
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 08:02:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BCE9C5DF71
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 08:03:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42DCC10ED1E;
-	Tue,  2 Jun 2026 08:02:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A955610ED2A;
+	Tue,  2 Jun 2026 08:03:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="zbGmcFMd";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="NnoJCBZ5";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VRXnLJ7y";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MhwYkjPo";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Eh9NF2Wk";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I5HVLmwZ";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C168B10ED22
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 08:02:36 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4344C6B032;
- Tue,  2 Jun 2026 08:02:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780387355; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wjr6eSj7xg4XebfsX/8osrO5Hp8Kjhc52PVVlOXahVs=;
- b=zbGmcFMdtNVGMBMjU0tQBNdVa6q2wuwWrQIs02+rPXOnAtVlWBfLNnkHcDfyfO01F/dpj8
- 0AI37AhZHtYawmccRYMOskQtwOKCa+Ce+uiGxRf0bxHbFsj4peyWoET6l+jiu9JfW7ubL8
- 0AW7VWtVMeEpJUzXz6/ABSy55f/NCew=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780387355;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wjr6eSj7xg4XebfsX/8osrO5Hp8Kjhc52PVVlOXahVs=;
- b=NnoJCBZ5Sj9wrVwKWvGSxQBUBk75nw5eHtGZ8lQulsaRyUYsa1NmhcekCol6c36WSuBWiP
- BHAGBIVUQOChnFDQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=VRXnLJ7y;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=MhwYkjPo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780387354; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wjr6eSj7xg4XebfsX/8osrO5Hp8Kjhc52PVVlOXahVs=;
- b=VRXnLJ7yIuDG5J2opYX+xG4m7qlvz2CkxlLyhdF6XC4vK/DNw79m2rifM8JeMhlOEn+e0I
- 5nQNJzYraLTYeBafJ3R2Lp/RPw+mv+sQ9TXM9MW5oSCL8AVxtFLM+FhTwY5Ti7mpCAx4t8
- oV3qYKQiwHVMbKyC2XuGe6wPucO0UAQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780387354;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wjr6eSj7xg4XebfsX/8osrO5Hp8Kjhc52PVVlOXahVs=;
- b=MhwYkjPo61VNYJzDHuBafvqFe6R6gg3xv9zjitxRGgYQ6S2Ud29AcDXFsEQQTi71iQEGy6
- QEVg2wd85GOuKMDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C7E18779A7;
- Tue,  2 Jun 2026 08:02:33 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id j3VVLxmOHmrddgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 02 Jun 2026 08:02:33 +0000
-Message-ID: <e6441028-5b23-4f80-9ed0-8934d3eda438@suse.de>
-Date: Tue, 2 Jun 2026 10:02:33 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F298F10ED28
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 08:03:26 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65218kQI3430258
+ for <dri-devel@lists.freedesktop.org>; Tue, 2 Jun 2026 08:03:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ z2SH3tRYNqCdFVw1uC5sP1qyrvHciyAIFwzdinJEUYA=; b=Eh9NF2WknlSyINld
+ eVIF021KSp0UjyVLCnlEdPWv6fGALXxwaR3hjkgdkRbeJvD3MPtPqP+Y3fE3mwIs
+ MBHu/4ZHill9BS9qkj1QqcwB2xLSlRQRssp4tmZWfvoB14C+YCdBMpPyvE0RihrS
+ cWC40osBtX3MstedUg8HWCDlm8UsPb76xp8oefRkVwqZYHcewbrUim7toUWR964c
+ jaIc5xjh/6qsnD7KTTNAyanb9tR5sdjReNKQBbfIJvzc4LOeCMNkveIn+gfHKs1u
+ dewKoojD3cLYODlZobHzNYebn2J7DjS3OMECavv/b/oNAN+fwL9LG5IbIzTlk4Lm
+ vWI9LQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ehn8mhd94-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 08:03:26 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-36d98b76d12so1645583a91.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 01:03:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1780387406; x=1780992206;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=z2SH3tRYNqCdFVw1uC5sP1qyrvHciyAIFwzdinJEUYA=;
+ b=I5HVLmwZR+BOnTu6fq0imx2LHKDazg6+jMoA0quoqmD0G37qgchNLt4kudxqnch5q4
+ 9fnO3SNRXPc4EVb9bpOdpZEPlV+T763WRndpacWD2BJjKRHxYQixRZxSLxq+jGF64JeL
+ z5SaYWUmYxY/zQEDILp/kSmpgKwFxkUdAxW2MiUhZQkk6iZlUxXLV0QqZ9v2j1QBDKcG
+ k9w8g27V6ZY45kf4ZlLiHWD+EkFbTrZaifZ73pT1OsLd1UuJeQByrbYoRYjoHCpv6vsW
+ QMGXZOrZOXPZ70N3or/lYCnlit7EODmQa98WaMJOiFe7GXdI+AvosBGpafVC2/UgJX9t
+ 92jA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780387406; x=1780992206;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=z2SH3tRYNqCdFVw1uC5sP1qyrvHciyAIFwzdinJEUYA=;
+ b=cCIjzXAPjou2dlvq3GbkIbfvXOVJgCi9sX0eo9UojRWXU5KDQQVlSkSakIepwdnrv1
+ WmzUWeqXK0uob+fhGQjEM6ke/aSV0en08yhXZOduvn94fIQh/jJgss0GctQCYcPdJs4p
+ 6n5ju0x/u/8l1DlLAvAndrqYQEBkZ3t4Uf+aAcrG6Jdpjxu1tcPOwSMqVQBf9QAeDaCp
+ IbRQP2x9iPtVPkUTtaZhou150iBjrHYYY/EIcSH8r3ED86IP60vDry/gmmOjHttOAfp6
+ +xF5X3tiYHOJ+UrXY5RtQvaqo+nspGXw2wUaal8xJoSgfxwja4qK9zA9auTgO+FCx5q3
+ 0qMg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+9fhIpBLwdfahveKitdfZgHIcgZMHG4b8kCNDk9lrc6bU4jcnN7XtWvw+BKRI5U8ZLTmygK1qUI4w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz4zqR5nljzL19s2sg7guLiXatpuRNZ5IBI8/MFg3ZWNrW99VHm
+ 3Q5LX5d2HuJmHncM1EWv6KLnHRdG0kcc0PuDkcSV9GDLZcJwBKxfZl6/5yRgq/OYXSwa3ijrfo7
+ IzN05xAnqQBi8k38UjnWXPSTkz8QffkfFT5P+CF805+s5xPGpIjyAz/le1DOFJLT5FAbNoIQ=
+X-Gm-Gg: Acq92OGKPzKZ1kD5xvVh0XJagbZsdT+DTFSMLXsiKJlH/v0XCnZe+GCMLIT41SlJ1U4
+ pudTEha2/SY85yj1Cv8GppR8XlCqBkBhi9vHf0vw3KX1Tyg/4mIS9Gc3GjTRqhhNrJkfw60Q1M0
+ N5mR1IH5JRKNZK/25dciDEUU/9LFA5xKMDh7aykUmZ4by+UhMx3VscnLhk3nJ5G1jDCNWIbwnhM
+ GNAjhrDHRq6xZhOICCBHInAj6Kn+zMCAMmdVjcgcg2yGYXcPdPagDfOdnfclNzLDlWauun+3Ld2
+ tXd9IXR71IXeA0VXwIoXHp+WRz+vneGXMdIBDOAKU/DZQ9K1e99xNF4vARVZkLdqTjQm/pvtWI6
+ qUUKahcmV3Uw+bxLdqp6MkRxUU2TL0RKYomqSXVnAir42V7jdsM7gRFje+e9nQI4JLaJVWWQ29Z
+ +WrhzSoLqJpSIWoONaVeQkse/y17I=
+X-Received: by 2002:a17:90b:2f90:b0:368:cefe:ddd0 with SMTP id
+ 98e67ed59e1d1-36c501dff2amr14144984a91.15.1780387405779; 
+ Tue, 02 Jun 2026 01:03:25 -0700 (PDT)
+X-Received: by 2002:a17:90b:2f90:b0:368:cefe:ddd0 with SMTP id
+ 98e67ed59e1d1-36c501dff2amr14144931a91.15.1780387405184; 
+ Tue, 02 Jun 2026 01:03:25 -0700 (PDT)
+Received: from [10.133.33.92] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-36dd9183368sm1918918a91.3.2026.06.02.01.03.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 02 Jun 2026 01:03:24 -0700 (PDT)
+Message-ID: <88eb2a17-99f2-4553-b3f6-e4b5b1c19d18@oss.qualcomm.com>
+Date: Tue, 2 Jun 2026 16:03:18 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PULL] drm-misc-fixes
-To: Jani Nikula <jani.nikula@linux.intel.com>, Dave Airlie
- <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dim-tools@lists.freedesktop.org
-References: <20260529070009.GA313534@linux.fritz.box>
- <ddf0233e50044059c85279f928661563ef6a55bf@intel.com>
+Subject: Re: [PATCH v5 04/15] drm/msm/dp: split msm_dp_ctrl_config_ctrl() into
+ link parts and stream parts
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260528-dp_mstclean-v5-0-a9221c1f1f3b@oss.qualcomm.com>
+ <20260528-dp_mstclean-v5-4-a9221c1f1f3b@oss.qualcomm.com>
+ <nop7uyplq643ps4naczmrqhukeiuvfxllutmaz2sbohrnxk6ko@pr7emfe5panj>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <ddf0233e50044059c85279f928661563ef6a55bf@intel.com>
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+In-Reply-To: <nop7uyplq643ps4naczmrqhukeiuvfxllutmaz2sbohrnxk6ko@pr7emfe5panj>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 4344C6B032
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[15];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MIME_TRACE(0.00)[0:+];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FREEMAIL_TO(0.00)[linux.intel.com,gmail.com,ffwll.ch];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:url];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAyMDA3NCBTYWx0ZWRfXxCAQWvHL0AWx
+ fHKtg2DlUitc5chyVYWsnnamOWdd6vG4jl3LToBIR26l4qHelbPJu8jN3CJ5gzHuGfbG8vIa2Ev
+ AS4vAx/d9JQNhR3hHT3BWcy163QBy4C7oqEvjQktzhTqb0x3ED/6exHqENF7SGns9TgIzmZSn1z
+ 8b9QH2178rVC16pXYVB6QYda4gv58U1DykHz3wTk2sq+p3N4pZ5JhUgMqRVDuXAyHIpuUWCoMd7
+ 8idPuoUP1S3Rb+Bmr1HWl7Mepr21nH9b/TpCAw3b+j/0CO6pYbLmvSxzF3Aexvz3BTjq42veuQG
+ t9slg9QSNfKpRYh5FB3PafD4vZ3Yc+uneKAYYCtCLkiZE1FTn+LpZpxBcfmjvBKyphCbnwS0Ro3
+ 1+nPyCxzwU+3U4rINe4i5Wqd2nGgcUHAKgMlIBJr6BK8eYAQWOaPfmQTZibvNI4r9e1dLI4B5Rv
+ ZHX+m1CfVF7mprfWOTw==
+X-Authority-Analysis: v=2.4 cv=d5nFDxjE c=1 sm=1 tr=0 ts=6a1e8e4e cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=C3L6VYGqFeyMi-qQiaUA:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-ORIG-GUID: 30wcGFEp1qK_PKelptHBbmd37tXcaTyJ
+X-Proofpoint-GUID: 30wcGFEp1qK_PKelptHBbmd37tXcaTyJ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-01_07,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 clxscore=1015 adultscore=0
+ spamscore=0 lowpriorityscore=0 bulkscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606020074
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,35 +152,44 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-Am 01.06.26 um 17:28 schrieb Jani Nikula:
-> On Fri, 29 May 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> Rajat Gupta (1):
->>        drm: prevent integer overflows in dumb buffer creation helpers
-> Looks like this commit 5ab62dd3687b ("drm: prevent integer overflows in
-> dumb buffer creation helpers") regressed in our CI, awaiting
-> confirmation.
-
-A possible patch for this issue is at 
-https://lore.kernel.org/dri-devel/20260602073027.192758-1-tzimmermann@suse.de/
-
->
-> No matter what, it's immediately suspect because AFAICT it was not
-> posted on the lists, and the commit doesn't have a Link: trailer
-> pointing at the patch.
->
-> This is not how we're supposed to roll. What's going on?
->
->
-> BR,
-> Jani.
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+On 5/28/2026 11:22 PM, Dmitry Baryshkov wrote:
+> On Thu, May 28, 2026 at 06:40:25PM +0800, Yongxing Mou wrote:
+>> The DP_CONFIGURATION_CTRL register contains both link-level and
+>> stream-specific fields. Currently, msm_dp_ctrl_config_ctrl() configures
+>> all of them together. Separate the configuration into link parts and
+>> stream parts to support MST.
+>>
+>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_ctrl.c | 47 +++++++++++++++++++++++++++-------------
+>>   1 file changed, 32 insertions(+), 15 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> index 86ef8c89ad44..cc00e8d2d6c7 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> @@ -388,26 +388,45 @@ void msm_dp_ctrl_push_idle(struct msm_dp_ctrl *msm_dp_ctrl)
+>>   	drm_dbg_dp(ctrl->drm_dev, "mainlink off\n");
+>>   }
+>>   
+>> -static void msm_dp_ctrl_config_ctrl(struct msm_dp_ctrl_private *ctrl)
+>> +static void msm_dp_ctrl_config_ctrl_streams(struct msm_dp_ctrl_private *ctrl,
+>> +					    struct msm_dp_panel *msm_dp_panel)
+>>   {
+>>   	u32 config = 0, tbd;
+>> +
+>> +	/*
+>> +	 * RMW: in SST, config_ctrl_link and config_ctrl_streams are called
+>> +	 * sequentially on the same thread. In MST, caller holds mst_lock.
+> 
+> There is neither MST nor mst_lock. Also being called on the same thread
+> means nothing, there can be another thread, executing the same code
+> concurretly. Please point out that they are called only from the
+> atomic_enable() callback, which is guarantted to be executed once at a
+> time.
+> 
+Got it.. Will fix it next patch.
+>> +	 */
+>> +	config = msm_dp_read_link(ctrl, REG_DP_CONFIGURATION_CTRL);
+> 
 
