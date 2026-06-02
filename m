@@ -4,138 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C27FCD6E57
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 07:14:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A51FCD6E57
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 07:16:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0B8010EC72;
-	Tue,  2 Jun 2026 07:14:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEF2910EC86;
+	Tue,  2 Jun 2026 07:16:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="OQZ6oiRN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aNG0beap";
 	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE40D10EC72
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 07:14:55 +0000 (UTC)
-Received: from pps.filterd (m0044012.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6526fMFV2991996
- for <dri-devel@lists.freedesktop.org>; Tue, 2 Jun 2026 00:14:55 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=GNbqOP8/vOBlC/5NmVa3CquXtyGbio1xnntDWh6iGKE=; b=OQZ6oiRNKfXF
- HFDFBWZ8BdlnmCUnJoqopQ8ht44IyIcRngTo5vzbD9eE3PHci7hw9MS25fO/+eto
- Ufhbzh5w0syuQ2ggQfOY2tYEThW6kK0fREz6MbHOgTTfppfQkpqdfn+SQPXexuAD
- Ie6ANRJ+b1YRc1xewkyhZx2bIIsI7MRe/jwOSfdaywuF9473KLIHfYoKIPRCh2Y8
- WWdocGE13zKd1J50r3VdsLTAZO5pqjzJkcYBoHjogiZO27cQxUvXRQ3zUmWXlq15
- g0ZF1xKWkn2Pxg3MqRPI0HmbFBBYIOMYNp9JoPpIzHq9+nA8JFAN2q0RoJ8mT7O6
- eVDAMsqcKQ==
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
- [209.85.210.70])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4efwjxy3s8-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 00:14:54 -0700 (PDT)
-Received: by mail-ot1-f70.google.com with SMTP id
- 46e09a7af769-7e6b5c2bcc8so3400965a34.0
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 00:14:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780384494; cv=none;
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
+ [209.85.210.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F43C10EC7B
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 07:16:32 +0000 (UTC)
+Received: by mail-ot1-f50.google.com with SMTP id
+ 46e09a7af769-7e6b571750bso1801686a34.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 00:16:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780384591; cv=none;
  d=google.com; s=arc-20240605;
- b=ZXeNZeqTirx5yopsQbD3bMrGvmppJiJaaaVbd1g/zEB5+XJ2llaipKkpY9sWEvFSaR
- l2rQs6B4OMma2CloUEgIkZAPRPTaSWaI+t/E7KevU47WZicgPg00YVm2Y99bdHjTBfew
- kyhBXiWBcT4ib/Jzcyf68q1O1tVRm3NLlM7p+TJ9tqCC4cNTGOc6ZxfaGYJGSL/32FoL
- G+p6yi1rlT1ir/0VqKGhayOuEN0m0veEy5qjH5dIi6vNGE6EaTv6ux+t5aq5quP/gb+8
- B8/keTRE92o9KoRp3olO/Dzz1Cth2QRtZLS80yfAsjgn4sNSX6NdNOatVr9P73EE0T15
- HiHQ==
+ b=bkOsz6F4Zm79TKxUaBZQ8KKPK1X7xEeuObEljYLt0EejAahsyW3x4ZIsLULo18hmv+
+ /JOKMLa/5BX/bGNCVpzp9WGXSzc1pM4HNFptlWWmBKuTvlehmEBi7AOpX2tRmv/SEqTJ
+ GAxtBhnImizRGRz9oHKd3Lhctk95kJ2yGZnpPREZsV0I2PkJXlNmNruKj0wn6WVKqTNZ
+ n3aVTUNwAEYOfokWVAV+PGE/8tqkiK6XDQZEHkikbssu7WK68JCgbtxO/ivPetYAmK3u
+ zyj2DCTD9wjd3hr+jneqfrBogupEIeA0PCYTL+5R6sao79rQrb/71A7mRy2cVHUEPzbI
+ 4h1Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version;
- bh=eU0M4rF9MI3wrJoAUMjH5Oo4i+TWDq0gEOuY0ahh7I4=;
- fh=Zk+xmFDazw265Hl04XBScJXwXRXK4vX0M7N1wNwCJXA=;
- b=eZtIJ+j6i1peAPjK1NDfxOxZ5BYkyxFi4q5r205Y21t4ToCxaGyYfz2eYslBYLmWx/
- nfyoI5QSlcdVe+F8LFltI4/lIAETeJDjdeQna+goY6DeE77HTUFhXHx0cOAy8lYc6By9
- gKdT6x4LzdwU3bcZ9hE6Pjr2ZD7Rb5sonQ6fUW5Ch8eZu/qljfDKc72CQ2h9A23S5MPp
- BbcoXmjIW9212ARCqdQ7MBw7xcoBR/BPg8hoQutDbj7UVadXVfOZqbRfYvP44E75XYkx
- UfynBx5kvGA48fMOoo9IbK4yHaa1RPDFvgUuM3RH0IIQAEqXvf2enwM9pxjWKbyk6MH3
- nY0Q==; darn=lists.freedesktop.org
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=6QljEUOAK4GhDaCOum5n6uKCL9G0xte2SQqS3q0iDCI=;
+ fh=hiwIcrYYK/iBogAjt+EAt48QdBjy9n5Z+f4eUoiV4vI=;
+ b=LBTWK1pvAwtjGCmEYrby8HQu44mejptfg6ykwyDQE1iZehr+HVibCl6RyJtie7YbVg
+ umEsao6W65I5LimM9FvzV1S3ZdXbIWaApxtdYCjtvKobFmBTno5c1/LsRoWW0wzdolpZ
+ Ywwc3sq9XoR/Q2DhoIWcrmAe7cp+CAVdg/u7Qrg4/riTJ62GNgS5eNuZuVg3XKvYfD8e
+ i/TLx8Q2cqX5dlgU7aXxQmyvUzSwXdm8atZiejXkv9txmi9aYs/uY/LfLzRDCZ2pXF3p
+ mGC21FA9Q3FLcqMzs/WC058E8ZrR/I8UswVEsqCK7Tc5sP19n3Lpayv8f0qkGJ7Dfzkp
+ g2UQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780384591; x=1780989391; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=6QljEUOAK4GhDaCOum5n6uKCL9G0xte2SQqS3q0iDCI=;
+ b=aNG0beapdmeE1Q5MwVIUOGYRJUOKpMeh4DlfFjYdAwhVVF1MChGYxpaIFYOaeYlYzj
+ XDxcufVeF4JWZPFPl107Aw6bOG0EvoJX5KBrJaxN05s1ofTrFqTCn131rKXQM2RU07k1
+ 7ZLEIgXCn+P6IQq5DJz/apv/HBW4cjHWuCUf7HS5RMmhno4SiX41ggMbyf1sSBdDyiQ3
+ i723M7RKmPme0udyyZ/jsdTKzX2ZS1ACDIeZmU+yGJ/+op1tSL4FxMl9YjOY9EVxE6u0
+ nIryEejPsH7SaTIh2yQKZxBR3s5XSlZk05YvHY1G96vdTtjW2fyg7gTUPrJtY9tfrXlS
+ Q2fQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780384494; x=1780989294;
+ d=1e100.net; s=20251104; t=1780384591; x=1780989391;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=eU0M4rF9MI3wrJoAUMjH5Oo4i+TWDq0gEOuY0ahh7I4=;
- b=kpPO/dyvhVxQy2A668jQE5Qs7yDHY5L+GCAoYGOoIXp+k9ONGPXBdwD66kHFgAwCyO
- ytw8oaHEtjFHpYfnaX8MjLv9KU1A6QQ9g8FoRBXTxNMMfdpt5LC/sNi3ULVfXViaW9Vb
- g28bmNJuOuGK3vIxnkTiFz2MQlTOxvNBo3RICNjdEa93w8cPcACtfrDjqv/LHeEC4WE6
- k5WFUdoXtRi86WEviEcfMcCgpYWjk7CAfs2yt4TdXsTs8xMPZKYHJeXocW69suws/n6t
- svBB6U+VAEfXDeIq+B6EkDj8ryduY4im54UyXwLHRfr/nH/6N2skM6CeoM6PVoaGfjbI
- 3p0A==
+ bh=6QljEUOAK4GhDaCOum5n6uKCL9G0xte2SQqS3q0iDCI=;
+ b=oD2soHAXJC9GWcAQ/YHcTrtMsXr2J35TMc8KoSgufS4A7/oQIAppsRg9pjMFKRZvHw
+ bV4pWSM+JSyIHQKPz0CTJorH3lbBqA3s2bZ1kT9bPTnjmJV+i2NHLPBRWMB5hZCJkKEp
+ OAVFNk2fL/DlF8Z7iMliAVu2NYj4VGQ5uxk8yU1s5deX33n7ZwUYdPJwuBZLaLonGGYu
+ GQiwSZV97/ViTBuEXpg7Uu+0m7zFbwr9ekEtjXzAWP7iRnKSJh9hZSo7qXFgmsmNTBcG
+ m1pv7CJxRPwcDr78ICW/dJ0X6fBGI4FpgjvYBvLAjWLo14J8oBnhjgfTQ9NgW5klLHcA
+ n/ww==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9NymuiKVOdjfShDHdxxL6VHY4ZWZxX/hYrn5Xy+EVNqlRm7zw6QrlsSf7dh0o+PqbuHx4GKOfUgrA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwIfRY40/+exrFdAJlCVSRl+vGudWVzsYoaZmknKAn0Q6uMOaal
- Zd1BoE1PYZ//jwSitqSsashT99u1Y1Tj3Jj38SgRPauqQoudQQomjM9I/+woEsYrBcSevnnnRqo
- T9bivlQyXreVolN52GQJ9PIU+wzFWMiTeXQALNgkFsS3K4thVl8sXraEPBM2id55wDLsE8S06sY
- JzyYy4UkXxkoMr5d+B1+GO5rAfKYw3Q/5gZAVFsXHdHlI=
-X-Gm-Gg: Acq92OF3eW3T3gIfIDmRpoX5BOP8WPFCEE6qlhv+kSlMX7lCJiDSqVzDUYvGUL9B5hX
- xWzZnqSL65Jn2egw3MBuFuxTH06WqLCoja9KwQZl6zEqP7ZhtHM/FgeT/rpvsppqyITKsRzaYta
- WfrWG+a16om6ZHvj15YCsQOP2jQjMcCftQJNpNy+azV0cKZESl1LunT7EKlho5mqvtOQq+Po45i
- eFi/8Lg08oDFmgvAyYA3EoY8xSb9BBHX8KXOwFMIRDLYxqeAqE=
-X-Received: by 2002:a05:6830:b8a:b0:7dc:d725:fdb with SMTP id
- 46e09a7af769-7e6d22714f0mr1524749a34.8.1780384494168; 
- Tue, 02 Jun 2026 00:14:54 -0700 (PDT)
-X-Received: by 2002:a05:6830:b8a:b0:7dc:d725:fdb with SMTP id
- 46e09a7af769-7e6d22714f0mr1524729a34.8.1780384493717; Tue, 02 Jun 2026
- 00:14:53 -0700 (PDT)
+ AFNElJ99LcSFpoT21b3P+kuz0ZcPr0Mlturck1/AiQ4T5I/REgY75PEE/ikCW34Va1k2bjwn7BQncZQcxtE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwF1F+5tJkToSO9kMNJx2J5sg3FLQWPg7nUFZiyTsWxLi7XRsj6
+ s077ne9h/N7z4i2xV4xpPxZWxmKttRv9m5d5FBA0703YXhHxqmnUtaAXDpBWUezxaR47F/Hyf3w
+ 6fkaqHdi3WjaOkZlBUwWRmLjKfmwMk0s=
+X-Gm-Gg: Acq92OGygDNffX3vIOYfRfwgFN5hPIxytbGX8wnupj59qyBKtMbLr6Ez6g39fnW5aCQ
+ 5Usayq30StKIP04AShLGIV9fT5lPAzmbhrRIvzGKagtT5KImVCOPPpHSqUIZJgntTgNZvlgdDkS
+ 3bCpCNbBl86DF2bzNd748kaTfiqYzKrpz260rVfZiSdvi0dbOm0CrlQPJeqBnOb8yvqaMXKU7Zl
+ noJD24XeEYjzox/hoRtiO/ykKCT5zyyQcb8wo+Qereg3h9U+uXm/hGrcGx+pO62pvceX79rMv1G
+ 9WC1mmLbMOr7RlEIE4mt
+X-Received: by 2002:a05:6830:4194:b0:7e5:68d0:462d with SMTP id
+ 46e09a7af769-7e6a1e20025mr8818586a34.19.1780384591168; Tue, 02 Jun 2026
+ 00:16:31 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260527123634.GK2487554@ziepe.ca>
- <a5ff1930-e9fb-43f5-82ab-9875d7a28421@amd.com>
- <CAH3zFs2KALuHXReLZG_uoqvBBWvBzU6rHKakmt6HBV7PZEsD=w@mail.gmail.com>
- <71302a7a-6b9f-40da-af81-b1862dbd637a@amd.com>
- <CAH3zFs036sr93duQKx613pCyOYw4t0_x_TdSza1xBCaEmqijyA@mail.gmail.com>
- <8d9bb0b7-182d-4930-b683-d5d24da6b2ab@amd.com>
- <20260529201130.GU2487554@ziepe.ca>
- <190a1eeb-bd70-4b7b-93a4-60e14f0d6c7e@amd.com>
- <20260601174734.GB2487554@ziepe.ca>
- <dedd8e8f-118c-4ee5-9552-cd2220dbdd23@amd.com>
- <20260601184838.GE2487554@ziepe.ca>
-In-Reply-To: <20260601184838.GE2487554@ziepe.ca>
-From: Zhiping Zhang <zhipingz@meta.com>
-Date: Tue, 2 Jun 2026 00:14:42 -0700
-X-Gm-Features: AVHnY4Is8GEC0NoEl3YOomYHVUTID0QdEceI4eqR8x2YX12M9DU2UU8lLqhKsf4
-Message-ID: <CAH3zFs0Lz=oe4coFS=Ws14rKsY_Wi0=ueT1DGx+YpaSvt=DkAA@mail.gmail.com>
-Subject: Re: [PATCH v5 0/4] vfio/dma-buf: add TPH support for peer-to-peer
- access
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Bjorn Helgaas <helgaas@kernel.org>, kvm@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
- netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Keith Busch <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>,
- Yishai Hadas <yishaih@nvidia.com>,
- Linus Torvalds <torvalds@linuxfoundation.org>
+References: <20260601-lima-alloc-fix-v1-1-16d3f3b7b780@axis.com>
+In-Reply-To: <20260601-lima-alloc-fix-v1-1-16d3f3b7b780@axis.com>
+From: Qiang Yu <yuq825@gmail.com>
+Date: Tue, 2 Jun 2026 15:16:19 +0800
+X-Gm-Features: AVHnY4JMWdde9M5jvz91Ix9Ornc_9nS90uFwDWQRw6lHLBiqcEwZUx95HD6BJaU
+Message-ID: <CAKGbVbt6NtBOrnE-ijV2cWLdFcHZTK7tqL6Wxoz9FTS5Sz5H2g@mail.gmail.com>
+Subject: Re: [PATCH] drm/lima: call drm_mm_init() with a valid allocation range
+To: Henrik Grimler <henrik.grimler@axis.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Eric Anholt <eric@anholt.net>, Erico Nunes <nunes.erico@gmail.com>,
+ Marek Vasut <marex@denx.de>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Andreas Baierl <ichgeh@imkreisrum.de>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, Rob Herring <robh@kerrnel.org>, 
+ dri-devel@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org, 
+ lima@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel@axis.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAyMDA2NiBTYWx0ZWRfX0Kb3KShZqR8A
- j3pJNE+DUBAXjR0rtiqOcp5DhncHNwtD7I8ULfJbxrTleXl9FH0OP9NPRWgz7LTgFbr/XMlqceI
- gfbaGvt1HRTeYJrQaH2G2CcAHhzHGJXDC8Fkm51+/6MSKqAM52CEc2HmECtPXIgSmkarb/7YQkq
- 4ytvUhUA8+vSerbNI5A5Q1Uy4Dne1rsgTytmXzpnqMnFKoBR6MLXB0URCI3i4Hw+TP2iOZfP/DL
- X4BKDS34l4kJV7W96kTMgKWu+wGQ0OQ8SnxLpHxh1fedqweHPEXEUWfQnG+oUdm4zqIpyrb5rib
- XI8gJAklbBJ0yFDCDiotfyhBE9hhTstK+bVN5Y4eHV7hmSyHEeaSDtf5vyyojJ8njU+rlEg/TYG
- 1wUsqkAxNtXYk/IE7DeULQfJgXRWzvo5zRNvn2XM9nbwXI+EaYB29Zy4eDkytEyhbQdvVGBO2YE
- yGDfTuCThY0niu/cU5A==
-X-Authority-Analysis: v=2.4 cv=araCzyZV c=1 sm=1 tr=0 ts=6a1e82ef cx=c_pps
- a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=PAz_-FQ8hEVmOPYdF0yf:22
- a=9jRdOu3wAAAA:8 a=80MmiaoySdvbWJADnQkA:9 a=QEXdDO2ut3YA:10
- a=EXS-LbY8YePsIyqnH6vw:22 a=ZE6KLimJVUuLrTuGpvhn:22
-X-Proofpoint-ORIG-GUID: CIcMHFF7wm7MCISj7aM2hnKZhf8m8Q5W
-X-Proofpoint-GUID: CIcMHFF7wm7MCISj7aM2hnKZhf8m8Q5W
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-01_07,2026-05-28_03,2025-10-01_01
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,109 +113,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thanks everyone for the feedback.
+On Mon, Jun 1, 2026 at 8:04=E2=80=AFPM Henrik Grimler <henrik.grimler@axis.=
+com> wrote:
+>
+> lima_vm_create() is currently run before va_start and va_end are set up,
+> meaning they are both 0. lima_vm_create() runs drm_mm_init() with them
+> as arguments for the allocator, and if DRM_DEBUG_MM is enabled the
+> DRM_MM_BUG_ON check in drm_mm_init then fires, as seen here on
+> exynos4412-odroid-u2:
+>
+> [    1.736297] ------------[ cut here ]------------
+> [    1.740370] kernel BUG at drivers/gpu/drm/drm_mm.c:931!
+> [    1.745574] Internal error: Oops - BUG: 0 [#1] SMP ARM
+> [    1.750697] Modules linked in:
+> [    1.753734] CPU: 0 UID: 0 PID: 41 Comm: kworker/u16:1 Not tainted 7.0.=
+10-postmarketos-exynos4 #11 PREEMPT
+> [    1.763372] Hardware name: Samsung Exynos (Flattened Device Tree)
+> [    1.769446] Workqueue: events_unbound deferred_probe_work_func
+> [    1.775261] PC is at drm_mm_init+0x9c/0xa4
+> [    1.779339] LR is at lima_vm_create+0x144/0x17c
+> [ ... ]
+>
+> Fix the issue by moving the lima_vm_create() call after va_start and
+> va_end are set up.
+>
+> Fixes: a1d2a6339961 ("drm/lima: driver for ARM Mali4xx GPUs")
+> Signed-off-by: Henrik Grimler <henrik.grimler@axis.com>
+> ---
+> This is a low priority fix and can wait for v7.2, it does not cause
+> any real issues as far as I have seen: drm_mm_init() is re-run some
+> seconds after first run with correct parameters.
 
-For v6 I plan to improve the cover letter to explain what the
-Steering Tag concretely does on the completer side and why it
-applies to P2P - the ST is consumed by the endpoint's ingress
-block, not the root complex, so it's orthogonal to cache snooping.
+Reviewed-by: Qiang Yu <yuq825@gmail.com>
 
-I'll also include test results showing ST's functional effect on
-P2P writes. In our case the ST is used to select in-flight data
-operation.
+drm mm in the empty_vm is not used at all, so no issue caused by it.
+drm mm of a real per app vm matters but they are initialized properly
+after va_start/end set. In fact only the PDE page matters in empty_vm,
+I should only create it instead of the full lima_vm.
 
-Is there anything else you'd want to see addressed before v6?
-
-Thanks,
-Zhiping
-
-
-On Mon, Jun 1, 2026 at 11:48=E2=80=AFAM Jason Gunthorpe <jgg@ziepe.ca> wrot=
-e:
+> ---
+>  drivers/gpu/drm/lima/lima_device.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
 >
-> >
-> On Mon, Jun 01, 2026 at 08:17:15PM +0200, Christian K=C3=B6nig wrote:
-> > On 6/1/26 19:47, Jason Gunthorpe wrote:
-> > > On Mon, Jun 01, 2026 at 11:59:55AM +0200, Christian K=C3=B6nig wrote:
-> > >>>> When you have a complete open source driver stack which utilizes
-> > >>>> VFIO passthrough as the interface to communicate with the kernel
-> > >>>> drivers then we can eventually talk about that.
-> > >>>
-> > >>> That decision is not up to dmabuf
-> > >>
-> > >> Yes it is. This is the DMA-buf API which is added here.
-> > >
-> > > It is a DMA-buf kernel API that is added, I think it is overreaching
-> > > to try to veto a VFIO uAPI that calls it..
-> >
-> > Well as long as that is a private interface between VFIO and mlx5 I
-> > have no objection at all.
+> diff --git a/drivers/gpu/drm/lima/lima_device.c b/drivers/gpu/drm/lima/li=
+ma_device.c
+> index 0bf7105c8748..7c873e62c16d 100644
+> --- a/drivers/gpu/drm/lima/lima_device.c
+> +++ b/drivers/gpu/drm/lima/lima_device.c
+> @@ -368,12 +368,6 @@ int lima_device_init(struct lima_device *ldev)
+>         if (err)
+>                 goto err_out0;
 >
-> Well, as you know, we are using dmabuf to mediate many of these
-> connections now.
+> -       ldev->empty_vm =3D lima_vm_create(ldev);
+> -       if (!ldev->empty_vm) {
+> -               err =3D -ENOMEM;
+> -               goto err_out1;
+> -       }
+> -
+>         ldev->va_start =3D 0;
+>         if (ldev->id =3D=3D lima_gpu_mali450) {
+>                 ldev->va_end =3D LIMA_VA_RESERVE_START;
+> @@ -387,6 +381,12 @@ int lima_device_init(struct lima_device *ldev)
+>         } else
+>                 ldev->va_end =3D LIMA_VA_RESERVE_END;
 >
-> I don't mind a "private" interface as a starting point, but it does
-> need to discoverable and negotiated without weird module dependencies
-> or symbol_gets.
+> +       ldev->empty_vm =3D lima_vm_create(ldev);
+> +       if (!ldev->empty_vm) {
+> +               err =3D -ENOMEM;
+> +               goto err_out1;
+> +       }
+> +
+>         ldev->iomem =3D devm_platform_ioremap_resource(pdev, 0);
+>         if (IS_ERR(ldev->iomem)) {
+>                 dev_err(ldev->dev, "fail to ioremap iomem\n");
 >
-> > But when it starts to affect DMA-buf I need to make sure that it
-> > works for everybody. And without even being able to test it that
-> > becomes really tricky.
+> ---
+> base-commit: c453c60fdba437f69209e027b418c4a24143605a
+> change-id: 20260529-lima-alloc-fix-2cd5408f6493
 >
-> They should have an argument how it can be used for CPU backed memory,
-> IMHO.
->
-> > > This exposes a PCI SIG defined TPH capability in a reasonable simple
-> > > VFIO uAPI that can be re-used by any other device that happens to
-> > > support TPH on inbound MMIO. The uAPI has sensible general semantics
-> > > based around the PCI spec.
-> >
-> > That it's implementing an official PCI spec is a good argument.
-> >
-> > But on the other hand looking at the spec it's not really specifying
-> > much since everything is architecture specific.
->
-> Yeah, spec doesn't say what TPH does when it is received. It is
-> intended as an opaque channel between the source and target.
->
-> Even on the CPU DRAM side we make an opaque call into ACPI and the
-> BIOS returns back the right value to use for the CPU. The whole thing
-> is agressively opaque as to what the values mean to any particular
-> device.
->
-> So I don't have an issue with VFIO supplying a value for MMIO it
-> owns, it fits the general architecture.
->
-> > > Anyone can repeat the demonstration Meta outlined in their cover
-> > > letter: Use this new VFIO uAPI, import the DMABUF to mlx5, use a PCI
-> > > analyzer and you will see the PCI SIG defined TPH bits set the way the
-> > > VFIO uAPI says they should be set.
-> > >
-> > > There is nothing uniquely tied to Meta's device here, or unusable by
-> > > someone else's devices. Arguably this is actually a mlx5 feature to
-> > > allow VFIO to control its TPH generation HW.
-> >
-> > Would it be possible to demonstrate the functionality with some FPGA
-> > implementing an PCIe endpoint?
->
-> Sure, you don't even need a special endpoint, any endpoint that
-> doesn't explode when it receives a TPH is fine to illustrate that mlx5
-> is emitting it correctly.
->
-> A fpga reference board with an out of the box PCIe IP demo is likely
-> entirely sufficient, and you can use a FPGA logic analyzer to inspect
-> the packets.
->
-> Though keep in mind mlx5 is formally supporting TPH in a growing
-> number of kernel contexts, so we do test and verify our device is
-> working properly as an initiator. So I wouldn't advocate anyone
-> actually use their time on FPGA :)
->
-> > Doesn't needs to be anything funky, just the ability to exercise
-> > this for basically everybody who can spend a few $ on the HW.
->
-> Topologically you also probably need a PCIe switch as the CPU P2P
-> likely discards the header.
->
-> Jason
+> Best regards,
+> --
+> Henrik Grimler <henrik.grimler@axis.com>
 >
