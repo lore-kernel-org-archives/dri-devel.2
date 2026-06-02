@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFF99CD6E57
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 10:46:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D465BCD6E4A
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 10:46:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F58C10EECA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F1D310EEC7;
 	Tue,  2 Jun 2026 10:46:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="mDfAYT5m";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Zhc3I6k1";
 	dkim-atps=neutral
-Received: from out30-132.freemail.mail.aliyun.com
- (out30-132.freemail.mail.aliyun.com [115.124.30.132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AD6610EEC8
+Received: from out30-131.freemail.mail.aliyun.com
+ (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC00110EECB
  for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 10:46:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux.alibaba.com; s=default;
- t=1780397209; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=FihbsDKmbfZYS2x1I7qLn22gV2Wg4JsMlwLFDqu72f4=;
- b=mDfAYT5mA/bQuB+v9/0C1+Fw0ph9hmXgOwvmVjonGefOevVDppwHhds6uRlwpvNTHy09lFG9y8HG0jc8hpQufd2gH7pqmt4uQMn2APC/C0RpeAU0K2+2IuIKlYZkM/uiojSknOiHCvsFHbBT36PYY+g/rGm0M/QGnioZCDpyrOU=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R441e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033037026112;
+ t=1780397210; h=From:To:Subject:Date:Message-ID:MIME-Version;
+ bh=dfeUzwK3Vykd8PqKTRs5NqT5hfv04UcKedfq7xRHrho=;
+ b=Zhc3I6k1G1qYUubrjaXnRwc2ccnHu74wNNoHbxHVQaLLSlq4y00GSJlnvzhlJG/zyu0MWZAnefOH+qWnpOn8SY5a/XNzw88HmpaxKf7u4Xq/PCxoxaBV1S1kmJ1hBksVAfzkdKuPPvSHLE81Wt8Xajt4C+IcKkn98j2hHouXVBs=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R141e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam011083073210;
  MF=guanghuifeng@linux.alibaba.com; NM=1; PH=DS; RN=28; SR=0;
- TI=SMTPD_---0X44E9.j_1780397197; 
+ TI=SMTPD_---0X44E923_1780397207; 
 Received: from
  VM20241011-104.tbsite.net(mailfrom:guanghuifeng@linux.alibaba.com
- fp:SMTPD_---0X44E9.j_1780397197 cluster:ay36) by smtp.aliyun-inc.com;
- Tue, 02 Jun 2026 18:46:47 +0800
+ fp:SMTPD_---0X44E923_1780397207 cluster:ay36) by smtp.aliyun-inc.com;
+ Tue, 02 Jun 2026 18:46:48 +0800
 From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
 To: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
  baolu.lu@linux.intel.com, boris.brezillon@collabora.com,
@@ -42,13 +42,14 @@ To: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
  suravee.suthikulpanit@amd.com, tzimmermann@suse.de,
  wei.guo.simon@linux.alibaba.com, will@kernel.org, xlpang@linux.alibaba.com
 Cc: alikernel-developer@linux.alibaba.com
-Subject: [PATCH v2 00/30] iommu: introduce iova_to_phys_length for efficient
- IOVA-to-physical translation
-Date: Tue,  2 Jun 2026 18:46:07 +0800
-Message-ID: <20260602104637.1219810-1-guanghuifeng@linux.alibaba.com>
+Subject: [PATCH v2 01/30] iommu: introduce iova_to_phys_length in
+ iommu_domain_ops
+Date: Tue,  2 Jun 2026 18:46:08 +0800
+Message-ID: <20260602104637.1219810-2-guanghuifeng@linux.alibaba.com>
 X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260531093637.3893199-1-guanghuifeng@linux.alibaba.com>
+In-Reply-To: <20260602104637.1219810-1-guanghuifeng@linux.alibaba.com>
 References: <20260531093637.3893199-1-guanghuifeng@linux.alibaba.com>
+ <20260602104637.1219810-1-guanghuifeng@linux.alibaba.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -66,143 +67,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series introduces the iova_to_phys_length interface across the IOMMU
-subsystem. The new callback returns both the physical address and the PTE
-mapping size in a single page table walk, enabling callers such as iommufd
-and VFIO to traverse IOVA space efficiently by actual mapping granularity
-instead of fixed PAGE_SIZE steps.
+Add iova_to_phys_length callback to struct iommu_domain_ops alongside
+the existing iova_to_phys. The new callback returns both the physical
+address and the PTE mapping page size in a single page table walk.
 
-Motivation
-==========
+Add iommu_iova_to_phys_length() core function that:
+- Checks ops->iova_to_phys_length first (preferred path)
+- Falls back to ops->iova_to_phys for unmigrated drivers
 
-The current iova_to_phys interface only returns a physical address with no
-indication of the mapping page size. This forces callers to iterate one
-PAGE_SIZE at a time when collecting PFNs or unmapping IOVA ranges, which is
-extremely inefficient for large mappings (e.g., 2MB or 1GB huge pages
-require 512 or 262144 page-table walks respectively).
+This enables callers like VFIO to efficiently traverse IOVA space
+by actual mapping granularity instead of fixed PAGE_SIZE steps.
 
-The new iova_to_phys_length interface solves this by providing the
-contiguous mapping size alongside the physical address in a single walk.
+Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
+Acked-by: Shiqiang Zhang <shiyu.zsq@linux.alibaba.com>
+Acked-by: Simon Guo <wei.guo.simon@linux.alibaba.com>
+---
+ drivers/iommu/iommu.c | 40 ++++++++++++++++++++++++++++++++++++----
+ include/linux/iommu.h |  9 +++++++++
+ 2 files changed, 45 insertions(+), 4 deletions(-)
 
-Design
-======
-
-Core layer (patch 1):
-  - Adds iova_to_phys_length to iommu_domain_ops
-  - iommu_iova_to_phys_length() detects invalid states by checking
-    ops->iova_to_phys_length (not domain->type), returns PHYS_ADDR_MAX
-    on error
-  - iommu_iova_to_phys() is preserved as a thin wrapper calling
-    iova_to_phys_length internally, converting PHYS_ADDR_MAX back to 0
-    for historical API compatibility
-
-io-pgtable backends (patches 2-4):
-  - ARM LPAE, ARM v7s, and DART each implement iova_to_phys_length
-    returning phys + page size, with PHYS_ADDR_MAX for error paths
-  - The old iova_to_phys is kept temporarily as a wrapper
-
-generic_pt framework (patch 5):
-  - Implements iova_to_phys_length using pt_entry_oa_lg2sz() which
-    already accounts for contiguous PTE hints, returning the correct
-    mapping size in a single leaf-entry lookup
-
-Per-driver migration (patches 6-22):
-  - Each IOMMU driver (arm-smmu-v3, arm-smmu, qcom, apple-dart,
-    ipmmu-vmsa, mtk, exynos, fsl_pamu, msm, omap, rockchip, s390,
-    sprd, sun50i, tegra-smmu, virtio) implements iova_to_phys_length
-    in its own atomic commit
-  - All error paths return PHYS_ADDR_MAX
-
-Caller conversion (patches 23-25):
-  - iommufd/pages.c uses iova_to_phys_length to batch PFN collection
-    by actual mapping granularity
-  - VFIO type1 uses iova_to_phys_length for efficient unmap traversal
-  - drm/panfrost and drm/panthor switch to the new interface
-
-Cleanup (patches 26-30):
-  - io-pgtable selftests switch to iova_to_phys_length
-  - Remove deprecated iova_to_phys wrappers from io-pgtable backends
-  - Remove iova_to_phys from iommu_domain_ops and io_pgtable_ops
-
-Changes in v2:
-  - Use PHYS_ADDR_MAX (~(phys_addr_t)0) as error return instead of 0
-    throughout the entire call chain, per review feedback (Jason)
-  - Detect invalid domain states by checking ops->iova_to_phys_length
-    rather than domain->type == IOMMU_DOMAIN_BLOCKED (Jason)
-  - iommu_iova_to_phys() wrapper converts PHYS_ADDR_MAX -> 0 to
-    maintain historical semantic for existing callers
-  - generic_pt: use pt_entry_oa_lg2sz() which already handles
-    contiguous PTE hints natively (Jason)
-  - All drivers updated to return PHYS_ADDR_MAX for error/fault paths
-    instead of 0
-
-Guanghui Feng (30):
-  iommu: introduce iova_to_phys_length in iommu_domain_ops
-  iommu/io-pgtable-arm: introduce iova_to_phys_length in io_pgtable_ops
-  iommu/io-pgtable-arm-v7s: introduce iova_to_phys_length in
-    io_pgtable_ops
-  iommu/io-pgtable-dart: introduce iova_to_phys_length in io_pgtable_ops
-  iommu/generic_pt: implement iova_to_phys_length
-  iommu/arm-smmu-v3: implement iova_to_phys_length
-  iommu/arm-smmu: implement iova_to_phys_length
-  iommu/qcom_iommu: implement iova_to_phys_length
-  iommu/apple-dart: implement iova_to_phys_length
-  iommu/ipmmu-vmsa: implement iova_to_phys_length
-  iommu/mtk_iommu: implement iova_to_phys_length
-  iommu/exynos: implement iova_to_phys_length
-  iommu/fsl_pamu: implement iova_to_phys_length
-  iommu/msm: implement iova_to_phys_length
-  iommu/mtk_v1: implement iova_to_phys_length
-  iommu/omap: implement iova_to_phys_length
-  iommu/rockchip: implement iova_to_phys_length
-  iommu/s390: implement iova_to_phys_length
-  iommu/sprd: implement iova_to_phys_length
-  iommu/sun50i: implement iova_to_phys_length
-  iommu/tegra-smmu: implement iova_to_phys_length
-  iommu/virtio: implement iova_to_phys_length
-  vfio/iommufd: use iova_to_phys_length for efficient unmap
-  drm/panfrost: switch to iova_to_phys_length
-  drm/panthor: switch to iova_to_phys_length
-  iommu/io-pgtable: selftests switch to iova_to_phys_length
-  iommu/io-pgtable-arm: remove deprecated iova_to_phys wrapper
-  iommu/io-pgtable-arm-v7s: remove deprecated iova_to_phys wrapper
-  iommu/io-pgtable-dart: remove deprecated iova_to_phys wrapper
-  iommu: remove iova_to_phys from domain_ops and io_pgtable_ops
-
- drivers/gpu/drm/panfrost/panfrost_mmu.c       |  2 +-
- drivers/gpu/drm/panthor/panthor_mmu.c         |  2 +-
- drivers/iommu/apple-dart.c                    | 13 ++--
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c   | 12 ++-
- .../iommu/arm/arm-smmu/arm-smmu-qcom-debug.c  |  2 +-
- drivers/iommu/arm/arm-smmu/arm-smmu.c         | 15 ++--
- drivers/iommu/arm/arm-smmu/qcom_iommu.c       | 13 ++--
- drivers/iommu/exynos-iommu.c                  | 23 ++++--
- drivers/iommu/fsl_pamu_domain.c               | 28 ++++++-
- drivers/iommu/generic_pt/iommu_pt.h           | 57 ++++++++------
- drivers/iommu/io-pgtable-arm-selftests.c      | 12 +--
- drivers/iommu/io-pgtable-arm-v7s.c            | 27 ++++---
- drivers/iommu/io-pgtable-arm.c                | 16 ++--
- drivers/iommu/io-pgtable-dart.c               | 21 ++++--
- drivers/iommu/iommu.c                         | 32 +++++++-
- drivers/iommu/iommufd/pages.c                 | 75 ++++++++++++++++---
- drivers/iommu/iommufd/selftest.c              |  2 +-
- drivers/iommu/ipmmu-vmsa.c                    | 12 ++-
- drivers/iommu/msm_iommu.c                     | 29 +++++--
- drivers/iommu/mtk_iommu.c                     | 14 +++-
- drivers/iommu/mtk_iommu_v1.c                  | 16 +++-
- drivers/iommu/omap-iommu.c                    | 34 ++++++---
- drivers/iommu/rockchip-iommu.c                | 13 +++-
- drivers/iommu/s390-iommu.c                    | 21 ++++--
- drivers/iommu/sprd-iommu.c                    | 20 +++--
- drivers/iommu/sun50i-iommu.c                  | 17 +++--
- drivers/iommu/tegra-smmu.c                    | 14 +++-
- drivers/iommu/virtio-iommu.c                  | 15 +++-
- drivers/vfio/vfio_iommu_type1.c               | 26 +++++--
- include/linux/generic_pt/iommu.h              | 13 ++--
- include/linux/io-pgtable.h                    | 10 ++-
- include/linux/iommu.h                         | 12 ++-
- 32 files changed, 443 insertions(+), 175 deletions(-)
-
+diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+index d1a9e713d3a0..1b1aaa53dd16 100644
+--- a/drivers/iommu/iommu.c
++++ b/drivers/iommu/iommu.c
+@@ -2545,15 +2545,47 @@ void iommu_detach_group(struct iommu_domain *domain, struct iommu_group *group)
+ }
+ EXPORT_SYMBOL_GPL(iommu_detach_group);
+ 
+-phys_addr_t iommu_iova_to_phys(struct iommu_domain *domain, dma_addr_t iova)
++/**
++ * iommu_iova_to_phys_length - Translate IOVA and return mapping page size
++ * @domain: IOMMU domain to query
++ * @iova: IO virtual address to translate
++ * @mapped_length: Output parameter for the PTE page size (e.g. 4KB/2MB/1GB)
++ *
++ * Like iommu_iova_to_phys() but additionally returns the page size of the
++ * PTE mapping at @iova through @mapped_length.
++ *
++ * Return: The physical address for the given IOVA, or PHYS_ADDR_MAX if no translation.
++ */
++phys_addr_t iommu_iova_to_phys_length(struct iommu_domain *domain,
++				       dma_addr_t iova,
++				       size_t *mapped_length)
+ {
++	if (mapped_length)
++		*mapped_length = 0;
++
+ 	if (domain->type == IOMMU_DOMAIN_IDENTITY)
+ 		return iova;
+ 
+-	if (domain->type == IOMMU_DOMAIN_BLOCKED)
+-		return 0;
++	if (!domain->ops->iova_to_phys_length) {
++		/* Fallback to legacy iova_to_phys without length info */
++		if (domain->ops->iova_to_phys) {
++			phys_addr_t phys = domain->ops->iova_to_phys(domain, iova);
++			if (phys && mapped_length)
++				*mapped_length = PAGE_SIZE;
++			return phys ? phys : PHYS_ADDR_MAX;
++		}
++		return PHYS_ADDR_MAX;
++	}
++
++	return domain->ops->iova_to_phys_length(domain, iova, mapped_length);
++}
++EXPORT_SYMBOL_GPL(iommu_iova_to_phys_length);
++
++phys_addr_t iommu_iova_to_phys(struct iommu_domain *domain, dma_addr_t iova)
++{
++	phys_addr_t phys = iommu_iova_to_phys_length(domain, iova, NULL);
+ 
+-	return domain->ops->iova_to_phys(domain, iova);
++	return (phys == PHYS_ADDR_MAX) ? 0 : phys;
+ }
+ EXPORT_SYMBOL_GPL(iommu_iova_to_phys);
+ 
+diff --git a/include/linux/iommu.h b/include/linux/iommu.h
+index e587d4ac4d33..19da84c2922c 100644
+--- a/include/linux/iommu.h
++++ b/include/linux/iommu.h
+@@ -747,6 +747,9 @@ struct iommu_ops {
+  *                         invalidation requests. The driver data structure
+  *                         must be defined in include/uapi/linux/iommufd.h
+  * @iova_to_phys: translate iova to physical address
++ * @iova_to_phys_length: translate iova to physical address and additionally
++ *                       return the page size of the PTE mapping at @iova
++ *                       through @mapped_length.
+  * @enforce_cache_coherency: Prevent any kind of DMA from bypassing IOMMU_CACHE,
+  *                           including no-snoop TLPs on PCIe or other platform
+  *                           specific mechanisms.
+@@ -776,6 +779,9 @@ struct iommu_domain_ops {
+ 
+ 	phys_addr_t (*iova_to_phys)(struct iommu_domain *domain,
+ 				    dma_addr_t iova);
++	phys_addr_t (*iova_to_phys_length)(struct iommu_domain *domain,
++					    dma_addr_t iova,
++					    size_t *mapped_length);
+ 
+ 	bool (*enforce_cache_coherency)(struct iommu_domain *domain);
+ 	int (*set_pgtable_quirks)(struct iommu_domain *domain,
+@@ -930,6 +936,9 @@ extern ssize_t iommu_map_sg(struct iommu_domain *domain, unsigned long iova,
+ 			    struct scatterlist *sg, unsigned int nents,
+ 			    int prot, gfp_t gfp);
+ extern phys_addr_t iommu_iova_to_phys(struct iommu_domain *domain, dma_addr_t iova);
++extern phys_addr_t iommu_iova_to_phys_length(struct iommu_domain *domain,
++					      dma_addr_t iova,
++					      size_t *mapped_length);
+ extern void iommu_set_fault_handler(struct iommu_domain *domain,
+ 			iommu_fault_handler_t handler, void *token);
+ 
 -- 
 2.43.7
 
