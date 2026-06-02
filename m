@@ -4,63 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3EE3CD6E6E
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 21:58:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 156BACD5BD1
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 22:31:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF48E113B5C;
-	Tue,  2 Jun 2026 21:58:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5289610F60A;
+	Tue,  2 Jun 2026 22:31:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="mY7Ntlt3";
+	dkim=pass (2048-bit key; unprotected) header.d=flipper.net header.i=@flipper.net header.b="ChwvhoBe";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1A49113B49;
- Tue,  2 Jun 2026 21:58:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=ExSd1Y6/E16XnxTYhpfYuAG+STAMs5HsFo5pf13zYrk=; b=mY7Ntlt3zKGvISiLPxc4BAXnoG
- G8QLZbsedm9UoZQjuckb7bVzqnNXqNbR8Xt+OyAgHzDXR3hU2uYMXdhVl6kFAMizsb8AnmQbt9A+R
- F94MN69fVWdAHd/9xDnYGooi5a2nbZI2HsUdvJfYfHN9MBNYbOzUqUrNfJjB8UpshaVp4pocVD+bm
- Kggix6W6/S15oh3N1UjlYoyvlFVgeQzrd6Aqj8TBR+IQEi8Q4HiyEFIS7ZsEuKok4ZuNMNvZvmLAf
- ogjKDl0nGqX7RRDMgTWllWPEIpzYK0MHwNtFsEI5RhpGmnxOUtebmKAw0x7KD4SXavViynZqwsG19
- 6WPVFrzA==;
-Received: from [79.117.146.159] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wUX7Y-00BuCE-4q; Tue, 02 Jun 2026 23:58:00 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
- christian.koenig@amd.com, contact@emersion.fr, daniels@collabora.com,
- harry.wentland@amd.com, louis.chauvet@bootlin.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, mwen@igalia.com,
- sebastian.wick@redhat.com, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Uma Shankar <uma.shankar@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH v8 3/4] drm/atomic: track individual colorop updates
-Date: Tue,  2 Jun 2026 23:53:55 +0200
-Message-ID: <20260602215743.914265-4-mwen@igalia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260602215743.914265-1-mwen@igalia.com>
-References: <20260602215743.914265-1-mwen@igalia.com>
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8135810F299
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 17:01:25 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4905529b933so91593015e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 10:01:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=flipper.net; s=google; t=1780419684; x=1781024484; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=cTm3whJEPVR1V6vQN57Lc8lY18BNxkH1NXZKiaHL+cg=;
+ b=ChwvhoBeXP9BJkFMm2VgEgsqI8UdFqc00SxpAUFyZ0/MnWZX8LuIUa8X4Nm3IoAtQH
+ pIyjbeFNyGxYLYS1aG0hL/mfeo6nOW8rUjiMZrtZovRPdbEpQTSSuvpt/STfNvembE8i
+ yDkyB00ReEcV2O4mvLYV2NeQGEI/4CQcJwTybfvIFrN59De1AFgpDZtweZkrp0JQLhes
+ mqltZAMZcoZRLrVK3uzAKP5j+CHwdz4DO/geKUl/Q/vpIZSTFX9kMVf+dsd9k6WQPwkn
+ g3rXqYesruKWRYZOEcgyQSE0KclI3o7jMNhOCSyyZ4JVE7SoLztw4GBnYITpvjBvVsdi
+ ETmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780419684; x=1781024484;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=cTm3whJEPVR1V6vQN57Lc8lY18BNxkH1NXZKiaHL+cg=;
+ b=VVk4SwZWr+f9pBZyiEOaajyrvWcSI84jE9akqwt86UGkk26oS2QspboeaCHCacmQxG
+ MAsZwafWpALrsQ4R1FeAl+oQFYCKCiQfArKokedEcY/Sch/5r97qOaw/ive9lJmUIreB
+ 8jl/S9oLKUxQthSHLZIWc9ParAbKfStyov2lfFb1+50b8lXAR92486Ttz8iPTfFpSX8K
+ KljS+YxBUzj5ggWiarVIKypLw1zK1iJfBbjOcl4yVNqriWYjrGwFtZxBYhgESpDLDSgh
+ ixuojC3dHNsIebznLQeqCtyHC9rQTXIbGKjjl4W2MFRWGlm24WTHYJHaT2/a7fCJ9IFN
+ N0zw==
+X-Gm-Message-State: AOJu0Yzp1bdb2ddn+ZS0isgxegmxJKEcYj7yWXR3R+jTp/CIVECs1TKS
+ Y9WzSQ9b4RYxlWTLbyZIhb8hj0o41X/2rwpGZMymmUvhhPbPF/mdSA2lg/TuGQOy7bo=
+X-Gm-Gg: Acq92OFau31OYoCA3KiT1XnX1oECG1mrXrQKth2rLBtfzNBDZd4GlHMxOkJq38y+DJs
+ 4GqLpLsUXP6W8nZw7XrCYrKPFzN/qq9wxlRDhC06CkkTbJ5mpEUqnHs1DJWetAF7AZBUWiIk0wc
+ gwsaVx6CjyVkpeO0TDMbNGhVh6GkgjR8twcKZVXLk4xN+mwrl8+HXR1NLEe3zF58cu1cZX66Sfu
+ QroMQ3ywD/sgM9PzRei9J7eB/T2G5AZ0ABuqzhDPdanv0e6OWoSvMuLZJ/Vs5Sl8xVIfLAwQUPR
+ xNKqwgHzhnKe1MD2v7iFZ7DC+mnoca7UUFfI//S6AkrOrQ2kmoiUy/10yg/BnBxroJuAMnTuduF
+ Ut0IEOOv1WJ18IkHO9NlnLJyMHa/xc+XOCZfTfSmJbA8k09dk7u+sTGqwSwcDJ0VAggjpiF7t+H
+ fBjbOkRGQ1DrYRbbRlU8LIxspOLYb/fXUaXvehU1LtbJd0SeRKdiKcGiHBLczMVA==
+X-Received: by 2002:a05:600c:6211:b0:485:4388:3492 with SMTP id
+ 5b1f17b1804b1-490b505e6bamr11024685e9.11.1780419683944; 
+ Tue, 02 Jun 2026 10:01:23 -0700 (PDT)
+Received: from alchark-surface.localdomain ([5.194.92.128])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4601f2dcbe3sm588495f8f.8.2026.06.02.10.01.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 02 Jun 2026 10:01:23 -0700 (PDT)
+From: Alexey Charkov <alchark@flipper.net>
+Date: Tue, 02 Jun 2026 21:00:40 +0400
+Subject: [PATCH 2/2] drm/rockchip: dw_hdmi_qp: expose "overscan" property
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260602-hdmi-overscan-v1-2-31f71b817c80@flipper.net>
+References: <20260602-hdmi-overscan-v1-0-31f71b817c80@flipper.net>
+In-Reply-To: <20260602-hdmi-overscan-v1-0-31f71b817c80@flipper.net>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Alexey Charkov <alchark@flipper.net>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2125; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=tHygaxsktj42z30dgx6UrKlEC5FoIMQxcKQ2lQcmua4=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTJ84QWFpevzNSVk3KbHC56Jr/59YE7c9cfbMmaquPyU
+ WPBI+3MjoksDGJcDJZiiixzvy2xnWrEN2uXh8dXmDmsTCBDpEUaGICAhYEvNzGv1EjHSM9U21DP
+ 0EjHWMeIgYtTAKY6vJKR4UhqqtjB4/6f1iwr2uOiUxorJcHYPiX05ukJaUuZAht04xn+Ge4taNm
+ kGF3z68uU2DUrlLr/aCsWxnl6+h7Q/tQu8F+PCQA=
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
+X-Mailman-Approved-At: Tue, 02 Jun 2026 22:31:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,194 +103,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-As we do for CRTC color mgmt properties, use color_mgmt_changed flag to
-track any value changes in the color pipeline of a given plane, so that
-drivers can update color blocks as soon as plane color pipeline or
-individual colorop values change. Since we're here, only announce and
-track changes to plane COLOR_PIPELINE prop if its value is actually
-changing.
+Expose the "overscan" connector property as recognized by KWin and the
+likes to compensate for TV overscan cropping.
 
-Fixes: 8c5ea1745f4c ("drm/colorop: Add BYPASS property")
-Fixes: 7fa3ee8c0a79 ("drm/colorop: Define LUT_1D interpolation")
-Fixes: 41651f9d42eb ("drm/colorop: Add 1D Curve subtype")
-Fixes: 3410108037d5 ("drm/colorop: Add multiplier type")
-Fixes: db971856bbe0 ("drm/colorop: Add 3D LUT support to color pipeline")
-Fixes: e5719e7f1900 ("drm/colorop: Add 3x4 CTM type")
-Fixes: 99a4e4f08abe ("drm/colorop: Add 1D Curve Custom LUT type")
-Fixes: 2afc3184f3b3 ("drm/plane: Add COLOR PIPELINE property")
-Reviewed-by: Harry Wentland <harry.wentland@amd.com> #v1
-Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Melissa Wen <mwen@igalia.com>
+The CRTC will use the margin values derived from this overscan percentage
+in its post-composition scaler to add appropriate blank margins on all
+sides of the output image so that the TV doesn't eat up visible content.
+
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
- drivers/gpu/drm/drm_atomic_uapi.c | 64 ++++++++++++++++++++++++-------
- include/drm/drm_atomic_uapi.h     |  4 +-
- 2 files changed, 54 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 78423905051e..e997917819e8 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -265,13 +265,19 @@ EXPORT_SYMBOL(drm_atomic_set_fb_for_plane);
-  *
-  * Helper function to select the color pipeline on a plane by setting
-  * it to the first drm_colorop element of the pipeline.
-+ *
-+ * Return: true if plane color pipeline value changed, false otherwise.
-  */
--void
-+bool
- drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
- 				 struct drm_colorop *colorop)
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index f35484715c2d..fae44d11dbef 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -137,10 +137,18 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
+ 					 struct drm_connector_state *conn_state)
  {
- 	struct drm_plane *plane = plane_state->plane;
+ 	struct rockchip_hdmi_qp *hdmi = to_rockchip_hdmi_qp(encoder);
++	const struct drm_display_mode *adj_mode = &crtc_state->adjusted_mode;
+ 	struct rockchip_crtc_state *s = to_rockchip_crtc_state(crtc_state);
+ 	union phy_configure_opts phy_cfg = {};
++	unsigned int overscan;
+ 	int ret;
  
-+	/* Color pipeline didn't change */
-+	if (plane_state->color_pipeline == colorop)
-+		return false;
++	overscan = min(conn_state->tv.overscan, 100u);
++	s->tv_margins.left   = adj_mode->hdisplay * overscan / 200;
++	s->tv_margins.right  = s->tv_margins.left;
++	s->tv_margins.top    = adj_mode->vdisplay * overscan / 200;
++	s->tv_margins.bottom = s->tv_margins.top;
 +
- 	if (colorop)
- 		drm_dbg_atomic(plane->dev,
- 			       "Set [COLOROP:%d] for [PLANE:%d:%s] state %p\n",
-@@ -283,6 +289,8 @@ drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
- 			       plane->base.id, plane->name, plane_state);
+ 	if (hdmi->tmds_char_rate == conn_state->hdmi.tmds_char_rate &&
+ 	    s->output_bpc == conn_state->hdmi.output_bpc)
+ 		return 0;
+@@ -603,6 +611,14 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+ 		return dev_err_probe(hdmi->dev, PTR_ERR(connector),
+ 				     "Failed to init bridge connector\n");
  
- 	plane_state->color_pipeline = colorop;
++	ret = drm_mode_create_tv_properties_legacy(drm, 0, NULL);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "Failed to create TV connector properties\n");
 +
-+	return true;
- }
- EXPORT_SYMBOL(drm_atomic_set_colorop_for_plane);
- 
-@@ -604,7 +612,7 @@ static int drm_atomic_plane_set_property(struct drm_plane *plane,
- 		if (val && !colorop)
- 			return -EACCES;
- 
--		drm_atomic_set_colorop_for_plane(state, colorop);
-+		state->color_mgmt_changed |= drm_atomic_set_colorop_for_plane(state, colorop);
- 	} else if (property == config->prop_fb_damage_clips) {
- 		ret = drm_property_replace_blob_from_id(dev,
- 					&state->fb_damage_clips,
-@@ -713,11 +721,11 @@ drm_atomic_plane_get_property(struct drm_plane *plane,
- static int drm_atomic_color_set_data_property(struct drm_colorop *colorop,
- 					      struct drm_colorop_state *state,
- 					      struct drm_property *property,
--					      uint64_t val)
-+					      uint64_t val,
-+					      bool *replaced)
- {
- 	ssize_t elem_size = -1;
- 	ssize_t size = -1;
--	bool replaced = false;
- 
- 	switch (colorop->type) {
- 	case DRM_COLOROP_1D_LUT:
-@@ -739,28 +747,45 @@ static int drm_atomic_color_set_data_property(struct drm_colorop *colorop,
- 						 &state->data,
- 						 val,
- 						 -1, size, elem_size,
--						 &replaced);
-+						 replaced);
++	drm_object_attach_property(&connector->base,
++				   drm->mode_config.tv_overscan_property, 0);
++
+ 	return 0;
  }
  
- static int drm_atomic_colorop_set_property(struct drm_colorop *colorop,
- 					   struct drm_colorop_state *state,
- 					   struct drm_file *file_priv,
- 					   struct drm_property *property,
--					   uint64_t val)
-+					   uint64_t val,
-+					   bool *replaced)
- {
- 	if (property == colorop->bypass_property) {
--		state->bypass = val;
-+		if (state->bypass != val) {
-+			state->bypass = val;
-+			*replaced = true;
-+		}
- 	} else if (property == colorop->lut1d_interpolation_property) {
--		state->lut1d_interpolation = val;
-+		if (state->lut1d_interpolation != val) {
-+			state->lut1d_interpolation = val;
-+			*replaced = true;
-+		}
- 	} else if (property == colorop->curve_1d_type_property) {
--		state->curve_1d_type = val;
-+		if (state->curve_1d_type != val) {
-+			state->curve_1d_type = val;
-+			*replaced = true;
-+		}
- 	} else if (property == colorop->multiplier_property) {
--		state->multiplier = val;
-+		if (state->multiplier != val) {
-+			state->multiplier = val;
-+			*replaced = true;
-+		}
- 	} else if (property == colorop->lut3d_interpolation_property) {
--		state->lut3d_interpolation = val;
-+		if (state->lut3d_interpolation != val) {
-+			state->lut3d_interpolation = val;
-+			*replaced = true;
-+		}
- 	} else if (property == colorop->data_property) {
- 		return drm_atomic_color_set_data_property(colorop, state,
--							  property, val);
-+							  property, val,
-+							  replaced);
- 	} else {
- 		drm_dbg_atomic(colorop->dev,
- 			       "[COLOROP:%d:%d] unknown property [PROP:%d:%s]\n",
-@@ -1275,8 +1300,10 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
- 		break;
- 	}
- 	case DRM_MODE_OBJECT_COLOROP: {
-+		struct drm_plane_state *plane_state;
- 		struct drm_colorop *colorop = obj_to_colorop(obj);
- 		struct drm_colorop_state *colorop_state;
-+		bool replaced = false;
- 
- 		colorop_state = drm_atomic_get_colorop_state(state, colorop);
- 		if (IS_ERR(colorop_state)) {
-@@ -1285,7 +1312,18 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
- 		}
- 
- 		ret = drm_atomic_colorop_set_property(colorop, colorop_state,
--						      file_priv, prop, prop_value);
-+						      file_priv, prop, prop_value,
-+						      &replaced);
-+		if (ret || !replaced)
-+			break;
-+
-+		plane_state = drm_atomic_get_plane_state(state, colorop->plane);
-+		if (IS_ERR(plane_state)) {
-+			ret = PTR_ERR(plane_state);
-+			break;
-+		}
-+		plane_state->color_mgmt_changed |= replaced;
-+
- 		break;
- 	}
- 	default:
-diff --git a/include/drm/drm_atomic_uapi.h b/include/drm/drm_atomic_uapi.h
-index 436315523326..4e7e78f711e2 100644
---- a/include/drm/drm_atomic_uapi.h
-+++ b/include/drm/drm_atomic_uapi.h
-@@ -29,6 +29,8 @@
- #ifndef DRM_ATOMIC_UAPI_H_
- #define DRM_ATOMIC_UAPI_H_
- 
-+#include <linux/types.h>
-+
- struct drm_crtc_state;
- struct drm_display_mode;
- struct drm_property_blob;
-@@ -50,7 +52,7 @@ drm_atomic_set_crtc_for_plane(struct drm_plane_state *plane_state,
- 			      struct drm_crtc *crtc);
- void drm_atomic_set_fb_for_plane(struct drm_plane_state *plane_state,
- 				 struct drm_framebuffer *fb);
--void drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
-+bool drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
- 				      struct drm_colorop *colorop);
- int __must_check
- drm_atomic_set_crtc_for_connector(struct drm_connector_state *conn_state,
+
 -- 
-2.53.0
+2.52.0
 
