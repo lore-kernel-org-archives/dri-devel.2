@@ -4,48 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF9C9CD6E4A
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 08:04:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DD93C5DF71
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 08:05:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2382C10ED2C;
-	Tue,  2 Jun 2026 08:04:31 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA72910ED2C
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 08:04:29 +0000 (UTC)
-X-UUID: a86d62fa5e5911f1aa26b74ffac11d73-20260602
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12, REQID:2f781195-e581-4dbf-9a50-258240510d26, IP:0,
- U
- RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
- N:release,TS:-25
-X-CID-META: VersionHash:e7bac3a, CLOUDID:93f029c7c46a1e7e9f12274d0a1f2f49,
- BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
- DM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
- :0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: a86d62fa5e5911f1aa26b74ffac11d73-20260602
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
- (envelope-from <zenghongling@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 369047598; Tue, 02 Jun 2026 16:04:19 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: deller@gmx.de,
-	kees@kernel.org
-Cc: linux-omap@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- zhongling0719@126.com, Hongling Zeng <zenghongling@kylinos.cn>,
- stable@vger.kernel.org
-Subject: [PATCH] fbdev: omap2: fix use-after-free in omapfb_mmap
-Date: Tue,  2 Jun 2026 16:04:15 +0800
-Message-Id: <20260602080415.171378-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D0B81138D4;
+	Tue,  2 Jun 2026 08:05:52 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="I4c0baJG";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47C871138C7
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 08:05:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780387551; x=1811923551;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=2U/w7csjdBCnO9lVG6/gN+OP8Ql7e6u8LR6s0zZmkk4=;
+ b=I4c0baJGIMLaxPbwvfmpsGuboJWGGTCKdSWomiqkf92FTlLb6uWA2KzJ
+ MKpskwidepyQ+69yz0gEwZJTnnBu2zxSLp/ND0MmEERQMy1AIzA3yGa9u
+ Wm6Pg3kEoNL0eWC54SUCPEMMeC75sK3g/xTdb/526FhQG0KU27BdogCfj
+ kEs5G6rUV0ab4b2yfMgwQF+AiiPbc6VG4kfMNS1UBD43pteUlmoOhdkyV
+ vcNAC1I9RYixQyyIasqOMw8OvAtGbB458BF6Cxasj+9krWBNWGwMbtxVO
+ fvHYLAglG022dUMO8k3l96XnWK4wdZHV89UeSHc9tolrfvGkSFruQHk+i g==;
+X-CSE-ConnectionGUID: oqUzMtr4SRW+9bUnMUF9+g==
+X-CSE-MsgGUID: DVW8Z5VCR9e652wcE51lZA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="80196785"
+X-IronPort-AV: E=Sophos;i="6.24,182,1774335600"; d="scan'208";a="80196785"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jun 2026 01:05:51 -0700
+X-CSE-ConnectionGUID: 1WUP5+yARsW2RD6Qx5dHOQ==
+X-CSE-MsgGUID: iNqvUy3ES+SjQm6zrzvafQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,182,1774335600"; d="scan'208";a="281946170"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.229])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jun 2026 01:05:45 -0700
+Date: Tue, 2 Jun 2026 11:05:42 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>,
+ Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+ Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v3 02/11] mfd: lm3533: Remove driver specific regmap
+ wrappers
+Message-ID: <ah6O1h8SPwjf3rV1@ashevche-desk.local>
+References: <20260601151831.76350-1-clamor95@gmail.com>
+ <20260601151831.76350-3-clamor95@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260601151831.76350-3-clamor95@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,55 +82,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-omapfb_mmap() has a race condition with OMAPFB_SETUP_PLANE ioctl that
-can lead to use-after-free:
+On Mon, Jun 01, 2026 at 06:18:22PM +0300, Svyatoslav Ryhel wrote:
+> Remove driver-specific regmap wrappers in favor of using regmap helpers
+> directly. The wrappers are mostly equivalent to the standard helpers, with
+> two exceptions: regmap_read requires an unsigned int pointer, and
+> regmap_update_bits has the mask and value arguments swapped. These
+> differences were accounted for and adjusted accordingly.
 
-The fb_mmap() entry point holds mm_lock but not lock (fb_info->lock),
-while ioctl handlers like OMAPFB_SETUP_PLANE hold lock but not mm_lock.
-This allows concurrent execution.
+We refer to functions as func(), exempli gratia, regmap_read().
 
-In omapfb_mmap():
-1. rg = omapfb_get_mem_region(ofbi->region);      // Get old region ref
-2. start = omapfb_get_region_paddr(ofbi);          // Read from NEW region
-3. len = fix->smem_len;                             // Read from NEW region
-4. vm_iomap_memory(vma, start, len);               // Map NEW region memory
-5. atomic_inc(&rg->map_count);                      // Increment OLD region!
+...
 
-Concurrently, OMAPFB_SETUP_PLANE can:
-- Reassign ofbi->region = new_rg
-- Update fix->smem_len
-- OMAPFB_SETUP_MEM then checks NEW region's map_count (0!) and frees it
+> static int lm3533_als_get_current(struct iio_dev *indio_dev, unsigned channel,
+>  								int *val)
+>  {
+>  	u8 zone;
+> -	u8 target;
+> +	u32 target;
+>  	int ret;
 
-This leaves userspace with a mapping to freed physical memory.
+While at it, move towards reversed xmas tree order
 
-The fix is to read all required values (start, len) from the same
-region reference (rg) that will have its map_count incremented,
-preventing the region from being freed while still mapped.
+	u32 target;
+	u8 zone;
+	int ret;
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
- drivers/video/fbdev/omap2/omapfb/omapfb-main.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/video/fbdev/omap2/omapfb/omapfb-main.c b/drivers/video/fbdev/omap2/omapfb/omapfb-main.c
-index d70deb6a9150..853bd55621ec 100644
---- a/drivers/video/fbdev/omap2/omapfb/omapfb-main.c
-+++ b/drivers/video/fbdev/omap2/omapfb/omapfb-main.c
-@@ -1099,8 +1099,11 @@ static int omapfb_mmap(struct fb_info *fbi, struct vm_area_struct *vma)
- 
- 	rg = omapfb_get_mem_region(ofbi->region);
- 
--	start = omapfb_get_region_paddr(ofbi);
--	len = fix->smem_len;
-+	if (ofbi->rotation_type == OMAP_DSS_ROT_VRFB)
-+		start = rg->vrfb.paddr[0];
-+	else
-+		start = rg->paddr;
-+	len = rg->size;
- 
- 	DBG("user mmap region start %lx, len %d, off %lx\n", start, len,
- 			vma->vm_pgoff << PAGE_SHIFT);
+...
+
+> -	ret = lm3533_update(als->lm3533, LM3533_REG_ALS_ZONE_INFO, val, mask);
+> +	ret = regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_ZONE_INFO,
+> +				 val, mask);
+
+It's better to replace this to use _set_bits()/_clear_bits() or even move from
+the above conditional (not in this context) to _assign_bits().
+
+...
+
+>  	else
+>  		val = 0;	/* analog input */
+>  
+> -	ret = lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, val, mask);
+> +	ret = regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_CONF,
+> +				 mask, val);
+
+Ditto.
+
+>  	if (ret) {
+>  		dev_err(&als->pdev->dev, "failed to set input mode %d\n",
+>  								pwm_mode);
+
+...
+
+>  	/* Make sure interrupts are disabled. */
+> -	ret = lm3533_update(als->lm3533, LM3533_REG_ALS_ZONE_INFO, 0, mask);
+> +	ret = regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_ZONE_INFO,
+> +				 mask, 0);
+
+_clear_bits().
+
+>  	if (ret) {
+>  		dev_err(&als->pdev->dev, "failed to disable interrupts\n");
+>  		return ret;
+
+...
+
+>  	u8 mask = LM3533_ALS_ENABLE_MASK;
+>  	int ret;
+>  
+> -	ret = lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, mask, mask);
+> +	ret = regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_CONF,
+> +				 mask, mask);
+
+_set_bits()
+
+>  	if (ret)
+>  		dev_err(&als->pdev->dev, "failed to enable ALS\n");
+>  
+
+...
+
+>  	u8 mask = LM3533_ALS_ENABLE_MASK;
+>  	int ret;
+>  
+> -	ret = lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, 0, mask);
+> +	ret = regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_CONF,
+> +				 mask, 0);
+
+_clear_bits()
+
+>  	if (ret)
+>  		dev_err(&als->pdev->dev, "failed to disable ALS\n");
+
+...
+
+>  	else
+>  		val = 0;
+>  
+> -	ret = lm3533_update(led->lm3533, LM3533_REG_PATTERN_ENABLE, val, mask);
+> +	ret = regmap_update_bits(led->lm3533->regmap,
+> +				 LM3533_REG_PATTERN_ENABLE, mask, val);
+
+_assign_bits() and so on...
+
+>  	if (ret) {
+>  		dev_err(led->cdev.dev, "failed to enable pattern %d (%d)\n",
+>  							pattern, enable);
+
+...
+
+>  extern int lm3533_ctrlbank_set_brightness(struct lm3533_ctrlbank *cb, u8 val);
+> -extern int lm3533_ctrlbank_get_brightness(struct lm3533_ctrlbank *cb, u8 *val);
+> +extern int lm3533_ctrlbank_get_brightness(struct lm3533_ctrlbank *cb, u32 *val);
+
+We don't need to keep 'extern' for ages.
+
+>  extern int lm3533_ctrlbank_set_max_current(struct lm3533_ctrlbank *cb,
+>  								u16 imax);
+>  extern int lm3533_ctrlbank_set_pwm(struct lm3533_ctrlbank *cb, u8 val);
+> -extern int lm3533_ctrlbank_get_pwm(struct lm3533_ctrlbank *cb, u8 *val);
+> -
+> -extern int lm3533_read(struct lm3533 *lm3533, u8 reg, u8 *val);
+> -extern int lm3533_write(struct lm3533 *lm3533, u8 reg, u8 val);
+> -extern int lm3533_update(struct lm3533 *lm3533, u8 reg, u8 val, u8 mask);
+> +extern int lm3533_ctrlbank_get_pwm(struct lm3533_ctrlbank *cb, u32 *val);
+
 -- 
-2.25.1
+With Best Regards,
+Andy Shevchenko
+
 
