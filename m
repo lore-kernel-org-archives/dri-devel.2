@@ -4,93 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9895CD5BD1
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 13:44:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70ACECD6E57
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 13:45:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3717410F132;
-	Tue,  2 Jun 2026 13:44:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0AC710F135;
+	Tue,  2 Jun 2026 13:45:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="x1Qs5+oX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oXgC7Ybz";
 	dkim-atps=neutral
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2185210F132
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 13:44:09 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id
- 4fb4d7f45d1cf-68b2229b48eso9224769a12.2
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 06:44:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780407848; cv=none;
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0140B10F135
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 13:45:12 +0000 (UTC)
+Received: by mail-dl1-f42.google.com with SMTP id
+ a92af1059eb24-137f3cb3f46so63606c88.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 06:45:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780407912; cv=none;
  d=google.com; s=arc-20240605;
- b=ZY81pGerHqiCeHPEscwBFDZ6NX0luVpGWDtAW3mreOMX0R3Azi1plO1Z0F2UK3jGnK
- U2x+pjM+oOuLzudEuM0nQiXbIJHcK4qkTLeT7yMrqG88RRH/wldOeNboXWAUeZTcBWjv
- 4JDhhGXm03iujvGACPM4zzmxjVCG9Qf3OjJfLuTldfMCL6MTrpYkm2/h6140KrRLpNK2
- 5BQAlKf1tZ5LUK3YDjbCZMpZ6Lpzmh5UTQIYTFVjCEvmvOe2nOWjIVQEHPSn5OwT60fz
- 6sZ+7kGenVPJSqBwdHRkvFSGZ+B1zcGJJFgErhugw3QElvvD+fEn4wOVVF73LCiOR19m
- liPA==
+ b=Cu/AeqmRgBh0fZiButJ6Tnitqgfut8LehEpZst5Jw4Z3Aqlg/Bv4aEj+K85MJSQcLo
+ sBvlMenllAjSESJ8SBNcBtQgD7UsMjaAx0r6Gvhlr390hekajOFN22O+w445zf8w1cXt
+ t4iQzQ77ntpRmg8sDTWJeeOtF8xvghWWrptpHyqKSBAeReGBU4I1L+DgBXUqsaVQzfMY
+ gKH81DC7HhOMGFJydPwMmi9unSPPQO5v2WD2NWUc/gp6EJw4Kws/pacK7skuf1D2IZDJ
+ +sYv9oJzmbB229p85sdpIKfhejktJVMuIzyfeZzEnuPtouhTIhpLv3ROOXkpxg/FHydR
+ qNnQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=82dEe/gKwhXZVRLk9OdQ2RS4d20ckRZa2yqh09EPZPE=;
- fh=8waUu9cmunMTuEIwzVnE748+aHWLriQy0T74cIHGHes=;
- b=NsaoZa78RiuKu9vGp2WrWDshR5ZyabfdZi+4cNQmVkUKdR24Y89yaButriSC4xhMho
- NvRGGUfCIjcJo6RSkilhgx9F8jUEo43TNV/k7DXELw4q5xOOv8Az/H1J12EIupSEOVP6
- tCH4c6Kdx1YV9KN5JJ6vD1CsezFeEZwI550zUhbokQ0I4eeIEhGRKDu+BYydqLwBe4lz
- i1NuwpgIaVfPPryUueATwDSbbIASQC7wscQjPoHe5+V0Pvd3u9z6QuOFPPmZq8AxoFXY
- fbEDZrxFzy5rohmVxFe8MA+2r8qMv4cuclh5dimwkwkG6eQtzciBe9/t7kc4e/RXR01k
- wbLg==; darn=lists.freedesktop.org
+ bh=zT4hcJaJAxpNku3U6+68TAPB6S0TflnId/dwWCFEDQY=;
+ fh=rzm8mqRK6qTneEUim9MK0dpLzcyTktrI39NvboP7Lt8=;
+ b=QmZiBNSfFfDFoOcx0G99IidJd8K2KiVJMv2Z+ckI4Cencpqxm7DaqGqUi2C3/SKLad
+ xvYPSXY4s2wiS65v2sLmiKsyzHXXh490wQue02Qg3Y8esN4VV0Kji6XVQZTExMlKTp+9
+ mFuofjqYyGa+91vvCqunzsBXgqg2pS66LKIcWRtWnFqhhH5BUV/SwxInH+e4IxwvCaAn
+ PdwAh8Zg00d3Q3qZlgf7kl064/1J4YeQNubDKSrj1IhP+l7oNba+lFFLskE+RKs3LUnC
+ YzZR+xFzHSynsdwERe5Oy+cY8wUns9oOz3pdnSYrZLCrqJfaew0n3k+qQ8CuawJB+v3V
+ 3lyQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1780407848; x=1781012648; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1780407912; x=1781012712; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=82dEe/gKwhXZVRLk9OdQ2RS4d20ckRZa2yqh09EPZPE=;
- b=x1Qs5+oXvzHsQrFTwhH892GFPI5RD5c+G+2ofea0/EjEbfaIjJw0YDitvjl4t7zdTl
- kBGJRCsrP2V9x2d90a9B7lKyG3lLRBfC6vqWoCemAst0Gec9aTE5umqPOFb1eUKOKo+A
- +zy5rs2Ee0oAp9ws9OQXZ7rUzygreSsxmChKYd/oiiciUm2G2XlHyIABWxaX3EVYUIhm
- AWVYQos0nJcWNkyHYPkQ7cbAt0R+SFckJ01KAG1fLvsBdV+JyTaox3Dhd8mi0Pr+sdAX
- KEAhZF/tgIi7RvpTy31tp4fufRE8RNvfJFIqYJqGJxPZ6EKkpstCeaNPCqA90dYneQZE
- IZRQ==
+ bh=zT4hcJaJAxpNku3U6+68TAPB6S0TflnId/dwWCFEDQY=;
+ b=oXgC7YbzsGAoi9hKYdyMZ4MQ4HXlQ58RDO1MkN5UQxkIpFMEFbBe4EgBMbLyAEfzZj
+ Jq6e2J/STm/eXpcC5uMYwQX3Hz7RQJeSlETPd+gRzD+QaNC1sax3iDFfj/DgLEfsPW6b
+ 9s8aWYNk5B2GcpmV6UV8QsHOItzcJ2RL+nLNbBtyyJxJHn+Y1urUByCkR8HHcPdyV640
+ efPNmAdB+MO4mPODjSLnZ5HyXy+UgYbrPPLWb2qtDujMNFpodC3JS/cVYCDMkCgEVeO/
+ J3l71SibpiK4iP1UppthTHy81Q76IXgrQiNp4Kb+Acln3E0EVQ0EI5HRusyZ4xkO/DDi
+ 8Ybw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780407848; x=1781012648;
+ d=1e100.net; s=20251104; t=1780407912; x=1781012712;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=82dEe/gKwhXZVRLk9OdQ2RS4d20ckRZa2yqh09EPZPE=;
- b=otr8TxHOae7sq0HFHf2sxG3dnJ0NsqO2v4w7s9EtwpsVCKsfgKQ90nX08gY9USaHA9
- jJ6/y604yrPq+3P69L554dGMBzXHfrQENp1MW6UQAvOTg40tUD/OLiAxs3BRLjh1V8GY
- DUWVFrg1qSJap2TPrudU8tAuhw59yhEU3a20Hq6zjc9EmwEeEiGke9ZUljyW5muC/FmY
- J2vxaUNSh12PbGnU8Q/YVhoF5pfeSYxIaiiaiRZ24PUqAC22vxAKt9nmr/0P9WGOhMCO
- zxQU/ZoJzHKY/MryN3InOEbhAzb+/G7+e8NqWSdHFxAw7rlvPGT0OeRLel6Yi8Q0xJUP
- 6tZQ==
+ bh=zT4hcJaJAxpNku3U6+68TAPB6S0TflnId/dwWCFEDQY=;
+ b=CS8S2+wSObXSYgrsUkHep+bfaBgJ2cq0MVprRDuNEteRL38eYncfonUJptYjkGt++P
+ zZ3nGyM2dyocQxbbETzRN7JLIb7RrMt4ixuMPruTc1chGcHlwd6eWLOxWbfHq+X/eN8F
+ czOAYRcmR5LWqbS93Qr7yp4H0rwwslre7Rzw9NTfBezB+Su+ZGs2YyQpRCi18a20h3v7
+ 881bz6OdXYgdktiv0t60GOTnRPHaRVUdL4MO+aq+dFiBHi7FmMvKMFcyWdYuLb5P4c8e
+ yvy3T+uSJs2MS58UK4DsRDWEKfLVMDdsDL8v8o9jLUh0VIwseGDN0fi8m/0EpoOfyExW
+ HCcg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8Pw9THr7G/sP5If8mneL6hJsjjW9vVUt1L951ObeWrB1KnAD6Khai3CO3DFiwDSX29QDwZPkIXgno=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy7afamEAOaPObL/gpdTDlTyBgsPqSR2fiSA69AwbgW5NpR/gF4
- 5djUEEaxspWt9/NsmbsgKgfDkj9Ya1Tfj3fMlwqajGJmmdjRq9GD1CCD986wFen89PlsBduhsvA
- mz7UqTf7YplaO6SeOlUMEacMffPGIJYJ8ooarINhGhA==
-X-Gm-Gg: Acq92OGdkCwYKB7GBqU+/kosUHEeFIsxMZ1Runu4ldRZK1CARiPpizd8rXYNrmPcq53
- e2o6GvJm1Ud1vq3pohYtNlSrIDqQFKX+sAZiiITeliCbQlAPGjqQMEXb3k4DmhxsNTCk2UcI7/1
- T3gxNPmoNFLi+OLo0VyXUT7KqrTgEwn1kDFxrvOJT1Wy7OJLSdz4TBxxtf9117U2RvhYwr59P7s
- CYoi0vhRqs7DKpKFkG+v4wlNm6t/5I3jLhwaRU1HsLaCnFn5F7UozrYLOPv+Yc4qG0vUmk4Jlz9
- 3qEtv6b6+dVEy3DbwG09fOvxRTjoyqd5ggn4+EyWvN9E/nuxaJZuVYbhVF9JEkPuLbNdrMcIboX
- BiXINUDRSRN3EW3ieLtvfnpz3BSMpbVli5y3ztoeEcXRgZi4=
-X-Received: by 2002:a05:6402:a50e:b0:67f:9124:8815 with SMTP id
- 4fb4d7f45d1cf-68c8cc29ecfmr4897371a12.17.1780407848188; Tue, 02 Jun 2026
- 06:44:08 -0700 (PDT)
+ AFNElJ/xkwX1/9J3ZE2PqNFMD/JwSDgbw9YJwBpZKa81eybeiFyVJk0ZqwSCFL8e+b05lf+ksUgGlc7Tfm4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxIGDJ2tvFWsYoQNva04umGdiMqaKWArF7JuNyT8n6qY8KFT/fq
+ V9KUfYof35XkQEPBMJtl0rSqLUIZ4i9pud4o1Y07YI0IeGM17hE4+EYhoq5kWfrbMfUewP7l+ut
+ TToQIJ16QYe/nIpg/9gaDtYqe6TQGJdU=
+X-Gm-Gg: Acq92OFlUBJetZgE7WDjPEhXiXWNi4wfjGhbT2fy9osW+Lx+fP9mTiwT08OmlTApU7F
+ qIa8WO+/iRQUFJYcgcC0F4BX86JcVs+q4cR1ZrsHUNTH7OKs39YRBVMhbfFcyyxnRFFbUr54dn+
+ cRMBWXASXeXwcPIbUTj7mONZmWRt1qD5oH0ByX6Nj1qkRBzqGYVEADVJCWKFs5y0G07ASo2YSRz
+ NwYW/fSyVsQlvwrQprgrA40el4mX7SB2+4gg82dk8ZJlKe2CcMxUE+VErFSmJ/hhxL3Dm7kHCPe
+ ShZ/BVm0udmqk3UNn/E=
+X-Received: by 2002:a05:7300:724d:b0:304:8366:7456 with SMTP id
+ 5a478bee46e88-304fa4a97f7mr7197710eec.3.1780407912080; Tue, 02 Jun 2026
+ 06:45:12 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260512190019.228440-1-guilherme.bozi@usp.br>
-In-Reply-To: <20260512190019.228440-1-guilherme.bozi@usp.br>
-From: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
-Date: Tue, 2 Jun 2026 10:43:56 -0300
-X-Gm-Features: AVHnY4KfJ5TFV44CTzJXc_Y5_RuCxlXUjuKa27M2A4_OGavaoTMNEMI_WfjiQ1Y
-Message-ID: <CAJgF-xu=wPXkdSD-HwjDheSWXvokcCg9nZ3_ku12=0N9i96yaA@mail.gmail.com>
-Subject: Re: [PATCH 0/9] drm/amd/display: convert GPIO translation logic to
- lookup tables
-To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com, 
- harry.wentland@amd.com, simona@ffwll.ch, siqueira@igalia.com, 
- sunpeng.li@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260601151831.76350-1-clamor95@gmail.com>
+ <20260601151831.76350-4-clamor95@gmail.com>
+ <20260602144222.7a50a041@jic23-huawei>
+In-Reply-To: <20260602144222.7a50a041@jic23-huawei>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Tue, 2 Jun 2026 16:45:00 +0300
+X-Gm-Features: AVHnY4LTNpiSYmDW8xnqHecCTvTzpdUFD5jDfC_0pqaKrNHhEcy0XqCOTlsLpZ4
+Message-ID: <CAPVz0n3x7KaaoZQAmpX-NCz2QNrhWNQaYFvX3pwS8DLb56bFuA@mail.gmail.com>
+Subject: Re: [PATCH v3 03/11] iio: light: lm3533-als: Remove redundant pdata
+ helpers
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>,
+ =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+ Johan Hovold <johan@kernel.org>, 
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -108,70 +116,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Gentle ping on this series. Thanks.
+=D0=B2=D1=82, 2 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 16:42=
+ Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Mon,  1 Jun 2026 18:18:23 +0300
+> Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+>
+> > The lm3533_als_set_input_mode and lm3533_als_set_resistor functions are
+> > used only in lm3533_als_setup. Incorporate their code into
+> > lm3533_als_setup directly to simplify driver readability.
+> Minor stuff inline.
+>
+>
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >  drivers/iio/light/lm3533-als.c | 61 +++++++++-------------------------
+> >  1 file changed, 16 insertions(+), 45 deletions(-)
+> >
+> > diff --git a/drivers/iio/light/lm3533-als.c b/drivers/iio/light/lm3533-=
+als.c
+> > index fb61904f110f..52136ca1abc9 100644
+> > --- a/drivers/iio/light/lm3533-als.c
+> > +++ b/drivers/iio/light/lm3533-als.c
+>
+> >  static int lm3533_als_setup(struct lm3533_als *als,
+> >                           const struct lm3533_als_platform_data *pdata)
+> >  {
+> > +     struct device *dev =3D &als->pdev->dev;
+> >       int ret;
+> >
+> > -     ret =3D lm3533_als_set_input_mode(als, pdata->pwm_mode);
+> > +     ret =3D regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_CO=
+NF,
+>
+> Maybe a local struct regmap pointer given dereferenced in a couple of pla=
+ces.
+>
 
-Kind regards,
-Guilherme Ivo
+sure, why not
 
-On Tue, May 12, 2026 at 4:00=E2=80=AFPM Guilherme Ivo Bozi
-<guilherme.bozi@usp.br> wrote:
+> > +                              LM3533_ALS_INPUT_MODE_MASK,
+> > +                              pdata->pwm_mode ? LM3533_ALS_INPUT_MODE_=
+MASK : 0);
 >
-> This series converts the GPIO HW translation logic used by
-> multiple DCN generations from large switch statements to
-> static lookup tables with shared helper functions.
+> Andy raised this in previous patch but in the interests of being specific
+> regmap_assign_bits() is going to be cleaner here.
 >
-> The new implementation reduces duplicated translation logic
-> across generations and makes the GPIO mappings easier to
-> maintain and extend.
->
-> The series introduces generic GPIO translation helpers first,
-> followed by per-generation conversions.
->
-> The following generations were converted:
->
->   - dcn10
->   - dcn20
->   - dcn21
->   - dcn30
->   - dcn315
->   - dcn32
->   - dcn401
->   - dcn42
->
-> The dce60, dce80, dce110 and dce120 implementations were
-> left unchanged for now.
->
-> dce60 and dce80 contain special switch-case handling paths
-> that currently do not map cleanly to the new table-based
-> representation, so they were intentionally excluded from
-> this refactor.
->
-> No functional changes intended.
->
-> Guilherme Ivo Bozi (9):
->   drm/amd/display: add GPIO HW translation helpers
->   drm/amd/display: convert dcn10 GPIO translation to lookup tables
->   drm/amd/display: convert dcn20 GPIO translation to lookup tables
->   drm/amd/display: convert dcn21 GPIO translation to lookup tables
->   drm/amd/display: convert dcn30 GPIO translation to lookup tables
->   drm/amd/display: convert dcn315 GPIO translation to lookup tables
->   drm/amd/display: convert dcn32 GPIO translation to lookup tables
->   drm/amd/display: convert dcn401 GPIO translation to lookup tables
->   drm/amd/display: convert dcn42 GPIO translation to lookup tables
->
->  .../dc/gpio/dcn10/hw_translate_dcn10.c        | 484 +++++++-----------
->  .../dc/gpio/dcn20/hw_translate_dcn20.c        | 432 ++++++----------
->  .../dc/gpio/dcn21/hw_translate_dcn21.c        | 417 ++++++---------
->  .../dc/gpio/dcn30/hw_translate_dcn30.c        | 432 ++++++----------
->  .../dc/gpio/dcn315/hw_translate_dcn315.c      | 418 ++++++---------
->  .../dc/gpio/dcn32/hw_translate_dcn32.c        | 386 +++++---------
->  .../dc/gpio/dcn401/hw_translate_dcn401.c      | 392 +++++---------
->  .../dc/gpio/dcn42/hw_translate_dcn42.c        | 193 +++----
->  .../drm/amd/display/dc/gpio/hw_translate.c    |  86 ++++
->  .../drm/amd/display/dc/gpio/hw_translate.h    |  21 +
->  .../gpu/drm/amd/display/include/gpio_types.h  |  48 ++
->  11 files changed, 1274 insertions(+), 2035 deletions(-)
->
-> --
-> 2.47.3
+
+I am currently adjusting accordingly.
+
+> >       if (ret)
+> > -             return ret;
+> > +             return dev_err_probe(dev, ret, "failed to set input mode =
+%d\n",
+> > +                                  pdata->pwm_mode);
+> > +
+> >
+> >       /* ALS input is always high impedance in PWM-mode. */
+> >       if (!pdata->pwm_mode) {
+> > -             ret =3D lm3533_als_set_resistor(als, pdata->r_select);
+> > +             if (pdata->r_select < LM3533_ALS_RESISTOR_MIN ||
+> > +                 pdata->r_select > LM3533_ALS_RESISTOR_MAX) {
+> > +                     dev_err(&als->pdev->dev, "invalid resistor value\=
+n");
+> > +                     return -EINVAL;
+> > +             }
+> > +
+> > +             ret =3D regmap_write(als->lm3533->regmap, LM3533_REG_ALS_=
+RESISTOR_SELECT,
+> > +                                pdata->r_select);
+> >               if (ret)
+> > -                     return ret;
+> > +                     return dev_err_probe(dev, ret, "failed to set res=
+istor\n");
+> >       }
+> >
+> >       return 0;
 >
