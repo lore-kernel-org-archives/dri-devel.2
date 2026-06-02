@@ -4,59 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CC91CD5BD1
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 21:25:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C460CCD5BD1
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 21:40:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74CEA10E6C8;
-	Tue,  2 Jun 2026 21:25:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D84910E75D;
+	Tue,  2 Jun 2026 21:40:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="hAtICkWn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bOrxwt7d";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C0BF10E6C8
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 21:25:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1780435502;
- bh=Lee243RAZYN2iotwnQCtXiZ1Zjke9zD4F6uMm5s/2GM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=hAtICkWnT8hfet4ArCllU66Ap/BRAih0RWPLTycBx/EBWgSWzMjvsI/R447p/EqIP
- e8lcmmQ11l8nHctryxXeoSN/6XNRDIfeMtJXprF7uWd655dFruRpibo9O2TpG4d4W9
- jozQkgX9ssowC1VZTnGrAew4j3nj7Ie4hJ55yCWtEehlVHMVtW7wXOkiIbw3fPcb36
- nrgVHP/H+l+1E7keSJSr59WPn+hbs52zs3ow//Dgxtsnu2jGYHCJa8846c05ChWnxR
- 9DUlJK6/4V8xM/cEMhnOzAf8tY4HAHfqJbogrdIHglgV9eiwbp3gd3h3TUiOrsD4gY
- K7dTz1dbQziHA==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E0B2717E093F;
- Tue,  2 Jun 2026 23:25:01 +0200 (CEST)
-Message-ID: <92ac1962-e43a-45a0-958e-e32385af098c@collabora.com>
-Date: Wed, 3 Jun 2026 00:25:01 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/bridge: dw-hdmi-qp: use drm_hdmi_acr_get_n_cts()
- helper for audio N/CTS
-To: Simon Wright <simon@symple.nz>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDFD610E75D;
+ Tue,  2 Jun 2026 21:40:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780436425; x=1811972425;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=4eyZw4UOnHhwv4cFQ/JjHG+RrOIvOOmydNLwutjD+3M=;
+ b=bOrxwt7dDdlu+tP9OU2MHGU2Tagrr5urXNNZGyFg9SW7iyaS4ycJF/jt
+ G7DzFSRuUviQCr4+/0YBH90Zi26k4nKHka39YsxJ6e/ItU1hjSddgaOze
+ Zrnu4wLJG/HAnwt4N4+RhcBYjnjIc4fWKDvu32buOY4fA8jSOILZRuc6/
+ Oquoy7V+wOXq3BuLTRFX4PV1ZZJLwm4xqKhixuJqCflyB/YT3R+DxvCGn
+ X+w/m00sEp/majR84hpYlILQE6N1uFcoiv4u+uasR+bJNnBpo3/gQxMNF
+ 9HnQztpLpcpEsMpDc608AE4H5W8Evy7VyjMoMUy/vB74FP2Ok41osAO+j A==;
+X-CSE-ConnectionGUID: GPXSBp4xQBOk87P/T5cHNQ==
+X-CSE-MsgGUID: HOmwDi+CR2uBiKVJoWdXww==
+X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="80972407"
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="80972407"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jun 2026 14:40:24 -0700
+X-CSE-ConnectionGUID: PcIQbEzqTbKa1yc0yhfIOQ==
+X-CSE-MsgGUID: nO91ZzCfR2qu25nrSJCLRw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="239575909"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.116])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jun 2026 14:40:11 -0700
+Date: Wed, 3 Jun 2026 00:40:08 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Lee Jones <lee@kernel.org>,
+ Mark Brown <broonie@opensource.wolfsonmicro.com>,
+ Thierry Reding <thierry.reding@avionic-design.de>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Doug Berger <opendmb@gmail.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Heiko Stuebner <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Algea Cao <algea.cao@rock-chips.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <86fcf349-0a7a-4618-9001-612371b0f71b@symple.nz>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <86fcf349-0a7a-4618-9001-612371b0f71b@symple.nz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Peter Chen <peter.chen@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+ driver-core@lists.linux.dev, devicetree@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-usb@vger.kernel.org, linux-mips@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH 06/23] driver core: platform: provide
+ platform_device_set_of_node()
+Message-ID: <ah9NXwJFrkK_yuw8@ashevche-desk.local>
+References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
+ <20260521-pdev-fwnode-ref-v1-6-88c324a1b8d2@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260521-pdev-fwnode-ref-v1-6-88c324a1b8d2@oss.qualcomm.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,83 +116,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Simon,
+On Thu, May 21, 2026 at 10:36:29AM +0200, Bartosz Golaszewski wrote:
+> Encapsulate the reference counting logic for OF nodes assigned to
+> platform devices created with platform_device_alloc() in a helper
+> function. Make the kerneldoc state that this is the proper interface for
+> assigning OF nodes to dynamically allocated platform devices. This will
+> allow us to switch to counting the references of the device's firmware
+> nodes, not only the OF nodes.
 
-On 5/21/26 10:36 AM, Simon Wright wrote:
-> dw_hdmi_qp_set_sample_rate() open-coded its own N and CTS lookup
-> tables and search/compute helpers, but it lacked the out-of-table
-> CTS fallback needed by strict HDMI sinks at TMDS rates not in the
-> table.  The original LG G3 OLED audio mute (linux-rockchip 070633)
-> was caused by dw_hdmi_qp_find_cts() returning 0 at 185.625 MHz,
-> leaving AUDPKT_ACR_CTS_OVR_EN clear and falling back to the
-> controller's internal CTS auto-measurement, which produces incorrect
-> timing on the wire at out-of-table rates.
-> 
-> The shared drm_hdmi_acr_get_n_cts() helper in
-> drivers/gpu/drm/display/drm_hdmi_helper.c already implements the
-> correct behaviour: it has the HDMI 1.4b spec N/CTS tables, and for
-> TMDS rates not in the table it computes CTS = (TMDS * N) / (128 * Fs)
-> inline (the canonical HDMI spec formula).  It is already used by
-> drivers/gpu/drm/msm/hdmi/hdmi_audio.c.
-> 
-> Convert dw_hdmi_qp_set_sample_rate() to call the helper.  This
-> removes ~200 lines of open-coded tables and search functions
-> (dw_hdmi_qp_find_n, _compute_n, _find_cts, _audio_math_diff,
-> _match_tmds_n_table, common_tmds_n_table[], common_tmds_cts_table[])
-> and fixes the strict-sink audio mute as a side effect of using the
-> helper's complete N+CTS path.
-> 
-> Tested on R76S (RK3576) running Linux 7.0.1, against the LG G3 OLED
-> (the sink that originally reported the mute in linux-rockchip
-> 070633) at four TMDS rates spanning HDMI 1.4 and HDMI 2.0:
-> 
->   TMDS         Mode              Audio with v3
->   148.5 MHz    1080p60   8-bit   plays
->   185.625 MHz  1080p60  10-bit   plays
->   297 MHz      1080p100  8-bit   plays
->   594 MHz      3840p60   8-bit   plays
-> 
-> Without this change, the LG G3 mutes audio at 185.625, 297, and
-> 594 MHz (every rate outside dw-hdmi-qp's open-coded CTS table,
-> which contained only 148.5 MHz and below).  With this change,
-> drm_hdmi_acr_get_n_cts() supplies the correct CTS at every rate --
-> table-canonical at 148.5 / 297 / 594 MHz, and computed via the
-> HDMI 1.4b formula at 185.625 MHz.  The 148.5 MHz row is a
-> regression check confirming the in-table path is unchanged.
-> 
-> The Kogan KALED43XU9210STA (a permissive HDMI 2.0 sink that plays
-> audio at all rates with or without this change) was used as a
-> no-regression control: audio plays at 594 MHz with v3 loaded.
-> 
-> The open-coded N table in dw-hdmi-qp included optimised N values
-> for some TMDS rates that are not in the helper's table (e.g.
-> various non-CEA rates between 28-162 MHz).  For those rates the
-> helper's fallback returns N = 128 * Fs / 1000, which is the same
-> value dw_hdmi_qp_compute_n() returned when no table optimisation
-> was needed; no audio regression has been observed at the rates
-> tested above.
-> 
-> Reported-by: Simon Wright <simon@symple.nz>
-> Closes: https://lore.kernel.org/linux-rockchip/ME3P282MB21960D9D68BFF520316BDFCEA83E2@ME3P282MB2196.AUSP282.PROD.OUTLOOK.COM/
-> Suggested-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-> Suggested-by: Jonas Karlman <jonas@kwiboo.se>
-> Tested-by: Simon Wright <simon@symple.nz>
+...
 
-I think T-b can be dropped, as the commit description implies you've actually
-tested this before submitting.
+> +/**
+> + * platform_device_set_of_node - assign an OF node to device
+> + * @pdev: platform device to add the node for
+> + * @np: new device node
+> + *
+> + * Assign an OF node to this platform device. Internally keep track of the
+> + * reference count. Devices created with platform_device_alloc() must use this
+> + * function instead of assigning the node manually.
+> + */
+> +void platform_device_set_of_node(struct platform_device *pdev,
+> +				 struct device_node *np)
 
-> Assisted-by: Claude:claude-opus-4-7
-> Signed-off-by: Simon Wright <simon@symple.nz>
+Why not fwnode to begin with?
 
-The patch looks good to me. 
+> +{
+> +	of_node_put(pdev->dev.of_node);
 
-I'm unable to reproduce the reported issues, but I can confirm audio continues
-to work as expected on my end.  
+And if it has an fwnode?
 
-Feel free to include:
+> +	pdev->dev.of_node = of_node_get(np);
+> +	pdev->dev.fwnode = of_fwnode_handle(np);
 
-Reviewed-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Tested-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+This looks like
 
-Regards,
-Cristian
+	device_set_node(&pdev->dev, fwnode_handle_get(...));
+
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
