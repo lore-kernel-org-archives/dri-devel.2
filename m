@@ -4,69 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECF06CD6E4A
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 08:09:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDBB2CD6E4A
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 08:14:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6189F1138D6;
-	Tue,  2 Jun 2026 08:09:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FD3A1138E8;
+	Tue,  2 Jun 2026 08:14:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eueEkc+A";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="cLJALbja";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D26131138D6
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 08:09:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780387789; x=1811923789;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=gwYJ/kTtL7028h1WAxReM18rkWLzIkyfezPsBxvoirg=;
- b=eueEkc+ADN576A1kcwyvcKX8Ab7rM7b9dKdYbNXLyNIht7L/BQNClRO9
- I3V849nTBIjfuT/7r14a6qUkRc3gLoyO589hTFxZaoFUWf2q0tz4+tBlF
- omguOS6QaqV03rUuptR+x79WBsrbPwvoaA9CX4ZMAXsd4GEbVdyXm+h8p
- ABrrr4AGgeVczbUh2jdAi3K0KACNkU+jixuKIw0imPfkdK1jO/iFEvyTZ
- T3FC2rcjguvi8XQWH9EWX9h4cHDNpNei8R2QXEydYRl+MW0e7Y0ZU8A0u
- zY15886mMIhK/0ZDih006EfRz6ctNHiDvsstEYPpV4NDiENx3QMYox/hK g==;
-X-CSE-ConnectionGUID: 7yLguMr2ThW9fEg+I35/Vw==
-X-CSE-MsgGUID: CksJhO+iSvys9b2vlV6acg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="92652666"
-X-IronPort-AV: E=Sophos;i="6.24,182,1774335600"; d="scan'208";a="92652666"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2026 01:09:48 -0700
-X-CSE-ConnectionGUID: oXQ32FnEQLiEJT/X8SyneQ==
-X-CSE-MsgGUID: 9RXlf7NKQRGUUADC5KWE2w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,182,1774335600"; d="scan'208";a="248759645"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.229])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2026 01:09:42 -0700
-Date: Tue, 2 Jun 2026 11:09:40 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>,
- Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
- Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v3 08/11] video: backlight: lm3533_bl: Improve linear
- sysfs logic
-Message-ID: <ah6PxFtoJUWkd79P@ashevche-desk.local>
-References: <20260601151831.76350-1-clamor95@gmail.com>
- <20260601151831.76350-9-clamor95@gmail.com>
+Received: from DB3PR0202CU003.outbound.protection.outlook.com
+ (mail-northeuropeazon11010034.outbound.protection.outlook.com [52.101.84.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6C191138E8
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 08:14:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Uw7ex2em/hGx7fcBL8ZKjQJ8OX1ja/3y2Z7QM5WGAAaG1b4WpAsI5a/TxRNNzlrYwvD38D47k6B7rO0pshBQUKRz7xHkbcDC90Bzj2YzAIX7nokWuk7G4SRL84IQFDSBvN/qxNIqt26UQTtmy44dQWiYPbhT1ItUyzrpKs3cMtw1ZZhDck2bMUUS972pedGo17kHm2MR0Xw+alvyd692Hblczo/IMHzgtTyN86adUugcsn2gnAqgprm8zavOfAPOPR3XDmrUBilqhNp+cX0eRH6v2dMx6pnGvyVCoW3PPIhwuDEcPm1Rt32gNda6r9m8dPiYJ6yulq8U4z70q8u9KQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qKlKAvmKXgVCvK5OX/ngbwW8OrWWXnOHqs/ho5T95o0=;
+ b=tDN7B8by+1Z5sMFMHlgeUiY5SaPr1nShGJSfQ1u2wRoiDbjTjU2DNeV2X3Lt+UBecUi5qg+ddEpYTDRLtCuzeQFOquqlrAVOEhqcYSDH+dzKj9CB54wV/PZhC6VXhz0BIBIEK8Ty8N+ppcWHerqQcinzrcrAvcy1GlteJO6DNjZX46SHF/Z3d+3JM10ACF8yE3rYm/Kn83lg+20khuOximTN5MRG0Wp0iCR7PrXyJClvYBTkG/aU3fHp9CTDyBK7NHPWb8zvJCbIFRDCpmw6GxvYw8TCvOH6yeb75SINiEDDWSG+WaTwrwQwAeGiHbYxhsJmiWN7OILwPL0cvuwQdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qKlKAvmKXgVCvK5OX/ngbwW8OrWWXnOHqs/ho5T95o0=;
+ b=cLJALbjaMtn1OuU3DUEHjSBeoGTVllK1l2sR4QCKXWMpd6XkLSYWkGrCrybxgsgV4JRiiOl2l4el6QlQ6TAkpWfrEztMpO7pgM0RAzIuCKlA1rhzfaeKU9uNR68hkdRbTBnCBiNFhoY/iBtEJbT7ZHlYwS5gCoL/If7KnFzXn9DEnU9ZZj3ZQK0hUNPoHgrH1/AI274yFAlIUfbE16eV4gDEJIcBxd2/u/AUs48ya6BQEoXd3NG2nd0JX83yjeccBoUkxZuOLRMirTeZ7LMllkFmDE1f+7lXw0cihtZiY6ULFMCk0xoYJRcjyeYW5b2qDUSIeO6IE0q0QdnfBKVgDg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
+ by PAXPR04MB9006.eurprd04.prod.outlook.com (2603:10a6:102:20e::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.17; Tue, 2 Jun
+ 2026 08:14:02 +0000
+Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
+ ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
+ ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.21.0071.014; Tue, 2 Jun 2026
+ 08:14:02 +0000
+From: Liu Ying <victor.liu@nxp.com>
+To: laurentiu.palcu@oss.nxp.com, l.stach@pengutronix.de, 
+ maarten.lankhorst@linux.intel.com, Yicong Hui <yiconghui@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ skhan@linuxfoundation.org, me@brighamcampbell.com
+In-Reply-To: <20260406180013.2442096-1-yiconghui@gmail.com>
+References: <20260406180013.2442096-1-yiconghui@gmail.com>
+Subject: Re: [PATCH] drm/imx: Fix three kernel-doc warnings in
+ dcss-scaler.c
+Message-Id: <178038813577.703194.10614984028238892706.b4-ty@b4>
+Date: Tue, 02 Jun 2026 16:15:35 +0800
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: SG2PR02CA0131.apcprd02.prod.outlook.com
+ (2603:1096:4:188::6) To AS1PR04MB9287.eurprd04.prod.outlook.com
+ (2603:10a6:20b:4dd::8)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260601151831.76350-9-clamor95@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|PAXPR04MB9006:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d15581d-008c-4475-eea0-08dec07ee7b5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|19092799006|376014|1800799024|366016|22082099003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: 4SUn17vkvF1NxG/tbJ8AkrEF+9omUSVpeNVAeIZvXHc5pv1+kKG/QCZvhxpIP4/MZM+LlArfJ8doVeIIZF3o6hrpKnLmuooRVphBBR5UZIJAJ1Njyuk7Eb4wb7hglvPA0c3gOiEmZ1gOqLlCgSv4Pox+UEC/vxs3VB5rMhNEgQmDbWQd+vjarlWYM8UKke76pQB/DGCTGfOx/G6sZvrV4Gv6oWQB9oUsKbkQho0VKOP64IqJr69kvABmrJOYXrBfEYmV0ouPfRy1NBdGHZGBCYF2er5NI3+D2w2jVuUBdZHjM1hNP0kf1yE6HYgmY4oUf9gJsbcEWNnzlPMhcqw0bRfpAG5Dz5MX0FRYAxA0FRglOZDcbtRNaWbiOBhVkS9HGDqUu78QkmRsTCoA2hdxChlEc8agLovSAzWE9fN/LMM7odNHQFeJiOmZCtEmDv1Ih78nmGwPb3RgqwLmn2ryWmTUPci9agl6K0HBRyxyCHmaysVVc7RUn+Dn0uAhNAZzjc1dBU/65ER3FX45J+DRAJ2rrL2pOPyoy9PHQq2bAZUcpl8TdKdz3I0c5GHhlYgpwiFBxPhAO1NdNqQVBtlITUJWma/9C68Jg7MOQ8wORdc9UT5Bb95K0B7/V6cJVO2KEVUrxoTSHLgtNZquUDqoW6ut3U7ezjKFaypQzGmkViHmchsbyLgPrhJ6ZpAW4lHz
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AS1PR04MB9287.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(19092799006)(376014)(1800799024)(366016)(22082099003)(18002099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RmxTbWl5VWZLUDA0NmVNaXBSeGZ2K25PcXE5VEtjYkhwcVVPOEQ0dFU4Ynk1?=
+ =?utf-8?B?S0c0Ti94MWFFUE1IMWZmRVp6YjIyamI3Zm1ZM3ptZm8wM1dpUXltOUtyQjFv?=
+ =?utf-8?B?ODJHekV0eTFyMTJaZE8veld3MUR0b3dJVmRyVkZOaEFPOHg3UThlaWpydHk5?=
+ =?utf-8?B?SEtlMWJkcU5vS3hXRGJ5c0ZZbmdGTlJBZjhGZXRrVGJkVVNSVTlPcExrV2hY?=
+ =?utf-8?B?NDBzTlJjc3RRU2FvZWxJZTdTTnhtSXRtUlZ0L1lYN1pxUk5jUElNZDJlK0dR?=
+ =?utf-8?B?OE9FM0Erc2RxQ2wyN01QOTFjS0JFMFVqQXVsMkRCTXpFYXJtMk1kUHdlNXlT?=
+ =?utf-8?B?R1QrM09Hd3JUOTZ4NjViYXNlYldNL29XT3QzU0x2azdBZzRBdWh6K3hZREcr?=
+ =?utf-8?B?SmlMcDd5K0FKWEExWTUweFVlaEhYckxuL3VPUGs4N1FPOXliSlgvWXJ1OWNM?=
+ =?utf-8?B?bGFWMS82Qm1sSVJ3dWpYbnVycTdjYTBJbkJlTlR6ZHFLT2RIc1JZNWZlVjdT?=
+ =?utf-8?B?dkkrdFVuWjdNYzhiVWZybHQyVEY2bHdaZVU2NExOT0F5M2ZuRU5VS09iMHBW?=
+ =?utf-8?B?NTQwbG5pV2RPUTJtVGRrTDc1d0o1NzNKQVN1MjhCYjVtRndWUWZIbG5FaUxI?=
+ =?utf-8?B?YVBtT3lXUVhQSTVMU2x5NDMzdjFvT0N6c3JpaVFqc3YwRzVzdTNiVnhkNWlB?=
+ =?utf-8?B?Tno4UUVKa2R3RE5NZWlOZEFlRDloRVY5VWhLeFRUbXU3Z3VyM0FMYUd1cHBw?=
+ =?utf-8?B?TjJvNGtDUmxLMHNSS2dEK21DRmlKalRhWVVNUURPRnJGdFMwWGxoNjIvSERG?=
+ =?utf-8?B?QTZESWU0MktoT0I1Q2VGckdSZHNrTEVYVFN6MUJQS3NpU3BxUzlBZSttVE1W?=
+ =?utf-8?B?eEYrTG1EZjViV2JkdFNvandJVzlnS0lIUllyZXdIVWxhM2VIdzQ2U3VGZUJJ?=
+ =?utf-8?B?aVpza1ZyV3ljeER0eDRmd1ZmRm5rQW1TbUtoZE5xcnFWajdXS0s0ZzN4N1lY?=
+ =?utf-8?B?ZTNxck5zREoyTXV5RHVJT1lLemcrN3RjcXkzVWxvV1JSYUVIMFhrRnF5WHU3?=
+ =?utf-8?B?QVg5cDVPV1RVRmJpYzA3NXJldTJJM2NyWEpxY3UycHVnMngzZHVPd2pKQTBq?=
+ =?utf-8?B?anJhTTZEaXVzMTB2OFNaQWwrWE1UZm5yRkZXSG9QWWhlZmc2NWhVYTcwY1pO?=
+ =?utf-8?B?M0EwT2tkOXBkMXR4eXp0NXhrRzVYenlDekphUXIxRy9kVGZxakFsVG8wcHY3?=
+ =?utf-8?B?Qk95N3ZQTUZERUNKeUdBRXRhbGtMU0tneEFxcGdJa3hxODBybldZWmE4bUNC?=
+ =?utf-8?B?ODhmUE9rM0YwVWtmd0lYNlZYbmNQWlUwM3Fyb0tadkVHd1JiVTd0UHFNYnF2?=
+ =?utf-8?B?UTVqVS8zaS9FcXlYZ1RzYnN2c2xPcmVBMmMxK0gwNWtSWHd1eFloNzdFRTF4?=
+ =?utf-8?B?Ry9STjZtZnNnMkIvdTFJRkQ4ekdWQUx2cldsYzFETG9hZm5FY0FGMzV0YURG?=
+ =?utf-8?B?d0x1ZUJtZi9KTlg2T3k1YmpQdFNIVDRuNVJOa2V3T3BNT0NPNVpQSlo5Z2Qr?=
+ =?utf-8?B?WkZ1OXFhTkJYb1gzODRpd1lrTWdKKytaTmoydGxwYldzL0N6eGcvNjJBdE85?=
+ =?utf-8?B?N2Vydm05VlZkYzFmeEVIS3J6MUdMMExvSkk4dUh2ZktYVW82Z0hETWVGRklT?=
+ =?utf-8?B?VkZTb0J1cmp5d3lXSmtubjRqWFJJMTJad1B5Q21OcGxQcVYyL1JOSG9iZ0p4?=
+ =?utf-8?B?clI0aEZDV1V0QXliZ0poT1pDSGEvVXB6RWgxWWtyQWRFRERUSVB4emNaTVo0?=
+ =?utf-8?B?ckpiNFMweWRkVkNoZEl5N2VYZlJFS0VuVUtSQlI0UzBJSlhXcFVyVzdkRTNl?=
+ =?utf-8?B?Z01vL3ZmeDhHcTFtaytyZnV3SDVGWGhXNDFBTHJSUWhhVHFIWTZ5RVZERnlG?=
+ =?utf-8?B?UWI1NHdPTlZxeWhmYTRtNDZzV0JMWmJOSkpPZG1hL24vMElyV09rMVJ4UTh4?=
+ =?utf-8?B?SlkyQ3JUeWN6dDF2d3FZcXlpd0F4N3FweXRlN2l5SlhaUklSS3BCUEdmclVl?=
+ =?utf-8?B?d2dVVVJjTG1mSVUzMENIZ3BmVjk2cEttMUxkcHUyY3lRM3JXeGhKS3RXTVBL?=
+ =?utf-8?B?NEs1Vklmc3FlNDNaaStyNFBWQlN0Q2xnalUvOE0vUmZtT2lJZjF2Z1JuNVpT?=
+ =?utf-8?B?OUhHais0RzV6V3NFTjBBc0l2UzZLOW9RV1N5ZE16ZHBianUyRndqUmExN3FB?=
+ =?utf-8?B?dzJjclowNXFCMTl1OW5DN0l3SkRvMGQ5REZqSE9ERTJEQzRQMDRCOU51NW4y?=
+ =?utf-8?B?MWlldjE4QVJSSGlzOHBZclI5RDNUa3Ira0xBdVdRMVFEbmRMU2c3UT09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d15581d-008c-4475-eea0-08dec07ee7b5
+X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 08:14:02.2729 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Y8VwhJM8WrvJNf2f9KnZipUMIvt4oNCGmEGjf2EUpTxUELA7X9EvWcgzg0jLJfxsFfIPKwCDUjKUFkIJ0S4aQA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9006
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,34 +136,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 01, 2026 at 06:18:28PM +0300, Svyatoslav Ryhel wrote:
-> Simplify the sysfs logic of the linear property by switching to a macro
-> and a ternary operator.
+On Mon, 06 Apr 2026 19:00:13 +0100, Yicong Hui wrote:
+> Fix the following W=1 kerneldoc warnings by adding the missing parameter
+> descriptions for @phase0_identity and @nn_interpolation in
+> dcss_scaler_filter_design() and @phase0_identity in
+> dcss_scaler_gaussian_filter()
+> 
+> Warning: drivers/gpu/drm/imx/dcss/dcss-scaler.c:173 function parameter 'phase0_identity' not described in 'dcss_scaler_gaussian_filter'
+> Warning: drivers/gpu/drm/imx/dcss/dcss-scaler.c:270 function parameter 'phase0_identity' not described in 'dcss_scaler_filter_design'
+> Warning: drivers/gpu/drm/imx/dcss/dcss-scaler.c:270 function parameter 'nn_interpolation' not described in 'dcss_scaler_filter_design'
+> 
+> [...]
 
-...
+Applied to misc/kernel.git (drm-misc-fixes), thanks!
 
->  	if (kstrtoul(buf, 0, &linear))
->  		return -EINVAL;
-
-Besides _assign_bits() in the below, side note here to unshadow error codes:
-
-	ret = kstrtoul(buf, 0, &linear);
-	if (ret)
-		return ret;
-
-(obviously in a separate change).
-
-...
-
->  	ret = regmap_update_bits(bl->lm3533->regmap, LM3533_REG_CTRLBANK_AB_BCONF,
-> -				 mask, val);
-> +				 CTRLBANK_AB_BCONF_MODE(id),
-> +				 linear ? CTRLBANK_AB_BCONF_MODE(id) : 0);
->  	if (ret)
->  		return ret;
+[1/1] drm/imx: Fix three kernel-doc warnings in dcss-scaler.c
+      commit: ae0383e5a9a4b12d68c76c4769857def4665deff
 
 -- 
-With Best Regards,
-Andy Shevchenko
+Regards,
+Liu Ying
 
 
