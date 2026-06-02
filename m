@@ -4,70 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72EC9CD6E57
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 22:48:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12A92CD5BD1
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 22:48:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE67310F652;
-	Tue,  2 Jun 2026 22:48:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 666A310F66C;
+	Tue,  2 Jun 2026 22:48:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l6xwOF2U";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bqAahDVx";
 	dkim-atps=neutral
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F311B10F653
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 22:48:40 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-45ef616daf6so4553208f8f.3
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 15:48:40 -0700 (PDT)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98D9B10F65B
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 22:48:43 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-45ebafde87cso8109550f8f.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 15:48:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780440519; x=1781045319; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1780440522; x=1781045322; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=1/UoMyrbDRBJtnX/0jQKUAOsd+dEJyLvzD20lPdR4ww=;
- b=l6xwOF2UCG4ADrNxHvUIYa/QZz1mF5yLwB9hdyB+lsczjADqdoLPSYaQzMaD47rwXF
- QKmwiiKeLgjqv/YahhTkJz+QYMknC1U9+W8+7cucA20JsqoSr+DYJh/IoJ4zXybfkel6
- FA5HCDxtKZiKwYiegIr9rQo+UgVwfjvx8wgWSMVKyogOXBCUlPw8Z0Zx95XcGj5lWgIZ
- MBtxbZ6xCPNMQIvYnMRbzK+JNpirIexjf6cmP2ztYUN5iqsw4Kp0o77ZK1mc1Mc/lOHw
- 3S/OG9IunMuL37Rxvxr2juPxkylTm1q1XEWbjqc/P2OxMXbXSyUgr5WDhHD2iHmqYVkO
- F8mA==
+ :reply-to; bh=ouT17iaKBzrIR7K8VitMxlklOudvhENGiC0/9mkENrM=;
+ b=bqAahDVxY3p6S21aewq/yCSVnEttLdV5ozZjGoSYKoOzCYLjTyNkCQCnhaQbCNhYgH
+ TGBua9rvi2ZPa9SY7h9/Q9+TN6UFuVBt3NjkuxeoMaXzlFOo1zQdTwy77ctAbcgeeauw
+ EXJlnoi6JI3Oxc/nYS4+TQDDBKYtP0mHusVjK+akfUTLBbHRfCbF7dWBgQjNy0OiIcps
+ pwLx+zl+oEryeOzly4TyEVqo5IKZgAZ1OGBnYt+MWqZVWOaTrptyKp1/gUBGy9gZhRpu
+ gb2AR9JyB/gHQuZLGYz03qWQFN6loLXahPJtp9BHKv9rEIBmDDEFaixOP3WM2ht+BSOy
+ Rtbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780440519; x=1781045319;
+ d=1e100.net; s=20251104; t=1780440522; x=1781045322;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=1/UoMyrbDRBJtnX/0jQKUAOsd+dEJyLvzD20lPdR4ww=;
- b=qTTe8per9HsLBv+oU7xLL3ixfAoQg1KKVY2hQNiwZGm6QXy/nqP+eup0eHgjviqlKG
- MwEHSv25vakgxpcyebeVHT3VLwiBnvhFNRBtYwJARY/iW9guTUPhGhOBV4CS4Jwe8xz6
- dfAwEDldS05Tr5I6zC0bZguJ29aSeBO+V43AJm0xidWs/mpjtk3OFogKzxqdaIbjDMFQ
- Ghql97sNs+CGfuMM7uo8RIBLuIm5OWYkQvFH3rZ7GowaMOXj5NKo04LchmyQgLr6hlpA
- cq4Ftp71ZgZ/v0jpfMc3IA+LX5YlkxSKhMvUCzRWOhDaQxmuabdZH98YpCTuc4aDb4DF
- lWpA==
+ bh=ouT17iaKBzrIR7K8VitMxlklOudvhENGiC0/9mkENrM=;
+ b=h1YMvTY2LLPBY4D4V/7SLAYSrloK0h2Jh9IYGNXr17Ia8ukPZbGcmXwaLhXBHr+y6e
+ RAASynEu/ao5pT9ar0XtoPfZuDBitaPATtKLvdw0hdhSptDgS7ChPDawO28DMGRT1Gsb
+ qQpBmk64w0OapLTmnzj5rWoWOFja2XyvOKZCWVMTeiGoDVM5tqMv8+ipN/aEHbrqGxXV
+ l0Xbp6xb8XanYZkr6wyqlWmVhQs/O8uHCbQcNjDHQUToAoeUyUlqo5ocGEjFcUYfX+rQ
+ H7aeP4IvBOevtdX2KG7zsX2wcgbUDzWOx6HUF3rGe6saopkbqUdtoJk/ebv7/tqUmOZQ
+ joNQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8tM6RaarKjwgYxLy75JVSbNktRb3BILHFZDXg6e0jkjEwZZ85ZPe7CIUmIlJtsh+q8XRJISH5umG4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyD3s7m6nQaaRGTeyYuPtIxlcr4n7xukJhnvyDnN6uzU4P0OuEE
- lr6SBKatptqixdDuJX1hsGkLzDjN7LsuyurViLMPfyK1qNQRrGozaBbm
-X-Gm-Gg: Acq92OE5Q6JRd2l4jEZZNcTPKcmYDegAOl50KCHJbbLJIluubRoQ5idsVgVz6VyDBEx
- BRDyqNuDT3hmnaIrVbdE6BZFW6fOTkaGwO91BqDYDUm3FN5RFRnsszUOnqKK2ex/P2NilJCceIr
- ABf2dJMTCMxlqN905uxkJTfqPguRm+IPjRXw2Mr4ZSrc4v/pUYzYbOkOZ5wvYbwa6mcdgmL3Xu4
- Zp7B40MWxx9OykoB8yPzaaxniL3uiCNHIRq142FCwgxfeqbMO1nB5AEgx+wG3fxBPve/TaGE3/m
- Osi9A2LgOHmmK8INPuKxmLMWieF5wrBM5e+jS32QYCADT/KBsZ0BYN18bDMTKjebU9yYdlH+WRW
- 28S4CAn6pBAY+YPpb+lek0AA8k9om9pcnpci3fv3NMQMU6MtzCSUmb5jLxPpOcV5vlzOh5RnLKZ
- QVU+9RNy3j0uA+q0he2ELn6oy9eeXqHo4QRTcnQwfdMA==
-X-Received: by 2002:a05:600c:458b:b0:490:b409:94f4 with SMTP id
- 5b1f17b1804b1-490b5fdcda1mr13028365e9.28.1780440519473; 
- Tue, 02 Jun 2026 15:48:39 -0700 (PDT)
+ AFNElJ/p/LuXNOOiaklc2FoibC+lg9qHrrHw4LMrgIxNX63W2h7ZWB3NI/LcV2L3BV6ae/al7zAmvIk1IpI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxZKDeP2xroaEVAFYJh1xirKhXWP0mi+HpOhoIwiBmMz/Py1hOg
+ YSuZiWxyJF0HmWzfo3HwZjqv09nTlB5yJXyh90f4cimvh94mkCG4brt+
+X-Gm-Gg: Acq92OHopab8gwWCnsiL1Sjmgyp6s39/lnD6YpsXMWlew2PPlhX8qE4mCdXXSGNP8sl
+ c0Ywv352uKVJFry9oR6pJVmscQBkVlA9mg/dNcZM3fhd1KvDlfZrQUkDT3y+LZdNTNLyzkOLjn/
+ cEywM3ngwzgYXM08fznfbOjMAamLaZrjSH9koL5gpO6/bVpK6DFYBS7z46StKWr3QBcr/6RpenQ
+ axR2M1Mzl4vnOP4tg7IdKiXNPJmJDT74kqfmP8GsuxetHhUlufBseujLZkOTja00dMaK/UBVz4s
+ 1p7XRhx1++r1Gknt/0cZRAm0ntXc4DVsvfTqwy2DEGTGNu/9zquIqalvtsoxAcSaETmKJJIzW0/
+ uf0m3yKYfmCsbiBCKpq2mr+y1Rm+NM25TWk31URKiGnVRyaUHzW9AMn5MlIXHXzuamZoMph85ax
+ ij86agvFPvFc04Dz1vjEDH1QVcwLPoWdnBbZDtod4lZw==
+X-Received: by 2002:a05:6000:2401:b0:43b:5097:6f62 with SMTP id
+ ffacd0b85a97d-46021760f85mr726977f8f.36.1780440522072; 
+ Tue, 02 Jun 2026 15:48:42 -0700 (PDT)
 Received: from [172.16.188.153] ([213.181.114.83])
  by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-4601f2f2710sm1999791f8f.14.2026.06.02.15.48.37
+ ffacd0b85a97d-4601f2f2710sm1999791f8f.14.2026.06.02.15.48.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jun 2026 15:48:39 -0700 (PDT)
+ Tue, 02 Jun 2026 15:48:41 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
-Date: Tue, 02 Jun 2026 22:48:07 +0000
-Subject: [PATCH v4 10/25] dyndbg: reword "class unknown," to "class:_UNKNOWN_"
+Date: Tue, 02 Jun 2026 22:48:08 +0000
+Subject: [PATCH v4 11/25] dyndbg-API: remove
+ DD_CLASS_TYPE_(DISJOINT|LEVEL)_NAMES and code
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-dd-maint-2-v4-10-19a1445585a8@gmail.com>
+Message-Id: <20260602-dd-maint-2-v4-11-19a1445585a8@gmail.com>
 References: <20260602-dd-maint-2-v4-0-19a1445585a8@gmail.com>
 In-Reply-To: <20260602-dd-maint-2-v4-0-19a1445585a8@gmail.com>
 To: Jonathan Corbet <corbet@lwn.net>, 
@@ -85,11 +86,11 @@ Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
  Jim Cromie <jim.cromie@gmail.com>, 
  Louis Chauvet <louis.chauvet@bootlin.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780440488; l=1309;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780440488; l=9437;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=Ah9OubhC/0J+O5fnf6mytQN8u50S2Bl4xoeKfk7IEd0=;
- b=mY6va1q+pplf3oiRh9kAqV2/4rkm8Jt+FXjkD2G7wa/YV3UYCu8KlP74E8zHuHM0fBwUW7QfI
- 85+dFL9KEusADx7bjdzgWA9Z4a2ALDbaZGX4b6jMBC5KuU25CaW5OCx
+ bh=3/WKOcRSB+nt/VjxfVuHRY5i0B3sWWTVXpV+X5m2Kcw=;
+ b=0Oro+fvs96gHBULnbgqI8LvicLUd9KRubfWOKkcC+3im25aR56j8yFM54WrNioaUJX2NhahT3
+ g92pijhfZ9+BxZYVa1GA+7gp/D5ui60gQw3JyQREtZAWwxIMkqut0il
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -107,41 +108,288 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When a dyndbg classname is unknown to a kernel module, the callsite is
-un-addressable via >control queries.
+Remove the DD_CLASS_TYPE_*_NAMES classmap types and code.
 
-The control-file displays this condition as "class unknown,"
-currently.  That spelling is sub-optimal/too-generic, so change it to
-"class:_UNKNOWN_" to loudly announce the erroneous situation, and to
-make it uniquely greppable.
+These 2 classmap types accept class names at the PARAM interface, for
+example:
 
-NB: while this might be seen as a user-visible change, this shouldn't
-disqualify the change:
+  echo +DRM_UT_CORE,-DRM_UT_KMS > /sys/module/drm/parameters/debug_names
 
-a- it reports classmap coding error condition, which should be
-   detected before review.
-b- SHOUTING the error makes it uniquely greppable.
-c- the classmap feature is marked BROKEN for its only current user.
+The code works, but its only used by test-dynamic-debug, and wasn't
+asked for by anyone else, so reduce LOC & test-surface; simplify things.
+
+Also rename enum class_map_type to enum ddebug_class_map_type.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- lib/dynamic_debug.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v3:
 
+fix name of enum in kdoc
+also change name of struct (to future name)
+
+v2:
+
+move RvB after SoB
+
+respect const instr in param_set_dyndbg_module_classes, return -EINVAL on classtype err.
+---
+ include/linux/dynamic_debug.h | 27 ++++--------
+ lib/dynamic_debug.c           | 99 +++----------------------------------------
+ lib/test_dynamic_debug.c      | 26 ------------
+ 3 files changed, 14 insertions(+), 138 deletions(-)
+
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index a10adac8e8f0..78c22c6d2312 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -59,27 +59,16 @@ struct _ddebug {
+ #endif
+ } __attribute__((aligned(8)));
+ 
+-enum class_map_type {
++enum ddebug_class_map_type {
+ 	DD_CLASS_TYPE_DISJOINT_BITS,
+ 	/**
+-	 * DD_CLASS_TYPE_DISJOINT_BITS: classes are independent, one per bit.
+-	 * expecting hex input. Built for drm.debug, basis for other types.
++	 * DD_CLASS_TYPE_DISJOINT_BITS: classes are independent, mapped to bits[0..N].
++	 * Expects hex input. Built for drm.debug, basis for other types.
+ 	 */
+ 	DD_CLASS_TYPE_LEVEL_NUM,
+ 	/**
+-	 * DD_CLASS_TYPE_LEVEL_NUM: input is numeric level, 0-N.
+-	 * N turns on just bits N-1 .. 0, so N=0 turns all bits off.
+-	 */
+-	DD_CLASS_TYPE_DISJOINT_NAMES,
+-	/**
+-	 * DD_CLASS_TYPE_DISJOINT_NAMES: input is a CSV of [+-]CLASS_NAMES,
+-	 * classes are independent, like _DISJOINT_BITS.
+-	 */
+-	DD_CLASS_TYPE_LEVEL_NAMES,
+-	/**
+-	 * DD_CLASS_TYPE_LEVEL_NAMES: input is a CSV of [+-]CLASS_NAMES,
+-	 * intended for names like: INFO,DEBUG,TRACE, with a module prefix
+-	 * avoid EMERG,ALERT,CRIT,ERR,WARNING: they're not debug
++	 * DD_CLASS_TYPE_LEVEL_NUM: input is numeric level, 0..N.
++	 * Input N turns on bits 0..N-1
+ 	 */
+ };
+ 
+@@ -90,7 +79,7 @@ struct ddebug_class_map {
+ 	const char **class_names;
+ 	const int length;
+ 	const int base;		/* index of 1st .class_id, allows split/shared space */
+-	enum class_map_type map_type;
++	enum ddebug_class_map_type map_type;
+ };
+ 
+ /* encapsulate linker provided built-in (or module) dyndbg data */
+@@ -119,8 +108,8 @@ struct ddebug_class_param {
+ 
+ /**
+  * DECLARE_DYNDBG_CLASSMAP - declare classnames known by a module
+- * @_var:   a struct ddebug_class_map, passed to module_param_cb
+- * @_type:  enum class_map_type, chooses bits/verbose, numeric/symbolic
++ * @_var:   a struct _ddebug_class_map, passed to module_param_cb
++ * @_maptype: enum ddebug_class_map_type, chooses bits/verbose
+  * @_base:  offset of 1st class-name. splits .class_id space
+  * @classes: class-names used to control class'd prdbgs
+  */
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 6b1e983cfedc..a9caf84ddb22 100644
+index a9caf84ddb22..0377d9f8dcd1 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -1166,7 +1166,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
- 		if (class)
- 			seq_printf(m, " class:%s", class);
- 		else
--			seq_printf(m, " class unknown, _id:%d", dp->class_id);
-+			seq_printf(m, " class:_UNKNOWN_ _id:%d", dp->class_id);
- 	}
- 	seq_putc(m, '\n');
+@@ -646,76 +646,6 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
  
+ #define CLASSMAP_BITMASK(width) ((1UL << (width)) - 1)
+ 
+-/* accept comma-separated-list of [+-] classnames */
+-static int param_set_dyndbg_classnames(const char *instr, const struct kernel_param *kp)
+-{
+-	const struct ddebug_class_param *dcp = kp->arg;
+-	const struct ddebug_class_map *map = dcp->map;
+-	unsigned long curr_bits, old_bits;
+-	char *cl_str, *p, *tmp;
+-	int cls_id, totct = 0;
+-	bool wanted;
+-
+-	cl_str = tmp = kstrdup_and_replace(instr, '\n', '\0', GFP_KERNEL);
+-	if (!tmp)
+-		return -ENOMEM;
+-
+-	/* start with previously set state-bits, then modify */
+-	curr_bits = old_bits = *dcp->bits;
+-	vpr_info("\"%s\" > %s:0x%lx\n", cl_str, KP_NAME(kp), curr_bits);
+-
+-	for (; cl_str; cl_str = p) {
+-		p = strchr(cl_str, ',');
+-		if (p)
+-			*p++ = '\0';
+-
+-		if (*cl_str == '-') {
+-			wanted = false;
+-			cl_str++;
+-		} else {
+-			wanted = true;
+-			if (*cl_str == '+')
+-				cl_str++;
+-		}
+-		cls_id = match_string(map->class_names, map->length, cl_str);
+-		if (cls_id < 0) {
+-			pr_err("%s unknown to %s\n", cl_str, KP_NAME(kp));
+-			continue;
+-		}
+-
+-		/* have one or more valid class_ids of one *_NAMES type */
+-		switch (map->map_type) {
+-		case DD_CLASS_TYPE_DISJOINT_NAMES:
+-			/* the +/- pertains to a single bit */
+-			if (test_bit(cls_id, &curr_bits) == wanted) {
+-				v3pr_info("no change on %s\n", cl_str);
+-				continue;
+-			}
+-			curr_bits ^= BIT(cls_id);
+-			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, dcp->bits);
+-			*dcp->bits = curr_bits;
+-			v2pr_info("%s: changed bit %d:%s\n", KP_NAME(kp), cls_id,
+-				  map->class_names[cls_id]);
+-			break;
+-		case DD_CLASS_TYPE_LEVEL_NAMES:
+-			/* cls_id = N in 0..max. wanted +/- determines N or N-1 */
+-			old_bits = CLASSMAP_BITMASK(*dcp->lvl);
+-			curr_bits = CLASSMAP_BITMASK(cls_id + (wanted ? 1 : 0 ));
+-
+-			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, &old_bits);
+-			*dcp->lvl = (cls_id + (wanted ? 1 : 0));
+-			v2pr_info("%s: changed bit-%d: \"%s\" %lx->%lx\n", KP_NAME(kp), cls_id,
+-				  map->class_names[cls_id], old_bits, curr_bits);
+-			break;
+-		default:
+-			pr_err("illegal map-type value %d\n", map->map_type);
+-		}
+-	}
+-	kfree(tmp);
+-	vpr_info("total matches: %d\n", totct);
+-	return 0;
+-}
+-
+ /**
+  * param_set_dyndbg_classes - class FOO >control
+  * @instr: string echo>d to sysfs, input depends on map_type
+@@ -734,28 +664,14 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
+ 	unsigned long inrep, new_bits, old_bits;
+ 	int rc, totct = 0;
+ 
+-	switch (map->map_type) {
+-
+-	case DD_CLASS_TYPE_DISJOINT_NAMES:
+-	case DD_CLASS_TYPE_LEVEL_NAMES:
+-		/* handle [+-]classnames list separately, we are done here */
+-		return param_set_dyndbg_classnames(instr, kp);
+-
+-	case DD_CLASS_TYPE_DISJOINT_BITS:
+-	case DD_CLASS_TYPE_LEVEL_NUM:
+-		/* numeric input, accept and fall-thru */
+-		rc = kstrtoul(instr, 0, &inrep);
+-		if (rc) {
+-			pr_err("expecting numeric input: %s > %s\n", instr, KP_NAME(kp));
+-			return -EINVAL;
+-		}
+-		break;
+-	default:
+-		pr_err("%s: bad map type: %d\n", KP_NAME(kp), map->map_type);
++	rc = kstrtoul(instr, 0, &inrep);
++	if (rc) {
++		int len = strcspn(instr, "\n");
++		pr_err("expecting numeric input, not: %.*s > %s\n",
++		       len, instr, KP_NAME(kp));
+ 		return -EINVAL;
+ 	}
+ 
+-	/* only _BITS,_NUM (numeric) map-types get here */
+ 	switch (map->map_type) {
+ 	case DD_CLASS_TYPE_DISJOINT_BITS:
+ 		/* expect bits. mask and warn if too many */
+@@ -783,6 +699,7 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
+ 		break;
+ 	default:
+ 		pr_warn("%s: bad map type: %d\n", KP_NAME(kp), map->map_type);
++		return -EINVAL;
+ 	}
+ 	vpr_info("%s: total matches: %d\n", KP_NAME(kp), totct);
+ 	return 0;
+@@ -804,12 +721,8 @@ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
+ 	const struct ddebug_class_map *map = dcp->map;
+ 
+ 	switch (map->map_type) {
+-
+-	case DD_CLASS_TYPE_DISJOINT_NAMES:
+ 	case DD_CLASS_TYPE_DISJOINT_BITS:
+ 		return scnprintf(buffer, PAGE_SIZE, "0x%lx\n", *dcp->bits);
+-
+-	case DD_CLASS_TYPE_LEVEL_NAMES:
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+ 		return scnprintf(buffer, PAGE_SIZE, "%d\n", *dcp->lvl);
+ 	default:
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index 77c2a669b6af..74d183ebf3e0 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -74,13 +74,6 @@ DECLARE_DYNDBG_CLASSMAP(map_disjoint_bits, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+ DD_SYS_WRAP(disjoint_bits, p);
+ DD_SYS_WRAP(disjoint_bits, T);
+ 
+-/* symbolic input, independent bits */
+-enum cat_disjoint_names { LOW = 11, MID, HI };
+-DECLARE_DYNDBG_CLASSMAP(map_disjoint_names, DD_CLASS_TYPE_DISJOINT_NAMES, 10,
+-			"LOW", "MID", "HI");
+-DD_SYS_WRAP(disjoint_names, p);
+-DD_SYS_WRAP(disjoint_names, T);
+-
+ /* numeric verbosity, V2 > V1 related */
+ enum cat_level_num { V0 = 14, V1, V2, V3, V4, V5, V6, V7 };
+ DECLARE_DYNDBG_CLASSMAP(map_level_num, DD_CLASS_TYPE_LEVEL_NUM, 14,
+@@ -88,13 +81,6 @@ DECLARE_DYNDBG_CLASSMAP(map_level_num, DD_CLASS_TYPE_LEVEL_NUM, 14,
+ DD_SYS_WRAP(level_num, p);
+ DD_SYS_WRAP(level_num, T);
+ 
+-/* symbolic verbosity */
+-enum cat_level_names { L0 = 22, L1, L2, L3, L4, L5, L6, L7 };
+-DECLARE_DYNDBG_CLASSMAP(map_level_names, DD_CLASS_TYPE_LEVEL_NAMES, 22,
+-			"L0", "L1", "L2", "L3", "L4", "L5", "L6", "L7");
+-DD_SYS_WRAP(level_names, p);
+-DD_SYS_WRAP(level_names, T);
+-
+ /* stand-in for all pr_debug etc */
+ #define prdbg(SYM) __pr_debug_cls(SYM, #SYM " msg\n")
+ 
+@@ -102,10 +88,6 @@ static void do_cats(void)
+ {
+ 	pr_debug("doing categories\n");
+ 
+-	prdbg(LOW);
+-	prdbg(MID);
+-	prdbg(HI);
+-
+ 	prdbg(D2_CORE);
+ 	prdbg(D2_DRIVER);
+ 	prdbg(D2_KMS);
+@@ -129,14 +111,6 @@ static void do_levels(void)
+ 	prdbg(V5);
+ 	prdbg(V6);
+ 	prdbg(V7);
+-
+-	prdbg(L1);
+-	prdbg(L2);
+-	prdbg(L3);
+-	prdbg(L4);
+-	prdbg(L5);
+-	prdbg(L6);
+-	prdbg(L7);
+ }
+ 
+ static void do_prints(void)
 
 -- 
 2.54.0
