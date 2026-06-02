@@ -4,81 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5013BC5DF71
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 07:37:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63CFDC5DF71
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 07:39:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A55FA1138B9;
-	Tue,  2 Jun 2026 07:37:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CABB810E2EA;
+	Tue,  2 Jun 2026 07:39:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="vDnss257";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YlKmkl0j";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="z7LJjk0t";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="JwYeIahK";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Q+ZGRitg";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="waDiJuCJ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Q+ZGRitg";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="waDiJuCJ";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA2001138B9
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 07:37:01 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2FE410E2EA
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 07:39:42 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3E3AE689EB;
- Tue,  2 Jun 2026 07:36:56 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 931306B65F;
+ Tue,  2 Jun 2026 07:39:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780385820; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1780385981; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oXH2VEeSWegaPQ9EwPbCvtn5P2SHXUPuWaR5/VPpEgg=;
- b=vDnss257AXQ76OA0GXnvUDxKtlNT3U19qdwDULtKVpX/40KjqpbfWRY+afOxGIBxkazcaF
- ZmWlYoHWLFMT+lO+EspAwHJabnt3z/TPWStJOencInu6mx0diINp0IYR+urn1ey0SEAMfK
- scVlg9P8aR9pbeVVHFB/VjxawMzNAsE=
+ bh=uoi0+QaSPMlRYVhuRNBgOz1n8uu3JJhgEETI9YR0K7w=;
+ b=Q+ZGRitgDnFH/DtD2QFP5NQ69d33rOVQ2VMoMhUsl+cUIB4W/PrgDAGX48jb2R4sctr8Yx
+ T0+SIlRLs3pMNcAlgX+e8fJ/l5t+bzPtKHsHxIiHqgpBWrSvxd+y75hNCx9M5xLTZS6hqx
+ paiJp4aSpi7e9+T32nXG97ptr2a8h2o=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780385820;
+ s=susede2_ed25519; t=1780385981;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oXH2VEeSWegaPQ9EwPbCvtn5P2SHXUPuWaR5/VPpEgg=;
- b=YlKmkl0jaW1h4TN2zCG2yGuyEVJNKim3amxsnV1qnkmsElVaFjqYRx34pZT7jIxcslYltA
- vLuEeIJRfIzGeqDw==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=z7LJjk0t;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=JwYeIahK
+ bh=uoi0+QaSPMlRYVhuRNBgOz1n8uu3JJhgEETI9YR0K7w=;
+ b=waDiJuCJMy4t1UsIFap6bSquPKUESAwdOltvZoY7ut9ZFw+w0EClY+EN9eDwG2MRyK9Foi
+ j2iq/C+YH4cHzLDA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Q+ZGRitg;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=waDiJuCJ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780385816; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1780385981; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oXH2VEeSWegaPQ9EwPbCvtn5P2SHXUPuWaR5/VPpEgg=;
- b=z7LJjk0tiGrbdl5eqwJA9XFBYRPwmf4OwFTWBobQ3Vc99hNkrYvKYbmfRF5DksqQJjkXsQ
- 3dFTLamI7wVSh/0Efs7xVBMoNsaPGp5mO+svYOwOB34AeWEE+fdaxgNiDhw+jEXyTi+8hO
- qp2utUQOWGU+/V1+GL4BR0rzD85qtW4=
+ bh=uoi0+QaSPMlRYVhuRNBgOz1n8uu3JJhgEETI9YR0K7w=;
+ b=Q+ZGRitgDnFH/DtD2QFP5NQ69d33rOVQ2VMoMhUsl+cUIB4W/PrgDAGX48jb2R4sctr8Yx
+ T0+SIlRLs3pMNcAlgX+e8fJ/l5t+bzPtKHsHxIiHqgpBWrSvxd+y75hNCx9M5xLTZS6hqx
+ paiJp4aSpi7e9+T32nXG97ptr2a8h2o=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780385816;
+ s=susede2_ed25519; t=1780385981;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oXH2VEeSWegaPQ9EwPbCvtn5P2SHXUPuWaR5/VPpEgg=;
- b=JwYeIahKOWxppff0nU/pmaIXEA7CnPGj22BWKqNPMgXaRKeEjKLBNSnMP1MoZDu+5BQqvq
- gA0K1uHn2nnegIDw==
+ bh=uoi0+QaSPMlRYVhuRNBgOz1n8uu3JJhgEETI9YR0K7w=;
+ b=waDiJuCJMy4t1UsIFap6bSquPKUESAwdOltvZoY7ut9ZFw+w0EClY+EN9eDwG2MRyK9Foi
+ j2iq/C+YH4cHzLDA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D876A779A7;
- Tue,  2 Jun 2026 07:36:55 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 304A1779A7;
+ Tue,  2 Jun 2026 07:39:41 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id S4OSMxeIHmpzXgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 02 Jun 2026 07:36:55 +0000
-Message-ID: <50492eed-94f1-43fd-83e7-ccb9362346be@suse.de>
-Date: Tue, 2 Jun 2026 09:36:55 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Yy+cCb2IHmrUYAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 02 Jun 2026 07:39:41 +0000
+Message-ID: <0943af55-cef6-494c-920d-ebec33e2e30a@suse.de>
+Date: Tue, 2 Jun 2026 09:39:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 72/76] drm/atomic-state-helper: Remove
- drm_atomic_helper_bridge_reset()
+Subject: Re: [PATCH 74/76] drm/bridge: cdns-dsi: Switch to atomic_create_state
 To: Maxime Ripard <mripard@kernel.org>,
  Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -89,7 +88,7 @@ To: Maxime Ripard <mripard@kernel.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org
 References: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
- <20260530-drm-no-more-bridge-reset-v1-72-875d828d31bc@kernel.org>
+ <20260530-drm-no-more-bridge-reset-v1-74-875d828d31bc@kernel.org>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -116,7 +115,7 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260530-drm-no-more-bridge-reset-v1-72-875d828d31bc@kernel.org>
+In-Reply-To: <20260530-drm-no-more-bridge-reset-v1-74-875d828d31bc@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Action: no action
@@ -137,11 +136,9 @@ X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  MID_RHS_MATCH_FROM(0.00)[]; TAGGED_RCPT(0.00)[];
  RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
  DKIM_TRACE(0.00)[suse.de:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns, suse.com:url, suse.de:email, suse.de:dkim,
- suse.de:mid]
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:mid,suse.de:dkim]
 X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 3E3AE689EB
+X-Rspamd-Queue-Id: 931306B65F
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,73 +154,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
+Hi
 
 Am 30.05.26 um 16:00 schrieb Maxime Ripard:
-> All drivers have been converted to the atomic_create_state callback
-> and its drm_atomic_helper_bridge_create_state() helper.
+> The cdns-dsi bridge atomic_reset implementation is semantically an
+> atomic_create_state: it allocates and initializes a pristine state
+> without side effects.
 >
-> Remove the deprecated drm_atomic_helper_bridge_reset().
+> However, it returns NULL on allocation failure instead of an error
+> pointer.
+>
+> Switch to the atomic_create_state callback, rename the function
+> accordingly, and return ERR_PTR(-ENOMEM) on failure.
 >
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
 > ---
->   drivers/gpu/drm/drm_atomic_state_helper.c | 23 -----------------------
->   include/drm/drm_atomic_state_helper.h     |  2 --
->   2 files changed, 25 deletions(-)
+>   drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-> index b99dedbc4140..29b2667ac792 100644
-> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-> @@ -903,33 +903,10 @@ void __drm_atomic_helper_bridge_state_init(struct drm_bridge_state *state,
->   	__drm_atomic_helper_private_obj_create_state(&bridge->base, &state->base);
->   	state->bridge = bridge;
->   }
->   EXPORT_SYMBOL(__drm_atomic_helper_bridge_state_init);
+> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
+> index f4cf765f0be8..c3e466ded84a 100644
+> --- a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
+> +++ b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
+> @@ -1007,17 +1007,17 @@ cdns_dsi_bridge_atomic_destroy_state(struct drm_bridge *bridge,
 >   
-> -/**
-> - * drm_atomic_helper_bridge_reset() - Allocate and initialize a bridge state
-> - *				      to its default
-> - * @bridge: the bridge this state refers to
-> - *
-> - * Allocates the bridge state and initializes it to default values. This helper
-> - * is meant to be used as a bridge &drm_bridge_funcs.atomic_reset hook for
-> - * bridges that don't subclass the bridge state.
-> - */
-> -struct drm_bridge_state *
-> -drm_atomic_helper_bridge_reset(struct drm_bridge *bridge)
-> -{
-> -	struct drm_bridge_state *bridge_state;
-> -
-> -	bridge_state = kzalloc_obj(*bridge_state);
-> -	if (!bridge_state)
-> -		return ERR_PTR(-ENOMEM);
-> -
-> -	__drm_atomic_helper_bridge_state_init(bridge_state, bridge);
-> -	return bridge_state;
-> -}
-> -EXPORT_SYMBOL(drm_atomic_helper_bridge_reset);
-> -
->   /**
->    * drm_atomic_helper_bridge_create_state - default &drm_bridge_funcs.atomic_create_state hook for bridges
->    * @bridge: bridge object
->    *
->    * Allocates and initializes pristine @drm_bridge_state.
-> diff --git a/include/drm/drm_atomic_state_helper.h b/include/drm/drm_atomic_state_helper.h
-> index 68c685ad330f..34a599c3d86d 100644
-> --- a/include/drm/drm_atomic_state_helper.h
-> +++ b/include/drm/drm_atomic_state_helper.h
-> @@ -104,7 +104,5 @@ void drm_atomic_helper_bridge_destroy_state(struct drm_bridge *bridge,
->   					    struct drm_bridge_state *state);
->   void __drm_atomic_helper_bridge_state_init(struct drm_bridge_state *state,
->   					   struct drm_bridge *bridge);
->   struct drm_bridge_state *
->   drm_atomic_helper_bridge_create_state(struct drm_bridge *bridge);
-> -struct drm_bridge_state *
-> -drm_atomic_helper_bridge_reset(struct drm_bridge *bridge);
+>   	kfree(dsi_state);
+>   }
+>   
+>   static struct drm_bridge_state *
+> -cdns_dsi_bridge_atomic_reset(struct drm_bridge *bridge)
+> +cdns_dsi_bridge_atomic_create_state(struct drm_bridge *bridge)
+>   {
+>   	struct cdns_dsi_bridge_state *dsi_state;
+>   
+>   	dsi_state = kzalloc_obj(*dsi_state);
+>   	if (!dsi_state)
+> -		return NULL;
+> +		return ERR_PTR(-ENOMEM);
+
+It might make sense to put this single fix to the beginning of the 
+series and give it a Fixes tag. This is material for stable@, I'd say.
+
+Best regards
+Thomas
+
+>   
+>   	__drm_atomic_helper_bridge_state_init(&dsi_state->base, bridge);
+>   
+>   	return &dsi_state->base;
+>   }
+> @@ -1026,11 +1026,11 @@ static const struct drm_bridge_funcs cdns_dsi_bridge_funcs = {
+>   	.attach = cdns_dsi_bridge_attach,
+>   	.mode_valid = cdns_dsi_bridge_mode_valid,
+>   	.atomic_pre_enable = cdns_dsi_bridge_atomic_pre_enable,
+>   	.atomic_post_disable = cdns_dsi_bridge_atomic_post_disable,
+>   	.atomic_check = cdns_dsi_bridge_atomic_check,
+> -	.atomic_reset = cdns_dsi_bridge_atomic_reset,
+> +	.atomic_create_state = cdns_dsi_bridge_atomic_create_state,
+>   	.atomic_duplicate_state = cdns_dsi_bridge_atomic_duplicate_state,
+>   	.atomic_destroy_state = cdns_dsi_bridge_atomic_destroy_state,
+>   	.atomic_get_input_bus_fmts = cdns_dsi_bridge_get_input_bus_fmts,
+>   };
+>   
 >
 
 -- 
