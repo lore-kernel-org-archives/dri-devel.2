@@ -4,157 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CB3ECD6E57
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 16:27:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C021FCD6E68
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 16:37:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5A3410F356;
-	Tue,  2 Jun 2026 16:27:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2060010F398;
+	Tue,  2 Jun 2026 16:37:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="c3PJ2ezK";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="brcsqM3s";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C61FE10F355;
- Tue,  2 Jun 2026 16:27:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780417661; x=1811953661;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=YLxBV7t+4BiE61Q4jo8zaka9ErhEmB8QPGRLr2P1SF4=;
- b=c3PJ2ezK8lle+rU6xaf/3x3RKjRoxAgaCHDI09a74lk9tKThMKGbc89O
- lmYN7IoOhGX9gFf2Yr2RgWfSPJQjviAm31iLQMEbq9EuI6zcaI1dtoP4g
- eyiRnWjjz9weJ/6beQkQHnyLlGIAqbfC0rbNC+83BvT5LMvvu9wBRc2Ga
- gPD2X/LQwRL2aLF//N6csCVnA/Isk0H8KA+xuDSudmi/tyuDo2Gm1j693
- YOqBe+TljniHTN4mPfipnhuJEehEx6dfQz6Ujyn+LDTTmm3wky4y7IPlr
- qqKm4l6JC9YAcHifPNPwv2iX7f/vbgEEuKMjxcQzc8DD5cK2YE+MDzZGt Q==;
-X-CSE-ConnectionGUID: foGyTu4nQ7ejEb50KE9gKQ==
-X-CSE-MsgGUID: HTe38Vt+QzycegtFDMD/6g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="103869259"
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="103869259"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2026 09:27:40 -0700
-X-CSE-ConnectionGUID: bcJSp8yaSgiciAkJLqIMZA==
-X-CSE-MsgGUID: /ShoujFPSvKSovHDaUqLTg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="242919331"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2026 09:27:40 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 2 Jun 2026 09:27:39 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 2 Jun 2026 09:27:39 -0700
-Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.12) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 2 Jun 2026 09:27:38 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R0HHC9jyyKPvEKA01OQrEOA20qcTXtD2guFrJHF0nxyxa7mC0zRg4dIBN2h8sC2l0mUF6IjfbMHL+0ZgOZVowPtZAVFgmI/K6WKmAsV5MMYJi3Oxxtz3Fa7oF7N34qsVvIXuLFWBF6/jw9h8NzM9N0vi++YOeLErKTdkDDiRmBRDsbmxnYeYnCDpsCqlDLRB0yVMTiYkV8zK1UMoqlliC66Esqy0wvc18swfjXVJUfCGms1BwWBsMKlkOtn7iGU06XS9MjMLXteXS+sZU1m1FU5Vz1nvbPminb4uYZ0eWrf6bI47fgVsmWgvHhXuL29LIcGALwXyzu6OnRTWfpGliA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3T5gLt5+PrpfqCPj4ESbFfQVVUpo2Mk86hgBI2JNUhs=;
- b=ruMxHysDBCefJi/c6vPLrgUHVJA3o8Th4cvFNcoHv3LlvhZ2g0c/lngaYRQ77IuwL40Fo/LM9gF4zWuymKNXpZ3ot2MJPoC6tgDctxVWTzff2x0pykuQ/UwxR9EvVg3ykLfYLIFbx4Vbs9b1EF9aoZwAhSIrHyOoROTX+hqnOl0S8TzOu2WGkB/BNP/9WPgbXudWBdjBMJ7i0JKGrisxuN/eRw62iDmzW5s9hIcwgacrbZrOpioYmqmTd7Yod6ZniemUqbtdFGnqTqa0ZWzNK8VO/CXSSUj8/KUB7KWtUpryOd7L1Lr5TlSbQsD4GXfz5J6J51Vq/yvLpLq440Sj3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM4PR11MB6360.namprd11.prod.outlook.com (2603:10b6:8:bd::12) by
- DS0PR11MB8071.namprd11.prod.outlook.com (2603:10b6:8:12e::14) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.7; Tue, 2 Jun 2026 16:27:29 +0000
-Received: from DM4PR11MB6360.namprd11.prod.outlook.com
- ([fe80::22d9:ae03:5db1:680]) by DM4PR11MB6360.namprd11.prod.outlook.com
- ([fe80::22d9:ae03:5db1:680%5]) with mapi id 15.21.0092.006; Tue, 2 Jun 2026
- 16:27:29 +0000
-From: "Shankar, Uma" <uma.shankar@intel.com>
-To: Sean Paul <sean@poorly.run>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>, "jani.nikula@linux.intel.com"
- <jani.nikula@linux.intel.com>, "Borah, Chaitanya Kumar"
- <chaitanya.kumar.borah@intel.com>
-CC: Sean Paul <seanpaul@google.com>, "Vivi, Rodrigo" <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, "intel-xe@lists.freedesktop.org"
- <intel-xe@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>
-Subject: RE: [PATCH v3 1/2] drm/i915/color: Fix step discontinuity in Post-CSC
- Gamma LUT
-Thread-Topic: [PATCH v3 1/2] drm/i915/color: Fix step discontinuity in
- Post-CSC Gamma LUT
-Thread-Index: AQHc7vbrleqgSncwpUWoo9Fznu/EBbYrez2g
-Date: Tue, 2 Jun 2026 16:27:29 +0000
-Message-ID: <DM4PR11MB6360196DB582A4489F1B50B2F4122@DM4PR11MB6360.namprd11.prod.outlook.com>
-References: <20260528230817.2455072-1-sean@poorly.run>
-In-Reply-To: <20260528230817.2455072-1-sean@poorly.run>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR11MB6360:EE_|DS0PR11MB8071:EE_
-x-ms-office365-filtering-correlation-id: f731b531-64e1-41dd-7d08-08dec0c3d733
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|7416014|376014|1800799024|366016|38070700021|56012099006|11063799006|22082099003|18002099003;
-x-microsoft-antispam-message-info: aYImlZUFXVTunOAsQYDxEj8FFUda4QHGjglvay7i36L8kOdvQ3lHwW/ViFqBCRNKYvv0xXSUgzU4dJTZgwImLj8KCzh+QKk+5/TrvNOJlhK1xg3Ef6/A0bfk0EmK+6121F/v2jsrsM++VPOEnMbjt9hxAdUTPcqat49DzP5LGTq2TCOLoEEshWhHPNOc3vNWDlJzskj09utB9fhAE1esqNe8L4JE8463Iu0qlNey8TbGHVNtVeW9ZJcHNQnc5fE7tu6pQZa3xgpbmPDa3km5CjGjNKSEgyT3w5uUNcjCwCaR76EsJ/OYFPIU0hck2HmE8jNNlG0QLjpMziFDSjKlVqvR+pbVLQSt6kBMTZBVlyx8voQ5Dk9jduI72RI5HvtQ6nAyqhSpUesIi3cC/id12Xi66lDbZ67CZ9HPWk4jLswwiL7FiszIi4f+3FjjtfXSA9iUh+GDZ+zfIKTEBT4HoBm4tgxy+KkJhOREU5tOCluhdOmMy02p919r5CZ6T3WU1A5Pm+SRASW6NIYzCEI5r1A/eIlu5H/J2K8K7Cumoz7SVru7UXGnr0uZ9dlqgoO/qgn1D0OAMDaBRQn975wX9H7u/KUrkU4u6pmdfRIrSxgNKN8ToIp9JPoqqw94ifUgZAEqYCERFmRR2tOK3OSONgPfOhdvg/pjILYyFkGKIuQWs6JS4AhGXEXBvyJ7Ay8D/QDDL3lUyohh10NN9jTz5+k6n9OfYez0G4iUOVWuHvVMyOAGdZhQ6qyFDk2ozvk/
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB6360.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(366016)(38070700021)(56012099006)(11063799006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?/YbYwwXbHB1O0vV699wQHt8unBMSTanPqxWpk3CKR9lMo57kLY11M7e+fy6q?=
- =?us-ascii?Q?7LqJxRy1kWt5fCEnhObGB4r2LBa6QdFRBpAfcVDxgkOSyTJ9dUnwZF8iYAYl?=
- =?us-ascii?Q?c8WN6AyJ5jZFIJSDsJmAkZ0akJRaUpBKk4y/CDQ193GA2wWOspdDVfjpJSDF?=
- =?us-ascii?Q?dywoqqPuKrYNzOjI33APvAEi+7Y9idFZIrKMi454xgTJZCCXD7X2J8C6sM7u?=
- =?us-ascii?Q?zYWlZgyXdWoH9xXnyRBJZhc3ATl+NfFVV4/Kqjzw3Hg1XfdzzGOeRwyF1TAX?=
- =?us-ascii?Q?CdFOVd2apIDNr3dqXnSBlNk9Dj62dzMkxYs8S43k+S6cS9Hp6pni3S8LpZis?=
- =?us-ascii?Q?OMnYnzK5yYOl6/h5n10fXQIHyXgnrlAVPAC2h8gYl5FiKc9P6yxVwwyFDwAn?=
- =?us-ascii?Q?FwTP92ZVSRTz0Kn9nEDQl3Lwy67FfZ4dMUcmtjDU9mANcH5ct3ALynWlDLKO?=
- =?us-ascii?Q?AdD9GfT5e+0SYQfPSP36LRcxO7NFCNR8eFFh1vqEmKPwbYDIPsXGcbbdXzMS?=
- =?us-ascii?Q?AIQLJUHXre1qsvCMOM2QVcOWPdA8MhjpSj/aseCUS8CSPRVNRe9JvM2D/afX?=
- =?us-ascii?Q?ycpJvnOZA+UwtaOwiZAm5z0dDMPTRRB4kADaTA1WwWUTEwOiSlryA0xotv0L?=
- =?us-ascii?Q?1ceJc1cqHPB5lXbPE3XWp0TpPuicdljlztzda4ZY2Ynfa48l1d67u7UoMWPE?=
- =?us-ascii?Q?ZlOw9q1Ar/+VlWR6Y5uNKs836CBivUxTVriL1/7NeNV9TJbdTOO4mJoYh92Z?=
- =?us-ascii?Q?03QgyYHCR2iTm0RX7vCpgc1tUJPozgrgUEVx/N7B9QkIcWpU+sjV8GBufDPK?=
- =?us-ascii?Q?V9L7aznofxVpIXl1c3l0e5CyXQ5fyI/1ozeaFcmZdJ0rSe8cCAQA2LfjApOY?=
- =?us-ascii?Q?49dEU+0QRkBAyVMqkIRxYlD3frISN+OFiQZkqM1D6Zn7HZ3KUDC75xCGjod1?=
- =?us-ascii?Q?i/l/HjXw30tHZCOu+jFvcWltkjhjrtfnMh5rw5tg3JjL1ZY/yc+l/Z9Axlzz?=
- =?us-ascii?Q?1dj8KZG9qvryrcUQRb8p8mlIev748F6NnaidG77XjcCgPIQY4JVueM/CWusW?=
- =?us-ascii?Q?h54+SriKjuJ6X1vY8u8TvaOw+kmBZeBGlP+GXV85i77ui1Ui3UFoutLl2Cwk?=
- =?us-ascii?Q?HGh2yfck6hua1GT0uMYvtkRi8ccZLryEHCVl7AIePENJfT/bz1LdMHV4b3cq?=
- =?us-ascii?Q?qMciVMvptTc2PfxvtsL82uVQQfd4dWEwroCDYn8rJrIloYrqPM8/N3y5K+kv?=
- =?us-ascii?Q?S1OsstMUO7vC6bHFEuT8HbdRWvlGuTcobgoEJI/AhTHwG/Ap2iEcjEqpiZY5?=
- =?us-ascii?Q?+Ta75C5QGz3TkhgQf1VrXPoH8Ce7b/x3Rr+arAaKFovY2kbSsXGKjXvKRzPr?=
- =?us-ascii?Q?hBVebpV1ylNprDWm/fzyQ1rdr56UhM/ta8xU2eNGuOBB2NsQEQBlGJ1KRKos?=
- =?us-ascii?Q?S+b9xHT3w8piKZl1vKI8AuGvPhZNf6uPKTV5YiOHPeqfZTEtSVJ5xAkvNdnX?=
- =?us-ascii?Q?Ijs+jpmYPFVkiBnVhKxeCj2yJuxRfanzYMVdICcoatV+0V7zFNowILruum9V?=
- =?us-ascii?Q?y+t9Fx89ZJcsjqEC0U8XTLyfLsi0YaLkzdmQ1m28yHlQ0PTQgUao25XWdW+w?=
- =?us-ascii?Q?fXZk8Ce0hhFKL6GwwyHIgPQ6f/u1CnX7tAmOTmGsdLVg3bxt5o9VlhS2RgeZ?=
- =?us-ascii?Q?T6shXU0CSfa+GvqJosEPa9vlTcDNqZ1d9+CsHMXYAvaoITEsKoFhRvwzQTiY?=
- =?us-ascii?Q?Z/Uu75E4qA=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AB2F10F398
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 16:37:44 +0000 (UTC)
+Received: from pps.filterd (m0044012.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 652EIbaq3944814
+ for <dri-devel@lists.freedesktop.org>; Tue, 2 Jun 2026 09:37:44 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+ bh=JaI89Wggv+m77fH63fQe+3epu7CJNe/5q/9Y6SRKmH0=; b=brcsqM3sFqRv
+ 6NFORFPsKgFa9mENs8X1TFSHUuTUAfm/cI0B8hjI4apfh/X1RyhAsKe5wuc3kCMA
+ Dje7w0722dwJ1/QzS9RXo5f0OYbIZ62nSfv9c9Bbv/IirIF1QKEBMMUfKMLi3E/h
+ gxkUIZlZTEfpb56to9EDjrg+hnGkLd0hTn5L5Vym3EOSZs6SVAR2MW9RP09USsh/
+ 6RE8/pKKV6Y6PeREA7kw8kJmO/ak7IZYNY6ctOR/pvkpwYA6ymNVLJHxvzGWwe8i
+ kkF9UWVWEWbcsdvF9fh4i3XlB09MbiWejOC2Osr6/ocglJlk7yR3wJZRuF2DYz/P
+ 1QEIutWKVg==
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4ej0tq91uy-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 09:37:43 -0700 (PDT)
+Received: by mail-dl1-f71.google.com with SMTP id
+ a92af1059eb24-137eff27f36so966787c88.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 09:37:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780418263; x=1781023063;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=JaI89Wggv+m77fH63fQe+3epu7CJNe/5q/9Y6SRKmH0=;
+ b=iDFOjoU9KClJR4XgrRWfG8I62mTxjii5lgxQk/6T/05mXZ0puP2DPMyRYgi5H/c+kj
+ wHawWl9+cLrtl5gRqtpBtssRhr6C5nbnfvOddDeX751mXb/LG7O3fBU/Qh30X/Mf/5Wo
+ 05IMs4OOH5yUb+KXxNeLTIOjtKQOGEO8W477ZnN88Id3r7vCu4tSpjcYO63VJbRuqL5W
+ wPAYaFqm4IbrQ952pUODQxAWFrJNr+WdncPWFL52iLk72iNuu7NMMZ3YgNZwVUGhQWNr
+ MTyh3D543K/jQWb68Yxzxl8fsdTJUyetQuvdnnqGVs3w70DHhlHMoZSQB3IqA8dGkKfD
+ +jvQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ831dk/bzlFYCQn5lX8o/ByGUZPvEWTV+fvEPxkDWRxf7UePspyPAcZch+M5IOwGvZt6rG2Q+/UDjM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw+IrM3yycm+DAm5ivrbeUlSc9F3qDlXEQJ1F5BZzy8j3RxgFi1
+ VhthMmnlfdsBYlvCy+xVmJ3zgvj0SnRlqiRocsZ210HV2JFqahzZUv9MUkVyqRVsCRLlxvk7a5y
+ HeEUa1e7+cNWkLkIaQE4caiYWJLqybMcn3rEuviK+lXrJSzpvK8JE+muveFHmuOOLjPE4
+X-Gm-Gg: Acq92OFsCeCnDADVaXAkQuz9z9VOo3siYB1eIV3nl4sj0o1CTUVPYKI64GEopRaSa4H
+ pVZHkgmOOObnM4CBm14++9E5Jqd2dIDiwyaBqjP2evmeIUCc66IcXcGUTlzbCIU+r+IinGhDZ5E
+ 9xmYGhS9Y1DHzAtpjy/pJ2PjXcGYDMlbPk637e6E2qhkJELLNcyiaCUS/aFBYGiA/TLASnIrltk
+ hy7OqJkmHoOdr8dCUVoTkYrAQBUJFHZo8T7x0yI/1AwFGVohkL8Iaya/+7McPGfVmYfe3NE9EJz
+ P5QrY+WbEFsgbdpMb7OO/pqLVTzDDKRKA8yDfMXo/zmGt174pjbjk91dIYRcmNcA8X0eCUmnKWb
+ hNz++vkhni2jvNNdsDg8QrNIqF4gafMo3vbxSNm9b
+X-Received: by 2002:a05:7022:1a84:b0:11a:fb3c:568b with SMTP id
+ a92af1059eb24-137d423bfe1mr6867345c88.17.1780418262980; 
+ Tue, 02 Jun 2026 09:37:42 -0700 (PDT)
+X-Received: by 2002:a05:7022:1a84:b0:11a:fb3c:568b with SMTP id
+ a92af1059eb24-137d423bfe1mr6867319c88.17.1780418262207; 
+ Tue, 02 Jun 2026 09:37:42 -0700 (PDT)
+Received: from [10.0.40.30] ([51.52.155.79]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-137f5489d17sm159385c88.1.2026.06.02.09.37.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 02 Jun 2026 09:37:41 -0700 (PDT)
+Message-ID: <71936818-dc94-47bc-9f17-59005553dd73@meta.com>
+Date: Tue, 2 Jun 2026 17:37:36 +0100
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: S4PoQjT2feSU3n22pSgnFnU6POHoUQC/+EAZLissr6T9rQeKedl6JUcVZmXAJYje3B0QDdTKk6aeYDUXO0RbfvR1GPGDj209W7bK1wEmq20TePtXLRnE0EMVzBs5YLqMtNqefF6+0+VubWU36TdkzxiUAF5K/P6M1i297A0T3UCwe3kxGSt4BcCBzthiJciy4RkWhMUnAAmUcvuoPKAscJ1W5m0wbtxCQ9eAWs6AilNYPKVPxtlapwUSg31h2ieM3BP+A0EZaazFVGX5VY0PlI/tayQP7RZmld4NIdQ8ty528Sz9HaPfOwmeN4Vy+5UCGo7D09dPdc/fxhKXCUoZ1g==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6360.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f731b531-64e1-41dd-7d08-08dec0c3d733
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jun 2026 16:27:29.4075 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1QCsXdjsGfO6rCOvS5yvGnOX4VAz9jmIoVPZiF1c5s4FNe4PqsaWg3b8Tsh+kbaIWZjHyY8mI3X4Ns1/rp+Ebw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB8071
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/9] vfio/pci: Add a helper to look up PFNs for DMABUFs
+Content-Language: en-GB
+To: Alex Williamson <alex@shazbot.org>
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
+ Pranjal Shrivastava <praan@google.com>, Alistair Popple
+ <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org, linux-pci@vger.kernel.org
+References: <20260527102319.100128-1-mattev@meta.com>
+ <20260527102319.100128-3-mattev@meta.com>
+ <20260527163837.02be1e7c@shazbot.org>
+From: Matt Evans <mattev@meta.com>
+In-Reply-To: <20260527163837.02be1e7c@shazbot.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: slEESCqUPSHvMNMEeNV_1jP9_G6emhhG
+X-Authority-Analysis: v=2.4 cv=avKCzyZV c=1 sm=1 tr=0 ts=6a1f06d7 cx=c_pps
+ a=JYo30EpNSr/tUYqK9jHPoA==:117 a=2UbFsIa4v//lIgRL4kGwwA==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=7x6HtfJdh03M6CCDgxCd:22 a=PAz_-FQ8hEVmOPYdF0yf:22 a=VabnemYjAAAA:8
+ a=W66DtvnrEJvMCsljMtwA:9 a=QEXdDO2ut3YA:10 a=Fk4IpSoW4aLDllm1B1p-:22
+ a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAyMDE2MCBTYWx0ZWRfXxmKVnhDYbHW1
+ 4QwirjbneasWueCNCySj4ICQgaK2TRNjaIU5aEl+vxRj85L9OsoVXaY+n4GTixS8oEfPss1m85L
+ GHOCLLCmbF8gLlNVhjrTcmwjUmUg4pFhAyxKfIak/dKu+Ygk2B5nD7As8QWP0djv6dgosdrkOCJ
+ JKadOR0uBokTR1eFAgX/+BGozaeJycMxb+YRk9uqKu/KUHGg7OvzZXO5SpyNfOxHIISyKCfGGBi
+ W2O6lLoPH9nj8TbNPVTH63gE9eZD9xnftoqOJF9Zrwp2Gw9rOaQv3yYGsYSjylk/v5fzXSC7i7t
+ Qlg1w6cKjoSWnKOyxKxE3hi8EqaI2sZxSrllHIyfo+0p5Zk2RX5bfjbp1Or9Slxn6uYVFaOWhhS
+ K0Qx4tT90l2x8U54Gp45xYeBqjG9i0kylv2qT8acMCApgwvd8R0xR30BpACc07j3tyfcryxnI2O
+ 8JzGP5G5K18BZIQipYw==
+X-Proofpoint-ORIG-GUID: slEESCqUPSHvMNMEeNV_1jP9_G6emhhG
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-02_02,2026-05-28_03,2025-10-01_01
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,76 +132,257 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Alex,
+
+On 27/05/2026 23:38, Alex Williamson wrote:
+> 
+> On Wed, 27 May 2026 03:23:05 -0700
+> Matt Evans <mattev@meta.com> wrote:
+> 
+>> Add vfio_pci_dma_buf_find_pfn(), which a VMA fault handler can use to
+>> find a PFN.
+>>
+>> This supports multi-range DMABUFs, which typically would be used to
+>> represent scattered spans but might even represent overlapping or
+>> aliasing spans of PFNs.
+>>
+>> Because this is intended to be used in vfio_pci_core.c, we also need
+>> to expose the struct vfio_pci_dma_buf in the vfio_pci_priv.h header.
+>>
+>> Signed-off-by: Matt Evans <mattev@meta.com>
+>> ---
+>>   drivers/vfio/pci/vfio_pci_dmabuf.c | 142 ++++++++++++++++++++++++++---
+>>   drivers/vfio/pci/vfio_pci_priv.h   |  20 ++++
+>>   2 files changed, 149 insertions(+), 13 deletions(-)
+>>
+>> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> index c16f460c01d6..0d132c4ca95f 100644
+>> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> @@ -9,19 +9,6 @@
+>>   
+>>   MODULE_IMPORT_NS("DMA_BUF");
+>>   
+>> -struct vfio_pci_dma_buf {
+>> -	struct dma_buf *dmabuf;
+>> -	struct vfio_pci_core_device *vdev;
+>> -	struct list_head dmabufs_elm;
+>> -	size_t size;
+>> -	struct phys_vec *phys_vec;
+>> -	struct p2pdma_provider *provider;
+>> -	u32 nr_ranges;
+>> -	struct kref kref;
+>> -	struct completion comp;
+>> -	u8 revoked : 1;
+>> -};
+>> -
+>>   static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+>>   				   struct dma_buf_attachment *attachment)
+>>   {
+>> @@ -106,6 +93,135 @@ static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
+>>   	.release = vfio_pci_dma_buf_release,
+>>   };
+>>   
+>> +int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *vpdmabuf,
+> 
+> This private dmabuf object pointer is named priv pretty consistently
+> throughout the rest of the file.
+
+Right you are, fixed.
+
+>> +			      struct vm_area_struct *vma,
+>> +			      unsigned long address,
+>> +			      unsigned int order,
+>> +			      unsigned long *out_pfn)
+>> +{
+>> +	/*
+>> +	 * Given a VMA (start, end, pgoffs) and a fault address,
+>> +	 * search the corresponding DMABUF's phys_vec[] to find the
+>> +	 * range representing the address's offset into the VMA, and
+>> +	 * its PFN.
+>> +	 *
+>> +	 * The phys_vec[] ranges represent contiguous spans of VAs
+>> +	 * upwards from the buffer offset 0; the actual PFNs might be
+>> +	 * in any order, overlap/alias, etc.  Calculate an offset of
+>> +	 * the desired page given VMA start/pgoff and address, then
+>> +	 * search upwards from 0 to find which span contains it.
+>> +	 *
+>> +	 * On success, a valid PFN for a page sized by 'order' is
+>> +	 * returned into out_pfn.
+>> +	 *
+>> +	 * Failure occurs if:
+>> +	 * - The page would cross the edge of the VMA
+>> +	 * - The page isn't entirely contained within a range
+>> +	 * - We find a range, but the final PFN isn't aligned to the
+>> +	 *   requested order.
+>> +	 *
+>> +	 * (Upon failure, the caller is expected to try again with a
+>> +	 * smaller order; the tests above will always succeed for
+>> +	 * order=0 as the limit case.)
+>> +	 *
+>> +	 * It's suboptimal if DMABUFs are created with neigbouring
+>> +	 * ranges that are physically contiguous, since hugepages
+>> +	 * can't straddle range boundaries.  (The construction of the
+>> +	 * ranges vector should merge such ranges.)
+>> +	 *
+>> +	 * Finally, vma_pgoff_adjust is used for a DMABUF representing
+>> +	 * a VFIO BAR mmap, which is created from the start of the
+>> +	 * offset region.  It should be zero, or equal vm_pgoff.
+>> +	 */
+>> +
+>> +	const unsigned long pagesize = PAGE_SIZE << order;
+>> +	unsigned long vma_off = ((vma->vm_pgoff - vpdmabuf->vma_pgoff_adjust) <<
+>> +				 PAGE_SHIFT) & VFIO_PCI_OFFSET_MASK;
+>> +	unsigned long rounded_page_addr = ALIGN_DOWN(address, pagesize);
+>> +	unsigned long rounded_page_end = rounded_page_addr + pagesize;
+>> +	unsigned long page_buf_offset;
+>> +	unsigned long range_buf_offset = 0;
+>> +	unsigned int i;
+>> +
+>> +	if (rounded_page_addr < vma->vm_start || rounded_page_end > vma->vm_end) {
+>> +		if (order > 0)
+>> +			return -EAGAIN;
+>> +
+>> +		/* A fault address outside of the VMA is absurd. */
+>> +		WARN(1, "Fault addr 0x%lx outside VMA 0x%lx-0x%lx\n",
+>> +		     address, vma->vm_start, vma->vm_end);
+>> +		return -EFAULT;
+>> +	}
+>> +
+>> +	if (vpdmabuf->vma_pgoff_adjust != 0 &&
+>> +	    vpdmabuf->vma_pgoff_adjust != (vma->vm_pgoff &
+>> +					   (VFIO_PCI_OFFSET_MASK >> PAGE_SHIFT))) {
+>> +		WARN(1, "Unexpected vma_pgoff_adjust 0x%lx (vm_pgoff 0x%lx)\n",
+>> +		     vpdmabuf->vma_pgoff_adjust, vma->vm_pgoff);
+>> +		return -EFAULT;
+>> +	}
+> 
+> This appears to be user trigger'able, by causing a vma to be split, and
+> also unnecessary as it seems the math works out correctly for the split
+> case.
+
+Good spot, fixed.  I added a VMA split case to the [RFC] 
+vfio_dmabuf_mmap_test, thanks for spotting this.
+
+>> +
+>> +	if (unlikely(check_add_overflow(rounded_page_addr - vma->vm_start,
+>> +					vma_off, &page_buf_offset)))
+>> +		return -EFAULT;
+>> +
+>> +	for (i = 0; i < vpdmabuf->nr_ranges; i++) {
+>> +		unsigned long page_buf_offset_end;
+>> +		size_t range_len = vpdmabuf->phys_vec[i].len;
+>> +		phys_addr_t range_start = vpdmabuf->phys_vec[i].paddr;
+>> +
+>> +		if (unlikely(check_add_overflow(page_buf_offset, pagesize,
+>> +						&page_buf_offset_end)))
+>> +			return -EFAULT;
+> 
+> Why is this inside the loop, the args are invariant of anything
+> modified in the loop.  Thanks,
+
+Right; I slipped up when renaming/refactoring the additions, that 
+definitely goes above.  Fixed!
 
 
-> -----Original Message-----
-> From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On Behalf Of Se=
-an Paul
-> Sent: Friday, May 29, 2026 4:38 AM
-> To: intel-gfx@lists.freedesktop.org; jani.nikula@linux.intel.com; Borah, =
-Chaitanya
-> Kumar <chaitanya.kumar.borah@intel.com>
-> Cc: Sean Paul <seanpaul@google.com>; Vivi, Rodrigo <rodrigo.vivi@intel.co=
-m>;
-> Joonas Lahtinen <joonas.lahtinen@linux.intel.com>; Tvrtko Ursulin
-> <tursulin@ursulin.net>; David Airlie <airlied@gmail.com>; Simona Vetter
-> <simona@ffwll.ch>; intel-xe@lists.freedesktop.org; dri-
-> devel@lists.freedesktop.org
-> Subject: [PATCH v3 1/2] drm/i915/color: Fix step discontinuity in Post-CS=
-C
-> Gamma LUT
->=20
-> From: Sean Paul <seanpaul@google.com>
->=20
-> Fix a step discontinuity in the Post-CSC Gamma LUT when SDR dimming is
-> active by clamping Segment 2 to the last user-provided LUT entry value in=
-stead of
-> hardcoding it to 1.0 (1 << 24).
->=20
-> Signed-off-by: Sean Paul <seanpaul@google.com>
-> Link: https://lore.kernel.org/intel-gfx/20260521180143.2143262-1-
-> sean@poorly.run/ #v1
-> Link: https://lore.kernel.org/intel-gfx/20260525135730.1122696-1-
-> sean@poorly.run/ #v2
->=20
-> Changes in v2:
-> - Split out into separate patches for pre/post csc fixes
-> - Dropped loop bounds fix in favor of [1] Changes in v3:
-> - None
+Thanks,
 
-Patches in series pushed to drm-intel-next. Thanks for the fixes.
 
-Regards,
-Uma Shankar
+Matt
 
-> [1]- https://lore.kernel.org/r/20260519075245.383864-1-pranay.samala@inte=
-l.com
-> ---
->  drivers/gpu/drm/i915/display/intel_color.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/display/intel_color.c
-> b/drivers/gpu/drm/i915/display/intel_color.c
-> index 7ef870cd9a16..7185f3628dcf 100644
-> --- a/drivers/gpu/drm/i915/display/intel_color.c
-> +++ b/drivers/gpu/drm/i915/display/intel_color.c
-> @@ -4038,11 +4038,11 @@ xelpd_program_plane_post_csc_lut(struct intel_dsb
-> *dsb,
->  						   lut_val);
->  			}
->=20
-> -			/* Segment 2 */
-> +			/* Segment 2 - clamp to the last LUT value to prevent step
-> +discontinuity */
->  			do {
->  				intel_de_write_dsb(display, dsb,
->=20
-> PLANE_POST_CSC_GAMC_DATA_ENH(pipe, plane, 0),
-> -						   (1 << 24));
-> +						   lut_val);
->  			} while (i++ < 34);
->  		} else {
->  			/*TODO: Add for segment 0 */
-> --
-> Sean Paul, Software Engineer, Google / Chromium OS
+
+> 
+> Alex
+> 
+>> +		/*
+>> +		 * If the current range starts after the page's span,
+>> +		 * this and any future range won't match.  Bail early.
+>> +		 */
+>> +		if (page_buf_offset_end <= range_buf_offset)
+>> +			break;
+>> +
+>> +		if (page_buf_offset >= range_buf_offset &&
+>> +		    page_buf_offset_end <= range_buf_offset + range_len) {
+>> +			/*
+>> +			 * The faulting page is wholly contained
+>> +			 * within the span represented by the range.
+>> +			 * Validate PFN alignment for the order:
+>> +			 */
+>> +			unsigned long pfn = (range_start + page_buf_offset -
+>> +					     range_buf_offset) / PAGE_SIZE;
+>> +
+>> +			if (IS_ALIGNED(pfn, 1 << order)) {
+>> +				*out_pfn = pfn;
+>> +				return 0;
+>> +			}
+>> +			/* Retry with smaller order */
+>> +			return -EAGAIN;
+>> +		}
+>> +		range_buf_offset += range_len;
+>> +	}
+>> +
+>> +	/*
+>> +	 * A hugepage straddling a range boundary will fail to match a
+>> +	 * range, but the address will (eventually) match when retried
+>> +	 * with a smaller page.
+>> +	 */
+>> +	if (order > 0)
+>> +		return -EAGAIN;
+>> +
+>> +	/*
+>> +	 * If we get here, the address fell outside of the span
+>> +	 * represented by the (concatenated) ranges.  Setup of a
+>> +	 * mapping must ensure that the VMA is <= the total size of
+>> +	 * the ranges, so this should never happen.  But, if it does,
+>> +	 * force SIGBUS for the access and warn.
+>> +	 */
+>> +	WARN_ONCE(1, "No range for addr 0x%lx, order %d: VMA 0x%lx-0x%lx pgoff 0x%lx, %u ranges, size 0x%zx\n",
+>> +		  address, order, vma->vm_start, vma->vm_end, vma->vm_pgoff,
+>> +		  vpdmabuf->nr_ranges, vpdmabuf->size);
+>> +
+>> +	return -EFAULT;
+>> +}
+>> +
+>>   /*
+>>    * This is a temporary "private interconnect" between VFIO DMABUF and iommufd.
+>>    * It allows the two co-operating drivers to exchange the physical address of
+>> diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
+>> index fca9d0dfac90..c8f6f959056a 100644
+>> --- a/drivers/vfio/pci/vfio_pci_priv.h
+>> +++ b/drivers/vfio/pci/vfio_pci_priv.h
+>> @@ -23,6 +23,20 @@ struct vfio_pci_ioeventfd {
+>>   	bool			test_mem;
+>>   };
+>>   
+>> +struct vfio_pci_dma_buf {
+>> +	struct dma_buf *dmabuf;
+>> +	struct vfio_pci_core_device *vdev;
+>> +	struct list_head dmabufs_elm;
+>> +	size_t size;
+>> +	struct phys_vec *phys_vec;
+>> +	struct p2pdma_provider *provider;
+>> +	u32 nr_ranges;
+>> +	struct kref kref;
+>> +	struct completion comp;
+>> +	unsigned long vma_pgoff_adjust;
+>> +	u8 revoked : 1;
+>> +};
+>> +
+>>   bool vfio_pci_intx_mask(struct vfio_pci_core_device *vdev);
+>>   void vfio_pci_intx_unmask(struct vfio_pci_core_device *vdev);
+>>   
+>> @@ -114,6 +128,12 @@ static inline bool vfio_pci_is_vga(struct pci_dev *pdev)
+>>   	return (pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA;
+>>   }
+>>   
+>> +int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *vpdmabuf,
+>> +			      struct vm_area_struct *vma,
+>> +			      unsigned long address,
+>> +			      unsigned int order,
+>> +			      unsigned long *out_pfn);
+>> +
+>>   #ifdef CONFIG_VFIO_PCI_DMABUF
+>>   int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>>   				  struct vfio_device_feature_dma_buf __user *arg,
+> 
 
