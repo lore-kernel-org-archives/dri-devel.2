@@ -4,42 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2226BCD6E5D
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 20:39:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1DBBCD6E5D
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 20:41:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D9AA10F5F2;
-	Tue,  2 Jun 2026 20:39:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAEFA113B02;
+	Tue,  2 Jun 2026 20:41:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="ta8xCYHu";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="fvfp7CB2";
 	dkim-atps=neutral
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BDFD10F5F2
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 20:39:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2A31113B02
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 20:41:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
  s=gloria202408;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:
  References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=MNDCAtsijCw9J9wcBE3eUlKSvCKY8bQfE21VGId3hiM=; b=ta8xCYHuXu7jocMGavMXuf2400
- PVwmrvXaUN+x39ZkkQmP2MyQtfRd4IcdQpvx7M36gsvUdEQvFr/RpF6bao4xJuhMTfGEaw6ikqa6O
- SstWykMf6vQ9D1ssOOvNNQ1L4r1dmvC5KDZIsIEOjlMlh4BSmkUkzzoh2n6X2YdmGuVRgiz2bZeSF
- YqQahAS6z3KTn09i+B4N4jYske4aqj1Mvqx4C1mmuZIwlY8kS9qFp16W/rQVvuBPhB+D8yJnJPYvH
- HFu01cZPD/EWTOHLarAHd6Po9UV0Is/vPsZqYycBZbIhqRrcop8+mHuixJzLj5k2Jv8S+OMOU4td2
- juVm+AIw==;
+ bh=xclY5ZY6I6M+MMUhy+w96bAdYd7mbDw5BEiQwvO2aW0=; b=fvfp7CB2qRSdYm1fA/eC4IJh8C
+ eR4cVrTQxR7bQcWvxce+HF+lQOw0HQFyGTjcdIFHlD6/0WRXgbFKSTsxNDpmk3w5t2z0fn/HIehGj
+ qULblnQ99U5i/c4ILZ0N27Tfjd1BzKKH4Y05OqJafU96lClb+3sAQ1eclB46dyHdze7fxlsIVaX1H
+ fhv6AJgA8N6685NOExXFIqF7MW64YdCWYoBg7gAmj28WIYo5TBPxIz8SFC15haVM/S256rFaQPg5x
+ zW/bcwant+o30nq7F8j92k4eNpU5AjfyXSb6+NFRmMUoSV2oTiszPDVaT6UTnxNmMST7ICiQSeiwl
+ I/zyU1pA==;
 From: Heiko Stuebner <heiko@sntech.de>
-To: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+To: hjc@rock-chips.com, andy.yan@rock-chips.com,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, Damon Ding <damon.ding@rock-chips.com>
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org, Damon Ding <damon.ding@rock-chips.com>
 Cc: Heiko Stuebner <heiko@sntech.de>, Laurent.pinchart@ideasonboard.com,
- jonas@kwiboo.se, jernej.skrabec@gmail.com, luca.ceresoli@bootlin.com,
- dmitry.baryshkov@oss.qualcomm.com, m.szyprowski@samsung.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] drm/bridge: analogix_dp: Convert status check
- functions to bool
-Date: Tue,  2 Jun 2026 22:39:06 +0200
-Message-ID: <178043273747.699871.4838311540218337301.b4-ty@sntech.de>
+ jonas@kwiboo.se, jernej.skrabec@gmail.com,
+ nicolas.frattaroli@collabora.com, cristian.ciocaltea@collabora.com,
+ sebastian.reichel@collabora.com, dmitry.baryshkov@oss.qualcomm.com,
+ luca.ceresoli@bootlin.com, dianders@chromium.org, m.szyprowski@samsung.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: (subset) [PATCH v10 00/11] Add eDP support for RK3576
+Date: Tue,  2 Jun 2026 22:41:33 +0200
+Message-ID: <178043288414.700628.1161981255624036929.b4-ty@sntech.de>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260521102716.1373519-1-damon.ding@rock-chips.com>
-References: <20260521102716.1373519-1-damon.ding@rock-chips.com>
+In-Reply-To: <20260601065100.1103873-1-damon.ding@rock-chips.com>
+References: <20260601065100.1103873-1-damon.ding@rock-chips.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -59,20 +64,40 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Thu, 21 May 2026 18:27:16 +0800, Damon Ding wrote:
-> Convert analogix_dp_is_slave_video_stream_clock_on() and
-> analogix_dp_is_video_stream_on() from int to bool return type.
+On Mon, 01 Jun 2026 14:50:49 +0800, Damon Ding wrote:
+> Patch 1-5 are to add missing clock "hclk" for RK3588 eDP nodes.
+> Patch 6 is to use automatic cleanup to fix OF node reference leak
+>         reported by Sashiko.
+> Patch 7-8 are to add the RK3576 eDP node.
+> Patch 9-11 are to support the RK3576 Analogix DP controller.
 > 
-> This makes the code more readable and aligns with kernel best
-> practices for boolean status checks, while simplifying the
-> callers by removing unnecessary "== 0" comparisons.
+> Damon Ding (11):
+>   dt-bindings: display: rockchip: analogix-dp: Fix hclk as third clock
+>     for RK3588
+>   dt-bindings: display: rockchip: analogix-dp: Add per-clock
+>     descriptions
+>   arm64: dts: rockchip: Add missing hclk for RK3588 eDP0
+>   arm64: dts: rockchip: Add missing hclk for RK3588 eDP1
+>   drm/rockchip: analogix_dp: Enable hclk for RK3588
+>   drm/rockchip: analogix_dp: Fix OF node reference leak via auto cleanup
+>   dt-bindings: display: rockchip: analogix-dp: Add support for RK3576
+>   arm64: dts: rockchip: Add eDP node for RK3576
+>   drm/bridge: analogix_dp: Rename and simplify is_rockchip()
+>   drm/bridge: analogix_dp: Add support for RK3576
+>   drm/rockchip: analogix_dp: Add support for RK3576
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] drm/bridge: analogix_dp: Convert status check functions to bool
-      commit: f88b35d79a4b403676b1222b1c28b2daafae2980
+[07/11] dt-bindings: display: rockchip: analogix-dp: Add support for RK3576
+        commit: 473e50b27b0020ade5fd97ca04d941e448c5659a
+[09/11] drm/bridge: analogix_dp: Rename and simplify is_rockchip()
+        commit: 709445fb6fc57aa96d48c8492e84ed4b2a9a4b5e
+[10/11] drm/bridge: analogix_dp: Add support for RK3576
+        commit: 5442cdc38470ecd6b51562d378b6ed852a4d9d45
+[11/11] drm/rockchip: analogix_dp: Add support for RK3576
+        commit: 7e60c4e19fd3d3f1203fbb1fdd9b2bb1a1201e65
 
 Best regards,
 -- 
