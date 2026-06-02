@@ -4,49 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3735ACD6E60
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 15:03:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B2F7CD6E57
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 15:03:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96AE510F20E;
-	Tue,  2 Jun 2026 15:03:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D701B10F20A;
+	Tue,  2 Jun 2026 15:03:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="TfBwYGZP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Qnjl7o3c";
 	dkim-atps=neutral
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CD0B10F226
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 15:03:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
- s=gloria202408;
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=D2Q8yZjcE6URSIFp/8l4k3tj4V+4OnaUv/+qrKDMmyY=; b=TfBwYGZPAMIOMq+iAAVb6Rhd+O
- hkcWFD8AzJEueRISKQ3eNbTSB8xVbPjGwHc5JLWiR36h7aJyEePF3igsdDLyzZu/Kgm8KB6rK/Cd+
- Gf1HUusEzp6Nygk3HCW/Ax4P6zzQFwo6piryYJOWvBneULPMroZ1OyPeDQN4sdhxyYb5H6uIukOBP
- txtjzezLD+vsIVw6vjIMbEwPuR1c5187ZUGHb8mgPnrq/jGNvHUma/qRv7V54LLCFk3XWFwG6R9M9
- UJHowoq0Tf/g8yQkemD+uDVa1IzHiptKPTPsEqbnHkAF7zci+vM5JyLIotxezN4S9zVs9jM/1IU2w
- 8/aX5IPA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Maxime Ripard <mripard@kernel.org>
-Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
- Andy Yan <andy.yan@rock-chips.com>, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH 64/76] drm/rockchip: lvds: Switch to atomic_create_state
-Date: Tue, 02 Jun 2026 17:03:13 +0200
-Message-ID: <8196895.2l3rmUXbR5@phil>
-In-Reply-To: <20260530-drm-no-more-bridge-reset-v1-64-875d828d31bc@kernel.org>
-References: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
- <20260530-drm-no-more-bridge-reset-v1-64-875d828d31bc@kernel.org>
-MIME-Version: 1.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5287C10F20A
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 15:03:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2C62841AD4;
+ Tue,  2 Jun 2026 15:03:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99F761F00893;
+ Tue,  2 Jun 2026 15:03:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780412630;
+ bh=8xQkRJaNuQBvap9IdHj5s58Pi1Gs8jwPfEySsq40tGo=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=Qnjl7o3cUe6I8eHXYPjAtQLRZpFKinpSSuzG2bGoLcGg+i1l/S+wbF2mnNIAQVeGq
+ +e5h3NYDJLN8SKD7RL2q4j14sbuBK/vTw3ZWZG/JYhuODWC34f+dYbxCZoYEkWxqvI
+ RKCG24HJfGOKauB/7unfdk0j8N7sl5SWagfh5YFfX3cTRAO5cfZRvdvUzGsZ+neUCw
+ LaOXgDi16JbY1VnNttkl6GqT3+0O96cJTDkzkyGfHUy8ld3J+neJ1fJVy+esjgdnbh
+ soBl8ZOeTcVhYnbH3V8pLKQ6/zI0wk1K6b1r6ThttHSrERV7z3yMlq8jzbLVgHyc8g
+ 8NbfiiIAqcmSg==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 02 Jun 2026 17:03:45 +0200
+Message-Id: <DIYNLOMQPWYW.HBQ59GSHGENX@kernel.org>
+Subject: Re: [PATCH v2 0/6] Rework index projection syntax
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Abdiel
+ Janulgue" <abdiel.janulgue@gmail.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Robin Murphy" <robin.murphy@arm.com>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <driver-core@lists.linux.dev>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>
+To: "Gary Guo" <gary@garyguo.net>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260602-projection-syntax-rework-v2-0-6989470f5440@garyguo.net>
+In-Reply-To: <20260602-projection-syntax-rework-v2-0-6989470f5440@garyguo.net>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,20 +66,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Am Samstag, 30. Mai 2026, 16:00:09 Mitteleurop=C3=A4ische Sommerzeit schrie=
-b Maxime Ripard:
-> The drm_bridge_funcs.atomic_reset callback and its
-> drm_atomic_helper_bridge_reset() helper are deprecated.
->=20
-> Switch to the atomic_create_state callback and its
-> drm_atomic_helper_bridge_create_state() counterpart.
->=20
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+On Tue Jun 2, 2026 at 4:17 PM CEST, Gary Guo wrote:
+> Danilo, we previously discussed merging this series with I/O projection f=
+or
+> patch logistics. However, I'll need more time for next version of I/O
+> projection (implementing view types that have original container type
+> erased) which won't make it this cycle. This new version for projection
+> syntax rework is minor changes only comparde to v1, so I think it's worth
+> sending out so it can still land this cycle and get out of the way.
 
-having looked at the first parts of the series adding
-the new functionality, this change looks good:
+[...]
 
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+> base-commit: 46def663dd34da36464ba059f7cfeacf29d98e5e
 
+Agreed, as discussed; and in this case I think this can go through rust-nex=
+t.
 
-
+Acked-by: Danilo Krummrich <dakr@kernel.org>
