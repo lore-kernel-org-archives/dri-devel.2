@@ -4,90 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0ED07CD5BD1
-	for <dri-devel@archiver.kernel.org>; Mon,  1 Jun 2026 23:35:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A4B0CD6E55
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 00:20:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C1C410EA6F;
-	Mon,  1 Jun 2026 23:35:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5518810EA93;
+	Tue,  2 Jun 2026 00:20:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bwFeM+dK";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="Hyv+KuSC";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35A4B10EA6C;
- Mon,  1 Jun 2026 23:35:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B2AA7419E3;
- Mon,  1 Jun 2026 23:35:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5639F1F00893;
- Mon,  1 Jun 2026 23:35:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780356949;
- bh=BsNyXchE0cQ+WrTEzbPCgdBZhaTxYz8ZYh6ODfO6Thc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=bwFeM+dKJids5MGHkWeT2lqLmOE+Z22fpYZVG8IarCaPIkYd1ClJLTF0P+KK4TZC1
- t1HfBIbIgLm2lF9d6SD2H1GRY5GUIy6SJwL9v8EZ3L20jIK/NaVXSt1XPTueO0oIGy
- y19iXABriAlFUODdDTo2f2+FK6UaosZlP/s7kW+eWFj9kPjNXvxZUpQLix9fiYAVMs
- qutOmIhrfL9fMTHLsw3ErfIZs150qZpCJg1stHoIzdshVCQp8iYW9sI4ko81gCNtbL
- eRcz3oBpBUe09WQM6FxiPQKCgb0o3dANEdBD5y5Egf4yKaQOgk8QwaFZYGWRDLloCl
- 38TEpySFeTuzg==
-Date: Mon, 1 Jun 2026 18:35:48 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Lee Jones <lee@kernel.org>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Doug Berger <opendmb@gmail.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, Bin Liu <b-liu@ti.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Thierry Reding <thierry.reding@avionic-design.de>,
- Nicholas Piggin <npiggin@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, brgl@kernel.org,
- Eric Dumazet <edumazet@google.com>, Fabio Estevam <festevam@gmail.com>,
- David Airlie <airlied@gmail.com>, linux-arm-msm@vger.kernel.org,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Will Deacon <will@kernel.org>, iommu@lists.linux.dev,
- Ulf Hansson <ulfh@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
- "David S. Miller" <davem@davemloft.net>,
- intel-xe@lists.freedesktop.org, Andi Shyti <andi.shyti@kernel.org>,
- linux-kernel@vger.kernel.org,
- "Rafael J. Wysocki" <rafael@kernel.org>, netdev@vger.kernel.org,
- linux-sound@vger.kernel.org, Srinivas Kandagatla <srini@kernel.org>,
- linux-mips@vger.kernel.org,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- driver-core@lists.linux.dev,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- imx@lists.linux.dev, Vinod Koul <vkoul@kernel.org>,
- Peter Chen <peter.chen@kernel.org>, linux-usb@vger.kernel.org,
- Michael Ellerman <mpe@ellerman.id.au>,
- Paul Cercueil <paul@crapouillou.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Joerg Roedel <joro@8bytes.org>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Mark Brown <broonie@opensource.wolfsonmicro.com>,
- Robin Murphy <robin.murphy@arm.com>, Frank Li <Frank.Li@nxp.com>,
- devicetree@vger.kernel.org, linux-i2c@vger.kernel.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linuxppc-dev@lists.ozlabs.org,
- Saravana Kannan <saravanak@kernel.org>,
- Maximilian Luz <luzmaximilian@gmail.com>, linux-pm@vger.kernel.org,
- Hans de Goede <hansg@kernel.org>, dri-devel@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH 09/23] of: platform: use platform_device_set_of_node()
-Message-ID: <178035694685.195552.1114165096275774254.robh@kernel.org>
-References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
- <20260521-pdev-fwnode-ref-v1-9-88c324a1b8d2@oss.qualcomm.com>
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com
+ [209.85.221.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7F2E10EA93
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 00:20:08 +0000 (UTC)
+Received: by mail-vk1-f178.google.com with SMTP id
+ 71dfb90a1353d-59d7db12342so735766e0c.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 17:20:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1780359608; x=1780964408;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=hmXuTGfu5wEdyKtowpHZkgr+34efjdZlBIcISUzAgh4=;
+ b=Hyv+KuSCFqPD106I0jEOMw6pFW/7T20jcSTpoVLO2mJvbIgQik9aTwDMrw75wG+cUu
+ ASlVfkD3j5gk39ldJKS/bwKs9xXAgD0fNh47gsj3R8XRh2zqX9JvYgZj7GOjiE+lwpYx
+ lmKI/h7xqLcRLL38Vkt6zoDBAtqlawVhnNKA0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780359608; x=1780964408;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=hmXuTGfu5wEdyKtowpHZkgr+34efjdZlBIcISUzAgh4=;
+ b=Wxe7mPJJQ6u8gyR21SLGGRBMofvetGkoYiEpfZmwTWHn3ywz8mN2K4o08s82YkaGwg
+ 9tLjsQGMuwXmnj9jhU0lyMBkZcLw0++oMiOpEgACUMgN31S/8OKd2jaZ58gUot1KV7b6
+ fG+Iqmbcqhsu+GhYQc6XqiRd+mvlPWHTQ4IWOnSrEU6VxzKNISwS7kh7yqW8F681xGLD
+ XzttooWZy+EUrliZN/CSUaPso3bkflh/F+ME+HXqH5JqmkV9eBfS0L0jBExgjEG1Lan5
+ /3hEZd26uvKTjxHJkwAI9gyZ7o2dkN4B2PjFlh9/YLovxNzsy1XcaoBvUZTFHJQ8nIf6
+ tMaA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/JZ0hAfmQG1A+lubrSD1FS9riFSMKsXVUmRC3XdECFiEZQmNc/8UohXGur+g0DkIsTiQqfph5D5nM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzaXTSZmS4FAfcmjHt/NE4C7mZJ/odkC/a1anvPQrYlsGPPZ5SL
+ 9IWWmOMijwY6CyjZHTE1He9jx6R9bB2N+yCdkWTjRUWskfw94WIp9KzKxQYIc9/vhZGosEKelg/
+ Ij/s=
+X-Gm-Gg: Acq92OGyaf+ASvs5m3fFwcB7+YYzPUwYZE850owIPt6X3+wigxGfa2fx+BUvHf5A8gC
+ 3fDfnM84l+H8WSaJqrr1AERKFeNr3HWP602ngq8DMHb8fxg2axBxGMcJ+Lo2nAmPU4yppSY5FWe
+ kmTHtUUmxStftfEMKzPqGpLJjDXR75ePtRtWtIdZqMzMcuBADFoUEPvROAElT7MEltx4OMNa8G6
+ CVlqBdRmnnjGa+Tre/XaFsdhtckOYelhWpkiM0rzFe9FPNZE4yZ0e6AC+9JZTXW7afEzxgEUfcG
+ qZZVBiY0wkw3YKogCSjfWwXwA+/kk0ejQYVGenzuT2zm4D/eCROymgRl6aa8UtiEQP9iK4+ygE/
+ aUgYDj2riof8GoL3Gbsc3PeMtHT7vYF7Z3ZVkLrZBJJ/EBDv5TZYwIUSqSx3IAnIOA0T5f/K7t4
+ u2iinCwy/mruwJr9Qw/E0T4N7kBxSOJsRudJBNY4sBULoygTYzjLk3EDxXJrVh9Zu/2ujNbXg2
+X-Received: by 2002:a05:6122:d21:b0:575:38d3:7c8a with SMTP id
+ 71dfb90a1353d-59bf9084d54mr7291551e0c.2.1780359607749; 
+ Mon, 01 Jun 2026 17:20:07 -0700 (PDT)
+Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com.
+ [209.85.222.50]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-599d4754259sm8700612e0c.7.2026.06.01.17.20.05
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 01 Jun 2026 17:20:05 -0700 (PDT)
+Received: by mail-ua1-f50.google.com with SMTP id
+ a1e0cc1a2514c-9617940274bso3290097241.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 01 Jun 2026 17:20:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/du3uqU7F33zHiQXxjYCnwuTYAr4WaYK+tkOBLb2TPuyokFITA71vupKyZZMibOaV835eb9Jm97Qs=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:374e:b0:631:4580:6a42 with SMTP id
+ ada2fe7eead31-6c69a5e9bc6mr5836330137.22.1780359604695; Mon, 01 Jun 2026
+ 17:20:04 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260521-pdev-fwnode-ref-v1-9-88c324a1b8d2@oss.qualcomm.com>
+References: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
+ <20260530-drm-no-more-bridge-reset-v1-42-875d828d31bc@kernel.org>
+In-Reply-To: <20260530-drm-no-more-bridge-reset-v1-42-875d828d31bc@kernel.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 1 Jun 2026 17:19:53 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XDjp99TYtSAQ5CEN+SjdmXUMNsqj-NA28HGE2hP83_QA@mail.gmail.com>
+X-Gm-Features: AVHnY4JLfCVUg8Y3HWpxeX4g74jfT92G3YrU_mYeqCLRpk_-oqaIxYc96v0LfJ8
+Message-ID: <CAD=FV=XDjp99TYtSAQ5CEN+SjdmXUMNsqj-NA28HGE2hP83_QA@mail.gmail.com>
+Subject: Re: [PATCH 42/76] drm/bridge: ti-sn65dsi86: Switch to
+ atomic_create_state
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,17 +109,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi,
 
-On Thu, 21 May 2026 10:36:32 +0200, Bartosz Golaszewski wrote:
-> Ahead of reworking the reference counting logic for platform devices,
-> encapsulate the assignment of the OF node for dynamically allocated
-> platform devices with the provided helper.
-> 
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+On Sat, May 30, 2026 at 7:02=E2=80=AFAM Maxime Ripard <mripard@kernel.org> =
+wrote:
+>
+> The drm_bridge_funcs.atomic_reset callback and its
+> drm_atomic_helper_bridge_reset() helper are deprecated.
+>
+> Switch to the atomic_create_state callback and its
+> drm_atomic_helper_bridge_create_state() counterpart.
+>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+>
 > ---
->  drivers/of/platform.c | 2 +-
+> To: Douglas Anderson <dianders@chromium.org>
+> ---
+>  drivers/gpu/drm/bridge/ti-sn65dsi86.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-
+Acked-by: Douglas Anderson <dianders@chromium.org>
