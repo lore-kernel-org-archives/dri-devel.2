@@ -4,78 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DF78CD6E60
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 15:48:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1649CD6E64
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 16:16:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 835E8113AC4;
-	Tue,  2 Jun 2026 15:48:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7440210F313;
+	Tue,  2 Jun 2026 16:16:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="VqDwc26l";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QFEN2V9L";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AA65113ACD
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 15:48:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=9gUVSKwfXoDQWWYjbnImaSuYzSG5fVumw99xAgXWy0Y=; b=VqDwc26l/NKWX9wAgGt68uwI49
- E4PdDKZorM/nSc9D2W3K1MTIWJu7O2/a6NjYDlJQtx4xhvI2IqJQer0FrEVD87c+OTBUwRiD5t69q
- 0hbsyrpOAcEsa4cz3++OFqHFCo4AJX/karnsad8eil5IHRKOKaQzTAQTg5+JQUgeL24oPN3Q/76Df
- Kb0VRB7FlBh05riQKQif4/79cbguXdGMqfHDGszZfylq39TkjRxZKZ6K2mGS3NFaHr3vh9kKCCTSp
- N7KZNFD07pYAv4BAPdB6orOMpC6+ZOcRf1pPjhl2bQ15X0wKe3UK7QmVSCXrxbbfUmnY/U/dZs9gE
- XDvIwNsg==;
-Received: from [189.7.87.67] (helo=[192.168.0.2])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wURM4-00Bm8U-Up; Tue, 02 Jun 2026 17:48:37 +0200
-Message-ID: <42de0186-0f96-4c0d-b51f-f449f931e723@igalia.com>
-Date: Tue, 2 Jun 2026 12:48:32 -0300
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012008.outbound.protection.outlook.com
+ [40.93.195.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2452010F308;
+ Tue,  2 Jun 2026 16:16:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lQu6gnU1t8ffYF+PgIUs2pTa3uqjDGiX2AIUU+8D+BT6wZdi4F/NuIeFYmZMwaQMU5Et+F0/dE8tVkwl5XvRsk3krJNdC4S7W9twOQWtDwF5VuEHcik8GmYzOjxC88AbcoXDZYWAmN4PRJsunT/PWsLHl6z94MTDCo9aQQhwEdJYJF8YLSyMaLrW7XkVk++SthNuLigBAITJPsiGn5ncyhw9w/La+gS+/8wP0l82Gtl4cuO/X5irf8kxA16YVkFptZjOSWfey9fxjpbkvG0g0PhxevmHsaILWPmAiyWWwTzs8iqueFWzG7do68//zoJnF66fz5gNcqzu26JTAq9Hrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=P9cg9jEWfd3fDPRAcbuo1B7y9u+HcHMclRnBFfiqq6Q=;
+ b=QlNFIE79OLTEVpqWGk3dKdgIRcF/8/LBzCqL4lzL7J0MYpqIShNJQKulUe5tkRFePxYe3WUvnsPMboOnYIcNqrti4qtlSxgCmgL5l+/Tvc77qxhTeVnVtMu/dFcJ5aOW3RXJYiGsJK2zojSxospl4zpF11PpP1KxFzugCMSVjgVxonKK83e9j00Nhg/Cu3AqWUsJc/slOzSfr/zMCR3/4qXbwQxDO2E/s22FtvcDLPnojxcvTC88WYXd93czVFzqLvHd68zTYG5ZL36JjenYaDDQLC8aohZ8pUCT9JtvJHcMPeXsdLGmxQ0JVLMJuwhRl3aSTbGowenTFTlL5vg4YQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=igalia.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=P9cg9jEWfd3fDPRAcbuo1B7y9u+HcHMclRnBFfiqq6Q=;
+ b=QFEN2V9L1JNJdjVMR5bv7d8qzAk3/3pja+uSzUJ6Vz0rBSGOLZ6jkf7iDo2xCNI8GdbpUbIXxMDdipsOUmvwcA+OS8dIq3OecKTv1XPKCPtXf4TReI7/AE+UMhCzhH6GV3kdOLQ4gX7oGwe/cRQm7o3ZbxrQcySEmEnDKqebqts=
+Received: from BLAPR03CA0050.namprd03.prod.outlook.com (2603:10b6:208:32d::25)
+ by CY5PR12MB6108.namprd12.prod.outlook.com (2603:10b6:930:27::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Tue, 2 Jun 2026
+ 16:15:56 +0000
+Received: from BL02EPF00021F6A.namprd02.prod.outlook.com
+ (2603:10b6:208:32d:cafe::5) by BLAPR03CA0050.outlook.office365.com
+ (2603:10b6:208:32d::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.15 via Frontend Transport; Tue, 2
+ Jun 2026 16:15:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF00021F6A.mail.protection.outlook.com (10.167.249.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Tue, 2 Jun 2026 16:15:54 +0000
+Received: from kylin.lan (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 2 Jun
+ 2026 11:15:52 -0500
+From: Alex Hung <alex.hung@amd.com>
+To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <siqueira@igalia.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@gmail.com>, 
+ <simona@ffwll.ch>, <ray.wu@amd.com>, <alex.hung@amd.com>,
+ <ivan.lipski@amd.com>, <Aurabindo.Pillai@amd.com>,
+ <srinivasan.shanmugam@amd.com>, <marco.crivellari@suse.com>,
+ <mario.limonciello@amd.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: Export symbols for KUnit test modules
+Date: Tue, 2 Jun 2026 10:15:36 -0600
+Message-ID: <20260602161536.3909009-1-alex.hung@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/v3d: fix to avoid cleaning up uninitialized CPU jobs
-To: Jeongjun Park <aha310510@gmail.com>
-Cc: Melissa Wen <mwen@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Iago Toral Quiroga <itoral@igalia.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@kernel.org
-References: <20260525140422.1545327-1-aha310510@gmail.com>
- <9956a72e-57ad-4bad-a3f6-87710eb4924d@igalia.com>
- <CAO9qdTGB=7K0SJCiCpP9TYOk_3Z6wETM43m49FqvD6iw9ApOEA@mail.gmail.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <CAO9qdTGB=7K0SJCiCpP9TYOk_3Z6wETM43m49FqvD6iw9ApOEA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6A:EE_|CY5PR12MB6108:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6ecd55cb-b92a-4c08-3d8f-08dec0c2393d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700016|376014|1800799024|921020|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: NVcaRVnsrs/oCnJBxoGim/1ISWtb4Hf5gzrWfQUYwLpwNhMbbJcC8tEOLgSLCZCBtXjQKsPzBQRtkJRJFokge692S4K24pLY+C9gcT6homT9ecCUd3cbwyKiIiJaxmqcpZDRocn/YPexspWW35RFbfgyjnsZvIL6NVGviUFgOuMSUq8cvbFIs9uEHWaKpfwre/cIjZ0HY8ped5sOPE91SV7NC6pry749hS3MkI3f3XkquRfI6OTNWmxLLIsCMPwODyxb/bAtnwoqZH0f8LjGmJ+kE9bzfbUfI7WozsH/IizC/yPe7w5OM/Yn6HGZXtDu8zpBZAmr13Z6/7MaVfLnyYux8dgSoN+ShLaFD+DJoZMpuL7XN3H+NNJRi7DLivEiV+aR3J9JGusQspbI/VSxIwkELrPDv5ArbPDweACPbYKxEpsl2VMfoA9y5Mct8nzPwaHiOGoZ82a2MFuAr8k5EK2Qb2jJW8IQCdrj/QDQfePahr4WxRYkb4eaFK1KGNYOvXQ8KU+lzcFUKV+O7oh+bferDD08xP3f1tKyMZA3IOIOITOFp/RNtV7RsZSi41LXw2QfBEbKf9sO2YakBH3fO1BDSt5wK/2T/qUPwozajsiUb7izqbGmt9Eq0I2BORWJUmQkaNjYnmAe4B4grU5yUc8aZgtOwZ0AcEO8e5WYbrQkQeOaZA7rNAWREABhzVTcNrh1WrMjhfpMu5vOnPh8Oxe0Y8TT4Q9Ct5XLwClhto9Io6ObAzkS2qQKw9GIpy0weTmXU8YHeo5iHB1rDeBA4w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(921020)(56012099006)(11063799006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: Fxj+HadwP12xcYTOBUe14ecOWDEr4dmWh8X3oocihjJoVtVq44/SZdfe3Si+9iEj0PgIUpMdllustaZ1OoARZeEbhR7omfU/3rBQmnGgXytH87cg3gF/ZKLXOigYDOnnipjIw8YpQxoFU8DoNF/yR/XitbcO262ecdQiaxsFLjDB6S+JMYyYLIoCDykRvLXQKydkvWrAmwx9ZUpcb1tsus27f8hIuMAYWL7RZvREcueK6jYpZvWry4DGdCm7R+tm8FjQDji1yR5KO2oaUHX/raVAPzSAC/7DiOcJRA2rYDunWBY/PgJWA/dq2S30KbQ2p8qjibFJp1zyPs1MDk9ITkjX1c1ncfJS6jmgTi71Grs013HwKWYt6K2mV/gxSnlT+JVtwM+LIFnlLWEhn5YX3AhffEjUBgbztEm6Cd8u/6Xu78DKpDcqMHrnLS43P+Sk
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 16:15:54.9227 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ecd55cb-b92a-4c08-3d8f-08dec0c2393d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6108
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,63 +114,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jeongjun,
+Add missing EXPORT_IF_KUNIT() calls for amdgpu_dm_psr_set_event,
+amdgpu_dm_ism_init, and amdgpu_dm_ism_fini so that the KUnit test
+modules can resolve these symbols when built as modules, i.e.,
+CONFIG_DRM_AMD_DC_KUNIT_TEST=m.
 
-On 02/06/26 12:41, Jeongjun Park wrote:
-> Hi Maíra,
-> 
-> Maíra Canal <mcanal@igalia.com> wrote:
->>
->> Hi Jeongjun,
->>
->> On 25/05/26 11:04, Jeongjun Park wrote:
->>> The CPU submit ioctl checks cpu_job->job_type before the CPU job has been
->>> initialized with v3d_job_init(). When no CPU job extension is supplied,
->>> the check fails and the ioctl goes to the common error path.
->>>
->>> That path calls v3d_job_cleanup(), which expects a fully initialized
->>> v3d_job. However at this point the CPU job has only been allocated,
->>> so the embedded DRM scheduler job state has not been initialized yet.
->>>
->>> Initialize the CPU job after parsing extensions, but before validating
->>> the CPU job type and BO count. Keep pre-initialization failures on a
->>
->> Considering that this is a minimal fix for stable, could you explain me
->> why do you believe moving v3d_job_init() is the best solution?
->>
-> 
-> Because according to the implementation of v3d_submit_cpu_ioctl(),
-> v3d_job_cleanup() should never be called when v3d_job_init() fails to
-> execute successfully, but it is currently being called.
-> 
-> Therefore, I called the init function before the job_type check and added
-> the missing v3d_job_deallocate(), which should be called when
-> v3d_get_extensions() fails. However, upon re-analysis, it appears that
-> adding the fail_init label is unnecessary now, and I have discovered
-> another serious issue.
-> 
-> If v3d_job_init() fails after v3d_get_extensions() succeeds, a memory leak
-> may occur in the memory allocated by v3d_get_extensions(). In such cases,
-> v3d_job_cleanup() cannot be called, and consequently, v3d_cpu_job_free()
-> cannot be used either. Therefore, it seems necessary to add a separate
-> helper function to handle this case.
-> 
-> I will quickly write a v2 patch reflecting these changes.
+Fixes: 7c1bb28ce2f0 ("drm/amd/display: Add KUnit tests for amdgpu_dm_psr_set_event")
+Fixes: 4db0dd9e5a63 ("drm/amd/display: Add more KUnit tests for amdgpu_dm_ism")
+Assisted-by: Copilot:Claude-Opus-4.6
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c | 2 ++
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c | 1 +
+ 2 files changed, 3 insertions(+)
 
-I wouldn't worry a lot about this particular issue, as I already
-addressed it in [1].
-
-[1] 
-https://lore.kernel.org/dri-devel/20260510-v3d-sched-misc-fixes-v2-0-ca4aba343ef6@igalia.com/T/
-
-Best regards,
-- Maíra
-
-> 
->> Best regards,
->> - Maíra
->>
-> 
-> Regards,
-> Jeongjun Park
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
+index 5c0841728671..32391b56097e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
+@@ -640,6 +640,7 @@ void amdgpu_dm_ism_init(struct amdgpu_dm_ism *ism,
+ 	INIT_DELAYED_WORK(&ism->delayed_work, dm_ism_delayed_work_func);
+ 	INIT_DELAYED_WORK(&ism->sso_delayed_work, dm_ism_sso_delayed_work_func);
+ }
++EXPORT_IF_KUNIT(amdgpu_dm_ism_init);
+ 
+ 
+ void amdgpu_dm_ism_fini(struct amdgpu_dm_ism *ism)
+@@ -647,3 +648,4 @@ void amdgpu_dm_ism_fini(struct amdgpu_dm_ism *ism)
+ 	cancel_delayed_work_sync(&ism->sso_delayed_work);
+ 	cancel_delayed_work_sync(&ism->delayed_work);
+ }
++EXPORT_IF_KUNIT(amdgpu_dm_ism_fini);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+index 85caa8534184..0dadc0bb214f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+@@ -189,3 +189,4 @@ bool amdgpu_dm_psr_set_event(struct amdgpu_display_manager *dm, struct dc_stream
+ 	return mod_power_set_psr_event(dm->power_module, stream,
+ 				       set_event, event, wait_for_disable);
+ }
++EXPORT_IF_KUNIT(amdgpu_dm_psr_set_event);
+-- 
+2.43.0
 
