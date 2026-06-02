@@ -4,147 +4,168 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9064CD6E64
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 14:29:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01F0CCD6E60
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 14:41:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E3DC10F25B;
-	Tue,  2 Jun 2026 14:29:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4174510F1AE;
+	Tue,  2 Jun 2026 14:41:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=foss.st.com header.i=@foss.st.com header.b="eUA1Apos";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TM2rhegX";
 	dkim-atps=neutral
-Received: from AM0PR02CU008.outbound.protection.outlook.com
- (mail-westeuropeazon11013008.outbound.protection.outlook.com [52.101.72.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1B3110F25B;
- Tue,  2 Jun 2026 14:29:42 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7723D10F194;
+ Tue,  2 Jun 2026 14:41:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780411281; x=1811947281;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=U4GEqt4xh8mkoj+hdmbDdWgr2kwARB1AEOgYN/J/BKU=;
+ b=TM2rhegXnBq2jUhn2L2E+6x6qcdcjXlAa7v1PQw5obQMIQgdQDbx15EK
+ Guxcqf62QrIO44cReJBnoUnqKc6k4krCbtAHKO1P0ziIGlth6GO2FYJ1t
+ l5pCS7l/n2SGPOXE3y6U/a3ee2HnNtaj7TdvQtC3YJxnRRQBdpJsCLK+a
+ mZ4DTiTRzHq1nVppNtlWZ+UETpbHxH/1tF5M+bsO+DbPlR+Nii2siojqE
+ HQn670MtGiDihxh803K7/Qlh+8Iv0C/1vPIsT/vmJwgsygncRIefUokoC
+ j0evn5xg8cBOokNQOm7WvEJovFIPACHr0XXxMOA8AsRlj59Qeu29CfWJb A==;
+X-CSE-ConnectionGUID: e5JCJ0Z6RI+HZUdkpLsqlA==
+X-CSE-MsgGUID: 2TWvmW4fSBWn+sdW7hF5mg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="68740785"
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="68740785"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jun 2026 07:41:21 -0700
+X-CSE-ConnectionGUID: l2PdsXwrSkm0wQZrBLOYPg==
+X-CSE-MsgGUID: b7AASB8HTQGtDXreKqcTDA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="243761764"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jun 2026 07:41:18 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 2 Jun 2026 07:41:17 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Tue, 2 Jun 2026 07:41:17 -0700
+Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.69) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 2 Jun 2026 07:41:17 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nAjC7cViLDG/A+FtzEsWD40JzJhWGHc24dS8Nfaez/jCMKtoN7Vo+Fiqn4tmuhHV+hUAEWv6z2C8gog/8uBoujgU8xnw7VSZv7sXf9UY3e8FmuLJdenO9mRgjlPEFHlrd6ukfsaCH6QL5yVzoZs6RVCNnjFUw5BYxp5thd374zmNDjZ5RP9VGHbI84DvcqEbFma80NBluH4BtDRRWNvaDDcyPAFSZE8+uw/0InWtwzfLawNW9m1AKWkWNC1FzELiIqfXGOYXkE5lm0pwJ79dMYDf1HXQOUKX9GaLlnHrFUNfBgEPBFeyQfWAZaQ5DshBCumvkPsZkpCkEMx9OmNhuA==
+ b=jjOluG3u5u+Osikn2dc7zKwB/44BRGMBwujFBMLQgrQDae2FkD3oJ24DXLu4xhb4pJC6sjP+5CCZR8wyFZAX4y/nxlOnTI9gXnO5hl0XrOLhNbgxH5KuzawbQ8wP0am1XtudQtF/KvsVHvelqlyt9ucPMMQrFVBi1A8wVG1gbQ+CMAq5n9NPsy2avQcSda6fZuKGFW0AiW/ujlQFwej19L1Z5jcZXfkSEcsCtOuPCilopkaOdL3jiQVfQQgelAk4RPdjBrXCi7Pk6f9wX5q5GrqmMrvyFz2yHOSOdtTGbjOO1Zdu3y14lyL5AB4yCcKY2wZRDzOmEYtKzYauz01Beg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/DFoeL/DBkSdNltDI2+oyIzqYORaDpNnOZX+SZizLn0=;
- b=VI0FGGtZwdSN6Kogp6RRIOi7G/aMwOVvOxWZO5dBoI9mwUT3+Rf1tyyS7iEBnzo43q7BH2doEMOPsa7RiZ/QelWC192paHuVb0U/dnqnRU+xePK//9x3W/BSpU8stNl62FImUlCJdOoH1eo329BRBy5KujjcNZH86U84EFhX+KLtTozPF+lFNCCEKCLmSjVIbyIZURfYAKjYco7/QU6VDZyin88v1NwcR1yWyCcYSfdIJ6BqiZts4PwXlDiPamJesGw1G6tiD0unb0py3GVvcUClPkNj1hoJ1Uu22y/upCberkjKOGE7/sis5DjfESQIk7i8VE7JjxMXsMfKPyYF3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/DFoeL/DBkSdNltDI2+oyIzqYORaDpNnOZX+SZizLn0=;
- b=eUA1AposxWT75qtkT6GUYvdB+9Ir3YCiWqk2qPr7TMy/FsxkiHdB48k8+dsi3J2popcWyNJOk5vaq46g1BgKzgvtEYqt+Xu3npQcB9VfBRiOlThzGtE7XeFUscikNqL2Hb2yqFbHBVo48AResFP0SGvw9t/WtfnGizvzYALXTSCPsomOaQUhhLJUe3yaDLQJ1rJLfZihUe1+UEhbmLK7LSPVNxtWXpjmmbPmHDxSOPN5N85lqPdj8WzEEAo2C2xK2VgbA1kRDOwRuUXLoQd8p0qbv6fi8yAi0iDZCkhYKlyo56CFr6FV28ccjXryDSB68kFS4qRI/+j2CWqp791DwQ==
-Received: from DU2PR04CA0246.eurprd04.prod.outlook.com (2603:10a6:10:28e::11)
- by AMBPR10MB9320.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:6a9::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Tue, 2 Jun 2026
- 14:29:38 +0000
-Received: from DB1PEPF000509F5.eurprd02.prod.outlook.com
- (2603:10a6:10:28e:cafe::5c) by DU2PR04CA0246.outlook.office365.com
- (2603:10a6:10:28e::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.16 via Frontend Transport; Tue, 2
- Jun 2026 14:29:38 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DB1PEPF000509F5.mail.protection.outlook.com (10.167.242.151) with Microsoft
+ bh=Xsu8cUeTvlZ/HdiSco01gPawLmbfZvGQ9BK6+VSqD/8=;
+ b=ewXaSQIEuylp505j/sNY/HEQW3T1hnY4KeA97OPUUiKN3+unAI0LQIYNun0mI14fWk83CxRv8hmZrPt8DnFJkl/cl/PtT7WyNMBSUTjA7o8nFvsqBMhUI10K2p3R5s/A42V2dCVQVRHmKHZKgERBxP4XZ3QV7boI1B1U29hcbWlI4xWeAdwcQA01Udjb1qS9bHUWmge0q6f8z7fp1u3lR3hbXpctyRI+rk+yDMxEa/pmeOYvULdv/2uF1y0G6DCSQ+2XMg7w28spWhm8ampC5DaR2S+8VLi+INbWpdEESJitH1R2d5hep0LyMG1dVXhIRPEqdLLmKgRBEVZubZjXJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB7958.namprd11.prod.outlook.com (2603:10b6:8:f9::19) by
+ IA1PR11MB6267.namprd11.prod.outlook.com (2603:10b6:208:3e5::8) with
+ Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Tue, 2 Jun 2026 14:29:37 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 2 Jun
- 2026 16:33:46 +0200
-Received: from [10.48.87.71] (10.48.87.71) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 2 Jun
- 2026 16:29:33 +0200
-Message-ID: <14358d35-2ce1-4d7d-8bc6-e40da4d9b75f@foss.st.com>
-Date: Tue, 2 Jun 2026 16:29:32 +0200
-MIME-Version: 1.0
+ 15.21.92.7; Tue, 2 Jun 2026 14:41:14 +0000
+Received: from DS0PR11MB7958.namprd11.prod.outlook.com
+ ([fe80::8cb2:cffc:b684:9a99]) by DS0PR11MB7958.namprd11.prod.outlook.com
+ ([fe80::8cb2:cffc:b684:9a99%4]) with mapi id 15.21.0092.006; Tue, 2 Jun 2026
+ 14:41:13 +0000
+Message-ID: <bde2f036-3e34-43ae-81cf-cb3ae07874ff@intel.com>
+Date: Tue, 2 Jun 2026 20:11:03 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: Consolidate "sram" property
- definition
-To: "Rob Herring (Arm)" <robh@kernel.org>
-CC: <devicetree@vger.kernel.org>, <imx@lists.linux.dev>,
- <linux-arm-msm@vger.kernel.org>, <linux-remoteproc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-spi@vger.kernel.org>, <linux-rockchip@lists.infradead.org>,
- <linux-mediatek@lists.infradead.org>, <netdev@vger.kernel.org>,
- <dmaengine@vger.kernel.org>, <linux-amlogic@lists.infradead.org>,
- <linux-media@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, Roger Quadros <rogerq@ti.com>, "Liu
- Ying" <victor.liu@nxp.com>, Philipp Zabel <p.zabel@pengutronix.de>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li
- <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, "Pengutronix
- Kernel Team" <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Rob
- Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, Konrad
- Dybcio <konradybcio@kernel.org>, Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- "Dmitry Baryshkov" <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Marijn
- Suijten <marijn.suijten@somainline.org>, Vinod Koul <vkoul@kernel.org>, Nas
- Chung <nas.chung@chipsnmedia.com>, Jackson Lee <jackson.lee@chipsnmedia.com>, 
- "Mauro Carvalho Chehab" <mchehab@kernel.org>, Mirela Rabulea
- <mirela.rabulea@nxp.com>, Detlev Casanova <detlev.casanova@collabora.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Heiko Stuebner
- <heiko@sntech.de>, Hugues Fruchet <hugues.fruchet@foss.st.com>, Alain Volmat
- <alain.volmat@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, MD Danish Anwar <danishanwar@ti.com>, Roger Quadros
- <rogerq@kernel.org>, Parvathi Pudi <parvathi@couthit.com>, "Mohan Reddy
- Putluru" <pmohan@couthit.com>, Bjorn Andersson <andersson@kernel.org>,
- "Mathieu Poirier" <mathieu.poirier@linaro.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, "Jerome
- Brunet" <jbrunet@baylibre.com>, Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>, Michal Simek <michal.simek@amd.com>,
- Mark Brown <broonie@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, "Linus
- Walleij" <linusw@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>, "Felix
- Fietkau" <nbd@nbd.name>, "Andrew F. Davis" <afd@ti.com>, Hussain Khaja
- <basharath@couthit.com>, Suman Anna <s-anna@ti.com>, Ben Levinsky
- <ben.levinsky@amd.com>, Tanmay Shah <tanmay.shah@amd.com>, Erwan Leray
- <erwan.leray@foss.st.com>, Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-References: <20260511165942.2774868-1-robh@kernel.org>
+Subject: Re: [PATCH 1/2] drm/drm_ras: Add drm_ras netlink error event
+To: Raag Jadav <raag.jadav@intel.com>, <rodrigo.vivi@intel.com>,
+ <aravind.iddamsetty@linux.intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <netdev@vger.kernel.org>, <anshuman.gupta@intel.com>,
+ <joonas.lahtinen@linux.intel.com>, <simona.vetter@ffwll.ch>,
+ <airlied@gmail.com>, <pratik.bari@intel.com>,
+ <joshua.santosh.ranjan@intel.com>, <ashwin.kumar.kulkarni@intel.com>,
+ <shubham.kumar@intel.com>, <ravi.kishore.koppuravuri@intel.com>,
+ <maarten.lankhorst@linux.intel.com>, <mallesh.koujalagi@intel.com>,
+ <soham.purkait@intel.com>, Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>, 
+ Lijo Lazar <lijo.lazar@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ "David S. Miller" <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>,
+ Eric Dumazet <edumazet@google.com>, <kuba@kernel.org>
+References: <20260518112048.1746280-4-riana.tauro@intel.com>
+ <20260518112048.1746280-5-riana.tauro@intel.com>
+ <ah0lKbnM9CD3JQoG@black.igk.intel.com>
 Content-Language: en-US
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-In-Reply-To: <20260511165942.2774868-1-robh@kernel.org>
+From: "Tauro, Riana" <riana.tauro@intel.com>
+In-Reply-To: <ah0lKbnM9CD3JQoG@black.igk.intel.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.48.87.71]
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MW4PR04CA0109.namprd04.prod.outlook.com
+ (2603:10b6:303:83::24) To DS0PR11MB7958.namprd11.prod.outlook.com
+ (2603:10b6:8:f9::19)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509F5:EE_|AMBPR10MB9320:EE_
-X-MS-Office365-Filtering-Correlation-Id: b0cde00e-6949-49f5-f185-08dec0b3601e
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7958:EE_|IA1PR11MB6267:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a120719-ae70-4d17-3266-08dec0b4fecc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|36860700016|82310400026|376014|18002099003|3023799007|11063799006|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info: WoiZQnXY9lhhRT/z5Y5Rj899Io6tIuOZN55x3x58LjDRWY5RlNk9AQa4IA7TQ3NNzyyqW9LngKLlE+LfMfTR0dRgMVizKHQ67jyGzVEcx1nK+HmDoUMgFal0lIpnGix/1zOLQG5Y8vcnY/IH0SQRqUYNJ7ebfq4dm+PhftmCxOZZAdzPOFF0GdcT6LdnuiDTNYoNenB7QbBDKtB197gnjxCIt7RbxZ/YTygbe1CURVoiPGdoc6uzGaV9GtRYNdWWyEhXnbhu4DEmlKpVxjYR4r+M4stbcGWUnMdog+DiyPsuYWvIKRf9gPkGVUzVnZvoffUKFrGLQrTFk+3xOogq+KxJUenHqYlUqjRQPVM3Bt7DD3+3ZCArV3uxqIz1WX1z6pGmUIdSqDIDt8SrHg8lwgxcwKko/GQWlrCdmDc0RZhTgXAMNRFxTbGi2QcLg8azQAjeRhrKy1fkncIz/cfRhsHUh+LyvJPUmc7raaI6pypyuw9lflSGzFMvk5DLYD+scxdW5Uvm2vPdFsameWpCLSK3hEC3mgzZWjlXtZs3mtrYwg59ey8PL51pn0R24iw5sJif1caCl82GdS8VVBKugGJYgbOTE8RBNrglBvUedmb9ueDS79yHFNNPLIwS++lnmo1DAlJgXLutRxnGGwkC+o/2PjcDyt6Xc//Iz2pANUTFtX/h6JzYhg4oHr1qDuvrfoEwxls8HoqElVmqXbDoUnL2666hSnS+XP1FYqU+tZY=
-X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(36860700016)(82310400026)(376014)(18002099003)(3023799007)(11063799006)(22082099003)(56012099006);
+ ARA:13230040|7416014|376014|1800799024|366016|6133799003|56012099006|11063799006|4143699003|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: S3ZTc/VFSfbNPlbtYDdFhwyHW5fY0IpZy6KenPGfiixsuSlHf5cGsZYAG5sn8KH4aBNUZ5AaJ8AQju+sGOa1gkymUZ94ulR55abGoR9vBJ06bwzOBa+gP49Z5NoaOBz8g+MJRUjCIOl5t87e22UC+T2NVhgr6lktMvYvfQo2usf0eqXonmQSh1qrCnkbLT2TdSGS41sMu1hdM0cAvRKl/xwwbeTpp9fUyne7922BpyIbrpHPblpQNK85r64eIgTZvx4qdOP0uq1xbZcwxN0FsxakanlZJW0LxRI8+M4iw41+E4HVbXAMK1bPDOPpvQLo0HlE2RZJGXoJMRS4qIdAGvs7ZEFk+b5wzlvmKi+orkDNz6p6oR1zi8kkuXug1TbdA1OeKGjpx3nm+sT9w+pQt/gV9w2/5yvSSa4yNx+rkshw6hJoYP696vJuS1uwRBsANQmRmnWPcSVd72D0NAZnncMTLzwpHaps+f6BtUG34CdzYykm0lOlQrASmdxqQzvUrwTpnQv9kfWzqoYhXwSAUJ9F10W3Kzfu6T3ApQW7GSFAjTKfgWqOyHexF2m7WcpcmimGZxPLquuTykZ9kIF5/ZOtS+i81Sxzj/kW8DYEWQJw3SjlhIi3alcSy7I6ghewFxjxvHeJRGQ+8fp3+7sjZdkqO/PiZovi3JwqaF8/+wztlR0u3U7e5DgFulXSuYxi
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB7958.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016)(6133799003)(56012099006)(11063799006)(4143699003)(3023799007)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: jagGbSISWk6WVljYbqvzNZeMQmXF8wnwolT1poC4IPw+kZnaJWOAvae+By8ALFkwZX3ScvkRDexX+MC/qfuFMgZCeNiCBhpQNcNK5wR+JpMVswGDWFPorUXjO+JGL+08nUJuRwfjG+Od8WcO/J1GzR+70eGjwwmAQYajjOni8eY72yCWfs3LtMwQptyN+8b3YfsncxwDsZHV5F6M+6+Gavs1T6oCEacPSj3XuKq0QIu/zBvVpZSpaLUVOCeu3EYYGUV/vT9VAtzdiHSMUAhWJXzKRE26xqOT0WXe6QkuS/U+A8fSLo8e3jViDM/StnOJcbR4rNhh/tKgU3zmTiWbnhYcXE61cRDTKGsLGOKauXdsZ6JkozjOta7d+c0Wo/RJX4bxubydVeIG27LcE2Xe/yHiWw0YXCWaKo9/8iANXE7tJFn+kIM27xOO9u5cQx5e
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 14:29:37.6730 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b0cde00e-6949-49f5-f185-08dec0b3601e
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: DB1PEPF000509F5.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR10MB9320
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SE9GMFBDREhUcVpBc2UwMVAvdXd2L2FLWnBvdzhaYW52dDBCYzF6TkRsOEsr?=
+ =?utf-8?B?b20xeVhPNWhVVExFZDA3WDh3cWlEYW1UdlE0RjRFQUUrNythdUpKSktPOWN6?=
+ =?utf-8?B?MWtYV0NUT2MvUDV5ZmtabkJKOUlrdE1Qdm94OXNuSVEzRWZpbXBQOUU0T3Iv?=
+ =?utf-8?B?UmNwUGhrcWtYZE9SUlFVYUx5UVFEcVAxTjFSL1A4MFBReUNTOHFFUnQyVVky?=
+ =?utf-8?B?SjB4cExjMVJ5VkNmTlhUTGhydHRBNFIvK2o0OTRETVhIUkdaU3FIc0hndEN3?=
+ =?utf-8?B?cGtKQzlsdHJsM1dzQmw0WUowcUFIK1kvdDk4NVpNL0VGbjBsdkJQNEkzMUdG?=
+ =?utf-8?B?NndIdk9xc09FS2pFMlVpOHpEV054UnNTMU1SUTVlVE5UZmpJUy9iWkJRYWw0?=
+ =?utf-8?B?bWtQLzVONm5KZVNyVDFLcXh6eWRaYkxmQllFWGlldlVtTE9uV3FWRUM0N3hF?=
+ =?utf-8?B?R0FEWnE2enJLMEFvc1BUY3djeVhOZ1JLUFFqT3FtZGRCUCs3Njhxcll5Ulpt?=
+ =?utf-8?B?NHhDQWsweGpGZWI0dXBqbUJBQTFlYWsxSGEzQmEyNmVCelpuam1DSzRzUU9D?=
+ =?utf-8?B?NFRveDZNcldkbGpuYWwwczZJSGkvaW5BZ3Z3bFNRd0R1QjhJN1I2WmZ0WThM?=
+ =?utf-8?B?UVl2cU11QnFjTFBLSG1GMk9JNkpjcWlCTUdQajkycVBaMW9pZi9rUjNYRm1v?=
+ =?utf-8?B?blhvUDd3bzBEaTFUTmtBL2RqNmdGUjMwcXgzZFBqVlE0Q21TbGtjYlNaNW85?=
+ =?utf-8?B?Sjc3VytyNExsdEd3Z1ZCQVpWQytxaUU1MUovK1NYcVFwMzBtSTJ4QVZGZjRR?=
+ =?utf-8?B?d1lFdmxDVDRjTlVxamFGaU9DNTJDR2VXK3BzRklITzJNMDU0ZmFvTXkzMHlP?=
+ =?utf-8?B?TlE5aHB1Ylo3MVBqcWdDbVNSdlNaTDNiTzZvd3BlTUlQRW5uUkE0b0pYRGZt?=
+ =?utf-8?B?UG00dG5ucHY4dnBnMUtPa0loU0dtcUU4Mko1eEMzd1V2OUlrVysxWnB1Q1Er?=
+ =?utf-8?B?OUlvVlE4ZlBTd3k2VS9BNjAzNlRkaU0xR3lKakRkcGRmbUJIUndXdjRWdjYr?=
+ =?utf-8?B?SlFFQnBmZm1FUmFhL3hLTXJwUk5XWHlsMjBXOFBLd0JXZUZBREFvelZxUmFz?=
+ =?utf-8?B?bWlmK09xMHVadHcyanZ2UTZrbjZUNU4rVWxZZVpGbGxvTlRKMHAzSWRmdVhV?=
+ =?utf-8?B?WUpITEt6TG5jMklrSWRDOXdqN1dsREVJemJJb3dacFdadlJob3U3ejRPYXRS?=
+ =?utf-8?B?WnJJOGl6K0dSOGF4S3VhTUtUcGNvbjI1Sjl0YTNIYkU5NUV4VXh6WHpma0ho?=
+ =?utf-8?B?MGNTOUpnbkZ1RTZ0UHNHTVVDa08xSTlmczVBbktnNjlHeno0WHFLMmVpalNQ?=
+ =?utf-8?B?MjZ3MDlJZXVzYkVaVlQyWFdsZzM1dDFqRTBwbjRzQWZobEc4RUV3dGVsdVUy?=
+ =?utf-8?B?U0x5aThDYjN0cjErZERDb2UrSkV4Z3hiRXdDQURtOTFjY1RsaGM5Z1RVdmFK?=
+ =?utf-8?B?Zno4RmV1ajc0cGppMTRwWkpHSTRYQ3hqMWFEMk43Z1I2N0c5WnpOV1pHVDRk?=
+ =?utf-8?B?dlYyZTV6QjBkMWtqVWx6akJSaEdpdFl1OGY3MWdOK0c0NDVYb3BnYWJaWGZ2?=
+ =?utf-8?B?cDh1dndVSWl0VWNIcUdodnY2M0psa2QvcC9DelpKMGx2OXlHNHUweWlYSm1v?=
+ =?utf-8?B?NXllOXhhUmhFNkE0NzdFUEIrdlViOE5acGdUV2h4MDRYZFcvWXcxeTBFTEto?=
+ =?utf-8?B?MzZUd3pnZURwdTRhTzVvTndVbjRwUTN0ZndVaTNSVUE2YThSVmREMGQwN3Iv?=
+ =?utf-8?B?WE5scG1aUVhmeUVldldjTHB4cWNzcU1LUlF6Z2NPYXMrdnZxOVhFdGVCSXRz?=
+ =?utf-8?B?STBwWWU1dEFYTTJmRGFqb3kxaG14b3pDQWl6ek9JMUl2QW41UG4xOGo5OHJJ?=
+ =?utf-8?B?eW0wVFBaZWRxdkxXWndvSGszbUpPNWhGQjgrMlJYRURWNXpUcmM4eERCY1pW?=
+ =?utf-8?B?aDNtRVMwcWJFWWJGZGk1YzZIZWdDdnl0dXdydVdTdzNUTzZraE5mYUo5VzVF?=
+ =?utf-8?B?T0JKM0IzV1VoQzNPSmFUazdYZTJUeUxkOFJYUTZIMHd4UURSbUFYeXFkUEs2?=
+ =?utf-8?B?STYrY0hSVjB5UmkwUWhlc1ZIRnBQN0szM3lmRUhncVJxZmRxMHNwZVlLVDhs?=
+ =?utf-8?B?Q2ZzeW9QN1VHaG1EMkt4RXMwMGNOc3VNbnNYUGpweWFtTFp4ZksxM1BLWGpJ?=
+ =?utf-8?B?aFRXblg2UFllUEZTZklvZk5ZR2VjZDRKUUphdlBJZ0hvS0lDbDZiZmVNVWt0?=
+ =?utf-8?B?UUE1OHIyUWEzbU9kZzBmcHNBZ2tvSnJYbmowVjhMTVRZcitrUGg5dz09?=
+X-Exchange-RoutingPolicyChecked: RrbwaddC+thsle3Xku5hrlBTUYAbK/6uSgndMM9xPVEr8LGTTeRSuqnaHZSFtKZuGGARQkKS7Zpxnk7XtvJ3zqx/6FQkFSLOJNpkm+RFqMwciDlnREwDtZh7EidOzs3JV/fvSD34HFV/l/pN9Cq/NYiXqWTviTwpyBQi1YrQwZcCPHKkdCVtjY/zCEBmrtetzaY1rwVfxqFDIAJAh0WKkwXLWkaONfsTxhY8wHASkZDsFHq7QzW166Or45WZhyxaYZguY/pLStWalzzv3v8E2aX/772HqngP/tXH6AeJSCk28deN6oS37sD0XKjLtzmjUk3gCE9iH8pVLBtoWJTvYQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a120719-ae70-4d17-3266-08dec0b4fecc
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7958.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 14:41:13.6779 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fD8SAVQ5W3zbPtMBTqa5G+HunnUA+yYbj7NijkexJWTISfpS9AFYUcE2p/9w1ECsBu4Ofej/l/Z/VvGKnP6vUA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6267
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,13 +182,391 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
+On 6/1/2026 11:52 AM, Raag Jadav wrote:
+> On Mon, May 18, 2026 at 04:50:50PM +0530, Riana Tauro wrote:
+>> Define a new netlink event 'error-event' and a new multicast group
+>> 'error-notify' in drm_ras. Each event contains device name, node and
+>> error information to identify the error triggering the event.
+>>
+>> Add drm_ras_nl_error_event() to trigger an event from the driver.
+>> Userspace must subscribe to 'error-notify' to receive 'error-event'
+>> notifications.
+>>
+>> Usage:
+>>
+>>      $ sudo ./tools/net/ynl/pyynl/cli.py --family drm_ras \
+> Nit: Make the leading space consistent with other patches.
+>
+>>        --subscribe error-notify
+>>
+>> Cc: Jakub Kicinski <kuba@kernel.org>
+>> Cc: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
+>> Cc: Lijo Lazar <lijo.lazar@amd.com>
+>> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+>> Cc: David S. Miller <davem@davemloft.net>
+>> Cc: Paolo Abeni <pabeni@redhat.com>
+>> Cc: Eric Dumazet <edumazet@google.com>
+>> Signed-off-by: Riana Tauro <riana.tauro@intel.com>
+>> ---
+>>   Documentation/gpu/drm-ras.rst            | 21 ++++++
+>>   Documentation/netlink/specs/drm_ras.yaml | 50 ++++++++++++++
+>>   drivers/gpu/drm/drm_ras.c                | 86 ++++++++++++++++++++++++
+>>   drivers/gpu/drm/drm_ras_nl.c             |  6 ++
+>>   drivers/gpu/drm/drm_ras_nl.h             |  4 ++
+>>   include/drm/drm_ras.h                    |  5 ++
+>>   include/uapi/drm/drm_ras.h               | 15 +++++
+>>   7 files changed, 187 insertions(+)
+>>
+>> diff --git a/Documentation/gpu/drm-ras.rst b/Documentation/gpu/drm-ras.rst
+>> index 83c21853b74b..5a96dde75539 100644
+>> --- a/Documentation/gpu/drm-ras.rst
+>> +++ b/Documentation/gpu/drm-ras.rst
+>> @@ -56,6 +56,7 @@ User space tools can:
+>>     ``node-id`` and ``error-id`` as parameters.
+>>   * Clear specific error counters with the ``clear-error-counter`` command, using both
+>>     ``node-id`` and ``error-id`` as parameters.
+>> +* Subscribe to the ``error-notify`` multicast group to receive ``error-event`` notifications.
+>>   
+>>   YAML-based Interface
+>>   --------------------
+>> @@ -111,3 +112,23 @@ Example: Clear an error counter for a given node
+>>   
+>>       sudo ynl --family drm_ras --do clear-error-counter --json '{"node-id":0, "error-id":1}'
+>>       None
+>> +
+>> +Example: Subscribe to ``error-notify`` multicast group
+>> +
+>> +.. code-block:: bash
+>> +
+>> +    sudo ./tools/net/ynl/pyynl/cli.py --family drm_ras --output-json --subscribe error-notify
+> So ynl can't do this? If yes, make it consistent with other commands
+> (and also in commit message). If no, please document it.
 
-On 5/11/26 18:59, Rob Herring (Arm) wrote:
-> The "sram" property has become a de facto standard property, so create a
-> common schema for it and drop all the duplicated definitions.
-> 
-> Signed-off-by: Rob Herring (Arm)<robh@kernel.org>
-> ---
->   .../devicetree/bindings/spi/st,stm32-spi.yaml | 10 +++----
+Sorry . My mistake. Was using ubuntu and copy pasted directly from 
+command line.
+Should work with ynl. Will check and update it
 
-Acked-by: Amelie Delaunay <amelie.delaunay@foss.st.com> #st,stm32-spi.yaml
+>
+>> +
+>> +.. code-block:: json
+>> +
+>> +    {
+>> +        "name": "error-event",
+>> +        "msg": {
+>> +            "device-name": "0000:03:00.0",
+>> +            "node-id": 1,
+>> +            "node-name": "uncorrectable-errors",
+>> +            "error-id": 1,
+>> +            "error-name": "error_name1",
+>> +            "error-value": 1
+>> +        }
+>> +    }
+>> diff --git a/Documentation/netlink/specs/drm_ras.yaml b/Documentation/netlink/specs/drm_ras.yaml
+>> index e113056f8c01..d94c73a61aea 100644
+>> --- a/Documentation/netlink/specs/drm_ras.yaml
+>> +++ b/Documentation/netlink/specs/drm_ras.yaml
+>> @@ -69,6 +69,35 @@ attribute-sets:
+>>           name: error-value
+>>           type: u32
+>>           doc: Current value of the requested error counter.
+>> +  -
+>> +    name: error-event-attrs
+>> +    attributes:
+>> +      -
+>> +        name: device-name
+>> +        type: string
+>> +        doc: >-
+>> +             Device name chosen by the driver at registration.
+>> +             Can be a PCI BDF, UUID, or module name if unique.
+>> +      -
+>> +        name: node-id
+> Curious, can we reuse existing partial attr-set?
+
+
+I did try a few approaches before sending this
+
+1) using nesting - Did not work with existing attribute sets because 
+netlink does not
+allow root set (attribute-set directly used in operations) to be nested.
+
+     name: error-event-attrs
+     attributes:
+       -
+         name: node
+         type: nest
+          nested-attributes: node-attrs
+
+2) subsetof- cannot use two parents
+
+The only way  i could think of is to move all attrs into a superset (ie 
+ras attributes)
+and the rest as subsets
+
+or
+
+Add node id to get error counter response and reuse the response as notify
+(Response - node id , error id, error name, error value)
+
+Let me know what you think.
+
+>
+>> +        type: u32
+>> +        doc: Node ID of the node that triggered the event.
+>> +      -
+>> +        name: node-name
+>> +        type: string
+>> +        doc: Node name of the node that triggered the event.
+>> +      -
+>> +        name: error-id
+>> +        type: u32
+>> +        doc: Error ID of the counter that triggered the event.
+>> +      -
+>> +        name: error-name
+>> +        type: string
+>> +        doc: Name of the error that triggered the event.
+>> +      -
+>> +        name: error-value
+>> +        type: u32
+>> +        doc: Current value of the error counter.
+>>   
+>>   operations:
+>>     list:
+>> @@ -124,3 +153,24 @@ operations:
+>>         do:
+>>           request:
+>>             attributes: *id-attrs
+>> +    -
+>> +      name: error-event
+>> +      doc: >-
+>> +           Notify userspace of an error event.
+>> +           The event includes the device, node and error information
+>> +           of the error that triggered the event.
+>> +      attribute-set: error-event-attrs
+>> +      mcgrp: error-notify
+>> +      event:
+>> +        attributes:
+>> +          - device-name
+>> +          - node-id
+>> +          - node-name
+>> +          - error-id
+>> +          - error-name
+>> +          - error-value
+>> +
+>> +mcast-groups:
+>> +  list:
+>> +    -
+>> +      name: error-notify
+>> diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
+>> index d6eab29a1394..6696ec21782e 100644
+>> --- a/drivers/gpu/drm/drm_ras.c
+>> +++ b/drivers/gpu/drm/drm_ras.c
+>> @@ -41,6 +41,11 @@
+>>    *    Userspace must provide Node ID, Error ID.
+>>    *    Clears specific error counter of a node if supported.
+>>    *
+>> + * 4. ERROR_NOTIFY: Subscribe to this multicast group to receive error events
+>> + *
+>> + * 5. ERROR_EVENT: Notify userspace of an error event. The event contains device, node
+>> + *    and error information that triggered the event.
+>> + *
+>>    * Node registration:
+>>    *
+>>    * - drm_ras_node_register(): Registers a new node and assigns
+>> @@ -186,6 +191,34 @@ static int msg_reply_value(struct sk_buff *msg, u32 error_id,
+>>   			   value);
+>>   }
+>>   
+>> +static int msg_put_error_event_attrs(struct sk_buff *msg, struct drm_ras_node *node,
+>> +				     u32 error_id, const char *error_name, u32 value)
+>> +{
+>> +	int ret;
+>> +
+>> +	ret = nla_put_string(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_DEVICE_NAME, node->device_name);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = nla_put_u32(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_NODE_ID, node->id);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = nla_put_string(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_NODE_NAME, node->node_name);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = nla_put_u32(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_ID, error_id);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = nla_put_string(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_NAME, error_name);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	return nla_put_u32(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_VALUE, value);
+>> +}
+>> +
+>>   static int doit_reply_value(struct genl_info *info, u32 node_id,
+>>   			    u32 error_id)
+>>   {
+>> @@ -222,6 +255,59 @@ static int doit_reply_value(struct genl_info *info, u32 node_id,
+>>   	return genlmsg_reply(msg, info);
+>>   }
+>>   
+>> +/**
+>> + * drm_ras_nl_error_event() - Notify listeners of an error event
+>> + * @node: Node structure
+>> + * @error_id: ID of the error
+>> + * @error_name: Name of the error
+>> + * @value: Value associated with the error
+>> + * @flags: GFP flags for memory allocation
+>> + *
+>> + * Sends a notification to all listeners about an error event on a specific
+>> + * RAS node.
+>> + *
+>> + * Return: 0 on success, or negative errno on failure.
+>> + */
+>> +int drm_ras_nl_error_event(struct drm_ras_node *node, u32 error_id, const char *error_name,
+>> +			   u32 value, gfp_t flags)
+>> +{
+>> +	struct genl_info info;
+>> +	struct sk_buff *msg;
+>> +	struct nlattr *hdr;
+>> +	int err = -EMSGSIZE;
+> Redundant initialization, see below.
+>
+>> +	if (!error_name)
+>> +		return -EINVAL;
+>> +
+>> +	if (!genl_has_listeners(&drm_ras_nl_family, &init_net, DRM_RAS_NLGRP_ERROR_NOTIFY))
+>> +		return 0;
+>> +
+>> +	genl_info_init_ntf(&info, &drm_ras_nl_family, DRM_RAS_CMD_ERROR_EVENT);
+>> +	msg = genlmsg_new(NLMSG_GOODSIZE, flags);
+>> +	if (!msg)
+>> +		return -ENOMEM;
+>> +
+>> +	hdr = genlmsg_iput(msg, &info);
+> Make this part of below and return err directly.
+>
+>> +	if (!hdr)
+>> +		goto err_free_msg;
+>> +
+>> +	err = msg_put_error_event_attrs(msg, node, error_id, error_name, value);
+>> +	if (err)
+>> +		goto err_cancel;
+>> +
+>> +	genlmsg_end(msg, hdr);
+>> +	genlmsg_multicast(&drm_ras_nl_family, msg, 0, DRM_RAS_NLGRP_ERROR_NOTIFY, flags);
+>> +	return 0;
+>> +
+>> +err_cancel:
+>> +	genlmsg_cancel(msg, hdr);
+>> +err_free_msg:
+>> +	nlmsg_free(msg);
+>> +	return err;
+>> +}
+>> +EXPORT_SYMBOL(drm_ras_nl_error_event);
+>> +
+>>   /**
+>>    * drm_ras_nl_get_error_counter_dumpit() - Dump all Error Counters
+>>    * @skb: Netlink message buffer
+>> diff --git a/drivers/gpu/drm/drm_ras_nl.c b/drivers/gpu/drm/drm_ras_nl.c
+>> index dea1c1b2494e..ac724bb87a3b 100644
+>> --- a/drivers/gpu/drm/drm_ras_nl.c
+>> +++ b/drivers/gpu/drm/drm_ras_nl.c
+>> @@ -58,6 +58,10 @@ static const struct genl_split_ops drm_ras_nl_ops[] = {
+>>   	},
+>>   };
+>>   
+>> +static const struct genl_multicast_group drm_ras_nl_mcgrps[] = {
+>> +	[DRM_RAS_NLGRP_ERROR_NOTIFY] = { "error-notify", },
+>> +};
+>> +
+>>   struct genl_family drm_ras_nl_family __ro_after_init = {
+>>   	.name		= DRM_RAS_FAMILY_NAME,
+>>   	.version	= DRM_RAS_FAMILY_VERSION,
+>> @@ -66,4 +70,6 @@ struct genl_family drm_ras_nl_family __ro_after_init = {
+>>   	.module		= THIS_MODULE,
+>>   	.split_ops	= drm_ras_nl_ops,
+>>   	.n_split_ops	= ARRAY_SIZE(drm_ras_nl_ops),
+>> +	.mcgrps		= drm_ras_nl_mcgrps,
+>> +	.n_mcgrps	= ARRAY_SIZE(drm_ras_nl_mcgrps),
+>>   };
+>> diff --git a/drivers/gpu/drm/drm_ras_nl.h b/drivers/gpu/drm/drm_ras_nl.h
+>> index a398643572a5..17e1af8cc3b3 100644
+>> --- a/drivers/gpu/drm/drm_ras_nl.h
+>> +++ b/drivers/gpu/drm/drm_ras_nl.h
+>> @@ -21,6 +21,10 @@ int drm_ras_nl_get_error_counter_dumpit(struct sk_buff *skb,
+>>   int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
+>>   					struct genl_info *info);
+>>   
+>> +enum {
+>> +	DRM_RAS_NLGRP_ERROR_NOTIFY,
+>> +};
+>> +
+>>   extern struct genl_family drm_ras_nl_family;
+>>   
+>>   #endif /* _LINUX_DRM_RAS_GEN_H */
+>> diff --git a/include/drm/drm_ras.h b/include/drm/drm_ras.h
+>> index f2a787bc4f64..d4a275efdbb0 100644
+>> --- a/include/drm/drm_ras.h
+>> +++ b/include/drm/drm_ras.h
+>> @@ -78,9 +78,14 @@ struct drm_device;
+>>   #if IS_ENABLED(CONFIG_DRM_RAS)
+>>   int drm_ras_node_register(struct drm_ras_node *node);
+>>   void drm_ras_node_unregister(struct drm_ras_node *node);
+>> +int drm_ras_nl_error_event(struct drm_ras_node *node, u32 error_id, const char *error_name,
+>> +			   u32 value, gfp_t flags);
+>>   #else
+>>   static inline int drm_ras_node_register(struct drm_ras_node *node) { return 0; }
+>>   static inline void drm_ras_node_unregister(struct drm_ras_node *node) { }
+>> +static inline int drm_ras_nl_error_event(struct drm_ras_node *node, u32 error_id,
+>> +					 const char *error_name, u32 value, gfp_t flags)
+>> +{ return 0; }
+>>   #endif
+>>   
+>>   #endif
+>> diff --git a/include/uapi/drm/drm_ras.h b/include/uapi/drm/drm_ras.h
+>> index 218a3ee86805..bb2a8a872a44 100644
+>> --- a/include/uapi/drm/drm_ras.h
+>> +++ b/include/uapi/drm/drm_ras.h
+>> @@ -38,13 +38,28 @@ enum {
+>>   	DRM_RAS_A_ERROR_COUNTER_ATTRS_MAX = (__DRM_RAS_A_ERROR_COUNTER_ATTRS_MAX - 1)
+>>   };
+>>   
+>> +enum {
+>> +	DRM_RAS_A_ERROR_EVENT_ATTRS_DEVICE_NAME = 1,
+>> +	DRM_RAS_A_ERROR_EVENT_ATTRS_NODE_ID,
+>> +	DRM_RAS_A_ERROR_EVENT_ATTRS_NODE_NAME,
+>> +	DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_ID,
+>> +	DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_NAME,
+>> +	DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_VALUE,
+>> +
+>> +	__DRM_RAS_A_ERROR_EVENT_ATTRS_MAX,
+>> +	DRM_RAS_A_ERROR_EVENT_ATTRS_MAX = (__DRM_RAS_A_ERROR_EVENT_ATTRS_MAX - 1)
+>> +};
+>> +
+>>   enum {
+>>   	DRM_RAS_CMD_LIST_NODES = 1,
+>>   	DRM_RAS_CMD_GET_ERROR_COUNTER,
+>>   	DRM_RAS_CMD_CLEAR_ERROR_COUNTER,
+>> +	DRM_RAS_CMD_ERROR_EVENT,
+>>   
+>>   	__DRM_RAS_CMD_MAX,
+>>   	DRM_RAS_CMD_MAX = (__DRM_RAS_CMD_MAX - 1)
+>>   };
+>>   
+>> +#define DRM_RAS_MCGRP_ERROR_NOTIFY	"error-notify"
+> Where is this used?
+
+This is auto generated and part of UAPI. Will be used by userspace
+
+Thanks
+Riana
+
+>
+> Raag
+>
+>>   #endif /* _UAPI_LINUX_DRM_RAS_H */
+>> -- 
+>> 2.47.1
+>>
