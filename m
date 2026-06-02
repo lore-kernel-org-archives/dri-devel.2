@@ -4,96 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29B89CD6E57
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 18:32:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40314CD6E57
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 18:41:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87D9A10F4A6;
-	Tue,  2 Jun 2026 18:32:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90B8410F4BE;
+	Tue,  2 Jun 2026 18:41:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NqtdpdGu";
+	dkim=pass (2048-bit key; unprotected) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b="1EsGUFpV";
 	dkim-atps=neutral
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1112C10F4A6
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 18:32:35 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-687ed9aabb3so9074372a12.1
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 11:32:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780425153; cv=none;
- d=google.com; s=arc-20240605;
- b=AVIb4lSDVVAnn6LbdWjxA2AGhpROKn1vMi+bGpyWOXo/SekC/ujpmTjUbqFYHI7vkX
- tQi4EvcGboslMR/nhFPdbc3ZSptAncZ/hMSS+xglJTdv+hs1BplTrf3nE07oeLY+zsop
- 2P/WNx6qTPpLElqQ+7QNHNgF2MLF453eYAoolayGujrq+A/JWQgonNSp5x8aNv2IcMsz
- FdFlzLlvGulN2B4g4GIfRWICKehkHYYeF4NNbajVcQK4+a1w+9FQxAQZXJ6eSFbaZ6tn
- +7SbPN5j9BtnQXABkH/9GoHijYCocDxLJTruxHbJkODCey46HVxYtLfSTjzSv4Pik7iU
- hzCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Cu+PErPTR5Ukq3l0vklbPNxm0Ku3rQpUZSHJOUi+t5o=;
- fh=2Pk80tAe43/Ss5HdRQiOIa1S3dau8mK2Rqg127XP5D0=;
- b=UWRapM+jCqVeucjnuzzTyjAF6oThWgU1qe8JFZlxtwuO0Nz2u5fEKs+NTO6/bh98Yl
- mWeKpyPb2whrKOfwARr6cjcQ8/xpqA8zABnTuyexgkC4DCQ0G5bPof00CtEfHkAYtZCU
- jaUgWfeo7pBsG8n9CuTMCCb6F60BYclUCZdlccMIFuB0yVv++ZfSLLyFQpDkyvberbef
- M2HaAnjvIKBBu0RAc61ROpdaU+vzJhj8FfpESimUKYexmTmiTKU+EhoTWSvNvJvycacG
- pF9hIFcHkyWOuTtgB6+wJ9GqtePOLYAEk1H5BigTA81xy9RLEY+YpEtsg9jToC7mvn9G
- QQNQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+X-Greylist: delayed 498 seconds by postgrey-1.36 at gabe;
+ Tue, 02 Jun 2026 18:41:23 UTC
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5645410F4BD;
+ Tue,  2 Jun 2026 18:41:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780425153; x=1781029953; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Cu+PErPTR5Ukq3l0vklbPNxm0Ku3rQpUZSHJOUi+t5o=;
- b=NqtdpdGuUUtMCy2nhFn6Po0Kx3Kp7OvFjctUKr4WezH3SaM7zvthQiin37VbQlt7JH
- dSvkQ9fJOIN1PlpMBEJfLK4x7dj/x6Q7ZCF20KXXAVg1nGIXIttWwvHKsYNepq4HMTmR
- qZQuZZ8eCOAfAqgw1LArqEUdUwW4rwAqCvMHbe36IX5XsB+CClr44zQJMY1q+rw7BBSA
- 0gQnA7J6LnxbEkWmOpqiG3N2qJHCpSkEWnKXy6/t2wdVDy9ZTqaMP+no4sY7FMjnTRRZ
- Mlatb2cgM7z44ym4/lql0TLkmD6hUHarMK7cVkaCilh+0i1nInYJtC1gIcgKU2Z2yCgl
- Aczg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780425153; x=1781029953;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Cu+PErPTR5Ukq3l0vklbPNxm0Ku3rQpUZSHJOUi+t5o=;
- b=GtgR4nKFa8InxQjcFQ0dVSLz5Y8C3iVoYEE3qeNfFUnYsZrrLEqTiLMEm3adm29WoM
- cBF83mXQaJOd614bFnhLso8n1ngIAi3N29vv2wVrobS9/qTAb93FMrPP2StU9HF+fz3l
- Z3DM9du8FGhxXqmZdABDUrKfAQvEpDQroA83ea/s47YE4V5TVqrx84vOKndOKN+tvq2E
- /CYHBDXBzf9SOHTAgOwIQJQy4jv9gHIES4zMSHH/Bf8hq5H5tNzINccQ5WFmzlXUFtCY
- jy3gYJjblktkHMghWM55TBt4C15F8TFOAK/Yn3OTUV304K5KV3DVv5vkcwe7/eEetuws
- brPw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8KR2h+/EeCEHDsGSUMD6yJM30iqX9qhXmbQU2CYlJYYYlM3ZN/JjyRTXCLwz3V0ktkPsmfx2VVaJ4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw0LR88TfNb4SQw3n3qFfa8NOJzfq6Vi5+y4oKzf7+LqmivAhDe
- rIocE7B0+PS1NeIyb1mUF64waNjQf4z3nTKJuj54D7+SKYHH1wEC9w5TKZIlKO1iciOT/NOrn2m
- r5gP2rEfdEt+27ZRGYk3akwib96j+KHw=
-X-Gm-Gg: Acq92OGXp98LEex3GMAHd9xGw7TCywXdJDEMk8FTbT7j1iNf8gbkaFOH8B3C8IOy6tK
- tESL3v+4o/RsoOJkcEWDIrIapNUWu5FMfwo9yjDvSc4NAOeCZHJzKFyAvY7whkzm+Ds4OvIdNVb
- biEC75OuWeL4rR7KGizJ3W0kFZSjzrVhhITtlSZ1dqlR2JYhWgMRsdAuhBdT68NE/vxHkpINHE+
- a3NJXYYb96xHj4Td3k5G1vwI/n5fnoEzl/TYJuN/V9g5YxUejrobTyZAWLyLJbsAWs7rQo/3JeV
- r1YyHOr6BpdUPK2PvXGsIfFNr5UsnizGWNrNbv8kV9aroZq8eTAdd3p/2SqD+M8t71E1Dvn3pzu
- I7d2z3zHD36kx72kyF09Yd0O4qKx749I7XAkT7OR2j+CKShqd8HHGJweYcyoqym+ogiwYgc57ct
- /xSqk=
-X-Received: by 2002:a17:907:c817:b0:bdd:45d9:8e15 with SMTP id
- a640c23a62f3a-bf05eedf3a6mr49344966b.15.1780425153183; Tue, 02 Jun 2026
- 11:32:33 -0700 (PDT)
+ d=oldschoolsolutions.biz; s=s1-ionos; t=1780425681; x=1781030481;
+ i=jens.glathe@oldschoolsolutions.biz;
+ bh=s2g27FFj4SyeGT+RQPpmlU62O+1qoErhbW7atINmYwo=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=1EsGUFpVnnsE5B0oXf8nbo29wgc0rUQh386deL4aDO/4DDp1yw8I3RrnHA5W/f6J
+ U6vbSe2c3K6VtH/64/sXbOnS4qj3nAOQGEF4A4GHwRFyUy3O7UGiQj9CVQZMaJTX7
+ LOcRwPi/pHriCovRPZOXUf5i/2klzarDqZwgW62Gcj4x1Qp1t3XrkEUlCAtHaXr+k
+ o11SBq5Rjw+HNiFOS1zpJwcyrN8AhObuy2Uvgv6G1Jq6sUeqdJWFkKSI7mYrQOKsz
+ RnSGSy3iDoDDt6gcWP3yoSeRxJ8jX3qAYFpoftfO0sAFIjfrvCQrhJ0tk0gRCGFfH
+ TEVRDAlft1eSebcG5w==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue108
+ [212.227.15.183]) with ESMTPSA (Nemesis) id 1N33AR-1xQggY1yvt-00slrF; Tue, 02
+ Jun 2026 20:26:35 +0200
+Message-ID: <240b394b-46c5-4d9b-85fa-981e2c3b9457@oldschoolsolutions.biz>
+Date: Tue, 2 Jun 2026 20:26:32 +0200
 MIME-Version: 1.0
-References: <CAOSULec2OpwTGB3OUb_n3CdKO6H_DGJnxw=qsBswbd+JBjemKA@mail.gmail.com>
- <CAHp75Vc15t7zmNGeuNG_fLHwCN=Ym9w5Cn92+eqbtsioGxFzCQ@mail.gmail.com>
- <CAOSULedF6GUK_e_3KRPB+D0Jxgtow38OjQu9B1=vG-XTfsdYOA@mail.gmail.com>
-In-Reply-To: <CAOSULedF6GUK_e_3KRPB+D0Jxgtow38OjQu9B1=vG-XTfsdYOA@mail.gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 2 Jun 2026 21:31:56 +0300
-X-Gm-Features: AVHnY4JNBGI7LPUW-G8axQLtxVQUn2E5aZHqEdkW01oHLe8JBx5hv2aDMiWM2BQ
-Message-ID: <CAHp75VdtOuLEkiuiUqxa3DT75y8Hd-1PtquodpN4qJ=rCFs_4Q@mail.gmail.com>
-Subject: Re: [PATCH] staging: fbtft: replace sprintf with snprintf
-To: Enchanted Hunter <enchantedredhunter@gmail.com>
-Cc: gregkh@linuxfoundation.org, linux-staging@lists.linux.dev, andy@kernel.org,
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH] drm/msm/dp: add EDID re-read retry in
+ msm_dp_panel_get_modes()
+To: Jani Nikula <jani.nikula@linux.intel.com>, Jens Glathe via B4 Relay
+ <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260531-drm_plug_flaky_edid-v1-1-2708c16dce97@oldschoolsolutions.biz>
+ <d50293fab9e6292220b1817a8e85bbd89743b708@intel.com>
+Content-Language: en-US
+From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+In-Reply-To: <d50293fab9e6292220b1817a8e85bbd89743b708@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:ESetc5kZkGB0y4ImqTCqke0Rum4vzm47lKLJRUXoDQl/vZrSps+
+ OLtheZoqtvb3BowbhFGRufRKZxZzWgGUCIdlkk14i+K8REH8vHureNMLFZFO1IbAPpzacgD
+ RphZk/KIaD1/8m22ejZ20YSIYCcmQNIIcv7BqIveGZvQTEIf89NpZ55rvSH1h3dPtXVBmR6
+ 7R1eZkVsGN9v+eDXp8mEg==
+UI-OutboundReport: notjunk:1;M01:P0:884Tpz7bEDA=;kCZ7E3xJNgvXSx1V/NCEU+U4epc
+ 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
+ S49VijT36Cq3z+VxBvcEeVZPO9kN0=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,36 +106,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 2, 2026 at 8:13=E2=80=AFPM Enchanted Hunter
-<enchantedredhunter@gmail.com> wrote:
->
-> Overall, it doesn't address any compiler warnings, but this is my first p=
-atch. I wanted to start with something concrete, and I saw an unsafe functi=
-on and tried to fix it. The fact that the compilation behavior won't change=
- is true, but the code will become a bit more formal =E2=80=94 maybe that's=
- a good thing.
+On 01.06.26 12:57, Jani Nikula wrote:
+> Did you actually bisect to this commit? It's a bit of a surprise.
+Hi Jani,
 
-Not sure we need a churn on the working code.
+haha yes, sort of. I did a few weeks of bisecting for a different issue=20
+[1] and this error message came up increasingly, so after resolving (or=20
+so) the first one I took a shot at it. The commit was the result of git=20
+blame for the line that the retry was programmed around. And as v2=20
+shows, it was the right intuition.
 
-A process hint: Do not top-post.
+[1]:=20
+https://lore.kernel.org/all/20260530-typc-mux-modeset-v1-1-64b0281e2cd6@ol=
+dschoolsolutions.biz/
 
-> =D0=BF=D0=BD, 1 =D0=B8=D1=8E=D0=BD. 2026=E2=80=AF=D0=B3. =D0=B2 11:25, An=
-dy Shevchenko <andy.shevchenko@gmail.com>:
->>
->> On Mon, Jun 1, 2026 at 3:44=E2=80=AFAM Enchanted Hunter
->> <enchantedredhunter@gmail.com> wrote:
->> >
->> > This patch replaces unsafe sprintf calls with snprintf in
->> > fbtft_register_framebuffer() to prevent potential buffer overflow.
->> >
->> > Signed-off-by: rat1bor <enchantedredhunter@gmail.com>
+with best regards
 
-Another thing, use your real name and not an alias.
+Jens
 
->> Does this change address any compiler warning or something like that?
->> At a glance I do not see any usefulness of this patch except an
->> unneeded churn.
-
---=20
-With Best Regards,
-Andy Shevchenko
