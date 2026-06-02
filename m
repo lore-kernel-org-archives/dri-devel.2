@@ -4,93 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6A10CD6E5D
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 22:31:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31258CD6E60
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 22:31:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E61510F612;
-	Tue,  2 Jun 2026 22:31:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2A8810F60C;
+	Tue,  2 Jun 2026 22:31:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XuCoCrm0";
+	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="hN6ompbH";
 	dkim-atps=neutral
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
- [74.125.82.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A034710F52B
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 19:33:46 +0000 (UTC)
-Received: by mail-dy1-f172.google.com with SMTP id
- 5a478bee46e88-304ddfcf72cso6019048eec.0
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 12:33:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780428826; cv=none;
- d=google.com; s=arc-20240605;
- b=EbnNeAElx2iK91ErDP0qIeGpxpkspjShZghNH0+I9JkDW6H4M1hz0dCbenU947xIvJ
- vx4i4mmgnG7oXXUbpqI6NT45hZ6rPqD/wMjmSLDFAM2PZ+MVB9JtL0Qi76o7qo2R7olV
- WE8I+ciUfxcVEjDBnVFUVVSVqoCspUXfDKzaNW93tGX3Im7zhLfTaYC5jCxAikMrYse0
- Xfa+V1xx1s/P8Xs0tKAiG2O/wugEQ3lOBr/qURCuRHuRsSG8IekKsYo8X/4vnDjTxc6H
- b8XOfl60sP4zsbEXg1xw1Jc3QCH1p8QkgJwlY0JX5n/3/CBCWovtA3oNMIkBAVNqqrZl
- mSgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=9Q32trZhQ3betjB25iJrISerMVqFtqzYveNpNux0sE0=;
- fh=XfdFIfc5rgMwus/2e5wzht/kU2m/ZXvPTI7UQo0Pkkw=;
- b=XH65Oayf5rEHwGF4Y8VGL507uP+NeyRnrp9pW3oFhyz3yZx/DKKK4wFHhtn+AP0ARH
- 0kBxxC5Gor2qE/RO3VBjj9Pi3GdgB/V9z1vgDkcINwc51dFNF+bWa6H8S290y8DdObrl
- HIBznTAIqeG+yKTQP/rCHcRoq4gvp5/hymXV3KRAJOzG2PhFl9LYZJoLM9i5Ft8IsPZV
- oo94B/onhHBBTcLz8yItel/buA1bedU4lmyYDMHsV8vMvufaf5evAkSDbSKjbb8GrQUY
- wKKFMPo79E0TQwddhqRHI72hGw8MSrLWqR5W1ixDOOelqCVecxtUsCQMcWxaXVKl0AvK
- +hWQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780428826; x=1781033626; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=9Q32trZhQ3betjB25iJrISerMVqFtqzYveNpNux0sE0=;
- b=XuCoCrm0RgY9XEA0Mtv9FmREBrrYU+sLKzR03ytm1WZBq/xgznNzR6lMFZSgVfgyXR
- SG0xzdb2Je2ZowBsqRNQ/4u/5kEaho/UYj1RhSsufe3+5i9LdCTVeCQjQtLuWa0tVLiB
- I6zuFY0JU1WqC0NSQw6vWUiu7HONGrSwPu0cRWixs7UjsMqVa+130NaQuOJgpYFtK25Q
- Fgu5vekwPK5/DDv8wClCtgx/OnciRrfohF6dlquyJJdSGnG+9ZE6NE1dhnBsbBcECgSV
- /zuqWEUffqdBNjB2jfuDz0nd37HoZQ5kkTLkKyAEo4CkOl8yPxSlPtefrHdQcT3VpRiZ
- M8Pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780428826; x=1781033626;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9Q32trZhQ3betjB25iJrISerMVqFtqzYveNpNux0sE0=;
- b=G1WiixzCk8fSFJu755hnzOj9J1Dm8XqpKoL0eGSO/kuZ68HIDCKpl+aOLfiXtzUkiv
- 9t3VTmRHEIbvHb7CQ4mn+kVY/yVPTdMU/s2gzqk0KehOgM8/JZBIGkRBOczjLtNWspkC
- DOwVKCbmv+X4aRQxhIgHK7kMELWjb8d424Xk0ZCbuTCc2hiP+4NyQosI2acCGu7bN+MH
- TU8y8CxptCYOguc/sUON7RQftTyd9yMMtB2TF21j7/45JOm2lziKH3Gootsl4hu7KpnZ
- fJU1E3ARlcnNJopfuYcRmtqgp2CVGw2PZRE+D7ygPlgAxRapkAhRJPwSMbf4QiJ2KAdK
- jTLA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8LiMwx4fVtIcPVVVzU0So5ECgijFo8rjnM70XmsQ0NqH9bH6qAZ9NhQay3yjOqQScBNyqf0/tXHlI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw7NjUcV2BsokVHE3ZCObpZN1sDp3WDgCukoecbNApBbDL04JNu
- Xx0RyuDwLyOYiWcuHWGP4e+S0R8ZBZ9+gQPGTV/AW8Nxn1ZoCK4v6/hQvOu3QopTc6WNMay9231
- b3kFj0syOoEXIVCpDlxW2i+rb/gTDcf8=
-X-Gm-Gg: Acq92OH9+759hwUkxD8BooO4sIxzHqxZFZl269T28iiGsKAmWV8X1fb6oEWXsDv+Rl+
- sB/bbcH9FyLcahgeiOl60jdYzBPIM79ezrpzKPHMUOe+JHVuaHgxpIwTNo+vbdLteVnFqmSlPHu
- 8Bl+gCRMDlSWC7IL/OVkz8tPZnZKbMXpc1xzoPKdsATk+k2osTpoall8VJHUEBGc6X89GDT0Xms
- S9B+qPgPt2wsID1652SpjXg2yfdXtxz9qxi7A0lo7qH60NMY4QsBm4ToFiVgWWEauuL+9TmwEo+
- vdWcj59n/m9v7elauA==
-X-Received: by 2002:a05:693c:300a:b0:2da:44ac:6d17 with SMTP id
- 5a478bee46e88-3074fb67910mr55309eec.17.1780428825742; Tue, 02 Jun 2026
- 12:33:45 -0700 (PDT)
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Tue, 02 Jun 2026 10:58:09 UTC
+Received: from mail-m128189.netease.com (mail-m128189.netease.com
+ [103.209.128.189])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AF7710EF24;
+ Tue,  2 Jun 2026 10:58:08 +0000 (UTC)
+Content-Type: multipart/alternative;
+ BOUNDARY="=_Part_346146_266324616.1780397583210"
+Message-ID: <AMgAqgBUKT9GR95Sm49u6arg.3.1780397583210.Hmail.220255722@seu.edu.cn>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: alexander.deucher@amd.com, airlied@gmail.com, simona@ffwll.ch, 
+ kenneth.feng@amd.com, kevinyang.wang@amd.com, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn, 
+ stable@vger.kernel.org
+Subject: =?UTF-8?B?UmU6UmU6IFtQQVRDSCAxLzJdIGRybS9hbWRncHUvbWVzMTE6IGZpeCBxdWV1ZSBpbml0IHdwdHIgcmVzZXQ=?=
+X-Priority: 3
+X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
+X-Originating-IP: 222.191.246.242
+In-Reply-To: <bb4e417d-5669-4d06-a731-c9aa369f6bd7@amd.com>
+References: <20260602050354.2237095-1-runyu.xiao@seu.edu.cn>
+ <20260602050354.2237095-2-runyu.xiao@seu.edu.cn>
+ <bb4e417d-5669-4d06-a731-c9aa369f6bd7@amd.com>
 MIME-Version: 1.0
-References: <CAOSULec2OpwTGB3OUb_n3CdKO6H_DGJnxw=qsBswbd+JBjemKA@mail.gmail.com>
- <CAHp75Vc15t7zmNGeuNG_fLHwCN=Ym9w5Cn92+eqbtsioGxFzCQ@mail.gmail.com>
- <CAOSULedF6GUK_e_3KRPB+D0Jxgtow38OjQu9B1=vG-XTfsdYOA@mail.gmail.com>
- <CAHp75VdtOuLEkiuiUqxa3DT75y8Hd-1PtquodpN4qJ=rCFs_4Q@mail.gmail.com>
-In-Reply-To: <CAHp75VdtOuLEkiuiUqxa3DT75y8Hd-1PtquodpN4qJ=rCFs_4Q@mail.gmail.com>
-From: Enchanted Hunter <enchantedredhunter@gmail.com>
-Date: Tue, 2 Jun 2026 22:33:34 +0300
-X-Gm-Features: AVHnY4LO5aj5gePMCLGWoyXYpw3j1YKmdqPnCxhzZg20CQI-vj_aHIty6lALnAU
-Message-ID: <CAOSULeev+3LsSR6QboTy7oCUbTNQOOx72vjgf_tnZcr_JKbhmQ@mail.gmail.com>
-Subject: Re: [PATCH] staging: fbtft: replace sprintf with snprintf
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: gregkh@linuxfoundation.org, linux-staging@lists.linux.dev, andy@kernel.org,
- dri-devel@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="000000000000b4d0fe06534a6349"
+Received: from 220255722@seu.edu.cn( [222.191.246.242] ) by ajax-webmail (
+ [127.0.0.1] ) ; Tue, 2 Jun 2026 18:53:03 +0800 (GMT+08:00)
+From: =?UTF-8?B?6IKW5ram5a6H?= <220255722@seu.edu.cn>
+Date: Tue, 2 Jun 2026 18:53:03 +0800 (GMT+08:00)
+X-HM-Tid: 0a9e87f6543102f2kunm0d74ac9f170cb
+X-HM-MType: 1
+X-HM-NTES-SC: AL0_4z5B86Wr4Tz9jdMF+bhXMRHhhMlSfSSYXdeQQDCaqSOqI2l1LHfZmsz6cZ
+ FRhMgPe8OqJWIAOHTDwR6VMoRq5X3qwebwsk2/w4DaRPv01J09AtWNeTGmIl4159XnlaQYOOPbWn
+ +TdFtoO5JuZD7IMeUaL0dJSsbSxiJ9KSsWPYU=
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZT00aVklMGkkeSR1MS0JLS1YVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVU
+ pLSEpOTE5VSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=hN6ompbHdZ4MQ+YfBW0y1UDSYyKVQ05JEew7BnWtr93SfbI6Pnuk9qGNn7XeAfXcrzVDdFTtQdpeoFxmel+Fy+fPUcD9zuHIX3jH7XNd8PM87mIRNym+uzXJ6W1Bbb3U1UfHTsuZr5SOc5l10r1dCPBBIK49YxLkp19IeUFIPOg=;
+ c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
+ bh=NZNGTT1zeJYU3+aVD8k3rsYCqlBgY/+alboxcBcQZoQ=;
+ h=date:mime-version:subject:message-id:from;
 X-Mailman-Approved-At: Tue, 02 Jun 2026 22:31:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,116 +70,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000b4d0fe06534a6349
+--=_Part_346146_266324616.1780397583210
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
 
-I suppose I agree with you. My patch does look silly, and I regret wasting
-your time. I've just started learning kernel development. Perhaps if you
-happen to have any routine task, you could suggest something that would
-actually be worth doing. I'm very interested in this. I will sign with my
-real name, but I'm from Russia, and I understand that this might be a big
-problem right now.
-
-=D0=B2=D1=82, 2 =D0=B8=D1=8E=D0=BD. 2026=E2=80=AF=D0=B3. =D0=B2 21:32, Andy=
- Shevchenko <andy.shevchenko@gmail.com>:
-
-> On Tue, Jun 2, 2026 at 8:13=E2=80=AFPM Enchanted Hunter
-> <enchantedredhunter@gmail.com> wrote:
-> >
-> > Overall, it doesn't address any compiler warnings, but this is my first
-> patch. I wanted to start with something concrete, and I saw an unsafe
-> function and tried to fix it. The fact that the compilation behavior won'=
-t
-> change is true, but the code will become a bit more formal =E2=80=94 mayb=
-e that's a
-> good thing.
->
-> Not sure we need a churn on the working code.
->
-> A process hint: Do not top-post.
->
-> > =D0=BF=D0=BD, 1 =D0=B8=D1=8E=D0=BD. 2026=E2=80=AF=D0=B3. =D0=B2 11:25, =
-Andy Shevchenko <andy.shevchenko@gmail.com>:
-> >>
-> >> On Mon, Jun 1, 2026 at 3:44=E2=80=AFAM Enchanted Hunter
-> >> <enchantedredhunter@gmail.com> wrote:
-> >> >
-> >> > This patch replaces unsafe sprintf calls with snprintf in
-> >> > fbtft_register_framebuffer() to prevent potential buffer overflow.
-> >> >
-> >> > Signed-off-by: rat1bor <enchantedredhunter@gmail.com>
->
-> Another thing, use your real name and not an alias.
->
-> >> Does this change address any compiler warning or something like that?
-> >> At a glance I do not see any usefulness of this patch except an
-> >> unneeded churn.
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
-
---000000000000b4d0fe06534a6349
+SGkgQ2hyaXN0aWFuLAoKClRoYW5rcywgdW5kZXJzdG9vZC4KCgpUbyBtYWtlIHN1cmUgSSByZXdv
+cmsgdGhpcyBpbiB0aGUgcmlnaHQgZGlyZWN0aW9uOiB3b3VsZCB5b3UgZXhwZWN0CnRoaXMgcmVz
+ZXQgcGF0aCB0byBkbwoKCiAgcmluZy0+d3B0ciA9IDA7CiAgYW1kZ3B1X3Jpbmdfc2V0X3dwdHIo
+cmluZyk7CgoKaW5zdGVhZCBvZiB3cml0aW5nIHdwdHJfY3B1X2FkZHIgZGlyZWN0bHk/CgoKSSBh
+bSBhc2tpbmcgYmVjYXVzZSBhbWRncHVfcmluZ19zZXRfd3B0cigpIGFsc28gdXBkYXRlcyB0aGUg
+ZG9vcmJlbGwsCnNvIEkgd2FudCB0byBjb25maXJtIHRoYXQgdGhpcyBpcyB0aGUgaW50ZW5kZWQg
+c2VxdWVuY2UgZm9yIHRoZQpyZXNldC9zdXNwZW5kIGNhc2UgaGVyZS4KCgpUaGFua3MsClJ1bnl1
+CgoKT24gVHVlLCBKdW4gMiwgMjAyNiBhdCAxMTo0OTowNUFNICswMjAwLCBDaHJpc3RpYW4gS8O2
+bmlnIHdyb3RlOgo+IENsZWFyIE5BSy4KPgo+IFRoZSBhdG9taWM2NF90IGNhc3QgaGFjayBpcyBq
+dXN0IHNvbWV0aGluZyB3ZSBkaWQgZm9yIG9sZGVyCj4gZ2VuZXJhdGlvbnMgYW5kIGlzIG5vdCBz
+b21ldGhpbmcgd2hpY2ggaXMgbmVjZXNzYXJ5IG5vciBzaG91bGQKPiBiZSBkb25lIGhlcmUuCj4K
+PiBXaGF0IGNvdWxkIGJlIHBvc3NpYmxlIGlzIHRoYXQgd2UgbmVlZCB0byB1c2UgYW1kZ3B1X3Jp
+bmdfc2V0X3dwdHIoKQo+IGhlcmUgdG8gY29ycmVjdGx5IGRpc3Rpbmd1aXNoIGJldHdlZW4gcXVl
+dWVzIHdpdGggMzJiaXQgYW5kIDY0Yml0Cj4gd3B0cnMuCgo=
+--=_Part_346146_266324616.1780397583210
 Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
 
-<div dir=3D"ltr"><div dir=3D"ltr"><span class=3D"gmail-">I suppose I agree =
-with you. My patch does look=20
-silly, and I regret wasting your time. I&#39;ve just started learning kerne=
-l
- development. Perhaps if you happen to have any routine task, you could=20
-suggest something that would actually be worth doing. I&#39;m very=20
-interested in this. I will sign with my real name, but I&#39;m from Russia,=
-=20
-and I understand that this might be a big problem right now.</span></div><b=
-r><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=
-=3D"gmail_attr">=D0=B2=D1=82, 2 =D0=B8=D1=8E=D0=BD. 2026=E2=80=AF=D0=B3. =
-=D0=B2 21:32, Andy Shevchenko &lt;<a href=3D"mailto:andy.shevchenko@gmail.c=
-om">andy.shevchenko@gmail.com</a>&gt;:<br></div><blockquote class=3D"gmail_=
-quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
-204);padding-left:1ex">On Tue, Jun 2, 2026 at 8:13=E2=80=AFPM Enchanted Hun=
-ter<br>
-&lt;<a href=3D"mailto:enchantedredhunter@gmail.com" target=3D"_blank">encha=
-ntedredhunter@gmail.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; Overall, it doesn&#39;t address any compiler warnings, but this is my =
-first patch. I wanted to start with something concrete, and I saw an unsafe=
- function and tried to fix it. The fact that the compilation behavior won&#=
-39;t change is true, but the code will become a bit more formal =E2=80=94 m=
-aybe that&#39;s a good thing.<br>
-<br>
-Not sure we need a churn on the working code.<br>
-<br>
-A process hint: Do not top-post.<br>
-<br>
-&gt; =D0=BF=D0=BD, 1 =D0=B8=D1=8E=D0=BD. 2026=E2=80=AF=D0=B3. =D0=B2 11:25,=
- Andy Shevchenko &lt;<a href=3D"mailto:andy.shevchenko@gmail.com" target=3D=
-"_blank">andy.shevchenko@gmail.com</a>&gt;:<br>
-&gt;&gt;<br>
-&gt;&gt; On Mon, Jun 1, 2026 at 3:44=E2=80=AFAM Enchanted Hunter<br>
-&gt;&gt; &lt;<a href=3D"mailto:enchantedredhunter@gmail.com" target=3D"_bla=
-nk">enchantedredhunter@gmail.com</a>&gt; wrote:<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; This patch replaces unsafe sprintf calls with snprintf in<br>
-&gt;&gt; &gt; fbtft_register_framebuffer() to prevent potential buffer over=
-flow.<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; Signed-off-by: rat1bor &lt;<a href=3D"mailto:enchantedredhunt=
-er@gmail.com" target=3D"_blank">enchantedredhunter@gmail.com</a>&gt;<br>
-<br>
-Another thing, use your real name and not an alias.<br>
-<br>
-&gt;&gt; Does this change address any compiler warning or something like th=
-at?<br>
-&gt;&gt; At a glance I do not see any usefulness of this patch except an<br=
->
-&gt;&gt; unneeded churn.<br>
-<br>
--- <br>
-With Best Regards,<br>
-Andy Shevchenko<br>
-</blockquote></div></div>
-
---000000000000b4d0fe06534a6349--
+PGRpdiBzdHlsZT0ibGluZS1oZWlnaHQ6MS43O2NvbG9yOiMwMDAwMDA7Zm9udC1zaXplOjE0cHg7
+Zm9udC1mYW1pbHk6QXJpYWwiPjxwcmU+PGRpdj48Zm9udCBmYWNlPSJBcmlhbCI+PHNwYW4gc3R5
+bGU9IndoaXRlLXNwYWNlLWNvbGxhcHNlOiBjb2xsYXBzZTsiPkhpIENocmlzdGlhbiw8L3NwYW4+
+PC9mb250PjwvZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwiPjxzcGFuIHN0eWxlPSJ3aGl0ZS1z
+cGFjZS1jb2xsYXBzZTogY29sbGFwc2U7Ij48YnI+PC9zcGFuPjwvZm9udD48L2Rpdj48ZGl2Pjxm
+b250IGZhY2U9IkFyaWFsIj48c3BhbiBzdHlsZT0id2hpdGUtc3BhY2UtY29sbGFwc2U6IGNvbGxh
+cHNlOyI+VGhhbmtzLCB1bmRlcnN0b29kLjwvc3Bhbj48L2ZvbnQ+PC9kaXY+PGRpdj48Zm9udCBm
+YWNlPSJBcmlhbCI+PHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlLWNvbGxhcHNlOiBjb2xsYXBzZTsi
+Pjxicj48L3NwYW4+PC9mb250PjwvZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwiPjxzcGFuIHN0
+eWxlPSJ3aGl0ZS1zcGFjZS1jb2xsYXBzZTogY29sbGFwc2U7Ij5UbyBtYWtlIHN1cmUgSSByZXdv
+cmsgdGhpcyBpbiB0aGUgcmlnaHQgZGlyZWN0aW9uOiB3b3VsZCB5b3UgZXhwZWN0PC9zcGFuPjwv
+Zm9udD48L2Rpdj48ZGl2Pjxmb250IGZhY2U9IkFyaWFsIj48c3BhbiBzdHlsZT0id2hpdGUtc3Bh
+Y2UtY29sbGFwc2U6IGNvbGxhcHNlOyI+dGhpcyByZXNldCBwYXRoIHRvIGRvPC9zcGFuPjwvZm9u
+dD48L2Rpdj48ZGl2Pjxmb250IGZhY2U9IkFyaWFsIj48c3BhbiBzdHlsZT0id2hpdGUtc3BhY2Ut
+Y29sbGFwc2U6IGNvbGxhcHNlOyI+PGJyPjwvc3Bhbj48L2ZvbnQ+PC9kaXY+PGRpdj48Zm9udCBm
+YWNlPSJBcmlhbCI+PHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlLWNvbGxhcHNlOiBjb2xsYXBzZTsi
+PiZuYnNwOyByaW5nLSZndDt3cHRyID0gMDs8L3NwYW4+PC9mb250PjwvZGl2PjxkaXY+PGZvbnQg
+ZmFjZT0iQXJpYWwiPjxzcGFuIHN0eWxlPSJ3aGl0ZS1zcGFjZS1jb2xsYXBzZTogY29sbGFwc2U7
+Ij4mbmJzcDsgYW1kZ3B1X3Jpbmdfc2V0X3dwdHIocmluZyk7PC9zcGFuPjwvZm9udD48L2Rpdj48
+ZGl2Pjxmb250IGZhY2U9IkFyaWFsIj48c3BhbiBzdHlsZT0id2hpdGUtc3BhY2UtY29sbGFwc2U6
+IGNvbGxhcHNlOyI+PGJyPjwvc3Bhbj48L2ZvbnQ+PC9kaXY+PGRpdj48Zm9udCBmYWNlPSJBcmlh
+bCI+PHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlLWNvbGxhcHNlOiBjb2xsYXBzZTsiPmluc3RlYWQg
+b2Ygd3JpdGluZyB3cHRyX2NwdV9hZGRyIGRpcmVjdGx5Pzwvc3Bhbj48L2ZvbnQ+PC9kaXY+PGRp
+dj48Zm9udCBmYWNlPSJBcmlhbCI+PHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlLWNvbGxhcHNlOiBj
+b2xsYXBzZTsiPjxicj48L3NwYW4+PC9mb250PjwvZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwi
+PjxzcGFuIHN0eWxlPSJ3aGl0ZS1zcGFjZS1jb2xsYXBzZTogY29sbGFwc2U7Ij5JIGFtIGFza2lu
+ZyBiZWNhdXNlIGFtZGdwdV9yaW5nX3NldF93cHRyKCkgYWxzbyB1cGRhdGVzIHRoZSBkb29yYmVs
+bCw8L3NwYW4+PC9mb250PjwvZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwiPjxzcGFuIHN0eWxl
+PSJ3aGl0ZS1zcGFjZS1jb2xsYXBzZTogY29sbGFwc2U7Ij5zbyBJIHdhbnQgdG8gY29uZmlybSB0
+aGF0IHRoaXMgaXMgdGhlIGludGVuZGVkIHNlcXVlbmNlIGZvciB0aGU8L3NwYW4+PC9mb250Pjwv
+ZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwiPjxzcGFuIHN0eWxlPSJ3aGl0ZS1zcGFjZS1jb2xs
+YXBzZTogY29sbGFwc2U7Ij5yZXNldC9zdXNwZW5kIGNhc2UgaGVyZS48L3NwYW4+PC9mb250Pjwv
+ZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwiPjxzcGFuIHN0eWxlPSJ3aGl0ZS1zcGFjZS1jb2xs
+YXBzZTogY29sbGFwc2U7Ij48YnI+PC9zcGFuPjwvZm9udD48L2Rpdj48ZGl2Pjxmb250IGZhY2U9
+IkFyaWFsIj48c3BhbiBzdHlsZT0id2hpdGUtc3BhY2UtY29sbGFwc2U6IGNvbGxhcHNlOyI+VGhh
+bmtzLDwvc3Bhbj48L2ZvbnQ+PC9kaXY+PGRpdj48Zm9udCBmYWNlPSJBcmlhbCI+PHNwYW4gc3R5
+bGU9IndoaXRlLXNwYWNlLWNvbGxhcHNlOiBjb2xsYXBzZTsiPlJ1bnl1PC9zcGFuPjwvZm9udD48
+L2Rpdj48ZGl2Pjxmb250IGZhY2U9IkFyaWFsIj48c3BhbiBzdHlsZT0id2hpdGUtc3BhY2UtY29s
+bGFwc2U6IGNvbGxhcHNlOyI+PGJyPjwvc3Bhbj48L2ZvbnQ+PC9kaXY+PGRpdj48Zm9udCBmYWNl
+PSJBcmlhbCI+PHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlLWNvbGxhcHNlOiBjb2xsYXBzZTsiPk9u
+IFR1ZSwgSnVuIDIsIDIwMjYgYXQgMTE6NDk6MDVBTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5pZyB3
+cm90ZTo8L3NwYW4+PC9mb250PjwvZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwiPjxzcGFuIHN0
+eWxlPSJ3aGl0ZS1zcGFjZS1jb2xsYXBzZTogY29sbGFwc2U7Ij4mZ3Q7IENsZWFyIE5BSy48L3Nw
+YW4+PC9mb250PjwvZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwiPjxzcGFuIHN0eWxlPSJ3aGl0
+ZS1zcGFjZS1jb2xsYXBzZTogY29sbGFwc2U7Ij4mZ3Q7PC9zcGFuPjwvZm9udD48L2Rpdj48ZGl2
+Pjxmb250IGZhY2U9IkFyaWFsIj48c3BhbiBzdHlsZT0id2hpdGUtc3BhY2UtY29sbGFwc2U6IGNv
+bGxhcHNlOyI+Jmd0OyBUaGUgYXRvbWljNjRfdCBjYXN0IGhhY2sgaXMganVzdCBzb21ldGhpbmcg
+d2UgZGlkIGZvciBvbGRlcjwvc3Bhbj48L2ZvbnQ+PC9kaXY+PGRpdj48Zm9udCBmYWNlPSJBcmlh
+bCI+PHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlLWNvbGxhcHNlOiBjb2xsYXBzZTsiPiZndDsgZ2Vu
+ZXJhdGlvbnMgYW5kIGlzIG5vdCBzb21ldGhpbmcgd2hpY2ggaXMgbmVjZXNzYXJ5IG5vciBzaG91
+bGQ8L3NwYW4+PC9mb250PjwvZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwiPjxzcGFuIHN0eWxl
+PSJ3aGl0ZS1zcGFjZS1jb2xsYXBzZTogY29sbGFwc2U7Ij4mZ3Q7IGJlIGRvbmUgaGVyZS48L3Nw
+YW4+PC9mb250PjwvZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwiPjxzcGFuIHN0eWxlPSJ3aGl0
+ZS1zcGFjZS1jb2xsYXBzZTogY29sbGFwc2U7Ij4mZ3Q7PC9zcGFuPjwvZm9udD48L2Rpdj48ZGl2
+Pjxmb250IGZhY2U9IkFyaWFsIj48c3BhbiBzdHlsZT0id2hpdGUtc3BhY2UtY29sbGFwc2U6IGNv
+bGxhcHNlOyI+Jmd0OyBXaGF0IGNvdWxkIGJlIHBvc3NpYmxlIGlzIHRoYXQgd2UgbmVlZCB0byB1
+c2UgYW1kZ3B1X3Jpbmdfc2V0X3dwdHIoKTwvc3Bhbj48L2ZvbnQ+PC9kaXY+PGRpdj48Zm9udCBm
+YWNlPSJBcmlhbCI+PHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlLWNvbGxhcHNlOiBjb2xsYXBzZTsi
+PiZndDsgaGVyZSB0byBjb3JyZWN0bHkgZGlzdGluZ3Vpc2ggYmV0d2VlbiBxdWV1ZXMgd2l0aCAz
+MmJpdCBhbmQgNjRiaXQ8L3NwYW4+PC9mb250PjwvZGl2PjxkaXY+PGZvbnQgZmFjZT0iQXJpYWwi
+PjxzcGFuIHN0eWxlPSJ3aGl0ZS1zcGFjZS1jb2xsYXBzZTogY29sbGFwc2U7Ij4mZ3Q7IHdwdHJz
+Ljwvc3Bhbj48L2ZvbnQ+PC9kaXY+PC9wcmU+PC9kaXY+
+--=_Part_346146_266324616.1780397583210--
