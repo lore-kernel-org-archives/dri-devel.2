@@ -4,80 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1FD2CD5BD1
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 16:40:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAAB1CD5BD1
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 16:50:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E8E410F3A8;
-	Tue,  2 Jun 2026 16:40:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C927D113AC9;
+	Tue,  2 Jun 2026 16:50:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="HOg7qB1Z";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="V2+ukKat";
 	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C85410F3A8
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 16:40:01 +0000 (UTC)
-Received: from pps.filterd (m0528009.ppops.net [127.0.0.1])
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CB28113AC9
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 16:50:12 +0000 (UTC)
+Received: from pps.filterd (m0528004.ppops.net [127.0.0.1])
  by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 652FSACG2304040
- for <dri-devel@lists.freedesktop.org>; Tue, 2 Jun 2026 09:40:01 -0700
+ 6526jUsp1477632
+ for <dri-devel@lists.freedesktop.org>; Tue, 2 Jun 2026 09:50:11 -0700
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=aQM+IzQj3ZxDY3ggA3owlA7d3KkShBiCJ4vlXvqOyDo=; b=HOg7qB1ZuQW4
- 6lBSat61mKhK+MnCr8cVctmCY8FdH0jD5Vqo1SZjiJT1PXSaE6jJQVDirlh/htm/
- 9o6dj/yg6WQlQu1Ag3gFjinhmPlncdZ+iDtruJCHvVEKqdsfNMXoAkXSrKPtLDTA
- 3xX8W/GYXP0Aq5Gq6Ync/girYSkqCalmedMCwx9NdEVzNdCIolWzgFPcYbZtVZgO
- Jn4AyjLkjiJuARnKpqqzKSPyRW9JD8y2/mqfCdNwg8CHUTH8ACHXhAFYvzpVOmgy
- 952MRLNOgD4wNbb/nZkLL1ZWSrP4TZejD+XKBEBOdJHJiP/7oON+DmOd/cec5Y2L
- 4bhL4BgFWQ==
+ bh=Yehd4DhbieHxqdnPFx+C2OZiJ4/oV9ani65AADLGU2M=; b=V2+ukKatNizu
+ elNZjAgnTJky/aEUl851SsfasBCLobh+ZDQjIOfSlk7ulp81uEr2qiqIi8rDoBnt
+ PFCu9cCWfZiv5iVBCkHFwxzJYWXdPOCqvYZEJm6yxIEADifa8DEp9d6Zhh4Sc9l4
+ qNOdk8XUXOh/y6W4+mbWPkGWXzneORHc7Ej68i7Xa1Ada9Z0rzjxMRJSNbzTsVGK
+ GlH2FNXqkyjDSnbYFMKxFS1wKy5Imi6pQ/UkKMaq+ZL92H2ZwiHfIHKuvijOOzKp
+ A3yaXbnjvyXNruLNrhzDR73+Rzb+NbwSVBoPUexboFCeDpBM2JfqeTLcC4BHbnmF
+ q3CwwTF7eQ==
 Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
  [74.125.82.200])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4ej1uhrhde-1
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4eghhdxqny-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 09:40:00 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 09:50:11 -0700 (PDT)
 Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-304d0d0b28eso5572432eec.0
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 09:40:00 -0700 (PDT)
+ 5a478bee46e88-304d8613efbso6084712eec.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 09:50:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780418400; x=1781023200;
+ d=1e100.net; s=20251104; t=1780419010; x=1781023810;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=aQM+IzQj3ZxDY3ggA3owlA7d3KkShBiCJ4vlXvqOyDo=;
- b=ip3w2rEnH06ue43u5EUa8O+smbkRGYDgYuswDaq4HswTWS3cjDM/kX2U3urONLchwj
- YWKtA4N0k+C9AIPEwo8B2WIfxcP7X6CNC1UBvA3YlyZwOVZQl1daYLNKGNrLY6+H1NQq
- ViPUm/0DdaXREI92lZ1Oi4zrxUppwySbbxvKcRRfxFoiHIJGNs25XmxYjChLdvYk7ki/
- lug+URac4CXgWUJLyQ7ooRpYOWzOpvJQ0IBZ+TexefatgUf94QwlqG7ReTziRAXF2E3H
- YnfCK/jbM0jkBnVJjTZwpkV/2GLkBIcRn3ddI6cE18ddGS6YHclpbpAxYNTDXyf+QCzU
- k3Cw==
+ bh=Yehd4DhbieHxqdnPFx+C2OZiJ4/oV9ani65AADLGU2M=;
+ b=UmFyXr8yPUjRuTuriEl+CgH2LIgZoC+zlvin3X+n5bxJhhv9GgyozmaAyM53/y6gkj
+ +M/o/KyrMo7wLfZaacp6Db/ILrzi4gyLSqW8pksnV7OMVskJ0r2TVr+mOA9NiAlT1Vez
+ N6JA8xjm0kiLoZkC/A4+rBL0aePv6HoRWToyNSyppI8/5RNVS0ReRVKgF5FyPBDDHg2J
+ MTHxGcexWqgONBP4YAPgqBHX1lwb2zbP3ZPiIfbaqPNhCYxs9febADSKveCGvFLYmnjB
+ jW1NiJmXF9n5dH10gtu9QHyVsdIHGBk6AfW4d73ORmIgIoz3KTp/ZlNlV5SQklYWpkRC
+ Yupw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+a5q85I9ja0SvRSKcVqS7CpYcJhspIx4ecSjLSu/wgq6+di+t+FKtvoYa7+wntG3xV4e0y5VYmVlg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzQc6yFVVawFHDte2YTnFAb6cmKlkbqdBouRHTx6WFImMpa4nFz
- xOzUvrJiWNRIcSBlcGzIAHZ0JWtuR5BpW4Mkesghn3sBiAKTfQQ57lYmS3VazKdgE+fl+dOqsE3
- yZc25xvWKNw5pIraCmRTCbA/Y/duXlKQUeZr3G3cx3D7HHqSTw7YQa+sev8KkUPDT81tG
-X-Gm-Gg: Acq92OGneToRgjf+UP3RbAcPF+sOcl2QzXTlp3qk9PbCCtirj9qFIKsOPbhSuFYMS2k
- wzi+R0NXLCPQ6UAZErUIG9alYlRuaNnwffI2MIyEmXBOGt8qse9binMal0kUlnEhvbZGOBKGoKk
- ohSvCy6I3mJAxMKjzIhW7JlAywJOkil7Ztayv9nyD4JOc05dXPEliO5S2IYTLIYRYUZrMVeprf3
- RfEMotflQPVYog/fyrnl1kUJ4p2j8oVA2+D7sMA0wiCZqzMvb22S1RUuG4BH2X5s2LCBvgeXvH8
- SLT2W4+GtRMXthq9KqTRfb2vf73/o/8dTw9GmW3lOQpPePxbIHNi4UC20I11XvAVjKJ5iJ5RTca
- z6HUV/MEngjqASMeM9K8hOThsX4jk4cSa5b90wQJE
-X-Received: by 2002:a05:693c:2c0e:b0:304:e450:67e0 with SMTP id
- 5a478bee46e88-304fa4c81d5mr8098510eec.10.1780418400057; 
- Tue, 02 Jun 2026 09:40:00 -0700 (PDT)
-X-Received: by 2002:a05:693c:2c0e:b0:304:e450:67e0 with SMTP id
- 5a478bee46e88-304fa4c81d5mr8098467eec.10.1780418399427; 
- Tue, 02 Jun 2026 09:39:59 -0700 (PDT)
+ AFNElJ/baAgL9W7F2KDgG8CYfNM6/qK/zdD54dtMCLJ2CPSaTzp3lp37ry3y7Sj/qTioikDQH2wEiF1BeVU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxu4dGz2j8RFIyHOxCbCKZ+lXyAw0ubqfjAicvNu2aBH4vg2nAs
+ cgmErwfco7YM6pt5JycTGFlKPPXQ5vPaNI1mGSeElcBcsLmEZL9vOeyacXvAMMY6K9ViX2IH1Fy
+ OrA2CLd0nVSRA1RqX/nFTK/HRiNa/cw2XoXm7vLBoSjHTCkHb3SM1YaBojix3Iyxtyo04
+X-Gm-Gg: Acq92OFt0eKllqPsDkiOacXuhYrvnTVm5AMmRWxBbRnC3Q8SXS9e6osFz8G2z4KQ90e
+ giXI+s3pDzwq2JLF5bcIENjk4mZ+c+pMth1x0UBHDWIWuHY6h356ynZmLZZKaR8KuAd4qmLK0KA
+ y2ZqfXV8bxzwC2nvHudl7o34oz0JWUpWnq3yXXO/feJvxhDFBi85iEzGMmmNYgDqXlvNiapchP5
+ qMuLkdp63dHZeW27/Thatr04vqiDZhWWYYEfoMV5YFZaQUEW7+dePODl3UGiFp5dHO6exjVjv6R
+ WRGseDDM3Qxc4RKMBFc1uyBbAjXgO2mCZEqHbN/Os3W2+5fpsHLU9KI/LzS1A+vf6OlPfIMnMc3
+ bY07AHAtN7NUpIoCjEzS7U21NUZ9m1dP9JksAKgnR
+X-Received: by 2002:a05:7301:60b:b0:304:d32e:65e7 with SMTP id
+ 5a478bee46e88-304fa2fc9e6mr8157997eec.0.1780419009992; 
+ Tue, 02 Jun 2026 09:50:09 -0700 (PDT)
+X-Received: by 2002:a05:7301:60b:b0:304:d32e:65e7 with SMTP id
+ 5a478bee46e88-304fa2fc9e6mr8157955eec.0.1780419009260; 
+ Tue, 02 Jun 2026 09:50:09 -0700 (PDT)
 Received: from [10.0.40.30] ([51.52.155.79]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-304ed2c10c1sm11553860eec.1.2026.06.02.09.39.55
+ 5a478bee46e88-304ee0dd8e1sm16956690eec.21.2026.06.02.09.50.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Jun 2026 09:39:59 -0700 (PDT)
-Message-ID: <dfa4d88b-9182-499c-b2ba-dbde0fc32745@meta.com>
-Date: Tue, 2 Jun 2026 17:39:54 +0100
+ Tue, 02 Jun 2026 09:50:08 -0700 (PDT)
+Message-ID: <8854824e-06c2-43b3-86c2-8c2c28f9ad63@meta.com>
+Date: Tue, 2 Jun 2026 17:50:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/9] vfio/pci: Add a helper to create a DMABUF for a
- BAR-map VMA
+Subject: Re: [PATCH v2 9/9] vfio/pci: Add mmap() attributes to DMABUF feature
 Content-Language: en-GB
 To: Alex Williamson <alex@shazbot.org>
 Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
@@ -94,28 +93,28 @@ Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
  dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
  kvm@vger.kernel.org, linux-pci@vger.kernel.org
 References: <20260527102319.100128-1-mattev@meta.com>
- <20260527102319.100128-4-mattev@meta.com>
- <20260527165922.60a79fee@shazbot.org>
+ <20260527102319.100128-10-mattev@meta.com>
+ <20260528171432.771a1a30@shazbot.org>
 From: Matt Evans <mattev@meta.com>
-In-Reply-To: <20260527165922.60a79fee@shazbot.org>
+In-Reply-To: <20260528171432.771a1a30@shazbot.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: zUeyrWtIX580clZbyYu49iqnfFNR80Gv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAyMDE2MSBTYWx0ZWRfXwex+wAIlpegT
- cdQoZUWEFo3QeKwskwSJv/QocANG7QEFSrUmjkAW3vlNeP0o1QEkHFJkE4OC9jQvpKoxg5h+Zbb
- gU3BPZa7QRS6BbxRRfmXll6FQkcEK7OT7u3UPS/cFOY1qj3stPdUTVMD82sKDlrRru9o6Ztw0AW
- kyjKI+pnSqRXQP74eMiPZztD5xNklftvdWi0nTNmeDSfN4m4tQTu5NXMMvgwOXwqYK8jnKFyEVB
- AfJ11ERFA7jBazOGiYqX+tvpVfZpyZmfZtv8yfr6F+O5Nq+u1lzbSmHhNjDlQCRizR+XuOIgGnj
- HMeKS6rZILp3lHYp2m6jEdXi/eW1II63MUd+flvBgK9XlbYGoOeu9OZ9GhY4ngvHBAmOAv8m4Hg
- OX2hhGLwNgSn9ZOdlB4VGlgZGAD/UZcvgjCbbJZ2ZitmVIChcPGH43YPhDbLEDbqo27MaMeq6Fr
- BTwowbSqES6//pKWxKQ==
-X-Proofpoint-ORIG-GUID: zUeyrWtIX580clZbyYu49iqnfFNR80Gv
-X-Authority-Analysis: v=2.4 cv=UshT8ewB c=1 sm=1 tr=0 ts=6a1f0760 cx=c_pps
+X-Proofpoint-GUID: nBmOJpZfUDxHSCX4T_6re-3xaPUzOBS_
+X-Authority-Analysis: v=2.4 cv=SPdykuvH c=1 sm=1 tr=0 ts=6a1f09c3 cx=c_pps
  a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=2UbFsIa4v//lIgRL4kGwwA==:17
- a=Dv35txUGz5gI0hTa:21 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=U_y8lYiYyhHBU5rMqhb2:22
- a=VabnemYjAAAA:8 a=73EwkdylJAySbZmAXzAA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22 a=gKebqoRLp9LExxC7YDUY:22
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=7x6HtfJdh03M6CCDgxCd:22 a=GbPsI2Ihf5RTnMjR_gZv:22 a=VabnemYjAAAA:8
+ a=xAQEHcCOs6QKEQvX3i8A:9 a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
+ a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAyMDE2MyBTYWx0ZWRfX0IzQFosfoTMf
+ JTqQ5fXdHaIe4Up2AGcK2w8tS2c10flhpUhA9IrI+QvgCWGCjefr05GOXpgd/demCCGIqAfA/7G
+ 1pKyzxxoOUuis71rLjbNZilliHrAJtTZhZHH0pi2jkr3e3rkNLr6siLYsCWvmnv8gs6YSp4mJBi
+ H8wu3rHK5Ph5O678BnNuKP9+4VK5JWVIWmlKTu66WD17di41KUpJ3ovVa0KXD7pxlFMWVgrczzU
+ PyyEqQvy1JhlS56b4kSQ8FFDkd9zZz4QfjEnJEFzGbQSPRGkJ/50D+vgwKhYxAhaf+g79aC6WNT
+ oUmQwD4zFr1xHDtBDW+Uc7+ZVIyLucoLD9BGl3G5zsqQiNoiv71Ng2COBu/SYmjumuM5dSGtRtC
+ KMZbxFAGL862/4HgFGvmt3c5YoDSkgq+kpXZ/1O28OzUIWhQHXIdg1WeNPXWhdeuuxKotxetS/R
+ EMXyV0AFxeyJGi3CbYA==
+X-Proofpoint-ORIG-GUID: nBmOJpZfUDxHSCX4T_6re-3xaPUzOBS_
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-02_02,2026-05-28_03,2025-10-01_01
@@ -136,256 +135,250 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi Alex,
 
-On 27/05/2026 23:59, Alex Williamson wrote:
+On 29/05/2026 00:14, Alex Williamson wrote:
 > 
-> On Wed, 27 May 2026 03:23:06 -0700
+> On Wed, 27 May 2026 03:23:12 -0700
 > Matt Evans <mattev@meta.com> wrote:
 > 
->> This helper, vfio_pci_core_mmap_prep_dmabuf(), creates a single-range
->> DMABUF for the purpose of mapping a PCI BAR.  This is used in a future
->> commit by VFIO's ordinary mmap() path.
+>> A new VFIO feature, VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR, is added to
+>> set (and get) CPU-facing memory type attributes for a DMABUF exported
+>> from vfio-pci.  These are used for subsequent mmap()s of the buffer.
 >>
->> This function transfers ownership of the VFIO device fd to the
->> DMABUF, which fput()s when it's released.
->>
->> Refactor the existing vfio_pci_core_feature_dma_buf() to split out
->> export code common to the two paths, VFIO_DEVICE_FEATURE_DMA_BUF and
->> this new VFIO_BAR mmap().
+>> There are two attributes supported:
+>>   - The default, VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_UC
+>>   - VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_WC, which results in WC
+>>     PTEs for the DMABUF's BAR region.
 >>
 >> Signed-off-by: Matt Evans <mattev@meta.com>
 >> ---
->>   drivers/vfio/pci/vfio_pci_dmabuf.c | 140 ++++++++++++++++++++++-------
->>   drivers/vfio/pci/vfio_pci_priv.h   |   5 ++
->>   2 files changed, 115 insertions(+), 30 deletions(-)
+>>   drivers/vfio/pci/vfio_pci_core.c   |  2 +
+>>   drivers/vfio/pci/vfio_pci_dmabuf.c | 70 +++++++++++++++++++++++++++++-
+>>   drivers/vfio/pci/vfio_pci_priv.h   | 12 +++++
+>>   include/uapi/linux/vfio.h          | 27 ++++++++++++
+>>   4 files changed, 110 insertions(+), 1 deletion(-)
 >>
+>> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+>> index 5184b3cac160..e256a925e7ce 100644
+>> --- a/drivers/vfio/pci/vfio_pci_core.c
+>> +++ b/drivers/vfio/pci/vfio_pci_core.c
+>> @@ -1590,6 +1590,8 @@ int vfio_pci_core_ioctl_feature(struct vfio_device *device, u32 flags,
+>>   		return vfio_pci_core_feature_token(vdev, flags, arg, argsz);
+>>   	case VFIO_DEVICE_FEATURE_DMA_BUF:
+>>   		return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
+>> +	case VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR:
+>> +		return vfio_pci_core_feature_dma_buf_memattr(vdev, flags, arg, argsz);
+>>   	default:
+>>   		return -ENOTTY;
+>>   	}
 >> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
->> index 0d132c4ca95f..782408c08a5e 100644
+>> index 3fa14760898f..db8b95ddbe18 100644
 >> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
 >> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
->> @@ -82,6 +82,8 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
->>   		up_write(&priv->vdev->memory_lock);
->>   		vfio_device_put_registration(&priv->vdev->vdev);
->>   	}
->> +	if (priv->vfile)
->> +		fput(priv->vfile);
->>   	kfree(priv->phys_vec);
->>   	kfree(priv);
->>   }
->> @@ -222,6 +224,45 @@ int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *vpdmabuf,
->>   	return -EFAULT;
->>   }
+>> @@ -42,7 +42,10 @@ static int vfio_pci_dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *
+>>   	 * contained within the DMABUF size before calling this.
+>>   	 */
 >>   
->> +/*
->> + * Create a DMABUF corresponding to priv, add it to vdev->dmabufs list
->> + * for tracking (meaning cleanup or revocation will zap it), and take
->> + * a vfio_device registration.
->> + */
->> +static int vfio_pci_dmabuf_export(struct vfio_pci_core_device *vdev,
->> +				  struct vfio_pci_dma_buf *priv, uint32_t flags)
-> 
-> s/uint32_t/u32/?
-
-Fixed.
-
+>> -	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
+>> +	if (READ_ONCE(priv->memattr) == VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_WC)
+>> +		vma->vm_page_prot = pgprot_writecombine(vma->vm_page_prot);
+>> +	else
+>> +		vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
+>>   	vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
+>>   
+>>   	/* See comments in vfio_pci_core_mmap() re VM_ALLOW_ANY_UNCACHED. */
+>> @@ -464,6 +467,7 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>>   	priv->vdev = vdev;
+>>   	priv->nr_ranges = get_dma_buf.nr_ranges;
+>>   	priv->size = length;
+>> +	priv->memattr = VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_NC;
+>>   	ret = vdev->pci_ops->get_dmabuf_phys(vdev, &priv->provider,
+>>   					     get_dma_buf.region_index,
+>>   					     priv->phys_vec, dma_ranges,
+>> @@ -731,4 +735,68 @@ int vfio_pci_dma_buf_revoke(struct vfio_pci_core_device *vdev, int dmabuf_fd)
+>>   
+>>   	return ret;
+>>   }
+>> +
+>> +int vfio_pci_core_feature_dma_buf_memattr(
+>> +	struct vfio_pci_core_device *vdev, u32 flags,
+>> +	struct vfio_device_feature_dma_buf_memattr __user *arg,
+>> +	size_t argsz)
 >> +{
->> +	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
+>> +	struct vfio_device_feature_dma_buf_memattr db_attr;
+>> +	struct vfio_pci_dma_buf *priv;
+>> +	struct dma_buf *dmabuf;
+>> +	int ret;
 >> +
->> +	if (!vfio_device_try_get_registration(&vdev->vdev))
->> +		return -ENODEV;
+>> +	if (!vdev->pci_ops || !vdev->pci_ops->get_dmabuf_phys)
+>> +		return -EOPNOTSUPP;
 >> +
->> +	exp_info.ops = &vfio_pci_dmabuf_ops;
->> +	exp_info.size = priv->size;
->> +	exp_info.flags = flags;
->> +	exp_info.priv = priv;
+>> +	ret = vfio_check_feature(flags, argsz,
+>> +				 VFIO_DEVICE_FEATURE_GET |
+>> +				 VFIO_DEVICE_FEATURE_SET,
+>> +				 sizeof(db_attr));
+> 
+> I don't see why this needs to support GET.  Are we solving a userspace
+> problem that doesn't exist?
+
+Possibly, I'm a bit twitchy about unobservable/write-only internal state 
+so added GET out of habit.  However, no worries, removed it and this 
+function is now much lighter.
+
+>> +	if (ret != 1)
+>> +		return ret;
 >> +
->> +	priv->dmabuf = dma_buf_export(&exp_info);
->> +	if (IS_ERR(priv->dmabuf)) {
->> +		vfio_device_put_registration(&vdev->vdev);
->> +		return PTR_ERR(priv->dmabuf);
+>> +	if (copy_from_user(&db_attr, arg, sizeof(db_attr)))
+>> +		return -EFAULT;
+>> +
+>> +	dmabuf = dma_buf_get(db_attr.dmabuf_fd);
+>> +	if (IS_ERR(dmabuf))
+>> +		return PTR_ERR(dmabuf);
+>> +
+>> +	/* Verify DMABUF: see comments in vfio_pci_dma_buf_revoke() */
+>> +	priv = dmabuf->priv;
+>> +	if (dmabuf->ops != &vfio_pci_dmabuf_ops || priv->vdev != vdev) {
+>> +		ret = -ENODEV;
+>> +		goto out_put_buf;
 >> +	}
 >> +
->> +	kref_init(&priv->kref);
->> +	init_completion(&priv->comp);
->> +
->> +	/* dma_buf_put() now frees priv */
->> +	INIT_LIST_HEAD(&priv->dmabufs_elm);
->> +	down_write(&vdev->memory_lock);
->> +	dma_resv_lock(priv->dmabuf->resv, NULL);
->> +	priv->revoked = !__vfio_pci_memory_enabled(vdev);
->> +	list_add_tail(&priv->dmabufs_elm, &vdev->dmabufs);
->> +	dma_resv_unlock(priv->dmabuf->resv);
->> +	up_write(&vdev->memory_lock);
->> +
->> +	return 0;
->> +}
->> +
->>   /*
->>    * This is a temporary "private interconnect" between VFIO DMABUF and iommufd.
->>    * It allows the two co-operating drivers to exchange the physical address of
->> @@ -340,7 +381,6 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
->>   {
->>   	struct vfio_device_feature_dma_buf get_dma_buf = {};
->>   	struct vfio_region_dma_range *dma_ranges;
->> -	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
->>   	struct vfio_pci_dma_buf *priv;
->>   	size_t length;
->>   	int ret;
->> @@ -400,34 +440,9 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
->>   	kfree(dma_ranges);
->>   	dma_ranges = NULL;
->>   
->> -	if (!vfio_device_try_get_registration(&vdev->vdev)) {
->> -		ret = -ENODEV;
->> +	ret = vfio_pci_dmabuf_export(vdev, priv, get_dma_buf.open_flags);
->> +	if (ret)
->>   		goto err_free_phys;
->> -	}
->> -
->> -	exp_info.ops = &vfio_pci_dmabuf_ops;
->> -	exp_info.size = priv->size;
->> -	exp_info.flags = get_dma_buf.open_flags;
->> -	exp_info.priv = priv;
->> -
->> -	priv->dmabuf = dma_buf_export(&exp_info);
->> -	if (IS_ERR(priv->dmabuf)) {
->> -		ret = PTR_ERR(priv->dmabuf);
->> -		goto err_dev_put;
->> -	}
->> -
->> -	kref_init(&priv->kref);
->> -	init_completion(&priv->comp);
->> -
->> -	/* dma_buf_put() now frees priv */
->> -	INIT_LIST_HEAD(&priv->dmabufs_elm);
->> -	down_write(&vdev->memory_lock);
->> -	dma_resv_lock(priv->dmabuf->resv, NULL);
->> -	priv->revoked = !__vfio_pci_memory_enabled(vdev);
->> -	list_add_tail(&priv->dmabufs_elm, &vdev->dmabufs);
->> -	dma_resv_unlock(priv->dmabuf->resv);
->> -	up_write(&vdev->memory_lock);
->> -
->>   	/*
->>   	 * dma_buf_fd() consumes the reference, when the file closes the dmabuf
->>   	 * will be released.
->> @@ -438,8 +453,6 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
->>   
->>   	return ret;
->>   
->> -err_dev_put:
->> -	vfio_device_put_registration(&vdev->vdev);
->>   err_free_phys:
->>   	kfree(priv->phys_vec);
->>   err_free_priv:
->> @@ -449,6 +462,73 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
->>   	return ret;
->>   }
->>   
->> +int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
->> +				   struct vm_area_struct *vma,
->> +				   u64 phys_start, u64 req_len,
->> +				   unsigned int res_index)
->> +{
->> +	struct vfio_pci_dma_buf *priv;
->> +	const unsigned int nr_ranges = 1;
+>> +	ret = 0;
+>> +	scoped_guard(rwsem_write, &vdev->memory_lock) {
 > 
-> Why, versus priv->nr_ranges = 1; below?  Thanks,
+> Why?  This doesn't serialize against mmap.  Just use a WRITE_ONCE() to
+> match the READ_ONCE() on mmap?
 
-Hm, a vestige from a simpler time when it was a different shape and 
-unnecessary now, fixed as per suggestion.
+Ooops, good point.  Fixed.
+
+>> +		uint32_t old_attr = priv->memattr;
+>> +
+>> +		if (flags & VFIO_DEVICE_FEATURE_SET) {
+>> +			switch(db_attr.memattr) {
+>> +			case VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_NC:
+>> +			case VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_WC:
+>> +				priv->memattr = db_attr.memattr;
+>> +				break;
+>> +
+>> +			default:
+>> +				ret = -ENOTSUPP;
+> 
+> -EINVAL
+
+I'd like to push back on this one; ENOTSUPP distinguishes trying to use 
+a wild attribute value from all manner of other screwups such as
+trying to GET (with it no longer supported), passing an fd that isn't a 
+DMABUF, etc.
+
+I'm not wed to the value ENOTSUPP, just something distinctive versus the 
+other errors userspace might see, and that value seems appropriate.
+
+>> +			}
+>> +		}
+>> +		db_attr.memattr = old_attr;
+>> +	}
+>> +
+>> +	if (!ret && (flags & VFIO_DEVICE_FEATURE_GET)) {
+>> +		if (copy_to_user(arg, &db_attr, sizeof(db_attr)))
+>> +			ret = -EFAULT;
+>> +	}
+>> +
+>> + out_put_buf:
+>> +	dma_buf_put(dmabuf);
+>> +
+>> +	return ret;
+>> +
+>> +}
+>>   #endif /* CONFIG_VFIO_PCI_DMABUF */
+>> diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
+>> index a1e0f4fcb1dc..8067be45beb0 100644
+>> --- a/drivers/vfio/pci/vfio_pci_priv.h
+>> +++ b/drivers/vfio/pci/vfio_pci_priv.h
+>> @@ -41,6 +41,7 @@ struct vfio_pci_dma_buf {
+>>   	struct kref kref;
+>>   	struct completion comp;
+>>   	unsigned long vma_pgoff_adjust;
+>> +	u32 memattr;
+>>   	enum vfio_pci_dma_buf_status status;
+>>   };
+>>   
+>> @@ -154,6 +155,10 @@ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked);
+>>   int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>>   				  struct vfio_device_feature_dma_buf __user *arg,
+>>   				  size_t argsz);
+>> +int vfio_pci_core_feature_dma_buf_memattr(
+>> +	struct vfio_pci_core_device *vdev, u32 flags,
+>> +	struct vfio_device_feature_dma_buf_memattr __user *arg,
+>> +	size_t argsz);
+>>   int vfio_pci_dma_buf_revoke(struct vfio_pci_core_device *vdev, int dmabuf_fd);
+>>   #else
+>>   static inline int
+>> @@ -163,6 +168,13 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>>   {
+>>   	return -ENOTTY;
+>>   }
+>> +static inline int vfio_pci_core_feature_dma_buf_memattr(
+>> +	struct vfio_pci_core_device *vdev, u32 flags,
+>> +	struct vfio_device_feature_dma_buf_memattr __user *arg,
+>> +	size_t argsz)
+>> +{
+>> +	return -ENODEV;
+> 
+> -ENOTTY
+
+Gotcha, fixed.  Yes, that's quite conspicuous versus the chunk above, 
+unsure where I got that from.
 
 
-Thanks,
+Thank you,
 
 
 Matt
 
+
+> 
+> Thanks,
 > Alex
 > 
->> +	unsigned long vma_pgoff = vma->vm_pgoff & (VFIO_PCI_OFFSET_MASK >> PAGE_SHIFT);
->> +	int ret;
->> +
->> +	priv = kzalloc_obj(*priv);
->> +	if (!priv)
->> +		return -ENOMEM;
->> +
->> +	priv->phys_vec = kzalloc_obj(*priv->phys_vec);
->> +	if (!priv->phys_vec) {
->> +		ret = -ENOMEM;
->> +		goto err_free_priv;
->> +	}
->> +
->> +	/*
->> +	 * The DMABUF begins from the mmap()'s BAR offset, i.e. the
->> +	 * start of the VMA corresponds to byte 0 of the DMABUF and
->> +	 * byte (vma_pgoff << PAGE_SHIFT) of the BAR.
->> +	 *
->> +	 * vfio_pci_dma_buf_find_pfn() reverses this offset using
->> +	 * vma_pgoff_adjust, so that ultimately a fault's offset from
->> +	 * the start of the _VMA_ has a consistent usage whether the
->> +	 * VMA originates from an mmap() of the VFIO device here or a
->> +	 * direct DMABUF mmap().
->> +	 */
->> +	priv->vdev = vdev;
->> +	priv->size = req_len;
->> +	priv->nr_ranges = nr_ranges;
->> +	priv->vma_pgoff_adjust = vma_pgoff;
->> +	priv->provider = pcim_p2pdma_provider(vdev->pdev, res_index);
->> +	if (!priv->provider) {
->> +		ret = -EINVAL;
->> +		goto err_free_phys;
->> +	}
->> +
->> +	priv->phys_vec[0].paddr = phys_start + ((u64)vma_pgoff << PAGE_SHIFT);
->> +	priv->phys_vec[0].len = priv->size;
->> +
->> +	ret = vfio_pci_dmabuf_export(vdev, priv, O_CLOEXEC | O_RDWR);
->> +	if (ret)
->> +		goto err_free_phys;
->> +
->> +	/*
->> +	 * The VMA gets the DMABUF file so that other users can locate
->> +	 * the DMABUF via a VA.  Ownership of the original VFIO device
->> +	 * file being mmap()ed transfers to priv, and is put when the
->> +	 * DMABUF is released.
->> +	 */
->> +	priv->vfile = vma->vm_file;
->> +	vma->vm_file = priv->dmabuf->file;
->> +	vma->vm_private_data = priv;
->> +
->> +	return 0;
->> +
->> +err_free_phys:
->> +	kfree(priv->phys_vec);
->> +err_free_priv:
->> +	kfree(priv);
->> +	return ret;
 >> +}
->> +
->>   void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
+>>   static inline int vfio_pci_dma_buf_revoke(struct vfio_pci_core_device *vdev,
+>>   					  int dmabuf_fd)
 >>   {
->>   	struct vfio_pci_dma_buf *priv;
->> diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
->> index c8f6f959056a..06dc0fd3e230 100644
->> --- a/drivers/vfio/pci/vfio_pci_priv.h
->> +++ b/drivers/vfio/pci/vfio_pci_priv.h
->> @@ -30,6 +30,7 @@ struct vfio_pci_dma_buf {
->>   	size_t size;
->>   	struct phys_vec *phys_vec;
->>   	struct p2pdma_provider *provider;
->> +	struct file *vfile;
->>   	u32 nr_ranges;
->>   	struct kref kref;
->>   	struct completion comp;
->> @@ -133,6 +134,10 @@ int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *vpdmabuf,
->>   			      unsigned long address,
->>   			      unsigned int order,
->>   			      unsigned long *out_pfn);
->> +int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
->> +				   struct vm_area_struct *vma,
->> +				   u64 phys_start, u64 req_len,
->> +				   unsigned int res_index);
+>> diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
+>> index 02366e9f8e16..9b0b68f8a1ef 100644
+>> --- a/include/uapi/linux/vfio.h
+>> +++ b/include/uapi/linux/vfio.h
+>> @@ -1564,6 +1564,33 @@ struct vfio_device_feature_dma_buf {
+>>    */
+>>   #define VFIO_DEVICE_FEATURE_MIG_PRECOPY_INFOv2  12
 >>   
->>   #ifdef CONFIG_VFIO_PCI_DMABUF
->>   int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>> +/**
+>> + * Given a dma_buf fd previously created by
+>> + * VFIO_DEVICE_FEATURE_DMA_BUF, GET or SET the memory attribute that
+>> + * will be used by future mmap()s of that fd.  SETting a new attribute
+>> + * does not affect existing VMAs.
+>> + *
+>> + * The default, if no previous SET has been performed, is NC.
+>> + *
+>> + * Return: 0 on success, -1 and errno is set on failure:
+>> + *
+>> + *  ENOTSUPP: The given memattr is not supported.
+>> + *  EBADF, EINVAL: dmabuf_fd is not a DMABUF fd.
+>> + *  ENODEV: The dmabuf_fd does not match this VFIO device.
+>> + */
+>> +#define VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR 13
+>> +
+>> +/* Valid memory attributes for the memattr field */
+>> +enum vfio_device_dma_buf_memattr {
+>> +	VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_NC = 0, /* pgprot_noncached */
+>> +	VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_WC = 1, /* pgprot_writecombine */
+>> +};
+>> +
+>> +struct vfio_device_feature_dma_buf_memattr {
+>> +	__s32	dmabuf_fd;
+>> +	__u32	memattr;
+>> +};
+>> +
+>>   /* -------- API for Type1 VFIO IOMMU -------- */
+>>   
+>>   /**
 > 
 
