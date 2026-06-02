@@ -4,46 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 243C1CD6E5D
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 18:48:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9037CD6E5D
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 19:03:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84EB810F4C9;
-	Tue,  2 Jun 2026 18:48:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E04AF10F4F8;
+	Tue,  2 Jun 2026 19:03:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="eQyt91Hb";
+	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="GPoOJMnn";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="N+BDXpk0";
 	dkim-atps=neutral
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E313210F4C9
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 18:48:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
- s=gloria202408;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:
- References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=bQ/ShSVerF3nHBt9YMs/KOfemqRk/C2hqrvxvJUY/r4=; b=eQyt91Hb+iKzpD2z/Q5HdzC7oA
- lHgvBQlcohpqxZ+e9FUIj0hRWFQfql8KO99YeAHgK31Vaquv/H0Olqkp/OHWwyrtF2mFntCDmdkno
- 8Q3IBhnsWeTsxTQsMMeM8m+cyTustAU3n9MimjOsgM+MdlN5mkD7m2H0XtixuKE/REP5E/g2C1HMb
- yu791S02UFO/PLF5zJcrILVZwy8pZmajXAK2N18QsM/itIg1V5Ioh8fk9NpZzs328yUi2LaghMX4h
- EpH1bOBKqGnUg2zQvxpv/lf7SqwiEnNuIuuzvHj2bLcQZ8PJH8RDqoZ1yOBGKJZUDZ3VWu1fY3KXY
- RkXrbA1w==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Heiko Stuebner <heiko@sntech.de>, kernel@collabora.com,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] YUV support for VOP2 background color
-Date: Tue,  2 Jun 2026 20:47:41 +0200
-Message-ID: <178042605608.614111.131135337224991312.b4-ty@sntech.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260601-vop2-bg-yuv-v2-0-e5aef1d16fec@collabora.com>
-References: <20260601-vop2-bg-yuv-v2-0-e5aef1d16fec@collabora.com>
+Received: from fout-b6-smtp.messagingengine.com
+ (fout-b6-smtp.messagingengine.com [202.12.124.149])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3595710F4F8
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 19:03:32 +0000 (UTC)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailfout.stl.internal (Postfix) with ESMTP id 6F7371D000A8;
+ Tue,  2 Jun 2026 15:03:30 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-04.internal (MEProxy); Tue, 02 Jun 2026 15:03:31 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm3; t=1780427010;
+ x=1780513410; bh=cd0bId8TE8oR/ADKSdyMkH7b1BoNJ2xKm74dFlDDlhM=; b=
+ GPoOJMnnOoqJzBnPc48CZp1+tnFTZY9xKs84zcxcZoF5rM5HLE+pt8yw77j4Umcw
+ uVJsAg2BlremrnWMC72NSAjRdElS7yyxr4Ji+G6yvapuaeCaUPw7Z3Gi4tc3VkDL
+ H8KwVMMe/QpT0g0ZPC5L27tZGQseWzxIjzfPdrcsvfq+RYvuNY+eeJUTzv8AK0nA
+ KcH3bGlh7OLtefDYC/ZEqR1wAGHi/vT6tP3Cs7ycbe61ZDjdwKddAbrv2yx1mcvH
+ +4oJ3xgPhiktqvlLc674Kgdu+qGqNundjKmBU282Kxmyac4TW5ldd+XdznlDH0CY
+ GBP0/v5iN2iQ9UnnWvCZrw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1780427010; x=
+ 1780513410; bh=cd0bId8TE8oR/ADKSdyMkH7b1BoNJ2xKm74dFlDDlhM=; b=N
+ +BDXpk0A3iPxZ8RMaJvB979RSJrmmF2EwBvUXlPgE2yWScIhlJl8oJ8bEKAkM7Wg
+ L0H7jVeW3vb8oDzxTLp0EqvjoZR+R0+s919W1N0ti88+WUEHgek2bNXYwf56JAke
+ 4yAE+klP3nXukI4EF+I84rW9BX8zv4lWCtCfZH0OfsebEnRso1hYMSDxXlIK6j3m
+ Mea68pKJlvIaUe2LrcZ0YDBE73F0pUWKEBgIsp5KfrX270bfEaj5wbi8gpjYRiFs
+ NSXJ/9J6hmeBNEtdyCV4PEdLtrdB9R/WzlEkb2/ajzPXQmz96RuqsyKYgOHifWmv
+ AjES5xisNIXSv0Pydwy5A==
+X-ME-Sender: <xms:ASkfaiWM-Czb1TYty-CbxJxRAp1W5c7QTPPkYmT2T5FS7w-vSGy00Q>
+ <xme:ASkfaqS5e8gt28jbwuRj0iOrYdmv_mOlLB0zK5H2oV6NlOhEoBX6P6a8j7cbm1kb0
+ tgc5DdDffJKyWhJ99HRAt_sLJT6q6In7SCR5ke3Q00nanXopPKtbw>
+X-ME-Received: <xmr:ASkfahG873z7UAjZb6Viz0phUbZdBpJsFBRvM-idqUMtJRNBGZi_zCsYUSg>
+X-ME-Proxy-Cause: dmFkZTEugpXXuty+LAuPDMg/HDjmtCKhMH9hR+UnSPrr64oSg7b6jTY5v1Iuk/1wnfVpGD
+ 9wJzzqijOna9OQq6LuAouAbC+7+DZuCw56Bn6VvFxcbMCs87QVMK/aghDrBbnj5Om/0jLt
+ PQXYJGKpekTsZMATIWzUcIXRJ4KgIW7S34TMHc5kiSCfR8najzHgBso5FISyUm/MclajxG
+ P0Tbd0bQ/S3bG5V7iLr3WVaZPf274PuzRZq4mCr01PbcEa8bGEZxF4A1i2jL3xCGO+EeP+
+ QbG03vlrsNjOcN0QmGq3uY9V3zuTSY94Y2R8gV6ekOWz3wuRcnf7pIKCFcNQEwT6cRdiau
+ YlqnBwTqg0SMbskungw4/aAzVjlM65V/VneBtJbPKuMAb9X2E6M78tsnnMWuj8geAPVqYx
+ EHo12DHWUZMbUzY6qLPATk/yoIvoBRRYw6EYpAdRhaFK8ndFX5YRjdBX7CXm4oBfRnTzZo
+ SXgYN/IaHy01v6tfajpGgWV10nfK34SvtlDaqNve38kyzKLJc5V13fxwDzAQ0g/zA2T4Qc
+ 6EgWfS0IgMOTo2rMVS2ghGL4pWsbjPpMzmWaSOPoWBC644XLQxt5cfvi5dUjp+nG6oYl3k
+ Mh30Lz4pVvIY8gQqPMtoPYN/VnEgjtZacOq/TU1+2IGQ7Ipy0pAqWq/ztdHg
+X-ME-Proxy: <xmx:ASkfaqSg4IDy1ROG6I3wocJQnL7NgtVLfiOCRusO5fdebsmyzT1DDQ>
+ <xmx:ASkfarr95EeFQG4l9iF62OtC3uC36de1qAjiz6_KTrDZg5swL3ib8Q>
+ <xmx:ASkfago1yf1MqfS2O0gyKXB4Up6Rn9W-cetWT3nKMDhmKLwxb6njTg>
+ <xmx:ASkfau3jUjQ6HCUzqSf2eiDC1zin-UMJ97FnJPsYJHfUR4lhqk6MiA>
+ <xmx:AikfapazUI7tA5D3d1uMWAUPkDzpMCqXNMaolXvbIBSNEM6gHcnB8WIi>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 2 Jun 2026 15:03:28 -0400 (EDT)
+Date: Tue, 2 Jun 2026 13:03:26 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Matt Evans <mattev@meta.com>
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>, Logan
+ Gunthorpe <logang@deltatee.com>, Mahmoud Adam <mngyadam@amazon.de>, David
+ Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian
+ <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, Pranjal
+ Shrivastava <praan@google.com>, Alistair Popple <apopple@nvidia.com>, Vivek
+ Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org, alex@shazbot.org
+Subject: Re: [PATCH v2 7/9] vfio/pci: Support mmap() of a VFIO DMABUF
+Message-ID: <20260602130326.6b7a8d0c@shazbot.org>
+In-Reply-To: <49c3554f-8ba7-4a00-aa20-a311b173fc0f@meta.com>
+References: <20260527102319.100128-1-mattev@meta.com>
+ <20260527102319.100128-8-mattev@meta.com>
+ <20260528171527.46d0c21a@shazbot.org>
+ <49c3554f-8ba7-4a00-aa20-a311b173fc0f@meta.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,24 +109,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On Mon, 01 Jun 2026 21:00:02 +0300, Cristian Ciocaltea wrote:
-> Since commit bec7cbfa7d4f ("drm/rockchip: vop2: Support setting custom
-> background color") the VOP2 display controller allows configuring the
-> background color of each video output port.
+On Tue, 2 Jun 2026 18:35:25 +0100
+Matt Evans <mattev@meta.com> wrote:
+> On 29/05/2026 00:15, Alex Williamson wrote:
+> > On Wed, 27 May 2026 03:23:10 -0700
+> > Matt Evans <mattev@meta.com> wrote:
+> >> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> >> index 733607371082..4b3b15655f1d 100644
+> >> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+> >> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> >> @@ -27,6 +27,32 @@ static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+> >>   
+> >>   	return 0;
+> >>   }
+> >> +
+> >> +static int vfio_pci_dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma)
+> >> +{
+> >> +	struct vfio_pci_dma_buf *priv = dmabuf->priv;
+> >> +
+> >> +	if (priv->revoked)
+> >> +		return -ENODEV;  
+> > 
+> > Questionable validity to testing revoked without a lock, but doesn't
+> > this also fail to follow the "map regardless, sort it out on fault"
+> > paradigm used elsewhere in vfio-pci?  Thanks,  
 > 
-> However, this is currently limited to RGB formats.  When operating in
-> YUV overlay mode, the color must be programmed using YUV format.
+> Kind of, though this was intentional.  (I had removed a crappy comment 
+> here from the RFC, but should re-add something better...)
 > 
-> [...]
+> You're right that, if we don't test this here, the fault handler ensures 
+> safety.
+> 
+> In the revoke ioctl^Wfeature header UAPI comment I'd suggested a 
+> revocation prevents a new map (in addition to prevents access to an 
+> existing map) with the intention of making userspace easier to debug:
+> 
+>   - I'd rather trace an mmap() failure than a SIGBUS (eg. if another
+>     process has revoked my DMABUF and I didn't get the memo).  For a
+>     prior revoke this is a reliable & useful test.
+> 
+>   - Even if there's an active race such as userspace doing an
+>     ioctl(RESET) at the same time as an mmap() (!) then obviously this
+>     check won't always catch it, but when it does then that's useful.
+> 
+> I'd prefer to keep this belt-and-braces check to early-fail (with 
+> comment), if you don't mind much.  It _is_ testing revoked outside of 
+> any synchronisation as anything we can lock against here doesn't have a 
+> useful effect AFAICT.  (Taking the example of a concurrent ioctl(RESET), 
+> a revoke still manifests "before" (caught here) or "after" (caught in 
+> fault handler).)  Maybe READ_ONCE() wouldn't hurt, if only to indicate this.
 
-Applied, thanks!
+Hey Matt,
 
-[1/2] drm/rockchip: vop2: Rename CSC_BT2020 to CSC_BT2020L
-      commit: 09dfa47fc557f945871dcf279c8e687e55d3550d
-[2/2] drm/rockchip: vop2: Add YUV support to background color
-      commit: 28e670a0885cf2501fd51189ce7b6f5b7cacebf9
+I think only the permanently revoked semantics are up for
+interpretation here, mmap with memory disabled or across reset is
+currently allowed and better debug'ability is not sufficient to risk
+breaking compatibility.  Thanks,
 
-Best regards,
--- 
-Heiko Stuebner <heiko@sntech.de>
+Alex
