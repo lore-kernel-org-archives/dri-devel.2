@@ -4,52 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C138CD6E5D
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 11:11:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E74F1CD6E4A
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 11:19:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD88D10EF32;
-	Tue,  2 Jun 2026 11:11:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BFA610EF6A;
+	Tue,  2 Jun 2026 11:19:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="jgb+fxYg";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="T0rpCcGC";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F69B10E046
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 11:11:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
- In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=7RgJfVQx32/rYLUVjSWUv2ZbHkzbURK8tDCps/DhjpU=; b=jgb+fxYgPPBFYDLQQSZO8rZAhP
- biVEEcJFEXtwDCWzczu9O1Trae2GdYkBGwNd1nOC3Yzi5v4DedRbO+MCs09A2FBHFHZQDYh396uQu
- XssLFATCSkg2FoJUMloh0F/z7/7U+Za2fvG23R3axJ10ge/w5YSk6lYcrsP4n/LvPi/wHKJ2di8pI
- T9YKMw+Tsul4sGiVzfnL1keQyShuZOdLkiZKHOQwPF5qU34hIAq8a8pJ1LeCG/CSwrEZPD53kqrGA
- 03tiJUYlKqK+MDMzuOLJbMqkhEP05ZmQD8GIEVDulCMXMH1U4E4d6hR92XGN7wbj8+w9VRCm94o8Z
- AzOr42GA==;
-Received: from static-234-112-85-188.ipcom.comunitel.net ([188.85.112.234]
- helo=[192.168.0.17]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wUN1O-00BfPi-EM; Tue, 02 Jun 2026 13:10:58 +0200
-Message-ID: <d91f5f3365fc0b59d1bebeba04bed156aad85d9b.camel@igalia.com>
-Subject: Re: [PATCH v2 3/4] drm/v3d: Serialize jobs across queues when a
- perfmon is attached
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
- <mwen@igalia.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-Date: Tue, 02 Jun 2026 13:10:47 +0200
-In-Reply-To: <44cbf6ec-3134-44d5-b37c-0c99ac55f678@igalia.com>
-References: <20260531-v3d-perfmon-lifetime-v2-0-60ed4485a203@igalia.com>
- <20260531-v3d-perfmon-lifetime-v2-3-60ed4485a203@igalia.com>
- <7a9d503de81b403585962f1c25dd0b506a6eb3f2.camel@igalia.com>
- <44cbf6ec-3134-44d5-b37c-0c99ac55f678@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012069.outbound.protection.outlook.com
+ [40.93.195.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F39C10EF66;
+ Tue,  2 Jun 2026 11:19:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=V6SEHWFv6/ROIUKThT/dVXL+1lgkWOUHCBX3E5aev1EC/AEF707Llxt4l4mkEeWIs7hsBTPW0OFj2ikyPmbpqeKyvIKicwZPUHPSJCU8HO4UiLm7aq2Cu9ooSxq33in4/XjxHM3Ot4BR5Wi2YgLvCrWKcRoaawbwn1crhuW2pYNmMqDHnfVHqSXu++tSiSiaKLuGIkiM0Xqmfo9TlurHXQh/Sks3G4h5tXD5mQY7bqoDpj44d3VGss0AfrvNeqzfuVNuAfwy0pcWRqIPfKoPObkNLOD6cV8xTV2tzq/ryUfaSz/dgz11q40ghUnya0LJbQUhpqUC/EZ6azQwrV8TUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gXG6RYaoegMiPAZauJKZCxwsP8DPmmfUs3bZnqmW6xo=;
+ b=OSUHmYr4MIRXkiCWVn92UkYYoSQXPu9/BvZUbOc+blLeRPyi64/dEdZDZWX3kDHOXmQRUHbrQX8EOBW8Foqk2LtvE/bGhqvhNxtl4qM6cSjPCotph+UcDvz2W2Tu5YSKR49qLhH8FDhnwa9+sowQjeoyXd9VJ4UX7SoNynF7LZfBGmTplz6TvDmmnOzADMRste1rqrjsEqdQqMz/LOGMhkykcFYhMxYX1wpHKQEqzOwz6OS2rJ4Su1rFUN2YnME6OkFXTi5DaaUuTP1KLekljBMYl9vVAS1I05AuCdLS2OTHAZ/OaCOqOofQDoymXBTk7wErZsRF1OjTZmP1pik28g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gXG6RYaoegMiPAZauJKZCxwsP8DPmmfUs3bZnqmW6xo=;
+ b=T0rpCcGCEfCZqsLg0bXs7kA4o3lLVXRYbZCz35S3swRExPYgVSl2mikmoKGje5dQMbtaR9vaPIlZ9T8ZMnOLB6mwXsLPC6FJjaXF92ChdghxoEaZHG8zcEAHzvHaqUDNrOA6ShfOVFE4CJOllIMpPPKlzeZNucO2B/fQekPvgOo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH0PR12MB8550.namprd12.prod.outlook.com (2603:10b6:610:192::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Tue, 2 Jun 2026
+ 11:19:33 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0071.011; Tue, 2 Jun 2026
+ 11:19:32 +0000
+Message-ID: <6d0aba3d-2f53-453b-b5b1-39a0cf12c551@amd.com>
+Date: Tue, 2 Jun 2026 13:19:27 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/amdgpu/mes11: fix queue init wptr reset
+To: =?UTF-8?B?6IKW5ram5a6H?= <220255722@seu.edu.cn>
+Cc: alexander.deucher@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ kenneth.feng@amd.com, kevinyang.wang@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ jianhao.xu@seu.edu.cn, stable@vger.kernel.org
+References: <20260602050354.2237095-1-runyu.xiao@seu.edu.cn>
+ <20260602050354.2237095-2-runyu.xiao@seu.edu.cn>
+ <bb4e417d-5669-4d06-a731-c9aa369f6bd7@amd.com>
+ <AMgAqgBUKT9GR95Sm49u6arg.3.1780397583210.Hmail.220255722@seu.edu.cn>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <AMgAqgBUKT9GR95Sm49u6arg.3.1780397583210.Hmail.220255722@seu.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1PR13CA0178.namprd13.prod.outlook.com
+ (2603:10b6:208:2bd::33) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH0PR12MB8550:EE_
+X-MS-Office365-Filtering-Correlation-Id: 234f985d-9a80-43e6-7d8a-08dec098d1b8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|56012099006|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: FoHVBuCKOMXBMc6OuGxKUmfJWKZOuIaXB2cvG7UAyVLyHCq4hG9nrCRYrRJbX0CdlmREIAq+PHgnkeG3Vgp7RDbjHGP//AHt2cU0Jzw4RZtQRz58JBfrcxnWb90nRnivkwlTmZ4fy7+1TC1Nl5PyOE+6yA2I0InM3bKcDKQ16M7na8lV9qW0TKQkcnH5LpTtULx9aEzJPZqgzLcRczgH26zAIAql4/p6jZELaf+wAarfBi3avEjUKk0QWC+67V/9b8llHJjK3TA0V9XPIRD73cbjk3QRGp/seS/guzoVscdXUz98so3h0SWKy/JWPbXf4stkMqSnx3yUUQMVPEZVp6uBi++WC1IGXwY6wFU4nJMeiZSvstWhOJ3WbS8ou0AASbqQWq9jy5es3PfuGxpfu0qsk4o8G6qQ6yGMFNhb9c+Cf2tykNFVK6lhD85jDFIuxN5DlxsYqhh8tFsN08Hz0RajV2D7Rd+LMHt0Kirkwk+Ymfow4jOUR3dNIKokR9C/BJRZP9In8K2U5Xc6ttCWfPt3HDwFAv0uW7xNj/5VvMZp0MFS+o0OM7inb06898yNaXRV8cYiM7ujhwLHs1A0hi59E6c5mLiEejHOrKmZrp9KL1ayPzBIZqqGO33cssMsM1yWE3805Rg9sm6LJElvEGgb5s3IUfCJAZIgtOtNK96hSUslKrpsYTFaSERuFxYH
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RDlCWWtzVHpxVUVicG9HcHFCZkI3MGJsTGVkNUtqWFF1aXpuU2xHTVhvdlVN?=
+ =?utf-8?B?dU8xMjRIVVlDQ2ljS1BnajNDVm1HWEQwekZXR0VBSlN5M2FQSXAvZTlSZEE5?=
+ =?utf-8?B?ZzJ3dy9zTERlVStKSXk2em4wMXE2MGIrdmJUNjRVQ3JjMEFUN0w1QUVoZ1Qy?=
+ =?utf-8?B?Ump3ZmZrUlR0L08vaW5oeXBvVWZNYnh3SzBGSFZOcUNZUndoK2UyZmI4dnNV?=
+ =?utf-8?B?QkxQRDVSL2dhUU1DTEZaTFB2U1Y1aEpNek9rRlVxUGg1VE5oaWR4cURIUEJV?=
+ =?utf-8?B?cnQ3RnFnQk9LYURuQjdSMjlvOEFaNmRuMzFmektSbXVXaTJ5NmlWczJhbUdx?=
+ =?utf-8?B?ZkFOaXFhY0R4eEdMdXM2YzErSGlFUFZqUVBBL3ptWk1pbFYzSlVIL3lzTnVR?=
+ =?utf-8?B?aEd6TmMrd1hmamo5aTd5OWdVSFIxNVZjZE9lRzVSZE9TUnl4UWJwZ1BSZi9W?=
+ =?utf-8?B?bVBWUGU3MDI2c3pxN1ZGblN0VWY5U0ZRaHRtcWZwbXBQVkgrbExUbUhNY0V0?=
+ =?utf-8?B?ekFia21KMXQyeDhMQVN0a0h2VnN1bStnWi8xVGFIMkZIM0ZkOG1PbGZrUHBH?=
+ =?utf-8?B?WWE2WVMwQlNTdjh2WEc3b3dXKzdST01LY2o3Z1JXRDNBQWFyUUxwTzY0Q3FD?=
+ =?utf-8?B?VHNIbUNmbUhhbkZ1cmpIWE1RN3FEOFpIYW9OSzhuQjdveGFKMjBXSnVhcGJK?=
+ =?utf-8?B?cXlTQUZndS95SjFxbjRRTXJyaVN2blJ2ZnJmOXF1ZkVNaGRaR1ZtUVZvazRx?=
+ =?utf-8?B?a1VRWFZENmRhUUdvK1AzRHRNQ3lUYXY3RHZFcDA5QkdGS0kxSGZKZ3BqRUd1?=
+ =?utf-8?B?YlVLNW9nUDJmUnNsR0NSSkVxNGdVV25jcUVlRktmYXRmNXVaZVpDNVpMOUNM?=
+ =?utf-8?B?Uk5WaS9MYXpjQkRtY21paWR6YUhyZ2hrNVdxdkxQcHRYUmJuOHNDNzNKRzAw?=
+ =?utf-8?B?WUY1UCs0Y21mQTJEMkdpSWdoR3Q1M0NXRjdkbTBMR3dzeG5yMms3aWlpWUNt?=
+ =?utf-8?B?c0VDR0QzdHdSWGNDb1cvSmp3cTFpSDdGRFhVL1Q2R2E3RFhPdUV1UFY0cWMz?=
+ =?utf-8?B?cVYxcm96RkRMRWZrWHFiU3RWcjVCMW8rMzBHMFhpekNaVnNCN2xRa0c3S1Jy?=
+ =?utf-8?B?eElra0xNdUVUcU5zMS9tNG1TaUpMdHovTHN4SFVmOFFXTGMveW03ZGtzOG9w?=
+ =?utf-8?B?TmE5c05vZlBOTFhGeGVRYXhDK2swOTBXdTllSUxxNEZ0TG5GQXZtcnF3NG9p?=
+ =?utf-8?B?UStLUTFTM09HRkV1K2VrVVBRYVRXSEJadGg2YXQ3T2MxNWhKVElKOXUzdENE?=
+ =?utf-8?B?K1VTazk3MlRJQUpOYkR4VWlWSkVRWnRkSks5Y2hLZGFzaG4zSmZibEpPT0hl?=
+ =?utf-8?B?NzFJUG5wT2FCVnM4M3RQOWRlajNqdE8rQzgxd3BrYXBaaFY5UUExVENFNFhB?=
+ =?utf-8?B?Z2grVW1iRzBoTVJjdlRnTHppKzNUOE04bWU4dC9KMVlFelV0ckgwRkt4UmxD?=
+ =?utf-8?B?SS9XbXM5VFZxb3h4UlVnaStLZkh3cmxJRGhqK0dOU1FMN2FDSTN0TkZIRkg5?=
+ =?utf-8?B?M09RaGQ2czVJUjF1ZW85Q1ltWERjZXZtdzNHd0prQ040d0ZoUkU3SitpRzRj?=
+ =?utf-8?B?b2RQL0Y0b0grSGVuYzhMa2NoejVjU1pYbDJacHlhRGRCeisxNk1LTm1kQ2h3?=
+ =?utf-8?B?SVl5bUpOeW1ieThxU2FIMjc2OUdTanZOb25waVVTTEg1T1pQdTFzb3pnVWoz?=
+ =?utf-8?B?R0JqaTdvQTNxSjlSZmJWQ1A0QnVIcGJuM01CRWl0a016bDZJeGRqT2dDbjEz?=
+ =?utf-8?B?dzRXVXhJTFdXUmh4RHgxMHZxWE9pUnRzcFJxL29sbDBUZ1FvUE0wVHh2aG9M?=
+ =?utf-8?B?RTJhY0sydk9jSmhBdCtiL2t5LzdHVGFCSnY4VEVmYXFFZytDa2NBRUVsVkt6?=
+ =?utf-8?B?dmdwQzJMeVkwaUVyREMyT251WFczNy9aVWN0dzU3TXVVNVdqdythUXdRMTVt?=
+ =?utf-8?B?bEFhTkFpT2crR1llQ05HNlVKUEtzeS9vRWJRTmhtaWpVSUs1V1BQL0RYd0NL?=
+ =?utf-8?B?NkMxR3Nyc2N0UHNFb1IvcytuWldQNTJwSlVUbjZBSmphY2p1WVI5UDhxVllx?=
+ =?utf-8?B?QXppMDZETE1rVUZLVFF1U3lIWFpyaEhFeVY0MTJ3N2pSbWZPMy9MV3NEd244?=
+ =?utf-8?B?Yjh2RW40Zm9Oa3hzenhvQzhvOWRpRFpCaVpSMHZVekRNazdCV0x2ZitnT2VU?=
+ =?utf-8?B?MDFYR29QR3dGMnJFT0tTL3NGbDFsMVlRSDNQTjkwNWlQZ2hxRldEUmswOWxr?=
+ =?utf-8?Q?loifMDJVaFc4WFjNcZ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 234f985d-9a80-43e6-7d8a-08dec098d1b8
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 11:19:32.4926 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eYKAejecXYbGEQZXQAmtUnn+OcnfvknYEh42M3QYsfIVEQDPbz6QarLKeKHxM20e
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8550
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,354 +141,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Ma=C3=ADra,
+On 6/2/26 12:53, 肖润宇 wrote:
+> 	
+> Some people who received this message don't often get email from 220255722@seu.edu.cn. Learn why this is important <https://aka.ms/LearnAboutSenderIdentification>
+> 	
+> 
+> Hi Christian,
+> 
+> Thanks, understood.
+> 
+> To make sure I rework this in the right direction: would you expect
+> this reset path to do
+> 
+>   ring->wptr = 0;
+>   amdgpu_ring_set_wptr(ring);
+> 
+> instead of writing wptr_cpu_addr directly?
+> 
+> I am asking because amdgpu_ring_set_wptr() also updates the doorbell,
+> so I want to confirm that this is the intended sequence for the
+> reset/suspend case here.
 
-thanks for clarifying this. For the series:
+Yeah I was wondering the same thing.
 
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+I think the correct approach would be to make both rptr_cpu_addr and wptr_cpu_addr void* in the amdgpu_ring.h structure instead of u32* and then cast that to either (u64*) or (u32*) depending on the ring type.
 
-Iago
+The atomic64_t hack should really be removed.
 
-El mar, 02-06-2026 a las 07:49 -0300, Ma=C3=ADra Canal escribi=C3=B3:
-> Hi Iago,
->=20
-> On 02/06/26 04:35, Iago Toral wrote:
-> > Hi Ma=C3=ADra, this pactch looks good to me but I am wondering if we
-> > should
-> > do anything to clean up the perfmon state when a gpu reset happens:
-> > i.e. what would happen if a perfmon job resets? Would we continue
-> > to
-> > schedule after-reset jobs to wait on the fence of the reset job?
->=20
-> If the job resets, the design around the DRM scheduler will protect
-> us.
->=20
-> The DRM scheduler guarantees that a finished fence is always signaled
-> eventually. On a reset, drm_sched_start() signals the pending jobs'
-> finished fences (with -ECANCELED for the guilty job). So if a
-> perfmon-carrying job is the one that times out, the done_fence we
-> stored for serialization still gets signaled when resubmitted (check
-> the
-> first if-clause in the run_job() callbacks).
->=20
-> drm_sched_job_add_dependency() releases the dependent job as soon as
-> the
-> fence signals, regardless of error, so any job submitted behind the
-> reset perfmon job is released and runs. The serialization window
-> simply
-> closes when the job dies.
->=20
-> Best regards,
-> - Ma=C3=ADra
->=20
-> >=20
-> > Iago
-> >=20
-> > El dom, 31-05-2026 a las 17:18 -0300, Ma=C3=ADra Canal escribi=C3=B3:
-> > > A non-global perfmon is meant to count events generated by a
-> > > specific
-> > > submission, but the scheduler can run jobs from different queues
-> > > concurrently on the same V3D core. Without explicit
-> > > serialization, an
-> > > unrelated job running in parallel with a perfmon-carrying job
-> > > pollutes
-> > > the counters and generates unusable results.
-> > >=20
-> > > To address such issue, we must enforce cross-queue serialization
-> > > when
-> > > we
-> > > detect a perfmon-carrying submission. It's possible to implement
-> > > serialization by enforcing two rules:
-> > >=20
-> > > =C2=A0=C2=A0 1. A job that carries a non-global perfmon must wait for=
- every
-> > > job
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 currently in-flight across all HW queues to =
-finish.
-> > >=20
-> > > =C2=A0=C2=A0 2. While a perfmon-carrying job is still in-flight, all
-> > > subsequently
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 submitted jobs must wait for it.
-> > >=20
-> > > Note that serialization is not needed in the global perfmon case,
-> > > as
-> > > the
-> > > global perfmon tracks activity from all jobs, so concurrency is
-> > > desirable.
-> > >=20
-> > > Therefore, check if serialization is needed during job submission
-> > > and
-> > > if
-> > > so, attach fence dependences to enforce cross-queue
-> > > serialization.
-> > >=20
-> > > Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
-> > > ---
-> > > =C2=A0=C2=A0drivers/gpu/drm/v3d/v3d_drv.h=C2=A0=C2=A0=C2=A0=C2=A0 | 3=
-5 ++++++++++++++++++----
-> > > =C2=A0=C2=A0drivers/gpu/drm/v3d/v3d_gem.c=C2=A0=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 3 ++
-> > > =C2=A0=C2=A0drivers/gpu/drm/v3d/v3d_perfmon.c |=C2=A0 6 ++++
-> > > =C2=A0=C2=A0drivers/gpu/drm/v3d/v3d_submit.c=C2=A0 | 63
-> > > +++++++++++++++++++++++++++++++++++++++
-> > > =C2=A0=C2=A04 files changed, 101 insertions(+), 6 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/v3d/v3d_drv.h
-> > > b/drivers/gpu/drm/v3d/v3d_drv.h
-> > > index 51486af68cf4..cdf4926d51f2 100644
-> > > --- a/drivers/gpu/drm/v3d/v3d_drv.h
-> > > +++ b/drivers/gpu/drm/v3d/v3d_drv.h
-> > > @@ -74,11 +74,13 @@ struct v3d_queue_state {
-> > > =C2=A0=C2=A0	spinlock_t queue_lock;
-> > > =C2=A0=C2=A0};
-> > > =C2=A0=20
-> > > -/* Performance monitor object. The perform lifetime is
-> > > controlled by
-> > > userspace
-> > > - * using perfmon related ioctls. A perfmon can be attached to a
-> > > submit_cl
-> > > - * request, and when this is the case, HW perf counters will be
-> > > activated just
-> > > - * before the submit_cl is submitted to the GPU and disabled
-> > > when
-> > > the job is
-> > > - * done. This way, only events related to a specific job will be
-> > > counted.
-> > > +/* Performance monitor object
-> > > + *
-> > > + * The performance monitor (perfmon) lifetime is controlled by
-> > > userspace using
-> > > + * perfmon related ioctls. A perfmon can be attached to a CL or
-> > > CSD
-> > > submission
-> > > + * request, and when it is, HW performance counters will be
-> > > activated just
-> > > + * before the job is submitted to the GPU and disabled when the
-> > > job
-> > > is done.
-> > > + * This way, only events related to a specific submission will
-> > > be
-> > > counted.
-> > > =C2=A0=C2=A0 */
-> > > =C2=A0=C2=A0struct v3d_perfmon {
-> > > =C2=A0=C2=A0	/* Tracks the number of users of the perfmon, when this
-> > > counter reaches
-> > > @@ -167,13 +169,31 @@ struct v3d_dev {
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0	struct v3d_queue_state queue[V3D_MAX_QUEUES];
-> > > =C2=A0=20
-> > > -	/* Tracks the performance monitor state. */
-> > > +	/*
-> > > +	 * Tracks the performance monitor state and consistency.
-> > > +	 *
-> > > +	 * When a non-global perfmon is attached to a job, the
-> > > scheduler must
-> > > +	 * not run any other job on the HW concurrently
-> > > (otherwise,
-> > > the
-> > > +	 * counters would be polluted by unrelated work).
-> > > +	 */
-> > > =C2=A0=C2=A0	struct {
-> > > =C2=A0=C2=A0		/* Protects @active. */
-> > > =C2=A0=C2=A0		spinlock_t lock;
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0		/* Perfmon currently programmed in HW (or NULL
-> > > if
-> > > none). */
-> > > =C2=A0=C2=A0		struct v3d_perfmon *active;
-> > > +
-> > > +		/* Finished fence of the most recently submitted
-> > > job
-> > > that
-> > > +		 * opened a serialization window (i.e. a job
-> > > with a
-> > > non-global
-> > > +		 * perfmon attached).
-> > > +		 */
-> > > +		struct dma_fence *fence;
-> > > +
-> > > +		/* Finished fence of the most recently submitted
-> > > job
-> > > on each HW
-> > > +		 * queue. Used so that a new perfmon-carrying
-> > > job
-> > > can depend on
-> > > +		 * every job currently in-flight across all
-> > > queues.
-> > > +		 */
-> > > +		struct dma_fence *last_hw_fence[V3D_MAX_QUEUES];
-> > > =C2=A0=C2=A0	} perfmon_state;
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0	/* Protects bo_stats */
-> > > @@ -319,6 +339,9 @@ struct v3d_job {
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0	struct v3d_dev *v3d;
-> > > =C2=A0=20
-> > > +	/* The queue that the job was submitted on. */
-> > > +	enum v3d_queue queue;
-> > > +
-> > > =C2=A0=C2=A0	/* This is the array of BOs that were looked up at the
-> > > start
-> > > =C2=A0=C2=A0	 * of submission.
-> > > =C2=A0=C2=A0	 */
-> > > diff --git a/drivers/gpu/drm/v3d/v3d_gem.c
-> > > b/drivers/gpu/drm/v3d/v3d_gem.c
-> > > index 9487ab7acd03..0b415486f5b4 100644
-> > > --- a/drivers/gpu/drm/v3d/v3d_gem.c
-> > > +++ b/drivers/gpu/drm/v3d/v3d_gem.c
-> > > @@ -363,8 +363,11 @@ v3d_gem_destroy(struct drm_device *dev)
-> > > =C2=A0=C2=A0	for (q =3D 0; q < V3D_MAX_QUEUES; q++) {
-> > > =C2=A0=C2=A0		WARN_ON(v3d->queue[q].active_job);
-> > > =C2=A0=C2=A0		v3d_stats_put(v3d->queue[q].stats);
-> > > +		dma_fence_put(v3d-
-> > > >perfmon_state.last_hw_fence[q]);
-> > > =C2=A0=C2=A0	}
-> > > =C2=A0=20
-> > > +	dma_fence_put(v3d->perfmon_state.fence);
-> > > +
-> > > =C2=A0=C2=A0	drm_mm_takedown(&v3d->mm);
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0	dma_free_coherent(v3d->drm.dev, 4096 * 1024, (void
-> > > *)v3d-
-> > > > pt,
-> > > diff --git a/drivers/gpu/drm/v3d/v3d_perfmon.c
-> > > b/drivers/gpu/drm/v3d/v3d_perfmon.c
-> > > index 3ad0f022753c..07dab7fb3060 100644
-> > > --- a/drivers/gpu/drm/v3d/v3d_perfmon.c
-> > > +++ b/drivers/gpu/drm/v3d/v3d_perfmon.c
-> > > @@ -275,6 +275,12 @@ void v3d_perfmon_start(struct v3d_dev *v3d,
-> > > struct v3d_perfmon *perfmon)
-> > > =C2=A0=C2=A0	if (!perfmon || v3d->global_perfmon)
-> > > =C2=A0=C2=A0		return;
-> > > =C2=A0=20
-> > > +	/* Cross-queue serialization should have drained any
-> > > previous perfmon
-> > > +	 * job before this one runs.
-> > > +	 */
-> > > +	if (WARN_ON_ONCE(v3d->perfmon_state.active))
-> > > +		return;
-> > > +
-> > > =C2=A0=C2=A0	if (!pm_runtime_get_if_active(v3d->drm.dev))
-> > > =C2=A0=C2=A0		return;
-> > > =C2=A0=20
-> > > diff --git a/drivers/gpu/drm/v3d/v3d_submit.c
-> > > b/drivers/gpu/drm/v3d/v3d_submit.c
-> > > index 4c526aafc4e0..46fc88bacc95 100644
-> > > --- a/drivers/gpu/drm/v3d/v3d_submit.c
-> > > +++ b/drivers/gpu/drm/v3d/v3d_submit.c
-> > > @@ -234,6 +234,7 @@ v3d_submit_add_job(struct v3d_submit *submit,
-> > > void **container, size_t size,
-> > > =C2=A0=C2=A0	job->v3d =3D v3d;
-> > > =C2=A0=C2=A0	job->free =3D free;
-> > > =C2=A0=C2=A0	job->file_priv =3D v3d_priv;
-> > > +	job->queue =3D queue;
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0	ret =3D drm_sched_job_init(&job->base, &v3d_priv-
-> > > > sched_entity[queue],
-> > > =C2=A0=C2=A0				 1, v3d_priv, submit->file_priv-
-> > > > client_id);
-> > > @@ -293,6 +294,62 @@ v3d_attach_perfmon_to_jobs(struct v3d_submit
-> > > *submit, u32 perfmon_id)
-> > > =C2=A0=C2=A0	return 0;
-> > > =C2=A0=C2=A0}
-> > > =C2=A0=20
-> > > +/*
-> > > + * Prepare fences to enforce job serialization when a perfmon is
-> > > active. A job
-> > > + * that carries a non-global perfmon must wait for every job
-> > > currently in-flight
-> > > + * across all HW queues to finish, otherwise concurrent
-> > > unrelated
-> > > work on the
-> > > + * same core would pollute the performance counters.
-> > > Symmetrically,
-> > > while such a
-> > > + * job is still in-flight, all subsequently submitted jobs must
-> > > wait
-> > > for it.
-> > > + *
-> > > + * We don't serialize the jobs when using a global perfmon as
-> > > it's
-> > > expected to
-> > > + * track concurrent activity from all jobs.
-> > > + */
-> > > +static int
-> > > +v3d_serialize_for_perfmon(struct v3d_job *job)
-> > > +{
-> > > +	struct v3d_dev *v3d =3D job->v3d;
-> > > +	bool is_global_perfmon;
-> > > +	int ret;
-> > > +
-> > > +	lockdep_assert_held(&v3d->sched_lock);
-> > > +
-> > > +	scoped_guard(spinlock_irqsave, &v3d->perfmon_state.lock)
-> > > +		is_global_perfmon =3D !!v3d->global_perfmon;
-> > > +
-> > > +	if (is_global_perfmon)
-> > > +		goto publish;
-> > > +
-> > > +	if (job->perfmon) {
-> > > +		for (enum v3d_queue q =3D 0; q < V3D_MAX_QUEUES;
-> > > q++)
-> > > {
-> > > +			struct dma_fence *f =3D v3d-
-> > > > perfmon_state.last_hw_fence[q];
-> > > +
-> > > +			if (!f || dma_fence_is_signaled(f))
-> > > +				continue;
-> > > +
-> > > +			ret =3D drm_sched_job_add_dependency(&job-
-> > > > base, dma_fence_get(f));
-> > > +			if (ret)
-> > > +				return ret;
-> > > +		}
-> > > +	} else if (v3d->perfmon_state.fence &&
-> > > +		=C2=A0=C2=A0 !dma_fence_is_signaled(v3d-
-> > > >perfmon_state.fence))
-> > > {
-> > > +		ret =3D drm_sched_job_add_dependency(&job->base,
-> > > +					=09
-> > > dma_fence_get(v3d->perfmon_state.fence));
-> > > +		if (ret)
-> > > +			return ret;
-> > > +	}
-> > > +
-> > > +publish:
-> > > +	dma_fence_put(v3d->perfmon_state.last_hw_fence[job-
-> > > >queue]);
-> > > +	v3d->perfmon_state.last_hw_fence[job->queue] =3D
-> > > dma_fence_get(job->done_fence);
-> > > +
-> > > +	if (job->perfmon && !is_global_perfmon) {
-> > > +		dma_fence_put(v3d->perfmon_state.fence);
-> > > +		v3d->perfmon_state.fence =3D dma_fence_get(job-
-> > > > done_fence);
-> > > +	}
-> > > +
-> > > +	return 0;
-> > > +}
-> > > +
-> > > =C2=A0=C2=A0static void
-> > > =C2=A0=C2=A0v3d_submit_attach_object_fences(struct v3d_submit *submit=
-)
-> > > =C2=A0=C2=A0{
-> > > @@ -337,6 +394,12 @@ v3d_submit_jobs(struct v3d_submit *submit)
-> > > =C2=A0=C2=A0			goto err;
-> > > =C2=A0=C2=A0	}
-> > > =C2=A0=20
-> > > +	for (int i =3D 0; i < submit->job_count; i++) {
-> > > +		ret =3D v3d_serialize_for_perfmon(submit-
-> > > >jobs[i]);
-> > > +		if (ret)
-> > > +			goto err;
-> > > +	}
-> > > +
-> > > =C2=A0=C2=A0	for (int i =3D 0; i < submit->job_count; i++)
-> > > =C2=A0=C2=A0		drm_sched_entity_push_job(&submit->jobs[i]-
-> > > >base);
-> > > =C2=A0=20
-> > >=20
-> >=20
->=20
->=20
+BTW Reading the rptr is wrong on multiple instances as well and should probably be fixed in the same patch set.
+
+Regards,
+Christian.
+
+> 
+> Thanks,
+> Runyu
+> 
+> On Tue, Jun 2, 2026 at 11:49:05AM +0200, Christian König wrote:
+>> Clear NAK.
+>>
+>> The atomic64_t cast hack is just something we did for older
+>> generations and is not something which is necessary nor should
+>> be done here.
+>>
+>> What could be possible is that we need to use amdgpu_ring_set_wptr()
+>> here to correctly distinguish between queues with 32bit and 64bit
+>> wptrs.
+> 
 
