@@ -4,66 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30306CD6E5D
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 10:53:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03C18CD6E4A
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 10:56:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5236010EF0F;
-	Tue,  2 Jun 2026 10:53:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55FA010EF19;
+	Tue,  2 Jun 2026 10:56:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DBoIW+oy";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="YUUzW8UD";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF09D10EF0E;
- Tue,  2 Jun 2026 10:53:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780397634; x=1811933634;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=Ni/tmRSfbzwa4khERF7pyUpxahTIJcKaBFVK8/nxsuA=;
- b=DBoIW+oyb9Mp3AOUChz72pKYD6mBiY9NAhLPct81HRS5hVVM64IdqWpr
- tsjDIJhOXEfRleJSkezpd4+069+n7BykcU6zc/DrHPn+MyygOi2fVpI99
- AnxXK1GUKMvKdzjTeG8EIdOsZWe/ILjvx6+XlAEFO2Y1x4S//jKGYZr8Z
- ARsFqdIaa2E/a8wZrmAzfX835IPRyj5vLHz2FkRSAPOkECmZaRpS9pj1F
- QEyuajoAJzshOy0LGwwa8lBYYtUk5rOBn1HnpNJHX2l+JTSw8T8CE+WUT
- seMe3TX7pKDXdxNDRx1flMpSDb58GtD0UjoPmTeD1bxiz++PCVbpw5oVv w==;
-X-CSE-ConnectionGUID: kXTNdKaRS6ur2g3QLbd16w==
-X-CSE-MsgGUID: mJ2F9eymSkitHbzza51MLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="81206863"
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="81206863"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2026 03:53:54 -0700
-X-CSE-ConnectionGUID: vbXWBbnLQ8y+BeiLtvtnGg==
-X-CSE-MsgGUID: 9XNaPig7QH6L+umPL8IIUg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="243971915"
-Received: from vpanait-mobl.ger.corp.intel.com (HELO localhost)
- ([10.245.245.253])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2026 03:53:50 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: "Saarinen, Jani" <jani.saarinen@intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, "rajat.gupta@oss.qualcomm.com"
- <rajat.gupta@oss.qualcomm.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
- "airlied@gmail.com" <airlied@gmail.com>, "mripard@kernel.org"
- <mripard@kernel.org>, "maarten.lankhorst@linux.intel.com"
- <maarten.lankhorst@linux.intel.com>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "Syrjala, Ville" <ville.syrjala@intel.com>
-Subject: RE: [PATCH] drm/dumb-buffers: Increase size limits to match current
- devices
-In-Reply-To: <PH3PPFAB42632359128CE02EC820D17E137E0122@PH3PPFAB4263235.namprd11.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260602073027.192758-1-tzimmermann@suse.de>
- <PH3PPFAB42632359128CE02EC820D17E137E0122@PH3PPFAB4263235.namprd11.prod.outlook.com>
-Date: Tue, 02 Jun 2026 13:53:47 +0300
-Message-ID: <577c2e6c08b96844a5144bee0d5a0536b4ab939e@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAB7610EF19
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 10:56:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1780397771; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=im9nJq32cMf/AaxOxw7ddKE2oAtPjIbuXXkQpZQIdgGGixPBBslhvCjQx3udsv+RcDEyidaE2+17AVkqzIpIEpkKlM9+dIqzFDi8GS3LH6sd9jgTP6ZaI0yRtkqkQ9NJl8BFhFebUXy7jvGU+PNyAOIP/0s3aOHI5xIJhZXiEj4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1780397771;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=iiBqjoD4EsYqN1Fal3BhE3EeXjYiDrKSSSa/8jY4Bko=; 
+ b=LGfetZ4eXbSXt35OSAULZH1+55ZJvj5MvYjnwFx6g2LMJCzhYhn+pZlVEn54/SJYezbPt28ndPAxT8+4NkozqcLqdLbvXN81+dbwGSTpqw2LVC/DbPtQCrzC+Qp6ULwA+pckr+nFR+1uZrM2I68JLFFtmSDH2ILS7ttxQHM0O7I=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780397771; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
+ bh=iiBqjoD4EsYqN1Fal3BhE3EeXjYiDrKSSSa/8jY4Bko=;
+ b=YUUzW8UDzKIpQy4JqBRBbq5zO5hi8klUbS4R6CTmYQk8S0/vRAd7dhA/EjYSt8KV
+ qYCWpQdzfBnyngNV0ewDghksfysVyQPjm2IQmQDgCnlirloQLZeg6p4krD/ArrZ0RGZ
+ D6PCx4RtKqVy4C3yvArUu1GSk0u6O9nnNpE+sLQw=
+Received: by mx.zohomail.com with SMTPS id 1780397764062323.93913048628724;
+ Tue, 2 Jun 2026 03:56:04 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH 0/2] drm: tyr: use lifetime-bound IoMem
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260529000106.2257996-1-dakr@kernel.org>
+Date: Tue, 2 Jun 2026 07:55:27 -0300
+Cc: aliceryhl@google.com, boris.brezillon@collabora.com,
+ deborah.brouwer@collabora.com, gary@garyguo.net,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+Message-Id: <17A1BFA7-A5E1-430B-A954-9C2AC9439FE3@collabora.com>
+References: <20260529000106.2257996-1-dakr@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,92 +68,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 02 Jun 2026, "Saarinen, Jani" <jani.saarinen@intel.com> wrote:
-> Hi, 
->> -----Original Message-----
->> From: Thomas Zimmermann <tzimmermann@suse.de>
->> Sent: Tuesday, 2 June 2026 10.30
->> To: rajat.gupta@oss.qualcomm.com; jani.nikula@linux.intel.com; Saarinen,
->> Jani <jani.saarinen@intel.com>; simona@ffwll.ch; airlied@gmail.com;
->> mripard@kernel.org; maarten.lankhorst@linux.intel.com
->> Cc: dri-devel@lists.freedesktop.org; intel-gfx@lists.freedesktop.org; intel-
->> xe@lists.freedesktop.org; Thomas Zimmermann <tzimmermann@suse.de>
->> Subject: [PATCH] drm/dumb-buffers: Increase size limits to match current
->> devices
->> 
->> Increase the limits for dumb-buffer arguments to sizes of 16384x16384 at 64
->> bpp. Such buffer sizes are still within 32-bit unsigned limits.
->> Fixes CI and high-end devices.
->> 
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Fixes: 5ab62dd3687b ("drm: prevent integer overflows in dumb buffer
->> creation helpers")
->> Reported-by: Jani Nikula <jani.nikula@linux.intel.com>
->> Closes: https://lore.kernel.org/dri-
->> devel/ddf0233e50044059c85279f928661563ef6a55bf@intel.com/
->
-> Seems not helping on i915 CI BAT issue https://lore.kernel.org/intel-gfx/178038951063.34290.3796875109342598028@6beec6c84f66/T/#u 
-> => https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167719v1/index.html?
-
-Right, so vgem_basic has this, among other things:
-
-	bo.width = 1<<15;
-	bo.height = 1<<15;
-	bo.bpp = 16;
-	vgem_create(fd, &bo);
-
-i.e. 32768x32768.
-
-Not so sure about this one.
-
-Anyone else care to chime in?
 
 
-BR,
-Jani.
+> On 28 May 2026, at 21:00, Danilo Krummrich <dakr@kernel.org> wrote:
+> 
+> Adopt the driver core lifetime infrastructure for tyr.
+> 
+> Separate the driver type from the driver data and use lifetime-bound
+> IoMem directly in probe instead of wrapping it in Devres and Arc,
+> simplifying register access.
+> 
+> Changes in v2:
+>  - Don't return Result from GpuInfo::new()
+>  - Use "drm/tyr:" commit message prefix
+> 
+> Danilo Krummrich (2):
+>  drm/tyr: separate driver type from driver data
+>  drm/tyr: use IoMem directly instead of Devres
+> 
+> drivers/gpu/drm/tyr/driver.rs | 29 ++++++++++++-----------------
+> drivers/gpu/drm/tyr/gpu.rs    | 17 +++++------------
+> drivers/gpu/drm/tyr/tyr.rs    |  4 ++--
+> 3 files changed, 19 insertions(+), 31 deletions(-)
+> 
+> 
+> base-commit: a3e50e7279996cd987001fd8a3db36e72665f8f7
+> -- 
+> 2.54.0
+> 
 
->
->> Cc: Rajat Gupta <rajat.gupta@oss.qualcomm.com>
->> Cc: Thomas Zimmermann <tzimmermann@suse.de>
->> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->> Cc: Maxime Ripard <mripard@kernel.org>
->
-> Br,
-> Jani
->
->> ---
->>  drivers/gpu/drm/drm_dumb_buffers.c | 9 +++++----
->>  1 file changed, 5 insertions(+), 4 deletions(-)
->> 
->> diff --git a/drivers/gpu/drm/drm_dumb_buffers.c
->> b/drivers/gpu/drm/drm_dumb_buffers.c
->> index e60130b2bb0c..9c4cfb3210aa 100644
->> --- a/drivers/gpu/drm/drm_dumb_buffers.c
->> +++ b/drivers/gpu/drm/drm_dumb_buffers.c
->> @@ -201,11 +201,12 @@ int drm_mode_create_dumb(struct drm_device
->> *dev,
->>  	if (!args->width || !args->height || !args->bpp)
->>  		return -EINVAL;
->> 
->> -	/* Reject unreasonable inputs early.  Dumb buffers are for software
->> -	 * rendering; nothing legitimate needs more than 8192x8192 at
->> 32bpp.
->> -	 * This prevents overflows in downstream alignment helpers.
->> +	/*
->> +	 * Reject unreasonable inputs early. Dumb buffers are for software
->> +	 * rendering; nothing legitimate needs more than 16384x16384 at
->> +	 * 64 bpp. This prevents overflows in downstream alignment helpers.
->>  	 */
->> -	if (args->width >= 8192 || args->height >= 8192 || args->bpp > 32)
->> +	if (args->width > 16384 || args->height > 16384 || args->bpp > 64)
->>  		return -EINVAL;
->> 
->>  	/* overflow checks for 32bit size calculations */
->> 
->> base-commit: a980196655477a8f5067112946401fe52e510664
->> --
->> 2.54.0
->
 
--- 
-Jani Nikula, Intel
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
