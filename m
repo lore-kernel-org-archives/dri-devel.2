@@ -4,103 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70ACECD6E57
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 13:45:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FE0FCD6E57
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 13:46:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0AC710F135;
-	Tue,  2 Jun 2026 13:45:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C209D10F165;
+	Tue,  2 Jun 2026 13:46:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oXgC7Ybz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aWUHG1qS";
 	dkim-atps=neutral
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0140B10F135
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 13:45:12 +0000 (UTC)
-Received: by mail-dl1-f42.google.com with SMTP id
- a92af1059eb24-137f3cb3f46so63606c88.0
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 06:45:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780407912; cv=none;
- d=google.com; s=arc-20240605;
- b=Cu/AeqmRgBh0fZiButJ6Tnitqgfut8LehEpZst5Jw4Z3Aqlg/Bv4aEj+K85MJSQcLo
- sBvlMenllAjSESJ8SBNcBtQgD7UsMjaAx0r6Gvhlr390hekajOFN22O+w445zf8w1cXt
- t4iQzQ77ntpRmg8sDTWJeeOtF8xvghWWrptpHyqKSBAeReGBU4I1L+DgBXUqsaVQzfMY
- gKH81DC7HhOMGFJydPwMmi9unSPPQO5v2WD2NWUc/gp6EJw4Kws/pacK7skuf1D2IZDJ
- +sYv9oJzmbB229p85sdpIKfhejktJVMuIzyfeZzEnuPtouhTIhpLv3ROOXkpxg/FHydR
- qNnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=zT4hcJaJAxpNku3U6+68TAPB6S0TflnId/dwWCFEDQY=;
- fh=rzm8mqRK6qTneEUim9MK0dpLzcyTktrI39NvboP7Lt8=;
- b=QmZiBNSfFfDFoOcx0G99IidJd8K2KiVJMv2Z+ckI4Cencpqxm7DaqGqUi2C3/SKLad
- xvYPSXY4s2wiS65v2sLmiKsyzHXXh490wQue02Qg3Y8esN4VV0Kji6XVQZTExMlKTp+9
- mFuofjqYyGa+91vvCqunzsBXgqg2pS66LKIcWRtWnFqhhH5BUV/SwxInH+e4IxwvCaAn
- PdwAh8Zg00d3Q3qZlgf7kl064/1J4YeQNubDKSrj1IhP+l7oNba+lFFLskE+RKs3LUnC
- YzZR+xFzHSynsdwERe5Oy+cY8wUns9oOz3pdnSYrZLCrqJfaew0n3k+qQ8CuawJB+v3V
- 3lyQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780407912; x=1781012712; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zT4hcJaJAxpNku3U6+68TAPB6S0TflnId/dwWCFEDQY=;
- b=oXgC7YbzsGAoi9hKYdyMZ4MQ4HXlQ58RDO1MkN5UQxkIpFMEFbBe4EgBMbLyAEfzZj
- Jq6e2J/STm/eXpcC5uMYwQX3Hz7RQJeSlETPd+gRzD+QaNC1sax3iDFfj/DgLEfsPW6b
- 9s8aWYNk5B2GcpmV6UV8QsHOItzcJ2RL+nLNbBtyyJxJHn+Y1urUByCkR8HHcPdyV640
- efPNmAdB+MO4mPODjSLnZ5HyXy+UgYbrPPLWb2qtDujMNFpodC3JS/cVYCDMkCgEVeO/
- J3l71SibpiK4iP1UppthTHy81Q76IXgrQiNp4Kb+Acln3E0EVQ0EI5HRusyZ4xkO/DDi
- 8Ybw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780407912; x=1781012712;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=zT4hcJaJAxpNku3U6+68TAPB6S0TflnId/dwWCFEDQY=;
- b=CS8S2+wSObXSYgrsUkHep+bfaBgJ2cq0MVprRDuNEteRL38eYncfonUJptYjkGt++P
- zZ3nGyM2dyocQxbbETzRN7JLIb7RrMt4ixuMPruTc1chGcHlwd6eWLOxWbfHq+X/eN8F
- czOAYRcmR5LWqbS93Qr7yp4H0rwwslre7Rzw9NTfBezB+Su+ZGs2YyQpRCi18a20h3v7
- 881bz6OdXYgdktiv0t60GOTnRPHaRVUdL4MO+aq+dFiBHi7FmMvKMFcyWdYuLb5P4c8e
- yvy3T+uSJs2MS58UK4DsRDWEKfLVMDdsDL8v8o9jLUh0VIwseGDN0fi8m/0EpoOfyExW
- HCcg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/xkwX1/9J3ZE2PqNFMD/JwSDgbw9YJwBpZKa81eybeiFyVJk0ZqwSCFL8e+b05lf+ksUgGlc7Tfm4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxIGDJ2tvFWsYoQNva04umGdiMqaKWArF7JuNyT8n6qY8KFT/fq
- V9KUfYof35XkQEPBMJtl0rSqLUIZ4i9pud4o1Y07YI0IeGM17hE4+EYhoq5kWfrbMfUewP7l+ut
- TToQIJ16QYe/nIpg/9gaDtYqe6TQGJdU=
-X-Gm-Gg: Acq92OFlUBJetZgE7WDjPEhXiXWNi4wfjGhbT2fy9osW+Lx+fP9mTiwT08OmlTApU7F
- qIa8WO+/iRQUFJYcgcC0F4BX86JcVs+q4cR1ZrsHUNTH7OKs39YRBVMhbfFcyyxnRFFbUr54dn+
- cRMBWXASXeXwcPIbUTj7mONZmWRt1qD5oH0ByX6Nj1qkRBzqGYVEADVJCWKFs5y0G07ASo2YSRz
- NwYW/fSyVsQlvwrQprgrA40el4mX7SB2+4gg82dk8ZJlKe2CcMxUE+VErFSmJ/hhxL3Dm7kHCPe
- ShZ/BVm0udmqk3UNn/E=
-X-Received: by 2002:a05:7300:724d:b0:304:8366:7456 with SMTP id
- 5a478bee46e88-304fa4a97f7mr7197710eec.3.1780407912080; Tue, 02 Jun 2026
- 06:45:12 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260601151831.76350-1-clamor95@gmail.com>
- <20260601151831.76350-4-clamor95@gmail.com>
- <20260602144222.7a50a041@jic23-huawei>
-In-Reply-To: <20260602144222.7a50a041@jic23-huawei>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 2 Jun 2026 16:45:00 +0300
-X-Gm-Features: AVHnY4LTNpiSYmDW8xnqHecCTvTzpdUFD5jDfC_0pqaKrNHhEcy0XqCOTlsLpZ4
-Message-ID: <CAPVz0n3x7KaaoZQAmpX-NCz2QNrhWNQaYFvX3pwS8DLb56bFuA@mail.gmail.com>
-Subject: Re: [PATCH v3 03/11] iio: light: lm3533-als: Remove redundant pdata
- helpers
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- David Lechner <dlechner@baylibre.com>,
- =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
- Johan Hovold <johan@kernel.org>, 
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABE5910F146
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 13:46:48 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9037740883;
+ Tue,  2 Jun 2026 13:46:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E97DE1F00893;
+ Tue,  2 Jun 2026 13:46:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780408008;
+ bh=GgeCHMOQLe7sziJLA5PC7VCAR6QFsAiheuuHn0qTd64=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=aWUHG1qS7mkth6CXBwpvSXYjBb1mcBxf/mTnTn8YApkbS84Ww7v9tkqSycJnQ1FoF
+ u0bJ0cITis94bgo0251eNpPSEWBBT7nStcjYqWHr2+Vi+R2xragrvI95L4n0ymf3R/
+ W7MhrtQS5doAZefjwSYdVJhHIHM7YtvNDK6w6L7Hiduo602lmhZO4+eGNYmaGaxCkL
+ /BsvDewnbkOgNvdOdJXQ2kyTqRGoEpl7chl+hL6jIByooAFN2QfeemARFuTLgmYKpE
+ hnhQYNCwa6S0ug5OX2CCXQSd39OxKK/gAWx9JkgTHwYat7rHU57hnNeOIh3pUNYn7j
+ yANrkBsMoO1Ow==
+Date: Tue, 2 Jun 2026 14:46:40 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, Jingoo
+ Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Helge Deller <deller@gmx.de>, Johan Hovold <johan@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 05/11] mfd: lm3533: Convert to use OF bindings
+Message-ID: <20260602144640.433b4d35@jic23-huawei>
+In-Reply-To: <20260601151831.76350-6-clamor95@gmail.com>
+References: <20260601151831.76350-1-clamor95@gmail.com>
+ <20260601151831.76350-6-clamor95@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,81 +66,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=D0=B2=D1=82, 2 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 16:42=
- Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Mon,  1 Jun 2026 18:18:23 +0300
-> Svyatoslav Ryhel <clamor95@gmail.com> wrote:
->
-> > The lm3533_als_set_input_mode and lm3533_als_set_resistor functions are
-> > used only in lm3533_als_setup. Incorporate their code into
-> > lm3533_als_setup directly to simplify driver readability.
-> Minor stuff inline.
->
->
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > ---
-> >  drivers/iio/light/lm3533-als.c | 61 +++++++++-------------------------
-> >  1 file changed, 16 insertions(+), 45 deletions(-)
-> >
-> > diff --git a/drivers/iio/light/lm3533-als.c b/drivers/iio/light/lm3533-=
-als.c
-> > index fb61904f110f..52136ca1abc9 100644
-> > --- a/drivers/iio/light/lm3533-als.c
-> > +++ b/drivers/iio/light/lm3533-als.c
->
-> >  static int lm3533_als_setup(struct lm3533_als *als,
-> >                           const struct lm3533_als_platform_data *pdata)
-> >  {
-> > +     struct device *dev =3D &als->pdev->dev;
-> >       int ret;
-> >
-> > -     ret =3D lm3533_als_set_input_mode(als, pdata->pwm_mode);
-> > +     ret =3D regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_CO=
-NF,
->
-> Maybe a local struct regmap pointer given dereferenced in a couple of pla=
-ces.
->
+On Mon,  1 Jun 2026 18:18:25 +0300
+Svyatoslav Ryhel <clamor95@gmail.com> wrote:
 
-sure, why not
+> Since there are no users of this driver via platform data, remove the
+> platform data support and switch to using Device Tree bindings.
+> 
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 
-> > +                              LM3533_ALS_INPUT_MODE_MASK,
-> > +                              pdata->pwm_mode ? LM3533_ALS_INPUT_MODE_=
-MASK : 0);
->
-> Andy raised this in previous patch but in the interests of being specific
-> regmap_assign_bits() is going to be cleaner here.
->
 
-I am currently adjusting accordingly.
+> index 52136ca1abc9..55b35467a722 100644
+> --- a/drivers/iio/light/lm3533-als.c
+> +++ b/drivers/iio/light/lm3533-als.c
+> @@ -16,16 +16,19 @@
+>  #include <linux/module.h>
+>  #include <linux/mutex.h>
+>  #include <linux/mfd/core.h>
+> +#include <linux/mod_devicetable.h>
+>  #include <linux/platform_device.h>
+> +#include <linux/property.h>
+>  #include <linux/regmap.h>
+>  #include <linux/slab.h>
+>  #include <linux/uaccess.h>
+> +#include <linux/units.h>
+>  
+>  #include <linux/mfd/lm3533.h>
+>  
+>  
+> -#define LM3533_ALS_RESISTOR_MIN			1
+> -#define LM3533_ALS_RESISTOR_MAX			127
+> +#define LM3533_ALS_RESISTOR_MIN			1575
+> +#define LM3533_ALS_RESISTOR_MAX			200000
+>  #define LM3533_ALS_CHANNEL_CURRENT_MAX		2
+>  #define LM3533_ALS_THRESH_MAX			3
+>  #define LM3533_ALS_ZONE_MAX			4
+> @@ -57,6 +60,9 @@ struct lm3533_als {
+>  
+>  	atomic_t zone;
+>  	struct mutex thresh_mutex;
+> +
+> +	bool pwm_mode;
+> +	u32 r_select;
+>  };
+>  
+>  
+> @@ -411,7 +417,7 @@ static ssize_t show_thresh_either_en(struct device *dev,
+>  	int enable;
+>  	int ret;
+>  
+> -	if (als->irq) {
+> +	if (als->irq > 0) {
+>  		ret = lm3533_als_get_int_mode(indio_dev, &enable);
+>  		if (ret)
+>  			return ret;
+> @@ -716,30 +722,34 @@ static const struct attribute_group lm3533_als_attribute_group = {
+>  	.attrs = lm3533_als_attributes
+>  };
+>  
+> -static int lm3533_als_setup(struct lm3533_als *als,
+> -			    const struct lm3533_als_platform_data *pdata)
+> +static int lm3533_als_setup(struct lm3533_als *als)
+>  {
+>  	struct device *dev = &als->pdev->dev;
+>  	int ret;
+>  
+> +	als->pwm_mode = device_property_read_bool(dev, "ti,pwm-mode");
+> +
+>  	ret = regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_CONF,
+>  				 LM3533_ALS_INPUT_MODE_MASK,
+> -				 pdata->pwm_mode ? LM3533_ALS_INPUT_MODE_MASK : 0);
+> +				 als->pwm_mode ? LM3533_ALS_INPUT_MODE_MASK : 0);
+>  	if (ret)
+>  		return dev_err_probe(dev, ret, "failed to set input mode %d\n",
+> -				     pdata->pwm_mode);
+> -
+> +				     als->pwm_mode);
+>  
+>  	/* ALS input is always high impedance in PWM-mode. */
+> -	if (!pdata->pwm_mode) {
+> -		if (pdata->r_select < LM3533_ALS_RESISTOR_MIN ||
+> -		    pdata->r_select > LM3533_ALS_RESISTOR_MAX) {
+> -			dev_err(&als->pdev->dev, "invalid resistor value\n");
+> -			return -EINVAL;
+> -		}
+> +	if (!als->pwm_mode) {
+> +		ret = device_property_read_u32(dev, "ti,resistor-value-ohms",
+> +					       &als->r_select);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to ger resistor value\n");
+> +
+> +		als->r_select = clamp(als->r_select, LM3533_ALS_RESISTOR_MIN,
+> +				      LM3533_ALS_RESISTOR_MAX);
 
-> >       if (ret)
-> > -             return ret;
-> > +             return dev_err_probe(dev, ret, "failed to set input mode =
-%d\n",
-> > +                                  pdata->pwm_mode);
-> > +
-> >
-> >       /* ALS input is always high impedance in PWM-mode. */
-> >       if (!pdata->pwm_mode) {
-> > -             ret =3D lm3533_als_set_resistor(als, pdata->r_select);
-> > +             if (pdata->r_select < LM3533_ALS_RESISTOR_MIN ||
-> > +                 pdata->r_select > LM3533_ALS_RESISTOR_MAX) {
-> > +                     dev_err(&als->pdev->dev, "invalid resistor value\=
-n");
-> > +                     return -EINVAL;
-> > +             }
-> > +
-> > +             ret =3D regmap_write(als->lm3533->regmap, LM3533_REG_ALS_=
-RESISTOR_SELECT,
-> > +                                pdata->r_select);
-> >               if (ret)
-> > -                     return ret;
-> > +                     return dev_err_probe(dev, ret, "failed to set res=
-istor\n");
-> >       }
-> >
-> >       return 0;
->
+If we are getting garbage from DT I think I'd rather error out that paper over
+that problem.  So similar to before, check valid value and if not fail probe
+so that hopefully someone goes and fixes it!
+
+> +		als->r_select = DIV_ROUND_UP(2 * MICRO, 10 * als->r_select);
+Why do we need this when we didn't before?  The range checks are the same
+so it smells like it shouldn't need transforming. I'd also rather we didn't do
+rewriting of the meaning of r_select like this.  Just use a local variable for
+the intermediate result.
+
+>  
+>  		ret = regmap_write(als->lm3533->regmap, LM3533_REG_ALS_RESISTOR_SELECT,
+> -				   pdata->r_select);
+> +				   als->r_select);
+>  		if (ret)
+>  			return dev_err_probe(dev, ret, "failed to set resistor\n");
