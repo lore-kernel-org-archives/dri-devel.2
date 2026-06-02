@@ -4,56 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43397CD6E57
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 11:24:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 335E5CD6E5D
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 11:27:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A754110EF81;
-	Tue,  2 Jun 2026 11:24:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8287C10EF8B;
+	Tue,  2 Jun 2026 11:27:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nabladev.com header.i=@nabladev.com header.b="GGkXvpln";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AiCd+as0";
 	dkim-atps=neutral
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78F3E10EF81
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 11:24:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id EEEE411182A; Tue,  2 Jun 2026 13:24:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
- s=dkim; t=1780399445;
- h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=3SEWTdQyt2zyTo6u5upvFp5GM2EdzLG67A0e6CQEJ/k=;
- b=GGkXvplnHCBzZAEnVXRdmOLOp4oVkpIEAOk+bibLG0X0Akh+Ql+29CqDHlXXt4dr/nJGDl
- ZBSKATFx80EF0PtHjfTgmpBjdP6QIzNS3wyYyUB9z1Sd6PZSuv0g2fqhAtxSlizm44HikW
- RqjRJsb9cO6nsDMG+2PNeOMuQJmNf919tGdjRpxzJIu4hR9CFPD7VjK/ASjMake/6F7cXP
- IO5tHgQGWrtC9A9nFAJdiA+5O+7qvNybzRpFkSXP0omekswF9kVOFyFaVEy37Hll7BmH/A
- RaRZ1IkW8uRDdyc9ublvUT627WnqpbFbTRgCFKqHA9k9PimQHTkEeGIwpYSYTQ==
-Message-ID: <f942df60-7c7e-4a62-b806-a2339d139aef@nabladev.com>
-Date: Tue, 2 Jun 2026 13:24:00 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E60EA10EF8B;
+ Tue,  2 Jun 2026 11:27:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780399629; x=1811935629;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=vFe0YHJbZeLES+sUauMUh5hZ46dD8ew9Ej6lDFLoT9Q=;
+ b=AiCd+as03z8JI0M3Tj2YhyIJtEf/1xYRptnl2Rojlyp8DjaDezbkIZBd
+ g/zzdmxqJZPRBuoRAh1hPgdf2pGg37uc51dN0t6aZojMZ+uqcMIwTWTyK
+ VLrEONVj2k6ETI9bERCjxtlZBerWW+6F6I9UXq9QNbsT+V9eZsymVe8Ql
+ x+RkPjckJ1FgoqWc22nidpp7TLfdFVbr++uCZdWAHCTborfGhl64P8Z0F
+ TKfs7JXGV1wezDnPtaKtS6NFx4zqaJ4UHpcD6kWi9sguLEntwoUxMpU6/
+ nKSqOCBwUZkrC+IcztggUECzS0BWb8L7knL35TMb8zFytHHi7f5WjhWbC g==;
+X-CSE-ConnectionGUID: SuwkAiTrQYuK/QrRj8b5fw==
+X-CSE-MsgGUID: VxOfMnlDTcySMDcU/EIKnw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="84804992"
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="84804992"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jun 2026 04:27:07 -0700
+X-CSE-ConnectionGUID: 57WJuzJhQk+bJIT4F8AZnw==
+X-CSE-MsgGUID: InV+5AxmRSKrEz4WoNh7bQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="240879149"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.229])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jun 2026 04:26:48 -0700
+Date: Tue, 2 Jun 2026 14:26:46 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Kees Cook <kees@kernel.org>
+Cc: Luis Chamberlain <mcgrof@kernel.org>,
+ Pengpeng Hou <pengpeng@iscas.ac.cn>, stable@vger.kernel.org,
+ Petr Pavlu <petr.pavlu@suse.com>, Richard Weinberger <richard@nod.at>,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Len Brown <lenb@kernel.org>, Corey Minyard <corey@minyard.net>,
+ Gabriel Somlo <somlo@cmu.edu>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bart Van Assche <bvanassche@acm.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Hans de Goede <hansg@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Hannes Reinecke <hare@suse.de>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Alan Stern <stern@rowland.harvard.edu>,
+ Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+ Jason Baron <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>,
+ Tiwei Bie <tiwei.btw@antgroup.com>,
+ Benjamin Berg <benjamin.berg@intel.com>,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "David E. Box" <david.e.box@linux.intel.com>,
+ "Maciej W. Rozycki" <macro@orcam.me.uk>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Peter Zijlstra <peterz@infradead.org>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>,
+ Alexander Potapenko <glider@google.com>,
+ Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ John Johansen <john.johansen@canonical.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ Georgia Garcia <georgia.garcia@canonical.com>, kvm@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-modules@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-mm@kvack.org,
+ apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
+ linux-um@lists.infradead.org, linux-acpi@vger.kernel.org,
+ openipmi-developer@lists.sourceforge.net, qemu-devel@nongnu.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-serial@vger.kernel.org, linux-usb@vger.kernel.org,
+ usb-storage@lists.one-eyed-alien.net,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-arch@vger.kernel.org, netdev@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH 01/11] params: bound array element output to the caller's
+ page buffer
+Message-ID: <ah699hwLxIIOZ0-7@ashevche-desk.local>
+References: <20260521133315.work.845-kees@kernel.org>
+ <20260521133326.2465264-1-kees@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] drm/panel: simple: Add Displaytech DT050BTFT-PTS panel
-To: Neil Armstrong <neil.armstrong@linaro.org>, dri-devel@lists.freedesktop.org
-Cc: Kael D'Alcamo <dev@kael-k.io>,
- Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
- Sam Ravnborg <sam@ravnborg.org>, Simona Vetter <simona@ffwll.ch>,
- Thierry Reding <thierry.reding@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260422210806.80948-1-marex@nabladev.com>
- <20260422210806.80948-3-marex@nabladev.com>
- <fbfdcb81-6293-47af-8d09-30bd18b9c815@linaro.org>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <fbfdcb81-6293-47af-8d09-30bd18b9c815@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260521133326.2465264-1-kees@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,97 +136,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/24/26 11:34 AM, Neil Armstrong wrote:
-> On 4/22/26 23:07, Marek Vasut wrote:
->> Add support for the Displaytech DT050BTFT-PTS 5.0" (800x480) color TFT
->> LCD panel, connected over DPI. Timings are taken from the datasheet
->> from 16 Nov 2023 is available from Seacomp:
->>
->> https://www.seacomp.com/sites/default/files/datasheets/DT050BTFT- 
->> Displaytech-Spec.pdf
->>
->> Signed-off-by: Marek Vasut <marex@nabladev.com>
->> ---
->> Cc: "Kael D'Alcamo" <dev@kael-k.io>
->> Cc: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
->> Cc: Conor Dooley <conor+dt@kernel.org>
->> Cc: David Airlie <airlied@gmail.com>
->> Cc: Jessica Zhang <jesszhan0024@gmail.com>
->> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
->> Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->> Cc: Maxime Ripard <mripard@kernel.org>
->> Cc: Neil Armstrong <neil.armstrong@linaro.org>
->> Cc: Rob Herring <robh@kernel.org>
->> Cc: Sam Ravnborg <sam@ravnborg.org>
->> Cc: Simona Vetter <simona@ffwll.ch>
->> Cc: Thierry Reding <thierry.reding@gmail.com>
->> Cc: Thomas Zimmermann <tzimmermann@suse.de>
->> Cc: devicetree@vger.kernel.org
->> Cc: dri-devel@lists.freedesktop.org
->> Cc: linux-kernel@vger.kernel.org
->> ---
->>   drivers/gpu/drm/panel/panel-simple.c | 36 ++++++++++++++++++++++++++++
->>   1 file changed, 36 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/ 
->> panel/panel-simple.c
->> index 236bd56208ccf..9f4c907ae044e 100644
->> --- a/drivers/gpu/drm/panel/panel-simple.c
->> +++ b/drivers/gpu/drm/panel/panel-simple.c
->> @@ -1902,6 +1902,39 @@ static const struct panel_desc 
->> dataimage_scf0700c48ggu18 = {
->>       .connector_type = DRM_MODE_CONNECTOR_DPI,
->>   };
->> +static const struct display_timing displaytech_dt050btft_pts_timing = {
->> +    /* The TYP pixel clock are recalculated from tV * tH * 60 Hz */
->> +    .pixelclock = { 30000000, 33264000, 50000000 },
->> +    .hactive = { 800, 800, 800 },
->> +    .hfront_porch = { 16, 210, 354 },
->> +    /* Datasheet Figure 3 indicates, that tHPW is part of tHBP */
->> +    .hback_porch = { 41, 26, 6 },
->> +    .hsync_len = { 1, 20, 40 },
->> +    .vactive = { 480, 480, 480 },
->> +    .vfront_porch = { 7, 22, 147 },
->> +    /* Datasheet Figure 2 indicates, that tVPW is part of tVBP */
->> +    .vback_porch = { 22, 13, 3 },
->> +    .vsync_len = { 1, 10, 20 },
->> +    .flags = DISPLAY_FLAGS_HSYNC_LOW | DISPLAY_FLAGS_VSYNC_LOW |
->> +         DISPLAY_FLAGS_DE_HIGH | DISPLAY_FLAGS_PIXDATA_POSEDGE |
->> +         DISPLAY_FLAGS_SYNC_POSEDGE,
->> +};
->> +
->> +static const struct panel_desc displaytech_dt050btft_pts = {
->> +    .timings = &displaytech_dt050btft_pts_timing,
->> +    .num_timings = 1,
->> +    .bpc = 8,
->> +    .size = {
->> +        .width = 108,
->> +        .height = 65,
->> +    },
->> +    .bus_format = MEDIA_BUS_FMT_RGB888_1X24,
->> +    .bus_flags = DRM_BUS_FLAG_DE_HIGH |
->> +             DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE |
->> +             DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE,
->> +    .connector_type = DRM_MODE_CONNECTOR_DPI,
->> +};
->> +
->>   static const struct display_timing dlc_dlc0700yzg_1_timing = {
->>       .pixelclock = { 45000000, 51200000, 57000000 },
->>       .hactive = { 1024, 1024, 1024 },
->> @@ -5319,6 +5352,9 @@ static const struct of_device_id 
->> platform_of_match[] = {
->>       }, {
->>           .compatible = "dataimage,scf0700c48ggu18",
->>           .data = &dataimage_scf0700c48ggu18,
->> +    }, {
->> +        .compatible = "displaytech,dt050btft-pts",
->> +        .data = &displaytech_dt050btft_pts,
->>       }, {
->>           .compatible = "dlc,dlc0700yzg-1",
->>           .data = &dlc_dlc0700yzg_1,
+On Thu, May 21, 2026 at 06:33:14AM -0700, Kees Cook wrote:
 > 
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Is it OK to apply those patches now ?
+> param_array_get() appends each element's string representation into the
+> shared sysfs page buffer by passing buffer + off to the element getter.
+> 
+> That works for getters that only write a small bounded string, but
+> param_get_charp() and similar helpers format against PAGE_SIZE from the
+> pointer they receive. Once off is non-zero, an element getter can
+> therefore write past the end of the original sysfs page buffer.
+> 
+> Collect each element into a temporary PAGE_SIZE buffer first and then
+> copy only the remaining space into the caller's page buffer.
 
-Thank you
+...
+
+> +	elem_buf = kmalloc(PAGE_SIZE, GFP_KERNEL);
+
+get_free_page() (or how it is called)?
+
+> +	if (!elem_buf)
+> +		return -ENOMEM;
+> +
+>  	for (i = off = 0; i < (arr->num ? *arr->num : arr->max); i++) {
+> -		/* Replace \n with comma */
+> -		if (i)
+> -			buffer[off - 1] = ',';
+>  		p.arg = arr->elem + arr->elemsize * i;
+>  		check_kparam_locked(p.mod);
+> -		ret = arr->ops->get(buffer + off, &p);
+> +		ret = arr->ops->get(elem_buf, &p);
+>  		if (ret < 0)
+> -			return ret;
+> +			goto out;
+> +		ret = min(ret, (int)(PAGE_SIZE - 1 - off));
+
+It's usually discouraged to use castings in min/max/clamp. Can we make ret long
+or do something different here?
+
+> +		if (!ret)
+> +			break;
+
+> +		/* Replace the previous element's trailing newline with a comma. */
+> +		if (i)
+> +			buffer[off - 1] = ',';
+
+Can't we do this after with help of strreplace()?
+
+> +		memcpy(buffer + off, elem_buf, ret);
+>  		off += ret;
+> +		if (off == PAGE_SIZE - 1)
+> +			break;
+>  	}
+>  	buffer[off] = '\0';
+> -	return off;
+> +	ret = off;
+> +out:
+> +	kfree(elem_buf);
+> +	return ret;
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
