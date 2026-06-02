@@ -4,64 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 615E3CD6E57
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 18:47:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 243C1CD6E5D
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 18:48:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C21F510F4CF;
-	Tue,  2 Jun 2026 18:47:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84EB810F4C9;
+	Tue,  2 Jun 2026 18:48:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=grimler.se header.i=@grimler.se header.b="Wh7rVw1t";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="eQyt91Hb";
 	dkim-atps=neutral
-Received: from out-171.mta0.migadu.com (out-171.mta0.migadu.com
- [91.218.175.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B01A910F4CE
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 18:47:47 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grimler.se; s=key1;
- t=1780425475;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=WxMYC4T1LGG7DL25LkdKxvkXEaCcM5nAzX/5lfuA2Hc=;
- b=Wh7rVw1tYHNqYWPTzBP57ZGQzQKY5xTG+zrHYG3pqe+SfeghdLE3Somd74L5h2hsg99yE2
- YRx4+4iF59XrFjiSKKnPVgXW81wNMxTrTf3rHXFFLsOxl7k2Covu6eKsmqRBOxDf0dQhsi
- lTD0UBAFPcsJDhCTfKiUZPI75tp8IXA=
-From: Henrik Grimler <henrik@grimler.se>
-Date: Tue, 02 Jun 2026 20:36:50 +0200
-Subject: [PATCH RESEND v4 3/3] drm/bridge: sii9234: use extcon cable
- detection logic to detect MHL
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E313210F4C9
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 18:48:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=bQ/ShSVerF3nHBt9YMs/KOfemqRk/C2hqrvxvJUY/r4=; b=eQyt91Hb+iKzpD2z/Q5HdzC7oA
+ lHgvBQlcohpqxZ+e9FUIj0hRWFQfql8KO99YeAHgK31Vaquv/H0Olqkp/OHWwyrtF2mFntCDmdkno
+ 8Q3IBhnsWeTsxTQsMMeM8m+cyTustAU3n9MimjOsgM+MdlN5mkD7m2H0XtixuKE/REP5E/g2C1HMb
+ yu791S02UFO/PLF5zJcrILVZwy8pZmajXAK2N18QsM/itIg1V5Ioh8fk9NpZzs328yUi2LaghMX4h
+ EpH1bOBKqGnUg2zQvxpv/lf7SqwiEnNuIuuzvHj2bLcQZ8PJH8RDqoZ1yOBGKJZUDZ3VWu1fY3KXY
+ RkXrbA1w==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Heiko Stuebner <heiko@sntech.de>, kernel@collabora.com,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] YUV support for VOP2 background color
+Date: Tue,  2 Jun 2026 20:47:41 +0200
+Message-ID: <178042605608.614111.131135337224991312.b4-ty@sntech.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260601-vop2-bg-yuv-v2-0-e5aef1d16fec@collabora.com>
+References: <20260601-vop2-bg-yuv-v2-0-e5aef1d16fec@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-exynos4-sii9234-driver-v4-3-9b2fc38e104a@grimler.se>
-References: <20260602-exynos4-sii9234-driver-v4-0-9b2fc38e104a@grimler.se>
-In-Reply-To: <20260602-exynos4-sii9234-driver-v4-0-9b2fc38e104a@grimler.se>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org, 
- ~postmarketos/upstreaming@lists.sr.ht, replicant@osuosl.org, 
- linux-kernel@vger.kernel.org, Henrik Grimler <henrik@grimler.se>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4934; i=henrik@grimler.se;
- h=from:subject:message-id; bh=J2VrdZZdHdrUSvVv2/0hRbTGcr86aySVkMiUCH39Ld4=;
- b=owEBbQGS/pANAwAKAbAHbkkLcWFrAcsmYgBqHyLv132KVuTm+PwuW9cyhgbWox+p1MI5l8ytv
- Lc6CdMzpuSJATMEAAEKAB0WIQQsfymul4kfZBmp4s2wB25JC3FhawUCah8i7wAKCRCwB25JC3Fh
- a85yB/9pljhUB9wE1+ub5xWBjYeuyWheF5e3cs9FG332jfHA7MNhxV3jAy6ph44Dt2NwElbxhZk
- MJdh6JkGO1EKm/L5euXIEJjZq2LUooo4zQJXIXjEzmEj7LunTbJbwq3l+d1Obyyg/eLxQokugWC
- a5kojU/pnRDnfLkUvxvbqaKonQWFkDhLd5MNJJQtlG1rC3idlEGwUD/tbgQJLe0ttuLhONv79na
- Zw9c4hXWAUXPUHFbCJF/N9gSpUh19fm04xTePQFEQqWbNWBzYIwMN7qVsc5ThmvTMlpEX98CAkF
- YfVyb5whq2UwCMmH6hZErjM6DH7RiP0kAFSshpa8M3LWZ0iT
-X-Developer-Key: i=henrik@grimler.se; a=openpgp;
- fpr=2C7F29AE97891F6419A9E2CDB0076E490B71616B
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,177 +59,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-To use MHL we currently need the MHL chip to be permanently on, which
-consumes unnecessary power. Let's use extcon attached to MUIC to enable
-the MHL chip only if it detects an MHL cable.
 
-Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Signed-off-by: Henrik Grimler <henrik@grimler.se>
----
-v4: collect tags
-v3: add missing return in error path, spotted by Marek
-    Use depends on EXTCON || !EXTCON instead of select
-v2: add dependency on extcon. Issue reported by kernel test robot
-    <lkp@intel.com>
----
- drivers/gpu/drm/bridge/Kconfig   |  1 +
- drivers/gpu/drm/bridge/sii9234.c | 89 ++++++++++++++++++++++++++++++++++++++--
- 2 files changed, 87 insertions(+), 3 deletions(-)
+On Mon, 01 Jun 2026 21:00:02 +0300, Cristian Ciocaltea wrote:
+> Since commit bec7cbfa7d4f ("drm/rockchip: vop2: Support setting custom
+> background color") the VOP2 display controller allows configuring the
+> background color of each video output port.
+> 
+> However, this is currently limited to RGB formats.  When operating in
+> YUV overlay mode, the color must be programmed using YUV format.
+> 
+> [...]
 
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index 39385deafc68..a8343df2d424 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -310,6 +310,7 @@ config DRM_SII902X
- config DRM_SII9234
- 	tristate "Silicon Image SII9234 HDMI/MHL bridge"
- 	depends on OF
-+	depends on EXTCON || !EXTCON
- 	help
- 	  Say Y here if you want support for the MHL interface.
- 	  It is an I2C driver, that detects connection of MHL bridge
-diff --git a/drivers/gpu/drm/bridge/sii9234.c b/drivers/gpu/drm/bridge/sii9234.c
-index e43248e515b3..72c6aeed6e12 100644
---- a/drivers/gpu/drm/bridge/sii9234.c
-+++ b/drivers/gpu/drm/bridge/sii9234.c
-@@ -19,6 +19,7 @@
- 
- #include <linux/delay.h>
- #include <linux/err.h>
-+#include <linux/extcon.h>
- #include <linux/gpio/consumer.h>
- #include <linux/i2c.h>
- #include <linux/interrupt.h>
-@@ -26,6 +27,7 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-+#include <linux/of_graph.h>
- #include <linux/regulator/consumer.h>
- #include <linux/slab.h>
- 
-@@ -170,8 +172,12 @@ struct sii9234 {
- 	struct drm_bridge bridge;
- 	struct device *dev;
- 	struct gpio_desc *gpio_reset;
--	int i2c_error;
- 	struct regulator_bulk_data supplies[4];
-+	struct extcon_dev *extcon;
-+	struct notifier_block extcon_nb;
-+	struct work_struct extcon_wq;
-+	int cable_state;
-+	int i2c_error;
- 
- 	struct mutex lock; /* Protects fields below and device registers */
- 	enum sii9234_state state;
-@@ -863,6 +869,70 @@ static int sii9234_init_resources(struct sii9234 *ctx,
- 	return 0;
- }
- 
-+static void sii9234_extcon_work(struct work_struct *work)
-+{
-+	struct sii9234 *ctx =
-+		container_of(work, struct sii9234, extcon_wq);
-+	int state = extcon_get_state(ctx->extcon, EXTCON_DISP_MHL);
-+
-+	if (state == ctx->cable_state)
-+		return;
-+
-+	ctx->cable_state = state;
-+
-+	if (state > 0)
-+		sii9234_cable_in(ctx);
-+	else
-+		sii9234_cable_out(ctx);
-+}
-+
-+static int sii9234_extcon_notifier(struct notifier_block *self,
-+			unsigned long event, void *ptr)
-+{
-+	struct sii9234 *ctx =
-+		container_of(self, struct sii9234, extcon_nb);
-+
-+	schedule_work(&ctx->extcon_wq);
-+
-+	return NOTIFY_DONE;
-+}
-+
-+static int sii9234_extcon_init(struct sii9234 *ctx)
-+{
-+	struct extcon_dev *edev;
-+	struct device_node *musb, *muic;
-+	int ret;
-+
-+	/* Get micro-USB connector node */
-+	musb = of_graph_get_remote_node(ctx->dev->of_node, 1, -1);
-+	/* Then get micro-USB Interface Controller node */
-+	muic = of_get_next_parent(musb);
-+
-+	if (!muic) {
-+		dev_info(ctx->dev,
-+			 "no extcon found, switching to 'always on' mode\n");
-+		return 0;
-+	}
-+
-+	edev = extcon_find_edev_by_node(muic);
-+	of_node_put(muic);
-+	if (IS_ERR(edev)) {
-+		return dev_err_probe(ctx->dev, PTR_ERR(edev),
-+			      "invalid or missing extcon\n");
-+	}
-+
-+	ctx->extcon = edev;
-+	ctx->extcon_nb.notifier_call = sii9234_extcon_notifier;
-+	INIT_WORK(&ctx->extcon_wq, sii9234_extcon_work);
-+	ret = extcon_register_notifier(edev, EXTCON_DISP_MHL, &ctx->extcon_nb);
-+	if (ret) {
-+		dev_err(ctx->dev, "failed to register notifier for MHL\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
- static enum drm_mode_status sii9234_mode_valid(struct drm_bridge *bridge,
- 					 const struct drm_display_info *info,
- 					 const struct drm_display_mode *mode)
-@@ -915,12 +985,17 @@ static int sii9234_probe(struct i2c_client *client)
- 	if (ret < 0)
- 		return ret;
- 
-+	ret = sii9234_extcon_init(ctx);
-+	if (ret < 0)
-+		return ret;
-+
- 	i2c_set_clientdata(client, ctx);
- 
- 	ctx->bridge.of_node = dev->of_node;
- 	drm_bridge_add(&ctx->bridge);
- 
--	sii9234_cable_in(ctx);
-+	if (!ctx->extcon)
-+		sii9234_cable_in(ctx);
- 
- 	return 0;
- }
-@@ -929,7 +1004,15 @@ static void sii9234_remove(struct i2c_client *client)
- {
- 	struct sii9234 *ctx = i2c_get_clientdata(client);
- 
--	sii9234_cable_out(ctx);
-+	if (ctx->extcon) {
-+		extcon_unregister_notifier(ctx->extcon, EXTCON_DISP_MHL,
-+					   &ctx->extcon_nb);
-+		flush_work(&ctx->extcon_wq);
-+		if (ctx->cable_state > 0)
-+			sii9234_cable_out(ctx);
-+	} else {
-+		sii9234_cable_out(ctx);
-+	}
- 	drm_bridge_remove(&ctx->bridge);
- }
- 
+Applied, thanks!
 
+[1/2] drm/rockchip: vop2: Rename CSC_BT2020 to CSC_BT2020L
+      commit: 09dfa47fc557f945871dcf279c8e687e55d3550d
+[2/2] drm/rockchip: vop2: Add YUV support to background color
+      commit: 28e670a0885cf2501fd51189ce7b6f5b7cacebf9
+
+Best regards,
 -- 
-2.54.0
-
+Heiko Stuebner <heiko@sntech.de>
