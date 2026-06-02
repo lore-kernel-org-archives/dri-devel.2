@@ -4,90 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06F5ECD5BD1
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 22:31:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6A10CD6E5D
+	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 22:31:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E94B910F60D;
-	Tue,  2 Jun 2026 22:31:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E61510F612;
+	Tue,  2 Jun 2026 22:31:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=flipper.net header.i=@flipper.net header.b="EbNioqCw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XuCoCrm0";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9073A10F299
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 17:01:22 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-45ee6d32402so3066764f8f.1
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 10:01:22 -0700 (PDT)
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
+ [74.125.82.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A034710F52B
+ for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 19:33:46 +0000 (UTC)
+Received: by mail-dy1-f172.google.com with SMTP id
+ 5a478bee46e88-304ddfcf72cso6019048eec.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 12:33:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780428826; cv=none;
+ d=google.com; s=arc-20240605;
+ b=EbnNeAElx2iK91ErDP0qIeGpxpkspjShZghNH0+I9JkDW6H4M1hz0dCbenU947xIvJ
+ vx4i4mmgnG7oXXUbpqI6NT45hZ6rPqD/wMjmSLDFAM2PZ+MVB9JtL0Qi76o7qo2R7olV
+ WE8I+ciUfxcVEjDBnVFUVVSVqoCspUXfDKzaNW93tGX3Im7zhLfTaYC5jCxAikMrYse0
+ Xfa+V1xx1s/P8Xs0tKAiG2O/wugEQ3lOBr/qURCuRHuRsSG8IekKsYo8X/4vnDjTxc6H
+ b8XOfl60sP4zsbEXg1xw1Jc3QCH1p8QkgJwlY0JX5n/3/CBCWovtA3oNMIkBAVNqqrZl
+ mSgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=9Q32trZhQ3betjB25iJrISerMVqFtqzYveNpNux0sE0=;
+ fh=XfdFIfc5rgMwus/2e5wzht/kU2m/ZXvPTI7UQo0Pkkw=;
+ b=XH65Oayf5rEHwGF4Y8VGL507uP+NeyRnrp9pW3oFhyz3yZx/DKKK4wFHhtn+AP0ARH
+ 0kBxxC5Gor2qE/RO3VBjj9Pi3GdgB/V9z1vgDkcINwc51dFNF+bWa6H8S290y8DdObrl
+ HIBznTAIqeG+yKTQP/rCHcRoq4gvp5/hymXV3KRAJOzG2PhFl9LYZJoLM9i5Ft8IsPZV
+ oo94B/onhHBBTcLz8yItel/buA1bedU4lmyYDMHsV8vMvufaf5evAkSDbSKjbb8GrQUY
+ wKKFMPo79E0TQwddhqRHI72hGw8MSrLWqR5W1ixDOOelqCVecxtUsCQMcWxaXVKl0AvK
+ +hWQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=flipper.net; s=google; t=1780419681; x=1781024481; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=X8xIPFYU6wfDv0UXLz0s+nj/6PQ14Xci+jABKOcPGUI=;
- b=EbNioqCwS6iW+EAH7p8ujKW6R+lzDDhSVfMBfEDoPpevovRMSgVoR4E4c0h8UGAE7R
- 9TD6QH4drVwkBwt+VRnTbAPvW0co/SpV+9cGnEETCqAdZ1FydtzkKrpbelbBMNgmcKig
- yoJ00fMDnENIUc2WDeuy2Bztw41vgInQ9NYDc9AGs9uPqxJTngz0SQUvK0+oQYPwelju
- zDunRWkdW0QmOVCVk1M9fPPS/Rh5Hd76cWRgGH7DuxVX5vLM81rKEjYifAf4A8JebNll
- nhhLvAHxv/FAThe3uYzgq6sPIxIJiAmR4RqyMFelQMh/DaxdFMFh01xe6/r6iTmn9D79
- UKjA==
+ d=gmail.com; s=20251104; t=1780428826; x=1781033626; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=9Q32trZhQ3betjB25iJrISerMVqFtqzYveNpNux0sE0=;
+ b=XuCoCrm0RgY9XEA0Mtv9FmREBrrYU+sLKzR03ytm1WZBq/xgznNzR6lMFZSgVfgyXR
+ SG0xzdb2Je2ZowBsqRNQ/4u/5kEaho/UYj1RhSsufe3+5i9LdCTVeCQjQtLuWa0tVLiB
+ I6zuFY0JU1WqC0NSQw6vWUiu7HONGrSwPu0cRWixs7UjsMqVa+130NaQuOJgpYFtK25Q
+ Fgu5vekwPK5/DDv8wClCtgx/OnciRrfohF6dlquyJJdSGnG+9ZE6NE1dhnBsbBcECgSV
+ /zuqWEUffqdBNjB2jfuDz0nd37HoZQ5kkTLkKyAEo4CkOl8yPxSlPtefrHdQcT3VpRiZ
+ M8Pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780419681; x=1781024481;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=X8xIPFYU6wfDv0UXLz0s+nj/6PQ14Xci+jABKOcPGUI=;
- b=XnxadeZdEeiuz3mvCIKjjz/1il154GoS7YyGPHKdt03FTZ488RpraUmiujRVn7g6QM
- OwCkMdu00XJw0wEHBlEq35QLGgwO69KG9+2uVT4kft/FeF09ZxUOlQpUgQV9w0XdKWUl
- 8uEnAJkmjSDAjdCuimXZII4KWWNc5gc1dKg36N4ZeDJ2eQxl3itT+orajDJXDvX9wgr6
- v5YLV8UYgNkcq9FAHSMi/ENm+02zB05S/shp7zCB+XfkdlcHjiJk7nmVffj9lJz5U1BG
- e3Cq08/PIu0uNOmuvnTQqcHrG98icxRYeRvkNjMgDzDkzenTl4WRH4qyUkqfktwNcFky
- MtFg==
-X-Gm-Message-State: AOJu0YwJq5x8+VhzHe+Dc8a4+nSyLZnmEfVUy6qlJVJtmy31yjjQyGSL
- nopr9Rn1mrUP62py7jjQ8fbf+do39SsK5uIQrTCTkU7BObnH1wfX8mdO83pcthWyBU4=
-X-Gm-Gg: Acq92OE1DrlUVcFEUTsStEoumP0xcOO0Xwnu6RBAEk3nIXp2AV3ziPARyx+tludeyLc
- exc7XvlSAmYuNG9D5HO/UPMGIgSrdZLJuTajSslkLycJdkFl9INf5EgwWtp8iPaLiiapQcAHbKz
- QJM1YiFrljcmDd7TPM5hWrzzCeMXxQKc9LSzoaz8VbofVvKDIpmBk4Yx/l3OiMlBN9fyjbyBAr6
- +cd7bT9SalcTcELZJhV3Qv+btBSIbenycCy3D/ExKeYlNZRe+Thq0hAF9xOtBhqwywon/RbOadz
- yU08prmfmUyFjATOxuhXLQd1/Jl9w5gEMFFiYalcrswgREX/hehHQ3KleD3vvCHZfiZyVRNn+jE
- sFXkc/3QfRT7bPSICqAKO83iDCQNUM9EUx6Y0ikviqlDiAdfDttJ4Zfw5ET4nv35yq4LIWj2CAg
- N7OENHRNUt0aarlf7AUu8ILIzw5LkOy6kNyoIGfao2z5LinW4ThKE=
-X-Received: by 2002:a5d:5c8a:0:b0:43c:ffee:ee94 with SMTP id
- ffacd0b85a97d-4601f4e5644mr315246f8f.11.1780419680809; 
- Tue, 02 Jun 2026 10:01:20 -0700 (PDT)
-Received: from alchark-surface.localdomain ([5.194.92.128])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4601f2dcbe3sm588495f8f.8.2026.06.02.10.01.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jun 2026 10:01:20 -0700 (PDT)
-From: Alexey Charkov <alchark@flipper.net>
-Date: Tue, 02 Jun 2026 21:00:39 +0400
-Subject: [PATCH 1/2] drm/rockchip: vop2: honor TV margins from CRTC state
- for overscan compensation
+ d=1e100.net; s=20251104; t=1780428826; x=1781033626;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9Q32trZhQ3betjB25iJrISerMVqFtqzYveNpNux0sE0=;
+ b=G1WiixzCk8fSFJu755hnzOj9J1Dm8XqpKoL0eGSO/kuZ68HIDCKpl+aOLfiXtzUkiv
+ 9t3VTmRHEIbvHb7CQ4mn+kVY/yVPTdMU/s2gzqk0KehOgM8/JZBIGkRBOczjLtNWspkC
+ DOwVKCbmv+X4aRQxhIgHK7kMELWjb8d424Xk0ZCbuTCc2hiP+4NyQosI2acCGu7bN+MH
+ TU8y8CxptCYOguc/sUON7RQftTyd9yMMtB2TF21j7/45JOm2lziKH3Gootsl4hu7KpnZ
+ fJU1E3ARlcnNJopfuYcRmtqgp2CVGw2PZRE+D7ygPlgAxRapkAhRJPwSMbf4QiJ2KAdK
+ jTLA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8LiMwx4fVtIcPVVVzU0So5ECgijFo8rjnM70XmsQ0NqH9bH6qAZ9NhQay3yjOqQScBNyqf0/tXHlI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw7NjUcV2BsokVHE3ZCObpZN1sDp3WDgCukoecbNApBbDL04JNu
+ Xx0RyuDwLyOYiWcuHWGP4e+S0R8ZBZ9+gQPGTV/AW8Nxn1ZoCK4v6/hQvOu3QopTc6WNMay9231
+ b3kFj0syOoEXIVCpDlxW2i+rb/gTDcf8=
+X-Gm-Gg: Acq92OH9+759hwUkxD8BooO4sIxzHqxZFZl269T28iiGsKAmWV8X1fb6oEWXsDv+Rl+
+ sB/bbcH9FyLcahgeiOl60jdYzBPIM79ezrpzKPHMUOe+JHVuaHgxpIwTNo+vbdLteVnFqmSlPHu
+ 8Bl+gCRMDlSWC7IL/OVkz8tPZnZKbMXpc1xzoPKdsATk+k2osTpoall8VJHUEBGc6X89GDT0Xms
+ S9B+qPgPt2wsID1652SpjXg2yfdXtxz9qxi7A0lo7qH60NMY4QsBm4ToFiVgWWEauuL+9TmwEo+
+ vdWcj59n/m9v7elauA==
+X-Received: by 2002:a05:693c:300a:b0:2da:44ac:6d17 with SMTP id
+ 5a478bee46e88-3074fb67910mr55309eec.17.1780428825742; Tue, 02 Jun 2026
+ 12:33:45 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-hdmi-overscan-v1-1-31f71b817c80@flipper.net>
-References: <20260602-hdmi-overscan-v1-0-31f71b817c80@flipper.net>
-In-Reply-To: <20260602-hdmi-overscan-v1-0-31f71b817c80@flipper.net>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Alexey Charkov <alchark@flipper.net>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3039; i=alchark@flipper.net;
- h=from:subject:message-id; bh=4HOiDswIVjSXnFgQ5UeLjf28Vzb7ocv1OaHcngkgLQk=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTJ84TmGZ3sfxZTdFhC7ewCsdiPOkFTdsjtlf7RoeLDe
- 0E+y0a5YyILgxgXg6WYIsvcb0tspxrxzdrl4fEVZg4rE8gQaZEGBiBgYeDLTcwrNdIx0jPVNtQz
- NNIx1jFi4OIUgKn2L2NkuLLg2GlFg+nnnxamX6+ptZyqFFHX61jNr374x5utgZ+ebmRkeHnt+5m
- ZsUsOltdqF03wbsuumrZ1tdMVnUXPZkqtTDi0mwMA
-X-Developer-Key: i=alchark@flipper.net; a=openpgp;
- fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
+References: <CAOSULec2OpwTGB3OUb_n3CdKO6H_DGJnxw=qsBswbd+JBjemKA@mail.gmail.com>
+ <CAHp75Vc15t7zmNGeuNG_fLHwCN=Ym9w5Cn92+eqbtsioGxFzCQ@mail.gmail.com>
+ <CAOSULedF6GUK_e_3KRPB+D0Jxgtow38OjQu9B1=vG-XTfsdYOA@mail.gmail.com>
+ <CAHp75VdtOuLEkiuiUqxa3DT75y8Hd-1PtquodpN4qJ=rCFs_4Q@mail.gmail.com>
+In-Reply-To: <CAHp75VdtOuLEkiuiUqxa3DT75y8Hd-1PtquodpN4qJ=rCFs_4Q@mail.gmail.com>
+From: Enchanted Hunter <enchantedredhunter@gmail.com>
+Date: Tue, 2 Jun 2026 22:33:34 +0300
+X-Gm-Features: AVHnY4LO5aj5gePMCLGWoyXYpw3j1YKmdqPnCxhzZg20CQI-vj_aHIty6lALnAU
+Message-ID: <CAOSULeev+3LsSR6QboTy7oCUbTNQOOx72vjgf_tnZcr_JKbhmQ@mail.gmail.com>
+Subject: Re: [PATCH] staging: fbtft: replace sprintf with snprintf
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: gregkh@linuxfoundation.org, linux-staging@lists.linux.dev, andy@kernel.org,
+ dri-devel@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="000000000000b4d0fe06534a6349"
 X-Mailman-Approved-At: Tue, 02 Jun 2026 22:31:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -104,84 +107,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace the hard-coded percent values with pixel margins carried in struct
-rockchip_crtc_state, sourced from the standard DRM "left/right/top/bottom
-margin" connector properties (struct drm_connector_tv_margins) to pave way
-for HDMI overscan compensation support.
+--000000000000b4d0fe06534a6349
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
----
- drivers/gpu/drm/rockchip/rockchip_drm_drv.h  |  2 ++
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 17 +++++++++++------
- 2 files changed, 13 insertions(+), 6 deletions(-)
+I suppose I agree with you. My patch does look silly, and I regret wasting
+your time. I've just started learning kernel development. Perhaps if you
+happen to have any routine task, you could suggest something that would
+actually be worth doing. I'm very interested in this. I will sign with my
+real name, but I'm from Russia, and I understand that this might be a big
+problem right now.
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_drv.h b/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
-index 2e86ad00979c..83f8ec4f3319 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
-@@ -10,6 +10,7 @@
- #define _ROCKCHIP_DRM_DRV_H
- 
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_connector.h>
- #include <drm/drm_gem.h>
- 
- #include <linux/bits.h>
-@@ -53,6 +54,7 @@ struct rockchip_crtc_state {
- 	u32 bus_format;
- 	u32 bus_flags;
- 	int color_space;
-+	struct drm_connector_tv_margins tv_margins;
- };
- #define to_rockchip_crtc_state(s) \
- 		container_of(s, struct rockchip_crtc_state, base)
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index a160077a507f..55307b8493ae 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -1558,30 +1558,35 @@ static void vop2_post_config(struct drm_crtc *crtc)
- {
- 	struct vop2_video_port *vp = to_vop2_video_port(crtc);
- 	struct vop2 *vop2 = vp->vop2;
-+	struct rockchip_crtc_state *vcstate = to_rockchip_crtc_state(crtc->state);
- 	struct drm_display_mode *mode = &crtc->state->adjusted_mode;
-+	const struct drm_connector_tv_margins *m = &vcstate->tv_margins;
- 	u64 bgcolor = crtc->state->background_color;
- 	u16 vtotal = mode->crtc_vtotal;
- 	u16 hdisplay = mode->crtc_hdisplay;
- 	u16 hact_st = mode->crtc_htotal - mode->crtc_hsync_start;
- 	u16 vdisplay = mode->crtc_vdisplay;
- 	u16 vact_st = mode->crtc_vtotal - mode->crtc_vsync_start;
--	u32 left_margin = 100, right_margin = 100;
--	u32 top_margin = 100, bottom_margin = 100;
--	u16 hsize = hdisplay * (left_margin + right_margin) / 200;
--	u16 vsize = vdisplay * (top_margin + bottom_margin) / 200;
-+	u16 hsize = hdisplay;
-+	u16 vsize = vdisplay;
- 	u16 hact_end, vact_end;
- 	u32 val;
- 
- 	vop2->ops->setup_bg_dly(vp);
- 
-+	if (m->left + m->right < hdisplay)
-+		hsize = hdisplay - m->left - m->right;
-+	if (m->top + m->bottom < vdisplay)
-+		vsize = vdisplay - m->top - m->bottom;
-+
- 	vsize = rounddown(vsize, 2);
- 	hsize = rounddown(hsize, 2);
--	hact_st += hdisplay * (100 - left_margin) / 200;
-+	hact_st += m->left;
- 	hact_end = hact_st + hsize;
- 	val = hact_st << 16;
- 	val |= hact_end;
- 	vop2_vp_write(vp, RK3568_VP_POST_DSP_HACT_INFO, val);
--	vact_st += vdisplay * (100 - top_margin) / 200;
-+	vact_st += m->top;
- 	vact_end = vact_st + vsize;
- 	val = vact_st << 16;
- 	val |= vact_end;
+=D0=B2=D1=82, 2 =D0=B8=D1=8E=D0=BD. 2026=E2=80=AF=D0=B3. =D0=B2 21:32, Andy=
+ Shevchenko <andy.shevchenko@gmail.com>:
 
--- 
-2.52.0
+> On Tue, Jun 2, 2026 at 8:13=E2=80=AFPM Enchanted Hunter
+> <enchantedredhunter@gmail.com> wrote:
+> >
+> > Overall, it doesn't address any compiler warnings, but this is my first
+> patch. I wanted to start with something concrete, and I saw an unsafe
+> function and tried to fix it. The fact that the compilation behavior won'=
+t
+> change is true, but the code will become a bit more formal =E2=80=94 mayb=
+e that's a
+> good thing.
+>
+> Not sure we need a churn on the working code.
+>
+> A process hint: Do not top-post.
+>
+> > =D0=BF=D0=BD, 1 =D0=B8=D1=8E=D0=BD. 2026=E2=80=AF=D0=B3. =D0=B2 11:25, =
+Andy Shevchenko <andy.shevchenko@gmail.com>:
+> >>
+> >> On Mon, Jun 1, 2026 at 3:44=E2=80=AFAM Enchanted Hunter
+> >> <enchantedredhunter@gmail.com> wrote:
+> >> >
+> >> > This patch replaces unsafe sprintf calls with snprintf in
+> >> > fbtft_register_framebuffer() to prevent potential buffer overflow.
+> >> >
+> >> > Signed-off-by: rat1bor <enchantedredhunter@gmail.com>
+>
+> Another thing, use your real name and not an alias.
+>
+> >> Does this change address any compiler warning or something like that?
+> >> At a glance I do not see any usefulness of this patch except an
+> >> unneeded churn.
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
 
+--000000000000b4d0fe06534a6349
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><span class=3D"gmail-">I suppose I agree =
+with you. My patch does look=20
+silly, and I regret wasting your time. I&#39;ve just started learning kerne=
+l
+ development. Perhaps if you happen to have any routine task, you could=20
+suggest something that would actually be worth doing. I&#39;m very=20
+interested in this. I will sign with my real name, but I&#39;m from Russia,=
+=20
+and I understand that this might be a big problem right now.</span></div><b=
+r><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=
+=3D"gmail_attr">=D0=B2=D1=82, 2 =D0=B8=D1=8E=D0=BD. 2026=E2=80=AF=D0=B3. =
+=D0=B2 21:32, Andy Shevchenko &lt;<a href=3D"mailto:andy.shevchenko@gmail.c=
+om">andy.shevchenko@gmail.com</a>&gt;:<br></div><blockquote class=3D"gmail_=
+quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
+204);padding-left:1ex">On Tue, Jun 2, 2026 at 8:13=E2=80=AFPM Enchanted Hun=
+ter<br>
+&lt;<a href=3D"mailto:enchantedredhunter@gmail.com" target=3D"_blank">encha=
+ntedredhunter@gmail.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; Overall, it doesn&#39;t address any compiler warnings, but this is my =
+first patch. I wanted to start with something concrete, and I saw an unsafe=
+ function and tried to fix it. The fact that the compilation behavior won&#=
+39;t change is true, but the code will become a bit more formal =E2=80=94 m=
+aybe that&#39;s a good thing.<br>
+<br>
+Not sure we need a churn on the working code.<br>
+<br>
+A process hint: Do not top-post.<br>
+<br>
+&gt; =D0=BF=D0=BD, 1 =D0=B8=D1=8E=D0=BD. 2026=E2=80=AF=D0=B3. =D0=B2 11:25,=
+ Andy Shevchenko &lt;<a href=3D"mailto:andy.shevchenko@gmail.com" target=3D=
+"_blank">andy.shevchenko@gmail.com</a>&gt;:<br>
+&gt;&gt;<br>
+&gt;&gt; On Mon, Jun 1, 2026 at 3:44=E2=80=AFAM Enchanted Hunter<br>
+&gt;&gt; &lt;<a href=3D"mailto:enchantedredhunter@gmail.com" target=3D"_bla=
+nk">enchantedredhunter@gmail.com</a>&gt; wrote:<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; This patch replaces unsafe sprintf calls with snprintf in<br>
+&gt;&gt; &gt; fbtft_register_framebuffer() to prevent potential buffer over=
+flow.<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; Signed-off-by: rat1bor &lt;<a href=3D"mailto:enchantedredhunt=
+er@gmail.com" target=3D"_blank">enchantedredhunter@gmail.com</a>&gt;<br>
+<br>
+Another thing, use your real name and not an alias.<br>
+<br>
+&gt;&gt; Does this change address any compiler warning or something like th=
+at?<br>
+&gt;&gt; At a glance I do not see any usefulness of this patch except an<br=
+>
+&gt;&gt; unneeded churn.<br>
+<br>
+-- <br>
+With Best Regards,<br>
+Andy Shevchenko<br>
+</blockquote></div></div>
+
+--000000000000b4d0fe06534a6349--
