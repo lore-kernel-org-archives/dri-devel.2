@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D29CBCD6E55
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 15:19:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AD9ECD6E57
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 15:19:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14B8A10FFF7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3573510FFFC;
 	Wed,  3 Jun 2026 15:19:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Q/xHi9Vt";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="dmooYd3I";
 	dkim-atps=neutral
-Received: from out30-131.freemail.mail.aliyun.com
- (out30-131.freemail.mail.aliyun.com [115.124.30.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 529D710FFED
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 15:19:07 +0000 (UTC)
+Received: from out30-130.freemail.mail.aliyun.com
+ (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C64BF10FFED
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 15:19:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux.alibaba.com; s=default;
- t=1780499945; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=4BjT23R8uSreRxsom16Fm8xCEovN+6PRTMHyPqG167s=;
- b=Q/xHi9VtpAOeWiQCNd6WUGDprjUaTGCg2YsjbgdYQCfc3x5kt8n2oK577LleGtZZ8e0FJff/MNx1yOF72o1WzTmbD1IelpK7Veqsa1T/U0AvKLOEAeiBAr3ZpC3EFx3qYmOdlrbuFe09VBUVDKEpylrFaVSFN6t0Cy38h+fBQFI=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R151e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033037026112;
+ t=1780499948; h=From:To:Subject:Date:Message-ID:MIME-Version;
+ bh=FtoAZ4ObIrgN8RB/Z4MrgWEyJCArPPBpz4yofnEwwtU=;
+ b=dmooYd3IjVvfRFdzF9y7M6tE2IJIvIn5qZ8dqr2paB1d9/qTBBEsVk5hFyqZVHeo2yTmyMt+DJCHatfouNy/Y3p67MXNITNs6WMWeINy2onH7B+M0HMfFlzEb2LglYhqzkYS99Z1Kn/nK2CbRnUiJfaZgYCqEMsMg+As53AaiIY=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R461e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033045133197;
  MF=guanghuifeng@linux.alibaba.com; NM=1; PH=DS; RN=28; SR=0;
- TI=SMTPD_---0X47fR6t_1780499942; 
+ TI=SMTPD_---0X47fR7M_1780499944; 
 Received: from
  VM20241011-104.tbsite.net(mailfrom:guanghuifeng@linux.alibaba.com
- fp:SMTPD_---0X47fR6t_1780499942 cluster:ay36) by smtp.aliyun-inc.com;
- Wed, 03 Jun 2026 23:19:02 +0800
+ fp:SMTPD_---0X47fR7M_1780499944 cluster:ay36) by smtp.aliyun-inc.com;
+ Wed, 03 Jun 2026 23:19:04 +0800
 From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
 To: jgg@ziepe.ca
 Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
@@ -42,9 +42,9 @@ Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
  shiyu.zsq@linux.alibaba.com, steven.price@arm.com,
  suravee.suthikulpanit@amd.com, tzimmermann@suse.de,
  wei.guo.simon@linux.alibaba.com, will@kernel.org, xlpang@linux.alibaba.com
-Subject: [PATCH v3 24/32] iommufd: use iova_to_phys_length for efficient unmap
-Date: Wed,  3 Jun 2026 23:17:56 +0800
-Message-ID: <20260603151804.1963871-25-guanghuifeng@linux.alibaba.com>
+Subject: [PATCH v3 26/32] drm/panfrost: switch to iova_to_phys_length
+Date: Wed,  3 Jun 2026 23:17:58 +0800
+Message-ID: <20260603151804.1963871-27-guanghuifeng@linux.alibaba.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20260603151804.1963871-1-guanghuifeng@linux.alibaba.com>
 References: <20260602104637.1219810-1-guanghuifeng@linux.alibaba.com>
@@ -66,113 +66,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use iommu_iova_to_phys_length() to get PTE page size in
-batch_from_domain and raw_pages_from_domain, allowing traversal
-by actual mapping granularity instead of PAGE_SIZE steps.
+Migrate panfrost_mmu to use ops->iova_to_phys_length(ops, iova, NULL)
+instead of the deprecated ops->iova_to_phys.
 
 Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
-Acked-by: Shiqiang Zhang <shiyu.zsq@linux.alibaba.com>
-Acked-by: Simon Guo <wei.guo.simon@linux.alibaba.com>
 ---
- drivers/iommu/iommufd/pages.c | 74 +++++++++++++++++++++++++++++------
- 1 file changed, 62 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_mmu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
-index 9bdb2945afe1..40a2fe9adf9c 100644
---- a/drivers/iommu/iommufd/pages.c
-+++ b/drivers/iommu/iommufd/pages.c
-@@ -417,17 +417,42 @@ static void batch_from_domain(struct pfn_batch *batch,
- 	if (start_index == iopt_area_index(area))
- 		page_offset = area->page_offset;
- 	while (start_index <= last_index) {
-+		size_t pgsize;
-+		unsigned long npages;
-+		unsigned long i;
-+
- 		/*
--		 * This is pretty slow, it would be nice to get the page size
--		 * back from the driver, or have the driver directly fill the
--		 * batch.
-+		 * Use iova_to_phys_length to get both the physical address
-+		 * and the contiguous mapped length in a single page table
-+		 * walk, allowing us to skip ahead by the contiguous region
-+		 * size instead of walking page tables for every PAGE_SIZE.
-+		 * Query at page-aligned iova so pgsize covers from page start.
- 		 */
--		phys = iommu_iova_to_phys(domain, iova) - page_offset;
--		if (!batch_add_pfn(batch, PHYS_PFN(phys)))
--			return;
--		iova += PAGE_SIZE - page_offset;
-+		phys = iommu_iova_to_phys_length(domain, iova - page_offset,
-+						  &pgsize);
-+		if (WARN_ON(phys == PHYS_ADDR_MAX))
-+			break;
-+		if (WARN_ON(!pgsize || pgsize < PAGE_SIZE))
-+			pgsize = PAGE_SIZE;
-+
-+		/*
-+		 * pgsize is the contiguous length from the page-aligned
-+		 * iova, so npages is simply pgsize / PAGE_SIZE.
-+		 */
-+		npages = pgsize / PAGE_SIZE;
-+		npages = min_t(unsigned long, npages,
-+			       last_index - start_index + 1);
-+		if (!npages)
-+			npages = 1;
-+
-+		for (i = 0; i < npages; i++) {
-+			if (!batch_add_pfn(batch, PHYS_PFN(phys) + i))
-+				return;
-+		}
-+
-+		iova += npages * PAGE_SIZE - page_offset;
- 		page_offset = 0;
--		start_index++;
-+		start_index += npages;
- 	}
- }
+diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+index 4a3162c3b659..aa0bc82deaf6 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+@@ -514,7 +514,7 @@ void panfrost_mmu_unmap(struct panfrost_gem_mapping *mapping)
  
-@@ -445,11 +470,36 @@ static struct page **raw_pages_from_domain(struct iommu_domain *domain,
- 	if (start_index == iopt_area_index(area))
- 		page_offset = area->page_offset;
- 	while (start_index <= last_index) {
--		phys = iommu_iova_to_phys(domain, iova) - page_offset;
--		*(out_pages++) = pfn_to_page(PHYS_PFN(phys));
--		iova += PAGE_SIZE - page_offset;
-+		size_t pgsize;
-+		unsigned long npages;
-+		unsigned long i;
-+
-+		/*
-+		 * Resolve the contiguous mapped length together with the
-+		 * physical address so we can fill multiple struct page
-+		 * pointers per page table walk when the IOMMU uses large
-+		 * pages. Query at page-aligned iova so pgsize covers from
-+		 * page start.
-+		 */
-+		phys = iommu_iova_to_phys_length(domain, iova - page_offset,
-+						  &pgsize);
-+		if (WARN_ON(phys == PHYS_ADDR_MAX))
-+			break;
-+		if (WARN_ON(!pgsize || pgsize < PAGE_SIZE))
-+			pgsize = PAGE_SIZE;
-+
-+		npages = pgsize / PAGE_SIZE;
-+		npages = min_t(unsigned long, npages,
-+			       last_index - start_index + 1);
-+		if (!npages)
-+			npages = 1;
-+
-+		for (i = 0; i < npages; i++)
-+			*(out_pages++) = pfn_to_page(PHYS_PFN(phys) + i);
-+
-+		iova += npages * PAGE_SIZE - page_offset;
- 		page_offset = 0;
--		start_index++;
-+		start_index += npages;
- 	}
- 	return out_pages;
- }
+ 		if (bo->is_heap)
+ 			pgcount = 1;
+-		if (!bo->is_heap || ops->iova_to_phys(ops, iova)) {
++		if (!bo->is_heap || ops->iova_to_phys_length(ops, iova, NULL) != PHYS_ADDR_MAX) {
+ 			unmapped_page = ops->unmap_pages(ops, iova, pgsize, pgcount, NULL);
+ 			WARN_ON(unmapped_page != pgsize * pgcount);
+ 		}
 -- 
 2.43.7
 
