@@ -4,163 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FD99CD6E6A
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 08:53:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB1E5CD6E64
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 08:54:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AD7E10FAE2;
-	Wed,  3 Jun 2026 08:53:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E53E10FAC9;
+	Wed,  3 Jun 2026 08:54:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Hl7c6ihm";
+	dkim=pass (2048-bit key; unprotected) header.d=tomeuvizoso-net.20251104.gappssmtp.com header.i=@tomeuvizoso-net.20251104.gappssmtp.com header.b="nKQcJ8O+";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A177B10FAA9;
- Wed,  3 Jun 2026 08:53:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780476793; x=1812012793;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=ALx7D1ebDBCen3tAhVOQg8vn6+pGo+Xg+QCes5oToIw=;
- b=Hl7c6ihmiy5U3d+hmrLW6k7q8GIQ7Fn8rdfhNPeNK/F3hm1uAUP1mV/V
- 4Lcej9fBfN7eZ+6eKMnfxDJONL7NgwTni9xsuzhu4ceMMYJ49m0d2Tq1x
- bgGVaBKikTBCM9HMOwFUHX0vf76oto/bf9itXg4dL2dUcHHaCpPva+RRu
- hhYbeGq2tk8oXbnd7TH1jjXOf0YWvNY9QrL7IvkhjheepvOko/d8KIq5H
- 2BBcnsiVPraefbZ1pgKug55S4wXR2W/oX/+akVkjRoo9g64iE0HGQG/eW
- 9wfbnAWkZr0etdzkHeIXTjucRVB09YIFE/5MRWEK+KU/YzNfnRMrDxWQQ Q==;
-X-CSE-ConnectionGUID: jI6wlzk6QzKBiXAo9lbl+Q==
-X-CSE-MsgGUID: mvCcVThxTuiAN3E5E+BUKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="80420347"
-X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; d="scan'208";a="80420347"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2026 01:53:12 -0700
-X-CSE-ConnectionGUID: Z8/BI2yFRuiWLa0Ux1qcJA==
-X-CSE-MsgGUID: /cvbxVwTT5Ca7kJc47dxPA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; d="scan'208";a="282276238"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2026 01:53:12 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 3 Jun 2026 01:53:11 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Wed, 3 Jun 2026 01:53:11 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.0) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 3 Jun 2026 01:53:09 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TGtNh4w5/Ec/CH4PhqlxOTOvhf40KTgrN3x4vavx2jD0q52vNOVNy1LrKA7giSXWP3vPQxmrD2ocseynz77jjm2bFreJKMfs69KWiYElLcqr9Iodwbie+gxgdujkxGKy/yp/caoezH9lIq1huOCPQxVEzXnUXC++4DhPUSPFGIaYXNrmQQPY6KrxjVBsLiUPYaJN/Fv4GSYDdhyX21FYjxNGaaboSeELVfFecUss0ar96GI7AapKf5uqJ7FDF3DUgItwVzyHgbSZ34i/mH5/fgAXxgRQyoYLOHe0aFocsRJNgQsnq9D/ADFjhYVvqV5qtZAtDmfWSnqAaIaIBLy5Fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ALx7D1ebDBCen3tAhVOQg8vn6+pGo+Xg+QCes5oToIw=;
- b=PL0XwNRwDAkZfS781miUSn/CyIbpNa2jBYIDGypkjixJ8G+4/cU+zsD62XysoAGJCFjHz8gxE9MVRokmv8BIzf3/Rty9+8ZTkKhs3SW7XFpckHXmEq82niD8iZu+gJ82u+BKwVWoeE5jEKNBb/wEluoqqZfZdxVuBC4nsxrczIfggg5RYwPguQDvKbZ01mzkgS+T0QPa/07lIcU/E/UwOEw3mYCsGpIggqjHxXX3DzGDuDjBvCUQ7TIzi9IuJUNhJjdLqh095v4FE87t4LLaLVOm64JQ33Ancx9gBgGEPLbIu7OTqxclqLNaV7I+6x8/Z8kjHj0sNHux3yNeNCMLAw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from PH3PPFAB4263235.namprd11.prod.outlook.com
- (2603:10b6:518:1::d41) by DS0PR11MB6376.namprd11.prod.outlook.com
- (2603:10b6:8:c8::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
- 08:53:07 +0000
-Received: from PH3PPFAB4263235.namprd11.prod.outlook.com
- ([fe80::62cf:3d13:b91:6a5b]) by PH3PPFAB4263235.namprd11.prod.outlook.com
- ([fe80::62cf:3d13:b91:6a5b%5]) with mapi id 15.21.0071.014; Wed, 3 Jun 2026
- 08:53:07 +0000
-From: "Saarinen, Jani" <jani.saarinen@intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, "rajat.gupta@oss.qualcomm.com"
- <rajat.gupta@oss.qualcomm.com>, "jani.nikula@linux.intel.com"
- <jani.nikula@linux.intel.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
- "airlied@gmail.com" <airlied@gmail.com>, "mripard@kernel.org"
- <mripard@kernel.org>, "maarten.lankhorst@linux.intel.com"
- <maarten.lankhorst@linux.intel.com>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/dumb-buffer: Drop buffer-size limits for now
-Thread-Topic: [PATCH] drm/dumb-buffer: Drop buffer-size limits for now
-Thread-Index: AQHc8oMEwBttFMLuRkelqWL17k27UbYsh4xg
-Date: Wed, 3 Jun 2026 08:53:07 +0000
-Message-ID: <PH3PPFAB4263235439621410606A36927D6E0132@PH3PPFAB4263235.namprd11.prod.outlook.com>
-References: <20260602112842.252279-1-tzimmermann@suse.de>
-In-Reply-To: <20260602112842.252279-1-tzimmermann@suse.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH3PPFAB4263235:EE_|DS0PR11MB6376:EE_
-x-ms-office365-filtering-correlation-id: cce5d18e-c1eb-483a-5d13-08dec14d881b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|38070700021|56012099006|11063799006|5023799004|18002099003|22082099003;
-x-microsoft-antispam-message-info: dyVnuXoo8M83tovDO5+lBABDV02P7kUouAK1o54RUNpjsDGzHn5SPR5KzPFLLRPJqXcOwBGZGrSEx7D1+WCK70Rt0KuRqxRuYh2Imxbc/qPdl9SiuclSabzMvVsB4x90P2wb7gU1UYQ8fhmU+KpEa/s/D0n9e2qlywFOxL3OjT6Y1ppFxbtupYhTyPVdteuwwKsGuCMd3ivmeNNx3W7jTYKup1ZELc5P609EYkAsNnbtJhPSKwzijRQVxrXOkncPu28ynGHQA1/oEq4W1KI3SsusG/2hCqGhh+LNbkcPMVgK9n694P+kqTlpIjx6BR/pOV9QWnn6uvoiZMaB0iJaQHoDSk0laTrLYRveDROHZGNmPBezRp17k41ztkT0D3+kpRyj8r+npHymmNG+f7gEbVzzcQfmuRmL97rjnYRQDfrjOQtqdbg+CEdFRp2gbB8Ptv/0gvYvPBAAP/uaKr4YEdUUkG9v/KPXPtSgX+I2uqsFhMrXcJf+WR1d0Rl9EwFqXYrVp07dEycR9uD5CLlx1Og+K4vvJLtbLSk9jSltFli5nUVOlrnUn5aNBA9xHG/y1/anAzjcQCElszMaJi+sRJeEjrj7GTkWVj1aFXncF8fDZKJwY3vAR4GoS1LEktY9Q/iZiHTUiSr7XwSGarhsOW0ZkTiqv3FlODAZsQZd5rWxADoktO86hM8L+qREhVjXwOKxZ9e+ypzJgj2uZKCb3/CK6gZXSAoF7CiMneq7RhPnPLllBushggMFbo9KI56/
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH3PPFAB4263235.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(38070700021)(56012099006)(11063799006)(5023799004)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?K2tyQVJyZzVJSHhDb3pITXhvb3JCZWVyVTdOcE9CbG5heSsybFpIMzJhdmdZ?=
- =?utf-8?B?d2hWcWIvbW80OTN2d0RhcUlnQzVteU4vVm42MGFkRUxYcDRHVVBxQzFLcCtV?=
- =?utf-8?B?Vlg2RHNkK0gwS1B1cUlKNVZ2Umx4UFVQN0FySitoLzF1ZnYzV2tiL0VqZk9N?=
- =?utf-8?B?cStSUjZYMWJmQmg1NVd5UUUyVjFGWDJ6cGdpV2o3WmY5c254Q29tNTVHVDRJ?=
- =?utf-8?B?aTJtN3F3eDNjbTFKd3NQSUdlRExCekNDbXJhVVBiUmdiSE1jcHZ3WjhVRnd0?=
- =?utf-8?B?ckpaTHhPdlFlQkVSaERZd0IvWVBheTdFblVRckt1ZDVpZUFwNFJJWlJtK2NH?=
- =?utf-8?B?cHBKblRvNC9saVdRTm5zZXI0cUhNMDFSNzQveTJwMWlqc1JaOGs0aE5SdkIw?=
- =?utf-8?B?ZWt4MlFFekN6bWw0dytDU3FPZjlEOVFvSTZZOWFUMjU5RE44U3k0MXVldGNw?=
- =?utf-8?B?S1pBR2g2Vkx2UzVDVWVXd1lrQ0tBN2UwV1hWRytTYk1NcjhhSC9ESm9nbW1z?=
- =?utf-8?B?OElva0FiZXh0b2Z4Q3Z3dkJmQkRRd0RLWldya2FtYkVjWEpJRkJjUmUxTWNy?=
- =?utf-8?B?RkhhNlZ1QTU3a2ZnelVhc1NQYVlXRFQ3Mms3am0ycXR6OU9RVFlySFUzNzYz?=
- =?utf-8?B?aW1HeGh6THBzTVQ4UzE3cElhMGVuV1Z4aURoWmY4WlYvM3J4dVZjRkNoR0hW?=
- =?utf-8?B?MmVqVXZDcmZtL21UbE91aitjckdrRHBKTGI5NmZPQVhXdThSVG5mVWVFUnZp?=
- =?utf-8?B?M1V4QjNnSkMxUHRmVWFZV1dneUQyZzQrazdKTkcrWE9XaHFiN08vQlFaRVln?=
- =?utf-8?B?bWFyT090d0FZWkJwMWRhaUFzdGw3dUZFSVl4b1NaODhTK1RSSXhabnpMZ1pG?=
- =?utf-8?B?aWFGRWZNM1VoNndvMEcwVWUyVytobm1jcnM3cTB6MmVjZk9RdlJwVFNPNnpF?=
- =?utf-8?B?QURiQ2QwUy9JZnUzNEYwZm1pVzhtSVRxWTF6STVYeFNNdU4waXZhT0hja1Ji?=
- =?utf-8?B?MlFmNEV6OTRnTDdXSnZSOEthbTl3R3JyQ2o0QkIyZWcycnIwV29BbUxtMi93?=
- =?utf-8?B?TFM1cC9FbEZlWGFnZ2RTY3FlVUo1ZnNOSXNNMjFWTUNiMEZ5VE9SODJVWnpM?=
- =?utf-8?B?YjFLQnhpemc3ZEp5YXgwTEp5ZlJhRWdlMjFJQlc0V1V0M01OVk5JS3MrNjNO?=
- =?utf-8?B?dzNLYVlDZjcvNXllYWJ1MmxRdUZQTkw3Z2pKcFNyQUdtNm93ei8xWFFvOSs1?=
- =?utf-8?B?UjdNN2xrWW5vdHN2anY5ajJUeEZVTTFpNFkvUXJOWWdrNXAyZEw1MitxbFZa?=
- =?utf-8?B?THJrSTRwTFdhRGNocHJUWmVPREZFV0VTU1M3bDVrRTRGSUc4ODkyd3Izc09N?=
- =?utf-8?B?ZVpGNkdjSnpVdUIrM2Y3VTBkdkRBTjB1UFJKSUNkTUNNaGFjZzVCa0lGNkRV?=
- =?utf-8?B?SDFrYkpRUlVsazR5SXZRVzczWVlOYlhVUGpjZGFGMTgrVDB3R0J6SlJPZFhQ?=
- =?utf-8?B?a1BweUh3a1RodDJmTTBTSlhxY3hCektudjBYZnBnNWx4NlZMTVZiVU81TjB4?=
- =?utf-8?B?bkVqTkpMckE5WENNR0xPTUErMERMS3JDcjlRQVI5UTVETzhlZU1yMVpVbnNY?=
- =?utf-8?B?M2paZkRJdW0xTzZzQTRhc29RVHk4bzRBakJhZjBSWFVMdit2VlZMS0dKZjhM?=
- =?utf-8?B?dVA4Yi9ncnZRZG9remFHMHdvTnVpRGpRSVNhU010S1Qrck9PcDBTeUhkSzRY?=
- =?utf-8?B?c0VwZ1M4SGF1Q01QZzJnNkw4OWZ0cC9qQUkxRm14R0o1SlFabHN6UmwzZzZL?=
- =?utf-8?B?Yk4wNHNHTEZNMGRDUGoxMWFJYnYwaHdJZ2FoQ3piZG1Lb3RndTJnSkd4NXMv?=
- =?utf-8?B?T1BqWU50azdsa1ZINUFTS0NKMGIwd2RqelNjRGRPVGpxVCtNanFnMGhHaXYy?=
- =?utf-8?B?MnFiZnN0Zm10cENUTDE3QTZ4SVNQSkpMSHozeTFFM3ZjVUdkekpsWTNDTyta?=
- =?utf-8?B?RXZFbU0rWVdlSDdYTXpINEdiMkg4Z2I0VzJYblRUVENkVnVISXVnd1JwbzB3?=
- =?utf-8?B?MHR6NlJORW05cVZ4RWlmRTRPZTQzZ04wclNrWGlEM1V3cWdVQ1dDVk0rOWla?=
- =?utf-8?B?OWx3VUdIV3FTZG5lQVF2MnF2ZVFoc0VWbUdvaHBGOERya0xGbFRQZzlpSDhh?=
- =?utf-8?B?VWVEY1JvZHIxVWVjZVdTR3puTnZnVHR4RnJmUnlPdHNPWXRQcGlXYmFpaVpI?=
- =?utf-8?B?eHZBMm1ENk9xbGJuYkNSTDREK2gvK3JDamptWXlMQXZqU3AreCsrczVBeWJP?=
- =?utf-8?B?VzNGdWRXWXdDaEkzbGw2TlhoVkx3VWlXTS9qOGwzYXhrTmdiaStDUT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
+ [209.85.222.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E0E410FAA9
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 08:54:26 +0000 (UTC)
+Received: by mail-qk1-f180.google.com with SMTP id
+ af79cd13be357-9156b74006aso211740285a.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 03 Jun 2026 01:54:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780476865; cv=none;
+ d=google.com; s=arc-20240605;
+ b=cRdjQwKlHasRhKTRQo3EpJteUD5h+9VH7Vql+rEbivi7y2Az8bzedmCnq3eWVcyHny
+ Sm3hWyHRhnTQOn9uXX4HoeZ1Z9ZdoJoE3niYsC7+W+ypGtxsFF8+UFKBHBREkstKi+H/
+ xfBiE/hKTHwt8i3bO6ca8/1G8MZe6RhgnNr1uzWe7/DXjDe/qz2S/5jxtmA+eILqNA6p
+ ya+88ZRG9kk7d8q14h6hyxyFbYTznAl8oFnaapE5aKu3jxbTfQ436DTxDi8s0elm28u8
+ 3sSzGlAj2T5Tw9F+Q7to8Hbh7RLED5wU7zM65bHuMVQHcaxDSeui6BSaxO3iBUW1SFCq
+ Zc9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=g7JX48xUqE191PjwdvrWj7w+4oUCIR2hhRFUmFcQpEw=;
+ fh=5yQywHInXOZC80KG7MN8WnVNPCGZyuUtiFB2wWRWBvg=;
+ b=UY4xSIuHvnVs3sOxbI/9rS+27XhSuQOKUBJGzF+3r2aLJdLBIejAcEG5Txn3oMJJj2
+ 2N9p/0Bb7VkVqO4o4jnQiP+iPfiWFNl6dGvZonSfOPxhCuVgV8e75PBAME7IPfds6Wdl
+ 6yM6GQGX00l89dd7ggfOzpXRjZPaxQf/VVaoYuqFDijI55AqZmZAz7c2+ejg5Hlei3ML
+ Y6v5X27FbV7KAogaJdqCfuJzWb1H/UyV7EBZkHVsW/yrBu08c+xjqHA7qhfZAwyNH4qz
+ f8sVww4JyhlOG1LQQF1dQAg6fDrzszFE1qPA2nLDTMaI0PSXznDl8MnTuDYbV6GBOGdK
+ LxlA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tomeuvizoso-net.20251104.gappssmtp.com; s=20251104; t=1780476865;
+ x=1781081665; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=g7JX48xUqE191PjwdvrWj7w+4oUCIR2hhRFUmFcQpEw=;
+ b=nKQcJ8O+rXeDcuEg7gjflBcK8jiLub4FSN08eZneLZJszmQwHeOhHg+6JdKM3Yi5oe
+ 7imD3eZicDeCfzBO+enLxGQHpNJbXe1dHlGzKQv1u3pOzhMUfWHp0FrokoiWh5i3nuyk
+ Dmrb6XxQrgdQn0mVUrdPg8kvglq6LJt9JFK2M3VXT+7rmFtFWW/y0bWD+GIGgltBG+q0
+ TgM+1xU1ViAbel7JPadSiJpVpk26tJFEMWVSEu3XHGFguBPV7ccox3FsYWoPJYUjws/2
+ t8YR0rAN1l7WQTcKmY8aZg4CG2FFSnutm3moSg7x6O5S4aeezZA36RZLWbVELTlFRoYP
+ VscQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780476865; x=1781081665;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=g7JX48xUqE191PjwdvrWj7w+4oUCIR2hhRFUmFcQpEw=;
+ b=Ly9zdCekj5+SyRWyAFC1ZtZeNTdFdxYEMkQE4nKReNLKyI4cdL29H0L3SKcFdSu7D5
+ JNfHcTOkzDiiLKPZsvpQo8BvFN49t/qKc6DX3tlvZouUziEEYNm8mQi8PdZjRTJ/1kyS
+ eGRwSQiQ0vxfxjZChqgX3HoeH091NWhquX4W5uFmqDpii9iekku/d/5lXNh97rsOqdcp
+ exJuqP/+uLT6/k3+mISFn/BqHjLONih9B6X3eMBvhA6d8iYQBKc9wkN0EiOx4nxylz6X
+ 4G2adewomfjSe20D1F29Gje9vG/VQ0p76rX+WsutHzUeTL6Ny1jlRBa8LrPeKZk57P44
+ BR1w==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ93SNtvbAsP1FhIrWCaAWx7RZHtlG3kQ/KV8rqkHqRBeJKIuw1FmD1OGFDi1r87irv24sMxUqiDXEM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwdjI/etIQV5Zw/irVL0lVKhEmlDEmUkMsLU4wVsWT8pzrKlmif
+ WcdUOjDZdEntJRJpv7fhOH6LNmp9i7FHbr3YabyKe5FVIT5kJqnooqqHgNr5RVarjZiXO36UgtJ
+ 8NNngrzqoC29TETZD6oC6+x+qciPirDb92O0vta+W3Q==
+X-Gm-Gg: Acq92OHalgPsYgF+0OUOgMVAtM9hnApGuG8YoCCVjYGeBxTYfchBdgmS82ZMJo2zCbD
+ XLF0a2KStYJgi/MUEuEJu3pWKSoi7gkbK/pRaqjGMskVgDXlq+2w6jGVtiZFZCpE+kDul2PkBAD
+ BZ5GLZEKpjUcDfCHtkBxfkYRgsA3Wzz2SGU7jKnv7dxxNdEZJrqRYIEmNoXcu5+pBRAXyFOzSeJ
+ oCFqoFyOtSR+F7p/uiCMh6ouP89ZnpM6IcA+wsakV7D9YzrMGU8jGbNDo6UZvvi3CUYiTIa+9kP
+ kgGqDD1k2vvdXVtN
+X-Received: by 2002:a05:620a:470d:b0:914:e3dd:17fd with SMTP id
+ af79cd13be357-9158a6cce06mr407596485a.6.1780476864872; Wed, 03 Jun 2026
+ 01:54:24 -0700 (PDT)
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: UQ7wu8+25LCWDYqNmIkIQG/mg4q0ki8G7NqR2nh3zKhuuXLCAmmEVsV0qVjR6Z8XDqpahDkXUIe26wrvfoWmtlFtf3oo0R0wjBIKgRmlGg6eqXyElLrxNrJ9aVWGN4jPMGlGXRhE+ubtNWZIqi+/shxCc6Y8dfn+2WNYnTrdRyrPcQKwUxQ/7/CouZfxrW8ZsC+GmqpXyoxtypw2RPpPB74xXJF6ScCQF29xROYAp1neR36D37u7WgxiP1pelw+IyxPpR3P8B3+sNArLzR8z/AnH5Aaf+IDCWPsDeZdvG4Uf1PiwRZaB0XXtZnthRS320QDYj9PSQ3avnp22QBfQYg==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH3PPFAB4263235.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cce5d18e-c1eb-483a-5d13-08dec14d881b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jun 2026 08:53:07.3205 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 8U2vN09Mu9L7yoA4GwLXnoec4T/3r3RPOjMR+16tQ8ZVnyIuH1STpgn9LYzKVtR+HBEgH2Z2/kavdwnIwtAUXA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB6376
-X-OriginatorOrg: intel.com
+References: <20260519-qda-series-v1-0-b2d984c297f8@oss.qualcomm.com>
+ <20260519-qda-series-v1-2-b2d984c297f8@oss.qualcomm.com>
+ <paiohsil5pmvm7cf6jxrhaj2225bgvlt3scrag4x6gbkyosow5@l4tbakbnxcvo>
+ <CAPsqS2Tt0JbHhJLHBsbJ2YfZW913WNfoSXpSa+8TD1T9CV8V3g@mail.gmail.com>
+ <9879f670-8a23-407b-ab45-673904ad4a86@oss.qualcomm.com>
+In-Reply-To: <9879f670-8a23-407b-ab45-673904ad4a86@oss.qualcomm.com>
+From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Date: Wed, 3 Jun 2026 10:54:13 +0200
+X-Gm-Features: AVHnY4JxR71JOH6mKjWdwqMelPGIBYkdeP3ekd-6Gg14JWpiLQqO3KnjrrlcThc
+Message-ID: <CAPsqS2R5kr1-UqhijjgAfU9D1VnyEd3pCxOagHyesHSHpN4_8g@mail.gmail.com>
+Subject: Re: [PATCH 02/15] accel/qda: Add QDA driver documentation
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>, srini@kernel.org, 
+ andersson@kernel.org, konradybcio@kernel.org, robin.clark@oss.qualcomm.com, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ iommu@lists.linux.dev, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -176,51 +125,190 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-SGksIA0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBUaG9tYXMgWmltbWVy
-bWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4NCj4gU2VudDogVHVlc2RheSwgMiBKdW5lIDIwMjYg
-MTQuMjQNCj4gVG86IHJhamF0Lmd1cHRhQG9zcy5xdWFsY29tbS5jb207IGphbmkubmlrdWxhQGxp
-bnV4LmludGVsLmNvbTsgU2FhcmluZW4sDQo+IEphbmkgPGphbmkuc2FhcmluZW5AaW50ZWwuY29t
-Pjsgc2ltb25hQGZmd2xsLmNoOyBhaXJsaWVkQGdtYWlsLmNvbTsNCj4gbXJpcGFyZEBrZXJuZWwu
-b3JnOyBtYWFydGVuLmxhbmtob3JzdEBsaW51eC5pbnRlbC5jb20NCj4gQ2M6IGRyaS1kZXZlbEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmc7IGludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGlu
-dGVsLQ0KPiB4ZUBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IFRob21hcyBaaW1tZXJtYW5uIDx0emlt
-bWVybWFubkBzdXNlLmRlPg0KPiBTdWJqZWN0OiBbUEFUQ0hdIGRybS9kdW1iLWJ1ZmZlcjogRHJv
-cCBidWZmZXItc2l6ZSBsaW1pdHMgZm9yIG5vdw0KPiANCj4gVGhlIHNpemUgbGltaXRzIGJyZWFr
-IHNvbWUgb2YgdGhlIENJIHRlc3RzLiBTbyBkcm9wIHRoZW0gZm9yIG5vdy4gS2VlcCB0aGUNCj4g
-b3RoZXIgb3ZlcmZsb3cgdGVzdHMgZnJvbSBjb21taXQgNWFiNjJkZDM2ODdiICgiZHJtOiBwcmV2
-ZW50IGludGVnZXINCj4gb3ZlcmZsb3dzIGluIGR1bWIgYnVmZmVyIGNyZWF0aW9uIGhlbHBlcnMi
-KSBpbiBwbGFjZS4NCj4gDQo+IFRoZXJlIGlzIHN0aWxsIGEgcHJlLWV4aXN0aW5nIG92ZXJmbG93
-IGNoZWNrIGZvciAzMi1iaXQgdHlwZSBsaW1pdHMgaW4NCj4gZHJtX21vZGVfY3JlYXRlX2R1bWIo
-KSB0aGF0IHdpbGwgY2F0Y2ggdGhlIHJlYWxseSBhYnN1cmQgc2l6ZSByZXF1ZXN0cy4NCj4gRHJp
-dmVycyB0aGF0IHN0aWxsIGRvIG5vdCB1c2UgZHJtX21vZGVfc2l6ZV9kdW1iKCkgc2hvdWxkIGJl
-IHVwZGF0ZWQuIFRoZQ0KPiBoZWxwZXIgY2FsY3VsYXRlcyBkdW1iLWJ1ZmZlciBnZW9tZXRyeSB3
-aXRoIG92ZXJmbG93IGNoZWNrcy4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IFRob21hcyBaaW1tZXJt
-YW5uIDx0emltbWVybWFubkBzdXNlLmRlPg0KPiBGaXhlczogNWFiNjJkZDM2ODdiICgiZHJtOiBw
-cmV2ZW50IGludGVnZXIgb3ZlcmZsb3dzIGluIGR1bWIgYnVmZmVyDQo+IGNyZWF0aW9uIGhlbHBl
-cnMiKQ0KPiBSZXBvcnRlZC1ieTogSmFuaSBOaWt1bGEgPGphbmkubmlrdWxhQGxpbnV4LmludGVs
-LmNvbT4NCj4gQ2xvc2VzOiBodHRwczovL2xvcmUua2VybmVsLm9yZy9kcmktDQo+IGRldmVsL2Rk
-ZjAyMzNlNTAwNDQwNTljODUyNzlmOTI4NjYxNTYzZWY2YTU1YmZAaW50ZWwuY29tLw0KPiBDYzog
-UmFqYXQgR3VwdGEgPHJhamF0Lmd1cHRhQG9zcy5xdWFsY29tbS5jb20+DQo+IENjOiBUaG9tYXMg
-WmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4NCj4gQ2M6IE1hYXJ0ZW4gTGFua2hvcnN0
-IDxtYWFydGVuLmxhbmtob3JzdEBsaW51eC5pbnRlbC5jb20+DQo+IENjOiBNYXhpbWUgUmlwYXJk
-IDxtcmlwYXJkQGtlcm5lbC5vcmc+DQpTZWVtcyB0byBzYXRpc2Z5IENJIDoNCmh0dHBzOi8vaW50
-ZWwtZ2Z4LWNpLjAxLm9yZy90cmVlL2RybS10aXAvUGF0Y2h3b3JrXzE2NzczNnYxL2luZGV4Lmh0
-bWw/dGVzdGZpbHRlcj12Z2VtJTdDa21zX2JpZy4qbGluZQ0KDQpCciwNCkphbmkNCj4gLS0tDQo+
-ICBkcml2ZXJzL2dwdS9kcm0vZHJtX2R1bWJfYnVmZmVycy5jIHwgNyAtLS0tLS0tDQo+ICAxIGZp
-bGUgY2hhbmdlZCwgNyBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vZHJtX2R1bWJfYnVmZmVycy5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2RybV9kdW1iX2J1
-ZmZlcnMuYw0KPiBpbmRleCBlNjAxMzBiMmJiMGMuLjhlOWZmMTc1MzhlNyAxMDA2NDQNCj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2RybV9kdW1iX2J1ZmZlcnMuYw0KPiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vZHJtX2R1bWJfYnVmZmVycy5jDQo+IEBAIC0yMDEsMTMgKzIwMSw2IEBAIGludCBkcm1f
-bW9kZV9jcmVhdGVfZHVtYihzdHJ1Y3QgZHJtX2RldmljZQ0KPiAqZGV2LA0KPiAgCWlmICghYXJn
-cy0+d2lkdGggfHwgIWFyZ3MtPmhlaWdodCB8fCAhYXJncy0+YnBwKQ0KPiAgCQlyZXR1cm4gLUVJ
-TlZBTDsNCj4gDQo+IC0JLyogUmVqZWN0IHVucmVhc29uYWJsZSBpbnB1dHMgZWFybHkuICBEdW1i
-IGJ1ZmZlcnMgYXJlIGZvciBzb2Z0d2FyZQ0KPiAtCSAqIHJlbmRlcmluZzsgbm90aGluZyBsZWdp
-dGltYXRlIG5lZWRzIG1vcmUgdGhhbiA4MTkyeDgxOTIgYXQNCj4gMzJicHAuDQo+IC0JICogVGhp
-cyBwcmV2ZW50cyBvdmVyZmxvd3MgaW4gZG93bnN0cmVhbSBhbGlnbm1lbnQgaGVscGVycy4NCj4g
-LQkgKi8NCj4gLQlpZiAoYXJncy0+d2lkdGggPj0gODE5MiB8fCBhcmdzLT5oZWlnaHQgPj0gODE5
-MiB8fCBhcmdzLT5icHAgPiAzMikNCj4gLQkJcmV0dXJuIC1FSU5WQUw7DQo+IC0NCj4gIAkvKiBv
-dmVyZmxvdyBjaGVja3MgZm9yIDMyYml0IHNpemUgY2FsY3VsYXRpb25zICovDQo+ICAJaWYgKGFy
-Z3MtPmJwcCA+IFUzMl9NQVggLSA4KQ0KPiAgCQlyZXR1cm4gLUVJTlZBTDsNCj4gDQo+IGJhc2Ut
-Y29tbWl0OiBhOTgwMTk2NjU1NDc3YThmNTA2NzExMjk0NjQwMWZlNTJlNTEwNjY0DQo+IC0tDQo+
-IDIuNTQuMA0KDQo=
+On Wed, Jun 3, 2026 at 7:22=E2=80=AFAM Ekansh Gupta
+<ekansh.gupta@oss.qualcomm.com> wrote:
+>
+> On 20-05-2026 21:17, Tomeu Vizoso wrote:
+> > On Wed, May 20, 2026 at 4:12=E2=80=AFPM Dmitry Baryshkov
+> > <dmitry.baryshkov@oss.qualcomm.com> wrote:
+> >>
+> >> On Tue, May 19, 2026 at 11:45:52AM +0530, Ekansh Gupta via B4 Relay wr=
+ote:
+> >>> From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> >>>
+> >>> Add documentation for the Qualcomm DSP Accelerator (QDA) driver under
+> >>> Documentation/accel/qda/. The documentation covers the driver
+> >>> architecture, GEM-based buffer management, IOMMU context bank
+> >>> isolation, and the RPMsg transport layer.
+> >>>
+> >>> The user-space API section describes the DRM IOCTLs for session
+> >>> management, GEM buffer allocation, and remote procedure invocation vi=
+a
+> >>> the FastRPC protocol, along with a typical application lifecycle
+> >>> example. Sections for dynamic debug and basic testing are also
+> >>> included.
+> >>>
+> >>> Wire the new documentation into the Compute Accelerators index at
+> >>> Documentation/accel/index.rst.
+> >>>
+> >>> Assisted-by: Claude:claude-4-6-sonnet
+> >>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> >>> ---
+> >>>  Documentation/accel/index.rst     |   1 +
+> >>>  Documentation/accel/qda/index.rst |  13 ++++
+> >>>  Documentation/accel/qda/qda.rst   | 146 ++++++++++++++++++++++++++++=
+++++++++++
+> >>>  3 files changed, 160 insertions(+)
+
+<snip>
+
+> >>> +Usage Example
+> >>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >>> +
+> >>> +A typical lifecycle for a user-space application:
+> >>> +
+> >>> +1.  **Discovery**: Open ``/dev/accel/accel*`` and use
+> >>> +    ``DRM_IOCTL_QDA_QUERY`` to identify the DSP domain served by tha=
+t
+> >>> +    device node.
+> >>> +2.  **Initialization**: Call ``DRM_IOCTL_QDA_REMOTE_SESSION_CREATE``=
+ to
+> >>> +    establish a session and create a process context on the DSP.
+> >>> +3.  **Memory**: Allocate buffers via ``DRM_IOCTL_QDA_GEM_CREATE`` or=
+ import
+> >>> +    DMA-BUFs (PRIME fd) from other drivers using ``DRM_IOCTL_PRIME_F=
+D_TO_HANDLE``.
+> >>> +4.  **Execution**: Use ``DRM_IOCTL_QDA_REMOTE_INVOKE`` to pass argum=
+ents and
+> >>> +    execute functions on the DSP.
+> >>> +5.  **Cleanup**: Close file descriptors to automatically release res=
+ources and
+> >>> +    detach the session.
+> >>
+> >> I'd have expected the description of the actual example. I.e. clone th=
+e
+> >> app from https://the.addr, prepare clang >=3D NN.MM, QAIC (https://foo=
+),
+> >> run make, run the app, check the results. I'd remind that DRM Accel ha=
+s
+> >> a very specific requirement of having the working toolhain in the
+> >> open-source.
+> >
+> > We have been getting submissions lately that don't fulfill that
+> > requirement so I will point to the precise part of the documentation
+> > that explains it:
+> >
+> > https://www.kernel.org/doc/html/latest/gpu/drm-uapi.html#open-source-us=
+erspace-requirements
+> >
+> > For an example of a submissions that complies, see:
+> >
+> > https://lore.kernel.org/dri-devel/20260114-thames-v2-0-e94a6636e050@tom=
+euvizoso.net/
+> >
+> > Most importantly, notice how the proposed Thames Mesa driver generates
+> > machine code for all the hardware units, and doesn't use any blob for
+> > that.
+> >
+> I believe QDA checks all boxes for accel, as there is available
+> opensource userspace, opensource QAIC compiler for IDL compilation and
+> LLVM supports hexagon arch.
+
+I must say that I'm at a total loss regarding the userspace portion of
+this driver, despite spending half an hour looking inside the FastRPC
+branch that you link from the cover letter.
+
+Can you please explain what do people need to do to:
+
+- run an algorithm of their choice on the DSP,
+- execute inference with a common ML framework such as TensorFlow Lite
+or PyTorch.
+
+The documentation I pointed to earlier explains in length what is
+expected from the userspace portion of the driver, which is more than
+just being open source.
+
+Thanks,
+
+Tomeu
+
+> I'll try adding these details as well.
+>
+> Thanks!> Regards,
+> >
+> > Tomeu
+> >
+> >>> +
+> >>> +Internal Implementation
+> >>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D
+> >>> +
+> >>> +Memory Management
+> >>> +-----------------
+> >>> +The driver's memory manager creates virtual "IOMMU devices" that map=
+ to
+> >>> +hardware context banks. This allows the driver to manage multiple is=
+olated
+> >>> +address spaces. The implementation uses a DMA-coherent backend to en=
+sure data consistency
+> >>> +between the CPU and DSP without manual cache maintenance in most cas=
+es.
+> >>
+> >> GEM usage?
+> >>
+> >>> +
+> >>> +Debugging
+> >>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >>> +The driver includes extensive dynamic debug support. Enable it via t=
+he
+> >>> +kernel's dynamic debug control:
+> >>> +
+> >>> +.. code-block:: bash
+> >>> +
+> >>> +    echo "file drivers/accel/qda/* +p" > /sys/kernel/debug/dynamic_d=
+ebug/control
+> >>> +
+> >>> +Testing
+> >>> +=3D=3D=3D=3D=3D=3D=3D
+> >>> +The QDA driver can be exercised using the ``fastrpc_test`` utility f=
+rom the
+> >>> +FastRPC userspace library. Run the test application:
+> >>
+> >> pointer
+> >>
+> >>> +
+> >>> +.. code-block:: bash
+> >>> +
+> >>> +    fastrpc_test -d 3 -U 1 -t linux -a v68
+> >>> +
+> >>> +**Options**
+> >>> +
+> >>> +``-d domain``
+> >>> +    Select the DSP domain to run on:
+> >>> +
+> >>> +    * ``0`` =E2=80=94 ADSP
+> >>> +    * ``1`` =E2=80=94 MDSP
+> >>> +    * ``2`` =E2=80=94 SDSP
+> >>> +    * ``3`` =E2=80=94 CDSP *(default on targets with CDSP)*
+> >>> +
+> >>> +``-U unsigned_PD``
+> >>> +    Select signed or unsigned protection domain:
+> >>> +
+> >>> +    * ``0`` =E2=80=94 signed PD
+> >>> +    * ``1`` =E2=80=94 unsigned PD *(default)*
+> >>> +
+> >>> +``-t target``
+> >>> +    Target platform: ``android`` or ``linux`` *(default: linux)*
+> >>> +
+> >>> +``-a arch_version``
+> >>> +    DSP architecture version, e.g. ``v68``, ``v75`` *(default: v68)*
+> >>>
+> >>> --
+> >>> 2.34.1
+> >>>
+> >>>
+> >>
+> >> --
+> >> With best wishes
+> >> Dmitry
+>
