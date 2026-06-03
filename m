@@ -4,62 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7BB8CD6E69
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 09:39:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 220DECD6E55
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 10:11:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 185C710FADB;
-	Wed,  3 Jun 2026 09:39:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71F9710FB4D;
+	Wed,  3 Jun 2026 10:11:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ChgNY3wr";
+	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="lJVV++GO";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 733C710FAD7;
- Wed,  3 Jun 2026 09:39:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780479568; x=1812015568;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=ai/Q0j191z64bA2k77aRNgjeIieXktAgLTqmnJOMi4Q=;
- b=ChgNY3wrr2Lb1re3QLd5iqFhPbuVOkpkWRiK8m3xqDCFBRXTIhGplXJ/
- UyinniRwEjKHjW+8c8X6bgU2xxeQJzfk7S9ElOWM6pOlLPJhxBSWL8HGx
- HYb9v1FlEpVHmaRk2lEYG0MOqnZOXGOLHO2t/fBUxLC3dOylY6p1HxXlY
- zuRCStPQ6VnimV32vwTuPdBXZj7OxNpoTY7uDWQvxtxLakUcN6ZlGQQ+3
- fklSEGVnEJspEefC9ocLGwx0HzH93jMFyPqFKbdxugMMa6fTqvz1DLV7X
- /qTRvMcHcrLlkX88dKY7YvtkholXDioV8RXe+aIxxsT7Q9aidTHdFG44k w==;
-X-CSE-ConnectionGUID: +f3jCFgVSieNDbfZiOMntQ==
-X-CSE-MsgGUID: vSdWeb4PTuOvQZCGQirY8w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="85168965"
-X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; d="scan'208";a="85168965"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2026 02:39:27 -0700
-X-CSE-ConnectionGUID: thPgsvknT/2pjYKYcTbiOQ==
-X-CSE-MsgGUID: wpxLxYkFR0eajaXcSfab7A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; d="scan'208";a="241182534"
-Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.244.189])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2026 02:39:24 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Nikita Zhandarovich <n.zhandarovich@fintech.ru>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Nikita Zhandarovich <n.zhandarovich@fintech.ru>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
-Subject: Re: [PATCH v2] drm/i915/edp: Check supported link rates DPCD read
-In-Reply-To: <824c6ced1095635f86527709822c8af3ddff7c8c@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260529145759.1640646-1-n.zhandarovich@fintech.ru>
- <824c6ced1095635f86527709822c8af3ddff7c8c@intel.com>
-Date: Wed, 03 Jun 2026 12:39:21 +0300
-Message-ID: <7b19689e97c8dc714d6dc28d0f92b0d6fd859c23@intel.com>
+X-Greylist: delayed 398 seconds by postgrey-1.36 at gabe;
+ Wed, 03 Jun 2026 10:11:55 UTC
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
+ [188.68.63.166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0633910FB42;
+ Wed,  3 Jun 2026 10:11:55 +0000 (UTC)
+Received: from mors-relay-8202.netcup.net (localhost [127.0.0.1])
+ by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4gVjxS0Prhz41qj;
+ Wed,  3 Jun 2026 12:05:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+ s=key2; t=1780481116;
+ bh=pPdgNJnhX2PrU1X4qnCxIVn7py/OIeTqDE4or41kmYg=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=lJVV++GOVSYt7b90Y4lHdWNNN/nVk7GrgSQtnDAqDFjxwreWHBvCu2X2ZBuqcHxai
+ E5FGkWkMnALXy8Z7uHWnsaWmUlEchCG8M90hcYLPrvjh+T9IOgFdxulRvoYVaFjjqL
+ flUkKVaaOFxNQbJRESLlVQAeuqCbcnsTxWwp/RHmzBxWq599quImmbtM7UdJ62QAby
+ yaPGYf+8LM6s/OzJeR1YVN1vlzTE2GeDTWP97PKKU8vt/JW4FHxLgxntwNI9l2A4Tq
+ n/5t4o6SW9wgy1voHxwGhz7uchnXs/m6LIfaOc30N8IY4Wl+B9xa6D6DdcmfhJHV1Z
+ 3DIQjzSrMekOg==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+ by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4gVjxR6mb4z3xJ6;
+ Wed,  3 Jun 2026 12:05:15 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by policy01-mors.netcup.net (Postfix) with ESMTPS id 4gVjxQ2YYJz8tZd;
+ Wed,  3 Jun 2026 12:05:14 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
+ [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id D3F2B5FA20;
+ Wed,  3 Jun 2026 11:56:15 +0200 (CEST)
+Authentication-Results: mxe9fb;
+ spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
+ smtp.mailfrom=regressions@leemhuis.info
+ smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <114b9be8-1fca-4762-822e-1d53838d5de5@leemhuis.info>
+Date: Wed, 3 Jun 2026 11:56:15 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] Resolutions broken after "drm/msm: dsi: fix PLL init
+ in bonded mode"
+To: neil.armstrong@linaro.org, Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ vishnu.saini@qualcomm.oss.com,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+References: <20251027-topic-sm8x50-fix-dsi-bonded-v1-1-a477cd3f907d@linaro.org>
+ <ae07cef84AmXK43H@hu-mdsor-hyd.qualcomm.com>
+ <wrhuksrzlxw2pjlvjm37dwjuztcv7qs5t6mqiav4ujecwqdkwj@ozbfxpbgaimt>
+ <CAJfMnmEVwUwt=wMJ-8HKH1yz9+erWLrRGB+6wVYCdSGDK+_T_Q@mail.gmail.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+X-Enigmail-Draft-Status: N11222
+Autocrypt: addr=linux@leemhuis.info; keydata=
+ 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 MEK4
+In-Reply-To: <CAJfMnmEVwUwt=wMJ-8HKH1yz9+erWLrRGB+6wVYCdSGDK+_T_Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <178048057627.3107155.17534295353220760642@mxe9fb.netcup.net>
+X-NC-CID: z1MsFiVcCJunZd2oROBxLRLnrgFD6ue7Cr/uOXVEQD7T8aZ1lCM=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,61 +132,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 29 May 2026, Jani Nikula <jani.nikula@linux.intel.com> wrote:
-> On Fri, 29 May 2026, Nikita Zhandarovich <n.zhandarovich@fintech.ru> wrote:
->> intel_edp_set_sink_rates() reads DP_SUPPORTED_LINK_RATES into a local
->> stack array and then parses the array unconditionally. If the read
->> fails, the array contents are not valid and may result in bogus sink
->> link rates being used.
->>
->> Use drm_dp_dpcd_read_data() and clear the sink rate array on failure,
->> so the existing parser falls back to the default sink rate handling.
->>
->> Found by Linux Verification Center (linuxtesting.org) with static
->> analysis tool SVACE.
->>
->> Fixes: 68f357cb7347 ("drm/i915/dp: generate and cache sink rate array for all DP, not just eDP 1.4")
->> Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
->
-> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+On 5/4/26 22:09, Mohit Dsor wrote:
+> Sorry for the late reply. I am attaching clk_summary and reg_dump in
+> working and non working case. Lilliput is just a normal display working
+> with hdmi and has 720p as preferred mode. Yes, I was talking about RB3
+> Gen2 only.
 
-And pushed to drm-intel-next, thanks for the patch.
+Neil, Dmitry, and Mohit: what's the status here? From the outside it
+looks like this regression is still unfixed with nothing happening for
+weeks now. Or has progress been made and I just missed it?
 
->
->> ---
->> v1 -> v2:
->> - Use drm_dp_dpcd_read_data() instead of drm_dp_dpcd_read().
->> - Avoid the goto by clearing sink_rates on read failure, as suggested by
->>   Jani Nikula.
->> - Adjust patch description.
->>
->>  drivers/gpu/drm/i915/display/intel_dp.c | 11 +++++++++--
->>  1 file changed, 9 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
->> index 6ef2a0043cda..5c3e816b0135 100644
->> --- a/drivers/gpu/drm/i915/display/intel_dp.c
->> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
->> @@ -4678,10 +4678,17 @@ intel_edp_set_sink_rates(struct intel_dp *intel_dp)
->>  
->>  	if (intel_dp->edp_dpcd[0] >= DP_EDP_14) {
->>  		__le16 sink_rates[DP_MAX_SUPPORTED_RATES];
->> +		int ret;
->>  		int i;
->>  
->> -		drm_dp_dpcd_read(&intel_dp->aux, DP_SUPPORTED_LINK_RATES,
->> -				 sink_rates, sizeof(sink_rates));
->> +		ret = drm_dp_dpcd_read_data(&intel_dp->aux,
->> +					    DP_SUPPORTED_LINK_RATES,
->> +					    sink_rates, sizeof(sink_rates));
->> +		if (ret < 0) {
->> +			drm_dbg_kms(display->drm,
->> +				    "Unable to read eDP supported link rates, using default rates\n");
->> +			memset(sink_rates, 0, sizeof(sink_rates));
->> +		}
->>  
->>  		for (i = 0; i < ARRAY_SIZE(sink_rates); i++) {
->>  			int rate;
+Ciao, Thorsten
 
--- 
-Jani Nikula, Intel
+> On Sun, Apr 26, 2026 at 4:14 AM Dmitry Baryshkov
+> <dmitry.baryshkov@oss.qualcomm.com
+> <mailto:dmitry.baryshkov@oss.qualcomm.com>> wrote:
+> 
+>     On Sun, Apr 26, 2026 at 03:38:49AM +0530, Mohit Dsor wrote:
+>     > Hi Neil, all,
+>     >
+>     > We are seeing a regression after:
+>     >
+>     > drm/msm: dsi: fix PLL init in bonded mode
+>     > https://lore.kernel.org/r/20251027-topic-sm8x50-fix-dsi-bonded-
+>     v1-1-a477cd3f907d@linaro.org <https://lore.kernel.org/r/20251027-
+>     topic-sm8x50-fix-dsi-bonded-v1-1-a477cd3f907d@linaro.org>
+>     >
+>     > Issue:
+>     > - Resolutions are broken after this change. Like if we try to run
+>     720p60 it will be 720p30.
+>     >   Even though the byte_clk is set correctly, the bridge is
+>     receiving half the byte clock.
+>     >   Some divider is getting set which is causing the byte_clk to get
+>     half, ultimately fps to
+>     >   get half. Some other resolutions may or may not be broken
+> 
+>     Please provide necessary excerpts from /sys/kernel/debug/clk/clk_summary
+>     for the working and for the broken cases. Also if there is a difference
+>     in DSI PHY registers, please capture those (see
+>     /sys/kernel/debug/dri/*/kms, provide necessary DSI PHY regs).
+> 
+>     > Reproduction:
+>     > - Used QNX RB3Gen2 Core kit with lilliput display and lt9611uxc
+>     dsi to hdmi bridge.
+> 
+>     What is lilliput? What is QNX RB3 Gen2? Is it the normal Thundercomm's
+>     RB3 Gen2 or some other board sold with the same name?
+> 
+>     > - Run 720p60 usecase on hdmi with dsi to hdmi bridge.
+>     >
+>     > Expected behavior:
+>     > - Display should support the expected resolutions correctly.
+>     >
+>     > Actual behavior:
+>     > - No display on lilliput display.
+>     >
+>     > Additional details:
+>     > - Reverting this change locally avoids the issue.
+>     >
+>     > Could you please take a look?
+>     >
+>     > Thanks,
+>     > Mohit
+> 
+>     -- 
+>     With best wishes
+>     Dmitry
+> 
+
