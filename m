@@ -4,114 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20594CD6E55
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 16:25:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AE89CD6E57
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 16:29:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7154011209C;
-	Wed,  3 Jun 2026 16:25:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 194E31120AE;
+	Wed,  3 Jun 2026 16:29:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qjz0ynBA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Xal3Rz/n";
 	dkim-atps=neutral
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
- [209.85.208.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9F5D11209C
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 16:25:22 +0000 (UTC)
-Received: by mail-lj1-f172.google.com with SMTP id
- 38308e7fff4ca-396771119c4so42407121fa.0
- for <dri-devel@lists.freedesktop.org>; Wed, 03 Jun 2026 09:25:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1780503921; x=1781108721; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=8bFE4+s9zgaljDPO1AWoluZ0vX4iTVWOm+qf5IujDVo=;
- b=qjz0ynBAYEbo2p40hrny2zdPNv9fkZ5AZLLBcJaAA8XkZpzGMYq4pnYeRZ35BlEUlD
- wqfzKzKBbewLkX5AmVXhsVJtEkQTn9S3PuaGxWFQ3gMBtrkoVD+Ubv6qXVCEF3HOk+zb
- QuNDLwgz+Awyu2SvByHGNtf4rYCmPSPHip4X4vUtTqJvUF9yT8CdUo8BGuFGCwTmp72W
- EHEIFluurGAhP204Sax5Gr8C1VrI1OwpsmcW0mT5chX1Ie4egdJbtdxPvczPim5XEDRi
- 9ut9neIH3OWB7t2f8wvb+PTSh5PHTVlIBN32orL3D2mXLJOYfkOfizo1FmwnofsCUuyv
- lJ9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780503921; x=1781108721;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=8bFE4+s9zgaljDPO1AWoluZ0vX4iTVWOm+qf5IujDVo=;
- b=dKKrpJ2/Wt0chVGxX1yiPFD6J6aRdPXJ2sx+vofCuzNbcyXzIy/MB5Nck8QOuHt7+a
- fWr024Z/cfdfT2ikfUUZ5xcRmNkfzFBuzPVeXRAiuqpzqDlABDxBCTow3PRtzKFN/ihY
- W8C6YcS3pCRLSnGaCyK1gPzhIPDontmkGlyfbrIQNdbJctKEp9ICEYqxIVTaEnSJ0JLo
- bWWzBq8n2vkcZAu05A2cGN4Yja0qAESqZDyzxsj58V6KB9rsNWGOFD1HxHmdbT+xizkv
- jS+SmKgWwegUko0hi6CBytDob+zCUPWFQ+gvyJXnbwIpCIfRnenNh+jH1tkfwlqwxq/B
- 5LgA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/nKHvI7OaMdY7AdBVKZ6xjH3Ylkf4vlVFdWHzqwLbQCrk7JM30h46r84ro33e8SYtrQqexnSdoRuc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwPVus8wC6Ua1aBL4q4tzVGPfsRga6yw/Ud0/Hwc+5hEnWbIN81
- FwD3HyB3PRn34a2nStm2mBEsSmHD3KETIYhpkz4ohnOEN/oeU18Rn9tTYN8hKskgGY4=
-X-Gm-Gg: Acq92OFewdUd83W5OVLSxfn4EISdydcfCNbDRvKdqvfkwK+sJ4ypQxxQk6fDmUPXqSv
- aJ7xUDQRbN2R7MLNwSTBm8pNS7uHkbtncItZwNG7WPPdT6j68ApgQm47VD1R+XI3UiCkIfwdynd
- gt3uvg+R1Q5A9JA1nb4NYUDULEEq/urqjxTFG4Uh0nuKK3IeJr0VAHCVfrblN5v3/9ebiQM0L1T
- gmcX/5uDh45T69InEHFzpotXsq3ZhULB2rrsBDYWlO2MoOMoYZVjfl8ahm/ivILgKY0qa+hPRoY
- nSqWnV/vJp4/TsoqGqc5tW7E92OjZIvsq8XuJN4aXhFw8kEtjQfNNdyqSRXeQpC/BEh4ig5fS51
- aMeSBrm4BZ1P4NV3hoNlCPRoUt9jPYcHcKUWgSvPXNTW+QhkBX4hXyASi55KANZrN2I2GGI1Dti
- xFsp/SfSG6qrpFZU5JXkHq1bbSt7Awh7QgfidI90ht+GhTK3TV+TbFw1TT4yTTaNN+9w6l0qtie
- FJa0Fydw/61igm2IpuZzfCBmSMs
-X-Received: by 2002:a05:651c:244:b0:38d:e220:8dc2 with SMTP id
- 38308e7fff4ca-396af476a70mr12594011fa.20.1780503920820; 
- Wed, 03 Jun 2026 09:25:20 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:a2a0:317e:910e:9ac9?
- ([2a01:e0a:106d:1080:a2a0:317e:910e:9ac9])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-396ac2be1a3sm10048021fa.20.2026.06.03.09.25.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Jun 2026 09:25:20 -0700 (PDT)
-Message-ID: <bf6155fa-1bf6-45d6-affe-1c8baa3561ba@linaro.org>
-Date: Wed, 3 Jun 2026 18:25:18 +0200
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012040.outbound.protection.outlook.com [40.107.209.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF1A11120AE
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 16:29:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kFRDm3R0oZbFAS553HWJbobaxppT5pP7aLmrpZiG6Br05fh2S+NxykTNk4FeG18rH6RvfJKSKgHIsd7q2Sv9ln0Kb68ag3umgMWs3w+hSM06GKJu/VVEzfhwJGtebUQ24V8u3QlHV76QH4Sn4dMnXvu1RI2TTBTVv4K1zRG+thXxP83qkzE3PK9bhVxfljbFUTZqUXAd+ryxRUmvrzMAVsTs1zFNUgvwnmQoD7re84TdbkD1SnI2hReob6wqI1Q33FenLwvvZySWnL5YbibEjIm8Y8H4f4OW+VCBDGvOu5qhMRhGbUmOH4d3GWMIZlKejkWb/eUH0CVqs2XTuN3GRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oJ6Hbz1lh+GYWCy9DWhsADd57agsPUblKJqU0s3SHPc=;
+ b=QDpoJUSCxGQI8DoItlXj+YWaXaynuYtHKa/dHqNeYa2/W5roA2OrhdJs8QedWRcHxKPB2PwePalUUnwTSE2UPmUythaw3nVETkUiFy4fpYDOJZJmOouwWXZrv9fWnwXYzn+HBzMHqDdPhfgL5aeRYFJq7pfR9401hyAx2kLlSi74fkx+TzWfA1Av+XhkKBcPTlqdi/17OdBpbpUSGDQBSedqz8QQhknsIlujF+anVuyek7vu4cD8fCPE2LUqN+qgVHqrgfCxtjhUfRrRMybg3rBeeM3jJD6GvMVCPpuh4VASFs5nbeLVWtJjBlECYefmmP1IlcFP3cq6estKRbi1QQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linux.dev smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oJ6Hbz1lh+GYWCy9DWhsADd57agsPUblKJqU0s3SHPc=;
+ b=Xal3Rz/nHU8MdI8JsXGldG332KObJPu9u2N3Bo32g9ujbMnBBTVIxTdazIWoacP4/Prm815a7YPTWUfzdLDuez0S+Rv5IXWl+G8E9J7XcowBf12tu7NJXjlGVKZPAq6OANU83oei/MJhUzAE3YLeXrxs6Mc6mqmz7CxkBjvi/6Q=
+Received: from BY3PR10CA0018.namprd10.prod.outlook.com (2603:10b6:a03:255::23)
+ by SJ1PR12MB6337.namprd12.prod.outlook.com (2603:10b6:a03:456::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Wed, 3 Jun 2026
+ 16:29:14 +0000
+Received: from SJ5PEPF00000205.namprd05.prod.outlook.com
+ (2603:10b6:a03:255:cafe::8a) by BY3PR10CA0018.outlook.office365.com
+ (2603:10b6:a03:255::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.7 via Frontend Transport; Wed, 3
+ Jun 2026 16:29:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF00000205.mail.protection.outlook.com (10.167.244.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Wed, 3 Jun 2026 16:29:13 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 3 Jun
+ 2026 11:29:12 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 3 Jun
+ 2026 09:29:12 -0700
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Wed, 3 Jun 2026 11:29:12 -0500
+Message-ID: <9af8e500-d5ca-cc15-05b2-4a5cbf703410@amd.com>
+Date: Wed, 3 Jun 2026 09:29:12 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: Document BOE BF068MWM-TD0
-To: Alexander Koskovich <akoskovich@pm.me>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260603-asteroids-panel-support-v1-0-109c6ac81c8f@pm.me>
- <20260603-asteroids-panel-support-v1-1-109c6ac81c8f@pm.me>
- <4a7c19a3-bb00-4a68-beea-146ef65f9e5c@linaro.org>
- <ALMSs_2ssEuRgFGXhTUpuP022Q2bMpEn0F-QqFgw4PYn8RkcSWGh0e7_lL3XZy1MQpViwpnMj_98Mi8lTP6A3UsRAYi8XuZWdqIAFVT2dq4=@pm.me>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <ALMSs_2ssEuRgFGXhTUpuP022Q2bMpEn0F-QqFgw4PYn8RkcSWGh0e7_lL3XZy1MQpViwpnMj_98Mi8lTP6A3UsRAYi8XuZWdqIAFVT2dq4=@pm.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 1/2] accel/amdxdna: fix memory leak in
+ amdxdna_iommu_alloc() when iommu_map() fails
+Content-Language: en-US
+To: Jackie Liu <liu.yun@linux.dev>, <mamin506@gmail.com>
+CC: <dri-devel@lists.freedesktop.org>
+References: <20260603013543.94835-1-liu.yun@linux.dev>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260603013543.94835-1-liu.yun@linux.dev>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000205:EE_|SJ1PR12MB6337:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4a4efb86-031f-4265-7344-08dec18d3fa7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700016|13003099007|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: E1RpRdrN4AS+sKqDvD0CuYwQIXV0NPny2OXycNPpC5gX9l85YQOXYUbi9Ob3jxVMZnfE8EO9XiVpc+Rav7te0j3r9qL3wXkLL5u4M48hAQ3zv3ocJtPJVVvESSgOy4On9oMVANR00yfFOJ+hgLDVG94FqpC6Lw46/PE+2euET+HGwGPHykzk51K/am9x3/pxETPVmohtzEeRmhPfiq1/aqCXH6jHL+TE/ERbhWax+vFVbcShLxL8uTYbppMW7k7+pJATmZBDVUiTdrvQ6McOaCGIanHXBvdXYg9QKiWdlIm5SHeBRKfulsgsmmGUaChRvh192XSMyzZ1Vt4uQQTZi1N3ngc6MBiknl0p2tgvmjojm2o3gfLiEStU2Zjcd+RmaMe0K+XiC5hs2NcwAnD5kjI6YQwIfaZlWPX1h/u9wtuVx8/8I0RzE5cjOwrO2txuPxMNU77+8K+PbDebjN4d10QbnZYqv3baPPczS0D8lOgcoXvawtH/SXUHduf8rFX62jS4lyVOhfeOE79ASmX2vCYHTS5IxXu1SoyoEdHE+h+UtcnEQLc2e76LJFlUFBmOm5bD2m0X93qflmNHgmKfZ3NwBAmEi5kCHN0eH92SE5Rsl+boIJkV1bre26ohCWs6iEVAdwgZGwSX14xaHEdF+HZt10+EVjKcmNlfxD5oTfgTbWCxFkj4m46JEAyozNjf
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(13003099007)(56012099006)(11063799006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: iI68gtXUDhLiMGocVy1JuxN+3NOs9XNNfJJ7A6LlA4dXlvMn3wCJQHkvpbfOvuBsJ0DDIgQNqO6qqsX+PebwMyfyxDMj/RChYlJV5Qbuz7NaC0+c+F/cCuLy16ZiBYcKJPr/rI6b6xLp/XhZwXwUjRz9lt4YQG2pytGbe6wDl6crlM5n95QhqYK4blGkzoeA6XkYg7AnngOatYqNw4oU17zuTrLJNmeAWfwfkYFySTeqfPJnWCqf0cF1AGqGXQY7EsRrgkB4s6yr5Y50TgYJS3S4r2MvcciGN2jC8ZPf7tq0sGojf3LXZxprwt9WrYLnOWBINuc1Q4Ib5PpAioc3OrjqdKKT4DUl2JXLrpVnYQhYKN4DzVo8/pBh29VWzg5NyJcv8qKTP3Ukq+PhKj5mLl9p2dXIYuk/uvZM4Jv15Iwmcoy+QFtpVWc512/GHpvU
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 16:29:13.4397 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a4efb86-031f-4265-7344-08dec18d3fa7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF00000205.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6337
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,41 +114,51 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/3/26 16:01, Alexander Koskovich wrote:
-> On Wednesday, June 3rd, 2026 at 9:58 AM, Neil Armstrong <neil.armstrong@linaro.org> wrote:
-> 
->> On 6/3/26 15:03, Alexander Koskovich wrote:
->>> +description:
->>> +  This is a 6.77" AMOLED video mode display panel on a MIPI-DSI 4-lane
->>> +  interface.
->>> +
->>> +  The panel also requires ELVDD/ELVSS/ELAVDD rails but these are
->>> +  internally managed by the panel via EL_ON1 (ELAVDD) and EL_ON2
->>> +  (ELVDD/ELVSS) control signals, they are not managed by the platform.
->>> +
->>> +  The driver IC for this panel assembly is an RM69220.
->>
->> If you know the DDIC, please switch to bindings & driver around the RM69220 DDIC
->> instead.
-> 
-> Question about this, isn't the DDIC kind of generic? E.g. another panel
-> assembly with RM69220 cannot use this driver if the actual panel assembly
-> is different.
+Hi Jackie,
 
-The goal is to be able to support DDICs directly in order to support panels on top,
-so just rename it to the DDIC name and add the DDIC as fallback in the compatibles.
+Thanks for providing the patch. This is a known bug and the fix is on 
+the way.
 
-We usually don't know the DDIC, but when it's known let's use the info.
+https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/432fafdc9a3122a7bee5b2bfd23dcf2dc262a3d7
 
-No need to add panel selection logic now.
+Lizhi
 
-Neil
-
-> 
-> Thanks,
-> Alex
-
+On 6/2/26 18:35, Jackie Liu wrote:
+> From: Jackie Liu <liuyun01@kylinos.cn>
+>
+> When iommu_map() fails in amdxdna_iommu_alloc(), the code jumps to
+> the 'free_iova' label which only frees the IOVA allocation. The
+> physical pages allocated by __get_free_pages() are not freed, causing
+> a memory leak.
+>
+> Add a 'free_pages' intermediate label to properly release the pages
+> before freeing the IOVA, matching the cleanup order in
+> amdxdna_iommu_free().
+>
+> Fixes: ece3e8980907 ("accel/amdxdna: Allow forcing IOVA-based DMA via module parameter")
+> Signed-off-by: Jackie Liu <liuyun01@kylinos.cn>
+> ---
+>   drivers/accel/amdxdna/amdxdna_iommu.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/accel/amdxdna/amdxdna_iommu.c b/drivers/accel/amdxdna/amdxdna_iommu.c
+> index 4626434d4180..af67e059d599 100644
+> --- a/drivers/accel/amdxdna/amdxdna_iommu.c
+> +++ b/drivers/accel/amdxdna/amdxdna_iommu.c
+> @@ -110,10 +110,12 @@ void *amdxdna_iommu_alloc(struct amdxdna_dev *xdna, size_t size, dma_addr_t *dma
+>   			iova_align(&xdna->iovad, size),
+>   			IOMMU_READ | IOMMU_WRITE, GFP_KERNEL);
+>   	if (ret)
+> -		goto free_iova;
+> +		goto free_pages;
+>   
+>   	return cpu_addr;
+>   
+> +free_pages:
+> +	free_pages((unsigned long)cpu_addr, get_order(size));
+>   free_iova:
+>   	__free_iova(&xdna->iovad, iova);
+>   	return ERR_PTR(ret);
