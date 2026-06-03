@@ -4,94 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9431CD6E57
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 01:08:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DF3DCD6E5D
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 01:10:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38A0010F721;
-	Wed,  3 Jun 2026 01:08:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF6D410F729;
+	Wed,  3 Jun 2026 01:10:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="BzFtwZfR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bK40Chfx";
 	dkim-atps=neutral
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
- [209.85.222.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62A1A10F721
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 01:08:39 +0000 (UTC)
-Received: by mail-qk1-f175.google.com with SMTP id
- af79cd13be357-91587626a3eso92430185a.2
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 18:08:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1780448918; x=1781053718; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=5b1waI30m43a9rgbDHZrFDb+c/4Zyp2tRTfYwiyzcxw=;
- b=BzFtwZfRQdt5c5l23zCqF6wqlxY7RhDeOrBy8W9XVOudLTaHNOEejBeuyK+j4VepJx
- YbG3h4rbj1AjgdXgp9os40SKlKAwsPe7MfinuAiqrgR61VS6U7Zf1HpI5TDjspnknQJk
- pk3MCp9avylgJ3sPlQoJ+yZimPVsB8EriG8ZTwdPWRv0XLaobnV4TC8HcAWnorZGY71A
- 8oFdPR/gKqO3mzgHdia2eozmuFLoe5hFjSd5a8UNDJEQgX05T+R77y0m1MEFJRRLOEDQ
- +ztE8TUEozwpq8JRjC1PCavt+3q9I/04lnHfvGfTizkVq5Z9ilsdipSPASJrP7mJVVlk
- erDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780448918; x=1781053718;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=5b1waI30m43a9rgbDHZrFDb+c/4Zyp2tRTfYwiyzcxw=;
- b=HQosscHy73zRPgWdkOeRJwUwLmbaaKk06203byJGFdLp60NDLudPB+TXOpdzxLKZqo
- FxgBnpt5Jm2pK1M0v6VgCESwRw5yzFHA/d+wnsxOyVUTqelxfkuwLmrAADDv8NJ/GQXj
- WZ2a9fvQZ3tQuzkm9Z+T3c2CVg93OYq08TZLLazwCJrI2qkzk8a9k46d66nfAhtuqn8U
- mkLGNr1wNbvAvM7+POCUFyU+FHBlz5+n0PGfoH2YgzpEI8sbRrUzQn51qasc13nLH1ps
- YJBqEjQ5STOmVweEqit3tT8ahlpEsjEGR4It9vMAKYCwgj4lLAMoEbLesQMRDFAl8Pou
- OybQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+/fhliD+x1dq2MMM+gTyPElvF6xhf+Rpe+x6dOTZvflMOb+YS0A8fW2O8Cq87Ibe+nAAaoSHUfx9g=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyPujd4NK4m8XElW9tDSda+tobDhNyQKAEV0sbypsZuMkiX1ABl
- XgepLKKdNoZIGfv7ccKLURXiXeo5U3Zq7gwCC6Nu0maMs5pQFgFN2zMCxra44DLxEBU=
-X-Gm-Gg: Acq92OGzpla45DIyc3dOgYOPKdtJPd4X91hpD0sJQ0eLMCtDBRWRNKUx4YcBEjF76Lg
- +xHE/6Q/ZPQPF/u5m/eYo3VttVEHMWG27BOsgDEh2lb4+Yfad0b1VKJoN2DsxvdjcEELnq247/2
- e1VxpDtSVX+8n6cjcMQQH8sVfuoKkz2X2HxN2HLjBMnIUt93bNwKSyLwgc9nE11zC9BMObwJW0c
- KT0rYrmbbxowGdC18lW1I/BBjfg8KpT61JbSZQYa/7ZG0S2XjebgBa6yXW3ZySyOQdF9vE5PmE2
- GwoYd+zLDx0TCmQkbNcL9cV+mAdNOFk6SxwrJc0G/FXYuApqdOVtoX5yDCkBHxuibVPeQSZnW+6
- B18i1pWUCrXZQGLeOTwYG1Z8xlNC+G3Fyu8+Doo/60Mati4v1CdVJINVs0KhzXJ22ult3AWq4M6
- RZnfa5c0x8urce8o3kaaGIQD/X2FiXwz9KSkkFKgwaFcXJewyeoaXjKHniYZZLUriH83tcARB2H
- V/KDps1w5xh/Lv4
-X-Received: by 2002:a05:620a:1722:b0:911:de69:ee21 with SMTP id
- af79cd13be357-9158a656dbdmr268795585a.11.1780448917995; 
- Tue, 02 Jun 2026 18:08:37 -0700 (PDT)
-Received: from ziepe.ca
- (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
- [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9158a37c50bsm99840585a.24.2026.06.02.18.08.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jun 2026 18:08:37 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1wUa60-00000004yEH-2fsG;
- Tue, 02 Jun 2026 22:08:36 -0300
-Date: Tue, 2 Jun 2026 22:08:36 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Guanghui Feng <guanghuifeng@linux.alibaba.com>
-Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
- baolu.lu@linux.intel.com, boris.brezillon@collabora.com,
- dri-devel@lists.freedesktop.org, dwmw2@infradead.org,
- iommu@lists.linux.dev, joro@8bytes.org, kevin.tian@intel.com,
- kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, liviu.dudau@arm.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- oliver.yang@linux.alibaba.com, robh@kernel.org,
- robin.murphy@arm.com, shiyu.zsq@linux.alibaba.com,
- steven.price@arm.com, suravee.suthikulpanit@amd.com,
- tzimmermann@suse.de, wei.guo.simon@linux.alibaba.com,
- will@kernel.org, xlpang@linux.alibaba.com,
- alikernel-developer@linux.alibaba.com
-Subject: Re: [PATCH v2 01/30] iommu: introduce iova_to_phys_length in
- iommu_domain_ops
-Message-ID: <20260603010836.GQ2487554@ziepe.ca>
-References: <20260531093637.3893199-1-guanghuifeng@linux.alibaba.com>
- <20260602104637.1219810-1-guanghuifeng@linux.alibaba.com>
- <20260602104637.1219810-2-guanghuifeng@linux.alibaba.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 675D910F729
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 01:10:28 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 94C99601F6;
+ Wed,  3 Jun 2026 01:10:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78B2A1F00893;
+ Wed,  3 Jun 2026 01:10:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780449027;
+ bh=vg4OT7qVOOfiZWFV5Vcsuizp9IDFD8+pqun6oZHSTcM=;
+ h=From:To:Cc:Subject:Date;
+ b=bK40Chfx+OYTbVFoho2VApu/zYarNWFjOtFjO7yjtr8tQILFmaHSzBTcATrsQ5lOt
+ BzzDNGMelyIeLbDps5lE25YcnmL4lOYemVseUghlhimjykx9sBLUxO/LVIuSL5TfNs
+ /WQnxYsAq1fscjQsNbEJcqZ0vTlc7b0aNghVgTWJLDxqJEOaw9TQDel7YZUsuO3J/U
+ xsIDlEF8LylAtjBaClr+Snzq5QWNI8rrwO3FZocJauVvMtXjo/U1dOYTfN61eJf06J
+ id3S68G+VgFIL2GjMBROGyqe855oW7lPLcRhPVROkwQt06aDl4mcPl/Df8zgTSm7Ry
+ MwU62cK2I0z0Q==
+From: Danilo Krummrich <dakr@kernel.org>
+To: gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
+ ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
+ aliceryhl@google.com, tmgross@umich.edu, acourbot@nvidia.com,
+ ecourtney@nvidia.com, m.wilczynski@samsung.com, david.m.ertman@intel.com,
+ ira.weiny@intel.com, leon@kernel.org, daniel.almeida@collabora.com,
+ bhelgaas@google.com, kwilczynski@kernel.org
+Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-pwm@vger.kernel.org, rust-for-linux@vger.kernel.org
+Subject: [PATCH v2 0/7] ForLt/CovariantForLt split,
+ auxiliary closure API and DevresLt
+Date: Wed,  3 Jun 2026 03:10:11 +0200
+Message-ID: <20260603011020.2073650-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260602104637.1219810-2-guanghuifeng@linux.alibaba.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,42 +63,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 02, 2026 at 06:46:08PM +0800, Guanghui Feng wrote:
-> +/**
-> + * iommu_iova_to_phys_length - Translate IOVA and return mapping page size
-> + * @domain: IOMMU domain to query
-> + * @iova: IO virtual address to translate
-> + * @mapped_length: Output parameter for the PTE page size (e.g. 4KB/2MB/1GB)
-> + *
-> + * Like iommu_iova_to_phys() but additionally returns the page size of the
-> + * PTE mapping at @iova through @mapped_length.
-> + *
-> + * Return: The physical address for the given IOVA, or PHYS_ADDR_MAX if no translation.
-> + */
-> +phys_addr_t iommu_iova_to_phys_length(struct iommu_domain *domain,
-> +				       dma_addr_t iova,
-> +				       size_t *mapped_length)
->  {
-> +	if (mapped_length)
-> +		*mapped_length = 0;
-> +
->  	if (domain->type == IOMMU_DOMAIN_IDENTITY)
->  		return iova;
+The ForLt trait currently guarantees covariance, which allows safe
+lifetime shortening via cast_ref(). However, some types (e.g. those
+containing Mutex<&'bound T>) are invariant over their lifetime parameter
+and cannot safely use cast_ref().
 
-This doesn't seem right. It needs to return a mapped_length of
-something that is not zero..
+This series splits ForLt into two traits:
 
-> -	if (domain->type == IOMMU_DOMAIN_BLOCKED)
-> -		return 0;
-> +	if (!domain->ops->iova_to_phys_length) {
-> +		/* Fallback to legacy iova_to_phys without length info */
-> +		if (domain->ops->iova_to_phys) {
-> +			phys_addr_t phys = domain->ops->iova_to_phys(domain, iova);
-> +			if (phys && mapped_length)
-> +				*mapped_length = PAGE_SIZE;
-> +			return phys ? phys : PHYS_ADDR_MAX;
-> +		}
+  - ForLt: base trait providing unsafe cast_ref_unchecked() for all
+    lifetime-parameterized types.
 
-Follow success oriented flow..
+  - CovariantForLt: unsafe subtrait that guarantees covariance,
+    providing a safe cast_ref() method.
 
-Jason
+For invariant types, a closure-based API (registration_data_with()) is
+added to the auxiliary subsystem. The closure's HRTB prevents the caller
+from choosing a concrete lifetime, which would be unsound for invariant
+types.
+
+On top of that, this series adds DevresLt<F: ForLt>, a thin wrapper
+around Devres<F::Of<'static>> that shortens the stored 'static lifetime
+back to the caller's borrow scope. DevresLt provides both closure-based
+access (access_with/try_access_with for ForLt types) and direct
+reference access (access/try_access for CovariantForLt types).
+
+Also implement ForLt and CovariantForLt for Bar, IoMem and
+ExclusiveIoMem, and update their into_devres() methods to return
+DevresLt. Provide convenience type aliases DevresBar, DevresIoMem and
+DevresExclusiveIoMem.
+
+Changes in v2:
+- Fold the ForLt -> CovariantForLt rename and the new ForLt base trait
+  into this series
+- Add closure-based registration_data_with() for auxiliary ForLt types
+- Add auxiliary sample demonstrating ForLt with an invariant Mutex type
+- DevresLt: add closure-based access_with()/try_access_with() for ForLt
+  types alongside direct access()/try_access() for CovariantForLt types
+- Make DevresLt::new() unsafe; callers must guarantee the data outlives
+  the device binding
+- Implement both ForLt and CovariantForLt (previously just ForLt) for
+  Bar, IoMem, ExclusiveIoMem
+- Various safety comment and documentation improvements
+
+Danilo Krummrich (7):
+  rust: types: rename ForLt to CovariantForLt
+  rust: types: introduce ForLt base trait for CovariantForLt
+  rust: auxiliary: add registration_data_with() for ForLt types
+  rust: auxiliary: sample: demonstrate ForLt with invariant Mutex type
+  rust: devres: add DevresLt for ForLt-aware device resource access
+  rust: pci: return DevresLt from Bar::into_devres()
+  rust: io: mem: return DevresLt from
+    IoMem/ExclusiveIoMem::into_devres()
+
+ drivers/gpu/nova-core/driver.rs       |   4 +-
+ drivers/pwm/pwm_th1520.rs             |   5 +-
+ rust/kernel/auxiliary.rs              |  74 +++++++++++++---
+ rust/kernel/devres.rs                 | 110 +++++++++++++++++++++++
+ rust/kernel/io/mem.rs                 |  65 +++++++++-----
+ rust/kernel/pci.rs                    |   1 +
+ rust/kernel/pci/io.rs                 |  37 +++++---
+ rust/kernel/types.rs                  |   1 +
+ rust/kernel/types/for_lt.rs           | 122 ++++++++++++++++++++------
+ rust/macros/for_lt.rs                 |  52 ++++++++---
+ rust/macros/lib.rs                    |  18 +++-
+ samples/rust/rust_driver_auxiliary.rs |  96 ++++++++++++++------
+ 12 files changed, 472 insertions(+), 113 deletions(-)
+
+
+base-commit: 0023a1e8d01a9d400257d30c851bd16a29568809
+-- 
+2.54.0
+
