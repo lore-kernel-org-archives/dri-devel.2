@@ -4,70 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF60DCD6E4A
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 03:36:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33B38CD6E55
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 05:19:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3631310F80F;
-	Wed,  3 Jun 2026 03:36:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C40210E108;
+	Wed,  3 Jun 2026 05:19:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="gvJSlXfD";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Tz4k9u8e";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DpR+ZjCF";
 	dkim-atps=neutral
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC83610F80F
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 03:36:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
- s=altu2504; t=1780457751;
- bh=3osqFgBIrekk0aasLKdM5b2OMYUqCjmmQPGJNM+Bp4I=;
- h=From:To:Subject:Date:Message-Id;
- b=gvJSlXfD+PsAsdJHkgL9ttFyxaR0I/ZEEd8dENvWyqZHqAifjIfvX9jeJHNXes5hi
- 4IGmFdQcEpA4FMSjD4j809rccid/N2Uux5E2ic7YoxJfcsBwi7gbWHRYqi6PM8of8j
- c1yLNSYF2vXOvVfU6pLxpN/519TxuoyJfIUha5Cs=
-X-QQ-mid: zesmtpsz3t1780457749t34a776f7
-X-QQ-Originating-IP: CPrpKAdSZ/ltdFjp1z8IAthR2uE4Y8wFlpZ9Tj6q6XI=
-Received: from DESKTOP-8BT1A2O.localdomain ( [58.22.7.114])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 03 Jun 2026 11:35:46 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 2992502231679952474
-From: Chaoyi Chen <kernel@airkyi.com>
-To: Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EB0110E108
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 05:19:28 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6533gsxk841648
+ for <dri-devel@lists.freedesktop.org>; Wed, 3 Jun 2026 05:19:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ jOezco5+6BfmrPgKfWENo0B2DWVFkDWfjF+LxPufsWM=; b=Tz4k9u8ewVkJrO5B
+ 99GB3NoAxaV/ZgnBI5djpO9t9CiuxBOwWbgiYZ15Dou2NkfUl8fwbVqvcH43VPdv
+ CbvtGdm5wm1S3ktWSq+pyilEiuMMVToFEPobSTan3F5560/XS80pGmmVW5AVHTka
+ O/8ly7e9RsUFprK66xn7pC6IE/4WSSuiMoOzXQeNBZA9BdpGzL0Ruv7bIJaWERnR
+ odTUeR0vun/2F2aJVwrX5Lj/iykCVQFntqTduXCHhVjh1peZZaYQhw4J+Ygb5VP+
+ qxFlqBpRupSQbHc59MIYsSyr4/NOmG4Txf3R0iRg1a5Tb03mfXePTk1nxr3pyR1o
+ J6EcXQ==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ejckw08pd-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 03 Jun 2026 05:19:27 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-36bba9b849dso5079070a91.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 22:19:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1780463966; x=1781068766;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=jOezco5+6BfmrPgKfWENo0B2DWVFkDWfjF+LxPufsWM=;
+ b=DpR+ZjCFT7pRt3Zx31wXTDZWCLeP/pDeUMqUrKC2k025xD1U0OAqA1Q3DFTptnzm/v
+ wikXXQ5ofoGn0LhwRu+pybw14rAyPf6EhFWeCc6eVmn2zpBadVvM3c0utfeIkoJGGOAv
+ 2sq6fmE2bMuIkjvFGcl+RV/1WS+DLOshYQNtAu9EoF6ml5/75g+Id3X+CtFZfp958lQu
+ p+i+COq7zzcXpJb5uBcoUW3eTgXx+r/02S92BakRlfbxhs3BnDmiFJenJLQIejD+Z0NC
+ sZKk87eHLY7uxp1M2ftD9CuknJjm3LYjTl3B7kPcT67pABN9PtKzGUcf+esiThGrIxjc
+ YjmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780463966; x=1781068766;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=jOezco5+6BfmrPgKfWENo0B2DWVFkDWfjF+LxPufsWM=;
+ b=LU6eID5Y+7fgENYDZ8D0iTlNLTUymoqu3NysSFuqVq9uE+dmCp99xP5Ar7DV00GWFv
+ rd0COX42NrWkbD3KXiTZ2E2z5VTclJA6vtN7tpVWbYxJJgid6FmJkfAXFKl4b/qNmZkQ
+ EJ7CugLGIXyFlc5FiQy+PfkN0ku43dx6iXWGX1BZBznoxSq0qKzE7bxRCi8nWsx9+DeC
+ P3IbwCm7sTKp3sQ/qwbPi+9RVMI01haYcf8iqIHKpRkg9LBxf6LsZkDL7QBPgWv7gpQ7
+ iBltb5WUL6czgN8NEdO588IQtQEPSe2T91brbu5irevw1XnWiVl2/wfTEAUJZoj+P7VI
+ JG3A==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8W9uOYpLZty31IfQR+kWNv3w6J+Sxn7wtYOod8uObc0JvU4X3Qd3mkrNW0mvV8vu1zbDErhUCpXR4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxRqtm0HFKHOTGTrHRqV+xHmawAoIJ+1FOU+yGyOic7RlxhbYuf
+ YOlJqOoOhfrFE4ofUNgvnrszNTx9dazUli5g2mVtCvmEYdIypi4Qz2mkhnZcqv1939iiTysGdSj
+ y9QBVrH4kQ/Y351lv+ArCANE5xdFF5719ypLJ+18aMS25IHnrij7W8spwH4z9ZH4h3PedGzQ=
+X-Gm-Gg: Acq92OGgrP/XtytTVvt+4vGHsiQ0Laj8/AkX951ZQB/6Ky8KSfWusvZ6YZF3LnueMAn
+ 4jQFvKYiJ+GhU14/3K1U56n2xiGTU2XtqeVTCJcpuF8ZvCdMEhoxm4lqF0cfemIl0COjw7LDzun
+ m19lCbkr038FfUrvW5ROuixwTTrLLBQJ8/us+dP5J8YUmk/3FIlu4ssRzURSJUmGiswkg0P7siz
+ BKuPBNqFowTFGC0ytVP2ENpBw1Fr9AL/BG2F278ve7O4aw020tIUUcJPmF85Wt2Pp0G5ACwM8vX
+ 61WExmRZ6O2PF21FmXNybCuqjaIH9mWqig18av+yCdyvTsm6EOaHbAKFf1WMxX0R5KWlSLuV467
+ JWDO56e6YjPJBBKyTDcxBax77GUyXL78ZWCjqT8PUNhzP7bSLM7BrC3A/D/iQ
+X-Received: by 2002:a17:90b:540c:b0:368:5367:d679 with SMTP id
+ 98e67ed59e1d1-36e2f3c32demr2076736a91.9.1780463966254; 
+ Tue, 02 Jun 2026 22:19:26 -0700 (PDT)
+X-Received: by 2002:a17:90b:540c:b0:368:5367:d679 with SMTP id
+ 98e67ed59e1d1-36e2f3c32demr2076710a91.9.1780463965719; 
+ Tue, 02 Jun 2026 22:19:25 -0700 (PDT)
+Received: from [10.204.78.54] ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-36e0a14485esm1695509a91.3.2026.06.02.22.19.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 02 Jun 2026 22:19:25 -0700 (PDT)
+Message-ID: <77511905-1dac-4605-8195-68ec770740d2@oss.qualcomm.com>
+Date: Wed, 3 Jun 2026 10:49:15 +0530
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/15] accel/qda: Add QDA driver documentation
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Guochun Huang <hero.huang@rock-chips.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Subject: [PATCH v2 2/3] drm/rockchip: dsi: Add dphy_get_timing support for
- multiple PHY types
-Date: Wed,  3 Jun 2026 11:35:31 +0800
-Message-Id: <20260603033532.164-3-kernel@airkyi.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20260603033532.164-1-kernel@airkyi.com>
-References: <20260603033532.164-1-kernel@airkyi.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: M3vv73qU6a4uywa5T2AnRL6EIQAHH/XOu9LDGz7BOSmPu1DEwe4Uv/X9
- Ja5mH1RQ4kXo+G1fFvwGs+jg+duS9pzC5mfEZ8BtBg08AqTI7QfZ4kNCBoljEHvwI2E9qpt
- /9+Fx6kehX0j1Mj7DD630FMXJe2INVUlcuWu0PsXum8aaguOI+i4e6+m5BavFApuCG0PUU7
- abP6pf/e00vrDUdqDSVJJFMxHHTwEDsXjYw24+PT05JfRD9IhfDmOJvbhiZm73d+EfDYjCy
- Kmwgm8oNuGYat7CZ3UKf7SIZh46kWX/o9F8tBWwTt9njh8y4fa/WlgbbdarLEtCp2BcadDR
- gVk9+OaM8raWFdHlLwRQA9excKKbo+bRZb5EnsIshgIklFQXJT6i3Ulb0VkYrXaxpdn6www
- cBbElRRpY5lIMj9zXDp3IATuK+nNGGzqv12Cyfz/hkU/2oF9Z8sumTnr+DC4VggjaUVwgQp
- Xuky10Qib1F0tigs+X7+ybYN2KdxqlMeyOz9wm7LaMAAy+KocB16F52hN+gEKQkP7Q341nS
- MDNQRl982ypVIlm5VQ6i78bYNQRVRYskTssQmhSJbAqNpIgdSo0N5e06EC9XyziptpeBeMU
- D7Fh9R1Lp7IRJCZNuI2eC9WLeDJapQ+8vInzsquavsPtp34s7D+f1Q83iQ5CRcKBJrezkuC
- w+LKSFp2Bx2oTTFxZqCawYaz6Py37nCFYnietMUg/cW4mgRC6VeDsJh6IEBOfiGriyRlyjY
- qNKMdwnUdi9/RMS75ZGPDfQFRxMqvt6HYfdK56cjijYOVptJKHRHJ8hVEpL6Pxt7uE1qorJ
- xY6izUoUXVUBalUVypexZM+xM8tmsVDQ2coMzCuLo7TUlcVub8RCbQHDv+pEwYWFwD4i0C7
- 2JA5mx0M0JVZxyl1CJ/SedpSWtUFGRnE9eqC0C5dnUxaZFmdn5Q65FXZ007w7pS3pBxxMz/
- Ppv5iIpOAe+D1owKYgVqX8ItRoC64miQukdMdPYlj4q5WDwP8AUttRL09Dp77utZm3nztZq
- gNJFA+yEC7VvfxCAa0W3xH0KvPjFXtexpwj3gohQ==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>, srini@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org,
+ robin.clark@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+References: <20260519-qda-series-v1-0-b2d984c297f8@oss.qualcomm.com>
+ <20260519-qda-series-v1-2-b2d984c297f8@oss.qualcomm.com>
+ <paiohsil5pmvm7cf6jxrhaj2225bgvlt3scrag4x6gbkyosow5@l4tbakbnxcvo>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <paiohsil5pmvm7cf6jxrhaj2225bgvlt3scrag4x6gbkyosow5@l4tbakbnxcvo>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: g7fIyBzJAP5hMTDF5F5ILFZ5eStqj5JM
+X-Authority-Analysis: v=2.4 cv=edUNubEH c=1 sm=1 tr=0 ts=6a1fb95f cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=yE1-P__lAf5keu_9ItMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAzMDA0NyBTYWx0ZWRfX/dTC9FKCYLs+
+ l/BGx4qUAUNJJ95qLU2A/sXI67kbrpukxXXXsXKzWjbuydsI1FBjM3RUeaTiAcaLgfXsTQZjCyx
+ QLLCWGLZz/Od6Wob/VmxZAZjN6FKaj4BQV/HjycmtCyWsYqL7bqkAt4wPED3FSk/B9aW0U2qdoY
+ To1t390sYUp6ywCQZMq4MX+bOd4EHfM+SOuWPwlkrrBgUuwZYekZFHVlYZPGW5mWFeFZzygOeXP
+ FUClOvhuUnr4RjHAoee3JCLSuqFAwOSpOQyzVr6O0i3HsONzWbwKRsZIInERqpxl68crdZxuZnw
+ hhIaRSdc+mOmZDCO0SHuMp0S42Bz1Gl+R0jQuLHan0rK6lrsVH+oSBLAnZ4aX7vRplMg18K+x/v
+ 0fn+kwjmYd0x3u+bYCL8OAq9b6DTZsxyxFrnIkEn68EYtdE30BPo/rf/X93pDo+adueqBwdTsuJ
+ lpBkjsTrcJgPS3nCEpw==
+X-Proofpoint-GUID: g7fIyBzJAP5hMTDF5F5ILFZ5eStqj5JM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-03_02,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 malwarescore=0 suspectscore=0 impostorscore=0
+ spamscore=0 lowpriorityscore=0 bulkscore=0 phishscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606030047
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,177 +156,239 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-
-Currently, there are generally two types of DPHY for Rockchip. One is
-the DPHY used by RK3288/RK3399, whose timing is described by Table A-3
-High-Speed Transition Times in the databook. The other is the DPHY used
-by PX30 and its successors. If its timing is still described using
-RK3288/RK3399, it may not perform correctly on some DSI panel.
-
-Add dphy_get_timing for different D-PHY types to adapt to timing
-differences. The configuration details are as follows:
-
-- RK3288/RK3399: Select the corresponding entry from the timing table based
-                 on the data rate.
-- PX30 and later platforms: Use a fixed timing configuration.
-
-Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
----
-Changes in v2:
-- Add more comment about timing config.
-
----
- .../gpu/drm/rockchip/dw-mipi-dsi-rockchip.c   | 45 ++++++++++++++++++-
- 1 file changed, 43 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-index 1060abec9f29..e64dfc327891 100644
---- a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-@@ -247,6 +247,7 @@ enum {
- 	BIASEXTR_127_7,
- };
- 
-+struct dw_mipi_dsi_rockchip;
- struct rockchip_dw_dsi_chip_data {
- 	u32 reg;
- 
-@@ -262,6 +263,9 @@ struct rockchip_dw_dsi_chip_data {
- 	u32 lanecfg2_grf_reg;
- 	u32 lanecfg2;
- 
-+	int (*dphy_get_timing)(struct dw_mipi_dsi_rockchip *dsi, unsigned int lane_mbps,
-+			       struct dw_mipi_dsi_dphy_timing *timing);
-+
- 	int (*dphy_rx_init)(struct phy *phy);
- 	int (*dphy_rx_power_on)(struct phy *phy);
- 	int (*dphy_rx_power_off)(struct phy *phy);
-@@ -721,8 +725,9 @@ static struct hstt hstt_table[] = {
- };
- 
- static int
--dw_mipi_dsi_phy_get_timing(void *priv_data, unsigned int lane_mbps,
--			   struct dw_mipi_dsi_dphy_timing *timing)
-+dw_mipi_dsi_phy_rk3288_get_timing(struct dw_mipi_dsi_rockchip *dsi,
-+				  unsigned int lane_mbps,
-+				  struct dw_mipi_dsi_dphy_timing *timing)
- {
- 	int i;
- 
-@@ -738,6 +743,32 @@ dw_mipi_dsi_phy_get_timing(void *priv_data, unsigned int lane_mbps,
- 	return 0;
- }
- 
-+static const struct dw_mipi_dsi_dphy_timing dphy_timing_px30 = {
-+	.clk_lp2hs = 0x40,
-+	.clk_hs2lp = 0x40,
-+	.data_lp2hs = 0x10,
-+	.data_hs2lp = 0x14,
-+};
-+
-+static int
-+dw_mipi_dsi_phy_px30_get_timing(struct dw_mipi_dsi_rockchip *dsi,
-+				unsigned int lane_mbps,
-+				struct dw_mipi_dsi_dphy_timing *timing)
-+{
-+	*timing = dphy_timing_px30;
-+
-+	return 0;
-+}
-+
-+static int
-+dw_mipi_dsi_phy_get_timing(void *priv_data, unsigned int lane_mbps,
-+			   struct dw_mipi_dsi_dphy_timing *timing)
-+{
-+	struct dw_mipi_dsi_rockchip *dsi = priv_data;
-+
-+	return dsi->cdata->dphy_get_timing(dsi, lane_mbps, timing);
-+}
-+
- static const struct dw_mipi_dsi_phy_ops dw_mipi_dsi_rockchip_phy_ops = {
- 	.init = dw_mipi_dsi_phy_init,
- 	.power_on = dw_mipi_dsi_phy_power_on,
-@@ -1506,6 +1537,7 @@ static const struct rockchip_dw_dsi_chip_data px30_chip_data[] = {
- 
- 		.max_data_lanes = 4,
- 		.max_bit_rate_per_lane = 1000000000UL,
-+		.dphy_get_timing = dw_mipi_dsi_phy_px30_get_timing,
- 	},
- 	{ /* sentinel */ }
- };
-@@ -1519,6 +1551,7 @@ static const struct rockchip_dw_dsi_chip_data rk3128_chip_data[] = {
- 						RK3128_DSI_FORCETXSTOPMODE), 0),
- 		.max_data_lanes = 4,
- 		.max_bit_rate_per_lane = 1000000000UL,
-+		.dphy_get_timing = dw_mipi_dsi_phy_px30_get_timing,
- 	},
- 	{ /* sentinel */ }
- };
-@@ -1532,6 +1565,7 @@ static const struct rockchip_dw_dsi_chip_data rk3288_chip_data[] = {
- 
- 		.max_data_lanes = 4,
- 		.max_bit_rate_per_lane = 1500000000UL,
-+		.dphy_get_timing = dw_mipi_dsi_phy_rk3288_get_timing,
- 	},
- 	{
- 		.reg = 0xff964000,
-@@ -1541,6 +1575,7 @@ static const struct rockchip_dw_dsi_chip_data rk3288_chip_data[] = {
- 
- 		.max_data_lanes = 4,
- 		.max_bit_rate_per_lane = 1500000000UL,
-+		.dphy_get_timing = dw_mipi_dsi_phy_rk3288_get_timing,
- 	},
- 	{ /* sentinel */ }
- };
-@@ -1554,6 +1589,7 @@ static const struct rockchip_dw_dsi_chip_data rk3368_chip_data[] = {
- 						RK3368_DSI_FORCERXMODE), 0),
- 		.max_data_lanes = 4,
- 		.max_bit_rate_per_lane = 1500000000UL,
-+		.dphy_get_timing = dw_mipi_dsi_phy_px30_get_timing,
- 	},
- 	{ /* sentinel */ }
- };
-@@ -1642,6 +1678,7 @@ static const struct rockchip_dw_dsi_chip_data rk3399_chip_data[] = {
- 		.flags = DW_MIPI_NEEDS_PHY_CFG_CLK | DW_MIPI_NEEDS_GRF_CLK,
- 		.max_data_lanes = 4,
- 		.max_bit_rate_per_lane = 1500000000UL,
-+		.dphy_get_timing = dw_mipi_dsi_phy_rk3288_get_timing,
- 	},
- 	{
- 		.reg = 0xff968000,
-@@ -1671,6 +1708,7 @@ static const struct rockchip_dw_dsi_chip_data rk3399_chip_data[] = {
- 		.dphy_rx_init = rk3399_dphy_tx1rx1_init,
- 		.dphy_rx_power_on = rk3399_dphy_tx1rx1_power_on,
- 		.dphy_rx_power_off = rk3399_dphy_tx1rx1_power_off,
-+		.dphy_get_timing = dw_mipi_dsi_phy_rk3288_get_timing,
- 	},
- 	{ /* sentinel */ }
- };
-@@ -1698,6 +1736,7 @@ static const struct rockchip_dw_dsi_chip_data rk3568_chip_data[] = {
- 			     FIELD_PREP_WM16_CONST(RK3568_DSI0_FORCERXMODE, 0)),
- 		.max_data_lanes = 4,
- 		.max_bit_rate_per_lane = 1200000000UL,
-+		.dphy_get_timing = dw_mipi_dsi_phy_px30_get_timing,
- 	},
- 	{
- 		.reg = 0xfe070000,
-@@ -1708,6 +1747,7 @@ static const struct rockchip_dw_dsi_chip_data rk3568_chip_data[] = {
- 			     FIELD_PREP_WM16_CONST(RK3568_DSI1_FORCERXMODE, 0)),
- 		.max_data_lanes = 4,
- 		.max_bit_rate_per_lane = 1200000000UL,
-+		.dphy_get_timing = dw_mipi_dsi_phy_px30_get_timing,
- 	},
- 	{ /* sentinel */ }
- };
-@@ -1721,6 +1761,7 @@ static const struct rockchip_dw_dsi_chip_data rv1126_chip_data[] = {
- 			     FIELD_PREP_WM16_CONST(RV1126_DSI_FORCETXSTOPMODE, 0)),
- 		.max_data_lanes = 4,
- 		.max_bit_rate_per_lane = 1000000000UL,
-+		.dphy_get_timing = dw_mipi_dsi_phy_px30_get_timing,
- 	},
- 	{ /* sentinel */ }
- };
--- 
-2.53.0
+On 20-05-2026 19:42, Dmitry Baryshkov wrote:
+> On Tue, May 19, 2026 at 11:45:52AM +0530, Ekansh Gupta via B4 Relay wrote:
+>> From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+>>
+>> Add documentation for the Qualcomm DSP Accelerator (QDA) driver under
+>> Documentation/accel/qda/. The documentation covers the driver
+>> architecture, GEM-based buffer management, IOMMU context bank
+>> isolation, and the RPMsg transport layer.
+>>
+>> The user-space API section describes the DRM IOCTLs for session
+>> management, GEM buffer allocation, and remote procedure invocation via
+>> the FastRPC protocol, along with a typical application lifecycle
+>> example. Sections for dynamic debug and basic testing are also
+>> included.
+>>
+>> Wire the new documentation into the Compute Accelerators index at
+>> Documentation/accel/index.rst.
+>>
+>> Assisted-by: Claude:claude-4-6-sonnet
+>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+>> ---
+>>  Documentation/accel/index.rst     |   1 +
+>>  Documentation/accel/qda/index.rst |  13 ++++
+>>  Documentation/accel/qda/qda.rst   | 146 ++++++++++++++++++++++++++++++++++++++
+>>  3 files changed, 160 insertions(+)
+>>
+>> diff --git a/Documentation/accel/index.rst b/Documentation/accel/index.rst
+>> index cbc7d4c3876a..5901ea7f784c 100644
+>> --- a/Documentation/accel/index.rst
+>> +++ b/Documentation/accel/index.rst
+>> @@ -10,4 +10,5 @@ Compute Accelerators
+>>     introduction
+>>     amdxdna/index
+>>     qaic/index
+>> +   qda/index
+>>     rocket/index
+>> diff --git a/Documentation/accel/qda/index.rst b/Documentation/accel/qda/index.rst
+>> new file mode 100644
+>> index 000000000000..013400cf9c25
+>> --- /dev/null
+>> +++ b/Documentation/accel/qda/index.rst
+>> @@ -0,0 +1,13 @@
+>> +.. SPDX-License-Identifier: GPL-2.0-only
+>> +
+>> +==================================
+>> +accel/qda Qualcomm DSP Accelerator
+>> +==================================
+>> +
+>> +The QDA driver provides a DRM accel based interface for Qualcomm DSP offload.
+>> +It uses the FastRPC protocol and integrates with DRM and GEM infrastructure
+>> +for device and buffer management.
+>> +
+>> +.. toctree::
+>> +
+>> +   qda
+>> diff --git a/Documentation/accel/qda/qda.rst b/Documentation/accel/qda/qda.rst
+>> new file mode 100644
+>> index 000000000000..9f49af6e6acc
+>> --- /dev/null
+>> +++ b/Documentation/accel/qda/qda.rst
+>> @@ -0,0 +1,146 @@
+>> +.. SPDX-License-Identifier: GPL-2.0-only
+>> +
+>> +=====================================
+>> +Qualcomm DSP Accelerator (QDA) Driver
+>> +=====================================
+>> +
+>> +Introduction
+>> +============
+>> +
+>> +The QDA driver is a DRM accel driver for Qualcomm's DSPs. It provides a
+>> +DRM accel based interface for Qualcomm DSP offload, supporting workloads
+>> +such as AI inference, computer vision, audio processing, and sensor offload
+>> +on Qualcomm SoCs. It uses the FastRPC protocol and integrates with DRM and
+>> +GEM infrastructure for device and buffer management.
+>> +
+>> +Key Features
+>> +============
+>> +
+>> +*   **DRM accel Interface**: Exposes a standard character device node
+>> +    (e.g., ``/dev/accel/accel0``) via the DRM accel subsystem.
+>> +*   **FastRPC Protocol**: Implements the FastRPC protocol for communication
+>> +    between the application processor and the DSP.
+>> +*   **GEM Buffer Management**: Uses the DRM GEM interface for buffer
+>> +    allocation, lifecycle management, and DMA-BUF import/export.
+>> +*   **IOMMU Isolation**: Uses IOMMU context banks to enforce memory isolation
+>> +    between different DSP user sessions.
+>> +*   **Modular Design**: Clean separation between the core DRM logic, the
+>> +    memory manager, and the RPMsg-based transport layer.
+>> +
+>> +Architecture
+>> +============
+>> +
+>> +The QDA driver consists of several functional blocks:
+>> +
+>> +1.  **Core Driver (``qda_drv``)**: Manages device registration, file operations,
+>> +    and DRM accel integration.
+>> +2.  **Memory Manager (``qda_memory_manager``)**: A flexible memory management
+>> +    layer that handles IOMMU context banks. It supports pluggable backends
+>> +    (such as DMA-coherent) to adapt to different SoC memory architectures.
+>> +3.  **GEM Subsystem**: Implements the DRM GEM interface for buffer management:
+>> +
+>> +    * **``qda_gem``**: Core GEM object management, including allocation, mmap
+>> +      operations, and buffer lifecycle management.
+>> +    * **``qda_prime``**: PRIME import functionality for DMA-BUF interoperability
+>> +      with other kernel subsystems.
+>> +
+>> +4.  **Transport Layer (``qda_rpmsg``)**: Abstraction over the RPMsg framework
+>> +    to handle low-level message passing with the DSP firmware.
+>> +5.  **Compute Bus (``qda_compute_bus``)**: A custom virtual bus used to
+>> +    enumerate and manage the specific compute context banks defined in the
+>> +    device tree. The bus was introduced because IOMMU context banks (CBs) are
+>> +    synthetic constructs — not real platform devices — making a platform driver
+>> +    an incorrect abstraction for them. The earlier platform-driver approach also
+>> +    had a race condition: device nodes were created before the RPMsg channel
+>> +    resources were fully initialized, and because ``probe`` runs asynchronously,
+>> +    applications could open a CB device and attempt to start a session before
+>> +    the underlying transport was ready. The compute bus makes CB lifetime
+>> +    explicitly subordinate to the parent QDA device, closing that window.
+>> +6.  **FastRPC Core (``qda_fastrpc``)**: Implements the protocol logic for
+>> +    marshalling arguments and handling remote invocations.
+>> +
+>> +User-Space API
+>> +==============
+>> +
+>> +The driver exposes a set of DRM-compliant IOCTLs:
+>> +
+>> +*   ``DRM_IOCTL_QDA_QUERY``: Query DSP type (e.g., "cdsp", "adsp")
+>> +    and capabilities.
+>> +*   ``DRM_IOCTL_QDA_REMOTE_SESSION_CREATE``: Initialize a new process context
+>> +    on the DSP.
+>> +*   ``DRM_IOCTL_QDA_REMOTE_INVOKE``: Submit a remote method invocation (the
+>> +    primary execution unit).
+>> +*   ``DRM_IOCTL_QDA_GEM_CREATE``: Allocate a GEM buffer object for DSP usage.
+>> +*   ``DRM_IOCTL_QDA_GEM_MMAP_OFFSET``: Retrieve mmap offsets for memory mapping.
+>> +*   ``DRM_IOCTL_QDA_REMOTE_MAP`` / ``DRM_IOCTL_QDA_REMOTE_MUNMAP``: Map or unmap
+>> +    buffers into the DSP's virtual address space. Each accepts a ``request``
+>> +    field selecting between a legacy operation (``QDA_MAP_REQUEST_LEGACY`` /
+>> +    ``QDA_MUNMAP_REQUEST_LEGACY``) and an attribute-based operation
+>> +    (``QDA_MAP_REQUEST_ATTR`` / ``QDA_MUNMAP_REQUEST_ATTR``).
+> 
+> Explain, what happens in the users don't map the buffers into the DSP
+> space. Will DRM_IOCTL_QDA_REMOTE_INVOKE handle the mapping or not? What
+> is the difference between those two modes?
+I'll add more details for this, this is specifically required when
+persistent type of DSP mappings are required.>
+> Would the driver benefit from using GPUVM?
+I'm not exactly sure how this will fit in here, I'll check this and get
+back.>
+>> +
+>> +Usage Example
+>> +=============
+>> +
+>> +A typical lifecycle for a user-space application:
+>> +
+>> +1.  **Discovery**: Open ``/dev/accel/accel*`` and use
+>> +    ``DRM_IOCTL_QDA_QUERY`` to identify the DSP domain served by that
+>> +    device node.
+>> +2.  **Initialization**: Call ``DRM_IOCTL_QDA_REMOTE_SESSION_CREATE`` to
+>> +    establish a session and create a process context on the DSP.
+>> +3.  **Memory**: Allocate buffers via ``DRM_IOCTL_QDA_GEM_CREATE`` or import
+>> +    DMA-BUFs (PRIME fd) from other drivers using ``DRM_IOCTL_PRIME_FD_TO_HANDLE``.
+>> +4.  **Execution**: Use ``DRM_IOCTL_QDA_REMOTE_INVOKE`` to pass arguments and
+>> +    execute functions on the DSP.
+>> +5.  **Cleanup**: Close file descriptors to automatically release resources and
+>> +    detach the session.
+> 
+> I'd have expected the description of the actual example. I.e. clone the
+> app from https://the.addr, prepare clang >= NN.MM, QAIC (https://foo),
+> run make, run the app, check the results. I'd remind that DRM Accel has
+> a very specific requirement of having the working toolhain in the
+> open-source.
+ack>
+>> +
+>> +Internal Implementation
+>> +=======================
+>> +
+>> +Memory Management
+>> +-----------------
+>> +The driver's memory manager creates virtual "IOMMU devices" that map to
+>> +hardware context banks. This allows the driver to manage multiple isolated
+>> +address spaces. The implementation uses a DMA-coherent backend to ensure data consistency
+>> +between the CPU and DSP without manual cache maintenance in most cases.
+> 
+> GEM usage?
+I'll add the details here.>
+>> +
+>> +Debugging
+>> +=========
+>> +The driver includes extensive dynamic debug support. Enable it via the
+>> +kernel's dynamic debug control:
+>> +
+>> +.. code-block:: bash
+>> +
+>> +    echo "file drivers/accel/qda/* +p" > /sys/kernel/debug/dynamic_debug/control
+>> +
+>> +Testing
+>> +=======
+>> +The QDA driver can be exercised using the ``fastrpc_test`` utility from the
+>> +FastRPC userspace library. Run the test application:
+> 
+> pointer
+ack.>
+>> +
+>> +.. code-block:: bash
+>> +
+>> +    fastrpc_test -d 3 -U 1 -t linux -a v68
+>> +
+>> +**Options**
+>> +
+>> +``-d domain``
+>> +    Select the DSP domain to run on:
+>> +
+>> +    * ``0`` — ADSP
+>> +    * ``1`` — MDSP
+>> +    * ``2`` — SDSP
+>> +    * ``3`` — CDSP *(default on targets with CDSP)*
+>> +
+>> +``-U unsigned_PD``
+>> +    Select signed or unsigned protection domain:
+>> +
+>> +    * ``0`` — signed PD
+>> +    * ``1`` — unsigned PD *(default)*
+>> +
+>> +``-t target``
+>> +    Target platform: ``android`` or ``linux`` *(default: linux)*
+>> +
+>> +``-a arch_version``
+>> +    DSP architecture version, e.g. ``v68``, ``v75`` *(default: v68)*
+>>
+>> -- 
+>> 2.34.1
+>>
+>>
+> 
 
