@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A414CD6E71
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 19:52:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C5FBCD6E57
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 19:52:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8E47112322;
-	Wed,  3 Jun 2026 19:52:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FDBE11231B;
+	Wed,  3 Jun 2026 19:52:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Wh1tJmWd";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Bx+VDTp6";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 333C0112321
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C7C3112321
  for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 19:52:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
  s=mimecast20190719; t=1780516352;
@@ -22,27 +22,27 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=olsmC37uFpzY+y9wtmCt1x1gIahVEJ6Wl0D8b/LZIzs=;
- b=Wh1tJmWdz1QWxFCS1VMoC8uIw/BSZ25qvZW69JIQMqP1DaKIQCluxU9GQMdCz3SNzNdo1u
- LfyHfu7H4uqdv09I551R34tiDBUmwxGPccxPi+QqEfefLyClVGQiPvyDdUzN0m0NcVvT11
- sccFj1eD6NTHWRevYGE4TPPC46yqH08=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ bh=r7Z/C3WKzX9d11zFSyCLO1QOj5Cg/fxzu0wnbss0mqw=;
+ b=Bx+VDTp6AxOMm5wrvoqnsFzxSorymuQscGjmCIDWGy9zVJGqMKqTY9mulXxqlQmM34BzZm
+ 1dsowJJhd30GYUMcYf+zEhDtizfM75EUQ+ZTJdjjDpBFAqTEl+FSvj0CE1hu7/ppsvmldI
+ QaLGKWaoyyky5BdXqzsi4MPMZ9CPVGw=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-56-7TCLGpkIP7OuSlDk4Z0O4A-1; Wed,
- 03 Jun 2026 15:52:25 -0400
-X-MC-Unique: 7TCLGpkIP7OuSlDk4Z0O4A-1
-X-Mimecast-MFC-AGG-ID: 7TCLGpkIP7OuSlDk4Z0O4A_1780516342
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-357-SY1bvVhgOOuDGB9t24XwPA-1; Wed,
+ 03 Jun 2026 15:52:28 -0400
+X-MC-Unique: SY1bvVhgOOuDGB9t24XwPA-1
+X-Mimecast-MFC-AGG-ID: SY1bvVhgOOuDGB9t24XwPA_1780516345
 Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id B027718004D4; Wed,  3 Jun 2026 19:52:21 +0000 (UTC)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 7940C180034C; Wed,  3 Jun 2026 19:52:25 +0000 (UTC)
 Received: from GoldenWind.lan (unknown [10.22.81.203])
  by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 2A2601800351; Wed,  3 Jun 2026 19:52:17 +0000 (UTC)
+ id E2278180049F; Wed,  3 Jun 2026 19:52:21 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
  nouveau@lists.freedesktop.org
@@ -62,15 +62,14 @@ Cc: Alexandre Courbot <acourbot@nvidia.com>, Gary Guo <gary@garyguo.net>,
  Daniel Almeida <daniel.almeida@collabora.com>,
  Lyude Paul <lyude@redhat.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH v17 1/6] rust: drm: gem: shmem: Fix Default implementation for
- ObjectConfig
-Date: Wed,  3 Jun 2026 15:42:30 -0400
-Message-ID: <20260603195210.693856-2-lyude@redhat.com>
+Subject: [PATCH v17 2/6] rust: drm: gem: shmem: Add DmaResvGuard helper
+Date: Wed,  3 Jun 2026 15:42:31 -0400
+Message-ID: <20260603195210.693856-3-lyude@redhat.com>
 In-Reply-To: <20260603195210.693856-1-lyude@redhat.com>
 References: <20260603195210.693856-1-lyude@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
-X-Mimecast-MFC-PROC-ID: z3AfWutsfQPsLiYw-aSmisIybEnmiUjDHUS5Mef-GIQ_1780516342
+X-Mimecast-MFC-PROC-ID: VDcbFM3iqYVjWYmKYm_rG4KWt4no1w7wHXUx5WeXxVg_1780516345
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -89,53 +88,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-I completely forgot when coming up with this type that #[derive(Default)]
-only works if all generics mentioned in the type implement Default (and T
-usually doesn't). This being said: We don't use `T` for anything besides
-using it for a reference type, so whether or not it implements `Default`
-shouldn't actually need to matter.
-
-So, fix this by just manually implementing Default instead of deriving it.
+Just a temporary holdover to make locking/unlocking the dma_resv lock much
+easier.
 
 Signed-off-by: Lyude Paul <lyude@redhat.com>
+Co-authored-by: Alexandre Courbot <acourbot@nvidia.com>
+Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 
 ---
 V17:
-* Rebase
-* Fix format of commit message subject
+* Fix format of commit message title
 
- rust/kernel/drm/gem/shmem.rs | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ rust/kernel/drm/gem/shmem.rs | 31 ++++++++++++++++++++++++++++++-
+ 1 file changed, 30 insertions(+), 1 deletion(-)
 
 diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
-index 34af402899a0e..084b798ce795b 100644
+index 084b798ce795b..650c34dd8b7a4 100644
 --- a/rust/kernel/drm/gem/shmem.rs
 +++ b/rust/kernel/drm/gem/shmem.rs
-@@ -42,7 +42,6 @@
- ///
- /// This is used with [`Object::new()`] to control various properties that can only be set when
- /// initially creating a shmem-backed GEM object.
--#[derive(Default)]
- pub struct ObjectConfig<'a, T: DriverObject, C: DeviceContext = Registered> {
-     /// Whether to set the write-combine map flag.
-     pub map_wc: bool,
-@@ -53,6 +52,16 @@ pub struct ObjectConfig<'a, T: DriverObject, C: DeviceContext = Registered> {
-     pub parent_resv_obj: Option<&'a Object<T, C>>,
+@@ -30,7 +30,10 @@
+         Deref,
+         DerefMut, //
+     },
+-    ptr::NonNull, //
++    ptr::{
++        self,
++        NonNull, //
++    },
+ };
+ use gem::{
+     BaseObjectPrivate,
+@@ -244,3 +247,29 @@ impl<T: DriverObject, C: DeviceContext> driver::AllocImpl for Object<T, C> {
+         dumb_map_offset: None,
+     };
  }
- 
-+impl<'a, T: DriverObject, C: DeviceContext> Default for ObjectConfig<'a, T, C> {
++
++/// Private helper-type for holding the `dma_resv` object for a GEM shmem object.
++///
++/// When this is dropped, the `dma_resv` lock is dropped as well.
++///
++// TODO: This should be replace with a WwMutex equivalent once we have such bindings in the kernel.
++struct DmaResvGuard<'a, T: DriverObject, C: DeviceContext = Registered>(&'a Object<T, C>);
++
++impl<'a, T: DriverObject, C: DeviceContext> DmaResvGuard<'a, T, C> {
 +    #[inline(always)]
-+    fn default() -> Self {
-+        Self {
-+            map_wc: false,
-+            parent_resv_obj: None,
-+        }
++    #[expect(unused)]
++    fn new(obj: &'a Object<T, C>) -> Self {
++        // SAFETY: This lock is initialized throughout the lifetime of `object`.
++        unsafe { bindings::dma_resv_lock(obj.raw_dma_resv(), ptr::null_mut()) };
++
++        Self(obj)
 +    }
 +}
 +
- /// A shmem-backed GEM object.
- ///
- /// # Invariants
++impl<'a, T: DriverObject, C: DeviceContext> Drop for DmaResvGuard<'a, T, C> {
++    #[inline(always)]
++    fn drop(&mut self) {
++        // SAFETY: We are releasing the lock grabbed during the creation of this object.
++        unsafe { bindings::dma_resv_unlock(self.0.raw_dma_resv()) };
++    }
++}
 -- 
 2.54.0
 
