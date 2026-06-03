@@ -4,119 +4,183 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 220DECD6E55
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 10:11:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BD14CD6E64
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 10:15:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71F9710FB4D;
-	Wed,  3 Jun 2026 10:11:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1AB610FB57;
+	Wed,  3 Jun 2026 10:15:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="lJVV++GO";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RV/ZBQBW";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="StZUOYT0";
 	dkim-atps=neutral
-X-Greylist: delayed 398 seconds by postgrey-1.36 at gabe;
- Wed, 03 Jun 2026 10:11:55 UTC
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [188.68.63.166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0633910FB42;
- Wed,  3 Jun 2026 10:11:55 +0000 (UTC)
-Received: from mors-relay-8202.netcup.net (localhost [127.0.0.1])
- by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4gVjxS0Prhz41qj;
- Wed,  3 Jun 2026 12:05:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1780481116;
- bh=pPdgNJnhX2PrU1X4qnCxIVn7py/OIeTqDE4or41kmYg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=lJVV++GOVSYt7b90Y4lHdWNNN/nVk7GrgSQtnDAqDFjxwreWHBvCu2X2ZBuqcHxai
- E5FGkWkMnALXy8Z7uHWnsaWmUlEchCG8M90hcYLPrvjh+T9IOgFdxulRvoYVaFjjqL
- flUkKVaaOFxNQbJRESLlVQAeuqCbcnsTxWwp/RHmzBxWq599quImmbtM7UdJ62QAby
- yaPGYf+8LM6s/OzJeR1YVN1vlzTE2GeDTWP97PKKU8vt/JW4FHxLgxntwNI9l2A4Tq
- n/5t4o6SW9wgy1voHxwGhz7uchnXs/m6LIfaOc30N8IY4Wl+B9xa6D6DdcmfhJHV1Z
- 3DIQjzSrMekOg==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
- by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4gVjxR6mb4z3xJ6;
- Wed,  3 Jun 2026 12:05:15 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy01-mors.netcup.net (Postfix) with ESMTPS id 4gVjxQ2YYJz8tZd;
- Wed,  3 Jun 2026 12:05:14 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id D3F2B5FA20;
- Wed,  3 Jun 2026 11:56:15 +0200 (CEST)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=regressions@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <114b9be8-1fca-4762-822e-1d53838d5de5@leemhuis.info>
-Date: Wed, 3 Jun 2026 11:56:15 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36B1210FB56
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 10:15:36 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6536RS6S1946589
+ for <dri-devel@lists.freedesktop.org>; Wed, 3 Jun 2026 10:15:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 9n9AHlZU6kUO1j38Uc9X0HmM7AR04hZBNstxafGjgo4=; b=RV/ZBQBW1Gz7WB7g
+ C36gOhNhdL+lLAmqQlpap6noJbbxHcrt5EIxi83XQdvwRajDeMt1YFcY+H3mGLXT
+ 9XatmhW6r/yTEhIszMkIGbMkNaO+fyhhVMzwIGL7bcpZ9ReeDX5jEpLuRbcstKSQ
+ YhnhXEg7Vp0lJ0rPhBLgdWq78t4NPOsw/LugKMhQPSnThw01mcIgA9my3R2A/CFD
+ SMxSsEToum0RhiBvscPxkFsFs1FxqjfwWOQrc5lvshnJbrHXt0WtI8psq0P5nZyX
+ LEs1LzosAOE89oi/Bezr5wGe+ccK2iGDRjqfsqOH5hQOImzaSe/nMOk3SRXe02I+
+ vbBXAg==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ejabghxhf-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 03 Jun 2026 10:15:35 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-8ccd719a2f2so84536696d6.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 03 Jun 2026 03:15:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780481735; cv=none;
+ d=google.com; s=arc-20240605;
+ b=Yx+mw5jA4m3CnMTeWK88h8zSKK5Oyzx2BzGoSNirhKAZSuX6IycDe4Iarq0Uet4LMF
+ 8JXxOrcBMGnEceRoyuJa5rLXeP6KVIjY5SWo4pkFkBQZZ3002KTZLDJDFPCUe1LtG5wz
+ jBLcdkrIQs1+TamNDE6o63psMSAtwY9S08Pw7DbirG8I2JOZpxAzSfRm62qqfRR+xcBP
+ ZX5cuYzoXFRJfBJiAXikQ4jEHH3jF5XnLA485R0b3fLaZ5Ife9KBqIXDlP1v0F8eTr5b
+ qq+QMeK6JeqxgTO1ZpGPYlIje+MfsUrDnuhFXO8jgzTqE4sOusRwvMyeuzpFACc8yKEm
+ Hqrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=9n9AHlZU6kUO1j38Uc9X0HmM7AR04hZBNstxafGjgo4=;
+ fh=0/GWQMsyPJE4qLspbikNKBmzgfY33+23JxK67KOlmN8=;
+ b=V7P4zlY16RdvrNV9MCD7YVojqzgixMS9GoPQ89Xo3GK12TmzM+9I0D5XlITV7VmJ7m
+ 4t3dtfvQCAdS/+tTkFInWUc/sQuRi/AeI+Lmp0DN5os7Dib8ygXbf/kRxM8uonidSs69
+ kl8qJv7NwWzoLamcGGeU+qcVk9mFC5jKOi25PTL7I49+0PZIyC6pKYwnbz8axH9yfJJh
+ XwRY0HlKSQlQhW9Oryo1uaOstqOHT5k4k+Qsm2uO97XIQErE69RbgtTsCqtgFo0D1I/p
+ XY8KLepKVY8hjpOz8PYr4iFLSu9QP8OmnVbGt5Kc91GfnQZ3DoiDBBBugvCHwGh/XGqy
+ QCxQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1780481735; x=1781086535;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9n9AHlZU6kUO1j38Uc9X0HmM7AR04hZBNstxafGjgo4=;
+ b=StZUOYT0gM4ZEEzMg20VejLdytgKo+KvuXrY/fzp60cBqzwhIwm2dxGOO+xh/YsgR2
+ 5ztHBMAmShUlQolvRjdL/ZEYtFQDxAWQNjA7oEibww9BjhtzqMJIT42+rb7Ma4AAtmMT
+ 5YkyiS0zBHnkI8KFsKdqcaApoxsFnuMXkKJAG3J7JcloP8ZIQZjEkQFtvuvly3YJqsR2
+ P33Mea+BiuPLyJMTLPMJLyDdduLEnXDbj3SWviJ5mgv5a8zHVmi2EiqTCzkdajNmE65K
+ 6Ot1c+odBVcXVeaMHBHOrQElHMnyAQmG22DQHIzhqAKJbPPssfwapCgYo4nyLMEOh6kz
+ hdnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780481735; x=1781086535;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=9n9AHlZU6kUO1j38Uc9X0HmM7AR04hZBNstxafGjgo4=;
+ b=kGVYtZ0qGdN7+blYkvEPMsgDtB1PIaWG9Ea5BiDT6hAYa9yevCHjCDOjG1QtywNA4s
+ wJJVo5ERodSapB6TkpH3tJe7QkHu2lPQVQvC7xii985GcE9ToMMKqOo8RuD7F54OH8mA
+ 7NIfix7HNpWAN99n6VWBNgW7bmgMh5nc0x1ULmNrmIGb5Kg4S919zExpmDuyZXTOnfkn
+ yaMZj+meysKdn8uW453/jiwtBJhUoAJsWOPnvt6HhkTP2ApxXikrRTir5ixinHLMApLz
+ uatBangfmzsGwNH/etG0FcuLHObacMnsDRJLA2YhpIe4q4O6AhBNxvGHZP0mlVODeTJp
+ QnRw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9mqK2/RGWQhZDHuGizSb9ZEjypvGxL20GmvUarFuPaJv4KyMAkMosNoWbFNh3xOa4gauqYOYR7fbc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwWlSGALDpYrBHX9MvIja0dCrRCHhtlmtkjHxSGdOxBhSci3VNk
+ eUbNscFx8I3lywLwu0ee/bMm7tw57hMH5Ck6p1qzX5P2RkstGjxTdH8WL16GqjBDdW+qVQCEI/K
+ puy2OMi0ofyY2QO+z8D60fz17pd0ogiVW+n/8X0e5Agdq3PnVvr42VPR59gwZf/80Q+lprCWivx
+ Zw6yYZOpMtenye55SF/I2VHKnzmGy8wyCcaKdg0PUphXdiUg==
+X-Gm-Gg: Acq92OHvFyIty78S2l7SUx0SpSFDbZlBm9UczV1MQYMpWwTguomQMnatalcVJfnMolY
+ plcRwCPq9ESkSPg/JUrqFcD3gmGVFbRr5egHeMMX9aNd6EeSi66VmJVwM2BnpAeehXnGvwRzM6D
+ 9E5HtMjFhPnDA81udIfokNQywxl9UvvzVerzZGLqGkk3alL+3JT2NcWL8h7Rnloi7tV3Dq0Vz1p
+ qdzOH+Al/f9mB3y
+X-Received: by 2002:ad4:4984:0:b0:8cc:6c08:552f with SMTP id
+ 6a1803df08f44-8cecdc03682mr27952086d6.9.1780481734754; 
+ Wed, 03 Jun 2026 03:15:34 -0700 (PDT)
+X-Received: by 2002:ad4:4984:0:b0:8cc:6c08:552f with SMTP id
+ 6a1803df08f44-8cecdc03682mr27951226d6.9.1780481734358; Wed, 03 Jun 2026
+ 03:15:34 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] Resolutions broken after "drm/msm: dsi: fix PLL init
- in bonded mode"
-To: neil.armstrong@linaro.org, Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- vishnu.saini@qualcomm.oss.com,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20251027-topic-sm8x50-fix-dsi-bonded-v1-1-a477cd3f907d@linaro.org>
- <ae07cef84AmXK43H@hu-mdsor-hyd.qualcomm.com>
- <wrhuksrzlxw2pjlvjm37dwjuztcv7qs5t6mqiav4ujecwqdkwj@ozbfxpbgaimt>
- <CAJfMnmEVwUwt=wMJ-8HKH1yz9+erWLrRGB+6wVYCdSGDK+_T_Q@mail.gmail.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-X-Enigmail-Draft-Status: N11222
-Autocrypt: addr=linux@leemhuis.info; keydata=
- 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 MEK4
-In-Reply-To: <CAJfMnmEVwUwt=wMJ-8HKH1yz9+erWLrRGB+6wVYCdSGDK+_T_Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <178048057627.3107155.17534295353220760642@mxe9fb.netcup.net>
-X-NC-CID: z1MsFiVcCJunZd2oROBxLRLnrgFD6ue7Cr/uOXVEQD7T8aZ1lCM=
+References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
+ <20260521-pdev-fwnode-ref-v1-4-88c324a1b8d2@oss.qualcomm.com>
+In-Reply-To: <20260521-pdev-fwnode-ref-v1-4-88c324a1b8d2@oss.qualcomm.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Wed, 3 Jun 2026 12:15:23 +0200
+X-Gm-Features: AVHnY4J4K5UzPNs1yW8q3X0LoIQq3c8UfPuD4kHDjf5PzjApCRf1PSF1rlsmtoU
+Message-ID: <CAPx+jO9iJBx6Yifap55NOhn5YZk8Bbwpnk+aeH+0PgYuMxke1Q@mail.gmail.com>
+Subject: Re: [PATCH 04/23] pmdomain: imx: fix OF node refcount
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Lee Jones <lee@kernel.org>,
+ Mark Brown <broonie@opensource.wolfsonmicro.com>,
+ Thierry Reding <thierry.reding@avionic-design.de>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Srinivas Kandagatla <srini@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Doug Berger <opendmb@gmail.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Peter Chen <peter.chen@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+ driver-core@lists.linux.dev, devicetree@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
+ linux-mips@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=R6sz39RX c=1 sm=1 tr=0 ts=6a1ffec7 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
+ a=RwuSGLWl7VkFDbmKPUAA:9 a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-GUID: K_wZnSevknSxrflDJsvB2YPtArBceCTE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAzMDA5NyBTYWx0ZWRfX5Ac0w/roktV1
+ c5fCxS1Q4q+ItOF5KBgcpbbnT6tVKmWLsc9vJlVN1j1/77tAZW4oHTh3j6thKZDh4KMGUCXcxuJ
+ Q7coRumqESbt1UoSH3nrzpmyqUTT/6Y7/tqVBZAHwbAZMjX4vPM0LTHuXASFN0zD0QnkxJG+EHy
+ mROQj+Og72gL5rWIVgEiJoJnEKqWRquD38OS1nR4GxG/5e4EcDA7a5ViuMxvRDdOgL0FUKcmrak
+ 4AxOD/xuCwylojp2heFeCN6Fduqfzws8D1MTTuhZ6b4VX1mE1AVs9bie4hhyaLDujJ+2ktvYoTM
+ 94FwFU6MPE7HFcxHIriZx1Z5fcXkEcZX3Re6u73GeYayau2woJQOJVIKuI4Gcove7u8BIhZbxHt
+ oatqeqoYDlbH5PcDt+kOXDSc0a/R5Rt19FMLzkC2DaB3kEYYF3QCZTs3yrBE/3FvNv7M/k/6USE
+ 3RRTsmmEVOBYLpGGgQQ==
+X-Proofpoint-ORIG-GUID: K_wZnSevknSxrflDJsvB2YPtArBceCTE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-03_03,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 malwarescore=0 bulkscore=0 clxscore=1011
+ lowpriorityscore=0 adultscore=0 impostorscore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606030097
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,71 +196,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/4/26 22:09, Mohit Dsor wrote:
-> Sorry for the late reply. I am attaching clk_summary and reg_dump in
-> working and non working case. Lilliput is just a normal display working
-> with hdmi and has 720p as preferred mode. Yes, I was talking about RB3
-> Gen2 only.
+On Thu, May 21, 2026 at 10:36=E2=80=AFAM Bartosz Golaszewski
+<bartosz.golaszewski@oss.qualcomm.com> wrote:
+>
+> for_each_child_of_node_scoped() decrements the reference count of the
+> nod after each iteration. Assigning it without incrementing the refcount
+> to a dynamically allocated platform device will result in a double put
+> in platform_device_release(). Add the missing call to of_node_get().
+>
+> Cc: stable@vger.kernel.org
+> Fixes: 3e4d109ee8fc ("pmdomain: imx: gpc: Simplify with scoped for each O=
+F child loop")
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-Neil, Dmitry, and Mohit: what's the status here? From the outside it
-looks like this regression is still unfixed with nothing happening for
-weeks now. Or has progress been made and I just missed it?
+Applied for fixes, thanks!
 
-Ciao, Thorsten
+Kind regards
+Uffe
 
-> On Sun, Apr 26, 2026 at 4:14 AM Dmitry Baryshkov
-> <dmitry.baryshkov@oss.qualcomm.com
-> <mailto:dmitry.baryshkov@oss.qualcomm.com>> wrote:
-> 
->     On Sun, Apr 26, 2026 at 03:38:49AM +0530, Mohit Dsor wrote:
->     > Hi Neil, all,
->     >
->     > We are seeing a regression after:
->     >
->     > drm/msm: dsi: fix PLL init in bonded mode
->     > https://lore.kernel.org/r/20251027-topic-sm8x50-fix-dsi-bonded-
->     v1-1-a477cd3f907d@linaro.org <https://lore.kernel.org/r/20251027-
->     topic-sm8x50-fix-dsi-bonded-v1-1-a477cd3f907d@linaro.org>
->     >
->     > Issue:
->     > - Resolutions are broken after this change. Like if we try to run
->     720p60 it will be 720p30.
->     >   Even though the byte_clk is set correctly, the bridge is
->     receiving half the byte clock.
->     >   Some divider is getting set which is causing the byte_clk to get
->     half, ultimately fps to
->     >   get half. Some other resolutions may or may not be broken
-> 
->     Please provide necessary excerpts from /sys/kernel/debug/clk/clk_summary
->     for the working and for the broken cases. Also if there is a difference
->     in DSI PHY registers, please capture those (see
->     /sys/kernel/debug/dri/*/kms, provide necessary DSI PHY regs).
-> 
->     > Reproduction:
->     > - Used QNX RB3Gen2 Core kit with lilliput display and lt9611uxc
->     dsi to hdmi bridge.
-> 
->     What is lilliput? What is QNX RB3 Gen2? Is it the normal Thundercomm's
->     RB3 Gen2 or some other board sold with the same name?
-> 
->     > - Run 720p60 usecase on hdmi with dsi to hdmi bridge.
->     >
->     > Expected behavior:
->     > - Display should support the expected resolutions correctly.
->     >
->     > Actual behavior:
->     > - No display on lilliput display.
->     >
->     > Additional details:
->     > - Reverting this change locally avoids the issue.
->     >
->     > Could you please take a look?
->     >
->     > Thanks,
->     > Mohit
-> 
->     -- 
->     With best wishes
->     Dmitry
-> 
 
+> ---
+>  drivers/pmdomain/imx/gpc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/pmdomain/imx/gpc.c b/drivers/pmdomain/imx/gpc.c
+> index de695f1944ab31de3d37ce8000d0c577579d64f9..42e50c9b4fb9ffb96a20a462d=
+4eb5168942a893c 100644
+> --- a/drivers/pmdomain/imx/gpc.c
+> +++ b/drivers/pmdomain/imx/gpc.c
+> @@ -487,7 +487,7 @@ static int imx_gpc_probe(struct platform_device *pdev=
+)
+>                         domain->ipg_rate_mhz =3D ipg_rate_mhz;
+>
+>                         pd_pdev->dev.parent =3D &pdev->dev;
+> -                       pd_pdev->dev.of_node =3D np;
+> +                       pd_pdev->dev.of_node =3D of_node_get(np);
+>                         pd_pdev->dev.fwnode =3D of_fwnode_handle(np);
+>
+>                         ret =3D platform_device_add(pd_pdev);
+>
+> --
+> 2.47.3
