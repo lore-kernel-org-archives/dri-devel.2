@@ -4,43 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BDA7CD6E55
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE26ECD6E6B
 	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 22:25:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 799E7112421;
-	Wed,  3 Jun 2026 22:25:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C3BB112422;
+	Wed,  3 Jun 2026 22:25:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="cx1y1Gcs";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="SsPWKlsm";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D015112421
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F897112422
  for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 22:25:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
- Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
- Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
- :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=nAzkC4KO+RU84Q/gX9aTrcYyHf9M9fCDc45r5VmKAiQ=; b=cx1y1Gcs5BlW6LGvtA5iOeRwPZ
- v88JodXxr/xbcZdZ8HTcfBYtKD+X7Zj8nRFNXrC088jCDU+gu/IQlN7eXxwDuZY2dkF6QaepZBl3c
- GPINkrNAbjDqEZUD+1/9PU2fiFfi+zgaAUmkexTMs66cnObMV3f17T+CehVYGfxJBbwRg3kvwwwSu
- C2OTypILnKsfBwLt7gcGLLzmVGSnUagn/vsRcvoXIA/39NOIDAnWylrZpDfrTbloelaFsRSdP6lIl
- zbYmR/FlEPxfrok+Soc+/U53NoZKB80TZNdLUNWkNQOBukWewu1G6o4xjpILvECdOZhFNNMSRRBwa
- jkxia+Lg==;
+ s=20170329;
+ h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+ Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=10X+UgkPE/oBXp/khggiNvVQJ5EDv/fsn5wiNKEHW3c=; b=SsPWKlsmNMucDOL6G7aJV/c2wC
+ +WYC/iCZ8zHXnT9g/sEhKZpG9C1whrC6YeB6z1jjyUsP1XApFdrZwYBn+peRICtw2cQBJfUB/2XaO
+ P61wa83McwZf8tbi/FZF2wQ0HaxeOaGSd/T6Zltjxnc1Tp5ZN/BWk5tfjfLFtb1OuGxnf6ufbE1lf
+ AYgpZcJHKkQI7ycTShHa78AvEW34zMbKSPE3cZCE0Y05GF8M7tIpGxrJDYbn6/fqpq6qxFGEgzj7x
+ HBbuCmTmt9T4iPI32MmD1DWYfNo0HeU3M/k9JNNs2fNY6KiBCQanUrCQ0voGkyWEpNy50NIRDzyoI
+ WUKeGH4w==;
 Received: from [189.7.87.67] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wUu1b-00CNgx-L2; Thu, 04 Jun 2026 00:25:23 +0200
+ id 1wUu1T-00CNgx-0I; Thu, 04 Jun 2026 00:25:15 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Wed, 03 Jun 2026 19:25:04 -0300
-Subject: [PATCH v3 02/14] drm/v3d: Clear queue->active_job when
- v3d_fence_create() fails
+Subject: [PATCH v3 00/14] drm/v3d: Scheduler and submission fixes and
+ refactoring
+Date: Wed, 03 Jun 2026 19:25:02 -0300
+Message-Id: <20260603-v3d-sched-misc-fixes-v3-0-d7114bba55a0@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260603-v3d-sched-misc-fixes-v3-2-d7114bba55a0@igalia.com>
-References: <20260603-v3d-sched-misc-fixes-v3-0-d7114bba55a0@igalia.com>
-In-Reply-To: <20260603-v3d-sched-misc-fixes-v3-0-d7114bba55a0@igalia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNQQrCMBAF0KuUrB1JMm2qrryHuJim03bAWmkkK
+ KV3Ny2CCLr8f/hvJhV4FA7qkE1q5ChBhmsKuMmU7+jaMkidsrLaOp3rEiLWEHzHNfQSPDTy4AD
+ OYol7bUouUKXpbeT1kJanc8qdhPswPtcv0SztGzT4G4wGNFTkHdLOc+X8UVq6CG390KtFjPajF
+ Eb/UWxSPOVUEebIjftS5nl+AfYpDwv/AAAA
+X-Change-ID: 20260407-v3d-sched-misc-fixes-623739017e53
 To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -50,15 +54,15 @@ To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5021; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=tMrGlA7tEoH/Q0XvzIvZA3GDxsHIEXFX4+HYQI4YM6A=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqIKnFt7bC38RrAFJVAFnQZIsSQT2N080NZjHGs
- UrVrdKFHNOJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaiCpxQAKCRA/8w6Kdoj6
- qh2tCACu2S5k6ZDM+U112NgZuUt4uCV0IFBA5GKISP6HJqR1uJ1Zqbjx2MGgff9WWetlyacnnuo
- vEIwbCdnxlWKHQ1v/0Z7BkPnPQanK6g0iv0IfHfU+Bja4An4O733huFmnzm5s1Rr0haQdp2jLtj
- WXDtHDfTsLtEHZ3jvDfl0T/+X0rRriM8KwOlN7I376EyUc32dBZFOnc+IxbXKtANy41P/p3JcK/
- vLlBOoBkMAsLguAKVes7lU3y5KoxeMTKQo9oIi6wsnrWecCcGzuHjNMwgnWszxQKTVXFW97R7XJ
- sCh/NunlJ8tRR3aSNc8Bqxocf9uoHUYKYwWW4fC6lVpyoa/8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5989; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=vzydWD36ZsUPWAwqie9TyvjZkECG8E4+3z3onuGgNZQ=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqIKnFNuxHAV5PGmZ8tOsmvopTHJ9Hia9nd6tZP
+ TaIKKJ0yRWJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaiCpxQAKCRA/8w6Kdoj6
+ qrCvB/4pU93nQo1yE2EZi0/Q1OIYVfsY2JEBFDrnz0LyLanAsdjX9WfPrrvELUI/ckaitUVhd7I
+ EmjZUhKsVJxo8rWUiOSPow9mpYbtwpFNg/VEpeoXgr0gkwTxAJUA+iEZ+1nE3QfWDc+eiy90cmJ
+ zE2QM020vbuYMVwV4K/XFYm0bY/6AYj69B75P/ODtcLx1PhoM6DYuy4xn8XE6c75FmH95PPIW8p
+ 0MscOaJV+wG+vMSW7eau+aL/dP2yLS7t8ZQaDViJH3EHt0vhejJOpmyLI6rNp9ZWCiFA5YnmcJR
+ MnZEVSeL3uHfvW4dcXZgVuidlOzhG9iPTyDMmVPQqYEwVcBk
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,162 +80,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The run_job() callbacks for BIN, RENDER, TFU and CSD assign the incoming
-job to queue->active_job before calling v3d_fence_create(). If
-v3d_fence_create() fails, the callback returns NULL without clearing
-active_job, leaving a dangling pointer.
+This series addresses several issues in the v3d scheduler and submission
+code. Most of the fixes were motivated by feedback in the vc4 scheduler
+series [1], which inherited issues from v3d. Based on the issues found
+there, this series addresses the issues in the v3d driver as well.
 
-Create a failure path in all run_job() callbacks that clears the active
-job before returning NULL. The BIN path takes queue->queue_lock around the
-clear as it races against v3d_overflow_mem_work(); RENDER, TFU and CSD
-paths have no concurrent reader, so the clear is lock-free.
+This series has cleanup patches, fixes, and finally, a refactoring of
+the submission code, which allowed us to fix the atomicity of a submission.
 
-Fixes: a783a09ee76d ("drm/v3d: Refactor job management.")
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
+- Cleanups and small improvements:
+  - PATCH 1/14: "drm/v3d: Drop unused drm_encoder.h include from v3d_drv.h"
+  - PATCH 3/14: "drm/v3d: Use inline lock for dma fence initialization"
+  - PATCH 4/14: "drm/v3d: Replace spin_lock_irqsave() with spin_lock()"
+
+- Fixes:
+  - PATCH 2/14: "drm/v3d: Clear queue->active_job when v3d_fence_create() fails"
+  - PATCH 5/14: "drm/v3d: Extract v3d_job_add_syncobjs() helper"
+  - PATCH 6/14: "drm/v3d: Reject invalid syncobj handles in submit ioctls"
+  - PATCH 13/14: "drm/v3d: Reject invalid out_sync handles in submit ioctls"
+
+- Submission refactoring:
+  - PATCH 7/14: "drm/v3d: Migrate BO reservation locking to DRM exec"
+  - PATCH 8/14: "drm/v3d: Introduce struct v3d_submit and convert CL/TFU/CSD ioctls"
+  - PATCH 9/14: "drm/v3d: Make v3d_get_cpu_indirect_csd_params() a pure parser"
+  - PATCH 10/14: "drm/v3d: Convert submit helpers to operate on struct v3d_submit"
+  - PATCH 11/14: "drm/v3d: Refactor CPU ioctl into unified submission chain"
+  - PATCH 12/14: "drm/v3d: Split BO fence attach from syncobj output handling"
+  - PATCH 14/14: "drm/v3d: Ensure atomic submissions in v3d_submit_jobs()" (Also a fix)
+
+During the refactoring, I tried to break the conversion into small steps.
+On the one hand, this helps reviewability; on the other hand, some things
+may look unfinished at the end of a given commit. I tried to balance the
+trade-off, but I'm happy to take split or squash requests during review.
+
+[1] https://lore.kernel.org/dri-devel/20260205-vc4-drm-scheduler-v1-0-c6174fd7bbc1@igalia.com/T/
+
+Best regards,
+- Maíra
+
 ---
- drivers/gpu/drm/v3d/v3d_sched.c | 52 ++++++++++++++++++++++++-----------------
- 1 file changed, 30 insertions(+), 22 deletions(-)
+v1 -> v2: https://lore.kernel.org/r/20260413-v3d-sched-misc-fixes-v1-0-bac63a8ceb6c@igalia.com
 
-diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-index 0e266b29317f..46f4fc09c59e 100644
---- a/drivers/gpu/drm/v3d/v3d_sched.c
-+++ b/drivers/gpu/drm/v3d/v3d_sched.c
-@@ -192,12 +192,8 @@ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
- 	struct dma_fence *fence;
- 	unsigned long irqflags;
- 
--	if (unlikely(job->base.base.s_fence->finished.error)) {
--		spin_lock_irqsave(&queue->queue_lock, irqflags);
--		queue->active_job = NULL;
--		spin_unlock_irqrestore(&queue->queue_lock, irqflags);
--		return NULL;
--	}
-+	if (unlikely(job->base.base.s_fence->finished.error))
-+		goto out_clean_job;
- 
- 	/* Lock required around bin_job update vs
- 	 * v3d_overflow_mem_work().
-@@ -214,7 +210,7 @@ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
- 
- 	fence = v3d_fence_create(v3d, V3D_BIN);
- 	if (IS_ERR(fence))
--		return NULL;
-+		goto out_clean_job;
- 
- 	if (job->base.irq_fence)
- 		dma_fence_put(job->base.irq_fence);
-@@ -242,6 +238,12 @@ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
- 	V3D_CORE_WRITE(0, V3D_CLE_CT0QEA, job->end);
- 
- 	return fence;
-+
-+out_clean_job:
-+	spin_lock_irqsave(&queue->queue_lock, irqflags);
-+	queue->active_job = NULL;
-+	spin_unlock_irqrestore(&queue->queue_lock, irqflags);
-+	return NULL;
- }
- 
- static struct dma_fence *v3d_render_job_run(struct drm_sched_job *sched_job)
-@@ -251,10 +253,8 @@ static struct dma_fence *v3d_render_job_run(struct drm_sched_job *sched_job)
- 	struct drm_device *dev = &v3d->drm;
- 	struct dma_fence *fence;
- 
--	if (unlikely(job->base.base.s_fence->finished.error)) {
--		v3d->queue[V3D_RENDER].active_job = NULL;
--		return NULL;
--	}
-+	if (unlikely(job->base.base.s_fence->finished.error))
-+		goto out_clean_job;
- 
- 	v3d->queue[V3D_RENDER].active_job = &job->base;
- 
-@@ -268,7 +268,7 @@ static struct dma_fence *v3d_render_job_run(struct drm_sched_job *sched_job)
- 
- 	fence = v3d_fence_create(v3d, V3D_RENDER);
- 	if (IS_ERR(fence))
--		return NULL;
-+		goto out_clean_job;
- 
- 	if (job->base.irq_fence)
- 		dma_fence_put(job->base.irq_fence);
-@@ -289,6 +289,10 @@ static struct dma_fence *v3d_render_job_run(struct drm_sched_job *sched_job)
- 	V3D_CORE_WRITE(0, V3D_CLE_CT1QEA, job->end);
- 
- 	return fence;
-+
-+out_clean_job:
-+	v3d->queue[V3D_RENDER].active_job = NULL;
-+	return NULL;
- }
- 
- static struct dma_fence *
-@@ -299,16 +303,14 @@ v3d_tfu_job_run(struct drm_sched_job *sched_job)
- 	struct drm_device *dev = &v3d->drm;
- 	struct dma_fence *fence;
- 
--	if (unlikely(job->base.base.s_fence->finished.error)) {
--		v3d->queue[V3D_TFU].active_job = NULL;
--		return NULL;
--	}
-+	if (unlikely(job->base.base.s_fence->finished.error))
-+		goto out_clean_job;
- 
- 	v3d->queue[V3D_TFU].active_job = &job->base;
- 
- 	fence = v3d_fence_create(v3d, V3D_TFU);
- 	if (IS_ERR(fence))
--		return NULL;
-+		goto out_clean_job;
- 
- 	if (job->base.irq_fence)
- 		dma_fence_put(job->base.irq_fence);
-@@ -336,6 +338,10 @@ v3d_tfu_job_run(struct drm_sched_job *sched_job)
- 	V3D_WRITE(V3D_TFU_ICFG(v3d->ver), job->args.icfg | V3D_TFU_ICFG_IOC);
- 
- 	return fence;
-+
-+out_clean_job:
-+	v3d->queue[V3D_TFU].active_job = NULL;
-+	return NULL;
- }
- 
- static struct dma_fence *
-@@ -347,10 +353,8 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
- 	struct dma_fence *fence;
- 	int i, csd_cfg0_reg;
- 
--	if (unlikely(job->base.base.s_fence->finished.error)) {
--		v3d->queue[V3D_CSD].active_job = NULL;
--		return NULL;
--	}
-+	if (unlikely(job->base.base.s_fence->finished.error))
-+		goto out_clean_job;
- 
- 	v3d->queue[V3D_CSD].active_job = &job->base;
- 
-@@ -358,7 +362,7 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
- 
- 	fence = v3d_fence_create(v3d, V3D_CSD);
- 	if (IS_ERR(fence))
--		return NULL;
-+		goto out_clean_job;
- 
- 	if (job->base.irq_fence)
- 		dma_fence_put(job->base.irq_fence);
-@@ -385,6 +389,10 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
- 	V3D_CORE_WRITE(0, csd_cfg0_reg, job->args.cfg[0]);
- 
- 	return fence;
-+
-+out_clean_job:
-+	v3d->queue[V3D_CSD].active_job = NULL;
-+	return NULL;
- }
- 
- static void
+- [2/14, 3/14, 5/14, 6/14] Add Tvrtko's R-b tag (Tvrtko Ursulin)
+- [4/14] Use spin_lock() instead of spin_lock_irq() and change the commit message
+         (Tvrtko Ursulin)
+- [4/14] Use scoped_guard() instead of open-coding spin_(un)lock()
+- [6/14] s/NULL/zero in the comments (Tvrtko Ursulin)
+- [8/14] s/kcalloc(1, size, GFP_KERNEL)/kzalloc (Tvrtko Ursulin)
+- [8/14] Save one atomic in v3d_attach_perfmon_to_jobs() by adding a conditional
+         in the loop (Tvrtko Ursulin)
+- [8/14] Zero is implied when initializing the struct v3d_submit (Tvrtko Ursulin)
+- [8/14] Create v3d_submit_put_jobs() and v3d_submit_cleanup_jobs() (Tvrtko Ursulin)
+- [9/14, 10/14, 11/14] NEW PATCHES: Trying to make the original patch
+                       "[PATCH 09/10] drm/v3d: Refactor CPU ioctl into unified
+                       submission chain" a bit easier to review.
+- [10/14] Wrap drm_exec_fini() in a function v3d_submit_unlock_reservations()
+          (Tvrtko Ursulin)
+- [12/14] NEW PATCH: "drm/v3d: Split BO fence attach from syncobj output handling"
+          - Split v3d_attach_fences_and_unlock_reservation() into different functions
+            and fold parts of it into v3d_submit_jobs (Tvrtko Ursulin)
+- [13/14] NEW PATCH: "drm/v3d: Reject invalid out_sync handles in submit ioctls"
+          - Stop silently ignoring invalid syncobj handles (Tvrtko Ursulin)
+- [14/14] Move the error path to a goto
+- [14/14] Skip fence attachment and syncobj exportation to user-space if the
+          submission has failed (Tvrtko Ursulin)
 
--- 
-2.54.0
+v2 -> v3: https://lore.kernel.org/r/20260510-v3d-sched-misc-fixes-v2-0-ca4aba343ef6@igalia.com
+
+- Rebased on top of drm-misc-next.
+- [1/14] Add Iago's R-b tag (Iago Toral)
+- [4/14, 7/14, 9/14] Add Tvrtko's R-b tag (Tvrtko Ursulin)
+- [5/14] Create a job->queue variable to be used by v3d_job_add_syncobjs()
+- [8/14] v3d_submit_add_job() returns struct v3d_job * instead of using
+         void **container as argument (Tvrtko Ursulin)
+- [10/14] Pull v3d_submit_lock_reservations() out of
+          v3d_setup_csd_jobs_and_bos() (Tvrtko Ursulin)
+- [11/14] Assert that jobs[1] is actually a CSD job (Tvrtko Ursulin)
+- [11/14] v3d_submit_lock_reservations() is now called unconditionally
+          in v3d_submit_cpu_ioctl() (Tvrtko Ursulin)
+- [12/14, 13/14] Fold v3d_submit_process_post_deps() and v3d_submit_put_jobs()
+                 into v3d_submit_jobs() (Tvrtko Ursulin)
+
+---
+Maíra Canal (14):
+      drm/v3d: Drop unused drm_encoder.h include from v3d_drv.h
+      drm/v3d: Clear queue->active_job when v3d_fence_create() fails
+      drm/v3d: Use inline lock for dma fence initialization
+      drm/v3d: Replace spin_lock_irqsave() with spin_lock()
+      drm/v3d: Extract v3d_job_add_syncobjs() helper
+      drm/v3d: Reject invalid syncobj handles in submit ioctls
+      drm/v3d: Migrate BO reservation locking to DRM exec
+      drm/v3d: Introduce struct v3d_submit and convert CL/TFU/CSD ioctls
+      drm/v3d: Make v3d_get_cpu_indirect_csd_params() a pure parser
+      drm/v3d: Convert submit helpers to operate on struct v3d_submit
+      drm/v3d: Refactor CPU ioctl into unified submission chain
+      drm/v3d: Split BO fence attach from syncobj output handling
+      drm/v3d: Reject invalid out_sync handles in submit ioctls
+      drm/v3d: Ensure atomic submissions in v3d_submit_jobs()
+
+ drivers/gpu/drm/v3d/Kconfig      |   1 +
+ drivers/gpu/drm/v3d/v3d_drv.h    |  35 +-
+ drivers/gpu/drm/v3d/v3d_fence.c  |   2 +-
+ drivers/gpu/drm/v3d/v3d_irq.c    |  17 +-
+ drivers/gpu/drm/v3d/v3d_sched.c  |  73 ++--
+ drivers/gpu/drm/v3d/v3d_submit.c | 758 +++++++++++++++++++--------------------
+ 6 files changed, 447 insertions(+), 439 deletions(-)
+---
+base-commit: 6e7eb171ac96fefa32197afa658e7d9da238be89
+change-id: 20260407-v3d-sched-misc-fixes-623739017e53
 
