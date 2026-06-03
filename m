@@ -4,94 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2073CD5BD1
-	for <dri-devel@archiver.kernel.org>; Tue,  2 Jun 2026 22:49:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E6C5CD6E5D
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 01:07:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A18710F666;
-	Tue,  2 Jun 2026 22:49:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D86D10F71F;
+	Wed,  3 Jun 2026 01:07:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b18dIt+O";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="Cjd1cVlu";
 	dkim-atps=neutral
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3948D10F666
- for <dri-devel@lists.freedesktop.org>; Tue,  2 Jun 2026 22:49:24 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-45f3cf907ceso1784362f8f.2
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 15:49:24 -0700 (PDT)
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com
+ [209.85.221.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 610D810F71F
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 01:07:01 +0000 (UTC)
+Received: by mail-vk1-f178.google.com with SMTP id
+ 71dfb90a1353d-59b6227df10so3077185e0c.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 18:07:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780440563; x=1781045363; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=QCgszUrgNi7grQDH6VE2VsdkLUzjuVRFv4kl/ONnNts=;
- b=b18dIt+OR4xir2JyqJWYgMK/E+Nism05SZLoht0dHIQEX9FVWwAgc7qqFqeAPhPJ/P
- JrGbhvuOum5Sh8k2+uwl5/tlhYigbkmMgsOKhIYlN4iBFD75RVSt7as+K9VwmOpDM0VA
- 0H1XVqgah2u+envnGvqE18iN/oTrT6Q9CAyifKIMssMAeLM5Wj00jl7Y/g7udYDNgGxb
- Eqyu3i06i3Vct2q6L1SXnd86LyBYZy/ZogCXJc11h3pMfxLFVngmbZ8Y6Pth5WGdUs5z
- 6v3DoPhtEKQmo150Jnapgu3ps7Ljv31/iE8LPCGFKoIvlvtk5g/a0YiQmfPRUVCnzCmi
- gAAA==
+ d=chromium.org; s=google; t=1780448820; x=1781053620;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9ZFBsFKhHgWNbw+NYFmMvZVlExPBPgJq9/ChJIKCimY=;
+ b=Cjd1cVluWSEeax9kvGigaRjLCO6OGMZ7KtSTS6QwvItSZttlfnV1ZtwE7O+YK/UUwj
+ 4Mlod6qQSjshDbmkwuHYp2Bqw3zQRHLqGoq2h92LI5+NEfTJWmN3nEwVA5QuQWa3M5kO
+ 87ZkJPmx8xqbZRBoxs90FxPJonxoSKwBqNEiU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780440563; x=1781045363;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=QCgszUrgNi7grQDH6VE2VsdkLUzjuVRFv4kl/ONnNts=;
- b=aDBRxKCX8MnZp4iL4GZoCNLtI7Hw+zXdTDJpxcySgDeUYHGoVtb+U+Yn8Q5OqpwobV
- NC/xpZeUy3bJipy4V1S5Yl0QM3FppRjCGEWrNa9anxR7tUvSLf/qpp3INfwPkPmqqnur
- aRZKkvI58OUbLXwH6J82zpaOftBwWCGUJoJzGtxV/G6CreF4FBPfLv+O0xiE1Ssk2jbi
- MfifGoTyaniJZyRXNkjM875hAmLn+xF3rSIr6PWNg8OGgTvaxBD+8Z/4M8L6WdoZpB4P
- 7LZxcWDw+jwp/TeeQvSx4tnfksJ1hMxOV8DLO+FOz43L8nnCTl7jvFXcLbawJGzdBq8A
- Q9tQ==
+ d=1e100.net; s=20251104; t=1780448820; x=1781053620;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=9ZFBsFKhHgWNbw+NYFmMvZVlExPBPgJq9/ChJIKCimY=;
+ b=IJgZTaA1itqO8dQEBQEiph2/mgcr7SBRNyNjDVTmvaCdqtde8b1K34HXqRlxJvC81V
+ a1iIiiUrm+zGY9cfCLu0dsjRABwYmY7qbpB9BEt40qpXWRl1S+KQpxNc72x2x6slB6sP
+ dHyc+HlSCNWj8c0hYH26DkOzdJpGyuh3QN9DAlic667XwY7RwHOfHS3qtjYyJxa8veXA
+ ITZasjrkhGuLIHnOz/pUF1aJaCQ478JALxYjsUarTl+HnvJKPjiUD2aIqLx6B8m12rWc
+ kTPnSXWgq+U2qS4LTGDiocZlrAcam36zP9b7y4ew0Hdz/Uc6WGuhpO8VhxJPl5jR25gP
+ AOzg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9hOKFEETnrUBA+8qGeFe2/M99E8Zu1VLA5TpvtmMvNX19idJJKaJ0ASf7OGIL8SYDo0njCLIuxSkw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyDNs1HwHQpD9jt2iXI8cgEZ82FSLTmzmzChsgXDy1wA7BlV0s7
- 1ZsBXlii+6OLeis0vBVEtTp0wBWcRfrf7eVhwHYuXRscrstjvNeCsrIz
-X-Gm-Gg: Acq92OH3/iq5Iob1xbfmTGEXa+5lwNrCFwwl8yDOc51RmnW0jy39FCXK8+7FYfcZMCu
- B/BVMQSoOqynKvAPnE8M6RYzkBsFj0Mj2fuqCVsjv9RxDT2Ry0+YsTlq9GsGwlG/27b0bGdtWPm
- GgfJkJ0/OFkRRaFkLMp76qtckHV+dT8WFV/h4lJHJhevPCyWVWdc1kyzdupaPN5StLAJswtfwlx
- ORh9ZlQqDXcYm2MpxaYw5gPIMQg0b4BHNcDZ4HSqIKrx3IIZ8Ka5uj4s7Npv6J9BrqdUnPlxNPt
- uaPNpSGrYpctnicWp72cUCq+jPKoeaeqbmHy6k3aqkXBDyC+os+tku76eC/Xn07qhceq90wmB5m
- xaSj9NPR+4VVS5jS7OuBSGmHIhnVY9LFwt3jQzao6HF9aYnlrQ571UGLLTct9V7w0DdRJ0AHFwa
- jCIk9XZKjMefvrscYbWYMj8IHs3XgMPEEzENAU9r8ozA==
-X-Received: by 2002:adf:e00e:0:10b0:45e:93b2:37bb with SMTP id
- ffacd0b85a97d-46021781c20mr451609f8f.6.1780440562462; 
- Tue, 02 Jun 2026 15:49:22 -0700 (PDT)
-Received: from [172.16.188.153] ([213.181.114.83])
- by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-4601f2f2710sm1999791f8f.14.2026.06.02.15.49.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jun 2026 15:49:21 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-Date: Tue, 02 Jun 2026 22:48:22 +0000
-Subject: [PATCH v4 25/25] dynamic_debug: use KBUILD_MODFILE for unique
- builtin module names
+ AFNElJ+Vav87+UVXMM9PjvFq4ypSkappiprJJzTLvLWur/lYHaxFFUvxxQ6jiM1YpfUroV6TBuU59+3o2o4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy41LWANdCvJtyjBVa4bK4NPfTpqsm1t4MnUfcM9m+Rdd/yZzIK
+ NcDTJpEtozlLNfu5Jjvw0mfuuSUu1HYxPOBuW7KhOekx6S6LkLc1OjTtgXGq3uvXW48Z43TewbC
+ Z6+o=
+X-Gm-Gg: Acq92OEkUvAWpQLpM7pydACc/qoWWW+ZiZG9pxHw/iBlati5NSu+HUaNDVrqCUKkti0
+ i8r+yM17O68Fb3oCN/sqgr8CNc7cFUuO7Ikdl1V4pCY4V3cFaHoRfHeXLzoZmxItSpbklgPmBMb
+ 9s4s1GoAThC9Efcl7YgH7sXlmVYml2rnRz0K/wB7pY7g1hQY4/mBzpCCIg4KCUF0NC4VWJ5Jv73
+ BwHOFUgV2ehSy9ltRauwAPp2qcH6/RqVaEnyV9koRb9sQIpRapfOLZ39RP2mOmu1DbC+QGulY94
+ o7317Ib01vBuM5P51E6IgLswj8gsVNhd7aLZ8Zj2tJJ8o3xjG6xfH7YBOt4HEVnePU1ArAZ9xw3
+ 9MsTJYUFfKd27weyf9GqfF3Syz4eCq4dtbLrzpsf5lZXtbedDXAZ1zjUVpM4EK5I3KbTAiFW9iF
+ eR8VeNWbd9hTDuTp27fsFNXwWCthaYNg03xoXJMWCVV4yN5rnVxw8nubt3Uo0Cccst99GMn+MC
+X-Received: by 2002:a05:6102:32c1:b0:660:e00e:720a with SMTP id
+ ada2fe7eead31-6ec2c4c0abemr609333137.8.1780448820174; 
+ Tue, 02 Jun 2026 18:07:00 -0700 (PDT)
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com.
+ [209.85.217.50]) by smtp.gmail.com with ESMTPSA id
+ a1e0cc1a2514c-9641414e1d7sm670206241.12.2026.06.02.18.06.57
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 02 Jun 2026 18:06:59 -0700 (PDT)
+Received: by mail-vs1-f50.google.com with SMTP id
+ ada2fe7eead31-6c87709aa26so2205686137.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 18:06:57 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9n36MiYxqECFvipMmI8YNWxegFaSQ/wEgeIAMe6vmxiB4GUqnGfu005BBVQH0oo403RWwnwXswHPE=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:1611:b0:631:ec2d:12bd with SMTP id
+ ada2fe7eead31-6ec298856b1mr573739137.5.1780448817047; Tue, 02 Jun 2026
+ 18:06:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-dd-maint-2-v4-25-19a1445585a8@gmail.com>
-References: <20260602-dd-maint-2-v4-0-19a1445585a8@gmail.com>
-In-Reply-To: <20260602-dd-maint-2-v4-0-19a1445585a8@gmail.com>
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
- Jason Baron <jbaron@akamai.com>, Luis Chamberlain <mcgrof@kernel.org>, 
- Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Shuah Khan <shuah@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-modules@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- Jim Cromie <jim.cromie@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780440488; l=13699;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=lthlKNyUq5gUtWvLVtrD/SKctmL38wo7iVjBwbNR+uY=;
- b=ZR2ERRpc7QxcWHTdurm0228LMQX3bNexpUtw/VCDnnM06DWx133ipZnZNguxNUs9x4RBoiZn0
- 6P6N2XWxty+BxCnjt8MUHPdzE82vXQAACHjyiLkEthIPu1kXpPKwwVo
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+References: <20260523035734.6602-1-chintanlike@gmail.com>
+ <ace48664-cd7e-4cb8-8940-04ffe6f93e19@minlexx.ru>
+ <24a8d461-7393-4a37-b23c-3cbf44060350@gmail.com>
+In-Reply-To: <24a8d461-7393-4a37-b23c-3cbf44060350@gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 2 Jun 2026 18:06:46 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XZfLxxEWEF3c=b2d7ngFZEstY0=+DrzJb-RMQMpACSrg@mail.gmail.com>
+X-Gm-Features: AVHnY4K83a2fc0Zzd7iRRmiAf7WT56feARLysrECtUhh-RdM_13IVfZHYIUeJYw
+Message-ID: <CAD=FV=XZfLxxEWEF3c=b2d7ngFZEstY0=+DrzJb-RMQMpACSrg@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/panel: novatek-nt36672a: Inline panel init
+ sequences
+To: Chintan Patel <chintanlike@gmail.com>
+Cc: Alexey Minnekhanov <alexeymin@minlexx.ru>, sumit.semwal@linaro.org, 
+ neil.armstrong@linaro.org, jesszhan0024@gmail.com, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,324 +105,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Historically dynamic-debug gets its module names from KBUILD_MODNAME.
-This works well for loadable modules, as the module loader has always
-required them to have unique names, but for builtins it is basically
-kbasename(srcfile), which sadly gives us many modules named "main".
+Hi,
 
-This makes the following ambiguous:
-  bash-5.3# echo module main +m > /proc/dynamic_debug/control
+On Tue, May 26, 2026 at 9:17=E2=80=AFPM Chintan Patel <chintanlike@gmail.co=
+m> wrote:
+>
+> >> @@ -162,8 +141,8 @@ static int nt36672a_panel_prepare(struct drm_panel
+> >> *panel)
+> >>       dsi_ctx.accum_err =3D nt36672a_panel_power_on(pinfo);
+> >>       /* send first part of init cmds */
+> >> -    nt36672a_send_cmds(&dsi_ctx, pinfo->desc->on_cmds_1,
+> >> -               pinfo->desc->num_on_cmds_1);
+> >> +    if (pinfo->desc->send_init_cmds_1)
+> >> +        pinfo->desc->send_init_cmds_1(&dsi_ctx);
+> >>       mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> >> @@ -173,8 +152,8 @@ static int nt36672a_panel_prepare(struct drm_panel
+> >> *panel)
+> >>       mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> >>       /* Send rest of the init cmds */
+> >> -    nt36672a_send_cmds(&dsi_ctx, pinfo->desc->on_cmds_2,
+> >> -               pinfo->desc->num_on_cmds_2);
+> >> +    if (pinfo->desc->send_init_cmds_2)
+> >> +        pinfo->desc->send_init_cmds_2(&dsi_ctx);
+> >>       mipi_dsi_msleep(&dsi_ctx, 120);
+> >
+> > Hi!
+> >
+> > Here, the split of panel init sequence into 2 separate functions _1 / _=
+2
+> > is completely artificial and completely unnecessary. For some unknown
+> > reason the initial version of driver had initialization procedure cut i=
+n
+> > 2 parts on the boundary of exit_sleep_mode + set_display_on commands.
+> >
+> > I think the whole init sequence should be glued together into one big
+> > send_init_cmds() callback and have all these calls:
+> >
+> >      mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> >      /* 0x46 =3D 70 ms delay */
+> >      mipi_dsi_msleep(&dsi_ctx, 70);
+> >      mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> >
+> >
+> > included in the middle. This opens up a possibility for other panels
+> > based on nt36672a to be supported in this driver, which don't have the
+> > init sequence split this way. The location of exit_sleep_mode and
+> > set_display_on commands there is different. And, importantly, the delay
+> > is different too.
+> >
+> > I once did a very similar change to this driver [1] to add support for
+> > more panels (ignore touchscreen changes there, look only at panel).
+> > What is also important, that change was also tested on Xiaomi Poco F1
+> > (xiaomi-beryllium) phone, which is the main user of this panel.
+> > Unfortunately I never got to send it, even though I wanted to..
+> >
+> > What do you think?
+> >
+> > [1] https://gitlab.com/sdm845-mainline/linux/-/merge_requests/131
+>
+> Hi Alexey,
+>
+> Thanks, that makes sense and I agree the fully panel-owned init sequence
+> would likely be a cleaner abstraction long term, especially for
+> supporting additional NT36672A panel variants with different sequencing
+> requirements.
+>
+> For this patch, though, I was trying to keep the scope limited to the
+> original refactor requested during earlier review:
+>
+> remove the command table abstraction,
+> inline the command sequences,
+> and preserve the existing init flow/behavior as closely as possible.
+>
+> Since moving exit_sleep_mode, delays, and set_display_on into the panel
+> callback changes the sequencing model itself, I was thinking it may be
+> better handled as a follow-up cleanup/refactor patch to avoid mixing
+> behavioral restructuring into this series.
+>
+> If that sounds reasonable, I'd prefer to keep this patch focused and
+> address the sequencing abstraction separately afterward.
 
-since it would affect 4 independent modules named main:
-  bash-5.3# ddgrep =m
-  init/main.c:1265 [main]initcall_blacklist =m "blacklisting initcall %s\n"
-  kernel/power/main.c:49 [main]pm_restore_gfp_mask =m "GFP mask restored\n"
-  kernel/module/main.c:2862 [main]move_module =m "\t0x%lx 0x%.8lx %s\n"
-  drivers/base/power/main.c:149 [main]device_pm_add =m "Adding info for %s:%s\n"
+Yeah, I agree with Chintan here. I'd prefer to apply his patch as-is
+and then I'd be happy to review and apply a followup patch if someone
+posts it.
 
-We can improve this by using KBUILD_MODFILE for dyndbg's modname in
-builtins, and KBUILD_MODNAME for loadables.
+This patch already has my Reviewed-by and the changes from v2 to v3
+address the nits I had on v2. Thanks! I'll plan to apply this patch in
+a few days unless there is any additional activity.
 
-The above control-file entries then become:
-  init/main.c:1265 [init/main]initcall_blacklist ...
-  kernel/power/main.c:49 [kernel/power/main]pm_restore_gfp_mask ...
-  kernel/module/main.c:2862 [kernel/module/main]move_module ...
-  drivers/base/power/main.c:149 [drivers/base/power/main]device_pm_add ...
-
-While this is a user visible change; [params] becomes [kernel/params],
-it is not a behavior change; we now match the query-module against the
-subsystem/module name or its kbasename (the simple-modname), which as
-before, matches all 4 modules.
-
-This allows queries to be specific when desired: "module init/main",
-while preserving the existing meaning of "module main"
-
-The deeper reason for this change is not obvious.  If any builtin
-"main" module were to add a classmap, it would attach to all "main"
-modules.  If 2 "main" modules defined separate classmaps, both modules
-would inadvertently share both classmaps.  Since classmaps map
-classnames to 0..62, and independently defined classmaps are most
-likely to start at 0 (unless author is planning to share the 0..62
-range with other classmaps), we have a setup for later reserved range
-conflicts.  Having unique names prevents future conflicts.
-
-This solution isn't perfect:
-1. it changes displayed [params] to [kernel/params] etc
-2. its mostly redundant with "filename */main.*"
-3. "module power", "module module", "module base/power" might be better
-   but would break old queries.
-
-Adapt dynamic-debug selftest:
-1- Add 'test_subsystem_module_queries' to verify path-based module matching.
-2- Use dynamic counting with precise regexes to determine expectations.
-3- Reorder tests to run slash-query verification immediately after
-   basic tests.
-4- Update basic_tests and comma_terminator_tests to use 'kernel/params'
-   instead of 'params' to match new path-based names for built-ins.
-
-And adjust Documentation
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
-
-v4: use new match_wildcard_hyphen() to allow dash vs underscore
-equivalence in query-modname vs KBUILD_MODFILE string, noted by sashiko.
-
-v3: new patch in rev-3
-use KBUILD_MODFILE to provide modname for builtin modules, giving
-unnique values that KBUILD_MODANME does not provide.
----
- Documentation/admin-guide/dynamic-debug-howto.rst  | 40 +++++-----
- include/linux/dynamic_debug.h                      | 17 +++-
- lib/dynamic_debug.c                                |  3 +-
- .../selftests/dynamic_debug/dyndbg_selftest.sh     | 93 +++++++++++++++++++++-
- 4 files changed, 126 insertions(+), 27 deletions(-)
-
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index 9c2f096ed1d8..8befb69575b7 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -38,12 +38,12 @@ You can view the currently configured behaviour in the *prdbg* catalog::
- 
-   :#> head -n7 /proc/dynamic_debug/control
-   # filename:lineno [module]function flags format
--  init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\n"
--  init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\n"
--  init/main.c:1424 [main]run_init_process =_ "  with arguments:\n"
--  init/main.c:1426 [main]run_init_process =_ "    %s\n"
--  init/main.c:1427 [main]run_init_process =_ "  with environment:\n"
--  init/main.c:1429 [main]run_init_process =_ "    %s\n"
-+  init/main.c:1179 [init/main]initcall_blacklist =_ "blacklisting initcall %s\n"
-+  init/main.c:1218 [init/main]initcall_blacklisted =_ "initcall %s blacklisted\n"
-+  init/main.c:1424 [init/main]run_init_process =_ "  with arguments:\n"
-+  init/main.c:1426 [init/main]run_init_process =_ "    %s\n"
-+  init/main.c:1427 [init/main]run_init_process =_ "  with environment:\n"
-+  init/main.c:1429 [init/main]run_init_process =_ "    %s\n"
- 
- The 3rd space-delimited column shows the current flags, preceded by
- a ``=`` for easy use with grep/cut. ``=p`` shows enabled callsites.
-@@ -59,10 +59,10 @@ query/commands to the control file.  Example::
- 
-   :#> ddcmd '-p; module main func run* +p'
-   :#> grep =p /proc/dynamic_debug/control
--  init/main.c:1424 [main]run_init_process =p "  with arguments:\n"
--  init/main.c:1426 [main]run_init_process =p "    %s\n"
--  init/main.c:1427 [main]run_init_process =p "  with environment:\n"
--  init/main.c:1429 [main]run_init_process =p "    %s\n"
-+  init/main.c:1424 [init/main]run_init_process =p "  with arguments:\n"
-+  init/main.c:1426 [init/main]run_init_process =p "    %s\n"
-+  init/main.c:1427 [init/main]run_init_process =p "  with environment:\n"
-+  init/main.c:1429 [init/main]run_init_process =p "    %s\n"
- 
- Error messages go to console/syslog::
- 
-@@ -161,17 +161,19 @@ file
- 	file kernel/freezer.c	# ie column 1 of control file
- 	file drivers/usb/*	# all callsites under it
- 	file inode.c:start_*	# parse :tail as a func (above)
--	file inode.c:1-100	# parse :tail as a line-range (above)
-+	file inode.c:1-100	# parse :tail as a line-range (below)
- 
- module
--    The given string is compared against the module name
--    of each callsite.  The module name is the string as
--    seen in ``lsmod``, i.e. without the directory or the ``.ko``
--    suffix and with ``-`` changed to ``_``.  Examples::
--
--	module sunrpc
--	module nfsd
--	module drm*	# both drm, drm_kms_helper
-+    The query string is compared against the subsystem module name of
-+    each callsite, as shown in the control file.  The simple module
-+    name is the string as seen in ``lsmod``, i.e. without the
-+    directory or the ``.ko`` suffix and with ``-`` changed to ``_``.
-+
-+    Examples::
-+
-+	module nfsd        # simple modname (as from lsmod)
-+	module init/main   # subsystem modname (as in control file)
-+	module drm*	   # both drm, drm_kms_helper
- 
- format
-     The given string is searched for in the dynamic debug format
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 2d6983186f37..aee6f3d0916f 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -8,6 +8,17 @@
- 
- #include <linux/build_bug.h>
- 
-+/*
-+ * Pick the best name for the module:
-+ * KBUILD_MODFILE includes the path (e.g., drivers/usb/core/usbcore) for built-ins.
-+ * Fall back to KBUILD_MODNAME for modules (loader requires unique names).
-+ */
-+#ifdef KBUILD_MODFILE
-+# define DDEBUG_MODNAME KBUILD_MODFILE
-+#else
-+# define DDEBUG_MODNAME KBUILD_MODNAME
-+#endif
-+
- /*
-  * An instance of this structure is created in a special
-  * ELF section at every dynamic debug callsite.  At runtime,
-@@ -128,9 +139,9 @@ struct _ddebug_class_param {
- #define DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, ...)		\
- 	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
- 	static struct _ddebug_class_map __aligned(8) __used		\
--		__section("__dyndbg_class_maps") _var = {			\
-+	__section("__dyndbg_class_maps") _var = {			\
- 		.mod = THIS_MODULE,					\
--		.mod_name = KBUILD_MODNAME,				\
-+		.mod_name = DDEBUG_MODNAME,				\
- 		.base = _base,						\
- 		.map_type = _maptype,					\
- 		.length = ARRAY_SIZE(_var##_classnames),		\
-@@ -169,7 +180,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- #define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)	\
- 	static struct _ddebug  __aligned(8)			\
- 	__section("__dyndbg_descs") name = {			\
--		.modname = KBUILD_MODNAME,			\
-+		.modname = DDEBUG_MODNAME,			\
- 		.function = __func__,				\
- 		.filename = __FILE__,				\
- 		.format = (fmt),				\
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 996daf0a05b5..b6c5634096fa 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -248,7 +248,8 @@ static int ddebug_change(const struct ddebug_query *query,
- 
- 		/* match against the module name */
- 		if (query->module &&
--		    !match_wildcard(query->module, di->mod_name))
-+		    !match_wildcard_hyphen(query->module, di->mod_name) &&
-+		    !match_wildcard_hyphen(query->module, kbasename(di->mod_name)))
- 			continue;
- 
- 		if (query->class_string) {
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index 1239f1e10591..26cca9f24799 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -76,9 +76,9 @@ function handle_exit_code() {
- # $1 - pattern to match, pattern in $1 is enclosed by spaces for a match ""\s$1\s"
- # $2 - number of times the pattern passed in $1 is expected to match
- # $3 - optional can be set either to "-r" or "-v"
--#       "-r" means relaxed matching in this case pattern provided in $1 is passed
--#       as is without enclosing it with spaces
--#       "-v" prints matching lines
-+#       "-r" means relaxed matching in this case pattern provided in
-+#       $1 is passed as is without enclosing it with spaces "-v"
-+#       prints matching lines
- # $4 - optional when $3 is set to "-r" then $4 can be used to pass "-v"
- function check_match_ct {
-     pattern="\s$1\s"
-@@ -223,7 +223,7 @@ function basic_tests {
-     check_match_ct =p 0
- 
-     # module params are builtin to handle boot args
--    check_match_ct '\[params\]' 4 -r
-+    check_match_ct '\[kernel/params\]' 4 -r
-     ddcmd module params +mpf
-     check_match_ct =pmf 4
- 
-@@ -238,8 +238,93 @@ EOF
-     ddcmd =_
- }
- 
-+function test_subsystem_module_queries {
-+    echo -e "${GREEN}# TEST_SUBSYTEM_MODULE_QUERIES ${NC}"
-+    ddcmd =_
-+
-+    # Find how many 'main' modules we have in total (by basename)
-+    # Use a more precise regex to avoid false positives like [irqdomain]
-+    local total_main=$(grep -c "\[\([^]]*/\)\?main\]" /proc/dynamic_debug/control)
-+    echo "# found $total_main total 'main' modules"
-+
-+    if [ $total_main -eq 0 ]; then
-+        echo "SKIP - no 'main' modules found to test slashes"
-+        return
-+    fi
-+
-+    echo "# testing 'module */main'"
-+    ddcmd module "*/main" +p
-+    # This should match modules that HAVE a slash and end in /main
-+    local slash_main=$(grep -c "\[[^]]*/main\]" /proc/dynamic_debug/control)
-+    check_match_ct =p $slash_main -r
-+
-+    echo "# testing 'module init/main' (specific path)"
-+    ddcmd =_
-+    ddcmd module "init/main" +p
-+    local init_main=$(grep -c "\[init/main\]" /proc/dynamic_debug/control)
-+    check_match_ct =p $init_main
-+
-+    echo "# testing 'module main' (basename match)"
-+    ddcmd =_
-+    ddcmd module main +p
-+    # This should match ALL $total_main entries due to kbasename matching
-+    check_match_ct =p $total_main
-+
-+    ddcmd =_
-+}
-+
-+function test_hyphen_underscore {
-+    echo -e "${GREEN}# TEST_HYPHEN_UNDERSCORE ${NC}"
-+    ddcmd =_
-+
-+    # Find a module with a hyphen in its name (e.g., from the control file)
-+    local mod_with_hyphen=$(grep -m1 "\[[^]]*-[^]]*\]" /proc/dynamic_debug/control | sed -n 's/.*\[\(.*\)\].*/\1/p')
-+
-+    if [ -z "$mod_with_hyphen" ]; then
-+        echo "SKIP - no module with hyphen found in /proc/dynamic_debug/control"
-+        return
-+    fi
-+
-+    echo "# testing hyphen/underscore equivalence for module: $mod_with_hyphen"
-+    local mod_with_underscore=$(echo "$mod_with_hyphen" | tr '-' '_')
-+
-+    # 1. Enable using literal hyphen name
-+    echo "#   trying hyphen name: $mod_with_hyphen"
-+    ddcmd module "$mod_with_hyphen" +p
-+    local count_hyphen=$(grep -c "\[$mod_with_hyphen\]" /proc/dynamic_debug/control)
-+    check_match_ct =p $count_hyphen -r
-+
-+    # 2. Disable and then enable using underscore name
-+    ddcmd =_
-+    echo "#   trying underscore name: $mod_with_underscore"
-+    ddcmd module "$mod_with_underscore" +p
-+    check_match_ct =p $count_hyphen -r
-+
-+    # 3. Try kbasename with hyphen (if it has a path)
-+    local base_hyphen=$(basename "$mod_with_hyphen")
-+    if [ "$base_hyphen" != "$mod_with_hyphen" ]; then
-+        ddcmd =_
-+        echo "#   trying hyphen kbasename: $base_hyphen"
-+        ddcmd module "$base_hyphen" +p
-+        local count_base=$(grep -c "\[\([^]]*/\)\?$base_hyphen\]" /proc/dynamic_debug/control)
-+        check_match_ct =p $count_base -r
-+    fi
-+
-+    # 4. Try kbasename with underscore
-+    local base_underscore=$(echo "$base_hyphen" | tr '-' '_')
-+    ddcmd =_
-+    echo "#   trying underscore kbasename: $base_underscore"
-+    ddcmd module "$base_underscore" +p
-+    local count_base=$(grep -c "\[\([^]]*/\)\?$base_hyphen\]" /proc/dynamic_debug/control)
-+    check_match_ct =p $count_base -r
-+
-+    ddcmd =_
-+}
-+
- tests_list=(
-     basic_tests
-+    test_subsystem_module_queries
-+    test_hyphen_underscore
- )
- 
- # Run tests
-
--- 
-2.54.0
-
+-Doug
