@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AD9ECD6E57
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 15:19:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B710CD6E60
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 15:19:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3573510FFFC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2357D10FFFA;
 	Wed,  3 Jun 2026 15:19:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="dmooYd3I";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="rPnvpYgq";
 	dkim-atps=neutral
-Received: from out30-130.freemail.mail.aliyun.com
- (out30-130.freemail.mail.aliyun.com [115.124.30.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C64BF10FFED
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 15:19:09 +0000 (UTC)
+Received: from out30-132.freemail.mail.aliyun.com
+ (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D3AD10FFF4
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 15:19:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux.alibaba.com; s=default;
- t=1780499948; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=FtoAZ4ObIrgN8RB/Z4MrgWEyJCArPPBpz4yofnEwwtU=;
- b=dmooYd3IjVvfRFdzF9y7M6tE2IJIvIn5qZ8dqr2paB1d9/qTBBEsVk5hFyqZVHeo2yTmyMt+DJCHatfouNy/Y3p67MXNITNs6WMWeINy2onH7B+M0HMfFlzEb2LglYhqzkYS99Z1Kn/nK2CbRnUiJfaZgYCqEMsMg+As53AaiIY=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R461e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033045133197;
+ t=1780499951; h=From:To:Subject:Date:Message-ID:MIME-Version;
+ bh=HHcwXEJnumwKc2zUUog9MdRhUiRkhNb+QkY/zlqMCrg=;
+ b=rPnvpYgqqdOdj8qphgqovqmNrOZ/zqZD3PkQL4ymax0zS/kk4gjubLENRjdWzLVQRusppsWDFPibHFkT16DFKTheo+EekjUzWOM0uWpbXrZognczVtIkYvXP3qGaXm3SBghc5dXblELGOTctNnrkcEUgBGOXk0mGS0co/nyjEGg=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R471e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033037033178;
  MF=guanghuifeng@linux.alibaba.com; NM=1; PH=DS; RN=28; SR=0;
- TI=SMTPD_---0X47fR7M_1780499944; 
+ TI=SMTPD_---0X47fR8Q_1780499948; 
 Received: from
  VM20241011-104.tbsite.net(mailfrom:guanghuifeng@linux.alibaba.com
- fp:SMTPD_---0X47fR7M_1780499944 cluster:ay36) by smtp.aliyun-inc.com;
- Wed, 03 Jun 2026 23:19:04 +0800
+ fp:SMTPD_---0X47fR8Q_1780499948 cluster:ay36) by smtp.aliyun-inc.com;
+ Wed, 03 Jun 2026 23:19:08 +0800
 From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
 To: jgg@ziepe.ca
 Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
@@ -42,9 +42,10 @@ Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
  shiyu.zsq@linux.alibaba.com, steven.price@arm.com,
  suravee.suthikulpanit@amd.com, tzimmermann@suse.de,
  wei.guo.simon@linux.alibaba.com, will@kernel.org, xlpang@linux.alibaba.com
-Subject: [PATCH v3 26/32] drm/panfrost: switch to iova_to_phys_length
-Date: Wed,  3 Jun 2026 23:17:58 +0800
-Message-ID: <20260603151804.1963871-27-guanghuifeng@linux.alibaba.com>
+Subject: [PATCH v3 30/32] iommu/io-pgtable-arm-v7s: remove deprecated
+ iova_to_phys wrapper
+Date: Wed,  3 Jun 2026 23:18:02 +0800
+Message-ID: <20260603151804.1963871-31-guanghuifeng@linux.alibaba.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20260603151804.1963871-1-guanghuifeng@linux.alibaba.com>
 References: <20260602104637.1219810-1-guanghuifeng@linux.alibaba.com>
@@ -66,27 +67,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Migrate panfrost_mmu to use ops->iova_to_phys_length(ops, iova, NULL)
-instead of the deprecated ops->iova_to_phys.
+Remove the iova_to_phys wrapper function and .iova_to_phys assignment
+from ARM v7s io-pgtable, as all callers now use iova_to_phys_length.
 
 Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_mmu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/iommu/io-pgtable-arm-v7s.c | 13 -------------
+ 1 file changed, 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-index 4a3162c3b659..aa0bc82deaf6 100644
---- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-@@ -514,7 +514,7 @@ void panfrost_mmu_unmap(struct panfrost_gem_mapping *mapping)
+diff --git a/drivers/iommu/io-pgtable-arm-v7s.c b/drivers/iommu/io-pgtable-arm-v7s.c
+index 62198e31a393..da065747e37c 100644
+--- a/drivers/iommu/io-pgtable-arm-v7s.c
++++ b/drivers/iommu/io-pgtable-arm-v7s.c
+@@ -641,18 +641,6 @@ static size_t arm_v7s_unmap_pages(struct io_pgtable_ops *ops, unsigned long iova
+ 	return unmapped;
+ }
  
- 		if (bo->is_heap)
- 			pgcount = 1;
--		if (!bo->is_heap || ops->iova_to_phys(ops, iova)) {
-+		if (!bo->is_heap || ops->iova_to_phys_length(ops, iova, NULL) != PHYS_ADDR_MAX) {
- 			unmapped_page = ops->unmap_pages(ops, iova, pgsize, pgcount, NULL);
- 			WARN_ON(unmapped_page != pgsize * pgcount);
- 		}
+-static phys_addr_t arm_v7s_iova_to_phys_length(struct io_pgtable_ops *ops,
+-						unsigned long iova,
+-						size_t *mapped_length);
+-
+-static phys_addr_t arm_v7s_iova_to_phys(struct io_pgtable_ops *ops,
+-					unsigned long iova)
+-{
+-	phys_addr_t phys = arm_v7s_iova_to_phys_length(ops, iova, NULL);
+-
+-	return (phys == PHYS_ADDR_MAX) ? 0 : phys;
+-}
+-
+ static phys_addr_t arm_v7s_iova_to_phys_length(struct io_pgtable_ops *ops,
+ 						unsigned long iova,
+ 						size_t *mapped_length)
+@@ -730,7 +718,6 @@ static struct io_pgtable *arm_v7s_alloc_pgtable(struct io_pgtable_cfg *cfg,
+ 	data->iop.ops = (struct io_pgtable_ops) {
+ 		.map_pages	= arm_v7s_map_pages,
+ 		.unmap_pages	= arm_v7s_unmap_pages,
+-		.iova_to_phys	= arm_v7s_iova_to_phys,
+ 		.iova_to_phys_length	= arm_v7s_iova_to_phys_length,
+ 	};
+ 
 -- 
 2.43.7
 
