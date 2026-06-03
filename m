@@ -4,58 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3A2DCD6E64
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 08:21:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D2B9CD6E64
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 08:27:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0369A10FA04;
-	Wed,  3 Jun 2026 08:21:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2FA310FA1A;
+	Wed,  3 Jun 2026 08:27:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fVV9bH0m";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QEO/KtI2";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A4A210FA04;
- Wed,  3 Jun 2026 08:21:54 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05F7B10FA1A;
+ Wed,  3 Jun 2026 08:27:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780474914; x=1812010914;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=0wWDWRQZWU1fR7DmQJSsv7Y6P4jeicuZQZO3rak7e7U=;
- b=fVV9bH0mc+G8QIR6eydK7lMPMQK7RMhjen3upVt1l/9JsYwFxrLnX5+0
- F9sCwIFsUhgOdg8h4guGVxgo4HuhjpHDEXcckQaGyt4Rislv02MBJiSsJ
- 6ehhke7U/nDzHnXEn/1KC4w37vAWGoPnwFeNayzU/ynVToIpzUxL3IYoa
- +8G75Orx6bTAxno08dz6WUZ/rf/hFGrgCjf/H4kmVQb+5UmOev1aCaT6W
- 8jsDlZ6xoUpFHbUlBzf6zRmEUfkUt0nzLQ+Jfw7h/S0xrptXL8NDeurUZ
- ejOtldlRtp1xmz6K73hzz2yNa3mQ0+JAjrdOZxoibUwOXXNqKbWhYE9iA g==;
-X-CSE-ConnectionGUID: vk7h78TsS2uLwBtMnvO/sw==
-X-CSE-MsgGUID: d8g9g7tvS2GgzC0TflDAjg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="92653422"
-X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; d="scan'208";a="92653422"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2026 01:21:54 -0700
-X-CSE-ConnectionGUID: K1PtVEMmQQe5n4e4CP0xXA==
-X-CSE-MsgGUID: yMUU2/L1Rdy38wfUOJfimQ==
+ t=1780475252; x=1812011252;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=tMlNo3koGceEqsnJYRqTljD/W1UJMZuj71kL7Fbq4/0=;
+ b=QEO/KtI2NghJNZTREHUQbFuxcXxYJMaC/bWVleLc85p8Go9eRZOpy/8y
+ jIyz5DRDOFqdOHNFjQLNrTGWzuiyPk/YhRITph7yNolwO9l/2aUc8hydv
+ f9qEkdSHcizmhaeBuhM965jaGGJFFy+dSMwsSDfXEK3JkYZbI7egJcRRQ
+ iEg0ouWSWx8ppzzCzOoMADTxfFNanJ1GBpUHWR+cIklW9p3CgyqCVl/WT
+ 56ACPKDlDBgKE9TvFB7i6jGpYrXMsc/viMnXi5DmViVrHzY7WYA+N2Wd3
+ pUYCYwDaEYEb8FEbc+a5aopHxu2NdDuAJ3u/kUqlzOIPbIgFzPW+25RWN g==;
+X-CSE-ConnectionGUID: 6udE/mpgSniwai/kKO5Bcg==
+X-CSE-MsgGUID: 2oC0L1b/ROmSnifoEKOY8w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="98696731"
+X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; d="scan'208";a="98696731"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2026 01:27:31 -0700
+X-CSE-ConnectionGUID: +lGZn+AdTbmyHwoKIDDktQ==
+X-CSE-MsgGUID: hiCbU2wyTo+S0KzbqpGWfQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; d="scan'208";a="241662387"
-Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa008.fm.intel.com with ESMTP; 03 Jun 2026 01:21:52 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1003)
- id CA27995; Wed, 03 Jun 2026 10:21:50 +0200 (CEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: [PATCH v1 1/1] drm/amd/display: Use %*ph to print small buffer
-Date: Wed,  3 Jun 2026 10:21:49 +0200
-Message-ID: <20260603082150.119785-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.50.1
+X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; d="scan'208";a="282270046"
+Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.189])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2026 01:27:26 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Maarten Lankhorst <dev@lankhorst.se>, Sebastian Andrzej Siewior
+ <bigeasy@linutronix.de>, Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
+ matthew.brost@intel.com, uma.shankar@intel.com,
+ pierre-louis.bossart@linux.dev, jerome.anand@intel.com, tiwai@suse.de,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn
+Subject: Re: [PATCH v3] drm/i915/display: Fix intel_lpe_audio_irq_handler
+ for PREEMPT-RT
+In-Reply-To: <3e012936-8493-43c8-b547-17ae40e6ef74@lankhorst.se>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260602004515.1907422-1-runyu.xiao@seu.edu.cn>
+ <20260602062957.0Nbtw_yY@linutronix.de>
+ <3e012936-8493-43c8-b547-17ae40e6ef74@lankhorst.se>
+Date: Wed, 03 Jun 2026 11:27:23 +0300
+Message-ID: <41760e1def08cbf51bf868a7ebf393e0d9e59125@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,26 +78,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use %*ph format to print small buffer as hex string.
+On Tue, 02 Jun 2026, Maarten Lankhorst <dev@lankhorst.se> wrote:
+> Thanks, pushed!
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Where are the CI results?
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 51924ae87705..ecdd4bac42e5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -757,7 +757,7 @@ void dm_handle_mst_sideband_msg_ready_event(
- 			break;
- 		}
- 
--		DRM_DEBUG_DRIVER("ESI %02x %02x %02x\n", esi[0], esi[1], esi[2]);
-+		DRM_DEBUG_DRIVER("ESI %3ph\n", esi);
- 
- 		switch (msg_rdy_type) {
- 		case DOWN_REP_MSG_RDY_EVENT:
+>
+> On 6/2/26 08:29, Sebastian Andrzej Siewior wrote:
+>> On 2026-06-02 08:45:15 [+0800], Runyu Xiao wrote:
+>>> From: Maarten Lankhorst <dev@lankhorst.se>
+>>>
+>>> The LPE audio interrupt comes from the i915 interrupt handler. It
+>>> should be in irq disabled context.
+>>>
+>>> With PREEMPT_RT enabled, the IRQ handler is threaded.
+>>> Because intel_lpe_audio_irq_handler() may be called in threaded IRQ context,
+>>> generic_handle_irq_safe API disables the interrupts before calling LPE's
+>>> interrupt top half handler.
+>>>
+>>> This fixes braswell audio issues with RT enabled.
+>>>
+>>> Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+>>> Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+>>> Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+>>> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+>> 
+>> Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+>> 
+>> Sebastian
+>
+
 -- 
-2.50.1
-
+Jani Nikula, Intel
