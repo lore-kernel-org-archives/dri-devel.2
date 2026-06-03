@@ -4,57 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7417CD6E55
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 13:11:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7C21CD6E55
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 13:17:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29E4110FDCF;
-	Wed,  3 Jun 2026 13:11:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1388410FDE6;
+	Wed,  3 Jun 2026 13:17:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="LQ2qGwyO";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="jnFFTPPf";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0ECF510FDCF
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 13:11:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
- Message-ID; bh=mg6FJchwfJ8zN6I2FUJoXfv9OwhuxxtuYrxZSgqZMwo=; b=L
- Q2qGwyOgZHlMBoHwj51br7LRUPRuIlEK2+0caJH5WEC8C8CwxMbXQQIC9w1oDR9M
- ESrxyKEG07ydC/0aCmG06FgwOsKpiuxkSBkBIlgsJyi0TmkZsjDrnRyjKaxq7YKF
- MsScrXgC36cvFtbzACKhF8exzBx4tKPhPZaD5Ebd44=
-Received: from andyshrk$163.com ( [58.22.7.114] ) by
- ajax-webmail-wmsvr-40-120 (Coremail) ; Wed, 3 Jun 2026 21:11:05 +0800 (CST)
-X-Originating-IP: [58.22.7.114]
-Date: Wed, 3 Jun 2026 21:11:05 +0800 (CST)
-From: "Andy Yan" <andyshrk@163.com>
-To: "Alexey Charkov" <alchark@flipper.net>
-Cc: "Sandy Huang" <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- "Andy Yan" <andy.yan@rock-chips.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re:[PATCH 2/2] drm/rockchip: dw_hdmi_qp: expose "overscan" property
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20260602-hdmi-overscan-v1-2-31f71b817c80@flipper.net>
-References: <20260602-hdmi-overscan-v1-0-31f71b817c80@flipper.net>
- <20260602-hdmi-overscan-v1-2-31f71b817c80@flipper.net>
-X-CM-CTRLMSGS: p6ycunBsdXM9MTc4MDQ5MjI2NDk2Ml80Yjg5M2U0ZTNiMzFmOGE0M2VmYWJkZ
- Tk1ZTQ2YTYyYQ==
-X-NTES-SC: AL_Qu2TAviSvUot4yKQZOkfmUgWjuw/WsG1v/Ul1YBSP556jDLp4yQsdlhFB13k6v+RMTGlqAieVTxg0OFXWa1WfaYttWbhLTOOMg6JwleuQaNBCQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3272410FDE6
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 13:17:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=2ZNGzKJNXN5rsxyBgbZO3QseJBddXcd4gnDNxIxGmH8=; b=jnFFTPPfFq049jaNlbQuNk2ZBT
+ kvt+i+R1OJDEBkhL3o8aURRfOLawVaS0XpsLK4svXMRqc8cUBzNXMfQqCIuFXed7UMFU9j+9FYzfu
+ WWmsHzmRvLsHwFisYV0pyjRTYbg0DSONWyHJAIcwH2CQfI8FZxuu2/8PkXzqYglUTt8AZ84UGQDDI
+ xalmcVJkxk5sp+Igvs4j+dbSq/RzwQC1KsJN4TtvKONa20mYXkZ8dzClYKy9ItUxMzvgox2Ff0I5s
+ 3yy5miDgG68rxjY3TskswWyHxvzlpz+tu0DmaCCaIg0cmmQZb/az6VhETSJ+il7o6LWwCF7WxpkoK
+ qAeymmfQ==;
+Received: from [189.7.87.67] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wUlTZ-00CBVi-Tb; Wed, 03 Jun 2026 15:17:42 +0200
+Message-ID: <ccb31615-a395-4491-8055-0ab7a87574d6@igalia.com>
+Date: Wed, 3 Jun 2026 10:17:35 -0300
 MIME-Version: 1.0
-Message-ID: <6f7ae6e2.a68c.19e8d9be74d.Coremail.andyshrk@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: eCgvCgDnD_XpJyBqUMUBAA--.17783W
-X-CM-SenderInfo: 5dqg52xkunqiywtou0bp/xtbC7QmmBWogJ+mj0wAA3z
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 08/14] drm/v3d: Introduce struct v3d_submit and convert
+ CL/TFU/CSD ioctls
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Melissa Wen
+ <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+References: <20260510-v3d-sched-misc-fixes-v2-0-ca4aba343ef6@igalia.com>
+ <20260510-v3d-sched-misc-fixes-v2-8-ca4aba343ef6@igalia.com>
+ <060b3060-6f6a-462e-9956-78fa5dfb6dc7@igalia.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <060b3060-6f6a-462e-9956-78fa5dfb6dc7@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,49 +92,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-CkhlbGxvIEFsZXh577yMCgpBdCAyMDI2LTA2LTAzIDAxOjAwOjQwLCAiQWxleGV5IENoYXJrb3Yi
-IDxhbGNoYXJrQGZsaXBwZXIubmV0PiB3cm90ZToKPkV4cG9zZSB0aGUgIm92ZXJzY2FuIiBjb25u
-ZWN0b3IgcHJvcGVydHkgYXMgcmVjb2duaXplZCBieSBLV2luIGFuZCB0aGUKPmxpa2VzIHRvIGNv
-bXBlbnNhdGUgZm9yIFRWIG92ZXJzY2FuIGNyb3BwaW5nLgo+Cj5UaGUgQ1JUQyB3aWxsIHVzZSB0
-aGUgbWFyZ2luIHZhbHVlcyBkZXJpdmVkIGZyb20gdGhpcyBvdmVyc2NhbiBwZXJjZW50YWdlCj5p
-biBpdHMgcG9zdC1jb21wb3NpdGlvbiBzY2FsZXIgdG8gYWRkIGFwcHJvcHJpYXRlIGJsYW5rIG1h
-cmdpbnMgb24gYWxsCj5zaWRlcyBvZiB0aGUgb3V0cHV0IGltYWdlIHNvIHRoYXQgdGhlIFRWIGRv
-ZXNuJ3QgZWF0IHVwIHZpc2libGUgY29udGVudC4KPgo+U2lnbmVkLW9mZi1ieTogQWxleGV5IENo
-YXJrb3YgPGFsY2hhcmtAZmxpcHBlci5uZXQ+Cj4tLS0KPiBkcml2ZXJzL2dwdS9kcm0vcm9ja2No
-aXAvZHdfaGRtaV9xcC1yb2NrY2hpcC5jIHwgMTYgKysrKysrKysrKysrKysrKwo+IDEgZmlsZSBj
-aGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspCj4KPmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-cm9ja2NoaXAvZHdfaGRtaV9xcC1yb2NrY2hpcC5jIGIvZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlw
-L2R3X2hkbWlfcXAtcm9ja2NoaXAuYwo+aW5kZXggZjM1NDg0NzE1YzJkLi5mYWU0NGQxMWRiZWYg
-MTAwNjQ0Cj4tLS0gYS9kcml2ZXJzL2dwdS9kcm0vcm9ja2NoaXAvZHdfaGRtaV9xcC1yb2NrY2hp
-cC5jCj4rKysgYi9kcml2ZXJzL2dwdS9kcm0vcm9ja2NoaXAvZHdfaGRtaV9xcC1yb2NrY2hpcC5j
-Cj5AQCAtMTM3LDEwICsxMzcsMTggQEAgZHdfaGRtaV9xcF9yb2NrY2hpcF9lbmNvZGVyX2F0b21p
-Y19jaGVjayhzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXIsCj4gCQkJCQkgc3RydWN0IGRybV9j
-b25uZWN0b3Jfc3RhdGUgKmNvbm5fc3RhdGUpCj4gewo+IAlzdHJ1Y3Qgcm9ja2NoaXBfaGRtaV9x
-cCAqaGRtaSA9IHRvX3JvY2tjaGlwX2hkbWlfcXAoZW5jb2Rlcik7Cj4rCWNvbnN0IHN0cnVjdCBk
-cm1fZGlzcGxheV9tb2RlICphZGpfbW9kZSA9ICZjcnRjX3N0YXRlLT5hZGp1c3RlZF9tb2RlOwo+
-IAlzdHJ1Y3Qgcm9ja2NoaXBfY3J0Y19zdGF0ZSAqcyA9IHRvX3JvY2tjaGlwX2NydGNfc3RhdGUo
-Y3J0Y19zdGF0ZSk7Cj4gCXVuaW9uIHBoeV9jb25maWd1cmVfb3B0cyBwaHlfY2ZnID0ge307Cj4r
-CXVuc2lnbmVkIGludCBvdmVyc2NhbjsKPiAJaW50IHJldDsKPiAKPisJb3ZlcnNjYW4gPSBtaW4o
-Y29ubl9zdGF0ZS0+dHYub3ZlcnNjYW4sIDEwMHUpOwo+KwlzLT50dl9tYXJnaW5zLmxlZnQgICA9
-IGFkal9tb2RlLT5oZGlzcGxheSAqIG92ZXJzY2FuIC8gMjAwOwo+KwlzLT50dl9tYXJnaW5zLnJp
-Z2h0ICA9IHMtPnR2X21hcmdpbnMubGVmdDsKPisJcy0+dHZfbWFyZ2lucy50b3AgICAgPSBhZGpf
-bW9kZS0+dmRpc3BsYXkgKiBvdmVyc2NhbiAvIDIwMDsKPisJcy0+dHZfbWFyZ2lucy5ib3R0b20g
-PSBzLT50dl9tYXJnaW5zLnRvcDsKPisKPiAJaWYgKGhkbWktPnRtZHNfY2hhcl9yYXRlID09IGNv
-bm5fc3RhdGUtPmhkbWkudG1kc19jaGFyX3JhdGUgJiYKPiAJICAgIHMtPm91dHB1dF9icGMgPT0g
-Y29ubl9zdGF0ZS0+aGRtaS5vdXRwdXRfYnBjKQo+IAkJcmV0dXJuIDA7Cj5AQCAtNjAzLDYgKzYx
-MSwxNCBAQCBzdGF0aWMgaW50IGR3X2hkbWlfcXBfcm9ja2NoaXBfYmluZChzdHJ1Y3QgZGV2aWNl
-ICpkZXYsIHN0cnVjdCBkZXZpY2UgKm1hc3RlciwKPiAJCXJldHVybiBkZXZfZXJyX3Byb2JlKGhk
-bWktPmRldiwgUFRSX0VSUihjb25uZWN0b3IpLAo+IAkJCQkgICAgICJGYWlsZWQgdG8gaW5pdCBi
-cmlkZ2UgY29ubmVjdG9yXG4iKTsKPiAKPisJcmV0ID0gZHJtX21vZGVfY3JlYXRlX3R2X3Byb3Bl
-cnRpZXNfbGVnYWN5KGRybSwgMCwgTlVMTCk7Cj4rCWlmIChyZXQpCj4rCQlyZXR1cm4gZGV2X2Vy
-cl9wcm9iZShkZXYsIHJldCwKPisJCQkJICAgICAiRmFpbGVkIHRvIGNyZWF0ZSBUViBjb25uZWN0
-b3IgcHJvcGVydGllc1xuIik7CgogICAgICBJIHN1Z2dlc3QgY2FsbGluZyBhIHNpbWlsYXIgQVBJ
-IHdpdGhpbiByb2NrY2hpcF9kcm1fYmluZCwgYW5kIHRoZW4gYXR0YWNoaW5nIHRoaXMgcHJvcGVy
-dHkgaW4KdGhlIGNvbm5lY3RvciBkcml2ZXJzIHRoYXQgbmVlZCB0byBleHBvc2UgaXQuIFRoaXMg
-YXBwcm9hY2ggYXZvaWRzIGludm9raW5nIHRoZSBBUEkgbXVsdGlwbGUgdGltZXMgaW4gbXVsdGlw
-bGUgZHJpdmVyc+OAggoKPisKPisJZHJtX29iamVjdF9hdHRhY2hfcHJvcGVydHkoJmNvbm5lY3Rv
-ci0+YmFzZSwKPisJCQkJICAgZHJtLT5tb2RlX2NvbmZpZy50dl9vdmVyc2Nhbl9wcm9wZXJ0eSwg
-MCk7Cj4rCj4gCXJldHVybiAwOwo+IH0KPiAKPgo+LS0gCj4yLjUyLjAKPgo+Cj5fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+TGludXgtcm9ja2NoaXAgbWFp
-bGluZyBsaXN0Cj5MaW51eC1yb2NrY2hpcEBsaXN0cy5pbmZyYWRlYWQub3JnCj5odHRwOi8vbGlz
-dHMuaW5mcmFkZWFkLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXJvY2tjaGlwCg==
+Hi Tvrtko,
+
+Thanks for review!
+
+On 25/05/26 09:29, Tvrtko Ursulin wrote:
+> 
+> Would it work to pass struct v3d_job **job instead of the void 
+> **container? And add like:
+> 
+> BUILD_BUG_ON(offsetof(struct v3d_bin_job, base));
+> ... for all job types ...
+> 
+> Callers can then pass in like:
+> 
+> ..., &bin->base, sizeof(*bin), ...
+> 
+> Slightly nicer and safer I think but up to you.
+
+I'll address it in the next version. As I'll change this function, I
+won't add your R-b.
+> 
+>> +    *container = kzalloc(size, GFP_KERNEL);
+>> +    if (!*container)
+>> +        return -ENOMEM;
+>> +
+>> +    job = *container;
+>> +    job->v3d = v3d;
+>> +    job->free = free;
+>> +    job->file_priv = v3d_priv;
+>> +
+
+[...]
+
+>> +
+>> +static int
+>> +v3d_attach_perfmon_to_jobs(struct v3d_submit *submit, u32 perfmon_id)
+>> +{
+>> +    struct v3d_file_priv *v3d_priv = submit->file_priv->driver_priv;
+>> +    struct v3d_dev *v3d = submit->v3d;
+>> +    struct v3d_perfmon *perfmon;
+>> +
+>> +    if (!perfmon_id)
+>> +        return 0;
+>> +
+>> +    if (v3d->global_perfmon)
+>> +        return -EAGAIN;
+> 
+> This check ends up quite deep in the submission chain so I wonder if it 
+> makes sense to pull it out and have it earlier? It appears racy in any 
+> case since AFAIU userspace can mess with it from a separate thread. Or 
+> perhaps can keep in simple just as well.
+> 
+> But it possibly warrants a READ_ONCE too to document it is elsewhere 
+> managed by (cmp)xchg.
+
+I'll "ignore" this comment as it's addressed in a much complete way in
+[1].
+
+[1] 
+https://lore.kernel.org/dri-devel/20260531-v3d-perfmon-lifetime-v2-0-60ed4485a203@igalia.com/T/
+
+[...]
+
+>> @@ -933,131 +1044,82 @@ v3d_submit_cl_ioctl(struct drm_device *dev, 
+>> void *data,
+>>           }
+>>       }
+>> -    ret = v3d_job_allocate(v3d, (void *)&render, sizeof(*render));
+>> -    if (ret)
+>> -        return ret;
+>> -
+>> -    ret = v3d_job_init(v3d, file_priv, &render->base,
+>> -               v3d_render_job_free, args->in_sync_rcl, &se, V3D_RENDER);
+>> -    if (ret) {
+>> -        v3d_job_deallocate((void *)&render);
+>> -        goto fail;
+>> -    }
+>> -
+>> -    render->start = args->rcl_start;
+>> -    render->end = args->rcl_end;
+>> -    INIT_LIST_HEAD(&render->unref_list);
+>> -
+>>       if (args->bcl_start != args->bcl_end) {
+>> -        ret = v3d_job_allocate(v3d, (void *)&bin, sizeof(*bin));
+>> +        ret = v3d_submit_add_job(&submit, (void **)&bin, sizeof(*bin),
+>> +                     v3d_job_free, V3D_BIN);
+>>           if (ret)
+>>               goto fail;
+>> -        ret = v3d_job_init(v3d, file_priv, &bin->base,
+>> -                   v3d_job_free, args->in_sync_bcl, &se, V3D_BIN);
+>> -        if (ret) {
+>> -            v3d_job_deallocate((void *)&bin);
+>> -            goto fail;
+>> -        }
+>> -
+>>           bin->start = args->bcl_start;
+>>           bin->end = args->bcl_end;
+>>           bin->qma = args->qma;
+>>           bin->qms = args->qms;
+>>           bin->qts = args->qts;
+>> -        bin->render = render;
+>> -    }
+> 
+> Is there a particular reason why you changed the order of render and bin 
+> job creation? I don't think it makes a difference to be clear, but just 
+> checking in case there is some subtlety I missed.
+
+As we now have v3d_submit_jobs(), we need to add the jobs to the array
+in order of dependency. The BIN jobs depends on the RENDER job and
+that's why we need to add it first.
+
+Best regards,
+- Maíra
+
