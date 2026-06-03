@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF13ECD6E5D
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 01:33:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6301CCD6E57
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 01:34:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03CDB113BD3;
-	Wed,  3 Jun 2026 01:33:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7A91113BD6;
+	Wed,  3 Jun 2026 01:34:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="DpCRBhYh";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="gzwYSJAZ";
 	dkim-atps=neutral
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Wed, 03 Jun 2026 01:33:53 UTC
-Received: from mail-m81147.netease.com (mail-m81147.netease.com [47.88.81.147])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9375D113BD3
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 01:33:53 +0000 (UTC)
+Received: from mail-m6086.netease.com (mail-m6086.netease.com [210.79.60.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD67A113BD6
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 01:34:32 +0000 (UTC)
 Received: from [172.16.12.90] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 40d472abe;
- Wed, 3 Jun 2026 09:28:46 +0800 (GMT+08:00)
-Message-ID: <91378132-8a8e-4bcc-9aa7-4de9fb135a6a@rock-chips.com>
-Date: Wed, 3 Jun 2026 09:28:44 +0800
+ by smtp.qiye.163.com (Hmail) with ESMTP id 40d4cc4e8;
+ Wed, 3 Jun 2026 09:34:29 +0800 (GMT+08:00)
+Message-ID: <a473c5a2-b1f9-4cf8-85bb-d3ec1572cbe8@rock-chips.com>
+Date: Wed, 3 Jun 2026 09:34:27 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/rockchip: dsi: Add maximum per lane bit rate
- calculation
+Subject: Re: [PATCH 2/2] drm/rockchip: dsi: Add dphy_get_timing support for
+ multiple PHY types
 To: Heiko Stuebner <heiko@sntech.de>
-Cc: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Guochun Huang <hero.huang@rock-chips.com>, Chaoyi Chen <kernel@airkyi.com>,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260324085838.90-1-kernel@airkyi.com> <4888940.6M6d0yLqnL@phil>
+ Guochun Huang <hero.huang@rock-chips.com>, Chaoyi Chen <kernel@airkyi.com>
+References: <20260324085838.90-1-kernel@airkyi.com>
+ <20260324085838.90-2-kernel@airkyi.com> <7091445.e8TTKsaY2g@phil>
 Content-Language: en-US
 From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <4888940.6M6d0yLqnL@phil>
+In-Reply-To: <7091445.e8TTKsaY2g@phil>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e8b18ebda03a7kunma7a4b39932116e
+X-HM-Tid: 0a9e8b1e272b03a7kunm90780f18321e8e
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTU1NVktKGkhCGUhOSkodQ1YVFA
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSE8dVkNMTR9DSUNMGkxMSFYVFA
  kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
  9PT0hVSktLVUpCS0tZBg++
 DKIM-Signature: a=rsa-sha256;
- b=DpCRBhYhHsk59imJ+FGOLy8d4MOtCjg9bDkKtXvNrDk5iWWBwZS1A4x0JDviW1oUGeFdDFS2d0NWdJVtU4YkUlRC3PajKAKdjolU8I8op2P1QcWAmkz2FKNW1VnFI1EwqOqeverIZpow5QyF0+1N/oei5IaiUWhLDi9TV/7d7fg=;
+ b=gzwYSJAZtEjsJiFDXTJx3X3klY2kxyRngymRyZO/CboKLZ4h8irwxcCEeGyX/4ik7HcJIYhtzRcN48RWubO1+CNdphs94VR4/HiD0dJq7ShOOng0FAHP3mmqLCnuMneIWFjfLaJ6qckQdBgFJ7eHVyPbITPJ1a+LXjFeJvoGu9M=;
  c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=m1cnttQcMrvUZx5o8JPHBR3oI+NYB+tDa2bCbLIj358=;
+ bh=/YTKzn8x+ScPY0xOlbOt0GetCsCtokkL6paqigkGfsw=;
  h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,82 +67,79 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi Heiko,
 
-On 6/3/2026 4:59 AM, Heiko Stuebner wrote:
-> Am Dienstag, 24. März 2026, 09:58:37 Mitteleuropäische Sommerzeit schrieb Chaoyi Chen:
+On 6/3/2026 5:02 AM, Heiko Stuebner wrote:
+> Am Dienstag, 24. März 2026, 09:58:38 Mitteleuropäische Sommerzeit schrieb Chaoyi Chen:
 >> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 >>
->> Different chips have varying support for the maximum bit rate per lane.
+>> Currently, there are generally two types of DPHY for Rockchip. One is
+>> the DPHY used by RK3288/RK3399, whose timing is described by Table A-3
+>> High-Speed Transition Times in the databook. The other is the DPHY used
+>> by PX30 and its successors. If its timing is still described using
+>> RK3288/RK3399, it may not perform correctly on some DSI panel.
 >>
->> Add calculation for the maximum per lane bit rate for various chip
->> platforms, and relax the bandwidth margin requirements.
+>> Add dphy_get_timing for different D-PHY types to adapt to timing
+>> differences.
 >>
 >> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 >> ---
->>  .../gpu/drm/rockchip/dw-mipi-dsi-rockchip.c   | 21 +++++++++++++++----
->>  1 file changed, 17 insertions(+), 4 deletions(-)
+>>  .../gpu/drm/rockchip/dw-mipi-dsi-rockchip.c   | 45 ++++++++++++++++++-
+>>  1 file changed, 43 insertions(+), 2 deletions(-)
 >>
 >> diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
->> index 3547d91b25d3..d3bacfae174e 100644
+>> index d3bacfae174e..2d1c9e54ff85 100644
 >> --- a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
 >> +++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
->> @@ -268,6 +268,7 @@ struct rockchip_dw_dsi_chip_data {
->>  
->>  	unsigned int flags;
->>  	unsigned int max_data_lanes;
->> +	unsigned long max_bit_rate_per_lane;
+>> @@ -247,6 +247,7 @@ enum {
+>>  	BIASEXTR_127_7,
 >>  };
 >>  
->>  struct dw_mipi_dsi_rockchip {
->> @@ -565,7 +566,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
->>  	int bpp;
->>  	unsigned long mpclk, tmp;
->>  	unsigned int target_mbps = 1000;
->> -	unsigned int max_mbps = dppa_map[ARRAY_SIZE(dppa_map) - 1].max_mbps;
->> +	unsigned int max_mbps;
->>  	unsigned long best_freq = 0;
->>  	unsigned long fvco_min, fvco_max, fin, fout;
->>  	unsigned int min_prediv, max_prediv;
->> @@ -573,6 +574,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
->>  	unsigned long _fbdiv, best_fbdiv;
->>  	unsigned long min_delta = ULONG_MAX;
+>> +struct dw_mipi_dsi_rockchip;
+>>  struct rockchip_dw_dsi_chip_data {
+>>  	u32 reg;
 >>  
->> +	max_mbps = dsi->cdata->max_bit_rate_per_lane;
+>> @@ -262,6 +263,9 @@ struct rockchip_dw_dsi_chip_data {
+>>  	u32 lanecfg2_grf_reg;
+>>  	u32 lanecfg2;
+>>  
+>> +	int (*dphy_get_timing)(struct dw_mipi_dsi_rockchip *dsi, unsigned int lane_mbps,
+>> +			       struct dw_mipi_dsi_dphy_timing *timing);
+>> +
+>>  	int (*dphy_rx_init)(struct phy *phy);
+>>  	int (*dphy_rx_power_on)(struct phy *phy);
+>>  	int (*dphy_rx_power_off)(struct phy *phy);
+>> @@ -721,8 +725,9 @@ static struct hstt hstt_table[] = {
+>>  };
+>>  
+>>  static int
+>> -dw_mipi_dsi_phy_get_timing(void *priv_data, unsigned int lane_mbps,
+>> -			   struct dw_mipi_dsi_dphy_timing *timing)
+>> +dw_mipi_dsi_phy_rk3288_get_timing(struct dw_mipi_dsi_rockchip *dsi,
+>> +				  unsigned int lane_mbps,
+>> +				  struct dw_mipi_dsi_dphy_timing *timing)
+>>  {
+>>  	int i;
+>>  
+>> @@ -738,6 +743,32 @@ dw_mipi_dsi_phy_get_timing(void *priv_data, unsigned int lane_mbps,
+>>  	return 0;
+>>  }
+>>  
+>> +static const struct dw_mipi_dsi_dphy_timing dphy_timing_px30 = {
+>> +	.clk_lp2hs = 0x40,
+>> +	.clk_hs2lp = 0x40,
+>> +	.data_lp2hs = 0x10,
+>> +	.data_hs2lp = 0x14,
+>> +};
 > 
-> I may be blind, but how do the values come together?
-> In the dppa_map table we have mbps values of 89 to 1500
-> (MHz)
-> 
-> While below the values set are
-> 	.max_bit_rate_per_lane = 1500000000UL,
-> in Hz I guess
-> 
-> And I don't see the needed conversion somehow.
-> 
+> so just to make sure, the timing on the px30 (and later) variant is the
+> same for all lane speeds?
 >
 
-Oh! It should be:
+More precisely, it applies to this fixed value for INNO PHY used after PX30.
 
-max_mbps = dsi->cdata->max_bit_rate_per_lane / USEC_PER_SEC;
-
-Will fix in v2.
-
->>  	dsi->format = format;
->>  	bpp = mipi_dsi_pixel_format_to_bpp(dsi->format);
->>  	if (bpp < 0) {
->> @@ -584,8 +586,8 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
->>  
->>  	mpclk = DIV_ROUND_UP(mode->clock, MSEC_PER_SEC);
->>  	if (mpclk) {
->> -		/* take 1 / 0.8, since mbps must big than bandwidth of RGB */
->> -		tmp = mpclk * (bpp / lanes) * 10 / 8;
->> +		/* take 1 / 0.9, since mbps must big than bandwidth of RGB */
->> +		tmp = mpclk * (bpp / lanes) * 10 / 9;
+> Please include that bit in the commit description
 > 
-> Please do this in a separate patch, especially as I would expect some
-> sort of explanation on why this is ok to do.
->
 
-Sure! I'll split this out in the new series.
+I will add more details in v2. Thank you!
 
 -- 
 Best, 
