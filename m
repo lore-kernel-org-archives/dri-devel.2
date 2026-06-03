@@ -4,96 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F676CD6E64
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 09:14:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1465ECD6E55
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 09:17:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF6BE10FA84;
-	Wed,  3 Jun 2026 09:14:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6703010FA8A;
+	Wed,  3 Jun 2026 09:17:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Sbu4P3BE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NkYh6RYz";
 	dkim-atps=neutral
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
- [74.125.82.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD0CF10FA93
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 09:14:41 +0000 (UTC)
-Received: by mail-dy1-f175.google.com with SMTP id
- 5a478bee46e88-3045c195251so12888649eec.1
- for <dri-devel@lists.freedesktop.org>; Wed, 03 Jun 2026 02:14:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780478081; cv=none;
- d=google.com; s=arc-20240605;
- b=k/cGUamT7lRU+T8TCYAg/N1+VbdX8PNGIWx9ki1RQNUP655FjK9VvozQglxw35JGvc
- KkIFuKpiy3rygEFbFkQMC5w5MC8UzMycK0uUtNLXGE9zsMZP9xm0wSXvLIFBxw4aQzfy
- ivoz6AxzVrEFhorD2SY6w0rilHkMMXBd3xNqzLVM2lIDeowMJUfnbZaLIX/C/fYGtbXu
- IiYuBGbklg723q78H/YwoX5WMZ7BAoN+eEiEfXd1vgweMxpz9dsKfjQKxmRP2Ex+cu15
- +JP6XcODEWi+E/tljOtkOYZsTMnXLj1k4QTXmy5RaJQS+5aGGZvJG1SO+kgsTDLkD3m5
- TkMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=Qly96tLqUufOrz99VbL4NP2+YlJ8ThHwzd10hgn+1b8=;
- fh=zJf6p3rXqvaDFz1lFAclh0AVUu7PsScHseOAS1j1vDE=;
- b=BAqOjkPbBQPuutelSeUIpN4UXsDj4+QSevPRZFhtHcY2v6j9YBVzMaCDway0KbquCe
- gYY6FY9bVEKXQkfm8uNQ08q/BorcOucfvOO76/sYUehWm16Vm2XcqITd5LJsIzWIwTbb
- MZpsNabfz3+bbCCzw7qNBtdWwLzyUR+w9pW3o55nQmRmHPBjyOm6GNx2Lx+u+ttTQw1U
- VHgF/HMdDlkUVjew0gkOgDUkrkLjOsZLwU7A+OOS+zr1aCKC2XgH+nU9/iP4cfX8NcbL
- A0m1rPFD5NICzWcwIda8U2U7tNhr+cSCMrMkruhrGORNCzWlmq9lPhBjHgtjRAExzu0s
- 3bmQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780478081; x=1781082881; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=Qly96tLqUufOrz99VbL4NP2+YlJ8ThHwzd10hgn+1b8=;
- b=Sbu4P3BEPoFSwO9DJdwi6KPV0TIQfqjwgywsiGcAxOq60ybkJu2fVaf2cojyFPlHYB
- i7MdrNVdVqu2MAoFGKjO/h6ipeOV8li4v+QPU+a2N61RZQJNIA05F29qUVuvacalfdmh
- N/0FY2Giv7pzNsozY8avRe7Gkb5bQZ7B60WvIkdLmAgVzrac/4QsSXZPUE+S1nopw2Wn
- qndJNVz+tvu88ezmMb1UiZZrXZ1NsvwpSdZDVoDE+Nkjc0A5pZPfwpr3fhgBBo4nWJD4
- LAvXXX9bdfPDoS+TkG9aobA55GjALr7GivS0ADoq7VsFM3fEPAvpALI+CO3oeJ9aV4Yx
- JZHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780478081; x=1781082881;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Qly96tLqUufOrz99VbL4NP2+YlJ8ThHwzd10hgn+1b8=;
- b=MXvfm8Rw8KShBPEZUzEjoRt2A3u6g1JV2JIjr+Nao0SyIVKOTXRmAaIYKqqTFlbCU0
- 8WpPUObO3S1Q+UEA1RBYX8S0KFNp4QJudx8htvthqgYZtaCvX12dXjdLvvqdKRlY4tZe
- ws8XOKFrA6Z/GplCl0OdBIOcGGGcutmwJc6bIz15Dg0owKdFQo4ss0MAoX4LmvWs7FNp
- K5s5AfsKMcG7j3QAfmssrVoqlzKbi3lYWII7gIeL4UrskN47WPf2Io1pVYKsvAqgwnZv
- UZXiB1TUlzXpPvTWNrKpPZjGNKEbLm0s6k32rp7R3ygD5TP8uSDRj/Fh6L2UdtlIJ1fo
- xrug==
-X-Forwarded-Encrypted: i=1;
- AFNElJ92TtoXqSP0gdnYKvyIDSDk6a2AqzjPJceODeKdBVaL1LhpojsqvLYdbcvi+3zZzBHbhHJgowAqaX0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyidOorx2nE2Ti1JP4+u0ioYglnIn3VVnAp4ydv4rHB2YywlQXZ
- ZZquWiKWdpMmd8fb4DUEfoUz99o5PwNt6o0grclhVyGQ/L8xLtO5cJgsLS11YDMQWA3CwTuPon7
- Fm8XFpeFkerZTP6lvlRgH1VWz1QyjGhI=
-X-Gm-Gg: Acq92OGonbG6IgJlJetVjTQTg9qFpFS1FYgn/aHOy1S4C0QmkdxqFFiOMk2CyIpc3cm
- d7yE3Odyy7pGKb2I0Z3pF+h73fM0+q1QKNFqQJNvj7BmzXSpc2nnmslFGo4v3b3HBSIC4aY2r24
- gr6UJAeEz+8aPVAhh5QmguoFknG7atOkT/PII6Z2Yn/ktTN1kWyyy3lXXleXoRapn42Y1hMnmff
- k/SRsn+6U/HwABy+ImZhL6YaLQotEFK9/zlgdkDk7abnkkHoMDQJZotcCKutl3LNhPFV2h1f+2O
- BwsIuAtMKu+D1xakIg==
-X-Received: by 2002:a05:693c:63ce:b0:304:c651:bdea with SMTP id
- 5a478bee46e88-3074fb57117mr682975eec.21.1780478080691; Wed, 03 Jun 2026
- 02:14:40 -0700 (PDT)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B327610FA89;
+ Wed,  3 Jun 2026 09:17:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4998A4099D;
+ Wed,  3 Jun 2026 09:17:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 491851F00893;
+ Wed,  3 Jun 2026 09:17:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780478270;
+ bh=M0pUtaR4+MO5aeujygdu2I6w5ZAQoI82CxqwwUxfoiE=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=NkYh6RYztD/v9Cd5qUUF+73iEm/9P8Dxg515rIIt8cpNkQXn0uWsbSjzZ94uOOdJT
+ 8lr2VDF/pFtEj8vN8v2caT9WCT2G9Z4Rq6UiHuCW/5CM0K/fYFpJlmzxzzvELk0/uq
+ BVOLqgNF9knDhwESnGP5ZFMste8UryYsCYqyJ7VFjS0OmKQkf1uy9VheypRjnl2pvZ
+ xlHfC6AbaKXzeHOGbNyuhpkqOZUsbCol0WdydURkXHIocM5fXBl244JSyT3vk5npBp
+ gRrddaqENxSHYNaMAO7aZvprpMklJyWR7Frr7S1uw1kJfHZkXs5zXbnpDTfZihHg04
+ 6J50JPcqEnSKA==
+Message-ID: <5e6948b3-d235-4b61-aed7-e8b4d0f5b452@kernel.org>
+Date: Wed, 3 Jun 2026 11:17:44 +0200
 MIME-Version: 1.0
-References: <CAOSULec2OpwTGB3OUb_n3CdKO6H_DGJnxw=qsBswbd+JBjemKA@mail.gmail.com>
- <CAHp75Vc15t7zmNGeuNG_fLHwCN=Ym9w5Cn92+eqbtsioGxFzCQ@mail.gmail.com>
- <CAOSULedF6GUK_e_3KRPB+D0Jxgtow38OjQu9B1=vG-XTfsdYOA@mail.gmail.com>
- <CAHp75VdtOuLEkiuiUqxa3DT75y8Hd-1PtquodpN4qJ=rCFs_4Q@mail.gmail.com>
- <CAOSULeev+3LsSR6QboTy7oCUbTNQOOx72vjgf_tnZcr_JKbhmQ@mail.gmail.com>
- <ah9_utsktDp4oN9E@ashevche-desk.local>
-In-Reply-To: <ah9_utsktDp4oN9E@ashevche-desk.local>
-From: Enchanted Hunter <enchantedredhunter@gmail.com>
-Date: Wed, 3 Jun 2026 12:14:29 +0300
-X-Gm-Features: AVHnY4KfnZSEb3xpMbBBxDhgcrPfJ1sNC0lcOUa8IrwcjwggCM5bUggzIwQbl10
-Message-ID: <CAOSULed6efCh6EYdv8gbOFdPxVrjEmXV0SJC6YR+aqBKkZ4wQw@mail.gmail.com>
-Subject: Re: [PATCH] staging: fbtft: replace sprintf with snprintf
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Andy Shevchenko <andy.shevchenko@gmail.com>, gregkh@linuxfoundation.org, 
- linux-staging@lists.linux.dev, andy@kernel.org, 
- dri-devel@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="00000000000087b250065355db52"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/slab: improve kmem_cache_alloc_bulk
+Content-Language: en-US
+To: rob.clark@oss.qualcomm.com
+Cc: Christoph Hellwig <hch@lst.de>, Harry Yoo <harry@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Mark Brown <broonie@kernel.org>,
+ Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+ David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Jesper Dangaard Brouer <hawk@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, io-uring@vger.kernel.org,
+ kasan-dev@googlegroups.com, bpf@vger.kernel.org, netdev@vger.kernel.org,
+ Alexander Lobakin <aleksander.lobakin@intel.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>
+References: <20260528093437.2519248-1-hch@lst.de>
+ <20260528093437.2519248-2-hch@lst.de>
+ <5f7f90d8-cb32-4ffb-8f1c-0722aafbe869@kernel.org>
+ <20260529135045.GA10647@lst.de>
+ <5f3ba603-a6ad-4cf2-9a54-aebc10273c59@kernel.org>
+ <58cc76e7-2348-443d-a989-2a06e61178af@kernel.org>
+ <20260601113831.GA25535@lst.de>
+ <d7b08296-7f6e-4d89-ab3b-04e43d04929e@kernel.org>
+ <CACSVV00k-fxW6+waHNqvmYcnVNDkRexoWWprFzfayZfqdyMuuA@mail.gmail.com>
+ <CACSVV00dNWgpNVU5rB=Hmg+3oWF18yTyfKNr_tWesjoP1jMxwg@mail.gmail.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <CACSVV00dNWgpNVU5rB=Hmg+3oWF18yTyfKNr_tWesjoP1jMxwg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,175 +116,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---00000000000087b250065355db52
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 6/1/26 16:39, Rob Clark wrote:
+> On Mon, Jun 1, 2026 at 6:32 AM Rob Clark <rob.clark@oss.qualcomm.com> wrote:
+>>
+>> On Mon, Jun 1, 2026 at 5:50 AM Vlastimil Babka (SUSE) <vbabka@kernel.org> wrote:
+>> >
+>> > On 6/1/26 13:38, Christoph Hellwig wrote:
+>> > > On Mon, Jun 01, 2026 at 10:16:30AM +0200, Vlastimil Babka (SUSE) wrote:
+>> > >> > kmem_cache_alloc_bulk() returning 0 was considered a success in that case.
+>> > >> >
+>> > >> > Either fixing kmem_cache_alloc_bulk() (and the comment) or fixing the
+>> > >> > user sounds fine to me.
+>> > >>
+>> > >> Would it be wrong if we just returned true for size of 0? Would something
+>> > >> else break?
+>> > >
+>> > > I don't think it is wrong per se, but it feels like the wrong kind of
+>> > > API.  I.e. I don't think the MSM caller actually wants this, as they'd
+>> > > also do a zero-sized kvmalloc.
+>> >
+>> > If p->count is 0 then indeed there's a zero-sized kvmalloc so p->pages ==
+>> > ZERO_SIZE_PTR but then nothing breaks because nothing tries to dereference it?
+>> >
+>> > msm_iommu_pagetable_prealloc_cleanup() has a "if (p->count > 0)" branch so
+>> > it seems it's considered possible. But then the rest of the functions also
+>> > seems working fine, i.e. kmem_cache_free_bulk() of zero size does nothing,
+>> > kvfree() of ZERO_SIZE_PTR does nothing.
+>> >
+>> > It seems to me kmem_cache_alloc_bulk() returning true for size == 0 fits
+>> > naturally in this world and is less likely to result in a gotcha?
+>>
+>> I think I was probably expecting kvmalloc(0) => NULL ... but it
+>> happened to work out before
+>>
+>> Adding an "if (!p->count) return 0;" at the top of
+>> msm_iommu_pagetable_prealloc_allocate() seems like the thing to do..
+>> if you want, I can send that patch (but traveling this week... so
+>> let's see what I can do)
+> 
+> Aaaaaand.. sending patch from hotel wifi doesn't seem to be a thing
+> that works.. but I've tested the following w/ deqp-vk cts, and works
+> as expected
 
-=D1=81=D1=80, 3 =D0=B8=D1=8E=D0=BD. 2026=E2=80=AF=D0=B3. =D0=B2 04:13, Andy=
- Shevchenko <andriy.shevchenko@intel.com>:
+Thanks, I will amend the commit in slab tree with this as the easiest way to
+go foward.
+Just a quick question though:
 
->
->
-> Please, stop top-posting.
->
-> On Tue, Jun 02, 2026 at 10:33:34PM +0300, Enchanted Hunter wrote:
-> > I suppose I agree with you. My patch does look silly, and I regret
-> wasting
-> > your time. I've just started learning kernel development. Perhaps if yo=
-u
-> > happen to have any routine task, you could suggest something that would
-> > actually be worth doing. I'm very interested in this. I will sign with =
-my
-> > real name, but I'm from Russia, and I understand that this might be a b=
-ig
-> > problem right now.
->
-> I have this [1]. It shouldn't be a problem as long as you are not working
-> for
-> the OFAC sanctioned entity or tied to them in any ways.
->
->
-> > =D0=B2=D1=82, 2 =D0=B8=D1=8E=D0=BD. 2026=E2=80=AF=D0=B3. =D0=B2 21:32, =
-Andy Shevchenko <andy.shevchenko@gmail.com>:
-> >
-> > > On Tue, Jun 2, 2026 at 8:13=E2=80=AFPM Enchanted Hunter
-> > > <enchantedredhunter@gmail.com> wrote:
-> > > >
-> > > > Overall, it doesn't address any compiler warnings, but this is my
-> first
-> > > patch. I wanted to start with something concrete, and I saw an unsafe
-> > > function and tried to fix it. The fact that the compilation behavior
-> won't
-> > > change is true, but the code will become a bit more formal =E2=80=94 =
-maybe
-> that's a
-> > > good thing.
-> > >
-> > > Not sure we need a churn on the working code.
-> > >
-> > > A process hint: Do not top-post.
-> > >
-> > > > =D0=BF=D0=BD, 1 =D0=B8=D1=8E=D0=BD. 2026=E2=80=AF=D0=B3. =D0=B2 11:=
-25, Andy Shevchenko <
-> andy.shevchenko@gmail.com>:
-> > > >>
-> > > >> On Mon, Jun 1, 2026 at 3:44=E2=80=AFAM Enchanted Hunter
-> > > >> <enchantedredhunter@gmail.com> wrote:
-> > > >> >
-> > > >> > This patch replaces unsafe sprintf calls with snprintf in
-> > > >> > fbtft_register_framebuffer() to prevent potential buffer overflo=
-w.
-> > > >> >
-> > > >> > Signed-off-by: rat1bor <enchantedredhunter@gmail.com>
-> > >
-> > > Another thing, use your real name and not an alias.
-> > >
-> > > >> Does this change address any compiler warning or something like
-> that?
-> > > >> At a glance I do not see any usefulness of this patch except an
-> > > >> unneeded churn.
->
-> [1]: https://gist.github.com/andy-shev/a2cb1ee4767d6d2f5d20db53ecb9aabc
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
->  I don't work for any organizations that are under OFAC sanctions. Sorry
-for the top-posting.
+> ----------------
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
+> index 7d449e5202c5..ef744d154bbe 100644
+> --- a/drivers/gpu/drm/msm/msm_iommu.c
+> +++ b/drivers/gpu/drm/msm/msm_iommu.c
+> @@ -332,13 +332,16 @@ msm_iommu_pagetable_prealloc_allocate(struct
+> msm_mmu *mmu, struct msm_mmu_preall
+>         struct kmem_cache *pt_cache = get_pt_cache(mmu);
+>         int ret;
+> 
+> +       if (!p->count)
+> +               return 0;
 
---00000000000087b250065355db52
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+We know p->pages is NULL in this case, right? Because it was allocated by
+vm_bind_job_create() using kzalloc().
+And the job can't be reused with a leftover value?
+(msm_iommu_pagetable_prealloc_cleanup doesn't set p->pages to zero).
+Or should we set p->pages to NULL here.
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=
-=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">=D1=81=D1=80, 3 =D0=
-=B8=D1=8E=D0=BD. 2026=E2=80=AF=D0=B3. =D0=B2 04:13, Andy Shevchenko &lt;<a =
-href=3D"mailto:andriy.shevchenko@intel.com" target=3D"_blank">andriy.shevch=
-enko@intel.com</a>&gt;:<br></div><blockquote class=3D"gmail_quote" style=3D=
-"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-le=
-ft:1ex"><br>
-<br>
-Please, stop top-posting.<br>
-<br>
-On Tue, Jun 02, 2026 at 10:33:34PM +0300, Enchanted Hunter wrote:<br>
-&gt; I suppose I agree with you. My patch does look silly, and I regret was=
-ting<br>
-&gt; your time. I&#39;ve just started learning kernel development. Perhaps =
-if you<br>
-&gt; happen to have any routine task, you could suggest something that woul=
-d<br>
-&gt; actually be worth doing. I&#39;m very interested in this. I will sign =
-with my<br>
-&gt; real name, but I&#39;m from Russia, and I understand that this might b=
-e a big<br>
-&gt; problem right now.<br>
-<br>
-I have this [1]. It shouldn&#39;t be a problem as long as you are not worki=
-ng for<br>
-the OFAC sanctioned entity or tied to them in any ways.<br>
-<br>
-<br>
-&gt; =D0=B2=D1=82, 2 =D0=B8=D1=8E=D0=BD. 2026=E2=80=AF=D0=B3. =D0=B2 21:32,=
- Andy Shevchenko &lt;<a href=3D"mailto:andy.shevchenko@gmail.com" target=3D=
-"_blank">andy.shevchenko@gmail.com</a>&gt;:<br>
-&gt; <br>
-&gt; &gt; On Tue, Jun 2, 2026 at 8:13=E2=80=AFPM Enchanted Hunter<br>
-&gt; &gt; &lt;<a href=3D"mailto:enchantedredhunter@gmail.com" target=3D"_bl=
-ank">enchantedredhunter@gmail.com</a>&gt; wrote:<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; Overall, it doesn&#39;t address any compiler warnings, but t=
-his is my first<br>
-&gt; &gt; patch. I wanted to start with something concrete, and I saw an un=
-safe<br>
-&gt; &gt; function and tried to fix it. The fact that the compilation behav=
-ior won&#39;t<br>
-&gt; &gt; change is true, but the code will become a bit more formal =E2=80=
-=94 maybe that&#39;s a<br>
-&gt; &gt; good thing.<br>
-&gt; &gt;<br>
-&gt; &gt; Not sure we need a churn on the working code.<br>
-&gt; &gt;<br>
-&gt; &gt; A process hint: Do not top-post.<br>
-&gt; &gt;<br>
-&gt; &gt; &gt; =D0=BF=D0=BD, 1 =D0=B8=D1=8E=D0=BD. 2026=E2=80=AF=D0=B3. =D0=
-=B2 11:25, Andy Shevchenko &lt;<a href=3D"mailto:andy.shevchenko@gmail.com"=
- target=3D"_blank">andy.shevchenko@gmail.com</a>&gt;:<br>
-&gt; &gt; &gt;&gt;<br>
-&gt; &gt; &gt;&gt; On Mon, Jun 1, 2026 at 3:44=E2=80=AFAM Enchanted Hunter<=
-br>
-&gt; &gt; &gt;&gt; &lt;<a href=3D"mailto:enchantedredhunter@gmail.com" targ=
-et=3D"_blank">enchantedredhunter@gmail.com</a>&gt; wrote:<br>
-&gt; &gt; &gt;&gt; &gt;<br>
-&gt; &gt; &gt;&gt; &gt; This patch replaces unsafe sprintf calls with snpri=
-ntf in<br>
-&gt; &gt; &gt;&gt; &gt; fbtft_register_framebuffer() to prevent potential b=
-uffer overflow.<br>
-&gt; &gt; &gt;&gt; &gt;<br>
-&gt; &gt; &gt;&gt; &gt; Signed-off-by: rat1bor &lt;<a href=3D"mailto:enchan=
-tedredhunter@gmail.com" target=3D"_blank">enchantedredhunter@gmail.com</a>&=
-gt;<br>
-&gt; &gt;<br>
-&gt; &gt; Another thing, use your real name and not an alias.<br>
-&gt; &gt;<br>
-&gt; &gt; &gt;&gt; Does this change address any compiler warning or somethi=
-ng like that?<br>
-&gt; &gt; &gt;&gt; At a glance I do not see any usefulness of this patch ex=
-cept an<br>
-&gt; &gt; &gt;&gt; unneeded churn.<br>
-<br>
-[1]: <a href=3D"https://gist.github.com/andy-shev/a2cb1ee4767d6d2f5d20db53e=
-cb9aabc" rel=3D"noreferrer" target=3D"_blank">https://gist.github.com/andy-=
-shev/a2cb1ee4767d6d2f5d20db53ecb9aabc</a><br>
-<br>
--- <br>
-With Best Regards,<br>
-Andy Shevchenko<br>
-<br>
-<br></blockquote><div>=C2=A0<span class=3D"gmail-">I don&#39;t work for any=
- organizations that are under OFAC sanctions. </span><span class=3D"gmail-"=
->Sorry for the top-posting.</span></div></div></div>
-</div>
+> +
+>         p->pages = kvmalloc_objs(*p->pages, p->count);
+>         if (!p->pages)
+>                 return -ENOMEM;
+> 
+>         ret = kmem_cache_alloc_bulk(pt_cache, GFP_KERNEL, p->count, p->pages);
+>         if (ret != p->count) {
+> -               kfree(p->pages);
+> +               kvfree(p->pages);
+>                 p->pages = NULL;
+>                 p->count = ret;
+>                 return -ENOMEM;
 
---00000000000087b250065355db52--
