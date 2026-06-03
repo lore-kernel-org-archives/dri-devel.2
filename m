@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E779FCD6E60
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 15:18:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D15CCD6E6C
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 15:18:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF05C112009;
-	Wed,  3 Jun 2026 15:18:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5838711200F;
+	Wed,  3 Jun 2026 15:18:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Weu5S6q0";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="wUSokiKV";
 	dkim-atps=neutral
-Received: from out30-132.freemail.mail.aliyun.com
- (out30-132.freemail.mail.aliyun.com [115.124.30.132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AD9010FFDB
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 15:18:53 +0000 (UTC)
+Received: from out30-97.freemail.mail.aliyun.com
+ (out30-97.freemail.mail.aliyun.com [115.124.30.97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B1EF10FFDB
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 15:18:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux.alibaba.com; s=default;
- t=1780499932; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=iWO0sMJG8r4J7LKnC484yIJn4WyUtK7EGFantGfMt+4=;
- b=Weu5S6q0BrffVvEdieSjbNd9xmSnPMtRbGlyJqEEgdQEUmKR3+qwHp9JwxlmQeGGYY9XuqIBfItfLooAx5qBR3MF9WlG2xEk3W7ZHrkvU0eNL/1jmguONy+wXM9XKeTqSQHx/eg9X0+oEfXUXPo+ZLuKigptui4Ymq09NwPIrVA=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R581e4; CH=green; DM=||false|;
+ t=1780499931; h=From:To:Subject:Date:Message-ID:MIME-Version;
+ bh=D6ghu2heF624JtfaTXizY9L77UrgY/rsaZWlsUjxjMw=;
+ b=wUSokiKVkDUKUkZB9OkLbi+h+xgw/N51diF3XXQFXLMPDt5YaYKG8wi1PPBiXm+O6qQ/p/+EJHK+B80zrTNHuZZlxb89RssXIkSEuiOT/6PIkalwasx4MGwUH1xHvCCwP+PUzKKy7PJE1TJhUQvUsYRWu8qDjNmO+yDYgbAyEQg=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
  DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033037026112;
  MF=guanghuifeng@linux.alibaba.com; NM=1; PH=DS; RN=28; SR=0;
- TI=SMTPD_---0X47fR3Q_1780499930; 
+ TI=SMTPD_---0X47fR3B_1780499929; 
 Received: from
  VM20241011-104.tbsite.net(mailfrom:guanghuifeng@linux.alibaba.com
- fp:SMTPD_---0X47fR3Q_1780499930 cluster:ay36) by smtp.aliyun-inc.com;
- Wed, 03 Jun 2026 23:18:50 +0800
+ fp:SMTPD_---0X47fR3B_1780499929 cluster:ay36) by smtp.aliyun-inc.com;
+ Wed, 03 Jun 2026 23:18:49 +0800
 From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
 To: jgg@ziepe.ca
 Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
@@ -42,9 +42,9 @@ Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
  shiyu.zsq@linux.alibaba.com, steven.price@arm.com,
  suravee.suthikulpanit@amd.com, tzimmermann@suse.de,
  wei.guo.simon@linux.alibaba.com, will@kernel.org, xlpang@linux.alibaba.com
-Subject: [PATCH v3 12/32] iommu/exynos: implement iova_to_phys_length
-Date: Wed,  3 Jun 2026 23:17:44 +0800
-Message-ID: <20260603151804.1963871-13-guanghuifeng@linux.alibaba.com>
+Subject: [PATCH v3 11/32] iommu/mtk_iommu: implement iova_to_phys_length
+Date: Wed,  3 Jun 2026 23:17:43 +0800
+Message-ID: <20260603151804.1963871-12-guanghuifeng@linux.alibaba.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20260603151804.1963871-1-guanghuifeng@linux.alibaba.com>
 References: <20260602104637.1219810-1-guanghuifeng@linux.alibaba.com>
@@ -66,66 +66,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Implement iova_to_phys_length for Exynos IOMMU driver,
-returning the actual PTE mapping size.
+Migrate MediaTek IOMMU to implement iova_to_phys_length, passing through
+mapped_length from io-pgtable.
 
 Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
 ---
- drivers/iommu/exynos-iommu.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
+ drivers/iommu/mtk_iommu.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/iommu/exynos-iommu.c b/drivers/iommu/exynos-iommu.c
-index 874d05f4b396..17d77b9114c4 100644
---- a/drivers/iommu/exynos-iommu.c
-+++ b/drivers/iommu/exynos-iommu.c
-@@ -1372,13 +1372,14 @@ static size_t exynos_iommu_unmap(struct iommu_domain *iommu_domain,
+diff --git a/drivers/iommu/mtk_iommu.c b/drivers/iommu/mtk_iommu.c
+index 2be990c108de..6ca31f8d4d96 100644
+--- a/drivers/iommu/mtk_iommu.c
++++ b/drivers/iommu/mtk_iommu.c
+@@ -858,13 +858,16 @@ static int mtk_iommu_sync_map(struct iommu_domain *domain, unsigned long iova,
  	return 0;
  }
  
--static phys_addr_t exynos_iommu_iova_to_phys(struct iommu_domain *iommu_domain,
+-static phys_addr_t mtk_iommu_iova_to_phys(struct iommu_domain *domain,
 -					  dma_addr_t iova)
-+static phys_addr_t exynos_iommu_iova_to_phys_length(struct iommu_domain *iommu_domain,
-+						 dma_addr_t iova,
-+						 size_t *mapped_length)
++static phys_addr_t mtk_iommu_iova_to_phys_length(struct iommu_domain *domain,
++					  dma_addr_t iova, size_t *mapped_length)
  {
- 	struct exynos_iommu_domain *domain = to_exynos_domain(iommu_domain);
- 	sysmmu_pte_t *entry;
- 	unsigned long flags;
--	phys_addr_t phys = 0;
-+	phys_addr_t phys = PHYS_ADDR_MAX;
+ 	struct mtk_iommu_domain *dom = to_mtk_domain(domain);
+ 	phys_addr_t pa;
  
- 	spin_lock_irqsave(&domain->pgtablelock, flags);
- 
-@@ -1386,13 +1387,20 @@ static phys_addr_t exynos_iommu_iova_to_phys(struct iommu_domain *iommu_domain,
- 
- 	if (lv1ent_section(entry)) {
- 		phys = section_phys(entry) + section_offs(iova);
-+		if (mapped_length)
-+			*mapped_length = SECT_SIZE;
- 	} else if (lv1ent_page(entry)) {
- 		entry = page_entry(entry, iova);
- 
--		if (lv2ent_large(entry))
-+		if (lv2ent_large(entry)) {
- 			phys = lpage_phys(entry) + lpage_offs(iova);
--		else if (lv2ent_small(entry))
-+			if (mapped_length)
-+				*mapped_length = LPAGE_SIZE;
-+		} else if (lv2ent_small(entry)) {
- 			phys = spage_phys(entry) + spage_offs(iova);
-+			if (mapped_length)
-+				*mapped_length = SPAGE_SIZE;
-+		}
- 	}
- 
- 	spin_unlock_irqrestore(&domain->pgtablelock, flags);
-@@ -1484,7 +1492,7 @@ static const struct iommu_ops exynos_iommu_ops = {
- 		.attach_dev	= exynos_iommu_attach_device,
- 		.map_pages	= exynos_iommu_map,
- 		.unmap_pages	= exynos_iommu_unmap,
--		.iova_to_phys	= exynos_iommu_iova_to_phys,
-+		.iova_to_phys_length	= exynos_iommu_iova_to_phys_length,
- 		.free		= exynos_iommu_domain_free,
+-	pa = dom->iop->iova_to_phys(dom->iop, iova);
++	pa = dom->iop->iova_to_phys_length(dom->iop, iova, mapped_length);
++	if (pa == PHYS_ADDR_MAX)
++		return PHYS_ADDR_MAX;
++
+ 	if (IS_ENABLED(CONFIG_PHYS_ADDR_T_64BIT) &&
+ 	    dom->bank->parent_data->enable_4GB &&
+ 	    pa >= MTK_IOMMU_4GB_MODE_REMAP_BASE)
+@@ -1070,7 +1073,7 @@ static const struct iommu_ops mtk_iommu_ops = {
+ 		.flush_iotlb_all = mtk_iommu_flush_iotlb_all,
+ 		.iotlb_sync	= mtk_iommu_iotlb_sync,
+ 		.iotlb_sync_map	= mtk_iommu_sync_map,
+-		.iova_to_phys	= mtk_iommu_iova_to_phys,
++		.iova_to_phys_length = mtk_iommu_iova_to_phys_length,
+ 		.free		= mtk_iommu_domain_free,
  	}
  };
 -- 
