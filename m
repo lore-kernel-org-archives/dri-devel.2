@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 437C4CD6E57
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67A38CD6E6E
 	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 15:19:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8EB010FFF6;
-	Wed,  3 Jun 2026 15:19:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14BCD10FFF8;
+	Wed,  3 Jun 2026 15:19:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="QK4rDq95";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="DqQYGk9W";
 	dkim-atps=neutral
-Received: from out30-99.freemail.mail.aliyun.com
- (out30-99.freemail.mail.aliyun.com [115.124.30.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD29510FFF4
+Received: from out30-98.freemail.mail.aliyun.com
+ (out30-98.freemail.mail.aliyun.com [115.124.30.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4B0C10FFF6
  for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 15:19:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux.alibaba.com; s=default;
  t=1780499948; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=dloNw3khkYFpZ8HUOkLSEFcKW6J/1PykK/kcWicIG90=;
- b=QK4rDq956aZlbprwsmi3ijhiNYLEnUSt6zIvLFBNnxcclcuPqifnsMKMQ+xop+MjN9aApkRjYxhRRhHQLbk/3TQtlJ/1a0Kq5o38dBbXV3Im7pAwYJElCoLT04OoXqbrIx6881AUhCg9lFRDs5CxGk3tGRQdA5WF4JSa4OaqQb4=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R971e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033037033178;
+ bh=+Wp4AveBKc/b0x14itG2lBTs4ZcmFK8t4NnzErdtQRw=;
+ b=DqQYGk9WmyyAwNatJOn8Tsr2q7aYfxUFHzVnIeIf7ZVcKK/o1W1r3ma9T7uZRIa2uCAN+9VgTw0G5dL1Cr6r7s3CguxhXJP1obebryncXquYKNk8uO+9Vku0l/cfs60mzPGJBiv5xT0mUKGeVqMkDxm0vbsIaJ4j6VHZIybiQjA=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R131e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam011083073210;
  MF=guanghuifeng@linux.alibaba.com; NM=1; PH=DS; RN=28; SR=0;
- TI=SMTPD_---0X47fR7b_1780499945; 
+ TI=SMTPD_---0X47fR74_1780499943; 
 Received: from
  VM20241011-104.tbsite.net(mailfrom:guanghuifeng@linux.alibaba.com
- fp:SMTPD_---0X47fR7b_1780499945 cluster:ay36) by smtp.aliyun-inc.com;
- Wed, 03 Jun 2026 23:19:05 +0800
+ fp:SMTPD_---0X47fR74_1780499943 cluster:ay36) by smtp.aliyun-inc.com;
+ Wed, 03 Jun 2026 23:19:03 +0800
 From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
 To: jgg@ziepe.ca
 Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
@@ -42,9 +42,9 @@ Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
  shiyu.zsq@linux.alibaba.com, steven.price@arm.com,
  suravee.suthikulpanit@amd.com, tzimmermann@suse.de,
  wei.guo.simon@linux.alibaba.com, will@kernel.org, xlpang@linux.alibaba.com
-Subject: [PATCH v3 27/32] drm/panthor: switch to iova_to_phys_length
-Date: Wed,  3 Jun 2026 23:17:59 +0800
-Message-ID: <20260603151804.1963871-28-guanghuifeng@linux.alibaba.com>
+Subject: [PATCH v3 25/32] iommufd/selftest: switch to iommu_iova_to_phys_length
+Date: Wed,  3 Jun 2026 23:17:57 +0800
+Message-ID: <20260603151804.1963871-26-guanghuifeng@linux.alibaba.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20260603151804.1963871-1-guanghuifeng@linux.alibaba.com>
 References: <20260602104637.1219810-1-guanghuifeng@linux.alibaba.com>
@@ -66,27 +66,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Migrate panthor_mmu to use ops->iova_to_phys_length(ops, iova, NULL)
-instead of the deprecated ops->iova_to_phys.
+Replace direct domain->ops->iova_to_phys() call with the new
+iommu_iova_to_phys_length() interface in selftest.
 
 Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
+Acked-by: Shiqiang Zhang <shiyu.zsq@linux.alibaba.com>
+Acked-by: Simon Guo <wei.guo.simon@linux.alibaba.com>
 ---
- drivers/gpu/drm/panthor/panthor_mmu.c | 2 +-
+ drivers/iommu/iommufd/selftest.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index 75d98dad7b1d..3b635fc1f651 100644
---- a/drivers/gpu/drm/panthor/panthor_mmu.c
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -903,7 +903,7 @@ static void panthor_vm_unmap_pages(struct panthor_vm *vm, u64 iova, u64 size)
- 			 * are out-of-sync. This is not supposed to happen, hence the
- 			 * above WARN_ON().
- 			 */
--			while (!ops->iova_to_phys(ops, iova + unmapped_sz) &&
-+			while (ops->iova_to_phys_length(ops, iova + unmapped_sz, NULL) == PHYS_ADDR_MAX &&
- 			       unmapped_sz < pgsize * pgcount)
- 				unmapped_sz += SZ_4K;
+diff --git a/drivers/iommu/iommufd/selftest.c b/drivers/iommu/iommufd/selftest.c
+index af07c642a526..d4dd39930224 100644
+--- a/drivers/iommu/iommufd/selftest.c
++++ b/drivers/iommu/iommufd/selftest.c
+@@ -1214,7 +1214,7 @@ static int iommufd_test_md_check_pa(struct iommufd_ucmd *ucmd,
+ 		pfn = page_to_pfn(pages[0]);
+ 		put_page(pages[0]);
  
+-		io_phys = mock->domain.ops->iova_to_phys(&mock->domain, iova);
++		io_phys = iommu_iova_to_phys_length(&mock->domain, iova, NULL);
+ 		if (io_phys !=
+ 		    pfn * PAGE_SIZE + ((uintptr_t)uptr % PAGE_SIZE)) {
+ 			rc = -EINVAL;
 -- 
 2.43.7
 
