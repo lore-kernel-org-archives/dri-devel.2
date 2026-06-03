@@ -4,127 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CE26CD6E60
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 16:16:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 878AFCD6E55
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 16:22:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A747A11207C;
-	Wed,  3 Jun 2026 16:16:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E340A11208D;
+	Wed,  3 Jun 2026 16:22:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FUcBgoFl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KmKmrL6P";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011061.outbound.protection.outlook.com
- [40.93.194.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D17611207C;
- Wed,  3 Jun 2026 16:16:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QM6Jvvz+ca64wUEljrXnoA79CD8OhBzCrtAWTdr439tkw4/kQhxTw5HUVbBVEugr9vzCVpk+t9xFMDNw4iuESo/D1sWxCFWTBmoeK1FiOjeDHWIMUTav9QiK02z13xL9YiIIyKsMGa3++vBeJYUoMThU9bumnD3x1m0dsvnXExvWM5mN2NvlFIh0KBzJ+fOK5dXx6GLzOYzS72GofRGHOaiZL2EN4ojATLxfFkRFlt09bU1KdrQQQnBwpa5uz41gPpkgFerKKfTXxoqozciJe8fTmimxpo5jkFyr9d97DmGYEvD5XhnhIbYr6ABa4IN9WVf5h2kmFEc1aWEAM6Msmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7jDHhWZkLNKM2HEgAzkri7BR5VH5gtYdILefelAMcHI=;
- b=egl9TznM8t/y2Gy+/vc/gpXXqt895W5T52OQ4BpiwUHjCCUaZpwahVe9kG2aVDmY/04+rA3G7QtME3oSoA/zCYfi4FAxSHbm1Jx/4sJ5pLaVgSnsXfg0jo4dXIVt9zujAt9KspWkhd7QiFpnO58+3sgrZtcgwFcYfpS/6qistBM3Fj/xwMOgcop5Y7xPsGGy+1yDa1/GzVZEWmgbjHBg7VaNl5+0yVSbuLldHSfmhZV+giHXlZ4u0+eRUcA/RE5rx2H051rM9npDaBXo0MmnikxCuOMa9XcjSsCqRdZKEJVI7K5j+U7me18XiqHSu42oNNO0yr90HB59dutd1/9Wew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7jDHhWZkLNKM2HEgAzkri7BR5VH5gtYdILefelAMcHI=;
- b=FUcBgoFlWrMMeee3ekzHD5BcFKYLtJUtZCN2dLemdVRilkZmiwH6IHBGBl679ebyY3Vajd4ri0YCIBNtRoE+NoVors61hA8yCrfdIp/u8n99lf+EvYrcu25Jd2ESmrySUZDqX6WhgxfnoOrfAKv1Ww4SZfq6sff3GLg/fANc/fQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS4PR12MB9612.namprd12.prod.outlook.com (2603:10b6:8:278::5) by
- SA3PR12MB9159.namprd12.prod.outlook.com (2603:10b6:806:3a0::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Wed, 3 Jun 2026
- 16:16:20 +0000
-Received: from DS4PR12MB9612.namprd12.prod.outlook.com
- ([fe80::5e55:25ea:365c:f99c]) by DS4PR12MB9612.namprd12.prod.outlook.com
- ([fe80::5e55:25ea:365c:f99c%5]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
- 16:16:20 +0000
-Message-ID: <19398b47-c197-4404-9465-d7113dd528c2@amd.com>
-Date: Wed, 3 Jun 2026 12:16:20 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: convert CRIU event-private allocation to
- kvcalloc()
-To: William Theesfeld <william@theesfeld.net>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260601195510.639318-1-william@theesfeld.net>
-Content-Language: en-US
-From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <20260601195510.639318-1-william@theesfeld.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4P288CA0047.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d3::27) To DS4PR12MB9612.namprd12.prod.outlook.com
- (2603:10b6:8:278::5)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BF5611208C;
+ Wed,  3 Jun 2026 16:22:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 146E34169C;
+ Wed,  3 Jun 2026 16:22:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 024BF1F00893;
+ Wed,  3 Jun 2026 16:22:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780503765;
+ bh=CxPhfVSO1PMBoWPiKi9ZwlNxfl6TXOtrDKfoICaOCcw=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=KmKmrL6PswCLcYojvpvZX8QoCfztwKuJFaEFgpHaGxc3Vpz4WNJTGjNXUOdXgBMPG
+ pfvWqWoQhPOk9xY3gH/FSWhOZBMAJNdcTVkuJHaEyWSr/cUJ25JOb/wA87+CGgvHXq
+ 8XHpMxjqKz57R+JVa29dzsNEtBi83+f6n5FGjxq9GGtG+zV1XSEVZ0JvFzn7ctkqvQ
+ 65peuRFmiA22Veq9kCRGtqCIkm4VxBh1KBgl3MiXlW5TUyQq5VtyopJIJTmDuMz5A9
+ m6OudFzZkl4NQNqflq8rui6SMZo0KpZecbcFwKBdkVPTowovyF4pt6+gQEpKWBADT1
+ yIzkRHuRwpS8g==
+Message-ID: <b6f6323e-6f5b-4928-b474-bd2743eac3f2@kernel.org>
+Date: Wed, 3 Jun 2026 18:22:38 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PR12MB9612:EE_|SA3PR12MB9159:EE_
-X-MS-Office365-Filtering-Correlation-Id: 90aa1548-daea-4390-9564-08dec18b72b1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|22082099003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: tpVj5Gn2LTj960DoQCRXn2/Ke+eXqVc41RiSYQLTwhfNXySrNel6rGJyirPOQ3cWCzc/ZsVFeISYnBchEYe5POaBxo6XQA9K3oeQu/UCXcIIlU2mWOvIHBH4WS6Ng3xdQanZUGj8SGFZX75knKzorkhL+CbiXn9DSgxPdjPds5CNaDaCFwfg3tR0hAWsZMHdvm5bnDRKKrGr8kOSJMGA3qAMWT4Ro9+ZqiQ6IbbKE/4l0+b1wa7ZQ5RxP32h67DkFyMsVSCtFnKSmTWNg9bFOtDuaktBKWn0WtFyMpZcuRkiIuKJ1kjoLjcvvs28DmhfuHTJD4z5+cvexkw9rC4KcqLx/a8Hl/6lxiHe/6yJJXgh+FBnl5S7gCKyBDr+6qdPowg+rBRQW6kQw8eYjU97LtGh3aU0gmTsR6T+kUuOz+jy5f7MG1eHJ+DL8wqfRFuHRCHOTOB1jy0Y2nXb4Wz+FLZjQshV5Hs91QLuAK7DU7fEIux5ExJJ3XQV/eEjSoZjvFHUn8mP+RX33iMRnQdRkTRHKiKFHjrcc9ti6bMW6DmOtavjNuRnlqVCHtt3cxpQCbrSCwRcd4Hyy7T4+ww5SDo07miV/TnsO8fx9kMPIY7v6wJ4QyHE7qUcMuieNi5WmqVvTm0x4Tuhszc1oA1P/IzqT1pbVgeZPyltOUHJ57swxniDA4Frl4K5Y1x6/R7O
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS4PR12MB9612.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(18002099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SkFPQ1h3ZittQkhvL1pQOHI3dG1WL1BHdUVvVFkxKzdyTUYyblJXQW5GbHVV?=
- =?utf-8?B?WEp4QmZ1eE8waUEyL1gxeVVUM0JUcm15NGVXMkQyV0hrY1hhMkQ3NFEwK2VQ?=
- =?utf-8?B?bmlORmlQODBmT1RnNHpkdVc3SkM1Ulhsd3dBMFRDQTVFLzltS3NiaW9JcHdO?=
- =?utf-8?B?QlpSWnUrK3JpUVJwNXh5d1VwSU9PdWZXSFNXeWppc3ZNY1lobXI1VGJySjVP?=
- =?utf-8?B?MmNzY3RuWDVTZjRheHFmWE1RRXhsWVFCN1RMR0ZrajY0NVhGZVc2Tmo4KzhR?=
- =?utf-8?B?M0w3cFJSSzA1aXFuVVhIWmFGR0VSeS9ReEt0ODVlbGV0am85TittTmlEdkl3?=
- =?utf-8?B?a05ud3hOdzViNmluQk9FbTRvckVIOWJ0cnAyOFJ5SmUrcEtFMUZDdDFiOE1r?=
- =?utf-8?B?TnNPbTF5dTNXeXdTRFdFL2lFSHkrME9yVlNtaVkyU1Q5Wk1vc0p5NllaMmw0?=
- =?utf-8?B?dnZMQ1lBcEQySWZKeXpPZ201QWpyUmxOclM5dzNUMUU4NzZWWWhmYmc4ek9I?=
- =?utf-8?B?VENJWldBZHZPZHBDM3ltVzQyU1ZmVlB3bTAxOERXQW5YK2N1aWlPYjBpUWJB?=
- =?utf-8?B?dm1seVphVFREUkhVQjVRR3FLTmlsU0NPY0FOcFJpU0k1cFcxa1NNaHhTTWtt?=
- =?utf-8?B?TlNHdDRWcHQrdCtsZDhHZXlwd0hyVTRMQXRHZk5lZDhYWEEveEI3L1RjNGZy?=
- =?utf-8?B?aXpqSGE2TVRtcHg0RlFxZWJaNXFQeWN5K0hlWHB2OWMrYjluUjlkZzBkd0Qw?=
- =?utf-8?B?OFF1a2dOVWg3aC91MDVJQkxGS1MvT3lGL0c3RWlqTFhkUVdaajM3MDY5cUNj?=
- =?utf-8?B?U3RWQzduam5xdUs1YVBTNHBoeERuMEJyN0ZtdzJTKzE2RVhsbjl0Vkk5SGZN?=
- =?utf-8?B?MFVxV1Zwb0dZOUFDRm9mekpXR25oT0FkVDJxaFRTdmdBcTYwZzN0SGJ3UTg1?=
- =?utf-8?B?dUxBTFlCOUhTTDI4U29pNEgxczVLQWMySXhmdzh2bWZFT3Ivc2pGRHp1aDUz?=
- =?utf-8?B?cDFSV1NCVGVoN1RYMFhnWlZ3V2JqSnMrdTVsc1l4L0trRVdyRHlsVVlNV1l0?=
- =?utf-8?B?WTNXOWdoY0oyWmZWUFBsT0dIbDJyTVFMNlpPbjlJSlJsRzZpWDZRTmhuWnJM?=
- =?utf-8?B?c0YzNEtaZGFmREtTa3k4SmxvZlQvYW5BY29wb05UckRlZm1zeU9GYnA2YjlU?=
- =?utf-8?B?TVZGQ0hybERraHhpUW5ZYXJ4ekd1Q0VKUTFxV0Z6NFYzRFNUeHd0TnluVWZp?=
- =?utf-8?B?aDB4VHpMeU14ekxtaDR1VDZWeUVhZVBsWUU2UzBCYWpFaGxIOUY2ZzJuU1RM?=
- =?utf-8?B?SGg3TVlqck1yQkt6Zmowa0M5RXoySXRTSnd5WXV4SkNGT1RkQ0dNYzk4YUpF?=
- =?utf-8?B?bTkveWNPRG8vYlJtcy9sQmkzMGdtOElvQ09Sa2I4QTJVdHlKWldIMWt5M2dn?=
- =?utf-8?B?OUZRUmtkRlU0YVdEZHdrd1daMDZ5cXE2WEZkUnIzV2w2S2JFN1VYWXRFTFVI?=
- =?utf-8?B?WGxQQlpoZSswTmxJcVJieEV4S2piK0NRT1VEb04zS0RpMGJBeWdWaElYSnpI?=
- =?utf-8?B?TGMvSGpIaWZrZjZtSnhnRXBYRmVaWWNQVVhKVjgyOTRxV3NjTzdBbnVBRDhB?=
- =?utf-8?B?ZUFBWWZkVDN6UWZzMzFpS1ZxSnBaeU95dW9haGVGcS8yZlZxL3VRZnpJQ3lN?=
- =?utf-8?B?ZVhwR2U3dmNxWTNmUWdGenV1Z1l4VlBjQ1Yrb2hmaEVvenpVcUdWUzNISGxY?=
- =?utf-8?B?MUtBWERXQ3d1dlJOZ091TGJzMlhSMFIyeW5RMHgzMG9wVmYwbHVOK09oOVNl?=
- =?utf-8?B?RTROZU50OHZGM0xKek1MemhxRG1uREFDVFg3RGQ3U05mUkdQTXJJSzhMSHAv?=
- =?utf-8?B?Nkp2bFBtSzlHT083cURPOE1NV3pzU3RBa3JweHMvclhjT0hLYVJLdlBsaytv?=
- =?utf-8?B?MnpKK09PRzBnT21HVno2ZjJXM1ZEZXZpc0Q4SmNZbi85ckQwdmttMzhaRmJC?=
- =?utf-8?B?aEZoVjBkVWh3MkhrZkRNN1o0MjZYaHZIQXFVbnNBbGRQVUV4VnU0Tld4VXhG?=
- =?utf-8?B?U1JwRG5CQ3F0ZjV5eGUxakNnV1NObzBLbjlDUGhsTDVkbGdQcmNWdEpvTUhS?=
- =?utf-8?B?ZEYrd0o0OFRBZHBOZXRCVlV0YVVUbEpLUVl3NWhqYlNHUy9qZnozOVUrWkhO?=
- =?utf-8?B?djljVUJsRFU5NFQxSFd2ZThmQjg1ejQvSWdiclhzeHp3cTBMWmlVSVhSNjlk?=
- =?utf-8?B?TzdHcnFJMlVkbm93TGZnVFY1RW52dHlaNGRkSVJHa3F5KzlVdExkNllkNUdL?=
- =?utf-8?B?NDBsNmR2c0ZuakhmSnRBYlNYb2F1bnU5d2ROdlMwNk1neFVpcUFOZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90aa1548-daea-4390-9564-08dec18b72b1
-X-MS-Exchange-CrossTenant-AuthSource: DS4PR12MB9612.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 16:16:20.4972 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: f4Yj1y9YwHiQj1Xk0UiS1Hn2h1Vi5iuynpHD968UBu67ra6SNxY8TpAHutx8WuaylxA8eBQjbt9y2DXYbhZsgg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9159
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/slab: improve kmem_cache_alloc_bulk
+Content-Language: en-US
+To: rob.clark@oss.qualcomm.com
+Cc: Christoph Hellwig <hch@lst.de>, Harry Yoo <harry@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Mark Brown <broonie@kernel.org>,
+ Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+ David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Jesper Dangaard Brouer <hawk@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, io-uring@vger.kernel.org,
+ kasan-dev@googlegroups.com, bpf@vger.kernel.org, netdev@vger.kernel.org,
+ Alexander Lobakin <aleksander.lobakin@intel.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>
+References: <20260528093437.2519248-1-hch@lst.de>
+ <20260528093437.2519248-2-hch@lst.de>
+ <5f7f90d8-cb32-4ffb-8f1c-0722aafbe869@kernel.org>
+ <20260529135045.GA10647@lst.de>
+ <5f3ba603-a6ad-4cf2-9a54-aebc10273c59@kernel.org>
+ <58cc76e7-2348-443d-a989-2a06e61178af@kernel.org>
+ <20260601113831.GA25535@lst.de>
+ <d7b08296-7f6e-4d89-ab3b-04e43d04929e@kernel.org>
+ <CACSVV00k-fxW6+waHNqvmYcnVNDkRexoWWprFzfayZfqdyMuuA@mail.gmail.com>
+ <CACSVV00dNWgpNVU5rB=Hmg+3oWF18yTyfKNr_tWesjoP1jMxwg@mail.gmail.com>
+ <5e6948b3-d235-4b61-aed7-e8b4d0f5b452@kernel.org>
+ <CACSVV02v0Fuc6=Rqyd89D-_tcSjEXuQmxz0+2-4aoRAEwJE4zg@mail.gmail.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <CACSVV02v0Fuc6=Rqyd89D-_tcSjEXuQmxz0+2-4aoRAEwJE4zg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,39 +118,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-06-01 15:55, William Theesfeld wrote:
-> [You don't often get email from william@theesfeld.net. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> criu_checkpoint_events() allocates the ev_privs[] array, sized by the
-> runtime count returned from kfd_get_num_events(), using the open-coded
-> kvzalloc(n * sizeof(*p), ...) form.  Switch to kvcalloc(), which
-> carries the same zero-on-allocation semantics and adds the standard
-> size_mul overflow check on the n * sizeof multiplication.
->
-> No functional change.
->
-> Signed-off-by: William Theesfeld <william@theesfeld.net>
+On 6/3/26 13:13, Rob Clark wrote:
+> On Wed, Jun 3, 2026 at 2:17 AM Vlastimil Babka (SUSE) <vbabka@kernel.org> wrote:
+>>
+>> We know p->pages is NULL in this case, right? Because it was allocated by
+>> vm_bind_job_create() using kzalloc().
+>> And the job can't be reused with a leftover value?
+>> (msm_iommu_pagetable_prealloc_cleanup doesn't set p->pages to zero).
+>> Or should we set p->pages to NULL here.
+> 
+> Correct, the job is not reused.  But I suppose setting p->pages to
+> NULL would make things more obvious, so no objection to that.
 
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+OK, did that, just in case. Thanks.
 
+> BR,
+> -R
+> 
+>> > +
+>> >         p->pages = kvmalloc_objs(*p->pages, p->count);
+>> >         if (!p->pages)
+>> >                 return -ENOMEM;
+>> >
+>> >         ret = kmem_cache_alloc_bulk(pt_cache, GFP_KERNEL, p->count, p->pages);
+>> >         if (ret != p->count) {
+>> > -               kfree(p->pages);
+>> > +               kvfree(p->pages);
+>> >                 p->pages = NULL;
+>> >                 p->count = ret;
+>> >                 return -ENOMEM;
+>>
 
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_events.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> index 44150a71f..9739214e2 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> @@ -543,7 +543,7 @@ int kfd_criu_checkpoint_events(struct kfd_process *p,
->          if (!num_events)
->                  return 0;
->
-> -       ev_privs = kvzalloc(num_events * sizeof(*ev_privs), GFP_KERNEL);
-> +       ev_privs = kvcalloc(num_events, sizeof(*ev_privs), GFP_KERNEL);
->          if (!ev_privs)
->                  return -ENOMEM;
->
-> --
-> 2.54.0
->
