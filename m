@@ -4,59 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29C19CD6E56
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 11:14:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C739ECD6E56
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 11:16:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8831A10FC29;
-	Wed,  3 Jun 2026 11:14:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1997D10FC2C;
+	Wed,  3 Jun 2026 11:16:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="BPBVxQ2V";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Sc1909QH";
 	dkim-atps=neutral
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E16EF10FC29
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 11:14:09 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4gVlSt62QVz9tyP;
- Wed,  3 Jun 2026 13:14:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1780485246; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=sfx1tvNRErDF1HTfIALai0SM6G/2WCKioBj6QNPwX3A=;
- b=BPBVxQ2VOQAmNjCBS/CsdXEc93Uxz5hNgeSYzCzuxZ4ngIWUoTZNfdBP5vIjzMQj0kBM+P
- Kdl6ilr9GRoN2ML5piHR18evBZ4FgrFuw0cshQbkRPARaCNVGLWx63IQienE4wVNFKZr9E
- EFhOtnhzMO1P/jWnKEzI14hcZ5pPvU1vaA0Wu5L//63pm+Lg575BehyMPZfko2WTQ8kzfT
- Y2z6I6kmx02CeMtQD803CG1O1WrzXFq/xzzzIvpSNWqdL6pfKJD4vmgibezueqg+UnFKGs
- zh3E1IQay3huth/SSctwXfEigcz3iajI4+bMjYS5xcKmXd3bxpB3NE1atKSRiQ==
-Message-ID: <c6ecda00eb1aa6a88c17354e26d4dd7dc58ae582.camel@mailbox.org>
-Subject: Re: [PATCH] Documentation: drm: Add entry for removing spsc_queue
- to TODO list
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Philipp
- Stanner <phasta@kernel.org>, avid Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>,  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann	
- <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan	
- <skhan@linuxfoundation.org>, dakr@kernel.org, Tvrtko Ursulin	
- <tvrtko.ursulin@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Date: Wed, 03 Jun 2026 13:14:01 +0200
-In-Reply-To: <aceb688b-4f65-4539-a4f1-fc5455b60a5f@amd.com>
-References: <20260529215207.115513-2-phasta@kernel.org>
- <aceb688b-4f65-4539-a4f1-fc5455b60a5f@amd.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DABB10FC2C
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 11:16:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+ In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=S122oRCX1Ekc4rAStFtQQeoCXITCol5NhaRa8tfLhus=; b=Sc1909QH+HE/+pjPeqTNvLoh77
+ kFoOwyYwSZGxA7MG2UqHFWaWKeEwJhCCajFglIEnWHgg0cgmFlFM626qmRGgvbr8bu4/1kYYYFCHV
+ kd2JF5tv3ZozUflZKj5HDaV7lFj1CBQexrgQYoDNAC4UL5RZKfpXB+Rf9R/3GghLzGBTyUcuwNy6P
+ ODAvq0SNWqbAQqBiJlBZ+rKq6p4C1/8B0NPo5vQfVx4kSmqnC5hhDPg8gdI+7RmIH0JlUwA6WtcvV
+ vbdS3AEYnTZAn9gDV0eZelslnXkscwh7BPlF82oqQFGw16oBP+MNac238HbjSgueawc7GNAhD5yq8
+ 4VlN1pCg==;
+Received: from static-234-112-85-188.ipcom.comunitel.net ([188.85.112.234]
+ helo=[192.168.0.17]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wUjZq-00C8oj-A9; Wed, 03 Jun 2026 13:16:02 +0200
+Message-ID: <31966dd0b7fb1e87a64a049705dd054ffa44ad7e.camel@igalia.com>
+Subject: Re: [PATCH v2 01/14] drm/v3d: Drop unused drm_encoder.h include
+ from v3d_drv.h
+From: Iago Toral <itoral@igalia.com>
+To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
+ <mwen@igalia.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Christian
+ =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+Date: Wed, 03 Jun 2026 13:15:51 +0200
+In-Reply-To: <20260510-v3d-sched-misc-fixes-v2-1-ca4aba343ef6@igalia.com>
+References: <20260510-v3d-sched-misc-fixes-v2-0-ca4aba343ef6@igalia.com>
+ <20260510-v3d-sched-misc-fixes-v2-1-ca4aba343ef6@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
-X-MBO-RS-META: bihjw5wo6xpk91679khq9hpsnwrfqzps
-X-MBO-RS-ID: 4831e0c02127252da33
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,91 +63,33 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-06-01 at 10:30 +0200, Christian K=C3=B6nig wrote:
->=20
->=20
-> On 5/29/26 23:52, Philipp Stanner wrote:
-> > drm_sched contains a lockless queue (spsc_queue) that seems to be
-> > useless and potentially unsound.
-> >=20
-> > Add a TODO list entry for replacing spsc_queue with a locked list.
-> >=20
-> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
->=20
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
 
-Pushed to drm-misc-next
-
-Thx
-P.
-
+El dom, 10-05-2026 a las 19:11 -0300, Ma=C3=ADra Canal escribi=C3=B3:
+> The V3D driver has no display pipeline, so nothing in the driver
+> requires
+> drm_encoder.h. Remove the stale include.
 >=20
-> > ---
-> > =C2=A0Documentation/gpu/todo.rst | 41 +++++++++++++++++++++++++++++++++=
-+++++
-> > =C2=A01 file changed, 41 insertions(+)
-> >=20
-> > diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-> > index cdddf8db35f5..87e082b0eb48 100644
-> > --- a/Documentation/gpu/todo.rst
-> > +++ b/Documentation/gpu/todo.rst
-> > @@ -948,6 +948,47 @@ Contact: Philipp Stanner <phasta@kernel.org>
-> > =C2=A0
-> > =C2=A0Level: Intermediate
-> > =C2=A0
-> > +Replace the lockless queue with a locked list
-> > +---------------------------------------------
-> > +
-> > +drm_sched is the only user in the entire kernel of a special lockless =
-queue, the
-> > +spsc_queue. This queue utilizes:
-> > +
-> > +- preempt_disable()
-> > +- atomic instructions
-> > +- memory barriers
-> > +- ACCESS_ONCE()
-> > +
-> > +whereas a conventional spinlock utilizes:
-> > +
-> > +- preempt_disable()
-> > +- 1 atomic instruction for taking / releasing the lock
-> > +- memory barriers
-> > +
-> > +Moreover, drm_sched_entity_push_job(), the only user of spsc_queue_pus=
-h(), has
-> > +to take a lock in some situations anyways and calls to it are often se=
-rialized
-> > +with a driver lock.
-> > +
-> > +It is, thus, highly questionable whether the lockless queue grants any=
- advantage
-> > +at all. Considering that its internals are not well documented and its=
- correctness
-> > +is not formally proven, it seems desirable to replace the queue with a=
- mere list
-> > +or hlist that is protected by a spinlock.
-> > +
-> > +Tasks:
-> > +
-> > +- Replace the spsc_queue in drm/sched (and those who might access the =
-scheduler's
-> > +=C2=A0 internal queue) with a spinlock + (h)list.
-> > +- Ideally, check with some micro benchmarks and real world tests (pref=
-erably
-> > +=C2=A0 with amdgpu) for relevant performance regressions.
-> > +- Remove the spsc_queue from the kernel altogether.
-> > +
-> > +Contact:
-> > +
-> > +- Philipp Stanner <phasta@kernel.org>
-> > +- Christian K=C3=B6nig <christian.koenig@amd.com>
-> > +
-> > +Level: Beginner
-> > +
-> > =C2=A0Outside DRM
-> > =C2=A0=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > =C2=A0
+> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
+> ---
+> =C2=A0drivers/gpu/drm/v3d/v3d_drv.h | 1 -
+> =C2=A01 file changed, 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/v3d/v3d_drv.h
+> b/drivers/gpu/drm/v3d/v3d_drv.h
+> index 4ebe175a8c6b..5a0b9da2c3aa 100644
+> --- a/drivers/gpu/drm/v3d/v3d_drv.h
+> +++ b/drivers/gpu/drm/v3d/v3d_drv.h
+> @@ -7,7 +7,6 @@
+> =C2=A0#include <linux/spinlock_types.h>
+> =C2=A0#include <linux/workqueue.h>
+> =C2=A0
+> -#include <drm/drm_encoder.h>
+> =C2=A0#include <drm/drm_gem.h>
+> =C2=A0#include <drm/drm_gem_shmem_helper.h>
+> =C2=A0#include <drm/gpu_scheduler.h>
+>=20
+
