@@ -4,53 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C739ECD6E56
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 11:16:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2A80CD6E56
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 11:22:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1997D10FC2C;
-	Wed,  3 Jun 2026 11:16:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D5CB10FC47;
+	Wed,  3 Jun 2026 11:22:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Sc1909QH";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Oqbe4IoG";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DABB10FC2C
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 11:16:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
- In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=S122oRCX1Ekc4rAStFtQQeoCXITCol5NhaRa8tfLhus=; b=Sc1909QH+HE/+pjPeqTNvLoh77
- kFoOwyYwSZGxA7MG2UqHFWaWKeEwJhCCajFglIEnWHgg0cgmFlFM626qmRGgvbr8bu4/1kYYYFCHV
- kd2JF5tv3ZozUflZKj5HDaV7lFj1CBQexrgQYoDNAC4UL5RZKfpXB+Rf9R/3GghLzGBTyUcuwNy6P
- ODAvq0SNWqbAQqBiJlBZ+rKq6p4C1/8B0NPo5vQfVx4kSmqnC5hhDPg8gdI+7RmIH0JlUwA6WtcvV
- vbdS3AEYnTZAn9gDV0eZelslnXkscwh7BPlF82oqQFGw16oBP+MNac238HbjSgueawc7GNAhD5yq8
- 4VlN1pCg==;
-Received: from static-234-112-85-188.ipcom.comunitel.net ([188.85.112.234]
- helo=[192.168.0.17]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wUjZq-00C8oj-A9; Wed, 03 Jun 2026 13:16:02 +0200
-Message-ID: <31966dd0b7fb1e87a64a049705dd054ffa44ad7e.camel@igalia.com>
-Subject: Re: [PATCH v2 01/14] drm/v3d: Drop unused drm_encoder.h include
- from v3d_drv.h
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
- <mwen@igalia.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Christian
- =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-Date: Wed, 03 Jun 2026 13:15:51 +0200
-In-Reply-To: <20260510-v3d-sched-misc-fixes-v2-1-ca4aba343ef6@igalia.com>
-References: <20260510-v3d-sched-misc-fixes-v2-0-ca4aba343ef6@igalia.com>
- <20260510-v3d-sched-misc-fixes-v2-1-ca4aba343ef6@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6047D10FC45;
+ Wed,  3 Jun 2026 11:22:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780485725; x=1812021725;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=WplGegAqOqVLUgzSJDiNs44x8wdGWkaQMGv6rMEFnOI=;
+ b=Oqbe4IoGiSSMOtISA00Yh50V+oWZ/O1ROt08Ia23TzjaYMP0qM8pO/v3
+ 541CC9d5q4sIzKYWt5keNF/Yj7KcXS8jW4gUA+tjEiwiyH/kC7BmytSsK
+ xJr1n75YrBEVzbhcs1TWD3u+x0tognh3l7FEyrdu6g8z+P8VrYaqCFKdn
+ 76c+bqSXpDl2pkQIMw8kyz7sJnacG2Oa1N7l91rxy0bpoBsmXsVQgGudS
+ sY5wpa8rFWmjgIeGl0fs+pogXo8Ub+0mBuyUKx3Z3YZd7FoMct4yBUFyT
+ LCN/fep/25TW8i3hh03EPo9q+8tWFoujxMhuaKafiA8d6q7Ev9MOGRE4D A==;
+X-CSE-ConnectionGUID: u8elsFvFSrKqITwYLd5a/Q==
+X-CSE-MsgGUID: HFhArhPEQBmRZUfjLFMzjQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="81029780"
+X-IronPort-AV: E=Sophos;i="6.24,185,1774335600"; d="scan'208";a="81029780"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2026 04:22:05 -0700
+X-CSE-ConnectionGUID: 0UtUofyxSPK0kh3wnS/Vbw==
+X-CSE-MsgGUID: vmtVxeQYRHKfizTVgCZNpw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,185,1774335600"; d="scan'208";a="244287695"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2026 04:22:01 -0700
+Date: Wed, 3 Jun 2026 13:21:57 +0200
+From: Raag Jadav <raag.jadav@intel.com>
+To: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ rodrigo.vivi@intel.com, andrealmeid@igalia.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona.vetter@ffwll.ch,
+ mripard@kernel.org, maarten.lankhorst@linux.intel.com,
+ tzimmermann@suse.de, anshuman.gupta@intel.com,
+ badal.nilawar@intel.com, riana.tauro@intel.com,
+ karthik.poosa@intel.com, sk.anirban@intel.com
+Subject: Re: [PATCH v6 3/5] drm/doc: Document DRM_WEDGE_RECOVERY_COLD_RESET
+ recovery method
+Message-ID: <aiAOVcoDXxAZXfVM@black.igk.intel.com>
+References: <20260520113351.171119-7-mallesh.koujalagi@intel.com>
+ <20260520113351.171119-10-mallesh.koujalagi@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260520113351.171119-10-mallesh.koujalagi@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,30 +75,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+On Wed, May 20, 2026 at 05:03:55PM +0530, Mallesh Koujalagi wrote:
+> When ``WEDGED=cold-reset`` is sent, it indicates that the device has
+> encountered an error condition that cannot be resolved through other
+> recovery methods such as driver rebind or bus reset, and requires a
+> complete device power cycle to restore functionality.
 
-El dom, 10-05-2026 a las 19:11 -0300, Ma=C3=ADra Canal escribi=C3=B3:
-> The V3D driver has no display pipeline, so nothing in the driver
-> requires
-> drm_encoder.h. Remove the stale include.
->=20
-> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
-> ---
-> =C2=A0drivers/gpu/drm/v3d/v3d_drv.h | 1 -
-> =C2=A01 file changed, 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/v3d/v3d_drv.h
-> b/drivers/gpu/drm/v3d/v3d_drv.h
-> index 4ebe175a8c6b..5a0b9da2c3aa 100644
-> --- a/drivers/gpu/drm/v3d/v3d_drv.h
-> +++ b/drivers/gpu/drm/v3d/v3d_drv.h
-> @@ -7,7 +7,6 @@
-> =C2=A0#include <linux/spinlock_types.h>
-> =C2=A0#include <linux/workqueue.h>
-> =C2=A0
-> -#include <drm/drm_encoder.h>
-> =C2=A0#include <drm/drm_gem.h>
-> =C2=A0#include <drm/drm_gem_shmem_helper.h>
-> =C2=A0#include <drm/gpu_scheduler.h>
->=20
+...
 
+> +Example - cold-reset
+> +--------------------
+> +
+> +Udev rule::
+> +
+> +    SUBSYSTEM=="drm", ENV{WEDGED}=="cold-reset", DEVPATH=="*/drm/card[0-9]",
+> +    RUN+="/path/to/cold-reset.sh $env{DEVPATH}"
+> +
+> +Recovery script::
+> +
+> +    #!/bin/sh
+> +
+> +    [ -z "$1" ] && echo "Usage: $0 <device-path>" && exit 1
+> +
+> +    # Get device
+> +    DEVPATH=$(readlink -f /sys/$1/device 2>/dev/null || readlink -f /sys/$1)
+> +    DEVICE=$(basename $DEVPATH)
+> +
+> +    echo "Cold reset: $DEVICE"
+> +
+> +    # The PCI core exposes a 'slot' symlink on the device that sits in a
+> +    # registered hotplug slot. Use it directly instead of scanning every
+> +    # slot on the system.
+> +    SLOT=""
+> +    if [ -L "$DEVPATH/slot" ]; then
+
+I think we'll need to iterate through the hierarchy to find it.
+
+Raag
+
+> +	    SLOT=$(basename "$(readlink -f "$DEVPATH/slot")")
+> +    fi
+> +
+> +    if [ -n "$SLOT" ]; then
+> +	echo "Using slot $SLOT"
+> +
+> +	# Remove device
+> +	echo 1 > /sys/bus/pci/devices/$DEVICE/remove
+> +
+> +	# Power cycle slot. A platform-specific settle delay may be required
+> +	# between power off and power on; tune to the hardware as needed.
+> +	echo 0 > /sys/bus/pci/slots/$SLOT/power
+> +	echo 1 > /sys/bus/pci/slots/$SLOT/power
+> +
+> +	# Rescan
+> +	echo 1 > /sys/bus/pci/rescan
+> +	echo "Done!"
+> +    else
+> +	echo "No slot found"
+> +    fi
+> +
+>  Customization
+>  -------------
+>  
+> -- 
+> 2.34.1
+> 
