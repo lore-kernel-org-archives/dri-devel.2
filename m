@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB2B6CD6E4A
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 06:57:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF5BCCD6E55
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 06:57:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 169B610F90B;
-	Wed,  3 Jun 2026 06:57:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2885B10F908;
+	Wed,  3 Jun 2026 06:57:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="u3YArMwO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RrM7/IWw";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010017.outbound.protection.outlook.com [52.101.46.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A03E10F90A;
- Wed,  3 Jun 2026 06:57:03 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012048.outbound.protection.outlook.com
+ [40.107.200.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3021A10F908;
+ Wed,  3 Jun 2026 06:57:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rg0zjEG/ABL6FKnh2STVV0KV4/ExMqri+M6ikBfJBq+kU6Z/a+c0A/Fti6s7ItTIWqenSyvZeDaG7PJF+JrNwZzjbxH1eEUj5NCbbhBAWawwEQ9Vr7TCBKAwcHbGB2MRpuLNrZaCq77wreWxF7svaTChbC9Z8bxbOAoaej6Efg5JdVdHPC7NW4szF5Obt+6RSIoouj3Ncd6fo0fYGp4TZ7oF10tTOo4Gls00Ad/+YRvKSgKeBK43q6wh5yvTmFk60a53BujaKQBDXtunutpgl5EJteMu5DB6Rhh679zxl7JAhLJ9XOHTXZXwnsOybyIc1LIPBsaHKar+0ISjeEOabA==
+ b=IOxV4X7f7uYpAOt11CEpfyfkdzBWrX3gmVbPIBg1oRnsp2x89w6uSBENpGUCE97LA4PXq8Wkd/U4uQ5NtNv47TNkhW/xmHAkeOS/DTKincipRkvTfchcgnUyNsyoJoqRV0bQ/HWIfoygwmzIUDcS2sc11Icj8eVw9xhwDhFqeRpf7RfYnXWxx5uELo9EviTlHxykyQ/gp+rQO1QSyRbzwLG82kAE6Savm1Op7HELor0ptASX05q1nZsarf1ecwR4zeH/ZFrhK9lc89luY9YFiYYO6IVyRrgJVUug3UqEXJh7o4zQUpYOWQY5NktJQP3uy8/5c5rga9MXQNsnNYjJuQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Pg6vkokYEvUei/5IZPo3RSSneqOxm68lQcHE6qTLiv4=;
- b=dtOD/fXEJTxFgzFg5+08aHiTi1Jl5d8xMO+kahL7FgzKBK1LY4AvZgDqw5HQ+9O+J9wdSnksl3Zzk53UIdd1zP9BE+VzkIcX9RnqVMKXJWIAcPkw83Tvl7AOWdlXdF8IxZR+NP1d346wX1I2C+8KPz2TJsiqXD1iKcT9cOSdzDdSi9JVSV4gG8C0Ch6JjAt7Pq/ThAXq+A3tcAIPE3li7YH5JO4wG/sBZlecVQBMQv1GG1BCIpCLLueLK/LuzK7QxIGEvMjzaCXYp6n9JdHJFOIQoIFA+6aRtx3Fz01z3eQQwaX6eoEUzi61wDfCRXCxIxb7B1MzonFKLBznIOCaOg==
+ bh=6JbUoOsshtKDgRnECZi0v6bdJ+CEyFSrGk911pNDplU=;
+ b=MIQMHRi041l4dkiC/PsiihlFBuScDGJ0bg4CbGcoBCpfiUKUdWWta0BBglJ8rcFji+9NreGMwT93Ylre67t7m0gWcgL9sm5wrlfZx4hEgWFI8XvCkjebNnjZIhsf1pb2lGkpnSn9qduazv2QrhYo0S5f5hVBtJxYZ5RxdFYzzEkBIfkwcYInCaqqY5vV7emsXzcfHuokn8uKFEb4dnMzIUo4ckI10nrrC6LtfhfFpwFSHsFmDeimmcKMbGt0f8psqalqyyU6N0euUCikMLBmJ+84XurGGxd6dPv9w4rjbWE+BGhlQhCMyAmGyMH5TBGqFW/7ohGgC45CNqvdsHqBJA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Pg6vkokYEvUei/5IZPo3RSSneqOxm68lQcHE6qTLiv4=;
- b=u3YArMwOonCCmuHU6VjMNZh0ySRuBgYSD5YaiiiIF8ADXHV3hSzCxip77uVaERXldPVE93oyaVKw5RS3h5hsT761H0JD5YtHAL0tZMAYa/1l4wrJKKt6CKSNNrw/AM8B1c3TtvAsuh4TKkbHARyKNDXDq6KDuN4ykw0HslHTg80=
-Received: from DS1P220CA0012.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:455::12) by
- BL1PR12MB5899.namprd12.prod.outlook.com (2603:10b6:208:397::19) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=6JbUoOsshtKDgRnECZi0v6bdJ+CEyFSrGk911pNDplU=;
+ b=RrM7/IWwPrrTns4487miaHT0WOB4cVpmRybetMNPw0jysQQR/MObd0aC44Cv9DVFYoD+iXbShg7w2N2dnaxOkLkDy8d7EKEe3oDtEeHNMwc3P8gCwCR+TepSfWfanxRXEZCcc0Od/jjIs1OuymGT6ewbAM4MWSj9t3/uG0S8sxo=
+Received: from PH1PEPF000132EC.NAMP220.PROD.OUTLOOK.COM (2603:10b6:518:1::31)
+ by IA1PR12MB7591.namprd12.prod.outlook.com (2603:10b6:208:429::5)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
- 06:56:57 +0000
-Received: from CY4PEPF0000EE33.namprd05.prod.outlook.com
- (2603:10b6:8:455:cafe::32) by DS1P220CA0012.outlook.office365.com
- (2603:10b6:8:455::12) with Microsoft SMTP Server (version=TLS1_3,
+ 06:57:02 +0000
+Received: from CY4PEPF0000EE34.namprd05.prod.outlook.com
+ (2a01:111:f403:f912::2) by PH1PEPF000132EC.outlook.office365.com
+ (2603:1036:903:47::3) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.7 via Frontend Transport; Wed, 3
- Jun 2026 06:56:57 +0000
+ Jun 2026 06:57:02 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +49,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000EE33.mail.protection.outlook.com (10.167.242.39) with Microsoft
+ CY4PEPF0000EE34.mail.protection.outlook.com (10.167.242.40) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Wed, 3 Jun 2026 06:56:57 +0000
+ 15.21.92.5 via Frontend Transport; Wed, 3 Jun 2026 06:57:01 +0000
 Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 3 Jun
- 2026 01:56:52 -0500
+ 2026 01:56:57 -0500
 From: Honglei Huang <honglei1.huang@amd.com>
 To: <sima@ffwll.ch>, <matthew.brost@intel.com>, <rodrigo.vivi@intel.com>,
  <thomas.hellstrom@linux.intel.com>, <dakr@kernel.org>
@@ -64,9 +65,10 @@ CC: <aliceryhl@google.com>, <Alexander.Deucher@amd.com>,
  <Ray.Huang@amd.com>, <Lingshan.Zhu@amd.com>, <Junhua.Shen@amd.com>,
  <Yiru.Ma@amd.com>, <amd-gfx@lists.freedesktop.org>,
  <dri-devel@lists.freedesktop.org>, <honghuan@amd.com>
-Subject: [RFC 3/5] drm/xe: have xe_svm_range embed one drm_gpusvm_pages
-Date: Wed, 3 Jun 2026 14:56:18 +0800
-Message-ID: <20260603065620.2555316-4-honglei1.huang@amd.com>
+Subject: [RFC 4/5] drm/gpusvm: move struct drm_gpusvm_pages out of struct
+ drm_gpusvm_range
+Date: Wed, 3 Jun 2026 14:56:19 +0800
+Message-ID: <20260603065620.2555316-5-honglei1.huang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260603065620.2555316-1-honglei1.huang@amd.com>
 References: <20260603065620.2555316-1-honglei1.huang@amd.com>
@@ -78,29 +80,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE33:EE_|BL1PR12MB5899:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2f503f65-be8d-4d5b-e904-08dec13d4dcf
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE34:EE_|IA1PR12MB7591:EE_
+X-MS-Office365-Filtering-Correlation-Id: 127e0e1f-633f-45db-1a3c-08dec13d506a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|1800799024|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: unn0ZH1njACPYFhD1lCvKksGLBuKa4+BVecCRzVx5qO5ieNpb82bWlVr99OMFv3wgvgIVYyH3gaD19QqivwIOVBL9rQxwK3Yt72IlochTZIHJ8C6rFQXTJvHQHA+onI0U3qfVQrbeznyJ1IYJw1eDT1E8tfk2v+npD7H1BzE+z26C6t58wJZcTXk3pS6Dvpc6o2w/n2BJ0CmG3G/EgnE5c41gM1/+8r5cqnV24ib/1mzlzDrYkOWmY1Y3813jyYxKKEYsz+VmvjtNhQOw52MD0/9MPbU6lc7kMGAV87CwslQlyDEKpnl4hZcRUnW6kAHTBq8GjaQ3vs/QBJk98l6M2/cLEnRrbpzh8PZkspTrr4Zm+D+JWJ4p93Prtg8kFr78UjtMsDreRQzUTp7lp6BoKjcoUhryqy7CXNpHD0DYYOSqZCndkmvkCNtAv1Mg/o0y5nDhNih7/q6UxP5RtgvnIDSmssejwPPMIVVT2wmNPtuOkrp5ujM7k57A4w8/1zB2nEKnXFf8yDW/WGg1AwvuxnbImVlwnckVi1yHP/oy1BLrBQuEaTzs6KGpxJo3htuS3im8Vvb4Z3js5dMLhC9+foEAMBfJvVfCSxkkc8I/ajix3Mh1CYPRTgW32gNSpJpW/QoTBZmZjo2BXRygR1XyvQcGQv3DAq+yrXVeAZJDg5/dS3QT4GevOTgfACYx5AqasqgenqRXZUEwxMzjIgks6wWW0L0zokeZc23zM6Y0Z8=
+ ARA:13230040|36860700016|1800799024|376014|82310400026|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: cDz8lIv9U+wbPXn02ilGOtO4RwUgzjQm0dTiRsZSEccZXpD1FZjjzTz9QlT3rIvstV67nwc++hZ9oKV4LLShaKviKtFbpK1Rw8nqfztrckGoM++INQ0U6wBSgT56MnfpquTsQ1gUjWpNvbcsJYIXajQ2LKYPdvK4xLypOvNRyluDJJ39D7VORwbqIuVb5bLTlFyHx78Oodbi2RL+HoiLscdYmNKedxAfNTFGBUyuzhbwr40XLrdXO9UPf3oiujXYtmOKGwOfs93vsFZTyAVLp2QZZ+53zBXoc8kvLzowUOQ7ya0rlfHAV+clKyAM4YMlb3DozgeLn+9cgbsyWY4agCkkh/AdYm2jdnBGsd/IswD6mZ/OJQ6ZN6b9MhyfVfDWjVkQ+gG3wK/T50qwNhXN5wZmo7gbyneFzcaYBo16sZzxi4yvHF9cyQb9+lbsLoLDF7CtBnYDdOS/LWxjU8V+PaHCykpVfAbyYH8K3i+cE4UXtcDzHVZMcUBzjeS11TpYkPTaxPyen0ShRcjq+bZmF+6LtP925Dd4kd8eOUSnESYNP5Oyh/JzQVyoPfMrMrmGJWjtqYR3FjGPcMc6z4s+2x5r10JE0RaPTPZnP4epRh5j6FIKswgTzMJJ5OlzJndndAMJ4qCJ3THPQMcBQfvUTf+jn0bskDLjlG2gwgK3bLm8a2oZElGbIocLWrC0D3Eiu/D8HfAvHWVIH9NvamMOBLe7m+ToGUDBjcR8u4n0vZw=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(56012099006)(11063799006)(22082099003)(18002099003);
+ SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(18002099003)(22082099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: OlfucOOi+MhFzdp/xgMnhNzyr3tziU0HnGk5SiiGFwLA10dNoNYPiwkBi4+SWD7y3vTxnna8tbzE5iq7AJoPQE64inO5SQiFph0norx6BzeiQgtBObcEvBadYZIE1EZoD4OeKwgwPIP8jjRSK23KTKlddu+O1R5OM2IrlFAinP0Obat8lZgv6TMX2/smacPqRddmXvyGRd8QEcvjdPL8lN+OKAsS9kST+HMOQC5oAwQ4XwwgfMyZx7n/tSY6wsmG0gMnGuYUsCaDO5NYfEItlcIShaPMdNBWF8k9ZT/SMAVk4aVyW7SXsdHcGItG1TyGr4Vpfj6OLjiuYvut6LkyGkRX+QrKUm+QtL9oUOZh6q/Kew35PGAli9ZSjGmJ6VU5JOnIPRNLy0wSQUhFMHdyH8Od1TtWDwpyoTzKJA1LAN8dUySdlE600qfa4OmjlIeX
+X-MS-Exchange-AntiSpam-MessageData-0: J8kzD4pXD6x9u9Ijp8WtnpT2je8Tc02lBXq3sBHqgBHcmxscm2gaMpOtlbQUdPn8JnIysSz0vbXEv2Ugn5spI0SGG6Fy1DqmQGOfDTua9HYgV3mRXff1GQ2FbkPvlFnuligyjGiD5ADu8Pwr0zIEWbjoriD9YerbIFsH7qk0SFaNMdbz3GKm7uq0v7CtPJb3CVrr9zoRseKBx6QhCBumXV+1EKs7WLFI/8BTg9ea8Js4obaFhVj0iZPfsnxIK1D7U9AeYTDkbSUVto+Uuh6gJI7QILiQ9TNthWqDdEJek9DRXaJBQxvsHSgp5ZHQRuGjnh5MVUIlwwwl5+rIV3wcPkj6Sp6LmYsHbE4P/BXN9N4tsmJZDNmJJ5dxDVa6jGxiDgsL2SdDiEihK0ZzvgyWco4sJYglpLn1Wj8Z7l7t6DIsCi1MoDqYcl5mk4b8stmb
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 06:56:57.4927 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f503f65-be8d-4d5b-e904-08dec13d4dcf
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 06:57:01.8562 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 127e0e1f-633f-45db-1a3c-08dec13d506a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE33.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE34.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5899
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7591
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,226 +120,171 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Honglei Huang <honghuan@amd.com>
 
-With drm_gpusvm_pages now self contained, make xe stop relying
-on the drm_gpusvm_range pages and take responsibility for the page
-lifecycle on the driver side.
+Since the pages the physical pages and MM VA range has been abstractly
+separated. Unbinding a single form of physical page from the MM VA
+range, brings flexibility to the drm gpu SVM framework, transfer the
+way of management of MM and device physical pages to the driver layer.
 
-Driver side (xe):
+framework's range embedded pages object and its range level wrappers
+have no users left. Remove the following:
 
-  - Embed struct drm_gpusvm_pages in xe_svm_range and route all
-    xe accesses through it instead of range->base.pages.
-  - Take over the page lifecycle: xe_svm_range_get_pages() calls
-    drm_gpusvm_get_pages() directly with &xe->drm; the notifier
-    event_end and xe_svm_range_free() paths drive unmap/free on
-    the embedded pages object.
-  - Switch xe_svm_range_pages_valid() to drm_gpusvm_pages_valid().
-
-Framework side (drm_gpusvm):
-
-  - Export drm_gpusvm_pages_valid() to let driver owned pages
-    can query mapping state without going through a range.
-  - Contract change: drm_gpusvm_range_remove() no longer unmaps or
-    frees pages; drivers that own a drm_gpusvm_pages instance must
-    do that themselves.
-
-Side effect / contract: drivers that own a drm_gpusvm_pages
-are now responsible for its lifecycle, in particular for calling
-drm_gpusvm_unmap_pages() and drm_gpusvm_free_pages() at the
-appropriate points.
+  - Drop pages in drm_gpusvm_range.
+  - Drop drm_gpusvm_range_pages_valid(), drm_gpusvm_range_get_pages()
+    and drm_gpusvm_range_unmap_pages(); drivers should use the
+    drm_gpusvm_pages helpers (drm_gpusvm_pages_valid,
+    drm_gpusvm_get_pages, drm_gpusvm_unmap_pages) directly on a
+    pages object they own.
+  - Drop the notifier_seq seeding in drm_gpusvm_range_alloc();
+    drivers initialise notifier_seq on their own pages object.
 
 Suggested-by: Matthew Brost <matthew.brost@intel.com>
 Signed-off-by: Honglei Huang <honghuan@amd.com>
 ---
- drivers/gpu/drm/drm_gpusvm.c |  9 +++------
- drivers/gpu/drm/xe/xe_pt.c   |  2 +-
- drivers/gpu/drm/xe/xe_svm.c  | 22 +++++++++++++++-------
- drivers/gpu/drm/xe/xe_svm.h  |  9 +++++++--
- include/drm/drm_gpusvm.h     |  3 +++
- 5 files changed, 29 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/drm_gpusvm.c | 68 ------------------------------------
+ include/drm/drm_gpusvm.h     | 13 -------
+ 2 files changed, 81 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-index 3f076178b2a..a4b56cefeb2 100644
+index a4b56cefeb2..55515390c53 100644
 --- a/drivers/gpu/drm/drm_gpusvm.c
 +++ b/drivers/gpu/drm/drm_gpusvm.c
-@@ -1231,8 +1231,6 @@ EXPORT_SYMBOL_GPL(drm_gpusvm_free_pages);
- void drm_gpusvm_range_remove(struct drm_gpusvm *gpusvm,
- 			     struct drm_gpusvm_range *range)
- {
+@@ -640,7 +640,6 @@ drm_gpusvm_range_alloc(struct drm_gpusvm *gpusvm,
+ 	range->itree.start = ALIGN_DOWN(fault_addr, chunk_size);
+ 	range->itree.last = ALIGN(fault_addr + 1, chunk_size) - 1;
+ 	INIT_LIST_HEAD(&range->entry);
+-	range->pages.notifier_seq = LONG_MAX;
+ 	range->flags.migrate_devmem = migrate_devmem ? 1 : 0;
+ 
+ 	return range;
+@@ -1329,27 +1328,6 @@ bool drm_gpusvm_pages_valid(struct drm_gpusvm *gpusvm,
+ }
+ EXPORT_SYMBOL_GPL(drm_gpusvm_pages_valid);
+ 
+-/**
+- * drm_gpusvm_range_pages_valid() - GPU SVM range pages valid
+- * @gpusvm: Pointer to the GPU SVM structure
+- * @range: Pointer to the GPU SVM range structure
+- *
+- * This function determines if a GPU SVM range pages are valid. Expected be
+- * called holding gpusvm->notifier_lock and as the last step before committing a
+- * GPU binding. This is akin to a notifier seqno check in the HMM documentation
+- * but due to wider notifiers (i.e., notifiers which span multiple ranges) this
+- * function is required for finer grained checking (i.e., per range) if pages
+- * are valid.
+- *
+- * Return: True if GPU SVM range has valid pages, False otherwise
+- */
+-bool drm_gpusvm_range_pages_valid(struct drm_gpusvm *gpusvm,
+-				  struct drm_gpusvm_range *range)
+-{
+-	return drm_gpusvm_pages_valid(gpusvm, &range->pages);
+-}
+-EXPORT_SYMBOL_GPL(drm_gpusvm_range_pages_valid);
+-
+ /**
+  * drm_gpusvm_pages_valid_unlocked() - GPU SVM pages valid unlocked
+  * @gpusvm: Pointer to the GPU SVM structure
+@@ -1633,29 +1611,6 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+ }
+ EXPORT_SYMBOL_GPL(drm_gpusvm_get_pages);
+ 
+-/**
+- * drm_gpusvm_range_get_pages() - Get pages for a GPU SVM range
+- * @gpusvm: Pointer to the GPU SVM structure
+- * @range: Pointer to the GPU SVM range structure
+- * @ctx: GPU SVM context
+- *
+- * This function gets pages for a GPU SVM range and ensures they are mapped for
+- * DMA access.
+- *
+- * Return: 0 on success, negative error code on failure.
+- */
+-int drm_gpusvm_range_get_pages(struct drm_gpusvm *gpusvm,
+-			       struct drm_gpusvm_range *range,
+-			       const struct drm_gpusvm_ctx *ctx)
+-{
+-	return drm_gpusvm_get_pages(gpusvm, &range->pages, gpusvm->drm,
+-				    gpusvm->mm,
+-				    &range->notifier->notifier,
+-				    drm_gpusvm_range_start(range),
+-				    drm_gpusvm_range_end(range), ctx);
+-}
+-EXPORT_SYMBOL_GPL(drm_gpusvm_range_get_pages);
+-
+ /**
+  * drm_gpusvm_unmap_pages() - Unmap GPU svm pages
+  * @gpusvm: Pointer to the GPU SVM structure
+@@ -1686,29 +1641,6 @@ void drm_gpusvm_unmap_pages(struct drm_gpusvm *gpusvm,
+ }
+ EXPORT_SYMBOL_GPL(drm_gpusvm_unmap_pages);
+ 
+-/**
+- * drm_gpusvm_range_unmap_pages() - Unmap pages associated with a GPU SVM range
+- * @gpusvm: Pointer to the GPU SVM structure
+- * @range: Pointer to the GPU SVM range structure
+- * @ctx: GPU SVM context
+- *
+- * This function unmaps pages associated with a GPU SVM range. If @in_notifier
+- * is set, it is assumed that gpusvm->notifier_lock is held in write mode; if it
+- * is clear, it acquires gpusvm->notifier_lock in read mode. Must be called on
+- * each GPU SVM range attached to notifier in gpusvm->ops->invalidate for IOMMU
+- * security model.
+- */
+-void drm_gpusvm_range_unmap_pages(struct drm_gpusvm *gpusvm,
+-				  struct drm_gpusvm_range *range,
+-				  const struct drm_gpusvm_ctx *ctx)
+-{
 -	unsigned long npages = npages_in_range(drm_gpusvm_range_start(range),
 -					       drm_gpusvm_range_end(range));
- 	struct drm_gpusvm_notifier *notifier;
- 
- 	drm_gpusvm_driver_lock_held(gpusvm);
-@@ -1244,8 +1242,6 @@ void drm_gpusvm_range_remove(struct drm_gpusvm *gpusvm,
- 		return;
- 
- 	drm_gpusvm_notifier_lock(gpusvm);
--	__drm_gpusvm_unmap_pages(gpusvm, &range->pages, npages);
--	__drm_gpusvm_free_pages(gpusvm, &range->pages);
- 	__drm_gpusvm_range_remove(notifier, range);
- 	drm_gpusvm_notifier_unlock(gpusvm);
- 
-@@ -1324,13 +1320,14 @@ EXPORT_SYMBOL_GPL(drm_gpusvm_range_put);
-  *
-  * Return: True if GPU SVM range has valid pages, False otherwise
-  */
--static bool drm_gpusvm_pages_valid(struct drm_gpusvm *gpusvm,
--				   struct drm_gpusvm_pages *svm_pages)
-+bool drm_gpusvm_pages_valid(struct drm_gpusvm *gpusvm,
-+			    struct drm_gpusvm_pages *svm_pages)
- {
- 	lockdep_assert_held(&gpusvm->notifier_lock);
- 
- 	return svm_pages->flags.has_devmem_pages || svm_pages->flags.has_dma_mapping;
- }
-+EXPORT_SYMBOL_GPL(drm_gpusvm_pages_valid);
- 
+-
+-	return drm_gpusvm_unmap_pages(gpusvm, &range->pages, npages, ctx);
+-}
+-EXPORT_SYMBOL_GPL(drm_gpusvm_range_unmap_pages);
+-
  /**
-  * drm_gpusvm_range_pages_valid() - GPU SVM range pages valid
-diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
-index 2669ff5ee74..e82b0d8fab1 100644
---- a/drivers/gpu/drm/xe/xe_pt.c
-+++ b/drivers/gpu/drm/xe/xe_pt.c
-@@ -758,7 +758,7 @@ xe_pt_stage_bind(struct xe_tile *tile, struct xe_vma *vma,
- 			return -EAGAIN;
- 		}
- 		if (xe_svm_range_has_dma_mapping(range)) {
--			xe_res_first_dma(range->base.pages.dma_addr, 0,
-+			xe_res_first_dma(range->pages.dma_addr, 0,
- 					 xe_svm_range_size(range),
- 					 &curs);
- 			xe_svm_range_debug(range, "BIND PREPARE - MIXED");
-diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
-index 3acfddb7c5b..33c26df5111 100644
---- a/drivers/gpu/drm/xe/xe_svm.c
-+++ b/drivers/gpu/drm/xe/xe_svm.c
-@@ -66,7 +66,7 @@ static bool xe_svm_range_in_vram(struct xe_svm_range *range)
- 
- 	struct drm_gpusvm_pages_flags flags = {
- 		/* Pairs with WRITE_ONCE in drm_gpusvm.c */
--		.__flags = READ_ONCE(range->base.pages.flags.__flags),
-+		.__flags = READ_ONCE(range->pages.flags.__flags),
- 	};
- 
- 	return flags.has_devmem_pages;
-@@ -96,7 +96,7 @@ static struct xe_vm *range_to_vm(struct drm_gpusvm_range *r)
- 	       (r__)->base.gpusvm,					\
- 	       xe_svm_range_in_vram((r__)) ? 1 : 0,			\
- 	       xe_svm_range_has_vram_binding((r__)) ? 1 : 0,		\
--	       (r__)->base.pages.notifier_seq,				\
-+	       (r__)->pages.notifier_seq,				\
- 	       xe_svm_range_start((r__)), xe_svm_range_end((r__)),	\
- 	       xe_svm_range_size((r__)))
- 
-@@ -115,6 +115,7 @@ xe_svm_range_alloc(struct drm_gpusvm *gpusvm)
- 		return NULL;
- 
- 	INIT_LIST_HEAD(&range->garbage_collector_link);
-+	range->pages.notifier_seq = LONG_MAX;
- 	xe_vm_get(gpusvm_to_vm(gpusvm));
- 
- 	return &range->base;
-@@ -122,8 +123,10 @@ xe_svm_range_alloc(struct drm_gpusvm *gpusvm)
- 
- static void xe_svm_range_free(struct drm_gpusvm_range *range)
- {
-+	drm_gpusvm_free_pages(range->gpusvm, &(to_xe_range(range)->pages),
-+			      drm_gpusvm_range_size(range) >> PAGE_SHIFT);
- 	xe_vm_put(range_to_vm(range));
--	kfree(range);
-+	kfree(to_xe_range(range));
- }
- 
- static void
-@@ -208,7 +211,8 @@ xe_svm_range_notifier_event_end(struct xe_vm *vm, struct drm_gpusvm_range *r,
- 
- 	xe_svm_assert_in_notifier(vm);
- 
--	drm_gpusvm_range_unmap_pages(&vm->svm.gpusvm, r, &ctx);
-+	drm_gpusvm_unmap_pages(&vm->svm.gpusvm, &(to_xe_range(r)->pages),
-+			       drm_gpusvm_range_size(r) >> PAGE_SHIFT, &ctx);
- 	if (!xe_vm_is_closed(vm) && mmu_range->event == MMU_NOTIFY_UNMAP)
- 		xe_svm_garbage_collector_add_range(vm, to_xe_range(r),
- 						   mmu_range);
-@@ -952,7 +956,7 @@ void xe_svm_fini(struct xe_vm *vm)
- static bool xe_svm_range_has_pagemap_locked(const struct xe_svm_range *range,
- 					    const struct drm_pagemap *dpagemap)
- {
--	return range->base.pages.dpagemap == dpagemap;
-+	return range->pages.dpagemap == dpagemap;
- }
- 
- static bool xe_svm_range_has_pagemap(struct xe_svm_range *range,
-@@ -1017,7 +1021,7 @@ bool xe_svm_range_validate(struct xe_vm *vm,
- 	if (dpagemap)
- 		ret = ret && xe_svm_range_has_pagemap_locked(range, dpagemap);
- 	else
--		ret = ret && !range->base.pages.dpagemap;
-+		ret = ret && !range->pages.dpagemap;
- 
- 	xe_svm_notifier_unlock(vm);
- 
-@@ -1510,7 +1514,11 @@ int xe_svm_range_get_pages(struct xe_vm *vm, struct xe_svm_range *range,
- 	if (READ_ONCE(range->base.flags.unmapped))
- 		return -EFAULT;
- 
--	err = drm_gpusvm_range_get_pages(&vm->svm.gpusvm, &range->base, ctx);
-+	err = drm_gpusvm_get_pages(&vm->svm.gpusvm, &range->pages,
-+				   &vm->xe->drm, vm->svm.gpusvm.mm,
-+				   &range->base.notifier->notifier,
-+				   drm_gpusvm_range_start(&range->base),
-+				   drm_gpusvm_range_end(&range->base), ctx);
- 	if (err == -EOPNOTSUPP) {
- 		range_debug(range, "PAGE FAULT - EVICT PAGES");
- 		drm_gpusvm_range_evict(&vm->svm.gpusvm, &range->base);
-diff --git a/drivers/gpu/drm/xe/xe_svm.h b/drivers/gpu/drm/xe/xe_svm.h
-index b7b8eeacf19..ea73241d3d9 100644
---- a/drivers/gpu/drm/xe/xe_svm.h
-+++ b/drivers/gpu/drm/xe/xe_svm.h
-@@ -31,6 +31,11 @@ struct xe_vram_region;
- struct xe_svm_range {
- 	/** @base: base drm_gpusvm_range */
- 	struct drm_gpusvm_range base;
-+	/**
-+	 * @pages: Per-device DMA mapping state; single instance since
-+	 * xe svm is 1 svm : 1 drm_device.
-+	 */
-+	struct drm_gpusvm_pages pages;
- 	/**
- 	 * @garbage_collector_link: Link into VM's garbage collect SVM range
- 	 * list. Protected by VM's garbage collect lock.
-@@ -74,7 +79,7 @@ struct xe_pagemap {
-  */
- static inline bool xe_svm_range_pages_valid(struct xe_svm_range *range)
- {
--	return drm_gpusvm_range_pages_valid(range->base.gpusvm, &range->base);
-+	return drm_gpusvm_pages_valid(range->base.gpusvm, &range->pages);
- }
- 
- int xe_devm_add(struct xe_tile *tile, struct xe_vram_region *vr);
-@@ -132,7 +137,7 @@ void *xe_svm_private_page_owner(struct xe_vm *vm, bool force_smem);
- static inline bool xe_svm_range_has_dma_mapping(struct xe_svm_range *range)
- {
- 	lockdep_assert_held(&range->base.gpusvm->notifier_lock);
--	return range->base.pages.flags.has_dma_mapping;
-+	return range->pages.flags.has_dma_mapping;
- }
- 
- /**
+  * drm_gpusvm_range_evict() - Evict GPU SVM range
+  * @gpusvm: Pointer to the GPU SVM structure
 diff --git a/include/drm/drm_gpusvm.h b/include/drm/drm_gpusvm.h
-index ed228d9ff6b..21baf91ec7e 100644
+index 21baf91ec7e..250c59f0930 100644
 --- a/include/drm/drm_gpusvm.h
 +++ b/include/drm/drm_gpusvm.h
-@@ -306,6 +306,9 @@ void drm_gpusvm_range_put(struct drm_gpusvm_range *range);
- bool drm_gpusvm_range_pages_valid(struct drm_gpusvm *gpusvm,
- 				  struct drm_gpusvm_range *range);
+@@ -173,7 +173,6 @@ struct drm_gpusvm_range_flags {
+  * @refcount: Reference count for the range
+  * @itree: Interval tree node for the range (inserted in GPU SVM notifier)
+  * @entry: List entry to fast interval tree traversal
+- * @pages: The pages for this range.
+  * @flags: Flags for range see &struct drm_gpusvm_range_flags
+  *
+  * This structure represents a GPU SVM range used for tracking memory ranges
+@@ -185,7 +184,6 @@ struct drm_gpusvm_range {
+ 	struct kref refcount;
+ 	struct interval_tree_node itree;
+ 	struct list_head entry;
+-	struct drm_gpusvm_pages pages;
+ 	struct drm_gpusvm_range_flags flags;
+ };
  
-+bool drm_gpusvm_pages_valid(struct drm_gpusvm *gpusvm,
-+			    struct drm_gpusvm_pages *svm_pages);
-+
- int drm_gpusvm_range_get_pages(struct drm_gpusvm *gpusvm,
- 			       struct drm_gpusvm_range *range,
- 			       const struct drm_gpusvm_ctx *ctx);
+@@ -303,20 +301,9 @@ drm_gpusvm_range_get(struct drm_gpusvm_range *range);
+ 
+ void drm_gpusvm_range_put(struct drm_gpusvm_range *range);
+ 
+-bool drm_gpusvm_range_pages_valid(struct drm_gpusvm *gpusvm,
+-				  struct drm_gpusvm_range *range);
+-
+ bool drm_gpusvm_pages_valid(struct drm_gpusvm *gpusvm,
+ 			    struct drm_gpusvm_pages *svm_pages);
+ 
+-int drm_gpusvm_range_get_pages(struct drm_gpusvm *gpusvm,
+-			       struct drm_gpusvm_range *range,
+-			       const struct drm_gpusvm_ctx *ctx);
+-
+-void drm_gpusvm_range_unmap_pages(struct drm_gpusvm *gpusvm,
+-				  struct drm_gpusvm_range *range,
+-				  const struct drm_gpusvm_ctx *ctx);
+-
+ bool drm_gpusvm_has_mapping(struct drm_gpusvm *gpusvm, unsigned long start,
+ 			    unsigned long end);
+ 
 -- 
 2.34.1
 
