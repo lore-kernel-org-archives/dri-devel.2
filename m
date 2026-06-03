@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAF15CD6E60
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 15:19:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EDD7CD6E57
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 15:19:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0421210FFE4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D7A710FFE8;
 	Wed,  3 Jun 2026 15:19:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="jHQk/RoA";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="yCqaIobt";
 	dkim-atps=neutral
 Received: from out30-130.freemail.mail.aliyun.com
  (out30-130.freemail.mail.aliyun.com [115.124.30.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAEC110FFDC
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 15:18:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D82B210FFD9
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 15:18:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux.alibaba.com; s=default;
- t=1780499938; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=KZgq1eaNBXtMeM2COnghIdZmSnxtaNxaK4JO7Z48KHI=;
- b=jHQk/RoA3JpiWR8rmDFY1yav/gXXE7p7mcJKtS1Ek6spGrRPpD4ckwNPGnuhZiuPIk6xRbvKojc/8zN4goGFsGDrViEd8cp9UzAI7gWOigk0RxBanbUZ6wZFQOm1soGQHwmKOZ03MO4ec862jJMX7FPDbNmuKMwTA7CSeLrFzeg=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R681e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033045098064;
+ t=1780499930; h=From:To:Subject:Date:Message-ID:MIME-Version;
+ bh=M5zQjIPVfFmKstwwMGABYtO3/c5KzR7s9T/A9BdluRs=;
+ b=yCqaIobteWxWpR5vVYWr78f/MFpxE4a7kmm8tIt7ZaQ2XAdg4xyDgMgppoLWtFDP18d2/xDwmdudzBil09hMRcUZs6BrE3iMVavuu6bV+TspBMt7AMqj3oHpxyo6/AcThEm40ugKTfMEkBZPGtJ91T414abeLPKvQZJQdxKzErc=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R161e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033045133197;
  MF=guanghuifeng@linux.alibaba.com; NM=1; PH=DS; RN=28; SR=0;
- TI=SMTPD_---0X47fR4o_1780499935; 
+ TI=SMTPD_---0X47fR30_1780499928; 
 Received: from
  VM20241011-104.tbsite.net(mailfrom:guanghuifeng@linux.alibaba.com
- fp:SMTPD_---0X47fR4o_1780499935 cluster:ay36) by smtp.aliyun-inc.com;
- Wed, 03 Jun 2026 23:18:55 +0800
+ fp:SMTPD_---0X47fR30_1780499928 cluster:ay36) by smtp.aliyun-inc.com;
+ Wed, 03 Jun 2026 23:18:48 +0800
 From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
 To: jgg@ziepe.ca
 Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
@@ -42,9 +42,9 @@ Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
  shiyu.zsq@linux.alibaba.com, steven.price@arm.com,
  suravee.suthikulpanit@amd.com, tzimmermann@suse.de,
  wei.guo.simon@linux.alibaba.com, will@kernel.org, xlpang@linux.alibaba.com
-Subject: [PATCH v3 17/32] iommu/rockchip: implement iova_to_phys_length
-Date: Wed,  3 Jun 2026 23:17:49 +0800
-Message-ID: <20260603151804.1963871-18-guanghuifeng@linux.alibaba.com>
+Subject: [PATCH v3 10/32] iommu/ipmmu-vmsa: implement iova_to_phys_length
+Date: Wed,  3 Jun 2026 23:17:42 +0800
+Message-ID: <20260603151804.1963871-11-guanghuifeng@linux.alibaba.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20260603151804.1963871-1-guanghuifeng@linux.alibaba.com>
 References: <20260602104637.1219810-1-guanghuifeng@linux.alibaba.com>
@@ -66,50 +66,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Implement iova_to_phys_length for Rockchip IOMMU driver,
-returning the actual PTE mapping size.
+Migrate IPMMU-VMSA to implement iova_to_phys_length, passing through
+mapped_length from io-pgtable.
 
 Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
 ---
- drivers/iommu/rockchip-iommu.c | 10 ++++++----
+ drivers/iommu/ipmmu-vmsa.c | 10 ++++++----
  1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iommu.c
-index 0013cf196c57..a51c29340b98 100644
---- a/drivers/iommu/rockchip-iommu.c
-+++ b/drivers/iommu/rockchip-iommu.c
-@@ -648,12 +648,12 @@ static irqreturn_t rk_iommu_irq(int irq, void *dev_id)
- 	return ret;
+diff --git a/drivers/iommu/ipmmu-vmsa.c b/drivers/iommu/ipmmu-vmsa.c
+index 9386b752dea2..6e2e5922ab1b 100644
+--- a/drivers/iommu/ipmmu-vmsa.c
++++ b/drivers/iommu/ipmmu-vmsa.c
+@@ -699,14 +699,16 @@ static void ipmmu_iotlb_sync(struct iommu_domain *io_domain,
+ 	ipmmu_flush_iotlb_all(io_domain);
  }
  
--static phys_addr_t rk_iommu_iova_to_phys(struct iommu_domain *domain,
--					 dma_addr_t iova)
-+static phys_addr_t rk_iommu_iova_to_phys_length(struct iommu_domain *domain,
-+					 dma_addr_t iova, size_t *mapped_length)
+-static phys_addr_t ipmmu_iova_to_phys(struct iommu_domain *io_domain,
+-				      dma_addr_t iova)
++static phys_addr_t ipmmu_iova_to_phys_length(struct iommu_domain *io_domain,
++				      dma_addr_t iova, size_t *mapped_length)
  {
- 	struct rk_iommu_domain *rk_domain = to_rk_domain(domain);
- 	unsigned long flags;
--	phys_addr_t pt_phys, phys = 0;
-+	phys_addr_t pt_phys, phys = PHYS_ADDR_MAX;
- 	u32 dte, pte;
- 	u32 *page_table;
+ 	struct ipmmu_vmsa_domain *domain = to_vmsa_domain(io_domain);
  
-@@ -670,6 +670,8 @@ static phys_addr_t rk_iommu_iova_to_phys(struct iommu_domain *domain,
- 		goto out;
++
+ 	/* TODO: Is locking needed ? */
  
- 	phys = rk_ops->pt_address(pte) + rk_iova_page_offset(iova);
-+	if (mapped_length)
-+		*mapped_length = SPAGE_SIZE;
- out:
- 	spin_unlock_irqrestore(&rk_domain->dt_lock, flags);
+-	return domain->iop->iova_to_phys(domain->iop, iova);
++	return domain->iop->iova_to_phys_length(domain->iop, iova,
++						mapped_length);
+ }
  
-@@ -1187,7 +1189,7 @@ static const struct iommu_ops rk_iommu_ops = {
- 		.attach_dev	= rk_iommu_attach_device,
- 		.map_pages	= rk_iommu_map,
- 		.unmap_pages	= rk_iommu_unmap,
--		.iova_to_phys	= rk_iommu_iova_to_phys,
-+		.iova_to_phys_length = rk_iommu_iova_to_phys_length,
- 		.free		= rk_iommu_domain_free,
+ static int ipmmu_init_platform_device(struct device *dev,
+@@ -892,7 +894,7 @@ static const struct iommu_ops ipmmu_ops = {
+ 		.unmap_pages	= ipmmu_unmap,
+ 		.flush_iotlb_all = ipmmu_flush_iotlb_all,
+ 		.iotlb_sync	= ipmmu_iotlb_sync,
+-		.iova_to_phys	= ipmmu_iova_to_phys,
++		.iova_to_phys_length = ipmmu_iova_to_phys_length,
+ 		.free		= ipmmu_domain_free,
  	}
  };
 -- 
