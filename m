@@ -4,112 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB1E5CD6E64
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 08:54:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10A8ACD6E55
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 09:00:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E53E10FAC9;
-	Wed,  3 Jun 2026 08:54:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63F4110FB05;
+	Wed,  3 Jun 2026 09:00:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=tomeuvizoso-net.20251104.gappssmtp.com header.i=@tomeuvizoso-net.20251104.gappssmtp.com header.b="nKQcJ8O+";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="SDwBWkM8";
 	dkim-atps=neutral
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
- [209.85.222.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E0E410FAA9
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 08:54:26 +0000 (UTC)
-Received: by mail-qk1-f180.google.com with SMTP id
- af79cd13be357-9156b74006aso211740285a.0
- for <dri-devel@lists.freedesktop.org>; Wed, 03 Jun 2026 01:54:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780476865; cv=none;
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04E2B10FB05
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 09:00:20 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-bec449cf976so406257866b.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 03 Jun 2026 02:00:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780477218; cv=none;
  d=google.com; s=arc-20240605;
- b=cRdjQwKlHasRhKTRQo3EpJteUD5h+9VH7Vql+rEbivi7y2Az8bzedmCnq3eWVcyHny
- Sm3hWyHRhnTQOn9uXX4HoeZ1Z9ZdoJoE3niYsC7+W+ypGtxsFF8+UFKBHBREkstKi+H/
- xfBiE/hKTHwt8i3bO6ca8/1G8MZe6RhgnNr1uzWe7/DXjDe/qz2S/5jxtmA+eILqNA6p
- ya+88ZRG9kk7d8q14h6hyxyFbYTznAl8oFnaapE5aKu3jxbTfQ436DTxDi8s0elm28u8
- 3sSzGlAj2T5Tw9F+Q7to8Hbh7RLED5wU7zM65bHuMVQHcaxDSeui6BSaxO3iBUW1SFCq
- Zc9Q==
+ b=ThjZEYwo6y7FsoFfAImaLsZUE5OW6GNOs7wi2Ea2SaMb/Hld7JOAQjqoEZ/R7ilcR5
+ +autD2lYA/rwritEIx2nd+BGu+zJnWY+mrW1hsRPa/ebJb5yHe0KS9u60lj1AQJz8smH
+ Xdkd20MrW/EoWW2fONDiLThXAzTgRZBu/bXvASyg+RwADm7hE2Wh9hmyKkkk2iMZo0Xu
+ 8IDyxsILgiu3mxgHR87BJli57EybAjgZTZiM0WPEZp/trP+J9wGUv6ZMzFsr5uLwSpay
+ TI6wS2cwaz7Ok5TzJ+E1KUPsCQlBkexjZsD4S7/7ni6zRcDQ2rY4BLZ3mHfIh9HTq1FW
+ vkDg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=g7JX48xUqE191PjwdvrWj7w+4oUCIR2hhRFUmFcQpEw=;
- fh=5yQywHInXOZC80KG7MN8WnVNPCGZyuUtiFB2wWRWBvg=;
- b=UY4xSIuHvnVs3sOxbI/9rS+27XhSuQOKUBJGzF+3r2aLJdLBIejAcEG5Txn3oMJJj2
- 2N9p/0Bb7VkVqO4o4jnQiP+iPfiWFNl6dGvZonSfOPxhCuVgV8e75PBAME7IPfds6Wdl
- 6yM6GQGX00l89dd7ggfOzpXRjZPaxQf/VVaoYuqFDijI55AqZmZAz7c2+ejg5Hlei3ML
- Y6v5X27FbV7KAogaJdqCfuJzWb1H/UyV7EBZkHVsW/yrBu08c+xjqHA7qhfZAwyNH4qz
- f8sVww4JyhlOG1LQQF1dQAg6fDrzszFE1qPA2nLDTMaI0PSXznDl8MnTuDYbV6GBOGdK
- LxlA==; darn=lists.freedesktop.org
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=Jzuby2umJ58JZM+JS4EAdHZjjbUUQ/puGed5+FBLJt0=;
+ fh=qJNEmQhRkqSQpWjNDKRZpG7HCyVTMv7vHG97XmPbcNw=;
+ b=VtH+dK+1YtFoW2k1WbWFSRhEfNnjmpGVbJmc63lfDCyBjBKvhwa8F2aSOXBAmlraDu
+ 9caYEFXGfuvWMHVRancS2B9FsRmV6+j6KuZ3tdUMcuUKWGTC3E2LncRDgul92P6La2wb
+ /wqwRuoCnty3J8Z5p3iQYAMExp1z4yLzs28V9tFrkVm8nw0xBX57y+9LXd4WUoi+gmzh
+ PvTq05fbcUy3A4ZkUxzF/NEF2AI0ugVbrpXjHz3Ue1oVOy3jRBHMEq3V6eUzSSBC14Li
+ kxEWDntqWtkQwT9dJlnA9RHVB/u9krsn4JyrfgD/9RD5h0ZFDt0FpohweRm/9QY4yXjF
+ ynEA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tomeuvizoso-net.20251104.gappssmtp.com; s=20251104; t=1780476865;
- x=1781081665; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=g7JX48xUqE191PjwdvrWj7w+4oUCIR2hhRFUmFcQpEw=;
- b=nKQcJ8O+rXeDcuEg7gjflBcK8jiLub4FSN08eZneLZJszmQwHeOhHg+6JdKM3Yi5oe
- 7imD3eZicDeCfzBO+enLxGQHpNJbXe1dHlGzKQv1u3pOzhMUfWHp0FrokoiWh5i3nuyk
- Dmrb6XxQrgdQn0mVUrdPg8kvglq6LJt9JFK2M3VXT+7rmFtFWW/y0bWD+GIGgltBG+q0
- TgM+1xU1ViAbel7JPadSiJpVpk26tJFEMWVSEu3XHGFguBPV7ccox3FsYWoPJYUjws/2
- t8YR0rAN1l7WQTcKmY8aZg4CG2FFSnutm3moSg7x6O5S4aeezZA36RZLWbVELTlFRoYP
- VscQ==
+ d=linaro.org; s=google; t=1780477218; x=1781082018; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=Jzuby2umJ58JZM+JS4EAdHZjjbUUQ/puGed5+FBLJt0=;
+ b=SDwBWkM8OErpDYZxr2pJBAN3w5p/w1Y0/FbxiOshHzrf12hNwR2B/GUqK9KD3WQALU
+ Tn6wI4rnVb8z873TeopOOlQEwK9QGx5bcxOJhNAOI61//lsK/HjI9B4DNUWzU8uY5hTR
+ /jcqS2sYSBOz3ZJt5C2NQbaTJgAFccgj+I60E6oxvh4S6fAWL6Wyn7qoLuob+/UoK7mY
+ 7zMWniqQIWCGGXVFYp98TLJUSXB7a9YpRAJfsYQitau4B882EHEKemqCNDK1GzCIYGwt
+ Y7fYQcaJXScdOK6uBSl3XEe9VPilTWmhh3NbKt9k30ox1KFwkm+O3LUGJvNI+QLw6yOX
+ HHkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780476865; x=1781081665;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=g7JX48xUqE191PjwdvrWj7w+4oUCIR2hhRFUmFcQpEw=;
- b=Ly9zdCekj5+SyRWyAFC1ZtZeNTdFdxYEMkQE4nKReNLKyI4cdL29H0L3SKcFdSu7D5
- JNfHcTOkzDiiLKPZsvpQo8BvFN49t/qKc6DX3tlvZouUziEEYNm8mQi8PdZjRTJ/1kyS
- eGRwSQiQ0vxfxjZChqgX3HoeH091NWhquX4W5uFmqDpii9iekku/d/5lXNh97rsOqdcp
- exJuqP/+uLT6/k3+mISFn/BqHjLONih9B6X3eMBvhA6d8iYQBKc9wkN0EiOx4nxylz6X
- 4G2adewomfjSe20D1F29Gje9vG/VQ0p76rX+WsutHzUeTL6Ny1jlRBa8LrPeKZk57P44
- BR1w==
+ d=1e100.net; s=20251104; t=1780477218; x=1781082018;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Jzuby2umJ58JZM+JS4EAdHZjjbUUQ/puGed5+FBLJt0=;
+ b=Q1NKdDuoumvsUC/IUXuA3zyvhRsNxb8m7YZFHqWpBi/l2k9Ck+J7g2EG9GH+9ixivD
+ 7UjlM8FHN1hkfKBshJYg4pZjDFtfUxPxppOe9gVWHxd5hA0F/wkedqIvMn42VNhjuCGC
+ a9dBygbfv1ulWHMOhRMpjIFAiHi7WK572ltgewWRXEubUFw7f6WZ5LL8KjFAv9VX1HHZ
+ nOAXVcBalJCBiOnGa7qVpZSLY3CPhIm4W9aqI60Y4LxH8juOs7mzW9mggCcNSL2UEYvn
+ Y/Kbdb4kqJ03u/WWQBqHO/Xk1GGl7Ta2w5Bk9545EkU99Veii9k1IVYmGiAhd52wd2LG
+ 3KWQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ93SNtvbAsP1FhIrWCaAWx7RZHtlG3kQ/KV8rqkHqRBeJKIuw1FmD1OGFDi1r87irv24sMxUqiDXEM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwdjI/etIQV5Zw/irVL0lVKhEmlDEmUkMsLU4wVsWT8pzrKlmif
- WcdUOjDZdEntJRJpv7fhOH6LNmp9i7FHbr3YabyKe5FVIT5kJqnooqqHgNr5RVarjZiXO36UgtJ
- 8NNngrzqoC29TETZD6oC6+x+qciPirDb92O0vta+W3Q==
-X-Gm-Gg: Acq92OHalgPsYgF+0OUOgMVAtM9hnApGuG8YoCCVjYGeBxTYfchBdgmS82ZMJo2zCbD
- XLF0a2KStYJgi/MUEuEJu3pWKSoi7gkbK/pRaqjGMskVgDXlq+2w6jGVtiZFZCpE+kDul2PkBAD
- BZ5GLZEKpjUcDfCHtkBxfkYRgsA3Wzz2SGU7jKnv7dxxNdEZJrqRYIEmNoXcu5+pBRAXyFOzSeJ
- oCFqoFyOtSR+F7p/uiCMh6ouP89ZnpM6IcA+wsakV7D9YzrMGU8jGbNDo6UZvvi3CUYiTIa+9kP
- kgGqDD1k2vvdXVtN
-X-Received: by 2002:a05:620a:470d:b0:914:e3dd:17fd with SMTP id
- af79cd13be357-9158a6cce06mr407596485a.6.1780476864872; Wed, 03 Jun 2026
- 01:54:24 -0700 (PDT)
+ AFNElJ9FJugCioAkBvGjY/ldjKhdt2sWVvIXW68GY0tgqHmvx9lw08yMX7zJKMtFL32rFpA3L9BhhtCjQLM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyF9oH6MobrlXbgT6++bwJKYQEhUlmFo8ChTgoTGvRlRGPOxL2k
+ Zy6wdnf56geMMixTB/MKSZlGKwzE9vsYTjsyL4fCgsZFdxrgAmMFZKj15X/7UlGV9DoE7Sq4m20
+ YNihDhnIrvtBBq7Rayhv5IG8pQLjqzisfR7emVpXGfA==
+X-Gm-Gg: Acq92OEQj7kt/YNO5ZEzEBAKwlYM+REG5HWgNjb5udtEBDXaijSNNey9IehSMF58vbN
+ KP+YHzNHmM/Rovy2poCsSPIdYYnEDiPN9CcqF9tm+Gc24Qr0pQ+jEDwdOIdVLEVUhLy0Z9/JVIm
+ wWgZ/jWKZXXeoxYf1MEEkvQ0C11WD3jIYoJ1McArg1UQqTLc8IkUQYiq/krgOPXBSmO/w9fI1E3
+ DiQjr8HhVjXr8IwwnxnpKGBQTMIrHrQTNOap0rtmgLI4OimrWg0nCAMR69OdRjasW3YHvJ3iOUi
+ K7eizV8CfzUWKCfORP0cqJeIfXKAAFMa4FzRcjNG05SFMRDR+IC7eIQb3Q==
+X-Received: by 2002:a17:907:86ac:b0:bb8:fd88:f400 with SMTP id
+ a640c23a62f3a-bf0a97083b9mr124305866b.21.1780477218276; Wed, 03 Jun 2026
+ 02:00:18 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260519-qda-series-v1-0-b2d984c297f8@oss.qualcomm.com>
- <20260519-qda-series-v1-2-b2d984c297f8@oss.qualcomm.com>
- <paiohsil5pmvm7cf6jxrhaj2225bgvlt3scrag4x6gbkyosow5@l4tbakbnxcvo>
- <CAPsqS2Tt0JbHhJLHBsbJ2YfZW913WNfoSXpSa+8TD1T9CV8V3g@mail.gmail.com>
- <9879f670-8a23-407b-ab45-673904ad4a86@oss.qualcomm.com>
-In-Reply-To: <9879f670-8a23-407b-ab45-673904ad4a86@oss.qualcomm.com>
-From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Date: Wed, 3 Jun 2026 10:54:13 +0200
-X-Gm-Features: AVHnY4JxR71JOH6mKjWdwqMelPGIBYkdeP3ekd-6Gg14JWpiLQqO3KnjrrlcThc
-Message-ID: <CAPsqS2R5kr1-UqhijjgAfU9D1VnyEd3pCxOagHyesHSHpN4_8g@mail.gmail.com>
-Subject: Re: [PATCH 02/15] accel/qda: Add QDA driver documentation
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+References: <20260517172352.3615-2-thorsten.blum@linux.dev>
+ <ah9cwXA2CO5VB6Kf@linux.dev>
+In-Reply-To: <ah9cwXA2CO5VB6Kf@linux.dev>
+From: Sumit Semwal <sumit.semwal@linaro.org>
+Date: Wed, 3 Jun 2026 14:30:06 +0530
+X-Gm-Features: AVHnY4KggjhwnZqqk9ax1UCTzRTZe5T2OHJLulQOs1YKwvmbLelqVZK9U3zAOh0
+Message-ID: <CAO_48GFrqMzqPJrXU8wKZNUKX083n1ef8163Yx0mkjS86DcJcw@mail.gmail.com>
+Subject: Re: [PATCH RESEND v2] dma-buf: heaps: use max3 in dma_heap_ioctl
+To: Thorsten Blum <thorsten.blum@linux.dev>
+Cc: Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, 
+ John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>, srini@kernel.org, 
- andersson@kernel.org, konradybcio@kernel.org, robin.clark@oss.qualcomm.com, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- iommu@lists.linux.dev, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,190 +108,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 3, 2026 at 7:22=E2=80=AFAM Ekansh Gupta
-<ekansh.gupta@oss.qualcomm.com> wrote:
+Hello Thorsten,
+
+On Wed, 3 Jun 2026 at 04:14, Thorsten Blum <thorsten.blum@linux.dev> wrote:
 >
-> On 20-05-2026 21:17, Tomeu Vizoso wrote:
-> > On Wed, May 20, 2026 at 4:12=E2=80=AFPM Dmitry Baryshkov
-> > <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> >>
-> >> On Tue, May 19, 2026 at 11:45:52AM +0530, Ekansh Gupta via B4 Relay wr=
-ote:
-> >>> From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> >>>
-> >>> Add documentation for the Qualcomm DSP Accelerator (QDA) driver under
-> >>> Documentation/accel/qda/. The documentation covers the driver
-> >>> architecture, GEM-based buffer management, IOMMU context bank
-> >>> isolation, and the RPMsg transport layer.
-> >>>
-> >>> The user-space API section describes the DRM IOCTLs for session
-> >>> management, GEM buffer allocation, and remote procedure invocation vi=
-a
-> >>> the FastRPC protocol, along with a typical application lifecycle
-> >>> example. Sections for dynamic debug and basic testing are also
-> >>> included.
-> >>>
-> >>> Wire the new documentation into the Compute Accelerators index at
-> >>> Documentation/accel/index.rst.
-> >>>
-> >>> Assisted-by: Claude:claude-4-6-sonnet
-> >>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> >>> ---
-> >>>  Documentation/accel/index.rst     |   1 +
-> >>>  Documentation/accel/qda/index.rst |  13 ++++
-> >>>  Documentation/accel/qda/qda.rst   | 146 ++++++++++++++++++++++++++++=
-++++++++++
-> >>>  3 files changed, 160 insertions(+)
-
-<snip>
-
-> >>> +Usage Example
-> >>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >>> +
-> >>> +A typical lifecycle for a user-space application:
-> >>> +
-> >>> +1.  **Discovery**: Open ``/dev/accel/accel*`` and use
-> >>> +    ``DRM_IOCTL_QDA_QUERY`` to identify the DSP domain served by tha=
-t
-> >>> +    device node.
-> >>> +2.  **Initialization**: Call ``DRM_IOCTL_QDA_REMOTE_SESSION_CREATE``=
- to
-> >>> +    establish a session and create a process context on the DSP.
-> >>> +3.  **Memory**: Allocate buffers via ``DRM_IOCTL_QDA_GEM_CREATE`` or=
- import
-> >>> +    DMA-BUFs (PRIME fd) from other drivers using ``DRM_IOCTL_PRIME_F=
-D_TO_HANDLE``.
-> >>> +4.  **Execution**: Use ``DRM_IOCTL_QDA_REMOTE_INVOKE`` to pass argum=
-ents and
-> >>> +    execute functions on the DSP.
-> >>> +5.  **Cleanup**: Close file descriptors to automatically release res=
-ources and
-> >>> +    detach the session.
-> >>
-> >> I'd have expected the description of the actual example. I.e. clone th=
-e
-> >> app from https://the.addr, prepare clang >=3D NN.MM, QAIC (https://foo=
-),
-> >> run make, run the app, check the results. I'd remind that DRM Accel ha=
-s
-> >> a very specific requirement of having the working toolhain in the
-> >> open-source.
-> >
-> > We have been getting submissions lately that don't fulfill that
-> > requirement so I will point to the precise part of the documentation
-> > that explains it:
-> >
-> > https://www.kernel.org/doc/html/latest/gpu/drm-uapi.html#open-source-us=
-erspace-requirements
-> >
-> > For an example of a submissions that complies, see:
-> >
-> > https://lore.kernel.org/dri-devel/20260114-thames-v2-0-e94a6636e050@tom=
-euvizoso.net/
-> >
-> > Most importantly, notice how the proposed Thames Mesa driver generates
-> > machine code for all the hardware units, and doesn't use any blob for
-> > that.
-> >
-> I believe QDA checks all boxes for accel, as there is available
-> opensource userspace, opensource QAIC compiler for IDL compilation and
-> LLVM supports hexagon arch.
-
-I must say that I'm at a total loss regarding the userspace portion of
-this driver, despite spending half an hour looking inside the FastRPC
-branch that you link from the cover letter.
-
-Can you please explain what do people need to do to:
-
-- run an algorithm of their choice on the DSP,
-- execute inference with a common ML framework such as TensorFlow Lite
-or PyTorch.
-
-The documentation I pointed to earlier explains in length what is
-expected from the userspace portion of the driver, which is more than
-just being open source.
-
-Thanks,
-
-Tomeu
-
-> I'll try adding these details as well.
+> Gentle ping?
 >
-> Thanks!> Regards,
+> On Sun, May 17, 2026 at 07:23:53PM +0200, Thorsten Blum wrote:
+> > Replace two nested max() calls with a single max3() in dma_heap_ioctl().
 > >
-> > Tomeu
+> > Reviewed-by: T.J. Mercier <tjmercier@google.com>
+> > Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+Apologies for the delay; its now pushed to drm-misc-next.
+
+> > ---
+> > Changes in v2:
+> > - Include minmax.h as suggested by T.J. Mercier
+> > - v1: https://lore.kernel.org/lkml/20260427172519.417333-3-thorsten.blum@linux.dev/
+> > ---
+> >  drivers/dma-buf/dma-heap.c | 3 ++-
+> >  1 file changed, 2 insertions(+), 1 deletion(-)
 > >
-> >>> +
-> >>> +Internal Implementation
-> >>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D
-> >>> +
-> >>> +Memory Management
-> >>> +-----------------
-> >>> +The driver's memory manager creates virtual "IOMMU devices" that map=
- to
-> >>> +hardware context banks. This allows the driver to manage multiple is=
-olated
-> >>> +address spaces. The implementation uses a DMA-coherent backend to en=
-sure data consistency
-> >>> +between the CPU and DSP without manual cache maintenance in most cas=
-es.
-> >>
-> >> GEM usage?
-> >>
-> >>> +
-> >>> +Debugging
-> >>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >>> +The driver includes extensive dynamic debug support. Enable it via t=
-he
-> >>> +kernel's dynamic debug control:
-> >>> +
-> >>> +.. code-block:: bash
-> >>> +
-> >>> +    echo "file drivers/accel/qda/* +p" > /sys/kernel/debug/dynamic_d=
-ebug/control
-> >>> +
-> >>> +Testing
-> >>> +=3D=3D=3D=3D=3D=3D=3D
-> >>> +The QDA driver can be exercised using the ``fastrpc_test`` utility f=
-rom the
-> >>> +FastRPC userspace library. Run the test application:
-> >>
-> >> pointer
-> >>
-> >>> +
-> >>> +.. code-block:: bash
-> >>> +
-> >>> +    fastrpc_test -d 3 -U 1 -t linux -a v68
-> >>> +
-> >>> +**Options**
-> >>> +
-> >>> +``-d domain``
-> >>> +    Select the DSP domain to run on:
-> >>> +
-> >>> +    * ``0`` =E2=80=94 ADSP
-> >>> +    * ``1`` =E2=80=94 MDSP
-> >>> +    * ``2`` =E2=80=94 SDSP
-> >>> +    * ``3`` =E2=80=94 CDSP *(default on targets with CDSP)*
-> >>> +
-> >>> +``-U unsigned_PD``
-> >>> +    Select signed or unsigned protection domain:
-> >>> +
-> >>> +    * ``0`` =E2=80=94 signed PD
-> >>> +    * ``1`` =E2=80=94 unsigned PD *(default)*
-> >>> +
-> >>> +``-t target``
-> >>> +    Target platform: ``android`` or ``linux`` *(default: linux)*
-> >>> +
-> >>> +``-a arch_version``
-> >>> +    DSP architecture version, e.g. ``v68``, ``v75`` *(default: v68)*
-> >>>
-> >>> --
-> >>> 2.34.1
-> >>>
-> >>>
-> >>
-> >> --
-> >> With best wishes
-> >> Dmitry
->
+> > diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
+> > index ac5f8685a649..d49188893608 100644
+> > --- a/drivers/dma-buf/dma-heap.c
+> > +++ b/drivers/dma-buf/dma-heap.c
+> > @@ -13,6 +13,7 @@
+> >  #include <linux/err.h>
+> >  #include <linux/export.h>
+> >  #include <linux/list.h>
+> > +#include <linux/minmax.h>
+> >  #include <linux/nospec.h>
+> >  #include <linux/syscalls.h>
+> >  #include <linux/uaccess.h>
+> > @@ -153,7 +154,7 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+> >               in_size = 0;
+> >       if ((ucmd & kcmd & IOC_OUT) == 0)
+> >               out_size = 0;
+> > -     ksize = max(max(in_size, out_size), drv_size);
+> > +     ksize = max3(in_size, out_size, drv_size);
+> >
+> >       /* If necessary, allocate buffer for ioctl argument */
+> >       if (ksize > sizeof(stack_kdata)) {
+
+
+Best,
+Sumit.
