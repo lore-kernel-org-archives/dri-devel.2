@@ -4,56 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D93D3CD6E55
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 07:10:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E978CD6E4A
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 07:34:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C8F510F940;
-	Wed,  3 Jun 2026 07:10:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B358C10F954;
+	Wed,  3 Jun 2026 07:34:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="VfzF952H";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="o1dKl8mN";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA71510F940
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 07:10:42 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gVf3z0rJcz9tsV;
- Wed,  3 Jun 2026 09:10:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1780470639; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=3xTRblSttu6zwDnID4yfE/KJlAJ0qemUkg7n5y6NR3M=;
- b=VfzF952HVSra5GVkObVcEEANz0HarwcqkhHbBgTBKv2R514r8CRo/a3a3OgzXFa5iTVX5S
- jY41s/ZreVbbp4AMtYSxl0CYOTnw1b3+n8tVJfokAm83iihzD402R9ofvqEp17P+XX7idh
- IK9C886FX48QH8zejzYEJ5LqGHH/g3uK/mL72UttwVpHKE5PdU/DxV9UxSD4r4aCGNf6YN
- nlr0ENXNnaUxFItYFG1S9ro0ViOYWsGy8p6Eoomb+8oxW97soNz1lm3BpaAKqlBa/GlnV4
- 3jti+EEcUoWH3aq2lVhTxe2eKltVHINs3IEXiCSpj5573rBe/ctaGSR73m+dMw==
-Message-ID: <b065b85e15ade7a6e470745ba72c9381f3567ece.camel@mailbox.org>
-Subject: Re: [PATCH] drm/sched: fix NULL deref when logging missing entity
- runqueue
-From: Philipp Stanner <phasta@mailbox.org>
-To: phasta@kernel.org, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Candice Li <candice.li@amd.com>, 
- dri-devel@lists.freedesktop.org
-Cc: Alexander Deucher <alexander.deucher@amd.com>, Hawking Zhang
- <Hawking.Zhang@amd.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Date: Wed, 03 Jun 2026 09:10:34 +0200
-In-Reply-To: <2f036bd31f8047c140644aae106084d46bcb50a1.camel@mailbox.org>
-References: <20260603025636.1301481-1-candice.li@amd.com>
- <fbac6fc1-9efe-4b62-8352-b231879cf64d@amd.com>
- <2f036bd31f8047c140644aae106084d46bcb50a1.camel@mailbox.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
+ [209.85.218.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 274B510F957
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 07:34:26 +0000 (UTC)
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-bec4639953dso614525566b.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 03 Jun 2026 00:34:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780472065; x=1781076865; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=tPiXO1dCCP98YnBjWC02+T/M/Rv7LEFPOyMbOWtK8IE=;
+ b=o1dKl8mNeb47uvXRm6aMC9GJXwLo8FeSDv2ns9mm7eI1FGzUoYtbxH7gMo+sB1J08T
+ c9rI5NcFz7EuMESCK+DGRB5XM8ZPIyaDaPiQRSbaThh5i0ohgF72gokNIfGFxFYFq3Hf
+ qt/Mr1TVidQ1vw//okGHffbJBSyo+hhMSbUPYrsSxhYvzw0JKk2qwvnKu8SmdGqGTfOd
+ QLafeo8k2iGgPB4Q0RrSLNY9/Cb2vX0FHmo1Z/KZIYK0kb8uPoftVPt+R2FAbo0IoMTo
+ Y3WQeKeKqCt2vl2olH7gMR15FxDaoYaVbtXplbh9x5zPm7/0sU6T+DBi7e4lvpaX6NhM
+ /VsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780472065; x=1781076865;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=tPiXO1dCCP98YnBjWC02+T/M/Rv7LEFPOyMbOWtK8IE=;
+ b=QvUYpCWAF0UOmEOxEuvb98yAWkJOtnKAyko6e4b9yVl2I8qzHQkU8btjRaait3W7/I
+ lqyel7fEqSEbh4WNsb2d6Eu8V1k1FjwqHmTgsJSr5920GaagMLoI1Ig0QSlxoyfK4JBR
+ NnCTrOqxt4raZYlmAg+CEhz+1ehlAhhX7DjGXhJCevvkKRqROgmn4L/LQywNSOfT9BN9
+ igHIEI8+OyF+LocCLfc+90+UygvFuXz+rOsZpIxIouHTasEPWZWL0cBM+4dw9XOxIC3k
+ UllAnDbwax7DsPwIFLNZZ4T9dlJXYTyYM6lpl7yIVjRIl3cNNNeNWvJzVl0rubwXBbqL
+ 6oiw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9JjRFEgrkE9/qd2XoFvsURjfXMxpWXqliteX7JxMDBlt9h2rNlpF0T3nUR085JCn+rvCglbsmcKFE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxWIS3sX5seUcFp6AZFR1bMyo/Tj/v4qpNTkn26fwesk5ERYu/o
+ EglfPOPRxZzpsc0rpslWnpyYBTRzJD0bQCznRlgzAsLLWIaw5kRfgGC2
+X-Gm-Gg: Acq92OHXcGDmcisqbqGajQt7EMaQwQLdjMvsoJxMo/zPpm+E33hUqt9F8zxAXpgcyl9
+ t6Ujr00U4xCpcJ5Edwp2MGX5Ha+F/6CcZJo4Kx/svLX0ttobLXVC3GPk4giJ0wrYWjmYmbnq7uW
+ SxQ1wgzOpV3xer2xUS9PrE4qtNqE6P4Inj6yq3w6BigPCM9KI9AB+I5nKoNasPfKzko3bMe8iaC
+ DP2AfPHaoEdtPx6t/dq9Q+b6VFqCXr8DcchW+ImvFhP+DmQgtNY1z5oPMkSE9AdfElV/IjN2tEP
+ Y80hXyNxe9gMFhqnVV3tB/schFgIGWzaa/Ido8aTAdc1oN5Pb5Q/P0Y3jFgPVPD8+Y9euQM5pHi
+ 1/u8voR9u1PdY/P0yz2BKis0H9R7LupKBbBNo9gCAea0+Yc6iJe5WZao8HJcIttJgLSciRj0B4r
+ xs9IzVO8dbkEgFimq7v6QQFigVjO/QVw==
+X-Received: by 2002:a17:906:f58d:b0:bec:64d4:3869 with SMTP id
+ a640c23a62f3a-bf0b0fdda85mr96495066b.4.1780472064614; 
+ Wed, 03 Jun 2026 00:34:24 -0700 (PDT)
+Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-bf0517721e5sm102019166b.9.2026.06.03.00.34.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 03 Jun 2026 00:34:24 -0700 (PDT)
+Date: Wed, 3 Jun 2026 10:34:21 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
+Cc: Andy Shevchenko <andy@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Chintan Patel <chintanlike@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ kernel-janitors@vger.kernel.org
+Subject: [PATCH] staging: fbtft: Use sysfs_emit_at() to print to sysfs file
+Message-ID: <ah_Y_Y2RtqeGxchF@stanley.mountain>
 MIME-Version: 1.0
-X-MBO-RS-META: rosjrf5ezp44kzng8wpssyryk1jkrmdq
-X-MBO-RS-ID: 0b2475934bd70154eec
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,67 +88,35 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-+Cc Tvrtko
+This scnprintf() uses the wrong limit.  It should be "PAGE_SIZE - len"
+instead of just PAGE_SIZE.  We're not going to hit the limit in real
+life since we are printing at most FBTFT_GAMMA_MAX_VALUES_TOTAL (128)
+u32 values, however, it's still worth fixing.
 
-On Wed, 2026-06-03 at 09:06 +0200, Philipp Stanner wrote:
-> On Wed, 2026-06-03 at 09:00 +0200, Christian K=C3=B6nig wrote:
-> > On 6/3/26 04:56, Candice Li wrote:
-> > > job->sched is not initialized until drm_sched_job_arm(), so use
-> > > pr_err() instead of dev_err(job->sched->dev, ...) when entity->rq
-> > > is NULL.
-> >=20
-> > You need to CC the designated maintainer on stuff like that! Please use=
- get_maintainer.pl script.
->=20
-> Thx, Christian
->=20
-> >=20
-> > Regards,
-> > Christian.
-> >=20
-> > >=20
-> > > Signed-off-by: Candice Li <candice.li@amd.com>
-> > > ---
-> > > =C2=A0drivers/gpu/drm/scheduler/sched_main.c | 2 +-
-> > > =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm=
-/scheduler/sched_main.c
-> > > index bd7936c03da2aa..d21eada76cedf1 100644
-> > > --- a/drivers/gpu/drm/scheduler/sched_main.c
-> > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> > > @@ -806,7 +806,7 @@ int drm_sched_job_init(struct drm_sched_job *job,
-> > > =C2=A0		 * or worse--a blank screen--leave a trail in the
-> > > =C2=A0		 * logs, so this can be debugged easier.
-> > > =C2=A0		 */
-> > > -		dev_err(job->sched->dev, "%s: entity has no rq!\n", __func__);
-> > > +		pr_err("*ERROR* %s: entity has no rq!\n", __func__);
->=20
-> I think while at it you want to remove '*ERROR*' =E2=80=93 the pr_err etc=
-.
-> markers contain the qualifiers like _err, _warn etc. so that the level
-> is already included for free.
+Use sysfs_emit_at() to fix this since this is a sysfs file.
 
-OK, I couldn't see that Tvrtko already jumped in because of his other
-patch.
+Fixes: c296d5f9957c ("staging: fbtft: core support")
+Signed-off-by: Dan Carpenter <error27@gmail.com>
+---
+ drivers/staging/fbtft/fbtft-sysfs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-https://lore.kernel.org/dri-devel/20260602153339.43453-1-tvrtko.ursulin@iga=
-lia.com/T/#u
+diff --git a/drivers/staging/fbtft/fbtft-sysfs.c b/drivers/staging/fbtft/fbtft-sysfs.c
+index d05599d80011..343545e83a37 100644
+--- a/drivers/staging/fbtft/fbtft-sysfs.c
++++ b/drivers/staging/fbtft/fbtft-sysfs.c
+@@ -98,7 +98,7 @@ sprintf_gamma(struct fbtft_par *par, u32 *curves, char *buf)
+ 	mutex_lock(&par->gamma.lock);
+ 	for (i = 0; i < par->gamma.num_curves; i++) {
+ 		for (j = 0; j < par->gamma.num_values; j++)
+-			len += scnprintf(&buf[len], PAGE_SIZE,
++			len += sysfs_emit_at(buf, len,
+ 			     "%04x ", curves[i * par->gamma.num_values + j]);
+ 		buf[len - 1] = '\n';
+ 	}
+-- 
+2.53.0
 
-I think Tvrtko's patch looks not very controversial and allows us to
-get rid of that code, so let's opt for that.
-
-Thx
-P.
-
->=20
-> Regards
-> P.
->=20
-> > > =C2=A0		return -ENOENT;
-> > > =C2=A0	}
-> > > =C2=A0
