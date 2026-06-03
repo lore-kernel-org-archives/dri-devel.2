@@ -4,99 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E8B9CD6E55
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 15:27:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D61C6CD6E55
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 15:56:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3607112039;
-	Wed,  3 Jun 2026 15:27:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41FD811212A;
+	Wed,  3 Jun 2026 15:56:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YTG3XiIA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Dn2j6fJL";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26AE8112039
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 15:27:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CBF544097F;
- Wed,  3 Jun 2026 15:27:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D72671F00898;
- Wed,  3 Jun 2026 15:27:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780500476;
- bh=K+bfaBhhfVxJ+5PosWIBpa30vhMSj2ZrC2KP9ibybps=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=YTG3XiIA4lEkW6USncgIYJGRHNpQDPLciLotkx2Wnu9D5uPLatoR7F9iPzIY+jjLc
- synIEaA9022E+tQ7B11Pd6eumHT22IiKPiL8eU7VRdgBocGZH8FntLeiRzaXTUBujG
- xqcB8V9UvPMYamQ5BRCka8mBn5hVd2OvTBzCcLlAjXDqjbrI0q4KXPEi5xC5REIuTm
- SOOzjBK2NImrWvR1/W4f/m0ucPtprM9EP4bsdbTT62YoPpEj3BnYxxSEOlJA1ydDgk
- fQpbToVNKJCJAda6LL/L3HOKp8uxZpaIsKSDDDDx5JMJHjC1FOODRn3vmZlAkZ2CtS
- /sJZA8v616kkQ==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
- by mailfauth.phl.internal (Postfix) with ESMTP id 18696F4006B;
- Wed,  3 Jun 2026 11:27:55 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-01.internal (MEProxy); Wed, 03 Jun 2026 11:27:55 -0400
-X-ME-Sender: <xms:-kcgag28QaxgoFEtnI1MM3lEiAOF5YRzeUxOGIzVFzHxAxVq7ff6UQ>
- <xme:-kcgan3pUacMK7IS0HEccWpLRK9oQQjelrBdkU4ClsTYE-DjYxZce2-cpj0S5-buW
- 70KyH_L2GP4KvNxi4TYu2BL3evalYIcGF-YVgsdzz1oH0AyfqShvA>
-X-ME-Received: <xmr:-kcgaoeCBEMffASuQAA3Add7q83W99Rd8iHEaPwxI6GnPjDzL5OQ0yWspuo>
-X-ME-Proxy-Cause: dmFkZTFQXNCvmOzgkX75TjCKgGMKfTtH3s/7r74Ezl2XZ5yvsEMt8Ui7QAFfwJza3HYn0J
- 2C2S295tge/p0vK7WXqUKkqMcrUWGBIYguRWCGr+MnKBMzNtI6UQRqXF5AlLH9ltoqm+GC
- FCkGmZ8LRYfnmLXOHQVI/9BOmNFSZ1UWCv5DIbhZUqLBsXQ1NI3ul6h6/a1AS39xF8v3l+
- XVYnONAelNCIDQki2r16u88xtIJ5nIddoJ6fued53Zhd4jZbm3CSnk8QDm+uzZXjRfbtUR
- Hz7L82eI/aV5v9pcrakU2WlFx4e2rNcXjSS8N2znD3YJPelbPYAdTKKB8aa77VVxK6CkMK
- zqHwVwFfXuGrvWzgeP/MhSwN5OD5A/NcWB8N2Wwu7zLOypszKRQoh6yRUZAHltAMrtVM4F
- ehXmK/PSRYtGAvPL0tgQAIjY9I7dX+oSflFsKCji4cj5+uf+ToGoNHA9rEEY9OUfF/VS2F
- QopTxqYY/UZxEjjJ4+ebKZvBtbeEVJ7KxVWaxhy8vGK6FqSmHbBePswBr+gpKo+KYo8bGI
- SieMa/bynUC5Tcaf4/HU8/hK4gP69ALsRCAytDCBov0lA2qPnFJpA13Rs+NIoy25iIxlt3
- 2nc5gqUhMjgshlCmgTBoysOUZQu3F2QBwcxCwVYqqb3L8hlRgTf1H7/dSjQg
-X-ME-Proxy: <xmx:-kcgaic4CdAoBGQtkuBJWb_SdlBOwFG7P_DWfjPTs7FRK-JzDwlj9g>
- <xmx:-0cganVVvvmgmFEFepBpmN1EzAQNMXWnGJeRDhpAHUP_XFDGWX-iOQ>
- <xmx:-0cgai7Fhuku_eLsxja1_NdJCdz5s-Jc49WMFaBqAcTfeKfCWiJP9g>
- <xmx:-0cgavM2gyQryNA5doZ0VSn-ydjKqDn3jmFfkYTlCziSdobpxjuoew>
- <xmx:-0cgalhheN81mBJZV_y6XmJAJ45NThKHACmq70FWN0CqDkkowUqgo-gA>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 3 Jun 2026 11:27:54 -0400 (EDT)
-Date: Wed, 3 Jun 2026 08:27:51 -0700
-From: Boqun Feng <boqun@kernel.org>
-To: phasta@kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "Paul E. McKenney" <paulmck@kernel.org>,
- Frederic Weisbecker <frederic@kernel.org>,
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Lai Jiangshan <jiangshanlai@gmail.com>,	Zqiang <qiang.zhang@linux.dev>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Igor Korotin <igor.korotin@linux.dev>,	Lorenzo Stoakes <ljs@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Krishna Ketan Rai <prafulrai522@gmail.com>,
- Shankari Anand <shankari.ak0208@gmail.com>, manos@pitsidianak.is,
- Boris Brezillon <boris.brezillon@collabora.com>,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, rcu@vger.kernel.org
-Subject: Re: [PATCH 2/4] rust: rcu: add RcuBox type
-Message-ID: <aiBH95n4HqrNtgtz@tardis-2.local>
-References: <20260530143541.229628-2-phasta@kernel.org>
- <20260530143541.229628-4-phasta@kernel.org>
- <ahr9gtzQLSbPeBx_@tardis.local>
- <e8b16f3b40d42f3b0a8814180fa9b06f82c9d901.camel@mailbox.org>
- <ah2L-TMT5UHSd_Hs@tardis-2.local>
- <441fccce521857ab82b84bb8e5ab539ee3810a36.camel@mailbox.org>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BB0111212A
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 15:56:45 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 64A8144603;
+ Wed,  3 Jun 2026 15:56:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 25825C2BCC4;
+ Wed,  3 Jun 2026 15:56:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1780502205;
+ bh=r6qS2QK0QDZzI5OPlQCblhpmk0XQ5HoysdLwKjaKnU8=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=Dn2j6fJLSbsHMLbXPGK0B6y5uRtump87IJjsRAmd8kADi2sUnmDE8iDGU+2cEXXZR
+ HmEyf8PAVHykNVQPXg3W0zpMKGct06iH6D3oGR12HXUjC+oEWJpM7jHN22Va0Zuw0J
+ ALMqfjmUO9IDdH7Hw971/ZAOqK7apfgfUrmHieq4gvf42AnX71nGWsL3XMQr3rhjCI
+ l+8dvr7AcCuXT2LcKoOvSipwh10RNYuzTbq/aOTn10ywJJzc4jRn08jgoEH/Wki7RJ
+ iDoNirJr2dAxd4kZOl3ulCmmM4Rhd0e5T534NN5X/okGUl+RuXWpMmX5SLZiNRWTi1
+ 6LCcrq7qTCYSQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 0B209CD6E6D;
+ Wed,  3 Jun 2026 15:56:45 +0000 (UTC)
+From: Markus Probst via B4 Relay <devnull+markus.probst.posteo.de@kernel.org>
+Date: Wed, 03 Jun 2026 17:56:40 +0200
+Subject: [PATCH v12 2/3] samples: rust: add Rust serial device bus sample
+ device driver
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <441fccce521857ab82b84bb8e5ab539ee3810a36.camel@mailbox.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260603-rust_serdev-v12-2-3400ffb88b12@posteo.de>
+References: <20260603-rust_serdev-v12-0-3400ffb88b12@posteo.de>
+In-Reply-To: <20260603-rust_serdev-v12-0-3400ffb88b12@posteo.de>
+To: Rob Herring <robh@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Kari Argillander <kari.argillander@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Boqun Feng <boqun@kernel.org>
+Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org, 
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ Markus Probst <markus.probst@posteo.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4748;
+ i=markus.probst@posteo.de; h=from:subject:message-id;
+ bh=gHj+a0iolyCoCcEpqpsr2jWHjdD96arYc+2miLWbMBc=;
+ b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqIE67tlZHiyRUi+U6ZDY0Ksr4tJ5INiFRt7Enp
+ dvQ0rrPHz2JAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCaiBOuxsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9JEww//RXScslFa5VWTCnxkwNVZLMT5KqaLWRc
+ wWNy0Mew+HT89c4P/ddqB19nwgNgJAlXKQQTN637FI1zTk7PHZgnjtAyJtfV8pGBczxdZrW7lbH
+ lL8UmlQnMqshHXhNZxdszh5/BWgdtW1EN4bYRi3Ut1ClEjncDNVsewgT8BVYASYUgACHZds0TUF
+ j6iBWn+WbElZFBvcURuIWuF23hNr+eho1BsqVylP9DlUmHh+jrM+UMOwup+hbkngUbH3neCTWew
+ ecwRoolu8IObG5Pd+8pUgilC5R4r3hN48IZnVVZkjOV9ombiapCi0jyAhTTrO2uWn/DulTy/OTE
+ qqkuQugVVQgAyf8+pxNnAX2fiTW9Q0lpZTPGzCVNFh94y3kltc37jSpk8vgJENuWF2Dg0T/KNf2
+ RQpETI8bKNERgKQZaRi/exzm0BLi/p/6RbrlRFlK9B26bYMMm5ZG+4N0xSGIoRWSPeK5/xKzrFR
+ vWE0qzptdxLB4gGrPynDI6zaMYZqWEAna3He4OzgENm3fYbdf+Z+Z4aYgB3ogwNADuQ6/VD1qqu
+ 2i22bC8oik0FcVNYUOhAIXdDxXbffqrRd1InCmQ4IbmDt2Mvlo49+F9Vf5V78CuYmDXhFaV6SSc
+ NpYf7w8Goz8R3KyxlJSgVbQeeMylXLuEh7NI33/7lMW3RMY6JsIs=
+X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
+ fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
+X-Endpoint-Received: by B4 Relay for markus.probst@posteo.de/default with
+ auth_id=680
+X-Original-From: Markus Probst <markus.probst@posteo.de>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,34 +94,171 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: markus.probst@posteo.de
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 03, 2026 at 11:33:27AM +0200, Philipp Stanner wrote:
-> > > > and Philipp can use the `RcuKBox` in this patchset. We also need to impl
-> > > > InPlaceInit for RcuBox, but that can be added later.
-> > > 
-> > > So shall we merge my series with Alice's patch, and later we add your
-> > > patch and other features, or would you prefer to have the additional
-> > > boxes from your patch from the get-go?
-> > > 
-> > 
-> > I would like to have it from the get-go mainly because of RcuBox vs
-> > RcuKBox naming. Thank you!
-> 
-> Fine by me. Just process-wise: how should we do it?
-> 
-> I could include your patch on top of Alice's. Would be a bit more
-> consistent regarding the git-workflow if we'd squash the two patches,
-> but then you two would have to agree on authorship.
-> 
+From: Markus Probst <markus.probst@posteo.de>
 
-Keeping it as a separate patch is fine by me.
+Add a sample Rust serial device bus device driver illustrating the usage
+of the serial device bus abstractions.
 
-Regards,
-Boqun
+This drivers probes through either a match of device / driver name or a
+match within the OF ID table.
 
-> All is fine by me, but I wanted to ask instead of just do A or B.
-> 
-> 
-[...]
+Signed-off-by: Markus Probst <markus.probst@posteo.de>
+---
+ MAINTAINERS                        |  1 +
+ samples/rust/Kconfig               | 11 +++++
+ samples/rust/Makefile              |  1 +
+ samples/rust/rust_driver_serdev.rs | 91 ++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 104 insertions(+)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index d21be30a2d9d..3b995cb6e902 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24279,6 +24279,7 @@ F:	drivers/tty/serdev/
+ F:	include/linux/serdev.h
+ F:	rust/helpers/serdev.c
+ F:	rust/kernel/serdev.rs
++F:	samples/rust/rust_driver_serdev.rs
+ 
+ SERIAL IR RECEIVER
+ M:	Sean Young <sean@mess.org>
+diff --git a/samples/rust/Kconfig b/samples/rust/Kconfig
+index c49ab9106345..31d62533ef25 100644
+--- a/samples/rust/Kconfig
++++ b/samples/rust/Kconfig
+@@ -161,6 +161,17 @@ config SAMPLE_RUST_DRIVER_AUXILIARY
+ 
+ 	  If unsure, say N.
+ 
++config SAMPLE_RUST_DRIVER_SERDEV
++	tristate "Serial Device Bus Device Driver"
++	select RUST_SERIAL_DEV_BUS_ABSTRACTIONS
++	help
++	  This option builds the Rust serial device bus driver sample.
++
++	  To compile this as a module, choose M here:
++	  the module will be called rust_driver_serdev.
++
++	  If unsure, say N.
++
+ config SAMPLE_RUST_SOC
+ 	tristate "SoC Driver"
+ 	select SOC_BUS
+diff --git a/samples/rust/Makefile b/samples/rust/Makefile
+index 6c0aaa58cccc..b986b681cde5 100644
+--- a/samples/rust/Makefile
++++ b/samples/rust/Makefile
+@@ -14,6 +14,7 @@ obj-$(CONFIG_SAMPLE_RUST_DRIVER_PLATFORM)	+= rust_driver_platform.o
+ obj-$(CONFIG_SAMPLE_RUST_DRIVER_USB)		+= rust_driver_usb.o
+ obj-$(CONFIG_SAMPLE_RUST_DRIVER_FAUX)		+= rust_driver_faux.o
+ obj-$(CONFIG_SAMPLE_RUST_DRIVER_AUXILIARY)	+= rust_driver_auxiliary.o
++obj-$(CONFIG_SAMPLE_RUST_DRIVER_SERDEV)		+= rust_driver_serdev.o
+ obj-$(CONFIG_SAMPLE_RUST_CONFIGFS)		+= rust_configfs.o
+ obj-$(CONFIG_SAMPLE_RUST_SOC)			+= rust_soc.o
+ 
+diff --git a/samples/rust/rust_driver_serdev.rs b/samples/rust/rust_driver_serdev.rs
+new file mode 100644
+index 000000000000..824affbf6593
+--- /dev/null
++++ b/samples/rust/rust_driver_serdev.rs
+@@ -0,0 +1,91 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Rust Serial device bus device driver sample.
++
++use kernel::{
++    acpi,
++    device::{
++        Bound,
++        Core, //
++    },
++    of,
++    prelude::*,
++    serdev,
++    sync::aref::ARef, //
++};
++
++struct SampleDriver {
++    sdev: ARef<serdev::Device>,
++}
++
++kernel::of_device_table!(
++    OF_TABLE,
++    MODULE_OF_TABLE,
++    <SampleDriver as serdev::Driver>::IdInfo,
++    [(of::DeviceId::new(c"test,rust_driver_serdev"), ())]
++);
++
++kernel::acpi_device_table!(
++    ACPI_TABLE,
++    MODULE_ACPI_TABLE,
++    <SampleDriver as serdev::Driver>::IdInfo,
++    [(acpi::DeviceId::new(c"LNUXBEEF"), ())]
++);
++
++#[vtable]
++impl serdev::Driver for SampleDriver {
++    type IdInfo = ();
++    type Data<'bound> = Self;
++    const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = Some(&OF_TABLE);
++    const ACPI_ID_TABLE: Option<acpi::IdTable<Self::IdInfo>> = Some(&ACPI_TABLE);
++
++    fn probe<'bound>(
++        sdev: &'bound serdev::Device<Core<'_>>,
++        _info: Option<&'bound Self::IdInfo>,
++    ) -> impl PinInit<Self, Error> + 'bound {
++        let dev = sdev.as_ref();
++
++        dev_dbg!(dev, "Probe Rust Serial device bus device driver sample.\n");
++
++        if sdev
++            .set_baudrate(
++                dev.fwnode()
++                    .and_then(|fwnode| fwnode.property_read(c"baudrate").optional())
++                    .unwrap_or(115200),
++            )
++            .is_err()
++        {
++            return Err(EINVAL);
++        }
++        sdev.set_flow_control(false);
++        sdev.set_parity(serdev::Parity::None)?;
++
++        Ok(Self { sdev: sdev.into() })
++    }
++
++    fn receive<'bound>(
++        sdev: &'bound serdev::Device<Bound>,
++        _this: Pin<&Self>,
++        data: &[u8],
++    ) -> usize {
++        let _ = sdev.write_all(data, serdev::Timeout::Max);
++        data.len()
++    }
++}
++
++impl Drop for SampleDriver {
++    fn drop(&mut self) {
++        dev_dbg!(
++            self.sdev.as_ref(),
++            "Remove Rust Serial device bus device driver sample.\n"
++        );
++    }
++}
++
++kernel::module_serdev_device_driver! {
++    type: SampleDriver,
++    name: "rust_driver_serdev",
++    authors: ["Markus Probst"],
++    description: "Rust Serial device bus device driver",
++    license: "GPL v2",
++}
+
+-- 
+2.53.0
+
+
