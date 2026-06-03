@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 959FDCD6E5D
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 01:11:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3EEFCD6E57
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 01:13:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B5C510F738;
-	Wed,  3 Jun 2026 01:11:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C421610F73C;
+	Wed,  3 Jun 2026 01:13:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="UTWxA2Xe";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="TPYsWr33";
 	dkim-atps=neutral
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com
- [209.85.222.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7932E10F737
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 01:11:38 +0000 (UTC)
-Received: by mail-qk1-f176.google.com with SMTP id
- af79cd13be357-9154ca1aa1dso23196785a.0
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 18:11:38 -0700 (PDT)
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com
+ [209.85.160.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B3EB10F73C
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 01:13:33 +0000 (UTC)
+Received: by mail-qt1-f182.google.com with SMTP id
+ d75a77b69052e-5176fc0cc72so11481511cf.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 18:13:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1780449097; x=1781053897; darn=lists.freedesktop.org; 
+ d=ziepe.ca; s=google; t=1780449212; x=1781054012; darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=OkcXxIwae3ZkBqRFobExjF5BmBij71a6Agx7B+x/coo=;
- b=UTWxA2XeKN0sV88pNRJ6bmcl3aHgugDE0OmJVFsspOTCXJJi8we3ZOLmknTtPMEezV
- jsmf+JrRwFMFjojhcBxU1dU+cUrpMBDrlrxDh/jbKpdsiaVm49UK6U32AZvVCz+H5zm3
- wnLaMb530uNgs8QaiNRSUIPC/m/ArO50PPHWUE8A7cRvhmcrw0Sf73NBGjyZ/fVjgsH/
- BLmsz2SJw9mTl7r974ATESmwRZmos9UUkULx60cPDTHJLzXlHo0dXbaSnpHrXViROVta
- X83KoqHTWEOTtMN8FgU8WEl4DAkcOOvsCHYy82NIXVEOiVpLYpGfqwxQiii6zJeGuXTy
- +Oaw==
+ bh=2cdnAPJ/txGMdC+542Rqoyln86KAovKwsF9QsCq4AEY=;
+ b=TPYsWr332VbteTPNqRnGT4SvX8XV6WHJkECwsmePfx/n5OZ9hyCHjIwDkO5xm7cFzk
+ kBCnGKW/uzAiodBTm7efoq8PHHAGzOfs0Qm9+jW+dL0hz3R7EtiQuTeGjNec2xDRFe03
+ 0fhJ/u5tAQ5QMkLVxMvQsItWReraAs2m1uvoMK3QO8JhqYQohvHJ1qkGKosB/wLTltSq
+ zDlprBB/XYtKYyThHiU0vUP0O5wtEBHjJ2ri/vwXIyx1KetSRtOPOsIqwCltBSLk8oWr
+ 9DLfF7PIPP2aSn0W387zeGU2kFq++Y34p7UViJjO3esvMuAghg65xL5YYZ31bQRo3pwz
+ VhmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780449097; x=1781053897;
+ d=1e100.net; s=20251104; t=1780449212; x=1781054012;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=OkcXxIwae3ZkBqRFobExjF5BmBij71a6Agx7B+x/coo=;
- b=MJ2vrgSFpXNbTbp8BmNP+IW22emFToFkQ+dWCzDrUjafzFiLdosLMORnZH6QQltUQp
- 99bD1Iy0b9+J1LYXLc3pxbY3lOUt6cUgGcXMNW+n8nI08h5A1e/0hhdMKz2ajVu48868
- XRgasgvebWbmK2oGwDcvYkbEPZqNWp6UwQiWtJ4SW4qO6NIsY8XbTrRco3W9XXRDNgng
- CmTEeHDM3sLKndQFlA0odwm88tbru6njBiX4x2NS7dZxTz3XQ69/EH9m0u94zqNhAFtt
- hjrIs2CXa1/JPyKofD9EHQBTb/bC+JBeWRHtY9YbSTKHPyKqpbtyC3RdLV4TtoTcBvmv
- MR9w==
+ bh=2cdnAPJ/txGMdC+542Rqoyln86KAovKwsF9QsCq4AEY=;
+ b=VYhbiEsInuWfOxhgbdQEfPy8vyZzpJhDsnbEgKwHavh/XMyGXjrQNtmtLQwyJLTXyS
+ 3vtiRFLMFNFrbJTuqlPWUgC8TlvNvvJzSMn/9tAOvNb7ihC1RwwytgjPzRmWol+KgITl
+ 33kn60yXU80Fiu9J6GUDRSFRBACRACOjPDl4PA3feoVbY6h3CBn15LebTa+vcPfdO3jb
+ O/F/6dEuoRm4cIZU2JQT5vgB6fvP2CYUjYhrnpNVvMX7z7drvZATDAmJcG/ePbLfyygi
+ 0mC6gZClcnGl7fi5vkA6XEhGGDY8Xmfk6Np5GmPUVuZ27dHWbs9aiGSz43AW5CcLolRX
+ 6opA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+GFrJouhiOLzWROR4ebytKSR8i3uDTYdLnLeuK2zepVsJ/HcBLe3lrl7DGQAWGFLsky0JD17OMijA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzIL0Zo3f1pMRo1djB/zvbq0yPpsdXurK8pZpuagAEifWpzlsYI
- +Oyq51pYWS8/c70ho9cD7nNn9Ek/oQb8YM2pxJfTRQjQn88fFVGaNHKnAJjIVBUcHao=
-X-Gm-Gg: Acq92OHFtnOPwFY2DTeOfAfIUjafOFSWlGsDwv3TuxAFBSKi5ScyxbhYrfKKtudtriE
- PcfxEoCsGjgp8LwdpR8fGjkUvFatyy+Ntd4RoHveC4+HOb2O7quEDnrtDjS7IZYRnK10DthAEGY
- F8PHukZXORurzR1QFq6akuoTDDGt/7OED32EfVfRLYRylfI7wL52WAgkdwVZ77by2vvEcgoMXIG
- hWB7+OmdpdprmO2C6QHRtOI+WMx3H0F8DDxKRfX6eG2CSePCcjcM1VJXBbjVFya7Q+F3nG72r4q
- fpwJ8OShGPmWaHMO914uM73nSduUZfObwBzFvu1fO16mQ0htOsaBDcPeHkBRxCBQrn3HtnoKxyT
- zONW7hCCMifui4YWgQ6PliBHG0WfG1216RuFthuotT2/R7lzgVe3AfNNp6oeaOYLoJer3pL9cDU
- NlTyoLUoPSO1X21Zb7se1dFqL+illiKG4D8G/h9sdZoqXIzV8WTacNCpeEbmyDpOueXuUdNfLGq
- 99dDOqYN0GdfvZKaF74M/EQvAc=
-X-Received: by 2002:a05:620a:31a9:b0:911:c5c0:d5f2 with SMTP id
- af79cd13be357-9158b5cbe4dmr170236985a.1.1780449097421; 
- Tue, 02 Jun 2026 18:11:37 -0700 (PDT)
+ AFNElJ8ci9LEekOZXvapSALqfMfL9FnLIkLn1FqqpJ9OLf+RX2tIQCmr8fFR7asU/8lfsBRYtD4b4J6GYkY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywsxfwlu7TCmXAHAAhwUusxyY69K4E5JA4acqvzOQPZyFisqT3L
+ RW3vuy9EhQyD+IN46gsHhyNgqActzhw98LX1U7s78OrELOAGF6M2ti1iwDcMHO7N6rU=
+X-Gm-Gg: Acq92OEDXAkBqapW46KsTIUDwepGWd2nPzIXC+lmBYVH8iIhJjTwLG238o6nKvQ6lHd
+ fw/LFuYmMLzY4eupyD8ePcWI3O+qzVyY6/jmhMdtjFoauDd7g+W1BHzAmHwbQF0VrEh5Azr71GM
+ lAxHbseyBe0018LnUZFpBIMf2KoJIrG/6AKeuPqolSn7g5zMFj8KwKJkvbkRdW/imEey2uqI5rQ
+ pNz23Eq7Am9RurEAeM68X2WFx7Eqz8l7OVxsjJfMva2UjO1muBWcBp5uBOAcDmeUOdxDJpi9E6Z
+ /QgkCmWbAIhBKudOQjUY03E6+9oEYzxmF+UqyWPx0twNgs1/NFzCJa0ztlLF7MMaoC6IiYUSZaV
+ IM6O0P6q9Dl8q2VictgGOcQUjhaNKd8AHFMBR1IWyMPPvZCQ0XZP7zhJ7ouOGc3MhNG1flCe74r
+ xRvbfaoZ3DekdEADtB8Y+CztJSje8oon/3X3q/BI+/G7/aGspYAZkFWKxr07GS38oanalZvY+6Z
+ crd5GVPBMIaSVI7
+X-Received: by 2002:a05:622a:5b90:b0:517:7590:228e with SMTP id
+ d75a77b69052e-517784827b9mr21839501cf.0.1780449212162; 
+ Tue, 02 Jun 2026 18:13:32 -0700 (PDT)
 Received: from ziepe.ca
  (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
  [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9158a009fb2sm107640685a.5.2026.06.02.18.11.36
+ d75a77b69052e-51775c54177sm13497781cf.12.2026.06.02.18.13.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jun 2026 18:11:36 -0700 (PDT)
+ Tue, 02 Jun 2026 18:13:31 -0700 (PDT)
 Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1wUa8u-00000004yOx-1sfF;
- Tue, 02 Jun 2026 22:11:36 -0300
-Date: Tue, 2 Jun 2026 22:11:36 -0300
+ (envelope-from <jgg@ziepe.ca>) id 1wUaAk-00000004yZP-2Ic0;
+ Tue, 02 Jun 2026 22:13:30 -0300
+Date: Tue, 2 Jun 2026 22:13:30 -0300
 From: Jason Gunthorpe <jgg@ziepe.ca>
 To: Guanghui Feng <guanghuifeng@linux.alibaba.com>
 Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
@@ -82,15 +82,15 @@ Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
  tzimmermann@suse.de, wei.guo.simon@linux.alibaba.com,
  will@kernel.org, xlpang@linux.alibaba.com,
  alikernel-developer@linux.alibaba.com
-Subject: Re: [PATCH v2 05/30] iommu/generic_pt: implement iova_to_phys_length
-Message-ID: <20260603011136.GR2487554@ziepe.ca>
+Subject: Re: [PATCH v2 10/30] iommu/ipmmu-vmsa: implement iova_to_phys_length
+Message-ID: <20260603011330.GS2487554@ziepe.ca>
 References: <20260531093637.3893199-1-guanghuifeng@linux.alibaba.com>
  <20260602104637.1219810-1-guanghuifeng@linux.alibaba.com>
- <20260602104637.1219810-6-guanghuifeng@linux.alibaba.com>
+ <20260602104637.1219810-11-guanghuifeng@linux.alibaba.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260602104637.1219810-6-guanghuifeng@linux.alibaba.com>
+In-Reply-To: <20260602104637.1219810-11-guanghuifeng@linux.alibaba.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,39 +106,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 02, 2026 at 06:46:12PM +0800, Guanghui Feng wrote:
-> +static __always_inline int __do_iova_to_phys_length(struct pt_range *range,
-> +					       void *arg, unsigned int level,
-> +					       struct pt_table_p *table,
-> +					       pt_level_fn_t descend_fn)
->  {
->  	struct pt_state pts = pt_init(range, level, table);
-> -	pt_oaddr_t *res = arg;
-> +	struct iova_to_phys_length_data *data = arg;
+On Tue, Jun 02, 2026 at 06:46:17PM +0800, Guanghui Feng wrote:
+> Migrate IPMMU-VMSA to implement iova_to_phys_length, passing through
+> mapped_length from io-pgtable.
+> 
+> Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
+> ---
+>  drivers/iommu/ipmmu-vmsa.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/iommu/ipmmu-vmsa.c b/drivers/iommu/ipmmu-vmsa.c
+> index 9386b752dea2..a1b659ddbdb5 100644
+> --- a/drivers/iommu/ipmmu-vmsa.c
+> +++ b/drivers/iommu/ipmmu-vmsa.c
+> @@ -699,14 +699,18 @@ static void ipmmu_iotlb_sync(struct iommu_domain *io_domain,
+>  	ipmmu_flush_iotlb_all(io_domain);
+>  }
 >  
->  	switch (pt_load_single_entry(&pts)) {
->  	case PT_ENTRY_EMPTY:
-> @@ -159,45 +164,53 @@ static __always_inline int __do_iova_to_phys(struct pt_range *range, void *arg,
->  	case PT_ENTRY_TABLE:
->  		return pt_descend(&pts, arg, descend_fn);
->  	case PT_ENTRY_OA:
-> -		*res = pt_entry_oa_exact(&pts);
-> -		return 0;
-> +		break;
->  	}
-> -	return -ENOENT;
-> +
-> +	data->phys = pt_entry_oa_exact(&pts);
-> +	data->length = log2_to_int(pt_entry_oa_lg2sz(&pts));
+> -static phys_addr_t ipmmu_iova_to_phys(struct iommu_domain *io_domain,
+> -				      dma_addr_t iova)
+> +static phys_addr_t ipmmu_iova_to_phys_length(struct iommu_domain *io_domain,
+> +				      dma_addr_t iova, size_t *mapped_length)
+>  {
+>  	struct ipmmu_vmsa_domain *domain = to_vmsa_domain(io_domain);
+>  
+> +	if (mapped_length)
+> +		*mapped_length = 0;
 
-I really do want this to accumulate the contiguous length if we are
-changing things like this.
-
-As I said before only iommufd needs to do this, the other drivers
-don't have to, but the wrapper should take care to give a consistent
-result so we don't have callers open coding another inefficient loop
-on top.
-
-vfio and iommufd should call it exactly once and then move on.
+Why?
 
 Jason
