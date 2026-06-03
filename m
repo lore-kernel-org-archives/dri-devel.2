@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58303CD6E55
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 12:14:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9BB5CD6E55
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 12:14:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCBE110FCFB;
-	Wed,  3 Jun 2026 12:14:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5150510FCFF;
+	Wed,  3 Jun 2026 12:14:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Qr37uoW2";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AIUJGhS6";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 788D410FCFB;
- Wed,  3 Jun 2026 12:14:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F58410FCFF;
+ Wed,  3 Jun 2026 12:14:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780488872; x=1812024872;
+ t=1780488876; x=1812024876;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=V91GoT1tM9md2KozCeXm5aypOv5ZJavURFlxJQSbmOM=;
- b=Qr37uoW2xjDwpHARY9gYhU5sA0eZy0+0Bag8B43h/yx3M/+hhRTFdYuj
- CcD6J5ujsnRGN+b+ZjbD4I97cnymAGlxLSnLKj7O6fOZ3PS6qLilRaIj6
- hQrnl0J/RYXrON0vpKb9IYCqDzi+LkCiTwZYOfaW1ZR2EKtD/DcCCEuWb
- hxe980kzxCkCHRa82GbzkXqAwVV73a6UmSYSyWGwawGJzuGNelpetULzL
- AkpRUqaBUgBurd2oVD/REzNqA045AUcUcxfco87+KxZHMZX6B6cfUo/Kl
- fw1fpzijLvbd7UVamrck74DoN7ds2OJxVqZ2/931bR5LU48I7QE4hFL0r A==;
-X-CSE-ConnectionGUID: svSLlOvgRLarCNpc5y6DBw==
-X-CSE-MsgGUID: 0mVM0x6VTYC/nWEZQiWemg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="92401551"
-X-IronPort-AV: E=Sophos;i="6.24,185,1774335600"; d="scan'208";a="92401551"
+ bh=5TXuX/14e/oQMSdfJ6Otaekb/Jwg7nqfGRcVheaeNb0=;
+ b=AIUJGhS61bD27B//fdMtd0LtqfBolX7dv9/r3JiFPa3wyf82VN4VvEhN
+ 7/zoTh/0a22Nqqe3Hp6CCZhik2ms8xFHTJIOlTjHS+K2yyfu39jmLovbf
+ /WXNLc72knlA+tt8bD4usRZZxqchfIJkvebX+V+FQtNITitEyy4XdCXBv
+ MwhbQ5E8DRZAzpiiTD/vo1XDer+vrsk55qDAkRjMHvBSxYtzSHZKXv9Xz
+ X5f/k55TCkIVAn9/znnBoZ/jPoq3ZWDC22Wg3Rtw8YT9OXA36nzGagK8T
+ lThUacPZQwcXb8CvYVKrvgQvHa2Z/inetx27zJctthkn/jPl/9RegMxgU w==;
+X-CSE-ConnectionGUID: NEBih7owT6KTvvrbXQ2kHA==
+X-CSE-MsgGUID: CaFiOfe4TDyLXUvN15eyEA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="92401555"
+X-IronPort-AV: E=Sophos;i="6.24,185,1774335600"; d="scan'208";a="92401555"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2026 05:14:32 -0700
-X-CSE-ConnectionGUID: IqpauxNfTm2NjNmmAceq9w==
-X-CSE-MsgGUID: w60EvJPMShKLRvi01WjSiQ==
+ 03 Jun 2026 05:14:36 -0700
+X-CSE-ConnectionGUID: /x2+odXkT9yW973286Y0XQ==
+X-CSE-MsgGUID: Zgiyzgv+STe2olt9KG7ZPQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,185,1774335600"; d="scan'208";a="249301240"
+X-IronPort-AV: E=Sophos;i="6.24,185,1774335600"; d="scan'208";a="249301248"
 Received: from yadavs-z690i-a-ultra-plus.iind.intel.com ([10.190.216.90])
  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2026 05:14:28 -0700
+ 03 Jun 2026 05:14:32 -0700
 From: Sanjay Yadav <sanjay.kumar.yadav@intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com,
@@ -49,11 +49,11 @@ Cc: dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com,
  niranjana.vishwanathapura@intel.com, thomas.hellstrom@intel.com,
  fei.yang@intel.com, himal.prasad.ghimiray@intel.com,
  matthew.d.roper@intel.com, maarten.lankhorst@intel.com,
- joonas.lahtinen@intel.com, matthew.auld@intel.com, stable@vger.kernel.org
-Subject: [RFC PATCH 2/3] drm/sched: fix drm_sched_tdr_queue_imm to not corrupt
- timeout value
-Date: Wed,  3 Jun 2026 17:36:41 +0530
-Message-ID: <20260603120641.473434-5-sanjay.kumar.yadav@intel.com>
+ joonas.lahtinen@intel.com, matthew.auld@intel.com
+Subject: [RFC PATCH 3/3] drm/xe: don't cancel other pending jobs on kernel
+ migration queue timeout
+Date: Wed,  3 Jun 2026 17:36:42 +0530
+Message-ID: <20260603120641.473434-6-sanjay.kumar.yadav@intel.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260603120641.473434-4-sanjay.kumar.yadav@intel.com>
 References: <20260603120641.473434-4-sanjay.kumar.yadav@intel.com>
@@ -75,16 +75,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_sched_tdr_queue_imm() sets sched->timeout to 0 and never restores
-it. This breaks all future TDR timers — jobs get timed out instantly
-before they even start running on hardware.
+The kernel migration queue scheduler is shared across all VMs on a tile.
+When a job times out and GT recovery is exhausted (karma > threshold),
+guc_exec_queue_timedout_job() falls through to error out the job and
+cancel all remaining pending jobs via drm_sched_for_each_pending_job().
 
-Use mod_delayed_work() directly to fire the TDR worker immediately
-without modifying the timeout field. This preserves the original
-timeout value for subsequent job submissions.
+After a GT reset, the hardware is recovered and those pending jobs can
+run fine. Skip cancellation for kernel queues so that other VMs' migration
+operations can complete after GT reset recovers the engine.
 
-Fixes: 8ec5a4e5ce97 ("drm/xe: Resume TDR after GT reset")
-Cc: <stable@vger.kernel.org> # v6.13+
+Fixes: 95f27831ee3c ("drm/xe: Stop abusing DRM scheduler internals")
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
@@ -92,24 +92,31 @@ Assisted-by: Claude:claude-opus-4.6
 Suggested-by: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
 Signed-off-by: Sanjay Yadav <sanjay.kumar.yadav@intel.com>
 ---
- drivers/gpu/drm/scheduler/sched_main.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/xe/xe_guc_submit.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 818d3d4434b5..be144e244745 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -212,8 +212,8 @@ static void drm_sched_start_timeout_unlocked(struct drm_gpu_scheduler *sched)
- void drm_sched_tdr_queue_imm(struct drm_gpu_scheduler *sched)
- {
- 	spin_lock(&sched->job_list_lock);
--	sched->timeout = 0;
--	drm_sched_start_timeout(sched);
-+	if (!list_empty(&sched->pending_list))
-+		mod_delayed_work(sched->timeout_wq, &sched->work_tdr, 0);
- 	spin_unlock(&sched->job_list_lock);
- }
- EXPORT_SYMBOL(drm_sched_tdr_queue_imm);
+diff --git a/drivers/gpu/drm/xe/xe_guc_submit.c b/drivers/gpu/drm/xe/xe_guc_submit.c
+index e6ad57cbbf0e..dd3ae58019b1 100644
+--- a/drivers/gpu/drm/xe/xe_guc_submit.c
++++ b/drivers/gpu/drm/xe/xe_guc_submit.c
+@@ -1640,8 +1640,15 @@ guc_exec_queue_timedout_job(struct drm_sched_job *drm_job)
+ 
+ 	/* Mark all outstanding jobs as bad, thus completing them */
+ 	xe_sched_job_set_error(job, err);
+-	drm_sched_for_each_pending_job(tmp_job, &sched->base, NULL)
+-		xe_sched_job_set_error(to_xe_sched_job(tmp_job), -ECANCELED);
++
++	/*
++	 * For kernel queues (migration), don't cancel other pending jobs.
++	 * They belong to different VMs sharing the same scheduler and will
++	 * be resubmitted after GT reset recovers the hardware.
++	 */
++	if (!(q->flags & EXEC_QUEUE_FLAG_KERNEL))
++		drm_sched_for_each_pending_job(tmp_job, &sched->base, NULL)
++			xe_sched_job_set_error(to_xe_sched_job(tmp_job), -ECANCELED);
+ 
+ 	if (xe_exec_queue_is_multi_queue(q)) {
+ 		xe_guc_exec_queue_group_start(q);
 -- 
 2.52.0
 
