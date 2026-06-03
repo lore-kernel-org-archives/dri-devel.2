@@ -4,59 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 857F5CD6E4A
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 13:28:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A68BBCD6E4A
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 13:32:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E714710FE31;
-	Wed,  3 Jun 2026 13:28:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2B6C10FE47;
+	Wed,  3 Jun 2026 13:32:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="MBJNh3Us";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QqOhpWlY";
 	dkim-atps=neutral
-Received: from mail-m60151.netease.com (mail-m60151.netease.com
- [210.79.60.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3BE310FE31
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 13:28:50 +0000 (UTC)
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-Message-ID: <AEEA3wBNKXHNFDDbteEVlKoi.3.1780493327957.Hmail.220255722@seu.edu.cn>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Maarten Lankhorst <dev@lankhorst.se>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com, 
- tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch, 
- matthew.brost@intel.com, uma.shankar@intel.com, 
- pierre-louis.bossart@linux.dev, jerome.anand@intel.com, 
- tiwai@suse.de, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- jianhao.xu@seu.edu.cn
-Subject: =?UTF-8?B?UmU6UmU6IFtQQVRDSCB2M10gZHJtL2k5MTUvZGlzcGxheTogRml4IGludGVsX2xwZV9hdWRpb19pcnFfaGFuZGxlciBmb3IgUFJFRU1QVC1SVA==?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
-X-Originating-IP: 223.112.146.162
-In-Reply-To: <41760e1def08cbf51bf868a7ebf393e0d9e59125@intel.com>
-References: <20260602004515.1907422-1-runyu.xiao@seu.edu.cn>
- <20260602062957.0Nbtw_yY@linutronix.de>
- <3e012936-8493-43c8-b547-17ae40e6ef74@lankhorst.se>
- <41760e1def08cbf51bf868a7ebf393e0d9e59125@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DCC010FE45
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 13:32:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0B22042DC6;
+ Wed,  3 Jun 2026 13:32:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDB821F00893;
+ Wed,  3 Jun 2026 13:32:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780493539;
+ bh=p1I17FRuv8bEhkHHCjKfI0Jt9CtnZoVqsBa3f0uKCVQ=;
+ h=Date:From:To:Cc:Subject;
+ b=QqOhpWlYAlE04AdGpaClK32I5Nj5jXzcgRxCml41uRxetF5eLY6d0ZvGV3UMg7HT7
+ JUrpWXV6vVM1dyXpkoAaf9K5PDYcU9nimHfsdUugdq3Z5QmphamG9QmqmYtVG4rgdF
+ AVS5hiII0TbB6pY9Lks/cRV0ShLoKXwKb7r256YpvC/JOqfBW6eIcwHFDaefFgPwNK
+ OKlrw0cIuiROmSWjm/PBlx72qmAmdXTTjhTL6STbOA6srs9zVsAyIKGNhlNFfWXGU1
+ cbLhtavpCJMDK/wE7nM8bWalrlo8rrFzu/zdfZ9td0sMm0LwAi9aenSovE0dJl1oOq
+ zpk2pB1Yf/kXA==
+Date: Wed, 3 Jun 2026 14:32:16 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: build failure after merge of the drm tree
+Message-ID: <aiAs4By9Po-Y0K_N@sirena.org.uk>
 MIME-Version: 1.0
-Received: from 220255722@seu.edu.cn( [223.112.146.162] ) by ajax-webmail (
- [127.0.0.1] ) ; Wed, 3 Jun 2026 21:28:47 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Date: Wed, 3 Jun 2026 21:28:47 +0800 (GMT+08:00)
-X-HM-Tid: 0a9e8d8cb35702f2kunmcd7d59d41b9ba
-X-HM-MType: 1
-X-HM-NTES-SC: AL0_4z5B86Wr4Tz9jdMF+bhXMdx4Gk9TojlCNw7tyeABf3pHtCqLbYOkFBtNuQ
- eKMqJLwxE4yuoq3Z/LDw3/nFtMAhtMDDQq8pKleCn4nL13edK6O/L8qjkzAxlW29vRwHG25FW/ED
- MKYaNV+hwUYXivKlbtzoOEahY8xiZEbcSMz2M=
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSxoZVkwZQ0wZT0gYGkMeQlYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVU
- pLSEpOTE5VSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=MBJNh3UssdsqCkHwPDYFJHjlOpdEqekYnRfDa5cPa/rpiXVgPT6nEdFNxvmWAUk6rE462pIU66aIV/OAFn0Ejn7awKTw4blky/NgBYjxULSZbVQPowtbkF4whiy4a4HSpwnr1U3TWXSKgsJmNXJ2irpMMDaorSHnN42xLR94dtY=;
- c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
- bh=ZqG1ByE4sCe0kQtHgs6SktRVjMFBTmiskJ/vPNHxqc0=;
- h=date:mime-version:subject:message-id:from;
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="XEbAZGp9b5ALXzO/"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,44 +56,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-PiBPbiBXZWQsIDAzIEp1biAyMDI2LCBKYW5pIE5pa3VsYSB3cm90ZToKPiBXaGVyZSBhcmUgdGhl
-IENJIHJlc3VsdHM/CgpJbnRlbCBHRlggcHJlLW1lcmdlIENJIHdhcyBub3QgdHJpZ2dlcmVkIGZv
-ciB0aGlzIHN1Ym1pc3Npb24uCgpQYXRjaHdvcmsgdmFsaWRhdGlvbiBmYWlsZWQgd2l0aDoKIkFk
-ZHJlc3MgJ3J1bnl1LnhpYW9Ac2V1LmVkdS5jbicgaXMgbm90IG9uIHRoZSBhbGxvd2xpc3QsIHdo
-aWNoIHByZXZlbnRzIENJIGZyb20gYmVpbmcgdHJpZ2dlcmVkIGZvciB0aGlzIHBhdGNoLiIKCkkg
-aGF2ZSBhbHJlYWR5IGNvbnRhY3RlZCBpOTE1LWNpLWluZnJhQGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZyB0byByZXF1ZXN0IGFsbG93bGlzdGluZyBmb3IgdGhpcyBhZGRyZXNzLgoKU29ycnkgZm9yIHRo
-ZSBjb25mdXNpb24uCgpSdW55dQoKPj4KPj4gT24gNi8yLzI2IDA4OjI5LCBTZWJhc3RpYW4gQW5k
-cnplaiBTaWV3aW9yIHdyb3RlOgo+Pj4gT24gMjAyNi0wNi0wMiAwODo0NToxNSBbKzA4MDBdLCBS
-dW55dSBYaWFvIHdyb3RlOgo+Pj4+IEZyb206IE1hYXJ0ZW4gTGFua2hvcnN0IDxkZXZAbGFua2hv
-cnN0LnNlPgo+Pj4+Cj4+Pj4gVGhlIExQRSBhdWRpbyBpbnRlcnJ1cHQgY29tZXMgZnJvbSB0aGUg
-aTkxNSBpbnRlcnJ1cHQgaGFuZGxlci4gSXQKPj4+PiBzaG91bGQgYmUgaW4gaXJxIGRpc2FibGVk
-IGNvbnRleHQuCj4+Pj4KPj4+PiBXaXRoIFBSRUVNUFRfUlQgZW5hYmxlZCwgdGhlIElSUSBoYW5k
-bGVyIGlzIHRocmVhZGVkLgo+Pj4+IEJlY2F1c2UgaW50ZWxfbHBlX2F1ZGlvX2lycV9oYW5kbGVy
-KCkgbWF5IGJlIGNhbGxlZCBpbiB0aHJlYWRlZCBJUlEgY29udGV4dCwKPj4+PiBnZW5lcmljX2hh
-bmRsZV9pcnFfc2FmZSBBUEkgZGlzYWJsZXMgdGhlIGludGVycnVwdHMgYmVmb3JlIGNhbGxpbmcg
-TFBFJ3MKPj4+PiBpbnRlcnJ1cHQgdG9wIGhhbGYgaGFuZGxlci4KPj4+Pgo+Pj4+IFRoaXMgZml4
-ZXMgYnJhc3dlbGwgYXVkaW8gaXNzdWVzIHdpdGggUlQgZW5hYmxlZC4KPj4+Pgo+Pj4+IFNpZ25l
-ZC1vZmYtYnk6IE1hYXJ0ZW4gTGFua2hvcnN0IDxkZXZAbGFua2hvcnN0LnNlPgo+Pj4+IFJldmll
-d2VkLWJ5OiBNYXR0aGV3IEJyb3N0IDxtYXR0aGV3LmJyb3N0QGludGVsLmNvbT4KPj4+PiBSZXZp
-ZXdlZC1ieTogVW1hIFNoYW5rYXIgPHVtYS5zaGFua2FyQGludGVsLmNvbT4KPj4+PiBTaWduZWQt
-b2ZmLWJ5OiBSdW55dSBYaWFvIDxydW55dS54aWFvQHNldS5lZHUuY24+Cj4+PiAKPj4+IFJldmll
-d2VkLWJ5OiBTZWJhc3RpYW4gQW5kcnplaiBTaWV3aW9yIDxiaWdlYXN5QGxpbnV0cm9uaXguZGU+
-Cj4+PiAKPj4+IFNlYmFzdGlhbgo+Pgo+Cj4tLSAKPkphbmkgTmlrdWxhLCBJbnRlbAo+CgoKPj4K
-Pj4gT24gNi8yLzI2IDA4OjI5LCBTZWJhc3RpYW4gQW5kcnplaiBTaWV3aW9yIHdyb3RlOgo+Pj4g
-T24gMjAyNi0wNi0wMiAwODo0NToxNSBbKzA4MDBdLCBSdW55dSBYaWFvIHdyb3RlOgo+Pj4+IEZy
-b206IE1hYXJ0ZW4gTGFua2hvcnN0IDxkZXZAbGFua2hvcnN0LnNlPgo+Pj4+Cj4+Pj4gVGhlIExQ
-RSBhdWRpbyBpbnRlcnJ1cHQgY29tZXMgZnJvbSB0aGUgaTkxNSBpbnRlcnJ1cHQgaGFuZGxlci4g
-SXQKPj4+PiBzaG91bGQgYmUgaW4gaXJxIGRpc2FibGVkIGNvbnRleHQuCj4+Pj4KPj4+PiBXaXRo
-IFBSRUVNUFRfUlQgZW5hYmxlZCwgdGhlIElSUSBoYW5kbGVyIGlzIHRocmVhZGVkLgo+Pj4+IEJl
-Y2F1c2UgaW50ZWxfbHBlX2F1ZGlvX2lycV9oYW5kbGVyKCkgbWF5IGJlIGNhbGxlZCBpbiB0aHJl
-YWRlZCBJUlEgY29udGV4dCwKPj4+PiBnZW5lcmljX2hhbmRsZV9pcnFfc2FmZSBBUEkgZGlzYWJs
-ZXMgdGhlIGludGVycnVwdHMgYmVmb3JlIGNhbGxpbmcgTFBFJ3MKPj4+PiBpbnRlcnJ1cHQgdG9w
-IGhhbGYgaGFuZGxlci4KPj4+Pgo+Pj4+IFRoaXMgZml4ZXMgYnJhc3dlbGwgYXVkaW8gaXNzdWVz
-IHdpdGggUlQgZW5hYmxlZC4KPj4+Pgo+Pj4+IFNpZ25lZC1vZmYtYnk6IE1hYXJ0ZW4gTGFua2hv
-cnN0IDxkZXZAbGFua2hvcnN0LnNlPgo+Pj4+IFJldmlld2VkLWJ5OiBNYXR0aGV3IEJyb3N0IDxt
-YXR0aGV3LmJyb3N0QGludGVsLmNvbT4KPj4+PiBSZXZpZXdlZC1ieTogVW1hIFNoYW5rYXIgPHVt
-YS5zaGFua2FyQGludGVsLmNvbT4KPj4+PiBTaWduZWQtb2ZmLWJ5OiBSdW55dSBYaWFvIDxydW55
-dS54aWFvQHNldS5lZHUuY24+Cj4+PiAKPj4+IFJldmlld2VkLWJ5OiBTZWJhc3RpYW4gQW5kcnpl
-aiBTaWV3aW9yIDxiaWdlYXN5QGxpbnV0cm9uaXguZGU+Cj4+PiAKPj4+IFNlYmFzdGlhbgo+Pgo+
-Cj4tLSAKPkphbmkgTmlrdWxhLCBJbnRlbAo+Cg==
+
+--XEbAZGp9b5ALXzO/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi all,
+
+After merging the drm tree, today's linux-next build (x86_64 allmodconfig)
+failed like this:
+
+/tmp/next/build/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:1623:52: error: vari=
+able 'bo' is uninitialized when used here [-Werror,-Wuninitialized]
+ 1623 |                 if (!adev->debug_vm && !amdgpu_ttm_tt_get_usermm(bo=
+->tbo.ttm) &&
+      |                                                                  ^~
+/tmp/next/build/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:1603:22: note: initi=
+alize the variable 'bo' to silence this warning
+ 1603 |         struct amdgpu_bo *bo;
+      |                             ^
+      |                              =3D NULL
+
+
+Caused by the combination of
+
+  1c824497d8acd ("drm/amdgpu: fix calling VM invalidation in amdgpu_hmm_inv=
+alidate_gfx")
+
+=66rom the drm-fixes tree and commit:
+
+  4cdbba5a16aaf ("drm/amdgpu: restructure VM state machine v4")
+
+=66rom the drm tree.  I cherry picked the fix
+
+  b6444d1bcbc34 (drm/amdgpu: fix calling VM invalidation in amdgpu_hmm_inva=
+lidate_gfx)
+
+=66rom the amdgpu tree.
+
+--XEbAZGp9b5ALXzO/
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmogLN8ACgkQJNaLcl1U
+h9BdKgf/WzQ+tZi8MeBlHogo0s+WA3Q1JUBxG4UBIqdHb7/Qx+DQykgpNoRwiGRR
+whKREC99OQryVP2U2qCxNIBWoaIJC+zJmiHxrLNQxul/OGZXqWePuLXx3ByeUCJZ
+lj0UWjanovcgigTbK1sVZojOPsPEkr/p16diu+ivM+U0niRJrciT/6OjeCajVLTE
+UqANfQ1ki0urxhy76uliF+iBISa9rX3NjgEJT1f/gTVuOMbi1SKKAvv3U8V9ZmTU
+AwZQyq3i2MA5/YiUT6eVEzkuNLI48zHOJL25rAD7X7hRW4Lea+uNnXTs+HDlpQIJ
+xaW7wo3+CsgthvTS3zL7R/qXYJU3Lg==
+=Ug0O
+-----END PGP SIGNATURE-----
+
+--XEbAZGp9b5ALXzO/--
