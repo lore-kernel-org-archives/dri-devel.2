@@ -4,30 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE164CD6E4A
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 13:03:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED07FCD6E4A
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 13:03:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AFDC10FDB7;
-	Wed,  3 Jun 2026 13:03:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43F5A10FDAF;
+	Wed,  3 Jun 2026 13:03:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="ajtZWuca";
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="I14eYEXp";
 	dkim-atps=neutral
-Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch
- [79.135.106.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FE0F10FDAF
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 13:03:13 +0000 (UTC)
+Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch
+ [185.70.43.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9954B10FDAF
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 13:03:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1780491791; x=1780750991;
- bh=ozjq0z6xun0KKQNe4TBrfS/xRvkX1S9573CAfKsaYgM=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=ajtZWucabQ3/6F76/L5cGADu+qNYhPSzgJ6r2oXLN5U1xLhPzWNmRPG//SaGxpt6J
- DDuMn5VhTZqeQ06b0aMHqozbqfnuFJvp8bcSgiZvbHnh9ctOIl8gXgvoLFq2HkbKLw
- 8QwxfnZZKNFQp4G3AMCX6wBEXOYixLzXiGvwrUo81rH0h0U7IUoPVbrelZX6VaPyLf
- HzPnrXoetgjWwzRDcEPXxz3Z1uuodn2jFc5GaUfn6iyE5ASKJmJXwLIlzE8++BI6QG
- aRC7cRoHssxb7ZoifxKHCOHk7PA/E3heuDGzU4oSMcvjl5PKdAEfTKsQ5Pneh1ka1O
- jvUokaTZkXZ5Q==
-Date: Wed, 03 Jun 2026 13:03:03 +0000
+ s=protonmail3; t=1780491797; x=1780750997;
+ bh=84hOhCwOr6CZp7OHVWmJONnUUJ7lvZP68eI7P+7cmi8=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=I14eYEXpcuHy6ERxq7xJ1A6DhscBaSKIRksP0rLbFGNpDQxweuCPqFDbfYiXAwkCs
+ VrsJ+fKjW9W4B1cJ5MeqdYvIUtg+r6AwmhmrXEm0+kmXprIaODSrpSAhhDs5Xh4+8o
+ JSBHBl7FlnNjAQK7mabwkSQOqtfxNK2n596zxabSJYZfFnsH6e9f+eb7SnJB9tWBGT
+ huZfQcyR8HBgV8s8d3jEBjEl1rkyUpZApdJldoUJFMxJ/J0QhMGQgtuh8koQWOyLS+
+ wHqd6783nD91MpDi2Xf7MnMhppQMCWgl95IJy67f+5CRN2c234Q2oU1GSlSjQ3Fd4U
+ Jtos4unqZC5bA==
+Date: Wed, 03 Jun 2026 13:03:12 +0000
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>,
@@ -38,10 +39,12 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
 From: Alexander Koskovich <akoskovich@pm.me>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>
-Subject: [PATCH 0/2] Add support for the BOE BF068MWM-TD0
-Message-ID: <20260603-asteroids-panel-support-v1-0-109c6ac81c8f@pm.me>
+Subject: [PATCH 1/2] dt-bindings: display: panel: Document BOE BF068MWM-TD0
+Message-ID: <20260603-asteroids-panel-support-v1-1-109c6ac81c8f@pm.me>
+In-Reply-To: <20260603-asteroids-panel-support-v1-0-109c6ac81c8f@pm.me>
+References: <20260603-asteroids-panel-support-v1-0-109c6ac81c8f@pm.me>
 Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 79248a0368e3d671c92455c05a409bb24fe6e20b
+X-Pm-Message-ID: 8e671c51da754ca6e3ac00f4fb63e6c295ed3ca5
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -60,37 +63,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the bindings and driver for the BOE BF068MWM-TD0 panel used in the Noth=
-ing
-Phone (3a).
-
-This series depends on support for DSC configurations with slice_per_pkt > =
-1,
-technically it boots up and displays stuff without it but you see artifacti=
-ng
-without it:
-https://lore.kernel.org/linux-arm-msm/20260318-dsi-dsc-slice-per-pkt-v2-0-0=
-a1b316f8250@pm.me
+Document the BOE BF068MWM-TD0 6.77" 1080x2392 AMOLED display panel used
+in the Nothing Phone (3a).
 
 Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 ---
-Alexander Koskovich (2):
-      dt-bindings: display: panel: Document BOE BF068MWM-TD0
-      drm/panel: Add BOE BF068MWM-TD0 panel driver
-
- .../bindings/display/panel/boe,bf068mwm-td0.yaml   |  77 ++++
- MAINTAINERS                                        |   6 +
- drivers/gpu/drm/panel/Kconfig                      |  11 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-boe-bf068mwm-td0.c     | 432 +++++++++++++++++=
+ .../bindings/display/panel/boe,bf068mwm-td0.yaml   | 77 ++++++++++++++++++=
 ++++
- 5 files changed, 527 insertions(+)
----
-base-commit: 15a038bc8d93f92c80d9ba6844d4f16333234f39
-change-id: 20260603-asteroids-panel-support-d55c929a89a8
+ MAINTAINERS                                        |  5 ++
+ 2 files changed, 82 insertions(+)
 
-Best regards,
+diff --git a/Documentation/devicetree/bindings/display/panel/boe,bf068mwm-t=
+d0.yaml b/Documentation/devicetree/bindings/display/panel/boe,bf068mwm-td0.=
+yaml
+new file mode 100644
+index 000000000000..840ddff709ea
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/boe,bf068mwm-td0.yaml
+@@ -0,0 +1,77 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/boe,bf068mwm-td0.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: BOE BF068MWM-TD0 6.77" 1080x2392 AMOLED Panel
++
++maintainers:
++  - Alexander Koskovich <akoskovich@pm.me>
++
++description:
++  This is a 6.77" AMOLED video mode display panel on a MIPI-DSI 4-lane
++  interface.
++
++  The panel also requires ELVDD/ELVSS/ELAVDD rails but these are
++  internally managed by the panel via EL_ON1 (ELAVDD) and EL_ON2
++  (ELVDD/ELVSS) control signals, they are not managed by the platform.
++
++  The driver IC for this panel assembly is an RM69220.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    const: boe,bf068mwm-td0
++
++  reg:
++    maxItems: 1
++
++  dvdd-supply:
++    description: Digital voltage rail
++
++  vci-supply:
++    description: Analog voltage rail
++
++  vddio-supply:
++    description: I/O voltage rail
++
++required:
++  - compatible
++  - reg
++  - reset-gpios
++  - dvdd-supply
++  - vci-supply
++  - vddio-supply
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells =3D <1>;
++        #size-cells =3D <0>;
++
++        panel@0 {
++            compatible =3D "boe,bf068mwm-td0";
++            reg =3D <0>;
++
++            reset-gpios =3D <&tlmm 12 GPIO_ACTIVE_LOW>;
++            dvdd-supply =3D <&vreg_oled_dvdd_1p8>;
++            vci-supply =3D <&vreg_l19b>;
++            vddio-supply =3D <&vreg_l9b>;
++
++            port {
++                panel_in_0: endpoint {
++                    remote-endpoint =3D <&dsi0_out>;
++                };
++            };
++        };
++    };
++
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c9f2780b2d31..63d0224bba3b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8000,6 +8000,11 @@ S:=09Maintained
+ T:=09git https://gitlab.freedesktop.org/drm/misc/kernel.git
+ F:=09drivers/gpu/drm/tiny/bochs.c
+=20
++DRM DRIVER FOR BOE BF068MWM-TD0 PANELS
++M:=09Alexander Koskovich <akoskovich@pm.me>
++S:=09Maintained
++F:=09Documentation/devicetree/bindings/display/panel/boe,bf068mwm-td0.yaml
++
+ DRM DRIVER FOR BOE HIMAX8279D PANELS
+ M:=09Jerry Han <hanxu5@huaqin.corp-partner.google.com>
+ S:=09Maintained
+
 --=20
-Alexander Koskovich <akoskovich@pm.me>
+2.53.0
 
 
