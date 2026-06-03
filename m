@@ -4,83 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09360CD6E60
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 15:56:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CE26CD6E60
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 16:16:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45A42112135;
-	Wed,  3 Jun 2026 15:56:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A747A11207C;
+	Wed,  3 Jun 2026 16:16:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qKTVefZA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FUcBgoFl";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79C73113CDC
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 15:56:45 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 5263444515;
- Wed,  3 Jun 2026 15:56:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 16477C2BCB0;
- Wed,  3 Jun 2026 15:56:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1780502205;
- bh=1k7vvAOGO1oXU+3AgGuQ9wKxF8Gn/iiNS6SovrWXFQc=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=qKTVefZApdMuY+I6cAhrqLsd/e+muEu9BRY0QgogpGNBuc327hH4mpAwYBVmoIKgP
- 7VTYTGAskZFubFNXrEtTLEb+QoDRVk/kxnxLk8uz+BvQSE5crzVZdJ35MNs9nChJ1H
- Ir+kItf7kuWgSwppnSyvL8YqTEbBWNW8hvac8dUye5WgM26XKs/K4gqfHRjwf2d8B3
- BTV9ZR6VPwh1JXiY1RnLExrIRi4L8Bo+PA/XLBVTR8ED8r2iNEEZuOY+PjWO5DSkFc
- M/JACXOy+cQR0zAuc9FSkg5UvVbGAzc8WJ/MJVp/0N9JjScwi7qefL19WtnSKs0PkG
- sRoxrXOmzuMLw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id F181FCD6E57;
- Wed,  3 Jun 2026 15:56:44 +0000 (UTC)
-From: Markus Probst via B4 Relay <devnull+markus.probst.posteo.de@kernel.org>
-Date: Wed, 03 Jun 2026 17:56:39 +0200
-Subject: [PATCH v12 1/3] rust: add basic serial device bus abstractions
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011061.outbound.protection.outlook.com
+ [40.93.194.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D17611207C;
+ Wed,  3 Jun 2026 16:16:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QM6Jvvz+ca64wUEljrXnoA79CD8OhBzCrtAWTdr439tkw4/kQhxTw5HUVbBVEugr9vzCVpk+t9xFMDNw4iuESo/D1sWxCFWTBmoeK1FiOjeDHWIMUTav9QiK02z13xL9YiIIyKsMGa3++vBeJYUoMThU9bumnD3x1m0dsvnXExvWM5mN2NvlFIh0KBzJ+fOK5dXx6GLzOYzS72GofRGHOaiZL2EN4ojATLxfFkRFlt09bU1KdrQQQnBwpa5uz41gPpkgFerKKfTXxoqozciJe8fTmimxpo5jkFyr9d97DmGYEvD5XhnhIbYr6ABa4IN9WVf5h2kmFEc1aWEAM6Msmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7jDHhWZkLNKM2HEgAzkri7BR5VH5gtYdILefelAMcHI=;
+ b=egl9TznM8t/y2Gy+/vc/gpXXqt895W5T52OQ4BpiwUHjCCUaZpwahVe9kG2aVDmY/04+rA3G7QtME3oSoA/zCYfi4FAxSHbm1Jx/4sJ5pLaVgSnsXfg0jo4dXIVt9zujAt9KspWkhd7QiFpnO58+3sgrZtcgwFcYfpS/6qistBM3Fj/xwMOgcop5Y7xPsGGy+1yDa1/GzVZEWmgbjHBg7VaNl5+0yVSbuLldHSfmhZV+giHXlZ4u0+eRUcA/RE5rx2H051rM9npDaBXo0MmnikxCuOMa9XcjSsCqRdZKEJVI7K5j+U7me18XiqHSu42oNNO0yr90HB59dutd1/9Wew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7jDHhWZkLNKM2HEgAzkri7BR5VH5gtYdILefelAMcHI=;
+ b=FUcBgoFlWrMMeee3ekzHD5BcFKYLtJUtZCN2dLemdVRilkZmiwH6IHBGBl679ebyY3Vajd4ri0YCIBNtRoE+NoVors61hA8yCrfdIp/u8n99lf+EvYrcu25Jd2ESmrySUZDqX6WhgxfnoOrfAKv1Ww4SZfq6sff3GLg/fANc/fQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS4PR12MB9612.namprd12.prod.outlook.com (2603:10b6:8:278::5) by
+ SA3PR12MB9159.namprd12.prod.outlook.com (2603:10b6:806:3a0::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Wed, 3 Jun 2026
+ 16:16:20 +0000
+Received: from DS4PR12MB9612.namprd12.prod.outlook.com
+ ([fe80::5e55:25ea:365c:f99c]) by DS4PR12MB9612.namprd12.prod.outlook.com
+ ([fe80::5e55:25ea:365c:f99c%5]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
+ 16:16:20 +0000
+Message-ID: <19398b47-c197-4404-9465-d7113dd528c2@amd.com>
+Date: Wed, 3 Jun 2026 12:16:20 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdkfd: convert CRIU event-private allocation to
+ kvcalloc()
+To: William Theesfeld <william@theesfeld.net>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260601195510.639318-1-william@theesfeld.net>
+Content-Language: en-US
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <20260601195510.639318-1-william@theesfeld.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260603-rust_serdev-v12-1-3400ffb88b12@posteo.de>
-References: <20260603-rust_serdev-v12-0-3400ffb88b12@posteo.de>
-In-Reply-To: <20260603-rust_serdev-v12-0-3400ffb88b12@posteo.de>
-To: Rob Herring <robh@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Kari Argillander <kari.argillander@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Boqun Feng <boqun@kernel.org>
-Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org, 
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Markus Probst <markus.probst@posteo.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=26520;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=bbxzTb2wWVYESrgo3/XtGdcQNC+SaThhiaCUOZmj5Ck=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqIE66Zn2B7yVsvg4mtqdchzl4byA7sATteT5WV
- own4I1MY+yJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCaiBOuhsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9Kf1A//bEQ9xSEkZQJGJ7a/hL8i6uILaEpLp3v
- X3DkVkuVfBwmsdaCV8lDVGEKD0JCrFVAkig8m/79icDRs6oJbbhaSAWfxutg1RuZivlunCNQvvf
- j+/HBoHYYzAo2q+P27Bk83twyxHY31C6z8ifuVj/Rp/7l+A08CRRaaL6EJ5lmkASmr6uxHISDyj
- NJCoc8jSHs+kvmm8i731DE3fN1m93ua75Jfis5VvFM8hAY3VY3hFov6UZVUQrXOm3IFEjgnCSA2
- kKFUTH38w3NexM8y95lqDNXeNfCOGD+mrCW84f5wNcyn9aspJDKpY/JzvqDKOXn3MffpWFhW73y
- KY0bww2tuoQlYcmg0oACV/HqrNBE5aAIOWcIPnTQH1BLnBG0xsuYD2V5lOhqQmf2J17MM8FF7sn
- zWzy+5ugyGlUVE0l5a+nTbgcFWD8gvI1mih5ljPuxxGOPFj2sUTB4Hhb1zYSP303BinUWgGmJ25
- /0MwBFOGkzDWNJCEcvt30oDvtPZ9fMf3hV24jz0zdigCxqF2VrPNA0Uc8nOI+DxuUOzUIlrqb06
- oV1WNtAsMr6qaVzyyFpk7eiGAmVwG7rosqXnENvJ52OEE8oCvyIKm2PjGn+ZLH0CRkoRKq0ql/R
- UFC9WkiQ5p4cCAGzP+8duzfjWgW+nceba0ESYsr+9H+B8ZYaCY18=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-X-Endpoint-Received: by B4 Relay for markus.probst@posteo.de/default with
- auth_id=680
-X-Original-From: Markus Probst <markus.probst@posteo.de>
+X-ClientProxiedBy: YT4P288CA0047.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d3::27) To DS4PR12MB9612.namprd12.prod.outlook.com
+ (2603:10b6:8:278::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PR12MB9612:EE_|SA3PR12MB9159:EE_
+X-MS-Office365-Filtering-Correlation-Id: 90aa1548-daea-4390-9564-08dec18b72b1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|22082099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: tpVj5Gn2LTj960DoQCRXn2/Ke+eXqVc41RiSYQLTwhfNXySrNel6rGJyirPOQ3cWCzc/ZsVFeISYnBchEYe5POaBxo6XQA9K3oeQu/UCXcIIlU2mWOvIHBH4WS6Ng3xdQanZUGj8SGFZX75knKzorkhL+CbiXn9DSgxPdjPds5CNaDaCFwfg3tR0hAWsZMHdvm5bnDRKKrGr8kOSJMGA3qAMWT4Ro9+ZqiQ6IbbKE/4l0+b1wa7ZQ5RxP32h67DkFyMsVSCtFnKSmTWNg9bFOtDuaktBKWn0WtFyMpZcuRkiIuKJ1kjoLjcvvs28DmhfuHTJD4z5+cvexkw9rC4KcqLx/a8Hl/6lxiHe/6yJJXgh+FBnl5S7gCKyBDr+6qdPowg+rBRQW6kQw8eYjU97LtGh3aU0gmTsR6T+kUuOz+jy5f7MG1eHJ+DL8wqfRFuHRCHOTOB1jy0Y2nXb4Wz+FLZjQshV5Hs91QLuAK7DU7fEIux5ExJJ3XQV/eEjSoZjvFHUn8mP+RX33iMRnQdRkTRHKiKFHjrcc9ti6bMW6DmOtavjNuRnlqVCHtt3cxpQCbrSCwRcd4Hyy7T4+ww5SDo07miV/TnsO8fx9kMPIY7v6wJ4QyHE7qUcMuieNi5WmqVvTm0x4Tuhszc1oA1P/IzqT1pbVgeZPyltOUHJ57swxniDA4Frl4K5Y1x6/R7O
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS4PR12MB9612.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(18002099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SkFPQ1h3ZittQkhvL1pQOHI3dG1WL1BHdUVvVFkxKzdyTUYyblJXQW5GbHVV?=
+ =?utf-8?B?WEp4QmZ1eE8waUEyL1gxeVVUM0JUcm15NGVXMkQyV0hrY1hhMkQ3NFEwK2VQ?=
+ =?utf-8?B?bmlORmlQODBmT1RnNHpkdVc3SkM1Ulhsd3dBMFRDQTVFLzltS3NiaW9JcHdO?=
+ =?utf-8?B?QlpSWnUrK3JpUVJwNXh5d1VwSU9PdWZXSFNXeWppc3ZNY1lobXI1VGJySjVP?=
+ =?utf-8?B?MmNzY3RuWDVTZjRheHFmWE1RRXhsWVFCN1RMR0ZrajY0NVhGZVc2Tmo4KzhR?=
+ =?utf-8?B?M0w3cFJSSzA1aXFuVVhIWmFGR0VSeS9ReEt0ODVlbGV0am85TittTmlEdkl3?=
+ =?utf-8?B?a05ud3hOdzViNmluQk9FbTRvckVIOWJ0cnAyOFJ5SmUrcEtFMUZDdDFiOE1r?=
+ =?utf-8?B?TnNPbTF5dTNXeXdTRFdFL2lFSHkrME9yVlNtaVkyU1Q5Wk1vc0p5NllaMmw0?=
+ =?utf-8?B?dnZMQ1lBcEQySWZKeXpPZ201QWpyUmxOclM5dzNUMUU4NzZWWWhmYmc4ek9I?=
+ =?utf-8?B?VENJWldBZHZPZHBDM3ltVzQyU1ZmVlB3bTAxOERXQW5YK2N1aWlPYjBpUWJB?=
+ =?utf-8?B?dm1seVphVFREUkhVQjVRR3FLTmlsU0NPY0FOcFJpU0k1cFcxa1NNaHhTTWtt?=
+ =?utf-8?B?TlNHdDRWcHQrdCtsZDhHZXlwd0hyVTRMQXRHZk5lZDhYWEEveEI3L1RjNGZy?=
+ =?utf-8?B?aXpqSGE2TVRtcHg0RlFxZWJaNXFQeWN5K0hlWHB2OWMrYjluUjlkZzBkd0Qw?=
+ =?utf-8?B?OFF1a2dOVWg3aC91MDVJQkxGS1MvT3lGL0c3RWlqTFhkUVdaajM3MDY5cUNj?=
+ =?utf-8?B?U3RWQzduam5xdUs1YVBTNHBoeERuMEJyN0ZtdzJTKzE2RVhsbjl0Vkk5SGZN?=
+ =?utf-8?B?MFVxV1Zwb0dZOUFDRm9mekpXR25oT0FkVDJxaFRTdmdBcTYwZzN0SGJ3UTg1?=
+ =?utf-8?B?dUxBTFlCOUhTTDI4U29pNEgxczVLQWMySXhmdzh2bWZFT3Ivc2pGRHp1aDUz?=
+ =?utf-8?B?cDFSV1NCVGVoN1RYMFhnWlZ3V2JqSnMrdTVsc1l4L0trRVdyRHlsVVlNV1l0?=
+ =?utf-8?B?WTNXOWdoY0oyWmZWUFBsT0dIbDJyTVFMNlpPbjlJSlJsRzZpWDZRTmhuWnJM?=
+ =?utf-8?B?c0YzNEtaZGFmREtTa3k4SmxvZlQvYW5BY29wb05UckRlZm1zeU9GYnA2YjlU?=
+ =?utf-8?B?TVZGQ0hybERraHhpUW5ZYXJ4ekd1Q0VKUTFxV0Z6NFYzRFNUeHd0TnluVWZp?=
+ =?utf-8?B?aDB4VHpMeU14ekxtaDR1VDZWeUVhZVBsWUU2UzBCYWpFaGxIOUY2ZzJuU1RM?=
+ =?utf-8?B?SGg3TVlqck1yQkt6Zmowa0M5RXoySXRTSnd5WXV4SkNGT1RkQ0dNYzk4YUpF?=
+ =?utf-8?B?bTkveWNPRG8vYlJtcy9sQmkzMGdtOElvQ09Sa2I4QTJVdHlKWldIMWt5M2dn?=
+ =?utf-8?B?OUZRUmtkRlU0YVdEZHdrd1daMDZ5cXE2WEZkUnIzV2w2S2JFN1VYWXRFTFVI?=
+ =?utf-8?B?WGxQQlpoZSswTmxJcVJieEV4S2piK0NRT1VEb04zS0RpMGJBeWdWaElYSnpI?=
+ =?utf-8?B?TGMvSGpIaWZrZjZtSnhnRXBYRmVaWWNQVVhKVjgyOTRxV3NjTzdBbnVBRDhB?=
+ =?utf-8?B?ZUFBWWZkVDN6UWZzMzFpS1ZxSnBaeU95dW9haGVGcS8yZlZxL3VRZnpJQ3lN?=
+ =?utf-8?B?ZVhwR2U3dmNxWTNmUWdGenV1Z1l4VlBjQ1Yrb2hmaEVvenpVcUdWUzNISGxY?=
+ =?utf-8?B?MUtBWERXQ3d1dlJOZ091TGJzMlhSMFIyeW5RMHgzMG9wVmYwbHVOK09oOVNl?=
+ =?utf-8?B?RTROZU50OHZGM0xKek1MemhxRG1uREFDVFg3RGQ3U05mUkdQTXJJSzhMSHAv?=
+ =?utf-8?B?Nkp2bFBtSzlHT083cURPOE1NV3pzU3RBa3JweHMvclhjT0hLYVJLdlBsaytv?=
+ =?utf-8?B?MnpKK09PRzBnT21HVno2ZjJXM1ZEZXZpc0Q4SmNZbi85ckQwdmttMzhaRmJC?=
+ =?utf-8?B?aEZoVjBkVWh3MkhrZkRNN1o0MjZYaHZIQXFVbnNBbGRQVUV4VnU0Tld4VXhG?=
+ =?utf-8?B?U1JwRG5CQ3F0ZjV5eGUxakNnV1NObzBLbjlDUGhsTDVkbGdQcmNWdEpvTUhS?=
+ =?utf-8?B?ZEYrd0o0OFRBZHBOZXRCVlV0YVVUbEpLUVl3NWhqYlNHUy9qZnozOVUrWkhO?=
+ =?utf-8?B?djljVUJsRFU5NFQxSFd2ZThmQjg1ejQvSWdiclhzeHp3cTBMWmlVSVhSNjlk?=
+ =?utf-8?B?TzdHcnFJMlVkbm93TGZnVFY1RW52dHlaNGRkSVJHa3F5KzlVdExkNllkNUdL?=
+ =?utf-8?B?NDBsNmR2c0ZuakhmSnRBYlNYb2F1bnU5d2ROdlMwNk1neFVpcUFOZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 90aa1548-daea-4390-9564-08dec18b72b1
+X-MS-Exchange-CrossTenant-AuthSource: DS4PR12MB9612.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 16:16:20.4972 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: f4Yj1y9YwHiQj1Xk0UiS1Hn2h1Vi5iuynpHD968UBu67ra6SNxY8TpAHutx8WuaylxA8eBQjbt9y2DXYbhZsgg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9159
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,729 +137,42 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: markus.probst@posteo.de
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Markus Probst <markus.probst@posteo.de>
+On 2026-06-01 15:55, William Theesfeld wrote:
+> [You don't often get email from william@theesfeld.net. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> criu_checkpoint_events() allocates the ev_privs[] array, sized by the
+> runtime count returned from kfd_get_num_events(), using the open-coded
+> kvzalloc(n * sizeof(*p), ...) form.  Switch to kvcalloc(), which
+> carries the same zero-on-allocation semantics and adds the standard
+> size_mul overflow check on the n * sizeof multiplication.
+>
+> No functional change.
+>
+> Signed-off-by: William Theesfeld <william@theesfeld.net>
 
-Implement the basic serial device bus abstractions required to write a
-serial device bus device driver with or without the need for initial device
-data. This includes the following data structures:
-
-The `serdev::Driver` trait represents the interface to the driver.
-
-The `serdev::Device` abstraction represents a `struct serdev_device`.
-
-In order to provide the Serdev specific parts to a generic
-`driver::Registration` the `driver::RegistrationOps` trait is
-implemented by `serdev::Adapter`.
-
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
----
- MAINTAINERS                     |   2 +
- drivers/tty/serdev/Kconfig      |   7 +
- rust/bindings/bindings_helper.h |   1 +
- rust/helpers/helpers.c          |   1 +
- rust/helpers/serdev.c           |  22 ++
- rust/kernel/lib.rs              |   2 +
- rust/kernel/serdev.rs           | 590 ++++++++++++++++++++++++++++++++++++++++
- 7 files changed, 625 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 1a5508df3f44..d21be30a2d9d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24277,6 +24277,8 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/serial/serial.yaml
- F:	drivers/tty/serdev/
- F:	include/linux/serdev.h
-+F:	rust/helpers/serdev.c
-+F:	rust/kernel/serdev.rs
- 
- SERIAL IR RECEIVER
- M:	Sean Young <sean@mess.org>
-diff --git a/drivers/tty/serdev/Kconfig b/drivers/tty/serdev/Kconfig
-index 46ae732bfc68..e6dfe949ad01 100644
---- a/drivers/tty/serdev/Kconfig
-+++ b/drivers/tty/serdev/Kconfig
-@@ -9,6 +9,13 @@ menuconfig SERIAL_DEV_BUS
- 
- 	  Note that you typically also want to enable TTY port controller support.
- 
-+config RUST_SERIAL_DEV_BUS_ABSTRACTIONS
-+	bool "Rust Serial device bus abstractions"
-+	depends on RUST
-+	select SERIAL_DEV_BUS
-+	help
-+	  This enables the Rust abstraction for the serial device bus API.
-+
- if SERIAL_DEV_BUS
- 
- config SERIAL_DEV_CTRL_TTYPORT
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index 446dbeaf0866..4e42635b8607 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -84,6 +84,7 @@
- #include <linux/regulator/consumer.h>
- #include <linux/sched.h>
- #include <linux/security.h>
-+#include <linux/serdev.h>
- #include <linux/slab.h>
- #include <linux/sys_soc.h>
- #include <linux/task_work.h>
-diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
-index 38b34518eff1..2fb8506a748a 100644
---- a/rust/helpers/helpers.c
-+++ b/rust/helpers/helpers.c
-@@ -86,6 +86,7 @@
- #include "regulator.c"
- #include "scatterlist.c"
- #include "security.c"
-+#include "serdev.c"
- #include "signal.c"
- #include "slab.c"
- #include "spinlock.c"
-diff --git a/rust/helpers/serdev.c b/rust/helpers/serdev.c
-new file mode 100644
-index 000000000000..c52b78ca3fc7
---- /dev/null
-+++ b/rust/helpers/serdev.c
-@@ -0,0 +1,22 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <linux/serdev.h>
-+
-+__rust_helper
-+void rust_helper_serdev_device_driver_unregister(struct serdev_device_driver *sdrv)
-+{
-+	serdev_device_driver_unregister(sdrv);
-+}
-+
-+__rust_helper
-+void rust_helper_serdev_device_put(struct serdev_device *serdev)
-+{
-+	serdev_device_put(serdev);
-+}
-+
-+__rust_helper
-+void rust_helper_serdev_device_set_client_ops(struct serdev_device *serdev,
-+					      const struct serdev_device_ops *ops)
-+{
-+	serdev_device_set_client_ops(serdev, ops);
-+}
-diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-index b72b2fbe046d..83bc2c312241 100644
---- a/rust/kernel/lib.rs
-+++ b/rust/kernel/lib.rs
-@@ -118,6 +118,8 @@
- pub mod scatterlist;
- pub mod security;
- pub mod seq_file;
-+#[cfg(CONFIG_RUST_SERIAL_DEV_BUS_ABSTRACTIONS)]
-+pub mod serdev;
- pub mod sizes;
- #[cfg(CONFIG_SOC_BUS)]
- pub mod soc;
-diff --git a/rust/kernel/serdev.rs b/rust/kernel/serdev.rs
-new file mode 100644
-index 000000000000..ab5d6446b091
---- /dev/null
-+++ b/rust/kernel/serdev.rs
-@@ -0,0 +1,590 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Abstractions for the serial device bus.
-+//!
-+//! C header: [`include/linux/serdev.h`](srctree/include/linux/serdev.h)
-+
-+use crate::{
-+    acpi,
-+    device,
-+    driver,
-+    error::{
-+        from_result,
-+        to_result,
-+        VTABLE_DEFAULT_ERROR, //
-+    },
-+    new_mutex,
-+    of,
-+    prelude::*,
-+    sync::{
-+        aref::AlwaysRefCounted,
-+        Mutex, //
-+    },
-+    time::{
-+        msecs_to_jiffies,
-+        Jiffies,
-+        Msecs, //
-+    },
-+    types::{
-+        Opaque,
-+        ScopeGuard, //
-+    }, //
-+};
-+
-+use core::{
-+    cell::UnsafeCell,
-+    marker::PhantomData,
-+    mem::{offset_of, MaybeUninit},
-+    num::NonZero,
-+    ptr::NonNull, //
-+};
-+
-+/// Parity bit to use with a serial device.
-+#[repr(u32)]
-+pub enum Parity {
-+    /// No parity bit.
-+    None = bindings::serdev_parity_SERDEV_PARITY_NONE,
-+    /// Even partiy.
-+    Even = bindings::serdev_parity_SERDEV_PARITY_EVEN,
-+    /// Odd parity.
-+    Odd = bindings::serdev_parity_SERDEV_PARITY_ODD,
-+}
-+
-+/// Timeout in Jiffies.
-+pub enum Timeout {
-+    /// Wait for a specific amount of [`Jiffies`].
-+    Jiffies(NonZero<Jiffies>),
-+    /// Wait for a specific amount of [`Msecs`].
-+    Milliseconds(NonZero<Msecs>),
-+    /// Wait as long as possible.
-+    ///
-+    /// This is equivalent to [`kernel::task::MAX_SCHEDULE_TIMEOUT`].
-+    Max,
-+}
-+
-+impl Timeout {
-+    fn into_jiffies(self) -> isize {
-+        match self {
-+            Self::Jiffies(value) => value.get().try_into().unwrap_or_default(),
-+            Self::Milliseconds(value) => {
-+                msecs_to_jiffies(value.get()).try_into().unwrap_or_default()
-+            }
-+            Self::Max => 0,
-+        }
-+    }
-+}
-+
-+/// An adapter for the registration of serial device bus device drivers.
-+pub struct Adapter<T: Driver>(T);
-+
-+// SAFETY:
-+// - `bindings::serdev_device_driver` is a C type declared as `repr(C)`.
-+// - `PrivateData<'bound, T>` is the type of the driver's device private data.
-+// - `struct serdev_device_driver` embeds a `struct device_driver`.
-+// - `DEVICE_DRIVER_OFFSET` is the correct byte offset to the embedded `struct device_driver`.
-+unsafe impl<T: Driver> driver::DriverLayout for Adapter<T> {
-+    type DriverType = bindings::serdev_device_driver;
-+    type DriverData<'bound> = PrivateData<'bound, T>;
-+    const DEVICE_DRIVER_OFFSET: usize = core::mem::offset_of!(Self::DriverType, driver);
-+}
-+
-+// SAFETY: A call to `unregister` for a given instance of `DriverType` is guaranteed to be valid if
-+// a preceding call to `register` has been successful.
-+unsafe impl<T: Driver> driver::RegistrationOps for Adapter<T> {
-+    unsafe fn register(
-+        sdrv: &Opaque<Self::DriverType>,
-+        name: &'static CStr,
-+        module: &'static ThisModule,
-+    ) -> Result {
-+        let of_table = match T::OF_ID_TABLE {
-+            Some(table) => table.as_ptr(),
-+            None => core::ptr::null(),
-+        };
-+
-+        let acpi_table = match T::ACPI_ID_TABLE {
-+            Some(table) => table.as_ptr(),
-+            None => core::ptr::null(),
-+        };
-+
-+        // SAFETY: It's safe to set the fields of `struct serdev_device_driver` on initialization.
-+        unsafe {
-+            (*sdrv.get()).driver.name = name.as_char_ptr();
-+            (*sdrv.get()).probe = Some(Self::probe_callback);
-+            (*sdrv.get()).remove = Some(Self::remove_callback);
-+            (*sdrv.get()).driver.of_match_table = of_table;
-+            (*sdrv.get()).driver.acpi_match_table = acpi_table;
-+        }
-+
-+        // SAFETY: `sdrv` is guaranteed to be a valid `DriverType`.
-+        to_result(unsafe { bindings::__serdev_device_driver_register(sdrv.get(), module.0) })
-+    }
-+
-+    unsafe fn unregister(sdrv: &Opaque<Self::DriverType>) {
-+        // SAFETY: `sdrv` is guaranteed to be a valid `DriverType`.
-+        unsafe { bindings::serdev_device_driver_unregister(sdrv.get()) };
-+    }
-+}
-+
-+#[doc(hidden)]
-+#[pin_data(PinnedDrop)]
-+pub struct PrivateData<'bound, T: Driver> {
-+    sdev: &'bound Device<device::Bound>,
-+    #[pin]
-+    driver: UnsafeCell<MaybeUninit<T::Data<'bound>>>,
-+    open: UnsafeCell<bool>,
-+    #[pin]
-+    active: Mutex<bool>,
-+}
-+
-+#[pinned_drop]
-+impl<T: Driver> PinnedDrop for PrivateData<'_, T> {
-+    fn drop(self: Pin<&mut Self>) {
-+        let mut active = self.active.lock();
-+        if *active {
-+            // SAFETY:
-+            // - We have exclusive access to `self.driver`.
-+            // - `self.driver` is guaranteed to be initialized.
-+            unsafe { (*self.driver.get()).assume_init_drop() };
-+            *active = false;
-+        }
-+
-+        // SAFETY: We have exclusive access to `self.open`.
-+        if unsafe { *self.open.get() } {
-+            // SAFETY: `self.sdev.as_raw()` is guaranteed to be a pointer to a valid
-+            // `struct serdev_device`.
-+            unsafe { bindings::serdev_device_close(self.sdev.as_raw()) };
-+        }
-+    }
-+}
-+
-+impl<T: Driver> Adapter<T> {
-+    const OPS: &'static bindings::serdev_device_ops = &bindings::serdev_device_ops {
-+        receive_buf: if T::HAS_RECEIVE {
-+            Some(Self::receive_buf_callback)
-+        } else {
-+            None
-+        },
-+        write_wakeup: Some(bindings::serdev_device_write_wakeup),
-+    };
-+
-+    extern "C" fn probe_callback(sdev: *mut bindings::serdev_device) -> kernel::ffi::c_int {
-+        // SAFETY: The serial device bus only ever calls the probe callback with a valid pointer to
-+        // a `struct serdev_device`.
-+        //
-+        // INVARIANT: `sdev` is valid for the duration of `probe_callback()`.
-+        let sdev = unsafe { &*sdev.cast::<Device<device::CoreInternal<'_>>>() };
-+        let info = <Self as driver::Adapter>::id_info(sdev.as_ref());
-+
-+        from_result(|| {
-+            sdev.as_ref().set_drvdata(try_pin_init!(PrivateData::<T> {
-+                sdev: &**sdev,
-+                driver: MaybeUninit::<T::Data<'_>>::zeroed().into(),
-+                open: false.into(),
-+                active <- new_mutex!(false),
-+            }))?;
-+            // SAFETY: We just set drvdata to `PrivateData<'_, T>`.
-+            let private_data = unsafe { sdev.as_ref().drvdata_borrow::<PrivateData<'_, T>>() };
-+            let private_data = ScopeGuard::new_with_data(private_data, |_| {
-+                // SAFETY: We just set drvdata to `PrivateData<'_, T>`.
-+                drop(unsafe { sdev.as_ref().drvdata_obtain::<PrivateData<'_, T>>() });
-+            });
-+            let mut active = private_data.active.lock();
-+
-+            // SAFETY: `sdev.as_raw()` is guaranteed to be a valid pointer to `serdev_device`.
-+            unsafe { bindings::serdev_device_set_client_ops(sdev.as_raw(), Self::OPS) };
-+
-+            // SAFETY: The serial device bus only ever calls the probe callback with a valid pointer
-+            // to a `serdev_device`.
-+            to_result(unsafe { bindings::serdev_device_open(sdev.as_raw()) })?;
-+
-+            // SAFETY: We have exclusive access to `private_data.open`.
-+            unsafe { *private_data.open.get() = true };
-+
-+            let data = T::probe(sdev, info);
-+
-+            // SAFETY: We have exclusive access to `private_data.driver`.
-+            let driver = unsafe { &mut *private_data.driver.get() };
-+            // SAFETY:
-+            // - `driver.as_mut_ptr()` is a valid pointer to uninitialized data.
-+            // - `private_data.driver` is pinned.
-+            let result = unsafe { data.__pinned_init(driver.as_mut_ptr()) };
-+
-+            *active = result.is_ok();
-+
-+            drop(active);
-+
-+            result.map(|()| {
-+                private_data.dismiss();
-+                0
-+            })
-+        })
-+    }
-+
-+    extern "C" fn remove_callback(sdev: *mut bindings::serdev_device) {
-+        // SAFETY: The serial device bus only ever calls the remove callback with a valid pointer
-+        // to a `struct serdev_device`.
-+        //
-+        // INVARIANT: `sdev` is valid for the duration of `remove_callback()`.
-+        let sdev = unsafe { &*sdev.cast::<Device<device::CoreInternal<'_>>>() };
-+
-+        // SAFETY: `remove_callback` is only ever called after a successful call to
-+        // `probe_callback`, hence it's guaranteed that `Device::set_drvdata()` has been called
-+        // and stored a `Pin<KBox<PrivateData<'_, T>>>`.
-+        let private_data = unsafe { sdev.as_ref().drvdata_borrow::<PrivateData<'_, T>>() };
-+
-+        // SAFETY: No one has exclusive access to `private_data.driver`.
-+        let data = unsafe { &*private_data.driver.get() };
-+        // SAFETY:
-+        // - `private_data.driver` is pinned.
-+        // - `remove_callback` is only ever called after a successful call to `probe_callback`,
-+        //   hence it's guaranteed that `private_data.driver` was initialized.
-+        let data_pinned = unsafe { Pin::new_unchecked(data.assume_init_ref()) };
-+
-+        T::unbind(sdev, data_pinned);
-+    }
-+
-+    extern "C" fn receive_buf_callback(
-+        sdev: *mut bindings::serdev_device,
-+        buf: *const u8,
-+        length: usize,
-+    ) -> usize {
-+        // SAFETY: The serial device bus only ever calls the receive buf callback with a valid
-+        // pointer to a `struct serdev_device`.
-+        //
-+        // INVARIANT: `sdev` is valid for the duration of `receive_buf_callback()`.
-+        let sdev = unsafe { &*sdev.cast::<Device<device::BoundInternal>>() };
-+
-+        // SAFETY: `receive_buf_callback` is only ever called after a successful call to
-+        // `probe_callback`, hence it's guaranteed that `Device::set_drvdata()` has been called
-+        // and stored a `Pin<KBox<PrivateData<'_, T>>>`.
-+        let private_data = unsafe { sdev.as_ref().drvdata_borrow::<PrivateData<'_, T>>() };
-+        let active = private_data.active.lock();
-+
-+        if !*active {
-+            return length;
-+        }
-+
-+        // SAFETY: No one has exclusive access to `private_data.driver`.
-+        let data = unsafe { &*private_data.driver.get() };
-+        // SAFETY:
-+        // - `private_data.driver` is pinned.
-+        // - `receive_buf_callback` is only ever called after a successful call to `probe_callback`,
-+        //   hence it's guaranteed that `private_data.driver` was initialized.
-+        let data_pinned = unsafe { Pin::new_unchecked(data.assume_init_ref()) };
-+
-+        // SAFETY: `buf` is guaranteed to be non-null and has the size of `length`.
-+        let buf = unsafe { core::slice::from_raw_parts(buf, length) };
-+
-+        T::receive(sdev, data_pinned, buf)
-+    }
-+}
-+
-+impl<T: Driver> driver::Adapter for Adapter<T> {
-+    type IdInfo = T::IdInfo;
-+
-+    fn of_id_table() -> Option<of::IdTable<Self::IdInfo>> {
-+        T::OF_ID_TABLE
-+    }
-+
-+    fn acpi_id_table() -> Option<acpi::IdTable<Self::IdInfo>> {
-+        T::ACPI_ID_TABLE
-+    }
-+}
-+
-+/// Declares a kernel module that exposes a single serial device bus device driver.
-+///
-+/// # Examples
-+///
-+/// ```ignore
-+/// kernel::module_serdev_device_driver! {
-+///     type: MyDriver,
-+///     name: "Module name",
-+///     authors: ["Author name"],
-+///     description: "Description",
-+///     license: "GPL v2",
-+/// }
-+/// ```
-+#[macro_export]
-+macro_rules! module_serdev_device_driver {
-+    ($($f:tt)*) => {
-+        $crate::module_driver!(<T>, $crate::serdev::Adapter<T>, { $($f)* });
-+    };
-+}
-+
-+/// The serial device bus device driver trait.
-+///
-+/// Drivers must implement this trait in order to get a serial device bus device driver registered.
-+///
-+/// # Examples
-+///
-+///```
-+/// # use kernel::{
-+///     acpi,
-+///     bindings,
-+///     device::{
-+///         Bound,
-+///         Core, //
-+///     },
-+///     of,
-+///     serdev, //
-+/// };
-+///
-+/// struct MyDriver;
-+///
-+/// kernel::of_device_table!(
-+///     OF_TABLE,
-+///     MODULE_OF_TABLE,
-+///     <MyDriver as serdev::Driver>::IdInfo,
-+///     [
-+///         (of::DeviceId::new(c"test,device"), ())
-+///     ]
-+/// );
-+///
-+/// kernel::acpi_device_table!(
-+///     ACPI_TABLE,
-+///     MODULE_ACPI_TABLE,
-+///     <MyDriver as serdev::Driver>::IdInfo,
-+///     [
-+///         (acpi::DeviceId::new(c"LNUXBEEF"), ())
-+///     ]
-+/// );
-+///
-+/// #[vtable]
-+/// impl serdev::Driver for MyDriver {
-+///     type IdInfo = ();
-+///     type Data<'bound> = Self;
-+///     const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = Some(&OF_TABLE);
-+///     const ACPI_ID_TABLE: Option<acpi::IdTable<Self::IdInfo>> = Some(&ACPI_TABLE);
-+///
-+///     fn probe<'bound>(
-+///         sdev: &'bound serdev::Device<Core<'_>>,
-+///         _id_info: Option<&'bound Self::IdInfo>,
-+///     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-+///         sdev.set_baudrate(115200);
-+///         sdev.write_all(b"Hello\n", serdev::Timeout::Max)?;
-+///         Ok(MyDriver)
-+///     }
-+/// }
-+///```
-+#[vtable]
-+pub trait Driver {
-+    /// The type holding driver private data about each device id supported by the driver.
-+    // TODO: Use associated_type_defaults once stabilized:
-+    //
-+    // ```
-+    // type IdInfo: 'static = ();
-+    // ```
-+    type IdInfo: 'static;
-+
-+    /// The type of the driver's bus device private data.
-+    type Data<'bound>: Send + 'bound;
-+
-+    /// The table of OF device ids supported by the driver.
-+    const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = None;
-+
-+    /// The table of ACPI device ids supported by the driver.
-+    const ACPI_ID_TABLE: Option<acpi::IdTable<Self::IdInfo>> = None;
-+
-+    /// Serial device bus device driver probe.
-+    ///
-+    /// Called when a new serial device bus device is added or discovered.
-+    /// Implementers should attempt to initialize the device here.
-+    fn probe<'bound>(
-+        sdev: &'bound Device<device::Core<'_>>,
-+        id_info: Option<&'bound Self::IdInfo>,
-+    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound;
-+
-+    /// Serial device bus device driver unbind.
-+    ///
-+    /// Called when a [`Device`] is unbound from its bound [`Driver`]. Implementing this callback
-+    /// is optional.
-+    ///
-+    /// This callback serves as a place for drivers to perform teardown operations that require a
-+    /// `&Device<Core>` or `&Device<Bound>` reference. For instance.
-+    ///
-+    /// Otherwise, release operations for driver resources should be performed in `Drop`.
-+    fn unbind<'bound>(sdev: &'bound Device<device::Core<'_>>, this: Pin<&Self::Data<'bound>>) {
-+        let _ = (sdev, this);
-+    }
-+
-+    /// Serial device bus device data receive callback.
-+    ///
-+    /// Called when data got received from device.
-+    ///
-+    /// Returns the number of bytes accepted.
-+    fn receive<'bound>(
-+        sdev: &'bound Device<device::Bound>,
-+        this: Pin<&Self::Data<'bound>>,
-+        data: &[u8],
-+    ) -> usize {
-+        let _ = (sdev, this, data);
-+        build_error!(VTABLE_DEFAULT_ERROR)
-+    }
-+}
-+
-+/// The serial device bus device representation.
-+///
-+/// This structure represents the Rust abstraction for a C `struct serdev_device`. The
-+/// implementation abstracts the usage of an already existing C `struct serdev_device` within Rust
-+/// code that we get passed from the C side.
-+///
-+/// # Invariants
-+///
-+/// A [`Device`] instance represents a valid `struct serdev_device` created by the C portion of
-+/// the kernel.
-+#[repr(transparent)]
-+pub struct Device<Ctx: device::DeviceContext = device::Normal>(
-+    Opaque<bindings::serdev_device>,
-+    PhantomData<Ctx>,
-+);
-+
-+impl<Ctx: device::DeviceContext> Device<Ctx> {
-+    fn as_raw(&self) -> *mut bindings::serdev_device {
-+        self.0.get()
-+    }
-+}
-+
-+impl Device<device::Bound> {
-+    /// Set the baudrate in bits per second.
-+    ///
-+    /// Common baudrates are 115200, 9600, 19200, 57600, 4800.
-+    ///
-+    /// Use [`Device::write_flush`] before calling this if you have written data prior to this call.
-+    pub fn set_baudrate(&self, speed: u32) -> Result<(), u32> {
-+        // SAFETY: `self.as_raw()` is guaranteed to be a pointer to a valid `serdev_device`.
-+        let ret = unsafe { bindings::serdev_device_set_baudrate(self.as_raw(), speed) };
-+        if ret == speed {
-+            Ok(())
-+        } else {
-+            Err(ret)
-+        }
-+    }
-+
-+    /// Set if flow control should be enabled.
-+    ///
-+    /// Use [`Device::write_flush`] before calling this if you have written data prior to this call.
-+    pub fn set_flow_control(&self, enable: bool) {
-+        // SAFETY: `self.as_raw()` is guaranteed to be a pointer to a valid `serdev_device`.
-+        unsafe { bindings::serdev_device_set_flow_control(self.as_raw(), enable) };
-+    }
-+
-+    /// Set parity to use.
-+    ///
-+    /// Use [`Device::write_flush`] before calling this if you have written data prior to this call.
-+    pub fn set_parity(&self, parity: Parity) -> Result {
-+        // SAFETY: `self.as_raw()` is guaranteed to be a pointer to a valid `serdev_device`.
-+        to_result(unsafe { bindings::serdev_device_set_parity(self.as_raw(), parity as u32) })
-+    }
-+
-+    /// Write data to the serial device until the controller has accepted all the data or has
-+    /// been interrupted by a timeout or signal.
-+    ///
-+    /// Note that any accepted data has only been buffered by the controller. Use
-+    /// [`Device::wait_until_sent`] to make sure the controller write buffer has actually been
-+    /// emptied.
-+    ///
-+    /// Returns the number of bytes written (less than `data.len()` if interrupted).
-+    /// [`kernel::error::code::ETIMEDOUT`] or [`kernel::error::code::ERESTARTSYS`] if interrupted
-+    /// before any bytes were written.
-+    pub fn write_all(&self, data: &[u8], timeout: Timeout) -> Result<usize> {
-+        // SAFETY:
-+        // - `self.as_raw()` is guaranteed to be a pointer to a valid `serdev_device`.
-+        // - `data.as_ptr()` is guaranteed to be a valid array pointer with the size of
-+        //   `data.len()`.
-+        let ret = unsafe {
-+            bindings::serdev_device_write(
-+                self.as_raw(),
-+                data.as_ptr(),
-+                data.len(),
-+                timeout.into_jiffies(),
-+            )
-+        };
-+        // CAST: negative return values are guaranteed to be between `-MAX_ERRNO` and `-1`,
-+        // which always fit into a `i32`.
-+        to_result(ret as i32).map(|()| ret.unsigned_abs())
-+    }
-+
-+    /// Write data to the serial device.
-+    ///
-+    /// If you want to write until the controller has accepted all the data, use
-+    /// [`Device::write_all`].
-+    ///
-+    /// Note that any accepted data has only been buffered by the controller. Use
-+    /// [ Device::wait_until_sent`] to make sure the controller write buffer has actually been
-+    /// emptied.
-+    ///
-+    /// Returns the number of bytes written (less than `data.len()` if not enough room in the
-+    /// write buffer).
-+    pub fn write(&self, data: &[u8]) -> Result<u32> {
-+        // SAFETY:
-+        // - `self.as_raw()` is guaranteed to be a pointer to a valid `serdev_device`.
-+        // - `data.as_ptr()` is guaranteed to be a valid array pointer with the size of
-+        //   `data.len()`.
-+        let ret =
-+            unsafe { bindings::serdev_device_write_buf(self.as_raw(), data.as_ptr(), data.len()) };
-+
-+        to_result(ret as i32).map(|()| ret.unsigned_abs())
-+    }
-+
-+    /// Send data to the serial device immediately.
-+    ///
-+    /// Note that this doesn't guarantee that the data has been transmitted.
-+    /// Use [`Device::wait_until_sent`] for this purpose.
-+    pub fn write_flush(&self) {
-+        // SAFETY: `self.as_raw()` is guaranteed to be a pointer to a valid `serdev_device`.
-+        unsafe { bindings::serdev_device_write_flush(self.as_raw()) };
-+    }
-+
-+    /// Wait for the data to be sent.
-+    ///
-+    /// After this function, the write buffer of the controller should be empty.
-+    pub fn wait_until_sent(&self, timeout: Timeout) {
-+        // SAFETY: `self.as_raw()` is guaranteed to be a pointer to a valid `serdev_device`.
-+        unsafe { bindings::serdev_device_wait_until_sent(self.as_raw(), timeout.into_jiffies()) };
-+    }
-+}
-+
-+// SAFETY: `serdev::Device` is a transparent wrapper of `struct serdev_device`.
-+// The offset is guaranteed to point to a valid device field inside `serdev::Device`.
-+unsafe impl<Ctx: device::DeviceContext> device::AsBusDevice<Ctx> for Device<Ctx> {
-+    const OFFSET: usize = offset_of!(bindings::serdev_device, dev);
-+}
-+
-+// SAFETY: `Device` is a transparent wrapper of a type that doesn't depend on `Device`'s generic
-+// argument.
-+kernel::impl_device_context_deref!(unsafe { Device });
-+kernel::impl_device_context_into_aref!(Device);
-+
-+// SAFETY: Instances of `Device` are always reference-counted.
-+unsafe impl AlwaysRefCounted for Device {
-+    fn inc_ref(&self) {
-+        self.as_ref().inc_ref();
-+    }
-+
-+    unsafe fn dec_ref(obj: NonNull<Self>) {
-+        // SAFETY: The safety requirements guarantee that the refcount is non-zero.
-+        unsafe { bindings::serdev_device_put(obj.cast().as_ptr()) }
-+    }
-+}
-+
-+impl<Ctx: device::DeviceContext> AsRef<device::Device<Ctx>> for Device<Ctx> {
-+    fn as_ref(&self) -> &device::Device<Ctx> {
-+        // SAFETY: By the type invariant of `Self`, `self.as_raw()` is a pointer to a valid
-+        // `struct serdev_device`.
-+        let dev = unsafe { &raw mut (*self.as_raw()).dev };
-+
-+        // SAFETY: `dev` points to a valid `struct device`.
-+        unsafe { device::Device::from_raw(dev) }
-+    }
-+}
-+
-+// SAFETY: A `Device` is always reference-counted and can be released from any thread.
-+unsafe impl Send for Device {}
-+
-+// SAFETY: `Device` can be shared among threads because all methods of `Device`
-+// (i.e. `Device<Normal>) are thread safe.
-+unsafe impl Sync for Device {}
-+
-+// SAFETY: Same as `Device<Normal>` -- the underlying `struct serdev_device` is the same;
-+// `Bound` is a zero-sized type-state marker that does not affect thread safety.
-+unsafe impl Sync for Device<device::Bound> {}
-
--- 
-2.53.0
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 
 
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_events.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+> index 44150a71f..9739214e2 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+> @@ -543,7 +543,7 @@ int kfd_criu_checkpoint_events(struct kfd_process *p,
+>          if (!num_events)
+>                  return 0;
+>
+> -       ev_privs = kvzalloc(num_events * sizeof(*ev_privs), GFP_KERNEL);
+> +       ev_privs = kvcalloc(num_events, sizeof(*ev_privs), GFP_KERNEL);
+>          if (!ev_privs)
+>                  return -ENOMEM;
+>
+> --
+> 2.54.0
+>
