@@ -4,146 +4,163 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6EABCD6E60
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 13:44:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 707E1CD6E55
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 13:47:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 092F810FC22;
-	Wed,  3 Jun 2026 13:44:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9990810FE70;
+	Wed,  3 Jun 2026 13:47:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EyyhwZTb";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SjSIKhVZ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YqhQySG0";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D5D710FC22
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 13:44:01 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65395qme780719
- for <dri-devel@lists.freedesktop.org>; Wed, 3 Jun 2026 13:44:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- kRbnU8V6Zsc+nav/FJky6GGhRnGxbQyRHCJCHQ8YEm0=; b=EyyhwZTbQfhFDZMd
- 7/4fMwTCUpSRhTNsWsHAyx8UwJfcKZIMQ4/sbAEpnkbOlhoUJvKrU3m/nGKyn5mG
- rSnp6b+aFYgaLyXIQZsfy0p73XLEmKHqgQJVSe4CNf1IL2ZH2BZfT0VZdw8yAQ2u
- 2qe4dGi/2pzYRIsbCkw8p8gWxLJAdlIz7PRyqJEzN0XIkosS0/k7uTzC1HrNn3ki
- vBV3JDExkb/BOU8kc6q1ZmOJ5OVpYxY1AwVdbUrQku1ZO2MkOmndJD73lqU/QRtM
- fxQuxERcwTum1w1uAJbJ2maUN57342AI6ICT5qZzpKAuV0frf2oeH8Hu15aw2X93
- IiT8vQ==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
- [209.85.217.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ejhbb11mg-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 03 Jun 2026 13:44:00 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id
- ada2fe7eead31-6c554284973so4986663137.2
- for <dri-devel@lists.freedesktop.org>; Wed, 03 Jun 2026 06:44:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1780494240; x=1781099040;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=kRbnU8V6Zsc+nav/FJky6GGhRnGxbQyRHCJCHQ8YEm0=;
- b=SjSIKhVZcCqrUKR4wLvaDT+w0qk9I3L0sdF2Lb8PTQ94lC2sSnnR923Qdc+bm14RWW
- ekx8fbKbX+qsPydQ2ySgLUNgExCfB9oAHpxlQbXiasEGOBPlSJ4zLo6fEBt2Rp7rj0uA
- ImQ5vpGHU1/fnc53Zitaoqzte6peLdOpwcfk+o5TvxotQBT7FsOZyCOVqbQFNt8PiuCV
- F/m0sOP/GX5IEqyPNOAK9bxKhZeYOrd59OvXD0rSoLhloQYlk8cN6x2vlQULkZE82UF6
- xfZxWmSbJ0pONAHDz7r7P49n2sAbv2JnlBhIFwFl/VnzTQuGBJK66OEWl5UFLjUhxQbD
- tTXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780494240; x=1781099040;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kRbnU8V6Zsc+nav/FJky6GGhRnGxbQyRHCJCHQ8YEm0=;
- b=HISN3j9pc6Z93zS3DRMfSqoe/dpma9sXqkBusUMmgeIwt+f1i8paww2kb5LmlAasSA
- HNgcI2PTEN8xYFPUh/1nwGdcHtliGKCbyXQrky00mcS+v5A/kN97AlBbvcS2H/WyBrK6
- Tm+i4RvytgzpQBqEFffDASvTObkiBJ2tj937KJoJesiS5KlkMCNK2PDsTnI3V/c/qaaj
- 5oBXbkb9XSOV3UtXCUqQSpvYLwlgCMLuCm3PJSFKlwDXL0Y1XvbzqZoyWZsOBDwFc4z6
- V1X/yL+pHzXDfd6OWhz0k8OOpTETEJ6AUNTzZqnTXsYeZhjV+okba+isLnPCk8EyXTHn
- 6wdQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8Kktzz8jFjMNc4v3e8ZfqqMlrbEUIepYFp8jHx16vrYrvZNO6tNCjx9tC1RNyaQ5kMswD2gPpNFsU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzJ2cfsy8B4FZtD9uHztP1K9PvaZlLwOsIO+w6AK95NWP2CtvMQ
- ob5AewfgNti07BqziyPiPxg9q+oRn2iTAzoX4a9V0ZTadd2VfIz80XBVoIsAk6+7AXYvDd9DwM9
- xsnKWsXMiD6e1ks2ENQ9Xw1nnyxK9aW5aRnyeJf6IRf7uROjlhjD7NjSA4TBZkq8CdlYO7gM=
-X-Gm-Gg: Acq92OH7xe9tI2JzZpH3epSWPpPjx6vZsadvv37fhJMjaSFIbqsnygLFhhHelXiX2Dg
- 9nWwXabX4jHg3sOq/yfKXigEhffNIqsmbp15keUCW94MJuEgU/SmiTgsG8PnSSHLanCJ4pkUzcY
- iuECU2GRTvi0ox/YXfAcuvCqtlYTi09XyF+G7E2ccdsdcX2tdRAdXdKqaOqNFg0bsUJemYb0UZi
- RXxk004PAHpAYwYr1BBC+HWaQ+hSOV/1nlMIBUU+CPyF8dHvjAHZPlwrbLmwmqTM9j+VQ1LFc5Y
- ydAm97nGRJnVl93Ljevmw2Tl1rcg758UiISKg1pdhpHHC3Rhi450J0RamGvEW90FNgx0EYKYkPv
- wANuVmaA1HL5LqcG1prIhEiCO9jAjzUOcxDGj9mP5CBLpSSkK5wIuy0vzMmxbDk1ZmdUMfgaCjc
- Vxi4Cjf1ahbkNW7AXKbOrw+02QRL3alL6nXwERIZvZ+J3QLg==
-X-Received: by 2002:a05:6102:dd0:b0:631:2973:5c2c with SMTP id
- ada2fe7eead31-6ec469592aamr1534043137.21.1780494239469; 
- Wed, 03 Jun 2026 06:43:59 -0700 (PDT)
-X-Received: by 2002:a05:6102:dd0:b0:631:2973:5c2c with SMTP id
- ada2fe7eead31-6ec469592aamr1533992137.21.1780494238918; 
- Wed, 03 Jun 2026 06:43:58 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-396ac2ed56fsm9210311fa.37.2026.06.03.06.43.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Jun 2026 06:43:58 -0700 (PDT)
-Date: Wed, 3 Jun 2026 16:43:56 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>, srini@kernel.org,
- andersson@kernel.org, konradybcio@kernel.org,
- robin.clark@oss.qualcomm.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Subject: Re: [PATCH 08/15] accel/qda: Add QUERY IOCTL and QDA UAPI header
-Message-ID: <2ztwmdejpkp3f3naz3g2fkjkpd6iomlb34bqnpnp6bhzn27vbb@wnd3fjcz6tgx>
-References: <20260519-qda-series-v1-0-b2d984c297f8@oss.qualcomm.com>
- <20260519-qda-series-v1-8-b2d984c297f8@oss.qualcomm.com>
- <m4zo2nkxtl5yeyo7riuata6r5saflmdgqf37cz2g2ezrwhk53m@mnad6bb7n3ik>
- <b5c9d149-1a48-4c0d-aa0d-9ad331896f47@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 396D310FE70;
+ Wed,  3 Jun 2026 13:47:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780494466; x=1812030466;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=wJLxj+t3vPUrWwGiF3M/tgt4pphxhaOGoxlazz4gkhw=;
+ b=YqhQySG0bms+EIYzVBNRHiI4a1oIdkTQ1uQTsFtXTxm4Hti/C1z6AEg3
+ defRYMOaW4w/RKKNJinY2Z0sXGDVXtnXSaHEE199HwyGEtjc44ZmPs6nh
+ nRXZcEMTquopn6HHeAzvq5QaquxDn3oDAQdoldqYIXsyw8bdhBuBCG+L6
+ 5AYjN2PmJ2X1++Hg+9dJO3ITHnXwRA9Q8CIcAxL0bobQ2KURTabfM5DvN
+ RmGCQ1QbBWNYwnrpwqY4jgmyFEsdwOyzyS60Q9zDI630J/K/nHLJXGIXO
+ Mf9jKADcLjhlx63TwOYTdDN/RT/1/GVA+SF+xLuiRxFvujHVxsyQGgXF7 A==;
+X-CSE-ConnectionGUID: v8OgYOdNQzG3j4DeB+EVnA==
+X-CSE-MsgGUID: 4aPtVkHsRlmyouJ5uAj5nQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="81364748"
+X-IronPort-AV: E=Sophos;i="6.24,185,1774335600"; d="scan'208";a="81364748"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2026 06:47:46 -0700
+X-CSE-ConnectionGUID: jF0dyWvuRpCUbKQpS+QjcQ==
+X-CSE-MsgGUID: vCksp7kcTyOK5zIwIFJzJQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,185,1774335600"; d="scan'208";a="248553315"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2026 06:47:45 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 3 Jun 2026 06:47:43 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Wed, 3 Jun 2026 06:47:43 -0700
+Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.66) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 3 Jun 2026 06:47:43 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aRzFJL9EN4JOThL4/LSpwd4i23IY+hA7bn6m8a3HwX+DhSKUiWgQV5rr8GcFUOFy31AkFOZiIMlK7FsmkQKKZVHeghgl1TsgHtjORvs+SKc+z1rS1OGT/8m2HucSJCmKriFMe2qMMpeYb5QjvC3dkHwf8mEi2Uv+Vc013II93QAEXU3N3Le1kTwgDF42FmVbpZYQ6PslUXqmH0D0PxXgAMv6bQlihTcp+djrAaccmugxiq3jlwZaPRueE5vrYuibMBRsWBVTiz6Y8D/2CWKsmDzea9mi+0oMVi7bQJDEu0NXmwzgedOKdnuFgNkY4Dwuk6IF3P4mExOkLUcKiEle4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=H4JQPl8YLmRUbkYrY15T0zWk/2lt8puP5BzgKiUDX9Y=;
+ b=qNKRMn+5R8IXfDA+8x+vyQyGQOpddGpH/dLiN7R3QXyd/71/YDDLqOIm+dNxBLwls8O0y7jBPMseL35NN1Fjjpa4fbVlg2TD4rDAIUk6I3o1I8AvgV2YnXG+Nf73LWiJqSCX1rnE4fCkFKPgiUldshAl4aCbXmnqL9z7ypnmGrw5/Mxx7w+8tgYWiwvqURrH/BbSjpWEp1gX8/AMEPXRB6vvRZKkL4gGVq8s86L6oT0BaFeoOJTi+mI1yIWdBUu9LtyHDTWMeg31nQYuvHVSefP/OQNAY3yH+18aNguyNNxQIRid9g43uIfsAJRugeza7iz5+sLEeC8VGhAxcYGMJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB5073.namprd11.prod.outlook.com (2603:10b6:303:92::23)
+ by DM4PR11MB7208.namprd11.prod.outlook.com (2603:10b6:8:110::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
+ 13:47:36 +0000
+Received: from CO1PR11MB5073.namprd11.prod.outlook.com
+ ([fe80::a153:939c:df8c:f4fe]) by CO1PR11MB5073.namprd11.prod.outlook.com
+ ([fe80::a153:939c:df8c:f4fe%4]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
+ 13:47:36 +0000
+Date: Wed, 3 Jun 2026 09:47:30 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Sanjay Yadav <sanjay.kumar.yadav@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <nirmoy.das@intel.com>, <umesh.nerlige.ramappa@intel.com>,
+ <thomas.hellstrom@linux.intel.com>, <matthew.brost@intel.com>,
+ <niranjana.vishwanathapura@intel.com>, <thomas.hellstrom@intel.com>,
+ <fei.yang@intel.com>, <himal.prasad.ghimiray@intel.com>,
+ <matthew.d.roper@intel.com>, <maarten.lankhorst@intel.com>,
+ <joonas.lahtinen@intel.com>, <matthew.auld@intel.com>,
+ <stable@vger.kernel.org>
+Subject: Re: [RFC PATCH 2/3] drm/sched: fix drm_sched_tdr_queue_imm to not
+ corrupt timeout value
+Message-ID: <aiAwcnWbsxUIMKbI@intel.com>
+References: <20260603120641.473434-4-sanjay.kumar.yadav@intel.com>
+ <20260603120641.473434-5-sanjay.kumar.yadav@intel.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <b5c9d149-1a48-4c0d-aa0d-9ad331896f47@oss.qualcomm.com>
-X-Proofpoint-GUID: LJrow3Hb1wzN9ox-Z0F6Hiw5_q5q6oh1
-X-Authority-Analysis: v=2.4 cv=R74z39RX c=1 sm=1 tr=0 ts=6a202fa0 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=LflQWrLztFwobrB7iZEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-ORIG-GUID: LJrow3Hb1wzN9ox-Z0F6Hiw5_q5q6oh1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAzMDEzMSBTYWx0ZWRfX0JTes69DQfnU
- eBaQzQj8iMGrX3hvaJ3jkN3FFSflesIVrvCuFqLRCAasP030n23cH+f3Q+9VTPwjUJIlh85lmUd
- 3yQLrWuv/nAS64EETLxd+V1po606J+U8d1MOoJrN60IXiQiC0Ad3kLEI2J/RZYfeXVexJAIJeXe
- rJzHnv0TeDH8OHL7PKHrc+lF9tS3YlFIVhDqXoxkrggDInr6xvJKkuRKUr54hko5uzx2O8Ynf/J
- Cj8xDChc9NOSUHrRmiKPtCRJHWWMtR+JvI7KJkV+zcebdkm3CAv6vn9yNeCb7izc3nRimRtkzTq
- MSwFHCfSAhj0Q8q3qi0IsXDeOitiK7nCW0B/0BVGqPlphGYDF/ZCCj6qVaJDwabBuYBKJoTRlvj
- 2w0pmVS9k20BjX3Coptb5zIDub8qpOVnaNrwf+vGczoX67xA+1N+uSPLlPfoUswhKiCEQHuAmrj
- W+35oEWpVBbUoNuC7ZQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-03_04,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0
- priorityscore=1501 malwarescore=0 adultscore=0 phishscore=0 bulkscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606030131
+In-Reply-To: <20260603120641.473434-5-sanjay.kumar.yadav@intel.com>
+X-ClientProxiedBy: SJ0PR13CA0078.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c4::23) To CO1PR11MB5073.namprd11.prod.outlook.com
+ (2603:10b6:303:92::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB5073:EE_|DM4PR11MB7208:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4887ce9e-0f03-4e7f-2645-08dec176ab5a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|22082099003|18002099003|4143699003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: LjYqECUaUBacxs89Qo7kocX0JvSxrEnkdcHoahBtTLcHdynv2gRYMt0IMcmheC/hjHkLJ2I33oe+no+P4kN7Shayovh7OmPdTCFNf3AMpPiNrhX27CVee7CVQlfLyuua4+5r42RwyObcz7l5x5DzSB7Wqcia/EczTnL4l5NSmQqwaSjTdGuLemtQ8/y9YPMLJPqDqmIO6e6idAMkIMs20zGUj2hlK5ruwrxWsxuj2tzFHOlPPU8Kyq6sHTFWLBeRb3MdeHGIzcnOBTqM/UTgcOMhxkfVAimCgwgRajKz76LuhWurUa/VklszADw/YFxVIpq7SZT07ycd8nuRjkyLED+Z0+KXxmhQxhDv8u0wYQpqR6RuITotCBlzBqghefqCLg9I/2YY0v4tJ9cdKk/bORF7NzU/4GpYDOuKd/I/Gx+BenkV3ArnFbO6L6/YdPclyxGZj1GwmgrrPL45FZdGpu9iTy4CDAczQLHYh2+3G5y3OhYEm6ajMxp+zgl7yxzKoAZzp1obIN4FC5LEk4pHxD1WCu7nYbTLBayK280Y8HatUdLdJJ7eONJ9dUatlLUCfirwMKpM4SsCCOihlMDuDf1zhgrl89F5DulHWlVnA6KMaeT4LVdH40COueID0MJCgzR5Iz6eb2KtacypgwUn0esLu1l2DFyxteePxVFftkoq+B628uHncX2pEhN1z6jN
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB5073.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(18002099003)(4143699003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cUZPMWs5Sk1yMmxRMXZXNzlKdExFd2JQM2NyV2hoSUZkb2Q0Y09RblRIRnk5?=
+ =?utf-8?B?c3pVdCtsemp6S2tPS2tQc3BwTnpjOUJzYU5xSlh3QXlWOGRERURNZUFGc1JW?=
+ =?utf-8?B?aldBaTMxUndlSWlvT2U0SEZJc0lFZ25mTzZCN1dxVnExZFR1RHFnTk9oYitF?=
+ =?utf-8?B?MkRERW9Dck5mQ0lhSVFaYVFwRCtaTDNGYmRoa0dmUWgxeTA2WjNSZkF1dFBx?=
+ =?utf-8?B?OWtIOVBxVW1hY0ZMWWpQUVpyK1YxV1BmV3RkazNPMnpiUlFDUG1OUFRGT2ZH?=
+ =?utf-8?B?bFM1T0FBRlM5WG1TN25rSXRaeEpxSGpsbFBYTEFkaERtVHNIRWcwZWZwd3pn?=
+ =?utf-8?B?Y0RsZXNUeFkxSVBnMk9QclFCM1NJekZ2UjNaVzYrUTBLSytLeFRsVmNYcXN2?=
+ =?utf-8?B?Mk5OcHN1N2d3TlVIK28vcStxNUtVTHZxdVU0d0diSWdaWDNlaGRJaEZmS2Nw?=
+ =?utf-8?B?TVlhV1QrZ3VHaHJKRmFzLzFocmRENjQ3YWRPNzFleHRNUUNlcUMrSmRHaWU3?=
+ =?utf-8?B?dHVDRnF1RU5MTEp6V2lWZlZJQUNYeUJocm54eTBLaUlyUHA2T0VmcFQzTW5P?=
+ =?utf-8?B?SnFtY1V5NHZQNzJGeGVja3NiNkkvd3RIa0xhRitET1JMaWZBYUlNWi9COWhV?=
+ =?utf-8?B?OVd4Nys5TmF3U0o0cUlBRGI1b3dkR0hlZjh4ZlV3MWpYVThEbnYxWTFTK094?=
+ =?utf-8?B?dmNyZnpHKzdYTys2bVR5ckJkY2pJUUg4cTFGSGxScGhaeWI0aGVnOFFvc2My?=
+ =?utf-8?B?YXN5Wi93Y3p2R0xPbUtBcFY5TzZxZVJIeG02WnFsVjJ3VGZyOWEwenh5ZFBx?=
+ =?utf-8?B?eXpxdW5uS2prKzNwdE1iS1c4TkhwdkEycG4wemowUCtsU1lCNGxBa3hXVU94?=
+ =?utf-8?B?Z3hjbUJSa2Z3QncxVGdrc3E2ck5DMG5uWERkZ2l5ODR1c0U0OHR6LzJLdUhI?=
+ =?utf-8?B?bjVLR1JkVkk1Y2Vzc1A0SFpJWEtWOEJCQUJtd1cxRTBLODhGeVF2VGZKRWxO?=
+ =?utf-8?B?UmdTV3k3QWRsMjd3eFdOYjRvLzlnNXZiQ1BUd1ZlVHJEZ1dXbFVjSnFvZlpK?=
+ =?utf-8?B?cXBGR2F5Tm15bEkzb01DVzVtdXpWSjZmVGNUVjFKU2J0UjlDSDgzRnVTdFVJ?=
+ =?utf-8?B?eHZ1NDJTQU1qbnQ5SWl4TktpOHhpTVN3MjVHTjN1NkNuN3FCbFNCUS91ajNE?=
+ =?utf-8?B?RzBmb0c4dTZhdmhoNEZJdFlvTGZ2VGZlcW0vdXlpNUdxQStRN3g1WWwyMzFT?=
+ =?utf-8?B?eGhiRzNqWW5PNmFwV3pMMm1PV0pid2NwN2hxUmFOclppQTRBdHpTdHZpamQy?=
+ =?utf-8?B?ZWFZZTdxZjRGSUQ2V3BmeGVORzBUcGcyS3ZBYzBrWENiQXRWbTJKZE5vTTNj?=
+ =?utf-8?B?d0dTcFF6RVlIQVRMMGhacGJXU2tKeXUwUlBMQTgrWVhlbnQ5RWdEQmRyeDV0?=
+ =?utf-8?B?b0xFRjJuazVzbmRRKy9ZNnpGa0lKdTRxODd3NGxMSmJTWW1FYTVCbk5pKzJk?=
+ =?utf-8?B?TzZFWXYwaTNmQlQ5WTR1RXlDeDBTMG0vUnprZVhueW5Gb2FmUHdvTmIrUEQ5?=
+ =?utf-8?B?WjNlblJkcG9QSWVBaHZ4eGRBVFlIcmJ6aTl2MXZGaFJHU1g4RFhUK3dyTmhQ?=
+ =?utf-8?B?RHBpVTNjZCs1eFdlcnZvS1NJNmN5TnZ1YjBtTm8zaHUyeXc4eWx3Yzl6WllN?=
+ =?utf-8?B?TmsxZjF1ckgzK2oybEhYWFg2L0FuenNnUkZkNVBVZVc2SU9SNWtTY2U3dDQx?=
+ =?utf-8?B?MktCT2RGalduVjgvck1QMnkrUkh6M1VwVS9ER3BHN1N5Uk42UytlV2FwY3E3?=
+ =?utf-8?B?Z2VCT1dxWng3RFM0clNxRzZ4UVJBaFNKa2ZXSnlJd1VWcnFOZ2ptVXg4bFYx?=
+ =?utf-8?B?M0VnZmtWVEVWYWFDL2NTRUdkaGIrV1B2bFkyT3Mxb0JhWUozL1dQRjg4anBL?=
+ =?utf-8?B?NHJTenJNN3FDb3FSamlKbXU2TjFHUDA0QkRaUTdDcTBhWU4zc2g4SVcvc3N6?=
+ =?utf-8?B?QVdoN0o0Q0p2a0ZRMVNxYTF2ZlpnRHRHSm9sZG10T3cwbmFTeWhkbGlUNHBp?=
+ =?utf-8?B?WGppNzk0UWtjWUt2eTRoWW5rZjgxRVd2dkhvVWI5WVkxMjhTeHAzMzN2TkpQ?=
+ =?utf-8?B?b0I3b1lQbERGMkU5YTFPa0dPMGxjbVB6Mm41YXhvMGF1N3d6YkZyS3Q5bk5F?=
+ =?utf-8?B?SlpTMEU0Zy9iWTJVdnlycnlCeFF3QnM4d1BMeVU0a0h4MFd4UzkyZDV4SHJo?=
+ =?utf-8?B?TWhOZlhhYy83aFAzcEZQdXZvVVI1YXhKMy9CaEtxRWdCcEhqbElkRVVpMURH?=
+ =?utf-8?B?b01Ed01weXdONmk1SkNBUTIxYzc0b0JzeFFPQTdoVzVGdEdFaHdVZz09?=
+X-Exchange-RoutingPolicyChecked: Ur10joVxROw0Sh9yW/F7YbSY1gBKqrN5xJHApUgi41AZxHD/uaxehy2oN67/9scsMT1hYyIZtx7qzfr018j3sdVaD/XCRSzAGW8MRrkFrxVTKQNRtOfDW/lhT5SHEr951xBXEk7x6y3zeyyQpzFP2UMFvzbxcGrm7Or7Qu5wk0DjY8OglttzDU2p0kLYBup+Xjw69AH3MrEwkEDiW5Wev3mnAKtXtG1WRdrUwLZEvXL82J8J2aNH+lWRQfDef1fUjcbF4fbpKOMOEd9NjwHdaM+b9l2tGMGhCAXO/QkhzxyhvzWnehR6b+uItALIvepL3WTLfwRXQ4cT9qFBA1flUg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4887ce9e-0f03-4e7f-2645-08dec176ab5a
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5073.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 13:47:36.0340 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: w7RBzhoDKaK3/rth2Qv11tSQOsGrWBgkfI2xPBV6z2RAZ16nbAfGC1b5dTcjIO/+b10WwtvByt91CHxP/4fD+A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB7208
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,219 +176,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 03, 2026 at 11:21:43AM +0530, Ekansh Gupta wrote:
-> On 20-05-2026 19:59, Dmitry Baryshkov wrote:
-> > On Tue, May 19, 2026 at 11:45:58AM +0530, Ekansh Gupta via B4 Relay wrote:
-> >> From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> >>
-> >> Introduce the DRM_IOCTL_QDA_QUERY IOCTL, which allows user-space to
-> >> identify which DSP domain a given /dev/accel/accel* node represents
-> >> (e.g. "cdsp", "adsp").
-> >>
-> >> include/uapi/drm/qda_accel.h
-> >>   Defines the QDA IOCTL command numbers and the associated data
-> >>   structures. The header follows the standard DRM UAPI conventions:
-> >>   __u8/__u32 types, a C++ extern "C" guard, and GPL-2.0-only WITH
-> >>   Linux-syscall-note licensing.
-> >>
-> >> drivers/accel/qda/qda_ioctl.c / qda_ioctl.h
-> >>   Implements qda_ioctl_query(), which copies the DSP domain name
-> >>   stored in qda_dev.dsp_name into the user-supplied drm_qda_query
-> >>   buffer using strscpy().
-> >>
-> >> drivers/accel/qda/qda_drv.c
-> >>   Registers the qda_ioctls[] table with the drm_driver so that the
-> >>   DRM core dispatches DRM_IOCTL_QDA_QUERY to qda_ioctl_query().
-> >>
-> >> Assisted-by: Claude:claude-4-6-sonnet
-> >> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> >> ---
-> >>  drivers/accel/qda/Makefile    |  1 +
-> >>  drivers/accel/qda/qda_drv.c   |  8 +++++++
-> >>  drivers/accel/qda/qda_ioctl.c | 26 +++++++++++++++++++++++
-> >>  drivers/accel/qda/qda_ioctl.h | 13 ++++++++++++
-> >>  include/uapi/drm/qda_accel.h  | 49 +++++++++++++++++++++++++++++++++++++++++++
-> >>  5 files changed, 97 insertions(+)
-> >>
-> >> diff --git a/drivers/accel/qda/Makefile b/drivers/accel/qda/Makefile
-> >> index 701fad5ffb50..b658dad35fee 100644
-> >> --- a/drivers/accel/qda/Makefile
-> >> +++ b/drivers/accel/qda/Makefile
-> >> @@ -8,6 +8,7 @@ obj-$(CONFIG_DRM_ACCEL_QDA)	:= qda.o
-> >>  qda-y := \
-> >>  	qda_cb.o \
-> >>  	qda_drv.o \
-> >> +	qda_ioctl.o \
-> >>  	qda_memory_manager.o \
-> >>  	qda_rpmsg.o
-> >>  
-> >> diff --git a/drivers/accel/qda/qda_drv.c b/drivers/accel/qda/qda_drv.c
-> >> index 0ad5d9873d7e..becd831d10be 100644
-> >> --- a/drivers/accel/qda/qda_drv.c
-> >> +++ b/drivers/accel/qda/qda_drv.c
-> >> @@ -8,8 +8,10 @@
-> >>  #include <drm/drm_gem.h>
-> >>  #include <drm/drm_ioctl.h>
-> >>  #include <drm/drm_print.h>
-> >> +#include <drm/qda_accel.h>
-> >>  
-> >>  #include "qda_drv.h"
-> >> +#include "qda_ioctl.h"
-> >>  #include "qda_rpmsg.h"
-> >>  
-> >>  static int qda_open(struct drm_device *dev, struct drm_file *file)
-> >> @@ -36,11 +38,17 @@ static void qda_postclose(struct drm_device *dev, struct drm_file *file)
-> >>  
-> >>  DEFINE_DRM_ACCEL_FOPS(qda_accel_fops);
-> >>  
-> >> +static const struct drm_ioctl_desc qda_ioctls[] = {
-> >> +	DRM_IOCTL_DEF_DRV(QDA_QUERY, qda_ioctl_query, 0),
-> >> +};
-> >> +
-> >>  static const struct drm_driver qda_drm_driver = {
-> >>  	.driver_features = DRIVER_COMPUTE_ACCEL,
-> >>  	.fops = &qda_accel_fops,
-> >>  	.open = qda_open,
-> >>  	.postclose = qda_postclose,
-> >> +	.ioctls = qda_ioctls,
-> >> +	.num_ioctls = ARRAY_SIZE(qda_ioctls),
-> >>  	.name = QDA_DRIVER_NAME,
-> >>  	.desc = "Qualcomm DSP Accelerator Driver",
-> >>  };
-> >> diff --git a/drivers/accel/qda/qda_ioctl.c b/drivers/accel/qda/qda_ioctl.c
-> >> new file mode 100644
-> >> index 000000000000..761d3567c33f
-> >> --- /dev/null
-> >> +++ b/drivers/accel/qda/qda_ioctl.c
-> >> @@ -0,0 +1,26 @@
-> >> +// SPDX-License-Identifier: GPL-2.0-only
-> >> +// Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> >> +#include <drm/drm_ioctl.h>
-> >> +#include <drm/qda_accel.h>
-> >> +#include "qda_drv.h"
-> >> +#include "qda_ioctl.h"
-> >> +
-> >> +/**
-> >> + * qda_ioctl_query() - Query DSP device information
-> >> + * @dev: DRM device structure
-> >> + * @data: User-space data (struct drm_qda_query)
-> >> + * @file_priv: DRM file private data
-> >> + *
-> >> + * Return: 0 on success, negative error code on failure
-> >> + */
-> >> +int qda_ioctl_query(struct drm_device *dev, void *data, struct drm_file *file_priv)
-> >> +{
-> >> +	struct drm_qda_query *args = data;
-> >> +	struct qda_dev *qdev;
-> >> +
-> >> +	qdev = qda_dev_from_drm(dev);
-> >> +
-> >> +	strscpy(args->dsp_name, qdev->dsp_name, sizeof(args->dsp_name));
-> >> +
-> >> +	return 0;
-> >> +}
-> >> diff --git a/drivers/accel/qda/qda_ioctl.h b/drivers/accel/qda/qda_ioctl.h
-> >> new file mode 100644
-> >> index 000000000000..b8fd536a111f
-> >> --- /dev/null
-> >> +++ b/drivers/accel/qda/qda_ioctl.h
-> >> @@ -0,0 +1,13 @@
-> >> +/* SPDX-License-Identifier: GPL-2.0-only */
-> >> +/*
-> >> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> >> + */
-> >> +
-> >> +#ifndef __QDA_IOCTL_H__
-> >> +#define __QDA_IOCTL_H__
-> >> +
-> >> +#include "qda_drv.h"
-> >> +
-> >> +int qda_ioctl_query(struct drm_device *dev, void *data, struct drm_file *file_priv);
-> >> +
-> >> +#endif /* __QDA_IOCTL_H__ */
-> >> diff --git a/include/uapi/drm/qda_accel.h b/include/uapi/drm/qda_accel.h
-> >> new file mode 100644
-> >> index 000000000000..1971a4263065
-> >> --- /dev/null
-> >> +++ b/include/uapi/drm/qda_accel.h
-> >> @@ -0,0 +1,49 @@
-> >> +/* SPDX-License-Identifier: GPL-2.0-only WITH Linux-syscall-note */
-> >> +/*
-> >> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> >> + */
-> >> +
-> >> +#ifndef __QDA_ACCEL_H__
-> >> +#define __QDA_ACCEL_H__
-> >> +
-> >> +#include "drm.h"
-> >> +
-> >> +#if defined(__cplusplus)
-> >> +extern "C" {
-> >> +#endif
-> >> +
-> >> +/*
-> >> + * QDA IOCTL command numbers
-> >> + *
-> >> + * These define the command numbers for QDA-specific IOCTLs.
-> >> + * They are used with DRM_COMMAND_BASE to create the full IOCTL numbers.
-> >> + */
-> >> +#define DRM_QDA_QUERY		0x00
-> >> +
-> >> +/*
-> >> + * QDA IOCTL definitions
-> >> + *
-> >> + * These macros define the actual IOCTL numbers used by userspace applications.
-> >> + * They combine the command numbers with DRM_COMMAND_BASE and specify the
-> >> + * data structure and direction (read/write) for each IOCTL.
-> >> + */
-> >> +#define DRM_IOCTL_QDA_QUERY		DRM_IOR(DRM_COMMAND_BASE + DRM_QDA_QUERY, \
-> >> +					 struct drm_qda_query)
-> >> +
-> >> +/**
-> >> + * struct drm_qda_query - Device information query structure
-> >> + * @dsp_name: Name of DSP (e.g., "adsp", "cdsp", "cdsp1", "gdsp0", "gdsp1")
-> >> + *
-> >> + * This structure is used with DRM_IOCTL_QDA_QUERY to query device type,
-> >> + * allowing userspace to identify which DSP a device node represents. The
-> >> + * kernel provides the DSP name directly as a null-terminated string.
-> >> + */
-> >> +struct drm_qda_query {
-> >> +	__u8 dsp_name[16];
-> > 
-> > Are you sure that you want to query only the name? No extra options, no
-> > attributes, no hardware capabilities?
-> There are plans to extend this ioctl to support DSP capabilities and few
-> other query options, but as per my understanding, I don't need to add
-> reserved IOCTLs in drm case and I can extend it in future. Please
-> correct me if my understanding is wrong and I should add reserved fields.
+On Wed, Jun 03, 2026 at 05:36:41PM +0530, Sanjay Yadav wrote:
+> drm_sched_tdr_queue_imm() sets sched->timeout to 0 and never restores
+> it. This breaks all future TDR timers — jobs get timed out instantly
+> before they even start running on hardware.
 > 
-> Copying the statement from the doc[1].
-> "Note that drm_ioctl() automatically zero-extends structures, hence make
-> sure you can add more stuff at the end, i.e. don’t put a variable sized
-> array there."
+> Use mod_delayed_work() directly to fire the TDR worker immediately
+> without modifying the timeout field. This preserves the original
+> timeout value for subsequent job submissions.
+> 
+> Fixes: 8ec5a4e5ce97 ("drm/xe: Resume TDR after GT reset")
+> Cc: <stable@vger.kernel.org> # v6.13+
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Assisted-by: Claude:claude-opus-4.6
+> Suggested-by: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+> Signed-off-by: Sanjay Yadav <sanjay.kumar.yadav@intel.com>
+> ---
+>  drivers/gpu/drm/scheduler/sched_main.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+> index 818d3d4434b5..be144e244745 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -212,8 +212,8 @@ static void drm_sched_start_timeout_unlocked(struct drm_gpu_scheduler *sched)
+>  void drm_sched_tdr_queue_imm(struct drm_gpu_scheduler *sched)
+>  {
+>  	spin_lock(&sched->job_list_lock);
+> -	sched->timeout = 0;
+> -	drm_sched_start_timeout(sched);
+> +	if (!list_empty(&sched->pending_list))
+> +		mod_delayed_work(sched->timeout_wq, &sched->work_tdr, 0);
 
-I'd rather have a query type as an input here, to be able to return one
-of querried params.
+No, please. If there's something wrong with the timeout clear we need
+to get that fixed at the drm layer instead of doing our own.
 
+>  	spin_unlock(&sched->job_list_lock);
+>  }
+>  EXPORT_SYMBOL(drm_sched_tdr_queue_imm);
+> -- 
+> 2.52.0
 > 
-> [1]
-> https://www.kernel.org/doc/html/v7.0/gpu/drm-uapi.html#ioctl-support-on-device-nodes>
-> 
-> >> +};
-> >> +
-> >> +#if defined(__cplusplus)
-> >> +}
-> >> +#endif
-> >> +
-> >> +#endif /* __QDA_ACCEL_H__ */
-> >>
-> >> -- 
-> >> 2.34.1
-> >>
-> >>
-> > 
-> 
-
--- 
-With best wishes
-Dmitry
