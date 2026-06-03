@@ -4,64 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2759CD6E4A
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 07:49:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0209FCD6E55
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 07:55:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D48CC10F98C;
-	Wed,  3 Jun 2026 07:49:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6993010F9A7;
+	Wed,  3 Jun 2026 07:55:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YUHtBAje";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Sn5Pe0xP";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25EE510F98C
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 07:49:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780472958; x=1812008958;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=YJk+GNWjFh/CK4jio5r8wPylzH3wGu9XWpulsn/tGw0=;
- b=YUHtBAjeoJ0ubyHwg2X1iWNF1oS68CcPkidsPuJi3Lu3hiJT//b2IKBI
- UDqtuiUYIJSjTmKEjR+lja3h/KsF90yBOGsTxvpMrsyS7P26hj+pekrXr
- pHr/hkXzgWfKLcBmiy9do5EG/xJ3ld7z7naa146WOsGFISwgFePxA2yJf
- 0oc41WwdlIyefGXzPbZIpgYu3ATigq/99e6bUYknS7kBEd9swVf1muytw
- oAadcLX744N6xKAlUB8lhVOyJmRNEnN8jW+mKPOpGligoYF0RzUOc372E
- /+bH6sdRXGTaAnL4hW5wgKEoOTRaEn/cFmQauXlxIHr/pcfkDZbusXHXc g==;
-X-CSE-ConnectionGUID: 2Cl7dF5/QAScMs0fP1AEDQ==
-X-CSE-MsgGUID: gF6x1O65SUOiIJIJg4+cIA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="81268658"
-X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; d="scan'208";a="81268658"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2026 00:49:17 -0700
-X-CSE-ConnectionGUID: PCLuX4qET0+zXvW9H90qYQ==
-X-CSE-MsgGUID: Gl7WtXZgSPOGLNVeHVWrUQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; d="scan'208";a="237790888"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.116])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2026 00:49:13 -0700
-Date: Wed, 3 Jun 2026 10:49:11 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Dan Carpenter <error27@gmail.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>,
- Andy Shevchenko <andy@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
- Chintan Patel <chintanlike@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
- kernel-janitors@vger.kernel.org
-Subject: Re: [PATCH] staging: fbtft: Use sysfs_emit_at() to print to sysfs file
-Message-ID: <ah_cd9Ax4fzOhBp7@ashevche-desk.local>
-References: <ah_Y_Y2RtqeGxchF@stanley.mountain>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A306310F9AB
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 07:55:56 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3ACFD43619;
+ Wed,  3 Jun 2026 07:55:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B08A1F00893;
+ Wed,  3 Jun 2026 07:55:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780473356;
+ bh=Wg1auuZ/RkyM9q0wfkNZ3VMopVIX7IMAew2IYgKpP5w=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Sn5Pe0xPJeO+JuLwuZga6++aBXw58UhF6Y7VAzCe36GaKUKbDDzDxT9znismE+yiX
+ WrbAveA5YXDL5e3yRUNuehGPpBV9mr5gQEsEG1h8+1or0B8K3qfQlg86JU+KpM9rOT
+ SzPIkElTzH1PMgPQhXMCvLVZONIE3+o5VtIkPG7c+uU9Ez5LTCScgNJQCZMAmUsHeA
+ BzJHOlCZiELKTih6yoEHa3uNyuR4gMJ0p5TF+rumjiYSXfqhh2vI+2vTYzu9ZceKrC
+ ulyJQulTobUty11LzpfxP2hMBMl3vuy0jHB1Yn89UdHP+MZ0+lahovoVv/PZJaBiEt
+ MDpBKoxBgZpRA==
+Date: Wed, 3 Jun 2026 09:55:51 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Sandy Huang <hjc@rock-chips.com>, 
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] drm/rockchip: dw_hdmi_qp: expose "overscan" property
+Message-ID: <20260603-glittering-vigilant-beluga-0c6bf6@houat>
+References: <20260602-hdmi-overscan-v1-0-31f71b817c80@flipper.net>
+ <20260602-hdmi-overscan-v1-2-31f71b817c80@flipper.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="ani5n5ytu5gvthhf"
 Content-Disposition: inline
-In-Reply-To: <ah_Y_Y2RtqeGxchF@stanley.mountain>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260602-hdmi-overscan-v1-2-31f71b817c80@flipper.net>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,29 +67,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 03, 2026 at 10:34:21AM +0300, Dan Carpenter wrote:
-> This scnprintf() uses the wrong limit.  It should be "PAGE_SIZE - len"
-> instead of just PAGE_SIZE.  We're not going to hit the limit in real
-> life since we are printing at most FBTFT_GAMMA_MAX_VALUES_TOTAL (128)
-> u32 values, however, it's still worth fixing.
-> 
-> Use sysfs_emit_at() to fix this since this is a sysfs file.
 
-OK,
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+--ani5n5ytu5gvthhf
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/2] drm/rockchip: dw_hdmi_qp: expose "overscan" property
+MIME-Version: 1.0
 
-...
+On Tue, Jun 02, 2026 at 09:00:40PM +0400, Alexey Charkov wrote:
+> Expose the "overscan" connector property as recognized by KWin and the
+> likes to compensate for TV overscan cropping.
+>=20
+> The CRTC will use the margin values derived from this overscan percentage
+> in its post-composition scaler to add appropriate blank margins on all
+> sides of the output image so that the TV doesn't eat up visible content.
+>=20
+> Signed-off-by: Alexey Charkov <alchark@flipper.net>
+> ---
+>  drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
+/drm/rockchip/dw_hdmi_qp-rockchip.c
+> index f35484715c2d..fae44d11dbef 100644
+> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> @@ -137,10 +137,18 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm=
+_encoder *encoder,
+>  					 struct drm_connector_state *conn_state)
+>  {
+>  	struct rockchip_hdmi_qp *hdmi =3D to_rockchip_hdmi_qp(encoder);
+> +	const struct drm_display_mode *adj_mode =3D &crtc_state->adjusted_mode;
+>  	struct rockchip_crtc_state *s =3D to_rockchip_crtc_state(crtc_state);
+>  	union phy_configure_opts phy_cfg =3D {};
+> +	unsigned int overscan;
+>  	int ret;
+> =20
+> +	overscan =3D min(conn_state->tv.overscan, 100u);
+> +	s->tv_margins.left   =3D adj_mode->hdisplay * overscan / 200;
+> +	s->tv_margins.right  =3D s->tv_margins.left;
+> +	s->tv_margins.top    =3D adj_mode->vdisplay * overscan / 200;
+> +	s->tv_margins.bottom =3D s->tv_margins.top;
+> +
+>  	if (hdmi->tmds_char_rate =3D=3D conn_state->hdmi.tmds_char_rate &&
+>  	    s->output_bpc =3D=3D conn_state->hdmi.output_bpc)
+>  		return 0;
+> @@ -603,6 +611,14 @@ static int dw_hdmi_qp_rockchip_bind(struct device *d=
+ev, struct device *master,
+>  		return dev_err_probe(hdmi->dev, PTR_ERR(connector),
+>  				     "Failed to init bridge connector\n");
+> =20
+> +	ret =3D drm_mode_create_tv_properties_legacy(drm, 0, NULL);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to create TV connector properties\n");
+> +
+> +	drm_object_attach_property(&connector->base,
+> +				   drm->mode_config.tv_overscan_property, 0);
+> +
 
->  	for (i = 0; i < par->gamma.num_curves; i++) {
->  		for (j = 0; j < par->gamma.num_values; j++)
-> -			len += scnprintf(&buf[len], PAGE_SIZE,
-> +			len += sysfs_emit_at(buf, len,
->  			     "%04x ", curves[i * par->gamma.num_values + j]);
+As the name suggests, it's a legacy property only ever used for TV. You
+should be using drm_mode_create_tv_margin_properties()
 
-Can we switch to use hex_dump_to_buffer() at some point?
+Maxime
 
--- 
-With Best Regards,
-Andy Shevchenko
+--ani5n5ytu5gvthhf
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCah/eAQAKCRAnX84Zoj2+
+dvSlAXoDJca4arsin0vyikDKDyDq7H6Uu85nLJ9lIaUQv+BybIdX53271li5kSH2
+mNYjjl4BgK8QMDqZ6BLEDk0pFwr1B4onSrajFtzqYzcpa/6/ZkDRy8nw7uHH4LI+
+c/KkDgrxBw==
+=zqMn
+-----END PGP SIGNATURE-----
+
+--ani5n5ytu5gvthhf--
