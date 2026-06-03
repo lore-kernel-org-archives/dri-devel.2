@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BFB5CD6E55
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 14:07:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73947CD6E57
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 14:07:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC03E10FEC8;
-	Wed,  3 Jun 2026 14:07:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFF6D10FEC1;
+	Wed,  3 Jun 2026 14:07:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="mXe2m+k4";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="bfk2onZn";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D599410FEC8
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 14:07:49 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21E5C10FECA
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 14:07:53 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id BBF574E40113;
- Wed,  3 Jun 2026 14:07:48 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id A94EFC63444;
+ Wed,  3 Jun 2026 14:07:50 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 8EF3B5FA0A;
- Wed,  3 Jun 2026 14:07:48 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id D26B75FA0A;
+ Wed,  3 Jun 2026 14:07:51 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 0009110888CCF; 
- Wed,  3 Jun 2026 16:07:42 +0200 (CEST)
+ with ESMTPSA id C387B10888CCD; 
+ Wed,  3 Jun 2026 16:07:47 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1780495667; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1780495670; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=cSCYjHnuHKgR8zSICDARAiMJImdIYE/yFq1+v1b+7mM=;
- b=mXe2m+k4LjQny3jo+eqNktp+qUnsgG7kCo3aBxKBDzPji/ZoTiv2AQx4UoqPfPxjGX/9PY
- SSlGzzrQfgH9LLGEYJe0MBtuEakx44mheSvJWRnxCRdklMB9vJ3MmB/sQs3drCrJxtd1cb
- kYseiVr7rsm7Q87Gs0K9mcNOE8/JcnoS3oNID71zNYOHB4yFvCZS7imkyCrcJ8RqTaUuwX
- 1h6w2ui46eK7WpzYpqnLD+8nV+phScvr05kcxTE11ncW9ndCVqz7AXKBZ1eeyuYgLnlB6N
- deyyrQ8Jnu+I94TccxYeD60/EYyeJJn0kZxiMYOrNJ2IQ5M475GA4OztwsQA1g==
+ bh=PFvg3djomMWzre9hTQ9dk/lbkRqAxFGm6pCgYy2NVZY=;
+ b=bfk2onZnMMpAmLdNd6w+nVZRM33a7lHvvQpe9Ql0TY9F10FDi/GbbTqv3CKbvhG67EzXgB
+ PIWV1QMG/IS9d7NhaPN3gfhynlFUeYDfucFleKxwgtP4z9/Z9Zc3kP9GGeWTQJvNDPNp+H
+ UBpgxELR+RtyE8uy+AwiJ4TCqBtxU0nMwo42TG8qdX6KyZ4Nz3IsXdAR62awNgsTULNBAR
+ 59nFnS87Nfq9utDnX6CRYn6moLdqyrf4UctzDdca2oI3femi0bYHteuI+cFx1uXgFFtQRY
+ i6huydhKE0yhH6ZSMK7mrwO7DXbkogzLdE4KO064ew7agke55HNXE6DFsgBb7w==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 12/76] drm/bridge: imx8mp-hdmi-pvi: Switch to
+Subject: Re: [PATCH 13/76] drm/bridge: imx8qm-ldb: Switch to
  atomic_create_state
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
 To: Maxime Ripard <mripard@kernel.org>
@@ -53,11 +53,11 @@ Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
  Pengutronix Kernel Team <kernel@pengutronix.de>, 
  Fabio Estevam <festevam@gmail.com>, imx@lists.linux.dev, 
  linux-arm-kernel@lists.infradead.org
-In-Reply-To: <20260530-drm-no-more-bridge-reset-v1-12-875d828d31bc@kernel.org>
+In-Reply-To: <20260530-drm-no-more-bridge-reset-v1-13-875d828d31bc@kernel.org>
 References: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
- <20260530-drm-no-more-bridge-reset-v1-12-875d828d31bc@kernel.org>
+ <20260530-drm-no-more-bridge-reset-v1-13-875d828d31bc@kernel.org>
 Date: Wed, 03 Jun 2026 16:07:19 +0200
-Message-Id: <178049563997.8577.8799013752650694198.b4-review@b4>
+Message-Id: <178049563999.8577.16988709263683474525.b4-review@b4>
 X-Mailer: b4 0.15.2
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,7 +75,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, 30 May 2026 15:59:17 +0200, Maxime Ripard <mripard@kernel.org> wrote:
+On Sat, 30 May 2026 15:59:18 +0200, Maxime Ripard <mripard@kernel.org> wrote:
 > The drm_bridge_funcs.atomic_reset callback and its
 > drm_atomic_helper_bridge_reset() helper are deprecated.
 > 
