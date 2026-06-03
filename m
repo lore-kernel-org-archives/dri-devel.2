@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D1CBCD6E57
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 01:10:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4441FCD6E57
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 01:11:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E65BA10F72F;
-	Wed,  3 Jun 2026 01:10:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A973C10F731;
+	Wed,  3 Jun 2026 01:10:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WZEuJ5C3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OE8/tXkL";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A154F10F72F
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 01:10:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7C6D10F731
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 01:10:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 885B243DD3;
+ by sea.source.kernel.org (Postfix) with ESMTP id BFA14400F6;
+ Wed,  3 Jun 2026 01:10:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5F461F00893;
  Wed,  3 Jun 2026 01:10:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D92F1F00898;
- Wed,  3 Jun 2026 01:10:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780449053;
- bh=5u6SKAfOQENdvm9cJV5fTBpN3ZssvduKcZ4mI7udZDE=;
+ s=k20260515; t=1780449058;
+ bh=jFXBZlmIt6khk0+6CdihUMf27NKcoYEyolnsYS/5aD0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=WZEuJ5C3uR808zrPCLf2pFl3JhLLGmxCrxORyVMHaFAvtUeZPYyUVIThwwUMPHnOq
- XWMFFqe1mRfZ0t93nTXFrYMJX4OF12xSjJ9IW/+CfxIImiYeQMn6qF/ynOR63Tc1DE
- /nDYS0MD9/LxDOcfQDy1W7rQ8JNIRuN2bB2eehi5MRDYAF3lSrKA1NepQIy9YLdeVo
- iraHgEvbp3aoHt9YqOXZCa4ulwpbySKlJplI1ISLbiXOMMwbwW73biwMhu/TXYRHdK
- 49f4BK0x5DW08xyHNddohUHRwChImQkv7ssy9sDYaDWnpXmPOo///BUXmImLoxPz+E
- xNeZ2g6hFE7fg==
+ b=OE8/tXkLkk0Acfb00xG1OlNXaGaXQZrwIn73AQH+nMxR/sWrYHjxgfKRoUSBbR0Pm
+ kytHZDoalp1lv6hiDIrAaYkURdUxxaJV87/29f8ZjzV3SzCGbqkm8EV8XOSbGZbP7E
+ PF6MLp/KlL5dAIztupy1slPk32KRitQ/Wc4ONA71hqhaV6OaMBLOwfSr79N5we1gcA
+ 7kx+jB+lZ00lscHda/Ax6Lt39X6nL7jJhCFpj83SIE837GtbM9k4WmyebH5nsIWpd0
+ Yw4a3SahsEZ/rnk0n31pPQ+T0oBzYyABkRk9I3bQmqdMPCiLOqUj2iT9oTizLnTGV6
+ 0eQO4LS+xxy5Q==
 From: Danilo Krummrich <dakr@kernel.org>
 To: gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
  ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
@@ -41,10 +41,9 @@ To: gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
 Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  linux-pwm@vger.kernel.org, rust-for-linux@vger.kernel.org
-Subject: [PATCH v2 5/7] rust: devres: add DevresLt for ForLt-aware device
- resource access
-Date: Wed,  3 Jun 2026 03:10:16 +0200
-Message-ID: <20260603011020.2073650-6-dakr@kernel.org>
+Subject: [PATCH v2 6/7] rust: pci: return DevresLt from Bar::into_devres()
+Date: Wed,  3 Jun 2026 03:10:17 +0200
+Message-ID: <20260603011020.2073650-7-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260603011020.2073650-1-dakr@kernel.org>
 References: <20260603011020.2073650-1-dakr@kernel.org>
@@ -65,166 +64,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Devres<T> stores resources as T and returns &'a T from access(). For
-lifetime-parameterized types like Bar<'a, SIZE> that are transmuted to
-'static for storage, this exposes the synthetic 'static lifetime to
-callers -- any method on the stored type that returns a reference with
-its lifetime parameter would yield a &'static reference, which is
-unsound.
+Implement ForLt and CovariantForLt for Bar<'static, SIZE> so that
+DevresLt can shorten the stored 'static lifetime back to the caller's
+borrow lifetime.
 
-Add DevresLt<F: ForLt>, a thin wrapper around Devres<F::Of<'static>>
-that applies ForLt's lifetime-shortening operations in all access
-methods to shorten the stored 'static lifetime to the caller's borrow
-lifetime.
+CovariantForLt is sound because Bar<'a, SIZE> only holds &'a
+Device<Bound>, which is covariant over 'a.
 
-DevresLt::new() is unsafe because the caller must guarantee that the
-data remains valid for the device's full bound scope; the internal
-transmute from F::Of<'a> to F::Of<'static> would otherwise allow
-use-after-free.
+Since DevresLt::new() handles the lifetime transmutation internally,
+into_devres() no longer needs an explicit transmute to Bar<'static>.
 
-Two access patterns are provided:
-
-- CovariantForLt types get direct-reference accessors (access,
-  try_access) that return shortened references via
-  CovariantForLt::cast_ref.
-
-- Plain ForLt types use closure-based accessors (access_with,
-  try_access_with) whose universally quantified lifetime prevents
-  callers from smuggling in concrete short-lived references.
+Add a DevresBar<SIZE> type alias for convenience.
 
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- rust/kernel/devres.rs | 110 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 110 insertions(+)
+ rust/kernel/pci.rs    |  1 +
+ rust/kernel/pci/io.rs | 37 ++++++++++++++++++++++++++-----------
+ 2 files changed, 27 insertions(+), 11 deletions(-)
 
-diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
-index 82cbd8b969fb..23db91377f5e 100644
---- a/rust/kernel/devres.rs
-+++ b/rust/kernel/devres.rs
-@@ -24,6 +24,8 @@
-         Arc, //
+diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+index 5071cae6543f..f783b9d9fa26 100644
+--- a/rust/kernel/pci.rs
++++ b/rust/kernel/pci.rs
+@@ -45,6 +45,7 @@
+     ConfigSpace,
+     ConfigSpaceKind,
+     ConfigSpaceSize,
++    DevresBar,
+     Extended,
+     Normal, //
+ };
+diff --git a/rust/kernel/pci/io.rs b/rust/kernel/pci/io.rs
+index 0461e01aaa20..7a0d2d74129d 100644
+--- a/rust/kernel/pci/io.rs
++++ b/rust/kernel/pci/io.rs
+@@ -6,7 +6,7 @@
+ use crate::{
+     bindings,
+     device,
+-    devres::Devres,
++    devres::DevresLt,
+     io::{
+         Io,
+         IoCapable,
+@@ -14,7 +14,11 @@
+         Mmio,
+         MmioRaw, //
      },
-     types::{
+-    prelude::*, //
++    prelude::*,
++    types::{
 +        CovariantForLt,
-+        ForLt,
-         ForeignOwnable,
-         Opaque, //
-     },
-@@ -365,6 +367,114 @@ fn drop(&mut self) {
++        ForLt, //
++    }, //
+ };
+ use core::{
+     marker::PhantomData,
+@@ -151,6 +155,19 @@ pub struct Bar<'a, const SIZE: usize = 0> {
+     num: i32,
+ }
+ 
++impl<const SIZE: usize> ForLt for Bar<'static, SIZE> {
++    type Of<'a> = Bar<'a, SIZE>;
++}
++
++// SAFETY: `Bar<'a, SIZE>` is covariant over `'a`; it holds `&'a Device<Bound>`,
++// which is covariant.
++unsafe impl<const SIZE: usize> CovariantForLt for Bar<'static, SIZE> {}
++
++/// A device-managed PCI BAR mapping.
++///
++/// See [`Bar::into_devres`].
++pub type DevresBar<const SIZE: usize> = DevresLt<Bar<'static, SIZE>>;
++
+ impl<'a, const SIZE: usize> Bar<'a, SIZE> {
+     pub(super) fn new(
+         pdev: &'a Device<device::Bound>,
+@@ -223,15 +240,13 @@ fn release(&self) {
+ 
+     /// Consume the `Bar` and register it as a device-managed resource.
+     ///
+-    /// The returned `Devres<Bar<'static, SIZE>>` can outlive the original lifetime `'a`. Access
+-    /// to the BAR is revoked when the device is unbound.
+-    pub fn into_devres(self) -> Result<Devres<Bar<'static, SIZE>>> {
+-        // SAFETY: Casting to `'static` is sound because `Devres` guarantees the `Bar` does not
+-        // actually outlive the device -- access is revoked and the resource is released when the
+-        // device is unbound.
+-        let bar: Bar<'static, SIZE> = unsafe { core::mem::transmute(self) };
+-        let pdev = bar.pdev;
+-        Devres::new(pdev.as_ref(), bar)
++    /// The returned [`DevresBar`] can outlive the original borrow and be stored in driver data.
++    /// Access to the BAR is revoked automatically when the device is unbound.
++    pub fn into_devres(self) -> Result<DevresBar<SIZE>> {
++        let pdev = self.pdev;
++        // SAFETY: `Bar` only holds a reference to the device and an I/O mapping, both of which
++        // remain valid for the device's full bound scope, not just for `'a`.
++        unsafe { DevresLt::new(pdev.as_ref(), self) }
      }
  }
  
-+/// Guard returned by [`DevresLt::try_access`].
-+///
-+/// Dereferences to `F::Of<'a>`, shortening the lifetime of the stored data to the guard's borrow
-+/// lifetime.
-+pub struct DevresGuard<'a, F: CovariantForLt>(RevocableGuard<'a, F::Of<'static>>);
-+
-+impl<'a, F: CovariantForLt> core::ops::Deref for DevresGuard<'a, F> {
-+    type Target = F::Of<'a>;
-+
-+    fn deref(&self) -> &Self::Target {
-+        F::cast_ref(&*self.0)
-+    }
-+}
-+
-+/// Device-managed resource with [`ForLt`](trait@ForLt)-aware access.
-+///
-+/// `DevresLt` wraps [`Devres`] and shortens the stored `'static` lifetime to the caller's borrow
-+/// lifetime in all access methods.
-+///
-+/// Types that implement [`trait@CovariantForLt`] get direct-reference accessors ([`Self::access`],
-+/// [`Self::try_access`]). Plain [`ForLt`](trait@ForLt) types use closure-based accessors
-+/// ([`Self::access_with`], [`Self::try_access_with`]).
-+pub struct DevresLt<F: ForLt>(Devres<F::Of<'static>>)
-+where
-+    F::Of<'static>: Send;
-+
-+impl<F: ForLt> DevresLt<F>
-+where
-+    F::Of<'static>: Send,
-+{
-+    /// Creates a new [`DevresLt`] instance of the given `data`.
-+    ///
-+    /// # Safety
-+    ///
-+    /// The data must remain valid for the device's full bound scope. [`DevresLt`] allows
-+    /// access until the device is unbound, which may outlast `'a`.
-+    pub unsafe fn new<'a, E>(
-+        dev: &'a Device<Bound>,
-+        data: impl PinInit<F::Of<'a>, E>,
-+    ) -> Result<Self>
-+    where
-+        Error: From<E>,
-+    {
-+        // SAFETY: The caller guarantees the data is valid for the device's full bound scope.
-+        // Lifetimes do not affect layout, so F::Of<'a> and F::Of<'static> have identical
-+        // representation; casting the slot pointer is sound.
-+        let data = unsafe {
-+            pin_init::pin_init_from_closure::<F::Of<'static>, E>(move |slot| {
-+                data.__pinned_init(slot.cast())
-+            })
-+        };
-+
-+        Ok(Self(Devres::new(dev, data)?))
-+    }
-+
-+    /// Return a reference of the [`Device`] this [`DevresLt`] instance has been created with.
-+    pub fn device(&self) -> &Device {
-+        self.0.device()
-+    }
-+
-+    /// Obtain `&F::Of<'_>`, bypassing the [`Revocable`], through a closure.
-+    ///
-+    /// This method works like [`DevresLt::access`](DevresLt::access) but accepts any
-+    /// [`trait@ForLt`] type, not just [`trait@CovariantForLt`].
-+    pub fn access_with<R, G>(&self, dev: &Device<Bound>, f: G) -> Result<R>
-+    where
-+        G: for<'a> FnOnce(&'a F::Of<'a>) -> R,
-+    {
-+        self.0.access(dev).map(|data| {
-+            // SAFETY: The closure's HRTB `for<'a>` prevents the caller from smuggling in
-+            // references with a concrete short lifetime, making the round-trip from `'static`
-+            // sound regardless of variance.
-+            f(unsafe { F::cast_ref_unchecked(data) })
-+        })
-+    }
-+
-+    /// [`DevresLt`] accessor for [`Revocable::try_access_with`].
-+    pub fn try_access_with<R, G>(&self, f: G) -> Option<R>
-+    where
-+        G: for<'a> FnOnce(&'a F::Of<'a>) -> R,
-+    {
-+        self.0.data().try_access_with(|data| {
-+            // SAFETY: The closure's HRTB `for<'a>` prevents the caller from smuggling in
-+            // references with a concrete short lifetime, making the round-trip from `'static`
-+            // sound regardless of variance.
-+            f(unsafe { F::cast_ref_unchecked(data) })
-+        })
-+    }
-+}
-+
-+impl<F: CovariantForLt> DevresLt<F>
-+where
-+    F::Of<'static>: Send,
-+{
-+    /// Obtain `&'a F::Of<'a>`, bypassing the [`Revocable`].
-+    ///
-+    /// This method works like [`Devres::access`], but shortens the returned reference's lifetime
-+    /// from `'static` to `'a` via [`CovariantForLt::cast_ref`].
-+    pub fn access<'a>(&'a self, dev: &'a Device<Bound>) -> Result<&'a F::Of<'a>> {
-+        self.0.access(dev).map(F::cast_ref)
-+    }
-+
-+    /// [`DevresLt`] accessor for [`Revocable::try_access`].
-+    pub fn try_access(&self) -> Option<DevresGuard<'_, F>> {
-+        self.0.data().try_access().map(DevresGuard)
-+    }
-+}
-+
- /// Consume `data` and [`Drop::drop`] `data` once `dev` is unbound.
- fn register_foreign<P>(dev: &Device<Bound>, data: P) -> Result
- where
 -- 
 2.54.0
 
