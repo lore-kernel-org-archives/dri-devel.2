@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D15CCD6E6C
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 15:18:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 528FDCD6E6E
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 15:18:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5838711200F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5587D11200E;
 	Wed,  3 Jun 2026 15:18:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="wUSokiKV";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="XQWSXUqS";
 	dkim-atps=neutral
-Received: from out30-97.freemail.mail.aliyun.com
- (out30-97.freemail.mail.aliyun.com [115.124.30.97])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B1EF10FFDB
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 15:18:52 +0000 (UTC)
+Received: from out30-118.freemail.mail.aliyun.com
+ (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B734A10FFE1
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 15:18:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux.alibaba.com; s=default;
- t=1780499931; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=D6ghu2heF624JtfaTXizY9L77UrgY/rsaZWlsUjxjMw=;
- b=wUSokiKVkDUKUkZB9OkLbi+h+xgw/N51diF3XXQFXLMPDt5YaYKG8wi1PPBiXm+O6qQ/p/+EJHK+B80zrTNHuZZlxb89RssXIkSEuiOT/6PIkalwasx4MGwUH1xHvCCwP+PUzKKy7PJE1TJhUQvUsYRWu8qDjNmO+yDYgbAyEQg=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033037026112;
+ t=1780499929; h=From:To:Subject:Date:Message-ID:MIME-Version;
+ bh=p4rS05BvfO7tKKbX+DS2TrSOXcVnNjfP3PbV2BH3iGY=;
+ b=XQWSXUqSPzKwm8OQ/jHiVvaurfML3HQgeKTVEhHl64dSjCpKBKVnWBmjCvFfmb8crvkoCZ+CuYiUsV9fqA0sMWjH03txts/P45b9TiyqhZTOMfBQXZ/QJFtbtj94eTnbcA5bvGSMTdw+7Z6AiRQR3oblNUmAumw25ZaBwe5eFSo=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R121e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033045098064;
  MF=guanghuifeng@linux.alibaba.com; NM=1; PH=DS; RN=28; SR=0;
- TI=SMTPD_---0X47fR3B_1780499929; 
+ TI=SMTPD_---0X47fR2o_1780499927; 
 Received: from
  VM20241011-104.tbsite.net(mailfrom:guanghuifeng@linux.alibaba.com
- fp:SMTPD_---0X47fR3B_1780499929 cluster:ay36) by smtp.aliyun-inc.com;
- Wed, 03 Jun 2026 23:18:49 +0800
+ fp:SMTPD_---0X47fR2o_1780499927 cluster:ay36) by smtp.aliyun-inc.com;
+ Wed, 03 Jun 2026 23:18:47 +0800
 From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
 To: jgg@ziepe.ca
 Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
@@ -42,9 +42,9 @@ Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
  shiyu.zsq@linux.alibaba.com, steven.price@arm.com,
  suravee.suthikulpanit@amd.com, tzimmermann@suse.de,
  wei.guo.simon@linux.alibaba.com, will@kernel.org, xlpang@linux.alibaba.com
-Subject: [PATCH v3 11/32] iommu/mtk_iommu: implement iova_to_phys_length
-Date: Wed,  3 Jun 2026 23:17:43 +0800
-Message-ID: <20260603151804.1963871-12-guanghuifeng@linux.alibaba.com>
+Subject: [PATCH v3 09/32] iommu/apple-dart: implement iova_to_phys_length
+Date: Wed,  3 Jun 2026 23:17:41 +0800
+Message-ID: <20260603151804.1963871-10-guanghuifeng@linux.alibaba.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20260603151804.1963871-1-guanghuifeng@linux.alibaba.com>
 References: <20260602104637.1219810-1-guanghuifeng@linux.alibaba.com>
@@ -66,45 +66,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Migrate MediaTek IOMMU to implement iova_to_phys_length, passing through
+Migrate Apple DART to implement iova_to_phys_length, passing through
 mapped_length from io-pgtable.
 
 Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
 ---
- drivers/iommu/mtk_iommu.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ drivers/iommu/apple-dart.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/iommu/mtk_iommu.c b/drivers/iommu/mtk_iommu.c
-index 2be990c108de..6ca31f8d4d96 100644
---- a/drivers/iommu/mtk_iommu.c
-+++ b/drivers/iommu/mtk_iommu.c
-@@ -858,13 +858,16 @@ static int mtk_iommu_sync_map(struct iommu_domain *domain, unsigned long iova,
+diff --git a/drivers/iommu/apple-dart.c b/drivers/iommu/apple-dart.c
+index 17bdadb6b504..fdc533ba72da 100644
+--- a/drivers/iommu/apple-dart.c
++++ b/drivers/iommu/apple-dart.c
+@@ -528,16 +528,17 @@ static int apple_dart_iotlb_sync_map(struct iommu_domain *domain,
  	return 0;
  }
  
--static phys_addr_t mtk_iommu_iova_to_phys(struct iommu_domain *domain,
--					  dma_addr_t iova)
-+static phys_addr_t mtk_iommu_iova_to_phys_length(struct iommu_domain *domain,
-+					  dma_addr_t iova, size_t *mapped_length)
+-static phys_addr_t apple_dart_iova_to_phys(struct iommu_domain *domain,
+-					   dma_addr_t iova)
++static phys_addr_t apple_dart_iova_to_phys_length(struct iommu_domain *domain,
++					   dma_addr_t iova, size_t *mapped_length)
  {
- 	struct mtk_iommu_domain *dom = to_mtk_domain(domain);
- 	phys_addr_t pa;
+ 	struct apple_dart_domain *dart_domain = to_dart_domain(domain);
+ 	struct io_pgtable_ops *ops = dart_domain->pgtbl_ops;
  
--	pa = dom->iop->iova_to_phys(dom->iop, iova);
-+	pa = dom->iop->iova_to_phys_length(dom->iop, iova, mapped_length);
-+	if (pa == PHYS_ADDR_MAX)
-+		return PHYS_ADDR_MAX;
 +
- 	if (IS_ENABLED(CONFIG_PHYS_ADDR_T_64BIT) &&
- 	    dom->bank->parent_data->enable_4GB &&
- 	    pa >= MTK_IOMMU_4GB_MODE_REMAP_BASE)
-@@ -1070,7 +1073,7 @@ static const struct iommu_ops mtk_iommu_ops = {
- 		.flush_iotlb_all = mtk_iommu_flush_iotlb_all,
- 		.iotlb_sync	= mtk_iommu_iotlb_sync,
- 		.iotlb_sync_map	= mtk_iommu_sync_map,
--		.iova_to_phys	= mtk_iommu_iova_to_phys,
-+		.iova_to_phys_length = mtk_iommu_iova_to_phys_length,
- 		.free		= mtk_iommu_domain_free,
+ 	if (!ops)
+-		return 0;
++		return PHYS_ADDR_MAX;
+ 
+-	return ops->iova_to_phys(ops, iova);
++	return ops->iova_to_phys_length(ops, iova, mapped_length);
+ }
+ 
+ static int apple_dart_map_pages(struct iommu_domain *domain, unsigned long iova,
+@@ -1018,7 +1019,7 @@ static const struct iommu_ops apple_dart_iommu_ops = {
+ 		.flush_iotlb_all = apple_dart_flush_iotlb_all,
+ 		.iotlb_sync	= apple_dart_iotlb_sync,
+ 		.iotlb_sync_map	= apple_dart_iotlb_sync_map,
+-		.iova_to_phys	= apple_dart_iova_to_phys,
++		.iova_to_phys_length = apple_dart_iova_to_phys_length,
+ 		.free		= apple_dart_domain_free,
  	}
  };
 -- 
