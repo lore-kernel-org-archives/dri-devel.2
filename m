@@ -4,49 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B593BCD6E57
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 01:28:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF13ECD6E5D
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 01:33:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23C46113BC6;
-	Wed,  3 Jun 2026 01:28:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03CDB113BD3;
+	Wed,  3 Jun 2026 01:33:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RaMoqAwd";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="DpCRBhYh";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90002113BC6
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 01:28:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7735D432C1;
- Wed,  3 Jun 2026 01:28:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F4AD1F00898;
- Wed,  3 Jun 2026 01:28:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780450107;
- bh=/Uzv2Gm7jENTbbTq3bRLEhLW5ARZCqwdxuR6ti+4xL8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=RaMoqAwdveFJ4vYzNN1wBZroIwEH6ImX18p4Inr8AyFxK0RPPqwkpRdgls9kTn7h0
- 2d89Ohk9QIPYsPqQ6ua6h3hxZC7umNU6EFLAnZDJDKQOzRIo1l/tVQD/j++Tm2HEsK
- 3RBkSO5Xk3RGob6+Iivcos6RJmYVD9qhFhRnyCHTbxPKvf9xYVL2qM4IKz9/o3XSX2
- ZeVxmY5/JK/O5UvKMh/9oVCTbYRfr107hzX/iPJzwvUzYYQiQE06HKbxME0C5Xh8Eg
- vKcpklwLFfsA9Ges+q8PJApcTcsi2M7ka4iBAobvyR6OMRMKmfeSJ0lJ/nkYkvlsHK
- XDPS4b5HY4FcA==
-From: Danilo Krummrich <dakr@kernel.org>
-To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
- acourbot@nvidia.com, ecourtney@nvidia.com, ojeda@kernel.org,
- boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu,
- deborah.brouwer@collabora.com, boris.brezillon@collabora.com
-Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org
-Subject: [PATCH v2 7/7] drm: nova: convert to use DRM registration data
-Date: Wed,  3 Jun 2026 03:15:49 +0200
-Message-ID: <20260603011711.2077361-8-dakr@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260603011711.2077361-1-dakr@kernel.org>
-References: <20260603011711.2077361-1-dakr@kernel.org>
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Wed, 03 Jun 2026 01:33:53 UTC
+Received: from mail-m81147.netease.com (mail-m81147.netease.com [47.88.81.147])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9375D113BD3
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 01:33:53 +0000 (UTC)
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 40d472abe;
+ Wed, 3 Jun 2026 09:28:46 +0800 (GMT+08:00)
+Message-ID: <91378132-8a8e-4bcc-9aa7-4de9fb135a6a@rock-chips.com>
+Date: Wed, 3 Jun 2026 09:28:44 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/rockchip: dsi: Add maximum per lane bit rate
+ calculation
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Guochun Huang <hero.huang@rock-chips.com>, Chaoyi Chen <kernel@airkyi.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260324085838.90-1-kernel@airkyi.com> <4888940.6M6d0yLqnL@phil>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <4888940.6M6d0yLqnL@phil>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e8b18ebda03a7kunma7a4b39932116e
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTU1NVktKGkhCGUhOSkodQ1YVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+ 9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=DpCRBhYhHsk59imJ+FGOLy8d4MOtCjg9bDkKtXvNrDk5iWWBwZS1A4x0JDviW1oUGeFdDFS2d0NWdJVtU4YkUlRC3PajKAKdjolU8I8op2P1QcWAmkz2FKNW1VnFI1EwqOqeverIZpow5QyF0+1N/oei5IaiUWhLDi9TV/7d7fg=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=m1cnttQcMrvUZx5o8JPHBR3oI+NYB+tDa2bCbLIj358=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,130 +66,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Move the auxiliary device reference from drm::Device data into
-RegistrationData, replacing the ARef<auxiliary::Device> with a borrowed
-&'bound auxiliary::Device<Bound>. This makes the data lifetime-aware and
-exercises the registration data path through the ioctl handlers.
+Hi Heiko,
 
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
----
- drivers/gpu/drm/nova/driver.rs | 20 ++++++++++----------
- drivers/gpu/drm/nova/file.rs   | 19 +++++++++++--------
- 2 files changed, 21 insertions(+), 18 deletions(-)
+On 6/3/2026 4:59 AM, Heiko Stuebner wrote:
+> Am Dienstag, 24. März 2026, 09:58:37 Mitteleuropäische Sommerzeit schrieb Chaoyi Chen:
+>> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+>>
+>> Different chips have varying support for the maximum bit rate per lane.
+>>
+>> Add calculation for the maximum per lane bit rate for various chip
+>> platforms, and relax the bandwidth margin requirements.
+>>
+>> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+>> ---
+>>  .../gpu/drm/rockchip/dw-mipi-dsi-rockchip.c   | 21 +++++++++++++++----
+>>  1 file changed, 17 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
+>> index 3547d91b25d3..d3bacfae174e 100644
+>> --- a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
+>> +++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
+>> @@ -268,6 +268,7 @@ struct rockchip_dw_dsi_chip_data {
+>>  
+>>  	unsigned int flags;
+>>  	unsigned int max_data_lanes;
+>> +	unsigned long max_bit_rate_per_lane;
+>>  };
+>>  
+>>  struct dw_mipi_dsi_rockchip {
+>> @@ -565,7 +566,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
+>>  	int bpp;
+>>  	unsigned long mpclk, tmp;
+>>  	unsigned int target_mbps = 1000;
+>> -	unsigned int max_mbps = dppa_map[ARRAY_SIZE(dppa_map) - 1].max_mbps;
+>> +	unsigned int max_mbps;
+>>  	unsigned long best_freq = 0;
+>>  	unsigned long fvco_min, fvco_max, fin, fout;
+>>  	unsigned int min_prediv, max_prediv;
+>> @@ -573,6 +574,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
+>>  	unsigned long _fbdiv, best_fbdiv;
+>>  	unsigned long min_delta = ULONG_MAX;
+>>  
+>> +	max_mbps = dsi->cdata->max_bit_rate_per_lane;
+> 
+> I may be blind, but how do the values come together?
+> In the dppa_map table we have mbps values of 89 to 1500
+> (MHz)
+> 
+> While below the values set are
+> 	.max_bit_rate_per_lane = 1500000000UL,
+> in Hz I guess
+> 
+> And I don't see the needed conversion somehow.
+> 
+>
 
-diff --git a/drivers/gpu/drm/nova/driver.rs b/drivers/gpu/drm/nova/driver.rs
-index 4267e6e6dbb4..f46d7ff6fee3 100644
---- a/drivers/gpu/drm/nova/driver.rs
-+++ b/drivers/gpu/drm/nova/driver.rs
-@@ -3,6 +3,7 @@
- use kernel::{
-     auxiliary,
-     device::{
-+        Bound,
-         Core,
-         DeviceContext, //
-     },
-@@ -13,7 +14,7 @@
-     },
-     prelude::*,
-     sync::aref::ARef,
--    types::ForLt, //
-+    types::CovariantForLt, //
- };
- 
- use crate::file::File;
-@@ -30,9 +31,8 @@ pub(crate) struct Nova<'bound> {
- /// Convienence type alias for the DRM device type for this driver
- pub(crate) type NovaDevice<Ctx = drm::Registered> = drm::Device<NovaDriver, Ctx>;
- 
--#[pin_data]
--pub(crate) struct NovaData {
--    pub(crate) adev: ARef<auxiliary::Device>,
-+pub(crate) struct NovaData<'bound> {
-+    pub(crate) adev: &'bound auxiliary::Device<Bound>,
- }
- 
- const INFO: drm::DriverInfo = drm::DriverInfo {
-@@ -65,10 +65,10 @@ fn probe<'bound>(
-         adev: &'bound auxiliary::Device<Core<'_>>,
-         _info: &'bound Self::IdInfo,
-     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
--        let data = try_pin_init!(NovaData { adev: adev.into() });
--
--        let drm = drm::UnregisteredDevice::<Self>::new(adev, data)?;
--        let reg = drm::Registration::new(adev.as_ref(), drm, (), 0)?;
-+        let drm = drm::UnregisteredDevice::<Self>::new(adev, Ok(()))?;
-+        let reg_data = NovaData { adev };
-+        // SAFETY: We never bypass the destructor of `reg`.
-+        let reg = unsafe { drm::Registration::new_with_lt(adev.as_ref(), drm, reg_data, 0)? };
- 
-         Ok(Nova {
-             drm: reg.device().into(),
-@@ -79,8 +79,8 @@ fn probe<'bound>(
- 
- #[vtable]
- impl drm::Driver for NovaDriver {
--    type Data = NovaData;
--    type RegistrationData = ForLt!(());
-+    type Data = ();
-+    type RegistrationData = CovariantForLt!(NovaData<'_>);
-     type File = File;
-     type Object<Ctx: drm::DeviceContext> = gem::Object<NovaObject, Ctx>;
-     type ParentDevice<Ctx: DeviceContext> = auxiliary::Device<Ctx>;
-diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
-index df9760947d58..cd6c37b01e22 100644
---- a/drivers/gpu/drm/nova/file.rs
-+++ b/drivers/gpu/drm/nova/file.rs
-@@ -1,6 +1,10 @@
- // SPDX-License-Identifier: GPL-2.0
- 
--use crate::driver::{NovaDevice, NovaDriver};
-+use crate::driver::{
-+    NovaData,
-+    NovaDevice,
-+    NovaDriver, //
-+};
- use crate::gem::NovaObject;
- use kernel::{
-     alloc::flags::*,
-@@ -25,15 +29,14 @@ fn open(_dev: &NovaDevice) -> Result<Pin<KBox<Self>>> {
- impl File {
-     /// IOCTL: get_param: Query GPU / driver metadata.
-     pub(crate) fn get_param(
--        dev: &NovaDevice,
-+        _dev: &NovaDevice,
-         _adev: &auxiliary::Device<Bound>,
--        _reg_data: &(),
-+        reg_data: &NovaData<'_>,
-         getparam: &mut uapi::drm_nova_getparam,
-         _file: &drm::File<File>,
-     ) -> Result<u32> {
--        let adev = &dev.adev;
--        let parent = adev.parent();
--        let pdev: &pci::Device = parent.try_into()?;
-+        let parent = reg_data.adev.parent();
-+        let pdev: &pci::Device<Bound> = parent.try_into()?;
- 
-         let value = match getparam.param as u32 {
-             uapi::NOVA_GETPARAM_VRAM_BAR_SIZE => pdev.resource_len(1)?,
-@@ -49,7 +52,7 @@ pub(crate) fn get_param(
-     pub(crate) fn gem_create(
-         dev: &NovaDevice,
-         _adev: &auxiliary::Device<Bound>,
--        _reg_data: &(),
-+        _reg_data: &NovaData<'_>,
-         req: &mut uapi::drm_nova_gem_create,
-         file: &drm::File<File>,
-     ) -> Result<u32> {
-@@ -64,7 +67,7 @@ pub(crate) fn gem_create(
-     pub(crate) fn gem_info(
-         _dev: &NovaDevice,
-         _adev: &auxiliary::Device<Bound>,
--        _reg_data: &(),
-+        _reg_data: &NovaData<'_>,
-         req: &mut uapi::drm_nova_gem_info,
-         file: &drm::File<File>,
-     ) -> Result<u32> {
+Oh! It should be:
+
+max_mbps = dsi->cdata->max_bit_rate_per_lane / USEC_PER_SEC;
+
+Will fix in v2.
+
+>>  	dsi->format = format;
+>>  	bpp = mipi_dsi_pixel_format_to_bpp(dsi->format);
+>>  	if (bpp < 0) {
+>> @@ -584,8 +586,8 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
+>>  
+>>  	mpclk = DIV_ROUND_UP(mode->clock, MSEC_PER_SEC);
+>>  	if (mpclk) {
+>> -		/* take 1 / 0.8, since mbps must big than bandwidth of RGB */
+>> -		tmp = mpclk * (bpp / lanes) * 10 / 8;
+>> +		/* take 1 / 0.9, since mbps must big than bandwidth of RGB */
+>> +		tmp = mpclk * (bpp / lanes) * 10 / 9;
+> 
+> Please do this in a separate patch, especially as I would expect some
+> sort of explanation on why this is ok to do.
+>
+
+Sure! I'll split this out in the new series.
+
 -- 
-2.54.0
-
+Best, 
+Chaoyi
