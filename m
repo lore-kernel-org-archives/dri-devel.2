@@ -4,93 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2B97CD6E5D
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 01:17:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E06ACD6E57
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 01:23:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B875510F74D;
-	Wed,  3 Jun 2026 01:17:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B157B113BB4;
+	Wed,  3 Jun 2026 01:23:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="W+0cbSK1";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="Gl5uc83V";
 	dkim-atps=neutral
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
- [209.85.222.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36CEA10F74B
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 01:17:06 +0000 (UTC)
-Received: by mail-qk1-f180.google.com with SMTP id
- af79cd13be357-915660e5b8eso331234185a.3
- for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 18:17:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1780449425; x=1781054225; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=+0q9jHEvyutbUqJNds5rNSupxxEZQmy/I4DCyfn2tFo=;
- b=W+0cbSK1hizcOetseBnKXxlkGL6/hIEPQH+s3dGEmiScNkjshkZXhfIe/Yy79e+pVQ
- bzSZ6JAPr1cj3H4tI5RTe5usq+JNFPQpzhdF/Z6GQyo2sS/c9n7ybvss3hrRfeUHQHel
- Yo5JyNFN8zvpBeZ6qKLFM/HiOqrv8sl/3+tRjM6O1OTsrWYBrP1IWrQlC8bdCvLHvQKb
- HH7q/bpNFLNgRQnTtJQlF4l5Vioz9mb8tZE07TxXua4V9qKwOEIb7VT4KhGMqk0snldL
- adCk1MDJCLFC4HOD6jvPQkM3ySMYxb1wtFdEz6mTSCBvP63xLurt+XoYY9FFJ+8oYEnF
- iaHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780449425; x=1781054225;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=+0q9jHEvyutbUqJNds5rNSupxxEZQmy/I4DCyfn2tFo=;
- b=j1b0R7f2lTT16fgIkUy6HTF7046anS87+vbkatvyj9H7JL7oWdmwR0fZJTuwU7rWj5
- PnlfvspiLuDNlOd8ibBSOYXmkJBLDFKJZLkgEAad5ty2w7ygx4WId0Fx32rvwkwjLFEF
- NdpSQPMqOCNSIRmTDDfU5IGTiMq2++z9SNKK5BXpqWVBLmSg2yIRl3xD4DqAVWyvYxZY
- Z+FlAErRj/UsF2RfTFMw28oeXeGnJT0nUGjiuIHg18FqUFT4yuhlbXN9884AR440HG8m
- u56G6xIZdBqQ4LykM5xzkvsJO4BhCI3dMBrj2b9WPT6mQ1EUlB7IG6r29heSOP/DiiRQ
- 1Orw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9N3xLsJuSCmZJEschhUb9oCVrOuHMTZZigmpv05Fyjx8RR3vl+UyMuYLbj1locv5Vm9VmmjLKE3YU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxG3VtFtsTCpWjFh3AyQOeBDQzfpn2VW7LV36iYnYEnKNGDgQ0N
- KEsFtqCSxCp9Qm4URxVyHiXHLs0VtZDPBZ0mpgi2QLc8JkrrEdBV6zf80dF4d88cW8o=
-X-Gm-Gg: Acq92OGqYiw3ikeztr6mC/qARIynU/z2lhJVNlY37syQYSCdHBHuKTt85Fe5ezCxTNV
- aDbwlb37acP/Fgi2zMdpHBWGdNcmeY+oFfs6SvVyP6R4WUr1VcamjSDEhJSlPv1tSe0Pywdf7DE
- LaKZHbz4NKYglxzjIXPiRexs6B0wUdM5ejJ2ZfSqVeIGabaokZdBFXHQw/CPGPScFBKLyuPeMaB
- mTvExYKj7OtRhmGZ2a0EorP8YsgRUfnXCBNMLgjKG2EvAd47ODml6pmxNwFZqMYSgaa8lYv36qU
- hujVku2thnIqzEC67vlBwSehnDf9kJSKgYpNYyK12h69UTkQWVz+KwAkw1gKML3gyICmsaayNqD
- f/zvlRfTU5AB2M9BlAcZVoQwzEfAv+bzldZPWxGFugAA1HeeD9/gx6h7QNJ9vklrU9CtJoQKcn6
- oApZWUhxTDCqioaGJx4BCzvbrb43ZfsUaK4P4K9MQd6Nmo1HkUTQ91jA1lNZ1OXslH2Gy4wcsvj
- Jm5B8N63ug1fmf0
-X-Received: by 2002:a05:620a:4455:b0:914:c788:761a with SMTP id
- af79cd13be357-9158a84f289mr254481885a.58.1780449425306; 
- Tue, 02 Jun 2026 18:17:05 -0700 (PDT)
-Received: from ziepe.ca
- (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
- [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9158a009fe7sm102378285a.8.2026.06.02.18.17.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jun 2026 18:17:04 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1wUaEC-00000004yu4-0q6Q;
- Tue, 02 Jun 2026 22:17:04 -0300
-Date: Tue, 2 Jun 2026 22:17:04 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Guanghui Feng <guanghuifeng@linux.alibaba.com>
-Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
- baolu.lu@linux.intel.com, boris.brezillon@collabora.com,
- dri-devel@lists.freedesktop.org, dwmw2@infradead.org,
- iommu@lists.linux.dev, joro@8bytes.org, kevin.tian@intel.com,
- kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, liviu.dudau@arm.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- oliver.yang@linux.alibaba.com, robh@kernel.org,
- robin.murphy@arm.com, shiyu.zsq@linux.alibaba.com,
- steven.price@arm.com, suravee.suthikulpanit@amd.com,
- tzimmermann@suse.de, wei.guo.simon@linux.alibaba.com,
- will@kernel.org, xlpang@linux.alibaba.com,
- alikernel-developer@linux.alibaba.com
-Subject: Re: [PATCH v2 11/30] iommu/mtk_iommu: implement iova_to_phys_length
-Message-ID: <20260603011704.GT2487554@ziepe.ca>
-References: <20260531093637.3893199-1-guanghuifeng@linux.alibaba.com>
- <20260602104637.1219810-1-guanghuifeng@linux.alibaba.com>
- <20260602104637.1219810-12-guanghuifeng@linux.alibaba.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1D05113BB4
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 01:23:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1780449808; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=bBWjLPFfdelhJTEUek5hgrcIY652n0pCiJZKXoHTmsza4ozTWARH4QsuU+4B1j8VTE6AxhpDYXz1kG+vSMuUZT19yZHLxbVnCjTJkAbO2D5Kupal7CEFEGqJjn1zl9hQs7gNlYqPIvtl69qODXT1G1t5WqaCeDcBT1Wikb1Oe/o=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1780449808;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=Gsiqncmb4zY7VJvDrEmBtRQt1RVNkK3UHOmJ6NPHrF0=; 
+ b=i6okNbYwb7g6vN51VDaQzoaJlKMHyZrJu3ChuhS2sp+ZFySpYsvwxwQ5Jw1jA4wKOGDuv1IzRPWXq3v+Z0Z1WXfxpb9LXfNs1EH4ueHsFG/WJ/l0uccXvb6IYkQYydz6Uao9bKTHcIzP9C6RZisrhnXxXJadb29eDS/dIX3R4K4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+ dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780449808; 
+ s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=Gsiqncmb4zY7VJvDrEmBtRQt1RVNkK3UHOmJ6NPHrF0=;
+ b=Gl5uc83VyVlHvKrbHkgOcEdAdATJ23NXzWTdzyOfdLhxavq4ataKGX9VXwcmjuA8
+ G8pe2EIpqstIWBA1p4f+Hj5swtZp8NnITEfd3d4x/ehldfUOvxaAIH+QkIOOMUTmZfd
+ 2rZ+gxJzjkt3LE4mzU9Uj8JydfZ/Eu0h7vmBxP30=
+Received: by mx.zohomail.com with SMTPS id 1780449806177347.8316797280188;
+ Tue, 2 Jun 2026 18:23:26 -0700 (PDT)
+Message-ID: <16ffe1bc-46ca-45ae-a14f-667bf59a119b@collabora.com>
+Date: Wed, 3 Jun 2026 04:23:20 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260602104637.1219810-12-guanghuifeng@linux.alibaba.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/virtio: abort virtqueue wait on device removal to
+ avoid hung task
+To: Ryosuke Yasuoka <ryasuoka@redhat.com>, David Airlie <airlied@redhat.com>, 
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260601-virtio-gpu_wait_event-v3-1-89530517a98a@redhat.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20260601-virtio-gpu_wait_event-v3-1-89530517a98a@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,23 +73,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 02, 2026 at 06:46:18PM +0800, Guanghui Feng wrote:
-> -	pa = dom->iop->iova_to_phys(dom->iop, iova);
-> +	if (mapped_length)
-> +		*mapped_length = 0;
+On 6/1/26 10:53, Ryosuke Yasuoka wrote:
+> virtio_gpu_queue_ctrl_sgs() and virtio_gpu_queue_cursor() use
+> wait_event() without any abort condition when waiting for virtqueue
+> space. If the host device stops processing commands, these waits block
+> indefinitely inside a drm_dev_enter/exit() critical section. Since
+> drm_dev_unplug(), which is called in device removal and system shutdown
+> call path, blocks on synchronize_srcu() until all critical sections
+> complete, device removal and system shutdown also hang.
+> 
+> Add a vqs_released flag to virtio_gpu_device and include it in the
+> wait_event() condition. Set the flag and wake up both queues in a new
+> virtio_gpu_release_vqs() helper, called before drm_dev_unplug() in both
+> virtio_gpu_remove() and virtio_gpu_shutdown(). When the flag is set, the
+> wait returns immediately and the command is aborted, following the same
+> cleanup path as drm_dev_enter() failure.
+> 
+> Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
+> ---
+> Changes in v3:
+> - Remove Reported-by and Closes tag from commit msg because they are not
+>   related to this fix.
+> - Link to v2: https://lore.kernel.org/r/20260521-virtio-gpu_wait_event-v2-1-5796b3a71d03@redhat.com
+> 
+> Changes in v2:
+> - Update the commit message.
+> - Replace wait_event_timeout() with wait_event() using a compound
+> condition that includes a new vqs_released flag.
+> - Add virtio_gpu_release_vqs() helper to set the flag and wake up
+> both queues, called before drm_dev_unplug() in remove and shutdown
+> paths.
+> - Remove the hardcoded 5-second timeout. Recovery is now driven by
+> the driver flag instead of an arbitrary timeout value.
+> ---
+>  drivers/gpu/drm/virtio/virtgpu_drv.c | 15 +++++++++++++++
+>  drivers/gpu/drm/virtio/virtgpu_drv.h |  1 +
+>  drivers/gpu/drm/virtio/virtgpu_vq.c  | 23 +++++++++++++++++++++--
+>  3 files changed, 37 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
+> index a5ce96fb8a1d..e4fe5e0780f9 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
+> @@ -119,10 +119,24 @@ static int virtio_gpu_probe(struct virtio_device *vdev)
+>  	return ret;
+>  }
+>  
+> +/*
+> + * Release pending virtqueue waits so the drm_dev_enter/exit() critical
+> + * sections complete before drm_dev_unplug() blocks on synchronize_srcu().
+> + */
+> +static void virtio_gpu_release_vqs(struct drm_device *dev)
+> +{
+> +	struct virtio_gpu_device *vgdev = dev->dev_private;
 > +
-> +	pa = dom->iop->iova_to_phys_length(dom->iop, iova, mapped_length);
-> +	if (pa == PHYS_ADDR_MAX)
-> +		return PHYS_ADDR_MAX;
+> +	vgdev->vqs_released = true;
+> +	wake_up_all(&vgdev->ctrlq.ack_queue);
+> +	wake_up_all(&vgdev->cursorq.ack_queue);
+> +}
+> +
+>  static void virtio_gpu_remove(struct virtio_device *vdev)
+>  {
+>  	struct drm_device *dev = vdev->priv;
+>  
+> +	virtio_gpu_release_vqs(dev);
+>  	drm_dev_unplug(dev);
+>  	drm_atomic_helper_shutdown(dev);
+>  	virtio_gpu_deinit(dev);
+> @@ -133,6 +147,7 @@ static void virtio_gpu_shutdown(struct virtio_device *vdev)
+>  {
+>  	struct drm_device *dev = vdev->priv;
+>  
+> +	virtio_gpu_release_vqs(dev);
+>  	/* stop talking to the device */
+>  	drm_dev_unplug(dev);
+>  }
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+> index 2f3531950aa4..5f7bb6cc6ba7 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
+> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+> @@ -235,6 +235,7 @@ struct virtio_gpu_device {
+>  
+>  	struct virtio_gpu_queue ctrlq;
+>  	struct virtio_gpu_queue cursorq;
+> +	bool vqs_released;
+>  	struct kmem_cache *vbufs;
+>  
+>  	atomic_t pending_commands;
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
+> index 67865810a2e7..8057a9b7356d 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+> @@ -396,7 +396,19 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
+>  	if (vq->num_free < elemcnt) {
+>  		spin_unlock(&vgdev->ctrlq.qlock);
+>  		virtio_gpu_notify(vgdev);
+> -		wait_event(vgdev->ctrlq.ack_queue, vq->num_free >= elemcnt);
+> +		wait_event(vgdev->ctrlq.ack_queue,
+> +			   vq->num_free >= elemcnt || vgdev->vqs_released);
+> +		/*
+> +		 * Set by virtio_gpu_release_vqs() to unblock
+> +		 * synchronize_srcu() wait in drm_dev_unplug().
+> +		 */
+> +		if (vgdev->vqs_released) {
+> +			if (fence && vbuf->objs)
+> +				virtio_gpu_array_unlock_resv(vbuf->objs);
+> +			free_vbuf(vgdev, vbuf);
+> +			drm_dev_exit(idx);
+> +			return -ENODEV;
+> +		}
+>  		goto again;
+>  	}
+>  
+> @@ -566,7 +578,14 @@ static void virtio_gpu_queue_cursor(struct virtio_gpu_device *vgdev,
+>  	ret = virtqueue_add_sgs(vq, sgs, outcnt, 0, vbuf, GFP_ATOMIC);
+>  	if (ret == -ENOSPC) {
+>  		spin_unlock(&vgdev->cursorq.qlock);
+> -		wait_event(vgdev->cursorq.ack_queue, vq->num_free >= outcnt);
+> +		wait_event(vgdev->cursorq.ack_queue,
+> +			   vq->num_free >= outcnt || vgdev->vqs_released);
+> +		/* See comment in virtio_gpu_queue_ctrl_sgs(). */
+> +		if (vgdev->vqs_released) {
+> +			free_vbuf(vgdev, vbuf);
+> +			drm_dev_exit(idx);
+> +			return;
+> +		}
+>  		spin_lock(&vgdev->cursorq.qlock);
+>  		goto retry;
+>  	} else {
+> 
+> ---
+> base-commit: e43ffb69e0438cddd72aaa30898b4dc446f664f8
+> change-id: 20260518-virtio-gpu_wait_event-5aa060754f12
+> 
+> Best regards,
 
-???
+Applied to misc-next, thanks!
 
-I guess lots of AI made this right? Please review the AI output for
-the little slop things left over..
-
-I saw enough unnecessary hunks, and goofy things like putting the
-mapped_len zero in every driver instead of in the core caller.
-
-That said it looks pretty close overall..
-
-Jason
+-- 
+Best regards,
+Dmitry
