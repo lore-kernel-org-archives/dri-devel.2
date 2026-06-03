@@ -4,100 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B678CCD6E57
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 17:36:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0392CCD6E55
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 18:34:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFD541121AF;
-	Wed,  3 Jun 2026 17:36:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1496A88130;
+	Wed,  3 Jun 2026 18:34:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XZ067zuT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FPn/you4";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A17E81121AF
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 17:36:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCF2011226A
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 18:34:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DDC986008A;
- Wed,  3 Jun 2026 17:36:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBEAF1F00899;
- Wed,  3 Jun 2026 17:36:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F36CB600AE;
+ Wed,  3 Jun 2026 18:34:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E8961F00893;
+ Wed,  3 Jun 2026 18:34:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780508180;
- bh=W0atkC16En4IZdbZdsjQCqRJTQ/DFbwkWu7nB7JU7rQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=XZ067zuT+zSmlyt0tNWWWAEVuaJn7eTw7avNuL3/EmI7L9S1qYOEJMmbxyRWKf4/+
- 72RW1kYzkbFCwPm8Qv2V2g3ZWizE9yxMLJdT7eQYc06e3zURBiPjwkQFnUnngfBncS
- fL0jjihTX/tcRtfA5oCT/ucF3Xx/a/hJutUrCB9oySrWa4fMW2//yzHkFf0kKs3RWS
- vv+M/tJ/RMHF3uDbTVttVpEaQ/6pTZgLVg33mnGLYAqrSqFObJsGSSSlgnDDi49QAo
- 5Afv3HdavgVTi+IYD7GzlGAINWmb35tZthHr7ZFE70As1Mz+GZldi3k8WJrrsk9USK
- r19J54EdelY2g==
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
- by mailfauth.phl.internal (Postfix) with ESMTP id 00F26F40076;
- Wed,  3 Jun 2026 13:36:19 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-07.internal (MEProxy); Wed, 03 Jun 2026 13:36:19 -0400
-X-ME-Sender: <xms:EmYgakmDEdhpTVl_WevR5FD2XgK8yHnavi6_-lejRvlqtVxcyrD34A>
- <xme:EmYgagmmGa__kdlLlByW8q9iaLSrjoYHsMhpnRzkuG7P0k6XN_CFBBvKbU1s0TSeL
- CaIc_OYk7q_w-GpKeUVhe6xLQf25U34QEpZpAOdZ5bBhtaadDL-7A>
-X-ME-Received: <xmr:EmYgaiOShT93iIwSlKdA5xiXK4_XcvBxd28PYRZ8vs5RYoKsNuacHoO-Fvo>
-X-ME-Proxy-Cause: dmFkZTExiAM4S4b6rbDBhYcsipt+WIcQ6U92Lpa8QXEozbKBUuNKniuqF8nLee6VGz/1IM
- wH6MVeq3StWv5bWz4ExZ/72JO0pdsE/ERKzl1Iak6MH3IHVKCisb2zKFOiWyK1VU3RoKDM
- 9OnABto/ClwFrxe0LbbCc/Urw/R6p8Xjq28WIPem4wxbpq1/FJ3pE+iZS5/fH9BBNpEK0k
- Py0InZHQ+GCPlEffJv06Lhqaxtlhb82z+KTZACF67znSkQXHpsH9PhF/f5iO6JCaXaJL9C
- mfpvi8h/iV12rJIfTbMWXQgJ8TrK2rnhiX7vmT/FZMuXUIsxVNaxup2eCLx9K5GzlGY9bq
- 7W0aE11bk31uSLtt0kamnoXI/FseX6YWbA0HCpgFi/yp2k1iT5hz5rZQVW/vNPaHZsa+Gk
- Gi2rQ1Pjw/iWKAb0VSccByuRxHo58Y0r4u6Ra9htuCzrz7kflCTBMjnwhg88aPL4AHDFSM
- UxNFI3WeQPpPzCEzDf2pOCWqB475UqLzKUu7a9dVnSOX2v/yF87QF3iLuhU45iwjLslLkY
- EdkAKhG5/QK/aWZjzR0NQ+M6lBaaPVpzjcr+q+RfYtHue87beXg7Q2cOJeZYMpL+Sdc5EX
- pFXxEXoo5A6YDWE1fAsvBcpZQigub9OcACkAIUgZPkJJnKUqWpchmmlv5KuQ
-X-ME-Proxy: <xmx:EmYgapMF0_L7rcF8njCmaB8Np2WhsRwIUyPwh8tsG9nkbplnj7HguQ>
- <xmx:EmYganHUyR9F7eLuQ6I1T3DUUgWD3flki5o_JNttRj4Jaqqc0WelqQ>
- <xmx:EmYgano-0gjNnHZcUEHJRktEzt6deD11ds10nYaz0fK8UP8h29_wNQ>
- <xmx:EmYgak8ksADbxYFMj44ImNygib9jFYCpnzUlT_eoPSlHJWElAY9pEg>
- <xmx:EmYgaoQZqpT6gnp3USQITMG_I8BoTGRAa-cNGbBns6qS8R3RaX6VCDT7>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 3 Jun 2026 13:36:18 -0400 (EDT)
-Date: Wed, 3 Jun 2026 10:36:16 -0700
-From: Boqun Feng <boqun@kernel.org>
-To: phasta@kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "Paul E. McKenney" <paulmck@kernel.org>,
- Frederic Weisbecker <frederic@kernel.org>,
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Lai Jiangshan <jiangshanlai@gmail.com>,	Zqiang <qiang.zhang@linux.dev>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Igor Korotin <igor.korotin@linux.dev>,	Lorenzo Stoakes <ljs@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Krishna Ketan Rai <prafulrai522@gmail.com>,
- Shankari Anand <shankari.ak0208@gmail.com>, manos@pitsidianak.is,
- Boris Brezillon <boris.brezillon@collabora.com>,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, rcu@vger.kernel.org
-Subject: Re: [PATCH 2/4] rust: rcu: add RcuBox type
-Message-ID: <aiBmELaetTWXcmhu@tardis-2.local>
-References: <20260530143541.229628-2-phasta@kernel.org>
- <20260530143541.229628-4-phasta@kernel.org>
- <ahr9gtzQLSbPeBx_@tardis.local>
- <e8b16f3b40d42f3b0a8814180fa9b06f82c9d901.camel@mailbox.org>
- <ah2L-TMT5UHSd_Hs@tardis-2.local>
- <441fccce521857ab82b84bb8e5ab539ee3810a36.camel@mailbox.org>
- <aiBH95n4HqrNtgtz@tardis-2.local>
+ s=k20260515; t=1780511667;
+ bh=p9ETdBbN6u+XpLalAf4ddIO0WGDtQDH1OrZzSHmBy/4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=FPn/you4rWmcmnRWCoLbeBkMKfZYmlCz+MVriT4ExjdWTPax/zIpygiR8gzgZhb5W
+ +eXR+uLdyZix3sugTkrJvNOdYDlA4X8NF+8k2txP6T6FV6eaW3IARpaFG+PYk05hBm
+ /+Ql9GLt3P/UwtNLUji7eGf0yv2mSItO4ZZsqkPLBjQXK19xyM4ZwpbTCcjYyaBYXc
+ IPjGPFY0b1U11cl3srKW0g6+BLDw21HE2EM9N22p6Pp3bp0iC2FmnOUo9B1NCoq/eq
+ lFcJCEtuv+sgrTiCf0GdpqA/43vXusdJJzn0Nauy40+Kf/jWPju20LpQ7YVpuk3H9j
+ Rm35ma6CLTc1Q==
+Message-ID: <0508697c-d9b6-4691-beaa-d5ea81248cc7@kernel.org>
+Date: Wed, 3 Jun 2026 13:34:25 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aiBH95n4HqrNtgtz@tardis-2.local>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V1] accel/amdxdna: Remove drv_cmd tracing from job free
+ callback
+Content-Language: en-US
+To: Lizhi Hou <lizhi.hou@amd.com>, ogabbay@kernel.org,
+ quic_jhugo@quicinc.com, dri-devel@lists.freedesktop.org,
+ karol.wachowski@linux.intel.com
+Cc: linux-kernel@vger.kernel.org, max.zhen@amd.com, sonal.santan@amd.com
+References: <20260529152837.1973405-1-lizhi.hou@amd.com>
+ <dd84217b-d0b0-42b0-b822-cb897b6f71a8@amd.com>
+ <f8cce943-4f7b-04e9-8596-fc652ad22398@amd.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <f8cce943-4f7b-04e9-8596-fc652ad22398@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,38 +63,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 03, 2026 at 08:27:51AM -0700, Boqun Feng wrote:
-> On Wed, Jun 03, 2026 at 11:33:27AM +0200, Philipp Stanner wrote:
-> > > > > and Philipp can use the `RcuKBox` in this patchset. We also need to impl
-> > > > > InPlaceInit for RcuBox, but that can be added later.
-> > > > 
-> > > > So shall we merge my series with Alice's patch, and later we add your
-> > > > patch and other features, or would you prefer to have the additional
-> > > > boxes from your patch from the get-go?
-> > > > 
-> > > 
-> > > I would like to have it from the get-go mainly because of RcuBox vs
-> > > RcuKBox naming. Thank you!
-> > 
-> > Fine by me. Just process-wise: how should we do it?
-> > 
-> > I could include your patch on top of Alice's. Would be a bit more
-> > consistent regarding the git-workflow if we'd squash the two patches,
-> > but then you two would have to agree on authorship.
-> > 
-> 
-> Keeping it as a separate patch is fine by me.
-> 
 
-So is squashing ;-) Whichever is easy for you.
 
-Regards,
-Boqun
-
-> Regards,
-> Boqun
+On 6/1/26 10:18, Lizhi Hou wrote:
 > 
-> > All is fine by me, but I wanted to ask instead of just do A or B.
-> > 
-> > 
-> [...]
+> On 5/31/26 07:18, Mario Limonciello wrote:
+>>
+>>
+>> On 5/29/26 17:28, Lizhi Hou wrote:
+>>> aie2_sched_job_free() accesses job->drv_cmd for tracing purposes. 
+>>> However,
+>>> job->drv_cmd is owned by the caller and may already have been freed when
+>>> the job free callback runs, leading to a potential use-after-free.
+>>>
+>>> Remove the job->drv_cmd access from aie2_sched_job_free().
+>>>
+>>> Fixes: 8711eb2dde2e ("accel/amdxdna: Improve tracing for job 
+>>> lifecycle and mailbox RX worker")
+>>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+>>> ---
+>>>   drivers/accel/amdxdna/aie2_ctx.c | 3 ++-
+>>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/ 
+>>> amdxdna/aie2_ctx.c
+>>> index 658a5fb1fda6..2ad343728782 100644
+>>> --- a/drivers/accel/amdxdna/aie2_ctx.c
+>>> +++ b/drivers/accel/amdxdna/aie2_ctx.c
+>>> @@ -437,8 +437,9 @@ static void aie2_sched_job_free(struct 
+>>> drm_sched_job *sched_job)
+>>>       struct amdxdna_sched_job *job = drm_job_to_xdna_job(sched_job);
+>>>       struct amdxdna_hwctx *hwctx = job->hwctx;
+>>>   +    /* job->drv_cmd could be freed, so use DEFAULT_IO */
+>>>       trace_xdna_job(sched_job, hwctx->name, "job free",
+>>> -               job->seq, job->drv_cmd ? job->drv_cmd->opcode : 
+>>> DEFAULT_IO);
+>>> +               job->seq, DEFAULT_IO);
+>>
+>> Could this still be a race with dov->drv_cmd being valid when the 
+>> first part of the expression is evaluated (job->drv_cmd) but invalid 
+>> when job->drv_cmd->opcode is accessed?
+> 
+> When aie2_sched_job_free() is called, the job->drv_cmd could already be 
+> freed. So it should never access job->drv_cmd at all. The entire 
+> expression "job->drv_cmd ? job->drv_cmd->opcode :  DEFAULT_IO" is removed.
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> 
+> Lizhi
+> 
+>>
+>>>       if (!job->job_done)
+>>>           up(&hwctx->priv->job_sem);
+>>
+
