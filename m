@@ -4,64 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BF64CD6E5D
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 01:13:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2B97CD6E5D
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 01:17:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E415210F73D;
-	Wed,  3 Jun 2026 01:13:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B875510F74D;
+	Wed,  3 Jun 2026 01:17:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="j1ctFvY1";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="W+0cbSK1";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AC8710F73D
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 01:13:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780449214; x=1811985214;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=BvVlrfSyoLVyJv3EqVbTjwUn06zm+5EoJuwo9ycydN8=;
- b=j1ctFvY1aBOsZ6vG5ekooIx5yk7qL/NIbqS56dBGPLfX2NqMPOAvNhV4
- qZUQ01ddZnifijfRpVYlS83lfwT1Sd9RewYs/iqwwSLztyrM5/j8lFCDO
- nWiWhQK0ckyuV1HHP4bNF04vts9G1RmfWHg9Xy3s3a3zUJeVcNXsXmsoL
- x00SyzFjGdkUGxb3rcs5XPFLQIl20B3l8MpKLplumF4FTfaGBDgZAck4T
- ynIUTgXq8EC181cNVLgfZp1oCyuoXAIYuFfapucs8la85dQ1qF4dbu8LX
- WJkrgwv39jGn6GDiUUUxi1HIX0chzGPc9jFmdCAeYrxWm7FCdKFSmb3BS A==;
-X-CSE-ConnectionGUID: 3f3wdjDjRam1SgwJEzQhIA==
-X-CSE-MsgGUID: +isXn4TGQgeoPuFVkg7AxA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="80984704"
-X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; d="scan'208";a="80984704"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2026 18:13:34 -0700
-X-CSE-ConnectionGUID: GnWcwXL1SRGGmSSnk+D9RA==
-X-CSE-MsgGUID: L1DFavUQTry3TBo+Nqv0bg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; d="scan'208";a="243017565"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.116])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2026 18:13:32 -0700
-Date: Wed, 3 Jun 2026 04:13:30 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Enchanted Hunter <enchantedredhunter@gmail.com>
-Cc: Andy Shevchenko <andy.shevchenko@gmail.com>, gregkh@linuxfoundation.org,
- linux-staging@lists.linux.dev, andy@kernel.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] staging: fbtft: replace sprintf with snprintf
-Message-ID: <ah9_utsktDp4oN9E@ashevche-desk.local>
-References: <CAOSULec2OpwTGB3OUb_n3CdKO6H_DGJnxw=qsBswbd+JBjemKA@mail.gmail.com>
- <CAHp75Vc15t7zmNGeuNG_fLHwCN=Ym9w5Cn92+eqbtsioGxFzCQ@mail.gmail.com>
- <CAOSULedF6GUK_e_3KRPB+D0Jxgtow38OjQu9B1=vG-XTfsdYOA@mail.gmail.com>
- <CAHp75VdtOuLEkiuiUqxa3DT75y8Hd-1PtquodpN4qJ=rCFs_4Q@mail.gmail.com>
- <CAOSULeev+3LsSR6QboTy7oCUbTNQOOx72vjgf_tnZcr_JKbhmQ@mail.gmail.com>
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
+ [209.85.222.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36CEA10F74B
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 01:17:06 +0000 (UTC)
+Received: by mail-qk1-f180.google.com with SMTP id
+ af79cd13be357-915660e5b8eso331234185a.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 02 Jun 2026 18:17:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1780449425; x=1781054225; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=+0q9jHEvyutbUqJNds5rNSupxxEZQmy/I4DCyfn2tFo=;
+ b=W+0cbSK1hizcOetseBnKXxlkGL6/hIEPQH+s3dGEmiScNkjshkZXhfIe/Yy79e+pVQ
+ bzSZ6JAPr1cj3H4tI5RTe5usq+JNFPQpzhdF/Z6GQyo2sS/c9n7ybvss3hrRfeUHQHel
+ Yo5JyNFN8zvpBeZ6qKLFM/HiOqrv8sl/3+tRjM6O1OTsrWYBrP1IWrQlC8bdCvLHvQKb
+ HH7q/bpNFLNgRQnTtJQlF4l5Vioz9mb8tZE07TxXua4V9qKwOEIb7VT4KhGMqk0snldL
+ adCk1MDJCLFC4HOD6jvPQkM3ySMYxb1wtFdEz6mTSCBvP63xLurt+XoYY9FFJ+8oYEnF
+ iaHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780449425; x=1781054225;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=+0q9jHEvyutbUqJNds5rNSupxxEZQmy/I4DCyfn2tFo=;
+ b=j1b0R7f2lTT16fgIkUy6HTF7046anS87+vbkatvyj9H7JL7oWdmwR0fZJTuwU7rWj5
+ PnlfvspiLuDNlOd8ibBSOYXmkJBLDFKJZLkgEAad5ty2w7ygx4WId0Fx32rvwkwjLFEF
+ NdpSQPMqOCNSIRmTDDfU5IGTiMq2++z9SNKK5BXpqWVBLmSg2yIRl3xD4DqAVWyvYxZY
+ Z+FlAErRj/UsF2RfTFMw28oeXeGnJT0nUGjiuIHg18FqUFT4yuhlbXN9884AR440HG8m
+ u56G6xIZdBqQ4LykM5xzkvsJO4BhCI3dMBrj2b9WPT6mQ1EUlB7IG6r29heSOP/DiiRQ
+ 1Orw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9N3xLsJuSCmZJEschhUb9oCVrOuHMTZZigmpv05Fyjx8RR3vl+UyMuYLbj1locv5Vm9VmmjLKE3YU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxG3VtFtsTCpWjFh3AyQOeBDQzfpn2VW7LV36iYnYEnKNGDgQ0N
+ KEsFtqCSxCp9Qm4URxVyHiXHLs0VtZDPBZ0mpgi2QLc8JkrrEdBV6zf80dF4d88cW8o=
+X-Gm-Gg: Acq92OGqYiw3ikeztr6mC/qARIynU/z2lhJVNlY37syQYSCdHBHuKTt85Fe5ezCxTNV
+ aDbwlb37acP/Fgi2zMdpHBWGdNcmeY+oFfs6SvVyP6R4WUr1VcamjSDEhJSlPv1tSe0Pywdf7DE
+ LaKZHbz4NKYglxzjIXPiRexs6B0wUdM5ejJ2ZfSqVeIGabaokZdBFXHQw/CPGPScFBKLyuPeMaB
+ mTvExYKj7OtRhmGZ2a0EorP8YsgRUfnXCBNMLgjKG2EvAd47ODml6pmxNwFZqMYSgaa8lYv36qU
+ hujVku2thnIqzEC67vlBwSehnDf9kJSKgYpNYyK12h69UTkQWVz+KwAkw1gKML3gyICmsaayNqD
+ f/zvlRfTU5AB2M9BlAcZVoQwzEfAv+bzldZPWxGFugAA1HeeD9/gx6h7QNJ9vklrU9CtJoQKcn6
+ oApZWUhxTDCqioaGJx4BCzvbrb43ZfsUaK4P4K9MQd6Nmo1HkUTQ91jA1lNZ1OXslH2Gy4wcsvj
+ Jm5B8N63ug1fmf0
+X-Received: by 2002:a05:620a:4455:b0:914:c788:761a with SMTP id
+ af79cd13be357-9158a84f289mr254481885a.58.1780449425306; 
+ Tue, 02 Jun 2026 18:17:05 -0700 (PDT)
+Received: from ziepe.ca
+ (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
+ [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-9158a009fe7sm102378285a.8.2026.06.02.18.17.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 02 Jun 2026 18:17:04 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1wUaEC-00000004yu4-0q6Q;
+ Tue, 02 Jun 2026 22:17:04 -0300
+Date: Tue, 2 Jun 2026 22:17:04 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Guanghui Feng <guanghuifeng@linux.alibaba.com>
+Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
+ baolu.lu@linux.intel.com, boris.brezillon@collabora.com,
+ dri-devel@lists.freedesktop.org, dwmw2@infradead.org,
+ iommu@lists.linux.dev, joro@8bytes.org, kevin.tian@intel.com,
+ kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, liviu.dudau@arm.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ oliver.yang@linux.alibaba.com, robh@kernel.org,
+ robin.murphy@arm.com, shiyu.zsq@linux.alibaba.com,
+ steven.price@arm.com, suravee.suthikulpanit@amd.com,
+ tzimmermann@suse.de, wei.guo.simon@linux.alibaba.com,
+ will@kernel.org, xlpang@linux.alibaba.com,
+ alikernel-developer@linux.alibaba.com
+Subject: Re: [PATCH v2 11/30] iommu/mtk_iommu: implement iova_to_phys_length
+Message-ID: <20260603011704.GT2487554@ziepe.ca>
+References: <20260531093637.3893199-1-guanghuifeng@linux.alibaba.com>
+ <20260602104637.1219810-1-guanghuifeng@linux.alibaba.com>
+ <20260602104637.1219810-12-guanghuifeng@linux.alibaba.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAOSULeev+3LsSR6QboTy7oCUbTNQOOx72vjgf_tnZcr_JKbhmQ@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260602104637.1219810-12-guanghuifeng@linux.alibaba.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,57 +106,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue, Jun 02, 2026 at 06:46:18PM +0800, Guanghui Feng wrote:
+> -	pa = dom->iop->iova_to_phys(dom->iop, iova);
+> +	if (mapped_length)
+> +		*mapped_length = 0;
+> +
+> +	pa = dom->iop->iova_to_phys_length(dom->iop, iova, mapped_length);
+> +	if (pa == PHYS_ADDR_MAX)
+> +		return PHYS_ADDR_MAX;
 
+???
 
-Please, stop top-posting.
+I guess lots of AI made this right? Please review the AI output for
+the little slop things left over..
 
-On Tue, Jun 02, 2026 at 10:33:34PM +0300, Enchanted Hunter wrote:
-> I suppose I agree with you. My patch does look silly, and I regret wasting
-> your time. I've just started learning kernel development. Perhaps if you
-> happen to have any routine task, you could suggest something that would
-> actually be worth doing. I'm very interested in this. I will sign with my
-> real name, but I'm from Russia, and I understand that this might be a big
-> problem right now.
+I saw enough unnecessary hunks, and goofy things like putting the
+mapped_len zero in every driver instead of in the core caller.
 
-I have this [1]. It shouldn't be a problem as long as you are not working for
-the OFAC sanctioned entity or tied to them in any ways.
+That said it looks pretty close overall..
 
-
-> вт, 2 июн. 2026 г. в 21:32, Andy Shevchenko <andy.shevchenko@gmail.com>:
-> 
-> > On Tue, Jun 2, 2026 at 8:13 PM Enchanted Hunter
-> > <enchantedredhunter@gmail.com> wrote:
-> > >
-> > > Overall, it doesn't address any compiler warnings, but this is my first
-> > patch. I wanted to start with something concrete, and I saw an unsafe
-> > function and tried to fix it. The fact that the compilation behavior won't
-> > change is true, but the code will become a bit more formal — maybe that's a
-> > good thing.
-> >
-> > Not sure we need a churn on the working code.
-> >
-> > A process hint: Do not top-post.
-> >
-> > > пн, 1 июн. 2026 г. в 11:25, Andy Shevchenko <andy.shevchenko@gmail.com>:
-> > >>
-> > >> On Mon, Jun 1, 2026 at 3:44 AM Enchanted Hunter
-> > >> <enchantedredhunter@gmail.com> wrote:
-> > >> >
-> > >> > This patch replaces unsafe sprintf calls with snprintf in
-> > >> > fbtft_register_framebuffer() to prevent potential buffer overflow.
-> > >> >
-> > >> > Signed-off-by: rat1bor <enchantedredhunter@gmail.com>
-> >
-> > Another thing, use your real name and not an alias.
-> >
-> > >> Does this change address any compiler warning or something like that?
-> > >> At a glance I do not see any usefulness of this patch except an
-> > >> unneeded churn.
-
-[1]: https://gist.github.com/andy-shev/a2cb1ee4767d6d2f5d20db53ecb9aabc
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Jason
