@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DCD0CD6E57
-	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 01:42:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13A6FCD6E4A
+	for <dri-devel@archiver.kernel.org>; Wed,  3 Jun 2026 01:42:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91BA610F754;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C04510F755;
 	Wed,  3 Jun 2026 01:42:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="NYhSJkFL";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="irk8G2By";
 	dkim-atps=neutral
-X-Greylist: delayed 414 seconds by postgrey-1.36 at gabe;
- Wed, 03 Jun 2026 01:42:48 UTC
-Received: from out-170.mta0.migadu.com (out-170.mta0.migadu.com
- [91.218.175.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F90310F754
- for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 01:42:48 +0000 (UTC)
+Received: from out-189.mta0.migadu.com (out-189.mta0.migadu.com
+ [91.218.175.189])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C21C910F754
+ for <dri-devel@lists.freedesktop.org>; Wed,  3 Jun 2026 01:42:49 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1780450552;
+ t=1780450554;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=HExVF90/xRMJOCIBWPxUryKc84gRK04Xn6EiupoYnxI=;
- b=NYhSJkFLoi0guDzdszjPoV3lsxp7XIuZqbWC18nZEKtoXe8F5GpUYqSSwMe+9rxWJZxq55
- dqYD2WwdKnp+gmTRTvLDnf6soUDojPtyaslDxJC5wo4Ig6Kxx+TaESLNoJBpqZX7huYlHl
- IDWNNJikkxPjcB0hQtJ4DUxcev/xVmY=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=U+b6EsUk6mnaihwNh072DINdQhDt8B83hqlt9kpNg+0=;
+ b=irk8G2By6NZYDw+k/5sF/XMdowE8yeFHhJi2cWK6kwuXrmNzobkD/2gdZUHMk6mIsjDXSw
+ 84II/gwyUuK89DBhjl8fcWf80Kdhra7ux3n7L5bnmaTMCHpnEuv6Sn/T5q1m54LV3DC0ES
+ ar9IOfGNfoQtJC6+4aDcXko8E7zPd7k=
 From: Jackie Liu <liu.yun@linux.dev>
 To: mamin506@gmail.com,
 	lizhi.hou@amd.com
 Cc: dri-devel@lists.freedesktop.org
-Subject: [PATCH 1/2] accel/amdxdna: fix memory leak in amdxdna_iommu_alloc()
- when iommu_map() fails
-Date: Wed,  3 Jun 2026 09:35:42 +0800
-Message-ID: <20260603013543.94835-1-liu.yun@linux.dev>
+Subject: [PATCH 2/2] accel/amdxdna: fix error code being silently swallowed in
+ hwctx status queries
+Date: Wed,  3 Jun 2026 09:35:43 +0800
+Message-ID: <20260603013543.94835-2-liu.yun@linux.dev>
+In-Reply-To: <20260603013543.94835-1-liu.yun@linux.dev>
+References: <20260603013543.94835-1-liu.yun@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
@@ -57,39 +58,62 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jackie Liu <liuyun01@kylinos.cn>
 
-When iommu_map() fails in amdxdna_iommu_alloc(), the code jumps to
-the 'free_iova' label which only frees the IOVA allocation. The
-physical pages allocated by __get_free_pages() are not freed, causing
-a memory leak.
+Both aie2_get_hwctx_status() and aie2_query_ctx_status_array() iterate
+over hardware contexts calling amdxdna_hwctx_walk() with a callback
+that can fail with -ENOMEM (allocation failure) or -EFAULT
+(copy_to_user failure). When the walk fails, the loop correctly breaks
+but the functions always return 0 to userspace, swallowing the error.
 
-Add a 'free_pages' intermediate label to properly release the pages
-before freeing the IOVA, matching the cleanup order in
-amdxdna_iommu_free().
+This means userspace receives no indication that the data may be
+incomplete or that the operation failed. Save the error code and
+return it to properly propagate failures to userspace.
 
-Fixes: ece3e8980907 ("accel/amdxdna: Allow forcing IOVA-based DMA via module parameter")
+Fixes: 81233d5419cf ("accel/amdxdna: Fix uninitialized return value")
 Signed-off-by: Jackie Liu <liuyun01@kylinos.cn>
 ---
- drivers/accel/amdxdna/amdxdna_iommu.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/accel/amdxdna/aie2_pci.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/accel/amdxdna/amdxdna_iommu.c b/drivers/accel/amdxdna/amdxdna_iommu.c
-index 4626434d4180..af67e059d599 100644
---- a/drivers/accel/amdxdna/amdxdna_iommu.c
-+++ b/drivers/accel/amdxdna/amdxdna_iommu.c
-@@ -110,10 +110,12 @@ void *amdxdna_iommu_alloc(struct amdxdna_dev *xdna, size_t size, dma_addr_t *dma
- 			iova_align(&xdna->iovad, size),
- 			IOMMU_READ | IOMMU_WRITE, GFP_KERNEL);
- 	if (ret)
--		goto free_iova;
-+		goto free_pages;
+diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie2_pci.c
+index 4500b9ccb02e..0ff87fafd049 100644
+--- a/drivers/accel/amdxdna/aie2_pci.c
++++ b/drivers/accel/amdxdna/aie2_pci.c
+@@ -908,7 +908,7 @@ static int aie2_get_hwctx_status(struct amdxdna_client *client,
+ 	struct amdxdna_drm_get_array array_args;
+ 	struct amdxdna_dev *xdna = client->xdna;
+ 	struct amdxdna_client *tmp_client;
+-	int ret;
++	int ret = 0;
  
- 	return cpu_addr;
+ 	drm_WARN_ON(&xdna->ddev, !mutex_is_locked(&xdna->dev_lock));
  
-+free_pages:
-+	free_pages((unsigned long)cpu_addr, get_order(size));
- free_iova:
- 	__free_iova(&xdna->iovad, iova);
- 	return ERR_PTR(ret);
+@@ -923,7 +923,7 @@ static int aie2_get_hwctx_status(struct amdxdna_client *client,
+ 	}
+ 
+ 	args->buffer_size -= (u32)(array_args.buffer - args->buffer);
+-	return 0;
++	return ret;
+ }
+ 
+ static int aie2_query_resource_info(struct amdxdna_client *client,
+@@ -1105,7 +1105,7 @@ static int aie2_query_ctx_status_array(struct amdxdna_client *client,
+ 	struct amdxdna_drm_get_array array_args;
+ 	struct amdxdna_dev *xdna = client->xdna;
+ 	struct amdxdna_client *tmp_client;
+-	int ret;
++	int ret = 0;
+ 
+ 	drm_WARN_ON(&xdna->ddev, !mutex_is_locked(&xdna->dev_lock));
+ 
+@@ -1131,7 +1131,7 @@ static int aie2_query_ctx_status_array(struct amdxdna_client *client,
+ 	args->num_element = (u32)((array_args.buffer - args->buffer) /
+ 				  args->element_size);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static int aie2_get_array(struct amdxdna_client *client,
 -- 
 2.54.0
 
