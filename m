@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1FF2CD6E4A
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 12:05:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA2D7CD6E4A
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 12:10:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E51010E253;
-	Thu,  4 Jun 2026 12:05:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 356E811278D;
+	Thu,  4 Jun 2026 12:10:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WL1ClciG";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="P9ZcplBd";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0219110E253
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 12:05:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E886E11278D
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 12:10:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -22,24 +22,24 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Ky5YGFDwaAZLt8d9YJquHE9wdHOK5M93Y7ohAMxyIOo=; b=WL1ClciG/6xY/5BBS7plwPJHrm
- /f71b1ASA5Cj3Yt/CVBuUQTNSRswelfItiPmyUQk6sYx/+MTRV1JfNkODS5vN1IP9TUEQyxFB7I5r
- 9F9QBHYO7HDtjegpXxKBu31nARvbZe9hOPj1XSX9fspaX3YSBp8nchdN89PCBl97k2nTVQAGL0Vp/
- dyTKV75IH87Sa6crM/H2mtoPP/mlJaCBK5uLk5LXQSGBsBTM0BPwjdBKDm2zXq4mijPn2Lwh/miqC
- E5VL8+vMUar9RvRe67eBahE9108YTTDGQcbet9h+qbD+lqFYbbIpbsIJJLhypk9lcDzph//erEqdg
- IxuJJq8g==;
-Received: from [90.240.106.137] (helo=[192.168.0.116])
+ bh=Dec1NOE0KtbbnICp/tlQOElGrKo3lHANl+V4hYqMmPA=; b=P9ZcplBdo0sFPI76Qzr7+j6uLl
+ PyN6Fff/b85XzCTV2QVXPZZ7s8VIhIzoz7+vO5yBLNlkCNoXJ5B0Y52w7vYnzFGHiRt4veZ1PK2+C
+ V04l8W8iZ5a+qn+1JUt5x61ODnGDd0F7FRcgelQbBF2+HhkNDleonyf8sdCXeaQ29ml039owIJUmr
+ 2ilY2jgi4HQ+y8l/01Etsa7EPaZf5ZKDpoFFJy/CGGEJFGxNp3u6wc91pFnstvMZieQ2EDXxEylF8
+ BEGJR2LZH8F1kaJ6Ar2dgjt/C1gvOtSlr1SSGeiz1HuUdZ5C0atohb9gl8tCa5u/MoYg4ZdVcZb0W
+ 6YsKoR4w==;
+Received: from [189.7.87.67] (helo=[192.168.0.2])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wV6ot-00CciK-DR; Thu, 04 Jun 2026 14:05:07 +0200
-Message-ID: <617cb27d-a797-474e-9407-c575a1b393ab@igalia.com>
-Date: Thu, 4 Jun 2026 13:05:06 +0100
+ id 1wV6ty-00Ccom-0D; Thu, 04 Jun 2026 14:10:22 +0200
+Message-ID: <cc1cd958-4f83-450e-bcb0-ca39f2715d9b@igalia.com>
+Date: Thu, 4 Jun 2026 09:10:16 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 08/14] drm/v3d: Introduce struct v3d_submit and convert
  CL/TFU/CSD ioctls
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Melissa Wen
+ <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
@@ -49,9 +49,34 @@ References: <20260603-v3d-sched-misc-fixes-v3-0-d7114bba55a0@igalia.com>
  <20260603-v3d-sched-misc-fixes-v3-8-d7114bba55a0@igalia.com>
  <f015504f-ac09-4de3-9727-473108d6757f@igalia.com>
  <7fecd592-38a1-46bb-8289-cb8599b2df4d@igalia.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <7fecd592-38a1-46bb-8289-cb8599b2df4d@igalia.com>
+ <617cb27d-a797-474e-9407-c575a1b393ab@igalia.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <617cb27d-a797-474e-9407-c575a1b393ab@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -69,94 +94,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On 04/06/2026 12:52, Maíra Canal wrote:
-> Hi Tvrtko,
+On 04/06/26 09:05, Tvrtko Ursulin wrote:
 > 
-> On 04/06/26 05:58, Tvrtko Ursulin wrote:
+> On 04/06/2026 12:52, Maíra Canal wrote:
+>> Hi Tvrtko,
 >>
->> On 03/06/2026 23:25, Maíra Canal wrote:
->>> +static int
->>> +v3d_submit_jobs(struct v3d_submit *submit)
->>> +{
->>> +    struct v3d_dev *v3d = submit->v3d;
->>> +    int ret = 0;
->>> +
->>> +    mutex_lock(&v3d->sched_lock);
->>> +
->>> +    for (int i = 0; i < submit->job_count; i++) {
->>> +        struct v3d_job *job = submit->jobs[i];
->>> +
->>> +        v3d_push_job(job);
->>> +
->>> +        if (i + 1 < submit->job_count) {
->>> +            ret = drm_sched_job_add_dependency(&submit->jobs[i + 1]- 
->>> >base,
->>> +                               dma_fence_get(job->done_fence));
+>> On 04/06/26 05:58, Tvrtko Ursulin wrote:
+>>>
+>>> On 03/06/2026 23:25, Maíra Canal wrote:
+>>>> +static int
+>>>> +v3d_submit_jobs(struct v3d_submit *submit)
+>>>> +{
+>>>> +    struct v3d_dev *v3d = submit->v3d;
+>>>> +    int ret = 0;
+>>>> +
+>>>> +    mutex_lock(&v3d->sched_lock);
+>>>> +
+>>>> +    for (int i = 0; i < submit->job_count; i++) {
+>>>> +        struct v3d_job *job = submit->jobs[i];
+>>>> +
+>>>> +        v3d_push_job(job);
+>>>> +
+>>>> +        if (i + 1 < submit->job_count) {
+>>>> +            ret = drm_sched_job_add_dependency(&submit->jobs[i + 
+>>>> 1]- >base,
+>>>> +                               dma_fence_get(job->done_fence));
+>>>
+>>> Is there a theoretical race where job->done_fence could be completed 
+>>> and last reference dropped between push and here?
 >>
->> Is there a theoretical race where job->done_fence could be completed 
->> and last reference dropped between push and here?
-> 
-> There is, but it'll be fixed in "[PATCH v3 14/14] drm/v3d: Ensure atomic
-> submissions in v3d_submit_jobs()".
-> 
+>> There is, but it'll be fixed in "[PATCH v3 14/14] drm/v3d: Ensure atomic
+>> submissions in v3d_submit_jobs()".
 >>
->>> +            if (ret)
->>> +                goto err;
->>> +        }
->>> +    }
->>> +
->>> +err:
->>> +    mutex_unlock(&v3d->sched_lock);
->>> +    return ret;
->>> +}
->>> +
->>>   static int
->>>   v3d_setup_csd_jobs_and_bos(struct drm_file *file_priv,
->>>                  struct v3d_dev *v3d,
->>> @@ -921,18 +1048,15 @@ int
->>>   v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
->>>               struct drm_file *file_priv)
->>>   {
->>> -    struct v3d_dev *v3d = to_v3d_dev(dev);
->>> -    struct v3d_file_priv *v3d_priv = file_priv->driver_priv;
->>> +    struct v3d_submit submit = { .v3d = to_v3d_dev(dev), .file_priv 
->>> = file_priv };
->>>       struct drm_v3d_submit_cl *args = data;
->>>       struct v3d_submit_ext se = {0};
->>>       struct v3d_bin_job *bin = NULL;
->>>       struct v3d_render_job *render = NULL;
->>>       struct v3d_job *clean_job = NULL;
+>>>
+>>>> +            if (ret)
+>>>> +                goto err;
+>>>> +        }
+>>>> +    }
+>>>> +
+>>>> +err:
+>>>> +    mutex_unlock(&v3d->sched_lock);
+>>>> +    return ret;
+>>>> +}
+>>>> +
+>>>>   static int
+>>>>   v3d_setup_csd_jobs_and_bos(struct drm_file *file_priv,
+>>>>                  struct v3d_dev *v3d,
+>>>> @@ -921,18 +1048,15 @@ int
+>>>>   v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+>>>>               struct drm_file *file_priv)
+>>>>   {
+>>>> -    struct v3d_dev *v3d = to_v3d_dev(dev);
+>>>> -    struct v3d_file_priv *v3d_priv = file_priv->driver_priv;
+>>>> +    struct v3d_submit submit = { .v3d = to_v3d_dev(dev), .file_priv 
+>>>> = file_priv };
+>>>>       struct drm_v3d_submit_cl *args = data;
+>>>>       struct v3d_submit_ext se = {0};
+>>>>       struct v3d_bin_job *bin = NULL;
+>>>>       struct v3d_render_job *render = NULL;
+>>>>       struct v3d_job *clean_job = NULL;
+>>>
+>>> render and clean_job do not need to be initialised.
 >>
->> render and clean_job do not need to be initialised.
-> 
-> Ack.
-> 
->>> +
->>> +    ret = v3d_attach_perfmon_to_jobs(&submit, args->perfmon_id);
->>> +    if (ret)
->>> +        goto fail;
->>> +
->>> +    ret = v3d_lookup_bos(dev, file_priv,
->>> +                 submit.jobs[submit.job_count - 1],
+>> Ack.
 >>
->> submit.jobs[submit.job_count - 1] is repeated four times in the 
->> function so you could assign it to a last_job local for more 
->> readability. Up to you.
+>>>> +
+>>>> +    ret = v3d_attach_perfmon_to_jobs(&submit, args->perfmon_id);
+>>>> +    if (ret)
+>>>> +        goto fail;
+>>>> +
+>>>> +    ret = v3d_lookup_bos(dev, file_priv,
+>>>> +                 submit.jobs[submit.job_count - 1],
+>>>
+>>> submit.jobs[submit.job_count - 1] is repeated four times in the 
+>>> function so you could assign it to a last_job local for more 
+>>> readability. Up to you.
+>>
+>> This will all disappear in the next few patches.
+>>
+>> Considering this, would you consider R-b-ing this patch and I'll address
+>> the initializations in the next version?
 > 
-> This will all disappear in the next few patches.
+> Normally best practice would be avoid leaving a know broken stage mid- 
+> series. But, as I don't see this series getting half-reverted, but 
+
+To be fair about drm_sched_job_add_dependency() situation, it was
+already broken before this series. We are just leaving it as broken as
+it was to finally fix it in the end :)
+
+> instead if there will be regressions you will be the only person working 
+> to fix them on top, I think we can dispense an exception:
 > 
-> Considering this, would you consider R-b-ing this patch and I'll address
-> the initializations in the next version?
+> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Normally best practice would be avoid leaving a know broken stage 
-mid-series. But, as I don't see this series getting half-reverted, but 
-instead if there will be regressions you will be the only person working 
-to fix them on top, I think we can dispense an exception:
+Thank you a lot for all the reviews!
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Best regards,
+- Maíra
 
-Regards,
-
-Tvrtko
+> 
+> Regards,
+> 
+> Tvrtko
+> 
 
