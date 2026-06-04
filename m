@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A78B0CD6E75
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:25:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2154CD6E6E
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:26:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2DBF11A2F1;
-	Thu,  4 Jun 2026 20:25:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 275F811A2F3;
+	Thu,  4 Jun 2026 20:26:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="POpaPPXG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hl6tK+JR";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B955611A2F1
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:25:22 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2954011A2F4
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:26:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 86D6E43CE1;
- Thu,  4 Jun 2026 20:25:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CDDF1F00893;
- Thu,  4 Jun 2026 20:25:22 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6DCC86001A
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:26:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E51551F00893;
+ Thu,  4 Jun 2026 20:26:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780604722;
- bh=tCbLSCKRFTAFnnrwh+NCRcDKno79825XHp03R9a4B5w=;
+ s=k20260515; t=1780604765;
+ bh=5ITOkeVkekdwi/A0DDI2o7Cw0EGGh4FSGNprGqGQYRU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=POpaPPXGaDzlU4D+SPF3gZznt/tUC6HSM7ge9+8H9j5NCHqGjNd2w+dfoDAkM/ypm
- gVM5s5U5Ox9O2JDLGVmCYkr1tvuklFmSxOsbcOg2BM4pogzGWeK39vW/BnbJK6YNZ3
- 5PtoYEmRUgy/bY7Wg2DmiNs63s+a1pH0FCkY9GmywbpbKCHbbjON7UvHoiwUwzk0Ax
- 6J8cfhyj9/b/UchC8nQ3GMdnTWxm6QvJ+nYF4AehHbFnQnnVWF6lLilOXFZ63gfE1x
- KtUootvBAO9E7Rw7ZRGfh3RzpcjwH5dInIJXAH5tWQDvSok3d2WAnMCcPlUMQKLyMd
- 6xa9mPHp1v9FQ==
+ b=hl6tK+JRaK9cqg/53BshntXCzvluaFu6hxxvDVEuzteINc8UYK5vhkTJFNv89EwPo
+ 7oTXt0avxO4eeflJ37cpov+eTGvi1smixEiNsBx+3xJBuzVzvrLHNPqDLPwWu28xqM
+ A8hSW9CoTCOS5gJL9PHwsdLut4wmir3nY3KmMJ6gBe8W+YrluatSz0Oy8tWdfa/aPJ
+ zV00u3nGqgr1DR8bImMGRaq52RrA1gUGaXrRhFCLU2QD+GPp0m+Y6J09dGILZTVOCH
+ EU0zC3AxQywG8nDC6cqBtFUr0wOkud+QGlEF84gLe10CFeqM+TPRuKekfD7Y3Vp2Uo
+ soihHas3GYY4g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/6] drm/msm/a6xx: Fix IRQ storm during msm_recovery test
-To: "Akhil P Oommen" <akhilpo@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260605-assorted-fixes-june-v1-5-2caa04f7287c@oss.qualcomm.com>
-References: <20260605-assorted-fixes-june-v1-5-2caa04f7287c@oss.qualcomm.com>
+Subject: Re: [PATCH v17 02/10] rust: types: Add Ownable/Owned types
+To: "Andreas Hindborg" <a.hindborg@kernel.org>
+Cc: ojeda@kernel.org, linux-pci@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260604-unique-ref-v17-2-7b4c3d2930b9@kernel.org>
+References: <20260604-unique-ref-v17-2-7b4c3d2930b9@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 20:25:21 +0000
-Message-Id: <20260604202522.4CDDF1F00893@smtp.kernel.org>
+Date: Thu, 04 Jun 2026 20:26:04 +0000
+Message-Id: <20260604202604.E51551F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,124 +57,115 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Toggling `disable_err_irq` back to false via debugfs leaves hardwa=
-re error interrupts permanently disabled until a GPU reset.
-- [High] Writing a restrictive interrupt mask in `a6xx_irq` and `a8xx_irq` =
-drops the `CP_SW` interrupt, actively breaking preemption.
-- [Medium] The `recover_worker` function unilaterally clears the user-contr=
-olled `disable_err_irq` debugfs boolean during GPU recovery.
+- [High] `Ownable::release` takes `&mut self` instead of a raw pointer, cau=
+sing Undefined Behavior due to invalidating a live reference during dealloc=
+ation and narrowing pointer provenance.
+- [High] `Owned<T>` inherently pins its contents, but the safety contracts =
+for `Ownable` and `from_raw` fail to enforce or document this Pin guarantee.
 --
 
-commit c227655841882ac95655f120b99ea1eb3c758dc2
-Author: Jie Zhang <jie.zhang@oss.qualcomm.com>
+commit 14ba35325a0c0c8b1032beb4bbdfd6396842dfdc
+Author: Asahi Lina <lina+kernel@asahilina.net>
 
-drm/msm/a6xx: Fix IRQ storm during msm_recovery test
+    rust: types: Add Ownable/Owned types
+   =20
+    By analogy to AlwaysRefCounted and ARef, an Ownable type is a
+    (typically C FFI) type that may be owned by Rust, but need not be. Unli=
+ke
+    AlwaysRefCounted, this mechanism expects the reference to be unique
+    within Rust, and does not allow cloning.
 
-This commit masks GPU error IRQs during the msm_recovery test to prevent
-an interrupt storm when a hang is triggered. It then attempts to re-enable
-the interrupts during GPU recovery.
+    Link: https://lore.kernel.org/all/20250202-rust-page-v1-1-e3170d7fe55e@=
+asahilina.net/
 
-> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/=
-adreno/a5xx_gpu.c
-> index 2c0bbac43c52b..f1df2514c6132 100644
-> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> diff --git a/rust/kernel/owned.rs b/rust/kernel/owned.rs
+> new file mode 100644
+> index 0000000000000..456e239e906ef
+> --- /dev/null
+> +++ b/rust/kernel/owned.rs
+> @@ -0,0 +1,187 @@
+> +// SPDX-License-Identifier: GPL-2.0
+
 [ ... ]
-> @@ -1275,6 +1275,11 @@ static irqreturn_t a5xx_irq(struct msm_gpu *gpu)
->  		status & ~A5XX_RBBM_INT_0_MASK_RBBM_AHB_ERROR);
-> =20
->  	if (priv->disable_err_irq) {
-> +		/* Turn off interrupts to avoid interrupt storm */
-> +		gpu_write(gpu, REG_A5XX_RBBM_INT_0_MASK,
-> +			       A5XX_RBBM_INT_0_MASK_CP_CACHE_FLUSH_TS |
-> +			       A5XX_RBBM_INT_0_MASK_CP_SW);
-> +
->  		status &=3D A5XX_RBBM_INT_0_MASK_CP_CACHE_FLUSH_TS |
->  			  A5XX_RBBM_INT_0_MASK_CP_SW;
->  	}
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
-adreno/a6xx_gpu.c
-> index 8b3bb2fd433ba..9a4f9d0e17800 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -1911,8 +1911,11 @@ static irqreturn_t a6xx_irq(struct msm_gpu *gpu)
-> =20
->  	gpu_write(gpu, REG_A6XX_RBBM_INT_CLEAR_CMD, status);
-> =20
-> -	if (priv->disable_err_irq)
-> +	if (priv->disable_err_irq) {
-> +		/* Turn off interrupts to avoid interrupt storm */
-> +		gpu_write(gpu, REG_A6XX_RBBM_INT_0_MASK, A6XX_RBBM_INT_0_MASK_CP_CACHE=
-_FLUSH_TS);
+
+> +pub trait Ownable {
+> +    /// Tear down this `Ownable`.
+> +    ///
+> +    /// Implementers of `Ownable` can use this function to clean up the =
+use of `Self`. This can
+> +    /// include freeing the underlying object.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// Callers must ensure that the caller has exclusive ownership of `=
+T`, and this ownership can
+> +    /// be transferred to the `release` method.
+> +    unsafe fn release(&mut self);
 
 [Severity: High]
-If priv->disable_err_irq is managed via debugfs_create_bool(), setting it o=
-nly
-updates the variable in memory.
+Does taking a mutable reference here instead of a raw pointer risk undefined
+behavior?
 
-If a user sets it to true, we mask the hardware here. However, if they
-subsequently set it to false, there is no callback or mechanism to restore =
-the
-hardware mask back to its default state.
+If Owned::drop() creates a temporary reference and passes it to release(),
+deallocating the backing memory of this live mutable reference violates
+Rust's aliasing rules because the reference remains in scope during the fre=
+e:
 
-Does this leave hardware error detection (like AHB errors and faults)
-permanently crippled until a full GPU reset occurs?
+Owned::drop()
+    T::release(self.ptr.as_mut())
+
+Additionally, if T is an opaque C-allocated type (often represented as a
+Zero-Sized Type), creating a mutable reference narrows the pointer's
+provenance to exactly 0 bytes. Converting this back to a raw pointer and
+passing it to a C deallocator would be invalid.
+
+Would it be safer for release() to take a raw pointer (like NonNull<Self> or
+*mut Self), similar to AlwaysRefCounted::dec_ref()?
 
 [Severity: High]
-Also, writing this mask drops the CP_SW interrupt entirely.
+Since Owned<T> guarantees that its underlying T is pinned and exposes
+Pin<&mut T> via as_pin_mut(), does Ownable need to be an unsafe trait
+to enforce pinning invariants?
 
-Both a6xx (which handles A7xx) and a8xx rely on CP_SW for preemption comple=
-tion
-events. Physically disabling it in hardware means subsequent preemptions wi=
-ll
-never be signaled to the CPU as complete.
+Currently, Ownable is safe to implement, and release() provides an unpinned
+mutable reference. A safe implementation of release() could potentially move
+the value. When Owned::drop() is called, this would move a value that was
+previously pinned, violating the pinning guarantees.
 
-Will dropping it cause a spurious GPU hang during the test window, instead
-of correctly preserving both CP_CACHE_FLUSH_TS and CP_SW like a5xx_irq() do=
-es?
+> +}
 
->  		status &=3D A6XX_RBBM_INT_0_MASK_CP_CACHE_FLUSH_TS;
-> +	}
-> =20
->  	if (status & A6XX_RBBM_INT_0_MASK_RBBM_HANG_DETECT)
->  		a6xx_fault_detect_irq(gpu);
 [ ... ]
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> index 9ac7740a87f01..48ac51f4119be 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> @@ -552,6 +552,8 @@ static void recover_worker(struct kthread_work *work)
->  		msm_update_fence(ring->fctx, fence);
->  	}
-> =20
-> +	priv->disable_err_irq =3D false;
 
-[Severity: Medium]
-The disable_err_irq flag is exposed via debugfs for userspace testing tools
-(like IGT msm_recovery) to intentionally bypass hardware error interrupts a=
-nd
-validate the software hangcheck fallback.
+> +impl<T: Ownable> Owned<T> {
+> +    /// Creates a new instance of [`Owned`].
+> +    ///
+> +    /// This function takes over ownership of the underlying object.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// Callers must ensure that:
+> +    /// - `ptr` points to a valid instance of `T`.
+> +    /// - Until `T::release` is called, the returned `Owned<T>` exclusiv=
+ely owns the underlying `T`.
+> +    #[inline]
+> +    pub unsafe fn from_raw(ptr: NonNull<T>) -> Self {
 
-By forcibly clearing it here upon the first recovery, the kernel silently
-overrides the user's explicit configuration.
+[Severity: High]
+Does the safety documentation for from_raw() need to require that the
+allocation is permanently pinned?
 
-If a test expects this flag to remain active across multiple subtests or
-submissions, won't subsequent hangs unexpectedly fall back to hardware
-error detection?
+Without this requirement, a caller could pass an unpinned allocation,
+extract it later via into_raw(), and move it. This would violate the
+internal pinning assumptions made by Owned<T> when calling as_pin_mut().
 
-Since hardware interrupts are natively re-enabled by the hardware reset dur=
-ing
-recovery, should this debugfs flag remain strictly under user control inste=
-ad
-of being unilaterally cleared?
-
-> +
->  	gpu->funcs->recover(gpu);
-> =20
->  	/* retire completed submits, plus the one that hung: */
+> +        // INVARIANT: By function safety requirement we satisfy the firs=
+t invariant of `Self`.
+> +        // We treat `T` as pinned from now on.
+> +        Self { ptr }
+> +    }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605-assorted-f=
-ixes-june-v1-0-2caa04f7287c@oss.qualcomm.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-unique-ref=
+-v17-0-7b4c3d2930b9@kernel.org?part=3D2
