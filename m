@@ -4,78 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BF7FCD6E74
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 07:08:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 851AACD6E6B
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 07:25:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E182811A4D2;
-	Fri,  5 Jun 2026 07:08:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB53B10E144;
+	Fri,  5 Jun 2026 07:25:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="kL+qe9jF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qp835M0O";
 	dkim-atps=neutral
-X-Greylist: delayed 526 seconds by postgrey-1.36 at gabe;
- Fri, 05 Jun 2026 07:08:56 UTC
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [194.59.206.189])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BB7011A4D2;
- Fri,  5 Jun 2026 07:08:56 +0000 (UTC)
-Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
- by relay02-mors.netcup.net (Postfix) with ESMTPS id 4gWskw3pGWz4HNY;
- Fri,  5 Jun 2026 09:00:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1780642808;
- bh=C4LywOONUo9mM7SYCl9JaZ1nEcm3gsy9ldzredo9jW0=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=kL+qe9jFQlDIIFWazrdM9DPHT8ZxTESUvlVZ5eHBkQwY4fZJyPV4J/Csp8xt7zZFy
- XACWiPgKk8OtyQMUjwLIy5KrvZZvz6LoN9g8tljf4aHhAydHkLFGzSCzrFIJbcP4SS
- 45Elvf7avy7ydyXoj3kTM6C/ZPUgcF6eX82AkWy6h2p94+uiGe1Cg1UP0lTTqBf4ls
- 3BaNScqlouL3TNQa1GcTX8dn/4jcAmoKLqevI92Ayls7BJEnfbV7DATNj6bmh8V1mo
- +b+mSwKmcZAv/xf7WreQ3u3vIAgyUs/177aIu//SKSetVjXqnUP4EKBt0zuLpSIhNh
- e1uRHnOTYDUeA==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
- by relay02-mors.netcup.net (Postfix) with ESMTPS id 4gWshp18Q2z7wPS;
- Fri,  5 Jun 2026 08:58:18 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy01-mors.netcup.net (Postfix) with ESMTPS id 4gWshl5Cl8z8tXj;
- Fri,  5 Jun 2026 08:58:15 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id 6D2A65F9DD;
- Fri,  5 Jun 2026 08:58:14 +0200 (CEST)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=regressions@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <ffac6caf-0376-4a0c-908e-b89cce48d28f@leemhuis.info>
-Date: Fri, 5 Jun 2026 08:58:13 +0200
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E13D113FB5
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 12:34:42 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-4908b92904fso8090455e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 05:34:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780576481; x=1781181281; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=rRDPEW9sbPRXAPtuKH5War+e9LS+bqZ/3dB+HlmzKJU=;
+ b=qp835M0O52yFOltbz5Vzr8BDHcpR4EyTqRNVR2AmjHgCwfYrf7IhvmFIwrGvyk387t
+ q9M4VWx+RfNy1Uw4Z2EJYGo/IuRXbly04GhC/zICAH/2UFakNpltQt96Yvf4wbSIYSim
+ bpdo+kvaSehYUgZVWFQcwH0uR7wcjKuz//W9eng3Rd9fF25qCJQm2l1kUl1+GPIrO51J
+ /PXMjnhuZFQSkCe+Vgco+i96Ln3oL1pZXpvu5PFeXFy+Eg7rAKQnaUVKhCbhty45HxUh
+ Iu1EdTlko1t/eazDWjyqbvckVlAcG/+bs5qIAp0TOFdhWfCdpkRWIuXA86pfCUkO0UMR
+ P8bA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780576481; x=1781181281;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=rRDPEW9sbPRXAPtuKH5War+e9LS+bqZ/3dB+HlmzKJU=;
+ b=WuyCehrb9L9MnRnZdPmZ2Z/EOqOfa8Q3PWJtL4ufykhAD+GvVncvCZuQcN9P79u6JN
+ /261CdZzMe6hkxKp9YTq7BdGbWKY6og+CykJqujwnKvi/trzTIBNNU8EyE4aGhrW7b3z
+ u+JCGcq18FIFVyEGLg7WM/DBLt8oyeKSZ57mke91NORUiXgMN3bRKGYX2pE5WRphzpZT
+ Mdbp9vSssqerz+HNZ1FRi4wx+HZ3Vu2qq5HenKHt99DePXHPgEz7YGjpwA0TsmdtUR3w
+ fjrieJwf8TmG71eXJ8J53espPLVzblfLjE8BptL3TvaFeCeYn5IDDoBIFXnZzw7+ClTs
+ A70w==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8RGCkSY5BRVC1uiqgoJrRSZe4Om0psRppA4QIc3nVDfSSEghHhQwzc+JOnizpiWf9veao6Nf9tO5M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywrv+zdAPaa9uusBdoAkeKMaD3HFPmuwDcLQfHB2RFgsSS1hCiu
+ 3Afgcdhlr656n3T6pKUzA1sm2LWYA2McIOy4wWoBhSouOBJ/FQEKKLO0
+X-Gm-Gg: Acq92OGZDi1Mcj6vrjz0SJ7PuQjLSEH9Kg9XSg/K32tG0ClwyJpNf9C7L72XEwdSNLN
+ Pogcxbz/0XZNiRb4YlLj5q8idP27cjl9iIIu0V3mdWYoX1sV6XEGLTI5jWP0hqt9FxQeZPxEMMu
+ yJgnGw8uRq81YQm3vTKLIrfgQBR+ek96v+81E0TDScmvTPDJCIP416VH4Bif7ldO3vXE4CwRQt2
+ mfanhUV3lJQNEAjiehW6v+4obj1yaaE52g8UynwRcRT9H2AwsNFmNS/OZYTzf6igflS7RSiJCCv
+ b+c5B5UmRZxCgOP+vFRdSWsekvVbrOfqBxgsuGBv6S+HzLZ8oH21FWl1Zye2iS36TpDTZpsJm8s
+ +rGKviRhC3zy2e3qvTT3wXokIcgQbxlZ8w9Nff/2B1g/45A6WLyYjdwvo38YimBSUVIhlZeLI90
+ tP1KVaUeqZpOS/S3mG12a/sV12NoWmsNkn2UzWjohJEakrrQ5zn+q0zgkS6/QZQrU=
+X-Received: by 2002:a05:600c:8519:b0:490:bccf:2bd6 with SMTP id
+ 5b1f17b1804b1-490bda66048mr47084715e9.15.1780576480229; 
+ Thu, 04 Jun 2026 05:34:40 -0700 (PDT)
+Received: from tiolaptop.tail72d7bd.ts.net ([194.35.121.123])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-490bc413adbsm70036085e9.15.2026.06.04.05.34.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 Jun 2026 05:34:39 -0700 (PDT)
+From: Diogo Silva <diogompaissilva@gmail.com>
+To: Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Diogo Silva <diogompaissilva@gmail.com>
+Subject: [PATCH] drm/rockchip: dsi: Open-code drm_simple_encoder_init()
+Date: Thu,  4 Jun 2026 14:32:25 +0200
+Message-ID: <20260604123224.192543-2-diogompaissilva@gmail.com>
+X-Mailer: git-send-email 2.51.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Revert "drm/i915/backlight: Remove try_vesa_interface"
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-To: Tvrtko Ursulin <tursulin@igalia.com>, Dave Airlie <airlied@gmail.com>,
- Simona Vetter <simona.vetter@ffwll.ch>
-Cc: ankit.k.nautiyal@intel.com, arun.r.murthy@intel.com,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Linux kernel regressions list <regressions@lists.linux.dev>,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- Suraj Kandpal <suraj.kandpal@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>
-References: <20260515155340.1000997-1-suraj.kandpal@intel.com>
- <20260517024709.1016121-1-suraj.kandpal@intel.com>
- <53a2a8dd-d1b6-41c5-ade2-7ed870d074ac@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <53a2a8dd-d1b6-41c5-ade2-7ed870d074ac@leemhuis.info>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178064269494.1178932.8212265372479905459@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 6D2A65F9DD
-X-NC-CID: yZFu1qiK5+qb6kd4Rl2AdMorZ6t1O6HYlhAKMN1jnvJ0Ik1JIE4=
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 05 Jun 2026 07:25:26 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,121 +93,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/4/26 15:55, Thorsten Leemhuis wrote:
-> On 5/17/26 04:47, Suraj Kandpal wrote:
->> This reverts commit 40d2f5820951dee818d05c14677277048bd85f9f.
->>
->> Removing the try_vesa_interface gate caused a backlight regression on
->> panels whose VBT correctly reports INTEL_BACKLIGHT_DISPLAY_DDI and whose
->> PWM path is the actual backlight control, but whose DPCD optimistically
->> advertises DP_EDP_BACKLIGHT_AUX_ENABLE_CAP / _BRIGHTNESS_AUX_SET_CAP.
->> After the commit such panels silently bind to the VESA AUX backlight
->> funcs; AUX writes complete but the panel ignores them, leaving
->> brightness stuck (no-op backlight). Observed on at least KBL and TGL
->> eDP setups.
-> 
-> Lo! What's the status of this regression fix? It's a -next for two weeks
-> now as f30fddb4402313 ("Revert "drm/i915/backlight: Remove
-> try_vesa_interface""), but from the outside and checking
-> https://gitlab.freedesktop.org/drm/i915/kernel/-/commits/drm-intel-fixes
-> it looks like it's scheduled for merging in the next cycle.
+Remove the dependency on drm_simple_kms_helper by open-coding the
+drm_simple_encoder_init call.
 
-Resending to Tvrtko, who sent the i915 PR yesterday (which didn't
-contain that fix), as well as Dave and Simona.
+Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
+---
+ drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-FWIW, due to the lack of response to various inquiries I'm considering
-to ask Linus to directly pick up the mentioned regression fix to ensure
-it makes it into rc7.
-
-In case anyone wonder what regression I'm talking about:
-
-* https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16015 /
-https://lore.kernel.org/lkml/CADo9pHjr-zZ9C3%2B026y5%2BXOGPSeRzSJMCHof27TVPtAUNgTc8A@mail.gmail.com/
-* https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16043
-* https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16097 /
-https://lore.kernel.org/lkml/d2de7933-e650-4b19-8d88-90d66693dcfc@message-id.googlemail.com/
-
-Ciao, Thorsten
-
-> But I think it should be merged this cycle (ideally before -rc7, as
-> Linus wants all known regression fixed by -rc6), as it fixes a
-> regression that is known since the -rc1 days. I already asked for the
-> mainlining plans in gitlab tickets about a week ago (and since then
-> affected users spoke up, too), but there was no conclusive answer for
-> the plans, which is why I'm trying this way now.
-> 
-> Ciao, Thorsten
-> 
-> 
->> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
->> ---
->>  .../drm/i915/display/intel_dp_aux_backlight.c | 19 ++++++++++++-------
->>  1 file changed, 12 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
->> index a8d56ebf06a2..7a6c07f6aaeb 100644
->> --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
->> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
->> @@ -691,10 +691,9 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
->>  	struct intel_dp *intel_dp = intel_attached_dp(connector);
->>  	struct drm_device *dev = connector->base.dev;
->>  	struct intel_panel *panel = &connector->panel;
->> -	bool try_intel_interface = false;
->> +	bool try_intel_interface = false, try_vesa_interface = false;
->>  
->> -	/*
->> -	 * Check the VBT and user's module parameters to figure out which
->> +	/* Check the VBT and user's module parameters to figure out which
->>  	 * interfaces to probe
->>  	 */
->>  	switch (display->params.enable_dpcd_backlight) {
->> @@ -703,6 +702,7 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
->>  	case INTEL_DP_AUX_BACKLIGHT_AUTO:
->>  		switch (panel->vbt.backlight.type) {
->>  		case INTEL_BACKLIGHT_VESA_EDP_AUX_INTERFACE:
->> +			try_vesa_interface = true;
->>  			break;
->>  		case INTEL_BACKLIGHT_DISPLAY_DDI:
->>  			try_intel_interface = true;
->> @@ -715,12 +715,20 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
->>  		if (panel->vbt.backlight.type != INTEL_BACKLIGHT_VESA_EDP_AUX_INTERFACE)
->>  			try_intel_interface = true;
->>  
->> +		try_vesa_interface = true;
->> +		break;
->> +	case INTEL_DP_AUX_BACKLIGHT_FORCE_VESA:
->> +		try_vesa_interface = true;
->>  		break;
->>  	case INTEL_DP_AUX_BACKLIGHT_FORCE_INTEL:
->>  		try_intel_interface = true;
->>  		break;
->>  	}
->>  
->> +	/* For eDP 1.5 and above we are supposed to use VESA interface for brightness control */
->> +	if (intel_dp->edp_dpcd[0] >= DP_EDP_15)
->> +		try_vesa_interface = true;
->> +
->>  	/*
->>  	 * Since Intel has their own backlight control interface, the majority of machines out there
->>  	 * using DPCD backlight controls with Intel GPUs will be using this interface as opposed to
->> @@ -733,9 +741,6 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
->>  	 * panel with Intel's OUI - which is also required for us to be able to detect Intel's
->>  	 * backlight interface at all. This means that the only sensible way for us to detect both
->>  	 * interfaces is to probe for Intel's first, and VESA's second.
->> -	 *
->> -	 * Also there is a chance some VBTs may advertise false Intel backlight support even if the
->> -	 * TCON DPCD says otherwise. This means we keep VESA interface as fallback in that case.
->>  	 */
->>  	if (try_intel_interface && intel_dp->edp_dpcd[0] <= DP_EDP_14b &&
->>  	    intel_dp_aux_supports_hdr_backlight(connector)) {
->> @@ -745,7 +750,7 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
->>  		return 0;
->>  	}
->>  
->> -	if (intel_dp_aux_supports_vesa_backlight(connector)) {
->> +	if (try_vesa_interface && intel_dp_aux_supports_vesa_backlight(connector)) {
->>  		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] Using VESA eDP backlight controls\n",
->>  			    connector->base.base.id, connector->base.name);
->>  		panel->backlight.funcs = &intel_dp_vesa_bl_funcs;
-> 
+diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
+index 3547d91b25d3..a09b382d208e 100644
+--- a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
+@@ -25,7 +25,6 @@
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_print.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "rockchip_drm_drv.h"
+ 
+@@ -825,6 +824,10 @@ static void dw_mipi_dsi_encoder_enable(struct drm_encoder *encoder)
+ 	clk_disable_unprepare(dsi->grf_clk);
+ }
+ 
++static const struct drm_encoder_funcs dw_mipi_dsi_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static const struct drm_encoder_helper_funcs
+ dw_mipi_dsi_encoder_helper_funcs = {
+ 	.atomic_check = dw_mipi_dsi_encoder_atomic_check,
+@@ -840,7 +843,9 @@ static int rockchip_dsi_drm_create_encoder(struct dw_mipi_dsi_rockchip *dsi,
+ 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev,
+ 							     dsi->dev->of_node);
+ 
+-	ret = drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_DSI);
++	ret = drm_encoder_init(drm_dev, encoder,
++				&dw_mipi_dsi_encoder_funcs,
++				DRM_MODE_ENCODER_DSI, NULL);
+ 	if (ret) {
+ 		DRM_ERROR("Failed to initialize encoder with drm\n");
+ 		return ret;
+-- 
+2.51.2
 
