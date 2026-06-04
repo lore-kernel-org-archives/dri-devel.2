@@ -4,105 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94EF1CD6E6D
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 14:42:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B49A9CD6E6D
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 14:58:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1FA5112807;
-	Thu,  4 Jun 2026 14:42:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DE6D11285A;
+	Thu,  4 Jun 2026 14:58:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="J3y6pYUq";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qMXD7kD1";
 	dkim-atps=neutral
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B778112804
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 14:42:34 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-45ef82204c6so464950f8f.3
- for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 07:42:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1780584153; x=1781188953; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=edXeUisUOZStFE68DISSeh9JLM/7psQJBNg/h6ooJj0=;
- b=J3y6pYUq4XgNASgRx2hov2436FOjAeBPbJReus1fH9JsnLfGi0q9rGYnWZHAbIrGnq
- gjHVsgNW2qH6xjkSDjhnqUQESBmJJSkXgVQjCbkMHXaNaX1XhARxcn4ZK7JmiYlMruUI
- 3A63/QW83obq5wfeH74dGrpzjjeLtgZTd7qsoJrkLz42QUiYuUYWWZTRoCymWH8f39c6
- sv2dTxYnmkk6y3NQvrlCeLcopOWTi1wkYJoEk49ioG3ywk6LqhNL+oqKLmYTa9avsQKx
- IYizkE6wTgkUueq+sI2v6Yluiic10BawGLiDsyOlUmMRM0YhQx7Dsp7tbwMDvqV+ijSR
- PT0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780584153; x=1781188953;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=edXeUisUOZStFE68DISSeh9JLM/7psQJBNg/h6ooJj0=;
- b=ibHUXvpLg9mU/M8JGfbUxZDiMbIR+8jC7bDwmuXEJptsias7f7yB48o6WeWlIQb+qh
- F2bRgCmdVGS2CeIOsaMF+Jjp0rDJ7I7PXFZIFiwCA8xZUx2S5z/1mZvqTsvZWNgflO4I
- 1LQ99ARIIVuGLJmMGz9hRw+bL+yyA0htLLgqsT5AqG39zCJGXebvF+xr4mWp5+1t1Vh9
- X/dcQXKO2NCHDStK1xGcSqBEfwi6a4gxwR1v7uUZYMFe+8EiMExQw27C8Ftr5OUZtxsa
- IAPYP++aMQ7+DGACprIg5fofdxgJK17bbOaL2H/rvwfb9EiaY5oqk9W1/ipRzvv3+iZh
- IZhQ==
-X-Gm-Message-State: AOJu0Yx02X3DwSRrQ4H46Tp4g7c1AsbDhLxUyFx4akkiv/JIuF5GzxZI
- 0ViwOiO4yBH1Upkq4N77MflqWBr4/kpWglRzzwpJKuG8viDJsQTo3GKwXd/AMIRX48hJg/cX7YF
- PJO5R
-X-Gm-Gg: Acq92OGf9XgwobE+hJyqcvWR/yUym4btB/4cX7DYdYPn8xcFtiEk5Md58mQvJBtsN5F
- +LBDx+LuTQyAJdQf8iui/n4MuOZfNJ04B3s0+0ceFXQxCWPaYDnFXnT/abf2y8HyAIbvg1vJEEy
- R1kSPyCBPtAYK2nqXoDh+G8mZJGWB6IXn31wbc7lXw+ppnyL2NJWB0FlYYmws7/+m/Ww6RIjJG4
- o0DvORKQLiIR4/Ejb063+mDOK5TdofzFbaDZFiUoIgv9+aLLIucgUxl2wb7uDHlwuM3txbl4RfT
- bEFH150u2tEQvVE0tW1l4Dr4pPGBF8mPEYJ7xPFeH3Sn5qSg08IPZ76Ghv3d1t697cAdl4htwCV
- lMyStx0q815UN09m9GH/BaGkMzy94aQyTbvfH/zxhNy2suD2aZYuyapLYpmYf8mVjIPUqXCXl01
- HzbIKcUyCpj5t5eSllP/vmYrdRipXZA32IMz/GDZLm5nIxlouMfYHqsvP+aSqOoDHcm1owvmP+p
- znVPVOn1ex9FBk=
-X-Received: by 2002:a5d:6941:0:b0:43d:68ad:3b7f with SMTP id
- ffacd0b85a97d-46021829aefmr9569274f8f.21.1780584152786; 
- Thu, 04 Jun 2026 07:42:32 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:dbd:100f:afd5:9221?
- ([2a01:e0a:106d:1080:dbd:100f:afd5:9221])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4601f2dc412sm17426979f8f.4.2026.06.04.07.42.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Jun 2026 07:42:32 -0700 (PDT)
-Message-ID: <18d06d5f-7bf3-4e8d-bc8e-b0c632864190@linaro.org>
-Date: Thu, 4 Jun 2026 16:42:30 +0200
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CD9D112861
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 14:58:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=j7fxTOrqGGU4wTlAGC+uGWS2Ojx6JI0WmyJBDwJN/xo=; b=qMXD7kD1BEU//9abjjCr3kVJaE
+ xBl9ebUoGRUSUQNdO3OtZavUWfqa6azdHov16ijaTPOYptL/oCcBXWJEafxCdSns9BcLpACB2EDtM
+ 88+KyyX7bKKNEMKhFcVw1aCWA+IKtEVd4WXspUZA0OVdMqyzVokWjGSWtvc2clntZ9Ig8jKE1pIR3
+ WH8oVBOzbNvIMHIjSqZMnuhrGvfS275gMtdYHsyGAL8xz0eO2oSGJYG2O8c7qrE0/bSRW+TzVN7uj
+ wdKW0uHYviu+cbjSYI9VZMMPZZ8VkXGE9PojBxEGiE6LFYasGCfhC4jJiLAutmMPnutab3e7mP1Ix
+ 8LxitHkg==;
+Received: from [189.7.87.67] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wV9Wg-00CgMr-2z; Thu, 04 Jun 2026 16:58:30 +0200
+Message-ID: <f3ed61d4-fcdb-41f4-b64b-ecf81a1ff8d0@igalia.com>
+Date: Thu, 4 Jun 2026 11:58:25 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 1/2] drm/panel: Enable DSC for Visionox VTDR6130 panel
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-References: <20260604-topic-sm8x50-vtdr6130-dsc-v1-1-09bcd1dff1fb@linaro.org>
- <20260604130349.2BE0F1F00893@smtp.kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260604130349.2BE0F1F00893@smtp.kernel.org>
+Subject: Re: [PATCH v2 1/4] drm/v3d: Fix global performance monitor reference
+ counting
+To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org
+References: <20260531-v3d-perfmon-lifetime-v2-0-60ed4485a203@igalia.com>
+ <20260531-v3d-perfmon-lifetime-v2-1-60ed4485a203@igalia.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260531-v3d-perfmon-lifetime-v2-1-60ed4485a203@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,51 +86,40 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/4/26 15:03, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] The panel driver DRM_PANEL_VISIONOX_VTDR6130 lacks Kconfig dependencies for DSC helpers, causing a linker error when compiled without them.
-> --
+On 31/05/26 17:18, Maíra Canal wrote:
+> In the SET_GLOBAL ioctl, v3d_perfmon_find() bumps the reference count on
+> the perfmon it returns, but v3d_perfmon_set_global_ioctl() and
+> v3d_perfmon_delete() fail to release that reference on several paths:
 > 
-> commit 2b76aa2af63143268815713af0dc4f51234d7f43
-> Author: Jun Nie <jun.nie@linaro.org>
+>    1. v3d_perfmon_set_global_ioctl() leaks the reference on its error
+>       paths.
 > 
-> drm/panel: Enable DSC for Visionox VTDR6130 panel
+>    2. CLEAR_GLOBAL leaks both the find reference and the reference
+>       previously stashed in v3d->global_perfmon by the SET_GLOBAL ioctl
+>       that configured it.
 > 
-> This commit enables display compression (DSC v1.2) for the 1080x2400 Visionox
-> VTDR6130 AMOLED DSI panel. It sets up the DSC configuration parameters and
-> sends the picture parameter set during panel initialization.
+>    3. Destroying a perfmon that is the current global perfmon leaks the
+>       reference stashed by the SET_GLOBAL ioctl.
 > 
->> diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
->> index 97a79411e1ecd..0cdcdbbc766da 100644
->> --- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
->> +++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-> [ ... ]
->> @@ -123,6 +128,9 @@ static int visionox_vtdr6130_on(struct visionox_vtdr6130 *ctx)
->>   	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
->>   	mipi_dsi_msleep(&dsi_ctx, 20);
->>   
->> +	drm_dsc_pps_payload_pack(&pps, dsi->dsc);
+> Release each of these references explicitly.
 > 
-> [Severity: Low]
-> Will this cause a linker error if CONFIG_DRM_DISPLAY_DSC_HELPER is not enabled?
+> Cc: stable@vger.kernel.org
+> Fixes: c6eabbab359c ("drm/v3d: Add DRM_IOCTL_V3D_PERFMON_SET_GLOBAL")
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+> ---
+>   drivers/gpu/drm/v3d/v3d_perfmon.c | 24 +++++++++++++++++++-----
+>   1 file changed, 19 insertions(+), 5 deletions(-)
+> 
 
-Good catch
+Applied to drm/misc/kernel.git (drm-misc-fixes).
 
-> 
-> This adds a call to drm_dsc_pps_payload_pack(), but it doesn't appear to
-> update the Kconfig entry for DRM_PANEL_VISIONOX_VTDR6130 to select
-> DRM_DISPLAY_DSC_HELPER and DRM_DISPLAY_HELPER.
-> 
-> Could this lead to undefined reference errors during the build for
-> configurations where the panel is enabled but the helpers are not?
-> 
->> +	mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
->> +
->>   	return dsi_ctx.accum_err;
->>   }
-> 
+The rest of the patches must to wait for its dependencies to land.
+
+Thanks for the review, Iago!
+
+Best Regards,
+- Maíra
 
