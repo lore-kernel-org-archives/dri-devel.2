@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44615CD6E77
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 17:45:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B682DCD6E77
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 17:47:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D8FD112948;
-	Thu,  4 Jun 2026 17:45:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C7C111A221;
+	Thu,  4 Jun 2026 17:47:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bZD6Aft3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OTbM4zE/";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4D19112948
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 17:45:00 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BC4811A221
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 17:47:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 18FAB60052;
- Thu,  4 Jun 2026 17:45:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E3711F00893;
- Thu,  4 Jun 2026 17:44:59 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4CD3F4073F;
+ Thu,  4 Jun 2026 17:47:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08C381F00893;
+ Thu,  4 Jun 2026 17:47:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780595099;
- bh=NXfb9RF7XsmjVt/iYPcJRj5crMD8V3NV+fidKflvLbc=;
+ s=k20260515; t=1780595243;
+ bh=GmeruHLWlms6IR2rajqBUtvVHTXABEjnLihDOO77Cjc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bZD6Aft3+L9N2JXRgcM6wCVDkeJqPktYVakTB31qKKjga6MFgw5GC6Fw66BXCWkEn
- 7mwAc67TyudUg69kmBmg6yGL4QIa6LNCkAqK6GX62J5roIMGqeoS2PyZDLYT1f48Vn
- UzyH6iu0bxEV5yT67yDRnQ4L8mk0Cg5P/pNOlMxTjgjiD016n19vKbUO+OgFjkUxFv
- k7Mbx3ZlioJhu5BIaMKg5TiTIFl3H40h6vh1MenGfybYMSd4BjV7fM/d/ceXuz6fW3
- vY1R3WBQpjUm9C239NjB2W3XsNiZemXyu0TpLJeehRtSH/daQ7lkD0JM7xVxO8iKPG
- SO5glUXx7hiHw==
+ b=OTbM4zE/KoRys2sEMmsMJmPXpR+nYFmsA75NtSDkyGgeO/Pt5Bp94DRZI8M5Y6dwS
+ 4lk4/NeZJl7uRjQgBLDMRK4ImyTt+4gdqkvgUrYJqJ2Z5+oXPlS0KErGKZocdB8npx
+ ubjxNEsn1JHhiZK+6HBwokAnMtKBvYwD44Zj8W4TYIpnISboC/s3svwEXtu/v/rTcp
+ la/b3PKwUAzr25EaLLwidHhRPJBV4ktFDmOkkp0bjMAL6xDaqkDcWEWcNe5aWLPaI8
+ BsKUKU62B1H92WMsEyLwewBhR3MpXMXE3k50/UZW52vLRKthvAUuIwHSuX1zgEgb1q
+ mqFEuPXA+4dxA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/7] drm/panfrost: Prevent division by 0
+Subject: Re: [PATCH v2 4/7] drm/panfrost: Move perfcnt GPU disable sequence
+ into a helper
 To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260604-claude-fixes-v2-2-57c6bd4c1655@collabora.com>
-References: <20260604-claude-fixes-v2-2-57c6bd4c1655@collabora.com>
+In-Reply-To: <20260604-claude-fixes-v2-4-57c6bd4c1655@collabora.com>
+References: <20260604-claude-fixes-v2-4-57c6bd4c1655@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 17:44:59 +0000
-Message-Id: <20260604174459.9E3711F00893@smtp.kernel.org>
+Date: Thu, 04 Jun 2026 17:47:22 +0000
+Message-Id: <20260604174723.08C381F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,66 +59,70 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The exact same division-by-zero vulnerability fixed in panfrost_de=
-vfreq.c is present in the Lima, Panthor, and Nouveau (gk20a) drivers.
+- [High] The refactored `panfrost_perfcnt_gpu_disable()` helper reverses th=
+e register write sequence when disabling performance counters, potentially =
+breaking the HW_ISSUE_8186 (PRLAM-8186) hardware workaround and risking har=
+dware state corruption.
 --
 
-commit dc73067c1030f65e3609c76a060b1b1176f85e4e
+commit b1a0eb47a40de5889be52c5109cc3ee780f78598
 Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-drm/panfrost: Prevent division by 0
+drm/panfrost: Move perfcnt GPU disable sequence into a helper
 
-This commit clamps the devfreq total_time to 0 when it is less than 100ns
-in panfrost_devfreq_get_dev_status() to prevent a division by zero error
-during debug printing.
+This commit refactors the performance counter disable sequences into a
+single helper function to avoid repetition.
 
-Closes: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/88
-
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_devfreq.c b/drivers/gpu/dr=
-m/panfrost/panfrost_devfreq.c
-> index b51c307788110..e34de47bf43bb 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_devfreq.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_devfreq.c
-> @@ -78,7 +78,8 @@ static int panfrost_devfreq_get_dev_status(struct devic=
-e *dev,
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
+m/panfrost/panfrost_perfcnt.c
+> index 7020c0192e189..ad1156678e91c 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> @@ -35,6 +35,16 @@ struct panfrost_perfcnt {
+>  	struct completion dump_comp;
+>  };
 > =20
->  	dev_dbg(pfdev->base.dev, "busy %lu total %lu %lu %% freq %lu MHz\n",
->  		status->busy_time, status->total_time,
-> -		status->busy_time / (status->total_time / 100),
-> +		status->total_time >=3D 100 ?
-> +			status->busy_time / (status->total_time / 100) : 0,
+> +static void panfrost_perfcnt_gpu_disable(struct panfrost_device *pfdev)
+> +{
+> +	gpu_write(pfdev, GPU_PERFCNT_CFG,
+> +		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
+> +	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
+> +	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
+> +	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
+> +	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+> +}
 
 [Severity: High]
-This is a pre-existing issue, but the exact same division-by-zero vulnerabi=
-lity
-fixed here is also present in other DRM drivers.
+Does this new helper reverse the hardware disable sequence when called on
+actively running counters?
 
-In drivers/gpu/drm/lima/lima_devfreq.c:lima_devfreq_get_dev_status():
-    status->busy_time / (status->total_time / 100),
+In the original panfrost_perfcnt_disable_locked(), the block enable
+registers (like GPU_PRFCNT_TILER_EN) were explicitly cleared to 0 before
+the master configuration GPU_PERFCNT_CFG was turned off. The new helper
+reverses this order.
 
-In drivers/gpu/drm/panthor/panthor_devfreq.c:panthor_devfreq_get_dev_status=
-():
-    status->busy_time / (status->total_time / 100),
+Could shutting down the master configuration while sub-blocks are still
+actively generating events cause hardware state corruption or bus hangs?
 
-In drivers/gpu/drm/nouveau/nvkm/subdev/clk/gk20a_devfreq.c:gk20a_devfreq_ge=
-t_dev_status():
-    status->busy_time / (status->total_time / 100),
+Modifying the main configuration while the Tiler counters are actively
+enabled might also trigger hardware bugs (e.g., HW_ISSUE_8186), which the
+original sequence safely avoided.
 
-If userspace repeatedly reads the devfreq load in quick succession, total_t=
-ime
-can be less than 100ns, leading to a division-by-zero kernel panic when deb=
-ug
-printing is enabled.
+[ ... ]
 
-Should these other drivers be patched similarly?
-
->  		status->current_frequency / 1000 / 1000);
+> @@ -193,12 +203,7 @@ static int panfrost_perfcnt_disable_locked(struct pa=
+nfrost_device *pfdev,
+>  	if (user !=3D perfcnt->user)
+>  		return -EINVAL;
 > =20
->  	return 0;
->  }
+> -	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
+> -	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
+> -	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
+> -	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+> -	gpu_write(pfdev, GPU_PERFCNT_CFG,
+> -		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
+> +	panfrost_perfcnt_gpu_disable(pfdev);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-claude-fix=
-es-v2-0-57c6bd4c1655@collabora.com?part=3D2
+es-v2-0-57c6bd4c1655@collabora.com?part=3D4
