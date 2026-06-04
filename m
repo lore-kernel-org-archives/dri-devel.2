@@ -4,63 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91631CD6E75
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:33:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 118E3CD6E75
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:35:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F150E10F89F;
-	Thu,  4 Jun 2026 20:33:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 778EB10FB9A;
+	Thu,  4 Jun 2026 20:35:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qVobLGn7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IhkPoGo4";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CCCE10F89F
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:33:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
- Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
- Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
- :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=C5MFbOnlOEx3UDRh8Fze0wjJrZY+m8pVRvrkWJUrIAI=; b=qVobLGn7FqDSpLhzUtbQJ3Ub9i
- WU2PSOzOspZ102178e+bXQ3+3RgqjqRf1W7oyaZ+D4AtsiEt9FsTXabiYA1q7KVqLm0VJh14LiHSI
- 7ScotZ3Z6pxyi83WlUooSVK1F0PJyFY8/u+1Wl0YmWyFZpFY87CO78Y+mq2k2iPWYg1x6n1r7Wkam
- hN64CeTWquz20WmQkWV5Evd+qI10MOgVwICNJh7PPQP+rQY6Yt06llG5nQizL54hSRR4s0Eq98A/x
- mpvYJz2nss2a6GKgsNynMfcoW35fBHoS3XbLDnqt2gyAf3pcoWA3B+4F8FKSkLkDUmvP4aJBPO6NP
- nr5jONig==;
-Received: from [189.7.87.67] (helo=[10.0.0.1])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wVEkf-00CoGD-4f; Thu, 04 Jun 2026 22:33:17 +0200
-From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Thu, 04 Jun 2026 17:32:25 -0300
-Subject: [PATCH v4 12/12] drm/v3d: Ensure atomic submissions in
- v3d_submit_jobs()
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260604-v3d-sched-misc-fixes-v4-12-c068f5bf5ccf@igalia.com>
-References: <20260604-v3d-sched-misc-fixes-v4-0-c068f5bf5ccf@igalia.com>
-In-Reply-To: <20260604-v3d-sched-misc-fixes-v4-0-c068f5bf5ccf@igalia.com>
-To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6032; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=9NN94mP8H1l6ifsMpcT8b4HSet2oxea/e078fqNxFy0=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqIeDUyr2ZJ5Jxj88sXOHJVo6EKFVv8TJlc5CCh
- kzpnwWDWeeJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaiHg1AAKCRA/8w6Kdoj6
- qvWSB/92LllYMyFI/SITmpLhttfmab6u4hpGu/BM+zOCv7XsgV8Kpr1haLtPSJICeOOpeKtZMCN
- 0wjV1cMQUtKuoLpK5YAObkWPTPE+tFld3h8V/F8iT/WGt2yYOlZ2twbua+BnYLv4NahrgmPYmST
- F7Zairdx0tz+N+9GNjbsqwPVvGfEZlKrYigvUsilQQ1rpCKjWnjcHypxU5SqYtV2+Qj3GSH+H5B
- 2rqBCZsnzh1Xup7WgMflwU9m1aSoHYHsG7RFnyI7X8mRVkpvkRJwq8sE6TXabdaPxhKEYf72J2t
- b8hWYfRhSBAoQkTtV2O2dVCa8O7vewzk2gM4UHbUaWr4zBAz
-X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
- fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EED1310FB9A
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:35:31 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id CE62240064
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:35:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F1DC1F00893;
+ Thu,  4 Jun 2026 20:35:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780605331;
+ bh=IIxcMeNXT+0eKOWo78BZVp+nuWcgXzSKung3HXiYRPs=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=IhkPoGo4miUiP38H4AmI6GnagwrNWKJqDCBNXvlJ2PzC1dwg0oM3AvOiOKIDJ+dZ2
+ 2aHKLgc7W6nhjslZ6xyaCy81xvYWY5tFW1IknwSk3LxijIbSNQ/Kef6MmrVQqyoK4S
+ qVut+TT+IDVXbLlAYb/1eI9y0zu00J2wfS8qHYxsCuAI4FswEnTglq0rMibFQaZAzi
+ 4R6lVIEQJntN8bo+c5yWc8fo5DjgR9PUYMnVB0k9pMUPmL6AhJobv/Pfx9EKZtkemh
+ joOFyvYKx+alwsV4hGJVjNMFEk/GjOC01RNkHa0fcnNCAc4sQYJajscMK4KPPlT7jq
+ eZJlhvmAdvNzw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v17 09/10] rust: Add `OwnableRefCounted`
+To: "Andreas Hindborg" <a.hindborg@kernel.org>
+Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-pci@vger.kernel.org
+In-Reply-To: <20260604-unique-ref-v17-9-7b4c3d2930b9@kernel.org>
+References: <20260604-unique-ref-v17-9-7b4c3d2930b9@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 04 Jun 2026 20:35:30 +0000
+Message-Id: <20260604203531.4F1DC1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,203 +53,224 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently, v3d_submit_jobs() arms and pushes each job one at a time,
-wiring dependencies between consecutive jobs after each push. If
-drm_sched_job_add_dependency() fails midway, the already-pushed jobs are
-scheduler-owned and will be submitted to the GPU for execution, even though
-the subsequent jobs won't be submitted.
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [High] `OwnableRefCounted` is a safe trait, but its default `into_shared`=
+ method contains an `unsafe` block relying on undocumented invariants.
+- [High] `ForeignOwnable::FOREIGN_ALIGN` for `Owned<T>` incorrectly promise=
+s the alignment of `Owned<T>` rather than `T`, leading to under-aligned poi=
+nters.
+- [High] `Ownable::release` takes `&mut self` but is expected to free the u=
+nderlying memory, violating Rust's Stacked Borrows aliasing rules.
+- [Low] Incorrect link destination for `ARef<Self>` in doc comments.
+- [Low] Missing `// INVARIANT:` comment when constructing `Foo` in the doct=
+est.
+- [Low] Missing `// INVARIANT:` comment when constructing `Owned<T>` in `Fo=
+reignOwnable::from_foreign`.
+- [Low] Unnecessary `mut` keyword in the doc example for `ARef::from(foo)`.
+--
 
-This breaks the atomicity of the submissions, as only some of the jobs
-from a submission would be submitted to the hardware, while the other part
-fails.
+commit 7e04551249f9cff4815fc7ad79ac13555baea1a7
+Author: Oliver Mangold <oliver.mangold@pm.me>
 
-Restructure v3d_submit_jobs() into three phases: (1) arm all jobs belonging
-to a given submission, (2) wire inter-job dependencies, and (3) push all
-jobs to the scheduler unconditionally. Phase (2) can fail; on failure,
-it marks every armed job finished fence with an error, so that run_job()
-callbacks skip hardware execution.
+rust: Add OwnableRefCounted
 
-This guarantees that every armed job is always pushed, either to run
-or to be skipped, and it also ensures the atomicity of a submission.
+This commit introduces the OwnableRefCounted trait to allow safe conversions
+between ARef and Owned pointer types. It also updates documentation and adds
+examples for reference-counted types requiring both shared and unique acces=
+s.
 
-Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
----
- drivers/gpu/drm/v3d/v3d_sched.c  |  6 ++++
- drivers/gpu/drm/v3d/v3d_submit.c | 65 ++++++++++++++++++++--------------------
- 2 files changed, 39 insertions(+), 32 deletions(-)
+> diff --git a/rust/kernel/owned.rs b/rust/kernel/owned.rs
+> index bedd4fef84fa2..9db0daab22256 100644
+> --- a/rust/kernel/owned.rs
+> +++ b/rust/kernel/owned.rs
+[ ... ]
+>  pub trait Ownable {
+[ ... ]
+>      unsafe fn release(&mut self);
 
-diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-index 7f9a71022e5e..53deae1a2eda 100644
---- a/drivers/gpu/drm/v3d/v3d_sched.c
-+++ b/drivers/gpu/drm/v3d/v3d_sched.c
-@@ -657,6 +657,9 @@ v3d_cpu_job_run(struct drm_sched_job *sched_job)
- 	struct v3d_cpu_job *job = to_cpu_job(sched_job);
- 	struct v3d_dev *v3d = job->base.v3d;
- 
-+	if (unlikely(job->base.base.s_fence->finished.error))
-+		return NULL;
-+
- 	if (job->job_type >= ARRAY_SIZE(cpu_job_function)) {
- 		drm_dbg(&v3d->drm, "Unknown CPU job: %d\n", job->job_type);
- 		return NULL;
-@@ -680,6 +683,9 @@ v3d_cache_clean_job_run(struct drm_sched_job *sched_job)
- 	struct v3d_job *job = to_v3d_job(sched_job);
- 	struct v3d_dev *v3d = job->v3d;
- 
-+	if (unlikely(job->base.s_fence->finished.error))
-+		return NULL;
-+
- 	v3d_job_start_stats(job);
- 
- 	v3d_clean_caches(v3d);
-diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
-index 294fc4e327f6..4f6fc2d94ccb 100644
---- a/drivers/gpu/drm/v3d/v3d_submit.c
-+++ b/drivers/gpu/drm/v3d/v3d_submit.c
-@@ -368,19 +368,6 @@ v3d_submit_process_post_deps(struct v3d_submit *submit, struct drm_syncobj *sync
- 	}
- }
- 
--static void
--v3d_push_job(struct v3d_job *job)
--{
--	drm_sched_job_arm(&job->base);
--
--	job->done_fence = dma_fence_get(&job->base.s_fence->finished);
--
--	/* put by scheduler job completion */
--	kref_get(&job->refcount);
--
--	drm_sched_entity_push_job(&job->base);
--}
--
- static int
- v3d_submit_jobs(struct v3d_submit *submit, struct drm_syncobj *sync_out,
- 		struct v3d_submit_ext *se)
-@@ -393,16 +380,23 @@ v3d_submit_jobs(struct v3d_submit *submit, struct drm_syncobj *sync_out,
- 	for (int i = 0; i < submit->job_count; i++) {
- 		struct v3d_job *job = submit->jobs[i];
- 
--		v3d_push_job(job);
-+		drm_sched_job_arm(&job->base);
-+		job->done_fence = dma_fence_get(&job->base.s_fence->finished);
- 
--		if (i + 1 < submit->job_count) {
--			ret = drm_sched_job_add_dependency(&submit->jobs[i + 1]->base,
--							   dma_fence_get(job->done_fence));
--			if (ret)
--				goto err;
--		}
-+		/* put by scheduler job completion */
-+		kref_get(&job->refcount);
- 	}
- 
-+	for (int i = 1; i < submit->job_count; i++) {
-+		ret = drm_sched_job_add_dependency(&submit->jobs[i]->base,
-+						   dma_fence_get(submit->jobs[i - 1]->done_fence));
-+		if (ret)
-+			goto err;
-+	}
-+
-+	for (int i = 0; i < submit->job_count; i++)
-+		drm_sched_entity_push_job(&submit->jobs[i]->base);
-+
- 	mutex_unlock(&v3d->sched_lock);
- 
- 	v3d_submit_attach_object_fences(submit);
-@@ -414,7 +408,18 @@ v3d_submit_jobs(struct v3d_submit *submit, struct drm_syncobj *sync_out,
- 	return 0;
- 
- err:
-+	/* Mark every armed job as failed so run_job() skips execution */
-+	for (int i = 0; i < submit->job_count; i++)
-+		dma_fence_set_error(&submit->jobs[i]->base.s_fence->finished, ret);
-+
-+	for (int i = 0; i < submit->job_count; i++)
-+		drm_sched_entity_push_job(&submit->jobs[i]->base);
-+
- 	mutex_unlock(&v3d->sched_lock);
-+
-+	v3d_submit_unlock_reservations(submit);
-+	v3d_submit_put_jobs(submit);
-+
- 	return ret;
- }
- 
-@@ -1102,14 +1107,13 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
- 
- 	ret = v3d_submit_jobs(&submit, sync_out, &se);
- 	if (ret)
--		goto fail_unreserve;
-+		goto fail_submit;
- 
- 	return 0;
- 
--fail_unreserve:
--	v3d_submit_unlock_reservations(&submit);
- fail:
- 	v3d_submit_cleanup_jobs(&submit);
-+fail_submit:
- 	v3d_submit_put_post_deps(sync_out, &se);
- 
- 	return ret;
-@@ -1200,14 +1204,13 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
- 
- 	ret = v3d_submit_jobs(&submit, sync_out, &se);
- 	if (ret)
--		goto fail_unreserve;
-+		goto fail_submit;
- 
- 	return 0;
- 
--fail_unreserve:
--	v3d_submit_unlock_reservations(&submit);
- fail:
- 	v3d_submit_cleanup_jobs(&submit);
-+fail_submit:
- 	v3d_submit_put_post_deps(sync_out, &se);
- 
- 	return ret;
-@@ -1276,14 +1279,13 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
- 
- 	ret = v3d_submit_jobs(&submit, sync_out, &se);
- 	if (ret)
--		goto fail_unreserve;
-+		goto fail_submit;
- 
- 	return 0;
- 
--fail_unreserve:
--	v3d_submit_unlock_reservations(&submit);
- fail:
- 	v3d_submit_cleanup_jobs(&submit);
-+fail_submit:
- 	v3d_submit_put_post_deps(sync_out, &se);
- 
- 	return ret;
-@@ -1384,14 +1386,13 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
- 
- 	ret = v3d_submit_jobs(&submit, NULL, &se);
- 	if (ret)
--		goto fail_unreserve;
-+		goto fail_submit;
- 
- 	return 0;
- 
--fail_unreserve:
--	v3d_submit_unlock_reservations(&submit);
- fail:
- 	v3d_submit_cleanup_jobs(&submit);
-+fail_submit:
- 	v3d_submit_put_post_deps(NULL, &se);
- 
- 	return ret;
+[Severity: High]
+Does taking &mut self here violate Rust's Stacked Borrows aliasing rules?
 
--- 
-2.54.0
+The Ownable trait defines release as taking &mut self. Owned<T>'s Drop
+implementation creates a mutable reference to the heap allocation and passes
+it to T::release.
 
+Implementations of release are expected to deallocate the memory backing th=
+is
+reference. Deallocating memory that a mutable reference points to before the
+lifetime of that reference ends is Undefined Behavior in Rust.
+
+Should release take a raw pointer like NonNull<Self> instead of a mutable
+reference?
+
+[ ... ]
+>  impl<T: Ownable> Drop for Owned<T> {
+>      #[inline]
+>      fn drop(&mut self) {
+>          // SAFETY: By existence of `&mut self` we exclusively own `self`=
+ and the underlying `T`. As
+>          // we are dropping `self`, we can transfer ownership of the `T` =
+to the `release` method.
+>          unsafe { T::release(self.ptr.as_mut()) };
+
+[Severity: High]
+Is it safe to pass self.ptr.as_mut() here if release frees the memory?
+
+This creates the mutable reference that gets passed to release and is
+subsequently deallocated, triggering the Stacked Borrows violation described
+above.
+
+[ ... ]
+>  unsafe impl<T: Ownable + 'static> ForeignOwnable for Owned<T> {
+>      const FOREIGN_ALIGN: usize =3D core::mem::align_of::<Owned<T>>();
+
+[Severity: High]
+Does this incorrectly promise the alignment of Owned<T> rather than T?
+
+ForeignOwnable::into_foreign guarantees that the returned pointer has a
+minimum alignment of FOREIGN_ALIGN. For Owned<T>, into_foreign returns a
+raw pointer to T. Therefore, the alignment of this pointer is strictly
+determined by T.
+
+If T has an alignment smaller than 8, FOREIGN_ALIGN will falsely promise an
+8-byte alignment. Data structures like XArray rely on this statically
+guaranteed minimum alignment. Passing an under-aligned pointer will cause t=
+he
+pointer to be corrupted by tag data.
+
+[ ... ]
+>      #[inline]
+>      unsafe fn from_foreign(ptr: *mut kernel::ffi::c_void) -> Self {
+>          Self {
+>              // SAFETY: By function safety contract, `ptr` came from
+>              // `into_foreign` and cannot be null.
+>              ptr: unsafe { NonNull::new_unchecked(ptr.cast()) },
+>          }
+
+[Severity: Low]
+Should there be an // INVARIANT: comment here?
+
+The struct Owned<T> has an Invariants section. ForeignOwnable::from_foreign
+constructs Self { ptr: ... } without an // INVARIANT: comment to justify why
+the ownership and pinning invariants are upheld.
+
+[ ... ]
+> @@ -231,3 +237,125 @@ unsafe fn borrow_mut<'a>(ptr: *mut kernel::ffi::c_v=
+oid) -> Self::BorrowedMut<'a>
+[ ... ]
+> +struct Foo {
+> +    refcount: Cell<usize>,
+> +}
+> +
+> +impl Foo {
+> +    fn new() -> Result<Owned<Self>> {
+> +        // We are just using a `KBox` here to handle the actual allocati=
+on, as our `Foo` is
+> +        // not actually a C-allocated object.
+> +        let result =3D KBox::new(
+> +            Foo {
+> +                refcount: Cell::new(1),
+> +            },
+> +            flags::GFP_KERNEL,
+> +        )?;
+
+[Severity: Low]
+Should we add an // INVARIANT: comment here?
+
+The struct Foo is documented with invariants above, but this construction
+lacks the comment explaining why the invariants are satisfied.
+
+> +        let result =3D KBox::into_non_null(result);
+> +        // SAFETY:
+> +        //  - We just allocated the `Self`, thus it is valid and we own =
+it.
+> +        //  - We can transfer this ownership to the `from_raw` method.
+> +        Ok(unsafe { Owned::from_raw(result) })
+> +    }
+> +}
+[ ... ]
+> +let foo =3D Foo::new()?;
+> +let mut foo =3D ARef::from(foo);
+
+[Severity: Low]
+Can we remove the mut keyword here?
+
+The variable foo is only cloned and consumed by Owned::try_from, but never
+mutated. This will trigger an unused mutability warning which can break the
+build for documentation tests when warnings are treated as errors.
+
+> +{
+> +    let bar =3D foo.clone();
+> +    assert!(Owned::try_from(bar).is_err());
+> +}
+> +assert!(Owned::try_from(foo).is_ok());
+> +# Ok::<(), Error>(())
+> +```
+> +pub trait OwnableRefCounted: RefCounted + Ownable + Sized {
+> +    /// Checks if the [`ARef`] is unique and converts it to an [`Owned`]=
+ if that is the case.
+> +    /// Otherwise it returns again an [`ARef`] to the same underlying ob=
+ject.
+> +    fn try_from_shared(this: ARef<Self>) -> Result<Owned<Self>, ARef<Sel=
+f>>;
+> +
+> +    /// Converts the [`Owned`] into an [`ARef`].
+> +    #[inline]
+> +    fn into_shared(this: Owned<Self>) -> ARef<Self> {
+> +        // SAFETY: Safe by the requirements on implementing the trait.
+> +        unsafe { ARef::from_raw(Owned::into_raw(this)) }
+
+[Severity: High]
+Does into_shared rely on undocumented invariants that make this unsafe block
+unsound?
+
+Since OwnableRefCounted is a safe trait, any safe code can implement it. The
+default implementation of into_shared calls ARef::from_raw, which assumes t=
+he
+raw pointer has an active reference count increment that can be taken
+ownership of.
+
+Because there are no safety requirements on the trait preventing it, a user
+could safely implement OwnableRefCounted for a type where Owned<T> does not
+hold a reference count increment. Calling into_shared on such a type would
+pass a pointer without an active refcount to ARef::from_raw, and when dropp=
+ed,
+it would decrement a non-existent refcount.
+
+Should this trait be declared as unsafe trait OwnableRefCounted to prevent
+undefined behavior?
+
+> +    }
+> +}
+> diff --git a/rust/kernel/sync/aref.rs b/rust/kernel/sync/aref.rs
+> index 818c84fa923a3..68d31f43e6743 100644
+> --- a/rust/kernel/sync/aref.rs
+> +++ b/rust/kernel/sync/aref.rs
+[ ... ]
+> @@ -35,7 +39,10 @@
+>  /// Note: Implementing this trait allows types to be wrapped in an [`ARe=
+f<Self>`]. It requires an
+>  /// internal reference count and provides only shared references. If uni=
+que references are required
+>  /// [`Ownable`](crate::types::Ownable) should be implemented which allow=
+s types to be wrapped in an
+> -/// [`Owned<Self>`](crate::types::Owned).
+> +/// [`Owned<Self>`](crate::types::Owned). Implementing the trait
+> +/// [`OwnableRefCounted`] allows to convert between unique and
+> +/// shared references (i.e. [`Owned<Self>`](crate::types::Owned) and
+> +/// [`ARef<Self>`](crate::types::Owned)).
+
+[Severity: Low]
+Is this doc link destination correct for ARef<Self>?
+
+The link target incorrectly points to Owned instead of ARef. It should point
+to the correct type, e.g., crate::sync::aref::ARef.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-unique-ref=
+-v17-0-7b4c3d2930b9@kernel.org?part=3D9
