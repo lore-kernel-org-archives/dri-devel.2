@@ -4,63 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DBB3CD6E75
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:32:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B157CD6E77
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:32:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEDA010F0D8;
-	Thu,  4 Jun 2026 20:32:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5E1D10F106;
+	Thu,  4 Jun 2026 20:32:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="BihJD0rf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Pc0KbbSv";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2048910F0D8
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A0B010F0F1
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:32:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E75E841A58
  for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:32:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
- Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
- Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
- :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=bdP71f/ifbAyXzWUa081iqk+wlRkr0dWO8a3nS2bdeo=; b=BihJD0rfKYX+eq7EvSpDb/S0js
- GI2i2ppFcdmRuPxhSR86MMXxi+8/2uTQzwlek3YYy+kU19E3Fqxq83pY+OjoHu9+efQTsmFXAR7lf
- pIQHgb+Dk8Xe588VZl9CCw1uGK+vgjPt65bxUkkJbARMT6dKMQw2774HclHgtjizu/tWd6DVpcmPm
- lSCNFJWiu6t7ls6cjfBII+LYCQlBrr80XSF0eMZI1J2M8mvYEj4R7f2RHs8PhCdqtp1S7JcqSVN6K
- 5aR8aXi6TnXp6uiuSyX6TK36LzUlR9MJaXfQVwe2p75E6hSSDdf6YpcVooOh6/2J+fn3v1rRq9sdd
- YlHJxYtw==;
-Received: from [189.7.87.67] (helo=[10.0.0.1])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wVEjx-00CoGD-41; Thu, 04 Jun 2026 22:32:33 +0200
-From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Thu, 04 Jun 2026 17:32:15 -0300
-Subject: [PATCH v4 02/12] drm/v3d: Clear queue->active_job when
- v3d_fence_create() fails
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260604-v3d-sched-misc-fixes-v4-2-c068f5bf5ccf@igalia.com>
-References: <20260604-v3d-sched-misc-fixes-v4-0-c068f5bf5ccf@igalia.com>
-In-Reply-To: <20260604-v3d-sched-misc-fixes-v4-0-c068f5bf5ccf@igalia.com>
-To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5625; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=x6b9YrU2z9Y21AC1rJ60E5P1oJOK/VQULn6HRGMe9D4=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqIeDTDcdXFbHpLCeM6aJcYaunnJc+Y8CPUiI16
- cFqFlIb6ReJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaiHg0wAKCRA/8w6Kdoj6
- qnXfB/9z3XxoNcexraLbXQcuWX0EUytl4Dxtjngm7vrXbDHP3MK33Tr8C0GE1WLlWFtgfsHb/3A
- QP54XoM063cJIVkfTB+WWn92IR2UKplS7tswRURpo7IcvdIis35/66iJ+svYrYX8DLT7Lcu3L45
- lZnZv3ZegLYv1f0jxe7u+msFLUjKE03UD0RbjpoW4KdhZqlbdnEj104ayH1Hcr4p9GR4pVHTxZC
- Y9zBmGeoqJfZ/3qvW5ABIBo5tH44iax2Tl+eCSU1Bs1jdAb50J7BIXMuIpiR6Tke0RSoMO8b77X
- ZHUNzHzuApDP297Kqg+aZu+W6TlXcx0Z18XG6DzE86ti/6n3
-X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
- fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E3A51F00893;
+ Thu,  4 Jun 2026 20:32:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780605158;
+ bh=pg4jFJrnmDg2RQyBrb+Q9dUjl+QotqBgU0tz/1DoBdE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Pc0KbbSvtK2FkAqc+wQMGbBtpaiVNZWSUnJCcUtpxzAmczKRBqFf4vxXLLdjuZfPc
+ fCOC3dZ+oIVB0uHHZilT9DUlw6TIGXGFi3xhV5q3Ibf30ee4OHy2T0p6r/wZ2hu7pu
+ vVD0SkYTyCQkpWTmo2I5VQAWRwBv/xiLzYlI2djimA7V12WFpVlYP+NmxPbV9dPFlt
+ KpOJFwIri/JZ6B6gqHs2twHmWyEjPPHa2REwhHPlYGmHuMA3AxHe8EntF6VD233Epm
+ RN5Hx6r/Pwn2bcFwuRxaIdHFoV9+13jyKKpQz2RLc1diU+yOiC2rJ2k3YTGiMZKWpA
+ oTAl2ZKR+ZQOQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v17 07/10] rust: Add missing SAFETY documentation for
+ `ARef` example
+To: "Andreas Hindborg" <a.hindborg@kernel.org>
+Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ ojeda@kernel.org
+In-Reply-To: <20260604-unique-ref-v17-7-7b4c3d2930b9@kernel.org>
+References: <20260604-unique-ref-v17-7-7b4c3d2930b9@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 04 Jun 2026 20:32:38 +0000
+Message-Id: <20260604203238.8E3A51F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,179 +54,168 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The run_job() callbacks for BIN, RENDER, TFU and CSD assign the incoming
-job to queue->active_job before calling v3d_fence_create(). If
-v3d_fence_create() fails, the callback returns NULL without clearing
-active_job, leaving a dangling pointer.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] `ForeignOwnable` implementation for `Owned<T>` provides an incorre=
+ct `FOREIGN_ALIGN`.
+- [High] The `Ownable::release` trait method takes `&mut self` but is used =
+to deallocate the memory backing `self`, causing Undefined Behavior.
+- [Low] The return type of `Page::alloc_page` and the `Page` struct definit=
+ion were changed without updating the `drivers/android/binder` caller, caus=
+ing a build breakage.
+--
 
-Create a failure path in all run_job() callbacks that clears the active
-job before returning NULL. The BIN path takes queue->queue_lock around the
-clear as it races against v3d_overflow_mem_work(); RENDER, TFU and CSD
-paths have no concurrent reader, so the clear is lock-free.
+commit b6a2c6eeac2c111155591c361b9cdb16d0cb61b7
+Author: Oliver Mangold <oliver.mangold@pm.me>
 
-Fixes: a783a09ee76d ("drm/v3d: Refactor job management.")
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
----
- drivers/gpu/drm/v3d/v3d_sched.c | 60 +++++++++++++++++++++++------------------
- 1 file changed, 34 insertions(+), 26 deletions(-)
+rust: Add missing SAFETY documentation for ARef example
 
-diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-index 0e266b29317f..7f9a71022e5e 100644
---- a/drivers/gpu/drm/v3d/v3d_sched.c
-+++ b/drivers/gpu/drm/v3d/v3d_sched.c
-@@ -189,15 +189,11 @@ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
- 	struct v3d_dev *v3d = job->base.v3d;
- 	struct v3d_queue_state *queue = &v3d->queue[V3D_BIN];
- 	struct drm_device *dev = &v3d->drm;
--	struct dma_fence *fence;
-+	struct dma_fence *fence = NULL;
- 	unsigned long irqflags;
- 
--	if (unlikely(job->base.base.s_fence->finished.error)) {
--		spin_lock_irqsave(&queue->queue_lock, irqflags);
--		queue->active_job = NULL;
--		spin_unlock_irqrestore(&queue->queue_lock, irqflags);
--		return NULL;
--	}
-+	if (unlikely(job->base.base.s_fence->finished.error))
-+		goto out_clean_job;
- 
- 	/* Lock required around bin_job update vs
- 	 * v3d_overflow_mem_work().
-@@ -214,7 +210,7 @@ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
- 
- 	fence = v3d_fence_create(v3d, V3D_BIN);
- 	if (IS_ERR(fence))
--		return NULL;
-+		goto out_clean_job;
- 
- 	if (job->base.irq_fence)
- 		dma_fence_put(job->base.irq_fence);
-@@ -242,6 +238,12 @@ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
- 	V3D_CORE_WRITE(0, V3D_CLE_CT0QEA, job->end);
- 
- 	return fence;
-+
-+out_clean_job:
-+	spin_lock_irqsave(&queue->queue_lock, irqflags);
-+	queue->active_job = NULL;
-+	spin_unlock_irqrestore(&queue->queue_lock, irqflags);
-+	return fence;
- }
- 
- static struct dma_fence *v3d_render_job_run(struct drm_sched_job *sched_job)
-@@ -249,12 +251,10 @@ static struct dma_fence *v3d_render_job_run(struct drm_sched_job *sched_job)
- 	struct v3d_render_job *job = to_render_job(sched_job);
- 	struct v3d_dev *v3d = job->base.v3d;
- 	struct drm_device *dev = &v3d->drm;
--	struct dma_fence *fence;
-+	struct dma_fence *fence = NULL;
- 
--	if (unlikely(job->base.base.s_fence->finished.error)) {
--		v3d->queue[V3D_RENDER].active_job = NULL;
--		return NULL;
--	}
-+	if (unlikely(job->base.base.s_fence->finished.error))
-+		goto out_clean_job;
- 
- 	v3d->queue[V3D_RENDER].active_job = &job->base;
- 
-@@ -268,7 +268,7 @@ static struct dma_fence *v3d_render_job_run(struct drm_sched_job *sched_job)
- 
- 	fence = v3d_fence_create(v3d, V3D_RENDER);
- 	if (IS_ERR(fence))
--		return NULL;
-+		goto out_clean_job;
- 
- 	if (job->base.irq_fence)
- 		dma_fence_put(job->base.irq_fence);
-@@ -289,6 +289,10 @@ static struct dma_fence *v3d_render_job_run(struct drm_sched_job *sched_job)
- 	V3D_CORE_WRITE(0, V3D_CLE_CT1QEA, job->end);
- 
- 	return fence;
-+
-+out_clean_job:
-+	v3d->queue[V3D_RENDER].active_job = NULL;
-+	return fence;
- }
- 
- static struct dma_fence *
-@@ -297,18 +301,16 @@ v3d_tfu_job_run(struct drm_sched_job *sched_job)
- 	struct v3d_tfu_job *job = to_tfu_job(sched_job);
- 	struct v3d_dev *v3d = job->base.v3d;
- 	struct drm_device *dev = &v3d->drm;
--	struct dma_fence *fence;
-+	struct dma_fence *fence = NULL;
- 
--	if (unlikely(job->base.base.s_fence->finished.error)) {
--		v3d->queue[V3D_TFU].active_job = NULL;
--		return NULL;
--	}
-+	if (unlikely(job->base.base.s_fence->finished.error))
-+		goto out_clean_job;
- 
- 	v3d->queue[V3D_TFU].active_job = &job->base;
- 
- 	fence = v3d_fence_create(v3d, V3D_TFU);
- 	if (IS_ERR(fence))
--		return NULL;
-+		goto out_clean_job;
- 
- 	if (job->base.irq_fence)
- 		dma_fence_put(job->base.irq_fence);
-@@ -336,6 +338,10 @@ v3d_tfu_job_run(struct drm_sched_job *sched_job)
- 	V3D_WRITE(V3D_TFU_ICFG(v3d->ver), job->args.icfg | V3D_TFU_ICFG_IOC);
- 
- 	return fence;
-+
-+out_clean_job:
-+	v3d->queue[V3D_TFU].active_job = NULL;
-+	return fence;
- }
- 
- static struct dma_fence *
-@@ -344,13 +350,11 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
- 	struct v3d_csd_job *job = to_csd_job(sched_job);
- 	struct v3d_dev *v3d = job->base.v3d;
- 	struct drm_device *dev = &v3d->drm;
--	struct dma_fence *fence;
-+	struct dma_fence *fence = NULL;
- 	int i, csd_cfg0_reg;
- 
--	if (unlikely(job->base.base.s_fence->finished.error)) {
--		v3d->queue[V3D_CSD].active_job = NULL;
--		return NULL;
--	}
-+	if (unlikely(job->base.base.s_fence->finished.error))
-+		goto out_clean_job;
- 
- 	v3d->queue[V3D_CSD].active_job = &job->base;
- 
-@@ -358,7 +362,7 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
- 
- 	fence = v3d_fence_create(v3d, V3D_CSD);
- 	if (IS_ERR(fence))
--		return NULL;
-+		goto out_clean_job;
- 
- 	if (job->base.irq_fence)
- 		dma_fence_put(job->base.irq_fence);
-@@ -385,6 +389,10 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
- 	V3D_CORE_WRITE(0, csd_cfg0_reg, job->args.cfg[0]);
- 
- 	return fence;
-+
-+out_clean_job:
-+	v3d->queue[V3D_CSD].active_job = NULL;
-+	return fence;
- }
- 
- static void
+This commit fixes a missing SAFETY comment in the rustdoc example for
+ARef. It replaces a TODO comment with a proper safety explanation.
+The series also introduces the Ownable trait and updates
+Page::alloc_page to return an Owned<Page>.
 
--- 
-2.54.0
+> diff --git a/rust/kernel/owned.rs b/rust/kernel/owned.rs
+> new file mode 100644
+> --- /dev/null
+> +++ b/rust/kernel/owned.rs
+> @@ -0,0 +1,233 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +//! Unique owned pointer types for objects with custom drop logic.
 
+[ ... ]
+
+> +pub trait Ownable {
+> +    /// Tear down this `Ownable`.
+> +    ///
+> +    /// Implementers of `Ownable` can use this function to clean up the =
+use of `Self`. This can
+> +    /// include freeing the underlying object.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// Callers must ensure that the caller has exclusive ownership of `=
+T`, and this ownership can
+> +    /// be transferred to the `release` method.
+> +    unsafe fn release(&mut self);
+> +}
+
+[Severity: High]
+Does taking a mutable reference here lead to undefined behavior when
+deallocating the memory backing it?
+
+In Rust's memory model, a reference must point to valid memory for its
+entire lifetime, which extends until the method returns.
+
+Deallocating the memory backing &mut self while the reference is still
+active in the function is a strict aliasing violation.
+
+For instance, Page implements this by calling bindings::__free_pages
+on the memory backing self.
+
+Could this method take a raw pointer (like NonNull<Self>) or pass
+ownership of the wrapper instead to avoid this issue?
+
+[ ... ]
+
+> +// SAFETY: We derive the pointer to `T` from a valid `T`, so the returned
+> +// pointer satisfy alignment requirements of `T`.
+> +unsafe impl<T: Ownable + 'static> ForeignOwnable for Owned<T> {
+> +    const FOREIGN_ALIGN: usize =3D core::mem::align_of::<Owned<T>>();
+
+[Severity: High]
+Is it possible this alignment is incorrect for the underlying type?
+
+The ForeignOwnable trait guarantees that the pointer returned by
+into_foreign has a minimum alignment of FOREIGN_ALIGN. Here,
+into_foreign extracts and returns a raw pointer to the underlying T.
+
+However, FOREIGN_ALIGN is defined as the alignment of the wrapper
+Owned<T> (typically an 8-byte pointer), rather than the alignment of T.
+
+If T is an Ownable type with a smaller alignment requirement, the
+returned pointer might not be 8-byte aligned. This would violate the
+trait's safety contract and potentially cause undefined behavior when
+passed to subsystems like XArray.
+
+Should this use core::mem::align_of::<T>() instead?
+
+> diff --git a/rust/kernel/page.rs b/rust/kernel/page.rs
+> index adecb200c6549..844c75e541345 100644
+> --- a/rust/kernel/page.rs
+> +++ b/rust/kernel/page.rs
+
+[ ... ]
+
+> @@ -177,19 +192,20 @@ impl Page {
+>      /// # Ok::<(), kernel::alloc::AllocError>(())
+>      /// ```
+>      #[inline]
+> -    pub fn alloc_page(flags: Flags) -> Result<Self, AllocError> {
+> +    pub fn alloc_page(flags: Flags) -> Result<Owned<Self>, AllocError> {
+>          // SAFETY: Depending on the value of `gfp_flags`, this call may =
+sleep. Other than that, it
+>          // is always safe to call this method.
+>          let page =3D unsafe { bindings::alloc_pages(flags.as_raw(), 0) };
+>          let page =3D NonNull::new(page).ok_or(AllocError)?;
+> -        // INVARIANT: We just successfully allocated a page, so we now h=
+ave ownership of the newly
+> -        // allocated page. We transfer that ownership to the new `Page` =
+object.
+> -        Ok(Self { page })
+> +        // SAFETY: We just successfully allocated a page, so we now have=
+ ownership of the newly
+> +        // allocated page. We transfer that ownership to the new `Owned<=
+Page>` object.
+> +        // Since `Page` is transparent, we can cast the pointer directly.
+> +        Ok(unsafe { Owned::from_raw(page.cast()) })
+>      }
+
+[Severity: Low]
+Does this change in return type break existing callers?
+
+The return type of Page::alloc_page was changed to return
+Result<Owned<Page>, AllocError> and Page was converted to an
+Ownable opaque wrapper.
+
+However, ShrinkablePageRange::use_page_slow in
+drivers/android/binder/page_range.rs still expects Page::alloc_page
+to return a Page by value.
+
+It attempts to pass the Owned<Page> to PageInfo::set_page(page: Page),
+which causes a type mismatch and breaks the build.
+
+Could the caller in drivers/android/binder be updated to handle
+the new Owned<Page> return type?
+
+[ ... ]
+
+> @@ -364,10 +380,12 @@ pub unsafe fn copy_from_user_slice_raw(
+>      }
+>  }
+> =20
+> -impl Drop for Page {
+> +impl Ownable for Page {
+>      #[inline]
+> -    fn drop(&mut self) {
+> -        // SAFETY: By the type invariants, we have ownership of the page=
+ and can free it.
+> -        unsafe { bindings::__free_pages(self.page.as_ptr(), 0) };
+> +    unsafe fn release(&mut self) {
+> +        let ptr: *mut Self =3D self;
+> +        // SAFETY: By the function safety requirements, we have ownershi=
+p of the page and can free
+> +        // it. Since Page is transparent, we can cast the raw pointer di=
+rectly.
+> +        unsafe { bindings::__free_pages(ptr.cast(), 0) };
+>      }
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-unique-ref=
+-v17-0-7b4c3d2930b9@kernel.org?part=3D7
