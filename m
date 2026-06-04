@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8332CD6E68
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 09:50:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D4E9CD6E57
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 09:50:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F90310E5F0;
-	Thu,  4 Jun 2026 09:50:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FD8610E5FB;
+	Thu,  4 Jun 2026 09:50:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MJ2q4u0f";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="D+eu5qjR";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CD0D10E5F0;
- Thu,  4 Jun 2026 09:50:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B08F10E5FB;
+ Thu,  4 Jun 2026 09:50:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780566630; x=1812102630;
+ t=1780566633; x=1812102633;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Ih8o1AApgERbppoR7RSUuA+cFyPOod7VCJx27S4kSfw=;
- b=MJ2q4u0f6gWYHrxZ33Tznsz7S1Dx79WHDuvpDrinyJsSRs9Rj+k9oy/x
- ZN4SUsl1OpQ7vChE46cn53OpyJHSQYG31j3WiOhPuref9mv9JA0/0SVRW
- 7vvm5jcQ8bwAdgUle8iCDqXBiimmM1WPnjSWo5lN6uu/wNERo/wTMjspP
- ZY5K2nQJSD2rMKWTOIMnrDo/QJNCDciY4UYfBU9+O5pUxaYqkVlo+2BHC
- bTJMbi90deExZdkYRFQWbKj9+FUnjlNKQOZwUbW19wqm10N+T/J/b5tN3
- goTalZGDNiYipeDcjotXUHklqgAmNpdFtECeKr7pJe4iAwUHGhHD4pdqI w==;
-X-CSE-ConnectionGUID: 7jEadGBpRdaHGqW5Wzeqcw==
-X-CSE-MsgGUID: eTd4ObbzTU+ykobXR7LL1A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11806"; a="98810519"
-X-IronPort-AV: E=Sophos;i="6.24,186,1774335600"; d="scan'208";a="98810519"
+ bh=iscvMmBYia52VxsUrY5YxqjB9QK1YeVVbNw7DwcOfqI=;
+ b=D+eu5qjRFiNN4ZPfBwC6Zg2N2jmV6+Hg+3y9zkGIzo62OGD6Gxm7C+dk
+ /HzaRrGTHMXhb8RSSreDS44LC5lkMP3MsDNyVIoTJ5wKOB37/NSpV3e3G
+ CqwsS7dQ2B/4XhYL9dLJfbIVs77DwRQhk1jPcSgRSpEdKqqsqwt7yhZ88
+ sVP98QDec3OtD/8fXO+NDdYecE9iL67fveCsUWRcTeHIGWBaPJe+rrtK0
+ 0BbSbIGImWa8EShVVCDIf0W3b9b7m7R6fqEUquKOlb9ejSp2rGCSoWo64
+ zj3hAkYUz7vXSkfvhuIXHMgw4oBEE9wKVcArQNQfcbayBepHJW9ZJ1bN5 w==;
+X-CSE-ConnectionGUID: 1Qse4oHsSMm33hM7QiXpVw==
+X-CSE-MsgGUID: e0VMWzrqQe6mAzT8YvYryQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11806"; a="98810521"
+X-IronPort-AV: E=Sophos;i="6.24,186,1774335600"; d="scan'208";a="98810521"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2026 02:50:30 -0700
-X-CSE-ConnectionGUID: Ta8qjmqYSNua053YMNhFFw==
-X-CSE-MsgGUID: odnHgP+gQCGM4iA+SmsUGg==
+ 04 Jun 2026 02:50:32 -0700
+X-CSE-ConnectionGUID: UJi96a/+RkKf5K4QNuQ1Mg==
+X-CSE-MsgGUID: XJkKjO2pRvCOGT5meiTyWw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,186,1774335600"; d="scan'208";a="282602347"
+X-IronPort-AV: E=Sophos;i="6.24,186,1774335600"; d="scan'208";a="282602357"
 Received: from varungup-desk.iind.intel.com ([10.190.238.71])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2026 02:50:28 -0700
+ 04 Jun 2026 02:50:30 -0700
 From: Arvind Yadav <arvind.yadav@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: matthew.brost@intel.com, himal.prasad.ghimiray@intel.com,
  thomas.hellstrom@linux.intel.com
-Subject: [RFC v3 2/7] drm/xe/vm: Preserve cpu_autoreset_active across GPUVA
- operations
-Date: Thu,  4 Jun 2026 15:20:07 +0530
-Message-ID: <20260604095012.367231-3-arvind.yadav@intel.com>
+Subject: [RFC v3 3/7] drm/xe/svm: Clear CPU_AUTORESET_ACTIVE on first GPU fault
+Date: Thu,  4 Jun 2026 15:20:08 +0530
+Message-ID: <20260604095012.367231-4-arvind.yadav@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260604095012.367231-1-arvind.yadav@intel.com>
 References: <20260604095012.367231-1-arvind.yadav@intel.com>
@@ -71,149 +70,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-GPUVA split and remap operations rebuild VMAs from create flags. These
-flags preserve persistent VMA state, but not runtime-only state such as
-cpu_autoreset_active.
+CPU address mirror VMAs start with cpu_autoreset_active set, indicating
+they are still CPU-only.
 
-Forward XE_VMA_CPU_AUTORESET_ACTIVE explicitly through the MAP/REMAP
-pipeline so xe_vma_create() can restore cpu_autoreset_active in the new
-VMA. The bit remains pipeline-only and is stripped before storing
-vma->gpuva.flags.
-
-Also relax the UNMAP attribute warning for MADVISE_AUTORESET VMAs, since
-they may legitimately carry non-default madvise-managed attributes.
+Clear cpu_autoreset_active after successful fault handling. A successful
+return means the fault address already has a valid GPU mapping or PTEs
+were installed. Prefetch faults that do not establish a mapping return an
+error and do not transition the state.
 
 v2:
-  - Move runtime state to xe_vma bool and keep
-    XE_VMA_CPU_AUTORESET_ACTIVE as pipeline-only. (Matt)
-  - Add xe_vma_effective_create_flags() to centralise flag handling.
+  - Move xe_vma_gpu_touch() to the success path in
+    xe_svm_handle_pagefault() so prefetch faults that find no range do
+    not transition the state. (Matt)
+  - Add xe_vma_gpu_touch() helper in xe_vm.h and use
+    vma->cpu_autoreset_active instead of vma->gpuva.flags. (Matt)
 
 v3:
-  - Guard cpu_autoreset_active assignment to CPU_ADDR_MIRROR VMAs only (Matt)
+  - Drop lockdep_assert_held_write from xe_svm_handle_pagefault. (Matt)
+  - Re-fetch the VMA in xe_pagefault_service() before clearing state.
+  - Move gpu_touch from xe_svm_handle_pagefault to xe_pagefault_service
+    (Matt)
 
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
 Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
 ---
- drivers/gpu/drm/xe/xe_vm.c | 44 ++++++++++++++++++++++++++++++++------
- 1 file changed, 38 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/xe/xe_pagefault.c | 10 +++++++++-
+ drivers/gpu/drm/xe/xe_vm.h        | 13 +++++++++++++
+ 2 files changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index 080c2fff0e95..dec5279f08a2 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -1105,7 +1105,11 @@ static struct xe_vma *xe_vma_create(struct xe_vm *vm,
- 	vma->gpuva.vm = &vm->gpuvm;
- 	vma->gpuva.va.addr = start;
- 	vma->gpuva.va.range = end - start + 1;
--	vma->gpuva.flags = flags;
-+	/* Pipeline-only, do not store in gpuva.flags. */
-+	vma->gpuva.flags = flags & ~XE_VMA_CPU_AUTORESET_ACTIVE;
-+	vma->cpu_autoreset_active =
-+		(flags & XE_VMA_SYSTEM_ALLOCATOR) &&
-+		(flags & XE_VMA_CPU_AUTORESET_ACTIVE);
+diff --git a/drivers/gpu/drm/xe/xe_pagefault.c b/drivers/gpu/drm/xe/xe_pagefault.c
+index dd3c068e1a39..f64d3df08261 100644
+--- a/drivers/gpu/drm/xe/xe_pagefault.c
++++ b/drivers/gpu/drm/xe/xe_pagefault.c
+@@ -215,8 +215,16 @@ static int xe_pagefault_service(struct xe_pagefault *pf)
+ 		err = xe_pagefault_handle_vma(gt, vma, atomic);
  
- 	for_each_tile(tile, vm->xe, id)
- 		vma->tile_mask |= 0x1 << id;
-@@ -2479,8 +2483,10 @@ vm_bind_ioctl_ops_create(struct xe_vm *vm, struct xe_vma_ops *vops,
- 				op->map.vma_flags |= XE_VMA_SYSTEM_ALLOCATOR;
- 			if (flags & DRM_XE_VM_BIND_FLAG_DUMPABLE)
- 				op->map.vma_flags |= XE_VMA_DUMPABLE;
--			if (flags & DRM_XE_VM_BIND_FLAG_MADVISE_AUTORESET)
-+			if (flags & DRM_XE_VM_BIND_FLAG_MADVISE_AUTORESET) {
- 				op->map.vma_flags |= XE_VMA_MADV_AUTORESET;
-+				op->map.vma_flags |= XE_VMA_CPU_AUTORESET_ACTIVE;
-+			}
- 			op->map.request_decompress = flags & DRM_XE_VM_BIND_FLAG_DECOMPRESS;
- 			op->map.pat_index = pat_index;
- 			op->map.invalidate_on_bind =
-@@ -2800,6 +2806,9 @@ static int vm_bind_ioctl_ops_parse(struct xe_vm *vm, struct drm_gpuva_ops *ops,
- 			};
- 
- 			flags |= op->map.vma_flags & XE_VMA_CREATE_MASK;
-+			/* Forward pipeline-only state. */
-+			if (op->map.vma_flags & XE_VMA_CPU_AUTORESET_ACTIVE)
-+				flags |= XE_VMA_CPU_AUTORESET_ACTIVE;
- 
- 			vma = new_vma(vm, &op->base.map, &default_attr,
- 				      flags);
-@@ -2842,6 +2851,10 @@ static int vm_bind_ioctl_ops_parse(struct xe_vm *vm, struct drm_gpuva_ops *ops,
- 			op->remap.old_range = op->remap.range;
- 
- 			flags |= op->base.remap.unmap->va->flags & XE_VMA_CREATE_MASK;
-+			/* Forward pipeline-only state. */
-+			if (xe_vma_has_cpu_autoreset_active(old))
-+				flags |= XE_VMA_CPU_AUTORESET_ACTIVE;
+ unlock_vm:
+-	if (!err)
++	if (!err) {
++		/* Re-fetch, fault handling may have replaced the VMA. */
++		vma = xe_vm_find_vma_by_addr(vm, pf->consumer.page_addr);
+ 		vm->usm.last_fault_vma = vma;
 +
- 			if (op->base.remap.prev) {
- 				vma = new_vma(vm, op->base.remap.prev,
- 					      &old->attr, flags);
-@@ -4693,6 +4706,17 @@ int xe_vma_need_vram_for_atomic(struct xe_device *xe, struct xe_vma *vma, bool i
- 	}
- }
++		/* First successful GPU fault ends CPU-only state. */
++		if (vma && xe_vma_is_cpu_addr_mirror(vma) &&
++		    xe_vma_has_cpu_autoreset_active(vma))
++			xe_vma_gpu_touch(vma);
++	}
+ 	up_write(&vm->lock);
+ 	xe_vm_put(vm);
  
-+/* Add pipeline-only autoreset state when rebuilding a VMA. */
-+static unsigned int xe_vma_effective_create_flags(struct xe_vma *vma)
+diff --git a/drivers/gpu/drm/xe/xe_vm.h b/drivers/gpu/drm/xe/xe_vm.h
+index 0dd201cce968..0ad704b05687 100644
+--- a/drivers/gpu/drm/xe/xe_vm.h
++++ b/drivers/gpu/drm/xe/xe_vm.h
+@@ -450,4 +450,17 @@ static inline struct drm_exec *xe_vm_validation_exec(struct xe_vm *vm)
+ 	((READ_ONCE(tile_present) & ~READ_ONCE(tile_invalidated)) & BIT((tile)->id))
+ 
+ void xe_vma_mem_attr_copy(struct xe_vma_mem_attr *to, struct xe_vma_mem_attr *from);
++
++/**
++ * xe_vma_gpu_touch() - Mark a VMA as no longer CPU-only
++ * @vma: VMA to update
++ *
++ * Clear cpu_autoreset_active after the first successful GPU fault-in.
++ * Caller must hold vm->lock in write mode.
++ */
++static inline void xe_vma_gpu_touch(struct xe_vma *vma)
 +{
-+	unsigned int flags = vma->gpuva.flags;
-+
-+	if (xe_vma_has_cpu_autoreset_active(vma))
-+		flags |= XE_VMA_CPU_AUTORESET_ACTIVE;
-+
-+	return flags;
++	lockdep_assert_held_write(&xe_vma_vm(vma)->lock);
++	vma->cpu_autoreset_active = false;
 +}
-+
- static int xe_vm_alloc_vma(struct xe_vm *vm,
- 			   struct drm_gpuvm_map_req *map_req,
- 			   bool is_madvise)
-@@ -4728,19 +4752,24 @@ static int xe_vm_alloc_vma(struct xe_vm *vm,
- 		if (!is_madvise) {
- 			if (__op->op == DRM_GPUVA_OP_UNMAP) {
- 				vma = gpuva_to_vma(op->base.unmap.va);
--				XE_WARN_ON(!xe_vma_has_default_mem_attrs(vma));
-+				/* AUTORESET VMAs may carry madvise-managed attrs. */
-+				XE_WARN_ON(!xe_vma_has_default_mem_attrs(vma) &&
-+					   !(vma->gpuva.flags & XE_VMA_MADV_AUTORESET));
- 				default_pat = vma->attr.default_pat_index;
--				vma_flags = vma->gpuva.flags;
-+				vma_flags = xe_vma_effective_create_flags(vma);
- 			}
- 
- 			if (__op->op == DRM_GPUVA_OP_REMAP) {
- 				vma = gpuva_to_vma(op->base.remap.unmap->va);
- 				default_pat = vma->attr.default_pat_index;
--				vma_flags = vma->gpuva.flags;
-+				vma_flags = xe_vma_effective_create_flags(vma);
- 			}
- 
- 			if (__op->op == DRM_GPUVA_OP_MAP) {
- 				op->map.vma_flags |= vma_flags & XE_VMA_CREATE_MASK;
-+				/* Forward pipeline-only state. */
-+				if (vma_flags & XE_VMA_CPU_AUTORESET_ACTIVE)
-+					op->map.vma_flags |= XE_VMA_CPU_AUTORESET_ACTIVE;
- 				op->map.pat_index = default_pat;
- 			}
- 		} else {
-@@ -4749,7 +4778,7 @@ static int xe_vm_alloc_vma(struct xe_vm *vm,
- 				xe_assert(vm->xe, !remap_op);
- 				xe_assert(vm->xe, xe_vma_has_no_bo(vma));
- 				remap_op = true;
--				vma_flags = vma->gpuva.flags;
-+				vma_flags = xe_vma_effective_create_flags(vma);
- 			}
- 
- 			if (__op->op == DRM_GPUVA_OP_MAP) {
-@@ -4762,6 +4791,9 @@ static int xe_vm_alloc_vma(struct xe_vm *vm,
- 				 * unmapping.
- 				 */
- 				op->map.vma_flags |= vma_flags & XE_VMA_CREATE_MASK;
-+				/* Forward pipeline-only state. */
-+				if (vma_flags & XE_VMA_CPU_AUTORESET_ACTIVE)
-+					op->map.vma_flags |= XE_VMA_CPU_AUTORESET_ACTIVE;
- 			}
- 		}
- 		print_op(vm->xe, __op);
+ #endif
 -- 
 2.43.0
 
