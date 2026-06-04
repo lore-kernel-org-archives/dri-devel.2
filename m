@@ -4,44 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5FA5CD6E4A
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 14:11:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29A8ACD6E4A
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 14:13:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0555F11A111;
-	Thu,  4 Jun 2026 14:11:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6038511A116;
+	Thu,  4 Jun 2026 14:13:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QOV+uKdU";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="RLklLahu";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8432311A111
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 14:11:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 092006024D;
- Thu,  4 Jun 2026 14:11:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1E81F00893;
- Thu,  4 Jun 2026 14:11:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780582302;
- bh=MH5p5UiRGIxma5jv4p3iiLlreHzJsU1eQo5K+b7v1QA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QOV+uKdUZO2+uB77cd6Dbj+5LJDwYmxGF1aOY8WnsOxw3NqBEMS11ys0lUTDsEaaF
- amwB82L94bLw6d3hlx+7hnDEwv5sebJGTJJBpS8SUSP2xQv3Dzw0Z3Fm6MW44AVOoS
- AxKR32yQe9WGh6SGb0Z4Mb2Vg0TrVV/JE7fLXse+ypnD0NuTwxFbNCbaZRCLQOEGRO
- R1u9Nrd4BUTZIlnbUvpfIo99RCOW5Ei9QWUIAe9Z0V/qKbumeaDCU6Jow9oFP9BlqO
- 9HQpXzcXryHJFt+WV8XPrG+SJVkiWxNv+3Pfs6QKWjMObQQ0PMZtDWN8OMTD04v/Mu
- qbAOX/879e1sg==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v3 8/9] arm64: dts: rockchip: rk356x: Add the NPU
- and its IOMMU
-To: "Midgy BALON" <midgy971@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260604135255.62682-9-midgy971@gmail.com>
-References: <20260604135255.62682-9-midgy971@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 14:11:42 +0000
-Message-Id: <20260604141142.7B1E81F00893@smtp.kernel.org>
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
+ [209.85.160.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DB2011A115
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 14:13:02 +0000 (UTC)
+Received: by mail-qt1-f172.google.com with SMTP id
+ d75a77b69052e-5175eab3a93so5654591cf.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 07:13:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1780582381; x=1781187181; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=6SN06MWYgnamNhN1ZWgRIcR80dI4EtU2wUgYpm//Klo=;
+ b=RLklLahuLTJBvtebgvKVkoPigd/xiEIA/byItSQWHN/H3MO8+/c+dDWgvg27NChQ14
+ oFsfjPAuDrvxzDo1sKuRnJoYZkE8oRhXwtFxGVshtomt767A0nh5XXG8dZYtS4PHcvlY
+ BBIpYigvodL6WKhzF5DM/PS5I4PulP0fMeEmYnP2slsTI6abVrkzPz1zq++Ys306s0W/
+ 6NtZ8W4n8HWpIli9H8Ghp4tyOxn9sazU/DYzcU73qVImIDuPxqa0P8O5dQ8d6ODwNrxC
+ AiYe7nsSzyjedWAOr6VTN6dJsWTNAHGvQXEYMtJIGnRX4tIUMS/9sNAVaH+R2/VrueYZ
+ 17fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780582381; x=1781187181;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=6SN06MWYgnamNhN1ZWgRIcR80dI4EtU2wUgYpm//Klo=;
+ b=T87XmqXap5OXMg4pr48hRNo9jFHtNlQ0HO+dS3owWheLmuo4nlCwdqvHrOf3Dsr7W1
+ j/H3XuLluAr+Vu5/kZiDjAGjrpK2ItgbESrgMtXrENz5YpCi4pNhaG5DuX96B21x5/W+
+ T1HjGzcncED3QpJZedoZW7CsqFp4gf4Iv6JgQf07ZIiHMcvzIyK6sfkTkC7L05Z3Otrj
+ 1S8xfLsq8tMKg25W7olxbiYWLIo3Pzy/nNwmuFd7kqZ9M1c+nYIZ3G4cnwOop3DCUu/2
+ tl5eMyrEKOi8r80tDIL3U2Cu+FhG9ka4MmzIuZJq1x1Db6vQHkdfJ6S5LlrXn8YxN7hp
+ N2/w==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/l6+Oco8VitU5AnjeH/hDNavEHMFS6E8XrNI3qa3nPKBs2ldPS0LS7kF78pPduN30SKGC/RPH7rIA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzH5vMjjIT9ytaxbx22I5oAwDxSsyCKF9MAISBroMc1SNPQs/h0
+ Nml1l453P9NlLlVrH+rhlWqQap9YPaNvlteITfm9dcBQyJeK5Kj5baWygSonWw53k+g=
+X-Gm-Gg: Acq92OG8CrkwrOcqnx58ESGTuI25+jyIiyyO+4H4vjGKdHxmnRmRD4TGexICEQBqfDx
+ /dxW5OSlbsJ8NlauwxIO2f5vAApi9zpIt0yUlEYNvIYAVVBFUByVWxdg+NmyJJOx+v/7a7VB2C0
+ 0GtJOIKRK6t/tCXGryJ8asDJHHSDvReHwsXzaT+D1Npzn8Jd7iNohOgIa0sVepGbpZJJ0HuZgbz
+ UuE6RHLwd5Ysgrhsa9jERRFQ+DHydK2BJ3++iQeIFfdydHEXXKLBenqoAf7+ObNXqFIGFEEGwHX
+ k6XfA/7bFWQ5E1Q5tKa24h5G2/wHiGmQTyODdFjUozPDkFt5OPCSaPqNIk0nG0/OB9PJdCKQj7f
+ Kg5GtQSWopzeMgNw45tqxTPrxTsNED5jD7k6qTjjf/E/zspGV5LHcEkH84RiTsAwdAmjWthRFLN
+ f6I4gjMLe8FRlX1k3icqbfVBdkCsNFYk6tpTJILnRvABMbzs/vPk+PB7ts8XS4aGj5YPPlagnp7
+ 8hSz3LOtwPyS2Fab+1nV66J0Mw=
+X-Received: by 2002:a05:622a:598c:b0:517:1465:9167 with SMTP id
+ d75a77b69052e-51778696c8emr120221011cf.28.1780582380950; 
+ Thu, 04 Jun 2026 07:13:00 -0700 (PDT)
+Received: from ziepe.ca
+ (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
+ [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-51775df4dd6sm52447511cf.27.2026.06.04.07.13.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 Jun 2026 07:13:00 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1wV8od-00000008HC1-3PHn;
+ Thu, 04 Jun 2026 11:12:59 -0300
+Date: Thu, 4 Jun 2026 11:12:59 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Baolu Lu <baolu.lu@linux.intel.com>
+Cc: Guanghui Feng <guanghuifeng@linux.alibaba.com>,
+ adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
+ alikernel-developer@linux.alibaba.com,
+ boris.brezillon@collabora.com, dri-devel@lists.freedesktop.org,
+ dwmw2@infradead.org, iommu@lists.linux.dev, joro@8bytes.org,
+ kevin.tian@intel.com, kvm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ liviu.dudau@arm.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, oliver.yang@linux.alibaba.com, robh@kernel.org,
+ robin.murphy@arm.com, shiyu.zsq@linux.alibaba.com,
+ steven.price@arm.com, suravee.suthikulpanit@amd.com,
+ tzimmermann@suse.de, wei.guo.simon@linux.alibaba.com,
+ will@kernel.org, xlpang@linux.alibaba.com
+Subject: Re: [PATCH v3 05/32] iommu/generic_pt: implement iova_to_phys_length
+Message-ID: <20260604141259.GW2487554@ziepe.ca>
+References: <20260602104637.1219810-1-guanghuifeng@linux.alibaba.com>
+ <20260603151804.1963871-1-guanghuifeng@linux.alibaba.com>
+ <20260603151804.1963871-6-guanghuifeng@linux.alibaba.com>
+ <c179b999-8c7f-4338-8aad-b61fd09f1329@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c179b999-8c7f-4338-8aad-b61fd09f1329@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,104 +104,60 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Thu, Jun 04, 2026 at 11:30:37AM +0800, Baolu Lu wrote:
+> > -static __always_inline int __do_iova_to_phys(struct pt_range *range, void *arg,
+> > -					     unsigned int level,
+> > -					     struct pt_table_p *table,
+> > -					     pt_level_fn_t descend_fn)
+> > +struct iova_to_phys_length_data {
+> > +	pt_oaddr_t phys;
+> > +	size_t length;
+> > +};
+> > +
+> > +static __always_inline int __do_iova_to_phys_length(struct pt_range *range,
+> > +					       void *arg, unsigned int level,
+> > +					       struct pt_table_p *table,
+> > +					       pt_level_fn_t descend_fn)
+> >   {
+> >   	struct pt_state pts = pt_init(range, level, table);
+> > -	pt_oaddr_t *res = arg;
+> > +	struct iova_to_phys_length_data *data = arg;
+> > +	unsigned int entry_lg2sz;
+> > +	size_t entry_sz;
+> > +	pt_oaddr_t expected_oa;
+> >   	switch (pt_load_single_entry(&pts)) {
+> >   	case PT_ENTRY_EMPTY:
+> > @@ -159,45 +167,77 @@ static __always_inline int __do_iova_to_phys(struct pt_range *range, void *arg,
+> >   	case PT_ENTRY_TABLE:
+> >   		return pt_descend(&pts, arg, descend_fn);
+> >   	case PT_ENTRY_OA:
+> > -		*res = pt_entry_oa_exact(&pts);
+> > -		return 0;
+> > +		break;
+> >   	}
+> > -	return -ENOENT;
+> > +
+> > +	data->phys = pt_entry_oa_exact(&pts);
+> > +	entry_lg2sz = pt_entry_oa_lg2sz(&pts);
+> > +	entry_sz = log2_to_int(entry_lg2sz);
+> > +
+> > +	/* Start with the full mapping size of the first entry */
+> > +	data->length = entry_sz;
+> 
+> data->length doesn't account for iova offset. Is this by design? We
+> should document this clearly somewhere.
 
-New issues:
-- [High] The NPU node simultaneously defines `power-domains` and `rockchip,=
-pmu`, causing the generic power domain framework and the NPU driver to conc=
-urrently manipulate the same PMU power and idle registers.
-- [Low] Device tree nodes `npu@fde40000` and `iommu@fde4b000` are not sorte=
-d by unit address.
+That's defintaely a mistake, the phys has to be offset by the iova in all cases,
+it is part of the API.
 
-Pre-existing issues:
-- [Critical] The driver calls `devm_clk_bulk_get` without initializing the =
-`.id` fields of the clock bulk data array, causing all clock requests to in=
-correctly default to the first clock in the device tree node.
---
+Also add kunits tests to the iommupt selftest to cover various
+scenarios please.
 
-commit dff3ba648a490ef1a1c6644d672ca0b9e1d68360
-Author: Midgy BALON <midgy971@gmail.com>
+Also this doesn't look quite right, the walk should look more like
+unmap where we just walk and stop walking when we hit a physical
+address discontiguity. The stop point defines the result length.
 
-arm64: dts: rockchip: rk356x: Add the NPU and its IOMMU
-
-This commit adds the NPU and its associated IOMMU device tree nodes to the=
-=20
-RK3568 base devicetree. It also configures the necessary clocks, resets, and
-power domain for the NPU.
-
-> diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/b=
-oot/dts/rockchip/rk356x-base.dtsi
-> index 64bdd8b7754b5..50ce5a5e4fc24 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-
-[ ... ]
-
-> @@ -948,6 +955,37 @@ qos_rga_wr: qos@fe158300 {
->  		reg =3D <0x0 0xfe158300 0x0 0x20>;
->  	};
-> =20
-> +	rknn_core_0: npu@fde40000 {
-[Severity: Low]
-This isn't a bug, but should the npu@fde40000 and iommu@fde4b000 nodes be
-ordered alphanumerically by unit address? They appear to be inserted after
-qos@fe158300 rather than being placed right before gpu@fde60000.
-
-> +		compatible =3D "rockchip,rk3568-rknn-core";
-> +		reg =3D <0x0 0xfde40000 0x0 0x1000>,
-> +		      <0x0 0xfde41000 0x0 0x1000>,
-> +		      <0x0 0xfde43000 0x0 0x1000>;
-> +		reg-names =3D "pc", "cna", "core";
-> +		interrupts =3D <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>;
-> +		clocks =3D <&cru ACLK_NPU>, <&cru HCLK_NPU>,
-> +			 <&scmi_clk SCMI_CLK_NPU>, <&cru PCLK_NPU_PRE>;
-[Severity: Critical]
-This is a pre-existing issue, but enabling this node exposes a bug where
-devm_clk_bulk_get() is called without initializing the .id fields in
-rocket_core_init().
-
-Since the connection ID is NULL, does clk_get() implicitly fall back to
-of_clk_get(np, 0) for each loop iteration, mapping all four clock array
-entries to ACLK_NPU?
-
-Later, when rk3568_noc_init() dynamically scales the SCMI clock rate to
-1 GHz:
-
-    clk_set_rate(core->clks[ROCKET_RK3568_SCMI_CLK].clk, 1000000000UL);
-
-Does this mistakenly configure the rate of ACLK_NPU instead, which could
-overclock the AXI bus and lead to immediate hardware instability?
-
-> +		clock-names =3D "aclk", "hclk", "npu", "pclk";
-> +		assigned-clocks =3D <&scmi_clk SCMI_CLK_NPU>;
-> +		assigned-clock-rates =3D <200000000>;
-> +		resets =3D <&cru SRST_A_NPU>, <&cru SRST_H_NPU>;
-> +		reset-names =3D "srst_a", "srst_h";
-> +		power-domains =3D <&power RK3568_PD_NPU>;
-> +		rockchip,pmu =3D <&pmu>;
-[Severity: High]
-Could setting both power-domains and rockchip,pmu cause a race condition
-with TF-A and corrupt hardware state?
-
-The generic power domain framework inherently manages power gating and NoC
-bus idle requests for this domain, and explicitly protects these PMU
-transitions with pmu->mutex.
-
-Concurrently, the rocket driver's rk3568_noc_init() issues direct, un-polled
-regmap_write() operations to the exact same PMU offsets:
-
-    regmap_write(pmu, 0xa0, BIT(1 + 16));
-    ...
-    regmap_write(pmu, 0x50, BIT(2 + 16));
-
-Does bypassing GenPD's tracked state machine and the pmu->mutex lock create
-a layering violation here?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604135255.6268=
-2-1-midgy971@gmail.com?part=3D8
+Jason
