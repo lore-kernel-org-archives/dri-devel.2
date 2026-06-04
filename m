@@ -4,76 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B49A9CD6E6D
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 14:58:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4AE6CD6E6D
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 14:59:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DE6D11285A;
-	Thu,  4 Jun 2026 14:58:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F8A3112866;
+	Thu,  4 Jun 2026 14:59:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qMXD7kD1";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="g4QuGABm";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CD9D112861
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 14:58:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=j7fxTOrqGGU4wTlAGC+uGWS2Ojx6JI0WmyJBDwJN/xo=; b=qMXD7kD1BEU//9abjjCr3kVJaE
- xBl9ebUoGRUSUQNdO3OtZavUWfqa6azdHov16ijaTPOYptL/oCcBXWJEafxCdSns9BcLpACB2EDtM
- 88+KyyX7bKKNEMKhFcVw1aCWA+IKtEVd4WXspUZA0OVdMqyzVokWjGSWtvc2clntZ9Ig8jKE1pIR3
- WH8oVBOzbNvIMHIjSqZMnuhrGvfS275gMtdYHsyGAL8xz0eO2oSGJYG2O8c7qrE0/bSRW+TzVN7uj
- wdKW0uHYviu+cbjSYI9VZMMPZZ8VkXGE9PojBxEGiE6LFYasGCfhC4jJiLAutmMPnutab3e7mP1Ix
- 8LxitHkg==;
-Received: from [189.7.87.67] (helo=[192.168.0.2])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wV9Wg-00CgMr-2z; Thu, 04 Jun 2026 16:58:30 +0200
-Message-ID: <f3ed61d4-fcdb-41f4-b64b-ecf81a1ff8d0@igalia.com>
-Date: Thu, 4 Jun 2026 11:58:25 -0300
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012002.outbound.protection.outlook.com
+ [40.107.200.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F3F8112876
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 14:59:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XJ6JUQN90D9WhjhSyIBrM6I4fp0JtPr491dl2ZkxBdyRDXIxmqw/e4etuHKh1/2HDQI4DlkEnuNTV2KPmrMaWjDjYJSACIZRMBI0dengDvKZm3/hakJ0i0SXj3U1Vx72tmkSpoA/A/Oj3WKtTqy2Wa5Xa0HeMvia75qr3STJ/v8xITJ/7SZzLr9vlZ86unQpCaRGAzU+7i14hXTtDrUbOmzlbvyGHj7A3z65KndBexDsa3zTm0nT6jB8NV8xxFKXom39/4Y0YHHwgqOKnrqR6r0ISQ/oHXe5vI1sNvTTO5jDqj5M8LfjFIwou9WnE8yRV/66SXG+ac7fzVPfxkS7Lw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RL9mnocAzrqZfhl7rEoFw1lpU+uvEwLOAO4dfCA1UqY=;
+ b=yi2vFo83+kDbSBGVFJrL8S7wRZ3NE3R4xuGZAX7Bm/4YproaVm25a5MED+VQ9rPbogpwmuU6/JBivaYlwgjT0vIc2un1oABKys6RgEMQNmp3GLqu1V9I5/ekrnALDZPO7xHNxP2Zkrn/z6cn8lNr6QmBOkJCrR88KtINa1dKSw2zzn2/4W8K2+VXNJG1h8rL/AuqwEUE+jt7/mMHxpz1Nyubq2TXsGRYqTnlcdlUuKGXY0cGG9PN14bGJv+gYV7k2ni2CaVkwPiJgZ1eT2vVVwIm4TLDSjxsdihUTH31x+xc0eCHhP5LpmlQDkc3cV6QBFIaoWqgmnhwU+lv6I/OXQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RL9mnocAzrqZfhl7rEoFw1lpU+uvEwLOAO4dfCA1UqY=;
+ b=g4QuGABm8rplYaXm6RqfB/6mB9+b32VbdalC6ls+NzZoITtyIWzMdg/ipzb1dyMdRJDanCXs7dtY9uPQY8GrU8aDt/Q6z2IoCovb4CWNdCWlA0nYGm8b4CB/Raq9ZFQUegVSTN8QPu7Fkg1y6W5Mbts4CV8VkNf6fv74z7/el2OzloioTKTeuOr/uIXW38hOWY525885OUHcDm4Z6v74j7vuUgJ4FzLcDMve1la5sTBpKUpXj43DIuMWsY16NGapHmMPayLbvsPUSP/UxXefVqtsv61QJh2dsIX9cFcN5H38pNX8K5v5Aoc7ZKts2yhZrKATbcXhxdtjzqcCxp41Zw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by CY5PR12MB6203.namprd12.prod.outlook.com (2603:10b6:930:24::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Thu, 4 Jun 2026
+ 14:59:14 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0092.006; Thu, 4 Jun 2026
+ 14:59:14 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 04 Jun 2026 23:59:09 +0900
+Message-Id: <DJ0CR9A8OXYR.27EFEWLDXK5RZ@nvidia.com>
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Nathan Chancellor"
+ <nathan@kernel.org>, "Nicolas Schier" <nsc@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ <linux-kbuild@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v3 1/5] rust: inline some init methods
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+References: <20260530-nova-exports-v3-0-1202aa339ef7@nvidia.com>
+ <20260530-nova-exports-v3-1-1202aa339ef7@nvidia.com>
+ <DIZE5YHLR2WJ.1VOBKWU8Q6AWH@garyguo.net>
+In-Reply-To: <DIZE5YHLR2WJ.1VOBKWU8Q6AWH@garyguo.net>
+X-ClientProxiedBy: TYWP286CA0007.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:178::15) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] drm/v3d: Fix global performance monitor reference
- counting
-To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
- stable@vger.kernel.org
-References: <20260531-v3d-perfmon-lifetime-v2-0-60ed4485a203@igalia.com>
- <20260531-v3d-perfmon-lifetime-v2-1-60ed4485a203@igalia.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20260531-v3d-perfmon-lifetime-v2-1-60ed4485a203@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|CY5PR12MB6203:EE_
+X-MS-Office365-Filtering-Correlation-Id: 68677085-5927-4414-1b82-08dec249d73b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|7416014|376014|366016|10070799003|11063799006|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: BXKdmKc9rhxD28nLh/x0/Pn9AN9y/mnVW8CC88cGMlFqNRoB44uccrnwDrD5Tp2ZhC2yShhbbG7CSNoq84ne4zq/YRVqjXMwxXsAxCD2S4rQephsjWm3y1TwdbjHBZQVKO3Lhj12FYny1Sl7MhVd3ClUUJzfeEsBRiLGZcczgcc6uz/edtRjyDm9u9PGxjPa+xV6M0EELCHZN8N+Vn0XUEai7R9my/tzhwLd43wBMVm7fGugLwWLbPpnueA1GaAOJJ0JSYDqXX8yEOGOnpBNQPc51muuppX+Qbg1KON5Y9RPsAkMHu1nmG8aSBFkh0CRVOIzqFjooHYfqDKZ9Gk16E/2gKYMHubeq/BhzRH0BaeKtvzo01o74GjqAMCHHoVBxtmHMCagiBeRIpYyKVGQj8t27i7H/e6I3/a+lQ4FAc5mo+uYyx8v4N0ueNvPmtXpWpXgxJSem0fSCWnJf8Mtb+DbpYfJt6ctyT9k9f65FJMZDGhKbo75CuNhF0/jqB51JBxNkJfLXITCgQzmkcq1bBCzhKFYKEW9oVRLHlhOiMDis999XXLrOyk4QNy6EBpguoeQl/z/vU99MuLkyM1VJDQiA/9sdpXs4MXU6LOyxswpPi5xyjSH8xEsxPDwyP94CDLK8B598dH1+jXS7UksodAXKjZDw+qJmhF6lWmkrvv/5NI1qqJK7yioSkSfulWJ
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(376014)(366016)(10070799003)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y2ptMXdoYW5xL0xqOWt3MTdvL3dsSUw4czFpSHRoQUF1ZlNXUjQ3aVdlK3Az?=
+ =?utf-8?B?NGdpU2swZkRxdVFONWxsbGpFNjJ1RzFSTkNoc1V5SGRGTkFlYjRud0hpVGph?=
+ =?utf-8?B?UE54QTB2WkNQRlpqUEpubmJ0YkIyVWk4TVVKSzh2bVRWZGpiTU5Tb1FxY1lX?=
+ =?utf-8?B?eW9UYVZOS2tNQm9BYTFwTm0rTmk4dnp3VCt2V1hUUDgrSkkrOHJHRzZLQ1BD?=
+ =?utf-8?B?M1BCR0htSWswbU80TFNEV2hZKy9mVVprK3FpUTRaL2NzUVluakhRbkVTd3ov?=
+ =?utf-8?B?bFBrWCs5R1pMTHBBQis3MDdPcWh6UEo2dlRVTHZYVXFYclhMV0J5L0kzU2E5?=
+ =?utf-8?B?U3poV041Mm5zcGJSMFM3WEVFR0x6MTQwTWh6bG0wR0h1c3VnUU1pN1ZDVTlM?=
+ =?utf-8?B?N3hWSGV0N1NEK3gvbUNkS0JmTHRNRysyRlNpSXFOMGVOUTRrYWcrdUg5Tk9o?=
+ =?utf-8?B?dnFiYlBqRUlZd1RIeG9MUnpOSzJ2bUx2OXMrNHk5V05QTG9TTWh5K09pYUla?=
+ =?utf-8?B?am53ZUlGZnpwYXFKVWlOSzZXOTBwU2JzbkswYStpVjZPcUpVM280aCt1NHZ1?=
+ =?utf-8?B?dlpPQklFSzhqQTVaTFBSYUl1VHhtY2hMYnhnNmtCNC8zQjI4YUt1V2Z3L0FN?=
+ =?utf-8?B?dzVKVFdidVpKK2tNaXpkbTc2OHVNellXVDYvTlpIaGJ0L3VOOEQ4d1p1SW9R?=
+ =?utf-8?B?eFRaOEttK3RJVGlGVXBBemZKUWNrb01zK3lwSWpEdTdrWS9oR0dmeUNpcWtP?=
+ =?utf-8?B?L1JONlBVd1RlYk1BMlNCRVlnU3IraVVZdTJnaEF3TGU4dWVPTG5IVWExOVlt?=
+ =?utf-8?B?MUVySk5uTHZraC9HTHBId0NuSHZtK1lOMHhLWFdNQXdGb0ZkQkEvWDRnVFFr?=
+ =?utf-8?B?WiswL0VvT0RFeEx3eHFnUWhTUndEa0FGZmJGZllyREpqeVRzeXR3Q0M4eGlG?=
+ =?utf-8?B?MWFpUFprUHJlWmxzZDlzU3RmVVlpOGE3cUVoMGdqVVFkQnVrcXNkdDF1SDR2?=
+ =?utf-8?B?Vjhhd0NxK0pNNTNGdUZqZ3pGSWxneW9VS2dFblpLWW5KblNIMWJiOXdqSmdy?=
+ =?utf-8?B?Y0JBbDRYZUlDMTRybDFxMTYzbHlKSCtZaTI4ZUVKa29yNkd5ekhSUFRZUG94?=
+ =?utf-8?B?dnlSM0RtSmlKRTFjYW1nclk1UUJXTGRVOFBNRGpFaHVGcjZwMkt2bVd1QVBz?=
+ =?utf-8?B?OWdQMXQwZkZ2eDV1YkxYWGJ4eWFZZlJXSXZvSjFuNkMzb3BZa2c0RUpHNmdI?=
+ =?utf-8?B?cUhCYThrNjNKcFFqeC9IRk9nVlBZNGFOSjZNc3MzWmx3TlpWRys5THBJbGdS?=
+ =?utf-8?B?VkNmUlZBRkZ3MHQ1Nk5Ta3BCTEZEQTBFdGQySmpmUHkwTmtmQXdCeGN2YU5r?=
+ =?utf-8?B?QkhoL2I3UmZZd21xQWZPYS9Id1dGcTRmeTJvbjBYZkpVRGhiQ0FDQ1hKaXJ5?=
+ =?utf-8?B?L0NlaDVKNS9RY1M0WEc1RlF3SmFiSG9xN0F4NkJwb3A0UzJrMVpKaml2RnRz?=
+ =?utf-8?B?aU5FZXlYUVQ2REQwYzhxVzhJTG83Nzc2RG01ZFN6RUJ4WDBBd2NwZi9vMFhT?=
+ =?utf-8?B?Z1pscTA1ZnVTSm5kZDhKM0liRGxzMVBHNkd1bWoyaXl1SzlmcExNTlhhZW5m?=
+ =?utf-8?B?V0l2K0VuSHArK28wUmR6ck5GRGw4cStodW53citVaUVwVjR3YlZCRXlGVFJw?=
+ =?utf-8?B?eVpYYWVDcW5DMElFTnBlYkFSeXg0Q3VRRkpHVEt0YXdKb29Od1ZhRUlqdnhv?=
+ =?utf-8?B?TzVuZEFtajFhZUVCSnZ3aDJQWGdQWnd1WGNjTE4vam4zUzRqZTc3SEpOWUVv?=
+ =?utf-8?B?SFZtcFpKckM2dHZYemdVMzdzaXJIZG5FUkpXRUdCRE1XQ0UweFR2TXFYQXpx?=
+ =?utf-8?B?Q2lYMGgxUHNmNjhNNjAwNG5tc2U2TUE4UGErL0xMbkx4MmIyS1ZzS3ZpNGl3?=
+ =?utf-8?B?SVE4Y2hDVnlEK2pkWStSVTI1emdGaGd4V0lMcmp0cTBGVEQ2Ri9BSE5ZbUVZ?=
+ =?utf-8?B?dXQwL0dKSHdkRDRXVmthWWJJNjB0YTF1S0IxSDFLT09OUjB5UElxNmRKbXNG?=
+ =?utf-8?B?YkxZWVFDc0NFN3lDaUpxRklHVHdHSmk3TmFLZVk5dFRhaHdKNmQ1M2lzNm02?=
+ =?utf-8?B?bFpySk1keERrRXh5aVhXTmF5OFlSQVhaeUQ4aFJzdnNvZDBDcEE4WU5EdnhP?=
+ =?utf-8?B?alpDdnVpTzBtR2ZPZ0V6Y2VLSHBFQlFZK0xzaHNnL2FQNlM0L1d3Z3k4Y2t0?=
+ =?utf-8?B?YWgrck85WjcyL1kwd2lKOFYrbktlSFdJMEJUUkFYdEp5NEVjb3JkVWF3d1pW?=
+ =?utf-8?B?Y3dFeE1xbzYycE1IYmFFejRaMDVFWXcvVXh3a1hCSStIeXRJU2pJMXlVR0VO?=
+ =?utf-8?Q?JMytewgYXA8MwMfqPy82qgwHOTwF8wqhXEL76DD5Bi42G?=
+X-MS-Exchange-AntiSpam-MessageData-1: lK7RV4zon1RZxQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 68677085-5927-4414-1b82-08dec249d73b
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 14:59:13.8421 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FhtgeUwWbE/DQn/Pd8msCjHxNTLV8bLPJnzNH7bDxqcREDXQ7dUe/2mC7X7wcVQ79y/dm9Lgas9DD0XEcizO8g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6203
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,37 +150,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 31/05/26 17:18, Maíra Canal wrote:
-> In the SET_GLOBAL ioctl, v3d_perfmon_find() bumps the reference count on
-> the perfmon it returns, but v3d_perfmon_set_global_ioctl() and
-> v3d_perfmon_delete() fail to release that reference on several paths:
-> 
->    1. v3d_perfmon_set_global_ioctl() leaks the reference on its error
->       paths.
-> 
->    2. CLEAR_GLOBAL leaks both the find reference and the reference
->       previously stashed in v3d->global_perfmon by the SET_GLOBAL ioctl
->       that configured it.
-> 
->    3. Destroying a perfmon that is the current global perfmon leaks the
->       reference stashed by the SET_GLOBAL ioctl.
-> 
-> Release each of these references explicitly.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: c6eabbab359c ("drm/v3d: Add DRM_IOCTL_V3D_PERFMON_SET_GLOBAL")
-> Signed-off-by: Maíra Canal <mcanal@igalia.com>
-> ---
->   drivers/gpu/drm/v3d/v3d_perfmon.c | 24 +++++++++++++++++++-----
->   1 file changed, 19 insertions(+), 5 deletions(-)
-> 
+On Wed Jun 3, 2026 at 8:52 PM JST, Gary Guo wrote:
+> On Fri May 29, 2026 at 4:27 PM BST, Alexandre Courbot wrote:
+>> These methods should be inlined for optimization reasons. Failure to do
+>> so can also produce symbol names larger than what `modpost` or `objtool`
+>> can handle.
+>>=20
+>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+>
+> Reviewed-by: Gary Guo <gary@garyguo.net>
 
-Applied to drm/misc/kernel.git (drm-misc-fixes).
+Hi Gary,
 
-The rest of the patches must to wait for its dependencies to land.
+Sashiko suggested (and I tend to agree) to also inline the following
+methods for consistency:
 
-Thanks for the review, Iago!
+- InPlaceInit::init
+- UniqueArc::init_with
+- UniqueArc::pin_init_with
 
-Best Regards,
-- Maíra
-
+Does your `Reviewed-by` still hold with these methods added?
