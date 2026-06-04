@@ -4,44 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B157CD6E77
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:32:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A11DFCD6E6E
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:32:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5E1D10F106;
-	Thu,  4 Jun 2026 20:32:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C542710F195;
+	Thu,  4 Jun 2026 20:32:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Pc0KbbSv";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="EPtY+Lul";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A0B010F0F1
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:32:39 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E75E841A58
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:32:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E3A51F00893;
- Thu,  4 Jun 2026 20:32:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780605158;
- bh=pg4jFJrnmDg2RQyBrb+Q9dUjl+QotqBgU0tz/1DoBdE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Pc0KbbSvtK2FkAqc+wQMGbBtpaiVNZWSUnJCcUtpxzAmczKRBqFf4vxXLLdjuZfPc
- fCOC3dZ+oIVB0uHHZilT9DUlw6TIGXGFi3xhV5q3Ibf30ee4OHy2T0p6r/wZ2hu7pu
- vVD0SkYTyCQkpWTmo2I5VQAWRwBv/xiLzYlI2djimA7V12WFpVlYP+NmxPbV9dPFlt
- KpOJFwIri/JZ6B6gqHs2twHmWyEjPPHa2REwhHPlYGmHuMA3AxHe8EntF6VD233Epm
- RN5Hx6r/Pwn2bcFwuRxaIdHFoV9+13jyKKpQz2RLc1diU+yOiC2rJ2k3YTGiMZKWpA
- oTAl2ZKR+ZQOQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v17 07/10] rust: Add missing SAFETY documentation for
- `ARef` example
-To: "Andreas Hindborg" <a.hindborg@kernel.org>
-Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
- ojeda@kernel.org
-In-Reply-To: <20260604-unique-ref-v17-7-7b4c3d2930b9@kernel.org>
-References: <20260604-unique-ref-v17-7-7b4c3d2930b9@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 20:32:38 +0000
-Message-Id: <20260604203238.8E3A51F00893@smtp.kernel.org>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75E9010F1A8
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:32:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
+ Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
+ Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+ :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=hSLRoeWMd8QUSEN6ELIFAhZCc1EKlM0XdpG7MvuOI/Y=; b=EPtY+LulFGGyeZK13xhdzDzo6f
+ cXO+5Ud0Tz2iHDWWs0RE0NF7d0etXTAuCN2aYvKll56MnQOwSzlqMdSW0EO9LeCNJ3W2yyDfvC5lx
+ GHE9issvLcoDvbfUnN0p7hJmZJFcrcref4HKOgQx3GmA4k6V112wbFpAtqZc1Mvi8hbsxkc5n8T3y
+ AVrRGR3jOMdxTtdH/uAPyv18H0UMykLuRQi2PcghWhpj6JaKb2W8+hshcAZ49PoeR7OZ+k++vb3B4
+ vLi6N2FMlfQmloX3fmBJQT2L9AJCSKLtObHPdbwcjcH5r9guBElfgWAYZta1uMVZmteRp6Z8Uxze1
+ XylGzczg==;
+Received: from [189.7.87.67] (helo=[10.0.0.1])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wVEk1-00CoGD-DK; Thu, 04 Jun 2026 22:32:37 +0200
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Date: Thu, 04 Jun 2026 17:32:16 -0300
+Subject: [PATCH v4 03/12] drm/v3d: Extract v3d_job_add_syncobjs() helper
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260604-v3d-sched-misc-fixes-v4-3-c068f5bf5ccf@igalia.com>
+References: <20260604-v3d-sched-misc-fixes-v4-0-c068f5bf5ccf@igalia.com>
+In-Reply-To: <20260604-v3d-sched-misc-fixes-v4-0-c068f5bf5ccf@igalia.com>
+To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4262; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=Xro9MxvK9pmA3Io6rgxz6O3bch0tmHwTyc5RBQzPszQ=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqIeDTUf1lelhjJqZ5YLd65pDUv7Kc7Qs6B1Itf
+ X8/E8Vw9qGJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaiHg0wAKCRA/8w6Kdoj6
+ qhMYB/9iJABOIq3V7UcAeajC00OQlkMrkQEyrBBOK0mfKfT0g3VTAquPpmd81ecni7yDPCoyhul
+ 15/g2UNVA6OxCfIuye0uEYK+krwhYEVRdW1uIP8UDom69EbkVc9cURcKeBZ5kRSZOCJAnDKUSDA
+ G79yNvm9tDuOusOno9ugFEDFEyaKIWKyRCc1IwUOKTOs/LIDIKl21sUz2jvUCxnSDERo8+bhoFu
+ 5f8yzqZZkcoFKZuq/bQ5C36tqKKBBkWZOfWxR42yz5A0SRl1OpAaQSJF7k0fJlK9qfR1ow3/+W3
+ xXEVXzOZt0ABWFL4XvGf1po9+QXz2jPN3KwHC6HWWG+YFzGd
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,168 +72,139 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] `ForeignOwnable` implementation for `Owned<T>` provides an incorre=
-ct `FOREIGN_ALIGN`.
-- [High] The `Ownable::release` trait method takes `&mut self` but is used =
-to deallocate the memory backing `self`, causing Undefined Behavior.
-- [Low] The return type of `Page::alloc_page` and the `Page` struct definit=
-ion were changed without updating the `drivers/android/binder` caller, caus=
-ing a build breakage.
---
+Move the syncobj dependency setup out of v3d_job_init() into its own
+v3d_job_add_syncobjs() helper and make the queue that the job was
+submitted a variable in struct v3d_job, so that v3d_job_add_syncobjs()
+can use it. No functional change.
 
-commit b6a2c6eeac2c111155591c361b9cdb16d0cb61b7
-Author: Oliver Mangold <oliver.mangold@pm.me>
+This prepares for the next commit which changes the error handling, and
+for a later consolidation that separates job allocation from syncobj
+attachment.
 
-rust: Add missing SAFETY documentation for ARef example
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
+---
+ drivers/gpu/drm/v3d/v3d_drv.h    |  3 ++
+ drivers/gpu/drm/v3d/v3d_submit.c | 72 ++++++++++++++++++++++++----------------
+ 2 files changed, 47 insertions(+), 28 deletions(-)
 
-This commit fixes a missing SAFETY comment in the rustdoc example for
-ARef. It replaces a TODO comment with a proper safety explanation.
-The series also introduces the Ownable trait and updates
-Page::alloc_page to return an Owned<Page>.
+diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
+index 5a0b9da2c3aa..79672abef70d 100644
+--- a/drivers/gpu/drm/v3d/v3d_drv.h
++++ b/drivers/gpu/drm/v3d/v3d_drv.h
+@@ -294,6 +294,9 @@ struct v3d_job {
+ 
+ 	struct v3d_dev *v3d;
+ 
++	/* The queue that the job was submitted on. */
++	enum v3d_queue queue;
++
+ 	/* This is the array of BOs that were looked up at the start
+ 	 * of submission.
+ 	 */
+diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
+index 1db43c6a078d..8250376d104c 100644
+--- a/drivers/gpu/drm/v3d/v3d_submit.c
++++ b/drivers/gpu/drm/v3d/v3d_submit.c
+@@ -180,17 +180,56 @@ v3d_job_deallocate(void **container)
+ 	*container = NULL;
+ }
+ 
++static int
++v3d_job_add_syncobjs(struct v3d_job *job, struct drm_file *file_priv,
++		     u32 in_sync, struct v3d_submit_ext *se)
++{
++	bool has_multisync = se && (se->flags & DRM_V3D_EXT_ID_MULTI_SYNC);
++	struct v3d_dev *v3d = job->v3d;
++	int ret = 0;
++
++	if (!has_multisync) {
++		ret = drm_sched_job_add_syncobj_dependency(&job->base, file_priv,
++							   in_sync, 0);
++		// TODO: Investigate why this was filtered out for the IOCTL.
++		if (ret && ret != -ENOENT)
++			return ret;
++		return 0;
++	}
++
++	if (se->in_sync_count && se->wait_stage == job->queue) {
++		struct drm_v3d_sem __user *handle = u64_to_user_ptr(se->in_syncs);
++
++		for (int i = 0; i < se->in_sync_count; i++) {
++			struct drm_v3d_sem in;
++
++			if (copy_from_user(&in, handle++, sizeof(in))) {
++				drm_dbg(&v3d->drm, "Failed to copy wait dep handle.\n");
++				return -EFAULT;
++			}
++
++			ret = drm_sched_job_add_syncobj_dependency(&job->base,
++								   file_priv, in.handle, 0);
++			// TODO: Investigate why this was filtered out for the IOCTL.
++			if (ret && ret != -ENOENT)
++				return ret;
++		}
++	}
++
++	return 0;
++}
++
+ static int
+ v3d_job_init(struct v3d_dev *v3d, struct drm_file *file_priv,
+ 	     struct v3d_job *job, void (*free)(struct kref *ref),
+ 	     u32 in_sync, struct v3d_submit_ext *se, enum v3d_queue queue)
+ {
+ 	struct v3d_file_priv *v3d_priv = file_priv->driver_priv;
+-	bool has_multisync = se && (se->flags & DRM_V3D_EXT_ID_MULTI_SYNC);
+-	int ret, i;
++	int ret;
+ 
+ 	job->v3d = v3d;
+ 	job->free = free;
++	job->queue = queue;
+ 	job->file_priv = v3d_priv;
+ 
+ 	ret = drm_sched_job_init(&job->base, &v3d_priv->sched_entity[queue],
+@@ -198,32 +237,9 @@ v3d_job_init(struct v3d_dev *v3d, struct drm_file *file_priv,
+ 	if (ret)
+ 		return ret;
+ 
+-	if (has_multisync) {
+-		if (se->in_sync_count && se->wait_stage == queue) {
+-			struct drm_v3d_sem __user *handle = u64_to_user_ptr(se->in_syncs);
+-
+-			for (i = 0; i < se->in_sync_count; i++) {
+-				struct drm_v3d_sem in;
+-
+-				if (copy_from_user(&in, handle++, sizeof(in))) {
+-					ret = -EFAULT;
+-					drm_dbg(&v3d->drm, "Failed to copy wait dep handle.\n");
+-					goto fail_job_init;
+-				}
+-				ret = drm_sched_job_add_syncobj_dependency(&job->base, file_priv, in.handle, 0);
+-
+-				// TODO: Investigate why this was filtered out for the IOCTL.
+-				if (ret && ret != -ENOENT)
+-					goto fail_job_init;
+-			}
+-		}
+-	} else {
+-		ret = drm_sched_job_add_syncobj_dependency(&job->base, file_priv, in_sync, 0);
+-
+-		// TODO: Investigate why this was filtered out for the IOCTL.
+-		if (ret && ret != -ENOENT)
+-			goto fail_job_init;
+-	}
++	ret = v3d_job_add_syncobjs(job, file_priv, in_sync, se);
++	if (ret)
++		goto fail_job_init;
+ 
+ 	/* CPU jobs don't require hardware resources */
+ 	if (queue != V3D_CPU) {
 
-> diff --git a/rust/kernel/owned.rs b/rust/kernel/owned.rs
-> new file mode 100644
-> --- /dev/null
-> +++ b/rust/kernel/owned.rs
-> @@ -0,0 +1,233 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +//! Unique owned pointer types for objects with custom drop logic.
+-- 
+2.54.0
 
-[ ... ]
-
-> +pub trait Ownable {
-> +    /// Tear down this `Ownable`.
-> +    ///
-> +    /// Implementers of `Ownable` can use this function to clean up the =
-use of `Self`. This can
-> +    /// include freeing the underlying object.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// Callers must ensure that the caller has exclusive ownership of `=
-T`, and this ownership can
-> +    /// be transferred to the `release` method.
-> +    unsafe fn release(&mut self);
-> +}
-
-[Severity: High]
-Does taking a mutable reference here lead to undefined behavior when
-deallocating the memory backing it?
-
-In Rust's memory model, a reference must point to valid memory for its
-entire lifetime, which extends until the method returns.
-
-Deallocating the memory backing &mut self while the reference is still
-active in the function is a strict aliasing violation.
-
-For instance, Page implements this by calling bindings::__free_pages
-on the memory backing self.
-
-Could this method take a raw pointer (like NonNull<Self>) or pass
-ownership of the wrapper instead to avoid this issue?
-
-[ ... ]
-
-> +// SAFETY: We derive the pointer to `T` from a valid `T`, so the returned
-> +// pointer satisfy alignment requirements of `T`.
-> +unsafe impl<T: Ownable + 'static> ForeignOwnable for Owned<T> {
-> +    const FOREIGN_ALIGN: usize =3D core::mem::align_of::<Owned<T>>();
-
-[Severity: High]
-Is it possible this alignment is incorrect for the underlying type?
-
-The ForeignOwnable trait guarantees that the pointer returned by
-into_foreign has a minimum alignment of FOREIGN_ALIGN. Here,
-into_foreign extracts and returns a raw pointer to the underlying T.
-
-However, FOREIGN_ALIGN is defined as the alignment of the wrapper
-Owned<T> (typically an 8-byte pointer), rather than the alignment of T.
-
-If T is an Ownable type with a smaller alignment requirement, the
-returned pointer might not be 8-byte aligned. This would violate the
-trait's safety contract and potentially cause undefined behavior when
-passed to subsystems like XArray.
-
-Should this use core::mem::align_of::<T>() instead?
-
-> diff --git a/rust/kernel/page.rs b/rust/kernel/page.rs
-> index adecb200c6549..844c75e541345 100644
-> --- a/rust/kernel/page.rs
-> +++ b/rust/kernel/page.rs
-
-[ ... ]
-
-> @@ -177,19 +192,20 @@ impl Page {
->      /// # Ok::<(), kernel::alloc::AllocError>(())
->      /// ```
->      #[inline]
-> -    pub fn alloc_page(flags: Flags) -> Result<Self, AllocError> {
-> +    pub fn alloc_page(flags: Flags) -> Result<Owned<Self>, AllocError> {
->          // SAFETY: Depending on the value of `gfp_flags`, this call may =
-sleep. Other than that, it
->          // is always safe to call this method.
->          let page =3D unsafe { bindings::alloc_pages(flags.as_raw(), 0) };
->          let page =3D NonNull::new(page).ok_or(AllocError)?;
-> -        // INVARIANT: We just successfully allocated a page, so we now h=
-ave ownership of the newly
-> -        // allocated page. We transfer that ownership to the new `Page` =
-object.
-> -        Ok(Self { page })
-> +        // SAFETY: We just successfully allocated a page, so we now have=
- ownership of the newly
-> +        // allocated page. We transfer that ownership to the new `Owned<=
-Page>` object.
-> +        // Since `Page` is transparent, we can cast the pointer directly.
-> +        Ok(unsafe { Owned::from_raw(page.cast()) })
->      }
-
-[Severity: Low]
-Does this change in return type break existing callers?
-
-The return type of Page::alloc_page was changed to return
-Result<Owned<Page>, AllocError> and Page was converted to an
-Ownable opaque wrapper.
-
-However, ShrinkablePageRange::use_page_slow in
-drivers/android/binder/page_range.rs still expects Page::alloc_page
-to return a Page by value.
-
-It attempts to pass the Owned<Page> to PageInfo::set_page(page: Page),
-which causes a type mismatch and breaks the build.
-
-Could the caller in drivers/android/binder be updated to handle
-the new Owned<Page> return type?
-
-[ ... ]
-
-> @@ -364,10 +380,12 @@ pub unsafe fn copy_from_user_slice_raw(
->      }
->  }
-> =20
-> -impl Drop for Page {
-> +impl Ownable for Page {
->      #[inline]
-> -    fn drop(&mut self) {
-> -        // SAFETY: By the type invariants, we have ownership of the page=
- and can free it.
-> -        unsafe { bindings::__free_pages(self.page.as_ptr(), 0) };
-> +    unsafe fn release(&mut self) {
-> +        let ptr: *mut Self =3D self;
-> +        // SAFETY: By the function safety requirements, we have ownershi=
-p of the page and can free
-> +        // it. Since Page is transparent, we can cast the raw pointer di=
-rectly.
-> +        unsafe { bindings::__free_pages(ptr.cast(), 0) };
->      }
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-unique-ref=
--v17-0-7b4c3d2930b9@kernel.org?part=3D7
