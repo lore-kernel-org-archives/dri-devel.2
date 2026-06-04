@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89AEFCD6E77
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 17:51:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BE27CD6E75
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 17:51:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E119710E235;
-	Thu,  4 Jun 2026 17:51:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C078A10E3B1;
+	Thu,  4 Jun 2026 17:51:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Gx2C930r";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="b9ZZnDEF";
 	dkim-atps=neutral
 Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
  [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F32D10E235
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 17:51:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1780594568; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CD5F10E3B1
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 17:51:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1780594572; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=WFEkvNJhWr8OA5A9eHrnWX1HyloaYBuJlg1jV1rAGItcaTA+C0LfBiLw9q43IeKkSHJDRtg/P6dPyl7YGE94oJKmDiBNL4fsWMVp+Z5l4mTEBA5wSSPW4cLW433QDmBsUhCPHNcKelPZMU3zvSySl7qbkusTDAns/OGej/NoVXI=
+ b=bTo9sola0Q9EasoFvNlehSYbmharspgEMnkoZ2/pXdqeAnocBurydmr9VSZ3tLgg4hoRU9tWnIeXYo148a+QLZl9S5XZcW/hHNiuFlHNJc+YtQC9sWitDiyUcfbP1+ND98lWuzjSvnDTG5J4796c7grcWIAvoweqfWKUoLYfb54=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1780594568;
+ s=zohoarc; t=1780594572;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=SVx3YSeGNoK9OFNCVBZgsenk/LFwrUPD+yeW9XL5ug8=; 
- b=QCcvjUslDbqANJWKMNo9s1oQKOsCvgE8/ts7P9v/Qd1QiQmaQEeXeflm5OhOjJyhJV2fRmYYIZ5yn8QmNuFFt/8YotkFWLnGTXzmODLGdvf/kN+UnYS2dTDHIxUeD9n+G/VKGplcRQMxKVwr9FB3334kLFGZ7OqUoNQ72lZ3eho=
+ bh=HPNTjEe/m5SGoAr+PENY+66BzrLFIi72Iy8Y57gshzs=; 
+ b=VT3cSC2TJB4p/p9ZFpTkuQAG+wjF7hZXrjZB4qtvYOMIPtPJkyDx5XguxXY6RwtViWEDriAc5XKqVLZ1Min48u28pY4whcEe35ef+10EKxgCKg8xnblNSrLkf13d4rIK9doV9XX3t40ywwGTtQJVQemKUk4dL/sTwyAhowJ8X/c=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780594568; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780594572; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=SVx3YSeGNoK9OFNCVBZgsenk/LFwrUPD+yeW9XL5ug8=;
- b=Gx2C930rXI0rdGHzzG/yo//Fk5W47g8/dAuWgRgYlO5e74HLrv5tNSzHImdn0o9b
- o1HFcEuE58nCdPScwg2QSnd9HFyUPHWtykBN2XCvforrIs4wESqwMTvILG0qWpvFD8P
- iyAJhFTRjuEl8Vu2Gr87z8hhggxuoGL9fmcA8syM=
-Received: by mx.zohomail.com with SMTPS id 1780594565741374.28508656291683;
- Thu, 4 Jun 2026 10:36:05 -0700 (PDT)
+ bh=HPNTjEe/m5SGoAr+PENY+66BzrLFIi72Iy8Y57gshzs=;
+ b=b9ZZnDEFcGYen1JXI6JRkzUF6vlx7DhtvBSc2VNRUOjR3z4u4p0EKiEKvJcic5M8
+ prSVZiNCrB9RTqjzKn8DlE0LqiHIovM9oQE3Qki3tm/Ys6rG4GSqV2V453/H/G0B+RB
+ aJh3m+CIYzCxpqRK88iUuQceCwOrk3xAyzj7azxU=
+Received: by mx.zohomail.com with SMTPS id 1780594569939499.8673373915145;
+ Thu, 4 Jun 2026 10:36:09 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Thu, 04 Jun 2026 18:35:20 +0100
-Subject: [PATCH v2 1/7] drm/panfrost: Check another bo field for cache
- option query
+Date: Thu, 04 Jun 2026 18:35:21 +0100
+Subject: [PATCH v2 2/7] drm/panfrost: Prevent division by 0
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260604-claude-fixes-v2-1-57c6bd4c1655@collabora.com>
+Message-Id: <20260604-claude-fixes-v2-2-57c6bd4c1655@collabora.com>
 References: <20260604-claude-fixes-v2-0-57c6bd4c1655@collabora.com>
 In-Reply-To: <20260604-claude-fixes-v2-0-57c6bd4c1655@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -62,18 +61,18 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Claude <noreply@anthropic.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1047;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1187;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=9+0Lng7EnO833AXhZvezEZ5bQLD345Soj/z4WXi6s74=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqIbd8zKU1kC0Okbhr/hPphCNr3wp5Hj1bSElm1
- yxpAGE+NXaJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaiG3fAAKCRAOJn5M7lND
- PSXMC/9/XMI4UgzgWJ5n+K2HbfxVCSZmrE2pCLux8UH1aHTbGRWIx+xI5zi4sNAGdOZ/y707q0u
- GYpBAeUWmBzWgz2XJNYBpVIDNYNQcx1mAGUBMoGkNeGtbec0evopcU81V9ozBrDxjKN8nwP4Hx3
- BYgwQPsvl5hD7GgxwljMssJD+ty2smf01l+/Hx4I5f7okg5ia5mfoAk35NEeB0Sqj6vBpZ0G2gn
- ssGY4Es8JSH2Z4O/9st6KaLUnAGV+1Z4Q96BTSOsW4SLgYZ0iUXiBeXPSy4OfCqT20BAA4iX7Wm
- dYhHt/PlkqZz5Or6UKb+YD+MfLQBoySY/EB15AbS+OEe56qMQnaC4KRmczG6jmBoAwzPJJwrXhR
- ZKO1EtNIlDHNkEzObwe10lENnzmZuojzOcJNwh4/J1toUls6e/r72L78uHP1FYWj57BWM/ueY8S
- EbFtWD2VLQaNVFzC3EFtZ/XCSj3bn5QNRmNRdysO72NZonq4yja8gybsYIsTSrttaVSRU=
+ bh=nzasDqf1ZeVklLh/1HHStVgG7z6hFgrLTXP4S199BT8=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqIbd8WxvU2W8rxwyJOhXrt+oHBJji+sfAjSlwT
+ GxBZNE5ZK6JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaiG3fAAKCRAOJn5M7lND
+ PXeeC/9vrzMpvViX3v0IeGUnIFh5Uial38bhIF3uoGomEtqsM3SLAlp/YISXTg/XhYPqepLUZVo
+ o0prfUxW3hRMd5Ss4QlewY/7vwKVYFaraQluI5XcR3m62nq/XhD6j/KhAnmQ07Re5+4EeH7U5/G
+ wWqI70NXJfawMC2BXtP2H4fginhJxta8ImxNytl4BCNNHOEpln9UHXCLFGUrqXaPu6X5+IBxQMg
+ uj4hjGB67miAWin/y780Rmanym//Hq8FUBWPAdf0gFzs6mDld3L+3QfMN9aBN5m+Vh+P6hLYMRl
+ +/kjauv2BHaXLqTzblsBgvnPKSQwMIl1VHDv8XOzHN9ZPaAUGHdcuZKlhVUZWlHnTMmCmO9qy5L
+ Ci9SfcXTq7zC1LT7aXjw7PsBAZy52bV0jYld0HwDl4oYj4oX1j8Wmc9LmcRuRTRPksmJGdfXZzv
+ t2IGM7N3GvYcmnPyce+TBN77392gICojxUuLeIxLJFsYo1CsNLYvZQLBV51nusrQoXql4=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -91,31 +90,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When querying the properties of a BO, whether it was created in
-Writeback caching mode for userspace mappings, is recorded in a Panfrost
-BO's wb_mmap field.
+When updating and debug-printing devfreq stats, in the very unlikely
+offchance that total device time is less than 100 ns, clamp it to 0 to
+avoid division by 0.
 
 Reported-by: Claude <noreply@anthropic.com>
 Closes: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/88
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-Fixes: 62eedf1ccba5 ("drm/panfrost: Add flag to map GEM object Write-Back Cacheable")
+Fixes: f3ba91228e8e ("drm/panfrost: Add initial panfrost driver")
 ---
- drivers/gpu/drm/panfrost/panfrost_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/panfrost/panfrost_devfreq.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 3d0bdba2a474..cb8e5015847f 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -659,7 +659,7 @@ static int panfrost_ioctl_query_bo_info(struct drm_device *dev, void *data,
- 		if (bo->is_heap)
- 			args->create_flags |= PANFROST_BO_HEAP;
+diff --git a/drivers/gpu/drm/panfrost/panfrost_devfreq.c b/drivers/gpu/drm/panfrost/panfrost_devfreq.c
+index b51c30778811..e34de47bf43b 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_devfreq.c
++++ b/drivers/gpu/drm/panfrost/panfrost_devfreq.c
+@@ -78,7 +78,8 @@ static int panfrost_devfreq_get_dev_status(struct device *dev,
  
--		if (!bo->base.map_wc)
-+		if (bo->wb_mmap)
- 			args->create_flags |= PANFROST_BO_WB_MMAP;
- 	}
+ 	dev_dbg(pfdev->base.dev, "busy %lu total %lu %lu %% freq %lu MHz\n",
+ 		status->busy_time, status->total_time,
+-		status->busy_time / (status->total_time / 100),
++		status->total_time >= 100 ?
++			status->busy_time / (status->total_time / 100) : 0,
+ 		status->current_frequency / 1000 / 1000);
  
+ 	return 0;
 
 -- 
 2.53.0
