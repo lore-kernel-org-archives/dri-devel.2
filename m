@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AE75CD6E75
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 19:40:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 280C0CD6E75
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 19:41:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 427F81129A1;
-	Thu,  4 Jun 2026 19:40:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8460311A29A;
+	Thu,  4 Jun 2026 19:41:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hKRHLSrq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ah7oufMl";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB4261129A1
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 19:39:59 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EEAF11A298
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 19:41:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CE85E41763;
- Thu,  4 Jun 2026 19:39:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81F7B1F00893;
- Thu,  4 Jun 2026 19:39:59 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9DFA36001A;
+ Thu,  4 Jun 2026 19:41:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 155B11F00893;
+ Thu,  4 Jun 2026 19:41:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780601999;
- bh=kUmUvLRmmybBcdcgkI46pkZhN02wxdGQ4Uh1Q5KFJ/U=;
+ s=k20260515; t=1780602083;
+ bh=ShuVlLWC5FgBtDaDVnuK31drZ5jQl97zhyIfpyaIgJ4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=hKRHLSrqIK8c5dJfXnY4DNZ2PbWW1jORM2qwJb39jDyeV6dWcwmRTX0EhbTreoz1m
- Ap704Y30NqNQVCq0Pvf1J5cqWnxvcqcJoeGOW6xLigFdF9tMr3rJmvS+b8Dm1PzDSz
- FdK5KrCCn4LZNMio0bieipaP1dJpCmqj+8l/bPHbObf6wWt0P+Mp2PEbgr10cD31WA
- J0EZOhnj3soYubE4ifQjLuTplt9aKLTpRzsFW62G4gjWXwDpD+pnUgj7EiXleWUAIY
- BYNKbmmr+XPLySqpMJ8imFO3B8YrIw0nKMdO6Gvw3KNVjO+eI88YEuKjeflTISwF23
- QADoi9xybAs4Q==
+ b=Ah7oufMlAxcMhs/B68reBXMm0ou7AOmSOo3Q6clR34dNTXfdFsuN9xUEKa8axgXli
+ XAqKcU1PKU3ggJG+QOdFVwC3Z7S+g4F4UHRwIFS8ZAkPqDvN2FfBnKyd66cUmgfZrw
+ /6PNMWPH1YJlwGBnasYvrDkHx5txsNbtwLDcaXblEUieBi2E67cNZp2MgrZH69Ipe3
+ ZIvmlXF3uadTSQbfXNbFnD2WY6ExhUkAYLS8yQdjLPldOnVLepZv6lBgaCVliwNeaF
+ IqTMazO/XUtJdJEqFc9k4RLEKNt6w0xrij0dK+bpm6XO980qwHGLVH/CJ210A51N+v
+ MfZ7ks0Mlb0VQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v18 1/4] rust: drm: gem: shmem: Add DmaResvGuard helper
+Subject: Re: [PATCH v18 2/4] rust: drm: gem: shmem: Add vmap functions
 To: "Lyude Paul" <lyude@redhat.com>
-Cc: ojeda@kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260604192740.659240-2-lyude@redhat.com>
-References: <20260604192740.659240-2-lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ ojeda@kernel.org
+In-Reply-To: <20260604192740.659240-3-lyude@redhat.com>
+References: <20260604192740.659240-3-lyude@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 19:39:59 +0000
-Message-Id: <20260604193959.81F7B1F00893@smtp.kernel.org>
+Date: Thu, 04 Jun 2026 19:41:22 +0000
+Message-Id: <20260604194123.155B11F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,113 +59,177 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] `DmaResvGuard` implicitly implements `Send`, allowing the `ww_mute=
-x` to be unlocked on a different thread than the one that acquired it, viol=
-ating strict kernel mutex semantics.
-- [Medium] Missing `#[must_use]` attribute on the `DmaResvGuard` lock guard.
-- [Low] Incorrect use of `#[inline(always)]` for small abstraction function=
-s that do not use `build_assert!()`.
+- [High] The `IoCapable` implementation for `VMap` uses non-volatile `ptr::=
+read` and `ptr::write`, allowing the compiler to optimize away or reorder m=
+emory accesses to shared device memory.
+- [Medium] `VMap` and `VMapOwned` are implicitly `!Send` and `!Sync` due to=
+ the `*mut c_void` field, artificially restricting the mapping to the threa=
+d that created it.
+- [Low] Missing `// INVARIANT:` comment explaining `VMap` memory validity a=
+t its construction site, violating subsystem guidelines.
 --
 
-commit 83465c025b759f686444735d2b770912987eb833
+commit b418d73acbe560c4eda85331900333d19c6ae108
 Author: Lyude Paul <lyude@redhat.com>
 
-rust: drm: gem: shmem: Add DmaResvGuard helper
+rust: drm: gem: shmem: Add vmap functions
 
-Just a temporary holdover to make locking/unlocking the dma_resv lock much
-easier.
+One of the more obvious use cases for gem shmem objects is the ability to
+create mappings into their contents. So, let's hook this up in our rust
+bindings.
 
 > diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
-> index 34af402899a0e..4cf038f7afb71 100644
+> index 4cf038f7afb71..a20b0c0dac6bd 100644
 > --- a/rust/kernel/drm/gem/shmem.rs
 > +++ b/rust/kernel/drm/gem/shmem.rs
+
 [ ... ]
-> @@ -235,3 +238,29 @@ impl<T: DriverObject, C: DeviceContext> driver::Allo=
-cImpl for Object<T, C> {
->          dumb_map_offset: None,
->      };
+
+> @@ -188,6 +196,80 @@ extern "C" fn free_callback(obj: *mut bindings::drm_=
+gem_object) {
+>          // SAFETY: We're recovering the Kbox<> we created in gem_create_=
+object()
+>          let _ =3D unsafe { KBox::from_raw(this) };
+>      }
+> +
+> +    /// Attempt to create a vmap from the gem object, and confirm the si=
+ze of said vmap.
+> +    fn make_vmap<'a, R, const SIZE: usize>(&'a self) -> Result<VMap<T, R=
+, C, SIZE>>
+> +    where
+> +        R: Deref<Target =3D Self> + From<&'a Self>,
+> +    {
+
+[ ... ]
+
+> +        // XXX: We don't currently support iomem allocations
+> +        if map.is_iomem {
+> +            // SAFETY:
+> +            // - The vmap operation above succeeded, guaranteeing that `=
+map` points to a valid
+> +            //   memory mapping.
+> +            // - We checked that this is an iomem allocation, making it =
+safe to read vaddr_iomem
+> +            unsafe { self.raw_vunmap(map) };
+> +
+> +            Err(ENOTSUPP)
+> +        } else {
+> +            Ok(VMap {
+> +                // SAFETY: We checked that this is not an iomem allocati=
+on, making it safe to read
+> +                // vaddr
+> +                addr: unsafe { map.__bindgen_anon_1.vaddr },
+> +                owner: self.into(),
+> +            })
+
+[Severity: Low]
+This isn't a bug, but there's a missing invariant comment here.
+
+The Rust subsystem guidelines mention that when a struct with an
+# Invariants documentation section is constructed, the code should have an
+// INVARIANT: comment explaining why the invariants are satisfied.
+
+Would it make sense to add a comment here explaining why the memory remains
+valid until dropped?
+
+> +        }
+> +    }
+
+[ ... ]
+
+> @@ -264,3 +345,232 @@ fn drop(&mut self) {
+>          unsafe { bindings::dma_resv_unlock(self.0.raw_dma_resv()) };
+>      }
 >  }
 > +
-> +/// Private helper-type for holding the `dma_resv` object for a GEM shme=
-m object.
-> +///
-> +/// When this is dropped, the `dma_resv` lock is dropped as well.
-> +///
-> +// TODO: This should be replace with a WwMutex equivalent once we have s=
-uch bindings in the kernel.
-> +struct DmaResvGuard<'a, T: DriverObject, C: DeviceContext =3D Registered=
->(&'a Object<T, C>);
+> +macro_rules! impl_vmap_io_capable {
+> +    ($impl:ident, $ty:ty) =3D> {
+> +        impl<D, R, C, const SIZE: usize> IoCapable<$ty> for $impl<D, R, =
+C, SIZE>
+> +        where
+> +            D: DriverObject,
+> +            C: DeviceContext,
+> +            R: Deref<Target =3D Object<D, C>>,
+> +        {
+> +            #[inline(always)]
+> +            unsafe fn io_read(&self, address: usize) -> $ty {
+> +                let ptr =3D address as *mut $ty;
+> +
+> +                // SAFETY: The safety contract of `io_read` guarantees t=
+hat address is a valid
+> +                // address within the bounds of `Self` of at least the s=
+ize of $ty, and is properly
+> +                // aligned.
+> +                unsafe { ptr::read(ptr) }
+> +            }
 
 [Severity: High]
-Does this struct implicitly implement Send?
+Can this allow the compiler to improperly optimize these memory accesses?
 
-Since the wrapped type Object<T, C> is Sync, a shared reference=20
-&'a Object<T, C> is both Send and Sync. This makes DmaResvGuard implicitly=
-=20
-Send. However, bindings::dma_resv_lock acquires a ww_mutex, and its Drop=20
-implementation releases it. Linux kernel mutexes are strictly bound to the=
-=20
-task (current) that acquired them.
+Since VMap represents GEM shmem objects mapped into the kernel virtual
+address space, this memory might be concurrently accessed by hardware or
+userspace.
 
-If safe Rust code sends the DmaResvGuard to another thread and drops it=20
-there, mutex_unlock will be called by a non-owner thread. Could this cause=
-=20
-kernel panics or break mutual exclusion, and should DmaResvGuard be=20
-explicitly marked as !Send?
+Using standard non-volatile ptr::read and ptr::write allows the compiler
+to cache values in registers, coalesce writes, or elide them entirely. The C
+equivalent (iosys_map_rd and iosys_map_wr) uses READ_ONCE() and
+WRITE_ONCE() for this reason.
+
+Should this use ptr::read_volatile() to safely access the shared memory?
+
+> +
+> +            #[inline(always)]
+> +            unsafe fn io_write(&self, value: $ty, address: usize) {
+> +                let ptr =3D address as *mut $ty;
+> +
+> +                // SAFETY: The safety contract of `io_write` guarantees =
+that address is a valid
+> +                // address within the bounds of `Self` of at least the s=
+ize of $ty, and is properly
+> +                // aligned.
+> +                unsafe { ptr::write(ptr, value) }
+> +            }
+
+[Severity: High]
+Similar to the io_read() implementation above, does this write need to use
+ptr::write_volatile() to prevent the compiler from caching or coalescing
+these shared memory writes?
+
+> +        }
+> +    };
+> +}
+> +
+> +/// A reference to a virtual mapping for an shmem-based GEM object in ke=
+rnel address space.
+> +///
+> +/// # Invariants
+> +///
+> +/// - The size of `owner` is >=3D SIZE.
+> +/// - The memory pointed to by addr remains valid at least until this ob=
+ject is dropped.
+> +pub struct VMap<D, R, C =3D Registered, const SIZE: usize =3D 0>
+> +where
+> +    D: DriverObject,
+> +    C: DeviceContext,
+> +    R: Deref<Target =3D Object<D, C>>,
+> +{
+> +    addr: *mut c_void,
+> +    owner: R,
+> +}
 
 [Severity: Medium]
-Should this struct be marked with #[must_use]?
+Does this unintentionally restrict the mapping to the thread that created i=
+t?
 
-Without #[must_use], users might inadvertently call DmaResvGuard::new(obj)=
-=20
-as a standalone statement without binding it to a variable, causing the gua=
-rd=20
-to drop immediately. This would leave the subsequent critical section=20
-unprotected.
+Because VMap stores its mapping address as a raw pointer
+addr: *mut c_void, it implicitly lacks the Send and Sync traits in Rust.
+This means VMap and VMapOwned cannot be safely transferred or shared
+across concurrency boundaries.
 
-> +
-> +impl<'a, T: DriverObject, C: DeviceContext> DmaResvGuard<'a, T, C> {
-> +    #[inline(always)]
-
-[Severity: Low]
-This isn't a bug, but does this violate the Rust subsystem coding guideline=
-s?
-
-According to Documentation/rust/coding-guidelines.rst, for abstractions=20
-only: functions that are small or forwarding to a binding call should be=20
-annotated with #[inline]. The #[inline(always)] annotation is strictly=20
-reserved for functions using build_assert!() that depend on function=20
-parameters.
-
-> +    #[expect(unused)]
-> +    fn new(obj: &'a Object<T, C>) -> Self {
-> +        // SAFETY: This lock is initialized throughout the lifetime of `=
-object`.
-> +        unsafe { bindings::dma_resv_lock(obj.raw_dma_resv(), ptr::null_m=
-ut()) };
-> +
-> +        Self(obj)
-> +    }
-> +}
-> +
-> +impl<'a, T: DriverObject, C: DeviceContext> Drop for DmaResvGuard<'a, T,=
- C> {
-> +    #[inline(always)]
-
-[Severity: Low]
-This isn't a bug, but should this be #[inline] instead of #[inline(always)]?
-
-As mentioned above, the guidelines reserve #[inline(always)] for functions=
-=20
-using build_assert!() that depend on function parameters.
-
-> +    fn drop(&mut self) {
-> +        // SAFETY: We are releasing the lock grabbed during the creation=
- of this object.
-> +        unsafe { bindings::dma_resv_unlock(self.0.raw_dma_resv()) };
-> +    }
-> +}
+Since the kernel's virtual mapping should be globally valid as long as the
+underlying owner object provides safe concurrent access, should explicit
+unsafe impl Send and unsafe impl Sync be provided for this struct?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604192740.6592=
-40-1-lyude@redhat.com?part=3D1
+40-1-lyude@redhat.com?part=3D2
