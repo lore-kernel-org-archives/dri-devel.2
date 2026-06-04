@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58C35CD6E75
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 18:05:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70AA1CD8C80
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 18:05:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA089112911;
-	Thu,  4 Jun 2026 18:05:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FA8C11291F;
+	Thu,  4 Jun 2026 18:05:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="fODyZR2e";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lcdo8Ktb";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92874112910
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 18:04:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1780596297;
- bh=cJSfYaz3R76//9NIbA4MB4HXDevU1ckkxjnP72lmqu4=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=fODyZR2eKatSBIBWV+dwTbi8Wi8KXHhUF+tLvMmU9UvcI6Gw4isU/DSmxxi6RI9q/
- HQKBwXlJkeEgRSqEwBc6Nlwx491BXMUezjZ8vcTPyfWphge+7OVWc0Y9bmirOltmpI
- RkcMESioPmOMFxcN0H8ZyqdTcp+6iyYhYaXiqRAcM4VDj0XtY9BmL+4bAw841kRymo
- GKTrYd6uckz3ppH9Z1qNK9RKZ/vmbJUQfYlJROBIaSmgXYwnsK/dK4fsM3xyCrWPnL
- BEITIrjIp3OaH9nilmW56ay+C/wPLS8jSTUhBgnq2BTtRa1GLgS+1T9XeSkWTtjQLf
- KOagavs3wExeg==
-Received: from fedora-2.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9600C17E093F;
- Thu,  4 Jun 2026 20:04:56 +0200 (CEST)
-Date: Thu, 4 Jun 2026 20:04:36 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 3/7] drm/panfrost: Move shrinker initialization and
- unplug one level down
-Message-ID: <20260604200436.3db662af@fedora-2.home>
-In-Reply-To: <20260604-claude-fixes-v2-3-57c6bd4c1655@collabora.com>
-References: <20260604-claude-fixes-v2-0-57c6bd4c1655@collabora.com>
- <20260604-claude-fixes-v2-3-57c6bd4c1655@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78A70112915;
+ Thu,  4 Jun 2026 18:05:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=iW7MmJbWSEeEFgiTLXEtF0Skl9HYrWG5uWuRvtFvnhI=; b=lcdo8Ktbbz4OO7C+uOEXZNXuia
+ nR3hK7t3nD9fbi6T++naZ415nxApdRi/HF1o1eWr0WqRbyYlM54judA8TiRvQq1T8V4cLBowb1Ogm
+ YOOKuZ1McmNE1p/dvqBYm5wbBmVWeJuHAr3RnsWEWg1v7TCCatFIt71udo7VjemXGiqxzO4r9IPC8
+ mrb4Hpzm8aqtgpMlXXclKVAFsHksHlfdYuF6HiNe62210pic4Mo1T+Nb3dLPnAfToIIdbJhczjXLo
+ A7HanBn2OCSYqAqBV77YU9UPku2iRttLpDsL4bOKe5fLXszkc7GlyRxiCn6XYbWT6pFges3+xo4OB
+ 9X95t/Zg==;
+Received: from [79.117.146.159] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wVCRG-00Ckqs-0Y; Thu, 04 Jun 2026 20:05:06 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: airlied@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ simona@ffwll.ch, tzimmermann@suse.de
+Cc: Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Xaver Hugl <xaver.hugl@kde.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>,
+ Sebastian Wick <sebastian.wick@redhat.com>,
+ John Harrison <John.Harrison@Igalia.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v2 0/3] don't allow changes to inactive colorops
+Date: Thu,  4 Jun 2026 19:59:04 +0200
+Message-ID: <20260604180457.1110110-1-mwen@igalia.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,142 +72,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 04 Jun 2026 18:35:22 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+This series is a follow-up of what was discussed in [1] and on #wayland
+IRC channel regarding policy and userspace expectations on changes in
+colorop properties and the current status of the color pipeline in which
+the colorop is part of. In short, we agreed that userspace can change
+properties of colorops that are currently part of an active color
+pipeline or when the pipeline is switching status in the same commit.
+However, userspace cannot change colorop properties of inactive color
+pipeline in the expactation that it will be activated at some point in
+the future.
 
-> Since the moment we call drm_dev_register() the device should be in a
-> position to accept jobs, so it's best if the shrinker is already
-> initialized by then.
->=20
-> On top of that, make shrinker functions take an panfrost_device pointer
-> like other functions in the same sequence and rename them accordingly.
->=20
-> Essentially mimic the init/fini behaviour in Panthor.
->=20
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> ---
->  drivers/gpu/drm/panfrost/panfrost_device.c       | 7 +++++++
->  drivers/gpu/drm/panfrost/panfrost_drv.c          | 6 ------
->  drivers/gpu/drm/panfrost/panfrost_gem.h          | 4 ++--
->  drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c | 8 ++------
->  4 files changed, 11 insertions(+), 14 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
-/panfrost/panfrost_device.c
-> index 7fed22d555a5..87b372c9e675 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -282,9 +282,15 @@ int panfrost_device_init(struct panfrost_device *pfd=
-ev)
->  	if (err)
->  		goto out_job;
-> =20
-> +	err =3D panfrost_gem_shrinker_init(pfdev);
-> +	if (err)
-> +		goto out_perfcnt;
-> +
->  	panfrost_gem_init(pfdev);
+Userspace also expects persistence of color pipeline already set, even
+if it becomes inactive for a while, when activated, colorop settings
+previouly set should be preserved.
 
-It feels weird to have the GEM shrinker initialized before the GEM
-component. Also, I'd consider the shrinker part of the GEM logic, so
-maybe call panfrost_gem_shrinker_init() from panfrost_gem_init() and
-change the prototype of panfrost_gem_init() to return an int.
+In addition, I found some bugs on IGT tests when this policy is applied.
+So I sent bug fixes to kms_colorop and kms_properties to behave
+according to this contract [2]. The rest of the series in [1] was
+detached in [3] since there is no dependecy between them.
 
-> =20
->  	return 0;
-> +out_perfcnt:
-> +	panfrost_perfcnt_fini(pfdev);
->  out_job:
->  	panfrost_jm_fini(pfdev);
->  out_mmu:
-> @@ -306,6 +312,7 @@ int panfrost_device_init(struct panfrost_device *pfde=
-v)
-> =20
->  void panfrost_device_fini(struct panfrost_device *pfdev)
->  {
-> +	panfrost_gem_shrinker_fini(pfdev);
->  	panfrost_perfcnt_fini(pfdev);
->  	panfrost_jm_fini(pfdev);
->  	panfrost_mmu_fini(pfdev);
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_drv.c
-> index cb8e5015847f..2d4b6aa95c66 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -1000,14 +1000,9 @@ static int panfrost_probe(struct platform_device *=
-pdev)
->  	if (err < 0)
->  		goto err_out1;
-> =20
-> -	err =3D panfrost_gem_shrinker_init(&pfdev->base);
-> -	if (err)
-> -		goto err_out2;
-> =20
->  	return 0;
-> =20
-> -err_out2:
-> -	drm_dev_unregister(&pfdev->base);
->  err_out1:
->  	pm_runtime_disable(pfdev->base.dev);
->  	panfrost_device_fini(pfdev);
-> @@ -1021,7 +1016,6 @@ static void panfrost_remove(struct platform_device =
-*pdev)
->  	struct panfrost_device *pfdev =3D platform_get_drvdata(pdev);
-> =20
->  	drm_dev_unregister(&pfdev->base);
-> -	panfrost_gem_shrinker_cleanup(&pfdev->base);
-> =20
->  	pm_runtime_get_sync(pfdev->base.dev);
->  	pm_runtime_disable(pfdev->base.dev);
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/pa=
-nfrost/panfrost_gem.h
-> index 79d4377019e9..323a1aee255e 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gem.h
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
-> @@ -154,8 +154,8 @@ panfrost_gem_mapping_get(struct panfrost_gem_object *=
-bo,
->  void panfrost_gem_mapping_put(struct panfrost_gem_mapping *mapping);
->  void panfrost_gem_teardown_mappings_locked(struct panfrost_gem_object *b=
-o);
-> =20
-> -int panfrost_gem_shrinker_init(struct drm_device *dev);
-> -void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
-> +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev);
-> +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev);
-> =20
->  void panfrost_gem_set_label(struct drm_gem_object *obj, const char *labe=
-l);
->  int panfrost_gem_sync(struct drm_gem_object *obj, u32 type,
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/g=
-pu/drm/panfrost/panfrost_gem_shrinker.c
-> index 2fe967a90bcb..fefae87535d6 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> @@ -95,10 +95,8 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, =
-struct shrink_control *sc)
->   *
->   * This function registers and sets up the panfrost shrinker.
->   */
-> -int panfrost_gem_shrinker_init(struct drm_device *dev)
-> +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
->  {
-> -	struct panfrost_device *pfdev =3D to_panfrost_device(dev);
-> -
->  	pfdev->shrinker =3D shrinker_alloc(0, "drm-panfrost");
->  	if (!pfdev->shrinker)
->  		return -ENOMEM;
-> @@ -118,10 +116,8 @@ int panfrost_gem_shrinker_init(struct drm_device *de=
-v)
->   *
->   * This function unregisters the panfrost shrinker.
->   */
-> -void panfrost_gem_shrinker_cleanup(struct drm_device *dev)
-> +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev)
->  {
-> -	struct panfrost_device *pfdev =3D to_panfrost_device(dev);
-> -
->  	if (pfdev->shrinker)
->  		shrinker_free(pfdev->shrinker);
->  }
->=20
+[1] https://lore.kernel.org/dri-devel/20260519211111.228303-1-mwen@igalia.com/
+[2] https://lore.kernel.org/igt-dev/20260602211259.898147-1-mwen@igalia.com
+[3] https://lore.kernel.org/igt-dev/20260526140752.503380-1-mwen@igalia.com/
+
+
+[v1] https://lore.kernel.org/dri-devel/20260526142940.504911-1-mwen@igalia.com/
+Changes:
+- define a macro to walk in the color pipeline (Alex H.)
+- fix checkpatch warning (Alex H.)
+
+Melissa
+
+Melissa Wen (3):
+  drm/atomic: only add states of active or transient active colorops
+  drm/atomic: duplicate state of all colorops
+  drm/atomic: reject colorop update from inactive color pipeline
+
+ drivers/gpu/drm/drm_atomic.c        | 125 ++++++++++++++++++++++++++--
+ drivers/gpu/drm/drm_atomic_helper.c |   9 +-
+ include/drm/drm_colorop.h           |   3 +
+ 3 files changed, 122 insertions(+), 15 deletions(-)
+
+-- 
+2.53.0
 
