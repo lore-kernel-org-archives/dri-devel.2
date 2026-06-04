@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F28DBCD6E75
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:14:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9942CD6E77
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:14:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 601FC11299F;
-	Thu,  4 Jun 2026 20:14:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A2BE1129AD;
+	Thu,  4 Jun 2026 20:14:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mosbAMrt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HUSWvnjj";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F11911299F
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:14:05 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54F681129AD
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:14:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 85C7A43D82;
- Thu,  4 Jun 2026 20:14:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AF801F00898;
- Thu,  4 Jun 2026 20:13:55 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CBE4160139;
+ Thu,  4 Jun 2026 20:14:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 411F81F00893;
+ Thu,  4 Jun 2026 20:14:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780604045;
- bh=ggqzvyh9uUTse6J1YdoRnT592sarnIvZOvO6Wa4kRj8=;
+ s=k20260515; t=1780604055;
+ bh=UDKImhxSIS/fNprfWQIRF9/bFD0CG+MEzEYu4ZjZLR0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=mosbAMrt0jG/xwYtdddVY5gYoUg9wgN+ozIsSOGkb00aJo2V5TW1V46BLxB++Cg+H
- 0rNUlnojJwS954L3LqDM8Nt36WFjTCbu9FJ04Vi/r28HzCtgwAzhPVLn2k9abRFge2
- IkQylc9PHxvlb9O3dgj0BiGX8E0hTYwHjcPkxhBqcOGjRZV37J8xOPwxExoD0tW3y/
- b71NSSfft8LE7/lHE/rvbgZrHYHDvvzTU4jmRlTbYX1jHHauOny6TTpusfBCyVZYlf
- dMlSEmvqx2/jhl4GiNKzN4kzIWAEWxHIhpyR49eMKRAhlAZLU0Ol9o5Le7U3D0R/EB
- XWD6EH2BagOHQ==
+ b=HUSWvnjjP2E25THnS10KhqGscgSWfXPY9OTuEU2lXvu8sGjibTgS2hJh1c7sVR233
+ ZsSMfrGf5wan4J4lQaBQPFxwxHEfkZB+SyslGH0qiD3tupaMJGOF+xfVCXrdCa2nop
+ bfZ4DrP5VtkcSumcTB7mPODx29giM+ghh+FTkROTaLEuAE6mh6otpO2xPVgZt2DqVC
+ XWOJbv6sA3Uf/sptnzfc7WprUW0qPW12ITimONL3qIMyuoyGZsERZkyT7yyp4AoXjJ
+ JSPLPuTZtHSv89xBRY2E+XCGkG/WIy0HPLdmYvkNEYRY8uN7duiAc2vqNKEQ6Rg+2N
+ 1E1gmpx/gdZhQ==
 From: Andreas Hindborg <a.hindborg@kernel.org>
-Date: Thu, 04 Jun 2026 22:11:17 +0200
-Subject: [PATCH v17 05/10] rust: page: convert to `Ownable`
+Date: Thu, 04 Jun 2026 22:11:16 +0200
+Subject: [PATCH v17 04/10] rust: page: update formatting of `use`
+ statements
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260604-unique-ref-v17-5-7b4c3d2930b9@kernel.org>
+Message-Id: <20260604-unique-ref-v17-4-7b4c3d2930b9@kernel.org>
 References: <20260604-unique-ref-v17-0-7b4c3d2930b9@kernel.org>
 In-Reply-To: <20260604-unique-ref-v17-0-7b4c3d2930b9@kernel.org>
 To: Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
@@ -65,24 +66,23 @@ Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
  linux-block@vger.kernel.org, linux-security-module@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org, 
  linux-mm@kvack.org, linux-pm@vger.kernel.org, linux-pci@vger.kernel.org, 
- Andreas Hindborg <a.hindborg@kernel.org>, driver-core@lists.linux.dev, 
- Asahi Lina <lina+kernel@asahilina.net>
+ Andreas Hindborg <a.hindborg@kernel.org>, driver-core@lists.linux.dev
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4419; i=a.hindborg@kernel.org; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=908; i=a.hindborg@kernel.org; 
  h=from:subject:message-id;
- bh=Rg2v6tz0XwCXNwaYk5oY+uEcooXMgwXc01B3VEHvrOM=; 
- b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBqIdvqHYkB8MyfIOoBDF1dSU61Fxib1oa4Dt9RG
- PgIQ0wtLluJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCaiHb6gAKCRD6UCkIqsW9
- 0IqcD/sFotgaGhMKDajo2vE0qEhGdVZ65uCHkiTMoKJrdcB+u/EW3F8VpV/IBvLFdHjNpsvogco
- E6hiRlSOOQyWBKf6qLQT3kNcckJUFca2rKOfxiHDoyO0g3ZhjKdB36WHeMksAohI3e5393Ar7A3
- JMomk1USO6WVyn0G69K23Cfa5gxuU0ODBR7cKy8U9dnlAnseoKo790PpO1ndbKqIm1XmJflmg9Z
- BamGGuMTLke1RIf510z6jyUIfdP8QxBXpXDELofQVg1il1vgaiS/tSkjhE5CLPJMkfVAEgul4hZ
- LyLB4oVXmjIOosFVwOx3BIagjIV19MAkiMIAY6wM0ovnXQCt55Qi6Py+KJy0cAsokL+xT//Xdjn
- p9iM3+z839r8nvxM97PFts/FKYW1cByF4oDNG+l4W250i9L/Nj9I1xyNMaA7e73/W4sG9ez0aNK
- snOob3lVbaC6MC/UYTey2mtt+QzOsF4BIfH2cvKEVRwH8aAKqChai103IF19OccUq7xLqyRQYf3
- gEGpIVah68briyXNnatyiyC9YSJJr2dVfLa6atP8DrONRO67JJ0tvEyiDWHoO3VvaZ/WV5fXj1c
- kYW2Iclhgcq7FVDvpyhKjFxoQ2h6IAQD0233nnJeT/ZRmTs6tk4ymr07hr22Hg8IOkv612sntSB
- qvL9y8ZQV0udSbA==
+ bh=4RyZCw8fL1vZdiYtCKnYPrhKo0dFDXqsJU7kpadSv3Q=; 
+ b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBqIdvpNRczTi1MEzbEqRlUSeyXZWfTU4TEqBFL8
+ dQ624Rhe9eJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCaiHb6QAKCRD6UCkIqsW9
+ 0GdUD/4yqmBAhNqMpqX2A7JxCA0GG24Vbr11LAL40KqFhbTCAdt3gGkUa/a9Rz9aqi3vkCbe/ST
+ FnkQd+bp2YQxM1v4HvkNdYl6bMHsOvU18ZPZoCGKvZQdn0lKxUF293/3c9nt0kC71fWAfWL4wUP
+ uy/AgLXJiQ/bVHs8H1//ZL7q//UZyzTjudKIDdn/EdREN8oXJP4QpPMHfnIzWC61sddwm6SZq1X
+ 7VkKcUzxtOBs75BHWPMXfiC3Xg8KePSbkgSlhLUO70BrcXgRRSLmRRKacG6XS26Yz0me2pRnu7b
+ cbjUrbadHMO3LNeUwdHuQjW+WEvIrm1sTyrM0G+4DxAuLLKNhoeiHC192iqOdYproBsGzIdxZ/W
+ CcTR5LugyvvJIpEIvAXhvq2C8XTPF3dR/lAhBfHr4vph7dFDwfsiucAQpcXJSOtQ7coI+ZX7Rct
+ JvnjdjshEue1W9UTO9m5UWjnXARSegihnwosgjfAX5rft8kqmQ8bOKDDpcHvHZ3qVnJWK/be+Oe
+ aq7VqUaKnUOsvjxnxfFEc0jDhigeUxIZUPxZrJeTV1ak7jdJAjZNBIC+vvQ72+hBMXRMIclDCVe
+ vviPbhfux8KOliVlfgAoDzFODyHymtIfsJkBJBNpxpvX3P3KI581baQQA6LqlsWWHywfzYv01nt
+ XV4VKoWPUlCeb/g==
 X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
  fpr=3108C10F46872E248D1FB221376EB100563EF7A7
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -100,118 +100,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Asahi Lina <lina@asahilina.net>
+Update formatting in preparation for next patch
 
-This allows Page references to be returned as borrowed references,
-without necessarily owning the struct page.
-
-Signed-off-by: Asahi Lina <lina@asahilina.net>
-[ Andreas: Fix formatting and add a safety comment. ]
 Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
 ---
- rust/kernel/page.rs | 38 +++++++++++++++++++++++++-------------
- 1 file changed, 25 insertions(+), 13 deletions(-)
+ rust/kernel/page.rs | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/rust/kernel/page.rs b/rust/kernel/page.rs
-index 3bdcee0e16a8..844c75e54134 100644
+index adecb200c654..3bdcee0e16a8 100644
 --- a/rust/kernel/page.rs
 +++ b/rust/kernel/page.rs
-@@ -10,6 +10,11 @@
+@@ -3,17 +3,23 @@
+ //! Kernel page allocation and management.
+ 
+ use crate::{
+-    alloc::{AllocError, Flags},
++    alloc::{
++        AllocError,
++        Flags, //
++    },
      bindings,
      error::code::*,
      error::Result,
-+    types::{
-+        Opaque,
-+        Ownable,
-+        Owned, //
-+    },
-     uaccess::UserSliceReader, //
+-    uaccess::UserSliceReader,
++    uaccess::UserSliceReader, //
  };
  use core::{
-@@ -105,7 +110,7 @@ pub const fn page_align(addr: usize) -> Option<usize> {
- ///
- /// [`VBox`]: kernel::alloc::VBox
- /// [`Vmalloc`]: kernel::alloc::allocator::Vmalloc
--pub struct BorrowedPage<'a>(ManuallyDrop<Page>, PhantomData<&'a Page>);
-+pub struct BorrowedPage<'a>(ManuallyDrop<NonNull<Page>>, PhantomData<&'a Page>);
+     marker::PhantomData,
+     mem::ManuallyDrop,
+     ops::Deref,
+-    ptr::{self, NonNull},
++    ptr::{
++        self,
++        NonNull, //
++    }, //
+ };
  
- impl<'a> BorrowedPage<'a> {
-     /// Constructs a [`BorrowedPage`] from a raw pointer to a `struct page`.
-@@ -115,7 +120,9 @@ impl<'a> BorrowedPage<'a> {
-     /// - `ptr` must point to a valid `bindings::page`.
-     /// - `ptr` must remain valid for the entire lifetime `'a`.
-     pub unsafe fn from_raw(ptr: NonNull<bindings::page>) -> Self {
--        let page = Page { page: ptr };
-+        let page: NonNull<Page> =
-+            // SAFETY: By function safety requirements `ptr` is non null.
-+            unsafe { NonNull::new_unchecked(ptr.as_ptr().cast()) };
- 
-         // INVARIANT: The safety requirements guarantee that `ptr` is valid for the entire lifetime
-         // `'a`.
-@@ -127,7 +134,8 @@ impl<'a> Deref for BorrowedPage<'a> {
-     type Target = Page;
- 
-     fn deref(&self) -> &Self::Target {
--        &self.0
-+        // SAFETY: By type invariant `self.0` is convertible to a reference for `'a`.
-+        unsafe { self.0.as_ref() }
-     }
- }
- 
-@@ -148,8 +156,9 @@ pub trait AsPageIter {
- /// # Invariants
- ///
- /// The pointer is valid, and has ownership over the page.
-+#[repr(transparent)]
- pub struct Page {
--    page: NonNull<bindings::page>,
-+    page: Opaque<bindings::page>,
- }
- 
- // SAFETY: Pages have no logic that relies on them staying on a given thread, so moving them across
-@@ -183,19 +192,20 @@ impl Page {
-     /// # Ok::<(), kernel::alloc::AllocError>(())
-     /// ```
-     #[inline]
--    pub fn alloc_page(flags: Flags) -> Result<Self, AllocError> {
-+    pub fn alloc_page(flags: Flags) -> Result<Owned<Self>, AllocError> {
-         // SAFETY: Depending on the value of `gfp_flags`, this call may sleep. Other than that, it
-         // is always safe to call this method.
-         let page = unsafe { bindings::alloc_pages(flags.as_raw(), 0) };
-         let page = NonNull::new(page).ok_or(AllocError)?;
--        // INVARIANT: We just successfully allocated a page, so we now have ownership of the newly
--        // allocated page. We transfer that ownership to the new `Page` object.
--        Ok(Self { page })
-+        // SAFETY: We just successfully allocated a page, so we now have ownership of the newly
-+        // allocated page. We transfer that ownership to the new `Owned<Page>` object.
-+        // Since `Page` is transparent, we can cast the pointer directly.
-+        Ok(unsafe { Owned::from_raw(page.cast()) })
-     }
- 
-     /// Returns a raw pointer to the page.
-     pub fn as_ptr(&self) -> *mut bindings::page {
--        self.page.as_ptr()
-+        Opaque::cast_into(&self.page)
-     }
- 
-     /// Get the node id containing this page.
-@@ -370,10 +380,12 @@ pub unsafe fn copy_from_user_slice_raw(
-     }
- }
- 
--impl Drop for Page {
-+impl Ownable for Page {
-     #[inline]
--    fn drop(&mut self) {
--        // SAFETY: By the type invariants, we have ownership of the page and can free it.
--        unsafe { bindings::__free_pages(self.page.as_ptr(), 0) };
-+    unsafe fn release(&mut self) {
-+        let ptr: *mut Self = self;
-+        // SAFETY: By the function safety requirements, we have ownership of the page and can free
-+        // it. Since Page is transparent, we can cast the raw pointer directly.
-+        unsafe { bindings::__free_pages(ptr.cast(), 0) };
-     }
- }
+ /// A bitwise shift for the page size.
 
 -- 
 2.51.2
