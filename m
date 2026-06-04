@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33A17CD6E4A
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 14:08:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB4D5CD6E4A
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 14:08:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 915B511A109;
-	Thu,  4 Jun 2026 14:08:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D9C511A105;
+	Thu,  4 Jun 2026 14:08:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QfINY7Rx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lDMqQtG3";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5458111A108
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 14:08:51 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D39F11A10B
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 14:08:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2DCBD4198E;
+ by tor.source.kernel.org (Postfix) with ESMTP id 13A45600B0;
+ Thu,  4 Jun 2026 14:08:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85DB71F0089A;
  Thu,  4 Jun 2026 14:08:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C56C21F00899;
- Thu,  4 Jun 2026 14:08:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1780582131;
- bh=LSMTqyeIz6gzNQSzJ/4NFZxbHUY5X8rvlB7JVS4YLkM=;
+ bh=OL6JoQBOw008/x+xf8no0mvXFrPNm4+jku3PzEkFuIc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QfINY7RxP4SoRE53ZD78jWh8B+C+KAgXTzDZ0ieRySyrnhS54HrsQ+GLle7mDeLiL
- 6K17EoRvL3bP6e2nCh0DwnxuiPH3U5ya8D+BSDJxoAu1jrn7CyeDdFL7Cqxe8GLFgj
- hCctTQOBWutJQqZIn8O7/IY8bTZ88QNnXZmK8I765s8IanTUSJPorIen0wTbBLPoBr
- +7kGpaWR+M7zsGL5wqCEIbkAzFlv7mQsQ0nZvJsKByrfopp8p6UJnhGqA54gxmGKbJ
- VWmIa2JpEGvxwThErQ+IyP6g8QX+u0zXRS5cfxF6EtvUmankFDmyNbSAOcVfmdUyyh
- GYLClESi6eROw==
+ b=lDMqQtG3HaPNVlTM+sLFFRXWwfeP2f12L7bpG+ui0sWx34K1udsTNuHmNnh0EH+1Z
+ vxh3Y5gHc4pYNp4dGd3jooRJcKiBE6C/3vuxTuQ2qK5LSWpWkv36pn6RzypnT3rWjA
+ E8FHuqxgtpxwWVpGH0hqcAJv2ECKMItN5VzCNrzjN/ex/OWMoxxb59mQoICF0kTRyN
+ lWjZoQnwfyhIRK0DOpZ5OgrrD4Jx+JUzKEd/lzF4XUMoIncGOOozmuFwf/cfIDaDPx
+ P0C12MRwGEbhYi+Fz1Ga+pMkSsRYWzc84U0KM1sFOzKVtQVvCMWtwxMhjZ/5kLZYoA
+ APkTEU08AnM4g==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v3 7/9] dt-bindings: npu: rockchip,rk3588-rknn-core:
- Add RK3568
+Subject: Re: [RFC PATCH v3 1/9] accel: rocket: Introduce per-SoC
+ rocket_soc_data
 To: "Midgy BALON" <midgy971@gmail.com>
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260604135255.62682-8-midgy971@gmail.com>
-References: <20260604135255.62682-8-midgy971@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org,
+ dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+In-Reply-To: <20260604135255.62682-2-midgy971@gmail.com>
+References: <20260604135255.62682-2-midgy971@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 14:08:50 +0000
-Message-Id: <20260604140850.C56C21F00899@smtp.kernel.org>
+Date: Thu, 04 Jun 2026 14:08:51 +0000
+Message-Id: <20260604140851.85DB71F0089A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,280 +58,421 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-
-New issues:
-- [High] The value written to `RK_MMU_AUTO_GATING` sets bit 1 instead of cl=
-earing it, contradicting the inline comment and hardware workaround logic.
-- [High] The error handling path for `noc_init()` failure leaks the IOMMU g=
-roup reference and leaves the device in an unbalanced PM runtime state.
-- [High] A malformed device tree with excessive NPU core nodes triggers an =
-out-of-bounds write in `rocket_probe()` array access.
-- [High] The NOC bus de-idle sequence via the PMU is missing from the runti=
-me PM resume path.
-- [Medium] The `rockchip,pmu` property is functionally mandatory for RK3568=
- but is not added to the schema's conditional `required` list.
+Thank you for your contribution! Sashiko AI review found 11 potential issue=
+(s) to consider:
 
 Pre-existing issues:
-- [High] The clock names in the `core->clks` array are uninitialized before=
- being passed to `devm_clk_bulk_get()`, causing the framework to fetch the =
-wrong clocks.
+- [Critical] kref_put() dereferences a NULL pointer when job initialization=
+ fails early or a BO is imported.
+- [High] Error path in BO creation frees an object that is already owned by=
+ the handle table.
+- [High] Device is permanently left in an active power state upon unbind.
+- [High] Array mismanagement during core removal prevents multi-core unbind.
+- [High] Memory and DRM device leak on probe failure or deferral.
+- [High] Asynchronous reset work is canceled after the DRM scheduler is des=
+troyed.
+- [High] The DRM device is registered and exposed to userspace before the N=
+PU cores are initialized.
+- [High] The global `rdev` pointer and `rdev->num_cores` are accessed and m=
+odified locklessly during probe and removal.
+- [High] The shared interrupt handler accesses hardware registers without c=
+hecking the PM state, and suspend executes without synchronizing IRQs.
+- [High] A failure in `rocket_job_run` leaks the PM usage counter and retur=
+ns an unsignaled hardware fence, hanging the DRM scheduler.
+- [High] Registers are accessed during initialization before resets are dea=
+sserted.
 --
 
-commit 6c61da961bed3360a99f625d4a3b1599e7bfe685
+commit e6cc2e46cba8fcba41d70a8b1e9422607b444db8
 Author: Midgy BALON <midgy971@gmail.com>
 
-    dt-bindings: npu: rockchip, rk3588-rknn-core: Add RK3568
-   =20
-    The RK3568 carries a single core of the same NVDLA-derived NPU IP as the
-    RK3588. Add its compatible. On RK3568 the NPU NOC bus-idle and power
-    gating are controlled through the system PMU rather than a dedicated
-    register block.
+accel: rocket: Introduce per-SoC rocket_soc_data
 
-> diff --git a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-c=
-ore.yaml b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.=
-yaml
-> index caca2a4903cd1..af9936b32e9fe 100644
-> --- a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-> +++ b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-[ ... ]
-> @@ -75,7 +83,15 @@ required:
->    - resets
->    - reset-names
->    - npu-supply
-> -  - sram-supply
-> +
-> +if:
-> +  properties:
-> +    compatible:
-> +      contains:
-> +        const: rockchip,rk3588-rknn-core
-> +then:
-> +  required:
-> +    - sram-supply
+Add a per-SoC data structure carried in the OF match table, currently
+holding only the NPU AXI address width, and use it for the per-core DMA
+mask instead of a hardcoded 40-bit value.
 
-[Severity: Medium]
-Does the missing rockchip,pmu property from the conditional required block
-cause incomplete device trees to pass validation?
-
-The rockchip,pmu property is functionally mandatory for the
-rockchip,rk3568-rknn-core variant as the driver unconditionally fails to pr=
-obe
-without it. Missing this mandatory property here could allow invalid device
-trees to go undetected.
-
->  additionalProperties: false
-> =20
 > diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/ro=
 cket_core.c
-> index b3b2fa9ba645a..634f78dfe2887 100644
+> index b3b2fa9ba645a..09c445af7de73 100644
 > --- a/drivers/accel/rocket/rocket_core.c
 > +++ b/drivers/accel/rocket/rocket_core.c
-[ ... ]
-> @@ -83,6 +89,15 @@ int rocket_core_init(struct rocket_core *core)
->  		return err;
->  	}
+> @@ -21,6 +22,10 @@ int rocket_core_init(struct rocket_core *core)
+>  	u32 version;
+>  	int err =3D 0;
 > =20
-> +	if (core->soc_data->noc_init) {
-> +		err =3D core->soc_data->noc_init(core);
-> +		if (err) {
-> +			pm_runtime_put_sync(dev);
-> +			rocket_job_fini(core);
-> +			return err;
-> +		}
-> +	}
-
-[Severity: High]
-Does this error path leak the IOMMU group reference and leave the device in=
- an
-unbalanced PM runtime state?
-
-By returning directly after pm_runtime_put_sync() and rocket_job_fini(), the
-code misses calling rocket_core_fini() which handles iommu_group_put(),
-pm_runtime_disable(), and pm_runtime_dont_use_autosuspend().
-
+> +	core->soc_data =3D of_device_get_match_data(dev);
+> +	if (!core->soc_data)
+> +		return dev_err_probe(dev, -EINVAL, "missing SoC match data\n");
 > +
->  	version =3D rocket_pc_readl(core, VERSION);
->  	version +=3D rocket_pc_readl(core, VERSION_NUM) & 0xffff;
-> =20
-> diff --git a/drivers/accel/rocket/rocket_device.c b/drivers/accel/rocket/=
-rocket_device.c
-> index 46e6ee1e72c5f..6186f4faa3a2a 100644
-> --- a/drivers/accel/rocket/rocket_device.c
-> +++ b/drivers/accel/rocket/rocket_device.c
-[ ... ]
-> @@ -27,17 +25,14 @@ struct rocket_device *rocket_device_init(struct platf=
-orm_device *pdev,
->  	ddev =3D &rdev->ddev;
->  	dev_set_drvdata(dev, rdev);
-> =20
-> -	for_each_compatible_node(core_node, NULL, "rockchip,rk3588-rknn-core")
-> -		if (of_device_is_available(core_node))
-> -			num_cores++;
-> -
-> -	rdev->cores =3D devm_kcalloc(dev, num_cores, sizeof(*rdev->cores), GFP_=
-KERNEL);
-> +	rdev->cores =3D devm_kcalloc(dev, soc_data->num_cores, sizeof(*rdev->co=
-res),
-> +				   GFP_KERNEL);
 
 [Severity: High]
-Can this code overflow rdev->cores[] if the device tree contains more NPU
-nodes than soc_data->num_cores?
+This is a pre-existing issue, but I noticed that later in this function,
+registers are accessed before resets are deasserted:
 
-With this change, the array size is fixed to soc_data->num_cores, but
-rocket_probe() in drivers/accel/rocket/rocket_drv.c is still called for eve=
-ry
-matching node. If there are too many nodes in the device tree, it appears
-rocket_probe() will write out of bounds here:
-
-drivers/accel/rocket/rocket_drv.c:rocket_probe() {
-    ...
-	unsigned int core =3D rdev->num_cores;
-    ...
-	rdev->cores[core].rdev =3D rdev;
-	rdev->cores[core].dev =3D &pdev->dev;
-	rdev->cores[core].index =3D core;
-    ...
+drivers/accel/rocket/rocket_core.c:rocket_core_init() {
+	...
+	core->resets[0].id =3D "srst_a";
+	core->resets[1].id =3D "srst_h";
+	err =3D devm_reset_control_bulk_get_exclusive(&pdev->dev, ARRAY_SIZE(core-=
+>resets),
+						    core->resets);
+	...
+	version =3D rocket_pc_readl(core, VERSION);
+	version +=3D rocket_pc_readl(core, VERSION_NUM) & 0xffff;
+	...
 }
 
->  	if (!rdev->cores)
->  		return ERR_PTR(-ENOMEM);
+Will this cause a bus stall and trigger an asynchronous external abort if t=
+he
+hardware or bootloader leaves these resets asserted?
+
+[Severity: High]
+This is a pre-existing issue, but does rocket_core_fini() leave the device
+permanently powered on with its clocks running after the driver has been
+detached?
+
+drivers/accel/rocket/rocket_core.c:rocket_core_fini() {
+	pm_runtime_dont_use_autosuspend(core->dev);
+	pm_runtime_disable(core->dev);
+	...
+}
+
+Since rocket_core_init() drops its Runtime PM reference asynchronously via
+pm_runtime_put_autosuspend(dev), if the driver is unbound before the
+autosuspend delay elapses, pm_runtime_disable() forcefully cancels the
+pending asynchronous suspend work without first synchronously powering down
+the hardware (e.g., via pm_runtime_put_sync()).
+
+>  	core->resets[0].id =3D "srst_a";
+>  	core->resets[1].id =3D "srst_h";
+>  	err =3D devm_reset_control_bulk_get_exclusive(&pdev->dev, ARRAY_SIZE(co=
+re->resets),
+[ ... ]
+> @@ -52,7 +57,7 @@ int rocket_core_init(struct rocket_core *core)
+> =20
+>  	dma_set_max_seg_size(dev, UINT_MAX);
+> =20
+> -	err =3D dma_set_mask_and_coherent(dev, DMA_BIT_MASK(40));
+> +	err =3D dma_set_mask_and_coherent(dev, DMA_BIT_MASK(core->soc_data->dma=
+_bits));
+>  	if (err)
+>  		return err;
 > =20
 > diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
 ket_drv.c
-> index 8bbbce594883e..5a72d0b5f4dff 100644
+> index 8bbbce594883e..384c38e13acce 100644
 > --- a/drivers/accel/rocket/rocket_drv.c
 > +++ b/drivers/accel/rocket/rocket_drv.c
-[ ... ]
-> @@ -213,8 +219,64 @@ static void rocket_remove(struct platform_device *pd=
+> @@ -213,8 +213,12 @@ static void rocket_remove(struct platform_device *pd=
 ev)
 >  	}
 >  }
 > =20
-> +/*
-> + * On RK3568 the NPU NOC bus is gated and idle out of reset and must be
-> + * powered on and de-idled through the PMU before the NPU is reachable. =
- PMU
-> + * registers use a write-mask protocol: the upper 16 bits enable writes =
-to the
-> + * matching lower 16 bits.
-> + *
-> + * The NPU's high-speed clock is a PVTPLL managed by TF-A via SCMI and m=
-ust be
-> + * running before the NOC acknowledges the de-idle request.  Force a rea=
-l SCMI
-> + * rate change (an intermediate rate defeats the clock framework's
-> + * unchanged-rate shortcut) now that the power domain is on and clocks e=
-nabled.
-> + */
-> +#define ROCKET_RK3568_SCMI_CLK	2
-> +
-> +static int rk3568_noc_init(struct rocket_core *core)
-> +{
-> +	struct regmap *pmu;
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	clk_set_rate(core->clks[ROCKET_RK3568_SCMI_CLK].clk, 600000000UL);
-> +	clk_set_rate(core->clks[ROCKET_RK3568_SCMI_CLK].clk, 1000000000UL);
 
 [Severity: High]
-This is a pre-existing issue, but does this unintentionally alter the system
-aclk rate?
+This is a pre-existing issue, but can this array mismanagement during core
+removal prevent multi-core unbind?
 
-Looking at rocket_core_init(), the core->clks array is passed to
-devm_clk_bulk_get() without initializing the id strings:
-
-drivers/accel/rocket/rocket_core.c:rocket_core_init() {
-    ...
-	err =3D devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
-    ...
+drivers/accel/rocket/rocket_drv.c:rocket_remove() {
+	...
+	rocket_core_fini(&rdev->cores[core]);
+	rdev->num_cores--;
+	...
 }
 
-Because the id fields are NULL, the framework fetches the first DT clock
-(aclk) for all elements. Calling clk_set_rate() here seems to alter the
-system aclk frequency instead of the intended SCMI clock.
+drivers/accel/rocket/rocket_drv.c:find_core_for_dev() {
+	for (unsigned int core =3D 0; core < rdev->num_cores; core++) {
+		if (dev =3D=3D rdev->cores[core].dev)
+			return core;
+	}
+	...
+}
 
-> +
-> +	pmu =3D syscon_regmap_lookup_by_phandle(core->dev->of_node, "rockchip,p=
-mu");
-> +	if (IS_ERR(pmu))
-> +		return dev_err_probe(core->dev, PTR_ERR(pmu),
-> +				     "failed to get PMU regmap\n");
-> +
-> +	/* Power on the NPU power domain (PWR_GATE_SFTCON bit 1 =3D 0). */
-> +	regmap_write(pmu, 0xa0, BIT(1 + 16));
-> +
-> +	/* Disable NPU NOC auto-idle (NOC_AUTO_CON0 bit 2). */
-> +	regmap_write(pmu, 0x70, BIT(2 + 16));
-> +
-> +	/* Request NPU bus de-idle (BUS_IDLE_SFTCON0 bit 2 =3D 0). */
-> +	regmap_write(pmu, 0x50, BIT(2 + 16));
-> +
-> +	/* Wait for the bus to report active (BUS_IDLE_ST bit 2 =3D 0). */
-> +	ret =3D regmap_read_poll_timeout(pmu, 0x68, val, !(val & BIT(2)), 10, 1=
-000);
-> +	if (ret)
-> +		dev_err(core->dev, "timed out waiting for NPU bus de-idle\n");
-> +
-> +	return ret;
-> +}
+When a core is unbound, rdev->num_cores is decremented, but the unbound cor=
+e's
+slot in the static rdev->cores array is left unmodified, and the remaining
+elements are not shifted.
+
+Because find_core_for_dev() unconditionally loops only rdev->num_cores time=
+s,
+any core residing at an array index greater than or equal to the decremented
+num_cores becomes invisible.
+
+Will subsequent attempts to unbind those remaining cores fail, silently
+exiting early and completely leaking the cores' resources and power state?
 
 [Severity: High]
-Is a NOC bus de-idle sequence required in the runtime PM resume path as wel=
-l?
+This is a pre-existing issue, but could rocket_probe() leak memory and the =
+DRM
+device on probe failure or deferral?
 
-If the generic power domain (genpd) powers off the NPU during runtime suspe=
-nd,
-the NOC bus idle state would reset. Currently, rocket_device_runtime_resume=
-()
-enables clocks but doesn't repeat this PMU de-idle sequence, which could le=
-ave
-the AXI bus gated and cause subsequent hardware accesses to hang or crash.
+drivers/accel/rocket/rocket_drv.c:rocket_probe() {
+	if (rdev =3D=3D NULL) {
+		/* First core probing, initialize DRM device. */
+		rdev =3D rocket_device_init(drm_dev, &rocket_drm_driver, soc_data);
+	...
+}
 
+drivers/accel/rocket/rocket_device.c:rocket_device_init() {
+	rdev =3D devm_drm_dev_alloc(dev, rocket_drm_driver, struct rocket_device, =
+ddev);
+	...
+	rdev->cores =3D devm_kcalloc(dev, soc_data->num_cores, sizeof(*rdev->cores=
+), GFP_KERNEL);
+	...
+}
+
+The global facade device rdev is dynamically initialized via rocket_device_=
+init()
+using the global, virtually registered drm_dev platform device. Allocations=
+ like
+devm_drm_dev_alloc() and devm_kcalloc() are bound to the drm_dev lifecycle
+rather than the physical pdev currently being probed.
+
+If rocket_core_init() subsequently fails (e.g., due to -EPROBE_DEFER),
+rocket_probe() cleans up by calling rocket_device_fini() and resetting
+rdev =3D NULL. However, rocket_device_fini() only unregisters the DRM devic=
+e.
+
+Because drm_dev remains globally alive until module unload, none of the dev=
+m_
+allocations are freed. On the next probe attempt, a new rdev is allocated on
+drm_dev. Can this create a permanent memory leak?
+
+[Severity: High]
+This is a pre-existing issue, but might the DRM device be registered and
+exposed to userspace before the NPU cores are initialized?
+
+drivers/accel/rocket/rocket_device.c:rocket_device_init() {
+	...
+	err =3D drm_dev_register(ddev, 0);
+	if (err)
+		return ERR_PTR(err);
+
+	return rdev;
+}
+
+drivers/accel/rocket/rocket_drv.c:rocket_probe() {
+	...
+		rdev =3D rocket_device_init(drm_dev, &rocket_drm_driver, soc_data);
+	...
+	unsigned int core =3D rdev->num_cores;
+	dev_set_drvdata(&pdev->dev, rdev);
+
+	rdev->cores[core].rdev =3D rdev;
+	rdev->cores[core].dev =3D &pdev->dev;
+	...
+}
+
+When the first core is probed, it calls rocket_device_init(), which ends wi=
+th
+drm_dev_register(). At this moment, the DRM character device becomes visible
+and openable by userspace.
+
+However, the core hardware, IRQs, and core pointers (e.g. rdev->cores[core]=
+.dev)
+are not assigned or initialized until immediately afterward, when
+rocket_core_init() runs.
+
+If userspace opens the device in this narrow window, will rocket_open()
+evaluate the uninitialized rdev->cores[0].dev (which is NULL) and pass it to
+rocket_iommu_domain_create(), causing an immediate NULL pointer dereference?
+
+[Severity: High]
+This is a pre-existing issue, but is it possible that the global rdev point=
+er
+and rdev->num_cores are accessed and modified locklessly during probe and
+removal?
+
+drivers/accel/rocket/rocket_drv.c:rocket_probe() {
+	if (rdev =3D=3D NULL) {
+		/* First core probing, initialize DRM device. */
+		rdev =3D rocket_device_init(drm_dev, &rocket_drm_driver, soc_data);
+	...
+	rdev->num_cores++;
+	...
+}
+
+If multiple cores are probed concurrently (e.g., via sysfs asynchronous
+binding), multiple threads will evaluate `if (rdev =3D=3D NULL)` simultaneo=
+usly
+without a lock.
+
+Can this create a data race where concurrent threads allocate redundant DRM
+devices, overwrite the rdev singleton (causing memory leaks), and corrupt
+the shared rdev->num_cores counter and rdev->cores array?
+
+[Severity: Critical]
+This is a pre-existing issue, but will kref_put() dereference a NULL pointer
+when job initialization fails early or a BO is imported?
+
+drivers/accel/rocket/rocket_job.c:rocket_ioctl_submit_job() {
+	...
+	goto out_cleanup_job;
+	...
+out_cleanup_job:
+	if (ret)
+		drm_sched_job_cleanup(&rjob->base);
+out_put_job:
+	rocket_job_put(rjob);
+}
+
+drivers/accel/rocket/rocket_drv.c:rocket_iommu_domain_put() {
+	kref_put(&domain->kref, rocket_iommu_domain_destroy);
+}
+
+If an early failure occurs in rocket_ioctl_submit_job() (e.g., in
+rocket_copy_tasks() or drm_gem_objects_lookup()), the error path calls
+rocket_job_put(), which invokes rocket_job_cleanup(). At this point,
+job->domain is still NULL.
+
+rocket_job_cleanup() unconditionally passes this to rocket_iommu_domain_put=
+(),
+which immediately evaluates &domain->kref and causes a NULL pointer
+dereference.
+
+The same panic appears to occur when a BO is imported via PRIME
+(rocket_gem_create_object() leaves domain NULL), and rocket_gem_bo_free()
+subsequently accesses bo->domain->domain and bo->domain.
+
+[Severity: High]
+This is a pre-existing issue, but could the error path in BO creation free =
+an
+object that is already owned by the handle table?
+
+drivers/accel/rocket/rocket_gem.c:rocket_ioctl_create_bo() {
+	...
+	ret =3D drm_gem_handle_create(file, gem_obj, &args->handle);
+	drm_gem_object_put(gem_obj);
+	if (ret)
+		goto err;
+	...
+err:
+	drm_gem_shmem_object_free(gem_obj);
+}
+
+drm_gem_handle_create() successfully exposes gem_obj to userspace and
+increments its handle refcount, after which the local reference is correctly
+dropped via drm_gem_object_put().
+
+If a subsequent step fails (such as drm_gem_shmem_get_pages_sgt()), the err=
+or
+path jumps to err: and manually calls drm_gem_shmem_object_free(gem_obj).
+
+This explicitly frees the backing memory while the object is still actively
+referenced by the handle table. When userspace later closes the handle, will
+the GEM core double-free the object?
+
+[Severity: High]
+This is a pre-existing issue, but should the asynchronous reset work be
+canceled before the DRM scheduler is destroyed?
+
+drivers/accel/rocket/rocket_job.c:rocket_job_fini() {
+	drm_sched_fini(&core->sched);
+
+	cancel_work_sync(&core->reset.work);
+	destroy_workqueue(core->reset.wq);
+}
+
+drm_sched_fini(&core->sched) is called before cancel_work_sync(&core->reset=
+.work).
+
+If the background reset task rocket_reset_work() is running concurrently,
+it will execute rocket_reset(), which attempts to call drm_sched_stop() and
+drm_sched_start() on the core->sched instance that has already been torn do=
+wn
+or freed.
+
+[Severity: High]
+This is a pre-existing issue, but could the shared interrupt handler access
+hardware registers without checking the PM state, and does suspend execute
+without synchronizing IRQs?
+
+drivers/accel/rocket/rocket_job.c:rocket_job_irq_handler() {
+	struct rocket_core *core =3D data;
+	u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
+	...
+}
+
+drivers/accel/rocket/rocket_drv.c:rocket_device_runtime_suspend() {
+	...
+	clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks), rdev->cores=
+[core].clks);
+
+	return 0;
+}
+
+The driver requests its interrupt using IRQF_SHARED, meaning
+rocket_job_irq_handler() can execute at any time if another device on the s=
+ame
+line interrupts the CPU.
+
+When called, the handler immediately reads hardware registers
+(INTERRUPT_RAW_STATUS) without using pm_runtime_get_if_active() to verify t=
+he
+device is powered. If the device was suspended, will this read return garba=
+ge
+or cause a bus fault?
+
+Additionally, the rocket_device_runtime_suspend() callback disables the
+device's clocks without invoking synchronize_irq(), which might allow
+hardware to lose power while an interrupt handler is executing mid-flight.
+
+[Severity: High]
+This is a pre-existing issue, but can a failure in rocket_job_run() leak
+the PM usage counter and return an unsignaled hardware fence, hanging the
+DRM scheduler?
+
+drivers/accel/rocket/rocket_job.c:rocket_job_run() {
+	...
+	ret =3D pm_runtime_get_sync(core->dev);
+	if (ret < 0)
+		return fence;
+	...
+		ret =3D iommu_attach_group(job->domain->domain, core->iommu_group);
+		if (ret < 0)
+			return fence;
+	...
+}
+
+drivers/accel/rocket/rocket_job.c:rocket_reset() {
+	scoped_guard(mutex, &core->job_lock) {
+		if (core->in_flight_job)
+			pm_runtime_put_noidle(core->dev);
+
+		core->in_flight_job =3D NULL;
+	}
+}
+
+If pm_runtime_get_sync() returns an error, it returns the created fence
+directly. Since pm_runtime_get_sync() increments the usage counter even upon
+failure, this leaks the PM reference (missing pm_runtime_put_noidle()).
+
+Similarly, if iommu_attach_group() fails shortly after, the function again
+returns the fence without dropping the successfully acquired PM reference.
+
+Because the hardware submission is skipped in both error paths, the returned
+fence is never signaled. The DRM scheduler will block indefinitely waiting =
+for
+it, triggering a job timeout.
+
+Will the timeout reset logic (rocket_reset()) fail to clean up these leaked
+PM references because core->in_flight_job is evaluated as NULL (it was never
+assigned before the early returns)?
+
+> +static const struct rocket_soc_data rk3588_soc_data =3D {
+> +	.dma_bits =3D 40,
+> +};
 > +
->  static const struct rocket_soc_data rk3568_soc_data =3D {
->  	.num_cores =3D 1,
->  	.dma_bits =3D 32,
->  	.noc_init =3D rk3568_noc_init,
+>  static const struct of_device_id dt_match[] =3D {
+> -	{ .compatible =3D "rockchip,rk3588-rknn-core" },
+> +	{ .compatible =3D "rockchip,rk3588-rknn-core", .data =3D &rk3588_soc_da=
+ta },
+>  	{}
 >  };
-> =20
-> diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iomm=
-u.c
-> index 0013cf196c573..7d40ecb26123f 100644
-> --- a/drivers/iommu/rockchip-iommu.c
-> +++ b/drivers/iommu/rockchip-iommu.c
-> @@ -952,6 +952,18 @@ static int rk_iommu_enable(struct rk_iommu *iommu)
-> =20
->  	ret =3D rk_iommu_enable_paging(iommu);
-> =20
-> +	if (!ret) {
-> +		/*
-> +		 * RK356x v1 IOMMU: RK_MMU_AUTO_GATING bit 1 enables page-walker
-> +		 * auto clock-gating; the walker's AXI master then loses its clock
-> +		 * between transactions and a TLB-miss page walk never completes,
-> +		 * leaving the IOMMU stuck (PAGING_ENABLED, never IDLE).  Clear
-> +		 * bit 1 (keep bit 0, the slave-port gate) once paging is enabled.
-> +		 */
-> +		for (i =3D 0; i < iommu->num_mmu; i++)
-> +			rk_iommu_write(iommu->bases[i], RK_MMU_AUTO_GATING, 0x2);
-
-[Severity: High]
-Will this write operation inadvertently set bit 1 instead of clearing it?
-
-Writing 0x2 (binary 10) sets bit 1 and clears bit 0, which contradicts the
-inline comment indicating that bit 1 should be cleared and bit 0 kept. This
-appears to enable the buggy page-walker auto clock-gating and disable the
-slave-port gate.
-
-> +	}
-> +
->  out_disable_stall:
->  	rk_iommu_disable_stall(iommu);
->  out_disable_clocks:
+>  MODULE_DEVICE_TABLE(of, dt_match);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604135255.6268=
-2-1-midgy971@gmail.com?part=3D7
+2-1-midgy971@gmail.com?part=3D1
