@@ -4,57 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1548CD6E68
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 09:50:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90044CD6E68
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 09:54:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C8FE10E5FC;
-	Thu,  4 Jun 2026 09:50:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA179112756;
+	Thu,  4 Jun 2026 09:54:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PnyJ5uXQ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="sG27+oTl";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C5EC112755;
- Thu,  4 Jun 2026 09:50:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780566642; x=1812102642;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=2kxQsuJAGg34AMTlr4geEF0AHmggJJRghF/UtqI3zeM=;
- b=PnyJ5uXQQUiF5vJ2Kc1NDBlDR8z4C0qDIm1qcts0rV2EUb2ZP+jVHDcW
- KTTxcKbiU5+64LosIMHds/o+h1rJzeRcl5YbzVyqXUAvmM9NU7LnIOUo1
- WudPF3v3cI9xgu91jYsUGX8NQ/UAEnzQ8x6h3IAvO/Vm4dx9wVsUUvP4B
- QeXCRTL7Foac9IYxqeh4NGqK7631hi3kAiU62He6QikSecxPsHqhwCfko
- s2/kEjlwcPHiyxzskgtmA0Gc8OoAcJHIdwGffogozzTvNueELTMdndYSn
- K77n/ckXoh0rpeYODe+G1onFqGdpz21jRnOuoMedCrysbFMBYx23LIc9D g==;
-X-CSE-ConnectionGUID: /CZckNrlS6OUBT1sPyhlFA==
-X-CSE-MsgGUID: UDcOdWcqTfaKxPDcOz7gQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11806"; a="98810528"
-X-IronPort-AV: E=Sophos;i="6.24,186,1774335600"; d="scan'208";a="98810528"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2026 02:50:41 -0700
-X-CSE-ConnectionGUID: liH5yW9WTgGMS9DlEsu4tA==
-X-CSE-MsgGUID: vmY/6emQSUq+vQvNdKN8Zw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,186,1774335600"; d="scan'208";a="282602416"
-Received: from varungup-desk.iind.intel.com ([10.190.238.71])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2026 02:50:39 -0700
-From: Arvind Yadav <arvind.yadav@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: matthew.brost@intel.com, himal.prasad.ghimiray@intel.com,
- thomas.hellstrom@linux.intel.com
-Subject: [RFC v3 7/7] drm/xe/svm: Correct memory attribute reset for partial
- unmap
-Date: Thu,  4 Jun 2026 15:20:12 +0530
-Message-ID: <20260604095012.367231-8-arvind.yadav@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260604095012.367231-1-arvind.yadav@intel.com>
-References: <20260604095012.367231-1-arvind.yadav@intel.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3657A112756
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 09:54:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ZkYhamYuYix2Kh3t20gmh8S/daxYz9iDqasVlKwczZc=; b=sG27+oTl+mMpZ+UZEhc/AlpG0g
+ wdBMs2rwJJ2XoLtHTNpJH5fc8pI3jYjWggR7ZSZWe8muY5xH+ZMr5+uXDt1f0M1SxkeWT2ukN3KUP
+ /+T+NASHTIo+/x/Q+Cg70cn+IGzxvOqSrfVzolvM0W0/dJLGfrkmmjq26MHQUWbFIFHb8zJtoQUql
+ v5+XOzYycyeLtNPk5fM2crGtY9q5BuyB81/huQXTBCc6gdQiWswPujtJ55xIgyOHuZE0KMJ3kEScZ
+ aqKwYW8DtitJO0+Oy14LGJwHnIRl33MgVaCp/wU/7eUHq3maTHZsDbQ0FVV/7UsMI8WoBCiQKDoQ+
+ 0iRPyslA==;
+Received: from [90.240.106.137] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wV4mQ-00CZyN-Af; Thu, 04 Jun 2026 11:54:26 +0200
+Message-ID: <b1595985-6be5-41b4-833a-346cb5011c8f@igalia.com>
+Date: Thu, 4 Jun 2026 10:54:25 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 11/14] drm/v3d: Refactor CPU ioctl into unified
+ submission chain
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+References: <20260603-v3d-sched-misc-fixes-v3-0-d7114bba55a0@igalia.com>
+ <20260603-v3d-sched-misc-fixes-v3-11-d7114bba55a0@igalia.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260603-v3d-sched-misc-fixes-v3-11-d7114bba55a0@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,194 +67,190 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
 
-When performing a partial unmap of an SVM range, the memory attributes
-were being reset for the entire range instead of just the portion
-being unmapped. This could lead to unintended side effects and behaviour.
+On 03/06/2026 23:25, Maíra Canal wrote:
+> Restructure the CPU ioctl so that all job types, including indirect CSD,
+> use a single struct v3d_submit chain and a single DRM exec context.
+> 
+> Now that v3d_get_cpu_indirect_csd_params() is a pure parser and the
+> submit helpers operate on struct v3d_submit, fold the indirect CSD path
+> into the standard flow by appending the CSD and CLEAN_CACHE jobs to the
+> same struct v3d_submit as the CPU job and locking the union of all jobs'
+> BOs under one drm_exec. This eliminates the second drm_exec, the nested
+> submission, and the conditional two-pass fence attachment that the CPU
+> ioctl previously required for the indirect CSD path.
+> 
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+> ---
+>   drivers/gpu/drm/v3d/v3d_drv.h    |  6 ---
+>   drivers/gpu/drm/v3d/v3d_submit.c | 90 ++++++++++------------------------------
+>   2 files changed, 23 insertions(+), 73 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
+> index 52ed0af67f5e..e91b1b83dc23 100644
+> --- a/drivers/gpu/drm/v3d/v3d_drv.h
+> +++ b/drivers/gpu/drm/v3d/v3d_drv.h
+> @@ -425,9 +425,6 @@ struct v3d_indirect_csd_info {
+>   	/* Indirect CSD */
+>   	struct v3d_csd_job *job;
+>   
+> -	/* Clean cache job associated to the Indirect CSD job */
+> -	struct v3d_job *clean_job;
+> -
+>   	/* Indirect CSD args, stashed by the extension parser and later used
+>   	 * to create the CSD job from them.
+>   	 */
+> @@ -446,9 +443,6 @@ struct v3d_indirect_csd_info {
+>   
+>   	/* Indirect BO */
+>   	struct drm_gem_object *indirect;
+> -
+> -	/* Context of the Indirect CSD job */
+> -	struct drm_exec exec;
+>   };
+>   
+>   struct v3d_timestamp_query_info {
+> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
+> index 62c23feb8fbb..1df7ab528422 100644
+> --- a/drivers/gpu/drm/v3d/v3d_submit.c
+> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
+> @@ -1276,15 +1276,10 @@ int
+>   v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+>   		     struct drm_file *file_priv)
+>   {
+> -	struct v3d_dev *v3d = to_v3d_dev(dev);
+>   	struct v3d_submit submit = { .v3d = to_v3d_dev(dev), .file_priv = file_priv };
+> -	struct v3d_submit indirect_submit = { .v3d = to_v3d_dev(dev), .file_priv = file_priv };
+>   	struct drm_v3d_submit_cpu *args = data;
+>   	struct v3d_submit_ext se = {0};
+> -	struct v3d_submit_ext *out_se = NULL;
+>   	struct v3d_cpu_job *cpu_job = NULL;
+> -	struct v3d_csd_job *csd_job = NULL;
+> -	struct v3d_job *clean_job = NULL;
+>   	int ret;
+>   
+>   	if (args->flags && !(args->flags & DRM_V3D_SUBMIT_EXTENSION)) {
+> @@ -1317,90 +1312,51 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+>   		goto fail;
+>   	}
+>   
+> -	trace_v3d_submit_cpu_ioctl(&v3d->drm, cpu_job->job_type);
+> +	trace_v3d_submit_cpu_ioctl(dev, cpu_job->job_type);
+>   
+>   	ret = v3d_job_add_syncobjs(&cpu_job->base, file_priv, 0, &se);
+>   	if (ret)
+>   		goto fail;
+>   
+> -	if (cpu_job->job_type == V3D_CPU_JOB_TYPE_INDIRECT_CSD) {
+> -		ret = v3d_setup_csd_jobs_and_bos(&indirect_submit,
+> -						 &cpu_job->indirect_csd.args,
+> -						 NULL);
+> -		if (ret)
+> -			goto fail;
+> -
+> -		ret = v3d_submit_lock_reservations(&indirect_submit);
+> -		if (ret)
+> -			goto fail;
+> -
+> -		cpu_job->indirect_csd.job = container_of(indirect_submit.jobs[0],
+> -							 struct v3d_csd_job, base);
+> -		cpu_job->indirect_csd.clean_job = indirect_submit.jobs[1];
+> -
+> -		clean_job = cpu_job->indirect_csd.clean_job;
+> -		csd_job = cpu_job->indirect_csd.job;
+> -	}
+> -
+> +	/* Look up the CPU jobs' BOs before v3d_setup_csd_jobs_and_bos() appends
+> +	 * the CSD and clean jobs in the case of indirect CSD job.
+> +	 */
+>   	if (args->bo_handle_count) {
+>   		ret = v3d_lookup_bos(&submit, args->bo_handles, args->bo_handle_count);
+>   		if (ret)
+>   			goto fail;
+> +	}
+>   
+> -		ret = v3d_submit_lock_reservations(&submit);
+> +	if (cpu_job->job_type == V3D_CPU_JOB_TYPE_INDIRECT_CSD) {
+> +		ret = v3d_setup_csd_jobs_and_bos(&submit, &cpu_job->indirect_csd.args,
+> +						 NULL);
+>   		if (ret)
+>   			goto fail;
+> +
+> +		/* The CSD job was appended at jobs[1] */
+> +		if (WARN_ON(submit.jobs[1]->queue != V3D_CSD)) {
+> +			ret = -EINVAL;
+> +			goto fail;
+> +		}
+> +
+> +		cpu_job->indirect_csd.job = container_of(submit.jobs[1], struct v3d_csd_job,
+> +							 base);
+>   	}
+>   
+> -	mutex_lock(&v3d->sched_lock);
+> -	v3d_push_job(&cpu_job->base);
+> +	ret = v3d_submit_lock_reservations(&submit);
+> +	if (ret)
+> +		goto fail;
+>   
+> -	switch (cpu_job->job_type) {
+> -	case V3D_CPU_JOB_TYPE_INDIRECT_CSD:
+> -		ret = drm_sched_job_add_dependency(&csd_job->base.base,
+> -						   dma_fence_get(cpu_job->base.done_fence));
+> -		if (ret)
+> -			goto fail_unreserve;
+> -
+> -		v3d_push_job(&csd_job->base);
+> -
+> -		ret = drm_sched_job_add_dependency(&clean_job->base,
+> -						   dma_fence_get(csd_job->base.done_fence));
+> -		if (ret)
+> -			goto fail_unreserve;
+> -
+> -		v3d_push_job(clean_job);
+> -
+> -		break;
+> -	default:
+> -		break;
+> -	}
+> -	mutex_unlock(&v3d->sched_lock);
+> -
+> -	out_se = (cpu_job->job_type == V3D_CPU_JOB_TYPE_INDIRECT_CSD) ? NULL : &se;
+> -
+> -	v3d_attach_fences_and_unlock_reservation(&submit, 0, out_se);
+> -
+> -	switch (cpu_job->job_type) {
+> -	case V3D_CPU_JOB_TYPE_INDIRECT_CSD:
+> -		v3d_attach_fences_and_unlock_reservation(&indirect_submit, 0, &se);
+> -		break;
+> -	default:
+> -		break;
+> -	}
+> -
+> -	v3d_submit_put_jobs(&submit);
+> -	v3d_submit_put_jobs(&indirect_submit);
+> +	ret = v3d_submit_jobs(&submit, 0, &se);
+> +	if (ret)
+> +		goto fail_unreserve;
+>   
+>   	return 0;
+>   
+>   fail_unreserve:
+> -	mutex_unlock(&v3d->sched_lock);
+>   	v3d_submit_unlock_reservations(&submit);
+> -	v3d_submit_unlock_reservations(&indirect_submit);
+>   fail:
+>   	v3d_submit_cleanup_jobs(&submit);
+> -	v3d_submit_cleanup_jobs(&indirect_submit);
+>   	v3d_put_multisync_post_deps(&se);
+>   
+>   	return ret;
+> 
 
-Fix this by restricting the attribute reset to only the affected subrange
-that is being unmapped.
+It's all coming nicely together now!
 
-v3:
-  - Coalesce partial_unmap range via min/max instead of blind overwrite (Matt)
-  - Restore range_debug() in xe_svm_garbage_collector_add_range() (Matt)
-  - Update partial_unmap under garbage_collector.lock to avoid races with
-    the worker.
-  - Clear consumed partial_unmap state before dropping the GC lock.
-  - Continue processing remaining queued ranges on non-fatal set_default_attr
-    failure instead of stranding them.
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Signed-off-by: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
----
- drivers/gpu/drm/xe/xe_svm.c | 87 ++++++++++++++++++++++++++++++-------
- drivers/gpu/drm/xe/xe_svm.h | 10 +++++
- 2 files changed, 82 insertions(+), 15 deletions(-)
+Regards,
 
-diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
-index 4169cfae7b51..beabae3db2dc 100644
---- a/drivers/gpu/drm/xe/xe_svm.c
-+++ b/drivers/gpu/drm/xe/xe_svm.c
-@@ -58,6 +58,8 @@ void *xe_svm_private_page_owner(struct xe_vm *vm, bool force_smem)
- 	return force_smem ? NULL : vm->svm.peer.owner;
- }
- 
-+#define XE_SVM_ATTR_RETRY_MAX 3
-+
- static bool xe_svm_range_in_vram(struct xe_svm_range *range)
- {
- 	/*
-@@ -127,6 +129,34 @@ static void xe_svm_range_free(struct drm_gpusvm_range *range)
- 	kfree(range);
- }
- 
-+static void xe_svm_range_set_unmapped(struct xe_svm_range *range,
-+				      const struct mmu_notifier_range *mmu_range)
-+{
-+	u64 new_start = max_t(u64, xe_svm_range_start(range), mmu_range->start);
-+	u64 new_end = min_t(u64, xe_svm_range_end(range), mmu_range->end);
-+
-+	drm_gpusvm_range_set_unmapped(&range->base, mmu_range);
-+	if (range->base.pages.flags.partial_unmap) {
-+		if (range->partial_unmap.start || range->partial_unmap.end) {
-+			/*
-+			 * Coalesce overlapping or adjacent intervals.
-+			 * Disjoint ranges cannot be tracked in one interval
-+			 * without covering still-mapped memory.
-+			 */
-+			if (new_start <= range->partial_unmap.end &&
-+			    new_end >= range->partial_unmap.start) {
-+				range->partial_unmap.start =
-+					min(range->partial_unmap.start, new_start);
-+				range->partial_unmap.end =
-+					max(range->partial_unmap.end, new_end);
-+			}
-+		} else {
-+			range->partial_unmap.start = new_start;
-+			range->partial_unmap.end = new_end;
-+		}
-+	}
-+}
-+
- static void
- xe_svm_garbage_collector_add_range(struct xe_vm *vm, struct xe_svm_range *range,
- 				   const struct mmu_notifier_range *mmu_range)
-@@ -135,12 +165,14 @@ xe_svm_garbage_collector_add_range(struct xe_vm *vm, struct xe_svm_range *range,
- 
- 	range_debug(range, "GARBAGE COLLECTOR ADD");
- 
--	drm_gpusvm_range_set_unmapped(&range->base, mmu_range);
--
- 	spin_lock(&vm->svm.garbage_collector.lock);
-+
-+	xe_svm_range_set_unmapped(range, mmu_range);
-+
- 	if (list_empty(&range->garbage_collector_link))
- 		list_add_tail(&range->garbage_collector_link,
- 			      &vm->svm.garbage_collector.range_list);
-+
- 	spin_unlock(&vm->svm.garbage_collector.lock);
- 
- 	queue_work(xe->usm.pf_wq, &vm->svm.garbage_collector.work);
-@@ -380,9 +412,10 @@ static int xe_svm_range_set_default_attr(struct xe_vm *vm, u64 start, u64 end)
- static int xe_svm_garbage_collector(struct xe_vm *vm)
- {
- 	struct xe_svm_range *range;
--	u64 range_start;
--	u64 range_end;
--	int err, ret = 0;
-+	u64 unmap_start;
-+	u64 unmap_end;
-+	int err;
-+	int retry_count;
- 
- 	lockdep_assert_held_write(&vm->lock);
- 
-@@ -397,8 +430,18 @@ static int xe_svm_garbage_collector(struct xe_vm *vm)
- 		if (!range)
- 			break;
- 
--		range_start = xe_svm_range_start(range);
--		range_end = xe_svm_range_end(range);
-+		if (range->base.pages.flags.partial_unmap &&
-+		    range->partial_unmap.start && range->partial_unmap.end) {
-+			unmap_start = range->partial_unmap.start;
-+			unmap_end = range->partial_unmap.end;
-+		} else {
-+			unmap_start = xe_svm_range_start(range);
-+			unmap_end = xe_svm_range_end(range);
-+		}
-+
-+		/* Clear consumed state before dropping lock. */
-+		range->partial_unmap.start = 0;
-+		range->partial_unmap.end = 0;
- 
- 		list_del(&range->garbage_collector_link);
- 		spin_unlock(&vm->svm.garbage_collector.lock);
-@@ -412,17 +455,31 @@ static int xe_svm_garbage_collector(struct xe_vm *vm)
- 			return err;
- 		}
- 
--		err = xe_svm_range_set_default_attr(vm, range_start, range_end);
--		if (err) {
--			if (err == -EAGAIN)
--				ret = -EAGAIN;
--			else
--				return err;
--		}
-+		/*
-+		 * Retry if the VMA was recreated while rebuilding attrs.
-+		 * Repeated failures mean the topology is not converging.
-+		 */
-+		retry_count = 0;
-+
-+		do {
-+			err = xe_svm_range_set_default_attr(vm, unmap_start, unmap_end);
-+			if (err == -EAGAIN && ++retry_count > XE_SVM_ATTR_RETRY_MAX) {
-+				drm_err(&vm->xe->drm,
-+					"SET_ATTR retry limit exceeded for [0x%llx-0x%llx]\n",
-+					unmap_start, unmap_end);
-+				xe_vm_kill(vm, true);
-+				return -EIO;
-+			}
-+		} while (err == -EAGAIN);
-+
-+		if (err)
-+			drm_warn(&vm->xe->drm,
-+				 "SET_ATTR failed for [0x%llx-0x%llx]: %pe\n",
-+				 unmap_start, unmap_end, ERR_PTR(err));
- 	}
- 	spin_unlock(&vm->svm.garbage_collector.lock);
- 
--	return ret;
-+	return 0;
- }
- 
- static void xe_svm_garbage_collector_work_func(struct work_struct *w)
-diff --git a/drivers/gpu/drm/xe/xe_svm.h b/drivers/gpu/drm/xe/xe_svm.h
-index b7b8eeacf196..4651e044cf53 100644
---- a/drivers/gpu/drm/xe/xe_svm.h
-+++ b/drivers/gpu/drm/xe/xe_svm.h
-@@ -46,6 +46,16 @@ struct xe_svm_range {
- 	 * range. Protected by GPU SVM notifier lock.
- 	 */
- 	u8 tile_invalidated;
-+	/**
-+	 * @partial_unmap: Structure to hold partial unmap range info.
-+	 * Valid only if partial unmap is in effect.
-+	 */
-+	struct {
-+		/** @start: Start address of the partial unmap range */
-+		u64 start;
-+		/** @end: End address of the partial unmap range */
-+		u64 end;
-+	} partial_unmap;
- };
- 
- /**
--- 
-2.43.0
+Tvrtko
 
