@@ -4,43 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B204CCD6E77
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 17:55:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C3DDCD6E75
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 17:57:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10DA01128F8;
-	Thu,  4 Jun 2026 17:55:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EBDF1128FE;
+	Thu,  4 Jun 2026 17:57:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PfjNQ4V3";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oh6Z5KRX";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01AA51128F8
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 17:55:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 921A14393C;
- Thu,  4 Jun 2026 17:55:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 593331F00893;
- Thu,  4 Jun 2026 17:55:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780595754;
- bh=zaFj2py8TsK6T7o0SYWKM/IbFagJ8zS2Zepg+odLIdw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=PfjNQ4V33FjbielV006qgc5f3dfdTUcIW/3DxqQl51cVSsGOq+yRZ3eMc3CAaLIlI
- Zvit11VH2el80eooPKlvnpF/A524Bbb1w98LjwnqDKAcZxNU8b9hxP32StJCNeEQIy
- xKNlQ230WYZiGWnsEtl4lVDO1QA+f/b5ciiJVriwZ277LH6PE6VkjtTw3ZO31E3Hb1
- m+6J3VVxfj5BnTsAETSWAhN8hjvDI9RrUvR2fbMQmsU8JmNjSTedeB6Ic49kbnb7rs
- cXTGASd3vt2E37RBIo4fYkhm1wfGNIrRwJybLVJ+1BMYRSn2BUaajCr73Achq6KdfH
- 1j3c5zyzzsfBA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 7/7] drm/panfrost: Explicitly enable MMU interrupts
- at device init
-To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260604-claude-fixes-v2-7-57c6bd4c1655@collabora.com>
-References: <20260604-claude-fixes-v2-7-57c6bd4c1655@collabora.com>
-Content-Type: text/plain; charset=utf-8
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2837D1128FE
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 17:57:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1780595856;
+ bh=6QJ4WzyVXysFN2vNMNj8xY6pSIAcO+GVV5Cc91oxCE4=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=oh6Z5KRXTYf/740kQz5Nz4Nt3LB/24wC91m4KnBQz/80Ke6F3g2jG3V4aiXGqZ8zx
+ PAJmdGofxwQj0KBHg3nduPoX3p4G3W2ti3oAG7rW056OJFFRqVHS+jNd6e6MHRsNYw
+ 8PIlsUH3AAFZiEBf9KPCjesk60F+uJnlFp9LAag8fanPhdzP5zBtgWfYfArDXqxshc
+ DYiHh71B7boeJrtq3VUd8dKIc8SW6x8qo3fpYFWMLRzKjkU8wX1ZWIffdubVfyf0b6
+ Um16dBHcbCrtwey34fnDhk3/CS6AOfuiG9cuYkkQEStS4l1eE0CASKaqYG9OXjC2H1
+ XeMAobotAhuWA==
+Received: from fedora-2.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 21A9E17E0475;
+ Thu,  4 Jun 2026 19:57:36 +0200 (CEST)
+Date: Thu, 4 Jun 2026 19:57:30 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Claude <noreply@anthropic.com>
+Subject: Re: [PATCH v2 1/7] drm/panfrost: Check another bo field for cache
+ option query
+Message-ID: <20260604195730.264b1be1@fedora-2.home>
+In-Reply-To: <20260604-claude-fixes-v2-1-57c6bd4c1655@collabora.com>
+References: <20260604-claude-fixes-v2-0-57c6bd4c1655@collabora.com>
+ <20260604-claude-fixes-v2-1-57c6bd4c1655@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 17:55:53 +0000
-Message-Id: <20260604175554.593331F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,135 +69,42 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Thu, 04 Jun 2026 18:35:20 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-Pre-existing issues:
-- [High] The MMU IRQ handler remains active while device clocks and power d=
-omains are disabled during error teardown, causing unclocked MMIO accesses =
-(S-Error).
-- [High] panfrost_reset() does not mask or synchronize the MMU interrupt be=
-fore resetting the GPU hardware, leading to a race condition with the MMU I=
-RQ thread.
---
+> When querying the properties of a BO, whether it was created in
+> Writeback caching mode for userspace mappings, is recorded in a Panfrost
+> BO's wb_mmap field.
+>=20
+> Reported-by: Claude <noreply@anthropic.com>
+> Closes: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/88
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+> Fixes: 62eedf1ccba5 ("drm/panfrost: Add flag to map GEM object Write-Back=
+ Cacheable")
 
-commit cac1cfb873df895888c7871605b659cdaf55b78e
-Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-Date:   Thu Jun 4 17:35:26 2026 +0000
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-    drm/panfrost: Explicitly enable MMU interrupts at device init
-   =20
-    Because the device must be in a position to accept jobs between the time
-    drm_dev_register() is called and autosuspend first kicks in, there's a =
-very
-    narrow window inbetween during which jobs targeting the tiler buffer
-    object would time out, since the device's PM status is 'Active', but no=
- MMU
-    interrupts were enabled at device initialisation time.
-
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_mmu.c
-> index 4a3162c3b659f..0e1ad6256c2cb 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-[ ... ]
-> @@ -355,8 +361,7 @@ void panfrost_mmu_reset(struct panfrost_device *pfdev)
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_drv.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_drv.c
+> index 3d0bdba2a474..cb8e5015847f 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -659,7 +659,7 @@ static int panfrost_ioctl_query_bo_info(struct drm_de=
+vice *dev, void *data,
+>  		if (bo->is_heap)
+>  			args->create_flags |=3D PANFROST_BO_HEAP;
 > =20
->  	spin_unlock(&pfdev->as_lock);
-> =20
-> -	mmu_write(pfdev, MMU_INT_CLEAR, ~0);
-> -	mmu_write(pfdev, MMU_INT_MASK, ~0);
-> +	panfrost_mmu_enable_interrupts(pfdev);
->  }
-
-[Severity: High]
-This isn't a bug introduced by this patch, but while reviewing the interrupt
-handling during reset, does panfrost_reset() need to mask and synchronize
-the MMU interrupt before resetting the hardware?
-
-When a job timeout occurs, panfrost_reset() correctly masks and synchronizes
-the job manager interrupts:
-
-drivers/gpu/drm/panfrost/panfrost_job.c:panfrost_reset() {
-	/* Mask job interrupts and synchronize to make sure we won't be
-	 * interrupted during our reset.
-	 */
-	job_write(pfdev, JOB_INT_MASK, 0);
-	synchronize_irq(pfdev->js->irq);
-...
-	panfrost_device_reset(pfdev, true);
-...
-}
-
-However, it does not do the same for the MMU interrupt (pfdev->mmu_irq).
-
-Because MMU faults often cause job timeouts, the
-panfrost_mmu_irq_handler_thread could be actively running concurrently on
-another CPU.
-
-If the IRQ thread attempts to handle an MMU page fault, it will write to MMU
-registers while panfrost_device_reset() concurrently calls
-panfrost_gpu_soft_reset() to reset the hardware.
-
-Can uncoordinated MMIO accesses to hardware undergoing a soft reset lead to
-unpredictable behavior or bus errors?
-
-[ ... ]
-> @@ -970,6 +975,8 @@ int panfrost_mmu_init(struct panfrost_device *pfdev)
->  		return err;
+> -		if (!bo->base.map_wc)
+> +		if (bo->wb_mmap)
+>  			args->create_flags |=3D PANFROST_BO_WB_MMAP;
 >  	}
 > =20
-> +	panfrost_mmu_enable_interrupts(pfdev);
-> +
+>=20
 
-[Severity: High]
-This is a pre-existing issue, but by explicitly enabling the MMU interrupts
-here during init, does this expose a race condition in the device
-initialization error paths?
-
-If a subsequent initialization step like panfrost_jm_init() fails,
-panfrost_device_init() will jump to the out_mmu label:
-
-drivers/gpu/drm/panfrost/panfrost_device.c:panfrost_device_init() {
-...
-	err =3D panfrost_jm_init(pfdev);
-	if (err)
-		goto out_mmu;
-...
-out_mmu:
-	panfrost_mmu_fini(pfdev);
-...
-out_clk:
-	panfrost_clk_fini(pfdev);
-...
-}
-
-panfrost_mmu_fini() masks the interrupt in hardware, but does not synchroni=
-ze
-or disable the IRQ handler in the kernel:
-
-void panfrost_mmu_fini(struct panfrost_device *pfdev)
-{
-	mmu_write(pfdev, MMU_INT_MASK, 0);
-}
-
-Because panfrost_mmu_init() registers a shared threaded IRQ handler using
-devm_request_threaded_irq(), the handler remains active during the rest of
-the teardown.
-
-If an interrupt fires or the thread runs after panfrost_clk_fini() has
-disabled the hardware clocks, panfrost_mmu_irq_handler() will read unclocked
-MMIO registers (e.g., mmu_read(pfdev, MMU_INT_STAT)).
-
-Could this lead to a fatal S-Error (synchronous external abort)?
-
->  	return 0;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-claude-fix=
-es-v2-0-57c6bd4c1655@collabora.com?part=3D7
