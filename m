@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A435CD6E6E
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 22:08:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FAC5CD6E6E
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 22:26:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E9E910E3E4;
-	Thu,  4 Jun 2026 22:08:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A57010E40F;
+	Thu,  4 Jun 2026 22:26:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PfpK5mw4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KkUI+f2p";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45BDA10E3E4
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 22:08:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A65E210E40F
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 22:26:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7FC996001A
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 22:08:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37D2C1F00893
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 22:08:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id DEBD96001A
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 22:26:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 886CC1F00898
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 22:26:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780610912;
- bh=O+3X+2iuG5boyqMumkBOYvRhUfYJCUh9iz9v4LBRues=;
+ s=k20260515; t=1780611976;
+ bh=c2MR+MGlTw8lX5aPBv/HTdAPOCuQJY94o4P3+ddv0BA=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=PfpK5mw4h/AUdpTTstzCczhZ6U39eAQiAe/VvimAMvKJROzpzB71RIcM+3wg+FJt8
- EfSJK7Yr1Q7R45mfZfcJ54KxJfTDqh85jdPOtLrzvn/u7oRVH30+Q5FIuhwG5gY4GK
- donHitSrK98Gz8VvVlZKFX7VhwJ2+E9Wd4sxse/o93jQKEUlHoml9jGJjcJFDuHHCb
- nYuZ2iiWKlHcU8Uk/bt8ly2k7hrmnIk6/hB7P6pvcM09LDcK0ycUOKdApi1DgLca7s
- tOXPiADrgbSc1J8GU+FdJhk6S0+6SGSCiOqq7tPwtXr6oxJQB1cdxaMyenOev+Br0p
- JWZR7lZCOcEUQ==
-Received: by mail-ej1-f44.google.com with SMTP id
- a640c23a62f3a-beb8a08a6c8so180036066b.2
- for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 15:08:32 -0700 (PDT)
+ b=KkUI+f2paCqlVNrTPJV/DKDMQBtOpHja5K9t+7DAuZT/kC6VnAOTmCPgbCyezI4dO
+ 0Xw1w3WVDmHpXGQmA2P1WM1YqpK6zb84OspLy8+LD/+0ibdkAwtkl8Y8X8Fxvdkvon
+ NgwHqMI9sWb/jIRZF71ComrhpK/trtPmnXw8O9aoc7Jk3PA8Vpcbk2+N5s+/j3SJ0u
+ Ur4dVm/Aw0anZxOmWy3mAdlREiZXTpTLvvxkmjIo4MD75X0Ri7izpH8Gjxm3VkL9rn
+ a4IyELeJW33NRqqvY1SnyxL/lThSZPBhYSNQQKdfc7UYcCKOrk8pUgu3ci8sd/DxnH
+ yV1ls3nrvctZg==
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-68bac6e24fdso1728091a12.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 15:26:16 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AFNElJ9uP6jy1YDrzfxcBCecwnzFSGScnPNyuXJASCwZ0N1dWzspkznXB1OC88e17ZNuYV7WJJUhoYE74T0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyeGoVzTqL40id7h8DeaS1oCU9bmzEKLhBW6VbhYJAVHr+ob/Rw
- eITRQRnSYGYUgrQIIw+OjvyYTPmk3d1Qg7TxgkCVF1vuZMx93JKepbjiCZJintHPHZSl6misJOK
- 9Jr0XveO6BOF4bOd94IlOaFAv4Hc1wQ==
-X-Received: by 2002:a17:907:96a2:b0:beb:7979:47d9 with SMTP id
- a640c23a62f3a-bf37135dafamr26249966b.8.1780610910960; Thu, 04 Jun 2026
- 15:08:30 -0700 (PDT)
+ AFNElJ/2Hp3Upgjhxl0H4XQaV99KlbStYKdAvaJjb21+QxgqgEHiqLIwFwFdOQjjl70LLeAXxmJ+0llR1qA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YymKv0uW5kZduM+Ii0uliJ0xYBeJ+6u9/m3k9KGapNMKb1GRJaI
+ c8JafPfAj1JWDvMMac5qG9A0fqGbBarSDrP/YuaxaSZ7/m+r/Q0YA6GibtxZahW98hiZEajY66s
+ 8CU05oJ0QZsV5jtDJBSGxii3luL98iQ==
+X-Received: by 2002:a05:6402:388f:b0:672:f3e:1475 with SMTP id
+ 4fb4d7f45d1cf-68fa5035afdmr413318a12.12.1780611975291; Thu, 04 Jun 2026
+ 15:26:15 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260516144623.2582427-2-mcanal@igalia.com>
-In-Reply-To: <20260516144623.2582427-2-mcanal@igalia.com>
+References: <20260523190843.33977-1-meatuni001@gmail.com>
+ <20260523201444.66197-1-meatuni001@gmail.com>
+In-Reply-To: <20260523201444.66197-1-meatuni001@gmail.com>
 From: Rob Herring <robh@kernel.org>
-Date: Thu, 4 Jun 2026 17:08:19 -0500
-X-Gmail-Original-Message-ID: <CAL_Jsq+p4Pzwki4N7RiB6YbPOA_rcV3q6rO9PNmqOsw6qOE=-A@mail.gmail.com>
-X-Gm-Features: AVVi8CfFvtoOs92eMqiLcd6S3lQtF-WTePaHpbFSZwKyFELfjs27mBPnydmeqmQ
-Message-ID: <CAL_Jsq+p4Pzwki4N7RiB6YbPOA_rcV3q6rO9PNmqOsw6qOE=-A@mail.gmail.com>
-Subject: Re: [PATCH] accel: ethosu: Remove redundant job_lock
-To: =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
+Date: Thu, 4 Jun 2026 17:26:03 -0500
+X-Gmail-Original-Message-ID: <CAL_Jsq+ASCZNaq4h9YFeQDQnepBio0sOqsVuwE2Y6adypzKbGQ@mail.gmail.com>
+X-Gm-Features: AVVi8CfdT4Yh-wrCR6LjndEHJQMw31sQLDKGquswe4IP7M9oZaPcoGx1Rgdi2ak
+Message-ID: <CAL_Jsq+ASCZNaq4h9YFeQDQnepBio0sOqsVuwE2Y6adypzKbGQ@mail.gmail.com>
+Subject: Re: [PATCH] accel/ethosu: fix OOB write in
+ ethosu_gem_cmdstream_copy_and_validate()
+To: Muhammad Bilal <meatuni001@gmail.com>
+Cc: tomeu@tomeuvizoso.net, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -72,62 +72,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, May 16, 2026 at 9:46=E2=80=AFAM Ma=C3=ADra Canal <mcanal@igalia.com=
-> wrote:
+On Sat, May 23, 2026 at 3:15=E2=80=AFPM Muhammad Bilal <meatuni001@gmail.co=
+m> wrote:
 >
-> The job_lock mutex guarded dev->in_flight_job across ethosu_job_run(),
-> the threaded IRQ handler, and ethosu_job_timedout(). However, the DRM
-> scheduler already provides most of the serialization required, which
-> makes this mutex redundant.
+> While reviewing the command stream parser further, I noticed that
+> weight[1..3] and scale[1] have their base and length parsed but no
+> corresponding WEIGHT1_REGION/SCALE1_REGION commands exist in the UAPI.
+> After cmd_state_init() memsets the state to 0xff, their .region field
+> stays 0xff and is never assigned, so calc_sizes() never updates
+> region_size[] with their extents.
 >
-> Analyzing the different scenarios:
+> The job submission in ethosu_job.c validates region_size[i] <=3D gem->siz=
+e,
+> but since secondary weights never wrote into region_size[], a userspace
+> caller could supply large base+length values for weight[1..3] or scale[1]
+> that exceed the GEM buffer without the kernel catching it.
 >
->   1. run_job() and timedout_job() are mutually exclusive scheduler
->      callbacks, so the scheduler itself serializes them.
->
->   2. run_job() and the IRQ handler are implicitly serialized, but they ca=
-n
->      overlap in time: dma_fence_signal() synchronously queues the next
->      run_job onto submit_wq, and the worker can execute run_job(next) on
->      another CPU before the IRQ thread finishes. The mutex previously kep=
-t
->      the IRQ's trailing "in_flight_job =3D NULL" from racing run_job(next=
-)'s
->      "in_flight_job =3D next" store.
->
->      The handler is now restructured to clear in_flight_job before callin=
-g
->      dma_fence_signal(), so any run_job(next) woken by the signal observe=
-s
->      NULL.
->
->   3. timedout_job() and the IRQ handler can also overlap if the hardware
->      completes the timed-out job near the timeout boundary, since
->      drm_sched_stop()'s cancel_work_sync() only synchronizes with the
->      scheduler's workqueue. The IRQ handler saves in_flight_job into a
->      local with READ_ONCE() before dereferencing ->done_fence, and
->      run_job()/timedout_job() publish the field with WRITE_ONCE(). This
->      prevents the compiler from reloading the pointer, and keeps the IRQ
->      thread operating on the same job for the duration of the handler eve=
-n
->      if timedout_job() concurrently clears the field.
->
-> Drop the mutex along with its initialization.
->
-> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
-> ---
->
-> Hi,
->
-> I noticed this pattern while reviewing "[PATCH v2] accel: ethosu: Add
-> performance counter support" and I had the impression this could be a
-> nice code simplification. However, I don't have the hardware to test it,
-> so this was only "compile-tested".
+> Does the hardware specification guarantee that weight[1..3] and scale[1]
+> are always sub-offsets within weight[0]'s region, or can they reference
+> memory independently? If the latter, should their extents be validated
+> against region_size[weight[0].region] in calc_sizes()?
 
-Looks good to me and I'll give it a spin before applying.
+There is only 1 weight region and 1 scale region, so the former.
 
-The mutex originated from the rocket driver code, so maybe the same
-change applies there? Though since we have a single h/w core/queue,
-things are a bit simpler for ethosu.
+I think we just need to keep a single weight and scale length which is
+the max of any base+length.
 
 Rob
