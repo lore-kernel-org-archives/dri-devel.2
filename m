@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9AC2CD6E75
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 17:51:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD592CD6E77
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 17:51:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1836B1128F0;
-	Thu,  4 Jun 2026 17:51:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1756B10E3C8;
+	Thu,  4 Jun 2026 17:51:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="R6yTnxE8";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="RwJhi2Qu";
 	dkim-atps=neutral
 Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
  [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5081710E3BA
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D3571128F0
  for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 17:51:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1780594578; cv=none; 
+ARC-Seal: i=1; a=rsa-sha256; t=1780594576; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=WGmmvKISPfzhj81F5E5sGRS7BmM+pRzy00R4A6NQ+5BtxWuIeV+ByUNeXP5hLvO3hHujLwKS+cxDM2mU7c0UwtmPNpwDNYA9pVtbKZxC9HTiFLOD9u2QHSbpwC75woD4prJSS1XCkYtEH4cSHmutK/G0+MnlFNN1w13f4FbeU3s=
+ b=ZG/H4cv4LsYrGuX5Hs8zB9vFMY42IpltOmLu1Dgjfm28/iazT//p8cbaz3E6vvCMEDtnssBruuBmKeM6dMILcvVPa6cbHg7mZ90zg/RVPm7OhjPRatiW+pYl/Duv4eKwshwNOVr8NfOdEs9Z32VcwtY265gzl8WXWb80dpMeJTQ=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1780594578;
+ s=zohoarc; t=1780594576;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=4u+t/C8H9x/aY+ZDOhqE29VEMGRhkLvLihuswVI+BME=; 
- b=HFiA2l3VE8M8Wya3ki+VIGYGMWILqllMAhPz+udGwNMX9DytFUq09f1SOIrSduXu0VPG87cJ71gmJA0TbhNKPYZmbv7Vsr/fdAJmEklUe5U7rI30TF2kt6qfRj4F1qESQCCEJotwvTX+zZvks0KRIzdjiviXSb+xyv9D3Yjcdn8=
+ bh=Aw8Xp6e/O0fBl1LUOgwrUnYqJiNQ0v1DVfYDC2Jp0rU=; 
+ b=mTueuZTh2q+qwUY1zTkwosCT6eFsMnuq4aL3Bul6X0OB2o88CAQZtgJ7vBMpmKnn8l6X+XJ8L8OeDfDMhq9i7wcX3M5rEBeipKf5jIAnQlVsEU+rO6N9yxyu+lozsmNY9/mgzIMT1azSwrCKpFEJ2wWrkkcuSEJUTtzbs7vU+3g=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780594578; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780594576; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=4u+t/C8H9x/aY+ZDOhqE29VEMGRhkLvLihuswVI+BME=;
- b=R6yTnxE8Y7L8U/D9YiYuMEZNFCTcVV2k1HCp+NqceE/JWz2haXYuU10UjimEs9pn
- 4Vgj+UJ/RA4YkyGAQi33f9z8aR/lF7m6ocmXs2UxMUVrLJUMkWkjly/F/AUiDccdT9G
- A7FSx3Z3EYDbiz0S4Adj+4WuPBp2lMweBKAIKksc=
-Received: by mx.zohomail.com with SMTPS id 1780594577655702.1261648486782;
- Thu, 4 Jun 2026 10:36:17 -0700 (PDT)
+ bh=Aw8Xp6e/O0fBl1LUOgwrUnYqJiNQ0v1DVfYDC2Jp0rU=;
+ b=RwJhi2QulxoOH2pM4mjQLlQHFbA5CBN3I/1jm2u6EuvXgGw6+pPe1oSCPD5ZciyS
+ HtYXh+BZMeWHDuVvHxQl7H+Xpe2ykK80ONbsiCeGfrK1sHFghy1bAFBX82vwqQUS1BP
+ B2qGLWdfCA3Voez4cP+Fupn/knkbTu3ZSsiJJIIE=
+Received: by mx.zohomail.com with SMTPS id 1780594573852741.1280981036659;
+ Thu, 4 Jun 2026 10:36:13 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Thu, 04 Jun 2026 18:35:23 +0100
-Subject: [PATCH v2 4/7] drm/panfrost: Move perfcnt GPU disable sequence
- into a helper
+Date: Thu, 04 Jun 2026 18:35:22 +0100
+Subject: [PATCH v2 3/7] drm/panfrost: Move shrinker initialization and
+ unplug one level down
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260604-claude-fixes-v2-4-57c6bd4c1655@collabora.com>
+Message-Id: <20260604-claude-fixes-v2-3-57c6bd4c1655@collabora.com>
 References: <20260604-claude-fixes-v2-0-57c6bd4c1655@collabora.com>
 In-Reply-To: <20260604-claude-fixes-v2-0-57c6bd4c1655@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -62,18 +62,18 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2667;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4486;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=jDTN3KPXW5GgyiXtSuso4KxYEzTJHTIqTdytBXUJh3s=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqIbd8wDXgYJGEsn0JD+YxBWGWWzOze1DVPwGjD
- ctxIwj10qSJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaiG3fAAKCRAOJn5M7lND
- PTSDC/9sL6DxcKKPZnVI7pgw7rhShwg0i2M3gc4N7vY3iq+ZyJHC7sViGiCyNXYRSHTBNU+VmSF
- 9iTRHNxXkELTlE/hLo4icEPUSCSGjOO0kAjSRLjwLb03U98+qXVkLtKoKLcUA3+9JWZctCBy6h4
- iLPq1DJ2bLNOGFWBJ9W9PEqOC2kyYxwR0+1FEs6BMrIM7INYd/S26K9l3MjGOZCRz7dMGEj4kqT
- tDL40MTEJ+tDBzfkzFjYLyFUqJ3yWnjWJGngeCPlMIuelGM7OW1AxDT+m3VQiS3eO8weLYUWVcn
- OWTxgk3AIiihvjELX1KTVME+s0uGZ1XoYpo19jAGMkILDKvCSgtxcwHLlp+m1OvyGzIq7LGrXNI
- SiZ7xbYC73iZjOWxgVoMHy2Z78Xkfgm+eMlBhwaU4nEOd/VuEnhvUwlOuvnOR21g3ThapuwG/DV
- eclFRe+J38f1bX6LMAiN6bUZbnToKt0YCJrbzT6uZpi416OLYHM4k7FG3/oAWWy/D1dWI=
+ bh=envzPTUCQc+h2llEXgapJvru00GcWmuLBMhw4xPsdkM=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqIbd8AzD5yRWR2OF4sWoMokcZM/xgmSxYu6MCt
+ CVm59bvAxmJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaiG3fAAKCRAOJn5M7lND
+ PZmNC/91TG6cjRt8ogqHJY9YqDy2MZBcTW0yY+kTW0/kC6mluvGa1OZjymbpefYuaxErIq0LRid
+ fEtseQON/iam79BSbJ7IJ4AotBb8x8AVI3Oaahmkcykf0iedX30lBk95ypdLdkSb/o0GWO23uUU
+ i2/dIDF79/KVRVjwvpdH//wtgkKqhWbVjYg9n/gk3/Uak5GSfgSMXR+k5ZHKuTc0+wzPGnDJomL
+ ryiQkzIVManMzMDUOCCJ3eqkv7uvCFMFp7UUqOEj4zed3LyMSxVvWpho4TFr+bHkhjs4vxwfbkG
+ zfm8eJUjFP7JjMMDPQqKtaZMegGTSs8hzpSGVJEi2m+Et1iQV49nzOCZ6uapt4z69ilBzvIJqeT
+ X20L8NlfY8MX7VhTZ15Pqa+I/UkapNVbatd3nlCkiASLu5MxGn3lh+TL+IgiqAffcLRSmBRGFj5
+ JN97x6fnU8rdezibJnxBrEzqZmGKIWPVcPNNqDL0/d02JCXv6e/jvhN77c59J6B6tRhpw=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -91,73 +91,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Just for the sake of avoiding repetition.
+Since the moment we call drm_dev_register() the device should be in a
+position to accept jobs, so it's best if the shrinker is already
+initialized by then.
+
+On top of that, make shrinker functions take an panfrost_device pointer
+like other functions in the same sequence and rename them accordingly.
+
+Essentially mimic the init/fini behaviour in Panthor.
 
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 31 ++++++++++++-----------------
- 1 file changed, 13 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_device.c       | 7 +++++++
+ drivers/gpu/drm/panfrost/panfrost_drv.c          | 6 ------
+ drivers/gpu/drm/panfrost/panfrost_gem.h          | 4 ++--
+ drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c | 8 ++------
+ 4 files changed, 11 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-index 7020c0192e18..ad1156678e91 100644
---- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-@@ -35,6 +35,16 @@ struct panfrost_perfcnt {
- 	struct completion dump_comp;
- };
+diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+index 7fed22d555a5..87b372c9e675 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_device.c
++++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+@@ -282,9 +282,15 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+ 	if (err)
+ 		goto out_job;
  
-+static void panfrost_perfcnt_gpu_disable(struct panfrost_device *pfdev)
-+{
-+	gpu_write(pfdev, GPU_PERFCNT_CFG,
-+		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
-+	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
-+	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
-+	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
-+	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
-+}
++	err = panfrost_gem_shrinker_init(pfdev);
++	if (err)
++		goto out_perfcnt;
 +
- void panfrost_perfcnt_clean_cache_done(struct panfrost_device *pfdev)
+ 	panfrost_gem_init(pfdev);
+ 
+ 	return 0;
++out_perfcnt:
++	panfrost_perfcnt_fini(pfdev);
+ out_job:
+ 	panfrost_jm_fini(pfdev);
+ out_mmu:
+@@ -306,6 +312,7 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+ 
+ void panfrost_device_fini(struct panfrost_device *pfdev)
  {
- 	complete(&pfdev->perfcnt->dump_comp);
-@@ -193,12 +203,7 @@ static int panfrost_perfcnt_disable_locked(struct panfrost_device *pfdev,
- 	if (user != perfcnt->user)
- 		return -EINVAL;
++	panfrost_gem_shrinker_fini(pfdev);
+ 	panfrost_perfcnt_fini(pfdev);
+ 	panfrost_jm_fini(pfdev);
+ 	panfrost_mmu_fini(pfdev);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index cb8e5015847f..2d4b6aa95c66 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -1000,14 +1000,9 @@ static int panfrost_probe(struct platform_device *pdev)
+ 	if (err < 0)
+ 		goto err_out1;
  
--	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
--	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
--	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
--	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
--	gpu_write(pfdev, GPU_PERFCNT_CFG,
--		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
-+	panfrost_perfcnt_gpu_disable(pfdev);
+-	err = panfrost_gem_shrinker_init(&pfdev->base);
+-	if (err)
+-		goto err_out2;
  
- 	perfcnt->user = NULL;
- 	drm_gem_vunmap(&perfcnt->mapping->obj->base.base, &map);
-@@ -327,12 +332,7 @@ int panfrost_perfcnt_init(struct panfrost_device *pfdev)
- 	perfcnt->bosize = size;
+ 	return 0;
  
- 	/* Start with everything disabled. */
--	gpu_write(pfdev, GPU_PERFCNT_CFG,
--		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
--	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0);
--	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0);
--	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0);
--	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
-+	panfrost_perfcnt_gpu_disable(pfdev);
+-err_out2:
+-	drm_dev_unregister(&pfdev->base);
+ err_out1:
+ 	pm_runtime_disable(pfdev->base.dev);
+ 	panfrost_device_fini(pfdev);
+@@ -1021,7 +1016,6 @@ static void panfrost_remove(struct platform_device *pdev)
+ 	struct panfrost_device *pfdev = platform_get_drvdata(pdev);
  
- 	init_completion(&perfcnt->dump_comp);
- 	mutex_init(&perfcnt->lock);
-@@ -344,10 +344,5 @@ int panfrost_perfcnt_init(struct panfrost_device *pfdev)
- void panfrost_perfcnt_fini(struct panfrost_device *pfdev)
+ 	drm_dev_unregister(&pfdev->base);
+-	panfrost_gem_shrinker_cleanup(&pfdev->base);
+ 
+ 	pm_runtime_get_sync(pfdev->base.dev);
+ 	pm_runtime_disable(pfdev->base.dev);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
+index 79d4377019e9..323a1aee255e 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem.h
++++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
+@@ -154,8 +154,8 @@ panfrost_gem_mapping_get(struct panfrost_gem_object *bo,
+ void panfrost_gem_mapping_put(struct panfrost_gem_mapping *mapping);
+ void panfrost_gem_teardown_mappings_locked(struct panfrost_gem_object *bo);
+ 
+-int panfrost_gem_shrinker_init(struct drm_device *dev);
+-void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
++int panfrost_gem_shrinker_init(struct panfrost_device *pfdev);
++void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev);
+ 
+ void panfrost_gem_set_label(struct drm_gem_object *obj, const char *label);
+ int panfrost_gem_sync(struct drm_gem_object *obj, u32 type,
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+index 2fe967a90bcb..fefae87535d6 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
++++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+@@ -95,10 +95,8 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+  *
+  * This function registers and sets up the panfrost shrinker.
+  */
+-int panfrost_gem_shrinker_init(struct drm_device *dev)
++int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
  {
- 	/* Disable everything before leaving. */
--	gpu_write(pfdev, GPU_PERFCNT_CFG,
--		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
--	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0);
--	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0);
--	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0);
--	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
-+	panfrost_perfcnt_gpu_disable(pfdev);
+-	struct panfrost_device *pfdev = to_panfrost_device(dev);
+-
+ 	pfdev->shrinker = shrinker_alloc(0, "drm-panfrost");
+ 	if (!pfdev->shrinker)
+ 		return -ENOMEM;
+@@ -118,10 +116,8 @@ int panfrost_gem_shrinker_init(struct drm_device *dev)
+  *
+  * This function unregisters the panfrost shrinker.
+  */
+-void panfrost_gem_shrinker_cleanup(struct drm_device *dev)
++void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev)
+ {
+-	struct panfrost_device *pfdev = to_panfrost_device(dev);
+-
+ 	if (pfdev->shrinker)
+ 		shrinker_free(pfdev->shrinker);
  }
 
 -- 
