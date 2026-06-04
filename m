@@ -4,42 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C246CD6E6E
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 19:29:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9AD7CD6E6E
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 19:37:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72A9A112972;
-	Thu,  4 Jun 2026 19:29:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01F9211A288;
+	Thu,  4 Jun 2026 19:37:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Kb7uoHLw";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="eDznaaoi";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14C4E112972
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 19:29:49 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CB0CF43E04;
- Thu,  4 Jun 2026 19:29:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 915571F00893;
- Thu,  4 Jun 2026 19:29:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780601388;
- bh=axSVcuilFjvQE40R/sVbNFbup++p863Xuvn6x49nwQM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Kb7uoHLwaIticPZaZduY+UQzZoyy0VBMcGrE8dXGiS9u5O+fEcHdrim5Vq/LiV/j6
- zqdyf+onqi6K7RvzePx6xwFOvdkv8ExekN19qF4EBCdgDNFUvCf2pxKXQjgsBIzBlo
- lsY/p3rXnUEAXY3dHd6FCt0CTaSVjyQT5bRsH9bkDH/ljz5sALDHTdJUZ6M1tQJIH2
- Vqgi6YQeBBCDSw6wdQWeyfIKiTcN9QCTOfK1l4Us6elvF8mqZfgSxTzoVW22vIt6tC
- HrKyFrDjDDyiTGDCovShOHYYi7tSbvobIiH/9fYeuA000pl7nmxM8CHknhZBoPFE0F
- OPN5VJql6VqeA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/gem: Try to fix change_handle ioctl, attempt 4
-To: "Simona Vetter" <simona.vetter@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260604191916.1713387-1-simona.vetter@ffwll.ch>
-References: <20260604191916.1713387-1-simona.vetter@ffwll.ch>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3144E11A288
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 19:37:03 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-5aa64afcfdfso283e87.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 12:37:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780601821; cv=none;
+ d=google.com; s=arc-20240605;
+ b=Skb0ZesTwjq2YBFImaucpbjnOcT95wLHg2QBlgFVIlpv4pcM5dUa3/AmjqXaAAVw4R
+ B4h4K8A8NU7gZgY2RWnz2379rgUYEhU0T98IRwD3Pi2ksqH/FFmNxhX5iNcVA4eJ5Ctc
+ F2HOaSo1qxNc5rTe2ZVqrHcYOOfPBWKN+P64rTlNwGZY/fBSq7mfQ2c2PROFErDN3fi4
+ S7J1FbchSIlnM2GPO4oYqjOt3Ypkk4avoparGqogz5fXIYbW67T9AY9dosiFTbXRwUNC
+ EeM29NBOO5pyJlOA96TTLma/1+h3QuzyAzB7QzSWpKGfFAgYONr82Dh08I4ehQtEQAaw
+ bZ7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=KUiC23PK8EOFQC+N7GaZpdkePm+wStyLtAYgas7c/7M=;
+ fh=QNElZscPGkeRoNSnfdTxxbFmfzwts4Y5Maz7DRLMRBg=;
+ b=cnOZhx47SpgAMiOOccfBeKNJer1OUhcKg+sAKxrf36FglzShcaIT3uNyE/TXJY9TFs
+ Uatq/oVZDGNcFdvB66Ptorzmbwl3gnwYvlfWc2ngtPhrtPQ9Re8GDzf7WBlCvaQ3rhLp
+ 7+vepL6cbsm1VOGybI6a8yUZKgg/byG5hNhphlvx/BsuWVFIaEcuHEJI4hQ/I+bTpIMK
+ 98W+95IsoQJ1ghqj/Ba2uH+PUja3552YqpPvd6t95nhWlP2PERQDvSZSEab3pqi4QX6a
+ sKF1rwGS9hzT8xSQ+ZEbKFl4hsJMZnHYHknnRurzFBT1gqHrwo279OrqDYfVsMF9ybIn
+ O55A==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1780601821; x=1781206621;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=KUiC23PK8EOFQC+N7GaZpdkePm+wStyLtAYgas7c/7M=;
+ b=eDznaaoijb8nvGzf0IBiR5+Wp5Zur/DhiB4nyYVsjNK4CicHSaCtx8bULTpLWW1GkU
+ jIiyE/Pgbi8i2Yl4fBTwYfLrK4G4Tnx468TT7shA4mkDBj6sGjdwkX60dyUg3woYZtaJ
+ 5WxQ/BpJka2JY4Et4LRCWOaIULbDcNdVkJwQYJiaFPjW6D2Zpp1wqO2ye8G4DYPPAxo9
+ Qn6nIYbvwaVtKeIFd7mySyb4A1HdqhxXKXOmkXj/5C/1+wlW/gHcklS3pKeZyTimBUZp
+ DVensE99iueyZ2rMvNmjbMHS8c+sK83SecO910xd1Wx3/89gj9iUdVKEL4LGkuBkPt1N
+ dCKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780601821; x=1781206621;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=KUiC23PK8EOFQC+N7GaZpdkePm+wStyLtAYgas7c/7M=;
+ b=RDgx3LwoTKodrmbKquRDNbRMb4AreS/IKdXBT7RRVTgVo7vGfH5ZcDpOGRaLoxc4te
+ gDwaiHMNWuAKTe2UT9JTzduWArwF9rjYdOceozMSvt/fyTgTBMXvz4zXpuOZu5HMvHMC
+ HEQUpX70zd6bi8sSF2lL2sTUCD4diBHBfO5vxFnjQBcMbNM8eV9taGpMqdsNqOIV66Su
+ zskM3Pd8G82RdXbd8tF45x1AU1nB3LEze1c6ET9Vm5r+owUj6GUzXAKVA8+2S9HJbAB2
+ woeG5cQ4atbjxjnxWieCkJOfdUZJo4jvdQg6RkaFyugVOe7zSgYRV9SqZ/SJyfkAcSHY
+ Mzww==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8Mf+ZpBepFUIAWyNcY0jyCyRAwEHcBEQI/kiBKurPv/S/3gc8POMqxX1PouRwDWjd7KLgR4ELS38c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxxihFFGGI/E/fIvKDC9sIauPe0EhaqcMCLYPcnS3UcvulHqMVs
+ pgGAaX5p8LipZp4fRihAsGGwJ6tpMUpMVhDA+WwhzH7/9tmm+pRxGJ91FfxwYqIa+lNHfYm/Ziq
+ K2CIMwzWd4tq/eqL2rzEE9AVTn8/Pm/ky8VfSAnw=
+X-Gm-Gg: Acq92OGLhoKp4rFVvrO5xGkZayJt1o4gk+z4Unwv2egf7Y0fPwpyWIpv46sOQWxxeNE
+ Q0CwhuLNme9iSNdE0Z7oDmMu9MZ7HDjZWKEl5y8S5rB2+4cXp1I3BGUGEgSsV+io5rAz9BMTZDX
+ toY5PoRmi9RggXJU+0YE1U9hLbSBll5nBNIiUI++Esv7+z/ryac4qZkHm+1gX1JQ6rKRT4RTLBR
+ JBhJjJ9Ys5R6/0niI7CKGqlFINIw+3FZsJs7qgIn/BMExstReFTR+YU2ZIBFNrrX5dp8//3obfD
+ af5NAFQ2wZ2XCHdTHF+xL6r0X+pxQL5aNYQwT2vUGCxKpMw=
+X-Received: by 2002:a05:6512:2446:b0:5aa:6ede:1a68 with SMTP id
+ 2adb3069b0e04-5aa877c6752mr44886e87.10.1780601820811; Thu, 04 Jun 2026
+ 12:37:00 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260601200012.3872274-1-xuehaohu@google.com>
+ <20260604094344.GB245424@unreal>
+In-Reply-To: <20260604094344.GB245424@unreal>
+From: David Hu <xuehaohu@google.com>
+Date: Thu, 4 Jun 2026 15:36:48 -0400
+X-Gm-Features: AVHnY4I667s8Q-kTs7E7YlSR5Fzg5WrO7fnNQmow9VUJtwR-GDJeAyWDhu8beOk
+Message-ID: <CAPd9Lg_JkRdtNa=n+HE9SP+NFCSB+X_97eiPBqiONVLwV0pHwQ@mail.gmail.com>
+Subject: Re: [PATCH v5] dma-buf: Fix silent overflow for phys vec to sgt
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>,
+ Kevin Tian <kevin.tian@intel.com>, 
+ Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>,
+ linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, jmoroni@google.com, 
+ praan@google.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 19:29:47 +0000
-Message-Id: <20260604192948.915571F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,59 +111,63 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Missing IS_ERR check on idr_replace() return value causes an inval=
-id pointer dereference.
---
+On Thu, Jun 4, 2026 at 5:43=E2=80=AFAM Leon Romanovsky <leon@kernel.org> wr=
+ote:
+>
+> On Mon, Jun 01, 2026 at 08:00:12PM +0000, David Hu wrote:
+> > @@ -36,7 +36,7 @@ static unsigned int calc_sg_nents(struct dma_iova_sta=
+te *state,
+> >                                 struct phys_vec *phys_vec, size_t nr_ra=
+nges,
+> >                                 size_t size)
+> >  {
+> > -     unsigned int nents =3D 0;
+> > +     size_t nents =3D 0;
+> >       size_t i;
+> >
+> >       if (!state || !dma_use_iova(state)) {
+> > @@ -51,6 +51,9 @@ static unsigned int calc_sg_nents(struct dma_iova_sta=
+te *state,
+> >               nents =3D DIV_ROUND_UP(size, UINT_MAX);
+> >       }
+> >
+> > +     if (nents > UINT_MAX)
+>
+> I would suggest to use check_add_overflow() while calculating nents
+> instead of this check.
 
-commit f7209a31976a5023734386f397179e3835aa2048
-Author: Simona Vetter <simona.vetter@ffwll.ch>
+Hi Leon,
 
-drm/gem: Try to fix change_handle ioctl, attempt 4
+Thank you for the review. Using `check_add_overflow()` is a great
+suggestion and definitely
+cleaner for the accumulation loop. I'll update this for v6.
 
-This commit modifies the change_handle ioctl to resolve a race condition
-by merging the GEM object lookup and two-stage idr_replace. It also
-temporarily disables the ioctl in drm_ioctls to prevent further abuse until
-the implementation is fully verified.
+> > @@ -133,6 +137,11 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dm=
+a_buf_attachment *attach,
+> >       }
+> >
+> >       nents =3D calc_sg_nents(dma->state, phys_vec, nr_ranges, size);
+> > +     if (!nents) {
+> > +             ret =3D -EINVAL;
+> > +             goto err_free_state;
+> > +     }
+>
+> Technically, this hunk is not necessary, since sg_alloc_table() will
+> return -EINVAL when nents =3D=3D 0. At least, that is the behavior I reli=
+ed on.
 
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index ac751a42db281..66cfd52c7cff9 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-[ ... ]
-> @@ -1028,52 +1028,36 @@ int drm_gem_change_handle_ioctl(struct drm_device=
- *dev, void *data,
-[ ... ]
-> +	obj =3D idr_replace(&file_priv->object_idr, NULL, args->handle);
-> +	if (!obj) {
+I originally added this explicit check in v5 to address Jason's
+feedback, and to make the
+failure explicit rather than relying on `sg_alloc_table()` failing
+silently on `nents=3D0`.
 
-[Severity: High]
-Will this result in dereferencing an error pointer if args->handle is inval=
-id?
+Jason, do you have a strong preference here? I am happy to drop the
+hunk and rely on
+`sg_alloc_table()` returning `-EINVAL` if you are both comfortable with tha=
+t.
 
-If idr_replace() fails to find the handle, it returns ERR_PTR(-ENOENT) rath=
-er
-than NULL. The check here only tests for NULL, allowing an error pointer to
-fall through.
-
-> +		idr_remove(&file_priv->object_idr, new_handle);
-> +		spin_unlock(&file_priv->table_lock);
-> +		ret =3D -ENOENT;
-> +		goto out_unlock;
-> +	}
->  	spin_unlock(&file_priv->table_lock);
-> =20
->  	if (obj->dma_buf) {
-
-If an error pointer falls through the check above, wouldn't evaluating
-obj->dma_buf here cause an invalid pointer dereference? Should the error
-handling for idr_replace() be updated to use IS_ERR(obj)?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604191916.1713=
-387-1-simona.vetter@ffwll.ch?part=3D1
+Thanks,
+David
