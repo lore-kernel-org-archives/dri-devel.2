@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61D6BCD6E68
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 09:50:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1548CD6E68
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 09:50:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD0FE112713;
-	Thu,  4 Jun 2026 09:50:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C8FE10E5FC;
+	Thu,  4 Jun 2026 09:50:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jtc+lYcN";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PnyJ5uXQ";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A92D112713;
- Thu,  4 Jun 2026 09:50:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C5EC112755;
+ Thu,  4 Jun 2026 09:50:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780566639; x=1812102639;
+ t=1780566642; x=1812102642;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=u+J4fL5pYetSuc1o086u36Z4jaib7dbLRBdbYLBnZk8=;
- b=jtc+lYcNTWNzZTXRpRFjAp/6gj6Om6XzhqtUhgdhnR3EzirREbSgr3eP
- +T76nUYTUlVmCpgM2G6QF3wba1YKc7SaUpVHqlCjk5rZNGz3Hk1DGsJvn
- o2Hr3beOSrqkb5iyRVaXNxIm0HOH2YAT0BT6QVyznjb0Ql641T+WA+baR
- cyAfeR6NM/uivt2blade4M/Gf55JcMEa0NzXGS4AAIAoXQb4C1pJMAa6B
- YsddOaGgrZQRG+BuahLcN1kLWcjD3rdeG6DvDvwg5xmPKcVz4cY/7D+Fx
- NMXiJD4J+v1iV236nOaomxpqSBSwAH/pzIns7Kl91X8Y7N0bwvt+JHVVQ g==;
-X-CSE-ConnectionGUID: QgLKeBR+Q0yaEsTIufOI8w==
-X-CSE-MsgGUID: fBSZRSxkQaqVeoWl/NeC7Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11806"; a="98810526"
-X-IronPort-AV: E=Sophos;i="6.24,186,1774335600"; d="scan'208";a="98810526"
+ bh=2kxQsuJAGg34AMTlr4geEF0AHmggJJRghF/UtqI3zeM=;
+ b=PnyJ5uXQQUiF5vJ2Kc1NDBlDR8z4C0qDIm1qcts0rV2EUb2ZP+jVHDcW
+ KTTxcKbiU5+64LosIMHds/o+h1rJzeRcl5YbzVyqXUAvmM9NU7LnIOUo1
+ WudPF3v3cI9xgu91jYsUGX8NQ/UAEnzQ8x6h3IAvO/Vm4dx9wVsUUvP4B
+ QeXCRTL7Foac9IYxqeh4NGqK7631hi3kAiU62He6QikSecxPsHqhwCfko
+ s2/kEjlwcPHiyxzskgtmA0Gc8OoAcJHIdwGffogozzTvNueELTMdndYSn
+ K77n/ckXoh0rpeYODe+G1onFqGdpz21jRnOuoMedCrysbFMBYx23LIc9D g==;
+X-CSE-ConnectionGUID: /CZckNrlS6OUBT1sPyhlFA==
+X-CSE-MsgGUID: UDcOdWcqTfaKxPDcOz7gQw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11806"; a="98810528"
+X-IronPort-AV: E=Sophos;i="6.24,186,1774335600"; d="scan'208";a="98810528"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2026 02:50:39 -0700
-X-CSE-ConnectionGUID: ZaIqmCjqSxSv8Byxreaf6w==
-X-CSE-MsgGUID: t+eeq+7USM+ynLUV3K2MAQ==
+ 04 Jun 2026 02:50:41 -0700
+X-CSE-ConnectionGUID: liH5yW9WTgGMS9DlEsu4tA==
+X-CSE-MsgGUID: vmY/6emQSUq+vQvNdKN8Zw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,186,1774335600"; d="scan'208";a="282602405"
+X-IronPort-AV: E=Sophos;i="6.24,186,1774335600"; d="scan'208";a="282602416"
 Received: from varungup-desk.iind.intel.com ([10.190.238.71])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2026 02:50:37 -0700
+ 04 Jun 2026 02:50:39 -0700
 From: Arvind Yadav <arvind.yadav@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: matthew.brost@intel.com, himal.prasad.ghimiray@intel.com,
  thomas.hellstrom@linux.intel.com
-Subject: [RFC v3 6/7] drm/xe/vm: Wire MADVISE_AUTORESET notifiers into VM
- lifecycle
-Date: Thu,  4 Jun 2026 15:20:11 +0530
-Message-ID: <20260604095012.367231-7-arvind.yadav@intel.com>
+Subject: [RFC v3 7/7] drm/xe/svm: Correct memory attribute reset for partial
+ unmap
+Date: Thu,  4 Jun 2026 15:20:12 +0530
+Message-ID: <20260604095012.367231-8-arvind.yadav@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260604095012.367231-1-arvind.yadav@intel.com>
 References: <20260604095012.367231-1-arvind.yadav@intel.com>
@@ -71,273 +71,194 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Initialise the MADVISE_AUTORESET notifier infrastructure for fault-mode
-VMs and tear it down during VM close.
+From: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
 
-VM close drops vm->lock around xe_vm_madvise_fini(), since the madvise
-worker takes vm->lock while draining pending unmap work. The close path
-then retakes vm->lock before xe_svm_fini().
+When performing a partial unmap of an SVM range, the memory attributes
+were being reset for the entire range instead of just the portion
+being unmapped. This could lead to unintended side effects and behaviour.
 
-The MADVISE ioctl collects CPU mirror VMA ranges under vm->lock and
-registers interval notifiers after dropping it. Registration is
-best-effort because mmu_interval_notifier_insert() may take mmap_lock.
-
-If registration fails, disable MADV_AUTORESET for the exact VMA range but
-keep cpu_autoreset_active set, since the VMA is still CPU-only until the
-first successful GPU fault.
-
-Also skip SVM PTE zapping for CPU mirror VMAs while cpu_autoreset_active
-is set, since no GPU PTEs should exist yet.
-
-v2:
-  - Register notifiers outside vm->lock; take vm->lock only for dedup and
-    mtree_store_range. (Matt)
-  - Collect VMA ranges under vm->lock and register notifiers after
-    unlock. (Matt)
+Fix this by restricting the attribute reset to only the affected subrange
+that is being unmapped.
 
 v3:
-  - Allocate notifier ranges before mutating VMA state.
-  - Fix notifier-lock unwind when the madvise type is invalid.
-  - On notifier registration failure, clear MADV_AUTORESET but keep
-    cpu_autoreset_active.
+  - Coalesce partial_unmap range via min/max instead of blind overwrite (Matt)
+  - Restore range_debug() in xe_svm_garbage_collector_add_range() (Matt)
+  - Update partial_unmap under garbage_collector.lock to avoid races with
+    the worker.
+  - Clear consumed partial_unmap state before dropping the GC lock.
+  - Continue processing remaining queued ranges on non-fatal set_default_attr
+    failure instead of stranding them.
 
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+Signed-off-by: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
 Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
 ---
- drivers/gpu/drm/xe/xe_svm.c        |   9 +++
- drivers/gpu/drm/xe/xe_vm.c         |  14 ++++
- drivers/gpu/drm/xe/xe_vm_madvise.c | 105 ++++++++++++++++++++++++++++-
- 3 files changed, 125 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/xe/xe_svm.c | 87 ++++++++++++++++++++++++++++++-------
+ drivers/gpu/drm/xe/xe_svm.h | 10 +++++
+ 2 files changed, 82 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
-index b58857668d48..4169cfae7b51 100644
+index 4169cfae7b51..beabae3db2dc 100644
 --- a/drivers/gpu/drm/xe/xe_svm.c
 +++ b/drivers/gpu/drm/xe/xe_svm.c
-@@ -914,6 +914,15 @@ int xe_svm_init(struct xe_vm *vm)
- 			drm_pagemap_release_owner(&vm->svm.peer);
- 			return err;
- 		}
-+
-+		/* Initialize after gpusvm. */
-+		err = xe_vm_madvise_init(vm);
-+		if (err) {
-+			drm_gpusvm_fini(&vm->svm.gpusvm);
-+			xe_svm_put_pagemaps(vm);
-+			drm_pagemap_release_owner(&vm->svm.peer);
-+			return err;
-+		}
- 	} else {
- 		err = drm_gpusvm_init(&vm->svm.gpusvm, "Xe SVM (simple)",
- 				      &vm->xe->drm, NULL, 0, 0, 0, NULL,
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index dec5279f08a2..e93d715d3da9 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -1815,6 +1815,8 @@ struct xe_vm *xe_vm_create(struct xe_device *xe, u32 flags, struct xe_file *xef)
- err_svm_fini:
- 	if (flags & XE_VM_FLAG_FAULT_MODE) {
- 		vm->size = 0; /* close the vm */
-+		/* Safe if madvise init did not run. */
-+		xe_vm_madvise_fini(vm);
- 		xe_svm_fini(vm);
- 	}
- err_no_resv:
-@@ -1959,6 +1961,18 @@ void xe_vm_close_and_put(struct xe_vm *vm)
- 		xe_vma_destroy_unlocked(vma);
- 	}
- 
-+	/*
-+	 * The VM is closed here, so no new ioctl should enter. Drop vm->lock
-+	 * while draining madvise workers because they take vm->lock.
-+	 */
-+	xe_assert(vm->xe, xe_vm_is_closed(vm));
-+	up_write(&vm->lock);
-+
-+	if (vm->flags & XE_VM_FLAG_FAULT_MODE)
-+		xe_vm_madvise_fini(vm);
-+
-+	down_write(&vm->lock);
-+
- 	xe_svm_fini(vm);
- 
- 	up_write(&vm->lock);
-diff --git a/drivers/gpu/drm/xe/xe_vm_madvise.c b/drivers/gpu/drm/xe/xe_vm_madvise.c
-index 6c42ce8e3f52..eb2d17abf9d4 100644
---- a/drivers/gpu/drm/xe/xe_vm_madvise.c
-+++ b/drivers/gpu/drm/xe/xe_vm_madvise.c
-@@ -28,6 +28,7 @@ struct xe_vmas_in_madvise_range {
- 	int num_vmas;
- 	bool has_bo_vmas;
- 	bool has_svm_userptr_vmas;
-+	bool has_cpu_addr_mirror_vmas;
- };
- 
- /**
-@@ -70,7 +71,11 @@ static int get_vmas(struct xe_vm *vm, struct xe_vmas_in_madvise_range *madvise_r
- 
- 		if (xe_vma_bo(vma))
- 			madvise_range->has_bo_vmas = true;
--		else if (xe_vma_is_cpu_addr_mirror(vma) || xe_vma_is_userptr(vma))
-+		else if (xe_vma_is_cpu_addr_mirror(vma)) {
-+			/* CPU mirror VMAs use the SVM notifier lock. */
-+			madvise_range->has_svm_userptr_vmas = true;
-+			madvise_range->has_cpu_addr_mirror_vmas = true;
-+		} else if (xe_vma_is_userptr(vma))
- 			madvise_range->has_svm_userptr_vmas = true;
- 
- 		if (madvise_range->num_vmas == max_vmas) {
-@@ -297,7 +302,12 @@ static u8 xe_zap_ptes_in_madvise_range(struct xe_vm *vm, u64 start, u64 end)
- 			continue;
- 
- 		if (xe_vma_is_cpu_addr_mirror(vma)) {
--			tile_mask |= xe_svm_ranges_zap_ptes_in_range(vm,
-+			/*
-+			 * CPU-only mirror VMAs have no GPU PTEs yet.
-+			 * Once GPU-touched, SVM zap applies.
-+			 */
-+			if (!xe_vma_has_cpu_autoreset_active(vma))
-+				tile_mask |= xe_svm_ranges_zap_ptes_in_range(vm,
- 								      xe_vma_start(vma),
- 								      xe_vma_end(vma));
- 		} else {
-@@ -559,6 +569,32 @@ static bool check_bo_args_are_sane(struct xe_vm *vm, struct xe_vma **vmas,
- 	}
- 	return true;
+@@ -58,6 +58,8 @@ void *xe_svm_private_page_owner(struct xe_vm *vm, bool force_smem)
+ 	return force_smem ? NULL : vm->svm.peer.owner;
  }
+ 
++#define XE_SVM_ATTR_RETRY_MAX 3
 +
-+/*
-+ * Clear AUTORESET on CPU mirror VMAs in [start, end). Registration may
-+ * fail after the VMA was split or merged, so do not rely on exact match.
-+ */
-+static void xe_vm_madvise_clear_autoreset_range(struct xe_vm *vm,
-+						u64 start, u64 end)
+ static bool xe_svm_range_in_vram(struct xe_svm_range *range)
+ {
+ 	/*
+@@ -127,6 +129,34 @@ static void xe_svm_range_free(struct drm_gpusvm_range *range)
+ 	kfree(range);
+ }
+ 
++static void xe_svm_range_set_unmapped(struct xe_svm_range *range,
++				      const struct mmu_notifier_range *mmu_range)
 +{
-+	u64 addr = start;
++	u64 new_start = max_t(u64, xe_svm_range_start(range), mmu_range->start);
++	u64 new_end = min_t(u64, xe_svm_range_end(range), mmu_range->end);
 +
-+	lockdep_assert_held_write(&vm->lock);
-+
-+	while (addr < end) {
-+		struct xe_vma *vma;
-+
-+		vma = xe_vm_find_overlapping_vma(vm, addr, end - addr);
-+		if (!vma)
-+			break;
-+
-+		if (xe_vma_is_cpu_addr_mirror(vma))
-+			vma->gpuva.flags &= ~XE_VMA_MADV_AUTORESET;
-+
-+		addr = xe_vma_end(vma);
++	drm_gpusvm_range_set_unmapped(&range->base, mmu_range);
++	if (range->base.pages.flags.partial_unmap) {
++		if (range->partial_unmap.start || range->partial_unmap.end) {
++			/*
++			 * Coalesce overlapping or adjacent intervals.
++			 * Disjoint ranges cannot be tracked in one interval
++			 * without covering still-mapped memory.
++			 */
++			if (new_start <= range->partial_unmap.end &&
++			    new_end >= range->partial_unmap.start) {
++				range->partial_unmap.start =
++					min(range->partial_unmap.start, new_start);
++				range->partial_unmap.end =
++					max(range->partial_unmap.end, new_end);
++			}
++		} else {
++			range->partial_unmap.start = new_start;
++			range->partial_unmap.end = new_end;
++		}
 +	}
 +}
 +
- /**
-  * xe_vm_madvise_ioctl - Handle MADVise ioctl for a VM
-  * @dev: DRM device pointer
-@@ -590,6 +626,11 @@ int xe_vm_madvise_ioctl(struct drm_device *dev, void *data, struct drm_file *fil
- 	struct drm_exec exec;
- 	int err, attr_type;
- 	bool do_retained;
-+	struct {
-+		u64 start;
-+		u64 end;
-+	} *notifier_ranges = NULL;
-+	int num_notifier_ranges = 0;
+ static void
+ xe_svm_garbage_collector_add_range(struct xe_vm *vm, struct xe_svm_range *range,
+ 				   const struct mmu_notifier_range *mmu_range)
+@@ -135,12 +165,14 @@ xe_svm_garbage_collector_add_range(struct xe_vm *vm, struct xe_svm_range *range,
  
- 	vm = xe_vm_lookup(xef, args->vm_id);
- 	if (XE_IOCTL_DBG(xe, !vm))
-@@ -661,6 +702,20 @@ int xe_vm_madvise_ioctl(struct drm_device *dev, void *data, struct drm_file *fil
+ 	range_debug(range, "GARBAGE COLLECTOR ADD");
+ 
+-	drm_gpusvm_range_set_unmapped(&range->base, mmu_range);
+-
+ 	spin_lock(&vm->svm.garbage_collector.lock);
++
++	xe_svm_range_set_unmapped(range, mmu_range);
++
+ 	if (list_empty(&range->garbage_collector_link))
+ 		list_add_tail(&range->garbage_collector_link,
+ 			      &vm->svm.garbage_collector.range_list);
++
+ 	spin_unlock(&vm->svm.garbage_collector.lock);
+ 
+ 	queue_work(xe->usm.pf_wq, &vm->svm.garbage_collector.work);
+@@ -380,9 +412,10 @@ static int xe_svm_range_set_default_attr(struct xe_vm *vm, u64 start, u64 end)
+ static int xe_svm_garbage_collector(struct xe_vm *vm)
+ {
+ 	struct xe_svm_range *range;
+-	u64 range_start;
+-	u64 range_end;
+-	int err, ret = 0;
++	u64 unmap_start;
++	u64 unmap_end;
++	int err;
++	int retry_count;
+ 
+ 	lockdep_assert_held_write(&vm->lock);
+ 
+@@ -397,8 +430,18 @@ static int xe_svm_garbage_collector(struct xe_vm *vm)
+ 		if (!range)
+ 			break;
+ 
+-		range_start = xe_svm_range_start(range);
+-		range_end = xe_svm_range_end(range);
++		if (range->base.pages.flags.partial_unmap &&
++		    range->partial_unmap.start && range->partial_unmap.end) {
++			unmap_start = range->partial_unmap.start;
++			unmap_end = range->partial_unmap.end;
++		} else {
++			unmap_start = xe_svm_range_start(range);
++			unmap_end = xe_svm_range_end(range);
++		}
++
++		/* Clear consumed state before dropping lock. */
++		range->partial_unmap.start = 0;
++		range->partial_unmap.end = 0;
+ 
+ 		list_del(&range->garbage_collector_link);
+ 		spin_unlock(&vm->svm.garbage_collector.lock);
+@@ -412,17 +455,31 @@ static int xe_svm_garbage_collector(struct xe_vm *vm)
+ 			return err;
  		}
- 	}
  
-+	/*
-+	 * Allocate before taking BO dma-resv locks. GFP_KERNEL may enter
-+	 * reclaim, which can reach TTM shrinkers and dma-resv locks.
-+	 */
-+	if (madvise_range.has_cpu_addr_mirror_vmas) {
-+		notifier_ranges = kvmalloc_array(madvise_range.num_vmas,
-+						 sizeof(*notifier_ranges),
-+						 GFP_KERNEL);
-+		if (!notifier_ranges) {
-+			err = -ENOMEM;
-+			goto free_vmas;
-+		}
-+	}
+-		err = xe_svm_range_set_default_attr(vm, range_start, range_end);
+-		if (err) {
+-			if (err == -EAGAIN)
+-				ret = -EAGAIN;
+-			else
+-				return err;
+-		}
++		/*
++		 * Retry if the VMA was recreated while rebuilding attrs.
++		 * Repeated failures mean the topology is not converging.
++		 */
++		retry_count = 0;
 +
- 	if (madvise_range.has_bo_vmas) {
- 		if (args->type == DRM_XE_MEM_RANGE_ATTR_ATOMIC) {
- 			if (!check_bo_args_are_sane(vm, madvise_range.vmas,
-@@ -708,7 +763,7 @@ int xe_vm_madvise_ioctl(struct drm_device *dev, void *data, struct drm_file *fil
- 	/* Ensure the madvise function exists for this type */
- 	if (!madvise_funcs[attr_type]) {
- 		err = -EINVAL;
--		goto err_fini;
-+		goto err_unlock_notifier;
- 	}
- 
- 	madvise_funcs[attr_type](xe, vm, madvise_range.vmas, madvise_range.num_vmas, args,
-@@ -717,9 +772,29 @@ int xe_vm_madvise_ioctl(struct drm_device *dev, void *data, struct drm_file *fil
- 	err = xe_vm_invalidate_madvise_range(vm, madvise_range.addr,
- 					     madvise_range.addr + args->range);
- 
-+err_unlock_notifier:
- 	if (madvise_range.has_svm_userptr_vmas)
- 		xe_svm_notifier_unlock(vm);
- 
-+	if (err)
-+		goto err_fini;
-+
-+	if (madvise_range.has_cpu_addr_mirror_vmas) {
-+		for (int i = 0; i < madvise_range.num_vmas; i++) {
-+			struct xe_vma *vma = madvise_range.vmas[i];
-+
-+			if (!xe_vma_is_cpu_addr_mirror(vma))
-+				continue;
-+			if (!(vma->gpuva.flags & XE_VMA_MADV_AUTORESET))
-+				continue;
-+			if (!xe_vma_has_cpu_autoreset_active(vma))
-+				continue;
-+			notifier_ranges[num_notifier_ranges].start = xe_vma_start(vma);
-+			notifier_ranges[num_notifier_ranges].end   = xe_vma_end(vma);
-+			num_notifier_ranges++;
-+		}
-+	}
-+
- err_fini:
- 	if (madvise_range.has_bo_vmas)
- 		drm_exec_fini(&exec);
-@@ -731,6 +806,30 @@ int xe_vm_madvise_ioctl(struct drm_device *dev, void *data, struct drm_file *fil
- unlock_vm:
- 	up_write(&vm->lock);
- 
-+	if (!err) {
-+		for (int i = 0; i < num_notifier_ranges; i++) {
-+			int ret = xe_vm_madvise_register_notifier_range(vm,
-+							notifier_ranges[i].start,
-+							notifier_ranges[i].end);
-+			if (ret) {
-+				drm_warn(&vm->xe->drm,
-+					 "Failed to register madvise notifier [%#llx-%#llx]: %d\n",
-+					 notifier_ranges[i].start,
-+					 notifier_ranges[i].end, ret);
-+				/*
-+				 * Disable AUTORESET, but keep cpu_autoreset_active.
-+				 * The VMA is still CPU-only.
-+				 */
-+				down_write(&vm->lock);
-+				xe_vm_madvise_clear_autoreset_range(vm,
-+								    notifier_ranges[i].start,
-+								    notifier_ranges[i].end);
-+				up_write(&vm->lock);
++		do {
++			err = xe_svm_range_set_default_attr(vm, unmap_start, unmap_end);
++			if (err == -EAGAIN && ++retry_count > XE_SVM_ATTR_RETRY_MAX) {
++				drm_err(&vm->xe->drm,
++					"SET_ATTR retry limit exceeded for [0x%llx-0x%llx]\n",
++					unmap_start, unmap_end);
++				xe_vm_kill(vm, true);
++				return -EIO;
 +			}
-+		}
-+	}
-+	kvfree(notifier_ranges);
++		} while (err == -EAGAIN);
 +
- 	/* Write retained value to user after releasing all locks */
- 	if (!err && do_retained)
- 		err = xe_madvise_purgeable_retained_to_user(&details);
++		if (err)
++			drm_warn(&vm->xe->drm,
++				 "SET_ATTR failed for [0x%llx-0x%llx]: %pe\n",
++				 unmap_start, unmap_end, ERR_PTR(err));
+ 	}
+ 	spin_unlock(&vm->svm.garbage_collector.lock);
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ static void xe_svm_garbage_collector_work_func(struct work_struct *w)
+diff --git a/drivers/gpu/drm/xe/xe_svm.h b/drivers/gpu/drm/xe/xe_svm.h
+index b7b8eeacf196..4651e044cf53 100644
+--- a/drivers/gpu/drm/xe/xe_svm.h
++++ b/drivers/gpu/drm/xe/xe_svm.h
+@@ -46,6 +46,16 @@ struct xe_svm_range {
+ 	 * range. Protected by GPU SVM notifier lock.
+ 	 */
+ 	u8 tile_invalidated;
++	/**
++	 * @partial_unmap: Structure to hold partial unmap range info.
++	 * Valid only if partial unmap is in effect.
++	 */
++	struct {
++		/** @start: Start address of the partial unmap range */
++		u64 start;
++		/** @end: End address of the partial unmap range */
++		u64 end;
++	} partial_unmap;
+ };
+ 
+ /**
 -- 
 2.43.0
 
