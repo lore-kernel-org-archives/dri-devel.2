@@ -4,52 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60637CD6E4A
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 13:12:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 433A8CD6E4A
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 13:13:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99BB810E0FB;
-	Thu,  4 Jun 2026 13:12:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB4CC10E224;
+	Thu,  4 Jun 2026 13:13:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SiEFj0cx";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="cloFivz9";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD24610E0FB
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 13:12:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 42D8E6024D;
- Thu,  4 Jun 2026 13:12:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF5331F00893;
- Thu,  4 Jun 2026 13:12:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780578776;
- bh=qjHjZ0FE5DnNYPjajht26SMXxfaRKL/yW63UwXhfEyE=;
- h=Date:From:Subject:Cc:To:References:In-Reply-To;
- b=SiEFj0cxAUAur+XCpvpwapGl8CpB7ZP4AU0BqDowV0fVDBBjwuhsM9BUFvrSTN31V
- C4iBItK9mKsuTUxeid9EncaJIqzmyyR42fX99Kaght68YxcWN2XuYkEZLmvo0IbR9f
- FUVQG8UwOI3ED2rMzCramjBD6wObD5CUXiIs/XUYaukRAwvXYdYnElddJrsh/TkEKY
- eJWuucHAULtYOuACu7WX79fjUU/SYVKXTsZmDUFXbMF0esM+QhiRc/w8wioMUfdv8I
- O1dVAptnMfRgC5rfSaRFs5bjgLo6ztN3f5MUtNkE1jXdaRhwvlHtHtlsNVYPoWIUh/
- DTjkR/Ob4VOjw==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 04 Jun 2026 15:12:50 +0200
-Message-Id: <DJ0AHUXK4V11.8FGPD9P9NVE4@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH] drm/tyr: move probe resources into registration data
-Cc: "Daniel Almeida" <daniel.almeida@collabora.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, <linux-kernel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <laura.nao@collabora.com>, <boris.brezillon@collabora.com>,
- <samitolvanen@google.com>
-To: "Deborah Brouwer" <deborah.brouwer@collabora.com>
-References: <20260603-use_tyr_reg_data-v1-1-97f64e951cf6@collabora.com>
-In-Reply-To: <20260603-use_tyr_reg_data-v1-1-97f64e951cf6@collabora.com>
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBB0110E224
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 13:13:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+ Message-ID; bh=l/75B24Cu47jkFek3s0pWrT/4s4hr1GK1DZ0Iexgp9Y=; b=c
+ loFivz95sWGzECDP4DFNfiSwMU0qHHffbk6/xEFo7ay61xmyFUSwBWUMbnqxDWHV
+ xMGkHpACmLoLWPRUq8QHZzL26Si2kZNfgRSFOYvPi6gouYZLOICBmBdY3yCJla2C
+ a6cgzkNdqftxHf7LbrjW6ZDFjPXYQY/AEslo/3mXe0=
+Received: from w15303746062$163.com ( [113.200.174.80] ) by
+ ajax-webmail-wmsvr-40-139 (Coremail) ; Thu, 4 Jun 2026 21:13:16 +0800 (CST)
+X-Originating-IP: [113.200.174.80]
+Date: Thu, 4 Jun 2026 21:13:16 +0800 (CST)
+From: w15303746062  <w15303746062@163.com>
+To: airlied@redhat.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ x86@kernel.org, linux-pci@vger.kernel.org,
+ "Mingyu Wang" <25181214217@stu.xidian.edu.cn>
+Subject: Re:[PATCH v2] char: agp: amd64 - fix broken error propagation in
+ agp_amd64_probe()
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <20260504074823.99377-1-w15303746062@163.com>
+References: <20260504074823.99377-1-w15303746062@163.com>
+X-NTES-SC: AL_Qu2TAvmct08i4CGZZ+kfmU0Qguw9Xcq5uPkj34FWN5t8jBHo5DwgRW1dDETv98+JMgaTmhKYQh1n599XY4JFX4E5uOxV0hz19UAW9WuReBlwaA==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
+MIME-Version: 1.0
+Message-ID: <71742084.a1c9.19e92c4425c.Coremail.w15303746062@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: iygvCgDXH_jseSFqUqgCAA--.3876W
+X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC4wx8YGoheezUywAA3y
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,160 +61,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Jun 4, 2026 at 1:19 AM CEST, Deborah Brouwer wrote:
-> @@ -59,21 +61,36 @@ pub(crate) struct TyrPlatformDriverData<'bound> {
->  }
-> =20
->  #[pin_data]
-> -pub(crate) struct TyrDrmDeviceData {
-> +pub(crate) struct TyrDrmDeviceData;
-> +
-> +/// Resources kept alive by the DRM registration.
-> +#[pin_data]
-> +pub(crate) struct TyrDrmRegistrationData<'bound> {
-> +    /// Parent platform device.
->      pub(crate) pdev: ARef<platform::Device>,
-
-This can just be &'bound platform::Device, or even &'bound platform::Device=
-<Bound>.
-
-> =20
-> +    /// Firmware sections.
-> +    pub(crate) fw: Arc<Firmware<'bound>>,
-
-This doesn't seem like it needs to be reference counted; at least from the
-context I have from this patch.
-
-> +
->      #[pin]
->      clks: Mutex<Clocks>,
-> =20
->      #[pin]
->      regulators: Mutex<Regulators>,
-> =20
-> +    /// GPU MMIO register mapping.
-> +    pub(crate) iomem: Arc<IoMem<'bound>>,
-
-This may not need to be reference counted either; at least eventually.
-
-It seems like this reference count only exists, so you are able to also sto=
-re it
-in struct Firmware.
-
-This goes away once pin-init has the self-referential feature.
-
-If there is no other reason for this reference count, you could temporarily=
- do
-what we do in nova-core [1] and obtain a &'bound IoMem<'bound> reference to
-store in struct Firmware unsafely.
-
-[1] https://lore.kernel.org/nova-gpu/20260525225838.276108-2-dakr@kernel.or=
-g/
-
-> +
->      /// Some information on the GPU.
->      ///
->      /// This is mainly queried by userspace, i.e.: Mesa.
->      pub(crate) gpu_info: GpuInfo,
->  }
-> =20
-> +impl ForLt for TyrDrmRegistrationData<'static> {
-> +    type Of<'bound> =3D TyrDrmRegistrationData<'bound>;
-> +}
-
-This isn't wrong, but the intention is to use the ForLt! macro for this.
-
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index acf5080a5467..694958509da7 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -87,9 +87,6 @@ pub(crate) struct TyrDrmRegistrationData<'bound> {
-     pub(crate) gpu_info: GpuInfo,
- }
-=20
--impl ForLt for TyrDrmRegistrationData<'static> {
--    type Of<'bound> =3D TyrDrmRegistrationData<'bound>;
--}
-=20
- fn issue_soft_reset(dev: &Device, iomem: &IoMem<'_>) -> Result {
-     iomem.write_reg(GPU_COMMAND::reset(ResetMode::SoftReset));
-@@ -221,7 +218,7 @@ fn drop(self: Pin<&mut Self>) {}
- #[vtable]
- impl drm::Driver for TyrDrmDriver {
-     type Data =3D TyrDrmDeviceData;
--    type RegistrationData =3D TyrDrmRegistrationData<'static>;
-+    type RegistrationData =3D ForLt!(TyrDrmRegistrationData<'_>);
-     type File =3D TyrDrmFileData;
-     type Object<R: drm::DeviceContext> =3D drm::gem::shmem::Object<BoData,=
- R>;
-     type ParentDevice<Ctx: DeviceContext> =3D platform::Device<Ctx>;
-
-> +
->  fn issue_soft_reset(dev: &Device, iomem: &IoMem<'_>) -> Result {
->      iomem.write_reg(GPU_COMMAND::reset(ResetMode::SoftReset));
-> =20
-> @@ -119,7 +136,7 @@ fn probe<'bound>(
->          let sram_regulator =3D Regulator::<regulator::Enabled>::get(pdev=
-.as_ref(), c"sram")?;
-> =20
->          let request =3D pdev.io_request_by_index(0).ok_or(ENODEV)?;
-> -        let iomem =3D request.iomap_sized::<SZ_2M>()?;
-> +        let iomem =3D Arc::new(request.iomap_sized::<SZ_2M>()?, GFP_KERN=
-EL)?;
-> =20
->          issue_soft_reset(pdev.as_ref(), &iomem)?;
->          gpu::l2_power_on(pdev.as_ref(), &iomem)?;
-> @@ -137,8 +154,23 @@ fn probe<'bound>(
-> =20
->          let platform: ARef<platform::Device> =3D pdev.into();
-> =20
-> -        let data =3D try_pin_init!(TyrDrmDeviceData {
-> +        let dev_data =3D try_pin_init!(TyrDrmDeviceData {});
-> +
-> +        let unreg_dev =3D drm::UnregisteredDevice::<TyrDrmDriver>::new(p=
-dev, dev_data)?;
-
-Keeping TyrDrmDeviceData and calling the above try_pin_init! seems unnecess=
-ary;
-you can just pass Ok(()) to drm::UnregisteredDevice::new().
-
-> +
-> +        let mmu =3D Mmu::new(iomem.as_arc_borrow(), &gpu_info)?;
-> +
-> +        let firmware =3D Firmware::new(
-> +            pdev,
-> +            iomem.clone(),
-> +            &unreg_dev,
-> +            mmu.as_arc_borrow(),
-> +            &gpu_info,
-> +        )?;
-> +
-> +        let reg_data =3D try_pin_init!(TyrDrmRegistrationData {
->                  pdev: platform.clone(),
-> +                fw: firmware,
->                  clks <- new_mutex!(Clocks {
->                      core: core_clk,
->                      stacks: stacks_clk,
-> @@ -148,11 +180,16 @@ fn probe<'bound>(
->                      _mali: mali_regulator,
->                      _sram: sram_regulator,
->                  }),
-> +                iomem,
->                  gpu_info,
->          });
-> =20
-> -        let tdev =3D drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev, =
-data)?;
-> -        let reg =3D drm::Registration::new(pdev.as_ref(), tdev, (), 0)?;
-> +        // SAFETY: `reg` is stored in the platform driver data and is no=
-t leaked or
-> +        // forgotten, so it is dropped before the `'bound` registration =
-data can become
-> +        // invalid.
-> +        let reg =3D unsafe {
-> +            drm::driver::Registration::new_with_lt(pdev.as_ref(), unreg_=
-dev, reg_data, 0)?
-
-This is re-exported as drm::Registration.
-
-> +        };
+CgpIaSBEYXZlIGFuZCBldmVyeW9uZSwKCkp1c3QgYSBnZW50bGUgcGluZyBvbiB0aGlzIHBhdGNo
+LiBJdCBoYXMgYmVlbiBhIG1vbnRoIHNpbmNlIHYyIHdhcyBzdWJtaXR0ZWQuCgpQbGVhc2UgbGV0
+IG1lIGtub3cgaWYgdGhlcmUgYXJlIGFueSBxdWVzdGlvbnMsIG9yIGlmIGFueSBmdXJ0aGVyIG1v
+ZGlmaWNhdGlvbnMgYXJlIG5lZWRlZC4KClRoYW5rcywKTWluZ3l1CgpBdCAyMDI2LTA1LTA0IDE1
+OjQ4OjIzLCB3MTUzMDM3NDYwNjJAMTYzLmNvbSB3cm90ZToKPkZyb206IE1pbmd5dSBXYW5nIDwy
+NTE4MTIxNDIxN0BzdHUueGlkaWFuLmVkdS5jbj4KPgo+QSBOVUxMIHBvaW50ZXIgZGVyZWZlcmVu
+Y2Ugd2FzIG9ic2VydmVkIGluIHRoZSBBTUQ2NCBBR1AgZHJpdmVyIHdoZW4KPnJ1bm5pbmcgaW4g
+YSB2aXJ0dWFsaXplZCBlbnZpcm9ubWVudCAoZS5nLiwgUUVNVS9LVk0pIHdpdGhvdXQgYSBwaHlz
+aWNhbAo+QU1EIE5vcnRoYnJpZGdlLiBUaGUgY3Jhc2ggb2NjdXJzIGluIGFtZDY0X2ZldGNoX3Np
+emUoKSB3aGVuIGF0dGVtcHRpbmcKPnRvIGRlcmVmZXJlbmNlIHRoZSBwb2ludGVyIHJldHVybmVk
+IGJ5IG5vZGVfdG9fYW1kX25iKDApLgo+Cj5UaGUgcm9vdCBjYXVzZSBvZiB0aGlzIGNyYXNoIGlz
+IGJyb2tlbiBlcnJvciBwcm9wYWdhdGlvbiBpbgo+YWdwX2FtZDY0X3Byb2JlKCkuIFdoZW4gbm8g
+QU1EIE5vcnRoYnJpZGdlcyBhcmUgZm91bmQsIGNhY2hlX25icygpCj5jb3JyZWN0bHkgcmV0dXJu
+cyAtRU5PREVWLiBIb3dldmVyLCB0aGUgcHJvYmUgZnVuY3Rpb24gZXJyb25lb3VzbHkKPmNoZWNr
+ZWQgdGhlIHJldHVybiB2YWx1ZSBhZ2FpbnN0IGV4YWN0bHkgLTEsIHJhdGhlciB0aGFuIDwgMC4K
+Pgo+QXMgYSByZXN1bHQsIHRoZSBoYXJkd2FyZSBhYnNlbmNlIGVycm9yIHdhcyBtYXNrZWQsIGFs
+bG93aW5nIHRoZSBkcml2ZXIKPnRvIGltcHJvcGVybHkgcHJvY2VlZCB3aXRoIGluaXRpYWxpemF0
+aW9uLiBJdCBldmVudHVhbGx5IGNhbGxlZAo+YWdwX2FkZF9icmlkZ2UoKSwgd2hpY2ggaW52b2tl
+cyBhbWQ2NF9mZXRjaF9zaXplKCkuIFNpbmNlIHRoZSBoYXJkd2FyZQo+ZG9lcyBub3QgZXhpc3Qs
+IG5vZGVfdG9fYW1kX25iKDApIHJldHVybnMgTlVMTCwgbGVhZGluZyB0byBhIEdlbmVyYWwKPlBy
+b3RlY3Rpb24gRmF1bHQgKEdQRikgd2hlbiBhY2Nlc3NpbmcgaXRzIC0+bWlzYyBtZW1iZXIuCj4K
+PkZpeCB0aGUgaXNzdWUgYnkgY29ycmVjdGluZyB0aGUgZXJyb3IgY2hlY2sgaW4gYWdwX2FtZDY0
+X3Byb2JlKCkgdG8KPmFib3J0IHByb3Blcmx5IHdoZW4gY2FjaGVfbmJzKCkgcmV0dXJucyBhbnkg
+bmVnYXRpdmUgZXJyb3IgY29kZS4gVGhpcwo+cHJldmVudHMgdGhlIGRyaXZlciBmcm9tIGVycm9u
+ZW91c2x5IHByb2NlZWRpbmcgd2l0aG91dCBoYXJkd2FyZSwgdGhlcmVieQo+cmVzb2x2aW5nIHRo
+ZSBzdWJzZXF1ZW50IE5VTEwgcG9pbnRlciBkZXJlZmVyZW5jZSBhdCBpdHMgc291cmNlLgo+Cj5T
+aWduZWQtb2ZmLWJ5OiBNaW5neXUgV2FuZyA8MjUxODEyMTQyMTdAc3R1LnhpZGlhbi5lZHUuY24+
+Cj4tLS0KPisgQ2hhbmdlcyBpbiB2MjoKPisgLSBEcm9wcGVkIHJlZHVuZGFudCBOVUxMIHBvaW50
+ZXIgY2hlY2tzIGluIHZhcmlvdXMgaW5pdGlhbGl6YXRpb24gZnVuY3Rpb25zLgo+KyAtIEZpeGVk
+IHRoZSBhY3R1YWwgcm9vdCBjYXVzZTogYnJva2VuIGVycm9yIHByb3BhZ2F0aW9uIGluIGFncF9h
+bWQ2NF9wcm9iZSgpIAo+KyAgIHdoZXJlIGl0IGVycm9uZW91c2x5IGNoZWNrZWQgY2FjaGVfbmJz
+KCkgYWdhaW5zdCBleGFjdGx5IC0xIGluc3RlYWQgb2YgPCAwLgo+KyAgIChUaGFua3MgdG8gU2Fz
+aGlrbyBBSSBmb3IgdGhlIHJldmlldyBmZWVkYmFjaykuCj4rCj4gZHJpdmVycy9jaGFyL2FncC9h
+bWQ2NC1hZ3AuYyB8IDIgKy0KPiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVs
+ZXRpb24oLSkKPgo+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvY2hhci9hZ3AvYW1kNjQtYWdwLmMgYi9k
+cml2ZXJzL2NoYXIvYWdwL2FtZDY0LWFncC5jCj5pbmRleCAyNTA1ZGYxZjRlNjkuLjY3NDEyNzBl
+MGE5OCAxMDA2NDQKPi0tLSBhL2RyaXZlcnMvY2hhci9hZ3AvYW1kNjQtYWdwLmMKPisrKyBiL2Ry
+aXZlcnMvY2hhci9hZ3AvYW1kNjQtYWdwLmMKPkBAIC01NDYsNyArNTQ2LDcgQEAgc3RhdGljIGlu
+dCBhZ3BfYW1kNjRfcHJvYmUoc3RydWN0IHBjaV9kZXYgKnBkZXYsCj4gCS8qIEZpbGwgaW4gdGhl
+IG1vZGUgcmVnaXN0ZXIgKi8KPiAJcGNpX3JlYWRfY29uZmlnX2R3b3JkKHBkZXYsIGJyaWRnZS0+
+Y2FwbmR4K1BDSV9BR1BfU1RBVFVTLCAmYnJpZGdlLT5tb2RlKTsKPiAKPi0JaWYgKGNhY2hlX25i
+cyhwZGV2LCBjYXBfcHRyKSA9PSAtMSkgewo+KwlpZiAoY2FjaGVfbmJzKHBkZXYsIGNhcF9wdHIp
+IDwgMCkgewo+IAkJYWdwX3B1dF9icmlkZ2UoYnJpZGdlKTsKPiAJCXJldHVybiAtRU5PREVWOwo+
+IAl9Cj4tLSAKPjIuMzQuMQo=
