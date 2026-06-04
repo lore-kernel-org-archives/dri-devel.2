@@ -4,38 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB6F0CD6E4A
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 15:05:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 190ADCD6E6D
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 15:09:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA50B10F4AC;
-	Thu,  4 Jun 2026 15:05:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 660E810F31F;
+	Thu,  4 Jun 2026 15:09:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bj6t1rN2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f8/fwena";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABC9F10F4AC
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 15:05:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B67110F31F
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 15:09:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F0E17600B0;
- Thu,  4 Jun 2026 15:05:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22C8B1F00898;
- Thu,  4 Jun 2026 15:05:35 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 986E1600FF;
+ Thu,  4 Jun 2026 15:09:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A4B61F00893;
+ Thu,  4 Jun 2026 15:09:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780585543;
- bh=aMkrJjMORA36ksSpQcsWNc27oVG3W8FBcSYs5jpewxs=;
+ s=k20260515; t=1780585784;
+ bh=+L+7vSFl9vzgwqV/QZyiqqHxZQAd96QDEyqL6qtNsP4=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=bj6t1rN2DsUA4VZMwx4fIojQqrpvXhoyGyP7/FzV081rL8nYW9e9eeY3hZrQdZpi/
- TbR/d63ed/QZPJ2vls6pfSYuJQOFbbMJUOT3omLv8DHYLQGlxnniUa/Ca0bSoIkg/Q
- fM5PnHfFyOxzxtrTNBrcQhfSfojy7D8ko2jtsXAqWAKbcNOUqR8kmQ46hnef2yd8Se
- KyAU7im1lMKE7Ub0spxEICae/5XbaqgMZbZPCMqHsG2JKbF1nd3yQ32LvIukaLw4AS
- N8/4ummqOnILK9QI8X4kywhdX25ZwrjHbSBwEaXTsKzQzUW+nNEwXjjqq67fUhZ5qe
- fVwZqUYHrvKGQ==
-Message-ID: <ec08c40b-29af-46c0-b592-e1b5c1f5749d@kernel.org>
-Date: Thu, 4 Jun 2026 17:05:32 +0200
+ b=f8/fwenaF+gipkS+YKVYUhdIqGQyWlG5y4aDdhTta22pQbqCaKYIIyzOVwuOJ4cYD
+ 86tjGjB49YYAb8CRQTEMEf6QuE/BMPatROGieDwYAHtm3T8Hxzlk4/2KF6j0bKg9t9
+ OwHRN0c16fsBBhuw/OmYaxf90Lr7ISQ7b9HrRLBl1/tgCzhGoA7Vz3pLoLDU1TKFut
+ vMi35PpDdYkJDb5Fwc/Z/ITJJ4qRMDBOD/KIOjkbUk9PIhN89E79mrwks8KGp6bW54
+ qmsy3Dyp48V2sJYxuMGWcnxGodh2aWWO/66GjTqmlNQ5QiSl760tEE/tZdl343XejD
+ PDZJvhOhtfWTw==
+Message-ID: <7a330941-8715-4523-9f39-10b57586c69d@kernel.org>
+Date: Thu, 4 Jun 2026 17:09:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dt-bindings: display: panel: samsung, atna33xc20: Add
- ATNA40HQ08-0
+Subject: Re: [PATCH 2/4] dt-bindings: arm: qcom: Add Lenovo Yoga Slim 7x Gen11
 To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
@@ -49,7 +48,7 @@ To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
 References: <20260604-topic-yoga_submission-v1-0-57c70c23d0d6@oss.qualcomm.com>
- <20260604-topic-yoga_submission-v1-1-57c70c23d0d6@oss.qualcomm.com>
+ <20260604-topic-yoga_submission-v1-2-57c70c23d0d6@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -95,7 +94,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260604-topic-yoga_submission-v1-1-57c70c23d0d6@oss.qualcomm.com>
+In-Reply-To: <20260604-topic-yoga_submission-v1-2-57c70c23d0d6@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -114,16 +113,31 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 04/06/2026 10:06, Konrad Dybcio wrote:
-> Some variants of the Qualcomm Snapdragon X2 Elite-based Lenovo Yoga
-> Slim 7x Gen11 laptop ship with a Samsung ATNA40HQ08-0 2880x1800 120 Hz
-> OLED panel which seems to be compatible with the other ATNAxxx panels,
-> document it.
+> The Yoga Slim 7x Gen11 is a Snapdragon X2 Elite-based 14" laptop from
+> Lenovo, featuring an OLED touch panel. Add a compatible for it.
 > 
-> Note that I stripped the -0 suffix from the compatible, as it seems to
-> be of little importance and some sources omit it.
+> According to the spec page [1], there  also exist other variations
+> (based on the Mahua SoC and/or with a different type of display panel),
+> but those are to be described separately
+> 
+> [1] https://psref.lenovo.com/Product/Yoga_Slim_7_14Q8Y11?tab=spec
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+> index 50cc18a6ec5eddaf48542b85387c2d430cd4721a..fca3d180489d4cd3eb2726a722f15febe44f03ad 100644
+> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+> @@ -68,6 +68,7 @@ properties:
+>  
+>        - items:
+>            - enum:
+> +              - lenovo,yoga-slim7x-gen11
 
-
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+I imagine you might want different panel variants, just like T14s has
+LCD and OLED?
 
 Best regards,
 Krzysztof
