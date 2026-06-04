@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 118E3CD6E75
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:35:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D320CCD6E75
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:44:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 778EB10FB9A;
-	Thu,  4 Jun 2026 20:35:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DD4610E0BB;
+	Thu,  4 Jun 2026 20:44:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IhkPoGo4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="C/+s6YHz";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EED1310FB9A
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:35:31 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 270DC10E0BB
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:44:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CE62240064
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:35:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F1DC1F00893;
- Thu,  4 Jun 2026 20:35:31 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 753736001A;
+ Thu,  4 Jun 2026 20:44:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11F2B1F00893;
+ Thu,  4 Jun 2026 20:44:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780605331;
- bh=IIxcMeNXT+0eKOWo78BZVp+nuWcgXzSKung3HXiYRPs=;
+ s=k20260515; t=1780605887;
+ bh=M1VIcVUyAWn03ui1zRSU5VEuk0K0RuKqomxEDhF1JDk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IhkPoGo4miUiP38H4AmI6GnagwrNWKJqDCBNXvlJ2PzC1dwg0oM3AvOiOKIDJ+dZ2
- 2aHKLgc7W6nhjslZ6xyaCy81xvYWY5tFW1IknwSk3LxijIbSNQ/Kef6MmrVQqyoK4S
- qVut+TT+IDVXbLlAYb/1eI9y0zu00J2wfS8qHYxsCuAI4FswEnTglq0rMibFQaZAzi
- 4R6lVIEQJntN8bo+c5yWc8fo5DjgR9PUYMnVB0k9pMUPmL6AhJobv/Pfx9EKZtkemh
- joOFyvYKx+alwsV4hGJVjNMFEk/GjOC01RNkHa0fcnNCAc4sQYJajscMK4KPPlT7jq
- eZJlhvmAdvNzw==
+ b=C/+s6YHz915nkajps4vTcW5zsgx6BEOKaII6P54wx0yFZzNVG9qq0jlIZtCgFZTGz
+ WqxkB06UcUFcAkMrpRbeBtZ7PcQzOQmcE6yKSt6gKgk4ZmW2WwWBT4W36E7kbFkOeo
+ GG4xOckTzm4jHpqlnqQ/5rUf0cDZqfB3mwEAbSEaezWNNnb0S2pi+1J7+iveJJYVPZ
+ gGlUm7QT9lSd2zyMFe2lXJPb+vSC9rjn+olLYlpuJN133OkqgqZUgQotJMABi03Kjb
+ q3+DD2RRoImREP/Fypo91pJjwxqcLQJd92Wf/VgBM2BPC4dGe/t5K3jMTrrQ5yvENe
+ XxmZfoxuRU0eg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v17 09/10] rust: Add `OwnableRefCounted`
-To: "Andreas Hindborg" <a.hindborg@kernel.org>
-Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org,
- linux-pci@vger.kernel.org
-In-Reply-To: <20260604-unique-ref-v17-9-7b4c3d2930b9@kernel.org>
-References: <20260604-unique-ref-v17-9-7b4c3d2930b9@kernel.org>
+Subject: Re: [PATCH V1] accel/amdxdna: Clear sva pointer after unbind
+To: "Lizhi Hou" <lizhi.hou@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260604202815.2425882-1-lizhi.hou@amd.com>
+References: <20260604202815.2425882-1-lizhi.hou@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 20:35:30 +0000
-Message-Id: <20260604203531.4F1DC1F00893@smtp.kernel.org>
+Date: Thu, 04 Jun 2026 20:44:46 +0000
+Message-Id: <20260604204447.11F2B1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,220 +56,141 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] `OwnableRefCounted` is a safe trait, but its default `into_shared`=
- method contains an `unsafe` block relying on undocumented invariants.
-- [High] `ForeignOwnable::FOREIGN_ALIGN` for `Owned<T>` incorrectly promise=
-s the alignment of `Owned<T>` rather than `T`, leading to under-aligned poi=
-nters.
-- [High] `Ownable::release` takes `&mut self` but is expected to free the u=
-nderlying memory, violating Rust's Stacked Borrows aliasing rules.
-- [Low] Incorrect link destination for `ARef<Self>` in doc comments.
-- [Low] Missing `// INVARIANT:` comment when constructing `Foo` in the doct=
-est.
-- [Low] Missing `// INVARIANT:` comment when constructing `Owned<T>` in `Fo=
-reignOwnable::from_foreign`.
-- [Low] Unnecessary `mut` keyword in the doc example for `ARef::from(foo)`.
+
+Pre-existing issues:
+- [Critical] The device removal path forcibly frees `amdxdna_client` struct=
+ures while their corresponding file descriptors remain open, causing system=
+atic Use-After-Free (UAF) vulnerabilities in IOCTLs, mmap, and closure path=
+s.
+- [High] AIE4 hardware context creation unconditionally sets the PASID as v=
+alid and sends an invalid PASID value to the firmware on non-IOMMU/carveout=
+ systems.
+- [High] In `amdxdna_drm_open()`, the newly allocated `client` structure is=
+ added to the global `xdna->client_list` before its initialization is compl=
+ete, causing a TOCTOU race condition.
+- [High] The return value of init_srcu_struct() is ignored, potentially lea=
+ding to a NULL pointer dereference on its per-CPU arrays under memory press=
+ure.
 --
 
-commit 7e04551249f9cff4815fc7ad79ac13555baea1a7
-Author: Oliver Mangold <oliver.mangold@pm.me>
+commit 38ba86620597fb9bb1ac8b2c38ecbef54add17c2
+Author: Lizhi Hou <lizhi.hou@amd.com>
 
-rust: Add OwnableRefCounted
+accel/amdxdna: Clear sva pointer after unbind
 
-This commit introduces the OwnableRefCounted trait to allow safe conversions
-between ARef and Owned pointer types. It also updates documentation and adds
-examples for reference-counted types requiring both shared and unique acces=
-s.
+Add client->sva =3D NULL after the unbind makes it consistent with how
+amdxdna_sva_fini() already clears the pointer after unbinding. The
+IS_ERR_OR_NULL guard in sva_fini will then correctly skip the second
+unbind.
 
-> diff --git a/rust/kernel/owned.rs b/rust/kernel/owned.rs
-> index bedd4fef84fa2..9db0daab22256 100644
-> --- a/rust/kernel/owned.rs
-> +++ b/rust/kernel/owned.rs
-[ ... ]
->  pub trait Ownable {
-[ ... ]
->      unsafe fn release(&mut self);
-
-[Severity: High]
-Does taking &mut self here violate Rust's Stacked Borrows aliasing rules?
-
-The Ownable trait defines release as taking &mut self. Owned<T>'s Drop
-implementation creates a mutable reference to the heap allocation and passes
-it to T::release.
-
-Implementations of release are expected to deallocate the memory backing th=
-is
-reference. Deallocating memory that a mutable reference points to before the
-lifetime of that reference ends is Undefined Behavior in Rust.
-
-Should release take a raw pointer like NonNull<Self> instead of a mutable
-reference?
-
-[ ... ]
->  impl<T: Ownable> Drop for Owned<T> {
->      #[inline]
->      fn drop(&mut self) {
->          // SAFETY: By existence of `&mut self` we exclusively own `self`=
- and the underlying `T`. As
->          // we are dropping `self`, we can transfer ownership of the `T` =
-to the `release` method.
->          unsafe { T::release(self.ptr.as_mut()) };
+> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdx=
+dna/amdxdna_pci_drv.c
+> index c677293c1ae7f..70410c5e8fd47 100644
+> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
+> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+> @@ -87,6 +87,7 @@ static int amdxdna_sva_init(struct amdxdna_client *clie=
+nt)
+>  	client->pasid =3D iommu_sva_get_pasid(client->sva);
+>  	if (client->pasid =3D=3D IOMMU_PASID_INVALID) {
+>  		iommu_sva_unbind_device(client->sva);
+> +		client->sva =3D NULL;
 
 [Severity: High]
-Is it safe to pass self.ptr.as_mut() here if release frees the memory?
+This is a pre-existing issue, but I noticed that when the pasid is
+IOMMU_PASID_INVALID (which is a permitted state for physical address/carveo=
+ut
+mode), aie4_hwctx_create() might send an invalid pasid to the firmware.
 
-This creates the mutable reference that gets passed to release and is
-subsequently deallocated, triggering the Stacked Borrows violation described
-above.
+drivers/accel/amdxdna/aie4_ctx.c:aie4_hwctx_create() {
+    ...
+    req.pasid =3D FIELD_PREP(AIE4_MSG_PASID, client->pasid) |
+                FIELD_PREP(AIE4_MSG_PASID_VLD, 1);
+    ...
+}
 
-[ ... ]
->  unsafe impl<T: Ownable + 'static> ForeignOwnable for Owned<T> {
->      const FOREIGN_ALIGN: usize =3D core::mem::align_of::<Owned<T>>();
+Does this unconditionally mask client->pasid and set AIE4_MSG_PASID_VLD to =
+1?
+Sending an all-1s pasid with the valid bit set might lead to iommu faults or
+hardware hangs.
 
-[Severity: High]
-Does this incorrectly promise the alignment of Owned<T> rather than T?
+AIE2 seems to check amdxdna_pasid_on() and passes 0 if the pasid is invalid.
+Should AIE4 do something similar?
 
-ForeignOwnable::into_foreign guarantees that the returned pointer has a
-minimum alignment of FOREIGN_ALIGN. For Owned<T>, into_foreign returns a
-raw pointer to T. Therefore, the alignment of this pointer is strictly
-determined by T.
+[Severity: Critical]
+This isn't a bug introduced by this patch, but the device removal path
+appears to forcibly free amdxdna_client structures while their file
+descriptors might still be open.
 
-If T has an alignment smaller than 8, FOREIGN_ALIGN will falsely promise an
-8-byte alignment. Data structures like XArray rely on this statically
-guaranteed minimum alignment. Passing an under-aligned pointer will cause t=
-he
-pointer to be corrupted by tag data.
+drivers/accel/amdxdna/amdxdna_pci_drv.c:amdxdna_remove() {
+    ...
+    while (client) {
+        amdxdna_client_cleanup(client);
+        client =3D list_first_entry_or_null(&xdna->client_list, ...
+    ...
+}
 
-[ ... ]
->      #[inline]
->      unsafe fn from_foreign(ptr: *mut kernel::ffi::c_void) -> Self {
->          Self {
->              // SAFETY: By function safety contract, `ptr` came from
->              // `into_foreign` and cannot be null.
->              ptr: unsafe { NonNull::new_unchecked(ptr.cast()) },
->          }
+Since drm_dev_unplug() does not force the closure of open files, can vfs
+or drm file descriptors remain open after amdxdna_client_cleanup() frees
+the client memory?
 
-[Severity: Low]
-Should there be an // INVARIANT: comment here?
+If the file descriptor is later closed by the process exiting,
+amdxdna_drm_close() accesses client->pid before calling drm_dev_enter():
 
-The struct Owned<T> has an Invariants section. ForeignOwnable::from_foreign
-constructs Self { ptr: ... } without an // INVARIANT: comment to justify why
-the ownership and pinning invariants are upheld.
+drivers/accel/amdxdna/amdxdna_pci_drv.c:amdxdna_drm_close() {
+    ...
+    struct amdxdna_client *client =3D filp->driver_priv;
+    ...
+    XDNA_DBG(xdna, "closing pid %d", client->pid);
+    ...
+}
 
-[ ... ]
-> @@ -231,3 +237,125 @@ unsafe fn borrow_mut<'a>(ptr: *mut kernel::ffi::c_v=
-oid) -> Self::BorrowedMut<'a>
-[ ... ]
-> +struct Foo {
-> +    refcount: Cell<usize>,
-> +}
-> +
-> +impl Foo {
-> +    fn new() -> Result<Owned<Self>> {
-> +        // We are just using a `KBox` here to handle the actual allocati=
-on, as our `Foo` is
-> +        // not actually a C-allocated object.
-> +        let result =3D KBox::new(
-> +            Foo {
-> +                refcount: Cell::new(1),
-> +            },
-> +            flags::GFP_KERNEL,
-> +        )?;
-
-[Severity: Low]
-Should we add an // INVARIANT: comment here?
-
-The struct Foo is documented with invariants above, but this construction
-lacks the comment explaining why the invariants are satisfied.
-
-> +        let result =3D KBox::into_non_null(result);
-> +        // SAFETY:
-> +        //  - We just allocated the `Self`, thus it is valid and we own =
-it.
-> +        //  - We can transfer this ownership to the `from_raw` method.
-> +        Ok(unsafe { Owned::from_raw(result) })
-> +    }
-> +}
-[ ... ]
-> +let foo =3D Foo::new()?;
-> +let mut foo =3D ARef::from(foo);
-
-[Severity: Low]
-Can we remove the mut keyword here?
-
-The variable foo is only cloned and consumed by Owned::try_from, but never
-mutated. This will trigger an unused mutability warning which can break the
-build for documentation tests when warnings are treated as errors.
-
-> +{
-> +    let bar =3D foo.clone();
-> +    assert!(Owned::try_from(bar).is_err());
-> +}
-> +assert!(Owned::try_from(foo).is_ok());
-> +# Ok::<(), Error>(())
-> +```
-> +pub trait OwnableRefCounted: RefCounted + Ownable + Sized {
-> +    /// Checks if the [`ARef`] is unique and converts it to an [`Owned`]=
- if that is the case.
-> +    /// Otherwise it returns again an [`ARef`] to the same underlying ob=
-ject.
-> +    fn try_from_shared(this: ARef<Self>) -> Result<Owned<Self>, ARef<Sel=
-f>>;
-> +
-> +    /// Converts the [`Owned`] into an [`ARef`].
-> +    #[inline]
-> +    fn into_shared(this: Owned<Self>) -> ARef<Self> {
-> +        // SAFETY: Safe by the requirements on implementing the trait.
-> +        unsafe { ARef::from_raw(Owned::into_raw(this)) }
+Similarly, ioctls like amdxdna_drm_get_info_ioctl() dereference the freed
+client structure without drm_dev_enter() protection. Can this lead to a
+use-after-free?
 
 [Severity: High]
-Does into_shared rely on undocumented invariants that make this unsafe block
-unsound?
+This is a pre-existing issue, but there might be a race condition in
+amdxdna_drm_open() during client initialization.
 
-Since OwnableRefCounted is a safe trait, any safe code can implement it. The
-default implementation of into_shared calls ARef::from_raw, which assumes t=
-he
-raw pointer has an active reference count increment that can be taken
-ownership of.
+drivers/accel/amdxdna/amdxdna_pci_drv.c:amdxdna_drm_open() {
+    ...
+    list_add_tail(&client->node, &xdna->client_list);
+    mutex_unlock(&xdna->dev_lock);
 
-Because there are no safety requirements on the trait preventing it, a user
-could safely implement OwnableRefCounted for a type where Owned<T> does not
-hold a reference count increment. Calling into_shared on such a type would
-pass a pointer without an active refcount to ARef::from_raw, and when dropp=
-ed,
-it would decrement a non-existent refcount.
+    filp->driver_priv =3D client;
+    client->filp =3D filp;
+    ...
+}
 
-Should this trait be declared as unsafe trait OwnableRefCounted to prevent
-undefined behavior?
+Since accel_open() avoids calling drm_dev_enter(), could amdxdna_remove()
+execute concurrently and find this partially initialized client in the list?
 
-> +    }
-> +}
-> diff --git a/rust/kernel/sync/aref.rs b/rust/kernel/sync/aref.rs
-> index 818c84fa923a3..68d31f43e6743 100644
-> --- a/rust/kernel/sync/aref.rs
-> +++ b/rust/kernel/sync/aref.rs
-[ ... ]
-> @@ -35,7 +39,10 @@
->  /// Note: Implementing this trait allows types to be wrapped in an [`ARe=
-f<Self>`]. It requires an
->  /// internal reference count and provides only shared references. If uni=
-que references are required
->  /// [`Ownable`](crate::types::Ownable) should be implemented which allow=
-s types to be wrapped in an
-> -/// [`Owned<Self>`](crate::types::Owned).
-> +/// [`Owned<Self>`](crate::types::Owned). Implementing the trait
-> +/// [`OwnableRefCounted`] allows to convert between unique and
-> +/// shared references (i.e. [`Owned<Self>`](crate::types::Owned) and
-> +/// [`ARef<Self>`](crate::types::Owned)).
+If amdxdna_remove() frees the client before amdxdna_drm_open() finishes,
+could the assignment to filp->driver_priv result in a dangling pointer?
 
-[Severity: Low]
-Is this doc link destination correct for ARef<Self>?
+[Severity: High]
+This isn't a bug introduced by this patch, but the return value of
+init_srcu_struct() seems to be ignored.
 
-The link target incorrectly points to Owned instead of ARef. It should point
-to the correct type, e.g., crate::sync::aref::ARef.
+drivers/accel/amdxdna/amdxdna_pci_drv.c:amdxdna_drm_open() {
+    ...
+    init_srcu_struct(&client->hwctx_srcu);
+    ...
+}
+
+Since init_srcu_struct() allocates per-CPU memory and can return -ENOMEM,
+what happens if the allocation fails? Will the srcu_struct be left
+partially initialized?
+
+If subsequent ioctls invoke srcu_read_lock(&client->hwctx_srcu), could
+this dereference unallocated pointers and cause a kernel panic?
+
+>  		XDNA_ERR(xdna, "SVA get pasid failed");
+>  		return -ENODEV;
+>  	}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-unique-ref=
--v17-0-7b4c3d2930b9@kernel.org?part=3D9
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604202815.2425=
+882-1-lizhi.hou@amd.com?part=3D1
