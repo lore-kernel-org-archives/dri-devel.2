@@ -4,141 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3867CD6E68
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 08:08:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 636F1CD6E4A
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 08:16:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18E2610E3FF;
-	Thu,  4 Jun 2026 08:08:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF256113D8B;
+	Thu,  4 Jun 2026 08:16:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="h/+QQX9U";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="e6LxuoSz";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ZNinGa1J";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46FE310E3FF
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 08:08:44 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6540toea598074
- for <dri-devel@lists.freedesktop.org>; Thu, 4 Jun 2026 08:08:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- yVbcebMh6Di5VhpLuMDSJYWN/Rb4djQcDc2Pn3rowVE=; b=h/+QQX9UtObTkBIr
- 3whzket8t2XN47q8TBQVJ3q3SfySf/dKAH0e2gBBH5KL1b0ej4ToJn2FvN83Jcwd
- OkIf2ypp/3V9Z/nPJc/mwTntsvLh+PZ6kryJqS/GtLIK16oYhZiG8Dwnt1A55MXX
- Asp65VRQFNEqZp5sLl+bJLwt72qBHTfdgYxKZkHjKOqx2EAmHo03+e76eIWTsYuO
- jI/dLWAaG/0Wxei/y5w84fQkbi/g++HQ8hr6CzZodZEP00YX3E/MmFev+tGGs+XU
- D5syeduUiVaecikqEvVo9by03226rqxrK+7sjn9BEAmwWvqoECOqvUmf+jh2j7ET
- dfD+6g==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ejy8m1atv-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 08:08:43 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-9158ecbfbc2so7833185a.0
- for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 01:08:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1780560523; x=1781165323;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=yVbcebMh6Di5VhpLuMDSJYWN/Rb4djQcDc2Pn3rowVE=;
- b=e6LxuoSzIWSUE017Dm/2Saq1zrbVVh1ExSpqVXP+IJR8vupD1SABZq8slQmrQtp+ur
- /cNtltzOta2Scl/vzpd2EzZaonHcARYLIvlf5K7FlhMkegiaQnDuoTlwBy40ae0V88lu
- o9J16suEh2Wnvl2YtO5ufLQWf6YE7Ve/SM8fHKfpVqOJxfXk8gxD2X83SGyUXufdIC7v
- mblEOj98Q3RQLGHa/oc9F6QPnNlwHmgs6g2cSre8lSoBb1407ZHUvsR7yOs+mIs03+3M
- +awDSUHJeSSAYwgcLwrwFw9Bk+H0Ty7coBDNsV9IrRH4IdItMuqtn8zGZW8Kt8414syt
- 6QWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780560523; x=1781165323;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=yVbcebMh6Di5VhpLuMDSJYWN/Rb4djQcDc2Pn3rowVE=;
- b=Qfn2cUcdZxxK0Qq87Jhgmox8cpWEjDiqeVG4y57G8ef3f1hEM0QXtt74ppVVo6s1CO
- MFN2MhA901Avx5HT66mvj0Z+trcbw5V/xN2ULnmjoPLU/J/SKXNY3fHRxACXRNTwLIIz
- 8aRC0OwMmxyWBsPWJoCYjC3RqUJHdVt+bxLSa6KYsyf+mmMz4lmLgPD/+zO+Y+KYmBdI
- Eql6B4V18DKOz85azsdrnU5b2azx49HZlIXHJZg7lyBoqaJCB32vZGtum4CxR29P/gQD
- M7WWjUiCQt5UCQJ53MB3Nkg8ld9bH1w2ItgDgTYZZgx1nguSWWa4AkLPCrW/uWM6ICY8
- zQGw==
-X-Gm-Message-State: AOJu0YyfrNs4J4l/mRd7KQYcMZiJ6dUi+l19fqq1Qyzip8CFqLJlg2o8
- 9pbeGV9hYzZaiI8DrCc/2wY7D6w2jzyW0CQ+FYvlwoSBuecaAkFxGcuD+rCw/4ZTm47YN+QK288
- folcyrju5lkOIj50CNTi+WFkDUQJoRS/eYDPu9JLmd3O3hOpi4+2Pgo5at4LPMyBQvYTmzRw=
-X-Gm-Gg: Acq92OEfdbOWVOiZEohXakB3HuZEdaaKLRrM5CNk/JpFaUcDAACbFGDcGe3iOJk3CHZ
- OE27maqTkBSl2lpVoQ2YnBanELoCZgJEhhiXjebPOT0SdbAg8oG0Ix+mlEZCCeeImZEmkS3VPsp
- kWr6sQoofvF69qKAeIESxFmQ8/u2O9lS4JdNp7oMdtq3KI9WkUl2d7D3How3QQrDilBICSb/tM3
- P7t+3om/Kd4gLOvHI9V5oMJFWyl8bP3IORCDuCH1qpUzIjXTQFYrDNEabPts1wQI81i6H9RfGiP
- MlRb20poez48r0HQZESB0TJIgC4HPGk6fkhsMML1CtQj3D9HyBmufxnp8+AGxCtsnyaZl2RDn1O
- MUNajlwVt0YZYDiR2zL7gwSzkY3kTO9/zCgLlkDrdTGNO07BMuSH3B7gRvdM1sAUBJ1Q3gCYA0f
- SYjlybed9B
-X-Received: by 2002:a05:620a:1999:b0:915:776d:52e4 with SMTP id
- af79cd13be357-9159e3519c4mr133788385a.8.1780560522606; 
- Thu, 04 Jun 2026 01:08:42 -0700 (PDT)
-X-Received: by 2002:a05:620a:1999:b0:915:776d:52e4 with SMTP id
- af79cd13be357-9159e3519c4mr133787085a.8.1780560522124; 
- Thu, 04 Jun 2026 01:08:42 -0700 (PDT)
-Received: from KDYBCIO.eu.qualcomm.com (public.toolboxoffice.it.
- [213.215.163.27]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bf052097992sm272304366b.26.2026.06.04.01.08.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Jun 2026 01:08:41 -0700 (PDT)
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Date: Thu, 04 Jun 2026 10:06:57 +0200
-Subject: [PATCH 4/4] firmware: qcom: scm: Allow QSEECOM on Yoga Slim 7x Gen11
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2BDA113D8B
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 08:16:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1780560963;
+ bh=0Y7Wgjd+88mbx6eBRrnHlgMIRq18/ldRsZrp3x6grII=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=ZNinGa1J0lLXQYyrBJR0buj+EVTZ80+2Uuh9nZXqO5DlLo5sEXIgohmA8VDsKAtoz
+ UvCqtRX47RtYpxgOHrWo8+vktVHLFvnBvDW+E8Ko4K+xhPvTaH/nI/lejQf80lbqWm
+ Qf9POeDLzHkMsjucLQavTvPNYR8Tr3Jlr6KSD2or4e8PqPTGjgy6DrUgHQIuUL3B+q
+ JzkgS9DOAEszq/R8nHmx76Yu6iVGRNez/yOJPiT4sseUIitOTj/fezTTaeFWg6GsAc
+ oMAUvO7JH3MpB05Q9sDx1vkCEmwLYRlQG801pUppqED/pS+btzqljwhf8djFJ1x0NG
+ eZyz35pp1VL0A==
+Received: from fedora-2.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E820317E0979;
+ Thu,  4 Jun 2026 10:16:01 +0200 (CEST)
+Date: Thu, 4 Jun 2026 10:15:52 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Daniel Almeida <dwlsalmeida@gmail.com>
+Cc: Philipp Stanner <phasta@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
+ <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl
+ <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich
+ <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Christian
+ =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, "Paul E. McKenney"
+ <paulmck@kernel.org>, Frederic Weisbecker <frederic@kernel.org>, Neeraj
+ Upadhyay <neeraj.upadhyay@kernel.org>, Joel Fernandes
+ <joelagnelf@nvidia.com>, Josh Triplett <josh@joshtriplett.org>, Uladzislau
+ Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, Mathieu
+ Desnoyers <mathieu.desnoyers@efficios.com>, Lai Jiangshan
+ <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Igor Korotin
+ <igor.korotin@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, Alexandre
+ Courbot <acourbot@nvidia.com>, FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Krishna Ketan Rai <prafulrai522@gmail.com>, Shankari Anand
+ <shankari.ak0208@gmail.com>, manos@pitsidianak.is,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, rcu@vger.kernel.org
+Subject: Re: [PATCH 3/4] rust: Add dma_fence abstractions
+Message-ID: <20260604101552.4232733b@fedora-2.home>
+In-Reply-To: <09096455-BA79-4E61-AD88-44DA57C5BEA8@gmail.com>
+References: <20260530143541.229628-2-phasta@kernel.org>
+ <20260530143541.229628-5-phasta@kernel.org>
+ <4F8E8E04-5AB5-4E6B-9194-5FC467E2313F@collabora.com>
+ <20260603191405.4c75badb@fedora-2.home>
+ <09096455-BA79-4E61-AD88-44DA57C5BEA8@gmail.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260604-topic-yoga_submission-v1-4-57c70c23d0d6@oss.qualcomm.com>
-References: <20260604-topic-yoga_submission-v1-0-57c70c23d0d6@oss.qualcomm.com>
-In-Reply-To: <20260604-topic-yoga_submission-v1-0-57c70c23d0d6@oss.qualcomm.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Douglas Anderson <dianders@chromium.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780560429; l=1001;
- i=konrad.dybcio@oss.qualcomm.com; s=20260604; h=from:subject:message-id;
- bh=R6FZOcCMcMQPOEjJuz1wW0gtCOFpXybWrlx8i13dpWI=;
- b=3UzD5s8LpQciKzqLHwUPKSZ/9f5DdpeCV+exqTJNvMDnsE50v8T6bcgPcxVh6OQoh9Aidfxz1
- 58XJQLwOJq8A+N8lLyjoUhER2XJxlNJLkB9mAZrzBaSEV8YgtsMBdTD
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=SGRRMmlLTuP/lGKdQ0f4KPvxn8VVsXtXaTpdGc8i82c=
-X-Authority-Analysis: v=2.4 cv=KfDidwYD c=1 sm=1 tr=0 ts=6a21328b cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=aBIYUfOEhgoR9egqXYNcqA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=cNJI-YeLJ0YrPzV7rEUA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA0MDA3OCBTYWx0ZWRfX7UwdP6CoZCBU
- mNZ2OpdURfjs9esXbxDTdVpfoiEhWUlyhiV51LOl7ffjXXw2OXByg0vxFiHcNYqkTzxnWPr+YTn
- 6nvGm3Mvr7sxxzlJv9rsH7BYsBy7aH09znWoI/9srJBl1Kp8WUX2g+DXpOUHBMlp40GGaqdpKco
- T2jR8w5IQfCp2hENVDY4sH4OKsNB3dIXT1TFf6KzPPxCyBRVJeqR1Ku+TskgCKSdaxToxZy28BM
- 90OEkxDQRg1EUYpYO65uq93GqYtTwPi7eJboZ/vxc/9YVsTRMpHRNRWK3fY+Kx/zcQXsIwZTrvw
- pSeGhf8deCL80zpUWz4N0xj21X9tpj5IMxOYXQXcsCuaIrOIVnEolh6iFB9dMzlh6ioGaxKateO
- e/IGPTKTmWzhFg2lkmV1LhYpgQpRcGya6lGvefQ909Oe/ZuX636EGinC4AcjCsfS12FbC42CKQI
- QO57ikZZpn56xJaQZ+w==
-X-Proofpoint-GUID: EPle8OIlv4Lhlh8AdLiWeGLtVbPM4THX
-X-Proofpoint-ORIG-GUID: EPle8OIlv4Lhlh8AdLiWeGLtVbPM4THX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-04_02,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0
- priorityscore=1501 suspectscore=0 spamscore=0 phishscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606040078
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,28 +85,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Allow the use of QSEECOM on the Glymur-based Lenovo Yoga Slim 7x Gen11,
-as there seem to be no issues with the firmware that would mandate
-disabling it.
+On Wed, 3 Jun 2026 21:43:05 -0300
+Daniel Almeida <dwlsalmeida@gmail.com> wrote:
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- drivers/firmware/qcom/qcom_scm.c | 1 +
- 1 file changed, 1 insertion(+)
+> > On 3 Jun 2026, at 14:14, Boris Brezillon <boris.brezillon@collabora.com=
+> wrote:
+> >=20
+> > On Wed, 3 Jun 2026 13:41:02 -0300
+> > Daniel Almeida <dwlsalmeida@gmail.com> wrote:
+> >  =20
+> >>> +    /// Called when the fence is signaled.
+> >>> +    ///
+> >>> +    /// This is called from the fence signaling path, which may be i=
+n interrupt
+> >>> +    /// context or with locks held, which is why `self` is only borr=
+owed, so that
+> >>> +    /// it cannot drop. Implementations must not sleep or perform
+> >>> +    /// long-running operations.
+> >>> +    ///
+> >>> +    /// An implementation likely wants to inform itself (e.g., throu=
+gh a work item)
+> >>> +    /// within this callback that the associated [`FenceCbRegistrati=
+on`] can now be
+> >>> +    /// dropped.
+> >>> +    fn called(&mut self);   =20
+> >>=20
+> >> This is a central point. We ideally would want this to consume self, b=
+ecause we
+> >> may want to move things out of the callback.   =20
+> >=20
+> > This one comes from me. The rationale being that ::called() is called
+> > from an atomic context, and the resources attached to the callback data
+> > might require acquiring other sleeping locks to be released, and
+> > sometimes you don't even notice immediately because said resources are
+> > refcounted, and the lock is only acquired when you happen to be the
+> > last owner. Yes, those can be caught at runtime if the C side is
+> > properly annotated with might_sleep(), but that's not always the case.
+> >=20
+> > If we defer the drop of the data only when the FenceCb is
+> > dropped/recycled, we're at least not constrained by this "runs in
+> > atomic context" thing.
+> >  =20
+>=20
+> This design does not solve it, because one can quite trivially get around=
+ this
+> restriction using Option<T> as I said. If your point is =E2=80=9Cdon=E2=
+=80=99t run any drop() here=E2=80=9D,
+> then &mut self doesn=E2=80=99t do it.
 
-diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
-index 6b601a4b89dbf04322730aa22fc9590d180a383c..fbcb9dddfec68e32564e3a4209c3b6f471e0fdb5 100644
---- a/drivers/firmware/qcom/qcom_scm.c
-+++ b/drivers/firmware/qcom/qcom_scm.c
-@@ -2304,6 +2304,7 @@ static const struct of_device_id qcom_scm_qseecom_allowlist[] __maybe_unused = {
- 	{ .compatible = "lenovo,thinkpad-t14s" },
- 	{ .compatible = "lenovo,thinkpad-x13s", },
- 	{ .compatible = "lenovo,yoga-slim7x" },
-+	{ .compatible = "lenovo,yoga-slim7x-gen11" },
- 	{ .compatible = "medion,sprchrgd14s1" },
- 	{ .compatible = "microsoft,arcata", },
- 	{ .compatible = "microsoft,surface-pro-12in", },
+My bad, I thought you were talking about some Option<T> in
+FenceCbRegistration<T> (there was one at some point, but it's gone now),
+but you're talking about having an Option<X> inside the T. Yes, there's
+indeed nothing preventing a drop on X in that path, and it's just as
+bad as passing the fence back as value to the callback in that case.
 
--- 
-2.54.0
+>=20
+> >>=20
+> >> Consider a fence design where signal() consumes self. Now consider thi=
+s:
+> >>=20
+> >> ```
+> >> impl FenceCb for MyCallback {
+> >> fn called(&mut self) {
+> >>   // Can't move the fence out, so we have to put an Option<T> just to =
+be able
+> >>   // to move.
+> >>   if let Some(f) =3D self.some_fence.take() {
+> >>     f.signal();
+> >>   }
+> >> }
+> >> ```
+> >>=20
+> >> This used to be the case when our version of the job queue used the "p=
+roxy
+> >> fence" design:
+> >>=20
+> >>=20
+> >> ```
+> >> // Callback on the hw fence
+> >> impl FenceCb for MyCallback {
+> >> fn called(&mut self) {
+> >>   if let Some(f) =3D self.submit_fence.take() {
+> >>     f.signal();
+> >>   } =20
+> >=20
+> > I'm pretty sure lockdep won't like it anyway, because this is nested
+> > locking of the same lock class. For such proxies, we'll need to teach
+> > lockdep about the nesting like has been recently done on
+> > dma_fence_array & co. But I'm digressing. =20
+>=20
+> Yeah, but this is more about resource transfer in general, not
+> this pattern specifically.
+>=20
+> I agree that this has issues, and yes, lockdep complained back
+> then :)
 
+The thing is, there's so many aspects that could go wrong because of the
+context this callback is called in. Nested locking is one of them,
+the fact we can't sleep is another. And with rust it's even worse,
+because of the implicit drops that will happen when you take ownership
+of resources (taking sleeping locks to remove resources from a dataset
+for instance).
+
+So, by passing self by value to the ::callback(), you're basically
+telling users "hey, BTW, don't forget to defer the drop to some
+workqueue if you think it's not atomic-safe". And how can users know
+that the thing they're about to drop can be dropped in atomic context?
+They basically have to audit the ::drop() of all the resources they
+embed in their type implementing FenceCb. Not only that, but they also
+have to design the thing so the deferral of this ::drop() doesn't
+allocate, because, obviously, allocating in atomic context is
+tricky/fallible. AFAIK, none of this can be spot at compile-time (I
+remember Gary/Danilo mentioning that we could teach the klint about
+some of these rules). This would leave us with runtime checks like
+might_sleep(), but most of the C putters (xxx_put(object)) don't have
+might_sleep() in the path where the decref doesn't lead to a refcnt=3D0
+situation.
+
+TLDR; Call this PTSD if you want, but this is the sort of bugs I
+struggled with on the C side, and I can predict that the exact same
+will happen in rust drivers if we expose the FenceCb as it is designed
+here and we don't have a way to check the soundness of the FenceCb
+implementations at compile time.
+
+The other option (the one I've been advocating for from the start), is
+to not let drivers implement FenceCb (make it private), but instead
+have a bunch of implementations that we know are safe. Here's a list of
+implementations that I think would unblock most of the drivers use
+cases:
+
+- wakeup a thread
+- complete a completion object
+- schedule a WorkItem
+- schedule a kthread_worker (once we get a proper rust abstraction for
+  that)
+
+It doesn't mean we can't have optimized FenceCb implementations that do
+a lot more in the callback() path instead of deferring to a
+workqueue/thread, but at least those would have to be implemented in
+dma_fence.rs, and the dma_fence.rs maintainers can then carefully audit
+the code as part of the review process, which we know is not really the
+case when changes touch drivers code only.
+
+FWIW, I think the FenceProxy design you were describing falls into
+this "must be carefully audited" bucket, and should be implemented in
+dma_fence.rs.
+
+>=20
+> >  =20
+> >> }
+> >> ```
+> >>=20
+> >> Although this is not the case anymore, since we phased out this design=
+ given
+> >> Christian's recent work. Still, we should ideally not require Option<T=
+> here in
+> >> general just to make resource transfer possible. =20
+> >=20
+> > I see. OTOH, don't we need to make this inner data movable if we want
+> > to cancel the FenceCb before the fence is signaled anyway? And that's
+> > most certainly a case we have in the teardown path. =20
+>=20
+> Can you expand a bit on what you mean here?
+
+Never mind, I was confusing two different iterations of the code here.
+I thought the Option<T> you were mentioning was in
+FenceCbRegistration<T>, with some explicit ::cancel() function that
+would return Option<T> so the user can get its resources back when it
+cancels the registration, and also know whether the callback was called
+or not. But this is all gone now, and all we can do is drop the
+registration, which will automatically drop the inner T.
