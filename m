@@ -4,43 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF2E7CD6E6E
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:02:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE8EBCD6E6E
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:10:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A4FC11A2CC;
-	Thu,  4 Jun 2026 20:02:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16E4E10E1F2;
+	Thu,  4 Jun 2026 20:10:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ApNSUNV4";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mn4RYwo3";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IHHFsZa9";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E83D11A2CC
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:02:45 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7F1C56001A;
- Thu,  4 Jun 2026 20:02:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19E501F00893;
- Thu,  4 Jun 2026 20:02:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780603364;
- bh=SiJUjS10JQKZxe/cU/29KmkEjhgmWAOcawa7qp2LCcc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ApNSUNV4YoUKVgT4SQSsGwwC794U6D4/hMaGte+z4pW2bGSIFSyxSH2HHJCHNbAVu
- VmCgkDjz3jT1rc/CMBWEPZDX3l7PiygtVntKxM9p4Zoi+JtZVyv13hrUOW0VihfUsc
- H/Z5hNRJf5Sdco2VqVAeM11jF4MBNaccEQP5Q0Dum3koLryH0Mmyf8iYDRumxRFoOq
- hxcyf2kiLeWdI+HqZ2IeQ1cUHVOSZcfuUptzHnE8OeXa3xUkU4BqVwXc3fg4vWnyhp
- qZ5OQqqoXFvJwc7Je1fGGP/wS00qK1Qemw4mo8rD6+ZqI0r/+mKVIIJ1GZVWPqya4P
- bNlER1mP67Cvg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1] misc: fastrpc: Add cache maintenance for
- non-coherent platforms
-To: "Abhinav Parihar" <abhinav.parihar@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260604194811.2437567-1-abhinav.parihar@oss.qualcomm.com>
-References: <20260604194811.2437567-1-abhinav.parihar@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 20:02:43 +0000
-Message-Id: <20260604200244.19E501F00893@smtp.kernel.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A13910E3BF
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:10:07 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 654G6t2s1957545
+ for <dri-devel@lists.freedesktop.org>; Thu, 4 Jun 2026 20:10:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=5a1rPumWL5TM1aoArxsrWg
+ V7GTojVDnL8YPP4sQcz2M=; b=mn4RYwo37zG2OiPFUmCzdI6DmQKTLKyB7b5qtY
+ rvFnPYTrCxwRJy86VwEjYs6lShjMeeiHUJlvSPklxdqb5sH5/6kG4ryLbHnKO57Q
+ 3bF3/9e5z8quIl1zTT3d3aoDxYB9ctDFv2M4eDgFhLljZ7p3T5DBj0DsVmzpzqGX
+ dtJXjxY4xkYb5CVGzLmxOrkjAtKc7ItswxBf3YfEj1PmByIubvTCuGM9mdsKYPOn
+ gRhz99+rMZ0zoiwPzGz07hmkU9PR1ogGxbuWWxapY3t1IeR9t/o5G0+VppMSEDUE
+ 6rEnQWgkWEDGsjxavC1U2UILAAV/JzXyI+1MvLhKxXng+/aw==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
+ [209.85.210.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ekckps5dc-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 20:10:06 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id
+ d2e1a72fcca58-842692bf60aso1639566b3a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 13:10:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1780603805; x=1781208605;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=5a1rPumWL5TM1aoArxsrWgV7GTojVDnL8YPP4sQcz2M=;
+ b=IHHFsZa9mJ3KsO3mWO6wpJ2F09Mx+SQUwbO5UwZkKnkx54Z2+xXi/YJSlMKy+6vZku
+ rpQZ+DcB31+uMTLIap8brP0lk6Y4bwAngwjpPtvUEsGMiN9Mpkt5sxHqzNpxIUOWacVc
+ /PEo1wWzp8TXZir7D4cT3oG8xbHIP3lCBsDkgfybX2Z7Kf+JcNy//a0x12Ed3W3HG/R1
+ 3IJNTnNbF8wHpl4miCAHPeRS2kPYFCoidCj359sObcfMCi0YVtQLiso0NMN4HUiukhr2
+ GTIAu6DjYH5+sCMbaLTKcnuO5xbtC5lAf3Xbi15tgsjoPJ6UKBVeY6hoQUVwGWupBVHH
+ E/5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780603805; x=1781208605;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5a1rPumWL5TM1aoArxsrWgV7GTojVDnL8YPP4sQcz2M=;
+ b=qL875OT9Xh4qU1rkg6UfxqsFAv/ZyVGFS5w82O9yUNSnK8ZMJVt9e9eGg3VGB4oPb8
+ eEH3RG+UKUtAIZf0YIRYNQtbriZdXKHdmN9YCnPV8PHaFqQJNX06w+rEX914HykGdxXx
+ I73+9AexYqp+PgU6lteGEHFritM0tTARzYEKxZjG85Vn7IzWUyC58IZzbfJF2sgENKhw
+ pr/WwbWgXUFLC+aMelG5kWaduKiNWAEGZuetyFcxwHrx35sr/z0zqTMHTXFuLTt2XOzl
+ UnBISTo3OR7aCwB9D3+uzEScjukQS0YoLFgBghopnGMwcg6unso0M8m0VdfK8rI0cXjo
+ pRZw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8Ey9Cth/xgGhZIbA+dTGG85elZW/DLCKHTC5kzGYH54u2QtOtaewDBn/lEabnmouAerjrWRTQpFsU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwTI4sArNls0Os75aH7BgNyh55KbRNB1URlNC4tXCrPDJLpoZTV
+ l/ml2qAYWVLos+XBnsZQQbMLRFaareWQ7JDZmg+N5vl9XUAV+VYWxOPGHGLvs9rXcDIQHvaDS+I
+ HUokhaURFQT5r02o2nvAdkH1OAy7GGc7Lv3dGH7hdW6rsrP7Fx1Ozd0CXFjcRc/VbXK8kLto=
+X-Gm-Gg: Acq92OE4NmQQIQYbn1GqW6v/8039dMrsho7ZBf0eC2S/aVpzE9SMi68hESEdWQXS70d
+ iLWkFjJEhMSw1Vmpvy6QqK+Pqcj+MwkStps9I3FbuxZK3w4sSa12zIxPnfouns7kMQDjTjrQrt/
+ vVcfCaKrI6HTTvggDo/mClm7xOnq8RhubL7rXfEE/olIXhvFmuWXge5RTS2O8I4zFj7jlS5nASY
+ 4AQyZqEHNqyAr9JVUshwga7lBYLEEjuscFoRPfObhS6tW53DqbbiV9VU3/Pu9cC6/cdyxtAnRVN
+ NLO5wVN4fZtR9Pwk7NPEqCnGZTfNJnqWE9pkeiHxgfbBnlV64Vd5VgngSBdSalON3XZDPLT3fBW
+ u63dKxZVAGc/mc5S0I0rQ2MDwuGO0QuqSL+CGa94If+4Am2AFIBnxP+U5
+X-Received: by 2002:a05:6a00:3e05:b0:842:54e8:bdd with SMTP id
+ d2e1a72fcca58-842b0fb4de6mr200551b3a.40.1780603805382; 
+ Thu, 04 Jun 2026 13:10:05 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3e05:b0:842:54e8:bdd with SMTP id
+ d2e1a72fcca58-842b0fb4de6mr200530b3a.40.1780603804935; 
+ Thu, 04 Jun 2026 13:10:04 -0700 (PDT)
+Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8428290067dsm6721425b3a.53.2026.06.04.13.09.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 Jun 2026 13:10:04 -0700 (PDT)
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Subject: [PATCH 0/6] drm/msm: Assorted fixes - June/26
+Date: Fri, 05 Jun 2026 01:38:16 +0530
+Message-Id: <20260605-assorted-fixes-june-v1-0-2caa04f7287c@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADHbIWoC/yWNwQ6CMBBEf4Xs2U0KYhV+xXCodNGatNXdYkgI/
+ +4qxzeTN7OCEAcS6KsVmD5BQk4K9aGC8eHSnTB4ZWhMY401J3QimQt5nMJCgs85Edq6a83Ftq4
+ 7T6Dmi+nfqngddmZ6zzpe9hBuTgjHHGMofeU5YpSIiZaCvyPUn6OBYdu+YJ5IIaAAAAA=
+X-Change-ID: 20260605-assorted-fixes-june-61940864a97f
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>,
+ Jie Zhang <quic_jiezh@quicinc.com>,
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Shivam Rawat <shivrawa@qti.qualcomm.com>,
+ Jie Zhang <jie.zhang@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780603799; l=1112;
+ i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
+ bh=mW3/AYYOxPahGK1I/u4/xLMfbTUSvBOizXao0/KjA5Q=;
+ b=x/KV7wrpPJrdG7YhLxlqebwuNBYoQhC66TqMxQoH+PBy9pXzAmv8gmWDcLPJIGRCBTtIVZnHn
+ dcVdLiec1NjCb7XY63lkxUvXjUvedRZratO/IeuWNqdIa8C4V3ZFQSJ
+X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
+ pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
+X-Proofpoint-GUID: aN5Q6b8pR5VfhGzX3Zeuz9YVhRT80A6r
+X-Proofpoint-ORIG-GUID: aN5Q6b8pR5VfhGzX3Zeuz9YVhRT80A6r
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA0MDE5NyBTYWx0ZWRfX6fKOJxCKZaP1
+ qDo9k/T40R7xwIGISlhIp5+O1k61DmejNpDwIFqRjNDVS0l4H3X1aZytuL107AhzfWUN9aRD/pJ
+ bSCIxDAmecP0TL5MCjWdw0CzShC324jK6G/SRs8WQIacT87t1Ncx/DrEg8iLPE+un3FSIkArZwu
+ uNOxUM/TWLOocQsEjPxO34oWCCw5/1UY+FRiK0HpKiVj0rYF69KJIEd++X45gWISfpm9O8gpowj
+ 4SySth/FMwj2c8ociDb9feIbYDoZ9fNBJEmJt03vinKshXzCDFflaKrZWPCvAyRite3sZSeq7xP
+ LTXKp8I2GbivrUnnUsnvb5VHgROdaoUpRd9T+CXn9gwCr5ZCyzAXL8e4N/q4OX6bjWBvDulNkIs
+ njXDZGY6M905OeRrH4OYrCvTJw4oYy0PgPVTWFh/S3d06YUvkNjD63nhTUIzC3VVcm+kIWe2WXz
+ dy88BdKzwP2DmXs7BhA==
+X-Authority-Analysis: v=2.4 cv=H9jrBeYi c=1 sm=1 tr=0 ts=6a21db9e cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=5WLGAYDQTmdPK9MYQf4A:9 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-04_05,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 adultscore=0 phishscore=0 bulkscore=0
+ lowpriorityscore=0 spamscore=0 clxscore=1015 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606040197
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,250 +154,34 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
+Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+---
+Jie Zhang (5):
+      drm/msm: Recover HW before retire hung submit
+      drm/msm/a6xx: Fix A663 GPUCC register list for state capture
+      drm/msm/a6xx: Fix A621 GPUCC register list for state capture
+      drm/msm/a6xx: Fix IRQ storm during msm_recovery test
+      drm/msm: Fix task_struct reference leak in recover_worker
 
-New issues:
-- [High] `fastrpc_inv_args()` incorrectly passes `DMA_TO_DEVICE` to `dma_bu=
-f_end_cpu_access()` after beginning access with `DMA_FROM_DEVICE`.
-- [High] Missing cache maintenance for output buffers before DSP execution.
-- [High] The return value of `dma_buf_begin_cpu_access()` is ignored.
-- [High] Misuse of `dma_buf_begin_cpu_access()` to perform cache maintenanc=
-e for the DSP.
-- [High] Cache maintenance is incorrectly skipped for shared IN/OUT buffers=
- due to flawed overlap logic.
-- [Medium] The overlap check in `fastrpc_inv_args()` incorrectly compares a=
- kernel virtual address with a user-space virtual address, making it imposs=
-ible to match.
+Shivam Rawat (1):
+      drm/msm/a6xx: Fix stale rpmh votes after suspend
 
-Pre-existing issues:
-- [Critical] `fastrpc_context_free()` leaks memory for DMA maps associated =
-with handle arguments.
-- [Critical] Untrusted pointers read from a DSP-shared DMA buffer are used =
-directly as source pointers in `copy_to_user`, allowing arbitrary kernel me=
-mory leak.
---
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c       |  5 +++++
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c       |  5 ++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c       |  5 ++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c |  5 ++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h | 12 ++++++++++++
+ drivers/gpu/drm/msm/adreno/a8xx_gpu.c       |  5 ++++-
+ drivers/gpu/drm/msm/msm_gpu.c               |  8 ++++++--
+ 7 files changed, 39 insertions(+), 6 deletions(-)
+---
+base-commit: ef8274b9c19a4b614e10ce95553d0d363dc1c1f8
+change-id: 20260605-assorted-fixes-june-61940864a97f
 
-commit 3ae5f11901e70743ac3aeecf63b6007d21fbb3e3
-Author: Abhinav Parihar <abhinav.parihar@oss.qualcomm.com>
+Best regards,
+-- 
+Akhil P Oommen <akhilpo@oss.qualcomm.com>
 
-misc: fastrpc: Add cache maintenance for non-coherent platforms
-
-This patch introduces helper functions to flush input buffers and invalidate
-output buffers for fastrpc argument buffers on non-coherent platforms. It u=
-ses
-the dma_buf_begin_cpu_access() and dma_buf_end_cpu_access() APIs to perform
-the cache operations.
-
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index 1080f9acf70a3..043b6a5548fb5 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-[ ... ]
-> +static void fastrpc_flush_args(struct fastrpc_invoke_ctx *ctx)
-> +{
-> +	union fastrpc_remote_arg *rpra =3D ctx->rpra;
-> +	int i, inbufs, outbufs;
-> +
-> +	inbufs =3D REMOTE_SCALARS_INBUFS(ctx->sc);
-> +	outbufs =3D REMOTE_SCALARS_OUTBUFS(ctx->sc);
-> +
-> +	for (i =3D 0; i < inbufs + outbufs; ++i) {
-> +		int raix =3D ctx->olaps[i].raix;
-> +		struct fastrpc_map *map =3D ctx->maps[raix];
-> +
-> +		if (raix + 1 > inbufs)
-> +			continue;
-
-[Severity: High]
-Are output buffers missing cache maintenance before DSP execution?
-
-Before a device performs a DMA write to an output buffer, the CPU cache must
-be invalidated (or cleaned and invalidated) to prevent dirty cache lines fr=
-om
-being asynchronously evicted and overwriting the device's DMA writes in RAM.
-
-Here, output buffers are explicitly skipped, leaving them vulnerable to evi=
-ction
-corruption during DSP execution.
-
-> +		if (!map || !map->buf)
-> +			continue;
-> +
-> +		if (rpra[raix].buf.len && ctx->olaps[i].mstart) {
-
-[Severity: High]
-Does this overlap logic cause skipped cache maintenance for shared IN/OUT
-buffers?
-
-When an IN/OUT buffer is passed as both an inbuf and an outbuf pointing to =
-the
-same memory, fastrpc_get_buff_overlaps() sorts them and assigns mstart =3D =
-0 to
-the completely overlapping second element.
-
-Because sort() is not stable, the OUT buffer could be sorted first and the =
-IN
-buffer second, resulting in mstart =3D 0 for the IN buffer. Since OUT buffe=
-rs are
-already skipped above, skipping the IN buffer here when mstart =3D 0 causes=
- the
-flush to be completely bypassed.
-
-> +			dma_buf_begin_cpu_access(map->buf, DMA_TO_DEVICE);
-
-[Severity: High]
-Could dma_buf_begin_cpu_access() fail here and bypass fence waits?
-
-dma_buf_begin_cpu_access() can return an error code like -ERESTARTSYS or
--ENOMEM. Ignoring the return value silently bypasses fence waits and cache
-synchronization.
-
-[Severity: High]
-Is the CPU access API being misused to proxy DSP cache maintenance?
-
-Calling dma_buf_begin_cpu_access() and dma_buf_end_cpu_access() back-to-back
-to trigger device cache maintenance within the exporter appears to bypass t=
-he
-native DMA API. This broadcasts the sync operation to all attached devices =
-and
-should likely be handled natively via dma_sync_sg_for_device().
-
-> +			dma_buf_end_cpu_access(map->buf, DMA_TO_DEVICE);
-> +		}
-> +	}
-> +}
-> +
-> +static void fastrpc_inv_args(struct fastrpc_invoke_ctx *ctx)
-> +{
-> +	union fastrpc_remote_arg *rpra =3D ctx->rpra;
-> +	int i, inbufs, outbufs;
-> +
-> +	inbufs =3D REMOTE_SCALARS_INBUFS(ctx->sc);
-> +	outbufs =3D REMOTE_SCALARS_OUTBUFS(ctx->sc);
-> +
-> +	for (i =3D 0; i < inbufs + outbufs; ++i) {
-> +		int raix =3D ctx->olaps[i].raix;
-> +		struct fastrpc_map *map =3D ctx->maps[raix];
-> +
-> +		if (raix + 1 <=3D inbufs)
-> +			continue;
-> +		if (!rpra[raix].buf.len)
-> +			continue;
-> +		if (!map || !map->buf)
-> +			continue;
-> +
-> +		/*
-> +		 * Skip invalidation if the argument overlaps with the
-> +		 * RPC control header page.
-> +		 */
-> +		if (((uintptr_t)rpra & PAGE_MASK) =3D=3D
-> +			((uintptr_t)rpra[raix].buf.pv & PAGE_MASK))
-
-[Severity: Medium]
-Does this overlap check incorrectly compare a kernel virtual address with a
-user-space virtual address?
-
-The rpra array is a kernel virtual address, but rpra[raix].buf.pv contains a
-user-space virtual address for mapped buffers (ctx->args[i].ptr). Comparing
-their page masks will almost never match, rendering this check essentially
-dead code.
-
-> +			continue;
-> +
-> +		if (ctx->olaps[i].mstart) {
-
-[Severity: High]
-Similar to the issue in fastrpc_flush_args(), could the OUT buffer get
-mstart =3D 0 due to the unstable sort in fastrpc_get_buff_overlaps()?
-
-If the IN buffer is sorted first, the OUT buffer gets mstart =3D 0 and is
-skipped, bypassing the invalidation.
-
-> +			dma_buf_begin_cpu_access(map->buf, DMA_FROM_DEVICE);
-
-[Severity: High]
-Is the return value of dma_buf_begin_cpu_access() ignored here as well?
-
-This can lead to severe race conditions or silent data corruption if the ca=
-ll
-fails and implicit fences are not waited on.
-
-> +			dma_buf_end_cpu_access(map->buf, DMA_TO_DEVICE);
-
-[Severity: High]
-Should this be DMA_FROM_DEVICE instead of DMA_TO_DEVICE?
-
-The DMA-BUF API requires the direction passed to the end access function to
-match the begin function. Passing DMA_TO_DEVICE after DMA_FROM_DEVICE cause=
-s a
-cache clean instead of completing the cache invalidation. This can overwrite
-the fresh DSP output data in RAM with stale CPU cache lines.
-
-> +		}
-> +	}
-> +}
-
-[ ... ]
-
->  static void fastrpc_context_free(struct kref *ref)
->  {
->  	struct fastrpc_invoke_ctx *ctx;
->  	struct fastrpc_channel_ctx *cctx;
->  	unsigned long flags;
->  	int i;
-> =20
->  	ctx =3D container_of(ref, struct fastrpc_invoke_ctx, refcount);
->  	cctx =3D ctx->cctx;
-> =20
->  	for (i =3D 0; i < ctx->nbufs; i++)
->  		fastrpc_map_put(ctx->maps[i]);
-
-[Severity: Critical]
-This is a pre-existing issue, but does fastrpc_context_free() leak memory f=
-or
-DMA maps associated with handle arguments?
-
-fastrpc_create_maps() allocates and initializes up to ctx->nscalars map
-objects, which includes handles (indices >=3D ctx->nbufs). However, this lo=
-op
-only cleans up from 0 to ctx->nbufs - 1. The maps corresponding to handles =
-are
-never released, permanently leaking map objects and pinning DMA buffers.
-
-[ ... ]
-
->  static int fastrpc_put_args(struct fastrpc_invoke_ctx *ctx,
->  			    u32 kernel)
->  {
->  	union fastrpc_remote_arg *rpra =3D ctx->rpra;
-[ ... ]
->  	for (i =3D inbufs; i < ctx->nbufs; ++i) {
->  		if (!ctx->maps[i]) {
->  			void *src =3D (void *)(uintptr_t)rpra[i].buf.pv;
->  			void *dst =3D (void *)(uintptr_t)ctx->args[i].ptr;
->  			u64 len =3D rpra[i].buf.len;
-> =20
->  			if (!kernel) {
->  				if (copy_to_user((void __user *)dst, src, len)) {
-
-[Severity: Critical]
-This is a pre-existing issue, but does this pass untrusted pointers read fr=
-om
-a DSP-shared DMA buffer directly as source pointers to copy_to_user()?
-
-The rpra array is mapped bidirectionally to the DSP via the shared ctx->buf.
-A compromised or malicious DSP could overwrite rpra[i].buf.pv and
-rpra[i].buf.len with arbitrary kernel addresses.
-
-Since this code blindly passes this attacker-controlled address as the src =
-to
-copy_to_user(), can the DSP leak arbitrary kernel memory to user space?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604194811.2437=
-567-1-abhinav.parihar@oss.qualcomm.com?part=3D1
