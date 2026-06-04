@@ -4,54 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C99A2CD6E4A
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 09:59:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA0FFCD6E4A
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 10:03:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25F0710E5EB;
-	Thu,  4 Jun 2026 09:59:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9FD4113EAF;
+	Thu,  4 Jun 2026 10:03:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="OjlnaenU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Js0HQQf1";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF60110E5EB
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 09:59:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=cE7MtlTjRzUqQbREBM8KqnatEKRVc2qv2XtdNFT8V84=; b=OjlnaenUVnpRuqziy9k4xdIvCH
- PCLHHltcN26UJyR5Mx9D9yhqxl26MJSWasNI50ssKz0JGyRtfERtaFzx+12A4lag9MSCXfIPt/vXV
- wdEuH36k6yW5U8eybANltwU/bpu+rLzADiMlSFvGYNY3IpBBLqclFOPaAqyM+Gw5F+fn044gm8zHL
- 2ErQAkJeG1Hg4HrUfPFYZM7tlpOlPtSxYOwzHj4vzoBdzFkQE690Ex0+QY7OyXWofet7UJxB32Yzt
- ZJJoOFDHxE4N9A4Z8u/Jnvcs4MAlIAZ3Ydtt4yleyZ5lO3FDcF/+ekv0tmORQL0Ctp/j7+7QGSuOD
- ZG1ucm/g==;
-Received: from [90.240.106.137] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wV4rH-00Ca67-Te; Thu, 04 Jun 2026 11:59:27 +0200
-Message-ID: <e3e754ce-9c98-4015-99bb-0f73049a1469@igalia.com>
-Date: Thu, 4 Jun 2026 10:59:27 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 12/14] drm/v3d: Split BO fence attach from syncobj
- output handling
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-References: <20260603-v3d-sched-misc-fixes-v3-0-d7114bba55a0@igalia.com>
- <20260603-v3d-sched-misc-fixes-v3-12-d7114bba55a0@igalia.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260603-v3d-sched-misc-fixes-v3-12-d7114bba55a0@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E902F113EAF
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 10:03:41 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 11DD4601F5;
+ Thu,  4 Jun 2026 10:03:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96C581F00893;
+ Thu,  4 Jun 2026 10:03:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780567420;
+ bh=aMQzR6I8brBIEqdpXVCBJV2699SakFXIV+Sucj9eaw4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Js0HQQf1qkoma53BfSHPDn3oMW8R6Dd5A5nHSAI04xbugY3GHcf0jRWMExTZ6mY5u
+ YLasW3Go1mes7eabty3wxG+KqF9o5jxJ3AnvqQ/AfG/eLNxBWVodDFQXFCVcPkoeu4
+ KZQ0/79IuQm0kOyhp0VRF1AbhkjFG7b5OLnxAOH7WYEhAs5lm6Sy3dLJDc1r93f7G9
+ Nj5H6mXe9CVob8a2ifzxyQoE0G/FkjygghUY1ucrF6k+n2OxGS9x6rRw4PH7njxjKd
+ 8lF3jcfbE4ImDvO1ihboXahmWqgVuh9ZDtYgJTN8lJEk1OdbqCO5PsVi4P9AF3cQMC
+ NZq7JDrj3LtTA==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC v3 5/7] drm/xe/vm: Disable madvise notifier on GPU touch
+To: "Arvind Yadav" <arvind.yadav@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260604095012.367231-6-arvind.yadav@intel.com>
+References: <20260604095012.367231-6-arvind.yadav@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 04 Jun 2026 10:03:40 +0000
+Message-Id: <20260604100340.96C581F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,79 +52,115 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-On 03/06/2026 23:25, Maíra Canal wrote:
-> v3d_attach_fences_and_unlock_reservation() does three different things:
-> (1) attaches the submission's last fence to every BO, (2) releases
-> drm_exec, and (3) replaces the userspace out_sync syncobjs. Decouple
-> these three behaviors into different functions, so that each function
-> has a more self-contained behavior.
-> 
-> v3d_submit_jobs() now invokes the three steps explicitly, which makes the
-> submission sequence self-documenting and keeps each helper self-contained.
-> 
-> No functional change; just code consolidation.
-> 
-> Signed-off-by: Maíra Canal <mcanal@igalia.com>
-> ---
->   drivers/gpu/drm/v3d/v3d_submit.c | 19 +++++++++++++------
->   1 file changed, 13 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
-> index 1df7ab528422..2beb99a25104 100644
-> --- a/drivers/gpu/drm/v3d/v3d_submit.c
-> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
-> @@ -319,12 +319,9 @@ v3d_attach_perfmon_to_jobs(struct v3d_submit *submit, u32 perfmon_id)
->   }
->   
->   static void
-> -v3d_attach_fences_and_unlock_reservation(struct v3d_submit *submit,
-> -					 u32 out_sync, struct v3d_submit_ext *se)
-> +v3d_submit_attach_object_fences(struct v3d_submit *submit)
->   {
-> -	bool has_multisync = se && (se->flags & DRM_V3D_EXT_ID_MULTI_SYNC);
->   	struct v3d_job *last_job = submit->jobs[submit->job_count - 1];
-> -	struct drm_syncobj *sync_out;
->   
->   	/* The submission's last fence covers the entire submission. Attach it
->   	 * to every BO touched by any job in the submission.
-> @@ -338,8 +335,15 @@ v3d_attach_fences_and_unlock_reservation(struct v3d_submit *submit,
->   					   DMA_RESV_USAGE_WRITE);
->   		}
->   	}
-> +}
->   
-> -	v3d_submit_unlock_reservations(submit);
-> +static void
-> +v3d_submit_process_post_deps(struct v3d_submit *submit, u32 out_sync,
-> +			     struct v3d_submit_ext *se)
-> +{
-> +	bool has_multisync = se && (se->flags & DRM_V3D_EXT_ID_MULTI_SYNC);
-> +	struct v3d_job *last_job = submit->jobs[submit->job_count - 1];
-> +	struct drm_syncobj *sync_out;
->   
->   	/* Update the return sync object for the job */
->   	/* If it only supports a single signal semaphore*/
-> @@ -400,7 +404,10 @@ v3d_submit_jobs(struct v3d_submit *submit, u32 out_sync,
->   
->   	mutex_unlock(&v3d->sched_lock);
->   
-> -	v3d_attach_fences_and_unlock_reservation(submit, out_sync, se);
-> +	v3d_submit_attach_object_fences(submit);
-> +	v3d_submit_unlock_reservations(submit);
-> +	v3d_submit_process_post_deps(submit, out_sync, se);
+Pre-existing issues:
+- [High] Unbounded accumulation of `xe_madvise_notifier` structs leading to=
+ memory leak and Denial of Service (OOM).
+--
+
+commit 01cdfed4cb38d71774f4ae69b625419325962b05
+Author: Arvind Yadav <arvind.yadav@intel.com>
+drm/xe/vm: Disable madvise notifier on GPU touch
+
+This commit adds an active flag to xe_madvise_notifier to stop queueing
+autoreset work once a CPU-only VMA has been GPU-faulted. It modifies the
+pagefault handler to touch the VMA and deactivate exact-match notifiers
+in the maple tree.
+
+> diff --git a/drivers/gpu/drm/xe/xe_vm_madvise.c b/drivers/gpu/drm/xe/xe_v=
+m_madvise.c
+> index c2abe712598a1..6c42ce8e3f525 100644
+> --- a/drivers/gpu/drm/xe/xe_vm_madvise.c
+> +++ b/drivers/gpu/drm/xe/xe_vm_madvise.c
+[ ... ]
+> @@ -1236,3 +1238,46 @@ int xe_vm_madvise_register_notifier_range(struct x=
+e_vm *vm, u64 start, u64 end)
+> =20
+>  	return err;
+>  }
 > +
->   	v3d_submit_put_jobs(submit);
->   
->   	return 0;
-> 
+> +/**
+> + * xe_vm_deactivate_madvise_notifier_for_range - Disable callbacks for a=
+ VMA
+> + * @vm: VM
+> + * @start: VMA start
+> + * @end: VMA end
+> + */
+> +static void xe_vm_deactivate_madvise_notifier_for_range(struct xe_vm *vm=
+, u64 start, u64 end)
+> +{
+> +	struct xe_madvise_notifier *notifier;
+> +	unsigned long index =3D start;
+> +
+> +	lockdep_assert_held_write(&vm->lock);
+> +
+> +	if (!vm->svm.madvise_work.wq)
+> +		return;
+> +
+> +	/*
+> +	 * Only exact-match notifiers are disabled. Broader notifiers may still
+> +	 * cover CPU-only split siblings.
+> +	 */
+> +	mt_for_each(&vm->svm.madvise_notifiers, notifier, index, end - 1)
+> +		if (notifier->vma_start =3D=3D start && notifier->vma_end =3D=3D end)
+> +			WRITE_ONCE(notifier->active, false);
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+[Severity: High]
+This is a pre-existing issue, but does leaving these deactivated notifiers =
+in
+memory without freeing them contribute to an unbounded accumulation?
 
-Regards,
+Looking at xe_vm_madvise_register_notifier_range(), notifiers are allocated
+and linked to the VM indefinitely:
 
-Tvrtko
+xe_vm_madvise_register_notifier_range() {
+    notifier =3D xe_madvise_notifier_alloc(vm, start, end);
+    if (!notifier)
+        return -ENOMEM;
+    ...
+    list_add_tail(&notifier->link, &vm->svm.madvise_notifier_list);
+}
 
+Since older notifiers are only freed if they are fully covered by a new ran=
+ge
+or during VM teardown, could userspace intentionally map, bind with AUTORES=
+ET,
+madvise, and unbind at different addresses across the virtual address space?
+
+This sequence seems like it would bypass the displacement logic and permane=
+ntly
+leak the notifier objects, potentially consuming kernel memory and causing a
+denial of service.
+
+Should xe_vm_deactivate_madvise_notifier_for_range() or the unbind path
+actively clean up these deactivated objects?
+
+> +}
+> +
+> +/**
+> + * xe_vm_madvise_gpu_touch - Disable madvise notifier after GPU touch
+> + * @vm: VM
+> + * @vma: GPU-touched VMA
+> + */
+> +void xe_vm_madvise_gpu_touch(struct xe_vm *vm, struct xe_vma *vma)
+> +{
+> +	lockdep_assert_held_write(&vm->lock);
+> +
+> +	/* Only AUTORESET VMAs have madvise notifiers. */
+> +	if (!(vma->gpuva.flags & XE_VMA_MADV_AUTORESET))
+> +		return;
+> +
+> +	xe_vm_deactivate_madvise_notifier_for_range(vm,
+> +						xe_vma_start(vma),
+> +						xe_vma_end(vma));
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604095012.3672=
+31-1-arvind.yadav@intel.com?part=3D5
