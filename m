@@ -4,79 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C75D8CD6E6B
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 11:52:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F44CCD6E4A
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 11:58:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1486113FA2;
-	Thu,  4 Jun 2026 11:52:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E029113FAC;
+	Thu,  4 Jun 2026 11:58:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="cCtsOGRw";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="QDtOojWP";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAC7D113FA2
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 11:52:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=0XYWENPrBjIENXt8ggquUvJiJdTMw6mKgz5J6wnrJJY=; b=cCtsOGRw0sHgwMiujcBrpukf/G
- g4HDBUVX8XI/3/A5HY5my2fTlSegfDVHAYRcVAAHiiG6QSt6gmxAkVKa+NbUdB9Q6sFBNx1b1vNgi
- /aCm9qCiygM6U6cEYV2dmNnSVcs/CL0fxkw2+ttJrRYFdxQ/WgFP/LI17T7tL6W4Lc2Sw4Xzvcdob
- 9YjFLxF/f9/Fl9VQiO8NffR8CeH8+88yZPmtarrLu19F1Jk8EhKjkVLLZSh0Xcx2vEOWQiPi1yMI9
- DTcLsjQJQFNQ12vG9kNxo1d64WS/KTlgf8yphlS/e58wg1exfdXPFpppCeZNqlXz+Y8E4BrWVVFSw
- cPl/ircA==;
-Received: from [189.7.87.67] (helo=[192.168.0.2])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wV6co-00CcSy-7D; Thu, 04 Jun 2026 13:52:38 +0200
-Message-ID: <7fecd592-38a1-46bb-8289-cb8599b2df4d@igalia.com>
-Date: Thu, 4 Jun 2026 08:52:29 -0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 08/14] drm/v3d: Introduce struct v3d_submit and convert
- CL/TFU/CSD ioctls
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Melissa Wen
- <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-References: <20260603-v3d-sched-misc-fixes-v3-0-d7114bba55a0@igalia.com>
- <20260603-v3d-sched-misc-fixes-v3-8-d7114bba55a0@igalia.com>
- <f015504f-ac09-4de3-9727-473108d6757f@igalia.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <f015504f-ac09-4de3-9727-473108d6757f@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from mail-ed1-f74.google.com (mail-ed1-f74.google.com
+ [209.85.208.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 817DD113FAC
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 11:58:12 +0000 (UTC)
+Received: by mail-ed1-f74.google.com with SMTP id
+ 4fb4d7f45d1cf-68cdfbad902so666288a12.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 04:58:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1780574291; x=1781179091;
+ darn=lists.freedesktop.org; 
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=tsDBf51o8QHp6SAQ5/8ziLKktk7y3LjUQBohqdmyxqM=;
+ b=QDtOojWP8WqmKQDlCXhLBgfVurGfjDE4QYRxSQHc5MpfyRP8Bdu3RaInbtDLXmZSU4
+ fbJlLNliALWfvBTYH4ESf9QLUKx0LzW0fr/TIZR/VRWHinTdFFqZmg3YCM33MkbDUUTL
+ tDVxr+BW//YGOiTppSzanvMcLAbF3yZ0ct/9z649eXwndSJBDTpnLmxf4pfSsFEad/Ms
+ FHpVUew/kfu1ULvREtT3XeNauLAAziTm4hMVTfcD9PZEx1tvsPGUZ2faS6gwGeE6fCCI
+ 2ySilosVVklX1SPPR9FvLULoKq0avgHBap5dC/nDnUVgGsEnk8FK8vjNrwuqBfpKo2yj
+ xGpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780574291; x=1781179091;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=tsDBf51o8QHp6SAQ5/8ziLKktk7y3LjUQBohqdmyxqM=;
+ b=hTwn5LMvuJ8T0zPaSvm4SGT6CORjqbWfJDeqcCutrmKi5OQGG0Wju3fstE6Cm0GW6F
+ rJ/CcY0rNEhN96HYDRlDj380wCdpgtrdZdaYjEmWD6QwCM0PgKnSEX+bbcydHGldTCV7
+ vLMesiaeXh0tMCJsmXpEOCODMI33wqHGs5UW9xGnDhai0FDiWeQJrbgNDEj2uKEJnOIL
+ kiRQjWyRggm9ZubAAlIVWO4iiIwsnyqkrm5Z4oS/do8lvp5OUSEs1JLvYMPb8KQ6Wahw
+ oTfc/buo3p07UOmbR2CVbT5QM0rsvAWZpQeGVi3ttSWf7Cbl4oR3o8P6yn3bWAdCYmk/
+ 07+A==
+X-Gm-Message-State: AOJu0YxczhNl/ygQDsx8h7AK5Hd2tnDJ2Bz/AE/1e+zVtzw0vvy9LIAI
+ 9j7oxrvPoiw3BY5AN7VLuGrGK+aCcHt8dCvFoPRPqJTXK4YxHpzWe0zkuk4ARCZTO2nK48af0II
+ 2VidbPlVqYbXSG4AhTQ==
+X-Received: from edrm6.prod.google.com ([2002:aa7:d346:0:b0:68b:163d:99f3])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:27cf:b0:688:1d5:44c5 with SMTP id
+ 4fb4d7f45d1cf-68e6f79352amr4016032a12.2.1780574290900; 
+ Thu, 04 Jun 2026 04:58:10 -0700 (PDT)
+Date: Thu, 4 Jun 2026 11:58:09 +0000
+In-Reply-To: <20260603195210.693856-6-lyude@redhat.com>
+Mime-Version: 1.0
+References: <20260603195210.693856-1-lyude@redhat.com>
+ <20260603195210.693856-6-lyude@redhat.com>
+Message-ID: <aiFoUauWYLz-Oyrx@google.com>
+Subject: Re: [PATCH v17 5/6] rust: sync: Add SetOnce::reset()
+From: Alice Ryhl <aliceryhl@google.com>
+To: Lyude Paul <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+ nouveau@lists.freedesktop.org, Alexandre Courbot <acourbot@nvidia.com>, 
+ Gary Guo <gary@garyguo.net>, 
+ "Christian =?utf-8?B?S8O2bmln?=" <christian.koenig@amd.com>,
+ driver-core@lists.linux.dev, Miguel Ojeda <ojeda@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org, 
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org, 
+ "Rafael J . Wysocki" <rafael@kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ Benno Lossin <lossin@kernel.org>, 
+ linaro-mm-sig@lists.linaro.org, Danilo Krummrich <dakr@kernel.org>, 
+ Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
+ Asahi Lina <lina+kernel@asahilina.net>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,83 +90,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Tvrtko,
-
-On 04/06/26 05:58, Tvrtko Ursulin wrote:
+On Wed, Jun 03, 2026 at 03:42:34PM -0400, Lyude Paul wrote:
+> This function simply drops the contents of the SetOnce, given a mutable
+> reference - since that proves we have exclusive access to the SetOnce.
+> Additionally, update the invariants for SetOnce to make it clear as to why
+> this is safe.
 > 
-> On 03/06/2026 23:25, Maíra Canal wrote:
->> +static int
->> +v3d_submit_jobs(struct v3d_submit *submit)
->> +{
->> +    struct v3d_dev *v3d = submit->v3d;
->> +    int ret = 0;
->> +
->> +    mutex_lock(&v3d->sched_lock);
->> +
->> +    for (int i = 0; i < submit->job_count; i++) {
->> +        struct v3d_job *job = submit->jobs[i];
->> +
->> +        v3d_push_job(job);
->> +
->> +        if (i + 1 < submit->job_count) {
->> +            ret = drm_sched_job_add_dependency(&submit->jobs[i + 1]- 
->> >base,
->> +                               dma_fence_get(job->done_fence));
-> 
-> Is there a theoretical race where job->done_fence could be completed and 
-> last reference dropped between push and here?
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
 
-There is, but it'll be fixed in "[PATCH v3 14/14] drm/v3d: Ensure atomic
-submissions in v3d_submit_jobs()".
+This isn't needed, you can just do:
 
-> 
->> +            if (ret)
->> +                goto err;
->> +        }
->> +    }
->> +
->> +err:
->> +    mutex_unlock(&v3d->sched_lock);
->> +    return ret;
->> +}
->> +
->>   static int
->>   v3d_setup_csd_jobs_and_bos(struct drm_file *file_priv,
->>                  struct v3d_dev *v3d,
->> @@ -921,18 +1048,15 @@ int
->>   v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
->>               struct drm_file *file_priv)
->>   {
->> -    struct v3d_dev *v3d = to_v3d_dev(dev);
->> -    struct v3d_file_priv *v3d_priv = file_priv->driver_priv;
->> +    struct v3d_submit submit = { .v3d = to_v3d_dev(dev), .file_priv = 
->> file_priv };
->>       struct drm_v3d_submit_cl *args = data;
->>       struct v3d_submit_ext se = {0};
->>       struct v3d_bin_job *bin = NULL;
->>       struct v3d_render_job *render = NULL;
->>       struct v3d_job *clean_job = NULL;
-> 
-> render and clean_job do not need to be initialised.
-
-Ack.
-
->> +
->> +    ret = v3d_attach_perfmon_to_jobs(&submit, args->perfmon_id);
->> +    if (ret)
->> +        goto fail;
->> +
->> +    ret = v3d_lookup_bos(dev, file_priv,
->> +                 submit.jobs[submit.job_count - 1],
-> 
-> submit.jobs[submit.job_count - 1] is repeated four times in the function 
-> so you could assign it to a last_job local for more readability. Up to you.
-
-This will all disappear in the next few patches.
-
-Considering this, would you consider R-b-ing this patch and I'll address
-the initializations in the next version?
-
-Best regards,
-- Maíra
+unsafe { (*this).sgt_res = SetOnce::new() };
 
