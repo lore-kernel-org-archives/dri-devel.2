@@ -4,44 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7250BCD6E68
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 08:22:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10F5DCD6E57
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 08:53:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 781F410E5AB;
-	Thu,  4 Jun 2026 08:22:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A834113DBA;
+	Thu,  4 Jun 2026 08:53:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SQHjIXSc";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="SRoNSX3/";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D0AA10E5AB
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 08:22:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DC4104386E;
- Thu,  4 Jun 2026 08:22:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 787D21F00893;
- Thu,  4 Jun 2026 08:22:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780561346;
- bh=qLESv79Gs9i/g3fBG1Ar34reaAJiM2FZ8YIohVIqRUw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SQHjIXScgJXDMfdK5itfyUkXp+9Cw8vo5GPX2aWf9CosmbKN9v8hZrfbSCVzBsRK9
- LMt1VQn6YCO/Itla9b+u01m5hewVzPAAggChb6Ug1pC3PB83HURSnIjxgYmJXHqCpD
- ARQSmjqmJlG5ZE231wrX0NqDa1Uuae6/xhRxo86cCyoXmaa/otBBd/2hfoiG+Q6iFS
- 3QZpRvbiPfTfvpbup1rInNJM4x2bWIMpX6M9SVymg1q98rQf5H2x/TT/NM8CeooCPR
- 6w3AkhqRSesYg/kpSlmZI1zJ9lwMu6pA6XRgmOel17q5rzQ/6KKI1zpBryNc1lzG8y
- tYRsN8G8T+Lcw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] arm64: dts: qcom: Add Glymur-based Lenovo Yoga Slim
- 7x Gen11
-To: "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260604-topic-yoga_submission-v1-3-57c70c23d0d6@oss.qualcomm.com>
-References: <20260604-topic-yoga_submission-v1-3-57c70c23d0d6@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 08:22:25 +0000
-Message-Id: <20260604082226.787D21F00893@smtp.kernel.org>
+Received: from mail-m6010.netease.com (mail-m6010.netease.com [210.79.60.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43267113DB9
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 08:53:17 +0000 (UTC)
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 410f6c9c2;
+ Thu, 4 Jun 2026 16:53:13 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
+ cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
+ dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
+ dianders@chromium.org, m.szyprowski@samsung.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v5 0/4] Add eDP lane mapping support
+Date: Thu,  4 Jun 2026 16:52:16 +0800
+Message-Id: <20260604085220.2862986-1-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e91d62fd503a8kunm52a01cd04098d9
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaShhMVhlISU9DGUNIGUIeGFYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=SRoNSX3/Rkz5sDt4b7lrzl0FSMCFZz5YiIMR9Q8KMs5FNWV5tBgNNZAXmqJWx9ncaADyIWRJ3lZd0zTTh5x2Io0pNKosGErrfCQF1RxMepfFHBgT0pEQRPxJ8hQsqF5Ag6PvGu0nhEiksBYp7qY4aT+opIZci6Rqbc2nM9hE49A=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=6/XfbGUuZBZ8YijYz/NsVn8w/usuYLa6S7gqMFXiOrk=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,91 +61,66 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Missing `vdd-micb-supply` in `lpass_vamacro` node breaks DMIC capt=
-ure.
-- [Low] Missing `key-volume-up` subnode in `gpio-keys` despite claiming its=
- pinctrl.
-- [Low] The `nvme_sec_reg_en` pinctrl node is defined but never referenced.
---
+This series adds configurable eDP physical lane mapping support via
+device tree data-lanes property.
 
-commit cf25549a8fd93e158d3d638230deeb2a24306da5
-Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Lane mapping is mainly used for below scenarios:
+1. Correct PCB lane swap and differential line routing crossover
+   without hardware changes;
+2. Adapt mismatched lane pin definitions between SoC and eDP panel;
+3. Support multiple panel hardware variants on the same board
+   by configuring data-lanes in device tree only.
 
-arm64: dts: qcom: Add Glymur-based Lenovo Yoga Slim 7x Gen11
+The series includes driver implementation and device tree binding
+updates to support custom lane mapping configuration from endpoint
+node, and keeps default linear lane order if no configuration is given.
 
-This commit introduces the device tree for the Lenovo Yoga Slim 7x Gen11
-laptop. It defines nodes and configurations for several supported hardware
-features such as audio, GPU, keyboard, and networking.
+Patch 1: Add endpoint data-lanes property to analogix-dp binding
+Patch 2: Add DRM DP helper API to validate DP lane counts
+Patch 3: Add validation for samsung,lane-count property as preparation
+Patch 4: Implement lane mapping in analogix_dp driver
 
-> diff --git a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts b/arc=
-h/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
-> new file mode 100644
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
-[ ... ]
-> +	gpio-keys {
-> +		compatible =3D "gpio-keys";
-> +
-> +		pinctrl-0 =3D <&key_vol_up_default>, <&hall_int_n_default>;
-> +		pinctrl-names =3D "default";
-> +
-> +		switch-lid {
-> +			label =3D "lid";
-> +			gpios =3D <&tlmm 92 GPIO_ACTIVE_LOW>;
-> +			linux,input-type =3D <EV_SW>;
-> +			linux,code =3D <SW_LID>;
-> +			wakeup-source;
-> +			wakeup-event-action =3D <EV_ACT_DEASSERTED>;
-> +		};
-> +	};
+Damon Ding (4):
+  dt-bindings: display: bridge: analogix-dp: Add data-lanes support for
+    endpoint
+  drm/dp: Add helper to validate DP lane counts
+  drm/bridge: analogix_dp: Add validation for samsung,lane-count
+    property
+  drm/bridge: analogix_dp: Add support for optional data-lanes mapping
 
-[Severity: Low]
-Does this code miss a subnode for the volume up key?
+ .../bindings/display/bridge/analogix,dp.yaml  | 19 ++++--
+ .../rockchip/rockchip,analogix-dp.yaml        |  1 +
+ .../drm/bridge/analogix/analogix_dp_core.c    | 64 ++++++++++++++++++-
+ .../drm/bridge/analogix/analogix_dp_core.h    |  4 +-
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 15 ++---
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.h |  4 ++
+ include/drm/display/drm_dp_helper.h           |  6 ++
+ 7 files changed, 97 insertions(+), 16 deletions(-)
 
-The pinctrl state for key_vol_up_default is claimed by the gpio-keys node
-here, but without a corresponding child node, the input subsystem will not
-register the volume up button.
+---
 
-[ ... ]
-> +&lpass_vamacro {
-> +	pinctrl-0 =3D <&dmic01_default>, <&dmic23_default>;
-> +	pinctrl-names =3D "default";
-> +	qcom,dmic-sample-rate =3D <4800000>;
-> +};
+Changes in v2:
+- Add lane mapping application scenarios in commit message.
+- Remove redundant deprecated property 'data-lanes' for eDP node.
+- Update port@1 $ref to /schemas/graph.yaml#/$defs/port-base.
 
-[Severity: High]
-Should this node include a vdd-micb-supply property pointing to vreg_l1b_e0?
+Changes in v3:
+- Squash [PATCH v2 2/3] into [PATCH v2 1/3].
+- Add unevaluatedProperties: false to both the port@1 and endpoint
+  nodes.
 
-The audio routing connects the digital microphones to the vdd-micb DAPM
-widget. Without a vdd-micb-supply property here, the lpass-va-macro driver
-falls back to a dummy regulator.
+Changes in v4:
+- Add validation for samsung,lane-count property as preparation.
 
-Since the physical supply (vreg_l1b_e0) has no consumers and lacks a boot-on
-or always-on property, the kernel regulator core will disable it. Will this
-leave the microphones without bias power and result in silent audio capture?
+Changes in v5:
+- Add DRM DP helper API to validate DP lane counts.
+- Apply DRM DP helper API to check the validity of samsung,lane-count
+  property.
+- Add Acked-by and Reviewed-by tags.
 
-[ ... ]
-> +&pmh0110_f_e1_gpios {
-> +	nvme_sec_reg_en: nvme-reg-en-state {
-> +		pins =3D "gpio14";
-> +		function =3D "normal";
-> +		bias-disable;
-> +	};
-> +};
+-- 
+2.34.1
 
-[Severity: Low]
-Is this pinctrl state needed?
-
-It is defined here but does not appear to be referenced by any device node's
-pinctrl properties. Could this be leftover dead code from a reference desig=
-n?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-topic-yoga=
-_submission-v1-0-57c70c23d0d6@oss.qualcomm.com?part=3D3
