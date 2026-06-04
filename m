@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F132CD6E60
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 14:10:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5FA5CD6E4A
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 14:11:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54F5511A10F;
-	Thu,  4 Jun 2026 14:10:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0555F11A111;
+	Thu,  4 Jun 2026 14:11:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mpUNTxFm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QOV+uKdU";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 069DD11A10F
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 14:10:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8432311A111
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 14:11:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 60E9E600B0;
- Thu,  4 Jun 2026 14:10:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D38211F00893;
- Thu,  4 Jun 2026 14:10:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 092006024D;
+ Thu,  4 Jun 2026 14:11:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1E81F00893;
+ Thu,  4 Jun 2026 14:11:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780582251;
- bh=5TT/lYWkb0Er7E9DGPx2aoH9f3cQJSTb6G1KcVgwSoc=;
+ s=k20260515; t=1780582302;
+ bh=MH5p5UiRGIxma5jv4p3iiLlreHzJsU1eQo5K+b7v1QA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mpUNTxFm1JxBI0+cZxuRGR/cfycG26+bSN/oIBXgy9ypfgDAxJpXyZ/4PAK/6xeTT
- ytEo1jo2LEjZm1F0ss2gU2+L1Y0l/Ef3zdx+FndZvqX/ZXUea4Lf71CwMmnhPn/CL9
- aI6nxU96ZfX/8Afm4wGZKJ8RN/jY7IBlT7DkkGneWXc4VMuAbcrNXdxy+JtT/VFvJ1
- AqAXPwKP3+jlbbYRwbl8RRyKspuhMKr4oJV9W/vx/+3wDpDuplCHX7zm4yuGvbqcX6
- fR74vgj8uOFJDnzb5LoQtydkgu04HAnT+I1RDIEiVllWjxXHoq8zg17YSFCREJudzs
- EYoI7D1oymS+A==
+ b=QOV+uKdUZO2+uB77cd6Dbj+5LJDwYmxGF1aOY8WnsOxw3NqBEMS11ys0lUTDsEaaF
+ amwB82L94bLw6d3hlx+7hnDEwv5sebJGTJJBpS8SUSP2xQv3Dzw0Z3Fm6MW44AVOoS
+ AxKR32yQe9WGh6SGb0Z4Mb2Vg0TrVV/JE7fLXse+ypnD0NuTwxFbNCbaZRCLQOEGRO
+ R1u9Nrd4BUTZIlnbUvpfIo99RCOW5Ei9QWUIAe9Z0V/qKbumeaDCU6Jow9oFP9BlqO
+ 9HQpXzcXryHJFt+WV8XPrG+SJVkiWxNv+3Pfs6QKWjMObQQ0PMZtDWN8OMTD04v/Mu
+ qbAOX/879e1sg==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v3 4/9] accel: rocket: Reset the NPU before
- detaching the IOMMU on timeout
+Subject: Re: [RFC PATCH v3 8/9] arm64: dts: rockchip: rk356x: Add the NPU
+ and its IOMMU
 To: "Midgy BALON" <midgy971@gmail.com>
 Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
  dri-devel@lists.freedesktop.org
-In-Reply-To: <20260604135255.62682-5-midgy971@gmail.com>
-References: <20260604135255.62682-5-midgy971@gmail.com>
+In-Reply-To: <20260604135255.62682-9-midgy971@gmail.com>
+References: <20260604135255.62682-9-midgy971@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 14:10:50 +0000
-Message-Id: <20260604141050.D38211F00893@smtp.kernel.org>
+Date: Thu, 04 Jun 2026 14:11:42 +0000
+Message-Id: <20260604141142.7B1E81F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,228 +58,100 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
+New issues:
+- [High] The NPU node simultaneously defines `power-domains` and `rockchip,=
+pmu`, causing the generic power domain framework and the NPU driver to conc=
+urrently manipulate the same PMU power and idle registers.
+- [Low] Device tree nodes `npu@fde40000` and `iommu@fde4b000` are not sorte=
+d by unit address.
+
 Pre-existing issues:
-- [Critical] Double free of rjob->tasks array when copy_from_user() fails.
-- [High] The shared IRQ handler unconditionally accesses hardware registers=
- without verifying the device's PM active state.
-- [High] Missing PM reference drop and unsignaled fence return on error pat=
-hs in `rocket_job_run()`.
-- [High] Concurrent hardware reset and IRQ handler execution can cause an e=
-xternal abort.
-- [High] Unbalanced teardown order in rocket_core_fini() causes UAF and dat=
-a races.
-- [High] NULL pointer dereference of job->domain in rocket_job_cleanup() on=
- early error paths.
-- [High] Missing `synchronize_irq()` in runtime suspend callback.
-- [Medium] The TDR reset path permanently leaks power by preventing the dev=
-ice from entering runtime suspend.
-- [Medium] The hardware reset is performed after dropping the PM runtime re=
-ference, potentially targeting an unpowered device.
+- [Critical] The driver calls `devm_clk_bulk_get` without initializing the =
+`.id` fields of the clock bulk data array, causing all clock requests to in=
+correctly default to the first clock in the device tree node.
 --
 
-commit 323afa3b038052ef6c02ee0548658a65126910a0
+commit dff3ba648a490ef1a1c6644d672ca0b9e1d68360
 Author: Midgy BALON <midgy971@gmail.com>
 
-accel: rocket: Reset the NPU before detaching the IOMMU on timeout
+arm64: dts: rockchip: rk356x: Add the NPU and its IOMMU
 
-On a job timeout the NPU AXI master can be left wedged with outstanding
-transactions. rocket_reset() detached the IOMMU group before resetting
-the hardware, causing the IOMMU core to stall. Assert the core reset
-first to quiesce the master so the detach completes cleanly.
+This commit adds the NPU and its associated IOMMU device tree nodes to the=
+=20
+RK3568 base devicetree. It also configures the necessary clocks, resets, and
+power domain for the NPU.
 
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -364,14 +364,20 @@ rocket_reset(struct rocket_core *core, struct drm_s=
-ched_job *bad)
->  		if (core->in_flight_job)
->  			pm_runtime_put_noidle(core->dev);
+> diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/b=
+oot/dts/rockchip/rk356x-base.dtsi
+> index 64bdd8b7754b5..50ce5a5e4fc24 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
 
-[Severity: Medium]
-This is a pre-existing issue, but does this TDR reset path permanently leak
-power by preventing the device from entering runtime suspend?
+[ ... ]
 
-It appears pm_runtime_put_noidle() drops the reference without triggering an
-idle power-down. If the timed-out job was the last active job, the usage co=
-unt
-reaches zero but the device remains in the RPM_ACTIVE state indefinitely,
-staying powered on until another job is submitted and correctly triggers
-autosuspend.
-
-> -		iommu_detach_group(NULL, core->iommu_group);
-> -
->  		core->in_flight_job =3D NULL;
->  	}
+> @@ -948,6 +955,37 @@ qos_rga_wr: qos@fe158300 {
+>  		reg =3D <0x0 0xfe158300 0x0 0x20>;
+>  	};
 > =20
-> -	/* Proceed with reset now. */
-> +	/*
-> +	 * Reset the NPU hardware before detaching the IOMMU. A timed-out job
-> +	 * leaves the NPU AXI master wedged; detaching the IOMMU then issues a
-> +	 * stall request that never drains and times out (warning in the IOMMU
-> +	 * core). Asserting the core reset first quiesces the master so the
-> +	 * detach completes cleanly.
-> +	 */
->  	rocket_core_reset(core);
+> +	rknn_core_0: npu@fde40000 {
+[Severity: Low]
+This isn't a bug, but should the npu@fde40000 and iommu@fde4b000 nodes be
+ordered alphanumerically by unit address? They appear to be inserted after
+qos@fe158300 rather than being placed right before gpu@fde60000.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but can a concurrent hardware re=
-set
-and IRQ handler execution cause an external abort?
-
-rocket_core_reset() asserts a hardware reset without first disabling device
-interrupts. If an interrupt fires just before or during the reset,
-rocket_job_irq_handler() will execute and perform MMIO reads and writes to =
-the
-bus while the hardware is actively in reset.
-
-[Severity: Medium]
-This is also a pre-existing issue, but is it safe to perform the hardware
-reset after dropping the PM runtime reference?
-
-Dropping the PM reference via pm_runtime_put_noidle() earlier decrements the
-usage count. A concurrently scheduled autosuspend timer could expire precis=
-ely
-in this window and power down the device before or during the reset operati=
-ons.
-
-Asserting resets on a suspended device can lead to system bus faults. Should
-the PM reference be dropped after the hardware reset is complete?
-
-> +
-> +	iommu_detach_group(NULL, core->iommu_group);
-> +
->  	/* NPU has been reset, we can clear the reset pending bit. */
->  	atomic_set(&core->reset.pending, 0);
-
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the shared IRQ handler
-unconditionally access hardware registers without verifying the device's PM
-active state?
-
-drivers/accel/rocket/rocket_job.c:rocket_job_irq_handler() {
-    ...
-    u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
-    ...
-}
-
-The driver registers rocket_job_irq_handler() with the IRQF_SHARED flag.
-Without first calling pm_runtime_get_if_active(), if the NPU is runtime
-suspended, this read accesses an unpowered register domain. This typically
-returns 0xffffffff (causing spurious handling) or triggers a synchronous
-external abort.
-
-
-[Severity: High]
-This is a pre-existing issue, but does rocket_job_run() leak the PM referen=
-ce
-and return an unsignaled fence on error paths?
-
-drivers/accel/rocket/rocket_job.c:rocket_job_run() {
-    ...
-    ret =3D pm_runtime_get_sync(core->dev);
-    if (ret < 0)
-        return fence;
-    ...
-}
-
-If pm_runtime_get_sync() or iommu_attach_group() fails, the function returns
-a newly created, un-signaled fence instead of an error pointer, and leaves
-the PM usage counter incremented. Because the hardware submission step is
-skipped, the hardware will never signal this fence, causing the DRM schedul=
-er
-to hang indefinitely.
-
-
-[Severity: High]
-This is a pre-existing issue, but does the teardown order in rocket_core_fi=
-ni()
-cause a use-after-free and data races?
-
-drivers/accel/rocket/rocket_core.c:rocket_core_fini() {
-    ...
-    iommu_group_put(core->iommu_group);
-    core->iommu_group =3D NULL;
-    rocket_job_fini(core);
-    ...
-}
-
-Resources are torn down in the wrong order. The iommu_group and attached_do=
-main
-members are freed, and pm_runtime_disable() is called before rocket_job_fin=
-i().
-
-If a scheduled job is processed by the DRM scheduler during this window,
-rocket_job_run() will concurrently access the now-NULL iommu_group without
-locking. Should rocket_job_fini() be called first to stop the scheduler and
-wait for jobs?
-
-
+> +		compatible =3D "rockchip,rk3568-rknn-core";
+> +		reg =3D <0x0 0xfde40000 0x0 0x1000>,
+> +		      <0x0 0xfde41000 0x0 0x1000>,
+> +		      <0x0 0xfde43000 0x0 0x1000>;
+> +		reg-names =3D "pc", "cna", "core";
+> +		interrupts =3D <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>;
+> +		clocks =3D <&cru ACLK_NPU>, <&cru HCLK_NPU>,
+> +			 <&scmi_clk SCMI_CLK_NPU>, <&cru PCLK_NPU_PRE>;
 [Severity: Critical]
-This isn't a bug introduced by this patch, but is there a double free of the
-rjob->tasks array when copy_from_user() fails?
+This is a pre-existing issue, but enabling this node exposes a bug where
+devm_clk_bulk_get() is called without initializing the .id fields in
+rocket_core_init().
 
-drivers/accel/rocket/rocket_job.c:rocket_copy_tasks() {
-    ...
-fail:
-    kvfree(rjob->tasks);
-    return ret;
-}
+Since the connection ID is NULL, does clk_get() implicitly fall back to
+of_clk_get(np, 0) for each loop iteration, mapping all four clock array
+entries to ACLK_NPU?
 
-If copy_from_user() fails, it frees rjob->tasks but leaves the dangling poi=
-nter.
+Later, when rk3568_noc_init() dynamically scales the SCMI clock rate to
+1 GHz:
 
-The function returns an error, prompting rocket_ioctl_submit_job() to jump =
-to
-out_cleanup_job and call rocket_job_put(rjob). This invokes
-rocket_job_cleanup(), which unconditionally calls kvfree(job->tasks),
-resulting in a double-free.
+    clk_set_rate(core->clks[ROCKET_RK3568_SCMI_CLK].clk, 1000000000UL);
 
+Does this mistakenly configure the rate of ACLK_NPU instead, which could
+overclock the AXI bus and lead to immediate hardware instability?
 
+> +		clock-names =3D "aclk", "hclk", "npu", "pclk";
+> +		assigned-clocks =3D <&scmi_clk SCMI_CLK_NPU>;
+> +		assigned-clock-rates =3D <200000000>;
+> +		resets =3D <&cru SRST_A_NPU>, <&cru SRST_H_NPU>;
+> +		reset-names =3D "srst_a", "srst_h";
+> +		power-domains =3D <&power RK3568_PD_NPU>;
+> +		rockchip,pmu =3D <&pmu>;
 [Severity: High]
-This is a pre-existing issue, but does rocket_job_cleanup() dereference a N=
-ULL
-job->domain on early error paths?
+Could setting both power-domains and rockchip,pmu cause a race condition
+with TF-A and corrupt hardware state?
 
-drivers/accel/rocket/rocket_job.c:rocket_job_cleanup() {
+The generic power domain framework inherently manages power gating and NoC
+bus idle requests for this domain, and explicitly protects these PMU
+transitions with pmu->mutex.
+
+Concurrently, the rocket driver's rk3568_noc_init() issues direct, un-polled
+regmap_write() operations to the exact same PMU offsets:
+
+    regmap_write(pmu, 0xa0, BIT(1 + 16));
     ...
-    rocket_iommu_domain_put(job->domain);
-    ...
-}
+    regmap_write(pmu, 0x50, BIT(2 + 16));
 
-The job->domain structure is initially NULL and only populated late in the
-function. If an earlier step fails (such as rocket_copy_tasks()), the clean=
-up
-unconditionally calls rocket_iommu_domain_put(job->domain).
-
-This wrapper dereferences the domain struct to access its kref without a
-NULL check:
-
-drivers/accel/rocket/rocket_drv.c:rocket_iommu_domain_put() {
-    kref_put(&domain->kref, rocket_iommu_domain_destroy);
-}
-
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a missing
-synchronize_irq() in the runtime suspend callback?
-
-drivers/accel/rocket/rocket_drv.c:rocket_device_runtime_suspend() {
-    ...
-    clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks),
-                               rdev->cores[core].clks);
-    ...
-}
-
-The driver registers a shared interrupt but fails to call synchronize_irq().
-Disabling the clocks while the IRQ handler is executing concurrently on ano=
-ther
-CPU could cause an AXI bus fault or a hard system crash.
+Does bypassing GenPD's tracked state machine and the pmu->mutex lock create
+a layering violation here?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604135255.6268=
-2-1-midgy971@gmail.com?part=3D4
+2-1-midgy971@gmail.com?part=3D8
