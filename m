@@ -4,62 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D908DCD6E75
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 18:05:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DF49CD8C80
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 18:06:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9ECF011292D;
-	Thu,  4 Jun 2026 18:05:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C36AE112931;
+	Thu,  4 Jun 2026 18:05:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MG8ZL//9";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="L6lmw2HZ";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E828F112925;
- Thu,  4 Jun 2026 18:05:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=xDanblzNrKwLMIWCMdcO9/e2GrHOcHnN+e83qP8r5xg=; b=MG8ZL//9yGgx0wlwz0S4BdlORt
- i3awrnyIRGvnWqC0MRdC1x4N5GjQawwDy41RgxUEFsEOOaG8+yASE/0FO0kkleUE3AFKvRbxI1siP
- TBjJ7HGIhUQksYI1+3eTW+215xaeTqsAAjlGeWetYerw1o60vxZ/IQrxqVrWulsgdKYfOcB4dFYmN
- OJ9oXkD+TG2FzNq2E0lXbeMpSFl+bz9ED4PDOSRSMQh6vvkk+1XpV7apDcLIEBh3M6TLI2+R5dbTX
- uGyhOcUCRwmRrAmy0V/v0RLyL7RD4WT4kXhGwJvZb82XQ55nWmGamfzkl91QgROhiKMXJ0TI/kuyH
- n5+Zptgg==;
-Received: from [79.117.146.159] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wVCRJ-00Ckqs-Dd; Thu, 04 Jun 2026 20:05:09 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: airlied@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- simona@ffwll.ch, tzimmermann@suse.de
-Cc: Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
- Uma Shankar <uma.shankar@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- Sebastian Wick <sebastian.wick@redhat.com>,
- John Harrison <John.Harrison@Igalia.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 3/3] drm/atomic: reject colorop update from inactive color
- pipeline
-Date: Thu,  4 Jun 2026 19:59:07 +0200
-Message-ID: <20260604180457.1110110-4-mwen@igalia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260604180457.1110110-1-mwen@igalia.com>
-References: <20260604180457.1110110-1-mwen@igalia.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90ECB112935
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 18:05:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1780596355;
+ bh=lTf6uPntjxPcMtk9M1V8TXCny6f3dbhk4slZ32ql6eg=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=L6lmw2HZUy0ee7XAu90UJE0Z9FVWkKBEatrdtcLRacOqmGt2EqEXk1/Kn4KbjmlnG
+ 4YRFwMx/8c8cK870TASCF8rOUN6biP5Mk8I0Ldl9fJcJClnvLGW8dEv6dpZxOPyW/y
+ INM4ZfJgsZnFje/whwqyX0w1CBYqLtyZ53uv3IfjHlgTGYBxtveGHqJkNZbmzyS+oo
+ 6zf8iMNVek2Tw3ZqYrsWUCkMdpQj6V1Tpa5qfpCb9jEsHCVfkM4IdHshNHIDpBg7QQ
+ wzqY1pBnOjrKDwJvx7V21qNi2jrZ0IpwlragoPjXLiZS4tITpEBsOgydy2O2hyCN2G
+ 5jfj808gwd8vw==
+Received: from fedora-2.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id AC67817E093F;
+ Thu,  4 Jun 2026 20:05:54 +0200 (CEST)
+Date: Thu, 4 Jun 2026 20:05:50 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 4/7] drm/panfrost: Move perfcnt GPU disable sequence
+ into a helper
+Message-ID: <20260604200550.1d31c038@fedora-2.home>
+In-Reply-To: <20260604-claude-fixes-v2-4-57c6bd4c1655@collabora.com>
+References: <20260604-claude-fixes-v2-0-57c6bd4c1655@collabora.com>
+ <20260604-claude-fixes-v2-4-57c6bd4c1655@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,107 +72,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Only allow updates on colorops that are part of an active pipeline, i.e.
-check if a colorop belongs to the color pipeline of a plane in its
-current, new or old state. If not, reject the state change of this
-inactive colorop. Performing this check later in drm_atomic_check_only()
-to remove the ordering dependency that would exist if done at the time
-of colorop property setting. Userspace is allowed to change colorops of
-an active color pipeline, or when activating or deactivating its
-pipeline in the same commit. However, changes in inactive color pipeline
-is not allowed.
+On Thu, 04 Jun 2026 18:35:23 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-Suggested-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- drivers/gpu/drm/drm_atomic.c | 60 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 60 insertions(+)
+> Just for the sake of avoiding repetition.
+>=20
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 464562861408..960b52624deb 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -943,6 +943,55 @@ drm_atomic_add_pipeline_colorops(struct drm_atomic_commit *state,
- 	return 0;
- }
- 
-+/**
-+ * drm_atomic_colorop_check - check new colorop state
-+ * @new_colorop_state: new colorop state to check
-+ *
-+ * Ensure that the colorop in @new_colorop_state belongs to an active color
-+ * pipeline, i.e. it's in the chain of colorops set to the color_pipeline
-+ * property of current, old or new plane state.
-+ *
-+ * Returns: 0 on success, -EINVAL otherwise.
-+ */
-+static int drm_atomic_colorop_check(const struct drm_colorop_state *new_colorop_state)
-+{
-+	struct drm_atomic_commit *state = new_colorop_state->state;
-+	struct drm_plane *plane = new_colorop_state->colorop->plane;
-+	struct drm_plane_state *new_plane_state, *old_plane_state;
-+	struct drm_colorop *colorop;
-+
-+	new_plane_state = drm_atomic_get_new_plane_state(state, plane);
-+	old_plane_state = drm_atomic_get_old_plane_state(state, plane);
-+
-+	/* No changes in the plane state. Check current-committed plane state */
-+	if (!new_plane_state) {
-+		for (colorop = plane->state->color_pipeline; colorop; colorop = colorop->next)
-+			if (colorop == new_colorop_state->colorop)
-+				return 0;
-+		return -EINVAL;
-+	}
-+
-+	if (WARN_ON(!old_plane_state))
-+		return -EINVAL;
-+
-+	/* Check if the colorop is active in the new plane state */
-+	for (colorop = new_plane_state->color_pipeline; colorop; colorop = colorop->next)
-+		if (colorop == new_colorop_state->colorop)
-+			return 0;
-+
-+	/* Same color pipeline as new; no point walking old. Colorop isn't active */
-+	if (new_plane_state->color_pipeline == old_plane_state->color_pipeline)
-+		return -EINVAL;
-+
-+	/* Check if the colorop was active in the old plane state */
-+	for (colorop = old_plane_state->color_pipeline; colorop; colorop = colorop->next)
-+		if (colorop == new_colorop_state->colorop)
-+			return 0;
-+
-+	/* Colorop is not part of an active color pipeline. */
-+	return -EINVAL;
-+}
-+
- static void drm_atomic_colorop_print_state(struct drm_printer *p,
- 					   const struct drm_colorop_state *state)
- {
-@@ -1792,6 +1841,8 @@ int drm_atomic_check_only(struct drm_atomic_commit *state)
- 	struct drm_plane *plane;
- 	struct drm_plane_state *old_plane_state;
- 	struct drm_plane_state *new_plane_state;
-+	struct drm_colorop *colorop;
-+	struct drm_colorop_state *new_colorop_state;
- 	struct drm_crtc *crtc;
- 	struct drm_crtc_state *old_crtc_state;
- 	struct drm_crtc_state *new_crtc_state;
-@@ -1808,6 +1859,15 @@ int drm_atomic_check_only(struct drm_atomic_commit *state)
- 			requested_crtc |= drm_crtc_mask(crtc);
- 	}
- 
-+	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-+		ret = drm_atomic_colorop_check(new_colorop_state);
-+		if (ret) {
-+			drm_dbg_atomic(dev, "[COLOROP:%d:%d] isn't in an active color pipeline.\n",
-+				       colorop->base.id, colorop->type);
-+			return ret;
-+		}
-+	}
-+
- 	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
- 		ret = drm_atomic_plane_check(old_plane_state, new_plane_state);
- 		if (ret) {
--- 
-2.53.0
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 31 ++++++++++++-----------=
+------
+>  1 file changed, 13 insertions(+), 18 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
+m/panfrost/panfrost_perfcnt.c
+> index 7020c0192e18..ad1156678e91 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> @@ -35,6 +35,16 @@ struct panfrost_perfcnt {
+>  	struct completion dump_comp;
+>  };
+> =20
+> +static void panfrost_perfcnt_gpu_disable(struct panfrost_device *pfdev)
+> +{
+> +	gpu_write(pfdev, GPU_PERFCNT_CFG,
+> +		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
+> +	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
+> +	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
+> +	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
+> +	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+> +}
+> +
+>  void panfrost_perfcnt_clean_cache_done(struct panfrost_device *pfdev)
+>  {
+>  	complete(&pfdev->perfcnt->dump_comp);
+> @@ -193,12 +203,7 @@ static int panfrost_perfcnt_disable_locked(struct pa=
+nfrost_device *pfdev,
+>  	if (user !=3D perfcnt->user)
+>  		return -EINVAL;
+> =20
+> -	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
+> -	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
+> -	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
+> -	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+> -	gpu_write(pfdev, GPU_PERFCNT_CFG,
+> -		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
+> +	panfrost_perfcnt_gpu_disable(pfdev);
+> =20
+>  	perfcnt->user =3D NULL;
+>  	drm_gem_vunmap(&perfcnt->mapping->obj->base.base, &map);
+> @@ -327,12 +332,7 @@ int panfrost_perfcnt_init(struct panfrost_device *pf=
+dev)
+>  	perfcnt->bosize =3D size;
+> =20
+>  	/* Start with everything disabled. */
+> -	gpu_write(pfdev, GPU_PERFCNT_CFG,
+> -		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
+> -	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0);
+> -	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0);
+> -	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0);
+> -	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+> +	panfrost_perfcnt_gpu_disable(pfdev);
+> =20
+>  	init_completion(&perfcnt->dump_comp);
+>  	mutex_init(&perfcnt->lock);
+> @@ -344,10 +344,5 @@ int panfrost_perfcnt_init(struct panfrost_device *pf=
+dev)
+>  void panfrost_perfcnt_fini(struct panfrost_device *pfdev)
+>  {
+>  	/* Disable everything before leaving. */
+> -	gpu_write(pfdev, GPU_PERFCNT_CFG,
+> -		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
+> -	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0);
+> -	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0);
+> -	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0);
+> -	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+> +	panfrost_perfcnt_gpu_disable(pfdev);
+>  }
+>=20
 
