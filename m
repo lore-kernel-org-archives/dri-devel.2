@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1109ECD6E7D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE30ECD8C82
 	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 13:53:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F3A011A0D5;
-	Thu,  4 Jun 2026 13:53:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4754111A0DE;
+	Thu,  4 Jun 2026 13:53:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nAAq0hw2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f8oDPbao";
 	dkim-atps=neutral
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7872511A0C1
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 13:53:02 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-45eedcdaeaaso514607f8f.3
- for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 06:53:02 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04D7B11A0CF
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 13:53:06 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4903d730b1fso8307495e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 06:53:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780581181; x=1781185981; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1780581184; x=1781185984; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=OH9hQQFNIkDpasnao4boz8/RAiMZ7MOKPgy4BqZR+6c=;
- b=nAAq0hw2JNRtlaamGY5H1q9W5OrLFluzc+9Ja5vyg5ja5T9Xl8wIvyaqAklLyBL8be
- tmF4y4CxfxJa88QZ6W7w77l7zIPShW8nw/dXe1bqm3Hr0dj68nE7MsPxGxiqnPRZZrFe
- SvrFBQRBr/QBDy53YTGHVtX8ah8vLTDbWqUk2sZvlRNc04kFJoVcEca89lGcEyl0YAsj
- R5JgXBL4P2uQu77w5ZvK1NliddOf5qEHbTQiUjW0uJSm7c17r093ZUE9iUnAF3Cy38/W
- OHccgI8TctWsjdnDa6FcM3hMWGp9wseWrbWFgLLDvm4HnAUNisLXV0ua1ZF0IH7vbgJu
- Y92Q==
+ bh=6AgZYnyS4i6ey0fjJps0/Fygo8+mCWzQwi4kSxOwSD0=;
+ b=f8oDPbaoiHONzqeBNXsEcCKrAsNkpWRQ/lA4qAqn34VH+feJo90Ln76ePPbIGwSa5D
+ la7sV07g3KZAQ9Ws3Lr/mvUCMRZ0dt+ej75z5P/jTFu9NFHtFO9Y7OolSNImwvJHDZ2+
+ 4S1vhZ6WiPpYLZl44vnFVDm5AQHPUQW8VEpqoWj6QeRBeNJp8wQAe/tdhIBkM+5jr/eC
+ wxVLUjWEOFVUF0JRLpLZDIwnfIifz80Lh4VYEUI5gFCqfs3br467TkFfXjGGWmJtk/Jy
+ S1Gmye5nMQFDVDkO7l8ityRRjxiqO39V0BzwARMfjMRM4/3+9ANIasugzSiuuXPsJePP
+ 0ScQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780581181; x=1781185981;
+ d=1e100.net; s=20251104; t=1780581184; x=1781185984;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=OH9hQQFNIkDpasnao4boz8/RAiMZ7MOKPgy4BqZR+6c=;
- b=gbcc5hXdZJjRGW9D7udUJxdHY2r8QEo/J1QQlb35sq7bcN8vGvhJbeX5yUvPVa3b2M
- nZEtlvO51mLLI6XyK1b7LWNJ3bRX8EAnkjANmc9UiRVcR1jlon6urz/tmtbMlxi9lIIV
- raDcvoa07HDAuyQQtlXM4Zah0qepyS0ORCrId6t2Nuibe6tFzw+cHtESnDxFB51GDieg
- VzBBQb6wLgIF3SyKha7VByVu8imAUVzRZ5t4ZWbnOCcymtVbw8QIuuTUPGng4akVRS3K
- oyI9El6RJ7CJlHbrOvTiwdNXGST5OFUfVpbR1GkNOoShZqk8ctH3iBVfySRUSDWvGM7e
- x3Xg==
+ bh=6AgZYnyS4i6ey0fjJps0/Fygo8+mCWzQwi4kSxOwSD0=;
+ b=sf9APcMu2G9tAJyjtzZk3L07pvEvmw02rgdl5PjaWHzrJqUNtTLn88r9pGRz5Ry2z3
+ 4iIOKB2dWZAibRnKwmk62I7aLusP5uIWD3vNDJqnCqDBQ1tdF+y3TLJkTwz7w5Htn6lu
+ qAoDRCIt3qIfkzEfQ13RYzcYik6ka8+ts6oD73VnImj23CFjKvgPbHMJRjIr9V86dy+t
+ G9s6+huyL1bKez4t+upOpBXer73meHtKp1lDVEQU3WuXmmbTOnzorGvcLMm8vfn5YOsN
+ BfhJepOoqpyJMn3o6wxT+5jNRxjszLkkc58K5vv+wPYZAvXRLxE+jGQK6pzdkDKVsYCG
+ Hkxg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+UzPEv9/jcEDWesLhNIrjwMlLOcJvERMiKR+r2nABa/zSJ7kWH8gsR7KONfXMz5WyMi4J/08R4wdY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwiUmoLwTvAUNlbT8V+S0RS4f/NgKpznbnNGj84NZ0clKyFixtJ
- OA3cL1YRLd9gSBWxQQfQVJUzVivZkTrgLE5aQfLP+EHo/nnOGitBvc9+
-X-Gm-Gg: Acq92OGZcjLR3jjk1b/AGYlYkAi/MNbWeWpXZUbrczyUPW8PRH/ozs6D1kcnMr1cJ++
- nzC6DBTPuaJ08MWSMzIphkUc92ROKtMJLWJcOFZKV6Z5Mak5YTeJ+5EBUh7rp3PfZjTl5C+/jQH
- glIAcbuVtT//AaF/txlodd30TUl+pZHtuu83a4vE/qmw56kNgQH+cbRHvn89uDfJdZiXjvZJ3hY
- OjhXJlFissNcfS04RqlU/huImWy9/6OIpnh1HjEXqtrJV2yh1clyohDQkQfBBNSY+giAabxI7sq
- oT9fNzRk9kqtIxwNr+Qi1+pDx2yjpE8L2cBrFN5I6KZHsJUIwO3D17axVgLj4xOTYFMsfQV/X9F
- 98OxiCL+PakC1SjhCvLea6tS05hPmx0RFuSc2bAFz+WuFqBBxWRg8Om+ldsxP80bHmn9i9wgeqt
- tLSuhwlkYkv7F5K8qNAcRpveaceBdbJJkLhvYnhIBT9VGZFT+WrgV9O3UVRkO1inc=
-X-Received: by 2002:adf:eed2:0:b0:452:6aaf:76cb with SMTP id
- ffacd0b85a97d-4602178b717mr9418813f8f.1.1780581180807; 
- Thu, 04 Jun 2026 06:53:00 -0700 (PDT)
+ AFNElJ+DP3yyBXvacFlw4uUaT0XhmxfqBAullI39so+UXFcb9JpUzXBkYBDuOs0nXxzfQCXUdyFK2dPrvR4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzigxmfCn6+HjFqgOVj18uEqua9M1kqkZL1TOKScSAeOimU6KdP
+ dH7M3xktfH1LfkEjTpvcgijMvAem7RpiPOL74AWobWyromuUqD7hMtDyaMNM28SENpX3Mw==
+X-Gm-Gg: Acq92OEjPhBhe0EyhPin1CX0I39uaqdYEn9J8nH3n87MuAtB+mqJ5PdfkB1B7sNB7pc
+ RldrzSSB0tBihWDZTxp2+8QVc2kpc34N5JBqbL+Kadamk2kYVG32BKhaQjVM5RfwszeycIMcFFw
+ eKoRlb6r1bRZWXoxZ4HQO/5UmAPLB+PXJKoXzOkZ2QnblUrQxnwKl+4Vjv1p5FL9aLDzgnDLRrC
+ QTgA4y1YQeB+yoFCGAiEjzmaj47n3JJ/eh6Gs1VoScIYFTYiVG/9HBu8D+sRjblOGXo/svj/YnC
+ VscotEcCblXVb54sy85ePqnrMucw0/Fa7rFJl7zH3UiH80Daq51Djctv0dM2t3tL9CFRorU18c0
+ oBiisy84++oaZOjJu5aSSa9CVBp9OZo76r91pFkwdrsUTkTBoiBZn5xg+Ts5n1ZwHgy4COuS4Fh
+ LlcC46qXdcERLGFbYUsnG+3UcqORM/8L0Xvm/TMCI26h3NroqvRn4TFKpkvHvjcZc=
+X-Received: by 2002:a05:600c:5288:b0:490:b473:8f78 with SMTP id
+ 5b1f17b1804b1-490b5ec3ae6mr133508845e9.17.1780581184471; 
+ Thu, 04 Jun 2026 06:53:04 -0700 (PDT)
 Received: from compiler-rock3b.tailb81abf.ts.net
  ([2a01:e0a:104a:4d80:be24:11ff:fe12:2776])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4601f0a43e9sm16661068f8f.0.2026.06.04.06.53.00
+ ffacd0b85a97d-4601f0a43e9sm16661068f8f.0.2026.06.04.06.53.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Jun 2026 06:53:00 -0700 (PDT)
+ Thu, 04 Jun 2026 06:53:04 -0700 (PDT)
 From: Midgy BALON <midgy971@gmail.com>
 To: tomeu@tomeuvizoso.net, ogabbay@kernel.org, heiko@sntech.de,
  robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org,
@@ -71,10 +71,10 @@ Cc: robin.murphy@arm.com, dri-devel@lists.freedesktop.org,
  linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [RFC PATCH v3 4/9] accel: rocket: Reset the NPU before detaching the
- IOMMU on timeout
-Date: Thu,  4 Jun 2026 13:52:50 +0000
-Message-Id: <20260604135255.62682-5-midgy971@gmail.com>
+Subject: [RFC PATCH v3 9/9] arm64: dts: rockchip: rk3568-rock-3b: Enable the
+ NPU
+Date: Thu,  4 Jun 2026 13:52:55 +0000
+Message-Id: <20260604135255.62682-10-midgy971@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260604135255.62682-1-midgy971@gmail.com>
 References: <20260604135255.62682-1-midgy971@gmail.com>
@@ -95,56 +95,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On a job timeout the NPU AXI master can be left wedged with
-outstanding transactions. rocket_reset() detached the IOMMU group
-before resetting the hardware, so iommu_detach_group() ->
-__iommu_group_set_core_domain() asked the rk_iommu to stall and wait
-for the in-flight transactions to drain. They never did, the stall
-request timed out (-ETIMEDOUT) and the IOMMU core WARNed:
+Enable the NPU and its IOMMU on ROCK 3B.
 
-  WARNING: drivers/iommu/iommu.c:157 __iommu_group_set_core_domain
-    iommu_detach_group
-    rocket_reset
-    rocket_job_timedout
-
-Assert the core reset first: it quiesces the AXI master so the
-following IOMMU detach completes cleanly. Move the detach after
-rocket_core_reset() and out of the job_lock (it does not touch
-in_flight_job).
+vdd_npu is marked always-on so the rail is up before genpd de-idles the
+NPU NoC at power-on: the PMU de-idle handshake needs the rail powered.
+The PVTPLL compute clock is brought up later by the driver.
 
 Signed-off-by: Midgy BALON <midgy971@gmail.com>
 ---
- drivers/accel/rocket/rocket_job.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index ac51bff39833f..e25234261536b 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -364,14 +364,20 @@ rocket_reset(struct rocket_core *core, struct drm_sched_job *bad)
- 		if (core->in_flight_job)
- 			pm_runtime_put_noidle(core->dev);
+diff --git a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
+index 69001e453732e..7ac780ed313d5 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
+@@ -330,8 +330,10 @@ regulator-state-mem {
  
--		iommu_detach_group(NULL, core->iommu_group);
--
- 		core->in_flight_job = NULL;
- 	}
+ 			vdd_npu: DCDC_REG4 {
+ 				regulator-name = "vdd_npu";
++				regulator-always-on;
++				regulator-boot-on;
+ 				regulator-initial-mode = <0x2>;
+-				regulator-min-microvolt = <500000>;
++				regulator-min-microvolt = <825000>;
+ 				regulator-max-microvolt = <1350000>;
+ 				regulator-ramp-delay = <6001>;
  
--	/* Proceed with reset now. */
-+	/*
-+	 * Reset the NPU hardware before detaching the IOMMU. A timed-out job
-+	 * leaves the NPU AXI master wedged; detaching the IOMMU then issues a
-+	 * stall request that never drains and times out (warning in the IOMMU
-+	 * core). Asserting the core reset first quiesces the master so the
-+	 * detach completes cleanly.
-+	 */
- 	rocket_core_reset(core);
- 
-+	iommu_detach_group(NULL, core->iommu_group);
+@@ -787,3 +789,13 @@ vp0_out_hdmi: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
+ 		remote-endpoint = <&hdmi_in_vp0>;
+ 	};
+ };
 +
- 	/* NPU has been reset, we can clear the reset pending bit. */
- 	atomic_set(&core->reset.pending, 0);
- 
++&rknn_core_0 {
++	npu-supply = <&vdd_npu>;
++	status = "okay";
++};
++
++&rknn_mmu_0 {
++	status = "okay";
++};
++
 -- 
 2.39.5
 
