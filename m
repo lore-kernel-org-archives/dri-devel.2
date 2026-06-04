@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52981CD6E4A
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 02:51:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54DD1CD6E4A
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 02:52:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA9371125B5;
-	Thu,  4 Jun 2026 02:51:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B73771125B6;
+	Thu,  4 Jun 2026 02:51:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z4Yn0tC0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CwiIWlHI";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F7AD1125B5
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 02:51:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EB3A1125B6
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 02:51:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 68BEB41735;
- Thu,  4 Jun 2026 02:51:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 241CE1F00893;
- Thu,  4 Jun 2026 02:51:06 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EAEEB43E98;
+ Thu,  4 Jun 2026 02:51:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B39121F00893;
+ Thu,  4 Jun 2026 02:51:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780541466;
- bh=kh6xJcmQbIQ3MBkTAqhJxFpsGUXZG/Y/9No3BJ7SzFs=;
+ s=k20260515; t=1780541517;
+ bh=lDxQ2gq6QXDm1uuquuW/cIhYl2oJskECu8moUdzCF8M=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Z4Yn0tC0Hh1fTE0MZmY3o+nFtSb8mA4XIfDhsPm8SktBHJBWRxysOhlk3BOfNgbqc
- l5Hua07R90+UOos7QLssB49NxhmzJMLU5FDS/bQiJ1qA/YQ1FdfTEx4Nx0Tg/gdYp/
- uVHilPDTkY9ngQVSk79Mu7S3ARCLJ7NZDpo6KOgTM8kExsLRK1EY+yzjbGChDuUytE
- odRWxHgxnnge6tR0ZaTtr6avWT3+RlVGtmJEHk+U03jsiGuxwaxzlYHW55I1ecFjYy
- M/kvD+JuLIRb8meLyCGyhGnRMBKJD4wmYqK6I23SNLoIO3SSKA99rAkez/Nso7SnTs
- hnCPrSenu/WIg==
+ b=CwiIWlHIdwYey4JyTzg3Cbxmzo77ysITe/B1oud70FgkyCTeAkJENBH9x6ZgJ5wKI
+ dNaNXos97xwmXnm82o8zOdllp0d65EGCpPKqJx6U7OwK17z+IblnpI6/+E0T1mWwVr
+ MejzZJicvLteIB+WvJhnm503qgneyCqOu96VBZt6xRi4Fofmb82LLYhvcdWPVme/00
+ RFJ6OCzcWivc1CnJ2jasG/0s0rr4zrJMaowvJguBYLgXSDxJ8cumXlZ6cXsDofoP4U
+ h2t8737VIgQ/hLpb3XGa9KV0qnNXjEpbceSnBlkd036I4OhXdvkE/sYFmss21MCkli
+ fzE2jHgWuLAww==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 06/14] drm/v3d: Reject invalid syncobj handles in
- submit ioctls
+Subject: Re: [PATCH v3 04/14] drm/v3d: Replace spin_lock_irqsave() with
+ spin_lock()
 To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260603-v3d-sched-misc-fixes-v3-6-d7114bba55a0@igalia.com>
-References: <20260603-v3d-sched-misc-fixes-v3-6-d7114bba55a0@igalia.com>
+In-Reply-To: <20260603-v3d-sched-misc-fixes-v3-4-d7114bba55a0@igalia.com>
+References: <20260603-v3d-sched-misc-fixes-v3-4-d7114bba55a0@igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 02:51:05 +0000
-Message-Id: <20260604025106.241CE1F00893@smtp.kernel.org>
+Date: Thu, 04 Jun 2026 02:51:57 +0000
+Message-Id: <20260604025157.B39121F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,87 +57,112 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Missing bounds check on userspace-controlled `in_sync_count` and `=
-out_sync_count`, potentially leading to soft lockups or unbounded memory al=
-location attempts.
+- [High] Removing `spin_lock_irqsave` exposes a uniprocessor race and obstr=
+ucts the correct fix for an existing SMP use-after-free race.
+- [Low] Mixing goto-based error handling and scope-based cleanup helpers (`=
+scoped_guard()`) in the same function violates subsystem guidelines.
 --
 
-commit 99860a2dd307ceb7455992b876495c7efeeb7909
+commit 7d41ab716d6dcf438f92d8905f5e28343e3ab169
 Author: Ma=C3=ADra Canal <mcanal@igalia.com>
 
-drm/v3d: Reject invalid syncobj handles in submit ioctls
+drm/v3d: Replace spin_lock_irqsave() with spin_lock()
 
-This commit modifies v3d_job_add_syncobjs() to properly propagate error
-codes when a non-zero syncobj handle doesn't resolve, while continuing to
-ignore zero handles.
+This commit replaces spin_lock_irqsave() and spin_unlock_irqrestore() with
+the scoped_guard() macro using plain spinlocks in v3d_overflow_mem_work()
+and v3d_bin_job_run().
 
-> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_s=
-ubmit.c
-> index 8250376d104c5..0babe2e672660 100644
-> --- a/drivers/gpu/drm/v3d/v3d_submit.c
-> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
-
+> diff --git a/drivers/gpu/drm/v3d/v3d_irq.c b/drivers/gpu/drm/v3d/v3d_irq.c
+> index 86efaef2722c3..754a969b862b6 100644
+> --- a/drivers/gpu/drm/v3d/v3d_irq.c
+> +++ b/drivers/gpu/drm/v3d/v3d_irq.c
 [ ... ]
-
-> @@ -208,11 +207,13 @@ v3d_job_add_syncobjs(struct v3d_job *job, struct dr=
-m_file *file_priv,
->  				return -EFAULT;
->  			}
-> =20
-> -			ret =3D drm_sched_job_add_syncobj_dependency(&job->base,
-> -								   file_priv, in.handle, 0);
-> -			// TODO: Investigate why this was filtered out for the IOCTL.
-> -			if (ret && ret !=3D -ENOENT)
-> -				return ret;
-> +			/* Ignore syncobj if its handle is zero */
-> +			if (in.handle) {
-> +				ret =3D drm_sched_job_add_syncobj_dependency(&job->base,
-> +									   file_priv, in.handle, 0);
-> +				if (ret)
-> +					return ret;
-> +			}
->  		}
->  	}
-> =20
+> @@ -64,17 +63,15 @@ v3d_overflow_mem_work(struct work_struct *work)
+>  	 * bin job got scheduled, that's fine.  We'll just give them
+>  	 * some binner pool anyway.
+>  	 */
+> -	spin_lock_irqsave(&queue->queue_lock, irqflags);
+> -	bin_job =3D (struct v3d_bin_job *)queue->active_job;
+> +	scoped_guard(spinlock, &queue->queue_lock) {
 
 [Severity: High]
-This is a pre-existing issue, but is se->in_sync_count bounded by any=20
-upper limit?
+Does removing the IRQ-disabling protection here cement a broken locking des=
+ign?
 
-This code is executing inside a loop over the userspace-supplied=20
-se->in_sync_count:
+The commit message notes the hard IRQ handler doesn't take this lock, but
+v3d_irq_signal_fence() modifies queue->active_job locklessly. Because of th=
+is
+missing lock, an SMP use-after-free race already exists where the DRM
+scheduler can free the job while v3d_overflow_mem_work() is dereferencing
+bin_job->render.
 
-v3d_job_add_syncobjs() {
-    ...
-    for (int i =3D 0; i < se->in_sync_count; i++) {
-        struct drm_v3d_sem in;
+By switching from spin_lock_irqsave() to spin_lock(), this exposes a
+uniprocessor race where the IRQ can preempt the workqueue's critical sectio=
+n.
+Furthermore, if someone fixes the SMP race by adding
+spin_lock(&queue->queue_lock) to the IRQ handler, won't the system deadlock
+when the IRQ interrupts this workqueue?
 
-        if (copy_from_user(&in, handle++, sizeof(in))) {
-    ...
-}
+> +		bin_job =3D (struct v3d_bin_job *)queue->active_job;
+> =20
+> -	if (!bin_job) {
+> -		spin_unlock_irqrestore(&queue->queue_lock, irqflags);
+> -		goto out;
+> -	}
+> +		if (!bin_job)
+> +			goto out;
 
-Since there is no cond_resched() in this loop, could a maliciously large=20
-in_sync_count value allow a user to monopolize the processor and cause a=20
-soft lockup?
+[Severity: Low]
+Is it ok to mix goto-based error handling with scope-based cleanup helpers?
 
-Similarly, is se->out_sync_count bounded before it is used for memory=20
-allocation in v3d_get_multisync_post_deps()?
+The kernel cleanup guidelines explicitly forbid mixing goto and scope-based
+cleanup helpers in the same function because it creates confusing ownership
+semantics.
 
-v3d_get_multisync_post_deps() {
-    ...
-    se->out_syncs =3D (struct v3d_submit_outsync *)
-        kvmalloc_objs(struct v3d_submit_outsync, count);
-    if (!se->out_syncs)
-    ...
-}
+While scoped_guard() is introduced here for lock management, the function
+retains explicit goto statements like this one to reach the out label for
+drm_gem_object_put().
 
-Could an unbounded out_sync_count lead to a massive memory allocation=20
-request, potentially exhausting physical memory?
+> =20
+> -	drm_gem_object_get(obj);
+> -	list_add_tail(&bo->unref_head, &bin_job->render->unref_list);
+> -	spin_unlock_irqrestore(&queue->queue_lock, irqflags);
+> +		drm_gem_object_get(obj);
+> +		list_add_tail(&bo->unref_head, &bin_job->render->unref_list);
+> +	}
+> =20
+>  	v3d_mmu_flush_all(v3d);
+> =20
+> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sc=
+hed.c
+> index 46f4fc09c59ec..04fd1a365576b 100644
+> --- a/drivers/gpu/drm/v3d/v3d_sched.c
+> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
+[ ... ]
+> @@ -240,9 +239,9 @@ static struct dma_fence *v3d_bin_job_run(struct drm_s=
+ched_job *sched_job)
+>  	return fence;
+> =20
+>  out_clean_job:
+> -	spin_lock_irqsave(&queue->queue_lock, irqflags);
+> -	queue->active_job =3D NULL;
+> -	spin_unlock_irqrestore(&queue->queue_lock, irqflags);
+> +	scoped_guard(spinlock, &queue->queue_lock) {
+> +		queue->active_job =3D NULL;
+> +	}
+>  	return NULL;
+>  }
+
+[Severity: Low]
+Does this also violate the cleanup guidelines against mixing goto and
+scope-based cleanup?
+
+Similar to v3d_overflow_mem_work(), this function introduces scoped_guard()
+while still retaining the out_clean_job label that is reached via goto
+statements earlier in the function.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603-v3d-sched-=
-misc-fixes-v3-0-d7114bba55a0@igalia.com?part=3D6
+misc-fixes-v3-0-d7114bba55a0@igalia.com?part=3D4
