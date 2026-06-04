@@ -4,89 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C30DDCD6E4A
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 07:03:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A056CD6E68
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 07:10:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46643112718;
-	Thu,  4 Jun 2026 07:03:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B980113D11;
+	Thu,  4 Jun 2026 07:10:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I0xm1zWC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mTlK76AL";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6BEF1124F6
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 00:43:10 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-2bf36a6905cso855825ad.3
- for <dri-devel@lists.freedesktop.org>; Wed, 03 Jun 2026 17:43:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780533790; x=1781138590; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=yFwU+gJPCdIvaG8BIeMjrGJqao3C2Cvmdt82URI9gpQ=;
- b=I0xm1zWChrL1MG7RCjvT3rgSnAKTdml02xSTbjuMq4ThUhcItv1BqGkGMpEk/fuWmy
- iTQwwH31NdyZnQfICyUhsSg5FUwEsUXPzBI0k50B2J9tyaSu+w4VMNnLhNmkCjtFeIuj
- wBdtXEeS2dV5L9cYgfUSQvEIgHk0d5i/lkGBsJ5S2EhoeTbwxWZYA8EF8gtaUVHihMfm
- /0X5fGglajdh9WcbDc0vU9wFzkWcwsBCmze98aWJAqwkpbu1t5Zgh9jJv6gCGRu7K679
- uUNFQuO/ayaZ1NJccphfSnuiGJuLKEX2xbgZnjjiEfoxYSmlvsZbJGmE9ZNS0PSThwgL
- fufw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780533790; x=1781138590;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=yFwU+gJPCdIvaG8BIeMjrGJqao3C2Cvmdt82URI9gpQ=;
- b=o+d/pQmyDhxfIFnHeIHBBbq+LM+DlM0QoKHBUvK7Gljio1hwfGwETRPPMozSMKVWJ+
- hT2nfxuu/jAJmwejWN1TvBR3u+Nlhh1juu3aubTZLMKKVoqYQE8c4u0PZEvhAT8swiQT
- Hdtv1XiyOdtOw169UCkwlDoqtNrfEdebvMuw91VnmqxJda+w84Sia8D0dvPXv509W/4m
- gghmj6qglsq2il6xHDGVqYtgL+RgwHPtZKo9yPGuiT2ruBiWA8NNPaEknfFsyqwAOhmd
- XVMTKJGwfnHctr+Z1KzJy9KwQj90hn/NvJlj4fkmyLapjZqMxU1e7GkFJzHbezvbdI9T
- ov/A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8u6wuuZTpNByJtuJsWEyXwbl56QSJPy54CVqS1qqnhFYWm0H6kMVIvhFa4KovbY+monrOBw1w6Jgc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxg/lGUqsBkxYkO/fOLDu0GvaK/DLJI0dwcoQ4gq+WZtEKHMBS0
- GCwP+fTMIa78OgsEo1b39H7DcpytOn5Z5/7TJLeZLRMEG7wO+aY49jLA
-X-Gm-Gg: Acq92OHsbUgHrC6pH4ohCVjCJduBDDytsU1d+MWIS3jDFOI1zmGBRs4fW1P7H45EZWp
- Az2wT/l9Pe5dwIf59fNuTz4EXBjd8fLNpSxsMNBq1hENFtpMrbmuUmykUK/Ya41iEza95R0KTOE
- hRJs0yadOa/WDEwQBav6fpOQotiWfWeTyDNWqcfLrAvstNjzBo4YcbJWJXkeJ2LajV+3H5L1EIQ
- VVov6YRQ7cXzn+0TfUM/J2KIJJhy2kZi4SVBW4JPSQXz38UWiKeSWNCHD/idKx05hpYrf63PKKN
- oNvj5UDaKIvV1YIB4WspheyYXnT797WejuV+HxMUXlgVbAWiikQS2wHRmbIGw3XjcnxXCwfJj+H
- V1+BAamOYFnRTYzSUenGgK9DEvYCzG5AvppJHXJVXmu5ARa++mXVKqbKjhufVMsbDyYCjcXqxiC
- MOJqsuh+wXL904anxwwN6UyvbLkeSqpw==
-X-Received: by 2002:a17:903:3b85:b0:2c1:8fea:4dbf with SMTP id
- d9443c01a7336-2c18fea4df8mr24927635ad.8.1780533790154; 
- Wed, 03 Jun 2026 17:43:10 -0700 (PDT)
-Received: from localhost ([2a03:2880:ff:73::])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2c16609e1b6sm37277735ad.38.2026.06.03.17.43.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Jun 2026 17:43:09 -0700 (PDT)
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-Date: Wed, 03 Jun 2026 17:43:01 -0700
-Subject: [PATCH net-next 4/4] selftests/net: devmem.py: add check_rx_large_niov
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA6C1113D10;
+ Thu,  4 Jun 2026 07:10:18 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 46DFC43DF5;
+ Thu,  4 Jun 2026 07:10:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 724E31F00893;
+ Thu,  4 Jun 2026 07:10:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780557018;
+ bh=AhMxEQwcegOFcYLIZ9y5iV53bw04kwuyEtOBVhEDYMA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=mTlK76ALzPHk/Pz+6x8nTHyAjcgK/SS+Mku9+Qi7I3SNA0dfcHu6BhFEs+C19pRU6
+ E5+OGsyWwtumgMG/WJ2Le0aae5LQxGXgowtVmcepxAXxMfqCWAilCKaYGk/5+kRVkP
+ 4cO9j+hmH6qM30B4Ytx/qU6yvKs9erS3UMZLX0LxVk1/5u7oTpy2ME5T1T/npLCOGU
+ s4u+Pk89mJTbVKzFZ55WRg+drPIILWBGGd5p/DVxhd0Z2F7ICIpxvMp25Jq0zQa4Gy
+ HAb3eZDLpekHG+5x0DW3wia0LnDWOcTfGSaDl10ol+7lmMFjJhA3KS0hZK1C8ogR+c
+ F4m/GYKhfbnJQ==
+Message-ID: <f027078c-6a55-463b-8938-95ede02dca3b@kernel.org>
+Date: Thu, 4 Jun 2026 16:10:08 +0900
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260603-tcpdm-large-niovs-v1-4-f37a4ac6726c@meta.com>
-References: <20260603-tcpdm-large-niovs-v1-0-f37a4ac6726c@meta.com>
-In-Reply-To: <20260603-tcpdm-large-niovs-v1-0-f37a4ac6726c@meta.com>
-To: Donald Hunter <donald.hunter@gmail.com>, 
- Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- Gerd Hoffmann <kraxel@redhat.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Shuah Khan <shuah@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org, 
- sdf@fomichev.me, razor@blackwall.org, daniel@iogearbox.net, 
- almasrymina@google.com, matttbe@kernel.org, skhawaja@google.com, 
- dw@davidwei.uk, Bobby Eshleman <bobbyeshleman@meta.com>
-X-Mailer: b4 0.14.3
-X-Mailman-Approved-At: Thu, 04 Jun 2026 07:03:30 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/slab: improve kmem_cache_alloc_bulk
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, rob.clark@oss.qualcomm.com
+Cc: Christoph Hellwig <hch@lst.de>, Andrew Morton
+ <akpm@linux-foundation.org>, Mark Brown <broonie@kernel.org>,
+ Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+ David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Jesper Dangaard Brouer <hawk@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, io-uring@vger.kernel.org,
+ kasan-dev@googlegroups.com, bpf@vger.kernel.org, netdev@vger.kernel.org,
+ Alexander Lobakin <aleksander.lobakin@intel.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>
+References: <20260528093437.2519248-1-hch@lst.de>
+ <20260528093437.2519248-2-hch@lst.de>
+ <5f7f90d8-cb32-4ffb-8f1c-0722aafbe869@kernel.org>
+ <20260529135045.GA10647@lst.de>
+ <5f3ba603-a6ad-4cf2-9a54-aebc10273c59@kernel.org>
+ <58cc76e7-2348-443d-a989-2a06e61178af@kernel.org>
+ <20260601113831.GA25535@lst.de>
+ <d7b08296-7f6e-4d89-ab3b-04e43d04929e@kernel.org>
+ <CACSVV00k-fxW6+waHNqvmYcnVNDkRexoWWprFzfayZfqdyMuuA@mail.gmail.com>
+ <CACSVV00dNWgpNVU5rB=Hmg+3oWF18yTyfKNr_tWesjoP1jMxwg@mail.gmail.com>
+ <5e6948b3-d235-4b61-aed7-e8b4d0f5b452@kernel.org>
+ <CACSVV02v0Fuc6=Rqyd89D-_tcSjEXuQmxz0+2-4aoRAEwJE4zg@mail.gmail.com>
+ <b6f6323e-6f5b-4928-b474-bd2743eac3f2@kernel.org>
+Content-Language: en-US
+From: Harry Yoo <harry@kernel.org>
+In-Reply-To: <b6f6323e-6f5b-4928-b474-bd2743eac3f2@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------wiFRKWLl9yvmDjGQCVE2s47E"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,175 +81,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Bobby Eshleman <bobbyeshleman@meta.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------wiFRKWLl9yvmDjGQCVE2s47E
+Content-Type: multipart/mixed; boundary="------------wMYGC0PsvxX072tLl8xZovbN";
+ protected-headers="v1"
+From: Harry Yoo <harry@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, rob.clark@oss.qualcomm.com
+Cc: Christoph Hellwig <hch@lst.de>, Andrew Morton
+ <akpm@linux-foundation.org>, Mark Brown <broonie@kernel.org>,
+ Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+ David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Jesper Dangaard Brouer <hawk@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, io-uring@vger.kernel.org,
+ kasan-dev@googlegroups.com, bpf@vger.kernel.org, netdev@vger.kernel.org,
+ Alexander Lobakin <aleksander.lobakin@intel.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>
+Message-ID: <f027078c-6a55-463b-8938-95ede02dca3b@kernel.org>
+Subject: Re: [PATCH] mm/slab: improve kmem_cache_alloc_bulk
+References: <20260528093437.2519248-1-hch@lst.de>
+ <20260528093437.2519248-2-hch@lst.de>
+ <5f7f90d8-cb32-4ffb-8f1c-0722aafbe869@kernel.org>
+ <20260529135045.GA10647@lst.de>
+ <5f3ba603-a6ad-4cf2-9a54-aebc10273c59@kernel.org>
+ <58cc76e7-2348-443d-a989-2a06e61178af@kernel.org>
+ <20260601113831.GA25535@lst.de>
+ <d7b08296-7f6e-4d89-ab3b-04e43d04929e@kernel.org>
+ <CACSVV00k-fxW6+waHNqvmYcnVNDkRexoWWprFzfayZfqdyMuuA@mail.gmail.com>
+ <CACSVV00dNWgpNVU5rB=Hmg+3oWF18yTyfKNr_tWesjoP1jMxwg@mail.gmail.com>
+ <5e6948b3-d235-4b61-aed7-e8b4d0f5b452@kernel.org>
+ <CACSVV02v0Fuc6=Rqyd89D-_tcSjEXuQmxz0+2-4aoRAEwJE4zg@mail.gmail.com>
+ <b6f6323e-6f5b-4928-b474-bd2743eac3f2@kernel.org>
+In-Reply-To: <b6f6323e-6f5b-4928-b474-bd2743eac3f2@kernel.org>
 
-Add a new devmem test case for binding the dmabuf with rx-buf-size=16K.
-The test sweeps RX payload sizes straddling the niov boundary to cover
-the sub-niov, exact-niov, and multi-niov RX paths.
+--------------wMYGC0PsvxX072tLl8xZovbN
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
----
- tools/testing/selftests/drivers/net/hw/devmem.py   | 12 +++++-
- .../testing/selftests/drivers/net/hw/devmem_lib.py | 46 +++++++++++++++++++++-
- .../testing/selftests/drivers/net/hw/nk_devmem.py  | 11 +++++-
- 3 files changed, 63 insertions(+), 6 deletions(-)
 
-diff --git a/tools/testing/selftests/drivers/net/hw/devmem.py b/tools/testing/selftests/drivers/net/hw/devmem.py
-index 031cf9905f65..47b54e18e7a6 100755
---- a/tools/testing/selftests/drivers/net/hw/devmem.py
-+++ b/tools/testing/selftests/drivers/net/hw/devmem.py
-@@ -2,7 +2,8 @@
- # SPDX-License-Identifier: GPL-2.0
- 
- from os import path
--from devmem_lib import setup_test, run_rx, run_tx, run_tx_chunks, run_rx_hds
-+from devmem_lib import (setup_test, run_rx, run_tx, run_tx_chunks, run_rx_hds,
-+                        run_rx_large_niov)
- from lib.py import ksft_run, ksft_exit, ksft_disruptive
- from lib.py import NetDrvEpEnv
- 
-@@ -30,11 +31,18 @@ def check_rx_hds(cfg) -> None:
-     run_rx_hds(cfg)
- 
- 
-+@ksft_disruptive
-+def check_rx_large_niov(cfg) -> None:
-+    """Run the devmem RX test with rx-buf-size = 16 KiB."""
-+    run_rx_large_niov(cfg)
-+
-+
- def main() -> None:
-     """Run the devmem test cases."""
-     with NetDrvEpEnv(__file__) as cfg:
-         setup_test(cfg, path.abspath(path.dirname(__file__) + "/ncdevmem"))
--        ksft_run([check_rx, check_tx, check_tx_chunks, check_rx_hds],
-+        ksft_run([check_rx, check_tx, check_tx_chunks, check_rx_hds,
-+                  check_rx_large_niov],
-                  args=(cfg,))
-     ksft_exit()
- 
-diff --git a/tools/testing/selftests/drivers/net/hw/devmem_lib.py b/tools/testing/selftests/drivers/net/hw/devmem_lib.py
-index 0921ff03eb81..1d9ad3a294c8 100644
---- a/tools/testing/selftests/drivers/net/hw/devmem_lib.py
-+++ b/tools/testing/selftests/drivers/net/hw/devmem_lib.py
-@@ -8,7 +8,7 @@ from lib.py import (bkg, cmd, defer, ethtool, rand_port, wait_port_listen,
-                     NetdevFamily)
- 
- 
--def require_devmem(cfg):
-+def require_devmem(cfg, rx_buf_size=0):
-     """Probe ncdevmem on cfg.ifname and SKIP the test if devmem isn't supported."""
-     if not hasattr(cfg, "devmem_probed"):
-         probe_command = f"{cfg.bin_local} -f {cfg.ifname}"
-@@ -18,6 +18,19 @@ def require_devmem(cfg):
-     if not cfg.devmem_supported:
-         raise KsftSkipEx("Test requires devmem support")
- 
-+    if rx_buf_size > 0:
-+        if not hasattr(cfg, "devmem_rx_buf_size_probed"):
-+            cfg.devmem_rx_buf_size_probed = {}
-+
-+        if rx_buf_size not in cfg.devmem_rx_buf_size_probed:
-+            probe_command = f"{cfg.bin_local} -f {cfg.ifname} -b {rx_buf_size}"
-+            cfg.devmem_rx_buf_size_probed[rx_buf_size] = \
-+                cmd(probe_command, fail=False, shell=True).ret == 0
-+
-+        if not cfg.devmem_rx_buf_size_probed[rx_buf_size]:
-+            raise KsftSkipEx(
-+                f"Test requires devmem rx-buf-size={rx_buf_size} support")
-+
- 
- def configure_nic(cfg):
-     """Channels, rings, RSS, queue lease for netkit devmem."""
-@@ -76,7 +89,8 @@ def set_flow_rule(cfg, port):
-     return int(re.search(r'ID (\d+)', output).group(1))
- 
- 
--def ncdevmem_rx(cfg, port, verify=True, fail_on_linear=False, flow_steer=False):
-+def ncdevmem_rx(cfg, port, verify=True, fail_on_linear=False, flow_steer=False,
-+                rx_buf_size=0):
-     """Build the ncdevmem RX listener command."""
-     if hasattr(cfg, 'netns'):
-         flow_rule_id = set_flow_rule(cfg, port)
-@@ -96,6 +110,8 @@ def ncdevmem_rx(cfg, port, verify=True, fail_on_linear=False, flow_steer=False):
-         extras.append("-v 7")
-     if fail_on_linear:
-         extras.append("-L")
-+    if rx_buf_size > 0:
-+        extras.append(f"-b {rx_buf_size}")
- 
-     parts = [cfg.bin_local, "-l", f"-f {ifname}", f"-s {addr}",
-              f"-p {port}", *extras]
-@@ -202,6 +218,32 @@ def run_tx_chunks(cfg):
-     ksft_eq(socat.stdout.strip(), "hello\nworld")
- 
- 
-+def run_rx_large_niov(cfg):
-+    """Run the devmem RX test with a large niov (rx-buf-size > PAGE_SIZE).
-+
-+    Sweep payload sizes that straddle the niov boundary: below, equal to,
-+    and above rx_buf_size, to exercise sub-niov, exact-niov, and multi-niov
-+    RX paths.
-+    """
-+    require_devmem(cfg, rx_buf_size=16384)
-+    configure_nic(cfg)
-+    netns = getattr(cfg, "netns", None)
-+
-+    for size in [1024, 4096, 8192, 16384, 32768, 65536]:
-+        port = rand_port()
-+        socat = socat_send(cfg, port)
-+        listen_cmd = ncdevmem_rx(cfg, port,
-+                                 flow_steer=not netns,
-+                                 rx_buf_size=16384)
-+        data_pipe = (f"yes $(echo -e \x01\x02\x03\x04\x05\x06) | "
-+                     f"head -c {size} | {socat}")
-+        with bkg(listen_cmd, exit_wait=True, ns=netns) as ncdevmem:
-+            wait_port_listen(port, proto="tcp", ns=netns)
-+            cmd(data_pipe, host=cfg.remote, shell=True)
-+        ksft_eq(ncdevmem.ret, 0,
-+                f"large-niov failed for payload size {size}")
-+
-+
- def run_rx_hds(cfg):
-     """Run the HDS test by running devmem RX across a segment size sweep."""
-     require_devmem(cfg)
-diff --git a/tools/testing/selftests/drivers/net/hw/nk_devmem.py b/tools/testing/selftests/drivers/net/hw/nk_devmem.py
-index 300ed2a70ab4..7f1867e4ff32 100755
---- a/tools/testing/selftests/drivers/net/hw/nk_devmem.py
-+++ b/tools/testing/selftests/drivers/net/hw/nk_devmem.py
-@@ -3,7 +3,8 @@
- """Test devmem TCP with netkit."""
- 
- import os
--from devmem_lib import setup_test, run_rx, run_tx, run_tx_chunks, run_rx_hds
-+from devmem_lib import (setup_test, run_rx, run_tx, run_tx_chunks, run_rx_hds,
-+                        run_rx_large_niov)
- from lib.py import ksft_run, ksft_exit, ksft_disruptive
- from lib.py import NetDrvContEnv
- 
-@@ -31,6 +32,12 @@ def check_nk_rx_hds(cfg) -> None:
-     run_rx_hds(cfg)
- 
- 
-+@ksft_disruptive
-+def check_nk_rx_large_niov(cfg) -> None:
-+    """Run the devmem RX large-niov test through netkit."""
-+    run_rx_large_niov(cfg)
-+
-+
- def main() -> None:
-     """Run the netkit devmem test cases."""
-     with NetDrvContEnv(__file__, rxqueues=2, primary_rx_redirect=True) as cfg:
-@@ -38,7 +45,7 @@ def main() -> None:
-                    os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                 "ncdevmem"))
-         ksft_run([check_nk_rx, check_nk_tx, check_nk_tx_chunks,
--                  check_nk_rx_hds], args=(cfg,))
-+                  check_nk_rx_hds, check_nk_rx_large_niov], args=(cfg,))
-     ksft_exit()
- 
- 
 
--- 
-2.53.0-Meta
+On 6/4/26 1:22 AM, Vlastimil Babka (SUSE) wrote:
+> On 6/3/26 13:13, Rob Clark wrote:
+>> On Wed, Jun 3, 2026 at 2:17=E2=80=AFAM Vlastimil Babka (SUSE) <vbabka@=
+kernel.org> wrote:
+>>>
+>>> We know p->pages is NULL in this case, right? Because it was allocate=
+d by
+>>> vm_bind_job_create() using kzalloc().
+>>> And the job can't be reused with a leftover value?
+>>> (msm_iommu_pagetable_prealloc_cleanup doesn't set p->pages to zero).
+>>> Or should we set p->pages to NULL here.
+>>
+>> Correct, the job is not reused.  But I suppose setting p->pages to
+>> NULL would make things more obvious, so no objection to that.
+>=20
+> OK, did that, just in case. Thanks.
 
+The kvfree() -> kfree() part should probably be a separate patch
+with Fixes: 830d68f2cb8a ("drm/msm: Fix pgtable prealloc error
+path") and Cc: stable?
+
+=2E..as the commit landed v6.18.
+
+>> BR,
+>> -R
+>>
+>>>> +
+>>>>         p->pages =3D kvmalloc_objs(*p->pages, p->count);
+>>>>         if (!p->pages)
+>>>>                 return -ENOMEM;
+>>>>
+>>>>         ret =3D kmem_cache_alloc_bulk(pt_cache, GFP_KERNEL, p->count=
+, p->pages);
+>>>>         if (ret !=3D p->count) {
+>>>> -               kfree(p->pages);
+>>>> +               kvfree(p->pages);
+>>>>                 p->pages =3D NULL;
+>>>>                 p->count =3D ret;
+>>>>                 return -ENOMEM;
+
+--=20
+Cheers,
+Harry / Hyeonggon
+
+--------------wMYGC0PsvxX072tLl8xZovbN--
+
+--------------wiFRKWLl9yvmDjGQCVE2s47E
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQQQ1ub6gR5ogjaKRmOGXBN6rc5S1gUCaiEk0AAKCRCGXBN6rc5S
+1v0/AQCTdSzVR1AlZpSbYogIVVB+443eCQzT7065V9OSIICLswD/e6Yg56WZBHlu
+kh1s01feILBrZKf2TcrQ69haUSsKKgk=
+=BoaG
+-----END PGP SIGNATURE-----
+
+--------------wiFRKWLl9yvmDjGQCVE2s47E--
