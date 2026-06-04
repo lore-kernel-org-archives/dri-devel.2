@@ -4,103 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3FB2CD6E6B
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 11:10:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3495CD6E6E
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 11:32:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F9DA10E601;
-	Thu,  4 Jun 2026 11:10:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EC71113F5C;
+	Thu,  4 Jun 2026 11:32:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="m9k3HnRc";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="IxM8Rb/I";
 	dkim-atps=neutral
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E50F610E28B
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 11:10:33 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-45ef41adbc1so482168f8f.0
- for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 04:10:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780571432; cv=none;
- d=google.com; s=arc-20240605;
- b=Y8RiajZJGpdHWnRQVpHcqCVKZY+h2bQGVoIbJ1JZ7NjumRtWhu5U69EyRIyY1DUHmG
- UpBU6u6DNSSybcSDr7VGIWj/V2qgJDJvakhHrEpNygYiGJpGdUW8hg/fPIZJilPeGNzN
- yRHZrwCswWGix7r6uR7luqgfHpaLhsVl7+N2FGZNbcsjKGE865Cgi6nF8BlQuCsEsR7H
- diUfPRz94+V9VlAYMZqNfWslMvvWhFRvGTaaWd7QRXRFC5b6xroKMoaRvYqiJOmxZANB
- dwjMETAw/uCOFenGz35VNE6KCAADPCAuKlKglnJozKF3RCAcprf8cD5YHXSHlQUBZNdb
- +Caw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=eSci7xLpxgYHSBUqhNqtJbViKyYVOJoOaMBk8J7sasA=;
- fh=nxVHLp6RNbHbZ4r3zPK9MvaLb+Q6sMXd3fdg0u55AwI=;
- b=Q/UYvdnsA1CMhDO3kzLRBSfBIuDVbcNMjPenHKv2TzGqQ2wn5gcSM6DSHvMih1XumI
- vrG5LlCo79ATSfjGG8iKLYIn5cjzr0RacCVaUJ15pN19qeg0guzU+ZDIPky+BaGWs5qs
- SDqaxjboscwigwODztJu2bP0nxwNKyeCBzPxGDFi4epUq1d8EWBbNW8gzxxpnHwl78D3
- RUPnh5kPYFeC6q9HJacM6lTq13Xn91+uXzWLc4W5zfSQwYv65ldgKBjVlCqs1W7XZJMW
- D+dzDxYGMYNmc6pEIpUonQQBI6PT7+fGHKQ3kFvdThahtPjVU7D/dEsJPTuDlYm4Dckh
- aIBQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1780571432; x=1781176232;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=eSci7xLpxgYHSBUqhNqtJbViKyYVOJoOaMBk8J7sasA=;
- b=m9k3HnRcLqoGxakOmA0nk66f+Roe8DzaqLFrMY87t2uKOGRMKHEDXiyJLkxGcDHxsw
- o4t6pO7VR1DaDiYh0P2k7s6wvyQQeN7GEu+t8yos4F+qanYoNsk8++Z4BDXraF1rDkPN
- kusjoVfHzi22xMdDwpmYdoy/vfViJnRjjWYdx7iiw9/apEab2KiqmBTKOho49kpZTYFa
- aedQ/apbhJEF1vSj4FFlRv8cWdkOcZWpG75Nle/0NHLKBD46YfaRnFHMmHCI77PrfA30
- q3IhkMffIf3MWGhiJGn18uW+P/zdnhv1dRtrPUrU20smzRMkI6HqghbEuXhD3eavfhoO
- p4og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780571432; x=1781176232;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=eSci7xLpxgYHSBUqhNqtJbViKyYVOJoOaMBk8J7sasA=;
- b=Ur6W3JoJJtT94sBq4uoAoau0XYZpeq7cs8wG35sLHDAtRR9vq3tlHUtvbKoq82gEu0
- spc7hZVNMM8mxj7dGHTeJOeKiNDB74eNkXk8/AJNa4Uz6kC1dG4nquN65uclf1ghjPdF
- XjH56a1HNpB1ARmyPTqtGKSZRVPsfa/QA2QZCEH1uAcvsL/tDCQvzVXZLYSQgzsyJjjp
- Af5la1YyFNta1fKRJXlPrtoYEKtRHbYeph00hdCahX1UcL4a4n7N0xkq30WVA74qblhf
- fOBcQzxFroBnxriS9xttToyOn46k7AUXImc1UhI/ANnVSlLsAQpyXPSwNb1RKrB1oO8o
- NFvQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8RV6i5VE/+bjT5rjYXv6ML0LjOoJzd7ALhZqBUc7CYteBwS4wgV6FXWfYRPh+AGpz59Znec2qunIA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwGDpMlS+DUTEekIiYBXEW0pyPqzrNXAcdKFiwul6IQ/eGG/o1t
- Dq+QHtyPwNPVsCENZDMLOSIDKJk5gwEDbjFQTZRFziJnSAuEApOtQ395xHWOWd8ccnjASBQuof2
- vDoMjHT0uy5UsI07l/qBnOFlbR3y7QMBBxPKwNzbc
-X-Gm-Gg: Acq92OEsyVsielMgPzURhIzGGGqAV6Kzu7XgVkdZwrJwHuofMp5mXDL/F6laBVxG1qL
- ZxVD+jkAazBnZuerdpKLFt1HLt2MrHfGU5G06XskAY01uhdTKZjRNit6Nqx5YXcc86ruXqklzUe
- PfJElWw7sxIL1KlZ2wAxFxreB5dFqq3D4GHHib2krWQ5UI5D4DAoKqdy59ao0upYcxXPwzarV19
- 7SeBxSuKUNdDNjqUTtMJoYIOnYM2YhUrg5PQ9B1Qe9dx70Sr7l/zspclbG/XEmAn4fI/cI6Nypw
- MCiKaiCEDzpWrosahzdzU2V+X01V7L+MvAgAwBt9yRjWGvtcSQc60FjNr7s8JfHIqp08ex329CA
- G6yY=
-X-Received: by 2002:a05:600c:4fc6:b0:488:9bf8:7f17 with SMTP id
- 5b1f17b1804b1-490b5e95f44mr117890035e9.14.1780571431900; Thu, 04 Jun 2026
- 04:10:31 -0700 (PDT)
+Received: from mail-m8267.xmail.ntesmail.com (mail-m8267.xmail.ntesmail.com
+ [156.224.82.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CA53113F5A
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 11:32:35 +0000 (UTC)
+Received: from [172.16.12.77] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 4114f0229;
+ Thu, 4 Jun 2026 19:32:31 +0800 (GMT+08:00)
+Message-ID: <c3b829f2-8f8f-4b76-bbd6-977ee49e32d1@rock-chips.com>
+Date: Thu, 4 Jun 2026 19:32:20 +0800
 MIME-Version: 1.0
-References: <20260602-projection-syntax-rework-v2-0-6989470f5440@garyguo.net>
-In-Reply-To: <20260602-projection-syntax-rework-v2-0-6989470f5440@garyguo.net>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Thu, 4 Jun 2026 13:10:20 +0200
-X-Gm-Features: AVHnY4KT0fbb0zrOV-n0xIWvnd6M6oIkQFpOjNPef2gzJpQvDH0c138r3Ikq7Iw
-Message-ID: <CAH5fLgh8L0gshrfaHWxdAqQMtXY5XEm=TT2cx6C8W519Pj3+Jw@mail.gmail.com>
-Subject: Re: [PATCH v2 0/6] Rework index projection syntax
-To: Gary Guo <gary@garyguo.net>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Abdiel Janulgue <abdiel.janulgue@gmail.com>,
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Robin Murphy <robin.murphy@arm.com>, Alexandre Courbot <acourbot@nvidia.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 03/12] drm/bridge: synopsys: dw-dp: Simplify driver
+ data setting
+To: Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Alexey Charkov <alchark@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, kernel@collabora.com,
+ linux-arm-kernel@lists.infradead.org
+References: <20260501-synopsys-dw-dp-improvements-v2-0-d7e7f6bac77f@collabora.com>
+ <20260501-synopsys-dw-dp-improvements-v2-3-d7e7f6bac77f@collabora.com>
+Content-Language: en-US
+From: Andy Yan <andy.yan@rock-chips.com>
+In-Reply-To: <20260501-synopsys-dw-dp-improvements-v2-3-d7e7f6bac77f@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9e9268059309d8kunmba51a6264c1bb
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSxkYVkIeQh4ZGUNNQxhDGlYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=IxM8Rb/I2HY1HFLeGgoTCxr9yMRWq2uCjku9+lyH/eib/AzBDiclBkhnEdoRyaaPTlFEUfrz/eWpdvhOjsfiFG59EBa8a0xBqZ2z8mm1cMQNjrlANczPs4s9KDMWCWIUhYEsabXYKnzCDej+y/axSmo7vmX89rHtVB+LDW95RbM=;
+ s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
+ bh=WPG/AsGIP40sCtd85f/8cpoPt3ZPqI9/+Lllb2HF/3o=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,29 +77,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 2, 2026 at 4:18=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
->
-> This series reworks the index projection syntax in the pointer
-> projection infrastructure to use the keyworded syntax to be more explicit=
-.
->
-> Doing this allows adding a new panicking variant of index projection,
-> just like the normal index operator. This is useful for cases where
-> compiler cannot prove (or cannot reliably prove) access is inbounds.
->
-> The new syntax looks like this:
-> - `[try: index]`: Fallible indexing (replaces `[index]?`).
-> - `[build: index]`: Build-time checked indexing (replaces `[index]`).
-> - `[panic: index]`: Runtime panicking indexing (newly added).
->
-> DMA sample driver and nova core is updated.
->
-> Danilo, we previously discussed merging this series with I/O projection f=
-or
-> patch logistics. However, I'll need more time for next version of I/O
-> projection (implementing view types that have original container type
-> erased) which won't make it this cycle. This new version for projection
-> syntax rework is minor changes only comparde to v1, so I think it's worth
-> sending out so it can still land this cycle and get out of the way.
+Hello,
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+On 5/1/26 06:20, Sebastian Reichel wrote:
+> There is no need to get the platform device just for setting up
+> the driver data. Simplify the logic.
+> 
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+
+    Reviewed-by: Andy Yan <andy.yan@rock-chips.com>
+> ---
+>   drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> index 150c2da8fee5..52e956bffb12 100644
+> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> @@ -74,7 +74,6 @@ static const struct drm_encoder_helper_funcs dw_dp_encoder_helper_funcs = {
+>   
+>   static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *data)
+>   {
+> -	struct platform_device *pdev = to_platform_device(dev);
+>   	const struct dw_dp_plat_data *plat_data;
+>   	struct drm_device *drm_dev = data;
+>   	struct rockchip_dw_dp *dp;
+> @@ -87,7 +86,7 @@ static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *
+>   		return -ENOMEM;
+>   
+>   	dp->dev = dev;
+> -	platform_set_drvdata(pdev, dp);
+> +	dev_set_drvdata(dev, dp);
+>   
+>   	plat_data = of_device_get_match_data(dev);
+>   	if (!plat_data)
+> 
+
