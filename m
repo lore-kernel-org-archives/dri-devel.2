@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 206ACCD6E6B
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 14:05:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83C46CD6E6B
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 14:08:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8511811A0FA;
-	Thu,  4 Jun 2026 14:05:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2E8411A103;
+	Thu,  4 Jun 2026 14:08:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ccOdxQhX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F06pW/gF";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41F2811A0FD
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 14:05:54 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A878B11A103
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 14:08:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 13FBB4322F;
- Thu,  4 Jun 2026 14:05:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A42DB1F00893;
- Thu,  4 Jun 2026 14:05:53 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E6E8F600B0;
+ Thu,  4 Jun 2026 14:08:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 150401F00893;
+ Thu,  4 Jun 2026 14:08:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780581954;
- bh=48DX+aMBE741hgDWAbkQnn56pJcNUQbIcpFxw4bqeEA=;
+ s=k20260515; t=1780582083;
+ bh=ai2vU5ZZQc4CjGiZqG1UoNnOvnzkN/44XBU6cbJTIFM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ccOdxQhXgPpCOi6jiMcYV6dsLMnXvjEA2wAhEIahAJKBY6lqzX/fy26W2y/LHQvov
- Yr5loTLru7TXlRuXYT3IJq7cb3W7rD0apBBvC6nu3O2egbNLajMldcseZnupbPLms5
- gnl5ax82bovjsRBIshilCqPbIpnWeM/cb3RXLqkt3QjMdXpYBJQPkbkxnRytLkpbbk
- Yaop1m1GLk0iRfjenrTngfK7tMCTiVui+z45UNX/ftMZUY/DeFHHJmyvQwh9N3jnhe
- kSBIyYyILBS25J8uM2bxxYyM2TZ2bzeFIXaQtFQdTzV9nwcEmc4DR6wua5draxkcI9
- nvCNquHTLRA0A==
+ b=F06pW/gF2nMGSZO4Cy4fx5RaWBFCS8pdVL0ditpQMJNu+No6KFOjHK6Ymy74EU075
+ DZVkhYrSaVqzn7GoqRb7L9Em3kNPdMbpj3YUIaxHGAAXHB5U5+R84ZrgqT9JV27tMG
+ U3cIMaKDuqoMjNiW7V87ZCmdsaMFKsZa15Mu3nEZ0mCANl6FRPGKXofqCF7PcSxOP8
+ AXCOBOexIuBjO0Iozb4wG/vxlW3rA3Bzxnf1NbpQEUUXxnU8dr7Vy8d0UC2CYPWZQW
+ Y/E3dFRKztOSmSh8VI+89dSzEcWNjB+lrjjnhZYt7Lii4CEpwo7Hds8Y6WvuGRDwc+
+ IXguPAq2T3dBg==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v3 2/9] accel: rocket: Derive DMA width and core
- count from match data
+Subject: Re: [RFC PATCH v3 5/9] accel: rocket: Keep the IOMMU domain
+ attached across jobs
 To: "Midgy BALON" <midgy971@gmail.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260604135255.62682-3-midgy971@gmail.com>
-References: <20260604135255.62682-3-midgy971@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260604135255.62682-6-midgy971@gmail.com>
+References: <20260604135255.62682-6-midgy971@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 14:05:53 +0000
-Message-Id: <20260604140553.A42DB1F00893@smtp.kernel.org>
+Date: Thu, 04 Jun 2026 14:08:02 +0000
+Message-Id: <20260604140803.150401F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,177 +58,160 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 New issues:
-- [High] Missing bounds check on `rdev->num_cores` against `soc_data->num_c=
-ores` causes an out-of-bounds array write.
+- [High] The IOMMU hardware registers are left uninitialized after a job ti=
+meout and hardware reset, causing subsequent jobs to immediately fault.
 
 Pre-existing issues:
-- [Critical] Early registration of the DRM device creates a race window lea=
-ding to a NULL pointer dereference in `rocket_open`.
-- [High] Array indexing mismatch on unbind/rebind causes state corruption a=
-nd failed lookups.
-- [High] Race condition during global device initialization and array modif=
-ication due to lack of locking.
-- [High] Failure in `rocket_device_init()` leaves an `ERR_PTR` in the globa=
-l `rdev` variable, causing a panic on the next probe.
+- [High] Incorrect teardown ordering in `rocket_core_fini()` destroys IOMMU=
+ and PM resources before stopping the DRM scheduler, leading to data races,=
+ use-after-free, and potential hardware faults.
+- [High] PM runtime usage counts and unsignaled fences are leaked on error =
+paths in `rocket_job_run()`.
 --
 
-commit d76917aa771a1a958c02a6121211647bc25a0160
+commit 49c877f1ba7baae4a28268850b55e2ac3ab4a8cc
 Author: Midgy BALON <midgy971@gmail.com>
 
-accel: rocket: Derive DMA width and core count from match data
+accel: rocket: Keep the IOMMU domain attached across jobs
+   =20
+rocket attached the job's IOMMU domain in rocket_job_run() and
+detached it again on every completion and reset. Each attach/detach
+toggles the rk_iommu stall/force-reset/paging handshake, and on
+RK3568 the NPU MMU is idle between jobs, so that handshake times out
+and logs a burst of "stall/paging request timed out" errors for
+every job.
 
-The probe already has the per-SoC match data, which now records the core
-count and DMA width.  Use it for the cores array allocation and the
-device DMA mask instead of re-scanning the device tree for available core
-nodes.
+Attach the per-context domain once and keep it: track the attached
+domain in the core, swap it only when a job from a different context
+runs, and detach it at core teardown. A reference on the attached
+domain is held so it outlives the job that first attached it and is
+released on swap/teardown.
 
-> diff --git a/drivers/accel/rocket/rocket_device.c b/drivers/accel/rocket/=
-rocket_device.c
-> index 46e6ee1e72c5f..6186f4faa3a2a 100644
-> --- a/drivers/accel/rocket/rocket_device.c
-> +++ b/drivers/accel/rocket/rocket_device.c
+> diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/ro=
+cket_core.c
+> index a8de876365873..634f78dfe2887 100644
+> --- a/drivers/accel/rocket/rocket_core.c
+> +++ b/drivers/accel/rocket/rocket_core.c
+
 [ ... ]
-> @@ -27,17 +25,14 @@ struct rocket_device *rocket_device_init(struct platf=
-orm_device *pdev,
->  	ddev =3D &rdev->ddev;
->  	dev_set_drvdata(dev, rdev);
-> =20
-> -	for_each_compatible_node(core_node, NULL, "rockchip,rk3588-rknn-core")
-> -		if (of_device_is_available(core_node))
-> -			num_cores++;
-> -
-> -	rdev->cores =3D devm_kcalloc(dev, num_cores, sizeof(*rdev->cores), GFP_=
-KERNEL);
-> +	rdev->cores =3D devm_kcalloc(dev, soc_data->num_cores, sizeof(*rdev->co=
-res),
-> +				   GFP_KERNEL);
 
-[Severity: Critical]
-This is a pre-existing issue, but does rocket_device_init() register the
-DRM device prematurely?
-
-The first core to probe invokes rocket_device_init(), which immediately cal=
-ls
-drm_dev_register() at the end of the function. This exposes the DRM device =
-to
-userspace before the caller can initialize the core array elements.
-
-If userspace quickly opens the DRM device node:
-
-rocket_open()
-  rocket_iommu_domain_create(rdev->cores[0].dev)
-
-Since the device pointer in the array has not yet been assigned in
-rocket_probe() and is still NULL, this results in a NULL pointer dereferenc=
-e.
-
->  	if (!rdev->cores)
->  		return ERR_PTR(-ENOMEM);
-> =20
->  	dma_set_max_seg_size(dev, UINT_MAX);
-> =20
-> -	err =3D dma_set_mask_and_coherent(dev, DMA_BIT_MASK(40));
-> +	err =3D dma_set_mask_and_coherent(dev, DMA_BIT_MASK(soc_data->dma_bits)=
-);
->  	if (err)
->  		return ERR_PTR(err);
-> =20
-> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
-ket_drv.c
-> index 384c38e13acce..c18840e5aff76 100644
-> --- a/drivers/accel/rocket/rocket_drv.c
-> +++ b/drivers/accel/rocket/rocket_drv.c
-> @@ -159,11 +159,15 @@ static const struct drm_driver rocket_drm_driver =
-=3D {
-> =20
->  static int rocket_probe(struct platform_device *pdev)
+> @@ -112,6 +113,11 @@ void rocket_core_fini(struct rocket_core *core)
 >  {
-> +	const struct rocket_soc_data *soc_data =3D of_device_get_match_data(&pd=
-ev->dev);
->  	int ret;
-> =20
-> +	if (!soc_data)
-> +		return -EINVAL;
-> +
->  	if (rdev =3D=3D NULL) {
+>  	pm_runtime_dont_use_autosuspend(core->dev);
+>  	pm_runtime_disable(core->dev);
+> +	if (core->attached_domain) {
+> +		iommu_detach_group(NULL, core->iommu_group);
+> +		rocket_iommu_domain_put(core->attached_domain);
+> +		core->attached_domain =3D NULL;
+> +	}
+>  	iommu_group_put(core->iommu_group);
+>  	core->iommu_group =3D NULL;
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does this lack locking?
+This is a pre-existing issue, but IOMMU resources are being torn down before
+the DRM scheduler is stopped in rocket_job_fini(core).
 
-The kernel driver core can probe multiple matching rockchip,rk3588-rknn-core
-devices in parallel. Concurrent probes could observe rdev =3D=3D NULL
-simultaneously, instantiating the DRM device multiple times and leaking
-memory. Additionally, concurrent reads and increments of rdev->num_cores can
-cause multiple threads to overwrite the same array slot in rdev->cores[]
-while leaving others uninitialized.
+Because the scheduler might still be active, couldn't an in-flight job be
+executing concurrently? This could lead to a data race on core->attached_do=
+main,
+the IOMMU domain being forcefully unmapped from a running job causing
+AXI bus faults, or a use-after-free when rocket_job_run() accesses
+core->iommu_group.
 
->  		/* First core probing, initialize DRM device. */
-> -		rdev =3D rocket_device_init(drm_dev, &rocket_drm_driver);
-> +		rdev =3D rocket_device_init(drm_dev, &rocket_drm_driver, soc_data);
+Should rocket_job_fini(core) be called before tearing down the IOMMU state =
+to
+ensure the hardware is idle and the scheduler is stopped?
 
-[Severity: High]
-This is a pre-existing issue, but what happens if rocket_device_init() fail=
-s?
-
-If rocket_device_init() returns an error pointer, it is directly assigned to
-the global rdev variable. The error path correctly returns the error but
-fails to reset the static global rdev back to NULL. When the driver core
-invokes rocket_probe() for the next matching device tree node, the
-rdev =3D=3D NULL check evaluates to false because rdev contains an error po=
-inter.
-The probe will then attempt to access rdev->num_cores, causing an invalid
-pointer dereference.
-
->  		if (IS_ERR(rdev)) {
->  			dev_err(&pdev->dev, "failed to initialize rocket device\n");
->  			return PTR_ERR(rdev);
->  		}
->  	}
-
-[Severity: High]
-Can this cause an out-of-bounds array write?
-
-The allocation of the rdev->cores array now uses a fixed size defined by
-soc_data->num_cores instead of dynamically counting the device tree nodes.
-However, rocket_probe() is called by the driver core for every matching DT
-node, and it unconditionally uses the auto-incrementing rdev->num_cores as
-the array index later in the function.
-
-If a malformed or custom device tree contains more core nodes than
-soc_data->num_cores, rocket_probe() will be invoked more times than the arr=
-ay
-can hold, writing past the end of the rdev->cores buffer.
-
-[ ... ]
-> @@ -214,6 +218,7 @@ static void rocket_remove(struct platform_device *pde=
-v)
+>  	rocket_job_fini(core);
 >  }
 
+[ ... ]
+
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index e25234261536b..b248371be8a1e 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+
+[ ... ]
+
+> @@ -314,9 +315,26 @@ static struct dma_fence *rocket_job_run(struct drm_s=
+ched_job *sched_job)
+>  	if (ret < 0)
+>  		return fence;
+
 [Severity: High]
-This isn't a bug introduced by this patch, but does the array indexing hand=
-le
-unbind and rebind correctly?
+This isn't a bug introduced by this patch, but if pm_runtime_get_sync()
+fails, it returns a negative error code but still increments the PM usage c=
+ounter.
 
-When a core is unbound, rocket_remove() decrements rdev->num_cores without
-compacting the remaining active cores in the rdev->cores array to fill the
-empty slot. Consequently, find_core_for_dev() (which relies on
-rdev->num_cores for its loop bound) fails to find any remaining cores
-located at indices >=3D the new rdev->num_cores, preventing their cleanup.
+The error path returns without calling pm_runtime_put_noidle() or signaling
+the fence, which leaks the PM counter and causes the scheduler to wait inde=
+finitely.
 
-Furthermore, if a core is re-bound, rocket_probe() will use the decremented
-rdev->num_cores as the index and overwrite an existing active core, causing
-resource leaks and state corruption.
+> -	ret =3D iommu_attach_group(job->domain->domain, core->iommu_group);
+> -	if (ret < 0)
+> -		return fence;
+> +	/*
+> +	 * Attach the job's IOMMU domain only when it differs from the one
+> +	 * already attached. Re-attaching per job toggles the rk_iommu
+> +	 * stall/reset handshake on an idle NPU MMU, which is slow and
+> +	 * noisy; keep the domain attached across jobs instead.
+> +	 */
+> +	if (core->attached_domain !=3D job->domain) {
+> +		if (core->attached_domain) {
+> +			iommu_detach_group(NULL, core->iommu_group);
+> +			rocket_iommu_domain_put(core->attached_domain);
+> +			core->attached_domain =3D NULL;
+> +		}
+> +
+> +		ret =3D iommu_attach_group(job->domain->domain, core->iommu_group);
+> +		if (ret < 0)
+> +			return fence;
 
+[Severity: High]
+Also a pre-existing issue, but if iommu_attach_group() fails, it returns
+the fence early without dropping the successfully acquired PM reference.
+Should this path include a pm_runtime_put_noidle() call to avoid leaking
+the reference?
+
+> +
+> +		kref_get(&job->domain->kref);
+> +		core->attached_domain =3D job->domain;
+> +	}
 > =20
->  static const struct rocket_soc_data rk3588_soc_data =3D {
-> +	.num_cores =3D 3,
->  	.dma_bits =3D 40,
->  };
+>  	scoped_guard(mutex, &core->job_lock) {
+>  		core->in_flight_job =3D job;
+
+[ ... ]
+
+> @@ -376,8 +393,6 @@ rocket_reset(struct rocket_core *core, struct drm_sch=
+ed_job *bad)
+>  	 */
+>  	rocket_core_reset(core);
+> =20
+> -	iommu_detach_group(NULL, core->iommu_group);
+> -
+>  	/* NPU has been reset, we can clear the reset pending bit. */
+>  	atomic_set(&core->reset.pending, 0);
+
+[Severity: High]
+When the NPU is hard-reset by rocket_core_reset(), the IOMMU's hardware reg=
+isters
+(like page table base addresses) are wiped.
+
+Since core->attached_domain is not cleared here, when the scheduler restarts
+and executes the next job, rocket_job_run() will see core->attached_domain
+matches the job's domain and skip calling iommu_attach_group().
+
+Will this leave the IOMMU hardware unconfigured and cause subsequent jobs to
+immediately throw DMA faults? Should core->attached_domain be cleared here
+to force a re-attach and reprogramming of the IOMMU?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604135255.6268=
-2-1-midgy971@gmail.com?part=3D2
+2-1-midgy971@gmail.com?part=3D5
