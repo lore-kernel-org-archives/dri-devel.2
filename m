@@ -4,82 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B22CCD6E6E
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 19:44:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E12FECD6E6E
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 19:48:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B655011A181;
-	Thu,  4 Jun 2026 19:44:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F350611A1E1;
+	Thu,  4 Jun 2026 19:48:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="M5mBimPE";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FI7YkdtT";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="acLqsbvU";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 078F811A181
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 19:44:41 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-490ac357c55so13271985e9.1
- for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 12:44:40 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 791DC11A1E1
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 19:48:37 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 654IQBk91813872
+ for <dri-devel@lists.freedesktop.org>; Thu, 4 Jun 2026 19:48:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=sRxjmDJb+ltIpXrcELq5y5l3qHN5CLUNKQ4
+ NUVtbFo0=; b=FI7YkdtTWDJGlNmsgtR3JBqCnhDM90lpW6W8L4u2TOY7kQay677
+ BnyLwGqmANG2lvioFQYgmSWnuUjGXjH6qEWG7PKUDDbioq3x3Iad0qbHRzPopE5B
+ ZHVwpwcXyoY4hT0orlvBXMmVKRre4hVmQULGigX/Lzlsk1/xkL8ob4xZIo+omeqA
+ 7NqeviynjcJzCrCfjUcQ70QVDOXYvU1UsM6CO4MAHuaw1PgU67A/P6yDCf8oTStO
+ 0H4YSBxn674U6eyvSzeWT5M2PTUUo8O+/hJWq3rIPfn1Dj0r+rRAwpWDYB7XZEC/
+ doTNh29th0q5vOiIMInkUB33Wcymx9Bju+w==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eken00akw-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 19:48:36 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-36d979441eeso1082288a91.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 12:48:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1780602279; x=1781207079; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=S3Mz5gFS0uICYS8oUauxnCGzN+B8DWW7+Ft4l095als=;
- b=M5mBimPE/s8l+eBOvT/whBfY81zD9qnCkZIvmvLrpw9QHimMIPjcMemqwKwn8ovmfA
- nvVnlnhe+cGbeH/CTkV1HA8j44PhdC9P99XOsAg9CuY93A1TOZfVaTDQpIXMHuWKF+E0
- ebeBDyVw/NQjPwwUi4pD5jL/NPdX6/fat8Xik=
+ d=oss.qualcomm.com; s=google; t=1780602515; x=1781207315;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=sRxjmDJb+ltIpXrcELq5y5l3qHN5CLUNKQ4NUVtbFo0=;
+ b=acLqsbvUo8CJFk9HWEw1BXwTdQ58TWTOlCT2/t1wBzs2xcHeyEfoqfBtZJHtByViHe
+ +Irwdpy77EPuTXpgUdlRzhgOB48QVhBAq1zJL4WugYPAjn6SsO3ztO9pruFBOaJF3uqq
+ Y+qIVdBII2iYE3T73C+/ZwTUVgPNvqcbsB0pgfI5trZTw9NUkhGYkBV/uimFZLwAkdY0
+ gsSMXN2FcRERA1KT1t7/ivtpHCl5HAA0ft87RdIstEluOofHd6+352UGT0ScpQrz2pY6
+ Fbm6qiV4WBpOgkbO1xwGDVx8ctOULvX/T38oPAnmroHads4vu++cXvmzH7LN/zYHHvy3
+ ZduA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780602279; x=1781207079;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=S3Mz5gFS0uICYS8oUauxnCGzN+B8DWW7+Ft4l095als=;
- b=iAiPXXRzmY54Fs52n95RQnhsruo0ceV2c88cnRUWlUgUv409/fUTMU31D8TzOW+ZOa
- fgNq3DtdihqvrQ95+QUKnmbANbRP7xXQ9F3dEDp/RgN2ke2AI3ShedydvOcZY/PGndUo
- FaH/N28mwJU8xnr3x8+0L0RHElFAqOiYwoHzgBwZMRv1C3g40XYdf0iCNcw0HG9rAc4S
- ACwzkh8qxhlEMkgdndj8F7JDJU30cgxNVEDN6azZqT29BDldLJU8bP95sa7iTwiCh6HY
- 3IfwSE7smZPdcVKIEdHKP+8N/4A64hE9T0lP/4l8IDePctya6k9zqJUIrBIyF3IeWchB
- 4HFw==
-X-Gm-Message-State: AOJu0YzpN+10WJ7hx6+2+kPwnlSR1eV/DDkC/VD5l9D1PxPgAgIyvWQZ
- /q6WRb4sfcpQ1ZBuMlVoyUZ8KVQ6B1Rw824erhGwJLG9EzgTgrY0icpkG/MEQ1DiC9APyR5uUDU
- t/rH532Q=
-X-Gm-Gg: Acq92OFnW1t6rPeCQ1gMgbYUzbVZJ5nUAlnX/QoBJGoVQeNgV9fYJdUUCR01UYWOC7N
- QN+Zp2K36p01T7G4eBecq93h2yUhVPPR7/L0UE8Fiq6GHs5oaiTfGmOV7VLHyfWl6JF4R4pnQBj
- fjLf+rnx6cnmfm4xfESr4WrKmng+IJepVpeUojV/QmazWaojkmsrFNVzHsPPq7sPVtLlLngCjPf
- d8isIrxsxhdl+hA3vnMAUhrSU1pq6wnivft7xd1lq9uk7xhAe85Qr5bE0+ZC/iXmX6NOcr6teiW
- k/oAhbssIBz+v84oJwaiHuweymHRMksZI9HSaclpdbMSaGdanIwDUxebchcSEsomZaOEmiurdEB
- idtdTaAPIeqS08erdLJ2sUuG/B7WsC3PIc5YOEuU6vka37EPPR/EKbPKeOL8XqwDVBMAu0jmyOF
- ClwMevM0lhlqEevVY4llf/clsE9th8IJwGDN2ISGQ6qDGJdQ==
-X-Received: by 2002:a05:600c:34ca:b0:490:9df1:f0cf with SMTP id
- 5b1f17b1804b1-490c2592042mr668855e9.2.1780602279616; 
- Thu, 04 Jun 2026 12:44:39 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ d=1e100.net; s=20251104; t=1780602515; x=1781207315;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=sRxjmDJb+ltIpXrcELq5y5l3qHN5CLUNKQ4NUVtbFo0=;
+ b=mHEM7tizAbJRkZoCGcQUNZWkElOQXETbiihKvNd3XyBVq/R5jpUTJoMycLNaVKRGst
+ dusHHt8t6+BGFDfDCIPOmo1yHh2wHJfCJElswxA0LtmXn29iyhvHAVsX7qJNINIvaCVs
+ 9XTMWFsUXYNp5we3i1DyCzGc6bULBvkFzdfY33IP3WiP6EoTaoUhXzGDjDv++UrWRuSa
+ ZEgSIX8i1o2jpFx1STBvuKvkTdnLSalZioga4hCOqKIvPHo9vAwt8nYkcfGelOoh+MBQ
+ eAwhezGcRDF9LGTApORSRwiRWA2ftKkINifNaLSFP+90ZTdlaet95ATZN6ykYmPCTf55
+ 4Ntg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+o8RtEt7/eld6WjvWXMJPPfNdBGNCLT5GnCuUkl4/40VjSvzUCiBceWc1XD/sR8FZokM9QK951UM0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzABdGGPofBGdq2wMIu1pNNp/0QQX9p7yHjfWEiNraATiLFumj7
+ W0gvUHgtDdHgQeZ8aqaMtulaGn3FPbyOvdKXbi26+wFosHPQ/wJtjfnCVE7bnyH/mBWXDiTRO8U
+ OVkdtykajIoC9/h5IcafxyLk5ApnIa8HMrvYb2yVPD4GIzzMeO7WcwvnqIKi0R/5Zjouy9bU=
+X-Gm-Gg: Acq92OElUA5yq91zwThFGZiKpybn0/iD/fhgl29ceAFiaj/FySjjiITyMMeGFfKCRfF
+ sQpJSjRDDhizIH95L/hhR9b7uv/Qq6mg1Rg5LXnAgfgfatXH3YBVpMQOzX6jGCg9ztXQTfUBNya
+ aglT4pH1re/nX6AyjHCNRmIpTMPazNJKDIfz1cdqdoDRcgZRxPdF0530Wm3iD0d04WbypKCppxH
+ OAHrVEp0D5AYcMbUiv1sZ1G+jx20qWDtWWWjI1GmEjBqx9XV569iY4mKwuWqkwn4vmm2WBLFXqs
+ SZ2nIE8Dmw+lwj3H47hMLB3qQGZIWR71Akq+AI6cSmFgZU1TmNsjnXW7Ua6d1t6bcDGYGpqKmpP
+ 3uAH9vS8UjZgYl14ze/lh3vc30qAmPLof81oIzEk7yuzdjipOia9PrkxNHoMhR/QewaI=
+X-Received: by 2002:a17:90b:4a46:b0:36d:bbe0:de7c with SMTP id
+ 98e67ed59e1d1-370eeff19bamr421829a91.12.1780602515325; 
+ Thu, 04 Jun 2026 12:48:35 -0700 (PDT)
+X-Received: by 2002:a17:90b:4a46:b0:36d:bbe0:de7c with SMTP id
+ 98e67ed59e1d1-370eeff19bamr421807a91.12.1780602514837; 
+ Thu, 04 Jun 2026 12:48:34 -0700 (PDT)
+Received: from hu-parihar-hyd.qualcomm.com ([202.46.22.19])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490bc39eb04sm96489005e9.6.2026.06.04.12.44.38
+ 98e67ed59e1d1-370f913bb37sm108567a91.2.2026.06.04.12.48.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Jun 2026 12:44:39 -0700 (PDT)
-From: Simona Vetter <simona.vetter@ffwll.ch>
-To: DRI Development <dri-devel@lists.freedesktop.org>
-Cc: Simona Vetter <simona.vetter@ffwll.ch>,
- "DARKNAVY (@DarkNavyOrg)" <vr@darknavy.com>,
- syzbot+d7c9eed171647e421013@syzkaller.appspotmail.com,
- stable@vger.kernel.org, Edward Adam Davis <eadavis@qq.com>,
- Dave Airlie <airlied@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Francis <David.Francis@amd.com>,
- Puttimet Thammasaeng <pwn8official@gmail.com>,
- Christian Koenig <Christian.Koenig@amd.com>,
- Zhenghang Xiao <kipreyyy@gmail.com>
-Subject: [PATCH] drm/gem: Try to fix change_handle ioctl, attempt 4
-Date: Thu,  4 Jun 2026 21:44:37 +0200
-Message-ID: <20260604194437.1725314-1-simona.vetter@ffwll.ch>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260604191916.1713387-1-simona.vetter@ffwll.ch>
-References: <20260604191916.1713387-1-simona.vetter@ffwll.ch>
+ Thu, 04 Jun 2026 12:48:34 -0700 (PDT)
+From: Abhinav Parihar <abhinav.parihar@oss.qualcomm.com>
+To: srinivas.kandagatla@linaro.org, linux-arm-msm@vger.kernel.org
+Cc: Abhinav Parihar <abhinav.parihar@oss.qualcomm.com>,
+ gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
+ ekansh.gupta@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+ quic_chennak@quicinc.com, dri-devel@lists.freedesktop.org, arnd@arndb.de
+Subject: [PATCH v1] misc: fastrpc: Add cache maintenance for non-coherent
+ platforms
+Date: Fri,  5 Jun 2026 01:18:11 +0530
+Message-Id: <20260604194811.2437567-1-abhinav.parihar@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA0MDE5NCBTYWx0ZWRfX/ujfy7kgndj8
+ PVaupiaTHWEzJdm7U7Hu5AmJm2CGEgiq4qZ05ac7QF/LMkGfeF+3DaFPANY/Lhn4ZM0lyNVGuvt
+ bzdQ6ANtqWhjhvWIiBxWcFjf5xFJthsP6akDW0NYQ0T7RMLlAKFqYycYT7Z13S9J/oKa6m/MWts
+ UOcGUdA8GuMAWdqiXKxr2ZDd0B9nRoFbhDI/RhtXxCXb/O/krg0JD4copiwgcZXzQzmt5oW5LgI
+ p6AzdwQVccJsa67vtYOibZrQLBXXYg3jc1kexNl+/Ra/7lv5I7YvisL7mfO1rBMdC7+fbZMavcO
+ u8KLuDRunySDDHfqb2+1qUH7de8MjIJy4tqLtR51B2rPyso+AGXI5FAbPNu13zHe8mcs/UZy0WG
+ RbJfqHCCH4t68tJNuICxgmzCqgXrzg/XCxa0qvkFKp68PHeTBfnIxjRqZ+T3JpxSapz6/ZwnQwI
+ goCjBlBsh5r2uTuSOfw==
+X-Proofpoint-ORIG-GUID: GwqNzmkNT1qa8sojUsjxQF_5AbjMUc0d
+X-Proofpoint-GUID: GwqNzmkNT1qa8sojUsjxQF_5AbjMUc0d
+X-Authority-Analysis: v=2.4 cv=B96JFutM c=1 sm=1 tr=0 ts=6a21d694 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=4mxDCDZnYOL6Ru_i_akA:9 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-04_05,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1011 spamscore=0 malwarescore=0 adultscore=0
+ priorityscore=1501 impostorscore=0 bulkscore=0 suspectscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606040194
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,207 +136,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On-list because the cat is out of the bag and we're clearly not good
-enough to figure this out in private. The story thus far:
+Some platforms using fastrpc do not support DMA coherency on
+HLOS. On such systems, explicit cache maintenance is
+required to ensure data consistency for RPC argument buffers.
 
-5e28b7b94408 ("drm: Set old handle to NULL before prime swap in
-change_handle") tried to fix a race condition between the gem_close and
-gem_change_handle ioctls, but got a few things wrong:
+Add cache maintenance for argument buffers when operating on
+non-coherent platforms:
+- Flush input buffers before invoking RPC to ensure CPU writes are
+  visible to the DSP
+- Invalidate output buffers after RPC completion to ensure DSP
+  writes are visible to the CPU
 
-- There's a confusion with the local variable handle, which is actually
-  the new handle, and so the two-stage trick was actually applied to the
-  wrong idr slot. 7164d78559b0 ("drm/gem: fix race between
-  change_handle and handle_delete") tried to fix that by adding yet
-  another code block, but forgot to add the error handling. Which meant
-  we now have two paths, both kinda wrong.
+Introduce helper functions fastrpc_flush_args() and
+fastrpc_inv_args() to perform the required dma-buf cache
+operations. These are invoked only when the device is not marked
+as DMA coherent.
 
-- dc366607c41c ("drm: Replace old pointer to new idr") tried to apply
-  another fix, but inconsistently, again because of the handle confusion
-  - this would be the right fix (kinda, somewhat, it's a mess) if we'd
-  do the two-stage approach for the new handle. Except that wasn't the
-  intent of the original fix.
+The coherency capability is determined using the "dma-coherent"
+device tree property and stored per session context.
 
-We also didn't have an igt merged for the original ioctl, which is a big
-no-go. This was attempted to address off-list in the original bugfix,
-and amd QA people claimed the bug was fixed now. Very clearly that's not
-the case. Here's my attempt to sort this out:
+This ensures correct data synchronization on platforms lacking
+DMA coherency, while avoiding unnecessary overhead on coherent
+systems.
 
-- Rename the local variable to new_handle, the old aliasing with
-  args->handle is just too dangerously confusing.
-
-- Merge the gem obj lookup with the two-stage idr_replace so that we
-  avoid getting ourselves confused there.
-
-- This means we don't have a surplus temporary reference anymore, only
-  an inherited from the idr. A concurrent gem_close on the new_handle
-  could steal that. Fix that with the same two-stage approach
-  create_tail uses. This is a bit overkill as documented in the comment,
-  but I also don't trust my ability to understand this all correctly, so
-  go with the established pattern we have from other ioctls instead for
-  maximum paranoia.
-
-- Adjust error paths. I've tried to make the error and success paths
-  common, because they are identical except for which handle is removed
-  and on which we call idr_replace to (re)install the object again. But
-  that made things messier to read, so I've left it at the more verbose
-  version, which unfortunately hides the symmetry in the entire code
-  flow a bit.
-
-- While at it, also replace the 7 space indent with 1 tab.
-
-And finally, because I flat out don't trust my abilities here at all
-anymore:
-
-- Disable the ioctl until we have the igt situation and everything else
-  sorted out on-list and with full consensus.
-
-v2:
-
-Sashiko noticed that I didn't handle the error path for idr_replace
-correctly, it must be checked with IS_ERR_OR_NULL like in
-gem_handle_delete. So yeah, definitely should just the existing paths
-1:1 because this is endless amounts of tricky.
-
-Also add the Fixes: line for the original ioctl, I forgot that too.
-
-Reported-by: DARKNAVY (@DarkNavyOrg) <vr@darknavy.com>
-Signed-off-by: Simona Vetter <simona.vetter@ffwll.ch>
-Fixes: dc366607c41c ("drm: Replace old pointer to new idr")
-Cc: syzbot+d7c9eed171647e421013@syzkaller.appspotmail.com
-Cc: stable@vger.kernel.org
-Cc: Edward Adam Davis <eadavis@qq.com>
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: 5e28b7b94408 ("drm: Set old handle to NULL before prime swap in change_handle")
-Cc: David Francis <David.Francis@amd.com>
-Cc: Puttimet Thammasaeng <pwn8official@gmail.com>
-Cc: Christian Koenig <Christian.Koenig@amd.com>
-Fixes: 7164d78559b0 ("drm/gem: fix race between change_handle and handle_delete")
-Cc: Zhenghang Xiao <kipreyyy@gmail.com>
-Fixes: 5e28b7b94408 ("drm: Set old handle to NULL before prime swap in change_handle")
+Signed-off-by: Abhinav Parihar <abhinav.parihar@oss.qualcomm.com>
 ---
- drivers/gpu/drm/drm_gem.c   | 62 +++++++++++++------------------------
- drivers/gpu/drm/drm_ioctl.c |  2 +-
- 2 files changed, 23 insertions(+), 41 deletions(-)
+ drivers/misc/fastrpc.c | 66 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 66 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index e12cdf91f4dc..f49f1724eda5 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -1019,8 +1019,8 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
- 				struct drm_file *file_priv)
- {
- 	struct drm_gem_change_handle *args = data;
--	struct drm_gem_object *obj, *idrobj;
--	int handle, ret;
-+	struct drm_gem_object *obj;
-+	int new_handle, ret;
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 1080f9acf70a..043b6a5548fb 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -255,6 +255,7 @@ struct fastrpc_session_ctx {
+ 	int sid;
+ 	bool used;
+ 	bool valid;
++	bool coherent;
+ };
  
- 	if (!drm_core_check_feature(dev, DRIVER_GEM))
- 		return -EOPNOTSUPP;
-@@ -1028,52 +1028,36 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
- 	/* idr_alloc() limitation. */
- 	if (args->new_handle > INT_MAX)
- 		return -EINVAL;
--	handle = args->new_handle;
--
--	obj = drm_gem_object_lookup(file_priv, args->handle);
--	if (!obj)
--		return -ENOENT;
-+	new_handle = args->new_handle;
- 
--	if (args->handle == handle) {
--		ret = 0;
--		goto out;
--	}
-+	if (args->handle == new_handle)
-+		return 0;
- 
- 	mutex_lock(&file_priv->prime.lock);
--
- 	spin_lock(&file_priv->table_lock);
--
--       /* When create_tail allocs an obj idr, it needs to first alloc as NULL,
--	* then later replace with the correct object. This is not necessary
--	* here, because the only operations that could race are drm_prime
--	* bookkeeping, and we hold the prime lock.
--	*/
--	ret = idr_alloc(&file_priv->object_idr, obj, handle, handle + 1,
-+	ret = idr_alloc(&file_priv->object_idr, NULL, new_handle, new_handle + 1,
- 			GFP_NOWAIT);
- 
--       if (ret < 0) {
--	       spin_unlock(&file_priv->table_lock);
--	       goto out_unlock;
--       }
--
--       idrobj = idr_replace(&file_priv->object_idr, NULL, handle);
--       if (idrobj != obj) {
--	       idr_replace(&file_priv->object_idr, idrobj, handle);
--	       idr_remove(&file_priv->object_idr, args->new_handle);
--	       spin_unlock(&file_priv->table_lock);
--	       ret = -ENOENT;
--	       goto out_unlock;
--       }
--
--	idr_replace(&file_priv->object_idr, NULL, args->handle);
-+	if (ret < 0) {
-+		spin_unlock(&file_priv->table_lock);
-+		goto out_unlock;
-+	}
-+
-+	obj = idr_replace(&file_priv->object_idr, NULL, args->handle);
-+	if (IS_ERR_OR_NULL(obj)) {
-+		idr_remove(&file_priv->object_idr, new_handle);
-+		spin_unlock(&file_priv->table_lock);
-+		ret = -ENOENT;
-+		goto out_unlock;
-+	}
- 	spin_unlock(&file_priv->table_lock);
- 
- 	if (obj->dma_buf) {
- 		ret = drm_prime_add_buf_handle(&file_priv->prime, obj->dma_buf,
--					       handle);
-+					       new_handle);
- 		if (ret < 0) {
- 			spin_lock(&file_priv->table_lock);
--			idr_remove(&file_priv->object_idr, handle);
-+			idr_remove(&file_priv->object_idr, new_handle);
- 			idr_replace(&file_priv->object_idr, obj, args->handle);
- 			spin_unlock(&file_priv->table_lock);
- 			goto out_unlock;
-@@ -1086,14 +1070,12 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
- 
- 	spin_lock(&file_priv->table_lock);
- 	idr_remove(&file_priv->object_idr, args->handle);
--	idrobj = idr_replace(&file_priv->object_idr, obj, handle);
-+	obj = idr_replace(&file_priv->object_idr, obj, new_handle);
- 	spin_unlock(&file_priv->table_lock);
--	WARN_ON(idrobj != NULL);
-+	WARN_ON(obj != NULL);
- 
- out_unlock:
- 	mutex_unlock(&file_priv->prime.lock);
--out:
--	drm_gem_object_put(obj);
- 
- 	return ret;
+ struct fastrpc_soc_data {
+@@ -973,6 +974,64 @@ static int fastrpc_create_maps(struct fastrpc_invoke_ctx *ctx)
+ 	return 0;
  }
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index ff193155129e..937fc1e2c017 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -660,7 +660,7 @@ static const struct drm_ioctl_desc drm_ioctls[] = {
- 	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CLOSE, drm_gem_close_ioctl, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF(DRM_IOCTL_GEM_FLINK, drm_gem_flink_ioctl, DRM_AUTH),
- 	DRM_IOCTL_DEF(DRM_IOCTL_GEM_OPEN, drm_gem_open_ioctl, DRM_AUTH),
--	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CHANGE_HANDLE, drm_gem_change_handle_ioctl, DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CHANGE_HANDLE, drm_invalid_op, DRM_RENDER_ALLOW),
  
- 	DRM_IOCTL_DEF(DRM_IOCTL_MODE_GETRESOURCES, drm_mode_getresources, 0),
++static void fastrpc_flush_args(struct fastrpc_invoke_ctx *ctx)
++{
++	union fastrpc_remote_arg *rpra = ctx->rpra;
++	int i, inbufs, outbufs;
++
++	inbufs = REMOTE_SCALARS_INBUFS(ctx->sc);
++	outbufs = REMOTE_SCALARS_OUTBUFS(ctx->sc);
++
++	for (i = 0; i < inbufs + outbufs; ++i) {
++		int raix = ctx->olaps[i].raix;
++		struct fastrpc_map *map = ctx->maps[raix];
++
++		if (raix + 1 > inbufs)
++			continue;
++		if (!map || !map->buf)
++			continue;
++
++		if (rpra[raix].buf.len && ctx->olaps[i].mstart) {
++			dma_buf_begin_cpu_access(map->buf, DMA_TO_DEVICE);
++			dma_buf_end_cpu_access(map->buf, DMA_TO_DEVICE);
++		}
++	}
++}
++
++static void fastrpc_inv_args(struct fastrpc_invoke_ctx *ctx)
++{
++	union fastrpc_remote_arg *rpra = ctx->rpra;
++	int i, inbufs, outbufs;
++
++	inbufs = REMOTE_SCALARS_INBUFS(ctx->sc);
++	outbufs = REMOTE_SCALARS_OUTBUFS(ctx->sc);
++
++	for (i = 0; i < inbufs + outbufs; ++i) {
++		int raix = ctx->olaps[i].raix;
++		struct fastrpc_map *map = ctx->maps[raix];
++
++		if (raix + 1 <= inbufs)
++			continue;
++		if (!rpra[raix].buf.len)
++			continue;
++		if (!map || !map->buf)
++			continue;
++
++		/*
++		 * Skip invalidation if the argument overlaps with the
++		 * RPC control header page.
++		 */
++		if (((uintptr_t)rpra & PAGE_MASK) ==
++			((uintptr_t)rpra[raix].buf.pv & PAGE_MASK))
++			continue;
++
++		if (ctx->olaps[i].mstart) {
++			dma_buf_begin_cpu_access(map->buf, DMA_FROM_DEVICE);
++			dma_buf_end_cpu_access(map->buf, DMA_TO_DEVICE);
++		}
++	}
++}
++
+ static struct fastrpc_invoke_buf *fastrpc_invoke_buf_start(union fastrpc_remote_arg *pra, int len)
+ {
+ 	return (struct fastrpc_invoke_buf *)(&pra[len]);
+@@ -1093,6 +1152,9 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
+ 		}
+ 	}
  
++	if (!ctx->fl->sctx->coherent)
++		fastrpc_flush_args(ctx);
++
+ 	for (i = ctx->nbufs; i < ctx->nscalars; ++i) {
+ 		list[i].num = ctx->args[i].length ? 1 : 0;
+ 		list[i].pgidx = i;
+@@ -1239,6 +1301,9 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
+ 
+ 	/* make sure that all memory writes by DSP are seen by CPU */
+ 	dma_rmb();
++	if (!fl->sctx->coherent)
++		fastrpc_inv_args(ctx);
++
+ 	/* populate all the output buffers with results */
+ 	err = fastrpc_put_args(ctx, kernel);
+ 	if (err)
+@@ -2217,6 +2282,7 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
+ 	sess->used = false;
+ 	sess->valid = true;
+ 	sess->dev = dev;
++	sess->coherent = of_property_read_bool(dev->of_node, "dma-coherent");
+ 	dev_set_drvdata(dev, sess);
+ 
+ 	if (cctx->domain_id == CDSP_DOMAIN_ID)
 -- 
-2.53.0
+2.34.1
 
