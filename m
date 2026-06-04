@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C14D6CD6E4A
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 02:50:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52981CD6E4A
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 02:51:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21BE51125B4;
-	Thu,  4 Jun 2026 02:50:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA9371125B5;
+	Thu,  4 Jun 2026 02:51:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KFWdpbkQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z4Yn0tC0";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 433AF1125B4
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 02:50:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F7AD1125B5
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 02:51:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2469242DDC;
- Thu,  4 Jun 2026 02:50:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 640C61F00893;
- Thu,  4 Jun 2026 02:50:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 68BEB41735;
+ Thu,  4 Jun 2026 02:51:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 241CE1F00893;
+ Thu,  4 Jun 2026 02:51:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780541455;
- bh=pjOu/2itNe48y+053sV/h1ePAyFLXJm5gIii7KfzOsU=;
+ s=k20260515; t=1780541466;
+ bh=kh6xJcmQbIQ3MBkTAqhJxFpsGUXZG/Y/9No3BJ7SzFs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KFWdpbkQCapOPbzgM+xpeMf28N8OwEsDGpt3pkl5ijz7LuB5PZYx/bLl56LL8G62L
- 5+wOeOEKv5hyy5dRKdQLIDT0EVos/z3p64Yw99b/5nkX5FuqL8HkALGUF2/yZ3r2Uy
- aYS2HHcHHMn6bYelmTLm13chdfJpdqdVmaE1A2Cit6GMOWRiia2jD8myDGRevIeqRl
- yVsyhZWwMX/rQa7vl3DLxhh8R2Dr0WBuQKQcfWm4JkIp9UcOBIu8kifo7VhZ0pdB6W
- 2+AqwcX5Ad0m7aMiNsJz6/F81qw3N6K2V012eqRe74zTrK/gYqsjuNvXCdJbnCnu4Y
- UQiv92oN3quZw==
+ b=Z4Yn0tC0Hh1fTE0MZmY3o+nFtSb8mA4XIfDhsPm8SktBHJBWRxysOhlk3BOfNgbqc
+ l5Hua07R90+UOos7QLssB49NxhmzJMLU5FDS/bQiJ1qA/YQ1FdfTEx4Nx0Tg/gdYp/
+ uVHilPDTkY9ngQVSk79Mu7S3ARCLJ7NZDpo6KOgTM8kExsLRK1EY+yzjbGChDuUytE
+ odRWxHgxnnge6tR0ZaTtr6avWT3+RlVGtmJEHk+U03jsiGuxwaxzlYHW55I1ecFjYy
+ M/kvD+JuLIRb8meLyCGyhGnRMBKJD4wmYqK6I23SNLoIO3SSKA99rAkez/Nso7SnTs
+ hnCPrSenu/WIg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 02/14] drm/v3d: Clear queue->active_job when
- v3d_fence_create() fails
+Subject: Re: [PATCH v3 06/14] drm/v3d: Reject invalid syncobj handles in
+ submit ioctls
 To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260603-v3d-sched-misc-fixes-v3-2-d7114bba55a0@igalia.com>
-References: <20260603-v3d-sched-misc-fixes-v3-2-d7114bba55a0@igalia.com>
+In-Reply-To: <20260603-v3d-sched-misc-fixes-v3-6-d7114bba55a0@igalia.com>
+References: <20260603-v3d-sched-misc-fixes-v3-6-d7114bba55a0@igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 02:50:54 +0000
-Message-Id: <20260604025054.640C61F00893@smtp.kernel.org>
+Date: Thu, 04 Jun 2026 02:51:05 +0000
+Message-Id: <20260604025106.241CE1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,62 +61,83 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] The `run_job` callbacks return `NULL` instead of propagating the e=
-rror pointer when `v3d_fence_create()` fails, masking submission failures a=
-nd causing the DRM scheduler to treat the job as successfully completed.
+- [High] Missing bounds check on userspace-controlled `in_sync_count` and `=
+out_sync_count`, potentially leading to soft lockups or unbounded memory al=
+location attempts.
 --
 
-commit f3ab1695e1c90559d6118895b31f3b02289aee81
+commit 99860a2dd307ceb7455992b876495c7efeeb7909
 Author: Ma=C3=ADra Canal <mcanal@igalia.com>
 
-drm/v3d: Clear queue->active_job when v3d_fence_create() fails
+drm/v3d: Reject invalid syncobj handles in submit ioctls
 
-This commit clears queue->active_job in the run_job callbacks for BIN, REND=
-ER,
-TFU, and CSD when v3d_fence_create() fails. It creates a failure path to
-prevent dangling pointers when returning from a failed job submission.
+This commit modifies v3d_job_add_syncobjs() to properly propagate error
+codes when a non-zero syncobj handle doesn't resolve, while continuing to
+ignore zero handles.
 
-> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sc=
-hed.c
-> index 0e266b29317f3..46f4fc09c59ec 100644
-> --- a/drivers/gpu/drm/v3d/v3d_sched.c
-> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
+> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_s=
+ubmit.c
+> index 8250376d104c5..0babe2e672660 100644
+> --- a/drivers/gpu/drm/v3d/v3d_submit.c
+> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
+
 [ ... ]
-> @@ -214,7 +210,7 @@ static struct dma_fence *v3d_bin_job_run(struct drm_s=
-ched_job *sched_job)
+
+> @@ -208,11 +207,13 @@ v3d_job_add_syncobjs(struct v3d_job *job, struct dr=
+m_file *file_priv,
+>  				return -EFAULT;
+>  			}
 > =20
->  	fence =3D v3d_fence_create(v3d, V3D_BIN);
->  	if (IS_ERR(fence))
-> -		return NULL;
-> +		goto out_clean_job;
-[ ... ]
-> @@ -242,6 +238,12 @@ static struct dma_fence *v3d_bin_job_run(struct drm_=
-sched_job *sched_job)
->  	V3D_CORE_WRITE(0, V3D_CLE_CT0QEA, job->end);
+> -			ret =3D drm_sched_job_add_syncobj_dependency(&job->base,
+> -								   file_priv, in.handle, 0);
+> -			// TODO: Investigate why this was filtered out for the IOCTL.
+> -			if (ret && ret !=3D -ENOENT)
+> -				return ret;
+> +			/* Ignore syncobj if its handle is zero */
+> +			if (in.handle) {
+> +				ret =3D drm_sched_job_add_syncobj_dependency(&job->base,
+> +									   file_priv, in.handle, 0);
+> +				if (ret)
+> +					return ret;
+> +			}
+>  		}
+>  	}
 > =20
->  	return fence;
-> +
-> +out_clean_job:
-> +	spin_lock_irqsave(&queue->queue_lock, irqflags);
-> +	queue->active_job =3D NULL;
-> +	spin_unlock_irqrestore(&queue->queue_lock, irqflags);
-> +	return NULL;
 
 [Severity: High]
-This is a pre-existing issue, but does returning NULL here mask the
-submission failure from the DRM scheduler?
+This is a pre-existing issue, but is se->in_sync_count bounded by any=20
+upper limit?
 
-When v3d_fence_create() fails, it returns an error pointer. If the
-v3d_bin_job_run() callback (and the other run_job callbacks modified
-in this patch) returns NULL instead of propagating this error pointer,
-the DRM scheduler treats the job as having completed synchronously and
-successfully.
+This code is executing inside a loop over the userspace-supplied=20
+se->in_sync_count:
 
-Could this allow dependent jobs to execute as if the hardware successfully
-processed the command lists, potentially leading to GPU page faults or
-userspace crashes? Should the callbacks propagate the error pointer back
-to the scheduler instead?
+v3d_job_add_syncobjs() {
+    ...
+    for (int i =3D 0; i < se->in_sync_count; i++) {
+        struct drm_v3d_sem in;
+
+        if (copy_from_user(&in, handle++, sizeof(in))) {
+    ...
+}
+
+Since there is no cond_resched() in this loop, could a maliciously large=20
+in_sync_count value allow a user to monopolize the processor and cause a=20
+soft lockup?
+
+Similarly, is se->out_sync_count bounded before it is used for memory=20
+allocation in v3d_get_multisync_post_deps()?
+
+v3d_get_multisync_post_deps() {
+    ...
+    se->out_syncs =3D (struct v3d_submit_outsync *)
+        kvmalloc_objs(struct v3d_submit_outsync, count);
+    if (!se->out_syncs)
+    ...
+}
+
+Could an unbounded out_sync_count lead to a massive memory allocation=20
+request, potentially exhausting physical memory?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603-v3d-sched-=
-misc-fixes-v3-0-d7114bba55a0@igalia.com?part=3D2
+misc-fixes-v3-0-d7114bba55a0@igalia.com?part=3D6
