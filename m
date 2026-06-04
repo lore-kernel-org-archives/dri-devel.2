@@ -4,96 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2CE9CD6E6E
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 23:18:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D005ECD6E6E
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 23:26:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B47221129EA;
-	Thu,  4 Jun 2026 23:18:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3F121129EF;
+	Thu,  4 Jun 2026 23:26:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MxiXxHgU";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="R+7bCUPt";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011030.outbound.protection.outlook.com [52.101.62.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 334FF1127E6;
- Thu,  4 Jun 2026 23:18:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qd5AYTuH22Dynj9TE20U4TtrqxC++gb+u0yThLWaUmEVrt8m3ibVk9MmFk87mqy9O+wKJ2PvPUrlQ9Pw58A/Es2miVZlKABNgO1Ck8TnNMScCMIvUFKzt+93ZGkQOGTYjaksiQXFTd56WfSsquVNxnOlC85sOln/CgnkMbuG9pzNzBiZAWLFSuBSMuJn3eMTbKBn+SWoOCxBy1J/CXeXD0DMPSZ3Ap3MnZN+OxX7JAswW8yyWa1q40rhTI5gw+rHGSkwNAEuWD2n+T7lFRn9HnvKccNeYAvJ2Vie3nJxPzR6Vk8PFLcwE7nzjh/lwW3oIi9DYmy/7CCQ1fYZq2D2QA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fsIF2u80OCFNmY1yZogsaAwgNTkLNAYzjgqM15Gv6IM=;
- b=eeIicDtVTZmDK7SZ1Eoa82I9AyQXTcdbHpGudhdS9h7II9okfhL4woy9SJDkPFcmykFntYyg7WCEb6BOv0IO1eVvrWmrzfSlGMTJJlbR3FIKuezbWL6jQoU7hfrvM7faJBCna5aTd3ZRjBCcxTHsnGnyvmoO3p3NnkS44VTZuf36wCVRupq7//sWDOlqwQKG0mQ2qBg6YtPfKiEfF1QMfIgWWboqcRv8I0JgJPseMkovG9OfS1t03TMZf5KUud7Yy9Tenl0vkd/5fzAA9+o5SaoczSVAIqNjtn5i300D1qJcvPcDBKy7YARIEWw3Sq/VPp/5GdaFWqJtfWepa/opAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fsIF2u80OCFNmY1yZogsaAwgNTkLNAYzjgqM15Gv6IM=;
- b=MxiXxHgU0Xe8tCJpw6oSTfnaQGk8Wr29YG5oQaQAb0ffPM4GJhYkehO/0gFXuk6NYQ0vKiZNDFUWbUPjegVjZMjTG8/zijgzf/a7RKmzN/l9tgQzaUpHOqG7XRM8fdNi2ERphXr8drm5TEBaQpkIFTROOP6o/vJnMjNAgDCQ72g=
-Received: from SJ0PR13CA0193.namprd13.prod.outlook.com (2603:10b6:a03:2c3::18)
- by DS0PR12MB8367.namprd12.prod.outlook.com (2603:10b6:8:fd::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Thu, 4 Jun 2026
- 23:18:11 +0000
-Received: from MWH0EPF000C6194.namprd02.prod.outlook.com
- (2603:10b6:a03:2c3:cafe::1f) by SJ0PR13CA0193.outlook.office365.com
- (2603:10b6:a03:2c3::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.7 via Frontend Transport; Thu, 4
- Jun 2026 23:18:10 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000C6194.mail.protection.outlook.com (10.167.249.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Thu, 4 Jun 2026 23:18:10 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 4 Jun
- 2026 18:18:09 -0500
-Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Thu, 4 Jun 2026 18:18:09 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu, amdkfd drm-next-7.2
-Date: Thu, 4 Jun 2026 19:18:00 -0400
-Message-ID: <20260604231801.19979-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.54.0
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 226D51129EF
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 23:26:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1780615598; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=RZO7cxv0+/iWaKzyWntp1HpFAcyjldK1HEUlk70XmCWeA9esMmyOAQvj7w9STTARdw+gpWKqG+5L1eltmTN2Tvok6i1KFdubL2whpLQA9cp/cWfFT9OY6un53bKc/HD5jVS/0bdJ4FCyXtAx0SkA0CjbRnNYyIW4Ri5x1td7T3Q=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1780615598;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=bPThW9ju5SJ7OPJ60AEV5ERmRcvVjctfG9y/3U3Eo2g=; 
+ b=dg2gAObdGaLaMQMJThHZt481em1Z6bqe7zTZw0oyQDWbez5iMPpgI3LbBLK/Hd1CUw4NLDKePG4PP9LUMNpNOJ+2AB0r4Ov/8lTHB/Lotnq8NR6mQojnFzwRvWitRazgLC7aEPDzZYA1vbRryUPYwhks+IOXPouCNDPSNVOLH0Q=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+ dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780615598; 
+ s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
+ bh=bPThW9ju5SJ7OPJ60AEV5ERmRcvVjctfG9y/3U3Eo2g=;
+ b=R+7bCUPtdWiXE/Bo1LDmpMSeKFtZvEZic7JJZOpd/T9xzqtLY8SRa8EQZ99ToFsH
+ cDvzzQn/H8pZFnYhZ6GkoqbB5lKGBCwob3UsAi0XxXDCjhzKHR/C9vFW5rTPoYLpLsG
+ pmYyA5rli6NFA4qTD6CGaandSShys70hpsw/c/h4=
+Received: by mx.zohomail.com with SMTPS id 1780615596201257.9782750096773;
+ Thu, 4 Jun 2026 16:26:36 -0700 (PDT)
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+Date: Thu, 04 Jun 2026 16:26:12 -0700
+Subject: [PATCH v2] drm/tyr: move probe resources into registration data
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6194:EE_|DS0PR12MB8367:EE_
-X-MS-Office365-Filtering-Correlation-Id: 119bde40-861e-495d-cd2e-08dec28f8b62
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700016|82310400026|18002099003|6133799003|11063799006|56012099006|13003099007;
-X-Microsoft-Antispam-Message-Info: zdI+6xejRmawo0Z0rjZuEdCFs6GI+SdQTVqNeSOtWVjZ0BC9dzPKFIj6zjbhrXFL6ENWEagmhCaaePZi/8E99FokZQnWQn6bk3bO2xoVsUGFt/jpSuKo/ajFYUJ0XBE9UbV+oJuY1XaUFRklTOApAGPbj7bkflsUR1aryLkj45AyKAkT+SsQCFs7z84z+XTtICMxXl//ssA/tga+MTF/Ib02ymK4X9D2sN640AJanjtDosuin/CUei4vII2Yb73H9QxzKEvP2t0ESP9MtTP536Y9JwvdlRmzw81W44XN3mLPmisR1ATVImmGtREK3uNwvABw2+yTH/VAkdf0mAol8YNANqwnBg9dWTAwlLOKgqB+kZPZXcQlFxBZa5xqypIJ79n3c6TL7Crc00mRdet0ElVTvesNFloo2yDiNZhr8TL+THIrv1eciBRdw6d0UK1bv9i7p6tI1cmOFvH4opF073kYqq6s2MYcQOo+Of2Ba+IOgL2bFPq+I9G0LBswN7vkZ2iz6P9KtoFc++2uEYVWI1th/OLycDEajDcKgbUTAf/qy82OwqJLD46Tjf1Hr8g/8pBvX7NPXPMY6LJcO595XlA3RAtKawU1bvQdOggMoZqsd0PEQ3iI6yT427fUw4JFkdj29Y4TqTQR6un4MDcjIAUpEgtoOquv4Oy2BEn0/0+CfxMES7CsIzQF/PyGzDRP
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(18002099003)(6133799003)(11063799006)(56012099006)(13003099007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: M9tNj1FOkBFIG00/BxFBSzoA5VuB1YFbtgnIsJvc/v03W8xnG6eUFhGPbfgTK15SkVFRtaOyif0hQHYwKWBqxaRkYwzBOQjos7+ibB4GiikxZvwZtlZL4irgKlQowlTw1M8dR8uCRIUsFLoVA+zHrSYRbH4PcBlU71n2ihqcx06lD6erb/0oQ3AHUqNLG3xk773kEqkktkcrVg3VCGpEp2AkjygDLiwx9SG/Rwpt1nCh3FFPBI3RPf0rvjk524rgRA6YaaohBc8oDTVycAhCFxrhutxyN8I4XaGbKB8yqnSsxD+GGXbd+0bydRXOCx1yluHkuMdJyTT0y/zjPebM1tDgbJUKCIOYpy8XvvxBySIfdPQsVmOfOn/WU0O6r9PwQqon956gDtXARjX9pT15x8L/jYHgdwiwV14Vd9TDgPEVE9wodsbEGaAoZ+hs2vqD
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 23:18:10.6896 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 119bde40-861e-495d-cd2e-08dec28f8b62
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C6194.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8367
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260604-use_tyr_reg_data-v2-1-f77a1ffcf08d@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6DIBBFr2JmXRrAFmNXvUdjDMKgJFaagZoaw
+ 91LPUCX7yX//R0ikscIt2oHwtVHH5YC8lSBmfQyIvO2MEguFVe8Zu+IfdqoJxx7q5NmtWwkR6U
+ GaS2U2YvQ+c+RfHSFJx9ToO14WMXP/omtggnWNk5dsL0K49TdhHnWQyB9NuEJXc75C6JIghO0A
+ AAA
+X-Change-ID: 20260603-use_tyr_reg_data-32720e66b2dd
+To: Daniel Almeida <daniel.almeida@collabora.com>, 
+ Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ rust-for-linux@vger.kernel.org, laura.nao@collabora.com, 
+ boris.brezillon@collabora.com, samitolvanen@google.com, 
+ Deborah Brouwer <deborah.brouwer@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=16827;
+ i=deborah.brouwer@collabora.com; h=from:subject:message-id;
+ bh=SR0OXde1dO1WcYRX2W4CVYW2UMQY9jeLKYw6B++/+mg=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDFlKnKv/MDwuj3k081p94KuWnoAL5su1qm7VP1qc2qhct
+ L+JZZV/RykLgxgXg6yYIstZe6Me8ar3Rrrz/zfDzGFlAhnCwMUpABPJrmdk2JDOsNJK1lL6ae/h
+ cHHmqxtKU1t3MDd2xOqfiI/fsODAdob/hR/u6TUFCUl5vdmY4FWx1eLi9ilzK9ZeP6pZ8Ifrf+d
+ KRgA=
+X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
+ fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,146 +86,536 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+Introduce TyrDrmRegistrationData to hold resources that need to stay alive
+while the DRM device is registered. This moves the parent platform device,
+clocks, regulators, MMIO mapping, firmware state, and GPU info into data
+owned by the DRM registration.
 
-I send another pull for -fixes, and figured I'd send out a few more fixes
-for 7.2.
+The registration data is tied to the platform device binding lifetime, so
+use Registration::new_with_lt() and store the returned Registration in the
+platform driver data.
 
-The following changes since commit 3ea273267fd29cbf6d83ee72329f59eb5042605b:
+Add initial stubs for firmware, MMU, VM, and address-space handling, to
+show the intended ownership model.
 
-  drm/amd/pm: smu_v14_0_0: use SoftMin for gfxclk in set_soft_freq_limited_range (2026-06-03 14:02:35 -0400)
+Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+---
+Changes in v2:
+ - Store the parent platform device as a bound reference instead of as an ARef.
+ - Store Firmware directly instead of in an Arc.
+ - Replace manual ForLt implementation with the ForLt!() macro.
+ - Remove TyrDrmDeviceData and just pass Ok(()) to UnregisteredDevice::new().
+ - Complete firmware boot() as an example of it using iomem.
+ - Add more content to the MMU stub as well as VM, and address-space stubs
+   to show how iomem is shared.
 
-are available in the Git repository at:
+- Link to v1: https://lore.kernel.org/r/20260603-use_tyr_reg_data-v1-1-97f64e951cf6@collabora.com
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-7.2-2026-06-04
+This patch applies on top of the drm lifetime series [1] and the
+full branch [2].
 
-for you to fetch changes up to 56ae73c92e200e630c2bdf1e98c88b86c8483b37:
+[1] https://lore.kernel.org/rust-for-linux/20260603011711.2077361-1-dakr@kernel.org/
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/log/?h=drm-lifetime
+---
+ drivers/gpu/drm/tyr/driver.rs            | 49 ++++++++++++++----
+ drivers/gpu/drm/tyr/file.rs              | 11 ++--
+ drivers/gpu/drm/tyr/fw.rs                | 88 ++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/tyr/mmu.rs               | 56 ++++++++++++++++++++
+ drivers/gpu/drm/tyr/mmu/address_space.rs | 63 +++++++++++++++++++++++
+ drivers/gpu/drm/tyr/tyr.rs               |  3 ++
+ drivers/gpu/drm/tyr/vm.rs                | 62 ++++++++++++++++++++++
+ 7 files changed, 316 insertions(+), 16 deletions(-)
 
-  drm/amdkfd: always resume_all after suspend_all (2026-06-04 15:38:08 -0400)
+diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
+index 819f64a7573d..7f2d2e8eb7de 100644
+--- a/drivers/gpu/drm/tyr/driver.rs
++++ b/drivers/gpu/drm/tyr/driver.rs
+@@ -6,6 +6,7 @@
+         OptionalClk, //
+     },
+     device::{
++        Bound,
+         Core,
+         Device,
+         DeviceContext, //
+@@ -29,6 +30,7 @@
+     sizes::SZ_2M,
+     sync::{
+         aref::ARef,
++        Arc,
+         Mutex, //
+     },
+     time,
+@@ -37,9 +39,11 @@
+ 
+ use crate::{
+     file::TyrDrmFileData,
++    fw::Firmware,
+     gem::BoData,
+     gpu,
+     gpu::GpuInfo,
++    mmu::Mmu,
+     regs::gpu_control::*, //
+ };
+ 
+@@ -49,7 +53,6 @@
+ 
+ /// Convenience type alias for the DRM device type for this driver.
+ pub(crate) type TyrDrmDevice<Ctx = drm::Registered> = drm::Device<TyrDrmDriver, Ctx>;
+-
+ pub(crate) struct TyrPlatformDriver;
+ 
+ #[pin_data(PinnedDrop)]
+@@ -58,9 +61,14 @@ pub(crate) struct TyrPlatformDriverData<'bound> {
+     _reg: drm::Registration<'bound, TyrDrmDriver>,
+ }
+ 
++/// Resources kept alive by the DRM registration.
+ #[pin_data]
+-pub(crate) struct TyrDrmDeviceData {
+-    pub(crate) pdev: ARef<platform::Device>,
++pub(crate) struct TyrDrmRegistrationData<'bound> {
++    /// Parent platform device.
++    pub(crate) pdev: &'bound platform::Device<Bound>,
++
++    /// Firmware sections.
++    pub(crate) fw: Firmware<'bound>,
+ 
+     #[pin]
+     clks: Mutex<Clocks>,
+@@ -68,6 +76,9 @@ pub(crate) struct TyrDrmDeviceData {
+     #[pin]
+     regulators: Mutex<Regulators>,
+ 
++    /// GPU MMIO register mapping.
++    pub(crate) iomem: Arc<IoMem<'bound>>,
++
+     /// Some information on the GPU.
+     ///
+     /// This is mainly queried by userspace, i.e.: Mesa.
+@@ -119,7 +130,7 @@ fn probe<'bound>(
+         let sram_regulator = Regulator::<regulator::Enabled>::get(pdev.as_ref(), c"sram")?;
+ 
+         let request = pdev.io_request_by_index(0).ok_or(ENODEV)?;
+-        let iomem = request.iomap_sized::<SZ_2M>()?;
++        let iomem = Arc::new(request.iomap_sized::<SZ_2M>()?, GFP_KERNEL)?;
+ 
+         issue_soft_reset(pdev.as_ref(), &iomem)?;
+         gpu::l2_power_on(pdev.as_ref(), &iomem)?;
+@@ -135,10 +146,23 @@ fn probe<'bound>(
+         // other threads of execution.
+         unsafe { pdev.dma_set_mask_and_coherent(DmaMask::try_new(pa_bits)?)? };
+ 
+-        let platform: ARef<platform::Device> = pdev.into();
++        let unreg_dev = drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev, Ok(()))?;
++
++        let mmu = Mmu::new(iomem.as_arc_borrow(), &gpu_info)?;
++
++        let firmware = Firmware::new(
++            pdev,
++            iomem.clone(),
++            &unreg_dev,
++            mmu.as_arc_borrow(),
++            &gpu_info,
++        )?;
++
++        firmware.boot()?;
+ 
+-        let data = try_pin_init!(TyrDrmDeviceData {
+-                pdev: platform.clone(),
++        let reg_data = try_pin_init!(TyrDrmRegistrationData {
++                pdev,
++                fw: firmware,
+                 clks <- new_mutex!(Clocks {
+                     core: core_clk,
+                     stacks: stacks_clk,
+@@ -148,11 +172,14 @@ fn probe<'bound>(
+                     _mali: mali_regulator,
+                     _sram: sram_regulator,
+                 }),
++                iomem,
+                 gpu_info,
+         });
+ 
+-        let tdev = drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev, data)?;
+-        let reg = drm::Registration::new(pdev.as_ref(), tdev, (), 0)?;
++        // SAFETY: `reg` is stored in the platform driver data and is not leaked or
++        // forgotten, so it is dropped before the `'bound` registration data can become
++        // invalid.
++        let reg = unsafe { drm::Registration::new_with_lt(pdev.as_ref(), unreg_dev, reg_data, 0)? };
+ 
+         let driver = TyrPlatformDriverData {
+             _device: reg.device().into(),
+@@ -183,8 +210,8 @@ fn drop(self: Pin<&mut Self>) {}
+ 
+ #[vtable]
+ impl drm::Driver for TyrDrmDriver {
+-    type Data = TyrDrmDeviceData;
+-    type RegistrationData = ForLt!(());
++    type Data = ();
++    type RegistrationData = ForLt!(TyrDrmRegistrationData<'_>);
+     type File = TyrDrmFileData;
+     type Object<R: drm::DeviceContext> = drm::gem::shmem::Object<BoData, R>;
+     type ParentDevice<Ctx: DeviceContext> = platform::Device<Ctx>;
+diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
+index 9f53da7633ab..9baec67febc9 100644
+--- a/drivers/gpu/drm/tyr/file.rs
++++ b/drivers/gpu/drm/tyr/file.rs
+@@ -11,7 +11,8 @@
+ 
+ use crate::driver::{
+     TyrDrmDevice,
+-    TyrDrmDriver, //
++    TyrDrmDriver,
++    TyrDrmRegistrationData, //
+ };
+ 
+ #[pin_data]
+@@ -30,16 +31,16 @@ fn open(_dev: &drm::Device<Self::Driver>) -> Result<Pin<KBox<Self>>> {
+ 
+ impl TyrDrmFileData {
+     pub(crate) fn dev_query(
+-        ddev: &TyrDrmDevice,
++        _ddev: &TyrDrmDevice,
+         _pdev: &platform::Device<device::Bound>,
+-        _reg_data: &(),
++        reg_data: &TyrDrmRegistrationData<'_>,
+         devquery: &mut uapi::drm_panthor_dev_query,
+         _file: &TyrDrmFile,
+     ) -> Result<u32> {
+         if devquery.pointer == 0 {
+             match devquery.type_ {
+                 uapi::drm_panthor_dev_query_type_DRM_PANTHOR_DEV_QUERY_GPU_INFO => {
+-                    devquery.size = core::mem::size_of_val(&ddev.gpu_info) as u32;
++                    devquery.size = core::mem::size_of_val(&reg_data.gpu_info) as u32;
+                     Ok(0)
+                 }
+                 _ => Err(EINVAL),
+@@ -53,7 +54,7 @@ pub(crate) fn dev_query(
+                     )
+                     .writer();
+ 
+-                    writer.write(&ddev.gpu_info)?;
++                    writer.write(&reg_data.gpu_info)?;
+ 
+                     Ok(0)
+                 }
+diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
+new file mode 100644
+index 000000000000..fb4b6709bce1
+--- /dev/null
++++ b/drivers/gpu/drm/tyr/fw.rs
+@@ -0,0 +1,88 @@
++// SPDX-License-Identifier: GPL-2.0 or MIT
++
++//! Firmware loading and management for Mali CSF GPUs.
++//!
++//! This is currently only a lifetime/resource stub. The actual firmware parser,
++//! section loading, MCU VM mapping, and boot sequence will be added later.
++#![allow(dead_code)]
++
++use kernel::{
++    device::Bound,
++    drm::Uninit,
++    io::{
++        poll,
++        Io, //
++    },
++    platform,
++    prelude::*,
++    sync::{
++        Arc,
++        ArcBorrow, //
++    },
++    time::Delta, //
++};
++
++use crate::{
++    driver::{
++        IoMem,
++        TyrDrmDevice, //
++    },
++    gpu::GpuInfo,
++    mmu::Mmu,
++    regs::gpu_control::{
++        McuControlMode,
++        McuStatus,
++        MCU_CONTROL,
++        MCU_STATUS, //
++    },
++    vm::Vm, //
++};
++
++/// Firmware state for a bound Tyr device.
++///
++/// For now this only keeps the device resources alive. Later this will own the
++/// loaded firmware sections, MCU VM mappings, and boot state.
++pub(crate) struct Firmware<'bound> {
++    /// Parent platform device.
++    _pdev: &'bound platform::Device<Bound>,
++
++    /// MMIO mapping used for firmware/MCU register access.
++    iomem: Arc<IoMem<'bound>>,
++}
++
++impl<'bound> Firmware<'bound> {
++    /// Create firmware state for this device.
++    ///
++    /// This stub only records the resources that future firmware loading code
++    /// will need.
++    pub(crate) fn new(
++        pdev: &'bound platform::Device<Bound>,
++        iomem: Arc<IoMem<'bound>>,
++        ddev: &TyrDrmDevice<Uninit>,
++        mmu: ArcBorrow<'_, Mmu<'bound>>,
++        gpu_info: &GpuInfo,
++    ) -> Result<Firmware<'bound>> {
++        let vm = Vm::new(pdev, ddev, mmu, gpu_info)?;
++        vm.activate()?;
++
++        Ok(Firmware { _pdev: pdev, iomem })
++    }
++
++    /// Boot the firmware.
++    pub(crate) fn boot(&self) -> Result {
++        let io = &self.iomem;
++        io.write_reg(MCU_CONTROL::zeroed().with_req(McuControlMode::Auto));
++
++        if let Err(e) = poll::read_poll_timeout(
++            || Ok(io.read(MCU_STATUS)),
++            |status| status.value() == McuStatus::Enabled,
++            Delta::from_millis(1),
++            Delta::from_millis(100),
++        ) {
++            let status = io.read(MCU_STATUS);
++            pr_err!("MCU failed to boot, status: {:?}", status.value());
++            return Err(e);
++        }
++        Ok(())
++    }
++}
+diff --git a/drivers/gpu/drm/tyr/mmu.rs b/drivers/gpu/drm/tyr/mmu.rs
+new file mode 100644
+index 000000000000..9e2efe342df3
+--- /dev/null
++++ b/drivers/gpu/drm/tyr/mmu.rs
+@@ -0,0 +1,56 @@
++// SPDX-License-Identifier: GPL-2.0 or MIT
++
++//! Memory Management Unit (MMU) driver for the Tyr GPU.
++//!
++//! This is just a lifetime/resource stub.
++//! The actual MMU initialization, page table management,
++//! and GPU VM mapping will be added later.
++
++use kernel::{
++    new_mutex,
++    prelude::*,
++    sync::{
++        Arc,
++        ArcBorrow,
++        Mutex, //
++    }, //
++};
++
++use crate::{
++    driver::IoMem,
++    gpu::GpuInfo,
++    mmu::address_space::AddressSpaceManager,
++    regs::gpu_control::AS_PRESENT, //
++};
++
++pub(crate) mod address_space;
++
++#[pin_data]
++pub(super) struct Mmu<'bound> {
++    /// Manages the allocation of hardware MMU slots to GPU address spaces.
++    #[pin]
++    pub(crate) as_manager: Mutex<AddressSpaceManager<'bound>>,
++}
++
++impl<'bound> Mmu<'bound> {
++    /// Create an MMU component for this device.
++    pub(super) fn new(
++        iomem: ArcBorrow<'_, IoMem<'bound>>,
++        gpu_info: &GpuInfo,
++    ) -> Result<Arc<Mmu<'bound>>> {
++        let present = AS_PRESENT::from_raw(gpu_info.as_present).present().get();
++        let slot_count: usize = present.count_ones().try_into()?;
++        pr_info!("MMU: {} address space slots present", slot_count);
++
++        let as_manager = AddressSpaceManager::new(iomem)?;
++        let mmu_init = try_pin_init!(Self{
++            as_manager <- new_mutex!(as_manager),
++        });
++        Arc::pin_init(mmu_init, GFP_KERNEL)
++    }
++
++    /// Make a VM active.
++    pub(crate) fn activate_vm(&self) -> Result {
++        self.as_manager.lock().activate_vm()
++    }
++}
+diff --git a/drivers/gpu/drm/tyr/mmu/address_space.rs b/drivers/gpu/drm/tyr/mmu/address_space.rs
+new file mode 100644
+index 000000000000..47534944b458
+--- /dev/null
++++ b/drivers/gpu/drm/tyr/mmu/address_space.rs
+@@ -0,0 +1,63 @@
++// SPDX-License-Identifier: GPL-2.0 or MIT
++
++//! GPU address space management and hardware operations.
++//!
++//! This is just a lifetime/resource stub.
++//! The actual GPU hardware address spaces (AS), including configuration,
++//! command submission, and page table update regions will be added later.
++
++use kernel::{
++    io::{
++        poll,
++        register::Array,
++        Io, //
++    },
++    prelude::*,
++    sync::{
++        Arc, //
++        ArcBorrow,
++    },
++    time::Delta, //
++};
++
++use crate::{
++    driver::IoMem,
++    regs::mmu_control::mmu_as_control::STATUS, //
++};
++
++/// Manages GPU hardware address spaces via MMIO register operations.
++pub(crate) struct AddressSpaceManager<'bound> {
++    /// Memory-mapped I/O region for GPU register access.
++    iomem: Arc<IoMem<'bound>>,
++}
++
++impl<'bound> AddressSpaceManager<'bound> {
++    /// Creates a new address space manager.
++    ///
++    /// Initializes the manager with references to the platform device and
++    /// I/O memory region, along with the bitmask of available AS slots.
++    pub(super) fn new(iomem: ArcBorrow<'_, IoMem<'bound>>) -> Result<AddressSpaceManager<'bound>> {
++        Ok(Self {
++            iomem: iomem.into(),
++        })
++    }
++
++    pub(super) fn activate_vm(&mut self) -> Result {
++        self.as_wait_ready(0)
++    }
++
++    /// Waits for an AS slot to become ready (not active).
++    ///
++    /// Returns an error if polling times out after 10ms or if register access fails.
++    fn as_wait_ready(&self, as_nr: usize) -> Result {
++        let io = &*self.iomem;
++        let op = || {
++            let status_reg = STATUS::try_at(as_nr).ok_or(EINVAL)?;
++            Ok(io.read(status_reg))
++        };
++        let cond = |status: &STATUS| -> bool { !status.active_ext() };
++        poll::read_poll_timeout(op, cond, Delta::from_millis(0), Delta::from_millis(10))?;
++
++        Ok(())
++    }
++}
+diff --git a/drivers/gpu/drm/tyr/tyr.rs b/drivers/gpu/drm/tyr/tyr.rs
+index 95cda7b0962f..ace2764c6059 100644
+--- a/drivers/gpu/drm/tyr/tyr.rs
++++ b/drivers/gpu/drm/tyr/tyr.rs
+@@ -9,9 +9,12 @@
+ 
+ mod driver;
+ mod file;
++mod fw;
+ mod gem;
+ mod gpu;
++mod mmu;
+ mod regs;
++mod vm;
+ 
+ kernel::module_platform_driver! {
+     type: TyrPlatformDriver,
+diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
+new file mode 100644
+index 000000000000..5ca1b773df92
+--- /dev/null
++++ b/drivers/gpu/drm/tyr/vm.rs
+@@ -0,0 +1,62 @@
++// SPDX-License-Identifier: GPL-2.0 or MIT
++
++//! GPU virtual memory management.
++//!
++//! This is just a lifetime/resource stub. The actual vm
++//! implementation using the DRM GPUVM framework will be added later.
++
++use kernel::{
++    device::Bound,
++    drm::DeviceContext,
++    platform,
++    prelude::*,
++    sync::{
++        aref::ARef,
++        Arc,
++        ArcBorrow, //
++    }, //
++};
++
++use crate::{
++    driver::TyrDrmDevice,
++    gpu::GpuInfo,
++    mmu::Mmu, //
++};
++
++/// GPU virtual address space.
++///
++/// Each VM can be mapped into a hardware address space slot.
++#[pin_data]
++pub(crate) struct Vm<'bound> {
++    /// MMU manager.
++    mmu: Arc<Mmu<'bound>>,
++    /// Platform device reference (needed to access the page table via devres).
++    pdev: ARef<platform::Device>,
++}
++
++impl<'bound> Vm<'bound> {
++    /// Creates a new GPU virtual address space.
++    pub(crate) fn new<Ctx: DeviceContext>(
++        pdev: &'bound platform::Device<Bound>,
++        _ddev: &TyrDrmDevice<Ctx>,
++        mmu: ArcBorrow<'_, Mmu<'bound>>,
++        _gpu_info: &GpuInfo,
++    ) -> Result<Arc<Vm<'bound>>> {
++        let vm = Arc::pin_init(
++            pin_init!(Self {
++                pdev: pdev.into(),
++                mmu: mmu.into(),
++            }),
++            GFP_KERNEL,
++        )?;
++
++        Ok(vm)
++    }
++
++    /// Activate the VM in a hardware address space slot.
++    pub(crate) fn activate(&self) -> Result {
++        self.mmu.activate_vm().inspect_err(|e| {
++            pr_err!("Failed to activate VM: {:?}\n", e);
++        })
++    }
++}
 
-----------------------------------------------------------------
-amd-drm-next-7.2-2026-06-04:
+---
+base-commit: 305b04e26f0cdff2c8c0db208dbec0d9c9984a48
+change-id: 20260603-use_tyr_reg_data-32720e66b2dd
 
-amdgpu:
-- UserQ fix
-- Userptr fix
-- MCCS freesync fix
-- Remove some triggerable BUG() calls
-- DCN 4.2.1 fixes
-- Lockdep annotations
-- Guilty handling fix
-- VCN 5.3 fix
-- FRL fixes
-- Bounds checking fixes
-- HMM fix
-- IRQ accounting fix
+Best regards,
+-- 
+Deborah Brouwer <deborah.brouwer@collabora.com>
 
-amdkfd:
-- Fix an event information leak
-- Events bounds check fix
-- Trap cleanup fix
-- Bounds checking fixes
-- MES fix
-
-----------------------------------------------------------------
-Alex Deucher (1):
-      drm/amdkfd: always resume_all after suspend_all
-
-Asad Kamal (1):
-      drm/amd/pm: Stop pp_od_clk_voltage emit at PAGE_SIZE
-
-Aurabindo Pillai (2):
-      drm/amd/display: widen dc_hdmi_frl_flags.force_frl_rate to unsigned int
-      drm/amd/display: use unsigned types for local pipe and REG_GET counters
-
-Candice Li (1):
-      drm/amd/pm: bound OD parameter parsing to stack array size
-
-Ce Sun (1):
-      drm/amdgpu: Fix user-triggerable BUG()/BUG_ON() calls
-
-Christian König (2):
-      drm/amdgpu: deprecate guilty handling
-      drm/amdgpu: restart the CS if some parts of the VM are still invalidated
-
-David Rosca (1):
-      drm/amdgpu/userq: Fix reading timeline points in wait ioctl
-
-Honglei Huang (1):
-      drm/amdgpu: drop retry loop in amdgpu_hmm_range_get_pages
-
-Jeevana Muthyala (1):
-      drm/amdgpu/vcn5.0.0: enable secure submission on unified ring for VCN 5.3.0
-
-Lijo Lazar (1):
-      drm/amd/pm: Use strscpy in profile mode parsing
-
-Matthew Stewart (2):
-      drm/amd/display: Fix DCN42B version detection
-      drm/amd/display: Add DCN42B to dml21_translation_helper
-
-Michel Dänzer (1):
-      drm/amd/display: Consult MCCS FreeSync cap only if requested & supported
-
-Sunday Clement (1):
-      drm/amdkfd: Add bounds check for AMDKFD_IOC_WAIT_EVENTS
-
-Sunil Khatri (3):
-      drm/amdgpu: compare MES firmware version ucode for gfx11
-      drm/amdgpu: validate the mes firmware version for gfx12
-      drm/amdgpu: validate the mes firmware version for gfx12.1
-
-Vitaly Prosyak (1):
-      drm/amdgpu: Add lockdep annotations for lock ordering validation
-
-Yongqiang Sun (4):
-      drm/amdkfd: fix SMI event cross-process information leak
-      drm/amdkfd: Unwind debug trap enable on copy_to_user failure
-      drm/amdkfd: fix sysfs topology prop length on buffer truncation
-      drm/amdkfd: Fix infinite loop parsing CRAT with zero subtype length
-
-Yunxiang Li (1):
-      drm/amdgpu/gfx: move fault and EOP IRQ get/put to hw_init/hw_fini
-
- drivers/gpu/drm/amd/amdgpu/Makefile                |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h                |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |   9 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c            |  25 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h            |   1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  15 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |   3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c            |   9 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c        | 195 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.h        |  39 +++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c            |  12 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h            |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c     |  14 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c    |   9 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             |  43 +++--
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             | 162 ++++++++++-------
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c             | 162 ++++++++++-------
- drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c             | 114 ++++++------
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |  34 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c            |  35 ++--
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c             |   1 +
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c             |   1 +
- drivers/gpu/drm/amd/amdgpu/mes_v12_1.c             |   1 +
- drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c              |   2 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c            |  39 ++++-
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c              |   8 +
- drivers/gpu/drm/amd/amdkfd/kfd_debug.c             |   6 +
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |  20 +--
- drivers/gpu/drm/amd/amdkfd/kfd_events.c            |   2 +
- drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c        |   8 +-
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c          |   3 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  14 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |   2 +-
- drivers/gpu/drm/amd/display/dc/dc_hdmi_types.h     |   2 +-
- .../gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c   |   2 +-
- .../dc/dml2_0/dml21/dml21_translation_helper.c     |   1 +
- .../dc/hpo/dcn401/dcn401_hpo_frl_stream_encoder.c  |   4 +-
- drivers/gpu/drm/amd/display/include/dal_asic_id.h  |   4 +-
- drivers/gpu/drm/amd/pm/amdgpu_pm.c                 |  20 ++-
- 39 files changed, 716 insertions(+), 309 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.h
