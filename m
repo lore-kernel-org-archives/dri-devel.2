@@ -4,54 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA528CD6E57
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 10:12:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23113CD6E57
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 10:14:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0240113106;
-	Thu,  4 Jun 2026 10:12:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80A71113EC3;
+	Thu,  4 Jun 2026 10:14:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="GZXHGljZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MtgbZvfd";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24797113106
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 10:12:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=rk34VRhwxvmCEfqKBwFv5C30KbyLLa4lgTqC1wrCpaU=; b=GZXHGljZQR1Wfv0RSAaWUfk4Zu
- qEdJEbjTnDag0yaXG5NTXKVZnEY4BCTGZRafMEJmYu+gJmVBf2Ery9DVwCXab2b7jPEzWpo278IVH
- H/UntIPXh642ArFWSl12chOGm6maDu/3fV4KFCmgywPFIopCv0OLCcSs7GOz58uKEtzS7tIv8h+xm
- mSYe1v++dltACnAEkilvw0JjKVYTp/6ZBTnqWK9cmwiRZlC12TeLQAotE8GqFhUsZhEQ7onk61F0K
- IFQ9s6JP+Nfh1jJf7/rmyd32INqxGPyStxGhoIGQJJYhN52be0LCFKjRxpyQ7F6DaihEAlxoSeMjD
- 0oTBZI9w==;
-Received: from [90.240.106.137] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wV544-00CaPY-70; Thu, 04 Jun 2026 12:12:40 +0200
-Message-ID: <e4aafd3e-2485-4ecc-b233-ff95dd804a72@igalia.com>
-Date: Thu, 4 Jun 2026 11:12:39 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 13/14] drm/v3d: Reject invalid out_sync handles in
- submit ioctls
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-References: <20260603-v3d-sched-misc-fixes-v3-0-d7114bba55a0@igalia.com>
- <20260603-v3d-sched-misc-fixes-v3-13-d7114bba55a0@igalia.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260603-v3d-sched-misc-fixes-v3-13-d7114bba55a0@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12D99113EC3
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 10:14:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 717C960222;
+ Thu,  4 Jun 2026 10:14:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E5371F00893;
+ Thu,  4 Jun 2026 10:14:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780568096;
+ bh=v541KZ82iG6XXd4r0++bAMmqEJ4yFDtHfT4MSu7sr4s=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=MtgbZvfdJOleXMkWbuTml4yf+sSMbrU4RAnCYXzodOalsYvxkLMBTmR61nTSz/g1S
+ UzxUPjIii3fuuSpL+iswqXTLwZleZ5OcPgba664URdxKY+O7M01uuVJeJs66EdzVa5
+ zwsrkn6dF7pe4ve2j9/owBf+fNhq6oCMErSISS+4Q+oGjCiRgOsPLR03NJCCgde0V/
+ 6JIEU6tz9g9MNq0uTSCiZCpoHfA6lcS/ewg17l9oNJq+d+Md6PeA5qNYn+mfNqIqdW
+ KOzkONj0ZdAz1v5rox3Ktkia83n4FLvvSaw2HmsJw5fqZxq5tY7jGu92SnHc+2gfY7
+ dx8XaQAokdwGQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC v3 4/7] drm/xe/vm: Add madvise autoreset notifier worker
+To: "Arvind Yadav" <arvind.yadav@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260604095012.367231-5-arvind.yadav@intel.com>
+References: <20260604095012.367231-5-arvind.yadav@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 04 Jun 2026 10:14:55 +0000
+Message-Id: <20260604101456.0E5371F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,243 +52,119 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Returning false for non-blockable invalidations incorrectly preven=
+ts the OOM reaper from unmapping memory.
+- [Medium] Redundant VMA splitting for partial overlaps when the VMA alread=
+y has default attributes.
+--
 
-On 03/06/2026 23:25, Maíra Canal wrote:
-> v3d_submit_process_post_deps() looks up the out_sync syncobj via
-> drm_syncobj_find(), and if userspace passes a non-zero handle that doesn't
-> refer to a valid syncobj, the lookup silently returns NULL and the
-> post-deps step skips publishing the submission's last fence to it. The
-> ioctl still returns success, leaving userspace to wait on a invalid
-> syncobj.
-> 
-> Instead of silently ignoring an invalid non-zero out_sync, move the syncobj
-> lookup to the submission and make it fail with -ENOENT up front, mirroring
-> the syncobj validation already done for in_sync. Now,
-> v3d_submit_process_post_deps() only does the fence replacement.
-> 
-> Note that the lookup is skipped when the multi-sync extension is in use,
-> since args->out_sync is unused in that case.
-> 
-> To keep cleanup symmetric on error paths, convert the function
-> v3d_put_multisync_post_deps() into a single function that releases the
-> references that were acquired but never published for both single-sync
-> and multi-sync.
-> 
-> Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Signed-off-by: Maíra Canal <mcanal@igalia.com>
-> ---
->   drivers/gpu/drm/v3d/v3d_submit.c | 50 +++++++++++++++++++++++++++++-----------
->   1 file changed, 36 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
-> index 2beb99a25104..dc27770d85fd 100644
-> --- a/drivers/gpu/drm/v3d/v3d_submit.c
-> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
-> @@ -338,17 +338,15 @@ v3d_submit_attach_object_fences(struct v3d_submit *submit)
->   }
->   
->   static void
-> -v3d_submit_process_post_deps(struct v3d_submit *submit, u32 out_sync,
-> +v3d_submit_process_post_deps(struct v3d_submit *submit, struct drm_syncobj *sync_out,
->   			     struct v3d_submit_ext *se)
->   {
->   	bool has_multisync = se && (se->flags & DRM_V3D_EXT_ID_MULTI_SYNC);
->   	struct v3d_job *last_job = submit->jobs[submit->job_count - 1];
-> -	struct drm_syncobj *sync_out;
->   
->   	/* Update the return sync object for the job */
->   	/* If it only supports a single signal semaphore*/
->   	if (!has_multisync) {
-> -		sync_out = drm_syncobj_find(submit->file_priv, out_sync);
->   		if (sync_out) {
->   			drm_syncobj_replace_fence(sync_out, last_job->done_fence);
->   			drm_syncobj_put(sync_out);
+commit fe0b22bc527cb1c9caa55068f36be5982435fd31
+Author: Arvind Yadav <arvind.yadav@intel.com>
 
-Is it worth adding an assert that sync_obj and has_multisync are 
-mutually exclusive? It caught me up thinking what prevents a ref leak.
+drm/xe/vm: Add madvise autoreset notifier worker
 
-> @@ -381,7 +379,7 @@ v3d_push_job(struct v3d_job *job)
->   }
->   
->   static int
-> -v3d_submit_jobs(struct v3d_submit *submit, u32 out_sync,
-> +v3d_submit_jobs(struct v3d_submit *submit, struct drm_syncobj *sync_out,
->   		struct v3d_submit_ext *se)
->   {
->   	struct v3d_dev *v3d = submit->v3d;
-> @@ -406,7 +404,7 @@ v3d_submit_jobs(struct v3d_submit *submit, u32 out_sync,
->   
->   	v3d_submit_attach_object_fences(submit);
->   	v3d_submit_unlock_reservations(submit);
-> -	v3d_submit_process_post_deps(submit, out_sync, se);
-> +	v3d_submit_process_post_deps(submit, sync_out, se);
->   
->   	v3d_submit_put_jobs(submit);
->   
-> @@ -444,10 +442,13 @@ v3d_setup_csd_jobs_and_bos(struct v3d_submit *submit,
->   }
->   
->   static void
-> -v3d_put_multisync_post_deps(struct v3d_submit_ext *se)
-> +v3d_submit_put_post_deps(struct drm_syncobj *sync_out, struct v3d_submit_ext *se)
->   {
->   	unsigned int i;
->   
-> +	if (sync_out)
-> +		drm_syncobj_put(sync_out);
+This commit adds a worker to reset madvise-managed VMA attributes when
+userspace unmaps CPU-only mirror ranges. It uses an MMU notifier callback
+to record pending unmap events and widens the range if multiple unmaps
+arrive before the worker runs. The worker then resets attributes for ranges
+not covered by a CPU VMA.
+
+> diff --git a/drivers/gpu/drm/xe/xe_vm_madvise.c b/drivers/gpu/drm/xe/xe_v=
+m_madvise.c
+> index c4fb290041956..c2abe712598a1 100644
+> --- a/drivers/gpu/drm/xe/xe_vm_madvise.c
+> +++ b/drivers/gpu/drm/xe/xe_vm_madvise.c
+[ ... ]
+> @@ -732,3 +738,501 @@ int xe_vm_madvise_ioctl(struct drm_device *dev, voi=
+d *data, struct drm_file *fil
+[ ... ]
+> +static int xe_vm_madvise_process_unmap(struct xe_vm *vm, u64 start, u64 =
+end)
+> +{
+[ ... ]
+> +		has_default_attr =3D xe_vma_has_default_mem_attrs(vma);
+> +		seg_start =3D max(addr, xe_vma_start(vma));
+> +		seg_end =3D min(end, xe_vma_end(vma));
 > +
->   	if (!(se && se->out_sync_count))
->   		return;
->   
-> @@ -1006,6 +1007,7 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
->   {
->   	struct v3d_submit submit = { .v3d = to_v3d_dev(dev), .file_priv = file_priv };
->   	struct drm_v3d_submit_cl *args = data;
-> +	struct drm_syncobj *sync_out = NULL;
->   	struct v3d_submit_ext se = {0};
->   	struct v3d_bin_job *bin = NULL;
->   	struct v3d_render_job *render = NULL;
-> @@ -1032,6 +1034,12 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
->   		}
->   	}
->   
-> +	if (args->out_sync && !(se.flags & DRM_V3D_EXT_ID_MULTI_SYNC)) {
-
-Is it feasible to make sure out_sync is zero if multi-sync flag is set? 
-Or we have to allow letting garbage in for backwards compatibility?
-
-Either way:
-
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-
-Regards,
-
-Tvrtko
-
-> +		sync_out = drm_syncobj_find(file_priv, args->out_sync);
-> +		if (!sync_out)
-> +			return -ENOENT;
-> +	}
+> +		/* Merge adjacent default-attr VMAs when possible. */
+> +		if (has_default_attr &&
+> +		    xe_vma_start(vma) >=3D start &&
+> +		    xe_vma_end(vma) <=3D end) {
+> +			seg_start =3D xe_vma_start(vma);
+> +			seg_end =3D xe_vma_end(vma);
+> +			xe_vm_find_cpu_addr_mirror_vma_range(vm, &seg_start, &seg_end);
+> +			if (xe_vma_start(vma) =3D=3D seg_start && xe_vma_end(vma) =3D=3D seg_=
+end) {
+> +				/* Nothing to merge. */
+> +				addr =3D seg_end;
+> +				continue;
+> +			}
+> +		} else if (xe_vma_start(vma) =3D=3D seg_start && xe_vma_end(vma) =3D=
+=3D seg_end) {
+> +			/* Exact VMA match, reset in place. */
+> +			xe_vma_reset_to_default_attrs(vma);
+> +			addr =3D seg_end;
+> +			continue;
+> +		}
 > +
->   	if (args->bcl_start != args->bcl_end) {
->   		bin = (struct v3d_bin_job *) v3d_submit_add_job(&submit, V3D_BIN);
->   		if (IS_ERR(bin)) {
-> @@ -1088,7 +1096,7 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
->   	if (ret)
->   		goto fail;
->   
-> -	ret = v3d_submit_jobs(&submit, args->out_sync, &se);
-> +	ret = v3d_submit_jobs(&submit, sync_out, &se);
->   	if (ret)
->   		goto fail_unreserve;
->   
-> @@ -1098,7 +1106,7 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
->   	v3d_submit_unlock_reservations(&submit);
->   fail:
->   	v3d_submit_cleanup_jobs(&submit);
-> -	v3d_put_multisync_post_deps(&se);
-> +	v3d_submit_put_post_deps(sync_out, &se);
->   
->   	return ret;
->   }
-> @@ -1118,6 +1126,7 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
->   {
->   	struct v3d_submit submit = { .v3d = to_v3d_dev(dev), .file_priv = file_priv };
->   	struct drm_v3d_submit_tfu *args = data;
-> +	struct drm_syncobj *sync_out = NULL;
->   	struct v3d_submit_ext se = {0};
->   	struct v3d_tfu_job *job = NULL;
->   	int ret = 0;
-> @@ -1137,6 +1146,12 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
->   		}
->   	}
->   
-> +	if (args->out_sync && !(se.flags & DRM_V3D_EXT_ID_MULTI_SYNC)) {
-> +		sync_out = drm_syncobj_find(file_priv, args->out_sync);
-> +		if (!sync_out)
-> +			return -ENOENT;
-> +	}
-> +
->   	job = (struct v3d_tfu_job *) v3d_submit_add_job(&submit, V3D_TFU);
->   	if (IS_ERR(job)) {
->   		ret = PTR_ERR(job);
-> @@ -1178,7 +1193,7 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
->   	if (ret)
->   		goto fail;
->   
-> -	ret = v3d_submit_jobs(&submit, args->out_sync, &se);
-> +	ret = v3d_submit_jobs(&submit, sync_out, &se);
->   	if (ret)
->   		goto fail_unreserve;
->   
-> @@ -1188,7 +1203,7 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
->   	v3d_submit_unlock_reservations(&submit);
->   fail:
->   	v3d_submit_cleanup_jobs(&submit);
-> -	v3d_put_multisync_post_deps(&se);
-> +	v3d_submit_put_post_deps(sync_out, &se);
->   
->   	return ret;
->   }
-> @@ -1208,6 +1223,7 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
->   {
->   	struct v3d_submit submit = { .v3d = to_v3d_dev(dev), .file_priv = file_priv };
->   	struct drm_v3d_submit_csd *args = data;
-> +	struct drm_syncobj *sync_out = NULL;
->   	struct v3d_submit_ext se = {0};
->   	int ret;
->   
-> @@ -1234,6 +1250,12 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
->   		}
->   	}
->   
-> +	if (args->out_sync && !(se.flags & DRM_V3D_EXT_ID_MULTI_SYNC)) {
-> +		sync_out = drm_syncobj_find(file_priv, args->out_sync);
-> +		if (!sync_out)
-> +			return -ENOENT;
-> +	}
-> +
->   	ret = v3d_setup_csd_jobs_and_bos(&submit, args, &se);
->   	if (ret)
->   		goto fail;
-> @@ -1246,7 +1268,7 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
->   	if (ret)
->   		goto fail;
->   
-> -	ret = v3d_submit_jobs(&submit, args->out_sync, &se);
-> +	ret = v3d_submit_jobs(&submit, sync_out, &se);
->   	if (ret)
->   		goto fail_unreserve;
->   
-> @@ -1256,7 +1278,7 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
->   	v3d_submit_unlock_reservations(&submit);
->   fail:
->   	v3d_submit_cleanup_jobs(&submit);
-> -	v3d_put_multisync_post_deps(&se);
-> +	v3d_submit_put_post_deps(sync_out, &se);
->   
->   	return ret;
->   }
-> @@ -1354,7 +1376,7 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
->   	if (ret)
->   		goto fail;
->   
-> -	ret = v3d_submit_jobs(&submit, 0, &se);
-> +	ret = v3d_submit_jobs(&submit, NULL, &se);
->   	if (ret)
->   		goto fail_unreserve;
->   
-> @@ -1364,7 +1386,7 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
->   	v3d_submit_unlock_reservations(&submit);
->   fail:
->   	v3d_submit_cleanup_jobs(&submit);
-> -	v3d_put_multisync_post_deps(&se);
-> +	v3d_submit_put_post_deps(NULL, &se);
->   
->   	return ret;
->   }
-> 
+> +		err =3D xe_vm_alloc_cpu_addr_mirror_vma(vm, seg_start, seg_end - seg_s=
+tart);
 
+[Severity: Medium]
+When a CPU hole partially overlaps a GPU VMA that already has default
+attributes, will this fall through to xe_vm_alloc_cpu_addr_mirror_vma() and
+cause redundant VMA splitting?
+
+If the overlap is strictly partial, both the if and else if conditions above
+fail. The fall-through maps the overlapping portion with default attributes,
+forcing the GPUVM infrastructure to split the existing VMA.=20
+
+Since the existing VMA already possessed default attributes, this split
+appears to be redundant and might needlessly fragment a single large VMA in=
+to
+smaller identical pieces. Repeated partial unmaps from userspace could
+artificially fragment the VMA tree and leak xe_vma objects.
+
+[ ... ]
+> +static bool xe_madvise_notifier_callback(struct mmu_interval_notifier *m=
+ni,
+> +					 const struct mmu_notifier_range *range,
+> +					 unsigned long cur_seq)
+> +{
+> +	struct xe_madvise_notifier *notifier =3D
+> +		container_of(mni, struct xe_madvise_notifier, mmu_notifier);
+> +	struct xe_vm *vm =3D notifier->vm;
+> +	u64 adj_start, adj_end;
+> +
+> +	if (range->event !=3D MMU_NOTIFY_UNMAP)
+> +		return true;
+> +
+> +	if (!mmu_notifier_range_blockable(range))
+> +		return false;
+
+[Severity: High]
+Does returning false for non-blockable invalidations incorrectly prevent the
+OOM reaper from unmapping memory?
+
+Because the callback implementation is entirely non-blocking (it relies on
+down_read_trylock(), spin_lock(), and queue_work()), there seems to be no
+technical limitation requiring it to block.=20
+
+Returning false from an MMU interval notifier's invalidate callback signals
+that the invalidation could not be completed without blocking, causing
+__mmu_notifier_invalidate_range_start() to return -EAGAIN.=20
+
+Since the OOM reaper operates in a non-blockable context, receiving -EAGAIN
+means it cannot retry indefinitely and will skip the VMA, failing to reclaim
+the memory and defeating the purpose of the OOM killer. Could this safely
+process the event and unconditionally return true for unmap events instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604095012.3672=
+31-1-arvind.yadav@intel.com?part=3D4
