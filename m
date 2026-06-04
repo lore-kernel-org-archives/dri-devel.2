@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C3DDCD6E75
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 17:57:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCD11CD6E77
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 18:02:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EBDF1128FE;
-	Thu,  4 Jun 2026 17:57:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D89C112905;
+	Thu,  4 Jun 2026 18:02:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oh6Z5KRX";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="XK165cnR";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2837D1128FE
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 17:57:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DCAC112905
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 18:02:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1780595856;
- bh=6QJ4WzyVXysFN2vNMNj8xY6pSIAcO+GVV5Cc91oxCE4=;
+ s=mail; t=1780596139;
+ bh=roHnOO6PR5PMKjQ4Zpx9Ftl9QWQlUI8Jeetmvwdosng=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=oh6Z5KRXTYf/740kQz5Nz4Nt3LB/24wC91m4KnBQz/80Ke6F3g2jG3V4aiXGqZ8zx
- PAJmdGofxwQj0KBHg3nduPoX3p4G3W2ti3oAG7rW056OJFFRqVHS+jNd6e6MHRsNYw
- 8PIlsUH3AAFZiEBf9KPCjesk60F+uJnlFp9LAag8fanPhdzP5zBtgWfYfArDXqxshc
- DYiHh71B7boeJrtq3VUd8dKIc8SW6x8qo3fpYFWMLRzKjkU8wX1ZWIffdubVfyf0b6
- Um16dBHcbCrtwey34fnDhk3/CS6AOfuiG9cuYkkQEStS4l1eE0CASKaqYG9OXjC2H1
- XeMAobotAhuWA==
+ b=XK165cnRMhMQL9W0EO+PZ0Alad3bxW4i3RwcIyWidfjrAQhqMt/hAvjLL7zTimE02
+ P27ahs825A0XqbrwrG8qkPJnJ+WN3Iv6g9rPxMh0m1YmLm5jvCg/hsNLzV7MM+vwgK
+ lCkQYgiw728VIly+LdHKQjWQ4YDYFpbotYlvYHde9Tj9/NRattaBR23BUQ77Qf6+1v
+ IHZ+NReu6ooaFlmsLn6VBEyF2R2gqIyKbDf8ml5Wa3fU8NRAmX+kQTmEQCutW772bF
+ ZcaLMLb+7QqZMk8j4mf5XrF9dvfGZUaXx5xFdGeVac0I+qaJkcTVo+7huy4a8ODOlP
+ OSHNPXwKGV5cQ==
 Received: from fedora-2.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 21A9E17E0475;
- Thu,  4 Jun 2026 19:57:36 +0200 (CEST)
-Date: Thu, 4 Jun 2026 19:57:30 +0200
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 874B717E062B;
+ Thu,  4 Jun 2026 20:02:18 +0200 (CEST)
+Date: Thu, 4 Jun 2026 20:02:15 +0200
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
 Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
@@ -46,12 +46,11 @@ Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
  Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Claude <noreply@anthropic.com>
-Subject: Re: [PATCH v2 1/7] drm/panfrost: Check another bo field for cache
- option query
-Message-ID: <20260604195730.264b1be1@fedora-2.home>
-In-Reply-To: <20260604-claude-fixes-v2-1-57c6bd4c1655@collabora.com>
+Subject: Re: [PATCH v2 2/7] drm/panfrost: Prevent division by 0
+Message-ID: <20260604200215.303dbc43@fedora-2.home>
+In-Reply-To: <20260604-claude-fixes-v2-2-57c6bd4c1655@collabora.com>
 References: <20260604-claude-fixes-v2-0-57c6bd4c1655@collabora.com>
- <20260604-claude-fixes-v2-1-57c6bd4c1655@collabora.com>
+ <20260604-claude-fixes-v2-2-57c6bd4c1655@collabora.com>
 Organization: Collabora
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
@@ -72,39 +71,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 04 Jun 2026 18:35:20 +0100
+On Thu, 04 Jun 2026 18:35:21 +0100
 Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-> When querying the properties of a BO, whether it was created in
-> Writeback caching mode for userspace mappings, is recorded in a Panfrost
-> BO's wb_mmap field.
+> When updating and debug-printing devfreq stats, in the very unlikely
+> offchance that total device time is less than 100 ns, clamp it to 0 to
+> avoid division by 0.
 >=20
 > Reported-by: Claude <noreply@anthropic.com>
 > Closes: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/88
 > Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> Fixes: 62eedf1ccba5 ("drm/panfrost: Add flag to map GEM object Write-Back=
- Cacheable")
-
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-
+> Fixes: f3ba91228e8e ("drm/panfrost: Add initial panfrost driver")
 > ---
->  drivers/gpu/drm/panfrost/panfrost_drv.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/panfrost/panfrost_devfreq.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 >=20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_drv.c
-> index 3d0bdba2a474..cb8e5015847f 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -659,7 +659,7 @@ static int panfrost_ioctl_query_bo_info(struct drm_de=
-vice *dev, void *data,
->  		if (bo->is_heap)
->  			args->create_flags |=3D PANFROST_BO_HEAP;
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_devfreq.c b/drivers/gpu/dr=
+m/panfrost/panfrost_devfreq.c
+> index b51c30778811..e34de47bf43b 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_devfreq.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_devfreq.c
+> @@ -78,7 +78,8 @@ static int panfrost_devfreq_get_dev_status(struct devic=
+e *dev,
 > =20
-> -		if (!bo->base.map_wc)
-> +		if (bo->wb_mmap)
->  			args->create_flags |=3D PANFROST_BO_WB_MMAP;
->  	}
+>  	dev_dbg(pfdev->base.dev, "busy %lu total %lu %lu %% freq %lu MHz\n",
+>  		status->busy_time, status->total_time,
+> -		status->busy_time / (status->total_time / 100),
+> +		status->total_time >=3D 100 ?
+> +			status->busy_time / (status->total_time / 100) : 0,
+
+or:
+
+		status->busy_time * 100 / MAX(status->total_time, 1),
+
+>  		status->current_frequency / 1000 / 1000);
 > =20
+>  	return 0;
 >=20
 
