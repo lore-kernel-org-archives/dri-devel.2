@@ -4,142 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9BB1CD6E6E
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:10:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CDD7CD6E75
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:13:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0081F10E1EA;
-	Thu,  4 Jun 2026 20:10:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE46211298F;
+	Thu,  4 Jun 2026 20:13:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ie40GLMB";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="E4/9xKoG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="d7+DGx4k";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EE6F10E1EA
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:10:39 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 654JWga12477978
- for <dri-devel@lists.freedesktop.org>; Thu, 4 Jun 2026 20:10:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Ia1skyxQmkO7JqYCXK2wWQZtv88kEi4DeIduMmc3/kc=; b=ie40GLMBF0ujDd3p
- BkqF8GTZz62fxeG+88YY67NZbwf/mcH5U9+rj3nUvRkatHit1GoP3kmGyVH/QCsh
- Nt5LV6o0iIy/MK9iwucC3Zmez96CNPkPSoFrSP1QCspMT+lE3+PSzsF4HR1rTeZh
- ABNRkbDyWQqiTxUW5gH49nbcZRnHCAIE0Ahp5SRzZ5iH4nOpHYTEsxTb/mbu6VHC
- zy93nUrCZe/Fc93pZ7gW5pn/mQ8McLsQ/1p/p2v+ZnrlGdEQHXGLYOB2Eau33Ujl
- 6gB2R25Ao7AIB7bnAPjbbJwA20y3B/mY7wA8SZGJ9zY0Sma/bZFcIjjeLm4jecnZ
- ElzZZg==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
- [209.85.210.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ek4hvkfvv-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 20:10:38 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id
- d2e1a72fcca58-8425a9979e1so725063b3a.2
- for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 13:10:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1780603838; x=1781208638;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Ia1skyxQmkO7JqYCXK2wWQZtv88kEi4DeIduMmc3/kc=;
- b=E4/9xKoGs/dZCvja/7AQY6vJujVMlb3CvAcNvfh2YZe3jdeMNTn6xz+bNaAX3/D6iF
- 7M72c0VEtJbesT6xw63sBnCMNyiIu4TboIFkWsgMJRTxrPL/FR9tVKogZlTRkMHoPW/y
- d90GWQMcx5wuGGrX2j3c6fUnEiYWd3nA0eWaoqsEjshW65TqHW/NIqJCMOKY7ex5F2Xb
- EUamLJs9aH3yPh4OAXQ4zkm6iHIE54Mrv7f6dvH7URaNxH4yYQfHjdSxW2eSCQtaSnZM
- k4rJiOSorkO3zupw4T97iLV1Ynm38f8B7HHmQgtZpdwcPRoXJuf4tIfXwowLE5Ek1rwj
- Cr1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780603838; x=1781208638;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=Ia1skyxQmkO7JqYCXK2wWQZtv88kEi4DeIduMmc3/kc=;
- b=s0JWC/vD/v2vdGNIDxFNR5MJbCO97rJfsmsNdmuhf+HxDf9nbw2Q/dLG0XMZWXyUzx
- EU0l8iQ6j3bymWoJhZUD+eM86hrU9p7TWXqs8zSwp91tRKvV9ppDTw6yTponHDqKtc3W
- vlDiqXJC60Uo7zCzpZ8GAhKUetxa0DYkNLOoSAo92rbDZJOd49gRzcDAou5YwM+iUv2y
- KlZmsfM6/gmmoa9wfN/k8BosG4eNdh+NRs72zVzlma6vRGgxbfJEJzTepj6mGPKLKkGA
- Lz8AuBPTQ8OVT4lrc2qeGbto7H1lbMEesieAHm7vx3gtsxBWgzQvUK8No+ahfjgBiwZx
- zZng==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+uFkct7TA4jtFi0PN046oVA/NJOXXruRm+t7yWBO+E9Ut5uIhOdmZ9bww0VG/9ace5dyhLtMGrRKo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwFUV1D2xrcC4lQgeqvRxTn9iwxJb33cioPChCf2eaRQnY7PPb9
- gdQQXULknvupCXXPe/BVr5ItugYdh87IdMCUsUVln8/HC++MR0PxW205j2x0oTnfFDWy81R5ZF0
- Zt2L8QjQBYUAO9MdwHzzwAj/2wCWkyRFxmUaoLCjCrbjnASA+VEUgoxssphsX12fgVH8TR9Y=
-X-Gm-Gg: Acq92OHlLMdmvsKgWiOgdNYYN9fpLgzP13fkRatLHSqnQb+kVBO9AOWRxweRg/jgsn3
- IsCYAgzUu0qXuCuw//+tvDjwjSHHBI5DWKo7qgUbvz3U/SrbxuUvAWsRuPWnmdwQBPA55iuRwcB
- QTGlwl1yCr+Z0nQhccpv5UUASd6QnGm8jZqJiR3fgDx5djNe2RJw7r+bBM+ZutzWBvZB233JLhr
- tD7jEcXcdj3FrKDa/X9PBkJVlvwORZoLf20epaPazr6pv3GF8mpLRCbqgIx3pDZ1ATExK9A/GxE
- nMeYDeVxnAaSJULBK5uEpp0d3NJvxnizisfM526Rhv9ivnxZSLH5gPZwdAkq2TOBLMA1t6n0t6o
- VjksnM7c0oBi8uLVB8Mr43IwFC8/+SZCfijR66kEHvBeZwYKAwiNIVIVO
-X-Received: by 2002:a05:6a00:4008:b0:83f:2568:d466 with SMTP id
- d2e1a72fcca58-842b1007fe4mr217717b3a.31.1780603838121; 
- Thu, 04 Jun 2026 13:10:38 -0700 (PDT)
-X-Received: by 2002:a05:6a00:4008:b0:83f:2568:d466 with SMTP id
- d2e1a72fcca58-842b1007fe4mr217695b3a.31.1780603837668; 
- Thu, 04 Jun 2026 13:10:37 -0700 (PDT)
-Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-8428290067dsm6721425b3a.53.2026.06.04.13.10.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Jun 2026 13:10:37 -0700 (PDT)
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Fri, 05 Jun 2026 01:38:22 +0530
-Subject: [PATCH 6/6] drm/msm: Fix task_struct reference leak in recover_worker
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8136211298E
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:13:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 55A7344244;
+ Thu,  4 Jun 2026 20:13:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B489B1F00893;
+ Thu,  4 Jun 2026 20:13:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780603994;
+ bh=FyqbifIs0gEb+brR0HRbFPYYe8b52/vPAxEVwbskZ2U=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=d7+DGx4kRvBF22JK7YfD6UvK3MZe3cZ/G1pHGIQ/3H8UfQSOg7Ieg0mx1bvLq8xYE
+ stPU76+2J+5djPEJUrJ1IJm9wxEsW9K1zFRweb/+eze4ZwWaK8HxgXzLBfo8ZCB7ex
+ E6JVc6TzkG/cwill6Ag6itwfXLT+HjIzQS4e2j4JAEXcKLJ1ea2ES/Y2Aixk+6YMcV
+ +zPKqF7gU8duISScX8HUFNycYk6Q9tClZy4tbVRZfiMySzFe/DI/+aarw/vw5bQ+zy
+ sK5VJR26InjGBY29wYKn90akDlQ9bsTfZNRrgTc8VLd0dHkUdyQeYrz3ziSwEvPitl
+ Du+Cpa9aaWiug==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+Date: Thu, 04 Jun 2026 22:11:14 +0200
+Subject: [PATCH v17 02/10] rust: types: Add Ownable/Owned types
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260605-assorted-fixes-june-v1-6-2caa04f7287c@oss.qualcomm.com>
-References: <20260605-assorted-fixes-june-v1-0-2caa04f7287c@oss.qualcomm.com>
-In-Reply-To: <20260605-assorted-fixes-june-v1-0-2caa04f7287c@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>,
- Jie Zhang <quic_jiezh@quicinc.com>,
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Jie Zhang <jie.zhang@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780603799; l=904;
- i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=X3vJeCumKhjjotRl6yk2pCMRTx61cAms8ve5tuXIPwI=;
- b=MNquq63XpQbBR4dEKjskl1CiKb+qtEacdlCYU32SnWmRLXACBNuc6h1X9R0rKCo68B1hhUVxJ
- WYHWX94jP+iAQ1SQJHj1Bzo8lcKhms0Svb6GrNBRovKuhfK4w0WGYZ5
-X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
- pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-GUID: lCxbc3__KQYRWNlRLWAob3BEqDHeJCme
-X-Proofpoint-ORIG-GUID: lCxbc3__KQYRWNlRLWAob3BEqDHeJCme
-X-Authority-Analysis: v=2.4 cv=Zp/d7d7G c=1 sm=1 tr=0 ts=6a21dbbe cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=nKn9kxNhn4xvKzSdCgcA:9 a=QEXdDO2ut3YA:10
- a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA0MDE5NyBTYWx0ZWRfX3HJ7jHTrPcDA
- SEQxpRJqqNIJAWgcraCyGdjT/ui6o6nt6qw5WwQm3aIBX0E75Ni2wGDkPNTuopVKhjwdSsPVsUd
- l0sYwObVZkrZtO9SZxMI0v6cDnSMG78yFDgd5yiLOfbRH0NzZr2vY9+E40Lo2O7OuqLXBBj0mkV
- u82+AUCzZp6Iz4bFzG9upUhjty5UNwqSvI+U0NPxLKe0oop7mQwg7L+gNkrqFTVYt/MS0doEL33
- YU6LyHnnNYAhXQl9PRrJhKSApQSLhjuMQpW6R7X4MpxONyFrW5lKQlrCDB+18wc3VdtU2dB26XA
- L0ZcMEKHTkajNDUtI1es4GnTDmMraEHwLLxXHwZ4SF0HUl1uk0jAo5p3BqeZ4fZIIPbFg/sTB+n
- QBA5m1lS6zKk6mzmmvN8xAmdTKIxBP1xCV4RLsoMVMfYhDRmjS41m3Mx5B0slw7Ln8PyV30c9ul
- +MYOvqedk6klCsPDPvg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-04_05,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0
- bulkscore=0 adultscore=0 suspectscore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606040197
+Message-Id: <20260604-unique-ref-v17-2-7b4c3d2930b9@kernel.org>
+References: <20260604-unique-ref-v17-0-7b4c3d2930b9@kernel.org>
+In-Reply-To: <20260604-unique-ref-v17-0-7b4c3d2930b9@kernel.org>
+To: Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dave Ertman <david.m.ertman@intel.com>, Ira Weiny <ira.weiny@intel.com>, 
+ Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+ Serge Hallyn <sergeh@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, 
+ Igor Korotin <igor.korotin@linux.dev>, 
+ Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, Boqun Feng <boqun@kernel.org>, 
+ Igor Korotin <igor.korotin@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-block@vger.kernel.org, linux-security-module@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org, 
+ linux-mm@kvack.org, linux-pm@vger.kernel.org, linux-pci@vger.kernel.org, 
+ Andreas Hindborg <a.hindborg@kernel.org>, driver-core@lists.linux.dev, 
+ Asahi Lina <lina+kernel@asahilina.net>, 
+ Oliver Mangold <oliver.mangold@pm.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10553;
+ i=a.hindborg@kernel.org; h=from:subject:message-id;
+ bh=ofZDFIhDjpLPpUbpvtXo6zWuRmODfjHMDH0JWHuSFdY=;
+ b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBqIdvofKBkFboGfACnM0viGjPeiixT1NxDQcbNU
+ MsW74xazMuJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCaiHb6AAKCRD6UCkIqsW9
+ 0DEkD/4gf7Ho/vS4edp6caiLITOv/bLkSQN5bDrgSo/Dqw6VjWYilBwVVAiLblnteDI9tSnZAz4
+ evcQDaMvY7IrsQilUAtM8OixDbWtvlR+x/eslY/TZ3XhvbZhSLsMnQ8UkkHAOto8tCBTvl53I5a
+ G8FmcHac+ptW26zaW0XNDXoedp4ZU4w/MElpuhCWopnNx578V/5+/Kd0++KK9AJdewxigY+O09R
+ XKMuyGtiteZwpDtUCDrndWu6LUELJFBk8DlTERSF7P+OV3b/Z3bb9nsbkjC2dNa6SG0WmIUu3OP
+ QeyC4cPcKPSTzIGcS8ecFZzwJp5ChQN+O3DEGMwV9NTEV9WrrGRGEeqcW05Jd8akGmDILrPT9uw
+ 7PPhGLGSGJvPJ94joJDKzhWeGGQKN4Ypt7eKVQMrFp9Ydul9sXRxfanYsRd7xUsVCJsXHe0qRhw
+ axz+zRqxcYG96KESp5w1DAN0DXXjeDg5Tip6/Di/vvvoZrcnl66TJxO8IaBQoKUir/7KAjhvDKh
+ 6sAopNMKeJY/bAeb+sNVhiaT50U9xhsI6ME1e6JBNS2dFoe68qSHt4tpl0mNEtS+P2FRcWnIkw8
+ 9wvr6lwo2ivn1lb6ppIFBpmHrqozyBAsxUj/60/7Ugd0+pXRJQrGpGnYAMRg8JMKgAIEIQN+hgo
+ Di9hhF085JUUMWg==
+X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
+ fpr=3108C10F46872E248D1FB221376EB100563EF7A7
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,33 +101,287 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Jie Zhang <jie.zhang@oss.qualcomm.com>
+From: Asahi Lina <lina+kernel@asahilina.net>
 
-get_pid_task() increments the task reference count, but the
-corresponding put_task_struct() was missing in the else branch,
-leaking a reference on every GPU hang recovery.
+By analogy to `AlwaysRefCounted` and `ARef`, an `Ownable` type is a
+(typically C FFI) type that *may* be owned by Rust, but need not be. Unlike
+`AlwaysRefCounted`, this mechanism expects the reference to be unique
+within Rust, and does not allow cloning.
 
-Fixes: 25654a1756a4 ("drm/msm: Update global fault counter when faulty process has already ended")
-Signed-off-by: Jie Zhang <jie.zhang@oss.qualcomm.com>
-Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Conceptually, this is similar to a `KBox<T>`, except that it delegates
+resource management to the `T` instead of using a generic allocator.
+
+[ om:
+  - Split code into separate file and `pub use` it from types.rs.
+  - Make from_raw() and into_raw() public.
+  - Remove OwnableMut, and make DerefMut dependent on Unpin instead.
+  - Usage example/doctest for Ownable/Owned.
+  - Fixes to documentation and commit message.
+]
+
+Link: https://lore.kernel.org/all/20250202-rust-page-v1-1-e3170d7fe55e@asahilina.net/
+Signed-off-by: Asahi Lina <lina+kernel@asahilina.net>
+Co-developed-by: Oliver Mangold <oliver.mangold@pm.me>
+Signed-off-by: Oliver Mangold <oliver.mangold@pm.me>
+Reviewed-by: Boqun Feng <boqun.feng@gmail.com>
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+[ Andreas: Updated documentation, examples, and formatting. Change safety
+  requirements, safety comments. Use a reference for `release`. ]
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Co-developed-by: Andreas Hindborg <a.hindborg@kernel.org>
+Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
 ---
- drivers/gpu/drm/msm/msm_gpu.c | 2 ++
- 1 file changed, 2 insertions(+)
+ rust/kernel/lib.rs       |   1 +
+ rust/kernel/owned.rs     | 187 +++++++++++++++++++++++++++++++++++++++++++++++
+ rust/kernel/sync/aref.rs |   5 ++
+ rust/kernel/types.rs     |  11 +++
+ 4 files changed, 204 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 48ac51f4119b..03c057856065 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -505,6 +505,8 @@ static void recover_worker(struct kthread_work *work)
- 		 */
- 		if (!vm->managed)
- 			msm_gem_vm_unusable(submit->vm);
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index b72b2fbe046d..d07759eec799 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -100,6 +100,7 @@
+ pub mod of;
+ #[cfg(CONFIG_PM_OPP)]
+ pub mod opp;
++pub mod owned;
+ pub mod page;
+ #[cfg(CONFIG_PCI)]
+ pub mod pci;
+diff --git a/rust/kernel/owned.rs b/rust/kernel/owned.rs
+new file mode 100644
+index 000000000000..456e239e906e
+--- /dev/null
++++ b/rust/kernel/owned.rs
+@@ -0,0 +1,187 @@
++// SPDX-License-Identifier: GPL-2.0
 +
-+		put_task_struct(task);
- 	}
++//! Unique owned pointer types for objects with custom drop logic.
++//!
++//! These pointer types are useful for C-allocated objects which by API-contract
++//! are owned by Rust, but need to be freed through the C API.
++
++use core::{
++    mem::ManuallyDrop,
++    ops::{
++        Deref,
++        DerefMut, //
++    },
++    pin::Pin,
++    ptr::NonNull, //
++};
++
++/// Types that specify their own way of performing allocation and destruction. Typically, this trait
++/// is implemented on types from the C side.
++///
++/// Implementing this trait allows types to be referenced via the [`Owned<Self>`] pointer type. This
++/// is useful when it is desirable to tie the lifetime of the reference to an owned object, rather
++/// than pass around a bare reference. [`Ownable`] types can define custom drop logic that is
++/// executed when the owned reference [`Owned<Self>`] pointing to the object is dropped.
++///
++/// Note: The underlying object is not required to provide internal reference counting, because it
++/// represents a unique, owned reference. If reference counting (on the Rust side) is required,
++/// [`AlwaysRefCounted`](crate::types::AlwaysRefCounted) should be implemented.
++///
++/// # Examples
++///
++/// A minimal example implementation of [`Ownable`] and its usage with [`Owned`] looks like
++/// this:
++///
++/// ```
++/// # #![expect(clippy::disallowed_names)]
++/// # use core::cell::Cell;
++/// # use core::ptr::NonNull;
++/// # use kernel::sync::global_lock;
++/// # use kernel::alloc::{flags, kbox::KBox, AllocError};
++/// # use kernel::types::{Owned, Ownable};
++///
++/// // Let's count the allocations to see if freeing works.
++/// kernel::sync::global_lock! {
++///     // SAFETY: we call `init()` right below, before doing anything else.
++///     unsafe(uninit) static FOO_ALLOC_COUNT: Mutex<usize> = 0;
++/// }
++/// // SAFETY: We call `init()` only once, here.
++/// unsafe { FOO_ALLOC_COUNT.init() };
++///
++/// struct Foo;
++///
++/// impl Foo {
++///     fn new() -> Result<Owned<Self>> {
++///         // We are just using a `KBox` here to handle the actual allocation, as our `Foo` is
++///         // not actually a C-allocated object.
++///         let result = KBox::new(
++///             Foo {},
++///             flags::GFP_KERNEL,
++///         )?;
++///         let result = KBox::into_non_null(result);
++///         // Count new allocation
++///         *FOO_ALLOC_COUNT.lock() += 1;
++///         // SAFETY:
++///         //  - We just allocated the `Self`, thus it is valid and we own it.
++///         //  - We can transfer this ownership to the `from_raw` method.
++///         Ok(unsafe { Owned::from_raw(result) })
++///     }
++/// }
++///
++/// impl Ownable for Foo {
++///     unsafe fn release(&mut self) {
++///         // SAFETY: The [`KBox<Self>`] is still alive. We can pass ownership to the [`KBox`], as
++///         // by requirement on calling this function.
++///         drop(unsafe { KBox::from_raw(self) });
++///         // Count released allocation
++///         *FOO_ALLOC_COUNT.lock() -= 1;
++///     }
++/// }
++///
++/// {
++///    let foo = Foo::new()?;
++///    assert!(*FOO_ALLOC_COUNT.lock() == 1);
++/// }
++/// // `foo` is out of scope now, so we expect no live allocations.
++/// assert!(*FOO_ALLOC_COUNT.lock() == 0);
++/// # Ok::<(), Error>(())
++/// ```
++pub trait Ownable {
++    /// Tear down this `Ownable`.
++    ///
++    /// Implementers of `Ownable` can use this function to clean up the use of `Self`. This can
++    /// include freeing the underlying object.
++    ///
++    /// # Safety
++    ///
++    /// Callers must ensure that the caller has exclusive ownership of `T`, and this ownership can
++    /// be transferred to the `release` method.
++    unsafe fn release(&mut self);
++}
++
++/// A mutable reference to an owned `T`.
++///
++/// The [`Ownable`] is automatically freed or released when an instance of [`Owned`] is
++/// dropped.
++///
++/// # Invariants
++///
++/// - Until `T::release` is called, this `Owned<T>` exclusively owns the underlying `T`.
++/// - The `T` value is pinned.
++pub struct Owned<T: Ownable> {
++    ptr: NonNull<T>,
++}
++
++impl<T: Ownable> Owned<T> {
++    /// Creates a new instance of [`Owned`].
++    ///
++    /// This function takes over ownership of the underlying object.
++    ///
++    /// # Safety
++    ///
++    /// Callers must ensure that:
++    /// - `ptr` points to a valid instance of `T`.
++    /// - Until `T::release` is called, the returned `Owned<T>` exclusively owns the underlying `T`.
++    #[inline]
++    pub unsafe fn from_raw(ptr: NonNull<T>) -> Self {
++        // INVARIANT: By function safety requirement we satisfy the first invariant of `Self`.
++        // We treat `T` as pinned from now on.
++        Self { ptr }
++    }
++
++    /// Consumes the [`Owned`], returning a raw pointer.
++    ///
++    /// This function does not drop the underlying `T`. When this function returns, ownership of the
++    /// underlying `T` is with the caller.
++    #[inline]
++    pub fn into_raw(me: Self) -> NonNull<T> {
++        ManuallyDrop::new(me).ptr
++    }
++
++    /// Get a pinned mutable reference to the data owned by this `Owned<T>`.
++    #[inline]
++    pub fn as_pin_mut(&mut self) -> Pin<&mut T> {
++        // SAFETY: The type invariants guarantee that the object is valid, and that we can safely
++        // return a mutable reference to it.
++        let unpinned = unsafe { self.ptr.as_mut() };
++
++        // SAFETY: By type invariant `T` is pinned.
++        unsafe { Pin::new_unchecked(unpinned) }
++    }
++}
++
++// SAFETY: It is safe to send an [`Owned<T>`] to another thread when the underlying `T` is [`Send`],
++// because of the ownership invariant. Sending an [`Owned<T>`] is equivalent to sending the `T`.
++unsafe impl<T: Ownable + Send> Send for Owned<T> {}
++
++// SAFETY: It is safe to send [`&Owned<T>`] to another thread when the underlying `T` is [`Sync`],
++// because of the ownership invariant. Sending an [`&Owned<T>`] is equivalent to sending the `&T`.
++unsafe impl<T: Ownable + Sync> Sync for Owned<T> {}
++
++impl<T: Ownable> Deref for Owned<T> {
++    type Target = T;
++
++    #[inline]
++    fn deref(&self) -> &Self::Target {
++        // SAFETY: The type invariants guarantee that the object is valid.
++        unsafe { self.ptr.as_ref() }
++    }
++}
++
++impl<T: Ownable + Unpin> DerefMut for Owned<T> {
++    #[inline]
++    fn deref_mut(&mut self) -> &mut Self::Target {
++        // SAFETY: The type invariants guarantee that the object is valid, and that we can safely
++        // return a mutable reference to it.
++        unsafe { self.ptr.as_mut() }
++    }
++}
++
++impl<T: Ownable> Drop for Owned<T> {
++    #[inline]
++    fn drop(&mut self) {
++        // SAFETY: By existence of `&mut self` we exclusively own `self` and the underlying `T`. As
++        // we are dropping `self`, we can transfer ownership of the `T` to the `release` method.
++        unsafe { T::release(self.ptr.as_mut()) };
++    }
++}
+diff --git a/rust/kernel/sync/aref.rs b/rust/kernel/sync/aref.rs
+index 9989f56d0605..4ee5fac0e0b6 100644
+--- a/rust/kernel/sync/aref.rs
++++ b/rust/kernel/sync/aref.rs
+@@ -29,6 +29,11 @@
+ /// Rust code, the recommendation is to use [`Arc`](crate::sync::Arc) to create reference-counted
+ /// instances of a type.
+ ///
++/// Note: Implementing this trait allows types to be wrapped in an [`ARef<Self>`]. It requires an
++/// internal reference count and provides only shared references. If unique references are required
++/// [`Ownable`](crate::types::Ownable) should be implemented which allows types to be wrapped in an
++/// [`Owned<Self>`](crate::types::Owned).
++///
+ /// # Safety
+ ///
+ /// Implementers must ensure that increments to the reference count keep the object alive in memory
+diff --git a/rust/kernel/types.rs b/rust/kernel/types.rs
+index 4329d3c2c2e5..4aec7b699269 100644
+--- a/rust/kernel/types.rs
++++ b/rust/kernel/types.rs
+@@ -11,6 +11,17 @@
+ };
+ use pin_init::{PinInit, Wrapper, Zeroable};
  
- 	noreclaim_flag = memalloc_noreclaim_save();
++pub use crate::{
++    owned::{
++        Ownable,
++        Owned, //
++    },
++    sync::aref::{
++        ARef,
++        AlwaysRefCounted, //
++    }, //
++};
++
+ /// Used to transfer ownership to and from foreign (non-Rust) languages.
+ ///
+ /// Ownership is transferred from Rust to a foreign language by calling [`Self::into_foreign`] and
 
 -- 
-2.51.0
+2.51.2
+
 
