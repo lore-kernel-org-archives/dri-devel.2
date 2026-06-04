@@ -4,47 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E74D2CD6E4A
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 13:22:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD1FECD6E6B
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 13:25:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5168311A058;
-	Thu,  4 Jun 2026 13:22:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 095B011A064;
+	Thu,  4 Jun 2026 13:25:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B6b61wpe";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IBHe1fmA";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31A1611A058
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 13:22:42 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BBC811A064;
+ Thu,  4 Jun 2026 13:25:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F0B7C40B64;
- Thu,  4 Jun 2026 13:22:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B5F31F00898;
- Thu,  4 Jun 2026 13:22:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E46DA6024D;
+ Thu,  4 Jun 2026 13:25:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22D971F00898;
+ Thu,  4 Jun 2026 13:25:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780579361;
- bh=6iaAxOe5Pdj/Dt9cTUoWYlp7QKbhtrvvLDUXgGLDlqE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=B6b61wpeR4fy2cBp5R3+7PDR6//mNBrqmCQJZajRy/A7bAIrBt0n0v+6xLasq/aHQ
- 1WpBF2HZsaTS8SC4/sBzWnTuSPEPw9hu+8YrbxX1J/wMnimRP+mvJZrK4o/M63AwvH
- UKk/W4V8KsElPGTZ7ehmwtXNC5a3bJEkAfSUib5ikMgXe6wfpL11c7j7232+rlBaK9
- RApolfWRCzAAPMsTMC7+p8BAFZmLzuFGxR0jdbqo5OXBa94U1YPAPuBOwiX4BwCetD
- jkTspYkdqEaGFLqY3ttbJTgNfKFhApvzy9hvjqBLexp2LnOCuKwK9AAk8rzZhlzEnh
- TqGCySX/8hMJw==
-Date: Thu, 4 Jun 2026 15:22:39 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: wangdich9700@163.com
-Cc: maarten.lankhorst@linux.intel.com, airlied@gmail.com, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- wangdicheng <wangdicheng@kylinos.cn>
-Subject: Re: [PATCH] drm/connector: add CRTC state change callback to HDMI
- audio helpers
-Message-ID: <20260604-adaptable-myna-of-courage-7ffeae@houat>
-References: <20260527085329.124777-1-wangdich9700@163.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="esonjemvazrrql4m"
-Content-Disposition: inline
-In-Reply-To: <20260527085329.124777-1-wangdich9700@163.com>
+ s=k20260515; t=1780579525;
+ bh=qlQij+VDTTP3ZvbjE5k4vvhLH/DNgI7reApsvnTxVoc=;
+ h=Date:To:From:Subject:Cc:References:In-Reply-To;
+ b=IBHe1fmAC8iMdLdxYgxl0M78EObVs/QYGXWdc/WCHfEPWbw1ChvNh/EyOWM/D0n2k
+ 7iNFkgMAD0XIJIn62sEB+Add4oUz5TAmRdRlN+67wLd+kvtGWPATKCg09p9H52gU5R
+ OajUnykzwUUb9D3lq3r4nkPfoD4Hg93s6mxCBVkJikFg5IpwK3SNa8d4MlrF64idXF
+ jpuw35iKLfMvyEwWnwhAFwW/9nLubnmwzLoADPwofPCbAUj37hqnEuj70SlHQ1BrEh
+ nPQ3mlcFDmpzShJ10qBkP30hZJdUdHL9TGGUkiKV4B5Ao+Cn21G0kNJlcHBpT5Mgdo
+ k9sotwcAGqjcw==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 04 Jun 2026 15:25:19 +0200
+Message-Id: <DJ0AREWNNJPT.9XEZC98B76II@kernel.org>
+To: "Lyude Paul" <lyude@redhat.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v17 4/6] rust: faux: Allow retrieving a bound Device
+Cc: <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <nouveau@lists.freedesktop.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, <driver-core@lists.linux.dev>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Simona Vetter" <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, "Sumit
+ Semwal" <sumit.semwal@linaro.org>, <linux-media@vger.kernel.org>, "Rafael J
+ . Wysocki" <rafael@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>,
+ "Maxime Ripard" <mripard@kernel.org>, "David Airlie" <airlied@gmail.com>,
+ "Benno Lossin" <lossin@kernel.org>, <linaro-mm-sig@lists.linaro.org>,
+ "Mukesh Kumar Chaurasiya" <mkchauras@gmail.com>, "Asahi Lina"
+ <lina+kernel@asahilina.net>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>
+References: <20260603195210.693856-1-lyude@redhat.com>
+ <20260603195210.693856-5-lyude@redhat.com>
+In-Reply-To: <20260603195210.693856-5-lyude@redhat.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,91 +71,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Wed Jun 3, 2026 at 9:42 PM CEST, Lyude Paul wrote:
+> When writing up some rust code that used faux devices for unit testing, I
+> noticed that we never actually added the Bound device context to
+> faux::Registration's AsRef<device::Device> implementation. This being sai=
+d:
+> the Registration object itself is proof that a driver is bound to the
+> device - so this should be safe.
 
---esonjemvazrrql4m
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] drm/connector: add CRTC state change callback to HDMI
- audio helpers
-MIME-Version: 1.0
+Yes, it should be, but the reasons are non-trivial and should be part of th=
+e
+safety comment below.
 
-Hi,
+  - faux_match() always returns 1, and probe runs synchronously
+    (PROBE_FORCE_SYNCHRONOUS)
 
-On Wed, May 27, 2026 at 04:53:29PM +0800, wangdich9700@163.com wrote:
-> From: wangdicheng <wangdicheng@kylinos.cn>
->=20
-> The DRM HDMI audio helper framework notifies the audio codec about
-> physical connection changes via drm_connector_hdmi_audio_plugged_notify(),
-> but has no mechanism to notify when the CRTC state changes while the
-> connector remains physically connected.
->=20
-> This is a real problem on platforms with DP/HDMI audio. When a CRTC is
-> disabled while the sink remains connected (e.g. user switches to
-> "internal display only" mode but still wants audio from the external
-> monitor), the audio path silently breaks because:
->=20
-> 1. The video stream is disabled, so there are no blanking intervals
->    for audio Secondary Data Packets (SDP) to be transported.
->=20
-> 2. The audio codec still believes the jack is present because
->    plugged_notify() was not called (the connector is still physically
->    connected).
->=20
-> 3. Userspace (PulseAudio/PipeWire) continues routing audio to the
->    external display, but no sound is actually output.
->=20
-> Without a framework-level notification, vendors who need to support
-> "audio output to external display while CRTC is inactive" are forced
-> to scatter condition checks across CRTC disable, encoder disable,
-> suspend, and resume paths. This pattern is fragile: any change in
-> the display pipeline can break the audio path, and the same condition
-> ("connector connected but CRTC inactive, and audio is in use") must
-> be duplicated in multiple locations.
->=20
-> The root cause is architectural: the audio codec has no visibility
-> into CRTC state changes, so there is no clean way to implement
-> policies like:
->=20
-> - Mute audio output when CRTC is disabled (instead of silent breakage)
-> - Keep the video stream alive for audio transport
-> - Switch to DP Audio Only mode (hardware-supported on some platforms,
->   e.g. Intel TRANS_DP_AUDIO_ONLY, but never used in i915 driver)
->=20
-> The HDA HDMI silent stream / KAE mechanism partially addresses this on
-> Intel platforms, but it operates only on the audio codec side and does
-> not coordinate with the DRM side. It also cannot work on platforms
-> without HDA codec support (e.g. ASoC-based designs).
->=20
-> Add an optional callback crtc_state_change() to
-> drm_connector_hdmi_audio_funcs, and a corresponding notification
-> function drm_connector_hdmi_audio_crtc_notify(). DRM drivers should
-> call this when the CRTC state changes on a connector with audio
-> capability, allowing audio codec implementations to react to display
-> pipeline state changes rather than only physical connection changes.
->=20
-> This provides a framework-level mechanism to implement "audio without
-> active display" policies cleanly, instead of scattering condition
-> checks across the display pipeline.
->=20
-> Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
+  - suppress_bind_attrs =3D true on faux_driver prevents userspace-triggere=
+d
+    unbind via sysfs
 
-I'm not saying this is right or wrong, but I'd like to see what it looks
-like from a driver point of view before merging anything in the
-framework.
+  - mem::forget(Registration) is not a problem; if the Registration is leak=
+ed,
+    the faux device stays bound forever
 
-Maxime
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
 
---esonjemvazrrql4m
-Content-Type: application/pgp-signature; name="signature.asc"
+I can pick this through the driver-core tree already, as it seems this it n=
+ot
+needed by this series. Feel free to resend as individual patch for thus pur=
+pose.
 
------BEGIN PGP SIGNATURE-----
+> ---
+>  rust/kernel/faux.rs | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+>
+> diff --git a/rust/kernel/faux.rs b/rust/kernel/faux.rs
+> index 43b4974f48cd2..e0856b2964a2c 100644
+> --- a/rust/kernel/faux.rs
+> +++ b/rust/kernel/faux.rs
+> @@ -25,7 +25,8 @@
+>  ///
+>  /// # Invariants
+>  ///
+> -/// `self.0` always holds a valid pointer to an initialized and register=
+ed [`struct faux_device`].
+> +/// - `self.0` always holds a valid pointer to an initialized and regist=
+ered [`struct faux_device`].
+> +/// - This object is proof that the object described by this `Registrati=
+on` is bound to a device.
+>  ///
+>  /// [`struct faux_device`]: srctree/include/linux/device/faux.h
+>  pub struct Registration(NonNull<bindings::faux_device>);
+> @@ -59,8 +60,8 @@ fn as_raw(&self) -> *mut bindings::faux_device {
+>      }
+>  }
+> =20
+> -impl AsRef<device::Device> for Registration {
+> -    fn as_ref(&self) -> &device::Device {
+> +impl AsRef<device::Device<device::Bound>> for Registration {
+> +    fn as_ref(&self) -> &device::Device<device::Bound> {
+>          // SAFETY: The underlying `device` in `faux_device` is guarantee=
+d by the C API to be
+>          // a valid initialized `device`.
+>          unsafe { device::Device::from_raw(addr_of_mut!((*self.as_raw()).=
+dev)) }
+> --=20
+> 2.54.0
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaiF8HgAKCRAnX84Zoj2+
-dlf6AX4sXeFeJrd9hJOCZK2d2NAsvapCSl2UFgSyOmi58uKhmw+Fx5SyzCbaNofT
-0nJJtAQBf0QLI9se14JNAWKbWQNAj774wcSBuBLtpj+3a2OCKvfBJz1K0lQ5Jga9
-NiMsYhFxzQ==
-=c1MQ
------END PGP SIGNATURE-----
-
---esonjemvazrrql4m--
