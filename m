@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A4CDCD6E57
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 09:43:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED762CD6E68
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 09:49:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F044F10E147;
-	Thu,  4 Jun 2026 09:43:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B587710E5DE;
+	Thu,  4 Jun 2026 09:49:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="niblaG2N";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="rYffpsq4";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AEDF10E147
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 09:43:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A716E601DF;
- Thu,  4 Jun 2026 09:43:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DA221F00893;
- Thu,  4 Jun 2026 09:43:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780566230;
- bh=Jr5p7L025l5AeOyYY0OiYrQNKQ4cBVm4lneQmDi1MpU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=niblaG2NeNcheETDbWROWRN2EC8gUaeqU+V2iVk/GSdhP8Z5E3h/Gqpa5xH9cOpQ1
- v6hrbB7Jus7K1nshEC5tnaXEu/x8R0Ps4MUAXWUUwT0v92mDO1wuGIP+A09ewkQc3R
- fewRlDncxRlqrzoTxEvDeXuP3fJVL9FX+trLyhY92vve5JphyKdwYusPG+7U/3wQ9z
- 2vJgIhyrAkFhIBA1MXydcQxfKlKZZc4vg+gsKTiHeslcVTAbWNka86r8xtj34X4OJd
- JPg5dlYSt4RSFaXGFT+erozr6bJfWrCgR4+GV5uKZqspaOb3D1WgDUAG9cSmTV8MK3
- Q5HIolmsKCCkw==
-Date: Thu, 4 Jun 2026 12:43:44 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: David Hu <xuehaohu@google.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>,
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
- Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
- jmoroni@google.com, praan@google.com, stable@vger.kernel.org
-Subject: Re: [PATCH v5] dma-buf: Fix silent overflow for phys vec to sgt
-Message-ID: <20260604094344.GB245424@unreal>
-References: <20260601200012.3872274-1-xuehaohu@google.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D737410E5DE;
+ Thu,  4 Jun 2026 09:49:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=vCL6XLGZbPYHzf24wiXSlcfpsWTswMCi57bgSjUSRoI=; b=rYffpsq4l6WVXkaoAtE8QC/tPy
+ mgMzDBm8zOGq9jSbOpdypMaNbqm9IABImsNNMuSwhZivi1Tgbu4WuO6+pkPzum4QKUWlbt9DQChIc
+ LYQtTItX6l66idKyxmYwQZCK0YA2jgslxD6WGAtDPCnDR0YHQ/GcCAabOQX2CGRwdp2NKOYRJKl5P
+ s7H7mAyWp0ycEJ0s4x9d2gmxATrpZG4cH/WPLhSAvS7am4aTOwjDQMdZVKy6CGqE5rox8NTNEl7bj
+ CWTFJOSPyJ5IJ+l/+RUbfnahhiiXuOAYetoutMUqBIVbcW+HXNOJPUALTdH9TqiT0tbINEqcWkhGW
+ 1bw/QwOA==;
+Received: from [79.117.146.159] (helo=[192.168.1.135])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wV4ht-00CZqY-Qj; Thu, 04 Jun 2026 11:49:45 +0200
+Message-ID: <cb66bacc-f8ff-4cc3-8663-c260fc34c744@igalia.com>
+Date: Thu, 4 Jun 2026 11:49:44 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260601200012.3872274-1-xuehaohu@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Fix mem_type change detection for async
+ flips
+To: Matthew Schwartz <matthew.schwartz@linux.dev>, Leo Li
+ <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Tom Chung <chiahsuan.chung@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20260604064424.3154796-1-matthew.schwartz@linux.dev>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <20260604064424.3154796-1-matthew.schwartz@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,118 +63,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 01, 2026 at 08:00:12PM +0000, David Hu wrote:
-> In case MMIO size is bigger than 4G and peer2peer DMA goes
-> through host bridge, we trigger a code path that assigns the
-> total linked IOVA (which is greater than 4G) to mapped_len.
-> 
-> Previously, `mapped_len` was declared as 32-bit `unsigned int`.
-> When accumulating `size_t` lengths, this leads to a silent wrap-around.
-> This truncation causes truncated lengths to be passed to functions
-> like `fill_sg_entry()`.
-> 
-> Fix this by changing `mapped_len` to `size_t` (64-bit). While
-> at it, fix similar potential overflow issues in `calc_sg_nents`
-> by using `size_t` for `nents` and checking against `UINT_MAX`
-> and using `unsigned int` for the loop iterator in `fill_sg_entry`
-> to match.
-> 
-> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
-> Cc: stable@vger.kernel.org
-> Cc: iommu@lists.linux.dev
-> Reviewed-by: Pranjal Shrivastava <praan@google.com>
-> Signed-off-by: David Hu <xuehaohu@google.com>
+
+
+On 04/06/2026 08:44, Matthew Schwartz wrote:
+> [Why]
+> amdgpu_dm_crtc_mem_type_changed() fetches the "old" and "new" plane state
+> with two drm_atomic_get_plane_state() calls, which both return the new
+> state. It compares a state against itself, so it never detects a mem_type
+> change and never rejects the async flip.
+>
+> On DCN 3.0.1, this shows up as intermittent corruption when a single DCC
+> plane is scanned out with immediate flips under gamescope and its buffer
+> moves between the VRAM carveout and GTT.
+>
+> [How]
+> Use drm_atomic_get_old_plane_state() and drm_atomic_get_new_plane_state()
+> to compare the actual old and new states. These return NULL rather than
+> an error pointer for a plane that is not part of the commit, so the
+> IS_ERR() check becomes a NULL check that skips those planes, such as an
+> unmodified cursor still in the CRTC's plane_mask.
+
+Nice catch!
+
+Reviewed-by: Melissa Wen <mwen@igalia.com>
+
+>
+> Fixes: 4caacd1671b7a ("drm/amd/display: Do not elevate mem_type change to full update")
+> Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
 > ---
-> Changes in v5:
->  - Removed WARN_ON_ONCE from calc_sg_nents() to avoid log noise (Jason).
->  - Added explicit check for `!nents` in dma_buf_phys_vec_to_sgt() to
->    cleanly return -EINVAL on overflow (Jason).
-> 
-> Changes in v4:
->  - Added WARN_ON_ONCE() to the nents overflow check to prevent silent
->    failures (Claude Bot).
-> 
-> Changes in v3:
->  - Removed leftover sentence fragment from the commit message.
->  - Kept `nents = 0` initialization (previously stated as removed in the
->    v2 changelog) as it is strictly required for the `+=` accumulation
->    loop in `calc_sg_nents()`.
-> 
-> Changes in v2:
->  - Fixed 'IVOA' -> 'IOVA' typo and expanded commit message (Claude Bot).
->  - Added Reverse Xmas tree formatting (Pranjal).
->  - Folded in extra bounds checking for calc_sg_nents() (Pranjal).
->  - Folded in type consistency fix for fill_sg_entry() (Pranjal).
-> 
->  drivers/dma-buf/dma-buf-mapping.c | 15 ++++++++++++---
->  1 file changed, 12 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-> index 794acff2546a..607b7998463d 100644
-> --- a/drivers/dma-buf/dma-buf-mapping.c
-> +++ b/drivers/dma-buf/dma-buf-mapping.c
-> @@ -10,7 +10,7 @@ static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
->  					 dma_addr_t addr)
->  {
->  	unsigned int len, nents;
-> -	int i;
-> +	unsigned int i;
->  
->  	nents = DIV_ROUND_UP(length, UINT_MAX);
->  	for (i = 0; i < nents; i++) {
-> @@ -36,7 +36,7 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
->  				  struct phys_vec *phys_vec, size_t nr_ranges,
->  				  size_t size)
->  {
-> -	unsigned int nents = 0;
-> +	size_t nents = 0;
->  	size_t i;
->  
->  	if (!state || !dma_use_iova(state)) {
-> @@ -51,6 +51,9 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
->  		nents = DIV_ROUND_UP(size, UINT_MAX);
->  	}
->  
-> +	if (nents > UINT_MAX)
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++------
+>   1 file changed, 4 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 6c1e7e13f0399..711640739179e 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -12934,13 +12934,11 @@ static bool amdgpu_dm_crtc_mem_type_changed(struct drm_device *dev,
+>   	struct drm_plane_state *new_plane_state, *old_plane_state;
+>   
+>   	drm_for_each_plane_mask(plane, dev, crtc_state->plane_mask) {
+> -		new_plane_state = drm_atomic_get_plane_state(state, plane);
+> -		old_plane_state = drm_atomic_get_plane_state(state, plane);
+> +		new_plane_state = drm_atomic_get_new_plane_state(state, plane);
+> +		old_plane_state = drm_atomic_get_old_plane_state(state, plane);
+>   
+> -		if (IS_ERR(new_plane_state) || IS_ERR(old_plane_state)) {
+> -			drm_err(dev, "Failed to get plane state for plane %s\n", plane->name);
+> -			return false;
+> -		}
+> +		if (!old_plane_state || !new_plane_state)
+> +			continue;
+>   
+>   		if (old_plane_state->fb && new_plane_state->fb &&
+>   		    get_mem_type(old_plane_state->fb) != get_mem_type(new_plane_state->fb))
 
-I would suggest to use check_add_overflow() while calculating nents
-instead of this check.
-
-> +		return 0;
-> +
->  	return nents;
->  }
->  
-> @@ -95,9 +98,10 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
->  					 size_t nr_ranges, size_t size,
->  					 enum dma_data_direction dir)
->  {
-> -	unsigned int nents, mapped_len = 0;
->  	struct dma_buf_dma *dma;
->  	struct scatterlist *sgl;
-> +	size_t mapped_len = 0;
-> +	unsigned int nents;
->  	dma_addr_t addr;
->  	size_t i;
->  	int ret;
-> @@ -133,6 +137,11 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
->  	}
->  
->  	nents = calc_sg_nents(dma->state, phys_vec, nr_ranges, size);
-> +	if (!nents) {
-> +		ret = -EINVAL;
-> +		goto err_free_state;
-> +	}
-
-Technically, this hunk is not necessary, since sg_alloc_table() will
-return -EINVAL when nents == 0. At least, that is the behavior I relied on.
-
-Thanks
-
-> +
->  	ret = sg_alloc_table(&dma->sgt, nents, GFP_KERNEL | __GFP_ZERO);
->  	if (ret)
->  		goto err_free_state;
-> -- 
-> 2.54.0.929.g9b7fa37559-goog
-> 
