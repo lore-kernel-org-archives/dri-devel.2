@@ -4,93 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB258CD6E6B
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 12:41:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB75ECD6E6B
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 12:41:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 063E1113FD5;
-	Thu,  4 Jun 2026 12:41:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0582B113FD6;
+	Thu,  4 Jun 2026 12:41:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qbMvyf7k";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="GA5STnK5";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34CFD113FD5
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 12:41:40 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-490b1bbcf3aso5492935e9.1
- for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 05:41:40 -0700 (PDT)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9476E113FD6
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 12:41:41 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-45ef82204c6so372736f8f.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 05:41:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1780576899; x=1781181699; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=yaF6dT3/3oZFUZQ63U3q1nVOw5azU9TIPKTq3SkqFUg=;
- b=qbMvyf7kjaFhksbOD87gw02eVQU3DedzkDDVeIYBojk+twZRxXvth7eBoPLbu7vpT2
- Asykq0eV5cJx2ZjaydH7Lrw0bFpjLvrBFtyF54Njd+BE7JkRaXEb8vZrZzW6PwNsfzJG
- 85BUwf7sM1bgVphVBXY1n682CPQ2o2PeV6RlmPFHqbiAvHWk8XL8+c+Uyud5Pz0f5inL
- hlI3/aoApDuSESaP5U/tXZPr8zNv9OsKwQdOWLFXBA1VfHWZ12GCp2+g4qG4A1X4nuEz
- d6fH2M0SfI+6urdEhFuSzz07TB5bOVgpTnRygKL8Dn2Hb1kkKKzVL/vgt9B8yRx4F62A
- o5SA==
+ d=linaro.org; s=google; t=1780576900; x=1781181700; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=oX956Ovy0cEzFC2KbieHkOQE6+VfzcgweLx9ANa2s88=;
+ b=GA5STnK5DVwNYZd50UKaWtno7xcPTItBZny9O5KyO+eG5QVc003btSZ5hoJUC8GY6n
+ T3ZvdONQm8pb6c87NENpjJuBSQY7I4K0m5eU8ASGxE2jk3M3khZjzPuZmej0Np9HS13C
+ ImC8hCCJhnaUtb0Z6sr5fjb6XQsQo4Bbx6d1qAcoyF7fZP+xVDYYrYO7hXxl1MctfK+a
+ TViSgnPQHe8IW+AUccqWWac3niIBNcMj30izPswAMaWHp41ooIxzbabMUPog0yOnh3C3
+ t78SGjJU65bnQOtffj3nN2rku8xpqHilrM19NhUk7SJVkiOKgXXlZRJ1cvEulIiTXob4
+ akRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780576899; x=1781181699;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yaF6dT3/3oZFUZQ63U3q1nVOw5azU9TIPKTq3SkqFUg=;
- b=G24ldNx17ByaKLsud7yeTfFFVLiexOWYPkcm2nhkK8D0QrGJLsohcZiUIfpW4Q2aeL
- I5ms0FW0nmCZybncbNDj66KLITqbbc8UVq+jqJH5hlQoySpKrkeVxKILkiBJWgLiX6BL
- X6ZeB5up4CH2ffAGUfEmiStKU+WpJL+esvqVKvpaExhbMwvkkYrN3reN6U7odhzfruiC
- 7rDx1AyP+CELg28OivmoSNCJcLRe0QSOZ5qbM7cFPkFKeEL3xccYYG/hIZsJdto1qWbs
- EBahMYriXToHX516CBI26e7oUTE86i5AJi3DFge+3Y5oC2kJlTJyY4eW4zg7cu0pZFRw
- qPkw==
-X-Gm-Message-State: AOJu0YxHgUgD0kt0lc/JfhtwoUvb0VoJoNB9yu7b6G91QRmmRUQ63FlO
- Td+LyXkVBpSa27OLfCTqulRN3DW1WPVS4Glen8tvKF/jTQwq6c2k+Eow/jj2/gh26VU=
-X-Gm-Gg: Acq92OFQswV62H27v663DDoDi7L4w/HKAyIWXu+zCYij/F4dTzQ5L0K6pXugsxT/nT0
- DP5fzXrBSjhAo3h5ptu84bCyJed7zpwN4QNkXmC9FcVW6OwOaNpVCq/VHA4VvpUgXOQ/sA86aq7
- G6a87ban9T8lqQ9eXdMqpSU+HmNagRzYVkYFzWCmjagRS9H/8apMJrCKPxh8eB62oroqui473VE
- 5fzcMYxLcUFRQfyRAIacoQHsaIHK5087DMMtZ8coblT/VHnlEChjNORaoTAnOzW61of12WPiaag
- Eg45bezQavnIp7p23Vbfx5AWZu2/FNa2UDhZtJvMPzfQZ4FmX2F1vybPimC5VEa8g5u5+F75Lv4
- 3JUUcbt4+38dyOo/LtQKBP114ybKhmcEBRDM4cy0x0Fn8bz+LjNKeXdMlKnUf4tSrHkP4bLVHsv
- ziHdv82fb5GopcdIFiJk5inV0Qv2VbwmnzP/AxD+e4UbOe2AfLs6OrGL0=
-X-Received: by 2002:a05:600c:3487:b0:490:b6a4:9f43 with SMTP id
- 5b1f17b1804b1-490b6a4a040mr115728355e9.7.1780576898590; 
- Thu, 04 Jun 2026 05:41:38 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1780576900; x=1781181700;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=oX956Ovy0cEzFC2KbieHkOQE6+VfzcgweLx9ANa2s88=;
+ b=PVf5SYTcVh5l8rLjtENxUpJ//eKqFP4HW+FfS0EYwONmn9CH7mJ1i79oHinGvLVISt
+ SshNv+55ixzSMaYfV8BZ0SgKFl3eB8xkM1hMs2GgPuY5lPsVBkQj2Mdzqo59eU8o7bia
+ +nE6CChpHuoMiV5XbiTo82DTAneMbclHqq2GfZMuQ3LANbQdJ8i30+mwF/XgLdQGxqQL
+ L6GNuxfblEnq/LvLb9FALG05Af7bpcuwO3a6F3s4eFw9NQ4C7kp0dwa8Nr5j2FTFMb3c
+ JmfCCEA37wSFNU7fDhOfmwnKzlp7UyvrWSRi7MkFJNI091/uBSuQypIlvQnWz/qjsC0m
+ Nj3g==
+X-Gm-Message-State: AOJu0YzGDhDyi/WTS/xY/ai7vADjbL+X6QwjiBlkifb/X2g2ScjguSDn
+ sTp4VZ5l29xE3RPh91+zL4/l2LkOtNGzZoBJ3zcYdGlX3n56tK5FvgfclFn35ORF8lw=
+X-Gm-Gg: Acq92OF9zQ8qkfkYI3FO3j3bUMQxhTmfN0/DHjeSgMPx4kdq3QLIKmOjATyYZ0/+N7Q
+ SNw6absAyifKyjFyCZgmQk1UbrmjusxxpHvY1XRckdpcanY3gtV8skywr7cMUDTYkuhYhprI5Zz
+ 2SghGtoJsK+I2vWLjlLaXeuiKs0TJmHg4+h6aI5hVBLP2psjgHnUT298vl5IDhGS+2h+NSXYEKL
+ 6We4HnByjsadij/v12mXjCV+CSVfqIuRI0BcmeM5mU+jtOxTooGDHIswm5CFZV9A9aAuDEii8tj
+ z5q5Y6rpVM9O1N5zD9Hdez7GvOfV6M82Ct/xIeZz19DLahEmj74yXbyqze/1vAlynHp5CwwmxR5
+ pXJHb88wFT16j6JYEbdNCHzoOYgOarOYvoCTK6SBdMSRQ41dAMyuEi/u+cE5SHJyyHDCT5aTx7a
+ IQEgCtdNMfQCInM05HkymtXOsY4e6uy/ESa1YjJRLs4xkANVhfBh6v8g8=
+X-Received: by 2002:a5d:6941:0:b0:43d:68ad:3b7f with SMTP id
+ ffacd0b85a97d-46021829aefmr8958854f8f.21.1780576899978; 
+ Thu, 04 Jun 2026 05:41:39 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4601f35133csm16242686f8f.25.2026.06.04.05.41.37
+ ffacd0b85a97d-4601f35133csm16242686f8f.25.2026.06.04.05.41.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Jun 2026 05:41:38 -0700 (PDT)
+ Thu, 04 Jun 2026 05:41:39 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: [PATCH 0/2] drm/panel: couple of visionox vtdr6140 driver enhancements
-Date: Thu, 04 Jun 2026 14:41:34 +0200
-Message-Id: <20260604-topic-sm8x50-vtdr6130-dsc-v1-0-09bcd1dff1fb@linaro.org>
+Date: Thu, 04 Jun 2026 14:41:36 +0200
+Subject: [PATCH 2/2] drm/panel: visionox-vtdr6130: switch to devm panel
+ calls and drop remove
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAH5yIWoC/yXMwQ6CMAyA4VchPdtkQyjqqxAPs6taE4Gsk5AQ3
- p2px+/w/yuYJBWDS7VCkllNx6HAHyrgZxgeghqLoXY1OXIN5nFSRnufltbhnGMif3QYjdETd3T
- uArWBofRTkrsuv3d//ds+t5dw/g5h23aG2Kh0fQAAAA==
-X-Change-ID: 20260604-topic-sm8x50-vtdr6130-dsc-16c7697a65ac
+Message-Id: <20260604-topic-sm8x50-vtdr6130-dsc-v1-2-09bcd1dff1fb@linaro.org>
+References: <20260604-topic-sm8x50-vtdr6130-dsc-v1-0-09bcd1dff1fb@linaro.org>
+In-Reply-To: <20260604-topic-sm8x50-vtdr6130-dsc-v1-0-09bcd1dff1fb@linaro.org>
 To: Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>, Jun Nie <jun.nie@linaro.org>
+ Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=609;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1783;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=bAxPMwLB7LUOZ+P8mFegVr6+ZhkgNJibde/NKx75Wcc=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqIXKALbDzOZamF4NSYdEeWNfNx9AK4Cgfqo2CbOzU
- /PDhFPKJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCaiFygAAKCRB33NvayMhJ0ZUQD/
- 4/nmbTIguEXIWuXbs2d56oEf1Jj3Z5Ut2wAI4gKrDyQQY3xzWDoHXw6T7dYVdEqJ8jjMwnH4JlqRqR
- MaHwOdFxNYLhCMQemO6BhctXm3ZEmzXVkQpEy1Ucamh6XSwaxXICdH6apLb2vbjqu7NdKOgRqj+HjT
- 15SE3YOAdWXV8hjrdNC0SYmgbmUSMTJYxcyvZfau0oQEIzgGPbtVl48U3WA8ZRHa4dKqHNS3XFIdCD
- twQ+RqBGof9cN7tl0TKinJdFQMfbc9bEojMK5gAGC8OFmiddgS4CsaY/6E37nxEFwK4UJext1wo2f8
- /WTrHTrsHpqmW1rBL84yrvVx1UPCAJzFmbK5ygRgeJJSSQhmQDtd1nIPndOhUYMLZAzOW1il8u2xHW
- 8bGImlFNK3Vl3SNWnwxkkc4EaRd3uuYFAuDbiXnEawO+iaSeU/gjlpbHa8F9ouQlqApzG2C3lhWIh2
- IXbuA42diVn21GlbkeEcnms8/uJz5bkKBR1GsivlspXh9t2e3h3PLcZv3gl7Pprmuvac0UOYKkcZdD
- isWSD9acbd9RPrLy4n69mV83O7iISNQ0N1WkXt1SCDvP5eKYrn8bPqjIVaBs6g+CUBAwsvmzDlS843
- hEIUPp7ljTVwekL/o/BkwZ2+biGfRwyFFrAzc9zLVfZoI3efGRNs7Yi7jp/g==
+ bh=f5/dVqkaXjhX6dtp61tSmUjJiQd2J/ejrflXA7Mzdjg=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqIXKB2tNes0WWa4Gf7ZpuO4XQ0jb6kgTgHv2NeRVG
+ RiDKNyyJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCaiFygQAKCRB33NvayMhJ0WcDD/
+ 9RjlKVcIerDQizX5TaeDFEbTAp35lg7GsqLDEA6HFiFbH482Kadkjc/sTMYvECXYGjpaVhCzj/6NXt
+ mrZuXBL5pxo/V8H0YHojo/V5d1vqCMBVHVypxynZIhxhc5wSTPogue1EYf/xH5gSETRFNcgOMW7gCZ
+ cKuOYz1TZH1+IYJv2RaRQ3KFhZzP+B6POOW8G7RCqiPKt7TeOd064V5PGayiy+2Mkzlfpg/qjV5eJH
+ rQYNrNh7HAQ8Rb9YtDDJPoG030Pi3LnPAY2sVcXPEkSz+N2olZ+XphhIHNcuTPZyzBhFTxyt8vTk9h
+ ox/qnRAgdVLN1XHjgDbGHOJ2J+6w2fvpQtiq3UmsX/f6oKutcz3WIR8E/Scrh7j3IHexNyYENbDTU9
+ YIjCC1Dumkf0v4C18QZ9fgtkcluKC9TK5H4jxaO/QW0mfpl867N45ADj13sjiuSyj2e8YEE9YY8tZ8
+ 1BiP2eIlE2ybkkr6tbtsIuCRX6G5lySXoVYPkNZauUOZAYZwkLEjc4+PmBdFb8/yIq6xGZXcraf7WR
+ +tzpGG4F7iA+xi54iSSYg5yVacNsO92V5Dojb7J6wR52osA2cUlf1lpm5tpyOheewU2cGo+vBhRuty
+ oLTgP7RPkc4DobjFSb8c+j+t4QTUmdrTCpduS9d9YeQeCbjytkhG7VG84izQ==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -108,23 +107,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Enable DSC and switch to devm_calls in probe.
+Switch to devm_drm_panel_add() and devm_mipi_dsi_attach() and drop
+the remove() callback.
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
-Jun Nie (1):
-      drm/panel: Enable DSC for Visionox VTDR6130 panel
+ drivers/gpu/drm/panel/panel-visionox-vtdr6130.c | 24 +++---------------------
+ 1 file changed, 3 insertions(+), 21 deletions(-)
 
-Neil Armstrong (1):
-      drm/panel: visionox-vtdr6130: switch to devm panel calls and drop remove
+diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+index 0cdcdbbc766d..6733e0e1d061 100644
+--- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
++++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+@@ -298,28 +298,11 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
+ 		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+ 				     "Failed to create backlight\n");
+ 
+-	drm_panel_add(&ctx->panel);
+-
+-	ret = mipi_dsi_attach(dsi);
+-	if (ret < 0) {
+-		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+-		drm_panel_remove(&ctx->panel);
++	ret = devm_drm_panel_add(dev, &ctx->panel);
++	if (ret)
+ 		return ret;
+-	}
+-
+-	return 0;
+-}
+-
+-static void visionox_vtdr6130_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct visionox_vtdr6130 *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+ 
+-	drm_panel_remove(&ctx->panel);
++	return devm_mipi_dsi_attach(dev, dsi);
+ }
+ 
+ static const struct of_device_id visionox_vtdr6130_of_match[] = {
+@@ -330,7 +313,6 @@ MODULE_DEVICE_TABLE(of, visionox_vtdr6130_of_match);
+ 
+ static struct mipi_dsi_driver visionox_vtdr6130_driver = {
+ 	.probe = visionox_vtdr6130_probe,
+-	.remove = visionox_vtdr6130_remove,
+ 	.driver = {
+ 		.name = "panel-visionox-vtdr6130",
+ 		.of_match_table = visionox_vtdr6130_of_match,
 
- drivers/gpu/drm/panel/panel-visionox-vtdr6130.c | 42 ++++++++++++-------------
- 1 file changed, 21 insertions(+), 21 deletions(-)
----
-base-commit: b7bee4ca5688e30ca50fbc87b1b8f7eed7006c17
-change-id: 20260604-topic-sm8x50-vtdr6130-dsc-16c7697a65ac
-
-Best regards,
---  
-Neil Armstrong <neil.armstrong@linaro.org>
+-- 
+2.34.1
 
