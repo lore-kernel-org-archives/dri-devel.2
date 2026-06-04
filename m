@@ -4,82 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F7DCCD6E6B
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 11:48:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77E42CD6E6B
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 11:49:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B73C2113F95;
-	Thu,  4 Jun 2026 11:48:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C11A9113F99;
+	Thu,  4 Jun 2026 11:49:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kAYv+s6T";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="SN5rpTCy";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2261113F95
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 11:48:21 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-2bf125989f2so3931225ad.3
- for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 04:48:21 -0700 (PDT)
+Received: from mail-wm1-f74.google.com (mail-wm1-f74.google.com
+ [209.85.128.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B000D113FA9
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 11:49:31 +0000 (UTC)
+Received: by mail-wm1-f74.google.com with SMTP id
+ 5b1f17b1804b1-490b3ec3f7fso4658445e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 04:49:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780573701; x=1781178501; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=+NpC1bqSInGOO1aahZDlWqyayeuLAZFyoOtvmQIUnHs=;
- b=kAYv+s6Tbs2/SYGl0i9knmXMLV7MffbFBTZXCbkicRjqsu21GsJWZimc+xnX1qXWbe
- UWzCoInFo6VJkDS8n/rDAUm7A6slssdkrV5c1mLnH2cnYpsxfKIOvPktRxiEfFK+mnh+
- iekQ54jQzJUAujEwD1j9JNvHGeZ4J1Vawe1l4joQ5S4R5tpcg6CV1rKYub30WeTNj2rO
- 2a+mKHCkLPtQO8NcFyQaVRKXdSGSHRqk3Q+wkMTyXFisl0bYK7zJZ2FirY71FAixT2uP
- Uhvgho1cDZ34DfGNGpFDCGyD+wagDDqpDj/gBdp7Cy9zzWSnmzYBNEVVWilc6kfj0BSD
- 9PxA==
+ d=google.com; s=20251104; t=1780573770; x=1781178570;
+ darn=lists.freedesktop.org; 
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=IDsisrKoiSBYw8b45wvLvNabX1p1YR55LCjFQrLjodw=;
+ b=SN5rpTCyFr9AE/eIjmM6WzlL1iOCeDE4MnmWsXc+aDnszcxkvHCUFCS4dCytfd9Soa
+ ruYJYnSYb9tMxiBxlhigtJXW0QeUn2a9K8wnroJMEgUmSG4VCvnloiIz6YWZLw4R9sy4
+ wUlh1nOHkOFDmRucYWgl64DICe/Mep2uLy7xzlrQRXnTlIOXltoJW7CGaNEtUvoPS4q3
+ x2b9kzcsTwnDdLmtbEc/y4Cok8+Gbgq0RPFpXyExJkM4PZ1x7kA8TZaoGSpKIOnK0pS6
+ 759S21f85l5x6696grRJu1HCkImIWMvAM/qQE/q6l5vRzocV/FXYknxSGgfl707itOal
+ N9IA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780573701; x=1781178501;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+NpC1bqSInGOO1aahZDlWqyayeuLAZFyoOtvmQIUnHs=;
- b=ZylUpR7nkVHis2O5EayOJasljImyAxSRNhDtL9MbcHjberw+OwIg5pt84L1olhFSm5
- g5qg5ber+hTtzY4aWN6Q+EZJZARObOdg0NYMddwaU9wLdKAn7w9ZPxWpGoXa0NLb7lA5
- SaNwmJfg33HBGMy2BotYCyTTCWbAuFV0BxYT31flb878QH8ZN8RTDOCOy82S8SdFfrXD
- aEwdXLG5klI9NhBv916y5LfstyfplhAk7x3vCd6bwEEQNYG91SN46WVIpBl9kf4M/dR3
- WwAUiI0q3HMmCjbfiZM5JF9Nq3IUUCKRhzi9OXbNWoL7Mmrj+vn4T1grQUzx9BOiiuey
- lmHw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+uwTFs2PH+Ntm07VIrCpMnwtXG4LFtCz+8VmsxOAnwAeAOqTxkh+ihUZqub9w6++lWGwfJFNnQMW4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YymSsnbI54snNhA0cFAD9A6CtlOvorfztsG+z9chLd4LdYGuY+0
- astllZltRfdyNoI8HbHSD3jnFSnxm25E1vX1r2QP8Yx7ZgoNSii0+Rsh
-X-Gm-Gg: Acq92OFFJAphg8Bm5Fc2gCFjEfR3mxaDPBfYl0KYfoBBA/l1GoGM97ChqLjGbOkxcRF
- nPXVZzEdODXHbwG7RZtIarYIbdt1yo7sDxzp1w67O1SWQV/wvcG+w/hHoH08bjcVg44TlrE7bwP
- lq40bm7mM+ea8lkEFdcsjJVcWzo2zaC7Jwecefls4p06pVMOk0C2ib1Un247rsAhCcr3TmJumPi
- uFzVOQujmIBphH+dsrcEPfMejwDk5beB2GBvmdaKVXTNbRUl7cWH1LbfgtCXo5EtIgcncUDvXfr
- bBBfnrdiaTMBlHaPJJ2EXBz9RLD0g7MH0GgASHg751+0ITPpeC1RgQrwAfzv/5lgJMie9Xay48t
- IVzIr/3uyu45OguoCiTY2fzq/0yvjAgNtI88X9dQ8Fsl+Ah36OAxRlRY+ex2csCyGFLtzRHQyaO
- vJVorMoF01vHt9pqBX
-X-Received: by 2002:a17:902:f78a:b0:2bf:160f:7038 with SMTP id
- d9443c01a7336-2c163a12d2emr88021725ad.12.1780573701192; 
- Thu, 04 Jun 2026 04:48:21 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1000::f280])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2c166396fa9sm55550165ad.66.2026.06.04.04.48.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Jun 2026 04:48:20 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Marek Vasut <marex@denx.de>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>
-Subject: [PATCH] drm/bridge: samsung-dsim: fix TE GPIO ownership
-Date: Thu,  4 Jun 2026 19:46:04 +0800
-Message-ID: <20260604114604.1422184-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ d=1e100.net; s=20251104; t=1780573770; x=1781178570;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=IDsisrKoiSBYw8b45wvLvNabX1p1YR55LCjFQrLjodw=;
+ b=SXnwvb4LSf3CCXAqVlQ+CAHpBooPVNlVASyoREGcQ8i6sAjlFCrUoP6XNYHv2Y7xiC
+ h7NKB+jvQ0EXM80tHzPPpiH9HnDPDtd34/2R1Miu52A8BkzdUtRRqOXBWlo0XMDExNys
+ ORPknmXpZuRvnS1eOowoBMwmH46gwPaa9K+XvAH4jDM+vo98AzijrY2CTMhkMQm0fRPK
+ lsml/N6xfNMeAfLLMZYV5k9f4W/qx3UWrjFmo3MNxYnzfQwjnqe71aU2DNiNNTG3ZA0P
+ sBZ9dLUSP9eZ+Nf8iRUpVMcgzdM9ioGOuUAsEYCKT8POd1pbDl/4m/hxYv4TBW31pTRH
+ BKpA==
+X-Gm-Message-State: AOJu0Ywdb3luCmyMK6Xop/eaL97RkckxPOz5ZxKVMvCqE2pO69AdHM5J
+ Q1zAf3rM+DHVMqtFa8QMzBHjh4H7juUmR3i1Obzh4qsaYQc2hxEOYOgOZy7WM2tc1Ws1jYfVzC1
+ dB69/DqTvqbpWzvmfKQ==
+X-Received: from wmbc9.prod.google.com ([2002:a7b:c009:0:b0:48a:7f8c:a95a])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:1d86:b0:490:6869:46c3 with SMTP id
+ 5b1f17b1804b1-490b5fe79f8mr132548195e9.30.1780573770264; 
+ Thu, 04 Jun 2026 04:49:30 -0700 (PDT)
+Date: Thu, 4 Jun 2026 11:49:29 +0000
+In-Reply-To: <20260603195210.693856-2-lyude@redhat.com>
+Mime-Version: 1.0
+References: <20260603195210.693856-1-lyude@redhat.com>
+ <20260603195210.693856-2-lyude@redhat.com>
+Message-ID: <aiFmSUi0ZHVIj5Q1@google.com>
+Subject: Re: [PATCH v17 1/6] rust: drm: gem: shmem: Fix Default implementation
+ for ObjectConfig
+From: Alice Ryhl <aliceryhl@google.com>
+To: Lyude Paul <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+ nouveau@lists.freedesktop.org, Alexandre Courbot <acourbot@nvidia.com>, 
+ Gary Guo <gary@garyguo.net>, 
+ "Christian =?utf-8?B?S8O2bmln?=" <christian.koenig@amd.com>,
+ driver-core@lists.linux.dev, Miguel Ojeda <ojeda@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org, 
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org, 
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Benno Lossin <lossin@kernel.org>, 
+ linaro-mm-sig@lists.linaro.org, Danilo Krummrich <dakr@kernel.org>, 
+ Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
+ Asahi Lina <lina+kernel@asahilina.net>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,52 +93,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-samsung_dsim_register_te_irq() acquires the TE GPIO with
-devm_gpiod_get_optional(), but the descriptor is released manually in the
-request_threaded_irq() error path and in samsung_dsim_unregister_te_irq().
-The devres entry remains registered and will release the same descriptor
-again when the device is detached.
+On Wed, Jun 03, 2026 at 03:42:30PM -0400, Lyude Paul wrote:
+> I completely forgot when coming up with this type that #[derive(Default)]
+> only works if all generics mentioned in the type implement Default (and T
+> usually doesn't). This being said: We don't use `T` for anything besides
+> using it for a reference type, so whether or not it implements `Default`
+> shouldn't actually need to matter.
+> 
+> So, fix this by just manually implementing Default instead of deriving it.
+> 
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
 
-Use the non-managed gpiod_get_optional() helper instead, so the GPIO
-descriptor lifetime matches the existing manual cleanup paths. Also clear
-dsi->te_gpio after each gpiod_put() to avoid leaving a stale descriptor
-pointer around if the host is attached again.
+This one is so simple I went ahead and applied it to drm-rust-next right
+away.
 
-Fixes: e7447128ca4a ("drm: bridge: Generalize Exynos-DSI driver into a Samsung DSIM bridge")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/gpu/drm/bridge/samsung-dsim.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/bridge/samsung-dsim.c b/drivers/gpu/drm/bridge/samsung-dsim.c
-index c3eb437ef1b0..2299b7dc0c04 100644
---- a/drivers/gpu/drm/bridge/samsung-dsim.c
-+++ b/drivers/gpu/drm/bridge/samsung-dsim.c
-@@ -1862,7 +1862,7 @@ static int samsung_dsim_register_te_irq(struct samsung_dsim *dsi, struct device
- 	int te_gpio_irq;
- 	int ret;
- 
--	dsi->te_gpio = devm_gpiod_get_optional(dev, "te", GPIOD_IN);
-+	dsi->te_gpio = gpiod_get_optional(dev, "te", GPIOD_IN);
- 	if (!dsi->te_gpio)
- 		return 0;
- 	else if (IS_ERR(dsi->te_gpio))
-@@ -1875,6 +1875,7 @@ static int samsung_dsim_register_te_irq(struct samsung_dsim *dsi, struct device
- 	if (ret) {
- 		dev_err(dsi->dev, "request interrupt failed with %d\n", ret);
- 		gpiod_put(dsi->te_gpio);
-+		dsi->te_gpio = NULL;
- 		return ret;
- 	}
- 
-@@ -1886,6 +1887,7 @@ static void samsung_dsim_unregister_te_irq(struct samsung_dsim *dsi)
- 	if (dsi->te_gpio) {
- 		free_irq(gpiod_to_irq(dsi->te_gpio), dsi);
- 		gpiod_put(dsi->te_gpio);
-+		dsi->te_gpio = NULL;
- 	}
- }
- 
--- 
-2.43.0
-
+Alice
