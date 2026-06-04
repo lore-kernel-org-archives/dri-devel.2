@@ -4,68 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD224CD6E4A
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 02:45:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 177E2CD6E4A
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 02:49:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FE5E1125AD;
-	Thu,  4 Jun 2026 02:45:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 300C11125B1;
+	Thu,  4 Jun 2026 02:49:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Q59NykEs";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ih0M909S";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01ADE1125AD
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 02:45:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780541150; x=1812077150;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=zwaEOC72aj4r75+dKErQgCh/I2UYQPGFQIzWi9Bh55Y=;
- b=Q59NykEs2yiaUSVoE6zHmVyHmAlYiQWZoyUWIqOpCXQczH1Db19kIbI6
- tM8jOtLfB1Z9DpVrxE3DdrLKSFgdW8A/mDBgNVvhGWFCCiFnMsdGIIZYY
- pt3wPm/OnNvvH0UIBPc4ogwzBek0ap8FokWdymTKQuWom9BGHF3a47Ljm
- PftZ9Zb4nTQajqZ7x+Af+IBJDejklY/fr7Wf3rsgKDysAco2AwCK4DKEK
- 2fBrzXrKtU4bcYwbRXPr1TOxrl7+jbKjzTXiAyIKiZII8wZE2qTCo8K1k
- tdISjGMnMewAfbmcWWSl8e8BJXtLX34GFZhh1/M2IzeYwvRZ1VH2wNeb8 A==;
-X-CSE-ConnectionGUID: M2f7LjVoQo2FGYlbCmYcYA==
-X-CSE-MsgGUID: 5cidNrCxTk2f85vEDUOeMg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11806"; a="81394976"
-X-IronPort-AV: E=Sophos;i="6.24,186,1774335600"; d="scan'208";a="81394976"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2026 19:45:49 -0700
-X-CSE-ConnectionGUID: S4I3acvjTca0y7rBk61R5g==
-X-CSE-MsgGUID: OCypOtVWTQWlA8M8EeXAjg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,186,1774335600"; d="scan'208";a="244260671"
-Received: from allen-sbox.sh.intel.com (HELO [10.239.159.30]) ([10.239.159.30])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2026 19:45:43 -0700
-Message-ID: <633995b3-f534-49ef-9bb5-2ebebfc2d443@linux.intel.com>
-Date: Thu, 4 Jun 2026 10:44:46 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/32] iommu: introduce iova_to_phys_length in
- iommu_domain_ops
-To: Guanghui Feng <guanghuifeng@linux.alibaba.com>, jgg@ziepe.ca
-Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
- alikernel-developer@linux.alibaba.com, boris.brezillon@collabora.com,
- dri-devel@lists.freedesktop.org, dwmw2@infradead.org, iommu@lists.linux.dev,
- joro@8bytes.org, kevin.tian@intel.com, kvm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- liviu.dudau@arm.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- oliver.yang@linux.alibaba.com, robh@kernel.org, robin.murphy@arm.com,
- shiyu.zsq@linux.alibaba.com, steven.price@arm.com,
- suravee.suthikulpanit@amd.com, tzimmermann@suse.de,
- wei.guo.simon@linux.alibaba.com, will@kernel.org, xlpang@linux.alibaba.com
-References: <20260602104637.1219810-1-guanghuifeng@linux.alibaba.com>
- <20260603151804.1963871-1-guanghuifeng@linux.alibaba.com>
- <20260603151804.1963871-2-guanghuifeng@linux.alibaba.com>
-Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <20260603151804.1963871-2-guanghuifeng@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D93B1125B1
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 02:49:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 87AFD601DD;
+ Thu,  4 Jun 2026 02:49:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11D131F00893;
+ Thu,  4 Jun 2026 02:49:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780541362;
+ bh=is8JgiAyYpeCizHS/TjMLXxGrQo5eMnM5+nKIo5pDOc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Ih0M909SWhS0u6UWdmgSRE/VDRkqohY5NTEodjGLM71iQL/hHj/qeZKqmjTMuZ6kc
+ r6E6GoG8mw4qmPLS11qEQnGUG+HznYGUeW+Q8kIgjPtWyZUHjiauLY0PXHxhrgHH9/
+ LnoZVEra1jQ73eyzrRh9mmaUgsaJSnRllbRIjgCFHB1bcwS37/BL5QjZLvaG1l0g66
+ cwDhEP8EJYzo7giBfuzy+DJWWfLSUt2/4EL2aWh2l+CqiQEOV0P1Q8DBP2Gdz+wqBt
+ X8AJwy21fomJyoEzWUyMZRxz2WcXlrRLFQhkBy67mnp2G6w3a/1OoMKhjDYB2HmYnI
+ nwyeoG4RBhlOg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 03/14] drm/v3d: Use inline lock for dma fence
+ initialization
+To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260603-v3d-sched-misc-fixes-v3-3-d7114bba55a0@igalia.com>
+References: <20260603-v3d-sched-misc-fixes-v3-3-d7114bba55a0@igalia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 04 Jun 2026 02:49:21 +0000
+Message-Id: <20260604024922.11D131F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,27 +53,82 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/3/26 23:17, Guanghui Feng wrote:
-> Add iova_to_phys_length callback to struct iommu_domain_ops alongside
-> the existing iova_to_phys. The new callback returns both the physical
-> address and the PTE mapping page size in a single page table walk.
-> 
-> Add iommu_iova_to_phys_length() core function that:
-> - Checks ops->iova_to_phys_length first (preferred path)
-> - Falls back to ops->iova_to_phys for unmigrated drivers
-> 
-> This enables callers like VFIO to efficiently traverse IOVA space
-> by actual mapping granularity instead of fixed PAGE_SIZE steps.
-> 
-> Signed-off-by: Guanghui Feng<guanghuifeng@linux.alibaba.com>
-> Acked-by: Shiqiang Zhang<shiyu.zsq@linux.alibaba.com>
-> Acked-by: Simon Guo<wei.guo.simon@linux.alibaba.com>
-> ---
->   drivers/iommu/iommu.c | 50 ++++++++++++++++++++++++++++++++++++++-----
->   include/linux/iommu.h |  9 ++++++++
->   2 files changed, 54 insertions(+), 5 deletions(-)
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] Decoupling the DMA fence lock from the queue lock breaks impli=
+cit synchronization, causing a Use-After-Free of `bin_job` in `v3d_overflow=
+_mem_work()`.
+--
 
-Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
+commit f6b0f3208abbe884d00ac4c3eab910833b936a7f
+Author: Ma=C3=ADra Canal <mcanal@igalia.com>
+Subject: drm/v3d: Use inline lock for dma fence initialization
+
+This patch changes dma_fence_init() to accept a NULL external lock,
+falling back to an inline spinlock embedded in the fence itself. This
+decouples the lock and the fence lifetime, allowing queue_lock to use
+spin_(un)lock() instead of the IRQ variants in all its uses.
+
+> diff --git a/drivers/gpu/drm/v3d/v3d_fence.c b/drivers/gpu/drm/v3d/v3d_fe=
+nce.c
+> index c500136d04557..9b1a882a4c159 100644
+> --- a/drivers/gpu/drm/v3d/v3d_fence.c
+> +++ b/drivers/gpu/drm/v3d/v3d_fence.c
+> @@ -15,7 +15,7 @@ struct dma_fence *v3d_fence_create(struct v3d_dev *v3d,=
+ enum v3d_queue q)
+>  	fence->dev =3D &v3d->drm;
+>  	fence->queue =3D q;
+>  	fence->seqno =3D ++queue->emit_seqno;
+> -	dma_fence_init(&fence->base, &v3d_fence_ops, &queue->queue_lock,
+> +	dma_fence_init(&fence->base, &v3d_fence_ops, NULL,
+
+[Severity: Critical]
+Does decoupling the DMA fence lock from the queue lock here break implicit
+synchronization and cause a use-after-free of bin_job in
+v3d_overflow_mem_work()?
+
+It looks like v3d_overflow_mem_work() runs in a workqueue and accesses
+bin_job =3D (struct v3d_bin_job *)queue->active_job under queue_lock:
+
+drivers/gpu/drm/v3d/v3d_irq.c:v3d_overflow_mem_work() {
+    ...
+    spin_lock_irqsave(&queue->queue_lock, irq_flags);
+    ...
+    list_add_tail(&bo->unref_head, &bin_job->render->unref_list);
+    ...
+}
+
+Meanwhile, the interrupt handler v3d_irq_signal_fence() clears
+queue->active_job and signals the job's fence:
+
+drivers/gpu/drm/v3d/v3d_irq.c:v3d_irq_signal_fence() {
+    ...
+    queue->active_job =3D NULL;
+    ...
+    dma_fence_signal(&fence->base);
+    ...
+}
+
+Before this patch, the fence's external lock was set to &queue->queue_lock,
+so dma_fence_signal() would block on queue_lock, preventing the DRM schedul=
+er
+from waking up and freeing the job while v3d_overflow_mem_work() was execut=
+ing.
+
+By changing the fence's external lock to NULL, dma_fence_signal() uses its
+own inline lock and returns immediately. Could this allow the DRM scheduler=
+'s
+wait queue to wake up and free bin_job concurrently, leading to a
+use-after-free when v3d_overflow_mem_work() dereferences bin_job->render?
+
+>  		       queue->fence_context, fence->seqno);
+> =20
+>  	return &fence->base;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603-v3d-sched-=
+misc-fixes-v3-0-d7114bba55a0@igalia.com?part=3D3
