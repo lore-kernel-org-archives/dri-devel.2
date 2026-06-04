@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06219CD6E75
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:27:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4790CD6E6E
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:28:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65CBE11A2FB;
-	Thu,  4 Jun 2026 20:27:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A6C611A2FC;
+	Thu,  4 Jun 2026 20:28:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HEEpirqS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EqSeetLX";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 039B911A2FB
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:27:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C61F711A2FC
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:27:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D562140906;
- Thu,  4 Jun 2026 20:27:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 924201F00893;
- Thu,  4 Jun 2026 20:27:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AF44A43674
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:27:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 630F81F00893;
+ Thu,  4 Jun 2026 20:27:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780604841;
- bh=7wOOwOd1vftgTlO09RYDjtGaFcov3a+yHBhROh9+4gs=;
+ s=k20260515; t=1780604879;
+ bh=YBvC4Fda+tKS9v7W4UIElArPjNz9mmn4BPqn1AWLPdo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HEEpirqSKKMCzFbA5bD+1naUavfFciko9ZrHJr5hnYMY+rjZX+VxmEFqYyJlgZH1t
- vZBfv9rsHeQMmEC9jCbzyPtH9FXG569UFiqprt/HxulKdoxY3m0tA3mjEIi61zAGO4
- UNk8dGquW6NqSrGMrFkYz7mQ6izjBFkqtqHRaZLG3oa6FhC49x8VJiAM/Z0XmLGYpm
- KedyYOScTjovPUhMZMHiaP8f18+kxhjhEQXPxKQ3ieBq/XcfmG9fSPDSCoEBI9iLuS
- YX5USo/U6PGyD/RFdOyqVR+81EvggdlHdVmE2YiIeqbN/zGYQai35IMYasbHtHFvib
- 2h0x4aMDTYFOg==
+ b=EqSeetLXqhpSDfGyVu4AENk1xy9TWLjtgEM/XscT4En1cRlANf6yYQmkpgoS6yzSO
+ /MuEbMyjIwX3fka9SKL03H0uL4SIuwDWw63TvYtbSPchZCX5mmn0Ujm50I3iSSCEO3
+ XOrC16OuB0kwgF8woLO7Mk2g5ENxc2RpR7lPNGMFusNyTJtFl+KUPlENgH5h614wnF
+ 1PAw6l+xxjoxRoNskaswaGFf2jBj7ZxPVstlDs4bOeyIDrZTGgFyL+crbn3dGx3krI
+ TfgGJ7ntc2+3Bf9/Az812bxWenUCiFa3PMGAkLZ8+u6LyqAeN5D1FY9cCBtl3dJQl6
+ 7qWMxonTDYxYA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/6] drm/msm: Recover HW before retire hung submit
-To: "Akhil P Oommen" <akhilpo@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260605-assorted-fixes-june-v1-2-2caa04f7287c@oss.qualcomm.com>
-References: <20260605-assorted-fixes-june-v1-2-2caa04f7287c@oss.qualcomm.com>
+Subject: Re: [PATCH v17 10/10] rust: page: add `from_raw()`
+To: "Andreas Hindborg" <a.hindborg@kernel.org>
+Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ ojeda@kernel.org
+In-Reply-To: <20260604-unique-ref-v17-10-7b4c3d2930b9@kernel.org>
+References: <20260604-unique-ref-v17-10-7b4c3d2930b9@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 20:27:20 +0000
-Message-Id: <20260604202721.924201F00893@smtp.kernel.org>
+Date: Thu, 04 Jun 2026 20:27:59 +0000
+Message-Id: <20260604202759.630F81F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,100 +57,63 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Early fence signaling allows concurrent unmapping of shared BOs be=
-fore the hung GPU is stopped, reproducing the exact pagefaults the patch in=
-tended to fix.
-- [High] Concurrent GPU progress during hang recovery causes the recovery l=
-ogic to double-increment the fence and silently drop a subsequent, unexecut=
-ed submit.
+- [Low] The `Page::from_raw` method silently bypasses the documented type i=
+nvariants of the `Page` struct and lacks an `// INVARIANT:` comment.
 --
 
-commit 3c515db3794c4f1061da14c3adffcf64bbdd2fc5
-Author: Jie Zhang <jie.zhang@oss.qualcomm.com>
+commit 224010a6541ae8f534f1577d76a1acd3e9bb5d34
+Author: Andreas Hindborg <a.hindborg@kernel.org>
 
-drm/msm: Recover HW before retire hung submit
+rust: page: add `from_raw()`
 
-During recovery, it is not safe to retire the hung submit before we
-recover the GPU. Retiring the submit triggers BO free and that can
-result in GPU pagefaults since the GPU may be actively accessing those
-BOs.
+This commit adds a new from_raw() method to the Page struct. It enables the
+creation of a shared &Page reference directly from a raw struct page C
+pointer.
 
-To fix this, retire the submits after gpu recovery is complete in
-recover_worker().
+> diff --git a/rust/kernel/page.rs b/rust/kernel/page.rs
+> index 844c75e541345..d56ae597f6926 100644
+> --- a/rust/kernel/page.rs
+> +++ b/rust/kernel/page.rs
 
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> index 18ed00e5f143b..9ac7740a87f01 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> @@ -552,11 +552,11 @@ static void recover_worker(struct kthread_work *wor=
-k)
->  		msm_update_fence(ring->fctx, fence);
->  	}
+[ ... ]
 
-[Severity: High]
-This isn't a bug introduced by this patch, but can concurrent GPU progress
-during hang recovery cause the recovery logic to double-increment the fence
-and silently drop a subsequent, unexecuted submit?
-
-In recover_worker(), the hung submit is identified early using:
-
-    submit =3D find_submit(cur_ring, cur_ring->memptrs->fence + 1);
-
-Because the GPU is not halted during the time it takes to capture the crash
-state, it may legitimately finish the hung submit and concurrently write
-the next fence value to ring->memptrs->fence.
-
-Later in the function (just above this hunk), the loop reads the updated
-fence:
-
-    uint32_t fence =3D ring->memptrs->fence;
-    ...
-    if (ring =3D=3D cur_ring)
-        ring->memptrs->fence =3D ++fence;
-
-This explicitly increments the already-updated fence and writes the next
-value back to shared memory. retire_submits() will then retire the
-unexecuted submit corresponding to that next fence, skipping it entirely
-while userspace receives a success signal.
-
-
-[Severity: High]
-This is a pre-existing issue, but does early fence signaling still allow
-concurrent unmapping of shared BOs before the hung GPU is stopped,
-reproducing the exact pagefaults this patch intended to fix?
-
-While this patch moves retire_submits() to happen after
-gpu->funcs->recover(), the call to msm_update_fence() remains before the
-recovery.
-
-Because msm_update_fence() advances the fence context's completed_fence to
-include the hung submit, any concurrent thread calling
-dma_fence_is_signaled() (such as userspace polling a sync_file) will
-observe the updated completed_fence.
-
-This causes dma_fence_is_signaled() to wake up all waiters and allows them
-to unmap the shared memory from the GPU page tables while the GPU is still
-actively executing.
-
-Should the loop containing msm_update_fence() also be moved after
-gpu->funcs->recover() to completely close this window?
-
+> @@ -214,6 +214,18 @@ pub fn nid(&self) -> i32 {
+>          unsafe { bindings::page_to_nid(self.as_ptr()) }
+>      }
 > =20
-> +	gpu->funcs->recover(gpu);
+> +    /// Create a `&Page` from a raw `struct page` pointer.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// `ptr` must be convertible to a shared reference with a lifetime =
+of `'a`.
+> +    #[inline]
+> +    pub unsafe fn from_raw<'a>(ptr: *const bindings::page) -> &'a Self {
+> +        // SAFETY: By function safety requirements, `ptr` is not null an=
+d is convertible to a shared
+> +        // reference.
+> +        unsafe { &*ptr.cast() }
+
+[Severity: Low]
+This isn't a bug, but should this unsafe block include an `// INVARIANT:`
+comment to justify the type invariants of the Page struct?
+
+The Page struct has an `# Invariants` documentation section stating that it
+has ownership over the page. While that ownership invariant might be an
+obsolete leftover, creating a &Page reference here conceptually asserts that
+the referenced memory satisfies this type invariant.
+
+Could we add the required `// INVARIANT:` comment or update the outdated
+type invariant documentation to clarify this?
+
+> +    }
 > +
->  	/* retire completed submits, plus the one that hung: */
->  	retire_submits(gpu);
-> =20
-> -	gpu->funcs->recover(gpu);
-> -
->  	/*
->  	 * Replay all remaining submits starting with highest priority
->  	 * ring
+>      /// Runs a piece of code with this page mapped to an address.
+>      ///
+>      /// The page is unmapped when this call returns.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605-assorted-f=
-ixes-june-v1-0-2caa04f7287c@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-unique-ref=
+-v17-0-7b4c3d2930b9@kernel.org?part=3D10
