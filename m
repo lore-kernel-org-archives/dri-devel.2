@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EF75CD6E6D
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 14:26:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3346CCD6E4A
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 14:27:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BECE710E315;
-	Thu,  4 Jun 2026 14:26:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DEA610E318;
+	Thu,  4 Jun 2026 14:27:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="Jyvym5rM";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="Yd9UYLIL";
 	dkim-atps=neutral
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com
- [209.85.160.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDFE510E33D
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 14:26:06 +0000 (UTC)
-Received: by mail-qt1-f171.google.com with SMTP id
- d75a77b69052e-51775f2473aso5632781cf.0
- for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 07:26:06 -0700 (PDT)
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
+ [209.85.222.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A921410E2FA
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 14:27:08 +0000 (UTC)
+Received: by mail-qk1-f170.google.com with SMTP id
+ af79cd13be357-91574384cc2so89778385a.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 07:27:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1780583166; x=1781187966; darn=lists.freedesktop.org; 
+ d=ziepe.ca; s=google; t=1780583228; x=1781188028; darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=clkIHT02uZl46rCjOXn4DL3sKNX9XCKfChcmoui9JdM=;
- b=Jyvym5rMAFUhE0ABzUwAGzacle81K4QJ/87Dicu9ZbkwnutMogrqw1SchWi7oD/pKP
- oX3Q5AjPmr6Zdb46BaWNZnGpRP8qFJs1wDc4uk6wMOZJh+lTQ5TorDJAHd+v/lXjpFqC
- 4Zf5azs+m6SvdWCglvfPhBsgwI8yv6hD2NJf+75ETz53vTOdp3QMPLDgsgJIIyCGQloz
- ISpbex9CSt7Jv5PlLGOPofAiqVvlJtAjTmFI79DgSq9mwO79NzTWrZ7EDPpAYocZ/I0C
- s9eZlM8VeCNvNOcQh/m6D+qedTFnkFWUXk4oYR1JILy4GUzFOVgPR8amXk6CdA1KhEqI
- KTCg==
+ bh=rHKibgV+RCLusPgB3KbLwXXB/tqYgf/ZSAW8CwOeGIc=;
+ b=Yd9UYLILHN9f/wc9pDnJwHXKBuU6i6ZkzIwCxvf2j5c16E+EB6yq7q/hdzdwiQYm+b
+ VnA9F3CuokjXgEVqcxyPO5FXguXGmnyuwm/nD4Ikr5kyxnoY0uMLHTUsToud97oASUV1
+ 1V95kgvWp8QxDl07BYBdeJNeOIZrDo5YxlTTKquJRcdhDJ7zMyz0AoSDLHRjkjlNJXBZ
+ 8ZeuzrrEFWMID3G+OCiY15trF20zErDu8DmndPxzfK05PyOjxtoOh6WoNR1Dghsy/DC5
+ Wr7vFIXQlSa2+nh/TB73DZdxVU84OO+dU7fR+OrEOvN8pSWiHiY0Sm7YYN2qiMdgxBfq
+ F6rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780583166; x=1781187966;
+ d=1e100.net; s=20251104; t=1780583228; x=1781188028;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=clkIHT02uZl46rCjOXn4DL3sKNX9XCKfChcmoui9JdM=;
- b=VwXUCGylVZRwQiRo+Qh6GztVAIj4DLa7+v+sF7seJ8XVtQJVyY/xkViDpnnhU9cD0B
- eHpZU62tG5FZ2Jww+bZCZcUHBnTXOb3h24jMuo2VFzJQBreAjgPfJlh0bPm0rNFLdKpp
- RM5l9ibFNxnu4Nn7S4cuv2GkLiHxaytoOwvTSEO2POj6oSf/p/nTmLM/R+0pXZm2O2kk
- uBXPS4Y6cF0CRkjusffNgiADts2kMbal4vVYLL3InSeKEQoZFVpl6CDwSZ6UB4aWxC/m
- dXBaGRUr6IX20WcOVsFmzpP+GmPbdWi9XM6qwIJ9PK9TmtH0n3d2ARD2WPi5PLshSL3q
- cF0w==
+ bh=rHKibgV+RCLusPgB3KbLwXXB/tqYgf/ZSAW8CwOeGIc=;
+ b=mFz/z02rzavzri9fdrkBywpmhIEAzIDMCXFKtBlCnjsnx8czvqCL3HOUkgkSQ4BMus
+ e2sGVXEHr3TavtGg4u4YwAaP+1AI34xBEmnlKeizmggsRKB26snbRDnm9av938h9IwuS
+ oidnn4QN2QexZPggAkwy08CQFxi0fe0I22UgcvJZm4cKQ3vcQcLuVpdd0q710+1kmbmV
+ 3uu3ogvrFJSkxsfKdNaK2R5sxdTcOLjEKuouY8OwV8yFL+kT/s6LHYtDCWDIVEyY8icG
+ XaJi/znZl/olIeoGH4IREXJoMJ3X2KbhGMczhN8tQpIZTylV5LYZYcSftMTcbbVuU9vt
+ ir7g==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+0q4f6nsYDEcovjkhlOro1DNlXyZZmLC2cQ9njHWzg+P28JzjUIRKIGB32F3463Jlv6CRNUOjXP48=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxCz9hlw9m23V0aKnKXYXFC1DX0ZnSOwTdGyZaYSRzHNBv8w8VG
- BZcrcRFRjnPZ0G5/JeKmiWI2+bvPdsFTfsfgTQAmd3RwYGbSCK8Yf9X0ezeeTpJ1Ei4=
-X-Gm-Gg: Acq92OG1Fs0/GSsVjPf54sBXZi3TUUp4efCF6uMWe3GJs0GT1j5GBK2wytDm6O1ZCYn
- xJBwWdnP9oV1+pCfa47/FpiZk9NWWKmsEfwOxevF6gmdz0Rtu/jWI7tnQqtujgUK3LeEaaxm0iV
- E1xZsxkI7xwl3suuwfaPsBsewk4VLwBrRkRsHl8qcYqZjIWeXQ5ebR0vLt3V2K56TpbZjUI8ZFf
- Miw58g6I1jfYsmcYFrWR45ym1iGTE+9nboL+8ykcBzaKABfWXa52rRs00XXTUDGEWjbKSdQA+0e
- R0+kVGsbFkpNFdl3vvPVBBrG+hRG93RK5UbbF5j3bki2zjZpuOySMhIhTKaz9IFqoQs4GZMv5E7
- 4ljiu2ThZLQp+J1oYlahqS/H6nmNfcfUixe8w4+/ee636OktAXax26wCMKScjxngvhGXhANnSON
- fn8OTC3V2HxVt1mX0rB19sqaE/TGy5WuLONomaLjY9JRXf8MOix97dtwzCaWQR3iyV5qY9S7Ngc
- KBSwJiZaC96dOml
-X-Received: by 2002:ac8:7dc6:0:b0:50d:7aa1:f405 with SMTP id
- d75a77b69052e-517785ada2amr113397751cf.9.1780583165966; 
- Thu, 04 Jun 2026 07:26:05 -0700 (PDT)
+ AFNElJ9WRZJUoLFdgcAkhJJVI4kvsTLFzOkGMtr28eWDiITuWlfuuteBYYMydZV1cea8OWCCiQZF1b4MKh0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz3+cPoFd12jvRNRmkdlmLwMhXXjmPONcg2q+2vXJ6YhOjNqsSn
+ f7TGLSUiI+CMbbF2npBqm7XVuFizX6W4X5skoGdVBKUzjFJHUD72c8n/nEN7RNDwyP0=
+X-Gm-Gg: Acq92OFZdm9L8+wd78XAvGdDBViDuLxtyyVQengLWJwOYFiqtj/4AdC+bEyIIU1kWh1
+ n2Wk52aisB4utmhV4DoSCxcBDmW1ch79o3+QWdddA0dNwyKPGA2vwu/fzmLDu/WNgS5b0NBnEYp
+ GoNfGBuuXL9k5FOyer7iAOUGGHTaPVN/8kuenGEttBUahXusUtBg3d9DntYSTGWvl4WjZKxll8E
+ YP8Sm6HXcQLvqdOsKLEN2qkvHAF060XzoR05i172pCt869FaiBX1bxaig1gR8IRbUpgYnrqZ/fL
+ jM+ZAIH18JC736p93k7YKEUloyJ+ZfUt9hSfejm8KO10fqfhbldumCfJ8VwmqEYTO3aM/wigCpr
+ cB++CJoSOCZHzZIsjn4p1/uEtvECsCgbg3oI30D5HaWd+FBPks2oCGx0gp4c0qkLs0ihYg5moJD
+ NEXb7H/xp4cjckxeXcN6iLqYj2tqM2rDKWoUgCgz7jj5xZ1h7DtTUmSx6gcbznDCPYi7ttJ2wmU
+ al/Y438nrxT4tjKtq+svCN2KQU=
+X-Received: by 2002:a05:620a:6cc2:b0:90f:b39e:ec8 with SMTP id
+ af79cd13be357-9158a6998c8mr1313811585a.17.1780583227568; 
+ Thu, 04 Jun 2026 07:27:07 -0700 (PDT)
 Received: from ziepe.ca
  (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
  [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-51790d965e8sm4420111cf.16.2026.06.04.07.26.05
+ af79cd13be357-9158a3e0d55sm600410185a.43.2026.06.04.07.27.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Jun 2026 07:26:05 -0700 (PDT)
+ Thu, 04 Jun 2026 07:27:07 -0700 (PDT)
 Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1wV91J-00000008IF6-09MR;
- Thu, 04 Jun 2026 11:26:05 -0300
-Date: Thu, 4 Jun 2026 11:26:05 -0300
+ (envelope-from <jgg@ziepe.ca>) id 1wV92I-00000008IGV-29F2;
+ Thu, 04 Jun 2026 11:27:06 -0300
+Date: Thu, 4 Jun 2026 11:27:06 -0300
 From: Jason Gunthorpe <jgg@ziepe.ca>
 To: Guanghui Feng <guanghuifeng@linux.alibaba.com>
 Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
@@ -81,16 +81,15 @@ Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
  steven.price@arm.com, suravee.suthikulpanit@amd.com,
  tzimmermann@suse.de, wei.guo.simon@linux.alibaba.com,
  will@kernel.org, xlpang@linux.alibaba.com
-Subject: Re: [PATCH v3 24/32] iommufd: use iova_to_phys_length for efficient
- unmap
-Message-ID: <20260604142605.GY2487554@ziepe.ca>
+Subject: Re: [PATCH v3 23/32] vfio: use iova_to_phys_length for efficient unmap
+Message-ID: <20260604142706.GZ2487554@ziepe.ca>
 References: <20260602104637.1219810-1-guanghuifeng@linux.alibaba.com>
  <20260603151804.1963871-1-guanghuifeng@linux.alibaba.com>
- <20260603151804.1963871-25-guanghuifeng@linux.alibaba.com>
+ <20260603151804.1963871-24-guanghuifeng@linux.alibaba.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260603151804.1963871-25-guanghuifeng@linux.alibaba.com>
+In-Reply-To: <20260603151804.1963871-24-guanghuifeng@linux.alibaba.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,15 +105,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 03, 2026 at 11:17:56PM +0800, Guanghui Feng wrote:
-> Use iommu_iova_to_phys_length() to get PTE page size in
-> +		for (i = 0; i < npages; i++) {
-> +			if (!batch_add_pfn(batch, PHYS_PFN(phys) + i))
-> +				return;
+On Wed, Jun 03, 2026 at 11:17:55PM +0800, Guanghui Feng wrote:
+> Use iommu_iova_to_phys_length() to get PTE page size, allowing
+> traversal by actual mapping granularity instead of PAGE_SIZE steps.
+> 
+> Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
+> Acked-by: Shiqiang Zhang <shiyu.zsq@linux.alibaba.com>
+> Acked-by: Simon Guo <wei.guo.simon@linux.alibaba.com>
+> ---
+>  drivers/vfio/vfio_iommu_type1.c | 27 ++++++++++++++++++++++-----
+>  1 file changed, 22 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/vfio/vfio_iommu_type1.c b/drivers/vfio/vfio_iommu_type1.c
+> index c8151ba54de3..115d88d7003e 100644
+> --- a/drivers/vfio/vfio_iommu_type1.c
+> +++ b/drivers/vfio/vfio_iommu_type1.c
+> @@ -1177,25 +1177,42 @@ static long vfio_unmap_unpin(struct vfio_iommu *iommu, struct vfio_dma *dma,
+>  
+>  	iommu_iotlb_gather_init(&iotlb_gather);
+>  	while (pos < dma->size) {
+> -		size_t unmapped, len;
+> +		size_t unmapped, len, pgsize;
+>  		phys_addr_t phys, next;
+>  		dma_addr_t iova = dma->iova + pos;
+>  
+> -		phys = iommu_iova_to_phys(domain->domain, iova);
+> -		if (WARN_ON(!phys)) {
+> +		/* Single page table walk returns both phys and PTE size */
+> +		phys = iommu_iova_to_phys_length(domain->domain, iova,
+> +						  &pgsize);
+> +		if (WARN_ON(phys == PHYS_ADDR_MAX)) {
+>  			pos += PAGE_SIZE;
+>  			continue;
+>  		}
+> +		if (WARN_ON(!pgsize || pgsize < PAGE_SIZE))
+> +			pgsize = PAGE_SIZE;
+>  
+>  		/*
+>  		 * To optimize for fewer iommu_unmap() calls, each of which
+>  		 * may require hardware cache flushing, try to find the
+>  		 * largest contiguous physical memory chunk to unmap.
+> +		 *
+> +		 * mapped_length already accounts for contiguous entries
+> +		 * from iova, then try to join following physically
+> +		 * contiguous PTEs.
+>  		 */
+> -		for (len = PAGE_SIZE; pos + len < dma->size; len += PAGE_SIZE) {
+> -			next = iommu_iova_to_phys(domain->domain, iova + len);
+> +		len = min_t(size_t, pgsize, dma->size - pos);
+> +		for (; pos + len < dma->size; ) {
+> +			size_t next_pgsize;
+> +
+> +			next = iommu_iova_to_phys_length(domain->domain,
+> +							  iova + len,
+> +							  &next_pgsize);
 
-batch_add_pfn_num()
+vfio should not be calling it twice, the core code needs to give the
+best length as efficiently as it can. not open coding this in callers.
 
-Be mindful that the num is purposfully a u32 so that will need some
-attention.
+I think I've said this three times now
 
 Jason
