@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54DD1CD6E4A
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 02:52:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18D45CD6E55
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 02:53:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B73771125B6;
-	Thu,  4 Jun 2026 02:51:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72C001125B9;
+	Thu,  4 Jun 2026 02:53:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CwiIWlHI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZlktMWAh";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EB3A1125B6
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 02:51:58 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0015E1125B9
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 02:53:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EAEEB43E98;
- Thu,  4 Jun 2026 02:51:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B39121F00893;
- Thu,  4 Jun 2026 02:51:57 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 49D07601DD;
+ Thu,  4 Jun 2026 02:53:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC0B31F00893;
+ Thu,  4 Jun 2026 02:53:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780541517;
- bh=lDxQ2gq6QXDm1uuquuW/cIhYl2oJskECu8moUdzCF8M=;
+ s=k20260515; t=1780541589;
+ bh=LpW9F0QsoKF4xghBdJcZ+2WeikeE1dM68qKjuf6fs0c=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CwiIWlHIdwYey4JyTzg3Cbxmzo77ysITe/B1oud70FgkyCTeAkJENBH9x6ZgJ5wKI
- dNaNXos97xwmXnm82o8zOdllp0d65EGCpPKqJx6U7OwK17z+IblnpI6/+E0T1mWwVr
- MejzZJicvLteIB+WvJhnm503qgneyCqOu96VBZt6xRi4Fofmb82LLYhvcdWPVme/00
- RFJ6OCzcWivc1CnJ2jasG/0s0rr4zrJMaowvJguBYLgXSDxJ8cumXlZ6cXsDofoP4U
- h2t8737VIgQ/hLpb3XGa9KV0qnNXjEpbceSnBlkd036I4OhXdvkE/sYFmss21MCkli
- fzE2jHgWuLAww==
+ b=ZlktMWAhf+lLTPAVgYPEoQDinTGNwXLo9obLfWYpL9aSlV/9pROwYUwqe+eURAFDD
+ FQNn0d5bQ+CgP/UAkhD66uam+5snsQMrwKSwsgLZnvfq69xj8TWWl/g3y7hPkjb4jF
+ WVq2w7RdWGHcVAgVcJOwchPUdsO8EFarfKiFRCJvv4dwPTOCgQp4Sm8PKE5vlFsCdm
+ Zfqi10gWjN4AqRaGNTpEAKGANB/S9muTvJxvGR8Bs65AWjPu5yR0gC/krPsSrCZdMv
+ kPmFnIgHJyuMYkHbrPxbAvVo2jNuUpaN9/zcp3VB0gTkQJ6ACM5sa5rXz3kzEoKnYS
+ ZcXpN2ul41D4g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 04/14] drm/v3d: Replace spin_lock_irqsave() with
- spin_lock()
+Subject: Re: [PATCH v3 09/14] drm/v3d: Make
+ v3d_get_cpu_indirect_csd_params() a pure parser
 To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260603-v3d-sched-misc-fixes-v3-4-d7114bba55a0@igalia.com>
-References: <20260603-v3d-sched-misc-fixes-v3-4-d7114bba55a0@igalia.com>
+In-Reply-To: <20260603-v3d-sched-misc-fixes-v3-9-d7114bba55a0@igalia.com>
+References: <20260603-v3d-sched-misc-fixes-v3-9-d7114bba55a0@igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 02:51:57 +0000
-Message-Id: <20260604025157.B39121F00893@smtp.kernel.org>
+Date: Thu, 04 Jun 2026 02:53:08 +0000
+Message-Id: <20260604025308.CC0B31F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,112 +57,157 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] Removing `spin_lock_irqsave` exposes a uniprocessor race and obstr=
-ucts the correct fix for an existing SMP use-after-free race.
-- [Low] Mixing goto-based error handling and scope-based cleanup helpers (`=
-scoped_guard()`) in the same function violates subsystem guidelines.
+
+Pre-existing issues:
+- [Critical] Error path cleans up DRM scheduler jobs that have already been=
+ pushed, causing Use-After-Free and scheduler corruption.
+- [Critical] Uninitialized locking context is passed to fini on the success=
+ path for CPU jobs without BOs, leading to a kernel panic.
+- [High] BO reservation locks acquired for `clean_job` are leaked if subseq=
+uent validation fails.
+- [High] Userspace can trigger a kernel deadlock by specifying the same BO =
+handle in both the CPU job and the CSD job.
+- [High] GFP_KERNEL allocation while holding dma_resv locks causes an AB-BA=
+ deadlock with memory reclaim.
 --
 
-commit 7d41ab716d6dcf438f92d8905f5e28343e3ab169
+commit e7875ac22f6ebc1c0172f365953ce0df35e9465b
 Author: Ma=C3=ADra Canal <mcanal@igalia.com>
 
-drm/v3d: Replace spin_lock_irqsave() with spin_lock()
+drm/v3d: Make v3d_get_cpu_indirect_csd_params() a pure parser
 
-This commit replaces spin_lock_irqsave() and spin_unlock_irqrestore() with
-the scoped_guard() macro using plain spinlocks in v3d_overflow_mem_work()
-and v3d_bin_job_run().
+This commit modifies v3d_get_cpu_indirect_csd_params() to only parse the
+indirect CSD extension and stash the arguments. The creation of CSD and
+clean jobs, along with their BO locking, is moved into
+v3d_submit_cpu_ioctl() to prepare for the unified submission chain.
 
-> diff --git a/drivers/gpu/drm/v3d/v3d_irq.c b/drivers/gpu/drm/v3d/v3d_irq.c
-> index 86efaef2722c3..754a969b862b6 100644
-> --- a/drivers/gpu/drm/v3d/v3d_irq.c
-> +++ b/drivers/gpu/drm/v3d/v3d_irq.c
+> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_s=
+ubmit.c
+> index fcaf3a6cfddc6..64eba912dc646 100644
+> --- a/drivers/gpu/drm/v3d/v3d_submit.c
+> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
 [ ... ]
-> @@ -64,17 +63,15 @@ v3d_overflow_mem_work(struct work_struct *work)
->  	 * bin job got scheduled, that's fine.  We'll just give them
->  	 * some binner pool anyway.
->  	 */
-> -	spin_lock_irqsave(&queue->queue_lock, irqflags);
-> -	bin_job =3D (struct v3d_bin_job *)queue->active_job;
-> +	scoped_guard(spinlock, &queue->queue_lock) {
+> @@ -1404,6 +1403,17 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void =
+*data,
+>  		goto fail;
+>  	}
+> =20
+> +	if (cpu_job->job_type =3D=3D V3D_CPU_JOB_TYPE_INDIRECT_CSD) {
+> +		ret =3D v3d_setup_csd_jobs_and_bos(file_priv, v3d,
+> +						 &cpu_job->indirect_csd.args,
+> +						 &cpu_job->indirect_csd.job,
+> +						 &cpu_job->indirect_csd.clean_job,
+> +						 NULL,
+> +						 &cpu_job->indirect_csd.exec);
+> +		if (ret)
+> +			goto fail;
+> +	}
+> +
 
 [Severity: High]
-Does removing the IRQ-disabling protection here cement a broken locking des=
-ign?
+This isn't a bug introduced by this patch, but does this create a lock leak
+on error paths?
 
-The commit message notes the hard IRQ handler doesn't take this lock, but
-v3d_irq_signal_fence() modifies queue->active_job locklessly. Because of th=
-is
-missing lock, an SMP use-after-free race already exists where the DRM
-scheduler can free the job while v3d_overflow_mem_work() is dereferencing
-bin_job->render.
+If v3d_setup_csd_jobs_and_bos() successfully locks BO reservations using
+cpu_job->indirect_csd.exec, and later in v3d_submit_cpu_ioctl() a failure
+occurs (for example, in v3d_lookup_bos() or v3d_lock_bo_reservations()),
+the error handling jumps to fail:
 
-By switching from spin_lock_irqsave() to spin_lock(), this exposes a
-uniprocessor race where the IRQ can preempt the workqueue's critical sectio=
-n.
-Furthermore, if someone fixes the SMP race by adding
-spin_lock(&queue->queue_lock) to the IRQ handler, won't the system deadlock
-when the IRQ interrupts this workqueue?
+v3d_submit_cpu_ioctl() {
+    ...
+    if (ret)
+        goto fail;
+    ...
+}
 
-> +		bin_job =3D (struct v3d_bin_job *)queue->active_job;
-> =20
-> -	if (!bin_job) {
-> -		spin_unlock_irqrestore(&queue->queue_lock, irqflags);
-> -		goto out;
-> -	}
-> +		if (!bin_job)
-> +			goto out;
+This appears to bypass the fail_unreserve: label, leaving the ww_mutex and
+dma_resv locks permanently held. Could this cause subsequent GPU operations
+attempting to use these BOs to stall indefinitely?
 
-[Severity: Low]
-Is it ok to mix goto-based error handling with scope-based cleanup helpers?
+[Severity: High]
+This is a pre-existing issue, but could this lead to a deadlock if userspace
+specifies the same BO handle in both the CPU job and the CSD job?
 
-The kernel cleanup guidelines explicitly forbid mixing goto and scope-based
-cleanup helpers in the same function because it creates confusing ownership
-semantics.
+When v3d_submit_cpu_ioctl() uses two separate locking contexts in the same
+thread, the first context acquires the WW mutexes for the CSD job's BOs:
 
-While scoped_guard() is introduced here for lock management, the function
-retains explicit goto statements like this one to reach the out label for
-drm_gem_object_put().
+    ret =3D v3d_setup_csd_jobs_and_bos(..., &cpu_job->indirect_csd.exec);
 
-> =20
-> -	drm_gem_object_get(obj);
-> -	list_add_tail(&bo->unref_head, &bin_job->render->unref_list);
-> -	spin_unlock_irqrestore(&queue->queue_lock, irqflags);
-> +		drm_gem_object_get(obj);
-> +		list_add_tail(&bo->unref_head, &bin_job->render->unref_list);
-> +	}
-> =20
->  	v3d_mmu_flush_all(v3d);
-> =20
-> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sc=
-hed.c
-> index 46f4fc09c59ec..04fd1a365576b 100644
-> --- a/drivers/gpu/drm/v3d/v3d_sched.c
-> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
-[ ... ]
-> @@ -240,9 +239,9 @@ static struct dma_fence *v3d_bin_job_run(struct drm_s=
-ched_job *sched_job)
->  	return fence;
-> =20
->  out_clean_job:
-> -	spin_lock_irqsave(&queue->queue_lock, irqflags);
-> -	queue->active_job =3D NULL;
-> -	spin_unlock_irqrestore(&queue->queue_lock, irqflags);
-> +	scoped_guard(spinlock, &queue->queue_lock) {
-> +		queue->active_job =3D NULL;
-> +	}
->  	return NULL;
->  }
+The second locking context then attempts to acquire WW mutexes for the CPU
+job's BOs:
 
-[Severity: Low]
-Does this also violate the cleanup guidelines against mixing goto and
-scope-based cleanup?
+    ret =3D v3d_lock_bo_reservations(&cpu_job->base, &acquire_ctx);
 
-Similar to v3d_overflow_mem_work(), this function introduces scoped_guard()
-while still retaining the out_clean_job label that is reached via goto
-statements earlier in the function.
+If the same BO is specified in both jobs, would the second context (younger
+transaction) block indefinitely attempting to acquire a WW mutex already he=
+ld
+by the first context, leading to an unrecoverable self-deadlock?
+
+[Severity: Critical]
+This is a pre-existing issue, but is it safe to clean up DRM scheduler jobs
+that have already been pushed?
+
+In v3d_submit_cpu_ioctl(), once jobs are pushed to the DRM scheduler via
+v3d_push_job(), the scheduler takes ownership of their lifecycle.
+
+If a subsequent operation fails:
+
+    ret =3D drm_sched_job_add_dependency(&clean_job->base, ...);
+    if (ret)
+        goto fail_unreserve;
+
+The error path jumps to fail_unreserve: and then fail:, calling
+v3d_job_cleanup() on the already-pushed jobs.
+
+Does calling drm_sched_job_cleanup() on a pushed job destroy its s_fence and
+dependencies xarray while the background scheduler thread might still be
+accessing them, potentially causing a use-after-free and scheduler state
+corruption?
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but is it possible for an
+uninitialized locking context to be passed to the cleanup functions?
+
+In v3d_submit_cpu_ioctl(), the local locking context is bypassed if the CPU
+job has no BOs:
+
+    if (args->bo_handle_count) {
+        ...
+        ret =3D v3d_lock_bo_reservations(&cpu_job->base, &acquire_ctx);
+    }
+
+The function then proceeds to the success path and calls:
+
+    drm_gem_unlock_reservations(job->bo, job->bo_count, acquire_ctx);
+
+Could this result in passing uninitialized stack memory to drm_exec_fini() =
+or
+ww_acquire_fini(), causing the cleanup function to dereference and free
+garbage pointers?
+
+[Severity: High]
+This is a pre-existing issue, but does this allocation trigger an AB-BA
+deadlock with memory reclaim?
+
+In v3d_submit_cpu_ioctl(), dependencies are added while BOs are locked:
+
+    ret =3D drm_sched_job_add_dependency(&csd_job->base.base,
+                                       dma_fence_get(cpu_job->base.done_fen=
+ce));
+
+This internally uses xa_alloc() with the GFP_KERNEL flag while the thread
+holds dma_resv locks acquired by v3d_lock_bo_reservations().
+
+If system memory is tight, could the memory allocator trigger the shrinker,
+which would attempt to evict GEM objects and acquire dma_resv locks, leading
+to a deadlock?
+
+>  	clean_job =3D cpu_job->indirect_csd.clean_job;
+>  	csd_job =3D cpu_job->indirect_csd.job;
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603-v3d-sched-=
-misc-fixes-v3-0-d7114bba55a0@igalia.com?part=3D4
+misc-fixes-v3-0-d7114bba55a0@igalia.com?part=3D9
