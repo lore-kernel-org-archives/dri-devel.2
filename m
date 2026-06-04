@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 839D0CD6E75
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:33:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91631CD6E75
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:33:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB40110F1A8;
-	Thu,  4 Jun 2026 20:33:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F150E10F89F;
+	Thu,  4 Jun 2026 20:33:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CwruRr/x";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qVobLGn7";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59E2810F1A8
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:33:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CCCE10F89F
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:33:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
  Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
  Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
  :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=znR6EJPXeWTs9gZU/FekA57iY4R4gT7pcZG2BHuG4mU=; b=CwruRr/xgkzw9qH+/8Jew3eBFS
- KBKSDbo69xaPBzyTYAlIdqIGb4mBYU56L7+JAI7I4PS6SQYc3csaIyMbyyV/EqTTDumhjcGEUP/U6
- 6+4MuwUfDEPTtr89SjjK7MxyFtNp6klsJfX0pRRr0WoCIUd+C3fyrUhybomr7CHbEC3GdXeQYQkWB
- 12EFvJ7WHhnN/27jhZFTLabsyWKw57kd487NLyEsvRu+Fg/zuv9PbtKwpiVkLZwQmvWXEfFC47Kgg
- oUsL04dVDs5oFjThrbcbs1CfUUQDxq6TOB0n2vmhlkv5tQDjzoPHBNpscHm4y5jE/iCtap9hmOzXK
- hWO1y+rg==;
+ bh=C5MFbOnlOEx3UDRh8Fze0wjJrZY+m8pVRvrkWJUrIAI=; b=qVobLGn7FqDSpLhzUtbQJ3Ub9i
+ WU2PSOzOspZ102178e+bXQ3+3RgqjqRf1W7oyaZ+D4AtsiEt9FsTXabiYA1q7KVqLm0VJh14LiHSI
+ 7ScotZ3Z6pxyi83WlUooSVK1F0PJyFY8/u+1Wl0YmWyFZpFY87CO78Y+mq2k2iPWYg1x6n1r7Wkam
+ hN64CeTWquz20WmQkWV5Evd+qI10MOgVwICNJh7PPQP+rQY6Yt06llG5nQizL54hSRR4s0Eq98A/x
+ mpvYJz2nss2a6GKgsNynMfcoW35fBHoS3XbLDnqt2gyAf3pcoWA3B+4F8FKSkLkDUmvP4aJBPO6NP
+ nr5jONig==;
 Received: from [189.7.87.67] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wVEka-00CoGD-Qx; Thu, 04 Jun 2026 22:33:13 +0200
+ id 1wVEkf-00CoGD-4f; Thu, 04 Jun 2026 22:33:17 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Thu, 04 Jun 2026 17:32:24 -0300
-Subject: [PATCH v4 11/12] drm/v3d: Reject invalid out_sync handles in
- submit ioctls
+Date: Thu, 04 Jun 2026 17:32:25 -0300
+Subject: [PATCH v4 12/12] drm/v3d: Ensure atomic submissions in
+ v3d_submit_jobs()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260604-v3d-sched-misc-fixes-v4-11-c068f5bf5ccf@igalia.com>
+Message-Id: <20260604-v3d-sched-misc-fixes-v4-12-c068f5bf5ccf@igalia.com>
 References: <20260604-v3d-sched-misc-fixes-v4-0-c068f5bf5ccf@igalia.com>
 In-Reply-To: <20260604-v3d-sched-misc-fixes-v4-0-c068f5bf5ccf@igalia.com>
 To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
@@ -50,15 +50,15 @@ To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7828; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=HBJ7uzWDDan0+Nwh0jdg0wKvca9Wzb9xAnQyPPqIj5M=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqIeDURz7NA7RYWPGWQGR/nGXea5qUv7sZrDPlL
- l7KOYWkbBSJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaiHg1AAKCRA/8w6Kdoj6
- qvt4B/9JIkmbdSlb/l7PdGO95OhAlBvSV53tEsOL6zPrGSD3ycHbrXBNfXbKrir1VzbTk3yx1yS
- jmYeHynHq5uMUKb3DoJkFnyR17UprgPsl2BcnH2slys1Wi55Tly9dz+AmrPX8LqKlEn7AYJTTOd
- frL+vHY/T+ZdzYbfRDY4XUK+BDoXLVkRovx5lzMK13XXAYKpyHancxLsM5aaWhJVDhhHGT8Vkvc
- Um/K5kSmCpL60JxXOckXOkG425rm8TvjrnUTsL1+22zkpEx1bBqnRSElG7ID+KrP7Gd8ZmdkVjK
- VHCfvdTJewSkD/NjzmdyKDN86dLxF0kR4MGlbNn3XH2NEiZX
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6032; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=9NN94mP8H1l6ifsMpcT8b4HSet2oxea/e078fqNxFy0=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqIeDUyr2ZJ5Jxj88sXOHJVo6EKFVv8TJlc5CCh
+ kzpnwWDWeeJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaiHg1AAKCRA/8w6Kdoj6
+ qvWSB/92LllYMyFI/SITmpLhttfmab6u4hpGu/BM+zOCv7XsgV8Kpr1haLtPSJICeOOpeKtZMCN
+ 0wjV1cMQUtKuoLpK5YAObkWPTPE+tFld3h8V/F8iT/WGt2yYOlZ2twbua+BnYLv4NahrgmPYmST
+ F7Zairdx0tz+N+9GNjbsqwPVvGfEZlKrYigvUsilQQ1rpCKjWnjcHypxU5SqYtV2+Qj3GSH+H5B
+ 2rqBCZsnzh1Xup7WgMflwU9m1aSoHYHsG7RFnyI7X8mRVkpvkRJwq8sE6TXabdaPxhKEYf72J2t
+ b8hWYfRhSBAoQkTtV2O2dVCa8O7vewzk2gM4UHbUaWr4zBAz
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,230 +76,199 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-v3d_submit_process_post_deps() looks up the out_sync syncobj via
-drm_syncobj_find(), and if userspace passes a non-zero handle that doesn't
-refer to a valid syncobj, the lookup silently returns NULL and the
-post-deps step skips publishing the submission's last fence to it. The
-ioctl still returns success, leaving userspace to wait on a invalid
-syncobj.
+Currently, v3d_submit_jobs() arms and pushes each job one at a time,
+wiring dependencies between consecutive jobs after each push. If
+drm_sched_job_add_dependency() fails midway, the already-pushed jobs are
+scheduler-owned and will be submitted to the GPU for execution, even though
+the subsequent jobs won't be submitted.
 
-Instead of silently ignoring an invalid non-zero out_sync, move the syncobj
-lookup to the submission and make it fail with -ENOENT up front, mirroring
-the syncobj validation already done for in_sync. Now,
-v3d_submit_process_post_deps() only does the fence replacement.
+This breaks the atomicity of the submissions, as only some of the jobs
+from a submission would be submitted to the hardware, while the other part
+fails.
 
-Note that the lookup is skipped when the multi-sync extension is in use,
-since args->out_sync is unused in that case.
+Restructure v3d_submit_jobs() into three phases: (1) arm all jobs belonging
+to a given submission, (2) wire inter-job dependencies, and (3) push all
+jobs to the scheduler unconditionally. Phase (2) can fail; on failure,
+it marks every armed job finished fence with an error, so that run_job()
+callbacks skip hardware execution.
 
-To keep cleanup symmetric on error paths, convert the function
-v3d_put_multisync_post_deps() into a single function that releases the
-references that were acquired but never published for both single-sync
-and multi-sync.
+This guarantees that every armed job is always pushed, either to run
+or to be skipped, and it also ensures the atomicity of a submission.
 
 Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/v3d/v3d_submit.c | 56 ++++++++++++++++++++++++++++++----------
- 1 file changed, 42 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/v3d/v3d_sched.c  |  6 ++++
+ drivers/gpu/drm/v3d/v3d_submit.c | 65 ++++++++++++++++++++--------------------
+ 2 files changed, 39 insertions(+), 32 deletions(-)
 
+diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+index 7f9a71022e5e..53deae1a2eda 100644
+--- a/drivers/gpu/drm/v3d/v3d_sched.c
++++ b/drivers/gpu/drm/v3d/v3d_sched.c
+@@ -657,6 +657,9 @@ v3d_cpu_job_run(struct drm_sched_job *sched_job)
+ 	struct v3d_cpu_job *job = to_cpu_job(sched_job);
+ 	struct v3d_dev *v3d = job->base.v3d;
+ 
++	if (unlikely(job->base.base.s_fence->finished.error))
++		return NULL;
++
+ 	if (job->job_type >= ARRAY_SIZE(cpu_job_function)) {
+ 		drm_dbg(&v3d->drm, "Unknown CPU job: %d\n", job->job_type);
+ 		return NULL;
+@@ -680,6 +683,9 @@ v3d_cache_clean_job_run(struct drm_sched_job *sched_job)
+ 	struct v3d_job *job = to_v3d_job(sched_job);
+ 	struct v3d_dev *v3d = job->v3d;
+ 
++	if (unlikely(job->base.s_fence->finished.error))
++		return NULL;
++
+ 	v3d_job_start_stats(job);
+ 
+ 	v3d_clean_caches(v3d);
 diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
-index 9ee59eddf63a..294fc4e327f6 100644
+index 294fc4e327f6..4f6fc2d94ccb 100644
 --- a/drivers/gpu/drm/v3d/v3d_submit.c
 +++ b/drivers/gpu/drm/v3d/v3d_submit.c
-@@ -338,17 +338,18 @@ v3d_submit_attach_object_fences(struct v3d_submit *submit)
+@@ -368,19 +368,6 @@ v3d_submit_process_post_deps(struct v3d_submit *submit, struct drm_syncobj *sync
+ 	}
  }
  
- static void
--v3d_submit_process_post_deps(struct v3d_submit *submit, u32 out_sync,
-+v3d_submit_process_post_deps(struct v3d_submit *submit, struct drm_syncobj *sync_out,
- 			     struct v3d_submit_ext *se)
- {
- 	bool has_multisync = se && (se->flags & DRM_V3D_EXT_ID_MULTI_SYNC);
- 	struct v3d_job *last_job = submit->jobs[submit->job_count - 1];
--	struct drm_syncobj *sync_out;
-+
-+	/* Make sure single syncobj and multisync are mutually exclusive */
-+	WARN_ON_ONCE(sync_out && has_multisync);
- 
- 	/* Update the return sync object for the job */
- 	/* If it only supports a single signal semaphore*/
- 	if (!has_multisync) {
--		sync_out = drm_syncobj_find(submit->file_priv, out_sync);
- 		if (sync_out) {
- 			drm_syncobj_replace_fence(sync_out, last_job->done_fence);
- 			drm_syncobj_put(sync_out);
-@@ -381,7 +382,7 @@ v3d_push_job(struct v3d_job *job)
- }
- 
+-static void
+-v3d_push_job(struct v3d_job *job)
+-{
+-	drm_sched_job_arm(&job->base);
+-
+-	job->done_fence = dma_fence_get(&job->base.s_fence->finished);
+-
+-	/* put by scheduler job completion */
+-	kref_get(&job->refcount);
+-
+-	drm_sched_entity_push_job(&job->base);
+-}
+-
  static int
--v3d_submit_jobs(struct v3d_submit *submit, u32 out_sync,
-+v3d_submit_jobs(struct v3d_submit *submit, struct drm_syncobj *sync_out,
+ v3d_submit_jobs(struct v3d_submit *submit, struct drm_syncobj *sync_out,
  		struct v3d_submit_ext *se)
- {
- 	struct v3d_dev *v3d = submit->v3d;
-@@ -406,7 +407,7 @@ v3d_submit_jobs(struct v3d_submit *submit, u32 out_sync,
+@@ -393,16 +380,23 @@ v3d_submit_jobs(struct v3d_submit *submit, struct drm_syncobj *sync_out,
+ 	for (int i = 0; i < submit->job_count; i++) {
+ 		struct v3d_job *job = submit->jobs[i];
+ 
+-		v3d_push_job(job);
++		drm_sched_job_arm(&job->base);
++		job->done_fence = dma_fence_get(&job->base.s_fence->finished);
+ 
+-		if (i + 1 < submit->job_count) {
+-			ret = drm_sched_job_add_dependency(&submit->jobs[i + 1]->base,
+-							   dma_fence_get(job->done_fence));
+-			if (ret)
+-				goto err;
+-		}
++		/* put by scheduler job completion */
++		kref_get(&job->refcount);
+ 	}
+ 
++	for (int i = 1; i < submit->job_count; i++) {
++		ret = drm_sched_job_add_dependency(&submit->jobs[i]->base,
++						   dma_fence_get(submit->jobs[i - 1]->done_fence));
++		if (ret)
++			goto err;
++	}
++
++	for (int i = 0; i < submit->job_count; i++)
++		drm_sched_entity_push_job(&submit->jobs[i]->base);
++
+ 	mutex_unlock(&v3d->sched_lock);
  
  	v3d_submit_attach_object_fences(submit);
- 	v3d_submit_unlock_reservations(submit);
--	v3d_submit_process_post_deps(submit, out_sync, se);
-+	v3d_submit_process_post_deps(submit, sync_out, se);
+@@ -414,7 +408,18 @@ v3d_submit_jobs(struct v3d_submit *submit, struct drm_syncobj *sync_out,
+ 	return 0;
  
- 	v3d_submit_put_jobs(submit);
- 
-@@ -444,10 +445,13 @@ v3d_setup_csd_jobs_and_bos(struct v3d_submit *submit,
- }
- 
- static void
--v3d_put_multisync_post_deps(struct v3d_submit_ext *se)
-+v3d_submit_put_post_deps(struct drm_syncobj *sync_out, struct v3d_submit_ext *se)
- {
- 	unsigned int i;
- 
-+	if (sync_out)
-+		drm_syncobj_put(sync_out);
+ err:
++	/* Mark every armed job as failed so run_job() skips execution */
++	for (int i = 0; i < submit->job_count; i++)
++		dma_fence_set_error(&submit->jobs[i]->base.s_fence->finished, ret);
 +
- 	if (!(se && se->out_sync_count))
- 		return;
- 
-@@ -1006,6 +1010,7 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
- {
- 	struct v3d_submit submit = { .v3d = to_v3d_dev(dev), .file_priv = file_priv };
- 	struct drm_v3d_submit_cl *args = data;
-+	struct drm_syncobj *sync_out = NULL;
- 	struct v3d_submit_ext se = {0};
- 	struct v3d_bin_job *bin = NULL;
- 	struct v3d_render_job *render;
-@@ -1032,6 +1037,13 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
- 		}
- 	}
- 
-+	/* If multisync is configured, give priority to it and ignore out_sync. */
-+	if (args->out_sync && !(se.flags & DRM_V3D_EXT_ID_MULTI_SYNC)) {
-+		sync_out = drm_syncobj_find(file_priv, args->out_sync);
-+		if (!sync_out)
-+			return -ENOENT;
-+	}
++	for (int i = 0; i < submit->job_count; i++)
++		drm_sched_entity_push_job(&submit->jobs[i]->base);
 +
- 	if (args->bcl_start != args->bcl_end) {
- 		bin = (struct v3d_bin_job *) v3d_submit_add_job(&submit, V3D_BIN);
- 		if (IS_ERR(bin)) {
-@@ -1088,7 +1100,7 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
- 	if (ret)
- 		goto fail;
- 
--	ret = v3d_submit_jobs(&submit, args->out_sync, &se);
-+	ret = v3d_submit_jobs(&submit, sync_out, &se);
- 	if (ret)
- 		goto fail_unreserve;
- 
-@@ -1098,7 +1110,7 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
- 	v3d_submit_unlock_reservations(&submit);
- fail:
- 	v3d_submit_cleanup_jobs(&submit);
--	v3d_put_multisync_post_deps(&se);
-+	v3d_submit_put_post_deps(sync_out, &se);
- 
+ 	mutex_unlock(&v3d->sched_lock);
++
++	v3d_submit_unlock_reservations(submit);
++	v3d_submit_put_jobs(submit);
++
  	return ret;
  }
-@@ -1118,6 +1130,7 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
- {
- 	struct v3d_submit submit = { .v3d = to_v3d_dev(dev), .file_priv = file_priv };
- 	struct drm_v3d_submit_tfu *args = data;
-+	struct drm_syncobj *sync_out = NULL;
- 	struct v3d_submit_ext se = {0};
- 	struct v3d_tfu_job *job;
- 	int ret = 0;
-@@ -1137,6 +1150,13 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
- 		}
- 	}
  
-+	/* If multisync is configured, give priority to it and ignore out_sync. */
-+	if (args->out_sync && !(se.flags & DRM_V3D_EXT_ID_MULTI_SYNC)) {
-+		sync_out = drm_syncobj_find(file_priv, args->out_sync);
-+		if (!sync_out)
-+			return -ENOENT;
-+	}
-+
- 	job = (struct v3d_tfu_job *) v3d_submit_add_job(&submit, V3D_TFU);
- 	if (IS_ERR(job)) {
- 		ret = PTR_ERR(job);
-@@ -1178,7 +1198,7 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
+@@ -1102,14 +1107,13 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+ 
+ 	ret = v3d_submit_jobs(&submit, sync_out, &se);
  	if (ret)
- 		goto fail;
+-		goto fail_unreserve;
++		goto fail_submit;
  
--	ret = v3d_submit_jobs(&submit, args->out_sync, &se);
-+	ret = v3d_submit_jobs(&submit, sync_out, &se);
- 	if (ret)
- 		goto fail_unreserve;
+ 	return 0;
  
-@@ -1188,7 +1208,7 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
- 	v3d_submit_unlock_reservations(&submit);
+-fail_unreserve:
+-	v3d_submit_unlock_reservations(&submit);
  fail:
  	v3d_submit_cleanup_jobs(&submit);
--	v3d_put_multisync_post_deps(&se);
-+	v3d_submit_put_post_deps(sync_out, &se);
++fail_submit:
+ 	v3d_submit_put_post_deps(sync_out, &se);
  
  	return ret;
- }
-@@ -1208,6 +1228,7 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
- {
- 	struct v3d_submit submit = { .v3d = to_v3d_dev(dev), .file_priv = file_priv };
- 	struct drm_v3d_submit_csd *args = data;
-+	struct drm_syncobj *sync_out = NULL;
- 	struct v3d_submit_ext se = {0};
- 	int ret;
+@@ -1200,14 +1204,13 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
  
-@@ -1234,6 +1255,13 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
- 		}
- 	}
- 
-+	/* If multisync is configured, give priority to it and ignore out_sync. */
-+	if (args->out_sync && !(se.flags & DRM_V3D_EXT_ID_MULTI_SYNC)) {
-+		sync_out = drm_syncobj_find(file_priv, args->out_sync);
-+		if (!sync_out)
-+			return -ENOENT;
-+	}
-+
- 	ret = v3d_setup_csd_jobs_and_bos(&submit, args, &se);
+ 	ret = v3d_submit_jobs(&submit, sync_out, &se);
  	if (ret)
- 		goto fail;
-@@ -1246,7 +1274,7 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
- 	if (ret)
- 		goto fail;
+-		goto fail_unreserve;
++		goto fail_submit;
  
--	ret = v3d_submit_jobs(&submit, args->out_sync, &se);
-+	ret = v3d_submit_jobs(&submit, sync_out, &se);
- 	if (ret)
- 		goto fail_unreserve;
+ 	return 0;
  
-@@ -1256,7 +1284,7 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
- 	v3d_submit_unlock_reservations(&submit);
+-fail_unreserve:
+-	v3d_submit_unlock_reservations(&submit);
  fail:
  	v3d_submit_cleanup_jobs(&submit);
--	v3d_put_multisync_post_deps(&se);
-+	v3d_submit_put_post_deps(sync_out, &se);
++fail_submit:
+ 	v3d_submit_put_post_deps(sync_out, &se);
  
  	return ret;
- }
-@@ -1354,7 +1382,7 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
- 	if (ret)
- 		goto fail;
+@@ -1276,14 +1279,13 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
  
--	ret = v3d_submit_jobs(&submit, 0, &se);
-+	ret = v3d_submit_jobs(&submit, NULL, &se);
+ 	ret = v3d_submit_jobs(&submit, sync_out, &se);
  	if (ret)
- 		goto fail_unreserve;
+-		goto fail_unreserve;
++		goto fail_submit;
  
-@@ -1364,7 +1392,7 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
- 	v3d_submit_unlock_reservations(&submit);
+ 	return 0;
+ 
+-fail_unreserve:
+-	v3d_submit_unlock_reservations(&submit);
  fail:
  	v3d_submit_cleanup_jobs(&submit);
--	v3d_put_multisync_post_deps(&se);
-+	v3d_submit_put_post_deps(NULL, &se);
++fail_submit:
+ 	v3d_submit_put_post_deps(sync_out, &se);
  
  	return ret;
- }
+@@ -1384,14 +1386,13 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+ 
+ 	ret = v3d_submit_jobs(&submit, NULL, &se);
+ 	if (ret)
+-		goto fail_unreserve;
++		goto fail_submit;
+ 
+ 	return 0;
+ 
+-fail_unreserve:
+-	v3d_submit_unlock_reservations(&submit);
+ fail:
+ 	v3d_submit_cleanup_jobs(&submit);
++fail_submit:
+ 	v3d_submit_put_post_deps(NULL, &se);
+ 
+ 	return ret;
 
 -- 
 2.54.0
