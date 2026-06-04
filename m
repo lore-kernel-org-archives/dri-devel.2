@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C48AFCD6E75
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:28:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04368CD6E6E
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 20:29:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23B8B11A300;
-	Thu,  4 Jun 2026 20:28:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C08610E2FF;
+	Thu,  4 Jun 2026 20:29:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e/kd1xOT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EpZvO6ly";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FC2C11A300
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:28:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1699710E1C7
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:29:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C235060052;
- Thu,  4 Jun 2026 20:28:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 543651F00893;
- Thu,  4 Jun 2026 20:28:47 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9029760052
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 20:29:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EDAB1F00893;
+ Thu,  4 Jun 2026 20:29:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780604927;
- bh=g9+zGEIKIgJB1amsat4K/QHJ1LTDB19+i1G5jeHXRZ0=;
+ s=k20260515; t=1780604976;
+ bh=59EunC7qVZIMvYW9w4hgNx9rxThiRb6+4nIItZza+Uw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=e/kd1xOTUEtqn9Je1P9QooE/x7I9Nh8T7D+VFIcgh45HU/UtEh0si1yzqsMm0fTVp
- vxkzRgVjBrD9IOzsz9oNNB//QtvkzXWPjAeAuLnTleRbOB+3hsxGCfDY1Z0MP9VeCx
- YwHgtJXkYhwZ6AgGwPsjH7b02RLMy3MJnx1l8gAv3lqIhmernp0q06bP4M2RPT0hQf
- ZcRUNS6IARemialdO7Es6/8w5EyDGaCqBxaeldDpJyUondy6bgzPUcP0vVFahT782F
- 73MWrj+rDDmYEQwPVB9azzFzdYMBNj/zzm6FQG6EbfeINYBPQ7gOm2umSoO1wsbLy9
- Zd1SdZZkgLbBQ==
+ b=EpZvO6lydE33ZNXzIIzJ/U9JHWtAQ7urxj2ylvp+XbZPiQ6r8De5uP+JJW/FG44mW
+ mKt75x9refTCUry95sIG89ArDpdqS+/wtc915QVSZkWQTFaPD6rxJAEFb+KMRBetWG
+ Ss94/f6mFFB7r+eGTWkFwWO85BZXZPZ/GP89fBwxAYbBe2qBDlGwLRAb3atGEHNfTM
+ P8gUJ48+wVcEve/czkRVa9t6aYXEw2oiqUWc14qlCZ3PDeJ9ej7MyACJDtwtPJzp1G
+ T5Nc6kcyMIZOekIqviptoKeh3PBw5FH00/x4vLOESVkQKmh4EEy+qNzMp35SjgQnSF
+ 880aH5aVkRj6w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/6] drm/msm: Fix task_struct reference leak in
- recover_worker
-To: "Akhil P Oommen" <akhilpo@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260605-assorted-fixes-june-v1-6-2caa04f7287c@oss.qualcomm.com>
-References: <20260605-assorted-fixes-june-v1-6-2caa04f7287c@oss.qualcomm.com>
+Subject: Re: [PATCH v17 05/10] rust: page: convert to `Ownable`
+To: "Andreas Hindborg" <a.hindborg@kernel.org>
+Cc: linux-pci@vger.kernel.org, ojeda@kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260604-unique-ref-v17-5-7b4c3d2930b9@kernel.org>
+References: <20260604-unique-ref-v17-5-7b4c3d2930b9@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 20:28:46 +0000
-Message-Id: <20260604202847.543651F00893@smtp.kernel.org>
+Date: Thu, 04 Jun 2026 20:29:35 +0000
+Message-Id: <20260604202936.0EDAB1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,63 +57,148 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [Critical] Direct access to ctx->vm without lazy initialization via msm_c=
-ontext_vm() causes a NULL pointer dereference if ioctls are called before t=
-he VM is created.
+- [High] Latent Memory Corruption / Pointer Tagging via incorrect `FOREIGN_=
+ALIGN` on `Owned<T>`
+- [Medium] Documentation and Type Invariant Violation in `Page`
+- [Medium] Missing Safety Contract for `Ownable` implementation on `Page`
+- [Medium] API Regression: `BorrowedPage` implicitly loses `Send` and `Sync=
+` traits
+- [Low] Unnecessary unsafe block and verbose pointer cast
+- [Low] Incomplete Refactoring: Redundant `ManuallyDrop` wrapper
 --
 
-commit 9d77c7114e9006cacfe1802a7ff8d83c9c1a6bac
-Author: Jie Zhang <jie.zhang@oss.qualcomm.com>
+commit 3edfb37d39b0c201b33aed199fe66b3c430e3c6b
+Author: Asahi Lina <lina+kernel@asahilina.net>
+Subject: rust: page: convert to Ownable
 
-drm/msm: Fix task_struct reference leak in recover_worker
+This patch converts the Page reference implementation to use the Ownable
+trait. This allows Page references to be returned as borrowed references
+without necessarily owning the struct page.
 
-This commit fixes a missing put_task_struct() in the else branch of
-recover_worker. This resolves a task struct reference leak that occurred
-on every GPU hang recovery.
-
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> index 48ac51f4119be..03c0578560658 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> diff --git a/rust/kernel/page.rs b/rust/kernel/page.rs
+> index 3bdcee0e16a8d..844c75e541345 100644
+> --- a/rust/kernel/page.rs
+> +++ b/rust/kernel/page.rs
 [ ... ]
-> @@ -505,6 +505,8 @@ static void recover_worker(struct kthread_work *work)
->  		 */
->  		if (!vm->managed)
->  			msm_gem_vm_unusable(submit->vm);
-> +
-> +		put_task_struct(task);
->  	}
+> @@ -105,7 +110,7 @@ pub const fn page_align(addr: usize) -> Option<usize>=
+ {
+>  ///
+>  /// [`VBox`]: kernel::alloc::VBox
+>  /// [`Vmalloc`]: kernel::alloc::allocator::Vmalloc
+> -pub struct BorrowedPage<'a>(ManuallyDrop<Page>, PhantomData<&'a Page>);
+> +pub struct BorrowedPage<'a>(ManuallyDrop<NonNull<Page>>, PhantomData<&'a=
+ Page>);
+
+[Severity: Medium]
+Does this change implicitly remove the Send and Sync auto-traits from
+BorrowedPage?
+
+Since NonNull is not Send or Sync, it seems BorrowedPage loses its
+thread-safety, which might break concurrency APIs relying on borrowed
+pages being thread-safe.
+
+[Severity: Low]
+Is the ManuallyDrop wrapper still necessary here?
+
+Since NonNull implements Copy and has no drop glue, wrapping it in
+ManuallyDrop appears to be functionally redundant now that it no longer
+contains a Page struct that requires drop suppression.
+
+>  impl<'a> BorrowedPage<'a> {
+>      /// Constructs a [`BorrowedPage`] from a raw pointer to a `struct pa=
+ge`.
+> @@ -115,7 +120,9 @@ impl<'a> BorrowedPage<'a> {
+>      /// - `ptr` must point to a valid `bindings::page`.
+>      /// - `ptr` must remain valid for the entire lifetime `'a`.
+>      pub unsafe fn from_raw(ptr: NonNull<bindings::page>) -> Self {
+> -        let page =3D Page { page: ptr };
+> +        let page: NonNull<Page> =3D
+> +            // SAFETY: By function safety requirements `ptr` is non null.
+> +            unsafe { NonNull::new_unchecked(ptr.as_ptr().cast()) };
+
+[Severity: Low]
+Can this verbose pointer cast be natively simplified?
+
+It seems this could be safely replaced with the stable ptr.cast::<Page>()
+method, avoiding the need for an unsafe block and safety comment altogether.
+
+[ ... ]
+> @@ -148,8 +156,9 @@ pub trait AsPageIter {
+>  /// # Invariants
+>  ///
+>  /// The pointer is valid, and has ownership over the page.
+> +#[repr(transparent)]
+>  pub struct Page {
+> -    page: NonNull<bindings::page>,
+> +    page: Opaque<bindings::page>,
+>  }
+
+[Severity: Medium]
+Does the documentation for Page need to be updated to match the new
+semantics?
+
+The doc and invariants still state it is "A pointer to a page that owns
+the page allocation," but since it is now a transparent wrapper around
+Opaque, it is no longer a pointer and no longer holds ownership directly.
+
+[ ... ]
+> @@ -370,10 +380,12 @@ pub unsafe fn copy_from_user_slice_raw(
+>      }
+>  }
 > =20
->  	noreclaim_flag =3D memalloc_noreclaim_save();
+> -impl Drop for Page {
+> +impl Ownable for Page {
+>      #[inline]
+> -    fn drop(&mut self) {
+> -        // SAFETY: By the type invariants, we have ownership of the page=
+ and can free it.
+> -        unsafe { bindings::__free_pages(self.page.as_ptr(), 0) };
+> +    unsafe fn release(&mut self) {
+> +        let ptr: *mut Self =3D self;
+> +        // SAFETY: By the function safety requirements, we have ownershi=
+p of the page and can free
+> +        // it. Since Page is transparent, we can cast the raw pointer di=
+rectly.
+> +        unsafe { bindings::__free_pages(ptr.cast(), 0) };
+>      }
+>  }
 
-[Severity: Critical]
-This is a pre-existing issue, but while reviewing context VM usage in this
-driver, I noticed that direct access to ctx->vm without lazy initialization
-occurs in a few places.
+[Severity: Medium]
+Does this missing safety contract allow silently freeing only part of a
+higher-order page?
 
-In drivers/gpu/drm/msm/msm_gem_submit.c:msm_ioctl_gem_submit():
+The release implementation hardcodes an order of 0. If a user constructs
+an Owned<Page> from a higher-order allocation, dropping it would silently l=
+eak
+the rest or corrupt the buddy allocator.
 
-	if (to_msm_vm(ctx->vm)->unusable)
-		return UERR(EPIPE, dev, "context is unusable");
+Should this order-0 restriction be explicitly documented in the safety
+requirements of Page or its Ownable implementation?
 
-If a userspace process opens the DRM device and immediately calls the
-submit ioctl before the VM is lazily created, won't ctx->vm be NULL here?
-Since base is the first element of struct msm_gem_vm, to_msm_vm(NULL)
-evaluates to NULL, which would cause an immediate NULL pointer dereference
-when accessing ->unusable.
+Additionally, while reviewing the underlying ForeignOwnable implementation
+for Owned<T> in rust/kernel/owned.rs, I noticed the following:
 
-Similarly, in drivers/gpu/drm/msm/msm_gem.c:msm_gem_new_handle():
+[Severity: High]
+Does the definition of FOREIGN_ALIGN in the ForeignOwnable implementation
+for Owned<T> provide the correct alignment guarantee?
 
-		struct drm_gem_object *r_obj =3D drm_gpuvm_resv_obj(ctx->vm);
+rust/kernel/owned.rs:ForeignOwnable for Owned<T> {
+    ...
+    const FOREIGN_ALIGN: usize =3D core::mem::align_of::<Owned<T>>();
+    ...
+}
 
-Could this also trigger a crash if ctx->vm is NULL, since passing NULL to
-drm_gpuvm_resv_obj() expands to dereference ctx->vm directly? Should these
-paths be using msm_context_vm() to ensure the VM is initialized first?
+Since into_foreign returns a pointer to the inner T, if T has an alignment
+smaller than 8 bytes, the returned pointer is not guaranteed to be 8-byte
+aligned.
+
+If another subsystem (like Workqueue or RBTree) stashes tag bits in the
+lower bits of the pointer based on FOREIGN_ALIGN, wouldn't this mask off
+valid address bits and cause memory corruption when the pointer is
+reconstructed?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605-assorted-f=
-ixes-june-v1-0-2caa04f7287c@oss.qualcomm.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-unique-ref=
+-v17-0-7b4c3d2930b9@kernel.org?part=3D5
