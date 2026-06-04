@@ -4,93 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54701CD6E6D
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 14:16:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D806ECD6E6D
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 14:20:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B533111A121;
-	Thu,  4 Jun 2026 14:16:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49B45897FD;
+	Thu,  4 Jun 2026 14:20:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="CyEMgxch";
+	dkim=pass (2048-bit key; unprotected) header.d=tomeuvizoso-net.20251104.gappssmtp.com header.i=@tomeuvizoso-net.20251104.gappssmtp.com header.b="l/ymEMJA";
 	dkim-atps=neutral
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com
- [209.85.222.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4B0E11A121
- for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 14:16:12 +0000 (UTC)
-Received: by mail-qk1-f176.google.com with SMTP id
- af79cd13be357-91588056619so50795385a.2
- for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 07:16:12 -0700 (PDT)
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
+ [209.85.222.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CF6889261
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 14:20:23 +0000 (UTC)
+Received: by mail-qk1-f182.google.com with SMTP id
+ af79cd13be357-91588056619so51103085a.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 07:20:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780582823; cv=none;
+ d=google.com; s=arc-20240605;
+ b=aERXL+LpM64L55QM/LswhxrFAWhcm1CB2C7fhLxQjaPJvRY2MTWnoqF4egzg+q3F5b
+ GdHGTkwPMTxrc3dt+t6rxLEEB7lsA0QqZ3pPAcKxUIMyiVsBcuYeegV6NxFZ5r0JThJ/
+ 5pWGFbeCqD/metjxh3ajeP4khwbomtwJkeuf05pP0WaGq25cr1sKHAw4r1N9pvz9Wu+p
+ /fpr6DpajjYTf4GzK6dWH88/OsK6wKmidd2A6FKmA8C34smlFhzFYtNoWhSAC0VnKvoF
+ zGW5JQfWRR7qbEZUCt88JOcg/3r/RJyd8Qu/w2sGP/vRzkOBE93s+oQfbafrNwoY2DBY
+ f/dg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=QPi10HvU9BftniKMgGr3MAu9cx9vcqkTMC3QUEUHzeg=;
+ fh=HkxHJlQJuqJtk8szExFgOlWxfFjhRmRqs7SOhuJdmVk=;
+ b=Gh4r3cFmEWhjCnPu8wfey/H1zQQB+SGbGmpJ6js9jbkxXfpLa7o3neVnhVmvr3rlxC
+ apAdTTLuGBad2R/35Yn3GRlYw9vjuu63xeP8+e4xyF/iWYCCagNA7ceV/zrryeiV8y1j
+ b3Yz1qwWh+OUGnnIg7klA0VpvPQKS3HpbGLenxMEHZQe7P/yf2oY3a+eNTtxLxD5WBQg
+ Iv89RaW/eE1Jfwa+GSYP4mOIBuvAu06lKc1md1BDh8C6wY765K9mWQ9WyPUopNyfb+Yz
+ 02+RKdbzHgSm2D2k1k7dWg7esrvdwWPcDap1TmTfV2J59esni8FEI3usGi9kNQDeLBqp
+ fi3Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1780582572; x=1781187372; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=IjXyN1rYbvjp4a1JYQoZrj8n0hmsK/P4C6YKjbOfWXA=;
- b=CyEMgxchF6ILTadpzx1iw2hiP1i11nyUzYW6jQ+EmLBmM/C9bichABWeeobFDXxuKP
- HGk/5WabYz8aORtKgtzu/XRQYf4WlK0/bI6bPSAQDvSPMB5xJEK9JBhLe4TO0vFevI5g
- DGT7JbVP8EMbOmegHAAgPN1mw+BW7d3mmAZ/bkqG3KIMiAAq7wu8x0zY7S+Ldi9IgsbZ
- 2uYFcricPWy8PiX0R8LHGXzi/Q977clEUzsRIA/d4c6Qf7tkOHJgUN0noaLxr37lLF9V
- NgQ9Lmqefn14etUFbjlnilpwdrOoE7abBlCCDHfv6x+3ISB262DxscVi5Z+3IJpOTria
- kJSQ==
+ d=tomeuvizoso-net.20251104.gappssmtp.com; s=20251104; t=1780582823;
+ x=1781187623; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QPi10HvU9BftniKMgGr3MAu9cx9vcqkTMC3QUEUHzeg=;
+ b=l/ymEMJA9NocexEn8uGGfxDefFMb4yWjjrw+ZwNk8blSmeOmoHeFsE3zQbSiCjjc76
+ qeDk+HtEKQv50/HnWoz6/34kDM48bGZqxq5ZnRkrXXEkWVhRjGqVCjTAJ4qREgaWgAZi
+ bHhIvzQ3vMjpdKBevtKl1z2lp/O62YhK99syyL+JHS7lJK3p+XzUAm3AcvsPw+H7GQDU
+ gCfJdKtdFi9Eu43ZpIXfycuSzcyLboPATX0bw7rcrv/Ft4NleppEMBObD2leiBt39fQX
+ UlmP8t07fEBPZtZbllGEM1GPTtX7ZEVLNCCJGbY/puQS0O86ygY4mp1fxyFlAq3fBMf+
+ pGlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780582572; x=1781187372;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=IjXyN1rYbvjp4a1JYQoZrj8n0hmsK/P4C6YKjbOfWXA=;
- b=MFiegeHY22dPPn8DY8lndcTPM1mVI95IkUWOsvND7uVxXbxKUenBioSgiY+JJmwQAB
- eUu2XucZoiaCBPHxxBFUOD/Vlel9b/+hxYfiHDRwfQ5mOZFGCe4LUwiIes/ARHrrM9eN
- b5OV0UruPoWZDXQy3IZmE+FQiCivhwXhBYyhQH2rIi60B6WOc6aOcJaR3eQ4R6kwMGFk
- xYhNQ6GvDjN5maZHx56c3oB8WqT0zobpxrUphR1gkZW22HXjZIllw3SACX9d1SZXlHFf
- 6fR1o0vxVzhGG9bznf7KMCT40rQUXwAO1khUUlGJwgwMuxpyzEoLGa71YBK24wAFaYTp
- 7D1g==
+ d=1e100.net; s=20251104; t=1780582823; x=1781187623;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=QPi10HvU9BftniKMgGr3MAu9cx9vcqkTMC3QUEUHzeg=;
+ b=jho2kMFbxwVTz/YHCj319mbNX19nFFjPJfpJ8FgNSrxonpfoFHABaWAxgNFRtwZjzB
+ o+mxkgxw5BTxeE/jT/mWlclXdNTBcKlICCQzV3oB3keLxsPZ6FtpmEftwKbDE3UDqV5S
+ jCVt5kc9cM7v+Se0zO6jOb9yFUFegqZb8SPojKM234HYvpCoKBxluJLd3yrTLGqlAT6s
+ I5jpkkRpImlcRrgR7KwjWcvRxGRI97wDhjhxQiudN+38tcVd0YEVBzhwXe5ADaqIFVXp
+ fSrCVO2RP73JRjRTdZdIyeCangormOM1gou5ySvMi0euF689Ont8mGnIG/MjGCmdMkPz
+ GzNg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9ajwPEFnScrUkF5jNTmE3ZY6Htzyg+zfCA1jhGUMr95jMQUmLvpRxkcKWRwJJ8/P4JFvcmI0s3IOE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxt/9viAowDBiZozb6wYKMqh4iS6ZJcLHe77sZ91aNCWm9sTPeQ
- g8zXIOTlgdfwoaWdAFa8m6eHz0XtQmuk81TXEBbF+OZilQH5GWXl4JKB0ak8H5PcpVc=
-X-Gm-Gg: Acq92OHFniOU/fCaE1XaUb9UTbvO6q9ypUY5CG/dKabqIZn0d9SA9mPN4ax0NNy2vIi
- cQ3xpBwjtUU6USNVc2k1fs9N9+sqUK/IxM4sKxk2a3tYLjvLXJ4svkNS6juFPl5hClR4ho9MpZ9
- mPizX4VoTg5ka7PUwJBt+tx9iSZorQPCEQfe//+DnFI1/wOaMKg1Y4IjYgR7Rkf9dFs1HQ7K8mX
- bywA3kW/cUi8Ornr5q2+sg3IF/wkeOlWAwcXqE1MXqpkiyE9I2oY9/nZVdGbf90hF8yHDEuQE52
- pyRmqrZ/+jceEDwwlH9jw5oDEuovv2FvH3kjO/zjisuYf+pnZeTggAPYJWFRTHJMwCH+SiWAKz1
- qsApS4acVow/abQ3xIwelQK9S7FwzDvFC+fNvOgOkEwY+qfGp1ruYFuhfpeI5xVW8T3Dh+4viLi
- x8LzKaDU5gJBpi6UGcFIw0/DCzZliAC6/g9PqxxesW5wqhNYdldbIENHvV9OmuQYaZTs6qfeWwp
- mWugF10Xbiki8Ye
-X-Received: by 2002:a05:620a:7081:b0:915:7b23:4afd with SMTP id
- af79cd13be357-9158a7292d8mr1364770885a.16.1780582571570; 
- Thu, 04 Jun 2026 07:16:11 -0700 (PDT)
-Received: from ziepe.ca
- (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
- [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9158a3b637esm580303885a.32.2026.06.04.07.16.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Jun 2026 07:16:11 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1wV8ri-00000008HMt-1ns6;
- Thu, 04 Jun 2026 11:16:10 -0300
-Date: Thu, 4 Jun 2026 11:16:10 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Guanghui Feng <guanghuifeng@linux.alibaba.com>
-Cc: adrian.larumbe@collabora.com, airlied@gmail.com, alex@shazbot.org,
- alikernel-developer@linux.alibaba.com, baolu.lu@linux.intel.com,
- boris.brezillon@collabora.com, dri-devel@lists.freedesktop.org,
- dwmw2@infradead.org, iommu@lists.linux.dev, joro@8bytes.org,
- kevin.tian@intel.com, kvm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- liviu.dudau@arm.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, oliver.yang@linux.alibaba.com, robh@kernel.org,
- robin.murphy@arm.com, shiyu.zsq@linux.alibaba.com,
- steven.price@arm.com, suravee.suthikulpanit@amd.com,
- tzimmermann@suse.de, wei.guo.simon@linux.alibaba.com,
- will@kernel.org, xlpang@linux.alibaba.com
-Subject: Re: [PATCH v3 01/32] iommu: introduce iova_to_phys_length in
- iommu_domain_ops
-Message-ID: <20260604141610.GX2487554@ziepe.ca>
-References: <20260602104637.1219810-1-guanghuifeng@linux.alibaba.com>
- <20260603151804.1963871-1-guanghuifeng@linux.alibaba.com>
- <20260603151804.1963871-2-guanghuifeng@linux.alibaba.com>
+ AFNElJ/kHAcCcLhPYL4Ai99m0ddeAB3iqTdVKL2PikoxifY54MGkc7bQGD4EIwkI6YpUVh0A6Pxl9OAm+lM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwbMAnTwGb0067pBZnjA9JHDsmQ2fq+5tXO1OgH1/VsqTTbc1Sy
+ fGeKuLXY96zkvoUAwJ6Rxt+dwJIDA6sKA7V/8tVtAa0O6CiUJfdSH/tNSQet+BYzXB/4Qr2MWIv
+ HVrJCjyQw5UjakfDygXBN15dz0YdGlC5F8OXbbGHAuw==
+X-Gm-Gg: Acq92OEAd2sqw2U0COd3HRo2PwYex6JkDmb5Sgl6LpGkuFjiK98By9JWvzDVnBYesyQ
+ Ne8S4EC29lr9sG4us1ZTu/qQR/IYhSN9e9/7VZQnuhmGKEnt70LfsqzCRBLjjB6ch8ciTPXzzno
+ 6esjt6sA5w9yL5nss5ljY6sAE51Pn0Ipzj2N02HVdQbfvD2tbnyAZhNCO9yxe5lFWSZP2nRe903
+ lh0gjWIIQvyUVY2yj4YHO7Ue9t47A2YtR8nI4MYLcf6LU2Nlpt1VRkjB4GqgsA5+vH6+kTDb6p5
+ s4dYc5ICBYIuhlid
+X-Received: by 2002:a05:620a:268d:b0:912:c0b3:7d9b with SMTP id
+ af79cd13be357-9158a76739emr1272633085a.24.1780582822784; Thu, 04 Jun 2026
+ 07:20:22 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260603151804.1963871-2-guanghuifeng@linux.alibaba.com>
+References: <20260604135255.62682-1-midgy971@gmail.com>
+ <20260604135255.62682-7-midgy971@gmail.com>
+In-Reply-To: <20260604135255.62682-7-midgy971@gmail.com>
+From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Date: Thu, 4 Jun 2026 16:20:10 +0200
+X-Gm-Features: AVHnY4JQeDtrhyq7YBnn9raVEBX1uxBzeM4kDcgUj1eAV9LhKWI5-NL4FjfQpnY
+Message-ID: <CAPsqS2RYjf4dMj=Maz1c2vViW83ZsrEW9eOez526eh=TsKvQww@mail.gmail.com>
+Subject: Re: [RFC PATCH v3 6/9] iommu/rockchip: Clear AUTO_GATING bit 1 on the
+ RK356x v1 IOMMU
+To: Midgy BALON <midgy971@gmail.com>
+Cc: ogabbay@kernel.org, heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,44 +111,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 03, 2026 at 11:17:33PM +0800, Guanghui Feng wrote:
-> +phys_addr_t iommu_iova_to_phys_length(struct iommu_domain *domain,
-> +				       dma_addr_t iova,
-> +				       size_t *mapped_length)
->  {
+On Thu, Jun 4, 2026 at 3:53=E2=80=AFPM Midgy BALON <midgy971@gmail.com> wro=
+te:
+>
+> On the RK356x v1 IOMMU, RK_MMU_AUTO_GATING resets to 0x3. Bit 1 enables
+> auto clock-gating of the page-table walker, so the walker's AXI master
+> loses its clock between transactions; a TLB-miss page walk then never
+> completes and the IOMMU is left stuck (PAGING_ENABLED, never IDLE).
+>
+> Clear bit 1 (keeping bit 0, the slave-port gate) once paging is enabled
+> so the walker keeps its clock. This is required for the RK3568 NPU MMU.
 
-This should take in an ending point so the accumulation knows when to
-stop, otherwise it is too hard to use.
+Hi,
 
-> -	if (domain->type == IOMMU_DOMAIN_IDENTITY)
-> +	phys_addr_t phys;
+I'm not able to review this patch myself, but maybe it can be
+submitted separately while we work on the NPU bits?
+
+Regards,
+
+Tomeu
+
+> Signed-off-by: Midgy BALON <midgy971@gmail.com>
+> ---
+>  drivers/iommu/rockchip-iommu.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+>
+> diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iomm=
+u.c
+> index 4da80136933c4..e3d8b6e9ca12b 100644
+> --- a/drivers/iommu/rockchip-iommu.c
+> +++ b/drivers/iommu/rockchip-iommu.c
+> @@ -953,6 +953,18 @@ static int rk_iommu_enable(struct rk_iommu *iommu)
+>
+>         ret =3D rk_iommu_enable_paging(iommu);
+>
+> +       if (!ret) {
+> +               /*
+> +                * RK356x v1 IOMMU: RK_MMU_AUTO_GATING bit 1 enables page=
+-walker
+> +                * auto clock-gating; the walker's AXI master then loses =
+its clock
+> +                * between transactions and a TLB-miss page walk never co=
+mpletes,
+> +                * leaving the IOMMU stuck (PAGING_ENABLED, never IDLE). =
+ Clear
+> +                * bit 1 (keep bit 0, the slave-port gate) once paging is=
+ enabled.
+> +                */
+> +               for (i =3D 0; i < iommu->num_mmu; i++)
+> +                       rk_iommu_write(iommu->bases[i], RK_MMU_AUTO_GATIN=
+G, 0x2);
+> +       }
 > +
-> +	if (domain->type == IOMMU_DOMAIN_IDENTITY) {
-> +		if (mapped_length)
-> +			*mapped_length = PAGE_SIZE;
->  		return iova;
-> +	}
->  
-> -	if (domain->type == IOMMU_DOMAIN_BLOCKED)
-> -		return 0;
-> +	if (mapped_length)
-> +		*mapped_length = 0;
-> +
-> +	if (domain->ops->iova_to_phys_length)
-> +		return domain->ops->iova_to_phys_length(domain, iova, mapped_length);
-> +
-> +	/* Fallback to legacy iova_to_phys without length info */
-> +	if (!domain->ops->iova_to_phys)
-> +		return PHYS_ADDR_MAX;
-> +
-> +	phys = domain->ops->iova_to_phys(domain, iova);
-> +	if (!phys)
-> +		return PHYS_ADDR_MAX;
-
-And to properly clean up the callers all the non-iommupt paths should
-manually do accumulation here as well.
-
-Basically if you call this function you get a maximal contiguous
-physical range as efficiently as possible.
-
-Jason
+>  out_disable_stall:
+>         rk_iommu_disable_stall(iommu);
+>  out_disable_clocks:
+> --
+> 2.39.5
+>
