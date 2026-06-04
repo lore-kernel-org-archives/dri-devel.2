@@ -4,68 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A056CD6E68
-	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 07:10:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BE04CD6E68
+	for <dri-devel@archiver.kernel.org>; Thu,  4 Jun 2026 07:12:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B980113D11;
-	Thu,  4 Jun 2026 07:10:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8102113D15;
+	Thu,  4 Jun 2026 07:12:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mTlK76AL";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="mkDIeNHV";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA6C1113D10;
- Thu,  4 Jun 2026 07:10:18 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 46DFC43DF5;
- Thu,  4 Jun 2026 07:10:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 724E31F00893;
- Thu,  4 Jun 2026 07:10:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780557018;
- bh=AhMxEQwcegOFcYLIZ9y5iV53bw04kwuyEtOBVhEDYMA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=mTlK76ALzPHk/Pz+6x8nTHyAjcgK/SS+Mku9+Qi7I3SNA0dfcHu6BhFEs+C19pRU6
- E5+OGsyWwtumgMG/WJ2Le0aae5LQxGXgowtVmcepxAXxMfqCWAilCKaYGk/5+kRVkP
- 4cO9j+hmH6qM30B4Ytx/qU6yvKs9erS3UMZLX0LxVk1/5u7oTpy2ME5T1T/npLCOGU
- s4u+Pk89mJTbVKzFZ55WRg+drPIILWBGGd5p/DVxhd0Z2F7ICIpxvMp25Jq0zQa4Gy
- HAb3eZDLpekHG+5x0DW3wia0LnDWOcTfGSaDl10ol+7lmMFjJhA3KS0hZK1C8ogR+c
- F4m/GYKhfbnJQ==
-Message-ID: <f027078c-6a55-463b-8938-95ede02dca3b@kernel.org>
-Date: Thu, 4 Jun 2026 16:10:08 +0900
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BE8A113D15
+ for <dri-devel@lists.freedesktop.org>; Thu,  4 Jun 2026 07:12:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=hi
+ UR13d5dBzF8Im0U4deIlQbQWkcyNiC9aoy5hCFBUg=; b=mkDIeNHVQy4O7w4t/S
+ XA37GGo2LzrOq9wfN4voJbwLzOnnqDMzey1xTKHNsJ0f231DEDxlhD2iArJZIa9l
+ m/pr4Mht8f4zINLYhtcSV6ar7aOH75QfPlG+dg2w5Hp/3m+CBl5BlrKcuB9yMnh8
+ CXP/xIEpOk/TTLBcJDSyoj1ws=
+Received: from neo-TianYi510Pro-15ICK.. (unknown [])
+ by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id
+ _____wD3kWdLJSFq_opjBQ--.18375S2; 
+ Thu, 04 Jun 2026 15:12:12 +0800 (CST)
+From: liuqiangneo@163.com
+To: airlied@redhat.com,
+	kraxel@redhat.com,
+	dmitry.osipenko@collabora.com
+Cc: gurchetansingh@chromium.org, olvaffe@gmail.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Qiang Liu <liuqiang@kylinos.cn>
+Subject: [PATCH] drm/virtgpu: Use ERR_PTR for fb_create callback error return
+Date: Thu,  4 Jun 2026 15:11:58 +0800
+Message-ID: <20260604071202.138235-1-liuqiangneo@163.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/slab: improve kmem_cache_alloc_bulk
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, rob.clark@oss.qualcomm.com
-Cc: Christoph Hellwig <hch@lst.de>, Andrew Morton
- <akpm@linux-foundation.org>, Mark Brown <broonie@kernel.org>,
- Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
- David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Jesper Dangaard Brouer <hawk@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, io-uring@vger.kernel.org,
- kasan-dev@googlegroups.com, bpf@vger.kernel.org, netdev@vger.kernel.org,
- Alexander Lobakin <aleksander.lobakin@intel.com>,
- Boris Brezillon <boris.brezillon@collabora.com>
-References: <20260528093437.2519248-1-hch@lst.de>
- <20260528093437.2519248-2-hch@lst.de>
- <5f7f90d8-cb32-4ffb-8f1c-0722aafbe869@kernel.org>
- <20260529135045.GA10647@lst.de>
- <5f3ba603-a6ad-4cf2-9a54-aebc10273c59@kernel.org>
- <58cc76e7-2348-443d-a989-2a06e61178af@kernel.org>
- <20260601113831.GA25535@lst.de>
- <d7b08296-7f6e-4d89-ab3b-04e43d04929e@kernel.org>
- <CACSVV00k-fxW6+waHNqvmYcnVNDkRexoWWprFzfayZfqdyMuuA@mail.gmail.com>
- <CACSVV00dNWgpNVU5rB=Hmg+3oWF18yTyfKNr_tWesjoP1jMxwg@mail.gmail.com>
- <5e6948b3-d235-4b61-aed7-e8b4d0f5b452@kernel.org>
- <CACSVV02v0Fuc6=Rqyd89D-_tcSjEXuQmxz0+2-4aoRAEwJE4zg@mail.gmail.com>
- <b6f6323e-6f5b-4928-b474-bd2743eac3f2@kernel.org>
-Content-Language: en-US
-From: Harry Yoo <harry@kernel.org>
-In-Reply-To: <b6f6323e-6f5b-4928-b474-bd2743eac3f2@kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------wiFRKWLl9yvmDjGQCVE2s47E"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wD3kWdLJSFq_opjBQ--.18375S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Gr4kKryxWrykKrWfGw4UArb_yoWfGrc_Gr
+ 1UXr9rXryakF1v93yUAa1rXryIvas8CFs7Z343tr93tw1DAwn7X3srZr4xX3W5Wr4UKFZx
+ Aa1rWFn7Aan3KjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU8a9aDUUUUU==
+X-Originating-IP: [116.128.244.169]
+X-CM-SenderInfo: 5olx1xxdqj0vrr6rljoofrz/xtbC4Aw-oGohJUwXVgAA3Q
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,103 +62,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------wiFRKWLl9yvmDjGQCVE2s47E
-Content-Type: multipart/mixed; boundary="------------wMYGC0PsvxX072tLl8xZovbN";
- protected-headers="v1"
-From: Harry Yoo <harry@kernel.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, rob.clark@oss.qualcomm.com
-Cc: Christoph Hellwig <hch@lst.de>, Andrew Morton
- <akpm@linux-foundation.org>, Mark Brown <broonie@kernel.org>,
- Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
- David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Jesper Dangaard Brouer <hawk@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, io-uring@vger.kernel.org,
- kasan-dev@googlegroups.com, bpf@vger.kernel.org, netdev@vger.kernel.org,
- Alexander Lobakin <aleksander.lobakin@intel.com>,
- Boris Brezillon <boris.brezillon@collabora.com>
-Message-ID: <f027078c-6a55-463b-8938-95ede02dca3b@kernel.org>
-Subject: Re: [PATCH] mm/slab: improve kmem_cache_alloc_bulk
-References: <20260528093437.2519248-1-hch@lst.de>
- <20260528093437.2519248-2-hch@lst.de>
- <5f7f90d8-cb32-4ffb-8f1c-0722aafbe869@kernel.org>
- <20260529135045.GA10647@lst.de>
- <5f3ba603-a6ad-4cf2-9a54-aebc10273c59@kernel.org>
- <58cc76e7-2348-443d-a989-2a06e61178af@kernel.org>
- <20260601113831.GA25535@lst.de>
- <d7b08296-7f6e-4d89-ab3b-04e43d04929e@kernel.org>
- <CACSVV00k-fxW6+waHNqvmYcnVNDkRexoWWprFzfayZfqdyMuuA@mail.gmail.com>
- <CACSVV00dNWgpNVU5rB=Hmg+3oWF18yTyfKNr_tWesjoP1jMxwg@mail.gmail.com>
- <5e6948b3-d235-4b61-aed7-e8b4d0f5b452@kernel.org>
- <CACSVV02v0Fuc6=Rqyd89D-_tcSjEXuQmxz0+2-4aoRAEwJE4zg@mail.gmail.com>
- <b6f6323e-6f5b-4928-b474-bd2743eac3f2@kernel.org>
-In-Reply-To: <b6f6323e-6f5b-4928-b474-bd2743eac3f2@kernel.org>
+From: Qiang Liu <liuqiang@kylinos.cn>
 
---------------wMYGC0PsvxX072tLl8xZovbN
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+The fb_create callback returns an error code encoded with ERR_PTR()
+on failure. This lets the caller see the actual error code instead of
+just a generic failure.
 
+Signed-off-by: Qiang Liu <liuqiang@kylinos.cn>
+---
+ drivers/gpu/drm/virtio/virtgpu_display.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/virtio/virtgpu_display.c b/drivers/gpu/drm/virtio/virtgpu_display.c
+index 44ffffec550f..85ea252c658e 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_display.c
++++ b/drivers/gpu/drm/virtio/virtgpu_display.c
+@@ -344,7 +344,7 @@ virtio_gpu_user_framebuffer_create(struct drm_device *dev,
+ 	if (ret) {
+ 		kfree(virtio_gpu_fb);
+ 		drm_gem_object_put(obj);
+-		return NULL;
++		return ERR_PTR(ret);
+ 	}
+ 
+ 	return &virtio_gpu_fb->base;
+-- 
+2.43.0
 
-On 6/4/26 1:22 AM, Vlastimil Babka (SUSE) wrote:
-> On 6/3/26 13:13, Rob Clark wrote:
->> On Wed, Jun 3, 2026 at 2:17=E2=80=AFAM Vlastimil Babka (SUSE) <vbabka@=
-kernel.org> wrote:
->>>
->>> We know p->pages is NULL in this case, right? Because it was allocate=
-d by
->>> vm_bind_job_create() using kzalloc().
->>> And the job can't be reused with a leftover value?
->>> (msm_iommu_pagetable_prealloc_cleanup doesn't set p->pages to zero).
->>> Or should we set p->pages to NULL here.
->>
->> Correct, the job is not reused.  But I suppose setting p->pages to
->> NULL would make things more obvious, so no objection to that.
->=20
-> OK, did that, just in case. Thanks.
-
-The kvfree() -> kfree() part should probably be a separate patch
-with Fixes: 830d68f2cb8a ("drm/msm: Fix pgtable prealloc error
-path") and Cc: stable?
-
-=2E..as the commit landed v6.18.
-
->> BR,
->> -R
->>
->>>> +
->>>>         p->pages =3D kvmalloc_objs(*p->pages, p->count);
->>>>         if (!p->pages)
->>>>                 return -ENOMEM;
->>>>
->>>>         ret =3D kmem_cache_alloc_bulk(pt_cache, GFP_KERNEL, p->count=
-, p->pages);
->>>>         if (ret !=3D p->count) {
->>>> -               kfree(p->pages);
->>>> +               kvfree(p->pages);
->>>>                 p->pages =3D NULL;
->>>>                 p->count =3D ret;
->>>>                 return -ENOMEM;
-
---=20
-Cheers,
-Harry / Hyeonggon
-
---------------wMYGC0PsvxX072tLl8xZovbN--
-
---------------wiFRKWLl9yvmDjGQCVE2s47E
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQQQ1ub6gR5ogjaKRmOGXBN6rc5S1gUCaiEk0AAKCRCGXBN6rc5S
-1v0/AQCTdSzVR1AlZpSbYogIVVB+443eCQzT7065V9OSIICLswD/e6Yg56WZBHlu
-kh1s01feILBrZKf2TcrQ69haUSsKKgk=
-=BoaG
------END PGP SIGNATURE-----
-
---------------wiFRKWLl9yvmDjGQCVE2s47E--
