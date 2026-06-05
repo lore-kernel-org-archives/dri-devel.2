@@ -4,92 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67157CD6E7D
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 14:04:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0B49CD6E7D
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 14:14:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC51D11A898;
-	Fri,  5 Jun 2026 14:04:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0516811A8BF;
+	Fri,  5 Jun 2026 14:14:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RApMYwO7";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="V4ktR92p";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CD0F11A898
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 14:04:30 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B294D600AF;
- Fri,  5 Jun 2026 14:04:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2C211F00893;
- Fri,  5 Jun 2026 14:04:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780668269;
- bh=n9phLvi9RaSkTbiV76v3B+9PIG1KyHFVOKkyTySAtm8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=RApMYwO7er3nWL423qBa8U7GezuFG85ZFI5QxfxdBRA7oxZOqr3+dUKOvKsQD42dk
- MBm8gyp4fD+eznKQX2NuNl3PnC9qt/wtqr5m86YXCEdGRJMAhV26S4jY7Kh24jYkAq
- GbrrIb2q4riaQyR41vegJ4WkCjoH4Em7/d4vKPqhCsKUoNi6h+Hyry4kG2iyFA90Sz
- 5aUMgBIh8jiCcjHLrtWhYi+Cg2DmYH55hjF80jg5xWdqKNdobAdnhkM5bg8xfUaHx1
- KfNXPeeTrR8LvzTbFRWiEekhhKHP90RPEUV8lI5QIW3OQA8Ix9YzL1OHon50JAkz+m
- /aMXpi8IlhVTA==
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailfauth.phl.internal (Postfix) with ESMTP id 04B5BF4006B;
- Fri,  5 Jun 2026 10:04:27 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-04.internal (MEProxy); Fri, 05 Jun 2026 10:04:28 -0400
-X-ME-Sender: <xms:a9ciaqlosAOgMQ-H7Bs3JEtceK8yxjIZyvfv12DxMpT8noa2LvH6UA>
- <xme:a9ciauTmf_0ZDts2yRwzgpvSn-ozgSSUasZ63qxsOL7UFns9IZhhWS3I7kz2NyySD
- srfWhMNvIgstAqsVM9nJB3Ob7qEmVRhMOVTtffqHmvrB1W3bPwETw>
-X-ME-Received: <xmr:a9ciav5x9HVbnmYbLxkD4mit0JBd3O-U72si7DYB5phFmSYDmDoybYuX78o>
-X-ME-Proxy-Cause: dmFkZTE0LZy4M50cfSktgTQFQkT6rI8G/Y5ximbMU42xvQT/+Sed7xjM9kNTsktTuSYDm1
- BIjZO7IzdASMlhBtV1S7AFMQApb37A8fKR9/AHBLIr/n9d/wlMaBz+PRGef2ki8mMhu9tX
- 4JvIRsbSlNYDdkdzSA6KfbTuLTkSgs9bVuP2uAzw08Hls1twdxyz7y7v9YaBKujNxVJEjL
- G0EeIDtlTu2RAmmMKOAuCcjCCAFGKqDKV8vFzoNSBFeiSMcfD6JZu6gP3ORcpCyzteW65r
- 25GOeoMN2WTRB5S4afaK+GExykd4IQTngu5itniecfIpXUhstt8v8txm3kk/kZVZbv1bqO
- ino+D2vIRbGMN+F1hRXDOCzUUZ2iJH07hy1zl3BcOJNvFSHyIe1wkLhZ97kGI/eS+3q0so
- mx/DzXcsnBDcWHgz6WWNinkDN6IiI48Vi289YaFfyxv8KArnYJOTUiWIfZ4GiV7IRl+0sO
- be02Isnlw5gQ6PVC39s4/Er7YAf9Cb0CT1xqHgh2ckzV1mpGiJHVHN4FZrGBoUVBJOBAcL
- t+ZwTOzejpgfVg0iqdMKpWeCjLU3a5n44cIPoA/RfgiZ4LMkRNHl2sJkaEZRhYj7pHjiJo
- ZVydVPBt8Dd6psI3xOgvfEiZQ/1XhhJ7y+n8Pv6AmgF9oUJpk/pxlIOaoAdg
-X-ME-Proxy: <xmx:a9cialHZ--5RMQutJGNI-mXfgpahld13JBnKh_cXRhsUWb5rNGxwgA>
- <xmx:a9ciapGyCe-Jsr-DKFpFLGNwICjSfAj78LXIpdeH4ICgyDz8UpyQig>
- <xmx:a9ciartEuy8QyrrZg5xel2j7fyTUsmEiLyAvUGLc9pqqbxBhx36GZg>
- <xmx:a9cianI6wu3QjraoT0xkcrI8owwNVsdSwqYU2kw7PK0Smvh6B6QI7Q>
- <xmx:a9ciaizRFxuinjXkGL5XxgnHr3z8LABkzVb52CrBYIK0js_GkvR6y0HT>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 5 Jun 2026 10:04:27 -0400 (EDT)
-Date: Fri, 5 Jun 2026 07:04:26 -0700
-From: Boqun Feng <boqun@kernel.org>
-To: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- rcu@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Andrew Ballance <andrewjballance@gmail.com>,
- "Paul E. McKenney" <paulmck@kernel.org>,
- Frederic Weisbecker <frederic@kernel.org>,
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Lai Jiangshan <jiangshanlai@gmail.com>,	Zqiang <qiang.zhang@linux.dev>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- maple-tree@lists.infradead.org, linux-mm@kvack.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Philipp Stanner <phasta@kernel.org>, Lyude Paul <lyude@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>
-Subject: Re: [RFC PATCH 3/3] rust: rcu: Introduce RcuFreeBox
-Message-ID: <aiLXaoGZVkiNEAgC@tardis-2.local>
-References: <20260605133541.22569-1-boqun@kernel.org>
- <20260605133541.22569-6-boqun@kernel.org>
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C1D811A8BE
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 14:14:25 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 17E8B1B9A;
+ Fri,  5 Jun 2026 16:13:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1780668838;
+ bh=8D/2KO4b+Rfxis7X4IQhRn0RjL1DaaoS39QSQmlfw4g=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=V4ktR92pc7oXZrgRBL/dT0jtIr0BItAj0mPGro4W7r2YDf7trotgGYq8HXX0deet6
+ m/GD47L/AU0StHEF+6lbXGieDPOdSSbYX4weNjJ6JI304sKyLPUAfouhkAKp9u57y+
+ 8emHEqE6c6QaDs8V7FAq/xUUzPJi9smVg2pV9RHI=
+Date: Fri, 5 Jun 2026 17:14:22 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 02/76] drm/atomic-state-helper: Reorder
+ __drm_atomic_helper_bridge_state_init() arguments
+Message-ID: <20260605141422.GA84912@killaraus.ideasonboard.com>
+References: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
+ <20260530-drm-no-more-bridge-reset-v1-2-875d828d31bc@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260605133541.22569-6-boqun@kernel.org>
+In-Reply-To: <20260530-drm-no-more-bridge-reset-v1-2-875d828d31bc@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,214 +63,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jun 05, 2026 at 06:35:41AM -0700, Boqun Feng wrote:
-> The current RcuBox will call the `drop()` function after a grace period
-> inside an RCU callback. This suffices for maintaining a RCU-protected
-> object:
+On Sat, May 30, 2026 at 03:59:07PM +0200, Maxime Ripard wrote:
+> The convention for state init helpers is to pass the state pointer
+> as the first argument and the object pointer second.
 > 
->   RcuBox::drop():
->     call_rcu(
->       |..| { // <- call back after one grace period.
->         T::drop(); // <- call the destructor of the inner object.
->       }
->     )
+> __drm_atomic_helper_bridge_state_init() has them in the opposite
+> order. Swap the arguments to follow the convention, and update the
+> cdns-mhdp8546 caller.
 > 
-> However, to support a different RCU usage pattern as below we need to
-> extend RcuBox:
-> 
-> 1. clean up the object, and unshare it from future RCU readers.
-> 2. wait for an RCU grace period.
-> 3. no other RCU readers, we can free the memory.
-> 
-> An `RcuFreeBox<T: RcuFreeSafe>` is introduced to provide support for
-> this:
-> 
->   RcuFreeBox::drop():
->     T::drop_before_gp(); // clean up and ushare.
->     kfree_call_rcu(..);  // free it after one grace period.
-> 
-> Signed-off-by: Boqun Feng <boqun@kernel.org>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+
 > ---
->  rust/kernel/sync/rcu.rs         | 31 +++++++++++++++
->  rust/kernel/sync/rcu/rcu_box.rs | 68 +++++++++++++++++++++++++++++++--
->  2 files changed, 95 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c | 2 +-
+>  drivers/gpu/drm/drm_atomic_state_helper.c           | 8 ++++----
+>  include/drm/drm_atomic_state_helper.h               | 4 ++--
+>  3 files changed, 7 insertions(+), 7 deletions(-)
 > 
-> diff --git a/rust/kernel/sync/rcu.rs b/rust/kernel/sync/rcu.rs
-> index 7da6b8d22277..7c26591bb318 100644
-> --- a/rust/kernel/sync/rcu.rs
-> +++ b/rust/kernel/sync/rcu.rs
-> @@ -4,6 +4,8 @@
->  //!
->  //! C header: [`include/linux/rcupdate.h`](srctree/include/linux/rcupdate.h)
+> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+> index 4e3015d10a97..063f073034c1 100644
+> --- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+> +++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+> @@ -1927,11 +1927,11 @@ cdns_mhdp_bridge_atomic_reset(struct drm_bridge *bridge)
 >  
-> +use core::pin::Pin;
-> +
->  use crate::{
->      bindings,
->      types::{
-> @@ -82,3 +84,32 @@ pub trait ForeignOwnableRcu: ForeignOwnable {
->      /// [`from_foreign`]: ForeignOwnable::from_foreign
->      unsafe fn rcu_borrow<'a>(ptr: *mut ffi::c_void) -> Self::RcuBorrowed<'a>;
->  }
-> +
-> +/// Declares a struct is safe to free after a grace period if all readers are guarded by RCU.
-> +///
-> +/// # Safety
-> +///
-> +/// Implementation must guarantee `drop_before_gp()` makes sure no future RCU reader will access
-> +/// any part of [`Self`], as a result, after `drop_before_gp()` return + one grace period, no RCU
-> +/// reader will be on the object, and it's safe to free it.
-> +///
-> +/// Notes for implementators: implementing this trait in general requires `Self` being a
-> +/// [`UnsafePinned`], i.e. a `&mut Self` is not a noalias reference if `Self` has non-trivial
-> +/// `drop()` function.
-> +pub unsafe trait RcuFreeSafe {
-> +    fn drop_before_gp(self: Pin<&mut Self>);
-> +}
-> +
-> +macro_rules! impl_not_drop {
-> +    ($($t:ty, )*) => {
-> +        // SAFETY: Dropping `T` has no side effect means `T` is always ready to be freed. And an
-> +        // empty `drop_before_gp()` suffices.
-> +        $(unsafe impl RcuFreeSafe for $t {
-> +            fn drop_before_gp(self: Pin<&mut Self>) {
-> +                $crate::const_assert!(!core::mem::needs_drop::<$t>());
-> +            }
-> +        })*
-> +    }
-> +}
-> +
-> +impl_not_drop! {i8,u8,i16,u16,i32,u32,isize,usize,i64,u64,}
-> diff --git a/rust/kernel/sync/rcu/rcu_box.rs b/rust/kernel/sync/rcu/rcu_box.rs
-> index 943fe3e8974e..8f52bb472daf 100644
-> --- a/rust/kernel/sync/rcu/rcu_box.rs
-> +++ b/rust/kernel/sync/rcu/rcu_box.rs
-> @@ -6,6 +6,7 @@
+>  	cdns_mhdp_state = kzalloc_obj(*cdns_mhdp_state);
+>  	if (!cdns_mhdp_state)
+>  		return NULL;
 >  
->  use core::{
->      marker::PhantomData,
-> +    mem::ManuallyDrop,
->      ops::Deref,
->      ptr::NonNull, //
->  };
-> @@ -29,17 +30,18 @@
+> -	__drm_atomic_helper_bridge_state_init(bridge, &cdns_mhdp_state->base);
+> +	__drm_atomic_helper_bridge_state_init(&cdns_mhdp_state->base, bridge);
 >  
->  use super::{
->      ForeignOwnableRcu,
-> -    Guard, //
-> +    Guard,
-> +    RcuFreeSafe, //
->  };
->  
-> -/// A box that is freed with rcu.
-> +/// A box that is drop with RCU.
->  ///
-> -/// The value must be `Send`, as rcu may drop it on another thread.
-> +/// The value must be `Send`, as RCU may drop it on another thread.
->  ///
->  /// # Invariants
->  ///
->  /// * The pointer is valid and references a pinned `RcuBoxInner<T>` allocated with `A`.
-> -/// * This `RcuBox` holds exclusive permissions to rcu free the allocation.
-> +/// * This `RcuBox` holds exclusive permissions to RCU-free the allocation.
->  pub struct RcuBox<T: Send, A: Allocator>(NonNull<RcuBoxInner<T>>, PhantomData<A>);
->  
->  /// Type alias for [`RcuBox`] with a [`Kmalloc`] allocator.
-> @@ -205,6 +207,50 @@ fn drop(&mut self) {
->      drop(unsafe { Box::<_, A>::from_raw(box_inner) });
+>  	return &cdns_mhdp_state->base;
 >  }
 >  
-> +/// A box that is freed with RCU.
-> +///
-> +/// Currently we require `T` being `Send` because of an implementation limitation. In theory we can
-> +/// support `T` being `!Send`, since the RCU callback is only used to free the memory, not dropping
-> +/// `T`.
-> +pub struct RcuFreeBox<T: Send + RcuFreeSafe, A: Allocator>(RcuBox<ManuallyDrop<T>, A>);
-> +
-> +impl<T: Send + RcuFreeSafe, A: Allocator> RcuFreeBox<T, A> {
-> +    /// Create a new `RcuFreeBox`.
-> +    pub fn new(x: T, flags: alloc::Flags) -> Result<Self, AllocError> {
-> +        Ok(Self(RcuBox::new(ManuallyDrop::new(x), flags)?))
-> +    }
-> +
-> +    /// Access the value for a grace period.
-> +    pub fn with_rcu<'rcu>(&self, read_guard: &'rcu Guard) -> &'rcu T {
-> +        self.0.with_rcu(read_guard)
-> +    }
-> +}
-> +
-> +impl<T: Send + RcuFreeSafe, A: Allocator> Deref for RcuFreeBox<T, A> {
-> +    type Target = T;
-> +
-> +    fn deref(&self) -> &T {
-> +        self.0.deref()
-> +    }
-> +}
-> +
-> +impl<T: Send + RcuFreeSafe, A: Allocator> Drop for RcuFreeBox<T, A> {
-> +    fn drop(&mut self) {
-> +        // CAST: `ManuallyDrop<T>` is transparet to `T`, adn `RcuBox` owns the object per type
-> +        // invariants.
-> +        let ptr = self.0 .0.as_ptr().cast::<T>();
-> +
-> +        // SAFETY: Per the invariants of `RcuBox`, `ptr` owns the pointed object. And we are not
-> +        // going to move it.
-> +        let pin = unsafe { Pin::new_unchecked(&mut *ptr) };
-> +
+>  static u32 *cdns_mhdp_get_input_bus_fmts(struct drm_bridge *bridge,
+> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+> index c38e514f336f..8f04eae7a754 100644
+> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+> @@ -886,19 +886,19 @@ void drm_atomic_helper_bridge_destroy_state(struct drm_bridge *bridge,
+>  EXPORT_SYMBOL(drm_atomic_helper_bridge_destroy_state);
+>  
+>  /**
+>   * __drm_atomic_helper_bridge_state_init() - Initialize a bridge state to its
+>   *					default
+> - * @bridge: the bridge this state refers to
+>   * @state: bridge state to initialize
+> + * @bridge: the bridge this state refers to
+>   *
+>   * Initializes the bridge state to default values. This is meant to be called
+>   * by the bridge &drm_bridge_funcs.atomic_reset hook for bridges that subclass
+>   * the bridge state.
+>   */
+> -void __drm_atomic_helper_bridge_state_init(struct drm_bridge *bridge,
+> -				      struct drm_bridge_state *state)
+> +void __drm_atomic_helper_bridge_state_init(struct drm_bridge_state *state,
+> +					   struct drm_bridge *bridge)
+>  {
+>  	memset(state, 0, sizeof(*state));
+>  	__drm_atomic_helper_private_obj_create_state(&bridge->base, &state->base);
+>  	state->bridge = bridge;
+>  }
+> @@ -920,9 +920,9 @@ drm_atomic_helper_bridge_reset(struct drm_bridge *bridge)
+>  
+>  	bridge_state = kzalloc_obj(*bridge_state);
+>  	if (!bridge_state)
+>  		return ERR_PTR(-ENOMEM);
+>  
+> -	__drm_atomic_helper_bridge_reset(bridge, bridge_state);
+> +	__drm_atomic_helper_bridge_state_init(bridge_state, bridge);
 
-This part needs to be:
+This hunk belongs to 01/76.
 
-        // CAST: `ManuallyDrop<RcuBoxInner<T>>` is transparent to `RcuBoxInner<T>`, and `RcuBox`
-        // owns the object per type invariants.
-        let inner: *mut RcuBoxInner<T> = self.0 .0.as_ptr().cast();
+>  	return bridge_state;
+>  }
+>  EXPORT_SYMBOL(drm_atomic_helper_bridge_reset);
+> diff --git a/include/drm/drm_atomic_state_helper.h b/include/drm/drm_atomic_state_helper.h
+> index 6a715d8e1f4a..cbc760598b9e 100644
+> --- a/include/drm/drm_atomic_state_helper.h
+> +++ b/include/drm/drm_atomic_state_helper.h
+> @@ -100,9 +100,9 @@ void __drm_atomic_helper_bridge_duplicate_state(struct drm_bridge *bridge,
+>  						struct drm_bridge_state *state);
+>  struct drm_bridge_state *
+>  drm_atomic_helper_bridge_duplicate_state(struct drm_bridge *bridge);
+>  void drm_atomic_helper_bridge_destroy_state(struct drm_bridge *bridge,
+>  					    struct drm_bridge_state *state);
+> -void __drm_atomic_helper_bridge_state_init(struct drm_bridge *bridge,
+> -				      struct drm_bridge_state *state);
+> +void __drm_atomic_helper_bridge_state_init(struct drm_bridge_state *state,
+> +					   struct drm_bridge *bridge);
+>  struct drm_bridge_state *
+>  drm_atomic_helper_bridge_reset(struct drm_bridge *bridge);
+> 
 
-        // SAFETY: Per the invariants of `RcuBox`, `inner` owns the pointed object. And we are not
-        // going to move it.
-        let pin = unsafe { Pin::new_unchecked(&mut (*inner).value) };
-
-Fixed locally.
-
+-- 
 Regards,
-Boqun
 
-> +        pin.drop_before_gp();
-> +
-> +        // `needs_drop::<ManuallyDrop>()` returns `false`, hence `kvfree_call_rcu()` will be called
-> +        // and free the underlying data after a gracer period.
-> +    }
-> +}
-> +
->  #[kunit_tests(rust_rcu_box)]
->  mod tests {
->      use super::*;
-> @@ -218,6 +264,13 @@ fn rcu_box_basic() -> Result {
->  
->          drop(rb);
->  
-> +        let rb = RcuFreeBox::<_, alloc::allocator::Kmalloc>::new(42i32, alloc::flags::GFP_KERNEL)?;
-> +
-> +        assert_eq!(*rb, 42);
-> +        assert_eq!(*rb.with_rcu(&Guard::new()), 42);
-> +
-> +        drop(rb);
-> +
->          let rb = RcuBox::<_, alloc::allocator::Vmalloc>::new(42i32, alloc::flags::GFP_KERNEL)?;
->  
->          assert_eq!(*rb, 42);
-> @@ -225,6 +278,13 @@ fn rcu_box_basic() -> Result {
->  
->          drop(rb);
->  
-> +        let rb = RcuFreeBox::<_, alloc::allocator::Vmalloc>::new(42i32, alloc::flags::GFP_KERNEL)?;
-> +
-> +        assert_eq!(*rb, 42);
-> +        assert_eq!(*rb.with_rcu(&Guard::new()), 42);
-> +
-> +        drop(rb);
-> +
->          Ok(())
->      }
->  }
-> -- 
-> 2.51.0
-> 
+Laurent Pinchart
