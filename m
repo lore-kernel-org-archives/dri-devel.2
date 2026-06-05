@@ -4,94 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E85ACD6E79
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 12:16:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6FA4CD6E79
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 12:17:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6320B11A7E4;
-	Fri,  5 Jun 2026 12:16:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13C9211A7E9;
+	Fri,  5 Jun 2026 12:17:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VOFT+2Ov";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="sbw9YP3T";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C274611A7E4;
- Fri,  5 Jun 2026 12:16:21 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CC3F2601F5;
- Fri,  5 Jun 2026 12:16:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70CFA1F00893;
- Fri,  5 Jun 2026 12:16:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780661780;
- bh=N6eF1GWUd29h7zy7BTjjZPmBC+K5GJ6gDgFk0aS492o=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=VOFT+2OvlBtpNuDhZERoNGbVhpyXK6pZJaP6rLVUG6qpUcQs6j+Omao1sssQRncQY
- 1m9NFiMYSj7IQbmefSmJytF0dsrP5YNKZatB6uNwDtchw3h+govcw9EbPZmh3kcHF6
- 0oPamZY3TdW+5YHiyKa9spHJ423FECL3kGkLDkWSGouMiQgdlI0n6DLVv4mRJtjmth
- lo5m/tghSaeN6MiAweXSHu5BOAT0zLd9n+spOEroR9P+r/gYh4RPjWwNlfvbQ/+cga
- JCtQ7c+84t3He6vUTed8SdwPpe+dWk28+7O7g4XOlwkdOG88pDfVyTVdJtZr12BUg+
- Ff43G7q8d2huw==
-Received: from johan by xi.lan with local (Exim 4.99.3)
- (envelope-from <johan@kernel.org>) id 1wVTTF-00000000DVf-0HM4;
- Fri, 05 Jun 2026 14:16:17 +0200
-Date: Fri, 5 Jun 2026 14:16:17 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Lee Jones <lee@kernel.org>,
- Mark Brown <broonie@opensource.wolfsonmicro.com>,
- Thierry Reding <thierry.reding@avionic-design.de>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Srinivas Kandagatla <srini@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Doug Berger <opendmb@gmail.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Peter Chen <peter.chen@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
- Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
- driver-core@lists.linux.dev, devicetree@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-usb@vger.kernel.org, linux-mips@vger.kernel.org,
- platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH 08/23] driver core: platform: provide
- platform_device_set_of_node_from_dev()
-Message-ID: <aiK-EXwp_xhcbty9@hovoldconsulting.com>
-References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
- <20260521-pdev-fwnode-ref-v1-8-88c324a1b8d2@oss.qualcomm.com>
- <ah9O15bMlAYgSlHx@ashevche-desk.local>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 058A911A7E6
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 12:17:23 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B4CDB4CF9
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 05:17:17 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 69A503F7D8
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 05:17:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1780661842; bh=n0x8+FGL5EB3lueMGJs2SlV+B6iWu4TkRtDg1ecnhL8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=sbw9YP3T63j3hyCGRytCmI6nP6Dp+ky67dPK4lfbs858JlUnlc9XZJHI11zIKNVBb
+ BlNqHmy8b6frAreFF5WgC7StN+EsCWRSq4/xElmRf1mfNBuzXNCh4rQ28JzF8EUKg3
+ 3H3T7aL6QN3hn9dVXtOwrq2AbWefEW5/77kZJwk4=
+Date: Fri, 5 Jun 2026 13:17:20 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Gustavo Kenji =?utf-8?B?TWVuZG9uw6dh?= Kaneko <kaneko.dev@pm.me>
+Cc: dri-devel@lists.freedesktop.org, airlied@gmail.com, simona@ffwll.ch,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] drm/arm/komeda: fix ignored clk_prepare_enable()
+ return value in resume
+Message-ID: <aiK-UDx8OZMnK-2j@e142607>
+References: <20260531052945.65117-1-kaneko.dev@pm.me>
+ <20260531052945.65117-2-kaneko.dev@pm.me>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <ah9O15bMlAYgSlHx@ashevche-desk.local>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260531052945.65117-2-kaneko.dev@pm.me>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,17 +58,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 03, 2026 at 12:44:55AM +0300, Andy Shevchenko wrote:
-> On Thu, May 21, 2026 at 10:36:31AM +0200, Bartosz Golaszewski wrote:
-> > Provide a platform-specific variant of device_set_of_node_from_dev(). In
-> > addition to bumping the reference count of the OF node being assigned,
-> > it also assigns the fwnode of the platform device.
+On Sun, May 31, 2026 at 05:30:02AM +0000, Gustavo Kenji Mendonça Kaneko wrote:
+> komeda_dev_resume() calls clk_prepare_enable() without checking the
+> return value. If the clock fails to enable, the function returns 0
+> (success) while IRQs are enabled and IOMMU is connected on potentially
+> unclocked hardware, causing undefined behavior on resume.
 > 
-> Can we rather investigate the way how to make that of node reuse thingy
-> (which is used solely by pin control) differently and then drop this confusing
-> device_set_of_node_from_dev() call altogether?
+> Propagate the error from clk_prepare_enable() and return early on
+> failure to prevent hardware access without a valid clock.
+> 
+> This issue was found by code review without access to Komeda hardware.
 
-No, that call is needed. See commit 4e75e1d7dac9 ("driver core: add
-helper to reuse a device-tree node") for details.
+Hello,
 
-Johan
+There is nothing wrong with the content of this patch, but I would like
+if anyone wants to fix these kind of problems to at least be thorough.
+
+komeda_dev_suspend() is also ignoring the errors coming from
+clk_disable_unprepare() and both fuctions before this patch always return 0,
+so in komeda_drv.c we can sometimes ignore the return value. If we add
+an extended version of this patch then we should also do proper error
+handling in komeda_drv.c
+
+Best regards,
+Liviu
+
+
+> 
+> Signed-off-by: Gustavo Kenji Mendonça Kaneko <kaneko.dev@pm.me>
+> ---
+>  drivers/gpu/drm/arm/display/komeda/komeda_dev.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_dev.c b/drivers/gpu/drm/arm/display/komeda/komeda_dev.c
+> index 5ba62e637a61..9aad1d1d28ec 100644
+> --- a/drivers/gpu/drm/arm/display/komeda/komeda_dev.c
+> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_dev.c
+> @@ -313,7 +313,11 @@ void komeda_dev_destroy(struct komeda_dev *mdev)
+>  
+>  int komeda_dev_resume(struct komeda_dev *mdev)
+>  {
+> -	clk_prepare_enable(mdev->aclk);
+> +	int err;
+> +
+> +	err = clk_prepare_enable(mdev->aclk);
+> +	if (err)
+> +		return err;
+>  
+>  	mdev->funcs->enable_irq(mdev);
+>  
+> -- 
+> 2.54.0
+> 
+> 
+
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
