@@ -4,84 +4,179 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AA79CD6E74
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 06:19:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEBFCCD6E5D
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 06:26:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D90CF112A98;
-	Fri,  5 Jun 2026 06:19:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32A32112AA4;
+	Fri,  5 Jun 2026 06:26:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="AmxrxTIT";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="M/ktB3sD";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="D+iPx4bI";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="aDw1UW+A";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vDZD0R3r";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5ECCE112A98
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 06:19:18 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-490b3637b90so12927695e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 23:19:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1780640356; x=1781245156; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Kud96yB4lzvW7WHHFnyfSyasTJ4YMMkn9Qm9IZhFNIs=;
- b=AmxrxTITcWfSB8rZ5BghKMNeN1Nvy7IMnOS7G25mEQ4hkTy+xzuyrao5M7Gna8qcJy
- zqdjr6Ul7NxcT/l2omn6+3Dg9AMBOG8qmnbtZ8QOvAVXaZ8dhC7HpwDkihpHAn+QtUpx
- QnXF1cqtz18Rq2QjKLn4h5seczd6pv+zEYQNI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780640356; x=1781245156;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Kud96yB4lzvW7WHHFnyfSyasTJ4YMMkn9Qm9IZhFNIs=;
- b=kwDOBGoW8YzfO1KPP5mE5Ar50ouV7BR3ENXpCVHnALSfNuCAanTb7P1Wz2/MdH950o
- rNzJazg/qswtuYtHMq4mZHf1mdmalytfN+8apqKDAywG/byTUjgDO2HirCcVJ/k20+W4
- 84foy67EdP7xqhab9TSqX+sH9PryfsQIxafFVvNExoc8CcOXw/ref6brZF7y0gv1BO0u
- 5S+bV7R6LI4yc+/QIh6+nxj8CAvfpeJ1FDJlvI1encRcHZbG5dupY0heytvCNSfTDl0x
- 6hCmnMQ9Iabjmt3+JUY/LYx+xADo0GuT9gufaXsxbbSCkMi1r6xFa5lqZT2g79YVtH2b
- dhiQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9jUBxnrjPXgeeWZb974+hmJDrY8ZpD4/ZYFKtMicf3fGhSFfLOkBi2yhdh8CwetVomIqjhqZSv8PA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy6Qler3em9sB7nbkm77FaYhaspw8GODseGFtcfXfxnhFQKinbF
- GcNeo9Q/agI+IhpMEVQ6xZtp+iIP6C53/8pbz1vWF8JjY346YpdaWN5dPgXh2/cuBds=
-X-Gm-Gg: Acq92OE2L3ocJRv/vC8CXlhj7qZWJaWO+O5zipRzI18Opg5UT6HH4EDcvLoFmLo4tRf
- b03H8EuKCyYmwQ+9uuYHw2pVRG79gjPGSwii8azs/rFPszDFXk2XzJtSn6mBPvL+rIs60jJOFuT
- HewUCSR3KbcqXYqH8J2JfEwPQ3OQfoYk7XaJ/RZ7atu6imRaf/B1d5A1fjERZaWXt1J2t//MBSm
- m0EH4ONlI0FAuXifVkrhcX5Jx+pjQWSOimMJdX6SKT2KyEvbJklcrBrygL7IgInnxtIsMztDBhW
- Xc4U5hQOmzPCQ229NfqdGQKC8f53rXfoqWypDyjTKVyn82l7/EfYtvmmLvODxOiZ/V+Oh5d1zv8
- CkQmHIO7tfWNQxwRcVWPTIGkhZg2hj389aSqJOk2LHWcr8fnxBdssB4o9jmiN8/UVHKP/mUpbtE
- dqnM9QnqW+dG1eocLyFXIZ+kAcxtYHFr1rA2iqHaQ2qKh4UA==
-X-Received: by 2002:a05:600c:4708:b0:490:b06a:649e with SMTP id
- 5b1f17b1804b1-490c2602987mr26050765e9.25.1780640356335; 
- Thu, 04 Jun 2026 23:19:16 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490bc3c15cesm133603035e9.5.2026.06.04.23.19.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Jun 2026 23:19:15 -0700 (PDT)
-Date: Fri, 5 Jun 2026 08:19:14 +0200
-From: Simona Vetter <simona.vetter@ffwll.ch>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Simona Vetter <simona.vetter@ffwll.ch>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- "DARKNAVY (@DarkNavyOrg)" <vr@darknavy.com>,
- syzbot+d7c9eed171647e421013@syzkaller.appspotmail.com,
- stable@vger.kernel.org, Edward Adam Davis <eadavis@qq.com>,
- Dave Airlie <airlied@redhat.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Francis <David.Francis@amd.com>,
- Puttimet Thammasaeng <pwn8official@gmail.com>,
- Christian Koenig <Christian.Koenig@amd.com>,
- Zhenghang Xiao <kipreyyy@gmail.com>
-Subject: Re: [PATCH] drm/gem: Try to fix change_handle ioctl, attempt 4
-Message-ID: <aiJqYgnTekPoXK_q@phenom.ffwll.local>
-References: <20260604191916.1713387-1-simona.vetter@ffwll.ch>
- <20260604194437.1725314-1-simona.vetter@ffwll.ch>
- <ab2c8c81-8ab6-4a93-93c9-31445454421a@linux.intel.com>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD11F112AA3
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 06:26:23 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1FFF6758EB;
+ Fri,  5 Jun 2026 06:26:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780640782; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=HDeTQz58PcqGgdo96oHM1bAJcR1truedFGkSCcBXtWU=;
+ b=M/ktB3sDGmweoVLgNXTldix/Xe30DbDNLuF62jskgLSpIFP7B4UDIS4DEc9GWvlaocwIkh
+ MzYsboaSx1lq9NL9w3sbKI15lcCvSzUUgy7ZrTTgOWI5JEeGHQVF+Ws2+Lxwav5KmNURWj
+ H7HdUv9yY3M5Yo7/TUsecdXNj6mQIjI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780640782;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=HDeTQz58PcqGgdo96oHM1bAJcR1truedFGkSCcBXtWU=;
+ b=D+iPx4bIg0cPuvx5LRbbICTL22xfS2wQ++R9gmSJNJXGkWLeJOe6PCy7H2nCTjiItAfI+1
+ cns0pwNXGHlJ7fBQ==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=aDw1UW+A;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=vDZD0R3r
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780640781; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=HDeTQz58PcqGgdo96oHM1bAJcR1truedFGkSCcBXtWU=;
+ b=aDw1UW+A6yqS0t9biGU1kM/uDWClp4JVjfCpCKKYRPoi7hW5ZUoHfFiOFzrKmoJNc0yU2M
+ uuYUkV1jhYjR/HyaqMqsUUErX8NJH9lMYGWAImrkVnWSpH3rCgRPaSTi+JaduzU9ke3yFG
+ pPaTRpMgw/hnrLvIzrceR6N8QmELCxc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780640781;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=HDeTQz58PcqGgdo96oHM1bAJcR1truedFGkSCcBXtWU=;
+ b=vDZD0R3ry92z2A2yziaUK6wGo4KqKPNJ0t6eVE3IfNyctjPaz+BMIL6O1fwV+VQF5YMMcs
+ Mw015zl7yJbuC7AA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AD5B6779A8;
+ Fri,  5 Jun 2026 06:26:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id KbQCKQpsImrNcwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 05 Jun 2026 06:26:18 +0000
+Message-ID: <dce03a80-3d6b-4792-9868-d6052fa3ea77@suse.de>
+Date: Fri, 5 Jun 2026 08:26:17 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ab2c8c81-8ab6-4a93-93c9-31445454421a@linux.intel.com>
-X-Operating-System: Linux phenom 6.19.10+deb14-amd64 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/76] drm/bridge: Convert all reset users to create_state
+To: Maxime Ripard <mripard@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org,
+ Jagan Teki <jagan@amarulasolutions.com>, Liu Ying <victor.liu@nxp.com>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, Andy Yan <andy.yan@rock-chips.com>,
+ Phong LE <ple@baylibre.com>, Douglas Anderson <dianders@chromium.org>,
+ Inki Dae <inki.dae@samsung.com>, Marek Szyprowski
+ <m.szyprowski@samsung.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-amlogic@lists.infradead.org,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ linux-renesas-soc@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
+ Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, linux-rockchip@lists.infradead.org,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jyri Sarha <jyri.sarha@iki.fi>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>, Michal Simek <michal.simek@amd.com>
+References: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-0.996]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ FREEMAIL_TO(0.00)[kernel.org,intel.com,linaro.org,ideasonboard.com,kwiboo.se,gmail.com,bootlin.com,linux.intel.com,ffwll.ch];
+ MIME_TRACE(0.00)[0:+];
+ FREEMAIL_CC(0.00)[kernel.org,lists.freedesktop.org,amarulasolutions.com,nxp.com,pengutronix.de,gmail.com,lists.linux.dev,lists.infradead.org,rock-chips.com,baylibre.com,chromium.org,samsung.com,crapouillou.net,vger.kernel.org,collabora.com,googlemail.com,ideasonboard.com,glider.be,bp.renesas.com,sntech.de,foss.st.com,st-md-mailman.stormreply.com,iki.fi,raspberrypi.com,igalia.com,iscas.ac.cn,amd.com];
+ ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ R_RATELIMIT(0.00)[to_ip_from(RLqtaqd5djycn6zz3dm1kuwfni)];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_SOME(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCPT_COUNT_GT_50(0.00)[61];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TAGGED_RCPT(0.00)[renesas];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
+ imap1.dmz-prg2.suse.org:rdns, suse.de:email, suse.de:dkim, suse.de:mid]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 1FFF6758EB
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,252 +192,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 04, 2026 at 10:29:45PM +0200, Maarten Lankhorst wrote:
-> Hey,
-> 
-> On 6/4/26 21:44, Simona Vetter wrote:
-> > On-list because the cat is out of the bag and we're clearly not good
-> > enough to figure this out in private. The story thus far:
-> > 
-> > 5e28b7b94408 ("drm: Set old handle to NULL before prime swap in
-> > change_handle") tried to fix a race condition between the gem_close and
-> > gem_change_handle ioctls, but got a few things wrong:
-> > 
-> > - There's a confusion with the local variable handle, which is actually
-> >   the new handle, and so the two-stage trick was actually applied to the
-> >   wrong idr slot. 7164d78559b0 ("drm/gem: fix race between
-> >   change_handle and handle_delete") tried to fix that by adding yet
-> >   another code block, but forgot to add the error handling. Which meant
-> >   we now have two paths, both kinda wrong.
-> > 
-> > - dc366607c41c ("drm: Replace old pointer to new idr") tried to apply
-> >   another fix, but inconsistently, again because of the handle confusion
-> >   - this would be the right fix (kinda, somewhat, it's a mess) if we'd
-> >   do the two-stage approach for the new handle. Except that wasn't the
-> >   intent of the original fix.
-> > 
-> > We also didn't have an igt merged for the original ioctl, which is a big
-> > no-go. This was attempted to address off-list in the original bugfix,
-> > and amd QA people claimed the bug was fixed now. Very clearly that's not
-> > the case. Here's my attempt to sort this out:
-> > 
-> > - Rename the local variable to new_handle, the old aliasing with
-> >   args->handle is just too dangerously confusing.
-> > 
-> > - Merge the gem obj lookup with the two-stage idr_replace so that we
-> >   avoid getting ourselves confused there.
-> > 
-> > - This means we don't have a surplus temporary reference anymore, only
-> >   an inherited from the idr. A concurrent gem_close on the new_handle
-> >   could steal that. Fix that with the same two-stage approach
-> >   create_tail uses. This is a bit overkill as documented in the comment,
-> >   but I also don't trust my ability to understand this all correctly, so
-> >   go with the established pattern we have from other ioctls instead for
-> >   maximum paranoia.
-> > 
-> > - Adjust error paths. I've tried to make the error and success paths
-> >   common, because they are identical except for which handle is removed
-> >   and on which we call idr_replace to (re)install the object again. But
-> >   that made things messier to read, so I've left it at the more verbose
-> >   version, which unfortunately hides the symmetry in the entire code
-> >   flow a bit.
-> > 
-> > - While at it, also replace the 7 space indent with 1 tab.
-> > 
-> > And finally, because I flat out don't trust my abilities here at all
-> > anymore:
-> > 
-> > - Disable the ioctl until we have the igt situation and everything else
-> >   sorted out on-list and with full consensus.
-> > 
-> 
-> Can you push the revert first, and then worry about fixing change_handle
-> parts of the ioctl properly later, so that part can be merged ASAP?
+Hi
 
-I've intentionally combined them, but I've only discussed the reasons with
-Dave in private chat.
+Am 30.05.26 um 15:59 schrieb Maxime Ripard:
+[...]
+>        drm/bridge: adv7511: Switch to atomic_create_state
+>        drm/bridge: analogix_dp: Switch to atomic_create_state
+>        drm/bridge: anx7625: Switch to atomic_create_state
+>        drm/bridge: chipone-icn6211: Switch to atomic_create_state
+>        drm/bridge: display-connector: Switch to atomic_create_state
+>        drm/bridge: fsl-ldb: Switch to atomic_create_state
+>        drm/bridge: imx8mp-hdmi-pvi: Switch to atomic_create_state
+>        drm/bridge: imx8qm-ldb: Switch to atomic_create_state
+>        drm/bridge: imx8qxp-ldb: Switch to atomic_create_state
+>        drm/bridge: imx8qxp-pixel-combiner: Switch to atomic_create_state
+>        drm/bridge: imx8qxp-pixel-link: Switch to atomic_create_state
+>        drm/bridge: imx8qxp-pxl2dpi: Switch to atomic_create_state
+>        drm/bridge: inno-hdmi: Switch to atomic_create_state
+>        drm/bridge: ite-it6263: Switch to atomic_create_state
+>        drm/bridge: ite-it6505: Switch to atomic_create_state
+>        drm/bridge: ite-it66121: Switch to atomic_create_state
+>        drm/bridge: lontium-lt9211: Switch to atomic_create_state
+>        drm/bridge: lontium-lt9611: Switch to atomic_create_state
+>        drm/bridge: lvds-codec: Switch to atomic_create_state
+>        drm/bridge: nwl-dsi: Switch to atomic_create_state
+>        drm/bridge: panel: Switch to atomic_create_state
+>        drm/bridge: parade-ps8640: Switch to atomic_create_state
+>        drm/bridge: samsung-dsim: Switch to atomic_create_state
+>        drm/bridge: sii902x: Switch to atomic_create_state
+>        drm/bridge: ssd2825: Switch to atomic_create_state
+>        drm/bridge: dw-dp: Switch to atomic_create_state
+>        drm/bridge: dw-hdmi-qp: Switch to atomic_create_state
+>        drm/bridge: dw-hdmi: Switch to atomic_create_state
+>        drm/bridge: dw-mipi-dsi: Switch to atomic_create_state
+>        drm/bridge: dw-mipi-dsi2: Switch to atomic_create_state
+>        drm/bridge: tc358762: Switch to atomic_create_state
+>        drm/bridge: tc358767: Switch to atomic_create_state
+>        drm/bridge: tc358768: Switch to atomic_create_state
+>        drm/bridge: tc358775: Switch to atomic_create_state
+>        drm/bridge: ti-dlpc3433: Switch to atomic_create_state
+>        drm/bridge: ti-sn65dsi83: Switch to atomic_create_state
+>        drm/bridge: ti-sn65dsi86: Switch to atomic_create_state
+>        drm/bridge: ti-tdp158: Switch to atomic_create_state
+>        drm/bridge: ti-tfp410: Switch to atomic_create_state
+>        drm/imx: parallel-display: Switch to atomic_create_state
+>        drm/ingenic: Switch to atomic_create_state
+>        drm/mediatek: dp: Switch to atomic_create_state
+>        drm/mediatek: dpi: Switch to atomic_create_state
+>        drm/mediatek: dsi: Switch to atomic_create_state
+>        drm/mediatek: hdmi: Switch to atomic_create_state
+>        drm/mediatek: hdmi_v2: Switch to atomic_create_state
+>        drm/meson: encoder_cvbs: Switch to atomic_create_state
+>        drm/meson: encoder_dsi: Switch to atomic_create_state
+>        drm/meson: encoder_hdmi: Switch to atomic_create_state
+>        drm/msm: dp: Switch to atomic_create_state
+>        drm/msm: hdmi: Switch to atomic_create_state
+>        drm/omap: hdmi4: Switch to atomic_create_state
+>        drm/omap: hdmi5: Switch to atomic_create_state
+>        drm/renesas: rcar-du: lvds: Switch to atomic_create_state
+>        drm/renesas: rcar-du: mipi_dsi: Switch to atomic_create_state
+>        drm/renesas: rz-du: mipi_dsi: Switch to atomic_create_state
+>        drm/rockchip: cdn-dp: Switch to atomic_create_state
+>        drm/rockchip: rk3066_hdmi: Switch to atomic_create_state
+>        drm/rockchip: lvds: Switch to atomic_create_state
+>        drm/stm: lvds: Switch to atomic_create_state
+>        drm/tests: bridge: Switch to atomic_create_state
+>        drm/tidss: encoder: Switch to atomic_create_state
+>        drm/tidss: oldi: Switch to atomic_create_state
+>        drm/vc4: dsi: Switch to atomic_create_state
+>        drm/verisilicon: Switch to atomic_create_state
+>        drm/xlnx: zynqmp_dp: Switch to atomic_create_state
 
-In the original security report discussions off-list almost two months ago
-I've both suggested that we do the full two-stage removal&install, because
-that's the well-tested pattern. AMD folks convinced me that being more
-clever is ok, but they got it wrong.
+You can also add my
 
-I've also suggested that we just outright disable the ioctl since it's so
-new, and sort this all out on-list, least because the igt didn't land yet.
-The igt has still not yet landed.
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-Furthermore the igt or AMD's testing seems busted - because of the handle
-confusion (which I didn't spot, because I've assumed that the code was
-tested) the new code actually installed NULL into the new_handle slot,
-which should have broken everything. It also resulted in an obvious leak,
-which syzcaller spotted and which one of the referenced patches fixes.
+to all these one-liners in the drivers.
 
-Which means this is an examplary case of how not to do a new ioctl, plus
-collective embarrassment of how to not fix a security bug. I've figured we
-need one patch which both a) disables this mess and b) puts down the draft
-of what I think it actually should look like.
+Best regards
+Thomas
 
-But really, no re-enabling of any of this until we have an igt that is a)
-actually merged and b) actually tests something. Or maybe the issue was
-with AMD's testing infra, I haven't looked at the igt.
 
-I did tell Dave that he can split it, if he wants to, but for backporting
-it shouldn't cause issues since all the 3 previous attempts at sorting
-this out have also been cc: stable. So should all apply without issues.
-
-Cheers, Sima
-
+>        drm/atomic-state-helper: Remove drm_atomic_helper_bridge_reset()
+>        drm/bridge: cdns-dsi: Use __drm_atomic_helper_bridge_state_init()
+>        drm/bridge: cdns-dsi: Switch to atomic_create_state
+>        drm/bridge: cdns-mhdp8546: Switch to atomic_create_state
+>        drm/bridge: Remove atomic_reset support
+>
+>   drivers/gpu/drm/bridge/adv7511/adv7511_drv.c       |  2 +-
+>   drivers/gpu/drm/bridge/analogix/analogix_dp_core.c |  2 +-
+>   drivers/gpu/drm/bridge/analogix/anx7625.c          |  2 +-
+>   drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c     |  9 +++---
+>   .../gpu/drm/bridge/cadence/cdns-mhdp8546-core.c    |  8 +++---
+>   drivers/gpu/drm/bridge/chipone-icn6211.c           |  2 +-
+>   drivers/gpu/drm/bridge/display-connector.c         |  2 +-
+>   drivers/gpu/drm/bridge/fsl-ldb.c                   |  2 +-
+>   drivers/gpu/drm/bridge/imx/imx8mp-hdmi-pvi.c       |  2 +-
+>   drivers/gpu/drm/bridge/imx/imx8qm-ldb.c            |  2 +-
+>   drivers/gpu/drm/bridge/imx/imx8qxp-ldb.c           |  2 +-
+>   .../gpu/drm/bridge/imx/imx8qxp-pixel-combiner.c    |  2 +-
+>   drivers/gpu/drm/bridge/imx/imx8qxp-pixel-link.c    |  2 +-
+>   drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c       |  2 +-
+>   drivers/gpu/drm/bridge/inno-hdmi.c                 |  2 +-
+>   drivers/gpu/drm/bridge/ite-it6263.c                |  2 +-
+>   drivers/gpu/drm/bridge/ite-it6505.c                |  2 +-
+>   drivers/gpu/drm/bridge/ite-it66121.c               |  2 +-
+>   drivers/gpu/drm/bridge/lontium-lt9211.c            |  2 +-
+>   drivers/gpu/drm/bridge/lontium-lt9611.c            |  2 +-
+>   drivers/gpu/drm/bridge/lvds-codec.c                |  2 +-
+>   drivers/gpu/drm/bridge/nwl-dsi.c                   |  2 +-
+>   drivers/gpu/drm/bridge/panel.c                     |  2 +-
+>   drivers/gpu/drm/bridge/parade-ps8640.c             |  2 +-
+>   drivers/gpu/drm/bridge/samsung-dsim.c              |  2 +-
+>   drivers/gpu/drm/bridge/sii902x.c                   |  2 +-
+>   drivers/gpu/drm/bridge/ssd2825.c                   |  2 +-
+>   drivers/gpu/drm/bridge/synopsys/dw-dp.c            |  2 +-
+>   drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c       |  2 +-
+>   drivers/gpu/drm/bridge/synopsys/dw-hdmi.c          |  2 +-
+>   drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c      |  2 +-
+>   drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c     |  2 +-
+>   drivers/gpu/drm/bridge/tc358762.c                  |  2 +-
+>   drivers/gpu/drm/bridge/tc358767.c                  |  4 +--
+>   drivers/gpu/drm/bridge/tc358768.c                  |  2 +-
+>   drivers/gpu/drm/bridge/tc358775.c                  |  2 +-
+>   drivers/gpu/drm/bridge/ti-dlpc3433.c               |  2 +-
+>   drivers/gpu/drm/bridge/ti-sn65dsi83.c              |  2 +-
+>   drivers/gpu/drm/bridge/ti-sn65dsi86.c              |  2 +-
+>   drivers/gpu/drm/bridge/ti-tdp158.c                 |  2 +-
+>   drivers/gpu/drm/bridge/ti-tfp410.c                 |  2 +-
+>   drivers/gpu/drm/drm_atomic_state_helper.c          | 33 ++++++++++++----------
+>   drivers/gpu/drm/drm_bridge.c                       |  4 +--
+>   drivers/gpu/drm/imx/ipuv3/parallel-display.c       |  2 +-
+>   drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |  2 +-
+>   drivers/gpu/drm/mediatek/mtk_dp.c                  |  2 +-
+>   drivers/gpu/drm/mediatek/mtk_dpi.c                 |  2 +-
+>   drivers/gpu/drm/mediatek/mtk_dsi.c                 |  2 +-
+>   drivers/gpu/drm/mediatek/mtk_hdmi.c                |  2 +-
+>   drivers/gpu/drm/mediatek/mtk_hdmi_v2.c             |  2 +-
+>   drivers/gpu/drm/meson/meson_encoder_cvbs.c         |  2 +-
+>   drivers/gpu/drm/meson/meson_encoder_dsi.c          |  2 +-
+>   drivers/gpu/drm/meson/meson_encoder_hdmi.c         |  2 +-
+>   drivers/gpu/drm/msm/dp/dp_drm.c                    |  4 +--
+>   drivers/gpu/drm/msm/hdmi/hdmi_bridge.c             |  2 +-
+>   drivers/gpu/drm/omapdrm/dss/hdmi4.c                |  2 +-
+>   drivers/gpu/drm/omapdrm/dss/hdmi5.c                |  2 +-
+>   drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c        |  2 +-
+>   drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c    |  2 +-
+>   drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c     |  2 +-
+>   drivers/gpu/drm/rockchip/cdn-dp-core.c             |  2 +-
+>   drivers/gpu/drm/rockchip/rk3066_hdmi.c             |  2 +-
+>   drivers/gpu/drm/rockchip/rockchip_lvds.c           |  2 +-
+>   drivers/gpu/drm/stm/lvds.c                         |  2 +-
+>   drivers/gpu/drm/tests/drm_bridge_test.c            |  2 +-
+>   drivers/gpu/drm/tidss/tidss_encoder.c              |  2 +-
+>   drivers/gpu/drm/tidss/tidss_oldi.c                 |  2 +-
+>   drivers/gpu/drm/vc4/vc4_dsi.c                      |  2 +-
+>   drivers/gpu/drm/verisilicon/vs_bridge.c            |  4 +--
+>   drivers/gpu/drm/xlnx/zynqmp_dp.c                   |  2 +-
+>   include/drm/drm_atomic_state_helper.h              |  6 ++--
+>   include/drm/drm_bridge.h                           | 33 ++++++++--------------
+>   72 files changed, 111 insertions(+), 120 deletions(-)
 > ---
-> > v2:
-> > 
-> > Sashiko noticed that I didn't handle the error path for idr_replace
-> > correctly, it must be checked with IS_ERR_OR_NULL like in
-> > gem_handle_delete. So yeah, definitely should just the existing paths
-> > 1:1 because this is endless amounts of tricky.
-> > 
-> > Also add the Fixes: line for the original ioctl, I forgot that too.
-> > 
-> > Reported-by: DARKNAVY (@DarkNavyOrg) <vr@darknavy.com>
-> > Signed-off-by: Simona Vetter <simona.vetter@ffwll.ch>
-> > Fixes: dc366607c41c ("drm: Replace old pointer to new idr")
-> > Cc: syzbot+d7c9eed171647e421013@syzkaller.appspotmail.com
-> > Cc: stable@vger.kernel.org
-> > Cc: Edward Adam Davis <eadavis@qq.com>
-> > Cc: Dave Airlie <airlied@redhat.com>
-> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > Cc: Maxime Ripard <mripard@kernel.org>
-> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> > Fixes: 5e28b7b94408 ("drm: Set old handle to NULL before prime swap in change_handle")
-> > Cc: David Francis <David.Francis@amd.com>
-> > Cc: Puttimet Thammasaeng <pwn8official@gmail.com>
-> > Cc: Christian Koenig <Christian.Koenig@amd.com>
-> > Fixes: 7164d78559b0 ("drm/gem: fix race between change_handle and handle_delete")
-> > Cc: Zhenghang Xiao <kipreyyy@gmail.com>
-> > Fixes: 5e28b7b94408 ("drm: Set old handle to NULL before prime swap in change_handle")
-> > ---
-> >  drivers/gpu/drm/drm_gem.c   | 62 +++++++++++++------------------------
-> >  drivers/gpu/drm/drm_ioctl.c |  2 +-
-> >  2 files changed, 23 insertions(+), 41 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> > index e12cdf91f4dc..f49f1724eda5 100644
-> > --- a/drivers/gpu/drm/drm_gem.c
-> > +++ b/drivers/gpu/drm/drm_gem.c
-> > @@ -1019,8 +1019,8 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
-> >  				struct drm_file *file_priv)
-> >  {
-> >  	struct drm_gem_change_handle *args = data;
-> > -	struct drm_gem_object *obj, *idrobj;
-> > -	int handle, ret;
-> > +	struct drm_gem_object *obj;
-> > +	int new_handle, ret;
-> >  
-> >  	if (!drm_core_check_feature(dev, DRIVER_GEM))
-> >  		return -EOPNOTSUPP;
-> > @@ -1028,52 +1028,36 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
-> >  	/* idr_alloc() limitation. */
-> >  	if (args->new_handle > INT_MAX)
-> >  		return -EINVAL;
-> > -	handle = args->new_handle;
-> > -
-> > -	obj = drm_gem_object_lookup(file_priv, args->handle);
-> > -	if (!obj)
-> > -		return -ENOENT;
-> > +	new_handle = args->new_handle;
-> >  
-> > -	if (args->handle == handle) {
-> > -		ret = 0;
-> > -		goto out;
-> > -	}
-> > +	if (args->handle == new_handle)
-> > +		return 0;
-> >  
-> >  	mutex_lock(&file_priv->prime.lock);
-> > -
-> >  	spin_lock(&file_priv->table_lock);
-> > -
-> > -       /* When create_tail allocs an obj idr, it needs to first alloc as NULL,
-> > -	* then later replace with the correct object. This is not necessary
-> > -	* here, because the only operations that could race are drm_prime
-> > -	* bookkeeping, and we hold the prime lock.
-> > -	*/
-> > -	ret = idr_alloc(&file_priv->object_idr, obj, handle, handle + 1,
-> > +	ret = idr_alloc(&file_priv->object_idr, NULL, new_handle, new_handle + 1,
-> >  			GFP_NOWAIT);
-> >  
-> > -       if (ret < 0) {
-> > -	       spin_unlock(&file_priv->table_lock);
-> > -	       goto out_unlock;
-> > -       }
-> > -
-> > -       idrobj = idr_replace(&file_priv->object_idr, NULL, handle);
-> > -       if (idrobj != obj) {
-> > -	       idr_replace(&file_priv->object_idr, idrobj, handle);
-> > -	       idr_remove(&file_priv->object_idr, args->new_handle);
-> > -	       spin_unlock(&file_priv->table_lock);
-> > -	       ret = -ENOENT;
-> > -	       goto out_unlock;
-> > -       }
-> > -
-> > -	idr_replace(&file_priv->object_idr, NULL, args->handle);
-> > +	if (ret < 0) {
-> > +		spin_unlock(&file_priv->table_lock);
-> > +		goto out_unlock;
-> > +	}
-> > +
-> > +	obj = idr_replace(&file_priv->object_idr, NULL, args->handle);
-> > +	if (IS_ERR_OR_NULL(obj)) {
-> > +		idr_remove(&file_priv->object_idr, new_handle);
-> > +		spin_unlock(&file_priv->table_lock);
-> > +		ret = -ENOENT;
-> > +		goto out_unlock;
-> > +	}
-> >  	spin_unlock(&file_priv->table_lock);
-> >  
-> >  	if (obj->dma_buf) {
-> >  		ret = drm_prime_add_buf_handle(&file_priv->prime, obj->dma_buf,
-> > -					       handle);
-> > +					       new_handle);
-> >  		if (ret < 0) {
-> >  			spin_lock(&file_priv->table_lock);
-> > -			idr_remove(&file_priv->object_idr, handle);
-> > +			idr_remove(&file_priv->object_idr, new_handle);
-> >  			idr_replace(&file_priv->object_idr, obj, args->handle);
-> >  			spin_unlock(&file_priv->table_lock);
-> >  			goto out_unlock;
-> > @@ -1086,14 +1070,12 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
-> >  
-> >  	spin_lock(&file_priv->table_lock);
-> >  	idr_remove(&file_priv->object_idr, args->handle);
-> > -	idrobj = idr_replace(&file_priv->object_idr, obj, handle);
-> > +	obj = idr_replace(&file_priv->object_idr, obj, new_handle);
-> >  	spin_unlock(&file_priv->table_lock);
-> > -	WARN_ON(idrobj != NULL);
-> > +	WARN_ON(obj != NULL);
-> >  
-> >  out_unlock:
-> >  	mutex_unlock(&file_priv->prime.lock);
-> > -out:
-> > -	drm_gem_object_put(obj);
-> >  
-> >  	return ret;
-> >  }
-> > diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-> > index ff193155129e..937fc1e2c017 100644
-> > --- a/drivers/gpu/drm/drm_ioctl.c
-> > +++ b/drivers/gpu/drm/drm_ioctl.c
-> > @@ -660,7 +660,7 @@ static const struct drm_ioctl_desc drm_ioctls[] = {
-> >  	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CLOSE, drm_gem_close_ioctl, DRM_RENDER_ALLOW),
-> >  	DRM_IOCTL_DEF(DRM_IOCTL_GEM_FLINK, drm_gem_flink_ioctl, DRM_AUTH),
-> >  	DRM_IOCTL_DEF(DRM_IOCTL_GEM_OPEN, drm_gem_open_ioctl, DRM_AUTH),
-> > -	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CHANGE_HANDLE, drm_gem_change_handle_ioctl, DRM_RENDER_ALLOW),
-> > +	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CHANGE_HANDLE, drm_invalid_op, DRM_RENDER_ALLOW),
-> >  
-> >  	DRM_IOCTL_DEF(DRM_IOCTL_MODE_GETRESOURCES, drm_mode_getresources, 0),
-> >  
-> 
+> base-commit: 21fcb222f0d1e1c9f5b04c09e9fb3408e13a0264
+> change-id: 20260530-drm-no-more-bridge-reset-ca20d5e22740
+>
+> Best regards,
 
 -- 
-Simona Vetter
-Software Engineer
-http://blog.ffwll.ch
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
