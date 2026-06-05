@@ -4,46 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50E01CD6E7D
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 14:27:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93412CD8C81
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 14:29:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7222011A8E0;
-	Fri,  5 Jun 2026 14:27:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A39C9112BAE;
+	Fri,  5 Jun 2026 14:29:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="p8YE/DuL";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="FZh+GZ8r";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9374A11A8E0
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 14:27:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=uk
- BNaSy4Bu2Lvfy5mgAamxv2wNVl4pikiN6hS0u3/sA=; b=p8YE/DuLmQwM/dIrrD
- SccB8NyvVw9O25FgWJGIvlk3/5u5YbhhOuPQrN5fm9pCKex7emCS3PYDsWiz+LU1
- QPEsFuHRQO4/v34JGwp6KtR4cOmbSX4Ce9wpkOXJ0mJnPaXYxtu1MSSl1kyPjaKR
- khq7djorIvnx8CQeVsw9Y278U=
-Received: from 163.com (unknown [])
- by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id
- _____wD3vZOn3CJqBZl+Bg--.39839S2; 
- Fri, 05 Jun 2026 22:26:52 +0800 (CST)
-From: w15303746062@163.com
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Subject: [PATCH v2] drm/gem: fix signed integer overflow in idr_alloc end
- parameter
-Date: Fri,  5 Jun 2026 22:26:44 +0800
-Message-Id: <20260605142644.1205922-1-w15303746062@163.com>
-X-Mailer: git-send-email 2.34.1
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3C2C11A8E8
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 14:29:31 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 4393B1B9A;
+ Fri,  5 Jun 2026 16:29:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1780669745;
+ bh=sgma9xx/i7WxVMjTIPDg9O/kPeYmlUcLXiO3rUWnRTU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=FZh+GZ8r98YZHB7IOeUK8oz1u8s2CU9uJdO1kl6UCF8dDRGc6jlL+5ZxzzmHapXWj
+ tRFpoZbOxTdKx6oJrC80Ei+SNRWqFxnm3G+tK2Ko6FCksnf+uEQnawC0GLvfx7+1C4
+ 9WYRNcH6zYxh72sjyAmC128HZZp6PzqBNvmJYngQ=
+Date: Fri, 5 Jun 2026 17:29:29 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 05/76] drm/atomic-state-helper: Add
+ drm_atomic_helper_bridge_create_state()
+Message-ID: <20260605142929.GD84912@killaraus.ideasonboard.com>
+References: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
+ <20260530-drm-no-more-bridge-reset-v1-5-875d828d31bc@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wD3vZOn3CJqBZl+Bg--.39839S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CFyfZr4DAw4kWr45XryftFb_yoW8uFWxpa
- 9rGryjvrWUKFs2qF12van3JFyfC3WSgFW8GFZYv390vw1UJ3Za9r90kay5trW7CrWxuF4a
- q345tr9YvF1UCaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j75rxUUUUU=
-X-Originating-IP: [113.200.174.100]
-X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC5AyFaWoi3Kwt-QAA3s
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260530-drm-no-more-bridge-reset-v1-5-875d828d31bc@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,58 +63,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Hi Maxime,
 
-During code review of drm_gem_change_handle_ioctl(), a signed integer
-overflow vulnerability was identified.
+Thank you for the patch.
 
-The function currently checks if args->new_handle is strictly greater
-than INT_MAX. However, if args->new_handle is exactly INT_MAX, the
-subsequent call to idr_alloc() uses 'handle + 1' as the end limit.
+On Sat, May 30, 2026 at 03:59:10PM +0200, Maxime Ripard wrote:
+> The drm_atomic_helper_bridge_reset() helper is deprecated in favour
+> of the new atomic_create_state callback.
+> 
+> Add drm_atomic_helper_bridge_create_state() as the counterpart helper
+> for this new callback.
 
-Since 'handle' is a signed int, passing INT_MAX results in a signed
-integer overflow (INT_MAX + 1 = -2147483648). While idr_alloc() handles
-negative end values by gracefully falling back to INT_MAX, this breaks
-the exact-ID allocation semantics intended by the caller and relies on
-undefined behavior.
+I'd write here that drivers will be converted to the new helper in
+subsequent changes, and drm_atomic_helper_bridge_reset() then removed.
 
-Additionally, explicitly reject args->new_handle == 0. In the DRM
-subsystem, 0 is universally treated as an invalid handle. Allowing an
-object to be aliased to handle 0 breaks core DRM assumptions (e.g.,
-drm_gem_object_lookup returns NULL for 0).
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+>  drivers/gpu/drm/drm_atomic_state_helper.c | 25 +++++++++++++++++++++++++
+>  include/drm/drm_atomic_state_helper.h     |  2 ++
+>  2 files changed, 27 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+> index f0688f2d83fe..b99dedbc4140 100644
+> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+> @@ -925,5 +925,30 @@ drm_atomic_helper_bridge_reset(struct drm_bridge *bridge)
+>  
+>  	__drm_atomic_helper_bridge_state_init(bridge_state, bridge);
+>  	return bridge_state;
+>  }
+>  EXPORT_SYMBOL(drm_atomic_helper_bridge_reset);
+> +
+> +/**
+> + * drm_atomic_helper_bridge_create_state - default &drm_bridge_funcs.atomic_create_state hook for bridges
 
-Fix this by tightening the limit check to >= INT_MAX to prevent the
-overflow, and explicitly reject 0.
+Line wrap.
 
-Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
----
-v2:
- - Add explicit check to reject handle 0, which is invalid in DRM.
- - Remove redundant (u32) cast; rely on standard C integer promotion.
- - Shift focus entirely to fixing the handle + 1 signed integer overflow (Thomas Zimmermann).
+"default" is a bit misleading, I would assume it would be used by the
+core if the .atomic_create_state() pointer was null. Maybe
 
- drivers/gpu/drm/drm_gem.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ * drm_atomic_helper_bridge_create_state - Implementation of &drm_bridge_funcs.atomic_create_state
+ *	for bridge drivers that do no subclass the state
 
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index e12cdf91f4dc..1ad30a700068 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -1025,8 +1025,12 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
- 	if (!drm_core_check_feature(dev, DRIVER_GEM))
- 		return -EOPNOTSUPP;
- 
--	/* idr_alloc() limitation. */
--	if (args->new_handle > INT_MAX)
-+	/*
-+	 * idr_alloc() limitation.
-+	 * Reject handle 0 (invalid in DRM) and strictly bound
-+	 * to < INT_MAX to avoid signed integer overflow in handle + 1.
-+	 */
-+	if (args->new_handle == 0 || args->new_handle >= INT_MAX)
- 		return -EINVAL;
- 	handle = args->new_handle;
- 
+But maybe that's a bit long. Up to you.
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+
+> + * @bridge: bridge object
+> + *
+> + * Allocates and initializes pristine @drm_bridge_state.
+> + *
+> + * This is useful for drivers that don't subclass @drm_bridge_state.
+> + *
+> + * RETURNS:
+> + * Pointer to new bridge state, or ERR_PTR on failure.
+> + */
+> +struct drm_bridge_state *
+> +drm_atomic_helper_bridge_create_state(struct drm_bridge *bridge)
+> +{
+> +	struct drm_bridge_state *bridge_state;
+> +
+> +	bridge_state = kzalloc_obj(*bridge_state);
+> +	if (!bridge_state)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	__drm_atomic_helper_bridge_state_init(bridge_state, bridge);
+> +	return bridge_state;
+> +}
+> +EXPORT_SYMBOL(drm_atomic_helper_bridge_create_state);
+> diff --git a/include/drm/drm_atomic_state_helper.h b/include/drm/drm_atomic_state_helper.h
+> index cbc760598b9e..68c685ad330f 100644
+> --- a/include/drm/drm_atomic_state_helper.h
+> +++ b/include/drm/drm_atomic_state_helper.h
+> @@ -103,6 +103,8 @@ drm_atomic_helper_bridge_duplicate_state(struct drm_bridge *bridge);
+>  void drm_atomic_helper_bridge_destroy_state(struct drm_bridge *bridge,
+>  					    struct drm_bridge_state *state);
+>  void __drm_atomic_helper_bridge_state_init(struct drm_bridge_state *state,
+>  					   struct drm_bridge *bridge);
+>  struct drm_bridge_state *
+> +drm_atomic_helper_bridge_create_state(struct drm_bridge *bridge);
+> +struct drm_bridge_state *
+>  drm_atomic_helper_bridge_reset(struct drm_bridge *bridge);
+> 
+
 -- 
-2.34.1
+Regards,
 
+Laurent Pinchart
