@@ -4,59 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E706CD6E7C
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 16:57:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B4D2CD6E7D
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 16:57:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F2E211A9E0;
-	Fri,  5 Jun 2026 16:57:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D35A311A9E2;
+	Fri,  5 Jun 2026 16:57:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="2g7AJCn1";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="T56ePz11";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9521411A9E0
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 16:57:04 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id B3F091A0994;
- Fri,  5 Jun 2026 16:57:02 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 7EAB65FED1;
- Fri,  5 Jun 2026 16:57:02 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id EC18D106A24CC; 
- Fri,  5 Jun 2026 18:56:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1780678621; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=PImq0/jrlBDEonY9FKiVrU9F94Bd9SJSpmCwKybiuYs=;
- b=2g7AJCn178T1n3R6jMCBRwg5KtGzh8/4eMTYKNEZ9FvxGhTx3mpkdIl4+kWZna4NgdB0Dw
- Et5KM7rN5fEYgIPPFua4Y72QlDC0//zzRDD+qN3ErsaD2i80XeX1B1OqsGX7A0Qpf9F3YW
- /bn4IP/VRMw+5oaReDhqxLfx1L6bZ16UQs6dCzNocaAdqFCvPbuEU5Ec15CDHg40iNhtNc
- pXJN2+1EnJLDhv36lcoimcjmDcJ2mOSNTfIZTA2Z4f++a/eDMA1TXKjDXK5Tue+o4Ko1Rc
- b71uxE9paEGwCqehGz9qebHMiGcUM/K/9wAn2UmZcxdnsCR6KxY16qjTsKiqKg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 05 Jun 2026 18:56:54 +0200
-Message-Id: <DJ19VYINRU7X.MAJ2N3K941SP@bootlin.com>
-Cc: "Sean Nyekjaer" <sean@geanix.com>, "Sudarshan Shetty"
- <tessolveupstream@gmail.com>, <andrzej.hajda@intel.com>,
- <neil.armstrong@linaro.org>, <rfoss@kernel.org>, <jonas@kwiboo.se>,
- <jernej.skrabec@gmail.com>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <alexander.stein@ew.tq-group.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Marek
- Vasut" <marex@denx.de>
-To: "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v4 2/2] drm: bridge: ti-sn65dsi83: Disable video burst
- mode for LVDS stability
-X-Mailer: aerc 0.21.0
-References: <ahsxWhXMhzbAj_3G@Seans-MacBook-Pro.local>
- <DJ17SSAYCT51.28YSD262KHNKK@bootlin.com>
- <20260605160946.GC4350@killaraus.ideasonboard.com>
-In-Reply-To: <20260605160946.GC4350@killaraus.ideasonboard.com>
-X-Last-TLS-Session-Version: TLSv1.3
+X-Greylist: delayed 903 seconds by postgrey-1.36 at gabe;
+ Fri, 05 Jun 2026 16:57:31 UTC
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6220511A9E2
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 16:57:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1780677735; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=kf3peC3t98Ib9KZYHmO3v+Vj/1d7k/dGYEP3n5awo3CqJoS4nr+EmTGunekAm/OjbB8Hh7Ln4fnQ2k3bX7tzwiWmAJlv5/Qql806HoMfjbQO1w1etKQ8RpIa+tBcSSLaDT9gEoOVAyigIh0RgBZbWWixB5AfooC3WUbsdLjuwGg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1780677735;
+ h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=Tgqhsze06HfbpZq35K9dBzb4bY+s/AG3gLWTDVJ0ELc=; 
+ b=jddLMWFQ7e9GrDSSQ1kAmrwsIlFZ8EZBpfzVoXDj89Kd3iaa6rzeWfoNoHpKbs1s4dT5FTVMKs2gmn/GRnxL8ofaZxpKB5hkra5OptUl8SK5CH/7JIiopg/B9V5FMBmgY84tmobiKZraYR2vptFmfYM63Fy7hAPPa+6zASKTM/o=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+ dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780677735; 
+ s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+ bh=Tgqhsze06HfbpZq35K9dBzb4bY+s/AG3gLWTDVJ0ELc=;
+ b=T56ePz11B9/m9NhHDl03em3oN80y6mfJfVFi8zqf1iVBjHLeZVMqFwVtHJdGxUGt
+ 6EZ7UdXO+hjOsfo4wjehYz4pkZ1Xec2picOXlI7Z6XzOlKcWee+TJ323FtQudYmMh0r
+ /qLIS+mORuVNG0MI451IC38y1gvmY2ONavrw5maA=
+Received: by mx.zohomail.com with SMTPS id 1780677733010276.20170001455165;
+ Fri, 5 Jun 2026 09:42:13 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+ id 82C56181D83; Fri, 05 Jun 2026 18:42:06 +0200 (CEST)
+Date: Fri, 5 Jun 2026 18:42:06 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, 
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
+ Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Alexey Charkov <alchark@gmail.com>, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, 
+ kernel@collabora.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 05/12] drm/bridge: synopsys: dw-dp: Add follow-up
+ bridge support
+Message-ID: <aiL4lUUa9j6_irAz@venus>
+References: <20260501-synopsys-dw-dp-improvements-v2-0-d7e7f6bac77f@collabora.com>
+ <20260501-synopsys-dw-dp-improvements-v2-5-d7e7f6bac77f@collabora.com>
+ <177918892313.537125.10814687633426590148.b4-review@b4>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="m4w4l56frz4pgctv"
+Content-Disposition: inline
+In-Reply-To: <177918892313.537125.10814687633426590148.b4-review@b4>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.2.1.5.2/280.674.88
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,116 +93,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Laurent,
 
-On Fri Jun 5, 2026 at 6:09 PM CEST, Laurent Pinchart wrote:
-> On Fri, Jun 05, 2026 at 05:18:43PM +0200, Luca Ceresoli wrote:
->> Hello Sean,
->>
->> +Cc Marek, Maxime.
->>
->> On Sat May 30, 2026 at 8:51 PM CEST, Sean Nyekjaer wrote:
->> > On Wed, May 27, 2026 at 02:27:36PM +0100, Sudarshan Shetty wrote:
->> >> The current DSI configuration enables MIPI_DSI_MODE_VIDEO_BURST.
->> >> while burst mode is supported by the hardware, its use
->> >> depends on continuous clock behavior from the DSI host. In practice,
->> >> burst mode may introduce instability depending on the host controller
->> >> implementation, as the DSI link may transition to low-power state
->> >> between bursts.
->> >>
->> >> Testing showed improved display stability when using non-burst mode o=
-n
->> >> affected panels.
->> >>
->> >> Remove MIPI_DSI_MODE_VIDEO_BURST and use non-burst video mode.
->> >>
->> >
->> > We briefly talked about this at Embedded Recipes
->> > I promised to sent a link:
->> > https://lore.kernel.org/all/E35054BA-FBE5-4CEE-905C-1F5D20140590@geani=
-x.com/
->>
->> Thanks for the discussion at ER and for this follow-up e-mail.
->>
->> > When burst mode is enabled, the LVDS clock gets way to high for my
->> > panel. I don't know if it's the DSI controller in the STM32MP1 or
->> > something not supported on the TI side.
->> >
->> > We have been running with this fix for 2 years :)
->>
->> If I can summarize the situation in the last 4 years:
->>
->>  * Several users reported the same trouble
->>  * Those users patch their kernel out of tree to disable burst mode as a
->>    workaround
->>  * According to Marek the correct way to make burst mode work is
->>    implementing link negotiation
->>  * Nobody is willing to implement link negotiation as of now
->>
->> And this leads me to some questions.
->>
->>  * Do we want to keep the current situation (everybody beats their head =
-on
->>    the wall until they discover disabling burst mode "fixes" their panel=
-,
->>    and keep an out of tree patch)?
->>
->>  * Assuming the priority is getting a screen working (and not saving pow=
-er
->>    on a black screen), would it make sense to apply this patch, and let
->>    people improve in the future by implementing link negotiation?
->>
->>    Let's pretend for a moment this is a new driver being developed: woul=
-d
->>    it be OK to have a basic working driver, without some power optimizat=
-ion
->>    features which can be added later on? The only valid answer to this
->>    question is obviously "yes". Doesn't the same principle apply here? I=
-f
->>    it doesn't, why?
->>
->>  * What is the expected power saving with burst mode?
->>
->>    I'm afraid I don't have precise numbers but I measured the total boar=
-d
->>    consumption with or without burst mode (the former with a black scree=
-n
->>    but backlight enabled) and found no difference: exactly 12.74 W in bo=
-th
->>    cases.
->>
->> Thanks for you rpatience in reading this. I hope it helps in finding a
->> better solution.
->
-> Rephrasing this a bit, is the discussion about dropping support for a
-> supported feature (burst mode) because users who suffer from the lack of
-> another feature (link negotiation) are not willing to spend time
-> implementing it,
+--m4w4l56frz4pgctv
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 05/12] drm/bridge: synopsys: dw-dp: Add follow-up
+ bridge support
+MIME-Version: 1.0
 
-That's the question I have, more or less. I have no answer yet, I'm mostly
-trying to clarify the situation in the first place, for myself and anyone
-interested.
+Hello Luca,
 
-Maybe it's worth pointing out that AFAICU any driver enabling burst mode is
-buggy because in lack of link negotiation it may work or not, based on pure
-luck.
+On Tue, May 19, 2026 at 01:08:43PM +0200, Luca Ceresoli wrote:
+> On Fri, 01 May 2026 00:20:32 +0200, Sebastian Reichel <sebastian.reichel@=
+collabora.com> wrote:
+> > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/=
+bridge/synopsys/dw-dp.c
+> > index fc4ddb7792d7..ccc55e40e81c 100644
+> > --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> > +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> > @@ -2064,6 +2064,20 @@ struct dw_dp *dw_dp_bind(struct device *dev, str=
+uct drm_encoder *encoder,
+> >  		goto unregister_aux;
+> >  	}
+> > =20
+> > +	next_bridge =3D devm_drm_of_get_bridge(dev, dev->of_node, 1, 0);
+>=20
+> devm_drm_of_get_bridge() looks for either a panel or a bridge. Is it
+> possible to have a panel connected here?
+>=20
+> If it isn't, then using of_drm_get_bridge_by_endpoint() which has just be=
+en
+> merged [0] would be much simpler and cleaner.
 
-> and would prefer if users of burst mode were forced to
-> do the work instead ? That doesn't seem very fair to me.
+Technically this should always be connected to the USBDP PHY
+on the Rockchip platforms using this IP (RK3588 & RK3576) and
+there are no other upstream platforms using this code so far.
 
-Link negotiation is not just "another feature" w.r.t. burts mode. It's a
-prerequisite for burst mode to work reliably. So hard-enabling burst mode
-was building a roof without solid walls (link negotiation).
+Having said that, we do have some upstream DTs, which directly
+connect it to a DP connector instead (as the PHY does not yet
+expose a DRM bridge, that's being handled in a different series).
+But there is no upstream board connecting it to an eDP panel,
+so I will switch over to of_drm_get_bridge_by_endpoint().
 
-So I'm rephrasing your the question :) as: shouldn't users of burst mode be
-forced to implement link negotiation, since _they_ need it?
+Thanks for the info.
 
-Again: AFAICU, I'm trying to understand and improve things.
+Greetings,
 
-Cheers,
-Luca
+-- Sebastian
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+>=20
+> [0] https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/03d1078112fdd=
+d706b2c1e4a7d98cf18700eb5df
+>=20
+> Luca
+>=20
+> --=20
+> Luca Ceresoli, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
+>=20
+
+--m4w4l56frz4pgctv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmoi/FMACgkQ2O7X88g7
++pphnA//Ybl+zfoxQYVFEOrEKJfflb05xZ7uBHTS161zwMfNHamKHq0m5XtJ0Cfy
+5HrJ/AQ8R5Eizb3kI09PWMimzpjr/9pDFo7d1xb25zzP42pPFsCniXq1W4p/+D39
+tsiUc7RruHWxniCf4xsZHSyYQd1L05KUwPbldLV1n7P+GEp5qGdmpsCPtlCxNJxr
+SJv1dGUo6Oq/enMdVd7Qs7gfE6ZQWXQ3+EHACruc7OldzfQoxi9L6+LFigsk8eAJ
+9zxlu/MVy7rDhRNLzZ0JApYpXpbPz/G5mbCQFEbAhRrf1YRhiSwE3XtVyvicBUXL
+8YeA+0/2e2W4WygQnC8B7bbOwnwaCYaek2hr5ftlVSjax8pLSJyH9LxGAgxY0tLF
+hxTl88B9PjKJUF8zTJLasGn/amgbB2amzfQKFxn8HYxQHy3k4MuP4uyhPE4PoVWH
+5CH5HQF/sHk9eEwoMowUI9Lvn8hM6iRkh2djcm4LzdAlfeVMRiV45V0nYlhvMIHZ
+d6h182Vgk6yxsIhTv0bNHjkU4VTi9nslIyOhGi4hnin9BrdLdhfl+5RHQVNCb4pX
+Re7DOKH8LtCN9TJkwJL7pHsN6dCdnWyYkiJc8Am2nkiNZQDXrpoZGDzxDrwU8aJZ
+uyDrcem4Z+CEK8DSg6I24U5a5vJa/WPLK5VN7EF1QpXO/vij2S0=
+=dAt0
+-----END PGP SIGNATURE-----
+
+--m4w4l56frz4pgctv--
