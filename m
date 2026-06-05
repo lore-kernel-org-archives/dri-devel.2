@@ -4,56 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADFCBCD6E7C
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 15:53:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DB15CD6E7D
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 15:59:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1944F11A958;
-	Fri,  5 Jun 2026 15:53:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A69D511A964;
+	Fri,  5 Jun 2026 15:59:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="HKtT4aia";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U6LdHDS1";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9A4811A958
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 15:53:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1780674796;
- bh=KHV7Fhy3ZcWBoItd6My6nFLOPmYf7jB0k6jodzEWg7o=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=HKtT4aia3WWT2tzcVXI+3VWpQ23gDCQYrXrrNZBhkl6DzG+UDBwgl/CCMoXyPVsOc
- hB8jBZvWwgIg7zVTRHwtYVYMbLfzuVVJIQlOipw0ztzvLaBOag/+Pd1ydQSQglviUM
- LOjTWStzoANoaNrme8SUVMbfol4zc+gR9LGIfqCS6qACDLRkJIEG0hxooyNHBDJ2xE
- bQIoXuqoLzdGfJrs18kvYf9Gly5Zk1AwbytFbmPVuAZASDjSGS28j95+ATMW9AwW06
- I/2gELsdMnVao7bV2lOmZYjYguEv4V1OL+E+CNQMWP0XI32nrAm687iJWUBlUM0Cyv
- A+5mxS7AWf8MA==
-Message-ID: <9c59cddf-0a1b-4110-886d-477d7f334f08@lankhorst.se>
-Date: Fri, 5 Jun 2026 17:53:17 +0200
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com
+ [209.85.160.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAB5011A964
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 15:59:11 +0000 (UTC)
+Received: by mail-qt1-f176.google.com with SMTP id
+ d75a77b69052e-5176096116fso21699061cf.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 05 Jun 2026 08:59:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780675151; cv=none;
+ d=google.com; s=arc-20240605;
+ b=HGerqoY/WuYKsg9SrnzA6NJwG91Ys7nyFxNlocJQh18j2TiGtak57sZ3v/z39ASrLS
+ mW1KZ5gPUsVWsA7LpR3952N5lkuJ/qbDgt5Cu0QYCHkYZKlnAK/ZbLHklSidr6vEIIui
+ yabC5ba5kQlJagCBgbnSj+4fW5je7SyQ42GBWYl5SX78qOlS+t+zh6mBQVYvtx73xgnO
+ FzZg+QH6blwF+DvWuex5nw2Ya0ZQKBGs568H4j30taREa9mttVqFzGla0JCPO6p4cRak
+ +C1Iz47V3bDgQLfSSB8cYzFjLSgGQfWKk9gb80+tqWxe9epi+HPEFiG00lhgS+b5Ph8q
+ tUnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=9ksbjEziQ/klkTRNLQdAgetuDlG0vybDd4/Easyb/oE=;
+ fh=AtYcPZFd7Q4BKSBc5vxSDvPn8Fl6A0EYpPQiHLjsVTw=;
+ b=f9vKhdw046Z5UMPyF6e6cZu4F9ljnnUqmYcUuZVIsQQFF9qGRga2A2XiGrtiutBGOE
+ 0gDhfLGIJZ46bfA7/py+wwJiENoNRV5gSbd/0wSxFJn629fxBChxntuf3Ov1dv3pfmdZ
+ hRhWdgZ3Aaz5vZ8YW23ax0MwM+2YBwLkLyBBrmuie1m2Hh7BSoi/Xdzf9Kd7rfVNkCi3
+ eEiIl+qjYCEL1iS8AmjK5416hqM4VWlioRvjLpiDP2sfo7VNh64NIe0oEvFIbRgOYo8x
+ bBtGVg9m1LJr662FNjAZPQorcR/VkqnOjWRrpUhiI/FTOjMwqKzqhNfgnQUf6JDGantP
+ qxSA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780675151; x=1781279951; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9ksbjEziQ/klkTRNLQdAgetuDlG0vybDd4/Easyb/oE=;
+ b=U6LdHDS10FgAv31SyFlCF33jzvn5owI/99phSZKKy4D9I+X31p6jc9dQMRTvhb+U/1
+ NhEe+YCYMGJOGbPrf9cOSUC5EeCbeD80kWuC6IOZ3U8YO/g/IDj/Rr5TxTqqf4VcpABg
+ V101kj7/ND2R31yhLO041OxJmPRvvc5D7JYZi9ggHaz3o91yEE5+hCeFsHVfV9Fdjhoz
+ W3purUWREk2Fd64wwSnazXUtMVqK04IPi7poH/7wTPADUFQPprCieD6LwHCRwSdd5LUw
+ aH2J1jus5lNuYL/cHn4hc4p/m3EHlc6MRAqU9V6FY7DBYLWi3Kd2VYK09gQtFgFDm+Mo
+ hs/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780675151; x=1781279951;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=9ksbjEziQ/klkTRNLQdAgetuDlG0vybDd4/Easyb/oE=;
+ b=MRGlf2QloGtNa8WgO/PPdDX4DlpUFBg8P+4TArT4TbbrRxHMomnjvsVVJ3esckcHAm
+ bOtYzm7oLXZbf/aqgTdWHPUosUGh1XAXYm9bwnmsGTt8ZSn5ziGmrA4vmxEL1CZgTlyj
+ SJHhYpjzGwBk7g4WsHS0AThjsd6EZ7B3Kt11Ia5eufHedCd6UpSqwbfcIYi+aZm5n55O
+ 6F74tJOJCLRi0kGaKb0D+kv/hkdSCFTbe38/VyJBRmrHk0iSLjn+0zrEZSZLy95l4XYV
+ 1q0rWqrfAEL6G0fPII1XKRxCLtXJ9JIoc+WGpcO5+opySOPlPZWw95E/zNXpmiWt30Sg
+ vQWw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/Yc3/5vECiWwfXfxhjKeSxr7LYLiDr+7NJC6HqR2j686guGzvQQ+9rDWT3lns4TwbBUCkrkrWGqV8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzlGB2Dm8dUZRy2hdLZTJ6w01ZikJbLb/NuoNUlgkPIVAiNygsd
+ EAyxMbB77s1CuVvuJTtxwm8ehTgC6ORtG1LQFYzZfeG90hOZVE0FuY+o/IarJpji+fMt2g9qgBV
+ zqMzL60QiB6eTsHXa7Ni7+/oZlqVu2JY=
+X-Gm-Gg: Acq92OGhurHzVPR0b0sdCEz3pjAMBLLDqc2ve6UbcIAPQeEhkdMNy96TiNI2+p0BTjZ
+ W6OS4uGNq2UHWSG2cM2ph+B88fhUCgXX78NqzWNk7jd0sefFEZ0f4fZD0TG9FN6C947edbr+swa
+ 6PrFNQBUIBb1ilZWZKx5wxv1yYx3WOmgqbFVSlwa3KKvfyIXw1p5Opk8UOmDBV3cYK9LnbzJxtM
+ k40u08wgRrJPIq63E/nRPLfR5632SmbgysvC1bbQ6mye3/zoSKYqSQiDaiqA/c7MJ2CvyVmsh3i
+ FTZUETE6427DdogB
+X-Received: by 2002:ac8:7d16:0:b0:517:89d0:b8a9 with SMTP id
+ d75a77b69052e-51795a872cbmr62478381cf.9.1780675150571; Fri, 05 Jun 2026
+ 08:59:10 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] cgroup/dmem: add dmem.memcg control file for
- double-charging to memcg
-To: Eric Chanudet <echanude@redhat.com>
-Cc: =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, Maxime Ripard
- <mripard@kernel.org>, Natalie Vock <natalie.vock@gmx.de>,
- Tejun Heo <tj@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, cgroups@vger.kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, "T.J. Mercier" <tjmercier@google.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Maxime Ripard <mripard@redhat.com>, Albert Esteve <aesteve@redhat.com>,
- Dave Airlie <airlied@gmail.com>, linux-doc@vger.kernel.org
-References: <20260519-cgroup-dmem-memcg-double-charge-v2-0-db4d1407062b@redhat.com>
- <20260519-cgroup-dmem-memcg-double-charge-v2-2-db4d1407062b@redhat.com>
- <ahBxB5a9sX9DEWvl@localhost.localdomain> <ahXKFYBdCMDBvc_N@x1nano>
- <158bc103-7f99-4df4-8d3b-2da9b04ac0ed@lankhorst.se> <aiLVbQPxK1qI1h4p@x1nano>
-Content-Language: en-US
-From: Maarten Lankhorst <dev@lankhorst.se>
-In-Reply-To: <aiLVbQPxK1qI1h4p@x1nano>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260409-vop2-clk-rate-check-v2-1-b207cfc427d7@collabora.com>
+In-Reply-To: <20260409-vop2-clk-rate-check-v2-1-b207cfc427d7@collabora.com>
+From: Alexey Charkov <alchark@gmail.com>
+Date: Fri, 5 Jun 2026 19:58:59 +0400
+X-Gm-Features: AVHnY4Kg55Cpi5Qk79GgU4qugmSkMCPyryYYbHOI9JHnUkY85yTZ0sefHW3lqDA
+Message-ID: <CABjd4Yw_HYpjhrgmonB9FmWV00q=r3yvqnFE4TXEHpM1ZgWOhA@mail.gmail.com>
+Subject: Re: [PATCH RFC v2] drm/rockchip: vop2: Add clock rate mode check
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,125 +113,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hey,
+On Fri, Apr 10, 2026 at 2:37=E2=80=AFAM Sebastian Reichel
+<sebastian.reichel@collabora.com> wrote:
+>
+> The display might offer modes, which exceed the maximum clock rate of a
+> video output. This usually happens for displays that offer refresh rates
+> above 60 Hz. This results in no picture (or a broken one) being displayed
+> without manual intervention. Fix this by teaching the driver about the
+> maximum achievable clock rates for each video port.
+>
+> The information about the maximum clock rates for each video channel and
+> the tip about multiple pixels being processed per clock were provided by
+> Andy Yan and roughly checked against the information available in the
+> datasheet (which specifies limits like "2560x1600@60Hz with 10-bit"
+> instead of a specific pixel rate).
+>
+> For the video ports supporting a 600 MHz input clock, there is some
+> logic to handle up to 4 pixels in parallel when needed resulting in
+> the extra multiplier.
+>
+> Suggested-by: Andy Yan <andy.yan@rock-chips.com>
+> Link: https://lore.kernel.org/linux-rockchip/1528d788.186b.19d08ed974c.Co=
+remail.andyshrk@163.com/
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> ---
+> I've kept the RFC tag, as I'm not sure about the 4x parallel pixel
+> processing. IIUIC all of the video ports with a maximum of 600 MHz
+> input clock support it, considering they can go to 4K @ 120Hz,
+> which is above 1.2GHz while Andy mentioned a max. support clock rate
+> of 600 MHz.
+> ---
+> Changes in v2:
+> - Link to v1: https://lore.kernel.org/r/20260217-vop2-clk-rate-check-v1-1=
+-989b569119ba@collabora.com
+> - based on v7.0-rc7
+> - rename max_clock_rate into max_pixel_clock_rate to distinguish from
+>   input clock
+> - update max clock rates to the numbers provided by Andy Yan with
+>   extra 4x multiplier for 4K 120Hz VPs
+> ---
+>  drivers/gpu/drm/rockchip/rockchip_drm_vop2.c |  3 +++
+>  drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  1 +
+>  drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 10 ++++++++++
+>  3 files changed, 14 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/d=
+rm/rockchip/rockchip_drm_vop2.c
+> index a195f5c819a2..35a0edda5375 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> @@ -1434,6 +1434,9 @@ static enum drm_mode_status vop2_crtc_mode_valid(st=
+ruct drm_crtc *crtc,
+>         if (mode->hdisplay > vp->data->max_output.width)
+>                 return MODE_BAD_HVALUE;
+>
+> +       if (mode->clock > vp->data->max_pixel_clock_rate / 1000)
+> +               return MODE_CLOCK_HIGH;
+> +
+>         return MODE_OK;
+>  }
+>
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/d=
+rm/rockchip/rockchip_drm_vop2.h
+> index 9124191899ba..fd46913f3346 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+> @@ -225,6 +225,7 @@ struct vop2_video_port_data {
+>         u16 gamma_lut_len;
+>         u16 cubic_lut_len;
+>         struct vop_rect max_output;
+> +       u32 max_pixel_clock_rate;
+>         const u8 pre_scan_max_dly[4];
+>         unsigned int offset;
+>         /**
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/d=
+rm/rockchip/rockchip_vop2_reg.c
+> index f3950e8476a7..6ae3d506c476 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> @@ -559,18 +559,21 @@ static const struct vop2_video_port_data rk3568_vop=
+_video_ports[] =3D {
+>                 .gamma_lut_len =3D 1024,
+>                 .cubic_lut_len =3D 9 * 9 * 9,
+>                 .max_output =3D { 4096, 2304 },
+> +               .max_pixel_clock_rate =3D 600000000U,
+>                 .pre_scan_max_dly =3D { 69, 53, 53, 42 },
+>                 .offset =3D 0xc00,
+>         }, {
+>                 .id =3D 1,
+>                 .gamma_lut_len =3D 1024,
+>                 .max_output =3D { 2048, 1536 },
+> +               .max_pixel_clock_rate =3D 200000000U,
+>                 .pre_scan_max_dly =3D { 40, 40, 40, 40 },
+>                 .offset =3D 0xd00,
+>         }, {
+>                 .id =3D 2,
+>                 .gamma_lut_len =3D 1024,
+>                 .max_output =3D { 1920, 1080 },
+> +               .max_pixel_clock_rate =3D 150000000U,
+>                 .pre_scan_max_dly =3D { 40, 40, 40, 40 },
+>                 .offset =3D 0xe00,
+>         },
+> @@ -775,6 +778,7 @@ static const struct vop2_video_port_data rk3576_vop_v=
+ideo_ports[] =3D {
+>                 .gamma_lut_len =3D 1024,
+>                 .cubic_lut_len =3D 9 * 9 * 9, /* 9x9x9 */
+>                 .max_output =3D { 4096, 2304 },
+> +               .max_pixel_clock_rate =3D 600000000U * 4,
 
-On 6/5/26 17:42, Eric Chanudet wrote:
-> On Fri, Jun 05, 2026 at 01:27:09PM +0200, Maarten Lankhorst wrote:
->> Hey,
->>
->> On 5/26/26 18:59, Eric Chanudet wrote:
->>> On Fri, May 22, 2026 at 05:26:16PM +0200, Michal Koutný wrote:
->>>> Hello Eric.
->>>>
->>>> On Tue, May 19, 2026 at 11:59:02AM -0400, Eric Chanudet <echanude@redhat.com> wrote:
->>>>> Add a root-only cgroupfs file "dmem.memcg" that lets an administrator
->>>>> configure whether allocations in a dmem region should also be charged to
->>>>> the memory controller.
->>>>
->>>> This kinda makes sense as it is not unlike io.cost.* device
->>>> configurators.
->>>>
->>>> Just for my better understanding -- will there be a space for userspace
->>>> to switch this? (No charged dmem allocations happen before responsible
->>>> userspace runs, so that the attribute remains unlocked.)
->>>>
->>>> (I'm rather indifferent about the actual double charging/non-charging
->>>> matter.)
->>>
->>> Yes, this is intended to be configured before the user space stack that
->>> would start allocating things is started. Once it has started (and tried
->>> to charge something), the configuration is locked
->>>
->>>>
->>>>>
->>>>> To handle inheritance, dmem adds a depends_on the memory controller,
->>>>> unless MEMCG isn't configured in.
->>>>>
->>>>> Double-charging is disabled by default. Once a charge is attempted, the
->>>>> setting is locked to prevent inconsistent accounting by a small 4-state
->>>>> machine (off, on, locked off, locked on).
->>>>>
->>>>> The memcg to charge is derived from the pool's cgroup, since the pool
->>>>> holds a reference to the dmem cgroup state that keeps the cgroup alive
->>>>> until it gets uncharged.
->>>>>
->>>>> Signed-off-by: Eric Chanudet <echanude@redhat.com>
->>>>> ---
->>>>>  Documentation/admin-guide/cgroup-v2.rst |  23 +++++
->>>>>  kernel/cgroup/dmem.c                    | 158 +++++++++++++++++++++++++++++++-
->>>>>  2 files changed, 178 insertions(+), 3 deletions(-)
->>>>>
->>>>> diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
->>>>> index 6efd0095ed995b1550317662bc1b56c7a7f3db23..1d2fa55ddf0faa17baa916a8914d3033e8e42359 100644
->>>>> --- a/Documentation/admin-guide/cgroup-v2.rst
->>>>> +++ b/Documentation/admin-guide/cgroup-v2.rst
->>>>> @@ -2828,6 +2828,29 @@ DMEM Interface Files
->>>>>  	  drm/0000:03:00.0/vram0 12550144
->>>>>  	  drm/0000:03:00.0/stolen 8650752
->>>>>  
->>>>> +  dmem.memcg
->>>>> +	A readwrite nested-keyed file that exists only on the root
->>>>> +	cgroup.
->>>>
->>>> Strictly speaking this is not nested-keyed but flat keyed [1],
->>>
->>> Indeed,
->>>
->>>> which leads me to realization that this is the first instance of a boolean.
->>>> All in call, such a composition comes to my mind (latter is RO):
->>>>
->>>> 	drm/0000:03:00.0/vram0 enable=0|1 locked=0|1
->>>>
->>>
->>> So per[1] 1 key, 2 sub-keys (enable RW, locked RO), that looks better
->>> and match the documentation, thanks!
->>>
->>>>
->>>>
->>>>> +static ssize_t dmem_cgroup_memcg_write(struct kernfs_open_file *of, char *buf,
->>>>> +				       size_t nbytes, loff_t off)
->>>>> +{
->>>>> +	while (buf) {
->>>>> +		struct dmem_cgroup_region *region;
->>>>> +		char *options, *name;
->>>>> +		bool flag;
->>>>> +
->>>>> +		options = buf;
->>>>> +		buf = strchr(buf, '\n');
->>>>> +		if (buf)
->>>>> +			*buf++ = '\0';
->>>>
->>>> I recall there was a discussion about accepting only a single device per
->>>> write(2) (at the same time I see this idiom is still present in other
->>>> dmem.* files, so this is nothing to change in _this_ patch).
->>>
->>> I would second that. When setting say dmem.max for 2 regions, with a
->>> typo on the second, the first one is set, but write still get EINVAL.
->>>
->>> Also, I just notice dmemcg_limit_write() returns EINVAL if the region is
->>> not found (this patch returns ENODEV).
->>>
->>>>
->>>> Thanks,
->>>> Michal
->>>>
->>>> [1] https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html#format
->>>
->>>
->>>
->>
->> Perhaps a bit late, but before we start adding this UAPI we should enforce a
->> single region per write?
-> 
-> I can send that separately, although that is a UAPI change. Is there any
-> user that would be affected?
-> 
-> This series is hung on charging memcg using memory objects from the
-> context of dmem, when at that level of abstraction it doesn't have
-> access to the underlying pieces that were allocated.
+Hi Sebastian,
 
-It's a uapi change, but I see more and more interest in the development and usage of dmemcg.
-I believe it's better to fix this before users (perhaps accidentally) start to rely on this behavior.
+I've tested it on a bunch of different displays with RK3576 while also
+giving VP0 an unlimited PLL to work with (and also expanding its rates
+table for each of the displays' EDID preferred pixel clocks), and I'm
+pretty sure this should be * 2 here, rather than * 4. That would also
+align with ".pixel_rate =3D 2" just below.
 
-Kind regards,
-~Maarten Lankhorst
+In its current form, some of the advanced displays with 240 Hz modes
+by default choose modes leading to visual artifacts indicative of
+overclocking strain of the graphics pipeline.
+
+The rest look plausible, so with that change please feel free to include:
+
+Tested-by: Alexey Charkov <alchark@flipper.net> # RK3576
+
+Best regards,
+Alexey
