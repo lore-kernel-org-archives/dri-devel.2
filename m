@@ -4,76 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 603ABCD6E74
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 07:57:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0372CCD6E7B
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 07:57:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBF7811A556;
-	Fri,  5 Jun 2026 07:57:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4723611A55C;
+	Fri,  5 Jun 2026 07:57:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="ud9TN26i";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BCshmgIC";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50B2711A556
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 07:57:08 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gWv0c3R1Bz9tgY;
- Fri,  5 Jun 2026 09:57:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1780646224; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=YZscO3yakbHdZc4j0RGnCdnyy50smezrqiuIpDYbTeI=;
- b=ud9TN26ikC4TheW87sW5sBb0y2fqqKzew5ee3W2uJP7eL0IRSx/XGRTNn5y9pkOecyS/RA
- K/7g4n+Do9YA3XS5TTP7T+S4TLlVSPWnYnOzde5LcsMROQMe90Tm96LylDf2b8x9VuQkZp
- qN3vsiXI30/uRjCLIoblFdNRbR2frgMsipUZg8qVTRTY8whn5tDu8Jq1sVSNwtq8ZCVnou
- CRNyO4ketnaWtSzGeGYji4nJfM/n4irESZmSi/vosa12sTW4nCsmiXR8qGjWrqAsWV5PHR
- W2uKePhv2y5CPa6GuTTA6MKwDkB/s/bhnE71Z8HtFvVpqmS2fMwJCQMne/9ECw==
-Message-ID: <8ff2de94a50ed077a4cfe520a081f2b8b438a375.camel@mailbox.org>
-Subject: Re: [PATCH 3/4] rust: Add dma_fence abstractions
-From: Philipp Stanner <phasta@mailbox.org>
-To: Boris Brezillon <boris.brezillon@collabora.com>, Daniel Almeida
- <dwlsalmeida@gmail.com>
-Cc: Philipp Stanner <phasta@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	 <bjorn3_gh@protonmail.com>, Benno
- Lossin <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Sumit Semwal	
- <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, "Paul E. McKenney" <paulmck@kernel.org>, 
- Frederic Weisbecker	 <frederic@kernel.org>, Neeraj Upadhyay
- <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, Josh
- Triplett <josh@joshtriplett.org>, Uladzislau Rezki	 <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>, Mathieu Desnoyers	
- <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>, 
- Zqiang <qiang.zhang@linux.dev>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Igor Korotin	 <igor.korotin@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Alexandre Courbot	 <acourbot@nvidia.com>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>, Krishna Ketan Rai
- <prafulrai522@gmail.com>, Shankari Anand <shankari.ak0208@gmail.com>,
- manos@pitsidianak.is, 	linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, 	linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 	linaro-mm-sig@lists.linaro.org,
- rcu@vger.kernel.org
-Date: Fri, 05 Jun 2026 09:56:51 +0200
-In-Reply-To: <20260604101552.4232733b@fedora-2.home>
-References: <20260530143541.229628-2-phasta@kernel.org>
- <20260530143541.229628-5-phasta@kernel.org>
- <4F8E8E04-5AB5-4E6B-9194-5FC467E2313F@collabora.com>
- <20260603191405.4c75badb@fedora-2.home>
- <09096455-BA79-4E61-AD88-44DA57C5BEA8@gmail.com>
- <20260604101552.4232733b@fedora-2.home>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCAD911A55A;
+ Fri,  5 Jun 2026 07:57:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780646276; x=1812182276;
+ h=message-id:date:mime-version:from:to:cc:subject:
+ content-transfer-encoding;
+ bh=1aRfajY/mlCdD9J+IkNfAwMP9z+4dWk+xwz1iwDVNh8=;
+ b=BCshmgIC1n+QAy29jyOmtQVcZ8bWI1kzlDGScLJSAcBVoPJDfURjRXHJ
+ 7YTPBM5LXCIfmOCCJXF2UBeW1whALvRhawKBSPMDtZ0dw0OyE9iI3+ncv
+ Pnos1+iavLAmWJmblc0LZkisP2AGwq+LHujAmxzJLdB/5rnBNrFc7Ze5s
+ muk4FaB5VJUaagQajDIIBNkQ4F7v7t/aThQqmS+613iwUh8Wf24cdw+Uv
+ rLzUdsqhbWyhjw0qZBXix3MBE38MWDPmVjMaxV7XcEdDWtOUgVWHz9olr
+ eTLR9Vgk7ZxmOak/qBXeNWxmQY4lryyYW+zecoF/rNMCt7XYvep9rGkFa Q==;
+X-CSE-ConnectionGUID: 3HuXiKkwRD6FlNEtaixwMw==
+X-CSE-MsgGUID: qhlBC/GaRcafH4f9ydeUxw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="98897434"
+X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; d="scan'208";a="98897434"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2026 00:57:54 -0700
+X-CSE-ConnectionGUID: RH9pUXxoTcan0NI+fLf/CQ==
+X-CSE-MsgGUID: 8cvysP7MQPavaeYoNwReHQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; d="scan'208";a="240328795"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO [10.245.245.227])
+ ([10.245.245.227])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2026 00:57:50 -0700
+Message-ID: <a4a5bf50-3fc8-4faf-884b-08121687124a@linux.intel.com>
+Date: Fri, 5 Jun 2026 09:57:51 +0200
 MIME-Version: 1.0
-X-MBO-RS-ID: a672bee9a7bdcd496a0
-X-MBO-RS-META: 5yqks91n4urtritwsng9kaxh7prq1gie
+User-Agent: Mozilla Thunderbird
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Simona Vetter <simona.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>
+Cc: dim-tools@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Oded Gabbay <ogabbay@kernel.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+Subject: [PULL] drm-misc-next-fixes
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,181 +74,71 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 2026-06-04 at 10:15 +0200, Boris Brezillon wrote:
-> On Wed, 3 Jun 2026 21:43:05 -0300
-> Daniel Almeida <dwlsalmeida@gmail.com> wrote:
->=20
-> > > On 3 Jun 2026, at 14:14, Boris Brezillon <boris.brezillon@collabora.c=
-om> wrote:
-> > >=20
-> > > On Wed, 3 Jun 2026 13:41:02 -0300
-> > > Daniel Almeida <dwlsalmeida@gmail.com> wrote:
-> > > =C2=A0=20
-> > > > > +=C2=A0=C2=A0=C2=A0 /// Called when the fence is signaled.
-> > > > > +=C2=A0=C2=A0=C2=A0 ///
-> > > > > +=C2=A0=C2=A0=C2=A0 /// This is called from the fence signaling p=
-ath, which may be in interrupt
-> > > > > +=C2=A0=C2=A0=C2=A0 /// context or with locks held, which is why =
-`self` is only borrowed, so that
-> > > > > +=C2=A0=C2=A0=C2=A0 /// it cannot drop. Implementations must not =
-sleep or perform
-> > > > > +=C2=A0=C2=A0=C2=A0 /// long-running operations.
-> > > > > +=C2=A0=C2=A0=C2=A0 ///
-> > > > > +=C2=A0=C2=A0=C2=A0 /// An implementation likely wants to inform =
-itself (e.g., through a work item)
-> > > > > +=C2=A0=C2=A0=C2=A0 /// within this callback that the associated =
-[`FenceCbRegistration`] can now be
-> > > > > +=C2=A0=C2=A0=C2=A0 /// dropped.
-> > > > > +=C2=A0=C2=A0=C2=A0 fn called(&mut self);=C2=A0=C2=A0=C2=A0=20
-> > > >=20
-> > > > This is a central point. We ideally would want this to consume self=
-, because we
-> > > > may want to move things out of the callback.=C2=A0=C2=A0=C2=A0=20
-> > >=20
-> > > This one comes from me. The rationale being that ::called() is called
-> > > from an atomic context, and the resources attached to the callback da=
-ta
-> > > might require acquiring other sleeping locks to be released, and
-> > > sometimes you don't even notice immediately because said resources ar=
-e
-> > > refcounted, and the lock is only acquired when you happen to be the
-> > > last owner. Yes, those can be caught at runtime if the C side is
-> > > properly annotated with might_sleep(), but that's not always the case=
-.
-> > >=20
-> > > If we defer the drop of the data only when the FenceCb is
-> > > dropped/recycled, we're at least not constrained by this "runs in
-> > > atomic context" thing.
-> > > =C2=A0=20
-> >=20
-> > This design does not solve it, because one can quite trivially get arou=
-nd this
-> > restriction using Option<T> as I said. If your point is =E2=80=9Cdon=E2=
-=80=99t run any drop() here=E2=80=9D,
-> > then &mut self doesn=E2=80=99t do it.
->=20
-> My bad, I thought you were talking about some Option<T> in
-> FenceCbRegistration<T> (there was one at some point, but it's gone now),
-> but you're talking about having an Option<X> inside the T. Yes, there's
-> indeed nothing preventing a drop on X in that path, and it's just as
-> bad as passing the fence back as value to the callback in that case.
+Hi Dave, Sima,
 
-Then maybe we should just pass it by value and require implementation
-of an unsafe trait on `T`, whose safety-requirements demand that this
-must be save to drop from atomic context.
+drm-misc-next-fixes for v7.2-rc1!
 
->=20
-> >=20
-> > > >=20
-> > > > Consider a fence design where signal() consumes self. Now consider =
-this:
-> > > >=20
-> > > > ```
-> > > > impl FenceCb for MyCallback {
-> > > > fn called(&mut self) {
-> > > > =C2=A0 // Can't move the fence out, so we have to put an Option<T> =
-just to be able
-> > > > =C2=A0 // to move.
-> > > > =C2=A0 if let Some(f) =3D self.some_fence.take() {
-> > > > =C2=A0=C2=A0=C2=A0 f.signal();
-> > > > =C2=A0 }
-> > > > }
-> > > > ```
-> > > >=20
-> > > > This used to be the case when our version of the job queue used the=
- "proxy
-> > > > fence" design:
-> > > >=20
-> > > >=20
-> > > > ```
-> > > > // Callback on the hw fence
-> > > > impl FenceCb for MyCallback {
-> > > > fn called(&mut self) {
-> > > > =C2=A0 if let Some(f) =3D self.submit_fence.take() {
-> > > > =C2=A0=C2=A0=C2=A0 f.signal();
-> > > > =C2=A0 }=C2=A0=20
-> > >=20
-> > > I'm pretty sure lockdep won't like it anyway, because this is nested
-> > > locking of the same lock class. For such proxies, we'll need to teach
-> > > lockdep about the nesting like has been recently done on
-> > > dma_fence_array & co. But I'm digressing.=C2=A0=20
-> >=20
-> > Yeah, but this is more about resource transfer in general, not
-> > this pattern specifically.
-> >=20
-> > I agree that this has issues, and yes, lockdep complained back
-> > then :)
->=20
-> The thing is, there's so many aspects that could go wrong because of the
-> context this callback is called in. Nested locking is one of them,
-> the fact we can't sleep is another. And with rust it's even worse,
-> because of the implicit drops that will happen when you take ownership
-> of resources (taking sleeping locks to remove resources from a dataset
-> for instance).
+Kind regards,
+~Maarten Lankhorst
 
-Doesn't that have to be a problem for much of Rust infrastructure? How
-do other parties solve that?
+drm-misc-next-fixes-2026-06-05:
+drm-misc-next-fixes for v7.2-rc1:
+- Revert last minute IS_ERR_OR_NULL changes in nouveau/gsp.
+- Fix build warning in drm scheduler.
+- Flush caches and TLB before v3d runtime suspend.
+- Fix a trace and debug command in amdxdna.
+- Fix heap buffer address validation when PASID is disabled in amdxdna.
+The following changes since commit 61de054a772a1feda6364931ab1baf9038abf1c8:
 
->=20
-> So, by passing self by value to the ::callback(), you're basically
-> telling users "hey, BTW, don't forget to defer the drop to some
-> workqueue if you think it's not atomic-safe". And how can users know
-> that the thing they're about to drop can be dropped in atomic context?
-> They basically have to audit the ::drop() of all the resources they
-> embed in their type implementing FenceCb. Not only that, but they also
-> have to design the thing so the deferral of this ::drop() doesn't
-> allocate, because, obviously, allocating in atomic context is
-> tricky/fallible. AFAIK, none of this can be spot at compile-time (I
-> remember Gary/Danilo mentioning that we could teach the klint about
-> some of these rules). This would leave us with runtime checks like
-> might_sleep(), but most of the C putters (xxx_put(object)) don't have
-> might_sleep() in the path where the decref doesn't lead to a refcnt=3D0
-> situation.
->=20
-> TLDR; Call this PTSD if you want, but this is the sort of bugs I
-> struggled with on the C side, and I can predict that the exact same
-> will happen in rust drivers if we expose the FenceCb as it is designed
-> here and we don't have a way to check the soundness of the FenceCb
-> implementations at compile time.
+  drm/nouveau/gsp: formally support GA100 (2026-05-28 19:30:15 +0200)
 
-My guess would be that the existence of unsafe-traits is the admission
-of Rust that this just cannot be guaranteed by design.
+are available in the Git repository at:
 
-If a driver cannot know whether this or that is safe to drop, then it
-would have to defer it's dropping. Or would there be cases where this
-also doesn't work?
+  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-next-fixes-2026-06-05
 
->=20
-> The other option (the one I've been advocating for from the start), is
-> to not let drivers implement FenceCb (make it private), but instead
-> have a bunch of implementations that we know are safe. Here's a list of
-> implementations that I think would unblock most of the drivers use
-> cases:
->=20
-> - wakeup a thread
-> - complete a completion object
-> - schedule a WorkItem
-> - schedule a kthread_worker (once we get a proper rust abstraction for
-> =C2=A0 that)
->=20
-> It doesn't mean we can't have optimized FenceCb implementations that do
-> a lot more in the callback() path instead of deferring to a
-> workqueue/thread, but at least those would have to be implemented in
-> dma_fence.rs, and the dma_fence.rs maintainers can then carefully audit
-> the code as part of the review process, which we know is not really the
-> case when changes touch drivers code only.
+for you to fetch changes up to 62c1671f6454ceaa80e9ceff63f821aa36f35154:
 
-Pragmatically speaking, if the common cases are trivial, then the
-drivers will get them right, because those critical primitives are
-already atomic-safe.
+  accel/amdxdna: Return errors for failed debug BO commands (2026-06-03 11:47:12 -0700)
 
-And a non-common case will have to be implemented in the driver
-anyways, so we'd have to allow for that.
+----------------------------------------------------------------
+drm-misc-next-fixes for v7.2-rc1:
+- Revert last minute IS_ERR_OR_NULL changes in nouveau/gsp.
+- Fix build warning in drm scheduler.
+- Flush caches and TLB before v3d runtime suspend.
+- Fix a trace and debug command in amdxdna.
+- Fix heap buffer address validation when PASID is disabled in amdxdna.
 
+----------------------------------------------------------------
+Lizhi Hou (3):
+      accel/amdxdna: Preserve user address when PASID is disabled
+      accel/amdxdna: Remove drv_cmd tracing from job free callback
+      accel/amdxdna: Return errors for failed debug BO commands
 
+Lyude Paul (5):
+      Revert "nouveau/gsp/rm: cleanup remaining IS_ERR_OR_NULL usage"
+      Revert "nouveau/gsp/rm: cleanup IS_ERR_OR_NULL in core implementation"
+      Revert "nouveau/gsp/rm: cleanup WARN_ON(IS_ERR_OR_NULL)"
+      Revert "nouveau/gsp: cleanup IS_ERR_OR_NULL in rpc_rd"
+      Revert "nouveau/gsp: cleanup IS_ERR_OR_NULL in rm_alloc functions"
 
-P.
+Maíra Canal (2):
+      drm/v3d: Flush MMU TLB and cache during runtime resume
+      drm/v3d: Clean caches before runtime suspend
+
+Tvrtko Ursulin (1):
+      drm/sched: Fix clang build warning in kunit tests
+
+ drivers/accel/amdxdna/aie2_ctx.c                   | 16 +++++------
+ drivers/accel/amdxdna/amdxdna_gem.c                |  5 +++-
+ drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h  |  8 +++---
+ .../drm/nouveau/nvkm/subdev/gsp/rm/r535/alloc.c    |  4 +--
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/bar.c  |  2 +-
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/ctrl.c |  2 +-
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c  | 10 +++----
+ drivers/gpu/drm/scheduler/tests/tests_scheduler.c  | 12 ++-------
+ drivers/gpu/drm/v3d/v3d_mmu.c                      | 31 +++++++++++++++-------
+ drivers/gpu/drm/v3d/v3d_power.c                    |  2 ++
+ 10 files changed, 50 insertions(+), 42 deletions(-)
