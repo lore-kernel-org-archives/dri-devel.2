@@ -4,56 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97B1CCD6E7D
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 15:18:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D91BACD6E7D
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 15:28:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC612112B95;
-	Fri,  5 Jun 2026 15:18:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2BCE10FA36;
+	Fri,  5 Jun 2026 15:28:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="WIE8rBmE";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fWcnhy3n";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5E1D112B95
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 15:18:53 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id A3C6BC58474;
- Fri,  5 Jun 2026 15:18:51 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id BF7F65FED1;
- Fri,  5 Jun 2026 15:18:51 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 540D9106A24E8; 
- Fri,  5 Jun 2026 17:18:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1780672730; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=r2zLTXnIIEWYP9WPDWgk1ltoj3vmFgVMDfsqz5DWKFY=;
- b=WIE8rBmEy6A5wqgUNEYncR6XrGg25qcSFXrhLoqEbsj6qiy4816P80+gfL+qMXGr1155On
- 4CMfLUab5VjAwzaALQWOZ1gObAv/1Wv1pSZZI6HMZ5mgBSqL5LNkgUbQxPms3USmily5uJ
- aUEbWVXE4FJ5opp8I+JpWuVC2cbpCHL7xqpP2c8oo5Fv5B95w9OCK3VkEqxrJTb4f/MqEL
- 4AG54RQ+t7jgYjd2hlvbtXqHcm56a4jlGrpi3mBp1i+GrO5I3EkA1faqTNKbri3qI8VzXr
- bXVjXuQxoQiopn1OcNnOx7yvpV0didlNmxO5iYf9pQDKxbldqGlMV7uk9gzYXg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 05 Jun 2026 17:18:43 +0200
-Message-Id: <DJ17SSAYCT51.28YSD262KHNKK@bootlin.com>
-Subject: Re: [PATCH v4 2/2] drm: bridge: ti-sn65dsi83: Disable video burst
- mode for LVDS stability
-Cc: <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>,
- <rfoss@kernel.org>, <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
- <jernej.skrabec@gmail.com>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <alexander.stein@ew.tq-group.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Marek
- Vasut" <marex@denx.de>, "Maxime Ripard" <mripard@kernel.org>
-To: "Sean Nyekjaer" <sean@geanix.com>, "Sudarshan Shetty"
- <tessolveupstream@gmail.com>, <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.21.0
-References: <ahsxWhXMhzbAj_3G@Seans-MacBook-Pro.local>
-In-Reply-To: <ahsxWhXMhzbAj_3G@Seans-MacBook-Pro.local>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2BE810FA36
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 15:28:26 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 42F02601DD;
+ Fri,  5 Jun 2026 15:28:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAAFC1F00893;
+ Fri,  5 Jun 2026 15:28:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780673306;
+ bh=oBR7PyLS1GRVWsoOzBh999WZkqMfxUWSYE8ZccTmdu0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=fWcnhy3nfcLpIlGX0XpRreSQve+kDKX+VCRsbzRkZTzcjuSg4kzdSS2wyWj8P895v
+ jKkdzwnkTT5yteTGM9/9/QBzAFs6w3vEe87/8KZFMMv/KNDg+s744VLpMqPH026Waf
+ Jrxj/+9wMD2QI1VoeD4SsJCbjT6ObfXL+ph5R6GAc719K6snd3iICjMcMFG3aKonso
+ stdD0sB9iTsCFQkTE1M2tBsD6DmUxxORwjhJoNmAcsvN9bk4B5bkPeU0OkaTy99iRb
+ etnBbGQogMRQIDITILsbejpAzhcBvs/d/D9TB5HEg0PZS+rmZ/CNX9BZYpD+gBetG3
+ yLryZkt+t7VaA==
+Date: Fri, 5 Jun 2026 10:28:25 -0500
+From: Rob Herring <robh@kernel.org>
+To: Doug Anderson <dianders@chromium.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: display: panel: samsung, atna33xc20: Add
+ ATNA40HQ08-0
+Message-ID: <20260605152825.GA3740391-robh@kernel.org>
+References: <20260604-topic-yoga_submission-v1-0-57c70c23d0d6@oss.qualcomm.com>
+ <20260604-topic-yoga_submission-v1-1-57c70c23d0d6@oss.qualcomm.com>
+ <CAD=FV=UaPKiGSL6mhVdywp67skSr2B7977f3kZ23FFHaD=95RQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD=FV=UaPKiGSL6mhVdywp67skSr2B7977f3kZ23FFHaD=95RQ@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,79 +71,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Sean,
+On Thu, Jun 04, 2026 at 02:23:25PM -0700, Doug Anderson wrote:
+> Hi,
+> 
+> On Thu, Jun 4, 2026 at 1:07 AM Konrad Dybcio
+> <konrad.dybcio@oss.qualcomm.com> wrote:
+> >
+> > Some variants of the Qualcomm Snapdragon X2 Elite-based Lenovo Yoga
+> > Slim 7x Gen11 laptop ship with a Samsung ATNA40HQ08-0 2880x1800 120 Hz
+> > OLED panel which seems to be compatible with the other ATNAxxx panels,
+> > document it.
+> >
+> > Note that I stripped the -0 suffix from the compatible, as it seems to
+> > be of little importance and some sources omit it.
+> >
+> > EDID:
+> > 0000000 ff00 ffff ffff 00ff 834c 422f 002f 0000
+> > 0000010 2300 0401 1eb5 7813 6603 ae85 3851 24b9
+> > 0000020 500a 0054 0000 0101 0101 0101 0101 0101
+> > 0000030 0101 0101 0101 0000 0000 0000 0000 0000
+> > 0000040 0000 0000 0000 0000 0000 fd00 1e00 e678
+> > 0000050 47e6 0a01 2020 2020 2020 0000 fe00 5300
+> > 0000060 4344 2020 2020 2020 2020 2020 0000 fc00
+> > 0000070 4100 4e54 3441 4830 3051 2d38 2030 c402
+> > 0000080 2070 0279 2000 1800 1200 2ffb 0042 0000
+> > 0000090 0000 0c23 5441 414e 3034 5148 3830 302d
+> > 00000a0 0021 ca1d 5e0b 4007 080b 0007 7ae5 8551
+> > 00000b0 b9a3 024a 020a 5445 5fd0 644c 4400 7823
+> > 00000c0 0026 0609 0000 0000 5000 0000 0022 0014
+> > 00000d0 0ad4 3f85 c70b 0700 1f00 0700 7707 4f00
+> > 00000e0 0f00 2e00 0600 4500 5fd0 644c 002b 270c
+> > 00000f0 1e00 0077 2700 1e00 003b 0000 0000 9085
+> > 0000100 2070 0079 2200 1400 d400 050a 0b3f 00c7
+> > 0000110 0007 001f 0707 07f7 07cf 000f 0081 731f
+> > 0000120 001a 0300 1e5b 0078 8fa0 6a02 7802 0000
+> > 0000130 0000 e38d 8005 e600 0506 8f01 016a 0000
+> > 0000140 0000 0000 0000 0000 0000 0000 0000 0000
+> > 0000150 0000 0000 0000 0000 0000 0000 0000 0000
+> > 0000160 0000 0000 0000 0000 0000 0000 0000 0000
+> > 0000170 0000 0000 0000 0000 0000 0000 0000 900f
+> 
+> I'm not a fan of the EDID being presented in 16-bit words. :-/
+> Changing it to this when applying:
+> 
+> 00 ff ff ff ff ff ff 00 4c 83 2f 42 2f 00 00 00
+> 00 23 01 04 b5 1e 13 78 03 66 85 ae 51 38 b9 24
+> 0a 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+> 01 01 01 01 01 01 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 fd 00 1e 78 e6
+> e6 47 01 0a 20 20 20 20 20 20 00 00 00 fe 00 53
+> 44 43 20 20 20 20 20 20 20 20 20 20 00 00 00 fc
+> 00 41 54 4e 41 34 30 48 51 30 38 2d 30 20 02 c4
+> 70 20 79 02 00 20 00 18 00 12 fb 2f 42 00 00 00
+> 00 00 23 0c 41 54 4e 41 34 30 48 51 30 38 2d 30
+> 21 00 1d ca 0b 5e 07 40 0b 08 07 00 e5 7a 51 85
+> a3 b9 4a 02 0a 02 45 54 d0 5f 4c 64 00 44 23 78
+> 26 00 09 06 00 00 00 00 00 50 00 00 22 00 14 00
+> d4 0a 85 3f 0b c7 00 07 00 1f 00 07 07 77 00 4f
+> 00 0f 00 2e 00 06 00 45 d0 5f 4c 64 2b 00 0c 27
+> 00 1e 77 00 00 27 00 1e 3b 00 00 00 00 00 85 90
+> 70 20 79 00 00 22 00 14 00 d4 0a 05 3f 0b c7 00
+> 07 00 1f 00 07 07 f7 07 cf 07 0f 00 81 00 1f 73
+> 1a 00 00 03 5b 1e 78 00 a0 8f 02 6a 02 78 00 00
+> 00 00 8d e3 05 80 00 e6 06 05 01 8f 6a 01 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0f 90
+> 
+> 
+> > Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> > ---
+> >  Documentation/devicetree/bindings/display/panel/samsung,atna33xc20.yaml | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/display/panel/samsung,atna33xc20.yaml b/Documentation/devicetree/bindings/display/panel/samsung,atna33xc20.yaml
+> > index 1bbe0da3997c3b06eccd18fe8980b58a6c05d963..27536eeaed8594c047dd0fa1cf425912be189508 100644
+> > --- a/Documentation/devicetree/bindings/display/panel/samsung,atna33xc20.yaml
+> > +++ b/Documentation/devicetree/bindings/display/panel/samsung,atna33xc20.yaml
+> > @@ -25,6 +25,8 @@ properties:
+> >                - samsung,atna40ct06
+> >                # Samsung 14" WQXGA+ (2880x1800 pixels) eDP AMOLED panel
+> >                - samsung,atna40cu11
+> > +              # Samsung 14" WQXGA+ (2880x1800 pixels) eDP AMOLED panel
+> > +              - samsung,atna40hq08
+> 
+> Sure. I'll repeat the same comment I made the last time someone landed
+> a change to this file [1] in the hopes that maybe someone will post a
+> patch one day:
+> 
+> <repeat>
+> Given how many of these we're up to now, I'm starting to wonder if we
+> should come up with a generic compatible like we did with "edp-panel"
+> and then we can stop having to merge CLs like this. All of these
+> Samsung OLED eDP panels have the same power up sequence and once we do
+> that then we can read them via EDID or via DP AUX bus to identify
+> which specific panel we have and if they need additional tweaking,
+> just like we do with "edp-panel". Do DT folks have any opinion about
+> that? Coming up with a name would be a pain since I wouldn't want to
+> assert that all future Samsung OLED eDP panels will have the same
+> powerup sequence. Maybe "samsung,amoled-edp-panel-v1" even though that
+> sounds terrible and there's no known need for a "-v2"?
+> </repeat>
 
-+Cc Marek, Maxime.
+If things are the same, then perhaps there should be a fallback 
+compatible. Or just reuse an existing compatible. I can in no way 
+prevent someone from using 'foo-panel' in their DT when the h/w is 
+actually a foobar panel if the differences are transparent to s/w. (But 
+I will reject a quirk property later on when foobar turns out to be 
+different than foo.)
 
-On Sat May 30, 2026 at 8:51 PM CEST, Sean Nyekjaer wrote:
-> Hi Luca,
->
-> On Wed, May 27, 2026 at 02:27:36PM +0100, Sudarshan Shetty wrote:
->> The current DSI configuration enables MIPI_DSI_MODE_VIDEO_BURST.
->> while burst mode is supported by the hardware, its use
->> depends on continuous clock behavior from the DSI host. In practice,
->> burst mode may introduce instability depending on the host controller
->> implementation, as the DSI link may transition to low-power state
->> between bursts.
->>
->> Testing showed improved display stability when using non-burst mode on
->> affected panels.
->>
->> Remove MIPI_DSI_MODE_VIDEO_BURST and use non-burst video mode.
->>
->
-> We briefly talked about this at Embedded Recipes
-> I promised to sent a link:
-> https://lore.kernel.org/all/E35054BA-FBE5-4CEE-905C-1F5D20140590@geanix.c=
-om/
-
-Thanks for the discussion at ER and for this follow-up e-mail.
-
-> When burst mode is enabled, the LVDS clock gets way to high for my
-> panel. I don't know if it's the DSI controller in the STM32MP1 or
-> something not supported on the TI side.
->
-> We have been running with this fix for 2 years :)
-
-If I can summarize the situation in the last 4 years:
-
- * Several users reported the same trouble
- * Those users patch their kernel out of tree to disable burst mode as a
-   workaround
- * According to Marek the correct way to make burst mode work is
-   implementing link negotiation
- * Nobody is willing to implement link negotiation as of now
-
-And this leads me to some questions.
-
- * Do we want to keep the current situation (everybody beats their head on
-   the wall until they discover disabling burst mode "fixes" their panel,
-   and keep an out of tree patch)?
-
- * Assuming the priority is getting a screen working (and not saving power
-   on a black screen), would it make sense to apply this patch, and let
-   people improve in the future by implementing link negotiation?
-
-   Let's pretend for a moment this is a new driver being developed: would
-   it be OK to have a basic working driver, without some power optimization
-   features which can be added later on? The only valid answer to this
-   question is obviously "yes". Doesn't the same principle apply here? If
-   it doesn't, why?
-
- * What is the expected power saving with burst mode?
-
-   I'm afraid I don't have precise numbers but I measured the total board
-   consumption with or without burst mode (the former with a black screen
-   but backlight enabled) and found no difference: exactly 12.74 W in both
-   cases.
-
-Thanks for you rpatience in reading this. I hope it helps in finding a
-better solution.
-
-Best regards,
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Rob
