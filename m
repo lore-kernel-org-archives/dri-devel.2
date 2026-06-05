@@ -4,116 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B4CBCD8C93
-	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 07:19:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3AE8CD8C8B
+	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 07:19:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D3BA112D61;
-	Sat,  6 Jun 2026 07:19:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62802112D6A;
+	Sat,  6 Jun 2026 07:19:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (4096-bit key; unprotected) header.d=canonical.com header.i=@canonical.com header.b="qAv89s9o";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SK321UkH";
 	dkim-atps=neutral
-Received: from smtp-relay-internal-0.canonical.com
- (smtp-relay-internal-0.canonical.com [185.125.188.122])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25DD511A6D3
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 10:04:58 +0000 (UTC)
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
- [209.85.210.69])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 7C4903F5B1
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 10:04:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1780653896;
- bh=9VSfaSmZiuzc3OUajzl27LDOjRPp4i7hhVD2ZvkIMkg=;
- h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
- To:Cc:Content-Type;
- b=qAv89s9os4fVthX4wJq/OgD2JPaRYazhLRDVuf4DuHBgAH+0873dxpZMVatEJCgAU
- T/pafUpQUpVD2h9vs+dktOJz+ezcjtE2cPcz64P3T/Z+iGhuTbzeJbdb3fwMlW2SHI
- /2WB//y/ERg1MT8ZQc1yOPUBgDrZnYvON40VewvYmu12dO0tBBVxMUzROHWgEhtRl1
- vfddxH3/zs03UhrBvVeOyMNUxJaVB2CCEVrbT0Ma6n6bvyhbJzR6QEq7P+cfVeaMCx
- lKdBSPf9rqAG5/eiGAhBgS+JndSw6PY/wtWwENUkgo/wVhMyV+Nna9clcPCGf0lM7V
- T5I0Z/atFeLMV9uD4VhHH8arq0d4T6uTgXZoqbP22BAKAwNwdMH3Mc4MIypuorkCnK
- bKncvDss2Q6FWW99pQCTfaf2SNDhKzQR1NzDLrPHbQ5cGHZe7QB8cOsRN1dl4n3GYn
- jxU2SEHJ+g0A5kXzKy2DvFT2R/U5GPryoKbTbu5ddnPLuUqkhdV32QntGMwxcge/G1
- N7scUbtEOS/8818bN5Bmi8Mx4qwMlpF06mjlHNqJBKty2FidmLblC6kO1exLNGvIYR
- BQAvnkXfdtetfOBVI2kAw/Ou2glZxjpXwL1Tet5j7xrMMYJYfFvl7LuOodPqK5tEFR
- A+DkBJU0J6bQTx7RP3hz+sjg=
-Received: by mail-ot1-f69.google.com with SMTP id
- 46e09a7af769-7e5fb37ac4bso348401a34.3
- for <dri-devel@lists.freedesktop.org>; Fri, 05 Jun 2026 03:04:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780653895; cv=none;
- d=google.com; s=arc-20240605;
- b=g+EusyGrMRoKqvYR9Vd4f6lDLh8qkvjLhKNsY2WrPIutPkxqZKtodLAjFGZ1J5ubnt
- wdcxCvfsW3Z8kz2rExtRveADfqqmquAnghVjzk/jjMmeSVpTDEl5+FluPFA1A5+nAGZF
- ZiRSR94Wp2uEoGMtzbudlJSRM9xMYjVhGyQ+VDSQAV8Jq+xuYl1+eSy3ouGiWrR1RXrI
- /zoM26iXDyCZRcn0DTIzGgzFtA+ER7GYb/raMcWsJfLISPkG0H+TwtPPFvg8WRbRf3IM
- KQVBTURDS6EWGnPVJrt2Jzb5b3/JeA41m4NZy3HRc6OsUzGKd8XQ3nosQeN9Gc6J04/e
- xDwQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version;
- bh=9VSfaSmZiuzc3OUajzl27LDOjRPp4i7hhVD2ZvkIMkg=;
- fh=Y96SSszlyBqOu5SSmjT2C/E1iZyPM7R5GW2tUGsW9kk=;
- b=RsBNKJfWMVfHt8ymDgEYJKkNSirap9i5VcEm96c1SURz/mjhsZAXgiQZ0oG/VF7/+G
- EgNLjNBcpH7t0SzvAFWsNBdaNYnXbsA3fT+1LavGLxWjyAbhDe8L/1iddAU9Pc8wlWl8
- QbD3kJnWAwt2Hiu3/stqibv1Yk7L6VvxfbnANunbku+uGjaBI8KXrk6jQBCb1YWFpGBX
- uWpP1Tbh7fhtE8Xv1bo+A8wOm6yMVzMouFO98Lwg/jp/RkQNFZRoKyPyYOzsGSBS4PNd
- 5KPQWQEa9+/wT7ojXk0GUcW728yTiItX7xuTbjFnrAkGWaEIVFJspN2zarFWUlUoBa6A
- 84Dg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com
+ [209.85.221.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB71011A956
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 15:52:00 +0000 (UTC)
+Received: by mail-vk1-f172.google.com with SMTP id
+ 71dfb90a1353d-59b074ec7ceso630142e0c.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 05 Jun 2026 08:52:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780674720; x=1781279520; darn=lists.freedesktop.org;
+ h=to:references:message-id:content-transfer-encoding:cc:date
+ :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8nGKygQkHUwQC80rJNI9ybnw4Obautm/GK0xUhE4dko=;
+ b=SK321UkHehir4NwjIeLCVPXCcMevObaQn0qoVdDXOLvPgX5G5VLYC0JWLs9drso4fV
+ duj5HHyFruQjmrjcBdeT4YMlpIFA67ajDs7yQLlEAbFpbyfPhngz7GQny3TR/Rk7cJEs
+ 6zHuupqvZbUfKH7Oo+azgwLTlO+gSDETWdqiJjY8FwTBoG+wGzxc8sV9rfBt81FFtBWz
+ ZbJA+3C0YNROdFfF7Ng7w7kpWxiJBMUOT5Erq17bws3HNsKgq+YbUHt0C2QLivLNIANX
+ FaP8jlv5VqAa7jisYx7NnARptgoCL83ZSsgl1ZO396mfskhFFjKx9UKzTppkKThgQkqF
+ hsnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780653895; x=1781258695;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=9VSfaSmZiuzc3OUajzl27LDOjRPp4i7hhVD2ZvkIMkg=;
- b=JIgG7r/o+WfUoUsuTrQnmKzYXTgSBAF5/JF0zlTK9qo1a3DGl9O6AtFGvkBt7wGFj0
- K8b/9IBUAUSQtnUtNg1R+jaUedYIiiGugXo92xrA7M33wUFXOpEf9AlDk0F0w5LDQkjz
- o0c7MU/nlUUopBLV4bopQOcpVE7Rn0dOdlsN+CEuq4PbeLU0LOSo+EQNazz7GKn6LzoM
- 8Gxx4ij92sAdkQLjiZWrJX46M6xGbEM5cvPHCvmvANf963hiYx5pCTym1EEfASouNe3W
- lra8Xx29UDbytWDgwOGEWqm8JWK4Bkek5xceY0g1OgWIiZK2aBCKLM4L9xqpYq2ZpR9A
- qpMQ==
+ d=1e100.net; s=20251104; t=1780674720; x=1781279520;
+ h=to:references:message-id:content-transfer-encoding:cc:date
+ :in-reply-to:from:subject:mime-version:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=8nGKygQkHUwQC80rJNI9ybnw4Obautm/GK0xUhE4dko=;
+ b=fpp5Cp+gaGeo8Mi9xnCcL0fK2iCSlFkROTwK5klzdCYbEGQ3+Zg3X/4YK4dUKKyP2P
+ SqHKongg2X+FktMwF0CFATN2V+WhQ84uVRr9BuII3JAElDkKbIpXfZMPOhWwhZ6Lrgkq
+ lNJZLITGjare+jdMPL9rOWAPaGSDTe25UrEyUaLrlJ/q5rk5OCzIohsVZXFUzW09Yb22
+ QlVXGIW1qpMSWmYD6BD28+PfAO5NCUkoNTlHmUTQkDL9u/2Zbt2tH3ZSlJT1FAF3Fcpw
+ V2ge50XDqCVkPAafpBbP5Rm7UAhxz8pP3SSLmF92Pr8l5NldQ3ZX6xTFcbEYT4S/6xk3
+ 5DFQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+g0efrEOF+OG9Ns/3vQXsXDx6KVv40NlfQZl7Zh/adCu1xF9oEdm9YaNPqsQW5TXD9Kzp602u1gBI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxzZHspDcCHtaHbmgKrpOivLDveT8xprsHyIhgkFmMK+k4mGhzT
- /7u5skA0/rJ8eP4PjwXT+sKlzst1+GrMD0rTr253dla9wnaCt5kKDzAsnbe1mfm9NS8kAm57t7k
- 43Sgf5+6OEjCTanVOZ3LW8gDdZKeJCL/3nQcq6cBcByVuZMb7eDonLduhT5JL/Ecg/+mijpmb9G
- IQ1jdRxieYoWOhbBJom+DPkJANi0rNKK3SxdUZAk4zwJUZlTfLCtk3OAfjS+aR
-X-Gm-Gg: Acq92OGhQoaPES0XpIOP84sAu4636UJVLPbnOIq2JhQ3vTz5xlSZg786LUZYbRZ29RT
- sYTcvlI8BUfF6nig1A3qqk7OwRjQfbqdRoE8fmk3D94+2mkW2q4w9pUNt9OxXqKvzFUTrvKxnuz
- TuF3aqTjFQii33YzaQwKTXp4POmJbWYegCXW9ArTgDpidKxJZidvZwuPnSERWuB+mHgWrK3Y5PN
- Ss6CSOq+5HZ5zWRLUk2CGxzZF0OWoChS9Xagqjwh/5YbSTNwp1KXzTzdgEDV7k3tz0VnwLR4xfS
- fViYOz+GLS6fH97W25ALTgKkgGIexuxRZ0Kl/25hrgDQ
-X-Received: by 2002:a05:6808:250e:b0:467:de9:3eab with SMTP id
- 5614622812f47-4868dd853c0mr820654b6e.1.1780653895211; 
- Fri, 05 Jun 2026 03:04:55 -0700 (PDT)
-X-Received: by 2002:a05:6808:250e:b0:467:de9:3eab with SMTP id
- 5614622812f47-4868dd853c0mr820640b6e.1.1780653894731; Fri, 05 Jun 2026
- 03:04:54 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260505033558.157604-1-an.wu@canonical.com>
- <afuOnvFCEHEft4-R@intel.com>
- <CAO4Mv0bT4+W6E-Z-0=NSAj0ZjSqa7jFRDpLt4RxL-NgBux8yFA@mail.gmail.com>
-In-Reply-To: <CAO4Mv0bT4+W6E-Z-0=NSAj0ZjSqa7jFRDpLt4RxL-NgBux8yFA@mail.gmail.com>
-From: An Wu <an.wu@canonical.com>
-Date: Fri, 5 Jun 2026 18:04:43 +0800
-X-Gm-Features: AVHnY4IoniK44BP4Xi9qUidiocosUoS7vU6RQU3D0zIxQoBX8dugDVXxmqs0638
-Message-ID: <CAO4Mv0ZwrHqXtSNEJ9GA0K+QXtRZYtrG1msHK2PM1t6_tzUb2A@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/i915/tc: Recover AUX channel after external TC
- port mode change
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+ AFNElJ+6gHPJ2aPosr2OUAnuEZWeNUMu62dRoLU+9bFeKMwKNgTNInadBGRmv97msTOdxDRCPMS5/E5X3UQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyla8NzR4VPxaVR8toJimNfcZw/BE8IIGI4/3002e5JCKKaR6HP
+ XIPFk8L8H0EhrQn2p71TdYHrZyhmHleFmaKi/YIHqHxpuXc2MkOoQ8eN
+X-Gm-Gg: Acq92OEr93KDrJ3DFjD7lUkmR8QXB25CUApKo8z7tMaF2zNNXbhRoX7HTJ0fhPqwBZ8
+ J8LTPpdZ130n8o4wQKOl6Tjx8yL+G7bJdz8UrlFfHwIpaQDzx4kx+/ODEBZejcXkqJWRjqibaEn
+ B7pZgywrq8LiJ6ajOZuVrnSITJb9XSiO0ZtIxyAByLtkJBRKRVZCsGUbkWYrgZSIlViAkrkt9V7
+ 9kuWQDLNcgc+b9TFNqyWneqkX8Z3L/Hq+v0mX28ZOCk11oCWGrcA4GpWSKtRZy90lWtBbCJd/6A
+ zxewNV0UaYYUSx24qFMNmvF03OG7I/VvRux44WWn/DhtdCUXKjAsKY7P9bLkDtYztdTy3EvfqLF
+ ZhVnpArwMCvPb9weDx4R4nKn9D7Ul2aDTDG9UnE9SssV3RTOn083XtbFLwsie7IFRg8yT+E5TNZ
+ XyVkSkEh8N4LaOLjvrLWtJdNmQyhcA5NMvkwJO/wUIhSXIQmDsawsvSbJKWz34lGm4DLAtnno=
+X-Received: by 2002:a05:6122:20a2:b0:59e:b127:fc6f with SMTP id
+ 71dfb90a1353d-5ac53c944c8mr2226236e0c.2.1780674719617; 
+ Fri, 05 Jun 2026 08:51:59 -0700 (PDT)
+Received: from smtpclient.apple ([2804:7f1:c241:abe4:8c1d:3d1b:d7cb:e7e9])
+ by smtp.gmail.com with ESMTPSA id
+ a1e0cc1a2514c-96414115a93sm7095512241.9.2026.06.05.08.51.48
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 05 Jun 2026 08:51:59 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH 3/4] rust: Add dma_fence abstractions
+From: Daniel Almeida <dwlsalmeida@gmail.com>
+In-Reply-To: <20260604101552.4232733b@fedora-2.home>
+Date: Fri, 5 Jun 2026 12:51:35 -0300
+Cc: Philipp Stanner <phasta@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Paul E. McKenney" <paulmck@kernel.org>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+ Joel Fernandes <joelagnelf@nvidia.com>,
+ Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Igor Korotin <igor.korotin@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Krishna Ketan Rai <prafulrai522@gmail.com>,
+ Shankari Anand <shankari.ak0208@gmail.com>, manos@pitsidianak.is,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, rcu@vger.kernel.org
 Content-Transfer-Encoding: quoted-printable
+Message-Id: <82F71A28-076F-4100-A702-840018937D1B@gmail.com>
+References: <20260530143541.229628-2-phasta@kernel.org>
+ <20260530143541.229628-5-phasta@kernel.org>
+ <4F8E8E04-5AB5-4E6B-9194-5FC467E2313F@collabora.com>
+ <20260603191405.4c75badb@fedora-2.home>
+ <09096455-BA79-4E61-AD88-44DA57C5BEA8@gmail.com>
+ <20260604101552.4232733b@fedora-2.home>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+X-Mailer: Apple Mail (2.3826.700.81)
 X-Mailman-Approved-At: Sat, 06 Jun 2026 07:19:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -130,273 +119,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jani, Imre, Ville,
-    The patch is really not appropriate and also this issue should be
-fixed elsewhere.
-Therefore, I will drop this patch.
-Appreciate your patience and sorry for the noise.
 
-BR
-    An
+>>=20
+>>>>=20
+>>>> Consider a fence design where signal() consumes self. Now consider =
+this:
+>>>>=20
+>>>> ```
+>>>> impl FenceCb for MyCallback {
+>>>> fn called(&mut self) {
+>>>>  // Can't move the fence out, so we have to put an Option<T> just =
+to be able
+>>>>  // to move.
+>>>>  if let Some(f) =3D self.some_fence.take() {
+>>>>    f.signal();
+>>>>  }
+>>>> }
+>>>> ```
+>>>>=20
+>>>> This used to be the case when our version of the job queue used the =
+"proxy
+>>>> fence" design:
+>>>>=20
+>>>>=20
+>>>> ```
+>>>> // Callback on the hw fence
+>>>> impl FenceCb for MyCallback {
+>>>> fn called(&mut self) {
+>>>>  if let Some(f) =3D self.submit_fence.take() {
+>>>>    f.signal();
+>>>>  } =20
+>>>=20
+>>> I'm pretty sure lockdep won't like it anyway, because this is nested
+>>> locking of the same lock class. For such proxies, we'll need to =
+teach
+>>> lockdep about the nesting like has been recently done on
+>>> dma_fence_array & co. But I'm digressing. =20
+>>=20
+>> Yeah, but this is more about resource transfer in general, not
+>> this pattern specifically.
+>>=20
+>> I agree that this has issues, and yes, lockdep complained back
+>> then :)
+>=20
+> The thing is, there's so many aspects that could go wrong because of =
+the
+> context this callback is called in. Nested locking is one of them,
+> the fact we can't sleep is another. And with rust it's even worse,
+> because of the implicit drops that will happen when you take ownership
+> of resources (taking sleeping locks to remove resources from a dataset
+> for instance).
+>=20
+> So, by passing self by value to the ::callback(), you're basically
+> telling users "hey, BTW, don't forget to defer the drop to some
+> workqueue if you think it's not atomic-safe". And how can users know
+> that the thing they're about to drop can be dropped in atomic context?
 
-On Thu, May 7, 2026 at 9:58=E2=80=AFAM An Wu <an.wu@canonical.com> wrote:
->
-> Hi Ville
-> I have filed a bug (https://gitlab.freedesktop.org/drm/xe/kernel/-/work_i=
-tems/7918)
-> Thank you for your comment.
->
-> BR
->     An
->
-> On Thu, May 7, 2026 at 2:55=E2=80=AFAM Ville Syrj=C3=A4l=C3=A4 <ville.syr=
-jala@linux.intel.com> wrote:
->>
->> On Tue, May 05, 2026 at 11:35:57AM +0800, ChunAn Wu wrote:
->> > When Fn+F4 triggers mirror mode, the BIOS/EC reconfigures a TC port
->> > mode (e.g. DP-Alt to TBT-Alt via UCSI) without generating HPD. The
->> > driver's cached TC mode becomes stale, so intel_dp_aux_xfer() uses
->> > the wrong power domain and IO routing, and AUX transactions fail.
->> >
->> > This occurs when the USB-C-to-HDMI dongle does not support TBT, so
->> > the mode switch creates a mismatch. It also occurs with slow monitors
->> > whose delayed HPD/DDC/EDID recovery causes the Type-C layer to settle
->> > on a stale tbt-alt state before the dongle finishes re-negotiation.
->> >
->> > Add intel_tc_port_aux_recover() to detect hardware/cached TC mode
->> > divergence and reset the PHY. Wrap it with
->> > intel_dp_aux_xfer_with_recovery() to retry with corrected settings.
->> >
->> > Tested on Panther Lake and Lunar Lake with a BenQ HDMI monitor via
->> > USB-C-to-HDMI dongle.
->>
->> This sounds like a completely insane thing for the firmware to do.
->> It's not supposed to screw with the hardware while the driver is in
->> control.
->>
->> Please file a bug in gitlab and also attach full acpidumps there so
->> that we can check if that's where the insanity lives. This is isn't
->> some Fujitsu-Siemens laptop is it? Those have historically known to
->> do stupid stuff like this...
->>
->> >
->> > Signed-off-by: ChunAn Wu <an.wu@canonical.com>
->> > ---
->> >  drivers/gpu/drm/i915/display/intel_dp_aux.c | 41 +++++++++--
->> >  drivers/gpu/drm/i915/display/intel_tc.c     | 75 ++++++++++++++++++++=
-+
->> >  drivers/gpu/drm/i915/display/intel_tc.h     |  1 +
->> >  3 files changed, 113 insertions(+), 4 deletions(-)
->> >
->> > diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu=
-/drm/i915/display/intel_dp_aux.c
->> > index b20ec3e589fa..d496b2231656 100644
->> > --- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
->> > +++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
->> > @@ -481,6 +481,39 @@ static u32 intel_dp_aux_xfer_flags(const struct d=
-rm_dp_aux_msg *msg)
->> >       return 0;
->> >  }
->> >
->> > +/**
->> > + * intel_dp_aux_xfer_with_recovery - AUX transfer with TC port recove=
-ry
->> > + * @intel_dp: the DP port
->> > + * @send: buffer of bytes to send
->> > + * @send_bytes: number of bytes to send
->> > + * @recv: buffer to store received reply
->> > + * @recv_size: maximum number of bytes to receive
->> > + * @aux_send_ctl_flags: extra flags for the AUX send control register
->> > + *
->> > + * Wrapper around intel_dp_aux_xfer() that attempts to recover from a=
-n
->> > + * external TC port mode change (e.g., dp-alt -> tbt-alt via hotkey B=
-IOS
->> > + * action) when the initial AUX transfer fails. On failure, recovery =
-is
->> > + * attempted once via intel_tc_port_aux_recover() before retrying.
->> > + *
->> > + * Returns: number of received bytes on success, negative error code =
-on failure.
->> > + */
->> > +static int
->> > +intel_dp_aux_xfer_with_recovery(struct intel_dp *intel_dp,
->> > +                             const u8 *send, int send_bytes,
->> > +                             u8 *recv, int recv_size,
->> > +                             u32 aux_send_ctl_flags)
->> > +{
->> > +     struct intel_digital_port *dig_port =3D dp_to_dig_port(intel_dp)=
-;
->> > +     int ret;
->> > +
->> > +     ret =3D intel_dp_aux_xfer(intel_dp, send, send_bytes, recv, recv=
-_size,
->> > +                             aux_send_ctl_flags);
->> > +     if (ret < 0 && intel_tc_port_aux_recover(dig_port))
->> > +             ret =3D intel_dp_aux_xfer(intel_dp, send, send_bytes, re=
-cv,
->> > +                                     recv_size, aux_send_ctl_flags);
->> > +     return ret;
->> > +}
->> > +
->> >  static ssize_t
->> >  intel_dp_aux_transfer(struct drm_dp_aux *aux, struct drm_dp_aux_msg *=
-msg)
->> >  {
->> > @@ -508,8 +541,8 @@ intel_dp_aux_transfer(struct drm_dp_aux *aux, stru=
-ct drm_dp_aux_msg *msg)
->> >               if (msg->buffer)
->> >                       memcpy(txbuf + HEADER_SIZE, msg->buffer, msg->si=
-ze);
->> >
->> > -             ret =3D intel_dp_aux_xfer(intel_dp, txbuf, txsize,
->> > -                                     rxbuf, rxsize, flags);
->> > +             ret =3D intel_dp_aux_xfer_with_recovery(intel_dp, txbuf,=
- txsize,
->> > +                                                   rxbuf, rxsize, fla=
-gs);
->> >               if (ret > 0) {
->> >                       msg->reply =3D rxbuf[0] >> 4;
->> >
->> > @@ -531,8 +564,8 @@ intel_dp_aux_transfer(struct drm_dp_aux *aux, stru=
-ct drm_dp_aux_msg *msg)
->> >               if (drm_WARN_ON(display->drm, rxsize > 20))
->> >                       return -E2BIG;
->> >
->> > -             ret =3D intel_dp_aux_xfer(intel_dp, txbuf, txsize,
->> > -                                     rxbuf, rxsize, flags);
->> > +             ret =3D intel_dp_aux_xfer_with_recovery(intel_dp, txbuf,=
- txsize,
->> > +                                                   rxbuf, rxsize, fla=
-gs);
->> >               if (ret > 0) {
->> >                       msg->reply =3D rxbuf[0] >> 4;
->> >                       /*
->> > diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm=
-/i915/display/intel_tc.c
->> > index a21dd4e3fe4c..1b23161e4eea 100644
->> > --- a/drivers/gpu/drm/i915/display/intel_tc.c
->> > +++ b/drivers/gpu/drm/i915/display/intel_tc.c
->> > @@ -1861,6 +1861,81 @@ void intel_tc_port_link_cancel_reset_work(struc=
-t intel_digital_port *dig_port)
->> >       cancel_delayed_work(&tc->link_reset_work);
->> >  }
->> >
->> > +/**
->> > + * intel_tc_port_aux_recover - Recover AUX channel after external TC =
-mode change
->> > + * @dig_port: digital port
->> > + *
->> > + * When firmware causes a TC port mode change (e.g., dp-alt -> discon=
-nect ->
->> > + * tbt-alt) during a hotkey-triggered display mode switch, AUX transa=
-ctions
->> > + * using the stale power domain and IO flags will fail with timeouts =
-or errors.
->> > + * This happens because:
->> > + *
->> > + *   1. The display driver holds the TC link in dp-alt mode (link_ref=
-count > 0)
->> > + *   2. Firmware (e.g., via HP WMI hotkey BIOS action) reconfigures t=
-he TC port
->> > + *      mode externally without notifying the display driver
->> > + *   3. tc->mode stays as TC_PORT_DP_ALT while HW transitions to a di=
-fferent
->> > + *      mode, invalidating the AUX power domain and IO flags used by
->> > + *      intel_dp_aux_xfer()
->> > + *
->> > + * This function detects the discrepancy between tc->mode and actual =
-HW state,
->> > + * and re-synchronizes them via a TC PHY reset. After recovery, AUX r=
-etries
->> > + * will use the correct power domain and control flags.
->> > + *
->> > + * The link_refcount is temporarily cleared to allow intel_tc_port_re=
-set_mode()
->> > + * to proceed without the PHY-ownership assertion that fires when lin=
-k_refcount
->> > + * is non-zero and firmware has already released PHY ownership.
->> > + *
->> > + * Must be called outside the TC port lock (tc->lock).
->> > + *
->> > + * Returns: %true if recovery was performed and AUX can be retried,
->> > + *          %false if recovery was not needed or not possible.
->> > + */
->> > +bool intel_tc_port_aux_recover(struct intel_digital_port *dig_port)
->> > +{
->> > +     struct intel_tc_port *tc;
->> > +     struct intel_display *display;
->> > +     bool recovered =3D false;
->> > +
->> > +     if (!intel_encoder_is_tc(&dig_port->base))
->> > +             return false;
->> > +
->> > +     tc =3D to_tc_port(dig_port);
->> > +     display =3D to_intel_display(dig_port);
->> > +
->> > +     mutex_lock(&tc->lock);
->> > +
->> > +     /*
->> > +      * Recovery is only needed when the link is actively held AND th=
-e HW
->> > +      * TC mode has diverged from the driver's cached state.
->> > +      */
->> > +     if (!tc->link_refcount || !intel_tc_port_needs_reset(tc))
->> > +             goto out;
->> > +
->> > +     drm_dbg_kms(display->drm,
->> > +                 "Port %s: AUX recover: external TC mode change detec=
-ted (%s -> HW), reconnecting TC PHY\n",
->> > +                 tc->port_name, tc_port_mode_name(tc->mode));
->> > +
->> > +     /*
->> > +      * Temporarily clear link_refcount so intel_tc_port_reset_mode()=
- can
->> > +      * run the PHY disconnect/connect cycle without the ownership as=
-sertion
->> > +      * that fires when link_refcount > 0 and firmware has already re=
-leased
->> > +      * PHY ownership externally.
->> > +      */
->> > +     tc->link_refcount =3D 0;
->> > +     intel_tc_port_reset_mode(tc, 1, false);
->> > +     tc->link_refcount =3D 1;
->> > +
->> > +     recovered =3D tc->mode !=3D TC_PORT_DISCONNECTED;
->> > +     if (!recovered)
->> > +             drm_warn(display->drm,
->> > +                      "Port %s: AUX recover: failed to restore TC por=
-t mode\n",
->> > +                      tc->port_name);
->> > +
->> > +out:
->> > +     mutex_unlock(&tc->lock);
->> > +     return recovered;
->> > +}
->> > +
->> >  static void __intel_tc_port_lock(struct intel_tc_port *tc,
->> >                                int required_lanes)
->> >  {
->> > diff --git a/drivers/gpu/drm/i915/display/intel_tc.h b/drivers/gpu/drm=
-/i915/display/intel_tc.h
->> > index 6719aea5bd58..d44998a3081a 100644
->> > --- a/drivers/gpu/drm/i915/display/intel_tc.h
->> > +++ b/drivers/gpu/drm/i915/display/intel_tc.h
->> > @@ -108,6 +108,7 @@ bool intel_tc_port_ref_held(struct intel_digital_p=
-ort *dig_port);
->> >  bool intel_tc_port_link_needs_reset(struct intel_digital_port *dig_po=
-rt);
->> >  bool intel_tc_port_link_reset(struct intel_digital_port *dig_port);
->> >  void intel_tc_port_link_cancel_reset_work(struct intel_digital_port *=
-dig_port);
->> > +bool intel_tc_port_aux_recover(struct intel_digital_port *dig_port);
->> >
->> >  int intel_tc_port_init(struct intel_digital_port *dig_port, bool is_l=
-egacy);
->> >  void intel_tc_port_cleanup(struct intel_digital_port *dig_port);
->> > --
->> > 2.34.1
->>
->> --
->> Ville Syrj=C3=A4l=C3=A4
->> Intel
+
+Can=E2=80=99t we create a token type that signals we=E2=80=99re in =
+atomic context? If
+we pass this token type as an argument, perhaps lockdep can check it for =
+us?
+
+Perhaps
+
+enum SomeFancyName {
+  Atomic(AtomicToken)
+  NotAtomic,
+}
+
+signaled(self, atomic: AtomicToken) {
+  ..
+}
+
+> They basically have to audit the ::drop() of all the resources they
+> embed in their type implementing FenceCb. Not only that, but they also
+> have to design the thing so the deferral of this ::drop() doesn't
+> allocate, because, obviously, allocating in atomic context is
+> tricky/fallible. AFAIK, none of this can be spot at compile-time (I
+> remember Gary/Danilo mentioning that we could teach the klint about
+> some of these rules). This would leave us with runtime checks like
+> might_sleep(), but most of the C putters (xxx_put(object)) don't have
+> might_sleep() in the path where the decref doesn't lead to a refcnt=3D0
+> situation.
+>=20
+> TLDR; Call this PTSD if you want, but this is the sort of bugs I
+> struggled with on the C side, and I can predict that the exact same
+> will happen in rust drivers if we expose the FenceCb as it is designed
+> here and we don't have a way to check the soundness of the FenceCb
+> implementations at compile time.
+>=20
+> The other option (the one I've been advocating for from the start), is
+> to not let drivers implement FenceCb (make it private), but instead
+> have a bunch of implementations that we know are safe. Here's a list =
+of
+> implementations that I think would unblock most of the drivers use
+> cases:
+>=20
+> - wakeup a thread
+> - complete a completion object
+> - schedule a WorkItem
+> - schedule a kthread_worker (once we get a proper rust abstraction for
+>  that)
+
+This can also work too, I guess.
+
+>=20
+> It doesn't mean we can't have optimized FenceCb implementations that =
+do
+> a lot more in the callback() path instead of deferring to a
+> workqueue/thread, but at least those would have to be implemented in
+> dma_fence.rs, and the dma_fence.rs maintainers can then carefully =
+audit
+> the code as part of the review process, which we know is not really =
+the
+> case when changes touch drivers code only.
+>=20
+> FWIW, I think the FenceProxy design you were describing falls into
+> this "must be carefully audited" bucket, and should be implemented in
+> dma_fence.rs.
+>=20
+>>=20
+>>>=20
+>>>> }
+>>>> ```
+>>>>=20
+>>>> Although this is not the case anymore, since we phased out this =
+design given
+>>>> Christian's recent work. Still, we should ideally not require =
+Option<T> here in
+>>>> general just to make resource transfer possible. =20
+>>>=20
+>>> I see. OTOH, don't we need to make this inner data movable if we =
+want
+>>> to cancel the FenceCb before the fence is signaled anyway? And =
+that's
+>>> most certainly a case we have in the teardown path. =20
+>>=20
+>> Can you expand a bit on what you mean here?
+>=20
+> Never mind, I was confusing two different iterations of the code here.
+> I thought the Option<T> you were mentioning was in
+> FenceCbRegistration<T>, with some explicit ::cancel() function that
+> would return Option<T> so the user can get its resources back when it
+> cancels the registration, and also know whether the callback was =
+called
+> or not. But this is all gone now, and all we can do is drop the
+> registration, which will automatically drop the inner T.
+
+
