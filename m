@@ -4,179 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEBFCCD6E5D
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 06:26:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C08CCD6E74
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 06:42:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32A32112AA4;
-	Fri,  5 Jun 2026 06:26:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0179C11A488;
+	Fri,  5 Jun 2026 06:42:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="M/ktB3sD";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="D+iPx4bI";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="aDw1UW+A";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vDZD0R3r";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="fDFAxgqZ";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD11F112AA3
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 06:26:23 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1FFF6758EB;
- Fri,  5 Jun 2026 06:26:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780640782; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=HDeTQz58PcqGgdo96oHM1bAJcR1truedFGkSCcBXtWU=;
- b=M/ktB3sDGmweoVLgNXTldix/Xe30DbDNLuF62jskgLSpIFP7B4UDIS4DEc9GWvlaocwIkh
- MzYsboaSx1lq9NL9w3sbKI15lcCvSzUUgy7ZrTTgOWI5JEeGHQVF+Ws2+Lxwav5KmNURWj
- H7HdUv9yY3M5Yo7/TUsecdXNj6mQIjI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780640782;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=HDeTQz58PcqGgdo96oHM1bAJcR1truedFGkSCcBXtWU=;
- b=D+iPx4bIg0cPuvx5LRbbICTL22xfS2wQ++R9gmSJNJXGkWLeJOe6PCy7H2nCTjiItAfI+1
- cns0pwNXGHlJ7fBQ==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=aDw1UW+A;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=vDZD0R3r
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780640781; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=HDeTQz58PcqGgdo96oHM1bAJcR1truedFGkSCcBXtWU=;
- b=aDw1UW+A6yqS0t9biGU1kM/uDWClp4JVjfCpCKKYRPoi7hW5ZUoHfFiOFzrKmoJNc0yU2M
- uuYUkV1jhYjR/HyaqMqsUUErX8NJH9lMYGWAImrkVnWSpH3rCgRPaSTi+JaduzU9ke3yFG
- pPaTRpMgw/hnrLvIzrceR6N8QmELCxc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780640781;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=HDeTQz58PcqGgdo96oHM1bAJcR1truedFGkSCcBXtWU=;
- b=vDZD0R3ry92z2A2yziaUK6wGo4KqKPNJ0t6eVE3IfNyctjPaz+BMIL6O1fwV+VQF5YMMcs
- Mw015zl7yJbuC7AA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AD5B6779A8;
- Fri,  5 Jun 2026 06:26:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id KbQCKQpsImrNcwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 05 Jun 2026 06:26:18 +0000
-Message-ID: <dce03a80-3d6b-4792-9868-d6052fa3ea77@suse.de>
-Date: Fri, 5 Jun 2026 08:26:17 +0200
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A08611A488
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 06:42:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+ Message-ID; bh=ZiFtKQZZSzaa6La/dIlsHqg4rVW+JmWCuMSQ5VwN9HU=; b=f
+ DFAxgqZHY/kfSehR3hoVmCDc7zg91YBtJTjZryLn4RrQYnSxeLAoin2r3RxiGxhS
+ xoVfgzI1u/q9BoONAXk5j58A1qzRc0CJsLMcjlmt9/bxm9ddzanxWIAFfH1FtKBH
+ xgRNI+arPfH3uN0PGwAnSvgx7wpnhIPhsgUuqeNjXk=
+Received: from w15303746062$163.com ( [113.200.174.80] ) by
+ ajax-webmail-wmsvr-40-113 (Coremail) ; Fri, 5 Jun 2026 14:41:26 +0800 (CST)
+X-Originating-IP: [113.200.174.80]
+Date: Fri, 5 Jun 2026 14:41:26 +0800 (CST)
+From: w15303746062  <w15303746062@163.com>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch
+Cc: zack.rusin@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, "Mingyu Wang" <25181214217@stu.xidian.edu.cn>
+Subject: Re:[PATCH v2] drm/vblank: Reject 0-period timers to prevent hrtimer
+ storm
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <20260523025447.581709-1-w15303746062@163.com>
+References: <fa91ccc0-7660-44fc-92a8-ab569ebe3a7c@suse.de>
+ <20260523025447.581709-1-w15303746062@163.com>
+X-NTES-SC: AL_Qu2TAvqfvk4j4CWfbOkfmU0Qguw9Xcq5uPkj34FWN5t8jDrp5QodX0JFHVfbys6/Dy2ItRqsex1+1f9nQoZgZZ0Jt3we5vz6boNvjzdYaiQPEw==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/76] drm/bridge: Convert all reset users to create_state
-To: Maxime Ripard <mripard@kernel.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org,
- Jagan Teki <jagan@amarulasolutions.com>, Liu Ying <victor.liu@nxp.com>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, Andy Yan <andy.yan@rock-chips.com>,
- Phong LE <ple@baylibre.com>, Douglas Anderson <dianders@chromium.org>,
- Inki Dae <inki.dae@samsung.com>, Marek Szyprowski
- <m.szyprowski@samsung.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-amlogic@lists.infradead.org,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- linux-renesas-soc@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, linux-rockchip@lists.infradead.org,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Philippe Cornu <philippe.cornu@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>, Michal Simek <michal.simek@amd.com>
-References: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-0.996]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- FREEMAIL_TO(0.00)[kernel.org,intel.com,linaro.org,ideasonboard.com,kwiboo.se,gmail.com,bootlin.com,linux.intel.com,ffwll.ch];
- MIME_TRACE(0.00)[0:+];
- FREEMAIL_CC(0.00)[kernel.org,lists.freedesktop.org,amarulasolutions.com,nxp.com,pengutronix.de,gmail.com,lists.linux.dev,lists.infradead.org,rock-chips.com,baylibre.com,chromium.org,samsung.com,crapouillou.net,vger.kernel.org,collabora.com,googlemail.com,ideasonboard.com,glider.be,bp.renesas.com,sntech.de,foss.st.com,st-md-mailman.stormreply.com,iki.fi,raspberrypi.com,igalia.com,iscas.ac.cn,amd.com];
- ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- R_RATELIMIT(0.00)[to_ip_from(RLqtaqd5djycn6zz3dm1kuwfni)];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCPT_COUNT_GT_50(0.00)[61];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TAGGED_RCPT(0.00)[renesas];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns, suse.de:email, suse.de:dkim, suse.de:mid]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 1FFF6758EB
+Message-ID: <33239270.5344.19e9683e439.Coremail.w15303746062@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: cSgvCgDXf0yWbyJqdkoDAA--.27889W
+X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC-xYkCGoib5bOVQAA3v
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -192,178 +63,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
-
-Am 30.05.26 um 15:59 schrieb Maxime Ripard:
-[...]
->        drm/bridge: adv7511: Switch to atomic_create_state
->        drm/bridge: analogix_dp: Switch to atomic_create_state
->        drm/bridge: anx7625: Switch to atomic_create_state
->        drm/bridge: chipone-icn6211: Switch to atomic_create_state
->        drm/bridge: display-connector: Switch to atomic_create_state
->        drm/bridge: fsl-ldb: Switch to atomic_create_state
->        drm/bridge: imx8mp-hdmi-pvi: Switch to atomic_create_state
->        drm/bridge: imx8qm-ldb: Switch to atomic_create_state
->        drm/bridge: imx8qxp-ldb: Switch to atomic_create_state
->        drm/bridge: imx8qxp-pixel-combiner: Switch to atomic_create_state
->        drm/bridge: imx8qxp-pixel-link: Switch to atomic_create_state
->        drm/bridge: imx8qxp-pxl2dpi: Switch to atomic_create_state
->        drm/bridge: inno-hdmi: Switch to atomic_create_state
->        drm/bridge: ite-it6263: Switch to atomic_create_state
->        drm/bridge: ite-it6505: Switch to atomic_create_state
->        drm/bridge: ite-it66121: Switch to atomic_create_state
->        drm/bridge: lontium-lt9211: Switch to atomic_create_state
->        drm/bridge: lontium-lt9611: Switch to atomic_create_state
->        drm/bridge: lvds-codec: Switch to atomic_create_state
->        drm/bridge: nwl-dsi: Switch to atomic_create_state
->        drm/bridge: panel: Switch to atomic_create_state
->        drm/bridge: parade-ps8640: Switch to atomic_create_state
->        drm/bridge: samsung-dsim: Switch to atomic_create_state
->        drm/bridge: sii902x: Switch to atomic_create_state
->        drm/bridge: ssd2825: Switch to atomic_create_state
->        drm/bridge: dw-dp: Switch to atomic_create_state
->        drm/bridge: dw-hdmi-qp: Switch to atomic_create_state
->        drm/bridge: dw-hdmi: Switch to atomic_create_state
->        drm/bridge: dw-mipi-dsi: Switch to atomic_create_state
->        drm/bridge: dw-mipi-dsi2: Switch to atomic_create_state
->        drm/bridge: tc358762: Switch to atomic_create_state
->        drm/bridge: tc358767: Switch to atomic_create_state
->        drm/bridge: tc358768: Switch to atomic_create_state
->        drm/bridge: tc358775: Switch to atomic_create_state
->        drm/bridge: ti-dlpc3433: Switch to atomic_create_state
->        drm/bridge: ti-sn65dsi83: Switch to atomic_create_state
->        drm/bridge: ti-sn65dsi86: Switch to atomic_create_state
->        drm/bridge: ti-tdp158: Switch to atomic_create_state
->        drm/bridge: ti-tfp410: Switch to atomic_create_state
->        drm/imx: parallel-display: Switch to atomic_create_state
->        drm/ingenic: Switch to atomic_create_state
->        drm/mediatek: dp: Switch to atomic_create_state
->        drm/mediatek: dpi: Switch to atomic_create_state
->        drm/mediatek: dsi: Switch to atomic_create_state
->        drm/mediatek: hdmi: Switch to atomic_create_state
->        drm/mediatek: hdmi_v2: Switch to atomic_create_state
->        drm/meson: encoder_cvbs: Switch to atomic_create_state
->        drm/meson: encoder_dsi: Switch to atomic_create_state
->        drm/meson: encoder_hdmi: Switch to atomic_create_state
->        drm/msm: dp: Switch to atomic_create_state
->        drm/msm: hdmi: Switch to atomic_create_state
->        drm/omap: hdmi4: Switch to atomic_create_state
->        drm/omap: hdmi5: Switch to atomic_create_state
->        drm/renesas: rcar-du: lvds: Switch to atomic_create_state
->        drm/renesas: rcar-du: mipi_dsi: Switch to atomic_create_state
->        drm/renesas: rz-du: mipi_dsi: Switch to atomic_create_state
->        drm/rockchip: cdn-dp: Switch to atomic_create_state
->        drm/rockchip: rk3066_hdmi: Switch to atomic_create_state
->        drm/rockchip: lvds: Switch to atomic_create_state
->        drm/stm: lvds: Switch to atomic_create_state
->        drm/tests: bridge: Switch to atomic_create_state
->        drm/tidss: encoder: Switch to atomic_create_state
->        drm/tidss: oldi: Switch to atomic_create_state
->        drm/vc4: dsi: Switch to atomic_create_state
->        drm/verisilicon: Switch to atomic_create_state
->        drm/xlnx: zynqmp_dp: Switch to atomic_create_state
-
-You can also add my
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-to all these one-liners in the drivers.
-
-Best regards
-Thomas
-
-
->        drm/atomic-state-helper: Remove drm_atomic_helper_bridge_reset()
->        drm/bridge: cdns-dsi: Use __drm_atomic_helper_bridge_state_init()
->        drm/bridge: cdns-dsi: Switch to atomic_create_state
->        drm/bridge: cdns-mhdp8546: Switch to atomic_create_state
->        drm/bridge: Remove atomic_reset support
->
->   drivers/gpu/drm/bridge/adv7511/adv7511_drv.c       |  2 +-
->   drivers/gpu/drm/bridge/analogix/analogix_dp_core.c |  2 +-
->   drivers/gpu/drm/bridge/analogix/anx7625.c          |  2 +-
->   drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c     |  9 +++---
->   .../gpu/drm/bridge/cadence/cdns-mhdp8546-core.c    |  8 +++---
->   drivers/gpu/drm/bridge/chipone-icn6211.c           |  2 +-
->   drivers/gpu/drm/bridge/display-connector.c         |  2 +-
->   drivers/gpu/drm/bridge/fsl-ldb.c                   |  2 +-
->   drivers/gpu/drm/bridge/imx/imx8mp-hdmi-pvi.c       |  2 +-
->   drivers/gpu/drm/bridge/imx/imx8qm-ldb.c            |  2 +-
->   drivers/gpu/drm/bridge/imx/imx8qxp-ldb.c           |  2 +-
->   .../gpu/drm/bridge/imx/imx8qxp-pixel-combiner.c    |  2 +-
->   drivers/gpu/drm/bridge/imx/imx8qxp-pixel-link.c    |  2 +-
->   drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c       |  2 +-
->   drivers/gpu/drm/bridge/inno-hdmi.c                 |  2 +-
->   drivers/gpu/drm/bridge/ite-it6263.c                |  2 +-
->   drivers/gpu/drm/bridge/ite-it6505.c                |  2 +-
->   drivers/gpu/drm/bridge/ite-it66121.c               |  2 +-
->   drivers/gpu/drm/bridge/lontium-lt9211.c            |  2 +-
->   drivers/gpu/drm/bridge/lontium-lt9611.c            |  2 +-
->   drivers/gpu/drm/bridge/lvds-codec.c                |  2 +-
->   drivers/gpu/drm/bridge/nwl-dsi.c                   |  2 +-
->   drivers/gpu/drm/bridge/panel.c                     |  2 +-
->   drivers/gpu/drm/bridge/parade-ps8640.c             |  2 +-
->   drivers/gpu/drm/bridge/samsung-dsim.c              |  2 +-
->   drivers/gpu/drm/bridge/sii902x.c                   |  2 +-
->   drivers/gpu/drm/bridge/ssd2825.c                   |  2 +-
->   drivers/gpu/drm/bridge/synopsys/dw-dp.c            |  2 +-
->   drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c       |  2 +-
->   drivers/gpu/drm/bridge/synopsys/dw-hdmi.c          |  2 +-
->   drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c      |  2 +-
->   drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c     |  2 +-
->   drivers/gpu/drm/bridge/tc358762.c                  |  2 +-
->   drivers/gpu/drm/bridge/tc358767.c                  |  4 +--
->   drivers/gpu/drm/bridge/tc358768.c                  |  2 +-
->   drivers/gpu/drm/bridge/tc358775.c                  |  2 +-
->   drivers/gpu/drm/bridge/ti-dlpc3433.c               |  2 +-
->   drivers/gpu/drm/bridge/ti-sn65dsi83.c              |  2 +-
->   drivers/gpu/drm/bridge/ti-sn65dsi86.c              |  2 +-
->   drivers/gpu/drm/bridge/ti-tdp158.c                 |  2 +-
->   drivers/gpu/drm/bridge/ti-tfp410.c                 |  2 +-
->   drivers/gpu/drm/drm_atomic_state_helper.c          | 33 ++++++++++++----------
->   drivers/gpu/drm/drm_bridge.c                       |  4 +--
->   drivers/gpu/drm/imx/ipuv3/parallel-display.c       |  2 +-
->   drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |  2 +-
->   drivers/gpu/drm/mediatek/mtk_dp.c                  |  2 +-
->   drivers/gpu/drm/mediatek/mtk_dpi.c                 |  2 +-
->   drivers/gpu/drm/mediatek/mtk_dsi.c                 |  2 +-
->   drivers/gpu/drm/mediatek/mtk_hdmi.c                |  2 +-
->   drivers/gpu/drm/mediatek/mtk_hdmi_v2.c             |  2 +-
->   drivers/gpu/drm/meson/meson_encoder_cvbs.c         |  2 +-
->   drivers/gpu/drm/meson/meson_encoder_dsi.c          |  2 +-
->   drivers/gpu/drm/meson/meson_encoder_hdmi.c         |  2 +-
->   drivers/gpu/drm/msm/dp/dp_drm.c                    |  4 +--
->   drivers/gpu/drm/msm/hdmi/hdmi_bridge.c             |  2 +-
->   drivers/gpu/drm/omapdrm/dss/hdmi4.c                |  2 +-
->   drivers/gpu/drm/omapdrm/dss/hdmi5.c                |  2 +-
->   drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c        |  2 +-
->   drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c    |  2 +-
->   drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c     |  2 +-
->   drivers/gpu/drm/rockchip/cdn-dp-core.c             |  2 +-
->   drivers/gpu/drm/rockchip/rk3066_hdmi.c             |  2 +-
->   drivers/gpu/drm/rockchip/rockchip_lvds.c           |  2 +-
->   drivers/gpu/drm/stm/lvds.c                         |  2 +-
->   drivers/gpu/drm/tests/drm_bridge_test.c            |  2 +-
->   drivers/gpu/drm/tidss/tidss_encoder.c              |  2 +-
->   drivers/gpu/drm/tidss/tidss_oldi.c                 |  2 +-
->   drivers/gpu/drm/vc4/vc4_dsi.c                      |  2 +-
->   drivers/gpu/drm/verisilicon/vs_bridge.c            |  4 +--
->   drivers/gpu/drm/xlnx/zynqmp_dp.c                   |  2 +-
->   include/drm/drm_atomic_state_helper.h              |  6 ++--
->   include/drm/drm_bridge.h                           | 33 ++++++++--------------
->   72 files changed, 111 insertions(+), 120 deletions(-)
-> ---
-> base-commit: 21fcb222f0d1e1c9f5b04c09e9fb3408e13a0264
-> change-id: 20260530-drm-no-more-bridge-reset-ca20d5e22740
->
-> Best regards,
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+CkhpIE1hYXJ0ZW4sIE1heGltZSwgVGhvbWFzLCBhbmQgYWxsLAoKQSBnZW50bGUgcGluZyBvbiB0
+aGlzIHYyIHBhdGNoLgoKSXQgaGFzIGJlZW4gYWJvdXQgdHdvIHdlZWtzIHNpbmNlIHN1Ym1pc3Np
+b24uIEFzIGEgcXVpY2sgcmVtaW5kZXIsIHRoaXMgdjIgCmFkZHJlc3NlcyB0aGUgcHJldmlvdXMg
+ZmVlZGJhY2sgYnkgbW92aW5nIHRoZSB6ZXJvLXBlcmlvZCB2YWxpZGF0aW9uIApkaXJlY3RseSBp
+bnRvIHRoZSBEUk0gY29yZSAoYGRybV92YmxhbmsuY2ApLiBUaGlzIHByb3RlY3RzIGFsbCB2aXJ0
+dWFsIApkcml2ZXJzIHJlbHlpbmcgb24gdGhlIHNvZnR3YXJlIHZibGFuayB0aW1lciBmcm9tIHRo
+ZSBocnRpbWVyIHN0b3JtIERvUy4gCkl0IGFsc28gZHJvcHMgdGhlIFdBUk5fT05fT05DRSgpIHRv
+IHByZXZlbnQgdW5wcml2aWxlZ2VkIHVzZXJzcGFjZSBmcm9tIAp0cmlnZ2VyaW5nIHBhbmljcy4K
+CkNvdWxkIGFueW9uZSBwbGVhc2UgdGFrZSBhIGxvb2sgd2hlbiB5b3UgaGF2ZSBhIG1vbWVudCwg
+b3IgbGV0IG1lIGtub3cgCmlmIGFueSBmdXJ0aGVyIGFkanVzdG1lbnRzIGFyZSBuZWVkZWQ/CgpC
+ZXN0IHJlZ2FyZHMsCk1pbmd5dQoKQXQgMjAyNi0wNS0yMyAxMDo1NDo0NywgdzE1MzAzNzQ2MDYy
+QDE2My5jb20gd3JvdGU6Cj5Gcm9tOiBNaW5neXUgV2FuZyA8MjUxODEyMTQyMTdAc3R1LnhpZGlh
+bi5lZHUuY24+Cj4KPkZ1enplcnMgbGlrZSBTeXprYWxsZXIgY2FuIHN1Ym1pdCBleHRyZW1lbHkg
+bWFsaWNpb3VzIGRpc3BsYXkgbW9kZXMKPnRocm91Z2ggRFJNX0lPQ1RMX01PREVfU0VUQ1JUQy4g
+SWYgdXNlcnNwYWNlIHBhc3NlcyBhIG1vZGUgd2l0aCBhCj5tYXNzaXZlIHBpeGVsIGNsb2NrIChj
+cnRjX2Nsb2NrKSBhbmQgc21hbGwgcmVzb2x1dGlvbiAoaHRvdGFsL3Z0b3RhbCksCj50aGUgaW50
+ZWdlciBkaXZpc2lvbiBpbiBkcm1fY2FsY190aW1lc3RhbXBpbmdfY29uc3RhbnRzKCkgdHJ1bmNh
+dGVzCj50aGUgcmVzdWx0aW5nIGZyYW1lIGR1cmF0aW9uICh2YmxhbmstPmZyYW1lZHVyX25zKSB0
+byAwLgo+Cj5XaGVuIHZpcnR1YWwgZGlzcGxheSBkcml2ZXJzIChzdWNoIGFzIHZtd2dmeCBvciB2
+a21zKSByZWx5IG9uIHRoZSBEUk0KPmNvcmUncyBzb2Z0d2FyZSB2Ymxhbmsgc2ltdWxhdGlvbiwg
+ZHJtX2NydGNfdmJsYW5rX3N0YXJ0X3RpbWVyKCkgaXMKPmNhbGxlZC4gSXQgYmxpbmRseSBjb252
+ZXJ0cyB0aGlzIDAtbnMgZnJhbWVkdXJfbnMgaW50byBhIGt0aW1lIGludGVydmFsCj5hbmQgc3Rh
+cnRzIHRoZSBocnRpbWVyLiBBbiBocnRpbWVyIHdpdGggYSAwLXBlcmlvZCBmaXJlcyBpbnN0YW50
+bHkgYW5kCj5jb250aW51b3VzbHkuIFNpbmNlIGhydGltZXJfZm9yd2FyZF9ub3coKSBjYW5ub3Qg
+YWR2YW5jZSB0aW1lIGZvciBhCj4wLXBlcmlvZCwgdGhlIENQVSBnZXRzIGxvY2tlZCBpbiBhbiBp
+bmZpbml0ZSBoYXJkLUlSUSBsb29wLCBzdGFydmluZwo+dGhlIHN5c3RlbSBhbmQgY2F1c2luZyBt
+YXNzaXZlIFJDVSBzdGFsbHMuCj4KPkZpeCB0aGlzIERvUyB2dWxuZXJhYmlsaXR5IGJ5IGFkZGlu
+ZyBhIGRlZmVuc2l2ZSBzYW5pdHkgY2hlY2sgaW4KPmRybV9jcnRjX3ZibGFua19zdGFydF90aW1l
+cigpIHRvIHJlamVjdCBhIDAtbnMgZnJhbWUgZHVyYXRpb24sIGFsbG93aW5nCj50aGUgRFJNIGNv
+cmUgdG8gZ3JhY2VmdWxseSByZWplY3QgdGhlIG1hbGljaW91cyBtb2RlLgo+Cj5TaWduZWQtb2Zm
+LWJ5OiBNaW5neXUgV2FuZyA8MjUxODEyMTQyMTdAc3R1LnhpZGlhbi5lZHUuY24+Cj4tLS0KPkNo
+YW5nZXMgaW4gdjI6Cj4tIE1vdmVkIHRoZSBkZWZlbnNpdmUgY2hlY2sgZnJvbSB2bXdnZnggdG8g
+ZHJtX3ZibGFuay5jLiBUaGUgdGltZXIKPiAgbG9naWMgd2FzIHJlZmFjdG9yZWQgaW50byB0aGUg
+RFJNIGNvcmUsIHNvIHBsYWNpbmcgdGhlIGNoZWNrIGhlcmUKPiAgcHJvdGVjdHMgYWxsIGRyaXZl
+cnMgcmVseWluZyBvbiB0aGUgY29yZSBzb2Z0d2FyZSB2YmxhbmsgdGltZXIuCj4tIERyb3BwZWQg
+V0FSTl9PTl9PTkNFKCkgdG8gcHJldmVudCB1bnByaXZpbGVnZWQgdXNlcnNwYWNlIGZyb20gZWFz
+aWx5Cj4gIHRyaWdnZXJpbmcga2VybmVsIHBhbmljcyBvbiBzeXN0ZW1zIHdpdGggcGFuaWNfb25f
+d2FybiBlbmFibGVkLgo+Cj4gZHJpdmVycy9ncHUvZHJtL2RybV92YmxhbmsuYyB8IDEwICsrKysr
+KysrKysKPiAxIGZpbGUgY2hhbmdlZCwgMTAgaW5zZXJ0aW9ucygrKQo+Cj5kaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2RybV92YmxhbmsuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fdmJsYW5r
+LmMKPmluZGV4IGY5MGZiMmQxM2U0Mi4uYjM4ZDBiMzBhNjUxIDEwMDY0NAo+LS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2RybV92YmxhbmsuYwo+KysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV92Ymxhbmsu
+Ywo+QEAgLTIyNDEsNiArMjI0MSwxNiBAQCBpbnQgZHJtX2NydGNfdmJsYW5rX3N0YXJ0X3RpbWVy
+KHN0cnVjdCBkcm1fY3J0YyAqY3J0YykKPiAKPiAJZHJtX2NhbGNfdGltZXN0YW1waW5nX2NvbnN0
+YW50cyhjcnRjLCAmY3J0Yy0+bW9kZSk7Cj4gCj4rCS8qCj4rCSAqIERFRkVOU0lWRSBDSEVDSzoK
+PisJICogZHJtX2NhbGNfdGltZXN0YW1waW5nX2NvbnN0YW50cygpIHRydW5jYXRlcyBmcmFtZWR1
+cl9ucyB0byAwIGlmCj4rCSAqIHVzZXJzcGFjZSBwcm92aWRlcyBhIG1hbGljaW91cyBtb2RlIHdp
+dGggYSBodWdlIGNydGNfY2xvY2sgYW5kCj4rCSAqIHNtYWxsIGh0b3RhbC92dG90YWwuIFByZXZl
+bnQgYW4gaW5maW5pdGUgaGFyZC1JUlEgbG9vcCBmcm9tIGEKPisJICogMC1wZXJpb2QgaHJ0aW1l
+ciBieSByZWplY3Rpbmcgc3VjaCBtb2Rlcy4KPisJICovCj4rCWlmICh1bmxpa2VseSh2Ymxhbmst
+PmZyYW1lZHVyX25zID09IDApKQo+KwkJcmV0dXJuIC1FSU5WQUw7Cj4rCj4gCXNwaW5fbG9ja19p
+cnFzYXZlKCZ2dGltZXItPmludGVydmFsX2xvY2ssIGZsYWdzKTsKPiAJdnRpbWVyLT5pbnRlcnZh
+bCA9IG5zX3RvX2t0aW1lKHZibGFuay0+ZnJhbWVkdXJfbnMpOwo+IAlzcGluX3VubG9ja19pcnFy
+ZXN0b3JlKCZ2dGltZXItPmludGVydmFsX2xvY2ssIGZsYWdzKTsKPi0tIAo+Mi4zNC4xCg==
