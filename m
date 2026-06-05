@@ -4,158 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB8D9CD6E7C
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 06:14:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AA79CD6E74
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 06:19:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36EFE112A94;
-	Fri,  5 Jun 2026 06:14:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D90CF112A98;
+	Fri,  5 Jun 2026 06:19:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XCbWxUGd";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="AmxrxTIT";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4A39112A93;
- Fri,  5 Jun 2026 06:14:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780640088; x=1812176088;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=M9DxJFCG3YQiCp7VpLgmVR0hkSziZ9NG0u1Po8nHzFA=;
- b=XCbWxUGdm9gXtLFvITVZNtqQuURFXmMwByj8+Du4WIWcLRZiNB4R2lhz
- U7ywPmCpUFzwbiC2Qy1xbgi8IAhF2zqvNrU12WObyaMtBNuZipD2dOsXT
- caBAbbwSMBhunY8Mrxc4dF3r02UtdXgvjHiETawhgNU9EaqexP84N1Gui
- egSRvlbncKi+zwYeZRXa7wtHYYhshHrQuEanuw7C52QsoL6z9TYCXrB5I
- NT3Y3iddmVQWuExUrV+tVA1g422Urkvfl1ff6Y/fN/gY4+kLNp3IJWuA6
- Pd1zOM76LJNEtIUeqY23ztc93eB46pU4yi2qwcrT4bt52fun3qTpgDjCn Q==;
-X-CSE-ConnectionGUID: orGWbuOBRbugT6+a/vAx1w==
-X-CSE-MsgGUID: FepVdMRdTZqjlD2O+cCtzA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="81217374"
-X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; d="scan'208";a="81217374"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2026 23:14:47 -0700
-X-CSE-ConnectionGUID: GYnkMMsJROWTVfvF/7FMcw==
-X-CSE-MsgGUID: FNqelaK/SHOrcnLE04jbcw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; d="scan'208";a="249092047"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2026 23:14:47 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 4 Jun 2026 23:14:46 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Thu, 4 Jun 2026 23:14:46 -0700
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.43) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 4 Jun 2026 23:14:45 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ErDdlo+9CjIpKshk4RhNkPulSXjCH2UKu+V8DoZpdgg7Ktj8QzWz83e6nm6s1ksrOwpYNj6OA5f8FKMTFDmGGVAyM4aSBYFpMcsGmM4ygmsyYiElG1pXPp5ZwZgxHEJAcmXL/2b2FYGVBhH7jczNI36xpM/tMTTKqw4vk7xgiNlKFyYQicXZukjK7V6ZuFRrKGu/y8yYHPLrNmV9n4Dgza9mpv/AQsSyenJ0fCqI9BlMhU7a8oYo/Cm1eptTX8ogC/k4Ps5mtk1f1ZwI6asTzxXZtNDs+BjhwH5N3+iy2r94mj3CQJKg6cp2INO/1dZ925Gv2eoCsO3/YaHv3g79Dw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j1pbqerBAXEpzDt97VraY8M6hOtIaLRWso6wQYQ4BQo=;
- b=rHyi+WOcQM2dC/bA+oJqlxlM+/FQXxoLXyVHHCl3HZO7jG7LsMG0G2yFk7BxIRLtbo3TGOijwAY673kaCk8C8EeQiWwhe5b5O3wiK0zMnakOXvOMVTreLY2vAsUsh0jZ0N8VmEPpN80oEQeayMJC+jY4OADMZcjREtD5ZUhMJbu/1p8CB0ShEU/yJ3idZmdfQWLMYjsThkyv9D8hVtjZSETaysJmkguNLVRLpyO4XHoDr6PZfQfeBHyP5c3BZDf0wmVhhpJ58+jSZVXHzoOWEoIO6UDzo5k/tHExrrMD3B3xU18GHqXpFeZJZZ/plSW3VA4mYak2Mbs7HuVSdF+H7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com (2603:10b6:8:f9::19) by
- IA0PR11MB7743.namprd11.prod.outlook.com (2603:10b6:208:401::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Fri, 5 Jun 2026
- 06:14:42 +0000
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99]) by DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99%4]) with mapi id 15.21.0092.007; Fri, 5 Jun 2026
- 06:14:42 +0000
-Message-ID: <85f7a34e-aa97-44f0-af85-c8dedc2ead46@intel.com>
-Date: Fri, 5 Jun 2026 11:44:34 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] drm/xe/drm_ras: Make counter allocation drm managed
-To: Raag Jadav <raag.jadav@intel.com>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <netdev@vger.kernel.org>
-CC: <rodrigo.vivi@intel.com>, <dev@lankhorst.se>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <kuba@kernel.org>
-References: <20260602044919.702209-1-raag.jadav@intel.com>
- <20260602044919.702209-3-raag.jadav@intel.com>
-Content-Language: en-US
-From: "Tauro, Riana" <riana.tauro@intel.com>
-In-Reply-To: <20260602044919.702209-3-raag.jadav@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0120.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1a7::11) To DS0PR11MB7958.namprd11.prod.outlook.com
- (2603:10b6:8:f9::19)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5ECCE112A98
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 06:19:18 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-490b3637b90so12927695e9.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 23:19:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1780640356; x=1781245156; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Kud96yB4lzvW7WHHFnyfSyasTJ4YMMkn9Qm9IZhFNIs=;
+ b=AmxrxTITcWfSB8rZ5BghKMNeN1Nvy7IMnOS7G25mEQ4hkTy+xzuyrao5M7Gna8qcJy
+ zqdjr6Ul7NxcT/l2omn6+3Dg9AMBOG8qmnbtZ8QOvAVXaZ8dhC7HpwDkihpHAn+QtUpx
+ QnXF1cqtz18Rq2QjKLn4h5seczd6pv+zEYQNI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780640356; x=1781245156;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Kud96yB4lzvW7WHHFnyfSyasTJ4YMMkn9Qm9IZhFNIs=;
+ b=kwDOBGoW8YzfO1KPP5mE5Ar50ouV7BR3ENXpCVHnALSfNuCAanTb7P1Wz2/MdH950o
+ rNzJazg/qswtuYtHMq4mZHf1mdmalytfN+8apqKDAywG/byTUjgDO2HirCcVJ/k20+W4
+ 84foy67EdP7xqhab9TSqX+sH9PryfsQIxafFVvNExoc8CcOXw/ref6brZF7y0gv1BO0u
+ 5S+bV7R6LI4yc+/QIh6+nxj8CAvfpeJ1FDJlvI1encRcHZbG5dupY0heytvCNSfTDl0x
+ 6hCmnMQ9Iabjmt3+JUY/LYx+xADo0GuT9gufaXsxbbSCkMi1r6xFa5lqZT2g79YVtH2b
+ dhiQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9jUBxnrjPXgeeWZb974+hmJDrY8ZpD4/ZYFKtMicf3fGhSFfLOkBi2yhdh8CwetVomIqjhqZSv8PA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy6Qler3em9sB7nbkm77FaYhaspw8GODseGFtcfXfxnhFQKinbF
+ GcNeo9Q/agI+IhpMEVQ6xZtp+iIP6C53/8pbz1vWF8JjY346YpdaWN5dPgXh2/cuBds=
+X-Gm-Gg: Acq92OE2L3ocJRv/vC8CXlhj7qZWJaWO+O5zipRzI18Opg5UT6HH4EDcvLoFmLo4tRf
+ b03H8EuKCyYmwQ+9uuYHw2pVRG79gjPGSwii8azs/rFPszDFXk2XzJtSn6mBPvL+rIs60jJOFuT
+ HewUCSR3KbcqXYqH8J2JfEwPQ3OQfoYk7XaJ/RZ7atu6imRaf/B1d5A1fjERZaWXt1J2t//MBSm
+ m0EH4ONlI0FAuXifVkrhcX5Jx+pjQWSOimMJdX6SKT2KyEvbJklcrBrygL7IgInnxtIsMztDBhW
+ Xc4U5hQOmzPCQ229NfqdGQKC8f53rXfoqWypDyjTKVyn82l7/EfYtvmmLvODxOiZ/V+Oh5d1zv8
+ CkQmHIO7tfWNQxwRcVWPTIGkhZg2hj389aSqJOk2LHWcr8fnxBdssB4o9jmiN8/UVHKP/mUpbtE
+ dqnM9QnqW+dG1eocLyFXIZ+kAcxtYHFr1rA2iqHaQ2qKh4UA==
+X-Received: by 2002:a05:600c:4708:b0:490:b06a:649e with SMTP id
+ 5b1f17b1804b1-490c2602987mr26050765e9.25.1780640356335; 
+ Thu, 04 Jun 2026 23:19:16 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-490bc3c15cesm133603035e9.5.2026.06.04.23.19.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 Jun 2026 23:19:15 -0700 (PDT)
+Date: Fri, 5 Jun 2026 08:19:14 +0200
+From: Simona Vetter <simona.vetter@ffwll.ch>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Simona Vetter <simona.vetter@ffwll.ch>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ "DARKNAVY (@DarkNavyOrg)" <vr@darknavy.com>,
+ syzbot+d7c9eed171647e421013@syzkaller.appspotmail.com,
+ stable@vger.kernel.org, Edward Adam Davis <eadavis@qq.com>,
+ Dave Airlie <airlied@redhat.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Francis <David.Francis@amd.com>,
+ Puttimet Thammasaeng <pwn8official@gmail.com>,
+ Christian Koenig <Christian.Koenig@amd.com>,
+ Zhenghang Xiao <kipreyyy@gmail.com>
+Subject: Re: [PATCH] drm/gem: Try to fix change_handle ioctl, attempt 4
+Message-ID: <aiJqYgnTekPoXK_q@phenom.ffwll.local>
+References: <20260604191916.1713387-1-simona.vetter@ffwll.ch>
+ <20260604194437.1725314-1-simona.vetter@ffwll.ch>
+ <ab2c8c81-8ab6-4a93-93c9-31445454421a@linux.intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7958:EE_|IA0PR11MB7743:EE_
-X-MS-Office365-Filtering-Correlation-Id: 49ccd419-423e-43cc-4fd3-08dec2c9bb49
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|22082099003|18002099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info: EE6ivGCUkZSlBCly6ENcFtUnxZccKXvW5qIfy2tvKP5DQ7nseFFeux03aHiJmcYzJsk1fjkUXKp+8giXty3OEeMunvxP73omg3GpeL/oKWijud8oGlamVTJMTm87PXbgjFr9/voeQ/aZLYvYX3rER89VYEPOOTyci322j4PF9vtEyxtoKvzfEfN8SbaFZbNxHKIBl5URCKmPIEVDxQzlhqtswx8H03e/XCBekqy3/0KJKKD9DmlO+HzgnmMz1MX2rxL+rR2rv2LZPYB41EzYkisLvvTurzR8cTmi+mR10WPKbLAl7QP3LYtKKfhsDuv9Bg0xUWo9ECYNwRc3P2Hof7t4NC6du2soBQVKB/FFN0zWhHRKp+Y1I55KHdXedb1v9IIc1I10jRSD8v/uSsJWtEjUhC6ylBoAqJwFLGt6EgSfthZ5LUZHgJYaouEGCPu/E+13N73qgfTOqINlnSJhJL/VMh3DZORLqyyVDm4zF4Wj9Fum6Kfv8Jlo8Ihpn1oZ+qSJpMwpAyejaWxKWDpp8AtBHnsr574n3jZP4QbicmPyq2aFpzWRyta+3qDXvJyY/Rz4fH5JADJJ/7iPZgw76gff4xRiDlZpWitE6LQsQnSuZ68QgwM72Z3LMhA30VmNgZ1XJYGwW24lOzlCPc2QiJ1Km7T5OlStlPK0RpwxlZ7igyfDpT9ZuBGzwtCISKH3
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB7958.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a2grQzcyeGNic09YaXU4bCtQdkpOaGdzTVZYSi9ERlVtblAzLzNNT3RXNEVZ?=
- =?utf-8?B?bDRxc293SDJiUnZ4WTgyVlZlUyt2UHdwREFma2ZZUFRCYVhtSnh0VDhWL2Qw?=
- =?utf-8?B?MHhIYjVaMDVwNDA0QkNtZDJSb1Z6VUpqeXZNcGhrYmVGc3BNWkxsdGhjcWE4?=
- =?utf-8?B?d0h6MlZlMmwzMk9HSlUrRWhVUGhkcERzRi9DQzZoK25VU0F1a2JqOSs3T1lZ?=
- =?utf-8?B?QjdhRE9FUW1MRmljelhWZ2VxSHo5SEtpOVFsVXJ4Q0RSRWtqK2IrMFhEZDUr?=
- =?utf-8?B?aWZmcGtjUXh3TWZXam04a09zV093MExTN05BOVc2dENGOFFuUlczdXBhRU53?=
- =?utf-8?B?bFlkZmlBSUwreGFjeElHQlExMUUwdU5Kcmk0eHRsYlpLTVp4NVBMNVpFU1px?=
- =?utf-8?B?RTBQWGNYbUNrZXpwWDFFeUZSblhDRGE0ei9laEhKTkt5VDdvd3NnQi9SWGVm?=
- =?utf-8?B?L2VURS9HWXovL282NE9JRldNRGZ1WC9aMGxENFIwVm4ydndsQUwyNlg4d0VR?=
- =?utf-8?B?bVFKMEpZQWlpQnBRZHdpUml0K2xMekdyaUhBblRHUUx0VjcrZHd4OHpKbURi?=
- =?utf-8?B?TUtSdkdEWEI4OFlyNHRrckpzWVRYREllYXFRdnUzMFVuNnJZdE1oK28vOENG?=
- =?utf-8?B?WDNVVStuVHowV0EzRVB1YnR6Q0ZIQUQ3TGZiTnU2UVN2VHI2eGQwSjNVeCth?=
- =?utf-8?B?MkFlQ3Q0Ym9UOHJMTytYdWEwalJUWEhhKzU5MlVFTkRLRFowTXVJeHZPUis5?=
- =?utf-8?B?aFRtUUh1bDV4eEhITVVMWE1IVEZXQU5HTkwxL25XelNQbTBNWFJMM0ordTFX?=
- =?utf-8?B?U2s3STNtMUF2NlVRZGFzZEkzZ1RvM0cvK1E2Y0N4Mm9JNmNYNjRuYlFJcito?=
- =?utf-8?B?K2hJdGh5MTNHcDRLajFBczlZeUhIWFpNb085R2RuUDJkMGJhdi91ZmJGZjc3?=
- =?utf-8?B?Q3VJTDFseTlHeHF6by9OaURoRCtYVThwTmtBMkIwa25IR0Z1Rk4zdUhkYjF2?=
- =?utf-8?B?aG1MeHVmakQyWDZlTWRQSVdZUU53b0crb09YZ0ljNFYycitseFZpbzVWUEZh?=
- =?utf-8?B?K0w2Q256NGk4RlVlRlRqY0lNUU9xbE1iL1pHdDJ6Yzh6aHBhMCtLNXc4UHI3?=
- =?utf-8?B?VFQ2VSt5NnZkOUJxZ21idS9zNFpaeTM5KzJuQkZCMHZlQUh4MlBFUVB2dlBO?=
- =?utf-8?B?aWt5c1E2NmQzMEl3VXNjL0tON3VaMElwNGV2OVpYREIrT21iVzhRYy83cURW?=
- =?utf-8?B?cEp4ZUNneU40aVlOTXJONHRmTEp2NkZadFUrQXhhSTF5c00wQWw2cUtOdFd6?=
- =?utf-8?B?cGRqaVFta0I5U05GRElxK2tza25neWx4Q1AxWGl3V1hpZjU1bnMzRnhMNHNk?=
- =?utf-8?B?SnNTbGR1WGtNZnVuZUlBOTVBY3Q0dHNHNnh3c0VQWVVkY2VCM1d6Z2hmTWNR?=
- =?utf-8?B?d2tqVGtDb0tIS0NtL1RxdWx0Q1N6K3poeGxXVzNSeWpheFlDUHAwZUwrY1BJ?=
- =?utf-8?B?SndZQkpwS0F5ZGttTUg1Z1cydWFwUW5aYlJrbFBEMGtGWUdycko5ZmNhd0tN?=
- =?utf-8?B?OU9OdURRVWJTRDJGZXZZNlZmdjRTbDJnTTI0d1VUVVZ5TW81dlljbkNFbUxM?=
- =?utf-8?B?UHFyVVphelpjaHFaU080eHhQMHJsSW9Ud1I5M2pVMGJqYkdTd21DNUFkNm0r?=
- =?utf-8?B?cmtVb0dwYk9tMUFQNlQzR1hWb29RL2QyZUEzQlN5dm5IakkwNEgyQ1E2TldU?=
- =?utf-8?B?YXlsN3F2OGRXUU95RU0xZ0h6S3NhK2VEdUgzSE1oSXhIRWl1K2ROSllVNkRn?=
- =?utf-8?B?cWErTks3NU9ZbVV2akpRMnlOb3NsUE84ci82UWc4V2VGZExla013Q3lPNzFw?=
- =?utf-8?B?QVhGNjZ0akdZK25QMFRXOGFHcjJha0lBWE1KZGRMT1FVN3psdi9JbE92dDZ5?=
- =?utf-8?B?bFNJL09udXc4R3VKeXhtVGtZcytKSkdDM1Y4M0NzNEVydzM3NnRhc1ZSN3VO?=
- =?utf-8?B?eWRpaCtjMWxwSTVRV0g4eE9xMUdlUUNkVTIxTThuZFU4dy9vcnBTbkd0b1lO?=
- =?utf-8?B?REhNcFh5amdOTmhuek9ISjVaYW9heWhvaFFoMVBsM2pFTzRQby92Qk5adnZL?=
- =?utf-8?B?eU10b0l1NlZUQmxnV1doOCs4T1hTbXV2bHZvYjltMXhPd3h1Ym82b0gybXd6?=
- =?utf-8?B?bTU2MHRaWXhSMUpWWHJTSWVNelZEbTdaekZkM29YUFo5WnBSMjg5U1FPK0VU?=
- =?utf-8?B?YndpamM5dm9VLzljS2V1ZFpaalU3ZzhGN2ZQUUN0ZHdUN0R5cGJUWkM1RnZJ?=
- =?utf-8?B?aU5EVWdZOHpnMVVsaGZUejZiVXoyY28yR3RzV3VTSk12UjBydEludz09?=
-X-Exchange-RoutingPolicyChecked: P3MJ7e5Qqwzbef2yOyocEVLadW4JvtojU3Miqa0kRcVZSEEf7ASkYaBqFplllBNXqc7WxxxvcQ7oC9jA5XAK3TaJ+d0lWSl20L//vSW5JYNCZ2gjhXRciwy/3jRHT+rzZ7rvJJcm16n8Sx9Z3W8VcmAc7RTBIM3qziys0aHvEah3G7n7RRyksQsx/OuMskJkwshj35cSCDhS72NyYx5YxGcVHej9U2qjKqu0d8ZMCsg1UqPDUGni7qyk5U4eu/tmJtOZSHVpdGFNANVW/B4AL543OTzmfGW9G9HQ8OgNVh8aYPa6vCk1W1hCTQ0BOTrSX2jAJOFyRMIO0pHCiHcmdg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49ccd419-423e-43cc-4fd3-08dec2c9bb49
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7958.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 06:14:42.0969 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7J5T2LLuRD7d/Q4r2LFGfVE+90WBFSSYYAAcdDSKqumVvtSPgCkcJJEYJGTMJQQOeug159hSlRj0y0riB7rleQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7743
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ab2c8c81-8ab6-4a93-93c9-31445454421a@linux.intel.com>
+X-Operating-System: Linux phenom 6.19.10+deb14-amd64 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,45 +97,252 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu, Jun 04, 2026 at 10:29:45PM +0200, Maarten Lankhorst wrote:
+> Hey,
+> 
+> On 6/4/26 21:44, Simona Vetter wrote:
+> > On-list because the cat is out of the bag and we're clearly not good
+> > enough to figure this out in private. The story thus far:
+> > 
+> > 5e28b7b94408 ("drm: Set old handle to NULL before prime swap in
+> > change_handle") tried to fix a race condition between the gem_close and
+> > gem_change_handle ioctls, but got a few things wrong:
+> > 
+> > - There's a confusion with the local variable handle, which is actually
+> >   the new handle, and so the two-stage trick was actually applied to the
+> >   wrong idr slot. 7164d78559b0 ("drm/gem: fix race between
+> >   change_handle and handle_delete") tried to fix that by adding yet
+> >   another code block, but forgot to add the error handling. Which meant
+> >   we now have two paths, both kinda wrong.
+> > 
+> > - dc366607c41c ("drm: Replace old pointer to new idr") tried to apply
+> >   another fix, but inconsistently, again because of the handle confusion
+> >   - this would be the right fix (kinda, somewhat, it's a mess) if we'd
+> >   do the two-stage approach for the new handle. Except that wasn't the
+> >   intent of the original fix.
+> > 
+> > We also didn't have an igt merged for the original ioctl, which is a big
+> > no-go. This was attempted to address off-list in the original bugfix,
+> > and amd QA people claimed the bug was fixed now. Very clearly that's not
+> > the case. Here's my attempt to sort this out:
+> > 
+> > - Rename the local variable to new_handle, the old aliasing with
+> >   args->handle is just too dangerously confusing.
+> > 
+> > - Merge the gem obj lookup with the two-stage idr_replace so that we
+> >   avoid getting ourselves confused there.
+> > 
+> > - This means we don't have a surplus temporary reference anymore, only
+> >   an inherited from the idr. A concurrent gem_close on the new_handle
+> >   could steal that. Fix that with the same two-stage approach
+> >   create_tail uses. This is a bit overkill as documented in the comment,
+> >   but I also don't trust my ability to understand this all correctly, so
+> >   go with the established pattern we have from other ioctls instead for
+> >   maximum paranoia.
+> > 
+> > - Adjust error paths. I've tried to make the error and success paths
+> >   common, because they are identical except for which handle is removed
+> >   and on which we call idr_replace to (re)install the object again. But
+> >   that made things messier to read, so I've left it at the more verbose
+> >   version, which unfortunately hides the symmetry in the entire code
+> >   flow a bit.
+> > 
+> > - While at it, also replace the 7 space indent with 1 tab.
+> > 
+> > And finally, because I flat out don't trust my abilities here at all
+> > anymore:
+> > 
+> > - Disable the ioctl until we have the igt situation and everything else
+> >   sorted out on-list and with full consensus.
+> > 
+> 
+> Can you push the revert first, and then worry about fixing change_handle
+> parts of the ioctl properly later, so that part can be merged ASAP?
 
-On 6/2/2026 10:18 AM, Raag Jadav wrote:
-> cleanup_node_param() is not registered for previous node in case of counter
-> allocation failure, which results in stale memory of previous node that
-> isn't cleaned up on unwind. Fix this using drm managed allocation, which is
-> guaranteed to be cleaned up on unwind.
->
-> Fixes: b40db12b542f ("drm/xe/xe_drm_ras: Add support for XE DRM RAS")
-> Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+I've intentionally combined them, but I've only discussed the reasons with
+Dave in private chat.
 
-LGTM
+In the original security report discussions off-list almost two months ago
+I've both suggested that we do the full two-stage removal&install, because
+that's the well-tested pattern. AMD folks convinced me that being more
+clever is ok, but they got it wrong.
 
-Reviewed-by: Riana Tauro <riana.tauro@intel.com>
+I've also suggested that we just outright disable the ioctl since it's so
+new, and sort this all out on-list, least because the igt didn't land yet.
+The igt has still not yet landed.
 
+Furthermore the igt or AMD's testing seems busted - because of the handle
+confusion (which I didn't spot, because I've assumed that the code was
+tested) the new code actually installed NULL into the new_handle slot,
+which should have broken everything. It also resulted in an obvious leak,
+which syzcaller spotted and which one of the referenced patches fixes.
+
+Which means this is an examplary case of how not to do a new ioctl, plus
+collective embarrassment of how to not fix a security bug. I've figured we
+need one patch which both a) disables this mess and b) puts down the draft
+of what I think it actually should look like.
+
+But really, no re-enabling of any of this until we have an igt that is a)
+actually merged and b) actually tests something. Or maybe the issue was
+with AMD's testing infra, I haven't looked at the igt.
+
+I did tell Dave that he can split it, if he wants to, but for backporting
+it shouldn't cause issues since all the 3 previous attempts at sorting
+this out have also been cc: stable. So should all apply without issues.
+
+Cheers, Sima
 
 > ---
-> v2: Retain info as NULL on failure (Riana)
-> ---
->   drivers/gpu/drm/xe/xe_drm_ras.c | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/xe/xe_drm_ras.c b/drivers/gpu/drm/xe/xe_drm_ras.c
-> index c21c8b428de6..c1d5ac198a7c 100644
-> --- a/drivers/gpu/drm/xe/xe_drm_ras.c
-> +++ b/drivers/gpu/drm/xe/xe_drm_ras.c
-> @@ -80,7 +80,7 @@ static struct xe_drm_ras_counter *allocate_and_copy_counters(struct xe_device *x
->   	struct xe_drm_ras_counter *counter;
->   	int i;
->   
-> -	counter = kcalloc(DRM_XE_RAS_ERR_COMP_MAX, sizeof(*counter), GFP_KERNEL);
-> +	counter = drmm_kcalloc(&xe->drm, DRM_XE_RAS_ERR_COMP_MAX, sizeof(*counter), GFP_KERNEL);
->   	if (!counter)
->   		return ERR_PTR(-ENOMEM);
->   
-> @@ -135,7 +135,6 @@ static void cleanup_node_param(struct xe_drm_ras *ras, const enum drm_xe_ras_err
->   {
->   	struct drm_ras_node *node = &ras->node[severity];
->   
-> -	kfree(ras->info[severity]);
->   	ras->info[severity] = NULL;
->   
->   	kfree(node->device_name);
+> > v2:
+> > 
+> > Sashiko noticed that I didn't handle the error path for idr_replace
+> > correctly, it must be checked with IS_ERR_OR_NULL like in
+> > gem_handle_delete. So yeah, definitely should just the existing paths
+> > 1:1 because this is endless amounts of tricky.
+> > 
+> > Also add the Fixes: line for the original ioctl, I forgot that too.
+> > 
+> > Reported-by: DARKNAVY (@DarkNavyOrg) <vr@darknavy.com>
+> > Signed-off-by: Simona Vetter <simona.vetter@ffwll.ch>
+> > Fixes: dc366607c41c ("drm: Replace old pointer to new idr")
+> > Cc: syzbot+d7c9eed171647e421013@syzkaller.appspotmail.com
+> > Cc: stable@vger.kernel.org
+> > Cc: Edward Adam Davis <eadavis@qq.com>
+> > Cc: Dave Airlie <airlied@redhat.com>
+> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > Cc: Maxime Ripard <mripard@kernel.org>
+> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> > Fixes: 5e28b7b94408 ("drm: Set old handle to NULL before prime swap in change_handle")
+> > Cc: David Francis <David.Francis@amd.com>
+> > Cc: Puttimet Thammasaeng <pwn8official@gmail.com>
+> > Cc: Christian Koenig <Christian.Koenig@amd.com>
+> > Fixes: 7164d78559b0 ("drm/gem: fix race between change_handle and handle_delete")
+> > Cc: Zhenghang Xiao <kipreyyy@gmail.com>
+> > Fixes: 5e28b7b94408 ("drm: Set old handle to NULL before prime swap in change_handle")
+> > ---
+> >  drivers/gpu/drm/drm_gem.c   | 62 +++++++++++++------------------------
+> >  drivers/gpu/drm/drm_ioctl.c |  2 +-
+> >  2 files changed, 23 insertions(+), 41 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> > index e12cdf91f4dc..f49f1724eda5 100644
+> > --- a/drivers/gpu/drm/drm_gem.c
+> > +++ b/drivers/gpu/drm/drm_gem.c
+> > @@ -1019,8 +1019,8 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
+> >  				struct drm_file *file_priv)
+> >  {
+> >  	struct drm_gem_change_handle *args = data;
+> > -	struct drm_gem_object *obj, *idrobj;
+> > -	int handle, ret;
+> > +	struct drm_gem_object *obj;
+> > +	int new_handle, ret;
+> >  
+> >  	if (!drm_core_check_feature(dev, DRIVER_GEM))
+> >  		return -EOPNOTSUPP;
+> > @@ -1028,52 +1028,36 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
+> >  	/* idr_alloc() limitation. */
+> >  	if (args->new_handle > INT_MAX)
+> >  		return -EINVAL;
+> > -	handle = args->new_handle;
+> > -
+> > -	obj = drm_gem_object_lookup(file_priv, args->handle);
+> > -	if (!obj)
+> > -		return -ENOENT;
+> > +	new_handle = args->new_handle;
+> >  
+> > -	if (args->handle == handle) {
+> > -		ret = 0;
+> > -		goto out;
+> > -	}
+> > +	if (args->handle == new_handle)
+> > +		return 0;
+> >  
+> >  	mutex_lock(&file_priv->prime.lock);
+> > -
+> >  	spin_lock(&file_priv->table_lock);
+> > -
+> > -       /* When create_tail allocs an obj idr, it needs to first alloc as NULL,
+> > -	* then later replace with the correct object. This is not necessary
+> > -	* here, because the only operations that could race are drm_prime
+> > -	* bookkeeping, and we hold the prime lock.
+> > -	*/
+> > -	ret = idr_alloc(&file_priv->object_idr, obj, handle, handle + 1,
+> > +	ret = idr_alloc(&file_priv->object_idr, NULL, new_handle, new_handle + 1,
+> >  			GFP_NOWAIT);
+> >  
+> > -       if (ret < 0) {
+> > -	       spin_unlock(&file_priv->table_lock);
+> > -	       goto out_unlock;
+> > -       }
+> > -
+> > -       idrobj = idr_replace(&file_priv->object_idr, NULL, handle);
+> > -       if (idrobj != obj) {
+> > -	       idr_replace(&file_priv->object_idr, idrobj, handle);
+> > -	       idr_remove(&file_priv->object_idr, args->new_handle);
+> > -	       spin_unlock(&file_priv->table_lock);
+> > -	       ret = -ENOENT;
+> > -	       goto out_unlock;
+> > -       }
+> > -
+> > -	idr_replace(&file_priv->object_idr, NULL, args->handle);
+> > +	if (ret < 0) {
+> > +		spin_unlock(&file_priv->table_lock);
+> > +		goto out_unlock;
+> > +	}
+> > +
+> > +	obj = idr_replace(&file_priv->object_idr, NULL, args->handle);
+> > +	if (IS_ERR_OR_NULL(obj)) {
+> > +		idr_remove(&file_priv->object_idr, new_handle);
+> > +		spin_unlock(&file_priv->table_lock);
+> > +		ret = -ENOENT;
+> > +		goto out_unlock;
+> > +	}
+> >  	spin_unlock(&file_priv->table_lock);
+> >  
+> >  	if (obj->dma_buf) {
+> >  		ret = drm_prime_add_buf_handle(&file_priv->prime, obj->dma_buf,
+> > -					       handle);
+> > +					       new_handle);
+> >  		if (ret < 0) {
+> >  			spin_lock(&file_priv->table_lock);
+> > -			idr_remove(&file_priv->object_idr, handle);
+> > +			idr_remove(&file_priv->object_idr, new_handle);
+> >  			idr_replace(&file_priv->object_idr, obj, args->handle);
+> >  			spin_unlock(&file_priv->table_lock);
+> >  			goto out_unlock;
+> > @@ -1086,14 +1070,12 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
+> >  
+> >  	spin_lock(&file_priv->table_lock);
+> >  	idr_remove(&file_priv->object_idr, args->handle);
+> > -	idrobj = idr_replace(&file_priv->object_idr, obj, handle);
+> > +	obj = idr_replace(&file_priv->object_idr, obj, new_handle);
+> >  	spin_unlock(&file_priv->table_lock);
+> > -	WARN_ON(idrobj != NULL);
+> > +	WARN_ON(obj != NULL);
+> >  
+> >  out_unlock:
+> >  	mutex_unlock(&file_priv->prime.lock);
+> > -out:
+> > -	drm_gem_object_put(obj);
+> >  
+> >  	return ret;
+> >  }
+> > diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+> > index ff193155129e..937fc1e2c017 100644
+> > --- a/drivers/gpu/drm/drm_ioctl.c
+> > +++ b/drivers/gpu/drm/drm_ioctl.c
+> > @@ -660,7 +660,7 @@ static const struct drm_ioctl_desc drm_ioctls[] = {
+> >  	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CLOSE, drm_gem_close_ioctl, DRM_RENDER_ALLOW),
+> >  	DRM_IOCTL_DEF(DRM_IOCTL_GEM_FLINK, drm_gem_flink_ioctl, DRM_AUTH),
+> >  	DRM_IOCTL_DEF(DRM_IOCTL_GEM_OPEN, drm_gem_open_ioctl, DRM_AUTH),
+> > -	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CHANGE_HANDLE, drm_gem_change_handle_ioctl, DRM_RENDER_ALLOW),
+> > +	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CHANGE_HANDLE, drm_invalid_op, DRM_RENDER_ALLOW),
+> >  
+> >  	DRM_IOCTL_DEF(DRM_IOCTL_MODE_GETRESOURCES, drm_mode_getresources, 0),
+> >  
+> 
+
+-- 
+Simona Vetter
+Software Engineer
+http://blog.ffwll.ch
