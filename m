@@ -4,126 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF055CD6E74
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 10:06:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B5A4CD6E7B
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 10:10:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED1D211A6DC;
-	Fri,  5 Jun 2026 10:06:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EF0E10E1A5;
+	Fri,  5 Jun 2026 10:10:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dbrY+3e8";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qxP05mxb";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012041.outbound.protection.outlook.com
- [40.107.200.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1C8911A6DC;
- Fri,  5 Jun 2026 10:06:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=haG4xc4ftqDfT4T3kiNA9z/xg9CZImfiVWtGX6GIImGSjAsWPZWQpYaCtaG07xKZENlkv+gva4XUlqHcRsfOFnbcipGlgqilvxPWLLsLrcEUsIDCcJDDp2HMgTqT7RxTzBPRfyf8UFEP0gtgB9TnCyX8erwcoQ1lOU8A0oEK1DvFMiwSHWc0wKl05bj20aPHgVQdWtXtuLFJYEdPjQotruWzE5X0xSZtMy4Wfm0mWvV6HtREl0WsgPn12OX1hVqE9OvlY+Ob+dQlZ9iuRJurBcpeRDhKHg5km69n/4kLi+f4xVn4JRX1aNNyESgDgCnNl1ys6kNFNnJzORCw3idIAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Lyvm82eCvC6wF0ltDOz+hcg2yRszglRldaAaBWPzKr0=;
- b=QfK7/nKa0K/UGXJJT9BwJNf+J5eGuqfWashzaykCIkAr4Tw88CzAfBLvsLCqGlkYAzREXGIy/rlp1c+x5DGBgn/qKDatjewryr2eVImZGk1k0vEyWQ/3K1O4thGLgsyOYpO0Av7iEBkYaULTLp58Mc36FtqzNDfK0lsZCdNQez/G2Wr5jJoASQ9CzYRx3DRJ5pNOPOVgSuhCE1KOy0bU/GiBq3RoXi65XXld/LYNzCQl6bPaugRNMVgZw3GSuXVJ0m0kun0nZzP/iGcaSTyzrfd9RPOs8lh3zEk0trFoNUkcQFAeM1OSXYMbpQUmNoEidNWX0jwkhSxpibfMHbl8iw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Lyvm82eCvC6wF0ltDOz+hcg2yRszglRldaAaBWPzKr0=;
- b=dbrY+3e8zxoeV0G3XhBwHweAG2DNNqFJbM5G5aLYrrJ2M3Lg2gcqpPtLAuN82o7srZW9cvkxTLgQ/uBAudUd2Q1Ml0qZtAPwLGbWKPWX4WB7pNwRbtpkNMGIcbvl/dqr5JKq/0WTRuQz8k4XIXA08jIrZSMJER5VShV2kto0Xbw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ1PR12MB6146.namprd12.prod.outlook.com (2603:10b6:a03:45b::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.9; Fri, 5 Jun 2026
- 10:06:41 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Fri, 5 Jun 2026
- 10:06:41 +0000
-Message-ID: <1452380a-6a54-4285-b8da-3a5e74f30e83@amd.com>
-Date: Fri, 5 Jun 2026 12:06:30 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: fix refcount leak in amdgpu_ttm_clear_buffer()
-To: Wentao Liang <vulab@iscas.ac.cn>, alexander.deucher@amd.com,
- airlied@gmail.com, simona@ffwll.ch
-Cc: pierre-eric.pelloux-prayer@amd.com, lijo.lazar@amd.com,
- felix.kuehling@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260605094827.7982-1-vulab@iscas.ac.cn>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260605094827.7982-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0042.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c7::12) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BF2710E116;
+ Fri,  5 Jun 2026 10:10:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:
+ Sender:Reply-To:Content-Transfer-Encoding:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=25uilpvB8H/MrMiKprmEmW2Ha22sjKIqcfJce1S5JNQ=; b=qxP05mxbVyizPIeNqIhIn66mbc
+ pV7/dAVApJo0QROyKUv+2Z6xLLr7DOAVEkdTftaUzna02JvRt6Z10cn7lBzhiTRJOirmeCsSZJkgc
+ m6BL/icGFhC2MB+B+OrvqIr+c8sp7Qk2KPZYh4yt3Fl20Hh+KhcJ6Ly82YcljyJvccmhs/GdpqfQe
+ dbQG9uR8FjHb0PdotRduUQ+R7Pvn5xLf5pVyoiQhYZrb0HTMRUq4v3hYcWN7VZ1x+4DYGFuHYbRJe
+ zwfwKDX9BKHA1BKXzMHfDqxQxAaYvHr3SNv3P8ihLlvQyZKB2AQ+HySivksnkJs3W0Ik5SG3VvD1c
+ g11ldcFw==;
+Received: from [90.240.106.137] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wVRVc-00D5qo-RM; Fri, 05 Jun 2026 12:10:37 +0200
+Date: Fri, 5 Jun 2026 11:10:35 +0100
+From: Tvrtko Ursulin <tursulin@igalia.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-intel-fixes
+Message-ID: <aiKgmwz7VGOaFXIv@linux>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ1PR12MB6146:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd8bdc37-9912-46f8-8708-08dec2ea2390
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: nzfvyQv/W5SJBRKb9G+K7QI6jsSY+wv5/CqL8C1UqKqqppuldkuVXnmupi7eE9ZdF9Npp3b4ty7ZAbE2+JEJ9pp0A7AHnSkDtvtvtQb59kGHkmYxiR2hkUusehchBlN+o1lDciWnjaGdmBH++22yVefHrRztj2VLjaqXsIVKTKTWa5MCrWqYpI1OsWS+sd3zToreqeyc41WeQt7uTWSmx5zWAQ2k9Xtylphsw6GguyjwnN2DBq0dfTBImHJYKIqyQdht/qMv5sx8avGnktnJz45r/Efg4r1gMlAiIQsbiPSszIMwIjMfIj7GW6kzJoNrJ8TkOrCWFLy0n2QUKjxalh4CzukEFfRw4xzIVSRlAF3bSBwn2q+RvG1FnM4wML9HM1860emdQYhb1Q3akMmxDOCEbxMsVgpSNgkfxxO8kX91RvQtuczrWCiJsxSrS+yy3PJ8h3fSSHGtq3RWLKSgoFT+gj+NmIFjNAs/NsYcugPshjFZxldf5p7xBafj4XEWD4AWHHL5a3k5t3aQy+92z2LPYkX87BMt/6dDrnb6daoEHGqlAnfLl6J/UhK4HdSU6erPjDY7N/PS45uQ3bWkvl86gLpNbE9AZX7c3ii6dYznaGimZNL9dRvfgOSFQyaq9sQ8PHXy42wo1YbEwHwDN1gIaZLbE5glpuzOgJVzWPkQYrfoEqtLb50oNKFIwCB8
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(18002099003)(22082099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NDQrM1pmOWJqRXhTUkFnVFBDN2gvVjhSQ25lbE95TTdwbFo0Yy9MaXNHdTJv?=
- =?utf-8?B?VE01WkJZWXN6M09uNXdTWlZqZU5rbHYvREVObXBVVUlNZ3V0ekYrSkw3cWVQ?=
- =?utf-8?B?Qk9ybHZxS3VpanFyMWx5Slc4RHZFa3dKOXdYNGVYZXU1dWJHTnNWSXZyY0w1?=
- =?utf-8?B?WVl3bjNKSW5YSnZxSUNjdHp1ZjcrdXM4dW85S3AyTW1XT0hib2lSVG00ejlP?=
- =?utf-8?B?SWNMb2dsTVBDUHhaaHdXWEt6VEFiUFZlMDQzd3hZS2tnSFNBUDBtRGkrdm5J?=
- =?utf-8?B?UjNNTHVESnJEb2h4N1YxY2Q1VGtxRDhBVDIxK0JxMXhjeHFCVTBzNU9DMjQ1?=
- =?utf-8?B?elZMSGtFVEdoOGYya05pQlc5WkRzZ2ptODcyNDVKRENrWHJ6a3h4dVNBMmcv?=
- =?utf-8?B?N0VSV0hTWng5akVPKzNBVTZTTXo5UkQrblE3MVZvUVJFMkFvS0V6NW9HUnl2?=
- =?utf-8?B?MTFaVUxyUjdXWXJMVmlTTVpUU0RhZlNrMTBSZm43aVV6Q090L1hDVjRPZThy?=
- =?utf-8?B?OGtVZnZyTEhrYmJ2TUx2MkpEZXk1cHppZ053K3RuTVgzamFJSlQ1Qyt6OXJO?=
- =?utf-8?B?UGg3TEJMRjkvU1RKdHA4NklyVy8wZS9udHUwL04vaGpPaXVrOWFPNEtjTGM0?=
- =?utf-8?B?bVE2bExlS1ZLc3NRMEI0UmJPQktoVmduajFOL1NlZGU3bkI2VHR5a1ZZdWJk?=
- =?utf-8?B?Z3JGSm44ZVA2WkVDV0k0WUZlV0VleVVEUU1CMGU5bHo0MGJNSWM3SGw4Vy90?=
- =?utf-8?B?azUrN1FhZE96QjVuZlhIOStBMDhoMWY4ZjFlVTQ2WVI3eDBFT3FORHFLUkF4?=
- =?utf-8?B?bjI4QjR2TzZ3dy8rbWpqVmt6T2JZVDlrUHNYT0QzVC9nYTEvdlBXbkpOVGVx?=
- =?utf-8?B?dHVjOGhyK1BaQnR5Zk9iNTZoLzBXaEJtSW1SMnA3c2RRUW0xVW1RanhXczRI?=
- =?utf-8?B?U3RMUG1STkFza1JFSmdiT05OUW9aZ1VkSnZzZTNQZnd1d3RUL2QyL2NKRzla?=
- =?utf-8?B?UGdzcWpEYW45V0llMXRhand5NldnUVpJT2pMWG05SUxqcVBFQ0Fiamwrb21I?=
- =?utf-8?B?VnMrTjJ4WFFybkVrdnViQ1Z3YjV3Y25FQXVpb0pxcGY3L3cxK0hRTFpHSUF6?=
- =?utf-8?B?UmtrUytwU3RkQXJFWGpFUy9oK2ZWL0Q3RFFtakNHT3A4VUpld0ZnejhEREUx?=
- =?utf-8?B?MzJIb3NNWTZSN0xxSVd1bVJ5UE15a0pLV1hwVWJzQ3lSOVlTOFJIUE5OcndL?=
- =?utf-8?B?QzF3OExBYk9nOExNMXUveFZNcStLVHdUU0VBMU9uOVpvSmVQUmUycnRtMWV1?=
- =?utf-8?B?S1pvM2krZWJEd0x5WkxYc0MxYVhxNmJQTVk3WXl6OXRhenhEc2ZWc3BvNE8x?=
- =?utf-8?B?K1B6Zy9JeDgwOURWOS9KVmJDeGpZSWhlZW1PM21DSjA4VHJybHo1YmRBMmxD?=
- =?utf-8?B?S0tabkZXblE4SzZhcUxJUzVMbzJVaklINDM0WXdXMmdGNGpCOSthV0dRMklS?=
- =?utf-8?B?eWduUEJUcEFUWWw3LzB4aGhKSGFKNzhISU12Z2xhUFRqSWZHNUM5dkVZL0hj?=
- =?utf-8?B?L1ZRSDBDN1BQcXA2bndidjFLSFBTMHRHQzYwekw2QU5WQ25LQUl0ZURuZVdO?=
- =?utf-8?B?K1JVZ2oySWV5cmJjakRHR2VuU3F0K0JJamMwcGQvVzBqSzZWL1N6ZEhxclVI?=
- =?utf-8?B?elNNbTBsaW1kNlFVZUxpODhzb3p1YmoveTBJdytDcnM4a1pXN2xVMDNFVGZm?=
- =?utf-8?B?M0pmRTZkQUNnUzRaZHkrckJyZEFpUURPREROTk5zU0lFWG45aS9mNVFROEQ5?=
- =?utf-8?B?YU1FSDRhTXk0Q0o4aUN5eGxFQlRLSXRBdGNLdFRWenpGbURSL1lZd2YwL21T?=
- =?utf-8?B?ME5aa0FSQ3pnQlFnOWtxai81dHhnaVJsUlJxZ1l3YWhZK05PQmx4c25YbTQv?=
- =?utf-8?B?VVlrNVZqRXNjSk5iNzJmelpDVXJMMHVGVG9NbVowaUYvSThDSDNTZ1FKdkl0?=
- =?utf-8?B?dzg1UnEzK0JadW54aHhpMWNzNkhFKytza3hBMU5tNXBZVlRjUmN2UU56VENS?=
- =?utf-8?B?NVNKbkVZVm8rL21uUG1kWkhBdjluZ0J6SHdSeFhscnBXRnhkNXpDbHdhQUZi?=
- =?utf-8?B?S252ajYzeEw2a0VMeHBpNFlXazU0R1pOR0VJTjBOUFdvblFPeG91Y0kzekdY?=
- =?utf-8?B?RnQxSjQ4eVBmQmg3NEdabWRNd1NwZEI0ZnlyVE9XeHF6aWpRbXBlTGR6SUlN?=
- =?utf-8?B?aWpJSkRaQ2hUUkJPSjVBZFJnbXArOGdxcWlNZWExSWFIUTZPck9vMlB0R2p6?=
- =?utf-8?Q?bD4OZLt2PmJeCTRDm0?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd8bdc37-9912-46f8-8708-08dec2ea2390
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 10:06:41.2999 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: z7WcwIG58MMqwVtBIgpX++PShwehRTRlbCDI0vyPZ1B8xkDobtQiEgxp2udUDMAw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6146
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,43 +67,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/5/26 11:48, Wentao Liang wrote:
-> In amdgpu_ttm_clear_buffer(), the *fence pointer is initialized with
-> a stub fence via dma_fence_get_stub() and may be overwritten with
-> job fences in the loop. On the error path (goto err), the last
-> reference from *fence is not released, leaking a fence reference.
-> 
-> The sibling function amdgpu_fill_buffer() properly releases its
-> local fence reference on error, confirming this is a missing
-> cleanup. Drop the fence reference in the error path to fix the
-> leak.
 
-Absolutely clear NAK.
+Hi Dave, Sima,
 
-Even in the case of an error the fence must be returned or otherwise we run into random memory corruption.
+Last minute updated pull request due a relatively urgent revert for fixing
+the backlight on some laptops. Plus the other fix you haven't pulled yet.
 
-Regards,
-Christian.
+Tvrtko
 
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 3d2e00efc741..d65f1df3574f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -2585,6 +2585,8 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_bo *bo,
->  	}
->  err:
->  	mutex_unlock(&entity->lock);
-> +	dma_fence_put(*fence);
-> +	*fence = NULL;
->  
->  	return r;
->  }
+drm-intel-fixes-2026-06-05:
+- Fix color blob reference handling in intel_plane_state (Chaitanya Kumar Borah)
+- Revert "drm/i915/backlight: Remove try_vesa_interface" [backlight] (Suraj Kandpal)
+The following changes since commit e43ffb69e0438cddd72aaa30898b4dc446f664f8:
 
+  Linux 7.1-rc6 (2026-05-31 15:14:24 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-fixes-2026-06-05
+
+for you to fetch changes up to 2914709c914101eb704e01bed2351070d4161ccf:
+
+  Revert "drm/i915/backlight: Remove try_vesa_interface" (2026-06-05 11:07:24 +0100)
+
+----------------------------------------------------------------
+- Fix color blob reference handling in intel_plane_state (Chaitanya Kumar Borah)
+- Revert "drm/i915/backlight: Remove try_vesa_interface" [backlight] (Suraj Kandpal)
+
+----------------------------------------------------------------
+Chaitanya Kumar Borah (1):
+      drm/i915: Fix color blob reference handling in intel_plane_state
+
+Suraj Kandpal (1):
+      Revert "drm/i915/backlight: Remove try_vesa_interface"
+
+ .../gpu/drm/i915/display/intel_dp_aux_backlight.c  | 19 +++++++++------
+ drivers/gpu/drm/i915/display/intel_plane.c         | 27 ++++++++++++++++++++++
+ 2 files changed, 39 insertions(+), 7 deletions(-)
