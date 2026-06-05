@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9820CD6E77
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 12:29:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8041FCD6E79
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 12:29:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3292411A822;
-	Fri,  5 Jun 2026 12:29:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2D1B89A1F;
+	Fri,  5 Jun 2026 12:29:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OhA8f9jY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CbsLpwgc";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3EDE11A81E;
- Fri,  5 Jun 2026 12:29:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 691B7112B18;
+ Fri,  5 Jun 2026 12:29:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780662567; x=1812198567;
+ t=1780662571; x=1812198571;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=9ZmuGAVkZBmhQbpq9x2VuXflFv4JPYj1lhOiKptYeFo=;
- b=OhA8f9jY0oHoiNTYgQoakp89094wttpChbGTP9K3t4aJvbK8MBOilPYn
- FVLZqBpr4cUH9KLTRE3ZtwhZHPrMKjsJ2uOzSZdWOD7epfotv68IT8EtT
- rlENejaa8McNyUkB79ZT0qfbLE8+GT8SAI7vzkDRcaW1yKY33o8f6IA7H
- fx2BnpcypMlj6WWP1taqInKSKzOREM11N3xluI2ikWeqAMaos8Ig2mMSU
- /mh1jKW9WXpT30Oz9OZAmDSMt86h1OnJsuWFTB7h2xgpa1VGMNj0mOTwA
- knz/cJ4xQw7Ju9bEvbA3J+eyz5/P4s2TyME4LXMPmcjFvYkuCijLxox2V A==;
-X-CSE-ConnectionGUID: Qva+HMq2SDy+chSaM23CRQ==
-X-CSE-MsgGUID: OQE2xui8SsG8H/EpqSHjUQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="81527082"
-X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; d="scan'208";a="81527082"
+ bh=qERx+axThIb2cQ7YFpI1EyHYO1mMDL0oSOVOIPsHtdg=;
+ b=CbsLpwgcE9XGGist5LFcEG89zE6yTkmEKlSDYGn/ULlfvjyLKJgImhgg
+ ZWM3VSMKoMtB/Kz5dfBZ6RL3ybnoLBGc3drRXbnk3wXcGIeP+6AlNClHN
+ H01MgfjxBioG7z2ylJg7JTATNN1a0LZNw/pH6hAnmsKXJFTW3yR023t4S
+ iAG83M9Yrpzmr9oAIp+9HpP0uBYRwb8e2laVaVeIZG4Un/pt2doTRYTai
+ b7G8SrONTC9EtL4NTYvnSjSbwdobuZGP5e/bekeqNvMj9rTQnmYvSyhbl
+ 19LcXQqYv0DEA0M54Dv0aOk/uSmmUekyWAAfxpRicOyfIZsh2wq/FunjQ w==;
+X-CSE-ConnectionGUID: t3yMtlQ/SXikZBF8rVaESw==
+X-CSE-MsgGUID: pyrZTwswQdK7fJwu51TWHA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="81527090"
+X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; d="scan'208";a="81527090"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2026 05:29:26 -0700
-X-CSE-ConnectionGUID: yeewu+20QX6gQf7iz8PKqQ==
-X-CSE-MsgGUID: rTfJgu1lSiqNv/WcsZrS4g==
+ 05 Jun 2026 05:29:31 -0700
+X-CSE-ConnectionGUID: UjPY4VITSfmR2ArYljvm0Q==
+X-CSE-MsgGUID: kSOGYvkpQPisJwhvzHhO8Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; d="scan'208";a="240383699"
+X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; d="scan'208";a="240383706"
 Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
- by fmviesa006.fm.intel.com with ESMTP; 05 Jun 2026 05:29:22 -0700
+ by fmviesa006.fm.intel.com with ESMTP; 05 Jun 2026 05:29:27 -0700
 From: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
 To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  rodrigo.vivi@intel.com
@@ -49,10 +49,9 @@ Cc: andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
  anshuman.gupta@intel.com, badal.nilawar@intel.com, riana.tauro@intel.com,
  karthik.poosa@intel.com, sk.anirban@intel.com, raag.jadav@intel.com,
  Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-Subject: [PATCH v7 4/6] drm/xe: Handle PUNIT errors by requesting cold-reset
- recovery
-Date: Fri,  5 Jun 2026 17:55:48 +0530
-Message-ID: <20260605122544.1021695-12-mallesh.koujalagi@intel.com>
+Subject: [PATCH v7 5/6] drm/xe: Suppress Surprise Link Down on device
+Date: Fri,  5 Jun 2026 17:55:49 +0530
+Message-ID: <20260605122544.1021695-13-mallesh.koujalagi@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260605122544.1021695-8-mallesh.koujalagi@intel.com>
 References: <20260605122544.1021695-8-mallesh.koujalagi@intel.com>
@@ -73,64 +72,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When PUNIT (power management unit) errors are detected that persist across
-warm resets, mark the device as wedged with DRM_WEDGE_RECOVERY_COLD_RESET
-and notify userspace that a complete device power cycle is required to
-restore normal operation.
+PUNIT errors can only be recovered using a power-cycle. Xe KMD
+sends a uevent to notify userspace to trigger a power cycle.
+On platforms where link drop caused by powering the device off and
+back on is reported by hardware as a Surprise Link Down (SLD), which
+AER then escalates as an Uncorrectable Fatal Error. That error fires
+before the device finishes coming back up and defeats the
+very recovery we are attempting.
+
+To keep the expected, recovery-induced link drop from being raised as
+a fatal AER event, mask the Surprise Link Down bit
+(PCI_ERR_UNC_SURPDN) in the upstream port's AER Uncorrectable Error
+Mask register before punit_error_handler() requests the cold reset.
 
 Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-Reviewed-by: Raag Jadav <raag.jadav@intel.com>
 ---
-v3:
-- Use PUNIT instead of PMU. (Riana)
-- Use consistent wording.
-- Remove log. (Raag)
+v6:
+- Expand commit message to explain why SUR_DN is masked. (Raag/Riana)
+- Check Slot Implemented bit before reading Slot Capabilities, per
+  PCIe spec. (Riana)
+- Add debug log.
 
-v4:
-- Make function static. (Raag)
-
-v5:
-- Remove kdoc for static function. (Raag)
-- Remove xe_ prefix for static function.
+v7:
+- Handle suprise link down event properly. (Aravind/Riana)
+- Update commit message. (Riana)
+- Corret log message.
 ---
- drivers/gpu/drm/xe/xe_ras.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/xe/xe_ras.c | 38 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
 
 diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-index 1f3c4a5f39d9..9a90a7118e89 100644
+index 9a90a7118e89..acdedf403649 100644
 --- a/drivers/gpu/drm/xe/xe_ras.c
 +++ b/drivers/gpu/drm/xe/xe_ras.c
-@@ -4,6 +4,8 @@
-  */
- 
- #include "xe_bo.h"
-+#include "xe_assert.h"
-+#include "xe_device_types.h"
- #include "xe_device.h"
- #include "xe_printk.h"
- #include "xe_ras.h"
-@@ -207,6 +209,12 @@ static enum xe_ras_recovery_action handle_core_compute_errors(struct xe_ras_erro
+@@ -209,8 +209,46 @@ static enum xe_ras_recovery_action handle_core_compute_errors(struct xe_ras_erro
  	return XE_RAS_RECOVERY_ACTION_RECOVERED;
  }
  
-+static void punit_error_handler(struct xe_device *xe)
++#ifdef CONFIG_PCIEAER
++static void pcie_suppress_surprise_link_down(struct pci_dev *usp)
 +{
-+	xe_device_set_wedged_method(xe, DRM_WEDGE_RECOVERY_COLD_RESET);
-+	xe_device_declare_wedged(xe);
-+}
++	u32 aer_uncorr_mask;
++	u16 aer_cap;
 +
- static enum xe_ras_recovery_action handle_soc_internal_errors(struct xe_device *xe,
- 							      struct xe_ras_error_array *arr)
++	aer_cap = usp->aer_cap;
++	if (!aer_cap) {
++		dev_dbg(&usp->dev,
++			"AER capability not present\n");
++		return;
++	}
++
++	pci_read_config_dword(usp, aer_cap + PCI_ERR_UNCOR_MASK, &aer_uncorr_mask);
++	aer_uncorr_mask |= PCI_ERR_UNC_SURPDN;
++	pci_write_config_dword(usp, aer_cap + PCI_ERR_UNCOR_MASK, aer_uncorr_mask);
++	dev_dbg(&usp->dev, "Surprise Link Down masked for cold reset\n");
++}
++#endif /* CONFIG_PCIEAER */
++
+ static void punit_error_handler(struct xe_device *xe)
  {
-@@ -239,7 +247,7 @@ static enum xe_ras_recovery_action handle_soc_internal_errors(struct xe_device *
- 			xe_err(xe, "[RAS]: PUNIT %s detected: 0x%x\n",
- 			       sev_to_str(counter->common.severity),
- 			       ieh_error->global_error_status);
--			/* TODO: Add PUNIT error handling */
-+			punit_error_handler(xe);
- 			return XE_RAS_RECOVERY_ACTION_DISCONNECT;
- 		}
- 	}
++#ifdef CONFIG_PCIEAER
++	struct pci_dev *pdev = to_pci_dev(xe->drm.dev);
++	struct pci_dev *vsp, *usp;
++
++	/*
++	 * Device Hierarchy:
++	 *
++	 * Root Port --> Upstream Switch Port (USP) --> Virtual Switch Port (VSP) --> SGunit
++	 *
++	 * Cold reset power-cycles the slot, dropping the PCIe link. The
++	 * slot triggers a spurious Surprise Link Down AER event on the USP.
++	 */
++	vsp = pci_upstream_bridge(pdev);
++	usp = vsp ? pci_upstream_bridge(vsp) : NULL;
++
++	if (usp)
++		pcie_suppress_surprise_link_down(usp);
++#endif
+ 	xe_device_set_wedged_method(xe, DRM_WEDGE_RECOVERY_COLD_RESET);
+ 	xe_device_declare_wedged(xe);
+ }
 -- 
 2.34.1
 
