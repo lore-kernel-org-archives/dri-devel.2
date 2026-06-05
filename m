@@ -4,80 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F62CCD6E5D
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 06:07:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB8D9CD6E7C
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 06:14:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41ED910E466;
-	Fri,  5 Jun 2026 06:07:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36EFE112A94;
+	Fri,  5 Jun 2026 06:14:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VotzUqye";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XCbWxUGd";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4BBC10E46D
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 06:07:50 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-2c0c2d792c8so10561265ad.1
- for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 23:07:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780639670; x=1781244470; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=M5WkcatAHhLMBNeD67NubkG9Mg0FFDk4z9wml5JZOUU=;
- b=VotzUqye4l8ufsB0FJ8tEP7J+6cOElz5twrd8zV4DPpK/zK1E1ttRIrbeIrBIGCxv0
- 2F3yleNhIa43o/iPh9dVPdjrFasLMXzfv+9bDEXbYSQtC09FvxBnC/vYjE3AD4MlDpbr
- iE5F2PwXU/0QWKjRlJDMgl5aCsqOqQWalXbP0WPHEYDBHdPU+T+Tv168u0sR8OLljtxs
- +3olFCZFSZpekkp9Mh3GpoE+3GcHUJE70pXX2os2VxIfhE/tv4tDuvc0e73PoZNNaKkB
- 3GaDmkYG6pUMZRAo+Dq0WsDhm6tSjBMLKMY98fHpnmGXxE5KeiNIqQQw5YTkE2H4nXiE
- FAPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780639670; x=1781244470;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=M5WkcatAHhLMBNeD67NubkG9Mg0FFDk4z9wml5JZOUU=;
- b=BO4u97E5LvUFSQPY9LDzb0zVxeohPshhNwHtRdA0Ddk0Q9A5AtEGs3H6DhbVv5LPMu
- Fod6MlJ7hW2jDfA7VZrUknfGKFP3m4S5pE8FQL2Fg9WiwL16UltUphtkLvGtm7kUQOhe
- 1ZkljrD4MLsFHhYdNLTLl2RiJsT0vrQi33VvHHWFvLKFSP+nWQzBtSg14qqwN3NhcS5F
- UiZo3j/qf5YslYuUAJLaTZ97qXnVY77M9i2vYqZygW9x7f3K9L9Rd7EBEAGWcJPlHrI4
- Ox7F864mumT0ZnGyLIr/e2xD3b5t8u9u7OCMUCJRRmWlLsSXFaY3mejggNx5B9cxtL7i
- Npog==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9wtSiPOGcENmjqJHr7JOTjTObwg7NbqSTQ1qFZG70pMY4cj5dfFbmJlwxiBC5dFjx1NV2FB+la8jE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy5XgdolmORyRrMGvBPOLRgJH/VeSvFB+Z2VgpMaTlN74HzXSdK
- 55v3X84MIzBu3YoULoOp8s63By1tYQQb5lTZTCKWazSRdzoUa5GmDyh1
-X-Gm-Gg: Acq92OFBJAqYkri94R+OZsseiE+cUr6JKvstjP03v3XG6xOwQ0LwnIAaxbl+XcPgRuJ
- PT0DAgugk27CBCPkQFwnNhA420Eiqj8vfKqVQiPGcVUt3bVJ619KexrajycbXTq2HBVYFGC/1P7
- 0xSB4wzavfvhhkfAc6yWwK7NkPCA9Zl64X/cR3jB/5gtJtsNlEJDKNYRxDQe8pPNbZwL+N4jxuD
- ERmsiyp3s/ZGLuw0tWsc6Yj5PY145rxsrMSmctPJVN+jKl1Ng5/BlC5icmzOExMNMInFG6aoPWS
- h/NwldX9PiGeB5vLAC0DoclfkKhNbT009stNaJf60R1G9nx3HBI0kAjFOuvttZSHc4+zsGqq6Ij
- YNboZyzt8XSB312Qn7lW1cKopxVPgV5EmpKfxyin0ip9kFcOmG69EvZHkKA0aajgwrSfh3xTwis
- APPxjB8bDM5GIKkDMR
-X-Received: by 2002:a17:902:fc46:b0:2c0:b9a1:6493 with SMTP id
- d9443c01a7336-2c1e7b082b4mr20237105ad.10.1780639670162; 
- Thu, 04 Jun 2026 23:07:50 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1000::f280])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2c1646e5c51sm77298475ad.0.2026.06.04.23.07.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Jun 2026 23:07:49 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Imre Deak <imre.deak@intel.com>,
- Uma Shankar <uma.shankar@intel.com>,
- =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>
-Subject: [PATCH] drm/i915/dp_tunnel: fix CRTC hw state cleanup ordering
-Date: Fri,  5 Jun 2026 14:05:27 +0800
-Message-ID: <20260605060527.1443552-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4A39112A93;
+ Fri,  5 Jun 2026 06:14:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780640088; x=1812176088;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=M9DxJFCG3YQiCp7VpLgmVR0hkSziZ9NG0u1Po8nHzFA=;
+ b=XCbWxUGdm9gXtLFvITVZNtqQuURFXmMwByj8+Du4WIWcLRZiNB4R2lhz
+ U7ywPmCpUFzwbiC2Qy1xbgi8IAhF2zqvNrU12WObyaMtBNuZipD2dOsXT
+ caBAbbwSMBhunY8Mrxc4dF3r02UtdXgvjHiETawhgNU9EaqexP84N1Gui
+ egSRvlbncKi+zwYeZRXa7wtHYYhshHrQuEanuw7C52QsoL6z9TYCXrB5I
+ NT3Y3iddmVQWuExUrV+tVA1g422Urkvfl1ff6Y/fN/gY4+kLNp3IJWuA6
+ Pd1zOM76LJNEtIUeqY23ztc93eB46pU4yi2qwcrT4bt52fun3qTpgDjCn Q==;
+X-CSE-ConnectionGUID: orGWbuOBRbugT6+a/vAx1w==
+X-CSE-MsgGUID: FepVdMRdTZqjlD2O+cCtzA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="81217374"
+X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; d="scan'208";a="81217374"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jun 2026 23:14:47 -0700
+X-CSE-ConnectionGUID: GYnkMMsJROWTVfvF/7FMcw==
+X-CSE-MsgGUID: FNqelaK/SHOrcnLE04jbcw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; d="scan'208";a="249092047"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jun 2026 23:14:47 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 4 Jun 2026 23:14:46 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Thu, 4 Jun 2026 23:14:46 -0700
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.43) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 4 Jun 2026 23:14:45 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ErDdlo+9CjIpKshk4RhNkPulSXjCH2UKu+V8DoZpdgg7Ktj8QzWz83e6nm6s1ksrOwpYNj6OA5f8FKMTFDmGGVAyM4aSBYFpMcsGmM4ygmsyYiElG1pXPp5ZwZgxHEJAcmXL/2b2FYGVBhH7jczNI36xpM/tMTTKqw4vk7xgiNlKFyYQicXZukjK7V6ZuFRrKGu/y8yYHPLrNmV9n4Dgza9mpv/AQsSyenJ0fCqI9BlMhU7a8oYo/Cm1eptTX8ogC/k4Ps5mtk1f1ZwI6asTzxXZtNDs+BjhwH5N3+iy2r94mj3CQJKg6cp2INO/1dZ925Gv2eoCsO3/YaHv3g79Dw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j1pbqerBAXEpzDt97VraY8M6hOtIaLRWso6wQYQ4BQo=;
+ b=rHyi+WOcQM2dC/bA+oJqlxlM+/FQXxoLXyVHHCl3HZO7jG7LsMG0G2yFk7BxIRLtbo3TGOijwAY673kaCk8C8EeQiWwhe5b5O3wiK0zMnakOXvOMVTreLY2vAsUsh0jZ0N8VmEPpN80oEQeayMJC+jY4OADMZcjREtD5ZUhMJbu/1p8CB0ShEU/yJ3idZmdfQWLMYjsThkyv9D8hVtjZSETaysJmkguNLVRLpyO4XHoDr6PZfQfeBHyP5c3BZDf0wmVhhpJ58+jSZVXHzoOWEoIO6UDzo5k/tHExrrMD3B3xU18GHqXpFeZJZZ/plSW3VA4mYak2Mbs7HuVSdF+H7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB7958.namprd11.prod.outlook.com (2603:10b6:8:f9::19) by
+ IA0PR11MB7743.namprd11.prod.outlook.com (2603:10b6:208:401::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Fri, 5 Jun 2026
+ 06:14:42 +0000
+Received: from DS0PR11MB7958.namprd11.prod.outlook.com
+ ([fe80::8cb2:cffc:b684:9a99]) by DS0PR11MB7958.namprd11.prod.outlook.com
+ ([fe80::8cb2:cffc:b684:9a99%4]) with mapi id 15.21.0092.007; Fri, 5 Jun 2026
+ 06:14:42 +0000
+Message-ID: <85f7a34e-aa97-44f0-af85-c8dedc2ead46@intel.com>
+Date: Fri, 5 Jun 2026 11:44:34 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/4] drm/xe/drm_ras: Make counter allocation drm managed
+To: Raag Jadav <raag.jadav@intel.com>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <netdev@vger.kernel.org>
+CC: <rodrigo.vivi@intel.com>, <dev@lankhorst.se>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <kuba@kernel.org>
+References: <20260602044919.702209-1-raag.jadav@intel.com>
+ <20260602044919.702209-3-raag.jadav@intel.com>
+Content-Language: en-US
+From: "Tauro, Riana" <riana.tauro@intel.com>
+In-Reply-To: <20260602044919.702209-3-raag.jadav@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0120.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1a7::11) To DS0PR11MB7958.namprd11.prod.outlook.com
+ (2603:10b6:8:f9::19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7958:EE_|IA0PR11MB7743:EE_
+X-MS-Office365-Filtering-Correlation-Id: 49ccd419-423e-43cc-4fd3-08dec2c9bb49
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|22082099003|18002099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: EE6ivGCUkZSlBCly6ENcFtUnxZccKXvW5qIfy2tvKP5DQ7nseFFeux03aHiJmcYzJsk1fjkUXKp+8giXty3OEeMunvxP73omg3GpeL/oKWijud8oGlamVTJMTm87PXbgjFr9/voeQ/aZLYvYX3rER89VYEPOOTyci322j4PF9vtEyxtoKvzfEfN8SbaFZbNxHKIBl5URCKmPIEVDxQzlhqtswx8H03e/XCBekqy3/0KJKKD9DmlO+HzgnmMz1MX2rxL+rR2rv2LZPYB41EzYkisLvvTurzR8cTmi+mR10WPKbLAl7QP3LYtKKfhsDuv9Bg0xUWo9ECYNwRc3P2Hof7t4NC6du2soBQVKB/FFN0zWhHRKp+Y1I55KHdXedb1v9IIc1I10jRSD8v/uSsJWtEjUhC6ylBoAqJwFLGt6EgSfthZ5LUZHgJYaouEGCPu/E+13N73qgfTOqINlnSJhJL/VMh3DZORLqyyVDm4zF4Wj9Fum6Kfv8Jlo8Ihpn1oZ+qSJpMwpAyejaWxKWDpp8AtBHnsr574n3jZP4QbicmPyq2aFpzWRyta+3qDXvJyY/Rz4fH5JADJJ/7iPZgw76gff4xRiDlZpWitE6LQsQnSuZ68QgwM72Z3LMhA30VmNgZ1XJYGwW24lOzlCPc2QiJ1Km7T5OlStlPK0RpwxlZ7igyfDpT9ZuBGzwtCISKH3
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB7958.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a2grQzcyeGNic09YaXU4bCtQdkpOaGdzTVZYSi9ERlVtblAzLzNNT3RXNEVZ?=
+ =?utf-8?B?bDRxc293SDJiUnZ4WTgyVlZlUyt2UHdwREFma2ZZUFRCYVhtSnh0VDhWL2Qw?=
+ =?utf-8?B?MHhIYjVaMDVwNDA0QkNtZDJSb1Z6VUpqeXZNcGhrYmVGc3BNWkxsdGhjcWE4?=
+ =?utf-8?B?d0h6MlZlMmwzMk9HSlUrRWhVUGhkcERzRi9DQzZoK25VU0F1a2JqOSs3T1lZ?=
+ =?utf-8?B?QjdhRE9FUW1MRmljelhWZ2VxSHo5SEtpOVFsVXJ4Q0RSRWtqK2IrMFhEZDUr?=
+ =?utf-8?B?aWZmcGtjUXh3TWZXam04a09zV093MExTN05BOVc2dENGOFFuUlczdXBhRU53?=
+ =?utf-8?B?bFlkZmlBSUwreGFjeElHQlExMUUwdU5Kcmk0eHRsYlpLTVp4NVBMNVpFU1px?=
+ =?utf-8?B?RTBQWGNYbUNrZXpwWDFFeUZSblhDRGE0ei9laEhKTkt5VDdvd3NnQi9SWGVm?=
+ =?utf-8?B?L2VURS9HWXovL282NE9JRldNRGZ1WC9aMGxENFIwVm4ydndsQUwyNlg4d0VR?=
+ =?utf-8?B?bVFKMEpZQWlpQnBRZHdpUml0K2xMekdyaUhBblRHUUx0VjcrZHd4OHpKbURi?=
+ =?utf-8?B?TUtSdkdEWEI4OFlyNHRrckpzWVRYREllYXFRdnUzMFVuNnJZdE1oK28vOENG?=
+ =?utf-8?B?WDNVVStuVHowV0EzRVB1YnR6Q0ZIQUQ3TGZiTnU2UVN2VHI2eGQwSjNVeCth?=
+ =?utf-8?B?MkFlQ3Q0Ym9UOHJMTytYdWEwalJUWEhhKzU5MlVFTkRLRFowTXVJeHZPUis5?=
+ =?utf-8?B?aFRtUUh1bDV4eEhITVVMWE1IVEZXQU5HTkwxL25XelNQbTBNWFJMM0ordTFX?=
+ =?utf-8?B?U2s3STNtMUF2NlVRZGFzZEkzZ1RvM0cvK1E2Y0N4Mm9JNmNYNjRuYlFJcito?=
+ =?utf-8?B?K2hJdGh5MTNHcDRLajFBczlZeUhIWFpNb085R2RuUDJkMGJhdi91ZmJGZjc3?=
+ =?utf-8?B?Q3VJTDFseTlHeHF6by9OaURoRCtYVThwTmtBMkIwa25IR0Z1Rk4zdUhkYjF2?=
+ =?utf-8?B?aG1MeHVmakQyWDZlTWRQSVdZUU53b0crb09YZ0ljNFYycitseFZpbzVWUEZh?=
+ =?utf-8?B?K0w2Q256NGk4RlVlRlRqY0lNUU9xbE1iL1pHdDJ6Yzh6aHBhMCtLNXc4UHI3?=
+ =?utf-8?B?VFQ2VSt5NnZkOUJxZ21idS9zNFpaeTM5KzJuQkZCMHZlQUh4MlBFUVB2dlBO?=
+ =?utf-8?B?aWt5c1E2NmQzMEl3VXNjL0tON3VaMElwNGV2OVpYREIrT21iVzhRYy83cURW?=
+ =?utf-8?B?cEp4ZUNneU40aVlOTXJONHRmTEp2NkZadFUrQXhhSTF5c00wQWw2cUtOdFd6?=
+ =?utf-8?B?cGRqaVFta0I5U05GRElxK2tza25neWx4Q1AxWGl3V1hpZjU1bnMzRnhMNHNk?=
+ =?utf-8?B?SnNTbGR1WGtNZnVuZUlBOTVBY3Q0dHNHNnh3c0VQWVVkY2VCM1d6Z2hmTWNR?=
+ =?utf-8?B?d2tqVGtDb0tIS0NtL1RxdWx0Q1N6K3poeGxXVzNSeWpheFlDUHAwZUwrY1BJ?=
+ =?utf-8?B?SndZQkpwS0F5ZGttTUg1Z1cydWFwUW5aYlJrbFBEMGtGWUdycko5ZmNhd0tN?=
+ =?utf-8?B?OU9OdURRVWJTRDJGZXZZNlZmdjRTbDJnTTI0d1VUVVZ5TW81dlljbkNFbUxM?=
+ =?utf-8?B?UHFyVVphelpjaHFaU080eHhQMHJsSW9Ud1I5M2pVMGJqYkdTd21DNUFkNm0r?=
+ =?utf-8?B?cmtVb0dwYk9tMUFQNlQzR1hWb29RL2QyZUEzQlN5dm5IakkwNEgyQ1E2TldU?=
+ =?utf-8?B?YXlsN3F2OGRXUU95RU0xZ0h6S3NhK2VEdUgzSE1oSXhIRWl1K2ROSllVNkRn?=
+ =?utf-8?B?cWErTks3NU9ZbVV2akpRMnlOb3NsUE84ci82UWc4V2VGZExla013Q3lPNzFw?=
+ =?utf-8?B?QVhGNjZ0akdZK25QMFRXOGFHcjJha0lBWE1KZGRMT1FVN3psdi9JbE92dDZ5?=
+ =?utf-8?B?bFNJL09udXc4R3VKeXhtVGtZcytKSkdDM1Y4M0NzNEVydzM3NnRhc1ZSN3VO?=
+ =?utf-8?B?eWRpaCtjMWxwSTVRV0g4eE9xMUdlUUNkVTIxTThuZFU4dy9vcnBTbkd0b1lO?=
+ =?utf-8?B?REhNcFh5amdOTmhuek9ISjVaYW9heWhvaFFoMVBsM2pFTzRQby92Qk5adnZL?=
+ =?utf-8?B?eU10b0l1NlZUQmxnV1doOCs4T1hTbXV2bHZvYjltMXhPd3h1Ym82b0gybXd6?=
+ =?utf-8?B?bTU2MHRaWXhSMUpWWHJTSWVNelZEbTdaekZkM29YUFo5WnBSMjg5U1FPK0VU?=
+ =?utf-8?B?YndpamM5dm9VLzljS2V1ZFpaalU3ZzhGN2ZQUUN0ZHdUN0R5cGJUWkM1RnZJ?=
+ =?utf-8?B?aU5EVWdZOHpnMVVsaGZUejZiVXoyY28yR3RzV3VTSk12UjBydEludz09?=
+X-Exchange-RoutingPolicyChecked: P3MJ7e5Qqwzbef2yOyocEVLadW4JvtojU3Miqa0kRcVZSEEf7ASkYaBqFplllBNXqc7WxxxvcQ7oC9jA5XAK3TaJ+d0lWSl20L//vSW5JYNCZ2gjhXRciwy/3jRHT+rzZ7rvJJcm16n8Sx9Z3W8VcmAc7RTBIM3qziys0aHvEah3G7n7RRyksQsx/OuMskJkwshj35cSCDhS72NyYx5YxGcVHej9U2qjKqu0d8ZMCsg1UqPDUGni7qyk5U4eu/tmJtOZSHVpdGFNANVW/B4AL543OTzmfGW9G9HQ8OgNVh8aYPa6vCk1W1hCTQ0BOTrSX2jAJOFyRMIO0pHCiHcmdg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49ccd419-423e-43cc-4fd3-08dec2c9bb49
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7958.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 06:14:42.0969 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7J5T2LLuRD7d/Q4r2LFGfVE+90WBFSSYYAAcdDSKqumVvtSPgCkcJJEYJGTMJQQOeug159hSlRj0y0riB7rleQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7743
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,50 +171,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-intel_crtc_prepare_cleared_state() frees the old CRTC hw state before
-calling intel_dp_tunnel_atomic_clear_stream_bw(). The latter can fail
-while looking up the DP tunnel group state, for example with -EDEADLK.
 
-If that happens, the function returns without completing the cleared
-state preparation, leaving the duplicated CRTC state with its hw color
-blob references already dropped. The failed atomic state will then be
-cleared by the atomic core, which can drop the same references again.
+On 6/2/2026 10:18 AM, Raag Jadav wrote:
+> cleanup_node_param() is not registered for previous node in case of counter
+> allocation failure, which results in stale memory of previous node that
+> isn't cleaned up on unwind. Fix this using drm managed allocation, which is
+> guaranteed to be cleaned up on unwind.
+>
+> Fixes: b40db12b542f ("drm/xe/xe_drm_ras: Add support for XE DRM RAS")
+> Signed-off-by: Raag Jadav <raag.jadav@intel.com>
 
-Move the hw state release after the DP tunnel stream BW clear has
-succeeded. Keep the temporary state allocation before the failable DP
-tunnel operation so an allocation failure cannot happen after the stream
-BW has already been cleared.
+LGTM
 
-Fixes: fb69d0076e68 ("drm/i915/dp_tunnel: Fix error handling when clearing stream BW in atomic state")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/gpu/drm/i915/display/intel_display.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Reviewed-by: Riana Tauro <riana.tauro@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index ad2fe10b6b1f..0c015bc6c9fd 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -4646,9 +4646,6 @@ intel_crtc_prepare_cleared_state(struct intel_atomic_state *state,
- 	if (!saved_state)
- 		return -ENOMEM;
- 
--	/* free the old crtc_state->hw members */
--	intel_crtc_free_hw_state(crtc_state);
--
- 	err = intel_dp_tunnel_atomic_clear_stream_bw(state, crtc_state);
- 	if (err) {
- 		kfree(saved_state);
-@@ -4656,6 +4653,9 @@ intel_crtc_prepare_cleared_state(struct intel_atomic_state *state,
- 		return err;
- 	}
- 
-+	/* free the old crtc_state->hw members */
-+	intel_crtc_free_hw_state(crtc_state);
-+
- 	/* FIXME: before the switch to atomic started, a new pipe_config was
- 	 * kzalloc'd. Code that depends on any field being zero should be
- 	 * fixed, so that the crtc_state can be safely duplicated. For now,
--- 
-2.43.0
 
+> ---
+> v2: Retain info as NULL on failure (Riana)
+> ---
+>   drivers/gpu/drm/xe/xe_drm_ras.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/xe/xe_drm_ras.c b/drivers/gpu/drm/xe/xe_drm_ras.c
+> index c21c8b428de6..c1d5ac198a7c 100644
+> --- a/drivers/gpu/drm/xe/xe_drm_ras.c
+> +++ b/drivers/gpu/drm/xe/xe_drm_ras.c
+> @@ -80,7 +80,7 @@ static struct xe_drm_ras_counter *allocate_and_copy_counters(struct xe_device *x
+>   	struct xe_drm_ras_counter *counter;
+>   	int i;
+>   
+> -	counter = kcalloc(DRM_XE_RAS_ERR_COMP_MAX, sizeof(*counter), GFP_KERNEL);
+> +	counter = drmm_kcalloc(&xe->drm, DRM_XE_RAS_ERR_COMP_MAX, sizeof(*counter), GFP_KERNEL);
+>   	if (!counter)
+>   		return ERR_PTR(-ENOMEM);
+>   
+> @@ -135,7 +135,6 @@ static void cleanup_node_param(struct xe_drm_ras *ras, const enum drm_xe_ras_err
+>   {
+>   	struct drm_ras_node *node = &ras->node[severity];
+>   
+> -	kfree(ras->info[severity]);
+>   	ras->info[severity] = NULL;
+>   
+>   	kfree(node->device_name);
