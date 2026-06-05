@@ -4,42 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8934CD6E7D
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 16:20:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A16FACD6E7D
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 16:22:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F342E112BA3;
-	Fri,  5 Jun 2026 16:20:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF20C11A969;
+	Fri,  5 Jun 2026 16:22:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MryrAQLP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MeKSml0d";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C6EF112BA3
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 16:20:13 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1D6464188E;
- Fri,  5 Jun 2026 16:20:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E00F21F00893;
- Fri,  5 Jun 2026 16:20:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780676413;
- bh=SCc1ED0run+JRAhTWcRHKA3Hnu+U58j2PJkQLMPgNfA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MryrAQLPU+Sz0LsrNPBV5WSpviXTHZxlIfgn9k/RGKHshAkdogFxWFtNhk1rle251
- 98NEYWSLyYM1iB5xliPg5L3yejPsga+PYS2dGkhj7W5RV8qDU4BJzLEI2ILrooqTiO
- Gopc1G8hrHGd4X/bW3kXOqLDeTUHr8UaRjaEXek9DAj9AR9hJPZa9oSQESkavPaxKH
- zG4gvTMRbWm7FYELmMf12xAsbhRkLvOJDAOE2BcjYBjWCoSlhHTqhj4Mg6LH4oir3T
- 7Q27gQMyhJH/j3F8/qAkEV4AVmEAHcZBAHETO2URPjrxGj21tfC1tlGjsdgq0tw5k6
- sJBeFlMunigJA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] drm/rocket: Submit one drm_sched_job per task
-To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260605-rocket-per-task-jobs-v1-2-e3319adf3c49@igalia.com>
-References: <20260605-rocket-per-task-jobs-v1-2-e3319adf3c49@igalia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 16:20:12 +0000
-Message-Id: <20260605162012.E00F21F00893@smtp.kernel.org>
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011070.outbound.protection.outlook.com
+ [40.93.194.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D90811A969
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 16:22:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hmsrrHu/kRFvZFKkgu9NCJRHnkjRn3FnfQsa0YwktM72CxO6ct6iZ6fNQACivquGCaXtUPdERt7TBysMCAvWorpcyccFvFyZfbiUyJzdlpz5umiNwJq0+xl1G3+UxcNaFSAYA/k8Zl4ejkmc4JmhfEMT38KTM5kJiLjXdjX09liKHgjprZ3+0T/cR8xx6fXoRnKtlGZtPQ9iunGTlPUt7KbAW3/5PVYVZmw9cqXbXKc6LFAUZFk56qNd8wRU6rgk8bZCqsZy1SKU4sop2M3c1+23tal4GwD2K1TzjPlgpeL7hFvmlQaHtYDDE6opIJP8wlvyadIsXATtzNPZMw/8vw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KszylNXkQrcNiLBpxgatqB6updQNVGNN/RHmaAuowcQ=;
+ b=PhtrKU0g5mBiyegjMF1HE9xcy0fowyD8tdL1BUWaLS6q0cRdWmj8Ln5yctoxY2PnWzlT3Un4WqN4pZFmfg8epSGywkfq+ishJp0OQXlUd4/+htjJlCUJP6S82VQn5CBkf6K/GPmwMgpdJShveOzWnl0SNQBjFQLS9bb9CuyDqqbvXwUTIuhcaRnD4tC69/N0tZEN4/IWihANisazaG0q5tGr766G8WiwQgLrwoUX6M5scNuSEnmsTdoCZoweWpRTGTLMIi21wVidfN668W09l7RTru7VldU0me+rPHMpREmHSXFjH0T7XtNryHngiOdZ44m1ONTL83P0D/YUIuxIlw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KszylNXkQrcNiLBpxgatqB6updQNVGNN/RHmaAuowcQ=;
+ b=MeKSml0dfNTaYmrJInjhwdN0rq4ulU2/hZb8Nr+65avzVMSpSnc673oA27eGBFnMVHLOtT+1b3XIcvWNhMwVmviA7jmP7oW6tcNi0c0UdDYO6aIt0ZJwycvuT4TlzRUYUNXoTo4s4qd+lWctNXLHXFsUUpU8raPzn7pdcif27+o=
+Received: from BN9PR03CA0255.namprd03.prod.outlook.com (2603:10b6:408:ff::20)
+ by DS0PR12MB7802.namprd12.prod.outlook.com (2603:10b6:8:145::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Fri, 5 Jun 2026
+ 16:22:21 +0000
+Received: from BN2PEPF000055DE.namprd21.prod.outlook.com
+ (2603:10b6:408:ff:cafe::84) by BN9PR03CA0255.outlook.office365.com
+ (2603:10b6:408:ff::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.8 via Frontend Transport; Fri, 5
+ Jun 2026 16:22:21 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN2PEPF000055DE.mail.protection.outlook.com (10.167.245.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.113.2 via Frontend Transport; Fri, 5 Jun 2026 16:22:20 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 5 Jun
+ 2026 11:22:20 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 5 Jun
+ 2026 11:22:20 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Fri, 5 Jun 2026 11:22:20 -0500
+Message-ID: <8495f5f8-2732-026f-d7d2-4568b5ce3d7f@amd.com>
+Date: Fri, 5 Jun 2026 09:22:14 -0700
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V1] accel/amdxdna: Require carveout when PASID and
+ force_iova are disabled
+Content-Language: en-US
+To: Mario Limonciello <superm1@kernel.org>, <ogabbay@kernel.org>,
+ <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+ <karol.wachowski@linux.intel.com>
+CC: <linux-kernel@vger.kernel.org>, <max.zhen@amd.com>, <sonal.santan@amd.com>
+References: <20260604195459.2423279-1-lizhi.hou@amd.com>
+ <abe9dd4c-194d-46c3-b074-941698c3236d@kernel.org>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <abe9dd4c-194d-46c3-b074-941698c3236d@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DE:EE_|DS0PR12MB7802:EE_
+X-MS-Office365-Filtering-Correlation-Id: dba46b96-2f17-43a7-d345-08dec31e9e91
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|82310400026|376014|6133799003|22082099003|18002099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: FAY38n64G/RZN91Ez/ePqdVeIYMI8lEPc1yy/lriYZeEmhJqNki6noocDTyEbfxYaF20JxtjSMC3Qjo6lN3SlA6NZlRZKICNRmREUizkX8A6pc5K8SpZzkvH/Xt8qOBFebvsYTKLVwTSyIAwpt/pCSLRxSvAfb9X5BMXe3dwBJ22KY0R9xVEVXpFiP0YorDcDVymv5uBk1zCbHjmQly2pnDkCsP5K7JAT1wCFs7380r5vfFkbXjpJATCBnypfEs9KvYkuzbUp94HjuW4/IeikwVk8dDt9iwmlBpmMLoKpUWUeAvL9spQGQY5/i278ssIgeo/QBPLukS8R3zWon3tp86QtreTy242xZIiNpkBGP+uKQZjtvLBJGT3SQPWUqMVZVD+OpWAkOou6KbkB+IY82bBnRBR79XtfUMieD0MjbfAn7QxKIdDQ0kVNNYjYbDZ8yM9nkuAtxxnJNQi4DA3ilf+POFHUUbWD6MggRT7o6LZRKDKOUkryAI+8Su3Do7hgr/h4+3Mlk7VhImjsAaWkKbsXZpExhDvKTmUzg2z9aTfLSL7klLjgurFcr32Gd9jM4WROCWEFh4wG8izEpB6QQb1o7P0BsNhETGPyC8LvLGl5B70W3hCJ8caAF4YgDz1AD1mcJSwkyuOZdgY7Xguxt/cHz2IhntqyW7CNHRsctwZq0mYNQeM6jzTjB8wGHEGg24pnseh1tkq8T6vel89786FKGOGAX7mBATtz+wwbVQ=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(6133799003)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: v+tnQUM3vYgtmUBwI5h7BgB9kx/WWR1JgOqIwrkuyvaQOWo7XUge50jQRB6OlAhVA20UNktTEXNo5qCse7lINMokf9+QBBKBiX9YNPUCYh0t7sk5LUAmcRZhvM2d4EIXX/RfK6zfWgxpbQK33wCoSAVhQkdg1wSzHCxBSlih2IpVi5rRJ2GwtVWPg4J7YqX0P6iMmQvRNvcyTYYeCVH+6SrDrqAywzL3QEMegWY/D9nthvfQ2kCzzR76ZOcNLBCKGZK/meCXxk5CtGm70z5qBTQHkFgyfPfwfYLELUWERXYD2z4h1pWi/X/oOvQ9dOy50KwP1MBC/GxtPdPtoQtLqh6gPXZAoG93wlIduX2nM7SJeVhXjM4wqwo0uTBfj7WXLr9UpRRPuapif8kS+ug7sNbRGxfw36BnPoLr7t+bjKmxlVSBGuf5IiFtQa90p8Ax
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 16:22:20.9555 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dba46b96-2f17-43a7-d345-08dec31e9e91
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055DE.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7802
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,254 +118,49 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
+Applied to drm-misc-next-fixes
 
-New issues:
-- [Critical] Splitting an inference into independent `drm_sched_job` tasks =
-breaks IOMMU domain isolation due to DRM scheduler interleaving.
-- [High] Implicit BO dependencies are incorrectly anchored to the last task=
- of an inference instead of the first, causing premature hardware execution.
-- [High] IOMMU detachment in `rocket_job_cleanup()` races with the executio=
-n of the next inference because the ioctl thread holds the final kref.
-- [High] If a task fails to start in `rocket_job_run()`, the rest of the in=
-ference is not cancelled, leading to partial out-of-sequence execution.
-
-Pre-existing issues:
-- [Critical] Unconditional call to `rocket_iommu_domain_put()` in `rocket_j=
-ob_cleanup()` causes a NULL pointer dereference if job initialization fails=
- early.
-- [High] The IRQ handler accesses NPU registers before claiming the in-flig=
-ht task, risking a hardware fault if the device has been reset concurrently.
-- [High] The driver silently ignores failures of individual job submissions=
- in `rocket_ioctl_submit`.
---
-
-commit ea82a8e8306fe83c325efae485834200ae29aec9
-Author: Ma=C3=ADra Canal <mcanal@igalia.com>
-Subject: drm/rocket: Submit one drm_sched_job per task
-
-This commit redesigns the job submission path so each task is its own
-drm_sched_job. It ensures all submissions flow through the DRM scheduler
-so the reset path can serialize against hardware execution, while holding
-an inference refcount across tasks.
-
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-
-[ ... ]
-
-> @@ -186,43 +170,68 @@ static int rocket_job_push(struct rocket_job *job)
->  	struct drm_gem_object **bos;
->  	struct ww_acquire_ctx acquire_ctx;
-> -	int ret =3D 0;
-> +	int ret, i;
-> =20
-> -	bos =3D kvmalloc_array(job->in_bo_count + job->out_bo_count, sizeof(voi=
-d *),
-> -			     GFP_KERNEL);
-> +	bos =3D kvmalloc_array(bo_count, sizeof(void *), GFP_KERNEL);
-> +	if (!bos) {
-> +		ret =3D -ENOMEM;
-> +		goto err_cleanup_tasks;
-> +	}
->  	memcpy(bos, job->in_bos, job->in_bo_count * sizeof(void *));
->  	memcpy(&bos[job->in_bo_count], job->out_bos, job->out_bo_count * sizeof=
-(void *));
-> =20
-> -	ret =3D drm_gem_lock_reservations(bos, job->in_bo_count + job->out_bo_c=
-ount, &acquire_ctx);
-> +	ret =3D drm_gem_lock_reservations(bos, bo_count, &acquire_ctx);
-> +	if (ret)
-> +		goto err_free_bos;
-> +
-> +	/* Anchor the BO synchronization on the last task: its finished fence is
-> +	 * the inference's completion fence.
-> +	 */
-> +	ret =3D rocket_acquire_object_fences(job->in_bos, job->in_bo_count,
-> +					   &last->base, false);
-
-[Severity: High]
-Does anchoring the input dependencies to the last task allow the first
-task to run before the input buffers are ready?
-
-Since the DRM scheduler uses these dependencies to know when a job is
-ready to run, adding them to last->base leaves job->tasks[0] without
-dependencies.
-
-The scheduler might submit the first task to the hardware immediately,
-causing a read-before-write data race. Should the input dependencies be
-anchored to the first task instead?
-
-[ ... ]
-
-> @@ -233,10 +242,22 @@ static void rocket_job_cleanup(struct kref *ref)
->  						refcount);
->  	unsigned int i;
-> =20
-> +	/*
-> +	 * The last task holding a reference is gone, so the inference is over.
-> +	 * The ordered scheduler workqueue runs this (from free_job()) before
-> +	 * the next inference's run_job(), so the core's IOMMU group is free
-> +	 * in time for it.
-> +	 */
-> +	if (job->core)
-> +		iommu_detach_group(NULL, job->core->iommu_group);
-
-[Severity: High]
-Can this detachment race with the execution of a subsequent inference?
-
-The ioctl thread initializes the inference refcount to 1 and drops it at
-the end of rocket_ioctl_submit_job(). If the scheduler finishes all tasks
-quickly, it drops its references, leaving the refcount at 1.
-
-The scheduler might then start the next inference, which attaches its own
-IOMMU domain. If the ioctl thread then wakes up and drops its final
-reference, rocket_job_cleanup() will call iommu_detach_group().
-
-Could this unmap the IOMMU while the next inference is actively executing
-on the hardware?
-
-> +
->  	rocket_iommu_domain_put(job->domain);
-
-[Severity: Critical]
-This is a pre-existing issue, but does this unconditionally dereference
-the domain pointer?
-
-If an error occurs early in rocket_ioctl_submit_job() (for example, if
-rocket_copy_tasks() fails), the error path calls rocket_job_put(rjob)
-and triggers cleanup before job->domain is initialized.
-
-Since rocket_iommu_domain_put() internally executes
-kref_put(&domain->kref, ...), passing a NULL pointer here will cause a
-kernel panic. Should this check if job->domain is valid before putting it?
-
-[ ... ]
-
-> @@ -286,108 +307,102 @@ static struct dma_fence *rocket_job_run(struct dr=
-m_sched_job *sched_job)
->  	struct rocket_core *core =3D sched_to_core(rdev, sched_job->sched);
->  	struct dma_fence *fence =3D NULL;
->  	int ret;
-[ ... ]
-> -	ret =3D pm_runtime_get_sync(core->dev);
-> -	if (ret < 0)
-> -		return fence;
-> +	ret =3D pm_runtime_resume_and_get(core->dev);
-> +	if (ret < 0) {
-> +		dma_fence_put(fence);
-> +		return ERR_PTR(ret);
-> +	}
-
-[Severity: High]
-If pm_runtime_resume_and_get() or iommu_attach_group() fails and returns
-an ERR_PTR, does the rest of the inference still execute?
-
-The scheduler will complete this failed task with an error, but it appears
-the job->cancelled flag is not set on these early failure paths.
-
-Since subsequent tasks in the same inference will not observe the cancelled
-flag, will they be submitted out of order, potentially leaving the hardware
-in an invalid state?
-
-> =20
-> -	ret =3D iommu_attach_group(job->domain->domain, core->iommu_group);
-> -	if (ret < 0)
-> -		return fence;
-> +	/* Attach the domain once for the whole inference. */
-> +	if (!job->core) {
-> +		ret =3D iommu_attach_group(job->domain->domain, core->iommu_group);
-
-[Severity: Critical]
-Does attaching the IOMMU domain only for the first task break isolation
-when the scheduler interleaves tasks?
-
-With the redesign mapping each task to a separate drm_sched_job, the DRM
-scheduler can interleave tasks from different inferences on the same core.
-
-If Process A's first task attaches its domain and then Process B's first
-task attaches its domain, Process A's second task will see job->core is
-already set.
-
-Will Process A's second task then execute using Process B's IOMMU domain,
-allowing cross-process memory access?
-
-[ ... ]
-
-> @@ -395,20 +409,20 @@ static void rocket_job_handle_irq(struct rocket_cor=
-e *core)
->  {
-> +	struct rocket_task *task;
-> +
->  	pm_runtime_mark_last_busy(core->dev);
-> =20
->  	rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
->  	rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
-> =20
-> -	scoped_guard(mutex, &core->job_lock)
-> -		if (core->in_flight_job) {
-> -			if (core->in_flight_job->next_task_idx < core->in_flight_job->task_co=
-unt) {
-> -				rocket_job_hw_submit(core, core->in_flight_job);
-> -				return;
-> -			}
-> -
-> -			iommu_detach_group(NULL, iommu_group_get(core->dev));
-> -			dma_fence_signal(core->in_flight_job->done_fence);
-> -			pm_runtime_put_autosuspend(core->dev);
-> -			core->in_flight_job =3D NULL;
-> -		}
-> +	/*
-> +	 * Claim the in-flight task: the reset path may run concurrently, so
-> +	 * whichever of us wins owns the PM put.
-> +	 */
-> +	task =3D xchg(&core->in_flight_task, NULL);
-
-[Severity: High]
-This is a pre-existing issue, but does writing to these registers before
-claiming the in-flight task risk a hardware fault?
-
-If a timeout occurs concurrently, rocket_reset() can claim the task, drop
-the PM reference, and reset the hardware.
-
-If this threaded IRQ handler then writes to the OPERATION_ENABLE and
-INTERRUPT_CLEAR registers while the device is powered down or mid-reset,
-could it trigger a bus error?
-
-Should the handler claim the task first to guarantee the device is awake?
-
-[ ... ]
-
->  int rocket_ioctl_submit(struct drm_device *dev, void *data, struct drm_f=
-ile *file)
->  {
-[ ... ]
->  	for (i =3D 0; i < args->job_count; i++)
->  		rocket_ioctl_submit_job(dev, file, &jobs[i]);
-> =20
->  exit:
->  	kvfree(jobs);
-> =20
->  	return ret;
->  }
-
-[Severity: High]
-This is a pre-existing issue, but is the return value of
-rocket_ioctl_submit_job() intentionally ignored here?
-
-If an individual job fails to submit due to an out-of-memory error or
-invalid BO handles, the failure is neither checked nor accumulated.
-
-Since user space will receive a success return code (ret =3D 0), does this
-hide submission failures?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605-rocket-per=
--task-jobs-v1-0-e3319adf3c49@igalia.com?part=3D2
+On 6/4/26 12:56, Mario Limonciello wrote:
+>
+>
+> On 6/4/26 14:54, Lizhi Hou wrote:
+>> When both PASID and force_iova are disabled, carveout memory should be
+>> used. Reject buffer allocations that cannot use carveout memory in this
+>> configuration and return an error.
+>>
+>> Fixes: 3cc5d7a59519 ("accel/amdxdna: Add carveout memory support for 
+>> non-IOMMU systems")
+>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+>> ---
+>>   drivers/accel/amdxdna/amdxdna_pci_drv.c | 8 +++++++-
+>>   1 file changed, 7 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c 
+>> b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+>> index c677293c1ae7..1f066ed8d236 100644
+>> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
+>> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+>> @@ -120,8 +120,14 @@ static int amdxdna_drm_open(struct drm_device 
+>> *ddev, struct drm_file *filp)
+>>         if (!amdxdna_iova_on(xdna)) {
+>>           /* No need to fail open since user may use pa + carveout 
+>> later. */
+>> -        if (amdxdna_sva_init(client))
+>> +        if (amdxdna_sva_init(client)) {
+>>               XDNA_WARN(xdna, "PASID not available for pid %d", 
+>> client->pid);
+>> +            if (!amdxdna_use_carveout(xdna)) {
+>> +                XDNA_ERR(xdna, "PASID unavailable and carveout not 
+>> configured");
+>> +                kfree(client);
+>> +                return -EINVAL;
+>> +            }
+>> +        }
+>>       }
+>>       mmgrab(client->mm);
+>>       init_srcu_struct(&client->hwctx_srcu);
+>
