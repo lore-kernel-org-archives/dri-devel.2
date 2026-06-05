@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C26DCD8C81
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 13:35:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EC20CD8C83
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 13:35:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 768BA11A8AB;
-	Fri,  5 Jun 2026 13:35:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB05D11A894;
+	Fri,  5 Jun 2026 13:35:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RLIzQAOX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KC+dlDQu";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7038A112B53
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 13:35:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58B0C11A8A9
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 13:35:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2102E41825;
- Fri,  5 Jun 2026 13:35:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52E461F0089B;
- Fri,  5 Jun 2026 13:35:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2E55043B4C;
+ Fri,  5 Jun 2026 13:35:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15E7F1F0089D;
+ Fri,  5 Jun 2026 13:35:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780666551;
+ s=k20260515; t=1780666553;
  bh=J7xoJI8ZQKXEZmPwD70InQg1kBZths2uP7Ky23DxVzU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=RLIzQAOXSv4hE7ojVXJugD+1SN+MumAULe7by1699ebbTRp7wPsmhGDLhwNMftGnh
- LApa/yoXAg9mTheG0LCKlMV0uVBhWUJ1q9wWK2SsbM7L3qt6PUs83WYBlrhikTUnoI
- JzsJ8fEMtLCKpXqBcaCQ4qGF2gyna2U1mBAT/Pa8TDuA33/C6v6/Ndj/bplsC2TlTP
- 8Nt816jhJh6xdl4W8Ecy/CS+Zc7AhKVOYoxlBy+eVNT7hie5WPDnchWNtHNiCGOGPB
- aZWtrm/a0PD6sgmsJGgrDRbjMtw7cx+b8iautky6RvMLtJb+dw86emsUacr5A9KpCQ
- 0wAgHmLmL4pAg==
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
- by mailfauth.phl.internal (Postfix) with ESMTP id 99776F4006F;
- Fri,  5 Jun 2026 09:35:49 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-03.internal (MEProxy); Fri, 05 Jun 2026 09:35:49 -0400
-X-ME-Sender: <xms:tdAiaqMMps2ngAzhNVhv6-mfNnSw0HdnSz0c6En6dAz-SnViC0Nbng>
- <xme:tdAialZU4aJrQiG_ly6ORom1xtzKhWsfY_1xOYe9LX15Pk91PGXFrLi4CKRYz6ipj
- 9fJJxUosJZhl4-gKEL8YN1cFgd3PIaRkgtvb7H_0jcjLOeUASnbTQ>
-X-ME-Received: <xmr:tdAiaoh33CkpEGCgUbg23_m2V2k_InJIg4reLwTYI260mYvzCz-WJFNlQn4>
+ b=KC+dlDQuLqP3rCxErxpehrd3GNGE3Vr0cTPgWZSw6PUJxdbN+0G0p0UdThXjimlJn
+ +LYiEFSfMV678aDl9NPwnj0wiblRyUXunenVKEUldJerWiCpV/M0DtOGalY/xbTI4K
+ R8L/WJeyh567HlbuTzPiCpo7V4GakqK/hScoGCp57ji37Wm/1b8dqWxkHG3KYg4hrX
+ umGAXuRN4afcDy7tMpplcZXMK8SR2/Jpx/k400iGbVaU34s0BdQ84Sr2zg3K9g1lXX
+ YZ0AeI/SKm48a+e4vqlaF3Z/S6GQr+TdDBkC65NOIfGNOod+po10Hd5gMvW0BRsKa+
+ To3F+BJJQLjRA==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailfauth.phl.internal (Postfix) with ESMTP id 62C58F40073;
+ Fri,  5 Jun 2026 09:35:51 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-02.internal (MEProxy); Fri, 05 Jun 2026 09:35:51 -0400
+X-ME-Sender: <xms:t9Aiai47PuS_pOtnW8X385FiiuUmYlH9UHzqY1Jdra5sGYVxX0gGxA>
+ <xme:t9AiaoUHom0ziRQ-x-W6GD0aPRh6hdPO6mACneZWpgQqetcPHqctBGnm9jH3GBRol
+ gvUw2_oG05hnpFe3OAaGzH2IV1RKiZb7_6oZFNNRVx1wcHC-b5dxQ>
+X-ME-Received: <xmr:t9Aiaov8OJAxJZXuy0B4_U3zmlzdHuIIX1An3H4HJ4xFDOLHheWlPIpgjPM>
 X-ME-Proxy-Cause: dmFkZTEiXmK80I+r4b+5zY/r99GUAlO/A1JeBVvrzdPJND7AxnXROcGIdrV5+IW/GIICbk
  HTeSUzo2jG7T3ubuXDYawvMsJmw7SeRzXaVjmYhKpesaWDi/jHlBwDSw7cUJtOL4Zml+HR
  MdH91GjghnCvkbpZdNzjjo1bSZDmeAE+i20ut4ugSeq7SenIcQ9DZOfghRt4xUUc5uh5PM
  SgAN181ZxF1oco7PoJ9ho3wb1kPOXsEzQT5UZv0CFFx1JIqpGEiANmmsdwoALURinC3es0
- +e8I9nc2247wfagtNBtbgyVV8BvBRc03DGsTzzDlNTrxNmxxQ9+IH7k1Xg1Flh6mzaY9dd
- 3j2HutalZEtkeyprDlRU9NKhJ58LI3mLCHfCFgQmnG8PQOAMLqGwkAsaebO44mK2vlmnuR
- MYFHdgugU/DvFz/CsV1BMgjxu2YWfHY6dIBjFGFfCo2b6Xjw2QrWJdS8Cbk5cZhEtbfaXp
- at5DrHXdm5HOWa4n7c5BxK7E+OBH3DkzTtugpB2k3UIWu4hVz5MxXmr3BagAdtITLDJQD/
- JSeHg9SfgIo764hoaOP43Tt18sx9L0beNvDwrs016gQNdq0dFaZs0o0pblPddusYiVOxGW
- AUTPP59waZPr0Ka3jmv3nLYXE/JZVbgYPX9x3z4UPuAgW/ns2QILb4zckoVQ
-X-ME-Proxy: <xmx:tdAiahMx-MQlrgneUVGetN-OmpQD-AtYPtDnPjLfMyBEUj5uz-TWtw>
- <xmx:tdAiaitcK-XtPoFOg98hqikvF29OIRuH1LlQX2EiFHeXgqXJwnNpvg>
- <xmx:tdAiak3XaCAfJXcmzCfZDCF1Uzit4TpyUnGvQXwjeu1Cb0n_9bSpsQ>
- <xmx:tdAiapzO8BOKQ8qpdN8Ma0GmtFrCvyo1hlGZbEg-S1cXMQlKe-ED1Q>
- <xmx:tdAiag6jwjiJrPUq-nIa5en7kkXiDZa6Wyx0W3dMg1dU_B4Hxh8G8I0L>
+ +e8I9nc2247wfagtNBtbgyVV8BvBRc03DGsTzzDlNTrxNmxxQ9+IH7k1Xg1Flh6mzaY9bd
+ AEOM693ILT2slEnUuoWD3iq+rjQAzyNUfHpc9WNRNUfsHLrNji0x8w3uLNBc6+3ow07+Dk
+ SThl9X6VaY++QguKiFA37qMh2ASMDg/GN+HC+gkV+Enk9JIe/G8JD8fL7COLcBvKe9Pd4Y
+ Y/pz1AXQuX3+LyaSHVKaG7PbY1QP84DdL2fbreWykz7+tMN/L34WkvzRSUoArdQLE3Izbw
+ /NzdSmSLSeIeQ2A9wGqAKXuMlS0s5vywlwasYjNUKfk7zqhTktXnUqE3hD0nBt8EVGPDLe
+ Xr7K221pN74VQYwYTrRRAfbbXvcTzF4fhG8Q7jry/h9aW3T2dWU6y2Gz2Fog
+X-ME-Proxy: <xmx:t9AialqFobJD1-taIGqQ5rF803ibYvZq_Iq0GsJv22jARJixrT2a3w>
+ <xmx:t9AiamYIcHsEru1uYBPmLtrirdTHb7yBIQmr_B77-_VdfLfwtSiTzA>
+ <xmx:t9Aiamwux77QC8130QWbZx17oP84KxvLQ-tSATGr2lt8bv9TpqsiHQ>
+ <xmx:t9Aias_A9XY1vi_DeAv_qtz5krRhwii5tWkVhnkjIn66ocpmIuiU6Q>
+ <xmx:t9AiasWUe1TFw5eR3R8kiNLbOaSJ0Ot-SgFrWRCCVzvsI7TVCKz22o2X>
 Feedback-ID: i8dbe485b:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 5 Jun 2026 09:35:48 -0400 (EDT)
+ 5 Jun 2026 09:35:50 -0400 (EDT)
 From: Boqun Feng <boqun@kernel.org>
 To: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
  rcu@vger.kernel.org
@@ -82,9 +82,9 @@ Cc: Miguel Ojeda <ojeda@kernel.org>,	Boqun Feng <boqun@kernel.org>,
  Philipp Stanner <phasta@kernel.org>,	Lyude Paul <lyude@redhat.com>,
  Daniel Almeida <daniel.almeida@collabora.com>,
  =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Subject: [PATCH 1/3] rust: rcu: add RcuBox type
-Date: Fri,  5 Jun 2026 06:35:37 -0700
-Message-ID: <20260605133541.22569-2-boqun@kernel.org>
+Subject: [PATCH 1/3] rust: rcu: Add RcuBox type
+Date: Fri,  5 Jun 2026 06:35:38 -0700
+Message-ID: <20260605133541.22569-3-boqun@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260605133541.22569-1-boqun@kernel.org>
 References: <20260605133541.22569-1-boqun@kernel.org>
