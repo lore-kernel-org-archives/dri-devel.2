@@ -4,44 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47E95CD6E79
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 14:20:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A705FCD6E79
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 14:20:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96D4411A8CC;
-	Fri,  5 Jun 2026 14:20:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B6A511A8D4;
+	Fri,  5 Jun 2026 14:20:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="DC0zRsMK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="d6bDNQUP";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 5156611A8CC
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 14:20:03 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D6E7B4D05
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 07:19:57 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 80AFA3F7D8
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 07:20:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1780669202; bh=WKtWN3MR+ErhcemB5UOy69xqNA7Dq7bg3jg3xIocdnI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DC0zRsMKaCo1pR1xKdUPw/dSm+ry99snDGEyYcXuABl8id2mmMxkmj4BotvauIoXc
- 9opyYumpq7tJbMx6dqVnk6NP9fFm1faTdUMzAeoiXCChJbzBYozhrSPxGimXYLLy8x
- cs/ZwBNvKMMKXa0eGH2muOGjEkSsQ79WysH3t1N8=
-Date: Fri, 5 Jun 2026 15:20:00 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Gustavo Kenji =?utf-8?B?TWVuZG9uw6dh?= Kaneko <kaneko.dev@pm.me>
-Cc: dri-devel@lists.freedesktop.org, airlied@gmail.com, simona@ffwll.ch,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] drm/arm/malidp: fix ignored clk_prepare_enable() in
- runtime PM resume
-Message-ID: <aiLbEESfZW7zU_Mz@e142607>
-References: <20260531052945.65117-1-kaneko.dev@pm.me>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B5DE11A8D4
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 14:20:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id D1AB543B4C;
+ Fri,  5 Jun 2026 14:20:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C454C1F0089C;
+ Fri,  5 Jun 2026 14:20:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780669244;
+ bh=rZm80SCqfNzEoYvnBtG8GQgboPdoaSiQU7oZ5wE97mI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=d6bDNQUPgpcbZgQiqdR7qpbaVpZqpX22yPzIfuJ+X+GJfUbzwzTmhRuFueQZrfIRJ
+ qxAYnTx7PSD0kxAIrvwBFLS0tADeNc8ISDI/ttUfp3PuPFPJm1KN14jN4sB6gBG/3Y
+ D3bUHFjFi4zKYwkXGsgm7mJvlUoXjGzzhmsJ67QqBI1WH64oZLV3DALzl2SrJvt56j
+ 4rt427WTisuUzs/KQveAhMuNFDFthyZOV9ep9fxi4DeqU/w1vvIQQ3NTAGZ5xtpgMt
+ sCnlDWere+e/wn3rpGd8BEgRxwFmJ5ECnsmG0x5jGfDZrRX7d48ldKejKhWolQuCEk
+ NxT4/9TkH5ojA==
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfauth.phl.internal (Postfix) with ESMTP id 11C11F4007E;
+ Fri,  5 Jun 2026 10:20:43 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Fri, 05 Jun 2026 10:20:43 -0400
+X-ME-Sender: <xms:Otsiakb3VgscOwQzObb9TnmCmdWfqsPbh1aKv6Ob1Gd4GnMm7g45cg>
+ <xme:OtsiaswjOPU2H6OSi5TRRzTWJN1oxdosSHMWKU_xFLsbRBHQpEW6NqVq9E3l47Ar_
+ _lgTF2cByW95QA75xv5ldkBLiujDQu1BJ0vYDNKrvTVE-_5bXKSjw>
+X-ME-Received: <xmr:Otsiaq96ApZ9LuO6DemZFypZXDeykSN9R4ZWEMcOu325AV7T_b7aEirzjVs>
+X-ME-Proxy-Cause: dmFkZTGmnYP5N/Y3347uBlTz0c7MclhskUD680CYIEvbldBBZOlbo8Ym/SOIKA+wnzZwqu
+ zergSXkVsymVPFOH0pDne+qgzS+nkBAu5N0axf3sYZRo2nvTNCUjtPm1MMQssycnGEvk2z
+ yaI544/RtZ8irsNtuXAmHJZIpjSaeCpLMs7XgEV+/rn1pCm2lHwIKR5NxoLv/Kp7KTgG1Z
+ lLY1vZh76vKJ+oN17gUDdN0Th/LrUAsJPcjSsE776bPWq7CPgQxyXYzm+Vjk8Dm/1y02fb
+ puunQqufAKdZiWOXFH4RfjlNHdhu4yzA3qQXzyuuNqM/+68+zvAuDsnJfYTo4B5CI11KSz
+ 0Z/h4GuSIxa5oqGjjmyx76Enz2u2eUx7GXT1PNjs4iwrlg39TUG6FjeYF87UoM4WeCLG/r
+ xouuK/m/Gk1nqyzUOYDGO2U+yhP3S8w2gDavQX3jstdmU+W0AE2r+P4S3TBS1qziQ3CO5x
+ 8+wy91h1pK5gBNMtQgKVrEL+9GPYeWmYLnGblXrzWiFcUFuEJ8RjuWpZ2Roa3wu45wsPGh
+ j2ArhLYXf5wYyOqLiXH6+dkO55yhJCVHrgy+4O67SQ6ZWH6nc5ZcdT7S5//okCwxaE7/Mt
+ 4OEXVNhzWwVZuRMC7T+q6xEjTLQdr8IO4/n51Tj/DiPrTPnbPzY2g+Kmowwg
+X-ME-Proxy: <xmx:OtsiaiX5ZZYYUUWBD0GFrR8lNA7Remyu638zwCJRWBzviig9GfKXew>
+ <xmx:O9siarOe-qdwbCXDYWcMKzCkwHhGyJk4yeG00Y1xAGgqgVNz9avZTQ>
+ <xmx:O9siaszJbtt1LQ2ng-3qPyR_1TRzEwSqe6XFTozbY0hJbDwn4etASw>
+ <xmx:O9siajPKFsXAgrpE11c85DtWGygRvW1UO8lxWAUqZ5z_ine-CUmJow>
+ <xmx:O9siaii1Yx2gN81YC7CB5PuXo-Q7xO6ltrA6zbuXUtHBh_gZiER7_fFK>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 5 Jun 2026 10:20:42 -0400 (EDT)
+Date: Fri, 5 Jun 2026 07:20:41 -0700
+From: Boqun Feng <boqun@kernel.org>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ rcu@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,	Danilo Krummrich <dakr@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Andrew Ballance <andrewjballance@gmail.com>,
+ "Paul E. McKenney" <paulmck@kernel.org>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+ Joel Fernandes <joelagnelf@nvidia.com>,
+ Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Lai Jiangshan <jiangshanlai@gmail.com>,	Zqiang <qiang.zhang@linux.dev>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ maple-tree@lists.infradead.org, linux-mm@kvack.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Philipp Stanner <phasta@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>
+Subject: Re: [RFC PATCH 3/3] rust: rcu: Introduce RcuFreeBox
+Message-ID: <aiLbOd9BkRrrzauk@tardis-2.local>
+References: <20260605133541.22569-1-boqun@kernel.org>
+ <20260605133541.22569-6-boqun@kernel.org>
+ <aiLXWHg22P6OTb7O@google.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260531052945.65117-1-kaneko.dev@pm.me>
+In-Reply-To: <aiLXWHg22P6OTb7O@google.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,67 +107,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, May 31, 2026 at 05:29:57AM +0000, Gustavo Kenji Mendonça Kaneko wrote:
-> malidp_runtime_pm_resume() calls clk_prepare_enable() three times
-> without checking the return value. If any clock fails to enable, the
-> driver silently proceeds with unclocked hardware, leading to undefined
-> behavior.
+On Fri, Jun 05, 2026 at 02:04:08PM +0000, Alice Ryhl wrote:
+> On Fri, Jun 05, 2026 at 06:35:41AM -0700, Boqun Feng wrote:
+> > The current RcuBox will call the `drop()` function after a grace period
+> > inside an RCU callback. This suffices for maintaining a RCU-protected
+> > object:
+> > 
+> >   RcuBox::drop():
+> >     call_rcu(
+> >       |..| { // <- call back after one grace period.
+> >         T::drop(); // <- call the destructor of the inner object.
+> >       }
+> >     )
+> > 
+> > However, to support a different RCU usage pattern as below we need to
+> > extend RcuBox:
+> > 
+> > 1. clean up the object, and unshare it from future RCU readers.
+> > 2. wait for an RCU grace period.
+> > 3. no other RCU readers, we can free the memory.
+> > 
+> > An `RcuFreeBox<T: RcuFreeSafe>` is introduced to provide support for
+> > this:
+> > 
+> >   RcuFreeBox::drop():
+> >     T::drop_before_gp(); // clean up and ushare.
+> >     kfree_call_rcu(..);  // free it after one grace period.
+> > 
+> > Signed-off-by: Boqun Feng <boqun@kernel.org>
+> > ---
+> >  rust/kernel/sync/rcu.rs         | 31 +++++++++++++++
+> >  rust/kernel/sync/rcu/rcu_box.rs | 68 +++++++++++++++++++++++++++++++--
+> >  2 files changed, 95 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/rust/kernel/sync/rcu.rs b/rust/kernel/sync/rcu.rs
+> > index 7da6b8d22277..7c26591bb318 100644
+> > --- a/rust/kernel/sync/rcu.rs
+> > +++ b/rust/kernel/sync/rcu.rs
+> > @@ -4,6 +4,8 @@
+> >  //!
+> >  //! C header: [`include/linux/rcupdate.h`](srctree/include/linux/rcupdate.h)
+> >  
+> > +use core::pin::Pin;
+> > +
+> >  use crate::{
+> >      bindings,
+> >      types::{
+> > @@ -82,3 +84,32 @@ pub trait ForeignOwnableRcu: ForeignOwnable {
+> >      /// [`from_foreign`]: ForeignOwnable::from_foreign
+> >      unsafe fn rcu_borrow<'a>(ptr: *mut ffi::c_void) -> Self::RcuBorrowed<'a>;
+> >  }
+> > +
+> > +/// Declares a struct is safe to free after a grace period if all readers are guarded by RCU.
+> > +///
+> > +/// # Safety
+> > +///
+> > +/// Implementation must guarantee `drop_before_gp()` makes sure no future RCU reader will access
+> > +/// any part of [`Self`], as a result, after `drop_before_gp()` return + one grace period, no RCU
+> > +/// reader will be on the object, and it's safe to free it.
+> > +///
+> > +/// Notes for implementators: implementing this trait in general requires `Self` being a
+> > +/// [`UnsafePinned`], i.e. a `&mut Self` is not a noalias reference if `Self` has non-trivial
+> > +/// `drop()` function.
+> > +pub unsafe trait RcuFreeSafe {
+> > +    fn drop_before_gp(self: Pin<&mut Self>);
+> > +}
 > 
-> Use clk_bulk_prepare_enable() which atomically enables all clocks and
-> automatically rolls back successfully enabled clocks on failure. This
-> is consistent with how the suspend path already uses
-> clk_bulk_disable_unprepare() in malidp_runtime_pm_suspend().
+> Should this have an associated type for the rcu-safe view?
+> 
+> pub unsafe trait RcuFreeSafe {
+>     type RcuView<'a>;
+> 
+>     /// Access this value in a manner that is safe after
+>     /// `drop_before_gp` for one grace period.
+>     fn rcu_view<'a>(self: Pin<&'a Self>, _rcu: &'a RcuGuard) -> Self::RcuView<'a>;
+> 
+>     /// Drop this value in a manner where it may still be accessed via
+>     /// `rcu_view` for one grace period.
+>     ///
+>     /// # Safety
+>     ///
+>     /// All other accesses to this value must happen before the call to this
+>     /// method, except for accesses using `rcu_view`.
+>     fn drop_before_gp(self: Pin<&mut Self>);
+> }
+> 
+> The idea being that once you call `drop_before_gp()`, the value
+> immediately becomes unusable as the type itself, but you can still use
+> it via `rcu_view`. The `RcuView` type can then be a type that has a
+> subset of the type's methods that is safe to use for one grace period
+> after `drop_before_gp`.
+> 
+> If you define the trait like this, then PollCondVar becomes RcuFreeSafe.
+> It can't be RcuFreeSafe today because you must not create new waiters after
+> `drop_before_gp()` is called. With this modified trait, it can simply
+> not provide methods for registering new waiters from the RcuView type.
+> 
 
-I can't see where you can find other calls to clk_buld_xxxx() in the malidp
-code. What sort of code review have you done here?
+Good point! But I guess I could keep RcuFreeSafe as it is but remove the
+`RcuFreeSafe::with_rcu()`, and this should be sufficient for
+PollCondVar. I do want to wait for a meaningful usage of `rcu_view()` to
+add that, but I think your idea of that is great. Or maybe you have a
+potential usage in mind?
 
-Best regards,
-Liviu
+Regards,
+Boqun
 
-> 
-> This issue was found by code review without access to Mali DP hardware.
-> 
-> Signed-off-by: Gustavo Kenji Mendonça Kaneko <kaneko.dev@pm.me>
-> ---
->  drivers/gpu/drm/arm/malidp_drv.c | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/arm/malidp_drv.c b/drivers/gpu/drm/arm/malidp_drv.c
-> index b765f6c9eea4..1e4336c3a2fa 100644
-> --- a/drivers/gpu/drm/arm/malidp_drv.c
-> +++ b/drivers/gpu/drm/arm/malidp_drv.c
-> @@ -689,10 +689,17 @@ static int malidp_runtime_pm_resume(struct device *dev)
->  	struct drm_device *drm = dev_get_drvdata(dev);
->  	struct malidp_drm *malidp = drm_to_malidp(drm);
->  	struct malidp_hw_device *hwdev = malidp->dev;
-> +	struct clk_bulk_data clks[] = {
-> +		{ .clk = hwdev->pclk },
-> +		{ .clk = hwdev->aclk },
-> +		{ .clk = hwdev->mclk },
-> +	};
-> +	int err;
-> +
-> +	err = clk_bulk_prepare_enable(ARRAY_SIZE(clks), clks);
-> +	if (err)
-> +		return err;
->  
-> -	clk_prepare_enable(hwdev->pclk);
-> -	clk_prepare_enable(hwdev->aclk);
-> -	clk_prepare_enable(hwdev->mclk);
->  	hwdev->pm_suspended = false;
->  	malidp_de_irq_hw_init(hwdev);
->  	malidp_se_irq_hw_init(hwdev);
-> -- 
-> 2.54.0
-> 
-> 
-
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+> Alice
