@@ -4,87 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C708ECD8C8B
-	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 07:19:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EE20CD8C8B
+	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 07:19:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EF57112D5F;
-	Sat,  6 Jun 2026 07:19:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A4AA112D63;
+	Sat,  6 Jun 2026 07:19:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sWXqNCvO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="O5sDAOeR";
 	dkim-atps=neutral
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C8F211A7D3
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 12:11:24 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-36dac5d5d05so940647a91.2
- for <dri-devel@lists.freedesktop.org>; Fri, 05 Jun 2026 05:11:24 -0700 (PDT)
+Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com
+ [209.85.222.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DA1F10E4D6
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 16:02:59 +0000 (UTC)
+Received: by mail-ua1-f43.google.com with SMTP id
+ a1e0cc1a2514c-963ebce7076so455385241.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 05 Jun 2026 09:02:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780661484; x=1781266284; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1780675378; x=1781280178; darn=lists.freedesktop.org;
+ h=to:references:message-id:content-transfer-encoding:cc:date
+ :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=5RoN9ngqvHdCpUoddEnCEeh8fZSHGeByQdCtjfNZBdU=;
- b=sWXqNCvOMNLOImcGOEOAgsIREIYvrFREGx7PrDVa2YU2rEc2X67TbErgwVT10KUqN7
- 2cdy0YGm2n9xdUDGZeY8hYhnFU0U3LBvHPm5o9ap2fyItwBYxJCRBuzLZgFlK372SDG2
- 5n47KdjCWCsl8nucBHSwuKGHtGxcDM3kQOU1LV/hmuHWDEb91i6d+JTrIFtjS5RELqsv
- I39mqOmQx0/DVyWJ1FhwtPxWzTL7rWNKd5uQskFddqs812pwVB6lGiGA5B3NALcq/gM0
- 5Si3nf3hKCGL8nyqAWqk5vcISvgpRRmsw/y4lPzxx6F2NsTVRa2+gaAjQWNm0aCJ/XDh
- KcLw==
+ bh=GMM8rItwjOBKBZTiVFQDKLbinjfJL7SeunmDuhS3L9o=;
+ b=O5sDAOeRvb5JdZUmdugayfdDvh6W14YYRxAJJ44RBhtQx3kLmGw14gXLronXHoQ5Vl
+ 6E8ssWWwuhowBGnoQCpxMDLKxlHfI+aMdFMcDFu5F7jzTru+5p6WiKqzdMzOU/9YRWZ7
+ JZHAIPoadZLJ+zVUuXZvQ70s01by4aAcBhbV1IkyDyYeXUnAF5Xin7Vyh99yyrsEPiET
+ z2oi7HEB0oK88PkvphkiUNICkS75r+ZKy/H3U5VOZ+86husNiKP2J/0Ci8JGMvevv4uz
+ 8ICVG7RFIxtwtjCOpIg6fswvthXAYbnkwZbxH50HZx+licIPx2SAkC+fq70Fgf7b1KRd
+ q3ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780661484; x=1781266284;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=5RoN9ngqvHdCpUoddEnCEeh8fZSHGeByQdCtjfNZBdU=;
- b=nPapBCAWCKD/PngI076yVbHe2X+gaYAUBsQlvcl/Uh1fKyYEOcWioi9ycET15vnKpq
- v33GDXYnSdH9PqkQs5E+M/XRX4/EF6E5RU7rtDkoQ3bGefnvwvnHEsZTh79526piczCR
- bbyu73u3qALR20/O3HmdB1iXHXxB54XguZunDwTlSHGGwQIAGQcsfQFadktZYi6YT1U5
- oJ6n4JxC48Rm3GthxJSbQU7zSZQ25D6ztsts0CYbyjolDEzlS9SYLDaE7w8X6sIevznp
- DL38SDD82Keo22vJ+WqLul/MJe9f+Bc5eB815j0UNU19MiRhzZlmG8js/SXglw0y5llw
- 4CAA==
+ d=1e100.net; s=20251104; t=1780675378; x=1781280178;
+ h=to:references:message-id:content-transfer-encoding:cc:date
+ :in-reply-to:from:subject:mime-version:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=GMM8rItwjOBKBZTiVFQDKLbinjfJL7SeunmDuhS3L9o=;
+ b=BgzTliSVmAh2r6s0azBfiJMrFKmTIU5PIOWso7GOeHM1ZSUX9SjL6uwz5tbRVSLqWn
+ TQvNaHFK5chRolZnfabSDhzl38fLfI7B0PUBd1XrvRtl1EA6ExMKeHDZMoGNDAnocTmo
+ 8m3ejKoKZYR8MRc7ie45FGuNFMLqZWa0Y/8arARrZt4YBps75akixv/qzK0QLBRHx4rn
+ TpMM4ZqQb+nFio8jzKhKbHetBO2Y4xOJqDt9+EQjSovd6fAoOYRyLYnYgBJdj/WFhtDV
+ tEFHfHL1Ny33YHrPWUQ6CMmYq80NHjFW2zg40B6O7km4ciYYYKLDmDPuEuLfxXUIfWGA
+ 3+CQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+1Dkybqor+HqW8wzSIBhbS9bjW/W12/1buze7vWzMFAipfbH+tmgLyEA9xn8hPZTC7s2RBCwZQzKQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzE7IxmoFTtFz7vUuvS/NtOCX7ifx2lR8JqedriCmyX3SHmD8vK
- nh3V/hLUdmYqJzsEjA46+oyObLVsMypxu+ziEDBNJnBPuunRUzVw8aY0
-X-Gm-Gg: Acq92OEx7lGXwCcYif+3foh9CpT4b22sCGAzcZwGe3fgAas/TR9l2kIJ/+i/t0lpgXh
- yte7WQVVruBc4h7bfb0NZrWJzUzgNPxiGZLXVJf5INYHNJ/vWVjb60ryTS9Y3l4gqFsu53RD4+Y
- QwAiMBSm9B3kzMVhncpD1U7wwuhd/B8IZ+BzEyl2c15pG1ss1valCQGZTWs9KYTqcJ2J9qvpvvd
- l4k36/2bQa4KJ2VWrvLj7YyX04KkcUZhClEAbUtWJygRvW1X34t81/jmdcy9xvdFwnfIfHEKj7V
- 0ey0aGdVzK4bKOQiLkoGlx05ObTf2SGX5f8+Fj8LTuZunsLBJ7oO5FNuR3XSfMDUZgkwrlVeFmo
- uN4iQ4XOXxjZ6r/4VoP31ufrXz4wPJgaz996ZFFAf8E67nRNcnxbnenRZGstVs9m1rsFSVQeY+j
- /BXor1M2vyDMyTausxImLOyVC/Z3dFBBqxLORwzp+jnP26TykSuE6kl879vKrgpaCX1NpVzBFkk
- 2cMvdrkd6ybtqaqNuVWj7w4URAPREayvDP0VsRdRYGN7wqHMcjceA==
-X-Received: by 2002:a17:90a:d40b:b0:36b:9798:4f6a with SMTP id
- 98e67ed59e1d1-370eee04b8cmr3336521a91.10.1780661483873; 
- Fri, 05 Jun 2026 05:11:23 -0700 (PDT)
-Received: from lord-daniel-VivoBook-ASUSLaptop-K3502ZA-S3502ZA..
- ([2405:201:2011:e829:4eb5:db6e:9a22:fd31])
+ AFNElJ/cOSbM1Rj19/Vz0qzSX2wVGO5xayG3QqAOWcn/MFxknd8YsIewxJUNSvM85ZlRXW7PFwyN1Oe2PNc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxhu04Zyr/8prk7E77cF+DQz1PfoyvbT3urXhTH7MxCZnySnHPk
+ Uc5YEKDqOG3Ffk2S81EEa27KhqkRaRn4QgjiY6L42HhWWm+KFALsmiLr
+X-Gm-Gg: Acq92OGOxNweZZJCgd9/EF7zB2AoIJx5F1ppqv/0jonVIlcTGnBRuZd7HaYzpnJcHQB
+ BiBQB6vZ71YSyyXOGQ+5M97xynyXEVuUh1H3aT4B1aNT10l6msuOoHrhEy9n5tsDUwVpR85g5/Q
+ 7WuXnZYVEUvY5qgUK1P0Jg/02ayNVj73mchVRXRufDqBhfuQPOimA6Vk0LYpHwLCoc4s1uDUivN
+ ojIfQsEdxP7Gm+hp0sL7hZYHs6lOKlLagnbC3ETs6ALNNq9CWAJ6F5qqPOzFeHGbEbTp4faOUD2
+ kIzM868Uadtrs6U1Q1QAoDlvEHAuK9DUrPUZVd9126XqCbj+ummrgdrF8jrHx19gE1vOCCeVzTc
+ 4D0VSlORv1c2S5syNgLWzG3Z6GodLACyitVnOrM+/WpmI/Iux97yydMEtU9AwzeYhdrhVg/iIX1
+ PJsFH55lf5jZVXP539iusJWMdufAwE1LPqmaUy6WvpeEcNQ9WTSAPNuxRQQdSbhKeJNjj9x0Zx
+X-Received: by 2002:a05:6122:3d45:b0:573:a779:62cf with SMTP id
+ 71dfb90a1353d-5ac4f952082mr2315135e0c.7.1780675378285; 
+ Fri, 05 Jun 2026 09:02:58 -0700 (PDT)
+Received: from smtpclient.apple ([2804:7f1:c241:abe4:8c1d:3d1b:d7cb:e7e9])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-36f6bf903fasm6300497a91.2.2026.06.05.05.11.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Jun 2026 05:11:23 -0700 (PDT)
-From: Piyush Patle <piyushpatle228@gmail.com>
-To: Marek Vasut <marek.vasut@mailbox.org>,
-	dri-devel@lists.freedesktop.org
-Cc: Liu Ying <victor.liu@nxp.com>, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, Shawn Guo <shawnguo@kernel.org>,
- Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lucas Stach <l.stach@pengutronix.de>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Abel Vesa <abelvesa@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>
-Subject: Re: [PATCH 00/39] Add i.MX95 DPU/DSI/LVDS support
-Date: Fri,  5 Jun 2026 17:41:05 +0530
-Message-ID: <20260605121112.27866-1-piyushpatle228@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20251011170213.128907-1-marek.vasut@mailbox.org>
-References: <20251011170213.128907-1-marek.vasut@mailbox.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+ a1e0cc1a2514c-96413f9afe7sm6908115241.6.2026.06.05.09.02.48
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 05 Jun 2026 09:02:57 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH 3/4] rust: Add dma_fence abstractions
+From: Daniel Almeida <dwlsalmeida@gmail.com>
+In-Reply-To: <FEFE0522-FD7A-40DE-8B2A-09FE2F33F327@gmail.com>
+Date: Fri, 5 Jun 2026 13:02:36 -0300
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Paul E. McKenney" <paulmck@kernel.org>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+ Joel Fernandes <joelagnelf@nvidia.com>,
+ Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Igor Korotin <igor.korotin@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Krishna Ketan Rai <prafulrai522@gmail.com>,
+ Shankari Anand <shankari.ak0208@gmail.com>, manos@pitsidianak.is,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, rcu@vger.kernel.org
 Content-Transfer-Encoding: quoted-printable
+Message-Id: <48CE71C8-7A67-4D09-84C2-A0B83C32B169@gmail.com>
+References: <20260530143541.229628-2-phasta@kernel.org>
+ <20260530143541.229628-5-phasta@kernel.org>
+ <4F8E8E04-5AB5-4E6B-9194-5FC467E2313F@collabora.com>
+ <20260603191405.4c75badb@fedora-2.home>
+ <09096455-BA79-4E61-AD88-44DA57C5BEA8@gmail.com>
+ <20260604101552.4232733b@fedora-2.home>
+ <8ff2de94a50ed077a4cfe520a081f2b8b438a375.camel@mailbox.org>
+ <FEFE0522-FD7A-40DE-8B2A-09FE2F33F327@gmail.com>
+To: phasta@kernel.org
+X-Mailer: Apple Mail (2.3826.700.81)
 X-Mailman-Approved-At: Sat, 06 Jun 2026 07:19:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,22 +122,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Marek, Liu Ying,=0D
-=0D
-I brought this series up on the i.MX95 15x15 FRDM (IT6263 LVDS-to-HDMI on=0D
-LVDS ch1). It mostly works, but I ran into a few issues around DI routing,=
-=0D
-LVDS format handling, and DC enable sequencing which needed rework before=0D
-HDMI would come up reliably on the board.=0D
-=0D
-I don't see a v2 of the series and things seem to have been quiet since=0D
-November. Are you planning to post an updated version?=0D
-=0D
-I've accumulated a fair amount of rework while getting this running on the=
-=0D
-FRDM. If you're not planning a v2, I can clean things up and send one based=
-=0D
-on the current series.=0D
-=0D
-Thanks,=0D
-Piyush=0D
+
+>>=20
+>>>=20
+>>> So, by passing self by value to the ::callback(), you're basically
+>>> telling users "hey, BTW, don't forget to defer the drop to some
+>>> workqueue if you think it's not atomic-safe". And how can users know
+>>> that the thing they're about to drop can be dropped in atomic =
+context?
+>>> They basically have to audit the ::drop() of all the resources they
+>>> embed in their type implementing FenceCb. Not only that, but they =
+also
+>>> have to design the thing so the deferral of this ::drop() doesn't
+>>> allocate, because, obviously, allocating in atomic context is
+>>> tricky/fallible. AFAIK, none of this can be spot at compile-time (I
+>>> remember Gary/Danilo mentioning that we could teach the klint about
+>>> some of these rules). This would leave us with runtime checks like
+>>> might_sleep(), but most of the C putters (xxx_put(object)) don't =
+have
+>>> might_sleep() in the path where the decref doesn't lead to a =
+refcnt=3D0
+>>> situation.
+>>>=20
+>>> TLDR; Call this PTSD if you want, but this is the sort of bugs I
+>>> struggled with on the C side, and I can predict that the exact same
+>>> will happen in rust drivers if we expose the FenceCb as it is =
+designed
+>>> here and we don't have a way to check the soundness of the FenceCb
+>>> implementations at compile time.
+>>=20
+>> My guess would be that the existence of unsafe-traits is the =
+admission
+>> of Rust that this just cannot be guaranteed by design.
+>>=20
+>> If a driver cannot know whether this or that is safe to drop, then it
+>> would have to defer it's dropping. Or would there be cases where this
+>> also doesn't work?
+>=20
+>=20
+> Although I totally understand where Boris is coming from here, and I =
+agree with
+> him, the reality is that the current &mut self design doesn=E2=80=99t =
+solve this. An
+> unsafe trait could work as a pinky-promise by drivers, which is =
+half-way there.
+>=20
+> What we ideally would like to have is a bound though, something like:
+>=20
+> T: !Drop
+>=20
+> If I recall correctly there were people working to get support for =
+that on
+> Rust? I think there are two things here: !Trait, which is not =
+supported except
+> for !Sized IIRC, and having an auto trait that represents types that =
+implement
+> Drop, similar to Send and Sync.
+>=20
+
+
+In fact, ping the pin-init people here, i.e.: Benno, Gary, etc.=20
+
+What is the magic behind =E2=80=9CMustNotImplDrop=E2=80=9D? Perhaps we =
+could apply that here?
+
+=E2=80=94 Daniel=
