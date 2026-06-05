@@ -4,104 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1A0DCD6E7B
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 08:47:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11098CD6E7B
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 08:48:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0333D11A5F6;
-	Fri,  5 Jun 2026 08:47:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6765E11A5F2;
+	Fri,  5 Jun 2026 08:48:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="kFpQxx6j";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MqyMEOWn";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Fhh4LrbJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rPhR/gNf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VPTREzGE";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE75811A5EF
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 08:47:10 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 306576A7ED;
- Fri,  5 Jun 2026 08:47:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780649229; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=nZA5qkS5xbW9UHiYKI2mdN44MH2LzJK8McXEFj8Pos4=;
- b=kFpQxx6jB0x7clx8kVCHqO5xDsScpXYF6PER1hsSxRaUB5trK1Jc8ZvcNR7NPgNbq+kzFd
- 6IfiooqqvxCDjMQoF20rm4rJESKlyEZFuB5HjGxc8xrmtHfj+Mm0p5BkGrULPF2czOqoYV
- 3Jnw0Q9QTebPY9uHcVFSfRVATvLigtQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780649229;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=nZA5qkS5xbW9UHiYKI2mdN44MH2LzJK8McXEFj8Pos4=;
- b=MqyMEOWndiUE0GDa27UJg2L6EA0QUKtCY1fRfZWpQvVrBi5KYV9+0cI5exHBaUYfu/8Y7V
- zrF01drKT5EuqQBw==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Fhh4LrbJ;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="rPhR/gNf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780649228; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=nZA5qkS5xbW9UHiYKI2mdN44MH2LzJK8McXEFj8Pos4=;
- b=Fhh4LrbJZ/FWvTKTuwzn7TF/nRMptOqfVWoa/Udstv6gWzt0UXWhJ5iyOLXExO880lZGKG
- TO26eTrrNCOQf8hHGhKXlJkbQnNI4Tu7MLWqLfZDyTarjsNA8Ds5x/kcg9SlIQLL69oCxu
- qCuaZ/JblXrlKLG9MPZm2qfeNsvhBsE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780649228;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=nZA5qkS5xbW9UHiYKI2mdN44MH2LzJK8McXEFj8Pos4=;
- b=rPhR/gNfBhCyM5faxGNbyHomUaRlIFgCorSkGBe6ksjaKTagEgLvpWTL6jvzAVvnj8rj8M
- YRWwsQzHAEQRSVCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9D0A6779A8;
- Fri,  5 Jun 2026 08:47:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id yj4YJAuNImrxfQAAD6G6ig
- (envelope-from <pjakobsson@suse.de>); Fri, 05 Jun 2026 08:47:07 +0000
-From: Patrik Jakobsson <pjakobsson@suse.de>
-To: ville.syrjala@linux.intel.com, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Imre Deak <imre.deak@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH RESEND] drm/i915/display: Add quirk for interlane align bit on
- CH7511
-Date: Fri,  5 Jun 2026 10:46:40 +0200
-Message-ID: <20260605084641.50778-1-pjakobsson@suse.de>
-X-Mailer: git-send-email 2.54.0
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
+ [74.125.82.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C35411A5F2
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 08:48:27 +0000 (UTC)
+Received: by mail-dy1-f174.google.com with SMTP id
+ 5a478bee46e88-30741f821cfso197455eec.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 05 Jun 2026 01:48:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780649306; cv=none;
+ d=google.com; s=arc-20240605;
+ b=lZMbEf1cluLPb1Ng20SeRqKlhqYhU8wpr0UmRS2nsSzwqWEZk86Vb1anYostFX2UeS
+ 6EgnA2MJljlbi6c4eA5n8YmgbRfT3V4thHjX2CObvXUmDDWs5S5nYBEuUGgrBQiflD9K
+ rpkniyWYzR33KvHUd4O2Eo3AIt4KNes0LIbO8O7mVR/NaJ2t6Vk3n3bdlH6lOhu2Lmp1
+ gzYmkzCc4Hc0f5N9BLXREOdjvkwJTFCDd+80RG2YA/XLmwZG8LfXpe9QlcpGeBCkWC8e
+ xTkehJL5vkL/HC6xhBwUd1O184IPvlZdx2ZXygT/S3l38N9NHZqVlQ93XVlGOIpaMAOA
+ BW/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=t30JAFeGxUhlx2yZbt8/VaZkSxhoi+xRWFYAKjEhn+g=;
+ fh=f+vvE7qisNl0R7j4oD1S3IkoHF3IaRjl490FpTrOiow=;
+ b=awiChZmrhpNtmwozO3HtR5AILROTLyh9oaRxP60vOcYrk7ZQr0qBESYhJeTJAKS03f
+ l5oS/klQMFubVu47P/TiHwO1mvUqaBwd85lS9C/ZCkHpvXLn8k1vTqZIA4PCtk9ycUZs
+ xu8gIKdwwXxeV6q7CaGcxuuL4NWAuFZp3ppjPI8SGp35/VMjm96LCdhs0ynMWL9O7sEo
+ 4UXODsSVAH6MRZXC0QXmuaG2pYrUEp9paWYbf9wqutF/aZ903yNrXncQY1ulXZahPgAy
+ ZfhYXxB8FSlXi0cSpwgsatgEHmHZb8ZyE0XONF3OU2shWb0/Zgl9nE0g7UYyRcvO1Up7
+ HIEw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780649306; x=1781254106; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=t30JAFeGxUhlx2yZbt8/VaZkSxhoi+xRWFYAKjEhn+g=;
+ b=VPTREzGE+Dm5SE1Z7qoqVTW0osJZjxwZ/UAlVDL3+iZjJnZb5OQ5Gia2JHlkNEytnC
+ lWFVR+ueCGR+D0qRE9vnZ2UwUQDOzqaiuKozymH8+zP/7nvR1FhiStnFBjJj9cvzuNgO
+ 8Yb1cq28WOj/DwqgLHqf4vNXYE9kH37rs52UjtR0/zHYgJLFRQLJb1n5NElxMapu9Snj
+ g215FWLayzb4mS2tKkZ9jv3JGAaKLlQRPyXyOJojp+LDn4+PiGHH62zGp5TJZKwZQ0gg
+ P+CP93yY6poGjSRkJw4ZvOWTXaCNTaP755eeoCbY1rIV/57PqlekoJUjnuIlWs4Klb+/
+ 1eRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780649306; x=1781254106;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=t30JAFeGxUhlx2yZbt8/VaZkSxhoi+xRWFYAKjEhn+g=;
+ b=OiDE+r0FZna9olnKwulbNdPL8iWYbcGWNL6uLveSwta5se3Q1pEg44j8z3XF7gc80C
+ qeWkxmNfhsCvoxIhn82/2Z+69Jio8x2VzSgQE7u06bwnVqwGgqyeMKTobKj4T/4wc6Sl
+ yLrmmvc8QqJEVfI6oayk/hTrm+2nRfTXMIrQh7iTczLDKNxlnjOb5+VefcpvKiPzwP2O
+ s+afKKhj13DB0ZpGIlg9xckM2oFSI+Wm6dSR67KJ/OfAfDZmD/hDtmZb1HH9gXOSWMGA
+ jfvWBXW8UeJZKWPiDDTbU+6rcu8/KtJYFC7NiRULDXL9qOcLZkAQRmMoEUZpypBbxVWe
+ 6oKw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8cDyoeudkmGFxnHgPg7zDk/6VS/ZHlHPW3ZruFUJaNaK7oESb2kVyYwoeLi/A1aoYhQ7bCDojO+OU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx/XqrzgGRHL6Ye7fiv4K0qI4CsTvOF1ei2BX6K5uI5brryTRsE
+ 5mMpH6oTO7akiDMYPPlGJZpulGdtBhA2qA+klakolVDFK6nM6zh9/hsF6EovOw5HCyHq3VZxkuZ
+ plNa9IK+/Q2s1ecGnRUYm47aFYn3Ou1E=
+X-Gm-Gg: Acq92OHsT9zjY/l+7IKQSLtKr7smgjxdB6mD97D1qMUXWj1UPShLsE8xOmue/rod6gB
+ 11k3v/okvczlXkBoad2P/Tz8T5OPSFBZvWeP2XpDLl6jFeWGG2jiIqO6mIfDfBP18D1QtjeK5+j
+ Xb0Z/OfsnKL+4wOiONrW1vRAwFKv18bDrBJC0eiBhUM38Ux7v5DcgL3/JX5FGMs10X9sS5g4fVX
+ OBRqwwteqP4JlbeLoBp7IV/hLrmYb90selDJ4CtneffgQFj0198FV0fTT/Bjp5w9qqRdpZaWov2
+ z30k9KLGrV4yN0AH8IGpEo5fiHUKMOM3Ntbbm2OpySLTqVHNs61oeSg9/8x9Xmoyj4eipk1u/Nv
+ Hr39Q92cqTXZgdFfH91TnPu1qp/eZSGaD9Q==
+X-Received: by 2002:a05:7301:1e4a:b0:2be:298c:a11 with SMTP id
+ 5a478bee46e88-3077b3668c1mr552123eec.3.1780649306414; Fri, 05 Jun 2026
+ 01:48:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- FREEMAIL_TO(0.00)[linux.intel.com,intel.com,ursulin.net,gmail.com,ffwll.ch];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[12]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,suse.de:dkim,suse.de:mid];
- FROM_EQ_ENVFROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 306576A7ED
+References: <20260605-nova-exports-v4-0-e948c287407c@nvidia.com>
+In-Reply-To: <20260605-nova-exports-v4-0-e948c287407c@nvidia.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Fri, 5 Jun 2026 10:48:12 +0200
+X-Gm-Features: AVVi8Cc74TRwhc7yjE46MLUkC2_0K6dWthB_1BctPYhz93WSvkLnW5tntk2yBNE
+Message-ID: <CANiq72m54FU+zqhhGCXC_v2TyBA2LjpgHbU_J=AFfpWZLM_6_w@mail.gmail.com>
+Subject: Re: [PATCH v4 0/6] gpu: drm: nova: enable calling into nova-core
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Timur Tabi <ttabi@nvidia.com>, 
+ Zhi Wang <zhiw@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
+ linux-kbuild@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,89 +119,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When disabling pattern training after successful link training the
-CH7511 bridge incorrectly clears the INTERLANE_ALIGN_DONE bit. This is
-interpreted as link failure when rechecking the link status and triggers
-an endless loop of retraining sequences.
+On Fri, Jun 5, 2026 at 10:32=E2=80=AFAM Alexandre Courbot <acourbot@nvidia.=
+com> wrote:
+>
+> This series is based on `drm-rust-next`. The current revision includes
+> the feedback received on v3. In particular, moving everything to
+> `drivers/gpu/Makefile` simplifies things considerably, and I have tried
+> to align more with what is done in `rust/Makefile`.
 
-This patch adds a quirk to pretend the bit is still set and no
-retraining is needed.
+Thanks for reworking it!
 
-Fixes: 3b3be899fc81 ("drm/i915/dp: Recheck link state after modeset")
-Signed-off-by: Patrik Jakobsson <pjakobsson@suse.de>
----
- drivers/gpu/drm/i915/display/intel_dp.c     |  9 +++++++++
- drivers/gpu/drm/i915/display/intel_quirks.c | 17 +++++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
- 3 files changed, 27 insertions(+)
+It looks indeed way simpler, and is pretty much what tried when we
+discussed this a few months ago (well, speaking from memory), so I am
+glad it works for you.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 85d3aa3b9894..5b269b1f18d7 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -5875,6 +5875,15 @@ intel_dp_needs_link_retrain(struct intel_dp *intel_dp)
- 	if (intel_dp->link.seq_train_failures)
- 		return true;
- 
-+	/*
-+	 * The CH7511 bridge incorrectly clears the INTERLANE_ALIGN_DONE bit
-+	 * when disabling training pattern.
-+	 */
-+	if (intel_has_dpcd_quirk(intel_dp, QUIRK_IGNORE_INTERLANE_ALIGN_BIT)) {
-+		link_status[DP_LANE_ALIGN_STATUS_UPDATED - DP_LANE0_1_STATUS] |=
-+			DP_INTERLANE_ALIGN_DONE;
-+	}
-+
- 	/* Retrain if link not ok */
- 	return !intel_dp_link_ok(intel_dp, link_status) &&
- 		!intel_psr_link_ok(intel_dp);
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 33245f44c0d5..2cec0a945528 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -100,6 +100,14 @@ static void quirk_disable_psr2(struct intel_display *display)
- 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
- }
- 
-+static void quirk_ignore_interlane_align_bit(struct intel_dp *intel_dp)
-+{
-+	struct intel_display *display = to_intel_display(intel_dp);
-+
-+	intel_set_dpcd_quirk(intel_dp, QUIRK_IGNORE_INTERLANE_ALIGN_BIT);
-+	drm_info(display->drm, "Applying ignore interlane align bit quirk\n");
-+}
-+
- struct intel_quirk {
- 	int device;
- 	int subsystem_vendor;
-@@ -286,6 +294,15 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
- 		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
- 		.hook = quirk_disable_edp_panel_replay,
- 	},
-+	/* Nodka TPC6000-C152 */
-+	{
-+		.device = 0x0f31,
-+		.subsystem_vendor = 0x8086,
-+		.subsystem_device = 0x0f31,
-+		.sink_oui = SINK_OUI(0x2b, 0x02, 0xf0),
-+		.sink_device_id = SINK_DEVICE_ID('C', 'H', '7', '5', '1', '1'),
-+		.hook = quirk_ignore_interlane_align_bit,
-+	},
- };
- 
- void intel_init_quirks(struct intel_display *display)
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
-index 970a4fe52faf..7fcc3967f84f 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.h
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-@@ -23,6 +23,7 @@ enum intel_quirk_id {
- 	QUIRK_EDP_LIMIT_RATE_HBR2,
- 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
- 	QUIRK_DISABLE_PSR2,
-+	QUIRK_IGNORE_INTERLANE_ALIGN_BIT,
- };
- 
- void intel_init_quirks(struct intel_display *display);
--- 
-2.54.0
+And now that it is also closer to `rust/Makefile`, it will be easier to rep=
+lace.
 
+So thanks again :)
+
+Cheers,
+Miguel
