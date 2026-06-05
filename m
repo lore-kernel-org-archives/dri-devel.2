@@ -4,50 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA5D9CD6E79
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 14:19:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47E95CD6E79
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 14:20:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B75D11A8CA;
-	Fri,  5 Jun 2026 14:19:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96D4411A8CC;
+	Fri,  5 Jun 2026 14:20:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="TVRQtWJK";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="DC0zRsMK";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6F9E11A8CA
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 14:19:06 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1F3D621CD;
- Fri,  5 Jun 2026 16:18:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1780669120;
- bh=Q2thrnfKxS5peTcvg3KqVYhvE7T6XxLOVr02ML903s8=;
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5156611A8CC
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 14:20:03 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D6E7B4D05
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 07:19:57 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 80AFA3F7D8
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 07:20:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1780669202; bh=WKtWN3MR+ErhcemB5UOy69xqNA7Dq7bg3jg3xIocdnI=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=TVRQtWJKOiMnAobf8HKY0KfnkE3r/BIpl/V1nHAVbxHkQjYskUGYynPTk6pKBk/ug
- 3yCTJq++0XQnDNCBT06S7w7SFFglyFi/zkBeJKpxbh/21GcN/S/SDodH+vAmDwFakt
- CtFRPJR96gtzKtN8dn6ARBBdxFMs5Sg/yB/wun6k=
-Date: Fri, 5 Jun 2026 17:19:04 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 01/76] drm/atomic-state-helper: Rename
- __drm_atomic_helper_bridge_reset()
-Message-ID: <20260605141904.GB84912@killaraus.ideasonboard.com>
-References: <20260530-drm-no-more-bridge-reset-v1-0-875d828d31bc@kernel.org>
- <20260530-drm-no-more-bridge-reset-v1-1-875d828d31bc@kernel.org>
+ b=DC0zRsMKaCo1pR1xKdUPw/dSm+ry99snDGEyYcXuABl8id2mmMxkmj4BotvauIoXc
+ 9opyYumpq7tJbMx6dqVnk6NP9fFm1faTdUMzAeoiXCChJbzBYozhrSPxGimXYLLy8x
+ cs/ZwBNvKMMKXa0eGH2muOGjEkSsQ79WysH3t1N8=
+Date: Fri, 5 Jun 2026 15:20:00 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Gustavo Kenji =?utf-8?B?TWVuZG9uw6dh?= Kaneko <kaneko.dev@pm.me>
+Cc: dri-devel@lists.freedesktop.org, airlied@gmail.com, simona@ffwll.ch,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] drm/arm/malidp: fix ignored clk_prepare_enable() in
+ runtime PM resume
+Message-ID: <aiLbEESfZW7zU_Mz@e142607>
+References: <20260531052945.65117-1-kaneko.dev@pm.me>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260530-drm-no-more-bridge-reset-v1-1-875d828d31bc@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260531052945.65117-1-kaneko.dev@pm.me>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,107 +57,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maxime,
-
-Thank you for the patch.
-
-On Sat, May 30, 2026 at 03:59:06PM +0200, Maxime Ripard wrote:
-> __drm_atomic_helper_bridge_reset() is used to initialize a
-> newly allocated drm_bridge_state, and is being typically called by the
-> drm_bridge_funcs.atomic_reset implementation.
+On Sun, May 31, 2026 at 05:29:57AM +0000, Gustavo Kenji Mendonça Kaneko wrote:
+> malidp_runtime_pm_resume() calls clk_prepare_enable() three times
+> without checking the return value. If any clock fails to enable, the
+> driver silently proceeds with unclocked hardware, leading to undefined
+> behavior.
 > 
-> Since we want to consolidate DRM objects state allocation around the
-> atomic_create_state callback that will only allocate and initialize a
-> new drm_bridge_state instance, we will need to call
-> __drm_atomic_helper_bridge_reset() from both the atomic_reset and
-> atomic_create_state hooks.
+> Use clk_bulk_prepare_enable() which atomically enables all clocks and
+> automatically rolls back successfully enabled clocks on failure. This
+> is consistent with how the suspend path already uses
+> clk_bulk_disable_unprepare() in malidp_runtime_pm_suspend().
+
+I can't see where you can find other calls to clk_buld_xxxx() in the malidp
+code. What sort of code review have you done here?
+
+Best regards,
+Liviu
+
 > 
-> To avoid any confusion, we can thus rename
-> __drm_atomic_helper_bridge_reset() to
-> __drm_atomic_helper_bridge_state_init().
+> This issue was found by code review without access to Mali DP hardware.
 > 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
-With a missing chunk from 02/76 moved to this patch (see the review of
-02/76),
-
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-
+> Signed-off-by: Gustavo Kenji Mendonça Kaneko <kaneko.dev@pm.me>
 > ---
->  drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c | 2 +-
->  drivers/gpu/drm/drm_atomic_state_helper.c           | 6 +++---
->  include/drm/drm_atomic_state_helper.h               | 2 +-
->  3 files changed, 5 insertions(+), 5 deletions(-)
+>  drivers/gpu/drm/arm/malidp_drv.c | 13 ++++++++++---
+>  1 file changed, 10 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> index 36c07b71fe04..4e3015d10a97 100644
-> --- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> +++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> @@ -1927,11 +1927,11 @@ cdns_mhdp_bridge_atomic_reset(struct drm_bridge *bridge)
+> diff --git a/drivers/gpu/drm/arm/malidp_drv.c b/drivers/gpu/drm/arm/malidp_drv.c
+> index b765f6c9eea4..1e4336c3a2fa 100644
+> --- a/drivers/gpu/drm/arm/malidp_drv.c
+> +++ b/drivers/gpu/drm/arm/malidp_drv.c
+> @@ -689,10 +689,17 @@ static int malidp_runtime_pm_resume(struct device *dev)
+>  	struct drm_device *drm = dev_get_drvdata(dev);
+>  	struct malidp_drm *malidp = drm_to_malidp(drm);
+>  	struct malidp_hw_device *hwdev = malidp->dev;
+> +	struct clk_bulk_data clks[] = {
+> +		{ .clk = hwdev->pclk },
+> +		{ .clk = hwdev->aclk },
+> +		{ .clk = hwdev->mclk },
+> +	};
+> +	int err;
+> +
+> +	err = clk_bulk_prepare_enable(ARRAY_SIZE(clks), clks);
+> +	if (err)
+> +		return err;
 >  
->  	cdns_mhdp_state = kzalloc_obj(*cdns_mhdp_state);
->  	if (!cdns_mhdp_state)
->  		return NULL;
->  
-> -	__drm_atomic_helper_bridge_reset(bridge, &cdns_mhdp_state->base);
-> +	__drm_atomic_helper_bridge_state_init(bridge, &cdns_mhdp_state->base);
->  
->  	return &cdns_mhdp_state->base;
->  }
->  
->  static u32 *cdns_mhdp_get_input_bus_fmts(struct drm_bridge *bridge,
-> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-> index 07686e94aae0..c38e514f336f 100644
-> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-> @@ -884,27 +884,27 @@ void drm_atomic_helper_bridge_destroy_state(struct drm_bridge *bridge,
->  	kfree(state);
->  }
->  EXPORT_SYMBOL(drm_atomic_helper_bridge_destroy_state);
->  
->  /**
-> - * __drm_atomic_helper_bridge_reset() - Initialize a bridge state to its
-> + * __drm_atomic_helper_bridge_state_init() - Initialize a bridge state to its
->   *					default
->   * @bridge: the bridge this state refers to
->   * @state: bridge state to initialize
->   *
->   * Initializes the bridge state to default values. This is meant to be called
->   * by the bridge &drm_bridge_funcs.atomic_reset hook for bridges that subclass
->   * the bridge state.
->   */
-> -void __drm_atomic_helper_bridge_reset(struct drm_bridge *bridge,
-> +void __drm_atomic_helper_bridge_state_init(struct drm_bridge *bridge,
->  				      struct drm_bridge_state *state)
->  {
->  	memset(state, 0, sizeof(*state));
->  	__drm_atomic_helper_private_obj_create_state(&bridge->base, &state->base);
->  	state->bridge = bridge;
->  }
-> -EXPORT_SYMBOL(__drm_atomic_helper_bridge_reset);
-> +EXPORT_SYMBOL(__drm_atomic_helper_bridge_state_init);
->  
->  /**
->   * drm_atomic_helper_bridge_reset() - Allocate and initialize a bridge state
->   *				      to its default
->   * @bridge: the bridge this state refers to
-> diff --git a/include/drm/drm_atomic_state_helper.h b/include/drm/drm_atomic_state_helper.h
-> index f4b6d8833bc2..6a715d8e1f4a 100644
-> --- a/include/drm/drm_atomic_state_helper.h
-> +++ b/include/drm/drm_atomic_state_helper.h
-> @@ -100,9 +100,9 @@ void __drm_atomic_helper_bridge_duplicate_state(struct drm_bridge *bridge,
->  						struct drm_bridge_state *state);
->  struct drm_bridge_state *
->  drm_atomic_helper_bridge_duplicate_state(struct drm_bridge *bridge);
->  void drm_atomic_helper_bridge_destroy_state(struct drm_bridge *bridge,
->  					    struct drm_bridge_state *state);
-> -void __drm_atomic_helper_bridge_reset(struct drm_bridge *bridge,
-> +void __drm_atomic_helper_bridge_state_init(struct drm_bridge *bridge,
->  				      struct drm_bridge_state *state);
->  struct drm_bridge_state *
->  drm_atomic_helper_bridge_reset(struct drm_bridge *bridge);
+> -	clk_prepare_enable(hwdev->pclk);
+> -	clk_prepare_enable(hwdev->aclk);
+> -	clk_prepare_enable(hwdev->mclk);
+>  	hwdev->pm_suspended = false;
+>  	malidp_de_irq_hw_init(hwdev);
+>  	malidp_se_irq_hw_init(hwdev);
+> -- 
+> 2.54.0
+> 
+> 
 
 -- 
-Regards,
-
-Laurent Pinchart
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
