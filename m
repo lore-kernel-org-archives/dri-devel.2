@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01019CD6E77
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 12:41:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0711DCD6E79
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 12:43:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B96D112AF9;
-	Fri,  5 Jun 2026 12:41:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CE0C112B01;
+	Fri,  5 Jun 2026 12:43:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mqsADFRo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f9UDTUpO";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83316112AF9
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 12:41:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D2E8112B01
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 12:43:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6817C405D8;
- Fri,  5 Jun 2026 12:41:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 316BF1F00893;
- Fri,  5 Jun 2026 12:41:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DA75140D73;
+ Fri,  5 Jun 2026 12:43:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8F0D1F00893;
+ Fri,  5 Jun 2026 12:43:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780663281;
- bh=flypLn7sA88yOb83zUl0cnYUfSCYepk0dd4pRX7t7OY=;
+ s=k20260515; t=1780663391;
+ bh=ARYEBDCkr8JMTn9F9phrXMQ23eYjEY/Z/c085UPAM+0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mqsADFRoyx6H5c0KKKfFaYp3vC4HI2kCcPUd2PUmZ/Ci+Qn+BB0IVPctt62LXgcxV
- du3lfnJKsWE0SEXi8dIPU00qlaWRJEXUPxtuytb6OiV/SoS3j3QOfl1rqh0bOI+g0r
- HxXZm3NgvWnV5vXZ/AsY3Q/qoYYJzWwWgBNujcFOymPotMyyIBGZZBvVf9kyez/WKh
- 7aXhzn4QgHs6/WDrpQ5Iv8Ub6SzFtMMNHNQ6BK9/IIeFwW85Zs6hOZ+uA5iF0OqgCe
- Q2KhThKSnNpi87nesuNrO88O0eNqg7mpd+lsf0q+9kaaJjFWT7MdWFljelf0zhIIm8
- 3CRJuzMTHtXcg==
+ b=f9UDTUpOVkmIc0vnv5eAdFmV7mXAxn6aCDdTbofAw16tjIztgQAw83sANK2QzFpcC
+ W+uwC41LCiGfx1zJAdAKhArBJVVXtE0JNtCrweIdQFh/hKiRs/mX+WbtOTe623Eqop
+ FVg0c+K+iV0P5ZaK4p841WO4JUdpOQP37jI6bDyTrUk0GCErwAV3yprtlQKWi+Y8Ax
+ xIFEXp2hBllK7OddXhXptAdBuHS6PhUKwJZRLB5S/bi34VKGf6WPRaMExRVWG9e9uJ
+ 8hEzcQjYhwaAoGdSr4njPcjvKq+zZCRh+4+b3yWRgKvmjMqE6DkSnhQ0nTZEDdIVYA
+ j4Q3sNw7o9ryg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 5/6] drm/xe: Suppress Surprise Link Down on device
+Subject: Re: [PATCH v7 1/6] Introduce Xe Uncorrectable Error Handling
 To: "Mallesh Koujalagi" <mallesh.koujalagi@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260605122544.1021695-13-mallesh.koujalagi@intel.com>
-References: <20260605122544.1021695-13-mallesh.koujalagi@intel.com>
+In-Reply-To: <20260605122544.1021695-9-mallesh.koujalagi@intel.com>
+References: <20260605122544.1021695-9-mallesh.koujalagi@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 12:41:20 +0000
-Message-Id: <20260605124121.316BF1F00893@smtp.kernel.org>
+Date: Fri, 05 Jun 2026 12:43:11 +0000
+Message-Id: <20260605124311.A8F0D1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,123 +58,204 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] The driver permanently masks the Surprise Link Down AER event (PCI=
-_ERR_UNC_SURPDN) on the upstream switch port without ever restoring it.
-- [High] Lockless read-modify-write of the shared Upstream Switch Port's AE=
-R mask register creates a race condition.
-- [High] Unchecked pci_read_config_dword return value may corrupt the AER m=
-ask register.
-- [High] Attempting to mask Surprise Link Down on an Upstream Port violates=
- the PCIe specification and fails to suppress the error.
+- [High] Bypassing the Linux driver core by manually invoking probe and rem=
+ove callbacks causes Use-After-Free on failure.
+- [High] Unbalanced decrement of the `xe->wedged.ref` counter incorrectly p=
+ermanently wedges the device after a non-fatal error recovery.
+- [High] Unprotected Read-Modify-Write of Upstream Switch Port (USP) PCIe A=
+ER registers causes race conditions and corrupts switch state.
+- [Medium] Unbounded firmware query loops in `get_queued_pages()` and `get_=
+offlined_list()` allow a malfunctioning sysctrl firmware to hang the kernel.
 --
 
-commit b4b812ffca5eaea995b148e8a053e6c4fd45bfe9
-Author: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+commit 1dea0dcd39b5b10ff25f34fd2fa55710387abdc7
+Author: Riana Tauro <riana.tauro@intel.com>
+Subject: Introduce Xe Uncorrectable Error Handling
 
-drm/xe: Suppress Surprise Link Down on device
+This patch introduces PCI error handling to the Xe driver to process
+and recover from hardware and firmware errors. It queries the system
+controller for RAS error details and handles device teardown and re-probe
+sequences during slot resets.
 
-This patch attempts to suppress spurious Surprise Link Down AER events duri=
-ng
-a recovery cold reset. It does so by masking the PCI_ERR_UNC_SURPDN bit in
-the upstream switch port's AER Uncorrectable Error Mask register before
-triggering the cold reset.
+Link: https://patchwork.freedesktop.org/series/160482/
 
-> diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-> index 9a90a7118e896..acdedf403649f 100644
-> --- a/drivers/gpu/drm/xe/xe_ras.c
-> +++ b/drivers/gpu/drm/xe/xe_ras.c
-
+> diff --git a/drivers/gpu/drm/xe/xe_pci_error.c b/drivers/gpu/drm/xe/xe_pc=
+i_error.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/xe/xe_pci_error.c
 [ ... ]
-
-> +#ifdef CONFIG_PCIEAER
-> +static void pcie_suppress_surprise_link_down(struct pci_dev *usp)
+> +static pci_ers_result_t xe_pci_error_detected(struct pci_dev *pdev, pci_=
+channel_state_t state)
 > +{
-> +	u32 aer_uncorr_mask;
+> +	struct xe_device *xe =3D pdev_to_xe_device(pdev);
+> +
+> +	xe_err(xe, "PCI error: detected state =3D %u\n", state);
+> +
+> +	if (state =3D=3D pci_channel_io_perm_failure)
+> +		return PCI_ERS_RESULT_DISCONNECT;
+> +
+> +	/* If the device is already wedged or in survivability mode, do not att=
+empt recovery */
+> +	if (xe_survivability_mode_is_boot_enabled(xe) || xe_device_wedged(xe))
+> +		return PCI_ERS_RESULT_DISCONNECT;
+> +
+> +	switch (state) {
+> +	case pci_channel_io_normal:
+> +		return PCI_ERS_RESULT_CAN_RECOVER;
+[ ... ]
+> +static pci_ers_result_t xe_pci_error_slot_reset(struct pci_dev *pdev)
+> +{
+[ ... ]
+> +	/*
+> +	 * Secondary Bus Reset causes all VRAM state to be lost along with
+> +	 * hardware state. As an initial step, re-probe the device to
+> +	 * re-initialize the driver and hardware.
+> +	 * TODO: optimize by re-initializing only the hardware state and re-cre=
+ating
+> +	 * kernel BOs.
+> +	 */
+> +	xe_device_clear_in_reset(xe);
+> +	pdev->driver->remove(pdev);
+> +	devres_release_group(&pdev->dev, xe->devres_group_id);
+> +
+> +	if (pdev->driver->probe(pdev, ent))
+> +		return PCI_ERS_RESULT_DISCONNECT;
+
+[Severity: High]
+Can this manual driver teardown cause a use-after-free?
+
+If pdev->driver->probe() fails before updating the driver data pointer,
+pdev->dev.driver_data will remain pointing to the memory freed by
+devres_release_group().
+
+The PCI core might later call xe_pci_remove(), which will dereference
+this stale pointer. Would it be safer to avoid manually calling driver
+lifecycle callbacks?
+
+> +
+> +	xe =3D pdev_to_xe_device(pdev);
+> +
+> +	/* Wedge the device to prevent I/O operations till the resume callback =
+*/
+> +	xe_device_wedged_get(xe);
+> +
+> +	return PCI_ERS_RESULT_RECOVERED;
+> +}
+> +
+> +static void xe_pci_error_resume(struct pci_dev *pdev)
+> +{
+> +	struct xe_device *xe =3D pdev_to_xe_device(pdev);
+> +
+> +	xe_err(xe, "PCI error: resume\n");
+> +
+> +	/* Resume I/O operations */
+> +	xe_device_wedged_put(xe);
+
+[Severity: High]
+Does this unconditional put cause an underflow when recovering from non-fat=
+al
+errors?
+
+In xe_pci_error_detected(), the pci_channel_io_normal path returns
+PCI_ERS_RESULT_CAN_RECOVER without calling prepare_device_for_reset(), so
+the wedged refcount is never incremented.
+
+When xe_pci_error_resume() is later called, this put will decrement the
+counter to -1, which incorrectly evaluates as true in xe_device_wedged()
+and permanently wedges the device.
+
+> +}
+> diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/xe/xe_ras.c
+[ ... ]
+> +static void get_queued_pages(struct xe_device *xe)
+> +{
+> +	struct xe_sysctrl_mailbox_command command =3D {0};
+> +	struct xe_ras_page_offline_queue response =3D {0};
+> +	u32 count =3D 0;
+> +	size_t rlen;
+> +	int ret, i;
+[ ... ]
+> +	do {
+> +		memset(&response, 0, sizeof(response));
+> +
+> +		ret =3D xe_sysctrl_send_command(&xe->sc, &command, &rlen);
+[ ... ]
+> +	} while (response.additional_data);
+
+[Severity: Medium]
+Could a malfunctioning sysctrl firmware cause a soft lockup here?
+
+The loop relies entirely on the firmware's additional_data flag and
+total_pages limit. Unlike xe_ras_process_errors() which enforces an
+XE_SYSCTRL_FLOOD_LIMIT, this loop appears to lack a driver-enforced
+iteration ceiling.
+
+> +}
+> +
+> +static void get_offlined_list(struct xe_device *xe)
+> +{
+> +	struct xe_sysctrl_mailbox_command command =3D {0};
+> +	struct xe_ras_page_offline_list response =3D {0};
+> +	u32 count =3D 0;
+> +	size_t rlen;
+> +	int ret, i;
+[ ... ]
+> +	do {
+> +		memset(&response, 0, sizeof(response));
+> +
+> +		ret =3D xe_sysctrl_send_command(&xe->sc, &command, &rlen);
+[ ... ]
+> +	} while (response.additional_data);
+
+[Severity: Medium]
+Is there a similar risk of a soft lockup in this loop if the firmware
+continuously returns additional_data?
+
+> +}
+[ ... ]
+> +static void aer_unmask_and_downgrade_internal_error(struct xe_device *xe)
+> +{
+> +	struct pci_dev *pdev =3D to_pci_dev(xe->drm.dev);
+> +	u32 aer_uncorr_mask, aer_uncorr_sev, aer_uncorr_status;
+> +	struct pci_dev *usp;
 > +	u16 aer_cap;
 > +
-> +	aer_cap =3D usp->aer_cap;
-> +	if (!aer_cap) {
-> +		dev_dbg(&usp->dev,
-> +			"AER capability not present\n");
+> +	usp =3D find_usp_dev(pdev);
+> +	if (!usp)
 > +		return;
-> +	}
+[ ... ]
+> +	/* Initialize Uncorrectable Error Severity Register */
+> +	pci_read_config_dword(usp, aer_cap + PCI_ERR_UNCOR_SEVER, &aer_uncorr_s=
+ev);
+> +	aer_uncorr_sev &=3D ~PCI_ERR_UNC_INTN;
+> +	pci_write_config_dword(usp, aer_cap + PCI_ERR_UNCOR_SEVER, aer_uncorr_s=
+ev);
 > +
+> +	/* Initialize Uncorrectable Error Mask Register */
 > +	pci_read_config_dword(usp, aer_cap + PCI_ERR_UNCOR_MASK, &aer_uncorr_ma=
 sk);
-
-[Severity: High]
-Does this code risk corrupting the AER mask register if the read fails?
-
-If pci_read_config_dword() fails, for example due to temporary bus
-unavailability, it can leave aer_uncorr_mask uninitialized or set it to all
-1s. Writing that value back could inadvertently mask all uncorrectable erro=
-rs
-or write garbage to the register.
-
-> +	aer_uncorr_mask |=3D PCI_ERR_UNC_SURPDN;
+> +	aer_uncorr_mask &=3D ~PCI_ERR_UNC_INTN;
 > +	pci_write_config_dword(usp, aer_cap + PCI_ERR_UNCOR_MASK, aer_uncorr_ma=
 sk);
+> +
+> +	pci_save_state(usp);
 
 [Severity: High]
-Is it safe to perform a lockless read-modify-write on a shared parent
-bridge's configuration space?
+Can this read-modify-write sequence corrupt the switch state if multiple
+endpoints probe concurrently?
 
-Since the upstream switch port is outside the xe driver's ownership, if the
-AER core or another driver concurrently modifies this mask register without
-holding pci_dev_lock() on the upstream port, could one of the updates be
-silently lost?
+The upstream switch port is a shared resource, and modifying its AER
+capability registers without synchronization could lead to race conditions
+when other child devices (such as SR-IOV VFs) execute this same path.
 
-[Severity: High]
-Will this permanently mask the Surprise Link Down AER event on the upstream
-switch port?
-
-The configuration space of the port above the cold reset boundary isn't
-reset by the slot power cycle, and there does not appear to be any
-corresponding code to unmask this bit later. Could this permanently blind
-the port to legitimate Surprise Link Down errors until the next system
-reboot?
-
-> +	dev_dbg(&usp->dev, "Surprise Link Down masked for cold reset\n");
+> +	dev_dbg(&usp->dev, "Uncorrectable Internal Errors downgraded and unmask=
+ed\n");
 > +}
-> +#endif /* CONFIG_PCIEAER */
-> +
-> +static void punit_error_handler(struct xe_device *xe)
-> +{
-> +#ifdef CONFIG_PCIEAER
-> +	struct pci_dev *pdev =3D to_pci_dev(xe->drm.dev);
-> +	struct pci_dev *vsp, *usp;
-> +
-> +	/*
-> +	 * Device Hierarchy:
-> +	 *
-> +	 * Root Port --> Upstream Switch Port (USP) --> Virtual Switch Port (VS=
-P) --> SGunit
-> +	 *
-> +	 * Cold reset power-cycles the slot, dropping the PCIe link. The
-> +	 * slot triggers a spurious Surprise Link Down AER event on the USP.
-> +	 */
-> +	vsp =3D pci_upstream_bridge(pdev);
-> +	usp =3D vsp ? pci_upstream_bridge(vsp) : NULL;
-> +
-> +	if (usp)
-> +		pcie_suppress_surprise_link_down(usp);
-
-[Severity: High]
-Will masking the Surprise Link Down bit on the Upstream Switch Port actually
-suppress the intended error?
-
-According to the PCIe Base Specification, the Surprise Down Error Status bit
-is mandatory for Downstream Ports and reserved for all other port types.
-
-Since the Downstream Port (vsp) facing the slot is what actually detects the
-link drop and triggers the AER event, does writing to a reserved bit in the
-upstream port's config space fail to suppress the spurious AER event?
-
-> +#endif
->  	xe_device_set_wedged_method(xe, DRM_WEDGE_RECOVERY_COLD_RESET);
->  	xe_device_declare_wedged(xe);
->  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605122544.1021=
-695-8-mallesh.koujalagi@intel.com?part=3D5
+695-8-mallesh.koujalagi@intel.com?part=3D1
