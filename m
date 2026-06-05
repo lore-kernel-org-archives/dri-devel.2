@@ -4,81 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2807ACD6E7E
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 22:25:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F76ACD6E7C
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 22:41:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C9C610E275;
-	Fri,  5 Jun 2026 22:25:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91C81112C48;
+	Fri,  5 Jun 2026 22:41:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="rG7+fLKG";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="fPnO9CkY";
 	dkim-atps=neutral
-Received: from mail-dy1-f202.google.com (mail-dy1-f202.google.com
- [74.125.82.202])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8503810E275
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 22:25:22 +0000 (UTC)
-Received: by mail-dy1-f202.google.com with SMTP id
- 5a478bee46e88-30762d67a64so3515233eec.0
- for <dri-devel@lists.freedesktop.org>; Fri, 05 Jun 2026 15:25:22 -0700 (PDT)
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com
+ [209.85.221.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5368112C48
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 22:41:34 +0000 (UTC)
+Received: by mail-vk1-f177.google.com with SMTP id
+ 71dfb90a1353d-59ebde7d704so833189e0c.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 05 Jun 2026 15:41:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1780698322; x=1781303122;
+ d=chromium.org; s=google; t=1780699293; x=1781304093;
  darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=hDhseaqiPSLPqHYwXpS4zasRBSNprmSrggrhgGRfur0=;
- b=rG7+fLKGLleibaSylRG6n7r6rz5vIanlkER0QPISJ0Ff80Z1hvaE5TExxEBYv1N6Ov
- cOJdX3SUvrxTEUa4MbZppTgGId+QldmIrZ4dJeeEKHAX6SX5ug2n7P63qtExSOn9x5cY
- HNXgQTcrqlY6uXakidMOqxga7dGUwm104xEN6WJ7B8MTdpR5e9MYQcv2V0Umk+xv+u+X
- wFxkUuDFoPobK6fDQWiAYQeg9rRS8b5mfuOj40H48x1oRmwc7kO23va+xXM6DasZy0TK
- XLRMDIT3Atco3PoL+S/osrIicFxl6exwxYIcrrMPwYvwjBC6HM6vBfA8Fx1qihrIqhK2
- kuUg==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NxdAlMFBxvqeWetf2Jzav1he/6QnRjj7psD01yf0r3E=;
+ b=fPnO9CkY/M/wrnFARES2Dj7HXgxNwEB1DIg4iL4Usnk+djeHIUOdc6gJESSUCNRhJ2
+ FK5qoqcOuv1+xFlqL4v0WUFohnTPmD2GR6cLnTErMVqLUs0Ps+HnOZPsBoD3wO35DdSu
+ Y/fy1PVSWxZFCgLgrNYpkmEEKMXzWxXKCaPuM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780698322; x=1781303122;
- h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=hDhseaqiPSLPqHYwXpS4zasRBSNprmSrggrhgGRfur0=;
- b=hjO4XtgLwdQ8iMdboXElfDbTfHjhJujilTcl65q0ya04tfoiH+qDiAd5t08wG/EdXO
- Wwo6K0QLX8IxmDrft2h9SsgefPh5K6lB86Br8D1aUcPV4yxp2YiM5ZRkWvGqlbevUeOO
- 1Vy2EmjO9wpCBoQlW3W0Rw6moc5WewA/bHH5YEVsS7A6aKDXlrLFzcjz8ttlDIzsDGvG
- 6jGZLZOx+sUYMrcOJHPUJ89CMqeEAGiqbe4Rfuye2sYVlwChq0VKuEPGM9VOn2KPzytA
- 7fTvcP0QNeOsYVkog845zq6PB/38OXMyAOVAMJqT4VAejHrAmdDZPVyogV7fIOaj9ojQ
- USag==
+ d=1e100.net; s=20251104; t=1780699293; x=1781304093;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=NxdAlMFBxvqeWetf2Jzav1he/6QnRjj7psD01yf0r3E=;
+ b=hiK0Z5BAmkAM9a/zMfIed8bHFP8HOfQ08e6enH6KWZInnmJMEKeA4n+RTttCOSDIa8
+ 8NJcyyBY1feBnHftrvwaPyeLOuYCYOtdkKMoSZPZkkvuPR9z7KjYS0AU8Ply4MHcSdMK
+ p4NJtvVRPJoqNTPfeJRqbPNNk7v62El7StWfKhC/mCZ7U0EZXrweh6PeBdrwN+WtOJuX
+ IK6QJ09zVBIDPULQLOtlnkRyzGokrKnRQZjcEKoljor/wCeK7RkMbAi6JYuU/QsgtSLq
+ T3xlyOfoBQS3+5UrQ8kS8rmPM8MDc3LqJ0FgoOPRzMuBhvv52JDLP84u02breQ9WoaD7
+ hRpw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/YqyepKJq86SsauABmjPaPhNAl+8dPASP3OLSQMpCP4p+QAByOCMyl0iorlL+296+PnMR93YyyPzI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwoV8fol5D1R76DPnVqcQ6q3NXIBc4JiKh4Y/YU5e6+6vgiT/PI
- ryq4eFFFDENId/r3Gv70EgpWmQ2UThiPFJJaJ6sCJQO8s3U4dJedFu6vc42yuNF9vsxSOpMwBE7
- X6mnGOZocrPv1n1IAt2GvDPurvfUt8A==
-X-Received: from dld33.prod.google.com ([2002:a05:7022:321:b0:138:50e:5095])
- (user=samitolvanen job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7022:204:b0:137:edc4:a5e6 with SMTP id
- a92af1059eb24-138066fa2ddmr2765989c88.29.1780698321542; 
- Fri, 05 Jun 2026 15:25:21 -0700 (PDT)
-Date: Fri,  5 Jun 2026 22:25:16 +0000
-Mime-Version: 1.0
-X-Developer-Key: i=samitolvanen@google.com; a=openpgp;
- fpr=35CCFB63B283D6D3AEB783944CB5F6848BBC56EE
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2979; i=samitolvanen@google.com;
- h=from:subject; bh=juvCzx+9b+PGWwUmEGsN7DzOR8HGiGuIxADYptuBz70=;
- b=owGbwMvMwCUWxa662nLh8irG02pJDFnKPmecKlLkM7SP6/yoqTW79djb0/zolau+05P0V4Uc+
- /TmxpX3HaUsDGJcDLJiiiwtX1dv3f3dKfXV5yIJmDmsTCBDGLg4BWAiX2MYGU4JWCy8o7mz7Ow7
- +/wN4ZNnC/RsLTtzQUNP8u+jT4WJsq8ZGa7MKfR7PdPj7MJfcubTJX93rmrZM21b3+QbmsduPVq
- X1s4FAA==
-X-Mailer: git-send-email 2.54.0.1032.g2f8565e1d1-goog
-Message-ID: <20260605222516.3138740-2-samitolvanen@google.com>
-Subject: [PATCH] rust: drm: gpuvm: implement Send and Sync for GpuVaAlloc and
- GpuVmBo
-From: Sami Tolvanen <samitolvanen@google.com>
-To: Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- "=?UTF-8?q?Thomas=20Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>,
- Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- "=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>
-Cc: Sami Tolvanen <samitolvanen@google.com>, dri-devel@lists.freedesktop.org, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+ AFNElJ+nh0UvW2MfjZZzB8wHjBnPkasWGIlWrkySylzL3+in2qEUR4PYBJTP3JbwaNgX1GCS2qlXdJWP4aY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw/f39W+K8lCYGSvvdgCEcJOMZAB7FwhiJ1cvsGjr2YoZ/j4p5l
+ gmKKk98nwgjQbunKAv5CnudeKRILRnzuDdj5Jx3ZtyLJ0qcBweT12atoh4cTqBBtYUIhQZige8G
+ 2CQE=
+X-Gm-Gg: Acq92OHSg4EQUkCst/vIVzuY4Ns4Azkq/Sk4Sb7Q8+0VbmWgf8f/qd0M3UJTRQymClD
+ Wiv3WrpHSc8p1iDk3mH/nDi+1t0WkEAG55LkYqvMzVFvjro3bE5kwzuMfhHx7JD3DSqMt0cDjJH
+ BI0Ponw54Iuo2CXx8ywNYDrjeN1G59exLpszGkfqcVVEPRxNmiXj7Re3NwhNsXcG4wO5sEvYoTs
+ qKlLk7Uy6mvwbhTBKcNMnTfRnfIzSF54UtoOqEIqUWgf7phC61WXXBLX6bD8lFmFV30trYmNKN3
+ JjuyNgZpGNf8e1pDc0mXdf+8SOnnNXYZ8+JpRud/fAKTL+z4l0BS/29Qkn8dcIGjEPFCB6ULpLt
+ d/YRl1EIut0YFmQ9uAnJgdNcx/IWcFewfb8ALMuvUh6TkYnKYNT3D4QjNK5zXiPxBWLA/St9flT
+ UgGif48aAgAMKv0+VxHGJdYINS2O94R1/ICETfHZYDpS6/nOWVVLEeOVQL7YoWxngzew1iPY+g9
+ Nkhi6VPNAA=
+X-Received: by 2002:a05:6122:e203:b0:575:36c4:8900 with SMTP id
+ 71dfb90a1353d-5ac52055628mr2908692e0c.14.1780699293457; 
+ Fri, 05 Jun 2026 15:41:33 -0700 (PDT)
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com.
+ [209.85.217.49]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5a6d6dc3d3fsm9329250e0c.5.2026.06.05.15.41.31
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 05 Jun 2026 15:41:31 -0700 (PDT)
+Received: by mail-vs1-f49.google.com with SMTP id
+ ada2fe7eead31-6cfd17e9250so1046693137.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 05 Jun 2026 15:41:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/3qAko+mv0jm6Ni5ZC3uTzz/8/2cUI5YukRmrASDWcfm7Wro6EOwGbxiLlqnrUYDt58tBmAdddbdo=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:2922:b0:635:1bc8:3568 with SMTP id
+ ada2fe7eead31-6fefe98bb4amr3098337137.23.1780699290556; Fri, 05 Jun 2026
+ 15:41:30 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260604-topic-yoga_submission-v1-0-57c70c23d0d6@oss.qualcomm.com>
+ <20260604-topic-yoga_submission-v1-1-57c70c23d0d6@oss.qualcomm.com>
+ <CAD=FV=UaPKiGSL6mhVdywp67skSr2B7977f3kZ23FFHaD=95RQ@mail.gmail.com>
+ <20260605152825.GA3740391-robh@kernel.org>
+ <CAD=FV=U7jz-xwA+-Fic2thZaK6eCDhc-PZ1fqpCMAUmy3V3Y+Q@mail.gmail.com>
+ <CAL_JsqK6u=x=ScTnW1jJCPZpCUb3mT0NZpsKqe6PqZmrNEKZiQ@mail.gmail.com>
+In-Reply-To: <CAL_JsqK6u=x=ScTnW1jJCPZpCUb3mT0NZpsKqe6PqZmrNEKZiQ@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 5 Jun 2026 15:41:19 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XBn78eOC_zG0S2U-W3whrVYEpghKF_WgX+3zpUJ82-5g@mail.gmail.com>
+X-Gm-Features: AVVi8CfhuBhdP6-5vH6s542O1z5nb76ugorEAmoG2LM_DR_IrP8yU98AI3rZB0M
+Message-ID: <CAD=FV=XBn78eOC_zG0S2U-W3whrVYEpghKF_WgX+3zpUJ82-5g@mail.gmail.com>
+Subject: Re: [PATCH 1/4] dt-bindings: display: panel: samsung,
+ atna33xc20: Add ATNA40HQ08-0
+To: Rob Herring <robh@kernel.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,71 +116,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A GpuVaAlloc holds only uninitialised memory with no live VaData and
-hands out no reference to its contents, so it is Send and Sync
-unconditionally. A GpuVmBo is refcounted atomically and its deferred put
-is sound from any thread.
+Hi,
 
-Implement the markers in the abstraction so drivers can move these
-objects between threads without an unsafe impl of their own. Send for
-GpuVmBo requires VmBoData: Send because the data is dropped during
-deferred cleanup, on whichever thread drains the queue. Sync requires
-both VmBoData: Sync and Object: Sync because the &self data() and obj()
-accessors hand out &VmBoData and &Object.
+On Fri, Jun 5, 2026 at 10:14=E2=80=AFAM Rob Herring <robh@kernel.org> wrote=
+:
+>
+> On Fri, Jun 5, 2026 at 10:44=E2=80=AFAM Doug Anderson <dianders@chromium.=
+org> wrote:
+> >
+> > Hi,
+> >
+> > On Fri, Jun 5, 2026 at 8:28=E2=80=AFAM Rob Herring <robh@kernel.org> wr=
+ote:
+> > >
+> > > > > --- a/Documentation/devicetree/bindings/display/panel/samsung,atn=
+a33xc20.yaml
+> > > > > +++ b/Documentation/devicetree/bindings/display/panel/samsung,atn=
+a33xc20.yaml
+> > > > > @@ -25,6 +25,8 @@ properties:
+> > > > >                - samsung,atna40ct06
+> > > > >                # Samsung 14" WQXGA+ (2880x1800 pixels) eDP AMOLED=
+ panel
+> > > > >                - samsung,atna40cu11
+> > > > > +              # Samsung 14" WQXGA+ (2880x1800 pixels) eDP AMOLED=
+ panel
+> > > > > +              - samsung,atna40hq08
+> > > >
+> > > > Sure. I'll repeat the same comment I made the last time someone lan=
+ded
+> > > > a change to this file [1] in the hopes that maybe someone will post=
+ a
+> > > > patch one day:
+> > > >
+> > > > <repeat>
+> > > > Given how many of these we're up to now, I'm starting to wonder if =
+we
+> > > > should come up with a generic compatible like we did with "edp-pane=
+l"
+> > > > and then we can stop having to merge CLs like this. All of these
+> > > > Samsung OLED eDP panels have the same power up sequence and once we=
+ do
+> > > > that then we can read them via EDID or via DP AUX bus to identify
+> > > > which specific panel we have and if they need additional tweaking,
+> > > > just like we do with "edp-panel". Do DT folks have any opinion abou=
+t
+> > > > that? Coming up with a name would be a pain since I wouldn't want t=
+o
+> > > > assert that all future Samsung OLED eDP panels will have the same
+> > > > powerup sequence. Maybe "samsung,amoled-edp-panel-v1" even though t=
+hat
+> > > > sounds terrible and there's no known need for a "-v2"?
+> > > > </repeat>
+> > >
+> > > If things are the same, then perhaps there should be a fallback
+> > > compatible. Or just reuse an existing compatible.
+> >
+> > Right, there already is a fallback comparible. This patch is just
+> > adding a string to the enum that has the fallback compatible
+> > "samsung,atna33xc20". So someone using this new panel will use:
+> >
+> > compatible =3D "samsung,atna40hq08", "samsung,atna33xc20"
+> >
+> > My point was that listing specific panel isn't really valuable here.
+> > Though the "samsung" power sequence isn't completely compatible with
+> > the generic "eDP panel" power sequence (which is why they have
+> > separate drivers), just like generic "eDP panel"s we can query the
+> > panel ID if there are any per-panel quirks.
+>
+> Unless the quirk is how to power on/off the panel...
 
-Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
----
- rust/kernel/drm/gpuvm/va.rs    |  8 ++++++++
- rust/kernel/drm/gpuvm/vm_bo.rs | 15 +++++++++++++++
- 2 files changed, 23 insertions(+)
+Well, only if the quirk is how to power "on" the panel. ;-)
 
-diff --git a/rust/kernel/drm/gpuvm/va.rs b/rust/kernel/drm/gpuvm/va.rs
-index 0b09fe44ab39..dcb2dec4fbdf 100644
---- a/rust/kernel/drm/gpuvm/va.rs
-+++ b/rust/kernel/drm/gpuvm/va.rs
-@@ -104,6 +104,14 @@ pub fn vm_bo(&self) -> &GpuVmBo<T> {
- /// The memory is zeroed.
- pub struct GpuVaAlloc<T: DriverGpuVm>(KBox<MaybeUninit<GpuVa<T>>>);
- 
-+// SAFETY: A [`GpuVaAlloc`] is an owned, uninitialised allocation with no live `T::VaData` and no
-+// thread-bound state.
-+unsafe impl<T: DriverGpuVm> Send for GpuVaAlloc<T> {}
-+
-+// SAFETY: A [`GpuVaAlloc`] has no `&self` method that reaches its contents, so a shared
-+// `&GpuVaAlloc` cannot access the allocation.
-+unsafe impl<T: DriverGpuVm> Sync for GpuVaAlloc<T> {}
-+
- impl<T: DriverGpuVm> GpuVaAlloc<T> {
-     /// Pre-allocate a [`GpuVa`] object.
-     pub fn new(flags: AllocFlags) -> Result<GpuVaAlloc<T>, AllocError> {
-diff --git a/rust/kernel/drm/gpuvm/vm_bo.rs b/rust/kernel/drm/gpuvm/vm_bo.rs
-index c064ac63897b..016b10e3305b 100644
---- a/rust/kernel/drm/gpuvm/vm_bo.rs
-+++ b/rust/kernel/drm/gpuvm/vm_bo.rs
-@@ -19,6 +19,21 @@ pub struct GpuVmBo<T: DriverGpuVm> {
-     data: T::VmBoData,
- }
- 
-+// SAFETY: The refcount in `self.inner` is atomic, so `dec_ref`'s deferred put is sound from any
-+// thread. `data` is dropped later by `drm_gpuvm_bo_deferred_cleanup`, on whichever thread drains
-+// the queue, hence the `T::VmBoData: Send` bound.
-+unsafe impl<T: DriverGpuVm> Send for GpuVmBo<T> where T::VmBoData: Send {}
-+
-+// SAFETY: The fields of `inner` read by shared-reference methods are immutable after construction.
-+// [`Self::data`] hands out `&T::VmBoData` and [`Self::obj`] hands out `&T::Object`, so sharing
-+// `&Self` across threads requires both to be `Sync`.
-+unsafe impl<T: DriverGpuVm> Sync for GpuVmBo<T>
-+where
-+    T::VmBoData: Sync,
-+    T::Object: Sync,
-+{
-+}
-+
- // SAFETY: By type invariants, the allocation is managed by the refcount in `self.inner`.
- unsafe impl<T: DriverGpuVm> AlwaysRefCounted for GpuVmBo<T> {
-     fn inc_ref(&self) {
+If a panel does need different power-on processing, then I'd expect a
+new compatible string unless we end up in the situation we had with
+eDP panels where there is a ton of second-sourcing going on and the
+quirk is relatively benign (like the "hpd-reliable-delay-ms" and
+"hpd-absent-delay-ms" properties for "edp-panel").
 
-base-commit: fea3a2dd7d3fc1936211ced5f84420e610435730
--- 
-2.54.0.1032.g2f8565e1d1-goog
 
+> > So the question is: should we stop adding specific panels and just
+> > always list "samsung,atna33xc20" for all Samsung panels with a
+> > compatible power sequence, is it worth it to add a more generic name,
+> > or should we really keep listing all these individual panels for no
+> > real gain.
+> >
+> >
+> > > I can in no way
+> > > prevent someone from using 'foo-panel' in their DT when the h/w is
+> > > actually a foobar panel if the differences are transparent to s/w. (B=
+ut
+> > > I will reject a quirk property later on when foobar turns out to be
+> > > different than foo.)
+> >
+> > It's more a question of what guidance we tell people. Here, Konrad is
+> > trying to do "the right thing" by listing his specific panel and then
+> > using the fallback. I'm saying "listing the specific panel isn't
+> > gaining you anything" and I'd rather not have to review / apply these
+> > pointless additions to the bindings.
+>
+> I think the guidance is clear. Overall, doing something special here
+> because Samsung panels are special just muddies what the right thing
+> is for everyone else.
+>
+> > ...but I can imagine people will be upset if I tell them to list
+> > "samsung,atna33xc20" for all compatible Samsung AMOLED panels. It
+> > would be nicer to come up with some sort of generic name?
+>
+> Well yes, people have a hard time using compatible strings that don't
+> sound generic. That's too bad for them.
+
+OK, so sounds like going forward I should NAK changes to this file and
+tell people to just use:
+
+compatible =3D "samsung,atna33xc20";
+
+...to mean "Generic Samsung AMOLED panel with power sequencing that
+matches atna33xc20"
+
+Yes, it means that if we find quirks with a specific panel later, it
+could possibly be harder to work around them. However, since we have
+several ways to identify the panel (via EDID and via DDC) this seems
+fairly low risk. You can't perfectly predict the future anyway.
+
+
+-Doug
