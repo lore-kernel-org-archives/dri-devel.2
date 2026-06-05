@@ -4,62 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92AB9CD6E5D
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 10:13:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13C1BCD6E74
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 10:19:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA00C10E489;
-	Fri,  5 Jun 2026 10:13:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79FC410E5AD;
+	Fri,  5 Jun 2026 10:19:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Si7tSzM5";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CoTPCZNX";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h+1utDh4";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91AFC10E2A8;
- Fri,  5 Jun 2026 10:13:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=olLqF1n1Cx/+v/Stbc0WTULGeRSHFc7JdDIug5kIWs8=; b=Si7tSzM5wzOFy8I36rwbvT4m3M
- T+0IWTwfD0v7R7Nx8LAWHslqN1GM/WFjXppJ1H4JGiWgp4UlvqbrrTz5h7fdSCuVmnc5NgAhsJJUL
- g7ZthKzM+C3dwwLaOeupTNVDhkWzV3GK19kzH6gp7nTH5oHsTe85VW1YBKDdTAIHdLv+vtDQKVA0C
- AzLkttEpMMauDaDYB2JpMnYpec6+4Y8C0xgWIqRh/YRKxdlBn0T+RU+P3s5acZjUB1iQqBcj4rLOP
- w3xHbF6RuiSQgNZJJJrMhYPY9O//6QZ//0XRX3cpNYIyoSmugu9lKtc6ctV0/bxFV8PfFH0EClErn
- 5zqhr0lw==;
-Received: from [90.240.106.137] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wVRYQ-00D5t9-Ub; Fri, 05 Jun 2026 12:13:30 +0200
-Message-ID: <990ab0a5-64c1-4f10-841f-2eac6332ec97@igalia.com>
-Date: Fri, 5 Jun 2026 11:13:29 +0100
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1764C10E5A2
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 10:19:18 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6554he142667053
+ for <dri-devel@lists.freedesktop.org>; Fri, 5 Jun 2026 10:19:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=YdRn4DRbFufW0fmv7Xxdna
+ 0Xs07PVl1QBs1/OWzN90w=; b=CoTPCZNXVLY22xU7IlGWff9+nkN8NSABuqQK7T
+ yhjH5HRfRUAC2nU5amDTJOTJ8/X0cepcrQnVE6naN3qswU2gy/9MW/sYS6sFkSNb
+ k+mEyavpP9eznk+hA/3jVTMMVFf4IBPR4rqLBxNSPDXMVNqPVwN8RCWZP6U2KrBQ
+ DWzeRwu8FgdX+upf4gWBXo4U4zcUj3+6MlD+oA+ZYF4aODv3rf4HV1ljjnVPMLDf
+ danFRBdDSE19VvaI3aKe/oX/+Dfr0AiFbR82LXwJVcC8N4X5AMj3I8m5Yrfwgjhz
+ Ejehl2Yxz9mHIaMac+1UCzRDut8xVTBdP2BbEidMeb4R3x2A==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ekemyueyv-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 05 Jun 2026 10:19:16 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-2c0b35fa876so20541565ad.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 05 Jun 2026 03:19:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1780654756; x=1781259556;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=YdRn4DRbFufW0fmv7Xxdna0Xs07PVl1QBs1/OWzN90w=;
+ b=h+1utDh4UKPh7LwChqkori9TpIGSaS0E/DnZOaXjloBEakYt1D5yhPt8ZhXswl6Ztx
+ fc28SHbjPk2QpIAEcjBZjD6UxwpFTgTesIJoU4ellxYJs2GXQ1H1hUB9xC3ue84BWqpE
+ cNpiyXjFuPdtH/3BcyS4Jw0ZEBUZVt9mSffBPb+iRy1Is9I0GXxCINVFjQS84v0Tv3DY
+ EhTmGAcvdQ1+ILfhccEn9ZxRNwYo3VkV5Qbw4Jz99q1Qv+XbXhsqyKds3t3J1EHRVu5X
+ nFOdV+6wj4qkPY+0geL/zleTzDuuStLXAwWKEnlKfgnaFQBhy1j22HiWdZT9kQT6LRE8
+ VLRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780654756; x=1781259556;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=YdRn4DRbFufW0fmv7Xxdna0Xs07PVl1QBs1/OWzN90w=;
+ b=i3mo3diGkFSYLWmsi2r5TvtQFA+I6jnEn0eof2zuRhg1dFFgl4pYwIY1KQk8ma0N9F
+ Xo/lGoCcr0aJoIkCrGWvFuRjHInP4QdWlRFFDq77t2WcczjulIHJO/l8VK0Hgx2DdLiH
+ /taVvpg/+lQQUpaMOYhN925SSxX7UfIFbBynNc2uzN3hCFFQ3Il9s0ZR46Cjd7RRZW+U
+ 8hera0ocJ5/g6gXo3HX2Cmk3H5I6qSFVikdi51E2a0Ib/CcjBtxaTnYbaZvSbsXMYsl6
+ YQnxWbhXvr5Qy4LYS1EA5XMHl0WBt3Ohfy/lhpnCkrNcafl3ywG/OTX7B9oku6pcIkuU
+ 7rlA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8N9YJMHrYzVLJOzV6PBhxLUvtuUvx6UlkfOl8DWocUHj94yaGzmGTscrdKBkaEDWCfg2YiIj/v6I0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxtf8BVHerHskOvIXDOxNuJV4lIV/sw4ZFEYvPLIA+iACLqLa7/
+ r1jKc7an7/J+FcNF5cDkpAjQI0gf2zDnaxfwmBQ5rqSqdOyEN6V2C+sLb8WPIdW06x83Mg6A+hr
+ erd8IJWFaD4vMuLOQ5+FxBKydJp8YGe/hQPaH9cSRcXKdEFjheHgHPeOqe51G2Poxk5xj/LM=
+X-Gm-Gg: Acq92OGs/R1ZzbGLHnisQ3/dJXfsLUw29duLrhwAl1WSmqOugbMLipbA1DWXDx29euq
+ pUFDNULKhBW/xLhtXZsDxbVHHwWFpaqEx320mhTsIIdH+ny4Bg9KmGZnMOhp/KBGR+iRVR+0kMh
+ EXxpysOl48Dy9UfUEHDI/jG3KgbVOsDFCSEJJtOlE0fnROcUfGtZqZ2A2emzkZHctHqjIPjolO6
+ HqDFA58uYCErRTAvup0PMCXXSZqbsD/sY6wwuAmeIxpQnwsjWcBU4h5CUjqvDtxYcbmnT8Yp1vD
+ 5j8pfZGltDdximfBfXv1cA3rUuvUgu+c6D3wVL/mrzX+qf1JnRvj9ztROivg+RAJ//YkfKQFrub
+ tqvfGeNy+SMkec4+wHkCye8laulve0LO8KJt3BMqdHduUTFBFZmgbcGjkOeA=
+X-Received: by 2002:a17:902:d58f:b0:2bf:195d:21d2 with SMTP id
+ d9443c01a7336-2c1e7e44e91mr31358625ad.16.1780654755816; 
+ Fri, 05 Jun 2026 03:19:15 -0700 (PDT)
+X-Received: by 2002:a17:902:d58f:b0:2bf:195d:21d2 with SMTP id
+ d9443c01a7336-2c1e7e44e91mr31358275ad.16.1780654755335; 
+ Fri, 05 Jun 2026 03:19:15 -0700 (PDT)
+Received: from hu-naala-hyd.qualcomm.com ([202.46.22.19])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2c164fa0236sm89741445ad.33.2026.06.05.03.19.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Jun 2026 03:19:14 -0700 (PDT)
+From: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Subject: [PATCH v3 0/3] Add Shikra (QCM2390) display support
+Date: Fri, 05 Jun 2026 15:48:50 +0530
+Message-Id: <20260605-shikra-display-v3-0-9846ba5fe635@oss.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Revert "drm/i915/backlight: Remove try_vesa_interface"
-To: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- Thorsten Leemhuis <regressions@leemhuis.info>,
- Tvrtko Ursulin <tursulin@igalia.com>, Dave Airlie <airlied@gmail.com>,
- Simona Vetter <simona.vetter@ffwll.ch>
-Cc: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
- "Murthy, Arun R" <arun.r.murthy@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
- Linux kernel regressions list <regressions@lists.linux.dev>,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- Jani Nikula <jani.nikula@linux.intel.com>
-References: <20260515155340.1000997-1-suraj.kandpal@intel.com>
- <20260517024709.1016121-1-suraj.kandpal@intel.com>
- <53a2a8dd-d1b6-41c5-ade2-7ed870d074ac@leemhuis.info>
- <ffac6caf-0376-4a0c-908e-b89cce48d28f@leemhuis.info>
- <c7764bbd-7990-4d11-832e-ec7283c1a6c1@igalia.com>
- <DS4PPFE901A304FD9E40779C9B78A29E661E3112@DS4PPFE901A304F.namprd11.prod.outlook.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <DS4PPFE901A304FD9E40779C9B78A29E661E3112@DS4PPFE901A304F.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAIqiImoC/3XNQQ6CMBAF0KuQri0phVBx5T2Mi2kpUkWKHWgkh
+ Lvb4sZE3Uzykz/vLwS1MxrJIVmI096gsX0I+S4hqoX+oqmpQyac8ZKVLKfYmpsDWhscOpgpE6I
+ UnO0bqBgJT4PTjXlu4On8zjjJq1ZjVGKjNThaN2+LPou9v7jPKKOgQWWyKhoAcbSI6WOCTtn7P
+ Q2HxA3PP5XiS+FBkXlAuCyFrtUPZV3XF6jbTxkLAQAA
+X-Change-ID: 20260603-shikra-display-07767208fa90
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org,
+ Nabige Aala <nabige.aala@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.16-dev-d5d98
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780654747; l=3346;
+ i=nabige.aala@oss.qualcomm.com; s=20260520; h=from:subject:message-id;
+ bh=UjONg0NYj4XKMunIFJbINoDK3VSOgIFWYIBOvuNak5g=;
+ b=NYZsTfhD6L1pZkrKqjY12HiGTIOPAad7elMOIEmgc5l650WfUBoPQwTaiYI4OYgsjDKjhuKBL
+ jCLt2KM/JUJAy+tdw3EdLXgPUp6qTh8OMonqEGpoxLFIK4lrDHSxFSQ
+X-Developer-Key: i=nabige.aala@oss.qualcomm.com; a=ed25519;
+ pk=PYHJom8sPos1IGkrbCCsWiE7XTBQrQZd9jzAo051tgw=
+X-Proofpoint-GUID: puTcrqGOYKMdXALWOCs1362FQek43OUL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA1MDA5OSBTYWx0ZWRfX6XI4NKdlYLMr
+ gPPM3BQSP+wNU4opgPJSJ+y7ZNOqT7z3Q2NYX3Gm7H8T9rcn4WnKk++tJX1uITspu/PJ7xvC6YG
+ l5OfGgVDAv/GwttRS9mcEQmh8j5di+o75BYDGE8Ym5T8WVawCpCocgHNPVunfO7CDvJBmJrGDVM
+ I/ZKTBAjMno0myf6pT4z17mcq9QARbVQsjHlawgPYNZvmGCExioq57gbU0YKv2Ba4mniBRS+Skb
+ CB91jc2oY/6PkdHY0ErhWfPMVdE/NpEm5TGPGnrC+4cEilW1+RRIFjJhRcmeFA7StjzhY0Zctoy
+ h/G62PS1MebhSqvs3/rkY15dDm+GmZYQ9pGUqP3ya8Dj6dUWFobFNjkzIM83G7puiGJMwCLU+dx
+ Hzi/HQ0UmT4vXzQpAHWPwkSyGCZkeuZWnh06hiISMqnY19QDihSNCLqwsMalGAxaAVpowIkQVfm
+ SFLz9y25zvde56e1cHA==
+X-Authority-Analysis: v=2.4 cv=K/wS2SWI c=1 sm=1 tr=0 ts=6a22a2a4 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=_or6NCU1o4AAqT2-bvQA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: puTcrqGOYKMdXALWOCs1362FQek43OUL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-05_01,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 suspectscore=0 impostorscore=0 spamscore=0
+ bulkscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606050099
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,175 +166,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Shikra (QCM2390) is a Qualcomm SoC based on the QCM2290 family that
+reuses the same MDSS/DPU 6.5 hardware as QCM2290. This series enables
+the display subsystem for Shikra by adding DT binding updates for MDSS,
+DSI controller and DPU, arm64 defconfig enablement for the ILI7807S DSI
+panel, and UBWC configuration mapping Shikra to qcm2290_data.
 
-On 05/06/2026 11:04, Kandpal, Suraj wrote:
->> -----Original Message-----
->> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Sent: Friday, June 5, 2026 3:23 PM
->> To: Thorsten Leemhuis <regressions@leemhuis.info>; Tvrtko Ursulin
->> <tursulin@igalia.com>; Dave Airlie <airlied@gmail.com>; Simona Vetter
->> <simona.vetter@ffwll.ch>; Kandpal, Suraj <suraj.kandpal@intel.com>
->> Cc: Nautiyal, Ankit K <ankit.k.nautiyal@intel.com>; Murthy, Arun R
->> <arun.r.murthy@intel.com>; intel-gfx@lists.freedesktop.org; intel-
->> xe@lists.freedesktop.org; Vivi, Rodrigo <rodrigo.vivi@intel.com>; Linux kernel
->> regressions list <regressions@lists.linux.dev>; ML dri-devel <dri-
->> devel@lists.freedesktop.org>; Jani Nikula <jani.nikula@linux.intel.com>
->> Subject: Re: [PATCH] Revert "drm/i915/backlight: Remove try_vesa_interface"
->>
->>
->> Hi Suraj,
->>
->> On 05/06/2026 07:58, Thorsten Leemhuis wrote:
->>> On 6/4/26 15:55, Thorsten Leemhuis wrote:
->>>> On 5/17/26 04:47, Suraj Kandpal wrote:
->>>>> This reverts commit 40d2f5820951dee818d05c14677277048bd85f9f.
->>>>>
->>>>> Removing the try_vesa_interface gate caused a backlight regression
->>>>> on panels whose VBT correctly reports INTEL_BACKLIGHT_DISPLAY_DDI
->>>>> and whose PWM path is the actual backlight control, but whose DPCD
->>>>> optimistically advertises DP_EDP_BACKLIGHT_AUX_ENABLE_CAP /
->> _BRIGHTNESS_AUX_SET_CAP.
->>>>> After the commit such panels silently bind to the VESA AUX backlight
->>>>> funcs; AUX writes complete but the panel ignores them, leaving
->>>>> brightness stuck (no-op backlight). Observed on at least KBL and TGL
->>>>> eDP setups.
->>>>
->>>> Lo! What's the status of this regression fix? It's a -next for two
->>>> weeks now as f30fddb4402313 ("Revert "drm/i915/backlight: Remove
->>>> try_vesa_interface""), but from the outside and checking
->>>> https://gitlab.freedesktop.org/drm/i915/kernel/-/commits/drm-intel-fi
->>>> xes it looks like it's scheduled for merging in the next cycle.
->>>
->>> Resending to Tvrtko, who sent the i915 PR yesterday (which didn't
->>> contain that fix), as well as Dave and Simona.
->>>
->>> FWIW, due to the lack of response to various inquiries I'm considering
->>> to ask Linus to directly pick up the mentioned regression fix to
->>> ensure it makes it into rc7.
->>>
->>> In case anyone wonder what regression I'm talking about:
->>>
->>> * https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16015 /
->>> https://lore.kernel.org/lkml/CADo9pHjr-
->> zZ9C3%2B026y5%2BXOGPSeRzSJMCHof
->>> 27TVPtAUNgTc8A@mail.gmail.com/
->>> * https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16043
->>> * https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16097 /
->>> https://lore.kernel.org/lkml/d2de7933-e650-4b19-8d88-90d66693dcfc@mess
->>> age-id.googlemail.com/
->>>
->>> Ciao, Thorsten
->>>
->>>> But I think it should be merged this cycle (ideally before -rc7, as
->>>> Linus wants all known regression fixed by -rc6), as it fixes a
->>>> regression that is known since the -rc1 days. I already asked for the
->>>> mainlining plans in gitlab tickets about a week ago (and since then
->>>> affected users spoke up, too), but there was no conclusive answer for
->>>> the plans, which is why I'm trying this way now.
->>
->> Was there a reason the revert was not marked with a Fixes: tag? Or in other
->> words, any particular reason why it should *not* be picked up for drm-intel-
->> fixes?
-> 
-> There wasn't any particular reason.
-> Tbh I didn't think we would require it since this revert was fixing the issue caused by the patch in question being reverted.
+Driver and SMMU support are covered by the existing qcom,qcm2290-mdss
+fallback compatible string — no separate drm/msm or IOMMU patches are
+required.
 
-Okay then, thank you. I've cherry picked it and sent a new pull request. 
-The previous one hasn't been pulled yet so hopefully this is still in time.
+Tested on Shikra CQM EVK board with ILI7807S DSI panel. Display
+pipeline probes cleanly and panel renders correctly.
 
-Regards,
+Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+---
+Nabige Aala (3):
+  dt-bindings: display: msm: qcm2290: Add Shikra MDSS
+  arm64: defconfig: Enable ILI7807S DSI panel driver
+  soc: qcom: ubwc: Add Shikra UBWC config 
 
-Tvrtko
+ Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml 	| 4 ++++
+ Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml		|  7 +++++--
+ Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml		| 22 +++++++++++++++-------
+ arch/arm64/configs/defconfig							|  1 +
+ drivers/soc/qcom/ubwc_config.c							|  1 +
+ 5 files changed, 26 insertions(+), 9 deletions(-)
+ ---
+Prerequisite-Message-Id: <20260518-ili7807s-panel-v1-0-d7b048163b1c@oss.qualcomm.com>
 
->>>> Ciao, Thorsten
->>>>
->>>>
->>>>> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
->>>>> ---
->>>>>    .../drm/i915/display/intel_dp_aux_backlight.c | 19 ++++++++++++-------
->>>>>    1 file changed, 12 insertions(+), 7 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
->>>>> b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
->>>>> index a8d56ebf06a2..7a6c07f6aaeb 100644
->>>>> --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
->>>>> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
->>>>> @@ -691,10 +691,9 @@ int intel_dp_aux_init_backlight_funcs(struct
->> intel_connector *connector)
->>>>>    	struct intel_dp *intel_dp = intel_attached_dp(connector);
->>>>>    	struct drm_device *dev = connector->base.dev;
->>>>>    	struct intel_panel *panel = &connector->panel;
->>>>> -	bool try_intel_interface = false;
->>>>> +	bool try_intel_interface = false, try_vesa_interface = false;
->>>>>
->>>>> -	/*
->>>>> -	 * Check the VBT and user's module parameters to figure out which
->>>>> +	/* Check the VBT and user's module parameters to figure out which
->>>>>    	 * interfaces to probe
->>>>>    	 */
->>>>>    	switch (display->params.enable_dpcd_backlight) { @@ -703,6 +702,7
->>>>> @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector
->> *connector)
->>>>>    	case INTEL_DP_AUX_BACKLIGHT_AUTO:
->>>>>    		switch (panel->vbt.backlight.type) {
->>>>>    		case INTEL_BACKLIGHT_VESA_EDP_AUX_INTERFACE:
->>>>> +			try_vesa_interface = true;
->>>>>    			break;
->>>>>    		case INTEL_BACKLIGHT_DISPLAY_DDI:
->>>>>    			try_intel_interface = true;
->>>>> @@ -715,12 +715,20 @@ int intel_dp_aux_init_backlight_funcs(struct
->> intel_connector *connector)
->>>>>    		if (panel->vbt.backlight.type !=
->> INTEL_BACKLIGHT_VESA_EDP_AUX_INTERFACE)
->>>>>    			try_intel_interface = true;
->>>>>
->>>>> +		try_vesa_interface = true;
->>>>> +		break;
->>>>> +	case INTEL_DP_AUX_BACKLIGHT_FORCE_VESA:
->>>>> +		try_vesa_interface = true;
->>>>>    		break;
->>>>>    	case INTEL_DP_AUX_BACKLIGHT_FORCE_INTEL:
->>>>>    		try_intel_interface = true;
->>>>>    		break;
->>>>>    	}
->>>>>
->>>>> +	/* For eDP 1.5 and above we are supposed to use VESA interface for
->> brightness control */
->>>>> +	if (intel_dp->edp_dpcd[0] >= DP_EDP_15)
->>>>> +		try_vesa_interface = true;
->>>>> +
->>>>>    	/*
->>>>>    	 * Since Intel has their own backlight control interface, the majority of
->> machines out there
->>>>>    	 * using DPCD backlight controls with Intel GPUs will be using
->>>>> this interface as opposed to @@ -733,9 +741,6 @@ int
->> intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
->>>>>    	 * panel with Intel's OUI - which is also required for us to be able to
->> detect Intel's
->>>>>    	 * backlight interface at all. This means that the only sensible way for us
->> to detect both
->>>>>    	 * interfaces is to probe for Intel's first, and VESA's second.
->>>>> -	 *
->>>>> -	 * Also there is a chance some VBTs may advertise false Intel backlight
->> support even if the
->>>>> -	 * TCON DPCD says otherwise. This means we keep VESA interface as
->> fallback in that case.
->>>>>    	 */
->>>>>    	if (try_intel_interface && intel_dp->edp_dpcd[0] <= DP_EDP_14b &&
->>>>>    	    intel_dp_aux_supports_hdr_backlight(connector)) { @@ -745,7
->>>>> +750,7 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector
->> *connector)
->>>>>    		return 0;
->>>>>    	}
->>>>>
->>>>> -	if (intel_dp_aux_supports_vesa_backlight(connector)) {
->>>>> +	if (try_vesa_interface &&
->>>>> +intel_dp_aux_supports_vesa_backlight(connector)) {
->>>>>    		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] Using VESA eDP
->> backlight controls\n",
->>>>>    			    connector->base.base.id, connector->base.name);
->>>>>    		panel->backlight.funcs = &intel_dp_vesa_bl_funcs;
->>>>
->>>
-> 
+---
+Changes in v3:
+- Use a fallback compatible chain for qcom,shikra-dsi-ctrl
+  in dsi-controller-main.yaml instead of a standalone enum entry, with
+  qcom,qcm2290-dsi-ctrl and qcom,mdss-dsi-ctrl as fallbacks
+- Replace oneOf in qcm2290-mdss patternProperties DSI compatible with
+  contains: qcom,qcm2290-dsi-ctrl to avoid duplicating full chain
+  validation already handled by dsi-controller-main.yaml
+- Drop unnecessary select: block from qcom,qcm2290-mdss.yaml; default
+  dt-validate compatible matching is sufficient
+- Remove self from qcom,qcm2290-mdss.yaml maintainers list
+- Link to v2: https://patch.msgid.link/20260604-shikra-display-v2-0-b3c1b2b67edc@oss.qualcomm.com
+
+Changes in v2:
+- Drop drm/msm/mdss: Shikra support patch; driver reuse is handled via
+  the qcom,qcm2290-mdss fallback compatible string (per Dmitry's review)
+- Drop iommu/arm-smmu: Shikra SMMU client table patch; not required with
+  fallback compatible approach
+- Fix UBWC config to map qcom,shikra to qcm2290_data instead of
+  no_ubwc_data; Shikra shares UBWC support with QCM2290
+- Refactor series from 5 patches to 3 patches
+- Link to v1: https://patch.msgid.link/20260603-shikra-display-v1-0-aeac1b94faa7@oss.qualcomm.com
+
+---
+Nabige Aala (3):
+      dt-bindings: display: msm: qcm2290: Add Shikra MDSS
+      arm64: defconfig: Enable ILI7807S DSI panel driver
+      soc: qcom: ubwc: Add Shikra UBWC config
+
+ .../bindings/display/msm/dsi-controller-main.yaml  |  4 ++++
+ .../bindings/display/msm/qcom,qcm2290-dpu.yaml     |  7 +++++--
+ .../bindings/display/msm/qcom,qcm2290-mdss.yaml    | 22 +++++++++++++++-------
+ arch/arm64/configs/defconfig                       |  1 +
+ drivers/soc/qcom/ubwc_config.c                     |  1 +
+ 5 files changed, 26 insertions(+), 9 deletions(-)
+---
+base-commit: 3a34f9c13cc0688f8db2a0db8506bf8c0d90737d
+change-id: 20260603-shikra-display-07767208fa90
+
+Best regards,
+--  
+Nabige Aala <nabige.aala@oss.qualcomm.com>
 
