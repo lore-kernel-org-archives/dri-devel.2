@@ -4,93 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45399CD6E7C
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 22:46:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DF1BCD6E7B
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 23:14:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E2A7112C4E;
-	Fri,  5 Jun 2026 22:46:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E26111ABAF;
+	Fri,  5 Jun 2026 23:14:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="U5yOxAmP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OkcFsDj6";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 959E8112C4E
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 22:46:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1780699562;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=dV6PAZLoEmUptgQeuUHBOKnlcyuL3OCus7UUkvZbeZI=;
- b=U5yOxAmP9ENbh6coSbxLYbsX/qIufsMrGJ1O6Wy3JYjXWB7KZZ/Lh3nBdGUFKhB65Tlohm
- BHfpdunjjx9Fp5kECllRnBmEre2u4jAn/P7qdicRvW7AoWmAhJYQgQvsOGo6gDv3yFmYFi
- u6I+W9pmyvTxDR8ZdDlKFWaBzFpXM5I=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-130-Y3LOoH6OMsubveNhjd3_-A-1; Fri, 05 Jun 2026 18:45:57 -0400
-X-MC-Unique: Y3LOoH6OMsubveNhjd3_-A-1
-X-Mimecast-MFC-AGG-ID: Y3LOoH6OMsubveNhjd3_-A_1780699557
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-8ced08f46b0so68601316d6.0
- for <dri-devel@lists.freedesktop.org>; Fri, 05 Jun 2026 15:45:57 -0700 (PDT)
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
+ [209.85.160.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AB2A11ABAF
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 23:14:32 +0000 (UTC)
+Received: by mail-qt1-f179.google.com with SMTP id
+ d75a77b69052e-5174a3d9598so21739051cf.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 05 Jun 2026 16:14:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780701271; cv=none;
+ d=google.com; s=arc-20240605;
+ b=UKwtILZXLdjhTA3qRCp4tFGt7QeApAglfDONkkjoYoVVMg6L3WP7sv5kdMW7yivIsV
+ hxvg37+p/gXt1wDIS4haH8rLGHzmaWEEstrxqCdxoeKGWobz2k1heyU+qzltc8Y7mQVp
+ eLYgRArZ+EAPBrGFYwYMgIbo0+PP7UbquA8VKDYD2kkOJEoGx1aTHkTemSEcJj0KS9uw
+ lKfjHXtU8gDhAa2Lz3sqQdb8xArG6nWhekyg/geI7DXjFIkPWHFPDwV0ogVMYwU/uH2y
+ 83Pk0Z0+fxWPmVLiQKYkyfwrJXpf++ym8/3x7JWGOgkoJVLO0CliJTNjm8YeVLojV6KB
+ Ovrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:dkim-signature;
+ bh=foq2FEH+Eb7PlHe5rBt1b8WeStT7dge0Sjdo8JeA+mA=;
+ fh=A08XZwmmb57jzirbgTkluPSvjDeiJMkkojF1n6qDmTk=;
+ b=B6psOkschlqULNdsRPulQyONeaFVl5H/vn8Mv4UdGw9M8zAr2bDyo3/BmRaH/m4ScI
+ /qbIU2Z5V99/PSDQ+dXpaTs5d2g4K3VuHU3v3hoapvUi2kHzUFc5p+E0jjaxYO2xsyXP
+ 4g/AsvcSeIfJdLHiMJKR+V/QtKtu5uAFXPT8jq5BbxmCsashPWVqDbknwoIjNogDPqML
+ rVlUu8zV2pglu+Y1ULN0Hd37+wnPRlWNNGL/9XRquTEqRn+ZHfDoS21jrcBP+H79KAxx
+ +JNnXd3392L7xB/AeDEAXt8GRI7GLpDVVK7smeGVPu2ovKhMI9l+r7qf6L7yDfOeN3aW
+ Xxaw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780701271; x=1781306071; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=foq2FEH+Eb7PlHe5rBt1b8WeStT7dge0Sjdo8JeA+mA=;
+ b=OkcFsDj69DnonO9jxHXKH6eQLUUhK6Jl7nKIx0VeXUDSn6BKtO11/+OMxUqd3xvrbX
+ Mq9ntdfAZJDpMWwj1QFCnzUte1ZftXHUxwoXVqN/dVQui+ZN8qCeftorCt0qt+b4/LK0
+ /CgiU2mHqo/n2Is5IcsJhaQ90CXOhmMLF7Po6mMWR20YTnx4ajUfpOanmzFRtOvr183y
+ DNVOdnoOKNBVHicoFD73myceBGqgPF2hjNpVF03KmHglWHQKvCuCNhMgnrk0C3CPoS+5
+ gica9N4Xk/3+p/c8RjBEgbmfehBcndFVKyePMZXu6p45BYUlXw8rcMwTslEC2YdLrkgf
+ NzjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780699557; x=1781304357;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1780701271; x=1781306071;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=dV6PAZLoEmUptgQeuUHBOKnlcyuL3OCus7UUkvZbeZI=;
- b=REE8z1ddSQohlzqUbzKUgTYUKqZm1AghKziiaQ62BliYQ/dCcSxTLXjv52eRrlcls3
- Ks3N3b1I8nmVAHsehD5XUzoflEbDOxTNaqX/TArR5hWUN6X6PR1y2OPl5VTDtbdNdZ2X
- QKwJmBVgMMh76CwwEWrjoTGKEik8VnTOXU64F951HXQmm2WndgDpEBKI30QOXRB/r6Zj
- 28gpDexUx00S5sAMj47kA3Qxu5ORm0AL1t+5pG1jbhmSPe4TqenpJgxWwqSAQRhjTBNa
- jbP3TGHWNNwbbsAIgwum+VM+FTWPYOXOKLdkZIRbb/K1c1CBoT6E9qiFkWO3rvV3WDZ+
- p1Ng==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9yVlR1j3+9RabI+/8vwkB13ntGnbasfzwMekUy2okuLqoZU5TA9O8DI9+9uxbtAhMSGh7Mk1qlYns=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzm7hN31bLeWi4aNpkJ2OL7CZjlpjh46SAFvpioN831cTeUGSBt
- nQCnqcK1xwGu8Pe6cLBfcJZQ7mJAqMu2qG9eZQwEt9+u4XBBqv/8dDM6VhX9r0acrw20DgeRDBO
- DM2jpGa12o5Lv8c/m4tBJszN/YYx7sJ6djK11ihdzAwET80kqrLrKLw1usbbtaA6OqWAVHA==
-X-Gm-Gg: Acq92OHTMA7n0WOb5m2Qx/P3va2vcIXcKtl39Ml8X2c6kEHAphMwSg3m/apuNtjiqC0
- 7WuzKO94Sab3mZofXNZsPJSSaREbHb1wdEFjZ91b6bFaaOXojy2HKgjqjabsJRynALsDOfUpEDA
- loSakVmWydI7mpnAJkuS9e7T7cZqAajDskXXi/8fjLq7nhobB4I+BmAAkaRd0yIU4yuQSxtd/+s
- Y0+qjOMYCzML1fa3dVd5YGL0cvWgUZkzQzPNLLYhw2IOCKjEUkLO0/I7Akrycn/H408iaje3PcN
- ofoPGJdfSx/ciw4tMuiu519SIss1R86csE11XIiDzh5nIuBPDoMwd+KErGI2GQyWTJoA9gCSn0q
- T3m4/sPRwtkcIvA/uzxhmtp5pW877kWLBRuhrqLWaoF74z6eweFmGGKRMlSiOg/vtJKpKuJ+uEW
- t0
-X-Received: by 2002:a05:6214:45a0:b0:8ce:ab75:9d69 with SMTP id
- 6a1803df08f44-8cee8c44538mr60333476d6.21.1780699556962; 
- Fri, 05 Jun 2026 15:45:56 -0700 (PDT)
-X-Received: by 2002:a05:6214:45a0:b0:8ce:ab75:9d69 with SMTP id
- 6a1803df08f44-8cee8c44538mr60332996d6.21.1780699556434; 
- Fri, 05 Jun 2026 15:45:56 -0700 (PDT)
-Received: from localhost (pool-100-17-21-205.bstnma.fios.verizon.net.
- [100.17.21.205]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8cecd06f5eesm94985466d6.37.2026.06.05.15.45.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Jun 2026 15:45:55 -0700 (PDT)
-From: Eric Chanudet <echanude@redhat.com>
-Date: Fri, 05 Jun 2026 18:44:55 -0400
-Subject: [PATCH] cgroup/dmem: accept only one region per limit write
+ bh=foq2FEH+Eb7PlHe5rBt1b8WeStT7dge0Sjdo8JeA+mA=;
+ b=KO17xT9tNGgX8t0F3CRuCAWFKzxETB6Nw/Etd2BwU/GA93ev9BffpQC5kXgW96j7jQ
+ PXYq1VjN3CU5G6F7IILXVTxKouxmlYXsdMlAXqSr+94IoiFmvvS4PclQO/FD71qdweQA
+ M34prszcHBuyJfd9vMTIKw3D+jsLZFeeYnAPMgUVoKR2eiLFnus2DrCunOMt0gqLusad
+ 4SyOKLfDDoedrIMfgDQfBrl+6QhA5BGJMMxSmhu2e969B5OltkkeVSiXKOIHyTY7A3Nt
+ a1ItXmWgCjHmb0IYNVS6LAe5zR58BqZnOszf3P1COMvWGKx3e1tgbDwaOm0l1MCTeJWf
+ 484Q==
+X-Gm-Message-State: AOJu0YwpljLaIEojYqs7ycqY+iIesiKGSkvxKs9lR8k/xy2KKrDvf2NM
+ +NVu/GdBbHwqrEK9M1KHbO0z1+1Gxksx6zOlC4gshXnh3jx7egVvjdFSczVQTCxFhOoUw6/eInQ
+ H7YtXWRSQluRUDFDgdhBN5fz+n5t5B2E=
+X-Gm-Gg: Acq92OGxluWRWbbjQLy+Ap1MthaO/fDo5PQDh6BiN6+q5os+sOXYn0K2zZZpVDTnupy
+ 3U0YvnSwgJPQRJsREkdPJ5wyWJjkrQreNvehIqu5GTjcQjbLgyYXIbjsZZVrq1rccDp318kwbn/
+ eEecTfOSzsLOHsnUWz9Z7cOpgrxOZBAp1HoPFKizDWvhh2/iCb7Y9dlIorv6nFfRH4FlzgmGcJg
+ oz4RLV4pxKt2OUf1o6cQwlT7z/zpSahUPJmn+sSEoXyqebNdxq115B7vkS7KBo45Unnt/LxeVih
+ 1PExKV3348yC+fq09XmUBU3KdcxxbQ7r6s/SQjBhbaszGh9B5j2Htxk9vn4XMWsfka5pycG+0SD
+ Jyw==
+X-Received: by 2002:a05:622a:4e85:b0:517:5e32:f3b6 with SMTP id
+ d75a77b69052e-51795a24229mr80058051cf.24.1780701271127; Fri, 05 Jun 2026
+ 16:14:31 -0700 (PDT)
 MIME-Version: 1.0
-Message-Id: <20260605-cgroup-dmem-write-single-region-v1-1-9137f296579c@redhat.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2NzQqDMBAGX0X27EIUEkhfpXio5jNdqFE29QfEd
- zd4nMPMnJShgkyv6iTFJlnmVKCpKxq+nxTBEgpTa1pnnLE8RJ3XhcOEiXeVPzhLij+wIhaXfT8
- a27vgvQ1UKotilOM5vLvrugFgY1X4cQAAAA==
-X-Change-ID: 20260605-cgroup-dmem-write-single-region-9bf05b6d995d
-To: Maarten Lankhorst <dev@lankhorst.se>, 
- Maxime Ripard <mripard@kernel.org>, Natalie Vock <natalie.vock@gmx.de>, 
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Albert Esteve <aesteve@redhat.com>, 
- Eric Chanudet <echanude@redhat.com>
-X-Mailer: b4 0.14.2
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: c8yx7n8wX00xFR0-WtEN-r2_qLLxpzSliwRHV9pE7ng_1780699557
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+From: Dave Airlie <airlied@gmail.com>
+Date: Sat, 6 Jun 2026 09:14:18 +1000
+X-Gm-Features: AVVi8CeNd-ugie1KquctzYnPF0ncBOvLVbZm_qqcfWuRz8ODPUrfb-BZOFbiuGk
+Message-ID: <CAPM=9tx-LsD-MVyNdO4uQ-of16HNt2JsbJYQqRCOMUzzH5bVrg@mail.gmail.com>
+Subject: [git pull] drm fixes for 7.2-rc6
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,122 +102,330 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Accept only one "region value" pair entry for the dmem.max, dmem.min,
-dmem.low files.
+Hi Linus,
 
-This changes the UAPI that otherwise accepted multiple lines for setting
-multiple entries in one write. No existing user is known to rely on
-writing multiple regions in a single write.
+Weekly drm fixes, not contributing to things settling down
+unfortunately, lots of driver fixes for various bounds checks, leaks
+and UAF type things, i915/xe probably the most sane, amdgpu has a mix
+of fixes all over, then ethosu has lots of small fixes.
 
-Processing multiple regions in dmemcg_limit_write() could quietly change
-first limits before failing on a later one and returning an error to the
-writer, with no indication some changes occurred.
+The problem of fixing thing in private has really hit us with the
+change handle ioctl, and "Sima was right" and we should have disabled
+the ioctl, since it was only introduced a couple of kernels ago and
+failed to upstream it's tests in time. The patch here fixes the
+problems Sima identified, but disables the ioctl as well, with a list
+of known problems in it and a request for proper tests to be written
+and upstreamed. It's a niche user ioctl designed for CRIU with AMD
+ROCm, so I think it's fine to just disable it.
 
-Signed-off-by: Eric Chanudet <echanude@redhat.com>
----
-Follow up from discussions on a previous thread[1].
-If Albert's series[2] lands, I can cleanup and prepare some kunits for
-these as well.
-[1] https://lore.kernel.org/all/158bc103-7f99-4df4-8d3b-2da9b04ac0ed@lankhorst.se/
-[2] https://lore.kernel.org/all/20260519-kunit_cgroups-v4-1-f6c2f498fae4@redhat.com/
----
- kernel/cgroup/dmem.c | 70 +++++++++++++++++++---------------------------------
- 1 file changed, 26 insertions(+), 44 deletions(-)
+Maybe this week will settle down,
+Dave.
 
-diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-index 6430c7ce1e0372f59f1313163fb7630ce49ac1ef..113ee88e276296bccb4def546adf5cc175d7f0be 100644
---- a/kernel/cgroup/dmem.c
-+++ b/kernel/cgroup/dmem.c
-@@ -734,57 +734,39 @@ static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
- 				 void (*apply)(struct dmem_cgroup_pool_state *, u64))
- {
- 	struct dmemcg_state *dmemcs = css_to_dmemcs(of_css(of));
--	int err = 0;
--
--	while (buf && !err) {
--		struct dmem_cgroup_pool_state *pool = NULL;
--		char *options, *region_name;
--		struct dmem_cgroup_region *region;
--		u64 new_limit;
--
--		options = buf;
--		buf = strchr(buf, '\n');
--		if (buf)
--			*buf++ = '\0';
--
--		options = strstrip(options);
--
--		/* eat empty lines */
--		if (!options[0])
--			continue;
--
--		region_name = strsep(&options, " \t");
--		if (!region_name[0])
--			continue;
--
--		if (!options || !*options)
--			return -EINVAL;
-+	struct dmem_cgroup_pool_state *pool;
-+	struct dmem_cgroup_region *region;
-+	char *region_name;
-+	u64 new_limit;
-+	int err;
- 
--		rcu_read_lock();
--		region = dmemcg_get_region_by_name(region_name);
--		rcu_read_unlock();
-+	buf = strstrip(buf);
-+	region_name = strsep(&buf, " \t");
-+	if (!region_name[0] || !buf)
-+		return -EINVAL;
- 
--		if (!region)
--			return -EINVAL;
-+	rcu_read_lock();
-+	region = dmemcg_get_region_by_name(region_name);
-+	rcu_read_unlock();
-+	if (!region)
-+		return -EINVAL;
- 
--		err = dmemcg_parse_limit(options, &new_limit);
--		if (err < 0)
--			goto out_put;
-+	buf = strstrip(buf);
-+	err = dmemcg_parse_limit(buf, &new_limit);
-+	if (err < 0)
-+		goto out_put;
- 
--		pool = get_cg_pool_unlocked(dmemcs, region);
--		if (IS_ERR(pool)) {
--			err = PTR_ERR(pool);
--			goto out_put;
--		}
-+	pool = get_cg_pool_unlocked(dmemcs, region);
-+	if (IS_ERR(pool)) {
-+		err = PTR_ERR(pool);
-+		goto out_put;
-+	}
- 
--		/* And commit */
--		apply(pool, new_limit);
--		dmemcg_pool_put(pool);
-+	apply(pool, new_limit);
-+	dmemcg_pool_put(pool);
- 
- out_put:
--		kref_put(&region->ref, dmemcg_free_region);
--	}
--
-+	kref_put(&region->ref, dmemcg_free_region);
- 
- 	return err ?: nbytes;
- }
+drm-fixes-2026-06-06:
+drm fixes for 7.2-rc6
 
----
-base-commit: 640c57d6ca1346a1c2363a3f473b405af979e046
-change-id: 20260605-cgroup-dmem-write-single-region-9bf05b6d995d
+core:
+- disable the gem change handle ioctl for security reasons
+  (plan to fix it on list later with proper test coverage)
 
-Best regards,
--- 
-Eric Chanudet <echanude@redhat.com>
+dumb-buffer:
+- remove strict limits on buffer geometry
 
+amdgpu:
+- BT.2020 fix for DCE
+- DC bounds checking fixes
+- SDMA 7.1 fix
+- UserQ fixes
+- SI fix
+- SMU 13 fixes
+- SMU 14 fixes
+- GC 12.1 fix
+- Userptr fix
+- GC 10.1 fix
+- GART fix for non-4K pages
+
+amdkfd:
+- UAF race fix
+- Fix a potential NULL pointer dereference
+- GC 11 buffer overflow fix for SDMA
+
+xe:
+- Revert removing support for unpublished NVL-S GuC
+- Suspend fixes related to multi-queue
+
+i915:
+- Fix color blob reference handling in intel_plane_state
+- Revert "drm/i915/backlight: Remove try_vesa_interface"
+
+ethosu:
+- reject unsupported NPU_OP_RESIZE
+- fix index of IFM region
+- fix weight index
+- fix overflows in DMA-size calculations
+- reject DMA commands with uninitialized length
+- fix OOB write in ethosu_gem_cmdstream_copy_and_validate
+
+imx:
+- fix kernel-doc warnings
+
+ivpu:
+- add overflow checks in firmware handling and get_info_ioctl
+
+v3d:
+- wait for pending L2T flush before cleaning caches
+- fix leak of vaddr
+- skip CSD when it has zeroed workgroups
+- fix ref counting in performance monitoring
+The following changes since commit e43ffb69e0438cddd72aaa30898b4dc446f664f8=
+:
+
+  Linux 7.1-rc6 (2026-05-31 15:14:24 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-06-06
+
+for you to fetch changes up to 1a4f03d22fb655e5f192244fb2c87d8066fcfca2:
+
+  drm/gem: Try to fix change_handle ioctl, attempt 4 (2026-06-06 08:54:55 +=
+1000)
+
+----------------------------------------------------------------
+drm fixes for 7.2-rc6
+
+core:
+- disable the gem change handle ioctl for security reasons
+  (plan to fix it on list later with proper test coverage)
+
+dumb-buffer:
+- remove strict limits on buffer geometry
+
+amdgpu:
+- BT.2020 fix for DCE
+- DC bounds checking fixes
+- SDMA 7.1 fix
+- UserQ fixes
+- SI fix
+- SMU 13 fixes
+- SMU 14 fixes
+- GC 12.1 fix
+- Userptr fix
+- GC 10.1 fix
+- GART fix for non-4K pages
+
+amdkfd:
+- UAF race fix
+- Fix a potential NULL pointer dereference
+- GC 11 buffer overflow fix for SDMA
+
+xe:
+- Revert removing support for unpublished NVL-S GuC
+- Suspend fixes related to multi-queue
+
+i915:
+- Fix color blob reference handling in intel_plane_state
+- Revert "drm/i915/backlight: Remove try_vesa_interface"
+
+ethosu:
+- reject unsupported NPU_OP_RESIZE
+- fix index of IFM region
+- fix weight index
+- fix overflows in DMA-size calculations
+- reject DMA commands with uninitialized length
+- fix OOB write in ethosu_gem_cmdstream_copy_and_validate
+
+imx:
+- fix kernel-doc warnings
+
+ivpu:
+- add overflow checks in firmware handling and get_info_ioctl
+
+v3d:
+- wait for pending L2T flush before cleaning caches
+- fix leak of vaddr
+- skip CSD when it has zeroed workgroups
+- fix ref counting in performance monitoring
+
+----------------------------------------------------------------
+Alex Deucher (1):
+      drm/amdgpu/sdma7.1: fix support for disable_kq
+
+Alysa Liu (1):
+      drm/amdkfd: fix UAF race in destroy_queue_cpsch
+
+Andrew Martin (1):
+      drm/amdkfd: Fix buffer overflow in SDMA queue checkpoint/restore on G=
+FX11
+
+Andrzej Kacprowski (3):
+      accel/ivpu: Add bounds check for firmware runtime memory
+      accel/ivpu: Add bounds checks for firmware log indices
+      accel/ivpu: Add buffer overflow check in MS get_info_ioctl
+
+Chaitanya Kumar Borah (1):
+      drm/i915: Fix color blob reference handling in intel_plane_state
+
+Christian K=C3=B6nig (1):
+      drm/amdgpu: fix waiting for all submissions for userptrs
+
+Daniele Ceraolo Spurio (1):
+      Revert "drm/xe/nvls: Define GuC firmware for NVL-S"
+
+Dave Airlie (4):
+      Merge tag 'amd-drm-fixes-7.1-2026-06-03' of
+https://gitlab.freedesktop.org/agd5f/linux into drm-fixes
+      Merge tag 'drm-xe-fixes-2026-06-04' of
+https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes
+      Merge tag 'drm-misc-fixes-2026-06-05' of
+https://gitlab.freedesktop.org/drm/misc/kernel into drm-fixes
+      Merge tag 'drm-intel-fixes-2026-06-05' of
+https://gitlab.freedesktop.org/drm/i915/kernel into drm-fixes
+
+Donet Tom (1):
+      drm/amdgpu: Fix incorrect VRAM GART mappings on non-4K page size syst=
+ems
+
+Harish Kasiviswanathan (2):
+      drm/amdgpu: Use asic specific pte_addr_mask
+      drm/amdgpu: drm/amdgpu: Set correct DMA mask for gfx12.1
+
+Harry Wentland (7):
+      drm/amd/display: Fix out-of-bounds read in dp_get_eq_aux_rd_interval(=
+)
+      drm/amd/display: Clamp VBIOS HDMI retimer register count to array siz=
+e
+      drm/amd/display: Fix NULL deref and buffer over-read in SDP debugfs
+      drm/amd/display: Use krealloc_array() in dal_vector_reserve()
+      drm/amd/display: Reject gpio_bitshift >=3D 32 in
+bios_parser_get_gpio_pin_info()
+      drm/amd/display: Clamp HDMI HDCP2 rx_id_list read to buffer size
+      drm/amd/display: Bound VBIOS record-chain walk loops
+
+Leorize (1):
+      drm/amd/display: add missing CSC entries for BT.2020 for DCE IPs
+
+Ma=C3=ADra Canal (4):
+      drm/v3d: Wait for pending L2T flush before cleaning caches
+      drm/v3d: Fix vaddr leak when indirect CSD has zeroed workgroups
+      drm/v3d: Skip CSD when it has zeroed workgroups
+      drm/v3d: Fix global performance monitor reference counting
+
+Muhammad Bilal (7):
+      drm/amdkfd: fix NULL dereference in get_queue_ids()
+      accel/ethosu: fix IFM region index out-of-bounds in command stream pa=
+rser
+      accel/ethosu: reject NPU_OP_RESIZE commands from userspace
+      accel/ethosu: fix wrong weight index in NPU_SET_SCALE1_LENGTH on U85
+      accel/ethosu: fix arithmetic issues in dma_length()
+      accel/ethosu: reject DMA commands with uninitialized length
+      accel/ethosu: fix OOB write in ethosu_gem_cmdstream_copy_and_validate=
+()
+
+Niranjana Vishwanathapura (1):
+      drm/xe/multi_queue: skip submit when primary queue is suspended
+
+Prike Liang (2):
+      drm/amdgpu: unmap userq for evicting user queue
+      drm/amdgpu: improve the userq seq BO free bit lookup
+
+Priya Hosur (1):
+      drm/amd/pm: smu_v14_0_0: use SoftMin for gfxclk in
+set_soft_freq_limited_range
+
+Simona Vetter (1):
+      drm/gem: Try to fix change_handle ioctl, attempt 4
+
+Sunil Khatri (2):
+      drm/amdgpu/userq: remove the vital queue unmap logging
+      drm/amdgpu/userq: move wptr_obj cleanup in mqd_destroy
+
+Suraj Kandpal (1):
+      Revert "drm/i915/backlight: Remove try_vesa_interface"
+
+Tangudu Tilak Tirumalesh (2):
+      Revert "drm/xe: Skip exec queue schedule toggle if queue is idle
+during suspend"
+      drm/xe: Clear pending_disable before signaling suspend fence
+
+Thomas Zimmermann (1):
+      drm/dumb-buffer: Drop buffer-size limits for now
+
+Timur Krist=C3=B3f (2):
+      drm/amdgpu: Align amdgpu_gtt_mgr entries to TLB size on all SI
+      drm/amdgpu/gfxhub: Program CRASH_ON_*_FAULT bits to 0 as needed
+
+Vitaly Prosyak (1):
+      drm/amdgpu: set noretry=3D1 as default for GFX 10.1.x (Navi10/12/14)
+
+Yang Wang (4):
+      drm/amd/pm: apply SMU 13.0.10 workaround during MP1 unload
+      drm/amd/pm: fix smu13 power limit default/cap calculation
+      drm/amd/pm: mark metrics.energy_accumulator is invalid for smu 14.0.2
+      drm/amd/pm: zero unused SMU argument registers
+
+Yicong Hui (1):
+      drm/imx: Fix three kernel-doc warnings in dcss-scaler.c
+
+ drivers/accel/ethosu/ethosu_gem.c                  | 35 +++++++---
+ drivers/accel/ivpu/ivpu_fw.c                       | 16 +++++
+ drivers/accel/ivpu/ivpu_fw_log.c                   |  5 ++
+ drivers/accel/ivpu/ivpu_ms.c                       |  7 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c           | 12 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c            |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h            |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c        |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c            |  6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c          | 11 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          | 18 ++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h          |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c        | 10 ++-
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v12_0.c          | 10 ++-
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c          | 14 ++--
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c           | 10 ++-
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c           | 10 ++-
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c           | 10 ++-
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c           | 10 ++-
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c           | 10 ++-
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c         | 10 ++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c             |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c             |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c             | 16 +++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c              |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c              |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c              |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |  1 +
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c         |  5 ++
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c             |  1 +
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  | 10 ++-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c   | 49 ++++++++++---
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c  |  5 ++
+ drivers/gpu/drm/amd/display/dc/basics/vector.c     |  4 +-
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser.c  | 15 ++--
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c | 81 ++++++++++++++----=
+----
+ .../drm/amd/display/dc/bios/bios_parser_helper.h   |  5 ++
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h       |  2 +-
+ drivers/gpu/drm/amd/display/dc/dce/dce_transform.c | 10 ++-
+ .../drm/amd/display/dc/dce110/dce110_opp_csc_v.c   | 10 ++-
+ .../gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c    |  3 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   | 42 ++++++-----
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   | 32 +++++----
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c   |  3 +-
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   |  1 -
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             |  8 ++-
+ drivers/gpu/drm/drm_dumb_buffers.c                 |  7 --
+ drivers/gpu/drm/drm_gem.c                          | 73 +++++++++---------=
+-
+ drivers/gpu/drm/drm_ioctl.c                        |  3 +-
+ .../gpu/drm/i915/display/intel_dp_aux_backlight.c  | 19 +++--
+ drivers/gpu/drm/i915/display/intel_plane.c         | 27 ++++++++
+ drivers/gpu/drm/imx/dcss/dcss-scaler.c             |  3 +
+ drivers/gpu/drm/v3d/v3d_gem.c                      |  8 +++
+ drivers/gpu/drm/v3d/v3d_perfmon.c                  | 24 +++++--
+ drivers/gpu/drm/v3d/v3d_sched.c                    | 17 ++++-
+ drivers/gpu/drm/xe/xe_exec_queue.h                 | 17 -----
+ drivers/gpu/drm/xe/xe_guc_submit.c                 | 62 +++--------------
+ drivers/gpu/drm/xe/xe_hw_engine_group.c            | 10 +--
+ drivers/gpu/drm/xe/xe_uc_fw.c                      |  1 -
+ 60 files changed, 472 insertions(+), 323 deletions(-)
