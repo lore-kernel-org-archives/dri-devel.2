@@ -4,134 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9216CD6E7C
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 18:22:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32DA7CD6E7B
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 18:27:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 451EB10E702;
-	Fri,  5 Jun 2026 18:22:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A45AD10E73E;
+	Fri,  5 Jun 2026 18:27:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="I9Rfzneu";
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="SdTVyal2";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011043.outbound.protection.outlook.com [40.107.208.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEACA10E702;
- Fri,  5 Jun 2026 18:22:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o8LlLdVdGUAn16t18cNoGzhvax0Zpa7ATzh6eX54jiBA/sZldQ08/qxS66EfHNWiZeVqURTvnx59cHBlJpTFdtYhxLjnuUGT164Xgg97cZqcW5fr5i92sT0LTtmQKyqrEOYMhhw6uzfLnIdiPQHu8+2hPbJFq75kcNWi2/k1dAvfnyiPgTgKWp4xb65qp7ofWGRIQLPtatzepZW8B2YTeYKWOvjpLom+/E8rZrPbHpYz0UiGEl/ZpwCtQy3osLzHTysqcvix55zMRwTZXaFBoProf2WlXWBYRNBh5xZ9UdbBnl5zN2iCn2kQVpGp+2xxeFuMdctVZ0XSHOW2Rhst2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WnuHqSoEaLkFdRd72GkQfSxUh5QVT/9gIPgtDaXWLwI=;
- b=pXPIbTBr08RDntVEmYd5wpbrzrFIVmCbb2kQojIqIOOH0yFtr/i80on3QG+o7mIf0O9MgBVGhHpjgTwbF41rDrG7SCExUlFktbTnbetTAfx8h4SUanLEMEtX1IubDujDTk7lCxVru46Cd0uf1nFqWUa2oMwgZBTYqjZ7ikekeigUbvH70H9axK8rQl4gWH9Gi1D2jBKrUN5ZM95AOMq+nkGg+4v+RfoMz1sR/sL5YZFD2ExOXc5PfrDgM4hyJOEqu1t6AJpNmFo3CeEf8P74qcqR+fPcZMNBvNmZqG3b5qn11BP+0IjBs6uk6Yu+pVGJxXuTEcIUi+BEVwkPtdHksQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WnuHqSoEaLkFdRd72GkQfSxUh5QVT/9gIPgtDaXWLwI=;
- b=I9RfzneuzS2ZDphG4IilWYFGVehnMOEyFksiuHeYkZ1KQmPlVLssyehRfjl4QvnvfjetuxjfrdK6RxlrHRw7o9pw7I3wv4JQLhikV1E3BgNJ9P0aPzLl5u/ddpqdThvqvlfQrqnOSYxv6/Y8ZvyLQfkKEcAnF9Fhg3HibzoddbtzLF7T7ktgC7BUxvCT0f3Gw4MWOt5gBlucQOytKsCBzjntk0gfBJao8CQR5bsjuyzlX7f+s6ZRw2zkS4NG5bmO+aIuZ2sCrN8hmtQBE1rYtZyH+/a0AT3f+6Rs5/AR1ZooJbUv+3wYc9okQBWdjRfR4tZUFvI4uBle6ooaDKYoNg==
-Received: from CY8PR12MB8412.namprd12.prod.outlook.com (2603:10b6:930:6f::11)
- by IA0PPF002462CFE.namprd12.prod.outlook.com
- (2603:10b6:20f:fc04::bc4) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Fri, 5 Jun 2026
- 18:22:42 +0000
-Received: from CY8PR12MB8412.namprd12.prod.outlook.com
- ([fe80::76e6:4d65:7ed1:6970]) by CY8PR12MB8412.namprd12.prod.outlook.com
- ([fe80::76e6:4d65:7ed1:6970%5]) with mapi id 15.21.0092.007; Fri, 5 Jun 2026
- 18:22:42 +0000
-From: Timur Tabi <ttabi@nvidia.com>
-To: "lyude@redhat.com" <lyude@redhat.com>, "dawei.feng@seu.edu.cn"
- <dawei.feng@seu.edu.cn>
-CC: "jianhao.xu@seu.edu.cn" <jianhao.xu@seu.edu.cn>, "zilin@seu.edu.cn"
- <zilin@seu.edu.cn>, "namcao@linutronix.de" <namcao@linutronix.de>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "nouveau@lists.freedesktop.org"
- <nouveau@lists.freedesktop.org>, "dakr@kernel.org" <dakr@kernel.org>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>, "mripard@kernel.org"
- <mripard@kernel.org>
-Subject: Re: [PATCH] nouveau/firmware: fix memory leak on BL load failure
-Thread-Topic: [PATCH] nouveau/firmware: fix memory leak on BL load failure
-Thread-Index: AQHc9QhQDYV/oMN/d02/Uz0YAF01qbYwRoUA
-Date: Fri, 5 Jun 2026 18:22:41 +0000
-Message-ID: <aa2e39a828634f20852d066f593f26510fbdc2d9.camel@nvidia.com>
-References: <20260605020752.1707562-1-dawei.feng@seu.edu.cn>
-In-Reply-To: <20260605020752.1707562-1-dawei.feng@seu.edu.cn>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.56.2-9 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB8412:EE_|IA0PPF002462CFE:EE_
-x-ms-office365-filtering-correlation-id: f687b39f-f213-4c4a-ec71-08dec32f6e9e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|22082099003|56012099006|11063799006|18002099003|38070700021;
-x-microsoft-antispam-message-info: eShHWpziUyBxNB9dP7PZVSY/TaM3BkhDXi4pZfnwdUkB+qeSPhNsonTgO7DcqFmepOIIXYeERSgbCFDOXegelolskqGGNKzIGxwiD2fPQIMsu11eZyZaODqiTHT8CkfuJPSBEoFyfWAtWcpeNvrlFbVMLaOy78AcYdqfejcHXPNVT9iLL2PryhDNwJ5CL3AlgFZRNhE7AmsrZeAGYcYqySXhIlBQc8wjX+SDUucm1CGLSEhNjPbp6OB+/shGM5bpjEKuV5NqI5ukfQn2FpxKEyArm0NZTgtX7lNIJpwiCFnezXUdrplzxdSyiKfGDy0Qtf27712E/4ofTFFvgW02HZ4RG+ct5R+LhzLf2u1OKn+0iaZQClfGtAX87yDSLznb83p0cCLGVcLHeXRQcOrRG9e56VF4GgpfjxeJ75E+yCsgSyAyUxLjgRvqCcBbBJeApWipb5WyQr/bl1fDedeCvrngJI7YuI9ugvtR5N8FatTiqWVle1akmTP54mD4xFlXqDSBZSwTMubTPOu8pqV0Ejz6XXm0Kj1icqpAzR+RN2Zf7EhMDwyIpzwmicYkRyZ89MJca7acboNu1nK4NSRHQYZGHO1IA0jDfYDaJr89EgVryJGYHl2Jw5Du0z6B+2YaVGPGwmBshVE85UwjzBm7tcGlrIZFoU53mppflQiIuefxlcfjKL6OXzcWFsIrbVRx58zbtzUHMONeKYKeoc2FkBFGt37/6UtQydmbBQGIfg9n3cAE2RYWd4CubbWazJ4U
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB8412.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(22082099003)(56012099006)(11063799006)(18002099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZWwzVThtNjdCQkxUTWc2SFhweEt1M21POEE1SjhEMVhYLzZxNUJSMWVEUDhL?=
- =?utf-8?B?ejJTUlY2a1M2M0xuYkk5SDFad3V5Q0h6dm5MWGRTa3BWT3ZoOU9DSE9Ka2lq?=
- =?utf-8?B?YmdVMlBLSE5rUXZGVVpYZDR5WVlTSjl6TGJsMlhVendvSWIvZk4vUTltaUZM?=
- =?utf-8?B?WEx1UXh2K2toVWVKYjlaSUxPMVN2SmIxQlBBaGFnNWcxOGsrUTV1TDVGSHkv?=
- =?utf-8?B?TUtJczhIMWd4eGpiYk1NalpVN2FZV3lab2RsYUlnbTlBNzEzaUxjVzhMY29j?=
- =?utf-8?B?VXMveUlsUTlXWEZYRmxTQWxmd1dPZUE2b05pd3FaZDFYSWZXdU1EYkV4UGky?=
- =?utf-8?B?NnVHa0Q1elpSUkt1VmxVcjJJdlQ3UTZ1MWpLQStSbkNURmo4TnhNa0JDOUxl?=
- =?utf-8?B?ZDdRSFJzMXZCZzV2elpQaEI0a25vT2dONGQwOWpZVXpoZVFSUjFsZXBkWHJY?=
- =?utf-8?B?eThwMmZSY1FZSkdQN0lkWG9MWkUyUW9haUgvL2lGb3JISW9KeER3Sng0ZkJG?=
- =?utf-8?B?M0lFdysxK1Bka3FQYzRyWDhxMVZQTGdMQS9kaUdTc0FuL1Jua3h6bmNYZEoz?=
- =?utf-8?B?Yzd4NW43akNmN1JBSzkwZFRqMy90RWxWem9vekhDS1Y5d1ZUVG1WUlp6ekNM?=
- =?utf-8?B?eUVOS1FhRVBrNndiN1VMUlRrN2FxTnJtL1BHMlBlOE5zSHJEamtDamNBeE9m?=
- =?utf-8?B?bThqVTh5QTFkYXFtZWFnTWRLWDhpd1UrSHZTUWFmKzhKZEM4VnprVENkQ3ZT?=
- =?utf-8?B?OWFSRGgzYmNEeExTZHdHc3ZPblMrMHpteFVTT3RxWGx1VlNSc3p2Zytidnor?=
- =?utf-8?B?dG5iK251dlNwZEhzL0xmUXRjUUR5TDBqRUNvY3F1TFZ3Ris3Yzg0N1BTVEpp?=
- =?utf-8?B?cVZRSmU0R0hiS2ZMVEVQakQxQnp2YzFod1E1K2JXaytoTlczVTNXeXp6S1dB?=
- =?utf-8?B?ZFd0NGh4WUVGRmtXKzFjMllkRFNnbjR5Ti9oYVk0b1BUbCswRG1nMFFUOUdP?=
- =?utf-8?B?bXNDUjV1VS82dTQ0SnZ2MGladjBXb09EWDYremQrdzc5Z2VWNzdvYSttdTE0?=
- =?utf-8?B?U1lQM3JGUFRSTHR0VUhhK2hWV1QxcUhrNlZoTmtFNVByUm1Vdkw3QThZc1lr?=
- =?utf-8?B?eVhHK2ZGQTlyQnRSeVFDR2toKzRleHJCZnZqY0NabDE0bjg1WGoxUTByaXdI?=
- =?utf-8?B?WjFYQ24xZ1BCcE1hOURNMlNWb1BHSjlwejVZdlhpM1ZoZTk3aW1sdDJVYUQr?=
- =?utf-8?B?ZW9ESmhFK1VRTzRPdXhnL1EycjJhdCtIc3d5eENWeHhtTGZDTXozcWxtM0tx?=
- =?utf-8?B?S3dNZitqYjJxcWx6MWRTamNaUmxybjM5SCsybEhnU1pOSFl4QkovaGQ0VDJ4?=
- =?utf-8?B?K0NFYjBBT0M4TkpNUWpaRXZacUFGWlNFazB6VkxXbndyeENGYTlLdFZLRmNQ?=
- =?utf-8?B?R1dxeHJ3L0x2QzFJRWhYTVdWV09xTVprK3V2V1ZxcTNmVzgvSURXanlFV3BR?=
- =?utf-8?B?V2tJUFpvWUtGUnZseHZZZHp1czFFRnhHSTllOWUwRGU4alZTanNsaGd6OWQw?=
- =?utf-8?B?OTRySzZhaW1YYk5NVEZlZUtUaFd3TGcxekZDQjVnRm9jVmduK0h6NlRLdTM2?=
- =?utf-8?B?TStFS2lGM2U4REhSYkY2Q0FSb0JqQ2JCWEtwTkxqbXduOVZNemJjdzl3RGg4?=
- =?utf-8?B?SlE3QkFvTFlyNU9KWWVBVkVMZFhpWkZ0KzNqeWdIMVlMazdITU0vQi85eGI1?=
- =?utf-8?B?VGtna09qSHZTbk5UUGE5eWRQNkpkT1BOYWFQUWVDQjF6aFdPL0wycUxhdCtZ?=
- =?utf-8?B?MGQ0Tkg0a05PdEN1aHlrSlNxS2gwVWEzMDhRdVJtNGtQcFJ1NlQ5R3hnUmp4?=
- =?utf-8?B?bTQzbVF2TC9JTHptQjdUOWdWZnF2MU95MlJTWU45RzFVK2ZvMnZ4b3pMVVI3?=
- =?utf-8?B?QzhGbUR2V3BTTk9ENEMwbm00cnZ1dmppMVlmQ3ZTaTY3N3NWMWF6dWtmaEtk?=
- =?utf-8?B?a2JEblRab01URTlJZEFCcExvSHNXYXRQSkdrRFhXUENrckJmd0xrbkZOa0tY?=
- =?utf-8?B?TnovbnVESVV5WEJqV29SbmtNUnVMSUFjckhFa0lYQzNPT2tvNit6UDlYZ2VP?=
- =?utf-8?B?ZkVvV0dLbHVHQTkvaVpUd2RVRjN3c05rZnNXclNJV2hQUTNLUlJVRzZPdkdF?=
- =?utf-8?B?MWdVR2FyMUtHWUVmK01tc0JTSkN2L2hlekkwampmZXhKUmtRUVpna3o2Qjl5?=
- =?utf-8?B?V2Z3YlEwNE9nUGt4QXJGNis4WnJQLzBoSGF3MElzVmhVVGtRckp2K2lHZlp5?=
- =?utf-8?B?cE5OZ0JGRW4wdFQ4MWJNV01jd2R2b25jc2tSY2d6RTQvSnN3aGJMdz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <11D9100BF1BE174B96A3E14C92BE211C@namprd12.prod.outlook.com>
-Content-Transfer-Encoding: base64
+Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch
+ [185.70.43.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B21F110E73E
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 18:27:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+ s=protonmail3; t=1780684045; x=1780943245;
+ bh=8ED5nZjiqpEXlT1Wh2oVhR3GG1x+dmxiujPClGruK8k=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=SdTVyal2IxQXmfd5GV6vNZmBffgQgiMEbMuruyIEeyNmhDx4KUg3n16377b7lnaSH
+ mg4dLvz3eCqSmKztBnvS1RMZ1M0OTwjP3IS2ogtaP+y7QG0AJCiQpYco7hlU1JWzVT
+ DIpZaMQE1Crz/+f+9FUl7WL4BsLWDkdWCQhz3uBGJPR0ndDM727ZlCNBFf/7uYk6ZQ
+ onQfluUBMOLkbJRhCP5UcOu59OaB0gAArwIy6Vp+IXOjPwz5U6qBl+wzSSX2fEZOPr
+ 3gHQv7YDDwuRBMRm2tBqpnqVn3vk6qeILUXirnyPA65h7tR4XRBi+KdYdzTVDccIXa
+ YW2RlKEJWvwMw==
+Date: Fri, 05 Jun 2026 18:27:20 +0000
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>
+Subject: [PATCH v2 0/2] Add support for the BOE BF068MWM-TD0
+Message-ID: <20260605-asteroids-panel-support-v2-0-44b96c6eca91@pm.me>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: c7d77c00daf62b41a36e4d4449b050842f89f006
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB8412.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f687b39f-f213-4c4a-ec71-08dec32f6e9e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jun 2026 18:22:41.9629 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: fW7cQmSFtSyniudcGtAhvikOG9iNQwmlhXwKzhI22qAKQEMgRMtx4py3X9jsLy+uZAh3i+L7ulUve+0c6ek9/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF002462CFE
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,10 +60,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-T24gRnJpLCAyMDI2LTA2LTA1IGF0IDEwOjA3ICswODAwLCBEYXdlaSBGZW5nIHdyb3RlOg0KPiDC
-oAlpZiAoYmwpIHsNCj4gwqAJCW52a21fZmlybXdhcmVfcHV0KGJsb2IpOw0KPiArCQlibG9iID0g
-TlVMTDsNCj4gwqANCg0KSSB0aGluayBpdCB3b3VsZCBiZSBjbGVhbmVyIHRvIGluc3RlYWQgZGVs
-ZXRlIHRoaXMgbnZrbV9maXJtd2FyZV9wdXQoYmxvYikgY2FsbCBoZXJlLCBhbmQganVzdCByZWx5
-DQpvbiB0aGUgY2FsbCB0byBudmttX2Zpcm13YXJlX3B1dCgpIGF0IHRoZSBlbmQgb2YgbnZrbV9m
-YWxjb25fZndfY3Rvcl9ocygpLiAgVGhlbiB5b3Ugd29uJ3QgbmVlZA0KImJsb2IgPSBOVUxMIi4N
-Cg==
+Add the bindings and driver for the BOE BF068MWM-TD0 panel used in the Noth=
+ing
+Phone (3a).
+
+This series depends on support for DSC configurations with slice_per_pkt > =
+1,
+technically it boots up and displays stuff without it but you see artifacti=
+ng
+without it:
+https://lore.kernel.org/linux-arm-msm/20260318-dsi-dsc-slice-per-pkt-v2-0-0=
+a1b316f8250@pm.me
+
+Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+---
+Changes in v2:
+- Rename binding & driver to DDIC instead of panel assembly (Neil)
+- Clean up hardware resources in prepare() on errors (Sashiko AI review)
+- Link to v1: https://lore.kernel.org/r/20260603-asteroids-panel-support-v1=
+-0-109c6ac81c8f@pm.me
+
+---
+Alexander Koskovich (2):
+      dt-bindings: display: panel: Document Raydium RM69220 DDIC
+      drm/panel: Add driver for Raydium RM69220 DDIC
+
+ .../bindings/display/panel/raydium,rm69220.yaml    |  74 ++++
+ MAINTAINERS                                        |   6 +
+ drivers/gpu/drm/panel/Kconfig                      |  15 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-raydium-rm69220.c      | 435 +++++++++++++++++=
+++++
+ 5 files changed, 531 insertions(+)
+---
+base-commit: 15a038bc8d93f92c80d9ba6844d4f16333234f39
+change-id: 20260603-asteroids-panel-support-d55c929a89a8
+
+Best regards,
+--=20
+Alexander Koskovich <akoskovich@pm.me>
+
+
