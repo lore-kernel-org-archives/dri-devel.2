@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F767CD8C81
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 13:35:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70B1CCD8C84
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 13:35:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E01AB11A895;
-	Fri,  5 Jun 2026 13:35:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87F9511A890;
+	Fri,  5 Jun 2026 13:35:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M22+aP1y";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GLSTGxoy";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BE2311A89A
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 13:35:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33A1611A891
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 13:35:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4299E43302;
+ by sea.source.kernel.org (Postfix) with ESMTP id 12A6D43842;
+ Fri,  5 Jun 2026 13:35:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEBDF1F008A0;
  Fri,  5 Jun 2026 13:35:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 649301F00898;
- Fri,  5 Jun 2026 13:35:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780666554;
+ s=k20260515; t=1780666556;
  bh=EWiBixMYQYNU31zDIl5csE1S/wX47DtIBhxQyh/JIig=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=M22+aP1y/jBD8OI5tHbQb+G2ZmQLForEPqc8/xH8JjcqEWhSYdBqcMX2eUNgcolDK
- BX4eT/N0oL5sRuy/Dy6y6tFs3iAecWaSVA6KV3bqGQ5/GAnvhE0E9YB/gKqBEYzVNp
- DXmLrBoFP9j1tbG62n+D3s1xn0si+3SYaeo6lZ1vKj8d9t+4/vgXkROalELTyawkwE
- NPd3R/54fWQefHdGc7tdjntLAHK5X4dOrA6+K0qyn9+hIImneB7hsn2IAEFAwY4WMv
- 0Hk6TeWkWRrzuqd0gU/H9LF6I2z9w1YWL6thZnUdvP/8dLMFYTmQxK4m8mqjAyWB2v
- 7EEPwryQ/5Gaw==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailfauth.phl.internal (Postfix) with ESMTP id B4019F4006F;
- Fri,  5 Jun 2026 09:35:52 -0400 (EDT)
+ b=GLSTGxoyzEE0A3zgCstKowYyJmvozQaxwWfv91puJGVJzhjLyTfSCFzzs1AAq+Y0D
+ lIJpAlGXx0/+XiHVFlj9vqUub9KV8nKtm06wKr0iNcQyXhQ7VekUFJdudg6GrxJ1v3
+ 7Eqv7ZPm8+NElnC5cwimKoyVHWnKEtt0g1/MYQG4mSBPJW0Vi7UAk4mL8I4M9L6y5V
+ Oarsv+jjdC7fFB97lu+t84GbR6X8I3GqMgLQo5kwX2RjU0jYc24WUFUmUXhrRMk8mj
+ i6pq5fnOGiFnuuXwoJEk5SMagPPwPlALGxDXcG8IKG1xmZWUbgmqH7ugyi+Iantven
+ yDzNhExGGzNCg==
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+ by mailfauth.phl.internal (Postfix) with ESMTP id 29B0DF40071;
+ Fri,  5 Jun 2026 09:35:54 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-05.internal (MEProxy); Fri, 05 Jun 2026 09:35:52 -0400
-X-ME-Sender: <xms:uNAiaphYCKN32jPvpIchw2Jkxc3dmAHJwtUyupNl17vsDGLMn1SbJg>
- <xme:uNAiaqfJ1UkBQ4tu_y9utnZsZ0X7rVXMboUAYM7eWQChFBLp3YNRk9BdNhBpFMYlT
- J7CKrxZFUL9bSurDVlY0izjx8I0PgvlcqL5aUd3gd1GvfKesP3IMQ>
-X-ME-Received: <xmr:uNAiagUxBUZ2gwSGY6Fu0Vunpr8gX1Kkyjb8bGfvhNda02ZFRPLXTqjDDL4>
-X-ME-Proxy-Cause: dmFkZTEiXmK80I+r4b+5zY/r99GUAlO/A1JeBVvrzdPJND7AxnXROcGIdrV5+IW/GIICbk
- HTeSUzo2jG7T3ubuXDYawvMsJmw7SeRzXaVjmYhKpesaWDi/jHlBwDSw7cUJtOL4Zml+HR
- MdH91GjghnCvkbpZdNzjjo1bSZDmeAE+i20ut4ugSeq7SenIcQ9DZOfghRt4xUUc5uh5PM
- SgAN181ZxF1oco7PoJ9ho3wb1kPOXsEzQT5UZv0CFFx1JIqpGEiANmmsdwoALURinC3es0
- +e8I9nc2247wfagtNBtbgyVV8BvBRc03DGsTzzDlNTrxNmxxQ9+IH7k1Xg1Flh6mzaY9ZF
- D5JI/kUrl5038ewH2/yRBGMWygreujWb7iMUHrlowYIRmldbRWWDCC9SW9qFe9HhzwOP5R
- ANLHL8xhWBwyW6Z4xw3ZMLR+S85zuSDhz5Ie5yDVfNvn81u9jPFArGesQGDKJbpUGEj4Xn
- 2dwkkQHzSA3mlt/Y/sVSUjgZi0drAp7nl7QMcSQqMTIa7ue0D4oe8kxDOnuOJ+sVzxQuul
- cf4anHpwCUK2rfRE87LFm+P0SY/bv3hsIRCFwuYbxFAx+MvwufNYnz9hkdJg9SKg8oEnyD
- /YwRPqQACwTSX771arNNzrzPgtmXD21/gBVN4f/8UHX/Rt7jIkyJ5iaDOeog
-X-ME-Proxy: <xmx:uNAiakx5Mb6WpDDOKWMDRDBK1G8aZ4QY_bU0VjAA-K012rBHWTRefw>
- <xmx:uNAianBS_nsHWhWuYwchXoxscoFdnkTU0n7p2FIbjXqGjIPRDKD5Hw>
- <xmx:uNAiaq6wGb9_Mf26xE3PfnRIsXi-84ef7CZqeTU4rAY5F2TgaDUogg>
- <xmx:uNAiaumC9gtw67P6Wvpl8pNT_lVW9W7U25yKEnaAOJM95rRWSaKkkA>
- <xmx:uNAiateVKfCCEVgB4cunLqUXmgKg6AGUR6AkkYciuU4DCI2gNdZ6eBLQ>
+ by phl-compute-09.internal (MEProxy); Fri, 05 Jun 2026 09:35:54 -0400
+X-ME-Sender: <xms:utAiauzIexa7mxKdr2OR2t2kQABg1l9wL-AOcwUq_FTogqYV7v2nFg>
+ <xme:utAiamsVWI4FEnSwI4u0sbJKJkE0VzTRqarxTJs38K3FN-mmsHEiN1Nc-gD01gLYL
+ vtKFwlmH2gOKHVbhJEu2LLZ5cAU6tno5cOU9JldVVUTFP_6ujl3OA>
+X-ME-Received: <xmr:utAianmLQVImeVDOHZT5jZi0oqwWi_egBmkw5tCVNVMqEp-wZU_ShvwbAz4>
+X-ME-Proxy-Cause: dmFkZTFtzx3Tos4VS/WdxOab7aAtqT83KRYoC/e4xL0nOCb6pQty9DSyT2t/Oxqun+SkVO
+ cMZEcCN5WOjp6C4j+AAnIhEdX3CSbRJ8Ue2tNsJBDrFL6ULtBgvWkBHotQCeWp8k5uQsbz
+ k0FRlet+ZGAnwVkNRqfp6f3UC3RPwOllI7lUv1O3gyUDJYMh/GLR4owHw0MCxoW4il/3Lb
+ lg6wo6OlsJz47diU5HyF0fJo4ssmn4HWhMDDXvcMbgn1kwB5FB8PtdkejMZSrdA2X0rrEw
+ 1NqdIXS1VHAvWHyGi709gDhKFxTkm5K5pOAbaKiTP2ufZXGBKQdT4BlTzCV7z6NbqlWRdS
+ TNmwv5DFwJa9S8PHhxbDWzMLZbfceTkxemjD8vkgsy7eLPnM2nk8z0FiJ6ZFamfDHrSbKe
+ 9ALtNJxC6vU4yzqsSz/479whQYrNVh6ZXTIphpow0CB2YcI2FyWxcnifqvDL6INy1MicNf
+ VPzL7bQVvvbPuuJSqbvJhIClCjKIw7zTQchWCg8kQw796AOIfksJ8Qy6i64wI9ZnSK03k9
+ 1mCjRqzaX9qlX9QYXS7rQBAWBRtutkpQIqnc1dKX0+TCKCObtYUFEci8B8/TZu5Zz3Y95M
+ dBvvtqAAf7890Hekqu4mItc0DdTgWKqnQV59t4dAXGqO2oQ9ZcA2rCPbpDEA
+X-ME-Proxy: <xmx:utAiarA0GChakd4IH8rDHEaLX9NyqceGOey5GTuP0zPop7sBKNNCYg>
+ <xmx:utAiagT0x1dpAYe95YwsjAVvL-ydUuu9ZHrC0I-gzJD3wxj0DHbz9A>
+ <xmx:utAiarJ0jsd4WHotdnGisGc_WRm6Z54g-l6zQDY6_hz0Cbl0VsgZkg>
+ <xmx:utAiap2QebnjRZQwLNqQGHCzdsMTbxKLPGLsLJEMIcRqhJux9YpQIQ>
+ <xmx:utAiansjNkktiiol3chCRdEQLcRNgLsGMQ8gna-VFcuRcTUzfen0Y3zM>
 Feedback-ID: i8dbe485b:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 5 Jun 2026 09:35:52 -0400 (EDT)
+ 5 Jun 2026 09:35:53 -0400 (EDT)
 From: Boqun Feng <boqun@kernel.org>
 To: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
  rcu@vger.kernel.org
@@ -82,9 +82,9 @@ Cc: Miguel Ojeda <ojeda@kernel.org>,	Boqun Feng <boqun@kernel.org>,
  Philipp Stanner <phasta@kernel.org>,	Lyude Paul <lyude@redhat.com>,
  Daniel Almeida <daniel.almeida@collabora.com>,
  =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Subject: [PATCH 2/3] rust: maple_tree: add load_rcu()
-Date: Fri,  5 Jun 2026 06:35:39 -0700
-Message-ID: <20260605133541.22569-4-boqun@kernel.org>
+Subject: [PATCH 2/3] rust: maple_tree: Add load_rcu()
+Date: Fri,  5 Jun 2026 06:35:40 -0700
+Message-ID: <20260605133541.22569-5-boqun@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260605133541.22569-1-boqun@kernel.org>
 References: <20260605133541.22569-1-boqun@kernel.org>
