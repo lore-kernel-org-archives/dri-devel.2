@@ -4,104 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ADAFCD6E7C
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 12:17:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 943F9CD6E7C
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 12:18:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 331F011A7EA;
-	Fri,  5 Jun 2026 12:17:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC9FE11A7ED;
+	Fri,  5 Jun 2026 12:18:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DWYf7hoB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B6ZbiSx0";
 	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A19D311A7E6
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 12:17:23 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-2bf18c30bb2so12605335ad.0
- for <dri-devel@lists.freedesktop.org>; Fri, 05 Jun 2026 05:17:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780661843; cv=none;
- d=google.com; s=arc-20240605;
- b=A7YOky/V7yTAK3mlo0Lxq9FQO+KeqxWOC+qpmjIm/PtsmAxSOmlKiIkFJEJ/zL3qYO
- L2jkfiAxAU+o1yeKakraB6E7IXwPfcYK8uTAFO4+flKIvv86zvAZ45NLJlrVZ816I8HU
- 4fdO1iuaLLBSj8RnuPnCom8r3Jcmn0NwHetMopO+Rq+t9zPJuSfuTbvRqd7nb1FYfDZj
- 5XLE5GN5Z3PlEBRyty1fp/bEZquh0v5oOXpMFMTrmIirT0052PsgybF7Fw0nrYGX2oC5
- r5iHiOLywoU5UURkeC+KtufJLnyJgH5dAypAMHiofd2bP37KT0WGCtt0wWqviLZOtBND
- /TYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=O1D7q+cAZBnaFGgiAedXXkbxBpbfjB/B2YThNrAJHNA=;
- fh=meU1uc9o9ELOkwcU7Bh6hsWePbtVVCdvNz3tRUkP1wE=;
- b=FZZn6a+5ryx+Kqy9tXFUFB1kuEgyygRTwYMf6Q4D8YmifXfdlSNF6rKSJIj4DKDjnB
- ZA5rFQ3SLK4QnjK2fFQ1shFWvCOStMsnBuJTU2unC8uXt8YAToEotG+V+4reGY0E2A6P
- ZjYACNR+rDnIkugKaDZ4+/naXknjJ/L0B1ibqFlGMgA9RJU5ASMW9ythAXf0p6eQ8JGy
- zvB4cQHK+yHRaaSXCTHuvJg+1HbjvpRygVwlbAfYkWcjtnLfjI+FlGwwLVKYmJ4I0qD3
- GxmsCOhU+vuuVdYTWwacT876MXpa274OG4xEOY/t7EtSJgspzXyxIDmxIbe39JlxFWOO
- 6GTw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780661843; x=1781266643; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=O1D7q+cAZBnaFGgiAedXXkbxBpbfjB/B2YThNrAJHNA=;
- b=DWYf7hoB+RQLrOs92EXG090stNfmFY6yul/WF/LR12oTKb9E/JmYH6G2HdxIErGjdT
- GKDYa5if0eSngw7m/oWBBQYFk2kA5nJjSbBqGkmSfcgghCGOrXXByKPNedupLlMLTYyV
- fi0vJlLa8B3o5s7lbWPSqVS9B7XKaUp4B3RM/PIahaT6FF+roh4zAFdLFMIdHeiVlToU
- oBcTnlRrldY0EC7QG013o3WxlnmckQvCZq2vLFRbx+xw9kBK1pP2CFJ6BdULTmBoPVxv
- V4wbREYMyd5ORuWtdFzZ1v6qiwOE23Wq4b1UfTl7s+Yo5oI0P0z1lAzajfEPdQpseD3k
- LPwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780661843; x=1781266643;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=O1D7q+cAZBnaFGgiAedXXkbxBpbfjB/B2YThNrAJHNA=;
- b=tYtGz1BaVeaV9KwzJHHbMKImc9jgnQmBWHM3OlgSCehWnq9UFZGzqRzjVLPilx1nsJ
- A3jYWl/N5t5lfX7M7Urjzfh0Ha7qkyyh9hirrgoL7vJxSfhSDQIdNKRgr95+a1/EkI5a
- aQyX2iCcgKBYFasXSmo6jLek/4dkWn62oweeaaSSuddeiIJvbgiRM7sGFtdYwO0bTTOE
- T0D47jB8U1NOFkSnMVSd+PSDwHpTjZEIcm75yOPVwUI3nc1Z6GXu5gFTA/JXR7P6ulGa
- +E+FdwzfYP+pvZueTZEK0SSz+br8RZxbd1KWcw3c4umw0oj98Prr8BqSPUougdFJCHCQ
- W0QQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+kzbTT7brYMqIQ+ytzl4j2qHoCYV1lyBdS6b6dBn4WUwcvVwKlQCX9fYQrdFE0uz8gj+M3yASBGJo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwXV42+X3M1oymTwbgiF581W3j/hA5oGXwqlaRdtzpij1snTq5j
- Z2m/9utlzrp1GUQbrtKrHd/Anb01w9JiUs6M0LnwEsyVrYDa9O6MTv0LW11wTt+ITJe9Aw9g0Jp
- 1IUQdlra/QwZWQrJJtHoasZwl7nB7yqA=
-X-Gm-Gg: Acq92OHzCTcpdHMAHqP6+fHc4cgonrO4xNjz1+l+YLVsKHTKbZ/a1Rg+FiWJ/MXkEBz
- cPHd0fwoFeODltPLHRBO9T+4vwadyAvanbxCSoMn48Jr3QqIGdQdwgT+/hjI4fBK3LoTYr+xqB2
- fpkGZHNPqJZYeqMO9/+/HA6eoS7DTIgYo5Yi9fkdLPeXq4eVDEaTLiDviI4UYm/HFsPLZHCNVF4
- lu4g5Pl2gV2h9x5x10T9g9vykSLFWAQRvgkj/bFOSOwiGkad31W3Zi0sf8bivdVwP9WSMgYXHWZ
- 4GvcL5KMi+3jGZeE/pcaH5ek1LFcUVNDsTlmOBmx6tSUaGWgPALJT5CAg5JGAGJAX29ov1T0A9E
- =
-X-Received: by 2002:a17:902:e752:b0:2c1:737:bed9 with SMTP id
- d9443c01a7336-2c1e893d479mr35069085ad.30.1780661842733; Fri, 05 Jun 2026
- 05:17:22 -0700 (PDT)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30F7111A7ED;
+ Fri,  5 Jun 2026 12:18:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9320E601E3;
+ Fri,  5 Jun 2026 12:18:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3680B1F00893;
+ Fri,  5 Jun 2026 12:18:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780661932;
+ bh=/HjuMOk3WVgtMcDzTwNBYPhsQV9U+DIpa82b0vn61Cw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=B6ZbiSx05oBJ7chQvQ/ntllvANNBFEMa9EcOIiJSVjAP/OKFNkFGomFVwuLIbEh+S
+ 20kIDl7Ha3LYle9T/0PSzWzaCdc5fZcxNiJ+ZJmhkm8/XR0hsoDMz0IvlyzEPadr35
+ B2APB6kQVq6vujpiHLQ9XGq4k/2xwAVP0hGJlMMDE7JgpUoN8S88GU32fCFiZ7KPhJ
+ 5aHdZm6VNXpv0qJRoypblDiKXMIeOyKzQoPRJIPp5ZLuwnSs6kmXI7+nhiCVs/dUo5
+ dzZdsgrBxQRdtTMmm690hmi5h0XAzX6HCHrWvz8VYLGFbLK2G/Ky5ioKkoR2keR14J
+ lAcFAh/v+L/ZA==
+Received: from johan by xi.lan with local (Exim 4.99.3)
+ (envelope-from <johan@kernel.org>) id 1wVTVh-00000000DXZ-0P54;
+ Fri, 05 Jun 2026 14:18:49 +0200
+Date: Fri, 5 Jun 2026 14:18:49 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Lee Jones <lee@kernel.org>,
+ Mark Brown <broonie@opensource.wolfsonmicro.com>,
+ Thierry Reding <thierry.reding@avionic-design.de>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Doug Berger <opendmb@gmail.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Peter Chen <peter.chen@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
+ Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+ driver-core@lists.linux.dev, devicetree@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-usb@vger.kernel.org, linux-mips@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH 22/23] reset: rzg2l: use
+ platform_device_set_of_node_from_dev()
+Message-ID: <aiK-qZqpuC-OEigf@hovoldconsulting.com>
+References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
+ <20260521-pdev-fwnode-ref-v1-22-88c324a1b8d2@oss.qualcomm.com>
+ <6af284545729f03a60d06479339862a2f08c6b7e.camel@pengutronix.de>
+ <ah9QtExF2rUUTMNo@ashevche-desk.local>
 MIME-Version: 1.0
-References: <20260321-th1520-v1-0-ec877197770d@gmail.com>
- <4180689d3426882dcac2eb74209d398477f88b90.camel@iscas.ac.cn>
-In-Reply-To: <4180689d3426882dcac2eb74209d398477f88b90.camel@iscas.ac.cn>
-From: Felix Gu <ustc.gu@gmail.com>
-Date: Fri, 5 Jun 2026 20:17:11 +0800
-X-Gm-Features: AVHnY4ILOfLjHFNJyQ_dDaX-IoRogY7VjEEX1-rTSKRis09oXxcE00pq7WQJTBw
-Message-ID: <CAN4SLj09F+bSQFk4x3POGrh6hh2s8ssk1CmTDvrDzBCswZJBuQ@mail.gmail.com>
-Subject: Re: [PATCH 0/2] drm/bridge: th1520-dw-hdmi: Two fixes
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>,
- Fu Wei <wefu@redhat.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- linux-riscv@lists.infradead.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ah9QtExF2rUUTMNo@ashevche-desk.local>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,25 +108,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Mar 21, 2026 at 1:05=E2=80=AFPM Icenowy Zheng <zhengxingda@iscas.ac=
-.cn> wrote:
->
-> =E5=9C=A8 2026-03-21=E5=85=AD=E7=9A=84 03:12 +0800=EF=BC=8CFelix Gu=E5=86=
-=99=E9=81=93=EF=BC=9A
-> > Signed-off-by: Felix Gu <ustc.gu@gmail.com>
-> > ---
-> > Felix Gu (2):
-> >       drm/bridge: th1520-dw-hdmi: Fix error check on dw_hdmi_probe()
-> > return value
-> >       drm/bridge: th1520-dw-hdmi: Fix remove() callback
->
-> Both fixes look trivial and let me start to doubt how could I make such
-> mistakes.
->
-> Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
->
-Hi,
-Gentle ping on this.
+On Wed, Jun 03, 2026 at 12:52:52AM +0300, Andy Shevchenko wrote:
+> On Tue, Jun 02, 2026 at 10:24:41AM +0200, Philipp Zabel wrote:
+> > On Do, 2026-05-21 at 10:36 +0200, Bartosz Golaszewski wrote:
+> > > Ahead of reworking the reference counting logic for platform devices,
+> > > encapsulate the assignment of the OF node from another device for
+> > > dynamically allocated platform devices with the provided helper.
+> 
+> ...
+> 
+> > > -	device_set_of_node_from_dev(&vdev->dev, dev);
+> > > +	platform_device_set_of_node_from_dev(vdev, dev);
+> 
+> Same Q here, why it uses inherited call? Cargo cult?
+> 
+> 'reused' flag is solely pin control (provider!) thingy as far as I remember.
 
-Best regards,
-Felix
+No, it's needed for pin control *consumers*, which can be any device,
+and potentially any other resource managed by driver core or bus code.
+
+Johan
