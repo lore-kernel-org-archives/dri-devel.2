@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24F4BCD6E79
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 12:29:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC85ACD8C80
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 12:39:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45D5010E06B;
-	Fri,  5 Jun 2026 12:29:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9043112AEB;
+	Fri,  5 Jun 2026 12:39:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="f2KuMwRK";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MM6yY/az";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9D5110E17E;
- Fri,  5 Jun 2026 12:29:35 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 658AD112AEA;
+ Fri,  5 Jun 2026 12:39:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780662576; x=1812198576;
+ t=1780663143; x=1812199143;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=55uhISZKDyKWBjJQbuyY2EdzFAyNb3ON1cy3ylBEcLM=;
- b=f2KuMwRK6Cmbnk/VzscbXks6JVCcpMUSrVxNiXDYUIvTBj3egIaaWw5A
- cnhD7sOTOe/WznYLuLt7di0VvjFSWs/KhcUbtiETsr/haAx9QozLjQBeT
- ixe7TSmAiZ//1SfiaIXUMSt8FL2AE7EHpS98g9fY01t4wOFnr07Dylfwi
- cm+0K90AeyBQ06oChv72toUIQwOT5WwH7wYpmFQ7Jm3BwIHUjCz7H+TGv
- MnyebDwHZ64ed6nBoHUMaQ/2BI2ZUi1NcwkBuwEZqkaibBXSX7OCZ0AWz
- DWc843wk70wstw/kFTsRE23ZC2ff5ScNy+Qn8wRnO0UxIapEFRSwN175V Q==;
-X-CSE-ConnectionGUID: jQCKU3Z8RVqQYOxcpaEQ5g==
-X-CSE-MsgGUID: VPJ3Nls1Ts2/SVMm8VaOWw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="81527097"
-X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; d="scan'208";a="81527097"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2026 05:29:35 -0700
-X-CSE-ConnectionGUID: UJp28NoyRgyH5H3N8KA4pA==
-X-CSE-MsgGUID: 2pjL7TElRMai40MnLQQgaA==
+ bh=ls7YEoIFO4BgjEcCD5rPELKLv7OgmY4qkjTWsRyKaMM=;
+ b=MM6yY/azgxSv8PGpC60lkkz/U2a7q90LLen6ukiQ0t914hNUq8cHCl9a
+ 5w93JdxNhAku6GLSJQrY8wCn3XFAaF9bJ8gOCOG1ZtE4ccUB6ZAWo1TD7
+ TId8NWgusgkEMkEN7/w4ppJ1T6VSxT1T3YIVJDnzl4dTfyZs2lPMC1jtq
+ eg4PO/RJuNKzRMvrHT5G+GNseNc4mXAhp2C2r/tHdyJWyaSgiZChL7UO3
+ KRaka+UX4mbWdlXZEzlURBAgx59CKa4i1xRYntZff3J4NyczLe+vFNYBm
+ U711F8mnqSmqJgSIbQyz3sFVhSa4D8jsLRhfxu58/PpWAm/GqZjv24eCS g==;
+X-CSE-ConnectionGUID: kxMe2UKoQeKZ14008d5/uw==
+X-CSE-MsgGUID: 8HxhJ7ddQ3+pUW0An1C68A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="106937341"
+X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; d="scan'208";a="106937341"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2026 05:39:03 -0700
+X-CSE-ConnectionGUID: rRsiIl7/R2evd8PVTf22zQ==
+X-CSE-MsgGUID: fFgB/CprS0iAaPLramUV0A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; d="scan'208";a="240383711"
-Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
- by fmviesa006.fm.intel.com with ESMTP; 05 Jun 2026 05:29:31 -0700
-From: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rodrigo.vivi@intel.com
-Cc: andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
- simona.vetter@ffwll.ch, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
- anshuman.gupta@intel.com, badal.nilawar@intel.com, riana.tauro@intel.com,
- karthik.poosa@intel.com, sk.anirban@intel.com, raag.jadav@intel.com,
- Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-Subject: [PATCH v7 6/6] drm/xe/ras: Add debugfs entry to inject punit error
-Date: Fri,  5 Jun 2026 17:55:50 +0530
-Message-ID: <20260605122544.1021695-14-mallesh.koujalagi@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260605122544.1021695-8-mallesh.koujalagi@intel.com>
-References: <20260605122544.1021695-8-mallesh.koujalagi@intel.com>
+X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; d="scan'208";a="249938908"
+Received: from tejasupa-desk.iind.intel.com (HELO tejasupa-desk)
+ ([10.190.239.37])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2026 05:39:01 -0700
+From: Tejas Upadhyay <tejas.upadhyay@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: matthew.auld@intel.com, matthew.brost@intel.com,
+ thomas.hellstrom@linux.intel.com, himal.prasad.ghimiray@intel.com,
+ Tejas Upadhyay <tejas.upadhyay@intel.com>,
+ Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH V11 03/12] drm/gpu: Add gpu_buddy_allocated_addr_to_block
+ helper
+Date: Fri,  5 Jun 2026 18:08:41 +0530
+Message-ID: <20260605123839.236021-17-tejas.upadhyay@intel.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260605123839.236021-14-tejas.upadhyay@intel.com>
+References: <20260605123839.236021-14-tejas.upadhyay@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,112 +73,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a write-only debugfs file 'inject_punit_error' under the DRI device
-root that allows triggering punit_error_handler() manually for testing.
-Writing 1 to the file invokes the handler, which suppresses spurious
-Surprise Link Down AER events on slots and declares the
-device wedged for a cold reset recovery.
+Add helper with primary purpose is to efficiently trace a specific
+physical memory address back to its corresponding TTM buffer object.
 
-Usage:
-  echo 1 > /sys/kernel/debug/dri/<N>/inject_punit_error
+v3:
+- use mm->chunk_size minimum allocation granularity (Arun)
+v2:
+- %s/gpu_buddy_addr_to_block/gpu_buddy_allocated_addr_to_block(MattA)
+- remove clear->avail and split nodes check(MattA)
+- Adapt lockdep(MattB)
 
-Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
+Cc: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+Cc: dri-devel@lists.freedesktop.org
 ---
- drivers/gpu/drm/xe/xe_debugfs.c |  3 +++
- drivers/gpu/drm/xe/xe_ras.c     | 35 +++++++++++++++++++++++++++++++++
- drivers/gpu/drm/xe/xe_ras.h     |  7 +++++++
- 3 files changed, 45 insertions(+)
+ drivers/gpu/buddy.c       | 53 +++++++++++++++++++++++++++++++++++++++
+ include/linux/gpu_buddy.h |  2 ++
+ 2 files changed, 55 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_debugfs.c b/drivers/gpu/drm/xe/xe_debugfs.c
-index 22b471303984..bf22985a9fcf 100644
---- a/drivers/gpu/drm/xe/xe_debugfs.c
-+++ b/drivers/gpu/drm/xe/xe_debugfs.c
-@@ -28,6 +28,7 @@
- #include "xe_sriov_pf_debugfs.h"
- #include "xe_sriov_vf.h"
- #include "xe_step.h"
-+#include "xe_ras.h"
- #include "xe_tile_debugfs.h"
- #include "xe_vsec.h"
- #include "xe_wa.h"
-@@ -610,6 +611,8 @@ void xe_debugfs_register(struct xe_device *xe)
- 
- 	xe_psmi_debugfs_register(xe);
- 
-+	xe_ras_debugfs_register(xe, root);
-+
- 	fault_create_debugfs_attr("fail_gt_reset", root, &gt_reset_failure);
- 
- 	if (IS_SRIOV_PF(xe))
-diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-index acdedf403649..687ac6b3a2fe 100644
---- a/drivers/gpu/drm/xe/xe_ras.c
-+++ b/drivers/gpu/drm/xe/xe_ras.c
-@@ -3,6 +3,8 @@
-  * Copyright © 2026 Intel Corporation
-  */
- 
-+#include <linux/debugfs.h>
-+
- #include "xe_bo.h"
- #include "xe_assert.h"
- #include "xe_device_types.h"
-@@ -522,6 +524,39 @@ enum xe_ras_recovery_action xe_ras_process_errors(struct xe_device *xe)
- 	return XE_RAS_RECOVERY_ACTION_RESET;
+diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+index eb1457376307..315f860f4346 100644
+--- a/drivers/gpu/buddy.c
++++ b/drivers/gpu/buddy.c
+@@ -594,6 +594,59 @@ void gpu_buddy_free_block(struct gpu_buddy *mm,
  }
+ EXPORT_SYMBOL(gpu_buddy_free_block);
  
-+#ifdef CONFIG_DRM_XE_DEBUG
-+static ssize_t inject_punit_error_write(struct file *f, const char __user *ubuf,
-+					size_t size, loff_t *pos)
++/**
++ * gpu_buddy_allocated_addr_to_block - given relative address find the allocated block
++ *
++ * @mm: GPU buddy manager
++ * @addr: Relative address
++ *
++ * Returns:
++ * gpu_buddy_block on success, NULL or error code on failure
++ */
++struct gpu_buddy_block *gpu_buddy_allocated_addr_to_block(struct gpu_buddy *mm, u64 addr)
 +{
-+	struct xe_device *xe = f->private_data;
-+	u32 val;
-+	int ret;
++	struct gpu_buddy_block *block;
++	LIST_HEAD(dfs);
++	u64 end;
++	int i;
 +
-+	ret = kstrtouint_from_user(ubuf, size, 0, &val);
-+	if (ret)
-+		return ret;
++	gpu_buddy_driver_lock_held(mm);
 +
-+	if (val != 1)
-+		return -EINVAL;
++	end = addr + mm->chunk_size - 1;
++	for (i = 0; i < mm->n_roots; ++i)
++		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
 +
-+	punit_error_handler(xe);
++	do {
++		u64 block_start;
++		u64 block_end;
 +
-+	return size;
++		block = list_first_entry_or_null(&dfs,
++						 struct gpu_buddy_block,
++						 tmp_link);
++		if (!block)
++			break;
++
++		list_del(&block->tmp_link);
++
++		block_start = gpu_buddy_block_offset(block);
++		block_end = block_start + gpu_buddy_block_size(mm, block) - 1;
++
++		if (!overlaps(addr, end, block_start, block_end))
++			continue;
++
++		if (gpu_buddy_block_is_allocated(block))
++			return block;
++		else if (gpu_buddy_block_is_free(block))
++			return NULL;
++
++		list_add(&block->right->tmp_link, &dfs);
++		list_add(&block->left->tmp_link, &dfs);
++	} while (1);
++
++	return ERR_PTR(-ENXIO);
 +}
++EXPORT_SYMBOL(gpu_buddy_allocated_addr_to_block);
 +
-+static const struct file_operations inject_punit_error_fops = {
-+	.owner = THIS_MODULE,
-+	.open = simple_open,
-+	.write = inject_punit_error_write,
-+};
-+
-+void xe_ras_debugfs_register(struct xe_device *xe, struct dentry *root)
-+{
-+	debugfs_create_file("inject_punit_error", 0200, root, xe,
-+			    &inject_punit_error_fops);
-+}
-+#endif /* CONFIG_DRM_XE_DEBUG */
-+
- static struct pci_dev *find_usp_dev(struct pci_dev *pdev)
- {
- 	struct pci_dev *vsp;
-diff --git a/drivers/gpu/drm/xe/xe_ras.h b/drivers/gpu/drm/xe/xe_ras.h
-index 8d106c708ff1..c9f84ef238c4 100644
---- a/drivers/gpu/drm/xe/xe_ras.h
-+++ b/drivers/gpu/drm/xe/xe_ras.h
-@@ -16,4 +16,11 @@ void xe_ras_counter_threshold_crossed(struct xe_device *xe,
- void xe_ras_init(struct xe_device *xe);
- enum xe_ras_recovery_action xe_ras_process_errors(struct xe_device *xe);
+ static void __gpu_buddy_free_list(struct gpu_buddy *mm,
+ 				  struct list_head *objects,
+ 				  bool mark_clear,
+diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
+index 71941a039648..e7e22fa05ee2 100644
+--- a/include/linux/gpu_buddy.h
++++ b/include/linux/gpu_buddy.h
+@@ -272,6 +272,8 @@ void gpu_buddy_reset_clear(struct gpu_buddy *mm, bool is_clear);
  
-+#ifdef CONFIG_DRM_XE_DEBUG
-+struct dentry;
-+void xe_ras_debugfs_register(struct xe_device *xe, struct dentry *root);
-+#else
-+static inline void xe_ras_debugfs_register(struct xe_device *xe, struct dentry *root) {}
-+#endif
+ void gpu_buddy_free_block(struct gpu_buddy *mm, struct gpu_buddy_block *block);
+ 
++struct gpu_buddy_block *gpu_buddy_allocated_addr_to_block(struct gpu_buddy *mm, u64 addr);
 +
- #endif
+ void gpu_buddy_free_list(struct gpu_buddy *mm,
+ 			 struct list_head *objects,
+ 			 unsigned int flags);
 -- 
-2.34.1
+2.52.0
 
