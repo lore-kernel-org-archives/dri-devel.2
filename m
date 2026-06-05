@@ -4,100 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DB15CD6E7D
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 15:59:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 934CCCD6E7D
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 16:02:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A69D511A964;
-	Fri,  5 Jun 2026 15:59:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E577510E4BC;
+	Fri,  5 Jun 2026 16:02:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U6LdHDS1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ESKRDJAS";
 	dkim-atps=neutral
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com
- [209.85.160.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAB5011A964
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 15:59:11 +0000 (UTC)
-Received: by mail-qt1-f176.google.com with SMTP id
- d75a77b69052e-5176096116fso21699061cf.0
- for <dri-devel@lists.freedesktop.org>; Fri, 05 Jun 2026 08:59:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780675151; cv=none;
- d=google.com; s=arc-20240605;
- b=HGerqoY/WuYKsg9SrnzA6NJwG91Ys7nyFxNlocJQh18j2TiGtak57sZ3v/z39ASrLS
- mW1KZ5gPUsVWsA7LpR3952N5lkuJ/qbDgt5Cu0QYCHkYZKlnAK/ZbLHklSidr6vEIIui
- yabC5ba5kQlJagCBgbnSj+4fW5je7SyQ42GBWYl5SX78qOlS+t+zh6mBQVYvtx73xgnO
- FzZg+QH6blwF+DvWuex5nw2Ya0ZQKBGs568H4j30taREa9mttVqFzGla0JCPO6p4cRak
- +C1Iz47V3bDgQLfSSB8cYzFjLSgGQfWKk9gb80+tqWxe9epi+HPEFiG00lhgS+b5Ph8q
- tUnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=9ksbjEziQ/klkTRNLQdAgetuDlG0vybDd4/Easyb/oE=;
- fh=AtYcPZFd7Q4BKSBc5vxSDvPn8Fl6A0EYpPQiHLjsVTw=;
- b=f9vKhdw046Z5UMPyF6e6cZu4F9ljnnUqmYcUuZVIsQQFF9qGRga2A2XiGrtiutBGOE
- 0gDhfLGIJZ46bfA7/py+wwJiENoNRV5gSbd/0wSxFJn629fxBChxntuf3Ov1dv3pfmdZ
- hRhWdgZ3Aaz5vZ8YW23ax0MwM+2YBwLkLyBBrmuie1m2Hh7BSoi/Xdzf9Kd7rfVNkCi3
- eEiIl+qjYCEL1iS8AmjK5416hqM4VWlioRvjLpiDP2sfo7VNh64NIe0oEvFIbRgOYo8x
- bBtGVg9m1LJr662FNjAZPQorcR/VkqnOjWRrpUhiI/FTOjMwqKzqhNfgnQUf6JDGantP
- qxSA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780675151; x=1781279951; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9ksbjEziQ/klkTRNLQdAgetuDlG0vybDd4/Easyb/oE=;
- b=U6LdHDS10FgAv31SyFlCF33jzvn5owI/99phSZKKy4D9I+X31p6jc9dQMRTvhb+U/1
- NhEe+YCYMGJOGbPrf9cOSUC5EeCbeD80kWuC6IOZ3U8YO/g/IDj/Rr5TxTqqf4VcpABg
- V101kj7/ND2R31yhLO041OxJmPRvvc5D7JYZi9ggHaz3o91yEE5+hCeFsHVfV9Fdjhoz
- W3purUWREk2Fd64wwSnazXUtMVqK04IPi7poH/7wTPADUFQPprCieD6LwHCRwSdd5LUw
- aH2J1jus5lNuYL/cHn4hc4p/m3EHlc6MRAqU9V6FY7DBYLWi3Kd2VYK09gQtFgFDm+Mo
- hs/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780675151; x=1781279951;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=9ksbjEziQ/klkTRNLQdAgetuDlG0vybDd4/Easyb/oE=;
- b=MRGlf2QloGtNa8WgO/PPdDX4DlpUFBg8P+4TArT4TbbrRxHMomnjvsVVJ3esckcHAm
- bOtYzm7oLXZbf/aqgTdWHPUosUGh1XAXYm9bwnmsGTt8ZSn5ziGmrA4vmxEL1CZgTlyj
- SJHhYpjzGwBk7g4WsHS0AThjsd6EZ7B3Kt11Ia5eufHedCd6UpSqwbfcIYi+aZm5n55O
- 6F74tJOJCLRi0kGaKb0D+kv/hkdSCFTbe38/VyJBRmrHk0iSLjn+0zrEZSZLy95l4XYV
- 1q0rWqrfAEL6G0fPII1XKRxCLtXJ9JIoc+WGpcO5+opySOPlPZWw95E/zNXpmiWt30Sg
- vQWw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/Yc3/5vECiWwfXfxhjKeSxr7LYLiDr+7NJC6HqR2j686guGzvQQ+9rDWT3lns4TwbBUCkrkrWGqV8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzlGB2Dm8dUZRy2hdLZTJ6w01ZikJbLb/NuoNUlgkPIVAiNygsd
- EAyxMbB77s1CuVvuJTtxwm8ehTgC6ORtG1LQFYzZfeG90hOZVE0FuY+o/IarJpji+fMt2g9qgBV
- zqMzL60QiB6eTsHXa7Ni7+/oZlqVu2JY=
-X-Gm-Gg: Acq92OGhurHzVPR0b0sdCEz3pjAMBLLDqc2ve6UbcIAPQeEhkdMNy96TiNI2+p0BTjZ
- W6OS4uGNq2UHWSG2cM2ph+B88fhUCgXX78NqzWNk7jd0sefFEZ0f4fZD0TG9FN6C947edbr+swa
- 6PrFNQBUIBb1ilZWZKx5wxv1yYx3WOmgqbFVSlwa3KKvfyIXw1p5Opk8UOmDBV3cYK9LnbzJxtM
- k40u08wgRrJPIq63E/nRPLfR5632SmbgysvC1bbQ6mye3/zoSKYqSQiDaiqA/c7MJ2CvyVmsh3i
- FTZUETE6427DdogB
-X-Received: by 2002:ac8:7d16:0:b0:517:89d0:b8a9 with SMTP id
- d75a77b69052e-51795a872cbmr62478381cf.9.1780675150571; Fri, 05 Jun 2026
- 08:59:10 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260409-vop2-clk-rate-check-v2-1-b207cfc427d7@collabora.com>
-In-Reply-To: <20260409-vop2-clk-rate-check-v2-1-b207cfc427d7@collabora.com>
-From: Alexey Charkov <alchark@gmail.com>
-Date: Fri, 5 Jun 2026 19:58:59 +0400
-X-Gm-Features: AVHnY4Kg55Cpi5Qk79GgU4qugmSkMCPyryYYbHOI9JHnUkY85yTZ0sefHW3lqDA
-Message-ID: <CABjd4Yw_HYpjhrgmonB9FmWV00q=r3yvqnFE4TXEHpM1ZgWOhA@mail.gmail.com>
-Subject: Re: [PATCH RFC v2] drm/rockchip: vop2: Add clock rate mode check
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- kernel@collabora.com
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BCEA10E4BC
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 16:02:54 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id CB335601DD;
+ Fri,  5 Jun 2026 16:02:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 637381F00893;
+ Fri,  5 Jun 2026 16:02:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780675373;
+ bh=zs3gRL2Jxmh2XLWYcX4fEfvoibonHfyoW/I2JwX2inc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ESKRDJAS32F/VW/1vi7P99mCUToSDleWUi+39NWijUbMzNFVA8B7I4glmGzBBm1Ip
+ GhUA0NmlVHSkEpshb4VeRbqHXdgSAzk8W27bEfSTcCM//tV3y/+vNTtPnvjz4ya0ao
+ s1pjpk1rNm+N8xXE12gfymNk5oydx9VaKGwnPm1m/WLWLuAE3E+xQkeu/xbUvGC7Pb
+ JoBf8587LJGB61midPHyIZFyPxL+McA8ALMR9ftuSRlQuLWYYFPTpHoVL40XD0iQYC
+ b17olyomuCL5Z6ghxYCEKVEploiMihsEaB80yR5y4GXL8HoBr+T81tJ/VGu826+Kzs
+ UTETLSAAygYoQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dma-buf: udmabuf: validate create-list count before
+ copying
+To: "Samuel Moelius" <sam.moelius@trailofbits.com>
+Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org
+In-Reply-To: <20260605154252.2125942-1-sam.moelius@trailofbits.com>
+References: <20260605154252.2125942-1-sam.moelius@trailofbits.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Fri, 05 Jun 2026 16:02:53 +0000
+Message-Id: <20260605160253.637381F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,132 +53,150 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Apr 10, 2026 at 2:37=E2=80=AFAM Sebastian Reichel
-<sebastian.reichel@collabora.com> wrote:
->
-> The display might offer modes, which exceed the maximum clock rate of a
-> video output. This usually happens for displays that offer refresh rates
-> above 60 Hz. This results in no picture (or a broken one) being displayed
-> without manual intervention. Fix this by teaching the driver about the
-> maximum achievable clock rates for each video port.
->
-> The information about the maximum clock rates for each video channel and
-> the tip about multiple pixels being processed per clock were provided by
-> Andy Yan and roughly checked against the information available in the
-> datasheet (which specifies limits like "2560x1600@60Hz with 10-bit"
-> instead of a specific pixel rate).
->
-> For the video ports supporting a 600 MHz input clock, there is some
-> logic to handle up to 4 pixels in parallel when needed resulting in
-> the extra multiplier.
->
-> Suggested-by: Andy Yan <andy.yan@rock-chips.com>
-> Link: https://lore.kernel.org/linux-rockchip/1528d788.186b.19d08ed974c.Co=
-remail.andyshrk@163.com/
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> ---
-> I've kept the RFC tag, as I'm not sure about the 4x parallel pixel
-> processing. IIUIC all of the video ports with a maximum of 600 MHz
-> input clock support it, considering they can go to 4K @ 120Hz,
-> which is above 1.2GHz while Andy mentioned a max. support clock rate
-> of 600 MHz.
-> ---
-> Changes in v2:
-> - Link to v1: https://lore.kernel.org/r/20260217-vop2-clk-rate-check-v1-1=
--989b569119ba@collabora.com
-> - based on v7.0-rc7
-> - rename max_clock_rate into max_pixel_clock_rate to distinguish from
->   input clock
-> - update max clock rates to the numbers provided by Andy Yan with
->   extra 4x multiplier for 4K 120Hz VPs
-> ---
->  drivers/gpu/drm/rockchip/rockchip_drm_vop2.c |  3 +++
->  drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  1 +
->  drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 10 ++++++++++
->  3 files changed, 14 insertions(+)
->
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/d=
-rm/rockchip/rockchip_drm_vop2.c
-> index a195f5c819a2..35a0edda5375 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> @@ -1434,6 +1434,9 @@ static enum drm_mode_status vop2_crtc_mode_valid(st=
-ruct drm_crtc *crtc,
->         if (mode->hdisplay > vp->data->max_output.width)
->                 return MODE_BAD_HVALUE;
->
-> +       if (mode->clock > vp->data->max_pixel_clock_rate / 1000)
-> +               return MODE_CLOCK_HIGH;
-> +
->         return MODE_OK;
->  }
->
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/d=
-rm/rockchip/rockchip_drm_vop2.h
-> index 9124191899ba..fd46913f3346 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-> @@ -225,6 +225,7 @@ struct vop2_video_port_data {
->         u16 gamma_lut_len;
->         u16 cubic_lut_len;
->         struct vop_rect max_output;
-> +       u32 max_pixel_clock_rate;
->         const u8 pre_scan_max_dly[4];
->         unsigned int offset;
->         /**
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/d=
-rm/rockchip/rockchip_vop2_reg.c
-> index f3950e8476a7..6ae3d506c476 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-> @@ -559,18 +559,21 @@ static const struct vop2_video_port_data rk3568_vop=
-_video_ports[] =3D {
->                 .gamma_lut_len =3D 1024,
->                 .cubic_lut_len =3D 9 * 9 * 9,
->                 .max_output =3D { 4096, 2304 },
-> +               .max_pixel_clock_rate =3D 600000000U,
->                 .pre_scan_max_dly =3D { 69, 53, 53, 42 },
->                 .offset =3D 0xc00,
->         }, {
->                 .id =3D 1,
->                 .gamma_lut_len =3D 1024,
->                 .max_output =3D { 2048, 1536 },
-> +               .max_pixel_clock_rate =3D 200000000U,
->                 .pre_scan_max_dly =3D { 40, 40, 40, 40 },
->                 .offset =3D 0xd00,
->         }, {
->                 .id =3D 2,
->                 .gamma_lut_len =3D 1024,
->                 .max_output =3D { 1920, 1080 },
-> +               .max_pixel_clock_rate =3D 150000000U,
->                 .pre_scan_max_dly =3D { 40, 40, 40, 40 },
->                 .offset =3D 0xe00,
->         },
-> @@ -775,6 +778,7 @@ static const struct vop2_video_port_data rk3576_vop_v=
-ideo_ports[] =3D {
->                 .gamma_lut_len =3D 1024,
->                 .cubic_lut_len =3D 9 * 9 * 9, /* 9x9x9 */
->                 .max_output =3D { 4096, 2304 },
-> +               .max_pixel_clock_rate =3D 600000000U * 4,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Hi Sebastian,
+Pre-existing issues:
+- [Critical] Integer overflow in `udmabuf_create()` leads to undersized arr=
+ay allocation and a subsequent heap buffer overflow when pinning folios on =
+32-bit systems.
+- [High] Unprotected initialization of `ubuf->sg` in `begin_cpu_udmabuf` le=
+ads to memory leaks and data races.
+--
 
-I've tested it on a bunch of different displays with RK3576 while also
-giving VP0 an unlimited PLL to work with (and also expanding its rates
-table for each of the displays' EDID preferred pixel clocks), and I'm
-pretty sure this should be * 2 here, rather than * 4. That would also
-align with ".pixel_rate =3D 2" just below.
+commit a036fc929a16b1c94a5ac12cbef23efece456576
+Author: Samuel Moelius <sam.moelius@trailofbits.com>
 
-In its current form, some of the advanced displays with 240 Hz modes
-by default choose modes leading to visual artifacts indicative of
-overclocking strain of the graphics pipeline.
+dma-buf: udmabuf: validate create-list count before copying
+   =20
+UDMABUF_CREATE_LIST copies a variable-length list using a byte count
+derived from head.count. The list_limit module parameter is signed and
+writable, so setting it negative lets a large unsigned count bypass the
+limit check. The u32 byte-count calculation can then wrap, causing only
+a small list to be copied while udmabuf_create() still iterates over the
+large count.
 
-The rest look plausible, so with that change please feel free to include:
+Reject negative list_limit values and use checked size_t multiplication
+before copying the list.
 
-Tested-by: Alexey Charkov <alchark@flipper.net> # RK3576
+> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+> index bced421c0d658..264718676d485 100644
+> --- a/drivers/dma-buf/udmabuf.c
+> +++ b/drivers/dma-buf/udmabuf.c
 
-Best regards,
-Alexey
+[ ... ]
+
+> @@ -469,13 +470,14 @@ static long udmabuf_ioctl_create_list(struct file *=
+filp, unsigned long arg)
+>  	struct udmabuf_create_list head;
+>  	struct udmabuf_create_item *list;
+>  	int ret =3D -EINVAL;
+> -	u32 lsize;
+> +	size_t lsize;
+> =20
+>  	if (copy_from_user(&head, (void __user *)arg, sizeof(head)))
+>  		return -EFAULT;
+> -	if (head.count > list_limit)
+> +	if (list_limit < 0 || head.count > list_limit)
+> +		return -EINVAL;
+> +	if (check_mul_overflow(sizeof(struct udmabuf_create_item), head.count, =
+&lsize))
+>  		return -EINVAL;
+> -	lsize =3D sizeof(struct udmabuf_create_item) * head.count;
+>  	list =3D memdup_user((void __user *)(arg + sizeof(head)), lsize);
+>  	if (IS_ERR(list))
+>  		return PTR_ERR(list);
+
+[Severity: Critical]
+This is a pre-existing issue, but can the 32-bit addition of subpgcnt wrap
+pgcnt?
+
+In udmabuf_create(), list[i].size is a user-controlled __u64 value.
+On 32-bit architectures, pgoff_t is a 32-bit unsigned integer:
+
+drivers/dma-buf/udmabuf.c:udmabuf_create() {
+    ...
+		subpgcnt =3D list[i].size >> PAGE_SHIFT;
+		pgcnt +=3D subpgcnt;
+		if (pgcnt > pglimit)
+			goto err_noinit;
+    ...
+}
+
+If user space provides two items=E2=80=94one small (e.g., 2 pages) and one =
+huge
+(e.g., size =3D 0xffffffff000ULL)=E2=80=94subpgcnt truncates to 32 bits and=
+ pgcnt can
+wrap around to a small positive value. This bypasses the pgcnt > pglimit
+check.
+
+init_udmabuf() then allocates arrays sized by the wrapped pgcnt:
+
+drivers/dma-buf/udmabuf.c:init_udmabuf() {
+    ...
+	ubuf->pages =3D kvmalloc_objs(*ubuf->pages, pgcnt);
+    ...
+}
+
+Later, udmabuf_pin_folios() calculates a local 32-bit pgcnt =3D 0xffffffff =
+and
+asks memfd_pin_folios() to pin up to that many folios. If memfd_pin_folios()
+returns a large number of folios, udmabuf_pin_folios() unconditionally writ=
+es
+these kernel pointers into the undersized arrays, resulting in an out-of-bo=
+unds
+write:
+
+drivers/dma-buf/udmabuf.c:udmabuf_pin_folios() {
+    ...
+		ubuf->pinned_folios[nr_pinned++] =3D folios[cur_folio];
+    ...
+			ubuf->pages[upgcnt] =3D folio_page(folios[cur_folio],
+						subpgoff >> PAGE_SHIFT);
+    ...
+}
+
+Could we check for overflow when accumulating pgcnt?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does begin_cpu_udmabuf() hav=
+e a
+race condition when allocating ubuf->sg?
+
+drivers/dma-buf/udmabuf.c:begin_cpu_udmabuf() {
+	if (!ubuf->sg) {
+		ubuf->sg =3D get_sg_table(dev, buf, direction);
+		if (IS_ERR(ubuf->sg)) {
+			ret =3D PTR_ERR(ubuf->sg);
+			ubuf->sg =3D NULL;
+		} else {
+			ubuf->sg_dir =3D direction;
+		}
+	} else {
+    ...
+}
+
+The DMA_BUF_IOCTL_SYNC ioctl triggers dma_buf_begin_cpu_access(), which cal=
+ls
+the exporter's .begin_cpu_access hook (begin_cpu_udmabuf()) with the dma-buf
+reservation lock intentionally unlocked (as documented in dma-buf.h).
+
+If two user-space threads invoke DMA_BUF_IOCTL_SYNC concurrently on the same
+file descriptor, both can observe !ubuf->sg, allocate separate SG tables, a=
+nd
+establish duplicate DMA mappings.
+
+The second thread will overwrite the ubuf->sg pointer, leaking the first
+allocated SG table and its DMA resources. Concurrent readers could also ope=
+rate
+on partially written pointers.
+
+Is there a lock we can hold while checking and assigning ubuf->sg?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605154252.2125=
+942-1-sam.moelius@trailofbits.com?part=3D1
