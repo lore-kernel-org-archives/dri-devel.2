@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12AB5CD6E7D
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 13:49:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EC0ECD6E7D
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 13:51:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53FFA112B2C;
-	Fri,  5 Jun 2026 13:49:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87C9910E4C1;
+	Fri,  5 Jun 2026 13:51:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RfJBG7+A";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="C3grknss";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 490A9112B2C
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 13:49:36 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04A5010E4C1
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 13:51:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0DF8243E76
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 13:49:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6C0E1F00893;
- Fri,  5 Jun 2026 13:49:35 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4C7E3600AF
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 13:51:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D26131F00893;
+ Fri,  5 Jun 2026 13:51:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780667375;
- bh=NOPCHrzvq5CVQ0Mcn5Bk28yhps2kKyAdDW4GC+Kd1wE=;
+ s=k20260515; t=1780667494;
+ bh=WxgnRDgfcaJRPgOkS64o9HIQ9HlQL3SWek+yUpbgbVQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=RfJBG7+AKc4vFm0yolWSn6ut3MzqJ/i+zK+QagG1WD0OEeDNux64PFP5Fjr352I/9
- UehLP4Ft8uwgK9MlwAJ9OgwBflybZZb0Ze/yVgJ+7pL6wyGPWQhDjmF6DCcvFAB9i6
- 9Ckn00rSWP8DeR+gT43utpRsc15S1bzR3mKGH/PgqThZtME/ifD0O3/1PvFkP5Jwg4
- GwZxrIyac14aj8wmhjJ5TRPK8/8BVhOGYtfCLYOqAbi9hp7iDsW7Tqf8dcQ3NxI10a
- 5+P3w/0fQzjbBslaXhd6dpXvI4ZpebxeplcOrOjQuKihM27qkIjP87/yZDukz46deT
- X7KIXbdh15W+g==
+ b=C3grknssz/hpe2p8OB9abQyN7IXkuuArntkWOSCD8RlsvQp1Yx4cgz1Z28spmU8RH
+ FGJKEqNvL5BpA+g9wC7W+iSRb9fGkFLeAs0aLUOFc3KvwRATzjqtcVE1WKeD57s+Td
+ Xi6tT1EHSltojJk5eyYz+oEkPEBj+PQPPI34JhTA7A3L+OiIUXKrELT9BRqLbtKBS0
+ t9iC4rd2O8LgwjJPgWubfU9X3rr4I/tL7LVsnnPaRCHXPhUVdVmto0zDjYJZkgOJ/M
+ ITTGXizFEMvpmBF9dw0Cv75xVdMT14v2wibnCaARqEXoB5fSsCD5NyhytwRvI3J4ZO
+ 2tYo/tTD0P5xw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] rust: rcu: add RcuBox type
+Subject: Re: [PATCH 2/3] rust: maple_tree: add load_rcu()
 To: "Boqun Feng" <boqun@kernel.org>
-Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org,
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org,
  linux-media@vger.kernel.org
-In-Reply-To: <20260605133541.22569-2-boqun@kernel.org>
-References: <20260605133541.22569-2-boqun@kernel.org>
+In-Reply-To: <20260605133541.22569-4-boqun@kernel.org>
+References: <20260605133541.22569-4-boqun@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 13:49:35 +0000
-Message-Id: <20260605134935.B6C0E1F00893@smtp.kernel.org>
+Date: Fri, 05 Jun 2026 13:51:33 +0000
+Message-Id: <20260605135133.D26131F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,95 +59,108 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Critical] RcuBox::into_foreign drops `self` instead of forgetting it, ca=
-using a guaranteed Use-After-Free.
-- [High] RcuBox::drop bypasses the custom Allocator A and hardcodes kvfree_=
-call_rcu() for types that do not require dropping, causing undefined behavi=
-or for non-kvfree compatible allocators.
+- [Critical] Lockless traversal in `load_rcu()` causes a use-after-free of =
+internal mapletree nodes because the tree is not initialized with `MT_FLAGS=
+_USE_RCU`.
+- [High] Unsound API: `RcuBox::new` safely allows types with blocking destr=
+uctors to execute their `Drop` implementation in RCU softirq context, leadi=
+ng to atomic context violations.
 --
 
-commit f69c06884595bb68a76f4f1dd4014ee9e2c9e31c
+commit b7609fa7d8f12dc31f5e195b6f4d6155f2a20574
 Author: Alice Ryhl <aliceryhl@google.com>
 
-rust: rcu: add RcuBox type
-   =20
-This adds an RcuBox container, which is like Box except that the value
-is freed after waiting for one grace period (via {kvfree_,}call_rcu()).
-To allow containers to rely on the RCU properties of RcuBox, an
-extension of ForeignOwnable is added.
+rust: maple_tree: add load_rcu()
 
-> diff --git a/rust/kernel/sync/rcu/rcu_box.rs b/rust/kernel/sync/rcu/rcu_b=
-ox.rs
-> new file mode 100644
-> index 0000000000000..943fe3e8974e0
-> --- /dev/null
-> +++ b/rust/kernel/sync/rcu/rcu_box.rs
+This commit adds a load_rcu() method to MapleTree, allowing lookups under an
+RCU read lock without taking the spinlock.
+
+> diff --git a/rust/kernel/maple_tree.rs b/rust/kernel/maple_tree.rs
+> index 265d6396a78a1..1499191b8935a 100644
+> --- a/rust/kernel/maple_tree.rs
+> +++ b/rust/kernel/maple_tree.rs
 
 [ ... ]
 
-> +// SAFETY:
-> +// * The `RcuBoxInner<T>` was allocated with `A`.
-> +// * `NonNull::as_ptr` returns a non-null pointer.
-> +unsafe impl<T: Send + 'static, A: Allocator> ForeignOwnable for RcuBox<T=
-, A> {
-> +    const FOREIGN_ALIGN: usize =3D <Box<RcuBoxInner<T>, A> as ForeignOwn=
-able>::FOREIGN_ALIGN;
-> +
-> +    type Borrowed<'a> =3D &'a T;
-> +    type BorrowedMut<'a> =3D &'a T;
-> +
-> +    fn into_foreign(self) -> *mut c_void {
-> +        self.0.as_ptr().cast()
-> +    }
-
-[Severity: Critical]
-Since `self` is consumed by value here without being wrapped in `ManuallyDr=
-op`
-or passed to `core::mem::forget()`, won't it be dropped at the end of this
-method?
-
-This seems like it would immediately schedule the memory for RCU free, caus=
-ing
-a use-after-free for the foreign code when it later accesses the pointer.
-
-> +
-> +    unsafe fn from_foreign(ptr: *mut c_void) -> Self {
-
-[ ... ]
-
-> +impl<T: Send, A: Allocator> Drop for RcuBox<T, A> {
-> +    fn drop(&mut self) {
-> +        // SAFETY: The `rcu_head` field is in-bounds of a valid allocati=
-on.
-> +        let rcu_head =3D unsafe { &raw mut (*self.0.as_ptr()).rcu_head };
-> +        if core::mem::needs_drop::<T>() {
-> +            // SAFETY: `rcu_head` is the `rcu_head` field of `RcuBoxInne=
-r<T>`. All users will be
-> +            // gone in an rcu grace period. This is the destructor, so w=
-e may pass ownership of the
-> +            // allocation.
-> +            unsafe { bindings::call_rcu(rcu_head, Some(drop_rcu_box::<T,=
- A>)) };
-> +        } else {
-> +            // SAFETY: All users will be gone in an rcu grace period.
-> +            // TODO: We are luckily since `kvfree_call_rcu()` works on b=
-oth kmalloc and vmalloc,
-> +            // maybe a new `Allocator` method is needed.
-> +            unsafe { bindings::kvfree_call_rcu(rcu_head, self.0.as_ptr()=
-.cast()) };
+> @@ -233,6 +237,54 @@ pub fn erase(&self, index: usize) -> Option<T> {
+>          unsafe { T::try_from_foreign(ret) }
+>      }
+> =20
+> +    /// Load the value at the given index with rcu.
+> +    ///
+> +    /// # Examples
+> +    ///
+> +    /// Read the value under an rcu read lock. Even if the value is remo=
+ved, it remains accessible
+> +    /// for one rcu grace period.
+> +    ///
+> +    /// ```ignore
+> +    /// use kernel::{
+> +    ///     maple_tree::MapleTree,
+> +    ///     sync::rcu::{self, RcuBox},
+> +    /// };
+> +    ///
+> +    /// let tree =3D KBox::pin_init(MapleTree::<RcuBox<i32>>::new(), GFP=
+_KERNEL)?;
+> +    ///
+> +    /// let ten =3D RcuBox::new(10, GFP_KERNEL)?;
 
 [Severity: High]
-Since `RcuBox` is generic over any custom `A: Allocator`, wouldn't calling
-`kvfree_call_rcu()` here break for allocators other than kmalloc or vmalloc?
+Is it safe to allow arbitrary types to be managed via RcuBox?
 
-Does this need to always route through `A::free()` via `drop_rcu_box`, or
-should `A` be explicitly bounded to an allocator trait that supports
-`kvfree_rcu`?
+RcuBox::new() is a safe function that accepts any T: Send. It lacks trait
+bounds to restrict T to types that are safe to drop in atomic contexts.
 
-> +        }
-> +    }
-> +}
+When an RcuBox is dropped, if T requires dropping, it schedules drop_rcu_bo=
+x()
+using bindings::call_rcu(). The drop_rcu_box() callback executes in an RCU
+softirq context, where sleeping or blocking is strictly forbidden.
+
+If a safe T blocks during its Drop implementation (for example, safely
+acquiring a kernel::sync::Mutex on drop), will this execute in softirq
+context and cause a scheduling-while-atomic panic?
+
+> +    /// tree.insert(100, ten, GFP_KERNEL)?;
+> +    ///
+> +    /// let rcu_read_lock =3D rcu::Guard::new();
+> +    /// let ten =3D tree.load_rcu(100, &rcu_read_lock);
+> +    /// assert_eq!(ten, Some(&10));
+> +    ///
+> +    /// // Even if the value gets removed, we may continue to access it =
+for one rcu grace period.
+> +    /// tree.erase(100);
+> +    /// assert_eq!(ten, Some(&10));
+> +    /// # Ok::<_, Error>(())
+> +    /// ```
+> +    #[inline]
+> +    pub fn load_rcu<'rcu>(
+> +        &self,
+> +        index: usize,
+> +        _rcu: &'rcu rcu::Guard,
+> +    ) -> Option<T::RcuBorrowed<'rcu>>
+> +    where
+> +        T: ForeignOwnableRcu,
+> +    {
+> +        // SAFETY: `self.tree` contains a valid maple tree.
+> +        let ret =3D unsafe { bindings::mtree_load(self.tree.get(), index=
+) };
+
+[Severity: Critical]
+Does this lockless traversal risk a use-after-free?
+
+Looking at MapleTree::new() and MapleTreeAlloc::new() in
+rust/kernel/maple_tree.rs, the tree is initialized with 0 or
+bindings::MT_FLAGS_ALLOC_RANGE respectively, without bindings::MT_FLAGS_USE=
+_RCU.
+
+If MT_FLAGS_USE_RCU is not set, structural modifications to the tree (like
+node splits or merges) will synchronously free the replaced internal tree
+nodes directly to the slab allocator via kmem_cache_free(), completely
+bypassing call_rcu().
+
+Could a concurrent load_rcu() walking the tree dereference a node pointer
+that was just synchronously freed by a writer?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605133541.2256=
-9-1-boqun@kernel.org?part=3D1
+9-1-boqun@kernel.org?part=3D2
