@@ -4,43 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 934CCCD6E7D
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 16:02:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D596CD6E7C
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 16:07:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E577510E4BC;
-	Fri,  5 Jun 2026 16:02:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 093A310E67C;
+	Fri,  5 Jun 2026 16:07:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ESKRDJAS";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="NbmHVKiA";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BCEA10E4BC
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 16:02:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CB335601DD;
- Fri,  5 Jun 2026 16:02:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 637381F00893;
- Fri,  5 Jun 2026 16:02:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780675373;
- bh=zs3gRL2Jxmh2XLWYcX4fEfvoibonHfyoW/I2JwX2inc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ESKRDJAS32F/VW/1vi7P99mCUToSDleWUi+39NWijUbMzNFVA8B7I4glmGzBBm1Ip
- GhUA0NmlVHSkEpshb4VeRbqHXdgSAzk8W27bEfSTcCM//tV3y/+vNTtPnvjz4ya0ao
- s1pjpk1rNm+N8xXE12gfymNk5oydx9VaKGwnPm1m/WLWLuAE3E+xQkeu/xbUvGC7Pb
- JoBf8587LJGB61midPHyIZFyPxL+McA8ALMR9ftuSRlQuLWYYFPTpHoVL40XD0iQYC
- b17olyomuCL5Z6ghxYCEKVEploiMihsEaB80yR5y4GXL8HoBr+T81tJ/VGu826+Kzs
- UTETLSAAygYoQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dma-buf: udmabuf: validate create-list count before
- copying
-To: "Samuel Moelius" <sam.moelius@trailofbits.com>
-Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org
-In-Reply-To: <20260605154252.2125942-1-sam.moelius@trailofbits.com>
-References: <20260605154252.2125942-1-sam.moelius@trailofbits.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 16:02:53 +0000
-Message-Id: <20260605160253.637381F00893@smtp.kernel.org>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC07510E677
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 16:07:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
+ Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
+ Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+ :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=8jj4+J5yeQWjg5KY9DqEw4WJpS6VuRZIUVj2ZIu2Pzw=; b=NbmHVKiAIWCOBY8JcneuUIXqR4
+ jaTtK3/Xmgnvjsh6NlM5wjIMLfn/q0J9dJYDWDXB0l++zSMqGtRNX9jBEszTJi4zilUisiRarSmwS
+ Y3HsA0VfwiWlCj5oLQFD8daH49whg0R2W7FHTaT0iVCK3+2FkhnOZNKP+61CR/OEdqIpLjVlhI9O2
+ JM2V254++jOEzRLXnadHg/kMFyZssj0Kqo8pv7ZOlJH17p7hS27surstY4EC4dT3HY+JvgwWIdkeM
+ Kkfi8k2vcUiT+ylUmM41B0tChTRna42L1YNsDle6yN6i0TMfDna9fpO3HMeGjdpYZyd5p1Wrb5VyP
+ +9xgNbmQ==;
+Received: from [189.7.87.67] (helo=[10.0.0.1])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wVX4k-00DGUE-MX; Fri, 05 Jun 2026 18:07:15 +0200
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Date: Fri, 05 Jun 2026 13:06:58 -0300
+Subject: [PATCH 1/3] drm/rocket: Remove unused reset worker
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260605-rocket-per-task-jobs-v1-1-e3319adf3c49@igalia.com>
+References: <20260605-rocket-per-task-jobs-v1-0-e3319adf3c49@igalia.com>
+In-Reply-To: <20260605-rocket-per-task-jobs-v1-0-e3319adf3c49@igalia.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+ Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2101; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=ogXWHPfdY2GzAhjXznCbxDrE7Laht8qpiB6WY27XL3s=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqIvQpS57UFdrEPvFgOrnRH9Gs6d2vOpmHGiu9n
+ 9Cu9jZrDJWJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaiL0KQAKCRA/8w6Kdoj6
+ ql1wCADUu/4N3xyjipRHV50KgWwVSLVH6wRuNtDaIb4MdTihwWe/Iqpr1l4vnpwb2wZcgMfZhzJ
+ dyPKM5A07vH0in2d6sX9MCirInXWMtNQQWSKCKXxSdI1AtWvXR1JgcHlkl8tKDH3hpD2ulgTLBx
+ 38G++wVfWg45MIMJoDNUf9IJUzXbKLpAkDl+HjcsWjzm5bl53yzxiZ3mpj/t8pqk5eQ7xaOOtlh
+ FN3K5Ap3Akd0Jr/o/cH8djaAfBSg7FmFu+deYBvuh7lP7HPeuNhxNka40l8cnvB52PeZscIknlA
+ naTSU2b68+W8qShLOL7GT0xDz7dBr4hZYLyL4OuVQTKuYDIk
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,150 +72,72 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+The reset.work work_struct and its rocket_reset_work() handler were
+initialized and cancelled, but never actually queued: no code path calls
+queue_work()/schedule_work() on core->reset.work. The only reset entry
+point is the scheduler's timedout_job callback, rocket_job_timedout(),
+which invokes rocket_reset() directly on the timeout workqueue.
 
-Pre-existing issues:
-- [Critical] Integer overflow in `udmabuf_create()` leads to undersized arr=
-ay allocation and a subsequent heap buffer overflow when pinning folios on =
-32-bit systems.
-- [High] Unprotected initialization of `ubuf->sg` in `begin_cpu_udmabuf` le=
-ads to memory leaks and data races.
---
+Drop the dead worker, its initialization and cancellation, and the
+unused struct member.
 
-commit a036fc929a16b1c94a5ac12cbef23efece456576
-Author: Samuel Moelius <sam.moelius@trailofbits.com>
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
+---
+ drivers/accel/rocket/rocket_core.h |  1 -
+ drivers/accel/rocket/rocket_job.c  | 10 ----------
+ 2 files changed, 11 deletions(-)
 
-dma-buf: udmabuf: validate create-list count before copying
-   =20
-UDMABUF_CREATE_LIST copies a variable-length list using a byte count
-derived from head.count. The list_limit module parameter is signed and
-writable, so setting it negative lets a large unsigned count bypass the
-limit check. The u32 byte-count calculation can then wrap, causing only
-a small list to be copied while udmabuf_create() still iterates over the
-large count.
+diff --git a/drivers/accel/rocket/rocket_core.h b/drivers/accel/rocket/rocket_core.h
+index f6d7382854ca..4d163a6ac653 100644
+--- a/drivers/accel/rocket/rocket_core.h
++++ b/drivers/accel/rocket/rocket_core.h
+@@ -48,7 +48,6 @@ struct rocket_core {
+ 
+ 	struct {
+ 		struct workqueue_struct *wq;
+-		struct work_struct work;
+ 		atomic_t pending;
+ 	} reset;
+ 
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index 2f1861f960cc..8a26139a44f4 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -393,14 +393,6 @@ static enum drm_gpu_sched_stat rocket_job_timedout(struct drm_sched_job *sched_j
+ 	return DRM_GPU_SCHED_STAT_RESET;
+ }
+ 
+-static void rocket_reset_work(struct work_struct *work)
+-{
+-	struct rocket_core *core;
+-
+-	core = container_of(work, struct rocket_core, reset.work);
+-	rocket_reset(core, NULL);
+-}
+-
+ static const struct drm_sched_backend_ops rocket_sched_ops = {
+ 	.run_job = rocket_job_run,
+ 	.timedout_job = rocket_job_timedout,
+@@ -444,7 +436,6 @@ int rocket_job_init(struct rocket_core *core)
+ 	};
+ 	int ret;
+ 
+-	INIT_WORK(&core->reset.work, rocket_reset_work);
+ 	spin_lock_init(&core->fence_lock);
+ 	mutex_init(&core->job_lock);
+ 
+@@ -488,7 +479,6 @@ void rocket_job_fini(struct rocket_core *core)
+ {
+ 	drm_sched_fini(&core->sched);
+ 
+-	cancel_work_sync(&core->reset.work);
+ 	destroy_workqueue(core->reset.wq);
+ }
+ 
 
-Reject negative list_limit values and use checked size_t multiplication
-before copying the list.
+-- 
+2.54.0
 
-> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-> index bced421c0d658..264718676d485 100644
-> --- a/drivers/dma-buf/udmabuf.c
-> +++ b/drivers/dma-buf/udmabuf.c
-
-[ ... ]
-
-> @@ -469,13 +470,14 @@ static long udmabuf_ioctl_create_list(struct file *=
-filp, unsigned long arg)
->  	struct udmabuf_create_list head;
->  	struct udmabuf_create_item *list;
->  	int ret =3D -EINVAL;
-> -	u32 lsize;
-> +	size_t lsize;
-> =20
->  	if (copy_from_user(&head, (void __user *)arg, sizeof(head)))
->  		return -EFAULT;
-> -	if (head.count > list_limit)
-> +	if (list_limit < 0 || head.count > list_limit)
-> +		return -EINVAL;
-> +	if (check_mul_overflow(sizeof(struct udmabuf_create_item), head.count, =
-&lsize))
->  		return -EINVAL;
-> -	lsize =3D sizeof(struct udmabuf_create_item) * head.count;
->  	list =3D memdup_user((void __user *)(arg + sizeof(head)), lsize);
->  	if (IS_ERR(list))
->  		return PTR_ERR(list);
-
-[Severity: Critical]
-This is a pre-existing issue, but can the 32-bit addition of subpgcnt wrap
-pgcnt?
-
-In udmabuf_create(), list[i].size is a user-controlled __u64 value.
-On 32-bit architectures, pgoff_t is a 32-bit unsigned integer:
-
-drivers/dma-buf/udmabuf.c:udmabuf_create() {
-    ...
-		subpgcnt =3D list[i].size >> PAGE_SHIFT;
-		pgcnt +=3D subpgcnt;
-		if (pgcnt > pglimit)
-			goto err_noinit;
-    ...
-}
-
-If user space provides two items=E2=80=94one small (e.g., 2 pages) and one =
-huge
-(e.g., size =3D 0xffffffff000ULL)=E2=80=94subpgcnt truncates to 32 bits and=
- pgcnt can
-wrap around to a small positive value. This bypasses the pgcnt > pglimit
-check.
-
-init_udmabuf() then allocates arrays sized by the wrapped pgcnt:
-
-drivers/dma-buf/udmabuf.c:init_udmabuf() {
-    ...
-	ubuf->pages =3D kvmalloc_objs(*ubuf->pages, pgcnt);
-    ...
-}
-
-Later, udmabuf_pin_folios() calculates a local 32-bit pgcnt =3D 0xffffffff =
-and
-asks memfd_pin_folios() to pin up to that many folios. If memfd_pin_folios()
-returns a large number of folios, udmabuf_pin_folios() unconditionally writ=
-es
-these kernel pointers into the undersized arrays, resulting in an out-of-bo=
-unds
-write:
-
-drivers/dma-buf/udmabuf.c:udmabuf_pin_folios() {
-    ...
-		ubuf->pinned_folios[nr_pinned++] =3D folios[cur_folio];
-    ...
-			ubuf->pages[upgcnt] =3D folio_page(folios[cur_folio],
-						subpgoff >> PAGE_SHIFT);
-    ...
-}
-
-Could we check for overflow when accumulating pgcnt?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does begin_cpu_udmabuf() hav=
-e a
-race condition when allocating ubuf->sg?
-
-drivers/dma-buf/udmabuf.c:begin_cpu_udmabuf() {
-	if (!ubuf->sg) {
-		ubuf->sg =3D get_sg_table(dev, buf, direction);
-		if (IS_ERR(ubuf->sg)) {
-			ret =3D PTR_ERR(ubuf->sg);
-			ubuf->sg =3D NULL;
-		} else {
-			ubuf->sg_dir =3D direction;
-		}
-	} else {
-    ...
-}
-
-The DMA_BUF_IOCTL_SYNC ioctl triggers dma_buf_begin_cpu_access(), which cal=
-ls
-the exporter's .begin_cpu_access hook (begin_cpu_udmabuf()) with the dma-buf
-reservation lock intentionally unlocked (as documented in dma-buf.h).
-
-If two user-space threads invoke DMA_BUF_IOCTL_SYNC concurrently on the same
-file descriptor, both can observe !ubuf->sg, allocate separate SG tables, a=
-nd
-establish duplicate DMA mappings.
-
-The second thread will overwrite the ubuf->sg pointer, leaking the first
-allocated SG table and its DMA resources. Concurrent readers could also ope=
-rate
-on partially written pointers.
-
-Is there a lock we can hold while checking and assigning ubuf->sg?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605154252.2125=
-942-1-sam.moelius@trailofbits.com?part=3D1
