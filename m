@@ -4,72 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABD5ACD8C81
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 14:41:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF8B7CD6E79
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 14:43:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1174311A90F;
-	Fri,  5 Jun 2026 14:41:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B25B11A91C;
+	Fri,  5 Jun 2026 14:43:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hYZWfuAP";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Gz8/8pRK";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E19E111A90F
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 14:41:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C71BE4419F
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 14:41:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68AD61F00898;
- Fri,  5 Jun 2026 14:41:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780670504;
- bh=bEx0YHRGn4x2/E/byC2PUztwBRJN2xK+0yTIvxw6Fek=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=hYZWfuAPs70rIcXpOl46ycLxyerofKC//Sv3j02J3EiVU9Vkl7L7RBEA1m+KQCvDK
- vFGfdVlqRp07Otz9TWPHau3U4NqpNAUg1S6gLUUjUB4tE9WBa7BcP/iWX8Na6prsfV
- cswp7mWuY236vIK3+YMqvREbZcY8nHMc3yPpe4qfUaPWy1PQpaSk7+E5yaoJlaKOwU
- U7KoXN2T8gs9WnVSMUjuYfZC3FQQZz6X7vYBtA6EXg8b08I0WFD1UOAzfnkVoNxfS1
- ntiOKLoAB4Ttky4+q4gvJi7f+AqlVXWDllCNCuWFQWpiu1uMP//woFuMXv9ZF0M3BD
- 0QzAeeFiKfFMg==
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailfauth.phl.internal (Postfix) with ESMTP id B763FF4006C;
- Fri,  5 Jun 2026 10:41:43 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-04.internal (MEProxy); Fri, 05 Jun 2026 10:41:43 -0400
-X-ME-Sender: <xms:J-AiagsRYCTZzC8xd7DWZfAHtgnZhfFlSvlblrwxEBSWuTG1ulAJ9g>
- <xme:J-AiaoZCi5uyfvYL6FJeERgBLh_aixsfLyoNtGKJHByHqn_JiYEXRbBMZYk0c0sb7
- 3dEmDpsAs6memo1T-qp3GChA2igJQbkiJZqMVWI5RDGPoajHLy4Zw>
-X-ME-Received: <xmr:J-AiaqwtoO1L0yJdjYh1Z56Jqc3SDjkREAsZUbgO-ue1qbXA3fb9Hb5xgVc>
-X-ME-Proxy-Cause: dmFkZTEMTIMmD8CvJoT/D/NDj88GXOnaCJSn7KQ2MI0QXg07/gTaBqxkFXNP5xthK4ek8r
- OmJ6M00G6rq3CllsjHXAhM0v35O0QEjaL36NBCfxRtqE0bxrU+wwgRWIGSv3x92yAlZxKt
- BP579Vy8yNalz3OaUwnIdBjqF9AFwHZyoSYo224UZrqlk28WIy0mM+OPKaZbCzFuijwFZr
- e5wwQVJnNkpHtLkwjopfQ3Ed6NiInuNOLSYYCdxJDKCpuMTcAHxghq4i5PLFrE9Zo8sdhy
- lZsfESjL85RfZu0R92Lej89in0RIS6wVFbepj+i+IWrF9ioUtL/Gh+68BjjJ80qmbNCISI
- 5RUMmQ0rQLnTjxzMJeEFYjnrH252VrJFaxHfCJWZjtcvFqewAgOoNwqnNn+y7i27tKyykA
- I84Qh/coKsyaO7Y1F8WKail4aGwvokp22qVGxWjAeDH/oc+7WuELKjlLKpgqmaAnwNPgYj
- wTldw5wraKRlkdwqban1rEyDmCcrzYMZz7r53p8+shcQbq/sgPEAaTKa1JZC6MaNLmo8nG
- +ncgU/7vrfExJx6ovknNLIjedvVqG9nn2LkfgNsmshyjkXUsCztDNJsEGwoY03KCVCXAa4
- buzAcA9NfOsDbMfCEvHp5o0tI9W6rKqFFtu6HzOIAc2mzs5Ia+V1+EsumGng
-X-ME-Proxy: <xmx:J-Aiaoj-mVclCuiTqqQ4tgRWnGw48Mpa5ybOp1Ch6rbn27wa44XgiA>
- <xmx:J-Aiaulr4yeC8us2Ukz1ecpuZC1yx_cWOE0oh9-7g_d5m7GYvmtzKA>
- <xmx:J-Aiami2Q2anhB6HZVf-aJE7UNK2FDmmg9GrJJm97kUrRZBQw1LUjQ>
- <xmx:J-Aiaq3uSgAil1Ge3sjbLCdOdlpW8xmbCXoR4IorVf-7uvV5VA9QzQ>
- <xmx:J-AianJtINJYjsKg-5PHbsXeNHyevEYgRhebRkKMMbzQvDao0SiBIMAt>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 5 Jun 2026 10:41:43 -0400 (EDT)
-Date: Fri, 5 Jun 2026 07:41:42 -0700
-From: Boqun Feng <boqun@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, Alice Ryhl <aliceryhl@google.com>
-Subject: Re: [PATCH 1/3] rust: rcu: add RcuBox type
-Message-ID: <aiLgJkKzwEDGWNtY@tardis-2.local>
-References: <20260605133541.22569-2-boqun@kernel.org>
- <20260605134935.B6C0E1F00893@smtp.kernel.org>
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CF6011A912
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 14:40:44 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-490be03d47bso16761345e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 05 Jun 2026 07:40:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1780670443; x=1781275243; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=skr1dG/uETuGik9GgZErIJKqeHCvcO7qNrhexVQ3Vl8=;
+ b=Gz8/8pRKS+E/6ItSmcYeKsDnNoImmyumdeyw7qbBID29aNP7wnc8xuEAYMT83UtYYC
+ lRTlsTO4Iz+sng7co9KWQw0tymIKWhI+eNNk6Ojm2Pqmkl79WtTtiu74Q05CnJd23mj4
+ 3rCAR1rPAIqX5PCmvsMB2aWf3S/Dna4d+OkhOfC8hSE+CKqcFfFc/nRVgy1/jVtMeXNq
+ D6dXfPeIO9BP0qSDXnfOAVdOndcMXY55T7vzerIgxLrHGTV8+BTtAYkzLbrhFilb6NJv
+ /mzIQc13bzq3DIFdgBJZcikvokDwAxyc2m5bp+TO6n3Q/zyfu1+sdIJrcohmbjaZfpVz
+ 03hQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780670443; x=1781275243;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=skr1dG/uETuGik9GgZErIJKqeHCvcO7qNrhexVQ3Vl8=;
+ b=Iv3TeDeeSFtrzUEtBWHFAJ5W1Z/WuRkXhKC8XP28NZ36MNTyaa0m4hF2cmWRwjBlW3
+ HDOpD+amnPagp0NVxrTnTcQA3fWkNK/y1K71kKMgGDwN8I/69ShL6acSgO2jA+Bipyav
+ Ev7B8MFVMU35u6Ugh9taGGwe5fm3piBwqXzzKs3Ke1yLL3uTOAdBUwhjabNKPh7EZJNC
+ rSoAcubOJiu+5d2fsnLF1NyeblSnDEh5ExAh7bY8f5LO8jRavg69QBqkK//piZAxYExq
+ iE6E2JmeED+XYKGUbyAufBBOStubZqlg3a5LAzSCEBVgkY3oXWFrKu49qv0HeiJglgjp
+ 7ylQ==
+X-Gm-Message-State: AOJu0YzQSB2oCOEJhwdOd62m34/B4pElb5EzPs+n9R7z7xk/rMitKInB
+ 7fyF6hSL34QKV2jVGUuFpxTBHkJMHAGSQajfjxSNFyztKZr+zaixVVBbJbsY5Dtcqsc=
+X-Gm-Gg: Acq92OHtD+pFFL7qyJuC3d+YTiuyfDuIhPA/cYbL9OitBdzQJB69Lczjx2SZLXf7Jn5
+ 3+1YR7fttCJAHkfXpI+WnGRN93fSLSUh+9+yFqrHcJdaq75L2utH0LycZT47ofU+/MFzL1tNQ8A
+ F6sb7zFozq6ZiNoNKosuORHiIDQdzv6IgRRR/kPitve5QuXi54pJbIkJ9ugZLQdAkVPFBApVh9j
+ /WvUxVhgOQoxsTKrenbM3nxHgU/TnqxgmHRXxXYkVPlrfHBHb0uaUjRnQw2Weq+EObrcSeVItTc
+ xRgyGXOmUp0omdU/ZK6lNkzAQNCbYznPdb8lirojj+DQ5KPMd2e2NGtK5ldToi1P9LCAjlZDJYN
+ 5lpfzTnJLy6v1I8J7M6Isj0T/4/H3MvFQdXB9eR4ZYrFDdKPvQkZhlIyKO1TgsKlEYo7falQOpD
+ /9RKV5clC9aFI5ghlG47CS2wjmUKkk1TUV1Sapn4TbcLAVuo5n7WaNETTM5StqvNgThQ==
+X-Received: by 2002:a05:600c:354a:b0:490:44eb:c1e5 with SMTP id
+ 5b1f17b1804b1-490c2607c39mr62305025e9.31.1780670442943; 
+ Fri, 05 Jun 2026 07:40:42 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-490bc3e4b5asm166123485e9.13.2026.06.05.07.40.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Jun 2026 07:40:42 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: dri-devel@lists.freedesktop.org, Marek Vasut <marex@nabladev.com>
+Cc: Kael D'Alcamo <dev@kael-k.io>, 
+ Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>, 
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Sam Ravnborg <sam@ravnborg.org>, Simona Vetter <simona@ffwll.ch>, 
+ Thierry Reding <thierry.reding@gmail.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260422210806.80948-1-marex@nabladev.com>
+References: <20260422210806.80948-1-marex@nabladev.com>
+Subject: Re: [PATCH 1/3] dt-bindings: vendor-prefixes: Add Displaytech Ltd.
+Message-Id: <178067044206.1089225.4621525773604895263.b4-ty@b4>
+Date: Fri, 05 Jun 2026 16:40:42 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260605134935.B6C0E1F00893@smtp.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.1
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,71 +98,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jun 05, 2026 at 01:49:35PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Critical] RcuBox::into_foreign drops `self` instead of forgetting it, causing a guaranteed Use-After-Free.
-> - [High] RcuBox::drop bypasses the custom Allocator A and hardcodes kvfree_call_rcu() for types that do not require dropping, causing undefined behavior for non-kvfree compatible allocators.
-> --
-> 
-> commit f69c06884595bb68a76f4f1dd4014ee9e2c9e31c
-> Author: Alice Ryhl <aliceryhl@google.com>
-> 
-> rust: rcu: add RcuBox type
->     
-> This adds an RcuBox container, which is like Box except that the value
-> is freed after waiting for one grace period (via {kvfree_,}call_rcu()).
-> To allow containers to rely on the RCU properties of RcuBox, an
-> extension of ForeignOwnable is added.
-> 
-> > diff --git a/rust/kernel/sync/rcu/rcu_box.rs b/rust/kernel/sync/rcu/rcu_box.rs
-> > new file mode 100644
-> > index 0000000000000..943fe3e8974e0
-> > --- /dev/null
-> > +++ b/rust/kernel/sync/rcu/rcu_box.rs
-> 
-> [ ... ]
-> 
-> > +// SAFETY:
-> > +// * The `RcuBoxInner<T>` was allocated with `A`.
-> > +// * `NonNull::as_ptr` returns a non-null pointer.
-> > +unsafe impl<T: Send + 'static, A: Allocator> ForeignOwnable for RcuBox<T, A> {
-> > +    const FOREIGN_ALIGN: usize = <Box<RcuBoxInner<T>, A> as ForeignOwnable>::FOREIGN_ALIGN;
-> > +
-> > +    type Borrowed<'a> = &'a T;
-> > +    type BorrowedMut<'a> = &'a T;
-> > +
-> > +    fn into_foreign(self) -> *mut c_void {
-> > +        self.0.as_ptr().cast()
-> > +    }
-> 
-> [Severity: Critical]
-> Since `self` is consumed by value here without being wrapped in `ManuallyDrop`
-> or passed to `core::mem::forget()`, won't it be dropped at the end of this
-> method?
-> 
-> This seems like it would immediately schedule the memory for RCU free, causing
-> a use-after-free for the foreign code when it later accesses the pointer.
-> 
+Hi,
 
-[Cc Alice]
+On Wed, 22 Apr 2026 23:07:23 +0200, Marek Vasut wrote:
+> Add "displaytech" vendor prefix for Displaytech Ltd. .
 
-I fixed this locally by:
+Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-    fn into_foreign(self) -> *mut c_void {
-        let ptr = self.0.as_ptr().cast();
+[1/3] dt-bindings: vendor-prefixes: Add Displaytech Ltd.
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/f917fc75dc63b4994c913a379929b0a8c242f4e9
+[2/3] dt-bindings: display: simple: Document Displaytech DT050BTFT-PTS panel
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/f917fc75dc63b4994c913a379929b0a8c242f4e9
+[3/3] drm/panel: simple: Add Displaytech DT050BTFT-PTS panel
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/f917fc75dc63b4994c913a379929b0a8c242f4e9
 
-        // FORGET: Leaking it as a pointer, the caller is responsible to free it or unleak it by
-        // from_foreign().
-        core::mem::forget(self);
+-- 
+Neil
 
-        ptr
-    }
-
-
-Regards,
-Boqun
-
-> > +
-> > +    unsafe fn from_foreign(ptr: *mut c_void) -> Self {
-> 
-[..]
