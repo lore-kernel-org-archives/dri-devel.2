@@ -4,50 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CBA0CD6E6B
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 03:34:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F62CCD6E5D
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 06:07:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACC3D11A3FE;
-	Fri,  5 Jun 2026 03:34:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41ED910E466;
+	Fri,  5 Jun 2026 06:07:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="ZDUQcx+I";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VotzUqye";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D208111A3FD
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 03:34:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
- Message-ID; bh=SvJvA/e9k9vGe4aXJUlBcZXnljr/0vPmGwJ4jUWSqW0=; b=Z
- DUQcx+IHbLlU4W0m370Vraf6wd4ojU81nTyn5V+xXDr8MEddJms5lRZlfRAJ9MLG
- r9QMJvc4DgR74320qcAaJd4vWiFkSqEAg0+wzAk5TQTwOw+HUT3y1YDOyPrG6NEd
- p8HrNQjksqe4U3xN6NDj7q4OYG2CNEnlGK/khacesw=
-Received: from w15303746062$163.com ( [113.200.174.80] ) by
- ajax-webmail-wmsvr-40-113 (Coremail) ; Fri, 5 Jun 2026 11:33:51 +0800 (CST)
-X-Originating-IP: [113.200.174.80]
-Date: Fri, 5 Jun 2026 11:33:51 +0800 (CST)
-From: w15303746062  <w15303746062@163.com>
-To: simona@ffwll.ch, deller@gmx.de
-Cc: tzimmermann@suse.de, ville.syrjala@linux.intel.com, sam@ravnborg.org,
- kees@kernel.org, yanquanmin1@huawei.com, syoshida@redhat.com,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- "Mingyu Wang" <25181214217@stu.xidian.edu.cn>, stable@vger.kernel.org
-Subject: Re:[PATCH 7.0] fbdev: fbcon: fix memory leak in error path of
- fbcon_do_set_font()
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20260525082741.600003-1-w15303746062@163.com>
-References: <20260525082741.600003-1-w15303746062@163.com>
-X-NTES-SC: AL_Qu2TAvqYv0wo5yKaYukfmU0Qguw9Xcq5uPkj34FWN5t8jDrp5QodX0JFHVfbys6/Dy2ItRqsex1+1f9nQoZgZZ0JCInp9NpD3NFD8/e0sH7bUQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4BBC10E46D
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 06:07:50 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-2c0c2d792c8so10561265ad.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 04 Jun 2026 23:07:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780639670; x=1781244470; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=M5WkcatAHhLMBNeD67NubkG9Mg0FFDk4z9wml5JZOUU=;
+ b=VotzUqye4l8ufsB0FJ8tEP7J+6cOElz5twrd8zV4DPpK/zK1E1ttRIrbeIrBIGCxv0
+ 2F3yleNhIa43o/iPh9dVPdjrFasLMXzfv+9bDEXbYSQtC09FvxBnC/vYjE3AD4MlDpbr
+ iE5F2PwXU/0QWKjRlJDMgl5aCsqOqQWalXbP0WPHEYDBHdPU+T+Tv168u0sR8OLljtxs
+ +3olFCZFSZpekkp9Mh3GpoE+3GcHUJE70pXX2os2VxIfhE/tv4tDuvc0e73PoZNNaKkB
+ 3GaDmkYG6pUMZRAo+Dq0WsDhm6tSjBMLKMY98fHpnmGXxE5KeiNIqQQw5YTkE2H4nXiE
+ FAPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780639670; x=1781244470;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=M5WkcatAHhLMBNeD67NubkG9Mg0FFDk4z9wml5JZOUU=;
+ b=BO4u97E5LvUFSQPY9LDzb0zVxeohPshhNwHtRdA0Ddk0Q9A5AtEGs3H6DhbVv5LPMu
+ Fod6MlJ7hW2jDfA7VZrUknfGKFP3m4S5pE8FQL2Fg9WiwL16UltUphtkLvGtm7kUQOhe
+ 1ZkljrD4MLsFHhYdNLTLl2RiJsT0vrQi33VvHHWFvLKFSP+nWQzBtSg14qqwN3NhcS5F
+ UiZo3j/qf5YslYuUAJLaTZ97qXnVY77M9i2vYqZygW9x7f3K9L9Rd7EBEAGWcJPlHrI4
+ Ox7F864mumT0ZnGyLIr/e2xD3b5t8u9u7OCMUCJRRmWlLsSXFaY3mejggNx5B9cxtL7i
+ Npog==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9wtSiPOGcENmjqJHr7JOTjTObwg7NbqSTQ1qFZG70pMY4cj5dfFbmJlwxiBC5dFjx1NV2FB+la8jE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy5XgdolmORyRrMGvBPOLRgJH/VeSvFB+Z2VgpMaTlN74HzXSdK
+ 55v3X84MIzBu3YoULoOp8s63By1tYQQb5lTZTCKWazSRdzoUa5GmDyh1
+X-Gm-Gg: Acq92OFBJAqYkri94R+OZsseiE+cUr6JKvstjP03v3XG6xOwQ0LwnIAaxbl+XcPgRuJ
+ PT0DAgugk27CBCPkQFwnNhA420Eiqj8vfKqVQiPGcVUt3bVJ619KexrajycbXTq2HBVYFGC/1P7
+ 0xSB4wzavfvhhkfAc6yWwK7NkPCA9Zl64X/cR3jB/5gtJtsNlEJDKNYRxDQe8pPNbZwL+N4jxuD
+ ERmsiyp3s/ZGLuw0tWsc6Yj5PY145rxsrMSmctPJVN+jKl1Ng5/BlC5icmzOExMNMInFG6aoPWS
+ h/NwldX9PiGeB5vLAC0DoclfkKhNbT009stNaJf60R1G9nx3HBI0kAjFOuvttZSHc4+zsGqq6Ij
+ YNboZyzt8XSB312Qn7lW1cKopxVPgV5EmpKfxyin0ip9kFcOmG69EvZHkKA0aajgwrSfh3xTwis
+ APPxjB8bDM5GIKkDMR
+X-Received: by 2002:a17:902:fc46:b0:2c0:b9a1:6493 with SMTP id
+ d9443c01a7336-2c1e7b082b4mr20237105ad.10.1780639670162; 
+ Thu, 04 Jun 2026 23:07:50 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1000::f280])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2c1646e5c51sm77298475ad.0.2026.06.04.23.07.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 Jun 2026 23:07:49 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Imre Deak <imre.deak@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>,
+ =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>
+Subject: [PATCH] drm/i915/dp_tunnel: fix CRTC hw state cleanup ordering
+Date: Fri,  5 Jun 2026 14:05:27 +0800
+Message-ID: <20260605060527.1443552-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Message-ID: <5b288246.378d.19e95d82602.Coremail.w15303746062@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: cSgvCgD3lz6fQyJqvyQDAA--.30408W
-X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC4x8b-moiQ5+8hQAA30
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,69 +93,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-CkhpIEhlbGdlLCBTaW1vbmEsIGFuZCBhbGwsCgpBIGdlbnRsZSBwaW5nIG9uIHRoaXMgcGF0Y2gu
-CgpTaW5jZSB0aGlzIGlzc3VlIHdhcyBpbmhlcmVudGx5IHJlc29sdmVkIGluIHRoZSBtYWlubGlu
-ZSB0cmVlIHZpYSBhIHJlY2VudCByZWZhY3RvciwgdGhpcyBzcGVjaWZpYyBmaXggaXMgaW50ZW5k
-ZWQgb25seSBmb3IgdGhlIDcuMCBhbmQgb2xkZXIgc3RhYmxlIGJyYW5jaGVzIHdoZXJlIHRoZSBs
-ZWdhY3kgdXNlcmZvbnQgbG9naWMgaXMgc3RpbGwgcHJlc2VudCBhbmQgdnVsbmVyYWJsZSB0byB0
-aGlzIG1lbW9yeSBsZWFrLgoKQ291bGQgdGhlIGZiZGV2IG1haW50YWluZXJzIHBsZWFzZSB0YWtl
-IGEgbG9vayBhbmQgcHJvdmlkZSBhbiBBY2tlZC1ieT8gVGhpcyB3aWxsIGFsbG93IHRoZSBzdGFi
-bGUgdGVhbSB0byBzYWZlbHkgcGljayBpdCB1cCBmb3IgdGhlIG9sZGVyIHRyZWVzLgoKKCtDYyBz
-dGFibGVAdmdlci5rZXJuZWwub3JnKQoKQmVzdCByZWdhcmRzLApNaW5neXUKCkF0IDIwMjYtMDUt
-MjUgMTY6Mjc6NDEsIHcxNTMwMzc0NjA2MkAxNjMuY29tIHdyb3RlOgo+RnJvbTogTWluZ3l1IFdh
-bmcgPDI1MTgxMjE0MjE3QHN0dS54aWRpYW4uZWR1LmNuPgo+Cj5bIE5vdGU6IFRoaXMgaXNzdWUg
-d2FzIGRpc2NvdmVyZWQgb24gdGhlIDcuMCBrZXJuZWwuIFdoaWxlIHRoZSBjdXJyZW50Cj4gIG1h
-aW5saW5lIGhhcyBhbHJlYWR5IGJlZW4gcmVmYWN0b3JlZCB0byB1c2UgYGZvbnRfZGF0YV90YCAo
-d2hpY2ggCj4gIGluYWR2ZXJ0ZW50bHkgcmVzb2x2ZWQgdGhpcyBidWcpLCB0aGlzIHZ1bG5lcmFi
-aWxpdHkgc3RpbGwgYWN0aXZlbHkgCj4gIGFmZmVjdHMgdGhlIDcuMCBicmFuY2ggYW5kIG9sZGVy
-IHN0YWJsZSB0cmVlcyB0aGF0IHJlbHkgb24gdGhlIGxlZ2FjeSAKPiAgdXNlcmZvbnQgbG9naWMu
-IFRoaXMgcGF0Y2ggcHJvdmlkZXMgYSB0YXJnZXRlZCBmaXggZm9yIHRoZXNlIHN0YWJsZSAKPiAg
-YnJhbmNoZXMuIF0KPgo+V2hlbiBmYmNvbl9kb19zZXRfZm9udCgpIGZhaWxzIChlLmcuLCBkdWUg
-dG8gYSB2Y19yZXNpemUoKSBmYWlsdXJlIHVuZGVyCj5mYXVsdCBpbmplY3Rpb24pLCBpdCBqdW1w
-cyB0byB0aGUgYGVycl9vdXRgIGxhYmVsIHRvIHJvbGwgYmFjayB0aGUKPmNvbnNvbGUgc3RhdGUu
-Cj4KPkhvd2V2ZXIsIHRoZSByZXN0b3JhdGlvbiBvZiB0aGUgcHJldmlvdXMgZm9udCBzdGF0ZSAo
-YHAtPnVzZXJmb250ID0KPm9sZF91c2VyZm9udGApIGlzIGVycm9uZW91c2x5IHBsYWNlZCBpbnNp
-ZGUgdGhlIGBpZiAodXNlcmZvbnQpYCBibG9jay4KPklmIHRoZSBmYWlsZWQgb3BlcmF0aW9uIHdh
-cyBhdHRlbXB0aW5nIHRvIHNldCB0aGUgZGVmYXVsdCBidWlsdGluIGZvbnQKPihgdXNlcmZvbnQg
-PT0gMGApLCB0aGUgcmVzdG9yYXRpb24gaXMgY29tcGxldGVseSBza2lwcGVkLgo+Cj5UaGlzIGNh
-dXNlcyBhIHN0YXRlIG1hY2hpbmUgY29ycnVwdGlvbiB3aGVyZSBgcC0+dXNlcmZvbnRgIHJlbWFp
-bnMgYDBgCj53aGlsZSBgcC0+Zm9udGRhdGFgIHN0aWxsIHBvaW50cyB0byB0aGUgcHJldmlvdXNs
-eSBhbGxvY2F0ZWQgdXNlciBmb250Cj5tZW1vcnkuIExhdGVyLCB3aGVuIHRoZSBjb25zb2xlIGlz
-IGRlc3Ryb3llZCAoZS5nLiwgdmlhIFZUX0RJU0FMTE9DQVRFKSwKPmZiY29uX2ZyZWVfZm9udCgp
-IGZhaWxzIHRvIGZyZWUgdGhpcyBtZW1vcnkgYmVjYXVzZSBpdHMgYGlmIChwLT51c2VyZm9udClg
-Cj5jaGVjayBmYWlscywgcmVzdWx0aW5nIGluIGEgbWVtb3J5IGxlYWsgY2F1Z2h0IGJ5IGttZW1s
-ZWFrOgo+Cj4gIHVucmVmZXJlbmNlZCBvYmplY3QgMHhmZmZmODg4MTI3ZWEwMDAwIChzaXplIDMz
-Mjk2KToKPiAgICBjb21tICJzeXouMC44NzI2IiwgcGlkIDMzMjI0LCBqaWZmaWVzIDQyOTc3NTQ2
-NDMKPiAgICBoZXggZHVtcCAoZmlyc3QgMzIgYnl0ZXMpOgo+ICAgICAgYTYgZTQgZjkgZGQgMDAg
-MDAgMDAgMDAgMDAgODIgMDAgMDAgMDEgMDAgMDAgMDAgIC4uLi4uLi4uLi4uLi4uLi4KPiAgICAg
-IGQyIDA5IDZjIGJmIDUyIDhhIDdkIGQ0IGVmIDFkIDU5IDE2IDUxIDg2IDMyIGJmICAuLmwuUi59
-Li4uWS5RLjIuCj4gICAgYmFja3RyYWNlIChjcmMgNGEwYTU3ZGQpOgo+ICAgICAgX19fa21hbGxv
-Y19sYXJnZV9ub2RlKzB4ZTcvMHgxODAgbW0vc2x1Yi5jOjUyMTQKPiAgICAgIF9fa21hbGxvY19s
-YXJnZV9ub2RlX25vcHJvZisweDI5LzB4MTMwIG1tL3NsdWIuYzo1MjMyCj4gICAgICBfX2RvX2tt
-YWxsb2Nfbm9kZSBtbS9zbHViLmM6NTI0OCBbaW5saW5lXQo+ICAgICAgX19rbWFsbG9jX25vcHJv
-ZisweDVmYy8weDdjMCBtbS9zbHViLmM6NTI3Mgo+ICAgICAga21hbGxvY19ub3Byb2YgaW5jbHVk
-ZS9saW51eC9zbGFiLmg6OTU0IFtpbmxpbmVdCj4gICAgICBmYmNvbl9zZXRfZm9udCsweDQzMS8w
-eGE2MCBkcml2ZXJzL3ZpZGVvL2ZiZGV2L2NvcmUvZmJjb24uYzoyNTI1Cj4gICAgICBjb25fZm9u
-dF9zZXQgZHJpdmVycy90dHkvdnQvdnQuYzo0OTE4IFtpbmxpbmVdCj4gICAgICBjb25fZm9udF9v
-cCsweDk0ZC8weGU4MCBkcml2ZXJzL3R0eS92dC92dC5jOjQ5NTgKPiAgICAgIHZ0X2tfaW9jdGwg
-ZHJpdmVycy90dHkvdnQvdnRfaW9jdGwuYzo0NzIgW2lubGluZV0KPiAgICAgIHZ0X2lvY3RsKzB4
-NjNjLzB4MmVlMCBkcml2ZXJzL3R0eS92dC92dF9pb2N0bC5jOjc0Mwo+Cj5GaXggdGhpcyBieSBt
-b3ZpbmcgdGhlIGBwLT51c2VyZm9udCA9IG9sZF91c2VyZm9udGAgYXNzaWdubWVudCBvdXRzaWRl
-Cj50aGUgYGlmICh1c2VyZm9udClgIGJsb2NrIHNvIHRoYXQgdGhlIHRlcm1pbmFsIHN0YXRlIGlz
-IHVuY29uZGl0aW9uYWxseQo+YW5kIGNvcnJlY3RseSByZXN0b3JlZCByZWdhcmRsZXNzIG9mIHdo
-aWNoIGZvbnQgc2V0dGluZyB0cmlnZ2VyZWQgdGhlCj5lcnJvci4KPgo+Rml4ZXM6IGE1YTkyMzAz
-OGQ3MCAoImZiZGV2OiBmYmNvbjogUHJvcGVybHkgcmV2ZXJ0IGNoYW5nZXMgd2hlbiB2Y19yZXNp
-emUoKSBmYWlsZWQiKQo+U2lnbmVkLW9mZi1ieTogTWluZ3l1IFdhbmcgPDI1MTgxMjE0MjE3QHN0
-dS54aWRpYW4uZWR1LmNuPgo+LS0tCj4gZHJpdmVycy92aWRlby9mYmRldi9jb3JlL2ZiY29uLmMg
-fCA0ICsrKy0KPiAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0p
-Cj4KPmRpZmYgLS1naXQgYS9kcml2ZXJzL3ZpZGVvL2ZiZGV2L2NvcmUvZmJjb24uYyBiL2RyaXZl
-cnMvdmlkZW8vZmJkZXYvY29yZS9mYmNvbi5jCj5pbmRleCA2NjYyNjFhZTU5ZDguLmEzODU0NWRj
-ODQxNiAxMDA2NDQKPi0tLSBhL2RyaXZlcnMvdmlkZW8vZmJkZXYvY29yZS9mYmNvbi5jCj4rKysg
-Yi9kcml2ZXJzL3ZpZGVvL2ZiZGV2L2NvcmUvZmJjb24uYwo+QEAgLTI0NjEsOCArMjQ2MSwxMCBA
-QCBzdGF0aWMgaW50IGZiY29uX2RvX3NldF9mb250KHN0cnVjdCB2Y19kYXRhICp2YywgaW50IHcs
-IGludCBoLCBpbnQgY2hhcmNvdW50LAo+IAlwLT5mb250ZGF0YSA9IG9sZF9kYXRhOwo+IAl2Yy0+
-dmNfZm9udC5kYXRhID0gb2xkX2RhdGE7Cj4gCj4rCS8qIFVuY29uZGl0aW9uYWxseSByZXN0b3Jl
-IHRoZSBwcmV2aW91cyB1c2VyZm9udCBzdGF0ZSAqLwo+KwlwLT51c2VyZm9udCA9IG9sZF91c2Vy
-Zm9udDsKPisKPiAJaWYgKHVzZXJmb250KSB7Cj4tCQlwLT51c2VyZm9udCA9IG9sZF91c2VyZm9u
-dDsKPiAJCWlmICgtLVJFRkNPVU5UKGRhdGEpID09IDApCj4gCQkJa2ZyZWUoZGF0YSAtIEZPTlRf
-RVhUUkFfV09SRFMgKiBzaXplb2YoaW50KSk7Cj4gCX0KPi0tIAo+Mi4zNC4xCg==
+intel_crtc_prepare_cleared_state() frees the old CRTC hw state before
+calling intel_dp_tunnel_atomic_clear_stream_bw(). The latter can fail
+while looking up the DP tunnel group state, for example with -EDEADLK.
+
+If that happens, the function returns without completing the cleared
+state preparation, leaving the duplicated CRTC state with its hw color
+blob references already dropped. The failed atomic state will then be
+cleared by the atomic core, which can drop the same references again.
+
+Move the hw state release after the DP tunnel stream BW clear has
+succeeded. Keep the temporary state allocation before the failable DP
+tunnel operation so an allocation failure cannot happen after the stream
+BW has already been cleared.
+
+Fixes: fb69d0076e68 ("drm/i915/dp_tunnel: Fix error handling when clearing stream BW in atomic state")
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index ad2fe10b6b1f..0c015bc6c9fd 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -4646,9 +4646,6 @@ intel_crtc_prepare_cleared_state(struct intel_atomic_state *state,
+ 	if (!saved_state)
+ 		return -ENOMEM;
+ 
+-	/* free the old crtc_state->hw members */
+-	intel_crtc_free_hw_state(crtc_state);
+-
+ 	err = intel_dp_tunnel_atomic_clear_stream_bw(state, crtc_state);
+ 	if (err) {
+ 		kfree(saved_state);
+@@ -4656,6 +4653,9 @@ intel_crtc_prepare_cleared_state(struct intel_atomic_state *state,
+ 		return err;
+ 	}
+ 
++	/* free the old crtc_state->hw members */
++	intel_crtc_free_hw_state(crtc_state);
++
+ 	/* FIXME: before the switch to atomic started, a new pipe_config was
+ 	 * kzalloc'd. Code that depends on any field being zero should be
+ 	 * fixed, so that the crtc_state can be safely duplicated. For now,
+-- 
+2.43.0
+
