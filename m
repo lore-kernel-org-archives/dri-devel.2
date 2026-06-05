@@ -4,44 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 730E1CD6E7B
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 08:45:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1A0DCD6E7B
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 08:47:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7D3511A5E1;
-	Fri,  5 Jun 2026 08:45:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0333D11A5F6;
+	Fri,  5 Jun 2026 08:47:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xkw8A051";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="kFpQxx6j";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MqyMEOWn";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Fhh4LrbJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rPhR/gNf";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F27611A5DF
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 08:45:30 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 12939444C2;
- Fri,  5 Jun 2026 08:45:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C005E1F0089A;
- Fri,  5 Jun 2026 08:45:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780649129;
- bh=tRz0nmz0KGYbNtaJn1e04HvtluffhwzDHKyVPs68PE8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Xkw8A0514cORYk+PjSzMr9IsQrTmI2Xbaspa4V3ZHFZqUlAQsSdvqwn7xBcQ+ZlIF
- 9e3WK6p+R3XGxBDR7biktd7yujONCC6q+K/yHTYL5JfcieHT5jju5YO0rDiLzZGXs9
- 8qa4m9DyBq97CmAXKLZ0CfwLXyJYqT0i16PmRuEZfVilwrq0uOomikjG3CPFi3+No/
- rspDyuEfSsnSqhGfOx6b7zsQI1ninadPB1ZBuZN9n3xbush1lo2JlyekYAmBGEIAvz
- bSpugTFM5HBE4s9hOJzvoMGDLuzaedCudeDiPlvYQtd1FDmFAe5yn0J5MJItJKboDO
- 8LqDfelhZomdw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH POC v4 6/6] gpu: drm: nova: demonstrate interaction with
- nova-core
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, "Danilo Krummrich" <dakr@kernel.org>,
- ojeda@kernel.org
-In-Reply-To: <20260605-nova-exports-v4-6-e948c287407c@nvidia.com>
-References: <20260605-nova-exports-v4-6-e948c287407c@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 08:45:29 +0000
-Message-Id: <20260605084529.C005E1F0089A@smtp.kernel.org>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE75811A5EF
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 08:47:10 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 306576A7ED;
+ Fri,  5 Jun 2026 08:47:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780649229; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=nZA5qkS5xbW9UHiYKI2mdN44MH2LzJK8McXEFj8Pos4=;
+ b=kFpQxx6jB0x7clx8kVCHqO5xDsScpXYF6PER1hsSxRaUB5trK1Jc8ZvcNR7NPgNbq+kzFd
+ 6IfiooqqvxCDjMQoF20rm4rJESKlyEZFuB5HjGxc8xrmtHfj+Mm0p5BkGrULPF2czOqoYV
+ 3Jnw0Q9QTebPY9uHcVFSfRVATvLigtQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780649229;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=nZA5qkS5xbW9UHiYKI2mdN44MH2LzJK8McXEFj8Pos4=;
+ b=MqyMEOWndiUE0GDa27UJg2L6EA0QUKtCY1fRfZWpQvVrBi5KYV9+0cI5exHBaUYfu/8Y7V
+ zrF01drKT5EuqQBw==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Fhh4LrbJ;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="rPhR/gNf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780649228; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=nZA5qkS5xbW9UHiYKI2mdN44MH2LzJK8McXEFj8Pos4=;
+ b=Fhh4LrbJZ/FWvTKTuwzn7TF/nRMptOqfVWoa/Udstv6gWzt0UXWhJ5iyOLXExO880lZGKG
+ TO26eTrrNCOQf8hHGhKXlJkbQnNI4Tu7MLWqLfZDyTarjsNA8Ds5x/kcg9SlIQLL69oCxu
+ qCuaZ/JblXrlKLG9MPZm2qfeNsvhBsE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780649228;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=nZA5qkS5xbW9UHiYKI2mdN44MH2LzJK8McXEFj8Pos4=;
+ b=rPhR/gNfBhCyM5faxGNbyHomUaRlIFgCorSkGBe6ksjaKTagEgLvpWTL6jvzAVvnj8rj8M
+ YRWwsQzHAEQRSVCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9D0A6779A8;
+ Fri,  5 Jun 2026 08:47:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id yj4YJAuNImrxfQAAD6G6ig
+ (envelope-from <pjakobsson@suse.de>); Fri, 05 Jun 2026 08:47:07 +0000
+From: Patrik Jakobsson <pjakobsson@suse.de>
+To: ville.syrjala@linux.intel.com, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Imre Deak <imre.deak@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH RESEND] drm/i915/display: Add quirk for interlane align bit on
+ CH7511
+Date: Fri,  5 Jun 2026 10:46:40 +0200
+Message-ID: <20260605084641.50778-1-pjakobsson@suse.de>
+X-Mailer: git-send-email 2.54.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ FREEMAIL_TO(0.00)[linux.intel.com,intel.com,ursulin.net,gmail.com,ffwll.ch];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[12]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,suse.de:dkim,suse.de:mid];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 306576A7ED
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,57 +114,92 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The external crate import `nova_core::driver::AuxData` is placed af=
-ter local `crate::` imports.
---
+When disabling pattern training after successful link training the
+CH7511 bridge incorrectly clears the INTERLANE_ALIGN_DONE bit. This is
+interpreted as link failure when rechecking the link status and triggers
+an endless loop of retraining sequences.
 
-commit 11d167edf5ebf94c9cb9d05943e976e68fe80753
-Author: Alexandre Courbot <acourbot@nvidia.com>
+This patch adds a quirk to pretend the bit is still set and no
+retraining is needed.
 
-gpu: drm: nova: demonstrate interaction with nova-core
+Fixes: 3b3be899fc81 ("drm/i915/dp: Recheck link state after modeset")
+Signed-off-by: Patrik Jakobsson <pjakobsson@suse.de>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c     |  9 +++++++++
+ drivers/gpu/drm/i915/display/intel_quirks.c | 17 +++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
+ 3 files changed, 27 insertions(+)
 
-This commit exports a few items from nova-core and uses them from nova-drm
-to print the chipset of the GPU being probed. It also adds some documentati=
-on
-items to satisfy Clippy.
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 85d3aa3b9894..5b269b1f18d7 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -5875,6 +5875,15 @@ intel_dp_needs_link_retrain(struct intel_dp *intel_dp)
+ 	if (intel_dp->link.seq_train_failures)
+ 		return true;
+ 
++	/*
++	 * The CH7511 bridge incorrectly clears the INTERLANE_ALIGN_DONE bit
++	 * when disabling training pattern.
++	 */
++	if (intel_has_dpcd_quirk(intel_dp, QUIRK_IGNORE_INTERLANE_ALIGN_BIT)) {
++		link_status[DP_LANE_ALIGN_STATUS_UPDATED - DP_LANE0_1_STATUS] |=
++			DP_INTERLANE_ALIGN_DONE;
++	}
++
+ 	/* Retrain if link not ok */
+ 	return !intel_dp_link_ok(intel_dp, link_status) &&
+ 		!intel_psr_link_ok(intel_dp);
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index 33245f44c0d5..2cec0a945528 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -100,6 +100,14 @@ static void quirk_disable_psr2(struct intel_display *display)
+ 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
+ }
+ 
++static void quirk_ignore_interlane_align_bit(struct intel_dp *intel_dp)
++{
++	struct intel_display *display = to_intel_display(intel_dp);
++
++	intel_set_dpcd_quirk(intel_dp, QUIRK_IGNORE_INTERLANE_ALIGN_BIT);
++	drm_info(display->drm, "Applying ignore interlane align bit quirk\n");
++}
++
+ struct intel_quirk {
+ 	int device;
+ 	int subsystem_vendor;
+@@ -286,6 +294,15 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
+ 		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
+ 		.hook = quirk_disable_edp_panel_replay,
+ 	},
++	/* Nodka TPC6000-C152 */
++	{
++		.device = 0x0f31,
++		.subsystem_vendor = 0x8086,
++		.subsystem_device = 0x0f31,
++		.sink_oui = SINK_OUI(0x2b, 0x02, 0xf0),
++		.sink_device_id = SINK_DEVICE_ID('C', 'H', '7', '5', '1', '1'),
++		.hook = quirk_ignore_interlane_align_bit,
++	},
+ };
+ 
+ void intel_init_quirks(struct intel_display *display)
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
+index 970a4fe52faf..7fcc3967f84f 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.h
++++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+@@ -23,6 +23,7 @@ enum intel_quirk_id {
+ 	QUIRK_EDP_LIMIT_RATE_HBR2,
+ 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
+ 	QUIRK_DISABLE_PSR2,
++	QUIRK_IGNORE_INTERLANE_ALIGN_BIT,
+ };
+ 
+ void intel_init_quirks(struct intel_display *display);
+-- 
+2.54.0
 
-> diff --git a/drivers/gpu/drm/nova/driver.rs b/drivers/gpu/drm/nova/driver=
-.rs
-> index 48933d86ddda9..de1ad7032b6c3 100644
-> --- a/drivers/gpu/drm/nova/driver.rs
-> +++ b/drivers/gpu/drm/nova/driver.rs
-> @@ -9,12 +9,15 @@
->          ioctl, //
->      },
->      prelude::*,
-> -    sync::aref::ARef, //
-> +    sync::aref::ARef,
-> +    types::ForLt, //
->  };
-> =20
->  use crate::file::File;
->  use crate::gem::NovaObject;
-> =20
-> +use nova_core::driver::AuxData;
-
-[Severity: Low]
-This isn't a bug, but should the external crate import be placed before the
-local crate imports to follow the kernel vertical import style? The Rust
-subsystem coding guidelines mention grouping external crate imports above l=
-ocal
-ones.
-
-> +
->  pub(crate) struct NovaDriver;
-> =20
->  pub(crate) struct Nova {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605-nova-expor=
-ts-v4-0-e948c287407c@nvidia.com?part=3D6
