@@ -4,106 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2346CD6E7C
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 07:55:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 603ABCD6E74
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 07:57:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3892011A54D;
-	Fri,  5 Jun 2026 07:55:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBF7811A556;
+	Fri,  5 Jun 2026 07:57:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3GdNvSd8";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="ud9TN26i";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012051.outbound.protection.outlook.com [52.101.43.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24B0B11A54C;
- Fri,  5 Jun 2026 07:55:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YcuNYqQtyYA1XI7uvBUUp2CjXity26cWE6rPyoLHWXaFsA+AGw5ldvdk7TdrHHQbAWvJpCTs6vflQXAPjOJMR78LYV1iXngQfFyVo9AIiAfgkNn2OhaPTQEkTR3dMET1hLj+B0HQPHDCqppRuzhM0H5QhqUUxWsGg/gUmW9CVRhV8iwpoHfBI+gKQYUJi3DVt08yoiUCW3smQCpwLmVd6ySj5etsBINtYFvIuHOuKertRxDReGzfN+vKia3jt1a+GDoFqF61Xe3uzn8e4HuTB2h3aqhdqJHYxmaz2B+lMiV2I9kq112qA0b9JzXNTfCr3rHnkhMPR0FTRj95HTpYqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VOgK7vXG6qhIQPCHwR/FFboJUp+otxN5DhpsiJV/gr0=;
- b=K6UX334Ig7eJOuzt43kU6dsCk9THTGQPiH3DG2sBQ+3nIQeMQXwOIlR9EXtUiWHiEb1I7UWAHTabLS9UGLD0V6eBAENg9gvLqYHG/qGQL99Xt1AQG7uvcTXN8foX297RtB47Q/bvAoxsIcPDlvIFHrBXXgdwo3unQBMGdWoNz/69jjpicbnwNRg4DiUcV9hQmWAdr+cM/j9sI1HxNZVrAULaFwx4proRXWt29V38ynIR1nJrmwA5qI1DHJuYsZTKvM3vSBJyG6rS2EfukoGR17zd8J08pW2VGBuCGKCga/S0TFGcaSQXP7eox5RxMA1+3EIFtEkXRkPZcLP8ZazPSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VOgK7vXG6qhIQPCHwR/FFboJUp+otxN5DhpsiJV/gr0=;
- b=3GdNvSd82SsmFtQv/peXW/7ibbqXjOR5Rcxap1CW6NGyO2icYMwvDlvau31pYSTK1hV5PtUTu0D7ueMb5xmc/zLZSMhB2y90K3/TT8OYg4vLiAhJJ2GXycRzA1RHIt8icstIMAZMwrbVXicMDc05gIXWhvWWdYO88AAZKS0fXXM=
-Received: from BN9PR03CA0525.namprd03.prod.outlook.com (2603:10b6:408:131::20)
- by CY8PR12MB8066.namprd12.prod.outlook.com (2603:10b6:930:70::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Fri, 5 Jun 2026
- 07:54:09 +0000
-Received: from BN2PEPF000044A1.namprd02.prod.outlook.com
- (2603:10b6:408:131:cafe::58) by BN9PR03CA0525.outlook.office365.com
- (2603:10b6:408:131::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.8 via Frontend Transport; Fri, 5
- Jun 2026 07:54:09 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN2PEPF000044A1.mail.protection.outlook.com (10.167.243.152) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Fri, 5 Jun 2026 07:54:08 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 5 Jun
- 2026 02:54:08 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 5 Jun
- 2026 02:54:08 -0500
-Received: from junhua-PC.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 5 Jun 2026 02:54:05 -0500
-From: Junhua Shen <Junhua.Shen@amd.com>
-To: <Alexander.Deucher@amd.com>, <Felix.Kuehling@amd.com>,
- <Christian.Koenig@amd.com>, <Oak.Zeng@amd.com>, <Jenny-Jing.Liu@amd.com>,
- <Philip.Yang@amd.com>, <Xiaogang.Chen@amd.com>, <Ray.Huang@amd.com>,
- <honglei1.huang@amd.com>, <Lingshan.Zhu@amd.com>, <simona@ffwll.ch>
-CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <Junhua.Shen@amd.com>
-Subject: [PATCH v5 7/8] drm/amdgpu: integrate VRAM migration into SVM fault
- and prefetch paths
-Date: Fri, 5 Jun 2026 15:53:39 +0800
-Message-ID: <20260605075340.20199-8-Junhua.Shen@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260605075340.20199-1-Junhua.Shen@amd.com>
-References: <20260605075340.20199-1-Junhua.Shen@amd.com>
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50B2711A556
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 07:57:08 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gWv0c3R1Bz9tgY;
+ Fri,  5 Jun 2026 09:57:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1780646224; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=YZscO3yakbHdZc4j0RGnCdnyy50smezrqiuIpDYbTeI=;
+ b=ud9TN26ikC4TheW87sW5sBb0y2fqqKzew5ee3W2uJP7eL0IRSx/XGRTNn5y9pkOecyS/RA
+ K/7g4n+Do9YA3XS5TTP7T+S4TLlVSPWnYnOzde5LcsMROQMe90Tm96LylDf2b8x9VuQkZp
+ qN3vsiXI30/uRjCLIoblFdNRbR2frgMsipUZg8qVTRTY8whn5tDu8Jq1sVSNwtq8ZCVnou
+ CRNyO4ketnaWtSzGeGYji4nJfM/n4irESZmSi/vosa12sTW4nCsmiXR8qGjWrqAsWV5PHR
+ W2uKePhv2y5CPa6GuTTA6MKwDkB/s/bhnE71Z8HtFvVpqmS2fMwJCQMne/9ECw==
+Message-ID: <8ff2de94a50ed077a4cfe520a081f2b8b438a375.camel@mailbox.org>
+Subject: Re: [PATCH 3/4] rust: Add dma_fence abstractions
+From: Philipp Stanner <phasta@mailbox.org>
+To: Boris Brezillon <boris.brezillon@collabora.com>, Daniel Almeida
+ <dwlsalmeida@gmail.com>
+Cc: Philipp Stanner <phasta@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	 <bjorn3_gh@protonmail.com>, Benno
+ Lossin <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Sumit Semwal	
+ <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, "Paul E. McKenney" <paulmck@kernel.org>, 
+ Frederic Weisbecker	 <frederic@kernel.org>, Neeraj Upadhyay
+ <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, Josh
+ Triplett <josh@joshtriplett.org>, Uladzislau Rezki	 <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Mathieu Desnoyers	
+ <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>, 
+ Zqiang <qiang.zhang@linux.dev>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Igor Korotin	 <igor.korotin@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Alexandre Courbot	 <acourbot@nvidia.com>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>, Krishna Ketan Rai
+ <prafulrai522@gmail.com>, Shankari Anand <shankari.ak0208@gmail.com>,
+ manos@pitsidianak.is, 	linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, 	linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 	linaro-mm-sig@lists.linaro.org,
+ rcu@vger.kernel.org
+Date: Fri, 05 Jun 2026 09:56:51 +0200
+In-Reply-To: <20260604101552.4232733b@fedora-2.home>
+References: <20260530143541.229628-2-phasta@kernel.org>
+ <20260530143541.229628-5-phasta@kernel.org>
+ <4F8E8E04-5AB5-4E6B-9194-5FC467E2313F@collabora.com>
+ <20260603191405.4c75badb@fedora-2.home>
+ <09096455-BA79-4E61-AD88-44DA57C5BEA8@gmail.com>
+ <20260604101552.4232733b@fedora-2.home>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A1:EE_|CY8PR12MB8066:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5479fd5d-2f3c-4b79-30f5-08dec2d79ff1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|1800799024|376014|921020|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: jT0ZLQROgSM/Fn1GeiIXu8j/MRuzvnfkyomADF7EMlTPz0rUnpMr6dIG+koHW1PYMIxR3VYXIxq3Q77Fw0tE0IJtbQGXQxv5vzqI5yE3AkILNHG8D+LEgrBVPu8D2joRazjUzVcwqI3knVNRcot6WrJoy4J/nrULM9ILcH8z19uiiKUuitl2j9v/+h1DUVZFA1npnPznM1wWvsXbbjovXnf2REenHQmAt3mRH/cmvU3/1dVSWiEownRGgXkdKJsbNVVneb6N+dstPNmUUZZpqM3Xn/SBqcj1F+NYW98Nq/2HnYXk8+IBBiio8a8UFU4n4oHiAt9ElmCL1gg4IyEo9VjHBupduOKTy4zeYxo4MVbA6d3znNIPWr9D4UMz/qLAdPoIOx2DlPoCT3qQr8R4kazxFCIfYY26XQYT407J6LN6nEsnSSlp8L6R8pazQqqP5loOuUCiq4vwqAkZ65OIfWlCwpS1g0uYjw2jHVp5CiWIPfyAu5viKvjEc/0Vi9yfk6Tnw5kBYIOi4ynTvfoprnBaSCCLPPeZoqKZTORPAPUVsYMa2H9xP40cJoPPFpQ+7J1W1RhBlsvP7GEvTbCfneRdGwDds1GwpwyF5aD3jP5QKs/15fFyFUy1xAAWsrV7n5032N8fWiO21DDj8PPqq0Ax8jpCKXO0g0E1T9Dl+tZg1SqueMVnXreHcFuJbwilHqeJIE2yLJOgy8fhr6SQSjlXE6P0LtFm0BrNQVHJx6Bav+it3xngiE8+RfryggJHZ/r3lp8J3zwcKjDGQp08uw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(921020)(22082099003)(18002099003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: x+7hg8jx0abibfOyielUjHPU6UulESIitrg31u+6oJCRPZc3N8MzLZKQt40ERDZafPFuCog27CoZ9GPvHkGnEawNq65w0cOkc3N9GP3IrwXZV49Et5bfey4oaSIr2FZTZx46G8SI0SHCSSmRARCxsDDlpy9RJ09s6+bhQIMevoqV6ZGfm3INu1lJSy5vXr3uMG0rByfbmv9ObFXje0yK+YwfXoVAkf+TlFIDL/UxEKjZV5WQ0TZoT4EZsNuQmPR1bHmelOI5zEHAcovPhg5fyC5x3tEJevSEg9NUvFtVLsPBFm40wJ33bJboSs6jyog/qXrZo7abFEdjzNjKKC3HPlXWmeOKI90rgEGnOlMmEgFiZWLtzkF+aN7AllwaesivqENRcU1MT+xMiiwQtapAySw+hMJL96ePZ5Y3rfbwKmBL1sirbGx4hNji7qr6OBEE
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 07:54:08.9893 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5479fd5d-2f3c-4b79-30f5-08dec2d79ff1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A1.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8066
+X-MBO-RS-ID: a672bee9a7bdcd496a0
+X-MBO-RS-META: 5yqks91n4urtritwsng9kaxh7prq1gie
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,115 +86,181 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-- Call amdgpu_svm_range_migrate_to_vram() before GPU mapping in
-  fault and prefetch paths when VRAM is preferred
-- Add device_private_page_owner to drm_gpusvm_ctx for devmem awareness
-- Allow AMDGPU_INTERCONNECT_VRAM entries in update_gpu_range proto check
-- Skip valid-mapping fast path in prefetch when VRAM migration is
-  requested, so prefetch can actively move pages to VRAM
+On Thu, 2026-06-04 at 10:15 +0200, Boris Brezillon wrote:
+> On Wed, 3 Jun 2026 21:43:05 -0300
+> Daniel Almeida <dwlsalmeida@gmail.com> wrote:
+>=20
+> > > On 3 Jun 2026, at 14:14, Boris Brezillon <boris.brezillon@collabora.c=
+om> wrote:
+> > >=20
+> > > On Wed, 3 Jun 2026 13:41:02 -0300
+> > > Daniel Almeida <dwlsalmeida@gmail.com> wrote:
+> > > =C2=A0=20
+> > > > > +=C2=A0=C2=A0=C2=A0 /// Called when the fence is signaled.
+> > > > > +=C2=A0=C2=A0=C2=A0 ///
+> > > > > +=C2=A0=C2=A0=C2=A0 /// This is called from the fence signaling p=
+ath, which may be in interrupt
+> > > > > +=C2=A0=C2=A0=C2=A0 /// context or with locks held, which is why =
+`self` is only borrowed, so that
+> > > > > +=C2=A0=C2=A0=C2=A0 /// it cannot drop. Implementations must not =
+sleep or perform
+> > > > > +=C2=A0=C2=A0=C2=A0 /// long-running operations.
+> > > > > +=C2=A0=C2=A0=C2=A0 ///
+> > > > > +=C2=A0=C2=A0=C2=A0 /// An implementation likely wants to inform =
+itself (e.g., through a work item)
+> > > > > +=C2=A0=C2=A0=C2=A0 /// within this callback that the associated =
+[`FenceCbRegistration`] can now be
+> > > > > +=C2=A0=C2=A0=C2=A0 /// dropped.
+> > > > > +=C2=A0=C2=A0=C2=A0 fn called(&mut self);=C2=A0=C2=A0=C2=A0=20
+> > > >=20
+> > > > This is a central point. We ideally would want this to consume self=
+, because we
+> > > > may want to move things out of the callback.=C2=A0=C2=A0=C2=A0=20
+> > >=20
+> > > This one comes from me. The rationale being that ::called() is called
+> > > from an atomic context, and the resources attached to the callback da=
+ta
+> > > might require acquiring other sleeping locks to be released, and
+> > > sometimes you don't even notice immediately because said resources ar=
+e
+> > > refcounted, and the lock is only acquired when you happen to be the
+> > > last owner. Yes, those can be caught at runtime if the C side is
+> > > properly annotated with might_sleep(), but that's not always the case=
+.
+> > >=20
+> > > If we defer the drop of the data only when the FenceCb is
+> > > dropped/recycled, we're at least not constrained by this "runs in
+> > > atomic context" thing.
+> > > =C2=A0=20
+> >=20
+> > This design does not solve it, because one can quite trivially get arou=
+nd this
+> > restriction using Option<T> as I said. If your point is =E2=80=9Cdon=E2=
+=80=99t run any drop() here=E2=80=9D,
+> > then &mut self doesn=E2=80=99t do it.
+>=20
+> My bad, I thought you were talking about some Option<T> in
+> FenceCbRegistration<T> (there was one at some point, but it's gone now),
+> but you're talking about having an Option<X> inside the T. Yes, there's
+> indeed nothing preventing a drop on X in that path, and it's just as
+> bad as passing the fence back as value to the callback in that case.
 
-Signed-off-by: Junhua Shen <Junhua.Shen@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_svm_fault.c | 11 ++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c | 20 ++++++++++++++++---
- 2 files changed, 26 insertions(+), 5 deletions(-)
+Then maybe we should just pass it by value and require implementation
+of an unsafe trait on `T`, whose safety-requirements demand that this
+must be save to drop from atomic context.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_fault.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_fault.c
-index 3f0c010e4e35..2acfcccd062d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_fault.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_fault.c
-@@ -26,6 +26,8 @@
- #include "amdgpu_svm_attr.h"
- #include "amdgpu_svm_fault.h"
- #include "amdgpu_svm_range.h"
-+#include "amdgpu_svm_range_migrate.h"
-+#include "amdgpu_migrate.h"
- #include "amdgpu.h"
- #include "amdgpu_vm.h"
- #include "amdgpu_gmc.h"
-@@ -160,6 +162,8 @@ static int fault_map_range(struct amdgpu_svm *svm,
- 		.check_pages_threshold = devmem_possible ? SZ_64K : 0,
- 		.devmem_only = need_vram_migration,
- 		.timeslice_ms = need_vram_migration ? 5 : 0,
-+		.device_private_page_owner = devmem_possible ?
-+			AMDGPU_PGMAP_OWNER(svm->adev) : NULL,
- 	};
- 	struct amdgpu_svm_range *range;
- 	ktime_t timestamp = ktime_get_boottime();
-@@ -229,9 +233,12 @@ static int fault_map_range(struct amdgpu_svm *svm,
- 	}
- 
- 	AMDGPU_SVM_RANGE_DEBUG(range, "PAGE FAULT");
--	/* TODO: add migration*/
-+	if (need_vram_migration) {
-+		AMDGPU_SVM_RANGE_DEBUG(range, "PAGE FAULT - MIGRATE PAGES");
-+		amdgpu_svm_range_migrate_to_vram(svm, &range->base);
-+	}
- 
--	AMDGPU_SVM_RANGE_DEBUG(range, "GET PAGES");
-+	AMDGPU_SVM_RANGE_DEBUG(range, "PAGE FAULT - GET PAGES");
- 	ret = amdgpu_svm_range_get_pages(svm, &range->base, &map_ctx);
- 	if (ret == -EOPNOTSUPP || ret == -EFAULT) {
- 		/*
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
-index 21a2b0c49c53..88923e6a0194 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
-@@ -26,6 +26,7 @@
- #include "amdgpu_svm_attr.h"
- #include "amdgpu_svm_range.h"
- #include "amdgpu_svm_fault.h"
-+#include "amdgpu_svm_range_migrate.h"
- #include "amdgpu_migrate.h"
- #include "amdgpu.h"
- #include "amdgpu_vm.h"
-@@ -279,7 +280,8 @@ amdgpu_svm_range_update_gpu_range(struct amdgpu_svm *svm,
- 		unsigned long start_page, last_page;
- 		bool is_last_seg;
- 
--		if (entry->proto != DRM_INTERCONNECT_SYSTEM)
-+		if (entry->proto != DRM_INTERCONNECT_SYSTEM &&
-+		    entry->proto != AMDGPU_INTERCONNECT_VRAM)
- 			return -EOPNOTSUPP;
- 
- 		pte_flags = amdgpu_svm_range_attr_pte_flags(svm, attrs,
-@@ -431,6 +433,8 @@ amdgpu_svm_range_map_attrs(struct amdgpu_svm *svm,
- 		.devmem_possible = devmem_possible,
- 		.devmem_only = need_vram_migration,
- 		.check_pages_threshold = devmem_possible ? SZ_64K : 0,
-+		.device_private_page_owner = devmem_possible ?
-+			AMDGPU_PGMAP_OWNER(svm->adev) : NULL,
- 	};
- 
- 	while (addr < end) {
-@@ -453,12 +457,22 @@ amdgpu_svm_range_map_attrs(struct amdgpu_svm *svm,
- 		if (next_addr <= addr)
- 			return -EINVAL;
- 
--		if (amdgpu_svm_range_is_valid(svm, range, attrs)) {
-+		/*
-+		 * Prefetch to device memory should still run migration logic even if
-+		 * the current GPU mapping is already valid. This allows prefetch
-+		 * requests to actively move backing pages to VRAM instead of being
-+		 * skipped by the valid-mapping fast path.
-+		 */
-+		if (amdgpu_svm_range_is_valid(svm, range, attrs) &&
-+		    !need_vram_migration) {
- 			addr = next_addr;
- 			continue;
- 		}
- 
--		/* TODO: add migration */
-+		if (need_vram_migration) {
-+			AMDGPU_SVM_RANGE_DEBUG(range, "PREFETCH - MIGRATE PAGES");
-+			amdgpu_svm_range_migrate_to_vram(svm, &range->base);
-+		}
- 
- 		AMDGPU_SVM_RANGE_DEBUG(range, "GET PAGES");
- 
--- 
-2.34.1
+>=20
+> >=20
+> > > >=20
+> > > > Consider a fence design where signal() consumes self. Now consider =
+this:
+> > > >=20
+> > > > ```
+> > > > impl FenceCb for MyCallback {
+> > > > fn called(&mut self) {
+> > > > =C2=A0 // Can't move the fence out, so we have to put an Option<T> =
+just to be able
+> > > > =C2=A0 // to move.
+> > > > =C2=A0 if let Some(f) =3D self.some_fence.take() {
+> > > > =C2=A0=C2=A0=C2=A0 f.signal();
+> > > > =C2=A0 }
+> > > > }
+> > > > ```
+> > > >=20
+> > > > This used to be the case when our version of the job queue used the=
+ "proxy
+> > > > fence" design:
+> > > >=20
+> > > >=20
+> > > > ```
+> > > > // Callback on the hw fence
+> > > > impl FenceCb for MyCallback {
+> > > > fn called(&mut self) {
+> > > > =C2=A0 if let Some(f) =3D self.submit_fence.take() {
+> > > > =C2=A0=C2=A0=C2=A0 f.signal();
+> > > > =C2=A0 }=C2=A0=20
+> > >=20
+> > > I'm pretty sure lockdep won't like it anyway, because this is nested
+> > > locking of the same lock class. For such proxies, we'll need to teach
+> > > lockdep about the nesting like has been recently done on
+> > > dma_fence_array & co. But I'm digressing.=C2=A0=20
+> >=20
+> > Yeah, but this is more about resource transfer in general, not
+> > this pattern specifically.
+> >=20
+> > I agree that this has issues, and yes, lockdep complained back
+> > then :)
+>=20
+> The thing is, there's so many aspects that could go wrong because of the
+> context this callback is called in. Nested locking is one of them,
+> the fact we can't sleep is another. And with rust it's even worse,
+> because of the implicit drops that will happen when you take ownership
+> of resources (taking sleeping locks to remove resources from a dataset
+> for instance).
 
+Doesn't that have to be a problem for much of Rust infrastructure? How
+do other parties solve that?
+
+>=20
+> So, by passing self by value to the ::callback(), you're basically
+> telling users "hey, BTW, don't forget to defer the drop to some
+> workqueue if you think it's not atomic-safe". And how can users know
+> that the thing they're about to drop can be dropped in atomic context?
+> They basically have to audit the ::drop() of all the resources they
+> embed in their type implementing FenceCb. Not only that, but they also
+> have to design the thing so the deferral of this ::drop() doesn't
+> allocate, because, obviously, allocating in atomic context is
+> tricky/fallible. AFAIK, none of this can be spot at compile-time (I
+> remember Gary/Danilo mentioning that we could teach the klint about
+> some of these rules). This would leave us with runtime checks like
+> might_sleep(), but most of the C putters (xxx_put(object)) don't have
+> might_sleep() in the path where the decref doesn't lead to a refcnt=3D0
+> situation.
+>=20
+> TLDR; Call this PTSD if you want, but this is the sort of bugs I
+> struggled with on the C side, and I can predict that the exact same
+> will happen in rust drivers if we expose the FenceCb as it is designed
+> here and we don't have a way to check the soundness of the FenceCb
+> implementations at compile time.
+
+My guess would be that the existence of unsafe-traits is the admission
+of Rust that this just cannot be guaranteed by design.
+
+If a driver cannot know whether this or that is safe to drop, then it
+would have to defer it's dropping. Or would there be cases where this
+also doesn't work?
+
+>=20
+> The other option (the one I've been advocating for from the start), is
+> to not let drivers implement FenceCb (make it private), but instead
+> have a bunch of implementations that we know are safe. Here's a list of
+> implementations that I think would unblock most of the drivers use
+> cases:
+>=20
+> - wakeup a thread
+> - complete a completion object
+> - schedule a WorkItem
+> - schedule a kthread_worker (once we get a proper rust abstraction for
+> =C2=A0 that)
+>=20
+> It doesn't mean we can't have optimized FenceCb implementations that do
+> a lot more in the callback() path instead of deferring to a
+> workqueue/thread, but at least those would have to be implemented in
+> dma_fence.rs, and the dma_fence.rs maintainers can then carefully audit
+> the code as part of the review process, which we know is not really the
+> case when changes touch drivers code only.
+
+Pragmatically speaking, if the common cases are trivial, then the
+drivers will get them right, because those critical primitives are
+already atomic-safe.
+
+And a non-common case will have to be implemented in the driver
+anyways, so we'd have to allow for that.
+
+
+
+P.
