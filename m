@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39B0CCD6E75
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 03:09:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 766CCCD6E6B
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 03:23:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F6CD11A3DC;
-	Fri,  5 Jun 2026 03:09:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0A2611A3E9;
+	Fri,  5 Jun 2026 03:23:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Gy/68dDg";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="KQimV1iL";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51DEA11A3DC
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 03:09:12 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F24054389E;
- Fri,  5 Jun 2026 03:09:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAB5D1F00893;
- Fri,  5 Jun 2026 03:09:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780628951;
- bh=RF7lld1C2j/U8LrOMMtbKUk9ujiZNci+5Q5/wnVxTXw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Gy/68dDgaDno8qYLeW7EdfzybY0fEbvhms/oitXKcuUYAGo5IJl6CI6Pyy8UZsMia
- 5cP2d5g7GQUYn43QvItriCrXDBpQ0lc5SD1BX/wheuVMnHerhvpHgN80szcnBU9td7
- +CdAJ63hTwyVb/tmYjNjX9B+EW4ZikzCzFBesQ2utvUm6IiP32ZlVELPq8L+ApmJ2x
- qzsypjjJTOl2NKATmMjI4b/G1amYmvy3oCszwX5Avfa8bhoOR/jHzyk5kBFDn5dFrt
- Ln447Yb8PvNCtT+pWRxOvqDkSH4OM+RdsFq6r8x6B8SfwNyQ4hNLSsdnZ1cckXoeOh
- YQKipZw4nIkrA==
-Date: Thu, 4 Jun 2026 22:09:10 -0500
-From: Rob Herring <robh@kernel.org>
-To: Muhammad Bilal <meatuni001@gmail.com>
-Cc: tomeu@tomeuvizoso.net, ogabbay@kernel.org, tzimmermann@suse.de,
- Frank.Li@nxp.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] accel/ethosu: fix IFM region index out-of-bounds in
- command stream parser
-Message-ID: <20260605030910.GA1800024-robh@kernel.org>
-References: <20260523195159.55801-1-meatuni001@gmail.com>
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F32B11A3E9
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 03:23:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+ Message-ID; bh=Cq8qBASY9/sFMZtLOcHuf19Hx4UlpRMCqby9HjsxB4w=; b=K
+ QimV1iL9RtkkRdJRgEcWd6FJJzncXrc3izAI+jx+UcRGdheHTwyNB1Yvb7cbntiY
+ RgnKVMPd6GlfbT1y7X82Cy7v0YYMGLC8dLJ0y8SAQWVEzKNdTDFu76wnACCvnkxI
+ BzbD0aO+PMhOWMYsR+vvF1dXerR988ud1hp1Lo0s68=
+Received: from w15303746062$163.com ( [113.200.174.80] ) by
+ ajax-webmail-wmsvr-40-113 (Coremail) ; Fri, 5 Jun 2026 11:22:42 +0800 (CST)
+X-Originating-IP: [113.200.174.80]
+Date: Fri, 5 Jun 2026 11:22:42 +0800 (CST)
+From: w15303746062  <w15303746062@163.com>
+To: tzimmermann@suse.de, airlied@redhat.com, jfalempe@redhat.com
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com, 
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, "Mingyu Wang" <25181214217@stu.xidian.edu.cn>
+Subject: Re:[PATCH] drm/ast: Add timeouts to AHB/SCU polling loops to
+ prevent soft lockups
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <20260513113949.356537-1-w15303746062@163.com>
+References: <b98e1013-25ae-44e1-8905-88f104cc0608@suse.de>
+ <20260513113949.356537-1-w15303746062@163.com>
+X-NTES-SC: AL_Qu2TAvqZtk8t5CGcYekfmU0Qguw9Xcq5uPkj34FWN5t8jDrp5QodX0JFHVfbys6/Dy2ItRqsex1+1f9nQoZgZZ0JPpkwaSh18Gw322SIjtQNUg==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260523195159.55801-1-meatuni001@gmail.com>
+Message-ID: <796812da.3444.19e95cdf066.Coremail.w15303746062@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: cSgvCgAHWCICQSJqGSADAA--.30296W
+X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC4wJzV2oiQQJ6RgAA3y
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,38 +62,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, May 23, 2026 at 07:51:59PM +0000, Muhammad Bilal wrote:
-> NPU_SET_IFM_REGION extracts the region index with param & 0x7f, giving
-> a maximum value of 127. However region_size[] and output_region[] in
-> struct ethosu_validated_cmdstream_info are both sized to
-> NPU_BASEP_REGION_MAX (8), giving valid indices [0..7].
-> 
-> Every other region assignment in the same switch uses param & 0x7:
->   NPU_SET_OFM_REGION:  st.ofm.region  = param & 0x7;
->   NPU_SET_IFM2_REGION: st.ifm2.region = param & 0x7;
->   NPU_SET_WEIGHT_REGION: st.weight[0].region = param & 0x7;
->   NPU_SET_SCALE_REGION:  st.scale[0].region  = param & 0x7;
-> 
-> The 0x7f mask on IFM is inconsistent and appears to be a typo.
-> 
-> feat_matrix_length() and calc_sizes() use the region index directly
-> as an array subscript into the kzalloc'd info struct:
->   info->region_size[fm->region] = max(...);
-> 
-> A userspace caller supplying NPU_SET_IFM_REGION with param > 7 causes
-> a write up to 127*8 = 1016 bytes past the start of region_size[],
-> corrupting adjacent kernel heap data.
-> 
-> Fix by applying the same & 0x7 mask used by all other region
-> assignments.
-> 
-> Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-> ---
->  drivers/accel/ethosu/ethosu_gem.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-
-I've applied this and the rest of the patches you sent.
-
-Rob
+CgpIaSBUaG9tYXMgYW5kIGFsbCwKCkEgZ2VudGxlIHBpbmcgb24gdGhpcyBwYXRjaC4KCkl0IGhh
+cyBiZWVuIGFib3V0IHRocmVlIHdlZWtzIHNpbmNlIHN1Ym1pc3Npb24uIAoKVGhpcyBwYXRjaCBm
+aXhlcyBhIGNyaXRpY2FsIHNvZnQgbG9ja3VwIGlzc3VlIHdlIG9ic2VydmVkIHdoZW4gdGhlIEFT
+UEVFRCBoYXJkd2FyZSBiZWNvbWVzIHVucmVzcG9uc2l2ZS4gCgpTaW5jZSBpdCB1c2VzIGEgc2Fm
+ZSB0aW1lb3V0IG1lY2hhbmlzbSB3aXRob3V0IGFsdGVyaW5nIHRoZSBleGlzdGluZyBBUEkgc2ln
+bmF0dXJlcywgaXQgc2hvdWxkIGJlIGEgc3RyYWlnaHRmb3J3YXJkIGFuZCBsb3ctcmlzayBtaXRp
+Z2F0aW9uLgoKQ291bGQgYW55b25lIHBsZWFzZSBoZWxwIHJldmlldyB0aGlzIHdoZW4geW91IGhh
+dmUgYSBtb21lbnQsIG9yIGxldCBtZSBrbm93IGlmIGFueSBtb2RpZmljYXRpb25zIGFyZSBuZWVk
+ZWQ/CgpCZXN0IHJlZ2FyZHMsCk1pbmd5dQoKQXQgMjAyNi0wNS0xMyAxOTozOTo0OSwgdzE1MzAz
+NzQ2MDYyQDE2My5jb20gd3JvdGU6Cj5Gcm9tOiBNaW5neXUgV2FuZyA8MjUxODEyMTQyMTdAc3R1
+LnhpZGlhbi5lZHUuY24+Cj4KPldoaWxlIHZhbGlkYXRpbmcgdGhlIGRyaXZlciB1c2luZyBEZXZH
+ZW4gKGEgZnJhbWV3b3JrIHRoYXQgc3ludGhlc2l6ZXMKPnZpcnR1YWwgZGV2aWNlIG1vZGVscyBk
+aXJlY3RseSBmcm9tIGRyaXZlciBzb3VyY2UgY29kZSB2aWEgTExNIGd1aWRhbmNlKSwKPmEgc2V2
+ZXJlIHNvZnQgbG9ja3VwIHdhcyBvYnNlcnZlZC4KPgo+VGhlIGhhcmR3YXJlIHBvbGxpbmcgbG9v
+cHMgaW4gYF9fYXN0X21pbmR3bWAsIGBfX2FzdF9tb3V0ZHdtYCwgYW5kCj5gYXN0XzI1MDBfcGF0
+Y2hfYWhiYCBsYWNrIGEgdGltZW91dCBtZWNoYW5pc20uIE9uIGJhcmUtbWV0YWwgc3lzdGVtcywK
+PmlmIHRoZSBBU1BFRUQgY2hpcCBiZWNvbWVzIHVucmVzcG9uc2l2ZSBvciBhIFBDSWUgYnVzIGZh
+dWx0IG9jY3VycywKPnRoZSBDUFUgd2lsbCBzcGluIGluZGVmaW5pdGVseSBpbiB0aGVzZSBsb29w
+cy4gVGhpcyByZXN1bHRzIGluIGEgc3lzdGVtCj5oYW5nLCB0cmlnZ2VyaW5nIHRoZSB3YXRjaGRv
+ZyBzb2Z0IGxvY2t1cCBhbmQgY2F1c2luZyBzdWJzZXF1ZW50IEkvTwo+c3RhcnZhdGlvbiAoZS5n
+LiwgYmxvY2tpbmcgamJkMikuCj4KPkZpeCB0aGlzIGJ5IGludHJvZHVjaW5nIGEgYm91bmRlZCBs
+b29wIHdpdGggYSBzYWZlIHRpbWVvdXQgb2YKPmFwcHJveGltYXRlbHkgMTAwbXMgdXNpbmcgYHVk
+ZWxheSgxMClgLiBVc2luZyBgdWRlbGF5KClgIGVuc3VyZXMKPnRoYXQgdGhlIGZpeCByZW1haW5z
+IHNhZmUgZXZlbiBpZiB0aGVzZSBhY2Nlc3NvcnMgYXJlIGNhbGxlZCBmcm9tCj5hbiBhdG9taWMg
+Y29udGV4dCBvciB3aGlsZSBob2xkaW5nIHNwaW5sb2Nrcy4gSWYgdGhlIGhhcmR3YXJlIGZhaWxz
+Cj50byByZXNwb25kLCB0aGUgbG9vcCBicmVha3MgYW5kIGVtaXRzIGEgYFdBUk5fT05DRWAsIGFs
+bG93aW5nIHRoZQo+a2VybmVsIHRvIGRlZ3JhZGUgZ3JhY2VmdWxseSBhbmQgcHJldmVudGluZyBj
+b21wbGV0ZSBzeXN0ZW0gcGFyYWx5c2lzLgo+Cj5TaWduZWQtb2ZmLWJ5OiBNaW5neXUgV2FuZyA8
+MjUxODEyMTQyMTdAc3R1LnhpZGlhbi5lZHUuY24+Cj4tLS0KPkhpIFRob21hcywKPgo+VGhhbmtz
+IGZvciB0aGUgcHJvbXB0IHJlc3BvbnNlIGFuZCBjb25maXJtYXRpb24hCj4KPkluc3RlYWQgb2Yg
+anVzdCB3YWl0aW5nIGZvciB0aHJlc2hvbGQgc3VnZ2VzdGlvbnMsIEkgaGF2ZSBkcmFmdGVkIHRo
+aXMgCj5wYXRjaCB0byBhZGRyZXNzIHRoZSBzb2Z0IGxvY2t1cC4gU2luY2UgY2hhbmdpbmcgdGhl
+IHJldHVybiB0eXBlcyBvZiAKPmBfX2FzdF9taW5kd21gIGFuZCBgX19hc3RfbW91dGR3bWAgdG8g
+cHJvcGFnYXRlIGVycm9yIGNvZGVzIChlLmcuLCAKPmAtRVRJTUVET1VUYCkgd291bGQgcmVxdWly
+ZSBhbiBpbnRydXNpdmUgcmVmYWN0b3JpbmcgYWNyb3NzIHRoZSBlbnRpcmUgCj5BU1QgZHJpdmVy
+LCBJIHRvb2sgYSBtb3JlIGRlZmVuc2l2ZSwgbWluaW1hbC1pbnZhc2l2ZSBhcHByb2FjaC4KPgo+
+VG8gYXZvaWQgdGhlIHJpc2sgb2Ygc2xlZXBpbmcgaW4gYW4gYXRvbWljIGNvbnRleHQgKGluIGNh
+c2UgdGhlc2UgCj5sb3ctbGV2ZWwgSS9PIGFjY2Vzc29ycyBhcmUgZXZlciBjYWxsZWQgdW5kZXIg
+YSBzcGlubG9jayksIEkgdXNlZCAKPmEgYm91bmRlZCBsb29wIHdpdGggYHVkZWxheSgxMClgIGFu
+ZCBhIG1heGltdW0gb2YgMTAwMDAgaXRlcmF0aW9ucyAKPihhcHByb3guIDEwMG1zIHRvdGFsIHRp
+bWVvdXQpLiBJZiB0aGUgQVNQRUVEIGhhcmR3YXJlIGNvbXBsZXRlbHkgCj5mYWlscyB0byByZXNw
+b25kLCBpdCBicmVha3MgdGhlIGluZmluaXRlIGxvb3AsIGVtaXRzIGEgYFdBUk5fT05DRWAsIAo+
+YW5kIHByZXZlbnRzIHRoZSBDUFUgZnJvbSBoYWx0aW5nIHRoZSBlbnRpcmUgc3lzdGVtLgo+Cj5Q
+bGVhc2UgbGV0IG1lIGtub3cgaWYgeW91IHRoaW5rIHRoZSAxMDBtcyB0aHJlc2hvbGQgYW5kIHRo
+ZSBgdWRlbGF5YCAKPmFwcHJvYWNoIGFyZSBhcHByb3ByaWF0ZSBmb3IgdGhpcyBzcGVjaWZpYyBB
+SEIvU0NVIGhhcmR3YXJlIHNlcXVlbmNlLgo+Cj4gZHJpdmVycy9ncHUvZHJtL2FzdC9hc3RfMjUw
+MC5jIHwgIDggKysrKysrKy0KPiBkcml2ZXJzL2dwdS9kcm0vYXN0L2FzdF9wb3N0LmMgfCAxNiAr
+KysrKysrKysrKysrKy0tCj4gMiBmaWxlcyBjaGFuZ2VkLCAyMSBpbnNlcnRpb25zKCspLCAzIGRl
+bGV0aW9ucygtKQo+Cj5kaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FzdC9hc3RfMjUwMC5j
+IGIvZHJpdmVycy9ncHUvZHJtL2FzdC9hc3RfMjUwMC5jCj5pbmRleCAyYTUyYWYwZGVkNTYuLjA4
+ZDE4ZjkwMjAxYSAxMDA2NDQKPi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hc3QvYXN0XzI1MDAuYwo+
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FzdC9hc3RfMjUwMC5jCj5AQCAtMTA3LDYgKzEwNyw3IEBA
+IHN0YXRpYyBjb25zdCB1MzIgYXN0MjUwMF9kZHI0XzE2MDBfdGltaW5nX3RhYmxlW1JFR1RCTF9O
+VU1dID0gewo+IHZvaWQgYXN0XzI1MDBfcGF0Y2hfYWhiKHZvaWQgX19pb21lbSAqcmVncykKPiB7
+Cj4gCXUzMiBkYXRhOwo+KwlpbnQgcmV0cmllcyA9IDEwMDAwOyAvKiB+MTAwbXMgdGltZW91dCAq
+Lwo+IAo+IAkvKiBDbGVhciBidXMgbG9jayBjb25kaXRpb24gKi8KPiAJX19hc3RfbW91dGR3bShy
+ZWdzLCAweDFlNjAwMDAwLCAweEFFRUQxQTAzKTsKPkBAIC0xMzYsNyArMTM3LDEyIEBAIHZvaWQg
+YXN0XzI1MDBfcGF0Y2hfYWhiKHZvaWQgX19pb21lbSAqcmVncykKPiAJZG8gewo+IAkJX19hc3Rf
+bW91dGR3bShyZWdzLCAweDFlNmUyMDAwLCAweDE2ODhBOEE4KTsKPiAJCWRhdGEgPSBfX2FzdF9t
+aW5kd20ocmVncywgMHgxZTZlMjAwMCk7Cj4tCX0gd2hpbGUgKGRhdGEgIT0gMSk7Cj4rCQlpZiAo
+ZGF0YSA9PSAxKQo+KwkJCWJyZWFrOwo+KwkJdWRlbGF5KDEwKTsKPisJfSB3aGlsZSAoLS1yZXRy
+aWVzKTsKPisKPisJV0FSTl9PTkNFKCFyZXRyaWVzLCAiYXN0OiB0aW1lb3V0IHdhaXRpbmcgZm9y
+IEFIQiBwYXRjaFxuIik7Cj4gCj4gCV9fYXN0X21vdXRkd20ocmVncywgMHgxZTZlMjA3YywgMHgw
+ODAwMDAwMCk7IC8qIGNsZWFyIGZhc3QgcmVzZXQgKi8KPiB9Cj5kaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FzdC9hc3RfcG9zdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FzdC9hc3RfcG9zdC5j
+Cj5pbmRleCBiNzI5MTRkYmVkMzguLjY2ZWI4MDkyNWUyNyAxMDA2NDQKPi0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hc3QvYXN0X3Bvc3QuYwo+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FzdC9hc3RfcG9z
+dC5jCj5AQCAtMzcsMTMgKzM3LDE5IEBACj4gdTMyIF9fYXN0X21pbmR3bSh2b2lkIF9faW9tZW0g
+KnJlZ3MsIHUzMiByKQo+IHsKPiAJdTMyIGRhdGE7Cj4rCWludCByZXRyaWVzID0gMTAwMDA7IC8q
+IH4xMDBtcyB0aW1lb3V0ICovCj4gCj4gCV9fYXN0X3dyaXRlMzIocmVncywgMHhmMDA0LCByICYg
+MHhmZmZmMDAwMCk7Cj4gCV9fYXN0X3dyaXRlMzIocmVncywgMHhmMDAwLCAweDEpOwo+IAo+IAlk
+byB7Cj4gCQlkYXRhID0gX19hc3RfcmVhZDMyKHJlZ3MsIDB4ZjAwNCkgJiAweGZmZmYwMDAwOwo+
+LQl9IHdoaWxlIChkYXRhICE9IChyICYgMHhmZmZmMDAwMCkpOwo+KwkJaWYgKGRhdGEgPT0gKHIg
+JiAweGZmZmYwMDAwKSkKPisJCQlicmVhazsKPisJCXVkZWxheSgxMCk7Cj4rCX0gd2hpbGUgKC0t
+cmV0cmllcyk7Cj4rCj4rCVdBUk5fT05DRSghcmV0cmllcywgImFzdDogdGltZW91dCByZWFkaW5n
+IGZyb20gQUhCL1NDVVxuIik7Cj4gCj4gCXJldHVybiBfX2FzdF9yZWFkMzIocmVncywgMHgxMDAw
+MCArIChyICYgMHgwMDAwZmZmZikpOwo+IH0KPkBAIC01MSwxMyArNTcsMTkgQEAgdTMyIF9fYXN0
+X21pbmR3bSh2b2lkIF9faW9tZW0gKnJlZ3MsIHUzMiByKQo+IHZvaWQgX19hc3RfbW91dGR3bSh2
+b2lkIF9faW9tZW0gKnJlZ3MsIHUzMiByLCB1MzIgdikKPiB7Cj4gCXUzMiBkYXRhOwo+KwlpbnQg
+cmV0cmllcyA9IDEwMDAwOyAvKiB+MTAwbXMgdGltZW91dCAqLwo+IAo+IAlfX2FzdF93cml0ZTMy
+KHJlZ3MsIDB4ZjAwNCwgciAmIDB4ZmZmZjAwMDApOwo+IAlfX2FzdF93cml0ZTMyKHJlZ3MsIDB4
+ZjAwMCwgMHgxKTsKPiAKPiAJZG8gewo+IAkJZGF0YSA9IF9fYXN0X3JlYWQzMihyZWdzLCAweGYw
+MDQpICYgMHhmZmZmMDAwMDsKPi0JfSB3aGlsZSAoZGF0YSAhPSAociAmIDB4ZmZmZjAwMDApKTsK
+PisJCWlmIChkYXRhID09IChyICYgMHhmZmZmMDAwMCkpCj4rCQkJYnJlYWs7Cj4rCQl1ZGVsYXko
+MTApOwo+Kwl9IHdoaWxlICgtLXJldHJpZXMpOwo+Kwo+KwlXQVJOX09OQ0UoIXJldHJpZXMsICJh
+c3Q6IHRpbWVvdXQgd3JpdGluZyB0byBBSEIvU0NVXG4iKTsKPiAKPiAJX19hc3Rfd3JpdGUzMihy
+ZWdzLCAweDEwMDAwICsgKHIgJiAweDAwMDBmZmZmKSwgdik7Cj4gfQo+LS0gCj4yLjM0LjEK
