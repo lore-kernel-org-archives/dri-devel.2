@@ -4,99 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A334CD6E5D
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 08:17:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C153CD6E5D
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 08:22:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FB0D11A5A3;
-	Fri,  5 Jun 2026 08:17:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ACBB11A5A8;
+	Fri,  5 Jun 2026 08:22:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="gcsDIrLk";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Pq7m9msB";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qsB0SVaZ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Pq7m9msB";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qsB0SVaZ";
 	dkim-atps=neutral
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
- [209.85.208.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C28F11A5A3
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 08:17:54 +0000 (UTC)
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-3967726bc47so15475951fa.1
- for <dri-devel@lists.freedesktop.org>; Fri, 05 Jun 2026 01:17:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780647472; cv=none;
- d=google.com; s=arc-20240605;
- b=f6FXuH6qp54/RMrlzP9z7GJBEBcKjaz0wp9lDKXD5InPmVCg7VSipggFTYFnVfaH84
- oquF+fBoLzO5YvmxiuxccWMHLr1ufvDyupwdQfoqTKfGpLt8J0tNHBnC89+FBEuWcS6z
- UgGR4hHDAJqASUUDYk+1BaJZXBcFp2TG1UEwBdQtPthWaVBWDpQr341rt+TlZJjM5jNc
- xTXEdR7zCtIxJRXpc53a0A+eOOc6FBCrnQmmyBXxnRDyB2/aAwRu2ArEehwkApuFLxmU
- V0tqhewed9upqvozMznZx0U1cQb5oFhdZhp3VX24QysfQfKGlUClX1ObZ2Ejh44SUYTc
- MeUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=GshNk6hqdERsSbaB2Z1CfprWH4emt6q325uGqdHRGJc=;
- fh=M3x34e1hiGLfflaiteRtEVqJ0EwUWbycfm/qbUZiEHY=;
- b=Nn5OYhRo29CaebQ6ZTEHqEYN3YG/4S61RV2MJTWaTP3R5kwX/XwDRY6SFSWbrRs1P8
- SkOlM7IPEUIhqPb7YPVTndb+8Asqxh3YCBhQBViMkxW3BjZFz6eNZoGPqn2cnQLexS/G
- +sF1k7beyGcsOrD+t42n3nUjHbPJNUuyfZ3T3kn/wSBn7gHiGhLoApAwpychIbl4GUzK
- jROtrgH43vMTGyth/m6k7/tPhWo/T3kQJ4hHX9gp+WmgB4PXC0adI64eG0MajE8WbYiG
- S3b3STsRfgn4kaHe6VBiEeC+2jmc1lM4d+jZpswSd+YNNtXDcObUTW1UE54ivp5vNFtu
- VLZg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1780647472; x=1781252272; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=GshNk6hqdERsSbaB2Z1CfprWH4emt6q325uGqdHRGJc=;
- b=gcsDIrLkVcchjZLQZN3uO5YohWStLcW24FG/hWcOJgMeIohkyNdz57gWE4GdeXjQTG
- IOjclHgYDUr/RHlHe1JWbNVJ5nOlSw/BJJPzmo/kBNo6SWw6md6pmGsBXIqsWoPd262R
- GlhItSmcYDTIU9DtHcW1lR+9YkVMtiBDPXwyQQl1fPQaFF4L9mbZ9o7mV7yyczhKrUNR
- fomB69JqoNrpk/+DWbjb8frgmz2lYVsZ5ipdGggvP/Ksvg/VGQj4DH5Pz/79eUcMz+Ea
- essKGFwTb93iwad55p7C4ClJNPYud+Lzy1dFTNe2G+NBYq21lQBwpzCMN7RzVL2QANEk
- QjRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780647472; x=1781252272;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=GshNk6hqdERsSbaB2Z1CfprWH4emt6q325uGqdHRGJc=;
- b=m+6rvKkIje2Rpn/dFna9E4YH2EQ1RKcsRRLxvGsapcyIIDzgdHd9KbJRd7ha/N/Wk1
- WQ3ehBy8YiPDBo40Wc+jUXlmKzd0rh8sy3QUSLdtS8gBHd0bQuoE2+8Vndpk4OkGRnlX
- 9CbS9JpwcMTwwrJ2Z3tfmt+1WQtWooyZczv4Vm+UoZgyTu2DRWX4tOvH5/tDOUuSbCnq
- 3uBBaAJKFhyOkELFZ68aCaUy1urhbSZ/awkV4xbv96SAZO9FC2PkftS2CJKAV1f4r2im
- P7C9aeABUmyj+vpzZCz2KpIIEJ2BTQPgAsW46vATWsaZKNwneIKp9jDrSGKw5ujz0wC2
- 1YxQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/DXL6NNGxvMaWAiI0qax3DYN7ryyZBSlFfpH/BxxD1AFHiPPGmvEXxOY4Pu0QKyy1Driuf6LOhlSk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxk4WiFDbDguNRsssIBr6ArWyNU34dXWUokKdEDPTP0SglWbNSE
- +kSg1WcIPvxCdR73UCndBhySxIg5160zxiB6P8xf/MwdJRDTh+jvDhTN0NxCEl0llSQOorpVwOl
- +hUdkqi9YyqjTwzg4CursvfCrpddV82HGW0ME8WYOUg==
-X-Gm-Gg: Acq92OFoSCl5v8wgaFqz6ZEB3X997jI43ZXQDTIX1XO/m8GxTP9fjDFBK+tazoYvShO
- YtU7TMtKutM38DT8+9TIQzlv0N/CEsvvkuyvOCvzbGxn+xD0fYV0aUQS/GMK7w5E+g+WdRQRq8m
- vwVqqA7Q8ECCdVbUCDVoQ5rLdpP0fmeghml8gjn7rDagLs9iRT0qi44oUf/cxwlNCLGxy2OJDgx
- J8CivV4VhNNP0LE1SCgRP2LdjmFqPhRf9qdu2mbFYpFXMg503Ql4OZq1hCR5s+eH4mDal2OoF98
- XHRAJmg9goQJUFmKZ75SoGGZrksOhhyHWTPjMcP1dOcLl7GvFP+IAHKDv6itDQ==
-X-Received: by 2002:a05:6512:3092:b0:5aa:6a12:7d58 with SMTP id
- 2adb3069b0e04-5aa87bc8f89mr1091140e87.30.1780647472453; Fri, 05 Jun 2026
- 01:17:52 -0700 (PDT)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B038911A5A8
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 08:22:52 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 58881758B4;
+ Fri,  5 Jun 2026 08:22:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780647771; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=2X46wHJUpy+UfKUQBOHJ7tffcKZzGhPgTZmjslTqZ5A=;
+ b=Pq7m9msB7wdoHQMFuwkl7dNcJqFgHGhrzOYi8x4ydtoexY0hjf6Ar07hciY6qMqWh4Bp+E
+ G4c/cPYph+ph9vtIu9Y+MMPoo3UtFDmzNN8aJuj5BQhJBSFq0HlofSdXIEM1bk5FXBgmI2
+ CP7S47EWXCFYoF3nimpUJxzqXCKdfw0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780647771;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=2X46wHJUpy+UfKUQBOHJ7tffcKZzGhPgTZmjslTqZ5A=;
+ b=qsB0SVaZGucHDcn5rHKZOdT4hOlCOZPnOBhuGHv1sqtVTE18cPbwgVisOfWHwf3b2kXCE+
+ mFIreEdQ+Oaq4vAg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780647771; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=2X46wHJUpy+UfKUQBOHJ7tffcKZzGhPgTZmjslTqZ5A=;
+ b=Pq7m9msB7wdoHQMFuwkl7dNcJqFgHGhrzOYi8x4ydtoexY0hjf6Ar07hciY6qMqWh4Bp+E
+ G4c/cPYph+ph9vtIu9Y+MMPoo3UtFDmzNN8aJuj5BQhJBSFq0HlofSdXIEM1bk5FXBgmI2
+ CP7S47EWXCFYoF3nimpUJxzqXCKdfw0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780647771;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=2X46wHJUpy+UfKUQBOHJ7tffcKZzGhPgTZmjslTqZ5A=;
+ b=qsB0SVaZGucHDcn5rHKZOdT4hOlCOZPnOBhuGHv1sqtVTE18cPbwgVisOfWHwf3b2kXCE+
+ mFIreEdQ+Oaq4vAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EDD7C779A8;
+ Fri,  5 Jun 2026 08:22:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id U1WROFqHImoKZwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 05 Jun 2026 08:22:50 +0000
+Message-ID: <e7b92047-fd40-44e1-ba3d-138d14122cbf@suse.de>
+Date: Fri, 5 Jun 2026 10:22:50 +0200
 MIME-Version: 1.0
-References: <20260430091532.115846-1-marco.crivellari@suse.com>
-In-Reply-To: <20260430091532.115846-1-marco.crivellari@suse.com>
-From: Marco Crivellari <marco.crivellari@suse.com>
-Date: Fri, 5 Jun 2026 10:17:41 +0200
-X-Gm-Features: AVHnY4IuhXbRWmgW3qvThGM_fJ6-oZeENjOwDFVRnx3TBfPIYCa8aiSdzM1g0O8
-Message-ID: <CAAofZF5dMD1Y5+eswi0u6xmTHaMZEcGVTtXe7Ps4vFiCxJFKCw@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
 Subject: Re: [RFC PATCH] drm/gm12u320: Replace system_long_wq with
  system_dfl_long_wq
-To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, 
+To: Marco Crivellari <marco.crivellari@suse.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
  Frederic Weisbecker <frederic@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Michal Hocko <mhocko@suse.com>, Hans de Goede <hansg@kernel.org>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Michal Hocko <mhocko@suse.com>, Hans de Goede <hansg@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+References: <20260430091532.115846-1-marco.crivellari@suse.com>
+ <CAAofZF5dMD1Y5+eswi0u6xmTHaMZEcGVTtXe7Ps4vFiCxJFKCw@mail.gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <CAAofZF5dMD1Y5+eswi0u6xmTHaMZEcGVTtXe7Ps4vFiCxJFKCw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[13];
+ RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[kernel.org,gmail.com,linutronix.de,suse.com,linux.intel.com,ffwll.ch];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:email,
+ suse.com:url, suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,20 +146,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Hi
 
-On Thu, Apr 30, 2026 at 11:15=E2=80=AFAM Marco Crivellari
-<marco.crivellari@suse.com> wrote:
-> [...]
->  drivers/gpu/drm/tiny/gm12u320.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+Am 05.06.26 um 10:17 schrieb Marco Crivellari:
+> Hi,
+>
+> On Thu, Apr 30, 2026 at 11:15 AM Marco Crivellari
+> <marco.crivellari@suse.com> wrote:
+>> [...]
+>>   drivers/gpu/drm/tiny/gm12u320.c | 5 +++--
+>>   1 file changed, 3 insertions(+), 2 deletions(-)
+> Gentle ping.
 
-Gentle ping.
+This patch as already been merged a bit ago.
 
-Thanks!
+https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/645abe00a34588f27c856ca2b532642a8ef7691b
 
---=20
+Best regards
+Thomas
 
-Marco Crivellari
+>
+> Thanks!
+>
 
-SUSE Labs
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
