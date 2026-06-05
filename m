@@ -4,57 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28CE1CD6E6B
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 07:07:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BF7FCD6E74
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 07:08:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14D4811A4CD;
-	Fri,  5 Jun 2026 07:07:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E182811A4D2;
+	Fri,  5 Jun 2026 07:08:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="S7djSLL3";
+	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="kL+qe9jF";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9C2311A4CC
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 07:07:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1780643250;
- bh=/l1CMldbbk+uHSJxS56tfJAL0WmSQnutajowXHyxMbo=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=S7djSLL39zsP1S/np95vTBm3uUhY45rbHqUELEKlkdR6/bdAQtHFhWdDiXswbwOA8
- NN2Dt/61VEcAuZuudSEDyW90e+X8IPLbrU3uv8msp7M+9CoyYpiDNOsoy1U/7xkvcy
- fSWT//4jA1A2A216YlyZ28RE1IezocGY0PW3LC0QVY/vS8JsTSJOUEdZUhHooOHyrZ
- LAghxhfHtXvt59RHD9vVF2s2huB3MTeOcXYUvahBVNpxQF9SzMYYW8u11G/CVR4cRX
- juC8MnugOCVqS6yRgVaDrfYZnPeSNhcFeOcQ9gH6VEaMIvxvqHv9RdDV6e8gmlecAb
- IeQXYcpHGcG6w==
-Received: from fedora-2.home (unknown [100.64.0.11])
+X-Greylist: delayed 526 seconds by postgrey-1.36 at gabe;
+ Fri, 05 Jun 2026 07:08:56 UTC
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
+ [194.59.206.189])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BB7011A4D2;
+ Fri,  5 Jun 2026 07:08:56 +0000 (UTC)
+Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
+ by relay02-mors.netcup.net (Postfix) with ESMTPS id 4gWskw3pGWz4HNY;
+ Fri,  5 Jun 2026 09:00:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+ s=key2; t=1780642808;
+ bh=C4LywOONUo9mM7SYCl9JaZ1nEcm3gsy9ldzredo9jW0=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+ b=kL+qe9jFQlDIIFWazrdM9DPHT8ZxTESUvlVZ5eHBkQwY4fZJyPV4J/Csp8xt7zZFy
+ XACWiPgKk8OtyQMUjwLIy5KrvZZvz6LoN9g8tljf4aHhAydHkLFGzSCzrFIJbcP4SS
+ 45Elvf7avy7ydyXoj3kTM6C/ZPUgcF6eX82AkWy6h2p94+uiGe1Cg1UP0lTTqBf4ls
+ 3BaNScqlouL3TNQa1GcTX8dn/4jcAmoKLqevI92Ayls7BJEnfbV7DATNj6bmh8V1mo
+ +b+mSwKmcZAv/xf7WreQ3u3vIAgyUs/177aIu//SKSetVjXqnUP4EKBt0zuLpSIhNh
+ e1uRHnOTYDUeA==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+ by relay02-mors.netcup.net (Postfix) with ESMTPS id 4gWshp18Q2z7wPS;
+ Fri,  5 Jun 2026 08:58:18 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id CDEC017E0432;
- Fri,  5 Jun 2026 09:07:29 +0200 (CEST)
-Date: Fri, 5 Jun 2026 09:07:14 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Deborah Brouwer <deborah.brouwer@collabora.com>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>, Alice Ryhl
- <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Miguel Ojeda
- <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>, =?UTF-8?B?QmrDtnJu?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, laura.nao@collabora.com,
- samitolvanen@google.com
-Subject: Re: [PATCH v2] drm/tyr: move probe resources into registration data
-Message-ID: <20260605090714.2c4c7945@fedora-2.home>
-In-Reply-To: <20260604-use_tyr_reg_data-v2-1-f77a1ffcf08d@collabora.com>
-References: <20260604-use_tyr_reg_data-v2-1-f77a1ffcf08d@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by policy01-mors.netcup.net (Postfix) with ESMTPS id 4gWshl5Cl8z8tXj;
+ Fri,  5 Jun 2026 08:58:15 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
+ [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id 6D2A65F9DD;
+ Fri,  5 Jun 2026 08:58:14 +0200 (CEST)
+Authentication-Results: mxe9fb;
+ spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
+ smtp.mailfrom=regressions@leemhuis.info
+ smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <ffac6caf-0376-4a0c-908e-b89cce48d28f@leemhuis.info>
+Date: Fri, 5 Jun 2026 08:58:13 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Revert "drm/i915/backlight: Remove try_vesa_interface"
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+To: Tvrtko Ursulin <tursulin@igalia.com>, Dave Airlie <airlied@gmail.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>
+Cc: ankit.k.nautiyal@intel.com, arun.r.murthy@intel.com,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Linux kernel regressions list <regressions@lists.linux.dev>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>,
+ Suraj Kandpal <suraj.kandpal@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+References: <20260515155340.1000997-1-suraj.kandpal@intel.com>
+ <20260517024709.1016121-1-suraj.kandpal@intel.com>
+ <53a2a8dd-d1b6-41c5-ade2-7ed870d074ac@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <53a2a8dd-d1b6-41c5-ade2-7ed870d074ac@leemhuis.info>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178064269494.1178932.8212265372479905459@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 6D2A65F9DD
+X-NC-CID: yZFu1qiK5+qb6kd4Rl2AdMorZ6t1O6HYlhAKMN1jnvJ0Ik1JIE4=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,544 +91,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 04 Jun 2026 16:26:12 -0700
-Deborah Brouwer <deborah.brouwer@collabora.com> wrote:
+On 6/4/26 15:55, Thorsten Leemhuis wrote:
+> On 5/17/26 04:47, Suraj Kandpal wrote:
+>> This reverts commit 40d2f5820951dee818d05c14677277048bd85f9f.
+>>
+>> Removing the try_vesa_interface gate caused a backlight regression on
+>> panels whose VBT correctly reports INTEL_BACKLIGHT_DISPLAY_DDI and whose
+>> PWM path is the actual backlight control, but whose DPCD optimistically
+>> advertises DP_EDP_BACKLIGHT_AUX_ENABLE_CAP / _BRIGHTNESS_AUX_SET_CAP.
+>> After the commit such panels silently bind to the VESA AUX backlight
+>> funcs; AUX writes complete but the panel ignores them, leaving
+>> brightness stuck (no-op backlight). Observed on at least KBL and TGL
+>> eDP setups.
+> 
+> Lo! What's the status of this regression fix? It's a -next for two weeks
+> now as f30fddb4402313 ("Revert "drm/i915/backlight: Remove
+> try_vesa_interface""), but from the outside and checking
+> https://gitlab.freedesktop.org/drm/i915/kernel/-/commits/drm-intel-fixes
+> it looks like it's scheduled for merging in the next cycle.
 
-> Introduce TyrDrmRegistrationData to hold resources that need to stay alive
-> while the DRM device is registered. This moves the parent platform device,
-> clocks, regulators, MMIO mapping, firmware state, and GPU info into data
-> owned by the DRM registration.
-> 
-> The registration data is tied to the platform device binding lifetime, so
-> use Registration::new_with_lt() and store the returned Registration in the
-> platform driver data.
-> 
-> Add initial stubs for firmware, MMU, VM, and address-space handling, to
-> show the intended ownership model.
+Resending to Tvrtko, who sent the i915 PR yesterday (which didn't
+contain that fix), as well as Dave and Simona.
 
-I get that it's useful to prove that things work as intended, but I'd
-prefer if were submitting the working implementation instead of the
-stub, since we have it. Anyway, this should at least be done in separate
-commits (first the RegData with just the things we need today, then
-commits to show what it would look like with real components).
+FWIW, due to the lack of response to various inquiries I'm considering
+to ask Linus to directly pick up the mentioned regression fix to ensure
+it makes it into rc7.
 
+In case anyone wonder what regression I'm talking about:
+
+* https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16015 /
+https://lore.kernel.org/lkml/CADo9pHjr-zZ9C3%2B026y5%2BXOGPSeRzSJMCHof27TVPtAUNgTc8A@mail.gmail.com/
+* https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16043
+* https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16097 /
+https://lore.kernel.org/lkml/d2de7933-e650-4b19-8d88-90d66693dcfc@message-id.googlemail.com/
+
+Ciao, Thorsten
+
+> But I think it should be merged this cycle (ideally before -rc7, as
+> Linus wants all known regression fixed by -rc6), as it fixes a
+> regression that is known since the -rc1 days. I already asked for the
+> mainlining plans in gitlab tickets about a week ago (and since then
+> affected users spoke up, too), but there was no conclusive answer for
+> the plans, which is why I'm trying this way now.
 > 
-> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> ---
-> Changes in v2:
->  - Store the parent platform device as a bound reference instead of as an ARef.
->  - Store Firmware directly instead of in an Arc.
->  - Replace manual ForLt implementation with the ForLt!() macro.
->  - Remove TyrDrmDeviceData and just pass Ok(()) to UnregisteredDevice::new().
->  - Complete firmware boot() as an example of it using iomem.
->  - Add more content to the MMU stub as well as VM, and address-space stubs
->    to show how iomem is shared.
+> Ciao, Thorsten
 > 
-> - Link to v1: https://lore.kernel.org/r/20260603-use_tyr_reg_data-v1-1-97f64e951cf6@collabora.com
 > 
-> This patch applies on top of the drm lifetime series [1] and the
-> full branch [2].
+>> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+>> ---
+>>  .../drm/i915/display/intel_dp_aux_backlight.c | 19 ++++++++++++-------
+>>  1 file changed, 12 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+>> index a8d56ebf06a2..7a6c07f6aaeb 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+>> @@ -691,10 +691,9 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
+>>  	struct intel_dp *intel_dp = intel_attached_dp(connector);
+>>  	struct drm_device *dev = connector->base.dev;
+>>  	struct intel_panel *panel = &connector->panel;
+>> -	bool try_intel_interface = false;
+>> +	bool try_intel_interface = false, try_vesa_interface = false;
+>>  
+>> -	/*
+>> -	 * Check the VBT and user's module parameters to figure out which
+>> +	/* Check the VBT and user's module parameters to figure out which
+>>  	 * interfaces to probe
+>>  	 */
+>>  	switch (display->params.enable_dpcd_backlight) {
+>> @@ -703,6 +702,7 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
+>>  	case INTEL_DP_AUX_BACKLIGHT_AUTO:
+>>  		switch (panel->vbt.backlight.type) {
+>>  		case INTEL_BACKLIGHT_VESA_EDP_AUX_INTERFACE:
+>> +			try_vesa_interface = true;
+>>  			break;
+>>  		case INTEL_BACKLIGHT_DISPLAY_DDI:
+>>  			try_intel_interface = true;
+>> @@ -715,12 +715,20 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
+>>  		if (panel->vbt.backlight.type != INTEL_BACKLIGHT_VESA_EDP_AUX_INTERFACE)
+>>  			try_intel_interface = true;
+>>  
+>> +		try_vesa_interface = true;
+>> +		break;
+>> +	case INTEL_DP_AUX_BACKLIGHT_FORCE_VESA:
+>> +		try_vesa_interface = true;
+>>  		break;
+>>  	case INTEL_DP_AUX_BACKLIGHT_FORCE_INTEL:
+>>  		try_intel_interface = true;
+>>  		break;
+>>  	}
+>>  
+>> +	/* For eDP 1.5 and above we are supposed to use VESA interface for brightness control */
+>> +	if (intel_dp->edp_dpcd[0] >= DP_EDP_15)
+>> +		try_vesa_interface = true;
+>> +
+>>  	/*
+>>  	 * Since Intel has their own backlight control interface, the majority of machines out there
+>>  	 * using DPCD backlight controls with Intel GPUs will be using this interface as opposed to
+>> @@ -733,9 +741,6 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
+>>  	 * panel with Intel's OUI - which is also required for us to be able to detect Intel's
+>>  	 * backlight interface at all. This means that the only sensible way for us to detect both
+>>  	 * interfaces is to probe for Intel's first, and VESA's second.
+>> -	 *
+>> -	 * Also there is a chance some VBTs may advertise false Intel backlight support even if the
+>> -	 * TCON DPCD says otherwise. This means we keep VESA interface as fallback in that case.
+>>  	 */
+>>  	if (try_intel_interface && intel_dp->edp_dpcd[0] <= DP_EDP_14b &&
+>>  	    intel_dp_aux_supports_hdr_backlight(connector)) {
+>> @@ -745,7 +750,7 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
+>>  		return 0;
+>>  	}
+>>  
+>> -	if (intel_dp_aux_supports_vesa_backlight(connector)) {
+>> +	if (try_vesa_interface && intel_dp_aux_supports_vesa_backlight(connector)) {
+>>  		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] Using VESA eDP backlight controls\n",
+>>  			    connector->base.base.id, connector->base.name);
+>>  		panel->backlight.funcs = &intel_dp_vesa_bl_funcs;
 > 
-> [1] https://lore.kernel.org/rust-for-linux/20260603011711.2077361-1-dakr@kernel.org/
-> [2] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/log/?h=drm-lifetime
-> ---
->  drivers/gpu/drm/tyr/driver.rs            | 49 ++++++++++++++----
->  drivers/gpu/drm/tyr/file.rs              | 11 ++--
->  drivers/gpu/drm/tyr/fw.rs                | 88 ++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/tyr/mmu.rs               | 56 ++++++++++++++++++++
->  drivers/gpu/drm/tyr/mmu/address_space.rs | 63 +++++++++++++++++++++++
->  drivers/gpu/drm/tyr/tyr.rs               |  3 ++
->  drivers/gpu/drm/tyr/vm.rs                | 62 ++++++++++++++++++++++
->  7 files changed, 316 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-> index 819f64a7573d..7f2d2e8eb7de 100644
-> --- a/drivers/gpu/drm/tyr/driver.rs
-> +++ b/drivers/gpu/drm/tyr/driver.rs
-> @@ -6,6 +6,7 @@
->          OptionalClk, //
->      },
->      device::{
-> +        Bound,
->          Core,
->          Device,
->          DeviceContext, //
-> @@ -29,6 +30,7 @@
->      sizes::SZ_2M,
->      sync::{
->          aref::ARef,
-> +        Arc,
->          Mutex, //
->      },
->      time,
-> @@ -37,9 +39,11 @@
->  
->  use crate::{
->      file::TyrDrmFileData,
-> +    fw::Firmware,
->      gem::BoData,
->      gpu,
->      gpu::GpuInfo,
-> +    mmu::Mmu,
->      regs::gpu_control::*, //
->  };
->  
-> @@ -49,7 +53,6 @@
->  
->  /// Convenience type alias for the DRM device type for this driver.
->  pub(crate) type TyrDrmDevice<Ctx = drm::Registered> = drm::Device<TyrDrmDriver, Ctx>;
-> -
->  pub(crate) struct TyrPlatformDriver;
->  
->  #[pin_data(PinnedDrop)]
-> @@ -58,9 +61,14 @@ pub(crate) struct TyrPlatformDriverData<'bound> {
->      _reg: drm::Registration<'bound, TyrDrmDriver>,
->  }
->  
-> +/// Resources kept alive by the DRM registration.
->  #[pin_data]
-> -pub(crate) struct TyrDrmDeviceData {
-> -    pub(crate) pdev: ARef<platform::Device>,
-> +pub(crate) struct TyrDrmRegistrationData<'bound> {
-> +    /// Parent platform device.
-> +    pub(crate) pdev: &'bound platform::Device<Bound>,
-> +
-> +    /// Firmware sections.
-> +    pub(crate) fw: Firmware<'bound>,
->  
->      #[pin]
->      clks: Mutex<Clocks>,
-> @@ -68,6 +76,9 @@ pub(crate) struct TyrDrmDeviceData {
->      #[pin]
->      regulators: Mutex<Regulators>,
->  
-> +    /// GPU MMIO register mapping.
-> +    pub(crate) iomem: Arc<IoMem<'bound>>,
-> +
->      /// Some information on the GPU.
->      ///
->      /// This is mainly queried by userspace, i.e.: Mesa.
-> @@ -119,7 +130,7 @@ fn probe<'bound>(
->          let sram_regulator = Regulator::<regulator::Enabled>::get(pdev.as_ref(), c"sram")?;
->  
->          let request = pdev.io_request_by_index(0).ok_or(ENODEV)?;
-> -        let iomem = request.iomap_sized::<SZ_2M>()?;
-> +        let iomem = Arc::new(request.iomap_sized::<SZ_2M>()?, GFP_KERNEL)?;
->  
->          issue_soft_reset(pdev.as_ref(), &iomem)?;
->          gpu::l2_power_on(pdev.as_ref(), &iomem)?;
-> @@ -135,10 +146,23 @@ fn probe<'bound>(
->          // other threads of execution.
->          unsafe { pdev.dma_set_mask_and_coherent(DmaMask::try_new(pa_bits)?)? };
->  
-> -        let platform: ARef<platform::Device> = pdev.into();
-> +        let unreg_dev = drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev, Ok(()))?;
-> +
-> +        let mmu = Mmu::new(iomem.as_arc_borrow(), &gpu_info)?;
-> +
-> +        let firmware = Firmware::new(
-> +            pdev,
-> +            iomem.clone(),
-> +            &unreg_dev,
-> +            mmu.as_arc_borrow(),
-> +            &gpu_info,
-> +        )?;
-> +
-> +        firmware.boot()?;
->  
-> -        let data = try_pin_init!(TyrDrmDeviceData {
-> -                pdev: platform.clone(),
-> +        let reg_data = try_pin_init!(TyrDrmRegistrationData {
-> +                pdev,
-> +                fw: firmware,
->                  clks <- new_mutex!(Clocks {
->                      core: core_clk,
->                      stacks: stacks_clk,
-> @@ -148,11 +172,14 @@ fn probe<'bound>(
->                      _mali: mali_regulator,
->                      _sram: sram_regulator,
->                  }),
-> +                iomem,
->                  gpu_info,
->          });
->  
-> -        let tdev = drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev, data)?;
-> -        let reg = drm::Registration::new(pdev.as_ref(), tdev, (), 0)?;
-> +        // SAFETY: `reg` is stored in the platform driver data and is not leaked or
-> +        // forgotten, so it is dropped before the `'bound` registration data can become
-> +        // invalid.
-> +        let reg = unsafe { drm::Registration::new_with_lt(pdev.as_ref(), unreg_dev, reg_data, 0)? };
->  
->          let driver = TyrPlatformDriverData {
->              _device: reg.device().into(),
-> @@ -183,8 +210,8 @@ fn drop(self: Pin<&mut Self>) {}
->  
->  #[vtable]
->  impl drm::Driver for TyrDrmDriver {
-> -    type Data = TyrDrmDeviceData;
-> -    type RegistrationData = ForLt!(());
-> +    type Data = ();
-> +    type RegistrationData = ForLt!(TyrDrmRegistrationData<'_>);
->      type File = TyrDrmFileData;
->      type Object<R: drm::DeviceContext> = drm::gem::shmem::Object<BoData, R>;
->      type ParentDevice<Ctx: DeviceContext> = platform::Device<Ctx>;
-> diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
-> index 9f53da7633ab..9baec67febc9 100644
-> --- a/drivers/gpu/drm/tyr/file.rs
-> +++ b/drivers/gpu/drm/tyr/file.rs
-> @@ -11,7 +11,8 @@
->  
->  use crate::driver::{
->      TyrDrmDevice,
-> -    TyrDrmDriver, //
-> +    TyrDrmDriver,
-> +    TyrDrmRegistrationData, //
->  };
->  
->  #[pin_data]
-> @@ -30,16 +31,16 @@ fn open(_dev: &drm::Device<Self::Driver>) -> Result<Pin<KBox<Self>>> {
->  
->  impl TyrDrmFileData {
->      pub(crate) fn dev_query(
-> -        ddev: &TyrDrmDevice,
-> +        _ddev: &TyrDrmDevice,
->          _pdev: &platform::Device<device::Bound>,
-> -        _reg_data: &(),
-> +        reg_data: &TyrDrmRegistrationData<'_>,
->          devquery: &mut uapi::drm_panthor_dev_query,
->          _file: &TyrDrmFile,
->      ) -> Result<u32> {
->          if devquery.pointer == 0 {
->              match devquery.type_ {
->                  uapi::drm_panthor_dev_query_type_DRM_PANTHOR_DEV_QUERY_GPU_INFO => {
-> -                    devquery.size = core::mem::size_of_val(&ddev.gpu_info) as u32;
-> +                    devquery.size = core::mem::size_of_val(&reg_data.gpu_info) as u32;
->                      Ok(0)
->                  }
->                  _ => Err(EINVAL),
-> @@ -53,7 +54,7 @@ pub(crate) fn dev_query(
->                      )
->                      .writer();
->  
-> -                    writer.write(&ddev.gpu_info)?;
-> +                    writer.write(&reg_data.gpu_info)?;
->  
->                      Ok(0)
->                  }
-> diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
-> new file mode 100644
-> index 000000000000..fb4b6709bce1
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tyr/fw.rs
-> @@ -0,0 +1,88 @@
-> +// SPDX-License-Identifier: GPL-2.0 or MIT
-> +
-> +//! Firmware loading and management for Mali CSF GPUs.
-> +//!
-> +//! This is currently only a lifetime/resource stub. The actual firmware parser,
-> +//! section loading, MCU VM mapping, and boot sequence will be added later.
-> +#![allow(dead_code)]
-> +
-> +use kernel::{
-> +    device::Bound,
-> +    drm::Uninit,
-> +    io::{
-> +        poll,
-> +        Io, //
-> +    },
-> +    platform,
-> +    prelude::*,
-> +    sync::{
-> +        Arc,
-> +        ArcBorrow, //
-> +    },
-> +    time::Delta, //
-> +};
-> +
-> +use crate::{
-> +    driver::{
-> +        IoMem,
-> +        TyrDrmDevice, //
-> +    },
-> +    gpu::GpuInfo,
-> +    mmu::Mmu,
-> +    regs::gpu_control::{
-> +        McuControlMode,
-> +        McuStatus,
-> +        MCU_CONTROL,
-> +        MCU_STATUS, //
-> +    },
-> +    vm::Vm, //
-> +};
-> +
-> +/// Firmware state for a bound Tyr device.
-> +///
-> +/// For now this only keeps the device resources alive. Later this will own the
-> +/// loaded firmware sections, MCU VM mappings, and boot state.
-> +pub(crate) struct Firmware<'bound> {
-> +    /// Parent platform device.
-> +    _pdev: &'bound platform::Device<Bound>,
-> +
-> +    /// MMIO mapping used for firmware/MCU register access.
-> +    iomem: Arc<IoMem<'bound>>,
-> +}
-> +
-> +impl<'bound> Firmware<'bound> {
-> +    /// Create firmware state for this device.
-> +    ///
-> +    /// This stub only records the resources that future firmware loading code
-> +    /// will need.
-> +    pub(crate) fn new(
-> +        pdev: &'bound platform::Device<Bound>,
-> +        iomem: Arc<IoMem<'bound>>,
-> +        ddev: &TyrDrmDevice<Uninit>,
-> +        mmu: ArcBorrow<'_, Mmu<'bound>>,
-> +        gpu_info: &GpuInfo,
-> +    ) -> Result<Firmware<'bound>> {
-> +        let vm = Vm::new(pdev, ddev, mmu, gpu_info)?;
-> +        vm.activate()?;
-> +
-> +        Ok(Firmware { _pdev: pdev, iomem })
-> +    }
-> +
-> +    /// Boot the firmware.
-> +    pub(crate) fn boot(&self) -> Result {
-> +        let io = &self.iomem;
-> +        io.write_reg(MCU_CONTROL::zeroed().with_req(McuControlMode::Auto));
-> +
-> +        if let Err(e) = poll::read_poll_timeout(
-> +            || Ok(io.read(MCU_STATUS)),
-> +            |status| status.value() == McuStatus::Enabled,
-> +            Delta::from_millis(1),
-> +            Delta::from_millis(100),
-> +        ) {
-> +            let status = io.read(MCU_STATUS);
-> +            pr_err!("MCU failed to boot, status: {:?}", status.value());
-> +            return Err(e);
-> +        }
-> +        Ok(())
-> +    }
-> +}
-> diff --git a/drivers/gpu/drm/tyr/mmu.rs b/drivers/gpu/drm/tyr/mmu.rs
-> new file mode 100644
-> index 000000000000..9e2efe342df3
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tyr/mmu.rs
-> @@ -0,0 +1,56 @@
-> +// SPDX-License-Identifier: GPL-2.0 or MIT
-> +
-> +//! Memory Management Unit (MMU) driver for the Tyr GPU.
-> +//!
-> +//! This is just a lifetime/resource stub.
-> +//! The actual MMU initialization, page table management,
-> +//! and GPU VM mapping will be added later.
-> +
-> +use kernel::{
-> +    new_mutex,
-> +    prelude::*,
-> +    sync::{
-> +        Arc,
-> +        ArcBorrow,
-> +        Mutex, //
-> +    }, //
-> +};
-> +
-> +use crate::{
-> +    driver::IoMem,
-> +    gpu::GpuInfo,
-> +    mmu::address_space::AddressSpaceManager,
-> +    regs::gpu_control::AS_PRESENT, //
-> +};
-> +
-> +pub(crate) mod address_space;
-> +
-> +#[pin_data]
-> +pub(super) struct Mmu<'bound> {
-> +    /// Manages the allocation of hardware MMU slots to GPU address spaces.
-> +    #[pin]
-> +    pub(crate) as_manager: Mutex<AddressSpaceManager<'bound>>,
-> +}
-> +
-> +impl<'bound> Mmu<'bound> {
-> +    /// Create an MMU component for this device.
-> +    pub(super) fn new(
-> +        iomem: ArcBorrow<'_, IoMem<'bound>>,
-> +        gpu_info: &GpuInfo,
-> +    ) -> Result<Arc<Mmu<'bound>>> {
-> +        let present = AS_PRESENT::from_raw(gpu_info.as_present).present().get();
-> +        let slot_count: usize = present.count_ones().try_into()?;
-> +        pr_info!("MMU: {} address space slots present", slot_count);
-> +
-> +        let as_manager = AddressSpaceManager::new(iomem)?;
-> +        let mmu_init = try_pin_init!(Self{
-> +            as_manager <- new_mutex!(as_manager),
-> +        });
-> +        Arc::pin_init(mmu_init, GFP_KERNEL)
-> +    }
-> +
-> +    /// Make a VM active.
-> +    pub(crate) fn activate_vm(&self) -> Result {
-> +        self.as_manager.lock().activate_vm()
-> +    }
-> +}
-> diff --git a/drivers/gpu/drm/tyr/mmu/address_space.rs b/drivers/gpu/drm/tyr/mmu/address_space.rs
-> new file mode 100644
-> index 000000000000..47534944b458
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tyr/mmu/address_space.rs
-> @@ -0,0 +1,63 @@
-> +// SPDX-License-Identifier: GPL-2.0 or MIT
-> +
-> +//! GPU address space management and hardware operations.
-> +//!
-> +//! This is just a lifetime/resource stub.
-> +//! The actual GPU hardware address spaces (AS), including configuration,
-> +//! command submission, and page table update regions will be added later.
-> +
-> +use kernel::{
-> +    io::{
-> +        poll,
-> +        register::Array,
-> +        Io, //
-> +    },
-> +    prelude::*,
-> +    sync::{
-> +        Arc, //
-> +        ArcBorrow,
-> +    },
-> +    time::Delta, //
-> +};
-> +
-> +use crate::{
-> +    driver::IoMem,
-> +    regs::mmu_control::mmu_as_control::STATUS, //
-> +};
-> +
-> +/// Manages GPU hardware address spaces via MMIO register operations.
-> +pub(crate) struct AddressSpaceManager<'bound> {
-> +    /// Memory-mapped I/O region for GPU register access.
-> +    iomem: Arc<IoMem<'bound>>,
-> +}
-> +
-> +impl<'bound> AddressSpaceManager<'bound> {
-> +    /// Creates a new address space manager.
-> +    ///
-> +    /// Initializes the manager with references to the platform device and
-> +    /// I/O memory region, along with the bitmask of available AS slots.
-> +    pub(super) fn new(iomem: ArcBorrow<'_, IoMem<'bound>>) -> Result<AddressSpaceManager<'bound>> {
-> +        Ok(Self {
-> +            iomem: iomem.into(),
-> +        })
-> +    }
-> +
-> +    pub(super) fn activate_vm(&mut self) -> Result {
-> +        self.as_wait_ready(0)
-> +    }
-> +
-> +    /// Waits for an AS slot to become ready (not active).
-> +    ///
-> +    /// Returns an error if polling times out after 10ms or if register access fails.
-> +    fn as_wait_ready(&self, as_nr: usize) -> Result {
-> +        let io = &*self.iomem;
-> +        let op = || {
-> +            let status_reg = STATUS::try_at(as_nr).ok_or(EINVAL)?;
-> +            Ok(io.read(status_reg))
-> +        };
-> +        let cond = |status: &STATUS| -> bool { !status.active_ext() };
-> +        poll::read_poll_timeout(op, cond, Delta::from_millis(0), Delta::from_millis(10))?;
-> +
-> +        Ok(())
-> +    }
-> +}
-> diff --git a/drivers/gpu/drm/tyr/tyr.rs b/drivers/gpu/drm/tyr/tyr.rs
-> index 95cda7b0962f..ace2764c6059 100644
-> --- a/drivers/gpu/drm/tyr/tyr.rs
-> +++ b/drivers/gpu/drm/tyr/tyr.rs
-> @@ -9,9 +9,12 @@
->  
->  mod driver;
->  mod file;
-> +mod fw;
->  mod gem;
->  mod gpu;
-> +mod mmu;
->  mod regs;
-> +mod vm;
->  
->  kernel::module_platform_driver! {
->      type: TyrPlatformDriver,
-> diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
-> new file mode 100644
-> index 000000000000..5ca1b773df92
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tyr/vm.rs
-> @@ -0,0 +1,62 @@
-> +// SPDX-License-Identifier: GPL-2.0 or MIT
-> +
-> +//! GPU virtual memory management.
-> +//!
-> +//! This is just a lifetime/resource stub. The actual vm
-> +//! implementation using the DRM GPUVM framework will be added later.
-> +
-> +use kernel::{
-> +    device::Bound,
-> +    drm::DeviceContext,
-> +    platform,
-> +    prelude::*,
-> +    sync::{
-> +        aref::ARef,
-> +        Arc,
-> +        ArcBorrow, //
-> +    }, //
-> +};
-> +
-> +use crate::{
-> +    driver::TyrDrmDevice,
-> +    gpu::GpuInfo,
-> +    mmu::Mmu, //
-> +};
-> +
-> +/// GPU virtual address space.
-> +///
-> +/// Each VM can be mapped into a hardware address space slot.
-> +#[pin_data]
-> +pub(crate) struct Vm<'bound> {
-> +    /// MMU manager.
-> +    mmu: Arc<Mmu<'bound>>,
-> +    /// Platform device reference (needed to access the page table via devres).
-> +    pdev: ARef<platform::Device>,
-> +}
-> +
-> +impl<'bound> Vm<'bound> {
-> +    /// Creates a new GPU virtual address space.
-> +    pub(crate) fn new<Ctx: DeviceContext>(
-> +        pdev: &'bound platform::Device<Bound>,
-> +        _ddev: &TyrDrmDevice<Ctx>,
-> +        mmu: ArcBorrow<'_, Mmu<'bound>>,
-> +        _gpu_info: &GpuInfo,
-> +    ) -> Result<Arc<Vm<'bound>>> {
-> +        let vm = Arc::pin_init(
-> +            pin_init!(Self {
-> +                pdev: pdev.into(),
-> +                mmu: mmu.into(),
-> +            }),
-> +            GFP_KERNEL,
-> +        )?;
-> +
-> +        Ok(vm)
-> +    }
-> +
-> +    /// Activate the VM in a hardware address space slot.
-> +    pub(crate) fn activate(&self) -> Result {
-> +        self.mmu.activate_vm().inspect_err(|e| {
-> +            pr_err!("Failed to activate VM: {:?}\n", e);
-> +        })
-> +    }
-> +}
-> 
-> ---
-> base-commit: 305b04e26f0cdff2c8c0db208dbec0d9c9984a48
-> change-id: 20260603-use_tyr_reg_data-32720e66b2dd
-> 
-> Best regards,
 
