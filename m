@@ -4,47 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDB5FCD6E7D
-	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 14:56:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8C5DCD6E7D
+	for <dri-devel@archiver.kernel.org>; Fri,  5 Jun 2026 15:00:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46A76112B4A;
-	Fri,  5 Jun 2026 14:56:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D9B410E678;
+	Fri,  5 Jun 2026 15:00:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="n1+gAkd1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EA5QY6zG";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47DE3112B4A
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 14:56:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
- Message-ID; bh=6Vvelw5+LQfvTjKPpj6RZhSnWPn/lWC6bk7LienDzGI=; b=n
- 1+gAkd1jdUl3drwTRaDYBvLk8tS/EsJjvpuLeIYD0p+xaN0wYF9kw+S/NBggI+aE
- kfBks7LEkFpITHzto5eQjPb6cJPdZDZMdsdIz0qJJ81Qv9FB60gi9jOeEFlExFuP
- Kf7E4XrkwYQ4ycL1vf4bCxEOWlpllcTXbUDZ4RcjMI=
-Received: from w15303746062$163.com ( [113.200.174.80] ) by
- ajax-webmail-wmsvr-40-113 (Coremail) ; Fri, 5 Jun 2026 22:56:37 +0800 (CST)
-X-Originating-IP: [113.200.174.80]
-Date: Fri, 5 Jun 2026 22:56:37 +0800 (CST)
-From: w15303746062  <w15303746062@163.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-Subject: Re:Re: [PATCH v2] drm/gem: fix signed integer overflow in idr_alloc
- end parameter
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20260605143900.57CE51F00893@smtp.kernel.org>
-References: <20260605142644.1205922-1-w15303746062@163.com>
- <20260605143900.57CE51F00893@smtp.kernel.org>
-X-NTES-SC: AL_Qu2TAvqcvksi4SmebOkfmU0Qguw9Xcq5uPkj34FWN5t8jDrp5QodX0JFHVfbys6/Dy2ItRqsex1+1f9nQoZgZZ0JDXrCODcE//wk2PG4ADJ/ow==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
-MIME-Version: 1.0
-Message-ID: <75585436.9c70.19e98494057.Coremail.w15303746062@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: cSgvCgD3v1Sm4yJqTK4DAA--.34854W
-X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC-wZFKWoi46b4iQAA3p
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2D8510E678
+ for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 15:00:26 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7CA1D40519;
+ Fri,  5 Jun 2026 15:00:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6EA21F00898;
+ Fri,  5 Jun 2026 15:00:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780671626;
+ bh=X7qt2U5Kg8IS800RLQD5ASsMKUGPjHTZz9MSULneqNU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=EA5QY6zGsUG6lvlR64rxb0syyPBEBZlp2A23phx+8F53MP2F6vvcAqhzM8shszQ3X
+ N9t4Jwz+siQWTWrda1TgDM6oL7Z0pGy0vnLzvqnn1uvgqwNSExk5UMIa0oWBxhtrAv
+ c5J4GtCbzmzaZ5q0eg6viDYcf0QCNN/GRdY3zVdLBh607fbYkyJxQZcBe6BCQaKQMT
+ 33PfdI5vbZWUcbASV5peeNSx//cZ/TPshZ7PFpacszi8KFJxbvAL8+x9U94WD5qbA8
+ 49PavjJ/vk5gxVaET4phNyLGGoIIVm+vmvB6x8KXewjx3aFgzn1/YroAseDQd2qz/v
+ Lf7EAAyR+OQcA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/2] drm: panel: add support for the Renesas R63419
+ based dual-DSI video mode Display Panels
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ wsa+renesas@sang-engineering.com, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260605-topic-sm8650-ayaneo-pocket-s2-r63419-v7-2-b84b6da84293@linaro.org>
+References: <20260605-topic-sm8650-ayaneo-pocket-s2-r63419-v7-2-b84b6da84293@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 05 Jun 2026 15:00:25 +0000
+Message-Id: <20260605150025.C6EA21F00898@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,82 +54,121 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-CgpIaSBhbGwsCgpUaGFua3MgdG8gU2FzaGlrbyBBSSBmb3IgdGhlIHJldmlldy4KClRvIGNsYXJp
-ZnksIHRoZSB0d28gaXNzdWVzIHJlcG9ydGVkICh0aGUgbWlzc2luZyBpZHJfcHJlbG9hZCBhbmQg
-dGhlIGNyaXRpY2FsIFVBRiByYWNlIGNvbmRpdGlvbikgYXJlIHByZS1leGlzdGluZyBidWdzIGlu
-IGRybV9nZW1fY2hhbmdlX2hhbmRsZV9pb2N0bCgpIGFuZCBhcmUgb3J0aG9nb25hbCB0byB0aGUg
-aW50ZWdlciBvdmVyZmxvdyBmaXggYWRkcmVzc2VkIGluIG15IGN1cnJlbnQgdjIgcGF0Y2guCgpU
-aGUgVUFGIHJhY2UgY29uZGl0aW9uIGlzIHBhcnRpY3VsYXJseSBhbGFybWluZy4gSSB3aWxsIGtl
-ZXAgbXkgY3VycmVudCB2MiBwYXRjaCBmb2N1c2VkIHB1cmVseSBvbiBmaXhpbmcgdGhlIGludGVn
-ZXIgb3ZlcmZsb3cgYXMgaXQgY3VycmVudGx5IHN0YW5kcy4KCkkgd2lsbCBpbnZlc3RpZ2F0ZSB0
-aGVzZSB0d28gcHJlLWV4aXN0aW5nIGlzc3VlcyBzZXBhcmF0ZWx5IGFuZCBzdWJtaXQgYSBzZXBh
-cmF0ZSBwYXRjaCBzZXJpZXMgdG8gYWRkcmVzcyB0aGVtLgoKVGhhbmtzLApNaW5neXUKCkF0IDIw
-MjYtMDYtMDUgMjI6Mzg6NTksIHNhc2hpa28tYm90QGtlcm5lbC5vcmcgd3JvdGU6Cj5UaGFuayB5
-b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBmb3VuZCAyIHBvdGVu
-dGlhbCBpc3N1ZShzKSB0byBjb25zaWRlcjoKPgo+UHJlLWV4aXN0aW5nIGlzc3VlczoKPi0gW0Ny
-aXRpY2FsXSBBIHJhY2UgY29uZGl0aW9uIGV4aXN0cyBiZXR3ZWVuIGBkcm1fZ2VtX2NoYW5nZV9o
-YW5kbGVfaW9jdGxgIGFuZCBgRFJNX0lPQ1RMX0dFTV9DTE9TRWAgZHVlIHRvIGEgbG9ja2xlc3Mg
-d2luZG93LCBhbGxvd2luZyBhIFVzZS1BZnRlci1GcmVlLCB1bmJhbGFuY2VkIGhhbmRsZSBjb3Vu
-dHMsIGFuZCBJRFIgY29ycnVwdGlvbi4KPi0gW01lZGl1bV0gQ2FsbGluZyBgaWRyX2FsbG9jYCB3
-aXRoIGBHRlBfTk9XQUlUYCBpbnNpZGUgYSBzcGlubG9jayB3aXRob3V0IGEgcHJlY2VkaW5nIGBp
-ZHJfcHJlbG9hZGAgY2FuIGNhdXNlIHNwdXJpb3VzIG1lbW9yeSBhbGxvY2F0aW9uIGZhaWx1cmVz
-Lgo+LS0KPgo+Y29tbWl0IGI3NjViNDJjYTg2MmI1ZTE1Nzc0NjVlMDdhMTFhM2YyOWUyNGM4NDgK
-PkF1dGhvcjogTWluZ3l1IFdhbmcgPDI1MTgxMjE0MjE3QHN0dS54aWRpYW4uZWR1LmNuPgo+Cj5k
-cm0vZ2VtOiBmaXggc2lnbmVkIGludGVnZXIgb3ZlcmZsb3cgaW4gaWRyX2FsbG9jIGVuZCBwYXJh
-bWV0ZXIKPgo+VGhpcyBjb21taXQgZml4ZXMgYSBzaWduZWQgaW50ZWdlciBvdmVyZmxvdyB2dWxu
-ZXJhYmlsaXR5IGluCj5kcm1fZ2VtX2NoYW5nZV9oYW5kbGVfaW9jdGwoKS4gSXQgdGlnaHRlbnMg
-dGhlIGxpbWl0IGNoZWNrIHRvID49IElOVF9NQVggdG8KPnByZXZlbnQgb3ZlcmZsb3cgYW5kIGV4
-cGxpY2l0bHkgcmVqZWN0cyAwIGFzIGEgaGFuZGxlLCBhcyAwIGlzIHVuaXZlcnNhbGx5Cj50cmVh
-dGVkIGFzIGFuIGludmFsaWQgaGFuZGxlIGluIHRoZSBEUk0gc3Vic3lzdGVtLgo+Cj4+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2dlbS5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9n
-ZW0uYwo+PiBpbmRleCBhYzc1MWE0MmRiMjgxLi5iNDIyNDFkNjgwMmY5IDEwMDY0NAo+PiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vZHJtX2dlbS5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1f
-Z2VtLmMKPj4gQEAgLTEwMjUsOCArMTAyNSwxMiBAQCBpbnQgZHJtX2dlbV9jaGFuZ2VfaGFuZGxl
-X2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCj4+ICAJaWYgKCFkcm1f
-Y29yZV9jaGVja19mZWF0dXJlKGRldiwgRFJJVkVSX0dFTSkpCj4+ICAJCXJldHVybiAtRU9QTk9U
-U1VQUDsKPj4gIAo+PiAtCS8qIGlkcl9hbGxvYygpIGxpbWl0YXRpb24uICovCj4+IC0JaWYgKGFy
-Z3MtPm5ld19oYW5kbGUgPiBJTlRfTUFYKQo+PiArCS8qCj4+ICsJICogaWRyX2FsbG9jKCkgbGlt
-aXRhdGlvbi4KPj4gKwkgKiBSZWplY3QgaGFuZGxlIDAgKGludmFsaWQgaW4gRFJNKSBhbmQgc3Ry
-aWN0bHkgYm91bmQKPj4gKwkgKiB0byA8IElOVF9NQVggdG8gYXZvaWQgc2lnbmVkIGludGVnZXIg
-b3ZlcmZsb3cgaW4gaGFuZGxlICsgMS4KPj4gKwkgKi8KPj4gKwlpZiAoYXJncy0+bmV3X2hhbmRs
-ZSA9PSAwIHx8IGFyZ3MtPm5ld19oYW5kbGUgPj0gSU5UX01BWCkKPj4gIAkJcmV0dXJuIC1FSU5W
-QUw7Cj4+ICAJaGFuZGxlID0gYXJncy0+bmV3X2hhbmRsZTsKPj4gIAo+Cj5bU2V2ZXJpdHk6IE1l
-ZGl1bV0KPlRoaXMgaXMgYSBwcmUtZXhpc3RpbmcgaXNzdWUsIGJ1dCBjYW4gY2FsbGluZyBpZHJf
-YWxsb2MoKSB3aXRoIEdGUF9OT1dBSVQKPmluc2lkZSBhIHNwaW5sb2NrIHdpdGhvdXQgYSBwcmVj
-ZWRpbmcgaWRyX3ByZWxvYWQoKSBjYXVzZSBzcHVyaW91cyBtZW1vcnkKPmFsbG9jYXRpb24gZmFp
-bHVyZXM/Cj4KPmRyaXZlcnMvZ3B1L2RybS9kcm1fZ2VtLmM6ZHJtX2dlbV9jaGFuZ2VfaGFuZGxl
-X2lvY3RsKCkgewo+CS4uLgo+CXNwaW5fbG9jaygmZmlsZV9wcml2LT50YWJsZV9sb2NrKTsKPgku
-Li4KPglyZXQgPSBpZHJfYWxsb2MoJmZpbGVfcHJpdi0+b2JqZWN0X2lkciwgb2JqLCBoYW5kbGUs
-IGhhbmRsZSArIDEsCj4JCQlHRlBfTk9XQUlUKTsKPgkuLi4KPn0KPgo+QmVjYXVzZSBoYW5kbGUg
-aXMgdXNlci1jb250cm9sbGVkIGFuZCBjYW4gYmUgdXAgdG8gSU5UX01BWCAtIDEsIHRoZSBJRFIg
-cmFkaXgKPnRyZWUgbWF5IG5lZWQgdG8gYWxsb2NhdGUgbXVsdGlwbGUgZGVlcCB0cmVlIG5vZGVz
-LiBXaXRob3V0IHByZWxvYWRpbmcsIGlzIGl0Cj5wb3NzaWJsZSBmb3IgdGhpcyBHRlBfTk9XQUlU
-IGFsbG9jYXRpb24gdG8gZmFpbCB1bmRlciBtZW1vcnkgcHJlc3N1cmUsIGNhdXNpbmcKPnRoZSBp
-b2N0bCB0byBzcHVyaW91c2x5IHJldHVybiAtRU5PTUVNPwo+Cj5bU2V2ZXJpdHk6IENyaXRpY2Fs
-XQo+VGhpcyBpcyBhIHByZS1leGlzdGluZyBpc3N1ZSwgYnV0IGRvZXMgYSByYWNlIGNvbmRpdGlv
-biBleGlzdCBiZXR3ZWVuCj5kcm1fZ2VtX2NoYW5nZV9oYW5kbGVfaW9jdGwoKSBhbmQgRFJNX0lP
-Q1RMX0dFTV9DTE9TRSBkdWUgdG8gYSBsb2NrbGVzcwo+d2luZG93Pwo+Cj5kcml2ZXJzL2dwdS9k
-cm0vZHJtX2dlbS5jOmRybV9nZW1fY2hhbmdlX2hhbmRsZV9pb2N0bCgpIHsKPgkuLi4KPglpZHJf
-cmVwbGFjZSgmZmlsZV9wcml2LT5vYmplY3RfaWRyLCBOVUxMLCBhcmdzLT5oYW5kbGUpOwo+CXNw
-aW5fdW5sb2NrKCZmaWxlX3ByaXYtPnRhYmxlX2xvY2spOwo+CS4uLgo+fQo+Cj5kcm1fZ2VtX2No
-YW5nZV9oYW5kbGVfaW9jdGwoKSBsb29rcyB1cCBhcmdzLT5oYW5kbGUgbG9ja2xlc3NseSwgZ2Fp
-bmluZyBhCj50ZW1wb3Jhcnkga3JlZi4gQmV0d2VlbiB0aGlzIGxvb2t1cCBhbmQgYWNxdWlyaW5n
-IHRhYmxlX2xvY2ssIGNvdWxkIGFub3RoZXIKPnRocmVhZCBjYWxsIERSTV9JT0NUTF9HRU1fQ0xP
-U0Ugb24gYXJncy0+aGFuZGxlLCByZW1vdmluZyBpdCBmcm9tIHRoZSBJRFIgYW5kCj5yZWxlYXNp
-bmcgaXRzIGhhbmRsZSByZWZlcmVuY2U/Cj4KPldoZW4gZHJtX2dlbV9jaGFuZ2VfaGFuZGxlX2lv
-Y3RsKCkgcmVzdW1lcywgaXQgaWdub3JlcyB0aGUgcmV0dXJuIHZhbHVlIG9mCj5pZHJfcmVwbGFj
-ZSguLi4sIE5VTEwsIGFyZ3MtPmhhbmRsZSkgYW5kIHVuY29uZGl0aW9uYWxseSBhc3NvY2lhdGVz
-Cj5hcmdzLT5uZXdfaGFuZGxlIHdpdGggb2JqLgo+Cj5TaW5jZSB0aGUgaGFuZGxlIHJlZmVyZW5j
-ZSB3YXMgZHJvcHBlZCBieSB0aGUgY29uY3VycmVudCBjbG9zZSwgYW5kIHRoaXMKPmZ1bmN0aW9u
-IGRvZXNuJ3QgYWNxdWlyZSBhIG5ldyBvbmUgZm9yIHRoZSBuZXcgaGFuZGxlLCBjb3VsZCBvYmog
-YmUgbGVmdCBpbgo+dGhlIElEUiB3aXRob3V0IGEgY29ycmVzcG9uZGluZyBoYW5kbGUgcmVmZXJl
-bmNlPwo+Cj5XaGVuIHRoZSB0ZW1wb3JhcnkgbG9va3VwIGtyZWYgaXMgZHJvcHBlZCB2aWEgZHJt
-X2dlbV9vYmplY3RfcHV0KG9iaikgYXQgdGhlCj5lbmQgb2YgdGhlIGZ1bmN0aW9uLCB0aGUgb2Jq
-ZWN0IGlzIGZyZWVkLCBidXQgYXJncy0+bmV3X2hhbmRsZSBzdGlsbCBwb2ludHMgdG8KPml0IGlu
-IHRoZSBJRFIuIENvdWxkIHN1YnNlcXVlbnQgYWNjZXNzIHRvIHRoaXMgaGFuZGxlIHRyaWdnZXIg
-YW4gZXhwbG9pdGFibGUKPnVzZS1hZnRlci1mcmVlPwo+Cj4tLSAKPlNhc2hpa28gQUkgcmV2aWV3
-IKGkIGh0dHBzOi8vc2FzaGlrby5kZXYvIy9wYXRjaHNldC8yMDI2MDYwNTE0MjY0NC4xMjA1OTIy
-LTEtdzE1MzAzNzQ2MDYyQDE2My5jb20/cGFydD0xCg==
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The panel is added to the DRM subsystem before its DSI links are f=
+ully configured and attached, creating a race condition.
+- [High] Asymmetric panel `.prepare`/`.enable` and `.disable`/`.unprepare` =
+callbacks.
+- [High] Missing device link to the secondary DSI host allows it to be unbo=
+und while the panel is still active, leading to a use-after-free.
+--
+
+commit c609396440aafc34634a32d089165e7df2d383ce
+Author: KancyJoe <kancy2333@outlook.com>
+
+drm: panel: add support for the Renesas R63419 based dual-DSI video mode Di=
+splay Panels
+
+Implement support for the Renesas 63419 based dual-DSI video mode Display
+Panels found in the Ayaneo gaming handled devices.
+
+> diff --git a/drivers/gpu/drm/panel/panel-renesas-r63419.c b/drivers/gpu/d=
+rm/panel/panel-renesas-r63419.c
+> new file mode 100644
+> index 0000000000000..a70de95d4f215
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-renesas-r63419.c
+> @@ -0,0 +1,366 @@
+[ ... ]
+> +static const struct drm_panel_funcs renesas_r63419_panel_funcs =3D {
+> +	.disable =3D renesas_r63419_disable,
+> +	.prepare =3D renesas_r63419_prepare,
+> +	.unprepare =3D renesas_r63419_unprepare,
+> +	.get_modes =3D renesas_r63419_get_modes,
+> +	.get_orientation =3D renesas_r63419_get_orientation,
+> +};
+
+[Severity: High]
+Does this create asymmetric panel callbacks by providing .disable without
+an .enable? If the DRM core or a bridge driver performs a simple display cy=
+cle
+by calling drm_panel_disable() followed by drm_panel_enable() without a full
+unprepare/prepare cycle, the panel will be turned off in .disable but never
+turned back on since .enable is NULL.
+
+Should the DSI power-on commands in renesas_r63419_on() be moved to an .ena=
+ble
+callback, or alternatively, should the power-off commands be moved to .unpr=
+epare
+and .disable removed entirely?
+
+[ ... ]
+> +static int renesas_r63419_probe(struct mipi_dsi_device *dsi)
+> +{
+[ ... ]
+> +	/* Register the second DSI device */
+> +	ctx->dsi[1] =3D devm_mipi_dsi_device_register_full(dev, dsi1_host, &inf=
+o);
+> +	if (IS_ERR(ctx->dsi[1]))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->dsi[1]),
+> +				     "Failed to register second DSI device\n");
+
+[Severity: High]
+Does this leave the secondary DSI device vulnerable to uncoordinated unbind=
+ing?
+Since ctx->dsi[1] is registered as a child of dsi1_host, if dsi1_host is un=
+bound
+via sysfs or module removal, the driver core will automatically unregister =
+and
+free its children.
+
+Without a device link to dsi1_host->dev, the panel driver is not notified of
+this removal and will retain a dangling pointer to ctx->dsi[1]. If the pane=
+l is
+subsequently disabled or unbound, it could dereference ctx->dsi[1] in
+renesas_r63419_disable() or trigger a double-unregister in the devres clean=
+up
+path.
+
+[ ... ]
+> +	ret =3D devm_drm_panel_add(dev, &ctx->panel);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to add panel\n");
+> +
+> +	/* Configure and attach both DSI devices */
+> +	for (i =3D 0; i < ARRAY_SIZE(ctx->dsi); i++) {
+> +		ctx->dsi[i]->lanes =3D ctx->desc->lanes;
+> +		ctx->dsi[i]->format =3D ctx->desc->format;
+> +		ctx->dsi[i]->mode_flags =3D ctx->desc->mode_flags;
+> +
+> +		ret =3D devm_mipi_dsi_attach(dev, ctx->dsi[i]);
+> +		if (ret < 0)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to attach DSI device %d\n", i);
+> +	}
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+Could this expose the panel to the DRM subsystem too early? Calling
+devm_drm_panel_add() before configuring and attaching the DSI devices creat=
+es
+a race condition where a display controller could bind and attempt to enable
+the panel immediately.
+
+This would invoke the panel's .prepare() callback before the DSI lanes, for=
+mat,
+and mode flags are applied, and before the DSI hosts are actually attached,
+potentially leading to DCS command transmission failures or hardware
+configuration errors. Should devm_drm_panel_add() be called after the DSI
+devices are successfully attached?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605-topic-sm86=
+50-ayaneo-pocket-s2-r63419-v7-0-b84b6da84293@linaro.org?part=3D2
