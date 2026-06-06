@@ -4,64 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1432DCD8C8E
-	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 18:40:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81B02CD8C8E
+	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 18:57:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D940210E830;
-	Sat,  6 Jun 2026 18:40:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 326DE10E292;
+	Sat,  6 Jun 2026 18:57:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="EW2TQW2i";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="BhHlnPsu";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0892710E830
- for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 18:40:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1780771190; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=PqpQa88e5bwqmcaFA652JDeAPdo+EOirG8JoaGnOdeGMNiVLJ5Uzlpl218WxKgCy8unw/EIiMKfax7XKf75o2ThaNP19cCBDN8jZKEDfapoCdv/2wfUAoJ1Qwiz3CnPrxS08u3/phM4ZZUdvttFLm+nSyF76FiS+xHG/05CFeik=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1780771190;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=IBRJ5xkb51o4nAEKxK2DLYLkB7ZAohg6NhCUWzAEfEY=; 
- b=DCGaDpLYVGoeQHJFRHM1S9Ns+VL2jKdFAQFqcExWgx1TFK6rd+8lcfoyJvoHetPxJHdk7joun4R64wt6k8CZEqELXDKcYv4ExKEO2/cVdl0YbqXHceOJmpZYbSdNmojqYFWuC+Bb7g+6qamZEWTNqJiy8xxm4FuSfj8dvhqHwCg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780771190; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=IBRJ5xkb51o4nAEKxK2DLYLkB7ZAohg6NhCUWzAEfEY=;
- b=EW2TQW2ik9fFVdgLR0PbTgjVTmfoNOG5VpEV5TzF4FPSFQasfiLv2mUKGlyrHssn
- WUSgQ4nQr6e/320sZagA2tq1qlqYxbup/yc0JmOmgDppnS2F5AHDOwfBbrUVsq27gwD
- E/muLbn7oa/shoyqZQ2/zPhHSeoSPHdUlbDk4VM4=
-Received: by mx.zohomail.com with SMTPS id 1780771187168175.71050321767996;
- Sat, 6 Jun 2026 11:39:47 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22C4510E292
+ for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 18:57:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=JcdQ8U/FxF60JIx6GZcxkR6n8niRCwE5zF2E00xKad4=; b=BhHlnPsu7KMUOWqckPe7n17iHs
+ Fubn27bR8y+Fq2v2VZEW9rHQRPZoQOu63IOIrFX5rjGXsGYd/yYE0TuyZmtS0whFnIBd1mZ1Jv6+f
+ WYi2Dv8JrVFTbn1htWWOoXLE3+6VEhUlmx51HcoYohX+y9cWdWizNWibPsB262EM8rb3pMinshI8B
+ FJl/7y1ZBIMqCtF/rB8fwT8i5tABIKxktVSizkx7Mm5j/XDs2sp75Sc85XS6l81dUzAvupAay+Kh9
+ V7NBcm13rPPI5ugsLf8ySgECwPLWJSeSj3Uzl6KOzEnOy5gjpN1T7leIKjf+YwxTfPFj2r1iboXr+
+ 47XKLyUw==;
+Received: from [189.7.87.67] (helo=prince) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wVwCj-00DhhS-Ul; Sat, 06 Jun 2026 20:57:10 +0200
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Emma Anholt <anholt@igalia.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Hans Verkuil <hverkuil+cisco@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, kernel@collabora.com,
- Daniel Stone <daniels@collabora.com>
-Subject: Re: [PATCH v5 3/4] drm/display: bridge_connector: init scdc debugfs
- for HDMI
-Date: Sat, 06 Jun 2026 20:39:39 +0200
-Message-ID: <kFXCAerTTJqUXQYeypgmPw@collabora.com>
-In-Reply-To: <20260606-bright-smooth-chihuahua-3eac7f@houat>
-References: <20260604-scdc-link-health-v5-0-11173b0ac3de@collabora.com>
- <20260604-scdc-link-health-v5-3-11173b0ac3de@collabora.com>
- <20260606-bright-smooth-chihuahua-3eac7f@houat>
+ Simona Vetter <simona@ffwll.ch>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Stefan Wahren <wahrenst@gmx.net>
+Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+Subject: [PATCH] drm/v3d: Deprecate V3D 3.3 and 4.1 support
+Date: Sat,  6 Jun 2026 15:55:13 -0300
+Message-ID: <20260606185616.694188-2-mcanal@igalia.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,68 +65,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Saturday, 6 June 2026 10:54:23 Central European Summer Time Maxime Ripard wrote:
-> Hi,
-> 
-> On Thu, Jun 04, 2026 at 05:52:08PM +0200, Nicolas Frattaroli wrote:
-> > On drm_bridge_connectors that contain an HDMI bridge, initialise the
-> > SCDC debugfs entry under the connector's debugfs root.
-> > 
-> > Reviewed-by: Daniel Stone <daniels@collabora.com>
-> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> > ---
-> >  drivers/gpu/drm/display/drm_bridge_connector.c | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-> > index cafa498c3848..629d9b8aff22 100644
-> > --- a/drivers/gpu/drm/display/drm_bridge_connector.c
-> > +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-> > @@ -25,6 +25,7 @@
-> >  #include <drm/display/drm_hdmi_cec_helper.h>
-> >  #include <drm/display/drm_hdmi_helper.h>
-> >  #include <drm/display/drm_hdmi_state_helper.h>
-> > +#include <drm/display/drm_scdc_helper.h>
-> >  
-> >  /**
-> >   * DOC: overview
-> > @@ -263,6 +264,9 @@ static void drm_bridge_connector_debugfs_init(struct drm_connector *connector,
-> >  		if (bridge->funcs->debugfs_init)
-> >  			bridge->funcs->debugfs_init(bridge, root);
-> >  	}
-> > +
-> > +	if (bridge_connector->bridge_hdmi)
-> > +		drm_scdc_debugfs_init(connector, root);
-> >  }
-> 
-> We register the other debugfs entries in drm_debugfs_connector_add /
-> hdmi_debugfs_add. I don't think there's anything specific to bridge
-> connector here and it would benefit to drivers that don't use it as
-> well, so I think putting it in the generic part of the framework would
-> be better.
+V3D 3.3 (Broadcom BCM7268) and V3D 4.1 (Broadcom BCM7278) has had no
+in-tree userspace since Mesa dropped support in 2024, on the grounds
+that those generations were no longer being tested. The situation in
+the kernel is similar: the maintainers don't have this hardware, the
+hardware is not available for purchase, and there is no known user of
+these GPUs.
 
-Yeah, I tried that, but unfortunately this creates a dependency cycle
-during linking:
+With no userspace left to drive it and no known users, maintaining the
+ver <= 41 code paths is a cost without a benefit, considering that these
+paths are not being exercised on real hardware.
 
-depmod: ERROR: Cycle detected: drm_display_helper -> drm_kms_helper -> drm -> drm_display_helper
-depmod: ERROR: Cycle detected: drm_display_helper -> drm -> drm_display_helper
-depmod: ERROR: Found 3 modules in dependency cycles!
+As a first step toward removal, emit a deprecation warning at probe for
+V3D versions earlier than or equal to 4.1. The hardware remains
+functional for now; this only warns. If any real user appears and
+explain its use-case, support can be retained.
 
-My way of working around this was to move it into the target of the
-indirect function call for the connector, in this case the bridge
-connector.
+Schedule the removal of V3D 3.3 and 4.1 support to the next kernel
+release.
 
-If you have alternate suggestions I'm open to them; I don't know
-enough about the kernel's linking process and how people usually
-resolve these issues.
+Link: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/25851
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
+---
+ drivers/gpu/drm/v3d/v3d_drv.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-Kind regards,
-Nicolas Frattaroli
-
-> 
-> Maxime
-> 
-
-
-
+diff --git a/drivers/gpu/drm/v3d/v3d_drv.c b/drivers/gpu/drm/v3d/v3d_drv.c
+index 805d84435ee0..8d914dbc3315 100644
+--- a/drivers/gpu/drm/v3d/v3d_drv.c
++++ b/drivers/gpu/drm/v3d/v3d_drv.c
+@@ -4,7 +4,11 @@
+ /**
+  * DOC: Broadcom V3D Graphics Driver
+  *
+- * This driver supports the Broadcom V3D 3.3 and 4.1 OpenGL ES GPUs.
++ * This driver supports the Broadcom V3D 4.2 and 7.1 GPUs.
++ *
++ * Support for V3D 3.3 and 4.1 GPUs is deprecated and it will be removed
++ * in the next kernel release.
++ *
+  * For V3D 2.x support, see the VC4 driver.
+  *
+  * The V3D GPU includes a tiled render (composed of a bin and render
+@@ -414,6 +418,18 @@ static int v3d_platform_drm_probe(struct platform_device *pdev)
+ 	 */
+ 	WARN_ON(v3d->ver != gen);
+ 
++	/* V3D 3.3 and V3D 4.1 has had no in-tree userspace since Mesa
++	 * dropped support in 2024 (MR#25851) and they have no known users.
++	 * Due to that, support is scheduled for removal in the next release.
++	 */
++	if (v3d->ver <= V3D_GEN_41) {
++		dev_warn(dev,
++			 "V3D %u.%u support is deprecated and will be removed "
++			 "in the next kernel release. If you rely on this hardware, "
++			 "please report it to dri-devel@lists.freedesktop.org.\n",
++			 v3d->ver / 10, v3d->ver % 10);
++	}
++
+ 	v3d->cores = V3D_GET_FIELD(ident1, V3D_HUB_IDENT1_NCORES);
+ 	WARN_ON(v3d->cores > 1); /* multicore not yet implemented */
+ 
+-- 
+2.54.0
 
