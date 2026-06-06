@@ -4,60 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1074CCD8C93
-	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 07:19:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B0B1CD8C85
+	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 07:22:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87044112D6B;
-	Sat,  6 Jun 2026 07:19:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E914112D74;
+	Sat,  6 Jun 2026 07:22:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="key not found in DNS" (0-bit key; unprotected) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="M887kJVM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ihCgpgVx";
 	dkim-atps=neutral
-X-Greylist: delayed 37917 seconds by postgrey-1.36 at gabe;
- Fri, 05 Jun 2026 13:38:34 UTC
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net
- (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
- by gabe.freedesktop.org (Postfix) with ESMTP id C8F8111A891
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 13:38:34 +0000 (UTC)
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 298B5112D74
+ for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 07:22:55 +0000 (UTC)
+Received: by mail-dl1-f45.google.com with SMTP id
+ a92af1059eb24-13721dfd471so3573284c88.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 06 Jun 2026 00:22:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780730574; cv=none;
+ d=google.com; s=arc-20240605;
+ b=hkKvO6dPcKvSc56YXB5DoYpQe4HY0p7a6vVF0XmuquDKwJQXjMs6TQ9C/zl0nMvU19
+ +260Hbqfr6NUCvaM5ZZnelg2y1EZ0wzoN9RudVDJwYCc0qrlS6RoPj+YQUnFoqFZ3qd1
+ q7MN14OGiCoj/TX8kyGaSoBrU0W9Al260q5NwrPoY+y9dhkzyxhNoTcP8krvmznrNXr/
+ bIUqViov+9iDzfsJhKeTtCSrt1zEIaWiLZFf1nGg+51MTGfellOikCfgdIya1kZiYpEN
+ 1UHYkoxMb+Ovlnkrv5h0bS8yRhNzG8WyICCPucs8OX7tZSG43X326Vx9WV1Z1xa0JeJx
+ bx+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=XNsDZHZrfK8USkMmXJwaiXlbXh0rWP0T8pk6zwRtmPo=;
+ fh=AnylROuheLk7PtdkNbFde5iBCdvww2r4dG7odnfZcvE=;
+ b=A9QxLxnq4Inqvx5nvPJcd9BV0sqpPh8pXQDN85nQqZ+V/p/4t5wbzX4rh3YncLy5hc
+ ECSojg308FZp3xs918DapBsHYNpGkj0cKpnCCtbbHvAKSav3KMbICFs7FrdBvvEzbpYc
+ cHmgDEVMd1vCPOii1Ii55VI6sUWv1PAaTIZUY57leopGrmOQyB2ofcxZvvrE28Nk8pjx
+ uSCDjqFrQ/WvO/x/9b4ZoTFpgQTGPi7sSHzUC6c8WfzduARUhZLscjA0ztNkg78uu94N
+ 1txNsvrVCsOPogvhmOrAL/8LgX+tnfWeCsZ7Bj71zAKKaPM4SFjOkN/cOcl24QLQk+g/
+ XO/A==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=stu.xidian.edu.cn; s=dkim; h=Received:Date:From:To:Cc:Subject:
- In-Reply-To:References:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Message-ID; bh=C08mXYXLAcvdwyqphxmBVNT4yqV3noODPOqI
- x3k7ieI=; b=M887kJVMT4OmF6kDnUFzzgYa1xz/yFVts3G2zuk415smPFalep56
- pGZH1/sg+HJlf2I/9W1vY1iBgc9oUQNKnWvX79JtboWB8GLhsu2ZvO2M/cC59zRj
- cn0uYQhzcmUuw2M2WIBXW81OpwmZQ4S5TCSj4mAxq8JKFqY9crWL8pE=
-Received: from 25181214217$stu.xidian.edu.cn ( [113.200.174.80] ) by
- ajax-webmail-hzbj-edu-front-4.icoremail.net (Coremail) ; Fri, 5 Jun 2026
- 21:38:27 +0800 (GMT+08:00)
-X-Originating-IP: [113.200.174.80]
-Date: Fri, 5 Jun 2026 21:38:27 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?546L5piO54Wc?= <25181214217@stu.xidian.edu.cn>
-To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com, 
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: Re: [PATCH] drm/gem: fix warning in idr_alloc due to
- unvalidated user handle
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.3-cmXT6 build
- 20250410(2f5ccd7f) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-8dfce572-2f24-404d-b59d-0dd2e304114c-icoremail.cn
-In-Reply-To: <bfdf1fbe-d61c-4bf7-b6f0-d5c676224af4@suse.de>
-References: <20260422114247.486581-1-25181214217@stu.xidian.edu.cn>
- <388db131.142.19e95bef999.Coremail.25181214217@stu.xidian.edu.cn>
- <bfdf1fbe-d61c-4bf7-b6f0-d5c676224af4@suse.de>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+ d=gmail.com; s=20251104; t=1780730574; x=1781335374; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=XNsDZHZrfK8USkMmXJwaiXlbXh0rWP0T8pk6zwRtmPo=;
+ b=ihCgpgVxcqobcHO+oK4XJdGZpqAVYh27ca1tH9MWcPXQPI/2m/6pmKIHv6saLhhyQD
+ awHuQgFF5VMd4BSoXto5EVf9wCs1i43si+QzLf4WxVhBK4LmP3b+iWQ8Oni2clrVgsD+
+ FZ2mD8ykC2+mBXGaMn2UCztER/fUCvXjaW0UU2h6ND/OeAgMJRvw7KcLP9D1ou4/tUZN
+ pK0bQTvlTpAB4XulCBh+9Yd+g63HN5TeVsaN+4OPRCxOkRtwmq3xsXq8RJESd1l8WbKU
+ eonhguWn/GTetOHFZHU6y5vvG8nJi3jCXwzZTmn5hO5D+W3a1O2GFtJzgRngYFQXmBDn
+ oXfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780730574; x=1781335374;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=XNsDZHZrfK8USkMmXJwaiXlbXh0rWP0T8pk6zwRtmPo=;
+ b=rOyWmLmEX2jE7ooXqivcqr/ZrWppND0520qPPd5dluypiEq+fTBu/Ut52eM76GLISZ
+ 0iECU+5gsZyiU4pv0+E6v18Gd0a0RPOsX7DudDgi7UxiMJwC4Wx6ms9Yr0fEBcyO6sL9
+ Cj4zpJV0VPIY0R2TeNiMfe10FHug3/qXRBkJfOXpSEeij/MRAJd2MG1wiv5QFcNrlG+k
+ tE5roa4sN3Y2RLJrG1eRPS2mBXO2je78JOQ/CkEF71Hd+RWAxeHmRDyC7zbgvC0CLbh1
+ EYP+hXFTRia31vl0nCDbd7nymLMySTznkNQs0RdQMrSFrI3Upsr5Wss2yEeMeESLcsN1
+ oPzg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9PTG6axLljmHn9uU80+aXOKZ1pQeaVLNFYU5I8ftq4Oe2O24cWqpCdHhOEwesBTPAWNKF+4EGX3R0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyK57r/BMCB+YEYP2jkU3d3IuHNqmCpaIburmQDFZ0Q9eJpC+Qn
+ ZhOs1PNLLNYyOc5IoTdrrUhLB2N0Rf5igTIc61c4avzxvae2vjGnGTIbOj2mSUqws7xCBOyQfO9
+ 97mOGtGWs+khtpUN5acu+n6cZ+d1zwgE=
+X-Gm-Gg: Acq92OGkq5TTRvgjHSERNQZwg3Gdkm/tR/p1GuODF6Fgu3lhI/FlHVTIomLTh9j4v6G
+ LGJujT5bjrA5nJ8K+rQZiOnrs+318uTIa2yUNFTlZizeaXZttAjbhI5JG4Ou+iw22iQKMXQo2K9
+ atppNIqxlyXPhvCIYqr1q+JvZqCaLKN0l9Q0VGGLG3swuz0DKakUwvKksj4Uxaf9H25AQ5v1WPa
+ 5oeYpFsI+8F5KtsjstaXDlSOHgUpBwKv1IrKcqO7NA3v5Y7hqbnGYW6JJO0KoGdiMnD8nYM7ZOl
+ fsXAycBQqF7XA0Ha+7lG39kfYTo5Pg==
+X-Received: by 2002:a05:7300:7488:b0:2cb:4b8f:b2bd with SMTP id
+ 5a478bee46e88-3077af30ab5mr4444661eec.6.1780730574227; Sat, 06 Jun 2026
+ 00:22:54 -0700 (PDT)
 MIME-Version: 1.0
-Message-ID: <3f69ad35.77a.19e9801ac64.Coremail.25181214217@stu.xidian.edu.cn>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: BrQMCkC2XblT0SJqhLCIAg--.1980W
-X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAgUPEWohlm-oC
-	AABsK
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
- CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
- daVFxhVjvjDU=
-X-Mailman-Approved-At: Sat, 06 Jun 2026 07:19:14 +0000
+References: <20260606045738.21050-1-clamor95@gmail.com>
+ <20260606045738.21050-3-clamor95@gmail.com>
+ <aiPDzdKuccdLIvlF@ashevche-desk.local>
+In-Reply-To: <aiPDzdKuccdLIvlF@ashevche-desk.local>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Sat, 6 Jun 2026 10:22:43 +0300
+X-Gm-Features: AVVi8Ceg74fnSrmdqpxPSKGHcf0CnCmmeoCyMtr9C-KzyjgDa-9lYe4AaFHwWbI
+Message-ID: <CAPVz0n2rdgw8Xr3uxVdQGwrHTNFqK4SKQDFU2FEB8LzLwPhQ_A@mail.gmail.com>
+Subject: Re: [PATCH v4 02/14] mfd: lm3533: Remove driver specific regmap
+ wrappers
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+ Johan Hovold <johan@kernel.org>, 
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,85 +116,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-SGkgVGhvbWFzLAoKVGhhbmsgeW91IGZvciB0aGUgaW5zaWdodGZ1bCByZXZpZXcgYW5kIHN1Z2dl
-c3Rpb25zLiBZb3Ugd2VyZSBhYnNvbHV0ZWx5IHJpZ2h0IG9uIGJvdGggcG9pbnRzLgoKSSB3ZW50
-IGJhY2sgdG8gYW5hbHl6ZSB0aGUgU3l6a2FsbGVyIHJlcHJvZHVjZXIgdHJhY2UuIFRoZSBmdXp6
-ZXIgYWN0dWFsbHkgbWFuYWdlZCB0byBwYXNzIDB4ZmZmZmZmZmQgYXMgYXJncy0+bmV3X2hhbmRs
-ZS4gRHVlIHRvIHRoZSBleHBsaWNpdCAoaW50KSBjYXN0IGluIHRoZSBJTlRfTUFYIG1hY3JvIGRl
-ZmluaXRpb24sIGFuIGltcGxpY2l0IHR5cGUgY29udmVyc2lvbiBxdWlyayBhbGxvd2VkIHRoaXMg
-dmFsdWUgdG8gYnlwYXNzIHRoZSBhcmdzLT5uZXdfaGFuZGxlID4gSU5UX01BWCBjaGVjaywgdWx0
-aW1hdGVseSByZWFjaGluZyBpZHJfYWxsb2MgYXMgLTMgYW5kIHRyaWdnZXJpbmcgdGhlIHdhcm5p
-bmcuCgpUZXN0aW5nIHlvdXIgc3VnZ2VzdGlvbiB0byBleHBsaWNpdGx5IGNhc3QgSU5UX01BWCB0
-byB1MzIgc3VjY2Vzc2Z1bGx5IGNhdGNoZXMgdGhpcyBhbmQgcHJldmVudHMgdGhlIHdhcm5pbmcu
-CgpSZWdhcmRpbmcgeW91ciBzZWNvbmQgY29uY2VybiBhYm91dCBoYW5kbGUgKyAxLCBJIGNvbXBs
-ZXRlbHkgYWdyZWUuIElmIGhhbmRsZSBlcXVhbHMgSU5UX01BWCwgaGFuZGxlICsgMSB3aWxsIG92
-ZXJmbG93IHRvIGEgbmVnYXRpdmUgdmFsdWUuIEFsdGhvdWdoIGlkcl9hbGxvYyBoYW5kbGVzIG5l
-Z2F0aXZlIGVuZCB2YWx1ZXMgYnkgZmFsbGluZyBiYWNrIHRvIElOVF9NQVgsIGl0IGJyZWFrcyB0
-aGUgZXhhY3QtSUQgYWxsb2NhdGlvbiBsb2dpYyBpbnRlbmRlZCBoZXJlLgoKSSB3aWxsIHNlbmQg
-YSB2MiBwYXRjaCBzaG9ydGx5IHRoYXQgZXhwbGljaXRseSBjYXN0cyBJTlRfTUFYIGFuZCB0aWdo
-dGVucyB0aGUgYm91bmRhcnkgY2hlY2sgdG8gPj0gdG8gY292ZXIgdGhlIGhhbmRsZSArIDEgb3Zl
-cmZsb3cuCgpUaGFua3MsCk1pbmd5dQoKCj4gLS0tLS3ljp/lp4vpgq7ku7YtLS0tLQo+IOWPkeS7
-tuS6ujogIlRob21hcyBaaW1tZXJtYW5uIiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4KPiDlj5HpgIHm
-l7bpl7Q6MjAyNi0wNi0wNSAxNjowMjozMyAo5pif5pyf5LqUKQo+IOaUtuS7tuS6ujog546L5piO
-54WcIDwyNTE4MTIxNDIxN0BzdHUueGlkaWFuLmVkdS5jbj4sIG1hYXJ0ZW4ubGFua2hvcnN0QGxp
-bnV4LmludGVsLmNvbSwgbXJpcGFyZEBrZXJuZWwub3JnLCBhaXJsaWVkQGdtYWlsLmNvbSwgc2lt
-b25hQGZmd2xsLmNoCj4g5oqE6YCBOiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnLCBs
-aW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnCj4g5Li76aKYOiBSZTogW1BBVENIXSBkcm0vZ2Vt
-OiBmaXggd2FybmluZyBpbiBpZHJfYWxsb2MgZHVlIHRvIHVudmFsaWRhdGVkIHVzZXIgaGFuZGxl
-Cj4gCj4gSGkKPiAKPiBBbSAwNS4wNi4yNiB1bSAwNTowNiBzY2hyaWViIOeOi+aYjueFnDoKPiA+
-IEhpIG1haW50YWluZXJzLAo+ID4KPiA+IEp1c3QgYSBnZW50bGUgcGluZyBvbiB0aGlzIHBhdGNo
-LiBJdCBmaXhlcyBhIFdBUk4gdHJpZ2dlcmVkIGR1cmluZyBmdXp6aW5nIHdoZW4gbmVnYXRpdmUg
-dXNlciBoYW5kbGVzIGFyZSBwYXNzZWQuCj4gPgo+ID4gUGxlYXNlIGxldCBtZSBrbm93IGlmIGl0
-IG5lZWRzIGFueSByZXZpc2lvbnMgb3IgaWYgdGhlcmUgaXMgYW55dGhpbmcgZWxzZSBJIGNhbiBk
-byB0byBoZWxwIG1vdmUgaXQgZm9yd2FyZC4KPiA+Cj4gPiBUaGFua3MsCj4gPiBNaW5neXUKPiA+
-Cj4gPgo+ID4+IC0tLS0t5Y6f5aeL6YKu5Lu2LS0tLS0KPiA+PiDlj5Hku7bkuro6ICJNaW5neXUg
-V2FuZyIgPDI1MTgxMjE0MjE3QHN0dS54aWRpYW4uZWR1LmNuPgo+ID4+IOWPkemAgeaXtumXtDoy
-MDI2LTA0LTIyIDE5OjQyOjQ3ICjmmJ/mnJ/kuIkpCj4gPj4g5pS25Lu25Lq6OiBtYWFydGVuLmxh
-bmtob3JzdEBsaW51eC5pbnRlbC5jb20sIG1yaXBhcmRAa2VybmVsLm9yZywgdHppbW1lcm1hbm5A
-c3VzZS5kZSwgYWlybGllZEBnbWFpbC5jb20sIHNpbW9uYUBmZndsbC5jaAo+ID4+IOaKhOmAgTog
-ZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZywgbGludXgta2VybmVsQHZnZXIua2VybmVs
-Lm9yZywgIk1pbmd5dSBXYW5nIiA8MjUxODEyMTQyMTdAc3R1LnhpZGlhbi5lZHUuY24+Cj4gPj4g
-5Li76aKYOiBbUEFUQ0hdIGRybS9nZW06IGZpeCB3YXJuaW5nIGluIGlkcl9hbGxvYyBkdWUgdG8g
-dW52YWxpZGF0ZWQgdXNlciBoYW5kbGUKPiA+Pgo+ID4+IER1cmluZyBmdXp6aW5nLCBhIHdhcm5p
-bmcgd2FzIHRyaWdnZXJlZCBpbiBpZHJfYWxsb2MoKSB3aGVuIGhhbmRsaW5nCj4gPj4gdGhlIERS
-TV9JT0NUTF9HRU1fQ0hBTkdFX0hBTkRMRSAob3Igc2ltaWxhcikgaW9jdGwuCj4gPj4KPiA+PiBU
-aGUgZnVuY3Rpb24gZHJtX2dlbV9jaGFuZ2VfaGFuZGxlX2lvY3RsKCkgY3VycmVudGx5IG9ubHkg
-Y2hlY2tzIGlmCj4gPj4gYXJncy0+bmV3X2hhbmRsZSBpcyBzdHJpY3RseSBncmVhdGVyIHRoYW4g
-SU5UX01BWC4gSG93ZXZlciwgaXQgZmFpbHMKPiA+PiB0byBjaGVjayBmb3IgbmVnYXRpdmUgdmFs
-dWVzLiBJZiBhIHVzZXJwYWNlIGFwcGxpY2F0aW9uIHBhc3NlcyBhCj4gPj4gbmVnYXRpdmUgaGFu
-ZGxlLCBpdCBieXBhc3NlcyB0aGUgdXBwZXItYm91bmQgY2hlY2sgYW5kIGlzIHBhc3NlZAo+ID4+
-IGRpcmVjdGx5IHRvIGlkcl9hbGxvYygpIGFzIHRoZSAnc3RhcnQnIHBhcmFtZXRlciwgdHJpZ2dl
-cmluZyB0aGUKPiA+PiBXQVJOX09OX09OQ0Uoc3RhcnQgPCAwKSBpbnNpZGUgaWRyX2FsbG9jKCku
-Cj4gCj4gYXJncy0+bmV3X2hhbmRsZSBpcyB1bnNpZ25lZC7CoCBJSVJDLCBmb3IgdGhlIHRlc3Qs
-IElOVF9NQVggc2hvdWxkIGJlIAo+IGludGVycHJldGVkIGFzIHVuc2lnbmVkIGFzIHdlbGwuIFNv
-IGhvdyBjYW4gaXQgZ2V0IGFjcm9zcyB0aGUgSU5UX01BWCAKPiB0ZXN0PyBUaGVyZSdzIGFuIGV4
-cGxpY2l0IGNhc3QgdG8gaW50IGF0IFsxXSwgd2hpY2ggbWlnaHQgaGF2ZSBhbiBlZmZlY3QgCj4g
-aGVyZS4KPiAKPiBEb2VzIGl0IHdvcmsgb2YgeW91IGV4cGxpY2l0bHkgY2FzdCBJTlRfTUFYIHRv
-IHUzMiBpbiB0aGF0IHRlc3Q/Cj4gCj4gSSdtIGFsc28gd29ycmllZCBhYm91dCBpbnRlcnByZXRp
-bmcgdGhlIGhhbmRsZSBhcyBzaWduZWQgYW5kIHRoZW4gYWRkaW5nIAo+ICsxIHRvIGl0LiBbMl3C
-oCBpZHJfYWxsb2MoKSBhcHBlYXJzIHRvIGhhbmRsZSBpdCBncmFjZWZ1bGx5LCBbM10gYnV0IGl0
-IAo+IHN0aWxsIGxvb2tzIGZpc2h5Lgo+IAo+IFsxXSBodHRwczovL2VsaXhpci5ib290bGluLmNv
-bS9saW51eC92Ny4wLjExL3NvdXJjZS9pbmNsdWRlL3Zkc28vbGltaXRzLmgjTDgKPiBbMl0gCj4g
-aHR0cHM6Ly9lbGl4aXIuYm9vdGxpbi5jb20vbGludXgvdjcuMC4xMS9zb3VyY2UvZHJpdmVycy9n
-cHUvZHJtL2RybV9nZW0uYyNMMTAzMwo+IFszXSBodHRwczovL2VsaXhpci5ib290bGluLmNvbS9s
-aW51eC92Ny4wLjExL3NvdXJjZS9saWIvaWRyLmMjTDg5Cj4gCj4gQmVzdCByZWdhcmRzCj4gVGhv
-bWFzCj4gCj4gPj4KPiA+PiBGaXggdGhpcyBieSBleHBsaWNpdGx5IHZhbGlkYXRpbmcgdGhhdCB0
-aGUgdXNlci1wcm92aWRlZCBoYW5kbGUgaXMKPiA+PiBzdHJpY3RseSBwb3NpdGl2ZSBhbmQgd2l0
-aGluIHRoZSB2YWxpZCBJRFIgcmFuZ2UuCj4gPj4KPiA+PiBTaWduZWQtb2ZmLWJ5OiBNaW5neXUg
-V2FuZyA8MjUxODEyMTQyMTdAc3R1LnhpZGlhbi5lZHUuY24+Cj4gPj4gLS0tCj4gPj4gICBkcml2
-ZXJzL2dwdS9kcm0vZHJtX2dlbS5jIHwgMiArLQo+ID4+ICAgMSBmaWxlIGNoYW5nZWQsIDEgaW5z
-ZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCj4gPj4KPiA+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2RybV9nZW0uYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fZ2VtLmMKPiA+PiBpbmRleCBk
-NjQyNDI2NzI2MGIuLjNkODRkNGYxYzNlMCAxMDA2NDQKPiA+PiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vZHJtX2dlbS5jCj4gPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9nZW0uYwo+ID4+IEBA
-IC0xMDI2LDcgKzEwMjYsNyBAQCBpbnQgZHJtX2dlbV9jaGFuZ2VfaGFuZGxlX2lvY3RsKHN0cnVj
-dCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCj4gPj4gICAJCXJldHVybiAtRU9QTk9UU1VQ
-UDsKPiA+PiAgIAo+ID4+ICAgCS8qIGlkcl9hbGxvYygpIGxpbWl0YXRpb24uICovCj4gPj4gLQlp
-ZiAoYXJncy0+bmV3X2hhbmRsZSA+IElOVF9NQVgpCj4gPj4gKwlpZiAoYXJncy0+bmV3X2hhbmRs
-ZSA8PSAwIHx8IGFyZ3MtPm5ld19oYW5kbGUgPiBJTlRfTUFYKQo+ID4+ICAgCQlyZXR1cm4gLUVJ
-TlZBTDsKPiA+PiAgIAloYW5kbGUgPSBhcmdzLT5uZXdfaGFuZGxlOwo+ID4+ICAgCj4gPj4gLS0g
-Cj4gPj4gMi4zNC4xCj4gCj4gLS0gCj4gLS0KPiBUaG9tYXMgWmltbWVybWFubgo+IEdyYXBoaWNz
-IERyaXZlciBEZXZlbG9wZXIKPiBTVVNFIFNvZnR3YXJlIFNvbHV0aW9ucyBHZXJtYW55IEdtYkgK
-PiBGcmFua2Vuc3RyLiAxNDYsIDkwNDYxIE7DvHJuYmVyZywgR2VybWFueSwgd3d3LnN1c2UuY29t
-Cj4gR0Y6IEpvY2hlbiBKYXNlciwgQW5kcmV3IE1jRG9uYWxkLCBXZXJuZXIgS25vYmxpY2gsIChI
-UkIgMzY4MDksIEFHIE7DvHJuYmVyZykKPiAK
+=D1=81=D0=B1, 6 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 09:53=
+ Andy Shevchenko <andriy.shevchenko@intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Sat, Jun 06, 2026 at 07:57:26AM +0300, Svyatoslav Ryhel wrote:
+> > Remove driver-specific regmap wrappers in favor of using regmap helpers
+> > directly.
+>
+> I like the idea of this patch. Nevertheless I have some suggestions below=
+.
+>
+> ...
+>
+> >  {
+> >       struct lm3533_als *als =3D iio_priv(indio_dev);
+> >       u8 reg;
+> > -     u8 val;
+> > +     u32 val;
+>
+> Strictly speaking this should be unsigned int. The regmap API use unsigne=
+d int.
+>
+
+Yes, though regmap defines only 8 bit to be used so it should not matter
+
+> ...
+>
+> >  static int lm3533_als_set_int_mode(struct iio_dev *indio_dev, int enab=
+le)
+> >  {
+> >       struct lm3533_als *als =3D iio_priv(indio_dev);
+> > -     u8 mask =3D LM3533_ALS_INT_ENABLE_MASK;
+> > -     u8 val;
+> >       int ret;
+> >
+> > -     if (enable)
+> > -             val =3D mask;
+> > -     else
+> > -             val =3D 0;
+> > -
+> > -     ret =3D lm3533_update(als->lm3533, LM3533_REG_ALS_ZONE_INFO, val,=
+ mask);
+> > +     ret =3D regmap_assign_bits(als->lm3533->regmap, LM3533_REG_ALS_ZO=
+NE_INFO,
+> > +                              LM3533_ALS_INT_ENABLE_MASK, enable);
+>
+> In cases like this perhaps leaving mask would be fine and together with
+
+I prefer to remove intermediate variables it the helper allows to
+directly pass needed value.
+
+>
+>         struct regmap *map =3D als->lm3533->regmap;
+>
+
+next patch drops lm3533 so there will be als->regmap which IMHO is
+more logical instead of passing entire lm3533 to child devices.
+
+> this be nice one-liner:
+>
+>         ret =3D regmap_assign_bits(map, LM3533_REG_ALS_ZONE_INFO, mask, e=
+nable);
+>
+> >       if (ret) {
+> >               dev_err(&indio_dev->dev, "failed to set int mode %d\n",
+> >                                                               enable);
+>
+> In many cases it won't increase LoC count.
+>
+> ...
+>
+> >  extern int lm3533_ctrlbank_set_brightness(struct lm3533_ctrlbank *cb, =
+u8 val);
+> > -extern int lm3533_ctrlbank_get_brightness(struct lm3533_ctrlbank *cb, =
+u8 *val);
+> > +extern int lm3533_ctrlbank_get_brightness(struct lm3533_ctrlbank *cb, =
+u32 *val);
+>
+> >  extern int lm3533_ctrlbank_set_pwm(struct lm3533_ctrlbank *cb, u8 val)=
+;
+> > -extern int lm3533_ctrlbank_get_pwm(struct lm3533_ctrlbank *cb, u8 *val=
+);
+> > +extern int lm3533_ctrlbank_get_pwm(struct lm3533_ctrlbank *cb, u32 *va=
+l);
+>
+> Now they become asymmetrical. Perhaps to replace setters, but be careful =
+about
+> upper bits.
+>
+
+Yes, I have same thoughts. Upper beats should be irrelevant since
+regmap should use only fist 8 bits but I will be careful, thanks.
+
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
