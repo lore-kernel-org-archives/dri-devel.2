@@ -4,43 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D9EFCD8C8E
-	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 16:09:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3E3ECD8C8E
+	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 16:32:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27BFB10E807;
-	Sat,  6 Jun 2026 16:09:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E71D10E1ED;
+	Sat,  6 Jun 2026 16:32:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Mu1cwARw";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="HbGzotYl";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8991710E807
- for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 16:09:49 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C3907601DB;
- Sat,  6 Jun 2026 16:09:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 444461F00893;
- Sat,  6 Jun 2026 16:09:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780762188;
- bh=UU4+L6VOGvFZSnzT4xzp2r5otq47WoVM74TB0ENW6m0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Mu1cwARwiU5oKaS2Kg0B86cRrJerm5xroO01PGsDsECvYrObYhFOR3C6TZtQvdLGY
- uLS1SZTVl/FxesEw2mb8YSqoj+ZPQSboWUC8iGOZwr4o3U9JBeQmmCw/Vix7KQ2WSf
- JYLNCCUf0WW/zvFCriL9TZYwqdCGdfXPdcUL/Fbh0mOS2tJ+8fb+r7M2NVCMoPOxZ4
- l8uRkuRaHL0inQMyz1H9viM7mk1LDzg5/ijS+5QWLzgIfAeCgGdvOM3IFd2gLzdSTi
- Nm8nnycaUPLcvrhaXjSJOMZfp230oB9YEnZlvpusuMdmKj4Bt33WmVpPAqqEVn1V8S
- OpmDJasUuuV5Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/nouveau/acr: fix missing nvkm_done() in error path
- of nvkm_acr_oneinit()
-To: "Wentao Liang" <vulab@iscas.ac.cn>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260606155606.77593-1-vulab@iscas.ac.cn>
-References: <20260606155606.77593-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=utf-8
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFBDC10E1ED
+ for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 16:32:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1780763514; x=1781368314; i=natalie.vock@gmx.de;
+ bh=pu9Y/1db4ddY2fvcdaqOKNsuLfkux6ZxDG6udwBi+FM=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=HbGzotYlLBYXJg96I1QOtQm+EUjOGFW6274hBeNJ3RTJNvcqUiQx/L9jEyn9RY8s
+ K4YnKJdvTDTUABlW/c0ZzHTHgor/MWV8zNbSRXSHCcM5lDYXWuLltQB4BCT5fb94h
+ 3AVq7eh3hWKcwtOyKHN/GG5TM60psRJH46QdutGnypulHtpjTiUVmqfhfA4ysYMUU
+ ZF6HJX2w/PBPAc1bcRmAzcbQpnedCS9A4Q40GFJSX3cIAcQQHHHinn6Kv9aHAx3mN
+ 761yU2WBp+W/84V0uigr/1ete4xUzmMgiytOjbGsy7d6Y85zlNOsNZiQYvmplt9D6
+ ZPd7JMxzwsDfnFbUow==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MC30Z-1wOVPD0X2j-00EE81; Sat, 06
+ Jun 2026 18:31:54 +0200
+Message-ID: <271b1c16-3c3c-4a1e-b09e-c4361c63814c@gmx.de>
+Date: Sat, 6 Jun 2026 18:31:53 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cgroup/dmem: accept only one region per limit write
+To: Eric Chanudet <echanude@redhat.com>, Maarten Lankhorst
+ <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Albert Esteve <aesteve@redhat.com>
+References: <20260605-cgroup-dmem-write-single-region-v1-1-9137f296579c@redhat.com>
+Content-Language: en-US
+From: Natalie Vock <natalie.vock@gmx.de>
+In-Reply-To: <20260605-cgroup-dmem-write-single-region-v1-1-9137f296579c@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 06 Jun 2026 16:09:47 +0000
-Message-Id: <20260606160948.444461F00893@smtp.kernel.org>
+X-Provags-ID: V03:K1:GeqB1KHB8+oY7GplIx7scS9gLJSL2XEOIdPhnns0GNIwOG/AEIy
+ PVnpXcSeDwVcbn9jQyRLZF+2RtNWRcXythUjn9uN3v38LSYpUfyWOtnn2LTFDesui34Ix9D
+ aKaBzyVEKx9R7HCuca3MyGrynWCE3FK1rhs9z7lAts62u8Mort8aHjstsZ2hUxgJIsvzDRy
+ 1VyA6aqLwlO+G448Pk+IA==
+UI-OutboundReport: notjunk:1;M01:P0:rkntulTOD78=;TVYaZu3xxAL0okeGjJBFk77PPzM
+ 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
+ n+9FHen/HKY6ocUeb0VC9+n1J2yb0PW88gBCbnN
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,117 +146,178 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On 6/6/26 00:44, Eric Chanudet wrote:
+> Accept only one "region value" pair entry for the dmem.max, dmem.min,
+> dmem.low files.>
+> This changes the UAPI that otherwise accepted multiple lines for setting
+> multiple entries in one write. No existing user is known to rely on
+> writing multiple regions in a single write.
 
-Pre-existing issues:
-- [Medium] Incomplete fix of memory mapping reference leak. The patch adds =
-one `nvkm_done(acr->wpr)` before returning `-EINVAL`, but `nvkm_kmap(acr->w=
-pr)` was called twice on this code path.
-- [Medium] The commit message demonstrates a misunderstanding of the contro=
-l flow, stating that the function returns `-EINVAL` only when a mismatch is=
- detected.
-- [Medium] The return values of `acr->func->wpr_build()` and `acr->func->wp=
-r_patch()` are ignored, allowing initialization to proceed with corrupted f=
-irmware data.
-- [Medium] The WPR comparison loop can read out of bounds of the `acr->wpr`=
- memory object and the firmware data blob.
---
+Ugh, shoot.
 
-commit 018071a64ea846382bbfa2aefceef09269c67376
-Author: Wentao Liang <vulab@iscas.ac.cn>
+For dmem.low specifically, there already are some userspace thingies=20
+floating around that may write more than one region/value pairs.
 
-drm/nouveau/acr: fix missing nvkm_done() in error path of nvkm_acr_oneinit()
+These thingies all depend on that one patchset for dmemcg protection=20
+that I should really get around to merging[1]. Since the userspace=20
+utilities depend on not-yet-merged patches, they sort of have to expect=20
+stuff changing under their belts, so I wouldn't really consider those=20
+users a blocker by necessity.
 
-This commit attempts to fix a memory mapping reference leak in
-nvkm_acr_oneinit() by adding a missing nvkm_done() call in the error
-path during WPR comparison.
+As I see it, we could go down one of two paths:
+1. We go ahead with the patch as proposed, and I make sure that the=20
+users I know of adapt. Could be a bit icky wrt. "do not break userspace"=
+=20
+rules, but since the already use non-merged UAPIs in one place, you can=20
+argue that these users kind of have to expect breakage.
+2. We use the old handling allowing multiple lines for dmem.min and=20
+dmem.low only. This preserves compatibility but uglifies the code by=20
+quite a bit.
 
->     However, when a mismatch is detected during the loop within the
->     conditional block, the function returns -EINVAL at line 318 without
->     calling nvkm_done(). This results in a leak of the kmap reference(s)
->     acquired earlier.
+All things considered, I think I personally would prefer going with 1.=20
+and taking the patch as proposed and just having one codepath handling=20
+every limit file. Just highlighting this so we don't do it on accident.
 
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the commit message states the
-function returns -EINVAL when a mismatch is detected.
+[1] https://patchwork.freedesktop.org/series/163183/
 
-Looking at nvkm_acr_oneinit(), the return statement is unconditional for the
-entire block and happens regardless of whether a mismatch is detected:
+Some more review comments inline.
 
-	if (acr->wpr_fw && acr->wpr_comp) {
-		nvkm_kmap(acr->wpr);
-		for (i =3D 0; i < acr->wpr_fw->size; i +=3D 4) {
-			...
-			if (fw !=3D us) {
-				nvkm_warn(...);
-			}
-		}
-		nvkm_done(acr->wpr);
-		return -EINVAL;
-	}
+>=20
+> Processing multiple regions in dmemcg_limit_write() could quietly change
+> first limits before failing on a later one and returning an error to the
+> writer, with no indication some changes occurred.
+>=20
+> Signed-off-by: Eric Chanudet <echanude@redhat.com>
+> ---
+> Follow up from discussions on a previous thread[1].
+> If Albert's series[2] lands, I can cleanup and prepare some kunits for
+> these as well.
+> [1] https://lore.kernel.org/all/158bc103-7f99-4df4-8d3b-2da9b04ac0ed@lan=
+khorst.se/
+> [2] https://lore.kernel.org/all/20260519-kunit_cgroups-v4-1-f6c2f498fae4=
+@redhat.com/
+> ---
+>   kernel/cgroup/dmem.c | 70 +++++++++++++++++++-------------------------=
+=2D-------
+>   1 file changed, 26 insertions(+), 44 deletions(-)
+>=20
+> diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+> index 6430c7ce1e0372f59f1313163fb7630ce49ac1ef..113ee88e276296bccb4def54=
+6adf5cc175d7f0be 100644
+> --- a/kernel/cgroup/dmem.c
+> +++ b/kernel/cgroup/dmem.c
+> @@ -734,57 +734,39 @@ static ssize_t dmemcg_limit_write(struct kernfs_op=
+en_file *of,
+>   				 void (*apply)(struct dmem_cgroup_pool_state *, u64))
+>   {
+>   	struct dmemcg_state *dmemcs =3D css_to_dmemcs(of_css(of));
+> -	int err =3D 0;
+> -
+> -	while (buf && !err) {
+> -		struct dmem_cgroup_pool_state *pool =3D NULL;
+> -		char *options, *region_name;
+> -		struct dmem_cgroup_region *region;
+> -		u64 new_limit;
+> -
+> -		options =3D buf;
+> -		buf =3D strchr(buf, '\n');
+> -		if (buf)
+> -			*buf++ =3D '\0';
+> -
+> -		options =3D strstrip(options);
+> -
+> -		/* eat empty lines */
+> -		if (!options[0])
+> -			continue;
+> -
+> -		region_name =3D strsep(&options, " \t");
+> -		if (!region_name[0])
+> -			continue;
+> -
+> -		if (!options || !*options)
+> -			return -EINVAL;
+> +	struct dmem_cgroup_pool_state *pool;
+> +	struct dmem_cgroup_region *region;
+> +	char *region_name;
+> +	u64 new_limit;
+> +	int err;
+>  =20
+> -		rcu_read_lock();
+> -		region =3D dmemcg_get_region_by_name(region_name);
+> -		rcu_read_unlock();
+> +	buf =3D strstrip(buf);
+> +	region_name =3D strsep(&buf, " \t");
+> +	if (!region_name[0] || !buf)
 
-Is this unconditional return intended?
+If buf is NULL, isn't strsep(&buf, ...) also NULL? region_name[0] would=20
+therefore be a NULL pointer deref. Flipping the order of the logical or=20
+should be enough to prevent this.
 
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/acr/base.c b/drivers/gpu=
-/drm/nouveau/nvkm/subdev/acr/base.c
-> index 4c7745cd6ae52..7fd967a2554f9 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/acr/base.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/acr/base.c
-> @@ -315,6 +315,7 @@ nvkm_acr_oneinit(struct nvkm_subdev *subdev)
->  					  i, us, fw);
->  			}
->  		}
+> +		return -EINVAL;
+>  =20
+> -		if (!region)
+> -			return -EINVAL;
+> +	rcu_read_lock();
+> +	region =3D dmemcg_get_region_by_name(region_name);
+> +	rcu_read_unlock();
+> +	if (!region)
+> +		return -EINVAL;
+>  =20
+> -		err =3D dmemcg_parse_limit(options, &new_limit);
+> -		if (err < 0)
+> -			goto out_put;
+> +	buf =3D strstrip(buf);
 
-[Severity: Medium]
-This is a pre-existing issue, but could this loop read out-of-bounds of the
-acr->wpr memory object and the firmware data blob?
+Do we start allowing extra spaces between region and limit as well?=20
+Would also be fine by me, it doesn't break anything, just highlighting=20
+that it's a change in behavior. Should perhaps be documented in the=20
+commit message, too.
 
-If the user provides a firmware file larger than the dynamically calculated
-wpr_size, there doesn't appear to be a check to ensure
-acr->wpr_fw->size <=3D wpr_size before reading nvkm_ro32(acr->wpr, i).
+Also, you should be able to use skip_spaces() here for an equivalent=20
+result. I'm not strongly opinionated on either way, but using=20
+skip_spaces() indicates more clearly that this can only remove spaces at=
+=20
+the start.
 
-Also, if acr->wpr_fw->size is not a multiple of 4, will the loop increment
-cause the final iteration to read out-of-bounds?
+Best,
+Natalie
 
-[Severity: Medium]
-This is a pre-existing issue, but does ignoring the return values from
-wpr_build() and wpr_patch() earlier in this function allow initialization
-to proceed with corrupted firmware data?
+> +	err =3D dmemcg_parse_limit(buf, &new_limit);
+> +	if (err < 0)
+> +		goto out_put;
+>  =20
+> -		pool =3D get_cg_pool_unlocked(dmemcs, region);
+> -		if (IS_ERR(pool)) {
+> -			err =3D PTR_ERR(pool);
+> -			goto out_put;
+> -		}
+> +	pool =3D get_cg_pool_unlocked(dmemcs, region);
+> +	if (IS_ERR(pool)) {
+> +		err =3D PTR_ERR(pool);
+> +		goto out_put;
+> +	}
+>  =20
+> -		/* And commit */
+> -		apply(pool, new_limit);
+> -		dmemcg_pool_put(pool);
+> +	apply(pool, new_limit);
+> +	dmemcg_pool_put(pool);
+>  =20
+>   out_put:
+> -		kref_put(&region->ref, dmemcg_free_region);
+> -	}
+> -
+> +	kref_put(&region->ref, dmemcg_free_region);
+>  =20
+>   	return err ?: nbytes;
+>   }
+>=20
+> ---
+> base-commit: 640c57d6ca1346a1c2363a3f473b405af979e046
+> change-id: 20260605-cgroup-dmem-write-single-region-9bf05b6d995d
+>=20
+> Best regards,
 
-	if (!acr->wpr_fw || acr->wpr_comp)
-		acr->func->wpr_build(acr, rtos);
-	acr->func->wpr_patch(acr, (s64)acr->wpr_start - acr->wpr_prev);
-
-If either function fails, could the system continue initializing with an
-incomplete or corrupted WPR image?
-
-> +		nvkm_done(acr->wpr);
->  		return -EINVAL;
-
-[Severity: Medium]
-This is a pre-existing issue, but does this error path still leak a mapping
-reference?
-
-In nvkm_acr_oneinit(), nvkm_kmap(acr->wpr) is called unconditionally before
-the wpr_build() call:
-
-	nvkm_kmap(acr->wpr);
-	if (acr->wpr_fw && !acr->wpr_comp)
-		nvkm_wobj(acr->wpr, 0, acr->wpr_fw->data, acr->wpr_fw->size);
-
-It is then called a second time within this wpr_comp block.
-
-Since the reference count is incremented twice, does it need to be
-decremented twice by nvkm_done() before returning -EINVAL here?
-
->  	}
->  	nvkm_done(acr->wpr);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606155606.7759=
-3-1-vulab@iscas.ac.cn?part=3D1
