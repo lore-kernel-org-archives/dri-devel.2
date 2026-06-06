@@ -4,53 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AE30CD8C85
-	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 21:43:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE1D2CD8C88
+	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 21:44:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A46610E8B3;
-	Sat,  6 Jun 2026 21:43:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D5FA10E8B4;
+	Sat,  6 Jun 2026 21:44:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=runbox.com header.i=@runbox.com header.b="el9IRWdA";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="cokYzf8J";
 	dkim-atps=neutral
-Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com
- [185.226.149.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EA8110E8B3
- for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 21:43:00 +0000 (UTC)
-Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
- by mailtransmit05.runbox.com with esmtps (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <david.laight.linux_spam@runbox.com>)
- id 1wVxbr-007cFp-Gp; Sat, 06 Jun 2026 22:27:11 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com; 
- s=selector1;
- h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
- Subject:Cc:To:From; bh=GQRWb9tcfRli0dIbDrB6vkuNwQ7FvLjPZHROOcuMtfU=; b=el9IRW
- dAMwyavlsEkSqgQ0M2JWZCNqoLAZGpGtoU7Q5XGmJhqsIXO7k6cKHgdjiCL3e60w9FdAINpVzW5hf
- FIkha+jj/49X2fqhBBAjizFONBNBIjsfFjZV4kQU/cqiVGKz6Xp4pM0GJX5lHjlUmwydJROtefhGM
- r7Ps0APJjhgMclzQZnA6DvkvCQxaoPdX2ve/zgtzvw1GSPdDmw+MNaGSIOF1fLCdzGS4ZYbuD5gXN
- SpmvONmC+I6Ly5LdkYBRFEY8aZI/cinVChlKchHImF3aVAdIBhb2QAQNApBzmRTfybSZW9LfKhZiC
- AY70u5p7u7fV8IkNjpAH+c9UT/EA==;
-Received: from [10.9.9.72] (helo=submission01.runbox)
- by mailtransmit02.runbox with esmtp (Exim 4.86_2)
- (envelope-from <david.laight.linux_spam@runbox.com>)
- id 1wVxbq-0000tI-WD; Sat, 06 Jun 2026 22:27:11 +0200
-Received: by submission01.runbox with esmtpsa [Authenticated ID (1493616)]
- (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
- (Exim 4.95) id 1wVxbi-006V18-9A; Sat, 06 Jun 2026 22:27:02 +0200
-From: david.laight.linux@gmail.com
-To: Kees Cook <kees@kernel.org>, linux-hardening@vger.kernel.org,
- Arnd Bergmann <arnd@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Helge Deller <deller@gmx.de>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- David Laight <david.laight.linux@gmail.com>
-Subject: [PATCH next] drivers/video/fbdev/atmel_lcdfb: Use strscpy() to copy
- device name
-Date: Sat,  6 Jun 2026 21:26:16 +0100
-Message-Id: <20260606202633.5018-22-david.laight.linux@gmail.com>
-X-Mailer: git-send-email 2.39.5
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A10BC10E8B4
+ for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 21:44:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1780782246;
+ bh=MdIOfrIYmEsea8JqrCO5kqj7L6obXVdS4UOehQCzvFc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=cokYzf8J9EoIWph8Oal0dMi/2nhT9HAyFVggMxfRLDjsDAu+JsGtVVq+SUqdXkTMh
+ zljbi0tsTYZ6xN6j+aazpiyPEnZefZf2S1hF6JyIigfwcWRvqzGwjKWXhOgiRFxCig
+ S6cePn3RaSjvtAqduu41y9oQmHwErGqnUe+N5ZTdZKtcAtPnicf+eG31SWklqWpFPQ
+ 6fS4FAYGuFZbMHaBPe/5WXocj0TBTNCVDIOy6O8aWz0GFcDvQQIBjIJBtmAR/b3nuE
+ cs0LdpQCAVrlF8FMf3fxDe7yhyNUt0YcikUPcBggP/Gj3wHSZGQXFOnEL4mBh3oaZU
+ N06EJUZER09oQ==
+Message-ID: <f00e7771-cd70-4c86-9fac-149897e02b12@lankhorst.se>
+Date: Sat, 6 Jun 2026 23:44:10 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cgroup/dmem: accept only one region per limit write
+To: Natalie Vock <natalie.vock@gmx.de>, Eric Chanudet <echanude@redhat.com>,
+ Maxime Ripard <mripard@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>
+Cc: cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Albert Esteve <aesteve@redhat.com>
+References: <20260605-cgroup-dmem-write-single-region-v1-1-9137f296579c@redhat.com>
+ <271b1c16-3c3c-4a1e-b09e-c4361c63814c@gmx.de>
+Content-Language: en-US
+From: Maarten Lankhorst <dev@lankhorst.se>
+In-Reply-To: <271b1c16-3c3c-4a1e-b09e-c4361c63814c@gmx.de>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,48 +58,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: David Laight <david.laight.linux@gmail.com>
+Hey,
 
-Signed-off-by: David Laight <david.laight.linux@gmail.com>
----
-This is one of a group of patches that remove potentially unbounded
-strcpy() calls.
+On 6/6/26 18:31, Natalie Vock wrote:
+> On 6/6/26 00:44, Eric Chanudet wrote:
+>> Accept only one "region value" pair entry for the dmem.max, dmem.min,
+>> dmem.low files.>
+>> This changes the UAPI that otherwise accepted multiple lines for setting
+>> multiple entries in one write. No existing user is known to rely on
+>> writing multiple regions in a single write.
+> 
+> Ugh, shoot.
+> 
+> For dmem.low specifically, there already are some userspace thingies floating around that may write more than one region/value pairs.
+> 
+> These thingies all depend on that one patchset for dmemcg protection that I should really get around to merging[1]. Since the userspace utilities depend on not-yet-merged patches, they sort of have to expect stuff changing under their belts, so I wouldn't really consider those users a blocker by necessity.
+> 
+> As I see it, we could go down one of two paths:
+> 1. We go ahead with the patch as proposed, and I make sure that the users I know of adapt. Could be a bit icky wrt. "do not break userspace" rules, but since the already use non-merged UAPIs in one place, you can argue that these users kind of have to expect breakage.
+> 2. We use the old handling allowing multiple lines for dmem.min and dmem.low only. This preserves compatibility but uglifies the code by quite a bit.
+> 
+> All things considered, I think I personally would prefer going with 1. and taking the patch as proposed and just having one codepath handling every limit file. Just highlighting this so we don't do it on accident.
+> 
+> [1] https://patchwork.freedesktop.org/series/163183/
+> 
 
-They are mostly replaced by strscpy() or, when strlen() has just been
-called, with memcpy() (usually including the '\0').
+I prefer option 1 as well, but would like an ack from one of the core cgroup maintainers too,
+and what Maxime's opinion on this as well.
 
-Calls with copy string literals into arrays are left unchanged.
-They are safe and easily detected as such.
+Kind regards,
 
-The changes were made by getting the compiler to detect the calls and
-then fixing the code by hand.
+~Maarten Lankhorst
 
-Note that all the changes are only compile tested.
+> Some more review comments inline.
+> 
+>>
+>> Processing multiple regions in dmemcg_limit_write() could quietly change
+>> first limits before failing on a later one and returning an error to the
+>> writer, with no indication some changes occurred.
+>>
+>> Signed-off-by: Eric Chanudet <echanude@redhat.com>
+>> ---
+>> Follow up from discussions on a previous thread[1].
+>> If Albert's series[2] lands, I can cleanup and prepare some kunits for
+>> these as well.
+>> [1] https://lore.kernel.org/all/158bc103-7f99-4df4-8d3b-2da9b04ac0ed@lankhorst.se/
+>> [2] https://lore.kernel.org/all/20260519-kunit_cgroups-v4-1-f6c2f498fae4@redhat.com/
+>> ---
+>>   kernel/cgroup/dmem.c | 70 +++++++++++++++++++---------------------------------
+>>   1 file changed, 26 insertions(+), 44 deletions(-)
+>>
+>> diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+>> index 6430c7ce1e0372f59f1313163fb7630ce49ac1ef..113ee88e276296bccb4def546adf5cc175d7f0be 100644
+>> --- a/kernel/cgroup/dmem.c
+>> +++ b/kernel/cgroup/dmem.c
+>> @@ -734,57 +734,39 @@ static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
+>>                    void (*apply)(struct dmem_cgroup_pool_state *, u64))
+>>   {
+>>       struct dmemcg_state *dmemcs = css_to_dmemcs(of_css(of));
+>> -    int err = 0;
+>> -
+>> -    while (buf && !err) {
+>> -        struct dmem_cgroup_pool_state *pool = NULL;
+>> -        char *options, *region_name;
+>> -        struct dmem_cgroup_region *region;
+>> -        u64 new_limit;
+>> -
+>> -        options = buf;
+>> -        buf = strchr(buf, '\n');
+>> -        if (buf)
+>> -            *buf++ = '\0';
+>> -
+>> -        options = strstrip(options);
+>> -
+>> -        /* eat empty lines */
+>> -        if (!options[0])
+>> -            continue;
+>> -
+>> -        region_name = strsep(&options, " \t");
+>> -        if (!region_name[0])
+>> -            continue;
+>> -
+>> -        if (!options || !*options)
+>> -            return -EINVAL;
+>> +    struct dmem_cgroup_pool_state *pool;
+>> +    struct dmem_cgroup_region *region;
+>> +    char *region_name;
+>> +    u64 new_limit;
+>> +    int err;
+>>   -        rcu_read_lock();
+>> -        region = dmemcg_get_region_by_name(region_name);
+>> -        rcu_read_unlock();
+>> +    buf = strstrip(buf);
+>> +    region_name = strsep(&buf, " \t");
+>> +    if (!region_name[0] || !buf)
+> 
+> If buf is NULL, isn't strsep(&buf, ...) also NULL? region_name[0] would therefore be a NULL pointer deref. Flipping the order of the logical or should be enough to prevent this.
+> 
+>> +        return -EINVAL;
+>>   -        if (!region)
+>> -            return -EINVAL;
+>> +    rcu_read_lock();
+>> +    region = dmemcg_get_region_by_name(region_name);
+>> +    rcu_read_unlock();
+>> +    if (!region)
+>> +        return -EINVAL;
+>>   -        err = dmemcg_parse_limit(options, &new_limit);
+>> -        if (err < 0)
+>> -            goto out_put;
+>> +    buf = strstrip(buf);
+> 
+> Do we start allowing extra spaces between region and limit as well? Would also be fine by me, it doesn't break anything, just highlighting that it's a change in behavior. Should perhaps be documented in the commit message, too.
+> 
+> Also, you should be able to use skip_spaces() here for an equivalent result. I'm not strongly opinionated on either way, but using skip_spaces() indicates more clearly that this can only remove spaces at the start.
 
-Some Makefiles were changed to allow files to contain strcpy().
-As well as 'difficult to fix' files, this included 'show' functions
-as they really need to use sysfs_emit() or seq_printf().
-
-All the patches are being sent individually to avoid very long cc lists.
-Apologies for the terse commit messages and likely unexpected tags.
-(There are about 100 patches in total.)
-
- drivers/video/fbdev/atmel_lcdfb.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/video/fbdev/atmel_lcdfb.c b/drivers/video/fbdev/atmel_lcdfb.c
-index 9dfbc5310210..da3eb5f1b337 100644
---- a/drivers/video/fbdev/atmel_lcdfb.c
-+++ b/drivers/video/fbdev/atmel_lcdfb.c
-@@ -1062,7 +1062,7 @@ static int atmel_lcdfb_probe(struct platform_device *pdev)
- 	info->fbops = &atmel_lcdfb_ops;
- 
- 	info->fix = atmel_lcdfb_fix;
--	strcpy(info->fix.id, sinfo->pdev->name);
-+	strscpy(info->fix.id, sinfo->pdev->name);
- 
- 	/* Enable LCDC Clocks */
- 	sinfo->bus_clk = clk_get(dev, "hclk");
--- 
-2.39.5
+> 
+> Best,
+> Natalie
+> 
+>> +    err = dmemcg_parse_limit(buf, &new_limit);
+>> +    if (err < 0)
+>> +        goto out_put;
+>>   -        pool = get_cg_pool_unlocked(dmemcs, region);
+>> -        if (IS_ERR(pool)) {
+>> -            err = PTR_ERR(pool);
+>> -            goto out_put;
+>> -        }
+>> +    pool = get_cg_pool_unlocked(dmemcs, region);
+>> +    if (IS_ERR(pool)) {
+>> +        err = PTR_ERR(pool);
+>> +        goto out_put;
+>> +    }
+>>   -        /* And commit */
+>> -        apply(pool, new_limit);
+>> -        dmemcg_pool_put(pool);
+>> +    apply(pool, new_limit);
+>> +    dmemcg_pool_put(pool);
+>>     out_put:
+>> -        kref_put(&region->ref, dmemcg_free_region);
+>> -    }
+>> -
+>> +    kref_put(&region->ref, dmemcg_free_region);
+>>         return err ?: nbytes;
+>>   }
+>>
+>> ---
+>> base-commit: 640c57d6ca1346a1c2363a3f473b405af979e046
+>> change-id: 20260605-cgroup-dmem-write-single-region-9bf05b6d995d
+>>
+>> Best regards,
+> 
 
