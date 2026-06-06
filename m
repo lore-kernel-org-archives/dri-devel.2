@@ -4,43 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6C60CD8C85
-	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 19:45:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62328CD8C88
+	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 19:50:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D2A010E2B0;
-	Sat,  6 Jun 2026 19:45:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3A4B10E864;
+	Sat,  6 Jun 2026 19:50:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FNQ1baTw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BBatmmhG";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9803310E2B0
- for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 19:45:41 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 339F710E832;
+ Sat,  6 Jun 2026 19:50:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0131D600AE;
- Sat,  6 Jun 2026 19:45:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E79B1F00893;
- Sat,  6 Jun 2026 19:45:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B875C4426C;
+ Sat,  6 Jun 2026 19:50:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 284441F00893;
+ Sat,  6 Jun 2026 19:50:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780775140;
- bh=wlvIXBD95a5bsnV3AjRiTCajF8FRsWmvzMJEZDsiyGM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FNQ1baTwaX3mkqiuPapQr6tvGYiX8c+7c+gJGoFAbB0M7lC/VeGjxMz4ejkiLxE/a
- 1ZCkRWoZpZNeJ0ZP3kxHgU9AfEFaFawaCTCbrrDBcZ/6gxJb0H09xzPXOaXnfZiKa9
- Vjl4FG/n6A2oACfY2DmSRjUSan+q7PQU5dwWdk0448IuWfQpQsIzLJi5oj3a5SiKH5
- Z83QkwvNVjVuCFKWXryqHaWp8DVG0mATjvqLqqaQq3k2X9gTsOn5TJr6dgwZU5YmLM
- cl4TaIqTgysvJeEt/2BtofuaGKYADjGJLeWCtKI2tgAgsbSvqjot8JETm7A2ibEBtO
- eYtJcmFxNH8VQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/5] drm/bridge: chrontel-ch7033: replace deprecated
- DRM_ERROR macro
-To: "Piyush Patle" <piyushpatle228@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260606193625.24465-4-piyushpatle228@gmail.com>
-References: <20260606193625.24465-4-piyushpatle228@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 06 Jun 2026 19:45:39 +0000
-Message-Id: <20260606194540.7E79B1F00893@smtp.kernel.org>
+ s=k20260515; t=1780775439;
+ bh=aipNwt5sgwd6I2ivj9RCM0/ZrytwIZT9mhs5XO0w3Nc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=BBatmmhGWqi9eJTmjrUzToe40xnJnfEp0udQE+1O5/+aleAB1H/Zi3VOv7FLJi+3u
+ QvaRez4MZSYvtwnKKom2Hsh3F9Mj+qrOie85lL/AzZPxsdqHEhTgKPajHXKvc8+AUY
+ uZ8QYb1AfNk2VhHvsMLdUS0TLHWJRmVFrdKsO7QdMLizHFFgANjeakGSPA09oRvZQO
+ nXqX3+PEtBK2j/voxnOlBhHX5lN4cyuPy/rgeRNlIZ+EgFMV48ELubRdd6Ho9BjJpd
+ rpSasQ4syxftD+jk9zkACGjYTw5Ig81g43VP8L21E7PmUTmosTWPIPk26jEam6lk/A
+ UpwOL8HYf0zAA==
+Message-ID: <1661f2c0-2fbe-4ae3-a08f-1b31183eca16@kernel.org>
+Date: Sat, 6 Jun 2026 21:50:26 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] dt-bindings: display: msm: qcm2290: Add Shikra MDSS
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
+References: <20260605-shikra-display-v3-0-9846ba5fe635@oss.qualcomm.com>
+ <20260605-shikra-display-v3-1-9846ba5fe635@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
+ QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
+ +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
+ ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
+ 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
+ hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
+ tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
+ 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
+ naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
+ hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
+ whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
+ Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
+ MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
+ OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
+ GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
+ 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
+ YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
+ 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
+ BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
+ JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
+ 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
+ YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
+ qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
+ RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
+ Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
+ H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
+ dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
+ AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
+ jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
+ zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
+ XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
+In-Reply-To: <20260605-shikra-display-v3-1-9846ba5fe635@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,121 +116,22 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On 05/06/2026 12:18, Nabige Aala wrote:
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml
+> index be6cd8adb3b6..e166a73651df 100644
+> --- a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml
+> @@ -13,8 +13,11 @@ $ref: /schemas/display/msm/dpu-common.yaml#
+>  
+>  properties:
+>    compatible:
+> -    const: qcom,qcm2290-dpu
+> -
 
-Pre-existing issues:
-- [High] Missing cleanup on error paths in `ch7033_bridge_attach()` causes =
-a resource leak and use-after-free.
-- [High] `ch7033_bridge_detach()` incorrectly cleans up uninitialized resou=
-rces if the bridge was attached with `DRM_BRIDGE_ATTACH_NO_CONNECTOR`.
-- [High] HPD is enabled before connector initialization is complete, causin=
-g a NULL pointer dereference race condition.
---
+Do not introduce additional changes. Blank line was there on purpose.
 
-commit 0d74a63f280c9b3d909b1d5c59227a795c81f570
-Author: Piyush Patle <piyushpatle228@gmail.com>
-drm/bridge: chrontel-ch7033: replace deprecated DRM_ERROR macro
-
-Replace DRM_ERROR() with device-aware drm_err() using bridge->dev.
-
-No functional changes.
-
-> diff --git a/drivers/gpu/drm/bridge/chrontel-ch7033.c b/drivers/gpu/drm/b=
-ridge/chrontel-ch7033.c
-> index 54d49d4882c85..0e845f789f2e9 100644
-> --- a/drivers/gpu/drm/bridge/chrontel-ch7033.c
-> +++ b/drivers/gpu/drm/bridge/chrontel-ch7033.c
-> @@ -302,7 +302,7 @@ static int ch7033_bridge_attach(struct drm_bridge *br=
-idge,
->  					  priv->next_bridge->type,
->  					  priv->next_bridge->ddc);
->  	if (ret) {
-> -		DRM_ERROR("Failed to initialize connector\n");
-> +		drm_err(bridge->dev, "Failed to initialize connector\n");
->  		return ret;
->  	}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this early return
-leak resources?
-
-If drm_connector_init_with_ddc() fails here in ch7033_bridge_attach(),
-we return without calling drm_bridge_hpd_disable(). Does this leave a
-dangling pointer in next_bridge for the HPD callback (ch7033_hpd_event)
-and its data (priv)?
-
-If an HPD event fires later after the device probing failed, could it
-lead to a use-after-free?
-
-Also, if the subsequent drm_connector_attach_encoder() call fails:
-
-drivers/gpu/drm/bridge/chrontel-ch7033.c:ch7033_bridge_attach() {
-    ...
-    if (ret) {
-        drm_err(bridge->dev, "Failed to initialize connector\n");
-        return ret;
-    }
-
-    return drm_connector_attach_encoder(&priv->connector, encoder);
-}
-
-Does returning that error directly fail to roll back
-drm_connector_init_with_ddc() and leave the HPD enabled, leaking the
-connector structure and the registered callback?
-
-[Severity: High]
-This is also a pre-existing issue, but is there a race condition with when
-HPD is enabled in this same function?
-
-Looking at ch7033_bridge_attach() in drivers/gpu/drm/bridge/chrontel-ch7033=
-.c:
-
-drivers/gpu/drm/bridge/chrontel-ch7033.c:ch7033_bridge_attach() {
-    ...
-    if (priv->next_bridge->ops & DRM_BRIDGE_OP_HPD) {
-        drm_bridge_hpd_enable(priv->next_bridge, ch7033_hpd_event, priv);
-    }
-
-    drm_connector_helper_add(connector, &ch7033_connector_helper_funcs);
-    ret =3D drm_connector_init_with_ddc(...);
-    ...
-}
-
-Since drm_bridge_hpd_enable() is called before drm_connector_init_with_ddc(=
-),
-if an HPD event fires immediately, ch7033_hpd_event() is invoked.
-That callback checks if priv->bridge.dev is set (which is true here)
-and then passes priv->connector.dev to drm_helper_hpd_irq_event().
-
-Since priv->connector.dev is only populated later during
-drm_connector_init_with_ddc(), will it still be NULL here, causing
-drm_helper_hpd_irq_event() to dereference a NULL pointer?
-
-[Severity: High]
-Finally, this is another pre-existing issue, but does ch7033_bridge_detach()
-clean up uninitialized resources?
-
-If ch7033_bridge_attach() is called with DRM_BRIDGE_ATTACH_NO_CONNECTOR,
-it returns early and skips drm_connector_init_with_ddc().
-However, ch7033_bridge_detach() unconditionally calls:
-
-drivers/gpu/drm/bridge/chrontel-ch7033.c:ch7033_bridge_detach() {
-    ...
-    drm_connector_cleanup(&priv->connector);
-}
-
-Since priv is allocated with devm_drm_bridge_alloc() (which zeroes memory),
-priv->connector contains zero-initialized list heads.
-Because drm_connector_cleanup() iterates over &connector->probed_modes
-using list_for_each_entry_safe(), could this dereference NULL list
-pointers and cause a kernel crash when the uninitialized connector is
-cleaned up?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606193625.2446=
-5-1-piyushpatle228@gmail.com?part=3D3
+Best regards,
+Krzysztof
