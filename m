@@ -4,107 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E3E9CD8C85
-	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 19:51:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9587DCD8C85
+	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 20:01:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 667D310E869;
-	Sat,  6 Jun 2026 19:51:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B827A10E0B7;
+	Sat,  6 Jun 2026 20:01:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f2UwGJ+G";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WHMJXySw";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08FF510E869;
- Sat,  6 Jun 2026 19:51:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FD8E10E0B7
+ for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 20:00:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5AD59600AE;
- Sat,  6 Jun 2026 19:51:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5CD61F00893;
- Sat,  6 Jun 2026 19:51:36 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4DB29600AE;
+ Sat,  6 Jun 2026 20:00:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF2681F00893;
+ Sat,  6 Jun 2026 20:00:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780775508;
- bh=VF1lXzSHRjsTN6Jjr/wjSGbrJWeWxYZXfwynZT8I+/I=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=f2UwGJ+GPBR0kjeEWcSIUJz5qV+/KOUuEm218rA0AylA4nm8shjZUE87TTun3q2s0
- 4AJLPqJsSHOHK4rnut61ZP4tIcOHUrLhQtLYyc2XTREOxAAa9oxOHmctS4BYaT9BjB
- ZCTJMmwMCqgGnDhAhvcCPpB1j7VBJZgmEqVgdlg4GFIV8Hqa038GPY18o8rzK/94kW
- Hajb0zq9G+W305SsSAPy/T7ukKKvHulLxJW3a8iLDXeZ6sksokrqiq2PYYoCCGWVKN
- s9ISCu53mVOI4l+JenT+cECZgmwPepHp8XnB3GGCglnbDwM2UYItHgeSac4tFoaarp
- cLzk/Rc10pJ9A==
-Message-ID: <a3edf316-e82d-4ef4-bef0-081952ede049@kernel.org>
-Date: Sat, 6 Jun 2026 21:51:33 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] arm64: defconfig: Enable ILI7807S DSI panel driver
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260605-shikra-display-v3-0-9846ba5fe635@oss.qualcomm.com>
- <20260605-shikra-display-v3-2-9846ba5fe635@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260605-shikra-display-v3-2-9846ba5fe635@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ s=k20260515; t=1780776058;
+ bh=jAb28imRu/bjJnFNC/WNdyB7LpxJe8LZ1uEGML4XQFg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=WHMJXySwEGbWv7hD15SLwqbBtCcRvqgg6sA/bFuMZe7KgDYHrAJlMpABotLswr3s4
+ OIGQ6rk6aUN6g/6rRfQOJAOvYtbHBFeHDmWhq9CLxkAKqDmoWO88ksUnQJeS9QcCRV
+ +f4NiP7Ao7hRLlS2+rvhxdvRg8/V4OMMJruxXYh8xTXbGtlzzs4634igpY9gMfufOX
+ WJCG1q/6bgN9uZcx7gzx/dKHB2ZteKZVtaSOiQyW7Cle6sNtPCOB8YCcPBqeL8bWlk
+ Y3+VxM7lzzc37iAIiqZDizbc7RSXtdIrpSOTlyn0SZeCXfOF9a83pxijobiNhaadLZ
+ wlUDwGTVLu4UQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/bridge: nxp-ptn3460: replace deprecated DRM_ERROR
+ macros
+To: "Piyush Patle" <piyushpatle228@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260606195316.28048-1-piyushpatle228@gmail.com>
+References: <20260606195316.28048-1-piyushpatle228@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 06 Jun 2026 20:00:57 +0000
+Message-Id: <20260606200057.CF2681F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,16 +53,143 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 05/06/2026 12:18, Nabige Aala wrote:
-> Enable the ILI7807S 1080x1920 video-mode DSI panel driver as a module,
-> used on the Shikra CQM EVK board.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Please use git log in case my comment was not clear.
+Pre-existing issues:
+- [High] Memory leak of the EDID buffer in `ptn3460_edid_read()` on success=
+ful reads.
+- [High] Race condition in bridge power state tracking (`ptn_bridge->enable=
+d`).
+- [High] Improper error handling of short I2C transfers leads to kernel mem=
+ory disclosure.
+--
 
-NAK because you keep sending the same and ignoring feedback.
+commit 4e9f35dc1b32e95bb7e2572ee3b691a3841b8e02
+Author: Piyush Patle <piyushpatle228@gmail.com>
 
-Best regards,
-Krzysztof
+drm/bridge: nxp-ptn3460: replace deprecated DRM_ERROR macros
+   =20
+This commit replaces DRM_ERROR() with device-aware equivalents like
+drm_err() and dev_err() throughout the nxp-ptn3460 bridge driver.
+
+> diff --git a/drivers/gpu/drm/bridge/nxp-ptn3460.c b/drivers/gpu/drm/bridg=
+e/nxp-ptn3460.c
+> index 7acb11f16dc19..6f09c1247d7d8 100644
+> --- a/drivers/gpu/drm/bridge/nxp-ptn3460.c
+> +++ b/drivers/gpu/drm/bridge/nxp-ptn3460.c
+> @@ -54,13 +54,15 @@ static int ptn3460_read_bytes(struct ptn3460_bridge *=
+ptn_bridge, char addr,
+> =20
+>  	ret =3D i2c_master_send(ptn_bridge->client, &addr, 1);
+>  	if (ret < 0) {
+> -		DRM_ERROR("Failed to send i2c command, ret=3D%d\n", ret);
+> +		dev_err(&ptn_bridge->client->dev,
+> +			"Failed to send i2c command, ret=3D%d\n", ret);
+>  		return ret;
+>  	}
+> =20
+>  	ret =3D i2c_master_recv(ptn_bridge->client, buf, len);
+>  	if (ret < 0) {
+> -		DRM_ERROR("Failed to recv i2c data, ret=3D%d\n", ret);
+> +		dev_err(&ptn_bridge->client->dev,
+> +			"Failed to recv i2c data, ret=3D%d\n", ret);
+>  		return ret;
+>  	}
+
+[Severity: High]
+This is a pre-existing issue, but does this properly handle short I2C
+transfers?
+
+The i2c_master_recv() function returns the positive number of bytes
+transferred on success. If a short read occurs (e.g. the hardware NACKs
+mid-transfer), the return value is positive but less than len.
+
+Because the check is only for ret < 0, a short read is incorrectly treated
+as a full success, which leaves the target buffer partially uninitialized.
+
+In ptn3460_edid_read(), this uninitialized memory is then copied by
+drm_edid_alloc() and exposed to userspace, which could leak kernel memory.
+
+> =20
+> @@ -78,7 +80,8 @@ static int ptn3460_write_byte(struct ptn3460_bridge *pt=
+n_bridge, char addr,
+> =20
+>  	ret =3D i2c_master_send(ptn_bridge->client, buf, ARRAY_SIZE(buf));
+>  	if (ret < 0) {
+> -		DRM_ERROR("Failed to send i2c command, ret=3D%d\n", ret);
+> +		dev_err(&ptn_bridge->client->dev,
+> +			"Failed to send i2c command, ret=3D%d\n", ret);
+>  		return ret;
+>  	}
+
+[Severity: High]
+This is a pre-existing issue, but does this similarly miss short writes?
+
+Like i2c_master_recv(), i2c_master_send() returns the number of bytes
+transferred. If this is a short write, ret will be positive but less than
+the requested size.
+
+Ignoring a short write could cause silent hardware configuration failures.
+
+[ ... ]
+
+> @@ -166,10 +171,8 @@ static const struct drm_edid *ptn3460_edid_read(stru=
+ct drm_bridge *bridge,
+>  	ptn3460_pre_enable(&ptn_bridge->bridge);
+
+[Severity: High]
+This is a pre-existing issue, but is the bridge power state tracking
+subject to a race condition here?
+
+In ptn3460_edid_read(), ptn_bridge->enabled is read and then updated
+by ptn3460_pre_enable() without locking.
+
+Because ptn3460_edid_read() runs under connector->mutex while the atomic
+commit tail runs bridge callbacks asynchronously, a concurrent atomic modes=
+et
+could disable the bridge while ptn3460_edid_read() is actively performing I=
+2C
+transactions.
+
+Could this lead to hardware lockups and I2C bus hangs?
+
+> =20
+>  	edid =3D kmalloc(EDID_LENGTH, GFP_KERNEL);
+> -	if (!edid) {
+> -		DRM_ERROR("Failed to allocate EDID\n");
+> +	if (!edid)
+>  		goto out;
+> -	}
+> =20
+>  	ret =3D ptn3460_read_bytes(ptn_bridge, PTN3460_EDID_ADDR, edid,
+>  				 EDID_LENGTH);
+
+[Severity: High]
+This is a pre-existing issue, but does this function leak the edid buffer
+on the success path?
+
+Looking at ptn3460_edid_read() after the I2C read succeeds:
+
+	drm_edid =3D drm_edid_alloc(edid, EDID_LENGTH);
+
+out:
+	if (power_off)
+		ptn3460_disable(&ptn_bridge->bridge);
+
+	return drm_edid;
+
+The drm_edid_alloc() function uses kmemdup() to create its own copy of
+the memory. Since there is no kfree(edid) before returning on success,
+the original edid buffer appears to be leaked.
+
+Since userspace can repeatedly trigger EDID reads, could this lead to
+an unbounded memory leak and kernel memory exhaustion?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606195316.2804=
+8-1-piyushpatle228@gmail.com?part=3D1
