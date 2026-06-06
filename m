@@ -4,51 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76139CD8C85
-	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 21:44:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D37FFCD8C85
+	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 21:50:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0B9210E8BB;
-	Sat,  6 Jun 2026 21:44:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E86AE10E8BC;
+	Sat,  6 Jun 2026 21:50:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=runbox.com header.i=@runbox.com header.b="al5x+k/8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QbapXxOc";
 	dkim-atps=neutral
-Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com
- [185.226.149.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E348010E8B8
- for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 21:44:53 +0000 (UTC)
-Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
- by mailtransmit05.runbox.com with esmtps (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <david.laight.linux_spam@runbox.com>)
- id 1wVxbs-007cG1-0z; Sat, 06 Jun 2026 22:27:12 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com; 
- s=selector1;
- h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
- Subject:Cc:To:From; bh=HBLevs8ravAMAmVYjyMTplN6eRrY/9SoSdwiNNMUH08=; b=al5x+k
- /833QFr+El/mWuBmz3VIRrmxZmufJ13mHCB//9OB0yg3vsoY3Dg9E7l8jQZtEW5qmUPnOVZZqoC13
- ALOybAC3nw1SflOrJLRJzC4DkonfPLqxA0Aq63hTAbJ2brQB7Sp0nNznrwEKTQwnyxxlDJDo/wTOO
- QqNeSlZTVAhqlr4w2021qWUzNprM6yn2LRqSSM5HQ1TPh1HBVwRGdtANULYLmdqpqvuUd5Ks9sfX5
- o4C5WIrEVjSEe4CvVm0svgDeZoobWJSsgmDpWufWUCtW9bXOrcPicRnYSR8HoTBpRzj2bhNHIjMVQ
- DdZ3EhkBYgml+M4eaTtDMGI+D9Zg==;
-Received: from [10.9.9.72] (helo=submission01.runbox)
- by mailtransmit03.runbox with esmtp (Exim 4.86_2)
- (envelope-from <david.laight.linux_spam@runbox.com>)
- id 1wVxbr-0005CN-Fw; Sat, 06 Jun 2026 22:27:11 +0200
-Received: by submission01.runbox with esmtpsa [Authenticated ID (1493616)]
- (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
- (Exim 4.95) id 1wVxbj-006V18-0S; Sat, 06 Jun 2026 22:27:03 +0200
-From: david.laight.linux@gmail.com
-To: Kees Cook <kees@kernel.org>, linux-hardening@vger.kernel.org,
- Arnd Bergmann <arnd@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Helge Deller <deller@gmx.de>, David Laight <david.laight.linux@gmail.com>
-Subject: [PATCH next] drivers/video/fbdev/mmp/fb: Use strscpy() to copy device
- name
-Date: Sat,  6 Jun 2026 21:26:18 +0100
-Message-Id: <20260606202633.5018-24-david.laight.linux@gmail.com>
-X-Mailer: git-send-email 2.39.5
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD7EA10E8BC
+ for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 21:50:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8D98240AC1;
+ Sat,  6 Jun 2026 21:50:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D7911F00893;
+ Sat,  6 Jun 2026 21:50:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780782613;
+ bh=l6BkDN6Y+qWQQjN1sRss8gaiA/XXdY/yCVrtLS6eiIg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=QbapXxOcp1fGApB7Ub17LC+NwkK7DSlUwQPP7QGnzJ5xntnLPH2V577yAa0NCt3AN
+ uMkP30A9ESOXfUU7+GVUGTyQ9+wy+mXlBrtMWik8VM7RwH248GQuizaVXDQw1ybQSi
+ uYdu+1NUyDdd8Mpp7pz34Dqkr4w5n68pWU3WwXU1gtjXHGAsDgqlN5zOfJe07xE97O
+ SCKd33dFTp5brQjFYSUfZFJLpYkAh9YaBcT1yKUftB62pAp8iy89XsqYZIWgTf7VEJ
+ KVvrYgvvOI2rZsmHOWJj7iknCXM2DhCiZtgFbuhIRcNv2zsnOK3EjEUnMhy+0hIKpw
+ dYRj5s5+iE3uw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/amd/display: Validate max_fclk_mhz in DML2 policy
+ builder
+To: "Danila Chernetsov" <listdansp@mail.ru>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260606212503.140638-1-listdansp@mail.ru>
+References: <20260606212503.140638-1-listdansp@mail.ru>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 06 Jun 2026 21:50:12 +0000
+Message-Id: <20260606215013.4D7911F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,51 +53,92 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: David Laight <david.laight.linux@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Signed-off-by: David Laight <david.laight.linux@gmail.com>
----
-This is one of a group of patches that remove potentially unbounded
-strcpy() calls.
+Pre-existing issues:
+- [High] Missing bounds check in `insert_entry_into_table_sorted` allows ar=
+ray out-of-bounds write.
+--
 
-They are mostly replaced by strscpy() or, when strlen() has just been
-called, with memcpy() (usually including the '\0').
+commit 803110810943a93ffdbd8a40adba9348d5b58b1b
+Author: Danila Chernetsov <listdansp@mail.ru>
 
-Calls with copy string literals into arrays are left unchanged.
-They are safe and easily detected as such.
+drm/amd/display: Validate max_fclk_mhz in DML2 policy builder
 
-The changes were made by getting the compiler to detect the calls and
-then fixing the code by hand.
+This commit adds a validation check for max_fclk_mhz to prevent an integer
+underflow and out-of-bounds array access when all FCLK entries are zero.
 
-Note that all the changes are only compile tested.
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_policy.c b/driver=
+s/gpu/drm/amd/display/dc/dml2_0/dml2_policy.c
+> index ab2964811c5bc..938faa6272c2c 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_policy.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_policy.c
+> @@ -157,7 +157,8 @@ int dml2_policy_build_synthetic_soc_states(struct dml=
+2_policy_build_synthetic_so
+>  			num_uclk_dpms++;
+>  	}
+> =20
+> -	if (!max_dcfclk_mhz || !max_dispclk_mhz || !max_dppclk_mhz || !max_phyc=
+lk_mhz || !max_dtbclk_mhz)
+> +	if (!max_dcfclk_mhz || !max_dispclk_mhz || !max_dppclk_mhz || !max_phyc=
+lk_mhz ||
+> +		!max_dtbclk_mhz || !max_fclk_mhz)
+>  		return -1;
+> =20
+>  	p->out_states->num_states =3D 0;
 
-Some Makefiles were changed to allow files to contain strcpy().
-As well as 'difficult to fix' files, this included 'show' functions
-as they really need to use sysfs_emit() or seq_printf().
+[Severity: High]
+This isn't a bug introduced by this patch, but can the subsequent state
+insertions overflow the out_states array?
 
-All the patches are being sent individually to avoid very long cc lists.
-Apologies for the terse commit messages and likely unexpected tags.
-(There are about 100 patches in total.)
+Looking at dml2_policy_build_synthetic_soc_states(), it calls
+insert_entry_into_table_sorted() multiple times:
 
- drivers/video/fbdev/mmp/fb/mmpfb.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+    // Insert all the DCFCLK STAs first
+    for (i =3D 0; i < p->num_dcfclk_stas; i++) {
+        ...
+        insert_entry_into_table_sorted(p->in_bbox, p->out_states, &s->entry=
+);
+    }
 
-diff --git a/drivers/video/fbdev/mmp/fb/mmpfb.c b/drivers/video/fbdev/mmp/fb/mmpfb.c
-index 694587256e06..fc09d3ec3487 100644
---- a/drivers/video/fbdev/mmp/fb/mmpfb.c
-+++ b/drivers/video/fbdev/mmp/fb/mmpfb.c
-@@ -502,7 +502,7 @@ static int fb_info_setup(struct fb_info *info,
- 	info->flags = FBINFO_PARTIAL_PAN_OK |
- 		FBINFO_HWACCEL_XPAN | FBINFO_HWACCEL_YPAN;
- 	info->node = -1;
--	strcpy(info->fix.id, fbi->name);
-+	strscpy(info->fix.id, fbi->name);
- 	info->fix.type = FB_TYPE_PACKED_PIXELS;
- 	info->fix.type_aux = 0;
- 	info->fix.xpanstep = 0;
--- 
-2.39.5
+    // Insert the UCLK DPMS
+    for (i =3D 0; i < num_uclk_dpms; i++) {
+        ...
+        insert_entry_into_table_sorted(p->in_bbox, p->out_states, &s->entry=
+);
+    }
 
+    // Insert FCLK DPMs (if present)
+    if (num_fclk_dpms > 2) {
+        for (i =3D 0; i < num_fclk_dpms; i++) {
+            ...
+            insert_entry_into_table_sorted(p->in_bbox, p->out_states, &s->e=
+ntry);
+        }
+    }
+
+If num_uclk_dpms and num_fclk_dpms can each be derived from the 30-element
+input array, the combined insertions could exceed __DML_MAX_STATE_ARRAY_SIZ=
+E__.
+
+Inside insert_entry_into_table_sorted(), elements are shifted without a bou=
+nds
+check:
+
+    for (i =3D table->num_states; i > index; i--) {
+        table->state_array[i] =3D table->state_array[i - 1];
+    }
+    ...
+    table->num_states++;
+
+Could this write past the end of table->state_array if the total number of
+inserted states across these loops exceeds 30?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606212503.1406=
+38-1-listdansp@mail.ru?part=3D1
