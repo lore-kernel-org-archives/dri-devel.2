@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CDCCCD8C85
-	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 06:46:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97C0FCD8C8B
+	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 06:53:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2C2C10E23A;
-	Sat,  6 Jun 2026 06:46:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8283710E73D;
+	Sat,  6 Jun 2026 06:53:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dk+LZpHv";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mpLqdlFU";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 766FC10E71B
- for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 06:46:44 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5323310E73D
+ for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 06:53:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780728405; x=1812264405;
+ t=1780728788; x=1812264788;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=DSxIRnTXK40EJiQzC44uhcd9hVw68raQ06IMzoojolQ=;
- b=dk+LZpHvJrJ80lj61xNhPbGqQ/04+eXa14g+9ko6g4vJT1x7fyGos2Ir
- FTnFamrlYd0qorVBoNNEgcSm3cUcsLElJv0AyGeCWcE2+givgh6BbD3Q7
- k1PvUecNKTGRrwJ/0rFC5kRDT4TpzttgMw7AsFYPSNSbAAH4Bgx+T2Ozm
- 1+cVS2/MHXwxBBETx6HCavGpFHdQYl7qGhxhTvcUcdDhoIZI+Ej0eALEs
- EkDbmCWpjI27kA0owlSovs29+2iNhUDp6Sh7j3qmcmndTRb++m9DIwZZr
- Xvr7P4EBZ5rDCofxOQr9OfD4k4J7i/8NMfdOkkh/Yb8/sMlpPmESxMgOI w==;
-X-CSE-ConnectionGUID: BcWdx4z1TcyPqBhI7JjW0g==
-X-CSE-MsgGUID: ntMIoHPDSMigpBblIFfLIQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11808"; a="92121091"
-X-IronPort-AV: E=Sophos;i="6.24,190,1774335600"; d="scan'208";a="92121091"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2026 23:46:44 -0700
-X-CSE-ConnectionGUID: b+3Z64H6SE6PXSgvrpJa/w==
-X-CSE-MsgGUID: JwMTLQe7Q3WEGxDkk49JsA==
+ bh=Ua+pmOUdH0hE2qHl0EeTA3y+RmonfwXBwqAa6siD2hA=;
+ b=mpLqdlFUT3eMM0L9voL5G93YOgaOunuJKEk+Vucmt7hY2xo0QW8vTQqV
+ zL0ukgaNwF2QnUtq99B/NO2+PxsQ3xL/seAdVUo1W4fq8dIyIrk2aYP1H
+ VRBXOEE+F9KYs4Sdh/p2V1icthl8vyqbHk4k9vy50lMeLjO9m7046LoCI
+ vqjY5a2d0abZmkWBxg/tNqi1giIReAP0UXagIJ8TMnfIwjR25aZlK1WPJ
+ Oly87teoyPZZ3mARDEoaSPfzfzO8h9UaTedlbq2mOeuzLpZ6ab677AQZO
+ SvPi1qGkN9b40PIybsQ5O5Eh8LwES1tMWXIlmD66hmEJmMpeToAnciZ0i w==;
+X-CSE-ConnectionGUID: uwmUrqpwQyay5TkjoaQYXQ==
+X-CSE-MsgGUID: qO9gzU7DQ/Cw1vx6GpUENA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11808"; a="81673448"
+X-IronPort-AV: E=Sophos;i="6.24,190,1774335600"; d="scan'208";a="81673448"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2026 23:53:08 -0700
+X-CSE-ConnectionGUID: HqwNvrRRQwmj9tyigOeqwQ==
+X-CSE-MsgGUID: rJRg2daYSVaIxT3DdqeZmA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,190,1774335600"; d="scan'208";a="283121212"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.245.244.57])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2026 23:46:39 -0700
-Date: Sat, 6 Jun 2026 09:46:36 +0300
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2026 23:53:03 -0700
+Date: Sat, 6 Jun 2026 09:53:01 +0300
 From: Andy Shevchenko <andriy.shevchenko@intel.com>
 To: Svyatoslav Ryhel <clamor95@gmail.com>
 Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
@@ -56,15 +55,15 @@ Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
  linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
  linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v4 03/14] mfd: lm3533: Remove extern from shared
- functions in the header
-Message-ID: <aiPCTBFGgnfhFgLl@ashevche-desk.local>
+Subject: Re: [PATCH v4 02/14] mfd: lm3533: Remove driver specific regmap
+ wrappers
+Message-ID: <aiPDzdKuccdLIvlF@ashevche-desk.local>
 References: <20260606045738.21050-1-clamor95@gmail.com>
- <20260606045738.21050-4-clamor95@gmail.com>
+ <20260606045738.21050-3-clamor95@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260606045738.21050-4-clamor95@gmail.com>
+In-Reply-To: <20260606045738.21050-3-clamor95@gmail.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -82,10 +81,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Jun 06, 2026 at 07:57:27AM +0300, Svyatoslav Ryhel wrote:
-> Using 'extern' is not required, drop them.
+On Sat, Jun 06, 2026 at 07:57:26AM +0300, Svyatoslav Ryhel wrote:
+> Remove driver-specific regmap wrappers in favor of using regmap helpers
+> directly.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+I like the idea of this patch. Nevertheless I have some suggestions below.
+
+...
+
+>  {
+>  	struct lm3533_als *als = iio_priv(indio_dev);
+>  	u8 reg;
+> -	u8 val;
+> +	u32 val;
+
+Strictly speaking this should be unsigned int. The regmap API use unsigned int.
+
+...
+
+>  static int lm3533_als_set_int_mode(struct iio_dev *indio_dev, int enable)
+>  {
+>  	struct lm3533_als *als = iio_priv(indio_dev);
+> -	u8 mask = LM3533_ALS_INT_ENABLE_MASK;
+> -	u8 val;
+>  	int ret;
+>  
+> -	if (enable)
+> -		val = mask;
+> -	else
+> -		val = 0;
+> -
+> -	ret = lm3533_update(als->lm3533, LM3533_REG_ALS_ZONE_INFO, val, mask);
+> +	ret = regmap_assign_bits(als->lm3533->regmap, LM3533_REG_ALS_ZONE_INFO,
+> +				 LM3533_ALS_INT_ENABLE_MASK, enable);
+
+In cases like this perhaps leaving mask would be fine and together with
+
+	struct regmap *map = als->lm3533->regmap;
+
+this be nice one-liner:
+
+	ret = regmap_assign_bits(map, LM3533_REG_ALS_ZONE_INFO, mask, enable);
+
+>  	if (ret) {
+>  		dev_err(&indio_dev->dev, "failed to set int mode %d\n",
+>  								enable);
+
+In many cases it won't increase LoC count.
+
+...
+
+>  extern int lm3533_ctrlbank_set_brightness(struct lm3533_ctrlbank *cb, u8 val);
+> -extern int lm3533_ctrlbank_get_brightness(struct lm3533_ctrlbank *cb, u8 *val);
+> +extern int lm3533_ctrlbank_get_brightness(struct lm3533_ctrlbank *cb, u32 *val);
+
+>  extern int lm3533_ctrlbank_set_pwm(struct lm3533_ctrlbank *cb, u8 val);
+> -extern int lm3533_ctrlbank_get_pwm(struct lm3533_ctrlbank *cb, u8 *val);
+> +extern int lm3533_ctrlbank_get_pwm(struct lm3533_ctrlbank *cb, u32 *val);
+
+Now they become asymmetrical. Perhaps to replace setters, but be careful about
+upper bits.
 
 -- 
 With Best Regards,
