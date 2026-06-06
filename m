@@ -4,78 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1D01CD8C85
-	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 07:19:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88697CD8C90
+	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 07:19:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D9F8112D68;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B74A8112D71;
 	Sat,  6 Jun 2026 07:19:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.b="Kh2D05iE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ChlGX08M";
 	dkim-atps=neutral
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
- [209.85.222.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34AC911A5AE
- for <dri-devel@lists.freedesktop.org>; Fri,  5 Jun 2026 15:42:56 +0000 (UTC)
-Received: by mail-qk1-f170.google.com with SMTP id
- af79cd13be357-91574384cc2so243429985a.2
- for <dri-devel@lists.freedesktop.org>; Fri, 05 Jun 2026 08:42:56 -0700 (PDT)
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
+ [209.85.210.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD0A8112CF1
+ for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 04:06:26 +0000 (UTC)
+Received: by mail-pf1-f180.google.com with SMTP id
+ d2e1a72fcca58-84230ab8857so1152156b3a.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 05 Jun 2026 21:06:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=trailofbits.com; s=google; t=1780674175; x=1781278975;
- darn=lists.freedesktop.org; 
+ d=gmail.com; s=20251104; t=1780718786; x=1781323586; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=jDvkiRMPuLtyk7kkNunkFVh4+WhfFUZFqxPcwQnozzM=;
- b=Kh2D05iEz6Q6HQcgxrEAwfQygxW3wgqaQwtmsFgVlGS1xVZ6bXqbPCMioz/2IqqiUF
- 2s5wWHhXZ15v7C6WkEP+5uzWH5OIxicpEVp1l/616VI3xEtlNoJF0o0W9SFeQ6aV1gkc
- fMZu5VNeWZgHK8ypStACDwDbG7hRfGAB0gVs/YtfdlNxcyhPMTU6+jNXBBkrFOtTGnTJ
- B2Ggg8RhVZqVulkDNvDplKHjnuSZtQV3R6h/7aKTR4wsCIKHbQoXB0nhr+p/D9Y4PaCu
- 2qUZAnWDkm0COQVBDJqAHja3Jqz6nJLFJ1M7aE/OJVIAEBeH2E03/IEHeb15cfMVGhAI
- 47AQ==
+ bh=MCpOoA7ZBka25eBQE3xrOCOU1NvVrWBs06gXA1dKzzE=;
+ b=ChlGX08MeE8UsCKcIFDmB8h1i8ssde6kLUgIhK/ouKOiH8R+Tcd3aqa5xU3l5HaOYQ
+ zBVKKTSlhCzSVdBgBICiU56oCrDMOoIFwS8MXjfnv9JVVOpYjo2yOJDnZ75W7E6UHu6l
+ F7MUtSuAQRKmznlFcda649+2skS3ixlSMFHcD1WF5/Stosxxe7PAJYlnaw6AL9tqe6YW
+ zTVj0Xa8GK3/5OwlnGthPsJC0dkeyKvbIDN7y31QaSp0ZI5UTzGoif6nv+rk99oFT+kU
+ lBSgomdjeOXLUseSYdDh8nYotT6ySNu3vNEUblGjFRLGbf1njsnKf326iLkZbAH4rA/c
+ oj6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780674175; x=1781278975;
+ d=1e100.net; s=20251104; t=1780718786; x=1781323586;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=jDvkiRMPuLtyk7kkNunkFVh4+WhfFUZFqxPcwQnozzM=;
- b=NlMIfB9xR4HMhKzE0Iui1D1JLrP0AV63uc+III6V6oOPJI9jXPZfu9AWkpDMXxJRx/
- ObsnwG29nep5p4fl2IHsLyEIano+PJVTDvk98LMDkqDw198ushu4mfGXEApDWT/4UasX
- xxyyKbcxudylGbj5fU1FY8snIbNrQOrrCkSJv9+rlj7bqu85maBUeUfQ9HEsQ5pyjxQm
- Bmb6ksijSoEtTHQ5s5NRy4tYfiH0AFQtaGkZV74cmOYaJg58y1FozKFUwwiHNAbM9F6p
- 1EVtX2fbZVM9ZuDi4lNvv60cMLw2QJzNvt/03eHAhAs+xIxzklpwpdWB/zoknH1gsEqc
- a5wQ==
+ bh=MCpOoA7ZBka25eBQE3xrOCOU1NvVrWBs06gXA1dKzzE=;
+ b=B4fyK2Ndeu+HHhKoVeQeFD1ScDn7DNZs/YkJjJCkBNG1ra9Tg3suSKkGveNPRkNL8y
+ UfxJ+/G55kCKnWtnC+4DDVNoPOucB6GHh6uk2NFotJ0tROO0uhOJYC0bBtlmW91QVAlX
+ XdGUcavCmnB5AO2JvoIdCfFWO1Xn4kbQzEiEt9mc3uhEpl6dVNov1QwdFd/9I3BKKSu1
+ yykGBFNsRRKcbGTImKBYm8nSWEOa5wrDewIqeixvySaFNuiva41LDO9VIL+iltrTtbui
+ Fw45xqnfAdowS11PB0VvO19QaU7htmAxer0Gv9G1wN/KKId3acLBjnK+DVW+kCcXtSxv
+ 9DzQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ89O00Ct8xYqLTLXHuvyQ3o6fPgGAzISbuWwst29oA9tE+Ya4cX2s/WOTnPPkLraJuavvvjWTXZguo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwmBLztNxgXhsjWUNDDvCMvJ4jHb2/Veml1TFyl4mZmCBUtIn+e
- HMqN58QE2t0aR7BFC8SG+aY8z+eLUhAD2DPf/k7OXRdBSSbMUQafhmMCYuEi0PGYjbQB1vX25Qj
- SKZseLpI=
-X-Gm-Gg: Acq92OEGBOitmd6iZwTVPix4ZsBHI+2KgOHEkqH9pdakf/SEir62BcY2YjibqJ5nXcK
- 76VilF5i/p4Ivf9XLUDRpBzHGfnaAsrIMjuLXre7ZN3yWN58KSExRzSJpK8g/28FAMmqd6vlOSO
- tLrdzfq+hk4Z52x1tGrQFIhxN03l62ekL3T9ODzwwHjci9kdg9S+n/QSqSiNTA0djO+DZmj6gi7
- awt3anUpmUjDeqhyWo8tdRyR/ApOBC57NTdPqfkO4j9prNAoMncxCKm2G3upCaqEYJ3FJYVQK8K
- 9QFyPeWutOpp8u49VF/pYvAt/fuU3Jzr4Ito5XSCCJ7yK9pfNq2i8a9DbAQqGpguHhmXebdcuv9
- XCs45oy0clmLfbuoOUG8a5m9QEPf0+awFN+ck8htj8JyADz+D2qyjzQovxZOqV/m7YIJhc+KJFX
- ubwogZ5Sf9IEOVsltzw+EH6R/3JGHT7FntkZ0jUw==
-X-Received: by 2002:a05:620a:254a:b0:910:db3a:7bdb with SMTP id
- af79cd13be357-915a9d888demr747343385a.32.1780674175256; 
- Fri, 05 Jun 2026 08:42:55 -0700 (PDT)
-Received: from localhost ([161.35.96.86]) by smtp.gmail.com with UTF8SMTPSA id
- af79cd13be357-9158a37bae6sm927242485a.31.2026.06.05.08.42.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 Jun 2026 08:42:54 -0700 (PDT)
-From: Samuel Moelius <sam.moelius@trailofbits.com>
-To: Gerd Hoffmann <kraxel@redhat.com>
-Cc: Samuel Moelius <sam.moelius@trailofbits.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org (open list:USERSPACE DMA BUFFER DRIVER),
- linux-media@vger.kernel.org (open list:DMA BUFFER SHARING FRAMEWORK),
- linaro-mm-sig@lists.linaro.org (moderated list:DMA BUFFER SHARING FRAMEWORK), 
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] dma-buf: udmabuf: validate create-list count before copying
-Date: Fri,  5 Jun 2026 15:42:51 +0000
-Message-ID: <20260605154252.2125942-1-sam.moelius@trailofbits.com>
-X-Mailer: git-send-email 2.43.0
+ AFNElJ/lUnp/KGQ8pTAKKEoZ7Zk07UnIX/pEnCbuyUxTIF4sBhoJLlv5zPSjtZ2BDYAGrMXjTsWEk6F3V2w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyDquZaTyGyhAtWmOELO2zkila8+wamZ1FJgzWUi69oHzPiuKrv
+ d3pwqRaV9IeGwu7mNoHnEoFM6798JOnzHjRxBw73K1SLmT0nUlnQaEYU
+X-Gm-Gg: Acq92OFBS95aQR+oxEj6lIOeOdDgxT4TWFyFdQF/ztvDjHiveWrQ+qjVgOyIy9xW7Vk
+ ClUfHCiQlWqstwtCuUpfWf0RtWL4FFKsjWepFY69Zoc9hjpGO5nPC175T1F1INkFnrXekX7vFOQ
+ pxsRm3SsC3+N/W+Kq77/c27oJVTjTz4u7YFhG/QLz9p0vI0uHw8k0Wrkdph2xWCbhvjCNE/rOUA
+ YVE5FBe1aBc1yY6vk6dhDR6UVltw0Gn8qf9b5tawnrnOn8WikQsDFEArnkLXeUgeymuiJzmAOfm
+ zQTBn/Rj5Y/3CSeIbmi8NfgYw+jG+Hk3syyRdY/h99W6hDUYGB0Vy2nSKAOeVC/O8Jiv1DJaqW6
+ lIsEXqGjC0jIp9cuhs6Nal8Zd2l+xjH1Jq1TaeJ7ryrX0Jh9MbbUIkYcEYn6/5XRJSAIcHTHbBg
+ NlolwiNj5UoPigrZzgdRm37vwW8Geah/70V96th9xko14B7V16J3YOkg==
+X-Received: by 2002:a05:6a20:12d5:b0:3a3:171f:6aff with SMTP id
+ adf61e73a8af0-3b4cccfdeacmr8589460637.2.1780718786106; 
+ Fri, 05 Jun 2026 21:06:26 -0700 (PDT)
+Received: from haichao.tail057a43.ts.net
+ ([2001:da8:e000:1206:967f:7ce4:ec98:f08b])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-c85df0bd337sm9412553a12.29.2026.06.05.21.06.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Jun 2026 21:06:25 -0700 (PDT)
+From: Ruoyu Wang <ruoyuw560@gmail.com>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Ruoyu Wang <ruoyuw560@gmail.com>
+Subject: [PATCH] drm/omap: check IRQ wait allocation
+Date: Sat,  6 Jun 2026 12:06:20 +0800
+Message-ID: <20260606040620.13-1-ruoyuw560@gmail.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 06 Jun 2026 07:19:14 +0000
@@ -94,52 +91,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-UDMABUF_CREATE_LIST copies a variable-length list using a byte count
-derived from head.count. The list_limit module parameter is signed and
-writable, so setting it negative lets a large unsigned count bypass the
-limit check. The u32 byte-count calculation can then wrap, causing only
-a small list to be copied while udmabuf_create() still iterates over the
-large count.
+omap_irq_wait_init() allocates an omap_irq_wait object and initializes
+its waitqueue and list node immediately. If the allocation fails, the
+waitqueue initialization dereferences NULL.
 
-Reject negative list_limit values and use checked size_t multiplication
-before copying the list.
+Return NULL when the wait object cannot be allocated and make
+omap_irq_wait() report -ENOMEM if it is asked to wait on a missing
+object. No wait entry has been installed in that case, so there is
+nothing to remove from the wait list.
 
-Assisted-by: Codex:gpt-5.5-cyber-preview
-Signed-off-by: Samuel Moelius <sam.moelius@trailofbits.com>
+Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
 ---
- drivers/dma-buf/udmabuf.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/omapdrm/omap_irq.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index 94b8ecb892bb..46b077639bfb 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -13,6 +13,7 @@
- #include <linux/hugetlb.h>
- #include <linux/slab.h>
- #include <linux/udmabuf.h>
-+#include <linux/overflow.h>
- #include <linux/vmalloc.h>
- #include <linux/iosys-map.h>
+diff --git a/drivers/gpu/drm/omapdrm/omap_irq.c b/drivers/gpu/drm/omapdrm/omap_irq.c
+index d0f895c43ee41..e0fa9617a3d30 100644
+--- a/drivers/gpu/drm/omapdrm/omap_irq.c
++++ b/drivers/gpu/drm/omapdrm/omap_irq.c
+@@ -46,6 +46,9 @@ struct omap_irq_wait * omap_irq_wait_init(struct drm_device *dev,
+ 	struct omap_irq_wait *wait = kzalloc_obj(*wait);
+ 	unsigned long flags;
  
-@@ -489,13 +490,14 @@ static long udmabuf_ioctl_create_list(struct file *filp, unsigned long arg)
- 	struct udmabuf_create_list head;
- 	struct udmabuf_create_item *list;
- 	int ret = -EINVAL;
--	u32 lsize;
-+	size_t lsize;
++	if (!wait)
++		return NULL;
++
+ 	init_waitqueue_head(&wait->wq);
+ 	wait->irqmask = irqmask;
+ 	wait->count = count;
+@@ -65,6 +68,9 @@ int omap_irq_wait(struct drm_device *dev, struct omap_irq_wait *wait,
+ 	unsigned long flags;
+ 	int ret;
  
- 	if (copy_from_user(&head, (void __user *)arg, sizeof(head)))
- 		return -EFAULT;
--	if (head.count > list_limit)
-+	if (list_limit < 0 || head.count > list_limit)
-+		return -EINVAL;
-+	if (check_mul_overflow(sizeof(struct udmabuf_create_item), head.count, &lsize))
- 		return -EINVAL;
--	lsize = sizeof(struct udmabuf_create_item) * head.count;
- 	list = memdup_user((void __user *)(arg + sizeof(head)), lsize);
- 	if (IS_ERR(list))
- 		return PTR_ERR(list);
++	if (!wait)
++		return -ENOMEM;
++
+ 	ret = wait_event_timeout(wait->wq, (wait->count <= 0), timeout);
+ 
+ 	spin_lock_irqsave(&priv->wait_lock, flags);
 -- 
-2.43.0
+2.34.1
 
