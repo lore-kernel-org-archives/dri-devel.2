@@ -4,55 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E37ACD8C85
-	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 20:23:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C1D6CD8C85
+	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 20:51:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5439610E66F;
-	Sat,  6 Jun 2026 20:23:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB5A210E8A1;
+	Sat,  6 Jun 2026 20:51:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="l0ntZMmV";
+	dkim=pass (2048-bit key; unprotected) header.d=runbox.com header.i=@runbox.com header.b="g8NobXqt";
 	dkim-atps=neutral
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch
- [109.224.244.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6049910E66F;
- Sat,  6 Jun 2026 20:23:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1780777424; x=1781036624;
- bh=jcJgKWkR7ZYNXmZQ/2TOyoNRGSsz1U5CVTE5gVFMtwQ=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=l0ntZMmVSdi976sJnS4C2kwJM9vPX9wSGgidkLYyqcE5/fwfIivJKQXMnlxsoq5a3
- tpqk0+T1ARn9GLEBJQJHQu+xy/uYq8PPU+LdbV2zif4fP+ShqyBZiLph2/5RlIoOBj
- lW0QH8eSm8Z1k3JizogJTBTrN3+N6mMwrk9KJZOcOr5sb5Q3sJcsk6Jumf7EGAeB6b
- inIGaTwHah05V1VZei/w5LVISZjzaXyYkQOhq3lwTemmZQbnEH91BtRTP2rju55Ryx
- h9+Qp4sBWWaSD5AD+g1v9smdkrFiksB3gMire702GJhs0hSPKjgOu2zhYQpoCfPilK
- afMLsiViqBxZA==
-Date: Sat, 06 Jun 2026 20:23:38 +0000
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v2 1/2] drm/mipi-dsi: add flag for sending all DSC slices
- in one packet
-Message-ID: <C7NqucjdVmZMexR2CNQfB4x8PqX_18JqIePxmtHqS3jeL5U1CFSZIpNqfH7zERiD3tIbRshVpnmok7akJWPrUCaoSCU1QD-rdQjmQ8cEw-c=@pm.me>
-In-Reply-To: <kxbtfiizjbprs4sqkmtotbaeqmm5e3draavlmdskhmws2l6ivq@73r3hnghmmrv>
-References: <20260318-dsi-dsc-slice-per-pkt-v2-0-0a1b316f8250@pm.me>
- <20260318-dsi-dsc-slice-per-pkt-v2-1-0a1b316f8250@pm.me>
- <rrgnyzpxo6g3ufjcnxnshexjotyq3riruc6wqjhirmcjo4qdta@gmwhs3mu2xld>
- <kxbtfiizjbprs4sqkmtotbaeqmm5e3draavlmdskhmws2l6ivq@73r3hnghmmrv>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: b52e804e0ff33d68455a5fb9bab237e0bf7a4299
+X-Greylist: delayed 1451 seconds by postgrey-1.36 at gabe;
+ Sat, 06 Jun 2026 20:51:25 UTC
+Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com
+ [185.226.149.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B5F010E8A1
+ for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 20:51:25 +0000 (UTC)
+Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
+ by mailtransmit04.runbox.com with esmtps (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <david.laight.linux_spam@runbox.com>)
+ id 1wVxcb-007NWf-5J; Sat, 06 Jun 2026 22:27:57 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com; 
+ s=selector1;
+ h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+ Subject:Cc:To:From; bh=w9rfQJKe+zMqlTtxFH4kG9pticirwoJsZRsMjcLrr3M=; b=g8NobX
+ qtYWBBba5XBa9T5+Aw9bQksIMtU6/TN4yIclBY4ZpUdbRddz+FPA41ptxkEnBQ3sTFjeuzjxO68rQ
+ LRmlr8y2lXUz3DcOcpNsjGJQCMl+Ew4NcCFGRLVRBmP2qWsc6bQCi462DBU3V6CEyPCRUhboqFRm6
+ XlnXYfZAQ60S/ryRYsIwkV33z6TH+47/JusWKBRcWnZrGZ9I58UdjhnS5cwfYMR4Wr90EFRQSKP8F
+ SQGzqILzWVesD2SKnS89mAbjl2TKpWhNahTe7+j0XRU/cW6ag7hZM6uhy1ZNeQqr6czEyM8FuOcXW
+ gSOuvN8cVHBTesSCV/JLfC+QQvhQ==;
+Received: from [10.9.9.74] (helo=submission03.runbox)
+ by mailtransmit02.runbox with esmtp (Exim 4.86_2)
+ (envelope-from <david.laight.linux_spam@runbox.com>)
+ id 1wVxca-0000vh-QW; Sat, 06 Jun 2026 22:27:56 +0200
+Received: by submission03.runbox with esmtpsa [Authenticated ID (1493616)]
+ (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.95) id 1wVxcU-006elj-DT; Sat, 06 Jun 2026 22:27:50 +0200
+From: david.laight.linux@gmail.com
+To: Kees Cook <kees@kernel.org>, linux-hardening@vger.kernel.org,
+ Arnd Bergmann <arnd@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Helge Deller <deller@gmx.de>, David Laight <david.laight.linux@gmail.com>
+Subject: [PATCH next] drivers/video/fbdev/sis: Replace strlen() strcpy() pair
+ with strscpy()
+Date: Sat,  6 Jun 2026 21:27:41 +0100
+Message-Id: <20260606202744.5113-2-david.laight.linux@gmail.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,29 +66,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Monday, May 18th, 2026 at 2:02 PM, Dmitry Baryshkov <dmitry.baryshkov@os=
-s.qualcomm.com> wrote:
+From: David Laight <david.laight.linux@gmail.com>
 
-> On Wed, Mar 18, 2026 at 12:33:45PM +0200, Dmitry Baryshkov wrote:
-> > On Wed, Mar 18, 2026 at 09:54:04AM +0000, Alexander Koskovich wrote:
-> > > The MIPI DSI v1.3 spec defines two modes for transporting compressed
-> > > pixel data: one slice per packet or multiple slice widths in a single
-> > > packet (Section 8.8.24 Figure 40).
-> > >
-> > > Add a MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT flag that panel drivers can
-> > > set to indicate that all DSC slices for a line should be packed into =
-a
-> > > single packet. When unset should default to 1 slice per packet.
-> > >
-> > > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> >
-> > As I wrote for v1, I'd prefer to get more opinions before applying
->=20
-> Any comments? I'll apply it in a few days otherwise.
->=20
+Use the result of strscpy() for the overflow check.
 
-Hey Dmitry, is this series still able to go in for 7.2? Not sure if it's to=
-o late.
+Signed-off-by: David Laight <david.laight.linux@gmail.com>
+---
+This is one of a group of patches that remove potentially unbounded
+strcpy() calls.
 
-Thanks,
-Alex
+They are mostly replaced by strscpy() or, when strlen() has just been
+called, with memcpy() (usually including the '\0').
+
+Calls with copy string literals into arrays are left unchanged.
+They are safe and easily detected as such.
+
+The changes were made by getting the compiler to detect the calls and
+then fixing the code by hand.
+
+Note that all the changes are only compile tested.
+
+Some Makefiles were changed to allow files to contain strcpy().
+As well as 'difficult to fix' files, this included 'show' functions
+as they really need to use sysfs_emit() or seq_printf().
+
+All the patches are being sent individually to avoid very long cc lists.
+Apologies for the terse commit messages and likely unexpected tags.
+(There are about 100 patches in total.)
+
+ drivers/video/fbdev/sis/sis_main.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/video/fbdev/sis/sis_main.c b/drivers/video/fbdev/sis/sis_main.c
+index 84567d67f71d..95f976b49143 100644
+--- a/drivers/video/fbdev/sis/sis_main.c
++++ b/drivers/video/fbdev/sis/sis_main.c
+@@ -204,8 +204,7 @@ static void sisfb_search_mode(char *name, bool quiet)
+ 		return;
+ 	}
+ 
+-	if(strlen(name) <= 19) {
+-		strcpy(strbuf1, name);
++	if (strscpy(strbuf1, name) > 0) {
+ 		for(i = 0; i < strlen(strbuf1); i++) {
+ 			if(strbuf1[i] < '0' || strbuf1[i] > '9') strbuf1[i] = ' ';
+ 		}
+-- 
+2.39.5
+
