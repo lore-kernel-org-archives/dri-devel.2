@@ -4,57 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C6A2CD8C8C
-	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 11:43:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7353CD8C85
+	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 12:04:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E02C6112DEA;
-	Sat,  6 Jun 2026 11:43:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10DEA10E65C;
+	Sat,  6 Jun 2026 12:04:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jYXVjPNh";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MlN41s9K";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VrF3X62k";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34486112DEA
- for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 11:43:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F032040B2F;
- Sat,  6 Jun 2026 11:43:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 239451F00893;
- Sat,  6 Jun 2026 11:43:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780746190;
- bh=I7ltkJ91HzIJ+nexwVW+w9dICcMV+8jdmBg+F4Qnwas=;
- h=Date:From:Subject:To:Cc:References:In-Reply-To;
- b=jYXVjPNh49t17HOaj3mtiHUw1w8MLv5Xe/k0iagaqImOhVdTcqK562Nydx20ai7/v
- /YvlXYVAEhv57faTA2lKHKTnlLAgjPHiU1ctDh0hqt0q1Aznb1gT8YczU0itvJiHG2
- x8SQufEVDdhtvfP+dR6jSEpNL91PJMAZeyacFds9Lr5UV7mo06rVvs2sSmprb0NjWR
- AZUhjAx6ZPv1Zk5wBzuzqIiLgr8byH/0/f6nV55yLWvMjQGwfGZZMHXhfD8mRcPazs
- RQS7NPmqF32S75s/2cf6ESCRZTJ0hEffGa3jpmr/AqEEfxIjlOzEurivwu24W/7H0p
- 7rA9cwKWnJfRw==
-Message-ID: <0ac406bd-d565-4037-a498-4273df2765dd@kernel.org>
-Date: Sat, 6 Jun 2026 13:43:05 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v5 2/4] drm/scdc-helper: Add scdc_status debugfs entry
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C093E10E65C
+ for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 12:04:20 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 656BEIoo1280398
+ for <dri-devel@lists.freedesktop.org>; Sat, 6 Jun 2026 12:04:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=LgC2ILMkGYF/Iy0bZh6M4/Rm
+ 05l5mA+X3cLtGebpi+A=; b=MlN41s9KJW3HgOfVbGVxyUN8E8pzs00TpoNSSBzD
+ +fi0PXUS4XxHJuvjII8pe9wdO2CpJH/3CuxWPRsh6MKWRtxoGNnwt1hjfmqGpOYb
+ vbyyoheyBgokITw/ydDU45PAwHe1daYzzISUAVkUDPVvXkHBK7QTJjb1gAGGUH8o
+ ZZtYF7KfJojwAlqEGR6h/J6XsMnmn47K57Kebg2G7Q8nGza7eaq3gmc1DWEU6EaT
+ Tgf7Z32uQs2R8LA/tzUhoW5Y9aNy+bYtVinSuRmUBuM1xNdkZtxjx5kvg7NwYMqL
+ 73mzkXlSbls2fJwhkdKQls9FkOHm5n1RpU9t8si/vucw7w==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com
+ [209.85.222.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emagr99dt-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 06 Jun 2026 12:04:19 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id
+ a1e0cc1a2514c-963eeb6f2baso3055655241.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 06 Jun 2026 05:04:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1780747459; x=1781352259;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=LgC2ILMkGYF/Iy0bZh6M4/Rm05l5mA+X3cLtGebpi+A=;
+ b=VrF3X62kra8srcXf3qsPVcOc4G4rlmc/CZT/cKNTaflrMS9tBcwb4yVjiGJc4M2xrX
+ 3CyAT/EBoF7J4KqQAc6ka0OwvGros8GFSgMoRg12X+hp0xLn2qHyNzYQoedWB0MsSUV8
+ M3cF+w+Z3fVC64tIxTAI4Jfqk2GlwaaYlmWuB6rxDKUEaKDJeyez71/CjY6kPnltW0UR
+ Bou9MMH5eorOkFdjebbwVFN20B5NgUbGDGNM3D7s3xri2ATM72bpRpCX6OHUl0SxNmmK
+ izLmTgdtFEO6WzVHeVvb/bNH15EgZDIR63ZgNG0oubRBOBMWKoAe2J5PQr/EBCg42nJt
+ FH5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780747459; x=1781352259;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=LgC2ILMkGYF/Iy0bZh6M4/Rm05l5mA+X3cLtGebpi+A=;
+ b=VvGpqGFsPVfruw6iSY5pi+bIk7hbP+i1UlweGB6mBofawpqz8zxkF498nO1if9Ag9F
+ efx7ZwyC8YcCA03ux16oulcI1orJsBRLHSOcpydcDQijo07sL/HqOpWwJD3hOG5Bevwo
+ sqyx5G+i8jK+DW0fK7Z6kZuvQ7/upiZVrhiESwP1UnLyMB5xLDmPu1RSdXgzZGuHvYM7
+ 1YmRutAg1aPZGAcgc1vdNQ0qOjcdaV1iP0j4EXwz7kSikhuU+lJyDpV8ODc3EFObNEiP
+ pSeUWWY/yKT0q7HZl/U4AM2WFD2F10KiPR6iDALSmTvqVhgqsn7JOPZs4msDeZj3pxGX
+ 2gPA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/N7M0DkGnsaq3JnXO4XYzeKmVt/c61SxP5v2WxDhLHZ5OSoLUuHeOcIyBUucP5GVOidGEvxfWdhDM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx/IUduBAsehr+hEdOuIMEQeCNjvSRxd+PfminuC/GEN0LN5Xwt
+ HJjHfLBKoSa+WpkR3eiTbNQjpX4z2mNVSL24fZtydMzub0kWzu68tCCDh3veodqum8b+4rw0gvv
+ GboNizTyD7hMs+ICVS1/4WprnnME5Y3pUmRjtGIjDZpXnLVdZs8AOlvSZJlR07VCCk4XYimg=
+X-Gm-Gg: Acq92OEwkrCuhnwvg3+65I87D2/fyw4ZgK/HI9bJRQbb7fDNPtlQWLwai2eqLM3sqzf
+ /VeqdR0c555wUNLSlMwr08+9DhdnL/hjomuWNgaSzfi0bsCq+Lr97VgCm7h8ZCtKF/KEDmcDTL6
+ r7OopXzQ1Vtt/iZ8fRIKwad17B5OVIetY5t3dzW0iR04wr++wKbiDd45zWof1MDWPm/yhbWEHNj
+ X9QfwKLklL8e63K9HnsQgv7ZPQrg/QqelUu0JQNIPmyMv5lE7Aqd3MoU3t94j8DaHKzRIRT2PGt
+ +3s3ThyLGL3OmOpTwA4eMV0V6H3phS46wBWIfpZJRC0APvO9mfWEBMMkhMQkZKOdov8D1fQvjXA
+ SsYwUKLqS2mQv4QOfkz0qXpHD3vGi/jRymEJ0ckPmOGmu8Qh/F/7A0r8PsoHIfSd4Wb8yEu1Hcx
+ 6dLvtTYKZdOM3atVHQ8DNOUCVghBmnowXY5A2inMn5vZoCmg==
+X-Received: by 2002:a05:6102:148f:b0:632:a084:c0f7 with SMTP id
+ ada2fe7eead31-6ff084a6d6cmr2724903137.17.1780747458841; 
+ Sat, 06 Jun 2026 05:04:18 -0700 (PDT)
+X-Received: by 2002:a05:6102:148f:b0:632:a084:c0f7 with SMTP id
+ ada2fe7eead31-6ff084a6d6cmr2724887137.17.1780747458451; 
+ Sat, 06 Jun 2026 05:04:18 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-396ac2be04esm32468731fa.25.2026.06.06.05.04.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 06 Jun 2026 05:04:17 -0700 (PDT)
+Date: Sat, 6 Jun 2026 15:04:15 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Daniel Stone <daniel@fooishbar.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel@collabora.com
-References: <20260604-scdc-link-health-v5-0-11173b0ac3de@collabora.com>
- <20260604-scdc-link-health-v5-2-11173b0ac3de@collabora.com>
-Content-Language: en-US, nl
-In-Reply-To: <20260604-scdc-link-health-v5-2-11173b0ac3de@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>,
+ Jie Zhang <quic_jiezh@quicinc.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Shivam Rawat <shivrawa@qti.qualcomm.com>
+Subject: Re: [PATCH 1/6] drm/msm/a6xx: Fix stale rpmh votes after suspend
+Message-ID: <vsgz7zf6zenvkgsrvclnsn666aviayecrxrcfnlqpf3tha7ecw@d5hacce4qc5v>
+References: <20260605-assorted-fixes-june-v1-0-2caa04f7287c@oss.qualcomm.com>
+ <20260605-assorted-fixes-june-v1-1-2caa04f7287c@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260605-assorted-fixes-june-v1-1-2caa04f7287c@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA2MDEyMCBTYWx0ZWRfX8Kv8gAYWKHFO
+ TLVRk6LTNxcQqobmKYwfNiJwS4O1ihQDJqmZwfaL/pz6Reh/Uj4SX1sVULRfoyYu1sVpUJwVhov
+ bYz0ZUdBS3cHLMFgteSOzYQWgSfM8FerpdpIoyxrZSpBiEirVnZGuic49lOIfT4pJO42/DMohue
+ djmgxI6f+w8eAHRxVSyV3cn1xswGNtTCZkYJFsVDiyTXJ1/YJMQGYp653SNXXprIH8W1Ed4s8aG
+ 5UxCSvT7ot2d8OiWsmSCg/HIVO8TQWNYTnPDWbFM8/8LP90itALy2pg6JRq7xDZhzP5RkMXWhl2
+ UJcQmOEtoGFILLwzvdcMb+r1xIQOeeAMuzW8T/1DsrU2p1Y8P3F3c3fudBjdcp21bnrMUIiBJb/
+ qsQ+R9+VEPA3RmIObRi6luuFac29GqQQS0YD1UaASX2ML5sUcmK0mNe+51rI8i/+nOTStD4znBU
+ kFw/MMO6agnD4pKIlvA==
+X-Authority-Analysis: v=2.4 cv=G/4s1dk5 c=1 sm=1 tr=0 ts=6a240cc3 cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=npCoGp_I_a_DEMxlm3EA:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
+ a=TD8TdBvy0hsOASGTdmB-:22
+X-Proofpoint-ORIG-GUID: CR75z-DoyhGiktZq3O7uBWr6hES94b_P
+X-Proofpoint-GUID: CR75z-DoyhGiktZq3O7uBWr6hES94b_P
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-06_03,2026-06-05_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 malwarescore=0 spamscore=0
+ lowpriorityscore=0 suspectscore=0 phishscore=0 impostorscore=0 bulkscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606060120
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,289 +151,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 04/06/2026 17:52, Nicolas Frattaroli wrote:
-> SCDC provides status information on the current display link. At the
-> very least, it may be useful to expose this info through debugfs.
+On Fri, Jun 05, 2026 at 01:38:17AM +0530, Akhil P Oommen wrote:
+> From: Shivam Rawat <shivrawa@qti.qualcomm.com>
 > 
-> Add a debugfs entry for it under the connector, which displays a few
-> more details parsed out of the SCDC registers. A new
-> drm_scdc_debugfs_init function can be called by the connector
-> implementation to initialise the debugfs file.
+> There are stale RPMH votes (BCM votes) observed after GMU suspend. This
+> is because the rpmh stop sequences are skipped during gmu suspend. Fix
+> this and also move GMU to reset state to avoid any further activity.
 > 
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> Fixes: f248d5d5159a ("drm/msm/a6xx: Fix PDC sleep sequence")
+> Signed-off-by: Shivam Rawat <shivrawa@qti.qualcomm.com>
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > ---
->  drivers/gpu/drm/display/drm_scdc_helper.c | 184 ++++++++++++++++++++++++++++++
->  include/drm/display/drm_scdc_helper.h     |  32 ++++++
->  2 files changed, 216 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/display/drm_scdc_helper.c b/drivers/gpu/drm/display/drm_scdc_helper.c
-> index 8403f2390ab6..d98bcb8ce748 100644
-> --- a/drivers/gpu/drm/display/drm_scdc_helper.c
-> +++ b/drivers/gpu/drm/display/drm_scdc_helper.c
-> @@ -24,11 +24,14 @@
->  #include <linux/export.h>
->  #include <linux/i2c.h>
->  #include <linux/slab.h>
-> +#include <linux/debugfs.h>
->  #include <linux/delay.h>
-> +#include <linux/overflow.h>
->  
->  #include <drm/display/drm_scdc_helper.h>
->  #include <drm/drm_connector.h>
->  #include <drm/drm_device.h>
-> +#include <drm/drm_managed.h>
->  #include <drm/drm_print.h>
->  
->  /**
-> @@ -55,6 +58,11 @@
->  
->  #define SCDC_I2C_SLAVE_ADDRESS 0x54
->  
-> +struct scdc_debugfs_priv {
-> +	struct drm_connector *connector;
-> +	struct drm_scdc_state state;
-> +};
-> +
->  /**
->   * drm_scdc_read - read a block of data from SCDC
->   * @adapter: I2C controller
-> @@ -276,3 +284,179 @@ bool drm_scdc_set_high_tmds_clock_ratio(struct drm_connector *connector,
->  	return true;
->  }
->  EXPORT_SYMBOL(drm_scdc_set_high_tmds_clock_ratio);
-> +
-> +static void
-> +drm_scdc_parse_status0_flags(u8 val, struct drm_scdc_status_flags *flags)
-> +{
-> +	flags->clock_detected = val & SCDC_CLOCK_DETECT;
-> +	flags->ch0_locked = val & SCDC_CH0_LOCK;
-> +	flags->ch1_locked = val & SCDC_CH1_LOCK;
-> +	flags->ch2_locked = val & SCDC_CH2_LOCK;
-> +}
-> +
-> +static int drm_scdc_parse_error_counters(const u8 scdc[256], u16 counter[3])
-> +{
-> +	u8 sum = 0;
-> +	int i;
-> +
-> +	for (i = SCDC_ERR_DET_0_L; i <= SCDC_ERR_DET_CHECKSUM ; i++)
-> +		sum = wrapping_add(u8, sum, scdc[i]);
-> +
-> +	if (sum)
-> +		return -EPROTO;
-> +
-> +	for (i = 0; i < 3; i++) {
-> +		if (scdc[SCDC_ERR_DET_0_H + i * 2] & SCDC_CHANNEL_VALID)
-> +			counter[i] =  (scdc[SCDC_ERR_DET_0_H + i * 2] &
-> +				       ~SCDC_CHANNEL_VALID) << 8 |
-> +				       scdc[SCDC_ERR_DET_0_L + i * 2];
-> +		else
-> +			counter[i] = 0;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +/**
-> + * drm_scdc_read_state - Update state from SCDC
-> + * @connector: pointer to a &struct drm_connector on which to operate on
-> + * @state: pointer to a &struct drm_scdc_state to fill
-> + *
-> + * Reads the entire 256 byte SCDC state and parses it.
-> + *
-> + * Returns: %0 on success, negative errno on failure.
-> + */
-> +int drm_scdc_read_state(struct drm_connector *connector, struct drm_scdc_state *state)
-> +{
-> +	struct i2c_adapter *ddc;
-> +	struct drm_scdc *scdc;
-> +	u8 *buf = state->scdc;
-> +	int ret;
-> +
-> +	if (!state || !connector)
-> +		return -ENODEV;
-> +
-> +	scdc = &connector->display_info.hdmi.scdc;
-> +	ddc = connector->ddc;
-> +
-> +	if (!scdc->supported)
-> +		return -EOPNOTSUPP;
-> +
-> +	/* Read in 128-byte chunks, to work around DP<->HDMI converters with issues. */
-> +	ret = drm_scdc_read(ddc, 0, buf, 128);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = drm_scdc_read(ddc, 127, &buf[127], 128);
-
-Huh? Shouldn't this be: ret = drm_scdc_read(ddc, 128, &buf[128], 128);
-
-I'm unable to test this series at the moment: I'm pretty sure I have
-suitable hardware, but I don't have access to that for another week.
-
-Regards,
-
-	Hans
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	state->scrambling_enabled = buf[SCDC_TMDS_CONFIG] & SCDC_SCRAMBLING_ENABLE;
-> +	state->tmds_bclk_x40 = buf[SCDC_TMDS_CONFIG] & SCDC_TMDS_BIT_CLOCK_RATIO_BY_40;
-> +
-> +	state->scrambling_detected = buf[SCDC_SCRAMBLER_STATUS] & SCDC_SCRAMBLING_STATUS;
-> +
-> +	drm_scdc_parse_status0_flags(buf[SCDC_STATUS_FLAGS_0], &state->stf);
-> +	ret = drm_scdc_parse_error_counters(buf, state->error_count);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(drm_scdc_read_state);
-> +
-> +#define scdc_print_str(_f, key, s) \
-> +	(seq_printf((_f), "%-30s: %s\n", (key), (s)))
-> +#define scdc_print_flag(_f, key, val) \
-> +	(scdc_print_str((_f), (key), str_yes_no((val))))
-> +#define scdc_print_dec(_f, key, val) \
-> +	(seq_printf((_f), "%-30s: %d\n", (key), (val)))
-> +
-> +static int scdc_status_show(struct seq_file *m, void *data)
-> +{
-> +	struct scdc_debugfs_priv *priv = m->private;
-> +	struct drm_scdc_state *st = &priv->state;
-> +	struct drm_connector *connector = priv->connector;
-> +	struct drm_scdc *scdc = &connector->display_info.hdmi.scdc;
-> +	int i, ret;
-> +
-> +	drm_connector_get(connector);
-> +
-> +	if (connector->status != connector_status_connected) {
-> +		ret = -ENODEV;
-> +		goto err_conn_put;
-> +	}
-> +
-> +	if (scdc->supported) {
-> +		ret = drm_scdc_read_state(connector, st);
-> +		if (ret)
-> +			goto err_conn_put;
-> +
-> +		for (i = 0; i < ARRAY_SIZE(st->scdc); i += 16)
-> +			seq_printf(m, "%*ph\n", 16, &st->scdc[i]);
-> +
-> +		seq_puts(m, "\n----------------\n\n");
-> +	}
-> +
-> +	scdc_print_flag(m, "SCDC Supported", scdc->supported);
-> +	if (!scdc->supported) {
-> +		ret = 0;
-> +		goto err_conn_put;
-> +	}
-> +
-> +	scdc_print_flag(m, "Sink Read Request Capable", scdc->read_request);
-> +	scdc_print_flag(m, "Scrambling Supported", scdc->scrambling.supported);
-> +	scdc_print_flag(m, "Low Rate Scrambling Supported", scdc->scrambling.low_rates);
-> +
-> +	drm_connector_put(connector);
-> +
-> +	scdc_print_flag(m, "Scrambling Enabled", st->scrambling_enabled);
-> +	scdc_print_flag(m, "Scrambling Detected", st->scrambling_detected);
-> +
-> +	if (st->tmds_bclk_x40)
-> +		scdc_print_str(m, "TMDS Bit Clock Ratio", "1/40");
-> +	else
-> +		scdc_print_str(m, "TMDS Bit Clock Ratio", "1/10");
-> +
-> +	scdc_print_flag(m, "Clock Detected", st->stf.clock_detected);
-> +	scdc_print_flag(m, "Channel 0 Locked", st->stf.ch0_locked);
-> +	scdc_print_flag(m, "Channel 1 Locked", st->stf.ch1_locked);
-> +	scdc_print_flag(m, "Channel 2 Locked", st->stf.ch2_locked);
-> +
-> +	scdc_print_dec(m, "Channel 0 Errors", st->error_count[0]);
-> +	scdc_print_dec(m, "Channel 1 Errors", st->error_count[1]);
-> +	scdc_print_dec(m, "Channel 2 Errors", st->error_count[2]);
-> +
-> +	return 0;
-> +
-> +err_conn_put:
-> +	drm_connector_put(connector);
-> +
-> +	return ret;
-> +}
-> +DEFINE_SHOW_ATTRIBUTE(scdc_status);
-> +
-> +/**
-> + * drm_scdc_debugfs_init - Initialize scdc files in connector debugfs
-> + * @connector: pointer to &struct drm_connector to operate on
-> + * @root: debugfs &struct dentry for the debugfs root of @connector
-> + *
-> + * Creates SCDC-related debugfs files for @connector. Must be called after
-> + * @root is already created.
-> + */
-> +void drm_scdc_debugfs_init(struct drm_connector *connector, struct dentry *root)
-> +{
-> +	struct scdc_debugfs_priv *priv;
-> +
-> +	if (!root || !connector)
-> +		return;
-> +
-> +	priv = drmm_kzalloc(connector->dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return;
-> +
-> +	priv->connector = connector;
-> +
-> +	debugfs_create_file("scdc_status", 0444, root, priv, &scdc_status_fops);
-> +}
-> +EXPORT_SYMBOL(drm_scdc_debugfs_init);
-> diff --git a/include/drm/display/drm_scdc_helper.h b/include/drm/display/drm_scdc_helper.h
-> index e9ccaeba56dd..e0b79d79e1ff 100644
-> --- a/include/drm/display/drm_scdc_helper.h
-> +++ b/include/drm/display/drm_scdc_helper.h
-> @@ -30,6 +30,34 @@
->  
->  struct drm_connector;
->  struct i2c_adapter;
-> +struct dentry;
-> +
-> +struct drm_scdc_status_flags {
-> +	/* Status Register 0 */
-> +	bool clock_detected;
-> +	bool ch0_locked;
-> +	bool ch1_locked;
-> +	bool ch2_locked;
-> +};
-> +
-> +struct drm_scdc_state {
-> +	/** @stf: contents of the status flag registers */
-> +	struct drm_scdc_status_flags stf;
-> +	/** @scramling_enabled: true if TMDS scrambling is on */
-> +	bool scrambling_enabled;
-> +	/** @scrambling_detected: true if the sink actually detected scrambling */
-> +	bool scrambling_detected;
-> +	/**
-> +	 * @tmds_bclk_x40: true if TMDS bit period is 1/40th of the TMDS
-> +	 * clock period, false if it's 1/10th of the clock period.
-> +	 */
-> +	bool tmds_bclk_x40;
-> +	/** @error_count: character error counts for each channel */
-> +	u16 error_count[3];
-> +
-> +	/** @scdc: raw SCDC data buffer */
-> +	u8 scdc[256];
-> +};
->  
->  int drm_scdc_read(struct i2c_adapter *adapter, u8 offset, void *buffer,
->  		  size_t size);
-> @@ -77,4 +105,8 @@ bool drm_scdc_get_scrambling_status(struct drm_connector *connector);
->  bool drm_scdc_set_scrambling(struct drm_connector *connector, bool enable);
->  bool drm_scdc_set_high_tmds_clock_ratio(struct drm_connector *connector, bool set);
->  
-> +int drm_scdc_read_state(struct drm_connector *connector,
-> +			struct drm_scdc_state *state);
-> +void drm_scdc_debugfs_init(struct drm_connector *connector, struct dentry *root);
-> +
->  #endif
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 > 
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+
+-- 
+With best wishes
+Dmitry
