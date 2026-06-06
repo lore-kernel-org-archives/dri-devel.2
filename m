@@ -4,62 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 642DDCD8C85
-	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 22:06:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 246D1CD8C85
+	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 23:35:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1607210E0E6;
-	Sat,  6 Jun 2026 22:06:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4175910E8D6;
+	Sat,  6 Jun 2026 23:35:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=mail.ru header.i=@mail.ru header.b="vS+quuBr";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="h4qDeUmS";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="javUVi9o";
 	dkim-atps=neutral
-X-Greylist: delayed 2398 seconds by postgrey-1.36 at gabe;
- Sat, 06 Jun 2026 22:06:21 UTC
-Received: from send104.i.mail.ru (send104.i.mail.ru [89.221.237.199])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48E1110E0E6
- for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 22:06:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
- s=mail4; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- Disposition-Notification-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:From:Sender:Reply-To:To:Cc:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive:X-Cloud-Ids:
- Disposition-Notification-To; bh=mP89QG16QYZU0XizrgGZUIz9phS/Opn8XfK6Q7AM4uA=; 
- t=1780783580; x=1780873580; b=vS+quuBrLzMMRGZenHRJV2NxQ6szcSRC7rzA8CjBe5BeYlx
- 7JWWdOvC/TLSTQl4/Bz63sN8xiM/QdZ0BGUGoGsV4PAeAQRIKVZi1FuDSk0Zmmytl/IqO+hXFrLs9
- +lS8peblS6AHF6A3wlj/Y7zWXAlQ+8xv30VmoCv6xiFl0PHf5ql/dtHUTLXbTqaxOCTqZulvbgvMu
- ILtBfyzwkaIXH1IR1hLiryKJDuIpkwDa8/VNNVDhM/WvZILofSBKfj7Hbcm2J/BM/JKQ1Us0mUlZ3
- iYZj2L4rwUxlB5Pu1jRxKcr8X7cQj8anNy2WksYI8zQyLw+ucSNxHbtTX7bBjf0g==;
-Received: by exim-smtp-85dd497b6-lj7c9 with esmtpa (envelope-from
- <listdansp@mail.ru>)
- id 1wVz9m-00000000GwA-0swg; Sun, 07 Jun 2026 01:06:18 +0300
-Message-ID: <e11ed4a6-1882-48b8-a177-cac4fce2867c@mail.ru>
-Date: Sun, 7 Jun 2026 01:06:17 +0300
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9979B10E8D6
+ for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 23:35:19 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 656NNY712746851
+ for <dri-devel@lists.freedesktop.org>; Sat, 6 Jun 2026 23:35:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ rXJNFsH8aL86MjkObeWsqWpUSltJWzxFedx2j+xmyvI=; b=h4qDeUmSqd9a3p3f
+ aclEinjnodrcQ+/BXxEWU3g+oypXSYxEMKeRJR4Oh0/Z4hif997HWcGkiUQqfJwV
+ joJ+P2+El0f1HAhgud9vEwcxz900VmsOnqLlAjdiF4xPb/MTWyZHhpL33/OgW6fe
+ 7lKkyk/ipiboRDKwOJ+4nRAGs9xoq4T0/erolFqYJo6lrKGeKLEE8Uxu5LCNxJHs
+ sGJKMpSG0dUMsJ3GCtgHGnknfYCHavNwHid/qvdL+SaSJoe1iTGMWvszijz8e1ZZ
+ jByk7T3XiFnuL4xSjeS1XWSJIo1ebM/BMo/j1f+E70Gbm9uaBr3rN0XOe78QAF7N
+ aah99Q==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emagraqg2-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 06 Jun 2026 23:35:18 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-5178fc89b1bso37313311cf.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 06 Jun 2026 16:35:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1780788918; x=1781393718;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=rXJNFsH8aL86MjkObeWsqWpUSltJWzxFedx2j+xmyvI=;
+ b=javUVi9oJbimOKppfzZM+XqypFCbmWPBz480Z+ehkQ0bimDs4PhjNbyLelgLelgBTO
+ kMGn/d3IoWVVEvEhG201GQEq+LThP3+PPqg1smaqytUBlq6KVj8DrZFz907l0IvdwWD1
+ y6WsEPiwbARmHf/3+n+2/zXg8AL9SyFvpAd1bkLCnOLnuMb5DFNL1659FVronNmo4JC3
+ sCsgmkVoCgBcpNfQ2Sm505NlGp9hm1te4zY7cTCUuTfk2lkUbbB3QJlKCl0hDuRDZdIa
+ 31Qbz7KLUqfQseNHkhxUqLsgX3dOuzgr0tP11J3HT6XTVj+RbPlYluXaqdvYnMP1VXV/
+ qTHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780788918; x=1781393718;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=rXJNFsH8aL86MjkObeWsqWpUSltJWzxFedx2j+xmyvI=;
+ b=YSjAnlA2vWxBZu9J79RNQFblg2dBA11G30rVsOWN0NdvXXIhtq11fpeZ0qArSOLYs1
+ pDzfJpTZmC97lyYQkuCUzJgWzgx8X6poV2su0vV9H00i9D238rz3J6wO4p2myaBXNt2l
+ C2m2mz282isjL5ZOKSJjLfqODfbo8GNPrntAjbqQgw6tGyvqqaXowrlrYHSJUXN/g2+8
+ dBbhomEAiMhjyOqB1fIj2aI8wD4w0W+q/4C3Uo2/OUdD+UXGP7b7JAYw5ECEAmUEcXhG
+ YB4IDwxa7ltf3qwWPOD/Kp1Yqp9R5NcNZMxBkrRhBEgDlNLdMbbCovK6pd8KeDJvFMVW
+ pfYg==
+X-Gm-Message-State: AOJu0YyaxzQHEQFDkAnujD6qvAoyuRrfCqtvLRkY46kf9k4b5wIvnpc8
+ nWN8wlG/AIV6mFMVJ8DponK+t8u9Z3FHjwTrm4SLY/gAGlI/fIpnP0kMnFzpeVW7rNMZuv5OCcA
+ HmZxkW2jGv1E5KhHpeJvHUJLm9KNg8K3g3mDmD6n872xjsQWltg/0kpfBi6mFy4EJTU9f6EM=
+X-Gm-Gg: Acq92OHcQfqXqC8L2KvZE90jb3Sb/uxGnrelxz+ATcNOW0W1dIYRfwDEKJnhyVw+aHO
+ 6RiLJVPt1FGK4pcTxtuSCJFxoODau7N1qKzcmxkpbWjt1r/30uAARWULMHVtW1oD1MKRUIcPpoC
+ MG+FgLv7SCJYGOYLwVEE5pfUnlofIgBhR6ri9HoG+sZrQRoW5WpRuLJmReblIgS0uKM/EBXMnqA
+ K0PJ/ylgH2NC6E9DrxaRU+nSQOpF7ln0XjoLOec7h5frzcZ2DrWVMbfR1G3Ru3fTPFsW4emkt7h
+ V+j7NZB2FrzOmBilRThEuHfic91xoSqG2JzhSwJ9dkJ/m02nXUQ+qwlCCtHKwH06GYnzdUu3Fuk
+ GKd2VBt9uA3V3QARuH7y+UeifvAtXws0v9CiuKNYdDAcMY3vdmnPcl2ajXOPKZyyiADEQtV3vUd
+ t990aTyAQl8km+Fgapb0S3RyOIS3uoMk2Ex+ugGroN4TcdQg==
+X-Received: by 2002:ac8:4809:0:b0:517:905d:dc78 with SMTP id
+ d75a77b69052e-51795bbf697mr92469051cf.37.1780788917787; 
+ Sat, 06 Jun 2026 16:35:17 -0700 (PDT)
+X-Received: by 2002:ac8:4809:0:b0:517:905d:dc78 with SMTP id
+ d75a77b69052e-51795bbf697mr92468731cf.37.1780788917355; 
+ Sat, 06 Jun 2026 16:35:17 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-396ac2be00dsm33444051fa.24.2026.06.06.16.35.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 06 Jun 2026 16:35:14 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Alexander Koskovich <akoskovich@pm.me>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Jonathan Marek <jonathan@marek.ca>
+Subject: Re: [PATCH v2 0/2] drm/msm/dsi: support multiple DSC slices per packet
+Date: Sun,  7 Jun 2026 02:35:11 +0300
+Message-ID: <178078881776.3945820.15306822216752040775.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260318-dsi-dsc-slice-per-pkt-v2-0-0a1b316f8250@pm.me>
+References: <20260318-dsi-dsc-slice-per-pkt-v2-0-0a1b316f8250@pm.me>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Validate max_fclk_mhz in DML2 policy
- builder
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-References: <20260606212503.140638-1-listdansp@mail.ru>
- <20260606215013.4D7911F00893@smtp.kernel.org>
-From: listdansp <listdansp@mail.ru>
-Content-Language: en-US
-In-Reply-To: <20260606215013.4D7911F00893@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Authentication-Results: exim-smtp-85dd497b6-lj7c9;
- auth=pass smtp.auth=listdansp@mail.ru
- smtp.mailfrom=listdansp@mail.ru
-X-Mailru-Src: smtp
-X-7564579A: B8F34718100C35BD
-X-77F55803: 4F1203BC0FB41BD9FAD06046D747065B958182259921CCB5B28B9DF39DB93621182A05F538085040076D29AEEDE398773DE06ABAFEAF67051133C554DE158315D2EAB06290505A20FB1C19767FBE8657
-X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE749E89BD568380EECC2099A533E45F2D0395957E7521B51C2CFCAF695D4D8E9FCEA1F7E6F0F101C6778DA827A17800CE7E50EC9128971FD6EEA1F7E6F0F101C67CDEEF6D7F21E0D1D9295C2E9FA3191EE1B59CA4C82EFA65873317C0A341D396F5D03B9DA6973CF4F92C6DCA76C938DC76F9789CCF6C18C3F8528715B7D10C86878DA827A17800CE701C05ED510F1C3F19FA2833FD35BB23D9E625A9149C048EE1E561CDFBCA1751FF6B57BC7E64490618DEB871D839B7333395957E7521B51C2DFABB839C843B9C08941B15DA834481F8AA50765F7900637028599BB38096F4F389733CBF5DBD5E9B5C8C57E37DE458BD9DD9810294C998ED8FC6C240DEA76428AA50765F79006371F1AC37D75FB230FD81D268191BDAD3DBD4B6F7A4D31EC0BE2F48590F00D11D6D81D268191BDAD3D78DA827A17800CE77D6028A3C1764613EC76A7562686271ED91E3A1F190DE8FD2E808ACE2090B5E14AD6D5ED66289B5259CC434672EE63711DD303D21008E298D5E8D9A59859A8B6B372FE9A2E580EFC725E5C173C3A84C3C037C7826540211F35872C767BF85DA2F004C90652538430E4A6367B16DE6309
-X-C1DE0DAB: 0D63561A33F958A593DC10E6B315826C5002B1117B3ED696BE5DA32377FB1237466072E6821086B3823CB91A9FED034534781492E4B8EEADAEB4DDBFD72C8FA1BDAD6C7F3747799A
-X-C8649E89: 1C3962B70DF3F0AD73CAD6646DEDE1918E10F71CB4DF9F9677DD89D51EBB774225B6776AC983F447FC0B9F89525902EE6F57B2FD27647F25E66C117BDB76D659CA01EDCBFC2A01711775A4B5452EA00C4FE2F30E5354A76FDAA771D5992AD3ADF033D13590098C1EB8341EE9D5BE9A0A2E4ED0D8C06E0207BFBB9232BE12446F24E0AB79442228E08CD93680B12512CF4C41F94D744909CE04437D853D7CD20871FE3B1D98EC473624A389F0E278DBF4
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu53w8ahmwBjZKM/YPHZyZHvz5uv+WouB9+ObcCpyrx6l7KImUglyhkEat/+ysWwi0gdhEs0JGjl6ggRWTy1haxBpVdbIX1nthFXMZebaIdHP2ghjoIc/363UZI6Kf1ptIMVRI2994ruhLUnp1S62S4+bo=
-X-Mailru-Sender: 4CE1109FD677D277A25EA9D9B320DF534407A02A58CC0C4EB951B70A5BD4BD8EA28D906F4547E408E3F52FC5FCA1AAF6C53BD13D3F6EEB2F3DDE9B364B0DF289C95E31D8FCF52BE1594FB4C9F0DBF4120D4ABDE8C577C2ED
-X-Mras: Ok
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA2MDI0MiBTYWx0ZWRfXyiLCpOet/aZd
+ rZTyxy/pjOtpIT/8C8AroseVKTwSLl5spa5V9Qnllq+xypyf9V+iQI9ysak7R/lmAJ0IDtvHjqU
+ tKuFxc8G/aHK1xqr7IPdfsEVjJQdhhgowc/WUULY2VBYnJBongZ0XMqNJVbqkhLJEt63lGInBoS
+ xhSlz05SQOAUFHA5sIv/T4MXl7FTKSj7USDN89EcqFTI+tZNZ2HOBY0Je2u+zJk78zIi9GvyYOx
+ jBMVAVm6loZ6tGqCHo5zC1HokSB94hYnzFieGO/9XybVB6gOm0ZK161b8/1nS6/4Wn5Fkp6mAQc
+ VIhHBNiSY3RyjK05RVcL+SqorRlDc6oeex23F7dx77KrF/+RUDuqAHcYv/EsUSiIQ7xh/o96qqh
+ cVHhXcbgoCy6DK3jX02uOVf23Oq+ZKVYJjdbDo1NWpsEDU+Il5MnPeamMT5B0KAUemzQJML0+kW
+ t1ZreuxIukMMWdJ7SKg==
+X-Authority-Analysis: v=2.4 cv=G/4s1dk5 c=1 sm=1 tr=0 ts=6a24aeb6 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=_DFlpnaH-P38sxYvpb0A:9
+ a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-ORIG-GUID: PKTPujHYtZPRlXqST5qIhxviwwwhZkKI
+X-Proofpoint-GUID: PKTPujHYtZPRlXqST5qIhxviwwwhZkKI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-06_05,2026-06-05_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 malwarescore=0 spamscore=0
+ lowpriorityscore=0 suspectscore=0 phishscore=0 impostorscore=0 bulkscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606060242
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,81 +149,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 07/06/2026 00:50, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+On Wed, 18 Mar 2026 09:53:59 +0000, Alexander Koskovich wrote:
+> This series adds support for sending multiple DSC slices in a single
+> DSI packet, which is required by some panels such as the JDI LPM026M648C.
 > 
-> Pre-existing issues:
-> - [High] Missing bounds check in `insert_entry_into_table_sorted` allows array out-of-bounds write.
-> --
+> The MSM DRM change was originally authored by Jonathan Marek [1], changed to
+> use an 'all slices in packet' flag which derives slice_per_pkt from slice_count
+> instead of manually specifying the number of slices per packet.
 > 
-> commit 803110810943a93ffdbd8a40adba9348d5b58b1b
-> Author: Danila Chernetsov <listdansp@mail.ru>
-> 
-> drm/amd/display: Validate max_fclk_mhz in DML2 policy builder
-> 
-> This commit adds a validation check for max_fclk_mhz to prevent an integer
-> underflow and out-of-bounds array access when all FCLK entries are zero.
-> 
->> diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_policy.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_policy.c
->> index ab2964811c5bc..938faa6272c2c 100644
->> --- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_policy.c
->> +++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_policy.c
->> @@ -157,7 +157,8 @@ int dml2_policy_build_synthetic_soc_states(struct dml2_policy_build_synthetic_so
->>   			num_uclk_dpms++;
->>   	}
->>   
->> -	if (!max_dcfclk_mhz || !max_dispclk_mhz || !max_dppclk_mhz || !max_phyclk_mhz || !max_dtbclk_mhz)
->> +	if (!max_dcfclk_mhz || !max_dispclk_mhz || !max_dppclk_mhz || !max_phyclk_mhz ||
->> +		!max_dtbclk_mhz || !max_fclk_mhz)
->>   		return -1;
->>   
->>   	p->out_states->num_states = 0;
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but can the subsequent state
-> insertions overflow the out_states array?
-> 
-> Looking at dml2_policy_build_synthetic_soc_states(), it calls
-> insert_entry_into_table_sorted() multiple times:
-> 
->      // Insert all the DCFCLK STAs first
->      for (i = 0; i < p->num_dcfclk_stas; i++) {
->          ...
->          insert_entry_into_table_sorted(p->in_bbox, p->out_states, &s->entry);
->      }
-> 
->      // Insert the UCLK DPMS
->      for (i = 0; i < num_uclk_dpms; i++) {
->          ...
->          insert_entry_into_table_sorted(p->in_bbox, p->out_states, &s->entry);
->      }
-> 
->      // Insert FCLK DPMs (if present)
->      if (num_fclk_dpms > 2) {
->          for (i = 0; i < num_fclk_dpms; i++) {
->              ...
->              insert_entry_into_table_sorted(p->in_bbox, p->out_states, &s->entry);
->          }
->      }
-> 
-> If num_uclk_dpms and num_fclk_dpms can each be derived from the 30-element
-> input array, the combined insertions could exceed __DML_MAX_STATE_ARRAY_SIZE__.
-> 
-> Inside insert_entry_into_table_sorted(), elements are shifted without a bounds
-> check:
-> 
->      for (i = table->num_states; i > index; i--) {
->          table->state_array[i] = table->state_array[i - 1];
->      }
->      ...
->      table->num_states++;
-> 
-> Could this write past the end of table->state_array if the total number of
-> inserted states across these loops exceeds 30?
-> 
+> [...]
 
-Thanks for the review. Both reported issues are pre-existing in the codebase and are completely unrelated to my changes. 
-This patch does not introduce, touch, or modify this logic. I request the maintainers to review my patch as is.
+Applied to drm-misc-next, thanks!
+
+Alexander, it won't get into v7.2, sorry, but on the other hand you can submit
+patch drivers using this flag with the change of everything landing in 7.3.
+
+[1/2] drm/mipi-dsi: add flag for sending all DSC slices in one packet
+      commit: ffa88de8ddb64067df49e4d9f253d09a9c247059
+[2/2] drm/msm/dsi: support DSC configurations with slice_per_pkt > 1
+      commit: ce73a5db44e3d5f9c0c061f0868ae209b59605f1
 
 Best regards,
-Danila Chernetsov
+-- 
+With best wishes
+Dmitry
+
