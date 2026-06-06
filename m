@@ -4,44 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FAC5CD6E55
-	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 05:21:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CDCCCD8C85
+	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 06:46:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D38810E230;
-	Sat,  6 Jun 2026 05:21:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2C2C10E23A;
+	Sat,  6 Jun 2026 06:46:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JaAazTYw";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dk+LZpHv";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88F9110E230
- for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 05:21:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5E44140592;
- Sat,  6 Jun 2026 05:21:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE0AD1F00893;
- Sat,  6 Jun 2026 05:21:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780723279;
- bh=XO29lp4DIKtLpHy11y3aMvZyk+ugcHbeFFI4txRjcMY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JaAazTYwVVuzx4fSXTWh9/BjDSppL84lNog9wG94phil+nPV59C8b7TLJj66Mq0VY
- 6m9GqCvvCaGtAn55WeDkkv4t78YWK+4OQ/PnDOOiffrUWn/wfkbh1RGhY4T7pQjBjs
- ZW5IYBtFm9mJLtfxYlmHf80DZNK3xYx4ZeYLZjnpuPKKEeQbsMp4zi1nlhAI37Bm9R
- sx+aTkGRVoaDuGxJWQ+1TnomwxqruusXHOCU4euVAAz49hJ7cWugR/p/8Qlv0Ykljn
- 6BwAtYI2FZVxbUql9wnuP0GLMrGO60pF0zEowOT4Sly7dv0BnnBCFagC091wphn7MH
- /Ablb9lbP86bA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 14/14] video: leds: backlight: lm3533: Support
- getting LED sources from DT
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260606045738.21050-15-clamor95@gmail.com>
-References: <20260606045738.21050-15-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 06 Jun 2026 05:21:18 +0000
-Message-Id: <20260606052118.EE0AD1F00893@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 766FC10E71B
+ for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 06:46:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780728405; x=1812264405;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=DSxIRnTXK40EJiQzC44uhcd9hVw68raQ06IMzoojolQ=;
+ b=dk+LZpHvJrJ80lj61xNhPbGqQ/04+eXa14g+9ko6g4vJT1x7fyGos2Ir
+ FTnFamrlYd0qorVBoNNEgcSm3cUcsLElJv0AyGeCWcE2+givgh6BbD3Q7
+ k1PvUecNKTGRrwJ/0rFC5kRDT4TpzttgMw7AsFYPSNSbAAH4Bgx+T2Ozm
+ 1+cVS2/MHXwxBBETx6HCavGpFHdQYl7qGhxhTvcUcdDhoIZI+Ej0eALEs
+ EkDbmCWpjI27kA0owlSovs29+2iNhUDp6Sh7j3qmcmndTRb++m9DIwZZr
+ Xvr7P4EBZ5rDCofxOQr9OfD4k4J7i/8NMfdOkkh/Yb8/sMlpPmESxMgOI w==;
+X-CSE-ConnectionGUID: BcWdx4z1TcyPqBhI7JjW0g==
+X-CSE-MsgGUID: ntMIoHPDSMigpBblIFfLIQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11808"; a="92121091"
+X-IronPort-AV: E=Sophos;i="6.24,190,1774335600"; d="scan'208";a="92121091"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2026 23:46:44 -0700
+X-CSE-ConnectionGUID: b+3Z64H6SE6PXSgvrpJa/w==
+X-CSE-MsgGUID: JwMTLQe7Q3WEGxDkk49JsA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,190,1774335600"; d="scan'208";a="283121212"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.57])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2026 23:46:39 -0700
+Date: Sat, 6 Jun 2026 09:46:36 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>,
+ Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+ Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v4 03/14] mfd: lm3533: Remove extern from shared
+ functions in the header
+Message-ID: <aiPCTBFGgnfhFgLl@ashevche-desk.local>
+References: <20260606045738.21050-1-clamor95@gmail.com>
+ <20260606045738.21050-4-clamor95@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260606045738.21050-4-clamor95@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,160 +79,16 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Probe returns 0 on failure during LED sources validation, causing =
-a double-free on removal.
-- [High] Out-of-bounds bitmask calculation for LM3533_REG_OUTPUT_CONF1 corr=
-upts regcache and causes probe failures on SMBus.
-- [Medium] Probe returns a positive integer on failure, violating the drive=
-r core API and generating an incorrect error code.
-- [Low] Negative error codes from missing properties are evaluated as true,=
- causing redundant regmap operations.
---
+On Sat, Jun 06, 2026 at 07:57:27AM +0300, Svyatoslav Ryhel wrote:
+> Using 'extern' is not required, drop them.
 
-commit a17954bc9b86db17d86986ace3623a64fc46dd3b
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-video: leds: backlight: lm3533: Support getting LED sources from DT
-   =20
-Add Control Bank to HVLED/LVLED muxing support based on the led-sources
-defined in the device tree.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
-> index a661aedcdc60a..fe3e01b265e10 100644
-> --- a/drivers/leds/leds-lm3533.c
-> +++ b/drivers/leds/leds-lm3533.c
-[ ... ]
-> @@ -623,7 +631,35 @@ static const struct attribute_group *lm3533_led_attr=
-ibute_groups[] =3D {
-> =20
->  static int lm3533_led_setup(struct lm3533_led *led)
->  {
-> -	int ret;
-> +	u32 output_cfg_shift =3D 0;
-> +	u32 output_cfg_val =3D 0;
-> +	u32 output_cfg_mask =3D 0;
-> +	int ret, i;
-> +
-> +	if (led->num_leds) {
 
-[Severity: Low]
-If the led-sources property is not present, device_property_count_u32()
-returns a negative error code. Does this cause the condition to evaluate
-to true, skipping the loop but triggering an unnecessary regmap_update_bits=
-()
-with a 0 mask?
-
-> +		for (i =3D 0; i < led->num_leds; i++) {
-> +			if (led->leds[i] >=3D LM3533_LVCTRLBANK_MAX)
-> +				continue;
-> +
-> +			output_cfg_shift =3D led->leds[i] * 2;
-> +			output_cfg_val |=3D led->id << output_cfg_shift;
-> +			output_cfg_mask |=3D OUTPUT_LVLED_MASK << output_cfg_shift;
-> +		}
-> +
-> +		/* LVLED1, LVLED2 and LVLED3 */
-> +		ret =3D regmap_update_bits(led->regmap, LM3533_REG_OUTPUT_CONF1,
-> +					 output_cfg_mask << OUTPUT_CONF1_SHIFT,
-> +					 output_cfg_val << OUTPUT_CONF1_SHIFT);
-
-[Severity: High]
-For LVLED4 and LVLED5, output_cfg_mask could have bits 6 or 8 set. When
-shifted left by OUTPUT_CONF1_SHIFT (2), the mask exceeds 8 bits. Since
-LM3533_REG_OUTPUT_CONF1 is an 8-bit register, does this corrupt the regmap
-cache or cause SMBus probe failures by passing a mask larger than 0xFF?
-
-> +		if (ret)
-> +			return ret;
-> +
-> +		/* LVLED4 and LVLED5 */
-> +		ret =3D regmap_update_bits(led->regmap, LM3533_REG_OUTPUT_CONF2,
-> +					 output_cfg_mask >> OUTPUT_CONF2_SHIFT,
-> +					 output_cfg_val >> OUTPUT_CONF2_SHIFT);
-> +		if (ret)
-> +			return ret;
-> +	}
-[ ... ]
-> @@ -700,6 +736,26 @@ static int lm3533_led_probe(struct platform_device *=
-pdev)
->  	led->pwm =3D 0;
->  	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &led->pwm);
-> =20
-> +	led->num_leds =3D device_property_count_u32(&pdev->dev, "led-sources");
-> +	if (led->num_leds > LM3533_LVCTRLBANK_MAX) {
-> +		dev_err(&pdev->dev, "num of LED sources exceeds max %d: %d\n",
-> +			LM3533_LVCTRLBANK_MAX, led->num_leds);
-> +		goto err_deregister;
-
-[Severity: High]
-Since led_classdev_register() was already called earlier in this function a=
-nd
-returned 0, ret is still 0 here. Will jumping to err_deregister return 0 on
-failure, leading to a double-free on driver removal when
-led_classdev_unregister() is called again and corrupting leds_list?
-
-> +	}
-[ ... ]
-> diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backligh=
-t/lm3533_bl.c
-> index 2aa4b86042ff2..ed358fb3c7596 100644
-> --- a/drivers/video/backlight/lm3533_bl.c
-> +++ b/drivers/video/backlight/lm3533_bl.c
-[ ... ]
-> @@ -232,13 +237,30 @@ static struct attribute_group lm3533_bl_attribute_g=
-roup =3D {
->  static int lm3533_bl_setup(struct lm3533_bl *bl)
->  {
->  	int ctrlbank =3D lm3533_bl_get_ctrlbank_id(bl);
-> -	int ret;
-> +	u32 output_cfg_val =3D 0;
-> +	u32 output_cfg_mask =3D 0;
-> +	int ret, i;
-> =20
->  	ret =3D regmap_assign_bits(bl->regmap, LM3533_REG_CTRLBANK_AB_BCONF,
->  				 CTRLBANK_AB_BCONF_MODE(ctrlbank), bl->linear);
->  	if (ret)
->  		return ret;
-> =20
-> +	if (bl->num_leds) {
-
-[Severity: Low]
-Similar to lm3533_led_setup(), if the led-sources property is absent,
-device_property_count_u32() returns a negative error code. Will this cause
-the condition to evaluate to true and trigger an unnecessary I2C write with
-a 0 mask?
-
-> +		for (i =3D 0; i < bl->num_leds; i++) {
-> +			if (bl->led_strings[i] >=3D LM3533_HVCTRLBANK_COUNT)
-> +				continue;
-[ ... ]
-> @@ -316,6 +338,25 @@ static int lm3533_bl_probe(struct platform_device *p=
-dev)
-> =20
->  	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &bl->pwm);
-> =20
-> +	bl->num_leds =3D device_property_count_u32(&pdev->dev, "led-sources");
-> +	if (bl->num_leds > LM3533_HVCTRLBANK_COUNT)
-> +		return dev_err_probe(&pdev->dev, bl->num_leds,
-> +				     "num of LED sources exceeds max %d\n",
-> +				     LM3533_HVCTRLBANK_COUNT);
-
-[Severity: Medium]
-Because bl->num_leds is strictly positive here, does returning it via
-dev_err_probe() violate the driver core API which expects a negative error
-code? The driver core negates positive return values, which could result in=
- an
-unrelated error code like -ESRCH.
-
-> +
-> +	/*
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606045738.2105=
-0-1-clamor95@gmail.com?part=3D14
