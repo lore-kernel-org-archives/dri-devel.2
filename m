@@ -4,136 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E58BDCD8C88
-	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 12:22:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BF62CD8C88
+	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 12:26:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EEC610EA23;
-	Sun,  7 Jun 2026 12:22:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 545CF10EA18;
+	Sun,  7 Jun 2026 12:26:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="epmevpzY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TGRVgwwl";
 	dkim-atps=neutral
-Received: from CWXP265CU010.outbound.protection.outlook.com
- (mail-ukwestazon11022117.outbound.protection.outlook.com [52.101.101.117])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A13E10EA23;
- Sun,  7 Jun 2026 12:22:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oYFEC+B9OhnqSo2jVWqR6GX6FEs/SgC29AAP/ZfVBlnpWOcoe6qqwvv5e4imEnNEJz5zAGn6B/fAemwWxJ82UzQ/OGB/MeIY8UzFh4qYwbPTUUtUZIagwBOVJ300dlThzrgh5APbZlcBmSr6LQgWn4kFfBgmEvpbFYraVydB2WSJRCMAHoEDMdS3HDbKOVMDyuLhkzLdYN9MI09isKkMyo5eEbAv0m850algVeaoDlDA1/BqCbzmm8dDqbRdm2mYFPHEag1yitarECy2yCAtFXxpoiE/mzPbnqZAPBbp7bDPrgGIFkKTbb5bPcVOgSN6ZSGuiTTkK4o1CUGelZj6Rw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=78E4gQ7qrs8hzbAkU2OpdZKEdCn1qoTlX9DDimD9Ao0=;
- b=tXX1MBFWX3oKh5oSPlj1CrfGwvGUSouXM4aUKRexMWo5VSwRjtdyKKP6lGDcSzJzDnxaxc8qLMXgox/L9ULb8VahnfdFyTl5FqUx6RH1lAZrI0ja74/Cxv9FKn0WmVtF45uy/ewJMQY/2JN+9+F13BBQmFNayJRBdSD3dwEHrV0HlCJaruakzfitVQW23H12tfxkTpe2AYXLYKvyAxQYBzburL40XyVqXbCfjpq4cXQTwIsa/mmyKP7A2wjxqbwjbfkdy+P/TwxGIyCiGVYHxTt3UblIfRRa31h5D7uIk/mo3LKGLWq2aepwvoHvjUuQ24RD3N6UsXZ338go54SUXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=78E4gQ7qrs8hzbAkU2OpdZKEdCn1qoTlX9DDimD9Ao0=;
- b=epmevpzYkcVmFLZAwmSr+W9qSuoc+raDeJpp5lAW4pbi1p1JTa0QnWZeA4W01PjjZEEhhrETFvznkPpIzHsozcoQWtBRvKXz+fsEqO+GyHDw2ACzFEGAMzW7tS5HiBjW6vCoYRPWVtirnoOfouLBpk7AdLzddJ5TH0vIHkrQbbM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO2P265MB3214.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:164::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Sun, 7 Jun 2026
- 12:22:46 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0092.011; Sun, 7 Jun 2026
- 12:22:46 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6836110EA18
+ for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 12:26:16 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9A22A6001D;
+ Sun,  7 Jun 2026 12:26:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AE531F00893;
+ Sun,  7 Jun 2026 12:26:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780835175;
+ bh=JcszkUFLBqI8FU6CIUlSAU11Krf0euACmk+pnRdkCS0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=TGRVgwwlHM3rq3b88cJQ1eF7Ee8E8sDddq3WTzwXjEZNB4gNoSkGDbIVjD9rtBtKS
+ MptxhlHziI9IrLn6aV89oGy4dvKVu267bBckq1OE/FA30qWUoXTdU/FWHvBuSQuUYY
+ X60vJjeGGk2dDzcEEWloj7gm+YyrNrYMmxbd6VNmFV3QU2kMXCWwb+5Lp2IILIFLiU
+ cKvQKTPmt8syfa6Cv1vyp3Zn4g9vk3yHQ4uNUM5Kav6XsZMRzvSiEf4FwTmJqaPczd
+ nkTTh2KINZVBWjiXQ7VkQZAla+EG6Pq67UyCjU0e5nT15ZSAdoDoH33zvSt+UyaRiP
+ ooFNs5g/4ShYg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/nouveau: bounds-check pushbuf offset/length in
+ legacy DMA path
+To: "Junrui Luo" <moonafterrain@outlook.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <MEYPR01MB78861402D9E05E9CA6B67859AF1F2@MEYPR01MB7886.ausprd01.prod.outlook.com>
+References: <MEYPR01MB78861402D9E05E9CA6B67859AF1F2@MEYPR01MB7886.ausprd01.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 07 Jun 2026 13:22:45 +0100
-Message-Id: <DJ2TB5AX540T.311A690IK8F9B@garyguo.net>
-Subject: Re: [PATCH v18 1/4] rust: drm: gem: shmem: Add DmaResvGuard helper
-From: "Gary Guo" <gary@garyguo.net>
-To: "Lyude Paul" <lyude@redhat.com>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, <nouveau@lists.freedesktop.org>
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, <driver-core@lists.linux.dev>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Alice Ryhl" <aliceryhl@google.com>,
- "Simona Vetter" <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, "Sumit
- Semwal" <sumit.semwal@linaro.org>, <linux-media@vger.kernel.org>, "Rafael J
- . Wysocki" <rafael@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>,
- "Maxime Ripard" <mripard@kernel.org>, "David Airlie" <airlied@gmail.com>,
- "Benno Lossin" <lossin@kernel.org>, <linaro-mm-sig@lists.linaro.org>,
- "Danilo Krummrich" <dakr@kernel.org>, "Mukesh Kumar Chaurasiya"
- <mkchauras@gmail.com>, "Asahi Lina" <lina+kernel@asahilina.net>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>
-X-Mailer: aerc 0.21.0
-References: <20260604192740.659240-1-lyude@redhat.com>
- <20260604192740.659240-2-lyude@redhat.com>
-In-Reply-To: <20260604192740.659240-2-lyude@redhat.com>
-X-ClientProxiedBy: LO4P265CA0052.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ac::15) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO2P265MB3214:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b05458c-85b5-4088-cbfa-08dec48f7b80
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|1800799024|366016|7416014|376014|22082099003|18002099003|6133799003|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info: lML8zKid2mOslGow83K+2ILiFeIQ4jkyQwu6vsLK9RZavPMXpJ+K+FpoAz4UmrWvTQzlBjb5CuQ4TKkga2YdW7UemixyofUdTMv26Lr9WFNtMra16j7XxrbOSPY/VX9aOzZJAR0cu/LUaSv4blNZxSQo2HyMphQ1/Hx3aNqSKNQ5oniPrlRMNBH68zvElHMdKFX3HuW82g0ewd5eXQsLIethuT2duRuAKA/k5Y9Aq/Iu7vmQ4EBsD9KY7WSh/Bl69lqSJxq/7x5vsHF+Ihhz5bDlfxPwyIyOE192GlC6kk9l9Cu4CZIN89DGLQdOmPzGuMovuRlZd7y8qAExx8LkCl3lFCUdzhLTI3xdXHWoTZExl2sna8/mLf+D6E5/BR5OBO3CeRiCE21B11ggLZngNKelO35/CdJjMXhnxPF7ea9B7MI909RM/nA1Q79o+rBBcxW0oRn6nfJfg8AXRUA6Rz/Fp2e5Ved5/yQjNyCCBeVOxPY0kdhD1Ewy+pUYCKJU6nmePbNYwyYccE9EjbQSaVbaEIi8n6KBtQnosCNmaHFGMD7Hy30cKA0IQOtUXKUD2iekiX7zWGGEUE12o2BQpp1Dfd9Vh2M1rssk2b+6ZYYv4VIf6T+/OzkgNx55N7Q1NxJEi6URjhj8KSQqZFoSkiykwgXzdG1sldAMMh8RbLJbO8GIo3fXtMKMD+VqoP0F
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(1800799024)(366016)(7416014)(376014)(22082099003)(18002099003)(6133799003)(4143699003)(56012099006);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M2hNeGJuRHFIRlFTV2VLbUhwVU12RUJXbDFzY2lvWXB1dmkxNlFIV1hJOEtr?=
- =?utf-8?B?aEJpVlA2dnNhRU15eE9LRlhBQXc0enhvR3RTdGxFVVZCc3g4T2kwdjZjYjhE?=
- =?utf-8?B?bjEyZE5MemZ2UndDKzRDZVNmRzU5K3lGS2xnTFVLV29xYUphRXpNUzd5bytT?=
- =?utf-8?B?ZW14cWg0M0VSQ2hiSDVpYzFNcG82S2paMVVZWndOUFZiNis0dXdVQTRhQ0JC?=
- =?utf-8?B?Z0RlaDQya1M0MGVGSzRJZjA0TE4zRStIY1BvSTcxRXBrQyt2TUpIalBlbmhy?=
- =?utf-8?B?ZjU3aGdBTUx0cG1tdmN0RzhnaVc4eW5yNkhqc3RhTTBzVEpKYUpuNzF0Nit0?=
- =?utf-8?B?d3hlS3RNN2VJUEhubE5CT2w5SHJZNzREQlBvZzViNExGanpUa2VwTk5HN1o0?=
- =?utf-8?B?SlduR2tEeDlEaWo1K0YzaVhEL2F4U0R4RmtXU0xJbHZ6N0xrNTlLWlREcExq?=
- =?utf-8?B?SXhDdm5JU2hBTURONWpxZDBhWkhDOGFZVUdkMEk0TTMrSERsYjR0WmI0UlNh?=
- =?utf-8?B?R2x3WE0xZldBbnR2alZHdHJsa3NZOTVIdDNYWjVDNUhIZk5VNkVhUEFSZWxK?=
- =?utf-8?B?VHVHWklVVXZuRlZmSE1BZzNXczhkMTRISEhMcHZ2ZFlZMnZ4RmJ2dkZLQjdR?=
- =?utf-8?B?K2FhT2xVZVNzZ1ZUVWxZaC8rdHRkZHFiYUk4L3FJWGUxa2gwaGFUTFhsSWlw?=
- =?utf-8?B?UnB1d01GcDY0OHNLTWc0cEdRQjUvci9YQUdPY29ZTXNDKzZ6RktOTXNncXFN?=
- =?utf-8?B?OTEyeCtuTVRJYUJQMFV3T01VY3VON3RwK2QrTGFoVFJuRDBuanJPOEtUblhw?=
- =?utf-8?B?R1pjcHRwbFJBZFVHWjZ2dFl0bWtjaWZjSzE4aWZJV3h0T1hOTWVTaFhaYVVY?=
- =?utf-8?B?VTVnYklhNFBIOEV3UFdhd1hZOCtDaUJlQjZuZnArS3JxZlhsRHBuUmlxeXBx?=
- =?utf-8?B?KzVtMFEwcGcyK2hlY3QxRDdwalpycU5XdUxLTkRtLzcweWQvTTYvcWpBZ2hm?=
- =?utf-8?B?ZzVFQ3J5SFVHQVBocU9Nc0Q4K2dNYkN5QVI0a1NxakhmbU5OR3JWNlJGVGJk?=
- =?utf-8?B?Y2VjU1B5dDFUc0FYMmJmVXAyUWlHbFVtV01SNHNOVzZHM0VGZkVnSW1QSEd4?=
- =?utf-8?B?MmNlMUUxWDQ0OGU0d0F2WEtYaVNDTGphZjhQWkEzNWY2L2JvNXEvdXZMNmdz?=
- =?utf-8?B?RzVMditpUFJUSW5yZEU3NFlsWlZvQnpRVWtvaWJFVjd2TldUekpVTTF3b28r?=
- =?utf-8?B?YU5xeFYwMnBMV0IvamVyNS9WZDI3QVdnbWVLRE1BY0k2b3FSU0Yyc2dCbTN1?=
- =?utf-8?B?dGR1SmVhQlZrMTk5ZTNxc2tGU2x1aTNDWkFjQkcwSjJrekMzMysxam4wRXdi?=
- =?utf-8?B?QkZDK1dKblF4emhSMDZvdm50cDUrL0wzZ0JmUnh3REY3UzhYOWlGRWp4M2lx?=
- =?utf-8?B?Q2c3ZzN6SVlza3E0NjBaRklidDdvWmo3cG8vUGwxRmVldkp0ejdRaFJPQkdr?=
- =?utf-8?B?R2QzbktTeTlDNkxkanZrcFc5dVBmZ2FxeDBXOVprTW8rRW9JbDBCRWR4YjFq?=
- =?utf-8?B?Z3Z6aXhMR3pGdk9odFlkTzNqandwWjNWVEtzSWl2TFRlZWpobUFwbUxzSFlt?=
- =?utf-8?B?VVc1d2xhNllGb0lySTlBODhZM0RONDV1elNFYnVGMHZIN3doU0I2M3dnRDhC?=
- =?utf-8?B?ek1MYmhQakMzaFZNOFBBZ0VWWUE0azNoQlZTRURoMk9TTnFMV0VnVFc4ZHFG?=
- =?utf-8?B?QnR2YkFyY3RPQlFIcVVUbEhteDJMUmVpQXZKSDZxQ1FMdlFkZjlEUjFxdGY4?=
- =?utf-8?B?aklPSkhyNXg2NE9ySTJ5akVSUER2Z0xDNlFMWFpadmhyNjR1TS9KUXdvZjdh?=
- =?utf-8?B?RUZrUEl0NnFFdkNmblpuV1d3NnR5Tk40Um5DVFVZRWNoc1dPR01ubnU4QVpn?=
- =?utf-8?B?azBZODMwT255SHA0Sm9FSTJJWTVoWWRmcjNMT2hYYTRZVE1JbVVMTVlndzNR?=
- =?utf-8?B?Q3h5Q3FtY0x3TmZtS1h0cklvNmkvcks4U3dycCttbXpvcW9FVE9sWG5GQ2VF?=
- =?utf-8?B?VTBteUkzTVVrd1lFWjdWK0ZjcUVCT3Y2Nm9semhuSmZ0Nm01bzRYbWcwTi9h?=
- =?utf-8?B?R2R4OWZYR3JJeEVnT015VjJhRm01RFk4WEFOM0Y0R2pIZ2dnQnU4OHk4YVVG?=
- =?utf-8?B?THZpdWwvSGNUZmppQnRJZFVFMnV4dlBHaXlWSWtNTUlYYVVEQXZkcFRGTGtN?=
- =?utf-8?B?Nlh0K2hvMEdYcjN2RDhXcDYzdmNZTVlEWFZMWHJXNUZjVlFydXB0dmovRWpV?=
- =?utf-8?B?ZnpKT3RRVndLUy9yU2RWelBxd2xxYkJiYmd2eDZaSm9tQ2hUcGFTZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b05458c-85b5-4088-cbfa-08dec48f7b80
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2026 12:22:46.5368 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9vQdad7xgI6MgWjxkKT/wVzGY280WA6yyCt589qnNtLi9AIZqa9yAeZ+7GkDFOMxsVnbDW/jOls5tPg4qIVzqQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB3214
+Date: Sun, 07 Jun 2026 12:26:14 +0000
+Message-Id: <20260607122615.2AE531F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,84 +53,98 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Jun 4, 2026 at 8:24 PM BST, Lyude Paul wrote:
-> Just a temporary holdover to make locking/unlocking the dma_resv lock muc=
-h
-> easier.
->
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> Co-authored-by: Alexandre Courbot <acourbot@nvidia.com>
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
->
-> ---
-> V17:
-> * Fix format of commit message title
->
->  rust/kernel/drm/gem/shmem.rs | 31 ++++++++++++++++++++++++++++++-
->  1 file changed, 30 insertions(+), 1 deletion(-)
->
-> diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
-> index 084b798ce795b..650c34dd8b7a4 100644
-> --- a/rust/kernel/drm/gem/shmem.rs
-> +++ b/rust/kernel/drm/gem/shmem.rs
-> @@ -30,7 +30,10 @@
->          Deref,
->          DerefMut, //
->      },
-> -    ptr::NonNull, //
-> +    ptr::{
-> +        self,
-> +        NonNull, //
-> +    },
->  };
->  use gem::{
->      BaseObjectPrivate,
-> @@ -244,3 +247,29 @@ impl<T: DriverObject, C: DeviceContext> driver::Allo=
-cImpl for Object<T, C> {
->          dumb_map_offset: None,
->      };
->  }
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+
+Pre-existing issues:
+- [High] The WIND_RING function fails to rollback the nvif_push buffer stat=
+e, causing aborted commands to be submitted on the next ioctl.
+- [High] The legacy pushbuf branch calculates the kernel jump-back address =
+using a stale `chan->dma.cur`, causing an infinite loop when submitting mul=
+tiple user BOs.
+--
+
+commit 58dcc07cf127c2fddaeed29612e7fbaebbf1c7ae
+Author: Junrui Luo <moonafterrain@outlook.com>
+
+drm/nouveau: bounds-check pushbuf offset/length in legacy DMA path
+
+This patch adds bounds checking for pushbuf offset and length in the legacy
+pre-NV25 DMA path. It rejects out-of-bounds pushes before calling
+nouveau_bo_wr32() to prevent memory corruption.
+
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouv=
+eau/nouveau_gem.c
+> index 20dba02d6175b..e9309279ba8dd 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_gem.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
+[ ... ]
+> @@ -898,6 +898,17 @@ nouveau_gem_ioctl_pushbuf(struct drm_device *dev, vo=
+id *data,
+>  			cmd =3D chan->push.addr + ((chan->dma.cur + 2) << 2);
+
+[Severity: High]
+This is a pre-existing issue, but does this calculation use a stale
+chan->dma.cur?
+
+In the legacy chipset branch, the loop calculates the jump back into the
+kernel pushbuffer using chan->dma.cur, but chan->dma.cur is never increment=
+ed
+within the loop. PUSH_JUMP and PUSH_DATA advance chan->chan.push.cur instea=
+d.
+
+Since chan->dma.cur isn't updated in the loop, won't all user BOs in a
+multi-push submission be instructed to jump back to the exact same offset in
+the kernel pushbuffer?
+
+Could this cause the GPU to re-execute the jump to the second user BO and
+enter an infinite command loop?
+
+>  			cmd |=3D 0x20000000;
+>  			if (unlikely(cmd !=3D req->suffix0)) {
+> +				if (unlikely(push[i].offset +
+> +					     push[i].length < 8 ||
+> +					     push[i].offset +
+> +					     push[i].length >
+> +					     nvbo->bo.base.size)) {
+> +					NV_PRINTK(err, cli, "push %d buffer not within bo\n", i);
+> +					WIND_RING(chan);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does WIND_RING() fully
+rollback the push buffer state?
+
+Looking at WIND_RING():
+
+drivers/gpu/drm/nouveau/nouveau_dma.h:WIND_RING() {
+	chan->dma.cur =3D chan->dma.put;
+}
+
+It only resets chan->dma.cur. However, the subsequent code uses PUSH_JUMP
+and PUSH_DATA, which write directly to the nvif_push object and increment
+chan->chan.push.cur without updating chan->dma.cur.
+
+If WIND_RING() is called on an error path, but chan->chan.push.cur is not
+reset, will the next successful ioctl compute the length including these
+aborted commands?
+
+Since nouveau_bo_wr32() wasn't executed to write the jump-back instruction
+into the user BO for the aborted push, could committing these aborted comma=
+nds
+to the GPU cause a hang?
+
+> +					ret =3D -EINVAL;
+> +					goto out;
+> +				}
 > +
-> +/// Private helper-type for holding the `dma_resv` object for a GEM shme=
-m object.
-> +///
-> +/// When this is dropped, the `dma_resv` lock is dropped as well.
-> +///
-> +// TODO: This should be replace with a WwMutex equivalent once we have s=
-uch bindings in the kernel.
-> +struct DmaResvGuard<'a, T: DriverObject, C: DeviceContext =3D Registered=
->(&'a Object<T, C>);
-> +
-> +impl<'a, T: DriverObject, C: DeviceContext> DmaResvGuard<'a, T, C> {
-> +    #[inline(always)]
+>  				if (!nvbo->kmap.virtual) {
+>  					ret =3D ttm_bo_kmap(&nvbo->bo, 0,
+>  							  PFN_UP(nvbo->bo.base.size),
 
-Why `always` here?
-
-Best,
-Gary
-
-> +    #[expect(unused)]
-> +    fn new(obj: &'a Object<T, C>) -> Self {
-> +        // SAFETY: This lock is initialized throughout the lifetime of `=
-object`.
-> +        unsafe { bindings::dma_resv_lock(obj.raw_dma_resv(), ptr::null_m=
-ut()) };
-> +
-> +        Self(obj)
-> +    }
-> +}
-> +
-> +impl<'a, T: DriverObject, C: DeviceContext> Drop for DmaResvGuard<'a, T,=
- C> {
-> +    #[inline(always)]
-> +    fn drop(&mut self) {
-> +        // SAFETY: We are releasing the lock grabbed during the creation=
- of this object.
-> +        unsafe { bindings::dma_resv_unlock(self.0.raw_dma_resv()) };
-> +    }
-> +}
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/MEYPR01MB78861402D9=
+E05E9CA6B67859AF1F2@MEYPR01MB7886.ausprd01.prod.outlook.com?part=3D1
