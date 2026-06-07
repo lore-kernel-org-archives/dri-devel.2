@@ -4,92 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1FD0CD8C92
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 08:58:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC326CD8C8E
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 08:58:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AD1A10EFBE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BE2B10EFC2;
 	Mon,  8 Jun 2026 08:58:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ItdgbKmP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GSL1A8e0";
 	dkim-atps=neutral
-Received: from mail-qv1-f65.google.com (mail-qv1-f65.google.com
- [209.85.219.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 701F510ECCD
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 04:51:03 +0000 (UTC)
-Received: by mail-qv1-f65.google.com with SMTP id
- 6a1803df08f44-8ce3876a50cso40230486d6.0
- for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 21:51:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780894262; cv=none;
- d=google.com; s=arc-20240605;
- b=Tg6QVQCyidDo6uutKafRnVegTYFwlWkDmztXAP90sPIc2TzdUPSVa7TriHc1hqwoMu
- OFH57bMhHNtgfhmqenVZ/KYpqn7JZ1PvijYcqqf5E6hmOBIsLIpTroRm7M96Ck2Atq/9
- I/vjNCr4QAGZ4mTpiAPh6fTBSrFDVy1y1e0zCCDL1dOd4cQ4VC+NsBRWl8PB+ojMsFs/
- jIAT6opTLOXwUKwQGlqI+/r3KQDXLAWLItMwueUsY6R9DzgwZt9LkVY5OiEH8mapwyyP
- QhC1OG4gl22WO9TJ/rF+xfeifR81keE7XYL1Vsyvz7UCfFVQnirfH997xJ/GKkdbd0tg
- HEqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=ruLdARqDCni48cQOkidWdNO1xRKIushOB4xhN0tsI6Q=;
- fh=ScPY2I5uFfsmcuRfDm7M+P6Ci5vQPP4Z/s5GhDvkmD0=;
- b=QpF8EKsfOIBslDSB6PBnxuyUsmP0VmNotZZID2mkkm7BHuOKIuqLQBekNaKyrORDGA
- LnLuUIDfzgboiVMgidUjwFnXIVzxiG0TxlAlXsoPO00bC2MEnKIDsTdvjJN2lIUPDlVD
- d37vSNSAJuVS33l2dI0MZ6fiZEfCWlz77uRxGAZ7j8jVNpSoXX1T47cpIAJ2Gk42MVAT
- rkwGvCChU4ZhCTHd+c5qi0PBtsI4ITjwElSCRrFRMM5btmbbF25OY5psPirfWX6xRrDm
- W6OMvx0lCuxMF0i8g8j30j/D9LtH4Xjka6A3Ujs5OeGnWwL6QsdL1OnPG0r0tqgBGadb
- CjGg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C069D10EB71
+ for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 20:17:23 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-5aa2c25c632so3865212e87.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 13:17:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780894262; x=1781499062; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1780863442; x=1781468242; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ruLdARqDCni48cQOkidWdNO1xRKIushOB4xhN0tsI6Q=;
- b=ItdgbKmPQYgmrRGmnNe5j40d+sF1PM+K3VWcnoC36G6udwxWSXsunnSavIS9nkfVHd
- Lm9oSx1RG/Js42pZ2tG5NKBhoK2EIz5QqF6QD2ntUP2K/7dKZ3ROQzUDsnI7VeuTt9Yi
- GrG79afVfn91rlSLRzy/Z2uU8iNKfu2P/K3r2YtSmDIMTMOEOTgis69kMUzSvQW4ep8j
- O6cDZ6PuMB2vNG81Wpnz5pKBv/uKGzBwdgyoXEUCelCGXt13lXEATl+JEd3Aqd7YOpBB
- HbrjTaDhS/041016wuBP0e8th/h3ta9STnWIlKw90wMON18fvFfk8z00xH7fK7esS9b0
- BXqQ==
+ bh=Cy/zUtWfVLlQnRmwYycbaxD9q0kWKYQ8XVFOlWopOt8=;
+ b=GSL1A8e0+YRChNdCUhkYERI+790lzw+vGjfQNngUQjP4sDDYA36emWq3yymBLlB00M
+ mhqanc7OOJ/CkWua+qU9sth23EHUwImqr0QfQcSDgKxhYFh18HXVMQyt7pAiPRwXp9JP
+ kPYeJYYzsPmx2hjv1SmuldijHqDMpNS/13A93Njk31QVpSXe/iHcTEYyyLmH+B0rYFjO
+ ikcx+KF+NLBUxx0bMkMT+hebTnGvZisU2p9OsnPfrk5gzbhgBdyI0UKgJ/vGQjDs0MeG
+ lvJuR6AE2iWhOdRm+pQeyqE+xLZ2t52GOncSPgLjTFwTaiUBNtv0NDc+K3sJNnjR7X67
+ 3hnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780894262; x=1781499062;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1780863442; x=1781468242;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=ruLdARqDCni48cQOkidWdNO1xRKIushOB4xhN0tsI6Q=;
- b=XArc+aqUDK8H7RewKw70FN//XPTMLSCdzZFkrGRhjZQXVEnEaHjjBOqcKsW5HQ8jHs
- ZOY5pZM5j97FjeN1430ktIKRXO7/Md9zdr7/8NgcJ/yUKaHUGmaxYHZopP8Yc3Hfrmov
- 7imAGU1JWd8r51S5guhpi1YnKBsmp7CpTkN/3IDO2a8+N4QUoWs57Uc8qrF2sRKuN3+e
- OMrwP5OawNYV/tRxSaLj2JsT/8PQvWmnzn1n4tDIPg0fsZ/vZRVXQUpSSBbfQcUevtBG
- kwhIdfC51OB6kk8NBQX5RTVXleaCFaEX4VzDG04bgLPW1DxifWqRIX3kRM5d7BqwFPMg
- eELw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/IOqM06MJ1HPztEiqN85zstOsshS3HwYV3472SdM5eyzLKteSilVEcNZ0xQ0Rl6NQjbdoVjtYM9wQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx9VMO/fzjTUg472Kdtt+BMWYCEOMFpg6ttjsuOfrJxIzNmpAKx
- fxx+dB635kUi2zi1j0jb42LQTLqSg4Uel0K5zYTVWdMrQCQYu3GwKLWrvkt36WNJQlYo+bM7RPb
- xnqYYjsxQR1ztR4tlmklvI4JkjmFCM9M=
-X-Gm-Gg: Acq92OE82ftJEdiP0kH6DVEX/LlUwHYraL3oaAQC/Nmihm+AA4Cd4mv3RDtSpKjeewg
- 7js62+SdC4NKIfma1HC9z3bhKWlldWkrY+EWzZhJL8HIlYOdcIxPXRdk04ZN/r4W5ttdHPiB+BF
- 18vINUwW4HUQK74Qg88SpW/a+CD5VuKhmI38Nw/U90lrSjOD+qRPutOPFv6dVkkIq8wGIlrG1RU
- KXiQBxcgxd5eGR/hDvLLnIPWM5yMQRQQrl6HgGbCwJad1IEZfiMbuXDlZXeYKW3pcPT9wT8BSNo
- LfCXgmF8miUG8iQpTbhmI0yheC49kQ+oogMVMAz4EtetfCo3MZlsnXbqQUKOpwGYvIncbiyWFrg
- l+iY=
-X-Received: by 2002:ad4:424d:0:b0:8ca:25d3:bf41 with SMTP id
- 6a1803df08f44-8cee5fb6f45mr156665376d6.8.1780894262219; Sun, 07 Jun 2026
- 21:51:02 -0700 (PDT)
+ bh=Cy/zUtWfVLlQnRmwYycbaxD9q0kWKYQ8XVFOlWopOt8=;
+ b=s3QedQtmUFx7IFTJRkYubOOBdi+KpR6xTOnOt/VQxnQ1kjSdPVhuhh7ww7p/Wije45
+ CiyX9LMvxCBPRVuCl7Gt9wgXt5q1fkHamqBuoesiprV9AzsbqkccOeLipcLHTmaFm6MD
+ GvlUM3zexqXr7osDcRZmgRGgNpkY+tlBXm4X3yDcBrsP1b5wDYIOpl/KZE1MSKCieiPO
+ 7Zoe3Bts0d1I9JuCm4QbOIVaZimqCoKzxZv1Cto8iu9yCm493QZ8o/xMYEWq0gTPmYJv
+ t07kAwIlTupdThU8e+p4baHJBLQwN6WJikm7gsfPdHXl27p7fGH30c/IwHbbp/iS7GJP
+ CjqA==
+X-Gm-Message-State: AOJu0YyNR+1wvVLXcMq/FZyHA5G2nXymPUl6X2vDobG5LWCeZVTxXLz7
+ bIguv6LhklcdBJgHyujAtuMYQQ58CZ+3eO0Elt3jAXGkWt90Ds47a21B
+X-Gm-Gg: Acq92OHWFDEzTXe076HfX1a8fS2GtqBfTucxS69zTD0bTQwxTQb2kOy7Fk2iT1pMGkL
+ kGsA4JsUBAId/D1XYbyNszOEhDbY99rLN0bZDdcABpwlCBkzZq01CDb2u4YoX11846Lh0i3fLZK
+ MX3Ajz0CsV6/v+xLUXUI7DmBlkT7B/ZjYF+zRhaKKe8Ey9ZSTqPYlL/9k8/Di9xPEq9mKHL3AlZ
+ E0ze2GFLwhxs+kirfkPEc7ZHB+oHf0Yj9TPjDLzYnAqZFER6x2oBSqo+0lEsu3EPPLTwZMC+hJ0
+ G1HtQ10eLQWc7WL96Y/i5Mf/GnbvxCF9D78yXbwGtgeI7YwYGvzQN0BLSgtEYMga4LIz9eW92w9
+ SHBx476ib7/ArSqIRaMwWZJfTPmdri5v70xjpEW1DccSO+jvzhfWC0tmoVVquqzbsnXwv7jA9uZ
+ CZrIxzQDFd8DzqfrDJ8WZ2SWOBZpNqhJg=
+X-Received: by 2002:a05:6512:32c8:b0:5aa:7078:4a12 with SMTP id
+ 2adb3069b0e04-5aa87c23abbmr3618491e87.42.1780863441904; 
+ Sun, 07 Jun 2026 13:17:21 -0700 (PDT)
+Received: from fedora ([37.113.99.0]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5aa7b907269sm3276268e87.34.2026.06.07.13.17.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 07 Jun 2026 13:17:21 -0700 (PDT)
+From: Georgii Druzhinin <ilovelinuxgames@gmail.com>
+To: andy@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Georgii Druzhinin <ilovelinuxgames@gmail.com>
+Subject: [PATCH 2/2] staging: fbtft: fbtft-bus: remove prohibited space before
+ close parenthesis
+Date: Sun,  7 Jun 2026 23:17:08 +0300
+Message-ID: <20260607201708.88644-2-ilovelinuxgames@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260607201708.88644-1-ilovelinuxgames@gmail.com>
+References: <20260607201708.88644-1-ilovelinuxgames@gmail.com>
 MIME-Version: 1.0
-References: <20260607210203.229613-1-deller@gmx.de>
-In-Reply-To: <20260607210203.229613-1-deller@gmx.de>
-From: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-Date: Sun, 7 Jun 2026 21:50:51 -0700
-X-Gm-Features: AVVi8CfzWmWWxt3SB7pXX23oNZUjMnDgx_nKjpLYDIPyHFfppWEBqDIhw4T6cu4
-Message-ID: <CADkSEUjJErZyBQtGDpdbt4iTx6hHZhizRJV1mRONrHjV0W1WUg@mail.gmail.com>
-Subject: Re: [PATCH] lib/fonts: Avoid unncessary 64-bit math in font code
-To: Helge Deller <deller@gmx.de>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 08 Jun 2026 08:58:33 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -106,22 +90,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Jun 7, 2026 at 2:02=E2=80=AFPM Helge Deller <deller@gmx.de> wrote:
-> The text display code used in the Risc PC kernel image decompression
-> code uses arch/arm/boot/compressed/font.c, which includes
-> lib/fonts/font_acorn_8x8.c, which further includes <linux/font.h>.
->
-> Since commit 97df8960240a ("lib/fonts: Provide helpers for calculating
-> glyph pitch and size") <linux/font.h> contains inline functions that
-> require __do_div64, which is not linked into the ARM kernel
-> decompressor. This makes Risc PC zImages fail to build.
->
-> There is no need to use 64-bit division code here, so resolve this issue
-> by using plain standard addition and shift maths.
+Fix checkpatch.pl error: "space prohibited before that close
+parenthesis ')'" by removing the empty argument and comma
+in define_fbtft_write_reg macro calls.
 
-Hi, Helge,
+Signed-off-by: Georgii Druzhinin <ilovelinuxgames@gmail.com>
+---
+ drivers/staging/fbtft/fbtft-bus.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-I can confirm that this patch fixes the issue. Thank you for your
-thorough investigation.
+diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fbtft-bus.c
+index 30e436ff19e4..409770891c54 100644
+--- a/drivers/staging/fbtft/fbtft-bus.c
++++ b/drivers/staging/fbtft/fbtft-bus.c
+@@ -62,9 +62,9 @@ out:									      \
+ }                                                                             \
+ EXPORT_SYMBOL(func);
+ 
+-define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, )
++define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8)
+ define_fbtft_write_reg(fbtft_write_reg16_bus8, __be16, u16, cpu_to_be16)
+-define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16, )
++define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16)
+ 
+ void fbtft_write_reg8_bus9(struct fbtft_par *par, int len, ...)
+ {
+-- 
+2.54.0
 
-Ethan
