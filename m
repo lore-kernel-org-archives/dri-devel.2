@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45031CD8C90
-	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 21:46:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C65F4CD8C90
+	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 21:46:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9BD910E33A;
-	Sun,  7 Jun 2026 21:46:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 311E810E5D3;
+	Sun,  7 Jun 2026 21:46:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dlMmlQSJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KiNwAdmw";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E932D10E33A
- for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 21:46:48 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 347FC10E33A
+ for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 21:46:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CBBFE43D4A;
+ by tor.source.kernel.org (Postfix) with ESMTP id 53A8960018;
  Sun,  7 Jun 2026 21:46:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EC8E1F00893;
- Sun,  7 Jun 2026 21:46:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C120E1F00893;
+ Sun,  7 Jun 2026 21:46:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1780868808;
- bh=xiddp7v7kHv5ulzvu1VcmAmGBmpnEySt4jryea7eyww=;
+ bh=f4TYD2MK/8wcG+xA5CmnPUXUwAKuqVUgIAionwX1Aqo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dlMmlQSJG1BghQKMrqKaiecigOz1qRjudDjvXA8fvqX4In9BRwqTUDM2NzERgTVsa
- 7jMCmtnuq6UWQiHrT7/FHaHqGI7Fy6YD5aWvwXqFHVOyVGJxuWQY/lpDmcJ3904r82
- Y+6zIK4t5/eirEH1fRs9f1/lvaDWuqBw2K2JNTtXShfQSDf4v0+5l0nGCSCHNBCv+u
- ehs7pHFCQVNHntbHq28PAkMZxyk3ahxK69BodmxePBWkcNQpfSOZciZSBcCx2PEFcK
- leAse93PWyGu3bLBgOO0XItncxfT8xgapUb7iQZxX3+k9PuCxz1ATOZiOwNYsDDRHg
- w0YDlD2CAUclQ==
+ b=KiNwAdmwa7xTofVXFQc7QuWKxACGacgB2xMGs1/RnOU0zji8lNry6GGfE9SJ4dqE8
+ dN2mGJWk2b2nfsVa8vhbKH/y+EAB1EIMMIgKTr35iPrDFzo+djczZji93xezVtI2Nj
+ yEseB8ct/ZYjvf5iQr4H9nl4kCgI5uQ/qVhxz2IVEC4yFTLaMpx01Qi8UEmlYQC6Sc
+ Ca33dvb7PHWQe7mSf5X/bLB7Ort+F4HomB9kCRrVwNs4jctX1GGaSD1CPK5MvLRDI8
+ y/iTJrD9Rt/wv4iQYyZskTAOEVXPSog35V1SgwM1hi3goJsCU9tVPbBPz/VwKe4hOT
+ A5XTrPL6U9/ow==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/8] drm/connector: report out-of-band IRQ_HPD events
+Subject: Re: [PATCH v4 7/8] soc: qcom: pmic-glink-altmode: pass down HPD_IRQ
+ events
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
  neil.armstrong@linaro.org
-In-Reply-To: <20260608-hpd-irq-events-v4-1-30b62b335487@oss.qualcomm.com>
-References: <20260608-hpd-irq-events-v4-1-30b62b335487@oss.qualcomm.com>
+In-Reply-To: <20260608-hpd-irq-events-v4-7-30b62b335487@oss.qualcomm.com>
+References: <20260608-hpd-irq-events-v4-7-30b62b335487@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 07 Jun 2026 21:46:48 +0000
-Message-Id: <20260607214648.7EC8E1F00893@smtp.kernel.org>
+Date: Sun, 07 Jun 2026 21:46:47 +0000
+Message-Id: <20260607214647.C120E1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,106 +62,80 @@ Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] State machine race condition causes premature HPD (and IRQ) signal=
-ing before Alt Mode configuration completes.
-- [High] DisplayPort is erroneously reported as connected (with IRQ) when C=
-ONFIGURE command is NAKed.
+- [High] Missing `cancel_work_sync()` upon device unbind leads to a use-aft=
+er-free vulnerability for the `altmode` and `alt_port` structures.
+- [High] Missing `reinit_completion()` can cause subsequent firmware reques=
+ts to prematurely succeed if a previous request timed out.
 --
 
-commit 3c420485b2e1143aa3ad7bdf4a86786959837b5a
+commit 94236240b5d1e90ad191dae53982a24598cd3d4c
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-drm/connector: report out-of-band IRQ_HPD events
+soc: qcom: pmic-glink-altmode: pass down HPD_IRQ events
 
-The DisplayPort standard defines a special kind of events called IRQ,
-used to notify DP Source about the events on the Sink side. This commit
-renames drm_connector_oob_hotplug_event() to drm_connector_dp_oob_status()
-and extends its interface to report IRQ events to the DisplayPort Sink driv=
-ers.
+This commit passes IRQ_HPD events from the firmware to the DisplayPort
+driver through the HPD bridge. This enables the DP source to receive
+notifications about events on the sink side.
 
-> diff --git a/drivers/usb/typec/altmodes/displayport.c b/drivers/usb/typec=
-/altmodes/displayport.c
-> index 263a89c5f3243..ff3659b8f5a2c 100644
-> --- a/drivers/usb/typec/altmodes/displayport.c
-> +++ b/drivers/usb/typec/altmodes/displayport.c
-> @@ -187,9 +187,11 @@ static int dp_altmode_status_update(struct dp_altmod=
-e *dp)
->  				dp->pending_irq_hpd =3D true;
->  		}
->  	} else {
-> -		drm_connector_oob_hotplug_event(dp->connector_fwnode,
-> +		drm_connector_dp_oob_status(dp->connector_fwnode,
->  						hpd ? connector_status_connected :
-> -						      connector_status_disconnected);
-> +						      connector_status_disconnected,
-> +						(hpd && irq_hpd) ? DRM_CONNECTOR_DP_IRQ_HPD :
-> +								   DRM_CONNECTOR_NO_EXTRA_STATUS);
-
-[Severity: High]
-This is a pre-existing issue, but since we are modifying the hotplug
-notification here, can a state machine race condition cause premature HPD
-signaling before Alt Mode configuration completes?
-
-If an Attention VDM arrives before the ACK for the DP_CMD_CONFIGURE,
-dp_altmode_attention() will process it immediately because dp_altmode_work()
-already set dp->state to DP_STATE_IDLE after sending the async command.
-
-In dp_altmode_status_update(), the check for
-!(con & DP_CONF_CURRENTLY(dp->data.conf)) evaluates to false because
-dp->data.conf was already updated prior to sending the configure command.
-
-Execution then falls into this else block, which calls
-drm_connector_dp_oob_status() with connector_status_connected prematurely.
-
-Does this cause DRM to begin link training before the physical MUX is
-configured (which only happens in dp_altmode_notify() when the ACK arrives),
-leading to a failed link and non-functional display?
-
->  		dp->hpd =3D hpd;
->  		sysfs_notify(&dp->alt->dev.kobj, "displayport", "hpd");
-
-[ ... ]
-
-> @@ -211,8 +213,11 @@ static int dp_altmode_configured(struct dp_altmode *=
-dp)
->  	 * configuration is complete to signal HPD.
->  	 */
->  	if (dp->pending_hpd) {
-> -		drm_connector_oob_hotplug_event(dp->connector_fwnode,
-> -						connector_status_connected);
-> +		drm_connector_dp_oob_status(dp->connector_fwnode,
-> +						connector_status_connected,
-> +						dp->pending_irq_hpd ?
+> diff --git a/drivers/soc/qcom/pmic_glink_altmode.c b/drivers/soc/qcom/pmi=
+c_glink_altmode.c
+> index 619bad2c27eeb..946eb20b8f836 100644
+> --- a/drivers/soc/qcom/pmic_glink_altmode.c
+> +++ b/drivers/soc/qcom/pmic_glink_altmode.c
+> @@ -373,7 +373,11 @@ static void pmic_glink_altmode_worker(struct work_st=
+ruct *work)
+>  		else
+>  			conn_status =3D connector_status_disconnected;
+> =20
+> -		drm_aux_hpd_bridge_notify(&alt_port->bridge->dev, conn_status);
+> +		drm_aux_hpd_bridge_notify_extra(&alt_port->bridge->dev,
+> +						conn_status,
+> +						alt_port->hpd_irq ?
 > +						DRM_CONNECTOR_DP_IRQ_HPD :
 > +						DRM_CONNECTOR_NO_EXTRA_STATUS);
+>  	} else if (alt_port->mux_ctrl =3D=3D MUX_CTRL_STATE_TUNNELING) {
+>  		if (alt_port->svid =3D=3D USB_TYPEC_TBT_SID)
+>  			pmic_glink_altmode_enable_tbt(altmode, alt_port);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does this logic erroneously
-report a connected state even when the configure command is NAKed?
+This isn't a bug introduced by this patch, but since we are modifying the
+workqueue handler, is there a potential use-after-free due to missing work
+cancellation on teardown?
 
-When the peer NAKs the DP_CMD_CONFIGURE command, dp_altmode_vdm() handles
-the NAK by resetting dp->data.conf =3D 0 and then calling dp_altmode_config=
-ured().
+In pmic_glink_altmode_probe(), the driver allocates the altmode structure v=
+ia
+devm_kzalloc() and initializes altmode->enable_work and alt_port->work, but
+it does not register a .remove callback or a devres action to synchronously
+cancel these work items.
 
-If a prior STATUS_UPDATE VDM arrived with HPD high, dp->pending_hpd
-will still be true.
+When the auxiliary device is unbound, the devres framework will automatical=
+ly
+free the altmode structure and release resources.
 
-Because this block checks dp->pending_hpd without verifying if the
-configuration actually succeeded (for example, by checking if
-dp->data.conf !=3D 0), it unconditionally calls drm_connector_dp_oob_status=
-()
-with connector_status_connected.
+If pmic_glink_altmode_worker() is currently pending or executing, could it
+dereference the freed altmode and alt_port pointers?
 
-Meanwhile, dp_altmode_notify() sets the MUX to TYPEC_STATE_USB because
-dp->data.conf is 0.
+[Severity: High]
+This is a pre-existing issue, but I also noticed a potential state machine
+issue regarding how requests are sent to the firmware.
 
-Could this cause DRM to attempt DP link training over an unrouted AUX
-channel, resulting in repeated timeouts and desynchronized state?
+In pmic_glink_altmode_request(), the driver sends a request and waits for an
+acknowledgment:
 
->  		sysfs_notify(&dp->alt->dev.kobj, "displayport", "hpd");
->  		dp->pending_hpd =3D false;
->  		if (dp->pending_irq_hpd) {
+	ret =3D pmic_glink_send(altmode->client, &req, sizeof(req));
+	...
+	wait_for_completion_timeout(&altmode->pan_ack, ...);
+
+If the wait times out, the function returns -ETIMEDOUT. If the delayed
+acknowledgment eventually arrives, pmic_glink_altmode_callback() will call
+complete(), incrementing the counter.
+
+Since the driver never calls reinit_completion() before sending a new reque=
+st,
+will the next call to pmic_glink_altmode_request() instantly succeed by
+consuming the stale completion counter instead of waiting for the actual
+hardware acknowledgment?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-hpd-irq-ev=
-ents-v4-0-30b62b335487@oss.qualcomm.com?part=3D1
+ents-v4-0-30b62b335487@oss.qualcomm.com?part=3D7
