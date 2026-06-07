@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E29B2CD8C88
-	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 15:17:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0441ACD8C88
+	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 15:31:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3681810EA86;
-	Sun,  7 Jun 2026 15:17:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDC8710EA9B;
+	Sun,  7 Jun 2026 15:31:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="g4wTok1j";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="KP2vm+9s";
 	dkim-atps=neutral
 Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6564510EA86
- for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 15:17:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A1D710EA9B
+ for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 15:31:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1780845470; x=1781450270; i=deller@gmx.de;
- bh=OXQ2XRksp9zCD/O8872+/blcYYZA80843P/NYXrTUGM=;
+ s=s31663417; t=1780846299; x=1781451099; i=deller@gmx.de;
+ bh=9n5oaUj9TttvQUPf+gue7qUfKTd9DGiITCtTFeddBFQ=;
  h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
  References:From:In-Reply-To:Content-Type:
  Content-Transfer-Encoding:cc:content-transfer-encoding:
  content-type:date:from:message-id:mime-version:reply-to:subject:
  to;
- b=g4wTok1j1WsWXJQzZlleI9fMBpAbKkiSnVvnxGILKlA8Jag1+/WtTYBM112gV44i
- nIe5IDOWsTL2IBVgFKgganW/gmDwRN7yyae783lNc4aPbROmGTSRVi5G2CfOG7uVs
- jYLmdLbh+GlEhoKOrTUIMILkIHAiQ7Un3xtodyj6+DW5l2FEdrB/cDSFIxc1KiiUY
- rkqFtY/iZszIR4VVTXuBQlKNc38zkrY17PApgi2IpfldflAw0XgLeWvd+3IO86zKP
- LL35uNWR2L0YljhEIY+LAeiGzwqHuV1DtHhBGI+W+/JvzGNTRr48oIYtHUUGhbzX0
- Bqy04slrC2lMmydgVA==
+ b=KP2vm+9sBjpcX73PwOBUtLWK1oV4CDB53IsXbiSBKGqj2YcGmDpxMEhw3rJVcvPP
+ F15JygExbSQpWkK8MSnwvb8hBVeuPxaBp8Wgp7MyrRP75WThspEsRYILEzHItlI5R
+ G5iLumUB45hUSHCK6TWNrlOj06h2ppnyy1XfR4v1KJmgit8lpwC7z5AHDbYGBnXDq
+ 8H+Y3/tcpXILobPNg97OlKYs6xgKZ9oAMpa7CUN2t09hj1dfDjfWQjzpJ4inKvwQg
+ fjtusX4GA4gJjZoHpeKgJqzjQjpw1nGJfBavZYuZ0oVwwBrNV5+w7HWDWBOIXvQJ0
+ Sp6m7s0vlxtMUPr2mg==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
 Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MQv8x-1wrVQf1XFv-00Tmov; Sun, 07
- Jun 2026 17:17:50 +0200
-Message-ID: <858a41e6-5561-40a4-9764-3fa578149253@gmx.de>
-Date: Sun, 7 Jun 2026 17:17:43 +0200
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1Mo6qp-1x3QQr3ibj-00ZOg8; Sun, 07
+ Jun 2026 17:31:38 +0200
+Message-ID: <b1f96555-e222-4efd-8eed-963ff4f94ecf@gmx.de>
+Date: Sun, 7 Jun 2026 17:31:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] fbdev: omap2: fix use-after-free in omapfb_mmap
-To: Hongling Zeng <zenghongling@kylinos.cn>, kees@kernel.org,
- Helge Deller <deller@gmx.de>
-Cc: linux-omap@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- zhongling0719@126.com
-References: <20260602085421.194325-1-zenghongling@kylinos.cn>
+Subject: Re: [PATCH v3 0/4] fbdev: Internalize fbcon
+To: Thomas Zimmermann <tzimmermann@suse.de>, geert@linux-m68k.org,
+ simona@ffwll.ch, airlied@gmail.com, lukas@wunner.de, maddy@linux.ibm.com,
+ mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
+References: <20260527151551.258659-1-tzimmermann@suse.de>
 Content-Language: en-US
 From: Helge Deller <deller@gmx.de>
 Autocrypt: addr=deller@gmx.de; keydata=
@@ -89,92 +89,90 @@ Autocrypt: addr=deller@gmx.de; keydata=
  FwRDcGV6nxanxZGKEkSHHOm8jHwvQWvPP73pvuPBEPtKGLzbgd7OOcGZWtq2hNC6cRtsRdDx
  4TAGMCz4j238m+2mdbdhRh3iBnWT5yPFfnv/2IjFAk+sdix1Mrr+LIDF++kiekeq0yUpDdc4
  ExBy2xf6dd+tuFFBp3/VDN4U0UfG4QJ2fg19zE5Z8dS4jGIbLg==
-In-Reply-To: <20260602085421.194325-1-zenghongling@kylinos.cn>
+In-Reply-To: <20260527151551.258659-1-tzimmermann@suse.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:P6ZAMYyNd4aYUvAqjYqWsdw8gUEtnm07ZK/kSV7/pu/SfnIn4rW
- xFa4PyiG0lzzHQcr8HnkFKf9zB1ny24qiKPMGppazDqGv8YN1q0GcLqd2m5roVYnjzAd8QP
- M9BHfmgIaa/hsEMt62Alhv6KkNKZzuIyrR85I6mewHqJVpgSzcLacgBJQUcmULh6yZSqDsT
- tNuO/gZHrgk47LliwPYJw==
-UI-OutboundReport: notjunk:1;M01:P0:uY3HHhXqjxo=;AHItYX5alLVEbALmkVJOIBbSPIb
- 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
+X-Provags-ID: V03:K1:kdYW0vmi/C5c3FWbBM5rxOEiduxOc1eBP2SQ9iRtDNKHFnGQl+Y
+ Js1o7u9fgzZ8DUuZF0E9VpGcR1wshDG7v8vnvfSAZYgLlBwsym+7oZryyIRnORMLhrodFa0
+ ylj1eWvahsdX6Y4EdNZkNg+w+MF5yF5uFLvBLx/A45uyoqvAvwe2XgsSH5K0iNWprSAHkSI
+ P27yExXZIBy/vpKMzhRQA==
+UI-OutboundReport: notjunk:1;M01:P0:CSgO2upRJZE=;6Mu7EJYG6q4uwMmn3UPhadhkEIp
+ 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
+ FdO23vUvBS77qqcwrZ60nZEQ==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -190,81 +188,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/2/26 10:54, Hongling Zeng wrote:
-> omapfb_mmap() has a race condition with OMAPFB_SETUP_PLANE ioctl that
-> can lead to use-after-free:
+On 5/27/26 17:14, Thomas Zimmermann wrote:
+> Turn fbcon into an internal client of fbdev. Manage all interactions
+> with graphics drivers within fbdev. Add helpers for these tasks and
+> convert drivers.
 >=20
-> The fb_mmap() entry point holds mm_lock but not lock (fb_info->lock),
-> while ioctl handlers like OMAPFB_SETUP_PLANE hold lock but not mm_lock.
-> This allows concurrent execution.
+> Fbdev's PS3 and SH-Mobile drivers update fbcon as part of user-invoked
+> mode changes. Call the new helpers, which also fix inconsistencies
+> among the various code paths.
 >=20
-> In omapfb_mmap():
-> 1. rg =3D omapfb_get_mem_region(ofbi->region);      // Get old region re=
-f
-> 2. start =3D omapfb_get_region_paddr(ofbi);          // Read from NEW re=
-gion
-> 3. len =3D fix->smem_len;                             // Read from NEW r=
-egion
-> 4. vm_iomap_memory(vma, start, len);               // Map NEW region mem=
-ory
-> 5. atomic_inc(&rg->map_count);                      // Increment OLD reg=
-ion!
+> Vga-switcheroo remaps the fbcon terminals when switching physical
+> outputs. For now, hide this in another helper. The call will later
+> move into DRM's fbdev emulation.
 >=20
-> Concurrently, OMAPFB_SETUP_PLANE can:
-> - Reassign ofbi->region =3D new_rg
-> - Update fix->smem_len
-> - OMAPFB_SETUP_MEM then checks NEW region's map_count (0!) and frees it
+> With all refactoring in place, fbdev manages fbcon interactions by
+> itself. Remove the public interfaces.
 >=20
-> This leaves userspace with a mapping to freed physical memory.
+> v3:
+> - resolve vga-switcheroo dependencies wrt fbcon (Geert)
+> v2:
+> - use '#if defined' (Helge)
 >=20
-> The fix is to read all required values (start, len) from the same
-> region reference (rg) that will have its map_count incremented,
-> preventing the region from being freed while still mapped.
->=20
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
->=20
-> ---
->   Change in V2:
->    -Restore fix->smem_len to maintain VRFB sparse mapping.
->    -Increment map_count before mapping to prevent use-after-free
->     on driver unload
->    -Add proper error handling for map_count
-> ---
->   drivers/video/fbdev/omap2/omapfb/omapfb-main.c | 9 ++++++++-
->   1 file changed, 8 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/video/fbdev/omap2/omapfb/omapfb-main.c b/drivers/vi=
-deo/fbdev/omap2/omapfb/omapfb-main.c
-> index d70deb6a9150..046892682fc6 100644
-> --- a/drivers/video/fbdev/omap2/omapfb/omapfb-main.c
-> +++ b/drivers/video/fbdev/omap2/omapfb/omapfb-main.c
-> @@ -1099,7 +1099,11 @@ static int omapfb_mmap(struct fb_info *fbi, struc=
-t vm_area_struct *vma)
->  =20
->   	rg =3D omapfb_get_mem_region(ofbi->region);
->  =20
-> -	start =3D omapfb_get_region_paddr(ofbi);
-> +	if (ofbi->rotation_type =3D=3D OMAP_DSS_ROT_VRFB)
-> +		start =3D rg->vrfb.paddr[0];
-> +	else
-> +		start =3D rg->paddr;
-> +
->   	len =3D fix->smem_len;
->  =20
->   	DBG("user mmap region start %lx, len %d, off %lx\n", start, len,
-> @@ -1109,6 +1113,8 @@ static int omapfb_mmap(struct fb_info *fbi, struct=
- vm_area_struct *vma)
->   	vma->vm_ops =3D &mmap_user_ops;
->   	vma->vm_private_data =3D rg;
->  =20
-> +	atomic_inc(&rg->map_count);
-> +
->   	r =3D vm_iomap_memory(vma, start, len);
->   	if (r)
->   		goto error;
-In the code there is another atomic_inc() here....
-With your patch, map_count is incremented twice.
-Is this right?
+> Thomas Zimmermann (4):
+>    fbdev: Wrap user-invoked calls to fb_set_var() in helper
+>    fbdev: Wrap user-invoked calls to fb_blank() in helper
+>    fbdev: Wrap fbcon updates from vga-switcheroo in helper
+>    fbdev: Do not export fbcon from fbdev
+The v2 series is now dropped, and instead the v3 series is applied to fbde=
+v git tree.
 
+Thanks!
 Helge
