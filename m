@@ -4,95 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 916ADCD8C8C
-	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 21:33:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C72CCD8CAA
+	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 21:33:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFF4D10E5D4;
-	Sun,  7 Jun 2026 21:33:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44B2310E5E5;
+	Sun,  7 Jun 2026 21:33:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="VZFyBLWN";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hZYkwv+W";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IfvAqeMh";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QgzxNOQC";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7CA310E5D4
- for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 21:33:25 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 289A410E4B9
+ for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 21:33:29 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 657Elv0q798583
- for <dri-devel@lists.freedesktop.org>; Sun, 7 Jun 2026 21:33:24 GMT
+ 657Em7QY339112
+ for <dri-devel@lists.freedesktop.org>; Sun, 7 Jun 2026 21:33:28 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- aqwCeGiS55Vf9HMiIq5R7znG8Y1OhJ6NDQ7vMB6NUdU=; b=VZFyBLWNd/Q1/Gt2
- R/3Q0qddH8uIz4xr/Vi2dwaYYKBDTMYdvFLyKqfGmTVm+n7b3jJH2ZVadg9w37v6
- oh2t2/rZ/7+YtF+E67j3kAzm5mA+HdMmCv3vcKCY3oIFyZWYWuvQpoiDSa0h4Q5w
- CGj5YXzNnx3ltVgeypqCiTOMGXalehNIEhlnCzrP6Q/AOo5sHwwXvugiEY0+hbP1
- yBdyPbQX3JxgQoNIecF4tfvIBjtiKMFIE0mO34kHVtmPczqZcOweNY7XCAUDMwUG
- 69UrqAZRwMiS9Oovk3Q+8cAfzjbDKul8OzF29C0OQPtMLOKc1QVnUATkfA/zCiYf
- x0rK7A==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emavf508c-1
+ kiGy/JVajFIukktw5owJydRTv8D1sE7z5Bd4+V1lofM=; b=IfvAqeMhQA3w7gsk
+ 5Alk4DF4N0JH0KwTuB3eXWzoXmzNinLzj0ClsiwjPc+guvwtFneMRSFBh/rc0HlJ
+ NvtAmvIguXP4FqYMxKAH/KhnjfxbJggLaeNf/X2q8W7elFkbyNQqoiFhDiDAqlAV
+ 555LxiXgU/VSbu4ZsUcN/MCLKMnwSd5q/NyBK2Xg/SUW5SVo0q6Z1ubwjivrJkOH
+ r/DmXRmt3+4qzF7dtcDoSinzmEyq0TLJvKQ3AtdMjkG8IEOYmYgs37j6PG0aVNY/
+ O4tfdbm5fliyVoVh99RpkMAK7MOFKgT9cUbQxL+GnuI/HThJKdGh4sEYzXs7Cgx+
+ 4au1BQ==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emcqgvhch-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 21:33:24 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-51772325a64so50268831cf.2
- for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 14:33:24 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 21:33:28 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-8cce1c3c26bso118988196d6.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 14:33:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1780868004; x=1781472804;
+ d=oss.qualcomm.com; s=google; t=1780868007; x=1781472807;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=aqwCeGiS55Vf9HMiIq5R7znG8Y1OhJ6NDQ7vMB6NUdU=;
- b=hZYkwv+Wk6fpfkwgQx1W9gPukfmdaEjqxbUG32Wx8rOl9JtuOWvo0jr+4rGhZUriSe
- 3rgfBuADF8oTrwk32vVyxiq0cZQ5+E5EOLxW9sFbOjG7pm29bMmE4rbzpMepbx/u0xHy
- zFawviUJrLbwf5LxX3tA1p+lXL1JsPgbcxcGFfdhZvyTECI7yXvL5265IV1MG4rx6E3D
- 9ycQmG0Ja8Ll7khEQWBa20mh2uDpUU9SAMVgffZIlykxVplkjLQRhrSRUMfb9DWk1x9/
- HHeENf5ifwQj84svI/D9R3nXPPe3yhtiKOxRV7UQZcW464HGKzuNHnKNOnqjF/gl06DE
- xwCw==
+ :reply-to; bh=kiGy/JVajFIukktw5owJydRTv8D1sE7z5Bd4+V1lofM=;
+ b=QgzxNOQCGbLP8THuGcqUftbbWvsg6GTe4zFDoaXkcJs83pKH4pG6fLwSEpfVO77Bi/
+ 28YID0sVuRwmb3znYbSWI+K9O1tZmhuNsOYIkfF/ioP7+O3IAvrKd7NYmhRpE3oLcwAK
+ XNSj77fO5b7n2yDU+pbqadmYFfeLfgESHh8xnKVXPHJerFvn4qvExvJh35OMBcmBN71u
+ 4EN6QrmSPrYLc3s4ZBVtTi5A/tNTv590IROZU8A/XsIRAUExoOm0pLzKfdSxyQzJY2OZ
+ BtFkSsE27eO60G3nP1evCUcLtCnKyQ2LUYaWcvriYJCPcsnGVasAyJqyHV5BdXA3oStI
+ LwYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780868004; x=1781472804;
+ d=1e100.net; s=20251104; t=1780868007; x=1781472807;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=aqwCeGiS55Vf9HMiIq5R7znG8Y1OhJ6NDQ7vMB6NUdU=;
- b=Le8v0QdTHw+bxCGj23Oo9zKv2lEbFZ6XUJyAMSxAnhptDXSWvfPywUxpCZnjvjgqZp
- 99KWpSgiAiw3qdwXATQ1hoI33RbFXs03UN5tP3Por42RSlbyFsA4xOW1jWVaB3/xvwqq
- jsdeo4KdfiMdZLVNX9qKbgKaCTdZHlUC2js+iM5WVpYmukuu3obNIXszIOzBAnlsi8fE
- wgWkd9eLGfQgKSPNzttTmBB20u2tmqBbUDGJp49r2Wg++tDA13O3KbtjWg5qN5q1JwEz
- IFnFm5CkQ11ySI+HNoqzRJFGBIBeeZ3R/CJs1RsuFjeheJ4a77O9N1e4bQQlnUxEqSny
- gx0w==
-X-Gm-Message-State: AOJu0YxPbu4sRTFtkE8X14G+5MEUn5v8Fddw8RAyqYFcDK41F42YH9mA
- knoVUe489CAkf7j2MLvp4hGFerEyXUArKCsLibdUZ38J7PwJiSUP5KvegI1ndIsiBJwTh6LlvLr
- W36j1JSvTER+VZHC8HwzoEuH26HpawvKNBODwV4xmHISoqctxO5pzYvLgjJyhXBEcMAH1zsY=
-X-Gm-Gg: Acq92OEJqnaE/+aBKlid5G78FaIOpnps3fbjbuuaEP7mDuUBYJO9aakefGATvuCvy81
- QAprYV7D3SWE7uBNKkWSIXnd4AkhqqVDSlV5MR6sVe+kVY75Era8ND/vFJKA9+MtiRDBlRdcgkd
- JtPc5UU9rx3bNcALkt4foLtWO/QgagKejeMOBj00+RJrfJbEC1n5d+WQ85C2044BBT5sJBlQyeb
- wkjFxqCVJtzlgD61djpqdzHwMk8+hktUE0hw6iASGdQnEzYMegPMOA5HjME4/c+be9ac8TV/n+F
- 8JIcXLLpX4nnmXrbeMcrJM5mE+ZU18VCL5kF5KucdMjQ/j9m4bOuKoVHlafdiTcyo9NaxVusG6z
- ymhif4MtDe5EPvv5xFfazWAWBmrNswhyS0bUDVFUIdmeAPIRWL8UNj7/+/lcNqTrkQb67+qdsiJ
- JKpt5UAjPhn/x8na9Y9AvVj1ovvTGK0jKOF2AWZSPt7zRRmQ==
-X-Received: by 2002:a05:622a:20e:b0:517:9157:ecf3 with SMTP id
- d75a77b69052e-51795be129emr193812411cf.36.1780868004026; 
- Sun, 07 Jun 2026 14:33:24 -0700 (PDT)
-X-Received: by 2002:a05:622a:20e:b0:517:9157:ecf3 with SMTP id
- d75a77b69052e-51795be129emr193811791cf.36.1780868003426; 
- Sun, 07 Jun 2026 14:33:23 -0700 (PDT)
+ bh=kiGy/JVajFIukktw5owJydRTv8D1sE7z5Bd4+V1lofM=;
+ b=qLHst5xg99NSS4VQYu6lDGqJ0fQhA+06W9I2cJLjUNCfspG4o0fyDayfbQvGmRgYmG
+ nhrSrZJPZRjO32ut5PNSQDFljug980ahS0RDbDkt0rAMaNZZ0n0CSt3DXBkuFf/yweam
+ GOmGPc163h7efkFGrwKryECB47+23PtDqwG/fW6bLr32nrYBXrD8yX9Roi8f3U5nA+Ut
+ Zzvm7jStGLsDuODNdmbPZK+TQSWMm/n8gla9wPKNoNYo+SYo8aFrDmxrcMWkzmkY1G9n
+ 5oaNT/JLKjxRIAANGcmCTtzhiNBFWYYEuncxKeKKMTGh5UD48BtlH+ms/ahRSjGj11NT
+ 4aAA==
+X-Gm-Message-State: AOJu0Yy6iDztC4k9grzBKDS4MO/qQWR3gYFHAvuyWZ9G6kjKEzcby+fS
+ zVKZiSHrbwO4KxRz4LamXqr2CIJcPlMgpYdrNGiwcm5yg3wFEJMFdSsWIW6mo9nmb4C2SihXM/z
+ xOtozAuq8Xzq7u6qS9H08p5+3Ss14Xac0dirF1+NcjA+9MCZBGmwTLtazGgNqqW4WoTbL4fk=
+X-Gm-Gg: Acq92OHi8wtEItJ1JbHCgzTVHSGlN+rRX7yDJVyHf50TU6kWrxZPPNFG0tbtU/ASXhw
+ H/mbMAeR+KBIP5zeSez9YsL9GziKH7jpvBVthIDopvnwYvxO3LStKuO4cM3E/KN0t8olNh6gFds
+ 6/sd+MmmPVXdkdPT8HR7A3N0eXRHe7yA8Md7seCXrceuUUUe3e8HqmmH8NMZUM7XAfqN/vhqg92
+ vQvx+mKjNXCKWjvAH/gkfsqbsZdWCB7rZzcvpXQ9oD/4+CadlpIVswpkp5wawgnhYkFTfP9zoRM
+ cY4XVhKtb1gBcW3tOa9jQIER/N1Q35zls0iwsjAuqZ0hHYviQ/VmGU2OPOmvzn54mNBtVs4ypJK
+ 5iAdkvJ5NUhQ/oqQVVZa5f34V906Od3qpp+t9p1S2dBv9G5doF0E1TfMSLjtlnM7BBq/lzFvRze
+ GzfPUquF8UuNn8+RnKtzXzSQPbCT6YP25Xk1y+PUjggvrJNA==
+X-Received: by 2002:ad4:53c6:0:b0:8cc:f135:52af with SMTP id
+ 6a1803df08f44-8cee6134a06mr166005846d6.24.1780868007539; 
+ Sun, 07 Jun 2026 14:33:27 -0700 (PDT)
+X-Received: by 2002:ad4:53c6:0:b0:8cc:f135:52af with SMTP id
+ 6a1803df08f44-8cee6134a06mr166005386d6.24.1780868007134; 
+ Sun, 07 Jun 2026 14:33:27 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-396ac2d5ea9sm40374041fa.32.2026.06.07.14.33.20
+ 38308e7fff4ca-396ac2d5ea9sm40374041fa.32.2026.06.07.14.33.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 Jun 2026 14:33:21 -0700 (PDT)
+ Sun, 07 Jun 2026 14:33:25 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Mon, 08 Jun 2026 00:33:05 +0300
-Subject: [PATCH v4 4/8] drm/bridge: pass extra events to the HPD callback
+Date: Mon, 08 Jun 2026 00:33:06 +0300
+Subject: [PATCH v4 5/8] drm/bridge: pass down IRQ_HPD to the drivers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260608-hpd-irq-events-v4-4-30b62b335487@oss.qualcomm.com>
+Message-Id: <20260608-hpd-irq-events-v4-5-30b62b335487@oss.qualcomm.com>
 References: <20260608-hpd-irq-events-v4-0-30b62b335487@oss.qualcomm.com>
 In-Reply-To: <20260608-hpd-irq-events-v4-0-30b62b335487@oss.qualcomm.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -130,41 +130,41 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5547;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5210;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=Xv8OK5b4aegzohrbDrEYK2LgkMwGQ21VRNuRHpj/5us=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqJeOQTkKDpqt97cyPjjeSFT2syRbXebSWwlKv3
- 9mydw2N4yiJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaiXjkAAKCRCLPIo+Aiko
- 1QKhB/0bt9RHhoBHoeWzG982WH5dV54vogSpgf/IUDHcvtgk9lubK9mayJlYBeFGJ0ZIBUpzcs3
- jSDS3jSHxob1NPQdfrE4CuJxL1ttAWQ2ltEvFK8DPvdxL3rlQbWb+3vJ2wBhU7qo/SpXd5LyLzX
- z3dy6ikv1Xe0oxmdeOoeE1pztaMX9L2npVlthrH8PJeArW3Ge2WMtvQkWZiPzykgD2tNH67fE1F
- Zv6WdqrGj1pz42HnAvlRjEQ55aEtrGQjtIoM3K6dDw8hDMs1LUS+1536p77CDkRB/FUNi2mmaXy
- YqZSic4Y4eDW+mUWyoxgu1gPNfex2LX4ve6q7jqYnwxwmFhU
+ bh=5ElUVbocQ0iy2D7k4OSQYGFJA4wuG0p7RdSU3WVG4AY=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqJeOQyj+mOsk53KpLOI7BgWch0S1P0qlexQHVj
+ QyBxAnUhaSJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaiXjkAAKCRCLPIo+Aiko
+ 1bHPCACpzwkqWwBmlm3hEBRQEaLNtjJ4ixNpHz+KFuG2tLcPBqwnOTCnIWKTokmxQIPcwM6Yp2W
+ FWCul8g8831IzUI986tYlkGuykff9QCUSRsIsPrCTqy+ysd2/VPkR3DdSx+f6tdj8fKuZBV4Kaf
+ 9slQ7JyOtsR6OGKVXoUA1eDX24qdqR0dou+URi7qC3Wb9svooTtqeJzkyq7+ZJIAm2/uA2GGUZS
+ gD7AVEXZmhxRv5AxbmsrRsafVW+M+NDNDVuU9ThbFwFnopPm+INKpB6YWtHza1daXidoGdVeEbU
+ C0VC3M7JQ+P81XsZRBqgXmDKlXRIeW0Qoxh5bOs3chXnxWV5
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Authority-Analysis: v=2.4 cv=I4JVgtgg c=1 sm=1 tr=0 ts=6a25e3a4 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Authority-Analysis: v=2.4 cv=dJGWXuZb c=1 sm=1 tr=0 ts=6a25e3a8 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=x0urvBsf9yKnxdYdiaoA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: UziFms-HsPwLormk1I4oKTCzXYGNpssy
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA3MDIxNiBTYWx0ZWRfX69n79qcxlHgI
- 9Osg7YJMiPugOqo5KaOkizXrESDwKWYRttyEvOBs315jIVngqtpazWdkd8yTNhq+WKG2DIlA/YJ
- prsCOSLV2lHsYy3ZPdWY50WYPB+ORGj2P44rJXgd8dwjPkFkBu/ChDSzUYNpt1ScfxupYNY/upe
- bqDufKMKmbg339DdZrAEaajhB81SJk/FxCJIGkXKM021WYh95WfZiKTPOpQOixQTAuqAODswCPS
- OFe6gSIV3UxoI50WZp7utdX0ZfZk5Ir+J3Gyqc/INzT96Z+guuw6ht1QQvndWJvd4/aa18rBWIX
- XGUVOKm9F14ic2kV12UTkNJW7v3XNQrEe2kCh5eFCM9+TvpHVXeOVxxjvxXR+E988siWNeP8E7j
- xISHdXucUWD9fU9bSiMMA5xQ0qVd/CMoTH65XhK84w6OhehjwVRG8Bh3XhPpiTdB0uolRiRJi6a
- JPMaK5RzMUIp4EpVzLA==
-X-Proofpoint-GUID: UziFms-HsPwLormk1I4oKTCzXYGNpssy
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=P5073aSicUuGdIvNCfYA:9 a=QEXdDO2ut3YA:10 a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-GUID: N7aDIqTb-N1UM-dVnXPcWAfux7bRfp5R
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA3MDIxNyBTYWx0ZWRfX1yNfSBN21E+t
+ EwOAt3S7+ur2FfUObBqYNk+GLBWEbMBWd86lg8q5uO8/DEMlA1v3kcnGz2j3/f0DpIKAGIdrPR1
+ ma44LpP0d5D8Tcxm7Iy2ETJho1gHPmZJrtDdFscL+gUlD1OxN4hov9KipXQSpKlJpU0eyvl8R7j
+ F1Z8fLVbLdvtsOc6Sn1imS7tkNg70+G8VTHBn7RqFKVYQyrUmLaqEdT0oJfJ4UrTM35Z6Wrnjn3
+ 6eqbbsODGkpg2i1UEz6/lx+9XbXZYpqM3rasJlj5ztE/8qHYsAzSJmDjJ2l/z0qDfhGsR4UWbz+
+ O64zPiXPK77gTaYR8lmXbClkufOcUvJTbyu1+ni5X5iZCb4sEueTGcRbfcjCC4Q4CqtOG+1U4bw
+ OqJFzsDPOtuglo+EyT7WRtutBu8bleeC7pajAJn6aEohoT6vII6V8+eNfgyIBp9pQMIocy/Lafr
+ Cek3IUdGp8OzOwDBQ9g==
+X-Proofpoint-ORIG-GUID: N7aDIqTb-N1UM-dVnXPcWAfux7bRfp5R
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-07_04,2026-06-05_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0 priorityscore=1501
- bulkscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 adultscore=0 phishscore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 suspectscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606070216
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606070217
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -182,129 +182,116 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 The DisplayPort standard defines a special kind of HPD events called
 IRQ_HPD. These events are used to notify DP Source about the events on
-the Sink side.
-
-Bridge drivers report these events through the
-drm_bridge_hpd_notify_extra(). Pass down the extra status to the HPD
-callback, specified during the drm_bridge_hpd_enable(), letting
-underlying drivers (e.g. drm_bridge_connector) to receive these events.
+the Sink side. Pass down the extra status to the bridge drivers via the
+hpd_notify() callback, letting DP bridges to act accordingly.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/bridge/chrontel-ch7033.c       | 3 ++-
- drivers/gpu/drm/bridge/lontium-lt8912b.c       | 3 ++-
- drivers/gpu/drm/bridge/ti-tfp410.c             | 3 ++-
- drivers/gpu/drm/display/drm_bridge_connector.c | 5 +++--
- drivers/gpu/drm/drm_bridge.c                   | 5 +++--
- include/drm/drm_bridge.h                       | 6 ++++--
- 6 files changed, 16 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/bridge/lontium-lt9611uxc.c     | 3 ++-
+ drivers/gpu/drm/display/drm_bridge_connector.c | 2 +-
+ drivers/gpu/drm/meson/meson_encoder_hdmi.c     | 3 ++-
+ drivers/gpu/drm/msm/dp/dp_display.c            | 3 ++-
+ drivers/gpu/drm/msm/dp/dp_drm.h                | 3 ++-
+ drivers/gpu/drm/omapdrm/dss/hdmi4.c            | 3 ++-
+ include/drm/drm_bridge.h                       | 3 ++-
+ 7 files changed, 13 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/chrontel-ch7033.c b/drivers/gpu/drm/bridge/chrontel-ch7033.c
-index a237c65ebd69..35df99b02c9c 100644
---- a/drivers/gpu/drm/bridge/chrontel-ch7033.c
-+++ b/drivers/gpu/drm/bridge/chrontel-ch7033.c
-@@ -258,7 +258,8 @@ static const struct drm_connector_helper_funcs ch7033_connector_helper_funcs = {
- 	.best_encoder = ch7033_connector_best_encoder,
- };
+diff --git a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
+index 9427cc2358ae..8cb17bd0e238 100644
+--- a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
++++ b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
+@@ -429,7 +429,8 @@ static const struct drm_edid *lt9611uxc_bridge_edid_read(struct drm_bridge *brid
  
--static void ch7033_hpd_event(void *arg, enum drm_connector_status status)
-+static void ch7033_hpd_event(void *arg, enum drm_connector_status status,
-+			     enum drm_connector_status_extra extra_status)
- {
- 	struct ch7033_priv *priv = arg;
- 
-diff --git a/drivers/gpu/drm/bridge/lontium-lt8912b.c b/drivers/gpu/drm/bridge/lontium-lt8912b.c
-index 729b12b67470..b8e643cf1d4d 100644
---- a/drivers/gpu/drm/bridge/lontium-lt8912b.c
-+++ b/drivers/gpu/drm/bridge/lontium-lt8912b.c
-@@ -505,7 +505,8 @@ static int lt8912_attach_dsi(struct lt8912 *lt)
- 	return 0;
- }
- 
--static void lt8912_bridge_hpd_cb(void *data, enum drm_connector_status status)
-+static void lt8912_bridge_hpd_cb(void *data, enum drm_connector_status status,
-+				 enum drm_connector_status_extra extra_status)
- {
- 	struct lt8912 *lt = data;
- 
-diff --git a/drivers/gpu/drm/bridge/ti-tfp410.c b/drivers/gpu/drm/bridge/ti-tfp410.c
-index bf4ab4eaf269..e2eedaaa3552 100644
---- a/drivers/gpu/drm/bridge/ti-tfp410.c
-+++ b/drivers/gpu/drm/bridge/ti-tfp410.c
-@@ -110,7 +110,8 @@ static void tfp410_hpd_work_func(struct work_struct *work)
- 		drm_helper_hpd_irq_event(dvi->bridge.dev);
- }
- 
--static void tfp410_hpd_callback(void *arg, enum drm_connector_status status)
-+static void tfp410_hpd_callback(void *arg, enum drm_connector_status status,
-+				enum drm_connector_status_extra extra_status)
- {
- 	struct tfp410 *dvi = arg;
- 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 046efd913064..a34643d3ddef 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -171,9 +171,10 @@ static void drm_bridge_connector_handle_hpd(struct drm_bridge_connector *drm_bri
- }
- 
- static void drm_bridge_connector_hpd_cb(void *cb_data,
+ static void lt9611uxc_bridge_hpd_notify(struct drm_bridge *bridge,
+ 					struct drm_connector *connector,
 -					enum drm_connector_status status)
 +					enum drm_connector_status status,
 +					enum drm_connector_status_extra extra_status)
  {
--	drm_bridge_connector_handle_hpd(cb_data, status, DRM_CONNECTOR_NO_EXTRA_STATUS);
-+	drm_bridge_connector_handle_hpd(cb_data, status, extra_status);
+ 	const struct drm_edid *drm_edid;
+ 
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+index a34643d3ddef..8f7075fd2aa5 100644
+--- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -150,7 +150,7 @@ static void drm_bridge_connector_hpd_notify(struct drm_connector *connector,
+ 	/* Notify all bridges in the pipeline of hotplug events. */
+ 	drm_for_each_bridge_in_chain_scoped(bridge_connector->encoder, bridge) {
+ 		if (bridge->funcs->hpd_notify)
+-			bridge->funcs->hpd_notify(bridge, connector, status);
++			bridge->funcs->hpd_notify(bridge, connector, status, extra_status);
+ 	}
  }
  
- static void drm_bridge_connector_oob_hotplug_event(struct drm_connector *connector,
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index 84e55db5c1fe..3fd3e7bac588 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -1445,7 +1445,8 @@ EXPORT_SYMBOL_GPL(drm_bridge_edid_read);
-  */
- void drm_bridge_hpd_enable(struct drm_bridge *bridge,
- 			   void (*cb)(void *data,
--				      enum drm_connector_status status),
-+				      enum drm_connector_status status,
-+				      enum drm_connector_status_extra extra_status),
- 			   void *data)
+diff --git a/drivers/gpu/drm/meson/meson_encoder_hdmi.c b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+index 55c0601df3c6..4aecf0ffcf75 100644
+--- a/drivers/gpu/drm/meson/meson_encoder_hdmi.c
++++ b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+@@ -323,7 +323,8 @@ static int meson_encoder_hdmi_atomic_check(struct drm_bridge *bridge,
+ 
+ static void meson_encoder_hdmi_hpd_notify(struct drm_bridge *bridge,
+ 					  struct drm_connector *connector,
+-					  enum drm_connector_status status)
++					  enum drm_connector_status status,
++					  enum drm_connector_status_extra extra_status)
  {
- 	if (!(bridge->ops & DRM_BRIDGE_OP_HPD))
-@@ -1513,7 +1514,7 @@ void drm_bridge_hpd_notify_extra(struct drm_bridge *bridge,
+ 	struct meson_encoder_hdmi *encoder_hdmi = bridge_to_meson_encoder_hdmi(bridge);
+ 
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index dc6f33809ca5..c0f6a8ff9b99 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1514,7 +1514,8 @@ void msm_dp_bridge_hpd_disable(struct drm_bridge *bridge)
+ 
+ void msm_dp_bridge_hpd_notify(struct drm_bridge *bridge,
+ 			      struct drm_connector *connector,
+-			      enum drm_connector_status status)
++			      enum drm_connector_status status,
++			      enum drm_connector_status_extra extra_status)
  {
- 	mutex_lock(&bridge->hpd_mutex);
- 	if (bridge->hpd_cb)
--		bridge->hpd_cb(bridge->hpd_data, status);
-+		bridge->hpd_cb(bridge->hpd_data, status, extra_status);
- 	mutex_unlock(&bridge->hpd_mutex);
- }
- EXPORT_SYMBOL_GPL(drm_bridge_hpd_notify_extra);
+ 	struct msm_dp_bridge *msm_dp_bridge = to_dp_bridge(bridge);
+ 	struct msm_dp *msm_dp_display = msm_dp_bridge->msm_dp_display;
+diff --git a/drivers/gpu/drm/msm/dp/dp_drm.h b/drivers/gpu/drm/msm/dp/dp_drm.h
+index 041aa026ae2e..4d98e04bb511 100644
+--- a/drivers/gpu/drm/msm/dp/dp_drm.h
++++ b/drivers/gpu/drm/msm/dp/dp_drm.h
+@@ -43,6 +43,7 @@ void msm_dp_bridge_hpd_enable(struct drm_bridge *bridge);
+ void msm_dp_bridge_hpd_disable(struct drm_bridge *bridge);
+ void msm_dp_bridge_hpd_notify(struct drm_bridge *bridge,
+ 			      struct drm_connector *connector,
+-			      enum drm_connector_status status);
++			      enum drm_connector_status status,
++			      enum drm_connector_status_extra extra_status);
+ 
+ #endif /* _DP_DRM_H_ */
+diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi4.c b/drivers/gpu/drm/omapdrm/dss/hdmi4.c
+index e306247ed8a0..d02d432abde4 100644
+--- a/drivers/gpu/drm/omapdrm/dss/hdmi4.c
++++ b/drivers/gpu/drm/omapdrm/dss/hdmi4.c
+@@ -429,7 +429,8 @@ static void hdmi4_bridge_disable(struct drm_bridge *bridge,
+ 
+ static void hdmi4_bridge_hpd_notify(struct drm_bridge *bridge,
+ 				    struct drm_connector *connector,
+-				    enum drm_connector_status status)
++				    enum drm_connector_status status,
++				    enum drm_connector_status_extra extra_status)
+ {
+ 	struct omap_hdmi *hdmi = drm_bridge_to_hdmi(bridge);
+ 
 diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 78b0d83ef2aa..6a5edfda2ddd 100644
+index 6a5edfda2ddd..9c4c88024cc5 100644
 --- a/include/drm/drm_bridge.h
 +++ b/include/drm/drm_bridge.h
-@@ -1260,7 +1260,8 @@ struct drm_bridge {
- 	 * @hpd_cb: Hot plug detection callback, registered with
- 	 * drm_bridge_hpd_enable().
+@@ -615,7 +615,8 @@ struct drm_bridge_funcs {
  	 */
--	void (*hpd_cb)(void *data, enum drm_connector_status status);
-+	void (*hpd_cb)(void *data, enum drm_connector_status status,
-+		       enum drm_connector_status_extra extra_status);
+ 	void (*hpd_notify)(struct drm_bridge *bridge,
+ 			   struct drm_connector *connector,
+-			   enum drm_connector_status status);
++			   enum drm_connector_status status,
++			   enum drm_connector_status_extra extra_status);
+ 
  	/**
- 	 * @hpd_data: Private data passed to the Hot plug detection callback
- 	 * @hpd_cb.
-@@ -1578,7 +1579,8 @@ const struct drm_edid *drm_bridge_edid_read(struct drm_bridge *bridge,
- 					    struct drm_connector *connector);
- void drm_bridge_hpd_enable(struct drm_bridge *bridge,
- 			   void (*cb)(void *data,
--				      enum drm_connector_status status),
-+				      enum drm_connector_status status,
-+				      enum drm_connector_status_extra extra_status),
- 			   void *data);
- void drm_bridge_hpd_disable(struct drm_bridge *bridge);
- void drm_bridge_hpd_notify_extra(struct drm_bridge *bridge,
+ 	 * @hpd_enable:
 
 -- 
 2.47.3
