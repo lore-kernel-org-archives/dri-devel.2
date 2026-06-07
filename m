@@ -4,80 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A982DCD8C89
-	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 17:19:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00E8CCD8C8C
+	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 20:11:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 930A510EADB;
-	Sun,  7 Jun 2026 17:19:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03EFE10EB69;
+	Sun,  7 Jun 2026 20:11:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WOzP1x+E";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CTrbQUha";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EA6E10EADB
- for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 17:19:23 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-490cf3000f0so2101715e9.1
- for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 10:19:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780852762; x=1781457562; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=tmgHB6tze2Xss/dF/g3O35dG4S4EFs7DvnlvIwWXTEc=;
- b=WOzP1x+EatxhAMIcIQf6VY/NbMU+TxuzAvjJqd2RHOJGdVHUCbwJsaZv84tNqdnMSd
- N6cpZ/vH6fdYT8XmmXzdXUnIMNNsZN3p7XnYMYbCmkU4w5G/o8mWP4/jbKvbP0G5/Ojw
- vgEj8eEkKj2sHKeyau65stIJMXYWrRCECvYLaKqy9dr2ox5mWO1RQSppB5twb/udbX5+
- fVBnVZxgqwfeRE6oajxcCZe3m75IWf9ESMZrJEaDGA++onlwVubLmahqZKrGR/DbL8aL
- rHNW+OG+9i+S/g3Dp4QwKuaj49q7EYqSAZp2uvOgExPGTt8Pr/x6aQBioC0gLzRq5emZ
- UAfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780852762; x=1781457562;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=tmgHB6tze2Xss/dF/g3O35dG4S4EFs7DvnlvIwWXTEc=;
- b=UD5SNIcVS80utF6NYZMZocFr684i+PeK5QIUES1pmHLzW8HtPUUdMKRYwQAv1EOi8i
- WtrCn6N+A2kINbMqf/1HglY126YTxvROsRxjU/B2gzOKfLP/ggSZcJzNldWO/D2sv9ew
- ekAWl3SKbywRnuStAQeJAW2P3pfcWHAjlli3kfXe8nRq1tjj3Rfu6i7ADW9Vs7Sgt+kF
- q65fWdlGoXzvVZ9iULob03pRVjC+kIJUSf/9SsdPgJ185SZTsGF7N1u8i1FNvOrIY12p
- NxOWlTmNoNG6+UcvWo5ioaG2GCHHacJO0C+VMRWQ+Ex7j6RobihOx8Zs3VLPoIDdV9/d
- h95A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9tUYknsjxmiUmY3gybdcvSEoQhYW5c/0EqLM6Hbm0pELzWUcALh+G62fx6lBI8q1vw4MBsvoH1urU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzItZD73GqnstMIWSMXJLQb4/qIP0BvLkdYIBUJRb/qZz8F4fdo
- u3rNwU9k8fTJd5qwDSi6MXxy5WA6R2zlFiLGPOeWxuHpWNhi4aXBXyzQ
-X-Gm-Gg: Acq92OFIyRi3QGIMaV3R1c36BFfrakv4J+uXwUnHnnyFsKBskqms+BUrvg2BOQhNNSz
- lUIA4FrdbA4VQoVI46fLMQm+YWMXDNY+1j/pvFir2+RHRQ+DLo4TnyHGCgMWnDtzrgffuU83Sx8
- +Kxnm3y6nZ7w88LhD4liPDeze3jfN96GQIGvCpzQ5Q17ktupcVNlfPb8wHnfzn0UpegZT175fKK
- swuokGX8Cb7YSvnyvbV6Iz4y+XxqItp1qvIrHxJxrb1SsT0GYW9T8siSMSumq67L+yb8FX9U/Fe
- rXnNUbwdqwXiWjs37zi+5mJEvXsBgeFn3p1vyQxoS34yY3FtzWSenk+k9smymHUSPzxNi8L9ddI
- t2I2dbMGmA8ajx454TQxmh6RpbGzrdvJYB/Q3ieKVUR26FBSrbbBi09CdTmljy4E6D9hA6HRAN4
- mR1Vhr2AUwGKDuac4ObsjwEb2md+l9qB7HOThd5iJMtsswumztxxkNfuZbumX2lAFr87qa550=
-X-Received: by 2002:a05:600c:1c1e:b0:490:bccf:2bd6 with SMTP id
- 5b1f17b1804b1-490c25f1143mr218800505e9.15.1780852761462; 
- Sun, 07 Jun 2026 10:19:21 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490c2cbb4cbsm162470085e9.0.2026.06.07.10.19.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 Jun 2026 10:19:21 -0700 (PDT)
-Date: Sun, 7 Jun 2026 18:19:19 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Helge Deller <deller@gmx.de>
-Cc: Kees Cook <kees@kernel.org>, linux-hardening@vger.kernel.org, Arnd
- Bergmann <arnd@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH next] drivers/video/fbdev/sis: Replace strlen() strcpy()
- pair with strscpy()
-Message-ID: <20260607181919.2b916ddf@pumpkin>
-In-Reply-To: <a2ed1741-f49c-4a16-8d4c-e6698bd3dd8b@gmx.de>
-References: <20260606202744.5113-2-david.laight.linux@gmail.com>
- <a2ed1741-f49c-4a16-8d4c-e6698bd3dd8b@gmx.de>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD83610EB69
+ for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 20:11:55 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5F3EA43773;
+ Sun,  7 Jun 2026 20:11:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2FEA7C4AF0E;
+ Sun,  7 Jun 2026 20:11:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1780863115;
+ bh=GEK6Yv1WXN2PdYBGoGbHClFD8tJefLhjEBc2nwNTChQ=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=CTrbQUha3Ltc1NWUcrWlkvni39gdf3/kStCD1r3kN0UsQPXNL0C4kW1ljb30ZMpkl
+ OzbzA0FUMdC5FNaONArot7yIAUq+EioVtGQocGI6Dff5oCPgILnySzBxfbAADuJamY
+ ut9N7+PH0vYJwG8eOdFLvlB4Lji7X8OsoQjqKpytRzEpDqbRmGnvKYlTZ063ZkyfTr
+ 3xd6CR9zjT8ywlsnfeJXmTyja1Yw88zo7zicpMQqzv/sMk3wwTg91IHEfsweNvqeEF
+ pl+LdA6nQEC7BD2lqEdKcLIQ4jwZ+tQo2SjSWBT6SIT+tB022LH+D0xxC9hrbSmLdU
+ Dfs6Rjpf3u+sQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 1D27CCD8C8C;
+ Sun,  7 Jun 2026 20:11:55 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Date: Sun, 07 Jun 2026 15:11:44 -0500
+Subject: [PATCH v4 1/2] dt-bindings: display: panel: Add Chipone ICNA3512
+ OLED driver bindings
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260607-icna35xx-v4-1-64de514add34@gmail.com>
+References: <20260607-icna35xx-v4-0-64de514add34@gmail.com>
+In-Reply-To: <20260607-icna35xx-v4-0-64de514add34@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780863114; l=2840;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=FSAKmH/ed0fes0PJf6ePyzav9aFp/zkOg0ypEQAktV8=;
+ b=ZOrlkjg4p/fm25qaViP44nzS2neDG3CY/TuNHnDms2qGKyMnpGHUXg0kbKMnEGSZq/medgTKQ
+ lDcrpEPIfWPA1S3Qe4tP32nSS/k9/qdQF87ent77nL7WxbzHsMiGDBI
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,27 +77,113 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: webgeek1234@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, 7 Jun 2026 17:50:00 +0200
-Helge Deller <deller@gmx.de> wrote:
+From: Aaron Kling <webgeek1234@gmail.com>
 
-> On 6/6/26 22:27, david.laight.linux@gmail.com wrote:
-> > From: David Laight <david.laight.linux@gmail.com>
-> > 
-> > Use the result of strscpy() for the overflow check.
-> > 
-> > Signed-off-by: David Laight <david.laight.linux@gmail.com>  
-> 
-> Hi David,
-> 
-> I've applied your 5 patches to the fbdev git tree.
-> 
-> Thanks!
-> Helge
+The Chipone ICNA3512 and ICNA3520 DDICs are high refresh, low power
+MIPI-DSI drivers for OLED panels. The icna3512 is used by the Ayn Odin 2
+Portal and the Ayaneo Pocket DS top panel while the icna3520 is used by
+the Ayn Thor top panel and the Ayn Odin 3.
 
-Thanks, that'll be 5 that don't come around when I try the same test
-in a couple of months time :-)
+These ddic's are generally compatible, but some MIPI vendor commands
+differ between them, so they are not fully fallback compatible.
 
-David
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+---
+ .../bindings/display/panel/chipone,icna3512.yaml   | 79 ++++++++++++++++++++++
+ 1 file changed, 79 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/display/panel/chipone,icna3512.yaml b/Documentation/devicetree/bindings/display/panel/chipone,icna3512.yaml
+new file mode 100644
+index 00000000000000..90e69f30cd91ca
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/chipone,icna3512.yaml
+@@ -0,0 +1,79 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/chipone,icna3512.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Chipone ICNA3512 and ICNA3520 display drivers
++
++maintainers:
++  - Neil Armstrong <neil.armstrong@linaro.org>
++
++description:
++  The Chipone ICNA3512 and ICNA3520 are DDICs connected
++  using a MIPI-DSI video interface.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - enum:
++              - ayaneo,pocketds-panel-top
++              - ayntec,odin2portal-panel
++          - const: chipone,icna3512
++
++      - items:
++          - enum:
++              - ayntec,odin3-panel
++              - ayntec,thor-panel-top
++          - const: chipone,icna3520
++
++  reg:
++    maxItems: 1
++    description: DSI virtual channel
++
++  vdd-supply: true
++  vddio-supply: true
++  vci-supply: true
++  disp-supply: true
++  blvdd-supply: true
++
++  port: true
++  reset-gpios: true
++  rotation: true
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++  - vddio-supply
++  - vci-supply
++  - disp-supply
++  - blvdd-supply
++  - reset-gpios
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++        panel@0 {
++            compatible = "ayntec,odin2portal-panel", "chipone,icna3512";
++            reg = <0>;
++            vdd-supply = <&vreg_l11b_1p2>;
++            vddio-supply = <&vreg_l12b_1p8>;
++            vci-supply = <&vreg_l13b_3p0>;
++            disp-supply = <&vdd_disp_2v8>;
++            blvdd-supply = <&vdd_bl_5v0>;
++            reset-gpios = <&tlmm 133 GPIO_ACTIVE_LOW>;
++        };
++    };
++
++...
+
+-- 
+2.53.0
+
+
