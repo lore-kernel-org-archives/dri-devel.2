@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7069ECD8C90
-	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 20:19:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFAA5CD8C90
+	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 20:20:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65E3C8825B;
-	Sun,  7 Jun 2026 20:19:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FE0B10E0D5;
+	Sun,  7 Jun 2026 20:20:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jHZ4a6PM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="geQfM2BU";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A83FB10EB74
- for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 20:19:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4108410E0D5
+ for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 20:20:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0C4A560018
- for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 20:19:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E0721F00893;
- Sun,  7 Jun 2026 20:19:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AAE5C60018;
+ Sun,  7 Jun 2026 20:20:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D8D01F00893;
+ Sun,  7 Jun 2026 20:20:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780863570;
- bh=mZDpgTO32GJeTNUkWQiUVrsPeuYmJir0wvfjrucxL2c=;
+ s=k20260515; t=1780863652;
+ bh=VtMoXtK5hH8h11VyuptKLp9vqOVjFjWzsDQBrcNWirk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jHZ4a6PMiCLyigF8/3ZCGMyP5vdLr3ZJYFBh6EG4qfzVSDWkn+YbUDS/ANSF+ON8h
- oP/JHeACkTPeoIZktI8HuhtAvVWT4Sa4rK4//ArgV9V1Z7jNw8MKt+IgkvW5pKzDwG
- 8BFCOKujGYzZvaUruW2SvHvOK2EWZ1NqcgzG4Ddj/cr1Wpy+1My9dVo9htaEQkoYWW
- mTdPLOuD4J8tDw3vR/UvKYzOCLgO4thh4sDVcAQK4y0hwCYtA//IJUOa8/XBKmh60U
- 7AI9L8M2UmFe/dY82wNDoIANWW9iC9p4SAb9S+sgU9YuXx9UMh6VHiLaAXk/feC/Kr
- FyQPSkvOMS7zw==
+ b=geQfM2BUBNyi9ABc/TmEM5mslMKLRoVP8KEqiaksl9E4USIclnQ3VanDZtOsuq8OS
+ PhT9QgoK3b3OXqLW3TFBorJ6hUIFTOAMKrGvpqDzjy41xcJj1UaBOSny75Y7rsQr40
+ YpQatHP8XhGnZDGGPrgyE3hthgqEPBDaNSBHD+fX1FCFspL9atRpCmDATuRWJ1hhH4
+ IVJ+DD19Xj0J+KAHWbEQnm5XMAS7bWX7dA6jXBQNqt/FH8zbGsW1cfvs+0WZHgz76p
+ LbsZf2IODEiBs2DWbbXchSLteqlJtMo85zMgEzWANrFBKMqZPi9fzFJdf5oljnqN6m
+ o2wKX/eG1TV9g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: display: panel: Add Chipone
- ICNA3512 OLED driver bindings
-To: "Aaron Kling via B4 Relay" <devnull+webgeek1234.gmail.com@kernel.org>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260607-icna35xx-v4-1-64de514add34@gmail.com>
-References: <20260607-icna35xx-v4-1-64de514add34@gmail.com>
+Subject: Re: [PATCH 2/2] staging: fbtft: fbtft-bus: remove prohibited space
+ before close parenthesis
+To: "Georgii Druzhinin" <ilovelinuxgames@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260607201708.88644-2-ilovelinuxgames@gmail.com>
+References: <20260607201708.88644-2-ilovelinuxgames@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 07 Jun 2026 20:19:30 +0000
-Message-Id: <20260607201930.7E0721F00893@smtp.kernel.org>
+Date: Sun, 07 Jun 2026 20:20:51 +0000
+Message-Id: <20260607202052.3D8D01F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,48 +59,49 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The vendor prefix 'ayntec' is used in compatible strings but is not=
- documented in vendor-prefixes.yaml, which will cause dt_binding_check to f=
-ail.
+- [Low] Removing the trailing comma from macro invocations results in passi=
+ng 3 arguments to a 4-argument macro, breaking the build.
 --
 
-commit 5d6611d7262ab82a8a3721761623b1f394d6e2ec
-Author: Aaron Kling <webgeek1234@gmail.com>
+commit 4aa037560eff822608a285dbbf3f02e9ec0544be
+Author: Georgii Druzhinin <ilovelinuxgames@gmail.com>
 
-dt-bindings: display: panel: Add Chipone ICNA3512 OLED driver bindings
+staging: fbtft: fbtft-bus: remove prohibited space before close parenthesis
 
-This commit adds device tree bindings for the Chipone ICNA3512 and ICNA3520
-MIPI-DSI OLED panel drivers.
+This commit attempts to resolve a checkpatch.pl formatting warning by
+removing what appears to be an empty argument and trailing comma from calls
+to the define_fbtft_write_reg macro.
 
-> diff --git a/Documentation/devicetree/bindings/display/panel/chipone,icna=
-3512.yaml b/Documentation/devicetree/bindings/display/panel/chipone,icna351=
-2.yaml
-> new file mode 100644
-> index 0000000000000..90e69f30cd91c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/chipone,icna3512.ya=
-ml
-
+> diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fb=
+tft-bus.c
+> index 30e436ff19e4c..409770891c548 100644
+> --- a/drivers/staging/fbtft/fbtft-bus.c
+> +++ b/drivers/staging/fbtft/fbtft-bus.c
 [ ... ]
-
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - items:
-> +          - enum:
-> +              - ayaneo,pocketds-panel-top
-> +              - ayntec,odin2portal-panel
+> @@ -62,9 +62,9 @@ out:									      \
+>  }                                                                       =
+      \
+>  EXPORT_SYMBOL(func);
+> =20
+> -define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, )
+> +define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8)
 
 [Severity: Low]
-Does this new vendor prefix need to be added to vendor-prefixes.yaml?
+Does removing this comma break the build?=20
 
-Device tree schema validation verifies all compatible strings against the
-known list of vendor prefixes. Since 'ayntec' isn't currently documented
-there, will this cause dt_binding_check to report errors when validating
-this schema?
+The define_fbtft_write_reg macro is defined to take exactly four parameters:
+func, buffer_type, data_type, and modifier. By removing the trailing comma,
+only three arguments are passed to the macro. This will result in a
+preprocessor error for passing too few arguments.
 
-[ ... ]
+>  define_fbtft_write_reg(fbtft_write_reg16_bus8, __be16, u16, cpu_to_be16)
+> -define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16, )
+> +define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16)
+
+[Severity: Low]
+Will this invocation also fail to compile for the same missing argument
+reason?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260607-icna35xx-v=
-4-0-64de514add34@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260607201708.8864=
+4-1-ilovelinuxgames@gmail.com?part=3D2
