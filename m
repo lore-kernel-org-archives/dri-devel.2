@@ -4,86 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23B13CD8C8C
-	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 14:02:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14C13CD8C88
+	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 14:02:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3327F10EA56;
-	Sun,  7 Jun 2026 14:02:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 268E810EA57;
+	Sun,  7 Jun 2026 14:02:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KJWJxoAH";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NnoUs6pg";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ICccRE2a";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bzDeVuBN";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01C9410EA51
- for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 14:02:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A47710EA4F
+ for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 14:02:06 +0000 (UTC)
 Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 657B22Ns378005
- for <dri-devel@lists.freedesktop.org>; Sun, 7 Jun 2026 14:02:04 GMT
+ 657B22rO378006
+ for <dri-devel@lists.freedesktop.org>; Sun, 7 Jun 2026 14:02:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=j3HLvpgf/bq
- VTB+xJ2J7kEnCnU4hICG3RGlKEepjgjI=; b=KJWJxoAHca53dDOvFXI310X+033
- oG2lTbc7kt/UZAMw6a+NaCADZ/xx60N0yCtNlZxrjgdLcGBKjGoKfwv3Iw2esjr2
- MzfbRDL30HzgE9+J/XgHO6fwpks5X+VRfCkHCAXadSZ+gKCZL29RnBa9ZcE1rN6B
- 036QEUNbv1DI+TG7emRGBajPF0wB7hvQVAPcP3+s1slwkkxKecDXQhwwVlC35e11
- WxCwm7ODMgRBHsOsApyLY1eE5TtsFkbofeQu4qMKILKcV7MGzG4r+EJSfuyJ8guV
- Ojmn7xV9n9FrefTGTC31QmczRDh+keB7ky3C4m+Qb5Cnc6pf7/z7kAMxnwQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4embx6bwah-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=p0pKjfrSRwq
+ eE20la+/GnMQ/TJmUHYzFGb/Fleo0bCo=; b=ICccRE2afsq13iYk7SpzXgkxyab
+ Wc7O+zlgXAPnECXY/CeCpKhXB4GQGsz6ng3Apaw1uGLu0j97u+ydsIrHnsJz8GJb
+ zJFGl3Z6BBr6icV8Y8MBuWvWw9sXE71vlUYJhe0Q9KV9dd/HXzM0jq6smDZPdK79
+ 8FsWiImePGYiGK25ttSXdMpLxaJMXYkDwnCkvnAcG7EYh1aeRIAIz3nULtPJ6XEr
+ SR13/xwdTSuqv0o6HAal4UuSE7PDq7Ttir7lcfiCUmxWsLw+jGjWvfhId/0UOVc4
+ G17CiCFikTWW5rCrmMtot7D3Ejpv7ya2dRHBm58PCX3JBsEnsFTsP6daDOg==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4embx6bwak-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 14:02:04 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-36bba9b849dso3451484a91.1
- for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 07:02:04 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 14:02:05 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-36ba98cc003so2315325a91.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 07:02:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1780840924; x=1781445724;
+ d=oss.qualcomm.com; s=google; t=1780840925; x=1781445725;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=j3HLvpgf/bqVTB+xJ2J7kEnCnU4hICG3RGlKEepjgjI=;
- b=NnoUs6pg/71CWEYcE9HoanG4Msi3cs8L0a2UsFloSzbEtVtRaw4WDMcfFbjZ6YgjRy
- 6oM4+Do6UShLaT1tFd6ItNGyzPjOedQDV34+yd5SzNQh9p0tmeOGax1aaGxgvu9Ta6G5
- OzTn57lJN3Cyasfa0Sf2O/xqS4/I+CO6QmT4VH3EWOiuMTXS27hQszCxsGGWIMMKEJxG
- jwMMVtet8acw3mJOnOE9OvXb6r/4zMRxSDC1tP+z/e0RTPn20lpP/bP5LvDJI9r8MQDv
- 5nr4ETxJGXkHg6gaquKn6NOjTCQdFg+GszodlM1RFxFiRozVNSv4BX9a0xznUVKVutz3
- PYPw==
+ bh=p0pKjfrSRwqeE20la+/GnMQ/TJmUHYzFGb/Fleo0bCo=;
+ b=bzDeVuBNJOO/RZsoxDbTinwhw4gSJhQt1fiuKliyBiVq48T1H1cIQ9XSEc0OKxke37
+ Zfo8ZwOCAwu8BQDKg0emB0dmQeaX+Zzhmzj2389QGxrP8PLt7MB2bG5Y94+5YSGPd4zf
+ PksIB99upfcGH7wK/Zv8x38iJs7LeSW54+Lmsqkzyvw3vxuJSorwl3OM2AXi2Is/yRf0
+ 46R1mqRz0e67Z50QtiJd4N3ECzt7b7HDLJXr/xjPYlL8LYWq2MMxZmQKxHTfqfbgEP4m
+ VJW/ShGqNxIiaZ7dNxnec2N10N6Uy42u0XBW+Vq4I36/Ec/yQlXKgnx40jYhAKTa3EIT
+ NCKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780840924; x=1781445724;
+ d=1e100.net; s=20251104; t=1780840925; x=1781445725;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=j3HLvpgf/bqVTB+xJ2J7kEnCnU4hICG3RGlKEepjgjI=;
- b=HMABS9LpgMeXr78hZdoYtVjaXsHrbZM3b9JyLhY0yDbqZDnvBqxCHRsGla581XUP0R
- fB3cE/fyN1mQpCfILrQV35sn684hUZRn+8z6PZgGCXWFvabbtP0Ij4ddNasbw9oatZfN
- QoKfNFxoz3N8SzcxAQgfoJFYi/yJfmsLFNXU3R0SkshfYnPJuiXn0lW7EUWAItaYcDoR
- lmBbIF0eFUjfThKNuJs24QFXLQpiNyn/sJASHrinr7DKdgWSo7xmxcM2PHW3w6U0ztwT
- Wqj2LvCLJ7KWwfNZabrtBimXfIBDdjt50OIARWCggho5EX/naGlz4XHKYfiklRuP0JZw
- u4RQ==
-X-Gm-Message-State: AOJu0YwoM6Pe/qKLF/NkGSp8DmNYDf82qjlQMl4Hk4eln45AXUiOpMFJ
- mNHj9mlW1QgfFdQw5l1XaNYghAJVTjapfBiyhGTfrvQKkTl8bHsh8AxvQGN9S0I8o8vWu3uIajO
- Kik8ZTu3raIEAowkUsNwnyBFRGxw9oqKpIhqTxINaXluCMF8+1Kro7cIoDsIIwGAwun+j9t/s0A
- 1Ndak=
-X-Gm-Gg: Acq92OGIk+yhSUSVe8bm6WtYIRSwywtwvAngT5LQEUVjNsYWmRrp5cH8RMoQVmK5Z3r
- hlJ7gc2JrdfqkVrtbIAwoyxp9cORahyiXRiLEYNX1KPrzMY/OLpNRWgwuLnjIapi7QkUILoFOtd
- 6tIm4gtIm0sp4B1rUpjsnkns5j239IpURZSNqN5d729T95qGS4VcyiL71QLJKuHHDUY2Al6jbq3
- WIvvnqnd1VNEV+xMLTnle9Y8dR68Ct+nUtgo2yHw6cjN+tSPT/s3Etbu45boOyCXjzTl/6caWbA
- OTfDFwT/IEnDr8Cflf39zH/fitQzMcy5zfhPGmER6Aqhb89ID+v/PCz7BCK/Tap9ScwvcZcMr2x
- D821YXP3IQT9o5tcdwnfkT3goOs4RWTg2/D4xWvJgRZQ=
-X-Received: by 2002:a17:90b:4b0f:b0:366:decb:d119 with SMTP id
- 98e67ed59e1d1-370ef0f5942mr12763334a91.11.1780840923564; 
- Sun, 07 Jun 2026 07:02:03 -0700 (PDT)
-X-Received: by 2002:a17:90b:4b0f:b0:366:decb:d119 with SMTP id
- 98e67ed59e1d1-370ef0f5942mr12763277a91.11.1780840923085; 
- Sun, 07 Jun 2026 07:02:03 -0700 (PDT)
+ bh=p0pKjfrSRwqeE20la+/GnMQ/TJmUHYzFGb/Fleo0bCo=;
+ b=ZGvvfvFHIbXNsAHEF49YXKjut/UZxUspW4WjTPpq8bQL2TK0aMTGcUedSKEzOPEdh8
+ 3Pho3MD8mZupu+ot6APoa1YZCcjYJgDnn0Rhg2uJ6zvZCGaSXt9kYsQjwcYNHTY6ahX8
+ msmUXjpER0c7jLBCR0IssKXzxy6hg0su8Cu6nfxqMd9Riau6ThC7V7uM5dzJlFarLlL+
+ REmNXzW+Sqatruh4YB0b/OpsXatf1NukvvJZ0rkao2coq7OZN0zQPwBEw9faKmBCjHa6
+ 8ZdyYy433cqv4VHPaMqX2OAyJ8Y7uU9OwFnA5Fh5nNvjjs/0n1XlYNdn0rJMvWK3vTC3
+ ewyA==
+X-Gm-Message-State: AOJu0Yy8YxSJwnagHbv3DudxRuCGJFNp6jmuaPJ6XIdDVe2X5zpDQ1es
+ U2iW8Z39H9ISZP62Ms7V4vRXLjRJXV6o4V3y7hSaMboaq1M3bTwUZ6RKNUyBZfNEBZt81wuM2KQ
+ i4tvT0bHhjkvfVh4TY4vz/ZTZS+vTsN84vJHiogBlAyg5JH+RVe9FX3WzuAagc01+HrUvkK66D2
+ hOf1o=
+X-Gm-Gg: Acq92OH5EYIq/rg5AN18EzJPFlDAjdXNjWbu70RdxEeJsbEoKy4XM/EvSSshEhQa5Ek
+ /YbOoHi91AuS71qkRpGoTHw0r9wLOehEd49+i0H9L0eR/KU7Y/GciS1jWfjNp/RujWjHUgikQb7
+ riyTpOx2865HOiWgOtSvcaD571l/Ac4aqiUa4mao1KImutbqE9lREaisaH3bCkpxe7Ei8icIz0s
+ Pt54LZjpis/f0BqKAzLqURpr1wTTpoADGAKc37ytGoHsu28PDhLo7L5dGjMJ38QLdelL6lFBMyy
+ YXZCrLGv/8ZWO6wc3Vlck2dK4IBV0GQWEeZ6wclZl7/jEhRi23MASHYvnpgIxylT/Sap+ciaHFs
+ xkOwNPh6icI0EZ4s3/RI2G7+mQtKuWueGuPtv1UaZcQA=
+X-Received: by 2002:a17:90a:dfcd:b0:36d:b12f:6143 with SMTP id
+ 98e67ed59e1d1-370f1b09906mr15074521a91.25.1780840924822; 
+ Sun, 07 Jun 2026 07:02:04 -0700 (PDT)
+X-Received: by 2002:a17:90a:dfcd:b0:36d:b12f:6143 with SMTP id
+ 98e67ed59e1d1-370f1b09906mr15074474a91.25.1780840924385; 
+ Sun, 07 Jun 2026 07:02:04 -0700 (PDT)
 Received: from localhost ([2601:1c0:5000:d5c:4ec8:83f5:8254:6891])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-36f6c668e98sm13168827a91.5.2026.06.07.07.02.02
+ 98e67ed59e1d1-36f6dba8064sm12794126a91.12.2026.06.07.07.02.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 Jun 2026 07:02:02 -0700 (PDT)
+ Sun, 07 Jun 2026 07:02:03 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
@@ -94,29 +94,29 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH 1/2] drm/msm: Validate lazy VM is created in GEM_SUBMIT
-Date: Sun,  7 Jun 2026 07:01:57 -0700
-Message-ID: <20260607140159.137068-2-robin.clark@oss.qualcomm.com>
+Subject: [PATCH 2/2] drm/msm: Validate lazy VM in GEM_NEW
+Date: Sun,  7 Jun 2026 07:01:58 -0700
+Message-ID: <20260607140159.137068-3-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260607140159.137068-1-robin.clark@oss.qualcomm.com>
 References: <20260607140159.137068-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=cvmrVV4i c=1 sm=1 tr=0 ts=6a2579dc cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=xqWC_Br6kY4A:10 a=FelO9ux0wxsA:10
+X-Authority-Analysis: v=2.4 cv=cvmrVV4i c=1 sm=1 tr=0 ts=6a2579dd cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=xqWC_Br6kY4A:10 a=FelO9ux0wxsA:10
  a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
  a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=eWlSUfSnBrBg5eVjM6UA:9 a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA3MDEzOSBTYWx0ZWRfXx83BYqOIEevv
- 2d8TMx9C75Z4onwt0D++zHDTHWS0yBdk9NjPdBPCDzKUBYet4FB7/anNGy1271erhhYRX5+/3LC
- 9y2TdqhkewDB4ZOG+UmEcu408iO/SA4+53ErLwBOaT88kd2M1AFMs9hpWmWzfya/3jO3Y96DhuH
- mYuXd/OoiRCJZ4KPqP9uOekvDbPdqskpXFUxH5wTNnGseATgeNpdTx9NB10GSjUcrsSX8NQjDQu
- Y373EmJepDKmBkvDe/m6w/jTD1Fhi9InBIP9427meBs63o5he8uA+O46EUCjenNTDfU4TIAZYTe
- TGqqrl1znYpej6ByNos2w8sWQvq4JNjBmodykdwZl66YYN23JU+HCrhVUIW8vCrpJ8V412wd+i1
- I/mYSixns6NTt+swj3dnynIaGFcBZCsbXnqsjLwF7Wr4hQLmbihghWWZP8XOx0icK0nFz3/JVFx
- 7bGU8GGH836oHOIZWLQ==
-X-Proofpoint-GUID: wfluX_3Kdgtpdij3UMm0KQDgpjOXsp1A
-X-Proofpoint-ORIG-GUID: wfluX_3Kdgtpdij3UMm0KQDgpjOXsp1A
+ a=VGCgC6sU4evaG-_1UnEA:9 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA3MDEzOSBTYWx0ZWRfX/+B2uTSZva9/
+ 6RqaiLaKNrAVXw6XhaeiispMVQm6hTG36S9tdio+Th7Vd2K58OxlITQOLJOTAyvKRtCozuNmZZI
+ xvhTWtGb4s70gPjXp7c/WSEQg+J+DzRw/R+jJHmQRNncyQ2ngHagi1ql8dghkmHt0TyGI6G4Qot
+ GOF0AnJHpZ84LtGHUv904iVtDhI2Qdo2dPqjflm/WA1wxpxqPoTxHSP39cTcqhRbtEpi0kSPuVm
+ xOjIpoITKmPuGb4Z4ByrktGsnoXK1V4svZLckQo48mz/hLLOAW3t7d09kSVuQyFjvYt3jh7Z0AU
+ sIUuLBy2AG5YiBiCBGGRWAYP7FAgQ5sz2/talixHAkgO82/wdKhZeGHT6TJHdEeTJeYF3jSdT/4
+ CbHoeTPTQxi5gr4rHZY9a+w/pj5qX3dCPylLordSWMvJMOsnBFodJ4kq6Rs9H/1fJPeNE6gbxID
+ tVdQt0QWfb31aUSVRqQ==
+X-Proofpoint-GUID: ZNBwiM3v50rOx6EYFVlSYmyRvBIPS_7d
+X-Proofpoint-ORIG-GUID: ZNBwiM3v50rOx6EYFVlSYmyRvBIPS_7d
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-07_03,2026-06-05_02,2025-10-01_01
@@ -140,29 +140,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Otherwise a GEM_SUBMIT ioctl before any BOs are mapped could cause a
-NPE.
+Otherwise creating a _NO_SHARE BO before any BOs are mapped could cause
+a NPE.
 
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: 6a4d287a1ae6 ("drm/msm: Mark VM as unusable on GPU hangs")
+Fixes: b58e12a66e47 ("drm/msm: Add _NO_SHARE flag")
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/msm_gem_submit.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/msm_gem.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-index 26ea8a28be47..af564acf1f0d 100644
---- a/drivers/gpu/drm/msm/msm_gem_submit.c
-+++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-@@ -572,7 +572,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
- 	if (args->pad)
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index 2cb3ab04f125..ef14ee66c6c3 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -1148,7 +1148,8 @@ int msm_gem_new_handle(struct drm_device *dev, struct drm_file *file,
  
--	if (to_msm_vm(ctx->vm)->unusable)
-+	if (ctx->vm && to_msm_vm(ctx->vm)->unusable)
- 		return UERR(EPIPE, dev, "context is unusable");
+ 	if (flags & MSM_BO_NO_SHARE) {
+ 		struct msm_context *ctx = file->driver_priv;
+-		struct drm_gem_object *r_obj = drm_gpuvm_resv_obj(ctx->vm);
++		struct drm_gpuvm *vm = msm_context_vm(dev, ctx);
++		struct drm_gem_object *r_obj = drm_gpuvm_resv_obj(vm);
  
- 	/* for now, we just have 3d pipe.. eventually this would need to
+ 		drm_gem_object_get(r_obj);
+ 
 -- 
 2.54.0
 
