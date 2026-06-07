@@ -4,99 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6335DCD8C88
-	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 14:40:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18575CD8C88
+	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 14:50:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EBED10EA77;
-	Sun,  7 Jun 2026 14:40:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41AAE10EA79;
+	Sun,  7 Jun 2026 14:50:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DuG/LZ+l";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U0xqEVeU";
 	dkim-atps=neutral
-Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com
- [209.85.161.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D912E10EA0C
- for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 11:57:36 +0000 (UTC)
-Received: by mail-oo1-f52.google.com with SMTP id
- 006d021491bc7-69e66e11386so969437eaf.3
- for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 04:57:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780833456; cv=none;
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com
+ [74.125.82.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E77F010EA79
+ for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 14:50:39 +0000 (UTC)
+Received: by mail-dy1-f181.google.com with SMTP id
+ 5a478bee46e88-304eb0fc233so280041eec.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 07:50:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780843839; cv=none;
  d=google.com; s=arc-20240605;
- b=ZE9bWHEG/d6FkyN1WupLoLOnNQXpLta0JVlErxgly/xtRoyc2N4YLkOvRntKeCSn8d
- tAv25dhDReqzRqWY1i82wr8pSV6NAUjU/3HZ5KZoCEH0Oy8UUtHuBShKv7tTX+7hPLm3
- dFoP3dTs21LEVvPE4t4PmSXcmJb0tqm3mpixk1hfxr+6hGQXTCqZaVUdq2oOwH5NAvrV
- 8iF12z+uo5HlRaCuos3nDnad5wcmGciW9gQmGvF9VCZCDCHqgjGQ9WNdsuono7jGVP50
- BtX9W7Y1D7x26E6/FuFPYCPXWAYfAICIIuxAyPXS5zkXEVB8sM95UL9Zt59NhjQl7ScA
- eiAw==
+ b=ZT67drudQ9IeFZe2gJNpkOGHUCGKojA9WJPa/16/Lb/xTuznBO9PALZPrRTy6mNN6B
+ DKrBeSygLqvqFpOy0t5QbNmUMvlc25TAhmqQ1qUVzPL70GsjJ7xrHfowUYSgrutW+VNl
+ b0Lw7HBwtvOWT1B5kZRI4OyUWSCy61z4PkB/sOYYBjO2U2+rLr7TBrI6j44+rTvwdjGE
+ 8YhpsuLUGX7SYMBbW1bovhoXULnQMKATLgYjU8PI0RuwCgIKud/XveTEthj4+iR9fZY+
+ k258100hLxdzX6+g+cr4/n8HraxDSvb8Z41h2/IyklfxiX/QER2n9n6WlM0RxargCJwK
+ CEyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=j9h3BEv4ybPahVYDpfjJtvwrAcdt2dlCFy6zwAbCCRw=;
- fh=tEQikCMtzb8EqFf8qpcq5i/AiVL2LMFTjUOKFJd39Y8=;
- b=YPKQyRprL333r26c7mb5mBxei2WCP5EZKj13qbLlsro9Oe0CZRfhQXAeooq31Qca6M
- oaNJf6v+aQ9hMk22gkhi3/XdERTrgwvGNiqwy6M3L7NboAFhYAcbfSKYAyM9WFJIJvAr
- jrGxGQ4ZGGPZx8vC2gTqhUSkJf623CRIirFzeCWfzqd8/UMLliVFFBeBFcLvCMtzk1zw
- Wbn5yaQyFxvDF5nFLPf09VT5F+U5QgmWQ1dRx6vn/yCEINpdSdqDYxw+oIgZZu/i7FJd
- 4MwNijc/WkIgpzRXtu3zTsTrgyX8AEWLHAF9gQBWpsGBpXx2fwNLGHCh+A5uVos/VCl2
- 4FyA==; darn=lists.freedesktop.org
+ bh=KeOkw3p+smUt9mDbUXijVkwoFTCqBK/LvWOrl4P+Zo4=;
+ fh=uB1cf6ah3zFvbXP33fM8JGnRTZeSo1A3Kzr7M4LvDIA=;
+ b=YlGG0OX2W7NggWcyfC/nqN/w5KxQh8CVKHgCTC3eEgaLlCo8Bq10onf9GFrmZY3DCU
+ kYgVUWdPOizZo+rh9KIy5qb+M19W/oCw9jpbmjwVlxRs7ldqVtnDrgVga4QYG310E+vB
+ o9DiQM9xq2P2YpQi/NpkYxtWJ3GG4oi1kEnauM6Dbhbn3WNLPs9oledVFxrtqb2iOVd4
+ mS7Q3CYMha11HfomBmMi0VbhXc5quZHeG+4dnuTC7KoLzZNy0PB+1h5PRKwSC4fv3Cke
+ AKHQV6RiLaJjft+ugXCXJDnsRWo+3QAp6dfIQBv67stmVeENsMPJUkv/WkjAmqVmI/Ww
+ 6z8Q==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780833456; x=1781438256; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1780843839; x=1781448639; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=j9h3BEv4ybPahVYDpfjJtvwrAcdt2dlCFy6zwAbCCRw=;
- b=DuG/LZ+l/4BoBagRQ8WrFEzSyeecghQjKj8zeinK6Dvc2sGxGtCCJnMB1jR5sVMgAJ
- SLywwn1uSZ89mkuALKIqUsTGPRuHJueI6ZmXeC+EGJJGiyyUXNKgt2dn3PUpCPGW0noh
- CntoTXhZKYL9kWc9zNmcNtetNXXtSMJXbF62SztJ9XjXkQjqmkz93TmCQfjWtX+GpUzG
- pgxIyeuRGb463V0M3Z0CCWgUFQSJGzzO3h3xOM+pbHZ03G4eGZLyMp6UgX/MDL2d1EiU
- op9xJfgHS6jSFHHVLk++S6a+z5rOyUo01WcKvsdNtfZgUYd4WC+xPq3siKPbnSOxMGbN
- 2M+Q==
+ bh=KeOkw3p+smUt9mDbUXijVkwoFTCqBK/LvWOrl4P+Zo4=;
+ b=U0xqEVeUnlH1OXz/AKAGbQ8DLAPySFBexhdxsJZ03A5vO4i09XSzamIrttWTcYu9+3
+ NPQ/BUpwQPdqNKXqgQpZOf89Oxo8sW/YN3SQUsvIj93+SyxkmM9Xr85/RSVHKQgG6sKp
+ SUmEuG7QD3fDaZDzEPVRjVpDJS9/2VK5gycdTazhGAH2hJTcijT6aG17n6jyhQaewVuG
+ 2Vj8xNjxzJNmoeC4xeD8HjO7jvr89FklwdlEheuoU0R6e/jDnhzf8GG6goR5t3JIpBsa
+ k2rIn34e1cr5SQLrxj1iwhwXqMubLiK/CEnu3kk9McJ0CM881YsM1jZ5dbE7REaswx05
+ mcjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780833456; x=1781438256;
+ d=1e100.net; s=20251104; t=1780843839; x=1781448639;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=j9h3BEv4ybPahVYDpfjJtvwrAcdt2dlCFy6zwAbCCRw=;
- b=ZgBoKsR7gdSGc7zBSmAiR9hKSDpmXcATgtl3xMTZHmYkj0PVc8LtEW7fSAMlEt7MKu
- JonEk0t6T6ICsF44OJ/Ca5Epds+Ug0M5qij55aS6MBCt2eERZ/tFtGBn/K7Z3CSQtB+U
- ZiShXInRuPaVQcdWQ81DfAKNlhBYOBt+fFjSNSdeDeVlORozNS0YKpwKaQk7LYjfq2mN
- 2C8QzJXYqmJHuEY186V62D7gzoDVJMFwDNhQZWlTNeA4V8tgxxNiZX1iHdjW06XNg4t7
- 7FD+LVookNTr/VM+1KKtIGxAzhQDMyLAf1neA4NulV2zFdbC61Ah9lY3kLJLNHa4jc1+
- RV7g==
+ bh=KeOkw3p+smUt9mDbUXijVkwoFTCqBK/LvWOrl4P+Zo4=;
+ b=mUb5ZYsznHNty1NvQGtx9GKGCJpiZn0TFIndV3LRxolLfNvVEK7Zqey0Bb1GZW0OYi
+ LaAz6m7xuyUX7pgkO1+AtH3+dCGEW0h/8wBgocdwkDjowjNh9TewwL75ROZQh0sVCa8N
+ O+CfTDc53bl7/gSgOiv0T4FrZcGHWuBZ2DCjq5G132lqWqeuvb8dbSLJfTuCNTF+Ep4f
+ JAGyJ535aJsDZGbv1ngmIjt9vsh7ZivaYpCpzDs3IbNgSs141qofaFdzlHw5N7lV5Vay
+ GtHarOWgUQee4FbTcvYUn0WN600lmEKO50H2CHHHiid5kSrsYg0fB2rDoEB2Qzxmdic4
+ My2g==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+1ncg5gdoYpxXDnelThxIAaAUnFN5a+huU4O5gkyrAPoSu49MaQFAyUG34lEwZbFT69hL7t+AvuDs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz2eOI6+0ZS+1+7k+yLuImCwHQ5mJWAyRH583p9mF28t5Xs0dgw
- H/2+Py4hrHCcn7Ny98AaPztnuSGVumOjqHdrF9OnAysUKp4F0SnrRTk1fJSyZNXEtBlykpn0V+f
- xph8fL+WDDgtkPI84nMk0UC+Vx+B9OjI=
-X-Gm-Gg: Acq92OHxFj4JdB3cPdxH6dBYaIx2yAjkeG2g4gYp+zmPG68rvalf0gTiQQsJnRc2Z9W
- EaJAkPmYXFVEvKMVgl3tBEW6Wm1WTEqvTrQQggxzb3WCOyFc3xZaM6/wmd6xEMQoDDtyi4Mz6cm
- sxvyBroS1Gn9nZvNMGTfmHqkxsBONYT5h9mSZSwoNxQeVdANkAv+u9qTUE2ta9B2V0iJUbuaQBA
- kKnVTu1J3JlitnbEJYjASFf3LMXCcliHb/kz7wqGRuO1hREZmwTCwiGCopvy5Rnl/1mPYHf2aNO
- 1YoE1i9z+qBB4m/o+vw=
-X-Received: by 2002:a05:6820:4b10:b0:69e:3e2a:a83f with SMTP id
- 006d021491bc7-69e68b1b89dmr5965848eaf.9.1780833455855; Sun, 07 Jun 2026
- 04:57:35 -0700 (PDT)
+ AFNElJ8wMVBq7rkpbMimzvkhPPFNI38XpSPUfxQgPHQbAfbTUtaK5JP0Btex2wg7BLSs4AZXQYFb8A9vSVU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx5atOir8rjxSz156pTs7cqxxe/Mv9vph7auW5k+sfqG7ZXMQ7F
+ BZDPHKwuUA90YsonJi6yTsoRaBPQHpyRMYRAC3e7IdnsUrM1+WFPF4Bs/g0MDcNPJ36Ai9WZ2od
+ V9DLlaztpWG9mNK+Jv5G9BxxakYg1v+I=
+X-Gm-Gg: Acq92OF/1bUxy82NKBCLycfMRsoZ1nlkpOpO8T9O93yehvwbAariFYm1O91UkPBJSO8
+ aWkRFxqVWX9y4HEtV9d+2DQ5h+3LjChX1X3GYwfSvHapcWi+anYCDC6k3SNld4x3G8tNaSxtU7b
+ kXpJyyAbZMWIEAHmua57Pw6T45i92MCpikWK2r804pKVIgnwNYvfaBIgHw0cf/v4KpnJRgd+ftG
+ LhPnnfzmZ9MzHsTt70c35gn8lqBHD9tJKgkRnWvEX0wK4Y3KPHbGetS7AfdFTDY/bcl2dUAE3YZ
+ /a4bht68B1PRqSqaPqKlRis1DYPKAj1J8nNsCQGAqMnjREZwPd1YthOP4uG6ZSefqxfjhy9g+rS
+ gXyvNXRqm0eo8KPYlop2cTF5vAa+54a+Mdg==
+X-Received: by 2002:a05:7300:5723:b0:2ea:5057:a320 with SMTP id
+ 5a478bee46e88-3077af4a612mr3072058eec.2.1780843838713; Sun, 07 Jun 2026
+ 07:50:38 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260604123224.192543-2-diogompaissilva@gmail.com>
- <5277524.h16uAIiOU7@phil>
-In-Reply-To: <5277524.h16uAIiOU7@phil>
-From: Diogo Silva <diogompaissilva@gmail.com>
-Date: Sun, 7 Jun 2026 13:57:24 +0200
-X-Gm-Features: AVVi8CeS1DNJb0AdX_LRZZVsQf_W_fU1VPXBidKJmKeVdQ9Na8oOOSQePlAqJH8
-Message-ID: <CAJpoHp41+mLPWsu0EpCHkNz_z3=+tGqfh0cDKEaCWxwoYOm_Jw@mail.gmail.com>
-Subject: Re: [PATCH] drm/rockchip: dsi: Open-code drm_simple_encoder_init()
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>, 
+References: <20260604192740.659240-1-lyude@redhat.com>
+ <DJ2G8D0N6EK7.2PDDSC28O8K4P@nvidia.com>
+ <DJ2T75A5H6Y2.ISIBOQVMAO4I@garyguo.net>
+In-Reply-To: <DJ2T75A5H6Y2.ISIBOQVMAO4I@garyguo.net>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sun, 7 Jun 2026 16:50:26 +0200
+X-Gm-Features: AVVi8CeFi5djIGvrvuLFIe0ggcr2ckGO7PwhkagBDt7mLNkIJPuv5Gv_nWehfL0
+Message-ID: <CANiq72=qKckJXFJU6TDKf1yh3a2wBS4SQE9fiGKpVOYWYtL8QA@mail.gmail.com>
+Subject: Re: [PATCH v18 0/4] Rust bindings for gem shmem
+To: Gary Guo <gary@garyguo.net>
+Cc: Alexandre Courbot <acourbot@nvidia.com>, Lyude Paul <lyude@redhat.com>, 
+ Miguel Ojeda <ojeda@kernel.org>, dri-devel@lists.freedesktop.org, 
+ rust-for-linux@vger.kernel.org, nouveau@lists.freedesktop.org, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ driver-core@lists.linux.dev, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+ Alice Ryhl <aliceryhl@google.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org, 
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org, 
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Benno Lossin <lossin@kernel.org>, 
+ linaro-mm-sig@lists.linaro.org, Danilo Krummrich <dakr@kernel.org>, 
+ Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
+ Asahi Lina <lina+kernel@asahilina.net>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Sun, 07 Jun 2026 14:39:43 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,136 +124,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hey Heiko,
+On Sun, Jun 7, 2026 at 2:17=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
+>
+> IMO we really shouldn't use Clippy to generate code. We spent too much ef=
+fort in
+> fixing codegen issues that are only present when driven by clippy.
+>
+> We should just run a check phase with clippy to get the lints only, and t=
+hen use
+> rustc to generate actual code.
 
-> this description is missing a rationale.
->
-> Looking at the drm git history, I guess here you could add a second
-> paragraph, with something like:
->
-> ----------- 8< -----------
-> The helpers have been deprecated for years as they only add an an
-> intermediate layer between atomic modesetting and the DRM driver.
-> ----------- 8< -----------
->
-> Shamelessly stolen from the Todo item ;-)
+Yeah, given the trouble it is giving, I think that will probably be a
+better approach medium term. I don't love it, because the original
+idea was to avoid such an extra phase, but it is definitely better vs.
+random source code changes...
 
-True. I will add the rationale then.
+We could also increase the symbol size-related variables
+(`KSYM_NAME_LEN`, `SZ` in `modpost`...) only for Clippy builds to a
+ludicrous value. The extra phase approach would avoid surprises more
+generally though, so I like it in that sense, and has the implicit
+advantage of avoiding someone using a Clippy kernel in production by
+mistake.
 
-> Any reason for only changing the DSI driver?
->
-> Looking at [0] a number of the Rockchip drivers use the same pattern:
-> - drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-> - drivers/gpu/drm/rockchip/cdn-dp-core.c
-> - drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-> - drivers/gpu/drm/rockchip/dw-mipi-dsi2-rockchip.c
-> - drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-> - drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> - drivers/gpu/drm/rockchip/rk3066_hdmi.c
-> - drivers/gpu/drm/rockchip/rockchip_lvds.c
-> - drivers/gpu/drm/rockchip/rockchip_rgb.c
->
-> You can just do all Rockchip ones - even in one patch I think :-) .
+Ok, I can take a look at that. For now, I will pick the other patch.
 
-Yes, indeed. I wanted to send a tiny patch to check if all my
-configurations were ok, but since it looks like they are, I will add the
-other rockchip drivers that have the deprecated functions.
-
-Thanks,
-Diogo
-
-On Sun, 7 Jun 2026 at 12:59, Heiko Stuebner <heiko@sntech.de> wrote:
->
-> Hi Diego,
->
-> Am Donnerstag, 4. Juni 2026, 14:32:25 Mitteleurop=C3=A4ische Sommerzeit s=
-chrieb Diogo Silva:
-> > Remove the dependency on drm_simple_kms_helper by open-coding the
-> > drm_simple_encoder_init call.
->
-> this description is missing a rationale.
->
-> Looking at the drm git history, I guess here you could add a second
-> paragraph, with something like:
->
-> ----------- 8< -----------
-> The helpers have been deprecated for years as they only add an an
-> intermediate layer between atomic modesetting and the DRM driver.
-> ----------- 8< -----------
->
-> Shamelessly stolen from the Todo item ;-)
->
->
-> > Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
-> > ---
-> >  drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c | 9 +++++++--
->
-> Any reason for only changing the DSI driver?
->
-> Looking at [0] a number of the Rockchip drivers use the same pattern:
-> - drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-> - drivers/gpu/drm/rockchip/cdn-dp-core.c
-> - drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-> - drivers/gpu/drm/rockchip/dw-mipi-dsi2-rockchip.c
-> - drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-> - drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> - drivers/gpu/drm/rockchip/rk3066_hdmi.c
-> - drivers/gpu/drm/rockchip/rockchip_lvds.c
-> - drivers/gpu/drm/rockchip/rockchip_rgb.c
->
-> You can just do all Rockchip ones - even in one patch I think :-) .
->
->
-> Thanks
-> Heiko
->
-> [0] https://elixir.bootlin.com/linux/v7.1-rc6/A/ident/drm_simple_encoder_=
-init
->
->
-> >  1 file changed, 7 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c b/drivers/=
-gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-> > index 3547d91b25d3..a09b382d208e 100644
-> > --- a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-> > +++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-> > @@ -25,7 +25,6 @@
-> >  #include <drm/drm_mipi_dsi.h>
-> >  #include <drm/drm_of.h>
-> >  #include <drm/drm_print.h>
-> > -#include <drm/drm_simple_kms_helper.h>
-> >
-> >  #include "rockchip_drm_drv.h"
-> >
-> > @@ -825,6 +824,10 @@ static void dw_mipi_dsi_encoder_enable(struct drm_=
-encoder *encoder)
-> >       clk_disable_unprepare(dsi->grf_clk);
-> >  }
-> >
-> > +static const struct drm_encoder_funcs dw_mipi_dsi_encoder_funcs =3D {
-> > +     .destroy =3D drm_encoder_cleanup,
-> > +};
-> > +
-> >  static const struct drm_encoder_helper_funcs
-> >  dw_mipi_dsi_encoder_helper_funcs =3D {
-> >       .atomic_check =3D dw_mipi_dsi_encoder_atomic_check,
-> > @@ -840,7 +843,9 @@ static int rockchip_dsi_drm_create_encoder(struct d=
-w_mipi_dsi_rockchip *dsi,
-> >       encoder->possible_crtcs =3D drm_of_find_possible_crtcs(drm_dev,
-> >                                                            dsi->dev->of=
-_node);
-> >
-> > -     ret =3D drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODE=
-R_DSI);
-> > +     ret =3D drm_encoder_init(drm_dev, encoder,
-> > +                             &dw_mipi_dsi_encoder_funcs,
-> > +                             DRM_MODE_ENCODER_DSI, NULL);
-> >       if (ret) {
-> >               DRM_ERROR("Failed to initialize encoder with drm\n");
-> >               return ret;
-> >
->
->
->
->
+Cheers,
+Miguel
