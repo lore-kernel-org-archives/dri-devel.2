@@ -4,53 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B607CD8C88
-	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 08:02:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C86BDCD8C8C
+	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 09:03:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D0B510E980;
-	Sun,  7 Jun 2026 08:02:52 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aE1SY8r9";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60A6C10E980
- for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 08:02:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 12597439CB;
- Sun,  7 Jun 2026 08:02:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32A9B1F00893;
- Sun,  7 Jun 2026 08:02:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780819369;
- bh=743mquA8eUU6nXfjkJF2bDmypYOyMCpDQhfZo28zoc8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=aE1SY8r9jkNr36mu/YYJAsW8bfiM7zw1BjgwI5hH9xzAqeIuvpxF5a5xHVcykvRhE
- 5rv4zb7l0fL/AVhPq95kRC309GpG2LYn9Tk0LfK0EftcbiMuP0mz7jwTgGkVUiskib
- FsdBfriQjkjAOSaoOuF08eSIjgEI606M97YlP4uHMmQ2uHpzNScMRGEPVja8VRAJvY
- PNxXin2R+XTuVfb00frIhDpIHsfV00jTfMFLAAGOUorTUFWPoAM25MVttHHa4l78o7
- 2BvhsE3Q4tELG3Xi5Wreq/lCyzxgWM6T3E3A4pyK+yA89GXQXm4j8JddNoJQxLgi0i
- ymCQKza5mtMTA==
-Date: Sun, 7 Jun 2026 11:02:44 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: David Hu <xuehaohu@google.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>,
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
- Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
- jmoroni@google.com, praan@google.com, stable@vger.kernel.org
-Subject: Re: [PATCH v5] dma-buf: Fix silent overflow for phys vec to sgt
-Message-ID: <20260607080244.GA327369@unreal>
-References: <20260601200012.3872274-1-xuehaohu@google.com>
- <20260604094344.GB245424@unreal>
- <CAPd9Lg_JkRdtNa=n+HE9SP+NFCSB+X_97eiPBqiONVLwV0pHwQ@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9ADF10E9B2;
+	Sun,  7 Jun 2026 09:03:22 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD12910E9B2
+ for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 09:03:20 +0000 (UTC)
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+ by APP-03 (Coremail) with SMTP id rQCowAAXKtHQMyVqoCbkEw--.5129S2;
+ Sun, 07 Jun 2026 17:03:12 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: airlied@redhat.com, kraxel@redhat.com, dmitry.osipenko@collabora.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ simona@ffwll.ch
+Cc: gurchetansingh@chromium.org, olvaffe@gmail.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/virtio: fix dma_fence refcount leak on error in
+ virtio_gpu_dma_fence_wait()
+Date: Sun,  7 Jun 2026 09:03:03 +0000
+Message-Id: <20260607090303.92423-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPd9Lg_JkRdtNa=n+HE9SP+NFCSB+X_97eiPBqiONVLwV0pHwQ@mail.gmail.com>
+X-CM-TRANSID: rQCowAAXKtHQMyVqoCbkEw--.5129S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cr45GrWxXryxKryfKw47twb_yoW8GFWxpa
+ 18G343CFnIya1Iqay7A3W09ryrC3ZxArWSgF4j9ayfCwn8XF15tr1DA3ySqryDAFZrt3yf
+ Krn7Cr4YgFn5uaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
+ 0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
+ 1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
+ 628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
+ IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
+ MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJV
+ WUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+ 6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYx
+ BIdaVFxhVjvjDU0xZFpf9x0JUJWrAUUUUU=
+X-Originating-IP: [36.110.52.2]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwwLA2ok4-xRfwABs9
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,62 +64,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 04, 2026 at 03:36:48PM -0400, David Hu wrote:
-> On Thu, Jun 4, 2026 at 5:43 AM Leon Romanovsky <leon@kernel.org> wrote:
-> >
-> > On Mon, Jun 01, 2026 at 08:00:12PM +0000, David Hu wrote:
-> > > @@ -36,7 +36,7 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
-> > >                                 struct phys_vec *phys_vec, size_t nr_ranges,
-> > >                                 size_t size)
-> > >  {
-> > > -     unsigned int nents = 0;
-> > > +     size_t nents = 0;
-> > >       size_t i;
-> > >
-> > >       if (!state || !dma_use_iova(state)) {
-> > > @@ -51,6 +51,9 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
-> > >               nents = DIV_ROUND_UP(size, UINT_MAX);
-> > >       }
-> > >
-> > > +     if (nents > UINT_MAX)
-> >
-> > I would suggest to use check_add_overflow() while calculating nents
-> > instead of this check.
-> 
-> Hi Leon,
-> 
-> Thank you for the review. Using `check_add_overflow()` is a great
-> suggestion and definitely
-> cleaner for the accumulation loop. I'll update this for v6.
-> 
-> > > @@ -133,6 +137,11 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
-> > >       }
-> > >
-> > >       nents = calc_sg_nents(dma->state, phys_vec, nr_ranges, size);
-> > > +     if (!nents) {
-> > > +             ret = -EINVAL;
-> > > +             goto err_free_state;
-> > > +     }
-> >
-> > Technically, this hunk is not necessary, since sg_alloc_table() will
-> > return -EINVAL when nents == 0. At least, that is the behavior I relied on.
-> 
-> I originally added this explicit check in v5 to address Jason's
-> feedback, and to make the
-> failure explicit rather than relying on `sg_alloc_table()` failing
-> silently on `nents=0`.
+dma_fence_unwrap_for_each() internally calls dma_fence_unwrap_first()
+which does cursor->chain = dma_fence_get(head), taking an extra
+reference. On normal loop completion, dma_fence_unwrap_next()
+releases this via dma_fence_chain_walk() -> dma_fence_put().
 
-I prefer explicit checks, but I am not in favor of duplicating them.
-Since sg_alloc_table() already validates this condition, we do not need
-to repeat the same check in dma-buf. A comment should be sufficient to
-inform future reviewers that nents == 0 is already handled.
+When virtio_gpu_do_fence_wait() fails and the function returns early
+from inside the loop, the cursor->chain reference is never released.
+This is the only caller in the entire kernel that does an early return
+inside dma_fence_unwrap_for_each.
 
-Thanks
+Add dma_fence_put(itr.chain) before the early return.
 
-> 
-> Jason, do you have a strong preference here? I am happy to drop the
-> hunk and rely on
-> `sg_alloc_table()` returning `-EINVAL` if you are both comfortable with that.
-> 
-> Thanks,
-> David
+Cc: stable@vger.kernel.org
+Fixes: eba57fb5498f ("drm/virtio: Wait for each dma-fence of in-fence array individually")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/virtio/virtgpu_submit.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/virtio/virtgpu_submit.c b/drivers/gpu/drm/virtio/virtgpu_submit.c
+index dae761fa5788..32cb1e4aa425 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_submit.c
++++ b/drivers/gpu/drm/virtio/virtgpu_submit.c
+@@ -65,8 +65,10 @@ static int virtio_gpu_dma_fence_wait(struct virtio_gpu_submit *submit,
+ 
+ 	dma_fence_unwrap_for_each(f, &itr, fence) {
+ 		err = virtio_gpu_do_fence_wait(submit, f);
+-		if (err)
++		if (err) {
++			dma_fence_put(itr.chain);
+ 			return err;
++		}
+ 	}
+ 
+ 	return 0;
+-- 
+2.34.1
+
