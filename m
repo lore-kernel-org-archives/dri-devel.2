@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82D99CD8C8C
-	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 09:11:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33608CD8C8C
+	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 10:59:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56D9710E9B7;
-	Sun,  7 Jun 2026 09:11:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1608010E9E2;
+	Sun,  7 Jun 2026 10:59:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XyDyyFe7";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="gmiN5pvj";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C8C310E9B7
- for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 09:11:41 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9B3C36001D;
- Sun,  7 Jun 2026 09:11:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D5711F00893;
- Sun,  7 Jun 2026 09:11:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780823500;
- bh=YrSgIj4Fu40JCX6Zn6JwmmP841Ewi40eAMatauAxoPQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XyDyyFe7MKK5xIuSGqHKuoffF396jy76+uCNzye51N0+rEFS2i3hc8y/ncEAdzW1Z
- h63+Wlrm//FMuBpCZWmVumLfsNzc7+GMWS2deELhOrBV6hkpd7XCtfV/jokIYTMGqP
- ujgrsOR9IRfRuRO/CLkDl1+zh+KGIn9/51uZ5xz8JU94VTzEAvh/qMKDzZFGDb/p/4
- bcS+cpvnJ/pN6o9g9263bl8BhJ/AI0l7DKwWV9SGLXilxJ6vDZ6/A5vZNHcEU667aF
- H9Zpr67Mzb7V+ohwD10THEUJ9WeZoTb0A2ZEWyx4cHUsgW86pQqlRpnjDpmslyP+/P
- XRgAWNdrFP3CA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/virtio: fix dma_fence refcount leak on error in
- virtio_gpu_dma_fence_wait()
-To: "Wentao Liang" <vulab@iscas.ac.cn>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260607090303.92423-1-vulab@iscas.ac.cn>
-References: <20260607090303.92423-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=utf-8
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A898310E9E1
+ for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 10:59:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=97NZlk873g/D280FN02tm4Cwk27MbU4WZEUElaU0aQM=; b=gmiN5pvjvSslkFeya7EuNki80z
+ Qv3sH3Vh16k9AXWcagQLxnhxoDd7f3QtMAvEyrA6paLlnLN0/6ayEGeuifHytKkoxXhFdw8XiKrDh
+ T9130QoSZa0s2glYzMT2/e/bgrOd9PynunSBzAW7XIvhvyzXa90BSEyzko4omuBcHEY22T2pbb5IV
+ G+lE+ZaEXoUOse9OZTRVJTQQmEM2+I2ffXf/HWOUcUwug/lbNm695Cl8qRJGbFvyjLAfcuKxB7glf
+ DmiY11iAM9YRkxRV2u0XE88uTgbvharrnzIXPXNRWtq7u/f8GX50f1b0wYPZJxR4PwH4FSYRSGuuV
+ 2aALXJDA==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Diogo Silva <diogompaissilva@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Diogo Silva <diogompaissilva@gmail.com>
+Subject: Re: [PATCH] drm/rockchip: dsi: Open-code drm_simple_encoder_init()
+Date: Sun, 07 Jun 2026 12:59:00 +0200
+Message-ID: <5277524.h16uAIiOU7@phil>
+In-Reply-To: <20260604123224.192543-2-diogompaissilva@gmail.com>
+References: <20260604123224.192543-2-diogompaissilva@gmail.com>
+MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 07 Jun 2026 09:11:39 +0000
-Message-Id: <20260607091140.1D5711F00893@smtp.kernel.org>
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,74 +54,97 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Hi Diego,
 
-Pre-existing issues:
-- [High] Pre-existing memory leak of dma_fence objects in amdgpu_userq_wait=
-_return_fence_info() and incorrect commit message claim.
---
+Am Donnerstag, 4. Juni 2026, 14:32:25 Mitteleurop=C3=A4ische Sommerzeit sch=
+rieb Diogo Silva:
+> Remove the dependency on drm_simple_kms_helper by open-coding the
+> drm_simple_encoder_init call.
 
-commit 6bf96bb80013304553369c4d2d1884cc3193c908
-Author: Wentao Liang <vulab@iscas.ac.cn>
+this description is missing a rationale.
 
-drm/virtio: fix dma_fence refcount leak on error in virtio_gpu_dma_fence_wa=
-it()
+Looking at the drm git history, I guess here you could add a second
+paragraph, with something like:
 
-This commit fixes a dma_fence reference count leak in the virtio DRM driver.
-It adds a dma_fence_put() before returning early from a
-dma_fence_unwrap_for_each() loop in virtio_gpu_dma_fence_wait().
+=2D---------- 8< -----------
+The helpers have been deprecated for years as they only add an an
+intermediate layer between atomic modesetting and the DRM driver.
+=2D---------- 8< -----------
 
-Cc: stable@vger.kernel.org
-Fixes: eba57fb5498f ("drm/virtio: Wait for each dma-fence of in-fence array=
- individually")
+Shamelessly stolen from the Todo item ;-)
 
-> dma_fence_unwrap_for_each() internally calls dma_fence_unwrap_first()
-> which does cursor->chain =3D dma_fence_get(head), taking an extra
-> reference. On normal loop completion, dma_fence_unwrap_next()
-> releases this via dma_fence_chain_walk() -> dma_fence_put().
+
+> Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
+> ---
+>  drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c | 9 +++++++--
+
+Any reason for only changing the DSI driver?
+
+Looking at [0] a number of the Rockchip drivers use the same pattern:
+=2D drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+=2D drivers/gpu/drm/rockchip/cdn-dp-core.c
+=2D drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
+=2D drivers/gpu/drm/rockchip/dw-mipi-dsi2-rockchip.c
+=2D drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
+=2D drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+=2D drivers/gpu/drm/rockchip/rk3066_hdmi.c
+=2D drivers/gpu/drm/rockchip/rockchip_lvds.c
+=2D drivers/gpu/drm/rockchip/rockchip_rgb.c
+
+You can just do all Rockchip ones - even in one patch I think :-) .
+
+
+Thanks
+Heiko
+
+[0] https://elixir.bootlin.com/linux/v7.1-rc6/A/ident/drm_simple_encoder_in=
+it
+
+
+>  1 file changed, 7 insertions(+), 2 deletions(-)
 >=20
-> When virtio_gpu_do_fence_wait() fails and the function returns early
-> from inside the loop, the cursor->chain reference is never released.
-> This is the only caller in the entire kernel that does an early return
-> inside dma_fence_unwrap_for_each.
+> diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c b/drivers/gp=
+u/drm/rockchip/dw-mipi-dsi-rockchip.c
+> index 3547d91b25d3..a09b382d208e 100644
+> --- a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
+> @@ -25,7 +25,6 @@
+>  #include <drm/drm_mipi_dsi.h>
+>  #include <drm/drm_of.h>
+>  #include <drm/drm_print.h>
+> -#include <drm/drm_simple_kms_helper.h>
+> =20
+>  #include "rockchip_drm_drv.h"
+> =20
+> @@ -825,6 +824,10 @@ static void dw_mipi_dsi_encoder_enable(struct drm_en=
+coder *encoder)
+>  	clk_disable_unprepare(dsi->grf_clk);
+>  }
+> =20
+> +static const struct drm_encoder_funcs dw_mipi_dsi_encoder_funcs =3D {
+> +	.destroy =3D drm_encoder_cleanup,
+> +};
+> +
+>  static const struct drm_encoder_helper_funcs
+>  dw_mipi_dsi_encoder_helper_funcs =3D {
+>  	.atomic_check =3D dw_mipi_dsi_encoder_atomic_check,
+> @@ -840,7 +843,9 @@ static int rockchip_dsi_drm_create_encoder(struct dw_=
+mipi_dsi_rockchip *dsi,
+>  	encoder->possible_crtcs =3D drm_of_find_possible_crtcs(drm_dev,
+>  							     dsi->dev->of_node);
+> =20
+> -	ret =3D drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_DSI);
+> +	ret =3D drm_encoder_init(drm_dev, encoder,
+> +				&dw_mipi_dsi_encoder_funcs,
+> +				DRM_MODE_ENCODER_DSI, NULL);
+>  	if (ret) {
+>  		DRM_ERROR("Failed to initialize encoder with drm\n");
+>  		return ret;
+>=20
 
-[Severity: High]
-This isn't a bug introduced by this patch, but is this statement in the
-commit message accurate?
 
-Looking at amdgpu_userq_wait_return_fence_info() in
-drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c, there appears to be another
-instance of an early return from dma_fence_unwrap_for_each() without
-releasing the internal iterator reference:
 
-amdgpu_userq_wait_return_fence_info() {
-    ...
-    dma_fence_unwrap_for_each(f, &iter, fence) {
-        r =3D amdgpu_userq_wait_add_fence(wait_info, fences, &num_fences, f=
-);
-        if (r) {
-            dma_fence_put(fence);
-            goto free_fences;
-        }
-    }
-    ...
-}
 
-If amdgpu_userq_wait_add_fence() fails (for example, returning -ERESTARTSYS
-due to a signal), it exits early via the free_fences label. Does this path
-also leak the iter.chain reference similar to the virtio bug being fixed
-here?
-
-Since userspace might be able to trigger this intentionally (e.g., by
-providing a mismatching num_fences and sending a signal to interrupt the
-wait), should the commit message be updated, and the AMD bug addressed as
-well?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260607090303.9242=
-3-1-vulab@iscas.ac.cn?part=3D1
