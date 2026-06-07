@@ -4,52 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79CFACD8C88
-	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 12:17:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E58BDCD8C88
+	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 12:22:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A98B410EA15;
-	Sun,  7 Jun 2026 12:17:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EEC610EA23;
+	Sun,  7 Jun 2026 12:22:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="cHAwbYws";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="epmevpzY";
 	dkim-atps=neutral
-Received: from CWXP265CU009.outbound.protection.outlook.com
- (mail-ukwestazon11021136.outbound.protection.outlook.com [52.101.100.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1606510EA15;
- Sun,  7 Jun 2026 12:17:37 +0000 (UTC)
+Received: from CWXP265CU010.outbound.protection.outlook.com
+ (mail-ukwestazon11022117.outbound.protection.outlook.com [52.101.101.117])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A13E10EA23;
+ Sun,  7 Jun 2026 12:22:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Trldd8WelcClyFjh6JnBoq9mvr/WT9KJqNGGVuHblrnlRLxp+mqRPx8q8pT0Zvqg7cuCesWVM8WuuwFcYjWHZzWJO/cnpkOjiRhORLUIXEJUucbUQspGNJYq3r4w4aLk8pbkjctMheKs0rFNr/z5okm88Wy+cIYfdf1W908lVFwvkLdMv/AnZUgYWxEGnU8W1zd0gEs40xeAduFb6lrCiZsG6CjwaXntQgWG8j9lsQJSByYBFTHrXWhaSM4Roa8V0EZt5SQ5J37uk8lD8PBo1ugG7zHHp77bo+Bq2o58PZR03Ii0xFXf0L1HyzBqMYzsLsotA57FY6Iqzcp9y4zDkQ==
+ b=oYFEC+B9OhnqSo2jVWqR6GX6FEs/SgC29AAP/ZfVBlnpWOcoe6qqwvv5e4imEnNEJz5zAGn6B/fAemwWxJ82UzQ/OGB/MeIY8UzFh4qYwbPTUUtUZIagwBOVJ300dlThzrgh5APbZlcBmSr6LQgWn4kFfBgmEvpbFYraVydB2WSJRCMAHoEDMdS3HDbKOVMDyuLhkzLdYN9MI09isKkMyo5eEbAv0m850algVeaoDlDA1/BqCbzmm8dDqbRdm2mYFPHEag1yitarECy2yCAtFXxpoiE/mzPbnqZAPBbp7bDPrgGIFkKTbb5bPcVOgSN6ZSGuiTTkK4o1CUGelZj6Rw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tsyKPgxgXA0dhtIM9njK4DvRxpCfeLRVNtEOsYwfnns=;
- b=fMYs9bvC9bmly0UCUUat1ki3h2RBePTksceAEnrb5v7Z8wfwDC8jwfsqkl9YnKFTMqBulyXTSeHtjKtWqSLazP4qax4VFwWJ5WLcBjUEBv8cVADwMyNVdjYa+TH1u11FQHj343yucEvThjVmKaE5UAMJg1I0V6rQXDnJHmPzNbvYBOreslozxNkDDTg+RscxYq4pW5RgN+4M6aQXdAqdgWPRfkP7dTFp40Q1aAEtyVMlEZGo1PnBV7qEvGa82WwjYdVSI2M/SMhnmk+8o4E/0E85bE3+VzPeSFktgq4eNBBz4cdaJMazC5N3HPLQ/nMj+Ec1qN3HWU07OH4h/fUr8Q==
+ bh=78E4gQ7qrs8hzbAkU2OpdZKEdCn1qoTlX9DDimD9Ao0=;
+ b=tXX1MBFWX3oKh5oSPlj1CrfGwvGUSouXM4aUKRexMWo5VSwRjtdyKKP6lGDcSzJzDnxaxc8qLMXgox/L9ULb8VahnfdFyTl5FqUx6RH1lAZrI0ja74/Cxv9FKn0WmVtF45uy/ewJMQY/2JN+9+F13BBQmFNayJRBdSD3dwEHrV0HlCJaruakzfitVQW23H12tfxkTpe2AYXLYKvyAxQYBzburL40XyVqXbCfjpq4cXQTwIsa/mmyKP7A2wjxqbwjbfkdy+P/TwxGIyCiGVYHxTt3UblIfRRa31h5D7uIk/mo3LKGLWq2aepwvoHvjUuQ24RD3N6UsXZ338go54SUXQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tsyKPgxgXA0dhtIM9njK4DvRxpCfeLRVNtEOsYwfnns=;
- b=cHAwbYwshsMV7baLbBnvq23BOCzBgcolgCf03GzxTrUQp9fWropVeU5ecpo3+J6hT8XTM8srJmlODvRMeESx8omxGHH2j5XvOjr/x49HFkNqcYbnwdHFdklSF1f0oVFDZe80ZgAbDCNlibJ9cfDQEJU2jtmwCe9TnxvwRe9OTuw=
+ bh=78E4gQ7qrs8hzbAkU2OpdZKEdCn1qoTlX9DDimD9Ao0=;
+ b=epmevpzYkcVmFLZAwmSr+W9qSuoc+raDeJpp5lAW4pbi1p1JTa0QnWZeA4W01PjjZEEhhrETFvznkPpIzHsozcoQWtBRvKXz+fsEqO+GyHDw2ACzFEGAMzW7tS5HiBjW6vCoYRPWVtirnoOfouLBpk7AdLzddJ5TH0vIHkrQbbM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO0P265MB6776.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:30f::6) with
+ by LO2P265MB3214.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:164::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Sun, 7 Jun 2026
- 12:17:33 +0000
+ 12:22:46 +0000
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0092.011; Sun, 7 Jun 2026
- 12:17:33 +0000
+ 12:22:46 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Sun, 07 Jun 2026 13:17:32 +0100
-Message-Id: <DJ2T75A5H6Y2.ISIBOQVMAO4I@garyguo.net>
-Cc: <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <nouveau@lists.freedesktop.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- <driver-core@lists.linux.dev>, "Maarten Lankhorst"
+Date: Sun, 07 Jun 2026 13:22:45 +0100
+Message-Id: <DJ2TB5AX540T.311A690IK8F9B@garyguo.net>
+Subject: Re: [PATCH v18 1/4] rust: drm: gem: shmem: Add DmaResvGuard helper
+From: "Gary Guo" <gary@garyguo.net>
+To: "Lyude Paul" <lyude@redhat.com>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, <nouveau@lists.freedesktop.org>
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, <driver-core@lists.linux.dev>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Maarten Lankhorst"
  <maarten.lankhorst@linux.intel.com>, "Alice Ryhl" <aliceryhl@google.com>,
  "Simona Vetter" <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, "Sumit
  Semwal" <sumit.semwal@linaro.org>, <linux-media@vger.kernel.org>, "Rafael J
@@ -60,80 +64,76 @@ Cc: <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
  <mkchauras@gmail.com>, "Asahi Lina" <lina+kernel@asahilina.net>, "Daniel
  Almeida" <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
  <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH v18 0/4] Rust bindings for gem shmem
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Lyude Paul"
- <lyude@redhat.com>, "Miguel Ojeda" <ojeda@kernel.org>
 X-Mailer: aerc 0.21.0
 References: <20260604192740.659240-1-lyude@redhat.com>
- <DJ2G8D0N6EK7.2PDDSC28O8K4P@nvidia.com>
-In-Reply-To: <DJ2G8D0N6EK7.2PDDSC28O8K4P@nvidia.com>
-X-ClientProxiedBy: LO4P265CA0144.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2c4::17) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ <20260604192740.659240-2-lyude@redhat.com>
+In-Reply-To: <20260604192740.659240-2-lyude@redhat.com>
+X-ClientProxiedBy: LO4P265CA0052.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ac::15) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:600:488::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO0P265MB6776:EE_
-X-MS-Office365-Filtering-Correlation-Id: 75a42c06-4ba3-4701-46b7-08dec48ec0a6
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO2P265MB3214:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b05458c-85b5-4088-cbfa-08dec48f7b80
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|10070799003|1800799024|7416014|376014|4143699003|3023799007|56012099006|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: TTF3F2sXuVvUkHkGCwWTjakltJxSFHoOTpvJ5Lwsp+ipR50gcC+vD0oTifxwWVayGqOhzj9A0MRRyxrAehRF04IO/FJfNpBHjUkqBoPvb8p01hwxL1Um5R1q00eS62MG0V20I5uVeCZR0FE640625v0IMIff8KrA5YA0dpbfle+XgMEwq5NSWXfvSsPl0947wp6O+AX9krpzDWpy9CQo2GkLab1B6xOUDNk2Nf5TVc6pF6KN2kut7l0G3fdkB50rDwN98rcIhdmgyhY/aJENA8HRFBcsXeMHyAEORJSuLCS8C7iQyvltBjs6a+OLsomcxMLCpgtgWc+ropRbJ4QcQS5wKZuBQMIZrg6SXlM7ctp6WuDjFIzS1gbSHI88/3+6GJvSnIb5YJPdXb33atCyPNcrAOY4UgQ/60n1WPLqTZc+IF5UU2yYnb5IMBOCmUggb2sfi5XCja4IbmjMOA3QsJdotgMRWfA9Pt3sLatyLv1pC1l3NisW9PraRgsA6spqsY8/vD/IwdiscZPFZF8f4e/CsYIzmgwJLGMKeZpXEupBZmwsEWRJ0Hd5YMinvTVqGdIjFv83591Dw7urTe5RetdID7YemeRoL6hYNsQzTtc7EhLlQsx6lkQaUDSA+O8N/fAlgS+0pqEIOz/wJg0CYw==
+ ARA:13230040|10070799003|1800799024|366016|7416014|376014|22082099003|18002099003|6133799003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: lML8zKid2mOslGow83K+2ILiFeIQ4jkyQwu6vsLK9RZavPMXpJ+K+FpoAz4UmrWvTQzlBjb5CuQ4TKkga2YdW7UemixyofUdTMv26Lr9WFNtMra16j7XxrbOSPY/VX9aOzZJAR0cu/LUaSv4blNZxSQo2HyMphQ1/Hx3aNqSKNQ5oniPrlRMNBH68zvElHMdKFX3HuW82g0ewd5eXQsLIethuT2duRuAKA/k5Y9Aq/Iu7vmQ4EBsD9KY7WSh/Bl69lqSJxq/7x5vsHF+Ihhz5bDlfxPwyIyOE192GlC6kk9l9Cu4CZIN89DGLQdOmPzGuMovuRlZd7y8qAExx8LkCl3lFCUdzhLTI3xdXHWoTZExl2sna8/mLf+D6E5/BR5OBO3CeRiCE21B11ggLZngNKelO35/CdJjMXhnxPF7ea9B7MI909RM/nA1Q79o+rBBcxW0oRn6nfJfg8AXRUA6Rz/Fp2e5Ved5/yQjNyCCBeVOxPY0kdhD1Ewy+pUYCKJU6nmePbNYwyYccE9EjbQSaVbaEIi8n6KBtQnosCNmaHFGMD7Hy30cKA0IQOtUXKUD2iekiX7zWGGEUE12o2BQpp1Dfd9Vh2M1rssk2b+6ZYYv4VIf6T+/OzkgNx55N7Q1NxJEi6URjhj8KSQqZFoSkiykwgXzdG1sldAMMh8RbLJbO8GIo3fXtMKMD+VqoP0F
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(10070799003)(1800799024)(7416014)(376014)(4143699003)(3023799007)(56012099006)(6133799003)(18002099003)(22082099003);
+ SFS:(13230040)(10070799003)(1800799024)(366016)(7416014)(376014)(22082099003)(18002099003)(6133799003)(4143699003)(56012099006);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?akNVR3RsaG8zUDNhMFc3N3RkUHVCRTc0SVlOdjVJNjVIUWk4cjhxdzlmTU9K?=
- =?utf-8?B?ZGp6WkExL3pXWkFHZTU1blQ0aUFGTGV4cUFIcWNUZHRlVEVyelQ2TFVBdjUz?=
- =?utf-8?B?b2kzci85OEZQczJ0VmlMLzd3bGlRSGxNOUs3U1JtTWJIV3lHcERVTmNIZDBi?=
- =?utf-8?B?cllhczlacTc4dnJPL0xLOGxwbTc0bDd1bC80K1VZTkovN1N6L2wvNm8ydnFn?=
- =?utf-8?B?bGN0SVkrcDJaZjBTVCtnYTBEaTdDb3ZwZHVUaDhHNEw1TW1wT0lOZTM0ZWVM?=
- =?utf-8?B?ZjdENzFPN0huZE94THkrbTMyRXJmclpweEx0NHpwNHNDRHpyaWl4OHA4Ymx0?=
- =?utf-8?B?ZDN2M0Z1Vk5xaE1mcU5RUkdBRUhzYUtYcDkrbEZjNGNIRzBJSUpERnVQbHdW?=
- =?utf-8?B?bEVzM2kzRTluWDFpaUZad1Ria05TQk9IT2k2Nm5pSzFneXZuRTFMN3VxL3pi?=
- =?utf-8?B?U3hqeTZDdVBZVW9ieU9JcDRPOThKazFpWEdlaVpVb2NZejJWV0RpVUZJMVpq?=
- =?utf-8?B?K1BaeU1NN0JueXlyMUpPNXJVMkR6TDh5TXdvR0JBanViRkZCQzlJRU5Ed3Zn?=
- =?utf-8?B?V0hhVzRvRGlBS2JPVXVhaUpBbmRNRUoxRFJwTEcyTDFMbmM5eDl2SFBXa0M1?=
- =?utf-8?B?QSt2YjltMy9XRmxQSDFJUXEzYjRaSUxKaTEvRTQ5aDVpZXI4R2tNVlRIVTlx?=
- =?utf-8?B?anlNSnRBRWZmcDZtMG5haEYxdnRKWHhtWVlWOWVyVy84c2Vrc2ZUZWR0TXZu?=
- =?utf-8?B?bCtyVnZXMEJNUy8xM3k4dHp4Lzkzdk1hbC9Xb2JwZUJOaFFVU1VOOEFzTEVr?=
- =?utf-8?B?ZVoyNWlwTlhMNnBHR2ROMmZqYXRGTm5YbkNwY3Z2N1MrNnVpN1VSOVpveXhJ?=
- =?utf-8?B?N2NHdmZoaXFSeW90dDVTSnB6NG9iSmtWZkxOUjF5RnV4REw0ME9FV042SVFP?=
- =?utf-8?B?M0cxVG9IdzY1aGp0N0ZFd3dSdVZGa3h0ZnU1eTZvZXdXUWRabTNaMWR3Y0lF?=
- =?utf-8?B?QnNSV0FTa3BBYW5iV1ZLVVJVQU11TXFFQ3d1blRRa0N5ZXAzRmNBNlplc0xp?=
- =?utf-8?B?T0RRREpYWFU5UnJsSXJ4eDA1UWdRZHIrVDErUXpOeHlTTXJEd21xallmbk5a?=
- =?utf-8?B?UUNJTFF1U3RpQ3NNQVE1VWFhUWJ6NHJXWStEczYvWXNDUWhJNHpiOEgzc3du?=
- =?utf-8?B?TERXcHNlMG1WYVNhSmUxZmRUTTlGcDZUOW82K0VScVRvK1hEbVFSakRDaHEw?=
- =?utf-8?B?cEp2Vitydy9BUFlTNzFmZVVDVzBLUzUrRGo3SEFZVTV3Zy9CQXV2K1JFNU5I?=
- =?utf-8?B?cWdVWk9IZkg5WnpLNklWTkJMR1ZCT3pLdFBqYzJvblJoS1NIMkhiNkUybWZG?=
- =?utf-8?B?RGpyZ3lBRHhOSlVyNkh0ajFBZ0UxaEF5dTNVK1N1QVBvZlROMGFoOStZNllQ?=
- =?utf-8?B?TTlVQUZtVjBmcjM3VHpLdE41MDVKMmczUGloaG43WUlvVDNpSnVxVEJ0NHJT?=
- =?utf-8?B?OGVTZzhncVVlSzg0ZUR6bmp5T2VWWDdhKzVkTHZKTzFEbE1Eb1doVUJyWVgr?=
- =?utf-8?B?RGxqMHhlUGZLcEY4NzBFdmRiOU43TytmdlZ6VTdNamhaZmdkcnAwbmJ4VWJj?=
- =?utf-8?B?eFllVG44K1N4SjluZnV1bGRndkkvVjY2TTk4SkNjWmpnQUo2UkVYQjVoc1ZX?=
- =?utf-8?B?cmI4dk1pL1I3L3cyU3FaUGVYWi9qRGdvNUlRYVFES20zRW9XYWFCak1zb1o2?=
- =?utf-8?B?T1RqRVYzRWlLNlJrcitkQkQ5YVlyMFg0aVhMcmFGMjdsS1hVeDJiNkowYkM4?=
- =?utf-8?B?QWV0WUN6dkdXYVhOeGlxT1NyaGpFL05WQVVZc3ZZTnFuNkxEdTgvN2QxOVZS?=
- =?utf-8?B?S1J2Zm0vSFkwRUx2R09wOHU1Y1gwM1d2d3JxTVcrRGhyaldaYjE4akpGL3hn?=
- =?utf-8?B?a3N6Ly9BTU1LS1JKTUVjUFdGSzlVS21nT014Y014OWlGV3dUKzFZNWtMaklT?=
- =?utf-8?B?ZFlITFdaTml3M3lvNG1YUFJpZU16VkVKMXRGQkx0ampkYjlhTGJmWWgvT3ps?=
- =?utf-8?B?dUczd0ErSFJOOWhBQ2ZZR0hldjRCeU43SlBKTHFmMlVrT3VqQTVocjdlN1Bz?=
- =?utf-8?B?Q2FXSUR1dWQrSkVPQzhQSjZ3MFFKeWFFeUtTYUpBRWh2OGYvcmoycHNUaEty?=
- =?utf-8?B?STg1eXNpTlltaDZUb29ySWxJZGw5bEc5ck5RdUlWTXBWWmlNU0xEMnQ3OEhO?=
- =?utf-8?B?TytFUFhtYkV0bEUvNkVFN1NmRlV6ek5uSXZRS2RzVHpXVVhOTnBIQzZ1S1Vy?=
- =?utf-8?B?eW91Nm1oVzFoTXNuQ3FpMm93aDZST2dsb0hqc2JneXh4bG85SzhVdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M2hNeGJuRHFIRlFTV2VLbUhwVU12RUJXbDFzY2lvWXB1dmkxNlFIV1hJOEtr?=
+ =?utf-8?B?aEJpVlA2dnNhRU15eE9LRlhBQXc0enhvR3RTdGxFVVZCc3g4T2kwdjZjYjhE?=
+ =?utf-8?B?bjEyZE5MemZ2UndDKzRDZVNmRzU5K3lGS2xnTFVLV29xYUphRXpNUzd5bytT?=
+ =?utf-8?B?ZW14cWg0M0VSQ2hiSDVpYzFNcG82S2paMVVZWndOUFZiNis0dXdVQTRhQ0JC?=
+ =?utf-8?B?Z0RlaDQya1M0MGVGSzRJZjA0TE4zRStIY1BvSTcxRXBrQyt2TUpIalBlbmhy?=
+ =?utf-8?B?ZjU3aGdBTUx0cG1tdmN0RzhnaVc4eW5yNkhqc3RhTTBzVEpKYUpuNzF0Nit0?=
+ =?utf-8?B?d3hlS3RNN2VJUEhubE5CT2w5SHJZNzREQlBvZzViNExGanpUa2VwTk5HN1o0?=
+ =?utf-8?B?SlduR2tEeDlEaWo1K0YzaVhEL2F4U0R4RmtXU0xJbHZ6N0xrNTlLWlREcExq?=
+ =?utf-8?B?SXhDdm5JU2hBTURONWpxZDBhWkhDOGFZVUdkMEk0TTMrSERsYjR0WmI0UlNh?=
+ =?utf-8?B?R2x3WE0xZldBbnR2alZHdHJsa3NZOTVIdDNYWjVDNUhIZk5VNkVhUEFSZWxK?=
+ =?utf-8?B?VHVHWklVVXZuRlZmSE1BZzNXczhkMTRISEhMcHZ2ZFlZMnZ4RmJ2dkZLQjdR?=
+ =?utf-8?B?K2FhT2xVZVNzZ1ZUVWxZaC8rdHRkZHFiYUk4L3FJWGUxa2gwaGFUTFhsSWlw?=
+ =?utf-8?B?UnB1d01GcDY0OHNLTWc0cEdRQjUvci9YQUdPY29ZTXNDKzZ6RktOTXNncXFN?=
+ =?utf-8?B?OTEyeCtuTVRJYUJQMFV3T01VY3VON3RwK2QrTGFoVFJuRDBuanJPOEtUblhw?=
+ =?utf-8?B?R1pjcHRwbFJBZFVHWjZ2dFl0bWtjaWZjSzE4aWZJV3h0T1hOTWVTaFhaYVVY?=
+ =?utf-8?B?VTVnYklhNFBIOEV3UFdhd1hZOCtDaUJlQjZuZnArS3JxZlhsRHBuUmlxeXBx?=
+ =?utf-8?B?KzVtMFEwcGcyK2hlY3QxRDdwalpycU5XdUxLTkRtLzcweWQvTTYvcWpBZ2hm?=
+ =?utf-8?B?ZzVFQ3J5SFVHQVBocU9Nc0Q4K2dNYkN5QVI0a1NxakhmbU5OR3JWNlJGVGJk?=
+ =?utf-8?B?Y2VjU1B5dDFUc0FYMmJmVXAyUWlHbFVtV01SNHNOVzZHM0VGZkVnSW1QSEd4?=
+ =?utf-8?B?MmNlMUUxWDQ0OGU0d0F2WEtYaVNDTGphZjhQWkEzNWY2L2JvNXEvdXZMNmdz?=
+ =?utf-8?B?RzVMditpUFJUSW5yZEU3NFlsWlZvQnpRVWtvaWJFVjd2TldUekpVTTF3b28r?=
+ =?utf-8?B?YU5xeFYwMnBMV0IvamVyNS9WZDI3QVdnbWVLRE1BY0k2b3FSU0Yyc2dCbTN1?=
+ =?utf-8?B?dGR1SmVhQlZrMTk5ZTNxc2tGU2x1aTNDWkFjQkcwSjJrekMzMysxam4wRXdi?=
+ =?utf-8?B?QkZDK1dKblF4emhSMDZvdm50cDUrL0wzZ0JmUnh3REY3UzhYOWlGRWp4M2lx?=
+ =?utf-8?B?Q2c3ZzN6SVlza3E0NjBaRklidDdvWmo3cG8vUGwxRmVldkp0ejdRaFJPQkdr?=
+ =?utf-8?B?R2QzbktTeTlDNkxkanZrcFc5dVBmZ2FxeDBXOVprTW8rRW9JbDBCRWR4YjFq?=
+ =?utf-8?B?Z3Z6aXhMR3pGdk9odFlkTzNqandwWjNWVEtzSWl2TFRlZWpobUFwbUxzSFlt?=
+ =?utf-8?B?VVc1d2xhNllGb0lySTlBODhZM0RONDV1elNFYnVGMHZIN3doU0I2M3dnRDhC?=
+ =?utf-8?B?ek1MYmhQakMzaFZNOFBBZ0VWWUE0azNoQlZTRURoMk9TTnFMV0VnVFc4ZHFG?=
+ =?utf-8?B?QnR2YkFyY3RPQlFIcVVUbEhteDJMUmVpQXZKSDZxQ1FMdlFkZjlEUjFxdGY4?=
+ =?utf-8?B?aklPSkhyNXg2NE9ySTJ5akVSUER2Z0xDNlFMWFpadmhyNjR1TS9KUXdvZjdh?=
+ =?utf-8?B?RUZrUEl0NnFFdkNmblpuV1d3NnR5Tk40Um5DVFVZRWNoc1dPR01ubnU4QVpn?=
+ =?utf-8?B?azBZODMwT255SHA0Sm9FSTJJWTVoWWRmcjNMT2hYYTRZVE1JbVVMTVlndzNR?=
+ =?utf-8?B?Q3h5Q3FtY0x3TmZtS1h0cklvNmkvcks4U3dycCttbXpvcW9FVE9sWG5GQ2VF?=
+ =?utf-8?B?VTBteUkzTVVrd1lFWjdWK0ZjcUVCT3Y2Nm9semhuSmZ0Nm01bzRYbWcwTi9h?=
+ =?utf-8?B?R2R4OWZYR3JJeEVnT015VjJhRm01RFk4WEFOM0Y0R2pIZ2dnQnU4OHk4YVVG?=
+ =?utf-8?B?THZpdWwvSGNUZmppQnRJZFVFMnV4dlBHaXlWSWtNTUlYYVVEQXZkcFRGTGtN?=
+ =?utf-8?B?Nlh0K2hvMEdYcjN2RDhXcDYzdmNZTVlEWFZMWHJXNUZjVlFydXB0dmovRWpV?=
+ =?utf-8?B?ZnpKT3RRVndLUy9yU2RWelBxd2xxYkJiYmd2eDZaSm9tQ2hUcGFTZz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75a42c06-4ba3-4701-46b7-08dec48ec0a6
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b05458c-85b5-4088-cbfa-08dec48f7b80
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2026 12:17:33.0642 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2026 12:22:46.5368 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: v76kazmi6Q0UIsuFF/tbOb3f8YQY9A8Fw4lj+XBqLpmsCCqD1UN1LN53S2BxTju4ptWSoYiPLl3A5hp3pyttGw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB6776
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9vQdad7xgI6MgWjxkKT/wVzGY280WA6yyCt589qnNtLi9AIZqa9yAeZ+7GkDFOMxsVnbDW/jOls5tPg4qIVzqQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB3214
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,104 +149,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun Jun 7, 2026 at 3:07 AM BST, Alexandre Courbot wrote:
-> On Fri Jun 5, 2026 at 4:24 AM JST, Lyude Paul wrote:
->> Most of this patch series has already been pushed upstream, this is just
->> the second half of the patch series that has not been pushed yet + some
->> additional changes which were required to implement changes requested by
->> the mailing list. This patch series is originally from Asahi, previously
->> posted by Daniel Almeida.
->>
->> The previous version of the patch series can be found here:
->>
->> 	https://patchwork.freedesktop.org/series/164580/
->>
->> Branch with patches applied available here:
->>
->> 	https://gitlab.freedesktop.org/lyudess/linux/-/commits/rust/gem-shmem
->>
->> This patch series applies on top of drm-rust-next
->>
->> Patch-series wide changes since V15:
->> * Fix some major rebasing errors I somehow didn't notice :(
->> * Drop the dependency on LazyInit, use the trick that Alice suggested
->>   instead.
->> * Fix dependency ordering so that Tyr can get the vmap stuff first
->>   without the other bits.
->> Patch-series wide changes since V16:
->> * Fix ordering one more time (SetOnce::reset() doesn't need to come
->>   before adding vmap functions)
->> * Rebase against the latest DeviceContext changes from me that got
->>   pushed.
->>
+On Thu Jun 4, 2026 at 8:24 PM BST, Lyude Paul wrote:
+> Just a temporary holdover to make locking/unlocking the dma_resv lock muc=
+h
+> easier.
 >
-> Not a problem of this series, but when trying to build it I initially
-> got these warnings/errors:
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> Co-authored-by: Alexandre Courbot <acourbot@nvidia.com>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 >
-> CLIPPY L rust/kernel.o
-> warning: gendwarfksyms: symbol_print_versions: no information for symbol =
-_RNvMs1_NtNtCsjYlAz7NZ3Sw_4core3mem12maybe_uninitINtB5_11MaybeUninitINtNtCs=
-buTvttuFvbr_6kernel6devres6DevresINtNtNtNtB18_3drm3gem5shmem10SGTableMapNtN=
-tB1K_5tests11KunitObjectNtNtB1O_6device6UninitEEE16assume_init_dropB18_
+> ---
+> V17:
+> * Fix format of commit message title
+>
+>  rust/kernel/drm/gem/shmem.rs | 31 ++++++++++++++++++++++++++++++-
+>  1 file changed, 30 insertions(+), 1 deletion(-)
+>
+> diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+> index 084b798ce795b..650c34dd8b7a4 100644
+> --- a/rust/kernel/drm/gem/shmem.rs
+> +++ b/rust/kernel/drm/gem/shmem.rs
+> @@ -30,7 +30,10 @@
+>          Deref,
+>          DerefMut, //
+>      },
+> -    ptr::NonNull, //
+> +    ptr::{
+> +        self,
+> +        NonNull, //
+> +    },
+>  };
+>  use gem::{
+>      BaseObjectPrivate,
+> @@ -244,3 +247,29 @@ impl<T: DriverObject, C: DeviceContext> driver::Allo=
+cImpl for Object<T, C> {
+>          dumb_map_offset: None,
+>      };
+>  }
+> +
+> +/// Private helper-type for holding the `dma_resv` object for a GEM shme=
+m object.
+> +///
+> +/// When this is dropped, the `dma_resv` lock is dropped as well.
+> +///
+> +// TODO: This should be replace with a WwMutex equivalent once we have s=
+uch bindings in the kernel.
+> +struct DmaResvGuard<'a, T: DriverObject, C: DeviceContext =3D Registered=
+>(&'a Object<T, C>);
+> +
+> +impl<'a, T: DriverObject, C: DeviceContext> DmaResvGuard<'a, T, C> {
+> +    #[inline(always)]
 
-IMO we really shouldn't use Clippy to generate code. We spent too much effo=
-rt in
-fixing codegen issues that are only present when driven by clippy.
-
-We should just run a check phase with clippy to get the lints only, and the=
-n use
-rustc to generate actual code.
+Why `always` here?
 
 Best,
 Gary
 
-> ...
-> .vmlinux.export.c:8577:500: warning: null character ignored [-Wnull-chara=
-cter]
->  8577 |   ...<U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0=
-000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000>...
->       |      ^
-> .vmlinux.export.c:8577:501: warning: null character ignored [-Wnull-chara=
-cter]
->  8577 |   ...<U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0=
-000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000>...
->       |      ^
-> .vmlinux.export.c:8577:502: warning: null character ignored [-Wnull-chara=
-cter]
->  8577 |   ...<U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0=
-000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000>...
->       |      ^
-> .vmlinux.export.c:8577:503: warning: null character ignored [-Wnull-chara=
-cter]
->  8577 |   ...<U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0=
-000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000>...
->       |      ^
-> ...
-> .vmlinux.export.c:24529:2: error: embedding a #include directive within m=
-acro arguments is not supported
->  24529 | #include <linux/module.h>
->        |  ^
-> .vmlinux.export.c:8577:1: note: expansion of macro 'KSYMTAB_FUNC' request=
-ed here
->  8577 | KSYMTAB_FUNC(_RINvXsi_NtNtCsbuTvttuFvbr_6kernel4sync3arcINtB6_9Un=
-iqueArcINtNtNtCsjYlAz7NZ3Sw_4core3mem12maybe_uninit11MaybeUninitIN...
->       | ^
-> .vmlinux.export.c:8577:1: error: unterminated function-like macro invocat=
-ion
->  8577 | KSYMTAB_FUNC(_RINvXsi_NtNtCsbuTvttuFvbr_6kernel4sync3arcINtB6_9Un=
-iqueArcINtNtNtCsjYlAz7NZ3Sw_4core3mem12maybe_uninit11MaybeUninitIN...
->       | ^
-> ../include/linux/export-internal.h:62:9: note: macro 'KSYMTAB_FUNC' defin=
-ed here
->    62 | #define KSYMTAB_FUNC(name, ns)  __KSYMTAB(name, KSYM_FUNC(name), =
-ns)
->       |         ^
->
-> This is fixed by [1]. Maybe we should merge that one patch separately
-> and before the rest? I seem to be seeing these long symbol problems more
-> often recently.
->
-> [1] https://lore.kernel.org/all/20260605-nova-exports-v4-1-e948c287407c@n=
-vidia.com/
+> +    #[expect(unused)]
+> +    fn new(obj: &'a Object<T, C>) -> Self {
+> +        // SAFETY: This lock is initialized throughout the lifetime of `=
+object`.
+> +        unsafe { bindings::dma_resv_lock(obj.raw_dma_resv(), ptr::null_m=
+ut()) };
+> +
+> +        Self(obj)
+> +    }
+> +}
+> +
+> +impl<'a, T: DriverObject, C: DeviceContext> Drop for DmaResvGuard<'a, T,=
+ C> {
+> +    #[inline(always)]
+> +    fn drop(&mut self) {
+> +        // SAFETY: We are releasing the lock grabbed during the creation=
+ of this object.
+> +        unsafe { bindings::dma_resv_unlock(self.0.raw_dma_resv()) };
+> +    }
+> +}
 
 
