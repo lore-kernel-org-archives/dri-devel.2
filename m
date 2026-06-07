@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3B93CD8C8C
-	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 20:25:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11D3DCD8C90
+	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 20:33:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14C1E10EB74;
-	Sun,  7 Jun 2026 20:25:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA7F610EB79;
+	Sun,  7 Jun 2026 20:33:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OjAohl+b";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e19wLFGO";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5849610EB74
- for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 20:25:21 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A318C10EB79
+ for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 20:33:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A07A16001D
- for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 20:25:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7355A1F00893;
- Sun,  7 Jun 2026 20:25:19 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4CB7243BC1;
+ Sun,  7 Jun 2026 20:33:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BDD21F00893;
+ Sun,  7 Jun 2026 20:33:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780863920;
- bh=pe1fpB+5lYrRoR2jTFmpyFcx6mcbHWxaEz+Nofft1EQ=;
+ s=k20260515; t=1780864385;
+ bh=p1RJNXeAsGmR6+OwONxvRtLzxnGOBcZAT8e+XiwXko0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=OjAohl+bOWjytAuxfHcLEJNEwp/c8OOdOJkM5TlicueCaWRuKSJuCJCT0pR6s54dc
- eUuTBxvD6pN1sEuTdjiDzRhVk2QxuG/tFE49Qn0w7fDaQ6id9LourNtqXxPdalUwhe
- j+/4/vB83fPtkqV97t6Aevx8efaUMCkMq9TklA0fuceh1H1MipZTB/N/yBjocjLCg0
- BwyR8+WUTnkJ7K1KYKpkyTnVW1P8zpS8RkUDg6IzxP7I1wyr9aEGaL51f4lbB2tdSK
- oNDs5FCrdZgNWmtQetgNT14D2kXVlZd86ZHD1N/dlbxpnx6pSPZYDrmrHsDnoWP5O3
- G2Fd4b+v35JjA==
+ b=e19wLFGOjUSnw4bn72500gWCYhsz4VsZQ7iAz4WA9maXyZVntzAaU1td5L5w5DLfZ
+ 3L28grm+4LiRf8pnMBTv4l0bPz0CXo0NyX4ci+7/WBn+aZyfhg11khSbybcsPzbSpI
+ Y1HVRn9NL0A12QcYaGisbVN3kneiy8gpuCvqKLpTeB4RGKZduXtRde3wZSqu3qqByg
+ pgiH6v5CYqcgbIM1fBg968OSF/Hk15eRfV7k04beyrJtXJ/DUkcjDkg0BcLVgKI2Bc
+ ZH7Aqm7vsusA7xaFIJPQ0hx3K76PWq4sE8KTFG34aILFqE8KNPOwRuXmcpSmDQ0ujy
+ p18aOF5NTRfFw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] drm/panel: Add panel driver for Chipone ICNA35XX
- based panels
-To: "Aaron Kling via B4 Relay" <devnull+webgeek1234.gmail.com@kernel.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260607-icna35xx-v4-2-64de514add34@gmail.com>
-References: <20260607-icna35xx-v4-2-64de514add34@gmail.com>
+Subject: Re: [PATCH 1/2] staging: fbtft: fb_ra8875: prefer usleep_range over
+ udelay
+To: "Georgii Druzhinin" <ilovelinuxgames@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260607201708.88644-1-ilovelinuxgames@gmail.com>
+References: <20260607201708.88644-1-ilovelinuxgames@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 07 Jun 2026 20:25:19 +0000
-Message-Id: <20260607202519.7355A1F00893@smtp.kernel.org>
+Date: Sun, 07 Jun 2026 20:33:04 +0000
+Message-Id: <20260607203305.0BDD21F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,167 +57,100 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Hardware back-powering due to incorrect reset GPIO initialization =
-and error handling.
-- [High] Backlight sysfs callbacks send MIPI DCS commands to an unpowered p=
-anel.
-- [High] Data race on `dsi->mode_flags` corrupts hardware state configurati=
-on.
-- [Medium] Shared static data mutation in DSI DSC configuration.
-- [Low] Missing Kconfig Dependency for DRM_DISPLAY_DSC_HELPER causes a buil=
-d failure.
+
+Pre-existing issues:
+- [High] Missing restoration of `par->fbtftops.write` on early error paths =
+in `write_reg8_bus8()` permanently degrades performance.
+- [High] Unaligned 16-bit memory access when writing to the transmit buffer.
 --
 
-commit cb6f31a048e6cc4b007cabd737760b76820c7eb7
-Author: Teguh Sobirin <teguh@sobir.in>
+commit f7268afc18ac218fe8bb9a291f101fccad374b35
+Author: Georgii Druzhinin <ilovelinuxgames@gmail.com>
 
-drm/panel: Add panel driver for Chipone ICNA35XX based panels
+staging: fbtft: fb_ra8875: prefer usleep_range over udelay
 
-This commit adds support for the ICNA3512 and ICNA3520 display controllers
-used in the AYN Odin 2 Portal, Ayaneo Pocket DS, AYN Odin 3, and Thor top
-panels. It introduces unique compatibles for each panel while sharing the
-common DDIC driver handling.
+This commit replaces udelay(100) with usleep_range(100, 120) in
+write_reg8_bus8() to avoid busy-waiting and allow the scheduler to
+utilize the CPU during the delay.
 
-> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-> index 7450b27622a23..1368b5a0b6c91 100644
-> --- a/drivers/gpu/drm/panel/Kconfig
-> +++ b/drivers/gpu/drm/panel/Kconfig
-> @@ -105,6 +105,17 @@ config DRM_PANEL_BOE_TV101WUM_LL2
->  	  Say Y here if you want to support for BOE TV101WUM-LL2
->  	  WUXGA PANEL DSI Video Mode panel
+> diff --git a/drivers/staging/fbtft/fb_ra8875.c b/drivers/staging/fbtft/fb=
+_ra8875.c
+> index 0ab1de6647d07..6058934e2ca2c 100644
+> --- a/drivers/staging/fbtft/fb_ra8875.c
+> +++ b/drivers/staging/fbtft/fb_ra8875.c
+> @@ -210,7 +210,7 @@ static void write_reg8_bus8(struct fbtft_par *par, in=
+t len, ...)
+>  	}
+
+[Severity: High]
+This is a pre-existing issue, but returning early in the error paths
+above this code seems to skip restoring the write function pointer.
+
+If the SPI write fails earlier in write_reg8_bus8(), we return directly:
+
+write_reg8_bus8() {
+        ...
+        par->fbtftops.write =3D write_spi;
+        ...
+        ret =3D par->fbtftops.write(par, par->buf, 2);
+        if (ret < 0) {
+                va_end(args);
+                dev_err(...);
+                return;
+        }
+        ...
+}
+
+Does this leave the device in a permanently degraded state where all
+subsequent operations use the unoptimized write_spi function instead
+of restoring fbtft_write_spi at the end of the function?
+
+>  	len--;
 > =20
-> +config DRM_PANEL_CHIPONE_ICNA35XX
-> +	tristate "Chipone ICNA35XX panel driver"
-> +	depends on OF
-> +	depends on DRM_MIPI_DSI
-> +	depends on BACKLIGHT_CLASS_DEVICE
-> +	select DRM_DISPLAY_HELPER
+> -	udelay(100);
+> +	usleep_range(100, 120);
+> =20
+>  	if (len) {
+>  		buf =3D (u8 *)par->buf;
 
-[Severity: Low]
-Will this cause a build failure if DRM_DISPLAY_DSC_HELPER isn't enabled
-elsewhere?
-
-The panel driver unconditionally calls drm_dsc_pps_payload_pack() in its
-initialization sequence, such as in icna3512_init_sequence().
-
-Without explicitly selecting the DSC helper here, building the kernel with
-this panel driver could result in an undefined reference linker error.
-Should we add a select for DRM_DISPLAY_DSC_HELPER?
-
-> diff --git a/drivers/gpu/drm/panel/panel-chipone-icna35xx.c b/drivers/gpu=
-/drm/panel/panel-chipone-icna35xx.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-chipone-icna35xx.c
 [ ... ]
-> +static int icna35xx_prepare(struct drm_panel *panel)
-> +{
-> +	struct panel_info *pinfo =3D to_panel_info(panel);
-> +	int ret;
-> +
-> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(panel_supplies), pinfo->suppli=
-es);
-> +	if (ret < 0) {
-> +		dev_err(panel->dev, "failed to enable regulators: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	icna35xx_reset(pinfo);
-> +
-> +	ret =3D pinfo->desc->init_sequence(pinfo);
-> +	if (ret < 0) {
-> +		regulator_bulk_disable(ARRAY_SIZE(panel_supplies), pinfo->supplies);
+
+> @@ -231,7 +231,7 @@ static void write_reg8_bus8(struct fbtft_par *par, in=
+t len, ...)
+> =20
+>  	/* restore user spi-speed */
+>  	par->fbtftops.write =3D fbtft_write_spi;
+> -	udelay(100);
+> +	usleep_range(100, 120);
+>  }
+
+While reviewing this file, I also noticed another pre-existing issue in
+write_vmem16_bus8() that might need attention:
 
 [Severity: High]
-Does this error path need to assert the reset GPIO before disabling the
-regulators?
+This is a pre-existing issue, but does write_vmem16_bus8() cause unaligned
+memory accesses on the transmit buffer?
 
-If the initialization sequence fails, the regulators are turned off while t=
-he
-reset GPIO remains deasserted. Leaving the unpowered panel driven by the GP=
-IO
-signal could cause hardware back-powering issues.
+The txbuf16 pointer is initialized by adding 1 to a void pointer:
 
-[ ... ]
-> +static int icna35xx_disable(struct drm_panel *panel)
-> +{
-> +	struct panel_info *pinfo =3D to_panel_info(panel);
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D pinfo->dsi };
-> +
-> +	pinfo->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+write_vmem16_bus8() {
+        ...
+        txbuf16 =3D par->txbuf.buf + 1;
+        ...
+        for (i =3D 0; i < to_copy; i++)
+                txbuf16[i] =3D cpu_to_be16(vmem16[i]);
+        ...
+}
 
-[Severity: High]
-Can this non-atomic modification to dsi->mode_flags race with the backlight
-sysfs callbacks?
+Since par->txbuf.buf is a void pointer, adding 1 increments it by exactly
+1 byte, making the address strictly odd.
 
-Since icna35xx_bl_update_status() also dynamically toggles MIPI_DSI_MODE_LPM
-using non-atomic bitwise operations, a data race could occur if backlight
-sysfs callbacks execute concurrently with DRM atomic modeset operations.
-
-Could this silently corrupt the DSI host configuration by leaving the mode
-flags in the wrong state? Is locking needed to serialize access to these
-flags?
-
-[ ... ]
-> +static int icna35xx_bl_update_status(struct backlight_device *bl)
-> +{
-> +	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
-> +	u16 brightness =3D backlight_get_brightness(bl);
-> +	int ret;
-> +
-> +	dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-> +
-> +	ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-
-[Severity: High]
-Could this dispatch MIPI DCS commands to an unpowered panel?
-
-Because the backlight device is registered manually, it remains accessible =
-to
-userspace even when the panel is unprepared and suspended. If userspace
-writes to the sysfs brightness attribute at that time, it might trigger bus
-timeouts or host controller crashes.
-
-Should this callback, along with icna35xx_bl_get_brightness(), verify the
-panel's power state before sending DCS transactions?
-
-[ ... ]
-> +static int icna35xx_probe(struct mipi_dsi_device *dsi)
-> +{
-> +	struct device *dev =3D &dsi->dev;
-> +	struct panel_info *pinfo;
-> +	int ret;
-[ ... ]
-> +	pinfo->reset_gpio =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-
-[Severity: High]
-Could requesting this GPIO with GPIOD_OUT_LOW cause back-powering during
-probe?
-
-For a typical active-low reset pin, this logically deasserts it, potentially
-driving a high voltage into the panel IC immediately during probe while its
-regulators are still turned off.
-
-Should it be initialized to a safe asserted state like GPIOD_OUT_HIGH
-instead?
-
-[ ... ]
-> +	pinfo->dsi->lanes =3D pinfo->desc->lanes;
-> +	pinfo->dsi->format =3D pinfo->desc->format;
-> +	pinfo->dsi->mode_flags =3D pinfo->desc->mode_flags;
-> +	pinfo->dsi->dsc =3D &pinfo->desc->dsc;
-
-[Severity: Medium]
-Since DSI host drivers dynamically compute and write DSC parameters into
-dsi->dsc, will assigning this to the statically allocated pinfo->desc->dsc
-mutate global data?
-
-This could lead to state leakage across driver unbind and rebind cycles, or
-cause race conditions if multiple panels of the same type are instantiated.
-Should the driver allocate a per-instance struct drm_dsc_config instead?
+Will the subsequent 16-bit writes in the loop cause an alignment fault on
+strict-alignment architectures like older ARM or MIPS often targeted by
+these display drivers?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260607-icna35xx-v=
-4-0-64de514add34@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260607201708.8864=
+4-1-ilovelinuxgames@gmail.com?part=3D1
