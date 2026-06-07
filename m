@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0441ACD8C88
-	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 15:31:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B1C0CD8C8E
+	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 15:50:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDC8710EA9B;
-	Sun,  7 Jun 2026 15:31:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D697B10EAA3;
+	Sun,  7 Jun 2026 15:50:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="KP2vm+9s";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="F4bvby5Y";
 	dkim-atps=neutral
 Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A1D710EA9B
- for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 15:31:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75FD310EAA3
+ for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 15:50:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1780846299; x=1781451099; i=deller@gmx.de;
- bh=9n5oaUj9TttvQUPf+gue7qUfKTd9DGiITCtTFeddBFQ=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ s=s31663417; t=1780847401; x=1781452201; i=deller@gmx.de;
+ bh=LoeR+NfgkHUVmJktRPuSDFt7XIsZOfbx5/ygDF5NY8M=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:
  References:From:In-Reply-To:Content-Type:
  Content-Transfer-Encoding:cc:content-transfer-encoding:
  content-type:date:from:message-id:mime-version:reply-to:subject:
  to;
- b=KP2vm+9sBjpcX73PwOBUtLWK1oV4CDB53IsXbiSBKGqj2YcGmDpxMEhw3rJVcvPP
- F15JygExbSQpWkK8MSnwvb8hBVeuPxaBp8Wgp7MyrRP75WThspEsRYILEzHItlI5R
- G5iLumUB45hUSHCK6TWNrlOj06h2ppnyy1XfR4v1KJmgit8lpwC7z5AHDbYGBnXDq
- 8H+Y3/tcpXILobPNg97OlKYs6xgKZ9oAMpa7CUN2t09hj1dfDjfWQjzpJ4inKvwQg
- fjtusX4GA4gJjZoHpeKgJqzjQjpw1nGJfBavZYuZ0oVwwBrNV5+w7HWDWBOIXvQJ0
- Sp6m7s0vlxtMUPr2mg==
+ b=F4bvby5YHK7trH6gtRpOCL+S8zx6ohyDQ47QS1KLC3VmdvoWo/BByy4zJSObRV05
+ mwpUgIbAL7QH52rL+xxJqXgeyyQEdHoqliOvum42r9g5zV/JyIbYAx7zs9MIkfC2A
+ gZsUzMoUTZCar7ZoQ9YjMTgZ7A/0n67wDrN7KddGvd/vV0UJMDrTpAkdyZ8ERw4FA
+ /pYvyw3haSjnZuygXeYDvHuiTbshmAwKoYV11cPcfnK7PeF5trxr9qiIfRaxP/Xb7
+ CVjmtlLxT4SMzzrQSeV0JGoBkPrbMnUlcfxwPsNlSrvKqfT3hWDd5+MaWx7jodGY7
+ AEqsiz18X2ws6PZPJQ==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
 Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1Mo6qp-1x3QQr3ibj-00ZOg8; Sun, 07
- Jun 2026 17:31:38 +0200
-Message-ID: <b1f96555-e222-4efd-8eed-963ff4f94ecf@gmx.de>
-Date: Sun, 7 Jun 2026 17:31:35 +0200
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MJmGP-1wpqyW2SWf-00VQqd; Sun, 07
+ Jun 2026 17:50:01 +0200
+Message-ID: <a2ed1741-f49c-4a16-8d4c-e6698bd3dd8b@gmx.de>
+Date: Sun, 7 Jun 2026 17:50:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/4] fbdev: Internalize fbcon
-To: Thomas Zimmermann <tzimmermann@suse.de>, geert@linux-m68k.org,
- simona@ffwll.ch, airlied@gmail.com, lukas@wunner.de, maddy@linux.ibm.com,
- mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org
-References: <20260527151551.258659-1-tzimmermann@suse.de>
+Subject: Re: [PATCH next] drivers/video/fbdev/sis: Replace strlen() strcpy()
+ pair with strscpy()
+To: david.laight.linux@gmail.com, Kees Cook <kees@kernel.org>,
+ linux-hardening@vger.kernel.org, Arnd Bergmann <arnd@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260606202744.5113-2-david.laight.linux@gmail.com>
 Content-Language: en-US
 From: Helge Deller <deller@gmx.de>
 Autocrypt: addr=deller@gmx.de; keydata=
@@ -89,90 +89,92 @@ Autocrypt: addr=deller@gmx.de; keydata=
  FwRDcGV6nxanxZGKEkSHHOm8jHwvQWvPP73pvuPBEPtKGLzbgd7OOcGZWtq2hNC6cRtsRdDx
  4TAGMCz4j238m+2mdbdhRh3iBnWT5yPFfnv/2IjFAk+sdix1Mrr+LIDF++kiekeq0yUpDdc4
  ExBy2xf6dd+tuFFBp3/VDN4U0UfG4QJ2fg19zE5Z8dS4jGIbLg==
-In-Reply-To: <20260527151551.258659-1-tzimmermann@suse.de>
+In-Reply-To: <20260606202744.5113-2-david.laight.linux@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:kdYW0vmi/C5c3FWbBM5rxOEiduxOc1eBP2SQ9iRtDNKHFnGQl+Y
- Js1o7u9fgzZ8DUuZF0E9VpGcR1wshDG7v8vnvfSAZYgLlBwsym+7oZryyIRnORMLhrodFa0
- ylj1eWvahsdX6Y4EdNZkNg+w+MF5yF5uFLvBLx/A45uyoqvAvwe2XgsSH5K0iNWprSAHkSI
- P27yExXZIBy/vpKMzhRQA==
-UI-OutboundReport: notjunk:1;M01:P0:CSgO2upRJZE=;6Mu7EJYG6q4uwMmn3UPhadhkEIp
- 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
- FdO23vUvBS77qqcwrZ60nZEQ==
+X-Provags-ID: V03:K1:rcwKPeJdyUCwFOSNY2NxezTzMKYHP3N3v4wUqRlM2FX7W5Nkicf
+ kWZbo7EFXEOBe18BOFjxkqin71CNyipFNW6o30a+UvoWjwDWQxNtnGEtRTKuJnVZEc2qgml
+ 57N1YP9y+kCvlVr2MArp5jIzPGyADimYbCeVet/O9HLvuG17BxvyY5HyEMEi8ja3TCNC1D7
+ 22GyNSSP1oUSjIIkaNXgQ==
+UI-OutboundReport: notjunk:1;M01:P0:ICURMcL0C2Y=;qVel1SbLfcAFMlAkPhitAqP8gib
+ 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
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -188,34 +190,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/27/26 17:14, Thomas Zimmermann wrote:
-> Turn fbcon into an internal client of fbdev. Manage all interactions
-> with graphics drivers within fbdev. Add helpers for these tasks and
-> convert drivers.
+On 6/6/26 22:27, david.laight.linux@gmail.com wrote:
+> From: David Laight <david.laight.linux@gmail.com>
 >=20
-> Fbdev's PS3 and SH-Mobile drivers update fbcon as part of user-invoked
-> mode changes. Call the new helpers, which also fix inconsistencies
-> among the various code paths.
+> Use the result of strscpy() for the overflow check.
 >=20
-> Vga-switcheroo remaps the fbcon terminals when switching physical
-> outputs. For now, hide this in another helper. The call will later
-> move into DRM's fbdev emulation.
->=20
-> With all refactoring in place, fbdev manages fbcon interactions by
-> itself. Remove the public interfaces.
->=20
-> v3:
-> - resolve vga-switcheroo dependencies wrt fbcon (Geert)
-> v2:
-> - use '#if defined' (Helge)
->=20
-> Thomas Zimmermann (4):
->    fbdev: Wrap user-invoked calls to fb_set_var() in helper
->    fbdev: Wrap user-invoked calls to fb_blank() in helper
->    fbdev: Wrap fbcon updates from vga-switcheroo in helper
->    fbdev: Do not export fbcon from fbdev
-The v2 series is now dropped, and instead the v3 series is applied to fbde=
-v git tree.
+> Signed-off-by: David Laight <david.laight.linux@gmail.com>
+
+Hi David,
+
+I've applied your 5 patches to the fbdev git tree.
 
 Thanks!
 Helge
