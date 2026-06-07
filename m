@@ -4,54 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A35F2CD8C8C
-	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 06:32:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4225BCD8C8C
+	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 07:22:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E78A10E960;
-	Sun,  7 Jun 2026 06:32:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23C1C10E2D6;
+	Sun,  7 Jun 2026 07:22:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="kOtcEY9y";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z03Y2FEa";
 	dkim-atps=neutral
-Received: from smtp.smtpout.orange.fr (smtp-17.smtpout.orange.fr
- [80.12.242.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4D1110E960
- for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 06:32:38 +0000 (UTC)
-Received: from [IPV6:2a01:cb10:785:b00:8347:f260:7456:7662]
- ([IPv6:2a01:cb10:785:b00:8347:f260:7456:7662])
- by smtp.orange.fr with ESMTPSA
- id W73dwnUfCJkT6W73dwFmhI; Sun, 07 Jun 2026 08:32:36 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1780813956;
- bh=qnbMUaAUGWbhJ7kILtaMcBgwchhzxpm+oFvWPyiGaSk=;
- h=Message-ID:Date:MIME-Version:Subject:To:From;
- b=kOtcEY9yrMD2rh1xwEPTX/vzt1SW3y0/l8dFkhASECYsn0Nvar2NLusK5OuhRMv3h
- Z6ce9NujD5LDU77KDYjf7y9eP003GlCp8EMJLfqrvTAm8GH3/HsgjQNxNZ2TYFIRZ+
- 14YmCrgonL2yL6TA9TNpxbqruf8tt5+MnHZ6E0Df+QgMTmx9dqNvM36XZ+gXyKANPr
- xPwJ86WLT87a7J8N3a+AEKh1NsuVwcn60pPxlTp1VND8Lr+fCG6zAuL3rDdqbfkpIA
- 1P559zwHmZdEK4sJJGLjovz8XLHH0lIuq333T/4N5B7p0AQe4zIp5R6a9cnJyqzwQn
- 70hkyT6x8KxpQ==
-X-ME-Helo: [IPV6:2a01:cb10:785:b00:8347:f260:7456:7662]
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Sun, 07 Jun 2026 08:32:36 +0200
-X-ME-IP: 2a01:cb10:785:b00:8347:f260:7456:7662
-Message-ID: <81cb20eb-a27a-45f4-98dc-7d529b3ac0b9@wanadoo.fr>
-Date: Sun, 7 Jun 2026 08:32:27 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9984610E2D6
+ for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 07:22:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 688A544277;
+ Sun,  7 Jun 2026 07:22:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 219DF1F00893;
+ Sun,  7 Jun 2026 07:22:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780816932;
+ bh=Nuzco7IGxuavqKddyKcXIMXeEDthh+2UWERv5CPzuzE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Z03Y2FEaj1Mch29pSYOg5Li93jqLfUgDDV7tkuRMFPaasz+06uzr3fnLPsCvh4pW1
+ HV4fV3GIn/yq3019PsgiB7ZYjdEWKi74fpxV6xor4I8PPGcEr3BVJFCGYcWDDus1WU
+ r6b1UCk8DHolRXQNZ2tOKHDVVJ22Pv1TMmirnXvPQ4XFw0K6nz83xO0t7HmQBa1PDD
+ L6/VejkjGoxldWsZtc6anVd4VZz70ujDPF/IlLNHk6j1Er9JiVZNN1OqAZvpSCvOkT
+ gU29YJKxvgzNoLtX1YxHyy/eg/PuNH2Tk9MKjjcyr3CHEux2TvLDfdrntUGg+fPObe
+ 9HRz3t12jBu3g==
+Date: Sat, 6 Jun 2026 21:22:11 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Maarten Lankhorst <dev@lankhorst.se>
+Cc: Natalie Vock <natalie.vock@gmx.de>, Eric Chanudet <echanude@redhat.com>,
+ Maxime Ripard <mripard@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+ cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Albert Esteve <aesteve@redhat.com>
+Subject: Re: [PATCH] cgroup/dmem: accept only one region per limit write
+Message-ID: <aiUcI8Ecsc7I8N41@slm.duckdns.org>
+References: <20260605-cgroup-dmem-write-single-region-v1-1-9137f296579c@redhat.com>
+ <271b1c16-3c3c-4a1e-b09e-c4361c63814c@gmx.de>
+ <f00e7771-cd70-4c86-9fac-149897e02b12@lankhorst.se>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/sun4i: fix refcount leak in sun4i_backend_init_sat()
-To: Wentao Liang <vulab@iscas.ac.cn>, wens@kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, jernej.skrabec@gmail.com,
- samuel@sholland.org
-Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260607030950.83636-1-vulab@iscas.ac.cn>
-Content-Language: en-US, fr-FR
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-In-Reply-To: <20260607030950.83636-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f00e7771-cd70-4c86-9fac-149897e02b12@lankhorst.se>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,46 +62,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Le 07/06/2026 à 05:09, Wentao Liang a écrit :
-> When sun4i_backend_init_sat() calls reset_control_deassert() it
-> increments the deassert_count of the reset controller, and must
-> pair that with a reset_control_assert() call to decrement it.
-> In the error path where clk_prepare_enable() fails, the function
-> returns immediately without calling reset_control_assert(), leaking
-> the reference count.  Other error paths, like the devm_clk_get()
-> failure, correctly jump to the err_assert_reset label which performs
-> the missing assert.
+On Sat, Jun 06, 2026 at 11:44:10PM +0200, Maarten Lankhorst wrote:
+> > As I see it, we could go down one of two paths:
+> > 1. We go ahead with the patch as proposed, and I make sure that the users I know of adapt. Could be a bit icky wrt. "do not break userspace" rules, but since the already use non-merged UAPIs in one place, you can argue that these users kind of have to expect breakage.
+> > 2. We use the old handling allowing multiple lines for dmem.min and dmem.low only. This preserves compatibility but uglifies the code by quite a bit.
+> > 
+> > All things considered, I think I personally would prefer going with 1. and taking the patch as proposed and just having one codepath handling every limit file. Just highlighting this so we don't do it on accident.
+> > 
+> > [1] https://patchwork.freedesktop.org/series/163183/
+> > 
 > 
-> Fix the leak by using the existing err_assert_reset label in the
-> clk_prepare_enable error path instead of returning directly.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 440d2c7b127a ("drm/sun4i: backend: Handle the SAT")
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->   drivers/gpu/drm/sun4i/sun4i_backend.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/sun4i/sun4i_backend.c b/drivers/gpu/drm/sun4i/sun4i_backend.c
-> index bc35dad53b07..c9ec5fc26f7e 100644
-> --- a/drivers/gpu/drm/sun4i/sun4i_backend.c
-> +++ b/drivers/gpu/drm/sun4i/sun4i_backend.c
-> @@ -686,7 +686,7 @@ static int sun4i_backend_init_sat(struct device *dev) {
->   	ret = clk_prepare_enable(backend->sat_clk);
->   	if (ret) {
->   		dev_err(dev, "Couldn't enable the SAT clock\n");
-> -		return ret;
-> +		goto err_assert_reset;
->   	}
->   
->   	return 0;
+> I prefer option 1 as well, but would like an ack from one of the core cgroup maintainers too,
+> and what Maxime's opinion on this as well.
 
-Hi,
+Yeah, if at all possible, please drop the multi region write support if at
+all possible. This shouldn't have gotten in and yeah it's on the boundary
+but the fact that users need external patches works in our favor - both
+qualitatively and quantatively (the usage is likely tiny).
 
-another way to fix it and simplify the code at the same time would be to 
-use devm_reset_control_get_exclusive_deasserted() and 
-devm_clk_get_enabled().
+Acked-by: Tejun Heo <tj@kernel.org>
 
-just my 2c,
+Thanks.
 
-CJ
+-- 
+tejun
