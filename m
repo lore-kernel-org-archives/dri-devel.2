@@ -4,42 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9834CD8C88
-	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 03:17:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 918FACD8C8C
+	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 04:31:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BF1010E597;
-	Sun,  7 Jun 2026 03:17:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65C2910E92F;
+	Sun,  7 Jun 2026 04:31:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fsHwgoPE";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="MmfVwog+";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA5A310E597
- for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 03:17:00 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 03BFF600AE;
- Sun,  7 Jun 2026 03:17:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75AE41F00893;
- Sun,  7 Jun 2026 03:16:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780802219;
- bh=bY6vDxvG10977YRhrAOWRrWZUvwPRWsvPxykiEaDYDs=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fsHwgoPEeT7OVIoehvRjt7c1XeGoWH8AUVGVAMsFnfgntsiYvdErj0QRdDHOk2bMN
- XHzaO2EioE5tNEJdmIkXnvnkAmc6zBEpS9hvjTlECtxkCnxRzUROWWKL4Iva8K+NUm
- FWj4UjEy2lX5x/T4t3lMshM/Dh39fw+nCpy3inlI31WC02slZeUoKhkVbwkDcCuCmE
- n1rVnN/EdyVMnXNsBgha+fWPBv+xKrthvaGnfP4tBQMmzRCDqzIkJnBZOGUSl0c5RH
- cir89rODDOH0+Y6kmYC43UyGSIl+BHu2LM75xXODD3DYWiWK31cj4F4+c++ir+KoqR
- BWatIfV62zDVA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/sun4i: fix refcount leak in sun4i_backend_init_sat()
-To: "Wentao Liang" <vulab@iscas.ac.cn>
-Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260607030950.83636-1-vulab@iscas.ac.cn>
-References: <20260607030950.83636-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=utf-8
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25A5710E92F
+ for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 04:31:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1780806677;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:  in-reply-to:in-reply-to; 
+ bh=tJIc4lTQ5VEQdW4Bdd5ewfIILPKdPE/fkGdJi617v1s=;
+ b=MmfVwog+vK3cZBo4zIlmjH1UFcKaZQ5MjqrJX30BuX5nO0d2QnS7M2QlBHEgil7bAZvHby
+ NVNnHpq+ymWjAL5FKT66gNIODooKGY21TrAHCugBUDnz3xp+byd2D9bszQuIDg8HPU1Tng
+ a6T1bOt8RjSeceUWZNpaYRoxl4o67fw=
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-643-rDjVPXbOPMabo5g8vNsKbg-1; Sun, 07 Jun 2026 00:31:16 -0400
+X-MC-Unique: rDjVPXbOPMabo5g8vNsKbg-1
+X-Mimecast-MFC-AGG-ID: rDjVPXbOPMabo5g8vNsKbg_1780806675
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2c0c32f4b1bso34000055ad.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 06 Jun 2026 21:31:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780806675; x=1781411475;
+ h=content-transfer-encoding:date:message-id:subject:cc:in-reply-to:to
+ :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=/kn03nkG5UqdNCpQmwPSZkDa90XeYGbLCBrwibbaXb8=;
+ b=TYNcYx3gceMpNbD6dtvBn+gfdI8Cy9kTxOIUHQK9xwupmAUhlDR5MOjS5/UITkqoQJ
+ KJRYynCuNQHFrPKxUmbl0r9gb2VsFdLfMtI/ELDbGGhAeaKF0SLE3h1cxSKLcdFXEbmX
+ LBMRVKOtF7FTIdxaf2UeWP13OpEBU+mu/lG97MDzWHgszJzkhntb4MIJYHw6AKn2Fiwo
+ CtDNxYoIUqpFqYlVh+5ODMD8onOO7mZVqIWW8Kib6A70Ko9NRc9L+YPpLbnFCoGvcLIW
+ 2eqDfVGW0eBRnFux4Tvg/lpl/KJ/HGdJmTGlFgVITPQSXWPU9XpCpDTAQ+fepz0fvTtq
+ LQvw==
+X-Gm-Message-State: AOJu0YyrPr9tRBmQJiQGuwfXMHrjJymxQaCBbWu7PigAlOxFIveGm0w7
+ LVsDdswEY3KeKKExFWRmJpfkDvzjpYzjv84XcKSUxG/91OUDYgTUhisAumKFkwM4v6lPRPHjPSo
+ 9IbjTBTFZ/ER/5qKftWF1VyMw1MCrGxkPh1K8OBAzsFq97VTZzZk3WPWZXcW/82eyokW74Q==
+X-Gm-Gg: Acq92OHpcoTV0q6BWtBmPKzVF+1pTKvvQa1u0jMUKVLHjdU6vKTMHHZWUdmT2lbCJrX
+ GJNCl3Bf5gciVGUIbGqoWtkoghyIx0IjnCYjhylvSZTaaVX8hQ5rJsK+x3uQ71Xh0CmTgjn0pqI
+ um3t2yvVB/40FSkcZOqmklbirdr8c6KTO9Jsx6Mr5ViikWwnJSlRjsXe0gUYsUmou0s1aqpA2cW
+ Z5PfkcH+u74fPemG1MQsOZMTxHzHTYV1USdKiQJCbh37CvYcmCiRksrLtL8y8maM5Zz33wWME2o
+ Af6VI2LRHOQXZaZG0qsafOV27bSagSmTIymwP8aK1eKJVI9JUnOz62QCC/0c1f+LhKRvUf0Or9T
+ +zBnQMPPXmP3CTholE7mNAClfWV3IQy0D9T5XnnS8pvu8iYFxwwJ0eP3Q5zmNZkZLdylyXw==
+X-Received: by 2002:a17:903:46c3:b0:2c1:13b5:6c24 with SMTP id
+ d9443c01a7336-2c1e7f922a9mr110067995ad.20.1780806675134; 
+ Sat, 06 Jun 2026 21:31:15 -0700 (PDT)
+X-Received: by 2002:a17:903:46c3:b0:2c1:13b5:6c24 with SMTP id
+ d9443c01a7336-2c1e7f922a9mr110067705ad.20.1780806674565; 
+ Sat, 06 Jun 2026 21:31:14 -0700 (PDT)
+Received: from ryasuoka-thinkpadx1carbongen9.tokyo.csb ([126.143.164.49])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2c164f6d395sm189888395ad.17.2026.06.06.21.31.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 06 Jun 2026 21:31:13 -0700 (PDT)
+MIME-Version: 1.0
+From: "Ryosuke Yasuoka" <ryasuoka@redhat.com>
+To: "Dmitry Osipenko" <dmitry.osipenko@collabora.com>, 
+ "David Airlie" <airlied@redhat.com>, "Gerd Hoffmann" <kraxel@redhat.com>, 
+ "Gurchetan Singh" <gurchetansingh@chromium.org>, 
+ "Chia-I Wu" <olvaffe@gmail.com>
+In-Reply-To: <20260604122743.13383-1-dmitry.osipenko@collabora.com>
+Cc: <dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>, 
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v1] drm/virtio: Fix driver removal with disabled KMS
+Message-ID: <18b6b23ae1412a71.6d9db1e7acbb9813.37ad12b07518c586@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
+Date: Sun, 7 Jun 2026 04:31:08 +0000
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: ImVlfDtMplOp_wvV2CS3_3UG3jIOjMBAXA7i-rhA9tA_1780806675
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 07 Jun 2026 03:16:58 +0000
-Message-Id: <20260607031659.75AE41F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,123 +95,266 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+Hi Dmitry
 
-Pre-existing issues:
-- [High] Missing cleanup for SAT resources in sun4i_backend_bind() if devm_=
-regmap_init_mmio() fails, leaking SAT clock and reset state.
-- [High] Return values of clk_prepare_enable() are completely ignored, pote=
-ntially causing imprecise external aborts on clock enablement failure.
-- [High] Use of devm_ managed allocations inside the component bind() callb=
-ack causes resource leaks on every rebind.
---
-
-commit bc39d4e776a1c47107cfd91202ce280e5f321f36
-Author: Wentao Liang <vulab@iscas.ac.cn>
-
-drm/sun4i: fix refcount leak in sun4i_backend_init_sat()
-
-When sun4i_backend_init_sat() calls reset_control_deassert() it
-increments the deassert_count of the reset controller, and must
-pair that with a reset_control_assert() call to decrement it.
-In the error path where clk_prepare_enable() fails, the function
-returns immediately without calling reset_control_assert(), leaking
-the reference count.  Other error paths, like the devm_clk_get()
-failure, correctly jump to the err_assert_reset label which performs
-the missing assert.
-
-Fix the leak by using the existing err_assert_reset label in the
-clk_prepare_enable error path instead of returning directly.
-
-> diff --git a/drivers/gpu/drm/sun4i/sun4i_backend.c b/drivers/gpu/drm/sun4=
-i/sun4i_backend.c
-> index 03e46a2af6463..adf5b6e09ca64 100644
-> --- a/drivers/gpu/drm/sun4i/sun4i_backend.c
-> +++ b/drivers/gpu/drm/sun4i/sun4i_backend.c
-> @@ -686,7 +686,7 @@ static int sun4i_backend_init_sat(struct device *dev)=
- {
->  	ret =3D clk_prepare_enable(backend->sat_clk);
->  	if (ret) {
->  		dev_err(dev, "Couldn't enable the SAT clock\n");
-> -		return ret;
-> +		goto err_assert_reset;
->  	}
+On 04/06/2026 15:27, Dmitry Osipenko wrote:
+> DRM atomic and modesetting aren't initialized if virtio-gpu driver built
+> with disabled KMS, leading to access of uninitialized data on driver
+> removal/unbinding and crashing kernel. Fix it by skipping shutting down
+> atomic core with unavailable KMS.
+>=20
+> Fixes: 72122c69d717 ("drm/virtio: Add option to disable KMS support")
+> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+> ---
+>  drivers/gpu/drm/virtio/virtgpu_drv.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virti=
+o/virtgpu_drv.c
+> index f0fb784c0f6f..2aaa7cb08085 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
+> @@ -138,7 +138,10 @@ static void virtio_gpu_remove(struct virtio_device *=
+vdev)
 > =20
->  	return 0;
+>  =09virtio_gpu_release_vqs(dev);
+>  =09drm_dev_unplug(dev);
+> -=09drm_atomic_helper_shutdown(dev);
+> +
+> +=09if (drm_core_check_feature(dev, DRIVER_ATOMIC))
+> +=09=09drm_atomic_helper_shutdown(dev);
+> +
+>  =09virtio_gpu_deinit(dev);
+>  =09drm_dev_put(dev);
+>  }
 
-[Severity: High]
-This isn't a bug introduced by this patch, but there is a pre-existing issue
-where SAT resources are not cleaned up in sun4i_backend_bind() if
-devm_regmap_init_mmio() fails.
+The patch looks good to me at a glance. I haven't done a full, deep code
+review yet, but I've tested it on my lab and everything works as
+expected.
 
-If the device is compatible with sun8i-a33-display-backend,
-sun4i_backend_init_sat() successfully enables sat_clk and deasserts sat_res=
-et.
+Tested-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
 
-If the subsequent call to devm_regmap_init_mmio() fails:
+test info
+base-commit: ce73a5db44e3d5f9c0c061f0868ae209b59605f1 (drm-misc)
 
-drivers/gpu/drm/sun4i/sun4i_backend.c:sun4i_backend_bind() {
-    ...
-    backend->engine.regs =3D devm_regmap_init_mmio(dev, regs,
-                             &sun4i_backend_regmap_config);
-    if (IS_ERR(backend->engine.regs)) {
-        dev_err(dev, "Couldn't create the backend regmap\n");
-        ret =3D PTR_ERR(backend->engine.regs);
-        goto err_disable_ram_clk;
-    }
-    ...
-}
+Removing the virtio-gpu device by the following command, and the following
+panic message can be observed.
 
-Will jumping to err_disable_ram_clk skip calling sun4i_backend_free_sat() or
-otherwise clean up the SAT resources, permanently leaving the SAT clock ena=
-bled
-and the reset deasserted?
+# echo 1 > /sys/devices/pci0000\:00/0000\:00\:01.0/remove
 
-[Severity: High]
-This is another pre-existing issue not introduced by this patch, but the
-return values of clk_prepare_enable() are ignored in sun4i_backend_bind(),
-which might cause imprecise external aborts.
+[  330.048794] ------------[ cut here ]------------
+[  330.050023] WARNING: drivers/gpu/drm/drm_modeset_lock.c:319 at drm_modes=
+et_lock+0x118/0x120, CPU#5: bash/22216
+[  330.052581] Modules linked in: rfkill nft_fib_inet nft_fib_ipv4 nft_fib_=
+ipv6 nft_fib nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_c=
+t nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 nf_tables=
+ sunrpc qrtr vfat snd_hda_codec_generic fat intel_rapl_msr intel_rapl_commo=
+n snd_hda_intel snd_intel_dspcfg snd_hda_codec kvm_amd iTCO_wdt intel_pmc_b=
+xt snd_hwdep kvm snd_hda_core snd_pcm i2c_i801 irqbypass i2c_smbus snd_time=
+r snd lpc_ich soundcore virtio_balloon virtio_net net_failover failover joy=
+dev dm_multipath loop nfnetlink vsock_loopback vmw_vsock_virtio_transport_c=
+ommon vmw_vsock_vmci_transport vmw_vmci zram lz4hc_compress vsock lz4_compr=
+ess virtio_scsi virtio_gpu virtio_dma_buf serio_raw scsi_dh_rdac scsi_dh_em=
+c scsi_dh_alua i2c_dev qemu_fw_cfg virtiofs fuse
+[  330.067477] CPU: 5 UID: 0 PID: 22216 Comm: bash Not tainted 7.1.0-rc5 #9=
+ PREEMPT(lazy)
+[  330.069058] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS edk=
+2-20251119-3.fc43 11/19/2025
+[  330.070880] RIP: 0010:drm_modeset_lock+0x118/0x120
+[  330.071858] Code: e8 ad e3 48 ff 85 c0 75 c7 b8 f0 ff ff ff eb c2 0f 0b =
+e9 22 ff ff ff e8 06 82 5e 00 4c 8b 04 24 48 8b 4c 24 08 e9 40 ff ff ff <0f=
+> 0b e9 4e ff ff ff 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90
+[  330.075466] RSP: 0018:ffffd2f38ea6baf8 EFLAGS: 00010286
+[  330.076522] RAX: 0000000000000000 RBX: ffffd2f38ea6bb78 RCX: ffffd2f38ea=
+6bb78
+[  330.077939] RDX: ffff8ea806fd8000 RSI: ffffd2f38ea6bb78 RDI: ffff8ea8016=
+ce190
+[  330.079362] RBP: ffffd2f38ea6bb78 R08: ffff8ea8016ce170 R09: 000000000fe=
+6d5f1
+[  330.080785] R10: fffff93844235700 R11: ffff8ea80004f800 R12: 00000000000=
+00000
+[  330.082410] R13: ffff8ea8016ce000 R14: 0000000000000090 R15: ffff8ea8017=
+180d0
+[  330.083787] FS:  00007f202225f780(0000) GS:ffff8ea9ecea0000(0000) knlGS:=
+0000000000000000
+[  330.085395] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  330.086553] CR2: 00005567379b41a0 CR3: 00000001a100e000 CR4: 00000000007=
+50ef0
+[  330.087980] PKRU: 55555554
+[  330.088556] Call Trace:
+[  330.089041]  <TASK>
+[  330.089480]  ? rcutree_enqueue.isra.0+0x1e/0xe0
+[  330.090365]  drm_modeset_lock_all_ctx+0x29/0x3f0
+[  330.091274]  ? mnt_get_count+0x4d/0xa0
+[  330.091988]  ? __destroy_inode+0x8a/0x180
+[  330.092799]  drm_atomic_helper_shutdown+0x7b/0x120
+[  330.093779]  virtio_gpu_remove+0x57/0x70 [virtio_gpu]
+[  330.094784]  virtio_dev_remove+0x3f/0x90
+[  330.095595]  device_release_driver_internal+0x19e/0x200
+[  330.096626]  bus_remove_device+0xe4/0x1c0
+[  330.097425]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  330.098390]  ? device_remove_attrs+0xa1/0x100
+[  330.099224]  device_del+0x160/0x3d0
+[  330.099937]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  330.100881]  ? pci_bus_read_config_dword+0x4c/0x80
+[  330.101842]  device_unregister+0x17/0x70
+[  330.102629]  unregister_virtio_device+0x15/0x30
+[  330.103555]  virtio_pci_remove+0x3f/0x80
+[  330.104340]  pci_device_remove+0x4a/0xc0
+[  330.105094]  device_release_driver_internal+0x19e/0x200
+[  330.106142]  pci_stop_bus_device+0x63/0x80
+[  330.106995]  pci_stop_and_remove_bus_device_locked+0x1a/0x30
+[  330.108113]  remove_store+0x83/0xa0
+[  330.108830]  kernfs_fop_write_iter+0x147/0x200
+[  330.109773]  vfs_write+0x25d/0x480
+[  330.110483]  ksys_write+0x73/0xf0
+[  330.111140]  do_syscall_64+0xe2/0x560
+[  330.112093]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  330.113066]  ? irqentry_exit+0x40/0x6c0
+[  330.113858]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  330.114800]  ? do_syscall_64+0x99/0x560
+[  330.115551]  ? exc_page_fault+0x82/0x1d0
+[  330.116318]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[  330.117286] RIP: 0033:0x7f20222d0bbe
+[  330.117969] Code: 4d 89 d8 e8 34 bd 00 00 4c 8b 5d f8 41 8b 93 08 03 00 =
+00 59 5e 48 83 f8 fc 74 11 c9 c3 0f 1f 80 00 00 00 00 48 8b 45 10 0f 05 <c9=
+> c3 83 e2 39 83 fa 08 75 e7 e8 13 ff ff ff 0f 1f 00 f3 0f 1e fa
+[  330.121352] RSP: 002b:00007ffdb43331f0 EFLAGS: 00000202 ORIG_RAX: 000000=
+0000000001
+[  330.122797] RAX: ffffffffffffffda RBX: 00007f202244c5c0 RCX: 00007f20222=
+d0bbe
+[  330.124122] RDX: 0000000000000002 RSI: 00005567379b41a0 RDI: 00000000000=
+00001
+[  330.125459] RBP: 00007ffdb4333200 R08: 0000000000000000 R09: 00000000000=
+00000
+[  330.126839] R10: 0000000000000000 R11: 0000000000000202 R12: 00000000000=
+00002
+[  330.128205] R13: 0000000000000002 R14: 00005567379b41a0 R15: 00005567379=
+c3370
+[  330.129605]  </TASK>
+[  330.130073] ---[ end trace 0000000000000000 ]---
+[  330.130987] BUG: kernel NULL pointer dereference, address: 0000000000000=
+018
+[  330.131963] #PF: supervisor write access in kernel mode
+[  330.131963] #PF: error_code(0x0002) - not-present page
+[  330.131963] PGD 0 P4D 0
+[  330.131963] Oops: Oops: 0002 [#1] SMP NOPTI
+[  330.131963] CPU: 5 UID: 0 PID: 22216 Comm: bash Tainted: G        W     =
+      7.1.0-rc5 #9 PREEMPT(lazy)
+[  330.131963] Tainted: [W]=3DWARN
+[  330.131963] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS edk=
+2-20251119-3.fc43 11/19/2025
+[  330.131963] RIP: 0010:ww_mutex_lock+0x38/0x110
+[  330.131963] Code: 89 f4 55 53 48 89 fb 48 83 ec 20 65 48 8b 2d 57 93 21 =
+02 48 89 6c 24 18 31 ed 2e 2e 2e 31 c0 65 48 8b 15 53 93 21 02 48 89 e8 <f0=
+> 48 0f b1 13 75 53 4d 85 e4 74 2a 48 8d 6c 24 08 41 83 44 24 10
+[  330.131963] RSP: 0018:ffffd2f38ea6bae0 EFLAGS: 00010246
+[  330.131963] RAX: 0000000000000000 RBX: 0000000000000018 RCX: ffffd2f38ea=
+6bb78
+[  330.131963] RDX: ffff8ea806fd8000 RSI: ffffd2f38ea6bb78 RDI: 00000000000=
+00018
+[  330.131963] RBP: 0000000000000000 R08: ffff8ea8016ce170 R09: 000000000fe=
+6d5f1
+[  330.131963] R10: fffff93844235700 R11: ffff8ea80004f800 R12: ffffd2f38ea=
+6bb78
+[  330.131963] R13: ffff8ea8016ce000 R14: 0000000000000000 R15: 00000000000=
+00018
+[  330.131963] FS:  00007f202225f780(0000) GS:ffff8ea9ecea0000(0000) knlGS:=
+0000000000000000
+[  330.131963] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  330.131963] CR2: 0000000000000018 CR3: 00000001a100e000 CR4: 00000000007=
+50ef0
+[  330.131963] PKRU: 55555554
+[  330.131963] Call Trace:
+[  330.131963]  <TASK>
+[  330.131963]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  330.131963]  ? drm_modeset_lock+0x92/0x120
+[  330.131963]  drm_modeset_lock_all_ctx+0x8e/0x3f0
+[  330.131963]  ? __destroy_inode+0x8a/0x180
+[  330.131963]  drm_atomic_helper_shutdown+0x7b/0x120
+[  330.131963]  virtio_gpu_remove+0x57/0x70 [virtio_gpu]
+[  330.131963]  virtio_dev_remove+0x3f/0x90
+[  330.131963]  device_release_driver_internal+0x19e/0x200
+[  330.131963]  bus_remove_device+0xe4/0x1c0
+[  330.131963]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  330.131963]  ? device_remove_attrs+0xa1/0x100
+[  330.131963]  device_del+0x160/0x3d0
+[  330.131963]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  330.131963]  ? pci_bus_read_config_dword+0x4c/0x80
+[  330.131963]  device_unregister+0x17/0x70
+[  330.131963]  unregister_virtio_device+0x15/0x30
+[  330.131963]  virtio_pci_remove+0x3f/0x80
+[  330.131963]  pci_device_remove+0x4a/0xc0
+[  330.131963]  device_release_driver_internal+0x19e/0x200
+[  330.131963]  pci_stop_bus_device+0x63/0x80
+[  330.131963]  pci_stop_and_remove_bus_device_locked+0x1a/0x30
+[  330.131963]  remove_store+0x83/0xa0
+[  330.131963]  kernfs_fop_write_iter+0x147/0x200
+[  330.131963]  vfs_write+0x25d/0x480
+[  330.131963]  ksys_write+0x73/0xf0
+[  330.131963]  do_syscall_64+0xe2/0x560
+[  330.131963]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  330.131963]  ? irqentry_exit+0x40/0x6c0
+[  330.131963]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  330.131963]  ? do_syscall_64+0x99/0x560
+[  330.131963]  ? exc_page_fault+0x82/0x1d0
+[  330.131963]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[  330.131963] RIP: 0033:0x7f20222d0bbe
+[  330.131963] Code: 4d 89 d8 e8 34 bd 00 00 4c 8b 5d f8 41 8b 93 08 03 00 =
+00 59 5e 48 83 f8 fc 74 11 c9 c3 0f 1f 80 00 00 00 00 48 8b 45 10 0f 05 <c9=
+> c3 83 e2 39 83 fa 08 75 e7 e8 13 ff ff ff 0f 1f 00 f3 0f 1e fa
+[  330.131963] RSP: 002b:00007ffdb43331f0 EFLAGS: 00000202 ORIG_RAX: 000000=
+0000000001
+[  330.131963] RAX: ffffffffffffffda RBX: 00007f202244c5c0 RCX: 00007f20222=
+d0bbe
+[  330.131963] RDX: 0000000000000002 RSI: 00005567379b41a0 RDI: 00000000000=
+00001
+[  330.131963] RBP: 00007ffdb4333200 R08: 0000000000000000 R09: 00000000000=
+00000
+[  330.131963] R10: 0000000000000000 R11: 0000000000000202 R12: 00000000000=
+00002
+[  330.131963] R13: 0000000000000002 R14: 00005567379b41a0 R15: 00005567379=
+c3370
+[  330.131963]  </TASK>
+[  330.131963] Modules linked in: rfkill nft_fib_inet nft_fib_ipv4 nft_fib_=
+ipv6 nft_fib nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_c=
+t nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 nf_tables=
+ sunrpc qrtr vfat snd_hda_codec_generic fat intel_rapl_msr intel_rapl_commo=
+n snd_hda_intel snd_intel_dspcfg snd_hda_codec kvm_amd iTCO_wdt intel_pmc_b=
+xt snd_hwdep kvm snd_hda_core snd_pcm i2c_i801 irqbypass i2c_smbus snd_time=
+r snd lpc_ich soundcore virtio_balloon virtio_net net_failover failover joy=
+dev dm_multipath loop nfnetlink vsock_loopback vmw_vsock_virtio_transport_c=
+ommon vmw_vsock_vmci_transport vmw_vmci zram lz4hc_compress vsock lz4_compr=
+ess virtio_scsi virtio_gpu virtio_dma_buf serio_raw scsi_dh_rdac scsi_dh_em=
+c scsi_dh_alua i2c_dev qemu_fw_cfg virtiofs fuse
+[  330.131963] CR2: 0000000000000018
+[  330.131963] ---[ end trace 0000000000000000 ]---
+[  330.131963] RIP: 0010:ww_mutex_lock+0x38/0x110
+[  330.131963] Code: 89 f4 55 53 48 89 fb 48 83 ec 20 65 48 8b 2d 57 93 21 =
+02 48 89 6c 24 18 31 ed 2e 2e 2e 31 c0 65 48 8b 15 53 93 21 02 48 89 e8 <f0=
+> 48 0f b1 13 75 53 4d 85 e4 74 2a 48 8d 6c 24 08 41 83 44 24 10
+[  330.131963] RSP: 0018:ffffd2f38ea6bae0 EFLAGS: 00010246
+[  330.131963] RAX: 0000000000000000 RBX: 0000000000000018 RCX: ffffd2f38ea=
+6bb78
+[  330.131963] RDX: ffff8ea806fd8000 RSI: ffffd2f38ea6bb78 RDI: 00000000000=
+00018
+[  330.131963] RBP: 0000000000000000 R08: ffff8ea8016ce170 R09: 000000000fe=
+6d5f1
+[  330.131963] R10: fffff93844235700 R11: ffff8ea80004f800 R12: ffffd2f38ea=
+6bb78
+[  330.131963] R13: ffff8ea8016ce000 R14: 0000000000000000 R15: 00000000000=
+00018
+[  330.225288] FS:  00007f202225f780(0000) GS:ffff8ea9ecea0000(0000) knlGS:=
+0000000000000000
+[  330.225288] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  330.225288] CR2: 0000000000000018 CR3: 00000001a100e000 CR4: 00000000007=
+50ef0
+[  330.225288] PKRU: 55555554
+[  330.225288] note: bash[22216] exited with irqs disabled
 
-drivers/gpu/drm/sun4i/sun4i_backend.c:sun4i_backend_bind() {
-    ...
-    clk_prepare_enable(backend->bus_clk);
-    ...
-    clk_prepare_enable(backend->mod_clk);
-    ...
-    clk_prepare_enable(backend->ram_clk);
-    ...
-}
+Best regards,
+Ryosuke
 
-If one of these clocks fails to enable, could the driver proceed to access
-hardware registers via regmap on an unclocked hardware block, leading to
-system hangs or crashes?
-
-[Severity: High]
-This is also a pre-existing issue not introduced by this patch, but using d=
-evm_
-managed allocations inside the component bind() callback can cause resource
-leaks on every rebind.
-
-drivers/gpu/drm/sun4i/sun4i_backend.c:sun4i_backend_bind() {
-    ...
-    backend =3D devm_kzalloc(dev, sizeof(*backend), GFP_KERNEL);
-    ...
-}
-
-Since a component's bind/unbind lifecycle can occur multiple times without =
-the
-underlying platform device being removed (for instance, when the master DRM
-device is manually unbound via sysfs), are these managed resources prevented
-from being freed upon unbind()?
-
-Can this cause a persistent memory and resource leak (including clocks,
-regmaps, and reset controls) on every unbind/rebind cycle?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260607030950.8363=
-6-1-vulab@iscas.ac.cn?part=3D1
