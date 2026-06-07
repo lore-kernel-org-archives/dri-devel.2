@@ -4,136 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 246D1CD8C85
-	for <dri-devel@archiver.kernel.org>; Sat,  6 Jun 2026 23:35:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FE61CD8C85
+	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 02:08:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4175910E8D6;
-	Sat,  6 Jun 2026 23:35:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D9C910E90D;
+	Sun,  7 Jun 2026 02:08:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="h4qDeUmS";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="javUVi9o";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="E8edBwXz";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9979B10E8D6
- for <dri-devel@lists.freedesktop.org>; Sat,  6 Jun 2026 23:35:19 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 656NNY712746851
- for <dri-devel@lists.freedesktop.org>; Sat, 6 Jun 2026 23:35:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- rXJNFsH8aL86MjkObeWsqWpUSltJWzxFedx2j+xmyvI=; b=h4qDeUmSqd9a3p3f
- aclEinjnodrcQ+/BXxEWU3g+oypXSYxEMKeRJR4Oh0/Z4hif997HWcGkiUQqfJwV
- joJ+P2+El0f1HAhgud9vEwcxz900VmsOnqLlAjdiF4xPb/MTWyZHhpL33/OgW6fe
- 7lKkyk/ipiboRDKwOJ+4nRAGs9xoq4T0/erolFqYJo6lrKGeKLEE8Uxu5LCNxJHs
- sGJKMpSG0dUMsJ3GCtgHGnknfYCHavNwHid/qvdL+SaSJoe1iTGMWvszijz8e1ZZ
- jByk7T3XiFnuL4xSjeS1XWSJIo1ebM/BMo/j1f+E70Gbm9uaBr3rN0XOe78QAF7N
- aah99Q==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emagraqg2-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 06 Jun 2026 23:35:18 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-5178fc89b1bso37313311cf.1
- for <dri-devel@lists.freedesktop.org>; Sat, 06 Jun 2026 16:35:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1780788918; x=1781393718;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rXJNFsH8aL86MjkObeWsqWpUSltJWzxFedx2j+xmyvI=;
- b=javUVi9oJbimOKppfzZM+XqypFCbmWPBz480Z+ehkQ0bimDs4PhjNbyLelgLelgBTO
- kMGn/d3IoWVVEvEhG201GQEq+LThP3+PPqg1smaqytUBlq6KVj8DrZFz907l0IvdwWD1
- y6WsEPiwbARmHf/3+n+2/zXg8AL9SyFvpAd1bkLCnOLnuMb5DFNL1659FVronNmo4JC3
- sCsgmkVoCgBcpNfQ2Sm505NlGp9hm1te4zY7cTCUuTfk2lkUbbB3QJlKCl0hDuRDZdIa
- 31Qbz7KLUqfQseNHkhxUqLsgX3dOuzgr0tP11J3HT6XTVj+RbPlYluXaqdvYnMP1VXV/
- qTHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780788918; x=1781393718;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=rXJNFsH8aL86MjkObeWsqWpUSltJWzxFedx2j+xmyvI=;
- b=YSjAnlA2vWxBZu9J79RNQFblg2dBA11G30rVsOWN0NdvXXIhtq11fpeZ0qArSOLYs1
- pDzfJpTZmC97lyYQkuCUzJgWzgx8X6poV2su0vV9H00i9D238rz3J6wO4p2myaBXNt2l
- C2m2mz282isjL5ZOKSJjLfqODfbo8GNPrntAjbqQgw6tGyvqqaXowrlrYHSJUXN/g2+8
- dBbhomEAiMhjyOqB1fIj2aI8wD4w0W+q/4C3Uo2/OUdD+UXGP7b7JAYw5ECEAmUEcXhG
- YB4IDwxa7ltf3qwWPOD/Kp1Yqp9R5NcNZMxBkrRhBEgDlNLdMbbCovK6pd8KeDJvFMVW
- pfYg==
-X-Gm-Message-State: AOJu0YyaxzQHEQFDkAnujD6qvAoyuRrfCqtvLRkY46kf9k4b5wIvnpc8
- nWN8wlG/AIV6mFMVJ8DponK+t8u9Z3FHjwTrm4SLY/gAGlI/fIpnP0kMnFzpeVW7rNMZuv5OCcA
- HmZxkW2jGv1E5KhHpeJvHUJLm9KNg8K3g3mDmD6n872xjsQWltg/0kpfBi6mFy4EJTU9f6EM=
-X-Gm-Gg: Acq92OHcQfqXqC8L2KvZE90jb3Sb/uxGnrelxz+ATcNOW0W1dIYRfwDEKJnhyVw+aHO
- 6RiLJVPt1FGK4pcTxtuSCJFxoODau7N1qKzcmxkpbWjt1r/30uAARWULMHVtW1oD1MKRUIcPpoC
- MG+FgLv7SCJYGOYLwVEE5pfUnlofIgBhR6ri9HoG+sZrQRoW5WpRuLJmReblIgS0uKM/EBXMnqA
- K0PJ/ylgH2NC6E9DrxaRU+nSQOpF7ln0XjoLOec7h5frzcZ2DrWVMbfR1G3Ru3fTPFsW4emkt7h
- V+j7NZB2FrzOmBilRThEuHfic91xoSqG2JzhSwJ9dkJ/m02nXUQ+qwlCCtHKwH06GYnzdUu3Fuk
- GKd2VBt9uA3V3QARuH7y+UeifvAtXws0v9CiuKNYdDAcMY3vdmnPcl2ajXOPKZyyiADEQtV3vUd
- t990aTyAQl8km+Fgapb0S3RyOIS3uoMk2Ex+ugGroN4TcdQg==
-X-Received: by 2002:ac8:4809:0:b0:517:905d:dc78 with SMTP id
- d75a77b69052e-51795bbf697mr92469051cf.37.1780788917787; 
- Sat, 06 Jun 2026 16:35:17 -0700 (PDT)
-X-Received: by 2002:ac8:4809:0:b0:517:905d:dc78 with SMTP id
- d75a77b69052e-51795bbf697mr92468731cf.37.1780788917355; 
- Sat, 06 Jun 2026 16:35:17 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-396ac2be00dsm33444051fa.24.2026.06.06.16.35.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 06 Jun 2026 16:35:14 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Alexander Koskovich <akoskovich@pm.me>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Jonathan Marek <jonathan@marek.ca>
-Subject: Re: [PATCH v2 0/2] drm/msm/dsi: support multiple DSC slices per packet
-Date: Sun,  7 Jun 2026 02:35:11 +0300
-Message-ID: <178078881776.3945820.15306822216752040775.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260318-dsi-dsc-slice-per-pkt-v2-0-0a1b316f8250@pm.me>
-References: <20260318-dsi-dsc-slice-per-pkt-v2-0-0a1b316f8250@pm.me>
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013013.outbound.protection.outlook.com
+ [40.93.201.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79DD610E90D;
+ Sun,  7 Jun 2026 02:08:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jN2C1gLxWaUAvueW5BsjFVE0+ViUWfesGnWr9lx6n7xoysZG0B8uK0NLHxVeASMzuQ9oYUssdmT5LUn7NS9BAdmnjKdnexBAIlqPCnMszrkqsHADcisUAcIWKMWtamURcXOHlaVMje7wS5BmyEYJHfEuCHbdrUoZCbxI+HQ8WceMKnpePQwK5CGebst2zpsPROgGWpCl2VxeeA4rTZC5sodcAsEp+IbeqcqbLnbyygKh6RXKHTbksHCUJ0R1em6mKhlYP+fiVS1Z/It7O6aJmZSbddEGBVQ0yM6tTNhaSxCfs3wcDT0iCoQK/mG7zCO6QggUj8xbhVsZkjhtVsZWjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Cgia69ft9TVk0pwbC09ySYu2gYb0KEnOYVnNofwaJYQ=;
+ b=M6iZovi603Sz2HvpuIJ7BY5AlA118VTOsRUjjvm5gxuirQTT7JdQeneXmQ069Fu/VT6NMprvYm+jk1sGJD36rTviHt+VVfPLNJ5+NwMohQ1JOYBUXm/0cw0Mw1vO2iKnlGYLnjRKJG/sW225G7LHOgh2CEXlnrRcUZRt9wV39Vw5UQxBcaT6d2g7hkDkU/+NcsNDhytvBRyK0C4jkR+Y1MVGXiihaA+Vua5k/tOxKdQkYo4wdiovYN/ViblOiMcD6/Ioo+FB6sepfE671cnbKJ8Ij0E4icp4OJ3z1T3Bw6q/8VIc1brwMM+HbTQjsGPDaX3bM06fhKYOVbb8JQq2Ww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Cgia69ft9TVk0pwbC09ySYu2gYb0KEnOYVnNofwaJYQ=;
+ b=E8edBwXzMXrcANhVv6bVeHpgPHW8bFihcPJuG6yjzfsubyZfEiphRUnjgTYiQd42G/JP2GpfQ5nJhG1gASoVbLfaAg2+AO3/FPBMqvFGX6xWujFOULNXUTWMb9V9eYPLhAamYhPlz0SPqCYrREj5LPHh37MQhKWy8lP1dOEo/0PAtk+z1A3VIzM6+3FbXoHJlTUBJdgMnN1iyOLAaHjFSwtAcAVHopPNwjAwNKvMCJEazmQez7t0492BFBphLwqTgVqIGXAK648RCnXrwU/zPgFgKUui/LYYN2pJcgTS6swOFaQB6ISD8Ytv0gV8TtuI3y9tP+lbh3aZG/wYNvjVDQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by CH3PR12MB8533.namprd12.prod.outlook.com (2603:10b6:610:159::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.11; Sun, 7 Jun 2026
+ 02:07:57 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0092.010; Sun, 7 Jun 2026
+ 02:07:57 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 07 Jun 2026 11:07:53 +0900
+Message-Id: <DJ2G8D0N6EK7.2PDDSC28O8K4P@nvidia.com>
+To: "Lyude Paul" <lyude@redhat.com>, "Miguel Ojeda" <ojeda@kernel.org>
+Cc: <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <nouveau@lists.freedesktop.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ <driver-core@lists.linux.dev>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Simona Vetter" <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, "Sumit
+ Semwal" <sumit.semwal@linaro.org>, <linux-media@vger.kernel.org>, "Rafael J
+ . Wysocki" <rafael@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>,
+ "Maxime Ripard" <mripard@kernel.org>, "David Airlie" <airlied@gmail.com>,
+ "Benno Lossin" <lossin@kernel.org>, <linaro-mm-sig@lists.linaro.org>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Mukesh Kumar Chaurasiya"
+ <mkchauras@gmail.com>, "Asahi Lina" <lina+kernel@asahilina.net>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH v18 0/4] Rust bindings for gem shmem
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+References: <20260604192740.659240-1-lyude@redhat.com>
+In-Reply-To: <20260604192740.659240-1-lyude@redhat.com>
+X-ClientProxiedBy: OSTPR01CA0003.jpnprd01.prod.outlook.com
+ (2603:1096:604:220::13) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA2MDI0MiBTYWx0ZWRfXyiLCpOet/aZd
- rZTyxy/pjOtpIT/8C8AroseVKTwSLl5spa5V9Qnllq+xypyf9V+iQI9ysak7R/lmAJ0IDtvHjqU
- tKuFxc8G/aHK1xqr7IPdfsEVjJQdhhgowc/WUULY2VBYnJBongZ0XMqNJVbqkhLJEt63lGInBoS
- xhSlz05SQOAUFHA5sIv/T4MXl7FTKSj7USDN89EcqFTI+tZNZ2HOBY0Je2u+zJk78zIi9GvyYOx
- jBMVAVm6loZ6tGqCHo5zC1HokSB94hYnzFieGO/9XybVB6gOm0ZK161b8/1nS6/4Wn5Fkp6mAQc
- VIhHBNiSY3RyjK05RVcL+SqorRlDc6oeex23F7dx77KrF/+RUDuqAHcYv/EsUSiIQ7xh/o96qqh
- cVHhXcbgoCy6DK3jX02uOVf23Oq+ZKVYJjdbDo1NWpsEDU+Il5MnPeamMT5B0KAUemzQJML0+kW
- t1ZreuxIukMMWdJ7SKg==
-X-Authority-Analysis: v=2.4 cv=G/4s1dk5 c=1 sm=1 tr=0 ts=6a24aeb6 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=_DFlpnaH-P38sxYvpb0A:9
- a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: PKTPujHYtZPRlXqST5qIhxviwwwhZkKI
-X-Proofpoint-GUID: PKTPujHYtZPRlXqST5qIhxviwwwhZkKI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-06_05,2026-06-05_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 malwarescore=0 spamscore=0
- lowpriorityscore=0 suspectscore=0 phishscore=0 impostorscore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606060242
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|CH3PR12MB8533:EE_
+X-MS-Office365-Filtering-Correlation-Id: fce2cb8d-f22c-4699-b16a-08dec439979f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|7416014|376014|1800799024|10070799003|11063799006|56012099006|6133799003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info: 6aqiNRSld8iewhgbPwg4iRgxt/D/AH7/429zXC2ouBXOK8sdeGyAIQzMifO8oqP7JODDH50AYqb7Yv67zpQqOWFM2mitaOKbmR/zj1vnF1U1cOOqkvEGC0jwW70/2Fg8XyybcfoTsLsVVmgkr8HqMd/LYEQQ2Efm1VFBdRCEOoQoARsS5vCmlsO+aGS6+92cal8y/UidQspYGLvq2ZltiKvjE+dMS0N8ZMs5MfcE+7vryE0gQ4Mub7mIZDfam8qz+k3G4RHEtZOURVecIcl5gH8USlXvDdzZwkDIJtIaloeATO0zkb6sjIg9zR3rYZ1A5fYhz9fAT+wzaYQdVHyVDzJ7B5Qkl+5gU7/thHa3wMlGVy8eEtMS2tbYhJfHy4NSnzN/i882d2EfYPZIYhrLr83jZ+DX6WreOq4fjK8AHHfmD3XKpF1LMfcY9Dnk7OIKZfmeLXPgh9HhGnUB3ifHPOIRa/+XW5V6RMQDV8dZ8v9W2UPDZJ1WH1J3GVj6zNk0pcqcr904a1zpB3ELzGOnmrcqD1WVNHudfRsfFa2ilAneraAgV7QBn9kEG1XZQDgjQDLqD4toeOswvqonov19Qm1B5N+iKnFHO4Syl7BxQxVH0SAUTrOQhwbj8oN1IRDSMX3f21z6Wn6ChSyuUVPI7Ud9LaP++s3T7iEqbYDESgKQj27eL/kqX4E1vk3M/E1K
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(1800799024)(10070799003)(11063799006)(56012099006)(6133799003)(18002099003)(22082099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OFFLdUFsTkkwRFg2VUJ1dHRoWXVicnJJQUFUSmNJMHpQQTJaV1hMT0NpT2dB?=
+ =?utf-8?B?cVdJWG9Lemx0TUg1WFBsaldZTytRNGNxSEFHWUdmN09hU3M1U3ZYbC9sMFJL?=
+ =?utf-8?B?U1NHdEJGam01dzFwOGNnUlRCT0dDN1F1ZkVtSHNLZ0lMR3hMWCtiUU1BaENT?=
+ =?utf-8?B?NmlaRjlON2lJMmJSQXQ1aXBZZHVsOTJyVDhKekNiTUtiT1Z6aDhzMjNKbW9h?=
+ =?utf-8?B?dkg2R0hOeDMxTHVsZ3ExcGlEdWI4SXN4ZnQvc2djOCt3MmdxUXRqSjhlVkFt?=
+ =?utf-8?B?VFlhdzhlZHh0bFk1MzJSZTlXNmkvQ2VGQzFyVktiNlRxM0x2N1RlYjVFTkxi?=
+ =?utf-8?B?ZHR0UE1wOHZXWEpJR2pUWk1ocFJtYWJkTTNsN0VyYmJacWJLUG52WTF3eHJC?=
+ =?utf-8?B?S1FHS2NCWEsvSGVZc0kzdmtxT1VBTGZjb2ZLcGxQQVYyMlhtdjFsMzNsaUZ0?=
+ =?utf-8?B?S0lkRGRUendvcmY3SUhqZHVPY0JGQVp1WFc1U0h4cVloRVRGNkdyVDlpT1B3?=
+ =?utf-8?B?Q0hvQW1tSEYxS2MzNzNPZWkzaGJOd1kxTEw1ZnVkVlNpalhSY3BadWNhVUti?=
+ =?utf-8?B?UlZZWm40Zk9MNVpDMTZsQ2lhemdVRk1oaE1sS3dEOVNnNnBvYXVRV2ptbWtW?=
+ =?utf-8?B?dDViK1lnVmppcWlIVlJmc1VQZXBIRjQxWmhuMlhXZFRLcW1qcFBmREVkWklY?=
+ =?utf-8?B?K09kVFFQY011MGk4N3RBTkJSS21qV2VjNS9tbjNzM2hXeUdUVUcwelRWcHh0?=
+ =?utf-8?B?d3N0QzJ4Vmk0WndUVGlsZEZQZVE0cG9sUStiQ0Qyb2drNHlrM3Q2Wko3NGg1?=
+ =?utf-8?B?anBjWncxeFlqb21VMnk2QkM1WTd3dmFUdSs5NEI5NlVFTUVQdGJzYVBzQmZx?=
+ =?utf-8?B?VGtYNDBMc3FQS0paZlJuYTZQQlB0dXdHdG1TUWJHdjJvQ05pSnZxUjhpYTFq?=
+ =?utf-8?B?dEZjTThjRkJxRUxUT3BVVWIvRGhqTmg3VzdkSlF6SDhyZGgvM1dBNm5RVmo1?=
+ =?utf-8?B?Y3pNbzhPUm9LMmZseTFyUEVuazRSanhQb0xZQ0xQeGJvZmRzNXdFUDZTUWI4?=
+ =?utf-8?B?Vm5CYVJOT2xwd1hLVm54K0hDbUxJbkNBM0k2QkErZFJPQldLeEtwd1JmVWVK?=
+ =?utf-8?B?Ukp0NHJFQ2g3QXNuSTZaelN3WXFhc3V3ajlBMG9Yalo4M2ZSd3k0QW1IVDk4?=
+ =?utf-8?B?empCTFVCdHRwQW9yZWNjMUZmVVNMWWlpZU4rMWN1ZVRsbUh4K2NDR25mV2hy?=
+ =?utf-8?B?aUtySStCdFhJV01uN1c5dUk1dm9kZjNBcytpbkNpNDJXSWxBSW50UGxCdTJn?=
+ =?utf-8?B?cVg3VXowYmlMWTE1OVd0UWh5bHYySTRvblE4T01kTnBUcGdLV2QrbjNIYU41?=
+ =?utf-8?B?dmtYRjRaMFMyTnl0Q3l6M3dCNVd2OUlOUDRjaHlOcEVPdmM5MHE2QzBOd1NZ?=
+ =?utf-8?B?cWwxTUY2aW4vaWNaZU50MnJSbFpmU3VYVDNKQU13eTV6YmJ2cWZCa2RpVUIx?=
+ =?utf-8?B?SVBDNGR1Y0pwaU1ld0RGeWhWdVNrRHpjMjZXRE9HMTlOYjVZYjNlb09UWmlh?=
+ =?utf-8?B?Mm04MHlaeFpodTRiaTdXUGRVYm96dC95VWtJNkVTZEw2UFFjNWRIaWNXZXVq?=
+ =?utf-8?B?WHV4MkIxVUUvRUlQSE9aeGZtWUMrQ3NxVjQvUURFZlpHb1ZLbVAyOUZ5czhH?=
+ =?utf-8?B?RkJvQ01VdFFkWHJkamFOSnFDQm1lczdvbVNVZUtEZ0VnczJockZxdkRyVXVQ?=
+ =?utf-8?B?ZTNKZ3BGTTlJRVo2YzZFZDVwdUk1dmRzd1ZMZm14OVAzZU4vekJIcG92ay9E?=
+ =?utf-8?B?UitkZUpKY2tmYUMzZFR2Szc5eFJGV3lZTzVUdG5uNXpyMDhUdllGQ04xcmVs?=
+ =?utf-8?B?SitIY1p3dWtDbndlMjM0K2NzSjhhS0VIeEpBM3R3b2lGL3loSVNDeHE2WnhK?=
+ =?utf-8?B?b1RPVHVSdFpLbC9mc1MrcWxsNUZTeTdaemVXT0FGOUVDSEVDMm11RmYyQzNl?=
+ =?utf-8?B?QjhLQ1piOG1tTVFzaS8zZTlrMWx3bVZjODF6OXpUZHdJY3dERjNaLzBkdUFo?=
+ =?utf-8?B?MHdQK3lZeHAvRXlxZ1NYOTZaQ1d3MkpOVmJWVEFhWGNua3hya3gyemFtRXU4?=
+ =?utf-8?B?VUxjOS9HRkwybWVGNmpPRzNucnEvNGpZdXBUU09KcktaYmErd001cCtNcDdz?=
+ =?utf-8?B?MFM3OWZMcnVrZ3pxazFaL21lakNUVEN1eGZmb0xOV0JDS002U3hBRm5XZHBO?=
+ =?utf-8?B?Yy9kRVZrbURuQzIyVG13V0lMQllUcVlta3VKMmZLMWJDdEQzWWxPMno1WVJV?=
+ =?utf-8?B?T2lHOXIvRTlFTkYzeFdjYnBRdnRmTlZJWFhhVkl6Sm0vQXYxTm10aUV0ZUdu?=
+ =?utf-8?Q?26XN1+lXeG1SIPYK1cmul35+f0DKE+oagNKnPtyh1WbLh?=
+X-MS-Exchange-AntiSpam-MessageData-1: EcLDATRyfpF9pg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fce2cb8d-f22c-4699-b16a-08dec439979f
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2026 02:07:57.1786 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oBiL9rYz4bv7xOEC7Hy4pY9AiuXtn937OSLLuimBno6En/xZPcrhkKqjB7bOg78FejFSeaRGoktBT+hZJqRUyg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8533
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,28 +149,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 18 Mar 2026 09:53:59 +0000, Alexander Koskovich wrote:
-> This series adds support for sending multiple DSC slices in a single
-> DSI packet, which is required by some panels such as the JDI LPM026M648C.
-> 
-> The MSM DRM change was originally authored by Jonathan Marek [1], changed to
-> use an 'all slices in packet' flag which derives slice_per_pkt from slice_count
-> instead of manually specifying the number of slices per packet.
-> 
-> [...]
+On Fri Jun 5, 2026 at 4:24 AM JST, Lyude Paul wrote:
+> Most of this patch series has already been pushed upstream, this is just
+> the second half of the patch series that has not been pushed yet + some
+> additional changes which were required to implement changes requested by
+> the mailing list. This patch series is originally from Asahi, previously
+> posted by Daniel Almeida.
+>
+> The previous version of the patch series can be found here:
+>
+> 	https://patchwork.freedesktop.org/series/164580/
+>
+> Branch with patches applied available here:
+>
+> 	https://gitlab.freedesktop.org/lyudess/linux/-/commits/rust/gem-shmem
+>
+> This patch series applies on top of drm-rust-next
+>
+> Patch-series wide changes since V15:
+> * Fix some major rebasing errors I somehow didn't notice :(
+> * Drop the dependency on LazyInit, use the trick that Alice suggested
+>   instead.
+> * Fix dependency ordering so that Tyr can get the vmap stuff first
+>   without the other bits.
+> Patch-series wide changes since V16:
+> * Fix ordering one more time (SetOnce::reset() doesn't need to come
+>   before adding vmap functions)
+> * Rebase against the latest DeviceContext changes from me that got
+>   pushed.
+>
 
-Applied to drm-misc-next, thanks!
+Not a problem of this series, but when trying to build it I initially
+got these warnings/errors:
 
-Alexander, it won't get into v7.2, sorry, but on the other hand you can submit
-patch drivers using this flag with the change of everything landing in 7.3.
+CLIPPY L rust/kernel.o
+warning: gendwarfksyms: symbol_print_versions: no information for symbol _R=
+NvMs1_NtNtCsjYlAz7NZ3Sw_4core3mem12maybe_uninitINtB5_11MaybeUninitINtNtCsbu=
+TvttuFvbr_6kernel6devres6DevresINtNtNtNtB18_3drm3gem5shmem10SGTableMapNtNtB=
+1K_5tests11KunitObjectNtNtB1O_6device6UninitEEE16assume_init_dropB18_
+...
+.vmlinux.export.c:8577:500: warning: null character ignored [-Wnull-charact=
+er]
+ 8577 |   ...<U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+000=
+0><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000>...
+      |      ^
+.vmlinux.export.c:8577:501: warning: null character ignored [-Wnull-charact=
+er]
+ 8577 |   ...<U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+000=
+0><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000>...
+      |      ^
+.vmlinux.export.c:8577:502: warning: null character ignored [-Wnull-charact=
+er]
+ 8577 |   ...<U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+000=
+0><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000>...
+      |      ^
+.vmlinux.export.c:8577:503: warning: null character ignored [-Wnull-charact=
+er]
+ 8577 |   ...<U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+000=
+0><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000><U+0000>...
+      |      ^
+...
+.vmlinux.export.c:24529:2: error: embedding a #include directive within mac=
+ro arguments is not supported
+ 24529 | #include <linux/module.h>
+       |  ^
+.vmlinux.export.c:8577:1: note: expansion of macro 'KSYMTAB_FUNC' requested=
+ here
+ 8577 | KSYMTAB_FUNC(_RINvXsi_NtNtCsbuTvttuFvbr_6kernel4sync3arcINtB6_9Uniq=
+ueArcINtNtNtCsjYlAz7NZ3Sw_4core3mem12maybe_uninit11MaybeUninitIN...
+      | ^
+.vmlinux.export.c:8577:1: error: unterminated function-like macro invocatio=
+n
+ 8577 | KSYMTAB_FUNC(_RINvXsi_NtNtCsbuTvttuFvbr_6kernel4sync3arcINtB6_9Uniq=
+ueArcINtNtNtCsjYlAz7NZ3Sw_4core3mem12maybe_uninit11MaybeUninitIN...
+      | ^
+../include/linux/export-internal.h:62:9: note: macro 'KSYMTAB_FUNC' defined=
+ here
+   62 | #define KSYMTAB_FUNC(name, ns)  __KSYMTAB(name, KSYM_FUNC(name), ns=
+)
+      |         ^
 
-[1/2] drm/mipi-dsi: add flag for sending all DSC slices in one packet
-      commit: ffa88de8ddb64067df49e4d9f253d09a9c247059
-[2/2] drm/msm/dsi: support DSC configurations with slice_per_pkt > 1
-      commit: ce73a5db44e3d5f9c0c061f0868ae209b59605f1
+This is fixed by [1]. Maybe we should merge that one patch separately
+and before the rest? I seem to be seeing these long symbol problems more
+often recently.
 
-Best regards,
--- 
-With best wishes
-Dmitry
-
+[1] https://lore.kernel.org/all/20260605-nova-exports-v4-1-e948c287407c@nvi=
+dia.com/
