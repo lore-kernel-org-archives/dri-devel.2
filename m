@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C65F4CD8C90
-	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 21:46:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04781CD8C90
+	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 21:48:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 311E810E5D3;
-	Sun,  7 Jun 2026 21:46:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F99F10E67A;
+	Sun,  7 Jun 2026 21:48:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KiNwAdmw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kCkTKb1D";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 347FC10E33A
- for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 21:46:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D774210E67A
+ for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 21:48:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 53A8960018;
- Sun,  7 Jun 2026 21:46:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C120E1F00893;
- Sun,  7 Jun 2026 21:46:47 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3FEEB60018;
+ Sun,  7 Jun 2026 21:48:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B05091F00893;
+ Sun,  7 Jun 2026 21:48:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780868808;
- bh=f4TYD2MK/8wcG+xA5CmnPUXUwAKuqVUgIAionwX1Aqo=;
+ s=k20260515; t=1780868910;
+ bh=U8/nAEIUsIEuWNhzHG7THuc153jQDkJAzRdpq4tLzZM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KiNwAdmwa7xTofVXFQc7QuWKxACGacgB2xMGs1/RnOU0zji8lNry6GGfE9SJ4dqE8
- dN2mGJWk2b2nfsVa8vhbKH/y+EAB1EIMMIgKTr35iPrDFzo+djczZji93xezVtI2Nj
- yEseB8ct/ZYjvf5iQr4H9nl4kCgI5uQ/qVhxz2IVEC4yFTLaMpx01Qi8UEmlYQC6Sc
- Ca33dvb7PHWQe7mSf5X/bLB7Ort+F4HomB9kCRrVwNs4jctX1GGaSD1CPK5MvLRDI8
- y/iTJrD9Rt/wv4iQYyZskTAOEVXPSog35V1SgwM1hi3goJsCU9tVPbBPz/VwKe4hOT
- A5XTrPL6U9/ow==
+ b=kCkTKb1D/8B8+RSIzStZbrpXcdbecpV33zyZzGdOB90Bdp7QyfyKCLE8X63+liL42
+ cxYuLgXeVh2VydzTqidijq9JOD76nvMULXEu6u3FGSaMIYV2uzeu55c+3FZ8dbNme4
+ 4G+XElSTMlTqh1aro4r4WmnhxccJ8rTSXbZGEOGkoygNRj8HPfKPF/fnR2y95nFaBc
+ J05GfWPDVX3UjKmWky6GiXyswbC89esphgTKrIiMqv+bvnu+s7aZymt5xbQxMwVOHz
+ srBVtiLCO4R6QjLcht9vvhfXT+O/h54JWgYqzK7CkCnG8PLsOxKgN+I3cc42LJVyXS
+ IFiwDAT7TS36Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 7/8] soc: qcom: pmic-glink-altmode: pass down HPD_IRQ
- events
+Subject: Re: [PATCH v4 6/8] drm/msm: dp: handle the IRQ_HPD events reported
+ by USB-C
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
+Cc: linux-amlogic@lists.infradead.org, dri-devel@lists.freedesktop.org,
  neil.armstrong@linaro.org
-In-Reply-To: <20260608-hpd-irq-events-v4-7-30b62b335487@oss.qualcomm.com>
-References: <20260608-hpd-irq-events-v4-7-30b62b335487@oss.qualcomm.com>
+In-Reply-To: <20260608-hpd-irq-events-v4-6-30b62b335487@oss.qualcomm.com>
+References: <20260608-hpd-irq-events-v4-6-30b62b335487@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 07 Jun 2026 21:46:47 +0000
-Message-Id: <20260607214647.C120E1F00893@smtp.kernel.org>
+Date: Sun, 07 Jun 2026 21:48:29 +0000
+Message-Id: <20260607214829.B05091F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,81 +61,80 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
+New issues:
+- [High] Initial connection and replug events are incorrectly bypassed if a=
+ccompanied by an IRQ_HPD status, leaving the display disconnected.
+
 Pre-existing issues:
-- [High] Missing `cancel_work_sync()` upon device unbind leads to a use-aft=
-er-free vulnerability for the `altmode` and `alt_port` structures.
-- [High] Missing `reinit_completion()` can cause subsequent firmware reques=
-ts to prematurely succeed if a previous request timed out.
+- [High] `msm_dp_irq_hpd_handle` modifies shared state without acquiring `d=
+p->plugged_lock`, leading to unprotected concurrent modification of DPCD an=
+d link state.
 --
 
-commit 94236240b5d1e90ad191dae53982a24598cd3d4c
+commit 48a78358ae98020ff3993aab3250dd8c32cc6835
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-soc: qcom: pmic-glink-altmode: pass down HPD_IRQ events
+drm/msm: dp: handle the IRQ_HPD events reported by USB-C
 
-This commit passes IRQ_HPD events from the firmware to the DisplayPort
-driver through the HPD bridge. This enables the DP source to receive
-notifications about events on the sink side.
+This patch adds support for tracking and handling IRQ_HPD events
+delivered over out-of-band events (such as USB-C AltMode handlers)
+in the MSM DisplayPort driver.
 
-> diff --git a/drivers/soc/qcom/pmic_glink_altmode.c b/drivers/soc/qcom/pmi=
-c_glink_altmode.c
-> index 619bad2c27eeb..946eb20b8f836 100644
-> --- a/drivers/soc/qcom/pmic_glink_altmode.c
-> +++ b/drivers/soc/qcom/pmic_glink_altmode.c
-> @@ -373,7 +373,11 @@ static void pmic_glink_altmode_worker(struct work_st=
-ruct *work)
->  		else
->  			conn_status =3D connector_status_disconnected;
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
+/dp_display.c
+> index c0f6a8ff9b99d..743d8fa40dc68 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -1533,11 +1533,12 @@ void msm_dp_bridge_hpd_notify(struct drm_bridge *=
+bridge,
+>  		   msm_dp_display->connector_type, hpd_link_status, status);
 > =20
-> -		drm_aux_hpd_bridge_notify(&alt_port->bridge->dev, conn_status);
-> +		drm_aux_hpd_bridge_notify_extra(&alt_port->bridge->dev,
-> +						conn_status,
-> +						alt_port->hpd_irq ?
-> +						DRM_CONNECTOR_DP_IRQ_HPD :
-> +						DRM_CONNECTOR_NO_EXTRA_STATUS);
->  	} else if (alt_port->mux_ctrl =3D=3D MUX_CTRL_STATE_TUNNELING) {
->  		if (alt_port->svid =3D=3D USB_TYPEC_TBT_SID)
->  			pmic_glink_altmode_enable_tbt(altmode, alt_port);
+>  	if (status =3D=3D connector_status_connected) {
+> -		if (hpd_link_status =3D=3D ISR_HPD_REPLUG_COUNT) {
+> +		if (hpd_link_status =3D=3D ISR_IRQ_HPD_PULSE_COUNT ||
+> +		    extra_status =3D=3D DRM_CONNECTOR_DP_IRQ_HPD) {
+> +			msm_dp_irq_hpd_handle(dp);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but since we are modifying the
-workqueue handler, is there a potential use-after-free due to missing work
-cancellation on teardown?
+This is a pre-existing issue, but does msm_dp_irq_hpd_handle() need to
+acquire the dp->plugged_lock?
 
-In pmic_glink_altmode_probe(), the driver allocates the altmode structure v=
-ia
-devm_kzalloc() and initializes altmode->enable_work and alt_port->work, but
-it does not register a .remove callback or a devres action to synchronously
-cancel these work items.
+Since msm_dp_irq_hpd_handle() can call msm_dp_display_process_hpd_high(),
+which reads from DPCD and modifies shared driver state (like
+dp->link->lttpr_count, dp->panel->dpcd, and dp->audio_supported), it seems
+like it could race. Other HPD handlers like msm_dp_hpd_plug_handle() use
+guard(mutex)(&dp->plugged_lock) to safely synchronize access.
 
-When the auxiliary device is unbound, the devres framework will automatical=
-ly
-free the altmode structure and release resources.
-
-If pmic_glink_altmode_worker() is currently pending or executing, could it
-dereference the freed altmode and alt_port pointers?
+With out-of-band events processed via workqueues, can this function
+run concurrently with other HPD handlers or msm_dp_bridge_detect() and
+corrupt the internal representation of the hardware configuration?
 
 [Severity: High]
-This is a pre-existing issue, but I also noticed a potential state machine
-issue regarding how requests are sent to the firmware.
+If an out-of-band handler reports an initial connection with both hpd_state=
+=3D1
+and hpd_irq=3D1 simultaneously, does this new ordering bypass the required =
+plug
+sequence?
 
-In pmic_glink_altmode_request(), the driver sends a request and waits for an
-acknowledgment:
+By placing the IRQ_HPD check at the top of the if/else chain, if
+extra_status =3D=3D DRM_CONNECTOR_DP_IRQ_HPD, the code will execute
+msm_dp_irq_hpd_handle() and skip msm_dp_hpd_plug_handle().
 
-	ret =3D pmic_glink_send(altmode->client, &req, sizeof(req));
-	...
-	wait_for_completion_timeout(&altmode->pan_ack, ...);
+If msm_dp_hpd_plug_handle() is skipped, dp->plugged remains false, PHY
+initialization (msm_dp_display_host_phy_init) never occurs, and
+msm_dp_aux_enable_xfers() is never called. Won't the subsequent AUX reads
+within msm_dp_irq_hpd_handle() fail with -ENXIO, aborting the initialization
+and leaving the display disconnected?
 
-If the wait times out, the function returns -ETIMEDOUT. If the delayed
-acknowledgment eventually arrives, pmic_glink_altmode_callback() will call
-complete(), incrementing the counter.
-
-Since the driver never calls reinit_completion() before sending a new reque=
-st,
-will the next call to pmic_glink_altmode_request() instantly succeed by
-consuming the stale completion counter instead of waiting for the actual
-hardware acknowledgment?
+> +		} else if (hpd_link_status =3D=3D ISR_HPD_REPLUG_COUNT) {
+>  			msm_dp_hpd_unplug_handle(dp);
+>  			msm_dp_hpd_plug_handle(dp);
+> -		} else if (hpd_link_status =3D=3D ISR_IRQ_HPD_PULSE_COUNT) {
+> -			msm_dp_irq_hpd_handle(dp);
+>  		} else {
+>  			msm_dp_hpd_plug_handle(dp);
+>  		}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-hpd-irq-ev=
-ents-v4-0-30b62b335487@oss.qualcomm.com?part=3D7
+ents-v4-0-30b62b335487@oss.qualcomm.com?part=3D6
