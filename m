@@ -4,97 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4187CD8C8C
-	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 21:00:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C9F0CD8C8C
+	for <dri-devel@archiver.kernel.org>; Sun,  7 Jun 2026 21:02:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36B4610EB9B;
-	Sun,  7 Jun 2026 21:00:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 807EA10EB9E;
+	Sun,  7 Jun 2026 21:02:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HR2xn5MK";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="aaqtDv2Z";
 	dkim-atps=neutral
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 474FF10EB9B
- for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 21:00:24 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-bec3ffb95dbso544861066b.0
- for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 14:00:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780866023; cv=none;
- d=google.com; s=arc-20240605;
- b=RGA+2euenKPmI1QgafzYGZ9X6znIyPRKELwf7I1Udgk9fPNQMOErOuydSPugQ4KqCk
- ABIewZDM9AXdMODVy3MjkhEiXim288yzkrOfN9XKihtO3v4PowmheaJtLoTnHbFZvl3I
- q39cnomafE4S9QxdcG9oaW2xuqEonp9nXMMSF8QBB/xV2AhnD8TtQ3xcPrcp+TWA5Sty
- krEfuaaBLqWcUuCEK9Y+RFyHKz1RB1/hAn47vs+SLqoMM8zsjt4g9jHhnWXzO4pyfCcw
- AZmUjTe46y6UDYlo5kKNrV1p5C2IeQV0txXMmXJ+YTAXasRFKcawtvMtMm5wpnu+dFJp
- E9sQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=ab6NkRbgO8MmT1srYNgG1RYGxHSJUAoP80C+AxzOUBY=;
- fh=woQ/13UEtSEmzPBnq/FUnOqwdiNuGj3KuOArbTY1RLg=;
- b=X6r4xdACMeV4dB8gbi9v1TG2vz5N5Qf/uE1UsPhgiIeWVEJn2gsyGQNTZKvlMs0AQq
- 7oYEJu0qBjXEOjTiPFzIw4wfHXuBugd39h7DZIrIGycEK9aFekqG5vQJKtbj87p/m1jB
- kshc+WxCj62FQY8dKEvpQifK1tAHuInkU77IZzIOseQVL2yODfzlZGAecPZOeRilwY0D
- Sibgd3hU0DeXKWMbeSsxpQiQuABx1D1bE/Af0erMasXpG3cO5CLRbeB0u924iDCCgCa1
- HCBrHINMfjV6+jxMYdJ5mA6wdjK6jqTKUIOKpgcEssKDBvwEubdIPLMjwPnisTGJtpYE
- 8e6A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780866023; x=1781470823; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ab6NkRbgO8MmT1srYNgG1RYGxHSJUAoP80C+AxzOUBY=;
- b=HR2xn5MK8e/W7RJdcdOhywqDejlZOrGrmMuSKLOnNUl6/pViPwYycXam1I4809PHTu
- os0wTqR0Tg6sMKsRlnoU4t2JmB2PUD5UmMGFn9NK8McDplorMtgfnXwX1WO3SrHZ6Lci
- rfoWOFWdcOdY2qK7/4DmrwR7BJrDjISwZnT+8tcEIEajCufm7OaN636l9SYgeuIyzAwK
- arl2cH+26+I6Mv/Wdlmf3skqh4qRRoo00KC9p9WQPlU70Uu/500bZaIyfR/3qmA8ldx9
- m1HkzIAlH3JAiMacMCEhA6vb9+wkCpoac0Ps1/+iybmTP0ctNDQp0CksqoKl/wkuA8zU
- 7BjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780866023; x=1781470823;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=ab6NkRbgO8MmT1srYNgG1RYGxHSJUAoP80C+AxzOUBY=;
- b=kzyr85NkyNkR7WbsAYnhERYMyUmYLPYJTjLnmVrePxFady+DxLsEJwDVfXuy75ZaOt
- ayyqUlbwU9exCkazXCEJ2AOxIuuoFpnnyBDZclSHLRzsgw/uZOyGl254qmz3Rbu9gah3
- 7oFLVTVQzlgxE8wqsUVo51qXVFFiJw7O+huxY+SNbYcmrN42+3Ai5gzCQm2dvTI7CT9R
- DxSEqu1h85rScpbjFTzUdFpYea4Ph29vGU4Sl+/7d6UVsq8D+kryNP5G5lScXPOssUfm
- 1a+uXDneB0u2j53TF5QMFBOa6tqzuedvukLjmDCuaxyT0T8HlwlkgStMTWrFC80msXSG
- xM/w==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9zfxMv0K6dsiQ8TENhwOnKFRAnPzVbWgvh18e/3Nx1QsH2wPrsa/N5VVQNZeYEltAXK9VXn2rfXFs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxIgp/u3Qw5FPnnSA/sncIwfMDHowdcEmqFmGctPV2F+8AS1PUQ
- krqbnKabzbS+J9wS2BMKNcWUYqBwXfT/O/INKHjeFtvN8cIFRBs4CO64wnHauIkGERQwE07W+Ux
- tqXV/oPGdh+7spsHNnoj3HXwcvJTWFQs=
-X-Gm-Gg: Acq92OHvdStj0QhPzsZ7Gs8NZF7Uo5WJCNDgfAIZu6zzrIiqSlILPlWXG778mgyPkUT
- dc03CB59PPhZkX41kLh/LRR19G2PaG7dI/pTBKEYc1ZxWj50I76fXeujf+2lf4UY5LH8tKyOAMq
- javQoMeTTunm+wY3GVCUwAKuW+zWfLhVfGF4tp+Gq5OE2NkVW0sc5p0m1oPUBRJns4STpP2pIRW
- 1wlGsCVYe1hmDEdoK/haIt4+MrTA1vzA9TBeysf+WBjckLoFHlKxWMI38kOQ6bX4fToFZAg4Pss
- Tg3VxfeDsAFR61uHC8v4HwXrDwSYf9BgVtF47+3ZWC31GE5MSPwGfbvEDcSJxg==
-X-Received: by 2002:a17:906:8a42:b0:bb8:fdf7:e132 with SMTP id
- a640c23a62f3a-bf370a673a2mr449071866b.18.1780866022378; Sun, 07 Jun 2026
- 14:00:22 -0700 (PDT)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41E1010EB9E
+ for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 21:02:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1780866124; x=1781470924; i=deller@gmx.de;
+ bh=p2xWpZVBhxwbeMjpSopR2RGaZvmMmu2NdGj2i5TYV6k=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
+ MIME-Version:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=aaqtDv2ZDhUchb73gvJ9E2UIilD1l8/2OURY7SfeTqQTXYOZmo4Oib6Wf/qUnOrB
+ IIQXQlWIxUvx/7GximnVRV2ngU+Q2vWPG1NoitFHgRU54Zy/vO8u7aWFWnuZHxxRF
+ 13+zJLFT0D8oNUzSBHbJolgdOrlD655aLCjhXKqKaKK0pSYQlLVScKVS26R0HwTEP
+ f2/eXdgg/x2pgP59FJgNblufRbGomx2n4yw4L8PbQGrFZkVw5kl61USpjJb+KLQmw
+ opMsVNy9GEf8h3C4jRj++q8B26gX4tuYSqQCCcAVeAiE0rIq8dNfOku7snbiJE7+n
+ 414+ufIc0S4oC4L7Zw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MDysg-1wMSk416bU-00Fxiw; Sun, 07
+ Jun 2026 23:02:04 +0200
+From: Helge Deller <deller@gmx.de>
+To: linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org
+Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+Subject: [PATCH] lib/fonts: Avoid unncessary 64-bit math in font code
+Date: Sun,  7 Jun 2026 23:02:03 +0200
+Message-ID: <20260607210203.229613-1-deller@gmx.de>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-References: <20260604135255.62682-1-midgy971@gmail.com>
- <3d99569e-9c3a-49d1-93fb-1335382523e9@rock-chips.com>
-In-Reply-To: <3d99569e-9c3a-49d1-93fb-1335382523e9@rock-chips.com>
-From: Midgy Balon <midgy971@gmail.com>
-Date: Sun, 7 Jun 2026 23:03:08 +0200
-X-Gm-Features: AVVi8CeDCIQ6l1Xo0XYKychXQqz8K96nj5PXcE7mUgH_L3ruXovyZGyMkFh5fkU
-Message-ID: <CA+GS1Y1s78PwN63X2YJoS8VEGp7CpTERo_K65yKs00U4VRAw4Q@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 0/9] accel: rocket: Add RK3568 NPU support
-To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Cc: tomeu@tomeuvizoso.net, ogabbay@kernel.org, heiko@sntech.de, 
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, 
- will@kernel.org, robin.murphy@arm.com, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:WOvRLrJZH2fMsLz0p1TR50u4KJMnjSVZyAge0lxD1vOf9uHZLIE
+ pr0h1v0mlsEqKhkasB1OPK9nV/+keAJB4/+b/FT4BxN3ezE6jmbbEs9pjsXsOB1mzjUBHgm
+ LDW6cyLd7RlXvP33EzuDXDdBCQJk8ADMRU0MtY3fUHz5YLEpUglTyUjZskiIw0VrSA+U1VT
+ gKvA/FctfsKAVbwKX8yqg==
+UI-OutboundReport: notjunk:1;M01:P0:Xb6DGd7uGTQ=;ANp5u/YJxeDUNL7RG5vqoUycBCu
+ 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
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,226 +140,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Chaoyi,
+The text display code used in the Risc PC kernel image decompression
+code uses arch/arm/boot/compressed/font.c, which includes
+lib/fonts/font_acorn_8x8.c, which further includes <linux/font.h>.
 
-Thanks a lot for looking at this -- input from Rockchip is exactly what thi=
-s
-series needs.
+Since commit 97df8960240a ("lib/fonts: Provide helpers for calculating
+glyph pitch and size") <linux/font.h> contains inline functions that
+require __do_div64, which is not linked into the ARM kernel
+decompressor. This makes Risc PC zImages fail to build.
 
-> Hmmm. If I understand correctly, the NPU IOMMU should be v2 rather than v=
-1,
-> implying it should support 40-bit PAs. Nevertheless, please note that the
-> upper limit for DTE is 32 bits.
+There is no need to use 64-bit division code here, so resolve this issue
+by using plain standard addition and shift maths.
 
-Understood, and that 32-bit-DTE note is the crux of the trouble I had, so l=
-et
-me lay out what I see and ask how you'd prefer to solve it.
+Fixes: 97df8960240a ("lib/fonts: Provide helpers for calculating glyph pit=
+ch and size")
+Reported-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+Signed-off-by: Helge Deller <deller@gmx.de>
+=2D--
+ include/linux/font.h | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-The mainline node is already v2 (rockchip,rk3568-iommu in rk356x-base.dtsi)=
-.
-The problem on this 8 GiB board: with the v2 ops the page-table allocations
-(gfp_flags =3D=3D 0) can land above 4 GiB, so the DTE ends up > 32 bits and=
- the
-NPU's first translation faults with DMA_READ_ERROR. To work around that I h=
-ad
-switched the NPU MMU to the v1 compatible (rockchip,iommu), whose ops set
-GFP_DMA32 and keep the DTE sub-4 GiB. That works in isolation, but because =
-the
-driver keeps a single global rk_ops, a v1 NPU MMU then trips
-WARN_ON(rk_ops !=3D ops) against the SoC's v2 instances (VOP/VDEC), which i=
-s why
-I based the series on Simon's per-device-ops work.
+diff --git a/include/linux/font.h b/include/linux/font.h
+index 6845f02d739a..67d32268989d 100644
+=2D-- a/include/linux/font.h
++++ b/include/linux/font.h
+@@ -11,7 +11,6 @@
+ #ifndef _VIDEO_FONT_H
+ #define _VIDEO_FONT_H
+=20
+-#include <linux/math.h>
+ #include <linux/types.h>
+=20
+ struct console_font;
+@@ -35,7 +34,7 @@ struct console_font;
+  */
+ static inline unsigned int font_glyph_pitch(unsigned int width)
+ {
+-	return DIV_ROUND_UP(width, 8);
++	return (width + 7) >> 3;
+ }
+=20
+ /**
+=2D-=20
+2.54.0
 
-So my question: with per-device ops in place, what's the intended way to ke=
-ep
-the NPU MMU on v2 *and* cap its DTE at 32 bits on boards with >4 GiB of RAM=
-?
-A v2 ops variant carrying GFP_DMA32 for this device, or is there a register=
-/
-config bit that constrains the DTE address? I'd rather follow the Rockchip
-intent here than carry the v1 workaround. (Simon, cc'd -- this is right nex=
-t to
-your per-device-ops series.)
-
-> Can these operations not be completed via the pmdomain driver?
-> If some operations are controlled by TF-A, are you using open source TF-A=
-?
-
-Most of it is in pmdomain already. Power-on and NoC de-idle are done by the
-RK3568 NPU power domain (genpd) at power-on -- the driver no longer pokes t=
-he
-PMU directly. Two things remain outside it:
-
- - vdd_npu: I mark it regulator-always-on in DT rather than wiring it as th=
-e
-   domain's domain-supply, because as a domain-supply it created a device-l=
-ink
-   to the I2C PMIC (rk809) and genpd's power-off QoS-save path then hung
-   reading the NPU QoS registers behind the (gated) NoC. If there's a clean=
- way
-   to let genpd own vdd_npu without that I2C ordering deadlock I'd much pre=
-fer
-   that -- pointers welcome.
-
- - the NPU compute clock (PVTPLL): set from the driver via SCMI, and only
-   needed for actual compute, not for bring-up.
-
-One more pmdomain observation from testing, possibly relevant to how the NP=
-U
-domain should be modelled: the domain's power-off/on cycle doesn't reliably
-re-de-idle the NoC. If the NPU is probed after genpd has already powered th=
-e
-(unused) domain off, the power-on de-idle fails ("failed to set idle on dom=
-ain
-'npu'") and the NPU IOMMU then takes an external abort on its first MMIO ac=
-cess.
-Probing the NPU before the unused-domain power-off, or marking the domain
-always-on, both avoid it. Is the NoC de-idle expected to work on a genpd
-re-power here, or should this domain effectively stay on?
-
-On TF-A: yes -- bl31 is built from upstream arm-trusted-firmware
-(github.com/ARM-software/arm-trusted-firmware, RK3568 platform), providing =
-PSCI
-and the SCMI clock service. The only closed blob in the boot chain is Rockc=
-hip's
-DDR init (rkbin), which is the standard situation for mainline RK356x.
-
-Kind regards,
-Midgy
-
-Le ven. 5 juin 2026 =C3=A0 03:36, Chaoyi Chen <chaoyi.chen@rock-chips.com> =
-a =C3=A9crit :
->
-> Hello Midgy,
->
-> On 6/4/2026 9:52 PM, Midgy BALON wrote:
-> > RFC, not for merge. End-to-end inference does not produce correct outpu=
-t
-> > yet (see Status), so per the v2 discussion this is a request for design
-> > feedback. It now probes, attaches, and submits cleanly on a stock
-> > v7.1-rc6 tree; what remains is one hardware-internal issue.
-> >
-> > The RK3568 has a single NVDLA-derived NPU core, the same IP family as t=
-he
-> > RK3588 NPU the driver already supports; the register layout matches. Th=
-e
-> > RK3568 differences are a 32-bit NPU AXI/IOMMU (vs 40-bit) and explicit
-> > PVTPLL/PMU bring-up to power and de-idle the NPU before it is reachable=
-.
-> >
-> > Patches:
-> >   1-2  rocket: per-SoC data struct, then derive DMA width and core coun=
-t
-> >        from match data (refactors, no functional change).
-> >   3    rocket: RK3568 SoC data + PVTPLL/PMU/NOC bring-up.
-> >   4    rocket: reset the NPU before detaching the IOMMU on a job timeou=
-t
-> >        (the detach otherwise stalls a wedged AXI master and WARNs).
-> >   5    rocket: keep the IOMMU domain attached across jobs instead of
-> >        re-attaching per job (the per-job rk_iommu handshake on the idle
-> >        NPU MMU is slow and noisy).
-> >   6    iommu/rockchip: clear AUTO_GATING bit 1 on the RK356x v1 IOMMU s=
-o
-> >        the page-walker keeps its clock (else a TLB-miss walk never
-> >        completes).
-> >   7    dt-bindings: add the RK3568 NPU compatible.
-> >   8-9  arm64 dts: add the NPU and its IOMMU, and enable them on ROCK 3B=
-.
-> >
-> > Dependency. The NPU MMU is rockchip-iommu v1 (32-bit) while the rest of
-> > the RK3568 uses v2 (40-bit). They cannot coexist until the driver carri=
-es
-> > per-device ops; this series is developed on top of Simon Xue's
-> > "iommu/rockchip: Drop global rk_ops in favor of per-device ops" [1].
-> > Without it the NPU IOMMU fails to probe on a full RK3568 boot.
-> >
->
-> Hmmm. If I understand correctly, the NPU IOMMU should be v2 rather than
-> v1, implying it should support 40-bit PAs. Nevertheless, please note that
-> the upper limit for DTE is 32 bits.
->
-> > Power bring-up. The NPU is brought up through the power-domain layer (n=
-o
-> > driver hack): the NPU power-domain keeps its clocks but drops the pm_qo=
-s
-> > phandle (qos_npu sits behind the gated NPU NoC, so genpd's power-off Qo=
-S
-> > save faults reading it), and vdd_npu is marked always-on so the rail is
-> > up before genpd de-idles the NoC at power-on. The PMU de-idle then ACKs
-> > without PVTPLL running; PVTPLL is only needed for compute.
-> >
->
-> Can these operations not be completed via the pmdomain driver?
-> If some operations are controlled by TF-A, are you using open
-> source TF-A? Thank you.
->
-> > Status. On v7.1-rc6 the driver probes, creates /dev/accel/accel0,
-> > attaches an IOMMU domain, and submits jobs; the program controller
-> > fetches and broadcasts the command list. Inference output is still wron=
-g,
-> > and the cause is split across three layers:
-> >   - kernel (this series): the RK3568 differences appear handled;
-> >   - mesa/Teflon userspace: still emits RK3588-tuned config, wrong for
-> >     RK3568 (to be filed separately on mesa-dev);
-> >   - hardware: with corrected config the NPU's DMA reads the full input
-> >     and weight tensors (confirmed via its DMA bandwidth counters), but
-> >     the MAC/output stage never completes, the job times out, and the
-> >     output stays at the buffer's zero-point. I have not found the missi=
-ng
-> >     step; it is not in the command list (replaying the vendor's
-> >     byte-exact command list behaves the same). Pointers welcome,
-> >     especially from anyone with RK3568 NPU experience.
-> >
-> > Known residual. On the first IOMMU attach the NPU MMU is idle with pagi=
-ng
-> > already enabled; the rk_iommu stall/reset handshake does not complete i=
-n
-> > that state and logs one burst of timeouts before the (kept) domain
-> > settles. It is harmless here because the job times out regardless, but =
-it
-> > points at an idle-MMU reconfiguration corner the rk_iommu code does not
-> > handle on this block.
-> >
-> > [1] https://lore.kernel.org/linux-rockchip/20260310105303.128859-1-xxm@=
-rock-chips.com/
-> >
-> > Changes since v2:
-> >   - Tagged RFC; now tested on a stock v7.1-rc6 tree.
-> >   - Bring-up moved into the power-domain/DT layer (no initcall hack).
-> >   - Added the IOMMU detach-on-timeout and attach-once driver fixes.
-> >   - Split the driver patch (Heiko): soc_data / match-data / RK3568.
-> >   - Derive DMA width and core count from match data; drop the DT rescan=
-s.
-> >   - Binding describes the hardware; added the missing $ref on rockchip,=
-pmu.
-> >   - Disclosed the per-device-ops IOMMU dependency.
-> >
-> > Midgy BALON (9):
-> >   accel: rocket: Introduce per-SoC rocket_soc_data
-> >   accel: rocket: Derive DMA width and core count from match data
-> >   accel: rocket: Add RK3568 SoC support
-> >   accel: rocket: Reset the NPU before detaching the IOMMU on timeout
-> >   accel: rocket: Keep the IOMMU domain attached across jobs
-> >   iommu/rockchip: Clear AUTO_GATING bit 1 on the RK356x v1 IOMMU
-> >   dt-bindings: npu: rockchip,rk3588-rknn-core: Add RK3568
-> >   arm64: dts: rockchip: rk356x: Add the NPU and its IOMMU
-> >   arm64: dts: rockchip: rk3568-rock-3b: Enable the NPU
-> >
-> >  .../npu/rockchip,rk3588-rknn-core.yaml        | 18 ++++-
-> >  .../boot/dts/rockchip/rk3568-rock-3b.dts      | 14 +++-
-> >  arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 38 +++++++++++
-> >  drivers/accel/rocket/rocket_core.c            | 22 ++++++-
-> >  drivers/accel/rocket/rocket_core.h            | 19 ++++++
-> >  drivers/accel/rocket/rocket_device.c          | 15 ++---
-> >  drivers/accel/rocket/rocket_device.h          |  3 +-
-> >  drivers/accel/rocket/rocket_drv.c             | 66 ++++++++++++++++++-
-> >  drivers/accel/rocket/rocket_job.c             | 35 ++++++++--
-> >  drivers/iommu/rockchip-iommu.c                | 12 ++++
-> >  10 files changed, 219 insertions(+), 23 deletions(-)
-> >
-> >
-> > base-commit: 52c800fdcf11888ebeb50c3d707f782cc15b66eb
->
-> --
-> Best,
-> Chaoyi
