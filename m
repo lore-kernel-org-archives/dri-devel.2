@@ -4,128 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90902CD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 06:11:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F1ADCD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 06:12:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1DB610ED58;
-	Mon,  8 Jun 2026 06:11:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51A2310ED5A;
+	Mon,  8 Jun 2026 06:12:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XOuYTKdD";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OBfoOK4t";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="a5QrppdW";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iyhf640J";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1F9C10ED57
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 06:11:14 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0499310ED5A
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 06:12:16 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6580GlJp1933588
- for <dri-devel@lists.freedesktop.org>; Mon, 8 Jun 2026 06:11:14 GMT
+ 6580EAsG1469249
+ for <dri-devel@lists.freedesktop.org>; Mon, 8 Jun 2026 06:12:16 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=zl/gOSwq/zJx2zMCoSWpfKLD
- oa29+U0nv8eXcgWpFDc=; b=XOuYTKdDQILkohl4FW7OdfjqMyyh201CrXzLPbby
- bIx0NgRKEC1GIerHteRUryoPmC9MLffwm6AXzvCdEJGB0UonbMGnZKLQwonkRq9C
- koCsPYjRSB45vMI51K+BW1c2P+4yJyBEPZMoikPkrz70XBvaLN1g+BTUa239rK60
- b4mBuRm0NQP4Gx9ZdkWC0SVOp9L5Lc026Wm7orpE334ycotsevx+mNTggrzFsOUo
- oueBTEPpBiVCy4dAPRk73RPVzQCYsNdrj6YZ8kNPF3yFAdDmLCcovl7fVhgA2Ro0
- slcqFisG0oLu3rxhd94j6TLNlDiHrEE09+dhCVoy4fmX7g==
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com
- [209.85.222.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emavf6arc-1
+ :references:subject:to; s=qcppdkim1; bh=WVKWxZsnq6xE/GGUlxylGRbf
+ kAGhFykn+8ukYkAUUnY=; b=a5QrppdWR8HfJPGIoCxldQjiWTwa/DbcP8h0DViO
+ mOCw3RXN0L9ivo59eUzgfT84IpOVdfVgdhEIUgmHF5dOqRI81ULKcvn3ZPGD80My
+ ZgC1Gfm+2Ex50TGgTAb7AIMo2B1FWU0P0jQQBYJq0kv+dOn/FKXKjryvj1locdHe
+ p/e88rUQKs1x4zf1zpVF+E5EVAzKjyEEDVBeq6MDAPB2m0N4o0zI9eXfc6ogaPRe
+ jHU/3gfCEhq9XzgTfT1uSSBSwPvEztSL19Q9IrA7ewDyB7Z6iHuipxK9qLeGwbdX
+ X5C2LrcWuWXDQ6t1ISoUBxjNXPLitB8FFEbGg8drJYBXJQ==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emcqgwx6r-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 06:11:13 +0000 (GMT)
-Received: by mail-ua1-f69.google.com with SMTP id
- a1e0cc1a2514c-963eeb6f2baso4182353241.0
- for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 23:11:13 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 06:12:16 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-8ccd5491db4so28989836d6.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 23:12:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1780899073; x=1781503873;
+ d=oss.qualcomm.com; s=google; t=1780899135; x=1781503935;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=zl/gOSwq/zJx2zMCoSWpfKLDoa29+U0nv8eXcgWpFDc=;
- b=OBfoOK4tstW73CDsGvBFjMWupHmzy5A7GbwJUTL6gzKW4xpxF1dL6AEjhDqZtdctcg
- CbDk9jOwnRfqoYfPuoU6e1fqHTO6+a4M2N2em06CpFITK5oE62vfRuE2SLiMmk+hLH/t
- a5iiJvvr0IVhN+UN/ab1EG6hzj3ZFh+rzqAT8cc8VLtgauL4huCGEPUdiFS7iqi3scGk
- /9jL3h2yStE6xe2dSbFsB0VJet/6L1tBFSbN11IBPujCOSncjlfVx9rZoT3zdrHY/hN5
- iBDzRNT5BeCH1/eeOmxJHVbLJDxUB0ei7AUbIZ6zj3lkFnLeZW5d9v+oMQ6VrWVfzqXZ
- Kqiw==
+ bh=WVKWxZsnq6xE/GGUlxylGRbfkAGhFykn+8ukYkAUUnY=;
+ b=iyhf640Jiksi56T1OV1LWzYH1S5ycVNz0pQx9drO4oFmH4N7ACSYZ/Ghzw6CryngMU
+ B3YKVdzuvgtJ4A/la10Ty931ezCEDsSJnzgDkOunXLQTaL/fPiZaV587O/6vjQXaIQrq
+ MibErpJvfosnHiLqssRo4s0keDexwTDkny9GJYZ7vHsaFt3V4qiFUX5doc/dLV7gMxkO
+ yepZ6FfqwaYV8/31kMm6Xh9RUy88SJ+D9erqJgqU1iUb95H0Lqu7kcIXC8NlPtZ0HqRL
+ 8B1/6op60CwTDrFIeY6yUzQftXB6HZ6POT9+79aNgTqbUYVVAYS1+pl0DcOuvnuYXYuS
+ L+sA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780899073; x=1781503873;
+ d=1e100.net; s=20251104; t=1780899135; x=1781503935;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=zl/gOSwq/zJx2zMCoSWpfKLDoa29+U0nv8eXcgWpFDc=;
- b=b3ifBSqmDFPSpsg8t3CbC1MxAe7xEsRKLWO9EDY3eLqJFYI9ANYnupYW/dFNANp/FT
- kgJZ7eqW5tkEcLwXfkKFQKE0u63oAuI+IuKatPnZcL2bHSZ9DPVxm/wB1aq69XDrSjyZ
- z0UOX/cNI+8xgO6iQK91yClQSzO3OMbzkXnpTNGEN8s69Nc2e14n26WUTmqtVQqPXytX
- tORWXkyCbUULY0m7DcqWxHBFOW8nRK7CrFT4WKa+fggC92g/i7gPErMzyA7VNe1GwF0P
- XhzlVmxkHwj6vvZyaQS5uraKgAr5zzRRKdgngFGY2ccOKzHRMpcMfa8y3aqi28HoER5/
- XvCA==
+ bh=WVKWxZsnq6xE/GGUlxylGRbfkAGhFykn+8ukYkAUUnY=;
+ b=N6+1KBD7WFl0TKwIzdwIQgyt/tX+4zo3Q/MC1F9eMBhpQ5OWDSf8B64IrU9hgRVMZh
+ zMuTh3qM+PccvpEpF6RYw+jc3vt5MrzMqG56O6sBy3D7t0Xj4C1vqDcol2is8Q+ZAqZD
+ Ky3qptkrUCKoOxxdR0Un+JT/g5rVC44VNNc5n+NXbDfzH1vrtNTWvaPxBKzph5yVxau8
+ lNUN5Kk4tDKllC2p1r+e41wmWTVt46Wee1mZTRPc41r9wp3fgZlgxfoKMr4m+3VPP1sZ
+ hXdHnevd7LWlz3ej9yJML/I+bk0WjvsQ26DbioERp3/GWYykvn9NpbHhrWI8FWZLe61p
+ UdQw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+7IuoC2DaQun5XYkbjX9iTOpYkHxSicZO8YLvmmgmihR8ttPr+VsZs4MSXKGnDgcZegS/7EzuoOHE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyZ3LM/pbZuWgketge+uVImLdxG0RdgGOyN7HgVsFwvOXhyf15D
- AbFDqxUwpNOjdy9lC2Zjc2M7p94ZdCsBF1P+ww9qvO5/C2ejeYdpbzsR9uxve8j/TN1TBDSRBG4
- ii7Ps0ASUxk/AK24ILdoYKyZBb4ctUhGGlUpkFMypzW8/NS3o9O/QZq+qh2feblUPC0i4QC0=
-X-Gm-Gg: Acq92OFlJCyRCIPzMqEO3Nt2Ep3qEf8TSyBv197UdhlzLLNiZcu2jp+u0svDU/RWvQa
- aFQVdwuJuQ5+138DYN+QIPMT4lXLecx02FkRn9ndGxYJkIbnFAH16S5CUP/OM8+StueVpj3zQmp
- ULH52jlCqJPHlOHUzT1kZMitZF+ePC0ue5EiwCyFIis7kqU12JIUnwC8IzGWVOws/PQkK5FBSjW
- 7rsz/m/g7mFDSEUjXBkndy+50BNGWgvThKBSFkddoY0LoI4jfm87s9D1r2q+tSM5oEVhsk0P/Dw
- gPJdpY13B5Y54eFWNNwDGDN9xjpjQgqhZd/xhU7eieATYYOJkXtnYI//JXgJcSGxo4bvVxYytW7
- fmKw3sI9+p6lL3YXOCvo3vhpSqYhTuaHsN6UWtCMEFyNmNfuOf/gH84Vbn0JAHqHIsyFO9sQilz
- lHbmGYn/3Loz1o0DAlVlXQdVzBcxU55maX0QB1bfenqIaJuw==
-X-Received: by 2002:a05:6102:8001:b0:618:442a:9e76 with SMTP id
- ada2fe7eead31-6feff813ee1mr6808970137.10.1780899073255; 
- Sun, 07 Jun 2026 23:11:13 -0700 (PDT)
-X-Received: by 2002:a05:6102:8001:b0:618:442a:9e76 with SMTP id
- ada2fe7eead31-6feff813ee1mr6808964137.10.1780899072865; 
- Sun, 07 Jun 2026 23:11:12 -0700 (PDT)
+ AFNElJ9HuKjz+N1+bSoIeDMhIDBNnOUxszznKePgQ9S4N4GGZflRjqvnJaWd/bM9fu5/rP/jndY/v3VWRb0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwfxqUFZQKxWnVlzzIpOQEjEdeQCIPx2wrXYMMMkTtsojmXh/u9
+ kWaSPet6oRT+RTcm9cW+HuQEy3mearrVR1rx6Tl4oXiLgAt+BRWDBApkoMDhhAn4lTnW8vFGTKA
+ nSsxQGG6x+0dbJwfKvvfZuAoMWEEXWNgFD06VLVMAnrb8ykgojQhUaE2A5NADJwozTc7v7cw=
+X-Gm-Gg: Acq92OHm8D+IlCUjnrgKnD0PBoPqQPcsFwSa1sVgq7g+bSwRtWw7ocUhXwbwE+hfliF
+ r6jhEPZ9XwglW8Z5EMPzcJWrJObMZJsTECK06aX4+lpE1UKhdnG2Xuu/qTEtO5HUELSj/SaeRJa
+ UBJ1aFAnJxe/5OAb+zw9JbasYGBHusLtUUj+6tQnqvO/C69MGEyK3LzRk6mG5wsSWmwD0gFZ8GB
+ LZwqnmjQ4rsXW1EbFuvwVpHOFkmrHqlaxE/ZrWeldhFOfWwfFZrGEqfy2aN+lDG+L4SRWo7Fb6O
+ 3EEXoGXolHA5l+qyS1lvIubivNReY/P1R8skJ+pdcqIVx/dCLhkYs2z/9j4axMQRVp8BeBJACTG
+ Oykgtj4PHmjlTlHhanNOWxXXAQ2CpFI68Xdw+BhTg+YN+b/+9Sq35qDAxcnne3vjG6P9GJfubYG
+ AvlOyFi/6DkaTNyiQntzPa1TTsw6mxKJIiPj8sme6aDG25ew==
+X-Received: by 2002:a05:622a:1388:b0:516:e031:9343 with SMTP id
+ d75a77b69052e-51795a829e6mr195423281cf.11.1780899135479; 
+ Sun, 07 Jun 2026 23:12:15 -0700 (PDT)
+X-Received: by 2002:a05:622a:1388:b0:516:e031:9343 with SMTP id
+ d75a77b69052e-51795a829e6mr195423001cf.11.1780899135009; 
+ Sun, 07 Jun 2026 23:12:15 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5aa7b8ed2adsm3559059e87.1.2026.06.07.23.11.10
+ 38308e7fff4ca-396ac2be2absm43191071fa.23.2026.06.07.23.12.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 Jun 2026 23:11:11 -0700 (PDT)
-Date: Mon, 8 Jun 2026 09:11:08 +0300
+ Sun, 07 Jun 2026 23:12:13 -0700 (PDT)
+Date: Mon, 8 Jun 2026 09:12:12 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jianping Li <jianping.li@oss.qualcomm.com>
-Cc: srini@kernel.org, amahesh@qti.qualcomm.com, arnd@arndb.de,
- gregkh@linuxfoundation.org, abelvesa@kernel.org,
- jorge.ramirez@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- ekansh.gupta@oss.qualcomm.com, quic_chennak@quicinc.com, stable@kernel.org
-Subject: Re: [PATCH v7 3/5] misc: fastrpc: Fail Audio PD init when reserved
- memory is missing
-Message-ID: <bcm2eufawifaq65i5qlqmbam4wtv2du5re6c54tiamdbynmras@lbfd44kjb6da>
-References: <20260602071750.526-1-jianping.li@oss.qualcomm.com>
- <20260602071750.526-4-jianping.li@oss.qualcomm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-amlogic@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ neil.armstrong@linaro.org
+Subject: Re: [PATCH v4 6/8] drm/msm: dp: handle the IRQ_HPD events reported
+ by USB-C
+Message-ID: <w34p2gevaxzr7do4gxzgqbbrtadnemkzrafcuroeytd2dphrrh@qgw5ld4rpylf>
+References: <20260608-hpd-irq-events-v4-6-30b62b335487@oss.qualcomm.com>
+ <20260607214829.B05091F00893@smtp.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260602071750.526-4-jianping.li@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=I4JVgtgg c=1 sm=1 tr=0 ts=6a265d01 cx=c_pps
- a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20260607214829.B05091F00893@smtp.kernel.org>
+X-Authority-Analysis: v=2.4 cv=dJGWXuZb c=1 sm=1 tr=0 ts=6a265d40 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=t-0ExjSqTYZ73aSqprYA:9 a=CjuIK1q_8ugA:10
- a=TOPH6uDL9cOC6tEoww4z:22
-X-Proofpoint-ORIG-GUID: IuSkeTIJY1gjnAkivwgdg51e_4kTTlXK
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA1NCBTYWx0ZWRfXyj0prMjNSfbh
- J4xoFPOq5lRvIuTwdEjKhH/IbcqsQrbj+BHl5zT3/82QryGbGYPmnnC7zleOWVW19PpBj0jCkkw
- JKO/9sRH3Zkwz4KXsP/CYruE28RsEhkMIwvdhlPSODzjkVOavplu++L0ddlhQUfh25aAXmVDRVI
- ue3qerWbTD2KG/UX5fOWKWHTR02adShKvvgYKTp4Y+8rvLVlZSR3soX9YnuohdJFN7R0SFNL6IS
- 3+DbSjnsWRLRISIWbiy5XYU3cqZY7C3lPGgy8GiH1ZTnQR+UvC5HkUCODipXFrIVNBiAcob+pPY
- PRXkjs5QY9qg8uKmwDua4/b/irp6sg5tysINn9dRf0GKv+ALylwiaSNz++tAYnc11/bm7GcnxA0
- p5aZXYR9Af4JComM+i3CO1P23gPuUWhuea9L46Po5hSmiG89zh/wz7O5K/6vSTTYpUFMAlARKRe
- G36AOPN9cm1JZJtHN4Q==
-X-Proofpoint-GUID: IuSkeTIJY1gjnAkivwgdg51e_4kTTlXK
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
+ a=vviSY2pRISl9Lsm2BZEA:9 a=CjuIK1q_8ugA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-GUID: H-ESVQst4PLKTIcb1hS-UhLUmcS43y-c
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA1NCBTYWx0ZWRfX9/ny+BZ0r59b
+ Iky+S7UAa+Au4A3XMXMjR2V50vQK25lC5y1LrI5TcDtSxtA0Ix4q867/skm9rVKpQyfp1QMQ57o
+ 4HfBauG0MmEhtKsW82pf+w6xO8vcd2BGteGsYFQjcWQmI4RTYE0LZCcjLwkQHYLPC9IqKVPPrDp
+ IHpvO45cylRmA9Ifv5zbuLzj5TUm8R7l4P+Cl5zBvBRiWLJ/278PWzOvEmV+asD2ODQ3O868nWk
+ Kl69VSd1EMgrVbek4aJNsv8Jkd3btf4R/EP953gH0/QUwezoC91TldrcdLItxQcSLR2B9e3GqSa
+ i0MRXKCgBsRQl4ftxFKZSPxpZIFH+Wergwk8xOvC+q1NEnZzlPNJTpu5ol42xnar+A9e6+emZcs
+ x0hBtk7Cw0Rm+Wv8yA0jP5KpyEcb1uMaMevK+Jb5+8BF/YKR/iqJ4t+4dKIMaWnTbeKUHyNoRQu
+ Y/GojKqdJ0ln3Pznaww==
+X-Proofpoint-ORIG-GUID: H-ESVQst4PLKTIcb1hS-UhLUmcS43y-c
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-08_01,2026-06-05_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0 priorityscore=1501
- bulkscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 adultscore=0 phishscore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 suspectscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080054
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -143,50 +139,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 02, 2026 at 03:17:48PM +0800, Jianping Li wrote:
-> Audio PD static process creation assumes that a reserved-memory
-> region is defined in DT and exposed via cctx->remote_heap.
+On Sun, Jun 07, 2026 at 09:48:29PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
 > 
-> If reserved-memory is missing or incomplete, the driver may pass
-> invalid address/size information to the DSP, leading to undefined
-> behavior or crashes.
-> 
-> Add explicit validation for remote_heap presence and size before
-> sending the memory to DSP, and fail early if the configuration is
-> invalid.
-> 
-> Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
-> Cc: stable@kernel.org
-> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
-> ---
->  drivers/misc/fastrpc.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index a8a58f889d07..f46a8f53970d 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -1354,6 +1354,13 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->  	} inbuf;
->  	u32 sc;
->  
-> +	if (!fl->cctx->remote_heap ||
-> +	    !fl->cctx->remote_heap->dma_addr ||
-> +	    !fl->cctx->remote_heap->size) {
-> +		err = -ENOMEM;
-> +		dev_dbg(fl->sctx->dev, "remote heap memory region is not added\n");
-> +		return err;
-> +	}
+> New issues:
+> - [High] Initial connection and replug events are incorrectly bypassed if accompanied by an IRQ_HPD status, leaving the display disconnected.
 
-Won't this check without the next commit break the kernel? I don't see
-where else the remote heap is being allocated.
-
->  	args = kzalloc_objs(*args, FASTRPC_CREATE_STATIC_PROCESS_NARGS);
->  	if (!args)
->  		return -ENOMEM;
-> -- 
-> 2.43.0
-> 
+Indeed. I'll fix it for the next revision.
 
 -- 
 With best wishes
