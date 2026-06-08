@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F807CD8C92
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:38:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6608CD8C92
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:38:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A04D110F4DA;
-	Mon,  8 Jun 2026 14:37:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33E7D10F4E1;
+	Mon,  8 Jun 2026 14:38:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O0oWcKDI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EJ/KR/dY";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5137C10F4E0
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:37:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 069C410F4E1
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:38:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3AECE402D3;
- Mon,  8 Jun 2026 14:37:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E3B71F00898;
- Mon,  8 Jun 2026 14:37:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E416743A30;
+ Mon,  8 Jun 2026 14:38:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EFF41F00898;
+ Mon,  8 Jun 2026 14:38:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780929478;
- bh=7Y9xYHuH6R+IPPQ4aNgPAc8tQldBYFq42TxAO8vBAes=;
+ s=k20260515; t=1780929480;
+ bh=LuAwUQUveSOmj6xeEiuorrc1rDjWMdOsIVlcD5Aze2A=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=O0oWcKDIPERFhc5XLQVOhbketAFPtp/WC7p4K8ftUU3521Fc7rG4gpXlhZi0cBZ06
- lNhPw4EZ3uDOBvebhFD3FZ8zPEHf8rWmQ6cHNpk5swYeBD6u/cFbsYF3n+M564J4oL
- c9qZ7TNTJOHwvpfSqD15XZ6OFd3oWk7TjYloVcKAAUUDpPYQy35XTGQTgSxQQAFmI+
- xxw90NWzYD3fufuRt85mTsPySQq1oJ0XSQKJymCi98wNwNeDUcshJ2A/lZ7vQF3tpu
- EHzWE/a/V1gm9dsutQebSA9KhRt0A941K/+o4yxmEi4qSbjl6TZmONDMrCyKVGS0xO
- 93xXkrGVcijQw==
+ b=EJ/KR/dYqxq+MKSBYb5N9ZIeDx1mSRgmSL/6vCdW5T+wgyomM6iNYHSHSqr43ypdV
+ ocv+toQXYjFzmYuEhf6CRD1/OCTecdqvz1g7vXQy3V65HcdGYyyBV0Bc+5ce912kzR
+ rpcanvu0Dmz0nSwkx92y5vpYMY97dbiVdOCA5YfBoy/F0IHa7uAV4WJUcYCDWSZFc7
+ a8eDjQlLgIJa+oDvFj6xdZGHRzNLcdD93uPmnJAtkLyqkByNSXzfD1PEbXSdj1jDeu
+ TlIB3TDt0tvQHFiUlL/YAsuAe1XQ8BohAvjr5rFrHfZjvVDWPv2ZsMITZNBHtsfj2h
+ SjmmmWRcLsAow==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 08 Jun 2026 16:36:16 +0200
-Subject: [PATCH v2 34/78] drm/bridge: dw-hdmi-qp: Switch to atomic_create_state
+Date: Mon, 08 Jun 2026 16:36:17 +0200
+Subject: [PATCH v2 35/78] drm/bridge: dw-hdmi: Switch to
+ atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260608-drm-no-more-bridge-reset-v2-34-0a91018bf886@kernel.org>
+Message-Id: <20260608-drm-no-more-bridge-reset-v2-35-0a91018bf886@kernel.org>
 References: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -50,12 +51,12 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1428; i=mripard@kernel.org;
- h=from:subject:message-id; bh=CL8AfnfQI12+t6/DZaSpYTTpCtoPr+1k6XiX9j8E910=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlql0M+lyW/XFX36/FdX8FLJT8a1zPW9X2SbeOWPpAZu
- nO9xvu9HVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiXS8Z69Mfax9zd9WQ/37x
- qlWNhuejs7ObvovamIvx5ZlIv299W7rPnCum56dt45OE6yrnlv94xVjvrpOmu9Li4PGAK95Xlql
- Pu5f89rfpAZVl3vusVN159zFXyklVcNwW2eNx17VYy55HNhAA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1385; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=/2f1HE/XKHIsNOMPWrnPDL2PbvMOiYf+c0cKMiUWev0=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlql0P0n/5Yxdj49/W1ba6aKrsL5UpeaHr7uj9fIPos+
+ wjv96fHO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEzJ8w1vvW9SyWXnBLhEMw
+ r+Dfse+Z/42uGGVIRjzdv+7c3GfPj5kc+L3Ze/7Ea1eWLVY0miktZ85YZ/7n5zblds/tal4Jq8P
+ LKrWjb1m/uZ2kd2MCd9vkqyuOKbXFytl93F6Y5Htm9dKvx5TnAQA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -82,26 +83,26 @@ drm_atomic_helper_bridge_create_state() counterpart.
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 2 +-
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index 1c214a8e6dc2..a5217574c77e 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -1190,11 +1190,11 @@ static int dw_hdmi_qp_cec_transmit(struct drm_bridge *bridge, u8 attempts,
- #endif /* CONFIG_DRM_DW_HDMI_QP_CEC */
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index 17d5caedb32e..a408dbd414bf 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -3025,11 +3025,11 @@ static const struct drm_edid *dw_hdmi_bridge_edid_read(struct drm_bridge *bridge
+ }
  
- static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
+ static const struct drm_bridge_funcs dw_hdmi_bridge_funcs = {
  	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
  	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 -	.atomic_reset = drm_atomic_helper_bridge_reset,
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.atomic_enable = dw_hdmi_qp_bridge_atomic_enable,
- 	.atomic_disable = dw_hdmi_qp_bridge_atomic_disable,
- 	.detect = dw_hdmi_qp_bridge_detect,
- 	.edid_read = dw_hdmi_qp_bridge_edid_read,
- 	.hdmi_tmds_char_rate_valid = dw_hdmi_qp_bridge_tmds_char_rate_valid,
+ 	.attach = dw_hdmi_bridge_attach,
+ 	.detach = dw_hdmi_bridge_detach,
+ 	.atomic_check = dw_hdmi_bridge_atomic_check,
+ 	.atomic_get_output_bus_fmts = dw_hdmi_bridge_atomic_get_output_bus_fmts,
+ 	.atomic_get_input_bus_fmts = dw_hdmi_bridge_atomic_get_input_bus_fmts,
 
 -- 
 2.54.0
