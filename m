@@ -4,52 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49FD1CD8C9F
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 17:59:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAB08CD6E79
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 18:04:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7273210F826;
-	Mon,  8 Jun 2026 17:59:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A87310F839;
+	Mon,  8 Jun 2026 18:04:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kUHCV6/e";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U2PDHPTO";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBB1E10F826
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 17:59:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 418AC10F839
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 18:04:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8E85D43A89;
- Mon,  8 Jun 2026 17:59:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 637D81F00893;
- Mon,  8 Jun 2026 17:59:44 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7CA286001D;
+ Mon,  8 Jun 2026 18:04:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D8021F00893;
+ Mon,  8 Jun 2026 18:04:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780941586;
- bh=q2JqATLztu+mIBVuhWa8EiLN1hz2Egk+EZOysl2E1h4=;
- h=Date:To:From:Subject:Cc:References:In-Reply-To;
- b=kUHCV6/ezHm16sVuomaCS9gJrTOweRjwt3q9+UtmWmTxStpGTivrtB1eWFoPeGTRi
- Rt1rYLWtTlbygc6r7E1o3j234o8PH7MkGBgbgDrmb3oMAWu57Xq+WFIXYJFoGCXoHz
- VG120l533CGIe9Tkjbe4fVAGbgJvzkL1Qt+LyOR+ZMdECbY9d39OTW+ylMga4MxFSD
- uaUXJq43RAMak/XdyjRKHviGfGTs5m1vA4QyIffN3ZFbGQJj+e98O+u4y2LZoSS2Vq
- DCjTk+LOp3hVUTmJdiV0VL7NqiQmGRZORKd1d4EHF75sMs3UTPKN6PMViSfZpfdKjj
- KCZTTCkCOaOPg==
-Mime-Version: 1.0
+ s=k20260515; t=1780941877;
+ bh=fLbSq7SH27GrWuSQxpFHUksdQ0gNTqkjwr3gmS594SI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=U2PDHPTOYo0Ria+0NNK4Vg38ws1vZiGlgWSBO034tUhA7rcf1JTl9IORzNALywyno
+ LMYv29idKSqoIsrQQlCWHZfayFZGmr9g97npzBIC76NZruSOzPo9HvkYMVi6/zwv59
+ xob/tdzqA5CRJxYaHl25OR0Z2cWAyg81voJcsJsSTOzx2W0eFs8dHmS+kWeDsEY765
+ 3yN8rDrT1BcYMj3uctFNTe7KPD55y6ZLy6cpRn4WMi54C437typMGUP8RO7MbHijv6
+ OJYPxhl0BEwa0EIEfMmCq0yf9z6Hz+qxnH7tdOv8SNI1zr3qY3KR/w2tNc5NMpxDkP
+ 8QzvDAze2RaZQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V1] accel/amdxdna: Fix VMA access race
+To: "Lizhi Hou" <lizhi.hou@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260608175018.2756886-1-lizhi.hou@amd.com>
+References: <20260608175018.2756886-1-lizhi.hou@amd.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 08 Jun 2026 19:59:42 +0200
-Message-Id: <DJ3V3OCLIK2K.3CYKWYNHYU6JQ@kernel.org>
-To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [RFC PATCH] dma-fence: Fix races of fence callbacks versus
- destructors by locking
-Cc: <phasta@kernel.org>, "Sumit Semwal" <sumit.semwal@linaro.org>, "Boris
- Brezillon" <boris.brezillon@collabora.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <dwlsalmeida@gmail.com>, "Gary
- Guo" <gary@garyguo.net>, "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>,
- <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-References: <20260608142436.265820-2-phasta@kernel.org>
- <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
- <fa9a335196525adbc03ec21b2e05bb526e4fc174.camel@mailbox.org>
- <9d49c901-fcdf-487a-a733-0320d0bdf94c@amd.com>
-In-Reply-To: <9d49c901-fcdf-487a-a733-0320d0bdf94c@amd.com>
+Date: Mon, 08 Jun 2026 18:04:36 +0000
+Message-Id: <20260608180437.1D8021F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,27 +52,106 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Jun 8, 2026 at 7:34 PM CEST, Christian K=C3=B6nig wrote:
-> That's why we need the RCU grace period to make sure that nobody is
-> referencing the driver stuff any more.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Right, and that's what Philipp tries to address, the requirement to wait fo=
-r an
-RCU grace period is perfectly fine if it is only about freeing memory, but =
-it
-can become painful if the fence private data contains data also needs to be
-destructed in some way.
+New issues:
+- [High] Use-after-free on `mapp->vma` during MMU notifier invalidation.
+- [High] Memory flag `AS_UNEVICTABLE` is permanently leaked on mmap error p=
+aths.
 
-IOW, if a driver signals a fence, it is lifecycle-wise reasonable to destru=
-ct
-the private data that is no longer needed (remaining users only deal with s=
-truct
-dma_fence) and having to wait for a full grace period adds sublety and
-complication that can be avoided with the proposed approach.
+Pre-existing issues:
+- [High] Pre-existing use-after-free on `mapp->vma` in debug logging.
+- [High] Incorrect management of `AS_UNEVICTABLE` on shared file mappings a=
+nd swapped `vma->vm_file`.
+--
 
-That said, I'd like to ask the opposite question: What are the concerns wit=
-h the
-proposed approach over (pure) RCU?
+commit 7b0235d032796ef659fe1d987ecb0649b81f544e
+Author: Lizhi Hou <lizhi.hou@amd.com>
+
+accel/amdxdna: Fix VMA access race
+
+aie2_populate_range() and amdxdna_umap_release() access a saved VMA
+pointer that may have already been freed, leading to a potential
+use-after-free.
+
+Remove the VMA accesses from these functions to avoid the race.
+
+Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/=
+amdxdna_gem.c
+> index 63976c3bcbe0f..80dd183ecba92 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> @@ -271,6 +271,10 @@ static bool amdxdna_hmm_invalidate(struct mmu_interv=
+al_notifier *mni,
+>  	if (range->event =3D=3D MMU_NOTIFY_UNMAP) {
+>  		down_write(&xdna->notifier_lock);
+>  		if (!mapp->unmapped) {
+> +			if (is_import_bo(abo) && mapp->vma->vm_file &&
+> +			    mapp->vma->vm_file->f_mapping)
+> +				mapping_clear_unevictable(mapp->vma->vm_file->f_mapping);
+
+[Severity: High]
+Does this code still have a use-after-free on mapp->vma?
+
+The mmu_interval_notifier tracks virtual address ranges, not VMA lifetimes.
+If a VMA is split, merged, or partially unmapped, the original
+vm_area_struct can be freed without immediately invalidating the interval
+notifier. When a subsequent munmap triggers MMU_NOTIFY_UNMAP, mapp->vma
+could be a dangling pointer.
+
+
+[Severity: High]
+Can this code permanently leak the AS_UNEVICTABLE flag on mmap error paths?
+
+If amdxdna_insert_pages() fails during mmap, the error path calls
+amdxdna_hmm_unregister(), which sets mapp->unmapped =3D true but does not
+clear the flag. Consequently, the flag might never be cleared because this
+invalidation handler skips the clearing when unmapped is true.
+
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this clear the wrong
+file's mapping?
+
+For imported dma-buf BOs, amdxdna_hmm_register() sets AS_UNEVICTABLE on
+vma->vm_file->f_mapping. At this time, vma->vm_file is the XDNA device file.
+
+Subsequently, amdxdna_insert_pages() calls dma_buf_mmap(), which swaps
+vma->vm_file to the dma-buf file.
+
+When the VMA is later unmapped, mapping_clear_unevictable() is called on the
+new vma->vm_file (the dma-buf). This leaves the XDNA device file permanently
+locked as unevictable, while the dma-buf file incorrectly loses its
+unevictable status for all other clients.
+
+
+[Severity: High]
+This is a pre-existing issue, but does amdxdna_hmm_invalidate() have another
+potential use-after-free on the VMA pointer earlier in the function?
+
+Prior to this patch, amdxdna_hmm_invalidate() accesses mapp->vma->vm_start
+and mapp->vma->vm_end for an XDNA_DBG log statement:
+
+    XDNA_DBG(xdna, "Invalidating range 0x%lx, 0x%lx, type %d",
+             mapp->vma->vm_start, mapp->vma->vm_end, abo->type);
+
+Because VMAs can be freed by mprotect() or vma_merge() without triggering an
+MMU notifier, mapp->vma can be a dangling pointer when an invalidation event
+later occurs.
+
+> +
+>  			queue_work(xdna->notifier_wq, &mapp->hmm_unreg_work);
+>  			mapp->unmapped =3D true;
+>  		}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608175018.2756=
+886-1-lizhi.hou@amd.com?part=3D1
