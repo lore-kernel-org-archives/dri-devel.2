@@ -4,44 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7434CD6E79
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 20:20:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C344DCD6E79
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 20:26:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BEA110F9AC;
-	Mon,  8 Jun 2026 20:20:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E364010F9AD;
+	Mon,  8 Jun 2026 20:26:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gZie3eIW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V/EqL3Jm";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBD6310F9AC
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 20:20:13 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E09510F9AD
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 20:26:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A2F0042A2B;
- Mon,  8 Jun 2026 20:20:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34CED1F00898;
- Mon,  8 Jun 2026 20:20:13 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B1FE56001D;
+ Mon,  8 Jun 2026 20:26:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C936A1F00893;
+ Mon,  8 Jun 2026 20:26:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780950013;
- bh=MmwAtCna81rOcuXdu8eTYuCozMI9I+pnq6/61h06/7Q=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gZie3eIWCghxtFkDYGENG3tGHKc3ssweG3XKEXnJYy8GbhrYGDwRF3Il6Ri95R2+o
- fnZMUIAxaHgcfZAEUN18vlTF+A16jeGo4eSSl8LnxLo62m6P3aHzMKvaUo/8GmRCA/
- aJ2x+GzM9xD26ax/Bf/6PlOoKRZISEPMqMyiExqogWIyVZ5Lr1BM/RxkgriO+F2sfo
- LrZWmkAPMrIPhHuOKrH8km0IIIlAdISuv7Kop6A9icyYmn64SPXzE31gM566yI0nzS
- N3911Y2owwe7K3PLrYQwl9WPAVzufIkUo1NjUIfqxYY1YXuxh+ucuRiUx2MncyicmC
- H4ORnYoucfgZw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 18/19] rust: io: add copying methods
-To: "Gary Guo" <gary@garyguo.net>
-Cc: linux-pci@vger.kernel.org, "Danilo Krummrich" <dakr@kernel.org>, "Alexandre
- Courbot" <acourbot@nvidia.com>, ojeda@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260608-io_projection-v3-18-c5cde13a5ec4@garyguo.net>
-References: <20260608-io_projection-v3-18-c5cde13a5ec4@garyguo.net>
+ s=k20260515; t=1780950373;
+ bh=rRsm1N2Zeki1YKmV16kRz5ZHI24Uv1SVyHcMj3z0AfE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=V/EqL3Jmckht0FSRjp+qMmL6bg3fdSaiXFtr9YlRkkUGsLlb1vXOFiMjpUph7hEib
+ zsYHIcHJ9Kt+r0X2vfvXfhkIe4MQD0r5AzBYwudxQu8YjTFBwyRDQDRBAY+4IGxX8X
+ 5DbyamWT4ca8z80osALum0iUjuXjV9tCeoEmzuDqG4ab7G/NKWySfvmh67vnMI5PQC
+ jh8dl0dMGnC76SmbkQauDP7CslECL97tLA9QUgGJUo5u6tnYBSDDkLey5FT4vU9Xfi
+ gZ9OqbBFov+GuzCNeH/B1HBDdbdOFmlEz+IiVUV71jjesI5m0FSuY6Bkt2pqvoTaL1
+ 20HSKAKUx46Jg==
+Date: Mon, 8 Jun 2026 22:26:09 +0200
+From: Helge Deller <deller@kernel.org>
+To: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+Cc: Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH] lib/fonts: Avoid unncessary 64-bit math in font code
+Message-ID: <aiclYUfQvMokMu64@carbonx1>
+References: <20260607210203.229613-1-deller@gmx.de>
+ <b80a379d-87e4-45c4-a078-09e84a840895@suse.de>
+ <1492766a-c349-4cca-932e-bf608b922b6b@gmx.de>
+ <CADkSEUg948W-XT3_ODe_6p4i5Y8AKEcP=rmJ+7qJq30Uq0d_EQ@mail.gmail.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 20:20:12 +0000
-Message-Id: <20260608202013.34CED1F00898@smtp.kernel.org>
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADkSEUg948W-XT3_ODe_6p4i5Y8AKEcP=rmJ+7qJq30Uq0d_EQ@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,269 +58,54 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Safe `copy_from_io_slice` and `copy_to_io_slice` do not handle or =
-prevent overlapping memory slices, leading to Undefined Behavior or silent =
-data corruption.
-- [Low] Default implementations of `copy_from_io` and `copy_to_io` use `bui=
-ld_assert!()` on a function parameter but lack the `#[inline(always)]` anno=
-tation.
-- [Low] The imports in `samples/rust/rust_dma.rs` do not follow the kernel =
-alphabetical sorting style.
---
+* Ethan Nelson-Moore <enelsonmoore@gmail.com>:
+> Hi, Helge and Thomas,
+> 
+> On Mon, Jun 8, 2026 at 12:58 PM Helge Deller <deller@gmx.de> wrote:
+> >
+> > On 6/8/26 13:25, Thomas Zimmermann wrote:
+> > > Why is there a 64-bit division at all?
+> >
+> > Not sure. Might be platform specific.
+> > Maybe, because you add two integers and divide by an integer, that the
+> > compiler then chooses to use 64-bit integer division by 32-bit integer.
+> 
+> Actually, I think the real issue is that
+> arch/arm/boot/compressed/Makefile defines "static" to nothing when
+> compiling its copy of lib/fonts/font_acorn_8x8.c (via font.c), so that
+> the font array is available outside of the object file. I assume that
+> this causes various unused static inline functions in the headers it
+> includes (such as <linux/math.h>) to be included in the object file
+> because they become normal inline functions.
 
-commit 0d38b02719ddeacdde6e32f8d5c83949c35fd537
-Author: Gary Guo <gary@garyguo.net>
+Does this patch fix the issue then?
 
-rust: io: add copying methods
-
-This commit introduces copying methods for I/O memory in Rust, replacing the
-older DMA read/write macros for larger structs. It adds `copy_read`,
-`copy_write`, and slice copying methods for various backends, optimizing to
-`memcpy` where possible or using a stack buffer fallback.
-
-> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-> index 72f3acc0f50d1..2b238b6256728 100644
-> --- a/rust/kernel/io.rs
-> +++ b/rust/kernel/io.rs
-> @@ -229,6 +230,63 @@ pub trait IoCapable<T>: IoBackend {
->      fn io_write<'a>(view: Self::View<'a, T>, value: T);
->  }
-> =20
-> +/// Trait indicating that an I/O backend supports memory copy operations.
-> +///
-> +/// # Safety
-> +///
-> +/// If [`Self::is_mapped`] is overridden, it must be correct per documen=
-tation.
-> +pub unsafe trait IoCopyable: IoBackend {
-> +    /// Whether the pointers for this I/O backend are in the CPU address=
- space, and are coherently
-> +    /// mapped.
-> +    ///
-> +    /// When this returns true, `Self::as_ptr(view)` must return a valid=
- and aligned pointer. The
-> +    /// pointer may be accessed with byte-wise atomic memory copy or vol=
-atile read/write.
-> +    ///
-> +    /// This is not an associated constants to support backends where th=
-e view may be conditionally
-> +    /// mapped. This method should be marked as `#[inline(always)]` if i=
-t always returns true, so
-> +    /// `build_assert!()` in `copy_{from,to}io` can see it.
-> +    #[inline]
-> +    fn is_mapped<T: ?Sized + KnownSize>(_view: Self::View<'_, T>) -> boo=
-l {
-> +        false
-> +    }
-> +
-> +    /// Copy contents of `view` to `buffer`.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// - `buffer` is valid for volatile write for `view.size()` bytes.
-> +    #[inline]
-> +    unsafe fn copy_from_io(view: Self::View<'_, [u8]>, buffer: *mut u8) {
-
-[Severity: Low]
-This isn't a bug, but the Rust subsystem guidelines mandate that functions =
-using
-`build_assert!()` that depend on function parameters need to be annotated w=
-ith
-`#[inline(always)]`.
-
-Could these default implementations result in spurious compilation failures=
- if
-the compiler chooses not to inline them and attempts to evaluate the assert=
-ion
-at link-time?
-
-> +        build_assert!(Self::is_mapped(view));
-> +
-> +        let ptr =3D Self::as_ptr(view);
-> +
-> +        // Use `bindings::memcpy` instead of copy_nonoverlapping for vol=
-atile.
-> +        // SAFETY:
-> +        // - `is_mapped` guarantees `ptr` is in CPU address space and va=
-lid for read.
-> +        // - `buffer` is valid for write for `view.size()` bytes which i=
-s equal to `ptr.len()`.
-> +        unsafe { bindings::memcpy(buffer.cast(), ptr.cast(), ptr.len()) =
-};
-> +    }
-> +
-> +    /// Copy `size` bytes from `buffer` to `address`.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// - `buffer` is valid for volatile read for `view.size()` bytes.
-> +    #[inline]
-> +    unsafe fn copy_to_io(view: Self::View<'_, [u8]>, buffer: *const u8) {
-
-[Severity: Low]
-This isn't a bug, but the Rust subsystem guidelines mandate that functions =
-using
-`build_assert!()` that depend on function parameters need to be annotated w=
-ith
-`#[inline(always)]`.
-
-Could these default implementations result in spurious compilation failures=
- if
-the compiler chooses not to inline them and attempts to evaluate the assert=
-ion
-at link-time?
-
-> +        build_assert!(Self::is_mapped(view));
-> +
-> +        let ptr =3D Self::as_ptr(view);
-> +
-> +        // Use `bindings::memcpy` instead of copy_nonoverlapping for vol=
-atile.
-> +        // SAFETY:
-> +        // - `is_mapped` guarantees `ptr` is in CPU address space and va=
-lid for write.
-> +        // - `buffer` is valid for read for `view.size()` bytes which is=
- equal to `ptr.len()`.
-> +        unsafe { bindings::memcpy(ptr.cast(), buffer.cast(), ptr.len()) =
-};
-> +    }
-> +}
-
-[ ... ]
-
-> +    fn copy_from_io_slice<'b, T>(self, data: T)
-> +    where
-> +        Self::Backend: IoCopyable,
-> +        Self: Io<'a, Target =3D [u8]>,
-> +        T: Io<'b, Target =3D [u8], Backend: IoCopyable>,
-> +    {
-> +        fn copy_from_io_slice_via_buffer<
-> +            'a,
-> +            'b,
-> +            T: Io<'a, Target =3D [u8], Backend: IoCopyable>,
-> +            U: Io<'b, Target =3D [u8], Backend: IoCopyable>,
-> +        >(
-> +            dest: T,
-> +            src: U,
-> +        ) {
-> +            let mut buf =3D MaybeUninit::<[u8; 256]>::uninit();
-> +
-> +            let mut offset =3D 0;
-> +            let mut len =3D dest.len();
-> +
-> +            while len !=3D 0 {
-> +                let copy_len =3D core::cmp::min(len, 256);
-> +
-> +                // SAFETY: `buf.as_mut_ptr()` is valid for write for `co=
-py_len` bytes as `copy_len
-> +                // <=3D 256`.
-> +                unsafe {
-> +                    U::Backend::copy_from_io(
-> +                        io_project!(src, [panic: offset..][panic: ..copy=
-_len]),
-> +                        buf.as_mut_ptr().cast(),
-> +                    )
-> +                };
-> +
-> +                // SAFETY: `buf.as_ptr()` is valid for read for `copy_le=
-n` bytes as `copy_len <=3D
-> +                // 256`.
-> +                unsafe {
-> +                    T::Backend::copy_to_io(
-> +                        io_project!(dest, [panic: offset..][panic: ..cop=
-y_len]),
-> +                        buf.as_ptr().cast(),
-> +                    )
-> +                };
-> +
-> +                offset +=3D copy_len;
-> +                len -=3D copy_len;
-> +            }
-> +        }
-
-[Severity: High]
-Since `copy_from_io_slice` is a safe function, what prevents a user from
-passing overlapping I/O views?
-
-`Io` views implement `Copy` and wrap raw pointers, so a user could safely c=
-reate
-overlapping views of the same memory region and pass them here.
-
-If the backends are CPU-mapped, this eventually delegates to C's
-`bindings::memcpy()`. Calling `memcpy` with overlapping pointers is Undefin=
-ed
-Behavior and can trigger crashes under fortified implementations.
-
-For unmapped backends, it falls back to `copy_from_io_slice_via_buffer()` w=
-hich
-processes the copy sequentially forward in 256-byte chunks. If the destinat=
-ion
-overlaps and sits ahead of the source, wouldn't an earlier chunk's write
-overwrite data that a later chunk's read is supposed to copy, causing silent
-data corruption?
-
-Should this method explicitly detect pointer overlap and panic (like
-`[T]::copy_from_slice`), or dynamically choose the copy direction?
-
-> +
-> +        assert_eq!(self.len(), data.len());
-> +
-> +        let dst_view =3D self.as_view();
-> +        let src_view =3D data.as_view();
-> +
-> +        if T::Backend::is_mapped(src_view) {
-> +            // SAFETY: `T::Backend::as_ptr(src_view)` is valid for read =
-for `data.len()`
-> +            // bytes.
-> +            unsafe {
-> +                Self::Backend::copy_to_io(self.as_view(), T::Backend::as=
-_ptr(src_view).cast())
-> +            }
-> +        } else if Self::Backend::is_mapped(dst_view) {
-> +            // SAFETY: `Self::Backend::as_ptr(dst_view)` is valid for wr=
-ite for `data.len()`
-> +            // bytes.
-> +            unsafe {
-> +                T::Backend::copy_from_io(data.as_view(), Self::Backend::=
-as_ptr(dst_view).cast())
-> +            }
-> +        } else {
-> +            copy_from_io_slice_via_buffer(dst_view, src_view)
-> +        }
-> +    }
-
-[ ... ]
-
-> diff --git a/samples/rust/rust_dma.rs b/samples/rust/rust_dma.rs
-> index 6727c441658aa..0f2597798ff5b 100644
-> --- a/samples/rust/rust_dma.rs
-> +++ b/samples/rust/rust_dma.rs
-> @@ -12,7 +12,11 @@
->          Device,
->          DmaMask, //
->      },
-> -    io::io_read,
-> +    io::{
-> +        io_project,
-> +        io_read,
-> +        Io, //
-> +    },
-
-[Severity: Low]
-This isn't a bug, but the imports do not seem to follow the alphabetical so=
-rting
-style expected by the kernel vertical import guidelines. Since uppercase le=
-tters
-precede lowercase ones in ASCII, shouldn't `Io` be sorted before `io_projec=
-t`
-and `io_read`?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-io_project=
-ion-v3-0-c5cde13a5ec4@garyguo.net?part=3D18
+diff --git a/arch/arm/boot/compressed/Makefile b/arch/arm/boot/compressed/Makefile
+index a159120d1e42..e3f550d62857 100644
+--- a/arch/arm/boot/compressed/Makefile
++++ b/arch/arm/boot/compressed/Makefile
+@@ -157,4 +157,4 @@ $(obj)/piggy_data: $(obj)/../Image FORCE
+ 
+ $(obj)/piggy.o: $(obj)/piggy_data
+ 
+-CFLAGS_font.o := -Dstatic=
++CFLAGS_font.o := -DBOOTLOADER
+diff --git a/lib/fonts/font_acorn_8x8.c b/lib/fonts/font_acorn_8x8.c
+index 36c51016769d..3327aa6d161d 100644
+--- a/lib/fonts/font_acorn_8x8.c
++++ b/lib/fonts/font_acorn_8x8.c
+@@ -5,7 +5,11 @@
+ 
+ #define FONTDATAMAX 2048
+ 
++#ifndef BOOTLOADER
+ static const struct font_data acorndata_8x8 = {
++#else
++const struct font_data acorndata_8x8 = {
++#endif
+ { 0, 0, FONTDATAMAX, 0 }, {
+ /* 00 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* ^@ */
+ /* 01 */  0x7e, 0x81, 0xa5, 0x81, 0xbd, 0x99, 0x81, 0x7e, /* ^A */
