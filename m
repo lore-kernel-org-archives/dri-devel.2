@@ -4,43 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3CF2CD8CA4
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:32:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8147CD8C92
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:35:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CBD910F5FB;
-	Mon,  8 Jun 2026 15:32:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12B0310F602;
+	Mon,  8 Jun 2026 15:35:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fvxTUXFu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qjDt5cvw";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0ED810F5FB
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:32:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8B60743724;
- Mon,  8 Jun 2026 15:32:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40A251F00893;
- Mon,  8 Jun 2026 15:32:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780932755;
- bh=XnDLua9OEiiGx63ZF41RNuz9dlxK828dfDcM65+U5gM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fvxTUXFuWnUpnNciDvdEDej1nQHqJ/ohkhtQNELCHY/6hwn4LokweYFAaldH3ET9P
- vJXUY51w2kttXMqz8fPanxfqQHcDP8QPWEbEHbqhoEPma/pFyBpwYJ6k+zIL5MTvwK
- A7OmauqhuTN3GJ1YmOwGclY2wWTW7UnEqtKkvEoy52eXhYoXr6h5or7JvOYnZm/mQu
- jJUO1TVZtjYEqJ2vRXFvJHcRoeW10iY7Nc2XEvHAnCVvbUmX4dFCOwrbjMbNQLdhjS
- Isza+dPhUkWngzkwHkFcSPvLhUFhQAd1L2dkB5O5K5tQkEVvC5ZT9oz6kUBA+uNq/U
- psZyqNElpJxDw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] rust: drm: gpuvm: implement Send and Sync for
- GpuVaAlloc and GpuVmBo
-To: "Sami Tolvanen" <samitolvanen@google.com>
-Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
-In-Reply-To: <20260608150929.1327394-2-samitolvanen@google.com>
-References: <20260608150929.1327394-2-samitolvanen@google.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 15:32:34 +0000
-Message-Id: <20260608153235.40A251F00893@smtp.kernel.org>
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012020.outbound.protection.outlook.com [40.107.209.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D58C010F602
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:35:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=S8oBBPfQXUiXSdL3TbeGoq9+S60vtfWh2+Sv241kEOaJ9xPgaA56srbuhy4COudHw1k1QS45MSRfQrCvQBgkOB0KfRqoIfN6XRy3c/wQPRjItm5FJHHHeqS9S7wMVmVbcVBVpzQMfQHKAGSpdaJK0E5opswY36L+ghGdOjWYE1e4abQsIdEupLqF8Bw4LcvdMfDWLjmj9GEhEgQpG22yN4nm3lQdur1PMQfU1lsLXPCugC8RR38ss0vca7ROYhEIBDtBRKQH8Blz/vZe1C3nnfbZ5j4okyAHpKhRufdnmsGIWYgSvsZcsrH1y3z9//9eJkCExxME+fH3k19uKqSX1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wBUCctYndhRuvyjUAinqQkaumMxZFqHLSUfsJlWCFpk=;
+ b=PXrYd0XGcCqLdO1ViTfLMMGXiWS8kqcDj/rkfEURw5cqE6Y62x+Kl3GwyQokXESwTqE4s/JitIhdFl/0aE42bzueJNjbS6ekEk5DN2XO1zwzNHfai9f29VMcPt1vFvqhiVPRyFnl+vmsGOA7rOzwK8hn4R+7G4ixGHkng0lQMyL62JwfS9W24lKU4+hFAVCnwoa6V5QKdmJjMKZUkwb7aR/BDy3YspFwIjm5oPgd8GOejkY0UphpoFrVTloY17ik+943hZr5nmAvmsSgJZSs8V0DY6MZkzOLVpOI7I0sh+r94sse3Pr02/prdkwiC6rUqUzf9gGyBq1NrQirlrYwiQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wBUCctYndhRuvyjUAinqQkaumMxZFqHLSUfsJlWCFpk=;
+ b=qjDt5cvwvhI2l11b2H3Mj6YXW215cyUIvg5Vizb4RgQmNwUHmUEs025GXX+Op5bQh+CZXj1XM+ENbCe3nTUd51JkSvX4RU5hdkyQYrza0qg0VdsaZ0R6+Y4cHhdjHruDMjGEFNR2QC/FnCYgP1CG8x14UYVr5wL3dYQfHKa/KsU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA0PR12MB7722.namprd12.prod.outlook.com (2603:10b6:208:432::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Mon, 8 Jun 2026
+ 15:35:39 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Mon, 8 Jun 2026
+ 15:35:39 +0000
+Message-ID: <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
+Date: Mon, 8 Jun 2026 17:35:34 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] dma-fence: Fix races of fence callbacks versus
+ destructors by locking
+To: Philipp Stanner <phasta@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>, Daniel Almeida <dwlsalmeida@gmail.com>,
+ Gary Guo <gary@garyguo.net>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>
+References: <20260608142436.265820-2-phasta@kernel.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260608142436.265820-2-phasta@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0304.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f6::9) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB7722:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4bd74048-8df2-4240-ab5f-08dec57397cf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|7416014|376014|1800799024|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 8ls6I280znmBdssR1zLqMhm+cRpAjQ2SSysYW/4KkUi/ypi/mjtShcx8vSOTCy4YniBaBdP/wv3qYOrWk7yHl05HgrlVKZg4Tz9jqcDVbgXzAeMknGH8NyD88EFuLLQV03uk1UjOe+ZQC8mOHuUwhNuMof/z97zLYYU/SFiRhtZedMu7ZOXuxUu6nuwm+qAPuwYrM0ZW1Q/5s30blWdHwNK/51Vg13+5tqlVs4cojFnqmkrbHLDX+watFBi7afxC0xOjdoXl1xXLZqcW8H+QOaXCJiyLTx5Pzil+mgNqToy2ROhntmzhRuqx6m5hs1k9WveCc1ss8EPFkW8ZLpngsrc58mUkA6et6Wcbcafh+Zk1LkW3CAlGtWa4lzAwetH2YISALTs+/jHlJ1L0FlpDfoHnC5Ila+tx2uE3H2ru+FkeXSoIC0BBCMLyH9TTtB4uPuUBr3oynjcPUzoWaouwgD+00+n5jOyq5r8xm+9gRRS1qVSPr71AjfmcRJM7j4I9AzjB+RpMEsh5wr2zXuyevablt3hkLoTd8UUTxYg74P6MUDa3v4bvDVFnq5oVRhLxBrTGYgrHx8afrt2CisUlH73rkeYJGiiyDsNED4gO2ZiTPe9Sb4XmJ02DCxWzaKLtJeN1oAqwYMKQwZFUG78zMLIEMout4vLzkgpnG0uaWYdi6y53hDSBhXnrzIiWLvbd
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(1800799024)(11063799006)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SDA4MjNBZTU3Ym81L2dnbUpENng5V2FEUU9tVndodElSWVl4ajdUZGdkMFFs?=
+ =?utf-8?B?U0xDRm1UOExEV2FPZlJwWHkvenRnaE5xY0NIdWZMK00vQXBvMnlTbEtZY01s?=
+ =?utf-8?B?Q1p6TlUrb0ltMEZrWFhrdGk5SktFaG1hbmFabTR0cWhUajJoU0h0VlkrSGJy?=
+ =?utf-8?B?RWgyVTZSRlVwRkgzL3J5UVpCRGdRMzk4SVZ6UzVrRXA2UDJobUJTa2pkVXBQ?=
+ =?utf-8?B?WUR5eFAzR0JKcldLU2VLdlRzcHBsMTdTODQ3UzNRK1B0TnBpeHoySGpHWllF?=
+ =?utf-8?B?OXZKRkV5WDJqZXZWcEpZY0plYVR6alVqOHN4ZkFneGNlWm43WjcwMmcxUnNP?=
+ =?utf-8?B?aTFtSythbkxhTzA2YldzRzlMNjVVVXphSVRPV1hFeWhBVG0vY0NUNG1VWWUr?=
+ =?utf-8?B?ZUg2RkhhMzdzazY5UTk5T0ZFQ1Vjcm0wMmZRRVNsdk9QbWdMY0NoZlRWQzBZ?=
+ =?utf-8?B?bk9qWlFncE9rVzJiTkFvRUVJZlV4dFg4bGJuZlRTQktPZ0piaHpvSlRtbWI4?=
+ =?utf-8?B?UEpBVzMwT0NscHBYMXBndVMvYzlEc0pBSjhsQVVqMFBZM3N2ejNoUjRiL0ZV?=
+ =?utf-8?B?bnZlb0IzOFBqR3J6TnBTbEpOc1B0M1JHSHl0N3RBNG56Y0RnT2dEYXl1bmlx?=
+ =?utf-8?B?dWhCSjdnNlJIRnBzZGozZGhmRDM2N0hkbytjcTBMUDRtNno1bXRLNkdRYnVQ?=
+ =?utf-8?B?WG1vTE1mK2h1Yk9aZ2huQ3ZFUi9PVHdiQVEvcit3THE1bzhMdHE0N0sxQ3Jj?=
+ =?utf-8?B?VWdqbVprVkJ0NVFwTnB3WS9CZnJldGpIUHVzTlNZajUzU3hsL0kyclNBTW4r?=
+ =?utf-8?B?MnZXTmFFTnZ1T0VGOEpON08yTXZ5UmRJcVppdG1ITVFNMEJJNzlPNkRpQ0Jp?=
+ =?utf-8?B?ZzN4bmdUR09CT2U5cTErck1QaUMycDhoaUl6MzA3ODErek5PdGpZMjVJelZL?=
+ =?utf-8?B?dmppN2VnWU1wSjgvYWZkbnZXUytndncvdWZuVER1RVBqY2hkeSswT0V2SElG?=
+ =?utf-8?B?cS9PTGZ1Z0ZsSm5aSHdoVHVMTVREaThvVzNOVmdQNHZRVy9uWTRlSXo5UGhS?=
+ =?utf-8?B?WG41TVZCM2NSRWpQWUludXZpZG55Q09BK2cyditnZ2ZLM0sxMTZ4WGVsTVJF?=
+ =?utf-8?B?NnlrMTM2N1ViZ2tmTFdUaVN5NUtuU3hXNmlQUHJKV3JLQWZDYUtjWEljT2FP?=
+ =?utf-8?B?SVRkNmNwaWIvbkQ1aHpPMjNkVUcrRzArQXhTVXpjcGhZWWYvR1paSzA1ZzVK?=
+ =?utf-8?B?aVUrcU45R3p6WW03aHhIYlhhNlNHcU1taS9WVE1kKzY1NWExN1ErWlZ6WFIv?=
+ =?utf-8?B?SllRWkQ5azA0UkIvSUNUOVpkTytQZEN5UkFCUG4vMXRMK3dwQmNtRnZZMHJE?=
+ =?utf-8?B?N1lsdHZ3ak5xZnhoalBLZzVQN2FwZXBMaDlMREhUR05jRzVBb3RaQ1dMby9x?=
+ =?utf-8?B?S1h1Mytta2hUQ2NiUkk5TGFkRDZlOENyTUpzL1JRRUg2QnI2b3gzR3RCaUVQ?=
+ =?utf-8?B?c0FLeUtEVW90NHBwZ3NUK1JEa3JEa29SRHFsVHVNVnNtOWpKbEU1VCs0Z25V?=
+ =?utf-8?B?am1paHBvRVhqQ2hpdng3YlpNWG56Qm5MRFBjVXBtVGl3ZFpaQmdOdDh6M2I3?=
+ =?utf-8?B?NVk2b05yQkp2dFVrbUF0a0wxSUNGNllvcnhGaG9jaGxHNVI2NFI0b0tzR0sy?=
+ =?utf-8?B?N1dJa1BtWktvVlBUSjI4em9RK2VOL2lJeTZRMU0wWU9OTzM1Q3hMNEtaY3A4?=
+ =?utf-8?B?aThGbjlXeHh2d0lzR1VURVdqbzBzUGRBSVoyNDlFcXhXaWsxRzVTdE1OVW5i?=
+ =?utf-8?B?QnFsRGVBNDhDRnVhN2p4eFF6M1k4TkNzQWhzdjB0R0x2WnZaSUdMVlppK0o1?=
+ =?utf-8?B?Tm94SWpycEtlQy8zYkNyZW1RT1k1a1lOS0JURzNLeGJFUGhxUXFtOEhuOUps?=
+ =?utf-8?B?RFUvczhmREVYOXhYdzJxZ2kyMGk4UStXUlpHR3pySlNIYmRPVVZKR21vMmho?=
+ =?utf-8?B?cjBQdjkrYUJ1bndERXo1RXpKaFlhSGRCYWxmYnp4T0xqNHpXbUJ5b0k3S2x6?=
+ =?utf-8?B?eUhYVHVnMTNWcjFZN2FtcGVFK0oweFZhRWN5Y1hvcFlDT0xKeEEyR0dlbDVQ?=
+ =?utf-8?B?aWlOOHNmc29QRFZVMFB2eXcvaFNPUE1YQnVOMXgzRk9qTUZGZlc1anZLbnlQ?=
+ =?utf-8?B?NUYxMnZ6WUN6RUtWYndyRVZvdnNhc3RRdkRwZE8wQW5oV3FQUk1GTzNSRGhP?=
+ =?utf-8?B?VFMwdlR6S21pa0gvY3pJdlNLeFZRMU1aTmpnNitOSDVkK1d6KzQycUtudURG?=
+ =?utf-8?Q?7bvutS7tK9LiVYUpFw?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4bd74048-8df2-4240-ab5f-08dec57397cf
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 15:35:39.4812 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XZ/hSeImaGHChqDscCTtjPsappvZMuKwpwdAxWBUoeGM2opHaBB9qU1PmCnZCZHV
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7722
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,105 +137,188 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On 6/8/26 16:24, Philipp Stanner wrote:
+> The dma_fence backend_ops can access a fence. Hereby, a driver callback
+> will be running which likely will access driver specific data through
+> container_of(). If now, simultaneously, a driver signals the fence and
+> afterwards expects to run a driver specific destructor (using the same
+> data accessed through container_of()), there can be a race.
+> 
+> A driver very likely trusts that once it has signaled a fence, no one
+> will be accessing it anymore. Moreover, it might already want to free up
+> resources, making UAF bugs possible.
+> 
+> The race occurs because there are only pragmatic checks for the signaled
+> flag of a fence, without taking the fence lock. RCU guards exist, but
+> their purpose is to guard accesses through the backend_ops callbacks
+> against the driver (which implements the TEXT segment these callbacks
+> live in) from unloading.
+> 
+> Proper synchronization can be ensured by taking the fence lock. RCU is
+> still simultaneously required to guard against the unload.
+> 
+> Fix the races by taking the lock for all non-deprecated backend_ops
+> callbacks.
 
-New issues:
-- [High] Missing `Send` bounds in the newly added `Sync` implementation for=
- `GpuVmBo<T>`, allowing `!Send` types to be dropped across threads.
+That sounds like the fundamentally wrong approach to me.
 
-Pre-existing issues:
-- [High] Thread-safety violation due to C-level deferred cleanup queue bypa=
-ssing conditional `Send` bounds.
---
+The lock protects the dma_fence signaling state and *NOT* any driver state, so it should not be used to protect any driver state.
 
-commit 34b8a98e3e88f5d7b03fbb66084e780d4c56de5f
-Author: Sami Tolvanen <samitolvanen@google.com>
+Drivers need to make sure that they protect their driver state with separate lock and don't rely on the dma_fence lock for this. This is actually the core of why we want to deprecate the shared dma_fence spinlock.
 
-rust: drm: gpuvm: implement Send and Sync for GpuVaAlloc and GpuVmBo
+Regards,
+Christian.
 
-Moving a GpuVaAlloc or GpuVmBo between threads currently forces drivers
-to write their own unsafe Send and Sync impls. Provide the markers in
-the abstraction instead.
-
-> diff --git a/rust/kernel/drm/gpuvm/vm_bo.rs b/rust/kernel/drm/gpuvm/vm_bo=
-.rs
-> index c064ac63897be..fa183f6306ff8 100644
-> --- a/rust/kernel/drm/gpuvm/vm_bo.rs
-> +++ b/rust/kernel/drm/gpuvm/vm_bo.rs
-
-[ ... ]
-
-> @@ -19,6 +19,27 @@ pub struct GpuVmBo<T: DriverGpuVm> {
->      data: T::VmBoData,
->  }
-> =20
-> +// SAFETY: The refcount in `self.inner` is atomic, so `dec_ref`'s deferr=
-ed put is sound from any
-> +// thread. `drm_gpuvm_bo_deferred_cleanup` drops `data` and the last GEM=
--object reference on
-> +// whichever thread drains the queue, hence the `T::VmBoData: Send` and =
-`T::Object: Send` bounds.
-> +// [`Self::obj`] hands out `&T::Object` for a shared object, so the move=
- needs `T::Object: Sync`.
-> +unsafe impl<T: DriverGpuVm> Send for GpuVmBo<T>
-> +where
-> +    T::VmBoData: Send,
-> +    T::Object: Send + Sync,
-> +{
-> +}
-
-[Severity: High]
-This is a pre-existing issue, but does the C-level deferred cleanup queue
-bypass these conditional Send bounds?
-
-Since the bo_defer queue acts as a hidden cross-thread channel, when a local
-ARef<GpuVmBo<T>> is dropped by its creating thread, it is unconditionally
-placed on the GpuVm's bo_defer queue via dec_ref.
-
-Because GpuVm<T> is universally Send + Sync, a second thread can safely call
-gpuvm.deferred_cleanup(). This pops the BO and executes its destructor on t=
-he
-second thread, bypassing the conditional Send bounds on GpuVmBo, because the
-BO is never explicitly moved via Rust semantics.
-
-Would it be safer to enforce Send bounds unconditionally on the VmBoData and
-VaData associated types within the DriverGpuVm trait itself?
-
+> 
+> Conveniently, this also fixes a race where backend_ops->set_deadline()
+> might try to set a deadline for an already signaled fence.
+> 
+> Suggested-by: Danilo Krummrich <dakr@kernel.org>
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> ---
+> We discovered this problem through our Rust abstractions, but it can
+> also occur in C.
+> 
+> The by far cleanest solution seems to be to use the fence lock. This RFC
+> serves to discuss whether there is anything preventing that.
+> 
+> (Patch so far just compile tested, to have some groundlayer for the
+> rough idea, to discuss it first)
+> ---
+>  drivers/dma-buf/dma-fence.c | 39 ++++++++++++++++++++++++++++---------
+>  include/linux/dma-fence.h   | 17 ++++++++++++----
+>  2 files changed, 43 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index c7ea1e75d38a..b74f02f3cca8 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -629,7 +629,8 @@ EXPORT_SYMBOL(dma_fence_free);
+>  static bool __dma_fence_enable_signaling(struct dma_fence *fence)
+>  {
+>  	const struct dma_fence_ops *ops;
+> -	bool was_set;
+> +	bool was_set, success;
+> +	unsigned long flags;
+>  
+>  	dma_fence_assert_held(fence);
+>  
+> @@ -644,7 +645,10 @@ static bool __dma_fence_enable_signaling(struct dma_fence *fence)
+>  	if (!was_set && ops && ops->enable_signaling) {
+>  		trace_dma_fence_enable_signal(fence);
+>  
+> -		if (!ops->enable_signaling(fence)) {
+> +		dma_fence_lock_irqsave(fence, flags);
+> +		success = ops->enable_signaling(fence);
+> +		dma_fence_unlock_irqrestore(fence, flags);
+> +		if (!success) {
+>  			rcu_read_unlock();
+>  			dma_fence_signal_locked(fence);
+>  			return false;
+> @@ -1020,11 +1024,20 @@ EXPORT_SYMBOL(dma_fence_wait_any_timeout);
+>  void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
+>  {
+>  	const struct dma_fence_ops *ops;
+> +	unsigned long flags;
+>  
+>  	rcu_read_lock();
+>  	ops = rcu_dereference(fence->ops);
+> -	if (ops && ops->set_deadline && !dma_fence_is_signaled(fence))
+> +	if (!ops || !ops->set_deadline) {
+> +		rcu_read_unlock();
+> +		return;
+> +	}
 > +
-> +// SAFETY: The fields of `inner` read by shared-reference methods are im=
-mutable after construction.
-> +// [`Self::data`] hands out `&T::VmBoData` and [`Self::obj`] hands out `=
-&T::Object`, so sharing
-> +// `&Self` across threads requires both to be `Sync`.
-> +unsafe impl<T: DriverGpuVm> Sync for GpuVmBo<T>
-> +where
-> +    T::VmBoData: Sync,
-> +    T::Object: Sync,
-> +{
-> +}
+> +	dma_fence_lock_irqsave(fence, flags);
+> +	if (!dma_fence_is_signaled_locked(fence))
+>  		ops->set_deadline(fence, deadline);
+> +
+> +	dma_fence_unlock_irqrestore(fence, flags);
+>  	rcu_read_unlock();
+>  }
+>  EXPORT_SYMBOL(dma_fence_set_deadline);
+> @@ -1166,14 +1179,18 @@ EXPORT_SYMBOL(dma_fence_init64);
+>   */
+>  const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
+>  {
+> +	const char __rcu *name = "detached-driver";
+>  	const struct dma_fence_ops *ops;
+> +	unsigned long flags;
+>  
+>  	/* RCU protection is required for safe access to returned string */
+>  	ops = rcu_dereference(fence->ops);
+> +	dma_fence_lock_irqsave(fence, flags);
+>  	if (!dma_fence_test_signaled_flag(fence))
+> -		return (const char __rcu *)ops->get_driver_name(fence);
+> -	else
+> -		return (const char __rcu *)"detached-driver";
+> +		name = ops->get_driver_name(fence);
+> +	dma_fence_unlock_irqrestore(fence, flags);
+> +
+> +	return name;
+>  }
+>  EXPORT_SYMBOL(dma_fence_driver_name);
+>  
+> @@ -1199,13 +1216,17 @@ EXPORT_SYMBOL(dma_fence_driver_name);
+>   */
+>  const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
+>  {
+> +	const char __rcu *name = "signaled-timeline";
+>  	const struct dma_fence_ops *ops;
+> +	unsigned long flags;
+>  
+>  	/* RCU protection is required for safe access to returned string */
+>  	ops = rcu_dereference(fence->ops);
+> +	dma_fence_lock_irqsave(fence, flags);
+>  	if (!dma_fence_test_signaled_flag(fence))
+> -		return (const char __rcu *)ops->get_driver_name(fence);
+> -	else
+> -		return (const char __rcu *)"signaled-timeline";
+> +		name = ops->get_driver_name(fence);
+> +	dma_fence_unlock_irqrestore(fence, flags);
+> +
+> +	return name;
+>  }
+>  EXPORT_SYMBOL(dma_fence_timeline_name);
+> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> index b52ab692b22e..b93c3f7f69fb 100644
+> --- a/include/linux/dma-fence.h
+> +++ b/include/linux/dma-fence.h
+> @@ -547,20 +547,29 @@ static inline bool
+>  dma_fence_is_signaled(struct dma_fence *fence)
+>  {
+>  	const struct dma_fence_ops *ops;
+> +	unsigned long flags;
+> +	bool signaled;
+>  
+>  	if (dma_fence_test_signaled_flag(fence))
+>  		return true;
+>  
+>  	rcu_read_lock();
+>  	ops = rcu_dereference(fence->ops);
+> -	if (ops && ops->signaled && ops->signaled(fence)) {
+> +	if (!ops || !ops->signaled) {
+>  		rcu_read_unlock();
+> -		dma_fence_signal(fence);
+> -		return true;
+> +		return false;
+>  	}
+> +
+> +	dma_fence_lock_irqsave(fence, flags);
+> +	signaled = ops->signaled(fence);
+> +
+> +	if (signaled)
+> +		dma_fence_signal_locked(fence);
+> +
+> +	dma_fence_unlock_irqrestore(fence, flags);
+>  	rcu_read_unlock();
+>  
+> -	return false;
+> +	return signaled;
+>  }
+>  
+>  /**
 
-[Severity: High]
-Since GpuVmBo<T> implements the AlwaysRefCounted trait, can a thread with a
-shared reference &GpuVmBo<T> upgrade it to an owned reference ARef<GpuVmBo<=
-T>>
-via ARef::from(&*bo)?
-
-If a thread does this and becomes the last reference holder, dropping the A=
-Ref
-will execute the GpuVmBo<T> destructor, dropping T::VmBoData and T::Object =
-on
-that thread.
-
-Similar to Arc<T>, should Sync for GpuVmBo<T> also require the dropped types
-to be Send (i.e. T::VmBoData: Send and T::Object: Send) to prevent a safe R=
-ust
-program from dropping a !Send type on another thread?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608150929.1327=
-394-2-samitolvanen@google.com?part=3D1
