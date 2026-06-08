@@ -4,57 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C7A6CD8C92
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 08:59:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B618CD8C92
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 09:05:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCF8B10EFCA;
-	Mon,  8 Jun 2026 08:59:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A1EA10EFE4;
+	Mon,  8 Jun 2026 09:05:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HYuqE3zc";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jTlG9WNl";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cLRen21j";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1ACC710EFCA
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 08:59:14 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 911726001D;
- Mon,  8 Jun 2026 08:59:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C40D11F00893;
- Mon,  8 Jun 2026 08:59:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780909153;
- bh=F15FjrPiUcOp001UqF8Ece+tYdFZAYocbMu8t+2Bfv0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=HYuqE3zcX4KDnMco90EhFiOPuVuWdNaf0zxvXE8mk/vFg6l3Nm1QtPJdBNIiTfaqu
- /kJPuUQm1b2CbyB6SvP+DAmu9Qr+tqiJ5LypjqgEmpQGYvG8RHrpKxoljMSYJhLjie
- khGfSbiQHbXZcjWt/+zyAoyJR4fmVkkJ/qQA8VLf1VROYT/DXAT1wsfN/yQFCEweqy
- ZL2YweNF62D3Iw7H3LenI1p+7blD+1uhkpyf3MyWArntzk9cbi17eTxMOrGwIGyf1f
- s5X2K8EDeDmhzWZp4CnAj2NMeFciml1r1nDHXR7sLK8tmzvcIjl5+cGJSYdAsjCxUL
- vHtn5ewfZ1buQ==
-Date: Mon, 8 Jun 2026 10:59:09 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Sean Nyekjaer <sean@geanix.com>, Sudarshan Shetty <tessolveupstream@gmail.com>,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
- jonas@kwiboo.se, 
- jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
- tzimmermann@suse.de, 
- airlied@gmail.com, simona@ffwll.ch, alexander.stein@ew.tq-group.com, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Marek Vasut <marex@denx.de>
-Subject: Re: [PATCH v4 2/2] drm: bridge: ti-sn65dsi83: Disable video burst
- mode for LVDS stability
-Message-ID: <20260608-funny-cuscus-of-vigor-fff8f7@houat>
-References: <ahsxWhXMhzbAj_3G@Seans-MacBook-Pro.local>
- <DJ17SSAYCT51.28YSD262KHNKK@bootlin.com>
- <20260605160946.GC4350@killaraus.ideasonboard.com>
- <20260608-talented-ginger-mandrill-97a290@houat>
- <20260608071436.GB370380@killaraus.ideasonboard.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D82B710EFE4
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 09:05:52 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6586OvGc2833009
+ for <dri-devel@lists.freedesktop.org>; Mon, 8 Jun 2026 09:05:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ sSSvva9xyhbhw+Xk4pnwYk8T29hV+yUkpgxYP1wpWEs=; b=jTlG9WNl7JLKg+Fy
+ bUqRmnmhWFVi5PBAz47hJ81GdasdN2AbDuyOZZ9MDe85ZPVC0tbD6zTMx56S02p/
+ TaAKmX4lTtgPpc/l5F9IKBJFGMU8anCwQfEL23qQRKNwE92pNriR+YICD7uh1uvN
+ w/37ks/smnTCDgJSQMIdRJtoLGMoRKt7mBSXpW7Vd2ApRx03m5gd/nDj5EQ9YyOu
+ /ZcrIUJU1QlDLyM0tEZ/VCtApj1lfrdgOsI23+X6659790WiahjornmxuqfwekP7
+ LD6rpidN7ZXcRDrm28E1zdwCssmV0ZXM/92a1KButn5ylOjFBTtoj5oTLY+pyTz1
+ hU7BWg==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4embmrf1gd-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 09:05:51 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-51759082206so12464901cf.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 02:05:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1780909551; x=1781514351;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=sSSvva9xyhbhw+Xk4pnwYk8T29hV+yUkpgxYP1wpWEs=;
+ b=cLRen21jlooUdRMi9nW1CPSOf2iuydxpU62W47lsjMI30IHG4jbTDh8ho2MEPIv6OG
+ AEmcecbisGI3RSMCqBino1X8KA3G0fnRF3y4cJvBBadj0S67EdWiPd7kU+ZCGN6dzxAF
+ mb3EE7PU66cau1E4STZIc6lDnwUgPt9Ti+zH+PYK/yzHc6IVCs2Dv6eMChIpNRS6vFnF
+ oWotsz1fWms4xM005XgCJ5E2z8HuD8vN7XeXPyq+5+qohsBHlG5Vc0H4/qxyJ0ygBcRE
+ fzxr2PR/JuxPfZhUlwG9NekVnZsMRFC5yFlh8yTlKGW82H2uwWFGAH37O67axhibWtzF
+ hhOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780909551; x=1781514351;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=sSSvva9xyhbhw+Xk4pnwYk8T29hV+yUkpgxYP1wpWEs=;
+ b=JfmMncsV29mQ/4hFD0t0XFpY0tOXhnz7KwLLalImAAxSilzeRZYRbpatmB+qJCO6E5
+ isCk04zIt/DFCEAd7eEJqMuiEJdgQ4TBpVUTg2O99dRDfS8beFjluHRkkjPE4SsHo2if
+ Lh6l9uvdktrL3mD1Fk/eNxoWB+r9I9WUk8LDeCDURTxfhX9IpOlHCvXao+F/exh80AGH
+ hdr8Ljie2uzvS6q5wsBehg5uHD4xdnqOpPyVZLRTFOQHJlj0JOr2+G9apiGxx979Iu8O
+ NJOZBZ32supnRi2j0lhTFRB3tfvjB3xucRyBLYiw3i7p0+OolmgOgfGmfCXiv+/60Zph
+ bmJQ==
+X-Gm-Message-State: AOJu0YzO1XoA/nm/mCueArIDJTvNVEWJWjoJb+c6sQW25wk+ykVRwBdq
+ Hqu0o6Kiuc+7awVH1lZ9Rcq1TXKwVKZL5mUumRrF8xX72Hk5Ik9KWSSco992jMIVglX56UVQK+M
+ 0WZGVoCDGoRmuzM6lMUM2dRl03HzXm41munMRJ9fSUXU1iU+9+MjD3RdMa6lxBkP+z3mp0Oc=
+X-Gm-Gg: Acq92OGifCvWIuSloPOvBhRT3OXuLDb/oES0sfXJH3BV4StKYrM/aK3RbsFDsAMlQ9e
+ KzuhEMOg+kmpUHtNz+RBs50lRJvc+wMVr13lbW+nXnNdZlMsDLnxwchY7nslFjfQ/C3YiPwhKpY
+ s1eoMXRkpa3Okp4VMGl6LixqOGe6bZaCNomETE9MSEJrIYHTCZYfM0RAunwwDvV1+a3/EP649+s
+ f+fj+sHKPUPKXIqtOstoR+WiujzdyfzuyQYLHudZpgBS/8WVMyFlrLMuVcGrZvh2DB0gtDuzG4K
+ Mph4p/oC6HQsZk2hYIqozWuMAKeXEu6et4AVWkBuSA1/Slm9By5qnoeGLnDD8uQEPK/sQqh3hfz
+ /d+MST1gTVZCfN/WoABe+FQq40xgjPGcWx+FHQMaYnV5Y9t5XZsmMZUXe
+X-Received: by 2002:a05:620a:6084:b0:915:7c1a:138c with SMTP id
+ af79cd13be357-915a9d5fd58mr1326855385a.4.1780909551190; 
+ Mon, 08 Jun 2026 02:05:51 -0700 (PDT)
+X-Received: by 2002:a05:620a:6084:b0:915:7c1a:138c with SMTP id
+ af79cd13be357-915a9d5fd58mr1326851785a.4.1780909550709; 
+ Mon, 08 Jun 2026 02:05:50 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-bf41f05041esm427079066b.62.2026.06.08.02.05.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Jun 2026 02:05:49 -0700 (PDT)
+Message-ID: <f9be384e-9ab6-4201-a737-4be331c180d3@oss.qualcomm.com>
+Date: Mon, 8 Jun 2026 11:05:45 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="pjbbve3uyntqr5ys"
-Content-Disposition: inline
-In-Reply-To: <20260608071436.GB370380@killaraus.ideasonboard.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] arm64: dts: qcom: Add Glymur-based Lenovo Yoga Slim
+ 7x Gen11
+To: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Douglas Anderson
+ <dianders@chromium.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+References: <20260604-topic-yoga_submission-v1-0-57c70c23d0d6@oss.qualcomm.com>
+ <20260604-topic-yoga_submission-v1-3-57c70c23d0d6@oss.qualcomm.com>
+ <6d2ca392-148a-4539-92b8-05bdab1d07e3@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <6d2ca392-148a-4539-92b8-05bdab1d07e3@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA4NCBTYWx0ZWRfX9yiGeBso6cId
+ 0iMatmIiUOl3Pt+MdqAe85XF6VWoV3owpQU2jMQGpGCNMhkSDIl7b620ayDy5CfyHlU6ouRuBhR
+ mEMNSmDvn5oUmUNEwmvHWraUp0m2SdoxcPau3Dp6CXV4iURj0fJDg90SzlN7/oJQymfacb0GllU
+ dTMIi9C89x3Iyzfs+0prGg9S4/eIgCigJoNph/qTI7vwFH7PC08vIUoUvU6I0Le8PBGFy11Sgnp
+ 5M64f050WflMiN/N2awm/k3vVJ/AKXylEuL6pcaN3jar4mgpPz8kuXIi3EY+tVVp/SM2dVX4S03
+ PvkkAxGILrDthSSeDnB7Yzb90lRdMffCpI8ork7p9jAkv6vvn08KzL8ZdfxfjTbRn8UcxKZVxh8
+ YRIPbnim6lGg1OP3GQlauZvgWhnFQ5LTGI3943MFpX2qfS7e0WbM4XV9m7XvElujcmHEgzsCaJJ
+ D0ZpwwobuZaHLbDBCxw==
+X-Authority-Analysis: v=2.4 cv=B5eJFutM c=1 sm=1 tr=0 ts=6a2685ef cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=kKXrk63Xix4RLwVNwpMA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-GUID: T3r7Ue6Yy4iaFfEFlDEStTEgRv0k0RpJ
+X-Proofpoint-ORIG-GUID: T3r7Ue6Yy4iaFfEFlDEStTEgRv0k0RpJ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-08_02,2026-06-05_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 spamscore=0 malwarescore=0 phishscore=0
+ bulkscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080084
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,137 +153,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 6/4/26 11:59 AM, Gopikrishna Garmidi wrote:
+> 
+> 
+> On 6/4/2026 1:36 PM, Konrad Dybcio wrote:
+>> Introduce a device tree for the Glymur-based Lenovo Yoga Slim 7x Gen11
+>> laptop. It's fairly similar to the reference design, although there are
+>> a couple of major differences, including a different EC.
 
---pjbbve3uyntqr5ys
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 2/2] drm: bridge: ti-sn65dsi83: Disable video burst
- mode for LVDS stability
-MIME-Version: 1.0
+[...]
 
-On Mon, Jun 08, 2026 at 10:14:36AM +0300, Laurent Pinchart wrote:
-> On Mon, Jun 08, 2026 at 09:09:18AM +0200, Maxime Ripard wrote:
-> > On Fri, Jun 05, 2026 at 07:09:46PM +0300, Laurent Pinchart wrote:
-> > > On Fri, Jun 05, 2026 at 05:18:43PM +0200, Luca Ceresoli wrote:
-> > > > Hello Sean,
-> > > > On Sat May 30, 2026 at 8:51 PM CEST, Sean Nyekjaer wrote:
-> > > > > On Wed, May 27, 2026 at 02:27:36PM +0100, Sudarshan Shetty wrote:
-> > > > >> The current DSI configuration enables MIPI_DSI_MODE_VIDEO_BURST.
-> > > > >> while burst mode is supported by the hardware, its use
-> > > > >> depends on continuous clock behavior from the DSI host. In pract=
-ice,
-> > > > >> burst mode may introduce instability depending on the host contr=
-oller
-> > > > >> implementation, as the DSI link may transition to low-power state
-> > > > >> between bursts.
-> > > > >>
-> > > > >> Testing showed improved display stability when using non-burst m=
-ode on
-> > > > >> affected panels.
-> > > > >>
-> > > > >> Remove MIPI_DSI_MODE_VIDEO_BURST and use non-burst video mode.
-> > > > >>
-> > > > >
-> > > > > We briefly talked about this at Embedded Recipes
-> > > > > I promised to sent a link:
-> > > > > https://lore.kernel.org/all/E35054BA-FBE5-4CEE-905C-1F5D20140590@=
-geanix.com/
-> > > >=20
-> > > > Thanks for the discussion at ER and for this follow-up e-mail.
-> > > >=20
-> > > > > When burst mode is enabled, the LVDS clock gets way to high for my
-> > > > > panel. I don't know if it's the DSI controller in the STM32MP1 or
-> > > > > something not supported on the TI side.
-> > > > >
-> > > > > We have been running with this fix for 2 years :)
-> > > >=20
-> > > > If I can summarize the situation in the last 4 years:
-> > > >=20
-> > > >  * Several users reported the same trouble
-> > > >  * Those users patch their kernel out of tree to disable burst mode=
- as a
-> > > >    workaround
-> > > >  * According to Marek the correct way to make burst mode work is
-> > > >    implementing link negotiation
-> > > >  * Nobody is willing to implement link negotiation as of now
-> > > >=20
-> > > > And this leads me to some questions.
-> > > >=20
-> > > >  * Do we want to keep the current situation (everybody beats their =
-head on
-> > > >    the wall until they discover disabling burst mode "fixes" their =
-panel,
-> > > >    and keep an out of tree patch)?
-> > > >=20
-> > > >  * Assuming the priority is getting a screen working (and not savin=
-g power
-> > > >    on a black screen), would it make sense to apply this patch, and=
- let
-> > > >    people improve in the future by implementing link negotiation?
-> > > >=20
-> > > >    Let's pretend for a moment this is a new driver being developed:=
- would
-> > > >    it be OK to have a basic working driver, without some power opti=
-mization
-> > > >    features which can be added later on? The only valid answer to t=
-his
-> > > >    question is obviously "yes". Doesn't the same principle apply he=
-re? If
-> > > >    it doesn't, why?
-> > > >=20
-> > > >  * What is the expected power saving with burst mode?
-> > > >=20
-> > > >    I'm afraid I don't have precise numbers but I measured the total=
- board
-> > > >    consumption with or without burst mode (the former with a black =
-screen
-> > > >    but backlight enabled) and found no difference: exactly 12.74 W =
-in both
-> > > >    cases.
-> > > >=20
-> > > > Thanks for you rpatience in reading this. I hope it helps in findin=
-g a
-> > > > better solution.
-> > >=20
-> > > Rephrasing this a bit, is the discussion about dropping support for a
-> > > supported feature (burst mode) because users who suffer from the lack=
- of
-> > > another feature (link negotiation) are not willing to spend time
-> > > implementing it, and would prefer if users of burst mode were forced =
-to
-> > > do the work instead ? That doesn't seem very fair to me.
-> >=20
-> > Yeah, that's my take on it too. The question quickly turns into "we want
-> > to regress current users because some new ones don't want to bother",
-> > and, honestly, no. We don't do that.
-> >=20
-> > I really don't buy into the "but it's too hard!" argument, because you
-> > can apply for pretty much everything: a review, a requested preliminary
-> > work, etc.
->=20
-> Without going that far, I think we need a good technical analysis and
-> development plan first to back the "it's too hard" argument. If the
-> amount of work indeed turns to be huge, we can then try to figure out
-> how to split the effort.
+>> +&pmh0101_gpios {
+>> +    key_vol_up_default: key-vol-up-default-state {
+>> +        pins = "gpio6";
+>> +        function = "normal";
+>> +        output-disable;
+>> +        bias-pull-up;
+>> +    };
+>> +};
+> The &pmh0101_gpios node is extended twice here. Please merge both
+> pinctrl states into a single block, similar to the fix already sent
+> for glymur-crd.dtsi [1].
 
-Either way, we won't regress existing users. If it's indeed pretty
-involved (but I'm not sure why it would be more involved than, say,
-formats), then I guess we can discuss mitigating the issue, but we're
-still not going to create a regression even if it's hard.
+Thanks! I'll just skip it here, as there's probably a RESIN input
+on the debug connector, but it's not soldered (we didn't use it) so
+it doesn't really make sense to poke at it unless someone really wants
+to go the extra mile
 
-Maxime
+> 
+> While at it, could you also take a look at [1]? It addresses the
+> same issue in glymur-crd.dtsi and has been awaiting review.
+> 
+> [1] https://lore.kernel.org/all/20260602-merge-duplicate-pmh0101-gpios-node-v2-1-251107b3d9fe@oss.qualcomm.com/
 
---pjbbve3uyntqr5ys
-Content-Type: application/pgp-signature; name="signature.asc"
+I was under the impression I've already done that, but rb'd it now.
 
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaiaEVgAKCRAnX84Zoj2+
-di1AAYC12xCN8++B5WFdApF4UjyYxbki/ZaO50aHhY6iyio+zg2uWaNgy0rPlwJd
-S0OrilYBgLHJb7+yZNszbGISYHJQCquSlDjMxAUslA4bGOGwXKva02OtKIXxMJns
-VmRBRGQWOw==
-=EE6g
------END PGP SIGNATURE-----
-
---pjbbve3uyntqr5ys--
+Konrad
