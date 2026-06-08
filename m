@@ -4,56 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEBC7CD8C9F
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 10:06:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1033BCD8C9F
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 10:08:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16B2C10F0BE;
-	Mon,  8 Jun 2026 10:06:52 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B9BD10F0BE
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 10:06:50 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.15])
- by APP-05 (Coremail) with SMTP id zQCowAC3F9szlCZqCWuyEg--.3647S2;
- Mon, 08 Jun 2026 18:06:44 +0800 (CST)
-Message-ID: <340c213ca47dabb8bc3d260311e2fd4818bd8001.camel@iscas.ac.cn>
-Subject: Re: [PATCH v3 3/5] drm/verisilicon: introduce per-variant hardware
- ops table
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 08 Jun 2026 18:06:43 +0800
-In-Reply-To: <98eb7772-257f-4fa7-8e9b-51a635cb12dd@gmail.com>
-References: <20260608023237.305036-1-a0987203069@gmail.com>
- <20260608023237.305036-4-a0987203069@gmail.com>
- <399cd127b56b4a2fb3161865a681606e04e6b2c6.camel@iscas.ac.cn>
- <98eb7772-257f-4fa7-8e9b-51a635cb12dd@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F43010F0D2;
+	Mon,  8 Jun 2026 10:08:54 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="lVRxYkXM";
+	dkim-atps=neutral
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E66310F0D2
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 10:08:53 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gYnnG4TRsz9sWC;
+ Mon,  8 Jun 2026 12:08:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1780913330; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=cSWjB7fWGs+wXhuVWq/9W4Hh/l44MANG3fySQbhFHak=;
+ b=lVRxYkXMelHz/E4STNy7YmWsyFcebKfM3A8oJJB2/53t9PfwPUifUXFUIozI7KieC6Mrtw
+ J8P7YF40fiXloP1hHN69Sk+pFiG8klJ3AoaeUv7YxYCld1VG4/0IYlP6LDgfTzTyLKPpqS
+ PhouXImJXt+i3MZ46tHmPMGBgHPCREA7IxoUljnQpt8wcJEnHhypdT2zqV/FOgGMXQv9Et
+ 4F0/4o78lKJM+fhAufLb0ZWB/nNjupnXoLpT6DuelZrE/bVnQVAenjiav5jC/kuiwXonaO
+ lu7FCbJMjFBb9KusCdWvt6f4ShOgGirXewfqJyZ5lem5782Wjnmq7IU3eW10VA==
+Message-ID: <28fa48b63a6968999e40ff718ce06473e5baeb7c.camel@mailbox.org>
+Subject: Re: [PATCH 3/3] drm/rocket: Drop the dedicated reset workqueue
+From: Philipp Stanner <phasta@mailbox.org>
+To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Tomeu Vizoso	
+ <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <ckoenig.leichtzumerken@gmail.com>, Rob Herring
+ <robh@kernel.org>, Matthew Brost <matthew.brost@intel.com>, Danilo
+ Krummrich <dakr@kernel.org>, Philipp Stanner	 <phasta@kernel.org>, Sumit
+ Semwal <sumit.semwal@linaro.org>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+Date: Mon, 08 Jun 2026 12:08:45 +0200
+In-Reply-To: <20260605-rocket-per-task-jobs-v1-3-e3319adf3c49@igalia.com>
+References: <20260605-rocket-per-task-jobs-v1-0-e3319adf3c49@igalia.com>
+ <20260605-rocket-per-task-jobs-v1-3-e3319adf3c49@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-X-CM-TRANSID: zQCowAC3F9szlCZqCWuyEg--.3647S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJFWUXrWDtF4xAF1DJr4xWFg_yoWrGFW8pr
- 1qkFy8Kr4rXrykJFy8tryvqFsxWw1xKw1Igr1UGa9Yqr1DtrnIgFW0qr93uF4kXrZ7G3Wf
- Xw4SyanIvrWrAwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
- 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
- c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
- 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
- 14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
- IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
- 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
- IFyTuYvjxU2wIDUUUUU
-X-Originating-IP: [112.94.101.15]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+X-MBO-RS-ID: d015d8fe82b1f750928
+X-MBO-RS-META: w78z619rhxcs85s77k8knq4rbnkbipts
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,120 +66,95 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-06-08=E4=B8=80=E7=9A=84 17:45 +0800=EF=BC=8CJoey Lu=E5=86=99=
-=E9=81=93=EF=BC=9A
-> > > diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > index 1f2be41ae496..75bc36a078f7 100644
-> > > --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > @@ -53,12 +53,6 @@ static int
-> > > vs_primary_plane_atomic_check(struct
-> > > drm_plane *plane,
-> > > =C2=A0=C2=A0	return 0;
-> > > =C2=A0=C2=A0}
-> > > =C2=A0=20
-> > > -static void vs_primary_plane_commit(struct vs_dc *dc, unsigned
-> > > int
-> > > output)
-> > > -{
-> > > -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> > > -			VSDC_FB_CONFIG_EX_COMMIT);
-> > > -}
-> > > -
-> > > =C2=A0=C2=A0static void vs_primary_plane_atomic_enable(struct drm_pla=
-ne
-> > > *plane,
-> > > =C2=A0=C2=A0					=C2=A0=C2=A0 struct
-> > > drm_atomic_commit
-> > > *atomic_state)
-> > > =C2=A0=C2=A0{
-> > > @@ -69,13 +63,8 @@ static void
-> > > vs_primary_plane_atomic_enable(struct
-> > > drm_plane *plane,
-> > > =C2=A0=C2=A0	unsigned int output =3D vcrtc->id;
-> > > =C2=A0=C2=A0	struct vs_dc *dc =3D vcrtc->dc;
-> > > =C2=A0=20
-> > > -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> > > -			VSDC_FB_CONFIG_EX_FB_EN);
-> > > -	regmap_update_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> > > -			=C2=A0=C2=A0 VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
-> > > -			=C2=A0=C2=A0
-> > > VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
-> > > -
-> > > -	vs_primary_plane_commit(dc, output);
-> > > +	if (dc->funcs->plane_enable_ex)
-> > > +		dc->funcs->plane_enable_ex(dc, output);
-> > Please note that all theae codes are for primary planes, maybe the
-> > helper should be named mentioning primary. Overlay planes will need
-> > a
-> > different codepath because they change different registers.
-> >=20
-> > Thanks,
-> > Icenowy
-> Understood. To avoid confusion, I will rename `plane_enable_ex`,=20
-> `plane_disable_ex`, and `plane_update_ex` to `primary_plane_enable`,=20
-> `primary_plane_disable`, and `primary_plane_update` in `vs_dc_funcs`,
-> `vs_dc8200.c`, and `vs_primary_plane.c`.
+On Fri, 2026-06-05 at 13:07 -0300, Ma=C3=ADra Canal wrote:
+> Each core allocated an ordered workqueue ("rocket-reset-%d") and passed
+> it as the scheduler's timeout_wq. The only documented reason to provide a
+> custom timeout_wq is to serialize the timeout handlers of several
+> schedulers that share globally-reset hardware.
+>=20
 
-Maybe keep the `_ex` here as some operations is still on the common
-codepath?
+I think it's mostly about serializing timeouts for hardware where one
+ring blocking can cause another ring to delay. So it's about catching
+false-positive timeouts for certain rings.
 
-Thanks,
-Icenowy
+>  That does not apply here:
+> each core has its own scheduler and is reset independently
+> (rocket_reset() only touches its own core). With the reset worker gone,
+> the workqueue served solely as the timeout_wq.
+>=20
+> Drop it and let drm_sched fall back to the default timeout workqueue.
 
-> > > =C2=A0=C2=A0}
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0static void vs_primary_plane_atomic_disable(struct drm_pl=
-ane
-> > > *plane,
-> > > @@ -88,10 +77,8 @@ static void
-> > > vs_primary_plane_atomic_disable(struct
-> > > drm_plane *plane,
-> > > =C2=A0=C2=A0	unsigned int output =3D vcrtc->id;
-> > > =C2=A0=C2=A0	struct vs_dc *dc =3D vcrtc->dc;
-> > > =C2=A0=20
-> > > -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> > > -			VSDC_FB_CONFIG_EX_FB_EN);
-> > > -
-> > > -	vs_primary_plane_commit(dc, output);
-> > > +	if (dc->funcs->plane_disable_ex)
-> > > +		dc->funcs->plane_disable_ex(dc, output);
-> > > =C2=A0=C2=A0}
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0static void vs_primary_plane_atomic_update(struct drm_pla=
-ne
-> > > *plane,
-> > > @@ -133,18 +120,11 @@ static void
-> > > vs_primary_plane_atomic_update(struct drm_plane *plane,
-> > > =C2=A0=C2=A0	regmap_write(dc->regs, VSDC_FB_STRIDE(output),
-> > > =C2=A0=C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0 fb->pitches[0]);
-> > > =C2=A0=20
-> > > -	regmap_write(dc->regs, VSDC_FB_TOP_LEFT(output),
-> > > -		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_MAKE_PLANE_POS(state->crtc_x, state-
-> > > > crtc_y));
-> > > -	regmap_write(dc->regs, VSDC_FB_BOTTOM_RIGHT(output),
-> > > -		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_MAKE_PLANE_POS(state->crtc_x + state=
--
-> > > > crtc_w,
-> > > -					 state->crtc_y + state-
-> > > > crtc_h));
-> > > =C2=A0=C2=A0	regmap_write(dc->regs, VSDC_FB_SIZE(output),
-> > > =C2=A0=C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_MAKE_PLANE_SIZE(state->cr=
-tc_w, state-
-> > > > crtc_h));
-> > > =C2=A0=20
-> > > -	regmap_write(dc->regs, VSDC_FB_BLEND_CONFIG(output),
-> > > -		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
-> > > -
-> > > -	vs_primary_plane_commit(dc, output);
-> > > +	if (dc->funcs->plane_update_ex)
-> > > +		dc->funcs->plane_update_ex(dc, output, state);
-> > > =C2=A0=C2=A0}
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0static const struct drm_plane_helper_funcs
-> > > vs_primary_plane_helper_funcs =3D {
+From what I can tell, much of the cleanup, especially this part, looks
+quite non-controversial.
 
+
+P.
+
+>=20
+> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
+> ---
+> =C2=A0drivers/accel/rocket/rocket_core.h |=C2=A0 4 ----
+> =C2=A0drivers/accel/rocket/rocket_job.c=C2=A0 | 15 +--------------
+> =C2=A02 files changed, 1 insertion(+), 18 deletions(-)
+>=20
+> diff --git a/drivers/accel/rocket/rocket_core.h b/drivers/accel/rocket/ro=
+cket_core.h
+> index f74dc99d07bb..607e4270f59c 100644
+> --- a/drivers/accel/rocket/rocket_core.h
+> +++ b/drivers/accel/rocket/rocket_core.h
+> @@ -46,10 +46,6 @@ struct rocket_core {
+> =C2=A0
+> =C2=A0	spinlock_t fence_lock;
+> =C2=A0
+> -	struct {
+> -		struct workqueue_struct *wq;
+> -	} reset;
+> -
+> =C2=A0	struct drm_gpu_scheduler sched;
+> =C2=A0	u64 fence_context;
+> =C2=A0	u64 emit_seqno;
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index 871041eb7a1d..1a454559ecf4 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -467,33 +467,20 @@ int rocket_job_init(struct rocket_core *core)
+> =C2=A0		return ret;
+> =C2=A0	}
+> =C2=A0
+> -	core->reset.wq =3D alloc_ordered_workqueue("rocket-reset-%d", 0, core->=
+index);
+> -	if (!core->reset.wq)
+> -		return -ENOMEM;
+> -
+> =C2=A0	core->fence_context =3D dma_fence_context_alloc(1);
+> =C2=A0
+> -	args.timeout_wq =3D core->reset.wq;
+> =C2=A0	ret =3D drm_sched_init(&core->sched, &args);
+> =C2=A0	if (ret) {
+> =C2=A0		dev_err(core->dev, "Failed to create scheduler: %d.", ret);
+> -		goto err_sched;
+> +		return ret;
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	return 0;
+> -
+> -err_sched:
+> -	drm_sched_fini(&core->sched);
+> -
+> -	destroy_workqueue(core->reset.wq);
+> -	return ret;
+> =C2=A0}
+> =C2=A0
+> =C2=A0void rocket_job_fini(struct rocket_core *core)
+> =C2=A0{
+> =C2=A0	drm_sched_fini(&core->sched);
+> -
+> -	destroy_workqueue(core->reset.wq);
+> =C2=A0}
+> =C2=A0
+> =C2=A0int rocket_job_open(struct rocket_file_priv *rocket_priv)
