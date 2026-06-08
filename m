@@ -4,55 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F708CD8C92
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 13:32:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC520CD8C9F
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 13:34:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6695E10F3D0;
-	Mon,  8 Jun 2026 13:32:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1301D10F3D6;
+	Mon,  8 Jun 2026 13:34:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="alTgc3IJ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QDg4TR/7";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 704AF10F3D0
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 13:32:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1780925571;
- bh=qcxaRvl4I1a8Mo0iiXNigHYsU7ODQZ9ywjgz5bodr6w=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=alTgc3IJBVuI8iwVkVIZSWcP65Fhi0H1RopWa+2OrPm0WtG1pmc2tGpT8ciH9qwXb
- GDwPwJ1oVN+N48OV3cMUKfAgT+mDiogicULq6iB3T0xSsvU2haOnA4M2ASt5A+77BX
- sL9LTfNaIC1mCR0lmWZR7wQg4M5lRLVfUI4fWs6l1/zV4WQfRKgBoYL/zZfP+IrbMZ
- oeQ/0tGPRh7EDjG+v9K3cIrs/t+6RiH/v5hxSni0bwbXQTyh7iu+tyU7psM7tahSQ0
- CI/XhqGfTpD/SFjfA5FiCnFtKyjNyNFJrFfUUO02xbL3s94T4tgU4AlVu5LT4FTGZO
- T+3UelkHS5dNQ==
-Received: from fedora-2.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id B269E17E0191;
- Mon,  8 Jun 2026 15:32:50 +0200 (CEST)
-Date: Mon, 8 Jun 2026 15:32:46 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Karunika Choo <karunika.choo@arm.com>
-Cc: dri-devel@lists.freedesktop.org, nd@arm.com, Steven Price
- <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 05/18] drm/panthor: Move register base offsets to
- the HW description
-Message-ID: <20260608153246.5fdbea05@fedora-2.home>
-In-Reply-To: <20260528150546.3168527-6-karunika.choo@arm.com>
-References: <20260528150546.3168527-1-karunika.choo@arm.com>
- <20260528150546.3168527-6-karunika.choo@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1800D10F3D6;
+ Mon,  8 Jun 2026 13:34:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780925650; x=1812461650;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=1nar5slmwkYmhwnjVnep6RKpTRHv53IZexyVowGKpUk=;
+ b=QDg4TR/7qYWqqlVZkorDMdWlnp+WbZl3ria+kzYVqg2WLJVoIgnusruw
+ 3b39ZsXLiB/X4KRr2w3Q38OGvpKwSg/rcwRRY9eU/V48Qjzh5tAmzfnlp
+ IpLKGeKm8C4Cl6Elam3eewHcXV9L5UlwjoQAnSI8Sn/ZJd5aGlDBn21jj
+ bUcHzMv6d7A6vj5V84dX3HL3qW7C5NDLXgwWP0ztqK+/s7b788GfOjA8N
+ T394DvC4qOGN7+PpVdROe44aeBj5YdL2gNudszzE2oHLRmon+kcC6HYJU
+ kgpJ7egGK7Tzl5g3O0mPoUy8bLLvYCKvGxkInimX4Ph7rQh3pXotNgSMm w==;
+X-CSE-ConnectionGUID: jgZJKdOCRp6P4OFr9ltZDQ==
+X-CSE-MsgGUID: ZyhV8YsJSRWdJcDhexpqpQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11810"; a="92225573"
+X-IronPort-AV: E=Sophos;i="6.24,194,1774335600"; d="scan'208";a="92225573"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jun 2026 06:34:10 -0700
+X-CSE-ConnectionGUID: BM69GM+yQi+lOD0QOp7AAw==
+X-CSE-MsgGUID: W6QaT/75T4mmg3JL3uRX/A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,194,1774335600"; d="scan'208";a="269256397"
+Received: from amilburn-desk.amilburn-desk (HELO [10.245.244.188])
+ ([10.245.244.188])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jun 2026 06:34:07 -0700
+Message-ID: <5a260c89c766018f00790f0d1a62405a8698b3fb.camel@linux.intel.com>
+Subject: Re: [PATCH] drm/xe: fix refcount leak in xe_range_fence_insert()
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Wentao Liang <vulab@iscas.ac.cn>, matthew.brost@intel.com, 
+ rodrigo.vivi@intel.com, airlied@gmail.com, simona@ffwll.ch
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 08 Jun 2026 15:34:05 +0200
+In-Reply-To: <20260608061540.121355-1-vulab@iscas.ac.cn>
+References: <20260608061540.121355-1-vulab@iscas.ac.cn>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,27 +72,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 28 May 2026 16:05:33 +0100
-Karunika Choo <karunika.choo@arm.com> wrote:
+On Mon, 2026-06-08 at 06:15 +0000, Wentao Liang wrote:
+> xe_range_fence_insert() acquires a reference on fence via
+> dma_fence_get() and stores it in rfence->fence.=C2=A0 It then calls
+> dma_fence_add_callback() and handles two cases: when the callback
+> is successfully registered (err =3D=3D 0) the fence is transferred to
+> the tree for later cleanup; when the fence is already signaled
+> (err =3D=3D -ENOENT) it manually drops the extra reference with
+> dma_fence_put(fence).
+>=20
+> However, dma_fence_add_callback() can fail with other errors
+> (e.g. -EINVAL) and in that case the code falls through to the free:
+> label without releasing the acquired reference, leaking it.
+>=20
+> Fix the leak by adding an else branch that calls dma_fence_put()
+> before jumping to free: for any error other than -ENOENT.
 
->  /**
->   * struct panthor_hw - GPU specific register mapping and functions
->   */
->  struct panthor_hw {
-> -	/** @features: Bitmap containing panthor_hw_feature */
-> -
->  	/** @ops: Panthor HW specific operations */
->  	struct panthor_hw_ops ops;
-> +
-> +	/** @map: Panthor HW-specific register base addresses */
-> +	struct panthor_hw_regmap map;
+In practice this can't happen since other errors require a missing
+fence or ops.
 
-map is a bit too vague. Can we rename this regbank_offsets or something
-along those lines? If we do that, we can drop the _base in the field
-names, because it'd be obvious that these are offsets when the field is
-used:
+But OTOH let's future-proof it.
 
-	void __iomem *gpu_iomem = ptdev->iomem + ptdev->hw->regbank_offsets.gpu_control;
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: 845f64bdbfc9 ("drm/xe: Introduce a range-fence utility")
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
->  };
->  
+Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+
+Will merge when it has passed CI.
+
+Thanks,
+Thomas
+
+
+> ---
+> =C2=A0drivers/gpu/drm/xe/xe_range_fence.c | 2 ++
+> =C2=A01 file changed, 2 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/xe/xe_range_fence.c
+> b/drivers/gpu/drm/xe/xe_range_fence.c
+> index 372378e89e98..3d8fa194a7b0 100644
+> --- a/drivers/gpu/drm/xe/xe_range_fence.c
+> +++ b/drivers/gpu/drm/xe/xe_range_fence.c
+> @@ -77,6 +77,8 @@ int xe_range_fence_insert(struct
+> xe_range_fence_tree *tree,
+> =C2=A0	} else if (err =3D=3D 0) {
+> =C2=A0		xe_range_fence_tree_insert(rfence, &tree->root);
+> =C2=A0		return 0;
+> +	} else {
+> +		dma_fence_put(fence);
+> =C2=A0	}
+> =C2=A0
+> =C2=A0free:
