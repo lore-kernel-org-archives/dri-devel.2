@@ -4,74 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F12F8CD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 04:54:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 579B9CD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 04:59:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 464DD10ECD1;
-	Mon,  8 Jun 2026 04:54:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE40110ECD3;
+	Mon,  8 Jun 2026 04:59:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T3Fx+MA1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LEJu8Aj+";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9920610ECCF;
- Mon,  8 Jun 2026 04:54:42 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 74A4C43FFD;
- Mon,  8 Jun 2026 04:54:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4A03CC2BCB0;
- Mon,  8 Jun 2026 04:54:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1780894482;
- bh=zz+ReJGPCjYBFBCb2r084XSplvTHAjsBwYFx0jJ9sDo=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=T3Fx+MA1ifV+eBA9lm8IqQLJ3o7hr6+paOiASowXe+bLjRrfSvUB4ryQsiGA5SUGH
- Gvv2i4WvmscspasIAR7weNHWYualDDgB/K1Ho4541rrU9qJf1w+BlyoyHzP4NjvaJi
- OBhbUaMaXoVXiJU+CJcWRIhEAG7sS66IrLxSY2j18IU1druj2f2WKyujfKZ+wcr/Ti
- fUZ/UnXA/d8tDPaBUOQGjnleik+SLOcjZT+KcTcG9s35AfHB8n3q7XQS4iTMMhnP4S
- ftQCotpJGJjTLQ+jkomdLGsOgPO/byik5EjqaeSmbiXAYFdSkkWCQurQTnwWCJrs9t
- IfQmEASETC0yA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 40437CD8C92;
- Mon,  8 Jun 2026 04:54:42 +0000 (UTC)
-From: Jens Glathe via B4 Relay
- <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org>
-Date: Mon, 08 Jun 2026 06:54:39 +0200
-Subject: [PATCH v3] drm/msm/dp: add missing drm_edid_connector_update()
- before add_modes on cached EDID
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
+ [209.85.210.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 417BD10ECD3
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 04:59:07 +0000 (UTC)
+Received: by mail-pf1-f180.google.com with SMTP id
+ d2e1a72fcca58-842288702fbso1484555b3a.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 21:59:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780894747; x=1781499547; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Ipqvdmyqqpva+7JIGdF/76e2icFV3lJnAt8HUZ3Swsk=;
+ b=LEJu8Aj+64grx3UCRe1ESmGOnYw4kViT4d4t0fbsN4E3uWfs1yDwsb5iMazOy5f91h
+ a89zrMM32qwRRHZbWOanjUlRQeJfw7e2AAqPX41SWBz/svVf/tGGbkolNt1tf+4kAO9f
+ OFp8K7FaqkpW1sNE2vYe7Jh0+eWECPlrO/rwj0/2F/leqRSQXLjRjNe3ADebBHZjNP8h
+ kOufeQVxTnsJllztJX2VHn6SwkPsDaqJgU9Hu6mmhpGC/Vi9ZALC0Dn1VyWZbo4Mmg/W
+ ON8DMRbLpYIhBr7Fq5yNir4DIbLyKSsqfRD6dkyIPFZq+zyvgFMdYCFVyh6289fyTQXe
+ XgCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780894747; x=1781499547;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Ipqvdmyqqpva+7JIGdF/76e2icFV3lJnAt8HUZ3Swsk=;
+ b=ppRgMDsts8kEE3Gu3WFxOSewlNH40sjjXMEtnxErg5gBypAmgqjKLmQ5LqotUWv2e3
+ Q2FjrNhPiEMld2mi6LzoxFkGcYSfoXUXtBOKli13JX+tgMCjuf+9SzW8S4Xa1mu6RQq2
+ CMUBMGXcA2OKpj9ZXaaPjlm4n1H65ndWJyvsS/Cynibc8YAfbC4lSXJvBYQvO4GFMVYj
+ neMhydwBQlp5eeUln9p4D0U79eUuvdbTENOcLFkdcFgOdIgf/vgssS80oHCtRAB/EB38
+ oP8dIGqpEfffYmlB6QjK9KaiLJr2Iwy55n2R5+eZKO6DVD05wJIUUHkxWhf0Wd6HuKOH
+ V8/w==
+X-Gm-Message-State: AOJu0YxWvgF8yAMiSJq34SCTTIRle+9LXu/ngNYulg7WrKyuqT89zsrg
+ Dcfgf1owyFfn2Ijea9ijLWHgzrzQPKCNhDv1geUralS3qqtMJlzsNhPjxPI9cQ==
+X-Gm-Gg: Acq92OHX696/gApMce6/xAhLbMROLG+6etzKvieDsC5sKQYPHiUNtCyx4F11sD9WK6F
+ eWG79v+bQ47VKRNywkc7s/rSmLp6FqeIfn2upeo+AaCvGK9hdW6NHKatVgEwRrpBOAanYHAiEnW
+ CrcvpgfdyRuCMY8tPCt7OYxGLppSfVJxpK3fhAXseiYcA/tfb2LRW7lIEtNp2xQjoAAN3HODawo
+ Xog4STWKJcixTcPq7B9mD195CSgntBU7Cc85Nn7zfD+h4Aj4X2zrW0Out6kVCRtBCuVt0R/FCBY
+ qw3JyUdhEDMPvL20VfM9eZjemfnFSG4EDo8+eTbxF1yqLahQ4SLQIgcVeI4gUvCMAFs5R9emxNJ
+ lR4SmKo4CoOwCtADs+tVHHJOMg6fwCjho5IRZYmv8FqbdsxIOZyAMYG7ryuZW//SwDcnqYirOVC
+ w/YhMuHyZjTNaT5X23ArKPZoTrmkDYc2TiwBdb9A2Ka4y43VXU7qfZQ2lO3cMnH6JMg00GsBVXQ
+ wo95/X4QVSIUPkr0/+D0D0mh182bDFaljjIs8veapuEsA==
+X-Received: by 2002:aa7:8889:0:b0:842:4f24:f3a2 with SMTP id
+ d2e1a72fcca58-842b1065a73mr14478970b3a.28.1780894746717; 
+ Sun, 07 Jun 2026 21:59:06 -0700 (PDT)
+Received: from ryzen ([2601:644:8000:5b5d:7285:c2ff:fe45:8a32])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8428221a7e9sm20732154b3a.11.2026.06.07.21.59.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 07 Jun 2026 21:59:06 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Koby Elbaz <koby.elbaz@intel.com>,
+ Konstantin Sinyuk <konstantin.sinyuk@intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] accel/habanalabs: kzalloc + kcaalloc to kzalloc_flex
+Date: Sun,  7 Jun 2026 21:58:49 -0700
+Message-ID: <20260608045849.5489-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260608-drm_plug_flaky_edid-v3-1-1ca632938e7f@oldschoolsolutions.biz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33OSw6CMBCA4auYrq1pByzWlfcwhkAf0FgpaaERC
- Xe3sHGjLv9J5puZUVDeqIDOuxl5FU0wrkuR7XdItFXXKGxkagQEGDlmFEv/KHs7NqW21X0qlTQ
- SC1EUeaaZ5oSjtNl7pc1zU6+31K0Jg/PTdiTSdfrfixRTDAU5CcqkULy4OCuDaJ2zwdlxSD+GQ
- 21eaMUjfEBG4DsICaTAuK55DsD5T3BZljf8jnCRFAEAAA==
-X-Change-ID: 20260531-drm_plug_flaky_edid-cc7743f6f909
-To: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Douglas Anderson <dianders@chromium.org>, 
- Jani Nikula <jani.nikula@intel.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780894481; l=2688;
- i=jens.glathe@oldschoolsolutions.biz; s=20240919;
- h=from:subject:message-id;
- bh=55G4LQVrxBJzJlYE3Z1ybkSrDyEmlX4rhTBkpovP1x0=;
- b=dAQQLZtUlP2REJbgAX15/NGYkNWqDsTe/tGnHcSFaGRUxwNNn1zj+Uv7+inVOEEmkB4fzz1Ut
- ucAanTR8vm7AfZs50kVKzzIvKPGuy40yr9sDOjDtfIMfCkdAB2fkAa/
-X-Developer-Key: i=jens.glathe@oldschoolsolutions.biz; a=ed25519;
- pk=JcRJqJc/y8LsxOlPakALD3juGfOKmFBWtO+GfELMJVg=
-X-Endpoint-Received: by B4 Relay for
- jens.glathe@oldschoolsolutions.biz/20240919 with auth_id=216
-X-Original-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,81 +83,92 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: jens.glathe@oldschoolsolutions.biz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Simplifies allocation by using a flexible array member.
 
-After the refactor to struct drm_edid, the fast path in
-msm_dp_panel_get_modes() that already held a cached EDID called
-drm_edid_connector_add_modes() directly without first calling
-drm_edid_connector_update().
+No need to free separately.
 
-The new API requires the update step to associate the EDID with the
-connector. Add the missing call. This restores correct behaviour for
-the cached-EDID path.
-
-Fixes: 5bea90ad9743 ("drm/msm/dp: switch to struct drm_edid")
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
-Hi there,
+ .../habanalabs/common/command_submission.c    | 20 ++-----------------
+ drivers/accel/habanalabs/common/habanalabs.h  |  2 +-
+ 2 files changed, 3 insertions(+), 19 deletions(-)
 
-thank you for the feedback on V1. I dug a little deeper and heeded Janis'
-and Dmitry's request to print the "garbage" EDID, and to my surprise it 
-was the genuine valid EDID for the display. The code is documented in [1].
-
-That changed the picture a bit - "right" EDID but not tied to the connector.
-The retry code does the drm_edid_connector_update() before 
-drm_edid_connector_add_modes(), so I only added that missing piece in 
-msm_dp_panel_get_modes(). This proves to be sufficient to get a stable
-link with the desired resolution. Therefore I dropped the entire re-read 
-and retry logic, because it is of course an ugly hack.
-I have tested this with my complete collection of adapters and hubs, and
-all work well.
-
-[1]: https://github.com/jglathe/linux_ms_dev_kit/tree/jg/flaky_edid_retry
-
-with best regards,
-
-Jens
----
-Changes in v3:
-- cleaned up trailer spacing, added r-b tag (thank you, Dmitry)
-- Link to v2: https://lore.kernel.org/r/20260602-drm_plug_flaky_edid-v2-1-1269fb942299@oldschoolsolutions.biz
-
-Changes in v2:
-- Dropped the retry + re-read logic
-- Just add the missing drm_edid_connector_update() in the cached EDID path
-- Link to v1: https://lore.kernel.org/r/20260531-drm_plug_flaky_edid-v1-1-2708c16dce97@oldschoolsolutions.biz
----
- drivers/gpu/drm/msm/dp/dp_panel.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index 6bb021820d7c5..5b4954e7cb748 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.c
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -332,8 +332,10 @@ int msm_dp_panel_get_modes(struct msm_dp_panel *msm_dp_panel,
- 		return -EINVAL;
+diff --git a/drivers/accel/habanalabs/common/command_submission.c b/drivers/accel/habanalabs/common/command_submission.c
+index ba4257bda77b..ba99329eacbd 100644
+--- a/drivers/accel/habanalabs/common/command_submission.c
++++ b/drivers/accel/habanalabs/common/command_submission.c
+@@ -809,7 +809,6 @@ static void cs_do_release(struct kref *ref)
+ 
+ 	hl_fence_put(cs->fence);
+ 
+-	kfree(cs->jobs_in_queue_cnt);
+ 	kfree(cs);
+ }
+ 
+@@ -907,9 +906,9 @@ static int allocate_cs(struct hl_device *hdev, struct hl_ctx *ctx,
+ 
+ 	cntr = &hdev->aggregated_cs_counters;
+ 
+-	cs = kzalloc_obj(*cs, GFP_ATOMIC);
++	cs = kzalloc_flex(*cs, jobs_in_queue_cnt, hdev->asic_prop.max_queues, GFP_ATOMIC);
+ 	if (!cs)
+-		cs = kzalloc_obj(*cs);
++		cs = kzalloc_flex(*cs, jobs_in_queue_cnt, hdev->asic_prop.max_queues);
+ 
+ 	if (!cs) {
+ 		atomic64_inc(&ctx->cs_counters.out_of_mem_drop_cnt);
+@@ -947,19 +946,6 @@ static int allocate_cs(struct hl_device *hdev, struct hl_ctx *ctx,
+ 		goto free_cs;
  	}
  
--	if (msm_dp_panel->drm_edid)
-+	if (msm_dp_panel->drm_edid) {
-+		drm_edid_connector_update(connector, msm_dp_panel->drm_edid);
- 		return drm_edid_connector_add_modes(connector);
-+	}
+-	cs->jobs_in_queue_cnt = kcalloc(hdev->asic_prop.max_queues,
+-			sizeof(*cs->jobs_in_queue_cnt), GFP_ATOMIC);
+-	if (!cs->jobs_in_queue_cnt)
+-		cs->jobs_in_queue_cnt = kcalloc(hdev->asic_prop.max_queues,
+-				sizeof(*cs->jobs_in_queue_cnt), GFP_KERNEL);
+-
+-	if (!cs->jobs_in_queue_cnt) {
+-		atomic64_inc(&ctx->cs_counters.out_of_mem_drop_cnt);
+-		atomic64_inc(&cntr->out_of_mem_drop_cnt);
+-		rc = -ENOMEM;
+-		goto free_cs_cmpl;
+-	}
+-
+ 	cs_cmpl->hdev = hdev;
+ 	cs_cmpl->type = cs->type;
+ 	spin_lock_init(&cs_cmpl->lock);
+@@ -1014,8 +1000,6 @@ static int allocate_cs(struct hl_device *hdev, struct hl_ctx *ctx,
  
- 	return 0;
- }
-
----
-base-commit: 7da7f07112610a520567421dd2ffcb51beaefbcc
-change-id: 20260531-drm_plug_flaky_edid-cc7743f6f909
-
-Best regards,
+ free_fence:
+ 	spin_unlock(&ctx->cs_lock);
+-	kfree(cs->jobs_in_queue_cnt);
+-free_cs_cmpl:
+ 	kfree(cs_cmpl);
+ free_cs:
+ 	kfree(cs);
+diff --git a/drivers/accel/habanalabs/common/habanalabs.h b/drivers/accel/habanalabs/common/habanalabs.h
+index d94c2ba22a6a..dc13c8a6f242 100644
+--- a/drivers/accel/habanalabs/common/habanalabs.h
++++ b/drivers/accel/habanalabs/common/habanalabs.h
+@@ -2046,7 +2046,6 @@ struct hl_userptr {
+  * @encaps_signals: true if this CS has encaps reserved signals.
+  */
+ struct hl_cs {
+-	u16			*jobs_in_queue_cnt;
+ 	struct hl_ctx		*ctx;
+ 	struct list_head	job_list;
+ 	spinlock_t		job_lock;
+@@ -2080,6 +2079,7 @@ struct hl_cs {
+ 	u8			staged_cs;
+ 	u8			skip_reset_on_timeout;
+ 	u8			encaps_signals;
++	u16			jobs_in_queue_cnt[];
+ };
+ 
+ /**
 -- 
-Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-
+2.54.0
 
