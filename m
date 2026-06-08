@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D86DDCD8C9F
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 12:07:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B58DBCD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 12:10:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09FB910F2A7;
-	Mon,  8 Jun 2026 12:07:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EFFD10F2BD;
+	Mon,  8 Jun 2026 12:10:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QIhH3Dkj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HeUvyhAB";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05DF310F2A7
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 12:07:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AB5C10F2B7
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 12:10:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CB7434063B;
- Mon,  8 Jun 2026 12:07:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D6921F00893;
- Mon,  8 Jun 2026 12:07:18 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D438E6001D;
+ Mon,  8 Jun 2026 12:10:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B48C1F00893;
+ Mon,  8 Jun 2026 12:10:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780920438;
- bh=fzKmRE/c3YW6bME9j/93sSqsxS7lu6l7nbyxWtTfJ8w=;
+ s=k20260515; t=1780920628;
+ bh=fbutwAgH34nQ+5CPzr8/espMkFdKyYE8DERk9Y5kQoE=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=QIhH3DkjuFmZdQJiQwpq3z684KdzevYBZ3FxzsTNbThYX0AQhcPzqB3KTwHEG5Qdn
- ir9AJIIbef4rlhl9JvHh46kwAoWNhJS8i2+G+GFyHAB9ezdL/Sm1bUWTgM6xAC4HoK
- JadouGx25hTowYD2ig0NRkQRzORb+h0elb1YPRgqjV8Snrlg7Suhk9/tI00wtigEPi
- tZZBdYmfA6Wv6gy0E65flr9h5Xctz1ekFWXmI0Da2Tqh240k1/k1uuF6V/xlR50nLc
- HEAtN4Be53++XNBN3GS7P0CljkTzNz1yIV9OWHFUZvwNLAd0UdnAh1dB0EKUa4Dd8q
- 7C84hvM99oYzQ==
-Date: Mon, 8 Jun 2026 14:07:16 +0200
+ b=HeUvyhABLJR5DrF1Q7F+yAuP9T3dy3vUloNx6jrsOC743UEMJI1BEA50B968JnF/8
+ zYldE28Z+IoGijHFx0NThpy0vpxd1fppOpcncMTRPQ57U9nHLVzeYxpAdYOzhWUHQc
+ OcRJmDkT9TP9X2zWVF8fMd94k9JCyLX/HkYg5YlmRyXToPEwTe1rg+WCoA69BP+nA6
+ 4I9v0EKU47tmOlDm3v4kulzrQUcFl1e1S1VoOAnrEtcU+9CawpKAfcQiUs7ZzdLBa/
+ 7j8EsfnrR9WwKVbh/Jsh1FhV98qYMRL8tu5T0W1okWPoEI+SkMthTqS/vqs6sgXpOG
+ b41REepoFRiDA==
+Date: Mon, 8 Jun 2026 14:10:26 +0200
 From: Maxime Ripard <mripard@kernel.org>
 To: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -50,15 +50,15 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 25/37] drm/bridge: shutdown and cleanup on bridge unplug
-Message-ID: <20260608-resilient-outgoing-panther-9efc53@houat>
+Subject: Re: [PATCH 23/37] drm/encoder: add drm_encoder_cleanup_from()
+Message-ID: <20260608-mighty-woodlouse-of-reading-162bca@houat>
 References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
- <20260519-drm-bridge-hotplug-v1-25-45e2bdb3dfb4@bootlin.com>
+ <20260519-drm-bridge-hotplug-v1-23-45e2bdb3dfb4@bootlin.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="runcsy6vq4746hhd"
+ protocol="application/pgp-signature"; boundary="mlq6rotmaedggjnf"
 Content-Disposition: inline
-In-Reply-To: <20260519-drm-bridge-hotplug-v1-25-45e2bdb3dfb4@bootlin.com>
+In-Reply-To: <20260519-drm-bridge-hotplug-v1-23-45e2bdb3dfb4@bootlin.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,70 +75,120 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---runcsy6vq4746hhd
+--mlq6rotmaedggjnf
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 25/37] drm/bridge: shutdown and cleanup on bridge unplug
+Subject: Re: [PATCH 23/37] drm/encoder: add drm_encoder_cleanup_from()
 MIME-Version: 1.0
 
-Hi,
-
-On Tue, May 19, 2026 at 12:37:42PM +0200, Luca Ceresoli wrote:
-> With the upcoming support for DRM bridge hot(un)plugging, bridges can be
-> removed at any time withotu tearing down the entire card. When this
-> happens, shutdown the pipeline and detach from the encoder chain the brid=
-ge
-> being removed along with all the following ones.
+On Tue, May 19, 2026 at 12:37:40PM +0200, Luca Ceresoli wrote:
+> Supporting hardware whose final part of the DRM pipeline can be physically
+> removed requires the ability to detach all bridges from a given point to
+> the end of the pipeline.
+>=20
+> Introduce a variant of drm_encoder_cleanup() for this.
+>=20
+> Take care to not try detaching non-attached bridges. This is needed becau=
+se
+> when two or more bridges are removed not in the backwards order,
+> drm_encoder_cleanup_from() is called more than once for bridges closer to
+> the panel.
 >=20
 > Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> ---
->  drivers/gpu/drm/drm_bridge.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
 >=20
-> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> index 7f2d1a81d730..d45fb74ec8c2 100644
-> --- a/drivers/gpu/drm/drm_bridge.c
-> +++ b/drivers/gpu/drm/drm_bridge.c
-> @@ -462,9 +462,17 @@ EXPORT_SYMBOL(devm_drm_bridge_add);
->   * it won't be found by users via of_drm_find_and_get_bridge(), and add =
-it
->   * to the lingering bridge list, to keep track of it until its allocated
->   * memory is eventually freed.
+> ---
+>=20
+> Note: in theory drm_encoder_cleanup() is now a superset of
+> drm_encoder_cleanup_from() and may be simplified to just call
+> drm_encoder_cleanup_from() and then do the extra actions. However the
+> common code is subtly different in terms of locking and checks, so this
+> would complicate the code in this patch and has thus been kept separate f=
+or
+> the time being to make reviewing sompler. Reimplementing
+> drm_encoder_cleanup() by using drm_encoder_cleanup_from() cvacn be done
+> later on.
+>=20
+> A much simpler and now obsolete version of this patch (missing locking and
+> checks) previously appeared in
+> https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-13-9d6f2c9c30=
+58@bootlin.com/
+> ---
+>  drivers/gpu/drm/drm_encoder.c | 38 ++++++++++++++++++++++++++++++++++++++
+>  include/drm/drm_encoder.h     |  1 +
+>  2 files changed, 39 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/drm_encoder.c b/drivers/gpu/drm/drm_encoder.c
+> index 0d5dbed06db4..40ece477b302 100644
+> --- a/drivers/gpu/drm/drm_encoder.c
+> +++ b/drivers/gpu/drm/drm_encoder.c
+> @@ -179,6 +179,44 @@ int drm_encoder_init(struct drm_device *dev,
+>  }
+>  EXPORT_SYMBOL(drm_encoder_init);
+> =20
+> +/**
+> + * drm_encoder_cleanup_from - remove a given bridge and all the following
+> + * @encoder: encoder whole list of bridges shall be pruned
+> + * @bridge: first bridge to remove
 > + *
-> + * If the bridge is attached, also disable the active output and detach
-> + * this bridge and the following ones.
->   */
->  void drm_bridge_remove(struct drm_bridge *bridge)
->  {
-> +	if (bridge->encoder) {
-> +		drm_atomic_shutdown(bridge->dev);
-> +		drm_encoder_cleanup_from(bridge->encoder, bridge);
-> +	}
+> + * Removes from an encoder all the bridges starting with a given bridge
+> + * and until the end of the chain.
+> + *
+> + * Does nothing if the bridge is not attached to an encoder chain.
+> + *
+> + * This should not be used in "normal" DRM pipelines. It is only useful =
+for
+> + * devices whose final part of the DRM chain can be physically removed a=
+nd
+> + * later reconnected (possibly with different hardware).
+> + */
+> +void drm_encoder_cleanup_from(struct drm_encoder *encoder, struct drm_br=
+idge *bridge)
+> +{
+> +	struct drm_bridge *next;
+> +	LIST_HEAD(tmplist);
 > +
->  	mutex_lock(&bridge_lock);
->  	list_move_tail(&bridge->list, &bridge_lingering_list);
->  	mutex_unlock(&bridge_lock);
+> +	/*
+> +	 * We need the bridge_chain_mutex to modify the chain, but
+> +	 * drm_bridge_detach() will call DRM_MODESET_LOCK_ALL_BEGIN() (in
+> +	 * drm_modeset_lock_fini()), resulting in a possible ABBA circular
+> +	 * deadlock. Avoid it by first moving all the bridges to a
+> +	 * temporary list holding the lock, and then calling
+> +	 * drm_bridge_detach() without the lock.
+> +	 */
+> +	mutex_lock(&encoder->bridge_chain_mutex);
+> +	if (!list_empty(&bridge->chain_node))
+> +		list_for_each_entry_safe_from(bridge, next, &encoder->bridge_chain, ch=
+ain_node)
+> +			list_move_tail(&bridge->chain_node, &tmplist);
+> +	mutex_unlock(&encoder->bridge_chain_mutex);
+> +
+> +	while (!list_empty(&tmplist))
+> +		drm_bridge_detach(list_first_entry(&tmplist, struct drm_bridge, chain_=
+node));
+> +}
+> +EXPORT_SYMBOL(drm_encoder_cleanup_from);
+> +
 
-I don't think this makes a lot of sense to disable the whole device at
-once. The connector, encoder, and the CRTC might, but the whole device
-doesn't.
+The name is super confusing, because it doesn't clean up anything.
+drm_encoder_cleanup is called that way because it cleans up the encoder.
+This function doesn't.
 
-Even then, I'm not sure we should disable anything. How does DP-MST
-handles removal?
+Unlike what's being documented, it doesn't remove any bridge either. It
+just detaches bridge, so let's just call it that way?
 
 Maxime
 
---runcsy6vq4746hhd
+--mlq6rotmaedggjnf
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaiawdAAKCRAnX84Zoj2+
-dlutAXwLb/lzFiY4Bqaim2RwnNqhbTo/NPoCNzh8V/tQ1zxLugn7ChtaL/weqRTw
-httlwgABgNm0m35oh5VFSw6suBNeI5wca6gsWhRHRBjDmIOSoS/q5nAmz4DyindF
-FISfGAzktg==
-=7d4e
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaiaxMQAKCRAnX84Zoj2+
+dovlAYDHSeYV8vLX5Yg55j6rhisjuD4V7tgfgvUuaKvLMajioZJJKBD7Xw54Rr2o
+7LYJvRcBgILYvnRYdQyxSDhd/hJZ+6M81Ar4FO2sxsAOmKhx6+PU3JsOjpXlIXT1
+3LiK7BxQ2g==
+=Jtaz
 -----END PGP SIGNATURE-----
 
---runcsy6vq4746hhd--
+--mlq6rotmaedggjnf--
