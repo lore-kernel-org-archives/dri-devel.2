@@ -4,146 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A3EDCD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 05:14:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C92DACD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 06:06:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD55B10ECE7;
-	Mon,  8 Jun 2026 05:14:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC30610ED49;
+	Mon,  8 Jun 2026 06:06:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Bo+9GAkH";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NWCV8kZO";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="UgQJPeKZ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CQG+7SNg";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E7BC10ECE7
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 05:14:39 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE2C910ED49
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 06:06:20 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6580EnP01575718
- for <dri-devel@lists.freedesktop.org>; Mon, 8 Jun 2026 05:14:39 GMT
+ 6580FgXZ2004225
+ for <dri-devel@lists.freedesktop.org>; Mon, 8 Jun 2026 06:06:19 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 06YKS2t9ahDNR8mpib/s6eXRS8K7e5yjLmLG8WJkTSk=; b=Bo+9GAkH3R1PpgxK
- saJ2dHX62iPorEkfzfK4XOBg/Mg3Pwr/8C/EG9G4QXVHmf8kB967RpcnR/3yCTp0
- fXMST16hMyZrpH/XvN270nmSWNqYapUK4NK/KEwlcnabNN4tKFY5l89LGpC+ky1P
- nLYoadq0uWNQPSw5PMvJoigxQhh/R86vzD6gn+f2zDnyK9VlIkoppZUmKs/NtQbx
- tMbRK75T+AM6nw0YVZe2TsrwcF2ddjOiQIjoTQq8AhOTHLA5NJzJ3ktIfSw9ajPt
- IVlTQVWeqvlyYDSZ34nhGodkPDc3JH2srN3Q1eEW0OaZDBPPa0qxHXUjSxAqsUrM
- RCAMDg==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4em98cxd9g-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=oyxNnw8gCz5l4KgIAYmR/0X6
+ QtgzggU4xD62oj4wLG8=; b=UgQJPeKZhVnyacVMlCzPWtIcYJPlWaTbjPA/9G1e
+ E2lLV03qX1KmNg+m6qJes8lMDm8Dd3xRzIId2qjALUCAI3XNKD2bF1FIm/FLlBCF
+ ZYF9C0ZV9nvkUrT9euKUpDiNwR4Fsqm9DmXbj66vWGcok5SaGU99ydchypgttaoO
+ 49GSouptWyFgIUE8tgSDdNgGQsxM479YaQ6bWicgSjDvAWRFuDL6ONnQAIs5BjEJ
+ Fyljgii8jYOf5tw1Ojr2//Jk5tDElBIUow4Xt5d09Crkj75sUubNG/hgHObeam4f
+ 7/K6gZGI489z7mB8JENakXs4FXMIsF5bqbQRC8EYggjT6Q==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com
+ [209.85.222.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emb4w67x4-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 05:14:38 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2c0c331eda3so42025805ad.2
- for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 22:14:38 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 06:06:19 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id
+ a1e0cc1a2514c-963b07e2003so3857296241.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 23:06:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1780895678; x=1781500478;
+ d=oss.qualcomm.com; s=google; t=1780898779; x=1781503579;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=06YKS2t9ahDNR8mpib/s6eXRS8K7e5yjLmLG8WJkTSk=;
- b=NWCV8kZOHwkPVVlkMsyyWhFAyWtROzTsriN0LgLHuaainb1t7Bp5rLXTE7yYfjxamY
- vLqFsA/mJUiVZci5qApc0ylv0MjCZilFKbU/BCBAUjSombt2xzQhRrvzrBL7+zCe1nTL
- Dm3TNcjWo6rawbJI2JzN637/V5OmJCptHi1E4PSHnMggRQFHR0PlfgqJIMtVVkNAfVbn
- rvmIuZRkMkZcTJoOsquUTdZPukOcxbGJKnFNsv5TSuuTzwwOPTXXdI57UKTEKBNky87U
- gNB3dBYF3DKrheo0/g5vA3i2TSj5YGlf/PMnoDGYOc4gRPnx3q/o1IFiAxv7+Cu6c6J9
- PQzg==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=oyxNnw8gCz5l4KgIAYmR/0X6QtgzggU4xD62oj4wLG8=;
+ b=CQG+7SNg3NMYiVhFAuSFaqNAY+pH7tY53iUs3qbuxngnhBs6EsqK0nbGzlGeq81uum
+ kubWmDxwrp6QYaU+fk1HUnVtYZWQlFBEbcNdhsAR6T2mRQfdjg+lxzzWLWHgfYjOAIT8
+ QLndyMO11md3fV4zXr/6DBvZp6lLfoQs1MkO9AoLaZAXFv3G+QQnPc0xbzIwgNXwzU4c
+ AEbNHVdo7atzYlTNratJkmfTnQa2v6DBhYc1NPn9X7sfgWpnDkYhCsxK4yltVR72qhxG
+ FNTB7EpBO4cllgs3JtHoU7NlRlst5Us9bHi39SrsWeJgYEd82j3YHECo4OkHUdjwA4eh
+ 8MEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780895678; x=1781500478;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=06YKS2t9ahDNR8mpib/s6eXRS8K7e5yjLmLG8WJkTSk=;
- b=ogmpqdEwa/JxbClKHf6eCkx7jsm20L+qdy1+roDAg2MoxHfGwYQcMYlbsxP7jmYoEM
- lGY3CjPRLrPm90gsBLUNqSOyH8njInOIY6ZqVshnDflVvM2sTofy17qKTXtirnkMPOcO
- KjLJpo5iy+0Za6Hcun5VnUJye+wczExa7IrG4T0YDvdn/oK10BUOw/kf4Kx9uftgslft
- Bu98SpBnc5G3i32FJ9E5kkEBySvyWxTr+rKM9apXz6FE+G5ibLQxKbupBGdq6dc3RCqR
- KXGYCR1gOBY6GG+AAEHd8dZQSuuLjC4Pdu7vbyKSEC4STFyWBrrx3bYStEMXJhG1OsoG
- P+og==
+ d=1e100.net; s=20251104; t=1780898779; x=1781503579;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=oyxNnw8gCz5l4KgIAYmR/0X6QtgzggU4xD62oj4wLG8=;
+ b=RjzONYGs9F5bRmK4vbfX4//lG9WE3UcSddgITQaSDBAIkRQr990TfmwlUEEwXOxAuo
+ 1QAaVGBwTrR3J86e00VuM1CxX1KezGNBzqKx8prEqnZFXawTwAdlt3JEniWpvxN8tjpY
+ ndpFyBAg8dtrlmj0/gMdQF7W4aA14bFIOB67Qe5lvR4syOJiHSCg85nBBwbeUKe4zDXE
+ wH2xoZVkB52wPJg2/bmEg4aceP2YUjgvNpJfRXhTnO7CkgO+1eMgdfbufpNLit0D4nKX
+ mzmUiPJonHqoYGsYHoWTrY0pP/d6C52+vRL/jaUByqbBwNPVOU9j1byz29aArD9sM4GX
+ VgzA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ90s+qObOSUZOm7Du9ifT9FzX6+73CyWqwPWFCYA4BTdnBoy01NIAF97fxWIlqwt2O3sernUi42u4I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzVHHo5jNvzUuNP2ksjPJco1C/kVScNxWfzO2iCo3URO8qVPMg6
- 8NOeNyu3QNMX3Z2llFkCuu/XArv7mCUdmjzek8Zta3G8PWqf+g+XZhmxb3G7zHpAqtJHEvwkNpn
- M/VdP59pS93yZkFt8c08Cc1OlNpm/BTx0500oHgYKZE0Bm0DuQTbGtH7oh+bJHVD5bOqU2No=
-X-Gm-Gg: Acq92OE0Y5hFuDHPKcxrrMtZFlcKybT8Yd+aRYgb5aFpBgD7LefMATIIq2IqvM79XYN
- SfKq9I2QDk2tW50pi5hkcfmwb7xJ6NoV2uCBeV6AzKtld99fQurmJvKfBdtIb1vNBmhHb8JVKFr
- lVlSs6eGog75IXVca7kOvp7pMb11w8Fxw6mt/t1WbvCfZmNU+W77MhPSpYNgfDLprVFsTku28kY
- tKgJLzPZx22TN3bVBvp55xTB5qTjHtFRtaJt2+LXBEAMi3uUaFuSRlt1Q11zlPoTCH+BN9gsoce
- 0uZK0VCmav0QjXR9K2nB6IJ3K3OuVNH4HHS42oPzUFXzmUmybgdzshRFU1G4zCFICrLvSockIKV
- BcIhWRTGAp8j6vcI/PvokZdSVKspnmdsy0wc1cZQSHyxDUplx6+heZrbDFNSrRQ==
-X-Received: by 2002:a17:903:2ac3:b0:2c0:b932:866e with SMTP id
- d9443c01a7336-2c1e8934f70mr152930835ad.27.1780895678305; 
- Sun, 07 Jun 2026 22:14:38 -0700 (PDT)
-X-Received: by 2002:a17:903:2ac3:b0:2c0:b932:866e with SMTP id
- d9443c01a7336-2c1e8934f70mr152930605ad.27.1780895677843; 
- Sun, 07 Jun 2026 22:14:37 -0700 (PDT)
-Received: from [10.204.79.117] ([202.46.23.25])
+ AFNElJ9KdwSVZmIoos/fbHlxA0Eo165YQBejH8rghAoI0uRlw/MXmkZYpFDuA7tFRwzX3y3yaHTkDKsO3wY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy6kibcDwNMAEZ8lhvUE9S5srGuxK5Mg4PVZ+NSaW7e3daF7PWR
+ GOqKo+CtDzHiEnwChMsV8gNYdZc/HNgpmaJU9PVpU+y5CZNu13T/OT8X/hOquIndUNylH4Y8aEt
+ EkX7DOnpR121VxuK2q+vpEOtEvaUic7LjoIaAi1EdVG28CvVYEe2HAxbfX62djlO/UEKYi80=
+X-Gm-Gg: Acq92OGoMwrkQ+M1p18CGxJzCYFF6Jmew7CuVnoOCJOWW8UCbWgGR7lumsOxgmrn2nA
+ fGZbOyYfWR7apwt8PJ3YJSe1zkQquMMfR9RnVBGgo3xLDpAwcezF0uFnpjFuuN9Cc40mSaRbHNq
+ 9/cSZCXP3bJOBgqv567+lsnfg5zNv8dzBCPg3x2JjATmcjsLsed+5nFND7BfxImiCSrrG53H9DJ
+ YyKHDD1Kf0GWLk8aL1vA+OgOCqeLYqXV1odBsj36Q6ctcsPVurSRIfCaiKi5NhJgG1N+ZVxAABo
+ abkxggUY0Ht4RrxvDLFahux7IzLvKZxUdaRXADrf4GhJHq2RhHMcYL71YA9q9jAWszGeLKKKUCB
+ 9MjWlXdhXHn2hP3eZ8znYRJZW9t72+2FKb1jnYqpnfEO/2S4huoNA5cV2hItsW7qkb9o6HQien8
+ ZbiRXIAn8YOVVJ+tmYSOExN6YLphLMpTnAAJ4FfopYjhlMSg==
+X-Received: by 2002:a05:6102:3591:b0:632:1e2f:3a6f with SMTP id
+ ada2fe7eead31-6fefb852cd4mr6708416137.24.1780898779020; 
+ Sun, 07 Jun 2026 23:06:19 -0700 (PDT)
+X-Received: by 2002:a05:6102:3591:b0:632:1e2f:3a6f with SMTP id
+ ada2fe7eead31-6fefb852cd4mr6708407137.24.1780898778664; 
+ Sun, 07 Jun 2026 23:06:18 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2c1664a67b0sm169055115ad.80.2026.06.07.22.14.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 07 Jun 2026 22:14:37 -0700 (PDT)
-Message-ID: <dd014e3b-96fa-4019-a1b7-5826a877b87e@oss.qualcomm.com>
-Date: Mon, 8 Jun 2026 10:44:28 +0530
+ 2adb3069b0e04-5aa7b990486sm3503733e87.68.2026.06.07.23.06.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 07 Jun 2026 23:06:17 -0700 (PDT)
+Date: Mon, 8 Jun 2026 09:06:15 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jianping Li <jianping.li@oss.qualcomm.com>
+Cc: srini@kernel.org, amahesh@qti.qualcomm.com, arnd@arndb.de,
+ gregkh@linuxfoundation.org, abelvesa@kernel.org,
+ jorge.ramirez@oss.qualcomm.com,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, quic_chennak@quicinc.com, stable@kernel.org
+Subject: Re: [PATCH v7 1/5] misc: fastrpc: Fix initial memory allocation for
+ Audio PD memory pool
+Message-ID: <bhn7gsvbdlm62trxfnmtmclujcc3cnod7pnhhf7pr6n5wbwlas@kgoadnui2hx6>
+References: <20260602071750.526-1-jianping.li@oss.qualcomm.com>
+ <20260602071750.526-2-jianping.li@oss.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/15] accel/qda: Add PRIME DMA-BUF import support
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>, srini@kernel.org,
- dmitry.baryshkov@oss.qualcomm.com, andersson@kernel.org,
- konradybcio@kernel.org, robin.clark@oss.qualcomm.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- iommu@lists.linux.dev, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-References: <20260519-qda-series-v1-0-b2d984c297f8@oss.qualcomm.com>
- <20260519-qda-series-v1-11-b2d984c297f8@oss.qualcomm.com>
- <3dddb7e8-5837-4038-9823-ce419cb49ec2@amd.com>
- <e465ed15-1568-467b-ac6b-94f903b46776@oss.qualcomm.com>
- <0feaad40-8bde-46c4-a251-07a1bd6ac79d@amd.com>
-Content-Language: en-US
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-In-Reply-To: <0feaad40-8bde-46c4-a251-07a1bd6ac79d@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA0NSBTYWx0ZWRfX9HkcS62k3Tgn
- Cv0oIT7nToGEkPDjlNAxii5vXYGUpJl3lxfIjnwCkU1DlhdneCMyPk55rQqeFetqqtA6wEMvW5T
- TloAquTb7B81UBlEY7Z4QUNgoAk70UhK9oFR5g8voi+GCzryL4wAJn3ND3aRlPrgS3UPc6kImxm
- VjYDxEs5ax5UFFj68lFaLD65hVM7YtoIlQdJOuMlic2hEYQBIAtmSljIN9xA/GeWbvwPPYdFdNt
- jkDkrzx623DCuR5LU6gEb0LHNtQ2WelY+ZeCmVXilHe5UNsndvJ+Q1re/63QzUs/DCvoreUYkx0
- 6t1pSdgq2m5MRcxLtaFAG1ADYC/aprH9FMI3Sjt5KDysADnPB7itHomHp5hGfcltwjrktwkuCTk
- q0NX1po1FN/0DjJoyqEVdipxcg6To0j1NXtCUX7L5qG9M45H04Ic5hEmXFI/OibDyHOklTNJ/DM
- wGdt/2rdoq+GVynN2MQ==
-X-Proofpoint-ORIG-GUID: tOP3zT2y_o2B1fnwcfOKfYazzR_gBhci
-X-Proofpoint-GUID: tOP3zT2y_o2B1fnwcfOKfYazzR_gBhci
-X-Authority-Analysis: v=2.4 cv=A/pc+aWG c=1 sm=1 tr=0 ts=6a264fbe cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=h427B1VOWG0w3MIzYIMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260602071750.526-2-jianping.li@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: m3LOEZAqrjdRtB7p-joO26TKJQGaZ9KY
+X-Proofpoint-GUID: m3LOEZAqrjdRtB7p-joO26TKJQGaZ9KY
+X-Authority-Analysis: v=2.4 cv=YIWvDxGx c=1 sm=1 tr=0 ts=6a265bdb cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=VwQbUJbxAAAA:8 a=gKdS22MHRqfbWWTX0SsA:9 a=CjuIK1q_8ugA:10
+ a=TD8TdBvy0hsOASGTdmB-:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA1MyBTYWx0ZWRfX/Fq3utgcXuaZ
+ 63lDD3Cn2o0dX4I1IVw/BoH3tFuDep5qgTRlyg9CetAKkLXPmcky4DxRwFpOwbExPOS3Et5ExGN
+ lhhfU3XIf0tnyu9oHhvBI38sQoZBh//0faVlwSpUZdxH1Pjt4/6akc0GWULcknD95L4dc3ZSUX2
+ D6r3lRgxpSpfvtGUl5Zvk7mbAqeDrs+Fbh6VfSJ++IA6IMs2eGrl9ikN5l7RdKsDS2PexEiZkJv
+ cWFIe1zdyAEC/R2ob0TMomG3S8cWVtdujJcz9GN/sf4emT/r9jy00Ab7rsRsOMfULw8kAxBMkfD
+ 91IJDks9h6gtOeV76RpehmQOIQEABkqlVS7HiGx30gkAa0T0u67o8JyWRypqeIol7bUfbAT6hwK
+ 4BCaArAofE/3rP2NOL40ID10JPNKoRvYtLObS6BOmqLCTdyzh3GB6qH5FWtKk5bdV9jeC9FORue
+ YKebQzd/TJwnpJjDwqA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-08_01,2026-06-05_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 bulkscore=0 spamscore=0 malwarescore=0
- adultscore=0 priorityscore=1501 phishscore=0 impostorscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606080045
+ suspectscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0 impostorscore=0
+ spamscore=0 phishscore=0 clxscore=1015 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080053
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,60 +144,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 03-06-2026 19:10, Christian König wrote:
-> On 6/3/26 08:11, Ekansh Gupta wrote:
->> On 19-05-2026 12:25, Christian König wrote:
->>> On 5/19/26 08:16, Ekansh Gupta via B4 Relay wrote:
->>>> From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> ...
->>>> +static int qda_memory_manager_map_imported(struct qda_memory_manager *mem_mgr,
->>>> +                                          struct qda_gem_obj *gem_obj,
->>>> +                                          struct qda_iommu_device *iommu_dev)
->>>> +{
->>>> +       struct scatterlist *sg;
->>>> +       dma_addr_t dma_addr;
->>>> +
->>>> +       if (!gem_obj->is_imported || !gem_obj->sgt || !iommu_dev) {
->>>> +               drm_err(gem_obj->base.dev, "Invalid parameters for imported buffer mapping\n");
->>>> +               return -EINVAL;
->>>> +       }
->>>> +
->>>> +       sg = gem_obj->sgt->sgl;
->>>> +       if (!sg) {
->>>> +               drm_err(gem_obj->base.dev, "Invalid scatter-gather list for imported buffer\n");
->>>> +               return -EINVAL;
->>>> +       }
->>>> +
->>>> +       gem_obj->iommu_dev = iommu_dev;
->>>> +
->>>> +       /*
->>>> +        * After dma_buf_map_attachment_unlocked(), sg_dma_address() returns the
->>>> +        * IOMMU virtual address, not the physical address. The IOMMU maps the
->>>> +        * entire buffer as a contiguous range in the IOMMU address space even if
->>>> +        * the underlying physical memory is non-contiguous. Therefore the first
->>>> +        * sg entry's DMA address is the start of the complete contiguous
->>>> +        * IOMMU-mapped range and is sufficient to describe the buffer to the DSP.
->>>> +        */
->>>> +       dma_addr = sg_dma_address(sg);
->>>> +       dma_addr += ((u64)iommu_dev->sid << 32);
->>>> +       gem_obj->dma_addr = dma_addr;
->>>
->>> That handling here is completely broken since it assumes that the exporter maps the buffer as contigious range.
->>>
->>> But that's in no way guaranteed.
->> I'll collect more details and will try to implement this in the right
->> way, maybe by iterating the full sg_table.>
+On Tue, Jun 02, 2026 at 03:17:46PM +0800, Jianping Li wrote:
+> From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 > 
-> You could also document explicitly that you can only import contiguous buffers (e.g. DMA-buf heap CMA etc....) and then cleanly reject non contiguous buffers here.
+> The initial buffer allocated for the Audio PD memory pool is never added
+> to the pool because pageslen is set to 0. As a result, the buffer is not
+> registered with Audio PD and is never used, causing a memory leak. Audio
+> PD immediately falls back to allocating memory from the remote heap since
+> the pool starts out empty.
 > 
-> We have quite a number of drivers/HW with that limitation, so only accepting contiguous buffers is perfectly ok.
+> Fix this by setting pageslen to 1 so that the initially allocated buffer
+> is correctly registered and becomes part of the Audio PD memory pool.
 > 
-> You just can't silently assume that IOMMU would always map the entire buffer as one contiguous range, cause that is certainly not true.
-I understand your point Christian, thanks for the suggestion!>
-> Regards,
-> Christian.
+> Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
+> Cc: stable@kernel.org
+> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+> ---
+>  drivers/misc/fastrpc.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 > 
-> 
->>> Regards,
->>> Christian.
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+
+-- 
+With best wishes
+Dmitry
