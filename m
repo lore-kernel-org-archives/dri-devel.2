@@ -4,62 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21C27CD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 12:34:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2216CD8C9F
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 12:42:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8310510F31C;
-	Mon,  8 Jun 2026 12:34:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E19110F340;
+	Mon,  8 Jun 2026 12:42:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JC6ME/Kg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RxCqkpfD";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D515110F31C
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 12:34:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19EFF10E348
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 12:42:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B3EEA423C1;
- Mon,  8 Jun 2026 12:34:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 253E41F00893;
- Mon,  8 Jun 2026 12:34:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id ED1DF40E53;
+ Mon,  8 Jun 2026 12:42:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57A9F1F00893;
+ Mon,  8 Jun 2026 12:42:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780922096;
- bh=UNqQaOIfJNaZVR+CBoJFlLJLUJTFq5oaZgO7dOmVBmc=;
+ s=k20260515; t=1780922540;
+ bh=vLaVLICk2oe4ISqtVdPrHK0C9aAoO37wlzmXljjTcj8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=JC6ME/KgOtTfnXLNZAJQRtLwg+EmrJ9EIzEBz7+EiC1DrXIrD7eaqbK/8LNTTJ6CD
- jDXSo978GpznzZEk5Q/ziQKkArfQk/TMD7vJmln55pUBjT8C/Oravm02YI6j8i0nZ6
- shUfKEUbhftiJ6H5/UleEGNyN7+K8qY9DGIZ9itjn1vLD6kBlWGXfxinria8zpSvJ6
- FMpsdO9Xpxyj6pUDG1YrdJd40MsUzbZ2uNq4AxSFMhhm14VkYCTbrcRihlxsdslkWn
- AxTMkycdHKhQ50DYkG7BPXdhhQRD7b6VUcr0u1YQsV3qh+fqB56Hq5ViYZRskwZxZv
- x2LsOkw/FObPQ==
-Date: Mon, 8 Jun 2026 14:34:54 +0200
+ b=RxCqkpfDbtZTmk/0sYjPbrwF/SlaRm/qRYvBpg7H0oHhCack+QaVRI+puOmv3YAxz
+ FcAWmyoJRRyHlzp6rhpXpc+puLtL01HKZF9Ogv0Un9tfUHoWK+bkMTQrKLbr+k1nKR
+ ezptbklHPxfXeqoTp50RpkmwSnypd/DUiJGkH7RIzbDUXmk/oLnsKoFOU3xHd2K3Ke
+ LtDhEbhXaFbN4dzPJHSyLhCT9yti39m2KBXStxAB4H+T/Djq4mLfKzGOOmUOs+6wVP
+ 8l+uYl4FGhKkMNJARfp0h4tz+weRpPHOOZ/ltRinrAql+Tw9Qq/mI5lN04ChLa9+Ye
+ 1O++vPssIJiMA==
+Date: Mon, 8 Jun 2026 14:42:18 +0200
 From: Maxime Ripard <mripard@kernel.org>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
- Jagan Teki <jagan@amarulasolutions.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
- Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 30/37] drm/bridge: add drm_bridge_is_tail() to know
- whether a bridge completes the pipeline
-Message-ID: <20260608-shapeless-opal-ferret-c8b105@houat>
-References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
- <20260519-drm-bridge-hotplug-v1-30-45e2bdb3dfb4@bootlin.com>
+To: Maarten Lankhorst <dev@lankhorst.se>
+Cc: Natalie Vock <natalie.vock@gmx.de>, 
+ Eric Chanudet <echanude@redhat.com>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, 
+ Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, cgroups@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Albert Esteve <aesteve@redhat.com>
+Subject: Re: [PATCH] cgroup/dmem: accept only one region per limit write
+Message-ID: <20260608-glorious-fluorescent-salamander-93daec@houat>
+References: <20260605-cgroup-dmem-write-single-region-v1-1-9137f296579c@redhat.com>
+ <271b1c16-3c3c-4a1e-b09e-c4361c63814c@gmx.de>
+ <f00e7771-cd70-4c86-9fac-149897e02b12@lankhorst.se>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="hnivroopehfpq7yz"
+ protocol="application/pgp-signature"; boundary="yiowilux2t2cndhw"
 Content-Disposition: inline
-In-Reply-To: <20260519-drm-bridge-hotplug-v1-30-45e2bdb3dfb4@bootlin.com>
+In-Reply-To: <f00e7771-cd70-4c86-9fac-149897e02b12@lankhorst.se>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,149 +65,70 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---hnivroopehfpq7yz
+--yiowilux2t2cndhw
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 30/37] drm/bridge: add drm_bridge_is_tail() to know
- whether a bridge completes the pipeline
+Subject: Re: [PATCH] cgroup/dmem: accept only one region per limit write
 MIME-Version: 1.0
 
-On Tue, May 19, 2026 at 12:37:47PM +0200, Luca Ceresoli wrote:
-> For bridge hotplug we need to successfully probe a card with an incomplete
-> bridge chain, i.e. a chain whose last bridge currently in bridge_chain
-> needs a next_bridge to work. Such a card would have no connector, and be
-> able to add one as soon as the followong bridges are added up to the tail
-> bridge (e.g. a panel_bridge or a connector_bridge).
+On Sat, Jun 06, 2026 at 11:44:10PM +0200, Maarten Lankhorst wrote:
+> Hey,
 >=20
-> Currently common DRM code is unable to tell whether the last bridge
-> currently in the chain is the tail bridge (=3D the pipeline is complete) =
-or
-> not.
+> On 6/6/26 18:31, Natalie Vock wrote:
+> > On 6/6/26 00:44, Eric Chanudet wrote:
+> >> Accept only one "region value" pair entry for the dmem.max, dmem.min,
+> >> dmem.low files.>
+> >> This changes the UAPI that otherwise accepted multiple lines for setti=
+ng
+> >> multiple entries in one write. No existing user is known to rely on
+> >> writing multiple regions in a single write.
+> >=20
+> > Ugh, shoot.
+> >=20
+> > For dmem.low specifically, there already are some userspace thingies fl=
+oating around that may write more than one region/value pairs.
+> >=20
+> > These thingies all depend on that one patchset for dmemcg protection th=
+at I should really get around to merging[1]. Since the userspace utilities =
+depend on not-yet-merged patches, they sort of have to expect stuff changin=
+g under their belts, so I wouldn't really consider those users a blocker by=
+ necessity.
+> >=20
+> > As I see it, we could go down one of two paths:
+> > 1. We go ahead with the patch as proposed, and I make sure that the use=
+rs I know of adapt. Could be a bit icky wrt. "do not break userspace" rules=
+, but since the already use non-merged UAPIs in one place, you can argue th=
+at these users kind of have to expect breakage.
+> > 2. We use the old handling allowing multiple lines for dmem.min and dme=
+m.low only. This preserves compatibility but uglifies the code by quite a b=
+it.
+> >=20
+> > All things considered, I think I personally would prefer going with 1. =
+and taking the patch as proposed and just having one codepath handling ever=
+y limit file. Just highlighting this so we don't do it on accident.
+> >=20
+> > [1] https://patchwork.freedesktop.org/series/163183/
+> >=20
 >=20
-> Add drm_bridge_is_tail(), and a .is_tail func for it to rely on, so common
-> code can know whether a bridge is a tail bridge or needs a next_bridge.
->=20
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> ---
->  drivers/gpu/drm/drm_bridge.c | 28 ++++++++++++++++++++++++++++
->  include/drm/drm_bridge.h     | 19 +++++++++++++++++++
->  2 files changed, 47 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> index c62d17e84d4f..2b539c9749a6 100644
-> --- a/drivers/gpu/drm/drm_bridge.c
-> +++ b/drivers/gpu/drm/drm_bridge.c
-> @@ -646,6 +646,34 @@ void drm_bridge_detach(struct drm_bridge *bridge)
->  	drm_bridge_put(bridge);
->  }
-> =20
-> +/**
-> + * drm_bridge_is_tail - check whether the bridge is the last required to
-> + *                      have a full pipeline
-> + * @bridge: the bridge to check
-> + *
-> + * Tell whether this is a tail bridge, i.e. a bridge that does not need a
-> + * next bridge to work. E.g. a panel_bridge is final, a DSI-to-LVDS brid=
-ge
-> + * is not.
-> + *
-> + * In case of hotplug the last bridge currently in the chain (as in
-> + * drm_bridge_chain_get_last_bridge()) might not be final, and be waiting
-> + * for a pipeline tail to be connected.
-> + *
-> + * Return: true if this bridge does not need a next bridge to work, false
-> + * otherwise
-> + */
-> +bool drm_bridge_is_tail(struct drm_bridge *bridge)
-> +{
-> +	if (!(bridge->ops & DRM_BRIDGE_OP_IS_TAIL)) {
-> +		drm_warn_once(bridge->dev, "is_tail func not implemented by bridge %ps=
-!",
-> +			      bridge->funcs);
-> +		return false;
-> +	}
-> +
-> +	return bridge->funcs->is_tail(bridge);
-> +}
-> +EXPORT_SYMBOL(drm_bridge_is_tail);
-> +
->  /**
->   * DOC: bridge operations
->   *
-> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-> index 4ba3a5deef9a..d783a6fb93a0 100644
-> --- a/include/drm/drm_bridge.h
-> +++ b/include/drm/drm_bridge.h
-> @@ -78,6 +78,19 @@ struct drm_bridge_funcs {
->  	int (*attach)(struct drm_bridge *bridge, struct drm_encoder *encoder,
->  		      enum drm_bridge_attach_flags flags);
-> =20
-> +	/**
-> +	 * @is_tail:
-> +	 *
-> +	 * Returns true if this is a tail bridge, i.e. it does not need a
-> +	 * next bridge to work. E.g. a panel_bridge is a tail bridge, a
-> +	 * DSI-to-LVDS bridge is not a tail bridge (no matter whether the
-> +	 * next bridge is present or not).
+> I prefer option 1 as well, but would like an ack from one of the core cgr=
+oup maintainers too,
+> and what Maxime's opinion on this as well.
 
-Why a DSI-to-LDVS bridge isn't a tail bridge? It only needs a panel
-next, right?
-
-> +	 * The @is_tail callback is optional but it is required if the
-> +	 * bridge is part of a pipeline with hot-pluggable components.
-> +	 */
-> +	bool (*is_tail)(struct drm_bridge *bridge);
-> +
-
-I don't think that's the right way to think about it, if only because
-you never really know at the driver level if you're supposed to be last
-or not. A DSI-to-LVDS bridge might just as well be chained with an
-LVDS-to-eDP bridge, or feed the panel directly without any additional
-bridge.
-
-I *think* that what you're trying to find out here is whether the chain
-is complete or not. I think you can get the same information by checking
-whether you have a connector for that bridge chain. If you don't, you
-know the chain isn't complete, and if you do, it's supposed to be.
-DRM_BRIDGE_ATTACH_NO_CONNECTOR could be useful too, because if all you
-bridges support it but there's no connector, there's something wrong.
-
-Anyway.
+Option 1 works for me too if doable
 
 Maxime
 
->  	/**
->  	 * @destroy:
->  	 *
-> @@ -1092,6 +1105,11 @@ enum drm_bridge_ops {
->  	 * &drm_bridge_funcs->hdmi_clear_spd_infoframe callbacks.
->  	 */
->  	DRM_BRIDGE_OP_HDMI_SPD_INFOFRAME =3D BIT(10),
-> +	/**
-> +	 * @DRM_BRIDGE_OP_IS_TAIL: The bridge implements the
-> +	 * &drm_bridge_funcs->is_tail callback.
-> +	 */
-> +	DRM_BRIDGE_OP_IS_TAIL =3D BIT(11),
->  };
-
-That part is confusing to me. This is meant for drm_bridge_connector,
-but since we need to handle the case where we don't have a connector
-(and thus no drm_bridge_connector) I don't think this should be used at
-all?
-
-Maxime
-
---hnivroopehfpq7yz
+--yiowilux2t2cndhw
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaia27QAKCRAnX84Zoj2+
-djcoAX9LTD9Oxc7k2EL51l9KwC5S6GhVdB5QCdzG276hO+gNyylAprQxEuReihPY
-ozhnG9kBfi/C9dSJLq9LqSs8A4OZzOqpk8bSpD4OxriCKCSAB/lFND8uOe32LJ9h
-g/Jfw6PofA==
-=c3m8
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaia4qQAKCRAnX84Zoj2+
+din2AYCvqKvH/o7VpqQLqfHK9E3iomJjqu4qZHf9t4cZBA2j3r33qyhweWWRiqFh
+ZSIh91cBgJmqTLmBkpwO0jzWVfoU4+3DYvBPepU6Qh/cFc65rF7hZPAcicvpRpDO
+cWm6LjUb1g==
+=OpIe
 -----END PGP SIGNATURE-----
 
---hnivroopehfpq7yz--
+--yiowilux2t2cndhw--
