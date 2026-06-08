@@ -4,77 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBC28CD8CA4
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 19:38:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AFF9CD8CA4
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 19:39:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FE9110F92F;
-	Mon,  8 Jun 2026 19:38:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E655410F93B;
+	Mon,  8 Jun 2026 19:39:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="V5+gsl5o";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ApgWblR+";
 	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38BB910F92F
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 19:38:26 +0000 (UTC)
-Received: from pps.filterd (m0528008.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6586qL6T2367444
- for <dri-devel@lists.freedesktop.org>; Mon, 8 Jun 2026 12:38:25 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=s2048-2025-q2; bh=GpbMo9gtfKL47mk0VI
- Sk+78sZkwE32Yl7fOmdsvzQGI=; b=V5+gsl5oXlc7hyX8cvbHY1I319o33tLee4
- meh133iSW/CmnQkxGtoJ0ht5e/mlKTrc/x02y5eMK6KNdvEU6sPnVzozhRMC0NEB
- O4kjH/6bgaN1rimyiYPZzjuX3ppy2SkpK3eWIe2xkBg24j+LeYBzuWWqeHi+0kKW
- oXvxqlWT9VIQ3JOokqd1g7aUbT3cvFFCN6tpHOhG+AjnRrXv9ORfcJExyLW3l/LZ
- JLcw+mcgskkb/XdWvioc9akOUJ6Vm38dR9uzIxgTRlR1xlhB9sC8QWbx6nS915Gh
- iq1lhXis9p7faAIfvKqPUgeglhsTNHyUoqeelY3HpJWA/8fmPOgg==
-Received: from mail.thefacebook.com ([163.114.134.16])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4en85k71f0-5
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 12:38:25 -0700 (PDT)
-Received: from twshared25638.33.frc3.facebook.com (2620:10d:c085:108::150d) by
- mail.thefacebook.com (2620:10d:c08b:78::c78f) with Microsoft SMTP
- Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.41; Mon, 8 Jun 2026 19:38:10 +0000
-Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
- id EFE5E3CC1012A; Mon,  8 Jun 2026 11:56:46 -0700 (PDT)
-From: Zhiping Zhang <zhipingz@meta.com>
-To: Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@ziepe.ca>, Leon
- Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian Konig <christian.koenig@amd.com>
-CC: Bjorn Helgaas <helgaas@kernel.org>, <kvm@vger.kernel.org>,
- <linux-rdma@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <netdev@vger.kernel.org>, <dri-devel@lists.freedesktop.org>, Keith Busch
- <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>, Yishai Hadas
- <yishaih@nvidia.com>, Zhiping Zhang <zhipingz@meta.com>
-Subject: [PATCH v6 0/5] vfio/dma-buf: add TPH support for peer-to-peer access
-Date: Mon, 8 Jun 2026 11:56:37 -0700
-Message-ID: <20260608185646.4085127-1-zhipingz@meta.com>
-X-Mailer: git-send-email 2.52.0
-MIME-Version: 1.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2437810F936
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 19:39:40 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 43359601E1;
+ Mon,  8 Jun 2026 19:39:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE7AC1F00893;
+ Mon,  8 Jun 2026 19:39:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780947579;
+ bh=oSWY8A1chMA1dfnwx2DpasFksIGrUh2kCAGZX5dPobg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ApgWblR+9lUCo/B789aHUwZJSWe37FvA3FNn1XWKH7rBUmy3CBpZOp7VuUH+vJPme
+ kc04NYS7bdskmaQu6jE0YDFg/jjcM3+KiJ1mfyw+him6ytwpyha4LrTcbzUjhgUBs/
+ AeK1lfwODA94evrcElobFHPRIJ1ZvhTSIcc7dtk9bkFqkCTYHrOB9RPo/kEoze8Nrn
+ LxYOAcwdsVVTPR/06c7qf4bm0bpkTAta31aLTxrl5UZTkC8dcCSx3JAYhnXUdydWqa
+ ZI/Rw7kfuwg5Ydy9egXqdoklELGq4jFlf+ATgxYzbgQycSAVEqPGTecbGD2KmoC9Ft
+ qCDZJopTiXkWg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/amdgpu: initialize irq.lock spinlock earlier
+To: "Thadeu Lima de Souza Cascardo" <cascardo@igalia.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260608-amdgpu-mutex-fix-2-v1-1-1d850180ed19@igalia.com>
+References: <20260608-amdgpu-mutex-fix-2-v1-1-1d850180ed19@igalia.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-FB-Internal: Safe
-Content-Type: text/plain
-X-Proofpoint-GUID: B5nGN9K5xUbAYDHhbU_FLLRdqIFQn3-t
-X-Proofpoint-ORIG-GUID: B5nGN9K5xUbAYDHhbU_FLLRdqIFQn3-t
-X-Authority-Analysis: v=2.4 cv=eeANubEH c=1 sm=1 tr=0 ts=6a271a31 cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=_1IyUuN4QrATX339ibzo:22 a=VwQbUJbxAAAA:8 a=VabnemYjAAAA:8
- a=hqgnMBnoZRKjftXIFiYA:9 a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDE3OCBTYWx0ZWRfXyu2n+mhGnncT
- bBsroDCblMq5tPQS0FBzaQZvzXLk+RKbH+TbS+jXKrxZpod3lurJNm8znGpaF4EBuRIxrhZFvxK
- IBi7ziAXSB/H+31IQvkaEcVz3jPuZqeDU5lRp7F9p9bWFQ30MITQTdB/Mg9DzYAM2sBmLX7jYV7
- NKOg+uEnWni26aWW1zsiqmdAF7lPPit71Um67BzRMua7KfVgMeq46v+ln53zJeZSQcYAQI6XGx9
- iT1XcYxbIARZRcAaufQed+wRsnCodCsY1Xr2qLuMmkHBbe4/oyVjSmkMZrHImz8L/JAI9uaA1TU
- 9uPGcnftVk/auaSpQQTMbe1QhRWtVGFGOIul+M+cLrfUj2xROZoB4YkWgC2swZ/mrsXo4L5hUHb
- QUlTcLOLZLsd3BBdA5do1WBYP4ner6UI/RxCe2W/nodIWPNK4MNppezGy94NAX9y4WMvqbocYZe
- Xzgi0QtqjJ6jF/kVNVQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-08_05,2026-06-05_02,2025-10-01_01
+Date: Mon, 08 Jun 2026 19:39:38 +0000
+Message-Id: <20260608193938.CE7AC1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,107 +52,69 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series adds TLP Processing Hints (TPH) support to the VFIO dma-buf
-export path, allowing importing drivers (e.g. mlx5) to use the
-exporter's steering tag when performing peer-to-peer DMA into a
-VFIO-owned device.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-There is no separate in-tree vendor kernel driver for the target device:
-vfio-pci is the in-tree driver and the targeted device is managed
-from userspace via VFIO passthrough. That is why the ST has to flow
-through a uAPI: userspace owns the device and its ST table, so it is the
-entity that can publish a meaningful value for a given dma-buf. The
-kernel-visible participants are still in-tree: vfio-pci exports the
-dma-buf and mlx5 imports it.
+Pre-existing issues:
+- [High] The IH work queues (ih1_work, ih2_work, ih_soft_work) are not canc=
+elled before freeing the IH ring buffers during hardware teardown, leading =
+to a potential use-after-free or NULL pointer dereference.
+--
 
-On the effect: the endpoint's PCIe ingress block uses the 8-bit ST as
-an in-band instruction for the incoming P2P TLP -- selecting a target
-cache partition and, on writes, an in-flight operation on the data
-before it lands. The dma-buf callback keeps this opaque to the
-framework -- only the producer (userspace owner of the VFIO device)
-and the consumer (endpoint block) need to interpret the value. The
-dma-buf get_tph callback itself is optional for workloads that depend
-on the endpoint's in-flight operation that fallback does not produce
-the same result.
+commit d96f9c222586fdd4fb9ac2385c6edc335ba11a51
+Author: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 
-The dma-buf hook is intentionally generic and discoverable rather than
-a private side channel. The exporter owns the completing address
-space for the dma-buf and decides whether it can provide a meaningful
-ST/PH tuple for that completer; the dma-buf core keeps the tuple opaque,
-and importers merely request the namespace they support and place the
-returned value on generated TLPs. Exporters that cannot derive a
-meaningful tuple simply return -EOPNOTSUPP.
+drm/amdgpu: initialize irq.lock spinlock earlier
 
-Patch 1 is a pre-existing fix split out from the series:
-mlx5_st_dealloc_index() removed the xarray entry but never freed the
-backing struct, so repeated alloc/dealloc cycles leaked memory.
-Patch 2 exposes the enabled TPH requester type through a small PCI/TPH
-helper, plus a pcie_tph_supported() helper so consumers don't reach
-into pci_dev internals (and so callers in CONFIG_PCIE_TPH=3Dn builds
-get a clean -EOPNOTSUPP path).
-Patch 3 adds the optional dma_buf_ops::get_tph callback to the dma-buf
-framework so importers can fetch TPH metadata from an exporter.
-Patch 4 implements get_tph in vfio-pci and adds the new uAPI
-(VFIO_DEVICE_FEATURE_DMA_BUF_TPH) for userspace to attach the metadata.
-Patch 5 wires up the mlx5 RDMA driver as a consumer.
+If there is an early failure during amdgpu probe, it will end up calling
+amdgpu_irq_disable_all, which takes irq.lock spinlock without it being
+initialized. Initializing irq.lock earlier at amdgpu_device_init fixes
+the issue.
 
-Build-tested with both CONFIG_PCIE_TPH=3Dy and CONFIG_PCIE_TPH=3Dn.
-Functional validation on the target topology: PCIe analyzer captures
-on the P2P TLPs confirm the ST emitted by mlx5 matches the value
-published through VFIO_DEVICE_FEATURE_DMA_BUF_TPH, and the end-to-end
-P2P workload only produces results consistent with the endpoint's
-ST-selected in-flight operation. For example, with userspace
-publishing 8-bit ST=3D0xf0 and PH=3D2, an analyzer capture of a peer-to-
-peer MWr64 shows "STP MWr64 TC=3D0 OHC=3D2 ..." followed by "OHC-B
-ST=3DF0h PH=3D2 HV=3D1":
-(TLP Captures)
-08000260 -> STP MWr64 TC=3D0 OHC=3D2 TS=3D0 Attr=3D0 L=3D8               =
-                                                                         =
-              =20
-F0000004 -> RID=3D4h:0h.0h EP- Tag=3DF0h                                 =
-                                                                         =
-        =20
-E0200000 -> AddrH=3D000020E0h                                            =
-                                                                         =
-      =20
-00080006 -> AddrL=3D06000800h                                            =
-                                                                         =
-      =20
-90F00000 -> OHC-B ST=3DF0h PH=3D2 HV=3D1 AMA=3D0 AV- =20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_irq.c
+> index 82bc6d657e5a0..836ba07713649 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> @@ -309,8 +309,6 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
+>  	unsigned int irq, flags;
+>  	int r;
+> =20
+> -	spin_lock_init(&adev->irq.lock);
+> -
 
-Previous link:
-v5: https://lore.kernel.org/dri-devel/20260526144401.1485788-1-zhipingz@m=
-eta.com/
-v4: https://lore.kernel.org/linux-pci/20260519201401.1558410-1-zhipingz@m=
-eta.com/
-v3: https://lore.kernel.org/linux-pci/20260512184755.4137227-1-zhipingz@m=
-eta.com/
-v2: https://lore.kernel.org/linux-pci/20260430200704.352228-1-zhipingz@me=
-ta.com/
+[Severity: High]
+This isn't a bug introduced by this patch, but looking at the driver
+teardown, are the IH work queues ever cancelled?
 
-Zhiping Zhang (5):
-  net/mlx5: free mlx5_st_idx_data on final dealloc
-  PCI/TPH: expose the enabled TPH requester type and capability helpers
-  dma-buf: add optional get_tph() callback
-  vfio/pci: implement get_tph and DMA_BUF_TPH feature
-  RDMA/mlx5: get tph for p2p access when registering dma-buf mr
+In amdgpu_irq_init(), ih1_work, ih2_work, and ih_soft_work are initialized
+and can be scheduled by the interrupt handler. However, during teardown:
 
- drivers/infiniband/core/frmr_pools.c          |  20 ++-
- drivers/infiniband/hw/mlx5/mr.c               | 124 +++++++++++++++++-
- .../net/ethernet/mellanox/mlx5/core/lib/st.c  |  50 +++++--
- drivers/pci/tph.c                             |  25 ++++
- drivers/vfio/pci/vfio_pci_core.c              |   3 +
- drivers/vfio/pci/vfio_pci_dmabuf.c            |  92 ++++++++++++-
- drivers/vfio/pci/vfio_pci_priv.h              |  12 ++
- include/linux/dma-buf.h                       |  31 +++++
- include/linux/mlx5/driver.h                   |  12 ++
- include/linux/pci-tph.h                       |   7 +
- include/rdma/frmr_pools.h                     |   5 +-
- include/uapi/linux/vfio.h                     |  45 +++++++
- 12 files changed, 406 insertions(+), 20 deletions(-)
+drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c:amdgpu_irq_fini_hw() {
+	if (adev->irq.installed) {
+		free_irq(adev->irq.irq, adev_to_drm(adev));
+		adev->irq.installed =3D false;
+...
+	amdgpu_ih_ring_fini(adev, &adev->irq.ih_soft);
+	amdgpu_ih_ring_fini(adev, &adev->irq.ih);
+	amdgpu_ih_ring_fini(adev, &adev->irq.ih1);
+	amdgpu_ih_ring_fini(adev, &adev->irq.ih2);
+}
+
+The driver frees the IRQ and the IH ring buffers, but does not explicitly
+cancel the pending work items using cancel_work_sync().
+
+If a scheduled work item executes concurrently with or after teardown, could
+it dereference the freed adev or ih->ring pointers, leading to a
+use-after-free or NULL pointer dereference?
+
+Should the work items be cancelled synchronously before the ring buffers are
+freed?
 
 --=20
-2.53.0-Meta
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-amdgpu-mut=
+ex-fix-2-v1-1-1d850180ed19@igalia.com?part=3D1
