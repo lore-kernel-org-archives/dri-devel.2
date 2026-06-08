@@ -4,62 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BDC2CD8C92
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 07:27:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DDAFCD8C92
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 07:30:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6452A10E345;
-	Mon,  8 Jun 2026 07:27:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EC4910EE31;
+	Mon,  8 Jun 2026 07:30:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bFjDFb14";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OnDbjHp/";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I+WkZ4MC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2555010E16E
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 07:27:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780903640; x=1812439640;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=SJOKXNP9FmKA1NOLEfhFMPNSdAh6YT3VyxOAkzI9GYk=;
- b=bFjDFb144HWzWJSujwAC8Z/7rDXvnLWbwKHxQlz65npacR8fZj1WwekB
- PFuTWJ765oluYAuQUQYwLOqeiHcwCYeTLGKDMJN4VHbxDJVhlHZ7YHeWr
- SD2bw0UFecTGQhbXpSfabQQYJIaEytMR1APG9OqeOoNceKIXiT+TVW1kj
- cDckKOqLW32oX6eZGTWe4ssDoa6LYlY80iUiVYATr0Qa37o72BbtAqXok
- djzTOCQ3Sj31I0ZmMvhAxjQBIcaw/7r8p11v28G7NoOI30mFDg8bNIGE7
- kloN1rKb6KJyDGrrgOYqT1rN8R61xJxH8iGFMOTcRS/8XUe+dJqbLFprW w==;
-X-CSE-ConnectionGUID: ZF78P5bWSxuB7GWCDLCXeQ==
-X-CSE-MsgGUID: 2m1ow/bASwS856DrtTf30A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11810"; a="92199573"
-X-IronPort-AV: E=Sophos;i="6.24,194,1774335600"; d="scan'208";a="92199573"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2026 00:27:19 -0700
-X-CSE-ConnectionGUID: jNLMCwdKTSelGTAsf47bSg==
-X-CSE-MsgGUID: qpzfZxoJR5Wukvzc90cEAA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,194,1774335600"; d="scan'208";a="275668283"
-Received: from soc-pf6038af.clients.intel.com (HELO [10.217.180.44])
- ([10.217.180.44])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2026 00:27:18 -0700
-Message-ID: <7218fa4b-bb09-47a8-a2ab-7d381cf7d897@linux.intel.com>
-Date: Mon, 8 Jun 2026 09:27:15 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6D2310EE31
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 07:30:39 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6586OrId2274533
+ for <dri-devel@lists.freedesktop.org>; Mon, 8 Jun 2026 07:30:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=NOB6PzJKBKCAB9iTakZfR6X+
+ Qsh3+zB9I23qh+8RjR0=; b=OnDbjHp/k4F3OTgAI2di9svMWYMvsGfuj2JuJpkN
+ ApcmStw6/dloyNqntXpNN9/P04dJVNfVQZ8NgjeF23a8k/uZ3uqnRxoJxrAfObxD
+ 8CHPLb5Gdk5ziBPR7RTnKlUSbt3pAvUDuYmS4oVVpodCD4UbtrTrgH4BTFunM/fD
+ KVuHmMWQoN4aIGWJS8zxRprcbWXx4AudQTJx62xAhN8H5YTaTwRjvN5kH4jdiRo+
+ q0KdilzY1+8pCtgifgu9e0lOQweukGZmKoUhnDjGdIrM60YQ8Vxk5Y/GcQfZ8gYd
+ rjffU7AW9BDkJXVzlNQQ8V2ORPxyZ+TF9dm7YBr/WJL4yg==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com
+ [209.85.222.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emcqgx8rw-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 07:30:39 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id
+ a1e0cc1a2514c-96387f0ca7bso1234154241.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 00:30:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1780903838; x=1781508638;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=NOB6PzJKBKCAB9iTakZfR6X+Qsh3+zB9I23qh+8RjR0=;
+ b=I+WkZ4MCFESzQxmbAawsWULLyQUkrg1l+XDzOe3F7PB0gzyVsGUKdjGerPB35eyHlJ
+ YMqzFf46m1hxD0bixLpuLOMdjEt9qBVOVXTbfLocE4tCyFu1SD0g0TZ6OtCyDFT/3LWX
+ O+0+qp9ZcFMOQ8GxSq5YrRcoyQRMO+sBPHOFW0qZ9z5rMN4ttNfUdIE33TRoTt3oX3c6
+ 0hKnu54/0TbIGzbU0AtVDwNFiWdJBFc1JXtza8nydBt+/T3s2L97WL0gAfwiigqIScDc
+ GehhSuF+C2oJ70xOUTFdaYNpe0Y2J2wiggbFGZHijTR3Kmw8Sm3xnvkv6f5iZNtKImTr
+ P+6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780903838; x=1781508638;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=NOB6PzJKBKCAB9iTakZfR6X+Qsh3+zB9I23qh+8RjR0=;
+ b=Cj8T+iqkexkC/RIyH+u1p37kPjv33ShUSbnhIkfZ6W3EtSTgQNTjD8JbFGiFW89ivZ
+ u2gLxpJbIfutrqkw+8c5lWi7FhHW0ztqU8n/aHIaOnxZKNUttA5aqKjXK9o2zLp34cIM
+ WgIugq4TZy5e/WHxz0e9IEK/J7HqU270+xwLwbRzy2+oU0nUK4k/E0saWdGbLjjdVuR8
+ xBe9SPUTA0qvoNINqkLcajbeBgShJa0dMxHQUn7JpTCcDnpnvLLvUDo9rEvvIWLWz/IL
+ qqZnRYb3r8WCQLdNvrSSYXHAFFCRhb2soxblJ49R6FCkNyT/QUVzbtmo0bbZJZI3HZvX
+ s5Vw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+ll2sPySs6Ys/zPRUOot+6vXH/8U4DAK8f1sqbQhpVQ0JkW8AzIo0tGHIYrbPzcQuIi2ij5lvNi8I=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwbYPJDHTcR1Q8jpLDKazn1LJxx7MUiEvKobjhc/XkxDYF8P6oH
+ s+FL2TjqF8ltFACM8dioHpW8+wYYPI2CiisMQDCaJpkaK/YYr+ZurFE4d8d1MKf4t9UFD7ZKIRj
+ PDBs7BDVlHUzhfp7khZ3r7lZdXlxiPPagIoOt+yZ5QW+0bOPzF2s7J/5+mavT2xr8fj4QhN0=
+X-Gm-Gg: Acq92OH0z9L1Rf1bR1zmyOZy2MAh/fJQE1InQ5t9hwJ1iyssLXZF0Q9ODSH6i2/udM7
+ i9uSF9yHa+GD5rN4QFNTsnyAKV0L1ugCP4J/ZkmYgHkheBziUArQPGgJTto/siemFsd72lJ+WK1
+ V8H/514iFIJNNLWiSe9xpLq7uhJffzF42wcLREHWwg79O9Gegpits8Y+VVr6X2VmwV9IUm7HNPf
+ +Tkl+npUkBH26hNdIulXau0ZmZAOu48/he8AUniQzwzpre1R11IjbNxF+0TP9TzC/q9QRaHPi0i
+ PifktCDs7S1qmboGhiIgqyykfrUR1iT3qOpDb8IaCHmT+WxLX4cEqPhpF1b3Gzg9YQ2StjAW9DF
+ 0zfTxG4FOLn53LwmYdBtUoBYKgcgz6Bd6iAKUi/X0Q+QQStEmHtb6YCoHJYjEsCWFLL28y8FF0F
+ REqMPbDDyrbDYgOmonAdqggQFTOYYg917+MIUCkZYZ/sTaxA==
+X-Received: by 2002:a05:6102:32c3:b0:639:3b08:d64c with SMTP id
+ ada2fe7eead31-6fef353f3a7mr6149018137.13.1780903838277; 
+ Mon, 08 Jun 2026 00:30:38 -0700 (PDT)
+X-Received: by 2002:a05:6102:32c3:b0:639:3b08:d64c with SMTP id
+ ada2fe7eead31-6fef353f3a7mr6149007137.13.1780903837833; 
+ Mon, 08 Jun 2026 00:30:37 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5aa7b904207sm3590321e87.32.2026.06.08.00.30.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 08 Jun 2026 00:30:36 -0700 (PDT)
+Date: Mon, 8 Jun 2026 10:30:35 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Junrui Luo <moonafterrain@outlook.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] misc: fastrpc: take fl->lock when moving mmaps on
+ interrupted invoke
+Message-ID: <jjfpssvbbhbpxcx5z3p7r7wcowcokscqfjh2jmbqgmjra3ibp5@a5fxebdiwqhr>
+References: <SYBPR01MB78817DBE3397783540CE3372AF122@SYBPR01MB7881.ausprd01.prod.outlook.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] accel/ivpu: Fix signed integer truncation in IPC
- receive
-To: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
- dawid.osuchowski@linux.intel.com, david.laight.linux@gmail.com,
- stable@vger.kernel.org
-References: <b464b589-2d28-4617-baf0-eefbe14e170a@linux.intel.com>
- <20260601161643.229342-1-andrzej.kacprowski@linux.intel.com>
-Content-Language: en-US
-From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
-In-Reply-To: <20260601161643.229342-1-andrzej.kacprowski@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <SYBPR01MB78817DBE3397783540CE3372AF122@SYBPR01MB7881.ausprd01.prod.outlook.com>
+X-Authority-Analysis: v=2.4 cv=dJGWXuZb c=1 sm=1 tr=0 ts=6a266f9f cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=pGLkceISAAAA:8
+ a=VwQbUJbxAAAA:8 a=UqCG9HQmAAAA:8 a=EUspDBNiAAAA:8 a=2y4kR7mgpDsC-dX1eGkA:9
+ a=CjuIK1q_8ugA:10 a=TD8TdBvy0hsOASGTdmB-:22
+X-Proofpoint-GUID: Tu_3pV5DwyffAzH9Mno_E94XxqcRdcT4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA2NyBTYWx0ZWRfXxdOyT53xsOGH
+ SVv18y+vTjzQvT0nEYbbKOeAO7yfwq21Z1aAHtrD1cvGI2s8hF9TWocdJuENhy6eWRlLG2H30iT
+ TXROzRTucL57xsHstc1y3WinnYQqzMs0ZTQrAmSXuaV6i/44PS8wucPTBLREdWtSf/VUeY5nsue
+ bWJFSKB8piBllVUyOdZZspvI6L+W7p77ut7U5fFwngthdPKI0HE9Lbbh8m9WPyz99Ngvran02mT
+ B4Hpoix3M5PBFFgv78+Oto7mO5HE3SSI6QumXT7Qs04Hj6CQz2che3oIm8L+qQ/9vTW9EZ6MVei
+ mICYL3p81T7LQ9LaKmVNZM1xbI+JdVPxldsK/KNlTJ+BLs1HtJ9ukrszxXm+6n/Iksnh0relFvq
+ OSmRZoqvtB20xCWDFXU7fe3GrluDD7tIzhED6pSfnHEt0FPkBlZ6luVjDFNy/3xcr2W7gHtMlbL
+ FjITIP55Fxj+tCm8xxg==
+X-Proofpoint-ORIG-GUID: Tu_3pV5DwyffAzH9Mno_E94XxqcRdcT4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-08_02,2026-06-05_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 adultscore=0 phishscore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080067
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,38 +143,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 01-Jun-26 18:16, Andrzej Kacprowski wrote:
-> Fix potential buffer overflow where firmware-supplied data_size is cast
-> to signed int before being used in min_t(). Large unsigned values
-> (>= 0x80000000) become negative, causing unsigned wraparound and
-> oversized memcpy operations that can overflow the stack buffer.
+On Tue, Jun 02, 2026 at 01:29:58PM +0800, Junrui Luo wrote:
+> When an invoke is interrupted by a signal,
+> wait_for_completion_interruptible() returns -ERESTARTSYS and
+> fastrpc_internal_invoke() moves every buffer from fl->mmaps onto
+> cctx->invoke_interrupted_mmaps. This list_del()/list_add_tail() walk
+> runs without holding fl->lock, the lock that serialises fl->mmaps in
+> fastrpc_req_mmap() and fastrpc_req_munmap() everywhere else.
 > 
-> Change min_t(int, ...) to min() as both values are unsigned and can be
-> handled by min() without explicit cast.
+> Take fl->lock around the move, matching every other fl->mmaps accessor.
 > 
-> Fixes: 3b434a3445ff ("accel/ivpu: Use threaded IRQ to handle JOB done messages")
-> Cc: <stable@vger.kernel.org> # v6.12+
-> Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+> Fixes: 76e8e4ace1ed ("misc: fastrpc: Safekeep mmaps on interrupted invoke")
+> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 > ---
-> Changes in v2:
-> - Replaced min_t() with min()
+>  drivers/misc/fastrpc.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
 
-Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
 > 
->   drivers/accel/ivpu/ivpu_ipc.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/accel/ivpu/ivpu_ipc.c b/drivers/accel/ivpu/ivpu_ipc.c
-> index f47df092bb0d..9347f05a2b79 100644
-> --- a/drivers/accel/ivpu/ivpu_ipc.c
-> +++ b/drivers/accel/ivpu/ivpu_ipc.c
-> @@ -276,7 +276,7 @@ int ivpu_ipc_receive(struct ivpu_device *vdev, struct ivpu_ipc_consumer *cons,
->   	if (ipc_buf)
->   		memcpy(ipc_buf, rx_msg->ipc_hdr, sizeof(*ipc_buf));
->   	if (rx_msg->jsm_msg) {
-> -		u32 size = min_t(int, rx_msg->ipc_hdr->data_size, sizeof(*jsm_msg));
-> +		u32 size = min(rx_msg->ipc_hdr->data_size, sizeof(*jsm_msg));
->   
->   		if (rx_msg->jsm_msg->result != VPU_JSM_STATUS_SUCCESS) {
->   			ivpu_err(vdev, "IPC resp result error: %d\n", rx_msg->jsm_msg->result);
+
+-- 
+With best wishes
+Dmitry
