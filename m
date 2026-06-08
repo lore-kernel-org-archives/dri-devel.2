@@ -4,125 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21198CD8C9F
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 10:53:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EECAFCD8C9F
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 11:19:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3323910F1AB;
-	Mon,  8 Jun 2026 10:53:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 370E010F204;
+	Mon,  8 Jun 2026 11:19:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Ag/+oAqt";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="aLal52Ne";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Ag/+oAqt";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="aLal52Ne";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="dG/Nf8DA";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAAC910F1AB
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 10:53:01 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 855BA67893;
- Mon,  8 Jun 2026 10:53:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780915980; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=1tP6RT39QHoBxjzexzWZTRzsh302nDUS05Mg0Wo2f/k=;
- b=Ag/+oAqtfwFIoXUEU1bNREN0x0krgZ+Er/FdJmRR9OYIqZiX6xO8LaI9a3DmCz1mr8gTLH
- bf61Yol4P+vh9f+5VoJzH7oUzFiaiMaxb2QVkXnSACe7vXmHL+thN6J5pstKTqZ0uHrz4U
- 0BXPjAe89gy+NGq5vZad1x/Zfwm3iR0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780915980;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=1tP6RT39QHoBxjzexzWZTRzsh302nDUS05Mg0Wo2f/k=;
- b=aLal52NeJfALMN3X3cjPoM4/l2N08JfSV1snCNpKHdy5YV2Qo3HdJBnjV90sJ+Nfy7Kb6V
- KdsX1wtrFIUQD6CQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780915980; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=1tP6RT39QHoBxjzexzWZTRzsh302nDUS05Mg0Wo2f/k=;
- b=Ag/+oAqtfwFIoXUEU1bNREN0x0krgZ+Er/FdJmRR9OYIqZiX6xO8LaI9a3DmCz1mr8gTLH
- bf61Yol4P+vh9f+5VoJzH7oUzFiaiMaxb2QVkXnSACe7vXmHL+thN6J5pstKTqZ0uHrz4U
- 0BXPjAe89gy+NGq5vZad1x/Zfwm3iR0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780915980;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=1tP6RT39QHoBxjzexzWZTRzsh302nDUS05Mg0Wo2f/k=;
- b=aLal52NeJfALMN3X3cjPoM4/l2N08JfSV1snCNpKHdy5YV2Qo3HdJBnjV90sJ+Nfy7Kb6V
- KdsX1wtrFIUQD6CQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 70B5D779A7;
- Mon,  8 Jun 2026 10:53:00 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id moVNGgyfJmp8WwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 08 Jun 2026 10:53:00 +0000
-Message-ID: <f5cd4747-f19c-405d-aa24-3055531f03c0@suse.de>
-Date: Mon, 8 Jun 2026 12:52:59 +0200
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D88610F204
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 11:19:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1780917564; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=SxhJTpgpZcTVr+jbFDgHa1rcndzwec1/U+Q8LVcq9hn3c7GQJR6d0NXhhF5yXX3Meo+S3lUEtBvyxtXb2nIbnr7bK3pYSOfwRLSgcF5phirwNJFTpSIQkN8F4HAPTQGdSAukt3pvr414MZavRTbShu+NPHNAxFyL6KFJvwBuShA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1780917564;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=w95v8rmypZzUecGHeRmBiKIIuhZ1fsqWje5Fpue/L1M=; 
+ b=QofVtK8uINWdohXqpSVnAu6oN0FXSYmQQZ54yws4OKB7RRPfgQxxyV9kS/mkvSz1Hv/ulf2x8f9AbWvUCjWA2NIp6m05AjY2WmZ0u0N9npFF6hoV0omL/waj29cpIQDhFvLQeoxtwIjIdZCXuv9jnEJpnOCSHmMAHm5+d1/6bwI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780917564; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=w95v8rmypZzUecGHeRmBiKIIuhZ1fsqWje5Fpue/L1M=;
+ b=dG/Nf8DAIw4v4qK1H4AX6CUqLurxf5MLESWaQ8CyFb2et6bceSOfRqrIVBsnMj5O
+ iQ433VlDXXE/AJK1/nd/17Cc30SNqcU6U9CwNLtLxmiEnbkZ+YvKss+N1DnRB2c42RM
+ abG/q559wUnGXpVfG/yCJBupAUkb4bBwZbzvTjUM=
+Received: by mx.zohomail.com with SMTPS id 1780917562612833.0652412976524;
+ Mon, 8 Jun 2026 04:19:22 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Subject: [PATCH 0/2] Make HDMI state helpers handle odd max bpc requests
+Date: Mon, 08 Jun 2026 13:19:06 +0200
+Message-Id: <20260608-hdmi-max-bpc-fix-v1-0-6e8dcebc7274@collabora.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: No display initialisation when using DRM_CLIENT_LOG instead of
- DRM_FBDEV_EMULATION
-To: Guilherme Bember Duarte <guilhermebemberduarte@gmail.com>,
- dri-devel@lists.freedesktop.org
-References: <82F211E7-560D-473D-8C1E-061AE85ADBD6@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <82F211E7-560D-473D-8C1E-061AE85ADBD6@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[99.99%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- RCPT_COUNT_TWO(0.00)[2];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[gmail.com,lists.freedesktop.org];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; ARC_NA(0.00)[];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
- suse.de:mid]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NTQ6CMBCFr9LM2omFGkCuYljQdpQxKZS2GBLC3
+ a3C6uV7eT8bRApMEVqxQaAPR57GDMVFgBn68UXINjOUsqxkJRscrGN0/YraG3zyirVUsrjXlWr
+ UDXLNB8r2f/LRHRwX/SaTfjtnItC85K90xED3kdBMznFqhQ0OE/vrqdDt+xe5A4orpwAAAA==
+X-Change-ID: 20260608-hdmi-max-bpc-fix-703019763834
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,90 +70,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+With the "max bpc" KMS connector property, userspace can arbitrarily
+restrict the upper end of the bits-per-component range. This is fine and
+good, except the HDMI state helpers never considered that max_bpc could
+be influenced by a userspace setting, so assumed it'll always be an even
+value from the HDMI standards.
 
-Am 06.06.26 um 16:49 schrieb Guilherme Bember Duarte:
-> Hi!
->
-> I replaced DRM_FBDEV_EMULATION with DRM_CLIENT_LOG 
-> (DRM_CLIENT_DEFAULT="log") on a kernel with DRM_PANIC enabled, using 
-> kmscon as the userspace terminal. Nothing initialises the display 
-> after the native driver loads.
->
-> The result is a blank screen, no output at all from boot. 
-> DRM_CLIENT_LOG (boot logs don't show up at all) and DRM_PANIC (forced 
-> a panic to try this out) also don't work, since neither can render 
-> without an initialised display.
->
-> This can be verified by checking "/sys/class/drm/card0-*/status" (all 
-> outputs show "unknown") and "/sys/class/drm/card0-*/modes" (empty) 
-> after boot.
-> Writing "detect" to "/sys/class/drm/card0-HDMI-A-1/status" (or any 
-> output for that matter) resolves the issue, the connector is probed, 
-> modes are populated, and kmscon can be started correctly. This 
-> suggests DRM_FBDEV_EMULATION previously triggered some display 
-> initialisation/probing during boot that is not happening with 
-> DRM_CLIENT_LOG.
->
-> I can't say if SIMPLEDRM (and SIMPLEFB) are affected, the result in my 
-> system is a immediate blank screen and no signal, I don't know if its 
-> because the main graphics driver initialise very quickly during boot 
-> or if SIMPLEDRM is also affected.
+This, unfortunately, is not the world we live in anymore. Patch 1
+corrects sink_supports_format_bpc to return false on BPCs outside of
+what HDMI allows. Patch 2 then corrects handling of odd-numbered max
+bpcs by rounding the loop start value down to an even number instead. It
+also adds a KUnit test to make sure nobody breaks this again in the
+future.
 
-Did you boot with "console=drm_log" at the kernel command line?
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+Nicolas Frattaroli (2):
+      drm/display: hdmi: Only allow BPC values of 8, 10, 12 and 16
+      drm/display: hdmi: Round odd max_bpc down to even numbers
 
-Best regards
-Thomas
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c    | 12 +++-
+ drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 71 ++++++++++++++++++++++
+ 2 files changed, 82 insertions(+), 1 deletion(-)
+---
+base-commit: be3e81d74654555fff2779d78848267bd50dcf51
+change-id: 20260608-hdmi-max-bpc-fix-703019763834
 
->
-> Hardware: AMD RX 6600 XT (Navi23/AMDGPU), although I believe this 
-> affects any driver.
-> Kernel version: 7.0.11-gentoo
-> Config diff:
->
-> 2849a2850
-> > # CONFIG_VGA_SWITCHEROO is not set
-> 2874,2879c2875,2878
-> < CONFIG_DRM_FBDEV_EMULATION=y
-> < CONFIG_DRM_FBDEV_OVERALLOC=100
-> < # CONFIG_DRM_FBDEV_LEAK_PHYS_SMEM is not set
-> < # CONFIG_DRM_CLIENT_LOG is not set
-> < CONFIG_DRM_CLIENT_DEFAULT_FBDEV=y
-> < CONFIG_DRM_CLIENT_DEFAULT="fbdev"
-> ------------------------------------------------------------------------
-> > # CONFIG_DRM_FBDEV_EMULATION is not set
-> > CONFIG_DRM_CLIENT_LOG=y
-> > CONFIG_DRM_CLIENT_DEFAULT_LOG=y
-> > CONFIG_DRM_CLIENT_DEFAULT="log"
-> 2978,2986d2976
-> < CONFIG_FB_CORE=y
-> < # CONFIG_FB_DEVICE is not set
-> < CONFIG_FB_SYS_FILLRECT=y
-> < CONFIG_FB_SYS_COPYAREA=y
-> < CONFIG_FB_SYS_IMAGEBLIT=y
-> < CONFIG_FB_SYSMEM_FOPS=y
-> < CONFIG_FB_DEFERRED_IO=y
-> < CONFIG_FB_SYSMEM_HELPERS=y
-> < CONFIG_FB_SYSMEM_HELPERS_DEFERRED=y
-> 3021,3024d3010
-> < CONFIG_FRAMEBUFFER_CONSOLE=y
-> < # CONFIG_FRAMEBUFFER_CONSOLE_LEGACY_ACCELERATION is not set
-> < CONFIG_FRAMEBUFFER_CONSOLE_DETECT_PRIMARY=y
-> < # CONFIG_FRAMEBUFFER_CONSOLE_ROTATION is not set
-> 3027d3012
-> < # CONFIG_LOGO is not set
-> 4473d4457
-> < # CONFIG_FONT_SUN8x16 is not set
->
->
-> Guilherme B.
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+Best regards,
+--  
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
