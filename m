@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E843ECD8C92
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 02:39:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD97FCD8C92
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 02:41:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E56310EC46;
-	Mon,  8 Jun 2026 02:39:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF44610EC4D;
+	Mon,  8 Jun 2026 02:41:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VZGyQmgy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LNM+0Ql2";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F08810EC46
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 02:39:13 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BDA010EC4D
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 02:41:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 65D58600AE;
- Mon,  8 Jun 2026 02:39:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEE8A1F00893;
- Mon,  8 Jun 2026 02:39:11 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 09E8D4383D;
+ Mon,  8 Jun 2026 02:41:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D1481F00893;
+ Mon,  8 Jun 2026 02:41:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780886352;
- bh=By41hwZ3oYMiT9VMiCD6WiaqRF0N5WwwItEnK2Y+1Wg=;
+ s=k20260515; t=1780886483;
+ bh=mwJrXmtqejKYCngZrxBQoyTb/fGdzAiXmkGHtx6i+jA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VZGyQmgyguknXG5iDTq6PQ4qQtOQrt4PKue0CPpZIQcULv2g/Co85tu2QPJYUyGYa
- hYGa27hE5uIpKCfoQ8aQgsWlWvGT3ZnOCewipBcbwtAX2Yfs7uL5K6NeYXD/LFV1fl
- jvdjmfeJLQR35KlW7763cHbyxfEA6w6jnnd9tyodelHb/BTetOK7JjB0yZMBFJSWRt
- p8wjzyVAWWRB9w3IWXqAfxwY5d8vlZiQzE1IKJJubL/GH6M9CE2YwM2DHYWlBbPcIN
- YFfDrp2Oeqf8G/ogyt/7DEj3cQXsroOSU6TqQBgmaYalmlRJ+4BvSR3s6hkNhI4fzK
- u4zlvrHIk1JAA==
+ b=LNM+0Ql2/hqwTH6TJmDTcqTY36jPz3KLjscM9TZ1ZipqgSYUVVZYRZykzABJOmTN0
+ 313E0pon45P8+EYRtfWIzeg95ziEb0ujDniNJesOVLvGpLc8M/OOkhu4paBrXy2VZB
+ fHfugn03bZpZ4re56EbFBps7Pc1VnJvwlyK6ExmZqn2Dmf68JmMbyepcBhFWemwCww
+ t+7ltYvRjB74vaOOdSdtidfjXdZkPLhnd8TPQ8vueudXL1/kC/AKOyXN8RHV3YUSJh
+ Js1y1vkH0FrIzrxWYmMdHVxy7c7KM91x6Ljkn0jk3+d588hqC1B1LydYz/ytVWRudB
+ lBQgEMrBta3oQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/5] dt-bindings: display: verisilicon,dc: generalize
- for single-output variants
+Subject: Re: [PATCH v3 5/5] drm/verisilicon: add DCUltraLite chip identity
+ to HWDB
 To: "Joey Lu" <a0987203069@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260608023237.305036-2-a0987203069@gmail.com>
-References: <20260608023237.305036-2-a0987203069@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260608023237.305036-6-a0987203069@gmail.com>
+References: <20260608023237.305036-6-a0987203069@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 02:39:11 +0000
-Message-Id: <20260608023911.CEE8A1F00893@smtp.kernel.org>
+Date: Mon, 08 Jun 2026 02:41:22 +0000
+Message-Id: <20260608024123.9D1481F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,98 +60,102 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] The top-level `clocks` definition retains a fixed `items` array wit=
-h descriptions that conflict with the Nuvoton single-output variant, errone=
-ously documenting its second clock as `DMA AXI bus clock`.
-- [Low] The schema does not strictly enforce the single-output variant cons=
-traint for `nuvoton,ma35d1-dcu`, allowing a device tree to incorrectly defi=
-ne an invalid `port@1`.
+
+Pre-existing issues:
+- [High] A wildcard entry in vs_chip_identities shadows subsequent specific=
+ entries, making them unreachable.
+- [High] The IRQ handler is registered before DRM structures are initialize=
+d, which can cause a NULL pointer dereference if an interrupt fires early o=
+r if initialization fails.
 --
 
-commit 5f08249fbf664513d5ae1c658d2a7ebfc4f0b03e
+commit ef807eaf736a3cb84d7613b4d88301061b410a1b
 Author: Joey Lu <a0987203069@gmail.com>
 
-dt-bindings: display: verisilicon,dc: generalize for single-output variants
+drm/verisilicon: add DCUltraLite chip identity to HWDB
 
-The existing schema hard-codes the five-clock/three-reset/dual-port topology
-of the DC8200 IP block. This commit reworks the schema to express variant
-specific constraints via allOf/if blocks, allowing reuse for single-output
-variants like the Verisilicon DCUltraLite used in the Nuvoton MA35D1 SoC.
+This commit registers the Nuvoton MA35D1 DCUltraLite chip identity in
+the hardware database. It places the entry last in the list to act as a
+gate for hardware recognition.
 
-> diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yam=
-l b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> index 9dc35ab973f20..db0260d874c53 100644
-> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c b/drivers/gpu/drm/veri=
+silicon/vs_hwdb.c
+> index 91524d16f7785..7d630a667a3f0 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
+> @@ -129,6 +129,16 @@ static struct vs_chip_identity vs_chip_identities[] =
+=3D {
 
-[ ... ]
+[Severity: High]
+This is a pre-existing issue, but does the wildcard entry at the start of
+vs_chip_identities prevent specific entries from being matched?
 
-> @@ -26,6 +27,7 @@ properties:
->      maxItems: 1
+Looking at vs_chip_identities, the first entry uses a wildcard for the
+customer ID:
+
+static struct vs_chip_identity vs_chip_identities[] =3D {
+	{
+		.model =3D 0x8200,
+		.revision =3D 0x5720,
+		.customer_id =3D ~0U,
+...
+
+In vs_fill_chip_identity(), the search loop returns on the first match:
+
+	for (i =3D 0; i < ARRAY_SIZE(vs_chip_identities); i++) {
+		if (vs_chip_identities[i].model =3D=3D model &&
+		    vs_chip_identities[i].revision =3D=3D revision &&
+		    (vs_chip_identities[i].customer_id =3D=3D customer_id ||
+		     vs_chip_identities[i].customer_id =3D=3D ~0U)) {
+...
+
+Because the ~0U entry comes first, wouldn't it shadow the subsequent specif=
+ic=20
+entries for the same model and revision (like customer_id 0x310 and 0x311),
+preventing their specific formats from ever being applied?
+
+>  		.max_cursor_size =3D 64,
+>  		.formats =3D &vs_formats_no_yuv444,
+>  	},
+> +	{
+> +		.model =3D 0x0,		/* DCUltraLite */
+> +		.revision =3D 0x5560,
+> +		.customer_id =3D 0x305,
+> +
+> +		.generation =3D VSDC_GEN_DC8000,
+> +		.display_count =3D 1,
+> +		.max_cursor_size =3D 32,
+> +		.formats =3D &vs_formats_no_yuv444,
+> +	},
+>  };
 > =20
->    clocks:
-> +    minItems: 2
->      items:
->        - description: DC Core clock
->        - description: DMA AXI bus clock
-> @@ -34,24 +36,19 @@ properties:
+>  int vs_fill_chip_identity(struct regmap *regs,
 
-[Severity: Low]
-Since the top-level clocks property retains a fixed items array, does this
-cause the Nuvoton variant's second clock to incorrectly inherit the descrip=
-tion
-"DMA AXI bus clock" instead of its actual "pix0" clock?
+[Severity: High]
+This isn't a bug introduced by this patch, but is it possible for an early
+interrupt to cause a NULL pointer dereference during probe?
 
-Should the items array for clocks be moved to the per-variant if/then blocks
-(similar to how clock-names is handled) so that the hardware interface is
-documented accurately for each variant?
+In vs_dc_probe() from vs_dc.c, the IRQ handler is registered before DRM
+structures are initialized:
 
-[ ... ]
+	ret =3D devm_request_irq(dev, irq, vs_dc_irq_handler, 0,
+			       dev_name(dev), dc);
+...
+	ret =3D vs_drm_initialize(dc, pdev);
 
-> -additionalProperties: false
-> +allOf:
+If an interrupt fires during this window, the handler seems to unconditiona=
+lly
+dereference dc->drm_dev which is allocated later in vs_drm_initialize():
 
-[ ... ]
+vs_drm_handle_irq() in vs_drm.c:
+...
+			if (dc->drm_dev->crtcs[i])
+				drm_crtc_handle_vblank(&dc->drm_dev->crtcs[i]->base);
 
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: nuvoton,ma35d1-dcu
-> +    then:
-> +      properties:
-> +        clocks:
-> +          minItems: 2
-> +          maxItems: 2
-> +
-> +        clock-names:
-> +          items:
-> +            - const: core
-> +            - const: pix0
-> +
-> +        resets:
-> +          maxItems: 1
-> +
-> +        reset-names:
-> +          items:
-> +            - const: core
-
-[Severity: Low]
-Because unevaluatedProperties: false operates globally, any property define=
-d at
-the top level (such as port@1 in the global ports object) is permitted for =
-all
-variants unless explicitly disallowed.
-
-Since nuvoton,ma35d1-dcu is a single-output variant, should this block
-explicitly forbid port@1 (e.g., by adding ports: properties: port@1: false)=
- so
-that device trees with invalid multiple ports cannot silently pass schema
-validation?
-
-> +
-> +unevaluatedProperties: false
+Could this lead to a panic if the hardware has a pending interrupt before D=
+RM
+is ready?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608023237.3050=
-36-1-a0987203069@gmail.com?part=3D1
+36-1-a0987203069@gmail.com?part=3D5
