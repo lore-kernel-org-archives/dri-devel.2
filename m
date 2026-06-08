@@ -4,43 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 115D6CD8C92
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 07:24:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BDC2CD8C92
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 07:27:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F17B10EE32;
-	Mon,  8 Jun 2026 07:24:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6452A10E345;
+	Mon,  8 Jun 2026 07:27:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MpmeJxzK";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bFjDFb14";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 016F810EE26
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 07:24:49 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6AB916001D;
- Mon,  8 Jun 2026 07:24:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C65F61F00893;
- Mon,  8 Jun 2026 07:24:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780903489;
- bh=wTdREXOe6KftoM5aRL0DAAx/CeBU/II+OQDB3vdmgW4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MpmeJxzKb67NN36hQhDGuNkChToafl1q1+7DYmdeTzgc+rvTW22Lysyljq0M1x9uQ
- tkIcAbSP9L4WuVTIqQstT8pss0oFoH9ipOGzsC0N5iytVq+VORzLPv01aPDiEVYJbZ
- n4y3I6AsUnaM/hL56e0JafBYMeojVWcPLi/aWmkjI8MoDIrv2qIPRCJAMC5+Xc/FoN
- D/Ct99FhjWKC8oNPB7jXYbnN+QmkiUqUYFqP5X2v2Deuj/1mVHSg+zggeGSsmBH/gx
- 7nDt8N97qy0M24vGs8nwCf7q62IlID6nyrX+jV6GqrEgJko9DYt9Ht5EV+68rx8QX1
- VOg6ApnkigGCw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/5] phy: rockchip: phy-rockchip-typec: Add DRM AUX bridge
-To: "Chaoyi Chen" <kernel@airkyi.com>
-Cc: neil.armstrong@linaro.org, dri-devel@lists.freedesktop.org,
- linux-phy@lists.infradead.org, vkoul@kernel.org, olteanv@gmail.com
-In-Reply-To: <20260608070805.88-4-kernel@airkyi.com>
-References: <20260608070805.88-4-kernel@airkyi.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 07:24:48 +0000
-Message-Id: <20260608072448.C65F61F00893@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2555010E16E
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 07:27:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780903640; x=1812439640;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=SJOKXNP9FmKA1NOLEfhFMPNSdAh6YT3VyxOAkzI9GYk=;
+ b=bFjDFb144HWzWJSujwAC8Z/7rDXvnLWbwKHxQlz65npacR8fZj1WwekB
+ PFuTWJ765oluYAuQUQYwLOqeiHcwCYeTLGKDMJN4VHbxDJVhlHZ7YHeWr
+ SD2bw0UFecTGQhbXpSfabQQYJIaEytMR1APG9OqeOoNceKIXiT+TVW1kj
+ cDckKOqLW32oX6eZGTWe4ssDoa6LYlY80iUiVYATr0Qa37o72BbtAqXok
+ djzTOCQ3Sj31I0ZmMvhAxjQBIcaw/7r8p11v28G7NoOI30mFDg8bNIGE7
+ kloN1rKb6KJyDGrrgOYqT1rN8R61xJxH8iGFMOTcRS/8XUe+dJqbLFprW w==;
+X-CSE-ConnectionGUID: ZF78P5bWSxuB7GWCDLCXeQ==
+X-CSE-MsgGUID: 2m1ow/bASwS856DrtTf30A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11810"; a="92199573"
+X-IronPort-AV: E=Sophos;i="6.24,194,1774335600"; d="scan'208";a="92199573"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jun 2026 00:27:19 -0700
+X-CSE-ConnectionGUID: jNLMCwdKTSelGTAsf47bSg==
+X-CSE-MsgGUID: qpzfZxoJR5Wukvzc90cEAA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,194,1774335600"; d="scan'208";a="275668283"
+Received: from soc-pf6038af.clients.intel.com (HELO [10.217.180.44])
+ ([10.217.180.44])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jun 2026 00:27:18 -0700
+Message-ID: <7218fa4b-bb09-47a8-a2ab-7d381cf7d897@linux.intel.com>
+Date: Mon, 8 Jun 2026 09:27:15 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] accel/ivpu: Fix signed integer truncation in IPC
+ receive
+To: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
+ dawid.osuchowski@linux.intel.com, david.laight.linux@gmail.com,
+ stable@vger.kernel.org
+References: <b464b589-2d28-4617-baf0-eefbe14e170a@linux.intel.com>
+ <20260601161643.229342-1-andrzej.kacprowski@linux.intel.com>
+Content-Language: en-US
+From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
+In-Reply-To: <20260601161643.229342-1-andrzej.kacprowski@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,107 +72,41 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Double-free of device node `child_np` due to missing `of_node_get(=
-)`
-- [Medium] Logic error and potential error masking due to incorrect check o=
-rdering
---
+On 01-Jun-26 18:16, Andrzej Kacprowski wrote:
+> Fix potential buffer overflow where firmware-supplied data_size is cast
+> to signed int before being used in min_t(). Large unsigned values
+> (>= 0x80000000) become negative, causing unsigned wraparound and
+> oversized memcpy operations that can overflow the stack buffer.
+> 
+> Change min_t(int, ...) to min() as both values are unsigned and can be
+> handled by min() without explicit cast.
+> 
+> Fixes: 3b434a3445ff ("accel/ivpu: Use threaded IRQ to handle JOB done messages")
+> Cc: <stable@vger.kernel.org> # v6.12+
+> Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+> ---
+> Changes in v2:
+> - Replaced min_t() with min()
 
-commit 35100033d8cc196dcdf5880de55b8c3780fffd11
-Author: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Subject: phy: rockchip: phy-rockchip-typec: Add DRM AUX bridge
+Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
 
-This commit updates the Rockchip Type-C PHY driver to use the DRM_AUX_BRIDGE
-helper. It registers a transparent DRM bridge device for the DP port defined
-in the device tree.
-
-> diff --git a/drivers/phy/rockchip/phy-rockchip-typec.c b/drivers/phy/rock=
-chip/phy-rockchip-typec.c
-> --- a/drivers/phy/rockchip/phy-rockchip-typec.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-typec.c
-[ ... ]
-> @@ -1162,16 +1163,24 @@ static int rockchip_typec_phy_probe(struct platfo=
-rm_device *pdev)
-> =20
->  	for_each_available_child_of_node(np, child_np) {
->  		struct phy *phy;
-> +		ret =3D 0;
-> =20
-> -		if (of_node_name_eq(child_np, "dp-port"))
-> +		if (of_node_name_eq(child_np, "dp-port")) {
->  			phy =3D devm_phy_create(dev, child_np,
->  					      &rockchip_dp_phy_ops);
-> -		else if (of_node_name_eq(child_np, "usb3-port"))
-> +			ret =3D drm_aux_bridge_register_from_node(dev, child_np);
-
-[Severity: High]
-Does this cause a double-free of the child_np device node?
-
-The loop macro for_each_available_child_of_node() provides a temporary
-reference to child_np that is automatically released when the loop advances.
-
-However, drm_aux_bridge_register_from_node() passes this node to
-device_set_node() which assigns the node without incrementing its reference
-count.
-
-When the auxiliary bridge is later unregistered, drm_aux_bridge_release()
-unconditionally calls of_node_put() on this node:
-
-drivers/gpu/drm/bridge/aux-bridge.c:drm_aux_bridge_release() {
-	...
-	of_node_put(dev->of_node);
-	...
-}
-
-Because an additional reference was never acquired, this can cause a refere=
-nce
-count underflow and a use-after-free of the device node structure.
-
-Should we call of_node_get(child_np) before passing it to
-drm_aux_bridge_register_from_node()?
-
-> +		} else if (of_node_name_eq(child_np, "usb3-port"))
->  			phy =3D devm_phy_create(dev, child_np,
->  					      &rockchip_usb3_phy_ops);
->  		else
->  			continue;
-> =20
-> +		if (ret) {
-> +			pm_runtime_disable(dev);
-> +			of_node_put(child_np);
-> +			return ret;
-> +		}
-> +
-
-[Severity: Medium]
-If devm_phy_create() fails, will this error be masked if
-drm_aux_bridge_register_from_node() also fails?
-
-If devm_phy_create() returns an ERR_PTR, but drm_aux_bridge_register_from_n=
-ode()
-fails and returns a non-zero value, the error check here captures
-the bridge error instead of the PHY error.
-
-This would return an incorrect error code and skip the "failed to create ph=
-y"
-debug log entirely. Also, if the PHY fails but the bridge succeeds, the code
-registers an unnecessary auxiliary device only for devres to immediately te=
-ar
-it down.
-
-Would it be better to check IS_ERR(phy) immediately after devm_phy_create()
-and before registering the bridge?
-
->  		if (IS_ERR(phy)) {
->  			dev_err(dev, "failed to create phy: %pOFn\n",
->  				child_np);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608070805.88-1=
--kernel@airkyi.com?part=3D3
+> 
+>   drivers/accel/ivpu/ivpu_ipc.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/accel/ivpu/ivpu_ipc.c b/drivers/accel/ivpu/ivpu_ipc.c
+> index f47df092bb0d..9347f05a2b79 100644
+> --- a/drivers/accel/ivpu/ivpu_ipc.c
+> +++ b/drivers/accel/ivpu/ivpu_ipc.c
+> @@ -276,7 +276,7 @@ int ivpu_ipc_receive(struct ivpu_device *vdev, struct ivpu_ipc_consumer *cons,
+>   	if (ipc_buf)
+>   		memcpy(ipc_buf, rx_msg->ipc_hdr, sizeof(*ipc_buf));
+>   	if (rx_msg->jsm_msg) {
+> -		u32 size = min_t(int, rx_msg->ipc_hdr->data_size, sizeof(*jsm_msg));
+> +		u32 size = min(rx_msg->ipc_hdr->data_size, sizeof(*jsm_msg));
+>   
+>   		if (rx_msg->jsm_msg->result != VPU_JSM_STATUS_SUCCESS) {
+>   			ivpu_err(vdev, "IPC resp result error: %d\n", rx_msg->jsm_msg->result);
