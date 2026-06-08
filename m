@@ -4,42 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47F60CD8CA4
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 18:43:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0141CD8CA4
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 18:43:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AF5B10F8A6;
-	Mon,  8 Jun 2026 18:43:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17DA110F8AA;
+	Mon,  8 Jun 2026 18:43:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RS+/AHdT";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="MMfof25i";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 798BD10F8A6
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 18:43:29 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 51C444197A;
- Mon,  8 Jun 2026 18:43:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BF6C1F00893;
- Mon,  8 Jun 2026 18:43:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780944209;
- bh=n2iiPZKHLCgxYq6Uds/OV3e9PRufcFCIkSZxGZRCBS0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=RS+/AHdTUOLyWfmZddYwPYTAJnfahI6OUI6N6T/CsViEUJIJMktuu3lPTPzWxI9wQ
- 8EFIVxdHYYbXcdevsCvriVn8FV0P01jqW5KrSE/vy8xyOpXOxMoMytNBGA5DyLpcDu
- mCO/HI/dPajpbWnjVRiFVOVA0D74Hdqe62eoOZBqwT5dmUConlFUcZYBqam7M9I2SI
- hAoWNyXzsuNu/EWuN0jU2/dS2bQ/lpy1d0UQ+mo6QGlmMkxO5kqPe1T+3uViAC82an
- bdloPm6wZ/2tPcR3CEYBzySayb3p7a2yU+bhCvdZW2etzxcss/Ry7xxhZTKTu1KtDG
- KFN3nRolLc6nA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 1/4] rust: drm: gem: shmem: Add DmaResvGuard helper
-To: "Lyude Paul" <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
-In-Reply-To: <20260608183057.2001376-2-lyude@redhat.com>
-References: <20260608183057.2001376-2-lyude@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 18:43:28 +0000
-Message-Id: <20260608184329.0BF6C1F00893@smtp.kernel.org>
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADA8910F8AA
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 18:43:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1780944216; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=P2rvk3o8Jv1SXwelTg391zoiLcoauDOizR9xIcTkZg0GMr4xq8jytbwVBcW2maVin2SwVq4Q6wvTebYivPAsGgJY78IY2oLLCbWooJ2v6jTTL0uf02rmrP/Xl5bNOvKyhx9Gm7c88Qela+tr0VItL+2dIOUcIVjchPtv81e7NEM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1780944216;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=1TItcepfYVHjxsSTVOZI5lwtRS8/gPoghn4XLWwtdUc=; 
+ b=FI2jyiMUCVzCeZwfh4Qr7rU+8KoFcs6pMfHHqqL91MatUiKiMc9z7GA9eXcIcK2esRwL08Y21R4/ucIlzW8cZf1e8Kom9BFBWu4QxOEKa9HYRWpw23ebs9Gar5jB36d/cx7BvkY3n20mipVFjgSKlElRqXXQd5aFg14whZ1Lc5I=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+ dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780944216; 
+ s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=1TItcepfYVHjxsSTVOZI5lwtRS8/gPoghn4XLWwtdUc=;
+ b=MMfof25iAZEbEIB2WmXXV7HiT05vkJQXjWSS0yIy/nBY6as/QNxvPiwdg5Fk/GPG
+ K+Km6PEAGC626xVYwsiRA7iE7/iuqPnQQzcQsqrv77wvRArTmkcokUESrzHx0cJrUxF
+ /m/J8/uQWsEs4+O9Kw1zhgWV/QdmOpWnIFra6uIw=
+Received: by mx.zohomail.com with SMTPS id 1780944213677272.5663450188657;
+ Mon, 8 Jun 2026 11:43:33 -0700 (PDT)
+Message-ID: <fbac3db0-2ed3-460e-b638-ed46a64f358a@collabora.com>
+Date: Mon, 8 Jun 2026 21:43:29 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/virtio: fix dma_fence refcount leak on error in
+ virtio_gpu_dma_fence_wait()
+To: Wentao Liang <vulab@iscas.ac.cn>, airlied@redhat.com, kraxel@redhat.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ simona@ffwll.ch
+Cc: gurchetansingh@chromium.org, olvaffe@gmail.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260607090303.92423-1-vulab@iscas.ac.cn>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20260607090303.92423-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,89 +68,48 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Incorrect use of `#[inline(always)]` instead of `#[inline]` for abs=
-traction methods.
---
+On 6/7/26 12:03, Wentao Liang wrote:
+> dma_fence_unwrap_for_each() internally calls dma_fence_unwrap_first()
+> which does cursor->chain = dma_fence_get(head), taking an extra
+> reference. On normal loop completion, dma_fence_unwrap_next()
+> releases this via dma_fence_chain_walk() -> dma_fence_put().
+> 
+> When virtio_gpu_do_fence_wait() fails and the function returns early
+> from inside the loop, the cursor->chain reference is never released.
+> This is the only caller in the entire kernel that does an early return
+> inside dma_fence_unwrap_for_each.
+> 
+> Add dma_fence_put(itr.chain) before the early return.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: eba57fb5498f ("drm/virtio: Wait for each dma-fence of in-fence array individually")
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/gpu/drm/virtio/virtgpu_submit.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_submit.c b/drivers/gpu/drm/virtio/virtgpu_submit.c
+> index dae761fa5788..32cb1e4aa425 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_submit.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_submit.c
+> @@ -65,8 +65,10 @@ static int virtio_gpu_dma_fence_wait(struct virtio_gpu_submit *submit,
+>  
+>  	dma_fence_unwrap_for_each(f, &itr, fence) {
+>  		err = virtio_gpu_do_fence_wait(submit, f);
+> -		if (err)
+> +		if (err) {
+> +			dma_fence_put(itr.chain);
+>  			return err;
+> +		}
+>  	}
+>  
+>  	return 0;
 
-commit 35068fc880d5bd0d2870750a321a6b8155d32ae4
-Author: Lyude Paul <lyude@redhat.com>
+Applied to misc-fixes, thanks!
 
-rust: drm: gem: shmem: Add DmaResvGuard helper
-
-This commit adds a temporary DmaResvGuard helper type for managing the
-dma_resv lock on GEM shmem objects. It implements a drop handler to
-automatically release the lock.
-
-> diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
-> index 34af402899a0e..79ebd746e9611 100644
-> --- a/rust/kernel/drm/gem/shmem.rs
-> +++ b/rust/kernel/drm/gem/shmem.rs
-
-[ ... ]
-
-> @@ -235,3 +241,32 @@ impl<T: DriverObject, C: DeviceContext> driver::Allo=
-cImpl for Object<T, C> {
->          dumb_map_offset: None,
->      };
->  }
-> +
-> +/// Private helper-type for holding the `dma_resv` object for a GEM shme=
-m object.
-> +///
-> +/// When this is dropped, the `dma_resv` lock is dropped as well.
-> +///
-> +// TODO: This should be replace with a WwMutex equivalent once we have s=
-uch bindings in the kernel.
-> +struct DmaResvGuard<'a, T: DriverObject, C: DeviceContext =3D Registered=
->(
-> +    &'a Object<T, C>,
-> +    NotThreadSafe,
-> +);
-> +
-> +impl<'a, T: DriverObject, C: DeviceContext> DmaResvGuard<'a, T, C> {
-> +    #[inline(always)]
-
-[Severity: Low]
-This isn't a bug, but should this use #[inline] instead of #[inline(always)=
-]?
-
-According to the Rust subsystem guidelines, #[inline(always)] should be
-reserved for functions using build_assert!() that depend on function
-parameters. For small abstraction functions that simply forward to binding
-calls like this one, #[inline] is the correct annotation.
-
-> +    #[expect(unused)]
-> +    fn new(obj: &'a Object<T, C>) -> Self {
-> +        // SAFETY: This lock is initialized throughout the lifetime of `=
-object`.
-> +        unsafe { bindings::dma_resv_lock(obj.raw_dma_resv(), ptr::null_m=
-ut()) };
-> +
-> +        Self(obj, NotThreadSafe)
-> +    }
-> +}
-> +
-> +impl<'a, T: DriverObject, C: DeviceContext> Drop for DmaResvGuard<'a, T,=
- C> {
-> +    #[inline(always)]
-
-[Severity: Low]
-This isn't a bug, but could this drop method also use #[inline] instead of
-#[inline(always)] for the same reason mentioned above?
-
-> +    fn drop(&mut self) {
-> +        // SAFETY: We are releasing the lock grabbed during the creation=
- of this object.
-> +        unsafe { bindings::dma_resv_unlock(self.0.raw_dma_resv()) };
-> +    }
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608183057.2001=
-376-1-lyude@redhat.com?part=3D1
+-- 
+Best regards,
+Dmitry
