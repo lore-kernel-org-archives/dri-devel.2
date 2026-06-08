@@ -4,77 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEF97CD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 08:58:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C7A6CD8C92
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 08:59:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EDB510EFC9;
-	Mon,  8 Jun 2026 08:58:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCF8B10EFCA;
+	Mon,  8 Jun 2026 08:59:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="K5T+YC7D";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HYuqE3zc";
 	dkim-atps=neutral
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
- [209.85.215.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA86E10ED8B
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 06:36:44 +0000 (UTC)
-Received: by mail-pg1-f179.google.com with SMTP id
- 41be03b00d2f7-c858dc05ee3so2491487a12.2
- for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 23:36:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780900604; x=1781505404; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=7oVk9np2C8rowcJJ6cLLZoIRh76RsaPNf2tnKfd50h0=;
- b=K5T+YC7D7pHquz66+qpB8xbQUyu2YAGG6o5CnOeHCxs8gIA5Nl/WnapFiY5+NPYcT0
- EvkuJkmsiF+qvndvDkkM57K0xFaQJKFXM4qhm4qjWrvsIuarTJQf/MMLJHR+pSa2KKMR
- WuydrJFGJll1lQwe85G/sH5EwMHAsfn1ckJUOaa83ODhj2OImWXGLf0tJAczYzClgTsr
- Ho8hECByp4EwyxEYMlr3TELEGQydpANhYYNNRdozhAyy5XdB6y0cmasjV40RqFl01UJ3
- a0HDQ4ETu3gnRx04UZvCU8A6D43FRGkcmNSjj7gURiy+WtihsIHbDc4B21qScrRCDIvn
- aQWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780900604; x=1781505404;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7oVk9np2C8rowcJJ6cLLZoIRh76RsaPNf2tnKfd50h0=;
- b=K0EWQKZ9A/MOQhIG0DHawP+5x5Nl5LTRvtdYs8tgzkxws1YpzedJjCDGbFKhwRopAY
- 39CUwjyip1rzARxskYLEZu+AU6IVcUk31W0d0k4T2ff/cwdC/YEWZRd3LvrgzpeTi/gc
- nGtnHYhTcG+AqYmu+89bT2hJWxqaE/Y+SP4vXIvnCctfcnqEQhby+Uif6J3DkS629hhJ
- Oy1H/Y1BwABc4z6NzfXR71UhSvfbOrM4Z+NWCqaBsuBKibkueVFx42V/iiapPvOGWi8W
- SHCblKyVsh8huO/Ja7t0Gi+6eMsZ2W3jrsOD3mcDZK1b3V4dcFDLd9bYO2GKB8uywq4T
- SzGA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/VBFO6Y9d+F4dctWqoiVLrJAtg86Wr5UfsjEfgZ5KNxSqhzCzBLt3GyBWrftk06wENFDWijMeKqXc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzlK8ICPzollihSefrM4wgFWa2pI/u8cBbKvzABbA9rpg61H44v
- 1AA6J49RX51+DcGou6gnfNPhRgrFcAj7rLZphcptEC9OkzT2QLxbJz8L
-X-Gm-Gg: Acq92OHbNKZiPo/t3i1GWPU2quekr/tU9yCrPRGV/Q+B4Tu1uUzJZYpwXGPZ3MtIbtN
- O35PtVRMNfXjBLCav3qcvwK15OqfqLhPaAUA2/EAm++7eqIfffQlMSQmpN7bmADpEO+CHxeUOr9
- MOFuipcN+MjYwweUmBSUohNdePno09kcRLgibCePWYFRhIq3D63WWepTJadu/rk112CEPFo47tt
- hLqKuIlafYQt/tqxnf6QhhhsOe6fd6ZGzWueNzP/VUEH/9ZJVJKJFQilVjgNZAGbc+bYwhlCbSt
- TlJMYXodWJg6fSswCydDs+OLBboF+/1vqEtMiexuKlsAlHsd2+5QOe01RrUpG1M0VfcNrNd2XJV
- R8j+lI+s9Fcri/wV7VBQMrdrI1vjv07QS8j+h0paAZQ/6lFoTiMX9/hrnMGhfkcDWpzGk02MA7/
- gsKaFt8UvWgo1kb7iHINXdSmgr2Grz2LaBmVA3IwrD5VqcqNTk7w1pGv0J+CYDsTE=
-X-Received: by 2002:a05:6a00:929e:b0:83f:250d:59c with SMTP id
- d2e1a72fcca58-842b0fa5602mr14958894b3a.39.1780900604162; 
- Sun, 07 Jun 2026 23:36:44 -0700 (PDT)
-Received: from haichao.tail057a43.ts.net
- ([2001:da8:e000:1206:9a2:954d:67fe:d9c2])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-842823512b0sm17743127b3a.15.2026.06.07.23.36.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 Jun 2026 23:36:43 -0700 (PDT)
-From: Ruoyu Wang <ruoyuw560@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Ruoyu Wang <ruoyuw560@gmail.com>
-Subject: [PATCH] drm/radeon: avoid double free in r600 DPM cleanup
-Date: Mon,  8 Jun 2026 14:36:38 +0800
-Message-ID: <20260608063638.24-1-ruoyuw560@gmail.com>
-X-Mailer: git-send-email 2.51.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1ACC710EFCA
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 08:59:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 911726001D;
+ Mon,  8 Jun 2026 08:59:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C40D11F00893;
+ Mon,  8 Jun 2026 08:59:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780909153;
+ bh=F15FjrPiUcOp001UqF8Ece+tYdFZAYocbMu8t+2Bfv0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=HYuqE3zcX4KDnMco90EhFiOPuVuWdNaf0zxvXE8mk/vFg6l3Nm1QtPJdBNIiTfaqu
+ /kJPuUQm1b2CbyB6SvP+DAmu9Qr+tqiJ5LypjqgEmpQGYvG8RHrpKxoljMSYJhLjie
+ khGfSbiQHbXZcjWt/+zyAoyJR4fmVkkJ/qQA8VLf1VROYT/DXAT1wsfN/yQFCEweqy
+ ZL2YweNF62D3Iw7H3LenI1p+7blD+1uhkpyf3MyWArntzk9cbi17eTxMOrGwIGyf1f
+ s5X2K8EDeDmhzWZp4CnAj2NMeFciml1r1nDHXR7sLK8tmzvcIjl5+cGJSYdAsjCxUL
+ vHtn5ewfZ1buQ==
+Date: Mon, 8 Jun 2026 10:59:09 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Sean Nyekjaer <sean@geanix.com>, Sudarshan Shetty <tessolveupstream@gmail.com>,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+ jonas@kwiboo.se, 
+ jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
+ tzimmermann@suse.de, 
+ airlied@gmail.com, simona@ffwll.ch, alexander.stein@ew.tq-group.com, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Marek Vasut <marex@denx.de>
+Subject: Re: [PATCH v4 2/2] drm: bridge: ti-sn65dsi83: Disable video burst
+ mode for LVDS stability
+Message-ID: <20260608-funny-cuscus-of-vigor-fff8f7@houat>
+References: <ahsxWhXMhzbAj_3G@Seans-MacBook-Pro.local>
+ <DJ17SSAYCT51.28YSD262KHNKK@bootlin.com>
+ <20260605160946.GC4350@killaraus.ideasonboard.com>
+ <20260608-talented-ginger-mandrill-97a290@houat>
+ <20260608071436.GB370380@killaraus.ideasonboard.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 08 Jun 2026 08:58:33 +0000
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="pjbbve3uyntqr5ys"
+Content-Disposition: inline
+In-Reply-To: <20260608071436.GB370380@killaraus.ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,85 +70,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-r600_parse_extended_power_table() uses manual kfree() calls for some
-early allocation failures, but the freed pointers are left in the
-dynamic power-management state. If device teardown later calls
-r600_free_extended_power_table(), those stale pointers can be freed
-again.
 
-Use the common extended power table cleanup helper for those early
-failure paths as well, and clear each pointer after freeing it so
-repeated cleanup stays safe.
+--pjbbve3uyntqr5ys
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 2/2] drm: bridge: ti-sn65dsi83: Disable video burst
+ mode for LVDS stability
+MIME-Version: 1.0
 
-Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
----
- drivers/gpu/drm/radeon/r600_dpm.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
+On Mon, Jun 08, 2026 at 10:14:36AM +0300, Laurent Pinchart wrote:
+> On Mon, Jun 08, 2026 at 09:09:18AM +0200, Maxime Ripard wrote:
+> > On Fri, Jun 05, 2026 at 07:09:46PM +0300, Laurent Pinchart wrote:
+> > > On Fri, Jun 05, 2026 at 05:18:43PM +0200, Luca Ceresoli wrote:
+> > > > Hello Sean,
+> > > > On Sat May 30, 2026 at 8:51 PM CEST, Sean Nyekjaer wrote:
+> > > > > On Wed, May 27, 2026 at 02:27:36PM +0100, Sudarshan Shetty wrote:
+> > > > >> The current DSI configuration enables MIPI_DSI_MODE_VIDEO_BURST.
+> > > > >> while burst mode is supported by the hardware, its use
+> > > > >> depends on continuous clock behavior from the DSI host. In pract=
+ice,
+> > > > >> burst mode may introduce instability depending on the host contr=
+oller
+> > > > >> implementation, as the DSI link may transition to low-power state
+> > > > >> between bursts.
+> > > > >>
+> > > > >> Testing showed improved display stability when using non-burst m=
+ode on
+> > > > >> affected panels.
+> > > > >>
+> > > > >> Remove MIPI_DSI_MODE_VIDEO_BURST and use non-burst video mode.
+> > > > >>
+> > > > >
+> > > > > We briefly talked about this at Embedded Recipes
+> > > > > I promised to sent a link:
+> > > > > https://lore.kernel.org/all/E35054BA-FBE5-4CEE-905C-1F5D20140590@=
+geanix.com/
+> > > >=20
+> > > > Thanks for the discussion at ER and for this follow-up e-mail.
+> > > >=20
+> > > > > When burst mode is enabled, the LVDS clock gets way to high for my
+> > > > > panel. I don't know if it's the DSI controller in the STM32MP1 or
+> > > > > something not supported on the TI side.
+> > > > >
+> > > > > We have been running with this fix for 2 years :)
+> > > >=20
+> > > > If I can summarize the situation in the last 4 years:
+> > > >=20
+> > > >  * Several users reported the same trouble
+> > > >  * Those users patch their kernel out of tree to disable burst mode=
+ as a
+> > > >    workaround
+> > > >  * According to Marek the correct way to make burst mode work is
+> > > >    implementing link negotiation
+> > > >  * Nobody is willing to implement link negotiation as of now
+> > > >=20
+> > > > And this leads me to some questions.
+> > > >=20
+> > > >  * Do we want to keep the current situation (everybody beats their =
+head on
+> > > >    the wall until they discover disabling burst mode "fixes" their =
+panel,
+> > > >    and keep an out of tree patch)?
+> > > >=20
+> > > >  * Assuming the priority is getting a screen working (and not savin=
+g power
+> > > >    on a black screen), would it make sense to apply this patch, and=
+ let
+> > > >    people improve in the future by implementing link negotiation?
+> > > >=20
+> > > >    Let's pretend for a moment this is a new driver being developed:=
+ would
+> > > >    it be OK to have a basic working driver, without some power opti=
+mization
+> > > >    features which can be added later on? The only valid answer to t=
+his
+> > > >    question is obviously "yes". Doesn't the same principle apply he=
+re? If
+> > > >    it doesn't, why?
+> > > >=20
+> > > >  * What is the expected power saving with burst mode?
+> > > >=20
+> > > >    I'm afraid I don't have precise numbers but I measured the total=
+ board
+> > > >    consumption with or without burst mode (the former with a black =
+screen
+> > > >    but backlight enabled) and found no difference: exactly 12.74 W =
+in both
+> > > >    cases.
+> > > >=20
+> > > > Thanks for you rpatience in reading this. I hope it helps in findin=
+g a
+> > > > better solution.
+> > >=20
+> > > Rephrasing this a bit, is the discussion about dropping support for a
+> > > supported feature (burst mode) because users who suffer from the lack=
+ of
+> > > another feature (link negotiation) are not willing to spend time
+> > > implementing it, and would prefer if users of burst mode were forced =
+to
+> > > do the work instead ? That doesn't seem very fair to me.
+> >=20
+> > Yeah, that's my take on it too. The question quickly turns into "we want
+> > to regress current users because some new ones don't want to bother",
+> > and, honestly, no. We don't do that.
+> >=20
+> > I really don't buy into the "but it's too hard!" argument, because you
+> > can apply for pretty much everything: a review, a requested preliminary
+> > work, etc.
+>=20
+> Without going that far, I think we need a good technical analysis and
+> development plan first to back the "it's too hard" argument. If the
+> amount of work indeed turns to be huge, we can then try to figure out
+> how to split the effort.
 
-diff --git a/drivers/gpu/drm/radeon/r600_dpm.c b/drivers/gpu/drm/radeon/r600_dpm.c
-index 83f1ae31cbdbc..9755e717ca8bb 100644
---- a/drivers/gpu/drm/radeon/r600_dpm.c
-+++ b/drivers/gpu/drm/radeon/r600_dpm.c
-@@ -932,7 +932,7 @@ int r600_parse_extended_power_table(struct radeon_device *rdev)
- 			ret = r600_parse_clk_voltage_dep_table(&rdev->pm.dpm.dyn_state.vddci_dependency_on_mclk,
- 							       dep_table);
- 			if (ret) {
--				kfree(rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk.entries);
-+				r600_free_extended_power_table(rdev);
- 				return ret;
- 			}
- 		}
-@@ -943,8 +943,7 @@ int r600_parse_extended_power_table(struct radeon_device *rdev)
- 			ret = r600_parse_clk_voltage_dep_table(&rdev->pm.dpm.dyn_state.vddc_dependency_on_mclk,
- 							       dep_table);
- 			if (ret) {
--				kfree(rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk.entries);
--				kfree(rdev->pm.dpm.dyn_state.vddci_dependency_on_mclk.entries);
-+				r600_free_extended_power_table(rdev);
- 				return ret;
- 			}
- 		}
-@@ -955,9 +954,7 @@ int r600_parse_extended_power_table(struct radeon_device *rdev)
- 			ret = r600_parse_clk_voltage_dep_table(&rdev->pm.dpm.dyn_state.mvdd_dependency_on_mclk,
- 							       dep_table);
- 			if (ret) {
--				kfree(rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk.entries);
--				kfree(rdev->pm.dpm.dyn_state.vddci_dependency_on_mclk.entries);
--				kfree(rdev->pm.dpm.dyn_state.vddc_dependency_on_mclk.entries);
-+				r600_free_extended_power_table(rdev);
- 				return ret;
- 			}
- 		}
-@@ -1296,17 +1293,29 @@ void r600_free_extended_power_table(struct radeon_device *rdev)
- 	struct radeon_dpm_dynamic_state *dyn_state = &rdev->pm.dpm.dyn_state;
- 
- 	kfree(dyn_state->vddc_dependency_on_sclk.entries);
-+	dyn_state->vddc_dependency_on_sclk.entries = NULL;
- 	kfree(dyn_state->vddci_dependency_on_mclk.entries);
-+	dyn_state->vddci_dependency_on_mclk.entries = NULL;
- 	kfree(dyn_state->vddc_dependency_on_mclk.entries);
-+	dyn_state->vddc_dependency_on_mclk.entries = NULL;
- 	kfree(dyn_state->mvdd_dependency_on_mclk.entries);
-+	dyn_state->mvdd_dependency_on_mclk.entries = NULL;
- 	kfree(dyn_state->cac_leakage_table.entries);
-+	dyn_state->cac_leakage_table.entries = NULL;
- 	kfree(dyn_state->phase_shedding_limits_table.entries);
-+	dyn_state->phase_shedding_limits_table.entries = NULL;
- 	kfree(dyn_state->ppm_table);
-+	dyn_state->ppm_table = NULL;
- 	kfree(dyn_state->cac_tdp_table);
-+	dyn_state->cac_tdp_table = NULL;
- 	kfree(dyn_state->vce_clock_voltage_dependency_table.entries);
-+	dyn_state->vce_clock_voltage_dependency_table.entries = NULL;
- 	kfree(dyn_state->uvd_clock_voltage_dependency_table.entries);
-+	dyn_state->uvd_clock_voltage_dependency_table.entries = NULL;
- 	kfree(dyn_state->samu_clock_voltage_dependency_table.entries);
-+	dyn_state->samu_clock_voltage_dependency_table.entries = NULL;
- 	kfree(dyn_state->acp_clock_voltage_dependency_table.entries);
-+	dyn_state->acp_clock_voltage_dependency_table.entries = NULL;
- }
- 
- enum radeon_pcie_gen r600_get_pcie_gen_support(struct radeon_device *rdev,
--- 
-2.51.0
+Either way, we won't regress existing users. If it's indeed pretty
+involved (but I'm not sure why it would be more involved than, say,
+formats), then I guess we can discuss mitigating the issue, but we're
+still not going to create a regression even if it's hard.
 
+Maxime
+
+--pjbbve3uyntqr5ys
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaiaEVgAKCRAnX84Zoj2+
+di1AAYC12xCN8++B5WFdApF4UjyYxbki/ZaO50aHhY6iyio+zg2uWaNgy0rPlwJd
+S0OrilYBgLHJb7+yZNszbGISYHJQCquSlDjMxAUslA4bGOGwXKva02OtKIXxMJns
+VmRBRGQWOw==
+=EE6g
+-----END PGP SIGNATURE-----
+
+--pjbbve3uyntqr5ys--
