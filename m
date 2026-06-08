@@ -4,43 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAFFACD8C92
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 16:06:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6116CD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 16:06:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5792910F682;
-	Mon,  8 Jun 2026 16:06:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4176010F685;
+	Mon,  8 Jun 2026 16:06:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XIwDP4eZ";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="HefauTVU";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05A3910F682
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 16:06:32 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D6383434D9;
- Mon,  8 Jun 2026 16:06:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D1631F00893;
- Mon,  8 Jun 2026 16:06:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780934791;
- bh=k8eEHNk5V2Dx8vcrglKxGZVmD5Ir3MJRTEqprQTSb9E=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XIwDP4eZwupgs5/QB/XuzAfd2FCFspvrVP+rOH7OUC7cUm+fAoxLFJZPN3LqHhWJK
- tsu8zQy2+ce1LzVRXUgfcnyk5bGBli5Obp6XwAc/qk9c4+ghPr0KGEgpgyw5JB7e0H
- i3y9+YaqgDatQH3kA6oWieP6KD0VAWsHq8+zZw8yOUkhtKy62tWBAP/OcwyMbgI2dB
- LYQOm+fjZaNqDoyZurFGf1OV4O9NTC2Fmm8rVE4hafXsFyGakTprTQgVXQkn+6byD2
- AKJR6txtEdgul1Fxl/3y6qNwEMkDfWfCaXhbD1vjbJk9JwXv9eznne53qvPG5j9Izr
- EajQxuulj9Unw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] cgroup/dmem: accept only one region per limit write
-To: "Eric Chanudet" <echanude@redhat.com>
-Cc: mkoutny@suse.com, hannes@cmpxchg.org, dri-devel@lists.freedesktop.org,
- tj@kernel.org
-In-Reply-To: <20260608-cgroup-dmem-write-single-region-v2-1-b0cd6c4ccf1b@redhat.com>
-References: <20260608-cgroup-dmem-write-single-region-v2-1-b0cd6c4ccf1b@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 16:06:30 +0000
-Message-Id: <20260608160631.1D1631F00893@smtp.kernel.org>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B7BF710F685
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 16:06:42 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6363E201B;
+ Mon,  8 Jun 2026 09:06:37 -0700 (PDT)
+Received: from [10.57.28.93] (unknown [10.57.28.93])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9D7E63FD88;
+ Mon,  8 Jun 2026 09:06:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1780934802; bh=4TVd+FPhUWGa/XCX0CLqCRT2+tOLqtqx9WCwAD634gY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=HefauTVUZavGNb/19w2Yx0UiagnGIKG2AqF4iKkPsRZ7pnrUDuJiQcm169oH0xN+u
+ F1tlyn2QO6g4x0CBgrgqbNMvyByFnSC4rKubW8nAoF+QF0ESzyH4y1/KTjFHw0t5hl
+ 2ZeMuES5R98GM08CE8jtlNgP3VZRwKMq64/z2ghg=
+Message-ID: <e7520150-df05-4d25-9d0e-297fc26c5553@arm.com>
+Date: Mon, 8 Jun 2026 17:06:38 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 01/18] drm/panthor: Ignore -EOPNOTSUPP for
+ shader-present nvmem lookup
+To: Karunika Choo <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org
+Cc: nd@arm.com, Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org
+References: <20260528150546.3168527-1-karunika.choo@arm.com>
+ <20260528150546.3168527-2-karunika.choo@arm.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260528150546.3168527-2-karunika.choo@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,93 +59,44 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On 28/05/2026 16:05, Karunika Choo wrote:
+> When CONFIG_NVMEM is disabled, reading the optional "shader-present"
+> nvmem cell can return -EOPNOTSUPP.
+> 
+> Treat this the same as the cell being absent so panthor can continue
+> probing on platforms that do not provide shader-present fuses through
+> nvmem.
+> 
+> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
 
-Pre-existing issues:
-- [High] Infinite spin loop in `get_cg_pool_unlocked` if memory allocation =
-fails under memory pressure.
---
+Reviewed-by: Steven Price <steven.price@arm.com>
 
-commit 04831a5f7efe525cb1eb2645936fd7233c21b4bf
-Author: Eric Chanudet <echanude@redhat.com>
-Subject: cgroup/dmem: accept only one region per limit write
+Do we need a fixes too?
 
-This patch changes the UAPI for dmem.max, dmem.min, and dmem.low to accept
-only one region value pair entry per write. This simplifies the logic and
-prevents partial limit applications that could quietly change state before
-failing on a later entry.
+Fixes: c40b50c3cfbe ("drm/panthor: Implement reading shader_present from
+nvmem")
 
-> diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-> index 1ab1fb47f2711..542a5d387b551 100644
-> --- a/kernel/cgroup/dmem.c
-> +++ b/kernel/cgroup/dmem.c
-[ ... ]
-> @@ -728,57 +728,38 @@ static ssize_t dmemcg_limit_write(struct kernfs_ope=
-n_file *of,
-[ ... ]
-> -		err =3D dmemcg_parse_limit(options, &new_limit);
-> -		if (err < 0)
-> -			goto out_put;
-> +	err =3D dmemcg_parse_limit(buf, &new_limit);
-> +	if (err < 0)
-> +		goto out_put;
-> =20
-> -		pool =3D get_cg_pool_unlocked(dmemcs, region);
-> -		if (IS_ERR(pool)) {
-> -			err =3D PTR_ERR(pool);
-> -			goto out_put;
-> -		}
-> +	pool =3D get_cg_pool_unlocked(dmemcs, region);
+Thanks,
+Steve
 
-[Severity: High]
-This is a pre-existing issue, but while reviewing this call to
-get_cg_pool_unlocked(), I noticed it might spin infinitely under memory
-pressure instead of returning an error.
+> ---
+>  drivers/gpu/drm/panthor/panthor_hw.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
+> index 7e315708ca7c..4c96573b649a 100644
+> --- a/drivers/gpu/drm/panthor/panthor_hw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_hw.c
+> @@ -182,7 +182,7 @@ static int overload_shader_present(struct panthor_device *ptdev)
+>  					      &contents);
+>  	if (!ret)
+>  		ptdev->gpu_info.shader_present = contents;
+> -	else if (ret == -ENOENT)
+> +	else if (ret == -ENOENT || ret == -EOPNOTSUPP)
+>  		return 0;
+>  	else
+>  		return dev_err_probe(ptdev->base.dev, ret,
 
-Looking at the allocation fallback inside get_cg_pool_unlocked():
-
-kernel/cgroup/dmem.c:get_cg_pool_unlocked() {
-    ...
-    while (!pool) {
-        ...
-        if (pool =3D=3D ERR_PTR(-ENOMEM)) {
-            pool =3D NULL;
-            if (WARN_ON(allocpool))
-                continue;
-
-            allocpool =3D kzalloc_obj(*allocpool);
-            if (allocpool) {
-                pool =3D NULL;
-                continue;
-            }
-        }
-    }
-    ...
-}
-
-If the system is out of memory and kzalloc_obj() returns NULL, the loop
-condition while (!pool) remains true because pool was explicitly set to NULL
-right before the allocation attempt.
-
-Will this continuously loop and re-acquire the global spinlock without ever
-propagating the -ENOMEM error back to the caller here?
-
-> +	if (IS_ERR(pool)) {
-> +		err =3D PTR_ERR(pool);
-> +		goto out_put;
-> +	}
-> =20
-> -		/* And commit */
-> -		apply(pool, new_limit);
-> -		dmemcg_pool_put(pool);
-> +	apply(pool, new_limit);
-> +	dmemcg_pool_put(pool);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-cgroup-dme=
-m-write-single-region-v2-1-b0cd6c4ccf1b@redhat.com?part=3D1
