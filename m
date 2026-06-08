@@ -4,51 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AB23CD8CA7
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 22:34:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93E3BCD6E79
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 22:34:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7C2B10E0AE;
-	Mon,  8 Jun 2026 22:34:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9C1D10E304;
+	Mon,  8 Jun 2026 22:34:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="EUKb6AVD";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Wkd59CPU";
 	dkim-atps=neutral
 Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
  [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF3B610E0AE
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 22:34:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1780958048; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF81D10E0AE
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 22:34:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1780958050; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=PK1mPO5vde6l1FvC5WVqO2Ta/fLDugSu0eId/GaU3H1kUi8QEPP42SGE3uUd27la+ODp/6kBJ2aY0WoX17Vw/DjkNE268JyMiOUP0m2f73ySYgJBeznTTu2UVtEUDcWQm4zMsp9f03rtQV/kwZXaJwEpWpnXfOZkFbNIleXzmww=
+ b=M/SX8ZT8VJqSd5FaprrdYfM5moMY1XTLVecA/TSJauuZ6nARkTeKVwY9qCuFY6+bm7OaLrhz97a52FBZ+TvbTQpeX3M6R3q7UqRzVEwwJoTtPEhjl6x/RZ9f4cs0OaVZDqk80Jy2tTHTLz7kCpAFbC+zjluIUtP/1APPLW1ganE=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1780958048;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=9gFemFVrmoMvSMa4Ins8uwd1ZcaAF3uo054cZ58cGFQ=; 
- b=dKcXZb8HYEPMvpil7ocrLbEGtW+D5q2iDHNTC9SlO6RWl5FveqETMLivi7ST8dbS4SoUT5k641I773oilMyDYhyoTDrhhTfCFeU2wxNlPU5oJdXRlXn0RJwS467ZdYy+k5zZF4+MWVkXRaaH4lbpxEzrThlY74y7R7U33X04MNY=
+ s=zohoarc; t=1780958050;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=qJnJXQftFXbvQfqK6Gbj8JkqC6UiFNK9aTKUsO+DTfU=; 
+ b=iSHVus23SLQ0ehItFMkmu9teFlJJ25P3rBhPSByYxo3Ak6/9hb+wcoqcCVBb7iLXtXI7hLWhxC79k1TK+NXzU/ImJ7dQvsN8tru/H1tn1jPM+412JcUFLjq4m2uzi879ENBB9heCJuE7cO4A2C60ceKm7HCbHyQ0JharpzWb3J8=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780958048; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780958050; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
- bh=9gFemFVrmoMvSMa4Ins8uwd1ZcaAF3uo054cZ58cGFQ=;
- b=EUKb6AVDs45H0qQrHOpgv4gIhgsCv1txW28Ew2nnwi+sYoddIH0+Em2OmA5Waxks
- JidZ7BmyolUoy2+gI25aLXELngGXYJA1c31UfpAsHSEtJRbDZd3YVOEVLrvlRL9g9Wg
- wptp0+ulKqpGsWLCh7qLEBY1TdFoQn6KHX0qWVFs=
-Received: by mx.zohomail.com with SMTPS id 1780958046551846.2999318823079;
- Mon, 8 Jun 2026 15:34:06 -0700 (PDT)
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=qJnJXQftFXbvQfqK6Gbj8JkqC6UiFNK9aTKUsO+DTfU=;
+ b=Wkd59CPUqIWY+p+QwqmFqmVJRFa2JmyJ7GcER+PhL18xgxyyJWJw/SPHLetSMBUu
+ naFg5HZSruQ77cujIPxic0V2lFM1NT1/wkR9dhZFhkYifXEqvTSXGWfCvIn45L01x6b
+ csJ7YNf8ZPt4cpVEYOrO/KRfF+2oVeVuYzJgXSBY=
+Received: by mx.zohomail.com with SMTPS id 1780958049693770.8694267700916;
+ Mon, 8 Jun 2026 15:34:09 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Subject: [PATCH v2 0/2] drm/gpuvm: Delete some dead code and fix a comment
-Date: Mon, 08 Jun 2026 23:33:51 +0100
-Message-Id: <20260608-gpuvm-minor-fixes-v2-0-af07ef9ca969@collabora.com>
+Date: Mon, 08 Jun 2026 23:33:52 +0100
+Subject: [PATCH v2 1/2] drm/gpuvm: Remove dead code
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNQQ6DIBREr2JYFwOoFLvqPRoXX/xVGgEDatoY7
- 17U5cvMvNlIxGAwkke2kYCrica7BOKWET2A65GaLjERTEgmmaL9tKyWWuN8oG/zxUglVkxBB7U
- ogKTdFPAM0uzVXByX9oN6PkRHYzBx9uF3nq786F3+5OFFpXiZF6KW6l5STqELBlw+Qlhsi0/tx
- xFaHyDX3pJm3/c/2ezS9MMAAAA=
-X-Change-ID: 20260608-gpuvm-minor-fixes-6e508ada923a
+Message-Id: <20260608-gpuvm-minor-fixes-v2-1-af07ef9ca969@collabora.com>
+References: <20260608-gpuvm-minor-fixes-v2-0-af07ef9ca969@collabora.com>
+In-Reply-To: <20260608-gpuvm-minor-fixes-v2-0-af07ef9ca969@collabora.com>
 To: Danilo Krummrich <dakr@kernel.org>, 
  Matthew Brost <matthew.brost@intel.com>, 
  =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
@@ -60,18 +57,18 @@ Cc: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  kernel@collabora.com
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1261;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2710;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=NR/VdA5ta7BU4i+vmkMzBmN+rdsAORdS9m34a+5bdJQ=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqJ0NbU91aputjN8KOJ+tdkc5/BQTklaGF6TSsx
- M52U9T+KrCJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaidDWwAKCRAOJn5M7lND
- PbKGC/94iVU9dOl1+iCpkCcrTfZc6E6i7Zx3QsMHINdmYmc2SO0PfY1+ST2ai9mGK6Zbl/9zilb
- idMV/iq1E7WYR1neTvIzCIugF0ZAXemx4SHOZc6m6klQyDZzWs5Lgelppc24A1mMsEMS421pZoG
- qPsIEPoofz95kz3hEWqwFHL9pK4u6p7gjhWG4J/XrEvaK+jkG/Kix7Sl8M+L40q3N4KI8pvHcPy
- fk6qT8WSZfyc97s6g5jZ3ff+IrFtGGrLm5an+7B4U7iicFxg/NoVhu9QO8cB/A77xdvpbGUpRR0
- aDu8C6KzhE2q87MQhfE5Bi2kgFVvmcW4ZBpPsJaXZvz7qWUi+ug78fw6/nLynu0Hv5ItMLhBFyU
- THQKFaBX3AVaDDX6K44MmImJu5pqsb3UMU4oirQNvO9xJt/cJqOm4rkEggJaTa9DHqmaVJvKioU
- WwtF8tBF1btxVRrW2h252EGQp5bVK88Id624x8+YQ763lli8Z3kuiCbcnKdNjyxnJGaWY=
+ bh=XWnKemXD+9v9ZBfqaVPGYie/+sluydjkRyt9RIp1oyU=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqJ0NbyQftEgtnbfNtBpZHwv28oX9CDqfWb5cPS
+ TBs7/HCbe2JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaidDWwAKCRAOJn5M7lND
+ PSOjC/4psUTgLGoKXrpjGeh5nNTakPHDf9c6wQKd8UZ15MRoVnFrfdElIhS4cgGB5oeYrIdMA/k
+ 3Lk5gEAJMnBkr18obH4aIPUL7KiLCoGLK4y9R9eifURkedw7rI2hBaWksbOyByZg1N9m5CzaKa9
+ 8EhrkbCNFKOmN95PGRHSx6lc9pi93CzLWlv+DPg2jHLZn07PG7UbFjmfgljtPiWKa8SMThUvDkG
+ H81sjsT4QttD+BRB5IFxIx8boswf40lJ99fHD2MXFTptT7E5Fj9cA40/ZyHlOGKAKXwJhXt0uql
+ R2BhXAGr6wmieTd77g+8BZgd9ffiVqiEqDaeR9tyHl35yy2uH5zuKYRWA3gNVkacqsu2rDqHZCu
+ KPGoBnLyFejdZXk1e6pBEGosIudgwNKd7DIxyctB2zYiSu6NlbNrYlGL627te+BpWRmzVFCXxlr
+ /T5MAxfl7PiZJO+In2Td4+1WVQDldV9JROUn87NENMCQFgKdVFEkBHvANyEMpk8S3LvbA=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -89,40 +86,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Just some small fixes I made when reading drm_gpuvm.c.
+drm_gpuva_find_{prev|next}() have no consumers.
 
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
-Changes in v2:
-- Deleted even more dead code.
-- Link to v1: https://patch.msgid.link/20260508135814.3296874-1-adrian.larumbe@collabora.com
-
-To: Danilo Krummrich <dakr@kernel.org>
-To: Matthew Brost <matthew.brost@intel.com>
-To: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-To: Alice Ryhl <aliceryhl@google.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: kernel@collabora.com
-
----
-Adrián Larumbe (2):
-      drm/gpuvm: Remove dead code
-      drm/gpuvm: Fix comment to reflect remap operation operand status
-
  drivers/gpu/drm/drm_gpuvm.c | 44 --------------------------------------------
- include/drm/drm_gpuvm.h     |  4 ++--
- 2 files changed, 2 insertions(+), 46 deletions(-)
----
-base-commit: 6e7eb171ac96fefa32197afa658e7d9da238be89
-change-id: 20260608-gpuvm-minor-fixes-6e508ada923a
+ include/drm/drm_gpuvm.h     |  2 --
+ 2 files changed, 46 deletions(-)
 
-Best regards,
---  
-Adrián Larumbe <adrian.larumbe@collabora.com>
+diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
+index 078cbc0235a4..bb2847897527 100644
+--- a/drivers/gpu/drm/drm_gpuvm.c
++++ b/drivers/gpu/drm/drm_gpuvm.c
+@@ -2225,50 +2225,6 @@ drm_gpuva_find(struct drm_gpuvm *gpuvm,
+ }
+ EXPORT_SYMBOL_GPL(drm_gpuva_find);
+ 
+-/**
+- * drm_gpuva_find_prev() - find the &drm_gpuva before the given address
+- * @gpuvm: the &drm_gpuvm to search in
+- * @start: the given GPU VA's start address
+- *
+- * Find the adjacent &drm_gpuva before the GPU VA with given &start address.
+- *
+- * Note that if there is any free space between the GPU VA mappings no mapping
+- * is returned.
+- *
+- * Returns: a pointer to the found &drm_gpuva or NULL if none was found
+- */
+-struct drm_gpuva *
+-drm_gpuva_find_prev(struct drm_gpuvm *gpuvm, u64 start)
+-{
+-	if (!drm_gpuvm_range_valid(gpuvm, start - 1, 1))
+-		return NULL;
+-
+-	return drm_gpuva_it_iter_first(&gpuvm->rb.tree, start - 1, start);
+-}
+-EXPORT_SYMBOL_GPL(drm_gpuva_find_prev);
+-
+-/**
+- * drm_gpuva_find_next() - find the &drm_gpuva after the given address
+- * @gpuvm: the &drm_gpuvm to search in
+- * @end: the given GPU VA's end address
+- *
+- * Find the adjacent &drm_gpuva after the GPU VA with given &end address.
+- *
+- * Note that if there is any free space between the GPU VA mappings no mapping
+- * is returned.
+- *
+- * Returns: a pointer to the found &drm_gpuva or NULL if none was found
+- */
+-struct drm_gpuva *
+-drm_gpuva_find_next(struct drm_gpuvm *gpuvm, u64 end)
+-{
+-	if (!drm_gpuvm_range_valid(gpuvm, end, 1))
+-		return NULL;
+-
+-	return drm_gpuva_it_iter_first(&gpuvm->rb.tree, end, end + 1);
+-}
+-EXPORT_SYMBOL_GPL(drm_gpuva_find_next);
+-
+ /**
+  * drm_gpuvm_interval_empty() - indicate whether a given interval of the VA space
+  * is empty
+diff --git a/include/drm/drm_gpuvm.h b/include/drm/drm_gpuvm.h
+index 655bd9104ffb..f8fc0296c4b7 100644
+--- a/include/drm/drm_gpuvm.h
++++ b/include/drm/drm_gpuvm.h
+@@ -159,8 +159,6 @@ struct drm_gpuva *drm_gpuva_find(struct drm_gpuvm *gpuvm,
+ 				 u64 addr, u64 range);
+ struct drm_gpuva *drm_gpuva_find_first(struct drm_gpuvm *gpuvm,
+ 				       u64 addr, u64 range);
+-struct drm_gpuva *drm_gpuva_find_prev(struct drm_gpuvm *gpuvm, u64 start);
+-struct drm_gpuva *drm_gpuva_find_next(struct drm_gpuvm *gpuvm, u64 end);
+ 
+ /**
+  * drm_gpuva_invalidate() - sets whether the backing GEM of this &drm_gpuva is
+
+-- 
+2.53.0
 
