@@ -4,54 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E0E0CD8C92
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:41:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0266BCD8C92
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:41:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA16A10F613;
-	Mon,  8 Jun 2026 15:41:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5028F10F610;
+	Mon,  8 Jun 2026 15:41:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="oheAatLP";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="bsqFJjLm";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 497E710F613
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:41:25 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id C3797C5147B;
- Mon,  8 Jun 2026 15:41:23 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id AB9BD5FFB7;
- Mon,  8 Jun 2026 15:41:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id ED002106A2737; 
- Mon,  8 Jun 2026 17:41:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1780933281; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- in-reply-to:references; bh=yGOnMqKJMw/ydQNQDFBMggWDghRXv4f0XxOD1sItqDU=;
- b=oheAatLPbXPnsFhCVuN0kS9KdyeOpnw+JH0MvQdS289veqEd9jXAQAhjsK4aW14GPiDr8q
- jlL+JiVVjDkQV4AsGR5Cmz2zg2JSPjnyE5zeI5ncskmvIx6aQ658N5+7hm+rOEYrrMisVJ
- wjefiv6Q9Y3FQzftbL4KUJ1crv0YAB2nLvaKeRywrSBiC+ntn/KGAvB22D5+WoL+oQFspC
- WjTV7KUmc0nIbuYISnn6Bz6ebR5DOdJzDXD6K3ftCCuIrMdBTxj3wVNus9r5eHshNv25EZ
- ZBV6CiDX7+FUnHaYVF6xGfh+D3uXErjVMilYsR7ZZ7VOEX4sLXr4M6J98xvtIw==
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Paul Kocialkowski <paulk@sys-base.io>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm/logicvc: Avoid use-after-free with devm_kzalloc()
-Date: Mon, 08 Jun 2026 17:41:11 +0200
-Message-ID: <5Q6YIC1WTqOFVMFErYGBEQ@bootlin.com>
-In-Reply-To: <20260601-ultra-wapiti-of-imagination-ba59e8@houat>
-References: <20260601-logicvc-uaf-v1-1-8c9ca5b3429c@bootlin.com>
- <20260601-ultra-wapiti-of-imagination-ba59e8@houat>
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E83B10F610
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:41:38 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gYx9C21dnz9tF2;
+ Mon,  8 Jun 2026 17:41:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1780933295; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=e/n93OVN0OBZymLyeMzrxKX1SjKNrjZM+CA4BofRCGM=;
+ b=bsqFJjLmtqFvBBDB6Wcseg0z4mPhEmcgVfGtQfoQKknl91tQ/D6BSiYIM1C6oPb3W0o2/l
+ uH/fKyfcaI8RVvLYGmGOiFgUvrG7ie/gvbrgAFqWuXI1nzqtBcsYx4vUPWFFcRu5J48At9
+ 0EErSdFsQsKrAIlmA2oenxlDbQkWWjLpJSyhDq38nJu0/ExvKJK5BXZh7gO+Z1iLoR8M5g
+ dEAnGorvQqqXjddiiZHKqB9b+vFKZ0xXQc0UzicJlbJQqbCh7Qg3VyR2qSzdC6nJkLCYJj
+ Hd9OBZNk9hKG3FZllPFvElddJXcf/b4+WYTXyW5GOcq1B6RQx5CPCTunerGmBQ==
+Message-ID: <fa9a335196525adbc03ec21b2e05bb526e4fc174.camel@mailbox.org>
+Subject: Re: [RFC PATCH] dma-fence: Fix races of fence callbacks versus
+ destructors by locking
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Philipp
+ Stanner <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Boris
+ Brezillon	 <boris.brezillon@collabora.com>, Alice Ryhl
+ <aliceryhl@google.com>, Daniel Almeida <dwlsalmeida@gmail.com>, Gary Guo
+ <gary@garyguo.net>, Tvrtko Ursulin	 <tvrtko.ursulin@igalia.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>
+Date: Mon, 08 Jun 2026 17:41:31 +0200
+In-Reply-To: <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
+References: <20260608142436.265820-2-phasta@kernel.org>
+ <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPartuGU-zTcuSqG5rLu8I8MPMg";
- micalg="pgp-sha512"; protocol="application/pgp-signature"
-X-Last-TLS-Session-Version: TLSv1.3
+X-MBO-RS-ID: 2b0f51029192d8410ea
+X-MBO-RS-META: rdqnwfxpr89366ayc8zgswfgsgjb9xod
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,83 +67,228 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---nextPartuGU-zTcuSqG5rLu8I8MPMg
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: Maxime Ripard <mripard@kernel.org>
-Subject: Re: [PATCH] drm/logicvc: Avoid use-after-free with devm_kzalloc()
-Date: Mon, 08 Jun 2026 17:41:11 +0200
-Message-ID: <5Q6YIC1WTqOFVMFErYGBEQ@bootlin.com>
-In-Reply-To: <20260601-ultra-wapiti-of-imagination-ba59e8@houat>
-MIME-Version: 1.0
+On Mon, 2026-06-08 at 17:35 +0200, Christian K=C3=B6nig wrote:
+> On 6/8/26 16:24, Philipp Stanner wrote:
+> > The dma_fence backend_ops can access a fence. Hereby, a driver callback
+> > will be running which likely will access driver specific data through
+> > container_of(). If now, simultaneously, a driver signals the fence and
+> > afterwards expects to run a driver specific destructor (using the same
+> > data accessed through container_of()), there can be a race.
+> >=20
+> > A driver very likely trusts that once it has signaled a fence, no one
+> > will be accessing it anymore. Moreover, it might already want to free u=
+p
+> > resources, making UAF bugs possible.
+> >=20
+> > The race occurs because there are only pragmatic checks for the signale=
+d
+> > flag of a fence, without taking the fence lock. RCU guards exist, but
+> > their purpose is to guard accesses through the backend_ops callbacks
+> > against the driver (which implements the TEXT segment these callbacks
+> > live in) from unloading.
+> >=20
+> > Proper synchronization can be ensured by taking the fence lock. RCU is
+> > still simultaneously required to guard against the unload.
+> >=20
+> > Fix the races by taking the lock for all non-deprecated backend_ops
+> > callbacks.
+>=20
+> That sounds like the fundamentally wrong approach to me.
+>=20
+> The lock protects the dma_fence signaling state and *NOT* any driver
+> state, so it should not be used to protect any driver state.
+>=20
+> Drivers need to make sure that they protect their driver state with
+> separate lock and don't rely on the dma_fence lock for this. This is
+> actually the core of why we want to deprecate the shared dma_fence
+> spinlock.
 
-Hi Maxime,
+It's not so much about protecting data, it's about correctness:
 
-On Monday, 1 June 2026 09:11:21 CEST Maxime Ripard wrote:
-> Hi,
-> 
-> On Mon, Jun 01, 2026 at 08:52:44AM +0200, Romain Gantois wrote:
-> > The logicvc driver calls drm_universal_plane_init(),
-> > drm_crtc_init_with_planes(), and drm_encoder_alloc(). These functions
-> > should not be called with structs allocated with devm_kzalloc(), as this
-> > can lead to use-after-free bugs. In fact, a use-after-free caused by this
-> > has been observed on a v6.6 kernel.
-> > 
-> > Use DRM-managed allocations instead for panel, CRTC and encoder objects.
-> > 
-> > Found using KASAN.
-> > 
-> > Fixes: efeeaefe9be56 ("drm: Add support for the LogiCVC display
-> > controller") Cc: stable@vger.kernel.org
-> > Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
-> 
-> You're only partially fixing the issue. You also need to protect any
-> device resource (register mapping, clocks, etc) are no longer accessed
-> after the device has been removed, and this is typically done using
-> drm_dev_enter/exit.
+A driver that calls
 
-Sorry there's something which I don't quite understand: is this a new issue 
-which is specifically introduced by my changes in this series, or a different 
-issue in this driver which isn't handled by my series?
+dma_fence_signal(f)
 
-IIUC all I'm doing here is just letting the drmm code handle cleaning up the 
-plane, crtc, etc. objects instead of doing it "by hand" with devm_kzalloc. Why 
-does this make it necessary to add additional protection of driver resources?
+expects that after signalling, no callback will be running into the
+driver again. It's a fix synchronization point.
 
-Thanks,
+Only the fence lock can grant such synchronization.
 
--- 
-Romain Gantois, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Positive effects would be:
 
---nextPartuGU-zTcuSqG5rLu8I8MPMg
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
+1. Drivers can do their cleanup immediately, without having to wait for
+a grace period
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEIcCsAScRrtr7W0x0KCYAIARzeA4FAmom4pcACgkQKCYAIARz
-eA7+eg/+O47Ty0diNzEC4oWVcVq/SUIL6d6Q8Jdi2zabL+pt8Og8dN76aryWrUgM
-vMkF1SkR+F24DI6cilixpB2JcYFY/4hJy760QrPKWFNeTbW8C0Z6z+bqUTdjKCFE
-Zu7aqrsHVakLpJlshCSgQ1lvftxP+uK2XQa+3b/FOdfm3uiQKacfNdVWwxqbgy3B
-ck8Kw+rGI7ynqS9XmQ2vbcKlvfG1LgVKyessDWXNRsPX7dDbg+KC99epmKQQkuT/
-SIx64W9z4q90cCpjJ4EAHOWrFTex9MNYU99xMjvSacSsYZuXLVUw27CdV9N6EAw6
-6Waszf///OZ+c6B3Mhr/uB9gqg9h8E0kci5E2kaHVCDl3PnyquJVnbV8wwnKvKsB
-GmSWyF1urLDJCIaRmQxs/gA67bEZvZ51wRMuUCTnVkYShGeVTpf5xUdASFQGILsY
-5y6XKRl2kOavJVXEB+MlA7GCc8k53xj3BBiAuvUp5YYooOzjSaqMIbzTIOREDCC1
-/m7ENYPUnWCHh0z6dgPRR17S6UiLKyNzY0NIVv91JIMGlyOODNbQFTt7TS1Z8HO1
-f4121ntjOMukWX2kbJ882R8gGVgma8iDo45ft30BsFm9gm9wHEZsSCkkVi/xOnNM
-cBTcldtZmhsX1Ealzr+r8xt0Ofq9rgdCkx1syIGUag7pTovNEvw=
-=QlMw
------END PGP SIGNATURE-----
-
---nextPartuGU-zTcuSqG5rLu8I8MPMg--
+2. Drivers could be sure that their driver_fence data, allocated
+together with fence and accessed through container_of(fence), is not
+being accessed anymore.
 
 
+I see only advantages. Safer, faster. :)
 
+P.
+
+>=20
+> Regards,
+> Christian.
+>=20
+> >=20
+> > Conveniently, this also fixes a race where backend_ops->set_deadline()
+> > might try to set a deadline for an already signaled fence.
+> >=20
+> > Suggested-by: Danilo Krummrich <dakr@kernel.org>
+> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> > ---
+> > We discovered this problem through our Rust abstractions, but it can
+> > also occur in C.
+> >=20
+> > The by far cleanest solution seems to be to use the fence lock. This RF=
+C
+> > serves to discuss whether there is anything preventing that.
+> >=20
+> > (Patch so far just compile tested, to have some groundlayer for the
+> > rough idea, to discuss it first)
+> > ---
+> > =C2=A0drivers/dma-buf/dma-fence.c | 39 ++++++++++++++++++++++++++++----=
+-----
+> > =C2=A0include/linux/dma-fence.h=C2=A0=C2=A0 | 17 ++++++++++++----
+> > =C2=A02 files changed, 43 insertions(+), 13 deletions(-)
+> >=20
+> > diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> > index c7ea1e75d38a..b74f02f3cca8 100644
+> > --- a/drivers/dma-buf/dma-fence.c
+> > +++ b/drivers/dma-buf/dma-fence.c
+> > @@ -629,7 +629,8 @@ EXPORT_SYMBOL(dma_fence_free);
+> > =C2=A0static bool __dma_fence_enable_signaling(struct dma_fence *fence)
+> > =C2=A0{
+> > =C2=A0	const struct dma_fence_ops *ops;
+> > -	bool was_set;
+> > +	bool was_set, success;
+> > +	unsigned long flags;
+> > =C2=A0
+> > =C2=A0	dma_fence_assert_held(fence);
+> > =C2=A0
+> > @@ -644,7 +645,10 @@ static bool __dma_fence_enable_signaling(struct dm=
+a_fence *fence)
+> > =C2=A0	if (!was_set && ops && ops->enable_signaling) {
+> > =C2=A0		trace_dma_fence_enable_signal(fence);
+> > =C2=A0
+> > -		if (!ops->enable_signaling(fence)) {
+> > +		dma_fence_lock_irqsave(fence, flags);
+> > +		success =3D ops->enable_signaling(fence);
+> > +		dma_fence_unlock_irqrestore(fence, flags);
+> > +		if (!success) {
+> > =C2=A0			rcu_read_unlock();
+> > =C2=A0			dma_fence_signal_locked(fence);
+> > =C2=A0			return false;
+> > @@ -1020,11 +1024,20 @@ EXPORT_SYMBOL(dma_fence_wait_any_timeout);
+> > =C2=A0void dma_fence_set_deadline(struct dma_fence *fence, ktime_t dead=
+line)
+> > =C2=A0{
+> > =C2=A0	const struct dma_fence_ops *ops;
+> > +	unsigned long flags;
+> > =C2=A0
+> > =C2=A0	rcu_read_lock();
+> > =C2=A0	ops =3D rcu_dereference(fence->ops);
+> > -	if (ops && ops->set_deadline && !dma_fence_is_signaled(fence))
+> > +	if (!ops || !ops->set_deadline) {
+> > +		rcu_read_unlock();
+> > +		return;
+> > +	}
+> > +
+> > +	dma_fence_lock_irqsave(fence, flags);
+> > +	if (!dma_fence_is_signaled_locked(fence))
+> > =C2=A0		ops->set_deadline(fence, deadline);
+> > +
+> > +	dma_fence_unlock_irqrestore(fence, flags);
+> > =C2=A0	rcu_read_unlock();
+> > =C2=A0}
+> > =C2=A0EXPORT_SYMBOL(dma_fence_set_deadline);
+> > @@ -1166,14 +1179,18 @@ EXPORT_SYMBOL(dma_fence_init64);
+> > =C2=A0 */
+> > =C2=A0const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
+> > =C2=A0{
+> > +	const char __rcu *name =3D "detached-driver";
+> > =C2=A0	const struct dma_fence_ops *ops;
+> > +	unsigned long flags;
+> > =C2=A0
+> > =C2=A0	/* RCU protection is required for safe access to returned string=
+ */
+> > =C2=A0	ops =3D rcu_dereference(fence->ops);
+> > +	dma_fence_lock_irqsave(fence, flags);
+> > =C2=A0	if (!dma_fence_test_signaled_flag(fence))
+> > -		return (const char __rcu *)ops->get_driver_name(fence);
+> > -	else
+> > -		return (const char __rcu *)"detached-driver";
+> > +		name =3D ops->get_driver_name(fence);
+> > +	dma_fence_unlock_irqrestore(fence, flags);
+> > +
+> > +	return name;
+> > =C2=A0}
+> > =C2=A0EXPORT_SYMBOL(dma_fence_driver_name);
+> > =C2=A0
+> > @@ -1199,13 +1216,17 @@ EXPORT_SYMBOL(dma_fence_driver_name);
+> > =C2=A0 */
+> > =C2=A0const char __rcu *dma_fence_timeline_name(struct dma_fence *fence=
+)
+> > =C2=A0{
+> > +	const char __rcu *name =3D "signaled-timeline";
+> > =C2=A0	const struct dma_fence_ops *ops;
+> > +	unsigned long flags;
+> > =C2=A0
+> > =C2=A0	/* RCU protection is required for safe access to returned string=
+ */
+> > =C2=A0	ops =3D rcu_dereference(fence->ops);
+> > +	dma_fence_lock_irqsave(fence, flags);
+> > =C2=A0	if (!dma_fence_test_signaled_flag(fence))
+> > -		return (const char __rcu *)ops->get_driver_name(fence);
+> > -	else
+> > -		return (const char __rcu *)"signaled-timeline";
+> > +		name =3D ops->get_driver_name(fence);
+> > +	dma_fence_unlock_irqrestore(fence, flags);
+> > +
+> > +	return name;
+> > =C2=A0}
+> > =C2=A0EXPORT_SYMBOL(dma_fence_timeline_name);
+> > diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> > index b52ab692b22e..b93c3f7f69fb 100644
+> > --- a/include/linux/dma-fence.h
+> > +++ b/include/linux/dma-fence.h
+> > @@ -547,20 +547,29 @@ static inline bool
+> > =C2=A0dma_fence_is_signaled(struct dma_fence *fence)
+> > =C2=A0{
+> > =C2=A0	const struct dma_fence_ops *ops;
+> > +	unsigned long flags;
+> > +	bool signaled;
+> > =C2=A0
+> > =C2=A0	if (dma_fence_test_signaled_flag(fence))
+> > =C2=A0		return true;
+> > =C2=A0
+> > =C2=A0	rcu_read_lock();
+> > =C2=A0	ops =3D rcu_dereference(fence->ops);
+> > -	if (ops && ops->signaled && ops->signaled(fence)) {
+> > +	if (!ops || !ops->signaled) {
+> > =C2=A0		rcu_read_unlock();
+> > -		dma_fence_signal(fence);
+> > -		return true;
+> > +		return false;
+> > =C2=A0	}
+> > +
+> > +	dma_fence_lock_irqsave(fence, flags);
+> > +	signaled =3D ops->signaled(fence);
+> > +
+> > +	if (signaled)
+> > +		dma_fence_signal_locked(fence);
+> > +
+> > +	dma_fence_unlock_irqrestore(fence, flags);
+> > =C2=A0	rcu_read_unlock();
+> > =C2=A0
+> > -	return false;
+> > +	return signaled;
+> > =C2=A0}
+> > =C2=A0
+> > =C2=A0/**
