@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 210F7CD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:39:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C56CCD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:39:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7543110F505;
-	Mon,  8 Jun 2026 14:39:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11D4710F4FD;
+	Mon,  8 Jun 2026 14:39:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Lp4wlwQp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OTS7/Oc0";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DC2C10F504
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:39:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28C9B10F505
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:39:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 66DF343C2C;
- Mon,  8 Jun 2026 14:39:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC14A1F00893;
- Mon,  8 Jun 2026 14:39:09 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 129B4439F1;
+ Mon,  8 Jun 2026 14:39:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 772501F00893;
+ Mon,  8 Jun 2026 14:39:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780929550;
- bh=gYZf1ZSLKidaGLTUJJikyt/NFIKxJqatogmOTfb8lJk=;
+ s=k20260515; t=1780929553;
+ bh=Lf535QyZCex7JQ2a7o9ANcaV5PHkieAcb90gA4YNnns=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Lp4wlwQpxe0rdXTOU5lXa9pFoRBHE3W9pJ207eH0Ch6YQBrkFVxqI2jG4emdhZpjO
- xcatyr1xwViw5WfxwaXuDrBounB3I1ZIVtPKC8ychESoyMu2vdCiW1N24QzbRBSppL
- tdw71QYbepXrUyTn6Uy+bc0TwyTgvKSHkcDLH+qzbLO40dlQgz4IC/LAE2DbUnAMRw
- I3UttZK416tsG6Fz27bYPNlH8/xHri8AIeTmxm7ae0XtiJwyiYv2b97U6sgSQbG222
- G3hL0WSbT/puCrR0DjFss7iuw59r7E9s5z0HOF+ue9d2aLNXF1UNwg8f2hXk4qQhC0
- Uj9YjZiVocKEA==
+ b=OTS7/Oc0ZYGPWyeDSnb1PR540GpgXLhvVT4BjctVKGzY2XVQVShJ4f6BEVovvDalU
+ ZmZf6k7gbbyN+HahF8DQgHAEWXlepjy+xVljOxEiqlE+/GJC7hfTHRzVqInPDwK46z
+ axZR9R8LMrWY92/84gcveNBrYSV55hEwNXMQ0ePCecoc7CYaGT8T5etpeOw4kmhYIb
+ BrbZb6HiSZ/7SPZVlTBSMS1QCwyUz3SkSS4fM2vLJtNyv0OgH0S0S7qdft5qc5eyAZ
+ 3LgvVzi0qhX69i1zwMWPPkWaopcSjoBG9XYTQm7vYkn9V3AuU1qu1IznmUhkVwskv1
+ TQ2Zu7cwEIT0g==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 08 Jun 2026 16:36:43 +0200
-Subject: [PATCH v2 61/78] drm/renesas: rcar-du: lvds: Switch to
+Date: Mon, 08 Jun 2026 16:36:44 +0200
+Subject: [PATCH v2 62/78] drm/renesas: rcar-du: mipi_dsi: Switch to
  atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260608-drm-no-more-bridge-reset-v2-61-0a91018bf886@kernel.org>
+Message-Id: <20260608-drm-no-more-bridge-reset-v2-62-0a91018bf886@kernel.org>
 References: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -57,12 +57,12 @@ Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org,
  Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
  linux-renesas-soc@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1730; i=mripard@kernel.org;
- h=from:subject:message-id; bh=dGURqbE4HepT4WvbzLd9xdUA1rIAFCGuCcyl1XW5eiY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlql+O1c//wNbw+n1OwWWH3x0kLDsrOfVYy796PPUuZO
- Z21z22f0zGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAmkrmSsWH3dtkmHrfDrLeL
- jj2qqD2cF7tA7dD+eUmb5gVM28p42zvhuMZXxUi7gzO8g4/d6FL748TYcGv1rIDjuc4HcvMDdzJ
- 0ftB3Cf9narcw+jLzY21Jn748xtumx6rve9ln6VnOE7fh2GQBAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1751; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=bacVvb6kDoR91wSeLjd3x7j+m9ph7MurfY3FVR33UKk=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlqlxM8LCJPrBMWy2oXueitJnNP/n74GrvFUb6G2iknC
+ p6JbanrmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABPx7Gds2MMceCD+m8nPx2pL
+ xPfJ2Wuv+9Qd93LShM2Hl9tcWj6j0/vmyihuzQUyvf3fyvpdPzmKMDY8ff/JPVdigfeR5nfGx99
+ Gm0scX+5j+7J49nOP5L6L519t2v97x69PYXt6Uo4YyhwKNCwHAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -98,24 +98,24 @@ Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
 Cc: dri-devel@lists.freedesktop.org
 Cc: linux-renesas-soc@vger.kernel.org
 ---
- drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c | 2 +-
+ drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c b/drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c
-index 154410745a74..e433ce61d431 100644
---- a/drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c
-@@ -656,11 +656,11 @@ static int rcar_lvds_attach(struct drm_bridge *bridge,
- static const struct drm_bridge_funcs rcar_lvds_bridge_ops = {
- 	.attach = rcar_lvds_attach,
- 	.destroy = rcar_lvds_destroy,
+diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+index aaafee1c060b..6e46d6d99f3c 100644
+--- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
++++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+@@ -922,11 +922,11 @@ rcar_mipi_dsi_bridge_mode_valid(struct drm_bridge *bridge,
+ 
+ static const struct drm_bridge_funcs rcar_mipi_dsi_bridge_ops = {
+ 	.attach = rcar_mipi_dsi_attach,
  	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
  	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 -	.atomic_reset = drm_atomic_helper_bridge_reset,
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.atomic_enable = rcar_lvds_atomic_enable,
- 	.atomic_disable = rcar_lvds_atomic_disable,
- 	.mode_fixup = rcar_lvds_mode_fixup,
+ 	.atomic_enable = rcar_mipi_dsi_atomic_enable,
+ 	.atomic_disable = rcar_mipi_dsi_atomic_disable,
+ 	.mode_valid = rcar_mipi_dsi_bridge_mode_valid,
  };
  
 
