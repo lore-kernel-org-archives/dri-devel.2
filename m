@@ -4,54 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 658C0CD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 06:26:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23485CD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 06:29:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC74710ED6C;
-	Mon,  8 Jun 2026 06:26:43 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC46A10ED6C
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 06:26:41 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.15])
- by APP-01 (Coremail) with SMTP id qwCowADXetObYCZqKtDfAA--.1056S2;
- Mon, 08 Jun 2026 14:26:35 +0800 (CST)
-Message-ID: <335c237d2636764948e629dbab0b5b747ac48fa5.camel@iscas.ac.cn>
-Subject: Re: [PATCH v3 4/5] drm/verisilicon: add Nuvoton MA35D1 DCU Lite
- display controller support
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 08 Jun 2026 14:26:35 +0800
-In-Reply-To: <20260608023237.305036-5-a0987203069@gmail.com>
-References: <20260608023237.305036-1-a0987203069@gmail.com>
- <20260608023237.305036-5-a0987203069@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6789110ED72;
+	Mon,  8 Jun 2026 06:29:23 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="YyMHghlU";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZS0BZUap";
+	dkim-atps=neutral
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1548610ED73
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 06:29:22 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6586Ovqs2833010
+ for <dri-devel@lists.freedesktop.org>; Mon, 8 Jun 2026 06:29:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ esF80riE2NJ0vmPT5A+P8qHkNdHWZ6xrNpQUTG/GXy8=; b=YyMHghlUQB6i4X3I
+ t2CdX9EqHomm1RojV74wx7KJVpRMi0IdJFIRis8T5jGaoDgfZ5V13tQTCeDocDFf
+ Bx18eRat3LK2Tg1bE69t56Ze+hPivF/DU7Az3ibicAG1tPO+btBLtXWMzFsTuPQZ
+ 9Ty5tec2uT5DWrfprsj/FS4vx+dUvLaA8Fr5QhejKVN+9tk0KbwPrbkM0xVLIcMU
+ 4syqDRA0+EHO4hXKAjhPQRyUuqzblypBYnOi0t9h4xB2U8SO2U+9O/XalNvK4ohC
+ qZWrLB34aE3jLbVlYnk/z86kxyP2BSN+chiQI8dMZDNSB5g7/9OahZus69KYxUkB
+ dgedbg==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4embmreakh-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 06:29:21 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2c0c36f4b76so41619925ad.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 23:29:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1780900160; x=1781504960;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:cc:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=esF80riE2NJ0vmPT5A+P8qHkNdHWZ6xrNpQUTG/GXy8=;
+ b=ZS0BZUappb90Jk3XxZTm3ODUsx5gY1m+EhXq8jbLvIiZlKClWd69fPXCFMCkV30eCZ
+ No8gP5AB/CqI3S14rklJniiXmTfBpQuN81BHe7muKn5OA7f11lFtLPN1Gm6lxalt3Evt
+ vmw0vS56p8KCWeu0HGfv1jhG0QE4f3q+qvIPohnQ02365QRnAwo89PDAj/1wvrliLAdj
+ KRxYcCI7KOpXU8SLOFy2npXZYny1/HDHVQeUvDYGYdnO4EfoSFqF3Iu+ejGx0xaIQZBL
+ F8P0RSWq4iaosSbeF+cyWFpzvO1SlEwJpX1NG6jtDqcL7xowFocT9CMJMeWCmHCnQgma
+ 46RA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780900160; x=1781504960;
+ h=content-transfer-encoding:in-reply-to:from:cc:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=esF80riE2NJ0vmPT5A+P8qHkNdHWZ6xrNpQUTG/GXy8=;
+ b=GZmIKpGR6/uiKSoixqsyehGtJa0TMp0jjHfF+NdqTUtSGjnzPPiefx5MkdE9jm2/Yr
+ K6bu614LT+dEUKo8mojN9MR90rdA5AZ/EFX6wR93ZNWUkhO2xlHPUAl6LWjkwaFy2dt4
+ jzEGSp4U58DrbSYda47qA656CwrVSX3JvXDchD0yxB/pINP20TXTEmQ3NKZm0fExt0r+
+ PESgoFD9Kjwr3vrc4WRXAPWjGHb7ZlEBT6S1ezq3VBiDGjQ8DrF/WMNQuDjiH2L0udsl
+ r9uNLVcuZzyrBje2g1FMu2fZNwkIh215VIJAMbLUlCilOQNAMXJzneMSBdfjz3rU2Sai
+ PElQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8FSV3wajgvhXg9pQk3HNLFUUl0lHcpXvmWm53rUZL1IIClG+HDio4itCCCfh/NVoV8SwPzgFmgkcM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzOi8ap4D4pRlqOGcHl62caSnTOwHR6YDZ2AUlrhYpjaSKGPxGd
+ /q2u957Prn5s9IVDN1QYHdJOdR0i3why2l8YQ4sSFnukIhGo76wKpydENW8hMa+jcL77WEhJKkI
+ dkqh+oJxNbXopqtmoq9osL/NIx3J/iv3u/RFmi9rhcxRPPtm6hSUd8uofXnhQIbXperFDIG0=
+X-Gm-Gg: Acq92OGT4eRAQ7a9gMKUe9MMPwzbhYt2GlKIKV1v5LQs/2Mz2BuKlDe5PCiV6170KPR
+ Ex59em604HaN+4muq90MV4hmFuUhXGSUDa8Ssu3iHxmXKaMpVtEyKhW89gj7s8ic5CCfOwdlAyG
+ VHPTnBSNsF1lmrqawyeTvvW5UDfp2Pq71WBX75ekP3ejiKCQiD1Td2zRbabNF9Zid41l3rXNCx9
+ cAsFklSMFPaISThT8yiomlIkKYJwToS3RHj1QzaPGbiSeqLTuDbBPfgz5Lei4hBtva7Uo6gumRQ
+ bJhHqoWaXNxlp/DJ+Du3WlF7l/fxYCSh4bUf1iEsxbxaYovPz9tY6FBcPqfkk3Q24E7o5lcIaqN
+ CeOqOKbADsZJ7WwGc2JbWSqKFNJQbBEbCGl9YVU+qSUbrYDVnxHwGeqaaTRmjf/YoEGVmvMbsmW
+ 9xFKq44IgAVGqHB0P55MX3Qjaf50k=
+X-Received: by 2002:a17:903:4b50:b0:2bc:b80f:6782 with SMTP id
+ d9443c01a7336-2c1e821dd0bmr141753745ad.11.1780900160072; 
+ Sun, 07 Jun 2026 23:29:20 -0700 (PDT)
+X-Received: by 2002:a17:903:4b50:b0:2bc:b80f:6782 with SMTP id
+ d9443c01a7336-2c1e821dd0bmr141753315ad.11.1780900159601; 
+ Sun, 07 Jun 2026 23:29:19 -0700 (PDT)
+Received: from [10.133.33.209] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2c164f6dc92sm157118725ad.13.2026.06.07.23.29.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 07 Jun 2026 23:29:19 -0700 (PDT)
+Message-ID: <ddeff296-abc0-4e1b-a721-761e2cbd331d@oss.qualcomm.com>
+Date: Mon, 8 Jun 2026 14:29:13 +0800
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowADXetObYCZqKtDfAA--.1056S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxtr18Wr1rGrW5uFW7Aw17Awb_yoW3Ww15pF
- Wvyay8Wr4UJa4I9r9rJry8KF98Aw1xtayrW3y8W3s093s0yFyUWFW0kFyUAFWkWr97AF1I
- qr4v9w47CFW7ZFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
- C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
- MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
- 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
- 67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
- x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
- z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
- UI43ZEXa7IU5IAp7UUUUU==
-X-Originating-IP: [112.94.101.15]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 3/5] misc: fastrpc: Fail Audio PD init when reserved
+ memory is missing
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260602071750.526-1-jianping.li@oss.qualcomm.com>
+ <20260602071750.526-4-jianping.li@oss.qualcomm.com>
+ <bcm2eufawifaq65i5qlqmbam4wtv2du5re6c54tiamdbynmras@lbfd44kjb6da>
+Content-Language: en-US
+Cc: srini@kernel.org, amahesh@qti.qualcomm.com, arnd@arndb.de,
+ Greg KH <gregkh@linuxfoundation.org>, abelvesa@kernel.org,
+ jorge.ramirez@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, quic_chennak@quicinc.com,
+ stable@kernel.org
+From: Jianping Li <jianping.li@oss.qualcomm.com>
+In-Reply-To: <bcm2eufawifaq65i5qlqmbam4wtv2du5re6c54tiamdbynmras@lbfd44kjb6da>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA1NiBTYWx0ZWRfXxjXyTRvJT0ZI
+ DcGhrR9pD/icbLoVm+zAHjNXhACh9jZl1g41owoYNRj6FapEVf3cCvNwCgNmxxYfTcuHkZ0SC35
+ douzZjWsrEr/Px2u/GLh0N1euAI9OWxWWIiid1J2spqhy8RXefriZTpyVj2z1npjNqyTipAFHE4
+ Ns1HegHlBctnIe1q6UXVMXQOsY9nFjul41ColemFC8DixeyAFJmO3SuRgRqJYBr32JjRzHHx1tr
+ 9fvh/v3OR26Q97RrwTg57epD3U10IsFbw73skRqcfxkfYDLePGgJ/ukGfVRPSVasfpXLsN+T3Wg
+ 2n8AAv/3Qkcs9uOdAS9H2BISGQ8LPhrdBr92pSGYynJstMXr7d+oZ7uu8iJIgr9shR3l4BVvo3j
+ vIbF9D0U3330fPj8PDjMzwZgr8gCvwKiGlYQEhnIJ6Agutt/cUNrqbEZCui+ts0BV6bdQmBmXDe
+ i83Y9dlbqBwmWasyJ/A==
+X-Authority-Analysis: v=2.4 cv=B5eJFutM c=1 sm=1 tr=0 ts=6a266141 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=np7A-RzQJBVldtc5gtwA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-GUID: Afian6s5CnuPKCjBA82gAY-ekZY_mHn7
+X-Proofpoint-ORIG-GUID: Afian6s5CnuPKCjBA82gAY-ekZY_mHn7
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-08_02,2026-06-05_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 spamscore=0 malwarescore=0 phishscore=0
+ bulkscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080056
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,234 +148,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-06-08=E4=B8=80=E7=9A=84 10:32 +0800=EF=BC=8CJoey Lu=E5=86=99=
-=E9=81=93=EF=BC=9A
-> The Nuvoton MA35D1 SoC integrates a Verisilicon DCUltraLite display
-> controller whose register layout differs from the DC8200 in several
-> important ways:
->=20
-> 1. No CONFIG_EX commit path: framebuffer updates use the enable (bit
-> 0)
-> =C2=A0=C2=A0 and reset (bit 4) bits in FB_CONFIG instead of the DC8200 st=
-aging
-> =C2=A0=C2=A0 registers (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT,
-> =C2=A0=C2=A0 FB_BLEND_CONFIG, PANEL_CONFIG_EX).
->=20
-> 2. No PANEL_START register: panel output starts when
-> =C2=A0=C2=A0 PANEL_CONFIG.RUNNING is set; there is no multi-display sync =
-start
-> =C2=A0=C2=A0 register.
->=20
-> 3. Different IRQ registers: DCUltraLite uses DISP_IRQ_STA (0x147C) /
-> =C2=A0=C2=A0 DISP_IRQ_EN (0x1480) versus DC8200's TOP_IRQ_ACK (0x0010) /
-> =C2=A0=C2=A0 TOP_IRQ_EN (0x0014).
->=20
-> 4. Per-frame commit cycle: DCUltraLite requires the VALID bit in
-> =C2=A0=C2=A0 FB_CONFIG to be set at the start of each atomic commit
-> (crtc_begin)
-> =C2=A0=C2=A0 and cleared after (crtc_flush).
->=20
-> 5. Simpler clock topology: only 'core' (bus gate) and 'pix0' (pixel
-> =C2=A0=C2=A0 divider) clocks; no axi or ahb clocks required.=C2=A0 Make a=
-xi_clk and
-> =C2=A0=C2=A0 ahb_clk optional (devm_clk_get_optional_enabled) so DCUltraL=
-ite
-> =C2=A0=C2=A0 nodes without those clocks are handled gracefully.
->=20
-> Add vs_dcu_lite.c implementing the vs_dc_funcs vtable for the above
 
-Nitpick: could you use vs_dc8000 to make things more aligned? (Although
-I must admit that DCUltraLite is the first revision to be supported in
-this codepath).
+On 6/8/2026 2:11 PM, Dmitry Baryshkov wrote:
+> On Tue, Jun 02, 2026 at 03:17:48PM +0800, Jianping Li wrote:
+>> Audio PD static process creation assumes that a reserved-memory
+>> region is defined in DT and exposed via cctx->remote_heap.
+>>
+>> If reserved-memory is missing or incomplete, the driver may pass
+>> invalid address/size information to the DSP, leading to undefined
+>> behavior or crashes.
+>>
+>> Add explicit validation for remote_heap presence and size before
+>> sending the memory to DSP, and fail early if the configuration is
+>> invalid.
+>>
+>> Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
+>> Cc: stable@kernel.org
+>> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+>> ---
+>>   drivers/misc/fastrpc.c | 7 +++++++
+>>   1 file changed, 7 insertions(+)
+>>
+>> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+>> index a8a58f889d07..f46a8f53970d 100644
+>> --- a/drivers/misc/fastrpc.c
+>> +++ b/drivers/misc/fastrpc.c
+>> @@ -1354,6 +1354,13 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+>>   	} inbuf;
+>>   	u32 sc;
+>>   
+>> +	if (!fl->cctx->remote_heap ||
+>> +	    !fl->cctx->remote_heap->dma_addr ||
+>> +	    !fl->cctx->remote_heap->size) {
+>> +		err = -ENOMEM;
+>> +		dev_dbg(fl->sctx->dev, "remote heap memory region is not added\n");
+>> +		return err;
+>> +	}
+> Won't this check without the next commit break the kernel? I don't see
+> where else the remote heap is being allocated.
 
-> differences.=C2=A0 The probe now selects vs_dcu_lite_funcs when the
-> identified generation is VSDC_GEN_DC8000 (DCUltraLite reads model
-> 0x0,
-> revision 0x5560, customer_id 0x305).
->=20
-> Extend Kconfig to allow building on ARCH_MA35 platforms.
+Yes, this check depends on remote_heap being populated during rpmsg
+probe from the reserved-memory region, introduced in a subsequent
+patch in this series.
 
-Maybe the Kconfig change could be in the last commit or a dedicated
-commit before current ones? Because it's only meaningful after the HWDB
-item is added.
+If there is no dependency on the next series, the remote_heap allocation here after the if check.
+The logic will be wrong.
 
-Thanks,
-Icenowy
-
->=20
-> Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> ---
-> =C2=A0drivers/gpu/drm/verisilicon/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/verisilicon/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-|=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/verisilicon/vs_dc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 9 ++-
-> =C2=A0drivers/gpu/drm/verisilicon/vs_dcu_lite.c | 78
-> +++++++++++++++++++++++
-> =C2=A04 files changed, 86 insertions(+), 5 deletions(-)
-> =C2=A0create mode 100644 drivers/gpu/drm/verisilicon/vs_dcu_lite.c
->=20
-> diff --git a/drivers/gpu/drm/verisilicon/Kconfig
-> b/drivers/gpu/drm/verisilicon/Kconfig
-> index 7cce86ec8603..295d246eb4b4 100644
-> --- a/drivers/gpu/drm/verisilicon/Kconfig
-> +++ b/drivers/gpu/drm/verisilicon/Kconfig
-> @@ -2,7 +2,7 @@
-> =C2=A0config DRM_VERISILICON_DC
-> =C2=A0	tristate "DRM Support for Verisilicon DC-series display
-> controllers"
-> =C2=A0	depends on DRM && COMMON_CLK
-> -	depends on RISCV || COMPILE_TEST
-> +	depends on RISCV || ARCH_MA35 || COMPILE_TEST
-> =C2=A0	select DRM_BRIDGE_CONNECTOR
-> =C2=A0	select DRM_CLIENT_SELECTION
-> =C2=A0	select DRM_DISPLAY_HELPER
-> diff --git a/drivers/gpu/drm/verisilicon/Makefile
-> b/drivers/gpu/drm/verisilicon/Makefile
-> index 9d4cd16452fa..960af0861dfa 100644
-> --- a/drivers/gpu/drm/verisilicon/Makefile
-> +++ b/drivers/gpu/drm/verisilicon/Makefile
-> @@ -1,6 +1,6 @@
-> =C2=A0# SPDX-License-Identifier: GPL-2.0-only
-> =C2=A0
-> -verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
-> vs_drm.o vs_hwdb.o \
-> +verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
-> vs_dcu_lite.o vs_drm.o vs_hwdb.o \
-> =C2=A0	vs_plane.o vs_primary_plane.o vs_cursor_plane.o
-> =C2=A0
-> =C2=A0obj-$(CONFIG_DRM_VERISILICON_DC) +=3D verisilicon-dc.o
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c
-> b/drivers/gpu/drm/verisilicon/vs_dc.c
-> index c94957024189..81a8d9bf85bd 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
-> @@ -90,13 +90,13 @@ static int vs_dc_probe(struct platform_device
-> *pdev)
-> =C2=A0		return PTR_ERR(dc->core_clk);
-> =C2=A0	}
-> =C2=A0
-> -	dc->axi_clk =3D devm_clk_get_enabled(dev, "axi");
-> +	dc->axi_clk =3D devm_clk_get_optional_enabled(dev, "axi");
-> =C2=A0	if (IS_ERR(dc->axi_clk)) {
-> =C2=A0		dev_err(dev, "can't get axi clock\n");
-> =C2=A0		return PTR_ERR(dc->axi_clk);
-> =C2=A0	}
-> =C2=A0
-> -	dc->ahb_clk =3D devm_clk_get_enabled(dev, "ahb");
-> +	dc->ahb_clk =3D devm_clk_get_optional_enabled(dev, "ahb");
-> =C2=A0	if (IS_ERR(dc->ahb_clk)) {
-> =C2=A0		dev_err(dev, "can't get ahb clock\n");
-> =C2=A0		return PTR_ERR(dc->ahb_clk);
-> @@ -134,7 +134,10 @@ static int vs_dc_probe(struct platform_device
-> *pdev)
-> =C2=A0	dev_info(dev, "Found DC%x rev %x customer %x\n", dc-
-> >identity.model,
-> =C2=A0		 dc->identity.revision, dc->identity.customer_id);
-> =C2=A0
-> -	dc->funcs =3D &vs_dc8200_funcs;
-> +	if (dc->identity.generation =3D=3D VSDC_GEN_DC8200)
-> +		dc->funcs =3D &vs_dc8200_funcs;
-> +	else
-> +		dc->funcs =3D &vs_dcu_lite_funcs;
-> =C2=A0
-> =C2=A0	if (port_count > dc->identity.display_count) {
-> =C2=A0		dev_err(dev, "too many downstream ports than HW
-> capability\n");
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dcu_lite.c
-> b/drivers/gpu/drm/verisilicon/vs_dcu_lite.c
-> new file mode 100644
-> index 000000000000..11ef57d5ebaa
-> --- /dev/null
-> +++ b/drivers/gpu/drm/verisilicon/vs_dcu_lite.c
-> @@ -0,0 +1,78 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2026 Joey Lu <yclu4@nuvoton.com>
-> + */
-> +
-> +#include <linux/regmap.h>
-> +
-> +#include "vs_crtc_regs.h"
-> +#include "vs_dc.h"
-> +#include "vs_primary_plane_regs.h"
-> +
-> +static void vs_dcu_lite_bridge_enable(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			VSDC_FB_CONFIG_RESET);
-> +}
-> +
-> +static void vs_dcu_lite_bridge_disable(struct vs_dc *dc, unsigned
-> int output)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			=C2=A0 VSDC_FB_CONFIG_RESET);
-> +}
-> +
-> +static void vs_dcu_lite_crtc_begin(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			VSDC_FB_CONFIG_VALID);
-> +}
-> +
-> +static void vs_dcu_lite_crtc_flush(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			=C2=A0 VSDC_FB_CONFIG_VALID);
-> +}
-> +
-> +static void vs_dcu_lite_crtc_enable(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			VSDC_FB_CONFIG_ENABLE);
-> +}
-> +
-> +static void vs_dcu_lite_crtc_disable(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			=C2=A0 VSDC_FB_CONFIG_ENABLE);
-> +}
-> +
-> +static void vs_dcu_lite_enable_vblank(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_DISP_IRQ_EN,
-> +			VSDC_DISP_IRQ_VSYNC(output));
-> +}
-> +
-> +static void vs_dcu_lite_disable_vblank(struct vs_dc *dc, unsigned
-> int output)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_DISP_IRQ_EN,
-> +			=C2=A0 VSDC_DISP_IRQ_VSYNC(output));
-> +}
-> +
-> +static u32 vs_dcu_lite_irq_handler(struct vs_dc *dc)
-> +{
-> +	u32 irqs;
-> +
-> +	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &irqs);
-> +	return irqs;
-> +}
-> +
-> +const struct vs_dc_funcs vs_dcu_lite_funcs =3D {
-> +	.bridge_enable		=3D vs_dcu_lite_bridge_enable,
-> +	.bridge_disable		=3D
-> vs_dcu_lite_bridge_disable,
-> +	.crtc_begin		=3D vs_dcu_lite_crtc_begin,
-> +	.crtc_flush		=3D vs_dcu_lite_crtc_flush,
-> +	.crtc_enable		=3D vs_dcu_lite_crtc_enable,
-> +	.crtc_disable		=3D vs_dcu_lite_crtc_disable,
-> +	.enable_vblank		=3D vs_dcu_lite_enable_vblank,
-> +	.disable_vblank		=3D
-> vs_dcu_lite_disable_vblank,
-> +	.irq_handler		=3D vs_dcu_lite_irq_handler,
-> +};
-
+>
+>>   	args = kzalloc_objs(*args, FASTRPC_CREATE_STATIC_PROCESS_NARGS);
+>>   	if (!args)
+>>   		return -ENOMEM;
+>> -- 
+>> 2.43.0
+>>
