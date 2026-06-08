@@ -4,88 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5285DCD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:27:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F082DCD8C92
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:27:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05EA710F5CA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68D2010F5CB;
 	Mon,  8 Jun 2026 15:27:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fc64mVvP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Gpj+WXx+";
 	dkim-atps=neutral
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 765F510F157
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 10:35:57 +0000 (UTC)
-Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-2bf55c39e16so20002665ad.0
- for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 03:35:57 -0700 (PDT)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADC0D10F345
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 12:41:55 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-490ace40f4bso49601875e9.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 05:41:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780914957; x=1781519757; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=o7rfjN8gvyO5A78qI/nvGvuW8Ai7Jn9ZQl2KKv15ni4=;
- b=fc64mVvPTlJEortReKJBBhv6yUqtd0c9hU5cM9bEfrXJZV/I6vs4/3UAXFPpAxUrpj
- hblPO5K84ljTcYpZ80hDBGyFbvZo5ukT31EY3W0HL+dq6oSxmauLRg8gpYQHBef43G8C
- h3H8PabWIAk530QKazyNaEnTxgj8gZeEd+wBEd7EIRTTKkSuDZnWP2rzsdfWcK8uxD+p
- T+qECGiT+UFphC13Bw/1IVU8zKDtGp3fggxrMZ0hG+GFP6yYo17Wh3lMjru1/hszariP
- SD3pz9sOS7cf9bSwrzs8CUnfvM/Zc118CYhLwgM5NF+1PHngk4/WjcKlk2LmxSt5zeK4
- sOIw==
+ d=gmail.com; s=20251104; t=1780922514; x=1781527314; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=0Gdc6e3FdyeiLVZE3O+te4B1yIyOlEE2X2Wof8kU0zk=;
+ b=Gpj+WXx+bFIJCNtzC+SCLe1pOeK/N/XQnKmYa9jKitbcTPqV/cQzNvaR9ojq2mY9sg
+ 8zEbaPZtZkVW8DncIvQbLCUiXPO9vs/3IgOKgMH+aU4aqw6F/byUFmxl/zqBTQjlUsVB
+ cfpH9QLJiQKNq1+zQfljxSXS1emtt7k9HQ9U+8O8kYft7YbRFxGKxf/2l8rDLvFSjLBM
+ HbxlqAGDJTM9aecPDSpyvLc7WCG3KTvVUuwCMNToKgin2ONe+NsBh9z63EwWn+9OJDMU
+ khO6JXjLAZzlw76YMlDynQT13v+O2z/Ty7SEW3Fr20AYcKkezVsoa0u0qSZbI0yK7Hvu
+ Afdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780914957; x=1781519757;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=o7rfjN8gvyO5A78qI/nvGvuW8Ai7Jn9ZQl2KKv15ni4=;
- b=LgJAf3LjwBCpox4uou/OogcUomk0P18vawEskc7b/EpT6WQP6+I7uZhKhHkG3KDXnK
- Pksr0WoerhW3LB6DGRT/sDFJBeDDOo7fK/wVlL9FXl1O90pkQjzhatNUMcgyE4278q7v
- bOoR/IohfiV05BINxKZEvfvkMz+im2qCb8euN5p5HYYd01i2CmWTeK8dZDMfb4MLnI1V
- j7puwc1lyWT8kGQSCOHr5GVtBDkeAxImzk5Bnnm0H7ZzAeaDotqCfxtFBGKUiywtNgR1
- FxE/qfwYqgOAYeIIFy1hJrAHzcqpk5XHaAAEWmmJ+BMxS+n9+P1SH1nN5+mhoUkBPDsn
- mzxg==
+ d=1e100.net; s=20251104; t=1780922514; x=1781527314;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0Gdc6e3FdyeiLVZE3O+te4B1yIyOlEE2X2Wof8kU0zk=;
+ b=hS3eoAKqEfxdRFN5fpWSHA/+edWD5cKiIcOU7S2EfeqQvAICMvDdxwA4m2Nf3qxzTe
+ PlN/EJLxQqrlf5LTGX4GBysjHOCF9pAQMmiAsXLioAj1KcBjom/FJ2FNuz8OrHzE12if
+ ljKk7IYPK9im8bZlgfcZHY4EVhouUJJNffHL6eUd2ZbmBwyT5XgXQn7/aNscLc8In0eT
+ Tci1P2IAdweE76Vaw2dTlwQuhZ9FmNBgizFXJfHu5cF1kSs5/Z8ZNbnFL+4AuBQis1Qx
+ Pvg/Yg8ZcP0/rnj9VFfnLCyPcTTUfnmDOrjrPTlLcMDks3kzN5BfzFUrHx4qFgJxpRzJ
+ Gj2w==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9ZX3kJpsTen3DmShbbwvbq+eqTkt2cEuH0c1ttX2+sfWZ2gAOkd0Aw8vaPTndHbDn4F+P/RLixizg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyAk6DkaaI1AChiqUjsHjsnfKUs8nrXHOaZ4EIVkXswG/yda9c4
- kQmvsVwz6jchSwsQF42vtzKYtTA4c7nBp/8QP6LCYmSecW8kQoW9Jrfu
-X-Gm-Gg: Acq92OGBwd+WDgsJwrAmThi1CCr+TfBJBU7bG62DQv8pB28iiHoBHpF2u5e0GUByCMF
- pB+3tv3sxrGKLM/pu3Mmkz/lcoSqqzihfUyB5dSbRwiHTGbsAz3z3rSj8nwSOQ0bZmTBUpVHyE/
- ZQsxeDVWWgDZE4iJu6BUUnGR/NXjYskIAeAex4aKEG+HLNJFzo5huRlBlBLvIJefWltqDUHcyX+
- AJAzbcNWirM0Rrm3icbc5nJgw74otBnHfzamHok66QEx4C/NNWmq6ut5+BahfBI81tojeMB1p6P
- vRtg4nHQ3GwiGzbkITSEH/r8o5/4EaVewm8Hj1Ad9IWLlfKq8mKXBbvezedE6RpAYgR3QZPtC1K
- JNjRe/9NMHBHwgHwe9jbH0pzY9HvveXViJnrjYeLQGJ37EeP7cXtne9yaE7GWuICKWg7KnX+1PZ
- nom4v04TmuZFTbuygpailIi2ZCFsD5lGzMgapA22p2NOm9lWo5RoQujk3AjMyUPU3h4xgj2Mr1h
- I7g1daOV0HEc1M=
-X-Received: by 2002:a17:903:8c3:b0:2bd:d6f1:3388 with SMTP id
- d9443c01a7336-2c1ec9271edmr112272305ad.28.1780914956983; 
- Mon, 08 Jun 2026 03:35:56 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2c16649ca4dsm176604255ad.76.2026.06.08.03.35.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Jun 2026 03:35:56 -0700 (PDT)
-Message-ID: <af7ebadc-600b-4128-ba32-d45b5ba6b546@gmail.com>
-Date: Mon, 8 Jun 2026 18:35:50 +0800
+ AFNElJ/BIoI7QPq2/OzY3E8iGoy5CxsZZFqRVz0ql144QYC9mrRRc+jvwyM5NqsUj2ywwnt/coAg8jUPKh4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz2ZDKogZ/u4xOJUf4Wgjs2q1kQ1Ij3zWuxQvC+BCfIpE03nS1c
+ RGIxlHMCTmhhMTZurnCfhdB6kyRl3+7yzoaqoir/2CKjXaVEsobxCgJ0
+X-Gm-Gg: Acq92OHsdgPP9HNLxjYpfJUkjVxmPeDJylJzjE9iux/bCbyiGOCDGz9fE7FqIhW5TOL
+ wgKB6bbPNgp6+RXHZFQnc66RAAfbhXwGuo0D0JZOIQ4nAPTZYd3oOqprewGoHkzMjwf8vLG6gca
+ C3gm0jUI+BixOCsS4q0vcP5DblS77OevHcNO3JDw9GnQ+rJKg3EwB+c+b/0B5XeKXi3WRqs32ep
+ OJxcPtvsZkYafFcfwfi42FMpX/nvny2tOgSSGzzEo13BfjfOMfxRUjZfpBYlJNY6AP/qmTlfTEl
+ kkL+vniwJg9K46l2WgUedDBWHeM07mrzzvuthXIQerHWoGIaDtwWrzacvYFcEbfIQVMg2iZgm4c
+ LOti4Rsp180hOPr60YpJszmTT609okotm9UCJWzEoHs3te69L5rCjaFtLp4okSUfpKobRcpMnXO
+ 6M9ZTut4fl+8mfa3xtny4bT9++cjny142nPjNKKYvzdscn8JXxMjdPeZ//gOgH5qoaHijvcFX4I
+ i7k0qMerI7kXF5n+KA2hv4WE+6xwdTvwsqjZpVMbtu5VTYIAMYuwc9kHfKv3oqq
+X-Received: by 2002:a05:600c:4e13:b0:490:bd1d:4732 with SMTP id
+ 5b1f17b1804b1-490c25eea3bmr291647535e9.23.1780922513967; 
+ Mon, 08 Jun 2026 05:41:53 -0700 (PDT)
+Received: from tiolaptop.telekom.ip
+ (2a02-8388-013f-3800-2646-3d3e-bfee-9cee.cable.dynamic.v6.surfer.at.
+ [2a02:8388:13f:3800:2646:3d3e:bfee:9cee])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-490bc40716bsm414322615e9.12.2026.06.08.05.41.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 08 Jun 2026 05:41:53 -0700 (PDT)
+From: Diogo Silva <diogompaissilva@gmail.com>
+To: Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Diogo Silva <diogompaissilva@gmail.com>
+Subject: [PATCH v3] drm/rockchip: Remove dependency on DRM simple helpers
+Date: Mon,  8 Jun 2026 14:40:19 +0200
+Message-ID: <20260608124018.480365-2-diogompaissilva@gmail.com>
+X-Mailer: git-send-email 2.51.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/5] drm/verisilicon: introduce per-variant hardware
- ops table
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260608023237.305036-1-a0987203069@gmail.com>
- <20260608023237.305036-4-a0987203069@gmail.com>
- <399cd127b56b4a2fb3161865a681606e04e6b2c6.camel@iscas.ac.cn>
- <98eb7772-257f-4fa7-8e9b-51a635cb12dd@gmail.com>
- <340c213ca47dabb8bc3d260311e2fd4818bd8001.camel@iscas.ac.cn>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <340c213ca47dabb8bc3d260311e2fd4818bd8001.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 08 Jun 2026 15:27:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -103,113 +96,300 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Simple KMS helper are deprecated since they only add an intermediate
+layer between drivers and the atomic modesetting.
+This patch removes the dependency on drm simple helpers from rockchip
+DRM drivers.
 
-On 6/8/2026 6:06 PM, Icenowy Zheng wrote:
-> 在 2026-06-08一的 17:45 +0800，Joey Lu写道：
->>>> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
->>>> b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
->>>> index 1f2be41ae496..75bc36a078f7 100644
->>>> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
->>>> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
->>>> @@ -53,12 +53,6 @@ static int
->>>> vs_primary_plane_atomic_check(struct
->>>> drm_plane *plane,
->>>>    	return 0;
->>>>    }
->>>>    
->>>> -static void vs_primary_plane_commit(struct vs_dc *dc, unsigned
->>>> int
->>>> output)
->>>> -{
->>>> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
->>>> -			VSDC_FB_CONFIG_EX_COMMIT);
->>>> -}
->>>> -
->>>>    static void vs_primary_plane_atomic_enable(struct drm_plane
->>>> *plane,
->>>>    					   struct
->>>> drm_atomic_commit
->>>> *atomic_state)
->>>>    {
->>>> @@ -69,13 +63,8 @@ static void
->>>> vs_primary_plane_atomic_enable(struct
->>>> drm_plane *plane,
->>>>    	unsigned int output = vcrtc->id;
->>>>    	struct vs_dc *dc = vcrtc->dc;
->>>>    
->>>> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
->>>> -			VSDC_FB_CONFIG_EX_FB_EN);
->>>> -	regmap_update_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
->>>> -			   VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
->>>> -			
->>>> VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
->>>> -
->>>> -	vs_primary_plane_commit(dc, output);
->>>> +	if (dc->funcs->plane_enable_ex)
->>>> +		dc->funcs->plane_enable_ex(dc, output);
->>> Please note that all theae codes are for primary planes, maybe the
->>> helper should be named mentioning primary. Overlay planes will need
->>> a
->>> different codepath because they change different registers.
->>>
->>> Thanks,
->>> Icenowy
->> Understood. To avoid confusion, I will rename `plane_enable_ex`,
->> `plane_disable_ex`, and `plane_update_ex` to `primary_plane_enable`,
->> `primary_plane_disable`, and `primary_plane_update` in `vs_dc_funcs`,
->> `vs_dc8200.c`, and `vs_primary_plane.c`.
-> Maybe keep the `_ex` here as some operations is still on the common
-> codepath?
->
-> Thanks,
-> Icenowy
-Got it. I’ll keep the `_ex` suffix in place. That way it’s consistent 
-with the common codepath operations, and the inline comments already 
-makes the intent clear.
->>>>    }
->>>>    
->>>>    static void vs_primary_plane_atomic_disable(struct drm_plane
->>>> *plane,
->>>> @@ -88,10 +77,8 @@ static void
->>>> vs_primary_plane_atomic_disable(struct
->>>> drm_plane *plane,
->>>>    	unsigned int output = vcrtc->id;
->>>>    	struct vs_dc *dc = vcrtc->dc;
->>>>    
->>>> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
->>>> -			VSDC_FB_CONFIG_EX_FB_EN);
->>>> -
->>>> -	vs_primary_plane_commit(dc, output);
->>>> +	if (dc->funcs->plane_disable_ex)
->>>> +		dc->funcs->plane_disable_ex(dc, output);
->>>>    }
->>>>    
->>>>    static void vs_primary_plane_atomic_update(struct drm_plane
->>>> *plane,
->>>> @@ -133,18 +120,11 @@ static void
->>>> vs_primary_plane_atomic_update(struct drm_plane *plane,
->>>>    	regmap_write(dc->regs, VSDC_FB_STRIDE(output),
->>>>    		     fb->pitches[0]);
->>>>    
->>>> -	regmap_write(dc->regs, VSDC_FB_TOP_LEFT(output),
->>>> -		     VSDC_MAKE_PLANE_POS(state->crtc_x, state-
->>>>> crtc_y));
->>>> -	regmap_write(dc->regs, VSDC_FB_BOTTOM_RIGHT(output),
->>>> -		     VSDC_MAKE_PLANE_POS(state->crtc_x + state-
->>>>> crtc_w,
->>>> -					 state->crtc_y + state-
->>>>> crtc_h));
->>>>    	regmap_write(dc->regs, VSDC_FB_SIZE(output),
->>>>    		     VSDC_MAKE_PLANE_SIZE(state->crtc_w, state-
->>>>> crtc_h));
->>>>    
->>>> -	regmap_write(dc->regs, VSDC_FB_BLEND_CONFIG(output),
->>>> -		     VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
->>>> -
->>>> -	vs_primary_plane_commit(dc, output);
->>>> +	if (dc->funcs->plane_update_ex)
->>>> +		dc->funcs->plane_update_ex(dc, output, state);
->>>>    }
->>>>    
->>>>    static const struct drm_plane_helper_funcs
->>>> vs_primary_plane_helper_funcs = {
+Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
+---
+
+v3:
+ - rebase on drm-tip tree
+
+ drivers/gpu/drm/rockchip/analogix_dp-rockchip.c  | 9 ++++++---
+ drivers/gpu/drm/rockchip/cdn-dp-core.c           | 9 ++++++---
+ drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c  | 9 +++++++--
+ drivers/gpu/drm/rockchip/dw-mipi-dsi2-rockchip.c | 8 ++++++--
+ drivers/gpu/drm/rockchip/dw_dp-rockchip.c        | 1 -
+ drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c      | 1 -
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c   | 1 -
+ drivers/gpu/drm/rockchip/rk3066_hdmi.c           | 8 ++++++--
+ drivers/gpu/drm/rockchip/rockchip_lvds.c         | 9 +++++++--
+ drivers/gpu/drm/rockchip/rockchip_rgb.c          | 8 ++++++--
+ 10 files changed, 44 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+index 776954c7d052..46c245e35d21 100644
+--- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+@@ -30,7 +30,6 @@
+ #include <drm/drm_of.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "rockchip_drm_drv.h"
+ 
+@@ -303,6 +302,10 @@ rockchip_dp_drm_encoder_atomic_check(struct drm_encoder *encoder,
+ 	return 0;
+ }
+ 
++static const struct drm_encoder_funcs rockchip_dp_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static const struct drm_encoder_helper_funcs rockchip_dp_encoder_helper_funcs = {
+ 	.mode_fixup = rockchip_dp_drm_encoder_mode_fixup,
+ 	.mode_set = rockchip_dp_drm_encoder_mode_set,
+@@ -361,8 +364,8 @@ static int rockchip_dp_drm_create_encoder(struct rockchip_dp_device *dp)
+ 							     dev->of_node);
+ 	DRM_DEBUG_KMS("possible_crtcs = 0x%x\n", encoder->possible_crtcs);
+ 
+-	ret = drm_simple_encoder_init(drm_dev, encoder,
+-				      DRM_MODE_ENCODER_TMDS);
++	ret = drm_encoder_init(drm_dev, encoder, &rockchip_dp_encoder_funcs,
++			       DRM_MODE_ENCODER_TMDS, NULL);
+ 	if (ret) {
+ 		DRM_ERROR("failed to initialize encoder with drm\n");
+ 		return ret;
+diff --git a/drivers/gpu/drm/rockchip/cdn-dp-core.c b/drivers/gpu/drm/rockchip/cdn-dp-core.c
+index 190cce9530c8..c3f41a4449f5 100644
+--- a/drivers/gpu/drm/rockchip/cdn-dp-core.c
++++ b/drivers/gpu/drm/rockchip/cdn-dp-core.c
+@@ -23,7 +23,6 @@
+ #include <drm/drm_of.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "cdn-dp-core.h"
+ #include "cdn-dp-reg.h"
+@@ -671,6 +670,10 @@ static int cdn_dp_encoder_atomic_check(struct drm_encoder *encoder,
+ 	return 0;
+ }
+ 
++static const struct drm_encoder_funcs cdn_dp_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static const struct drm_encoder_helper_funcs cdn_dp_encoder_helper_funcs = {
+ 	.atomic_check = cdn_dp_encoder_atomic_check,
+ };
+@@ -988,8 +991,8 @@ static int cdn_dp_bind(struct device *dev, struct device *master, void *data)
+ 							     dev->of_node);
+ 	DRM_DEBUG_KMS("possible_crtcs = 0x%x\n", encoder->possible_crtcs);
+ 
+-	ret = drm_simple_encoder_init(drm_dev, encoder,
+-				      DRM_MODE_ENCODER_TMDS);
++	ret = drm_encoder_init(drm_dev, encoder, &cdn_dp_encoder_funcs,
++			       DRM_MODE_ENCODER_TMDS, NULL);
+ 	if (ret) {
+ 		DRM_ERROR("failed to initialize encoder with drm\n");
+ 		return ret;
+diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
+index 3547d91b25d3..a09b382d208e 100644
+--- a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
+@@ -25,7 +25,6 @@
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_print.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "rockchip_drm_drv.h"
+ 
+@@ -825,6 +824,10 @@ static void dw_mipi_dsi_encoder_enable(struct drm_encoder *encoder)
+ 	clk_disable_unprepare(dsi->grf_clk);
+ }
+ 
++static const struct drm_encoder_funcs dw_mipi_dsi_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static const struct drm_encoder_helper_funcs
+ dw_mipi_dsi_encoder_helper_funcs = {
+ 	.atomic_check = dw_mipi_dsi_encoder_atomic_check,
+@@ -840,7 +843,9 @@ static int rockchip_dsi_drm_create_encoder(struct dw_mipi_dsi_rockchip *dsi,
+ 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev,
+ 							     dsi->dev->of_node);
+ 
+-	ret = drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_DSI);
++	ret = drm_encoder_init(drm_dev, encoder,
++				&dw_mipi_dsi_encoder_funcs,
++				DRM_MODE_ENCODER_DSI, NULL);
+ 	if (ret) {
+ 		DRM_ERROR("Failed to initialize encoder with drm\n");
+ 		return ret;
+diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi2-rockchip.c b/drivers/gpu/drm/rockchip/dw-mipi-dsi2-rockchip.c
+index d2e76d36d724..9dc207c2d20d 100644
+--- a/drivers/gpu/drm/rockchip/dw-mipi-dsi2-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi2-rockchip.c
+@@ -23,7 +23,6 @@
+ #include <drm/bridge/dw_mipi_dsi2.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include <uapi/linux/videodev2.h>
+ 
+@@ -275,6 +274,10 @@ dw_mipi_dsi2_encoder_atomic_check(struct drm_encoder *encoder,
+ 	return 0;
+ }
+ 
++static const struct drm_encoder_funcs dw_mipi_dsi2_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static const struct drm_encoder_helper_funcs
+ dw_mipi_dsi2_encoder_helper_funcs = {
+ 	.atomic_enable = dw_mipi_dsi2_encoder_atomic_enable,
+@@ -290,7 +293,8 @@ static int rockchip_dsi2_drm_create_encoder(struct dw_mipi_dsi2_rockchip *dsi2,
+ 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev,
+ 							     dsi2->dev->of_node);
+ 
+-	ret = drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_DSI);
++	ret = drm_encoder_init(drm_dev, encoder, &dw_mipi_dsi2_encoder_funcs,
++			       DRM_MODE_ENCODER_DSI, NULL);
+ 	if (ret) {
+ 		dev_err(dsi2->dev, "Failed to initialize encoder with drm\n");
+ 		return ret;
+diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+index 0de822360c8d..b23efb153c9e 100644
+--- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+@@ -20,7 +20,6 @@
+ #include <drm/drm_of.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "rockchip_drm_drv.h"
+ 
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
+index cffc0af5190f..b6e154c35e7c 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
+@@ -18,7 +18,6 @@
+ #include <drm/drm_managed.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "rockchip_drm_drv.h"
+ 
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index f35484715c2d..af34062685cd 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -24,7 +24,6 @@
+ #include <drm/drm_managed.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "rockchip_drm_drv.h"
+ 
+diff --git a/drivers/gpu/drm/rockchip/rk3066_hdmi.c b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
+index 1996f8656612..b4ba9f894360 100644
+--- a/drivers/gpu/drm/rockchip/rk3066_hdmi.c
++++ b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
+@@ -12,7 +12,6 @@
+ #include <drm/drm_of.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include <linux/clk.h>
+ #include <linux/mfd/syscon.h>
+@@ -454,6 +453,10 @@ rk3066_hdmi_encoder_atomic_check(struct drm_encoder *encoder,
+ 	return 0;
+ }
+ 
++static const struct drm_encoder_funcs rk3066_hdmi_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static const
+ struct drm_encoder_helper_funcs rk3066_hdmi_encoder_helper_funcs = {
+ 	.atomic_check   = rk3066_hdmi_encoder_atomic_check,
+@@ -696,7 +699,8 @@ rk3066_hdmi_register(struct drm_device *drm, struct rk3066_hdmi *hdmi)
+ 		return -EPROBE_DEFER;
+ 
+ 	drm_encoder_helper_add(encoder, &rk3066_hdmi_encoder_helper_funcs);
+-	drm_simple_encoder_init(drm, encoder, DRM_MODE_ENCODER_TMDS);
++	drm_encoder_init(drm, encoder, &rk3066_hdmi_encoder_funcs,
++			 DRM_MODE_ENCODER_TMDS, NULL);
+ 
+ 	hdmi->bridge.driver_private = hdmi;
+ 	hdmi->bridge.funcs = &rk3066_hdmi_bridge_funcs;
+diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.c b/drivers/gpu/drm/rockchip/rockchip_lvds.c
+index 7a0c4fa29f2f..f3be2c91d147 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_lvds.c
++++ b/drivers/gpu/drm/rockchip/rockchip_lvds.c
+@@ -24,7 +24,6 @@
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "rockchip_drm_drv.h"
+ #include "rockchip_lvds.h"
+@@ -427,6 +426,10 @@ static void px30_lvds_encoder_disable(struct drm_encoder *encoder)
+ 	drm_panel_unprepare(lvds->panel);
+ }
+ 
++static const struct drm_encoder_funcs rockchip_lvds_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static const
+ struct drm_encoder_helper_funcs rk3288_lvds_encoder_helper_funcs = {
+ 	.enable = rk3288_lvds_encoder_enable,
+@@ -594,7 +597,9 @@ static int rockchip_lvds_bind(struct device *dev, struct device *master,
+ 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev,
+ 							     dev->of_node);
+ 
+-	ret = drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_LVDS);
++	ret = drm_encoder_init(drm_dev, encoder,
++				      &rockchip_lvds_encoder_funcs,
++				      DRM_MODE_ENCODER_LVDS, NULL);
+ 	if (ret < 0) {
+ 		drm_err(drm_dev,
+ 			"failed to initialize encoder: %d\n", ret);
+diff --git a/drivers/gpu/drm/rockchip/rockchip_rgb.c b/drivers/gpu/drm/rockchip/rockchip_rgb.c
+index add3123e5ce7..2ad24b914989 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_rgb.c
++++ b/drivers/gpu/drm/rockchip/rockchip_rgb.c
+@@ -17,7 +17,6 @@
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "rockchip_drm_drv.h"
+ #include "rockchip_rgb.h"
+@@ -65,6 +64,10 @@ rockchip_rgb_encoder_atomic_check(struct drm_encoder *encoder,
+ 	return 0;
+ }
+ 
++static const struct drm_encoder_funcs rockchip_rgb_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static const
+ struct drm_encoder_helper_funcs rockchip_rgb_encoder_helper_funcs = {
+ 	.atomic_check = rockchip_rgb_encoder_atomic_check,
+@@ -127,7 +130,8 @@ struct rockchip_rgb *rockchip_rgb_init(struct device *dev,
+ 	encoder = &rgb->encoder.encoder;
+ 	encoder->possible_crtcs = drm_crtc_mask(crtc);
+ 
+-	ret = drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_NONE);
++	ret = drm_encoder_init(drm_dev, encoder, &rockchip_rgb_encoder_funcs,
++			       DRM_MODE_ENCODER_NONE, NULL);
+ 	if (ret < 0) {
+ 		DRM_DEV_ERROR(drm_dev->dev,
+ 			      "failed to initialize encoder: %d\n", ret);
+-- 
+2.51.2
+
