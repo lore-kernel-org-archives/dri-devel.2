@@ -4,127 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8147CD8C92
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:35:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E0E0CD8C92
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:41:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12B0310F602;
-	Mon,  8 Jun 2026 15:35:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA16A10F613;
+	Mon,  8 Jun 2026 15:41:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qjDt5cvw";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="oheAatLP";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012020.outbound.protection.outlook.com [40.107.209.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D58C010F602
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:35:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S8oBBPfQXUiXSdL3TbeGoq9+S60vtfWh2+Sv241kEOaJ9xPgaA56srbuhy4COudHw1k1QS45MSRfQrCvQBgkOB0KfRqoIfN6XRy3c/wQPRjItm5FJHHHeqS9S7wMVmVbcVBVpzQMfQHKAGSpdaJK0E5opswY36L+ghGdOjWYE1e4abQsIdEupLqF8Bw4LcvdMfDWLjmj9GEhEgQpG22yN4nm3lQdur1PMQfU1lsLXPCugC8RR38ss0vca7ROYhEIBDtBRKQH8Blz/vZe1C3nnfbZ5j4okyAHpKhRufdnmsGIWYgSvsZcsrH1y3z9//9eJkCExxME+fH3k19uKqSX1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wBUCctYndhRuvyjUAinqQkaumMxZFqHLSUfsJlWCFpk=;
- b=PXrYd0XGcCqLdO1ViTfLMMGXiWS8kqcDj/rkfEURw5cqE6Y62x+Kl3GwyQokXESwTqE4s/JitIhdFl/0aE42bzueJNjbS6ekEk5DN2XO1zwzNHfai9f29VMcPt1vFvqhiVPRyFnl+vmsGOA7rOzwK8hn4R+7G4ixGHkng0lQMyL62JwfS9W24lKU4+hFAVCnwoa6V5QKdmJjMKZUkwb7aR/BDy3YspFwIjm5oPgd8GOejkY0UphpoFrVTloY17ik+943hZr5nmAvmsSgJZSs8V0DY6MZkzOLVpOI7I0sh+r94sse3Pr02/prdkwiC6rUqUzf9gGyBq1NrQirlrYwiQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wBUCctYndhRuvyjUAinqQkaumMxZFqHLSUfsJlWCFpk=;
- b=qjDt5cvwvhI2l11b2H3Mj6YXW215cyUIvg5Vizb4RgQmNwUHmUEs025GXX+Op5bQh+CZXj1XM+ENbCe3nTUd51JkSvX4RU5hdkyQYrza0qg0VdsaZ0R6+Y4cHhdjHruDMjGEFNR2QC/FnCYgP1CG8x14UYVr5wL3dYQfHKa/KsU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA0PR12MB7722.namprd12.prod.outlook.com (2603:10b6:208:432::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Mon, 8 Jun 2026
- 15:35:39 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Mon, 8 Jun 2026
- 15:35:39 +0000
-Message-ID: <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
-Date: Mon, 8 Jun 2026 17:35:34 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] dma-fence: Fix races of fence callbacks versus
- destructors by locking
-To: Philipp Stanner <phasta@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>, Daniel Almeida <dwlsalmeida@gmail.com>,
- Gary Guo <gary@garyguo.net>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>
-References: <20260608142436.265820-2-phasta@kernel.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260608142436.265820-2-phasta@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0304.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f6::9) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 497E710F613
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:41:25 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id C3797C5147B;
+ Mon,  8 Jun 2026 15:41:23 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id AB9BD5FFB7;
+ Mon,  8 Jun 2026 15:41:22 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id ED002106A2737; 
+ Mon,  8 Jun 2026 17:41:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1780933281; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ in-reply-to:references; bh=yGOnMqKJMw/ydQNQDFBMggWDghRXv4f0XxOD1sItqDU=;
+ b=oheAatLPbXPnsFhCVuN0kS9KdyeOpnw+JH0MvQdS289veqEd9jXAQAhjsK4aW14GPiDr8q
+ jlL+JiVVjDkQV4AsGR5Cmz2zg2JSPjnyE5zeI5ncskmvIx6aQ658N5+7hm+rOEYrrMisVJ
+ wjefiv6Q9Y3FQzftbL4KUJ1crv0YAB2nLvaKeRywrSBiC+ntn/KGAvB22D5+WoL+oQFspC
+ WjTV7KUmc0nIbuYISnn6Bz6ebR5DOdJzDXD6K3ftCCuIrMdBTxj3wVNus9r5eHshNv25EZ
+ ZBV6CiDX7+FUnHaYVF6xGfh+D3uXErjVMilYsR7ZZ7VOEX4sLXr4M6J98xvtIw==
+From: Romain Gantois <romain.gantois@bootlin.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Paul Kocialkowski <paulk@sys-base.io>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] drm/logicvc: Avoid use-after-free with devm_kzalloc()
+Date: Mon, 08 Jun 2026 17:41:11 +0200
+Message-ID: <5Q6YIC1WTqOFVMFErYGBEQ@bootlin.com>
+In-Reply-To: <20260601-ultra-wapiti-of-imagination-ba59e8@houat>
+References: <20260601-logicvc-uaf-v1-1-8c9ca5b3429c@bootlin.com>
+ <20260601-ultra-wapiti-of-imagination-ba59e8@houat>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB7722:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4bd74048-8df2-4240-ab5f-08dec57397cf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 8ls6I280znmBdssR1zLqMhm+cRpAjQ2SSysYW/4KkUi/ypi/mjtShcx8vSOTCy4YniBaBdP/wv3qYOrWk7yHl05HgrlVKZg4Tz9jqcDVbgXzAeMknGH8NyD88EFuLLQV03uk1UjOe+ZQC8mOHuUwhNuMof/z97zLYYU/SFiRhtZedMu7ZOXuxUu6nuwm+qAPuwYrM0ZW1Q/5s30blWdHwNK/51Vg13+5tqlVs4cojFnqmkrbHLDX+watFBi7afxC0xOjdoXl1xXLZqcW8H+QOaXCJiyLTx5Pzil+mgNqToy2ROhntmzhRuqx6m5hs1k9WveCc1ss8EPFkW8ZLpngsrc58mUkA6et6Wcbcafh+Zk1LkW3CAlGtWa4lzAwetH2YISALTs+/jHlJ1L0FlpDfoHnC5Ila+tx2uE3H2ru+FkeXSoIC0BBCMLyH9TTtB4uPuUBr3oynjcPUzoWaouwgD+00+n5jOyq5r8xm+9gRRS1qVSPr71AjfmcRJM7j4I9AzjB+RpMEsh5wr2zXuyevablt3hkLoTd8UUTxYg74P6MUDa3v4bvDVFnq5oVRhLxBrTGYgrHx8afrt2CisUlH73rkeYJGiiyDsNED4gO2ZiTPe9Sb4XmJ02DCxWzaKLtJeN1oAqwYMKQwZFUG78zMLIEMout4vLzkgpnG0uaWYdi6y53hDSBhXnrzIiWLvbd
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(11063799006)(56012099006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SDA4MjNBZTU3Ym81L2dnbUpENng5V2FEUU9tVndodElSWVl4ajdUZGdkMFFs?=
- =?utf-8?B?U0xDRm1UOExEV2FPZlJwWHkvenRnaE5xY0NIdWZMK00vQXBvMnlTbEtZY01s?=
- =?utf-8?B?Q1p6TlUrb0ltMEZrWFhrdGk5SktFaG1hbmFabTR0cWhUajJoU0h0VlkrSGJy?=
- =?utf-8?B?RWgyVTZSRlVwRkgzL3J5UVpCRGdRMzk4SVZ6UzVrRXA2UDJobUJTa2pkVXBQ?=
- =?utf-8?B?WUR5eFAzR0JKcldLU2VLdlRzcHBsMTdTODQ3UzNRK1B0TnBpeHoySGpHWllF?=
- =?utf-8?B?OXZKRkV5WDJqZXZWcEpZY0plYVR6alVqOHN4ZkFneGNlWm43WjcwMmcxUnNP?=
- =?utf-8?B?aTFtSythbkxhTzA2YldzRzlMNjVVVXphSVRPV1hFeWhBVG0vY0NUNG1VWWUr?=
- =?utf-8?B?ZUg2RkhhMzdzazY5UTk5T0ZFQ1Vjcm0wMmZRRVNsdk9QbWdMY0NoZlRWQzBZ?=
- =?utf-8?B?bk9qWlFncE9rVzJiTkFvRUVJZlV4dFg4bGJuZlRTQktPZ0piaHpvSlRtbWI4?=
- =?utf-8?B?UEpBVzMwT0NscHBYMXBndVMvYzlEc0pBSjhsQVVqMFBZM3N2ejNoUjRiL0ZV?=
- =?utf-8?B?bnZlb0IzOFBqR3J6TnBTbEpOc1B0M1JHSHl0N3RBNG56Y0RnT2dEYXl1bmlx?=
- =?utf-8?B?dWhCSjdnNlJIRnBzZGozZGhmRDM2N0hkbytjcTBMUDRtNno1bXRLNkdRYnVQ?=
- =?utf-8?B?WG1vTE1mK2h1Yk9aZ2huQ3ZFUi9PVHdiQVEvcit3THE1bzhMdHE0N0sxQ3Jj?=
- =?utf-8?B?VWdqbVprVkJ0NVFwTnB3WS9CZnJldGpIUHVzTlNZajUzU3hsL0kyclNBTW4r?=
- =?utf-8?B?MnZXTmFFTnZ1T0VGOEpON08yTXZ5UmRJcVppdG1ITVFNMEJJNzlPNkRpQ0Jp?=
- =?utf-8?B?ZzN4bmdUR09CT2U5cTErck1QaUMycDhoaUl6MzA3ODErek5PdGpZMjVJelZL?=
- =?utf-8?B?dmppN2VnWU1wSjgvYWZkbnZXUytndncvdWZuVER1RVBqY2hkeSswT0V2SElG?=
- =?utf-8?B?cS9PTGZ1Z0ZsSm5aSHdoVHVMTVREaThvVzNOVmdQNHZRVy9uWTRlSXo5UGhS?=
- =?utf-8?B?WG41TVZCM2NSRWpQWUludXZpZG55Q09BK2cyditnZ2ZLM0sxMTZ4WGVsTVJF?=
- =?utf-8?B?NnlrMTM2N1ViZ2tmTFdUaVN5NUtuU3hXNmlQUHJKV3JLQWZDYUtjWEljT2FP?=
- =?utf-8?B?SVRkNmNwaWIvbkQ1aHpPMjNkVUcrRzArQXhTVXpjcGhZWWYvR1paSzA1ZzVK?=
- =?utf-8?B?aVUrcU45R3p6WW03aHhIYlhhNlNHcU1taS9WVE1kKzY1NWExN1ErWlZ6WFIv?=
- =?utf-8?B?SllRWkQ5azA0UkIvSUNUOVpkTytQZEN5UkFCUG4vMXRMK3dwQmNtRnZZMHJE?=
- =?utf-8?B?N1lsdHZ3ak5xZnhoalBLZzVQN2FwZXBMaDlMREhUR05jRzVBb3RaQ1dMby9x?=
- =?utf-8?B?S1h1Mytta2hUQ2NiUkk5TGFkRDZlOENyTUpzL1JRRUg2QnI2b3gzR3RCaUVQ?=
- =?utf-8?B?c0FLeUtEVW90NHBwZ3NUK1JEa3JEa29SRHFsVHVNVnNtOWpKbEU1VCs0Z25V?=
- =?utf-8?B?am1paHBvRVhqQ2hpdng3YlpNWG56Qm5MRFBjVXBtVGl3ZFpaQmdOdDh6M2I3?=
- =?utf-8?B?NVk2b05yQkp2dFVrbUF0a0wxSUNGNllvcnhGaG9jaGxHNVI2NFI0b0tzR0sy?=
- =?utf-8?B?N1dJa1BtWktvVlBUSjI4em9RK2VOL2lJeTZRMU0wWU9OTzM1Q3hMNEtaY3A4?=
- =?utf-8?B?aThGbjlXeHh2d0lzR1VURVdqbzBzUGRBSVoyNDlFcXhXaWsxRzVTdE1OVW5i?=
- =?utf-8?B?QnFsRGVBNDhDRnVhN2p4eFF6M1k4TkNzQWhzdjB0R0x2WnZaSUdMVlppK0o1?=
- =?utf-8?B?Tm94SWpycEtlQy8zYkNyZW1RT1k1a1lOS0JURzNLeGJFUGhxUXFtOEhuOUps?=
- =?utf-8?B?RFUvczhmREVYOXhYdzJxZ2kyMGk4UStXUlpHR3pySlNIYmRPVVZKR21vMmho?=
- =?utf-8?B?cjBQdjkrYUJ1bndERXo1RXpKaFlhSGRCYWxmYnp4T0xqNHpXbUJ5b0k3S2x6?=
- =?utf-8?B?eUhYVHVnMTNWcjFZN2FtcGVFK0oweFZhRWN5Y1hvcFlDT0xKeEEyR0dlbDVQ?=
- =?utf-8?B?aWlOOHNmc29QRFZVMFB2eXcvaFNPUE1YQnVOMXgzRk9qTUZGZlc1anZLbnlQ?=
- =?utf-8?B?NUYxMnZ6WUN6RUtWYndyRVZvdnNhc3RRdkRwZE8wQW5oV3FQUk1GTzNSRGhP?=
- =?utf-8?B?VFMwdlR6S21pa0gvY3pJdlNLeFZRMU1aTmpnNitOSDVkK1d6KzQycUtudURG?=
- =?utf-8?Q?7bvutS7tK9LiVYUpFw?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4bd74048-8df2-4240-ab5f-08dec57397cf
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 15:35:39.4812 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XZ/hSeImaGHChqDscCTtjPsappvZMuKwpwdAxWBUoeGM2opHaBB9qU1PmCnZCZHV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7722
+Content-Type: multipart/signed; boundary="nextPartuGU-zTcuSqG5rLu8I8MPMg";
+ micalg="pgp-sha512"; protocol="application/pgp-signature"
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,185 +67,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/8/26 16:24, Philipp Stanner wrote:
-> The dma_fence backend_ops can access a fence. Hereby, a driver callback
-> will be running which likely will access driver specific data through
-> container_of(). If now, simultaneously, a driver signals the fence and
-> afterwards expects to run a driver specific destructor (using the same
-> data accessed through container_of()), there can be a race.
-> 
-> A driver very likely trusts that once it has signaled a fence, no one
-> will be accessing it anymore. Moreover, it might already want to free up
-> resources, making UAF bugs possible.
-> 
-> The race occurs because there are only pragmatic checks for the signaled
-> flag of a fence, without taking the fence lock. RCU guards exist, but
-> their purpose is to guard accesses through the backend_ops callbacks
-> against the driver (which implements the TEXT segment these callbacks
-> live in) from unloading.
-> 
-> Proper synchronization can be ensured by taking the fence lock. RCU is
-> still simultaneously required to guard against the unload.
-> 
-> Fix the races by taking the lock for all non-deprecated backend_ops
-> callbacks.
+--nextPartuGU-zTcuSqG5rLu8I8MPMg
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Romain Gantois <romain.gantois@bootlin.com>
+To: Maxime Ripard <mripard@kernel.org>
+Subject: Re: [PATCH] drm/logicvc: Avoid use-after-free with devm_kzalloc()
+Date: Mon, 08 Jun 2026 17:41:11 +0200
+Message-ID: <5Q6YIC1WTqOFVMFErYGBEQ@bootlin.com>
+In-Reply-To: <20260601-ultra-wapiti-of-imagination-ba59e8@houat>
+MIME-Version: 1.0
 
-That sounds like the fundamentally wrong approach to me.
+Hi Maxime,
 
-The lock protects the dma_fence signaling state and *NOT* any driver state, so it should not be used to protect any driver state.
+On Monday, 1 June 2026 09:11:21 CEST Maxime Ripard wrote:
+> Hi,
+> 
+> On Mon, Jun 01, 2026 at 08:52:44AM +0200, Romain Gantois wrote:
+> > The logicvc driver calls drm_universal_plane_init(),
+> > drm_crtc_init_with_planes(), and drm_encoder_alloc(). These functions
+> > should not be called with structs allocated with devm_kzalloc(), as this
+> > can lead to use-after-free bugs. In fact, a use-after-free caused by this
+> > has been observed on a v6.6 kernel.
+> > 
+> > Use DRM-managed allocations instead for panel, CRTC and encoder objects.
+> > 
+> > Found using KASAN.
+> > 
+> > Fixes: efeeaefe9be56 ("drm: Add support for the LogiCVC display
+> > controller") Cc: stable@vger.kernel.org
+> > Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
+> 
+> You're only partially fixing the issue. You also need to protect any
+> device resource (register mapping, clocks, etc) are no longer accessed
+> after the device has been removed, and this is typically done using
+> drm_dev_enter/exit.
 
-Drivers need to make sure that they protect their driver state with separate lock and don't rely on the dma_fence lock for this. This is actually the core of why we want to deprecate the shared dma_fence spinlock.
+Sorry there's something which I don't quite understand: is this a new issue 
+which is specifically introduced by my changes in this series, or a different 
+issue in this driver which isn't handled by my series?
 
-Regards,
-Christian.
+IIUC all I'm doing here is just letting the drmm code handle cleaning up the 
+plane, crtc, etc. objects instead of doing it "by hand" with devm_kzalloc. Why 
+does this make it necessary to add additional protection of driver resources?
 
-> 
-> Conveniently, this also fixes a race where backend_ops->set_deadline()
-> might try to set a deadline for an already signaled fence.
-> 
-> Suggested-by: Danilo Krummrich <dakr@kernel.org>
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> ---
-> We discovered this problem through our Rust abstractions, but it can
-> also occur in C.
-> 
-> The by far cleanest solution seems to be to use the fence lock. This RFC
-> serves to discuss whether there is anything preventing that.
-> 
-> (Patch so far just compile tested, to have some groundlayer for the
-> rough idea, to discuss it first)
-> ---
->  drivers/dma-buf/dma-fence.c | 39 ++++++++++++++++++++++++++++---------
->  include/linux/dma-fence.h   | 17 ++++++++++++----
->  2 files changed, 43 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index c7ea1e75d38a..b74f02f3cca8 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -629,7 +629,8 @@ EXPORT_SYMBOL(dma_fence_free);
->  static bool __dma_fence_enable_signaling(struct dma_fence *fence)
->  {
->  	const struct dma_fence_ops *ops;
-> -	bool was_set;
-> +	bool was_set, success;
-> +	unsigned long flags;
->  
->  	dma_fence_assert_held(fence);
->  
-> @@ -644,7 +645,10 @@ static bool __dma_fence_enable_signaling(struct dma_fence *fence)
->  	if (!was_set && ops && ops->enable_signaling) {
->  		trace_dma_fence_enable_signal(fence);
->  
-> -		if (!ops->enable_signaling(fence)) {
-> +		dma_fence_lock_irqsave(fence, flags);
-> +		success = ops->enable_signaling(fence);
-> +		dma_fence_unlock_irqrestore(fence, flags);
-> +		if (!success) {
->  			rcu_read_unlock();
->  			dma_fence_signal_locked(fence);
->  			return false;
-> @@ -1020,11 +1024,20 @@ EXPORT_SYMBOL(dma_fence_wait_any_timeout);
->  void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
->  {
->  	const struct dma_fence_ops *ops;
-> +	unsigned long flags;
->  
->  	rcu_read_lock();
->  	ops = rcu_dereference(fence->ops);
-> -	if (ops && ops->set_deadline && !dma_fence_is_signaled(fence))
-> +	if (!ops || !ops->set_deadline) {
-> +		rcu_read_unlock();
-> +		return;
-> +	}
-> +
-> +	dma_fence_lock_irqsave(fence, flags);
-> +	if (!dma_fence_is_signaled_locked(fence))
->  		ops->set_deadline(fence, deadline);
-> +
-> +	dma_fence_unlock_irqrestore(fence, flags);
->  	rcu_read_unlock();
->  }
->  EXPORT_SYMBOL(dma_fence_set_deadline);
-> @@ -1166,14 +1179,18 @@ EXPORT_SYMBOL(dma_fence_init64);
->   */
->  const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
->  {
-> +	const char __rcu *name = "detached-driver";
->  	const struct dma_fence_ops *ops;
-> +	unsigned long flags;
->  
->  	/* RCU protection is required for safe access to returned string */
->  	ops = rcu_dereference(fence->ops);
-> +	dma_fence_lock_irqsave(fence, flags);
->  	if (!dma_fence_test_signaled_flag(fence))
-> -		return (const char __rcu *)ops->get_driver_name(fence);
-> -	else
-> -		return (const char __rcu *)"detached-driver";
-> +		name = ops->get_driver_name(fence);
-> +	dma_fence_unlock_irqrestore(fence, flags);
-> +
-> +	return name;
->  }
->  EXPORT_SYMBOL(dma_fence_driver_name);
->  
-> @@ -1199,13 +1216,17 @@ EXPORT_SYMBOL(dma_fence_driver_name);
->   */
->  const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
->  {
-> +	const char __rcu *name = "signaled-timeline";
->  	const struct dma_fence_ops *ops;
-> +	unsigned long flags;
->  
->  	/* RCU protection is required for safe access to returned string */
->  	ops = rcu_dereference(fence->ops);
-> +	dma_fence_lock_irqsave(fence, flags);
->  	if (!dma_fence_test_signaled_flag(fence))
-> -		return (const char __rcu *)ops->get_driver_name(fence);
-> -	else
-> -		return (const char __rcu *)"signaled-timeline";
-> +		name = ops->get_driver_name(fence);
-> +	dma_fence_unlock_irqrestore(fence, flags);
-> +
-> +	return name;
->  }
->  EXPORT_SYMBOL(dma_fence_timeline_name);
-> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-> index b52ab692b22e..b93c3f7f69fb 100644
-> --- a/include/linux/dma-fence.h
-> +++ b/include/linux/dma-fence.h
-> @@ -547,20 +547,29 @@ static inline bool
->  dma_fence_is_signaled(struct dma_fence *fence)
->  {
->  	const struct dma_fence_ops *ops;
-> +	unsigned long flags;
-> +	bool signaled;
->  
->  	if (dma_fence_test_signaled_flag(fence))
->  		return true;
->  
->  	rcu_read_lock();
->  	ops = rcu_dereference(fence->ops);
-> -	if (ops && ops->signaled && ops->signaled(fence)) {
-> +	if (!ops || !ops->signaled) {
->  		rcu_read_unlock();
-> -		dma_fence_signal(fence);
-> -		return true;
-> +		return false;
->  	}
-> +
-> +	dma_fence_lock_irqsave(fence, flags);
-> +	signaled = ops->signaled(fence);
-> +
-> +	if (signaled)
-> +		dma_fence_signal_locked(fence);
-> +
-> +	dma_fence_unlock_irqrestore(fence, flags);
->  	rcu_read_unlock();
->  
-> -	return false;
-> +	return signaled;
->  }
->  
->  /**
+Thanks,
+
+-- 
+Romain Gantois, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+--nextPartuGU-zTcuSqG5rLu8I8MPMg
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEIcCsAScRrtr7W0x0KCYAIARzeA4FAmom4pcACgkQKCYAIARz
+eA7+eg/+O47Ty0diNzEC4oWVcVq/SUIL6d6Q8Jdi2zabL+pt8Og8dN76aryWrUgM
+vMkF1SkR+F24DI6cilixpB2JcYFY/4hJy760QrPKWFNeTbW8C0Z6z+bqUTdjKCFE
+Zu7aqrsHVakLpJlshCSgQ1lvftxP+uK2XQa+3b/FOdfm3uiQKacfNdVWwxqbgy3B
+ck8Kw+rGI7ynqS9XmQ2vbcKlvfG1LgVKyessDWXNRsPX7dDbg+KC99epmKQQkuT/
+SIx64W9z4q90cCpjJ4EAHOWrFTex9MNYU99xMjvSacSsYZuXLVUw27CdV9N6EAw6
+6Waszf///OZ+c6B3Mhr/uB9gqg9h8E0kci5E2kaHVCDl3PnyquJVnbV8wwnKvKsB
+GmSWyF1urLDJCIaRmQxs/gA67bEZvZ51wRMuUCTnVkYShGeVTpf5xUdASFQGILsY
+5y6XKRl2kOavJVXEB+MlA7GCc8k53xj3BBiAuvUp5YYooOzjSaqMIbzTIOREDCC1
+/m7ENYPUnWCHh0z6dgPRR17S6UiLKyNzY0NIVv91JIMGlyOODNbQFTt7TS1Z8HO1
+f4121ntjOMukWX2kbJ882R8gGVgma8iDo45ft30BsFm9gm9wHEZsSCkkVi/xOnNM
+cBTcldtZmhsX1Ealzr+r8xt0Ofq9rgdCkx1syIGUag7pTovNEvw=
+=QlMw
+-----END PGP SIGNATURE-----
+
+--nextPartuGU-zTcuSqG5rLu8I8MPMg--
+
+
 
