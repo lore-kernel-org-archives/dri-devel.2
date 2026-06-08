@@ -4,53 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D85C7CD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:04:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 615B5CD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:08:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B88110F426;
-	Mon,  8 Jun 2026 14:04:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7B0610F440;
+	Mon,  8 Jun 2026 14:08:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EwCsxTGn";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="OCDkAtSp";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C6E810F426
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:04:41 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id ECC6541738;
- Mon,  8 Jun 2026 14:04:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 582121F00898;
- Mon,  8 Jun 2026 14:04:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780927480;
- bh=YzXEY+QME7Drg3ANHA5+1O70COZoy6++FTXF2gCXf2w=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=EwCsxTGni2jw4w6ZxN2s4lk+aJCdkUs3h567ZxrelQLG1u4OJVeSqEsuBVo/Fr4Ba
- rkdps6zz9CTD9Zeaz2F2XmJy9uBfg+90Eicyl0tskMCV3Be5w/+H5puhF2Anpdlr2j
- /ae4dJ6Qgn3asGFH7Hp5wcgrTYuMKNEnCy29wr6Lo64PZXSr34LZAbBhN7Pf9vUtZZ
- jeCEEyzac/bofh/Tzu8NDd4eAydKANDVNiOD6ICMIuoSvi23OWJKhprOLZ9b48IhtY
- edx8ze2oUvpREKe7SBnfnm5i3ID2KJ1pTRwynJm1GHh7RkOvcJ8NV5ZTwPw/euUEWH
- UgPJzLeNjtneA==
-Date: Mon, 8 Jun 2026 16:04:38 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Maarten Lankhorst <dev@lankhorst.se>
-Cc: Natalie Vock <natalie.vock@gmx.de>, 
- Eric Chanudet <echanude@redhat.com>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, 
- Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, cgroups@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Albert Esteve <aesteve@redhat.com>
-Subject: Re: [PATCH] cgroup/dmem: accept only one region per limit write
-Message-ID: <20260608-rational-cuscus-of-enhancement-eecbfa@houat>
-References: <20260605-cgroup-dmem-write-single-region-v1-1-9137f296579c@redhat.com>
- <271b1c16-3c3c-4a1e-b09e-c4361c63814c@gmx.de>
- <f00e7771-cd70-4c86-9fac-149897e02b12@lankhorst.se>
- <20260608-glorious-fluorescent-salamander-93daec@houat>
- <15bab7c9-0857-40b9-963b-9923c0e7392c@lankhorst.se>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47F8310F440
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:08:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1780927709;
+ bh=wMdzVbo7fQ6ACjCX+/zM5k9XCFQ4DSfvxjQMK9PPkH0=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=OCDkAtSptNj+BgBgVIlD4NreMxNMC5NBAfJE5V/yzZVbiEEXFzcWNfp00YAhQD0ag
+ HXltUqlrtQv+WS4PRJcbiSeT2cgeCaY70Waxra+Umm4YmeuZ/EvMt09zsRXKcQKpSV
+ vnwC8c25AKk1zB62v6nrcPdcfdYgvoKFYvCpI+BZ3JNtWLHJSkRQKdTjzYloWu3qgL
+ L97BBJMw8mQs6abYicXKZfW+BSUCWEueYlB8nPTF5pPSSWNiF+haQOhSD4dTrW2+eC
+ nrYetYOmZsahlziEDnTgtdabzx/87W06+i9dWlXX/C7mZMiweT7BXOy3zDU9ss9F3a
+ 6gpuFxmzy+XtQ==
+Received: from fedora-2.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 79EDE17E0CA9;
+ Mon,  8 Jun 2026 16:08:29 +0200 (CEST)
+Date: Mon, 8 Jun 2026 16:08:22 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Karunika Choo <karunika.choo@arm.com>
+Cc: dri-devel@lists.freedesktop.org, nd@arm.com, Steven Price
+ <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 08/18] drm/panthor: Skip devfreq when no OPP table
+ is present
+Message-ID: <20260608160822.1038d08e@fedora-2.home>
+In-Reply-To: <20260528150546.3168527-9-karunika.choo@arm.com>
+References: <20260528150546.3168527-1-karunika.choo@arm.com>
+ <20260528150546.3168527-9-karunika.choo@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="44pqtk3cwl47v2we"
-Content-Disposition: inline
-In-Reply-To: <15bab7c9-0857-40b9-963b-9923c0e7392c@lankhorst.se>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,89 +68,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu, 28 May 2026 16:05:36 +0100
+Karunika Choo <karunika.choo@arm.com> wrote:
 
---44pqtk3cwl47v2we
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] cgroup/dmem: accept only one region per limit write
-MIME-Version: 1.0
+> On Mali v15 AM systems, frequency scaling is handled outside panthor by
+> the AM_GOVERNOR block, so the GPU DT node may not provide an OPP table.
 
-On Mon, Jun 08, 2026 at 03:13:56PM +0200, Maarten Lankhorst wrote:
-> Hey,
->=20
-> On 6/8/26 14:42, Maxime Ripard wrote:
-> > On Sat, Jun 06, 2026 at 11:44:10PM +0200, Maarten Lankhorst wrote:
-> >> Hey,
-> >>
-> >> On 6/6/26 18:31, Natalie Vock wrote:
-> >>> On 6/6/26 00:44, Eric Chanudet wrote:
-> >>>> Accept only one "region value" pair entry for the dmem.max, dmem.min,
-> >>>> dmem.low files.>
-> >>>> This changes the UAPI that otherwise accepted multiple lines for set=
-ting
-> >>>> multiple entries in one write. No existing user is known to rely on
-> >>>> writing multiple regions in a single write.
-> >>>
-> >>> Ugh, shoot.
-> >>>
-> >>> For dmem.low specifically, there already are some userspace thingies =
-floating around that may write more than one region/value pairs.
-> >>>
-> >>> These thingies all depend on that one patchset for dmemcg protection =
-that I should really get around to merging[1]. Since the userspace utilitie=
-s depend on not-yet-merged patches, they sort of have to expect stuff chang=
-ing under their belts, so I wouldn't really consider those users a blocker =
-by necessity.
-> >>>
-> >>> As I see it, we could go down one of two paths:
-> >>> 1. We go ahead with the patch as proposed, and I make sure that the u=
-sers I know of adapt. Could be a bit icky wrt. "do not break userspace" rul=
-es, but since the already use non-merged UAPIs in one place, you can argue =
-that these users kind of have to expect breakage.
-> >>> 2. We use the old handling allowing multiple lines for dmem.min and d=
-mem.low only. This preserves compatibility but uglifies the code by quite a=
- bit.
-> >>>
-> >>> All things considered, I think I personally would prefer going with 1=
-=2E and taking the patch as proposed and just having one codepath handling =
-every limit file. Just highlighting this so we don't do it on accident.
-> >>>
-> >>> [1] https://patchwork.freedesktop.org/series/163183/
-> >>>
-> >>
-> >> I prefer option 1 as well, but would like an ack from one of the core =
-cgroup maintainers too,
-> >> and what Maxime's opinion on this as well.
-> >=20
-> > Option 1 works for me too if doable
-> >=20
-> > Maxime
->=20
->=20
-> I see this as an acked-by?
->=20
-> I'll commit this patch to drm-misc-next if so.
->=20
-> Fortunately it may not even break those scripts in the typical case
-> where only 1 region is registered, eg the most common laptop/desktop
-> case.
+OOC, is this still handled as clock frequency changes? I'm asking
+because the recent perfcnt work requires registering clk notifiers to
+get an approximation of the number of shader/top-level/coregroup clock
+cycles on a given period of time so we an calculate relative GPU
+utilization, and so far we've only considered clk notifiers as a way to
+get informed of these frequency changes.
 
-Natalie had a bunch of comments afaik, so I was expecting a v2, but if
-you intend to merge it as is, you can add it if you want.
+BTW, this is already problematic for the mediatek GPUEB design, where
+devfreq stuff is delegated to an MCU, and we don't currently have a way
+to get notified when this MCU changes the frequencies.
 
-Maxime
+> 
+> Make panthor_devfreq_init() return early when operating-points-v2 is
+> absent, and guard the devfreq helper paths against a missing devfreq
+> instance.
+> 
+> This keeps devfreq enabled for existing platforms while allowing v15 AM
+> systems to probe without a local devfreq setup.
+> 
+> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
 
---44pqtk3cwl47v2we
-Content-Type: application/pgp-signature; name="signature.asc"
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
------BEGIN PGP SIGNATURE-----
+> ---
+>  drivers/gpu/drm/panthor/panthor_devfreq.c | 13 ++++++++-----
+>  1 file changed, 8 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/panthor/panthor_devfreq.c
+> index 2249b41ca4af..c3252ce54437 100644
+> --- a/drivers/gpu/drm/panthor/panthor_devfreq.c
+> +++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
+> @@ -148,6 +148,9 @@ int panthor_devfreq_init(struct panthor_device *ptdev)
+>  	unsigned long freq = ULONG_MAX;
+>  	int ret;
+>  
+> +	if (!device_property_read_bool(ptdev->base.dev, "operating-points-v2"))
+> +		return 0;
+> +
+>  	pdevfreq = drmm_kzalloc(&ptdev->base, sizeof(*ptdev->devfreq), GFP_KERNEL);
+>  	if (!pdevfreq)
+>  		return -ENOMEM;
+> @@ -267,7 +270,7 @@ void panthor_devfreq_resume(struct panthor_device *ptdev)
+>  {
+>  	struct panthor_devfreq *pdevfreq = ptdev->devfreq;
+>  
+> -	if (!pdevfreq->devfreq)
+> +	if (!pdevfreq || !pdevfreq->devfreq)
+>  		return;
+>  
+>  	panthor_devfreq_reset(pdevfreq);
+> @@ -279,7 +282,7 @@ void panthor_devfreq_suspend(struct panthor_device *ptdev)
+>  {
+>  	struct panthor_devfreq *pdevfreq = ptdev->devfreq;
+>  
+> -	if (!pdevfreq->devfreq)
+> +	if (!pdevfreq || !pdevfreq->devfreq)
+>  		return;
+>  
+>  	drm_WARN_ON(&ptdev->base, devfreq_suspend_device(pdevfreq->devfreq));
+> @@ -290,7 +293,7 @@ void panthor_devfreq_record_busy(struct panthor_device *ptdev)
+>  	struct panthor_devfreq *pdevfreq = ptdev->devfreq;
+>  	unsigned long irqflags;
+>  
+> -	if (!pdevfreq->devfreq)
+> +	if (!pdevfreq || !pdevfreq->devfreq)
+>  		return;
+>  
+>  	spin_lock_irqsave(&pdevfreq->lock, irqflags);
+> @@ -306,7 +309,7 @@ void panthor_devfreq_record_idle(struct panthor_device *ptdev)
+>  	struct panthor_devfreq *pdevfreq = ptdev->devfreq;
+>  	unsigned long irqflags;
+>  
+> -	if (!pdevfreq->devfreq)
+> +	if (!pdevfreq || !pdevfreq->devfreq)
+>  		return;
+>  
+>  	spin_lock_irqsave(&pdevfreq->lock, irqflags);
+> @@ -323,7 +326,7 @@ unsigned long panthor_devfreq_get_freq(struct panthor_device *ptdev)
+>  	unsigned long freq = 0;
+>  	int ret;
+>  
+> -	if (!pdevfreq->devfreq)
+> +	if (!pdevfreq || !pdevfreq->devfreq)
+>  		return 0;
+>  
+>  	ret = pdevfreq->devfreq->profile->get_cur_freq(ptdev->base.dev, &freq);
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaibL7QAKCRAnX84Zoj2+
-dheeAYCNOYNwu6vtvfr6+oGxHjIg7iVjIzEMEOlZFZlUZkQxiFXytzEiVsuMvKWd
-IGFxwf8Bf0I1+MUeg5BHtyLRGmUKCFTkxAOovbpUDc8nsISIUCX1R5lXD2do1N8I
-V3vO/k+zdA==
-=RxhS
------END PGP SIGNATURE-----
-
---44pqtk3cwl47v2we--
