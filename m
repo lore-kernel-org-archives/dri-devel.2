@@ -4,42 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAB08CD6E79
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 18:04:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B319CD8C9F
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 18:25:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A87310F839;
-	Mon,  8 Jun 2026 18:04:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C589210F880;
+	Mon,  8 Jun 2026 18:25:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U2PDHPTO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pFxD7YIG";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 418AC10F839
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 18:04:38 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7CA286001D;
- Mon,  8 Jun 2026 18:04:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D8021F00893;
- Mon,  8 Jun 2026 18:04:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780941877;
- bh=fLbSq7SH27GrWuSQxpFHUksdQ0gNTqkjwr3gmS594SI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=U2PDHPTOYo0Ria+0NNK4Vg38ws1vZiGlgWSBO034tUhA7rcf1JTl9IORzNALywyno
- LMYv29idKSqoIsrQQlCWHZfayFZGmr9g97npzBIC76NZruSOzPo9HvkYMVi6/zwv59
- xob/tdzqA5CRJxYaHl25OR0Z2cWAyg81voJcsJsSTOzx2W0eFs8dHmS+kWeDsEY765
- 3yN8rDrT1BcYMj3uctFNTe7KPD55y6ZLy6cpRn4WMi54C437typMGUP8RO7MbHijv6
- OJYPxhl0BEwa0EIEfMmCq0yf9z6Hz+qxnH7tdOv8SNI1zr3qY3KR/w2tNc5NMpxDkP
- 8QzvDAze2RaZQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V1] accel/amdxdna: Fix VMA access race
-To: "Lizhi Hou" <lizhi.hou@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260608175018.2756886-1-lizhi.hou@amd.com>
-References: <20260608175018.2756886-1-lizhi.hou@amd.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5EAC10F880
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 18:25:43 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-68c19f1f3ceso7256928a12.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 11:25:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780943142; cv=none;
+ d=google.com; s=arc-20240605;
+ b=F6i2znZpCWprrM77uzuSMEaU9ooZaEXOvK+ugPLXlEA8mfMPUjTidWm3r5LIFdSljp
+ JqbU9BBKyJz8g0d26jl9hsVI10EC9X6C4A5Edx69xw2fbmZ764Ci77bl7NuDTgMxW4gP
+ IVq87qfgsD6ZHeaK3YVrL5JJcYlQTU8Fsi/9feZOUNAnfaRvGD0EAQux6XPiu6bdHOgT
+ 4Ry1I29peWbo24qcG3ChgpehfrOOHPccV5SQhmS1o4K4E6B71GdWp3NrDQt2vqQlqTxn
+ WwxWDepO//+hg6W/zZ9Q8+VjwOSwbzzytirJ2xE3Urxy/dmn37ZGPrz/CTexWSp5Xb5P
+ +T7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=bsRPENSdbfWpeWzjmLusfxbY/xjbYvZuSQQmkbsz4lc=;
+ fh=NBN/LyR1jy+sa8fRAvfPcCdMytAGbCg1pkdZg9EKdYw=;
+ b=gQT0JGW/HFufzqTjJ98OpyJd6oQVrpEEuzr2i4f0fcCwg4N5P3lfiKn13X1pOK4ovf
+ jFMOhwvirNsrEqGzSxOFd9cqWE+0v7NZsCSexysrpCxPnJsrKIwczYWZYgFWHagf2iUs
+ 7cPgXGjylbgUwoo2sTCORSDl7hgrffaFRdQ4f8aroBeLczdz69K5YqvitS8szKIZP0Vd
+ q7ULvImuBjcxUZUAxs/u0PSTy7Fc9ZL/u3NP9e1GBHi6E/Vu1ye2YJ7zthCTAbqEJm/Q
+ UXqjWCC8w5cUEYoq57uWLlAck69gmKApUBsSg4zj+ggHDh7S4aA3lVgjss6C8I0rmUa2
+ 8/VQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780943142; x=1781547942; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bsRPENSdbfWpeWzjmLusfxbY/xjbYvZuSQQmkbsz4lc=;
+ b=pFxD7YIGKzt4rdDAJlJBuD0sPd3KziHZbU+pZzdFtLxTwiABOntgUqs1+/XUc4Uphn
+ QpQYHLy+PVz44rMytIRSrU2x/RTO5Xj5XOu/xEmM/xu5pXxKJBrCq/PAch1+rSs+7HTg
+ RWmHgzvXiBtUBTvlSWEQAPjXYsUFvXYnhIfmeC1J2RWSusX+XcinAkJglp9/9o+74Soe
+ Yg/RF5Zz+b14ttDRn9P1sT6oJyhNNdytqgmBOWIgDfzNqEv4BRUcUQiQY5kANAZhJEkf
+ 34S5Cqr15U96oZEq8tVLzFXFXMtLdoPueT8v5iQo1D2N2IpNrwdGdKZFEV+J9D7zTgzE
+ 5LwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780943142; x=1781547942;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=bsRPENSdbfWpeWzjmLusfxbY/xjbYvZuSQQmkbsz4lc=;
+ b=o2cQ0+4yeoAPuRQ8Szjx7LulHZbG3cP2Hm1NizL25iejrfVmrzxQEVE1RhnFdoOUft
+ /3QG3uzIqWCKouxDNne8t2F6Pqfhk4gIhaW0QCUD+/Vj3nqVrj5rqc1HSM8ogy3CY+6L
+ kjFkNNoWruxjDA+fgQCHS29Toti4btRprq9LIqtHmEaBLPnRlHoNtO4DdRrEftyYeS/2
+ duDMHqRlXmekWQG7lsLqx2lkEZ00Ondj3rP9HUWvL0C5bWuEbmbVbDy31V+iktQ5+PVN
+ D36jXFxDlPLTsutwbZO4j1j2hPlq+JLxzLlXzCf1IrOT6U/0GM6nhSJmwXAvlEym5lKH
+ h6WA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+oJTg/NMZCIzVcPdw/Edr/YTbZOtcYLC+B+qE+mzxaUVIO8SCyCFSsRbpaHEbr8dA/hVkq2fOZML8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxk6bOCnIWR9k2bF27B4dm0TNNs5UMrD7zN6EdjdP1vrQrqXN8x
+ 7YmpzktolA07beTe7zUheOZbdpdiRX8UIXAYukDFEbiO0KBLep7ncU8dPLuVZu0W8CnSL3amMPi
+ M7ZLeT1L/zY+2ugwA4SyLQ4jurQZGPDk=
+X-Gm-Gg: Acq92OHen8fxB01V23I4lhGayoAu9J0U1NUBuASCt6QOMV09DIcu9nd/9ZOJ+IphpiO
+ HfKEBqYk3xOtGlbqiiP4a2jUulcw60cEefXw5WaYMIRaoJSHwYU5k/NhQUZoTijCHVJfX50HH1p
+ UwwTigNG7poLJCcjaXSYLuUw1UTdiIlhVvQULqvoy4ZxbTBwxFjhqsUvb8pKrfUvJtaMsboDbwg
+ Qa1LFxq+srs+Bs9Hu5Nn99YPsDA8+Bs6jSbIsIL5MYsCC33vlh0a9CBb0KSYSR7bn32Nj6Uudxu
+ wwYHJpPdU9CkCpoEZA==
+X-Received: by 2002:a05:6402:27cd:b0:691:affa:38da with SMTP id
+ 4fb4d7f45d1cf-691affa3b75mr3213281a12.1.1780943141898; Mon, 08 Jun 2026
+ 11:25:41 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260526210048.1162477-1-edson.drosdeck@gmail.com>
+ <4ebe7f6b-aa32-4441-84db-1b09cc69c075@amd.com>
+ <CAMSsBRw16QVwXCWWq0aeoKcqe9soBF9x_un6fGj5A4P+iVCv-Q@mail.gmail.com>
+ <d4cfb50b-3b70-4393-9d95-04566767c778@amd.com>
+In-Reply-To: <d4cfb50b-3b70-4393-9d95-04566767c778@amd.com>
+From: edson drosdeck <edson.drosdeck@gmail.com>
+Date: Mon, 8 Jun 2026 15:25:30 -0300
+X-Gm-Features: AVVi8CfXclb6j0YdrCqCKvFp-PCdAED1IRl-uc6SCc1u1i6sh-ACyg87M_5t90I
+Message-ID: <CAMSsBRxR9Ar6p0qyutfMcCmJb7yLUNwE-CRh1JHKa-PZHHzRTg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Avoid using zero AC/DC brightness levels
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, 
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
+ simona@ffwll.ch, alex.hung@amd.com, Wayne.Lin@amd.com, 
+ timur.kristof@gmail.com, superm1@kernel.org, aurabindo.pillai@amd.com, 
+ ivan.lipski@amd.com, chen-yu.chen@amd.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 18:04:36 +0000
-Message-Id: <20260608180437.1D8021F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,106 +109,58 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+Thanks for looking into this.
 
-New issues:
-- [High] Use-after-free on `mapp->vma` during MMU notifier invalidation.
-- [High] Memory flag `AS_UNEVICTABLE` is permanently leaked on mmap error p=
-aths.
-
-Pre-existing issues:
-- [High] Pre-existing use-after-free on `mapp->vma` in debug logging.
-- [High] Incorrect management of `AS_UNEVICTABLE` on shared file mappings a=
-nd swapped `vma->vm_file`.
---
-
-commit 7b0235d032796ef659fe1d987ecb0649b81f544e
-Author: Lizhi Hou <lizhi.hou@amd.com>
-
-accel/amdxdna: Fix VMA access race
-
-aie2_populate_range() and amdxdna_umap_release() access a saved VMA
-pointer that may have already been freed, leading to a potential
-use-after-free.
-
-Remove the VMA accesses from these functions to avoid the race.
-
-Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-
-> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/=
-amdxdna_gem.c
-> index 63976c3bcbe0f..80dd183ecba92 100644
-> --- a/drivers/accel/amdxdna/amdxdna_gem.c
-> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
-> @@ -271,6 +271,10 @@ static bool amdxdna_hmm_invalidate(struct mmu_interv=
-al_notifier *mni,
->  	if (range->event =3D=3D MMU_NOTIFY_UNMAP) {
->  		down_write(&xdna->notifier_lock);
->  		if (!mapp->unmapped) {
-> +			if (is_import_bo(abo) && mapp->vma->vm_file &&
-> +			    mapp->vma->vm_file->f_mapping)
-> +				mapping_clear_unevictable(mapp->vma->vm_file->f_mapping);
-
-[Severity: High]
-Does this code still have a use-after-free on mapp->vma?
-
-The mmu_interval_notifier tracks virtual address ranges, not VMA lifetimes.
-If a VMA is split, merged, or partially unmapped, the original
-vm_area_struct can be freed without immediately invalidating the interval
-notifier. When a subsequent munmap triggers MMU_NOTIFY_UNMAP, mapp->vma
-could be a dangling pointer.
+I tested the proposed change and it fixes the issue on my system. With
+this patch applied,
+the initial brightness level is set correctly during boot instead of
+starting at the minimum level.
 
 
-[Severity: High]
-Can this code permanently leak the AS_UNEVICTABLE flag on mmap error paths?
-
-If amdxdna_insert_pages() fails during mmap, the error path calls
-amdxdna_hmm_unregister(), which sets mapp->unmapped =3D true but does not
-clear the flag. Consequently, the flag might never be cleared because this
-invalidation handler skips the clearing when unmapped is true.
-
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this clear the wrong
-file's mapping?
-
-For imported dma-buf BOs, amdxdna_hmm_register() sets AS_UNEVICTABLE on
-vma->vm_file->f_mapping. At this time, vma->vm_file is the XDNA device file.
-
-Subsequently, amdxdna_insert_pages() calls dma_buf_mmap(), which swaps
-vma->vm_file to the dma-buf file.
-
-When the VMA is later unmapped, mapping_clear_unevictable() is called on the
-new vma->vm_file (the dma-buf). This leaves the XDNA device file permanently
-locked as unevictable, while the dma-buf file incorrectly loses its
-unevictable status for all other clients.
-
-
-[Severity: High]
-This is a pre-existing issue, but does amdxdna_hmm_invalidate() have another
-potential use-after-free on the VMA pointer earlier in the function?
-
-Prior to this patch, amdxdna_hmm_invalidate() accesses mapp->vma->vm_start
-and mapp->vma->vm_end for an XDNA_DBG log statement:
-
-    XDNA_DBG(xdna, "Invalidating range 0x%lx, 0x%lx, type %d",
-             mapp->vma->vm_start, mapp->vma->vm_end, abo->type);
-
-Because VMAs can be freed by mprotect() or vma_merge() without triggering an
-MMU notifier, mapp->vma can be a dangling pointer when an invalidation event
-later occurs.
-
-> +
->  			queue_work(xdna->notifier_wq, &mapp->hmm_unreg_work);
->  			mapp->unmapped =3D true;
->  		}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608175018.2756=
-886-1-lizhi.hou@amd.com?part=3D1
+Em qua., 3 de jun. de 2026 =C3=A0s 16:23, Mario Limonciello
+<mario.limonciello@amd.com> escreveu:
+>
+>
+>
+> On 5/29/26 14:13, edson drosdeck wrote:
+> > Hi,
+> >
+> > Please find attached the requested ACPI dump and EDID files:
+> >
+> > acpidump.txt
+> > edid.txt
+> >
+> > Thanks for taking a look.
+>
+> Sorry for my delay.  I looked through your acpidump and you don't have
+> an ATIF method (which would indicate preferred brightness values for AC
+> and DC).
+>
+> I had expected this case is handled by
+> amdgpu_dm_update_backlight_caps(), but it appears that only sets min/max
+> not ac/dc default levels.
+>
+> Can you see if this helps?
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 832223c06b3f5..e2831bf48eaab 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -5213,6 +5213,8 @@ static void amdgpu_dm_update_backlight_caps(struct
+> amdgpu_display_manager *dm,
+>          if (!caps->caps_valid) {
+>                  caps->min_input_signal =3D AMDGPU_DM_DEFAULT_MIN_BACKLIG=
+HT;
+>                  caps->max_input_signal =3D AMDGPU_DM_DEFAULT_MAX_BACKLIG=
+HT;
+> +               caps->ac_level =3D 50;
+> +               caps->dc_level =3D 50;
+>                  caps->caps_valid =3D true;
+>          }
+>   #else
+>
+>
