@@ -4,75 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AFE0CD6E79
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 18:31:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C202ECD8CA4
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 18:32:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F014410F88F;
-	Mon,  8 Jun 2026 18:31:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1548A10E36D;
+	Mon,  8 Jun 2026 18:32:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="eq8AYNQ2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Un/Grdi+";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 791F710F88D
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 18:31:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1780943487;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=xNXtOay3gnq7R0jyd1tgp6XVTjzltDEVLqTF84fZSVA=;
- b=eq8AYNQ2LoPfPT5GfUto9ixgK0UL0bGBsqFNAd3dhQqS3IW3WFo1RnJ5s9KPZnK2eyLur9
- jwyZXsgDdUHR4iDbNPlGskJEZnIawyLoTRhpv2r4S5m9vCKeRTb8D2DbGzLINxvvvm2UhJ
- IAfK2S4y1V5oIiPU6LWnR4wUntbH49k=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-656-S61WMudCM16dCpKliXhNvQ-1; Mon,
- 08 Jun 2026 14:31:24 -0400
-X-MC-Unique: S61WMudCM16dCpKliXhNvQ-1
-X-Mimecast-MFC-AGG-ID: S61WMudCM16dCpKliXhNvQ_1780943481
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 9A6391830473; Mon,  8 Jun 2026 18:31:20 +0000 (UTC)
-Received: from GoldenWind.redhat.com (unknown [10.22.89.147])
- by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id F1A9F180058F; Mon,  8 Jun 2026 18:31:16 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- nouveau@lists.freedesktop.org
-Cc: Alexandre Courbot <acourbot@nvidia.com>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- driver-core@lists.linux.dev, Miguel Ojeda <ojeda@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Alice Ryhl <aliceryhl@google.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org, Sumit Semwal <sumit.semwal@linaro.org>,
- linux-media@vger.kernel.org, "Rafael J . Wysocki" <rafael@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Benno Lossin <lossin@kernel.org>, linaro-mm-sig@lists.linaro.org,
- Danilo Krummrich <dakr@kernel.org>,
- Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
- Asahi Lina <lina+kernel@asahilina.net>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Lyude Paul <lyude@redhat.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH v19 4/4] rust: drm: gem: Introduce shmem::Object::sg_table()
-Date: Mon,  8 Jun 2026 14:29:04 -0400
-Message-ID: <20260608183057.2001376-5-lyude@redhat.com>
-In-Reply-To: <20260608183057.2001376-1-lyude@redhat.com>
-References: <20260608183057.2001376-1-lyude@redhat.com>
-MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-X-Mimecast-MFC-PROC-ID: RkK8n8249ufKFBPE24RI5pMmp5GDMpAbK21XGq5x3Ds_1780943481
-X-Mimecast-Originator: redhat.com
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011054.outbound.protection.outlook.com [52.101.52.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C48210E36D
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 18:32:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PwP+0gRGsC8kMXhqM6vEWmU0ILgzuGrdGlFBH+KHFrnQPs840qyUJt+3rmZIVIOaT9VA8/vt+e6cAoZ12oFDgcbwkUSmMIAFrIj84mGopGLScmZMWEvapuqIrLm/4bBjmmNXRfsU0kvmQdIzADseX+RxLTJWPVAHJ6vile/2jWjxSZd0FVVGgYPKzanA63JUKjnS4gAluMx53zCmTxAT9JYdtDXYsBrXQ4MKVC+LEoirwjiXSOhwbTCBtwVdlPtSlC76bWmiOyU0Oyt65bD6DYw7yNdBsoWqsQyXWtja7XMTvZXWLoRAH+afYXO96Ii04/tNw+0K0nFmJxC7eHvsWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=578dP/5UhaHLBmJ8axiKf50SOMzNB8+NtWPJEL1JIa4=;
+ b=RzItZkNwyRNvP4DhB+TiQfHOTcYLJxBgRT1GplTzdLLvn3NK9eNQMcF984k04JKff0XE6nChyh0U4nS10O1u9+iYenzIQNtzhbz5gN2lhjJcCs//cYgyH6QiNtRWvLpUrFqLqqHUawHRDJ9bvKh6nlawfyQjb7wx7i6N4wQntD0w5MhpXrMj16w2FSvHA5H4vCaPllF21xlNgr493JOLyG4oBZlys8MiBUFO9sRUPy0jP8UYMAxReOXMomjaxOAxQTjgwfyUwhclkEY+S//Xh6XPxXhqOY903DIzNKSexSWY0bPnUJ6Tb5ydEFq0CXL9jg0hLS+h9NtvtlZGHQowfw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=578dP/5UhaHLBmJ8axiKf50SOMzNB8+NtWPJEL1JIa4=;
+ b=Un/Grdi+7LyxX6Kj4pSzdw82eubyZbZqDs0l1WhPMgEa9Q/bYPXg0Z0YRm+JVVFVcLIvSV00vmuIvJwhNJwSrBrdfmxHEPrLW8gpzL4UQnhLd7VxTPRTNIS2qx0welKp9La1i8fgCcpx3qutWAH66ItQexvLc1+6nihuRlYm6hw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH1PPF8423FDA82.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::617) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Mon, 8 Jun 2026
+ 18:32:25 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Mon, 8 Jun 2026
+ 18:32:25 +0000
+Message-ID: <ea4e0541-3702-4014-b8f6-0746a148df86@amd.com>
+Date: Mon, 8 Jun 2026 20:32:19 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] dma-fence: Fix races of fence callbacks versus
+ destructors by locking
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>, Daniel Almeida <dwlsalmeida@gmail.com>,
+ Gary Guo <gary@garyguo.net>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260608142436.265820-2-phasta@kernel.org>
+ <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
+ <fa9a335196525adbc03ec21b2e05bb526e4fc174.camel@mailbox.org>
+ <9d49c901-fcdf-487a-a733-0320d0bdf94c@amd.com>
+ <DJ3V3OCLIK2K.3CYKWYNHYU6JQ@kernel.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <DJ3V3OCLIK2K.3CYKWYNHYU6JQ@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+X-ClientProxiedBy: FR0P281CA0145.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:96::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH1PPF8423FDA82:EE_
+X-MS-Office365-Filtering-Correlation-Id: 404e920c-7be3-41b7-2d04-08dec58c4923
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|7416014|366016|18002099003|22082099003|11063799006|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info: DuO7LF3REInbzREkQ4mD6e4vATESV3P5qH/9M+pbQ4MQKcSudtZ/5vKElNey7FgjoV2XlMelNKZZqUokdm0VmzpXCVk6p7YS1O3tJu6KyDwtM6klPn65iF6ASGt9DQ1NbBKTh0xC+lsgqidUEMeD4y7VNrT5Ui6QKEw/PR/WhK9mejks2HYMavuXuVt4ps9iOc4jgyckd0vdDWMZNiH9osF5Eajj2K0svo7pD/haXdNyXS1pBxOYubA14eL1XisM3x+VL7W8LmEJQtfZEp0sAUNEdTiplx/wqPxB8u5wWqA9ySI+vzZhbUgJx4oMJu2C3KzDMGUAV/0kA9yTE3liFD0yoBCtM5nlpFpvFS83EkEijXjPXEYBm5fnOX2D0wqpUVzcUUJSutMgYYUVf6e1GP0mVIELys53VV/cbRVKb3b5+LOa6BxPNd9virlczgqpWnvplGeBph0eKHbwD755UDqPW0bhBxpAWh1N+/XO9xmUsLqh9jsLy/FMgSWA2nDYR3pSNLBAKHY2kMjSV6H0hA/W8M4FH+bx0nXrf/QBwx8a/D42MH44aoU17aB7W7Ig9WvKNPB0vosmWcz+cgV2EaMSshyqADUU1mv+sIu6tKNJ4Rzk24kMc9qbiIni7Rh4e6kW1DdnKkJKKjrCV2PgyNz2hDWfcyEGTxgpwDOwzUFzIXFsd0YThC5Q7xmsNr14
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(7416014)(366016)(18002099003)(22082099003)(11063799006)(56012099006)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TUF3bWI5cW9ubUNoWmptU00rY25xbGNkeXNLblN3cTBBaGhVdUcyVGRVVFg0?=
+ =?utf-8?B?WHg0eHl3WTdMY0ZoWVgwdlJHZE4rQklGTUdhQjRCZFBTbWhXM2FKMTBoV2xJ?=
+ =?utf-8?B?b2FIdDlYT0IzS0kzWXAyR3hIU3Ixak85YWdncDZXSlQrTHJ2N0MxRW9XQU5a?=
+ =?utf-8?B?ZkR1TTBvVEtvNzJwdVU5N3k5Yk5wbnZjL3B0dmxRMytFNHhwczFUUGVOOWtQ?=
+ =?utf-8?B?dThHbzcwV21wTk1xMDQreXZKUjFjdVMycW5jT3pZVTVhSFdlZk1BWmJOT1R2?=
+ =?utf-8?B?bTdqSlhEdHQrWkpOR3RKTWg1Vk4zdGhWRmN4MVA2dTlUNkw3TEJicy9BOTB0?=
+ =?utf-8?B?LzhndFZMd1FSaGJValkybDdVb3J4bTB1YXgyTnozL055NFo0S1hqL3F1VjVK?=
+ =?utf-8?B?QXg2SVVVOXJsZ2NycGZjN3VYbHJuZGN3ay9jaUN5amdlbk81ODdsLzBvRnZD?=
+ =?utf-8?B?akhEQlIxTG9aRXVnL3R3ZXdZQ2MrYklwWXhDaVhOYVpILzBaWFpNZFdydzhm?=
+ =?utf-8?B?UGZZNTFVcGp5cjFqVU5iNUZ5SzB6dnNUMExwVG5ya3lrbWlnOWpDb2NSbEtt?=
+ =?utf-8?B?aDdHTzNnVUp4ZCtPV0lHMXlQVFVqY2prWEhQZFRrb1JDb3NTOWNpZTFsU2lk?=
+ =?utf-8?B?UUp6OGJWbkNRUjlZSlRiazZsK0hESUFkQ3JoZTVMV3p1V1RSdGxnWVVoZTkr?=
+ =?utf-8?B?aklrMmc4MmxhRzYzV1dXbGE5aVlhTVVLdVpzbkk4L01EZytQY2pjeDNuQnJx?=
+ =?utf-8?B?c3ZML3lONmVheTF5ay9mYitQN3cvWHkzL1BNdEx0YjBFaVNVZGMwN3hOUFk0?=
+ =?utf-8?B?ZUlpMDFLclQ0NkdaZ01kRnJWZ2FTcWNGZ3J2SERUck5FVUtIaGlDdk5iVEVF?=
+ =?utf-8?B?WkExU0VTS1VjOVYxWU5kTjlzOHRYM2Y4dGRZc1dtK1lsN2FvelN1UmRXRklE?=
+ =?utf-8?B?c2xUYzNxTjg2TVQzZlZpc0twUWMwUVRTQm1FOW01VDRaTmlpc2VmY3AxR1A5?=
+ =?utf-8?B?eWdyNDA0Rkl2VXUya2RIcHJmQllld3F5bXdCb2tYdGthUU5SVjNvVjY5RUNJ?=
+ =?utf-8?B?WGRTdVhsRHUrK0FTRTUra0gwZ1RJZy9pTWQ2SmFmcUJTNmREdjV1d1hLNjdr?=
+ =?utf-8?B?a0R2OU5QWTg5c3ErRmxJVmZwTGN2UU12YVZSUENoTUVlUEFkdVNGWDhwcTNv?=
+ =?utf-8?B?eEVwNHZRUVcvR1pFVDdwYjVNM0luREhkVk5zRGc4VUIrdURmQ0pTeTZUdGhm?=
+ =?utf-8?B?Q0JvaG9aeVQwaGd2bUd0NkZ5Z2RPWVNsK3hSNWFNQzcvdEE4S1FpOVlkSU16?=
+ =?utf-8?B?TXNQZTdYTmY4TEU5Q3lBUFBiUDd6bWl1L3k4T2dnU280ZE1JZXdGb256aFh2?=
+ =?utf-8?B?Nm9MU05hbElGYWdnSnB1Y2JRMmZWcmI0eUxNcGdzbklsRkpxMkNCZ1RIRjBx?=
+ =?utf-8?B?NFNPSThrVUhhaU5SUnBIRUM5azF5am15VHNreWVDMnp6dUJBZEtEd0tTTGti?=
+ =?utf-8?B?QUhXejJLdWtiV1daQTBGekg5amMyQzdhT2xvNTVFMmY1R3cvcFBrRXUyMEs3?=
+ =?utf-8?B?b2kzQnd1K2lsbW5MYi93YTZnL1FDbTZZVHBxNzBNbktmNy81YlIxOXQycDJ6?=
+ =?utf-8?B?ZjJqakdEMjlrSkNLODdmUFlmcVU2ZzZtY0tkdGFBS3g5RzIvTDU3RWpKdUF6?=
+ =?utf-8?B?RVYrY1hnUFB3WTR5c2ZWTEdWTC9oSXBkSUpqNllscWkxcE9PeTZYTzdIVGkv?=
+ =?utf-8?B?a0NFY1NaY2pmOWxXSElYbGtZeGtMSm05YXk2TC9BOGx2bkNhMFpMRzQrM25K?=
+ =?utf-8?B?V1oyWVV6NVpOLzl5TVJLT2VNcEI1Vm1EQ1JrRXR1ZkYwT1EwWG03dDl4QlpK?=
+ =?utf-8?B?cEVOZWoxNXNqRWxvVVNxMVgyNzdOMWR0cTFCaCsvUURXeGsxa0RSY01UamQ5?=
+ =?utf-8?B?T0tBSXFsb0wvZ2JRVkoyUFVDRjhBVWpwL2t2SHVBOVVVMTJqa2x3VlhHTFF1?=
+ =?utf-8?B?VnNlNGZMaDdobUV6Z2xHMytyNzg3dVcxTlEvS2dOUDFpNDM1b0NIU2JxQ3Rv?=
+ =?utf-8?B?TjhhU3RXWG84YXAwUENTWVEwVVhVeU00c1FFNGZscEZTK3NxOHdjb2pKU3ZL?=
+ =?utf-8?B?ZEM2bisrUmZlaHJvUFVTT0NDajI2ZnFnRlFFYlN5R0VCNzRUR2k0aXJ1U2VV?=
+ =?utf-8?B?Rlp0L241U3czUTVQb3NLazZqNmpzSmRUSXJvQURXUzVWeXdjZHVibmtWL0hv?=
+ =?utf-8?B?dHdEcGtTVytvT2lxRHpyaCtWM1pENHc2M3FqUmwxRHhOSnVOZkcrYnFvUzkz?=
+ =?utf-8?Q?sdQ61/G6fpBVxgoW0g?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 404e920c-7be3-41b7-2d04-08dec58c4923
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 18:32:24.9392 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xsNuLdB3XjD8b7AQ2nEyL/vC1Hu+5ytoOHhsxyBXSbrULuasTtSjgAG5wGkl33Bf
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF8423FDA82
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,341 +144,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In order to do this, we need to be careful to ensure that any interface we
-expose for scatterlists ensures that any mappings created from one are
-destroyed on driver-unbind. To do this, we introduce a Devres resource into
-shmem::Object that we use in order to ensure that we release any SGTable
-mappings on driver-unbind.
+On 6/8/26 19:59, Danilo Krummrich wrote:
+> On Mon Jun 8, 2026 at 7:34 PM CEST, Christian König wrote:
+>> That's why we need the RCU grace period to make sure that nobody is
+>> referencing the driver stuff any more.
+> 
+> Right, and that's what Philipp tries to address, the requirement to wait for an
+> RCU grace period is perfectly fine if it is only about freeing memory, but it
+> can become painful if the fence private data contains data also needs to be
+> destructed in some way.
 
-There's some other slightly unfortunate caveats of this:
+Yeah that makes sense.
 
-* Drivers don't have explicit control at the moment over when unmapping
-  happens (which is exactly the same as the C side atm, so it might not be
-  a problem).
-* We can't just return `SGTableMap` to the user through an Arc to attempt
-  to fix the last caveat - because that implies the gem object would need
-  to hold a reference count to the scatterlist mapping, which just leaves
-  us with the same problem.
+> IOW, if a driver signals a fence, it is lifecycle-wise reasonable to destruct
+> the private data that is no longer needed (remaining users only deal with struct
+> dma_fence) and having to wait for a full grace period adds sublety and
+> complication that can be avoided with the proposed approach.
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+Yeah, I've run into that when I tried to make the amdgpu fences independent as well.
+> That said, I'd like to ask the opposite question: What are the concerns with the
+> proposed approach over (pure) RCU?
 
----
-V3:
-* Rename OwnedSGTable to shmem::SGTable. Since the current version of the
-  SGTable abstractions now has a `Owned` and `Borrowed` variant, I think
-  renaming this to shmem::SGTable makes things less confusing.
-  We do however, keep the name of owned_sg_table() as-is.
-V4:
-* Clarify safety comments for SGTable to explain why the object is
-  thread-safe.
-* Rename from SGTableRef to SGTable
-V10:
-* Use Devres in order to ensure that SGTables are revocable, and are
-  unmapped on driver-unbind.
-V11:
-* s/create_sg_table()/get_sg_table()
-* Get rid of extraneous `ret = ` in shmem::Object::get_sg_table()
-V12:
-* Actually move sgt_res in this patch and not the next one
-V13:
-* Use DmaResvGuard suggestion from Alexander
-* Use Alexander's (much better) solution for get_sg_table()
-* Use SetOnce instead of UnsafeCell
-* s/SGTableRef/SGTableMap
-* Fix typo in SGTableMap documentation
-* Create fallible constructor for SGTableMap
-* Don't reuse dma_resv lock for protecting Object contents, just use Mutex
-  + SetOnce
-* Drop use of drm_gem_shmem_get_pages_sgt_locked(), since we don't need to
-  hold the dma_resv lock ourselves for anything but this function.
-* Check that the device we receive in the bounds for sg_table() and
-  owned_sg_table() that said Device is in fact, the correct device.
-* Remove redundant docs in owned_sg_table(), just point it back to
-  sg_table().
-* Implement Deborah's suggestion to fix double-free in
-  free_callback()
-* Restore original order of Object<T>
-* Fix doc typo for SGTableMap
-V14:
-* Use new InitOnce container over the Mutex/SetOnce horror show we had
-  before.
-* Start using LazyInit container for storing Devres for sgt unmap
-* Add some kunit tests for sg_table (not sure why I didn't do this before)
-  using some of the boilerplate code leftover from the vmap bindings
-* Get rid of the owned SGTable variant for now, we'll add it back in a
-  future patch if people actually need it.
-* Use new LazyInit container from me to get rid of the horrid
-  Mutex<SetOnce<>> mess.
-* Add the best we can do for unit tests w/r/t SGTable at the moment
-V16:
-* Get rid of LazyInit, go back to SetOnce, use trick that Alice recommended
-  that is a lot cleaner.
-* Fix horrid rebasing mistake
-V17:
-* Rebase
-* Fix missing safety comment in free_callback() (we forgot to justify why
-  &mut is safe in `unsafe { &mut (*this).sgt_res }.reset()`)
-V18:
-* Use ManuallyDrop instead of SetOnce::reset()
-V19:
-* Explain that populate() will always return true in sg_table()
-* Fix outdated comment in SGTableMap
-* Fix invariant comment in SGTableMap
+Well a) locking inversions and b) performance.
 
- rust/kernel/drm/gem/shmem.rs | 174 +++++++++++++++++++++++++++++++++--
- 1 file changed, 164 insertions(+), 10 deletions(-)
+For example the reason why we have the dma_fence_is_signaled() and dma_fence_is_signaled_locked() variants is because there is a measurable difference in some specific use cases for not grabbing the locks.
 
-diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
-index ffaa00a1af109..91441252482da 100644
---- a/rust/kernel/drm/gem/shmem.rs
-+++ b/rust/kernel/drm/gem/shmem.rs
-@@ -11,6 +11,11 @@
- 
- use crate::{
-     container_of,
-+    device::{
-+        self,
-+        Bound, //
-+    },
-+    devres::*,
-     drm::{
-         driver,
-         gem,
-@@ -19,14 +24,23 @@
-         DeviceContext,
-         Registered, //
-     },
--    error::to_result,
-+    error::{
-+        from_err_ptr,
-+        to_result, //
-+    },
-     io::{
-         Io,
-         IoCapable,
-         IoKnownSize, //
-     },
-     prelude::*,
--    sync::aref::ARef,
-+    scatterlist,
-+    sync::{
-+        aref::ARef,
-+        new_mutex,
-+        Mutex,
-+        SetOnce, //
-+    },
-     types::{
-         NotThreadSafe,
-         Opaque, //
-@@ -35,7 +49,10 @@
- use core::{
-     ffi::c_void,
-     marker::PhantomData,
--    mem::MaybeUninit, //
-+    mem::{
-+        ManuallyDrop,
-+        MaybeUninit, //
-+    },
-     ops::{
-         Deref,
-         DerefMut, //
-@@ -90,6 +107,11 @@ pub struct Object<T: DriverObject, C: DeviceContext = Registered> {
-     obj: Opaque<bindings::drm_gem_shmem_object>,
-     /// Parent object that owns this object's DMA reservation object.
-     parent_resv_obj: Option<ARef<Object<T, C>>>,
-+    /// Devres object for unmapping any SGTable on driver-unbind.
-+    sgt_res: ManuallyDrop<SetOnce<Devres<SGTableMap<T, C>>>>,
-+    #[pin]
-+    /// Lock for protecting initialization of `sgt_res`.
-+    sgt_lock: Mutex<()>,
-     #[pin]
-     inner: T,
-     _ctx: PhantomData<C>,
-@@ -148,6 +170,8 @@ pub fn new(
-             try_pin_init!(Self {
-                 obj <- Opaque::init_zeroed(),
-                 parent_resv_obj: config.parent_resv_obj.map(|p| p.into()),
-+                sgt_res: ManuallyDrop::new(SetOnce::new()),
-+                sgt_lock <- new_mutex!(()),
-                 inner <- T::new(dev, size, args),
-                 _ctx: PhantomData::<C>,
-             }),
-@@ -192,18 +216,26 @@ extern "C" fn free_callback(obj: *mut bindings::drm_gem_object) {
-         // - DRM always passes a valid gem object here
-         // - We used drm_gem_shmem_create() in our create_gem_object callback, so we know that
-         //   `obj` is contained within a drm_gem_shmem_object
--        let this = unsafe { container_of!(obj, bindings::drm_gem_shmem_object, base) };
--
--        // SAFETY:
--        // - We're in free_callback - so this function is safe to call.
--        // - We won't be using the gem resources on `this` after this call.
--        unsafe { bindings::drm_gem_shmem_release(this) };
-+        let base = unsafe { container_of!(obj, bindings::drm_gem_shmem_object, base) };
- 
-         // SAFETY:
-         // - We verified above that `obj` is valid, which makes `this` valid
-         // - This function is set in AllocOps, so we know that `this` is contained within a
-         //   `Object<T, C>`
--        let this = unsafe { container_of!(Opaque::cast_from(this), Self, obj) }.cast_mut();
-+        let this = unsafe { container_of!(Opaque::cast_from(base), Self, obj) }.cast_mut();
-+
-+        // We need to drop `sgt_res` first, since doing so requires that the GEM object is still
-+        // alive.
-+        // SAFETY:
-+        // - We verified above that `this` is valid.
-+        // - We are in free_callback, guaranteeing we have exclusive access to `this` and that
-+        //   `sgt_res` will not be used after dropping it here.
-+        unsafe { ManuallyDrop::drop(&mut (*this).sgt_res) };
-+
-+        // SAFETY:
-+        // - We're in free_callback - so this function is safe to call.
-+        // - We won't be using the gem resources on `this` after this call.
-+        unsafe { bindings::drm_gem_shmem_release(base) };
- 
-         // SAFETY: We're recovering the Kbox<> we created in gem_create_object()
-         let _ = unsafe { KBox::from_raw(this) };
-@@ -279,6 +311,46 @@ pub fn vmap<const SIZE: usize>(&self) -> Result<VMapRef<'_, T, C, SIZE>> {
-     pub fn owned_vmap<const SIZE: usize>(&self) -> Result<VMapOwned<T, C, SIZE>> {
-         self.make_vmap()
-     }
-+
-+    /// Creates (if necessary) and returns an immutable reference to a scatter-gather table of DMA
-+    /// pages for this object.
-+    ///
-+    /// This will pin the object in memory. It is expected that `dev` should be a pointer to the
-+    /// same [`device::Device`] which `self` belongs to, otherwise this function will return
-+    /// `Err(EINVAL)`.
-+    pub fn sg_table<'a>(
-+        &'a self,
-+        dev: &'a device::Device<Bound>,
-+    ) -> Result<&'a scatterlist::SGTable> {
-+        if dev.as_raw() != self.dev().as_ref().as_raw() {
-+            return Err(EINVAL);
-+        }
-+
-+        let sgt_res = 'out: {
-+            // Fast path: sgt_res is already initialized
-+            if let Some(sgt_res) = self.sgt_res.as_ref() {
-+                break 'out sgt_res;
-+            }
-+
-+            // Slow path: Grab the lock and see if we need to initialize sgt_res.
-+            let _guard = self.sgt_lock.lock();
-+
-+            // If someone initialized it while we were waiting, we can exit early.
-+            if let Some(sgt_res) = self.sgt_res.as_ref() {
-+                break 'out sgt_res;
-+            }
-+
-+            // If not, finish initializing and return. `populate()` cannot return false, as
-+            // `sgt_res` must be unpopulated, and we must hold `sgt_lock` to reach this point.
-+            self.sgt_res
-+                .populate(Devres::new(dev, SGTableMap::new(self))?);
-+
-+            // SAFETY: We just populated sgt_res above.
-+            unsafe { self.sgt_res.as_ref().unwrap_unchecked() }
-+        };
-+
-+        Ok(sgt_res.access(dev)?)
-+    }
- }
- 
- impl<T: DriverObject, C: DeviceContext> Deref for Object<T, C> {
-@@ -477,6 +549,64 @@ unsafe fn io_write(&self, value: $ty, address: usize) {
- #[cfg(CONFIG_64BIT)]
- impl_vmap_io_capable!(u64);
- 
-+/// A reference to a GEM object that is known to have a mapped [`SGTable`].
-+///
-+/// This is used by the Rust bindings with [`Devres`] in order to ensure that mappings for SGTables
-+/// on GEM shmem objects are revoked on driver-unbind.
-+///
-+/// # Invariants
-+///
-+/// - `self.obj` always points to a valid GEM object.
-+/// - This object is proof that `self.obj.owner.sgt_res` has an initialized and valid pointer to an
-+///   [`SGTable`].
-+///
-+/// [`SGTable`]: scatterlist::SGTable
-+pub struct SGTableMap<T: DriverObject, C: DeviceContext> {
-+    obj: NonNull<Object<T, C>>,
-+}
-+
-+impl<T: DriverObject, C: DeviceContext> Deref for SGTableMap<T, C> {
-+    type Target = scatterlist::SGTable;
-+
-+    fn deref(&self) -> &Self::Target {
-+        // SAFETY:
-+        // - The NonNull is guaranteed to be valid via our type invariants.
-+        // - The sgt field is guaranteed to be initialized and valid via our type invariants.
-+        unsafe { scatterlist::SGTable::from_raw((*self.obj.as_ref().as_raw_shmem()).sgt) }
-+    }
-+}
-+
-+impl<T: DriverObject, C: DeviceContext> Drop for SGTableMap<T, C> {
-+    fn drop(&mut self) {
-+        // SAFETY: `obj` is always valid via our type invariants
-+        let obj = unsafe { self.obj.as_ref() };
-+        let _lock = DmaResvGuard::new(obj);
-+
-+        // SAFETY: We acquired the lock needed for calling this function above
-+        unsafe { bindings::__drm_gem_shmem_free_sgt_locked(obj.as_raw_shmem()) };
-+    }
-+}
-+
-+impl<T: DriverObject, C: DeviceContext> SGTableMap<T, C> {
-+    fn new(obj: &Object<T, C>) -> impl Init<Self, Error> {
-+        // INVARIANT:
-+        // - We call drm_gem_shmem_get_pages_sgt below and check whether or not it succeeds,
-+        //   fulfilling the invariant of SGTableMap that the object's `sgt` field is initialized.
-+        // SAFETY:
-+        // - `obj` is fully initialized, making this function safe to call.
-+        from_err_ptr(unsafe { bindings::drm_gem_shmem_get_pages_sgt(obj.as_raw_shmem()) })?;
-+
-+        Ok(Self { obj: obj.into() })
-+    }
-+}
-+
-+// SAFETY: The NonNull in SGTableMap is guaranteed valid by our type invariants, and the GEM object
-+// it points to is guaranteed to be thread-safe.
-+unsafe impl<T: DriverObject, C: DeviceContext> Send for SGTableMap<T, C> {}
-+// SAFETY: The NonNull in SGTableMap is guaranteed valid by our type invariants, and the GEM object
-+// it points to is guaranteed to be thread-safe.
-+unsafe impl<T: DriverObject, C: DeviceContext> Sync for SGTableMap<T, C> {}
-+
- #[kunit_tests(rust_drm_gem_shmem)]
- mod tests {
-     use super::*;
-@@ -591,4 +721,28 @@ fn vmap_io() -> Result {
- 
-         Ok(())
-     }
-+
-+    // TODO: I would love to actually test the success paths of sg_table(), but that would require
-+    // also implementing dummy dma_ops so that trying to create a mapping doesn't explode. So, leave
-+    // that for someone else.
-+
-+    // Ensures that passing the wrong device to sg_table() fails as we expect, and also ensure it
-+    // skips initializing `sgt_res` since we could otherwise create `sgt_res` with the wrong device
-+    // bound to it.
-+    #[test]
-+    fn fail_sg_table_on_wrong_dev() -> Result {
-+        let (_dev, drm) = create_drm_dev()?;
-+        let wrong_dev = faux::Registration::new(c"EvilKunit", None)?;
-+
-+        let obj = Object::<KunitObject, _>::new(&drm, PAGE_SIZE, ObjectConfig::default(), ())?;
-+
-+        assert_eq!(obj.sg_table(wrong_dev.as_ref()).err().unwrap(), EINVAL);
-+
-+        // If sgt_res was not initialized mistakenly with the wrong device, this should still fail.
-+        assert_eq!(obj.sg_table(wrong_dev.as_ref()).err().unwrap(), EINVAL);
-+
-+        // TODO: Someday, we should test that creating an sg_table here still succeeds.
-+
-+        Ok(())
-+    }
- }
--- 
-2.54.0
+I personally find those micro-optimizations rather questionable, but the community agreement is that we should have them.
 
+So my take would rather be that the dma_fence_is_signaled_locked() variant goes away and we consistently call the ops pointers without holding the dma_fence lock and the driver implementations can then optionally take it if necessary.
+
+I think for this we would just need to replace most calls to dma_fence_is_signaled_locked() with dma_fence_test_signaled().
+
+In the long term that would also allow cleaning up the container handling and simplifying the DRM scheduler a bit.
+
+Regards,
+Christian.
