@@ -4,55 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23C36CD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 11:19:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85ECDCD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 11:25:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4564C10F20B;
-	Mon,  8 Jun 2026 11:19:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBFD810F221;
+	Mon,  8 Jun 2026 11:25:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Jgbtoy12";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="R3ygMS8J";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="UuQ4bQXA";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="R3ygMS8J";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="UuQ4bQXA";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DF3F10F20A
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 11:19:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1780917570; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=MDBnO0TqcGEwPFTTvTd/cPaE4bO3Cq6kyoqVXtWvMGpeTbSUrYC4AEo6czAAbgiGc+TOpYpYrA0OogWPd73kUTCnmVbtp05w4i5XCKeyUA6DBMhisIQEtCRqpGovhtiaF67dng+JDXFW+ePob3l2/7G0Efj2SDoab5PWPNcY/0c=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1780917570;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=1to7idDhOP2VxQhysUm+4CWP7+1PqSSDup0jP0EDL70=; 
- b=kL2WFIO5nL6e0+IVyeoOUxLRVqD9lGZ19VPvsOq4aoXkzr6FaXiTjtMOkHDB2Vu+KE+MmXwPoIMRkM9OW6GqHKHeuGxe3WfyTjhJba1C7dY7EB4yEfgKEZXToQMNmisWQl2BqYasO9iI2gRGECydD2MZzpeIP4YQ+yi9ZBj9XAg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780917570; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=1to7idDhOP2VxQhysUm+4CWP7+1PqSSDup0jP0EDL70=;
- b=Jgbtoy12uZd+rJVXbV5Z6MwOvVmZn0blVCd3vqTyM2Qemn1hFT/yQin3xFyR5w1l
- CV7vxKx5BVZ6eejj4lqcV632p++C6MdhxyvMVTrublyKVXn4p5ScSQf5sxtlrmq6DcD
- RYxHuKOr9gfsRJENGoEBGnT2Wwdw/VEbPZ+g6Y1c=
-Received: by mx.zohomail.com with SMTPS id 1780917568590800.9724640375255;
- Mon, 8 Jun 2026 04:19:28 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Mon, 08 Jun 2026 13:19:08 +0200
-Subject: [PATCH 2/2] drm/display: hdmi: Round odd max_bpc down to even numbers
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E77D10F221
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 11:25:29 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DC81A6A8C4;
+ Mon,  8 Jun 2026 11:25:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780917927; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=5PhUKRNrkFo6QJIIpFgB6mvHPtqJ+3EPkKVjktRuz+Q=;
+ b=R3ygMS8JBDzEcakqmn6JWQjquy5PKia1xVyQS/cz7W5zCEVE0EwWcCcsUbtrkoLRwlcSV6
+ 3tB/hfkP4ypdeTka4vFXkXjuJGCdztCRy4jD5TOxwj9PT/wrLhWSOf4BTpdoUZhI/CdBeo
+ 7zZPWuShePGc8de6K5Pb/zFqcuSM66U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780917927;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=5PhUKRNrkFo6QJIIpFgB6mvHPtqJ+3EPkKVjktRuz+Q=;
+ b=UuQ4bQXAnAOYMZ1I/JxpIuag5+M73jsmDyFZCVImKXPE/4xEMjcO+9RBQVXgMs7TvXPbBj
+ oBKjqSMHvQ6d40Bg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780917927; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=5PhUKRNrkFo6QJIIpFgB6mvHPtqJ+3EPkKVjktRuz+Q=;
+ b=R3ygMS8JBDzEcakqmn6JWQjquy5PKia1xVyQS/cz7W5zCEVE0EwWcCcsUbtrkoLRwlcSV6
+ 3tB/hfkP4ypdeTka4vFXkXjuJGCdztCRy4jD5TOxwj9PT/wrLhWSOf4BTpdoUZhI/CdBeo
+ 7zZPWuShePGc8de6K5Pb/zFqcuSM66U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780917927;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=5PhUKRNrkFo6QJIIpFgB6mvHPtqJ+3EPkKVjktRuz+Q=;
+ b=UuQ4bQXAnAOYMZ1I/JxpIuag5+M73jsmDyFZCVImKXPE/4xEMjcO+9RBQVXgMs7TvXPbBj
+ oBKjqSMHvQ6d40Bg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B93B7779A7;
+ Mon,  8 Jun 2026 11:25:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id oN3rK6emJmobfAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 08 Jun 2026 11:25:27 +0000
+Message-ID: <b80a379d-87e4-45c4-a078-09e84a840895@suse.de>
+Date: Mon, 8 Jun 2026 13:25:27 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260608-hdmi-max-bpc-fix-v1-2-6e8dcebc7274@collabora.com>
-References: <20260608-hdmi-max-bpc-fix-v1-0-6e8dcebc7274@collabora.com>
-In-Reply-To: <20260608-hdmi-max-bpc-fix-v1-0-6e8dcebc7274@collabora.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- kernel@collabora.com, Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.15.2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] lib/fonts: Avoid unncessary 64-bit math in font code
+To: Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+References: <20260607210203.229613-1-deller@gmx.de>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260607210203.229613-1-deller@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
+ RCVD_TLS_ALL(0.00)[];
+ FREEMAIL_TO(0.00)[gmx.de,vger.kernel.org,lists.freedesktop.org];
+ ARC_NA(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[]; FREEMAIL_CC(0.00)[gmail.com];
+ RCPT_COUNT_THREE(0.00)[4]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ URIBL_BLOCKED(0.00)[gmx.de:email,suse.com:url,suse.de:mid,imap1.dmz-prg2.suse.org:helo];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[gmx.de:email, imap1.dmz-prg2.suse.org:helo,
+ suse.com:url, suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,127 +140,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The HDMI state helpers will count down from the max bpc to 8 in steps of
-2, trying each value as a possible output bpc. This goes awry if max bpc
-is restricted by userspace to an odd number with the "max bpc" connector
-property.
+Hi
 
-Prevent this, without introducing any additional bpc format trial steps,
-by simply subtracting max_bpc modulo 2 from max_bpc as the starting
-point for the for loop.
+Am 07.06.26 um 23:02 schrieb Helge Deller:
+> The text display code used in the Risc PC kernel image decompression
+> code uses arch/arm/boot/compressed/font.c, which includes
+> lib/fonts/font_acorn_8x8.c, which further includes <linux/font.h>.
+>
+> Since commit 97df8960240a ("lib/fonts: Provide helpers for calculating
+> glyph pitch and size") <linux/font.h> contains inline functions that
+> require __do_div64, which is not linked into the ARM kernel
+> decompressor. This makes Risc PC zImages fail to build.
+>
+> There is no need to use 64-bit division code here, so resolve this issue
+> by using plain standard addition and shift maths.
 
-Additionally, add a KUnit test to validate the handling of this.
+Why is there a 64-bit division at all?
 
-Fixes: 26ff1c38fc29 ("drm/connector: hdmi: Compute bpc and format automatically")
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- drivers/gpu/drm/display/drm_hdmi_state_helper.c    |  2 +-
- drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 71 ++++++++++++++++++++++
- 2 files changed, 72 insertions(+), 1 deletion(-)
+>
+> Fixes: 97df8960240a ("lib/fonts: Provide helpers for calculating glyph pitch and size")
+> Reported-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+> Signed-off-by: Helge Deller <deller@gmx.de>
+> ---
+>   include/linux/font.h | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/include/linux/font.h b/include/linux/font.h
+> index 6845f02d739a..67d32268989d 100644
+> --- a/include/linux/font.h
+> +++ b/include/linux/font.h
+> @@ -11,7 +11,6 @@
+>   #ifndef _VIDEO_FONT_H
+>   #define _VIDEO_FONT_H
+>   
+> -#include <linux/math.h>
+>   #include <linux/types.h>
+>   
+>   struct console_font;
+> @@ -35,7 +34,7 @@ struct console_font;
+>    */
+>   static inline unsigned int font_glyph_pitch(unsigned int width)
+>   {
+> -	return DIV_ROUND_UP(width, 8);
+> +	return (width + 7) >> 3;
 
-diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-index 8303475ec021..9fbf88054ad8 100644
---- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-@@ -648,7 +648,7 @@ hdmi_compute_format_bpc(const struct drm_connector *connector,
- 	unsigned int bpc;
- 	int ret;
- 
--	for (bpc = max_bpc; bpc >= 8; bpc -= 2) {
-+	for (bpc = max_bpc - max_bpc % 2; bpc >= 8; bpc -= 2) {
- 		ret = hdmi_try_format_bpc(connector, conn_state, mode, bpc, fmt);
- 		if (!ret)
- 			continue;
-diff --git a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-index e89e1af7a811..dd1043ef8804 100644
---- a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-+++ b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-@@ -1327,6 +1327,76 @@ static void drm_test_check_tmds_char_rate_rgb_12bpc(struct kunit *test)
- 	drm_modeset_acquire_fini(&ctx);
- }
- 
-+/*
-+ * Test that given a request for an odd-numbered max bpc, the HDMI state helpers
-+ * will succeed an atomic check but round down to the even-numbered bpc on the
-+ * output, while leaving the requested value alone.
-+ */
-+static void drm_test_check_odd_max_bpc(struct kunit *test)
-+{
-+	struct drm_atomic_helper_connector_hdmi_priv *priv;
-+	struct drm_connector_state *conn_state;
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_display_mode *preferred;
-+	struct drm_atomic_commit *state;
-+	struct drm_connector *conn;
-+	struct drm_device *drm;
-+	int ret;
-+
-+	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
-+				BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
-+				12,
-+				&dummy_connector_hdmi_funcs,
-+				test_edid_hdmi_1080p_rgb_yuv_dc_max_340mhz);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+
-+	drm = &priv->drm;
-+	conn = &priv->connector;
-+	preferred = find_preferred_mode(conn);
-+	KUNIT_ASSERT_NOT_NULL(test, preferred);
-+
-+	KUNIT_ASSERT_TRUE(test, conn->display_info.is_hdmi);
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+
-+retry_conn_enable:
-+	ret = drm_kunit_helper_enable_crtc_connector(test, drm, priv->crtc,
-+						     conn, preferred, &ctx);
-+	if (ret == -EDEADLK) {
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry_conn_enable;
-+	}
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	state = drm_kunit_helper_atomic_state_alloc(test, drm, &ctx);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-+
-+retry_conn_state:
-+	conn_state = drm_atomic_get_connector_state(state, conn);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, conn_state);
-+
-+	conn_state->max_requested_bpc = 11;
-+
-+	ret = drm_atomic_check_only(state);
-+	if (ret == -EDEADLK) {
-+		drm_atomic_commit_clear(state);
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry_conn_state;
-+	}
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	conn_state = drm_atomic_get_new_connector_state(state, conn);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, conn_state);
-+
-+	KUNIT_EXPECT_EQ(test, conn_state->hdmi.output_bpc, 10);
-+	KUNIT_EXPECT_EQ(test, conn_state->max_requested_bpc, 11);
-+
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+}
-+
- /*
-  * Test that if we filter a rate through our hook, it's indeed rejected
-  * by the whole atomic_check logic.
-@@ -2227,6 +2297,7 @@ static struct kunit_case drm_atomic_helper_connector_hdmi_check_tests[] = {
- 	KUNIT_CASE(drm_test_check_tmds_char_rate_rgb_8bpc),
- 	KUNIT_CASE(drm_test_check_tmds_char_rate_rgb_10bpc),
- 	KUNIT_CASE(drm_test_check_tmds_char_rate_rgb_12bpc),
-+	KUNIT_CASE(drm_test_check_odd_max_bpc),
- 	/*
- 	 * TODO: We should have tests to check that a change in the
- 	 * format triggers a CRTC mode change just like we do for the
+Ok by me, if that's what's necessary. But can we try to keep a 
+documented macro for the division to make the code explain itself? Does 
+it work with DIV_ROUND_UP_POW2() ?
+
+Best regards
+Thomas
+
+>   }
+>   
+>   /**
 
 -- 
-2.54.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
