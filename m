@@ -4,74 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC326CD8C8E
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 08:58:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ECF0CD8C9F
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 08:58:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BE2B10EFC2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1A9710EFC4;
 	Mon,  8 Jun 2026 08:58:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GSL1A8e0";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EJe6Ye0x";
 	dkim-atps=neutral
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C069D10EB71
- for <dri-devel@lists.freedesktop.org>; Sun,  7 Jun 2026 20:17:23 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-5aa2c25c632so3865212e87.1
- for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 13:17:23 -0700 (PDT)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E159B10EC3A
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 02:32:47 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-2bf20f6be6bso28306305ad.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 19:32:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780863442; x=1781468242; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1780885967; x=1781490767; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Cy/zUtWfVLlQnRmwYycbaxD9q0kWKYQ8XVFOlWopOt8=;
- b=GSL1A8e0+YRChNdCUhkYERI+790lzw+vGjfQNngUQjP4sDDYA36emWq3yymBLlB00M
- mhqanc7OOJ/CkWua+qU9sth23EHUwImqr0QfQcSDgKxhYFh18HXVMQyt7pAiPRwXp9JP
- kPYeJYYzsPmx2hjv1SmuldijHqDMpNS/13A93Njk31QVpSXe/iHcTEYyyLmH+B0rYFjO
- ikcx+KF+NLBUxx0bMkMT+hebTnGvZisU2p9OsnPfrk5gzbhgBdyI0UKgJ/vGQjDs0MeG
- lvJuR6AE2iWhOdRm+pQeyqE+xLZ2t52GOncSPgLjTFwTaiUBNtv0NDc+K3sJNnjR7X67
- 3hnw==
+ bh=mE/QA9NRrIBzmpaNm7qJKCCCXhuuJ1hBihamFPKJO/0=;
+ b=EJe6Ye0xUyBdhvbJk832XHIPYtuaucgU3FSZ3xcjgdB0LhkeZ2RJhMLSzMmtczoSqD
+ F41pJlKBR1ii4h7ELLxSJaifjU+kx+S3Yp7i+HQuGsRK8xdyMbKGyvfYHMUb09VW9BkW
+ p78TiKvRboUUjz496m53XVwpSlxwhsO7xAhld0po8u7QSQWZGuumDbwzN3gdU7blGuxW
+ imkZa71JGlBuWti3amE13qcl9Xg2tRy75Nsbc+l0CSAc3ft4aMEBvPHBnrpdMEfR0jPR
+ glHY3qP8zBqi1R/XJ9jIQaMxLaNIU37DluIvT3YsoNbXRaLaPneTOTrgvtKFljBhK5wO
+ zLWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780863442; x=1781468242;
+ d=1e100.net; s=20251104; t=1780885967; x=1781490767;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=Cy/zUtWfVLlQnRmwYycbaxD9q0kWKYQ8XVFOlWopOt8=;
- b=s3QedQtmUFx7IFTJRkYubOOBdi+KpR6xTOnOt/VQxnQ1kjSdPVhuhh7ww7p/Wije45
- CiyX9LMvxCBPRVuCl7Gt9wgXt5q1fkHamqBuoesiprV9AzsbqkccOeLipcLHTmaFm6MD
- GvlUM3zexqXr7osDcRZmgRGgNpkY+tlBXm4X3yDcBrsP1b5wDYIOpl/KZE1MSKCieiPO
- 7Zoe3Bts0d1I9JuCm4QbOIVaZimqCoKzxZv1Cto8iu9yCm493QZ8o/xMYEWq0gTPmYJv
- t07kAwIlTupdThU8e+p4baHJBLQwN6WJikm7gsfPdHXl27p7fGH30c/IwHbbp/iS7GJP
- CjqA==
-X-Gm-Message-State: AOJu0YyNR+1wvVLXcMq/FZyHA5G2nXymPUl6X2vDobG5LWCeZVTxXLz7
- bIguv6LhklcdBJgHyujAtuMYQQ58CZ+3eO0Elt3jAXGkWt90Ds47a21B
-X-Gm-Gg: Acq92OHWFDEzTXe076HfX1a8fS2GtqBfTucxS69zTD0bTQwxTQb2kOy7Fk2iT1pMGkL
- kGsA4JsUBAId/D1XYbyNszOEhDbY99rLN0bZDdcABpwlCBkzZq01CDb2u4YoX11846Lh0i3fLZK
- MX3Ajz0CsV6/v+xLUXUI7DmBlkT7B/ZjYF+zRhaKKe8Ey9ZSTqPYlL/9k8/Di9xPEq9mKHL3AlZ
- E0ze2GFLwhxs+kirfkPEc7ZHB+oHf0Yj9TPjDLzYnAqZFER6x2oBSqo+0lEsu3EPPLTwZMC+hJ0
- G1HtQ10eLQWc7WL96Y/i5Mf/GnbvxCF9D78yXbwGtgeI7YwYGvzQN0BLSgtEYMga4LIz9eW92w9
- SHBx476ib7/ArSqIRaMwWZJfTPmdri5v70xjpEW1DccSO+jvzhfWC0tmoVVquqzbsnXwv7jA9uZ
- CZrIxzQDFd8DzqfrDJ8WZ2SWOBZpNqhJg=
-X-Received: by 2002:a05:6512:32c8:b0:5aa:7078:4a12 with SMTP id
- 2adb3069b0e04-5aa87c23abbmr3618491e87.42.1780863441904; 
- Sun, 07 Jun 2026 13:17:21 -0700 (PDT)
-Received: from fedora ([37.113.99.0]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5aa7b907269sm3276268e87.34.2026.06.07.13.17.21
+ bh=mE/QA9NRrIBzmpaNm7qJKCCCXhuuJ1hBihamFPKJO/0=;
+ b=hDr1gcROP64UNVTKTqODa8nnYiqpVwYC6mWWuhZdpcNPBwHTh0hjXEkS4xdi2CGBX8
+ 0cmpPWczhYPBNlWUNMvp7AFuhkMhJ56GZiZk+xYEx70se2RqkKnvF6MausH6NSkUZf76
+ wr8vUWSzgDxlLrGxn9kHVI+mxRApKadsTw4TjeokC4ZVUm41W+g4YS6S1rHr2yTWrQ4O
+ dKOBUlbXEOZjBWjtwIP+jwK1IhC/YyRFspKlrQezRB3PKwzo/CYtU8Z6B5HZke/qT7EE
+ DUCUvDBbkcuoraiLBrj6ZccAqXfNjS8bUs8eWl8oaENmrUau4w990lDBRttIKkO8OaGv
+ mZOw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+a9KjNMYnhQPBmHdzOMHe48ZDddaFEHstAOCefUhHuUwDeUEY5WZB4VN2vwJkQsIt07I84fORAOCw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwEWNNdRiI0B4SfMxRyCHjtuBHN3lSrW7FlsOxMeV4NiNHbLSVy
+ zQQFTU7pfYH4Da7OeVNve5PzNc/fX5Wfy6xjvGWqsh2bo+R+oMqVGkk1
+X-Gm-Gg: Acq92OG2FhDCIwoJrVp6xBIPhsfV/UoM5rWTbe6JgcaykxS/WNoHWIjt3odQ4eF/ztQ
+ oUUeKOcLl1YweF1iE+rEPhhRVyU/FNzFWHexVvbiKjhx0OQvngMtEKrMokpdg7gFV46KtNCATEz
+ jkwgmgR3pFJWmeYrCzs9ACicWmb+EkVo2iDj3gAObYfbj3U9UmFgFO6qH64hJq1LHaZa4frcV/z
+ cegXBrw5dJZ1TRZZX6jD9thi9oh7i8QPHuTtz5pqLPSVBvgLsWFhsK7md/5ZK39vms+HYCo/FRA
+ gn5QfRui+pJ3yJzyX7UTeRV2QfKYV1m+3PxKCIM54BPkjaHtsou+g+fibP9uDpg+FvcZm+w2t8h
+ 10tl9DjzEx2fRxzNsMxKo1LsYHb5vI+MOCozEpjzyDYr0l+m3YkYBBkROsfBGtCC0SgkJDnlpok
+ DMo0rknG7m7s9dxcgluQ0Fb5+HoDejJbVemnzI+wqE7ZugURmSZcmU/nVFfRW97+NWukC7MSsAZ
+ psZR4IgFVgqLrbcsyCWRRy4Yat47UQFug==
+X-Received: by 2002:a17:902:ced1:b0:2c0:fa4e:91f6 with SMTP id
+ d9443c01a7336-2c1e7d41eabmr144113125ad.13.1780885967308; 
+ Sun, 07 Jun 2026 19:32:47 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net.
+ [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2c245dd3b5dsm38143485ad.81.2026.06.07.19.32.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 Jun 2026 13:17:21 -0700 (PDT)
-From: Georgii Druzhinin <ilovelinuxgames@gmail.com>
-To: andy@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
- Georgii Druzhinin <ilovelinuxgames@gmail.com>
-Subject: [PATCH 2/2] staging: fbtft: fbtft-bus: remove prohibited space before
- close parenthesis
-Date: Sun,  7 Jun 2026 23:17:08 +0300
-Message-ID: <20260607201708.88644-2-ilovelinuxgames@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260607201708.88644-1-ilovelinuxgames@gmail.com>
-References: <20260607201708.88644-1-ilovelinuxgames@gmail.com>
+ Sun, 07 Jun 2026 19:32:46 -0700 (PDT)
+From: Joey Lu <a0987203069@gmail.com>
+To: zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Joey Lu <a0987203069@gmail.com>
+Subject: [PATCH v3 1/5] dt-bindings: display: verisilicon,
+ dc: generalize for single-output variants
+Date: Mon,  8 Jun 2026 10:32:33 +0800
+Message-ID: <20260608023237.305036-2-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260608023237.305036-1-a0987203069@gmail.com>
+References: <20260608023237.305036-1-a0987203069@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 08 Jun 2026 08:58:33 +0000
@@ -90,31 +96,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fix checkpatch.pl error: "space prohibited before that close
-parenthesis ')'" by removing the empty argument and comma
-in define_fbtft_write_reg macro calls.
+The existing schema hard-codes the five-clock/three-reset/dual-port
+topology of the DC8200 IP block, preventing reuse for single-output
+variants such as the Verisilicon DCUltraLite used in the Nuvoton MA35D1
+SoC.
 
-Signed-off-by: Georgii Druzhinin <ilovelinuxgames@gmail.com>
+Rework the schema so that variant-specific constraints are expressed via
+allOf/if blocks:
+
+- Add nuvoton,ma35d1-dcu to the SoC-specific compatible enum.  The
+  generic verisilicon,dc fallback remains the driver-binding string.
+- Relax the top-level clocks/resets definitions to minItems ranges so
+  the base schema accepts both variants.
+- Keep ports in the global required list and keep additionalProperties
+  tightened to unevaluatedProperties.
+- Add an allOf/if block for thead,th1520-dc8200: five-clock (core, axi,
+  ahb, pix0, pix1), three-reset (core, axi, ahb).
+- Add an allOf/if block for nuvoton,ma35d1-dcu: two-clock (core, pix0),
+  one-reset (core).
+- Fix a stray space in the port@0 description.
+- Add a DT example for the Nuvoton MA35D1 DCU Lite using ports/port@0.
+
+Signed-off-by: Joey Lu <a0987203069@gmail.com>
 ---
- drivers/staging/fbtft/fbtft-bus.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../bindings/display/verisilicon,dc.yaml      | 103 +++++++++++++++---
+ 1 file changed, 90 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fbtft-bus.c
-index 30e436ff19e4..409770891c54 100644
---- a/drivers/staging/fbtft/fbtft-bus.c
-+++ b/drivers/staging/fbtft/fbtft-bus.c
-@@ -62,9 +62,9 @@ out:									      \
- }                                                                             \
- EXPORT_SYMBOL(func);
+diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+index 9dc35ab973f2..db0260d874c5 100644
+--- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
++++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+@@ -17,7 +17,8 @@ properties:
+     items:
+       - enum:
+           - thead,th1520-dc8200
+-      - const: verisilicon,dc # DC IPs have discoverable ID/revision registers
++          - nuvoton,ma35d1-dcu
++      - const: verisilicon,dc  # DC IPs have discoverable ID/revision registers
  
--define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, )
-+define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8)
- define_fbtft_write_reg(fbtft_write_reg16_bus8, __be16, u16, cpu_to_be16)
--define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16, )
-+define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16)
+   reg:
+     maxItems: 1
+@@ -26,6 +27,7 @@ properties:
+     maxItems: 1
  
- void fbtft_write_reg8_bus9(struct fbtft_par *par, int len, ...)
- {
+   clocks:
++    minItems: 2
+     items:
+       - description: DC Core clock
+       - description: DMA AXI bus clock
+@@ -34,24 +36,19 @@ properties:
+       - description: Pixel clock of output 1
+ 
+   clock-names:
+-    items:
+-      - const: core
+-      - const: axi
+-      - const: ahb
+-      - const: pix0
+-      - const: pix1
++    minItems: 2
++    maxItems: 5
+ 
+   resets:
++    minItems: 1
+     items:
+       - description: DC Core reset
+       - description: DMA AXI bus reset
+       - description: Configuration AHB bus reset
+ 
+   reset-names:
+-    items:
+-      - const: core
+-      - const: axi
+-      - const: ahb
++    minItems: 1
++    maxItems: 3
+ 
+   ports:
+     $ref: /schemas/graph.yaml#/properties/ports
+@@ -59,7 +56,7 @@ properties:
+     properties:
+       port@0:
+         $ref: /schemas/graph.yaml#/properties/port
+-        description: The first output channel , endpoint 0 should be
++        description: The first output channel, endpoint 0 should be
+           used for DPI format output and endpoint 1 should be used
+           for DP format output.
+ 
+@@ -77,7 +74,60 @@ required:
+   - clock-names
+   - ports
+ 
+-additionalProperties: false
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: thead,th1520-dc8200
++    then:
++      properties:
++        clocks:
++          minItems: 5
++          maxItems: 5
++
++        clock-names:
++          items:
++            - const: core
++            - const: axi
++            - const: ahb
++            - const: pix0
++            - const: pix1
++
++        resets:
++          minItems: 3
++          maxItems: 3
++
++        reset-names:
++          items:
++            - const: core
++            - const: axi
++            - const: ahb
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: nuvoton,ma35d1-dcu
++    then:
++      properties:
++        clocks:
++          minItems: 2
++          maxItems: 2
++
++        clock-names:
++          items:
++            - const: core
++            - const: pix0
++
++        resets:
++          maxItems: 1
++
++        reset-names:
++          items:
++            - const: core
++
++unevaluatedProperties: false
+ 
+ examples:
+   - |
+@@ -120,3 +170,30 @@ examples:
+         };
+       };
+     };
++
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
++    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
++
++    display@40260000 {
++        compatible = "nuvoton,ma35d1-dcu", "verisilicon,dc";
++        reg = <0x40260000 0x20000>;
++        interrupts = <GIC_SPI 20 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&clk DCU_GATE>, <&clk DCUP_DIV>;
++        clock-names = "core", "pix0";
++        resets = <&sys MA35D1_RESET_DISP>;
++        reset-names = "core";
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++                dpi_out: endpoint {
++                    remote-endpoint = <&panel_in>;
++                };
++            };
++        };
++    };
 -- 
-2.54.0
+2.43.0
 
