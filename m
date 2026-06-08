@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 714B2CD6E79
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 16:30:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70155CD6E79
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 16:32:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B932210F6F6;
-	Mon,  8 Jun 2026 16:30:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4ABB10F704;
+	Mon,  8 Jun 2026 16:32:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RczLuQSL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bhzT2jWC";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 054D110F6F4
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 16:30:34 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 464AA10F71C
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 16:32:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C4DE74183F;
- Mon,  8 Jun 2026 16:30:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88EE21F00893;
- Mon,  8 Jun 2026 16:30:33 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AD04660098;
+ Mon,  8 Jun 2026 16:32:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D90C1F00893;
+ Mon,  8 Jun 2026 16:32:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780936233;
- bh=HpvInkPdsOJ478WnGU8QQfhp89u07cX+G45IqufC+Hk=;
+ s=k20260515; t=1780936333;
+ bh=P2j1bZoDZUVbf7nCapsGeS8yA4Qa8qzCAZNoIE3YcH0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=RczLuQSLoEKFdwED71MvtDzyNlMrA3+Md85Nc/TiWJoqhpdejVOlnBxXbEwOtcw8G
- JjoF+gfNemWpiOvaatZKbIVQSbQ15tC2K62nCIpO6OcyzIWerKE/UUoEj9uYZY3XGS
- cOhmQFGwBXED0IVxs5MQJB2JGd9CL+ci0Gr/GuKAVgQL4rTzC8UpjtPqcPOH8HH1y/
- DqGwch9LAGm749LDFvLdHYgVY9zxx4uAnLugFTjlzg1GwWtthnDYfvvFpYW4NXfTe7
- 8HezSPj0oYwFw3n6uclVs9akI+TcwcWP5ud5NST3R3PL70ksvTgq0IjIp+ebUhTG4j
- 6FCI7GyxRpgzw==
+ b=bhzT2jWC2XL5hRSyjqUIw0cqU5v7micgynooDDcHSCK+KUSEf/dNShck4S137WRkN
+ qqbpk91q+PTXKdL2I+7OOAgDsMGCRoZZxjqzZRF4DghNMvVNBNB2++3cT3zNttDlgt
+ lFHT81OkHPmMvrcesuK801a2Y03gov6aXCiuWQr9ljLU91r+mjzG4qv4utRR7xSa+g
+ vj8HmR3WbeDm6VJq4SLIy4JG7CwXtOs7Zgg6EQvg50scOxlRhJxovRCHCfGKtdcpI/
+ eTmaRgYemFO9Gr5hwZZPkWESP3LkLu4wN/C7qPuPmgKclLCPn3S+sD9lwgCtyqar8r
+ QgXyB+f5tK2BA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V2 1/3] accel/amdxdna: Fix amdxdna_client lifetime race
- during device removal
+Subject: Re: [PATCH V2 2/3] accel/amdxdna: Fix amdxdna_client accessing race
+ in amdxdna_drm_gem_mmap()
 To: "Lizhi Hou" <lizhi.hou@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260608161418.2748988-1-lizhi.hou@amd.com>
-References: <20260608161418.2748988-1-lizhi.hou@amd.com>
+In-Reply-To: <20260608161418.2748988-2-lizhi.hou@amd.com>
+References: <20260608161418.2748988-2-lizhi.hou@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 16:30:33 +0000
-Message-Id: <20260608163033.88EE21F00893@smtp.kernel.org>
+Date: Mon, 08 Jun 2026 16:32:12 +0000
+Message-Id: <20260608163213.4D90C1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,158 +57,130 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Use-After-Free in IOCTLs due to lack of device unplug synchronizat=
-ion
-- [High] Deterministic Use-After-Free in GEM callbacks when userspace close=
-s the file descriptor after device removal
-- [High] Double free/unbind of the IOMMU SVA device handle on PASID failure
+- [Critical] Caching the `vm_area_struct` pointer in the MMU interval notif=
+ier leads to Use-After-Free on `munmap()`.
+- [High] The patch incompletely fixes a Use-After-Free of `amdxdna_client` =
+during device removal. The UAF remains in the standard GEM mmap path, IOCTL=
+s, and GEM destruction callbacks.
+- [High] Double put of DRM GEM object reference on the error path in `amdxd=
+na_insert_pages`.
+- [High] Premature destruction of `notifier_wq` leads to Use-After-Free whe=
+n unmapping VMAs after device removal.
 --
 
-commit 8636266787707619953362d31190f3d7097a3d27
+commit 4a66abc4067bb1f72f27f8b25d0d1de298787835
 Author: Lizhi Hou <lizhi.hou@amd.com>
 
-accel/amdxdna: Fix amdxdna_client lifetime race during device removal
+accel/amdxdna: Fix amdxdna_client accessing race in amdxdna_drm_gem_mmap()
 
-In amdxdna_remove(), all amdxdna_client structures are freed after
-calling drm_dev_unplug(). However, drm_dev_unplug() does not force
-existing file descriptors to be closed, so amdxdna_drm_close() may be
-called after amdxdna_remove() has completed.
+amdxdna_drm_gem_mmap() can be called after drm_dev_unplug() during device
+removal. In that case, the mmap path may access amdxdna_client after it
+has been freed, leading to a use-after-free.
 
-As a result, accessing client->pid for debug output in
-amdxdna_drm_close() can lead to a use-after-free, since the access is
-not protected by drm_dev_enter().
-
-Fix this by moving the debug output after drm_dev_enter(). Similarly,
-add the drm_dev_enter() protection for amdxdna_drm_open().
+Guard the mmap path with drm_dev_enter()/drm_dev_exit() and return an
+error if the device is already unplugged.
 
 > diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdx=
 dna/amdxdna_pci_drv.c
-> index 1f066ed8d2365..a22c986f1b331 100644
+> index a22c986f1b331..c18ddad9f6459 100644
 > --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
 > +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> @@ -108,10 +108,16 @@ static int amdxdna_drm_open(struct drm_device *ddev=
-, struct drm_file *filp)
+> @@ -253,15 +253,24 @@ static int amdxdna_drm_gem_mmap(struct file *filp, =
+struct vm_area_struct *vma)
 >  {
->  	struct amdxdna_dev *xdna =3D to_xdna_dev(ddev);
->  	struct amdxdna_client *client;
-> +	int ret =3D 0, idx;
-> +
-> +	if (!drm_dev_enter(ddev, &idx))
-> +		return -ENODEV;
+>  	struct drm_file *drm_filp =3D filp->private_data;
+>  	struct amdxdna_client *client =3D drm_filp->driver_priv;
+> -	struct amdxdna_dev *xdna =3D client->xdna;
+> +	struct amdxdna_dev *xdna;
+> +	int ret, idx;
 > =20
->  	client =3D kzalloc_obj(*client);
-> -	if (!client)
-> -		return -ENOMEM;
-> +	if (!client) {
-> +		ret =3D -ENOMEM;
-> +		goto dev_exit;
-> +	}
+>  	if (likely(vma->vm_pgoff >=3D DRM_FILE_PAGE_OFFSET_START))
+>  		return drm_gem_mmap(filp, vma);
 > =20
->  	client->pid =3D pid_nr(rcu_access_pointer(filp->pid));
->  	client->xdna =3D xdna;
-> @@ -125,7 +131,8 @@ static int amdxdna_drm_open(struct drm_device *ddev, =
-struct drm_file *filp)
->  			if (!amdxdna_use_carveout(xdna)) {
->  				XDNA_ERR(xdna, "PASID unavailable and carveout not configured");
->  				kfree(client);
-> -				return -EINVAL;
-> +				ret =3D -EINVAL;
-> +				goto dev_exit;
->  			}
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does this error handling path
-lead to a double-free of the SVA device handle?
+This is a pre-existing issue, but does this bypass of drm_dev_enter() leave
+the use-after-free unresolved for standard GEM mmaps?
 
-In amdxdna_sva_init(), if iommu_sva_get_pasid() fails, the code calls
-iommu_sva_unbind_device(client->sva) but leaves client->sva pointing to the
-unbound handle:
+The patch adds drm_dev_enter() below this check, but if the condition
+(vma->vm_pgoff >=3D DRM_FILE_PAGE_OFFSET_START) is met, it calls drm_gem_mm=
+ap()
+which eventually calls amdxdna_gem_obj_mmap() without the device removal
+protection. Since amdxdna_remove() frees all client structures regardless of
+open file descriptors, abo->client becomes a dangling pointer here.
 
-drivers/accel/amdxdna/amdxdna_pci_drv.c:amdxdna_sva_init() {
-	client->pasid =3D iommu_sva_get_pasid(client->sva);
-	if (client->pasid =3D=3D IOMMU_PASID_INVALID) {
-		iommu_sva_unbind_device(client->sva);
-		XDNA_ERR(xdna, "SVA get pasid failed");
-		return -ENODEV;
-	}
-}
+Additionally, do the IOCTL handlers (like amdxdna_drm_config_hwctx_ioctl in
+drivers/accel/amdxdna/amdxdna_ctx.c) and GEM destruction callbacks
+(like amdxdna_gem_del_bo_usage in drivers/accel/amdxdna/amdxdna_gem.c)
+also need drm_dev_enter() protection? They appear to extract and dereference
+filp->driver_priv without synchronization.
 
-If amdxdna_use_carveout() is true, the error is ignored here, and the open
-succeeds.
-
-Later, when amdxdna_client_cleanup() calls amdxdna_sva_fini(), the
-IS_ERR_OR_NULL(client->sva) check passes since client->sva is a dangling
-pointer, leading to a second call to iommu_sva_unbind_device(client->sva).
+> -	if (!xdna->dev_info->ops->mmap)
+> -		return -EOPNOTSUPP;
+> +	if (!drm_dev_enter(drm_filp->minor->dev, &idx))
+> +		return -ENODEV;
 
 [ ... ]
-> @@ -175,11 +186,10 @@ static void amdxdna_drm_close(struct drm_device *dd=
-ev, struct drm_file *filp)
->  	struct amdxdna_dev *xdna =3D to_xdna_dev(ddev);
->  	int idx;
-> =20
-> -	XDNA_DBG(xdna, "closing pid %d", client->pid);
-> -
->  	if (!drm_dev_enter(&xdna->ddev, &idx))
->  		return;
-> =20
-> +	XDNA_DBG(xdna, "closing pid %d", client->pid);
->  	mutex_lock(&xdna->dev_lock);
->  	amdxdna_client_cleanup(client);
->  	mutex_unlock(&xdna->dev_lock);
 
 [Severity: High]
-This is a pre-existing issue, but while drm_dev_enter() now protects open
-and close, are the ioctl handlers still vulnerable to a use-after-free duri=
-ng
-device removal?
+This isn't a bug introduced by this patch, but could the error path in
+amdxdna_insert_pages() lead to a double put of the GEM object reference?
 
-The DRM core's drm_ioctl() does not hold drm_dev_enter() and only performs a
-lockless check of drm_dev_is_unplugged(). If an ioctl is running concurrent=
-ly
-with amdxdna_remove(), drm_dev_unplug() will not wait for the ioctl to fini=
-sh.
-The client structure can be freed while concurrently running ioctls try to
-access it.
+In drivers/accel/amdxdna/amdxdna_gem.c:amdxdna_insert_pages(), if page
+insertion fails:
 
-For example, in amdxdna_drm_create_bo_ioctl():
+	if (ret) {
+		XDNA_ERR(xdna, "Failed insert pages %d", ret);
+		vma->vm_ops->close(vma);
+		return ret;
+	}
 
-drivers/accel/amdxdna/amdxdna_gem.c:amdxdna_drm_create_bo_ioctl() {
-	struct amdxdna_client *client =3D filp->driver_priv;
-	...
-}
-
-Should drm_dev_enter() be added to the ioctl handlers as well to prevent
-accessing a freed client structure?
-
+For shmem GEM objects, calling close() drops the object reference. When this
+error returns to drm_gem_mmap_obj(), it executes its error cleanup path whi=
+ch
+calls drm_gem_object_put() again, causing the same reference to be dropped
+twice.
 
 [Severity: High]
-This is a pre-existing issue, but does freeing the client structure during
-device removal cause a deterministic use-after-free when GEM objects are
-eventually closed?
+This isn't a bug introduced by this patch, but is it safe to destroy the
+notifier_wq during device removal?
 
-When amdxdna_remove() forcefully frees the client structure via
-amdxdna_client_cleanup(), active GEM objects created by this client are not
-destroyed because the DRM core holds references to them as long as the user=
-'s
-file descriptor remains open.
+In drivers/accel/amdxdna/amdxdna_pci_drv.c:amdxdna_remove():
 
-When the user eventually closes the file descriptor or unmaps the GEM objec=
-ts,
-amdxdna_gem_obj_close() is invoked, which accesses the freed client structu=
-re:
+	destroy_workqueue(xdna->notifier_wq);
 
-drivers/accel/amdxdna/amdxdna_gem.c:amdxdna_gem_del_bo_usage() {
-	guard(mutex)(&client->mm_lock);
-	...
-}
+If userspace retains mapped VMAs after the device is removed, a subsequent
+munmap() will trigger amdxdna_hmm_invalidate() in
+drivers/accel/amdxdna/amdxdna_gem.c, which queues work to the destroyed
+workqueue:
 
-Could the client structure be kept alive until all GEM objects drop their
-references?
+	queue_work(xdna->notifier_wq, &mapp->hmm_unreg_work);
+
+Can this lead to a use-after-free if the workqueue was already freed?
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but does caching the vm_area_str=
+uct
+pointer lead to a use-after-free during munmap()?
+
+In drivers/accel/amdxdna/amdxdna_gem.c:amdxdna_hmm_register(), the vma
+pointer is cached:
+
+	mapp->vma =3D vma;
+
+The core MM subsystem can split or free VMA objects independently. When
+munmap() is called, the notifier queues amdxdna_hmm_unreg_work() to run
+asynchronously. By the time amdxdna_umap_release() runs, the core MM has
+already freed the VMA, but the driver dereferences it:
+
+	if (is_import_bo(abo) && vma->vm_file && vma->vm_file->f_mapping)
+
+Does this need to be tracked differently to avoid accessing a freed VMA?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608161418.2748=
-988-1-lizhi.hou@amd.com?part=3D1
+988-1-lizhi.hou@amd.com?part=3D2
