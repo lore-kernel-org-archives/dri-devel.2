@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDAF0CD8C92
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:39:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA447CD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:39:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5098410F511;
-	Mon,  8 Jun 2026 14:39:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1675D10F50D;
+	Mon,  8 Jun 2026 14:39:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I5Ky/beK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mY98PLQU";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28F2710F511
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:39:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC59210F50D
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:39:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9FD27601D8;
- Mon,  8 Jun 2026 14:39:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D83301F00893;
- Mon,  8 Jun 2026 14:39:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 50179601E2;
+ Mon,  8 Jun 2026 14:39:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 825351F00898;
+ Mon,  8 Jun 2026 14:39:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780929582;
- bh=64UJfQ2QSCW26/FM2EwjLVEGz51jQfPQ49vALeyVjLU=;
+ s=k20260515; t=1780929585;
+ bh=Hssgs1qdu4dED3ac7eIb4wI+S9O4Ng3MAf0qZHVykXE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=I5Ky/beKPpBmBWZi6Q7JdN6b3MjXJWiyTVNfV0Q5bCSQ7WaLrx4sRr6mkzxVNU7c/
- 2wVIdPkDHOkJu22CVa0i8dBh85pG0XXRmGWK/K20PIUBIgwalRBo6DGxyQ4RWGGzRi
- +u2dVlKPPQWPUgyf4rjsr0ferSsN4pqGSxnJAZelO6YDI24GTCBoOlZ+nSKp5AR5cq
- 53YXon/ivTs7e+eJALRUWzkwLKZ90XgHxVcqHrT/YSAqCW/KDrYnIcMZSgISap0JFQ
- DerjCb+CtlfpOjuDzFWVqAmaKFUPmYyd1HpCMIaWO7l0TUgkpxsYo6A1imD3XGmLhx
- 4O66X7MTxeyuQ==
+ b=mY98PLQUyOwUtWCZymMOio+ovGC3cey0/BeZvuNmDx0ndVM8bOPmDfezcsfzmSBiN
+ D643KIQAXBfZMfxpDZqsHWdrrQ7xTXtEGRH/r/BuhErpYH8YtSH9aXNDBknwruvXJ1
+ WsS+PNsTSSV3rPAY2YqL4QTWdnzig3sMPGRrvJ5rQ/XO9rcsL9bKK/M8aStSrq/txt
+ L/QsY4nEVLrQ3ZwLcHOWnrtALYv91XPxISJwebwy43HyvMg+BDcz3lVeMKK4urA9QX
+ i/K9jmqkyJwOuXYK4f/VhBtj+cGGaSCZje1wfOaumHDX/sntipyD8M0bk7Urf4Qhs2
+ dsUaqFqVG8amg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 08 Jun 2026 16:36:55 +0200
-Subject: [PATCH v2 73/78] drm/xlnx: zynqmp_dp: Switch to
- atomic_create_state
+Date: Mon, 08 Jun 2026 16:36:56 +0200
+Subject: [PATCH v2 74/78] drm/atomic-state-helper: Remove
+ drm_atomic_helper_bridge_reset()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260608-drm-no-more-bridge-reset-v2-73-0a91018bf886@kernel.org>
+Message-Id: <20260608-drm-no-more-bridge-reset-v2-74-0a91018bf886@kernel.org>
 References: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -49,18 +49,14 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org
+ Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1753; i=mripard@kernel.org;
- h=from:subject:message-id; bh=IH9PWtifm+BMyJqxfBp0AXO6boHBpVX3QAQphfjt5r4=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlql1N7SisL7kzZe01jzYMFme0PmJQ0rs+s794S2r9KR
- ZZxSuqvjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRbSqMDZvF6w8sSEl7GNnN
- eWul0PH3Yd+sGPIV75Y/PK0hIxf+L2npz6jtX8/dOLPNwbrRJPR2LmPDRq3nnytlp7FfWJXoP+v
- /2lMxwatEdl3dxfE8RES9YLqRWZfDy7DEy2+89NyyX0W2eC8EAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2382; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=ZUTP3AsewnqXwpYqX5wjlNtXMxDO0HqMkfPfjxBi0Dg=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlql1O5ryzib+b3KHqmYu1hG/PzyfL2yUf//XuW1lGT9
+ 9p8vVtGx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZiI+zHGhnd5lrv2ndV+KCmo
+ nXJGPTviRaXd7ZnPa+bvW54exluc/J4xqlUlMOzL+9BN978+Tow+z9jw3Vhz7cZrFpHRh+QMczM
+ nMF49aXgi/wfLn5k3c0Mqz+6xTw2adzMh4HfcU4YE+6WrTXIA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -78,43 +74,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The drm_bridge_funcs.atomic_reset callback and its
-drm_atomic_helper_bridge_reset() helper are deprecated.
+All drivers have been converted to the atomic_create_state callback
+and its drm_atomic_helper_bridge_create_state() helper.
 
-Switch to the atomic_create_state callback and its
-drm_atomic_helper_bridge_create_state() counterpart.
+Remove the deprecated drm_atomic_helper_bridge_reset().
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-To: Michal Simek <michal.simek@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-arm-kernel@lists.infradead.org
----
- drivers/gpu/drm/xlnx/zynqmp_dp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/drm_atomic_state_helper.c | 16 ----------------
+ include/drm/drm_atomic_state_helper.h     |  2 --
+ 2 files changed, 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/xlnx/zynqmp_dp.c b/drivers/gpu/drm/xlnx/zynqmp_dp.c
-index 7fb11b0a44f0..b209582bc130 100644
---- a/drivers/gpu/drm/xlnx/zynqmp_dp.c
-+++ b/drivers/gpu/drm/xlnx/zynqmp_dp.c
-@@ -2278,11 +2278,11 @@ static const struct drm_bridge_funcs zynqmp_dp_bridge_funcs = {
- 	.mode_valid = zynqmp_dp_bridge_mode_valid,
- 	.atomic_enable = zynqmp_dp_bridge_atomic_enable,
- 	.atomic_disable = zynqmp_dp_bridge_atomic_disable,
- 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
--	.atomic_reset = drm_atomic_helper_bridge_reset,
-+	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.atomic_check = zynqmp_dp_bridge_atomic_check,
- 	.detect = zynqmp_dp_bridge_detect,
- 	.edid_read = zynqmp_dp_bridge_edid_read,
- 	.atomic_get_input_bus_fmts = zynqmp_dp_bridge_get_input_bus_fmts,
- 	.debugfs_init = zynqmp_dp_bridge_debugfs_init,
+diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+index 268cff1faad6..db42c3823b12 100644
+--- a/drivers/gpu/drm/drm_atomic_state_helper.c
++++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+@@ -903,26 +903,10 @@ void __drm_atomic_helper_bridge_state_init(struct drm_bridge_state *state,
+ 	__drm_atomic_helper_private_obj_create_state(&bridge->base, &state->base);
+ 	state->bridge = bridge;
+ }
+ EXPORT_SYMBOL(__drm_atomic_helper_bridge_state_init);
+ 
+-/**
+- * drm_atomic_helper_bridge_reset() - Allocate and initialize a bridge state
+- *				      to its default
+- * @bridge: the bridge this state refers to
+- *
+- * Allocates the bridge state and initializes it to default values. This helper
+- * is meant to be used as a bridge &drm_bridge_funcs.atomic_reset hook for
+- * bridges that don't subclass the bridge state.
+- */
+-struct drm_bridge_state *
+-drm_atomic_helper_bridge_reset(struct drm_bridge *bridge)
+-{
+-	return drm_atomic_helper_bridge_create_state(bridge);
+-}
+-EXPORT_SYMBOL(drm_atomic_helper_bridge_reset);
+-
+ /**
+  * drm_atomic_helper_bridge_create_state - default
+  *              &drm_bridge_funcs.atomic_create_state hook for bridges
+  * @bridge: bridge object
+  *
+diff --git a/include/drm/drm_atomic_state_helper.h b/include/drm/drm_atomic_state_helper.h
+index 68c685ad330f..34a599c3d86d 100644
+--- a/include/drm/drm_atomic_state_helper.h
++++ b/include/drm/drm_atomic_state_helper.h
+@@ -104,7 +104,5 @@ void drm_atomic_helper_bridge_destroy_state(struct drm_bridge *bridge,
+ 					    struct drm_bridge_state *state);
+ void __drm_atomic_helper_bridge_state_init(struct drm_bridge_state *state,
+ 					   struct drm_bridge *bridge);
+ struct drm_bridge_state *
+ drm_atomic_helper_bridge_create_state(struct drm_bridge *bridge);
+-struct drm_bridge_state *
+-drm_atomic_helper_bridge_reset(struct drm_bridge *bridge);
 
 -- 
 2.54.0
