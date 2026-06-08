@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBE5ECD8C92
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:32:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BCC1CD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:32:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28AF510F5F3;
-	Mon,  8 Jun 2026 15:32:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCFD310F5F4;
+	Mon,  8 Jun 2026 15:32:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="D/5GDdGF";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Anw/Wo8j";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D341310F5F3
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:32:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5174E10F5F4
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:32:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1780932740;
+ s=mail; t=1780932742;
  bh=0uQ4uyIwFgJ6UABF/dPRZy9vsW0+jj/YnI0z8Vmpot4=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=D/5GDdGFDvH6mTnc2+1eYFBoojr+p4Y44ZIY5wlXhi2WDtWxnKodAMondy8zuotLe
- 4Uj8SH4EGutvTInjjMh8VUDLqiyuxbaoOeZjccJHCFiod8Mp9+P4UE5/D3wM+ArN0V
- qqN8Vh9o7n1XvT9xutDKy0YjXVRqpHO6S7EYJKb7M1hpN9M4N3ySWE+VTuCpYZGzbV
- tu2/4FCZJhYhgP4DRHX81hY1BQH/9m5RHt2ohRIKYRcqnBvgoIi7elYKH/6JEwvjZz
- dcI00IEohlQzQ0pSBK6RBrLqCS4z4/MEi2utspP9pnR70wOPOYEL5TkkCBjt+6wCtL
- NhHWvxZQ5z0Qw==
+ b=Anw/Wo8jbHCuH39y1KoTCOP5sNO7SPoeAOqz9sFQ3wbpbbXTauIAPA0D1ZSqZfzUL
+ 9ZwOH2VIjxVEURPSYtirgtow3PJKhHWuYUQV3F6MdXgtTtdbGQ7j+kMiZeluu86HHb
+ Q2HIV5meHOeOjJYuTqi4kOrpknCed931s862nABXEyGHC4E5UdMTktDCeDjKSVsSy6
+ Ul18mbQ3IEQltFz6GhaPioTpeAeUgP/5D8el0hIYPmjDLWeJwWEqXSkLZdKeh/UZJd
+ PXybJZru1cd3aIuu8wbRmVY0+sJZ/8nk9FwR/a5PSDlacDp8IHchMyRsuACywclfuy
+ 7vsfGh1BzMI9g==
 Received: from [100.64.1.21] (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id CBDDB17E0CA9;
- Mon,  8 Jun 2026 17:32:19 +0200 (CEST)
-Message-ID: <d3b2ab1f-06ff-4ba8-a4bf-6eab95a81a2a@collabora.com>
-Date: Mon, 8 Jun 2026 17:32:19 +0200
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 4366617E0D87;
+ Mon,  8 Jun 2026 17:32:21 +0200 (CEST)
+Message-ID: <d09bef58-5974-4413-8f43-f4cd4e4aedce@collabora.com>
+Date: Mon, 8 Jun 2026 17:32:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 52/78] drm/mediatek: hdmi: Switch to atomic_create_state
+Subject: Re: [PATCH v2 51/78] drm/mediatek: dsi: Switch to atomic_create_state
 To: Maxime Ripard <mripard@kernel.org>,
  Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -53,10 +53,10 @@ Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org,
  linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
 References: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
- <20260608-drm-no-more-bridge-reset-v2-52-0a91018bf886@kernel.org>
+ <20260608-drm-no-more-bridge-reset-v2-51-0a91018bf886@kernel.org>
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Content-Language: en-US
-In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-52-0a91018bf886@kernel.org>
+In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-51-0a91018bf886@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
