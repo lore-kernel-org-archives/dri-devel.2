@@ -4,141 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C0CCCD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 08:16:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAAA8CD8C92
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 08:25:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D764F10EEE5;
-	Mon,  8 Jun 2026 08:16:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14A3510EF13;
+	Mon,  8 Jun 2026 08:25:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="YbgAiNTD";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h5bCbfxt";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="EFHaqH3D";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="eNdcsljF";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="OHvI+W6n";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="RG4BbKP9";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 264A010EEE4
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 08:16:47 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6586Oscn2317899
- for <dri-devel@lists.freedesktop.org>; Mon, 8 Jun 2026 08:16:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 8AMCbCTPRI9tqD3oyXlXIADZYYKHqYbtOIHsuIoklMc=; b=YbgAiNTDvhc9jdct
- PmanbLRJZ4shvZoofRsmmTqcuOlAtVfcDOdfRraSIB/eSu29Nul8Yuen06VR9WfN
- g/lE53tyIh8YGafG/lNHRshpVZBAf50+u+85sx5dLt8PNhuvRaybkMfdCw5V7781
- fnTLX5GXRJ7w2iEYpzdlqeVXGz3ZmPruURBHW3bo6rmfiVP05drjCDsRgO14nwNI
- NLPUZlGly3p+tAwQZ7PLzaC1EIWDaf1MI+y8/aadgc0f3piAl2iDWIA6fqWOMp/r
- +oFHFwfxBd0IDd0dZZkca3mrz09QxuYssSdY2tnpCtRqfagJvEj3e4QVSVpveiv3
- /bPdjA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emcadxga1-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 08:16:46 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-915ccc2d4d2so33115285a.1
- for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 01:16:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1780906606; x=1781511406;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=8AMCbCTPRI9tqD3oyXlXIADZYYKHqYbtOIHsuIoklMc=;
- b=h5bCbfxtG4/Ua9/iD2Jek1TaN0fn4bjJ7XfCIOmTQLvY3By3sm/ewgoo/5ofNKtt4z
- Q3lxiMQ+eh3idMnJg2CHGBJzZFZSiZMyjFV49hGVnNMoNpIlSiv1F7wo9nyqICsZHVCR
- J90ZHT82GSh+/VYLqPqZnl/HDfhn5tkscZcH97cyJ64oJ89wB73TcOm4u3uytcklbxay
- CiZnPbcMLWgh3yDzmdE53AY1j0K5K6McU9tL8WKbOIv+JxidcuQq0/jGdagEfXT+onok
- Bo6qJcEXhQGDM2w+InrYOUomHqO5AshCGMDWCVTZm9HNHpkmRVfQmDhyfzHbQJMgK9WL
- 4s9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780906606; x=1781511406;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=8AMCbCTPRI9tqD3oyXlXIADZYYKHqYbtOIHsuIoklMc=;
- b=PxdaRgl1vOr5r8Xr0X7kTQu9OY7CZ8VZyfoHYcMpEMPjcy0/LeuNaZpU1G+zCUL02Q
- y91IZc0O2QI+caKa4bY9+FK0IkrC19Yfw1Bf7G85W/+Xma4x3gqhuVNmEBFPl4FXRPjO
- zDVIXBMcPrXZSFUso1V3RyRFXHsmZXO9/k2Ax5NR8Um/9mnY1UsPiQmzFJvbTgpA03bn
- wS6jfxQVDiDCmi1JMUulQ+LKXc25MsvbEUyEubW58w81GRI9GPRA3//X6jsVsbSifeot
- M4m8d+hWWxyionUfPncv3+WZOUunf8HOydXAwhpdF54Ny+oE9kqK8hN/L5KLbIk2omEX
- jGFQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9UFXmFvK0oTPJTqb3ZJX5WMHm42c2V6boB2f+lrSGXRaQvl+sN7zr4vewbFMAf2ksWLIQBGJDXiLk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzmapmj2PWuKPEEYhwDg1Lw2sNEe4lBtYpqxkHPFWjJjGexZVmu
- fUGYigz4atvrHepKs+++sEIoq8yiKLjvBIISzgy1DK8mc71f7xWcNEo6h8LfaseS2vBjO2O+bOI
- Wh6liNDv8iRwsTzy28Y0PLQRqw8HX+A2M6+2O3Jpr+tafSn5T6DwqA4L1uK5ioK82T/S4PnI=
-X-Gm-Gg: Acq92OFR9MuujPuHvM1QyRCfooS3G5R12DM6unBEjMwHeX1yi6+bURKyOj6UNaIOAA8
- VVtBYMjqK5dYrc6CXk1hWnfh5MBcUkv5jyksoSU5rANq3puXCuhtpmlHHSvX3bOAH2HtLxQlXfj
- VhuTPq7zTynvin+VMY+KQaU+tL2zz+nKcEiPtLKZyx5IrlMkREiy2HAkhkiSdx12EFZIi9yE9Sh
- 6aVtmxMmu0CJadZ+vaa8UWQm53chS+ssHE1dQnzdSXWaEnCy757yI3Ph6J0grukDK4mvOvZvUvh
- nURH8fCClgxy/9hEMSrVvhPnnqVtA3nep2TkBGmDMcWLIzFXF4QGZ5om+EHJ7biC3R187WN2TTb
- IpW/1yT672i9w6VncEd2nx0zrvyUd7VufNCwhgjCjY0ifJ2Z21MT7iZhI
-X-Received: by 2002:a05:620a:178f:b0:8d7:ed38:8189 with SMTP id
- af79cd13be357-915a9a36533mr1322506485a.0.1780906605667; 
- Mon, 08 Jun 2026 01:16:45 -0700 (PDT)
-X-Received: by 2002:a05:620a:178f:b0:8d7:ed38:8189 with SMTP id
- af79cd13be357-915a9a36533mr1322504485a.0.1780906605125; 
- Mon, 08 Jun 2026 01:16:45 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bf05208e897sm817822766b.25.2026.06.08.01.16.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Jun 2026 01:16:44 -0700 (PDT)
-Message-ID: <943d792a-6980-4883-9644-904c6b4832d6@oss.qualcomm.com>
-Date: Mon, 8 Jun 2026 10:16:41 +0200
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3A4110EF14
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 08:25:18 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 822C16A7EC;
+ Mon,  8 Jun 2026 08:25:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780907117; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=anNuN5LqnOzpjuCuA8wA3zu/54xFSv5jKNPYKkFG13o=;
+ b=EFHaqH3DqpqsZ0i77uMjtn2fvsOrosW9tEzr44Q3PWQUU4Etyice9euSX3OTAAiPfBCJBj
+ DNRAp4bBUvmdcQnaC/Fkxb5F6EQFr9vnwchO12nleeG+UH+qFJgqz7AYpiXJIoKVgIsw6p
+ ZXXhGr5zuXdlhVa0zNMYTT45mD4B/3w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780907117;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=anNuN5LqnOzpjuCuA8wA3zu/54xFSv5jKNPYKkFG13o=;
+ b=eNdcsljFIoatDdAGBNQfNeZ1hdiyvRJQ27t7xW0cq5oub8jdl9DV0zxxXx2UwYGkVxo9wx
+ THicbAiiN6VNX/BA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780907116; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=anNuN5LqnOzpjuCuA8wA3zu/54xFSv5jKNPYKkFG13o=;
+ b=OHvI+W6nx8OyGHep9cEYgG6UbQtU4BWD4Y6fQBHK56gAjEOOwGLlEBFIF4lbQnCGgIu4Qg
+ QCZBoETeFpVvtaGFzXS0oBTOOpINGRQsr8iIXnyUwbyXtsRYapnaEECzvlP2PPFVHkGlK+
+ Iens4pxLGl2J5OZBPkNuNpATpAGwHW0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780907116;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=anNuN5LqnOzpjuCuA8wA3zu/54xFSv5jKNPYKkFG13o=;
+ b=RG4BbKP9O0pN8hLL/xcXXvZXVYYW8HhPmrzlJqd0guoFu24YLlHHBRmhrvwzniFBlJ8NnO
+ Q+BFhrL7yaD9chAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E7383779A7;
+ Mon,  8 Jun 2026 08:25:15 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id hRokNmt8JmpIRQAAD6G6ig
+ (envelope-from <pjakobsson@suse.de>); Mon, 08 Jun 2026 08:25:15 +0000
+From: Patrik Jakobsson <pjakobsson@suse.de>
+To: ville.syrjala@linux.intel.com, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Imre Deak <imre.deak@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2] drm/i915/display: Add quirk for interlane align bit on
+ CH7511
+Date: Mon,  8 Jun 2026 10:24:58 +0200
+Message-ID: <20260608082500.45902-1-pjakobsson@suse.de>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] drm/msm: Fix task_struct reference leak in
- recover_worker
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>,
- Jie Zhang <quic_jiezh@quicinc.com>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
- <mcanal@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jie Zhang <jie.zhang@oss.qualcomm.com>
-References: <20260605-assorted-fixes-june-v1-0-2caa04f7287c@oss.qualcomm.com>
- <20260605-assorted-fixes-june-v1-6-2caa04f7287c@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260605-assorted-fixes-june-v1-6-2caa04f7287c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=DIa/JSNb c=1 sm=1 tr=0 ts=6a267a6e cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=iwmd1eEXldmoXfJYBtMA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: 1NJOnQ50jb26mNG0LCFI5a7ILwnJg5DU
-X-Proofpoint-ORIG-GUID: 1NJOnQ50jb26mNG0LCFI5a7ILwnJg5DU
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA3NCBTYWx0ZWRfX/RMDtA8MVLUT
- 4I7KUbX1cCtKDL99Q41o46sIH9r15gbmExzNtzSPB+km7Ysryl81V/+LQSDV00t+xb2rJnV2GV0
- SWVdJlZBR0Y4GE5avdCJG/SDq1n67C9rs4iODdXEqxqSBEHxAnBdWDUO4LJhoNCCqLQN6iuSHe0
- TbkUjIwuUCxb01TrhNkPJO2kaI2t+fl7MgvROIczenxEUHwFu5rJV6NE+gBCOk2jXJul8Nd36xs
- /X88DrPF97OXM9pkmWMXJEgLBgQ6wnbSrAunVzWr2YTKlNrRGNbBpIdt3BDjqMuxQjoXA0tTvN2
- 7Ev9GqfRgzgRE96tv0bbrYXiuRO9jNIW8M6yWxpv3QyrbCmYL7PZWwSlzc1p/1PsqD7P1e16FH9
- X2jN02RLHhdThBwy/uhgkn6tbqcpkoFq8NQynyhaFK9mkLuJneeEYbk3c4Qp5+2vKOKy7B3CdWF
- ByMZAK+oTdaWb48650Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-08_02,2026-06-05_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0
- bulkscore=0 adultscore=0 malwarescore=0 clxscore=1015 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606080074
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_TWELVE(0.00)[12];
+ MIME_TRACE(0.00)[0:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,gitlab.freedesktop.org:url,suse.de:email,suse.de:mid];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ FREEMAIL_TO(0.00)[linux.intel.com,intel.com,ursulin.net,gmail.com,ffwll.ch];
+ RCVD_TLS_ALL(0.00)[]; TO_DN_SOME(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,18 +107,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/4/26 10:08 PM, Akhil P Oommen wrote:
-> From: Jie Zhang <jie.zhang@oss.qualcomm.com>
-> 
-> get_pid_task() increments the task reference count, but the
-> corresponding put_task_struct() was missing in the else branch,
-> leaking a reference on every GPU hang recovery.
-> 
-> Fixes: 25654a1756a4 ("drm/msm: Update global fault counter when faulty process has already ended")
-> Signed-off-by: Jie Zhang <jie.zhang@oss.qualcomm.com>
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> ---
+When disabling pattern training after successful link training the
+CH7511 bridge incorrectly clears the INTERLANE_ALIGN_DONE bit. This is
+interpreted as link failure when rechecking the link status and triggers
+an endless loop of retraining sequences.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+This patch adds a quirk to pretend the bit is still set and no
+retraining is needed.
 
-Konrad
+Fixes: 3b3be899fc81 ("drm/i915/dp: Recheck link state after modeset")
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15744
+Signed-off-by: Patrik Jakobsson <pjakobsson@suse.de>
+---
+
+v2 changes:
+    - Added "Closes" tag
+
+ drivers/gpu/drm/i915/display/intel_dp.c     |  9 +++++++++
+ drivers/gpu/drm/i915/display/intel_quirks.c | 17 +++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
+ 3 files changed, 27 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 85d3aa3b9894..5b269b1f18d7 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -5875,6 +5875,15 @@ intel_dp_needs_link_retrain(struct intel_dp *intel_dp)
+ 	if (intel_dp->link.seq_train_failures)
+ 		return true;
+ 
++	/*
++	 * The CH7511 bridge incorrectly clears the INTERLANE_ALIGN_DONE bit
++	 * when disabling training pattern.
++	 */
++	if (intel_has_dpcd_quirk(intel_dp, QUIRK_IGNORE_INTERLANE_ALIGN_BIT)) {
++		link_status[DP_LANE_ALIGN_STATUS_UPDATED - DP_LANE0_1_STATUS] |=
++			DP_INTERLANE_ALIGN_DONE;
++	}
++
+ 	/* Retrain if link not ok */
+ 	return !intel_dp_link_ok(intel_dp, link_status) &&
+ 		!intel_psr_link_ok(intel_dp);
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index 33245f44c0d5..2cec0a945528 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -100,6 +100,14 @@ static void quirk_disable_psr2(struct intel_display *display)
+ 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
+ }
+ 
++static void quirk_ignore_interlane_align_bit(struct intel_dp *intel_dp)
++{
++	struct intel_display *display = to_intel_display(intel_dp);
++
++	intel_set_dpcd_quirk(intel_dp, QUIRK_IGNORE_INTERLANE_ALIGN_BIT);
++	drm_info(display->drm, "Applying ignore interlane align bit quirk\n");
++}
++
+ struct intel_quirk {
+ 	int device;
+ 	int subsystem_vendor;
+@@ -286,6 +294,15 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
+ 		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
+ 		.hook = quirk_disable_edp_panel_replay,
+ 	},
++	/* Nodka TPC6000-C152 */
++	{
++		.device = 0x0f31,
++		.subsystem_vendor = 0x8086,
++		.subsystem_device = 0x0f31,
++		.sink_oui = SINK_OUI(0x2b, 0x02, 0xf0),
++		.sink_device_id = SINK_DEVICE_ID('C', 'H', '7', '5', '1', '1'),
++		.hook = quirk_ignore_interlane_align_bit,
++	},
+ };
+ 
+ void intel_init_quirks(struct intel_display *display)
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
+index 970a4fe52faf..7fcc3967f84f 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.h
++++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+@@ -23,6 +23,7 @@ enum intel_quirk_id {
+ 	QUIRK_EDP_LIMIT_RATE_HBR2,
+ 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
+ 	QUIRK_DISABLE_PSR2,
++	QUIRK_IGNORE_INTERLANE_ALIGN_BIT,
+ };
+ 
+ void intel_init_quirks(struct intel_display *display);
+-- 
+2.54.0
+
