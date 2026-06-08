@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 605DFCD8C9F
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 11:41:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E912DCD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 11:41:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B62C110F24E;
-	Mon,  8 Jun 2026 11:41:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CD1810F250;
+	Mon,  8 Jun 2026 11:41:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hK0pgCWv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X4WIAWnI";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDBAC10F24E
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 11:41:02 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CACE010F250
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 11:41:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 30ECE6001D;
- Mon,  8 Jun 2026 11:41:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 652A21F00893;
- Mon,  8 Jun 2026 11:41:01 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A0A1640A8F;
+ Mon,  8 Jun 2026 11:41:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1131E1F00893;
+ Mon,  8 Jun 2026 11:41:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780918861;
- bh=d+EZBqP+S1aJsp/54O1thKJUxSPzexaWOdFPdQexaOQ=;
+ s=k20260515; t=1780918917;
+ bh=qMB7tWfV0C03DccxxFO+6RhLHPxbPH51bsQ2TVLSInY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=hK0pgCWv91eMLD6Vb7Vjy6FrQ9Y1cL3wtLXb/5eQqR565L49DIaE1d0oIQvDGQdoc
- /UGL3EOQ72zhpnpz/u4CpFmCN1SHGjN3Vpppt5fwLzvw5Bra8bS9MS97dCKmo1PYj0
- 6aVeZZBbUhNEeijzwN4XyDloYovC0zjoB8DCw0EXzGLjIrkTJ9PtUOhhPPLXp1iOU6
- 8z0FTezbycjRP97nSjcsyMdM8FciOe3nIwXyHdkjnKwI85Xk/++YtrMoei8u4Ougya
- ZLW5jMWmQoqRO7/IxFbx2VCkyZr3RbJhTsko7FN6aYeezBmuTbwk2yxm37rqrwsBA/
- KwRXAVbq1fkbA==
-Date: Mon, 8 Jun 2026 13:40:59 +0200
+ b=X4WIAWnINCLKLyP5AFDRs7lj8iJxd2A5fuRlmE+r9q+6lYDGidYpPpbaAmSxa1S1W
+ KSq0anONPawIBT9vC5ZpvOE4iQ2r3rTw2mDNz97HFDXc9NSjF1Ja5zcE5VJ+X7LGrL
+ ECwGHVFYazggIaxx/s2mAi6z0Zei9oLEnpMdelvvRuEnNROsBaJGQQikNrQwzor7um
+ iyOjBEC8Nq/a1hkMLR3CqVc3CcPO967TAEZdf5g0J6tFd5PHiVXelGkNt44fv3361e
+ rHU/6SkNIyfBLj5W8gNREYXNFy7XPLzz2QJglKhoJk4RNswW6e5SUWqWANl9otfgJw
+ 8PcJKGAq5o+Yg==
+Date: Mon, 8 Jun 2026 13:41:55 +0200
 From: Maxime Ripard <mripard@kernel.org>
 To: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -50,16 +50,16 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 05/37] drm/display: bridge-connector: split code creating
- the connector to a subfunction
-Message-ID: <20260608-mindful-heavy-frigatebird-be9faf@houat>
+Subject: Re: [PATCH 06/37] drm/display: bridge-connector: use a
+ drm_bridge_connector internally, not a drm_connector
+Message-ID: <20260608-little-lyrebird-of-competition-c25f7d@houat>
 References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
- <20260519-drm-bridge-hotplug-v1-5-45e2bdb3dfb4@bootlin.com>
+ <20260519-drm-bridge-hotplug-v1-6-45e2bdb3dfb4@bootlin.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="e7zj77hk553y5yo5"
+ protocol="application/pgp-signature"; boundary="fhyd5lz3ke6h65oh"
 Content-Disposition: inline
-In-Reply-To: <20260519-drm-bridge-hotplug-v1-5-45e2bdb3dfb4@bootlin.com>
+In-Reply-To: <20260519-drm-bridge-hotplug-v1-6-45e2bdb3dfb4@bootlin.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,34 +76,54 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---e7zj77hk553y5yo5
+--fhyd5lz3ke6h65oh
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [PATCH 05/37] drm/display: bridge-connector: split code creating
- the connector to a subfunction
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 06/37] drm/display: bridge-connector: use a
+ drm_bridge_connector internally, not a drm_connector
 MIME-Version: 1.0
 
-On Tue, May 19, 2026 at 12:37:22PM +0200, Luca Ceresoli wrote:
-> In preparation to introduce bridge hotplug, split out from
-> drm_bridge_connector_init() the code adding the drm_connector into a
-> dedicated function. This will be needed to be able to add (and re-add) the
-> connector from different code paths.
+On Tue, May 19, 2026 at 12:37:23PM +0200, Luca Ceresoli wrote:
+> Currently drm_bridge_connector_init() always returns the added connector =
+or
+> errors out. When adding bridge hotplug the bridge-connector can be
+> successfully initialized without creating a connector, which can be added
+> later when the pipeline will be complete.
+>=20
+> For this the internal function drm_bridge_connector_add_connector() must =
+be
+> able to return a valid drm_bridge_connector even without any drm_connecto=
+r.
+>=20
+> In preparation to support bridge hotplug, change its return value to be t=
+he
+> same drm_bridge_connector pointer it gets as input, or a PTR_ERR.
+>=20
+> No functional changes, just changing an internal API.
+>=20
+> Note the return value could now become an int (0 or negative error) becau=
+se
+> returning the same value received as input does not carry any added
+> value. However this would be change a lot of lines, so leave such change =
+as
+> a future cleanup.
 
-Same story here, explaining what you need later on that calls for that
-change would be nice.
+You just created that function and changed "a lot of lines" already, so
+I'm not sure that argument holds.
 
 Maxime
 
---e7zj77hk553y5yo5
+--fhyd5lz3ke6h65oh
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaiaqSwAKCRAnX84Zoj2+
-dp1sAYDuIBPdRMXXYBe4R+Ta//fpPl4lVKuHiYq4geMva/MrZIlnJY7jkUmM+ILE
-qeT0kEkBfRpI8JftVgC2DB8CWv5JjL9HjVHimGNWg5t97RHprSbK09+C/O7VS3Ng
-Kvor1YDv5Q==
-=iyL4
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaiaqggAKCRAnX84Zoj2+
+dvlgAYD3UUr7c3goHHKtCxi2SQ81QH+lj0pgDu+t6mBYW/c8gJWsZHGcSUJhcB1b
+D2OjIy4BgIyG6BehTdRWyVru5aHe/B51ZTvcYO++iqcsuVtE+c/aWp298FwVdKli
+eZ1e6k1t7A==
+=er1l
 -----END PGP SIGNATURE-----
 
---e7zj77hk553y5yo5--
+--fhyd5lz3ke6h65oh--
