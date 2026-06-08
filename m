@@ -4,90 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2B72CD8CA7
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 07:16:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5567DCD8CBD
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 07:16:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4A9810E131;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DC8110E128;
 	Tue,  9 Jun 2026 07:16:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=asu.edu header.i=@asu.edu header.b="OcGVUvor";
+	dkim=pass (2048-bit key; unprotected) header.d=yahoo.fr header.i=@yahoo.fr header.b="lQE7NlPk";
 	dkim-atps=neutral
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
- [209.85.215.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B0E210E0DF
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 06:42:20 +0000 (UTC)
-Received: by mail-pg1-f173.google.com with SMTP id
- 41be03b00d2f7-c8585ecdd71so1813192a12.0
- for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 23:42:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780987339; cv=none;
- d=google.com; s=arc-20240605;
- b=CwtYYlmsYBt4m8+yiKOy4q+6R9stHhcZu6YK3vENj0m6I2IWKTMkBwXFB2W3KxkM1x
- plC4asDakUJXpS6wRXjIzbfsfSqEJT4mIY06i3LfGLnO2Q+/yhXig2is5Fjd7Fynms4a
- wszenQKRcOFKparrzbgc4mK3hu3pixqH+f53Fdaxt1rFEsqiciKh8S6Dmsx6V105RX0N
- zMfaNfFBF7ff/UQ0OojPGUfYiMxUbofzlvUrOYhT+tp4CKRyvPaHj17qViPgojPF86Y7
- o2dwS478UnGbPWQRMVAU1I1OX3174zxTO6VGJzZhFjdbqvBMsAtDoDCQz3ZhyE4KEC0o
- IOSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=ZCLBpvewrQc5iSbRkngzj4n3bbmvujjZNz9E1NnWUQQ=;
- fh=vnxmWGAYe07lDWvBLy99135o+eX/hoHAELEu7csD4sA=;
- b=gCQF0sbZDPr1QJc2azL5z0SGgx1SlpGOW+9y+0he8bXVr4lp26v41M4HZ1ypgYLt5X
- CM+gVOP4GEgjczk3QvoIAWYwjpi11yiPpiZP0rPWaMZObLAJb626IfPT9Tzv4HFL8wDe
- q06Yz1M449Z0rF5Bc3QMC9+5MBzRGJgH+qhEFf2DxmhEHs2lG2Y9S7GmfzmYqxIE5UbA
- moEaTPRTMJUljegrvKnloioo/zfeF9m/A0XrRoloqxfSV+aX/I+ZuY0pvpRPaJ6X0OUG
- Mj6sa+rtuccLjQrxZzg81ZiNFHamEhNeYtL8/GzM+Bgoj/4azKrhvxF2zUxDXGM7B8v+
- 48Nw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=asu.edu; s=google; t=1780987339; x=1781592139; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ZCLBpvewrQc5iSbRkngzj4n3bbmvujjZNz9E1NnWUQQ=;
- b=OcGVUvorGDty4NYphSoVZBeMMhkLv6puOJcSycQKWY0pPpQaUdHauJQ2FsXFMdwAiN
- +n7/fDwbjYTY0Tfhj9weRNJekvfIcaAuN51iF229NJ6fTyvQACvOYrrD0nu7u6mZ12GB
- r83AyFN+beBzridSZbzGcGH/OScZkCXLH30zqVhosruUg/HfOl9/xM/ZE32gMdV7mGs5
- drxkv7ohfYPlfZWkuSZvkQ1mih6YiTUG80es/MYnbUJsNX7c0Tt25EgINvNVC6R7Qgd5
- +wLGH9BM9th0Wk1Kk3QoSNBaemPd6EZDsXe0JzWkIra3xEuxIxgdWs6NY4M6qJhC8QCm
- ZkzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780987339; x=1781592139;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=ZCLBpvewrQc5iSbRkngzj4n3bbmvujjZNz9E1NnWUQQ=;
- b=GZj6xBwsls8VGe+ray9SXqCAiC54IPSQK2gnK5hDQNUiaXSq3AYW9GHLTQqc3MJeJ5
- 7HlgX9/bHKpHb1v+vGNIuT8Pam9mEm9ECzQ1T053gp6WHDgpCW4eZPQ5mRz1Pq1+T9v+
- XNETTfYIkluC7pcd7HdjfOOPNancZVTp4vbkV3pemfWmm0zMgnUNiHV+TJUChb0dB97s
- xo66PAEfuTJejxhK9vRr1EDGDLrCyft6Rbp7rFrkHixEz77gq8YSCiOBgY2SkKV+9Nnr
- YVAQhYOmMn91bnN6osnGlhj58DKyGANU626sjXMeAFTcIZR4BAFQaK5gQxXX7OZIkxpd
- 4beQ==
-X-Gm-Message-State: AOJu0Yx+8WW/TwscOccWGjaiqCZNvkEkr4X5u1G5IC/WTSvbHdoJaf7H
- uie4y2Jt6kdYXkH5E/QYD8VglbdrkoQv7xmOtAnQ6Q6LmlwIwAnqopEg0da7C/K/p/jV6RPU2al
- 77opzIVXaijYxLFcsJhKh8vruqd3HtqbjKWdG3Siv53337bW62+8cZVQcVkA=
-X-Gm-Gg: Acq92OFHs8Pz16f1sgwLxc2j9OT4FHmtpKblKl19x9wtr0Ys88ASkkPl4nAhR7tacbM
- 4gFSabR0wEIg845XqhfDNPwlhkQCiMNp83VQgjaOBLFq8oR968TmwFGSD3vQ0GzC1KDtnV/mJNy
- Htyle4p0pBPti+gDO55DfsxwF4LqQVzD9Lla0sfHQFPPVlJ/OyyFIN5pVde5C5k95v4e4Y0xOxp
- GifXtqnH057zwUY9fBmnD6/Y5ocv2jxVoCKDOWarcfKiypBe2+qCzWdSnd+sTwv6nSt5wIBW1Ea
- H9qNRGvFFUyeVQXoyg==
-X-Received: by 2002:a05:6a20:2f98:b0:3a2:dc51:458 with SMTP id
- adf61e73a8af0-3b4cd02f653mr21663714637.41.1780987339408; Mon, 08 Jun 2026
- 23:42:19 -0700 (PDT)
+Received: from sonic302-21.consmr.mail.ir2.yahoo.com
+ (sonic302-21.consmr.mail.ir2.yahoo.com [87.248.110.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFB9010F8A0
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 18:41:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.fr; s=s2048;
+ t=1780944068; bh=FHllyc6VezQ4fvRQCARiMi7vOSKPKXIjBA5YjKzRXZ8=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To;
+ b=lQE7NlPk9LWqLNtpDfo60n7WYQD/0LeYi3/1kjb6qrD2iQjzBPRK/DJolHx5Z72cPSuIpye0O3ejcEW5lNnVFViu1l1KW4QemVPXwdv3GRG1KmTiIeto6Ck2eo8rw5UFlAZvx3TktWVTK1libvSWAyXjhJIJm7XmaiR5UM2WfUm1DaqMzXgkMuRK/UWucKjWjqGg0OcgKwSBmeQOFFhz7bqjDRcV7EgmXEoDiXmXEx9z0zvvBC/46DscPwWlftvOqvNM3n68tuMtqmalSH0d5FnGIFK/M2b9JeqYg8T2P4tuuQ54PVnyBRt4V5c3302EtS87XcZ1S1efU6PvBAFq1w==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1780944068; bh=OKOpqJZcwkijyqkR5gxUTs/v2Yb4DtuRNM/f0v9gIdT=;
+ h=X-Sonic-MF:Date:Subject:To:From:From:Subject;
+ b=C+zpn9fv5z0YAj/jVWPW/ZRP4E41ANXgszRZi/ByfXIE5jsMTQXB6aNme6hXEFcQHzKkY+v67PGrjxM8mqWhUtypIlcrTrPjNr5ZnqwtKhJN5EURf0l57gJqP0B0oCv1d6/czqaA8B2FjE2/zYYjfRxHjF5QUvTB1n1aSQuHR9MqQcQIuGN4xk/oFNP2ZQbV4GxRyvLZly/ZJVkdGAW5do6nA/YvmafeL1ck9eR8jSTbXgG1NmIrq60PS+4KP802c+08BfJbPu1jEHWFneoJIacRPx2bQmtk9F3547C1kvl3yKyGEtbXMseYnM+aK5SXPBRELzrvfpXYwyRkxy7PtA==
+X-YMail-OSG: AFq77pQVM1mWsa.uL3w5liBtvgbhSqCf_xEph03Eh4JATFE0T5Mb8iHfzQ3U1wJ
+ NsT7PysDiuXtLWwDWgsec6m.afX4zBmFXZy.QtlBE8hfAx2haXpRBbcApXoc0dmqHTe8a6t2jar1
+ 7Btwp5.lGWH7ZpI3f5zos3V.G934CD7Cg0VKoKVL8bInXOkVrUPLuJAFh2gbRBRvgTXlGv0s42Up
+ gZFsxoN5wWzAlg.LtBAxV6Xw25yjJXlU2iI0Y57eF5msw7t7EkxdsEwnzeOrO98H5q8Hvm1qz1FW
+ mwJWJyzmsiRAwMonsbbzfDtzx5bSiql0ekp9ZBVexdLYc1geFwoRE8QDIuChQSwQTBQofgYaxQ8R
+ LIhBapH4kOsqxT5IJbybDgDtQDPIsT9OvElSdDlWWleZgkK8Xl9OoXvvaCIe346tuJMesOrmxdKk
+ m_tibyhWi9IE3mbi_nNft8gF.lNpq1MWj.FJwlU314oej5VeYr2qkL1cDKfCtqLwjvdkYPZp5R3j
+ DJ5aF3yxKk3pF47GuPzU32mPbOs_GBLGcbFRTumGtmGyOkJ2J3yajcCq.aJWGFCYTgyyNMZK5tg1
+ A8wbDhGL_RTa7h9pb7qUsr9wfXsyEHOwrXEyHu3YFuvCicjZxIK8rH_5ZBXNVTXvA10O9Q2AZI9F
+ HwxYoo0tnAmvaq8Gh9yJcnfhqEOqJuowN6zARIe0NZ.449dR8MsRnOeruBChkULWBlv72v52XsGM
+ GLQ.gxLXL7mZHGA245xjkQN9BAgtDdFJ15sbDdIwpWvQB3QskwENuRr5e2PJypCXo9js_figm6Xk
+ 7mTLJiacnHHyIhBZb0wBcG6QZR7SjNVxXVfvqw2HYUdZAbUyq_8AGt6mZP67ZZE57gNJNFmBs1zg
+ RDXX248QTFV5IJdsAkDGqdqg.x7jEv_nBwpHCfZUCvBF9Ext4SIH5EAMZxRWqHB68rGdwNSotE51
+ gCS_snrYUb__WCrulNzghUwOwEsgFukBAZjnhiPn4wCX8fPTM4obOOU54Q4M0DcNxabVfYkxu_Js
+ t9eg1FzMJUwT60FeHa5rU1y7jDM4uu0pCQTSisVrvGvgtlmrbmZcc6AAUJ0FOD6L.iLl90HEC4qG
+ Ut7dMYryWjl4m2QhRlA4kIqg7E0U2zM6MD_bVxTw6HEIEheuXB5573V5MmlmhOyb9zTalbWuA7Ye
+ oh0w5jgp8xMleF55L.1pAgfOhIeqOxLWAlXmWP0PGyeqj9qQMRn9GtI9FAmRzX9DoU_ET9Kf7khi
+ LNE6KyUHS2FQxMW7NkMn8Dm45tdkVLihZnOEfXYegyqor6fhP66TY.0o16cc.BjdQWBp8UDWPzEk
+ IGM8CLtd.x5Mpf4wcCLG1oS8dUV77uBNZAEk7kKb29Qafsl1Rk1l0zkorrN1vnGwAO39FYGaNeEF
+ HZKXELNQ6uv3gWIahX99_yp_sTYtZebJMbEgoqFTM1l0s57.Ev_CsM9frKk6lE.54GEVmbUE72W5
+ WTM3_n16NAUJ6mt0LL1EVchTVm7bgNG1QtdYqtyICrH4HAgkk7TTFR4YiMUAabN145j.UhX1dkV8
+ gH_TTMXZKJNNEKpYap0xhz_NblsAQkFnnmNzxb0wfbsacR9PIMBznXgf3TLcmFlQNeYjabt_zwnM
+ dakC42zu.nHwEV.JjADYMrS.xXI_dujHmkJV7P2mpdHmq5_N849jyJItEWH2bldjAsR699r7Zj13
+ e4bi4krQIcOhrsUkth2udWRcOxGS4F5_p2xnkCZibsU9zM7Ky3dln6A4nmKI4r65p6Gb0m3zH48h
+ pGdvTbpyqXSRw4TkxIigm15uUaGEdhAbHMmGp8y9hk__Sf0OLB_qwrBWfuDZLRve2W15vbkuWxp_
+ qR4PpdOwvCdzubV5dbrUfizuxZveF54tlAGHx4GsyXVkwJI38vWk.jSlBxBTc45gcjjjHo6Q7Ywk
+ MH7BET7cHMLkSqKS9vOhjutxFFkG5cU18zESVS.i6.CXs2KTwUQjTnqkHQDhYZDE_tZJB44sOlnV
+ Xka5KJkPzteGbCxVR9Y1ARXKYouIXKdrNF8wZ9XyPqQncKPZl83zJoROzgCky9Bq7IQnIHiXHbNQ
+ 3eFLJcgLza3qhR1e3XTR2oucDMBxIgXdca1sOzStykNWLCj5iFb6aojHy35Km7FHzjLILVIgYvaO
+ 0z15geY5Z8TPViGVENeQeufLDbXgl_u5J3SQCnHTtDCs_qw01QY4hH8D_Zp_4ShkUdJOUzU3RJnS
+ gWiI.UvIv7d.xk2KDBPerHq_o1nBXs7YJdka1M8HmTNt.W3Rhq3U_RIY8IEAoibqJzIm4bA--
+X-Sonic-MF: <fabstz-it@yahoo.fr>
+X-Sonic-ID: 7e108b7f-0f51-4b5c-af87-f3b4256b6292
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic302.consmr.mail.ir2.yahoo.com with HTTP; Mon, 8 Jun 2026 18:41:08 +0000
+Received: by hermes--production-ir2-89844b765-82cnf (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID d8ebc36e7d9adde9f67d0ffa69cc2f1c; 
+ Mon, 08 Jun 2026 18:41:02 +0000 (UTC)
+Message-ID: <2c6340fe-2d3f-4d38-ae6c-d89adfea98b6@yahoo.fr>
+Date: Mon, 8 Jun 2026 20:41:01 +0200
 MIME-Version: 1.0
-References: <20260609064038.2799482-1-xmei5@asu.edu>
-In-Reply-To: <20260609064038.2799482-1-xmei5@asu.edu>
-From: Xiang Mei <xmei5@asu.edu>
-Date: Mon, 8 Jun 2026 23:42:08 -0700
-X-Gm-Features: AVVi8CeaiQSzdH1DPldEyDtDM6MMjh3M_YMQFH0A0HGIuDiaZqFxV5lkg2LemC8
-Message-ID: <CAPpSM+T2auTggQK76onPAPvtq1mAJ5bsuvVBQpWEAEWts0C5KQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/edid: fix OOB read in drm_parse_tiled_block()
-To: dri-devel@lists.freedesktop.org
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, bestswngs@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] drm/nouveau: stability fixes for NVAC (MCP79/MCP7A)
+To: Marek Czernohous <mczernohous@gmail.com>, nouveau@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Marek Czernohous <marek@czernohous.de>
+References: <20260409172126.115441-1-marek@czernohous.de>
+Content-Language: en-US
+From: Fab Stz <fabstz-it@yahoo.fr>
+In-Reply-To: <20260409172126.115441-1-marek@czernohous.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+X-Mailer: WebService/1.1.25918
+ mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 X-Mailman-Approved-At: Tue, 09 Jun 2026 07:16:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -104,71 +93,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thanks for your attention to this bug. We have a PoC that can trigger
-the KASAN crash. Please DM if you need it to reproduce the issue.
-
-This is a bug that enables the kernel info leak for an attacker with
-physical access.
-
-Xiang
-
-On Mon, Jun 8, 2026 at 11:40=E2=80=AFPM Xiang Mei <xmei5@asu.edu> wrote:
->
-> drm_parse_tiled_block() casts the DisplayID block to a
-> struct displayid_tiled_block and reads the full fixed layout up to
-> tile->topology_id[7] without checking block->num_bytes. The DisplayID
-> iterator only validates the declared payload length, so a crafted EDID
-> can advertise a tiled-display block (tag DATA_BLOCK_TILED_DISPLAY, or
-> DATA_BLOCK_2_TILED_DISPLAY_TOPOLOGY for v2.0) with a small num_bytes at
-> the end of a DisplayID extension. The read then runs past the end of the
-> exact-sized kmemdup()'d EDID allocation, a heap out-of-bounds read.
->
-> Add a minimum-length check, as drm_parse_vesa_mso_data() already does.
->
->   BUG: KASAN: slab-out-of-bounds in drm_edid_connector_update
->   Read of size 2 at addr ffff888010077700 by task exploit/147
->    dump_stack_lvl (lib/dump_stack.c:94 ...)
->    print_report (mm/kasan/report.c:378 ...)
->    kasan_report (mm/kasan/report.c:595)
->    drm_edid_connector_update (drivers/gpu/drm/drm_edid.c:7581)
->    bochs_connector_helper_get_modes (drivers/gpu/drm/tiny/bochs.c:574)
->    drm_helper_probe_single_connector_modes (drivers/gpu/drm/drm_probe_hel=
-per.c:426)
->    status_store (drivers/gpu/drm/drm_sysfs.c:219)
->    ...
->    vfs_write (fs/read_write.c:595 fs/read_write.c:688)
->    ksys_write (fs/read_write.c:740)
->
-> Fixes: 40d9b043a89e ("drm/connector: store tile information from displayi=
-d (v3)")
-> Reported-by: Weiming Shi <bestswngs@gmail.com>
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Xiang Mei <xmei5@asu.edu>
-> ---
->  drivers/gpu/drm/drm_edid.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index 404208bf23a6..92054ac82fe2 100644
-> --- a/drivers/gpu/drm/drm_edid.c
-> +++ b/drivers/gpu/drm/drm_edid.c
-> @@ -7575,6 +7575,13 @@ static void drm_parse_tiled_block(struct drm_conne=
-ctor *connector,
->         u8 num_v_tile, num_h_tile;
->         struct drm_tile_group *tg;
->
-> +       if (block->num_bytes < sizeof(*tile) - sizeof(*block)) {
-> +               drm_dbg_kms(connector->dev,
-> +                           "[CONNECTOR:%d:%s] Unexpected tiled block siz=
-e %u\n",
-> +                           connector->base.id, connector->name, block->n=
-um_bytes);
-> +               return;
-> +       }
-> +
->         w =3D tile->tile_size[0] | tile->tile_size[1] << 8;
->         h =3D tile->tile_size[2] | tile->tile_size[3] << 8;
->
-> --
-> 2.43.0
->
+SGVsbG8gTWFyZWssDQoNCkkgaGF2ZSBhIHZlcnkgc2ltaWxhciBkZXZpY2UgaU1hYzkuMSwg
+YWxzbyB3aXRoIE1DUDc5DQoNCjAzOjAwLjAgVkdBIGNvbXBhdGlibGUgY29udHJvbGxlciBb
+MDMwMF06IE5WSURJQSBDb3Jwb3JhdGlvbiBDNzkgW0dlRm9yY2UgOTQwMF0gWzEwZGU6MDg2
+N10gKHJldiBiMSkNCg0KSSdtIGZhY2luZyB2YXJpb3VzIGlzc3VlcywgaW5jbHVkaW5nIHRo
+ZSBidWcgYmVsb3cNCg0KaHR0cHM6Ly9sb3JlLmZyZWVkZXNrdG9wLm9yZy9ub3V2ZWF1L2I3
+ZjUyM2RjLWZlNDEtNDUxNC1hMWE1LTc0NzAwNTMxMWNiZUB5YWhvby5mci9ULyN1DQoNCkRv
+IHlvdSB0aGluayB5b3VyIHBhdGNoIHdvdWxkIGZpeCB0aGlzPyBXb3VsZCBpdCBhcHBseSBh
+bHNvIHRvIGtlcm5lbCA2LjEyIG9yIGRvZXMgaXQgZGVwZW5kIG9uIHNvbWUgbmV3IGNoYW5n
+ZXMgaW4gNi4xOC4NCg0KUmVnYXJkcw0KRmFiDQoNCg0KTGUgMDkvMDQvMjAyNiDDoCAxNzow
+OSwgTWFyZWsgQ3plcm5vaG91cyBhIMOpY3JpdMKgOg0KPiBIaSwNCj4gDQo+IHRoaXMgaXMg
+bXkgZmlyc3QgcGF0Y2ggc2VyaWVzIGZvciB0aGUga2VybmVsLiBJJ20gcnVubmluZyBhbiBB
+cHBsZSBNYWMNCj4gTWluaSB3aXRoIGFuIE5WQUMgKE1DUDc5KSBjaGlwc2V0IGFuZCBEaXNw
+bGF5UG9ydCBvdXRwdXQsIGFuZCBoaXQgdGhyZWUNCj4gc2VwYXJhdGUgc3RhYmlsaXR5IGlz
+c3VlcyB3aXRoIHRoZSBub3V2ZWF1IGRyaXZlciBvbiBrZXJuZWwgNi4xOC4NCj4gDQo+IFRo
+ZSBwYXRjaGVzIGFyZSBpbmRlcGVuZGVudCBidXQgdG9nZXRoZXIgdGhleSBicmluZyB0aGUg
+TlZBQyBmcm9tDQo+ICJuZWVkcyBOdk1TST0wIHdvcmthcm91bmQgYW5kIGNhbid0IHJ1biBX
+YXlsYW5kIiB0byBmdWxseSBzdGFibGUNCj4gb3BlcmF0aW9uIHdpdGggTVNJIGVuYWJsZWQs
+IHdvcmtpbmcgRFBNUywgYW5kIGZ1bmN0aW9uYWwgV2F5bGFuZA0KPiAodGVzdGVkIHdpdGgg
+V2VzdG9uKS4NCj4gDQo+IFBhdGNoIDE6IFRoZSBNU0kgcmUtYXJtIGZ1bmN0aW9uIGZvciBH
+OTQgdXNlcyBtZW1vcnktbWFwcGVkIHJlZ2lzdGVyDQo+IGFjY2VzcyAobnY0MCksIHdoaWNo
+IGlzIHVucmVsaWFibGUgb24gTlZBQyDigJQgdGhlIHNpc3RlciBjaGlwc2V0IE5WQUENCj4g
+YWxyZWFkeSBoYXMgTVNJIGRpc2FibGVkIGVudGlyZWx5IGZvciB0aGlzIHJlYXNvbi4gU3dp
+dGNoaW5nIHRvIHRoZQ0KPiBQQ0kgY29uZmlnIHNwYWNlIG1ldGhvZCAobnY0NikgZml4ZXMg
+c3BvcmFkaWMgRklGTyBlcnJvcnMgYW5kIGhhbmdzLg0KPiANCj4gUGF0Y2ggMjogbnY1MF9z
+b3JfYXRvbWljX2Rpc2FibGUoKSBkZXJlZmVyZW5jZXMgbnZfZW5jb2Rlci0+Y3J0Yw0KPiB1
+bmNvbmRpdGlvbmFsbHkgdmlhIGNvbnRhaW5lcl9vZigpLiBVbmRlciBXYXlsYW5kIGF0b21p
+YyBtb2Rlc2V0dGluZywNCj4gdGhlIENSVEMgY2FuIGJlY29tZSBOVUxMIGJldHdlZW4gY2hl
+Y2sgYW5kIGNvbW1pdCwgY2F1c2luZyBhIGtlcm5lbA0KPiBjcmFzaC4gQWRkaW5nIGEgTlVM
+TCBndWFyZCBmaXhlcyBXYXlsYW5kIHNlc3Npb24gdGVhcmRvd24uDQo+IA0KPiBQYXRjaCAz
+OiBUcmFuc2llbnQgRGlzcGxheVBvcnQgbGluayBnbGl0Y2hlcyBvbiBOVkFDIGNhdXNlIHVu
+bmVjZXNzYXJ5DQo+IGRpc2Nvbm5lY3QvcmVjb25uZWN0IGN5Y2xlcy4gQSBzaW5nbGUgMTAw
+bXMgcmV0cnkgaW4gdGhlIEhQRCBJUlENCj4gaGFuZGxlciBjYXRjaGVzIHRoZXNlIHdpdGhv
+dXQgYWZmZWN0aW5nIHJlYWwgdW5wbHVnIGRldGVjdGlvbi4NCj4gDQo+IEFsbCB0aHJlZSBw
+YXRjaGVzIHdlcmUgdGVzdGVkIG9uIHRoZSBzYW1lIG1hY2hpbmUgKE5WQUMgMHhhYzA4MGIx
+LA0KPiBEUCBvdXRwdXQpIG92ZXIgbXVsdGlwbGUgZGF5cyB3aXRoIERQTVMgY3ljbGluZywg
+VlQgc3dpdGNoaW5nLCBhbmQNCj4gV2F5bGFuZCBzZXNzaW9ucy4NCj4gDQo+IFRoYW5rcywN
+Cj4gTWFyZWsNCj4gDQo+IE1hcmVrIEN6ZXJub2hvdXMgKDMpOg0KPiAgICBkcm0vbm91dmVh
+dS9wY2k6IHVzZSBudjQ2IE1TSSByZWFybSBmb3IgRzk0IChOVkFDL01DUDc5KQ0KPiAgICBk
+cm0vbm91dmVhdS9rbXM6IGFkZCBOVUxMIGNoZWNrIGZvciBDUlRDIGluIG52NTBfc29yX2F0
+b21pY19kaXNhYmxlDQo+ICAgIGRybS9ub3V2ZWF1L2RwOiByZXRyeSBsaW5rIGNoZWNrIG9u
+Y2Ugb24gSFBEIElSUSBiZWZvcmUgZGlzY29ubmVjdA0KPiANCj4gICBkcml2ZXJzL2dwdS9k
+cm0vbm91dmVhdS9kaXNwbnY1MC9kaXNwLmMgICAgICAgfCA4ICsrKysrKystDQo+ICAgZHJp
+dmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9kaXNwbGF5LmMgICAgIHwgNCArKysrDQo+
+ICAgZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbnZrbS9zdWJkZXYvcGNpL2c5NC5jIHwgMiAr
+LQ0KPiAgIDMgZmlsZXMgY2hhbmdlZCwgMTIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMo
+LSkNCj4gDQoNCg==
