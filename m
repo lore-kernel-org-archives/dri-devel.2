@@ -4,62 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D5DACD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 11:49:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9897CCD8C9F
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 11:50:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 876DD10F26F;
-	Mon,  8 Jun 2026 11:49:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06A5E10F290;
+	Mon,  8 Jun 2026 11:50:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dpOG3U1W";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="fHrPcClz";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4FEC10F26F
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 11:49:55 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 14ADE600AE;
- Mon,  8 Jun 2026 11:49:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DCBF1F00893;
- Mon,  8 Jun 2026 11:49:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780919394;
- bh=nFdNtghavPkO49U4EcRxEbi9WYJN1ii+kE+KtT1KUDE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=dpOG3U1WrRJeiBEqaBoJK36je8mdnnCEPNYgNwsk3ypzR9d118Pg52By0kVReAsKJ
- SP6rM97MN12Tg2sbwATld2g51LadlEl5OJimZoNA22UIN46Mnf08ZIXDbfpVnoCm4c
- gDpzP//WSERMh2R2LVBD8H2MsXJU6hdP08xn3sbV4GRL3ySjwTZ57FlXK99gO5DVvp
- T6RQyBInrDQFcN9C2l6gDlSZkvqiiC/nbWmwl5APuCro4mczMRECEpLlNBHu2lZsNu
- ByVJWycrq+jWp331wJcUcGCdEEIcbtkutwlHR/TwXEy4BubbNCOklDlrwKfTkj47LV
- vGpIKAPhO/Zbw==
-Date: Mon, 8 Jun 2026 13:49:52 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
- Jagan Teki <jagan@amarulasolutions.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
- Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 17/37] drm/display: bridge-connector: protect dynconn
- creation and destruction with a mutex
-Message-ID: <20260608-garrulous-silver-junglefowl-ea4dbe@houat>
-References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
- <20260519-drm-bridge-hotplug-v1-17-45e2bdb3dfb4@bootlin.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0035410F291
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 11:50:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1780919449; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=PEaW9ve2pQKjfUZ0X2FrZXbmRcXaQ2ZAoSXxqZKo/8fpbJoHQX1d80XCG1obftUHJ0VlibkR1IBkO2TkT3tneX6j5s/v34ubMC3llmQIRXAak6aw0r2wIKo7Feu6/zYpGUizp0Gz9eC8SY0aYTs82xv6a25/wTYPpMxZ4W9Lg7Q=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1780919449;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=N8QwmL/zUvZq+Z0dOkdo0qkdQeN++oUsqflLhl0ODGs=; 
+ b=ZgJvYSdfRJPgf+iQfzK1fmi6nPzKUJM6BXwSZ1IVhwK8ZsA14iW1KV6UcwMooX0uvaixhpx7mCcSa8Jc9dDjoebMALa1y2QjED7FjJA8+jiT8vZGbUcYRUGQd2PW4zrBECbtsQw0GZaDYXL2Nqlyks1bl+X5JXH7WHm7YKNN0is=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780919449; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=N8QwmL/zUvZq+Z0dOkdo0qkdQeN++oUsqflLhl0ODGs=;
+ b=fHrPcClza68l6TqRu6Wi5cy1IB23YxzSP4Tq62LGXT7RSmOC/LyFI1HtW4zssCjr
+ nng9hLI3+O8ckJJ/8PKgKA4U6bT94TwpphFm56ZzrWE/OUGyoHcebMlTnBhDRIW+o55
+ HR/GQKpSawczhUXUjTY0GbFtkWuP6bexC5u/srTA=
+Received: by mx.zohomail.com with SMTPS id 1780919448117111.33985618669419;
+ Mon, 8 Jun 2026 04:50:48 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 1/2] drm/display: hdmi: Only allow BPC values of 8, 10,
+ 12 and 16
+Date: Mon, 08 Jun 2026 13:50:45 +0200
+Message-ID: <E83PzEAaStOECMxPCtZE3A@collabora.com>
+In-Reply-To: <ySc94bL0TleBGnFIdX95hg@collabora.com>
+References: <20260608-hdmi-max-bpc-fix-v1-1-6e8dcebc7274@collabora.com>
+ <20260608113023.67AFB1F00893@smtp.kernel.org>
+ <ySc94bL0TleBGnFIdX95hg@collabora.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="kb6asce5vlt2wt5a"
-Content-Disposition: inline
-In-Reply-To: <20260519-drm-bridge-hotplug-v1-17-45e2bdb3dfb4@bootlin.com>
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,40 +66,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Monday, 8 June 2026 13:46:27 Central European Summer Time Nicolas Frattaroli wrote:
+> On Monday, 8 June 2026 13:30:22 Central European Summer Time sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> > 
+> > Pre-existing issues:
+> > - [High] The function `sink_supports_format_bpc` explicitly permits 16 BPC for RGB444 and YCBCR444 formats without verifying if the sink's EDID actually supports 48-bit deep color.
+> > --
+> > 
+> > commit 767fa3cc832e8b93f697ad91bcc66e5b3b1ed85d
+> > Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > 
+> > drm/display: hdmi: Only allow BPC values of 8, 10, 12 and 16
+> > 
+> > As per the comment in sink_supports_format_bpc(), CTA-861-F defines that
+> > only bits-per-channel values of 8, 10, 12 and 16 are allowed for HDMI.
+> > Allowing more than this has surprising consequences for the atomic check
+> > phase.
+> > 
+> > > diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > > index 4867edbf2622b..b06499dbfe8b3 100644
+> > > --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > > +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > > @@ -419,6 +419,16 @@ sink_supports_format_bpc(const struct drm_connector *connector,
+> > >  		return false;
+> > >  	}
+> > >  
+> > > +	switch (bpc) {
+> > > +	case 8:
+> > > +	case 10:
+> > > +	case 12:
+> > > +	case 16:
+> > 
+> > [Severity: High]
+> > This is a pre-existing issue, but does explicitly allowing 16 BPC here
+> > expose a missing validation check for 48-bit deep color further down in
+> > sink_supports_format_bpc()?
+> > 
+> > When checking DRM_OUTPUT_COLOR_FORMAT_RGB444 and
+> > DRM_OUTPUT_COLOR_FORMAT_YCBCR444, the code validates 10 BPC and 12 BPC
+> > against the EDID flags, but completely omits checking 16 BPC against
+> > DRM_EDID_HDMI_DC_48:
+> > 
+> > drivers/gpu/drm/display/drm_hdmi_state_helper.c:sink_supports_format_bpc() {
+> > 	...
+> > 	case DRM_OUTPUT_COLOR_FORMAT_RGB444:
+> > 		...
+> > 		if (bpc == 10 && !(info->edid_hdmi_rgb444_dc_modes & DRM_EDID_HDMI_DC_30)) {
+> > 			drm_dbg_kms(dev, "10 BPC but sink doesn't support Deep Color 30.\n");
+> > 			return false;
+> > 		}
+> > 
+> > 		if (bpc == 12 && !(info->edid_hdmi_rgb444_dc_modes & DRM_EDID_HDMI_DC_36)) {
+> > 			drm_dbg_kms(dev, "12 BPC but sink doesn't support Deep Color 36.\n");
+> > 			return false;
+> > 		}
+> > 
+> > 		drm_dbg_kms(dev, "RGB format supported in that configuration.\n");
+> > 		return true;
+> > 	...
+> > }
+> > 
+> > If the TMDS clock limit permits it, the driver might incorrectly conclude
+> > that the sink supports 16 BPC and program the hardware accordingly, which
+> > could result in a black screen if the monitor doesn't actually support
+> > 48-bit deep color.
+> > 
+> > Should a check for (info->edid_hdmi_rgb444_dc_modes & DRM_EDID_HDMI_DC_48)
+> > be added for the RGB444 and YCBCR444 cases?
+> 
+> Finally, we have automated the ultimate Linux kernel review response:
+> "while you're at it, can you fix everything else wrong in this code?"
+> 
+> (No, this does not expose any pre-existing issue; the validation is
+> more restrictive than it was before. That it's still not restrictive
+> enough in all cases does not introduce a new problem.)
 
---kb6asce5vlt2wt5a
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 17/37] drm/display: bridge-connector: protect dynconn
- creation and destruction with a mutex
-MIME-Version: 1.0
+Correction: there isn't even any problem here. DC48 is the highest
+bpc, so the check is redundant anyway, which is likely also why it
+was omitted.
 
-On Tue, May 19, 2026 at 12:37:34PM +0200, Luca Ceresoli wrote:
-> Bridge hotplug will make the connector dynamically created and destroyed
-> based on hotplug events.
->=20
-> In preparation for that, add a mutex to mutually exclude connector creati=
-on
-> and destruction.
->=20
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Bad clanker! Bad bad bad!
 
-What is the source of concurrency, and what are you protecting against
-exactly with that lock?
+> 
+> > 
+> > > +		break;
+> > > +	default:
+> > > +		return false;
+> > > +	}
+> > > +
+> > >  	if (!info->is_hdmi &&
+> > >  	    (format != DRM_OUTPUT_COLOR_FORMAT_RGB444 || bpc != 8)) {
+> > >  		drm_dbg_kms(dev, "DVI Monitors require an RGB output at 8 bpc\n");
+> > 
+> > 
+> 
+> 
 
-Maxime
 
---kb6asce5vlt2wt5a
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaiasYAAKCRAnX84Zoj2+
-di0AAX94uaZTqhbNpAYeTc4Vd1ntkbdCQHqbZYJkthn3BeRq3wcJvTCqGg1cc9Po
-0g1ku/wBgK/hpwhwYSxughYVr0Z1+OHBXDZmkL5Tj1C4A/UfnJ+5h2aBwHPGNxUV
-LU1oJ0q/FQ==
-=ZsK8
------END PGP SIGNATURE-----
-
---kb6asce5vlt2wt5a--
