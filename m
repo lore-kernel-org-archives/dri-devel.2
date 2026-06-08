@@ -4,49 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7400ECD8C92
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:42:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDD6ECD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:45:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8CA510F618;
-	Mon,  8 Jun 2026 15:42:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 578A110F624;
+	Mon,  8 Jun 2026 15:45:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="jjHbK9Wq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MJskV8wR";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E22BE10F618
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:42:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1780933348;
- bh=yEOieKCXcv06vNuoNgdqY2ql2LhHpG4SOd+tbelcK1g=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=jjHbK9Wq/UkjdyR1CPaGt2LbGlVFCF1AgS2o1b7hzDnvpIXccZ3FDt6M7iVOR2SWG
- VS7gh5ghgEwKy8gFBjxDdWe6sp/rT58mHtC0Kd1CC4hUWCz5GlA27uvAgGUUge/krg
- BbZ8mn7BClVCsTeY14u8Tf9aY+jCQV1Aola4mNDjmV6Gc9aMd/kJE+G+3q8JeUxI0v
- VT5usdK0TNIRkVCXJeK5SmQ/d9IDdxrI9OykiKVzdUR93rlNnCOMWwuEhuFbMdYKwV
- +SPrFTcyX3bU6z7NIQoDDBo6SNEBPQvWQfHQTgNpxc7TPi+7j703Sw2nUzVceVDS/7
- l7+IaHMInx2YA==
-Message-ID: <c0dd1298-17be-44ba-8866-c8602aaa69c6@lankhorst.se>
-Date: Mon, 8 Jun 2026 17:42:34 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cgroup/dmem: accept only one region per limit write
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Natalie Vock <natalie.vock@gmx.de>, Eric Chanudet <echanude@redhat.com>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, cgroups@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Albert Esteve <aesteve@redhat.com>
-References: <20260605-cgroup-dmem-write-single-region-v1-1-9137f296579c@redhat.com>
- <271b1c16-3c3c-4a1e-b09e-c4361c63814c@gmx.de>
- <f00e7771-cd70-4c86-9fac-149897e02b12@lankhorst.se>
- <20260608-glorious-fluorescent-salamander-93daec@houat>
- <15bab7c9-0857-40b9-963b-9923c0e7392c@lankhorst.se>
- <20260608-rational-cuscus-of-enhancement-eecbfa@houat>
-Content-Language: en-US
-From: Maarten Lankhorst <dev@lankhorst.se>
-In-Reply-To: <20260608-rational-cuscus-of-enhancement-eecbfa@houat>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A64810F624
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:45:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id AAD6C601E2
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:45:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A7E11F00898;
+ Mon,  8 Jun 2026 15:45:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780933529;
+ bh=QJeMgHuu9iuynCBTl0kUULt+dKYF04en3cirM3HDdQM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=MJskV8wRfOpTV3JLlmC47pCUihQocHeUnr1uVIx0HP/Xx4iMfNPjiCJPz7GCYPjNU
+ xGHoj+SN7R+ACdhJgW4x/ZcDpP3oqbs9L1EMYHQOMtpUG3CU7KhZLd0MaasZuKz3Oo
+ uLT0GM6xdhdK19uSQkrt4aUJovhjbfXkKLflwdwmRdCwpTWBFQ0v8vGlfwY2x7QmVH
+ sO0UHR/Q880m+lFgy4CHK+OyP0PKKcVRq24ERU53TE2GxPEmAZk2eTOgU1ivAKtp7R
+ s1Ylq8C5pBBtO7WDLnKcalbKxlKbjB9/XuEUC/ESdoSafduI5GEo8O2xHAVT/gCg0m
+ z4BgBSO0xl4Vg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 14/78] drm/bridge: imx8mp-hdmi-pvi: Switch to
+ atomic_create_state
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Frank.Li@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-14-0a91018bf886@kernel.org>
+References: <20260608-drm-no-more-bridge-reset-v2-14-0a91018bf886@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 08 Jun 2026 15:45:28 +0000
+Message-Id: <20260608154529.3A7E11F00898@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,62 +53,112 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-On 6/8/26 16:04, Maxime Ripard wrote:
-> On Mon, Jun 08, 2026 at 03:13:56PM +0200, Maarten Lankhorst wrote:
->> Hey,
->>
->> On 6/8/26 14:42, Maxime Ripard wrote:
->>> On Sat, Jun 06, 2026 at 11:44:10PM +0200, Maarten Lankhorst wrote:
->>>> Hey,
->>>>
->>>> On 6/6/26 18:31, Natalie Vock wrote:
->>>>> On 6/6/26 00:44, Eric Chanudet wrote:
->>>>>> Accept only one "region value" pair entry for the dmem.max, dmem.min,
->>>>>> dmem.low files.>
->>>>>> This changes the UAPI that otherwise accepted multiple lines for setting
->>>>>> multiple entries in one write. No existing user is known to rely on
->>>>>> writing multiple regions in a single write.
->>>>>
->>>>> Ugh, shoot.
->>>>>
->>>>> For dmem.low specifically, there already are some userspace thingies floating around that may write more than one region/value pairs.
->>>>>
->>>>> These thingies all depend on that one patchset for dmemcg protection that I should really get around to merging[1]. Since the userspace utilities depend on not-yet-merged patches, they sort of have to expect stuff changing under their belts, so I wouldn't really consider those users a blocker by necessity.
->>>>>
->>>>> As I see it, we could go down one of two paths:
->>>>> 1. We go ahead with the patch as proposed, and I make sure that the users I know of adapt. Could be a bit icky wrt. "do not break userspace" rules, but since the already use non-merged UAPIs in one place, you can argue that these users kind of have to expect breakage.
->>>>> 2. We use the old handling allowing multiple lines for dmem.min and dmem.low only. This preserves compatibility but uglifies the code by quite a bit.
->>>>>
->>>>> All things considered, I think I personally would prefer going with 1. and taking the patch as proposed and just having one codepath handling every limit file. Just highlighting this so we don't do it on accident.
->>>>>
->>>>> [1] https://patchwork.freedesktop.org/series/163183/
->>>>>
->>>>
->>>> I prefer option 1 as well, but would like an ack from one of the core cgroup maintainers too,
->>>> and what Maxime's opinion on this as well.
->>>
->>> Option 1 works for me too if doable
->>>
->>> Maxime
->>
->>
->> I see this as an acked-by?
->>
->> I'll commit this patch to drm-misc-next if so.
->>
->> Fortunately it may not even break those scripts in the typical case
->> where only 1 region is registered, eg the most common laptop/desktop
->> case.
-> 
-> Natalie had a bunch of comments afaik, so I was expecting a v2, but if
-> you intend to merge it as is, you can add it if you want.
+Pre-existing issues:
+- [High] Unbalanced pm_runtime_put and potential unclocked register access =
+if pm_runtime_resume_and_get fails in atomic_enable.
+- [High] Use-After-Free and unmapped memory access due to devm_ resource li=
+fetime mismatch when the device is unbound.
+--
 
-Yeah forgot about that for a second, will wait for v2!
+commit 935043b57c7562e813344d06040c4edaf524faa0
+Author: Maxime Ripard <mripard@kernel.org>
 
-Kind regards,
-~Maarten Lankhorst
+drm/bridge: imx8mp-hdmi-pvi: Switch to atomic_create_state
+
+The drm_bridge_funcs.atomic_reset callback and its
+drm_atomic_helper_bridge_reset() helper are deprecated.
+Switch to the atomic_create_state callback and its
+drm_atomic_helper_bridge_create_state() counterpart.
+
+> diff --git a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-pvi.c b/drivers/gpu/d=
+rm/bridge/imx/imx8mp-hdmi-pvi.c
+> index 7d5fda7173e5f..a31d4fc76f35b 100644
+> --- a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-pvi.c
+> +++ b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-pvi.c
+> @@ -131,7 +131,7 @@ static const struct drm_bridge_funcs imx_hdmi_pvi_bri=
+dge_funcs =3D {
+>  	.atomic_get_input_bus_fmts =3D imx8mp_hdmi_pvi_bridge_get_input_bus_fmt=
+s,
+>  	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
+>  	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
+> -	.atomic_reset =3D drm_atomic_helper_bridge_reset,
+> +	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
+>  };
+> =20
+>  static int imx8mp_hdmi_pvi_probe(struct platform_device *pdev)
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the error handling in
+imx8mp_hdmi_pvi_bridge_enable() leave the bridge in a state that could
+trigger a regression later?
+
+If pm_runtime_resume_and_get() fails in the enable path, it returns without
+setting a flag:
+
+drivers/gpu/drm/bridge/imx/imx8mp-hdmi-pvi.c:imx8mp_hdmi_pvi_bridge_enable(=
+) {
+	...
+	if (WARN_ON(pm_runtime_resume_and_get(pvi->dev)))
+		return;
+	...
+}
+
+Later, imx8mp_hdmi_pvi_bridge_disable() unconditionally writes to the regis=
+ters
+and decrements the usage counter:
+
+drivers/gpu/drm/bridge/imx/imx8mp-hdmi-pvi.c:imx8mp_hdmi_pvi_bridge_disable=
+() {
+	...
+	writel(0x0, pvi->regs + HTX_PVI_CTRL);
+
+	pm_runtime_put(pvi->dev);
+}
+
+Could this unconditional write to an unclocked IP block cause a synchronous
+data abort, and lead to a PM usage counter underflow?
+
+[Severity: High]
+This is a pre-existing issue, but could this resource allocation pattern
+cause a regression during device unbind?
+
+The bridge structure and I/O registers are allocated using devres in the
+probe function:
+
+drivers/gpu/drm/bridge/imx/imx8mp-hdmi-pvi.c:imx8mp_hdmi_pvi_probe() {
+	...
+	pvi =3D devm_drm_bridge_alloc(&pdev->dev, struct imx8mp_hdmi_pvi,
+				    bridge, &imx_hdmi_pvi_bridge_funcs);
+	...
+	pvi->regs =3D devm_platform_ioremap_resource(pdev, 0);
+	...
+}
+
+If the driver is unbound, these devm-managed resources will be freed and
+unmapped. However, since drm_bridge_remove() does not synchronize with acti=
+ve
+display pipelines, the DRM core might still hold references to the bridge.
+
+If the pipeline is torn down after unbind, imx8mp_hdmi_pvi_bridge_disable()
+would be called:
+
+drivers/gpu/drm/bridge/imx/imx8mp-hdmi-pvi.c:imx8mp_hdmi_pvi_bridge_disable=
+() {
+	...
+	writel(0x0, pvi->regs + HTX_PVI_CTRL);
+	...
+}
+
+Would this result in accessing unmapped registers and the freed bridge
+structure during pipeline teardown?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-drm-no-mor=
+e-bridge-reset-v2-0-0a91018bf886@kernel.org?part=3D14
