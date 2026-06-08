@@ -4,99 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B319CD8C9F
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 18:25:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79EB0CD8CA4
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 18:31:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C589210F880;
-	Mon,  8 Jun 2026 18:25:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA8F610E36F;
+	Mon,  8 Jun 2026 18:31:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pFxD7YIG";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="f9HMti1T";
 	dkim-atps=neutral
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5EAC10F880
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 18:25:43 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-68c19f1f3ceso7256928a12.2
- for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 11:25:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780943142; cv=none;
- d=google.com; s=arc-20240605;
- b=F6i2znZpCWprrM77uzuSMEaU9ooZaEXOvK+ugPLXlEA8mfMPUjTidWm3r5LIFdSljp
- JqbU9BBKyJz8g0d26jl9hsVI10EC9X6C4A5Edx69xw2fbmZ764Ci77bl7NuDTgMxW4gP
- IVq87qfgsD6ZHeaK3YVrL5JJcYlQTU8Fsi/9feZOUNAnfaRvGD0EAQux6XPiu6bdHOgT
- 4Ry1I29peWbo24qcG3ChgpehfrOOHPccV5SQhmS1o4K4E6B71GdWp3NrDQt2vqQlqTxn
- WwxWDepO//+hg6W/zZ9Q8+VjwOSwbzzytirJ2xE3Urxy/dmn37ZGPrz/CTexWSp5Xb5P
- +T7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=bsRPENSdbfWpeWzjmLusfxbY/xjbYvZuSQQmkbsz4lc=;
- fh=NBN/LyR1jy+sa8fRAvfPcCdMytAGbCg1pkdZg9EKdYw=;
- b=gQT0JGW/HFufzqTjJ98OpyJd6oQVrpEEuzr2i4f0fcCwg4N5P3lfiKn13X1pOK4ovf
- jFMOhwvirNsrEqGzSxOFd9cqWE+0v7NZsCSexysrpCxPnJsrKIwczYWZYgFWHagf2iUs
- 7cPgXGjylbgUwoo2sTCORSDl7hgrffaFRdQ4f8aroBeLczdz69K5YqvitS8szKIZP0Vd
- q7ULvImuBjcxUZUAxs/u0PSTy7Fc9ZL/u3NP9e1GBHi6E/Vu1ye2YJ7zthCTAbqEJm/Q
- UXqjWCC8w5cUEYoq57uWLlAck69gmKApUBsSg4zj+ggHDh7S4aA3lVgjss6C8I0rmUa2
- 8/VQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780943142; x=1781547942; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bsRPENSdbfWpeWzjmLusfxbY/xjbYvZuSQQmkbsz4lc=;
- b=pFxD7YIGKzt4rdDAJlJBuD0sPd3KziHZbU+pZzdFtLxTwiABOntgUqs1+/XUc4Uphn
- QpQYHLy+PVz44rMytIRSrU2x/RTO5Xj5XOu/xEmM/xu5pXxKJBrCq/PAch1+rSs+7HTg
- RWmHgzvXiBtUBTvlSWEQAPjXYsUFvXYnhIfmeC1J2RWSusX+XcinAkJglp9/9o+74Soe
- Yg/RF5Zz+b14ttDRn9P1sT6oJyhNNdytqgmBOWIgDfzNqEv4BRUcUQiQY5kANAZhJEkf
- 34S5Cqr15U96oZEq8tVLzFXFXMtLdoPueT8v5iQo1D2N2IpNrwdGdKZFEV+J9D7zTgzE
- 5LwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780943142; x=1781547942;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=bsRPENSdbfWpeWzjmLusfxbY/xjbYvZuSQQmkbsz4lc=;
- b=o2cQ0+4yeoAPuRQ8Szjx7LulHZbG3cP2Hm1NizL25iejrfVmrzxQEVE1RhnFdoOUft
- /3QG3uzIqWCKouxDNne8t2F6Pqfhk4gIhaW0QCUD+/Vj3nqVrj5rqc1HSM8ogy3CY+6L
- kjFkNNoWruxjDA+fgQCHS29Toti4btRprq9LIqtHmEaBLPnRlHoNtO4DdRrEftyYeS/2
- duDMHqRlXmekWQG7lsLqx2lkEZ00Ondj3rP9HUWvL0C5bWuEbmbVbDy31V+iktQ5+PVN
- D36jXFxDlPLTsutwbZO4j1j2hPlq+JLxzLlXzCf1IrOT6U/0GM6nhSJmwXAvlEym5lKH
- h6WA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+oJTg/NMZCIzVcPdw/Edr/YTbZOtcYLC+B+qE+mzxaUVIO8SCyCFSsRbpaHEbr8dA/hVkq2fOZML8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxk6bOCnIWR9k2bF27B4dm0TNNs5UMrD7zN6EdjdP1vrQrqXN8x
- 7YmpzktolA07beTe7zUheOZbdpdiRX8UIXAYukDFEbiO0KBLep7ncU8dPLuVZu0W8CnSL3amMPi
- M7ZLeT1L/zY+2ugwA4SyLQ4jurQZGPDk=
-X-Gm-Gg: Acq92OHen8fxB01V23I4lhGayoAu9J0U1NUBuASCt6QOMV09DIcu9nd/9ZOJ+IphpiO
- HfKEBqYk3xOtGlbqiiP4a2jUulcw60cEefXw5WaYMIRaoJSHwYU5k/NhQUZoTijCHVJfX50HH1p
- UwwTigNG7poLJCcjaXSYLuUw1UTdiIlhVvQULqvoy4ZxbTBwxFjhqsUvb8pKrfUvJtaMsboDbwg
- Qa1LFxq+srs+Bs9Hu5Nn99YPsDA8+Bs6jSbIsIL5MYsCC33vlh0a9CBb0KSYSR7bn32Nj6Uudxu
- wwYHJpPdU9CkCpoEZA==
-X-Received: by 2002:a05:6402:27cd:b0:691:affa:38da with SMTP id
- 4fb4d7f45d1cf-691affa3b75mr3213281a12.1.1780943141898; Mon, 08 Jun 2026
- 11:25:41 -0700 (PDT)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B220810E36F
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 18:31:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1780943471;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=7lwmbZSn0l8FPiJDFk/A5NQSCW82dnUY+6uz9EhsTgo=;
+ b=f9HMti1TQb0bFzGnvzuvIYKm5sIh4iPcY7sIkUZ2+X9z5mZWjujMxx/LDq2E42MJSTvhCX
+ ZZv7p3MW9OaMWZ57FJjv84pnEj1F70KY6VwyGWGC4Po2W71wQAKmVDucb6j621wvKjxDlR
+ hN4+TXYPQzy6ChWhse2RZv3coxgQSMM=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-137-SjUk026bMRWQhqhJK6xgsg-1; Mon,
+ 08 Jun 2026 14:31:10 -0400
+X-MC-Unique: SjUk026bMRWQhqhJK6xgsg-1
+X-Mimecast-MFC-AGG-ID: SjUk026bMRWQhqhJK6xgsg_1780943465
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id C3151187BE00; Mon,  8 Jun 2026 18:31:04 +0000 (UTC)
+Received: from GoldenWind.redhat.com (unknown [10.22.89.147])
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id EC778180058F; Mon,  8 Jun 2026 18:31:00 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ nouveau@lists.freedesktop.org
+Cc: Alexandre Courbot <acourbot@nvidia.com>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ driver-core@lists.linux.dev, Miguel Ojeda <ojeda@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Alice Ryhl <aliceryhl@google.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org, Sumit Semwal <sumit.semwal@linaro.org>,
+ linux-media@vger.kernel.org, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Benno Lossin <lossin@kernel.org>, linaro-mm-sig@lists.linaro.org,
+ Danilo Krummrich <dakr@kernel.org>,
+ Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
+ Asahi Lina <lina+kernel@asahilina.net>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Lyude Paul <lyude@redhat.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH v19 0/4] Rust bindings for gem shmem
+Date: Mon,  8 Jun 2026 14:29:00 -0400
+Message-ID: <20260608183057.2001376-1-lyude@redhat.com>
 MIME-Version: 1.0
-References: <20260526210048.1162477-1-edson.drosdeck@gmail.com>
- <4ebe7f6b-aa32-4441-84db-1b09cc69c075@amd.com>
- <CAMSsBRw16QVwXCWWq0aeoKcqe9soBF9x_un6fGj5A4P+iVCv-Q@mail.gmail.com>
- <d4cfb50b-3b70-4393-9d95-04566767c778@amd.com>
-In-Reply-To: <d4cfb50b-3b70-4393-9d95-04566767c778@amd.com>
-From: edson drosdeck <edson.drosdeck@gmail.com>
-Date: Mon, 8 Jun 2026 15:25:30 -0300
-X-Gm-Features: AVVi8CfXclb6j0YdrCqCKvFp-PCdAED1IRl-uc6SCc1u1i6sh-ACyg87M_5t90I
-Message-ID: <CAMSsBRxR9Ar6p0qyutfMcCmJb7yLUNwE-CRh1JHKa-PZHHzRTg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Avoid using zero AC/DC brightness levels
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, 
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, alex.hung@amd.com, Wayne.Lin@amd.com, 
- timur.kristof@gmail.com, superm1@kernel.org, aurabindo.pillai@amd.com, 
- ivan.lipski@amd.com, chen-yu.chen@amd.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Mimecast-MFC-PROC-ID: ZCPxsKFTmgeLvIMkB3jQKlWOupg84jtb8Z9MQ8jbgX4_1780943465
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,55 +85,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thanks for looking into this.
+Most of this patch series has already been pushed upstream, this is just
+the second half of the patch series that has not been pushed yet + some
+additional changes which were required to implement changes requested by
+the mailing list. This patch series is originally from Asahi, previously
+posted by Daniel Almeida.
 
-I tested the proposed change and it fixes the issue on my system. With
-this patch applied,
-the initial brightness level is set correctly during boot instead of
-starting at the minimum level.
+The previous version of the patch series can be found here:
+
+	https://patchwork.freedesktop.org/series/164580/
+
+Branch with patches applied available here:
+
+	https://gitlab.freedesktop.org/lyudess/linux/-/commits/rust/gem-shmem
+
+This patch series applies on top of drm-rust-next
+
+Patch-series wide changes since V15:
+* Fix some major rebasing errors I somehow didn't notice :(
+* Drop the dependency on LazyInit, use the trick that Alice suggested
+  instead.
+* Fix dependency ordering so that Tyr can get the vmap stuff first
+  without the other bits.
+Patch-series wide changes since V16:
+* Fix ordering one more time (SetOnce::reset() doesn't need to come
+  before adding vmap functions)
+* Rebase against the latest DeviceContext changes from me that got
+  pushed.
+
+Lyude Paul (4):
+  rust: drm: gem: shmem: Add DmaResvGuard helper
+  rust: drm: gem: shmem: Add vmap functions
+  rust: faux: Allow retrieving a bound Device
+  rust: drm: gem: Introduce shmem::Object::sg_table()
+
+ rust/kernel/drm/gem/shmem.rs | 524 ++++++++++++++++++++++++++++++++++-
+ rust/kernel/faux.rs          |  16 +-
+ 2 files changed, 524 insertions(+), 16 deletions(-)
 
 
-Em qua., 3 de jun. de 2026 =C3=A0s 16:23, Mario Limonciello
-<mario.limonciello@amd.com> escreveu:
->
->
->
-> On 5/29/26 14:13, edson drosdeck wrote:
-> > Hi,
-> >
-> > Please find attached the requested ACPI dump and EDID files:
-> >
-> > acpidump.txt
-> > edid.txt
-> >
-> > Thanks for taking a look.
->
-> Sorry for my delay.  I looked through your acpidump and you don't have
-> an ATIF method (which would indicate preferred brightness values for AC
-> and DC).
->
-> I had expected this case is handled by
-> amdgpu_dm_update_backlight_caps(), but it appears that only sets min/max
-> not ac/dc default levels.
->
-> Can you see if this helps?
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 832223c06b3f5..e2831bf48eaab 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -5213,6 +5213,8 @@ static void amdgpu_dm_update_backlight_caps(struct
-> amdgpu_display_manager *dm,
->          if (!caps->caps_valid) {
->                  caps->min_input_signal =3D AMDGPU_DM_DEFAULT_MIN_BACKLIG=
-HT;
->                  caps->max_input_signal =3D AMDGPU_DM_DEFAULT_MAX_BACKLIG=
-HT;
-> +               caps->ac_level =3D 50;
-> +               caps->dc_level =3D 50;
->                  caps->caps_valid =3D true;
->          }
->   #else
->
->
+base-commit: fea3a2dd7d3fc1936211ced5f84420e610435730
+-- 
+2.54.0
+
