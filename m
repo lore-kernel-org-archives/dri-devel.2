@@ -4,52 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 387B6CD8C8E
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 07:07:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F0EACD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 07:09:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A07F110EDF2;
-	Mon,  8 Jun 2026 07:07:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB63410EDF4;
+	Mon,  8 Jun 2026 07:09:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="c07N35Mw";
+	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="D4yqfhaw";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 358E710EDF2
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 07:07:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
- In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=uxWMdDQNZd4UfZyTS00VcDDEjXirdFSg2ZTIGKoEq8A=; b=c07N35Mw2iABFxs1O/FQuH2zhc
- F7hK7cTsjAZ0BlRVP1Jqo6HnbpITgtTKFTYXfltzpt1nFqD1eQVVZW2UzHL3ZTtraG1dLSb/yjcva
- SZe3JNxQUDmDM9vwBnKwMD49lXvKIUO9VaQzGWGSp4nf/z5KgxmT85YJQxs379loy4dks7uZIcgYJ
- 5I0cOUF+TbA73ZBN2n7ume2Sl5Wj1ucB9vH0juBINhXaQWyLQ6VJu+aq1GD6j4wPrLWBVwI/2uA8e
- Jo636AdMGm+d9OkYubIMDy43PwbD9NaH7TUSBQfDoAy2v5bIa0cIpaFWCPpSboKVLM5W5hmtk2OY/
- PgZczcCw==;
-Received: from static-234-112-85-188.ipcom.comunitel.net ([188.85.112.234]
- helo=[192.168.0.17]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wWU4J-00EDwS-Ml; Mon, 08 Jun 2026 09:06:43 +0200
-Message-ID: <86bfd93837dceebb889929c8213e6bd78de9af1a.camel@igalia.com>
-Subject: Re: [PATCH] drm/v3d: Deprecate V3D 3.3 and 4.1 support
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
- <mwen@igalia.com>, Emma Anholt <anholt@igalia.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4186310EDF4
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 07:09:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
+ s=altu2504; t=1780902515;
+ bh=57OXAMQqqj4xbXyszs1R+EibBlVBpUVo5uuotM2InZI=;
+ h=From:To:Subject:Date:Message-Id;
+ b=D4yqfhaw1nJ9J7Tkn9qy+S3c1L9sRjhDM/lRNEs4r1mPIcA6FrDBH6g/a/lSiFv2t
+ lucZ37a2B1EtzlVIu6wBbiwsUyZUgi6KtL1+eJjI9Oz2XmEo6txB43CT1hl+Dzf0UF
+ 5/fgqnleJwWzbV4YMnbuIt7TSgR9UREnrw/EAk6M=
+X-QQ-mid: esmtpsz10t1780902513t7fbbf0a9
+X-QQ-Originating-IP: XF/2kaHxRqFGalrQAGZQ0zFGemSye6Cjnqw2mX0Z/Bw=
+Received: from DESKTOP-8BT1A2O.localdomain ( [58.22.7.114])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Mon, 08 Jun 2026 15:08:29 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 2467102534402940748
+From: Chaoyi Chen <kernel@airkyi.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Florian Fainelli
- <florian.fainelli@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Stefan Wahren <wahrenst@gmx.net>
-Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
-Date: Mon, 08 Jun 2026 09:06:31 +0200
-In-Reply-To: <20260606185616.694188-2-mcanal@igalia.com>
-References: <20260606185616.694188-2-mcanal@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
-MIME-Version: 1.0
+ Simona Vetter <simona@ffwll.ch>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Vinod Koul <vkoul@kernel.org>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-phy@lists.infradead.org,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Subject: [PATCH 3/5] phy: rockchip: phy-rockchip-typec: Add DRM AUX bridge
+Date: Mon,  8 Jun 2026 15:08:03 +0800
+Message-Id: <20260608070805.88-4-kernel@airkyi.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20260608070805.88-1-kernel@airkyi.com>
+References: <20260608070805.88-1-kernel@airkyi.com>
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: ONv4FG6+I+027FK+4nHy2WCbSawcqCYuW4HOiUqL7D6Fs4udPBiCCgIG
+ k+UEKrOIq9uD69MhBUgnmzuLdkV+uQOwskn/Z0gSCyUsH6pPVkTjvdhQq+XAfPPXf7RpfY1
+ C26xdihzXi17ALaCFvf6SQyFif4k54Oz9vLAuzjvLyt262rwL6NBHtOcTA4TL8ewNCwlNzG
+ 73OWSS2/TuNLbG6h3QU7WtwqmF1IfdCrNgGsbA+tv2ce832fZsh643mAclHf8TFDkJVsyfy
+ WtCTje8MX3a/lyZvsJ4AkZJ2YXI42SvODln482jbNuDjho/C0kyE8RGVcvaH4IyeA5+/FLR
+ Tfg8kuUMIHJYN/z8AQT+EMJ3xcDKte8ipzwKkrwLhBCAird9pGxJQBbuo/sOJ1pmWf0Sf3B
+ IZ+VzzbakC9UPq6F60LgT7E7Kx5/z9Uoo59E9EHLAXaS1Ux+GP48SHjbAQwoT8oooLaf2rq
+ YilxK6gMgVjLuCoeQQGyRNF5iemZvp+Vb0DSKuu2IWaix7QGgiHwJMdaCw4odC5sC7Ignge
+ 6A38ul+saIVRQ4O72Aj38IIsIeBJmwyza8eeh8QXfWoBzhgGWzQ1O3/E5Ywc7ST4PseJK+k
+ HjWogGQUByrEn4CkboMkIENx8nGGPPqB037eCulbhQTSY/oR9srs+TRrTWzeulHz8jBwhI9
+ b4+8E6fiPN0eeg2hpOXqMNQ6xDE7VPrFwGftKjWnjfpKYNhZZGY45Tew5I+4K2cNs6Dshua
+ WeELERLkYmwFLwyemOPiTWVnzaTSPyia5SCGnRnq39gEkGSaaLuqeD8b9h/TjUlM0g7G3s6
+ U2t2EZpbMjC6kHq/jDkVbTbsuv5M4ZS81XRwo6xiSIVzjY1JfBSh6evu6osii6eB8DMakhn
+ yPfva62pkqqXU7bZGL2FYrunh8oDoYK1/V+rB+kCMUxjHQ17bCsuAW+dsNILE0HHWYEYDU1
+ DtegpK4tBQdcKe8HEoMgm0nOrsg2tqQYDJdvD8tP0UU5tSBySKhs44zL0gTTKUiFgDdQPAc
+ 15YDcsd4zibONa5XDut7UmuSrq44KiHjAHWvAsIg==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,83 +90,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thanks Ma=C3=ADra:
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+Using the DRM_AUX_BRIDGE helper to create the transparent DRM bridge
+device.
 
-El s=C3=A1b, 06-06-2026 a las 15:55 -0300, Ma=C3=ADra Canal escribi=C3=B3:
-> V3D 3.3 (Broadcom BCM7268) and V3D 4.1 (Broadcom BCM7278) has had no
-> in-tree userspace since Mesa dropped support in 2024, on the grounds
-> that those generations were no longer being tested. The situation in
-> the kernel is similar: the maintainers don't have this hardware, the
-> hardware is not available for purchase, and there is no known user of
-> these GPUs.
->=20
-> With no userspace left to drive it and no known users, maintaining
-> the
-> ver <=3D 41 code paths is a cost without a benefit, considering that
-> these
-> paths are not being exercised on real hardware.
->=20
-> As a first step toward removal, emit a deprecation warning at probe
-> for
-> V3D versions earlier than or equal to 4.1. The hardware remains
-> functional for now; this only warns. If any real user appears and
-> explain its use-case, support can be retained.
->=20
-> Schedule the removal of V3D 3.3 and 4.1 support to the next kernel
-> release.
->=20
-> Link: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/25851
-> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
-> ---
-> =C2=A0drivers/gpu/drm/v3d/v3d_drv.c | 18 +++++++++++++++++-
-> =C2=A01 file changed, 17 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/v3d/v3d_drv.c
-> b/drivers/gpu/drm/v3d/v3d_drv.c
-> index 805d84435ee0..8d914dbc3315 100644
-> --- a/drivers/gpu/drm/v3d/v3d_drv.c
-> +++ b/drivers/gpu/drm/v3d/v3d_drv.c
-> @@ -4,7 +4,11 @@
-> =C2=A0/**
-> =C2=A0 * DOC: Broadcom V3D Graphics Driver
-> =C2=A0 *
-> - * This driver supports the Broadcom V3D 3.3 and 4.1 OpenGL ES GPUs.
-> + * This driver supports the Broadcom V3D 4.2 and 7.1 GPUs.
-> + *
-> + * Support for V3D 3.3 and 4.1 GPUs is deprecated and it will be
-> removed
-> + * in the next kernel release.
-> + *
-> =C2=A0 * For V3D 2.x support, see the VC4 driver.
-> =C2=A0 *
-> =C2=A0 * The V3D GPU includes a tiled render (composed of a bin and rende=
-r
-> @@ -414,6 +418,18 @@ static int v3d_platform_drm_probe(struct
-> platform_device *pdev)
-> =C2=A0	 */
-> =C2=A0	WARN_ON(v3d->ver !=3D gen);
-> =C2=A0
-> +	/* V3D 3.3 and V3D 4.1 has had no in-tree userspace since
-> Mesa
-> +	 * dropped support in 2024 (MR#25851) and they have no known
-> users.
-> +	 * Due to that, support is scheduled for removal in the next
-> release.
-> +	 */
-> +	if (v3d->ver <=3D V3D_GEN_41) {
-> +		dev_warn(dev,
-> +			 "V3D %u.%u support is deprecated and will
-> be removed "
-> +			 "in the next kernel release. If you rely on
-> this hardware, "
-> +			 "please report it to
-> dri-devel@lists.freedesktop.org.\n",
-> +			 v3d->ver / 10, v3d->ver % 10);
-> +	}
-> +
-> =C2=A0	v3d->cores =3D V3D_GET_FIELD(ident1, V3D_HUB_IDENT1_NCORES);
-> =C2=A0	WARN_ON(v3d->cores > 1); /* multicore not yet implemented */
-> =C2=A0
+Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+(no changes since v1)
+
+---
+ drivers/phy/rockchip/Kconfig              |  2 ++
+ drivers/phy/rockchip/phy-rockchip-typec.c | 13 +++++++++++--
+ 2 files changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/phy/rockchip/Kconfig b/drivers/phy/rockchip/Kconfig
+index 14698571b607..9173d3b4fef4 100644
+--- a/drivers/phy/rockchip/Kconfig
++++ b/drivers/phy/rockchip/Kconfig
+@@ -119,6 +119,8 @@ config PHY_ROCKCHIP_SNPS_PCIE3
+ config PHY_ROCKCHIP_TYPEC
+ 	tristate "Rockchip TYPEC PHY Driver"
+ 	depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
++	depends on DRM || DRM=n
++	select DRM_AUX_BRIDGE if DRM_BRIDGE
+ 	select EXTCON
+ 	select GENERIC_PHY
+ 	select RESET_CONTROLLER
+diff --git a/drivers/phy/rockchip/phy-rockchip-typec.c b/drivers/phy/rockchip/phy-rockchip-typec.c
+index d9701b6106d5..48070b50416e 100644
+--- a/drivers/phy/rockchip/phy-rockchip-typec.c
++++ b/drivers/phy/rockchip/phy-rockchip-typec.c
+@@ -54,6 +54,7 @@
+ 
+ #include <linux/mfd/syscon.h>
+ #include <linux/phy/phy.h>
++#include <drm/bridge/aux-bridge.h>
+ 
+ #define CMN_SSM_BANDGAP			(0x21 << 2)
+ #define CMN_SSM_BIAS			(0x22 << 2)
+@@ -1162,16 +1163,24 @@ static int rockchip_typec_phy_probe(struct platform_device *pdev)
+ 
+ 	for_each_available_child_of_node(np, child_np) {
+ 		struct phy *phy;
++		ret = 0;
+ 
+-		if (of_node_name_eq(child_np, "dp-port"))
++		if (of_node_name_eq(child_np, "dp-port")) {
+ 			phy = devm_phy_create(dev, child_np,
+ 					      &rockchip_dp_phy_ops);
+-		else if (of_node_name_eq(child_np, "usb3-port"))
++			ret = drm_aux_bridge_register_from_node(dev, child_np);
++		} else if (of_node_name_eq(child_np, "usb3-port"))
+ 			phy = devm_phy_create(dev, child_np,
+ 					      &rockchip_usb3_phy_ops);
+ 		else
+ 			continue;
+ 
++		if (ret) {
++			pm_runtime_disable(dev);
++			of_node_put(child_np);
++			return ret;
++		}
++
+ 		if (IS_ERR(phy)) {
+ 			dev_err(dev, "failed to create phy: %pOFn\n",
+ 				child_np);
+-- 
+2.54.0
 
