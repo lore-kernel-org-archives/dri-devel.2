@@ -4,55 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B63D2CD8C9F
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 07:09:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9996CD8C9F
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 07:09:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17DC410EDF9;
-	Mon,  8 Jun 2026 07:09:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4234A10EDFB;
+	Mon,  8 Jun 2026 07:09:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D2fR3/XX";
+	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="SD+s+nC3";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF01F10EDF9
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 07:09:22 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9258643536;
- Mon,  8 Jun 2026 07:09:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F057B1F00898;
- Mon,  8 Jun 2026 07:09:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780902562;
- bh=GtHBwKjQpE/Mcl5T1e9tUQO7Io2D4sQEEIldSv1mUDQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=D2fR3/XXbsEcbQAbeap9XFYifirulIxI+BpMpBQM+ZOME54fi8Nj2TzjliS/9TiBv
- jC25QGoVH3gUbHl6gNhvWo5CQOF4H3yzQDG+fKaLmH91N3OdgUOKW+C5s7y8LFgNd8
- fT8b04QqnKG/hWxSo2YOcTATcpmdrxLgpUcLAxkNBjF68eGteC1CDUTpVmQloaHKeh
- PxP95qf/jVFVkjG/v/RybFWwZ+v2sJm3n9yBGG1BfOizZcb8pVT31J3Da3gJckPimT
- dm5D1q3cSBde+0awtCyEmZ3Vruejqb9+cmTWSqPDv+DbFz9bAFculS9jxelu3coTLd
- TvurY8fVCeI5Q==
-Date: Mon, 8 Jun 2026 09:09:18 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Sean Nyekjaer <sean@geanix.com>, Sudarshan Shetty <tessolveupstream@gmail.com>,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
- jonas@kwiboo.se, 
- jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
- tzimmermann@suse.de, 
- airlied@gmail.com, simona@ffwll.ch, alexander.stein@ew.tq-group.com, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Marek Vasut <marex@denx.de>
-Subject: Re: [PATCH v4 2/2] drm: bridge: ti-sn65dsi83: Disable video burst
- mode for LVDS stability
-Message-ID: <20260608-talented-ginger-mandrill-97a290@houat>
-References: <ahsxWhXMhzbAj_3G@Seans-MacBook-Pro.local>
- <DJ17SSAYCT51.28YSD262KHNKK@bootlin.com>
- <20260605160946.GC4350@killaraus.ideasonboard.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="ifasbfczctszzhtm"
-Content-Disposition: inline
-In-Reply-To: <20260605160946.GC4350@killaraus.ideasonboard.com>
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 871B510EDFB
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 07:09:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
+ s=altu2504; t=1780902525;
+ bh=BJBXqIdMo0uJb9odMwXPl2LzKb3wWNT/icd4kKoMmsw=;
+ h=From:To:Subject:Date:Message-Id;
+ b=SD+s+nC3W+DsOCGoU1QcxXW4EWqB6d2JP1f95gV/OOD9gnl4cML8RdrjC/e767VwI
+ RnEDvavwREQgWBW/bBpZAKvaBkZzQFNsDllV79kA3VWpakr95knryR7a1Qcjgc3X3m
+ 4EwR3mUUeYcIV+DIPODzOdHU0Z/Wulk4rXsyXHEA=
+X-QQ-mid: esmtpsz10t1780902520t711901a3
+X-QQ-Originating-IP: Jz5ZQWmRqpeGhkm7cKGk5fyrmUiArGhysVK7jI09zek=
+Received: from DESKTOP-8BT1A2O.localdomain ( [58.22.7.114])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Mon, 08 Jun 2026 15:08:35 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 15018740618981124911
+From: Chaoyi Chen <kernel@airkyi.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Vinod Koul <vkoul@kernel.org>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-phy@lists.infradead.org,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Subject: [PATCH 4/5] drm/rockchip: cdn-dp: Support handle lane info without
+ extcon
+Date: Mon,  8 Jun 2026 15:08:04 +0800
+Message-Id: <20260608070805.88-5-kernel@airkyi.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20260608070805.88-1-kernel@airkyi.com>
+References: <20260608070805.88-1-kernel@airkyi.com>
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: MIAHdi1iQo+z1GmPE0rKtuhunHepKwu2QTXP5QZ7eFdleOfePEgY5NH0
+ QVzvXJg1x0c2a/Gt0jIJlxu6Sgb+4Rb927BifXkNuidf4ABON3de+0rzGt1iWL0FhBxiR8Z
+ WStYOvrkpVIfcmYFuP+1DGa8yauLsRfjcWLrOCD+x6SVThQcOON75tItbIFnWl3OJv1VeCv
+ o/U+ny+tDSkI5U3AHK9tEvkyyQay0ZbMrVopneZaZmYnOAOca1BWXq3WInEcGDw6bYd8clo
+ Z7kdbK4mui3MaJ4nm2JRYwvp1/DPuuhBIMNbGV7GTfE1uxz5EWWCOE7r3GA51pwkkUh5QwU
+ tiRYQSX0Ma+n5iujLMIkFiJUybVgX45M/sA8qcxki/WaUZj5IdLavIQjKrMpWnx3p0sxuDm
+ MEg91cW1yi8SzIsF8vdVNKUTvU4WMpXLzHOjinKUt2XtEkIATFdLfFo24uFmtaP8YL8AZvo
+ kFUOEybLdVfAxhSmmMEQMDJga+8qqianA5yA29Ocke6sV+al31g6GFge93QOGzO99V/5i+b
+ jTM4hA3zRSbUHfT+sqflTYKshrRYk2wBwIW4qwjIFjPkAkZt6NoYM9r7phgqnCDZGUaZ0vx
+ ME4E/xWwYMX93o0wV5t3YV7L534EnJc6LCXCJGg91178zRaQ2TAhPGB4BUV6XJ9GQjrqaOx
+ 8TO9c+8/uY5EC7W6vUitDsNIvlZ7tyshnX0L0EQ0ZDBHNFvc1mS9MKZod3/HSPkSjB44K+U
+ bYDVXy9dV3E3vIuSSb7SM98SaoxHqPVJWjqMM5Z1Zl3PkZxyJbICkMqObSaXe4eKPG7VwcO
+ 5zD4yGT2ZW0W8VatdkZQofoSpK7ZLI2j6kcmuCqWJhkTj9QtEC6UO/ZbeQhfolSjRdQFCzD
+ 3Zu9mGM2g5oVXHi34YZbYO5dMQLCoadhEJdyabTQUuFT/6MPH44WUUQSbCl5CwnxmpsZnuL
+ c7AzXmSZ0VYlBCGZIVCKtzzfugTm1+3C2R8wXrdufxanBNpvyzTPcqDFqkypSGU6vWyrEI1
+ vCVb75bUH0BcuYNQ0kWeykG9Gzw0X+8nibzIqX+pKh7OuWlUy6
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,120 +91,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
---ifasbfczctszzhtm
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 2/2] drm: bridge: ti-sn65dsi83: Disable video burst
- mode for LVDS stability
-MIME-Version: 1.0
+This patch add support for get PHY lane info without help of extcon.
 
-On Fri, Jun 05, 2026 at 07:09:46PM +0300, Laurent Pinchart wrote:
-> On Fri, Jun 05, 2026 at 05:18:43PM +0200, Luca Ceresoli wrote:
-> > Hello Sean,
-> > On Sat May 30, 2026 at 8:51 PM CEST, Sean Nyekjaer wrote:
-> > > On Wed, May 27, 2026 at 02:27:36PM +0100, Sudarshan Shetty wrote:
-> > >> The current DSI configuration enables MIPI_DSI_MODE_VIDEO_BURST.
-> > >> while burst mode is supported by the hardware, its use
-> > >> depends on continuous clock behavior from the DSI host. In practice,
-> > >> burst mode may introduce instability depending on the host controller
-> > >> implementation, as the DSI link may transition to low-power state
-> > >> between bursts.
-> > >>
-> > >> Testing showed improved display stability when using non-burst mode =
-on
-> > >> affected panels.
-> > >>
-> > >> Remove MIPI_DSI_MODE_VIDEO_BURST and use non-burst video mode.
-> > >>
-> > >
-> > > We briefly talked about this at Embedded Recipes
-> > > I promised to sent a link:
-> > > https://lore.kernel.org/all/E35054BA-FBE5-4CEE-905C-1F5D20140590@gean=
-ix.com/
-> >=20
-> > Thanks for the discussion at ER and for this follow-up e-mail.
-> >=20
-> > > When burst mode is enabled, the LVDS clock gets way to high for my
-> > > panel. I don't know if it's the DSI controller in the STM32MP1 or
-> > > something not supported on the TI side.
-> > >
-> > > We have been running with this fix for 2 years :)
-> >=20
-> > If I can summarize the situation in the last 4 years:
-> >=20
-> >  * Several users reported the same trouble
-> >  * Those users patch their kernel out of tree to disable burst mode as a
-> >    workaround
-> >  * According to Marek the correct way to make burst mode work is
-> >    implementing link negotiation
-> >  * Nobody is willing to implement link negotiation as of now
-> >=20
-> > And this leads me to some questions.
-> >=20
-> >  * Do we want to keep the current situation (everybody beats their head=
- on
-> >    the wall until they discover disabling burst mode "fixes" their pane=
-l,
-> >    and keep an out of tree patch)?
-> >=20
-> >  * Assuming the priority is getting a screen working (and not saving po=
-wer
-> >    on a black screen), would it make sense to apply this patch, and let
-> >    people improve in the future by implementing link negotiation?
-> >=20
-> >    Let's pretend for a moment this is a new driver being developed: wou=
-ld
-> >    it be OK to have a basic working driver, without some power optimiza=
-tion
-> >    features which can be added later on? The only valid answer to this
-> >    question is obviously "yes". Doesn't the same principle apply here? =
-If
-> >    it doesn't, why?
-> >=20
-> >  * What is the expected power saving with burst mode?
-> >=20
-> >    I'm afraid I don't have precise numbers but I measured the total boa=
-rd
-> >    consumption with or without burst mode (the former with a black scre=
-en
-> >    but backlight enabled) and found no difference: exactly 12.74 W in b=
-oth
-> >    cases.
-> >=20
-> > Thanks for you rpatience in reading this. I hope it helps in finding a
-> > better solution.
->=20
-> Rephrasing this a bit, is the discussion about dropping support for a
-> supported feature (burst mode) because users who suffer from the lack of
-> another feature (link negotiation) are not willing to spend time
-> implementing it, and would prefer if users of burst mode were forced to
-> do the work instead ? That doesn't seem very fair to me.
+There is no extcon needed if the Type-C controller is present. In this
+case, the lane info can be get from PHY instead of extcon.
 
-Yeah, that's my take on it too. The question quickly turns into "we want
-to regress current users because some new ones don't want to bother",
-and, honestly, no. We don't do that.
+The extcon device should still be supported if Type-C controller is
+not present.
 
-I really don't buy into the "but it's too hard!" argument, because you
-can apply for pretty much everything: a review, a requested preliminary
-work, etc.
+Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+---
+(no changes since v1)
 
-If downstream users want to patch out the kernel and prefer to take on
-technical debt, that's on them.
+---
+ drivers/gpu/drm/rockchip/cdn-dp-core.c | 25 +++++++++++++++++--------
+ 1 file changed, 17 insertions(+), 8 deletions(-)
 
-Maxime
+diff --git a/drivers/gpu/drm/rockchip/cdn-dp-core.c b/drivers/gpu/drm/rockchip/cdn-dp-core.c
+index 177e30445ee8..9068118859e2 100644
+--- a/drivers/gpu/drm/rockchip/cdn-dp-core.c
++++ b/drivers/gpu/drm/rockchip/cdn-dp-core.c
+@@ -157,6 +157,9 @@ static int cdn_dp_get_port_lanes(struct cdn_dp_port *port)
+ 	int dptx;
+ 	u8 lanes;
+ 
++	if (!edev)
++		return phy_get_bus_width(port->phy);
++
+ 	dptx = extcon_get_state(edev, EXTCON_DISP_DP);
+ 	if (dptx > 0) {
+ 		extcon_get_property(edev, EXTCON_DISP_DP,
+@@ -220,7 +223,7 @@ static bool cdn_dp_check_sink_connection(struct cdn_dp_device *dp)
+ 	 * some docks need more time to power up.
+ 	 */
+ 	while (time_before(jiffies, timeout)) {
+-		if (!extcon_get_state(port->extcon, EXTCON_DISP_DP))
++		if (port->extcon && !extcon_get_state(port->extcon, EXTCON_DISP_DP))
+ 			return false;
+ 
+ 		if (!cdn_dp_get_sink_count(dp, &sink_count))
+@@ -386,11 +389,14 @@ static int cdn_dp_enable_phy(struct cdn_dp_device *dp, struct cdn_dp_port *port)
+ 		goto err_power_on;
+ 	}
+ 
+-	ret = extcon_get_property(port->extcon, EXTCON_DISP_DP,
+-				  EXTCON_PROP_USB_TYPEC_POLARITY, &property);
+-	if (ret) {
+-		DRM_DEV_ERROR(dp->dev, "get property failed\n");
+-		goto err_power_on;
++	property.intval = 0;
++	if (port->extcon) {
++		ret = extcon_get_property(port->extcon, EXTCON_DISP_DP,
++					  EXTCON_PROP_USB_TYPEC_POLARITY, &property);
++		if (ret) {
++			DRM_DEV_ERROR(dp->dev, "get property failed\n");
++			goto err_power_on;
++		}
+ 	}
+ 
+ 	port->lanes = cdn_dp_get_port_lanes(port);
+@@ -1029,6 +1035,9 @@ static int cdn_dp_bind(struct device *dev, struct device *master, void *data)
+ 	for (i = 0; i < dp->ports; i++) {
+ 		port = dp->port[i];
+ 
++		if (!port->extcon)
++			continue;
++
+ 		port->event_nb.notifier_call = cdn_dp_pd_event;
+ 		ret = devm_extcon_register_notifier(dp->dev, port->extcon,
+ 						    EXTCON_DISP_DP,
+@@ -1121,14 +1130,14 @@ static int cdn_dp_probe(struct platform_device *pdev)
+ 		    PTR_ERR(phy) == -EPROBE_DEFER)
+ 			return -EPROBE_DEFER;
+ 
+-		if (IS_ERR(extcon) || IS_ERR(phy))
++		if (IS_ERR(phy) || PTR_ERR(extcon) != -ENODEV)
+ 			continue;
+ 
+ 		port = devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
+ 		if (!port)
+ 			return -ENOMEM;
+ 
+-		port->extcon = extcon;
++		port->extcon = IS_ERR(extcon) ? NULL : extcon;
+ 		port->phy = phy;
+ 		port->dp = dp;
+ 		port->id = i;
+-- 
+2.54.0
 
---ifasbfczctszzhtm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaiZqlAAKCRAnX84Zoj2+
-dm+/AYDrrPahfAhn5997t5a5gnjEcvAOYTkRmcsFmKuXI1R7UN3Z08Omg84uNug8
-5OKCrakBgIehDV050JemhB540J3byKydZfCQdpulH08VSTMvVXH+pNXejuWHviMK
-4RAj8zTEzw==
-=fVIc
------END PGP SIGNATURE-----
-
---ifasbfczctszzhtm--
