@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A27ACD8C92
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:37:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C941FCD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:37:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87B6C10F4D9;
-	Mon,  8 Jun 2026 14:37:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35DFF10F4DB;
+	Mon,  8 Jun 2026 14:37:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iwS1hOtR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bk0WnKZc";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99F8210F4D9
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:37:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FEF810F4DA
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:37:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8250543C81;
- Mon,  8 Jun 2026 14:37:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E608A1F00898;
- Mon,  8 Jun 2026 14:37:46 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3926740470;
+ Mon,  8 Jun 2026 14:37:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97DB21F00898;
+ Mon,  8 Jun 2026 14:37:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780929467;
- bh=Lp21qpWXh1ZOuPmiZAgwNbziAL0lC7UyW+zBO2hxiAs=;
+ s=k20260515; t=1780929470;
+ bh=5aBAgCTBgODm1+NMpHrKvB80lpj3lNJ4zhtw6DzvO6I=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=iwS1hOtRo/Ac7YW2WZeYWILpe00/heftJrMjfqjRnRjDSR22iJ9KPQfrOOA/7MQkG
- ZYts1Rl+9tfFRjeEmVuwI34BgH9n/LfBJkTGFd4sGhDmA4Ovuswd05dGsvlddxKxlh
- xIZFd3/CYg9QWHC4rpOmYv9xP4S7PWNBJfbyot3PwPMiQ566Y2aUqcA+ie9W4a9EKZ
- tTGMrXZrEn1HDxAZQ6qdRTiFjDO/kndaddqJkbzjhm6Bp1CYVNrqVFTFgDYrGqDE4m
- Wm1rjrX+XSWxqn3hnV5KtbjUNpDcRrVSOEo9BqXxKwuJO4/kdJklNy8DMtCu0K3JIA
- aPVPb69Tg/PeA==
+ b=Bk0WnKZcBKcEZ5sxuj0ziZmfo77BIKvfk8cxiz4IMHNsEi2GawwCHoXFBX5yN25br
+ vTbGuzHtqLAawAqBMnfeoCAHAfwMegkdyOG/getUfhPLqJ9qwLR6yPtB43zs0UiGyS
+ 5DYCURUnwV5CgmiFeMWIPtmg7gzWYc9Fr6UrYkmLiorXXz+aYgzv1A2JySvsU8VfaX
+ Xl46seC/dYa8mgjacNnkbGfDBBO6c+TZm8LVEXBZ0YMRCJdPMWqnUM9TQxQjytULPR
+ 4oCOWh8WxOv3Wph2UsJE8B4QMAaXzza7KbmTGKjsBda89HHwSa4JQK9DNtkIr2mgTB
+ 6NYzdSrt7WTgA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 08 Jun 2026 16:36:12 +0200
-Subject: [PATCH v2 30/78] drm/bridge: samsung-dsim: Switch to
+Date: Mon, 08 Jun 2026 16:36:13 +0200
+Subject: [PATCH v2 31/78] drm/bridge: sii902x: Switch to
  atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260608-drm-no-more-bridge-reset-v2-30-0a91018bf886@kernel.org>
+Message-Id: <20260608-drm-no-more-bridge-reset-v2-31-0a91018bf886@kernel.org>
 References: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -49,16 +49,14 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, Inki Dae <inki.dae@samsung.com>, 
- Jagan Teki <jagan@amarulasolutions.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>
+ Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1554; i=mripard@kernel.org;
- h=from:subject:message-id; bh=T6YpHJwhuEx4nQntGyTzxb1pIDVWPbk7XQR3zIYEFJc=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlql4M0HjcWpO3Xn6Gzapnr5E0OPCqTtyctU3z8VmRro
- 01MxIWsjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRVgfGWsm9665p793gaGtb
- ZLt3o/mVdS0vJDa2fPDy/SDS8n/P5X/z18/8GNj4LnmGcMAW910tFoy1si837mkoNcrYXOyvXHv
- r/s/kuMj3b9llf36b3qLz4qlpya/rV3JN/se/ZCgoczFbPHMVAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1364; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=3XmTdi2PtqIXikfijhcVNb4SR8JrWcin/QfH/FRW6XA=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlql4N4OAR8++T71TNnnjgQfi7mSKLgV91d6XP1pP9P2
+ Pr6EH9lx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhIfBdjw5dMDpHQK7k6Z+RP
+ b30c8P/HqSKd4k9a/JmuZ20PH7PYrLZcU7ek84zSHdUn1z+UbtflYqzTmf8vQuQcq8b/7Tos4m+
+ vKTnM+5HfeWqZSvmEew9PBifzWyhMkKifcWENb17F8wCld6wA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -82,34 +80,29 @@ drm_atomic_helper_bridge_reset() helper are deprecated.
 Switch to the atomic_create_state callback and its
 drm_atomic_helper_bridge_create_state() counterpart.
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-To: Inki Dae <inki.dae@samsung.com>
-To: Jagan Teki <jagan@amarulasolutions.com>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
----
- drivers/gpu/drm/bridge/samsung-dsim.c | 2 +-
+ drivers/gpu/drm/bridge/sii902x.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/samsung-dsim.c b/drivers/gpu/drm/bridge/samsung-dsim.c
-index 9ee0515074c7..5788066d479e 100644
---- a/drivers/gpu/drm/bridge/samsung-dsim.c
-+++ b/drivers/gpu/drm/bridge/samsung-dsim.c
-@@ -1833,11 +1833,11 @@ static int samsung_dsim_attach(struct drm_bridge *bridge,
- }
- 
- static const struct drm_bridge_funcs samsung_dsim_bridge_funcs = {
- 	.atomic_duplicate_state		= drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state		= drm_atomic_helper_bridge_destroy_state,
--	.atomic_reset			= drm_atomic_helper_bridge_reset,
-+	.atomic_create_state			= drm_atomic_helper_bridge_create_state,
- 	.atomic_get_input_bus_fmts	= samsung_dsim_atomic_get_input_bus_fmts,
- 	.atomic_check			= samsung_dsim_atomic_check,
- 	.atomic_pre_enable		= samsung_dsim_atomic_pre_enable,
- 	.atomic_enable			= samsung_dsim_atomic_enable,
- 	.atomic_disable			= samsung_dsim_atomic_disable,
+diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
+index ea543be4ae3e..30d04324d8ce 100644
+--- a/drivers/gpu/drm/bridge/sii902x.c
++++ b/drivers/gpu/drm/bridge/sii902x.c
+@@ -542,11 +542,11 @@ static const struct drm_bridge_funcs sii902x_bridge_funcs = {
+ 	.mode_set = sii902x_bridge_mode_set,
+ 	.atomic_disable = sii902x_bridge_atomic_disable,
+ 	.atomic_enable = sii902x_bridge_atomic_enable,
+ 	.detect = sii902x_bridge_detect,
+ 	.edid_read = sii902x_bridge_edid_read,
+-	.atomic_reset = drm_atomic_helper_bridge_reset,
++	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+ 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_get_input_bus_fmts = sii902x_bridge_atomic_get_input_bus_fmts,
+ 	.atomic_check = sii902x_bridge_atomic_check,
+ 	.mode_valid = sii902x_bridge_mode_valid,
 
 -- 
 2.54.0
