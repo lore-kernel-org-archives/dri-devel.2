@@ -4,61 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B223ECD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 13:42:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83249CD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 13:45:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F2B610F3EE;
-	Mon,  8 Jun 2026 13:42:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D694310F3FE;
+	Mon,  8 Jun 2026 13:45:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="AHfyJTev";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="MHTfEQ6f";
 	dkim-atps=neutral
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com
- [113.46.200.216])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AB8110F3EE
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 13:42:23 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=vD8IwVPJmLQXeM+lb+h0p7GxyjrVdzfrGiNdwmti07o=;
- b=AHfyJTevRCjusKWA3HA/PgJkSbdFw9KNCLNOKv8jfeDnkPGpohFndugvermJbeyiD2fh21bR6
- p+Qpfg+z1g3awVSXSkk9cgRT3rXLerjt0rltYOkE6OroFdDPktVlH+J/5lk/Dt5+f+FfNSHejZY
- qd2/07+VjDCw/HZO7gT/MfY=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
- by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4gYtL170xnz1T4G3;
- Mon,  8 Jun 2026 21:34:01 +0800 (CST)
-Received: from dggemv705-chm.china.huawei.com (unknown [10.3.19.32])
- by mail.maildlp.com (Postfix) with ESMTPS id 676004048F;
- Mon,  8 Jun 2026 21:42:20 +0800 (CST)
-Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
- dggemv705-chm.china.huawei.com (10.3.19.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Mon, 8 Jun 2026 21:42:20 +0800
-Received: from [10.159.167.44] (10.159.167.44) by
- kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Mon, 8 Jun 2026 21:42:19 +0800
-Message-ID: <4dba90cc-edcd-45ee-b3f5-9695a5b12dad@huawei.com>
-Date: Mon, 8 Jun 2026 21:42:19 +0800
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5B4410F3FE
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 13:45:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1780926331;
+ bh=brvNZ3N1a0wz6pV7iprlWHZAsadEk5qYF40ZXnPqob4=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=MHTfEQ6fyjTAM5NwRStV79DWhT5X68KQMMgAFnW5l7+BQ2qRpch4inYhMsTFfoEGE
+ R8iyLwx+H7Rv30LJrfA0VYns2zYHe97MoX6wgUX4CE5WIs6POyB0nchNXlA4pGz7wO
+ tjDfCGQ3gxVGt76rawwyFCxjMcZdnAx+exi6kvoS8SoUd/GjLGwlRThSsxQhoYb7Zk
+ LjoBqQBmX5OXBU6z/vshJkNkBWbNYVvCqg99uvcYAHdFYGybCPD5BN74AE2SzIzPPH
+ 7AfcVRLkLnZzVfQHg8TDmPxqCYeRVsEpON+5wgbOCOgc66D+kc5FWtwjrBD34WiFgb
+ QP9vKjOrOU9nA==
+Received: from fedora-2.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 3D36D17E0191;
+ Mon,  8 Jun 2026 15:45:31 +0200 (CEST)
+Date: Mon, 8 Jun 2026 15:45:26 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Karunika Choo <karunika.choo@arm.com>
+Cc: dri-devel@lists.freedesktop.org, nd@arm.com, Steven Price
+ <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 06/18] drm/panthor: Derive MMU AS register addresses
+ from base and stride
+Message-ID: <20260608154526.750c1a42@fedora-2.home>
+In-Reply-To: <20260528150546.3168527-7-karunika.choo@arm.com>
+References: <20260528150546.3168527-1-karunika.choo@arm.com>
+ <20260528150546.3168527-7-karunika.choo@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/4] drm/hibmc: Use gem-shmem with shadow-plane helpers
- for memory management
-To: Thomas Zimmermann <tzimmermann@suse.de>, <xinliang.liu@linaro.org>,
- <tiantao6@hisilicon.com>, <kong.kongxinwei@hisilicon.com>,
- <sumit.semwal@linaro.org>, <yongqin.liu@linaro.org>, <jstultz@google.com>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <airlied@gmail.com>, <simona@ffwll.ch>
-CC: <dri-devel@lists.freedesktop.org>, <shiyongbang@huawei.com>,
- "Liangjian(Jim, Kunpeng Solution Development Dept)" <liangjian010@huawei.com>, 
- Chenjianmin <chenjianmin@huawei.com>, "fengsheng (A)" <fengsheng5@huawei.com>
-References: <20260601114756.51953-1-tzimmermann@suse.de>
- <20260601114756.51953-5-tzimmermann@suse.de>
-From: Yongbang Shi <shiyongbang@huawei.com>
-In-Reply-To: <20260601114756.51953-5-tzimmermann@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.159.167.44]
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemq100007.china.huawei.com (7.202.195.175)
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,256 +68,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Thomas.
+On Thu, 28 May 2026 16:05:34 +0100
+Karunika Choo <karunika.choo@arm.com> wrote:
+
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index 48127313332f..9a64f977d28c 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -36,6 +36,7 @@
+>  #include "panthor_gpu.h"
+>  #include "panthor_gpu_regs.h"
+>  #include "panthor_heap.h"
+> +#include "panthor_hw.h"
+>  #include "panthor_mmu.h"
+>  #include "panthor_mmu_regs.h"
+>  #include "panthor_sched.h"
+> @@ -57,7 +58,7 @@ struct panthor_as_slot {
+>   */
+>  struct panthor_mmu {
+>  	/** @iomem: CPU mapping of MMU_AS_CONTROL iomem region */
+> -	void __iomem *iomem;
+> +	void __iomem *iomem[MAX_AS_SLOTS];
+
+Can we move the iomem field to panthor_as_slot?
 
 >  
->  #include "hibmc_drm_drv.h"
-> @@ -100,28 +102,41 @@ static int hibmc_plane_atomic_check(struct drm_plane *plane,
->  static void hibmc_plane_atomic_update(struct drm_plane *plane,
->  				      struct drm_atomic_commit *state)
->  {
-> +	struct hibmc_drm_private *priv = to_hibmc_drm_private(plane->dev);
->  	struct drm_plane_state *new_state = drm_atomic_get_new_plane_state(state, plane);
-> +	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(new_state);
->  	struct drm_framebuffer *fb = new_state->fb;
-> +	struct drm_plane_state *old_state = drm_atomic_get_old_plane_state(state, plane);
-> +	u32 gpu_addr = 0;
->  	u32 reg;
-> -	s64 gpu_addr = 0;
->  	u32 line_l;
-> -	struct hibmc_drm_private *priv = to_hibmc_drm_private(plane->dev);
-> -	struct drm_gem_vram_object *gbo;
->  
-> -	if (!new_state->fb)
-> +	if (!fb)
->  		return;
->  
-> -	gbo = drm_gem_vram_of_gem(new_state->fb->obj[0]);
-> +	if (drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE) == 0) {
-> +		struct drm_rect damage;
-> +		struct drm_atomic_helper_damage_iter iter;
-> +
-> +		drm_atomic_helper_damage_iter_init(&iter, old_state, new_state);
-> +		drm_atomic_for_each_plane_damage(&iter, &damage) {
-> +			struct iosys_map dst[DRM_FORMAT_MAX_PLANES] = {
-> +				IOSYS_MAP_INIT_VADDR_IOMEM(priv->vram + gpu_addr),
-> +			};
->  
-> -	gpu_addr = drm_gem_vram_offset(gbo);
-> -	if (WARN_ON_ONCE(gpu_addr < 0))
-> -		return; /* Bug: we didn't pin the BO to VRAM in prepare_fb. */
-> +			iosys_map_incr(&dst[0],
-> +				       drm_fb_clip_offset(fb->pitches[0], fb->format, &damage));
-> +			drm_fb_memcpy(dst, fb->pitches, shadow_plane_state->data, fb, &damage);
-> +		}
-> +
-> +		drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
-> +	}
-
-This implementation uses shadow planes for damage rect updates. If the entire plane is updated frequently, could this
-lead to a performance drop or frame drops?
-
-Originally, the window system(X11/Wayland) drew directly to the hardware framebuffer, but now there is an extra copy in
-`atomic_update`.
-
->  
->  	writel(gpu_addr, priv->mmio + HIBMC_CRT_FB_ADDRESS);
->  
->  	reg = drm_format_info_min_pitch(fb->format, 0, fb->width);
->  
-> -	line_l = new_state->fb->pitches[0];
-> +	line_l = fb->pitches[0];
->  	writel(HIBMC_FIELD(HIBMC_CRT_FB_WIDTH_WIDTH, reg) |
->  	       HIBMC_FIELD(HIBMC_CRT_FB_WIDTH_OFFS, line_l),
->  	       priv->mmio + HIBMC_CRT_FB_WIDTH);
-> @@ -149,13 +164,11 @@ static const struct drm_plane_funcs hibmc_plane_funcs = {
->  	.update_plane	= drm_atomic_helper_update_plane,
->  	.disable_plane	= drm_atomic_helper_disable_plane,
->  	.destroy = drm_plane_cleanup,
-> -	.reset = drm_atomic_helper_plane_reset,
-> -	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
-> -	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
-> +	DRM_GEM_SHADOW_PLANE_FUNCS,
->  };
->  
->  static const struct drm_plane_helper_funcs hibmc_plane_helper_funcs = {
-> -	DRM_GEM_VRAM_PLANE_HELPER_FUNCS,
-> +	DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
->  	.atomic_check = hibmc_plane_atomic_check,
->  	.atomic_update = hibmc_plane_atomic_update,
->  };
-> @@ -515,6 +528,7 @@ int hibmc_de_init(struct hibmc_drm_private *priv)
->  	}
->  
->  	drm_plane_helper_add(plane, &hibmc_plane_helper_funcs);
-> +	drm_plane_enable_fb_damage_clips(plane);
->  
->  	ret = drm_crtc_init_with_planes(dev, crtc, plane,
->  					NULL, &hibmc_crtc_funcs, NULL);
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> index 99b36de1fe13..19d3193e2f76 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> @@ -18,9 +18,10 @@
->  #include <drm/clients/drm_client_setup.h>
->  #include <drm/drm_atomic_helper.h>
->  #include <drm/drm_drv.h>
-> -#include <drm/drm_fbdev_ttm.h>
-> +#include <drm/drm_dumb_buffers.h>
-> +#include <drm/drm_fbdev_shmem.h>
->  #include <drm/drm_gem_framebuffer_helper.h>
-> -#include <drm/drm_gem_vram_helper.h>
-> +#include <drm/drm_gem_shmem_helper.h>
->  #include <drm/drm_managed.h>
->  #include <drm/drm_module.h>
->  #include <drm/drm_vblank.h>
-> @@ -71,7 +72,13 @@ static irqreturn_t hibmc_dp_interrupt(int irq, void *arg)
->  static int hibmc_dumb_create(struct drm_file *file, struct drm_device *dev,
->  			     struct drm_mode_create_dumb *args)
->  {
-> -	return drm_gem_vram_fill_create_dumb(file, dev, 0, 128, args);
-> +	int ret;
-> +
-> +	ret = drm_mode_size_dumb(dev, args, SZ_128, 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return drm_gem_shmem_create_with_handle(file, dev, args->size, &args->handle);
->  }
->  
->  static const struct drm_driver hibmc_driver = {
-> @@ -81,10 +88,9 @@ static const struct drm_driver hibmc_driver = {
->  	.desc			= "hibmc drm driver",
->  	.major			= 1,
->  	.minor			= 0,
-> -	.debugfs_init		= drm_vram_mm_debugfs_init,
-> -	.dumb_create            = hibmc_dumb_create,
-> -	.dumb_map_offset        = drm_gem_ttm_dumb_map_offset,
-> -	DRM_FBDEV_TTM_DRIVER_OPS,
-> +	.gem_prime_import	= drm_gem_shmem_prime_import_no_map,
-> +	.dumb_create		= hibmc_dumb_create,
-> +	DRM_FBDEV_SHMEM_DRIVER_OPS,
->  };
->  
->  static int __maybe_unused hibmc_pm_suspend(struct device *dev)
-> @@ -106,11 +112,32 @@ static const struct dev_pm_ops hibmc_pm_ops = {
->  				hibmc_pm_resume)
->  };
->  
-> +static enum drm_mode_status hibmc_mode_config_mode_valid(struct drm_device *dev,
-> +							 const struct drm_display_mode *mode)
-> +{
-> +	const struct drm_format_info *info =
-> +		drm_get_format_info(dev, DRM_FORMAT_XRGB8888, DRM_FORMAT_MOD_LINEAR);
-> +	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
-> +	unsigned long max_fb_size = priv->vram_size;
-> +	u64 pitch;
-> +
-> +	if (drm_WARN_ON_ONCE(dev, !info))
-> +		return MODE_ERROR; /* driver bug */
-> +
-> +	pitch = drm_format_info_min_pitch(info, 0, mode->hdisplay);
-> +	if (!pitch)
-> +		return MODE_BAD_WIDTH;
-> +	else if (pitch > max_fb_size / mode->vdisplay)
-> +		return MODE_MEM;
-> +
-
-I reviewed the AST and Cirrus implementations, and they include checks for the maximum size supported by the hardware.
-
-The hardware FB width register has only 14 bits, and the HIBMC_CRT_FB_WIDTH_WIDTH_MASK macro defines the maximum size as
-0x3FFF. Would adding the following check make the code more rigorous?
-
-Also, the pitch requires 128-byte alignment. Should we add a check here, or does the buffer created by
-`hibmc_dumb_create` already ensure that the FB start address is aligned to 128 bytes via `SZ_128`? I’m not entirely sure
-about this.
-
-Of course, the original code used `drm_vram_helper_mode_valid` without strictly checking these hardware limitations.
-Thank you for your modification.
-
-
-Thanks,
-Yongbang.
-
-> +	return MODE_OK;
-> +}
-> +
->  static const struct drm_mode_config_funcs hibmc_mode_funcs = {
-> -	.mode_valid = drm_vram_helper_mode_valid,
-> +	.mode_valid = hibmc_mode_config_mode_valid,
->  	.atomic_check = drm_atomic_helper_check,
->  	.atomic_commit = drm_atomic_helper_commit,
-> -	.fb_create = drm_gem_fb_create,
-> +	.fb_create = drm_gem_fb_create_with_dirty,
->  };
->  
->  static int hibmc_kms_init(struct hibmc_drm_private *priv)
-> @@ -130,7 +157,6 @@ static int hibmc_kms_init(struct hibmc_drm_private *priv)
->  	dev->mode_config.max_height = 1200;
->  
->  	dev->mode_config.preferred_depth = 24;
-> -	dev->mode_config.prefer_shadow = 1;
->  
->  	dev->mode_config.funcs = (void *)&hibmc_mode_funcs;
->  
-> @@ -335,18 +361,22 @@ static int hibmc_load(struct drm_device *dev)
->  {
->  	struct pci_dev *pdev = to_pci_dev(dev->dev);
->  	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
-> +	resource_size_t vram_base, vram_size;
->  	int ret;
->  
->  	ret = hibmc_hw_init(priv);
->  	if (ret)
->  		return ret;
->  
-> -	ret = drmm_vram_helper_init(dev, pci_resource_start(pdev, 0),
-> -				    pci_resource_len(pdev, 0));
-> -	if (ret) {
-> -		drm_err(dev, "Error initializing VRAM MM; %d\n", ret);
-> -		return ret;
-> -	}
-> +	vram_base = pci_resource_start(pdev, 0);
-> +	vram_size = pci_resource_len(pdev, 0);
-> +
-> +	priv->vram = devm_ioremap_wc(dev->dev, vram_base, vram_size);
-> +	if (!priv->vram)
-> +		return -ENOMEM;
-> +
-> +	priv->vram_base = vram_base;
-> +	priv->vram_size = vram_size;
->  
->  	ret = hibmc_kms_init(priv);
->  	if (ret)
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-> index cd3a3fca1fe6..dce8572bf63e 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-> @@ -38,6 +38,11 @@ struct hibmc_drm_private {
->  	/* hw */
->  	void __iomem   *mmio;
->  
-> +	/* vram */
-> +	void __iomem *vram;
-> +	resource_size_t	vram_base;
-> +	resource_size_t	vram_size;
-> +
->  	/* drm */
->  	struct drm_device dev;
->  	struct drm_plane primary_plane;
-> diff --git a/include/drm/drm_gem_shmem_helper.h b/include/drm/drm_gem_shmem_helper.h
-> index 5ccdae21b94a..86b967174b60 100644
-> --- a/include/drm/drm_gem_shmem_helper.h
-> +++ b/include/drm/drm_gem_shmem_helper.h
-> @@ -141,6 +141,10 @@ struct sg_table *drm_gem_shmem_get_pages_sgt(struct drm_gem_shmem_object *shmem)
->  void drm_gem_shmem_print_info(const struct drm_gem_shmem_object *shmem,
->  			      struct drm_printer *p, unsigned int indent);
->  
-> +int drm_gem_shmem_create_with_handle(struct drm_file *file_priv,
-> +				     struct drm_device *dev, size_t size,
-> +				     uint32_t *handle);
-> +
->  extern const struct vm_operations_struct drm_gem_shmem_vm_ops;
->  
->  /*
-
+>  	/** @irq: The MMU irq. */
+>  	struct panthor_irq irq;
