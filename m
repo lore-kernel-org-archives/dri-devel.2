@@ -4,43 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66A70CD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:06:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82324CD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:08:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7A8810F57A;
-	Mon,  8 Jun 2026 15:06:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E834B10F583;
+	Mon,  8 Jun 2026 15:08:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AC2TuXo0";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="OIet9hEz";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF3D410F57A
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:06:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2D4FA601D8
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:06:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B86671F00893;
- Mon,  8 Jun 2026 15:06:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780931210;
- bh=aHn+NzWhClCVUfylc5ESFov0BKx5f45R5jnbfJuhIo4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=AC2TuXo0zwyJjuhDbweaH17s7p6KzSXLzmtbfpsuidhw5xhfn9kcQuZAltWgdyXPE
- pRnQKv+i+yh+MuqtkJpM7xu9H2efAXUE59lo2mLpAAHSsNsZx04WH9sQCrlmQ1Oid1
- NJ0hY1b75Sfor2grqbWSS2e0eqa3Ad7NAzxb6tmvj1Zd2w9ICDuSA9tUd5uecIajaD
- bZN020xYZHDWIKqWl8Rcyz2GNwrasRHESdHK3nqyubKlLmvYd+QujD5tw1Y7aE7tY2
- nhsF90jEYLgTR4GECwaI0GQEyHFrz84darx5oMT/W+v+muGT8wwiUVoewgZOidWNdA
- F09FVS+X0eaBQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 03/78] drm/atomic-state-helper: Rename
- __drm_atomic_helper_bridge_reset()
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-3-0a91018bf886@kernel.org>
-References: <20260608-drm-no-more-bridge-reset-v2-3-0a91018bf886@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 15:06:50 +0000
-Message-Id: <20260608150650.B86671F00893@smtp.kernel.org>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E25B510F583
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:08:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=wEyDNt4clqv72U15Tb1FHIQoyXiS2jCZCCn0zuuUGIA=; b=OIet9hEzSIgHcXTyfTd5m7imO1
+ rceksU21aTlUuIN01B7ojUvJI2IwRAaK4lvpV0VnYH35rgSzrPk8anJxSBjpaznvma0JCzbuEVHQb
+ loLIMEA7d4Pg4j6NKzUmeCYeKRUbe2LeifutrnOSRxUZSa3bV4n8BpB0pgkdtrkcqSI8sWZXIDYVz
+ RdZgsgTK6Ilv49/e39XzSG8iRF5vCAhDDwosILoiN1mY+q8AZwrm1b7/F3yxARPgqFvx8WtDFIBd7
+ kso9IC4l8u+bLqxBbDu0Ge2vJNbPXpH0teGOgvvgoNe5Z/7QGq5MqR7D7IJ+kW4YlO4KP7OYItyNP
+ 48GxHtMw==;
+Received: from [90.240.106.137] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wWba0-00ER94-LY; Mon, 08 Jun 2026 17:07:56 +0200
+Message-ID: <e5f81f4f-ac0c-49c0-a9d1-85f372d65971@igalia.com>
+Date: Mon, 8 Jun 2026 16:07:55 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] dma-fence: Fix races of fence callbacks versus
+ destructors by locking
+To: Philipp Stanner <phasta@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>, Daniel Almeida <dwlsalmeida@gmail.com>,
+ Gary Guo <gary@garyguo.net>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>
+References: <20260608142436.265820-2-phasta@kernel.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260608142436.265820-2-phasta@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,142 +64,192 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] drm_bridge_attach() ignores the return value of drm_atomic_private=
-_obj_init(), hiding allocation failures.
-- [High] cdns_mhdp_bridge_atomic_duplicate_state() triggers a fatal NULL po=
-inter dereference if bridge state is NULL.
-- [High] cdns_mhdp_bridge_atomic_destroy_state() crashes when passed a NULL=
- state during teardown.
---
+On 08/06/2026 15:24, Philipp Stanner wrote:
+> The dma_fence backend_ops can access a fence. Hereby, a driver callback
+> will be running which likely will access driver specific data through
+> container_of(). If now, simultaneously, a driver signals the fence and
+> afterwards expects to run a driver specific destructor (using the same
+> data accessed through container_of()), there can be a race.
+> 
+> A driver very likely trusts that once it has signaled a fence, no one
+> will be accessing it anymore. Moreover, it might already want to free up
+> resources, making UAF bugs possible.
 
-commit e02bc473e33cd57fec3ea4025b707696ba1bef80
-Author: Maxime Ripard <mripard@kernel.org>
-Date:   Mon Jun 8 14:35:45 2026 +0000
+Can you explain this race a bit differently? I am struggling to 
+understand the scenario.
 
-    drm/atomic-state-helper: Rename __drm_atomic_helper_bridge_reset()
-   =20
-    __drm_atomic_helper_bridge_reset() is used to initialize a
-    newly allocated drm_bridge_state, and is being typically called by the
-    drm_bridge_funcs.atomic_reset implementation.
-   =20
-    Since we want to consolidate DRM objects state allocation around the
-    atomic_create_state callback that will only allocate and initialize a
-    new drm_bridge_state instance, we will need to call
-    __drm_atomic_helper_bridge_reset() from both the atomic_reset and
-    atomic_create_state hooks.
-   =20
-    To avoid any confusion, we can thus rename
-    __drm_atomic_helper_bridge_reset() to
-    __drm_atomic_helper_bridge_state_init().
+Are you talking about driver freeing the data immediately after 
+signalling? That is not allowed as per the "DOC: Safe external access to 
+driver provided object members", ie. divers must ensure a RCU grace 
+period between signalling and freeing any data which can be reached by 
+any external caller.
 
-> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/driver=
-s/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> index 46779b49545bd..2e74dc33e0859 100644
-> --- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> +++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> @@ -1929,7 +1929,7 @@ cdns_mhdp_bridge_atomic_reset(struct drm_bridge *br=
-idge)
->  	if (!cdns_mhdp_state)
->  		return ERR_PTR(-ENOMEM);
-> =20
-> -	__drm_atomic_helper_bridge_reset(bridge, &cdns_mhdp_state->base);
-> +	__drm_atomic_helper_bridge_state_init(bridge, &cdns_mhdp_state->base);
+Regards,
 
-[Severity: High]
-This isn't a bug introduced by this patch, but since we are consolidating=20
-state allocations, what happens if the state is NULL?
+Tvrtko
 
-In drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c:cdns_mhdp_bridge_ato=
-mic_duplicate_state(),
-the function calls into the core duplicate helper without validating that t=
-he=20
-source state is non-NULL:
+> The race occurs because there are only pragmatic checks for the signaled
+> flag of a fence, without taking the fence lock. RCU guards exist, but
+> their purpose is to guard accesses through the backend_ops callbacks
+> against the driver (which implements the TEXT segment these callbacks
+> live in) from unloading.
+> 
+> Proper synchronization can be ensured by taking the fence lock. RCU is
+> still simultaneously required to guard against the unload.
+> 
+> Fix the races by taking the lock for all non-deprecated backend_ops
+> callbacks.
+> 
+> Conveniently, this also fixes a race where backend_ops->set_deadline()
+> might try to set a deadline for an already signaled fence.
+> 
+> Suggested-by: Danilo Krummrich <dakr@kernel.org>
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> ---
+> We discovered this problem through our Rust abstractions, but it can
+> also occur in C.
+> 
+> The by far cleanest solution seems to be to use the fence lock. This RFC
+> serves to discuss whether there is anything preventing that.
+> 
+> (Patch so far just compile tested, to have some groundlayer for the
+> rough idea, to discuss it first)
+> ---
+>   drivers/dma-buf/dma-fence.c | 39 ++++++++++++++++++++++++++++---------
+>   include/linux/dma-fence.h   | 17 ++++++++++++----
+>   2 files changed, 43 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index c7ea1e75d38a..b74f02f3cca8 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -629,7 +629,8 @@ EXPORT_SYMBOL(dma_fence_free);
+>   static bool __dma_fence_enable_signaling(struct dma_fence *fence)
+>   {
+>   	const struct dma_fence_ops *ops;
+> -	bool was_set;
+> +	bool was_set, success;
+> +	unsigned long flags;
+>   
+>   	dma_fence_assert_held(fence);
+>   
+> @@ -644,7 +645,10 @@ static bool __dma_fence_enable_signaling(struct dma_fence *fence)
+>   	if (!was_set && ops && ops->enable_signaling) {
+>   		trace_dma_fence_enable_signal(fence);
+>   
+> -		if (!ops->enable_signaling(fence)) {
+> +		dma_fence_lock_irqsave(fence, flags);
+> +		success = ops->enable_signaling(fence);
+> +		dma_fence_unlock_irqrestore(fence, flags);
+> +		if (!success) {
+>   			rcu_read_unlock();
+>   			dma_fence_signal_locked(fence);
+>   			return false;
+> @@ -1020,11 +1024,20 @@ EXPORT_SYMBOL(dma_fence_wait_any_timeout);
+>   void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
+>   {
+>   	const struct dma_fence_ops *ops;
+> +	unsigned long flags;
+>   
+>   	rcu_read_lock();
+>   	ops = rcu_dereference(fence->ops);
+> -	if (ops && ops->set_deadline && !dma_fence_is_signaled(fence))
+> +	if (!ops || !ops->set_deadline) {
+> +		rcu_read_unlock();
+> +		return;
+> +	}
+> +
+> +	dma_fence_lock_irqsave(fence, flags);
+> +	if (!dma_fence_is_signaled_locked(fence))
+>   		ops->set_deadline(fence, deadline);
+> +
+> +	dma_fence_unlock_irqrestore(fence, flags);
+>   	rcu_read_unlock();
+>   }
+>   EXPORT_SYMBOL(dma_fence_set_deadline);
+> @@ -1166,14 +1179,18 @@ EXPORT_SYMBOL(dma_fence_init64);
+>    */
+>   const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
+>   {
+> +	const char __rcu *name = "detached-driver";
+>   	const struct dma_fence_ops *ops;
+> +	unsigned long flags;
+>   
+>   	/* RCU protection is required for safe access to returned string */
+>   	ops = rcu_dereference(fence->ops);
+> +	dma_fence_lock_irqsave(fence, flags);
+>   	if (!dma_fence_test_signaled_flag(fence))
+> -		return (const char __rcu *)ops->get_driver_name(fence);
+> -	else
+> -		return (const char __rcu *)"detached-driver";
+> +		name = ops->get_driver_name(fence);
+> +	dma_fence_unlock_irqrestore(fence, flags);
+> +
+> +	return name;
+>   }
+>   EXPORT_SYMBOL(dma_fence_driver_name);
+>   
+> @@ -1199,13 +1216,17 @@ EXPORT_SYMBOL(dma_fence_driver_name);
+>    */
+>   const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
+>   {
+> +	const char __rcu *name = "signaled-timeline";
+>   	const struct dma_fence_ops *ops;
+> +	unsigned long flags;
+>   
+>   	/* RCU protection is required for safe access to returned string */
+>   	ops = rcu_dereference(fence->ops);
+> +	dma_fence_lock_irqsave(fence, flags);
+>   	if (!dma_fence_test_signaled_flag(fence))
+> -		return (const char __rcu *)ops->get_driver_name(fence);
+> -	else
+> -		return (const char __rcu *)"signaled-timeline";
+> +		name = ops->get_driver_name(fence);
+> +	dma_fence_unlock_irqrestore(fence, flags);
+> +
+> +	return name;
+>   }
+>   EXPORT_SYMBOL(dma_fence_timeline_name);
+> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> index b52ab692b22e..b93c3f7f69fb 100644
+> --- a/include/linux/dma-fence.h
+> +++ b/include/linux/dma-fence.h
+> @@ -547,20 +547,29 @@ static inline bool
+>   dma_fence_is_signaled(struct dma_fence *fence)
+>   {
+>   	const struct dma_fence_ops *ops;
+> +	unsigned long flags;
+> +	bool signaled;
+>   
+>   	if (dma_fence_test_signaled_flag(fence))
+>   		return true;
+>   
+>   	rcu_read_lock();
+>   	ops = rcu_dereference(fence->ops);
+> -	if (ops && ops->signaled && ops->signaled(fence)) {
+> +	if (!ops || !ops->signaled) {
+>   		rcu_read_unlock();
+> -		dma_fence_signal(fence);
+> -		return true;
+> +		return false;
+>   	}
+> +
+> +	dma_fence_lock_irqsave(fence, flags);
+> +	signaled = ops->signaled(fence);
+> +
+> +	if (signaled)
+> +		dma_fence_signal_locked(fence);
+> +
+> +	dma_fence_unlock_irqrestore(fence, flags);
+>   	rcu_read_unlock();
+>   
+> -	return false;
+> +	return signaled;
+>   }
+>   
+>   /**
 
-    state =3D kzalloc_obj(*state);
-    if (!state)
-            return NULL;
-
-    __drm_atomic_helper_bridge_duplicate_state(bridge, &state->base);
-
-If bridge->base.state is NULL, does this cause a crash during memcpy in=20
-__drm_atomic_helper_private_obj_duplicate_state()?
-
-[Severity: High]
-This is also a pre-existing issue, but a similar problem seems to exist in =
-the=20
-teardown path.
-
-In drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c:cdns_mhdp_bridge_ato=
-mic_destroy_state(),
-the function dereferences the state parameter without verifying it is non-N=
-ULL:
-
-    struct cdns_mhdp_bridge_state *cdns_mhdp_state;
-
-    cdns_mhdp_state =3D to_cdns_mhdp_bridge_state(state);
-
-    if (cdns_mhdp_state->current_mode) {
-
-Could this cause a NULL pointer dereference if atomic_destroy_state() is ca=
-lled=20
-after a failed initialization?
-
->  	return &cdns_mhdp_state->base;
->  }
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/=
-drm_atomic_state_helper.c
-> index cc70508d4fdba..f79d259fe5506 100644
-> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-
-[ ... ]
-
-> @@ -848,7 +848,7 @@ drm_atomic_helper_bridge_reset(struct drm_bridge *bri=
-dge)
->  	if (!bridge_state)
->  		return ERR_PTR(-ENOMEM);
-> =20
-> -	__drm_atomic_helper_bridge_reset(bridge, bridge_state);
-> +	__drm_atomic_helper_bridge_state_init(bridge, bridge_state);
->  	return bridge_state;
->  }
-
-[Severity: High]
-This isn't a bug introduced by this patch, but I noticed an error propagati=
-on=20
-issue when reviewing the atomic state allocation lifecycle.
-
-In drivers/gpu/drm/drm_bridge.c:drm_bridge_attach(), the return value of
-drm_atomic_private_obj_init() is ignored:
-
-    if (drm_bridge_is_atomic(bridge))
-            drm_atomic_private_obj_init(bridge->dev, &bridge->base,
-                                        &drm_bridge_priv_state_funcs);
-
-    return 0;
-
-If the initial atomic state allocation fails, drm_atomic_private_obj_init()=
-=20
-returns -ENOMEM, but drm_bridge_attach() continues and returns 0.
-
-Does this leave the bridge successfully attached to the pipeline but with a=
-=20
-NULL atomic state (bridge->base.state =3D=3D NULL)? Could this set up the N=
-ULL=20
-pointer dereferences mentioned earlier, and should drm_bridge_attach() be=20
-updated to handle this error?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-drm-no-mor=
-e-bridge-reset-v2-0-0a91018bf886@kernel.org?part=3D3
