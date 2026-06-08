@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31072CD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:37:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C405FCD8C92
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:37:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BFC510F4D6;
-	Mon,  8 Jun 2026 14:37:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EC4310F4D8;
+	Mon,  8 Jun 2026 14:37:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M/K4FJKp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SPzT2Omr";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C4CC10F4D6
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:37:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE12D10F4D8
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:37:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 35DB440D61;
- Mon,  8 Jun 2026 14:37:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 950F81F00898;
- Mon,  8 Jun 2026 14:37:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D779940267;
+ Mon,  8 Jun 2026 14:37:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45DC21F00898;
+ Mon,  8 Jun 2026 14:37:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780929462;
- bh=XvJvrhlNeCEKMXc0tyJHJvDLPfYKjJpKCEJKMsKCrPo=;
+ s=k20260515; t=1780929464;
+ bh=DZaxq2/pBjSyZ9bfL/DMoud79v9LpJc9FKLh+lGkfzA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=M/K4FJKps75ovWKjkrtFvyzZC6lGsQc8U8u4PH/k90znDixr8YzryfSOe7CsvOc4P
- B4f1iuQyCQQ7VJHg/9/uSFQtW1vdMCPv4xjGKq63OcQ4shl6gOrJ+UHPRf0Zt1mjIm
- Qx4QPlmzOwv80N12rIsCjM1JT0UGg/HvlloFX/8Ae6bsls8yiAN/acdddwjaBWMPkx
- IHgozf+c3HQQkg451JeH748miBsLB36ii63PsRLwfovLuHO+t7kP9C0KHCqAo3tK17
- GiBliWkYBTb+O6Q3Az3islwYmh4eeGkHcZOIPTnwwRstmIoPbgpcZMqaAr1/HfMfHm
- PEllgm3w0XMKw==
+ b=SPzT2OmrHO79nZHCCyfUt8Atvm4z17L4+ZYqweht7NDfIqiIcTfCucuSJ7Ms1vIrf
+ edoDjRsN3RIAEKfVjMbH9m1gLlEt7jAWoPh69JG/tJiVckqZiagz+ZPVh8FpzmJFZd
+ 9/Q6D0npD/jw6xSExI2Jl+VENlkxGvb9CE3Yd7iKp24ti7r5hdJ0qc/87sva/weWv/
+ n2NN3jGGLwLis4gSN8FykpGA5xLBLCRteJS/DnsrY5liZExyEirPDQ6+u0diN9FAOK
+ UMo+M1do71ejYTJXcpHOFlZqAdKXhVTMb5erJSIkl4PfY+v1s1ragzY8izAgsi6dWW
+ dqyn+zPZJLXQQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 08 Jun 2026 16:36:10 +0200
-Subject: [PATCH v2 28/78] drm/bridge: panel: Switch to atomic_create_state
+Date: Mon, 08 Jun 2026 16:36:11 +0200
+Subject: [PATCH v2 29/78] drm/bridge: parade-ps8640: Switch to
+ atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260608-drm-no-more-bridge-reset-v2-28-0a91018bf886@kernel.org>
+Message-Id: <20260608-drm-no-more-bridge-reset-v2-29-0a91018bf886@kernel.org>
 References: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -49,14 +50,14 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Simona Vetter <simona@ffwll.ch>
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+ Douglas Anderson <dianders@chromium.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1485; i=mripard@kernel.org;
- h=from:subject:message-id; bh=PSxS4hmv44x7epfeIyiy7IkzPLbv1FL7q8xJrqGrfaM=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlqlwPDuX42X7UpUHwd8K8w2OKeoPaO46r8Qmezjh062
- v/6utuTjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRqX6MDXv7pq3Mct9X+mzT
- 4q65zRdKogXEpu/+VqrwwXYlw6Nbx8z235/oqMGvJWugPO/q4oflYYz1Tt93tiw8dHL5BE0bUYP
- fl90v9J2darEorE4lbOupDazSXze9LXuVOJ/lFv+5K117tUx0AA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1393; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=THXFphzWwi4ujC9/JSDUBxu8SEfaVz7VGYjkTK2C1rA=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlqlwOfPMm5cWNyyZqeXw++BP66w1/Y9sjsfM9Po7Jvb
+ GyTe73bOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEWEIZG+6Ir5vruXqva8yr
+ pZMiZiy8FrxtT0lwyhGvrMkMHlxSHyReyLgmPJ3eaJH6z0Iy8XOCC2NDn3uiXP2H3kqDr/3rbN/
+ Ne/4ncLH3DW5WQw7r0F9rl0bYbXp5L1TAzmXNGqXlkyaus6wAAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,31 +81,32 @@ drm_atomic_helper_bridge_reset() helper are deprecated.
 Switch to the atomic_create_state callback and its
 drm_atomic_helper_bridge_create_state() counterpart.
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Acked-by: Douglas Anderson <dianders@chromium.org>
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/panel.c | 2 +-
+To: Douglas Anderson <dianders@chromium.org>
+---
+ drivers/gpu/drm/bridge/parade-ps8640.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/panel.c b/drivers/gpu/drm/bridge/panel.c
-index 4978ec98a082..62af499f1f5c 100644
---- a/drivers/gpu/drm/bridge/panel.c
-+++ b/drivers/gpu/drm/bridge/panel.c
-@@ -211,11 +211,11 @@ static const struct drm_bridge_funcs panel_bridge_bridge_funcs = {
- 	.atomic_pre_enable = panel_bridge_atomic_pre_enable,
- 	.atomic_enable = panel_bridge_atomic_enable,
- 	.atomic_disable = panel_bridge_atomic_disable,
- 	.atomic_post_disable = panel_bridge_atomic_post_disable,
- 	.get_modes = panel_bridge_get_modes,
--	.atomic_reset = drm_atomic_helper_bridge_reset,
-+	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+diff --git a/drivers/gpu/drm/bridge/parade-ps8640.c b/drivers/gpu/drm/bridge/parade-ps8640.c
+index b93514023baa..96332721cb69 100644
+--- a/drivers/gpu/drm/bridge/parade-ps8640.c
++++ b/drivers/gpu/drm/bridge/parade-ps8640.c
+@@ -554,11 +554,11 @@ static const struct drm_bridge_funcs ps8640_bridge_funcs = {
+ 	.detach = ps8640_bridge_detach,
+ 	.atomic_post_disable = ps8640_atomic_post_disable,
+ 	.atomic_pre_enable = ps8640_atomic_pre_enable,
  	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
  	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_get_input_bus_fmts = drm_atomic_helper_bridge_propagate_bus_fmt,
- 	.debugfs_init = panel_bridge_debugfs_init,
+-	.atomic_reset = drm_atomic_helper_bridge_reset,
++	.atomic_create_state = drm_atomic_helper_bridge_create_state,
  };
+ 
+ static int ps8640_bridge_get_dsi_resources(struct device *dev, struct ps8640 *ps_bridge)
+ {
+ 	struct device_node *in_ep, *dsi_node;
 
 -- 
 2.54.0
