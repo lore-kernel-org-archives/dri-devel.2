@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 921C2CD8C90
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 02:44:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11045CD8C92
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 02:47:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8017510EC55;
-	Mon,  8 Jun 2026 02:44:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F7EF10EC56;
+	Mon,  8 Jun 2026 02:47:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WGN9Tbbz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QZbhP1sl";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CCA610EC55
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 02:44:18 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE50D10EC56
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 02:47:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A4F20600AE;
- Mon,  8 Jun 2026 02:44:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC6B21F00893;
- Mon,  8 Jun 2026 02:44:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8CA3D402EA;
+ Mon,  8 Jun 2026 02:47:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C4411F00893;
+ Mon,  8 Jun 2026 02:47:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780886657;
- bh=7VvzNw4uxKFyd+LT1VhXzohYTCt/TTJI3Jzw0KzevNk=;
+ s=k20260515; t=1780886854;
+ bh=DCAATr5FXXQxeJftbn4eGjyBu73W45mmXw+uL1g6PQ0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WGN9Tbbz8oIh1CALuO7SRpycmJZoJ0P8uJydXrdef6zgeD6OE0ZFI8HdTaMj8akbM
- v0zw3NPQJ7CL6L2mx38fxsCJy/SFn2mhtHX85wG51aNLtCN7ETnCDVSMaesPZPOcOO
- Use+BKuW7Nj9Lx/IKUK0O4jsYRRoPp6xWp3ANOv05RJqEAwhQmiP+apbcHnKbVEqEs
- dqZ1FOAEWnqGxMc0Ha2t7N2It+ktiao+VXwUNw44wgsI62pSHVeKrkLmEaSOTV/63k
- EGxwJv/fjfHullcqsc4e+VWC2ZBBBfzzho3laeBBEtS73abewHvInEtYGmlfdNDPCV
- KeVQrzRHKMcdg==
+ b=QZbhP1sle3mve6ZPGsdNFyA75oHi803RKyuuq85/oaJQCJv3J7JTF3cDGKk1j2fYt
+ nYSIsD4zw+hlhyO9GOCk6Cib0rHK8WRPFWl/BU7zKEtcpxZXq2yCwNT77m6AbbFnnZ
+ i8mXqnUFAseWCp+fjJpC/ChcYKFrwmnTg41e90yHmm0WN4qHX8S0Pj+DBRyxCs3zSe
+ zAhce/vMdYzX2u4orcE5w9/GfjVrZBvduQvEl2t5f/Fn4w23/FLMi2Db8i5qfQxXNI
+ 7LpgU1j5Q0jpKFt6l1UnTTWY1WrTDXazxsC6e8CGE49tqSZ/PW57KfXGB7wDn/YQqj
+ tVRZRDbegmpoA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/5] drm/verisilicon: introduce per-variant hardware
- ops table
+Subject: Re: [PATCH v3 4/5] drm/verisilicon: add Nuvoton MA35D1 DCU Lite
+ display controller support
 To: "Joey Lu" <a0987203069@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260608023237.305036-4-a0987203069@gmail.com>
-References: <20260608023237.305036-4-a0987203069@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260608023237.305036-5-a0987203069@gmail.com>
+References: <20260608023237.305036-5-a0987203069@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 02:44:16 +0000
-Message-Id: <20260608024416.AC6B21F00893@smtp.kernel.org>
+Date: Mon, 08 Jun 2026 02:47:33 +0000
+Message-Id: <20260608024734.2C4411F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,155 +58,170 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
 s) to consider:
 
 New issues:
-- [High] The disable sequence in `vs_dc8200_bridge_disable` reverses the or=
-der of clearing `VSDC_DISP_PANEL_START` and `VSDC_DISP_PANEL_CONFIG`.
-- [High] Incorrect teardown sequence in CRTC disable path where pixel clock=
- is disabled before calling the CRTC hardware disable hook.
+- [High] The DCU Lite driver does not start the panel output because it fai=
+ls to set the PANEL_CONFIG.RUNNING bit in the bridge enable path.
+- [High] The DCU Lite driver does not implement a plane_disable_ex callback=
+, breaking independent primary plane disable.
+- [High] The pixel clock is disabled before the CRTC hardware is disabled, =
+causing potential register access hangs.
+- [High] The DCUltraLite IRQ handler fails to clear the interrupt status, l=
+eading to an interrupt storm.
+- [Medium] The `irqs` variable in `vs_dcu_lite_irq_handler` may be used uni=
+nitialized if `regmap_read` fails.
 
 Pre-existing issues:
-- [High] The plane disable function incorrectly sets the enable bit instead=
- of clearing it.
-- [High] Calling `clk_prepare_enable()` and `clk_disable_unprepare()` in th=
-e CRTC atomic enable/disable callbacks violates atomic context rules.
-- [High] Potential NULL pointer dereference if IRQ fires before drm_dev is =
-initialized.
+- [High] The DC8200 plane disable function incorrectly sets the enable bit =
+instead of clearing it.
+- [High] The IRQ handler is registered before DRM initialization is complet=
+e and remains active after teardown, risking a NULL pointer dereference.
 --
 
-commit 7843af23baf865801f80d2910ca556ff5e144ece
+commit c0e566390dbc25177931f48aa8bb45a4670fc241
 Author: Joey Lu <a0987203069@gmail.com>
-Subject: drm/verisilicon: introduce per-variant hardware ops table
+Subject: drm/verisilicon: add Nuvoton MA35D1 DCU Lite display controller su=
+pport
 
-The DC8200 and DCUltraLite share a broadly similar register layout but
-differ in how the bridge, CRTC, primary plane and IRQ paths are driven.
-Introduce a vs_dc_funcs vtable so each variant can supply its own
-implementation without scattering conditionals across multiple files.
+This commit adds support for the Nuvoton MA35D1 DCUltraLite display
+controller. It introduces vs_dcu_lite.c with a new vs_dc_funcs vtable and
+adjusts the probe function to handle optional clocks.
 
-> diff --git a/drivers/gpu/drm/verisilicon/vs_crtc.c b/drivers/gpu/drm/veri=
-silicon/vs_crtc.c
-> index 0b8a35d09cd2e..679d6541ba1b9 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_crtc.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_crtc.c
-[ ... ]
-> @@ -30,6 +53,9 @@ static void vs_crtc_atomic_disable(struct drm_crtc *crt=
-c,
->  	drm_crtc_vblank_off(crtc);
-> =20
->  	clk_disable_unprepare(dc->pix_clk[output]);
-
-[Severity: High]
-This is a pre-existing issue, but does calling clk_disable_unprepare() here
-violate atomic context rules?
-
-The DRM subsystem requires that CRTC atomic disable callbacks run in atomic
-context where sleeping is forbidden, but clk_disable_unprepare() can sleep.
-
-> +
-> +	if (dc->funcs->crtc_disable)
-> +		dc->funcs->crtc_disable(dc, output);
->  }
-
-[Severity: High]
-Could disabling the pixel clock before invoking the hardware-specific
-crtc_disable callback cause bus hangs?
-
-If the crtc_disable hook requires the pixel clock to be active to perform
-register writes, turning it off first might result in dropped writes or
-stalls. Should the clock be disabled after the hook is called, reversing
-the setup sequence?
-
-> =20
->  static void vs_crtc_atomic_enable(struct drm_crtc *crtc,
-> @@ -42,6 +68,9 @@ static void vs_crtc_atomic_enable(struct drm_crtc *crtc,
->  	drm_WARN_ON(&dc->drm_dev->base,
->  		    clk_prepare_enable(dc->pix_clk[output]));
-
-[Severity: High]
-This is a pre-existing issue, but does this clk_prepare_enable() call also
-violate atomic context rules?=20
-
-Since atomic_enable runs in atomic context, calling sleeping functions can
-cause kernel warnings or potential deadlocks during non-blocking commits.
-
-> =20
-> +	if (dc->funcs->crtc_enable)
-> +		dc->funcs->crtc_enable(dc, output);
-> +
->  	drm_crtc_vblank_on(crtc);
->  }
-> =20
 > diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c b/drivers/gpu/drm/verisi=
 licon/vs_dc.c
-> index dad9967bc10b8..c949570241890 100644
 > --- a/drivers/gpu/drm/verisilicon/vs_dc.c
 > +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
-> @@ -33,7 +31,7 @@ static irqreturn_t vs_dc_irq_handler(int irq, void *pri=
-vate)
->  	struct vs_dc *dc =3D private;
->  	u32 irqs;
+[ ... ]
+> @@ -134,7 +134,10 @@ static int vs_dc_probe(struct platform_device *pdev)
+>  	dev_info(dev, "Found DC%x rev %x customer %x\n", dc->identity.model,
+>  		 dc->identity.revision, dc->identity.customer_id);
 > =20
-> -	regmap_read(dc->regs, VSDC_TOP_IRQ_ACK, &irqs);
-> +	irqs =3D dc->funcs->irq_handler(dc);
+> -	dc->funcs =3D &vs_dc8200_funcs;
+> +	if (dc->identity.generation =3D=3D VSDC_GEN_DC8200)
+> +		dc->funcs =3D &vs_dc8200_funcs;
+> +	else
+> +		dc->funcs =3D &vs_dcu_lite_funcs;
 > =20
->  	vs_drm_handle_irq(dc, irqs);
+>  	if (port_count > dc->identity.display_count) {
+>  		dev_err(dev, "too many downstream ports than HW capability\n");
 
 [Severity: High]
-This isn't a bug introduced by this patch, but is it possible for the IRQ to
-fire before the DRM device is fully initialized?
+This is a pre-existing issue, but I noticed a potential race during probe
+and initialization later in vs_dc_probe().
 
-If the bootloader leaves the display hardware active and generating VSYNC
-interrupts, vs_dc_irq_handler() could execute and call vs_drm_handle_irq(),
-which accesses dc->drm_dev. Since devm_request_irq() is called in
-vs_dc_probe() before vs_drm_initialize() allocates dc->drm_dev, could
-this lead to a NULL pointer dereference during early boot?
+vs_dc.c:vs_dc_probe() {
+    ...
+    ret =3D devm_request_irq(dev, irq, vs_dc_irq_handler, ...);
+    ...
+    ret =3D vs_drm_initialize(dc, pdev);
+    ...
+}
 
-[ ... ]
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8200.c b/drivers/gpu/drm/ve=
-risilicon/vs_dc8200.c
+The IRQ handler is registered before vs_drm_initialize() completes. If an
+interrupt fires early, vs_drm_handle_irq() will be invoked:
+
+vs_drm.c:vs_drm_handle_irq() {
+    ...
+    if (dc->drm_dev->crtcs[i])
+        drm_crtc_handle_vblank(&dc->drm_dev->crtcs[i]->base);
+    ...
+}
+
+Could this cause a NULL pointer dereference since dc->drm_dev is not fully
+set up until vs_drm_initialize() finishes?
+
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dcu_lite.c b/drivers/gpu/drm/=
+verisilicon/vs_dcu_lite.c
 > new file mode 100644
-> index 0000000000000..db9e1b3cd9032
 > --- /dev/null
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc8200.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_dcu_lite.c
+> @@ -0,0 +1,78 @@
 [ ... ]
-> +static void vs_dc8200_bridge_disable(struct vs_dc *dc, unsigned int outp=
-ut)
+> +static void vs_dcu_lite_bridge_enable(struct vs_dc *dc, unsigned int out=
+put)
 > +{
-> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
-> +			  VSDC_DISP_PANEL_CONFIG_RUNNING);
-> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
-> +			  VSDC_DISP_PANEL_START_MULTI_DISP_SYNC |
-> +			  VSDC_DISP_PANEL_START_RUNNING(output));
-
-[Severity: High]
-Does this reversal of the clearing sequence cause bus stalls or visual tear=
-ing?
-
-In the original code, VSDC_DISP_PANEL_START was cleared before
-VSDC_DISP_PANEL_CONFIG. This refactored sequence disables the panel
-configuration while the pipeline is potentially still active. Should
-VSDC_DISP_PANEL_START be cleared first to safely stop the pipeline?
-
-[ ... ]
-> +static void vs_dc8200_plane_disable_ex(struct vs_dc *dc, unsigned int ou=
-tput)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> +			VSDC_FB_CONFIG_EX_FB_EN);
-> +
-> +	vs_dc8200_plane_commit(dc, output);
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_RESET);
 > +}
 
 [Severity: High]
-This is a pre-existing issue carried over from the original code, but
-does this actually disable the plane?
+The commit message notes that panel output starts when PANEL_CONFIG.RUNNING
+is set. However, vs_dcu_lite_bridge_enable() only sets VSDC_FB_CONFIG_RESET
+and does not appear to write to VSDC_DISP_PANEL_CONFIG.
 
-By using regmap_set_bits() with VSDC_FB_CONFIG_EX_FB_EN, the frame buffer
-enable bit is being set to 1 instead of being cleared. Should this use
-regmap_clear_bits() instead to properly disable the hardware plane?
+Will the display output pipeline start successfully without setting the
+RUNNING bit?
+
+[ ... ]
+> +static u32 vs_dcu_lite_irq_handler(struct vs_dc *dc)
+> +{
+> +	u32 irqs;
+> +
+> +	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &irqs);
+> +	return irqs;
+> +}
+
+[Severity: Medium]
+If regmap_read() fails, the irqs variable remains uninitialized. Could this
+result in returning a garbage value that gets processed as a bitmask of
+triggered interrupts?
+
+[Severity: High]
+Also, vs_dcu_lite_irq_handler() reads the status register but does not seem
+to perform a write operation to acknowledge or clear the pending interrupts.
+Will this cause the IRQ line to remain asserted, potentially leading to an
+interrupt storm?
+
+> +const struct vs_dc_funcs vs_dcu_lite_funcs =3D {
+> +	.bridge_enable		=3D vs_dcu_lite_bridge_enable,
+> +	.bridge_disable		=3D vs_dcu_lite_bridge_disable,
+> +	.crtc_begin		=3D vs_dcu_lite_crtc_begin,
+> +	.crtc_flush		=3D vs_dcu_lite_crtc_flush,
+> +	.crtc_enable		=3D vs_dcu_lite_crtc_enable,
+> +	.crtc_disable		=3D vs_dcu_lite_crtc_disable,
+> +	.enable_vblank		=3D vs_dcu_lite_enable_vblank,
+> +	.disable_vblank		=3D vs_dcu_lite_disable_vblank,
+> +	.irq_handler		=3D vs_dcu_lite_irq_handler,
+> +};
+
+[Severity: High]
+Looking at vs_primary_plane_atomic_disable() in vs_primary_plane.c, it
+relies on plane_disable_ex() to disable the plane. Since vs_dcu_lite_funcs
+lacks a plane_disable_ex callback, will the hardware keep scanning out the
+old framebuffer if user-space disables the primary plane while keeping the
+CRTC active?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but since we are discussing plane
+disable operations, I noticed an issue with the DC8200 equivalent.
+
+vs_dc8200.c:vs_dc8200_plane_disable_ex() {
+    regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+                    VSDC_FB_CONFIG_EX_FB_EN);
+}
+
+This function calls regmap_set_bits() with VSDC_FB_CONFIG_EX_FB_EN. Does
+this incorrectly set the enable bit to 1 instead of clearing it, preventing
+the primary plane from being properly disabled?
+
+[Severity: High]
+This is a pre-existing issue, but looking at how crtc_disable is used in
+vs_crtc.c:vs_crtc_atomic_disable():
+
+vs_crtc.c:vs_crtc_atomic_disable() {
+    clk_disable_unprepare(dc->pix_clk[output]);
+
+    if (dc->funcs->crtc_disable)
+        dc->funcs->crtc_disable(dc, output);
+    ...
+}
+
+The pixel clock is disabled before the crtc_disable hardware callback
+accesses the registers. Could this cause bus faults or leave the hardware in
+an invalid state since the pipeline's primary pixel clock is already off?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608023237.3050=
-36-1-a0987203069@gmail.com?part=3D3
+36-1-a0987203069@gmail.com?part=3D4
