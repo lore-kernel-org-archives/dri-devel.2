@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D206CD8CA4
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 19:17:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7267FCD8CA4
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 19:17:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD8B610F8FE;
-	Mon,  8 Jun 2026 19:17:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC6B310F8FF;
+	Mon,  8 Jun 2026 19:17:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="bfqNbmKj";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="lABBUkrc";
 	dkim-atps=neutral
 Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
  [67.231.145.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAE8610F8FE
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 19:17:05 +0000 (UTC)
-Received: from pps.filterd (m0044012.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5D2010F8FA
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 19:17:15 +0000 (UTC)
+Received: from pps.filterd (m0528008.ppops.net [127.0.0.1])
  by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6581mGKt4020943
- for <dri-devel@lists.freedesktop.org>; Mon, 8 Jun 2026 12:17:05 -0700
+ 6583qf952017234
+ for <dri-devel@lists.freedesktop.org>; Mon, 8 Jun 2026 12:17:15 -0700
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=gCwGWNOHw9RIvLvGZ7VbW1v67n2sZSJBrAfUvTr3IzI=; b=bfqNbmKjxzLn
- zHhw50zCEW+N2duFuy1qLhdCCmMfwhdohnhLcdBloRnkaqPDrVvoPmFa5G1mlfqD
- b6C3UTja33y3KDXL8/wAFz1CbdB797+gLZNAFXrl1z8zCd9ttoFvfCsT/V9lF9tD
- Icrgu2yPBschnkeDzivLf/c3IKf6aAJD5q9EjhmTleceZ5EnFapXXhVG2pu/PnPP
- Ig1eOg37cB4WKadgW5B0CSMvKLn0H7G0+s2owWUCKgTVN+ZGYZM/Jb+KrKBhI+or
- IZgUO4fZlCc61G+i3E8TT6rQy39zmqjouiVQ3jHyb38yjaHCl4qvwzgH40eJL8xp
- GdKTMx50DQ==
+ bh=LZCUbo/ppriv2BKbMhTc4u0byMQ5QlwKZF6k1nD2Q+k=; b=lABBUkrcJ/b9
+ osu00gkKlj332gdDq0qgB9F5xx85GJDZAvjTiS+uToP0GM1zQtnesL5WtaEH1R9R
+ RyfvyIt0B3+7F7eLVtJSRN8hCLL8VbHiu100dQoOVgYfwUy8kDq7xvJqU1YeJnnc
+ oL6g733b+UvoUPPWEG+c7+1Je3cvfqmxYBBhJlI/rkPOwBdKo+YqSDb/gZDz2BzY
+ 1joj4VyZdshHH74WtB5/MbXgFbpC7ZcXETEi7nmXnlfUMwquBNsYP1EfLLUxq22I
+ +GAsSnrTZ9Ip0yecLX2gCvrYkH+/+HME9H8gqyzeJ/bE6Gl0tUIaobcwOrCKmP8E
+ Z9X/ktjPqA==
 Received: from mail.thefacebook.com ([163.114.134.16])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4emh81astx-7
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4en85k6vwy-6
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 12:17:05 -0700 (PDT)
-Received: from twshared9540.02.snb2.facebook.com (2620:10d:c085:108::4) by
- mail.thefacebook.com (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server
+ for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 12:17:15 -0700 (PDT)
+Received: from twshared115868.16.frc2.facebook.com (2620:10d:c085:208::7cb7)
+ by mail.thefacebook.com (2620:10d:c08b:78::c78f) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.41; Mon, 8 Jun 2026 19:17:01 +0000
+ 15.2.2562.41; Mon, 8 Jun 2026 19:17:12 +0000
 Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
- id 4FACD3CC10155; Mon,  8 Jun 2026 11:56:51 -0700 (PDT)
+ id 873AB3CC1014D; Mon,  8 Jun 2026 11:56:50 -0700 (PDT)
 From: Zhiping Zhang <zhipingz@meta.com>
 To: Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@ziepe.ca>, Leon
  Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
@@ -49,10 +49,9 @@ CC: Bjorn Helgaas <helgaas@kernel.org>, <kvm@vger.kernel.org>,
  <netdev@vger.kernel.org>, <dri-devel@lists.freedesktop.org>, Keith Busch
  <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>, Yishai Hadas
  <yishaih@nvidia.com>, Zhiping Zhang <zhipingz@meta.com>
-Subject: [PATCH v6 5/5] RDMA/mlx5: get tph for p2p access when registering
- dma-buf mr
-Date: Mon, 8 Jun 2026 11:56:42 -0700
-Message-ID: <20260608185646.4085127-6-zhipingz@meta.com>
+Subject: [PATCH v6 4/5] vfio/pci: implement get_tph and DMA_BUF_TPH feature
+Date: Mon, 8 Jun 2026 11:56:41 -0700
+Message-ID: <20260608185646.4085127-5-zhipingz@meta.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260608185646.4085127-1-zhipingz@meta.com>
 References: <20260608185646.4085127-1-zhipingz@meta.com>
@@ -60,21 +59,21 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 X-FB-Internal: Safe
 Content-Type: text/plain
-X-Proofpoint-GUID: q72F5yYkV6QXoLh3QfuRqIl8MsgO85JI
-X-Authority-Analysis: v=2.4 cv=PJI/P/qC c=1 sm=1 tr=0 ts=6a271531 cx=c_pps
+X-Proofpoint-GUID: 6j9E15Yy77QcWi4492RE6q1ur_1y-T7p
+X-Proofpoint-ORIG-GUID: 6j9E15Yy77QcWi4492RE6q1ur_1y-T7p
+X-Authority-Analysis: v=2.4 cv=eeANubEH c=1 sm=1 tr=0 ts=6a27153b cx=c_pps
  a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
  a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=PAz_-FQ8hEVmOPYdF0yf:22 a=VabnemYjAAAA:8 a=Oq1nFPtDFzcDtp-DflMA:9
+ a=_1IyUuN4QrATX339ibzo:22 a=VabnemYjAAAA:8 a=Vh3pHvTd1UiKqhSfTVkA:9
  a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-ORIG-GUID: q72F5yYkV6QXoLh3QfuRqIl8MsgO85JI
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDE3OCBTYWx0ZWRfX+P/MOlMW8BtW
- Aa2ObA8n89c325ygbPcg25A8o6jN7w3cmnv2CYq4sMhKJ8r7CjlX+jql5dGtNpy/twiQ7griMB5
- hfjQgUMjEFMC9EoSihVcEP06DnuDY6g9BWDOYni7wvx8UUDvNq50SDDXmvcR3n9YttkVqPR2a7B
- YCInRetRq0fP6lbiKrRh/33Dj6H9xRg14klc6pea+Qq+4oNnOXTHug0KZaAC3cKjiwDnCFhvEkb
- VL8wqp+k+L6OXZHO09BXYII0cGNkxzqHD9ZinkEXmiYyVkrEEDhyaaqhbfr17Cr/bHafnLl2/ML
- qC+Z/vAJOIWBz4TeWPJrZO5ZCEYjDxOqGJsmuUnUsA+qS/R1dYOUCRJprc89PAa5Vx77x4atetO
- ETlrY20AmhYPD3sl/8yqIQKAkN1rwUHvfeBAVsYmg+7mWJDZLK7AIxyqKZbazI2Q7SWk/jGOoeZ
- fTA8RJTZs7tCSUcuFbQ==
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDE3OCBTYWx0ZWRfX6y6kMEuyv8uL
+ JwTihGXHloIpfqMlOC4ipeE/xIiUYk9e30Nj8F87tYz3g/qDNTPTXeGsrIXn85vIjSZk8k+AsW+
+ 92YIAGV3N5PbyYMJ0hTAW5w6qau9uhpDlDDbxw+MZByrhAJW9VVdYiF98iKPcEYSUX2JphjrDUy
+ RpJoPl3xVAnjwVdVBGXi/2F/Mq8y0LpZvUy4PncpFIj1F3nSA/osqo7+gqFV8eLYdvCBxpF8GUf
+ Anj9m6nQyY0ubs82vFcebGGBxL/T923WYrYwNqOO7EYYjn+ZWXIyDhchJtW19IltbNf+CAMoavY
+ XfTlHOT9SV9vJtaGKLvub6Q26vRjk0OOLzsAn6YvsBlWm8cSFeBg0quhKHrGqNqSwEFGiNbS0+C
+ RPXjd+RZP8NgRe11hI+5a2jVIZXei65Q6/0rzZB1LQJkn98UwROmw7uKferV60uGzVhBbcKLyDb
+ jbNZTZZ7ZHIUTSsCiYw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-08_05,2026-06-05_02,2025-10-01_01
@@ -93,530 +92,326 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Query dma-buf TPH metadata when registering a dma-buf MR for peer-to-
-peer access and translate the returned steering tag into an mlx5 ST
-index. Keep the DMAH path as the first priority and only fall back to
-DMA-buf metadata when no DMAH is supplied.
+Implement the dma-buf get_tph callback for vfio-pci-exported dma-bufs
+and add VFIO_DEVICE_FEATURE_DMA_BUF_TPH so userspace can attach TPH
+metadata to such a dma-buf.
 
-Split the existing mlx5_st_alloc_index() into mlx5_st_alloc_index_by_tag(=
-)
-plus a tag-from-cpu wrapper so the dma-buf path can allocate an ST
-index directly from a raw steering tag without going through the
-per-CPU table. mlx5_st_alloc_index_by_tag() explicitly initialises
-'ret' so the duplicate-tag fast path doesn't return an uninitialised
-value, which would otherwise be observed by callers when an MR
-re-uses a tag that already has an ST index allocated.
+8-bit ST and 16-bit Extended ST are distinct PCIe TPH namespaces; the
+uAPI carries both with explicit validity flags, and get_tph() returns
+the value matching the importer's requested width (or -EOPNOTSUPP).
 
-For TPH-backed FRMRs, the extra ST-table reference belongs to the
-hardware mkey handle, not the transient MR object. Add mlx5_st_get_index(=
-)
-and extend the FRMR pool API so ib_frmr_pool_pop() reports whether a
-handle was reused and destroy_frmrs() receives the pool key. The DMAH
-and dma-buf paths take a provisional ST ref before pool lookup; reuse
-drops that provisional ref immediately, while newly created handles
-keep it and release it only when the FRMR handle is actually destroyed,
-either directly or through FRMR pool aging/cleanup.
+The TPH descriptor is published and read under a new per-dma-buf mutex
+priv->tph_lock so a SET racing with a get_tph reader sees consistent
+fields. The mutex's only role is serialising the TPH state; priv->vdev
+and dmabuf lifetime are managed by the existing ioctl reference and
+dma_buf_get() ref, so the cleanup path does not need to take this
+mutex.
 
-Also decode the PH bits stored in kernel_vendor_key when recreating
-pooled mkeys so the programmed requester hint matches the pool key.
+The SET ioctl returns -EOPNOTSUPP if the underlying device does not
+expose the PCIe TPH Extended Capability (pdev->tph_cap =3D=3D 0); setting
+ST metadata on a device that cannot act as a TPH completer is
+nonsensical and rejecting it early gives userspace a clear signal.
+
+The uAPI itself is not device-specific. It publishes the PCI SIG-defined
+ST/PH tuple for a VFIO-owned PCIe completer and keeps the tuple opaque
+to dma-buf; any importer simply requests the namespace it supports and
+places the returned value on generated TLPs. Any other userspace driver
+using vfio-pci for an endpoint that accepts inbound TPH can reuse the
+same interface.
 
 Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
 ---
- drivers/infiniband/core/frmr_pools.c          |  20 ++-
- drivers/infiniband/hw/mlx5/mr.c               | 124 +++++++++++++++++-
- .../net/ethernet/mellanox/mlx5/core/lib/st.c  |  49 +++++--
- include/linux/mlx5/driver.h                   |  12 ++
- include/rdma/frmr_pools.h                     |   5 +-
- 5 files changed, 191 insertions(+), 19 deletions(-)
+Test plan: verified the kernel-side behavior by checking that an
+importer such as mlx5 emits the programmed ST/PH on outbound P2P TLPs
+after a successful VFIO_DEVICE_FEATURE_DMA_BUF_TPH set.
 
-diff --git a/drivers/infiniband/core/frmr_pools.c b/drivers/infiniband/co=
-re/frmr_pools.c
-index 5e992ff3d7cf..61a77847118e 100644
---- a/drivers/infiniband/core/frmr_pools.c
-+++ b/drivers/infiniband/core/frmr_pools.c
-@@ -92,7 +92,8 @@ static void destroy_all_handles_in_queue(struct ib_devi=
-ce *device,
- 	u32 count;
-=20
- 	while (pop_frmr_handles_page(pool, queue, &page, &count)) {
--		pools->pool_ops->destroy_frmrs(device, page->handles, count);
-+		pools->pool_ops->destroy_frmrs(device, &pool->key,
-+					       page->handles, count);
- 		kfree(page);
+ drivers/vfio/pci/vfio_pci_core.c   |  3 +
+ drivers/vfio/pci/vfio_pci_dmabuf.c | 92 +++++++++++++++++++++++++++++-
+ drivers/vfio/pci/vfio_pci_priv.h   | 12 ++++
+ include/uapi/linux/vfio.h          | 45 +++++++++++++++
+ 4 files changed, 151 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci=
+_core.c
+index 050e7542952e..4fa36f2f7555 100644
+--- a/drivers/vfio/pci/vfio_pci_core.c
++++ b/drivers/vfio/pci/vfio_pci_core.c
+@@ -1569,6 +1569,9 @@ int vfio_pci_core_ioctl_feature(struct vfio_device =
+*device, u32 flags,
+ 		return vfio_pci_core_feature_token(vdev, flags, arg, argsz);
+ 	case VFIO_DEVICE_FEATURE_DMA_BUF:
+ 		return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
++	case VFIO_DEVICE_FEATURE_DMA_BUF_TPH:
++		return vfio_pci_core_feature_dma_buf_tph(vdev, flags, arg,
++							 argsz);
+ 	default:
+ 		return -ENOTTY;
  	}
- }
-@@ -136,7 +137,8 @@ static bool age_pinned_pool(struct ib_device *device,=
- struct ib_frmr_pool *pool)
- 	spin_unlock(&pool->lock);
-=20
- 	if (destroyed)
--		pools->pool_ops->destroy_frmrs(device, handles, destroyed);
-+		pools->pool_ops->destroy_frmrs(device, &pool->key, handles,
-+					       destroyed);
- 	kfree(handles);
- 	return has_work;
- }
-@@ -453,9 +455,11 @@ int ib_frmr_pools_set_pinned(struct ib_device *devic=
-e, struct ib_frmr_key *key,
- }
-=20
- static int get_frmr_from_pool(struct ib_device *device,
--			      struct ib_frmr_pool *pool, struct ib_mr *mr)
-+			      struct ib_frmr_pool *pool, struct ib_mr *mr,
-+			      bool *reused)
- {
- 	struct ib_frmr_pools *pools =3D device->frmr_pools;
-+	bool local_reused =3D false;
- 	u32 handle;
- 	int err;
-=20
-@@ -464,6 +468,7 @@ static int get_frmr_from_pool(struct ib_device *devic=
-e,
- 		if (pool->inactive_queue.ci > 0) {
- 			handle =3D pop_handle_from_queue_locked(
- 				&pool->inactive_queue);
-+			local_reused =3D true;
- 		} else {
- 			spin_unlock(&pool->lock);
- 			err =3D pools->pool_ops->create_frmrs(device, &pool->key,
-@@ -474,6 +479,7 @@ static int get_frmr_from_pool(struct ib_device *devic=
-e,
- 		}
- 	} else {
- 		handle =3D pop_handle_from_queue_locked(&pool->queue);
-+		local_reused =3D true;
- 	}
-=20
- 	pool->in_use++;
-@@ -484,6 +490,8 @@ static int get_frmr_from_pool(struct ib_device *devic=
-e,
-=20
- 	mr->frmr.pool =3D pool;
- 	mr->frmr.handle =3D handle;
-+	if (reused)
-+		*reused =3D local_reused;
-=20
- 	return 0;
- }
-@@ -493,10 +501,12 @@ static int get_frmr_from_pool(struct ib_device *dev=
-ice,
-  *
-  * @device: The device to pop the FRMR handle from.
-  * @mr: The MR to pop the FRMR handle from.
-+ * @reused: Optional output that reports whether the returned handle was
-+ *	    reused from the pool instead of freshly created.
-  *
-  * Returns 0 on success, negative error code on failure.
+diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_p=
+ci_dmabuf.c
+index 1a177ce7de54..dd11a7db6b41 100644
+--- a/drivers/vfio/pci/vfio_pci_dmabuf.c
++++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+@@ -2,7 +2,9 @@
+ /* Copyright (c) 2025, NVIDIA CORPORATION & AFFILIATES.
   */
--int ib_frmr_pool_pop(struct ib_device *device, struct ib_mr *mr)
-+int ib_frmr_pool_pop(struct ib_device *device, struct ib_mr *mr, bool *r=
-eused)
- {
- 	struct ib_frmr_pools *pools =3D device->frmr_pools;
- 	struct ib_frmr_pool *pool;
-@@ -509,7 +519,7 @@ int ib_frmr_pool_pop(struct ib_device *device, struct=
- ib_mr *mr)
- 			return PTR_ERR(pool);
- 	}
-=20
--	return get_frmr_from_pool(device, pool, mr);
-+	return get_frmr_from_pool(device, pool, mr, reused);
- }
- EXPORT_SYMBOL(ib_frmr_pool_pop);
-=20
-diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5=
-/mr.c
-index 3b6da45061a5..b56df39d3385 100644
---- a/drivers/infiniband/hw/mlx5/mr.c
-+++ b/drivers/infiniband/hw/mlx5/mr.c
-@@ -38,6 +38,7 @@
- #include <linux/delay.h>
- #include <linux/dma-buf.h>
- #include <linux/dma-resv.h>
+ #include <linux/dma-buf-mapping.h>
++#include <linux/mutex.h>
+ #include <linux/pci-p2pdma.h>
 +#include <linux/pci-tph.h>
- #include <rdma/frmr_pools.h>
- #include <rdma/ib_umem_odp.h>
- #include "dm.h"
-@@ -167,12 +168,39 @@ static int get_unchangeable_access_flags(struct mlx=
-5_ib_dev *dev,
- #define MLX5_FRMR_POOLS_KERNEL_KEY_PH_MASK 0xFF0000
- #define MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK 0xFFFF
+ #include <linux/dma-resv.h>
 =20
-+static int mlx5_ib_get_frmr_st_handle_ref(struct mlx5_ib_dev *dev,
-+					  u16 st_index)
-+{
-+	if (st_index =3D=3D MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX)
-+		return 0;
-+
-+	return mlx5_st_get_index(dev->mdev, st_index);
-+}
-+
-+static void mlx5_ib_put_st_index_ref(struct mlx5_ib_dev *dev, u16 st_ind=
-ex)
-+{
-+	if (st_index =3D=3D MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX)
-+		return;
-+
-+	mlx5_st_dealloc_index(dev->mdev, st_index);
-+}
-+
-+static void mlx5_ib_put_frmr_st_handle_ref(struct mlx5_ib_dev *dev,
-+					   u64 kernel_vendor_key)
-+{
-+	u16 st_index =3D kernel_vendor_key &
-+		       MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK;
-+
-+	mlx5_ib_put_st_index_ref(dev, st_index);
-+}
-+
- static struct mlx5_ib_mr *
- _mlx5_frmr_pool_alloc(struct mlx5_ib_dev *dev, struct ib_umem *umem,
- 		      int access_flags, int access_mode,
- 		      unsigned long page_size, u16 st_index, u8 ph)
- {
- 	struct mlx5_ib_mr *mr;
-+	bool reused =3D false;
- 	int err;
-=20
- 	mr =3D kzalloc_obj(*mr);
-@@ -195,11 +223,14 @@ _mlx5_frmr_pool_alloc(struct mlx5_ib_dev *dev, stru=
-ct ib_umem *umem,
-=20
- 	mr->ibmr.frmr.key.kernel_vendor_key =3D
- 		st_index | (ph << MLX5_FRMR_POOLS_KERNEL_KEY_PH_SHIFT);
--	err =3D ib_frmr_pool_pop(&dev->ib_dev, &mr->ibmr);
-+	err =3D ib_frmr_pool_pop(&dev->ib_dev, &mr->ibmr, &reused);
- 	if (err) {
- 		kfree(mr);
- 		return ERR_PTR(err);
- 	}
-+	if (reused)
-+		mlx5_ib_put_frmr_st_handle_ref(
-+			dev, mr->ibmr.frmr.key.kernel_vendor_key);
- 	mr->mmkey.key =3D mr->ibmr.frmr.handle;
- 	init_waitqueue_head(&mr->mmkey.wait);
-=20
-@@ -229,7 +260,7 @@ struct mlx5_ib_mr *mlx5_mr_cache_alloc(struct mlx5_ib=
-_dev *dev,
- 	init_waitqueue_head(&mr->mmkey.wait);
-=20
- 	mr->ibmr.frmr.key =3D key;
--	ret =3D ib_frmr_pool_pop(&dev->ib_dev, &mr->ibmr);
-+	ret =3D ib_frmr_pool_pop(&dev->ib_dev, &mr->ibmr, NULL);
- 	if (ret) {
- 		kfree(mr);
- 		return ERR_PTR(ret);
-@@ -273,7 +304,8 @@ static int mlx5r_create_mkeys(struct ib_device *devic=
-e, struct ib_frmr_key *key,
-=20
- 	st_index =3D key->kernel_vendor_key &
- 		   MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK;
--	ph =3D key->kernel_vendor_key & MLX5_FRMR_POOLS_KERNEL_KEY_PH_MASK;
-+	ph =3D (key->kernel_vendor_key & MLX5_FRMR_POOLS_KERNEL_KEY_PH_MASK) >>
-+	     MLX5_FRMR_POOLS_KERNEL_KEY_PH_SHIFT;
- 	if (ph) {
- 		/* Normalize ph: swap MLX5_IB_NO_PH for 0 */
- 		if (ph =3D=3D MLX5_IB_NO_PH)
-@@ -299,7 +331,8 @@ static int mlx5r_create_mkeys(struct ib_device *devic=
-e, struct ib_frmr_key *key,
- 	return err;
- }
-=20
--static void mlx5r_destroy_mkeys(struct ib_device *device, u32 *handles,
-+static void mlx5r_destroy_mkeys(struct ib_device *device,
-+				const struct ib_frmr_key *key, u32 *handles,
- 				unsigned int count)
- {
- 	struct mlx5_ib_dev *dev =3D to_mdev(device);
-@@ -311,6 +344,9 @@ static void mlx5r_destroy_mkeys(struct ib_device *dev=
-ice, u32 *handles,
- 			pr_warn_ratelimited(
- 				"mlx5_ib: failed to destroy mkey %d: %d",
- 				handles[i], err);
-+		else
-+			mlx5_ib_put_frmr_st_handle_ref(dev,
-+						       key->kernel_vendor_key);
- 	}
- }
-=20
-@@ -333,6 +369,7 @@ static int mlx5r_build_frmr_key(struct ib_device *dev=
-ice,
- 		get_unchangeable_access_flags(dev, in->access_flags);
- 	out->vendor_key =3D in->vendor_key;
- 	out->num_dma_blocks =3D in->num_dma_blocks;
-+	out->kernel_vendor_key =3D in->kernel_vendor_key;
-=20
- 	return 0;
- }
-@@ -753,6 +790,12 @@ static struct ib_mr *create_real_mr(struct ib_pd *pd=
-, struct ib_umem *umem,
-=20
- 	xlt_with_umr =3D mlx5r_umr_can_load_pas(dev, umem->length);
- 	if (xlt_with_umr) {
-+		err =3D mlx5_ib_get_frmr_st_handle_ref(dev, st_index);
-+		if (err) {
-+			ib_umem_release(umem);
-+			return ERR_PTR(err);
-+		}
-+
- 		mr =3D alloc_cacheable_mr(pd, umem, iova, access_flags,
- 					MLX5_MKC_ACCESS_MODE_MTT,
- 					st_index, ph);
-@@ -767,6 +810,8 @@ static struct ib_mr *create_real_mr(struct ib_pd *pd,=
- struct ib_umem *umem,
- 		mutex_unlock(&dev->slow_path_mutex);
- 	}
- 	if (IS_ERR(mr)) {
-+		if (xlt_with_umr)
-+			mlx5_ib_put_st_index_ref(dev, st_index);
- 		ib_umem_release(umem);
- 		return ERR_CAST(mr);
- 	}
-@@ -899,6 +944,65 @@ static struct dma_buf_attach_ops mlx5_ib_dmabuf_atta=
-ch_ops =3D {
- 	.invalidate_mappings =3D mlx5_ib_dmabuf_invalidate_cb,
+ #include "vfio_pci_priv.h"
+@@ -19,7 +21,14 @@ struct vfio_pci_dma_buf {
+ 	u32 nr_ranges;
+ 	struct kref kref;
+ 	struct completion comp;
+-	u8 revoked : 1;
++	/* @tph_lock serializes TPH SET vs get_tph on the TPH fields below. */
++	struct mutex tph_lock;
++	u8 tph_st_valid:1;
++	u8 tph_st_ext_valid:1;
++	u8 tph_ph:2;
++	u8 tph_st;
++	u16 tph_st_ext;
++	u8 revoked:1;
  };
 =20
-+/*
-+ * Query TPH metadata from @dmabuf and translate the raw steering tag in=
-to
-+ * an mlx5 ST index. On success *@st_index is updated with a provisional
-+ * reference for a candidate FRMR handle and *@ph is updated to the dma-=
-buf's
-+ * processing hint. Callers that fail to allocate a handle, or that reus=
-e an
-+ * existing pooled handle, must drop the provisional ST reference. On an=
-y
-+ * failure *@st_index and *@ph are left untouched, so the caller's no-TP=
-H
-+ * defaults stand.
-+ *
-+ * @dmabuf must already be referenced by the caller (e.g. via the umem's
-+ * attachment) so we don't re-resolve the user's fd here and avoid a
-+ * dup2() TOCTOU between umem creation and TPH lookup.
-+ */
-+static void get_tph_mr_dmabuf(struct mlx5_ib_dev *dev, struct dma_buf *d=
-mabuf,
-+			      u16 *st_index, u8 *ph)
+ static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+@@ -69,6 +78,25 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *attach=
+ment,
+ 	return ret;
+ }
+=20
++static int vfio_pci_dma_buf_get_tph(struct dma_buf *dmabuf, bool extende=
+d,
++				    u16 *steering_tag, u8 *ph)
 +{
-+	u16 local_st_index;
-+	u16 steering_tag;
-+	u8 local_ph;
-+	bool extended;
-+	int ret;
++	struct vfio_pci_dma_buf *priv =3D dmabuf->priv;
 +
-+	if (!dmabuf->ops->get_tph)
-+		return;
-+
-+	switch (pcie_tph_enabled_req_type(dev->mdev->pdev)) {
-+	case PCI_TPH_REQ_TPH_ONLY:
-+		extended =3D false;
-+		break;
-+	case PCI_TPH_REQ_EXT_TPH:
-+		extended =3D true;
-+		break;
-+	default:
-+		return;
-+	}
-+
-+	ret =3D dmabuf->ops->get_tph(dmabuf, extended, &steering_tag, &local_ph=
-);
-+	if (ret) {
-+		mlx5_ib_dbg(dev, "get_tph failed (%d)\n", ret);
-+		return;
-+	}
-+
-+	ret =3D mlx5_st_alloc_index_by_tag(dev->mdev, steering_tag,
-+					 &local_st_index);
-+	if (ret) {
-+		mlx5_ib_dbg(dev, "st_alloc_index_by_tag failed (%d)\n", ret);
-+		return;
-+	}
-+
-+	*st_index =3D local_st_index;
-+	*ph =3D local_ph;
-+}
-+
-+static void mlx5_ib_mr_put_frmr_st_handle_ref(struct mlx5_ib_mr *mr)
-+{
-+	mlx5_ib_put_frmr_st_handle_ref(mr_to_mdev(mr),
-+				       mr->ibmr.frmr.key.kernel_vendor_key);
-+}
-+
- static struct ib_mr *
- reg_user_mr_dmabuf(struct ib_pd *pd, struct device *dma_device,
- 		   u64 offset, u64 length, u64 virt_addr,
-@@ -941,12 +1045,22 @@ reg_user_mr_dmabuf(struct ib_pd *pd, struct device=
- *dma_device,
- 		ph =3D dmah->ph;
- 		if (dmah->valid_fields & BIT(IB_DMAH_CPU_ID_EXISTS))
- 			st_index =3D mdmah->st_index;
-+
-+		err =3D mlx5_ib_get_frmr_st_handle_ref(dev, st_index);
-+		if (err) {
-+			ib_umem_release(&umem_dmabuf->umem);
-+			return ERR_PTR(err);
-+		}
++	guard(mutex)(&priv->tph_lock);
++	if (extended) {
++		if (!priv->tph_st_ext_valid)
++			return -EOPNOTSUPP;
++		*steering_tag =3D priv->tph_st_ext;
 +	} else {
-+		get_tph_mr_dmabuf(dev, umem_dmabuf->attach->dmabuf,
-+				  &st_index, &ph);
- 	}
-=20
- 	mr =3D alloc_cacheable_mr(pd, &umem_dmabuf->umem, virt_addr,
- 				access_flags, access_mode,
- 				st_index, ph);
- 	if (IS_ERR(mr)) {
-+		mlx5_ib_put_st_index_ref(dev, st_index);
- 		ib_umem_release(&umem_dmabuf->umem);
- 		return ERR_CAST(mr);
- 	}
-@@ -1400,6 +1514,8 @@ static int mlx5r_handle_mkey_cleanup(struct mlx5_ib=
-_mr *mr)
- 		dma_resv_unlock(
- 			to_ib_umem_dmabuf(mr->umem)->attach->dmabuf->resv);
- 	}
-+	if (!ret)
-+		mlx5_ib_mr_put_frmr_st_handle_ref(mr);
- 	return ret;
- }
-=20
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c b/drivers/n=
-et/ethernet/mellanox/mlx5/core/lib/st.c
-index 7cedc348790d..877b37b4e639 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-@@ -92,23 +92,18 @@ void mlx5_st_destroy(struct mlx5_core_dev *dev)
- 	kfree(st);
- }
-=20
--int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
-_type,
--			unsigned int cpu_uid, u16 *st_index)
-+int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev, u16 tag,
-+			       u16 *st_index)
- {
- 	struct mlx5_st_idx_data *idx_data;
- 	struct mlx5_st *st =3D dev->st;
- 	unsigned long index;
- 	u32 xa_id;
--	u16 tag;
--	int ret;
-+	int ret =3D 0;
-=20
- 	if (!st)
- 		return -EOPNOTSUPP;
-=20
--	ret =3D pcie_tph_get_cpu_st(dev->pdev, mem_type, cpu_uid, &tag);
--	if (ret)
--		return ret;
--
- 	if (st->direct_mode) {
- 		*st_index =3D tag;
- 		return 0;
-@@ -152,8 +147,46 @@ int mlx5_st_alloc_index(struct mlx5_core_dev *dev, e=
-num tph_mem_type mem_type,
- 	mutex_unlock(&st->lock);
- 	return ret;
- }
-+EXPORT_SYMBOL_GPL(mlx5_st_alloc_index_by_tag);
++		if (!priv->tph_st_valid)
++			return -EOPNOTSUPP;
++		*steering_tag =3D priv->tph_st;
++	}
++	*ph =3D priv->tph_ph;
++	return 0;
++}
 +
-+int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
-_type,
-+			unsigned int cpu_uid, u16 *st_index)
+ static void vfio_pci_dma_buf_unmap(struct dma_buf_attachment *attachment=
+,
+ 				   struct sg_table *sgt,
+ 				   enum dma_data_direction dir)
+@@ -95,12 +123,14 @@ static void vfio_pci_dma_buf_release(struct dma_buf =
+*dmabuf)
+ 		up_write(&priv->vdev->memory_lock);
+ 		vfio_device_put_registration(&priv->vdev->vdev);
+ 	}
++	mutex_destroy(&priv->tph_lock);
+ 	kfree(priv->phys_vec);
+ 	kfree(priv);
+ }
+=20
+ static const struct dma_buf_ops vfio_pci_dmabuf_ops =3D {
+ 	.attach =3D vfio_pci_dma_buf_attach,
++	.get_tph =3D vfio_pci_dma_buf_get_tph,
+ 	.map_dma_buf =3D vfio_pci_dma_buf_map,
+ 	.unmap_dma_buf =3D vfio_pci_dma_buf_unmap,
+ 	.release =3D vfio_pci_dma_buf_release,
+@@ -265,6 +295,7 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_cor=
+e_device *vdev, u32 flags,
+ 		ret =3D -ENOMEM;
+ 		goto err_free_ranges;
+ 	}
++	mutex_init(&priv->tph_lock);
+ 	priv->phys_vec =3D kzalloc_objs(*priv->phys_vec, get_dma_buf.nr_ranges)=
+;
+ 	if (!priv->phys_vec) {
+ 		ret =3D -ENOMEM;
+@@ -327,12 +358,71 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_c=
+ore_device *vdev, u32 flags,
+ err_free_phys:
+ 	kfree(priv->phys_vec);
+ err_free_priv:
++	mutex_destroy(&priv->tph_lock);
+ 	kfree(priv);
+ err_free_ranges:
+ 	kfree(dma_ranges);
+ 	return ret;
+ }
+=20
++int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
++				      u32 flags,
++				      struct vfio_device_feature_dma_buf_tph __user *arg,
++				      size_t argsz)
 +{
-+	u16 tag;
++	struct vfio_device_feature_dma_buf_tph set_tph;
++	struct vfio_pci_dma_buf *priv;
++	struct dma_buf *dmabuf;
 +	int ret;
 +
-+	ret =3D pcie_tph_get_cpu_st(dev->pdev, mem_type, cpu_uid, &tag);
-+	if (ret)
-+		return ret;
-+
-+	return mlx5_st_alloc_index_by_tag(dev, tag, st_index);
-+}
- EXPORT_SYMBOL_GPL(mlx5_st_alloc_index);
-=20
-+int mlx5_st_get_index(struct mlx5_core_dev *dev, u16 st_index)
-+{
-+	struct mlx5_st_idx_data *idx_data;
-+	struct mlx5_st *st =3D dev->st;
-+	int ret =3D 0;
-+
-+	if (!st)
++	if (!pcie_tph_supported(vdev->pdev))
 +		return -EOPNOTSUPP;
 +
-+	if (st->direct_mode)
-+		return 0;
++	ret =3D vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_SET,
++				 sizeof(set_tph));
++	if (ret !=3D 1)
++		return ret;
 +
-+	mutex_lock(&st->lock);
-+	idx_data =3D xa_load(&st->idx_xa, st_index);
-+	if (WARN_ON_ONCE(!idx_data))
++	if (copy_from_user(&set_tph, arg, sizeof(set_tph)))
++		return -EFAULT;
++
++	if (set_tph.flags & ~(VFIO_DMA_BUF_TPH_ST | VFIO_DMA_BUF_TPH_ST_EXT))
++		return -EINVAL;
++
++	/* PCIe TLP Processing Hint is a 2-bit field. */
++	if (set_tph.ph & ~0x3)
++		return -EINVAL;
++
++	dmabuf =3D dma_buf_get(set_tph.dmabuf_fd);
++	if (IS_ERR(dmabuf))
++		return PTR_ERR(dmabuf);
++
++	if (dmabuf->ops !=3D &vfio_pci_dmabuf_ops) {
 +		ret =3D -EINVAL;
-+	else
-+		refcount_inc(&idx_data->usecount);
-+	mutex_unlock(&st->lock);
++		goto out_put;
++	}
 +
++	priv =3D dmabuf->priv;
++	if (priv->vdev !=3D vdev) {
++		ret =3D -EINVAL;
++		goto out_put;
++	}
++
++	scoped_guard(mutex, &priv->tph_lock) {
++		priv->tph_st =3D set_tph.steering_tag;
++		priv->tph_st_ext =3D set_tph.steering_tag_ext;
++		priv->tph_ph =3D set_tph.ph;
++		priv->tph_st_valid =3D !!(set_tph.flags & VFIO_DMA_BUF_TPH_ST);
++		priv->tph_st_ext_valid =3D
++			!!(set_tph.flags & VFIO_DMA_BUF_TPH_ST_EXT);
++	}
++	ret =3D 0;
++
++out_put:
++	dma_buf_put(dmabuf);
 +	return ret;
 +}
-+EXPORT_SYMBOL_GPL(mlx5_st_get_index);
 +
- int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index)
+ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revok=
+ed)
  {
- 	struct mlx5_st_idx_data *idx_data;
-diff --git a/include/linux/mlx5/driver.h b/include/linux/mlx5/driver.h
-index 04b96c5abb57..0480b5c4f189 100644
---- a/include/linux/mlx5/driver.h
-+++ b/include/linux/mlx5/driver.h
-@@ -1166,10 +1166,22 @@ int mlx5_dm_sw_icm_dealloc(struct mlx5_core_dev *=
-dev, enum mlx5_sw_icm_type type
- 			   u64 length, u16 uid, phys_addr_t addr, u32 obj_id);
-=20
- #ifdef CONFIG_PCIE_TPH
-+int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev, u16 tag,
-+			       u16 *st_index);
-+int mlx5_st_get_index(struct mlx5_core_dev *dev, u16 st_index);
- int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
-_type,
- 			unsigned int cpu_uid, u16 *st_index);
- int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index);
+ 	struct vfio_pci_dma_buf *priv;
+diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci=
+_priv.h
+index fca9d0dfac90..c58f369be4b3 100644
+--- a/drivers/vfio/pci/vfio_pci_priv.h
++++ b/drivers/vfio/pci/vfio_pci_priv.h
+@@ -118,6 +118,10 @@ static inline bool vfio_pci_is_vga(struct pci_dev *p=
+dev)
+ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32=
+ flags,
+ 				  struct vfio_device_feature_dma_buf __user *arg,
+ 				  size_t argsz);
++int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
++				      u32 flags,
++				      struct vfio_device_feature_dma_buf_tph __user *arg,
++				      size_t argsz);
+ void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev);
+ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revok=
+ed);
  #else
-+static inline int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev,
-+					     u16 tag, u16 *st_index)
+@@ -128,6 +132,14 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_d=
+evice *vdev, u32 flags,
+ {
+ 	return -ENOTTY;
+ }
++
++static inline int
++vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev, u32=
+ flags,
++				  struct vfio_device_feature_dma_buf_tph __user *arg,
++				  size_t argsz)
 +{
-+	return -EOPNOTSUPP;
++	return -ENOTTY;
 +}
-+static inline int mlx5_st_get_index(struct mlx5_core_dev *dev, u16 st_in=
-dex)
-+{
-+	return -EOPNOTSUPP;
-+}
- static inline int mlx5_st_alloc_index(struct mlx5_core_dev *dev,
- 				      enum tph_mem_type mem_type,
- 				      unsigned int cpu_uid, u16 *st_index)
-diff --git a/include/rdma/frmr_pools.h b/include/rdma/frmr_pools.h
-index af1b88801fa4..a08d2b2cf9f3 100644
---- a/include/rdma/frmr_pools.h
-+++ b/include/rdma/frmr_pools.h
-@@ -24,7 +24,8 @@ struct ib_frmr_key {
- struct ib_frmr_pool_ops {
- 	int (*create_frmrs)(struct ib_device *device, struct ib_frmr_key *key,
- 			    u32 *handles, u32 count);
--	void (*destroy_frmrs)(struct ib_device *device, u32 *handles,
-+	void (*destroy_frmrs)(struct ib_device *device,
-+			      const struct ib_frmr_key *key, u32 *handles,
- 			      u32 count);
- 	int (*build_key)(struct ib_device *device, const struct ib_frmr_key *in=
-,
- 			 struct ib_frmr_key *out);
-@@ -33,7 +34,7 @@ struct ib_frmr_pool_ops {
- int ib_frmr_pools_init(struct ib_device *device,
- 		       const struct ib_frmr_pool_ops *pool_ops);
- void ib_frmr_pools_cleanup(struct ib_device *device);
--int ib_frmr_pool_pop(struct ib_device *device, struct ib_mr *mr);
-+int ib_frmr_pool_pop(struct ib_device *device, struct ib_mr *mr, bool *r=
-eused);
- int ib_frmr_pool_push(struct ib_device *device, struct ib_mr *mr);
+ static inline void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device =
+*vdev)
+ {
+ }
+diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
+index 5de618a3a5ee..0ca26721849b 100644
+--- a/include/uapi/linux/vfio.h
++++ b/include/uapi/linux/vfio.h
+@@ -1534,6 +1534,51 @@ struct vfio_device_feature_dma_buf {
+  */
+ #define VFIO_DEVICE_FEATURE_MIG_PRECOPY_INFOv2  12
 =20
- #endif /* FRMR_POOLS_H */
++/**
++ * Upon VFIO_DEVICE_FEATURE_SET associate TPH (TLP Processing Hints) met=
+adata
++ * with a vfio-exported dma-buf. The dma-buf must have been created by
++ * VFIO_DEVICE_FEATURE_DMA_BUF on this device, and the device must expos=
+e the
++ * TPH Extended Capability (otherwise the ioctl returns -EOPNOTSUPP).
++ *
++ * dmabuf_fd is the file descriptor returned by VFIO_DEVICE_FEATURE_DMA_=
+BUF.
++ *
++ * 8-bit ST (steering_tag) and 16-bit Extended ST (steering_tag_ext) are
++ * distinct namespaces in the PCIe TPH ST table and may both be present =
+with
++ * different values. Userspace should populate the value(s) it has from =
+the
++ * firmware ST table for this device and set the matching VFIO_DMA_BUF_T=
+PH_ST /
++ * VFIO_DMA_BUF_TPH_ST_EXT bit in @flags. An importer requests a specifi=
+c
++ * width and receives the matching value; if the requested width is not
++ * present, the importer is told TPH is unavailable for this dma-buf.
++ *
++ * This publishes the PCI SIG-defined ST/PH tuple for a VFIO-owned PCIe
++ * completer. The dma-buf core treats the tuple as opaque completer-owne=
+d
++ * metadata; an importer simply requests the namespace it supports and p=
+laces
++ * the returned value on generated TLPs.
++ *
++ * @flags =3D=3D 0 clears any previously published metadata.
++ *
++ * ph is the 2-bit TLP Processing Hint and must be in the range [0, 3].
++ *
++ * Userspace is responsible for setting TPH on the dma-buf before handin=
+g the
++ * fd to the importer. Calling SET again replaces the previously publish=
+ed
++ * values; racing a SET against an importer that is already consuming th=
+e
++ * dma-buf is a userspace ordering problem.
++ *
++ * Return: 0 on success, -errno on failure.
++ */
++#define VFIO_DEVICE_FEATURE_DMA_BUF_TPH 13
++
++#define VFIO_DMA_BUF_TPH_ST		(1 << 0)  /* steering_tag valid */
++#define VFIO_DMA_BUF_TPH_ST_EXT		(1 << 1)  /* steering_tag_ext valid */
++
++struct vfio_device_feature_dma_buf_tph {
++	__s32	dmabuf_fd;
++	__u32	flags;
++	__u16	steering_tag_ext;
++	__u8	steering_tag;
++	__u8	ph;
++};
++
+ /* -------- API for Type1 VFIO IOMMU -------- */
+=20
+ /**
 --=20
 2.53.0-Meta
 
