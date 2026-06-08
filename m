@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6762DCD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:39:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6490CD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:39:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0FF010F515;
-	Mon,  8 Jun 2026 14:39:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D56310F516;
+	Mon,  8 Jun 2026 14:39:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JABaMIBM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oMof+qmC";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 452D610F515
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:39:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC91C10F516
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:39:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BDEBC601FE;
- Mon,  8 Jun 2026 14:39:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFA671F00893;
- Mon,  8 Jun 2026 14:39:52 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3FB35601E1;
+ Mon,  8 Jun 2026 14:39:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71ABF1F00898;
+ Mon,  8 Jun 2026 14:39:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780929593;
- bh=QY+8Q9+5PnG/MIEWn4KvfHWLfDc2UlsZx0hU2BnaOE0=;
+ s=k20260515; t=1780929596;
+ bh=BOiNuUpkr10EUbgEKuuTHuCKGx3Av/+5aL4La/JzY1g=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=JABaMIBMj/eOTDQkG4uRDkBHG7h5cKdV6Syh7ynGFBwDCvEzMK3qRLti5DL0fwIuB
- iQecPFxrfnZ0RMMSwHKK07rJ8LhkUi4mG5CODRR0ngLc5bTkvbkZLydjcU3i0Wq8x1
- empdRgADk3JhNbAbKx9HcutC1Mxb/IEFx6oh6YHV3yZyBXKTdoNUUREr8DqTfXMMdC
- /yO6263mvl9uwslg/IvEdlFOgziCTfIMbnJ/9JqmR2jioz47N10JFArDR+6T3FjwiI
- LnhSRNlz1TjIQ4hpefFF31GQcgi6m5PWWEy8qdc7v6yHy9kCZDvIMVp1Wg6720/UZu
- hozv1saymyrKg==
+ b=oMof+qmCd0v4APNI6Wg4SXynj0wvqI8vA0mFeoxJ9O+KtoC/vs2LJYhTWOsWtqg1V
+ 10mqETjqLAodff7h5e4/4h5FSZ0yT1yMf5XQ6qewk8kfkRvRh8RZ48E0m6ywTo1ylK
+ bSinX/1m63y3UH+1fESuXslrD+MA9HC3eHqJhMMToZiEVRDK9XCwb9DS32TVy+i1h7
+ 2gp+WG33ZKj7LlnSrGc2KYolIM5t0Q+dDUEOKoUJ7wgI8sPUK7GvdPeqBVHwZyrFzJ
+ HLGMIpYHM2Vv26m5FkJ/ILekUt5I1bzuOm0zoDrGK/NEL3JHoBx7om/rbl+KGCx4EP
+ C5SH7K3q0ORrQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 08 Jun 2026 16:36:59 +0200
-Subject: [PATCH v2 77/78] drm/bridge: cdns-mhdp8546: Switch to
- atomic_create_state
+Date: Mon, 08 Jun 2026 16:37:00 +0200
+Subject: [PATCH v2 78/78] drm/bridge: Remove atomic_reset support
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260608-drm-no-more-bridge-reset-v2-77-0a91018bf886@kernel.org>
+Message-Id: <20260608-drm-no-more-bridge-reset-v2-78-0a91018bf886@kernel.org>
 References: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -49,14 +48,15 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>
+ Maxime Ripard <mripard@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1820; i=mripard@kernel.org;
- h=from:subject:message-id; bh=Q6ShMDK8oaBaBnkGM0++Akndq+F1QeyKvSmWqlplAqs=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlql9NkGhYWsSZH6Z+uvjmh5YhZwP1XBh/5FEwsVFLWR
- dZc+JPUMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACbyxZaxYdE06ztN+4InLRPZ
- c0dcXXH7xN8rHl9NeNyxyULtPufT+CyFdkWrwqWxOUFC7jsSbPWCGRteL1Lq8mrbpvBD9cTmHap
- nK76ULZ+VZRP/wzs4dbLRhS83CorebXuRWqF4vpDPpcb9ogQA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3867; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=4sBWxf129ftIMToWTtpvXAL0exhTlFuCWj6iUBuShTU=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlql9PrtQVrmL4JenB3q731OXB6jdiLfU+uf1u6P5jt6
+ +VprGxTOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEFqxkrJU3erVDn23GcpZD
+ rFqXRMxub+nfVPSJuZXzsMvZ6787oh4c279gxZa+rPqZzPNXrhEKXsrY0PXn9rLj3ptCLO1uy54
+ Uzlj1IJrn6z/vux08glYPEgQefo1O2+p3xUU6+HV3c4m4tGUWAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,48 +74,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The cdns-mhdp8546 bridge atomic_reset implementation is semantically
-an atomic_create_state: it allocates and initializes a pristine state
-without side effects.
+There are no remaining users of the atomic_reset hook. Remove it
+from the core.
 
-Switch to the atomic_create_state callback, and rename the function
-accordingly.
-
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_bridge.c |  8 ++------
+ include/drm/drm_bridge.h     | 30 +-----------------------------
+ 2 files changed, 3 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-index b9574289c247..504a3186ebb3 100644
---- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-+++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-@@ -1919,11 +1919,11 @@ cdns_mhdp_bridge_atomic_destroy_state(struct drm_bridge *bridge,
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index b4543a50bc6f..0cd93f966998 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -500,14 +500,11 @@ static struct drm_private_state *
+ drm_bridge_atomic_create_priv_state(struct drm_private_obj *obj)
+ {
+ 	struct drm_bridge *bridge = drm_priv_to_bridge(obj);
+ 	struct drm_bridge_state *state;
  
- 	kfree(cdns_mhdp_state);
+-	if (bridge->funcs->atomic_create_state)
+-		state = bridge->funcs->atomic_create_state(bridge);
+-	else
+-		state = bridge->funcs->atomic_reset(bridge);
++	state = bridge->funcs->atomic_create_state(bridge);
+ 	if (IS_ERR(state))
+ 		return ERR_CAST(state);
+ 
+ 	return &state->base;
+ }
+@@ -518,12 +515,11 @@ static const struct drm_private_state_funcs drm_bridge_priv_state_funcs = {
+ 	.atomic_destroy_state = drm_bridge_atomic_destroy_priv_state,
+ };
+ 
+ static bool drm_bridge_is_atomic(struct drm_bridge *bridge)
+ {
+-	return (bridge->funcs->atomic_create_state ||
+-		bridge->funcs->atomic_reset);
++	return bridge->funcs->atomic_create_state != NULL;
  }
  
- static struct drm_bridge_state *
--cdns_mhdp_bridge_atomic_reset(struct drm_bridge *bridge)
-+cdns_mhdp_bridge_atomic_create_state(struct drm_bridge *bridge)
- {
- 	struct cdns_mhdp_bridge_state *cdns_mhdp_state;
+ /**
+  * drm_bridge_attach - attach the bridge to an encoder's chain
+  *
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index 70e574fbf034..18f3db367dc1 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -501,37 +501,10 @@ struct drm_bridge_funcs {
+ 	int (*atomic_check)(struct drm_bridge *bridge,
+ 			    struct drm_bridge_state *bridge_state,
+ 			    struct drm_crtc_state *crtc_state,
+ 			    struct drm_connector_state *conn_state);
  
- 	cdns_mhdp_state = kzalloc_obj(*cdns_mhdp_state);
- 	if (!cdns_mhdp_state)
-@@ -2049,11 +2049,11 @@ static const struct drm_bridge_funcs cdns_mhdp_bridge_funcs = {
- 	.atomic_check = cdns_mhdp_atomic_check,
- 	.attach = cdns_mhdp_attach,
- 	.detach = cdns_mhdp_detach,
- 	.atomic_duplicate_state = cdns_mhdp_bridge_atomic_duplicate_state,
- 	.atomic_destroy_state = cdns_mhdp_bridge_atomic_destroy_state,
--	.atomic_reset = cdns_mhdp_bridge_atomic_reset,
-+	.atomic_create_state = cdns_mhdp_bridge_atomic_create_state,
- 	.atomic_get_input_bus_fmts = cdns_mhdp_get_input_bus_fmts,
- 	.detect = cdns_mhdp_bridge_detect,
- 	.edid_read = cdns_mhdp_bridge_edid_read,
- 	.hpd_enable = cdns_mhdp_bridge_hpd_enable,
- 	.hpd_disable = cdns_mhdp_bridge_hpd_disable,
+-	/**
+-	 * @atomic_reset:
+-	 *
+-	 * Reset the bridge to a predefined state (or retrieve its current
+-	 * state) and return a &drm_bridge_state object matching this state.
+-	 * This function is called at attach time.
+-	 *
+-	 * The atomic_reset hook is mandatory if the bridge implements any of
+-	 * the atomic hooks, and should be left unassigned otherwise. For
+-	 * bridges that don't subclass &drm_bridge_state, the
+-	 * drm_atomic_helper_bridge_reset() helper function shall be used to
+-	 * implement this hook.
+-	 *
+-	 * Note that the atomic_reset() semantics is not exactly matching the
+-	 * reset() semantics found on other components (connector, plane, ...).
+-	 *
+-	 * 1. The reset operation happens when the bridge is attached, not when
+-	 *    drm_mode_config_reset() is called
+-	 * 2. It's meant to be used exclusively on bridges that have been
+-	 *    converted to the ATOMIC API
+-	 *
+-	 * RETURNS:
+-	 * A valid drm_bridge_state object in case of success, an ERR_PTR()
+-	 * giving the reason of the failure otherwise.
+-	 */
+-	struct drm_bridge_state *(*atomic_reset)(struct drm_bridge *bridge);
+-
+ 	/**
+ 	 * @atomic_create_state:
+ 	 *
+ 	 * Allocate a pristine, initialized, state for the bridge
+ 	 * object and return it. This callback must have no side
+@@ -1389,12 +1362,11 @@ drm_bridge_get_current_state(struct drm_bridge *bridge)
+ 	/*
+ 	 * Only atomic bridges will have bridge->base initialized by
+ 	 * drm_atomic_private_obj_init(), so we need to make sure we're
+ 	 * working with one before we try to use the lock.
+ 	 */
+-	if (!bridge->funcs ||
+-	    !(bridge->funcs->atomic_reset || bridge->funcs->atomic_create_state))
++	if (!bridge->funcs || !bridge->funcs->atomic_create_state)
+ 		return NULL;
+ 
+ 	drm_modeset_lock_assert_held(&bridge->base.lock);
+ 
+ 	if (!bridge->base.state)
 
 -- 
 2.54.0
