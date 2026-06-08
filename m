@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E956ACD8CA4
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 20:14:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAFACCD8CA4
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 20:14:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5032510F9A3;
-	Mon,  8 Jun 2026 20:14:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 290DF10F9A6;
+	Mon,  8 Jun 2026 20:14:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RAFTumQb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bup5tgNh";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 792DB10F9A3
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 20:14:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B08810F9A6
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 20:14:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F155C6001D;
- Mon,  8 Jun 2026 20:14:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7147A1F00893;
- Mon,  8 Jun 2026 20:14:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8CE286001D;
+ Mon,  8 Jun 2026 20:14:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 023961F00893;
+ Mon,  8 Jun 2026 20:14:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780949640;
- bh=8orBKRM4MAXgqBpW0aJAW+AhXYKRSn96Pqp90lBMjPI=;
+ s=k20260515; t=1780949687;
+ bh=UL6gxhhWkgf1tHWdOsbgNQAoOnFjvodLgGxcXKlyXdA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=RAFTumQbFMg1UbQeAB48dRU2RpivMu+c/ccKi4CkBlFowdeOCya4G5ztdP5l/P4L6
- HBvhv4hZWYm3q6M0zGYu/x+s2J5z706IRvzsviy0sZ7OoOFP5/NDNv71EUdKkkgHYF
- H2srw+tRGvj+nwJxzKhecI38c2wSsf1vJoLOjRjLB3aKESg+MSfD7vTpKrj9bTk+YT
- UA3rIG6SMhJvc77eixUTq+JDchydgPdfpDzO1xgLbGQ7UwVectWselDNBCkBLx2xOr
- nZ/VXxjn9y2bAr1qH16VwgxOtbFfiX0kRetYJ15MqpCaLIITDYVbBxH/gbE98y32im
- /lY4PuGMyI/+A==
+ b=bup5tgNhvLfetTJ9TmrATcv/tIpT76wasYiS4U7WB4nRMm2hJmVqLT79oKgfBLBSF
+ ye2HW4LIUyi55lli8Cc5nGhSil/CREH0lH1KRcSStY2ShBoY3ym1Y5sYsPInPxxQhd
+ H1B2j3Q8AsA3loIAxXWKGvlsYa7t0hxLWVmAsEffcgOF/cRUL2NTcasCu+s2Jv+dNE
+ jrCkDVFs4UYV2g16o07p6EdlwbjaMjLOmTfxw+EqSbTPjoe/e4m+WfjYbVBNTQUDbO
+ A0z6hKQuDbSAQ7kaPw53KwJqyW8jvikJmJc9ddNkfYSBDGYeBf+7C9uapmRXfPwSO0
+ WZJ7T8Zlt8Oxw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 12/19] rust: io: add projection macro and methods
+Subject: Re: [PATCH v3 05/19] rust: io: generalize `MmioRaw` to pointer to
+ arbitrary type
 To: "Gary Guo" <gary@garyguo.net>
-Cc: dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org,
- ojeda@kernel.org, "Danilo
- Krummrich" <dakr@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>
-In-Reply-To: <20260608-io_projection-v3-12-c5cde13a5ec4@garyguo.net>
-References: <20260608-io_projection-v3-12-c5cde13a5ec4@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, linux-pci@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, ojeda@kernel.org, "Alexandre
+ Courbot" <acourbot@nvidia.com>
+In-Reply-To: <20260608-io_projection-v3-5-c5cde13a5ec4@garyguo.net>
+References: <20260608-io_projection-v3-5-c5cde13a5ec4@garyguo.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 20:13:59 +0000
-Message-Id: <20260608201400.7147A1F00893@smtp.kernel.org>
+Date: Mon, 08 Jun 2026 20:14:46 +0000
+Message-Id: <20260608201447.023961F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,120 +59,73 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Unsound `AsBytes` implementation for `Region<SIZE>` leading to und=
-efined behavior due to alignment padding.
-- [Low] Incorrect use of `#[inline(always)]` on `ProjectHelper` methods, vi=
-olating subsystem coding guidelines.
+- [High] Strict `usize` alignment check in `Region::ptr_try_from_raw_parts_=
+mut` breaks driver probes for valid 4-byte aligned MMIO mappings.
 --
 
-commit ab6f2e99706c5568aaec1a417178b7f6d1435b90
+commit facc65605656f1d5585f26a25f200941e6ae7d73
 Author: Gary Guo <gary@garyguo.net>
 
-rust: io: add projection macro and methods
+rust: io: generalize MmioRaw to pointer to arbitrary type
 
-Add a io_project!() macro allows projection from Io to a subview of it,
-using the pointer projection mechanism to perform compile-time checks.
-For cases where type-casting is required, the try_cast() function may be
-used where the size and alignment checks are performed at runtime.
+This commit generalizes MmioRaw to represent an untyped I/O region using
+the dynamically-sized Region<SIZE> type. It renames the maxsize method
+to size and implements Clone, Copy, Send, and Sync manually.
 
 > diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-> index 9c2ea17ca87b5..173f8c0ba2d6c 100644
+> index d57df2a072a0e..c9533d3f003ba 100644
 > --- a/rust/kernel/io.rs
 > +++ b/rust/kernel/io.rs
+
 [ ... ]
-> @@ -92,6 +96,11 @@ fn size(p: *const Self) -> usize {
->      }
->  }
-> =20
-> +// SAFETY: I/O regions can compose of arbitrary bytes.
-> +unsafe impl<const SIZE: usize> kernel::transmute::FromBytes for Region<S=
-IZE> {}
-> +// SAFETY: Values read from I/O are always treated as initialized.
-> +unsafe impl<const SIZE: usize> kernel::transmute::AsBytes for Region<SIZ=
-E> {}
+
+> @@ -90,37 +90,67 @@ fn size(p: *const Self) -> usize {
+
+[ ... ]
+
+> +impl<const SIZE: usize> MmioRaw<Region<SIZE>> {
+> +    /// Create a `MmioRaw` representing a I/O region with given size.
+> +    ///
+> +    /// The size is checked against the minimum size specified via const=
+ generics.
+> +    #[inline]
+> +    pub fn new_region(addr: usize, size: usize) -> Result<Self> {
+> +        Ok(Self {
+> +            ptr: Region::ptr_try_from_raw_parts_mut(core::ptr::without_p=
+rovenance_mut(addr), size)?,
 
 [Severity: High]
-Does this implementation of AsBytes for Region<SIZE> introduce undefined
-behavior due to alignment padding?
+Does this alignment check break driver probes for standard 4-byte aligned
+MMIO mappings on 64-bit architectures?
 
-Region<SIZE> is defined with an alignment constraint and contains an
-unsized [u8] field. Because core::mem::size_of_val for dynamically sized
-types rounds the size up to a multiple of the alignment, a Region created
-with a size that is not a multiple of 8 (on 64-bit systems) will include
-trailing padding bytes.
+Looking at Region::ptr_try_from_raw_parts_mut(), it enforces a strict
+usize alignment on the base address:
 
-Since AsBytes::as_bytes() relies on size_of_val(self) to slice the memory,
-calling it on &Region<SIZE> could produce a &[u8] that extends past the
-actual allocated length into out-of-bounds or uninitialized memory.
+rust/kernel/io.rs:Region::ptr_try_from_raw_parts_mut() {
+    ...
+    if size < SIZE || base.align_offset(size_of::<usize>()) !=3D 0 {
+        return Err(EINVAL);
+    }
+    ...
+}
 
-> +
->  /// Raw representation of an MMIO region.
->  ///
->  /// `MmioRaw<T>` is equivalent to `T __iomem *` in C.
-[ ... ]
-> @@ -983,3 +1039,78 @@ pub fn relaxed(self) -> RelaxedMmio<'a, T> {
->  // MMIO regions on 64-bit systems also support 64-bit accesses.
->  #[cfg(CONFIG_64BIT)]
->  impl_mmio_io_capable!(RelaxedMmioBackend, u64, readq_relaxed, writeq_rel=
-axed);
-> +
-> +// This helper turns associated functions to methods so it can be invoke=
-d in macro.
-> +// Used by `io_project!()` only.
-> +#[doc(hidden)]
-> +#[derive(Clone, Copy)]
-> +pub struct ProjectHelper<T>(pub T);
-> +
-> +impl<'a, T> ProjectHelper<T>
-> +where
-> +    T: Io<'a, Backend: IoBackend<View<'a, T::Target> =3D T>>,
-> +{
-> +    // These helper methods must not have symbols present in binary to a=
-void confusion.
-> +    #[inline(always)]
-> +    pub fn as_ptr(self) -> *mut T::Target {
+On 64-bit systems, this forces an 8-byte alignment requirement.
 
-[Severity: Low]
-This isn't a bug, but should this use #[inline] instead of #[inline(always)=
-]?
+However, PCI 32-bit BARs and SoC IP block MMIO regions frequently have
+4-byte aligned physical base addresses. When mapped with ioremap() or
+pci_iomap(), the resulting virtual address retains this 4-byte alignment
+offset, which would fail the 8-byte alignment check here.
 
-According to the rust subsystem guidelines, functions that are small or
-forwarding to a binding call in abstractions should be annotated with
-#[inline].
+Consequently, standard hardware mapping operations in devres::IoMem::new(),
+IoMem::ioremap(), and pci::Bar::new() will unconditionally fail at runtime
+with -EINVAL during driver probe for these devices, making them unusable.
 
-The #[inline(always)] annotation should be reserved for functions using
-build_assert!() that depend on function parameters.
-
-> +        T::Backend::as_ptr(self.0)
-> +    }
-> +
-> +    /// # Safety
-> +    ///
-> +    /// Same as `IoBackend::project_view`
-> +    #[inline(always)]
-> +    pub unsafe fn project_view<U: ?Sized + KnownSize>(
-
-[Severity: Low]
-This isn't a bug, but should this use #[inline] instead of #[inline(always)=
-]?
-
-According to the rust subsystem guidelines, functions that are small or
-forwarding to a binding call in abstractions should be annotated with
-#[inline].
-
-The #[inline(always)] annotation should be reserved for functions using
-build_assert!() that depend on function parameters.
-
-> +        self,
-> +        ptr: *mut U,
-> +    ) -> <T::Backend as IoBackend>::View<'a, U> {
-> +        // SAFETY: Per safety requirement.
-> +        unsafe { T::Backend::project_view::<T::Target, _>(self.0, ptr) }
-> +    }
+> +        })
+>      }
 > +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-io_project=
-ion-v3-0-c5cde13a5ec4@garyguo.net?part=3D12
+ion-v3-0-c5cde13a5ec4@garyguo.net?part=3D5
