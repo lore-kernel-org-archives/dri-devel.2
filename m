@@ -4,77 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5FADCD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 07:09:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B63D2CD8C9F
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 07:09:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 785CF10EDF5;
-	Mon,  8 Jun 2026 07:09:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17DC410EDF9;
+	Mon,  8 Jun 2026 07:09:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="r7qRluiY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D2fR3/XX";
 	dkim-atps=neutral
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.67.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C8F110EDF8
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 07:09:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
- s=altu2504; t=1780902510;
- bh=6tLWoBW2pFlmOerPRepxyKMqbCkBEey+ItacdvxIb0w=;
- h=From:To:Subject:Date:Message-Id;
- b=r7qRluiYS2pzXJH25kGNxUuZX5htgXO/v5lzWYW/d7i9muUUnfYJMpEv+qNvgQEBz
- GjFv7JbGVfRho3XlggEkfXziCzEgkMV+ZcLp7FN4dCrhmvXxRjKCvSg5HuvjfmbZRj
- dGwEsXIE7tXG5IHEonbbUJOtHp4MZvK0qyJG1Ryg=
-X-QQ-mid: esmtpsz10t1780902508t7749e501
-X-QQ-Originating-IP: 0Qz1Oiv8vXDmyy1J7m5t4cou6ezju/IsoBdbZ45NzL0=
-Received: from DESKTOP-8BT1A2O.localdomain ( [58.22.7.114])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Mon, 08 Jun 2026 15:08:22 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 5642729304613398450
-From: Chaoyi Chen <kernel@airkyi.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Vinod Koul <vkoul@kernel.org>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-phy@lists.infradead.org,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Subject: [PATCH 2/5] drm/bridge: aux: Add drm_aux_bridge_register_from_node()
-Date: Mon,  8 Jun 2026 15:08:02 +0800
-Message-Id: <20260608070805.88-3-kernel@airkyi.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20260608070805.88-1-kernel@airkyi.com>
-References: <20260608070805.88-1-kernel@airkyi.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: Nv1Zs1ssfOILRzUKkP2lSR32/Ex3EAH9CzrbsS5uvf62yE6i1Gaj6HaI
- TMKGEI7SIGqlW5cZLATBPniSEiqN10GRku3XByQ/pZfb2NmUbyN4ldmg3jndQOfBIqzqQud
- syFDmwYZU0t+jssqMFJBUsC7Bz0LPVWNE7NRpaSU8s+j4ERSDMecRJIDO+ThcokQaPvuQi4
- Ku9jQkQVBiKXtq+kfW8kacu3pbE7HBJ3dv4qdDDpy4B2jbW+UITZAI2C8k8nekDY9l5VDxS
- 9YPF3jbmkEGSWe6EBQEOQS4hkLNnXuX+SS08De2h0FSOB/819wybPFgeZeXNQoh2MLYVqdb
- v/mogitBSzvelx3uNeWMArGLuHQKgngLy1FAKIZ+DIiitLHALZS1aNZ7GWZwldXxsFCvifb
- ILSgpDzs5QYwZVCQF7LqVe4LZWtWQihhlmRiedXZtFGTRm726uFNxBpvLJiqJqKUzWMs9Yi
- UJKL7UFJLazNrluCydRB0iLcD7CfwvRTlvWj7vkjk65nYn0xczxNSwXYxcbwh1Stf4YsxOv
- +hYxzTtRTLYlKB9wUT4pVg02sGvEITkkG99f3tCVl+JIlxTMPczDh7MbAQgOTaJ2AC83bPH
- +lJZbDRFYnkjv9SheKVGg+G+QKxh+jm3XTnaJEUVU7x7rX8Baag4rP2BbqOZvQWSRAC4cU6
- fW9EiIZCpWSFn2INSiWfrDHkwrPdIWmimsY264Kv9hl+fONWADblfpbq7wT/NShWG063tKf
- iAD7iJdX909v7bWOgFRTxEMmQoYGwuxIi3lvuKeAuqqUJNw0aC1NJ497Z1iDXW+oBlHu7xf
- YKFtAOK3yPeHwk6bqMaYyFLpVAXPZBPiJiNgouX10UQirLwZigxxdjBoJSQWEL+Hg/VHl4D
- lSY7gM9WHcreE5fiTyClsagXsm4igDS920oz25wJWzVyNWpV6iBxVF4pxJE5o+AoTTJfnQK
- RCFgHYUWFmCEOB2TgVTyNUzB9jHHbDIfm5ZXpp8rn+G95m2VeXu3DR5nGTUScneFE1SFjA0
- PMRMNBeM3mawCWLkKPSE1bGzDAOSo=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF01F10EDF9
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 07:09:22 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9258643536;
+ Mon,  8 Jun 2026 07:09:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F057B1F00898;
+ Mon,  8 Jun 2026 07:09:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780902562;
+ bh=GtHBwKjQpE/Mcl5T1e9tUQO7Io2D4sQEEIldSv1mUDQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=D2fR3/XXbsEcbQAbeap9XFYifirulIxI+BpMpBQM+ZOME54fi8Nj2TzjliS/9TiBv
+ jC25QGoVH3gUbHl6gNhvWo5CQOF4H3yzQDG+fKaLmH91N3OdgUOKW+C5s7y8LFgNd8
+ fT8b04QqnKG/hWxSo2YOcTATcpmdrxLgpUcLAxkNBjF68eGteC1CDUTpVmQloaHKeh
+ PxP95qf/jVFVkjG/v/RybFWwZ+v2sJm3n9yBGG1BfOizZcb8pVT31J3Da3gJckPimT
+ dm5D1q3cSBde+0awtCyEmZ3Vruejqb9+cmTWSqPDv+DbFz9bAFculS9jxelu3coTLd
+ TvurY8fVCeI5Q==
+Date: Mon, 8 Jun 2026 09:09:18 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Sean Nyekjaer <sean@geanix.com>, Sudarshan Shetty <tessolveupstream@gmail.com>,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+ jonas@kwiboo.se, 
+ jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
+ tzimmermann@suse.de, 
+ airlied@gmail.com, simona@ffwll.ch, alexander.stein@ew.tq-group.com, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Marek Vasut <marex@denx.de>
+Subject: Re: [PATCH v4 2/2] drm: bridge: ti-sn65dsi83: Disable video burst
+ mode for LVDS stability
+Message-ID: <20260608-talented-ginger-mandrill-97a290@houat>
+References: <ahsxWhXMhzbAj_3G@Seans-MacBook-Pro.local>
+ <DJ17SSAYCT51.28YSD262KHNKK@bootlin.com>
+ <20260605160946.GC4350@killaraus.ideasonboard.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="ifasbfczctszzhtm"
+Content-Disposition: inline
+In-Reply-To: <20260605160946.GC4350@killaraus.ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,108 +68,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-The drm_aux_bridge_register() uses the device->of_node as the
-bridge->of_node.
+--ifasbfczctszzhtm
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 2/2] drm: bridge: ti-sn65dsi83: Disable video burst
+ mode for LVDS stability
+MIME-Version: 1.0
 
-This patch adds drm_aux_bridge_register_from_node() to allow
-specifying the of_node corresponding to the bridge.
+On Fri, Jun 05, 2026 at 07:09:46PM +0300, Laurent Pinchart wrote:
+> On Fri, Jun 05, 2026 at 05:18:43PM +0200, Luca Ceresoli wrote:
+> > Hello Sean,
+> > On Sat May 30, 2026 at 8:51 PM CEST, Sean Nyekjaer wrote:
+> > > On Wed, May 27, 2026 at 02:27:36PM +0100, Sudarshan Shetty wrote:
+> > >> The current DSI configuration enables MIPI_DSI_MODE_VIDEO_BURST.
+> > >> while burst mode is supported by the hardware, its use
+> > >> depends on continuous clock behavior from the DSI host. In practice,
+> > >> burst mode may introduce instability depending on the host controller
+> > >> implementation, as the DSI link may transition to low-power state
+> > >> between bursts.
+> > >>
+> > >> Testing showed improved display stability when using non-burst mode =
+on
+> > >> affected panels.
+> > >>
+> > >> Remove MIPI_DSI_MODE_VIDEO_BURST and use non-burst video mode.
+> > >>
+> > >
+> > > We briefly talked about this at Embedded Recipes
+> > > I promised to sent a link:
+> > > https://lore.kernel.org/all/E35054BA-FBE5-4CEE-905C-1F5D20140590@gean=
+ix.com/
+> >=20
+> > Thanks for the discussion at ER and for this follow-up e-mail.
+> >=20
+> > > When burst mode is enabled, the LVDS clock gets way to high for my
+> > > panel. I don't know if it's the DSI controller in the STM32MP1 or
+> > > something not supported on the TI side.
+> > >
+> > > We have been running with this fix for 2 years :)
+> >=20
+> > If I can summarize the situation in the last 4 years:
+> >=20
+> >  * Several users reported the same trouble
+> >  * Those users patch their kernel out of tree to disable burst mode as a
+> >    workaround
+> >  * According to Marek the correct way to make burst mode work is
+> >    implementing link negotiation
+> >  * Nobody is willing to implement link negotiation as of now
+> >=20
+> > And this leads me to some questions.
+> >=20
+> >  * Do we want to keep the current situation (everybody beats their head=
+ on
+> >    the wall until they discover disabling burst mode "fixes" their pane=
+l,
+> >    and keep an out of tree patch)?
+> >=20
+> >  * Assuming the priority is getting a screen working (and not saving po=
+wer
+> >    on a black screen), would it make sense to apply this patch, and let
+> >    people improve in the future by implementing link negotiation?
+> >=20
+> >    Let's pretend for a moment this is a new driver being developed: wou=
+ld
+> >    it be OK to have a basic working driver, without some power optimiza=
+tion
+> >    features which can be added later on? The only valid answer to this
+> >    question is obviously "yes". Doesn't the same principle apply here? =
+If
+> >    it doesn't, why?
+> >=20
+> >  * What is the expected power saving with burst mode?
+> >=20
+> >    I'm afraid I don't have precise numbers but I measured the total boa=
+rd
+> >    consumption with or without burst mode (the former with a black scre=
+en
+> >    but backlight enabled) and found no difference: exactly 12.74 W in b=
+oth
+> >    cases.
+> >=20
+> > Thanks for you rpatience in reading this. I hope it helps in finding a
+> > better solution.
+>=20
+> Rephrasing this a bit, is the discussion about dropping support for a
+> supported feature (burst mode) because users who suffer from the lack of
+> another feature (link negotiation) are not willing to spend time
+> implementing it, and would prefer if users of burst mode were forced to
+> do the work instead ? That doesn't seem very fair to me.
 
-Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
-Changes in v2:
-- Fix incorrect function names in the documentation comments.
+Yeah, that's my take on it too. The question quickly turns into "we want
+to regress current users because some new ones don't want to bother",
+and, honestly, no. We don't do that.
 
----
- drivers/gpu/drm/bridge/aux-bridge.c | 26 +++++++++++++++++++++++---
- include/drm/bridge/aux-bridge.h     |  6 ++++++
- 2 files changed, 29 insertions(+), 3 deletions(-)
+I really don't buy into the "but it's too hard!" argument, because you
+can apply for pretty much everything: a review, a requested preliminary
+work, etc.
 
-diff --git a/drivers/gpu/drm/bridge/aux-bridge.c b/drivers/gpu/drm/bridge/aux-bridge.c
-index 1ed21a8713bf..06a1466f49bd 100644
---- a/drivers/gpu/drm/bridge/aux-bridge.c
-+++ b/drivers/gpu/drm/bridge/aux-bridge.c
-@@ -33,8 +33,9 @@ static void drm_aux_bridge_unregister_adev(void *_adev)
- }
- 
- /**
-- * drm_aux_bridge_register - Create a simple bridge device to link the chain
-+ * drm_aux_bridge_register_from_node - Create a simple bridge device to link the chain
-  * @parent: device instance providing this bridge
-+ * @np: device node pointer corresponding to this bridge instance
-  *
-  * Creates a simple DRM bridge that doesn't implement any drm_bridge
-  * operations. Such bridges merely fill a place in the bridge chain linking
-@@ -42,7 +43,7 @@ static void drm_aux_bridge_unregister_adev(void *_adev)
-  *
-  * Return: zero on success, negative error code on failure
-  */
--int drm_aux_bridge_register(struct device *parent)
-+int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np)
- {
- 	struct auxiliary_device *adev;
- 	int ret;
-@@ -62,7 +63,10 @@ int drm_aux_bridge_register(struct device *parent)
- 	adev->dev.parent = parent;
- 	adev->dev.release = drm_aux_bridge_release;
- 
--	device_set_of_node_from_dev(&adev->dev, parent);
-+	if (np)
-+		device_set_node(&adev->dev, of_fwnode_handle(np));
-+	else
-+		device_set_of_node_from_dev(&adev->dev, parent);
- 
- 	ret = auxiliary_device_init(adev);
- 	if (ret) {
-@@ -80,6 +84,22 @@ int drm_aux_bridge_register(struct device *parent)
- 
- 	return devm_add_action_or_reset(parent, drm_aux_bridge_unregister_adev, adev);
- }
-+EXPORT_SYMBOL_GPL(drm_aux_bridge_register_from_node);
-+
-+/**
-+ * drm_aux_bridge_register - Create a simple bridge device to link the chain
-+ * @parent: device instance providing this bridge
-+ *
-+ * Creates a simple DRM bridge that doesn't implement any drm_bridge
-+ * operations. Such bridges merely fill a place in the bridge chain linking
-+ * surrounding DRM bridges.
-+ *
-+ * Return: zero on success, negative error code on failure
-+ */
-+int drm_aux_bridge_register(struct device *parent)
-+{
-+	return drm_aux_bridge_register_from_node(parent, NULL);
-+}
- EXPORT_SYMBOL_GPL(drm_aux_bridge_register);
- 
- struct drm_aux_bridge_data {
-diff --git a/include/drm/bridge/aux-bridge.h b/include/drm/bridge/aux-bridge.h
-index c2f5a855512f..7dd1f17a1354 100644
---- a/include/drm/bridge/aux-bridge.h
-+++ b/include/drm/bridge/aux-bridge.h
-@@ -13,11 +13,17 @@ struct auxiliary_device;
- 
- #if IS_ENABLED(CONFIG_DRM_AUX_BRIDGE)
- int drm_aux_bridge_register(struct device *parent);
-+int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np);
- #else
- static inline int drm_aux_bridge_register(struct device *parent)
- {
- 	return 0;
- }
-+
-+static inline int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np)
-+{
-+	return 0;
-+}
- #endif
- 
- #if IS_ENABLED(CONFIG_DRM_AUX_HPD_BRIDGE)
--- 
-2.54.0
+If downstream users want to patch out the kernel and prefer to take on
+technical debt, that's on them.
 
+Maxime
+
+--ifasbfczctszzhtm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaiZqlAAKCRAnX84Zoj2+
+dm+/AYDrrPahfAhn5997t5a5gnjEcvAOYTkRmcsFmKuXI1R7UN3Z08Omg84uNug8
+5OKCrakBgIehDV050JemhB540J3byKydZfCQdpulH08VSTMvVXH+pNXejuWHviMK
+4RAj8zTEzw==
+=fVIc
+-----END PGP SIGNATURE-----
+
+--ifasbfczctszzhtm--
