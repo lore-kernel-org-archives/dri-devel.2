@@ -4,48 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C19E1CD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 06:38:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1466CD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 06:42:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EE2E10ED92;
-	Mon,  8 Jun 2026 06:38:40 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53E4E10ED92
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 06:38:37 +0000 (UTC)
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-01 (Coremail) with SMTP id qwCowAB3HNVpYyZqNQDgAA--.1048S2;
- Mon, 08 Jun 2026 14:38:33 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
- rodrigo.vivi@intel.com, airlied@gmail.com, simona@ffwll.ch
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/xe: fix refcount leak in xe_range_fence_insert()
-Date: Mon,  8 Jun 2026 06:15:40 +0000
-Message-Id: <20260608061540.121355-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3997110ED9B;
+	Mon,  8 Jun 2026 06:42:12 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="y0/ShAL4";
+	dkim-atps=neutral
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012011.outbound.protection.outlook.com
+ [40.107.200.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57EC410ED9B
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 06:42:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u0DhbrrfSCzZbOuyO/b1bLaAp2p2T/ViVl3GQnDf/gRfo9TtKd5jzQ+NlvNsigXQKOCLgVYS6d2/gismNRBJyYyqYBEr3OWSlsN1uHUnMouGSbBPNP6+wQ7yVVt/NmahSQk9yM6+waR8PKp/WoqGO9RcQgsOgUSGRjv/UisCES+/7I/clc956F8F/49enKpUprkA+OGRHJlPIZRP21+2nSUzBBXfwZEu2EKzgMWTQqghem6dovDrFztvumowZK+R+xPzhtnU/CXPGvXVnOsQsBLkv8/I7nyhxIntSrH81NYU3AAUXN/RQYdHRTHbf5q5FcglZRbntQ2RYWKKkPRfuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p/S1yzBaxcOKzcVQoqSHiatBx5MJa01Q0+RQecGvJTM=;
+ b=l7quJ1V9z+G76WP3obzjZ3l2/F9L3ksx1AkhwQRhZGnIMLukdGfsN6wRU/n7jEucvNZs8JcW6jdhWZQA+AQ6nR5W88nVjmyG3KutsmSwGE0l1VuDAGa6LT1gLYJg2PXNNlCPie25UweBUbNozmuEvIfHSUuz8XQPz3gzlUxF7CgIhAm5dFl67pzh2IMpxE41i5c7+fM9Rxx+YF1bPy6FL8V09PnBxWpnynVRQyxIdLcMAamcOv3Y8rJY/nnyqCA6iCAjrmP5y8+PReCeWQ5304dE/SFc9PfZBNQwespXhOwGmOzyR7eQkYi66MW+7s/uG2J/FsgGkjQki6z7P3mxJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p/S1yzBaxcOKzcVQoqSHiatBx5MJa01Q0+RQecGvJTM=;
+ b=y0/ShAL47Q57dmPcdLmxmBNkWDIwVvgRsYCbBy5jW8ecEwMc0O1P3zlklWUU7LHU1AXlhg9uq6g43mq0Mm9Kd5c+GfEQmkb0QjELaNJ9MBuUov9Z1kXvwbKgaBVwu12tyqm43HJOh7Hs8oBJPX84mpnQrO/4N2zKQUWtw+JG5M4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by MW3PR12MB4410.namprd12.prod.outlook.com (2603:10b6:303:5b::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Mon, 8 Jun 2026
+ 06:42:06 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Mon, 8 Jun 2026
+ 06:42:06 +0000
+Message-ID: <0c86f5d3-b5e9-4cac-aa9d-30c5c8ecca66@amd.com>
+Date: Mon, 8 Jun 2026 08:41:59 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 2/4] udmabuf: emit one sg entry per pinned folio
+To: Bobby Eshleman <bobbyeshleman@gmail.com>
+Cc: Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski
+ <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Shuah Khan <shuah@kernel.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org,
+ sdf@fomichev.me, razor@blackwall.org, daniel@iogearbox.net,
+ almasrymina@google.com, matttbe@kernel.org, skhawaja@google.com,
+ dw@davidwei.uk, Bobby Eshleman <bobbyeshleman@meta.com>
+References: <20260603-tcpdm-large-niovs-v1-0-f37a4ac6726c@meta.com>
+ <20260603-tcpdm-large-niovs-v1-2-f37a4ac6726c@meta.com>
+ <bdce2488-fe77-4f36-9ed6-dd2c785fa7c1@amd.com>
+ <aiMY8CpckM8Jav0g@devvm29614.prn0.facebook.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <aiMY8CpckM8Jav0g@devvm29614.prn0.facebook.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowAB3HNVpYyZqNQDgAA--.1048S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kr17Jr4kAF1xXr4rCFWDXFb_yoW8Gw15pw
- 4rCr4UCr9xXa9Fvw17CF4YqFyjka1agrWkKr1vk39xX3y5JFy8Xr98Aa9YgF4UArs2vF13
- CrnFyw1UW34qyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
- 6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
- 1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
- 628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
- IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
- MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJV
- WUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
- 6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYx
- BIdaVFxhVjvjDU0xZFpf9x0JUG_M-UUUUU=
-X-Originating-IP: [36.110.52.2]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwoMA2omIvDleAAAsB
+X-ClientProxiedBy: MN0PR04CA0019.namprd04.prod.outlook.com
+ (2603:10b6:208:52d::33) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW3PR12MB4410:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0a6a4d1a-a5d4-4e1d-1006-08dec5290ea9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|7416014|376014|56012099006|11063799006|4143699003|10063799003|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: mY4KyWWW0DcqHFDH+GljXAMQF0w7k8a1NECDugI5OUcyPiXURfHEw5L0H/jjaAnk3afo4QTZo+u6m2XH0NHN9SJOKbCFmcJ1evcJdFmLG6LpGa/zi8j6bHdsuoSSua3Rkg+HgIzesf8u7RiQuQ+m9nvtNAB3o2WCU3xBOsOPTYAwZK8Equvc4D9LNP8xGUh+ICyCGNFZVGWb5lNPeP+MIeThSqxhEL8ung5pCW+as9+cKbKzmm9RUshI4Xvjd8hYnr+vClEZztf7ZPaoLkJLADyAWlmRRI0wnO2qprrRSl5XR3ZweDqI4D6bcp4ZEIlhaf6u+l5ybfV2hVEqg7mhHD30dc59KpRf8iBBMm75YSwPIt/mJsw0LIJSjG0IghyegtGONKeleUFZxTbtRcDNr8kAyWXiMmYqDMsoTBCVfQ+YTkxXMTtabYvxZv3YmF5sutipWihqpUozfk9No7sSIx2iREOrXDdcyCxWQKuI9Pk8FwkZ5vRgDciLJKxjwCOfeamor00J733RqlWjYmi8M6XTaiR0GT2HMOcEUiQ05DYXuaFpJOOLgfYkHjz4YPiVUkJ4ziWqbyY1GHuH1YtAMhVQjbuPjd9SQyRPYGzrU0O8NfVo3cyN0b0NAOsSK2O7qw1s4Oo4x42XafsWJ7wiqihXairzTs/a2A7nRu03MDQ22RQmKb8ZToKwSLLjKBUK
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014)(56012099006)(11063799006)(4143699003)(10063799003)(6133799003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NVdnM1dSOFkrcFBwMldRMVh6Q21lcDZKbmNHM1k4eG13SHdiSUZIVWN4b2xh?=
+ =?utf-8?B?RGxYdmR1VkRaazJqdjhSdnViUzJTQkJ3OGswQUpBUGRnQ2pSZVQyZVlBelNp?=
+ =?utf-8?B?UzBucXF3ak5LVVZnSUtoLzRnRTlrLzRxWCtXODltNkZRVng4SERBSTA3UWtM?=
+ =?utf-8?B?U3RUcTY1T3dnLzBLcnRycHZOZUhIUEV1TkFlUkIxQ3RNTWJJaGIwWHdia2oy?=
+ =?utf-8?B?dktjZytyTHJaZ2dsOURBcmIxNkJSUU5yMk03czJyVHRDaUJqOHlDeW1pWnAw?=
+ =?utf-8?B?aE5oWVNsYmwrVHJuSFM5MHJxZHl4WEo1emg5aEJDVWc2eVpocVpZVndKbm1r?=
+ =?utf-8?B?Nnk5QlltV0doYW1QRXlqUFQ3THZibk90ZHpxaWJEL1hPUUNZUWhKa09WamMx?=
+ =?utf-8?B?RkZBaTNrRHkxTTlkQTNHL2FSTS9JWmdxcWJ1eVptQlJBamZRYWd2L1M4dlgz?=
+ =?utf-8?B?ZXRhVkZlWnNBT0d2YSszS0JWa0svUEhzeXhRejBIS2t1T0ovZ3laSEY4Uzkv?=
+ =?utf-8?B?cDFFc0kxaUtHMnRudFk1ZS8rcWw1b1VkcU4rZFYvVHdkR25aR2k4d1hsNzJM?=
+ =?utf-8?B?Uy9rUCt1QThHQjAwd211N3B6b2xqOHhOaFArb3BKZFkwOEt1eGJmYlFGVEdV?=
+ =?utf-8?B?VWpyRlE3YjR2VEpvUklXbFpCVlhLZ0xJejRGSDc3WGFaZStBemswR25QOFJD?=
+ =?utf-8?B?MXV2ZmVIM2xoeWlDekd0aWlmVzJxc0gzeVpWdFlsaEU0SFBLa0IwOTRCbXBL?=
+ =?utf-8?B?WVdkS1RJUXE0N3BBVE9RMHJNV1h2ZUNTcWFtem5uVDJkbE5OWXJPUXpQZTFh?=
+ =?utf-8?B?aklLLzhSVXA3ZHB4d2hldjNmOFhBSVp3dmxmOTdpNS9ZMkxlem91SkRiejE5?=
+ =?utf-8?B?dHJkcnhZM1d3V2M5V0VMelBSaWFGSFFZb3kzSzJqZVdSMFlFdm93M1dhazBu?=
+ =?utf-8?B?VmZnWkh6N2RHbDY3TFVpUnhhMllTbGZSNEE3SSs4NjlzWTlrbmZXdHVpZCtr?=
+ =?utf-8?B?OXpSVFlQNFVmMURZcjNwRWFzVEx1UUQ5a3Jkc2VzVDZjZjNuRk1NUnhXS29F?=
+ =?utf-8?B?TzFjUVFyTTJGbFc2bXFRT3Y3eTUzd2dmbVozQjVoVGVPcUo1WUdTelNwRkxZ?=
+ =?utf-8?B?UTlhWjJSZlNEOGd6aFJpa2R5c1JIdDNtSlBDUnR5QmpvODFDdWFMTGhDTFhI?=
+ =?utf-8?B?WDcwWVdLdjd0VnBLdEpsVXo0aVRubWxuRkdJZGdJc0VveklqQnI0aE90Wkl0?=
+ =?utf-8?B?Zk9KSlpSb09WWXZxN3hyS0tZZDZUSFFqR0xmT1ZiN29hcWEwVlY2WW42QTMr?=
+ =?utf-8?B?eUZkalpyalVLUUFXSXl1NUZuN0V1OWFuTmRTTE41ZzNWUTdVajlTWTJ3ak9u?=
+ =?utf-8?B?QUR1VHZ2THFVUjNoOWt0NG1aWW12aE92aXo5ZHM0akh2MG13QVZjR2E0YzdV?=
+ =?utf-8?B?UzN3TXNJMUc1SzZUbVdMZGYybDVsSHAvVlhkYVoveHZDZnBXM0NXMGgvTDVk?=
+ =?utf-8?B?ODZuSGJmQ0J2V05oejNMMFNvNnBwdTZUUzFFYW0rSmdqdlU1dlI3dEdha2VM?=
+ =?utf-8?B?VHdRd3VlT2pZb3cxZ3ZoS1k2SUFiT3JYOU1zQXFzOS9LL0hMRGtXTWp1WjJY?=
+ =?utf-8?B?Z25TQ3R0dzdpcUs5Q1JPRmR6d1J4SlZtWFc1RVNnbDhSMGZRQks3TFh2NHpu?=
+ =?utf-8?B?MSs0RmtjR005MHFKQ3NmcUtJUVlYL1hsZDJzS1RUcWlHMlcrdEVPcTRCTGxq?=
+ =?utf-8?B?cy9JcEZOY3Q1Y3dGVjVkT2wvd3BZaVFEelB5SXFORi9mSWphckxTeXk5K1pO?=
+ =?utf-8?B?UnhpUndaL0RlTE4zUGlNbVZVcHFvNzhNcFpGR014SGxFRXR6KzVlZzVrZHAx?=
+ =?utf-8?B?djJtSDFzSDF1bWFkRitvZmZoOHRISzZqNzdHNHdWbm13a1I2bEF3aXVla1lr?=
+ =?utf-8?B?MDlOaHk5eVE3S29TSzhlS2FFdklYUHNlZWFLeWtGUnFUNnhVZkRYbVFtTkc1?=
+ =?utf-8?B?ckk5VzVDMnFxdTZiTnNyam51YkVhWlJjdE9Za2I2VTJSdjFVbnNVUVBUVGdQ?=
+ =?utf-8?B?WjdXbW1YdkY4ZEhSc1M0cVVIL28yTVlkcnpPbldjZ292NU9rUlB1V045QnFl?=
+ =?utf-8?B?Wi9sQU9GQkRGYVRvVTZIaWNxT1VEbGNXeVRJUnZRdFNlWUdXaFlMd1Ivc0lF?=
+ =?utf-8?B?a1NtY3FMNnAvU0dMOUFDN2wrT0RpU29nRzYwdlB2d3VZTHpmVnFtcTVsT0hm?=
+ =?utf-8?B?cERLOXRvdGpEcnlsb2MzYUdQWmxQT1d2cldGY2VkNHBzQ0xENmdocG43NSt6?=
+ =?utf-8?Q?znPe40rWImS5ws3DgF?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a6a4d1a-a5d4-4e1d-1006-08dec5290ea9
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 06:42:06.5925 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aWh0FkF6SRYzYdOHvfJfr8w+wwO5oK+M9PU9O36QSJU9MkFTebDiQxQ0O/f4BSiO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4410
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,41 +150,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-xe_range_fence_insert() acquires a reference on fence via
-dma_fence_get() and stores it in rfence->fence.  It then calls
-dma_fence_add_callback() and handles two cases: when the callback
-is successfully registered (err == 0) the fence is transferred to
-the tree for later cleanup; when the fence is already signaled
-(err == -ENOENT) it manually drops the extra reference with
-dma_fence_put(fence).
+On 6/5/26 20:44, Bobby Eshleman wrote:
+> On Fri, Jun 05, 2026 at 11:30:07AM +0200, Christian König wrote:
+>> On 6/4/26 02:42, Bobby Eshleman wrote:
+>>> From: Bobby Eshleman <bobbyeshleman@meta.com>
+>>>
+>>> get_sg_table() emitted one PAGE_SIZE sg entry per page even when the
+>>> underlying folio was larger.
+>>>
+>>> Instead, walk folios[] and emit one sg entry per folio. When folios
+>>> represent large pages (as is for MFD_HUGETLB), each sg entry is a large
+>>> page. Normal PAGE_SIZE sg tables are unchanged.
+>>>
+>>> Required by net/core/devmem to support rx-buf-size > PAGE_SIZE with
+>>> udmabuf.
+>>
+>> That doesn't explain why this is required.
+> 
+> Sure, can definitely add. Devmem currently requires dmabuf sg entries to
+> be length and size aligned when it allocates niovs for NIC page pools.
+> Though udmabuf is not violating any dmabuf contract by emitting
+> PAGE_SIZE entries and the above restriction is probably more a
+> shortfalling of devmem, by emitting a single entry per folio this patch
+> allows udmabuf to be used by devmem for large pages.
+> 
+>>
+>> Please note that accessing the pages/folio of an sg-table returned by DMA-buf is illegal and strictly forbidden!
+>>
+>> Regards,
+>> Christian.
+> 
+> It seems both devmem and io_uring zcrx at least introspect through to
+> the sg-table to build NIC page pools (not accessing the memory itself,
+> however). Is there a better way?
 
-However, dma_fence_add_callback() can fail with other errors
-(e.g. -EINVAL) and in that case the code falls through to the free:
-label without releasing the acquired reference, leaking it.
+That's an absolute NO-GO! We need to stop that immediately.
 
-Fix the leak by adding an else branch that calls dma_fence_put()
-before jumping to free: for any error other than -ENOENT.
+Touching the underlying struct page of an DMA-buf exported sg-table is strictly forbidden.
 
-Cc: stable@vger.kernel.org
-Fixes: 845f64bdbfc9 ("drm/xe: Introduce a range-fence utility")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/xe/xe_range_fence.c | 2 ++
- 1 file changed, 2 insertions(+)
+We even have code to wrap the sg_table and hide the struct pages on debug builds to catch those issues, see function dma_buf_wrap_sg_table().
 
-diff --git a/drivers/gpu/drm/xe/xe_range_fence.c b/drivers/gpu/drm/xe/xe_range_fence.c
-index 372378e89e98..3d8fa194a7b0 100644
---- a/drivers/gpu/drm/xe/xe_range_fence.c
-+++ b/drivers/gpu/drm/xe/xe_range_fence.c
-@@ -77,6 +77,8 @@ int xe_range_fence_insert(struct xe_range_fence_tree *tree,
- 	} else if (err == 0) {
- 		xe_range_fence_tree_insert(rfence, &tree->root);
- 		return 0;
-+	} else {
-+		dma_fence_put(fence);
- 	}
- 
- free:
--- 
-2.34.1
+My last status is that the NIC page pools are build directly from the DMA addresses exposed by the sg_table.
+
+Was there any change I'm not aware of?
+
+Regards,
+Christian.
+
+> 
+> Best,
+> Bobby
+> 
+>>
+>>> Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
+>>> ---
+>>>  drivers/dma-buf/udmabuf.c | 47 ++++++++++++++++++++++++++++++++++++++++++-----
+>>>  1 file changed, 42 insertions(+), 5 deletions(-)
+>>>
+>>> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+>>> index 94b8ecb892bb..f28dd3788ada 100644
+>>> --- a/drivers/dma-buf/udmabuf.c
+>>> +++ b/drivers/dma-buf/udmabuf.c
+>>> @@ -141,26 +141,63 @@ static void vunmap_udmabuf(struct dma_buf *buf, struct iosys_map *map)
+>>>         vm_unmap_ram(map->vaddr, ubuf->pagecount);
+>>>  }
+>>>
+>>> +/* Return the number of contiguous pages backed by the folio at @i.
+>>> + * A udmabuf may map only part of a folio, or reference the same folio
+>>> + * in multiple non-contiguous runs, so folio_nr_pages() can't be used.
+>>> + */
+>>> +static pgoff_t udmabuf_folio_nr_pages(struct udmabuf *ubuf, pgoff_t i)
+>>> +{
+>>> +       struct folio *f = ubuf->folios[i];
+>>> +       pgoff_t j;
+>>> +
+>>> +       for (j = 1; i + j < ubuf->pagecount; j++) {
+>>> +               if (ubuf->folios[i + j] != f)
+>>> +                       break;
+>>> +               /* Same folio, but not a sequential offset within it. */
+>>> +               if (ubuf->offsets[i + j] != ubuf->offsets[i] + j * PAGE_SIZE)
+>>> +                       break;
+>>> +       }
+>>> +       return j;
+>>> +}
+>>> +
+>>> +/* Count the contiguous folio runs in @ubuf, one sg entry per run. */
+>>> +static unsigned int udmabuf_sg_nents(struct udmabuf *ubuf)
+>>> +{
+>>> +       unsigned int nents = 0;
+>>> +       pgoff_t i;
+>>> +
+>>> +       for (i = 0; i < ubuf->pagecount; i += udmabuf_folio_nr_pages(ubuf, i))
+>>> +               nents++;
+>>> +       return nents;
+>>> +}
+>>> +
+>>>  static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
+>>>                                      enum dma_data_direction direction)
+>>>  {
+>>>         struct udmabuf *ubuf = buf->priv;
+>>> -       struct sg_table *sg;
+>>>         struct scatterlist *sgl;
+>>> -       unsigned int i = 0;
+>>> +       struct sg_table *sg;
+>>> +       pgoff_t i, run;
+>>> +       unsigned int nents;
+>>>         int ret;
+>>>
+>>> +       nents = udmabuf_sg_nents(ubuf);
+>>> +
+>>>         sg = kzalloc_obj(*sg);
+>>>         if (!sg)
+>>>                 return ERR_PTR(-ENOMEM);
+>>>
+>>> -       ret = sg_alloc_table(sg, ubuf->pagecount, GFP_KERNEL);
+>>> +       ret = sg_alloc_table(sg, nents, GFP_KERNEL);
+>>>         if (ret < 0)
+>>>                 goto err_alloc;
+>>>
+>>> -       for_each_sg(sg->sgl, sgl, ubuf->pagecount, i)
+>>> -               sg_set_folio(sgl, ubuf->folios[i], PAGE_SIZE,
+>>> +       sgl = sg->sgl;
+>>> +       for (i = 0; i < ubuf->pagecount; i += run) {
+>>> +               run = udmabuf_folio_nr_pages(ubuf, i);
+>>> +               sg_set_folio(sgl, ubuf->folios[i], run << PAGE_SHIFT,
+>>>                              ubuf->offsets[i]);
+>>> +               sgl = sg_next(sgl);
+>>> +       }
+>>>
+>>>         ret = dma_map_sgtable(dev, sg, direction, 0);
+>>>         if (ret < 0)
+>>>
+>>> --
+>>> 2.53.0-Meta
+>>>
+>>
 
