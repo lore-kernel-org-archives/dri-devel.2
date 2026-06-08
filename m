@@ -4,56 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1033BCD8C9F
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 10:08:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BA2ACD8C9F
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 10:20:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F43010F0D2;
-	Mon,  8 Jun 2026 10:08:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F99310F124;
+	Mon,  8 Jun 2026 10:20:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="lVRxYkXM";
+	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="jxABCkWS";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E66310F0D2
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 10:08:53 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gYnnG4TRsz9sWC;
- Mon,  8 Jun 2026 12:08:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1780913330; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=cSWjB7fWGs+wXhuVWq/9W4Hh/l44MANG3fySQbhFHak=;
- b=lVRxYkXMelHz/E4STNy7YmWsyFcebKfM3A8oJJB2/53t9PfwPUifUXFUIozI7KieC6Mrtw
- J8P7YF40fiXloP1hHN69Sk+pFiG8klJ3AoaeUv7YxYCld1VG4/0IYlP6LDgfTzTyLKPpqS
- PhouXImJXt+i3MZ46tHmPMGBgHPCREA7IxoUljnQpt8wcJEnHhypdT2zqV/FOgGMXQv9Et
- 4F0/4o78lKJM+fhAufLb0ZWB/nNjupnXoLpT6DuelZrE/bVnQVAenjiav5jC/kuiwXonaO
- lu7FCbJMjFBb9KusCdWvt6f4ShOgGirXewfqJyZ5lem5782Wjnmq7IU3eW10VA==
-Message-ID: <28fa48b63a6968999e40ff718ce06473e5baeb7c.camel@mailbox.org>
-Subject: Re: [PATCH 3/3] drm/rocket: Drop the dedicated reset workqueue
-From: Philipp Stanner <phasta@mailbox.org>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Tomeu Vizoso	
- <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <ckoenig.leichtzumerken@gmail.com>, Rob Herring
- <robh@kernel.org>, Matthew Brost <matthew.brost@intel.com>, Danilo
- Krummrich <dakr@kernel.org>, Philipp Stanner	 <phasta@kernel.org>, Sumit
- Semwal <sumit.semwal@linaro.org>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-Date: Mon, 08 Jun 2026 12:08:45 +0200
-In-Reply-To: <20260605-rocket-per-task-jobs-v1-3-e3319adf3c49@igalia.com>
-References: <20260605-rocket-per-task-jobs-v1-0-e3319adf3c49@igalia.com>
- <20260605-rocket-per-task-jobs-v1-3-e3319adf3c49@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 856B810F109
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 10:20:22 +0000 (UTC)
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20260608102019euoutp02a495e36787ce866797e813618bd1da6d~3E92KqK5b2919829198euoutp02G
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 10:20:19 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20260608102019euoutp02a495e36787ce866797e813618bd1da6d~3E92KqK5b2919829198euoutp02G
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1780914019;
+ bh=MwX2QwB3+58Yda8r88VDRC3U2MfXiXWf69QmRRXsBQc=;
+ h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+ b=jxABCkWSyUh7FsGKgTYBpiU3QpLMDlM8fod8Cuta/WeqjjSPa/zm0+6C9rbnt83//
+ 26XV1QcQsi7S5V1kmCJyMx6GL+vC3O2lj7Zx2Q8yq/vVuIflRwZQ18vaqGsagf4djN
+ o4wsaQry54j2ikTdpgRxWm2d7Y4p1ze0KnzdQQgs=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20260608102019eucas1p2d2d5aaeac17e5fe86a6e77b5f214d9c5~3E91nfe0Y0110601106eucas1p2b;
+ Mon,  8 Jun 2026 10:20:19 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260608102018eusmtip10272072f4c7e9dda37c4e1c049edc977~3E90jKOr91778017780eusmtip1S;
+ Mon,  8 Jun 2026 10:20:18 +0000 (GMT)
+Message-ID: <f44cd26b-782b-493f-b298-482629780385@samsung.com>
+Date: Mon, 8 Jun 2026 12:20:16 +0200
 MIME-Version: 1.0
-X-MBO-RS-ID: d015d8fe82b1f750928
-X-MBO-RS-META: w78z619rhxcs85s77k8knq4rbnkbipts
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] drm/bridge: samsung-dsim: fix TE GPIO ownership
+To: Alexander Stein <alexander.stein@ew.tq-group.com>, Inki Dae
+ <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, Andrzej
+ Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, Jernej
+ Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Marek Vasut <marex@denx.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <7255371.MhkbZ0Pkbq@steina-w>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260608102019eucas1p2d2d5aaeac17e5fe86a6e77b5f214d9c5
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260605075148eucas1p1f6de1f1b3c9e063bc4e803da73cb2221
+X-EPHeader: CA
+X-CMS-RootMailID: 20260605075148eucas1p1f6de1f1b3c9e063bc4e803da73cb2221
+References: <20260604114604.1422184-1-lgs201920130244@gmail.com>
+ <CGME20260605075148eucas1p1f6de1f1b3c9e063bc4e803da73cb2221@eucas1p1.samsung.com>
+ <7255371.MhkbZ0Pkbq@steina-w>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,95 +78,69 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 2026-06-05 at 13:07 -0300, Ma=C3=ADra Canal wrote:
-> Each core allocated an ordered workqueue ("rocket-reset-%d") and passed
-> it as the scheduler's timeout_wq. The only documented reason to provide a
-> custom timeout_wq is to serialize the timeout handlers of several
-> schedulers that share globally-reset hardware.
->=20
+On 05.06.2026 09:51, Alexander Stein wrote:
+> Am Donnerstag, 4. Juni 2026, 13:46:04 CEST schrieb Guangshuo Li:
+>> samsung_dsim_register_te_irq() acquires the TE GPIO with
+>> devm_gpiod_get_optional(), but the descriptor is released manually in the
+>> request_threaded_irq() error path and in samsung_dsim_unregister_te_irq().
+>> The devres entry remains registered and will release the same descriptor
+>> again when the device is detached.
+>>
+>> Use the non-managed gpiod_get_optional() helper instead, so the GPIO
+>> descriptor lifetime matches the existing manual cleanup paths. Also clear
+>> dsi->te_gpio after each gpiod_put() to avoid leaving a stale descriptor
+>> pointer around if the host is attached again.
+> Shouldn't you use devm_gpiod_put instead of gpiod_put?
 
-I think it's mostly about serializing timeouts for hardware where one
-ring blocking can cause another ring to delay. So it's about catching
-false-positive timeouts for certain rings.
-
->  That does not apply here:
-> each core has its own scheduler and is reset independently
-> (rocket_reset() only touches its own core). With the reset worker gone,
-> the workqueue served solely as the timeout_wq.
->=20
-> Drop it and let drm_sched fall back to the default timeout workqueue.
-
-From what I can tell, much of the cleanup, especially this part, looks
-quite non-controversial.
+Not really. The dev pointer here is not the device that the $subject driver binds to, so using devm_* interface is a bit fragile. Similar issue was fixed long time ago by commit fedc89821990 ("drm/exynos: Search for TE-gpio in DSI panel's node"). I would prefer explicitly use non-devm api for it.
 
 
-P.
+For the initial patch:
 
->=20
-> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
-> ---
-> =C2=A0drivers/accel/rocket/rocket_core.h |=C2=A0 4 ----
-> =C2=A0drivers/accel/rocket/rocket_job.c=C2=A0 | 15 +--------------
-> =C2=A02 files changed, 1 insertion(+), 18 deletions(-)
->=20
-> diff --git a/drivers/accel/rocket/rocket_core.h b/drivers/accel/rocket/ro=
-cket_core.h
-> index f74dc99d07bb..607e4270f59c 100644
-> --- a/drivers/accel/rocket/rocket_core.h
-> +++ b/drivers/accel/rocket/rocket_core.h
-> @@ -46,10 +46,6 @@ struct rocket_core {
-> =C2=A0
-> =C2=A0	spinlock_t fence_lock;
-> =C2=A0
-> -	struct {
-> -		struct workqueue_struct *wq;
-> -	} reset;
-> -
-> =C2=A0	struct drm_gpu_scheduler sched;
-> =C2=A0	u64 fence_context;
-> =C2=A0	u64 emit_seqno;
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index 871041eb7a1d..1a454559ecf4 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -467,33 +467,20 @@ int rocket_job_init(struct rocket_core *core)
-> =C2=A0		return ret;
-> =C2=A0	}
-> =C2=A0
-> -	core->reset.wq =3D alloc_ordered_workqueue("rocket-reset-%d", 0, core->=
-index);
-> -	if (!core->reset.wq)
-> -		return -ENOMEM;
-> -
-> =C2=A0	core->fence_context =3D dma_fence_context_alloc(1);
-> =C2=A0
-> -	args.timeout_wq =3D core->reset.wq;
-> =C2=A0	ret =3D drm_sched_init(&core->sched, &args);
-> =C2=A0	if (ret) {
-> =C2=A0		dev_err(core->dev, "Failed to create scheduler: %d.", ret);
-> -		goto err_sched;
-> +		return ret;
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	return 0;
-> -
-> -err_sched:
-> -	drm_sched_fini(&core->sched);
-> -
-> -	destroy_workqueue(core->reset.wq);
-> -	return ret;
-> =C2=A0}
-> =C2=A0
-> =C2=A0void rocket_job_fini(struct rocket_core *core)
-> =C2=A0{
-> =C2=A0	drm_sched_fini(&core->sched);
-> -
-> -	destroy_workqueue(core->reset.wq);
-> =C2=A0}
-> =C2=A0
-> =C2=A0int rocket_job_open(struct rocket_file_priv *rocket_priv)
+Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
+
+>> Fixes: e7447128ca4a ("drm: bridge: Generalize Exynos-DSI driver into a Samsung DSIM bridge")
+>> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+>> ---
+>>  drivers/gpu/drm/bridge/samsung-dsim.c | 4 +++-
+>>  1 file changed, 3 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/bridge/samsung-dsim.c b/drivers/gpu/drm/bridge/samsung-dsim.c
+>> index c3eb437ef1b0..2299b7dc0c04 100644
+>> --- a/drivers/gpu/drm/bridge/samsung-dsim.c
+>> +++ b/drivers/gpu/drm/bridge/samsung-dsim.c
+>> @@ -1862,7 +1862,7 @@ static int samsung_dsim_register_te_irq(struct samsung_dsim *dsi, struct device
+>>  	int te_gpio_irq;
+>>  	int ret;
+>>  
+>> -	dsi->te_gpio = devm_gpiod_get_optional(dev, "te", GPIOD_IN);
+>> +	dsi->te_gpio = gpiod_get_optional(dev, "te", GPIOD_IN);
+>>  	if (!dsi->te_gpio)
+>>  		return 0;
+>>  	else if (IS_ERR(dsi->te_gpio))
+>> @@ -1875,6 +1875,7 @@ static int samsung_dsim_register_te_irq(struct samsung_dsim *dsi, struct device
+>>  	if (ret) {
+>>  		dev_err(dsi->dev, "request interrupt failed with %d\n", ret);
+>>  		gpiod_put(dsi->te_gpio);
+>> +		dsi->te_gpio = NULL;
+>>  		return ret;
+>>  	}
+>>  
+>> @@ -1886,6 +1887,7 @@ static void samsung_dsim_unregister_te_irq(struct samsung_dsim *dsi)
+>>  	if (dsi->te_gpio) {
+>>  		free_irq(gpiod_to_irq(dsi->te_gpio), dsi);
+>>  		gpiod_put(dsi->te_gpio);
+>> +		dsi->te_gpio = NULL;
+>>  	}
+>>  }
+>>  
+>>
+>
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+
