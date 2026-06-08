@@ -4,72 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3542CD6E79
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 21:13:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BA45CD6E79
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 21:22:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0A0410E38B;
-	Mon,  8 Jun 2026 21:13:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DDA710F9C2;
+	Mon,  8 Jun 2026 21:22:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kEs20WeD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fKRJp8b2";
 	dkim-atps=neutral
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com
- [209.85.219.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CE6610E38B
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 21:13:50 +0000 (UTC)
-Received: by mail-qv1-f46.google.com with SMTP id
- 6a1803df08f44-8ccdf8d4ac5so52775946d6.1
- for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 14:13:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780953229; x=1781558029; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=cEF2ayBmzEO4/dop93e1RwK+zC/PoDn/nTSxzR+E0U4=;
- b=kEs20WeD1NtbkrMOmJQbWlcBcN/YQgW1HkmjzlF5ihnro4nvPr+LcNPwRuZN296i2f
- 868RpPmVZElg1QH5OuMh0bKWsxmT1GkKvDJ264Z4peX7yAwLRw2X6fRsd2v8Lz4Lf5pO
- +BFbmVZDO3eSllsizDeMxv/3jYrRoAMKPwurwJI637fHH6a0hDS3vNtscWI9TDOVk8Ss
- XUq4jNNRZWhn5Uishs0Csfkgxymvt6U5tf2B8wEykvRlvULMMXbgJIzV/uZPNwKSa4iN
- Q/hwjtDVw+PyYtKRcUFJ7ZMqd0IqM3BKy1bB9kPSSUpozdUQ0lCbogYmRFZ+Sb11kVqK
- T96A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780953229; x=1781558029;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cEF2ayBmzEO4/dop93e1RwK+zC/PoDn/nTSxzR+E0U4=;
- b=b2dx7ZqUGGBYXtCk8EfBUL8EdnTw4+of6kJ/7tZTBbEZXcg0lo2fuMjVeDqywov/ti
- FhyRLGRryNRYKE5VNzi1hOOMH9+NqZzYETocx593u04omD/4ihRHFvcWyUL9pWWiXewu
- ywfT/Czq5KB+TLZXBccOp1Y1aYjVKfLl6JNjGK3tyG1iJT9Ki+iU/Z/4Qy4qvBGpL1a6
- 42Olbu/aezDNhCSEVjfWCUrmWp9f7e2sjTrUwBBq5WjGxhe9DvPEJy14KrD+vwUr9NsW
- dFK6Hi5GX5yPNMYBT5ETlnQLcdJJvxWwX+C4GOnZZ5v/yGJeSNt2nWcInpgXE4uKLJWp
- ApHA==
-X-Gm-Message-State: AOJu0Yxc2u3HRyDEibni5urXHFA4iULSJGdlKrP0y59oKwSeP7b0C4DU
- o1QyIXoPSeAnZoZR2vXdMG0G9vDwfz1yD13tW+cAB4isrFTVuv6Y9LWt
-X-Gm-Gg: Acq92OEdXfGhzpxa+uRR54LtvJV7MAFU+IOGbAO1CPe1IfMpeRHbCtnZY8SqAegwnfT
- uukmbl/XmHjGsSYUHRRgO7mVoNmdkLgxjL7czo0IkDP4iuTYPJ0tzQexu4d3XHiqRNsMZinrgQz
- mQdUV7GLzsl5xMEJhLk+Jy6HkySrjtzrTcQD5Bf4AgNLTWJmPWjx7jOE2eJ+/nU0DOPQMd3WJO1
- 68gEsCXpgEciN5btngQRW3JRMIRWgIt1t96tjVsXObyEVRycKPlWha1/UrGpmFC1nkjMe+SqBoJ
- DDS4MvFVS1zWa+Nod+8d/4+2RTPwu0oVqY5ktmZHJxNy3Pj5I4piC/PEpquwUNq45sQOqgVG6Jk
- 6FTiFvfYq7AXbXL48+75jili6TfIRLZpAtTrJqmtAqy0452LxuVa+tMF44p/nTlEfwLYlMy2vfP
- gtoyBEfYxHa6BvAfshWLIIXRTN19r7uNiydw7FVVkOy7E56Ww/pq4=
-X-Received: by 2002:a0c:f9d1:0:b0:8ce:a005:3ea6 with SMTP id
- 6a1803df08f44-8cee6023642mr205113226d6.22.1780953229512; 
- Mon, 08 Jun 2026 14:13:49 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8cecd26b3b9sm179547456d6.45.2026.06.08.14.13.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Jun 2026 14:13:48 -0700 (PDT)
-From: Yuho Choi <dbgh9129@gmail.com>
-To: Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Yuho Choi <dbgh9129@gmail.com>
-Subject: [PATCH v1] drm/kmb: Fix device reference leaks in probe
-Date: Mon,  8 Jun 2026 17:13:41 -0400
-Message-ID: <20260608211341.123939-1-dbgh9129@gmail.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B64410F9C2
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 21:22:48 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id B66A56001D;
+ Mon,  8 Jun 2026 21:22:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ED631F00893;
+ Mon,  8 Jun 2026 21:22:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780953767;
+ bh=EfXp7JFa1R9BKRZHoQ67nu1SOmfqiextSFNLvVPjdPw=;
+ h=Date:Cc:To:From:Subject:References:In-Reply-To;
+ b=fKRJp8b2lDPKEQ0P7arJaQthfdjff7/CLhBnyRYh7Mh7c8rfX/VweH0Ew0mGY1kIR
+ yt+70EIPgseJyASFq0Eb8GeOpuWh0DPbTWGBRPI8UxnHfULw3rvGVcsA/irV8A013G
+ IrberBpnJqnRCvp04DfjZSZ9LjkjMx+xd7L5Enpcd51dw5msdChsqU3ewzRlEAdNdk
+ a7doGJS8dZopmfYQoG8cPUgBbFxtd1GGnDvVMyhGWNu4L6YYdJUvFUR06PNYXelahw
+ KP5MOmSH+vMC96ZcOX8u3IK75RS7Nst26rCwGmVW3dNTUhc3G5eBdv1e/om9KTd2b+
+ 9UAgvbNxSt+cg==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 08 Jun 2026 23:22:40 +0200
+Message-Id: <DJ3ZF2YU9HRH.1X00QSPYJOA8G@kernel.org>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Abdiel
+ Janulgue" <abdiel.janulgue@gmail.com>, "Robin Murphy"
+ <robin.murphy@arm.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "Laura Nao"
+ <laura.nao@collabora.com>
+To: "Gary Guo" <gary@garyguo.net>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v3 00/19] rust: I/O type generalization and projection
+References: <20260608-io_projection-v3-0-c5cde13a5ec4@garyguo.net>
+In-Reply-To: <20260608-io_projection-v3-0-c5cde13a5ec4@garyguo.net>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,178 +70,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-kmb_probe() takes a reference to its own platform device only to keep a
-local dev pointer, and passes an extra reference to the DSI platform
-device into kmb_dsi_host_bridge_init(). Neither reference is released.
+On Mon Jun 8, 2026 at 9:58 PM CEST, Gary Guo wrote:
+> This series present a major rework of I/O types, as a summary:
+>
+> - Make I/O regions typed. The existing untyped region still exists
+>   with a dynamically sized `Region` type.
+>
+> - Create I/O view types to represent subregion of a full I/O region mappe=
+d.
+>   A projection macro is added to allow safely create such subviews.
+>
+> - Split I/O traits, make I/O views play a central role, avoid
+>   duplicate monomorphization and less `unsafe` code.
+>
+> - Add a `SysMem` backend, and make `Coherent` implement `Io`.
+>
+> - Add copying methods (memcpy_{from,to}io and friends).
 
-The DSI platform device returned by of_find_device_by_node() also carries
-a reference that is not put on probe failure or after successful setup.
+Great work, Gary! I very much like how the implementation turns out overall
+(will go over the details in the next days).
 
-Use borrowed device pointers where no ownership is needed. Keep an owned
-reference only for the registered DSI host device, and drop it when the
-host is unregistered. Release the temporary of_find_device_by_node()
-reference on all probe exits.
+FYI, once ready I will merge this with a "Merge patch series" merge commit =
+to
+retain the cover letter as I did with the driver lifetime series previously=
+.
 
-Fixes: 7f7b96a8a0a1 ("drm/kmb: Add support for KeemBay Display")
-Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
----
- drivers/gpu/drm/kmb/kmb_drv.c | 32 ++++++++++++++++++++------------
- drivers/gpu/drm/kmb/kmb_dsi.c | 31 ++++++++++++++++++++++++++-----
- 2 files changed, 46 insertions(+), 17 deletions(-)
+Suggested-by: Danilo Krummrich <dakr@kernel.org>
+Link: https://rust-for-linux.zulipchat.com/#narrow/channel/288089-General/t=
+opic/Generic.20I.2FO.20backends/near/571198078
 
-diff --git a/drivers/gpu/drm/kmb/kmb_drv.c b/drivers/gpu/drm/kmb/kmb_drv.c
-index 7c2eb1152fc2..f8ef618e3a81 100644
---- a/drivers/gpu/drm/kmb/kmb_drv.c
-+++ b/drivers/gpu/drm/kmb/kmb_drv.c
-@@ -479,7 +479,7 @@ static void kmb_remove(struct platform_device *pdev)
- 
- static int kmb_probe(struct platform_device *pdev)
- {
--	struct device *dev = get_device(&pdev->dev);
-+	struct device *dev = &pdev->dev;
- 	struct kmb_drm_private *kmb;
- 	int ret = 0;
- 	struct device_node *dsi_in;
-@@ -515,20 +515,24 @@ static int kmb_probe(struct platform_device *pdev)
- 
- 	of_node_put(dsi_in);
- 	of_node_put(dsi_node);
--	ret = kmb_dsi_host_bridge_init(get_device(&dsi_pdev->dev));
-+	ret = kmb_dsi_host_bridge_init(&dsi_pdev->dev);
- 
--	if (ret == -EPROBE_DEFER) {
--		return -EPROBE_DEFER;
--	} else if (ret) {
--		DRM_ERROR("probe failed to initialize DSI host bridge\n");
--		return ret;
-+	if (ret) {
-+		if (ret != -EPROBE_DEFER) {
-+			DRM_ERROR("probe failed to initialize DSI host bridge\n");
-+			kmb_dsi_host_unregister(NULL);
-+		}
-+		goto err_put_dsi_pdev;
- 	}
- 
- 	/* Create DRM device */
- 	kmb = devm_drm_dev_alloc(dev, &kmb_driver,
- 				 struct kmb_drm_private, drm);
--	if (IS_ERR(kmb))
--		return PTR_ERR(kmb);
-+	if (IS_ERR(kmb)) {
-+		ret = PTR_ERR(kmb);
-+		kmb_dsi_host_unregister(NULL);
-+		goto err_put_dsi_pdev;
-+	}
- 
- 	dev_set_drvdata(dev, &kmb->drm);
- 
-@@ -537,11 +541,11 @@ static int kmb_probe(struct platform_device *pdev)
- 	if (IS_ERR(kmb->kmb_dsi)) {
- 		drm_err(&kmb->drm, "failed to initialize DSI\n");
- 		ret = PTR_ERR(kmb->kmb_dsi);
--		goto err_free1;
-+		dev_set_drvdata(dev, NULL);
-+		kmb_dsi_host_unregister(NULL);
-+		goto err_put_dsi_pdev;
- 	}
- 
--	kmb->kmb_dsi->dev = &dsi_pdev->dev;
--	kmb->kmb_dsi->pdev = dsi_pdev;
- 	ret = kmb_hw_init(&kmb->drm, 0);
- 	if (ret)
- 		goto err_free1;
-@@ -565,6 +569,7 @@ static int kmb_probe(struct platform_device *pdev)
- 
- 	drm_client_setup(&kmb->drm, NULL);
- 
-+	put_device(&dsi_pdev->dev);
- 	return 0;
- 
-  err_register:
-@@ -578,6 +583,9 @@ static int kmb_probe(struct platform_device *pdev)
- 	dev_set_drvdata(dev, NULL);
- 	kmb_dsi_host_unregister(kmb->kmb_dsi);
- 
-+ err_put_dsi_pdev:
-+	put_device(&dsi_pdev->dev);
-+
- 	return ret;
- }
- 
-diff --git a/drivers/gpu/drm/kmb/kmb_dsi.c b/drivers/gpu/drm/kmb/kmb_dsi.c
-index aeb2f9f98f23..025384a6fb69 100644
---- a/drivers/gpu/drm/kmb/kmb_dsi.c
-+++ b/drivers/gpu/drm/kmb/kmb_dsi.c
-@@ -182,8 +182,19 @@ static void kmb_dsi_clk_disable(struct kmb_dsi *kmb_dsi)
- 
- void kmb_dsi_host_unregister(struct kmb_dsi *kmb_dsi)
- {
--	kmb_dsi_clk_disable(kmb_dsi);
--	mipi_dsi_host_unregister(kmb_dsi->host);
-+	struct device *dev;
-+
-+	if (kmb_dsi)
-+		kmb_dsi_clk_disable(kmb_dsi);
-+
-+	if (!dsi_host || !dsi_host->dev)
-+		return;
-+
-+	mipi_dsi_host_unregister(dsi_host);
-+
-+	dev = dsi_host->dev;
-+	dsi_host->dev = NULL;
-+	put_device(dev);
- }
- 
- /*
-@@ -217,6 +228,7 @@ static const struct mipi_dsi_host_ops kmb_dsi_host_ops = {
- int kmb_dsi_host_bridge_init(struct device *dev)
- {
- 	struct device_node *encoder_node, *dsi_out;
-+	int ret;
- 
- 	/* Create and register MIPI DSI host */
- 	if (!dsi_host) {
-@@ -230,12 +242,20 @@ int kmb_dsi_host_bridge_init(struct device *dev)
- 			dsi_device = kzalloc_obj(*dsi_device);
- 			if (!dsi_device) {
- 				kfree(dsi_host);
-+				dsi_host = NULL;
- 				return -ENOMEM;
- 			}
- 		}
-+	}
- 
--		dsi_host->dev = dev;
--		mipi_dsi_host_register(dsi_host);
-+	if (!dsi_host->dev) {
-+		dsi_host->dev = get_device(dev);
-+		ret = mipi_dsi_host_register(dsi_host);
-+		if (ret) {
-+			put_device(dsi_host->dev);
-+			dsi_host->dev = NULL;
-+			return ret;
-+		}
- 	}
- 
- 	/* Find ADV7535 node and initialize it */
-@@ -1410,7 +1430,6 @@ int kmb_dsi_mode_set(struct kmb_dsi *kmb_dsi, struct drm_display_mode *mode,
- struct kmb_dsi *kmb_dsi_init(struct platform_device *pdev)
- {
- 	struct kmb_dsi *kmb_dsi;
--	struct device *dev = get_device(&pdev->dev);
- 
- 	kmb_dsi = devm_kzalloc(dev, sizeof(*kmb_dsi), GFP_KERNEL);
- 	if (!kmb_dsi) {
-@@ -1420,6 +1439,8 @@ struct kmb_dsi *kmb_dsi_init(struct platform_device *pdev)
- 
- 	kmb_dsi->host = dsi_host;
- 	kmb_dsi->host->ops = &kmb_dsi_host_ops;
-+	kmb_dsi->dev = &pdev->dev;
-+	kmb_dsi->pdev = pdev;
- 
- 	dsi_device->host = kmb_dsi->host;
- 	kmb_dsi->device = dsi_device;
--- 
-2.43.0
-
+(Either on the relevant patches or just the cover letter, both is fine with=
+ me.)
