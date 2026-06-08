@@ -4,103 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CBBBCD6E79
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 18:55:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 671C8CD8CA4
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 19:17:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A39CA10F8DC;
-	Mon,  8 Jun 2026 18:55:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A45B410F8FC;
+	Mon,  8 Jun 2026 19:17:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="To9mvB3k";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="PTLsBZ3X";
 	dkim-atps=neutral
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0AAA10F8DC
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 18:55:14 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-5aa62bd04fbso22921e87.0
- for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 11:55:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780944913; cv=none;
- d=google.com; s=arc-20240605;
- b=MCmK3kwDgH3yRUsXILpfC/UDXUae99vX2r1VVThicHdzGF8LBOem9WFhy87/ClGHxV
- Kdm3X45xJX1JDhSSzAL1vhihAuNXsjlDpQLb3xX0afNncozYFTLRALKVaykzgX/Xuz8J
- 5u8PJlxqQOh1dh/JZIfSPFMHg/0YEtTVftZPPSS1proVyjuP7f6sGD3lMlPThFrLUo9n
- j+FgOWc3HZcbaPOErR4V2hDMwsKjXYe+40REQIbuyyKMxX2FbKpzUtVmArk6x9oAAKV4
- L/zuafneCKp/GNvqwwRyjve10GRrzgkq8On8ysGw3Dxa/6IDFFdoHRXMUn0KvHx2LPWg
- u6Ow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Dw+WR3kgPsmomU5BDy/wi1DbnucrDq50YuLE+lo/Shg=;
- fh=Rdo5syaPKaW2ihdFyS9lq2oMRpsl45AcAgtMJPzAzkY=;
- b=bfKqwbdr8fCC5Qy746UIzspsoPRlm1yI1OnO/kTEykmuoDa3UljPZmASEWdlGETBSC
- nFuMOlJx2ymGOeEXatL714LtmfQMApH9C2VAuN0q9YCltjROSwfcykpMmnOmOeAMkXEo
- wWg48ATmsvQGLPfTXYQSsleqyMtai8Keme877SL6RN1TzXZ8vq+ZNiFoFqeY5hgv5+5w
- Ccm8oiXsDV5fKWWHkXmAAunn5QIyo/dsCGpBwBdfqs0Ks+XMfv0ha1qLPyleRsx8wIQS
- xn7p7MSygBM4UxPcGYmht1/DTAgf0vd9dsijX1XqJjbajJXQk+zrVXB+pIbjgkmFFELJ
- +Jpw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1780944913; x=1781549713;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Dw+WR3kgPsmomU5BDy/wi1DbnucrDq50YuLE+lo/Shg=;
- b=To9mvB3kdtw54ZZ6hYvw+zQHhz7RK36UdZDhKVAPW5OSr/KpmnVYxPU+0/YaQzjomO
- i8+PIiZrDQ15npGVTOW3gt+F1NTsg/WYPuBuMyhrxeecUK+ACKzjDgnoGdwSkxpl3le9
- Evvx00VwfDP6kntpxytDEowEhZBgB+AlRRl+7RNTfXJQ5tVPARULf73wd9K+v2DSEwcg
- Eia+5TYhlp3HsGn8mJYAYBtfGXFc+RLu2xPE0VhCjPITybH5MLQBXUIW8vezYd9kelip
- cpFv75Nce4iIf6mA/TVVBP5+pk+QKpYVFR1TA/W6AafZpTGt5MwNU3jgm+sw0oOCD3He
- 8qzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780944913; x=1781549713;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Dw+WR3kgPsmomU5BDy/wi1DbnucrDq50YuLE+lo/Shg=;
- b=dVQKqG3/lZjshwzOAYAFWezWYN6lnWxiQQCAs45sEetxbHKew0Jn6USLpBgpX6QewJ
- smzi+8mY3gFEgehD699JRr+MixsisG6JKxXiU0qjrTHKvyDA0MlDBQTLnhK2lO4kdW/7
- lPa+eHILlMuvYKN41NEngV/3BzNCUWDtEQyjgicUliYWRwLJ3rbXZUCYoMKHcZdCTU4H
- p7E1wKPirXlY1B0g8YCM2KYlP+tqTz3ZqNL8DMLeykmD6siYHHS3qmif7pYu7y3t6Zuf
- XB5H5S3WHuAE5Du7KXb+cf6V+8JeQlPLdteyPctsx1E61jsV4dcGgw1goS+CpNbl58X6
- 5FXQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+hEge+vOBAGxl8Yko8xmBouypr9sMg9RQ1HoBVCwRt0kNFm61A1qKGu5DNm//7QDoM5TQKCVFPI3U=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxXa+SdMJBWoaqG8hZmQ6IVqRNFlJNOl19mF6ayA8lRD8IGzhy+
- pWnim9NTS6T6v3nasaCS6D14CoK/3fQqPDHPyp7bBGMzebeOtJoTFFev3Lm9o5p+HCfxvGtRzgx
- Y/+F8pieMwTxbWfZX2O7yUfwvK7ko0YycnT6L4iA=
-X-Gm-Gg: Acq92OE57G1f1+sKcNtt9XHuoUDBp/yS9qjxUIBxyg2iuboWwNjQ7gDIiNw/OPK8ZW4
- brwQJwlRIGBIAs/m6wHUHwN/rkW0ZSIf1K/CqQ4w/dAP678UaV+h1Ig2SeppZSBvuwZsBO6PgOU
- rrYj653g5plA/8LslvweoapmYtthyDFhsuwcTAIrLEDYjgOGHF99a66XLtMFbO0AGUNDSeRYP1j
- H6iGayYptk/6qSRagZgLKKMuSTZvjXtorUVuNfgRUQiLmyqc+c2fL2ULXpwHemW/JH6TVEXgb4J
- GsGhqPOtrNMAtuKrcgQjsGGGYqi2ALeQ3OXHBvwmbGaLuhHX8KW9wkU=
-X-Received: by 2002:a05:6512:3341:b0:5a1:274b:de2b with SMTP id
- 2adb3069b0e04-5aa88640402mr537440e87.9.1780944912435; Mon, 08 Jun 2026
- 11:55:12 -0700 (PDT)
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0554C10F8FC
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 19:17:03 +0000 (UTC)
+Received: from pps.filterd (m0528009.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65810GRZ1862310
+ for <dri-devel@lists.freedesktop.org>; Mon, 8 Jun 2026 12:17:03 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+ bh=lDYiZf89tMB/jY2Oi7bqvG5rG/l6tpRDvVzGXtZAUes=; b=PTLsBZ3XR+MR
+ YUKNHipEwWjhXpYJP4ZfYH1VZhSEXa8fu3PxTAqKxY2hbyXDKRWhtbB0iLSKhUux
+ RyLC4TmlLBXZVbW1JTH29dK+ptRp0gzRVM3NC3Ke2pJrcr3CsbLxeGTSQtYJTIzb
+ rf23+qNcwNGZRWSI0nwTMklahxR4uiEMgUDDUS/1m9PI7GsQ1tXBxowdkW6RSjYM
+ Y9MqkLvFJJpwel7ZmIyk8Iw6Zsom1CVUi3wk0DusI/Ay2eREQ2G9TeEdxmrkcOKn
+ ESzZF6ELZ6qRIn4LplKoKYHDqVQyKnfOG1qbhHxnPvBEA6pCNMY1vt3G6txq9SP6
+ Y+ErFQlLYQ==
+Received: from mail.thefacebook.com ([163.114.134.16])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4en5a5fetx-3
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 12:17:03 -0700 (PDT)
+Received: from twshared9540.02.snb2.facebook.com (2620:10d:c085:108::4) by
+ mail.thefacebook.com (2620:10d:c08b:78::c78f) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.41; Mon, 8 Jun 2026 19:17:01 +0000
+Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
+ id BB19F3CC10149; Mon,  8 Jun 2026 11:56:49 -0700 (PDT)
+From: Zhiping Zhang <zhipingz@meta.com>
+To: Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@ziepe.ca>, Leon
+ Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian Konig <christian.koenig@amd.com>
+CC: Bjorn Helgaas <helgaas@kernel.org>, <kvm@vger.kernel.org>,
+ <linux-rdma@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <dri-devel@lists.freedesktop.org>, Keith Busch
+ <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>, Yishai Hadas
+ <yishaih@nvidia.com>, Zhiping Zhang <zhipingz@meta.com>
+Subject: [PATCH v6 3/5] dma-buf: add optional get_tph() callback
+Date: Mon, 8 Jun 2026 11:56:40 -0700
+Message-ID: <20260608185646.4085127-4-zhipingz@meta.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260608185646.4085127-1-zhipingz@meta.com>
+References: <20260608185646.4085127-1-zhipingz@meta.com>
 MIME-Version: 1.0
-References: <20260601200012.3872274-1-xuehaohu@google.com>
- <20260604094344.GB245424@unreal>
- <CAPd9Lg_JkRdtNa=n+HE9SP+NFCSB+X_97eiPBqiONVLwV0pHwQ@mail.gmail.com>
- <20260607080244.GA327369@unreal>
-In-Reply-To: <20260607080244.GA327369@unreal>
-From: David Hu <xuehaohu@google.com>
-Date: Mon, 8 Jun 2026 14:54:59 -0400
-X-Gm-Features: AVVi8CcrgIqNX---JRMNN-9SsXpCXMWpb_Y08c-v1_nrKhDd232Ciz6Ae661o0I
-Message-ID: <CAPd9Lg94nGnn7HQPNiSS7w2QQjVAuJ_FkMggR=JfSGVJyAsgeg@mail.gmail.com>
-Subject: Re: [PATCH v5] dma-buf: Fix silent overflow for phys vec to sgt
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>,
- Kevin Tian <kevin.tian@intel.com>, 
- Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>,
- linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, jmoroni@google.com, 
- praan@google.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-FB-Internal: Safe
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: iWlYvGMGICFfXz7QCDb9es-MhWj-WKul
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDE3OCBTYWx0ZWRfXyvCkDxsPrcMl
+ nYT02yDJx1qBi5XomReF1po33bEZVXL+O+kobL6ABBoSGYirks+n4IGNnWJD2aN9womCtBnf8t2
+ ir39TW3qWDZTeHCaj7d1BeMOfpHfIZo7Q3tE0eC2bPYMY/0VLC5nhRT2XI9nt4UBwAYnZXeoLV7
+ ZOOO8re4QgbJjYhwsucjohhDZ2Z9c2BP0dHh4U03TlHW9ZewpijeEfd82H3xfKApOaE29rwveyD
+ 2uNKxvR65OauM6fjllhjofG9VGejjgd1RJFufaLnuJ5CcxMzhyrOpzU6IvMOSNVgn1EqfCnP/25
+ hlyDajb9lOC3nPVC4KsNFYcWO5RpKfc3j/MAtSHBqAD1sjQVS6Nc8r5eOYZc6NxzYW8pDTbZKgC
+ rpTwyXo8l24F2BBteGUwFw3Up1H+pEzP9GxybKj6NrX5W2GU8FIXCXlxLByUodqLJVju/kHyXWz
+ bOLdhrHdClPFFc3m8eQ==
+X-Proofpoint-GUID: iWlYvGMGICFfXz7QCDb9es-MhWj-WKul
+X-Authority-Analysis: v=2.4 cv=ZKLnX37b c=1 sm=1 tr=0 ts=6a27152f cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+ a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=U_y8lYiYyhHBU5rMqhb2:22 a=VabnemYjAAAA:8 a=VCL5LVowTDoYIPPXMCYA:9
+ a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-08_05,2026-06-05_02,2025-10-01_01
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,48 +92,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Jun 7, 2026 at 4:02=E2=80=AFAM Leon Romanovsky <leon@kernel.org> wr=
-ote:
->
-> On Thu, Jun 04, 2026 at 03:36:48PM -0400, David Hu wrote:
-> > On Thu, Jun 4, 2026 at 5:43=E2=80=AFAM Leon Romanovsky <leon@kernel.org=
-> wrote:
-> > >
-> > > On Mon, Jun 01, 2026 at 08:00:12PM +0000, David Hu wrote:
-> > > > @@ -133,6 +137,11 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struc=
-t dma_buf_attachment *attach,
-> > > >       }
-> > > >
-> > > >       nents =3D calc_sg_nents(dma->state, phys_vec, nr_ranges, size=
-);
-> > > > +     if (!nents) {
-> > > > +             ret =3D -EINVAL;
-> > > > +             goto err_free_state;
-> > > > +     }
-> > >
-> > > Technically, this hunk is not necessary, since sg_alloc_table() will
-> > > return -EINVAL when nents =3D=3D 0. At least, that is the behavior I =
-relied on.
-> >
-> > I originally added this explicit check in v5 to address Jason's
-> > feedback, and to make the
-> > failure explicit rather than relying on `sg_alloc_table()` failing
-> > silently on `nents=3D0`.
->
-> I prefer explicit checks, but I am not in favor of duplicating them.
-> Since sg_alloc_table() already validates this condition, we do not need
-> to repeat the same check in dma-buf. A comment should be sufficient to
-> inform future reviewers that nents =3D=3D 0 is already handled.
->
-> Thanks
+Add an optional dma-buf get_tph callback so an exporter can return TPH
+(TLP Processing Hints) metadata to an importer.
 
-Hi Leon,
+8-bit ST and 16-bit Extended ST are distinct namespaces in the PCIe TPH
+ST table and may both be present with different values. The importer
+passes its supported steering-tag width and the exporter returns the
+matching value, or -EOPNOTSUPP if no metadata is available for that
+width.
 
-Thank you for clarifying this further. Removing the duplication here
-sounds good to
-me. I'll drop the hunk, add a comment for posterity noting that `nents
-=3D 0` is
-handled by `sg_alloc_table()`, and send out a v6 shortly.
+The callback is intentionally exporter-owned and optional. The exporter
+owns the completing address space for the dma-buf, so only it can decide
+whether it has meaningful TPH metadata for that completer. The dma-buf
+core keeps the returned ST/PH tuple opaque and simply provides a
+discoverable negotiation point between exporter and importer; exporters
+that cannot derive a useful tuple just return -EOPNOTSUPP.
 
-Thanks a bunch,
-David
+That keeps the kernel API generic rather than VFIO-specific. The first
+user is VFIO_DEVICE_FEATURE_DMA_BUF_TPH in vfio-pci, with the mlx5 RDMA
+driver as the first importer, but any future exporter that can derive a
+TPH tuple for its completing address space can reuse the same callback.
+
+Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
+---
+ include/linux/dma-buf.h | 31 +++++++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
+
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index d1203da56fc5..8437dbe4a83e 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -113,6 +113,37 @@ struct dma_buf_ops {
+ 	 */
+ 	void (*unpin)(struct dma_buf_attachment *attach);
+=20
++	/**
++	 * @get_tph:
++	 * @dmabuf: DMA buffer for which to retrieve TPH metadata
++	 * @extended: false to request the 8-bit ST namespace, true to request
++	 *            the 16-bit Extended ST namespace
++	 * @steering_tag: Returns the raw TPH steering tag for the requested
++	 *                namespace
++	 * @ph: Returns the TPH processing hint (2-bit value)
++	 *
++	 * Return the TPH (TLP Processing Hints) metadata associated with this
++	 * DMA buffer for the requested steering-tag namespace. 8-bit ST and
++	 * 16-bit Extended ST are distinct namespaces in the PCIe TPH ST table
++	 * and may both be present with different values, so the exporter must
++	 * select the value that matches @extended and must not substitute one
++	 * for the other.
++	 *
++	 * The exporter owns the completing address space for @dmabuf and
++	 * therefore decides whether it can derive meaningful TPH metadata for
++	 * that completer. The dma-buf core treats the returned ST/PH tuple as
++	 * opaque transport metadata; importers that support TPH place it on
++	 * outbound TLPs, while exporters that cannot derive a useful tuple
++	 * simply return -EOPNOTSUPP.
++	 *
++	 * Return 0 on success, or -EOPNOTSUPP if no metadata is available for
++	 * the requested namespace.
++	 *
++	 * This callback is optional.
++	 */
++	int (*get_tph)(struct dma_buf *dmabuf, bool extended,
++		       u16 *steering_tag, u8 *ph);
++
+ 	/**
+ 	 * @map_dma_buf:
+ 	 *
+--=20
+2.53.0-Meta
+
