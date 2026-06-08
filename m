@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE8E7CD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:38:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ECC8CD8C92
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:38:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C26A10F4F6;
-	Mon,  8 Jun 2026 14:38:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 969F610F4F9;
+	Mon,  8 Jun 2026 14:38:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PBL+eXpL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NFAeHpw6";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD98C10F4F6
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:38:41 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA99C10F4F7
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:38:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 400E9601E8;
- Mon,  8 Jun 2026 14:38:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7792D1F00893;
- Mon,  8 Jun 2026 14:38:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B5EFF40233;
+ Mon,  8 Jun 2026 14:38:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2663E1F00898;
+ Mon,  8 Jun 2026 14:38:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780929521;
- bh=n0txNHYmiGgdg0+Qr8XzTGWX0bjJyd7ktnr8zAdWqVk=;
+ s=k20260515; t=1780929523;
+ bh=dE3oyBfZXHBAIuUCjtBZLnQ5uXRzUOdkNj3PYR0EAjo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=PBL+eXpLlc5uVDdLSEFiLCmpZfFhpkUNScuSdgbaytpvimbsx/bt8lyee25lDlRXJ
- Q7v3cZ4XxLz/RBtt8k6Zqn89FJoXe//1RNVnRXg+FvUSV01kOm6FhNxO9Gjyn2R+TR
- pLajElsri3U/TPvSCRweGdfK8Jq73uiBRhAiqqBrxQUbnJllf0l1Ciikv+4ADv5bfw
- al5oa77o4kJWXx8tlN/u0xFMPtxmYC5DIWk4YrEJ4ofHr2yPUGs4hq6dfAGDXfTUKJ
- 0v7PUX3Qov4vrb1bbGRZWwj++HWVuXvD1d/PGXTsIysXO5LThCtkEj64ZZRA8PZrBb
- D8uREwDhi8rLQ==
+ b=NFAeHpw6jf2yf0Nb8YKaReBpuo1w9Q8dED0hBKJm9fpy1q/rt6JSKFTkNLiYw0JQu
+ mVIDXQSvT+os7BZY1jME0Yo1Iw8cSmqvBUVeAZ/u6hlAmXBWhu4EFa8axO6YZWEHPe
+ dYqK/dOdZ8aKdUSuAA9perosfk1fDWQ2rmEDqhMrp09wK1X95q+42VajNYLLkZM3Sh
+ 1VsSJJXrdtqXAOozmu8I35jbnl4A0WTPSezinOrGdIqpXgLPxexAeuQZqPItrSr5Yd
+ 383n8cFEKjoaG9bw4SLReKsphJu3gmLIKeypdC6MmFrKkJa/b7hGR/cd35l7fihhkH
+ ShL3OjSgCkjmw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 08 Jun 2026 16:36:32 +0200
-Subject: [PATCH v2 50/78] drm/mediatek: dpi: Switch to atomic_create_state
+Date: Mon, 08 Jun 2026 16:36:33 +0200
+Subject: [PATCH v2 51/78] drm/mediatek: dsi: Switch to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260608-drm-no-more-bridge-reset-v2-50-0a91018bf886@kernel.org>
+Message-Id: <20260608-drm-no-more-bridge-reset-v2-51-0a91018bf886@kernel.org>
 References: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -55,12 +55,12 @@ Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org,
  linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1704; i=mripard@kernel.org;
- h=from:subject:message-id; bh=d7bEJoedR4gWaFOm1egulYeV33n+O7u132R4IzXy+rw=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlql6NXHd2qY3Oe33QNR8NCNyfjI74y53tSVx1UfHDOY
- sISj6nLOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEjKYxNjwNaRXYKhO9ty/E
- sYHxrcFOgdJ3j0s+8OuskLyjt7g1xHL/hvWe/pcfe17acmGriYNSNmNDi4TNfLeV665E34gxXss
- gzC1Xvcj/YOjDE36fPy43cD675eniXS9zmVP6ixaabP2y7slpAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1648; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=tBLd1+NkEKjYNRkMMidrK+jk1jncrtYgqxTfysMLM20=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlql6N/bS9bJRpWqraZ4+/6EKFDa60Fv5R4hc9b7nv39
+ 4tjV+qWdExlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJHHvM2LD1675/e34lTDcq
+ KRAWstvVF+59NFpnn+vxFd4yrvw3l+a3K05LbbsQl3zp1Ztt/btPKjDWcKi9fd56Kdxux+SSW6U
+ Xkxp7lE9eM73jcPFJ/XOPPdzPrkxfzzEhU8oqP1c2e+oXT5FbAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -96,26 +96,26 @@ Cc: linux-mediatek@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org
 Cc: linux-arm-kernel@lists.infradead.org
 ---
- drivers/gpu/drm/mediatek/mtk_dpi.c | 2 +-
+ drivers/gpu/drm/mediatek/mtk_dsi.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dpi.c b/drivers/gpu/drm/mediatek/mtk_dpi.c
-index bb4b7e6f1e29..959c994eef24 100644
---- a/drivers/gpu/drm/mediatek/mtk_dpi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dpi.c
-@@ -987,11 +987,11 @@ static const struct drm_bridge_funcs mtk_dpi_bridge_funcs = {
- 	.atomic_check = mtk_dpi_bridge_atomic_check,
- 	.atomic_get_output_bus_fmts = mtk_dpi_bridge_atomic_get_output_bus_fmts,
- 	.atomic_get_input_bus_fmts = mtk_dpi_bridge_atomic_get_input_bus_fmts,
+diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
+index eb325e68aa59..3f3f56eed3f9 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dsi.c
++++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+@@ -892,11 +892,11 @@ static const struct drm_bridge_funcs mtk_dsi_bridge_funcs = {
+ 	.atomic_disable = mtk_dsi_bridge_atomic_disable,
  	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_enable = mtk_dsi_bridge_atomic_enable,
+ 	.atomic_pre_enable = mtk_dsi_bridge_atomic_pre_enable,
+ 	.atomic_post_disable = mtk_dsi_bridge_atomic_post_disable,
 -	.atomic_reset = drm_atomic_helper_bridge_reset,
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.debugfs_init = mtk_dpi_debugfs_init,
+ 	.mode_valid = mtk_dsi_bridge_mode_valid,
+ 	.mode_set = mtk_dsi_bridge_mode_set,
  };
  
- static const struct drm_encoder_funcs mtk_dpi_encoder_funcs = {
- 	.destroy = drm_encoder_cleanup,
+ void mtk_dsi_ddp_start(struct device *dev)
 
 -- 
 2.54.0
