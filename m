@@ -4,63 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18B8FCD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:04:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66A70CD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:06:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BC5010F577;
-	Mon,  8 Jun 2026 15:04:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7A8810F57A;
+	Mon,  8 Jun 2026 15:06:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GeM/Cyp+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AC2TuXo0";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6748110F577
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:04:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF3D410F57A
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:06:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A25F4601D8;
- Mon,  8 Jun 2026 15:04:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 282B31F00893;
- Mon,  8 Jun 2026 15:04:28 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2D4FA601D8
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:06:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B86671F00893;
+ Mon,  8 Jun 2026 15:06:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780931068;
- bh=YbVuMNFrxqonNhSqkk1WADPG0zY295z5cgBosjf/o8k=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=GeM/Cyp+0qarp6IBled8dKyC0JTNPFpGBy7L+bUKeSf2PxB1Uj379W9mfIF9y15k8
- 6HzTzBptnr7OasS67h43nZHEC5rjQUlcZqT5klOmt15exzVIOpWGXBazToMLgefxWE
- T8f6rp4NPGi/cze6g1KPGvInyERZ4S4gkhs76YDMQmpVr/exgj8b7Sqb8+wMcm/6zw
- 7h/2TniXwtQdhsWZ+vAMN3asaIX0olHR+BWeuvusuaJwRWSG44Y6kYUOqgF5VxmwwG
- obvV/hmo/UBsv2ZZdedldjtGAbINeWM7mRoIYfE38iiWXQXAD8VJ/I75OhAGOy7Exv
- 0eDrpkX/PRkCw==
-Date: Mon, 8 Jun 2026 10:04:27 -0500
-From: Rob Herring <robh@kernel.org>
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 2/7] dt-bindings: display: bridge: Document Renesas
- R-Car V4H DSC bindings
-Message-ID: <20260608150427.GA2682771-robh@kernel.org>
-References: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
- <20260515-rcar-du-dsc-v3-2-164157820498@ideasonboard.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260515-rcar-du-dsc-v3-2-164157820498@ideasonboard.com>
+ s=k20260515; t=1780931210;
+ bh=aHn+NzWhClCVUfylc5ESFov0BKx5f45R5jnbfJuhIo4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=AC2TuXo0zwyJjuhDbweaH17s7p6KzSXLzmtbfpsuidhw5xhfn9kcQuZAltWgdyXPE
+ pRnQKv+i+yh+MuqtkJpM7xu9H2efAXUE59lo2mLpAAHSsNsZx04WH9sQCrlmQ1Oid1
+ NJ0hY1b75Sfor2grqbWSS2e0eqa3Ad7NAzxb6tmvj1Zd2w9ICDuSA9tUd5uecIajaD
+ bZN020xYZHDWIKqWl8Rcyz2GNwrasRHESdHK3nqyubKlLmvYd+QujD5tw1Y7aE7tY2
+ nhsF90jEYLgTR4GECwaI0GQEyHFrz84darx5oMT/W+v+muGT8wwiUVoewgZOidWNdA
+ F09FVS+X0eaBQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 03/78] drm/atomic-state-helper: Rename
+ __drm_atomic_helper_bridge_reset()
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-3-0a91018bf886@kernel.org>
+References: <20260608-drm-no-more-bridge-reset-v2-3-0a91018bf886@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 08 Jun 2026 15:06:50 +0000
+Message-Id: <20260608150650.B86671F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,21 +53,142 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, May 15, 2026 at 12:09:27PM +0300, Tomi Valkeinen wrote:
-> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> 
-> The Renesas DSC Display Stream Compression is a bridge embedded in the
-> Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
-> 8k or 400 Mpixel/s .
-> 
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> [tomi.valkeinen: fix the example]
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> ---
->  .../bindings/display/bridge/renesas,dsc.yaml       | 96 ++++++++++++++++++++++
->  1 file changed, 96 insertions(+)
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Conor reviewed the one you sent 2 hours earlier...
+Pre-existing issues:
+- [High] drm_bridge_attach() ignores the return value of drm_atomic_private=
+_obj_init(), hiding allocation failures.
+- [High] cdns_mhdp_bridge_atomic_duplicate_state() triggers a fatal NULL po=
+inter dereference if bridge state is NULL.
+- [High] cdns_mhdp_bridge_atomic_destroy_state() crashes when passed a NULL=
+ state during teardown.
+--
+
+commit e02bc473e33cd57fec3ea4025b707696ba1bef80
+Author: Maxime Ripard <mripard@kernel.org>
+Date:   Mon Jun 8 14:35:45 2026 +0000
+
+    drm/atomic-state-helper: Rename __drm_atomic_helper_bridge_reset()
+   =20
+    __drm_atomic_helper_bridge_reset() is used to initialize a
+    newly allocated drm_bridge_state, and is being typically called by the
+    drm_bridge_funcs.atomic_reset implementation.
+   =20
+    Since we want to consolidate DRM objects state allocation around the
+    atomic_create_state callback that will only allocate and initialize a
+    new drm_bridge_state instance, we will need to call
+    __drm_atomic_helper_bridge_reset() from both the atomic_reset and
+    atomic_create_state hooks.
+   =20
+    To avoid any confusion, we can thus rename
+    __drm_atomic_helper_bridge_reset() to
+    __drm_atomic_helper_bridge_state_init().
+
+> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/driver=
+s/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+> index 46779b49545bd..2e74dc33e0859 100644
+> --- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+> +++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+> @@ -1929,7 +1929,7 @@ cdns_mhdp_bridge_atomic_reset(struct drm_bridge *br=
+idge)
+>  	if (!cdns_mhdp_state)
+>  		return ERR_PTR(-ENOMEM);
+> =20
+> -	__drm_atomic_helper_bridge_reset(bridge, &cdns_mhdp_state->base);
+> +	__drm_atomic_helper_bridge_state_init(bridge, &cdns_mhdp_state->base);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but since we are consolidating=20
+state allocations, what happens if the state is NULL?
+
+In drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c:cdns_mhdp_bridge_ato=
+mic_duplicate_state(),
+the function calls into the core duplicate helper without validating that t=
+he=20
+source state is non-NULL:
+
+    state =3D kzalloc_obj(*state);
+    if (!state)
+            return NULL;
+
+    __drm_atomic_helper_bridge_duplicate_state(bridge, &state->base);
+
+If bridge->base.state is NULL, does this cause a crash during memcpy in=20
+__drm_atomic_helper_private_obj_duplicate_state()?
+
+[Severity: High]
+This is also a pre-existing issue, but a similar problem seems to exist in =
+the=20
+teardown path.
+
+In drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c:cdns_mhdp_bridge_ato=
+mic_destroy_state(),
+the function dereferences the state parameter without verifying it is non-N=
+ULL:
+
+    struct cdns_mhdp_bridge_state *cdns_mhdp_state;
+
+    cdns_mhdp_state =3D to_cdns_mhdp_bridge_state(state);
+
+    if (cdns_mhdp_state->current_mode) {
+
+Could this cause a NULL pointer dereference if atomic_destroy_state() is ca=
+lled=20
+after a failed initialization?
+
+>  	return &cdns_mhdp_state->base;
+>  }
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/=
+drm_atomic_state_helper.c
+> index cc70508d4fdba..f79d259fe5506 100644
+> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+
+[ ... ]
+
+> @@ -848,7 +848,7 @@ drm_atomic_helper_bridge_reset(struct drm_bridge *bri=
+dge)
+>  	if (!bridge_state)
+>  		return ERR_PTR(-ENOMEM);
+> =20
+> -	__drm_atomic_helper_bridge_reset(bridge, bridge_state);
+> +	__drm_atomic_helper_bridge_state_init(bridge, bridge_state);
+>  	return bridge_state;
+>  }
+
+[Severity: High]
+This isn't a bug introduced by this patch, but I noticed an error propagati=
+on=20
+issue when reviewing the atomic state allocation lifecycle.
+
+In drivers/gpu/drm/drm_bridge.c:drm_bridge_attach(), the return value of
+drm_atomic_private_obj_init() is ignored:
+
+    if (drm_bridge_is_atomic(bridge))
+            drm_atomic_private_obj_init(bridge->dev, &bridge->base,
+                                        &drm_bridge_priv_state_funcs);
+
+    return 0;
+
+If the initial atomic state allocation fails, drm_atomic_private_obj_init()=
+=20
+returns -ENOMEM, but drm_bridge_attach() continues and returns 0.
+
+Does this leave the bridge successfully attached to the pipeline but with a=
+=20
+NULL atomic state (bridge->base.state =3D=3D NULL)? Could this set up the N=
+ULL=20
+pointer dereferences mentioned earlier, and should drm_bridge_attach() be=20
+updated to handle this error?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-drm-no-mor=
+e-bridge-reset-v2-0-0a91018bf886@kernel.org?part=3D3
