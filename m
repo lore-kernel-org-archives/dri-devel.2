@@ -4,57 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34164CD8C92
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:51:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DDFCCD8C9F
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:53:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6353410F54D;
-	Mon,  8 Jun 2026 14:51:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6251E10F554;
+	Mon,  8 Jun 2026 14:53:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="hGJeD3xj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OTcJhzF2";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD81610F54D
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:51:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1780930295;
- bh=yB6hEdYsDoy24TOUYX7Qc/L4+I+uRH9c2rL6OnPqQug=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=hGJeD3xjeBU2Db1cL3n/VH0zrP5ELV+GPTbkiCgVq4uOC8TYiN3GIFMuK6nqYY0Yc
- 1A/7Cw3d4sc8JFwmVPMoAdY7VI5bSCrv8iF18+8hFAKbsIgvmAyVXKzgwXMb1x0/UJ
- IEKGNw6gxkD7xj9x051Xy9DAr4aiXHDGeeEoHApPdebPVQPbtOwftKQ/obY+octNPQ
- 4v4OQ+vC3HhlMWxJ3pBz8BjRJpK2cWWlDF2DP4101N5ROR2rxTotnh/O7L4aT6lgK0
- 4C/wmqYTBg/e7IVRK7fWbtiQX6jeMdoaJsJYRln7tQVPgfeAYjUoFUR0Jxh2mQxuJd
- 7zijarkNERguQ==
-Received: from fedora-2.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1704217E04CA;
- Mon,  8 Jun 2026 16:51:35 +0200 (CEST)
-Date: Mon, 8 Jun 2026 16:51:28 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Karunika Choo <karunika.choo@arm.com>
-Cc: dri-devel@lists.freedesktop.org, nd@arm.com, Steven Price
- <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 08/18] drm/panthor: Skip devfreq when no OPP table
- is present
-Message-ID: <20260608165128.33732c17@fedora-2.home>
-In-Reply-To: <e3c32d54-b85b-4ad8-bd6d-120c4dbfead1@arm.com>
-References: <20260528150546.3168527-1-karunika.choo@arm.com>
- <20260528150546.3168527-9-karunika.choo@arm.com>
- <20260608160822.1038d08e@fedora-2.home>
- <e3c32d54-b85b-4ad8-bd6d-120c4dbfead1@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84FFE10F554
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:53:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 566A04374D
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:53:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 246071F00893;
+ Mon,  8 Jun 2026 14:53:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780930425;
+ bh=4PUUfV0d7No9kBih3j1wSRnfMG4UaiVHJM+3P5M0pvo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=OTcJhzF2OdH4ifa2jQXm9bv+eri6mz+j/lCEKjDvAjaHg8Ox3r9KJl/zToDm7eDPQ
+ xzpWELVtOHQ3DG7l9QyFd1/n9AY/iAKuH8LtrTf1duomwiEs+2+dgLFgJMfYVniHqW
+ X2of9dPbme9Fjc5RjJ6/spbtIl1TZ8hHlZvOqPac+8EfJkJ3TWOvgLnsN+6refAaqR
+ 3bEzzGR4SPLZjj2m+w6WXmPo47iHlNszL05ABtG0T9uL5CjeWXRlOlXn1sQW068Eq/
+ 3zl397jAHWLvV0b+xfmuP2kEeQfhM6YyKxCzvfQLt3bP9mKkkf6cY0gZrN53lIjpcz
+ /3eaEBdEiknqA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 02/78] drm/bridge: cdns-mhdp8546: Return an error
+ pointer on allocation failure
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-2-0a91018bf886@kernel.org>
+References: <20260608-drm-no-more-bridge-reset-v2-2-0a91018bf886@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 08 Jun 2026 14:53:44 +0000
+Message-Id: <20260608145345.246071F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,40 +53,144 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 8 Jun 2026 15:39:56 +0100
-Karunika Choo <karunika.choo@arm.com> wrote:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-> On 08/06/2026 15:08, Boris Brezillon wrote:
-> > On Thu, 28 May 2026 16:05:36 +0100
-> > Karunika Choo <karunika.choo@arm.com> wrote:
-> >   
-> >> On Mali v15 AM systems, frequency scaling is handled outside panthor by
-> >> the AM_GOVERNOR block, so the GPU DT node may not provide an OPP table.  
-> > 
-> > OOC, is this still handled as clock frequency changes? I'm asking
-> > because the recent perfcnt work requires registering clk notifiers to
-> > get an approximation of the number of shader/top-level/coregroup clock
-> > cycles on a given period of time so we an calculate relative GPU
-> > utilization, and so far we've only considered clk notifiers as a way to
-> > get informed of these frequency changes.
-> > 
-> > BTW, this is already problematic for the mediatek GPUEB design, where
-> > devfreq stuff is delegated to an MCU, and we don't currently have a way
-> > to get notified when this MCU changes the frequencies.
-> >   
-> 
-> I believe we should still support initializing clocks and registering
-> notifiers for them. We are just disabling the devfreq subsystem in
-> this patch.
-> 
-> Would mediatek be able to expose a child clock or logical clock from
-> ther GPUEB driver to Panthor so that we can get these notifications?
+Pre-existing issues:
+- [High] Asynchronous firmware loading callback can execute after the devic=
+e is unbound, causing a Use-After-Free on the devres-allocated `mhdp` struc=
+ture.
+- [High] Unbalanced teardown of `hpd_work` and `devm_request_threaded_irq` =
+allows a scheduled work to execute after `mhdp` is freed.
+- [High] `cdns_mhdp_bridge_atomic_duplicate_state` fails to copy `current_m=
+ode`, breaking link retraining and mishandling state lifecycles.
+--
 
-Yep, the clk is exposed and I believe the current clk rate is
-properly reflected when clk_get_rate() is called, but the clk framework
-only issues notification for rate change requests going through
-clk_set_rate(), there's no way for a clk provider to report a rate
-change AFAIK.
+commit e5ec8b954cd81adb602c1048268bad60ac236f06
+Author: Maxime Ripard <mripard@kernel.org>
+
+    drm/bridge: cdns-mhdp8546: Return an error pointer on allocation failure
+   =20
+    The drm_bridge_funcs.atomic_reset documentation states that the hook
+    must return either a valid drm_bridge_state object or an ERR_PTR().
+
+> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/driver=
+s/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+> index 36c07b71fe04b..46779b49545bd 100644
+> --- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+> +++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+> @@ -1927,7 +1927,7 @@ cdns_mhdp_bridge_atomic_reset(struct drm_bridge *br=
+idge)
+> =20
+>  	cdns_mhdp_state =3D kzalloc_obj(*cdns_mhdp_state);
+>  	if (!cdns_mhdp_state)
+> -		return NULL;
+> +		return ERR_PTR(-ENOMEM);
+> =20
+>  	__drm_atomic_helper_bridge_reset(bridge, &cdns_mhdp_state->base);
+> =20
+
+[Severity: High]
+This isn't a bug introduced by this patch, but could this asynchronous firm=
+ware
+callback cause a use-after-free if the device is unbound?
+
+If the driver is unbound and cdns_mhdp_remove() executes, it only waits up =
+to
+100ms for the firmware load to finish:
+
+cdns_mhdp_remove() {
+    ...
+	ret =3D wait_event_timeout(mhdp->fw_load_wq,
+				 mhdp->hw_state =3D=3D MHDP_HW_READY,
+				 timeout);
+    ...
+}
+
+If this times out, remove completes and devres frees the mhdp structure. Wh=
+en
+the asynchronous firmware subsystem later finishes, it invokes
+cdns_mhdp_fw_cb() which dereferences the freed mhdp pointer:
+
+cdns_mhdp_fw_cb() {
+	struct cdns_mhdp_device *mhdp =3D context;
+    ...
+	dev_dbg(mhdp->dev, "firmware callback\n");
+    ...
+}
+
+[Severity: High]
+This is a pre-existing issue, but does this teardown sequence leave a sched=
+uled
+work vulnerable to a use-after-free?
+
+In cdns_mhdp_remove(), the driver calls flush_work() without explicitly
+disabling the hardware interrupt:
+
+cdns_mhdp_remove() {
+    ...
+	flush_work(&mhdp->hpd_work);
+    ...
+}
+
+Because devm_request_threaded_irq() was used, the IRQ handler remains active
+until the devres teardown phase, which occurs after remove completes. If an
+interrupt fires between flush_work() and the devres IRQ teardown,
+cdns_mhdp_irq_handler() will execute and schedule the work again:
+
+cdns_mhdp_irq_handler() {
+    ...
+	if (bridge_attached && (sw_ev0 & CDNS_DPTX_HPD)) {
+		schedule_work(&mhdp->hpd_work);
+	}
+    ...
+}
+
+Devres will subsequently free the IRQ and the mhdp structure, but the work
+remains queued and will eventually run cdns_mhdp_hpd_work(), dereferencing
+freed memory.
+
+[Severity: High]
+This isn't a bug introduced by this patch, but I noticed
+cdns_mhdp_bridge_atomic_duplicate_state() doesn't seem to copy current_mode.
+Will this break link retraining?
+
+When a new state is allocated, the subclass-specific current_mode pointer is
+left NULL:
+
+cdns_mhdp_bridge_atomic_duplicate_state() {
+	struct cdns_mhdp_bridge_state *state;
+
+	state =3D kzalloc_obj(*state);
+	if (!state)
+		return NULL;
+
+	__drm_atomic_helper_bridge_duplicate_state(bridge, &state->base);
+
+	return &state->base;
+}
+
+During a non-modeset atomic commit, atomic_enable is not called, so
+current_mode remains NULL in the new state. The old state is destroyed,
+permanently freeing the previous current_mode. If a hotplug event subsequen=
+tly
+triggers a link retrain, it fetches the current state, finds current_mode is
+NULL, and fails with -EINVAL, silently breaking display output:
+
+cdns_mhdp_update_link_status() {
+    ...
+		current_mode =3D cdns_bridge_state->current_mode;
+		if (!current_mode) {
+			ret =3D -EINVAL;
+			goto out;
+		}
+    ...
+}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-drm-no-mor=
+e-bridge-reset-v2-0-0a91018bf886@kernel.org?part=3D2
