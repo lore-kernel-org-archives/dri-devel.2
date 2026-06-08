@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CB32CD8C92
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:37:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B609CD8C92
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:37:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BA7510F4D4;
-	Mon,  8 Jun 2026 14:37:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CB3810F4D3;
+	Mon,  8 Jun 2026 14:37:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LJiYuUWH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i8BE/AaG";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C24310F4D6
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:37:34 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F24C110F4D6
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:37:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1F7B6601F1;
- Mon,  8 Jun 2026 14:37:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50F111F00893;
- Mon,  8 Jun 2026 14:37:33 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CE14240C42;
+ Mon,  8 Jun 2026 14:37:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 647911F00898;
+ Mon,  8 Jun 2026 14:37:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780929453;
- bh=t2fYW9Mj1sPf7z8zzQte52e1xAun1ZdfIfaVfw2Yq30=;
+ s=k20260515; t=1780929456;
+ bh=DeWx6iN02e4OqMXFbAdpakSsh29OPp+j7bdDMgNLaAg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=LJiYuUWHlRIKGaA8Yb/+uiq9AO4qvCOL+C/QUyOWQODnBGqeqT8kaC8KivI8gojE/
- r0sglp88fhK2Aj0FrpgLjdXKOqUffJ4zQsJph2lICT8c44xYCmn8VKqyBCZMzPEmCe
- GVxRp2eSve9XG9wpBhxy6F+slukEQQvFxgNgCFLUbNzjH9rjrv69HIQtDfTVsmIgQg
- HZ7o9WddOKTytcw9OHwnfa+MhRDMUqUkQJj5kuH1rGPTcRPkbhHXfRKn0I/Qb2BF/x
- gS7UvgZ8czdpfOFG1LdN2AoPCspTTB+R9IFE0ozBu3zqjjbjJ8tNjMmrdC3lteKnPk
- v4QHMR6w44ILA==
+ b=i8BE/AaGhBO2C4dVh9wVkvzz6nUNJfLL72tMeblv123ckjHFiW3ls79fAvISL/+y7
+ 6cUZQQnSrB744qC6xvqx5/F5TuiHmoV0+nZ4MrtYEfKN8XNZqw59KK6onfPvKQD0/O
+ KJtTzjOz4K0MLv6CzKSI8wJ9Tqg35BoDWPLa6vp/JtpFY5DGKt2U5fNRhlesJ5OXi0
+ PvUA2c7C9SaBYAcnMr5vLDknBon1gbc3lYeK0Pi4ngt/9OlvvoU1uj6fs6IM6M/o8t
+ kx9BwYxP2kSOYNA4PH7o8YhYiKmGA83yomDsoSm2eKoB7jN3fagDZhf1Fw2od9Tu4j
+ 1YSz8ubqR/8TQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 08 Jun 2026 16:36:07 +0200
-Subject: [PATCH v2 25/78] drm/bridge: lontium-lt9611: Switch to
- atomic_create_state
+Date: Mon, 08 Jun 2026 16:36:08 +0200
+Subject: [PATCH v2 26/78] drm/bridge: lvds-codec: Switch to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260608-drm-no-more-bridge-reset-v2-25-0a91018bf886@kernel.org>
+Message-Id: <20260608-drm-no-more-bridge-reset-v2-26-0a91018bf886@kernel.org>
 References: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -49,14 +48,15 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>
+ Maxime Ripard <mripard@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1446; i=mripard@kernel.org;
- h=from:subject:message-id; bh=wTkQZrMKtFzc+RSVSjsfKnZoXqE+SSDY6ShQsFwLzFI=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlqlwPOKW9b0Hr6pf6EjfJLysqib2ZxH5YwPxu0b3XVs
- RUidQ3iHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAi5j8Zq1mW2+edjOVR+BDj
- 8O3N23sarPIxe7ve/Hxmyvv6tTBvhZ3MtYn//+5YefNzy1rPd/XRixkbXtgtv/79hK7b/++a/2K
- OlPgFpr27nmF/+lbO/Z/V81J8ztySfPjzX9g95y8zT9vnpE14AAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1293; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=pbKNRIay9gU1cIZ9OwGTdkcKNFhu5slRM1DNhbZHOks=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlqlwNWZq64JzV1ao2l0HJV5TvdLx+0dyz9vZhr2uEL1
+ WYcCzIudExlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJnBFgbDg+2VFHO6L0Xrnc
+ yQP1F3lVX3InSbCx6tgkBE6+LCSf3PqxYa2H/8cYw0qzSdZr5KWWMDZsTl9dsG7zSzmBle9nz44
+ J2p6ee7Wg8FFQscZhxufPX+xf8F31RmDS2cK3s46tvy0X/zMFAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,29 +80,30 @@ drm_atomic_helper_bridge_reset() helper are deprecated.
 Switch to the atomic_create_state callback and its
 drm_atomic_helper_bridge_create_state() counterpart.
 
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/lontium-lt9611.c | 2 +-
+ drivers/gpu/drm/bridge/lvds-codec.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/bridge/lontium-lt9611.c
-index 21305296e111..b6a368f71285 100644
---- a/drivers/gpu/drm/bridge/lontium-lt9611.c
-+++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
-@@ -1024,11 +1024,11 @@ static const struct drm_bridge_funcs lt9611_bridge_funcs = {
- 	.atomic_enable = lt9611_bridge_atomic_enable,
- 	.atomic_disable = lt9611_bridge_atomic_disable,
- 	.atomic_post_disable = lt9611_bridge_atomic_post_disable,
+diff --git a/drivers/gpu/drm/bridge/lvds-codec.c b/drivers/gpu/drm/bridge/lvds-codec.c
+index e6a7147e141b..d1135dc3b99f 100644
+--- a/drivers/gpu/drm/bridge/lvds-codec.c
++++ b/drivers/gpu/drm/bridge/lvds-codec.c
+@@ -102,11 +102,11 @@ static const struct drm_bridge_funcs funcs = {
+ 	.attach = lvds_codec_attach,
+ 	.enable = lvds_codec_enable,
+ 	.disable = lvds_codec_disable,
  	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
  	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 -	.atomic_reset = drm_atomic_helper_bridge_reset,
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.atomic_get_input_bus_fmts = lt9611_atomic_get_input_bus_fmts,
+ 	.atomic_get_input_bus_fmts = lvds_codec_atomic_get_input_bus_fmts,
+ };
  
- 	.hdmi_tmds_char_rate_valid = lt9611_hdmi_tmds_char_rate_valid,
- 	.hdmi_write_audio_infoframe = lt9611_hdmi_write_audio_infoframe,
- 	.hdmi_clear_audio_infoframe = lt9611_hdmi_clear_audio_infoframe,
+ static int lvds_codec_probe(struct platform_device *pdev)
+ {
 
 -- 
 2.54.0
