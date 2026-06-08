@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB27ACD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 11:37:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 605DFCD8C9F
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 11:41:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B728E10F247;
-	Mon,  8 Jun 2026 11:37:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B62C110F24E;
+	Mon,  8 Jun 2026 11:41:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mevlGVYe";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hK0pgCWv";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39A5B10F247
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 11:37:57 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDBAC10F24E
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 11:41:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E598141976;
- Mon,  8 Jun 2026 11:37:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 570801F00893;
- Mon,  8 Jun 2026 11:37:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 30ECE6001D;
+ Mon,  8 Jun 2026 11:41:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 652A21F00893;
+ Mon,  8 Jun 2026 11:41:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780918676;
- bh=uDnJszeMpHdvvPPU3R801JdC/j6cKxC3OiP8T8t7XdQ=;
+ s=k20260515; t=1780918861;
+ bh=d+EZBqP+S1aJsp/54O1thKJUxSPzexaWOdFPdQexaOQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=mevlGVYehUQUDoVS07MJ/Nec+me3pE5pN0bY3V9f9HJKwsCgWklGL/lF/0nOCe8+w
- n43BaopwvETjXNOdDTZhqylU46Y6LvIdYqlL2vpwP06JubjFYvaLU2CBYuBSaRwSGl
- /IBakOt0u3np59wb5dfhSxkzcc2XTHDDKK2HjUbppqKR2HxOXi6iG7pP0jrSx9SVHV
- qrBFfnKgd8l6os5wubHUjTl1OKA3j8A+F+k1mkP7tdsUIkAe2zHLVlU8+W70x6j/M7
- WXS7yo2ujqCwSlKtnB56YyQJFP7pI6wPixaHBmqwWBjLH+Fd00RJp7w5XrvI4t6ogO
- q0EWTWfG/NZUA==
-Date: Mon, 8 Jun 2026 13:37:54 +0200
+ b=hK0pgCWv91eMLD6Vb7Vjy6FrQ9Y1cL3wtLXb/5eQqR565L49DIaE1d0oIQvDGQdoc
+ /UGL3EOQ72zhpnpz/u4CpFmCN1SHGjN3Vpppt5fwLzvw5Bra8bS9MS97dCKmo1PYj0
+ 6aVeZZBbUhNEeijzwN4XyDloYovC0zjoB8DCw0EXzGLjIrkTJ9PtUOhhPPLXp1iOU6
+ 8z0FTezbycjRP97nSjcsyMdM8FciOe3nIwXyHdkjnKwI85Xk/++YtrMoei8u4Ougya
+ ZLW5jMWmQoqRO7/IxFbx2VCkyZr3RbJhTsko7FN6aYeezBmuTbwk2yxm37rqrwsBA/
+ KwRXAVbq1fkbA==
+Date: Mon, 8 Jun 2026 13:40:59 +0200
 From: Maxime Ripard <mripard@kernel.org>
 To: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -50,16 +50,16 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 01/37] drm/connector: split drmm_connector_hdmi_init() in
- 3 parts
-Message-ID: <20260608-brave-private-quokka-f67fb1@houat>
+Subject: Re: [PATCH 05/37] drm/display: bridge-connector: split code creating
+ the connector to a subfunction
+Message-ID: <20260608-mindful-heavy-frigatebird-be9faf@houat>
 References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
- <20260519-drm-bridge-hotplug-v1-1-45e2bdb3dfb4@bootlin.com>
+ <20260519-drm-bridge-hotplug-v1-5-45e2bdb3dfb4@bootlin.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="6v4dtzt3jeuv5xzs"
+ protocol="application/pgp-signature"; boundary="e7zj77hk553y5yo5"
 Content-Disposition: inline
-In-Reply-To: <20260519-drm-bridge-hotplug-v1-1-45e2bdb3dfb4@bootlin.com>
+In-Reply-To: <20260519-drm-bridge-hotplug-v1-5-45e2bdb3dfb4@bootlin.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,42 +76,34 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---6v4dtzt3jeuv5xzs
+--e7zj77hk553y5yo5
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 01/37] drm/connector: split drmm_connector_hdmi_init() in
- 3 parts
+Subject: Re: [PATCH 05/37] drm/display: bridge-connector: split code creating
+ the connector to a subfunction
 MIME-Version: 1.0
 
-On Tue, May 19, 2026 at 12:37:18PM +0200, Luca Ceresoli wrote:
-> In preparation for adding a dynamic variant of drmm_connector_hdmi_init(),
-> split reusable parts of the code to subfunctions.
->=20
-> drmm_connector_hdmi_init() currently has 3 sections:
->  1. sanity checks
->  2. call drmm_connector_init()
->  3. initialize HDMI-specific fields not initialized at step 2
->=20
-> Split 1 and 3 to new functions, reusable independently.
->=20
-> No functional changes. Just moving code around.
+On Tue, May 19, 2026 at 12:37:22PM +0200, Luca Ceresoli wrote:
+> In preparation to introduce bridge hotplug, split out from
+> drm_bridge_connector_init() the code adding the drm_connector into a
+> dedicated function. This will be needed to be able to add (and re-add) the
+> connector from different code paths.
 
-Explaining what you need later on, and why these three functions help in
-particular, would be nice.
+Same story here, explaining what you need later on that calls for that
+change would be nice.
 
 Maxime
 
---6v4dtzt3jeuv5xzs
+--e7zj77hk553y5yo5
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaiapkgAKCRAnX84Zoj2+
-duf/AYDpipIWLfk+fdFB3ag3RZt6/l4Ldt2Q7sSM0cWR+5PFEIvnVO13qdZZ91HU
-87IMGGABgKgJmw/zzJy36JG+OWXkIXlRjNm5occH4w/GMV8y4BCXcOmxyHeuLI3n
-vO/GxTh2qw==
-=NILv
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaiaqSwAKCRAnX84Zoj2+
+dp1sAYDuIBPdRMXXYBe4R+Ta//fpPl4lVKuHiYq4geMva/MrZIlnJY7jkUmM+ILE
+qeT0kEkBfRpI8JftVgC2DB8CWv5JjL9HjVHimGNWg5t97RHprSbK09+C/O7VS3Ng
+Kvor1YDv5Q==
+=iyL4
 -----END PGP SIGNATURE-----
 
---6v4dtzt3jeuv5xzs--
+--e7zj77hk553y5yo5--
