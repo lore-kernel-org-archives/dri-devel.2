@@ -4,55 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83249CD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 13:45:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93B9BCD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 13:57:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D694310F3FE;
-	Mon,  8 Jun 2026 13:45:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96B5C10F40C;
+	Mon,  8 Jun 2026 13:57:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="MHTfEQ6f";
+	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="mSUBhBoh";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5B4410F3FE
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 13:45:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1780926331;
- bh=brvNZ3N1a0wz6pV7iprlWHZAsadEk5qYF40ZXnPqob4=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=MHTfEQ6fyjTAM5NwRStV79DWhT5X68KQMMgAFnW5l7+BQ2qRpch4inYhMsTFfoEGE
- R8iyLwx+H7Rv30LJrfA0VYns2zYHe97MoX6wgUX4CE5WIs6POyB0nchNXlA4pGz7wO
- tjDfCGQ3gxVGt76rawwyFCxjMcZdnAx+exi6kvoS8SoUd/GjLGwlRThSsxQhoYb7Zk
- LjoBqQBmX5OXBU6z/vshJkNkBWbNYVvCqg99uvcYAHdFYGybCPD5BN74AE2SzIzPPH
- 7AfcVRLkLnZzVfQHg8TDmPxqCYeRVsEpON+5wgbOCOgc66D+kc5FWtwjrBD34WiFgb
- QP9vKjOrOU9nA==
-Received: from fedora-2.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 3D36D17E0191;
- Mon,  8 Jun 2026 15:45:31 +0200 (CEST)
-Date: Mon, 8 Jun 2026 15:45:26 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Karunika Choo <karunika.choo@arm.com>
-Cc: dri-devel@lists.freedesktop.org, nd@arm.com, Steven Price
- <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 06/18] drm/panthor: Derive MMU AS register addresses
- from base and stride
-Message-ID: <20260608154526.750c1a42@fedora-2.home>
-In-Reply-To: <20260528150546.3168527-7-karunika.choo@arm.com>
-References: <20260528150546.3168527-1-karunika.choo@arm.com>
- <20260528150546.3168527-7-karunika.choo@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Mon, 08 Jun 2026 13:57:24 UTC
+Received: from mail-m10230.netease.com (mail-m10230.netease.com
+ [154.81.10.230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F5C810F40C;
+ Mon,  8 Jun 2026 13:57:23 +0000 (UTC)
+Received: from DESKTOP-SUEFNF9.taila7e912.ts.net (unknown [221.228.238.82])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 418697a0a;
+ Mon, 8 Jun 2026 21:52:17 +0800 (GMT+08:00)
+From: Dawei Feng <dawei.feng@seu.edu.cn>
+To: ttabi@nvidia.com
+Cc: dakr@kernel.org, dawei.feng@seu.edu.cn, dri-devel@lists.freedesktop.org,
+ jianhao.xu@seu.edu.cn, linux-kernel@vger.kernel.org, lyude@redhat.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ namcao@linutronix.de, nouveau@lists.freedesktop.org, simona@ffwll.ch,
+ stable@vger.kernel.org, zilin@seu.edu.cn
+Subject: Re: [PATCH] nouveau/firmware: fix memory leak on BL load failure
+Date: Mon,  8 Jun 2026 21:52:18 +0800
+Message-Id: <20260608135218.3413471-1-dawei.feng@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <aa2e39a828634f20852d066f593f26510fbdc2d9.camel@nvidia.com>
+References: <aa2e39a828634f20852d066f593f26510fbdc2d9.camel@nvidia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9ea7816a8a03a2kunm10e519bdf5324
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTk5JVhpJS0lPGkkaT0NDTVYeHw
+ 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlPS0hVSktISk
+ 5MTlVKS0tVSkJLS1kG
+DKIM-Signature: a=rsa-sha256;
+ b=mSUBhBoh0496xG4IiMYv5fe7It4OxD9eTPVOkNlmdB4vm520ELI4bYLj9R/YziGnOA7drsT3LqfYmPOjmRkbMJhKYoGBKqtDLXlWUPp9ktE+vZsjFQRIgsJGS79ZnfDIAxg2lMUGCv3s3wkryPG5OOUZJvv/6CxUIZjLG0kTwuI=;
+ c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
+ bh=PUAzZqFOE1r8m01APLHVgv/zFAIdkEgJl07BOOwnD+Q=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,30 +62,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 28 May 2026 16:05:34 +0100
-Karunika Choo <karunika.choo@arm.com> wrote:
+Hi Timur,
 
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index 48127313332f..9a64f977d28c 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -36,6 +36,7 @@
->  #include "panthor_gpu.h"
->  #include "panthor_gpu_regs.h"
->  #include "panthor_heap.h"
-> +#include "panthor_hw.h"
->  #include "panthor_mmu.h"
->  #include "panthor_mmu_regs.h"
->  #include "panthor_sched.h"
-> @@ -57,7 +58,7 @@ struct panthor_as_slot {
->   */
->  struct panthor_mmu {
->  	/** @iomem: CPU mapping of MMU_AS_CONTROL iomem region */
-> -	void __iomem *iomem;
-> +	void __iomem *iomem[MAX_AS_SLOTS];
+On Fri, Jun 05, 2026 at 06:22:41PM +0000, Timur Tabi wrote:
+> I think it would be cleaner to instead delete this
+> nvkm_firmware_put(blob) call here, and just rely on the call to
+> nvkm_firmware_put() at the end of nvkm_falcon_fw_ctor_hs(). Then you
+> won't need "blob = NULL".
 
-Can we move the iomem field to panthor_as_slot?
+Thanks for your review.
 
->  
->  	/** @irq: The MMU irq. */
->  	struct panthor_irq irq;
+I don't think we can drop the nvkm_firmware_put(blob) here. At this
+point, blob still points to the image firmware loaded at the beginning of
+nvkm_falcon_fw_ctor_hs(). The later nvkm_firmware_load_name(..., &blob)
+call overwrites blob with the bootloader firmware pointer on success.
+
+If we only rely on the final nvkm_firmware_put(blob), the success path
+would release the bootloader firmware, but the original image firmware
+pointer would be lost and leaked.
+
+Best regards,
+Dawei
