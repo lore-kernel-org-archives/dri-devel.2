@@ -4,101 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E3A0CD8C9F
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 09:11:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8E11CD8CA6
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 09:13:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8ED8210F009;
-	Mon,  8 Jun 2026 09:11:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC15110F011;
+	Mon,  8 Jun 2026 09:13:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="s7PGgMRa";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="L26QDNm6";
 	dkim-atps=neutral
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
- [209.85.208.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9275E10F009
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 09:11:30 +0000 (UTC)
-Received: by mail-ed1-f50.google.com with SMTP id
- 4fb4d7f45d1cf-68c3421b009so7275142a12.1
- for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 02:11:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780909889; cv=none;
- d=google.com; s=arc-20240605;
- b=a4I02ZCDkdmtnd18QjZ8ynWgA7+quM3tYeN9ccQRIk87N/8tM9rsf6UApdKJVuLhWT
- fX+PhYmrcebZfjThVhJ4kifZCpBmd8UOgGZ4nEX1WBUnvrRRtDneFZ8+SSSXpH5iKAVO
- RLWA1L2r7WHfSUC0q9BPlakvtzMp45h6k00CU6P8XxoUPNoM0TSopl0HndPFiz6xP0oj
- roxFGPRnV0gJqkPsqKT/BMOly8/IzGx/ewkT0xGOYblx3r4CZ0PVVloitTVaFca4ud/3
- CgtbY1y4wZpu7dGf8l7+XucPbseHyUY2Q+COswfD/DwoskszaSmIwn+orE7acoBNTCaP
- 4fkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=WelUToYaunngdS4iiekhxlbrmFbbBfrAT5j9UWPzR4A=;
- fh=rBaQwmhwnuoQlrDM3BbXGqF4QiZg93rhxqUrWesq/hQ=;
- b=EL7ZMY3IRetpU+3VsHNJpW4pNETy4k1eE/sb3nm70oZ6k7aSpFrRlnyh12ICsUmnvX
- YAzrhsISsFH+qrmQ7cXBjELlXdPqspucCmYZk0+n7hetWrNOss1VuKG+uZgaEQ1PzTKL
- RzST01+3Oy0MoFAOtR9M8u6NIdjqUXRZOp3Wp7fVU05azVeP8IhmpvX0MJpRtMmLdsNG
- flFhlso9cQEwCZVizqS8juUeTfShy+d6l2JEMKJZa/99KcQjNLmPn1Pk1h7QjSwnAICF
- d1iYdb1egFHycoZK/JWGJ2oXEnKnry/4eI4CQsDBwYJwbgi468uauuPlPHXPoFvOfRxx
- f/fw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780909889; x=1781514689; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WelUToYaunngdS4iiekhxlbrmFbbBfrAT5j9UWPzR4A=;
- b=s7PGgMRaczdk1/Q49wp240vzTaoSl8KaEJCrun0AVJTK/vFejEboFQdEp59Si34EYH
- fY2So2ll1oK829n3PcpqbYr+mGLA2McldI/cmNjVjd9vmeX5HhM2yVIC81xHhZzmeP4i
- 0AkCkDKs3v657Bb16B/pNAE/CnmKZ35rzAB+bl0Br5+XyCizRHOGATh3eVR8zJegjym9
- hroRGimq0rbNkshgssLGM+hDGCm65za4ICKHic36M9LcFU7bOO9yF73D7yQkSu3+x5XK
- NGeqc4EidoMJulGLrSaxcZsDtqQbCzTCguko7ogXv2qtXpWyubOu6dPQf4C1QOF1025s
- TDwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780909889; x=1781514689;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=WelUToYaunngdS4iiekhxlbrmFbbBfrAT5j9UWPzR4A=;
- b=lniAna88WIBOwsUkML6YV6xXIxM9UWEU1nxT7iZtlYXyNeTv0iPvTQvchQUoCdMIHG
- bLJJhtgrERfK+KgOMDFm6m32bMGq50TcC0zAZvOBDbTEWbUb+kfQIQU8GQjKBkV08R/g
- 8epxCdzzR7NWyvBnaCHWxhASsgDTqs780lmjBWAfNqCw0okY3Z7dcehZUDWSUQfRHYNr
- /7GsVFlucANv8ZMERbhDg4RNsaOcAhsHIbM0QB6AmAp6TnChjoi9JvUAR2R+nzt8b/PN
- 7QmoI5uA2p5pyg050a/+tIjHJOsAab4gqnIo15ZDBxHAmnVu+XhuMIT5+s+a6f8Lp2HX
- MjcA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+/yMhL+FyVL2tZtrkGOkGbgWp9xLIMZABdSGiIN7W7aAwSsG5H0uiSbbllXjQQhgzMJ+LKeRsPuNo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwM0aDiVap8pxn0+OyfESdSQlEXe/AZWuQN1w/hYuC2oEoAAJLr
- h7IUU0FzFITfPzor6elLlZRvqQ4M+Un9/qzjlSHlsztNdzbv8M3ZXQ76CLIA0a2pSxDvVuGK/Ao
- qD3A49R2yi8DROVeT4ygFM1Seu6F9bak=
-X-Gm-Gg: Acq92OGnbiSr3q+OUllE0YAUaCUbEzjhcAh5O7K/ZNjmAndsL81HDHkA9vPi/v1nrJs
- MuKoias5uWdHIXk9/QnzVL6I44avMQfrTbnDZo8oOyErN6lce3Gw3ytr9VhAn3NNL0BaL7YQU3R
- D8ApNH/ijep/O4k2aPfbvlDzP/RbdL9MwFhk79zr/4Q7FxMFA4XAMYnoObUtW+wCxuD/1nHkTVd
- mDqvJTlrpqbiqz5O8kidXJdV5N9tqe+evlk1m6KnDEfKEglPpaYeItMQTeV8+bgH8Qiz4Ai7duJ
- mECrW6ca79JznIlwLw==
-X-Received: by 2002:a17:907:2d12:b0:beb:2980:e2d2 with SMTP id
- a640c23a62f3a-bf3a6b13b16mr580109766b.8.1780909888634; Mon, 08 Jun 2026
- 02:11:28 -0700 (PDT)
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazon11013003.outbound.protection.outlook.com
+ [40.107.162.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B010E10F012
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 09:13:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pjaUhfe8r5p4Lb6uyPuiYr9nncztmpVA0XRNl3p9gr/amGPOXqKD4KInaXNUOFGO6hqbR7Xy96Fhch2Nt+eDboVUMmW8OCjvwSQpDYiWc9h6AvQncN6rsyYEnmY3+Mmj/bZtYsOFGRDJmk+/EEIXXTg/tnnI0fmWPoyCW7LdOjJo/PRY9hEDuuswfrYE86WFzrZpNCv8/HtEEqbrN/zsf1/eYWKCaLAvQA8vStaWcWuYxtPM1CeYCa54bTnKZ20O9X0Yx5WKDbcZlQfbHoE3eFyki03GrOgWv/OPDQVX81E03kKLbYQ7iKniDqU1bhQOANTymlv2Y0+grYw67wuQkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=61J5DCwDaCX/phkY6ZkufjRO8hhjS0y4z0LL83wORAY=;
+ b=SgfiVUQ1Gby+FCk2sWQvb9K9XOVdwh0PylUmjxuEUnhZre9Y/N4Bboaxs1qGDwHKCi/WeZCPN4J/GRYMKdu3j78IOJuj+ZeLoREZb7VMq6PEpyNzQmvvItyUFMgrT6QWCI4IwHN2cE6oCi0G1EaWBJQXHlXiFPkbFnLjgHEo0vskNWS4Se1z0v9fFslssCGfygNpqjtciQUjrBuDyCo6A/XbpFjH2zdcs+SGbrtNTFh5OEtzb7S8xVESl/I2Jtl+0aWHxY0p+3672kmqdXnazYA+sLkf0oG/ELhTtOKkgkqjTbTJEXEtofueJUM0CtmXJB0MNO0OQ/w5/RoxEzU3cQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=61J5DCwDaCX/phkY6ZkufjRO8hhjS0y4z0LL83wORAY=;
+ b=L26QDNm62C8JS922jVXHLyyUfkF4agrfecFjxWHHfWpYTq4PsqzFffmbINEw7eqTWUxa8bPMNE8+u7V2baRGAOqxLf7o4AmZAueCXjdUG8/xw1HzLDjfS5Sn5YnX/Sv/4f+KKSJOSxkL7c3XqQ8T73rOZ8sF9XlpC+B869b3cLG3JswQvBJFQaX7m/S3NcPR65owg2DRosV+vmEpZ91NikU/dpK7+bb8lGIgr+xn6/IEWgHCn4sBg+fZbYwrcWeYflX+1miwhen4DBaLUc+xM2josgcE15HKja4GE/yOHUqawSzQGbC7Mlz3g+Z2cyuZ9fv7s7tJIvgXWwai+17OyQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
+ by DB9PR04MB9990.eurprd04.prod.outlook.com (2603:10a6:10:4ee::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Mon, 8 Jun 2026
+ 09:13:34 +0000
+Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
+ ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
+ ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.21.0092.011; Mon, 8 Jun 2026
+ 09:13:33 +0000
+Date: Mon, 8 Jun 2026 17:15:02 +0800
+From: Liu Ying <victor.liu@nxp.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] drm/bridge: imx93-mipi-dsi: Fix mode validation
+Message-ID: <aiaIFiQhrbRKgpUl@raspi>
+References: <20260515-imx93-mipi-dsi-fix-mode-validation-v3-1-91f7d22b2fe4@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260515-imx93-mipi-dsi-fix-mode-validation-v3-1-91f7d22b2fe4@nxp.com>
+X-ClientProxiedBy: SI3PR03CA0004.apcprd03.prod.outlook.com
+ (2603:1096:4:297::11) To AS1PR04MB9287.eurprd04.prod.outlook.com
+ (2603:10a6:20b:4dd::8)
 MIME-Version: 1.0
-References: <20260604135255.62682-1-midgy971@gmail.com>
- <3d99569e-9c3a-49d1-93fb-1335382523e9@rock-chips.com>
- <CA+GS1Y1s78PwN63X2YJoS8VEGp7CpTERo_K65yKs00U4VRAw4Q@mail.gmail.com>
- <e5058919-9485-4de5-8eea-331ebfc2987c@rock-chips.com>
- <CA+GS1Y3ysdWZ3qCq3ip_Pbw+v4LxHZd95aBo=jwB+orYaMBBNw@mail.gmail.com>
-In-Reply-To: <CA+GS1Y3ysdWZ3qCq3ip_Pbw+v4LxHZd95aBo=jwB+orYaMBBNw@mail.gmail.com>
-From: Midgy Balon <midgy971@gmail.com>
-Date: Mon, 8 Jun 2026 11:14:17 +0200
-X-Gm-Features: AVVi8CefQKT7ky3Sqeq6MkiJ04hcvCvZiupw30w_yNvYYxCVtDBxVUNhbRaFSOk
-Message-ID: <CA+GS1Y0kAM_XGLQuKPTphif2HcQg18ZXhd8RHHr2xPOEMCDvXA@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 0/9] accel: rocket: Add RK3568 NPU support
-To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Cc: tomeu@tomeuvizoso.net, ogabbay@kernel.org, heiko@sntech.de, 
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, 
- will@kernel.org, robin.murphy@arm.com, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Simon Xue <xxm@rock-chips.com>, 
- Finley Xiao <finley.xiao@rock-chips.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|DB9PR04MB9990:EE_
+X-MS-Office365-Filtering-Correlation-Id: aa8e8fc6-2c3c-4c0e-62c8-08dec53e36f8
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|19092799006|7416014|376014|22082099003|18002099003|921020|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: RzvKTIjrAPVernH7KqW4Xdj6p+HryLh1Mz5zhRKE4r7kNUBBrvwSXqAP8gEoeTklm+FqpIty2DKeHxo1CfdDzBElRvNq67ANxlVN4kCrWpu63a7d6K2tCvJ3H8UnU2Ky88dSQqSYfXRIMUyORk2QraWuWtGkyH13RI/P7+B4rICGlARP1FSzykKkKZxT1UpcHAz45oUvA0XsxVzIJlTWhhrgbqeZ18QmOOuj3H7WH/ibqWr8Vl5xgEBJI4lHenyAqeUZ8spgBidImSA+R40UmYjmP0GvZdxYbjXDAt17k7/3ZZewblcaMwGL2vvlCipZkZXRA5I84RCVKxCS9uPDd5ygysdrmW7haErr2xyHoHJTNDlAhotjjBfFr/HjlQVYzQSzIrT3XbTOuKJ8y3MQQzmN+FlxyyVyntUlEDhQtk5/O+ees7LDjLtTCD9JWBULClDAv7UpHRIE2IiLY4XUjVBRmK2tZutC8fmRbn+1vLjrdBkyMvTzIo8IspUid2QsXg4QC5vWmie0t7nHpyQvC+jmpsbDf55AZPbdMmH8C3ZHHP55DOMr4z4v4uM8HV8Wb0+sN0hxfiimA7M7X/jDqmlnjF8ttb37msjf47JVD5AQbvbkGiJT7nvlyeX9uuSqZx6CeVEvtyk5CWWha49bpGiLps1rr1NQrvBhz4TWbK0hYjSpmbkaiZyVOe/dJGu2
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AS1PR04MB9287.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(19092799006)(7416014)(376014)(22082099003)(18002099003)(921020)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Ohd4y8l0PL4oF9GR0loksVeJd4KouxDBVIW0GfDAZNnpK+ypxurOjZLJ56Qp?=
+ =?us-ascii?Q?nhQaqenPdiB5fw9BRheJmEI+9PwIO5KnhLr0eYZ6Gxfqbm4avFtA/zqa1Y16?=
+ =?us-ascii?Q?u0C/a0AYtS8XTLzajFCDuu3xha7EJNch6zkepQBSutiaGF2+eFzGqLT9UjvH?=
+ =?us-ascii?Q?l2+RUkxiEob/6PUpCl2riOMGb625ldJYrM/z6SbhmlXD0SR7B/csWLjjhFbF?=
+ =?us-ascii?Q?ag00bqC8M5CWw7VvPZY4cLhiSqx6IXfOMHwQMfCPvOn2WbZMNx8vQwKtBBcG?=
+ =?us-ascii?Q?6M6XVbmxziMybYLWsmAl1Prl5V/VnyHFBdxUkLoMP15y79pG2+3txkAJ7LEN?=
+ =?us-ascii?Q?oRLTQlT2qOreQT55oZES8HEWbADX5aiGnrpYNWVsqJA/ojpIaZ+/LLDRF7PY?=
+ =?us-ascii?Q?j1Dxi4ymVAsTTOXuPpk9XlyjA18Lm7cZBp2123koyU8NSDbR3D0kEQswO02M?=
+ =?us-ascii?Q?D5JHm3zkyLlKjUECu1ImmRgrSGRclwyMGaNH2m1JIN6n22BYVyEfdXyFvVtw?=
+ =?us-ascii?Q?Lcg3YqUYa6QtdWVolT1E3Zu0Jb08uQxhv9Ky2z20YeMZCOvsil8j5cUB2bzN?=
+ =?us-ascii?Q?aewoZ1g7VApwZ81Xu760KNwhK6MnI27u4CxGFXb4ASI7pNdxWqi18S06UKwn?=
+ =?us-ascii?Q?QU/XMuw25j/UKP9LdqqYj1wHQZ2/egNaCOT0p83M69ReEaQw43+0qo7RW9eG?=
+ =?us-ascii?Q?+boogQH5e4+QvyoSmEoAHHf2HaIGk50/MeEkFXBRPIzK011WiAVdQ2Oes2Qu?=
+ =?us-ascii?Q?pqu4TBskedabThBEFjRJm0khUpVUEyBOo3gkFgEhuQdWi883aUm7yIZMiSLo?=
+ =?us-ascii?Q?NjoFwijAbzwd82L8zre9rIZz1Y/f7LrgkPhFSJerfEEXMsiPa+FxnoonFtl/?=
+ =?us-ascii?Q?8TdDBSWvKeHvhykKrCgp3nINGQvwzoWdqQWtJB4fIkoPIgTxhzJB7ePKOHb8?=
+ =?us-ascii?Q?6bte2bsPwZYWXFESD2JH45XXh42ut7ZupHrjce+lv36M0hAimZRq57LJ2Ork?=
+ =?us-ascii?Q?krjqmelVO9fqP/hxIkjfX6rYAgUTiXD7wkrTbtecDvsQbqx+0DQRLWrWlsnj?=
+ =?us-ascii?Q?Sxvst7iYry2E/PfFm5KfQp2A02XSDv1ZHjkFhPXyd5jt++Y6bAYFJc1CQJ1t?=
+ =?us-ascii?Q?WOQETOK+hB1noffHJTwLY1HPRZ2BXNwyxlJNdkkv4uqd2Vmo8FGVPb0+3kkc?=
+ =?us-ascii?Q?UbgwX8/xfy1HSmYFADRYE3YByPueQSwRQ5GLzez2FSqs+C76LVM/JY3NDYcw?=
+ =?us-ascii?Q?Wk4YmKtOW6AaOhbkVRIPLtns32TrqTp42OlqRrXLRM/td3RdNz2np/HlWVv9?=
+ =?us-ascii?Q?M4/GqJq5SVN5tOXGV/QIP0lHNDHrNMvTZvmPVofHlewr+IXTjmT6uxgakfok?=
+ =?us-ascii?Q?GFqQXDGQdFbMsG66PiKF94Jrog0s9GRuwrDHWX0FExb+TT3WHQPgijkiCSv+?=
+ =?us-ascii?Q?3m5kN6zf6TbL1UIzvQ0Savedzy3mPlNBvcBWoBbLtbdiQv3l4c/KJQrwGeor?=
+ =?us-ascii?Q?URTIv9Pgy2UeimsvLIjHW9HtGN3u/TAapaXwzKQYsHoG9qUwQJN0j1bE5pMN?=
+ =?us-ascii?Q?x70OhLU5yPmUK6teBSw6jVaaRaVBwD0tIvLNTK2bEftjSQkpiuUOuuof03aq?=
+ =?us-ascii?Q?Pw9FSlW+3ZOOyMLlLHDDATbbC+SsGBEPjk/Ufsb4JSv52N75D+FaCd8NYb/5?=
+ =?us-ascii?Q?pbFi1ezLGX66DV1ALf+JrtkqFvsFmkn3MRhdrTOt6Jknh1An8R7OVe+6ZG9c?=
+ =?us-ascii?Q?Mm8/dZG6OQ=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa8e8fc6-2c3c-4c0e-62c8-08dec53e36f8
+X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 09:13:33.8886 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TW1oedy3zaeVjFfbC1YXvfHtrcuCThSNcfo1k8fWQkwZkGCpwRSy8wSp6nta/JBjTKTyhszgxKVcHCvKm0vF5g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9990
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,222 +138,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Chaoyi,
+On Fri, May 15, 2026 at 02:54:16PM +0800, Liu Ying wrote:
+> i.MX93 MIPI DPHY PLL has limitation for matching with some pixel clock
+> rates, e.g., the best DPHY PLL frequency is 445.333333MHz for a typical
+> 1920x1080p@60Hz CEA/DMT display mode with a pixel clock rate running
+> at 148.5MHz with 4 data lanes + RGB888 pixel in MIPI DSI sync pulse mode,
+> while the expected PLL frequency is (148.5 * 24) / 4 / 2 MHz = 445.5MHz.
+> Fortunately, VESA Display Monitor Timing Standard allows +/-0.5% pixel
+> clock rate deviation for timings.  So, for those display modes read
+> from EDID through a bridge with DRM_BRIDGE_OP_DETECT and DRM_BRIDGE_OP_EDID
+> operation bit masks set, pixel clock rate could be adjusted to match
+> with the PLL frequency(for the above example, the pixel clock rate is
+> adjusted to be 148.444444MHz with about -0.03% deviation from the 148.5MHz
+> nominal rate so that the adjusted rate matches with the 445.333333MHz PLL
+> frequency).
+> 
+> Instead of checking the last bridge's operation bit masks against
+> DRM_BRIDGE_OP_DETECT and DRM_BRIDGE_OP_EDID to determine if allowing
+> +/-0.5% pixel clock rate deviation, check any bridge after this bridge,
+> because the last bridge is usually a display connector bridge without
+> any operation bit mask when the clock rate deviation is allowed.
+> 
+> Fixes: ce62f8ea7e3f ("drm/bridge: imx: Add i.MX93 MIPI DSI support")
+> Fixes: 5849eff7f067 ("drm/bridge: imx93-mipi-dsi: use drm_bridge_chain_get_last_bridge()")
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> Signed-off-by: Liu Ying <victor.liu@nxp.com>
+> ---
+> Changes in v3:
+> - Iterate over next bridges manually instead of calling
+>   drm_for_each_bridge_in_chain_from() to avoid deadlock issue.  (sashiko bot)
+> - Fix a typo in commit message - s/modes/mode/.
+> - Link to v2: https://patch.msgid.link/20260512-imx93-mipi-dsi-fix-mode-validation-v2-1-7aec3be5da2c@nxp.com
+> 
+> Changes in v2:
+> - Collect Frank's R-b tag.
+> - Add an explanation to commit message about the reason why mode validation
+>   checks bridge's operation bit masks.  (Dmitry)
+> - Copy Dmitry.
+> - Link to v1: https://lore.kernel.org/r/20260227-imx93-mipi-dsi-fix-mode-validation-v1-1-a9cd67991280@nxp.com
+> 
+> To: Liu Ying <victor.liu@nxp.com>
+> To: Andrzej Hajda <andrzej.hajda@intel.com>
+> To: Neil Armstrong <neil.armstrong@linaro.org>
+> To: Robert Foss <rfoss@kernel.org>
+> To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+> To: Jonas Karlman <jonas@kwiboo.se>
+> To: Jernej Skrabec <jernej.skrabec@gmail.com>
+> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> To: Maxime Ripard <mripard@kernel.org>
+> To: Thomas Zimmermann <tzimmermann@suse.de>
+> To: David Airlie <airlied@gmail.com>
+> To: Simona Vetter <simona@ffwll.ch>
+> To: Frank Li <Frank.Li@nxp.com>
+> To: Sascha Hauer <s.hauer@pengutronix.de>
+> To: Pengutronix Kernel Team <kernel@pengutronix.de>
+> To: Fabio Estevam <festevam@gmail.com>
+> To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: imx@lists.linux.dev
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+>  drivers/gpu/drm/bridge/imx/imx93-mipi-dsi.c | 44 ++++++++++++++++++++---------
+>  1 file changed, 31 insertions(+), 13 deletions(-)
 
-Following up on the need_regulator suggestion -- I implemented and
-tested it on the
-board, and unfortunately it doesn't avoid the deadlock on RK3568; it
-moves it from
-boot to the NPU job submit.
+If possible, can I get a R-b or A-b tag from a drm/drm-misc maintainer/committer
+so that this can be picked up with good review?
 
-What I did: gave the RK3568 NPU power domain a regulator (a DOMAIN_M_R
-variant with
-need_regulator =3D true), wired domain-supply =3D <&vdd_npu>, and dropped t=
-he
-regulator-always-on workaround.
-
-Boot is now clean and the NPU probes, but there is a warning during boot:
-
-  rockchip-pm-domain ...: Failed to create device link (0x180) with supplie=
-r
-  0-0020 for .../power-domain@6
-
-(0-0020 is the rk809 PMIC that supplies vdd_npu.) Then on the first NPU job
-submit the board hard-hangs with an RCU stall:
-
-  rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
-  rcu:     3-...!: (1 GPs behind) ...
-  rcu: rcu_preempt kthread starved for 5115 jiffies! ... RCU_GP_WAIT_FQS(5)
-  rcu: Unless rcu_preempt kthread gets sufficient CPU time, OOM is now expe=
-cted
-
-My reading: vdd_npu is on the rk809 *I2C* PMIC, so when genpd
-enables/disables the
-regulator during the NPU's runtime-PM power transition, the I2C
-transfer runs in a
-context that starves RCU and the box freezes. (I suspect
-need_regulator is fine on
-the RK3588 NPU because its supply isn't behind an I2C PMIC.) The always-on
-workaround avoids this precisely because genpd never touches the I2C
-regulator in
-that path.
-
-So: for an NPU domain whose supply is an I2C PMIC, is there a
-supported way to let
-genpd own the regulator without performing the I2C op in the
-power-transition path
-(a deferred/async regulator enable, or a flag), or should RK3568 keep vdd_n=
-pu as
-regulator-always-on? For v4 I'll keep always-on unless there's a cleaner pa=
-th.
-
-
-Thanks,
-Midgy
-
-Le lun. 8 juin 2026 =C3=A0 10:05, Midgy Balon <midgy971@gmail.com> a =C3=A9=
-crit :
->
-> Hello Chaoyi,
->
-> Thanks -- this is exactly what I needed.
->
-> - v2/DTE: will do. I'll keep building on Simon's per-device-ops series --=
- with
->   that in place the NPU MMU can use the 32-bit-DTE ops (the per-ops GFP_D=
-MA32
->   that's already in mainline) without the global rk_ops conflict. I'll
-> keep it as
->   a stated dependency of the v4 cover letter.
->
-> - vdd_npu:  I'll switch the RK3568 NPU
->   power domain to need_regulator + domain-supply =3D <&vdd_npu> and drop =
-the
->   regulator-always-on workaround. I suspect that's also the right fix for=
- the
->   power-off/on de-idle issue I described -- the always-on was really
-> just papering
->   over the domain not being modelled with a regulator. I'll confirm on
-> the board.
->
-> - AUTO_GATING: thanks for the commit references -- I'll keep the bit-31
->   read-modify-write form with your Suggested-by and write the comment
-> from those.
->   For the record: on v7.1-rc6 the NPU MMU also completes translations
-> on the reset
->   value (I couldn't reproduce a page-walk stall without the write), so I'=
-ll note
->   in the commit that it matches the vendor clock-gating handling rather t=
-han
->   fixing a failure I can reproduce here -- happy to drop it if the iommu
->   maintainers would prefer.
->
-> - PVTPLL/NoC: I'll follow up with Finley. First I'll check whether the
->   need_regulator change resolves the NoC re-power de-idle on its own;
-> if it still
->   I'll bring him the details (the genpd power-on de-idle ack and the
->   BUS_IDLE_ST state).
->
-> I'll send a v4 with these. Thanks again for the quick, detailed answers.
->
-> Kind regards,
-> Midgy
->
-> Le lun. 8 juin 2026 =C3=A0 03:40, Chaoyi Chen <chaoyi.chen@rock-chips.com=
-> a =C3=A9crit :
-> >
-> > Hi Midgy,
-> >
-> > On 6/8/2026 5:03 AM, Midgy Balon wrote:
-> > > Hi Chaoyi,
-> > >
-> > > Thanks a lot for looking at this -- input from Rockchip is exactly wh=
-at this
-> > > series needs.
-> > >
-> > >> Hmmm. If I understand correctly, the NPU IOMMU should be v2 rather t=
-han v1,
-> > >> implying it should support 40-bit PAs. Nevertheless, please note tha=
-t the
-> > >> upper limit for DTE is 32 bits.
-> > >
-> > > Understood, and that 32-bit-DTE note is the crux of the trouble I had=
-, so let
-> > > me lay out what I see and ask how you'd prefer to solve it.
-> > >
-> > > The mainline node is already v2 (rockchip,rk3568-iommu in rk356x-base=
-.dtsi).
-> > > The problem on this 8 GiB board: with the v2 ops the page-table alloc=
-ations
-> > > (gfp_flags =3D=3D 0) can land above 4 GiB, so the DTE ends up > 32 bi=
-ts and the
-> > > NPU's first translation faults with DMA_READ_ERROR. To work around th=
-at I had
-> > > switched the NPU MMU to the v1 compatible (rockchip,iommu), whose ops=
- set
-> > > GFP_DMA32 and keep the DTE sub-4 GiB. That works in isolation, but be=
-cause the
-> > > driver keeps a single global rk_ops, a v1 NPU MMU then trips
-> > > WARN_ON(rk_ops !=3D ops) against the SoC's v2 instances (VOP/VDEC), w=
-hich is why
-> > > I based the series on Simon's per-device-ops work.
-> > >
-> > > So my question: with per-device ops in place, what's the intended way=
- to keep
-> > > the NPU MMU on v2 *and* cap its DTE at 32 bits on boards with >4 GiB =
-of RAM?
-> > > A v2 ops variant carrying GFP_DMA32 for this device, or is there a re=
-gister/
-> > > config bit that constrains the DTE address? I'd rather follow the Roc=
-kchip
-> > > intent here than carry the v1 workaround. (Simon, cc'd -- this is rig=
-ht next to
-> > > your per-device-ops series.)
-> > >
-> >
-> > If Simon's method works, please use it :)
-> >
-> > >> Can these operations not be completed via the pmdomain driver?
-> > >> If some operations are controlled by TF-A, are you using open source=
- TF-A?
-> > >
-> > > Most of it is in pmdomain already. Power-on and NoC de-idle are done =
-by the
-> > > RK3568 NPU power domain (genpd) at power-on -- the driver no longer p=
-okes the
-> > > PMU directly. Two things remain outside it:
-> > >
-> > >  - vdd_npu: I mark it regulator-always-on in DT rather than wiring it=
- as the
-> > >    domain's domain-supply, because as a domain-supply it created a de=
-vice-link
-> > >    to the I2C PMIC (rk809) and genpd's power-off QoS-save path then h=
-ung
-> > >    reading the NPU QoS registers behind the (gated) NoC. If there's a=
- clean way
-> > >    to let genpd own vdd_npu without that I2C ordering deadlock I'd mu=
-ch prefer
-> > >    that -- pointers welcome.
-> > >
-> >
-> > Please refer to the patch below regarding the RK3588 NPU pmdomain.
-> > In short, you need to set a "need_regulator" for the RK3568 NPU pmdomai=
-n.
-> >
-> > https://lore.kernel.org/all/20251216055247.13150-1-rmxpzlb@gmail.com/
-> >
-> > >  - the NPU compute clock (PVTPLL): set from the driver via SCMI, and =
-only
-> > >    needed for actual compute, not for bring-up.
-> > >
-> > > One more pmdomain observation from testing, possibly relevant to how =
-the NPU
-> > > domain should be modelled: the domain's power-off/on cycle doesn't re=
-liably
-> > > re-de-idle the NoC. If the NPU is probed after genpd has already powe=
-red the
-> > > (unused) domain off, the power-on de-idle fails ("failed to set idle =
-on domain
-> > > 'npu'") and the NPU IOMMU then takes an external abort on its first M=
-MIO access.
-> > > Probing the NPU before the unused-domain power-off, or marking the do=
-main
-> > > always-on, both avoid it. Is the NoC de-idle expected to work on a ge=
-npd
-> > > re-power here, or should this domain effectively stay on?
-> > >
-> >
-> > Not quite sure what's going on with PVTPLL and NOC.
-> > Maybe @Finley knows about this?
-> >
-> > > On TF-A: yes -- bl31 is built from upstream arm-trusted-firmware
-> > > (github.com/ARM-software/arm-trusted-firmware, RK3568 platform), prov=
-iding PSCI
-> > > and the SCMI clock service. The only closed blob in the boot chain is=
- Rockchip's
-> > > DDR init (rkbin), which is the standard situation for mainline RK356x=
-.
-> >
-> > --
-> > Best,
-> > Chaoyi
+-- 
+Regards,
+Liu Ying
