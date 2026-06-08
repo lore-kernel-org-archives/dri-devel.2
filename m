@@ -4,55 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D21F3CD6E79
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 17:11:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DF6CCD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 17:11:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 307A410F7A1;
-	Mon,  8 Jun 2026 17:11:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBEF710F7A5;
+	Mon,  8 Jun 2026 17:11:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I9j4SDSD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PItO9ejy";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF59010F7A5
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 17:11:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 437E810F7A5
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 17:11:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BA9A041ACA;
- Mon,  8 Jun 2026 17:11:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CBD91F00893;
- Mon,  8 Jun 2026 17:11:15 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2D1E9402B3
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 17:11:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E57631F00893;
+ Mon,  8 Jun 2026 17:11:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780938678;
- bh=uHkwhHssG6Ajbq+kxDL/0e8WB7yH/kcwATkmbA1AP3k=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=I9j4SDSDT9ki9u+z7cSyvi9t9iQL/2ZYIZOmJOK8cjgmPDqdNZaCe++QkjvmjjeKS
- 0vuXC37r4OurgF+e+cFDban3ikva6YU9DnO+WTlMAy9/y8O4X63E6sWjuOUXruzm3o
- UGP9Dee6imuHGn5VujBSIB22wLnkHh5rU/Sp1ksu8Op/zmn9tdjSiJi0n/mW9z4hDJ
- o4UVF2zaok5sbLNd1S7cDPIP1tat//LWUB80NasQqFvDhBWYMMXr53uLeVcw5JIVa7
- wWxmCfMeu/nf03Xi1BBE/z+PINBgmD8m5xioZ2iSPLPujG8cKM6uCWhOftMEjLYFLM
- bmlyRfCwVINmQ==
-Date: Mon, 8 Jun 2026 18:11:13 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Pengyu Luo <mitltlatltl@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: display: panel: himax,hx83121a: add
- optional bl supply
-Message-ID: <20260608-tilt-probably-5bd81e84098f@spud>
-References: <20260608162622.403713-1-zhengxingda@iscas.ac.cn>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="eoSr/GZJJ3GY74cM"
-Content-Disposition: inline
-In-Reply-To: <20260608162622.403713-1-zhengxingda@iscas.ac.cn>
+ s=k20260515; t=1780938683;
+ bh=g2vxtlJDibPw8A6H2z/iaz6npW9jQUcdpfglXiJiup0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=PItO9ejyt+VTRur7870QaTXtifN+Q5a5VmsFFq4LarSyfDrkAYBAIMtQ3eTFywd4f
+ yvSQO415RxE0J2iiahbKsF3U9gbhmhuWFpE2aVLQG/xUOPvVnUPHlcvTVpQ9YJaYWh
+ E2RJ3fCp38EeV4SHBILm0AwI9RqXLPwPMhZy1KfeLbemnbgWOTqEqlckp7JqwA5pLL
+ oYQJefhPq1jf4dN7/vWTXuw34u3Phrksp4Tw21LqS5Do7kLvEB/rccQfd/Zt6lXX92
+ ahu8SnKcd70oEN+ispbtc+R7vuO2ZYraR29tWjsWlyKA7J/YzNGe05SSmZnzEf3IS4
+ EoDttH7HdHSRQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 46/78] drm/bridge: ti-tfp410: Switch to
+ atomic_create_state
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-46-0a91018bf886@kernel.org>
+References: <20260608-drm-no-more-bridge-reset-v2-46-0a91018bf886@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 08 Jun 2026 17:11:22 +0000
+Message-Id: <20260608171122.E57631F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,26 +53,80 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
---eoSr/GZJJ3GY74cM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Pre-existing issues:
+- [High] Missing Cleanup on Error Path
+--
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+commit 1dbc8ff3ee3e816eec72de6095402106b128c956
+Author: Maxime Ripard <mripard@kernel.org>
 
---eoSr/GZJJ3GY74cM
-Content-Type: application/pgp-signature; name="signature.asc"
+drm/bridge: ti-tfp410: Switch to atomic_create_state
 
------BEGIN PGP SIGNATURE-----
+This commit switches from the deprecated atomic_reset callback to the
+atomic_create_state callback.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaib3sQAKCRB4tDGHoIJi
-0j0rAQCvfWv/nj6nvGJdFYHllgXfokFFKjL+XSfhDQO9JKqbBgEAw/0tXEtdVAIU
-pbAwVaqJyMR8xgIRaZ5DpD+VZ/dvVwA=
-=/RX/
------END PGP SIGNATURE-----
+> diff --git a/drivers/gpu/drm/bridge/ti-tfp410.c b/drivers/gpu/drm/bridge/=
+ti-tfp410.c
+> index bf4ab4eaf2697..6f06f7b4e9926 100644
+> --- a/drivers/gpu/drm/bridge/ti-tfp410.c
+> +++ b/drivers/gpu/drm/bridge/ti-tfp410.c
+> @@ -245,7 +245,7 @@ static const struct drm_bridge_funcs tfp410_bridge_fu=
+ncs =3D {
+>  	.enable		=3D tfp410_enable,
+>  	.disable	=3D tfp410_disable,
+>  	.mode_valid	=3D tfp410_mode_valid,
+> -	.atomic_reset =3D drm_atomic_helper_bridge_reset,
+> +	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
+>  	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
+>  	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
+>  	.atomic_get_input_bus_fmts =3D tfp410_get_input_bus_fmts,
 
---eoSr/GZJJ3GY74cM--
+[Severity: High]
+This is a pre-existing issue, but when drm_connector_init_with_ddc() fails =
+in
+tfp410_attach(), it returns without cancelling dvi->hpd_work or calling
+drm_bridge_hpd_disable() on dvi->bridge.next_bridge:
+
+drivers/gpu/drm/bridge/ti-tfp410.c:tfp410_attach() {
+	if (dvi->bridge.next_bridge->ops & DRM_BRIDGE_OP_HPD) {
+		INIT_DELAYED_WORK(&dvi->hpd_work, tfp410_hpd_work_func);
+		drm_bridge_hpd_enable(dvi->bridge.next_bridge,
+				      tfp410_hpd_callback, dvi);
+	}
+
+	drm_connector_helper_add(&dvi->connector,
+				 &tfp410_con_helper_funcs);
+	ret =3D drm_connector_init_with_ddc(bridge->dev, &dvi->connector,
+					  &tfp410_con_funcs,
+					  dvi->bridge.next_bridge->type,
+					  dvi->bridge.next_bridge->ddc);
+	if (ret) {
+		dev_err(dvi->dev, "drm_connector_init_with_ddc() failed: %d\n",
+			ret);
+		return ret;
+	}
+    ...
+}
+
+Because the DRM core does not call .detach() on a failed .attach(), the HPD
+callback remains registered on the downstream bridge and the delayed work is
+never cancelled.
+
+If the device is subsequently unbound, dvi will be freed by devm. A subsequ=
+ent
+HPD event from the downstream bridge would execute tfp410_hpd_callback() wi=
+th
+the freed dvi pointer.
+
+Could this lead to a use-after-free on dvi?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608-drm-no-mor=
+e-bridge-reset-v2-0-0a91018bf886@kernel.org?part=3D46
