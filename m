@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD97FCD8C92
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 02:41:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 921C2CD8C90
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 02:44:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF44610EC4D;
-	Mon,  8 Jun 2026 02:41:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8017510EC55;
+	Mon,  8 Jun 2026 02:44:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LNM+0Ql2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WGN9Tbbz";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BDA010EC4D
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 02:41:24 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CCA610EC55
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 02:44:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 09E8D4383D;
- Mon,  8 Jun 2026 02:41:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D1481F00893;
- Mon,  8 Jun 2026 02:41:23 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A4F20600AE;
+ Mon,  8 Jun 2026 02:44:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC6B21F00893;
+ Mon,  8 Jun 2026 02:44:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780886483;
- bh=mwJrXmtqejKYCngZrxBQoyTb/fGdzAiXmkGHtx6i+jA=;
+ s=k20260515; t=1780886657;
+ bh=7VvzNw4uxKFyd+LT1VhXzohYTCt/TTJI3Jzw0KzevNk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=LNM+0Ql2/hqwTH6TJmDTcqTY36jPz3KLjscM9TZ1ZipqgSYUVVZYRZykzABJOmTN0
- 313E0pon45P8+EYRtfWIzeg95ziEb0ujDniNJesOVLvGpLc8M/OOkhu4paBrXy2VZB
- fHfugn03bZpZ4re56EbFBps7Pc1VnJvwlyK6ExmZqn2Dmf68JmMbyepcBhFWemwCww
- t+7ltYvRjB74vaOOdSdtidfjXdZkPLhnd8TPQ8vueudXL1/kC/AKOyXN8RHV3YUSJh
- Js1y1vkH0FrIzrxWYmMdHVxy7c7KM91x6Ljkn0jk3+d588hqC1B1LydYz/ytVWRudB
- lBQgEMrBta3oQ==
+ b=WGN9Tbbz8oIh1CALuO7SRpycmJZoJ0P8uJydXrdef6zgeD6OE0ZFI8HdTaMj8akbM
+ v0zw3NPQJ7CL6L2mx38fxsCJy/SFn2mhtHX85wG51aNLtCN7ETnCDVSMaesPZPOcOO
+ Use+BKuW7Nj9Lx/IKUK0O4jsYRRoPp6xWp3ANOv05RJqEAwhQmiP+apbcHnKbVEqEs
+ dqZ1FOAEWnqGxMc0Ha2t7N2It+ktiao+VXwUNw44wgsI62pSHVeKrkLmEaSOTV/63k
+ EGxwJv/fjfHullcqsc4e+VWC2ZBBBfzzho3laeBBEtS73abewHvInEtYGmlfdNDPCV
+ KeVQrzRHKMcdg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 5/5] drm/verisilicon: add DCUltraLite chip identity
- to HWDB
+Subject: Re: [PATCH v3 3/5] drm/verisilicon: introduce per-variant hardware
+ ops table
 To: "Joey Lu" <a0987203069@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260608023237.305036-6-a0987203069@gmail.com>
-References: <20260608023237.305036-6-a0987203069@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260608023237.305036-4-a0987203069@gmail.com>
+References: <20260608023237.305036-4-a0987203069@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 02:41:22 +0000
-Message-Id: <20260608024123.9D1481F00893@smtp.kernel.org>
+Date: Mon, 08 Jun 2026 02:44:16 +0000
+Message-Id: <20260608024416.AC6B21F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,104 +58,155 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
 
+New issues:
+- [High] The disable sequence in `vs_dc8200_bridge_disable` reverses the or=
+der of clearing `VSDC_DISP_PANEL_START` and `VSDC_DISP_PANEL_CONFIG`.
+- [High] Incorrect teardown sequence in CRTC disable path where pixel clock=
+ is disabled before calling the CRTC hardware disable hook.
+
 Pre-existing issues:
-- [High] A wildcard entry in vs_chip_identities shadows subsequent specific=
- entries, making them unreachable.
-- [High] The IRQ handler is registered before DRM structures are initialize=
-d, which can cause a NULL pointer dereference if an interrupt fires early o=
-r if initialization fails.
+- [High] The plane disable function incorrectly sets the enable bit instead=
+ of clearing it.
+- [High] Calling `clk_prepare_enable()` and `clk_disable_unprepare()` in th=
+e CRTC atomic enable/disable callbacks violates atomic context rules.
+- [High] Potential NULL pointer dereference if IRQ fires before drm_dev is =
+initialized.
 --
 
-commit ef807eaf736a3cb84d7613b4d88301061b410a1b
+commit 7843af23baf865801f80d2910ca556ff5e144ece
 Author: Joey Lu <a0987203069@gmail.com>
+Subject: drm/verisilicon: introduce per-variant hardware ops table
 
-drm/verisilicon: add DCUltraLite chip identity to HWDB
+The DC8200 and DCUltraLite share a broadly similar register layout but
+differ in how the bridge, CRTC, primary plane and IRQ paths are driven.
+Introduce a vs_dc_funcs vtable so each variant can supply its own
+implementation without scattering conditionals across multiple files.
 
-This commit registers the Nuvoton MA35D1 DCUltraLite chip identity in
-the hardware database. It places the entry last in the list to act as a
-gate for hardware recognition.
-
-> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c b/drivers/gpu/drm/veri=
-silicon/vs_hwdb.c
-> index 91524d16f7785..7d630a667a3f0 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> @@ -129,6 +129,16 @@ static struct vs_chip_identity vs_chip_identities[] =
-=3D {
-
-[Severity: High]
-This is a pre-existing issue, but does the wildcard entry at the start of
-vs_chip_identities prevent specific entries from being matched?
-
-Looking at vs_chip_identities, the first entry uses a wildcard for the
-customer ID:
-
-static struct vs_chip_identity vs_chip_identities[] =3D {
-	{
-		.model =3D 0x8200,
-		.revision =3D 0x5720,
-		.customer_id =3D ~0U,
-...
-
-In vs_fill_chip_identity(), the search loop returns on the first match:
-
-	for (i =3D 0; i < ARRAY_SIZE(vs_chip_identities); i++) {
-		if (vs_chip_identities[i].model =3D=3D model &&
-		    vs_chip_identities[i].revision =3D=3D revision &&
-		    (vs_chip_identities[i].customer_id =3D=3D customer_id ||
-		     vs_chip_identities[i].customer_id =3D=3D ~0U)) {
-...
-
-Because the ~0U entry comes first, wouldn't it shadow the subsequent specif=
-ic=20
-entries for the same model and revision (like customer_id 0x310 and 0x311),
-preventing their specific formats from ever being applied?
-
->  		.max_cursor_size =3D 64,
->  		.formats =3D &vs_formats_no_yuv444,
->  	},
-> +	{
-> +		.model =3D 0x0,		/* DCUltraLite */
-> +		.revision =3D 0x5560,
-> +		.customer_id =3D 0x305,
-> +
-> +		.generation =3D VSDC_GEN_DC8000,
-> +		.display_count =3D 1,
-> +		.max_cursor_size =3D 32,
-> +		.formats =3D &vs_formats_no_yuv444,
-> +	},
->  };
+> diff --git a/drivers/gpu/drm/verisilicon/vs_crtc.c b/drivers/gpu/drm/veri=
+silicon/vs_crtc.c
+> index 0b8a35d09cd2e..679d6541ba1b9 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_crtc.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_crtc.c
+[ ... ]
+> @@ -30,6 +53,9 @@ static void vs_crtc_atomic_disable(struct drm_crtc *crt=
+c,
+>  	drm_crtc_vblank_off(crtc);
 > =20
->  int vs_fill_chip_identity(struct regmap *regs,
+>  	clk_disable_unprepare(dc->pix_clk[output]);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but is it possible for an early
-interrupt to cause a NULL pointer dereference during probe?
+This is a pre-existing issue, but does calling clk_disable_unprepare() here
+violate atomic context rules?
 
-In vs_dc_probe() from vs_dc.c, the IRQ handler is registered before DRM
-structures are initialized:
+The DRM subsystem requires that CRTC atomic disable callbacks run in atomic
+context where sleeping is forbidden, but clk_disable_unprepare() can sleep.
 
-	ret =3D devm_request_irq(dev, irq, vs_dc_irq_handler, 0,
-			       dev_name(dev), dc);
-...
-	ret =3D vs_drm_initialize(dc, pdev);
+> +
+> +	if (dc->funcs->crtc_disable)
+> +		dc->funcs->crtc_disable(dc, output);
+>  }
 
-If an interrupt fires during this window, the handler seems to unconditiona=
-lly
-dereference dc->drm_dev which is allocated later in vs_drm_initialize():
+[Severity: High]
+Could disabling the pixel clock before invoking the hardware-specific
+crtc_disable callback cause bus hangs?
 
-vs_drm_handle_irq() in vs_drm.c:
-...
-			if (dc->drm_dev->crtcs[i])
-				drm_crtc_handle_vblank(&dc->drm_dev->crtcs[i]->base);
+If the crtc_disable hook requires the pixel clock to be active to perform
+register writes, turning it off first might result in dropped writes or
+stalls. Should the clock be disabled after the hook is called, reversing
+the setup sequence?
 
-Could this lead to a panic if the hardware has a pending interrupt before D=
-RM
-is ready?
+> =20
+>  static void vs_crtc_atomic_enable(struct drm_crtc *crtc,
+> @@ -42,6 +68,9 @@ static void vs_crtc_atomic_enable(struct drm_crtc *crtc,
+>  	drm_WARN_ON(&dc->drm_dev->base,
+>  		    clk_prepare_enable(dc->pix_clk[output]));
+
+[Severity: High]
+This is a pre-existing issue, but does this clk_prepare_enable() call also
+violate atomic context rules?=20
+
+Since atomic_enable runs in atomic context, calling sleeping functions can
+cause kernel warnings or potential deadlocks during non-blocking commits.
+
+> =20
+> +	if (dc->funcs->crtc_enable)
+> +		dc->funcs->crtc_enable(dc, output);
+> +
+>  	drm_crtc_vblank_on(crtc);
+>  }
+> =20
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c b/drivers/gpu/drm/verisi=
+licon/vs_dc.c
+> index dad9967bc10b8..c949570241890 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
+> @@ -33,7 +31,7 @@ static irqreturn_t vs_dc_irq_handler(int irq, void *pri=
+vate)
+>  	struct vs_dc *dc =3D private;
+>  	u32 irqs;
+> =20
+> -	regmap_read(dc->regs, VSDC_TOP_IRQ_ACK, &irqs);
+> +	irqs =3D dc->funcs->irq_handler(dc);
+> =20
+>  	vs_drm_handle_irq(dc, irqs);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is it possible for the IRQ to
+fire before the DRM device is fully initialized?
+
+If the bootloader leaves the display hardware active and generating VSYNC
+interrupts, vs_dc_irq_handler() could execute and call vs_drm_handle_irq(),
+which accesses dc->drm_dev. Since devm_request_irq() is called in
+vs_dc_probe() before vs_drm_initialize() allocates dc->drm_dev, could
+this lead to a NULL pointer dereference during early boot?
+
+[ ... ]
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8200.c b/drivers/gpu/drm/ve=
+risilicon/vs_dc8200.c
+> new file mode 100644
+> index 0000000000000..db9e1b3cd9032
+> --- /dev/null
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc8200.c
+[ ... ]
+> +static void vs_dc8200_bridge_disable(struct vs_dc *dc, unsigned int outp=
+ut)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
+> +			  VSDC_DISP_PANEL_CONFIG_RUNNING);
+> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
+> +			  VSDC_DISP_PANEL_START_MULTI_DISP_SYNC |
+> +			  VSDC_DISP_PANEL_START_RUNNING(output));
+
+[Severity: High]
+Does this reversal of the clearing sequence cause bus stalls or visual tear=
+ing?
+
+In the original code, VSDC_DISP_PANEL_START was cleared before
+VSDC_DISP_PANEL_CONFIG. This refactored sequence disables the panel
+configuration while the pipeline is potentially still active. Should
+VSDC_DISP_PANEL_START be cleared first to safely stop the pipeline?
+
+[ ... ]
+> +static void vs_dc8200_plane_disable_ex(struct vs_dc *dc, unsigned int ou=
+tput)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+> +			VSDC_FB_CONFIG_EX_FB_EN);
+> +
+> +	vs_dc8200_plane_commit(dc, output);
+> +}
+
+[Severity: High]
+This is a pre-existing issue carried over from the original code, but
+does this actually disable the plane?
+
+By using regmap_set_bits() with VSDC_FB_CONFIG_EX_FB_EN, the frame buffer
+enable bit is being set to 1 instead of being cleared. Should this use
+regmap_clear_bits() instead to properly disable the hardware plane?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608023237.3050=
-36-1-a0987203069@gmail.com?part=3D5
+36-1-a0987203069@gmail.com?part=3D3
