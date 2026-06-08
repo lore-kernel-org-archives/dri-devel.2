@@ -4,97 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C5E2CD8C8E
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 06:09:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90902CD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 06:11:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3EE010ED51;
-	Mon,  8 Jun 2026 06:09:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1DB610ED58;
+	Mon,  8 Jun 2026 06:11:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oAt/2tah";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XOuYTKdD";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OBfoOK4t";
 	dkim-atps=neutral
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBE9310ED51
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 06:09:04 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-bed4f2f0898so493441766b.3
- for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 23:09:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780898943; cv=none;
- d=google.com; s=arc-20240605;
- b=QE+6ooXVl/rjEF8U4ydDoSfCUUBKxJWvzpXAP8THLtY9yH6ul3VQ71+H5c6OK8xHhx
- m8IA7oUsOIYZTKbeQAPX+2zLRWhcxt7hUdMGeZmNQTgfld5g/3+C5ztsnzHNaDoFlhxQ
- ovGX5PcN+UsBlooMO4jZIc9ajXmoL7OD7II7YLh0/uokQpmOr6LEdqmtrk2Xn4B/V4PR
- TjCm89Izm9nWaEpQPXQnR28xnH5NKJSAEKbfFJOpwSQad/wv3I0ZapGlWF932I355Bp7
- d2q0rHN+szelmGZHN8W6OhlAU5ejgn7aFgXgMY/MQ2XIVy8QyXn/87PhVo6ZqduB28zr
- o2Ng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=8gi/wE5hjAq/hZ0xe+B37Cet1OR9dugn2vSBBancYOQ=;
- fh=E2gjLuLFv1SHyC/BrTDB4efU718pS+BO/LHHW4/eUdE=;
- b=LIYt6A4tV6mW+3MrwyyI934HsjI02qJYFdUCkz0UQ7FmWHwzMYHX7P4LEEBANkX/UY
- O09iywewNpCbCuPuaRRwwiMrHIoAkxEoZ4CldoHxnzCagihehVwrjSUfVUvyH/eXuG9U
- Q95lERkDV7371dZQqCPvj3j+dyMvNIaG7jspSidhK6C3tqSPE7NLJInKMACOGBr0cVzy
- 8epK+WmRKS72ISrL/iWIxuugP7pLh+zaZBZP/BB+YNzNR6xBh/n295tZ5NOj5eJltxeF
- w326DcO1VgDP8I2BuNBtifkV9b99n+xY8We7qqzPhdSqivCfP6cFfO8miKjSK7AX3Yo5
- pT/w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1F9C10ED57
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 06:11:14 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6580GlJp1933588
+ for <dri-devel@lists.freedesktop.org>; Mon, 8 Jun 2026 06:11:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=zl/gOSwq/zJx2zMCoSWpfKLD
+ oa29+U0nv8eXcgWpFDc=; b=XOuYTKdDQILkohl4FW7OdfjqMyyh201CrXzLPbby
+ bIx0NgRKEC1GIerHteRUryoPmC9MLffwm6AXzvCdEJGB0UonbMGnZKLQwonkRq9C
+ koCsPYjRSB45vMI51K+BW1c2P+4yJyBEPZMoikPkrz70XBvaLN1g+BTUa239rK60
+ b4mBuRm0NQP4Gx9ZdkWC0SVOp9L5Lc026Wm7orpE334ycotsevx+mNTggrzFsOUo
+ oueBTEPpBiVCy4dAPRk73RPVzQCYsNdrj6YZ8kNPF3yFAdDmLCcovl7fVhgA2Ro0
+ slcqFisG0oLu3rxhd94j6TLNlDiHrEE09+dhCVoy4fmX7g==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com
+ [209.85.222.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emavf6arc-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 06:11:13 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id
+ a1e0cc1a2514c-963eeb6f2baso4182353241.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 23:11:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780898943; x=1781503743; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8gi/wE5hjAq/hZ0xe+B37Cet1OR9dugn2vSBBancYOQ=;
- b=oAt/2tahJZGdAEuBfDwHzqGfl2crrDBDE22aVMrrf6aPt7wEls+0qYpFHuMn5UPRbE
- S50k1RDuPxAcLtVUEtVeAprFLrnIHC5m3TF/OFqPYauMP43hIRdAm+0XaEolJVOSVO63
- YMZpWoF2Ey9R1eKG+99/mPsH1znzUt/61R45CprzwmtJzsMW4ocW0iptCWv5pAw0WFA+
- kqu34FCF9qVBpSudiu7JiG/mdtwh2up77Ggev9jzXLfTv1fvJoP3H5CCrDc2xNHNgTmI
- GI9E1ntnbyutooD7E2NBslAcPgMRu/sv4ezbnVDMFS03+sp2quFwriBocnS1CSiGnX31
- +A6w==
+ d=oss.qualcomm.com; s=google; t=1780899073; x=1781503873;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=zl/gOSwq/zJx2zMCoSWpfKLDoa29+U0nv8eXcgWpFDc=;
+ b=OBfoOK4tstW73CDsGvBFjMWupHmzy5A7GbwJUTL6gzKW4xpxF1dL6AEjhDqZtdctcg
+ CbDk9jOwnRfqoYfPuoU6e1fqHTO6+a4M2N2em06CpFITK5oE62vfRuE2SLiMmk+hLH/t
+ a5iiJvvr0IVhN+UN/ab1EG6hzj3ZFh+rzqAT8cc8VLtgauL4huCGEPUdiFS7iqi3scGk
+ /9jL3h2yStE6xe2dSbFsB0VJet/6L1tBFSbN11IBPujCOSncjlfVx9rZoT3zdrHY/hN5
+ iBDzRNT5BeCH1/eeOmxJHVbLJDxUB0ei7AUbIZ6zj3lkFnLeZW5d9v+oMQ6VrWVfzqXZ
+ Kqiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780898943; x=1781503743;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=8gi/wE5hjAq/hZ0xe+B37Cet1OR9dugn2vSBBancYOQ=;
- b=aOM2juTzMbO0RmssGlRayToDVHbhJIPPKDKeytBu7RJ/1PCor5HT99z3B1oNzXfDSd
- XPmNlr4B/4znfIzZ/ffit4ewMmYzbj28w3SiDIZA2yOC3TMopg4sKdR9KP18GQRzH4Tf
- wh7BS4B+3Xs/5GDA1p3ml/Z5foUJHwGHMJ2abQh+buVjOQLwGJo5VWHuaFuf0ZHrBfjV
- WM3+QRG7jGgnoLpn6NeCA3K7CZU3/mdL60KYZoPkpU7GVFbiNoBRXDvVyolgYfh+OEzh
- 9fpU0aMkVAkj2nmoik7L6t3LvUxi+Wb3Vlyn9LH74HWxZcoXcKkf6qEfl7kcmyKjSXye
- beeg==
+ d=1e100.net; s=20251104; t=1780899073; x=1781503873;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=zl/gOSwq/zJx2zMCoSWpfKLDoa29+U0nv8eXcgWpFDc=;
+ b=b3ifBSqmDFPSpsg8t3CbC1MxAe7xEsRKLWO9EDY3eLqJFYI9ANYnupYW/dFNANp/FT
+ kgJZ7eqW5tkEcLwXfkKFQKE0u63oAuI+IuKatPnZcL2bHSZ9DPVxm/wB1aq69XDrSjyZ
+ z0UOX/cNI+8xgO6iQK91yClQSzO3OMbzkXnpTNGEN8s69Nc2e14n26WUTmqtVQqPXytX
+ tORWXkyCbUULY0m7DcqWxHBFOW8nRK7CrFT4WKa+fggC92g/i7gPErMzyA7VNe1GwF0P
+ XhzlVmxkHwj6vvZyaQS5uraKgAr5zzRRKdgngFGY2ccOKzHRMpcMfa8y3aqi28HoER5/
+ XvCA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/fhZ+bAWWHi/qHU0RnVFLKsfUOOCyrR1aeipz4Ac4/VYvNIFRv7xeO2s1ugrF7ecthWvp/FjMgHzo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxPLjRj/7nLw/7nkLfHPy/httNsXwqT6mLDhCgYc2ms19jFcZG9
- jEeAfpbrn0vZFySIkVjW0P3oNnPQxqjqqltIw3hYADYuV8CE5zriSYWJGYN1iq+YO6CeQ/6+aKV
- rUP0220rGrlk5mMw1aJaG5VpXmlf7Vwo=
-X-Gm-Gg: Acq92OG6INPFaW/UsNGAD0eXkbIAIdK8OZChbzKNAE4F/gLeWDH4Evq6bD++I/I4ZCy
- iK19d7eWytyxIxWI66hAL6c9C1fOBuUNOhMpDI6Qkb6EDyv7AurSCUZufI/3fhJYikqKfdziXM9
- Oj2Ytbf+LWBXVEMLF/XUEiK2hlfW5SpV0Pe4cdIcCtKk/wD/NHi7mJSgpgYKHjdzKjwBzBRinnu
- iMb23FtfQ8kQYvtdToipe/A3/62yZ7tSMRF10qmlqNjexa6dElkfAyFgHkrul25NmXQF6iuFsPC
- 3GYDx3rIx9K71YUnCvWdKZFQRWRg5OnKMVolo/hfnVe+co/A7YB1YHtluqLy5MRdQ7ynZGl8LN1
- XV/7K710DoWma2Nora1abBLwniodn/87VzO7kObBk2/Cw1K6awSKckEVwRax1lYhHeixNTIRMmX
- /t9qE=
-X-Received: by 2002:a17:907:6e93:b0:be8:93c2:cbae with SMTP id
- a640c23a62f3a-bf3709666a1mr614698166b.19.1780898942969; Sun, 07 Jun 2026
- 23:09:02 -0700 (PDT)
+ AFNElJ+7IuoC2DaQun5XYkbjX9iTOpYkHxSicZO8YLvmmgmihR8ttPr+VsZs4MSXKGnDgcZegS/7EzuoOHE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyZ3LM/pbZuWgketge+uVImLdxG0RdgGOyN7HgVsFwvOXhyf15D
+ AbFDqxUwpNOjdy9lC2Zjc2M7p94ZdCsBF1P+ww9qvO5/C2ejeYdpbzsR9uxve8j/TN1TBDSRBG4
+ ii7Ps0ASUxk/AK24ILdoYKyZBb4ctUhGGlUpkFMypzW8/NS3o9O/QZq+qh2feblUPC0i4QC0=
+X-Gm-Gg: Acq92OFlJCyRCIPzMqEO3Nt2Ep3qEf8TSyBv197UdhlzLLNiZcu2jp+u0svDU/RWvQa
+ aFQVdwuJuQ5+138DYN+QIPMT4lXLecx02FkRn9ndGxYJkIbnFAH16S5CUP/OM8+StueVpj3zQmp
+ ULH52jlCqJPHlOHUzT1kZMitZF+ePC0ue5EiwCyFIis7kqU12JIUnwC8IzGWVOws/PQkK5FBSjW
+ 7rsz/m/g7mFDSEUjXBkndy+50BNGWgvThKBSFkddoY0LoI4jfm87s9D1r2q+tSM5oEVhsk0P/Dw
+ gPJdpY13B5Y54eFWNNwDGDN9xjpjQgqhZd/xhU7eieATYYOJkXtnYI//JXgJcSGxo4bvVxYytW7
+ fmKw3sI9+p6lL3YXOCvo3vhpSqYhTuaHsN6UWtCMEFyNmNfuOf/gH84Vbn0JAHqHIsyFO9sQilz
+ lHbmGYn/3Loz1o0DAlVlXQdVzBcxU55maX0QB1bfenqIaJuw==
+X-Received: by 2002:a05:6102:8001:b0:618:442a:9e76 with SMTP id
+ ada2fe7eead31-6feff813ee1mr6808970137.10.1780899073255; 
+ Sun, 07 Jun 2026 23:11:13 -0700 (PDT)
+X-Received: by 2002:a05:6102:8001:b0:618:442a:9e76 with SMTP id
+ ada2fe7eead31-6feff813ee1mr6808964137.10.1780899072865; 
+ Sun, 07 Jun 2026 23:11:12 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5aa7b8ed2adsm3559059e87.1.2026.06.07.23.11.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 07 Jun 2026 23:11:11 -0700 (PDT)
+Date: Mon, 8 Jun 2026 09:11:08 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jianping Li <jianping.li@oss.qualcomm.com>
+Cc: srini@kernel.org, amahesh@qti.qualcomm.com, arnd@arndb.de,
+ gregkh@linuxfoundation.org, abelvesa@kernel.org,
+ jorge.ramirez@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ ekansh.gupta@oss.qualcomm.com, quic_chennak@quicinc.com, stable@kernel.org
+Subject: Re: [PATCH v7 3/5] misc: fastrpc: Fail Audio PD init when reserved
+ memory is missing
+Message-ID: <bcm2eufawifaq65i5qlqmbam4wtv2du5re6c54tiamdbynmras@lbfd44kjb6da>
+References: <20260602071750.526-1-jianping.li@oss.qualcomm.com>
+ <20260602071750.526-4-jianping.li@oss.qualcomm.com>
 MIME-Version: 1.0
-References: <20260607201708.88644-1-ilovelinuxgames@gmail.com>
- <20260607201708.88644-2-ilovelinuxgames@gmail.com>
-In-Reply-To: <20260607201708.88644-2-ilovelinuxgames@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 8 Jun 2026 09:08:26 +0300
-X-Gm-Features: AVVi8Cca4h6JLxFlP6kdGJ4g6L7zlZmMpERaiqBbVX1YCnn0IeyLuZTJiZG6xIU
-Message-ID: <CAHp75VeNHCbiP5+YwLvWifzSF5FBD8aKBdz7rd4GAr=Y_i6fjA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] staging: fbtft: fbtft-bus: remove prohibited space
- before close parenthesis
-To: Georgii Druzhinin <ilovelinuxgames@gmail.com>
-Cc: andy@kernel.org, gregkh@linuxfoundation.org, 
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260602071750.526-4-jianping.li@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=I4JVgtgg c=1 sm=1 tr=0 ts=6a265d01 cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=t-0ExjSqTYZ73aSqprYA:9 a=CjuIK1q_8ugA:10
+ a=TOPH6uDL9cOC6tEoww4z:22
+X-Proofpoint-ORIG-GUID: IuSkeTIJY1gjnAkivwgdg51e_4kTTlXK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA1NCBTYWx0ZWRfXyj0prMjNSfbh
+ J4xoFPOq5lRvIuTwdEjKhH/IbcqsQrbj+BHl5zT3/82QryGbGYPmnnC7zleOWVW19PpBj0jCkkw
+ JKO/9sRH3Zkwz4KXsP/CYruE28RsEhkMIwvdhlPSODzjkVOavplu++L0ddlhQUfh25aAXmVDRVI
+ ue3qerWbTD2KG/UX5fOWKWHTR02adShKvvgYKTp4Y+8rvLVlZSR3soX9YnuohdJFN7R0SFNL6IS
+ 3+DbSjnsWRLRISIWbiy5XYU3cqZY7C3lPGgy8GiH1ZTnQR+UvC5HkUCODipXFrIVNBiAcob+pPY
+ PRXkjs5QY9qg8uKmwDua4/b/irp6sg5tysINn9dRf0GKv+ALylwiaSNz++tAYnc11/bm7GcnxA0
+ p5aZXYR9Af4JComM+i3CO1P23gPuUWhuea9L46Po5hSmiG89zh/wz7O5K/6vSTTYpUFMAlARKRe
+ G36AOPN9cm1JZJtHN4Q==
+X-Proofpoint-GUID: IuSkeTIJY1gjnAkivwgdg51e_4kTTlXK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-08_01,2026-06-05_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0 priorityscore=1501
+ bulkscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080054
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,17 +143,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Jun 7, 2026 at 11:17=E2=80=AFPM Georgii Druzhinin
-<ilovelinuxgames@gmail.com> wrote:
->
-> Fix checkpatch.pl error: "space prohibited before that close
-> parenthesis ')'" by removing the empty argument and comma
-> in define_fbtft_write_reg macro calls.
+On Tue, Jun 02, 2026 at 03:17:48PM +0800, Jianping Li wrote:
+> Audio PD static process creation assumes that a reserved-memory
+> region is defined in DT and exposed via cctx->remote_heap.
+> 
+> If reserved-memory is missing or incomplete, the driver may pass
+> invalid address/size information to the DSP, leading to undefined
+> behavior or crashes.
+> 
+> Add explicit validation for remote_heap presence and size before
+> sending the memory to DSP, and fail early if the configuration is
+> invalid.
+> 
+> Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
+> Cc: stable@kernel.org
+> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+> ---
+>  drivers/misc/fastrpc.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index a8a58f889d07..f46a8f53970d 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -1354,6 +1354,13 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+>  	} inbuf;
+>  	u32 sc;
+>  
+> +	if (!fl->cctx->remote_heap ||
+> +	    !fl->cctx->remote_heap->dma_addr ||
+> +	    !fl->cctx->remote_heap->size) {
+> +		err = -ENOMEM;
+> +		dev_dbg(fl->sctx->dev, "remote heap memory region is not added\n");
+> +		return err;
+> +	}
 
-Please, learn C preprocessor and compile your stuff before submitting.
-Also since you have a series of the patches it should have had a cover lett=
-er.
+Won't this check without the next commit break the kernel? I don't see
+where else the remote heap is being allocated.
 
---=20
-With Best Regards,
-Andy Shevchenko
+>  	args = kzalloc_objs(*args, FASTRPC_CREATE_STATIC_PROCESS_NARGS);
+>  	if (!args)
+>  		return -ENOMEM;
+> -- 
+> 2.43.0
+> 
+
+-- 
+With best wishes
+Dmitry
