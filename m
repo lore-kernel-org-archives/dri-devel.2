@@ -4,138 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9A2BCD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 06:45:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF2CDCD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 06:49:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3ED2B10EDA6;
-	Mon,  8 Jun 2026 06:45:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AD4410EDAE;
+	Mon,  8 Jun 2026 06:49:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FY1glRxY";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eCT3K8uq";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="DSX3RkzZ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YBupVj4e";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1A4210EDA6
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 06:45:41 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E49E10EDAE
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 06:49:44 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6586Ou5d2347374
- for <dri-devel@lists.freedesktop.org>; Mon, 8 Jun 2026 06:45:41 GMT
+ 6586OsSX2274553
+ for <dri-devel@lists.freedesktop.org>; Mon, 8 Jun 2026 06:49:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- MSL8eMVgQmCH7+wdnIkRquHtCibP6jzfmw6XCEBAK3U=; b=FY1glRxYMMop3k1K
- ogZhmECBSOUHc1vA3nB8tVX1ql4aXZ1UHJYLXfcwbuISwZvi95nnNREhrjBBn2GU
- PP4iUa4D74iduphnKFj+Ux+lanriVOx44DeL1Mq8TfQFplUjPnBQCT4nkayyzs9g
- MA2tMT3BsRMBd7ByxR0jQlVaLl+UIfRus6U6n4cUdFOdiKTGiYJ1cDGGFFoqCEoy
- nznxZl2zlscf0Z7NGeBnCZBP4sB+WWLHiQpnGu9DqGHumeSJhY95LcCjWgZdeknz
- BYAYsGCgKJtzT1lV3YfpXVMOm7qj2UnO8whEqJcN6oKs1OLYDH/49N3WGODTSfkX
- g4jG1g==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emagremd0-1
+ 0MEc4PivE/f1d8CwdIG75AR8/sE8o9JUrlKA9t720X4=; b=DSX3RkzZV8/M84HB
+ XHisqteeIDjQ2ooUJQWgHdfcHh18T7ksQM31jKDPi5Yp5V0b44E9gnFeZe6wtX+g
+ VPFiIYa+apoJkRCsDR/Ngp3Eobx3JJHOETciHaIVYF2Udz7LhXk9kj1jw7sFNR8A
+ 7e2fuO4Cx24l7yqjvrOf9UyVR97qJ0rJK1kWYdy+wALpRcpQBzGC6ReVzBRZM35B
+ U6kdjJ0FAHQG54Pm9up/j3+m2kiT5/U74iXw9INYvmii1E4X1oCW51Rnkn9DSvp3
+ fgS6BO+0oGOVm2zE5XOqZrzHDImO48K/DVAdPTujN+wU0nyBD86xU7qTJ7o2cgNH
+ wsh5fQ==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
+ [209.85.217.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emcqgx2yg-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 06:45:41 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-36bc380fbf9so3878555a91.3
- for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 23:45:41 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 06:49:43 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id
+ ada2fe7eead31-6cfd2a26ab0so1620190137.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 07 Jun 2026 23:49:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1780901140; x=1781505940;
+ d=oss.qualcomm.com; s=google; t=1780901382; x=1781506182;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:cc:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=MSL8eMVgQmCH7+wdnIkRquHtCibP6jzfmw6XCEBAK3U=;
- b=eCT3K8uqYyykmkAiF/SA9IgQ55U5vhX3GRjlbOEQVIWKw4HcaUF+pMS/C69MOFrJ4b
- U5gIgPAKPv1IAEuseEqBV5eeYpqQfXZqlLkpmt/P5FRf9IK9ww6cfHnKh11yMDkhj3ud
- CvFTmMiklcfAaRZ13g2xukxX6e50PrpvwEEXTiUracx20oYelj+ndvvGiOMcAXyf62AQ
- nxnvzwjRvvkc44TgshHhxEHTgiwENvBFt54lTmJMVzV4UPPYnLS34JeLSv5wYNP+hLCE
- FUaa4wgMpSLStSeVVI8wlQOgUnxypyJ68jGorde9n3IVkrA3etS1/XXWaC/ljtu4LNNo
- XDBw==
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0MEc4PivE/f1d8CwdIG75AR8/sE8o9JUrlKA9t720X4=;
+ b=YBupVj4ejzdQ0ois6nGzfeXkOcpLzlVZXJwj3PBMvgTb5CrI2Kind+5Rkix8MsfmA/
+ UPQDEZ32ELzKnol67cquNOA2Yq7Mfdv3D5rSWqWiM1UIYiFRy401sRDrZ3RpZ/AaW5Cr
+ lkCRkB132Qiwg8cswwIDOc32tTpgHQ4BWyZuj04tMX0AtFCeaTUhsk1/83bu7fwEWnCT
+ fE2nSiFSLqgIu14+jYHKqTADcRx258G1YsXYmcjrqtxxUfO2w4rL/atZfeLtPLuxwznp
+ jn67FRuHN2kNpgys5133B76/FAhQM5RJLAEc+eaiDlbJPsCmV8xkGVwlI5me9xooCSsE
+ Dysg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780901140; x=1781505940;
- h=content-transfer-encoding:in-reply-to:from:cc:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=MSL8eMVgQmCH7+wdnIkRquHtCibP6jzfmw6XCEBAK3U=;
- b=WLEPTYIgnCgHYGJ97/V22Y176ovmeuuPJDJ2t3QeWbboCjdILPT0/wT64MB5cz98An
- SdL04/B3kkV3v4JVQwnWFRfBRizlKElMGchQa01GIr+O7R+hU7QcUsSh89Pxq0pbl/Ks
- Z1Bpi/a6mgVq0Ntr6ViCuIt2X+De8+LRc630GSYN+QsF3x2Dw1/Nv+UtCnS7mZq+emZc
- oTnF+g6UT0mLAFK3XCvTdJQkMLPLUnmEzNBtHLgQ7ynAUuXGByt/rWjM3ZzfRmGzS8IV
- HDg+vlfRVW2bto3fHRKUvebrx29XeShfr0MP7r1TaCi+vu443GNaec5GjQfxphu3OtFS
- x7GA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8etkdNwwexMWLoV7wydEUsWtUeLHWhVcQsIKVF7D+5Z3ny02Ku7McIcWPQKm/HExOSA7UKVMkxrEg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx7r/MyDVjdzmsnaO8lADMNGq5661bwU4UI0dFnRafoRAtn7iOo
- KolJG/4IYbhteUP8eYaM466vSe67098kgh/q/1CK03L2Md71Zn15Gm32s8hWo1MbHKw7LGSsudp
- 9AAQwUKVh7Bsq+7TN6IR4uuDqUExQPXwhRrU6AqKu/ztXOpof4NaIacvA/Ea5k9Hsi5djzRI=
-X-Gm-Gg: Acq92OE5zeIgVUJKrvm0UdbzUNYObMfe5N2zbf4qIaaxkFc19oWbOFCzK6sBiPLd/s6
- prlqWtmI8vQuDngdZpEau9v6SLLJVH3km/hmmLkZodg+bFMW0OjYL1HOPKiP1JwJp0o03kMJaXq
- teoSQFqAZlooIkWUGsauLEpojP/Z6mjBridyiGKqU9sCkynft28cd5dpBtYfqH4nl7usdQ5bSrK
- C1JLqc9IXOCAKY1ntw1b7eIeqpcOBDFvUON/MA0KMdERDMQTIIUSeZAn3dIwa0pHct2HjmRbBUf
- IATENYh6r/12mmco9urSFxCmID14kVjZVske1bmQfg31td765n3cXjF7oskeXPAew1UlvqAZezC
- KPOnMy1JqlmJQgYjMKRhK4qkGrSjuz+14KUPZt+ZlCldSfHVeQkYAnk7iAc0Nns38mHV34Jzuc7
- v+LL3W8tR1eA1gN3P9dwMq3vGWz4Q=
-X-Received: by 2002:a17:90b:48ce:b0:367:b819:2214 with SMTP id
- 98e67ed59e1d1-370f076d7e4mr16889784a91.13.1780901140481; 
- Sun, 07 Jun 2026 23:45:40 -0700 (PDT)
-X-Received: by 2002:a17:90b:48ce:b0:367:b819:2214 with SMTP id
- 98e67ed59e1d1-370f076d7e4mr16889748a91.13.1780901140012; 
- Sun, 07 Jun 2026 23:45:40 -0700 (PDT)
-Received: from [10.133.33.209] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-36f6dba8573sm18435796a91.14.2026.06.07.23.45.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 07 Jun 2026 23:45:39 -0700 (PDT)
-Message-ID: <671f75e3-888c-40ee-9365-1c41f72e008f@oss.qualcomm.com>
-Date: Mon, 8 Jun 2026 14:45:33 +0800
+ d=1e100.net; s=20251104; t=1780901382; x=1781506182;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=0MEc4PivE/f1d8CwdIG75AR8/sE8o9JUrlKA9t720X4=;
+ b=eUsJp4otnyiV4MEJUwHYkAaLhXxizjlbCurQcgodpxUSpdUnPrMTaDePdS87srjkEl
+ dQitzVp4e4XwYpdHYqWxRtWOqS2sWyxbdh0VT6GDWhJztAMkP2zt6Nh6FYdAuwbObT+I
+ yNpt7d6amKpfeqmYazAlK8pJECjYu79cp/BGQ2dv4sQPYFD2X7VcPuHUGAO3xoRBaELP
+ j9KS4pGvqe89qlYjS/a3EbuORoC7R0qwKWQ9zcVvz7LGn3PVJtbntn4QkPz3Erg4fjDJ
+ fdjCbiS++U4t6uLvOAVHqNLUuMqu+yXvZFijOmu3TWraO+0mud8slfl8fvh3pFCP1mBh
+ hPwQ==
+X-Gm-Message-State: AOJu0YxVlP+cXQDi0Af7+JGpG1/YIG0gbWLyBBuRVNIvRyk5QGFWFad6
+ i3p5xxxErnGk12L+g0vSjTc9nDfX7q+M4Oxo+jKbY/kroJbwOe13xrGOa+zMwduTEPD1p4mrk/5
+ +4UiWMlIyp1R6heGjn4ZXFYfUirulzA6MtRPFOnechC4GLGQaG22V8IXc4SdTtyq7OjYhoaw=
+X-Gm-Gg: Acq92OEvbyOigvpcj7+zHr1e6ivgggWARux33n5WUyg6UvbcOnPYe8H39WOnTxPcglF
+ EPNtssxXfi7M65k9eHbet0FZyX2N5xRcykphOVfpYjq48zWWW19Cz1yZyEy8kar7ArA4ki2pjtN
+ +RC28AocBVZqglXA2BHxkRQkwf2SwErIs+4GMDZpJGqFN6VrFurQNxdjVB8oI5vzdlTwYS9ZH5g
+ IlZsjyKO5PmAOYwXMFaW+W2DC43cr+QG3loFOaqPCjtSs9WlkYOjMksZK1P7oTeJgnhMG+AD7Uz
+ 4+JABs+orOTdKYEUvZY17fHYdn7CkikASaV9ZB7ZPJn4KY56G+rv19p96HGCkUi5Ezz8WATduYI
+ 7S/M9FChKMr5i511U4sBXSLpbb9DeLBL423AEvDSpA79n9OvUHiA3k7jtc2qg8Onx9lxB/DDBTR
+ HbpHVerGzovEZxXB4Ie9lrqzU8wGoh8/OyhMHVMaAlHPJwSg==
+X-Received: by 2002:a05:6102:3e27:b0:65a:fcea:5a8 with SMTP id
+ ada2fe7eead31-6fef75ccdf8mr6143705137.3.1780901382486; 
+ Sun, 07 Jun 2026 23:49:42 -0700 (PDT)
+X-Received: by 2002:a05:6102:3e27:b0:65a:fcea:5a8 with SMTP id
+ ada2fe7eead31-6fef75ccdf8mr6143695137.3.1780901382090; 
+ Sun, 07 Jun 2026 23:49:42 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5aa7b8880basm3573760e87.0.2026.06.07.23.49.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 07 Jun 2026 23:49:40 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Sam Ravnborg <sam@ravnborg.org>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260314-dp-connector-hpd-v1-0-786044cedc17@oss.qualcomm.com>
+References: <20260314-dp-connector-hpd-v1-0-786044cedc17@oss.qualcomm.com>
+Subject: Re: [PATCH 0/2] drm/bridge: display-connector: detect DP state if
+ cable is plugged on boot
+Message-Id: <178090138005.36483.18093415635803962846.b4-ty@b4>
+Date: Mon, 08 Jun 2026 09:49:40 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 3/5] misc: fastrpc: Fail Audio PD init when reserved
- memory is missing
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260602071750.526-1-jianping.li@oss.qualcomm.com>
- <20260602071750.526-4-jianping.li@oss.qualcomm.com>
- <bcm2eufawifaq65i5qlqmbam4wtv2du5re6c54tiamdbynmras@lbfd44kjb6da>
- <ddeff296-abc0-4e1b-a721-761e2cbd331d@oss.qualcomm.com>
- <mdmtc4sfeoishc64essdbrzcasd5kotbwtulk4pajjzvcy56fa@2dcpz23uuxkw>
-Content-Language: en-US
-Cc: srini@kernel.org, amahesh@qti.qualcomm.com, arnd@arndb.de,
- Greg KH <gregkh@linuxfoundation.org>, abelvesa@kernel.org,
- jorge.ramirez@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, quic_chennak@quicinc.com,
- stable@kernel.org
-From: Jianping Li <jianping.li@oss.qualcomm.com>
-In-Reply-To: <mdmtc4sfeoishc64essdbrzcasd5kotbwtulk4pajjzvcy56fa@2dcpz23uuxkw>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA2MCBTYWx0ZWRfX7/H/L0BsBdrv
- aswtQbyrmeRXvXeEB+y/wHpLX+/+fGV+EYeUZez0055UHGjiOfbavLlF5zGKPN9nxrPSYejVB20
- wcUdc0/s3ZAJ3JI3gZIFp4Hr0jqKhtiXKHtMf2x2RgZybCPQRUl13W9W1ocrdbllRtWFG15PxOT
- pkgs6KIFeXtqKqV2gb2XI50RzUARyv+Ga2imhghoT2NClbgOw/gy0X/6PKGFbBCXx48FBSpemQy
- Dxst3PlGtmlZPMg6Qdu33DmPWZ4I16uIPT2L1fKg/g5Jh0z6W770aYVhZopsQA8v4iYnGe26FcG
- rmFK1JnVW8HRB1YnStxRS7yP618LN+PnxyjTIQkeSO4mcTIy9IsBhcfQlBSY6oMg3NbOaXC5IuM
- E5ID/uGYIHaYeeOygwzCDDh6CKP+Sp65sReDEsuGN+oS2iwmT+45a+MBC8GIdYA82+FlMEpFpaL
- wNPsQnK0ZIpMyej/RmA==
-X-Authority-Analysis: v=2.4 cv=G/4s1dk5 c=1 sm=1 tr=0 ts=6a266515 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ZwHI9cLKf8hZ7ncMh4sA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-ORIG-GUID: lSfn6Q0g64wPUpsc6kxsYa7m-ByMjSjz
-X-Proofpoint-GUID: lSfn6Q0g64wPUpsc6kxsYa7m-ByMjSjz
+X-Mailer: b4 0.15.2
+X-Authority-Analysis: v=2.4 cv=dJGWXuZb c=1 sm=1 tr=0 ts=6a266607 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=U5Edx-QnV-FVL3PtqvEA:9
+ a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-GUID: jM06DPIZEIkDLcxMU3wfQmI5NXQRe3fx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA2MSBTYWx0ZWRfX77ikACHdiqK4
+ xC6b8IXWhRe7gKufl2tX0pqxF2JBvdwkq986ldGT0KlyVkDlU+1ELwj4bul9zgVl/9N1dBSgaHN
+ ApyCP9z8yQ6AZ6IcI5aqad1gs0MmpPdPXIJYoqItX49jKHsnu2V4CwHa2zSu62iNtJQUPHQKcpv
+ c17xW+RweUJih/l6Es8bhjhIm8+XkSYjwdRpTt6minzgpy79oCEHvW/hSbj9mjBs3GEofVkpje0
+ 0QEQx4U9QPXD9E491OFNPijkQBuXSlWskD37NzB7s2Rhbk0pJw8Q/aiqzzm2cYTuyKCc8P8INLJ
+ ekMjVAYGTRS7U+vz3PxbHdwqr4GMOW+stn/I3Rc7h7jbp8olsFPcwtqc1zUhMQ0ILPpau9CXeNG
+ Etgsy3vNMLR7BcoP059xhPg17gP0nmDzrqIKaoFZH7FzZrh8OVboDhL5kgs57La6h7p/qDmw6J8
+ tPYVeshWz0Ldzomp4Rw==
+X-Proofpoint-ORIG-GUID: jM06DPIZEIkDLcxMU3wfQmI5NXQRe3fx
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-08_02,2026-06-05_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 malwarescore=0 spamscore=0
- lowpriorityscore=0 suspectscore=0 phishscore=0 impostorscore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606080060
+ priorityscore=1501 malwarescore=0 bulkscore=0 adultscore=0 phishscore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606080061
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,60 +151,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Sat, 14 Mar 2026 02:43:10 +0200, Dmitry Baryshkov wrote:
+> Unlike the USB-C AltMode handling and unlike the DP controller handling
+> the HPD on its own, if the display-connector is being used to handle the
+> HPD pin, DP controller might not be able to get either the HPD
+> notification nor detect the cable state if the cable is plugged in
+> before the system has booted.
+> 
+> Make the display-connector send the HPD notifications during system
+> startup for DisplayPort connectors.
+> 
+> [...]
 
-On 6/8/2026 2:37 PM, Dmitry Baryshkov wrote:
-> On Mon, Jun 08, 2026 at 02:29:13PM +0800, Jianping Li wrote:
->> On 6/8/2026 2:11 PM, Dmitry Baryshkov wrote:
->>> On Tue, Jun 02, 2026 at 03:17:48PM +0800, Jianping Li wrote:
->>>> Audio PD static process creation assumes that a reserved-memory
->>>> region is defined in DT and exposed via cctx->remote_heap.
->>>>
->>>> If reserved-memory is missing or incomplete, the driver may pass
->>>> invalid address/size information to the DSP, leading to undefined
->>>> behavior or crashes.
->>>>
->>>> Add explicit validation for remote_heap presence and size before
->>>> sending the memory to DSP, and fail early if the configuration is
->>>> invalid.
->>>>
->>>> Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
->>>> Cc: stable@kernel.org
->>>> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
->>>> ---
->>>>    drivers/misc/fastrpc.c | 7 +++++++
->>>>    1 file changed, 7 insertions(+)
->>>>
->>>> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
->>>> index a8a58f889d07..f46a8f53970d 100644
->>>> --- a/drivers/misc/fastrpc.c
->>>> +++ b/drivers/misc/fastrpc.c
->>>> @@ -1354,6 +1354,13 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->>>>    	} inbuf;
->>>>    	u32 sc;
->>>> +	if (!fl->cctx->remote_heap ||
->>>> +	    !fl->cctx->remote_heap->dma_addr ||
->>>> +	    !fl->cctx->remote_heap->size) {
->>>> +		err = -ENOMEM;
->>>> +		dev_dbg(fl->sctx->dev, "remote heap memory region is not added\n");
->>>> +		return err;
->>>> +	}
->>> Won't this check without the next commit break the kernel? I don't see
->>> where else the remote heap is being allocated.
->> Yes, this check depends on remote_heap being populated during rpmsg
->> probe from the reserved-memory region, introduced in a subsequent
->> patch in this series.
->>
->> If there is no dependency on the next series, the remote_heap allocation here after the if check.
->> The logic will be wrong.
-> So, at least you need to squash those two together.
+Applied to drm-misc-next, thanks!
 
-ACK.
-I'll squash those two patches together in the next revision.
+[1/2] drm/bridge: display-connector: don't autoenable HPD IRQ
+      commit: 8e9c475060bff87077cfa3bd42011edcb7fb3b0d
+[2/2] drm/bridge: display-connector: trigger initial HPD event for DP
+      commit: 60dc0946bbad3eef8bc66a5a8b09b98dbc6e09c0
 
->
->>>>    	args = kzalloc_objs(*args, FASTRPC_CREATE_STATIC_PROCESS_NARGS);
->>>>    	if (!args)
->>>>    		return -ENOMEM;
->>>> -- 
->>>> 2.43.0
->>>>
+Best regards,
+-- 
+With best wishes
+Dmitry
+
+
