@@ -4,57 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0266BCD8C92
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:41:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7400ECD8C92
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:42:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5028F10F610;
-	Mon,  8 Jun 2026 15:41:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8CA510F618;
+	Mon,  8 Jun 2026 15:42:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="bsqFJjLm";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="jjHbK9Wq";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E83B10F610
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:41:38 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gYx9C21dnz9tF2;
- Mon,  8 Jun 2026 17:41:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1780933295; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=e/n93OVN0OBZymLyeMzrxKX1SjKNrjZM+CA4BofRCGM=;
- b=bsqFJjLmtqFvBBDB6Wcseg0z4mPhEmcgVfGtQfoQKknl91tQ/D6BSiYIM1C6oPb3W0o2/l
- uH/fKyfcaI8RVvLYGmGOiFgUvrG7ie/gvbrgAFqWuXI1nzqtBcsYx4vUPWFFcRu5J48At9
- 0EErSdFsQsKrAIlmA2oenxlDbQkWWjLpJSyhDq38nJu0/ExvKJK5BXZh7gO+Z1iLoR8M5g
- dEAnGorvQqqXjddiiZHKqB9b+vFKZ0xXQc0UzicJlbJQqbCh7Qg3VyR2qSzdC6nJkLCYJj
- Hd9OBZNk9hKG3FZllPFvElddJXcf/b4+WYTXyW5GOcq1B6RQx5CPCTunerGmBQ==
-Message-ID: <fa9a335196525adbc03ec21b2e05bb526e4fc174.camel@mailbox.org>
-Subject: Re: [RFC PATCH] dma-fence: Fix races of fence callbacks versus
- destructors by locking
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Philipp
- Stanner <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Boris
- Brezillon	 <boris.brezillon@collabora.com>, Alice Ryhl
- <aliceryhl@google.com>, Daniel Almeida <dwlsalmeida@gmail.com>, Gary Guo
- <gary@garyguo.net>, Tvrtko Ursulin	 <tvrtko.ursulin@igalia.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>
-Date: Mon, 08 Jun 2026 17:41:31 +0200
-In-Reply-To: <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
-References: <20260608142436.265820-2-phasta@kernel.org>
- <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E22BE10F618
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:42:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1780933348;
+ bh=yEOieKCXcv06vNuoNgdqY2ql2LhHpG4SOd+tbelcK1g=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=jjHbK9Wq/UkjdyR1CPaGt2LbGlVFCF1AgS2o1b7hzDnvpIXccZ3FDt6M7iVOR2SWG
+ VS7gh5ghgEwKy8gFBjxDdWe6sp/rT58mHtC0Kd1CC4hUWCz5GlA27uvAgGUUge/krg
+ BbZ8mn7BClVCsTeY14u8Tf9aY+jCQV1Aola4mNDjmV6Gc9aMd/kJE+G+3q8JeUxI0v
+ VT5usdK0TNIRkVCXJeK5SmQ/d9IDdxrI9OykiKVzdUR93rlNnCOMWwuEhuFbMdYKwV
+ +SPrFTcyX3bU6z7NIQoDDBo6SNEBPQvWQfHQTgNpxc7TPi+7j703Sw2nUzVceVDS/7
+ l7+IaHMInx2YA==
+Message-ID: <c0dd1298-17be-44ba-8866-c8602aaa69c6@lankhorst.se>
+Date: Mon, 8 Jun 2026 17:42:34 +0200
 MIME-Version: 1.0
-X-MBO-RS-ID: 2b0f51029192d8410ea
-X-MBO-RS-META: rdqnwfxpr89366ayc8zgswfgsgjb9xod
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cgroup/dmem: accept only one region per limit write
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Natalie Vock <natalie.vock@gmx.de>, Eric Chanudet <echanude@redhat.com>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, cgroups@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Albert Esteve <aesteve@redhat.com>
+References: <20260605-cgroup-dmem-write-single-region-v1-1-9137f296579c@redhat.com>
+ <271b1c16-3c3c-4a1e-b09e-c4361c63814c@gmx.de>
+ <f00e7771-cd70-4c86-9fac-149897e02b12@lankhorst.se>
+ <20260608-glorious-fluorescent-salamander-93daec@houat>
+ <15bab7c9-0857-40b9-963b-9923c0e7392c@lankhorst.se>
+ <20260608-rational-cuscus-of-enhancement-eecbfa@houat>
+Content-Language: en-US
+From: Maarten Lankhorst <dev@lankhorst.se>
+In-Reply-To: <20260608-rational-cuscus-of-enhancement-eecbfa@houat>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,228 +59,62 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-06-08 at 17:35 +0200, Christian K=C3=B6nig wrote:
-> On 6/8/26 16:24, Philipp Stanner wrote:
-> > The dma_fence backend_ops can access a fence. Hereby, a driver callback
-> > will be running which likely will access driver specific data through
-> > container_of(). If now, simultaneously, a driver signals the fence and
-> > afterwards expects to run a driver specific destructor (using the same
-> > data accessed through container_of()), there can be a race.
-> >=20
-> > A driver very likely trusts that once it has signaled a fence, no one
-> > will be accessing it anymore. Moreover, it might already want to free u=
-p
-> > resources, making UAF bugs possible.
-> >=20
-> > The race occurs because there are only pragmatic checks for the signale=
-d
-> > flag of a fence, without taking the fence lock. RCU guards exist, but
-> > their purpose is to guard accesses through the backend_ops callbacks
-> > against the driver (which implements the TEXT segment these callbacks
-> > live in) from unloading.
-> >=20
-> > Proper synchronization can be ensured by taking the fence lock. RCU is
-> > still simultaneously required to guard against the unload.
-> >=20
-> > Fix the races by taking the lock for all non-deprecated backend_ops
-> > callbacks.
->=20
-> That sounds like the fundamentally wrong approach to me.
->=20
-> The lock protects the dma_fence signaling state and *NOT* any driver
-> state, so it should not be used to protect any driver state.
->=20
-> Drivers need to make sure that they protect their driver state with
-> separate lock and don't rely on the dma_fence lock for this. This is
-> actually the core of why we want to deprecate the shared dma_fence
-> spinlock.
+Hello,
 
-It's not so much about protecting data, it's about correctness:
+On 6/8/26 16:04, Maxime Ripard wrote:
+> On Mon, Jun 08, 2026 at 03:13:56PM +0200, Maarten Lankhorst wrote:
+>> Hey,
+>>
+>> On 6/8/26 14:42, Maxime Ripard wrote:
+>>> On Sat, Jun 06, 2026 at 11:44:10PM +0200, Maarten Lankhorst wrote:
+>>>> Hey,
+>>>>
+>>>> On 6/6/26 18:31, Natalie Vock wrote:
+>>>>> On 6/6/26 00:44, Eric Chanudet wrote:
+>>>>>> Accept only one "region value" pair entry for the dmem.max, dmem.min,
+>>>>>> dmem.low files.>
+>>>>>> This changes the UAPI that otherwise accepted multiple lines for setting
+>>>>>> multiple entries in one write. No existing user is known to rely on
+>>>>>> writing multiple regions in a single write.
+>>>>>
+>>>>> Ugh, shoot.
+>>>>>
+>>>>> For dmem.low specifically, there already are some userspace thingies floating around that may write more than one region/value pairs.
+>>>>>
+>>>>> These thingies all depend on that one patchset for dmemcg protection that I should really get around to merging[1]. Since the userspace utilities depend on not-yet-merged patches, they sort of have to expect stuff changing under their belts, so I wouldn't really consider those users a blocker by necessity.
+>>>>>
+>>>>> As I see it, we could go down one of two paths:
+>>>>> 1. We go ahead with the patch as proposed, and I make sure that the users I know of adapt. Could be a bit icky wrt. "do not break userspace" rules, but since the already use non-merged UAPIs in one place, you can argue that these users kind of have to expect breakage.
+>>>>> 2. We use the old handling allowing multiple lines for dmem.min and dmem.low only. This preserves compatibility but uglifies the code by quite a bit.
+>>>>>
+>>>>> All things considered, I think I personally would prefer going with 1. and taking the patch as proposed and just having one codepath handling every limit file. Just highlighting this so we don't do it on accident.
+>>>>>
+>>>>> [1] https://patchwork.freedesktop.org/series/163183/
+>>>>>
+>>>>
+>>>> I prefer option 1 as well, but would like an ack from one of the core cgroup maintainers too,
+>>>> and what Maxime's opinion on this as well.
+>>>
+>>> Option 1 works for me too if doable
+>>>
+>>> Maxime
+>>
+>>
+>> I see this as an acked-by?
+>>
+>> I'll commit this patch to drm-misc-next if so.
+>>
+>> Fortunately it may not even break those scripts in the typical case
+>> where only 1 region is registered, eg the most common laptop/desktop
+>> case.
+> 
+> Natalie had a bunch of comments afaik, so I was expecting a v2, but if
+> you intend to merge it as is, you can add it if you want.
 
-A driver that calls
+Yeah forgot about that for a second, will wait for v2!
 
-dma_fence_signal(f)
-
-expects that after signalling, no callback will be running into the
-driver again. It's a fix synchronization point.
-
-Only the fence lock can grant such synchronization.
-
-Positive effects would be:
-
-1. Drivers can do their cleanup immediately, without having to wait for
-a grace period
-
-2. Drivers could be sure that their driver_fence data, allocated
-together with fence and accessed through container_of(fence), is not
-being accessed anymore.
-
-
-I see only advantages. Safer, faster. :)
-
-P.
-
->=20
-> Regards,
-> Christian.
->=20
-> >=20
-> > Conveniently, this also fixes a race where backend_ops->set_deadline()
-> > might try to set a deadline for an already signaled fence.
-> >=20
-> > Suggested-by: Danilo Krummrich <dakr@kernel.org>
-> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> > ---
-> > We discovered this problem through our Rust abstractions, but it can
-> > also occur in C.
-> >=20
-> > The by far cleanest solution seems to be to use the fence lock. This RF=
-C
-> > serves to discuss whether there is anything preventing that.
-> >=20
-> > (Patch so far just compile tested, to have some groundlayer for the
-> > rough idea, to discuss it first)
-> > ---
-> > =C2=A0drivers/dma-buf/dma-fence.c | 39 ++++++++++++++++++++++++++++----=
------
-> > =C2=A0include/linux/dma-fence.h=C2=A0=C2=A0 | 17 ++++++++++++----
-> > =C2=A02 files changed, 43 insertions(+), 13 deletions(-)
-> >=20
-> > diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> > index c7ea1e75d38a..b74f02f3cca8 100644
-> > --- a/drivers/dma-buf/dma-fence.c
-> > +++ b/drivers/dma-buf/dma-fence.c
-> > @@ -629,7 +629,8 @@ EXPORT_SYMBOL(dma_fence_free);
-> > =C2=A0static bool __dma_fence_enable_signaling(struct dma_fence *fence)
-> > =C2=A0{
-> > =C2=A0	const struct dma_fence_ops *ops;
-> > -	bool was_set;
-> > +	bool was_set, success;
-> > +	unsigned long flags;
-> > =C2=A0
-> > =C2=A0	dma_fence_assert_held(fence);
-> > =C2=A0
-> > @@ -644,7 +645,10 @@ static bool __dma_fence_enable_signaling(struct dm=
-a_fence *fence)
-> > =C2=A0	if (!was_set && ops && ops->enable_signaling) {
-> > =C2=A0		trace_dma_fence_enable_signal(fence);
-> > =C2=A0
-> > -		if (!ops->enable_signaling(fence)) {
-> > +		dma_fence_lock_irqsave(fence, flags);
-> > +		success =3D ops->enable_signaling(fence);
-> > +		dma_fence_unlock_irqrestore(fence, flags);
-> > +		if (!success) {
-> > =C2=A0			rcu_read_unlock();
-> > =C2=A0			dma_fence_signal_locked(fence);
-> > =C2=A0			return false;
-> > @@ -1020,11 +1024,20 @@ EXPORT_SYMBOL(dma_fence_wait_any_timeout);
-> > =C2=A0void dma_fence_set_deadline(struct dma_fence *fence, ktime_t dead=
-line)
-> > =C2=A0{
-> > =C2=A0	const struct dma_fence_ops *ops;
-> > +	unsigned long flags;
-> > =C2=A0
-> > =C2=A0	rcu_read_lock();
-> > =C2=A0	ops =3D rcu_dereference(fence->ops);
-> > -	if (ops && ops->set_deadline && !dma_fence_is_signaled(fence))
-> > +	if (!ops || !ops->set_deadline) {
-> > +		rcu_read_unlock();
-> > +		return;
-> > +	}
-> > +
-> > +	dma_fence_lock_irqsave(fence, flags);
-> > +	if (!dma_fence_is_signaled_locked(fence))
-> > =C2=A0		ops->set_deadline(fence, deadline);
-> > +
-> > +	dma_fence_unlock_irqrestore(fence, flags);
-> > =C2=A0	rcu_read_unlock();
-> > =C2=A0}
-> > =C2=A0EXPORT_SYMBOL(dma_fence_set_deadline);
-> > @@ -1166,14 +1179,18 @@ EXPORT_SYMBOL(dma_fence_init64);
-> > =C2=A0 */
-> > =C2=A0const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
-> > =C2=A0{
-> > +	const char __rcu *name =3D "detached-driver";
-> > =C2=A0	const struct dma_fence_ops *ops;
-> > +	unsigned long flags;
-> > =C2=A0
-> > =C2=A0	/* RCU protection is required for safe access to returned string=
- */
-> > =C2=A0	ops =3D rcu_dereference(fence->ops);
-> > +	dma_fence_lock_irqsave(fence, flags);
-> > =C2=A0	if (!dma_fence_test_signaled_flag(fence))
-> > -		return (const char __rcu *)ops->get_driver_name(fence);
-> > -	else
-> > -		return (const char __rcu *)"detached-driver";
-> > +		name =3D ops->get_driver_name(fence);
-> > +	dma_fence_unlock_irqrestore(fence, flags);
-> > +
-> > +	return name;
-> > =C2=A0}
-> > =C2=A0EXPORT_SYMBOL(dma_fence_driver_name);
-> > =C2=A0
-> > @@ -1199,13 +1216,17 @@ EXPORT_SYMBOL(dma_fence_driver_name);
-> > =C2=A0 */
-> > =C2=A0const char __rcu *dma_fence_timeline_name(struct dma_fence *fence=
-)
-> > =C2=A0{
-> > +	const char __rcu *name =3D "signaled-timeline";
-> > =C2=A0	const struct dma_fence_ops *ops;
-> > +	unsigned long flags;
-> > =C2=A0
-> > =C2=A0	/* RCU protection is required for safe access to returned string=
- */
-> > =C2=A0	ops =3D rcu_dereference(fence->ops);
-> > +	dma_fence_lock_irqsave(fence, flags);
-> > =C2=A0	if (!dma_fence_test_signaled_flag(fence))
-> > -		return (const char __rcu *)ops->get_driver_name(fence);
-> > -	else
-> > -		return (const char __rcu *)"signaled-timeline";
-> > +		name =3D ops->get_driver_name(fence);
-> > +	dma_fence_unlock_irqrestore(fence, flags);
-> > +
-> > +	return name;
-> > =C2=A0}
-> > =C2=A0EXPORT_SYMBOL(dma_fence_timeline_name);
-> > diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-> > index b52ab692b22e..b93c3f7f69fb 100644
-> > --- a/include/linux/dma-fence.h
-> > +++ b/include/linux/dma-fence.h
-> > @@ -547,20 +547,29 @@ static inline bool
-> > =C2=A0dma_fence_is_signaled(struct dma_fence *fence)
-> > =C2=A0{
-> > =C2=A0	const struct dma_fence_ops *ops;
-> > +	unsigned long flags;
-> > +	bool signaled;
-> > =C2=A0
-> > =C2=A0	if (dma_fence_test_signaled_flag(fence))
-> > =C2=A0		return true;
-> > =C2=A0
-> > =C2=A0	rcu_read_lock();
-> > =C2=A0	ops =3D rcu_dereference(fence->ops);
-> > -	if (ops && ops->signaled && ops->signaled(fence)) {
-> > +	if (!ops || !ops->signaled) {
-> > =C2=A0		rcu_read_unlock();
-> > -		dma_fence_signal(fence);
-> > -		return true;
-> > +		return false;
-> > =C2=A0	}
-> > +
-> > +	dma_fence_lock_irqsave(fence, flags);
-> > +	signaled =3D ops->signaled(fence);
-> > +
-> > +	if (signaled)
-> > +		dma_fence_signal_locked(fence);
-> > +
-> > +	dma_fence_unlock_irqrestore(fence, flags);
-> > =C2=A0	rcu_read_unlock();
-> > =C2=A0
-> > -	return false;
-> > +	return signaled;
-> > =C2=A0}
-> > =C2=A0
-> > =C2=A0/**
+Kind regards,
+~Maarten Lankhorst
