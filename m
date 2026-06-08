@@ -4,81 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ADAACD8C92
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:09:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52B84CD8C9F
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:15:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6612410F018;
-	Mon,  8 Jun 2026 15:09:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B744010F596;
+	Mon,  8 Jun 2026 15:15:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="a3jDMIG/";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="KGZ86xKG";
 	dkim-atps=neutral
-Received: from mail-dy1-f202.google.com (mail-dy1-f202.google.com
- [74.125.82.202])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0CAF10F587
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:09:34 +0000 (UTC)
-Received: by mail-dy1-f202.google.com with SMTP id
- 5a478bee46e88-304f1820babso5478349eec.1
- for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 08:09:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1780931374; x=1781536174;
- darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=/tNv8jqkNUUf3JceaHwSaBzHJupOjs95cWpd7WmLwOI=;
- b=a3jDMIG/HUoXBlfQW4PVzK2vBESoGcD/VlX0pU1sHYwL0NbmGbTzbz16zg/S3sS3EI
- r+V5njYEYaAxjw7HJQOhbU8s/MAACZgY81Dk8D7dgJ3sULfuNu5iIl7I+18CjhyET6mE
- Z7fdUOKWbUTQrQF5n/oIrQDh98VCfav/o29wMI739znlPDEl7kcKtbgAB+6L9FI+gV5+
- l1JqA3nrnzBs1ULCQNcIV1BuAPWlXLrGnUaVY0srWUReXy+PD9TFEb/rv4F4Yl7xTWzF
- VcUvRcB80VY7G6JlbefCYmJg2lni3Sda9wcZCLwJToKhLZmqNQCiPuWHwFHkpN3zgSt0
- HOIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780931374; x=1781536174;
- h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=/tNv8jqkNUUf3JceaHwSaBzHJupOjs95cWpd7WmLwOI=;
- b=QH94IfAWwGvi88h80Hd0sK9Ri5BgQ9/t9cG8HDznoqczYus3aG8+Vk/pWuVK0ajuR8
- f9qEWpJDjcRuEoKhf2SHO2fRN7/uFo9N4HP6BsODBRdwtNnPfHPYGABLMpao5TudgcZZ
- RQ1eiQ1MrxXBm3yU/KO9CotuniqNJHAlxsjOBX+9QYZ/vbH0lY2wbWOkMNLhjq6j6Lnv
- ByvX74EpOHFImKbGuP+JA3xYO/HNQSajYdf5up/9xVNwK7mXKxdeyK7L3tBZ7bM9ei5E
- GZxAj7PU5dkTfqfmRBhhu8mp5lHTHYNxlBmuEvGk0T3p86LDYVrMA5uj8d4KA7e6JZ8f
- TK1g==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8/J7gHVXTOiK3Q53vfBWvBbfoi2qmtgZO3LwMI3cWCACM8L4wec2DWihcIjqWwVkVOiLPINe8SVio=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzSFggLReaUbZbdiSQYBiIup0TCB/9RDYwYJIGFcK3psowqFw2/
- mIqlvD9mSXitcwdKrN1Ef7HAhv1TlzOO7GtyMjYpI/GJRLfo+eu5xeG92p6fNyTA+x4sSHR8FNH
- 2IizMTBaJ3fqeoe38FfYlN7XSjjD42w==
-X-Received: from dybb4.prod.google.com ([2002:a05:693c:6084:b0:2f9:af7:5041])
- (user=samitolvanen job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7300:5713:b0:304:d788:ac5 with SMTP id
- 5a478bee46e88-3077b7efba5mr9343499eec.35.1780931373632; 
- Mon, 08 Jun 2026 08:09:33 -0700 (PDT)
-Date: Mon,  8 Jun 2026 15:09:30 +0000
-Mime-Version: 1.0
-X-Developer-Key: i=samitolvanen@google.com; a=openpgp;
- fpr=35CCFB63B283D6D3AEB783944CB5F6848BBC56EE
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3142; i=samitolvanen@google.com;
- h=from:subject; bh=y42Ay00B2+j5wggV7SYlJuqrvsTXuZL1/72NkndXCOY=;
- b=owGbwMvMwCUWxa662nLh8irG02pJDFlqtzXv71mktXpS/oGui2YS//oVvrzmc2+bpnByW2ZBy
- OutZfyPO0pZGMS4GGTFFFlavq7euvu7U+qrz0USMHNYmUCGMHBxCsBE1uxhZFhw/ZKaoR5Pe07R
- onlRzJNrVk0IVp5x+tmiGo9Oe+HnEq6MDBd9bJs+MFr/z+/uX8w8m1XnuHji9MMfwrs0uFa57p3
- VzAMA
-X-Mailer: git-send-email 2.54.0.1032.g2f8565e1d1-goog
-Message-ID: <20260608150929.1327394-2-samitolvanen@google.com>
-Subject: [PATCH v2] rust: drm: gpuvm: implement Send and Sync for GpuVaAlloc
- and GpuVmBo
-From: Sami Tolvanen <samitolvanen@google.com>
-To: Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- "=?UTF-8?q?Thomas=20Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>,
- Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- "=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>
-Cc: Sami Tolvanen <samitolvanen@google.com>, dri-devel@lists.freedesktop.org, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6EBF10F596
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 15:15:12 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gYwZj0Jdgz9tjp;
+ Mon,  8 Jun 2026 17:15:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1780931709; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=NGMAEytpCVVrGQO+yuNUspVUEHL6UKNWHZvBLk9ZY4A=;
+ b=KGZ86xKGuh+qSN8H4mSCZgQqB+PPvD/DrYkFXqkEMMl7JBhtJ4aJctZpjTOyOShrxWc7fQ
+ gM4Z0Gj7iV9sM9KWHvuc0J9s+CrsrGRJc6ibRaq+g7FLyujHpZPeyTm2zS/MWVj7KPHgv3
+ epnP8Qw9LtsAmXoF51sFQQ6Btt3SEzSKRzoc3kSTdzO0dzp3TMduirBgOV0iIZqb75IJXA
+ to+CxOA8CrppeM9aw0gwxAMoIB31eEjPAfgAgiiVuv0AfgR5XRNRKD+U8lAjrveCnJp++h
+ FTYyQagJ/gJUWf+7itph2Y4/tJvyMHbTTypgNJBm+Daa1M/8am5f8Qjtv/rAIA==
+Message-ID: <f5f5e75336f0b4cf766b78ae4f2df12cc3f59252.camel@mailbox.org>
+Subject: Re: [RFC PATCH] dma-fence: Fix races of fence callbacks versus
+ destructors by locking
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Philipp Stanner	
+ <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Boris Brezillon
+ <boris.brezillon@collabora.com>,  Alice Ryhl <aliceryhl@google.com>, Daniel
+ Almeida <dwlsalmeida@gmail.com>, Gary Guo <gary@garyguo.net>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>
+Date: Mon, 08 Jun 2026 17:15:00 +0200
+In-Reply-To: <e5f81f4f-ac0c-49c0-a9d1-85f372d65971@igalia.com>
+References: <20260608142436.265820-2-phasta@kernel.org>
+ <e5f81f4f-ac0c-49c0-a9d1-85f372d65971@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MBO-RS-ID: dc4d9658c8da65643ec
+X-MBO-RS-META: r6xupidihic93x8bxi8mjfyzoqt7qb7n
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,82 +67,230 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Moving a GpuVaAlloc or GpuVmBo between threads currently forces drivers
-to write their own unsafe Send and Sync impls. Provide the markers in
-the abstraction instead.
+On Mon, 2026-06-08 at 16:07 +0100, Tvrtko Ursulin wrote:
+>=20
+> On 08/06/2026 15:24, Philipp Stanner wrote:
+> > The dma_fence backend_ops can access a fence. Hereby, a driver callback
+> > will be running which likely will access driver specific data through
+> > container_of(). If now, simultaneously, a driver signals the fence and
+> > afterwards expects to run a driver specific destructor (using the same
+> > data accessed through container_of()), there can be a race.
+> >=20
+> > A driver very likely trusts that once it has signaled a fence, no one
+> > will be accessing it anymore. Moreover, it might already want to free u=
+p
+> > resources, making UAF bugs possible.
+>=20
+> Can you explain this race a bit differently? I am struggling to=20
+> understand the scenario.
 
-GpuVaAlloc wraps only uninitialised memory and exposes none of it, so it
-is unconditionally Send and Sync. GpuVmBo is an atomically refcounted
-handle whose accessors hand out the driver data and GEM object by shared
-reference and whose deferred put drops them, so its Send and Sync impls
-are bounded on T::VmBoData and T::Object.
+driver:                               fence consumer:
 
-Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
----
-Changes in v2:
-- Added a missing T::Object: Send + Sync bound pointed out by Sashiko.
+dma_fence_signal(f)                   backend_ops() starts running, slightl=
+y misses the signaled-bit
+do_sth_with_data(container_of(f))     backend_ops() accesses container_of(f=
+)
 
----
- rust/kernel/drm/gpuvm/va.rs    |  8 ++++++++
- rust/kernel/drm/gpuvm/vm_bo.rs | 21 +++++++++++++++++++++
- 2 files changed, 29 insertions(+)
+^ race
 
-diff --git a/rust/kernel/drm/gpuvm/va.rs b/rust/kernel/drm/gpuvm/va.rs
-index 0b09fe44ab39..dcb2dec4fbdf 100644
---- a/rust/kernel/drm/gpuvm/va.rs
-+++ b/rust/kernel/drm/gpuvm/va.rs
-@@ -104,6 +104,14 @@ pub fn vm_bo(&self) -> &GpuVmBo<T> {
- /// The memory is zeroed.
- pub struct GpuVaAlloc<T: DriverGpuVm>(KBox<MaybeUninit<GpuVa<T>>>);
- 
-+// SAFETY: A [`GpuVaAlloc`] is an owned, uninitialised allocation with no live `T::VaData` and no
-+// thread-bound state.
-+unsafe impl<T: DriverGpuVm> Send for GpuVaAlloc<T> {}
-+
-+// SAFETY: A [`GpuVaAlloc`] has no `&self` method that reaches its contents, so a shared
-+// `&GpuVaAlloc` cannot access the allocation.
-+unsafe impl<T: DriverGpuVm> Sync for GpuVaAlloc<T> {}
-+
- impl<T: DriverGpuVm> GpuVaAlloc<T> {
-     /// Pre-allocate a [`GpuVa`] object.
-     pub fn new(flags: AllocFlags) -> Result<GpuVaAlloc<T>, AllocError> {
-diff --git a/rust/kernel/drm/gpuvm/vm_bo.rs b/rust/kernel/drm/gpuvm/vm_bo.rs
-index c064ac63897b..fa183f6306ff 100644
---- a/rust/kernel/drm/gpuvm/vm_bo.rs
-+++ b/rust/kernel/drm/gpuvm/vm_bo.rs
-@@ -19,6 +19,27 @@ pub struct GpuVmBo<T: DriverGpuVm> {
-     data: T::VmBoData,
- }
- 
-+// SAFETY: The refcount in `self.inner` is atomic, so `dec_ref`'s deferred put is sound from any
-+// thread. `drm_gpuvm_bo_deferred_cleanup` drops `data` and the last GEM-object reference on
-+// whichever thread drains the queue, hence the `T::VmBoData: Send` and `T::Object: Send` bounds.
-+// [`Self::obj`] hands out `&T::Object` for a shared object, so the move needs `T::Object: Sync`.
-+unsafe impl<T: DriverGpuVm> Send for GpuVmBo<T>
-+where
-+    T::VmBoData: Send,
-+    T::Object: Send + Sync,
-+{
-+}
-+
-+// SAFETY: The fields of `inner` read by shared-reference methods are immutable after construction.
-+// [`Self::data`] hands out `&T::VmBoData` and [`Self::obj`] hands out `&T::Object`, so sharing
-+// `&Self` across threads requires both to be `Sync`.
-+unsafe impl<T: DriverGpuVm> Sync for GpuVmBo<T>
-+where
-+    T::VmBoData: Sync,
-+    T::Object: Sync,
-+{
-+}
-+
- // SAFETY: By type invariants, the allocation is managed by the refcount in `self.inner`.
- unsafe impl<T: DriverGpuVm> AlwaysRefCounted for GpuVmBo<T> {
-     fn inc_ref(&self) {
 
-base-commit: fea3a2dd7d3fc1936211ced5f84420e610435730
--- 
-2.54.0.1032.g2f8565e1d1-goog
+backend_ops callbacks must not be invoked after a fence was signaled.
+Right now, that is racing.
 
+re: free(), OK, yes, that is the documented rule. Fair. But:
+
+>=20
+> Are you talking about driver freeing the data immediately after=20
+> signalling? That is not allowed as per the "DOC: Safe external access to=
+=20
+> driver provided object members", ie. divers must ensure a RCU grace=20
+> period between signalling and freeing any data which can be reached by=
+=20
+> any external caller.
+
+This is the documented rule mostly because this isn't solved through
+locking. If the lock were to grant full synchronization, you could
+immediately do your driver cleanup after signaling, because all
+potential accessors would be gone.
+
+
+P.
+
+>=20
+> Regards,
+>=20
+> Tvrtko
+>=20
+> > The race occurs because there are only pragmatic checks for the signale=
+d
+> > flag of a fence, without taking the fence lock. RCU guards exist, but
+> > their purpose is to guard accesses through the backend_ops callbacks
+> > against the driver (which implements the TEXT segment these callbacks
+> > live in) from unloading.
+> >=20
+> > Proper synchronization can be ensured by taking the fence lock. RCU is
+> > still simultaneously required to guard against the unload.
+> >=20
+> > Fix the races by taking the lock for all non-deprecated backend_ops
+> > callbacks.
+> >=20
+> > Conveniently, this also fixes a race where backend_ops->set_deadline()
+> > might try to set a deadline for an already signaled fence.
+> >=20
+> > Suggested-by: Danilo Krummrich <dakr@kernel.org>
+> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> > ---
+> > We discovered this problem through our Rust abstractions, but it can
+> > also occur in C.
+> >=20
+> > The by far cleanest solution seems to be to use the fence lock. This RF=
+C
+> > serves to discuss whether there is anything preventing that.
+> >=20
+> > (Patch so far just compile tested, to have some groundlayer for the
+> > rough idea, to discuss it first)
+> > ---
+> > =C2=A0 drivers/dma-buf/dma-fence.c | 39 ++++++++++++++++++++++++++++---=
+------
+> > =C2=A0 include/linux/dma-fence.h=C2=A0=C2=A0 | 17 ++++++++++++----
+> > =C2=A0 2 files changed, 43 insertions(+), 13 deletions(-)
+> >=20
+> > diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> > index c7ea1e75d38a..b74f02f3cca8 100644
+> > --- a/drivers/dma-buf/dma-fence.c
+> > +++ b/drivers/dma-buf/dma-fence.c
+> > @@ -629,7 +629,8 @@ EXPORT_SYMBOL(dma_fence_free);
+> > =C2=A0 static bool __dma_fence_enable_signaling(struct dma_fence *fence=
+)
+> > =C2=A0 {
+> > =C2=A0=C2=A0	const struct dma_fence_ops *ops;
+> > -	bool was_set;
+> > +	bool was_set, success;
+> > +	unsigned long flags;
+> > =C2=A0=20
+> > =C2=A0=C2=A0	dma_fence_assert_held(fence);
+> > =C2=A0=20
+> > @@ -644,7 +645,10 @@ static bool __dma_fence_enable_signaling(struct dm=
+a_fence *fence)
+> > =C2=A0=C2=A0	if (!was_set && ops && ops->enable_signaling) {
+> > =C2=A0=C2=A0		trace_dma_fence_enable_signal(fence);
+> > =C2=A0=20
+> > -		if (!ops->enable_signaling(fence)) {
+> > +		dma_fence_lock_irqsave(fence, flags);
+> > +		success =3D ops->enable_signaling(fence);
+> > +		dma_fence_unlock_irqrestore(fence, flags);
+> > +		if (!success) {
+> > =C2=A0=C2=A0			rcu_read_unlock();
+> > =C2=A0=C2=A0			dma_fence_signal_locked(fence);
+> > =C2=A0=C2=A0			return false;
+> > @@ -1020,11 +1024,20 @@ EXPORT_SYMBOL(dma_fence_wait_any_timeout);
+> > =C2=A0 void dma_fence_set_deadline(struct dma_fence *fence, ktime_t dea=
+dline)
+> > =C2=A0 {
+> > =C2=A0=C2=A0	const struct dma_fence_ops *ops;
+> > +	unsigned long flags;
+> > =C2=A0=20
+> > =C2=A0=C2=A0	rcu_read_lock();
+> > =C2=A0=C2=A0	ops =3D rcu_dereference(fence->ops);
+> > -	if (ops && ops->set_deadline && !dma_fence_is_signaled(fence))
+> > +	if (!ops || !ops->set_deadline) {
+> > +		rcu_read_unlock();
+> > +		return;
+> > +	}
+> > +
+> > +	dma_fence_lock_irqsave(fence, flags);
+> > +	if (!dma_fence_is_signaled_locked(fence))
+> > =C2=A0=C2=A0		ops->set_deadline(fence, deadline);
+> > +
+> > +	dma_fence_unlock_irqrestore(fence, flags);
+> > =C2=A0=C2=A0	rcu_read_unlock();
+> > =C2=A0 }
+> > =C2=A0 EXPORT_SYMBOL(dma_fence_set_deadline);
+> > @@ -1166,14 +1179,18 @@ EXPORT_SYMBOL(dma_fence_init64);
+> > =C2=A0=C2=A0 */
+> > =C2=A0 const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
+> > =C2=A0 {
+> > +	const char __rcu *name =3D "detached-driver";
+> > =C2=A0=C2=A0	const struct dma_fence_ops *ops;
+> > +	unsigned long flags;
+> > =C2=A0=20
+> > =C2=A0=C2=A0	/* RCU protection is required for safe access to returned =
+string */
+> > =C2=A0=C2=A0	ops =3D rcu_dereference(fence->ops);
+> > +	dma_fence_lock_irqsave(fence, flags);
+> > =C2=A0=C2=A0	if (!dma_fence_test_signaled_flag(fence))
+> > -		return (const char __rcu *)ops->get_driver_name(fence);
+> > -	else
+> > -		return (const char __rcu *)"detached-driver";
+> > +		name =3D ops->get_driver_name(fence);
+> > +	dma_fence_unlock_irqrestore(fence, flags);
+> > +
+> > +	return name;
+> > =C2=A0 }
+> > =C2=A0 EXPORT_SYMBOL(dma_fence_driver_name);
+> > =C2=A0=20
+> > @@ -1199,13 +1216,17 @@ EXPORT_SYMBOL(dma_fence_driver_name);
+> > =C2=A0=C2=A0 */
+> > =C2=A0 const char __rcu *dma_fence_timeline_name(struct dma_fence *fenc=
+e)
+> > =C2=A0 {
+> > +	const char __rcu *name =3D "signaled-timeline";
+> > =C2=A0=C2=A0	const struct dma_fence_ops *ops;
+> > +	unsigned long flags;
+> > =C2=A0=20
+> > =C2=A0=C2=A0	/* RCU protection is required for safe access to returned =
+string */
+> > =C2=A0=C2=A0	ops =3D rcu_dereference(fence->ops);
+> > +	dma_fence_lock_irqsave(fence, flags);
+> > =C2=A0=C2=A0	if (!dma_fence_test_signaled_flag(fence))
+> > -		return (const char __rcu *)ops->get_driver_name(fence);
+> > -	else
+> > -		return (const char __rcu *)"signaled-timeline";
+> > +		name =3D ops->get_driver_name(fence);
+> > +	dma_fence_unlock_irqrestore(fence, flags);
+> > +
+> > +	return name;
+> > =C2=A0 }
+> > =C2=A0 EXPORT_SYMBOL(dma_fence_timeline_name);
+> > diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> > index b52ab692b22e..b93c3f7f69fb 100644
+> > --- a/include/linux/dma-fence.h
+> > +++ b/include/linux/dma-fence.h
+> > @@ -547,20 +547,29 @@ static inline bool
+> > =C2=A0 dma_fence_is_signaled(struct dma_fence *fence)
+> > =C2=A0 {
+> > =C2=A0=C2=A0	const struct dma_fence_ops *ops;
+> > +	unsigned long flags;
+> > +	bool signaled;
+> > =C2=A0=20
+> > =C2=A0=C2=A0	if (dma_fence_test_signaled_flag(fence))
+> > =C2=A0=C2=A0		return true;
+> > =C2=A0=20
+> > =C2=A0=C2=A0	rcu_read_lock();
+> > =C2=A0=C2=A0	ops =3D rcu_dereference(fence->ops);
+> > -	if (ops && ops->signaled && ops->signaled(fence)) {
+> > +	if (!ops || !ops->signaled) {
+> > =C2=A0=C2=A0		rcu_read_unlock();
+> > -		dma_fence_signal(fence);
+> > -		return true;
+> > +		return false;
+> > =C2=A0=C2=A0	}
+> > +
+> > +	dma_fence_lock_irqsave(fence, flags);
+> > +	signaled =3D ops->signaled(fence);
+> > +
+> > +	if (signaled)
+> > +		dma_fence_signal_locked(fence);
+> > +
+> > +	dma_fence_unlock_irqrestore(fence, flags);
+> > =C2=A0=C2=A0	rcu_read_unlock();
+> > =C2=A0=20
+> > -	return false;
+> > +	return signaled;
+> > =C2=A0 }
+> > =C2=A0=20
+> > =C2=A0 /**
