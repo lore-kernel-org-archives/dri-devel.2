@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84AFCCD8C9F
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 11:34:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB27ACD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 11:37:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC6F310F241;
-	Mon,  8 Jun 2026 11:34:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B728E10F247;
+	Mon,  8 Jun 2026 11:37:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Aw7AcunF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mevlGVYe";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DDDD10F241
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 11:34:30 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39A5B10F247
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 11:37:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A8DFD6001D;
- Mon,  8 Jun 2026 11:34:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF0311F00893;
- Mon,  8 Jun 2026 11:34:28 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E598141976;
+ Mon,  8 Jun 2026 11:37:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 570801F00893;
+ Mon,  8 Jun 2026 11:37:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780918469;
- bh=WQWRh8p2h3NDFUSWN1Rhl+a0kriaz+3CZ0URUglMXpg=;
+ s=k20260515; t=1780918676;
+ bh=uDnJszeMpHdvvPPU3R801JdC/j6cKxC3OiP8T8t7XdQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Aw7AcunF/5f93ie/u3gMYvj6jISdYUw6DKg6ZFuhbRqfdV1mfisbKb0zmEAqMS15k
- pPG5jKzDIJs3h+xaU1IS7UEoSi/ZWNq1sVtj5NW0Sn4MWnD+fxWK05TpBh3QVFR6n0
- W/Ks/dmsjhEQh/Uo6h015Xp/cWmrcKtFFbUxUjuTAeIYPG8s95XKhA6ZBW9HWG5Pp+
- n4FjOTqvXupLbst4pZvOxyQo97i1vUyYGiyQZ/sQs5Y1qd5Zu3qubah7KyNhbFZpvK
- 4Cyrkp5dtE1a2INg10y4im8nPs20kajr2/uKpuC9lVBwXOxVbBQM0OQWG7MD8t4nsf
- f1xWD0u5VO54w==
-Date: Mon, 8 Jun 2026 13:34:27 +0200
+ b=mevlGVYehUQUDoVS07MJ/Nec+me3pE5pN0bY3V9f9HJKwsCgWklGL/lF/0nOCe8+w
+ n43BaopwvETjXNOdDTZhqylU46Y6LvIdYqlL2vpwP06JubjFYvaLU2CBYuBSaRwSGl
+ /IBakOt0u3np59wb5dfhSxkzcc2XTHDDKK2HjUbppqKR2HxOXi6iG7pP0jrSx9SVHV
+ qrBFfnKgd8l6os5wubHUjTl1OKA3j8A+F+k1mkP7tdsUIkAe2zHLVlU8+W70x6j/M7
+ WXS7yo2ujqCwSlKtnB56YyQJFP7pI6wPixaHBmqwWBjLH+Fd00RJp7w5XrvI4t6ogO
+ q0EWTWfG/NZUA==
+Date: Mon, 8 Jun 2026 13:37:54 +0200
 From: Maxime Ripard <mripard@kernel.org>
 To: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -50,16 +50,16 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 04/37] drm/display: bridge-connector: store the
- drm_device pointer
-Message-ID: <20260608-imposing-umber-tuatara-62daba@houat>
+Subject: Re: [PATCH 01/37] drm/connector: split drmm_connector_hdmi_init() in
+ 3 parts
+Message-ID: <20260608-brave-private-quokka-f67fb1@houat>
 References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
- <20260519-drm-bridge-hotplug-v1-4-45e2bdb3dfb4@bootlin.com>
+ <20260519-drm-bridge-hotplug-v1-1-45e2bdb3dfb4@bootlin.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="rfvx3ud67pyds4m4"
+ protocol="application/pgp-signature"; boundary="6v4dtzt3jeuv5xzs"
 Content-Disposition: inline
-In-Reply-To: <20260519-drm-bridge-hotplug-v1-4-45e2bdb3dfb4@bootlin.com>
+In-Reply-To: <20260519-drm-bridge-hotplug-v1-1-45e2bdb3dfb4@bootlin.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,50 +76,42 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---rfvx3ud67pyds4m4
+--6v4dtzt3jeuv5xzs
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 04/37] drm/display: bridge-connector: store the
- drm_device pointer
+Subject: Re: [PATCH 01/37] drm/connector: split drmm_connector_hdmi_init() in
+ 3 parts
 MIME-Version: 1.0
 
-Hi,
+On Tue, May 19, 2026 at 12:37:18PM +0200, Luca Ceresoli wrote:
+> In preparation for adding a dynamic variant of drmm_connector_hdmi_init(),
+> split reusable parts of the code to subfunctions.
+>=20
+> drmm_connector_hdmi_init() currently has 3 sections:
+>  1. sanity checks
+>  2. call drmm_connector_init()
+>  3. initialize HDMI-specific fields not initialized at step 2
+>=20
+> Split 1 and 3 to new functions, reusable independently.
+>=20
+> No functional changes. Just moving code around.
 
-On Tue, May 19, 2026 at 12:37:21PM +0200, Luca Ceresoli wrote:
-> Currently the struct drm_device pointer is only needed during the initial
-> drm_bridge_connector_init() and in drm_bridge_connector_handle_hpd() which
-> gets it from the struct drm_connector.
->=20
-> This will be insufficient when introducing bridge hotplugging, because:
->=20
->  * some of the actions in drm_bridge_connector_init() will have to be
->    performed later on, when a bridge is hot(un)plugged
->  * the connector will be removed and re-added based on hotplug events,
->    so the drm_connector might just not exist or its content be cleared
->=20
-> Store the drm_device pointer in struct drm_bridge_connector for any later
-> needs. Also convert drm_bridge_connector_handle_hpd() to use the newly
-> stored value.
->=20
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
-This is already accessible as drm_connector->dev and drm_bridge->dev. I
-think it would be great to list why this is different, and how it is
-different (ie, when it's set, unset).
+Explaining what you need later on, and why these three functions help in
+particular, would be nice.
 
 Maxime
 
---rfvx3ud67pyds4m4
+--6v4dtzt3jeuv5xzs
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaiaovwAKCRAnX84Zoj2+
-drmAAYDCTrp5B/3nwsHfwzJ3pjL6RsLximEIeguzyN2Zo/pXFeFBn/eqNiwdUNan
-9v8iJgYBgIPGBwLE0HR3Dkk+PXB7EljJYW3UiA+uHKQJajC1OaBDZi/ukKG3oLzo
-Oys6KnB6zA==
-=K5mh
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaiapkgAKCRAnX84Zoj2+
+duf/AYDpipIWLfk+fdFB3ag3RZt6/l4Ldt2Q7sSM0cWR+5PFEIvnVO13qdZZ91HU
+87IMGGABgKgJmw/zzJy36JG+OWXkIXlRjNm5occH4w/GMV8y4BCXcOmxyHeuLI3n
+vO/GxTh2qw==
+=NILv
 -----END PGP SIGNATURE-----
 
---rfvx3ud67pyds4m4--
+--6v4dtzt3jeuv5xzs--
