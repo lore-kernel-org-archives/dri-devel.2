@@ -4,43 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DD8DCD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 16:29:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 979E0CD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 16:29:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72FF210F6EC;
-	Mon,  8 Jun 2026 16:29:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E801110F6F0;
+	Mon,  8 Jun 2026 16:29:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bFdpIo9V";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="AQE2xXfN";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BF3010F6EC
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 16:29:01 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C2C9460098;
- Mon,  8 Jun 2026 16:29:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 588671F00893;
- Mon,  8 Jun 2026 16:29:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780936140;
- bh=WvDCmbIqSiWrOPmRde9VeNR/godR/Z3VTXE8gQwK8KY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bFdpIo9Vhbu+e3suVz6R154TCwVxYprRg0y006bDvnzHtV+2ogxnJcJnsba+uwKpu
- Bx92pi0bI9T4WcjISwilyTWglK/1BmhBdied1AuM0owqyDRg3tnZfMLlVI9e23Yntc
- HswMFrB1gv1h4WDk/sncYaRdhVTRYy3aTytmJqq2/jGDRdEroGBxYZoTjBSRkdUtdN
- 1BU3ahbPHBkWdqsdIPMaxnP1P8/Dw70vaJMCc4TiP4NPhO19/aEkoUhcryMPCncejO
- sWG7JlcgHOpzLX4KiNI4/h8yq7cWVOxZuwQ6J5PfrSdo/Kx5XHvs0e29z3+uUv3NVm
- c/QpYGMWHKlRQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V2 3/3] accel/amdxdna: Fix amdxdna_client race in
- amdxdna_show_fdinfo()
-To: "Lizhi Hou" <lizhi.hou@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260608161418.2748988-3-lizhi.hou@amd.com>
-References: <20260608161418.2748988-3-lizhi.hou@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 08 Jun 2026 16:28:59 +0000
-Message-Id: <20260608162900.588671F00893@smtp.kernel.org>
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43DF310F6F0
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 16:29:41 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4gYyDd4cMlz9v04;
+ Mon,  8 Jun 2026 18:29:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1780936177;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=BbSbELZ/qhJGz8m9PkFP4eZM/CFetLN6lwudktuynGY=;
+ b=AQE2xXfNVLdb0zenRfKtc1yr7vSNa3ByjQ0rIG1J/Ql0m4lBUCNWwtIrp3znIEbEDtsn8h
+ IMGOPgaK0+eCY7j1maEAItCcpQPyKJ7EnszJxY220kDYTU1J8pgWVcgvGRJmW0qTbOaB7D
+ qeMglUL8Fp+gPnHx9kzN5tpB+fajuXZY5KKPH9qumH7BnQAdWg/B3XKTwzgUFL6SO75SDb
+ I5g9Edd+BUNNLOAWjCxWxqIjDWMrqVw4VbJUSHIwz3efT8YHbNLMTMiFiMwwvEDuL+L9K0
+ a3UnfU9QVReNX3lcogtEW1Jj6oSeI1xs5OgCPqZoaRRXyNJHAUHpGEwOl8uTtg==
+Message-ID: <9ece4e08-a77f-4410-ba16-a77b9bd0aace@mailbox.org>
+Date: Mon, 8 Jun 2026 18:29:32 +0200
+MIME-Version: 1.0
+Subject: Re: [PATCH 00/39] Add i.MX95 DPU/DSI/LVDS support
+To: Liu Ying <victor.liu@nxp.com>, Piyush Patle <piyushpatle228@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, Shawn Guo <shawnguo@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Lucas Stach <l.stach@pengutronix.de>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Abel Vesa <abelvesa@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>
+References: <20251011170213.128907-1-marek.vasut@mailbox.org>
+ <20260605121112.27866-1-piyushpatle228@gmail.com> <aiZzxhljfyYQ68Gl@raspi>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <aiZzxhljfyYQ68Gl@raspi>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: yf38h31tgdjwq7mde8h8omnc7sio8pks
+X-MBO-RS-ID: 587bbf07cc5c34a1000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,150 +69,54 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On 6/8/26 9:48 AM, Liu Ying wrote:
 
-Pre-existing issues:
-- [Critical] The patch addresses a Use-After-Free in `amdxdna_show_fdinfo()=
-`, but identical UAF vulnerabilities exist across most ioctls and GEM destr=
-uction paths due to broken client lifecycle management.
-- [Critical] Premature destruction of `notifier_wq` in `amdxdna_remove()` c=
-auses a Use-After-Free when GEM objects are subsequently freed.
-- [High] `amdxdna_sva_init()` leaves `client->sva` as a dangling pointer if=
- `iommu_sva_get_pasid()` fails, leading to a double `iommu_sva_unbind_devic=
-e()` on client cleanup.
---
+Hello everyone,
 
-commit 225c80eb0fc36a5511f44ce636794ce0b887dbc7
-Author: Lizhi Hou <lizhi.hou@amd.com>
+>> I brought this series up on the i.MX95 15x15 FRDM (IT6263 LVDS-to-HDMI on
+>> LVDS ch1). It mostly works, but I ran into a few issues around DI routing,
+>> LVDS format handling, and DC enable sequencing which needed rework before
+>> HDMI would come up reliably on the board.
+>>
+>> I don't see a v2 of the series and things seem to have been quiet since
+>> November. Are you planning to post an updated version?
+> 
+> My plan was to enable prefetch engine support[1] for i.MX8QXP display
+> controller and add device tree for a whole i.MX8QXP LVDS display pipeline,
+> before adding i.MX95 display controller support.
+> 
+> Unfortunately, it seems that Marek is not a big fan of [1]
 
-accel/amdxdna: Fix amdxdna_client race in amdxdna_show_fdinfo()
+I am fine with [1] as long as it can be isolated and does not affect 
+every SoC that might reuse this driver, which I think it can be done.
 
-This patch guards the show_fdinfo path with drm_dev_enter() and
-drm_dev_exit() to prevent use-after-free of the amdxdna_client structure
-after the device has been unplugged.
+> and I'm busy
+> with downstream development so the plan doesn't move forward well.  I still
+> think [1] makes sense(maybe I need to rebase it on latest drm-misc-next),
+> so I'd like to see review comments on [1] and hopefully people think that
+> the overall idea of [1] is ok.
 
-> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdx=
-dna/amdxdna_pci_drv.c
-> index c18ddad9f6459..e6b541db38981 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> @@ -296,6 +296,10 @@ static void amdxdna_show_fdinfo(struct drm_printer *=
-p, struct drm_file *filp)
->  	struct amdxdna_client *client =3D filp->driver_priv;
->  	size_t heap_usage, external_usage, internal_usage;
->  	char *drv_name =3D filp->minor->dev->driver->name;
-> +	int idx;
-> +
-> +	if (!drm_dev_enter(filp->minor->dev, &idx))
-> +		return;
+My only concern is, to keep it isolated to MX8Q, so this driver can be 
+reused by MX95.
 
-[Severity: Critical]
-This is a pre-existing issue, but while this patch addresses the UAF in
-amdxdna_show_fdinfo(), do the same vulnerabilities exist across other ioctls
-and GEM destruction paths due to broken client lifecycle management?
+>> I've accumulated a fair amount of rework while getting this running on the
+>> FRDM. If you're not planning a v2, I can clean things up and send one based
+>> on the current series.
+> 
+> I still think that i.MX95 display controller driver should be in a separate
+> driver, rather than sharing the same driver with i.MX8QXP display controller
+> like this patch series does, because the two display controllers are quite
+> different as I mentioned in comments on this patch series and in discussion
+> in [1].  Also, the common part between the two display controllers should
+> be extracted to a common helper library as I mentioned there too.
+Are they really? It seems this series adds support for the MX95 DC 
+without that many changes, so are the DCs really that different ? It 
+seems the MX95 DC is simply a reuse/evolution of the MX8Q DC blocks, so 
+duplicating the code seems like the wrong direction, it will only lead 
+to disparate sets of bugs in two drivers, which isn't desired.
 
-For example, amdxdna_remove() forcefully frees each amdxdna_client struct
-by calling amdxdna_client_cleanup() while file descriptors might still be
-open:
-
-drivers/accel/amdxdna/amdxdna_pci_drv.c:amdxdna_remove() {
-    ...
-    client =3D list_first_entry_or_null(&xdna->client_list, ...);
-    while (client) {
-        amdxdna_client_cleanup(client);
-        ...
-    }
-}
-
-Meanwhile, IOCTL handlers like amdxdna_drm_submit_cmd_ioctl(),
-amdxdna_drm_config_hwctx_ioctl(), and amdxdna_drm_wait_cmd_ioctl() omit
-drm_dev_enter(), extracting the client pointer directly from
-filp->driver_priv:
-
-drivers/accel/amdxdna/amdxdna_ctx.c:amdxdna_drm_submit_cmd_ioctl() {
-    struct amdxdna_client *client =3D filp->driver_priv;
-    ...
-    return amdxdna_drm_submit_execbuf(client, args);
-}
-
-If amdxdna_remove() runs concurrently, will these IOCTLs access the freed
-client structure, causing a Use-After-Free? Similarly, when the file
-descriptor is eventually closed post-unplug, will GEM destruction paths
-like amdxdna_gem_obj_close() and amdxdna_gem_dev_obj_free() dereference the
-already-freed abo->client pointer?
-
-
-> =20
->  	mutex_lock(&client->mm_lock);
-> =20
-
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue, but does amdxdna_sva_init() leave client->sva
-as a dangling pointer if iommu_sva_get_pasid() fails?
-
-In amdxdna_sva_init(), if iommu_sva_bind_device() succeeds but getting the
-pasid fails, the device is unbound but client->sva is not set to NULL:
-
-drivers/accel/amdxdna/amdxdna_pci_drv.c:amdxdna_sva_init() {
-    ...
-    client->pasid =3D iommu_sva_get_pasid(client->sva);
-    if (client->pasid =3D=3D IOMMU_PASID_INVALID) {
-        iommu_sva_unbind_device(client->sva);
-        XDNA_ERR(xdna, "SVA get pasid failed");
-        return -ENODEV;
-    }
-}
-
-Then in amdxdna_drm_open(), if amdxdna_sva_init() fails but
-amdxdna_use_carveout(xdna) is true, the driver issues a warning and allows
-the client initialization to succeed.
-
-When the file descriptor is closed and amdxdna_client_cleanup() calls
-amdxdna_sva_fini(), will this dangling pointer bypass the IS_ERR_OR_NULL()
-check and cause a double iommu_sva_unbind_device()?
-
-drivers/accel/amdxdna/amdxdna_pci_drv.c:amdxdna_sva_fini() {
-    if (IS_ERR_OR_NULL(client->sva))
-        return;
-
-    iommu_sva_unbind_device(client->sva);
-}
-
-[Severity: Critical]
-This is a pre-existing issue, but does the premature destruction of
-notifier_wq in amdxdna_remove() cause a Use-After-Free when GEM objects
-are subsequently freed?
-
-amdxdna_remove() destroys the workqueue before GEM objects are completely
-released:
-
-drivers/accel/amdxdna/amdxdna_pci_drv.c:amdxdna_remove() {
-    ...
-    destroy_workqueue(xdna->notifier_wq);
-    ...
-    drm_dev_unplug(&xdna->ddev);
-}
-
-When a GEM object's refcount drops to zero later, amdxdna_gem_obj_free()
-is invoked and unconditionally calls flush_workqueue() on the destroyed
-workqueue:
-
-drivers/accel/amdxdna/amdxdna_gem.c:amdxdna_gem_obj_free() {
-    ...
-    amdxdna_hmm_unregister(abo, NULL);
-    flush_workqueue(xdna->notifier_wq);
-}
-
-Could the destruction of the workqueue be deferred to the DRM device release
-callback instead of the PCI remove callback?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608161418.2748=
-988-1-lizhi.hou@amd.com?part=3D3
+(I might not fully understand what you have in mind with the helper 
+library though?)
