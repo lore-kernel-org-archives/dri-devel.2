@@ -4,137 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE035CD8C8E
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 07:44:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 574A4CD8C92
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 07:46:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6B9D10EE6C;
-	Mon,  8 Jun 2026 07:44:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B62A110EE67;
+	Mon,  8 Jun 2026 07:46:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="bxyPT2Qv";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="USrwVTcr";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="lKewfL7J";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C92FC10EE5C
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 07:44:00 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6586Ot8o2384454
- for <dri-devel@lists.freedesktop.org>; Mon, 8 Jun 2026 07:44:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Ll9jicp1T8nD2iVAfwGQTwpackBft8jmAmcVwn6yJEI=; b=bxyPT2Qvf1aF34RR
- 7mgHLg0xLIrXsp3fDymEKgTA+DE/vVP+Sf7AP+9vN84HHYI5p0A1YZe7g8FT9PD8
- RGWPFecrMcevs7Hi6Re3huKV4QX+KV9LXihysgGu67JEeq7nzgRC+3CtgtPq8QcI
- pi1YOy5YfxZ5mCXSFLm634EG0O+/VUadBkO+3Jcpleu8F2OVdbeaQW8y0z5StCo1
- nbv3V/S4Lv/Qcfky3aZwQjBnlkL1k3LdjYUMKRl7Xr4s7tXMdMy5y2M7yrkKX4L/
- 0STpFPRmeHwJxNKNvjHvrvTTPv/aOZ+4d0XVFdFS294I2FWwBQBa+/CrQBdDFwnx
- VAPS5w==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4embs1efyg-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 07:44:00 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-9156dc90fdaso116572185a.0
- for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 00:44:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1780904639; x=1781509439;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Ll9jicp1T8nD2iVAfwGQTwpackBft8jmAmcVwn6yJEI=;
- b=USrwVTcrCwDKn+r1lCgbb1VQGc74K3QCNJ2uyIShSBzKsJmWiEHulw9TddkvEvkah1
- 8dCndKOUSN+azx/s1LAe/de8z3WaRZxTGyEinznceptluLqsWcKB86f+el3oJ7oo0K6r
- M8CwrIzDNaCQLbLm0rGj7ezNkL0Q8+Fd43pSr25pnlbt1RDkOPL7D2mhZsVvZSuVWt79
- iwBMqIPq3ZKc0Po5R/9xI29/s4cCSEyWw0GgY1braMVHtY2n6J+e61wAvYi+yrIx20KO
- fHjvypK2TcVW6goJAMCB8d1tNp4T4GnVlN+fy8+0bLEz0JiXN9HtuiWcJYnqueUCv3Jc
- lxfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780904639; x=1781509439;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Ll9jicp1T8nD2iVAfwGQTwpackBft8jmAmcVwn6yJEI=;
- b=j1oiDW27FmNvoYRMy7p8h0zZ+ALEi/IR/XTBV+wZSJcJ8qBHRzzQoQJf24tJCC6dP3
- LXW+FHsLf2ytpb7NsdJwIdMw0tOa5eJ78qgO+aOxI9mLj+N+Zvc+ebahPn2VRMCnCyQv
- 2avQxH2SXbuERdAdbPl82wYwxtTdgv/zsbY3b0VOqrPBBUIeknktoO6ixGMD9/9tgBGo
- +YfvtHI2g7T7o1uQ4CLxNCPScM00FeM2hjIn4mIjwGNWoi2oE3/TC5Ws7dZeWnkM6N4t
- lQtxBe9TSiV9NXY27qX3MmDXV4FzCIWkJt3k9LgFcPlMsO9DSbiP2prULPWz9jeZzYaK
- qAoA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+DKxujl3o1Ad0ji/ReMU24EwDcYmrKiUK5L53vg0gO6pZih9C21kjp7CpTqZxDQAldejk0oiZDkH0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzvFtTcMhxz4JMFPhb69Fsi1iV5kSPXIdC7XmpR+4mFw7kiE9Sf
- 504Fb7pLvMxbu9SpasQcrLKvpoZ6Ma8RrpiEOp+nry6lxdF8KqotoyxV5aRyGSFVXXKseKO8ux+
- XozerG102uZe2n72+sXBZxNK2yzo4rU6MWMmsP4ufmQ9Iyd+QPa229fe8hYTJzx5cY0w+uyk=
-X-Gm-Gg: Acq92OGPBx/xyog4Nj2Jgfeus0IIG0z3PdKW5nNAYoCaC2NV6tFhvlakUnL3rH/lwzV
- MQQTwuY04GinHlGr4iQu7kuPBYbhytv+2iw+ZR0s07x386fO7qFbyIHnqdssAXAy7EMDjAscXVt
- HG7X5FomAKgdXY0MtKcdipxui5CcM81HaJSMiDL4G66qRE+2KliGwUrQ873AmpdhNqDaL65+56r
- piionnV6TLnHkKwgxaBbqV0HdtN+VXSzX6seAw2U8TkKbATEuxNX00pcYdjgbHy1hYYkta5CPlo
- e3v6SfPoXHgx9AfchWBCOpgajASDfbbL++uWQSg+UE3SZF3jhXOE6aBglimaPgUYt3CqloTOZHt
- 0iZqgn0FEF81a0SvzCmRpZIvqQXgnVuPqlFZwWG1VL9x7dsCZXffl5yyI
-X-Received: by 2002:a05:620a:4145:b0:8f1:9e59:2208 with SMTP id
- af79cd13be357-915a9d5af7fmr1387110385a.4.1780904639208; 
- Mon, 08 Jun 2026 00:43:59 -0700 (PDT)
-X-Received: by 2002:a05:620a:4145:b0:8f1:9e59:2208 with SMTP id
- af79cd13be357-915a9d5af7fmr1387108385a.4.1780904638766; 
- Mon, 08 Jun 2026 00:43:58 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-68e64c2f1bbsm6686090a12.2.2026.06.08.00.43.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Jun 2026 00:43:58 -0700 (PDT)
-Message-ID: <d494a62a-2d4b-4406-99f8-cf8775ea4706@oss.qualcomm.com>
-Date: Mon, 8 Jun 2026 09:43:55 +0200
+Received: from AM0PR83CU005.outbound.protection.outlook.com
+ (mail-westeuropeazon11010024.outbound.protection.outlook.com [52.101.69.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6445C10EE67
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 07:46:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kTNyqqWkkM4Pi1iY9w+/PtxeR1E+arx2rkMCcJHeFybMiKs8GeWKmghmCVPCsmW+SsfItn9dgQ85w24TqixdPeLvy0ekomuKIe7Vu2lTeJRunptayJP0SaIQhnCViQOwSzTTYOiQ4ShHaX/WKVRv42jsjQBHnxsILEaJ4DPia61sSAkj0Uqq4O0SJXtGawv9Oo7y9UJ1NTs8GHpBliBshdusDfuF1vZ+DSRiQHUTHDYEjBPeiFzUBTJv5CQqY0t433GkY5Lsbt2+0w2iyhe1zZqBk6SmY9NFOsB5r4BWtILKlfnMH1v3M1h84qrqmvpn9TbgE7dzYpjF3EJkb5mycA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RQ6mPfcbdWHiwGZuUcE7ajMn3ERZw0VSdcFVG5P3GN4=;
+ b=ugCdvOp4A7cOU9bM90othCZw86Z3QTHhwwP7Z/fSDxKMtuoEArUCzVnpkN2qQyFQy7cgxSFMAJ0pzRD+pvvaiVKxq/RJ2D2FlOK+6AftaUMjis4YxCZJOzKpqve1Vd+W5hDxwFx3JICFUOEsc7+DzLZHhd2Wc1wztRd6v+IoU4c62kWncgPgNPaLyM2WmxdEFTMXP3DcB/HPy7j3/3hLzR5DjKxu5YUyPuI+7vpSuYsBT81LxYzEkprTxyFbYqWrRxbmkRbfPWnEuYgQzswLGKCsO99KmbeHYYXLL0KmXLbHPOo+cvRMmy5OzZ7/NizTCn9R1PPt1uhDyl2rHg8gtQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RQ6mPfcbdWHiwGZuUcE7ajMn3ERZw0VSdcFVG5P3GN4=;
+ b=lKewfL7JsFAotBH/UwkDXlgPE4E3xQixUtBs1mbgRLBuYYqgmDpRZJl0FKRYX1xcEIqbQ5wsYn5aicn8vClymuQNmvOo+4ArLvaqygsKaa0EGDvCAyi8J6ohCUORtW+IxKsvHvouTDVsk43ydqdVxLN0LKBfaxxfFGgLcjpwTfaFeiwmfuRAd6OXPVnXBXV/cI1pE7wCdlq8KZYgqMIyl9Hi12vglAvcjZ2lB/WSIp9GWCaHL6ByDvV7Ia4t7AB/9Ki91N9lVgTeDELJI03aTJSLpC6az8dhuETW1vFSJqaopV+8KGHheC2lkbnxS3GTZC/xKkLbZ5hlkWVRjB6J5Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
+ by AS1PR04MB9699.eurprd04.prod.outlook.com (2603:10a6:20b:482::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Mon, 8 Jun 2026
+ 07:46:53 +0000
+Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
+ ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
+ ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.21.0092.011; Mon, 8 Jun 2026
+ 07:46:52 +0000
+Date: Mon, 8 Jun 2026 15:48:22 +0800
+From: Liu Ying <victor.liu@nxp.com>
+To: Piyush Patle <piyushpatle228@gmail.com>
+Cc: Marek Vasut <marek.vasut@mailbox.org>, dri-devel@lists.freedesktop.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ Shawn Guo <shawnguo@kernel.org>, Fabio Estevam <festevam@gmail.com>,
+ Peng Fan <peng.fan@nxp.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Lucas Stach <l.stach@pengutronix.de>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Abel Vesa <abelvesa@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>
+Subject: Re: [PATCH 00/39] Add i.MX95 DPU/DSI/LVDS support
+Message-ID: <aiZzxhljfyYQ68Gl@raspi>
+References: <20251011170213.128907-1-marek.vasut@mailbox.org>
+ <20260605121112.27866-1-piyushpatle228@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260605121112.27866-1-piyushpatle228@gmail.com>
+X-ClientProxiedBy: SG2PR01CA0181.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:189::13) To AS1PR04MB9287.eurprd04.prod.outlook.com
+ (2603:10a6:20b:4dd::8)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 07/15] drm/msm/dp: move the pixel clock control to its
- own API
-To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260602-dp_mstclean-v6-0-2c17ff40a9b2@oss.qualcomm.com>
- <20260602-dp_mstclean-v6-7-2c17ff40a9b2@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260602-dp_mstclean-v6-7-2c17ff40a9b2@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA4MDA3MCBTYWx0ZWRfX9jXYBXb0IfJC
- V4SwAVMevTtJWEYKcyQDuPep1F8UgTPBuvWnALGZZtSLNsKjiR9CXvkmwQd5vB9Ll8dNic97kLf
- 1pzSR9kxbqew9FdLsxyqBk4nwDszI1r5Xom/rMomZxgX6mcdHtd2ptVSEDVikxUP9JkH3lnc89F
- SMA7KjuDYciY23sqyxsIbAyzlJ1KmqWR+zo2BKHiQAGBCjJ7U1mQ97+dEIkzMkm6Q+zXnVcHYaF
- VwMzPsefoyDdW4kmVDS+T93tq6IhB1ZCPMCFZQ8B2EK+Wr6/+CFxvWv0uH7JUJYNWuKFcUU153q
- AdUfzzGFMYDhl1kmea7VVJyCBolY8GT+IL7w9lyBT8a89qn7jduTjpr/5mcPTC2BMozn7bMfibg
- kqEvcDE4GxrvXzLEtOJZXOqdiU+H8NZ88D/GgVUx17ALVb/gjGEJ4nDTWLGCx0PcL14J9vX/lxX
- Xy0WtYUt99UjO8q45ig==
-X-Authority-Analysis: v=2.4 cv=CeY4Irrl c=1 sm=1 tr=0 ts=6a2672c0 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=YadZbbKFZxuD_lQ-BoMA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: g_wrW9RLzzo5lk5VM1TqcVF7DV4EIij7
-X-Proofpoint-GUID: g_wrW9RLzzo5lk5VM1TqcVF7DV4EIij7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-08_02,2026-06-05_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 suspectscore=0 adultscore=0
- priorityscore=1501 spamscore=0 malwarescore=0 phishscore=0 clxscore=1015
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606080070
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|AS1PR04MB9699:EE_
+X-MS-Office365-Filtering-Correlation-Id: efcb25bf-12b8-4189-39d1-08dec5321b0f
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|19092799006|1800799024|7416014|376014|11063799006|4143699003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: dh302ZyQYqZ+8OePzC5016l2fCij5YGDwr2M/eQmGKxPy1vPOSI7M+y/ZSg9pIe9I5OKGInk21XT8le092Rhj9t2DAS3rSNfEHN3mmz+3DwgcBL4jROB7YdF5iEvw+rC6de7hdXzdW3nz4uqDRcCSrl3lnIvq3Kd8g9uIsq/j8Mr/Sg/oxqVg6kkcmN6bLQDJOX+4Ha+lxownnSiNp8ZxtshFvEVJJ/ScU1WHzcD+ASICwNNKbH3FMhJb9xqtUtlDQHAZ7mqW/ukks92fyZdSaZvP9h5AEJXYk5ZSrnrQajhukpfDpwGMzS4qnUN+v4kFSYXslS24TOpyhJFCVh/lQqPOUc94s4AHM1k6SKRaLa47YtRm9YG6Gswptku+1YJQRNa0siRoxp3+5iCWU5B//CksBLGqVBYL5A5FZ6ojjWYInBnIZyxoH7hxziBRG66fh9/fvREebN5NMKOblJa9OjVCtfKVzbXCMdt+u6MSEo5aAKlJ7TSV2dJXK5ykvxfeBJNM5zsigfUPd+EQdUXkqjqarYu4ZdsgslLbLA0AMKyixYNzAmsXmMwlqWSTX9Ee3THAdASHwPeodOzVk4CF0OykRhLUr6jhoC8GDANQ/kcOS1y3PlxTTgmHNC9qAaOdBc82PX7hn8TgzLQDImWhQlJFnIxXSW9TIXdc/b/G51GdN6K6NfqxzjNJLCmEULezfLfXKfYAhbgEZLW/H2OgA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AS1PR04MB9287.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(19092799006)(1800799024)(7416014)(376014)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?hKxmMz0FmPNgN6rzAoQ1BR2IXVvc6o4xxwAkJcH22aLU5b0FnCm/Z+qUvQUi?=
+ =?us-ascii?Q?wgo6QoTtEoFfs7K/z9MB2idsOMfoFyvnZFueiq7aKnZicCsfn++PS55T7hh8?=
+ =?us-ascii?Q?dsr4I5TXcHN+D41CnZ9vIsmxZ7pojIlDEoM5bRELdEbrRCqCcOpQgPhEH150?=
+ =?us-ascii?Q?yMVPse/wjRKTzW85y4HQt3I4zJnwHypOX4foZRkdxXA6nDHilx3p4URQnL3/?=
+ =?us-ascii?Q?QlKaN+9eDDv55qyW1NhZ0MXvQHOhXVkca6upruZahjDHLinCcRiGLixv6MJG?=
+ =?us-ascii?Q?+zVDKc8gLInqSd5VHD2OiR+cvhOnh1opaYxpaggasXul1jaoxYZZ0zf4CT8d?=
+ =?us-ascii?Q?WBSJ/StPoaJ+XPyP+4ML5KlF1AVQ66REYoMyJzFsujO7hAB4Nu1w8MWtONq0?=
+ =?us-ascii?Q?iddXlOQKBsPYtkVmpQrx1OessJzDeGIzPiL6U11qlEDgU0Du8Io/vdvWT4sm?=
+ =?us-ascii?Q?2TSo/EnPBAtDZXyRptxGjiSPG0+K8y8FWLmNzF7AWMjMJWV5daHEpccMW+0v?=
+ =?us-ascii?Q?XcPBLX0VXsfmByXAs4J5daEJOweXyJ1y7+ltI+pwT3iAOwudnguYRdz2+TiY?=
+ =?us-ascii?Q?H7epwfwebRc5CAR8XDCEt93LDNR5A6ByQVS3LBPWKca3yzW++tA7ZLsAODST?=
+ =?us-ascii?Q?HLvFoVrNdr18mBxbtflpb7F33/g/pbhZvXguqPEd6Gp/dgqfNn/47TuNv/Kx?=
+ =?us-ascii?Q?l+TwAF6R0+YtkYKP2lEFP2WhZiivcQFSp9KVu901YYvrRloxcyKuft+6D6CF?=
+ =?us-ascii?Q?iNm/7V80x/3p7NVw7ScPKTfkHw0HhAu44E3ocDI6gWWwzIkTxBb7aGm7wsoO?=
+ =?us-ascii?Q?1+fY5m29n+Nn31FK0DQGP4cP1FY4j4riIpEIzikAaKd+Rt6+kYO8cfmDEyLq?=
+ =?us-ascii?Q?y/aHS5+cTTgX0DsUkpAPjuc1nmqru3V4ot20bmLxPMSBNyudg77i7i/gODc+?=
+ =?us-ascii?Q?9T2FYRhQWk5zrQp4aA99pCyy6uYENfJm/wHSNUtMrn8S0JuixGnwa9lhQFB4?=
+ =?us-ascii?Q?bJF3yTAYxo6ey1CBkc5ScMcV425Isi6WLCODczW6WScDFQ4CqkCLbQaJg7DY?=
+ =?us-ascii?Q?MuFJkGG2JgnD/doevZUkZQsQ65Sg1/8xKL+cGdpHjgM+l+meq+ox7ttxeSoD?=
+ =?us-ascii?Q?WfQe3bBPEc81oh8q93Ef38hx7JLMO4EaWr4GPPywfvN7GEwOSM2c5GxfTZqg?=
+ =?us-ascii?Q?7O5fm9kIgPkE+z6dfzRa3QzACW6PfT/xhfqKCvtQK5ftGWwXWYwsxkzZ4ijy?=
+ =?us-ascii?Q?vygCt+yXbvAcJ8YeW5IttEZfqRFYQ4qosvEFL8o/ORIzHVvyjuHxSGMz3dh4?=
+ =?us-ascii?Q?eu/0U0cw1kL8qb6XjJiLltR501bsIYSf/9lTlw3e6bTMlBqd2ciqp5LIvYEe?=
+ =?us-ascii?Q?QXUV8UVH8J2d3fWkFRl7ET0agIxgbo0dO9wA/lyhjTxj+v8Kah37zxj5WjsU?=
+ =?us-ascii?Q?KywDVL9RNOUF8xJh8EighCIRza8kYPb0qG8qpl8ZEc6jA6OZiDtWe67/2kLx?=
+ =?us-ascii?Q?Nzekbde8EIcT6KjEJbXgFdfls+NKf6GljagKGtiMDq0HnDmoIJo5FLiK+0ct?=
+ =?us-ascii?Q?0jP8a3wxivErj3szEl80rmS1adlfJLfZKZlEH6Nt8/tFpNP0MGshd3MAxDa+?=
+ =?us-ascii?Q?n/JSBhxM7JRYdSLO/SLOMvWNYnTI2Fj0YfJb2NelVROKvWYUTw0drgiruVhI?=
+ =?us-ascii?Q?IreikOsI+WC7BQjZCYj63sVqqAe71b8nodfRdFCALGpuGQqYx0FlSE2BQYS2?=
+ =?us-ascii?Q?rQilABCkMg=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: efcb25bf-12b8-4189-39d1-08dec5321b0f
+X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 07:46:52.8241 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jmdnFYWF/dgbqvJyt3khy4OQwqCnfxhnwF3OQkghHv2jueTw6IYzXhl91Oc1OAZaP2LcQ3q+TRlcaQVMKjbi7Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9699
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,42 +134,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/2/26 11:11 AM, Yongxing Mou wrote:
-> Enable/Disable of DP pixel clock happens in multiple code paths
-> leading to code duplication. Move it into individual helpers so that
-> the helpers can be called wherever necessary.
+On Fri, Jun 05, 2026 at 05:41:05PM +0530, Piyush Patle wrote:
+> Hi Marek, Liu Ying,
+
+Hi,
+
 > 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_ctrl.c | 81 +++++++++++++++++++++-------------------
->  1 file changed, 42 insertions(+), 39 deletions(-)
+> I brought this series up on the i.MX95 15x15 FRDM (IT6263 LVDS-to-HDMI on
+> LVDS ch1). It mostly works, but I ran into a few issues around DI routing,
+> LVDS format handling, and DC enable sequencing which needed rework before
+> HDMI would come up reliably on the board.
 > 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index 1c2eccec6ec6..ac0a2c387f03 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -2171,6 +2171,42 @@ static bool msm_dp_ctrl_send_phy_test_pattern(struct msm_dp_ctrl_private *ctrl)
->  	return success;
->  }
->  
-> +static int msm_dp_ctrl_on_pixel_clk(struct msm_dp_ctrl_private *ctrl, unsigned long pixel_rate)
-> +{
-> +	int ret;
-> +
-> +	ret = clk_set_rate(ctrl->pixel_clk, pixel_rate * 1000);
-> +	if (ret) {
-> +		DRM_ERROR("Failed to set pixel clock rate. ret=%d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	if (ctrl->stream_clks_on) {
-> +		drm_dbg_dp(ctrl->drm_dev, "pixel clks already enabled\n");
+> I don't see a v2 of the series and things seem to have been quiet since
+> November. Are you planning to post an updated version?
 
-if (WARN_ON_ONCE(ctrl->stream_clks_on))
-	return 0;
+My plan was to enable prefetch engine support[1] for i.MX8QXP display
+controller and add device tree for a whole i.MX8QXP LVDS display pipeline,
+before adding i.MX95 display controller support.
 
-?
+Unfortunately, it seems that Marek is not a big fan of [1] and I'm busy
+with downstream development so the plan doesn't move forward well.  I still
+think [1] makes sense(maybe I need to rebase it on latest drm-misc-next),
+so I'd like to see review comments on [1] and hopefully people think that
+the overall idea of [1] is ok.
 
-Konrad
+> 
+> I've accumulated a fair amount of rework while getting this running on the
+> FRDM. If you're not planning a v2, I can clean things up and send one based
+> on the current series.
+
+I still think that i.MX95 display controller driver should be in a separate
+driver, rather than sharing the same driver with i.MX8QXP display controller
+like this patch series does, because the two display controllers are quite
+different as I mentioned in comments on this patch series and in discussion
+in [1].  Also, the common part between the two display controllers should
+be extracted to a common helper library as I mentioned there too.
+
+> 
+> Thanks,
+> Piyush
+
+[1] lore.kernel.org/all/20251027-imx8-dc-prefetch-v5-0-4ecb6c6d4941@nxp.com/
+
+-- 
+Regards,
+Liu Ying
