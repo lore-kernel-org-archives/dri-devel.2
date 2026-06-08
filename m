@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E4A4CD8C9D
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:39:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF9FCCD8C92
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:39:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94C5E10F507;
-	Mon,  8 Jun 2026 14:39:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C19610F510;
+	Mon,  8 Jun 2026 14:39:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UJE1qsVq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LPsitbhR";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4136810F507
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:39:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA3F910F510
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:39:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2A49440279;
- Mon,  8 Jun 2026 14:39:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 886341F00893;
- Mon,  8 Jun 2026 14:39:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D3FD7443D9;
+ Mon,  8 Jun 2026 14:39:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35CF41F00893;
+ Mon,  8 Jun 2026 14:39:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780929577;
- bh=kqKaaC3v0jftNxK3Wv7qNrpaKJIE6YDkOzG1iVSZsVk=;
+ s=k20260515; t=1780929579;
+ bh=XRxgcAtfLU08lmmoEAgEVEgrrzbTmq37NpgkFnlj2kM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=UJE1qsVqUmM3249gu1cQa9V6TV0s5MBwJM/1J1kV8eQLZilubp4s2j1iWmI0uULtY
- meoAKA2/C6j9QmqreOM5Dn55IOPXzdDi134dGVlCtiPiDnAKKbdq7pW48iszbrScyo
- W86k33fT0rNfmDDdeo9PQu+SS9VcH/UFrR8TK3i1TEswLarCHsd7uWXeR3VKuRGTPw
- OiCKNHvs9GcG8zj2Tap1aVgkX8NzB3vyAGashbnBhzgzVV1BKAqdlbyZhPwNI+Ux8+
- qz+gyFqv7Ke1iDJ8FiPE7kBzJZSI6PEdkcJkAvRtbchcvPXtwD5aFQHdS8uUXz1lTV
- s0mdxfaC6VJYA==
+ b=LPsitbhRLGcK8bzzxXJVIYJMA7/d9qAH2WFGBI3D+rf22ZbUP3iURncjePMFfnhYg
+ HxhyvFap241a98hkIViSqNa910zSuqf5TKry/8c12meJv1Nzp2pt+Ez33c0B0bctxI
+ 89Z6AQV/Fvm1stwCMgSTa8oFeEV2PnF73yumvHXCyVGrQYgcyNRLCOrfC6gEB0UCfB
+ 0LzAqknk5pmVeholNXF9vWoIxcIW/yFhkrOvwagypvksfb1qGPPG8PuECdwmcLQLu+
+ Erp9I30K1MuPg/yPlsSeul7VzqFeBlZXObKLBBaY/A9mK5bu5nHH3rTjGjeKymmwKA
+ giHv+AlsudgSA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 08 Jun 2026 16:36:53 +0200
-Subject: [PATCH v2 71/78] drm/vc4: dsi: Switch to atomic_create_state
+Date: Mon, 08 Jun 2026 16:36:54 +0200
+Subject: [PATCH v2 72/78] drm/verisilicon: Switch to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260608-drm-no-more-bridge-reset-v2-71-0a91018bf886@kernel.org>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260608-drm-no-more-bridge-reset-v2-72-0a91018bf886@kernel.org>
 References: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -48,17 +48,14 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+ Maxime Ripard <mripard@kernel.org>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1575; i=mripard@kernel.org;
- h=from:subject:message-id; bh=N07fpT7RFhzY+cBJI2CirVvZhrhZnk3weeRBRiuiE4I=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlql1Oa1KplJ08/ED17V+/TVwxzdsoxrP5y2H7JtXUyl
- jFThRqcOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBFFBnr7FLfHH070ePm59u7
- q2bNm6ywT2TWqeIraimq/39VGj31igx/0qEo57b7yRGmpWzvrN9yM9ZZ1kyVE2RnctBaVSipK3x
- tRmfd/75gNbUlDmWy8zKeVlZq2dmJaYiw5mwv5pwk9W9VFwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2154; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=gAZ0Tntz+ESNP1TWFA5V22pkY4z9tTl3CnL2Ji2UJB4=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlql1Pm5U9wFzmYEhlque+R17rMih3xdzYE3DCUSFq28
+ nvLe3PljqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjARm8OM1axfHe3T7snkvLib
+ GcYs8fJam4v8DYmirw+Y5M2603Y/2jNz8scDXPVVL2f+/r5ak71+NmPD/Bl71vXNjbW5IaI3P8v
+ q88pGz5MScnzXKup7L2iX9XHdtLuwO0l2/jIjI+k5d+x27L4KAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -82,36 +79,46 @@ drm_atomic_helper_bridge_reset() helper are deprecated.
 Switch to the atomic_create_state callback and its
 drm_atomic_helper_bridge_create_state() counterpart.
 
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Acked-by: Maíra Canal <mcanal@igalia.com>
+Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-To: Maxime Ripard <mripard@kernel.org>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: "Maíra Canal" <mcanal@igalia.com>
-Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org
 ---
- drivers/gpu/drm/vc4/vc4_dsi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/verisilicon/vs_bridge.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-index fc76018b044c..0148f2befed1 100644
---- a/drivers/gpu/drm/vc4/vc4_dsi.c
-+++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-@@ -1409,11 +1409,11 @@ static const struct mipi_dsi_host_ops vc4_dsi_host_ops = {
- };
- 
- static const struct drm_bridge_funcs vc4_dsi_bridge_funcs = {
+diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c b/drivers/gpu/drm/verisilicon/vs_bridge.c
+index 7a93049368db..dc7c85b07fe3 100644
+--- a/drivers/gpu/drm/verisilicon/vs_bridge.c
++++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
+@@ -244,11 +244,11 @@ static const struct drm_bridge_funcs vs_dpi_bridge_funcs = {
+ 	.atomic_disable = vs_bridge_atomic_disable,
+ 	.atomic_get_input_bus_fmts = drm_atomic_helper_bridge_propagate_bus_fmt,
+ 	.atomic_get_output_bus_fmts = vs_bridge_atomic_get_output_bus_fmts_dpi,
  	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
  	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 -	.atomic_reset = drm_atomic_helper_bridge_reset,
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.atomic_pre_enable = vc4_dsi_bridge_pre_enable,
- 	.atomic_enable = vc4_dsi_bridge_enable,
- 	.atomic_disable = vc4_dsi_bridge_disable,
- 	.atomic_post_disable = vc4_dsi_bridge_post_disable,
- 	.attach = vc4_dsi_bridge_attach,
+ };
+ 
+ static const struct drm_bridge_funcs vs_dp_bridge_funcs = {
+ 	.attach = vs_bridge_attach,
+ 	.atomic_enable = vs_bridge_atomic_enable_dp,
+@@ -256,11 +256,11 @@ static const struct drm_bridge_funcs vs_dp_bridge_funcs = {
+ 	.atomic_check = vs_bridge_atomic_check_dp,
+ 	.atomic_get_input_bus_fmts = vs_bridge_atomic_get_input_bus_fmts_dp,
+ 	.atomic_get_output_bus_fmts = vs_bridge_atomic_get_output_bus_fmts_dp,
+ 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+-	.atomic_reset = drm_atomic_helper_bridge_reset,
++	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+ };
+ 
+ static int vs_bridge_detect_output_interface(struct device_node *of_node,
+ 					     unsigned int output)
+ {
 
 -- 
 2.54.0
