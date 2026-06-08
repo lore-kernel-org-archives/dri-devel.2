@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88B41CD8C9F
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:36:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19BF3CD8C9D
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 14:36:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E86F410F4B8;
-	Mon,  8 Jun 2026 14:36:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7153910F4BF;
+	Mon,  8 Jun 2026 14:36:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Fo4DE+lj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lyrRKgm0";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 665EA10F4BF
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:36:40 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88C6810F4BF
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 14:36:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DF095601E6;
- Mon,  8 Jun 2026 14:36:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C8551F00893;
- Mon,  8 Jun 2026 14:36:38 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 71ED94345F;
+ Mon,  8 Jun 2026 14:36:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C09B11F00898;
+ Mon,  8 Jun 2026 14:36:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780929399;
- bh=aC81P1EOMs5ujLVb9/vRUkePFQ7d9DBuzn5PiZ6Fq/U=;
+ s=k20260515; t=1780929402;
+ bh=ze30V438yLgiWi4bTpDQwPEuSQxjr9tx4vLEQamhqeY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Fo4DE+ljHX4HhiXC4MilLxcuiidg1KG94f29WkEr/jKujf2okqpHaGTMXn7Nf2wnU
- FdItY32HSs5q4ggyrltvvZ9jYfXFTVEsayPVOW9w0LmnSWTp+6eobYhZeC/aEfg+K2
- divyzKv7V67duXdbSauHUObuL/KF9NMheGKLGsYHFrhjA/SuKcXpOIlfeh9qrNFGzd
- jwvyC+3HqozO8nNX0eee+7nvUnGn91xj+177vlsZ/EHrODguRWKnTZ8P4ryiX0YLNU
- rdB582BWZnY+t2UtPC+9iLHePu8M4hWvjmspvEfVKyEz7gIkuxANYDhBMPBUC9Bl6A
- CaclHyU3gwsgA==
+ b=lyrRKgm0GU2sDC9wewVgRUxWcVQy/+AOPEQdVZKipFvMNSBRZRl/E7pGBuGQQk7RP
+ +caXiDDnTkbF1YNzBC9jlN4/o6VboZHW57fKEgNbapJkxs9NutnYS1tlTcaLlDuxWV
+ dQLTQ60R35S6KSX62CAupAFm38vDd/mOIDHzt8mP2+u4rmErqlZWgkEzZvwXKgZA6D
+ 0F/3gXWWmzJdcTlgZfHWl1hwClJTujYP83cltqIyIkY2ArRwUgrbS6tqa5dgOY81C2
+ 3Si4RcDYUlP7xuB3wY82q3PFH8mfpcQmbAxTNZCwSvwyAdrORvFxONz6GLomI87zUA
+ yZsnUmjTT1tVg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 08 Jun 2026 16:35:47 +0200
-Subject: [PATCH v2 05/78] drm/atomic-state-helper: Drop memset from
- __drm_atomic_helper_bridge_state_init()
+Date: Mon, 08 Jun 2026 16:35:48 +0200
+Subject: [PATCH v2 06/78] drm/bridge: Add new atomic_create_state callback
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260608-drm-no-more-bridge-reset-v2-5-0a91018bf886@kernel.org>
+Message-Id: <20260608-drm-no-more-bridge-reset-v2-6-0a91018bf886@kernel.org>
 References: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -49,15 +48,14 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+ Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1613; i=mripard@kernel.org;
- h=from:subject:message-id; bh=vGZ2TzncWuetCe9M5dOdUunEWOv38Fr1ZnhiY5jEL2k=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlql91tmpYvTbvq+449qmLX6zXsnNsmuBsIvjn5KIht0
- tcFTe0dHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiTayMtXKXXhsvLvu6eXnL
- 1tALbtuPdFwM7LA3LxVkL/kidmTH7EPKNb0/bjy9frWL08Xuzpb8v4wNG9ZuSD53zkZ7W9LCyqn
- u1WX1PXf3luecnb848v6pqfp2Gfr/f53K1jLb7cn7LOz7Dhk9AA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3818; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=YRPfkN0X4ljTIambFrCG0+juzaxJGfdPOsKu0er4qSw=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlql92/l/ZevR9z9Weu/ySlQ6/0VEKK4uJeauo5fnc5r
+ vX/8Je5HVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAi/6Yz1unMYkvlvW33mnmZ
+ gHaqze3aHuGnqyRCRXN/TctZdHCGSO+qik3/lXfM8ezvkntzL1BXirG+6kn//5ksn47mT5eoEwj
+ fbS7OnWHx9UN5k+Q+t67N2/4dzPxl+6Dt/rXKo8vq+G4vn7cGAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,44 +73,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-__drm_atomic_helper_bridge_state_init() is always called on a freshly
-kzalloc-ed state, so the memset is redundant.
+Commit 47b5ac7daa46 ("drm/atomic: Add new atomic_create_state callback
+to drm_private_obj") introduced a new pattern for allocating drm object
+states: atomic_create_state, a dedicated hook that allocates and
+initializes a pristine state without any side effect.
 
-Drop it and document the expectation that the state is already zeroed.
+The bridge atomic_reset callback is already fallible and in practice
+only allocates and initializes state without touching hardware.
+However, the reset name does not make this contract clear: callers
+and implementers cannot tell from the name alone whether the hardware
+will be affected or when the hook is safe to call.
+
+Add an atomic_create_state callback to drm_bridge_funcs to make the
+contract explicit: allocate a pristine state, initialize it, no side
+effects. The core calls it when available, falling back to
+atomic_reset otherwise.
 
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic_state_helper.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_bridge.c |  8 ++++++--
+ include/drm/drm_bridge.h     | 19 ++++++++++++++++++-
+ 2 files changed, 24 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-index 8f04eae7a754..f0688f2d83fe 100644
---- a/drivers/gpu/drm/drm_atomic_state_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-@@ -889,18 +889,19 @@ EXPORT_SYMBOL(drm_atomic_helper_bridge_destroy_state);
-  * __drm_atomic_helper_bridge_state_init() - Initialize a bridge state to its
-  *					default
-  * @state: bridge state to initialize
-  * @bridge: the bridge this state refers to
-  *
-+ * @state is assumed to be zeroed.
-+ *
-  * Initializes the bridge state to default values. This is meant to be called
-  * by the bridge &drm_bridge_funcs.atomic_reset hook for bridges that subclass
-  * the bridge state.
-  */
- void __drm_atomic_helper_bridge_state_init(struct drm_bridge_state *state,
- 					   struct drm_bridge *bridge)
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index 9a185032a3bd..b4543a50bc6f 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -500,11 +500,14 @@ static struct drm_private_state *
+ drm_bridge_atomic_create_priv_state(struct drm_private_obj *obj)
  {
--	memset(state, 0, sizeof(*state));
- 	__drm_atomic_helper_private_obj_create_state(&bridge->base, &state->base);
- 	state->bridge = bridge;
- }
- EXPORT_SYMBOL(__drm_atomic_helper_bridge_state_init);
+ 	struct drm_bridge *bridge = drm_priv_to_bridge(obj);
+ 	struct drm_bridge_state *state;
  
+-	state = bridge->funcs->atomic_reset(bridge);
++	if (bridge->funcs->atomic_create_state)
++		state = bridge->funcs->atomic_create_state(bridge);
++	else
++		state = bridge->funcs->atomic_reset(bridge);
+ 	if (IS_ERR(state))
+ 		return ERR_CAST(state);
+ 
+ 	return &state->base;
+ }
+@@ -515,11 +518,12 @@ static const struct drm_private_state_funcs drm_bridge_priv_state_funcs = {
+ 	.atomic_destroy_state = drm_bridge_atomic_destroy_priv_state,
+ };
+ 
+ static bool drm_bridge_is_atomic(struct drm_bridge *bridge)
+ {
+-	return bridge->funcs->atomic_reset != NULL;
++	return (bridge->funcs->atomic_create_state ||
++		bridge->funcs->atomic_reset);
+ }
+ 
+ /**
+  * drm_bridge_attach - attach the bridge to an encoder's chain
+  *
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index 00a95f927e34..70e574fbf034 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -528,10 +528,26 @@ struct drm_bridge_funcs {
+ 	 * A valid drm_bridge_state object in case of success, an ERR_PTR()
+ 	 * giving the reason of the failure otherwise.
+ 	 */
+ 	struct drm_bridge_state *(*atomic_reset)(struct drm_bridge *bridge);
+ 
++	/**
++	 * @atomic_create_state:
++	 *
++	 * Allocate a pristine, initialized, state for the bridge
++	 * object and return it. This callback must have no side
++	 * effects: in particular, the returned state must not be
++	 * assigned to the object's state pointer and it must not affect
++	 * the hardware state.
++	 *
++	 * RETURNS:
++	 *
++	 * A new, pristine, bridge state instance or an error pointer
++	 * on failure.
++	 */
++	struct drm_bridge_state *(*atomic_create_state)(struct drm_bridge *bridge);
++
+ 	/**
+ 	 * @detect:
+ 	 *
+ 	 * Check if anything is attached to the bridge output.
+ 	 *
+@@ -1373,11 +1389,12 @@ drm_bridge_get_current_state(struct drm_bridge *bridge)
+ 	/*
+ 	 * Only atomic bridges will have bridge->base initialized by
+ 	 * drm_atomic_private_obj_init(), so we need to make sure we're
+ 	 * working with one before we try to use the lock.
+ 	 */
+-	if (!bridge->funcs || !bridge->funcs->atomic_reset)
++	if (!bridge->funcs ||
++	    !(bridge->funcs->atomic_reset || bridge->funcs->atomic_create_state))
+ 		return NULL;
+ 
+ 	drm_modeset_lock_assert_held(&bridge->base.lock);
+ 
+ 	if (!bridge->base.state)
 
 -- 
 2.54.0
