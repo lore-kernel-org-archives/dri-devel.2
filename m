@@ -4,87 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C72FCCD8C9F
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:27:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A1B2CD8CAA
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 15:27:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBD0610F5D3;
-	Mon,  8 Jun 2026 15:27:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32F5510F5D5;
+	Mon,  8 Jun 2026 15:27:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N39eBM79";
+	dkim=pass (1024-bit key; unprotected) header.d=foxmail.com header.i=@foxmail.com header.b="PzWSBM9a";
 	dkim-atps=neutral
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
- [209.85.215.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6B2110F078
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 09:44:30 +0000 (UTC)
-Received: by mail-pg1-f172.google.com with SMTP id
- 41be03b00d2f7-c85d8615b09so2439277a12.3
- for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 02:44:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780911870; x=1781516670; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=s1wz0gmvL+00jwYzggF0MlmA1dhQA7/85d2swuD/6js=;
- b=N39eBM79FouFxfgD7CL6793cP+W86Rk1cm+zNH9pt4yuAxIXdKfozcf6IYmdD2Zptt
- y/N2LQ3VRsMp2KYklqgFkavQ/dZVfvpm48XwJbqL/zf/yQQXWMCO1RGgsFioy7vzAfs/
- Xy8hmwz6xSGRRE/G0Gr77ZVFOyxnBLktFYuzAGH22li6sNngUIeHWTYCeTwLNooYgJD8
- ZJ40FUTS5L8QTgXfmvWUTTgWxy87eMkx4TFWwc86Ni4TRHlD/7uSl1ytO+FXzff/XTXS
- AKjMPIAxy7Dg58/Ygrg6KbFSpA619P7YRJQrUQJwYfnKxrLEDWsIjlf435fxRpvHXA1t
- zhRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780911870; x=1781516670;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=s1wz0gmvL+00jwYzggF0MlmA1dhQA7/85d2swuD/6js=;
- b=QU3zaUew8FgXovTM14O4jiZaeyAF5qkHq2D0+SbAXuCQiOcGeTVtDnMmnG81ZeF1zs
- GdpsGkZdbz8wt/eAHnNAAHB7WlD9KPZ3c5rd1+kVuELKfGhw0yciahE/MufaqZI2ydDv
- YlLHsyHeVGf1X2aUouWNnZ38q9pBS56+c0TPQ2lXXX1pS5XA1E0uQ5WJ1QTN1kvbsz4k
- Pum5QGV00Ne+E7iiq8XCfSREa/95Yw571fwIh4JlbtdY3pLboxDbnN2+TLV6X2g5Zr3a
- RwOk857hjX84DxA+ElMDiNbKvtWBMyHir61ySe/DghOkV/YMa4bTeHGDw/OGSVpTVhOD
- p5oA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9AnSDelPAmvBN1SNs09sG0wEWIG0KCpdiDCaEODwfBa8zMUczRu6Reth1B1GjymNuUQ/dxim6GDZk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz84lxsAnwdDm6miLvJc32ZywZ4pZ0ixP28/iHxKpT9FEm7itx9
- TzThfvQDF7oXr8k/RSKLVO4XnwQeg1RCuZ/nh+jZkZSkAyb3okalgQ/F
-X-Gm-Gg: Acq92OFrrX8Gl81xP20Ix0GKAglayyPAOtf8MPak7xDvs2GsR9dlKGWk2M9uYhGnvIi
- mAYH2X6lhi3NiLHM3rEvhSLYx6uw4EAkdC6ihSHg5NkjCJtx6Vlc4kGagBEJSLVMeQLzXNk4eY5
- q+JYb20kzliGclIuEW4S4KpdkmyJKAsCskizv55WCNjG5xDjy3Qv4FMxJznNL6RDYaYmKyo27eb
- P2PMvU8mTarO23041T7m8xdANhK81NvBEP+/8avjfxrt7W1sAe5OYx9D7awL/fFStgNO2/48naV
- EpJ7oA31OaL4Uh/553V7rAS65por8nk1z5iClywXJV1vn/HUiBFci2AovVnsoiNdYROBLD6cVdx
- /yBDnTSF5riUmP+pX92GWbINwcxnrMMPzKJNbOOn5EiMUxE96xvlgOikZEy63JJrjOufXReQZdg
- AW9n/T7ZfMWAOO1Dvk4YtWGQFypQgjxzobN7VjnVV9IHsgQYBL4JZf5gOfjM7QGyxMgeSnJgUB0
- SiwbDD8uVtvdJ0=
-X-Received: by 2002:a05:6a20:d48f:b0:3aa:f9cb:d43a with SMTP id
- adf61e73a8af0-3b4cccf7d06mr15690657637.5.1780911870286; 
- Mon, 08 Jun 2026 02:44:30 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c85df034ab9sm14584651a12.5.2026.06.08.02.44.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Jun 2026 02:44:29 -0700 (PDT)
-Message-ID: <28292e35-f41c-4719-a5e0-cac4ab3884f2@gmail.com>
-Date: Mon, 8 Jun 2026 17:44:26 +0800
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com
+ [162.62.57.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 455ED10F02C;
+ Mon,  8 Jun 2026 09:20:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+ s=s201512; t=1780910417;
+ bh=Zk1OdM/FO04pIv727zNRuWZ1i1r0L3Cf7ZaDQS1VgWA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=PzWSBM9alNqXMoa2mM71LqLO153CwfbsVMcI0DEtnZe8dsXV1+HyYDjZaldxTmIGi
+ dD5QNS1nZ3gVMqwW6J4qk9ZZGNzp6d2tO5cPikLbD3GFlpt61iGZ1BYEpMXYtNZQKD
+ RbYCbHLi/aS4J1WvV5/J78xav7Re6DbLtwSITSB0=
+Received: from chafi-Matebook-Ubuntu.. ([117.25.98.102])
+ by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
+ id 32F830C7; Mon, 08 Jun 2026 17:12:47 +0800
+X-QQ-mid: xmsmtpt1780909978t83o855lm
+Message-ID: <tencent_AEC2C2C7582DD97B19BFA51196A256151F05@qq.com>
+X-QQ-XMAILINFO: N1MQIlrHEcYy/L89GIYSaW/e9aFe/SJF0uC3bXmon5vt/U7LMi+32NnruVI7rS
+ KguiKs5agSU/BSXlNnpt5SKG2wmzDlD6o+xeAtnERJmcUWvCCL/OHsCCEIVIB6+QAIyN9mCVpKmg
+ ySA6IyaXMmXsalXWYryIoBMbg7vWQlK7XiYG6eEG8HBNK+oPzYCADVeCc/uJKfLrXPbNT+AuhwCp
+ eVKmXU89LvhPxAsgZdgvPoCfLZUwKbJLsApqdpq9AW4grP2XdzmmYU1Bg3TjgbOp/FyWPaZNP4Ar
+ EvuoXS1IB+t9ze07rifiT8lr5l6KRSTISC6DVFWom0wF6uB7Atapf8BmAJ7jVfLEa1U1ppz8uCzp
+ zOVIwBJLCeYafF5jNvOfG/WvDDxBab9ELsMziPbx3MwzSPWper5ONHYlDAujigFXDCrIbjLRwWGX
+ H4CfIuP5LHTaPYpKrh9MJYNWLVvDbZvqKLyems4IW6HJUPC1G/6U51TUVHqOVZ5YhHPErr2Q2y1r
+ RjpW6gqhW8mVBBvoBp1+F543cJ2Pn8xPNQRc8Xy8wwMmQse+fish1CxoU5XdWpvIp/GxBzSFSdY4
+ gHiENFpT8NBBS7rQortD24PeJyQWIeGEdL4W9FwAjK+tCzOB9tT35NsQOvl6uY8h1KLYC2b3nqn3
+ IfyDVmKKM+6geJy1ITDO1WLD/j/u8IG0o8oMAoRWtsTGHCNhP26rcqoCaaJLM7Swa7Il0QnVmm5V
+ 6DNOSJE20cLQ7iyy512sPdDrsOMP3m0uwCKv1IWDx2yM2vf6kOMw/xDKR1cMaBKiK/24ZdlYPpj/
+ E22JlHuri4neDlDRNcP1OCw1RiP0dte5c7aONRyJ3vg3YCZor9vkFPyJ9UqufWtQVmZUyZlWh6AV
+ vTNS+/X1nKmaZq8c5mDlWqkF8MWu0sPzf5U7NcjFlhLZYLHhcKotuRZNox+JHKBkHISGhY1dERBw
+ 0C4nwxTuJ63WTJ56g14YSYTkoTHoq4+LRUQREE4UcJ55/Yph+poWg3/iHdt1exHXApVpfbEFSi/5
+ yot/aS5Jr0BmO4gQUf34QTh4ythxgzjpmy+wNJAg==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: chafi <chafiprc@foxmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
+ Yu Zhang <chafiprc@foxmail.com>
+Subject: [PATCH 2/3] drm/i915/dsi: Fix hsync readout for dual-link command mode
+Date: Mon,  8 Jun 2026 17:12:43 +0800
+X-OQ-MSGID: <20260608091245.462464-2-chafiprc@foxmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260608091245.462464-1-chafiprc@foxmail.com>
+References: <20260608091245.462464-1-chafiprc@foxmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/5] dt-bindings: display: verisilicon,dc: generalize
- for single-output variants
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260608023237.305036-1-a0987203069@gmail.com>
- <20260608023237.305036-2-a0987203069@gmail.com>
- <20260608-baboon-of-theoretical-stamina-6db63f@quoll>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <20260608-baboon-of-theoretical-stamina-6db63f@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 08 Jun 2026 15:27:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,32 +72,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Yu Zhang <chafiprc@foxmail.com>
 
-On 6/8/2026 4:02 PM, Krzysztof Kozlowski wrote:
-> On Mon, Jun 08, 2026 at 10:32:33AM +0800, Joey Lu wrote:
->> The existing schema hard-codes the five-clock/three-reset/dual-port
->> topology of the DC8200 IP block, preventing reuse for single-output
->> variants such as the Verisilicon DCUltraLite used in the Nuvoton MA35D1
->> SoC.
->>
->> Rework the schema so that variant-specific constraints are expressed via
->> allOf/if blocks:
->>
->> - Add nuvoton,ma35d1-dcu to the SoC-specific compatible enum.  The
->>    generic verisilicon,dc fallback remains the driver-binding string.
->> - Relax the top-level clocks/resets definitions to minItems ranges so
->>    the base schema accepts both variants.
->> - Keep ports in the global required list and keep additionalProperties
->>    tightened to unevaluatedProperties.
->> - Add an allOf/if block for thead,th1520-dc8200: five-clock (core, axi,
->>    ahb, pix0, pix1), three-reset (core, axi, ahb).
->> - Add an allOf/if block for nuvoton,ma35d1-dcu: two-clock (core, pix0),
->>    one-reset (core).
->> - Fix a stray space in the port@0 description.
->> - Add a DT example for the Nuvoton MA35D1 DCU Lite using ports/port@0.
-> Difference in clocks and resets does not need a new new example.
->
-> Best regards,
-> Krzysztof
-Understood. I will remove the second example for nuvoton,ma35d1-dcu from 
-the binding.
+gen11_dsi_get_timings() only doubles hsync_start/end for dual-link
+DSI in video mode. For command mode dual-link, the hardware stores
+per-link values (e.g. hsync_start=1380 instead of 2762), but the
+readout does not compensate, causing:
+
+  [drm] *ERROR* hw.pipe_mode.crtc_hsync_start (expected 2762, found 1380)
+
+Fix this by applying the dual-link hsync doubling unconditionally,
+matching the SET side where hsync is now halved for all modes.
+
+Fixes: d1aeb5f399d9 ("drm/i915/icl: Configure DSI transcoder timings")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yu Zhang <chafiprc@foxmail.com>
+---
+ drivers/gpu/drm/i915/display/icl_dsi.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+index c667d5941..f579cba28 100644
+--- a/drivers/gpu/drm/i915/display/icl_dsi.c
++++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+@@ -1527,11 +1527,9 @@ static void gen11_dsi_get_timings(struct intel_encoder *encoder,
+ 	adjusted_mode->crtc_hblank_start = adjusted_mode->crtc_hdisplay;
+ 	adjusted_mode->crtc_hblank_end = adjusted_mode->crtc_htotal;
+ 
+-	if (intel_dsi->operation_mode == INTEL_DSI_VIDEO_MODE) {
+-		if (intel_dsi->dual_link) {
+-			adjusted_mode->crtc_hsync_start *= 2;
+-			adjusted_mode->crtc_hsync_end *= 2;
+-		}
++	if (intel_dsi->dual_link) {
++		adjusted_mode->crtc_hsync_start *= 2;
++		adjusted_mode->crtc_hsync_end *= 2;
+ 	}
+ 	adjusted_mode->crtc_vblank_start = adjusted_mode->crtc_vdisplay;
+ 	adjusted_mode->crtc_vblank_end = adjusted_mode->crtc_vtotal;
+-- 
+2.43.0
+
