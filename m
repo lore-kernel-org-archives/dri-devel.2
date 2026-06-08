@@ -4,54 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 684C5CD6E79
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 18:39:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69EE7CD8CA4
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 18:40:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8E5410E233;
-	Mon,  8 Jun 2026 18:39:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C22D610F888;
+	Mon,  8 Jun 2026 18:40:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VdtPmKqP";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="CxtYaqve";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAAAA10E233
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 18:39:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7EB6D442CC;
- Mon,  8 Jun 2026 18:39:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 353A01F00893;
- Mon,  8 Jun 2026 18:39:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780943991;
- bh=eDl99UMrerAAIsjDTb3KiIZXC+bsyxC+y8sPtmMFhKE=;
- h=Date:From:Subject:Cc:To:References:In-Reply-To;
- b=VdtPmKqP6b8oZT4A4Gon6mW790XcP9ycKqa04vNMBeznenfKSbsOiXASTvfGX1lJz
- 0oI/XrGuDPxzpC4M8wAH41KNZWD7lioRxwGFdG2KExZyqavlgUqa9G1XKz2smqrrlJ
- cFfTp5epVC48j8S4KPt7z6PZOD0/VI858lrPxW6fPUQemJzYA0hyBJPOgFsNwmLr2Q
- SkDEfZB+Pu0VkdU6McQpDjhKAS+njLkg/9RSjblPNjNbOVHcHSisFD7D4XZflKSnuG
- kTp6ZUV8/ekkPb2w01wH2wZCc/mAw8FtVfPEpczgg+G2CGEJdVUeZdTRDt2HaVbTqN
- SvqxuR0lpUPog==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 631CD10F888
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 18:40:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1780944031; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=V+Q0Hlf+InbGgJsbB4Ca3LX/SlvPfkjXOXJ1N1aYCX4Fca+CDdK/cP8gSZzILVc2TuH2gMfsystClJzsnIF/qnhGTkV/OJeLvcypip128chGHqg+zI6S44b8stlpHArmuygRE3Hsq8oahQg9hEewYqHXP+H7nIMQmDBZzpyxn80=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1780944031;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=vDOv6K/z5q4R9/tHJ2kRUQ/ajocq4J9icfQx3EXym8s=; 
+ b=LS+i9SsjkKU6wIsN25iBFsHXDhJ1h8OxyUTBOA3tJo5ZuHpy2fdAyoC4pdL6RjJr7uXxzJRvVwSYYeJf3umURhiP7kyHZqwaqGmOjq+sPsf7178DPshLzyzzGKOkRivE/CtKpYIHiOgW6+Hf+US2841oacwUDEX0RhDcJ8M/7zU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+ dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780944031; 
+ s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=vDOv6K/z5q4R9/tHJ2kRUQ/ajocq4J9icfQx3EXym8s=;
+ b=CxtYaqveK6YN4L77uspBr/zRjmV5Fy6n1wByPBRLuwe0yGgfxhcs+b0ea4w3RRUN
+ rIKjXN7QQhUFu9TDL+5caNC/IKdHWctK+kJuh5qgLIBhtCb/RFb+R6ABRBVjulJcxrM
+ Lgs5KplSkQ7mmeoanVKQNxZJEDvsSnaa6s8/bp+s=
+Received: by mx.zohomail.com with SMTPS id 1780944029758968.0992923301662;
+ Mon, 8 Jun 2026 11:40:29 -0700 (PDT)
+Message-ID: <f3848234-4258-483f-bc27-cdd31f65e7aa@collabora.com>
+Date: Mon, 8 Jun 2026 21:40:25 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] drm/virtio: Fix driver removal with disabled KMS
+To: Ryosuke Yasuoka <ryasuoka@redhat.com>, David Airlie <airlied@redhat.com>, 
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <18b6b23ae1412a71.6d9db1e7acbb9813.37ad12b07518c586@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <18b6b23ae1412a71.6d9db1e7acbb9813.37ad12b07518c586@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 08 Jun 2026 20:39:47 +0200
-Message-Id: <DJ3VYD71HDQ2.3C8GG983Z2YCM@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [RFC PATCH] dma-fence: Fix races of fence callbacks versus
- destructors by locking
-Cc: <phasta@kernel.org>, "Sumit Semwal" <sumit.semwal@linaro.org>, "Boris
- Brezillon" <boris.brezillon@collabora.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <dwlsalmeida@gmail.com>, "Gary
- Guo" <gary@garyguo.net>, "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>,
- <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-References: <20260608142436.265820-2-phasta@kernel.org>
- <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
- <fa9a335196525adbc03ec21b2e05bb526e4fc174.camel@mailbox.org>
- <9d49c901-fcdf-487a-a733-0320d0bdf94c@amd.com>
- <DJ3V3OCLIK2K.3CYKWYNHYU6JQ@kernel.org>
- <ea4e0541-3702-4014-b8f6-0746a148df86@amd.com>
-In-Reply-To: <ea4e0541-3702-4014-b8f6-0746a148df86@amd.com>
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,67 +69,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Jun 8, 2026 at 8:32 PM CEST, Christian K=C3=B6nig wrote:
-> On 6/8/26 19:59, Danilo Krummrich wrote:
->> On Mon Jun 8, 2026 at 7:34 PM CEST, Christian K=C3=B6nig wrote:
->>> That's why we need the RCU grace period to make sure that nobody is
->>> referencing the driver stuff any more.
->>=20
->> Right, and that's what Philipp tries to address, the requirement to wait=
- for an
->> RCU grace period is perfectly fine if it is only about freeing memory, b=
-ut it
->> can become painful if the fence private data contains data also needs to=
- be
->> destructed in some way.
->
-> Yeah that makes sense.
->
->> IOW, if a driver signals a fence, it is lifecycle-wise reasonable to des=
-truct
->> the private data that is no longer needed (remaining users only deal wit=
-h struct
->> dma_fence) and having to wait for a full grace period adds sublety and
->> complication that can be avoided with the proposed approach.
->
-> Yeah, I've run into that when I tried to make the amdgpu fences independe=
-nt as well.
->> That said, I'd like to ask the opposite question: What are the concerns =
-with the
->> proposed approach over (pure) RCU?
->
-> Well a) locking inversions and b) performance.
->
-> For example the reason why we have the dma_fence_is_signaled() and
-> dma_fence_is_signaled_locked() variants is because there is a measurable
-> difference in some specific use cases for not grabbing the locks.
+Hi,
 
-I checked for this as well, but couldn't find a case where
-dma_fence_is_signaled() is used in a way where it would be performance crit=
-ical
-to avoid the lock in any way.
+On 6/7/26 07:31, Ryosuke Yasuoka wrote:
+> Hi Dmitry
+> 
+> On 04/06/2026 15:27, Dmitry Osipenko wrote:
+>> DRM atomic and modesetting aren't initialized if virtio-gpu driver built
+>> with disabled KMS, leading to access of uninitialized data on driver
+>> removal/unbinding and crashing kernel. Fix it by skipping shutting down
+>> atomic core with unavailable KMS.
+>>
+>> Fixes: 72122c69d717 ("drm/virtio: Add option to disable KMS support")
+>> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+>> ---
+>>  drivers/gpu/drm/virtio/virtgpu_drv.c | 5 ++++-
+>>  1 file changed, 4 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
+>> index f0fb784c0f6f..2aaa7cb08085 100644
+>> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
+>> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
+>> @@ -138,7 +138,10 @@ static void virtio_gpu_remove(struct virtio_device *vdev)
+>>  
+>>  	virtio_gpu_release_vqs(dev);
+>>  	drm_dev_unplug(dev);
+>> -	drm_atomic_helper_shutdown(dev);
+>> +
+>> +	if (drm_core_check_feature(dev, DRIVER_ATOMIC))
+>> +		drm_atomic_helper_shutdown(dev);
+>> +
+>>  	virtio_gpu_deinit(dev);
+>>  	drm_dev_put(dev);
+>>  }
+> 
+> The patch looks good to me at a glance. I haven't done a full, deep code
+> review yet, but I've tested it on my lab and everything works as
+> expected.
+> 
+> Tested-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
 
-Note that the lock is only bypassed when the fence is signaled already (thi=
-s
-would be preserved) and if signaled() returns false, i.e. dma_fence_signal(=
-)
-will take the lock anyways.
+Thanks a lot for the testing. The review from you will be very welcomed
+too.
 
-> I personally find those micro-optimizations rather questionable, but the
-> community agreement is that we should have them.
-
-I agree, it is rather questionable. So, I wouldn't make this the deciding f=
-actor
-unless someone can present a valid case where it actually matters.
-
-> So my take would rather be that the dma_fence_is_signaled_locked() varian=
-t
-> goes away and we consistently call the ops pointers without holding the
-> dma_fence lock and the driver implementations can then optionally take it=
- if
-> necessary.
-
-How did you get to this conclusion considering that you run into what I
-mentioned above as well and the fact that we seem to agree that the perform=
-ance
-concern is rather questionable?
+-- 
+Best regards,
+Dmitry
