@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29FCECD8C92
-	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 01:40:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3993CD8C90
+	for <dri-devel@archiver.kernel.org>; Mon,  8 Jun 2026 01:46:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7392710EBF3;
-	Mon,  8 Jun 2026 01:40:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6F4410EBFE;
+	Mon,  8 Jun 2026 01:46:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="fd9Fgd70";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="jIgtsz0T";
 	dkim-atps=neutral
-Received: from mail-m60214.netease.com (mail-m60214.netease.com
- [210.79.60.214])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 641EE10EBF3
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 01:40:42 +0000 (UTC)
+Received: from mail-m10177.netease.com (mail-m10177.netease.com
+ [154.81.10.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81F1A10EBFE
+ for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 01:45:59 +0000 (UTC)
 Received: from [172.16.12.90] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 416b76aca;
- Mon, 8 Jun 2026 09:40:38 +0800 (GMT+08:00)
-Message-ID: <e5058919-9485-4de5-8eea-331ebfc2987c@rock-chips.com>
-Date: Mon, 8 Jun 2026 09:40:36 +0800
+ by smtp.qiye.163.com (Hmail) with ESMTP id 416bb7c88;
+ Mon, 8 Jun 2026 09:45:55 +0800 (GMT+08:00)
+Message-ID: <0919ffcc-81c3-483a-a3ba-404b455c2040@rock-chips.com>
+Date: Mon, 8 Jun 2026 09:45:53 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v3 0/9] accel: rocket: Add RK3568 NPU support
+Subject: Re: [RFC PATCH v3 6/9] iommu/rockchip: Clear AUTO_GATING bit 1 on the
+ RK356x v1 IOMMU
 To: Midgy Balon <midgy971@gmail.com>
-Cc: tomeu@tomeuvizoso.net, ogabbay@kernel.org, heiko@sntech.de,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org,
- will@kernel.org, robin.murphy@arm.com, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, Simon Xue <xxm@rock-chips.com>,
- Finley Xiao <finley.xiao@rock-chips.com>
+Cc: Simon Xue <xxm@rock-chips.com>, tomeu@tomeuvizoso.net,
+ ogabbay@kernel.org, heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ iommu@lists.linux.dev, linux-kernel@vger.kernel.org
 References: <20260604135255.62682-1-midgy971@gmail.com>
- <3d99569e-9c3a-49d1-93fb-1335382523e9@rock-chips.com>
- <CA+GS1Y1s78PwN63X2YJoS8VEGp7CpTERo_K65yKs00U4VRAw4Q@mail.gmail.com>
+ <20260604135255.62682-7-midgy971@gmail.com>
+ <e44b506e-e9d2-48e3-acea-ab28b7be9b37@rock-chips.com>
+ <CA+GS1Y16++cztPxdUGLrPA73ENm4vJGFrjm-jP8r=8OQqcMJGA@mail.gmail.com>
 Content-Language: en-US
 From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <CA+GS1Y1s78PwN63X2YJoS8VEGp7CpTERo_K65yKs00U4VRAw4Q@mail.gmail.com>
+In-Reply-To: <CA+GS1Y16++cztPxdUGLrPA73ENm4vJGFrjm-jP8r=8OQqcMJGA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9ea4e3928003a7kunm2dc5485516737a
+X-HM-Tid: 0a9ea4e8693b03a7kunm5581ce41167e8e
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHRhMVk8eQxpNQxkaSkIYTlYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pKQk1VSktLVUpCWQY+
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCH0lLVhlNHkJLHRlDGU9CSFYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+ 9PT0hVSktLVUpCS0tZBg++
 DKIM-Signature: a=rsa-sha256;
- b=fd9Fgd70jQYunloQSZc2Sw1ViLh44FaOLEhh8/tp6FuCuEqh+zQpvglmCBICWSNY4eMQ2EG3F6nYIRDMlWBfyr07TaYpQAnqsDsnK7+my9QhXHjn1qw65oOnV0stueIXxBjcZ5b29o9ukMPv35PD2ONVCXGOSRJMTHrJjXosvds=;
+ b=jIgtsz0TyrcFAl+irGQT/FzW/PHecgbmGKsmkt1lnYbbFGDHi1B7akwRMLwY6y/4vFy4+FD+auD6oR1rDOMqmmDFeT8wfSpcb6uQYaIlHVgWzsfkXqJCGQLq4+vHplwYP9NJaOVglVtq7rO5PPu+Hx5XWacT4HRifZn4QvoaS0g=;
  c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=UrntyxENooj6wbeRVkJOCbYDj96squyuxfsHscwtUdc=;
+ bh=gtF5hamNMT8w7gwfV8u7Brm72XuPs2uaU6pQ7P0r8NA=;
  h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,79 +69,43 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi Midgy,
 
-On 6/8/2026 5:03 AM, Midgy Balon wrote:
+On 6/8/2026 5:05 AM, Midgy Balon wrote:
 > Hi Chaoyi,
 > 
-> Thanks a lot for looking at this -- input from Rockchip is exactly what this
-> series needs.
+>> As I said, it is v2. Could you please try using the code below instead and
+>> see if it works?
+>> [ auto_gate = read(RK_MMU_AUTO_GATING); auto_gate |= BIT(31); write(...) ]
 > 
->> Hmmm. If I understand correctly, the NPU IOMMU should be v2 rather than v1,
->> implying it should support 40-bit PAs. Nevertheless, please note that the
->> upper limit for DTE is 32 bits.
+> Thanks -- that's clearly the right shape (read-modify-write, before paging is
+> enabled, keeping the reset value instead of my clobbering 0x2).
 > 
-> Understood, and that 32-bit-DTE note is the crux of the trouble I had, so let
-> me lay out what I see and ask how you'd prefer to solve it.
+> I rebuilt v7.1-rc6 (with the rocket RK3568 series + your per-device-ops work)
+> using your bit-31 version and tested it on a ROCK 3B: the NPU IOMMU comes up and
+> services the NPU's DMA cleanly -- the NPU probes, attaches its domain, and runs
+> repeated conv submissions with no DMA_READ_ERROR and no page-walk stall. No
+> regression from the write.
 > 
-> The mainline node is already v2 (rockchip,rk3568-iommu in rk356x-base.dtsi).
-> The problem on this 8 GiB board: with the v2 ops the page-table allocations
-> (gfp_flags == 0) can land above 4 GiB, so the DTE ends up > 32 bits and the
-> NPU's first translation faults with DMA_READ_ERROR. To work around that I had
-> switched the NPU MMU to the v1 compatible (rockchip,iommu), whose ops set
-> GFP_DMA32 and keep the DTE sub-4 GiB. That works in isolation, but because the
-> driver keeps a single global rk_ops, a v1 NPU MMU then trips
-> WARN_ON(rk_ops != ops) against the SoC's v2 instances (VOP/VDEC), which is why
-> I based the series on Simon's per-device-ops work.
+> To be precise about what I can and can't show: I tested both ways on v7.1-rc6 --
+> with your bit-31 write, and on the reset value (0x3) -- and the NPU
+> IOMMU services
+> the NPU's reads with zero faults in both cases (no DMA_READ_ERROR, no page-walk
+> stall). So I don't have a failing baseline here that bit-31 visibly
+> fixes. Is the
+> AUTO_GATING write needed on current mainline, or only under conditions I'm not
+> reproducing (a particular traffic pattern / silicon rev)? I'll keep the patch in
+> your form unless you'd prefer to drop it.
 > 
-> So my question: with per-device ops in place, what's the intended way to keep
-> the NPU MMU on v2 *and* cap its DTE at 32 bits on boards with >4 GiB of RAM?
-> A v2 ops variant carrying GFP_DMA32 for this device, or is there a register/
-> config bit that constrains the DTE address? I'd rather follow the Rockchip
-> intent here than carry the v1 workaround. (Simon, cc'd -- this is right next to
-> your per-device-ops series.)
->
-
-If Simon's method works, please use it :)
-
->> Can these operations not be completed via the pmdomain driver?
->> If some operations are controlled by TF-A, are you using open source TF-A?
+> One question so I document it correctly: what does bit 31 of RK_MMU_AUTO_GATING
+> control on the v2 block -- is it a master "disable internal auto clock-gating"
+> for the page-table walker (i.e. so a TLB-miss walk's AXI master keeps its clock
+> to completion)? The RK3568 TRM I have doesn't cover the IOMMU registers, so a
+> one-line description would let me write an accurate comment.
 > 
-> Most of it is in pmdomain already. Power-on and NoC de-idle are done by the
-> RK3568 NPU power domain (genpd) at power-on -- the driver no longer pokes the
-> PMU directly. Two things remain outside it:
-> 
->  - vdd_npu: I mark it regulator-always-on in DT rather than wiring it as the
->    domain's domain-supply, because as a domain-supply it created a device-link
->    to the I2C PMIC (rk809) and genpd's power-off QoS-save path then hung
->    reading the NPU QoS registers behind the (gated) NoC. If there's a clean way
->    to let genpd own vdd_npu without that I2C ordering deadlock I'd much prefer
->    that -- pointers welcome.
->
 
-Please refer to the patch below regarding the RK3588 NPU pmdomain.
-In short, you need to set a "need_regulator" for the RK3568 NPU pmdomain.
+Glad to hear this works. Please refer to the commit below.
 
-https://lore.kernel.org/all/20251216055247.13150-1-rmxpzlb@gmail.com/
-
->  - the NPU compute clock (PVTPLL): set from the driver via SCMI, and only
->    needed for actual compute, not for bring-up.
-> 
-> One more pmdomain observation from testing, possibly relevant to how the NPU
-> domain should be modelled: the domain's power-off/on cycle doesn't reliably
-> re-de-idle the NoC. If the NPU is probed after genpd has already powered the
-> (unused) domain off, the power-on de-idle fails ("failed to set idle on domain
-> 'npu'") and the NPU IOMMU then takes an external abort on its first MMIO access.
-> Probing the NPU before the unused-domain power-off, or marking the domain
-> always-on, both avoid it. Is the NoC de-idle expected to work on a genpd
-> re-power here, or should this domain effectively stay on?
->
-
-Not quite sure what's going on with PVTPLL and NOC.
-Maybe @Finley knows about this?
-
-> On TF-A: yes -- bl31 is built from upstream arm-trusted-firmware
-> (github.com/ARM-software/arm-trusted-firmware, RK3568 platform), providing PSCI
-> and the SCMI clock service. The only closed blob in the boot chain is Rockchip's
-> DDR init (rkbin), which is the standard situation for mainline RK356x.
+[0]: https://github.com/rockchip-linux/kernel/commit/7f8158fb41b5cc8e738aaeebc3637c50ebd74cae
+[1]: https://github.com/rockchip-linux/kernel/commit/6a355e5f9a2069a2309e240791bc3aad63b7324e
 
 -- 
 Best, 
