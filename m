@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55EACCD98CB
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 07:58:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB069CD98C8
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 07:58:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEAE110E7BC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF12F10E7BE;
 	Wed, 10 Jun 2026 07:58:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="NqULZSBC";
+	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="hrsS21lO";
 	dkim-atps=neutral
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.58.223])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5244E10E707
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 06:02:36 +0000 (UTC)
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E355D10E1D6
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 09:35:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1781071325;
- bh=FjDzXjUTCA7PwSwSBXMojIa1RoXXpb1tpWd5EIt2Ab4=;
+ s=onoh2408; t=1780997695;
+ bh=F/ATENqeutHEFBLWCq5KxclWHjONItFaJGr0IzvOtgs=;
  h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=NqULZSBCZen31aNEFQyql5UpEYhb2NYiS3SkqfOXh0VEWAj2asgUbVaL5XuiTQPu8
- TO3nc7VHsFkTGwVHhbYoPlaVD/YGmEMG/wCmmU++bqrc62jCybhKkO1zNSnvogOMsc
- jciznXlq03FdsUI5x5VvQggKpan2eHS8oCLKgvq0=
-X-QQ-mid: esmtpsz18t1781071305t3236f62b
-X-QQ-Originating-IP: iePxYMPyCq/TYnXweTLz+Oc+mDGPzOvpeL8ckYEnAJM=
+ b=hrsS21lOqN3i5+rw4GQJYsou/okEHaw8A3dvbW4xnGA8vjIFP26VfdlkkRIqrOuM0
+ Y0p0jG7oAkgAI8i1lHHCZ2gAguOMejMXAKJM0u4AQwwprNTBPxn45ALc8r5/BTyeWN
+ VPSaAt+GkDFqKEjNwRqHBb6XXSx3HlVQTNo9odGo=
+X-QQ-mid: esmtpsz17t1780997677tad01d33d
+X-QQ-Originating-IP: pIjK55WJPXl+Qs4jtZPT67LZr4pec0GM+rpziWhGDf4=
 Received: from localhost.localdomain ( [124.126.19.250])
  by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 10 Jun 2026 14:01:37 +0800 (CST)
+ id ; Tue, 09 Jun 2026 17:34:31 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 12200062237353553403
+X-BIZMAIL-ID: 3266297912186802098
 EX-QQ-RecipientCnt: 11
 From: ZhaoJinming <zhaojinming@uniontech.com>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
@@ -40,34 +40,35 @@ Cc: Sumit Semwal <sumit.semwal@linaro.org>,
  linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
  linaro-mm-sig@lists.linaro.org, ZhaoJinming <zhaojinming@uniontech.com>,
  stable@vger.kernel.org
-Subject: [PATCH v5 1/2] accel/rocket: Fix error path handling in
- rocket_job_run()
-Date: Wed, 10 Jun 2026 14:01:31 +0800
-Message-Id: <20260610060132.3239648-1-zhaojinming@uniontech.com>
+Subject: [PATCH v3 2/2] accel/rocket: Fix iommu_group leak and unsafe IRQ
+ register access
+Date: Tue,  9 Jun 2026 17:33:46 +0800
+Message-Id: <20260609093346.380396-2-zhaojinming@uniontech.com>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20260610031431.E8EA71F00893@smtp.kernel.org>
-References: <20260610031431.E8EA71F00893@smtp.kernel.org>
+In-Reply-To: <20260609093346.380396-1-zhaojinming@uniontech.com>
+References: <20260608103845.6F4AB1F00893@smtp.kernel.org>
+ <20260609093346.380396-1-zhaojinming@uniontech.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: MOdUEiNUAftlWk9vIicVUgL6IwBpYf6MWLHZLxKPsMPW/oc3I2yonn8F
- 9TFnDQXHMz7sj8m1AexAh6z3XlVdrLRH0AfXqNeOUZX1NQBmcbucA/guNic9YYVL3uk2vV5
- NJ7bpwqWp2CMBx9o2BPAa0PDeCPIkIFZx+WffGyGCzM+x+GF75HRz8TFdArXXDa1aZ7YtNi
- 2nvKTf/6pDlddQuz4QZz9hKXVe2Uid/BEqQnKUS1tEGnN+ylXbK4EFVjXoujSuJvcNyNOmL
- 8AnY4BYPJKRtXNvf5F+O1LzZ1KefTxNWz9AHAQZUhVaysMB2DOJRzB4/Pw8+bIUSh+PousB
- 8Wxq3HeI8AtAfkHt6ml9BMafsV/T3SWhodTWvNSTyi0+m4obOeLGm26lym8Q0g8ORMN6fGz
- ogWGuGtwKBwIP/GyZyvJRxat2c0A5j85nedVbAmqIWhNlDpkIDZTgdn5lbxbaya+7AEZCY0
- 0EVax6ZLLAtPufxRh1Ka0uYzZ/KFakfZy1uSoaOuVE4WrFVfCoLVqy+1GsErfyIqJRUyziv
- TYgutLWQbCREt6z3kzPvlSWs9i2EYlJveqXe0JTW1oXq5qEMMbJrWB9d9AjoQYafDZMvntS
- CJzvkxKhd9456MnWvD/s00+VkQ5D3P1yMrpGCSaQF4hKNK6LnODPEDbrtQ4J07FboX+bBB/
- yo1xADn1xXXW4M3fqEHZX4OGuia+D3ISlA5LTrFJ72VkUy8oMGgVv6xzFWQ/88WIoe3XFPc
- T5isbpxsjGUmW5bOkvKbHMqYrywZe/57+OEHfhGzEHCjmLHfXb00/8bgA980yv1zFrnwOHT
- cbC9hF9Y+yZv1YbWck1cGItB+1ZHSeL9EvEiCeX4kNEyPCay4JrCwmZQSPmFbdnEpsNhCO6
- jJSc3px7qbW/ZmY/qXP60CBvY5mjGXZ7wRd9PJNlJyrFhHKc4jT7omkuFSYaS+xDSYQmmPw
- gy8/OVkrVFoM2dU+ibN3mXHW5lRe+/5rxTxpkOu1lT6YOzHL5LW08yBrXxdkdM17WYHKnhc
- MHC7I/7YVNfrRuRnub4/t9lwplgxbCqMHfJG/tuQotrUVw/M6+KYYyFeWPH5MsTNvNEzLG3
- A==
+X-QQ-XMAILINFO: MaCc72GaN9m8qf291dVW5l5v6BjRZqqJqqnaoaqCSiXKnKE16TR8K2Lk
+ cXCgpcdJ7ZJhdiFpGeECCRCl1gmn7Ihe6dfWjHTelziGAvHKk4S5SABhIo2Kn+Xl1o/CeQ5
+ fUfmdwsANFcFqKHexaANoj9tDk82BzE+j6o+o3H4kkG9bl3YCddoVepHNFEDsbUmSViBIOy
+ xiRoLoTDuAWz86rBtBD0XBiB4FjNTOGkNlsjG1idvR0BXScYFYF9BuWm1BcyWdFz6px3TJQ
+ RhW05gxxPg1JBk7xGKJqKZq0Lvdq93kQ9Hufxp62PMWDHqSmVDRbWYK7NexmlQQBhKqqJ9l
+ B9aYGTxvc431MPp8hfBdw15DtPVQSnxt+apmlW51o7AoUEGt9CWD2BqV5/1YzRvoekvJr37
+ Ommy87BbXWVel2uoSKfXXJ19hXXywIUYp/WAkeasoCSQ88iJ+iEq9JnqEM3FIX+6+Zkl6+I
+ 6psOiqGO8PRdgnXK0uCixr8y6ehzrwCAGIUyJSkbVGYNJpBLOXW2rOgX0ZI9Qklua9W0v3j
+ daSI5HWW6/OEe4a9LggxOFJAGWEgoYJC9prbPqAt5o3wn6XHggo4nwAQfRo4KZnRX+rs7Hp
+ 4+Eis0yzdigDf6/NTfGF98p4XEQ34gIUyuZctJuSXBslKlp9x6D2VgMbmyWgHxCQJFVnqNP
+ urnsp+146OFRhGTYodqZIGmi+3rzBc6k6b36+Rk86pyZ2aWDI2H1J/t5QG5A0koO+jmXytW
+ /49XXnYJMixmHMYjTViuSMPXw4o2XnT0gdjRwpIJtjE8KA4E6W0mfIZSw4mCgveErMKnmQL
+ MH8KasKfckWy4ziaIthfa1lzcR37QsIeJBUTAKvwhvqDmyVZBW+/gkcMubEBvnUmf42+kSh
+ vs09A0Wq1qwl+j/idZIO8xj/FraDKPNQz3tcY5/417iKhOnrdawmAdJlLz95bxTKsZvD98W
+ dEjNkNNGl+ttw3qYIBfM3BUX4myvXM9OByxktke0ffJ8TC/078Y0S+kvMw/TPRPefLNJVZQ
+ iGFQH/cib7D98XQQVzBMXVwgfZcD4x8A43rk6tdIPg6VVCHiz3/EkxvB5FSg6dHcc7BRh40
+ g==
 X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
 X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Wed, 10 Jun 2026 07:58:35 +0000
@@ -86,62 +87,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In rocket_job_run(), after taking an extra fence reference for
-job->done_fence via dma_fence_get(), the error paths have three bugs:
+Two bugs in the IRQ handling path:
 
-- The dma_fence reference held by job->done_fence is never released,
-  causing a reference leak.
-- pm_runtime_get_sync() increments the usage counter even on failure,
-  but the error path does not decrement it, leaking the runtime PM
-  reference and preventing the NPU from suspending.
-- A valid but unsignaled fence is returned to the DRM scheduler,
-  which triggers WARN("Fence ... released with pending signals!")
-  when the scheduler drops its reference.
+1) iommu_group reference leak in rocket_job_handle_irq():
+   iommu_group_get() increments the reference count but the returned
+   pointer is passed directly to iommu_detach_group() which does not
+   consume it. Since this runs on every completed job, the reference
+   count accumulates and prevents the group from being freed. Use
+   core->iommu_group instead, consistent with rocket_reset().
 
-Fix by replacing pm_runtime_get_sync() with pm_runtime_resume_and_get()
-which auto-balances the usage counter on failure, releasing both fence
-references on error, and returning ERR_PTR(ret) instead of the
-unsignaled fence.
+2) Unsafe hardware register access in shared IRQ handler:
+   rocket_job_irq_handler() is registered with IRQF_SHARED but accesses
+   hardware registers without checking runtime PM status. If another
+   device on the same IRQ line triggers an interrupt while the NPU is
+   suspended, register reads return 0xffffffff, spuriously triggering
+   WARN_ON macros and falsely returning IRQ_WAKE_THREAD.
+
+   Replace with pm_runtime_get_if_active(), which atomically checks the
+   device status under spinlock and increments the usage count to keep
+   the device active during register access. Balance the extra reference:
+   - If the interrupt is not for this device (raw_status does not match
+     DPU_0/DPU_1), put in the hardirq handler before returning IRQ_NONE.
+   - If the interrupt is for this device, the thread handler puts after
+     completing register writes.
 
 Cc: stable@vger.kernel.org
 Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
 Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
 ---
- drivers/accel/rocket/rocket_job.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+ drivers/accel/rocket/rocket_job.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index ac51bff39833..e8a073e22ac2 100644
+index e8a073e22ac2..30c677952b64 100644
 --- a/drivers/accel/rocket/rocket_job.c
 +++ b/drivers/accel/rocket/rocket_job.c
-@@ -310,13 +310,22 @@ static struct dma_fence *rocket_job_run(struct drm_sched_job *sched_job)
- 		dma_fence_put(job->done_fence);
- 	job->done_fence = dma_fence_get(fence);
+@@ -349,7 +349,7 @@ static void rocket_job_handle_irq(struct rocket_core *core)
+ 				return;
+ 			}
  
--	ret = pm_runtime_get_sync(core->dev);
--	if (ret < 0)
--		return fence;
-+	ret = pm_runtime_resume_and_get(core->dev);
-+	if (ret < 0) {
-+		dma_fence_put(job->done_fence);
-+		job->done_fence = NULL;
-+		dma_fence_put(fence);
-+		return ERR_PTR(ret);
-+	}
+-			iommu_detach_group(NULL, iommu_group_get(core->dev));
++			iommu_detach_group(NULL, core->iommu_group);
+ 			dma_fence_signal(core->in_flight_job->done_fence);
+ 			pm_runtime_put_autosuspend(core->dev);
+ 			core->in_flight_job = NULL;
+@@ -421,6 +421,7 @@ static irqreturn_t rocket_job_irq_handler_thread(int irq, void *data)
+ 	struct rocket_core *core = data;
  
- 	ret = iommu_attach_group(job->domain->domain, core->iommu_group);
--	if (ret < 0)
--		return fence;
-+	if (ret < 0) {
+ 	rocket_job_handle_irq(core);
++	pm_runtime_put(core->dev);
+ 
+ 	return IRQ_HANDLED;
+ }
+@@ -428,14 +429,20 @@ static irqreturn_t rocket_job_irq_handler_thread(int irq, void *data)
+ static irqreturn_t rocket_job_irq_handler(int irq, void *data)
+ {
+ 	struct rocket_core *core = data;
++
++	if (!pm_runtime_get_if_active(core->dev))
++		return IRQ_NONE;
++
+ 	u32 raw_status = rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
+ 
+ 	WARN_ON(raw_status & PC_INTERRUPT_RAW_STATUS_DMA_READ_ERROR);
+ 	WARN_ON(raw_status & PC_INTERRUPT_RAW_STATUS_DMA_WRITE_ERROR);
+ 
+ 	if (!(raw_status & PC_INTERRUPT_RAW_STATUS_DPU_0 ||
+-	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1))
++	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1)) {
 +		pm_runtime_put(core->dev);
-+		dma_fence_put(job->done_fence);
-+		job->done_fence = NULL;
-+		dma_fence_put(fence);
-+		return ERR_PTR(ret);
+ 		return IRQ_NONE;
 +	}
  
- 	scoped_guard(mutex, &core->job_lock) {
- 		core->in_flight_job = job;
+ 	rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
+ 
 -- 
 2.20.1
 
