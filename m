@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECADCCD8CA4
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 08:26:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50B21CD8CAC
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 08:29:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65A6010E1A2;
-	Tue,  9 Jun 2026 08:26:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7982B10E1A4;
+	Tue,  9 Jun 2026 08:29:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XsqL/DOz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HdV7jFTF";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0A0C10E1A2
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 08:26:06 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 539C810E1A4
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 08:29:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 300C0601E6;
- Tue,  9 Jun 2026 08:26:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 916DF1F00893;
- Tue,  9 Jun 2026 08:26:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1714A416C6;
+ Tue,  9 Jun 2026 08:29:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C693F1F00893;
+ Tue,  9 Jun 2026 08:29:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780993565;
- bh=gWrPnfd2efE+odiW+NLh3do/b1yHIBAD0e2b6CNZZT8=;
+ s=k20260515; t=1780993748;
+ bh=KoiUgA6e0+WiyPSaC0WbA+wzbxNPIszzpZJoQQ5I0o4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XsqL/DOz0sKfeydtKKsENc5xMaQGPXJSwwjq/U8ECL5L5r3CDuS/V7TzJ+bbobbuE
- g13pR/KrqdgHF/Jg4Gn3s14heErgFO5yiiIatkPYhV6B6j3czeDgn3KC5fjt/slsDl
- MKYukUzjt2z38HbqzhjTuxXjgO9THNrca2Ij3ONFsURYEro4z+mXJ0PzTyzHj7R2BH
- y72mJplpgIfFkDhI9U9yOpEbqjt157jSe45EZf+URjTYE6vL/vLuUbhIIFEi6K0Z3x
- hcJFapi3Gc3EGZgtCLu15CB1gXMkPFKvRbJetEclrWtafcERO4S1attsOWP9QCwsgr
- STErDUpVU4XmQ==
+ b=HdV7jFTFR+MK0xDMxDzeAApRFYUpKFg4FQeDsuXf6OWW+hCUlpZO/HZZYmR1korqN
+ L0gCPYBG2yJ2j0Fxy36EIeJCYtbE5YKO58mjFEwM3M4xpXmVfTODkWHhVdH7kchWer
+ YMPBKYVRdCImlU0VBokkip3U97NfsIEyjM1B8Dv35X27lkDatM2NLzyTqekfABEJqF
+ M2dNsnrrOoLiI5Zr+WNsLqpfu7U7X8rEwVDP/fg3Sf3rNR2kcrGowpLeKngQFdTxkx
+ oqAk8RkhMOJR8NtvkY/N3757JbU+B08cJX1ux2sut+g0kp4v4pUOf0rIaDkbapDK+Z
+ 89ORLBaj+nxGw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/6] gpu: host1x: Fix offset calculation in
- trace_write_gather
+Subject: Re: [PATCH 5/6] gpu: host1x: Change pin_job() return type to int
 To: "Mikko Perttunen" <mperttunen@nvidia.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260609-b4-host1x-small-fixes-a-v1-3-7c1131c0b3ad@nvidia.com>
-References: <20260609-b4-host1x-small-fixes-a-v1-3-7c1131c0b3ad@nvidia.com>
+In-Reply-To: <20260609-b4-host1x-small-fixes-a-v1-5-7c1131c0b3ad@nvidia.com>
+References: <20260609-b4-host1x-small-fixes-a-v1-5-7c1131c0b3ad@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 08:26:05 +0000
-Message-Id: <20260609082605.916DF1F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 08:29:06 +0000
+Message-Id: <20260609082907.C693F1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,163 +60,175 @@ Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] Integer overflow in `copy_gathers` leads to a massive heap buf=
-fer overflow
-- [High] Mismatched buffer object and offset in `trace_write_gather` causes=
- out-of-bounds read and information leak
-- [High] Trace event uses fixed-size scalar field for dynamic string, causi=
-ng use-after-free
-- [High] Missing error pointer check for `host1x_bo_mmap()` leads to kernel=
- oops on failure
+- [Critical] An integer overflow in copy_gathers() leads to a massive heap =
+buffer overflow during memcpy.
+- [High] Silent failure when iommu_map_sgtable() returns a negative error c=
+ode.
+- [High] Multiple error paths in pin_job() leak host1x_bo references and pi=
+nned host1x_bo_mapping objects.
+- [High] Missing or incorrect validation of host1x_bo_mmap() return value c=
+auses kernel panic.
 --
 
-commit 32809268254f182a4349aa6566cab30f99b736b0
+commit 49509dd1b9a9c195fff52b9936852ca75bde12b1
 Author: Mikko Perttunen <mperttunen@nvidia.com>
 
-gpu: host1x: Fix offset calculation in trace_write_gather
+gpu: host1x: Change pin_job() return type to int
 
-When a gather longer than 2*TRACE_MAX_LENGTH (256) words is traced
-through host1x_cdma_push_gather, the reported BO offset drifts from
-the third iteration onward.
+pin_job() returns negative errno values on error paths (-EINVAL,
+-ENOMEM, PTR_ERR() of mapping) but was declared as unsigned int.
+The caller would immediately cast back to int, so there was no
+functional issue, but it still warrants fixing.
 
-[Severity: Critical]
-This is a pre-existing issue, but does copy_gathers() in
-drivers/gpu/host1x/job.c have an integer overflow when accumulating sizes?
-
-drivers/gpu/host1x/job.c:copy_gathers() {
-    ...
-    size +=3D g->words * sizeof(u32);
-    ...
-}
-
-If userspace submits a job with enough commands, could size wrap around on
-32-bit systems?=20
-
-This wrapped size would then be used by dma_alloc_wc() to allocate a small
-buffer, followed by a loop that copies a large amount of data:
-
-drivers/gpu/host1x/job.c:copy_gathers() {
-    ...
-    memcpy(job->gather_copy_mapped + offset, gather + g->offset,
-           g->words * sizeof(u32));
-    ...
-}
-
-Could this lead to a large heap buffer overflow?
+> diff --git a/drivers/gpu/host1x/job.c b/drivers/gpu/host1x/job.c
+> index 3ed49e1fd9332..1659793195991 100644
+> --- a/drivers/gpu/host1x/job.c
+> +++ b/drivers/gpu/host1x/job.c
+[ ... ]
+> @@ -138,7 +138,7 @@ void host1x_job_add_wait(struct host1x_job *job, u32 =
+id, u32 thresh,
+>  }
+>  EXPORT_SYMBOL(host1x_job_add_wait);
+> =20
+> -static unsigned int pin_job(struct host1x *host, struct host1x_job *job)
+> +static int pin_job(struct host1x *host, struct host1x_job *job)
+>  {
 
 [Severity: High]
-This isn't a bug introduced by this patch, but looking at the trace event
-definition for host1x_cdma_push_gather:
+This isn't a bug introduced by this patch, but while reviewing pin_job(),
+does this code silently ignore mapping failures?
 
-include/trace/events/host1x.h:
-    __field(const char *, name)
-
-According to trace subsystem rules, dynamic-length strings should be stored
-using __string() and __assign_str() to capture the string contents. By using
-a pointer field, only the address is captured.
-
-If the trace buffer is read after the device has been unregistered and its
-name freed, could this pointer dangle and cause a use-after-free when
-formatting the trace?
-
-[Severity: High]
-This is a pre-existing issue, but I noticed host1x_bo_mmap() can return an
-error pointer (e.g. ERR_PTR(-ENOMEM) from tegra_bo_mmap()).
-
-In trace_write_gather() earlier in this file:
-
-    if (host1x_debug_trace_cmdbuf)
-        mem =3D host1x_bo_mmap(bo);
-   =20
-    if (mem) {
-
-Is it possible for mem to be an error pointer here? If so, checking if (mem)
-will treat the error pointer as a valid address.
-
-There appear to be similar checks elsewhere that might not catch error
-pointers:
-
-drivers/gpu/host1x/job.c:copy_gathers() {
+drivers/gpu/host1x/job.c:pin_job() {
     ...
-    gather =3D host1x_bo_mmap(g->bo);
-    memcpy(job->gather_copy_mapped + offset, gather + g->offset,
-           g->words * sizeof(u32));
+			err =3D iommu_map_sgtable(host->domain,
+						iova_dma_addr(&host->iova, alloc),
+						map->sgt, IOMMU_READ);
+			if (err =3D=3D 0) {
+				__free_iova(&host->iova, alloc);
+				err =3D -EINVAL;
+				goto put;
+			}
     ...
 }
+
+iommu_map_sgtable() returns a positive mapped size on success and a negative
+error code (like -EINVAL or -ENOMEM) on failure.
+
+Since the check is exactly if (err =3D=3D 0), a negative error code evaluat=
+es
+to false, skipping the error path (goto put;).
+
+This allows the code to proceed with an unmapped IOVA, which would cause the
+IOMMU to block hardware memory access and trigger faults during execution.
+
+Is this check intended to be if (err <=3D 0)?
+
+
+[Severity: High]
+This is a pre-existing issue, but do these error paths leak host1x_bo
+references and mappings?
+
+drivers/gpu/host1x/job.c:pin_job() {
+    ...
+		map =3D host1x_bo_pin(dev, bo, direction, NULL);
+		if (IS_ERR(map)) {
+			err =3D PTR_ERR(map);
+			goto unpin;
+		}
+
+		if (map->chunks > 1) {
+			err =3D -EINVAL;
+			goto unpin;
+		}
+
+		job->addr_phys[job->num_unpins] =3D map->phys;
+		job->unpins[job->num_unpins].map =3D map;
+		job->num_unpins++;
+    ...
+}
+
+In the loop, job->num_unpins is only incremented at the end of each iterati=
+on.
+
+If an error occurs midway (e.g., map->chunks > 1), the loop jumps to unpin.
+
+The cleanup routine host1x_job_unpin() iterates strictly up to job->num_unp=
+ins,
+failing to release the BO reference and unpin the memory allocated during t=
+he
+currently failing iteration.
+
+Could a malicious user repeatedly trigger this error path to exhaust kernel
+memory?
+
+
+[Severity: High]
+This is a pre-existing issue, but does this code dereference an error
+pointer if host1x_bo_mmap() fails?
 
 drivers/gpu/host1x/job.c:do_relocs() {
     ...
-    cmdbuf_addr =3D host1x_bo_mmap(cmdbuf);
+		if (!cmdbuf_addr) {
+			cmdbuf_addr =3D host1x_bo_mmap(cmdbuf);
 
-    if (unlikely(!cmdbuf_addr)) {
+			if (unlikely(!cmdbuf_addr)) {
     ...
 }
 
-Could these lead to a kernel oops if host1x_bo_mmap() fails and returns an
-error pointer instead of NULL?
-
-> diff --git a/drivers/gpu/host1x/hw/channel_hw.c b/drivers/gpu/host1x/hw/c=
-hannel_hw.c
-> index 2df6a16d484e0..9dda73199889c 100644
-> --- a/drivers/gpu/host1x/hw/channel_hw.c
-> +++ b/drivers/gpu/host1x/hw/channel_hw.c
-
-[ ... ]
-
-> @@ -36,10 +36,9 @@ static void trace_write_gather(struct host1x_cdma *cdm=
-a, struct host1x_bo *bo,
-
-[Severity: High]
-This is a pre-existing issue, but is there a mismatched buffer object and
-offset passed to trace_write_gather()?
-
-When the firewall is enabled, copy_gathers() combines all gathers into a
-single DMA buffer and overwrites g->offset with the cumulative byte offset,
-but leaves g->bo pointing to the original buffer:
+And similarly in copy_gathers():
 
 drivers/gpu/host1x/job.c:copy_gathers() {
     ...
-    g->base =3D job->gather_copy;
-    g->offset =3D offset;
+		gather =3D host1x_bo_mmap(g->bo);
+		memcpy(job->gather_copy_mapped + offset, gather + g->offset,
+		       g->words * sizeof(u32));
     ...
 }
 
-Then submit_gathers() passes these to trace_write_gather():
+host1x_bo_mmap() returns an ERR_PTR() on failure (e.g., -ENOMEM), not NULL.
 
-drivers/gpu/host1x/hw/channel_hw.c:submit_gathers() {
+In do_relocs(), the check !cmdbuf_addr fails to detect an error pointer.
+In copy_gathers(), the result is passed directly to memcpy() without any
+checks.
+
+Could this lead to a page fault and kernel panic if userspace triggers a
+vmap failure?
+
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but can this size calculation
+overflow on 32-bit platforms?
+
+drivers/gpu/host1x/job.c:copy_gathers() {
     ...
-    trace_write_gather(cdma, g->bo, g->offset, g->words);
-    ...
-}
+	for (i =3D 0; i < job->num_cmds; i++) {
+		struct host1x_job_gather *g;
 
-Since trace_write_gather() maps the original BO but uses the new combined
-offset:
+		if (job->cmds[i].is_wait)
+			continue;
 
->  		for (i =3D 0; i < words; i +=3D TRACE_MAX_LENGTH) {
->  			u32 num_words =3D min(words - i, TRACE_MAX_LENGTH);
-> =20
-> -			offset +=3D i * sizeof(u32);
-> -
->  			trace_host1x_cdma_push_gather(dev_name(dev), bo,
-> -						      num_words, offset,
-> +						      num_words,
-> +						      offset + i * sizeof(u32),
->  						      mem);
->  		}
-> =20
+		g =3D &job->cmds[i].gather;
 
-Will this cause trace_host1x_cdma_push_gather() to read out of bounds from
-the mapped original BO using the large combined offset?
-
-include/trace/events/host1x.h:host1x_cdma_push_gather() {
-    ...
-    memcpy(__get_dynamic_array(cmdbuf), cmdbuf+offset,
-           words * sizeof(u32));
+		size +=3D g->words * sizeof(u32);
+	}
     ...
 }
 
-Could this leak kernel data to the trace buffer?
+On 32-bit platforms, size_t size is 32 bits.
+
+If an ioctl is submitted with a large number of command buffers
+(e.g., num_cmdbufs =3D 65541 and words =3D 16383), the size calculation res=
+ults
+in 4,295,027,340, wrapping around to 60,044.
+
+dma_alloc_wc() then allocates this undersized buffer, and the subsequent
+memcpy() loop would copy out of bounds.
+
+Could this lead to a massive heap buffer overflow?
+
+>  	unsigned long mask =3D HOST1X_RELOC_READ | HOST1X_RELOC_WRITE;
+>  	struct host1x_client *client =3D job->client;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-b4-host1x-=
-small-fixes-a-v1-0-7c1131c0b3ad@nvidia.com?part=3D3
+small-fixes-a-v1-0-7c1131c0b3ad@nvidia.com?part=3D5
