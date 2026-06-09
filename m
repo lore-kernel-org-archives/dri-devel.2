@@ -4,43 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A3CCCD8CB2
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 17:40:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35F48CD8CB9
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 17:54:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6922610E46D;
-	Tue,  9 Jun 2026 17:40:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F61C10E594;
+	Tue,  9 Jun 2026 17:53:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CYnzurUe";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Gp02zwOw";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9555A10E46D
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 17:40:37 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFA4C10E594
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 17:53:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5408B40148;
- Tue,  9 Jun 2026 17:40:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C7C21F00893;
- Tue,  9 Jun 2026 17:40:37 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id EF8F260258;
+ Tue,  9 Jun 2026 17:53:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ABE81F00898;
+ Tue,  9 Jun 2026 17:53:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781026837;
- bh=Resmh0VIPv3cvuF3Lz/pIf9uMj8LarZ0XGRbt2N0At8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CYnzurUeyR0HZbW9FCDdfBY1DNoR9mR/5M9iEvFWSGddJL01o7rqvcV0Lpm7R07le
- s+Laeg1rzjTijFCWXd0g7qalSingHawvX8OdHNjqp+SkWkpt+zzLCExqVFUz1zSv6I
- btMA3WeBuOAYsHu5gF1WsZlQMRYTtmWCCxCiC+SofTcOfltB8tvGy6zp+T8Suhub0H
- hq7pt0OyH0jMsoGGFpeEhRkDhWEVuc9rWhhtYfpt3G3lDkBGMXhqzt0fCsOwLGW5kg
- QnKUBX/7eCagBB8V7iZoq4OmpW4xOlvYKCH6MGrxGfWQdkGTVpCe7O4WUcVnGM6Zou
- grAj8yS1PzUlQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 7/8] drm/colorop: Convert pipline 'next' pointer to
- a list
-To: "John Harrison" <John.Harrison@Igalia.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260609171941.169104-8-John.Harrison@Igalia.com>
-References: <20260609171941.169104-8-John.Harrison@Igalia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 17:40:36 +0000
-Message-Id: <20260609174037.1C7C21F00893@smtp.kernel.org>
+ s=k20260515; t=1781027636;
+ bh=OQzUs9n1Xktnez4S8uJrCM1RCxAgrbQRBMYhq6AxIjI=;
+ h=Date:From:To:Cc:Subject;
+ b=Gp02zwOwuExUzvYFQ2QVSyf4pEC2lSzxxYcTjkMRiXwApmpGT4JS3asuur+E8Agwk
+ u8uUR6HCWJ3hLyB2ScjCRFvmDjrl1iq75eNQWSIJWfwjtnLnWtEYqX72XhOQP7RDkK
+ 9p4AREIbPCJFTKgk5MU7lOyqTTNNW0Ck9+TFwLtukQ6FoyrpTho5MYB/NwkQatPTcT
+ TwEmH5Hgq/rOnCZvYr+8ja9CVatdkzaS+5JBjhSpDCgxag+XIEdmwbPMtbheunm2Tk
+ OPpxlmw7FSHg3z6ncR4aLpsxLs2PaqDXk83pnXcnLqN9mTTOlQ7NzW2b+Ef3cKlb65
+ KvgAVgYjDIeUQ==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+ id 876741AC56B7; Tue, 09 Jun 2026 18:53:54 +0100 (BST)
+Date: Tue, 9 Jun 2026 18:53:54 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: duplicate patch in the drm tree
+Message-ID: <aihTMkjR4v3MgwFa@sirena.co.uk>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="zXPSOvXy5Xj8FJPZ"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,124 +55,39 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
 
-New issues:
-- [High] Unconditional dereference of potentially NULL color pipeline in VK=
-MS pre_blend_color_transform.
-- [Medium] Fragile global state tracking in `drm_atomic_colorop_print_state=
-` leads to misaligned pointer dereferences.
+--zXPSOvXy5Xj8FJPZ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Pre-existing issues:
-- [Critical] Data race and Use-After-Free due to asynchronous access of glo=
-bal `colorop->state` in VKMS composer.
---
+Hi all,
 
-commit bddf98b16d8f020be8f44f0de1ce3cd9f1f44d2d
-Author: John Harrison <John.Harrison@Igalia.com>
+The following commit is also in the drm-fixes tree as a different commit
+(but the same patch):
 
-drm/colorop: Convert pipline 'next' pointer to a list
-   =20
-The colorop pipeline system was using explicit next pointers and open
-coded lists rather than the official kernel list helpers. Fix that.
+  01112e241e37f9 ("drm/amdkfd: Unwind debug trap enable on copy_to_user failure")
+  0ac98160dfb6ab ("drm/amdgpu/userq: Fix reading timeline points in wait ioctl")
+  115bf5ca318e18 ("drm/amd/display: Consult MCCS FreeSync cap only if requested & supported")
+  39eb6da7acee8d ("drm/amdkfd: Add bounds check for AMDKFD_IOC_WAIT_EVENTS")
+  92a8dba246d371 ("drm/amdkfd: fix SMI event cross-process information leak")
 
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 170de30c28ae4..8e985fd0562be 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-[ ... ]
-> @@ -849,7 +853,12 @@ static void drm_atomic_colorop_print_state(struct dr=
-m_printer *p,
->  		break;
->  	}
-> =20
-> -	drm_printf_indent(p, 1, "next=3D%d\n", colorop->next ? colorop->next->b=
-ase.id : 0);
-> +	if (list_is_last(&colorop->pipeline_list, &(*pipeline)->pipeline_head))=
- {
-> +		*pipeline =3D NULL;
-> +		return;
-> +	}
-> +
-> +	drm_printf_indent(p, 1, "next=3D%d\n", list_next_entry(colorop, pipelin=
-e_list)->base.id);
->  }
 
-[Severity: Medium]
-What happens if an orphaned colorop (created but not added to any pipeline)
-exists in the global config->colorop_list?
+--zXPSOvXy5Xj8FJPZ
+Content-Type: application/pgp-signature; name="signature.asc"
 
-It appears the pipeline pointer would be set to this orphan, but list_is_la=
-st
-will never evaluate to true since its pipeline_head is empty. Won't the
-pipeline tracking get permanently stuck, causing a subsequent valid pipelin=
-e's
-last node to return false here?
+-----BEGIN PGP SIGNATURE-----
 
-This looks like it would evaluate list_next_entry which computes container_=
-of
-on pipeline_head at a different offset, leading to a misaligned pointer
-dereference.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmooUzEACgkQJNaLcl1U
+h9AIRgf9GVZRxu0fRT+o0GpKvyvnl4bqVl7WxSAK2v62aUwiuDMBvSXedgk9/SgD
+vzpDzB+QLxi0LsY+9IUXSIGim3ruAJ81gmo73TcB6YPnDEvXVY5Liqi2syKnk/MY
+x+VP4+d392MFmCuw36q8vjfCWPd7XK05K4iJu2PChBQOlEphWo8tLGwwobiZnAGs
+4/2avkQDtCQPeQuc4Peapwqb4/41PzXGVO+WWShlysy/Hy5Z+4IQIbOX2CRgKzio
+5c62mGGnMqLGLyu+01syXNxCb+/jyQlkERJBgfDAifyXwOpiCjPz2aYOCKSNm7f7
+AKoFwWkw4fOLTXU5YJ7Q8p0ALvKOAg==
+=QDp+
+-----END PGP SIGNATURE-----
 
-> diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/=
-vkms_composer.c
-> index 83d217085ad09..fc20b788738a3 100644
-> --- a/drivers/gpu/drm/vkms/vkms_composer.c
-> +++ b/drivers/gpu/drm/vkms/vkms_composer.c
-> @@ -194,9 +194,12 @@ static void pre_blend_color_transform(const struct v=
-kms_plane_state *plane_state
->  				      struct line_buffer *output_buffer)
->  {
->  	struct pixel_argb_s32 pixel;
-> +	struct drm_colorop *pipeline =3D plane_state->base.base.color_pipeline;
-> +
-> +	WARN_ON(!list_is_first(&pipeline->pipeline_list, &pipeline->pipeline_he=
-ad));
-
-[Severity: High]
-Could this cause a regression if userspace doesn't configure a color pipeli=
-ne
-and leaves the property unset?
-
-The previous code handled a missing pipeline safely, but this looks like it
-will unconditionally dereference the pipeline pointer inside the list_is_fi=
-rst
-helper before checking if it actually exists. Does this need an early return
-or a valid pipeline check first?
-
-> =20
->  	for (size_t x =3D 0; x < output_buffer->n_pixels; x++) {
-> -		struct drm_colorop *colorop =3D plane_state->base.base.color_pipeline;
-> +		struct drm_colorop *colorop;
-> =20
->  		/*
-[ ... ]
-> @@ -213,7 +216,7 @@ static void pre_blend_color_transform(const struct vk=
-ms_plane_state *plane_state
->  		pixel.g =3D output_buffer->pixels[x].g;
->  		pixel.b =3D output_buffer->pixels[x].b;
-> =20
-> -		while (colorop) {
-> +		list_for_each_entry(colorop, &pipeline->pipeline_head, pipeline_list) {
->  			struct drm_colorop_state *colorop_state;
-> =20
->  			colorop_state =3D colorop->state;
-
-[Severity: Critical]
-This is a pre-existing issue, but can this direct access to colorop->state
-race with concurrent atomic commits?
-
-Since vkms_composer_worker runs asynchronously, couldn't a modeset dynamica=
-lly
-free this state via drm_atomic_helper_commit_cleanup_done while we're readi=
-ng
-it, resulting in a use-after-free regression?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609171941.1691=
-04-1-John.Harrison@Igalia.com?part=3D7
+--zXPSOvXy5Xj8FJPZ--
