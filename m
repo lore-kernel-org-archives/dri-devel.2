@@ -4,68 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 871ECCD98CD
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 07:58:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52533CD8CB2
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 07:58:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 850A510E79F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C94310E7C2;
 	Wed, 10 Jun 2026 07:58:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="aT+d9Sw8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MXO7q7Sy";
 	dkim-atps=neutral
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B82910E6C8
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 03:25:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1781061924;
- bh=JLHhFb+1u3Grh3AzlgjVjw4b66aNnYpDeFKauDFPJLM=;
- h=Date:From:To:Subject:Mime-Version:Message-ID;
- b=aT+d9Sw84loCwVFkR2d2OUEDjZVHh05GtdIyxpekOwbPhpcdyb78rdmc13VJxpIUL
- qe35idIC+U0VKJMU4MfQto5agzYip8+mKBevN7koLL3mgmVLvFoQFKtAg6Bvr+PQVH
- AalW2XFMEz7BvMvPUHXXP/7jaQTd4wj+Lm70qoz8=
-X-QQ-mid: zesmtpgz9t1781061919ta117eb2e
-X-QQ-Originating-IP: uRtv9acE+cTWUVqw4CUxe9la102pF0URxWNP+mzH1Rw=
-Received: from PEN002676 ( [1.202.39.170]) by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 10 Jun 2026 11:25:17 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 10353218543330882229
-Date: Wed, 10 Jun 2026 11:25:18 +0800
-From: =?GB2312?B?1dS98MP3?= <zhaojinming@uniontech.com>
-To: sashiko-reviews <sashiko-reviews@lists.linux.dev>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>
-Subject: Re: Re: [PATCH v4 2/2] accel/rocket: Fix iommu_group leak and unsafe
- IRQ register access
-References: <20260610030322.2802744-2-zhaojinming@uniontech.com>, 
- <20260610031431.E8EA71F00893@smtp.kernel.org>
-X-Priority: 3
-X-GUID: C6BE6651-06DB-498D-AF2B-BE49D49047C6
-X-Has-Attach: no
-X-Mailer: Foxmail 7.2.25.542[cn]
-Mime-Version: 1.0
-Message-ID: <17A6E416FC3798D4+2026061011251435234812@uniontech.com>
-Content-Type: text/plain;
-	charset="GB2312"
-Content-Transfer-Encoding: base64
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: OWMt2c/nLqBG20plE+y1FlqwbDDW/Dy+XzTHlbeCT0Fy0+5D1hqInLeo
- Q5gJBS5bUMUoba17psQjN5d5ywBpCr7s+Y3KkGEinxzs8XUoaZTIWtFgS6tZqZyUmlMYawH
- BWEoVvtH/pbKxF1tBo1xRAE9Pw9xogTr9qFJCFIoESnzUiopJs0yaRABGosyeXIpl8MmArP
- JF+YecX8b8kZH26yZMkneav5hzMsnjwtl0kG2bgsNxmZUlyQenkWy15h0ppGwI8NAkruBoo
- VKTZhKgpAcZ/bbJvy6anGhhwrsVFDQrPSZyiX/0ooDuTbvnGQYXeUPGDeoZw3lXTgIpuK95
- bpxm7RZpI9uAcuj0K3abvi7CqjaLQ6JpnMsIYcFq4oVVDmd0txOytXSI4WVYCkB+nUlPs0l
- 6jngLxq/orFwuHePptBZBQWOEovx3IgeknyGeI8Pk3SPj4ludK+4hm+9dvghAkU3HO1MINM
- 4nkrlbvIvwAOixz2pzBbQRx7D0nFBj7N7U8JlBOwTAVhVHunrH12RKmVdMHJ/se3bgFZMWQ
- JN2CObFLezrTOreUyK53VvB5+P7SrUbvV6bcxHOFZW/eGffytCSu3FoX+/q9JWRj/1G+lOH
- zLWEdBFEo7C7EOvzCCt5n+T4S+UGE1Do2QrNV1d46bsk7S4bqNz6b7vX1C8QPSkKFWHQuXF
- wrQZM92mLXBrXKzSiDJSghey3g0EFh+IQREafm2Wzyl9TCcpCcqslvoq56lKFVKfk9C/vYe
- l5hIrbv9NSXfg/hdRMNjvGGTDdj+yxQojyWZbas9f9q7DiwBHBe3/uXhEPRzMBJ86L9v7F8
- tvSHGiZ6wIY30XkUS2531O+8F3qDq7uesoIu0c+zmwKDsrgdaseleUMszxuKGTFwFoxnGaW
- M8Z6u4hA/yzVdXAupe0VtoSgIulEOIS8kOhtnMj1ys/PtitrpffnvvRxdml+wDI5r6YP6xg
- VHaXY4lNqdJ+f0oCE6k64PMaXdnJqOIv0FSjrnsCXAKOjEt38oPDNp2FZ0XithQ0GFOZ/ym
- KV92jNtPXg0AZMTCS+vZGpDLA/5LuNW6tVaE/G8w==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88C2C10E139
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 07:34:14 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-37474afe908so644958a91.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 00:34:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780990454; x=1781595254; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=eXLhOufDUGH9RyGTzlJd0uwXniEfiIM0oyP9s5OGvWg=;
+ b=MXO7q7Symupy+OtFcehkT/2WC7xnXVQMP3bp71FSDEVrqdfZ2G4CFWxe9KECY3Hs4U
+ mmI1sARYHSpzUmpZr2AfDU+nFfvObh0aSMIhkThRbjTZXWKbBGBSGJyRo1uc/t1h+0q2
+ Y7Ydr2pQZkpmZulpAwFpBklOvCUdHT7O2lf3FJsQYsIoFPoTPr/OmkpuolZlG8oKsKyZ
+ Oj2/zTFkF/vH+LgBKnXUuXjFLQgPgsVywT2FDOSzFqxxYG4PxgHB7QfDp79b9SrY0xow
+ LoGZgXV0R4v2KgBc9ydZ5Qr5td1kxUlz8PHstBMoKCc1OxfvgB9bI2Ff8dbF68GGvRhC
+ bjPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780990454; x=1781595254;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=eXLhOufDUGH9RyGTzlJd0uwXniEfiIM0oyP9s5OGvWg=;
+ b=ZOL0h8q7YQfuQuqlyr+mit+UM5XQLRZT/btYxJgB7nb0opXVIiYOou+VqtCmc09Vyi
+ xRtqJwjjSzJibOsPA/Pj1rDg5vQrnG4CvSGVWMEl8cgJ4cjHvMZng06KH0oCGk/z0Vlk
+ qGpjprLZqYcpUnCBw7N6En4twLvwtPI72J/t8WRknnhQsFNPw29/Ovqqk1iE1cTmkOe4
+ sxvWkDVZJJGwMqnBHG4w+txPrXcyiU8CymOXKnFy2jqJCwC/QcyBYpuEMZE3FGKqmthM
+ P3hOY/hdeqniSnNzGdTQiKHWiGuXNIWv6oPSXhb6AvhbH7oj87MMbtylknWS1YNsyiCs
+ 1Oew==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+3H+/drYHmt3EAs5092SYS0LAPtJHjHJn4jXXL9MAEm0UlLctS0m5/KLiTHM1+PxWCbBpJ7yo1Sbc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyid4crvLsbO3C4Hd0kJVZoFuJUVVlDMo2cuBI2007XGKpGQxOf
+ HkCHCSr8muezYHICnf5WbXIwKSvieVU5IZDWuYx1YCE97mjZZkFHwIRW
+X-Gm-Gg: Acq92OFF8gg86yEl00lXlZn7rpunkcvKq+SeETQQ96dBbEfygFATR06wCpfNJ+/jZMP
+ Q77VNkfVW3kcLKjM/QNFi1EDWC3i9t3BmYYLb/BPMz65Z06qAFwcU1pp/W9ucoI92HDUSLfYYNk
+ +dJGUOaR/mUSbYpSIQSmy2sbMacZtEjU8E7ErE73YZ5m/kjbfwCvB8zgTFr6aqmKY7CF8b0w29w
+ EcYlLXP69HNMJ/OYnQGqAVwwgA5o9RYOSkBcGqDdenHA5sRfkn5Fz3vl852pYWMqcQvY/fJcR5O
+ A08hRcVanHDrGRbcTsnIbmxi3C7zaL0NCjW/ZWhu+IyettXcTMqYIQP9TbxKw80NzxcQFQmAYaq
+ A+x501AsALEpaMNeB8LHL30IS+o1Y00Ecm9CfYT00K8IldATJGVJB+NPV6rPX9zntBU7lBYoWDc
+ UNHeixppQlftPI5HKPnu5/mXVojMYXWao9/v1SeO94SVGO/lRQaxS9xA==
+X-Received: by 2002:a17:90b:380a:b0:36b:b06c:30a1 with SMTP id
+ 98e67ed59e1d1-370ee447ddemr19641700a91.1.1780990453907; 
+ Tue, 09 Jun 2026 00:34:13 -0700 (PDT)
+Received: from haichao.tail057a43.ts.net
+ ([2001:da8:e000:1206:37c9:44fa:729b:6aaa])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-36f6c76f55asm18214326a91.7.2026.06.09.00.34.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Jun 2026 00:34:13 -0700 (PDT)
+From: Ruoyu Wang <ruoyuw560@gmail.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Ruoyu Wang <ruoyuw560@gmail.com>
+Subject: [PATCH] drm/panfrost: fix runtime PM leak on remove
+Date: Tue,  9 Jun 2026 15:34:07 +0800
+Message-ID: <20260609073407.5-1-ruoyuw560@gmail.com>
+X-Mailer: git-send-email 2.51.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 10 Jun 2026 07:58:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,98 +94,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-CgoKCj5UaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBm
-b3VuZCAyIHBvdGVudGlhbCBpc3N1ZShzKSB0byBjb25zaWRlcjoKCgoKPgoKCgo+TmV3IGlzc3Vl
-czoKCgoKPi0gW0hpZ2hdIFJ1bnRpbWUgUE0gdXNhZ2UgY291bnRlciB1bmRlcmZsb3cgZHVlIHRv
-IGluY29ycmVjdCBlcnJvciBoYW5kbGluZyBvZiBgcG1fcnVudGltZV9nZXRfaWZfYWN0aXZlKClg
-IGluIHRocmVhZGVkIElSUSBoYW5kbGVyLgoKCgo+CmNvbW1pdHOjugoKUmVnYXJkaW5nIHRoZSAt
-RUlOVkFMIGNhc2UgaW4gdGhlIHRocmVhZGVkIElSUSBoYW5kbGVyJ3MgcG1fcnVudGltZV9nZXRf
-aWZfYWN0aXZlKCkgY2FsbCBhdCBsaW5lIDQyMzoKCldoaWxlIGl0IGlzIHRydWUgdGhhdCBhIG5v
-bi16ZXJvIHJldHVybiB2YWx1ZSAoaW5jbHVkaW5nIC1FSU5WQUwpIHdvdWxkIHNhdGlzZnkgdGhl
-IGlmIGNvbmRpdGlvbiwgdGhlIGNvbmNlcm4gYWJvdXQgdW5kZXJmbG93IGRvZXMgbm90IGFwcGx5
-IGluIHByYWN0aWNlLiBUaGlzIGlzIGJlY2F1c2UgcG1fcnVudGltZV9nZXRfaWZfYWN0aXZlKCkg
-cmV0dXJucyAtRUlOVkFMIG9ubHkgd2hlbiBkaXNhYmxlX2RlcHRoID4gMCAoc2VlIHJ1bnRpbWUu
-YzoxMjM0KSwgd2hpY2ggbWVhbnMgcG1fcnVudGltZV9kaXNhYmxlKCkgaGFzIGJlZW4gY2FsbGVk
-IG9uIHRoZSBkZXZpY2UuIEluIHRoaXMgZHJpdmVyLCBwbV9ydW50aW1lX2Rpc2FibGUoKSBpcyBv
-bmx5IGNhbGxlZCBpbiByb2NrZXRfY29yZV9maW5pKCkgKHJvY2tldF9jb3JlLmM6MTAwKSwgYWZ0
-ZXIgdGhlIElSUSBoYW5kbGVyIGhhcyBiZWVuIHRvcm4gZG93biBieSByb2NrZXRfam9iX2Zpbmko
-KS4gU28gdGhlIHRocmVhZGVkIElSUSBoYW5kbGVyIGNhbiBuZXZlciBleGVjdXRlIHdoaWxlIFBN
-IGlzIGRpc2FibGVkIKGqIHRoZSB0d28gc3RhdGVzIGFyZSBtdXR1YWxseSBleGNsdXNpdmUgaW4g
-dGhlIGRyaXZlcidzIGxpZmVjeWNsZS4KCkZ1cnRoZXJtb3JlLCBldmVuIGlmIHRoaXMgdGhlb3Jl
-dGljYWwgcGF0aCB3ZXJlIHNvbWVob3cgcmVhY2hlZCwgdGhlIGtlcm5lbCdzIHJ1bnRpbWUgUE0g
-c3Vic3lzdGVtIGhhcyBhbiBleHBsaWNpdCB1bmRlcmZsb3cgZ3VhcmQgaW4gcnBtX2Ryb3BfdXNh
-Z2VfY291bnQoKSAocnVudGltZS5jOjEwNzktMTA5Nik6IGl0IGF0b21pY2FsbHkgZGVjcmVtZW50
-cyB0aGUgdXNhZ2UgY291bnQsIGFuZCBpZiB0aGUgcmVzdWx0IGlzIG5lZ2F0aXZlLCBpdCBpbW1l
-ZGlhdGVseSBpbmNyZW1lbnRzIGl0IGJhY2sgYW5kIGVtaXRzIGEgZGV2X3dhcm4uIFRoZSB1c2Fn
-ZSBjb3VudCBpcyBuZXZlciBhbGxvd2VkIHRvIGdvIG5lZ2F0aXZlLgoKVGhhdCBzYWlkLCB0aGUg
-aGFyZGlycSBoYW5kbGVyIGF0IGxpbmUgNDM3IGFscmVhZHkgdXNlcyAhPSAxIGZvciB0aGlzIGV4
-YWN0IHJlYXNvbi4gRm9yIGNvbnNpc3RlbmN5IGFuZCBkZWZlbnNlLWluLWRlcHRoLCBjaGFuZ2lu
-ZyB0aGUgdGhyZWFkIGhhbmRsZXIgdG8gdXNlICE9IDEgYXMgd2VsbCBpcyBhIHJlYXNvbmFibGUg
-aW1wcm92ZW1lbnQgYW5kIGNhbiBiZSBkb25lIGluIGEgZm9sbG93LXVwIGlmIGRlc2lyZWQuCgoK
-Cj5QcmUtZXhpc3RpbmcgaXNzdWVzOgoKCgo+LSBbSGlnaF0gUmV0dXJuaW5nIGBJUlFfTk9ORWAg
-Zm9yIHZhbGlkIERNQSBlcnJvciBpbnRlcnJ1cHRzIHdpdGhvdXQgY2xlYXJpbmcgdGhlIGludGVy
-cnVwdCBzdGF0dXMgY2F1c2VzIGEgaGFyZGlycSBzdG9ybS4KCgoKPi0tCgoKCj4KCgoKPmNvbW1p
-dCA1ZDg5OTNmNmFiZTU3OWRlN2VlYzdmNGM5ODM2NWUxMWRkMTQxYmY4CgoKCj5BdXRob3I6IFpo
-YW9KaW5taW5nIDx6aGFvamlubWluZ0B1bmlvbnRlY2guY29tPgoKCgo+CgoKCj5hY2NlbC9yb2Nr
-ZXQ6IEZpeCBpb21tdV9ncm91cCBsZWFrIGFuZCB1bnNhZmUgSVJRIHJlZ2lzdGVyIGFjY2VzcwoK
-Cgo+CgoKCj5UaGlzIGNvbW1pdCBmaXhlcyBhbiBpb21tdV9ncm91cCByZWZlcmVuY2UgbGVhayBp
-biB0aGUgSVJRIGhhbmRsaW5nIHBhdGgKCgoKPmFuZCBpbnRyb2R1Y2VzIHJ1bnRpbWUgUE0gY2hl
-Y2tzIGluIHRoZSBJUlEgaGFuZGxlcnMgdG8gcHJldmVudCB1bnNhZmUKCgoKPmhhcmR3YXJlIHJl
-Z2lzdGVyIGFjY2VzcyB3aGVuIHRoZSBkZXZpY2UgaXMgc3VzcGVuZGVkLgoKCgo+CgoKCj4+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2FjY2VsL3JvY2tldC9yb2NrZXRfam9iLmMgYi9kcml2ZXJzL2Fj
-Y2VsL3JvY2tldC9yb2NrZXRfam9iLmMKCgoKPj4gaW5kZXggY2Y5ZjYxNjgyZGQ4Yi4uNmFjNzli
-ODUxNzMxOSAxMDA2NDQKCgoKPj4gLS0tIGEvZHJpdmVycy9hY2NlbC9yb2NrZXQvcm9ja2V0X2pv
-Yi5jCgoKCj4+ICsrKyBiL2RyaXZlcnMvYWNjZWwvcm9ja2V0L3JvY2tldF9qb2IuYwoKCgo+WyAu
-Li4gXQoKCgo+PiBAQCAtNDIwLDcgKzQyMCwxMCBAQCBzdGF0aWMgaXJxcmV0dXJuX3Qgcm9ja2V0
-X2pvYl9pcnFfaGFuZGxlcl90aHJlYWQoaW50IGlycSwgdm9pZCAqZGF0YSkKCgoKPj4/IHsKCgoK
-Pj4/IAlzdHJ1Y3Qgcm9ja2V0X2NvcmUgKmNvcmUgPSBkYXRhOwoKCgo+Pj8gCgoKCj4+IC0Jcm9j
-a2V0X2pvYl9oYW5kbGVfaXJxKGNvcmUpOwoKCgo+PiArCWlmIChwbV9ydW50aW1lX2dldF9pZl9h
-Y3RpdmUoY29yZS0+ZGV2KSkgewoKCgo+PiArCQlyb2NrZXRfam9iX2hhbmRsZV9pcnEoY29yZSk7
-CgoKCj4+ICsJCXBtX3J1bnRpbWVfcHV0KGNvcmUtPmRldik7CgoKCj4+ICsJfQoKCgo+Pj8gCgoK
-Cj4+PyAJcmV0dXJuIElSUV9IQU5ETEVEOwoKCgo+Pj8gfQoKCgo+CgoKCj5bU2V2ZXJpdHk6IEhp
-Z2hdCgoKCj5Eb2VzIHRoaXMgZXZhbHVhdGlvbiBoYW5kbGUgbmVnYXRpdmUgZXJyb3IgY29kZXMg
-Y29ycmVjdGx5PwoKCgo+CgoKCj5wbV9ydW50aW1lX2dldF9pZl9hY3RpdmUoKSByZXR1cm5zIDEg
-aWYgdGhlIGRldmljZSBpcyBhY3RpdmUsIDAgaWYgaW5hY3RpdmUsCgoKCj5hbmQgYSBuZWdhdGl2
-ZSBlcnJvciBjb2RlIChzdWNoIGFzIC1FSU5WQUwpIGlmIHJ1bnRpbWUgUE0gaXMgZGlzYWJsZWQu
-IEJlY2F1c2UKCgoKPmFueSBub24temVybyB2YWx1ZSBldmFsdWF0ZXMgdG8gdHJ1ZSBpbiBDLCBh
-IG5lZ2F0aXZlIHJldHVybiB2YWx1ZSB3aWxsIHNhdGlzZnkKCgoKPnRoaXMgY29uZGl0aW9uLgoK
-Cgo+CgoKCj5JZiB0aGF0IGhhcHBlbnMsIHRoZSBjb2RlIHByb2NlZWRzIHRvIGNhbGwgcG1fcnVu
-dGltZV9wdXQoKS4gU2luY2UgdGhlIGluaXRpYWwKCgoKPmdldCBjYWxsIGZhaWxlZCBhbmQgZGlk
-IG5vdCBpbmNyZW1lbnQgdGhlIHVzYWdlIGNvdW50ZXIsIHdvdWxkbid0IHRoaXMKCgoKPnVuY29u
-ZGl0aW9uYWxseSBkZWNyZW1lbnQgdGhlIGNvdW50ZXIgYW5kIGxlYWQgdG8gYW4gdW5kZXJmbG93
-PwoKCgo+CgoKCj5Db3VsZCB0aGlzIGV4cGxpY2l0bHkgY2hlY2sgZm9yIHN1Y2Nlc3MsIHN1Y2gg
-YXMgZXZhbHVhdGluZyBpZiB0aGUgcmV0dXJuIHZhbHVlCgoKCj5pcyBzdHJpY3RseSBlcXVhbCB0
-byAxPwoKCgo+CgoKCj4+IEBAIC00MjgsMTYgKzQzMSwyNCBAQCBzdGF0aWMgaXJxcmV0dXJuX3Qg
-cm9ja2V0X2pvYl9pcnFfaGFuZGxlcl90aHJlYWQoaW50IGlycSwgdm9pZCAqZGF0YSkKCgoKPj4/
-IHN0YXRpYyBpcnFyZXR1cm5fdCByb2NrZXRfam9iX2lycV9oYW5kbGVyKGludCBpcnEsIHZvaWQg
-KmRhdGEpCgoKCj4+PyB7CgoKCj4+PyAJc3RydWN0IHJvY2tldF9jb3JlICpjb3JlID0gZGF0YTsK
-CgoKPj4gLQl1MzIgcmF3X3N0YXR1cyA9IHJvY2tldF9wY19yZWFkbChjb3JlLCBJTlRFUlJVUFRf
-UkFXX1NUQVRVUyk7CgoKCj4+ICsJdTMyIHJhd19zdGF0dXM7CgoKCj4+ICsKCgoKPj4gKwlpZiAo
-cG1fcnVudGltZV9nZXRfaWZfYWN0aXZlKGNvcmUtPmRldikgIT0gMSkKCgoKPj4gKwkJcmV0dXJu
-IElSUV9OT05FOwoKCgo+PiArCgoKCj4+ICsJcmF3X3N0YXR1cyA9IHJvY2tldF9wY19yZWFkbChj
-b3JlLCBJTlRFUlJVUFRfUkFXX1NUQVRVUyk7CgoKCj4+PyAKCgoKPj4/IAlXQVJOX09OKHJhd19z
-dGF0dXMgJiBQQ19JTlRFUlJVUFRfUkFXX1NUQVRVU19ETUFfUkVBRF9FUlJPUik7CgoKCj4+PyAJ
-V0FSTl9PTihyYXdfc3RhdHVzICYgUENfSU5URVJSVVBUX1JBV19TVEFUVVNfRE1BX1dSSVRFX0VS
-Uk9SKTsKCgoKPj4/IAoKCgo+Pj8gCWlmICghKHJhd19zdGF0dXMgJiBQQ19JTlRFUlJVUFRfUkFX
-X1NUQVRVU19EUFVfMCB8fAoKCgo+PiAtCT8/Pz8/IHJhd19zdGF0dXMgJiBQQ19JTlRFUlJVUFRf
-UkFXX1NUQVRVU19EUFVfMSkpCgoKCj4+ICsJPz8/Pz8gcmF3X3N0YXR1cyAmIFBDX0lOVEVSUlVQ
-VF9SQVdfU1RBVFVTX0RQVV8xKSkgewoKCgo+PiArCQlwbV9ydW50aW1lX3B1dChjb3JlLT5kZXYp
-OwoKCgo+Pj8gCQlyZXR1cm4gSVJRX05PTkU7CgoKCj4+ICsJfQoKCgo+Pj8gCgoKCj4+PyAJcm9j
-a2V0X3BjX3dyaXRlbChjb3JlLCBJTlRFUlJVUFRfTUFTSywgMHgwKTsKCgoKPj4gKwlwbV9ydW50
-aW1lX3B1dChjb3JlLT5kZXYpOwoKCgo+Pj8gCgoKCj4+PyAJcmV0dXJuIElSUV9XQUtFX1RIUkVB
-RDsKCgoKPj4/IH0KCgoKPgoKCgo+W1NldmVyaXR5OiBIaWdoXQoKCgo+VGhpcyBpc24ndCBhIGJ1
-ZyBpbnRyb2R1Y2VkIGJ5IHRoaXMgcGF0Y2gsIGJ1dCB3aWxsIHRoaXMgY2F1c2UgYSBoYXJkaXJx
-IHN0b3JtCgoKCj5pZiBhIERNQSBlcnJvciBvY2N1cnMgd2l0aG91dCBhIERQVSBjb21wbGV0aW9u
-PwoKCgo+CgoKCj5JZiBhbiBpbnRlcnJ1cHQgaXMgcmFpc2VkIGR1ZSB0byBhIERNQSByZWFkIG9y
-IHdyaXRlIGVycm9yLCB0aGUgY29kZSBsb2dzIGEKCgoKPndhcm5pbmcgdmlhIFdBUk5fT04uIEhv
-d2V2ZXIsIGlmIHRoZSBEUFUgY29tcGxldGlvbiBiaXRzIGFyZSBub3Qgc2V0LCB0aGUKCgoKPmhh
-bmRsZXIgcmV0dXJucyBJUlFfTk9ORSB3aXRob3V0IGNsZWFyaW5nLCBhY2tub3dsZWRnaW5nLCBv
-ciBtYXNraW5nIHRoZQoKCgo+cGVuZGluZyBpbnRlcnJ1cHQuCgoKCj4KCgoKPlNpbmNlIHRoZSBp
-bnRlcnJ1cHQgcmVtYWlucyBhc3NlcnRlZCBhdCB0aGUgaGFyZHdhcmUgbGV2ZWwsIHdvbid0IHRo
-ZSBrZXJuZWwncwoKCgo+SVJRIGNvcmUgaW1tZWRpYXRlbHkgcmUtaW52b2tlIHRoZSBoYW5kbGVy
-IGluIGFuIGluZmluaXRlIGxvb3AsIGhhbmdpbmcgdGhlIENQVQoKCgo+dW50aWwgdGhlIHNwdXJp
-b3VzIGludGVycnVwdCBkZXRlY3RvciBwZXJtYW5lbnRseSBkaXNhYmxlcyB0aGUgc2hhcmVkIElS
-USBsaW5lPwoKCgo+CgoKCj4tLSAKCgoKPlNhc2hpa28gQUkgcmV2aWV3IKGkIGh0dHBzOi8vc2Fz
-aGlrby5kZXYvIy9wYXRjaHNldC8yMDI2MDYxMDAzMDMyMi4yODAyNzQ0LTEtemhhb2ppbm1pbmdA
-dW5pb250ZWNoLmNvbT9wYXJ0PTIKCgoKPgoKCg==
+pm_runtime_get_sync() increments the runtime PM usage counter even when it
+returns an error. panfrost_remove() uses it to keep the GPU active while
+runtime PM is disabled and the device is finalized, but the usage counter
+is not dropped afterwards.
+
+Balance the get with pm_runtime_put_noidle() after disabling runtime PM.
+This drops the extra usage count without requesting a runtime suspend,
+preserving the existing teardown sequence that avoids suspending after
+panfrost_device_fini().
+
+Fixes: 876b15d2c88d ("drm/panfrost: Fix module unload")
+Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
+---
+ drivers/gpu/drm/panfrost/panfrost_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index 074c0995ddc26..d78ea7d4d099e 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -1027,6 +1027,7 @@ static void panfrost_remove(struct platform_device *pdev)
+ 
+ 	pm_runtime_get_sync(pfdev->base.dev);
+ 	pm_runtime_disable(pfdev->base.dev);
++	pm_runtime_put_noidle(pfdev->base.dev);
+ 	panfrost_device_fini(pfdev);
+ 	pm_runtime_set_suspended(pfdev->base.dev);
+ }
+-- 
+2.51.0
 
