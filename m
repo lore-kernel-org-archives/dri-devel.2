@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2C79CD8C9D
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 03:09:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACA93CD8C85
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 03:14:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45CD510E060;
-	Tue,  9 Jun 2026 03:09:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A88B10E064;
+	Tue,  9 Jun 2026 03:14:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EcPvvzt/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f7kVCYNK";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F9C210E060
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 03:09:39 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1A6210E073
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 03:14:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EFDC843236;
- Tue,  9 Jun 2026 03:09:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B46381F00893;
- Tue,  9 Jun 2026 03:09:38 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D8A04601E1;
+ Tue,  9 Jun 2026 03:14:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6925E1F00893;
+ Tue,  9 Jun 2026 03:14:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780974578;
- bh=AoV/CQM8ZY6Q5fQPSNu3Iu0fWDKrYnXD21mBjTDihbc=;
+ s=k20260515; t=1780974847;
+ bh=fMSpDaUcLpaCbDsO6SxQ6E8t7LppmJY4agXtUWtvvfk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=EcPvvzt/MJzak98bqtbVaM7d4do6YDFs3QtzlfiRsRQd5ylm0BisazH0M3ndCHsxj
- kxlF5Yt3eQzpCL909M5VOvw2R+KoBWskhilAK2KuaSWRrf0cjUyuV7eztSUjvency4
- IR50k6X4xBLHvRfC+ZQHepb81h+JgCTdPxDcp/5/4B6Ymo6GrawjRsueLUMtY5125i
- 2TRDNdyk31bDiWn5RVjTDb6GDT69vGp9OpKw69kOuZ4wF1X6naz6Lt5FkWvxoUBQ44
- s6DKqXRS1i6gsN8ED2HCpDlK7KcLsdfI/5+pNCtPnFvPQ2r+nwihYEro95Kbk4Srjm
- Hri1ogAbecYxw==
+ b=f7kVCYNKnZ+WlqGg3JjtkahV9rWX8oEkUjmvYORU3+MssVR77ZwS69KGVlvoeGd3y
+ Y8qD9BhJ+poF8kYXfaWelldIZrwvqgKIjflQOw2J8gEd71Wy4HlEYzTlFFkqop6VAw
+ PR82Xp7z9OGmnj2J0d9tGGncENp36hR15RuOvt7bwFcJrWePzU8lBPtVQImzVP4Ll3
+ /BTwjTborPk5PiOuzIqFKlH9sCeidr1EgkiwW/1yTaJW5PuxKMRFZTXP5DxWcrSAHs
+ klYceQlcI9jeEFAsOjzhao7kj3XALVmrle9oSQtGmfcR2rv+qRdxvPb7q0iFLXc3O5
+ eyfD6/6/3kk2w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/4] misc: fastrpc: Remove buffer from list prior to
- unmap operation
+Subject: Re: [PATCH v8 1/4] misc: fastrpc: Fix initial memory allocation for
+ Audio PD memory pool
 To: "Jianping Li" <jianping.li@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260609025938.457-3-jianping.li@oss.qualcomm.com>
-References: <20260609025938.457-3-jianping.li@oss.qualcomm.com>
+In-Reply-To: <20260609025938.457-2-jianping.li@oss.qualcomm.com>
+References: <20260609025938.457-2-jianping.li@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 03:09:38 +0000
-Message-Id: <20260609030938.B46381F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 03:14:07 +0000
+Message-Id: <20260609031407.6925E1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,111 +60,70 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
-New issues:
-- [Critical] The patch introduces a critical use-after-free and list corrup=
-tion vulnerability in the fastrpc_req_mmap() error path.
-
 Pre-existing issues:
-- [High] Concurrent accesses to fl->mmaps without holding fl->lock when han=
-dling -ERESTARTSYS.
+- [High] `fastrpc_map_attach()` doubly detaches and frees `map->buf` when e=
+rror checks fail after mapping.
+- [High] Pending invocation contexts and associated DMA mappings are perman=
+ently leaked if the remote DSP crashes.
 --
 
-commit a53abf279a47f6742d5cb44fb5a332592c4787b8
+commit c836369bdd9f243155871c03517e477035418fb9
 Author: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 
-misc: fastrpc: Remove buffer from list prior to unmap operation
+misc: fastrpc: Fix initial memory allocation for Audio PD memory pool
 
-This commit removes the buffer from the fastrpc user's mapped list before
-calling the unmap operation to prevent concurrent unmap races. If the
-unmap operation fails, the buffer is re-added to the list.
+This commit fixes an issue where the initial buffer allocated for the
+Audio PD memory pool was not registered because pageslen was 0. It updates
+pageslen to 1 to ensure the buffer is correctly added to the pool.
 
 > diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index 96961217b8569..517884000331b 100644
+> index a9b2ae44c06f6..96961217b8569 100644
 > --- a/drivers/misc/fastrpc.c
 > +++ b/drivers/misc/fastrpc.c
-> @@ -1889,9 +1889,6 @@ static int fastrpc_req_munmap_impl(struct fastrpc_u=
-ser *fl, struct fastrpc_buf *
->  				      &args[0]);
->  	if (!err) {
->  		dev_dbg(dev, "unmmap\tpt 0x%09lx OK\n", buf->raddr);
-> -		spin_lock(&fl->lock);
-> -		list_del(&buf->node);
-> -		spin_unlock(&fl->lock);
-
-[Severity: Critical]
-Does removing this list_del() introduce a use-after-free in the error
-path of fastrpc_req_mmap()?
-
-When fastrpc_req_mmap() encounters a copy_to_user() failure after successfu=
-lly
-adding the buffer to the fl->mmaps list, it jumps to the err_assign label
-and calls fastrpc_req_munmap_impl() without first unlinking the buffer:
-
-drivers/misc/fastrpc.c:fastrpc_req_mmap() {
-        ...
-        spin_lock(&fl->lock);
-        list_add_tail(&buf->node, &fl->mmaps);
-        spin_unlock(&fl->lock);
-
-        if (copy_to_user((void __user *)argp, &req, sizeof(req))) {
-                err =3D -EFAULT;
-                goto err_assign;
-        }
-        ...
-err_assign:
-        fastrpc_req_munmap_impl(fl, buf);
-
-        return err;
-}
-
-Since fastrpc_req_munmap_impl() no longer removes the buffer from fl->mmaps
-before calling fastrpc_buf_free(), the freed buffer will remain in the
-list. Subsequent traverses of fl->mmaps will trigger a use-after-free.
-
->  		fastrpc_buf_free(buf);
->  	} else {
->  		dev_err(dev, "unmmap\tpt 0x%09lx ERROR\n", buf->raddr);
 
 [ ... ]
 
-> @@ -1924,7 +1923,14 @@ static int fastrpc_req_munmap(struct fastrpc_user =
-*fl, char __user *argp)
->  		return -EINVAL;
->  	}
-> =20
-> -	return fastrpc_req_munmap_impl(fl, buf);
-> +	err =3D fastrpc_req_munmap_impl(fl, buf);
+[Severity: High]
+This is a pre-existing issue, but does fastrpc_map_attach() doubly detach
+and free map->buf when error checks fail after mapping?
+
+If an error occurs after map->table is successfully assigned, the error
+handling block runs:
+
+fastrpc_map_attach() {
+        ...
+map_err:
+        dma_buf_detach(map->buf, map->attach);
+attach_err:
+        dma_buf_put(map->buf);
+get_err:
+        fastrpc_map_put(map);
+}
+
+Since fastrpc_map_put() invokes fastrpc_free_map(), which also calls
+dma_buf_detach() and dma_buf_put() if map->table is set, does this cause a
+double free and reference count underflow?
 
 [Severity: High]
-This isn't a bug introduced by this patch, but while reviewing the mmap
-list handling here, I noticed concurrent modifications to fl->mmaps happen
-locklessly in fastrpc_internal_invoke() when handling -ERESTARTSYS:
+This is a pre-existing issue, but does fastrpc_rpmsg_remove() permanently
+leak pending invocation contexts and associated DMA mappings if the remote
+DSP crashes?
 
-drivers/misc/fastrpc.c:fastrpc_internal_invoke() {
+When fastrpc_invoke_send() sends a message to the DSP, it takes a reference
+on the context via fastrpc_context_get(ctx) to represent DSP ownership. If
+the DSP crashes, fastrpc_rpmsg_remove() runs:
+
+fastrpc_rpmsg_remove() {
         ...
-        if (err =3D=3D -ERESTARTSYS) {
-                list_for_each_entry_safe(buf, b, &fl->mmaps, node) {
-                        list_del(&buf->node);
-                        list_add_tail(&buf->node,=20
-                                      &fl->cctx->invoke_interrupted_mmaps);
-                }
-        }
+        list_for_each_entry(user, &cctx->users, user)
+                fastrpc_notify_users(user);
         ...
 }
 
-Can this lead to list corruption if another thread concurrently executes
-fastrpc_req_mmap() or fastrpc_req_munmap() and modifies fl->mmaps with
-fl->lock held?
-
-> +	if (err) {
-> +		spin_lock(&fl->lock);
-> +		list_add_tail(&buf->node, &fl->mmaps);
-> +		spin_unlock(&fl->lock);
-> +	}
-> +
-> +	return err;
->  }
+Since the rpmsg channel is removed, the callback will never fire. Does
+fastrpc_notify_users() wake up waiting threads without dropping the DSP's
+reference count, preventing the ctx reference count from ever reaching zero?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609025938.457-=
-1-jianping.li@oss.qualcomm.com?part=3D2
+1-jianping.li@oss.qualcomm.com?part=3D1
