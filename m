@@ -4,63 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FF66CD8CAE
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 05:54:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52895CD8CAE
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 06:14:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9338210E09E;
-	Tue,  9 Jun 2026 05:54:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B48110E0AB;
+	Tue,  9 Jun 2026 06:14:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lRlti4pi";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="qudDzkMG";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="WlibRiNa";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="El2rKelc";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2Hws68a0";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D971110E09E
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 05:54:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780984467; x=1812520467;
- h=message-id:date:mime-version:subject:from:to:cc:
- references:in-reply-to:content-transfer-encoding;
- bh=TLsSDV9VD3WU6t5YlfaCQGPVqBXO7S58BIho6lpCVAE=;
- b=lRlti4pi+5Up0Qpg8DHR2LoGi3/XEzA/nzqEJp8knSYhLQu77Fxrr21K
- 8vBodGbiN0yJ2nP6Xm/ItSKic7k4xlmoO+XgYQFmsPbgQIY+NVBUcN6sp
- Lbj+XVZu5XUKXtrwu7WFadQft6vmTZmwLiN2eI1lUYzmXkjuDJ4KtHNAn
- uuZYZ7RINLOUER1qEJQonl4JRVtQ7Ay1KHiqT6Nx9VDEggN9p/bA360/2
- 3Wp2xmwxjqdLuB5I0EghKYiRR+MkafsWQIHsC/feeXI+C4n49NvaBFc/L
- CuPpx4cuBQ0XGTcVsGkLJqmlbALGf6UvMXEwi/ABGGXkOkr4eo0xR1szK A==;
-X-CSE-ConnectionGUID: N01aA//hRoyPCVykErYX4g==
-X-CSE-MsgGUID: Xpne1rubTUSRHsxTwBXRNg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11811"; a="81848119"
-X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; d="scan'208";a="81848119"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2026 22:54:27 -0700
-X-CSE-ConnectionGUID: pTw9gR2qRp+fJwoLhYgLrg==
-X-CSE-MsgGUID: A7BylG1uT/WQSBslCyt3dQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; d="scan'208";a="239429711"
-Received: from soc-pf6038af.clients.intel.com (HELO [10.217.180.44])
- ([10.217.180.44])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2026 22:54:24 -0700
-Message-ID: <738b9a7d-3e5c-4788-9b77-649eb914161f@linux.intel.com>
-Date: Tue, 9 Jun 2026 07:54:22 +0200
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FAC910E0AB
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 06:14:47 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5736067D6D;
+ Tue,  9 Jun 2026 06:14:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780985685; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6dArV38iGqF9GXJ/TV27PoGxLpG8ZojqfWws79F99Yg=;
+ b=qudDzkMGLhMnB3kLZJrb2OmFoW0MxPinrB1iR8wfKdNHpczzyfM9D6QLolYGqnHWNdwnvY
+ i/QclpRY3auF1vPvH5gD3pVDnN90ZinIR+AIZYr3OFkFbS8MO/8RaBTfACMRUV4Ik0A9+c
+ /obk+yMCCirrDWobno4A5Hg9GTgVKI4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780985685;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6dArV38iGqF9GXJ/TV27PoGxLpG8ZojqfWws79F99Yg=;
+ b=WlibRiNa5CwdGCtRUuRjMQjqtM/NY8Qtv8rxifl9xB/pfrACfqpcSMB8oLoAEuBtl1+I3x
+ HrjfAgS/w0256sAg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1780985684; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6dArV38iGqF9GXJ/TV27PoGxLpG8ZojqfWws79F99Yg=;
+ b=El2rKelc3gdu9lt3ec1AfHViZoCiJfdCI45nLNHps1NblkCUvSY7dl5+9xErMHnmew2wpo
+ gRufPkER31sLx5o76AqBinK5jGML/uYt85aSi7MpM8OgRUXBYI2lNquVcliP4REMqkyHnL
+ 5cvxknwD3LldG58TEny/iOdzq1C4SuQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1780985684;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6dArV38iGqF9GXJ/TV27PoGxLpG8ZojqfWws79F99Yg=;
+ b=2Hws68a0+497qKHIUCOjpaUFOn49UeK32AiL8Dg/YjSwVVnLQta43JTgaM+Dlk5hZx+99I
+ YU1xUWlgBFhwzXDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2B950779A7;
+ Tue,  9 Jun 2026 06:14:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id o1PsCFSvJ2rwVQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 09 Jun 2026 06:14:44 +0000
+Message-ID: <aaf75c58-c9d5-464a-9651-0021e6784e09@suse.de>
+Date: Tue, 9 Jun 2026 08:14:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] accel/ivpu: Fix signed integer truncation in IPC
- receive
-From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
-To: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+Subject: Re: [PATCH] lib/fonts: Avoid unncessary 64-bit math in font code
+To: Helge Deller <deller@kernel.org>,
+ Ethan Nelson-Moore <enelsonmoore@gmail.com>
+Cc: Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
  dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
- dawid.osuchowski@linux.intel.com, david.laight.linux@gmail.com,
- stable@vger.kernel.org
-References: <b464b589-2d28-4617-baf0-eefbe14e170a@linux.intel.com>
- <20260601161643.229342-1-andrzej.kacprowski@linux.intel.com>
- <7218fa4b-bb09-47a8-a2ab-7d381cf7d897@linux.intel.com>
+References: <20260607210203.229613-1-deller@gmx.de>
+ <b80a379d-87e4-45c4-a078-09e84a840895@suse.de>
+ <1492766a-c349-4cca-932e-bf608b922b6b@gmx.de>
+ <CADkSEUg948W-XT3_ODe_6p4i5Y8AKEcP=rmJ+7qJq30Uq0d_EQ@mail.gmail.com>
+ <aiclYUfQvMokMu64@carbonx1>
 Content-Language: en-US
-In-Reply-To: <7218fa4b-bb09-47a8-a2ab-7d381cf7d897@linux.intel.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <aiclYUfQvMokMu64@carbonx1>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.998]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; TO_DN_SOME(0.00)[];
+ MIME_TRACE(0.00)[0:+]; FREEMAIL_TO(0.00)[kernel.org,gmail.com];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[gmx.de,vger.kernel.org,lists.freedesktop.org];
+ RCPT_COUNT_FIVE(0.00)[5]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:mid, gmx.de:email,
+ imap1.dmz-prg2.suse.org:helo, suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,46 +145,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 08-Jun-26 9:27, Wachowski, Karol wrote:
-> On 01-Jun-26 18:16, Andrzej Kacprowski wrote:
->> Fix potential buffer overflow where firmware-supplied data_size is cast
->> to signed int before being used in min_t(). Large unsigned values
->> (>= 0x80000000) become negative, causing unsigned wraparound and
->> oversized memcpy operations that can overflow the stack buffer.
->>
->> Change min_t(int, ...) to min() as both values are unsigned and can be
->> handled by min() without explicit cast.
->>
->> Fixes: 3b434a3445ff ("accel/ivpu: Use threaded IRQ to handle JOB done 
->> messages")
->> Cc: <stable@vger.kernel.org> # v6.12+
->> Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
->> ---
->> Changes in v2:
->> - Replaced min_t() with min()
-> 
-> Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
-> 
->>
->>   drivers/accel/ivpu/ivpu_ipc.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/accel/ivpu/ivpu_ipc.c b/drivers/accel/ivpu/ 
->> ivpu_ipc.c
->> index f47df092bb0d..9347f05a2b79 100644
->> --- a/drivers/accel/ivpu/ivpu_ipc.c
->> +++ b/drivers/accel/ivpu/ivpu_ipc.c
->> @@ -276,7 +276,7 @@ int ivpu_ipc_receive(struct ivpu_device *vdev, 
->> struct ivpu_ipc_consumer *cons,
->>       if (ipc_buf)
->>           memcpy(ipc_buf, rx_msg->ipc_hdr, sizeof(*ipc_buf));
->>       if (rx_msg->jsm_msg) {
->> -        u32 size = min_t(int, rx_msg->ipc_hdr->data_size, 
->> sizeof(*jsm_msg));
->> +        u32 size = min(rx_msg->ipc_hdr->data_size, sizeof(*jsm_msg));
->>           if (rx_msg->jsm_msg->result != VPU_JSM_STATUS_SUCCESS) {
->>               ivpu_err(vdev, "IPC resp result error: %d\n", rx_msg- 
->> >jsm_msg->result);
-> 
+Hi,
 
-Pushed to drm-misc-fixes.
+thanks for the fix.
+
+Am 08.06.26 um 22:26 schrieb Helge Deller:
+> * Ethan Nelson-Moore <enelsonmoore@gmail.com>:
+>> Hi, Helge and Thomas,
+>>
+>> On Mon, Jun 8, 2026 at 12:58 PM Helge Deller <deller@gmx.de> wrote:
+>>> On 6/8/26 13:25, Thomas Zimmermann wrote:
+>>>> Why is there a 64-bit division at all?
+>>> Not sure. Might be platform specific.
+>>> Maybe, because you add two integers and divide by an integer, that the
+>>> compiler then chooses to use 64-bit integer division by 32-bit integer.
+>> Actually, I think the real issue is that
+>> arch/arm/boot/compressed/Makefile defines "static" to nothing when
+>> compiling its copy of lib/fonts/font_acorn_8x8.c (via font.c), so that
+>> the font array is available outside of the object file. I assume that
+>> this causes various unused static inline functions in the headers it
+>> includes (such as <linux/math.h>) to be included in the object file
+>> because they become normal inline functions.
+> Does this patch fix the issue then?
+>
+> diff --git a/arch/arm/boot/compressed/Makefile b/arch/arm/boot/compressed/Makefile
+> index a159120d1e42..e3f550d62857 100644
+> --- a/arch/arm/boot/compressed/Makefile
+> +++ b/arch/arm/boot/compressed/Makefile
+> @@ -157,4 +157,4 @@ $(obj)/piggy_data: $(obj)/../Image FORCE
+>   
+>   $(obj)/piggy.o: $(obj)/piggy_data
+>   
+> -CFLAGS_font.o := -Dstatic=
+> +CFLAGS_font.o := -DBOOTLOADER
+> diff --git a/lib/fonts/font_acorn_8x8.c b/lib/fonts/font_acorn_8x8.c
+> index 36c51016769d..3327aa6d161d 100644
+> --- a/lib/fonts/font_acorn_8x8.c
+> +++ b/lib/fonts/font_acorn_8x8.c
+> @@ -5,7 +5,11 @@
+>   
+>   #define FONTDATAMAX 2048
+>   
+> +#ifndef BOOTLOADER
+>   static const struct font_data acorndata_8x8 = {
+> +#else
+> +const struct font_data acorndata_8x8 = {
+> +#endif
+>   { 0, 0, FONTDATAMAX, 0 }, {
+>   /* 00 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* ^@ */
+>   /* 01 */  0x7e, 0x81, 0xa5, 0x81, 0xbd, 0x99, 0x81, 0x7e, /* ^A */
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+I do like this better than the other patch.
+
+Best regards
+Thomas
+
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
