@@ -4,70 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DED6CD98C8
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 17:24:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D95BECD8CB2
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 17:31:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E0AC10E57B;
-	Tue,  9 Jun 2026 17:24:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D93D10E577;
+	Tue,  9 Jun 2026 17:31:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="bc+sHZUz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AbV7imMY";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC85310E566;
- Tue,  9 Jun 2026 17:24:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=vkWjdZEEK6l/tP876mm0YBiUu/HDkRP00MJLIgeUa84=; b=bc+sHZUzPEFyRmoxzi1d7tODvH
- l0fUqBtQ13lLqVfTYvVOzS7+mvfj/FBEBzDN48eMk8+WEVUGYYZ/IloVnrU92vpMdXRjiv/Uy00H4
- jskdzxmLzvC4ZbfQ3OaANuohLlDD61aV0cj/E5RCFaxU+Xdj81MmzBPMqyW7fR55oXhlwL0ELUPQX
- Mz5omswZozJaYNUiqstG6rys+boYlJkpgKE58uJ8j1/fQc/MhkDoaSeWHqORl9p8ymGpepdFwW2Uk
- Ucz6Xn/MAa2+ceRqZeaYChuoMNDeLIF0azfYhF6F3LhKOg/7GHe9Gl20j/fCYDtMDxBzunGIwY2jr
- TJAqZMFA==;
-Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
- helo=[192.168.1.133]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wX0Az-00F5Lq-PA; Tue, 09 Jun 2026 19:23:45 +0200
-Message-ID: <0a0a4d13-9821-4a74-82f5-5309a1e168ca@Igalia.com>
-Date: Tue, 9 Jun 2026 10:23:38 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/atomic: only add states of active or transient
- active colorops
-To: Melissa Wen <mwen@igalia.com>,
- "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Alex Hung <alex.hung@amd.com>,
- airlied@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- simona@ffwll.ch, tzimmermann@suse.de
-Cc: Simon Ser <contact@emersion.fr>, Uma Shankar <uma.shankar@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- Rodrigo Siqueira <siqueira@igalia.com>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,
- "harry.wentland@amd.com" <harry.wentland@amd.com>
-References: <20260526142940.504911-1-mwen@igalia.com>
- <20260526142940.504911-2-mwen@igalia.com>
- <e8aaf4da-8fb6-4d6a-95d6-563ac0562b49@amd.com>
- <4452e675c4853faf665b520a8932a960946206bb@intel.com>
- <f9e5f9ed-ed15-40ae-9330-44f8c42f5f98@intel.com>
- <cb0599d2-9dd5-4e93-b21e-b843f4a79182@igalia.com>
-Content-Language: en-GB
-From: John Harrison <John.Harrison@Igalia.com>
-In-Reply-To: <cb0599d2-9dd5-4e93-b21e-b843f4a79182@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 193E710E577
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 17:31:03 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id B51A5403A9;
+ Tue,  9 Jun 2026 17:31:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1DD1F00893;
+ Tue,  9 Jun 2026 17:31:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781026262;
+ bh=LT/BBQjk3NyZ2igTJL+bXVXkPUhFiGNgT3tAZgfrmc0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=AbV7imMYBD99mzIqHFPip6lxVJvh+pzWx256IziUQ9fH3Tb4XyK5jf+cnPfJJfbVA
+ i0ElvfYNSufhXQflcttapGMfwZzY02HuncmJYUgLIvBGRLrTrtzzwCzX3T7jHVGDHG
+ Wtg+4mgqSds6Mlquqfau2nzTJ0MtVo3VyjJ1kyje0Y8DpKKlzoFCTcfZK+le8DXoxS
+ fBg7WpFOQacVuBKv/yirR1G6jQ4afoWTEuP4tu2YuKU5MYTT3f9GUf8x6InmeLcUJj
+ nK0hky6cVekS93ZCCH8hNBDObI89LJ1OeY15BUUXbuxkCEcJrMhuTg4CRlrED+dXXC
+ DOG3e6e0ZslOA==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 1/8] drm/colorop: Reduce scope of colorop helpers
+To: "John Harrison" <John.Harrison@Igalia.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260609171941.169104-2-John.Harrison@Igalia.com>
+References: <20260609171941.169104-2-John.Harrison@Igalia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 09 Jun 2026 17:31:02 +0000
+Message-Id: <20260609173102.7B1DD1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,189 +52,60 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/3/26 04:27, Melissa Wen wrote:
-> On 01/06/2026 11:24, Borah, Chaitanya Kumar wrote:
->> On 5/29/2026 7:16 PM, Jani Nikula wrote:
->>> On Tue, 26 May 2026, Alex Hung <alex.hung@amd.com> wrote:
->>>> On 5/26/26 08:17, Melissa Wen wrote:
->>>>> Only consider affected colorop states those that are part of an 
->>>>> active
->>>>> color pipeline or a pipeline that is about to be activated or
->>>>> deactivated in the same atomic commit, i.e., colorop is in the 
->>>>> chain of
->>>>> old/new plane color pipeline property. To cover color_pipeline
->>>>> deactivation, remove the condition for plane_state->color_pipeline.
->>>>>
->>>>> Signed-off-by: Melissa Wen <mwen@igalia.com>
->>>>> ---
->>>>>    drivers/gpu/drm/drm_atomic.c | 67 
->>>>> +++++++++++++++++++++++++++++++-----
->>>>>    1 file changed, 58 insertions(+), 9 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/drm_atomic.c 
->>>>> b/drivers/gpu/drm/drm_atomic.c
->>>>> index 170de30c28ae..4fb3a23e862a 100644
->>>>> --- a/drivers/gpu/drm/drm_atomic.c
->>>>> +++ b/drivers/gpu/drm/drm_atomic.c
->>>>> @@ -812,6 +812,59 @@ static int drm_atomic_plane_check(const 
->>>>> struct drm_plane_state *old_plane_state,
->>>>>        return 0;
->>>>>    }
->>>>>    +/*
->>>>> + * This function walks old and new plane state color pipelines 
->>>>> and adds all
->>>>> + * colorops in use by @plane to the atomic configuration @state. 
->>>>> This is useful
->>>>> + * when an atomic commit needs to check all currently enabled or 
->>>>> about to be
->>>>> + * enabled colorop on @plane, e.g. when changing the mode. This 
->>>>> also avoids
->>>>> + * including colorop states that are not part of the atomic state.
->>>>> + *
->>>>> + * Returns:
->>>>> + * 0 on success or can fail with -EDEADLK or -ENOMEM. When the 
->>>>> error is EDEADLK
->>>>> + * then the w/w mutex code has detected a deadlock and the entire 
->>>>> atomic
->>>>> + * sequence must be restarted. All other errors are fatal.
->>>>> + */
->>>>> +static int
->>>>> +drm_atomic_add_pipeline_colorops(struct drm_atomic_commit *state,
->>>>> +                 struct drm_plane *plane)
->>>>> +{
->>>>> +    struct drm_colorop *colorop;
->>>>> +    struct drm_colorop_state *colorop_state;
->>>>> +    struct drm_plane_state *new_plane_state, *old_plane_state;
->>>>> +
->>>>> +    new_plane_state = drm_atomic_get_new_plane_state(state, plane);
->>>>> +    old_plane_state = drm_atomic_get_old_plane_state(state, plane);
->>>>> +
->>>>> +    if (WARN_ON(!new_plane_state || !old_plane_state))
->>>>> +        return -EINVAL;
->>>>> +
->>>>> +    drm_dbg_atomic(plane->dev,
->>>>> +               "Adding old+new pipeline colorops for 
->>>>> [PLANE:%d:%s]\n",
->>>>> +               plane->base.id, plane->name);
->>>>> +
->>>>> +    for (colorop = new_plane_state->color_pipeline;
->>>>> +         colorop;
->>>>> +         colorop = colorop->next) {
->>>>
->>>> This for-loop is used 5 times in this patchset. How about a macro in
->>>> drm_colorop.h?
->>>>
->>>> #define drm_for_each_colorop_in_pipeline(colorop, pipeline) \
->>>>       for ((colorop) = (pipeline); (colorop); (colorop) = 
->>>> (colorop)->next)
->>>
->>> Is there a reason struct drm_colorop reinvents lists and doesn't have
->>> struct list_head node?
->>>
->>
->> I believe that's because the "next" colorop is exposed as a property 
->> (of the current colorop) to userspace. Since the chain is already 
->> described by the property, a struct list_head would be redundant.
->
-> Also, each color pipeline is an immutable chain of colorops where the 
-> sequence and position matter: once the chain is built, colorops are 
-> never added, removed, replaced or walked in reverse. It's a 
-> forward-only chain that ends when next == NULL, and it directly 
-> matches userspace mapping. Another point to take into account is that 
-> there is no struct drm_color_pipeline to hold a list_head yet, since 
-> each color pipeline is identified by the first colorop element in the 
-> chain. Maybe we will want a container to link a given pre-blend color 
-> pipeline to a specific post-blend color pipeline for example, but 
-> linking pre- to post-blend color pipelines is something we are still 
-> not clear about.
->
-> Melissa
->
-"there is no struct drm_color_pipeline to hold a list_head" <-- I think 
-this is the real reason. It is possible to convert to use a proper list 
-structure, but the result is slightly messy. I had a quick go at it to 
-see how messy:
-     https://patchwork.freedesktop.org/series/168200/
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The prototype for `drm_atomic_set_colorop_for_plane` was not remove=
+d from the header file when the function was renamed and made static.
+--
 
-John.
+commit db8489fc6303b4a6973676321220c79b3ad4273f
+Author: John Harrison <John.Harrison@Igalia.com>
 
->>
->> Harry, others can chime in.
->>
->> ==
->> Chaitanya
->>
->>> BR,
->>> Jani.
->>>
->>>>
->>>>> +        colorop_state = drm_atomic_get_colorop_state(state, 
->>>>> colorop);
->>>>> +        if (IS_ERR(colorop_state))
->>>>> +            return PTR_ERR(colorop_state);
->>>>> +    }
->>>>> +
->>>>> +    /* Same color pipeline as new; no point walking old. */
->>>>> +    if (new_plane_state->color_pipeline == 
->>>>> old_plane_state->color_pipeline)
->>>>> +        return 0;
->>>>> +
->>>>> +    for (colorop = old_plane_state->color_pipeline;
->>>>> +         colorop;
->>>>> +         colorop = colorop->next) {
->>>>> +        colorop_state = drm_atomic_get_colorop_state(state, 
->>>>> colorop);
->>>>> +        if (IS_ERR(colorop_state))
->>>>> +            return PTR_ERR(colorop_state);
->>>>> +    }
->>>>> +
->>>>> +    return 0;
->>>>> +}
->>>>> +
->>>>>    static void drm_atomic_colorop_print_state(struct drm_printer *p,
->>>>>                           const struct drm_colorop_state *state)
->>>>>    {
->>>>> @@ -1591,11 +1644,9 @@ drm_atomic_add_affected_planes(struct 
->>>>> drm_atomic_commit *state,
->>>>>            if (IS_ERR(plane_state))
->>>>>                return PTR_ERR(plane_state);
->>>>>    -        if (plane_state->color_pipeline) {
->>>>> -            ret = drm_atomic_add_affected_colorops(state, plane);
->>>>> -            if (ret)
->>>>> -                return ret;
->>>>> -        }
->>>>> +        ret = drm_atomic_add_pipeline_colorops(state, plane);
->>>>> +        if (ret)
->>>>> +            return ret;
->>>>>        }
->>>>>        return 0;
->>>>>    }
->>>>> @@ -1607,10 +1658,8 @@ EXPORT_SYMBOL(drm_atomic_add_affected_planes);
->>>>>     * @plane: DRM plane
->>>>>     *
->>>>>     * This function walks the current configuration and adds all 
->>>>> colorops
->>>>> - * currently used by @plane to the atomic configuration @state. 
->>>>> This is useful
->>>>> - * when an atomic commit also needs to check all currently 
->>>>> enabled colorop on
->>>>> - * @plane, e.g. when changing the mode. It's also useful when 
->>>>> re-enabling a plane
->>>>> - * to avoid special code to force-enable all colorops.
->>>>> + * currently used by @plane to the atomic configuration @state. 
->>>>> It's useful
->>>>> + * when re-enabling a plane to avoid special code to force-enable 
->>>>> all colorops.
->>>>>     *
->>>>>     * Since acquiring a colorop state will always also acquire the 
->>>>> w/w mutex of the
->>>>>     * current plane for that colorop (if there is any) adding all 
->>>>> the colorop states for
->>>>
->>>
->>
->
+drm/colorop: Reduce scope of colorop helpers
 
+This commit reduces the scope of drm_colorop_find and
+drm_atomic_set_colorop_for_plane by making them static local helpers within
+the drm_atomic_uapi.c file.
+
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
+ic_uapi.c
+> index 6441b55cc2740..530576850239f 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+
+[ ... ]
+
+> @@ -259,16 +259,16 @@ drm_atomic_set_fb_for_plane(struct drm_plane_state =
+*plane_state,
+>  EXPORT_SYMBOL(drm_atomic_set_fb_for_plane);
+> =20
+>  /**
+> - * drm_atomic_set_colorop_for_plane - set colorop for plane
+> + * set_colorop_for_plane - set colorop for plane
+>   * @plane_state: atomic state object for the plane
+>   * @colorop: colorop to use for the plane
+>   *
+>   * Helper function to select the color pipeline on a plane by setting
+>   * it to the first drm_colorop element of the pipeline.
+>   */
+> -void
+> -drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
+> -				 struct drm_colorop *colorop)
+> +static void
+> +set_colorop_for_plane(struct drm_plane_state *plane_state,
+> +		      struct drm_colorop *colorop)
+
+[Severity: Low]
+Since the exported function drm_atomic_set_colorop_for_plane is being renam=
+ed
+and made static here, should its corresponding declaration in
+include/drm/drm_atomic_uapi.h also be removed? The prototype remains in that
+header file without an implementation, leaving a dangling declaration.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609171941.1691=
+04-1-John.Harrison@Igalia.com?part=3D1
