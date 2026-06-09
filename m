@@ -4,68 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92DA3CD8CB2
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 07:58:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 550BACD98C7
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 07:58:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B620C10E7AF;
-	Wed, 10 Jun 2026 07:58:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E9E710E7A2;
+	Wed, 10 Jun 2026 07:58:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="laSVrF+i";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f2AyLcbZ";
 	dkim-atps=neutral
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D202610E754
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 07:08:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1781075302;
- bh=zvKytJ58T/chWpp24xm4A9/cDcPHoU4w4qBHxE0/tfQ=;
- h=Date:From:To:Subject:Mime-Version:Message-ID;
- b=laSVrF+iqYLs3ZcnnmsnitWRMdx4Cy7Um8OsrFATdtZdJcBvGzlzeR7Z+r232NF3i
- P0NKPYKpkyWz5AqruSR/5DkSMfWsicT801MZMIyZIKXVjNrMRGat4qdyU8E3E/HRMD
- 6D0LzDtzxVC/n+wWV00zFQDEXaFTZABg05WrXTR4=
-X-QQ-mid: zesmtpsz3t1781075297tf0a746f2
-X-QQ-Originating-IP: n5AAiXA+maG+AP4yA7ZO7SnW+9aOqpN+vqkbX+vaBfU=
-Received: from PEN002676 ( [124.126.19.250]) by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 10 Jun 2026 15:08:15 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 16299428127603928625
-Date: Wed, 10 Jun 2026 15:08:16 +0800
-From: =?GB2312?B?1dS98MP3?= <zhaojinming@uniontech.com>
-To: sashiko-reviews <sashiko-reviews@lists.linux.dev>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>
-Subject: Re: Re: [PATCH v5 2/2] accel/rocket: Fix iommu_group leak and unsafe
- IRQ register access
-References: <20260610060132.3239648-2-zhaojinming@uniontech.com>, 
- <20260610061915.1CA281F00893@smtp.kernel.org>
-X-Priority: 3
-X-GUID: 0633139B-E067-4908-8126-AAB895F2707B
-X-Has-Attach: no
-X-Mailer: Foxmail 7.2.25.542[cn]
-Mime-Version: 1.0
-Message-ID: <D23A28C3959804D9+202606101508151030321@uniontech.com>
-Content-Type: text/plain;
-	charset="GB2312"
-Content-Transfer-Encoding: base64
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: NUDY11p76rEh0nJqIjXSTINt5rhMf1tdRfOmhhL7rtSPS2D9N9n7vNBm
- iD3hA37YbSRZ24P99XW8LpcT2TVgbyQyYsC2F+vDV51nQTOSMY1azR1MgUBNHpSWKdswrm/
- YW33C0qivYD8Sy/A7z24Fyd9Vvg7PCOLsJ+/2oNMlJphoOs9MdnZCEQPng2LqxTK5AkoviV
- OAi4OrxNWZ6CI+qr1afnsNVRCSkfYIBKf8uIHIzua7kzkal/89LP66JO31etQ3VlQrUTCuY
- YS8uVnfL5E9zKk7gXyVc2Mq7seIwyJWrtkgMaVkJtPWbIpB5p9STDislfleHtZaZmkmnuJ1
- M/f60RL+228/C2CIFgo4HHm+iOYPo25ObEoJF2t4JDhXUzwRuMgwzz/+niUkkUOfpNqO4M/
- aUcvFlgk/9D9KCoJ0LHJE/hQ+nHHNEfEGT8bQaCau+RB1snb0WAlK4FxQAo35uSL3NwcvxV
- j4hx16O7SrxR1iahDcJ4tCXvRgZ6kRGf0soE0Sj7FtpSN/a+4cFKxtXXdwWYET4mRDfNoIt
- lPFKjYoz8T5VNgW4KuahZSyAoPVx1h9tOULORLlXdVAMM6rpYNMPrJnpW4NbAYj7HuhK+xZ
- bLcCgGSKnPuTRSRrBVQaMhWvSkJO45zQZ5/ECmkI0DDtkpnCDOEdtSuJ9dekIxwLKyM7/jv
- QCCRHmaiXBqdYV2LICu3M9//wSWhn4gJU+TdPXyIOS7CM740k7BcaeAZnsuxd/KNX8+N4os
- hJBtTexZ77/Tcle4kwm4sTnXgyXiMQsyYUy/1OEaWmNZ0o82vU7XcCTZLg7K9hBnuWMVqk1
- ceuIsRo0YxSam1+OVSUooXcBGLBkYGVRpzH2BRGps2/DRWWIJLmb+1YlDpWgQMNS6xHl38Q
- Bdhupjv5ruXwz58UC7iAMqeNnIVRhc4WG9zgs5Lwfe7iHP3xnLE8bGJuio69wqcsnd/wU3I
- g0aPzX+e2tMCIrvYz+p08NcxE3L55SQYpS8n9Fz9A1EgYIi/Pvm/i+HnLBx0gHeryLABcbE
- pHbzS+cXfZSYLJrCiE
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BE2710E350
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 16:00:34 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-2bf1cda2b17so42443535ad.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 09:00:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781020834; x=1781625634; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=I13MawXg0cVVfgeTQBDKuPQbb4kgdF9QdrPA6/FJBmI=;
+ b=f2AyLcbZlHqvQqIkpduA02eQbzRoN4u0iJHMEzHd4hwBhq7YHOCEHd9tMbD0Gc2FQr
+ WzFi7uMUxtOcs+hXMUl2JspPGyL4J1x2sezCF1yEmvetExFI6KfpLSb6N5nteFzxvflP
+ ZdGkbhlC8pdGxbBFksmu6VOwWLJ5O650SncOZYyVrxSlMXwmJNTk8fyB6IGz2NNZgNF9
+ IwjwPiCobYiyaWwm42AJaIwlvrqqvWlUugEWhPd2jwpx4jjKFIoLwxXUQJe1XwZPq27c
+ M6RBjVgZ8KVkSUKB6cJxLd66UywoX34GpHtTZuqYZMKGabaMsKuVEwcKSi5dGYCebK1+
+ /eEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781020834; x=1781625634;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=I13MawXg0cVVfgeTQBDKuPQbb4kgdF9QdrPA6/FJBmI=;
+ b=chnhSOUvfxDEOEn1iPWga6KhSYEnsVNgX4gWsF3AfPzc5fi6Ox+GJNCJBFXN5A6PIr
+ eT6D/wSe86u1hIf41i7ge98eBJaMhJhGRISDf1uJ0REYCtW9zJghY0DEQ6JgjvOCNa5K
+ yyTjHh3XdQrK8FzlAg1mp9Sglo+URB8t75JYoMxdtJNQDoI5B1P8LGfN4wXUd1gIfxfI
+ KWm7e9z5ZNX3ZOYNOFLVfBadElrMVXZf/DdTpAqLdpZWcYAGS3ieSA0YnyMKibyiAqAD
+ IbotLxV9QLJvaa/mqf1wRLyikpkGTRZwK3pJmeagnS3a/buhbgu86zeVjAvY9JjjjxMe
+ 698w==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+7iM5X1dxA04R5VSOWbLYntQU5J3Kc0nNgXxrD/6DcNjzWZYNgOsE7jRxrJe9uaOTn+93j/MvGhbY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwW5LwHI9+K7CiZag+hJVmhVzGnuJd6njY0XZOzgl42PIGXEgDB
+ JTqDeMkAotdBR4dCbUhfLfJr9W80KdZqJxtV5rdX4d1tE4XnoFiGnyp5
+X-Gm-Gg: Acq92OHHiOYoVHwcc6yB2roBvzQIaoNhoPZyiMRNmTqiujDc/xct0/2M0PvfYFiXfEh
+ h6Jc7yvDs1esiX7sADX1zYUSZmIDXw9s5OBjhNLbME7fRTXawKkgIawhpSAVyW3y7rKbv07rHIY
+ lR6JzEexDSx3CE5+GuhGo6qCkWYZKcTQ9jfUgjv08WT61GO6IRqUqPSjy+iluh70PXhUwue4wgn
+ wBTiov/MzFoeKaKggxvaQ/sgzWScMB4tDMOI1TOvjl8rD1WL/KHxM4ejfjMl6NaEBid7Iv1pA69
+ M6ePGyNxnYWvUGRPMIbufusZtyP4EborRpT4ekdmnsgrNH44IW+iRv10mYKMGHTgdfsQ8SVaViH
+ Adp/FUGa+Fpv5FOwYcIflRaxjtz9eyOHANNBtbU1rlEIwugcF+vJtDPBO5Q8rGvJe/2jK3BMiGn
+ rfMXP4FadgrDvRCu02b8IBxjaCdX/k14bRN9woAxkxjMJoVIU/dtrL1A==
+X-Received: by 2002:a17:902:e5cc:b0:2c0:ccdf:5e61 with SMTP id
+ d9443c01a7336-2c1ec66c7e6mr175806875ad.6.1781020833563; 
+ Tue, 09 Jun 2026 09:00:33 -0700 (PDT)
+Received: from haichao.tail057a43.ts.net
+ ([2001:da8:e000:1206:37c9:44fa:729b:6aaa])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2c249aeb62csm96424255ad.68.2026.06.09.09.00.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Jun 2026 09:00:33 -0700 (PDT)
+From: Ruoyu Wang <ruoyuw560@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Ruoyu Wang <ruoyuw560@gmail.com>
+Subject: [PATCH] fbdev: modedb: keep mode option buffer until parsing completes
+Date: Wed, 10 Jun 2026 00:00:28 +0800
+Message-ID: <20260609160028.5-1-ruoyuw560@gmail.com>
+X-Mailer: git-send-email 2.51.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 10 Jun 2026 07:58:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,121 +90,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-CgoKCj5UaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBm
-b3VuZCA0IHBvdGVudGlhbCBpc3N1ZShzKSB0byBjb25zaWRlcjoKCgoKPgoKCgo+TmV3IGlzc3Vl
-czoKCgoKPi0gW0hpZ2hdIFVuaGFuZGxlZCBpbnRlcnJ1cHQgc3Rvcm0gZHVyaW5nIGRldmljZSBy
-ZW1vdmFsIGR1ZSB0byBgcG1fcnVudGltZV9nZXRfaWZfYWN0aXZlKClgLgpJIHRyeSB0byBmaXgg
-aXQgIGluIG5leHQgdmVyc2lvbiBvZiBwYXRjaGVzLgoKCj4tIFtIaWdoXSBOVUxMIHBvaW50ZXIg
-ZGVyZWZlcmVuY2UgaW4gdGhlIElSUSB0aHJlYWQgZHVyaW5nIHRlYXJkb3duIChVc2UtQWZ0ZXIt
-RnJlZSkuCgoKClJlZ2FyZGluZyB0aGUgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlIGR1cmluZyB0
-ZWFyZG93biBjb25jZXJuOgoKVGhpcyBjYW5ub3Qgb2NjdXIgaW4gdGhlIGN1cnJlbnQgcGF0Y2gu
-IFRoZSB0aHJlYWRlZCBJUlEgaGFuZGxlciBoYXMgdGhyZWUgbGF5ZXJzIG9mIHByb3RlY3Rpb246
-CgpwbV9ydW50aW1lX2dldF9pZl9hY3RpdmUoKSA9PSAxIChsaW5lIDQyMyk6IEluIHJvY2tldF9j
-b3JlX2ZpbmkoKSwgcG1fcnVudGltZV9kaXNhYmxlKCkgaXMgY2FsbGVkIGJlZm9yZSBjb3JlLT5p
-b21tdV9ncm91cCA9IE5VTEwuIEFmdGVyIHBtX3J1bnRpbWVfZGlzYWJsZSgpLCBkaXNhYmxlX2Rl
-cHRoID4gMCwgc28gcG1fcnVudGltZV9nZXRfaWZfYWN0aXZlKCkgcmV0dXJucyAtRUlOVkFMLiBT
-aW5jZSAtRUlOVkFMICE9IDEgaXMgZmFsc2UsIHRoZSB0aHJlYWRlZCBoYW5kbGVyIG5ldmVyIGNh
-bGxzIHJvY2tldF9qb2JfaGFuZGxlX2lycSgpIGFuZCB0aHVzIG5ldmVyIGFjY2Vzc2VzIGNvcmUt
-PmlvbW11X2dyb3VwLiBUaGlzIGhvbGRzIGV2ZW4gaWYgdGhlIHRocmVhZCBpcyB3b2tlbiBieSBj
-b2FsZXNjaW5nIGFmdGVyIHBtX3J1bnRpbWVfZGlzYWJsZSgpLgpzY29wZWRfZ3VhcmQobXV0ZXgs
-ICZjb3JlLT5qb2JfbG9jaykgd2l0aCBpbl9mbGlnaHRfam9iIGNoZWNrIChsaW5lIDM0NSk6IEV2
-ZW4gaWYgdGhlIGZpcnN0IGNoZWNrIHdlcmUgc29tZWhvdyBieXBhc3NlZCwgcm9ja2V0X2pvYl9o
-YW5kbGVfaXJxKCkgb25seSBhY2Nlc3NlcyBjb3JlLT5pb21tdV9ncm91cCBpbnNpZGUgYSBzY29w
-ZWRfZ3VhcmQgdGhhdCBjaGVja3MgY29yZS0+aW5fZmxpZ2h0X2pvYiAhPSBOVUxMLiBCeSB0aGUg
-dGltZSByb2NrZXRfY29yZV9maW5pKCkgcnVucywgZHJtX3NjaGVkX2ZpbmkoKSBoYXMgYWxyZWFk
-eSBiZWVuIGNhbGxlZCAodmlhIHJvY2tldF9qb2JfZmluaSgpKSwgd2hpY2ggc3RvcHMgdGhlIHNj
-aGVkdWxlciBhbmQgcmVsZWFzZXMgYWxsIGpvYnMsIGxlYXZpbmcgaW5fZmxpZ2h0X2pvYiBhcyBO
-VUxMLgpFeGVjdXRpb24gb3JkZXJpbmcgZ3VhcmFudGVlOiByb2NrZXRfY29yZV9maW5pKCkgY2Fs
-bHMgcG1fcnVudGltZV9kaXNhYmxlKCkgYmVmb3JlIHNldHRpbmcgaW9tbXVfZ3JvdXAgPSBOVUxM
-LiBUaGUgcG1fcnVudGltZV9nZXRfaWZfYWN0aXZlKCkgY2hlY2sgaW4gdGhlIHRocmVhZCBoYW5k
-bGVyIGlzIGV2YWx1YXRlZCB1bmRlciBzcGluX2xvY2tfaXJxc2F2ZSAoc2VlIHBtX3J1bnRpbWVf
-Z2V0X2NvbmRpdGlvbmFsKCkgYXQgcnVudGltZS5jOjEyMzMpLCB3aGljaCBwcm92aWRlcyB0aGUg
-aGFwcGVucy1iZWZvcmUgZ3VhcmFudGVlIHdpdGggcmVzcGVjdCB0byBkaXNhYmxlX2RlcHRoIG1v
-ZGlmaWNhdGlvbiBpbiBfX3BtX3J1bnRpbWVfZGlzYWJsZSgpLgpObyBjb2RlIHBhdGggZXhpc3Rz
-IHdoZXJlIHRoZSB0aHJlYWRlZCBoYW5kbGVyIGNhbiByZWFjaCBpb21tdV9kZXRhY2hfZ3JvdXAo
-TlVMTCwgY29yZS0+aW9tbXVfZ3JvdXApIGFmdGVyIGNvcmUtPmlvbW11X2dyb3VwIGhhcyBiZWVu
-IHNldCB0byBOVUxMLgoKCgoKPlByZS1leGlzdGluZyBpc3N1ZXM6CgoKCj4tIFtDcml0aWNhbF0g
-RG91YmxlIGZyZWUgb2YgYHJqb2ItPnRhc2tzYCBhcnJheSBkdXJpbmcgam9iIHN1Ym1pc3Npb24g
-ZXJyb3IgaGFuZGxpbmcuCgoKCj4tIFtIaWdoXSBOVUxMIHBvaW50ZXIgZGVyZWZlcmVuY2Ugd2hl
-biBmcmVlaW5nIGFuIHVuaW5pdGlhbGl6ZWQgYGpvYi0+ZG9tYWluYC4KCgoKPi0tCgoKCj4KCgoK
-PmNvbW1pdCA3YzU5YTRkNWUyZTc0MjY0YmNmZTdiYzhhYTdjOTAzNTE2YjFjMWMwCgoKCj5BdXRo
-b3I6IFpoYW9KaW5taW5nIDx6aGFvamlubWluZ0B1bmlvbnRlY2guY29tPgoKCgo+CgoKCj5hY2Nl
-bC9yb2NrZXQ6IEZpeCBpb21tdV9ncm91cCBsZWFrIGFuZCB1bnNhZmUgSVJRIHJlZ2lzdGVyIGFj
-Y2VzcwoKCgo+CgoKCj5UaGlzIGNvbW1pdCByZXBsYWNlcyBpb21tdV9ncm91cF9nZXQoKSB3aXRo
-IHRoZSBjYWNoZWQgY29yZS0+aW9tbXVfZ3JvdXAKCgoKPnRvIHByZXZlbnQgYSByZWZlcmVuY2Ug
-bGVhay4gSXQgYWxzbyBhZGRzIHBtX3J1bnRpbWVfZ2V0X2lmX2FjdGl2ZSgpIGNoZWNrcwoKCgo+
-aW4gdGhlIElSUSBoYW5kbGVyIGFuZCB0aHJlYWQgdG8gcHJldmVudCB1bnNhZmUgaGFyZHdhcmUg
-cmVnaXN0ZXIgYWNjZXNzZXMKCgoKPndoZW4gdGhlIGRldmljZSBpcyBzdXNwZW5kZWQuCgoKCj4K
-CgoKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvYWNjZWwvcm9ja2V0L3JvY2tldF9qb2IuYyBiL2Ry
-aXZlcnMvYWNjZWwvcm9ja2V0L3JvY2tldF9qb2IuYwoKCgo+PiBpbmRleCBjZjlmNjE2ODJkZDhi
-Li4yMWI0MzM4MjZiNDc5IDEwMDY0NAoKCgo+PiAtLS0gYS9kcml2ZXJzL2FjY2VsL3JvY2tldC9y
-b2NrZXRfam9iLmMKCgoKPj4gKysrIGIvZHJpdmVycy9hY2NlbC9yb2NrZXQvcm9ja2V0X2pvYi5j
-CgoKCj4+IEBAIC0zNDksNyArMzQ5LDcgQEAgc3RhdGljIHZvaWQgcm9ja2V0X2pvYl9oYW5kbGVf
-aXJxKHN0cnVjdCByb2NrZXRfY29yZSAqY29yZSkKCgoKPj4/IAkJCQlyZXR1cm47CgoKCj4+PyAJ
-CQl9CgoKCj4+PyAKCgoKPj4gLQkJCWlvbW11X2RldGFjaF9ncm91cChOVUxMLCBpb21tdV9ncm91
-cF9nZXQoY29yZS0+ZGV2KSk7CgoKCj4+ICsJCQlpb21tdV9kZXRhY2hfZ3JvdXAoTlVMTCwgY29y
-ZS0+aW9tbXVfZ3JvdXApOwoKCgo+CgoKCj5bU2V2ZXJpdHk6IEhpZ2hdCgoKCj5Db3VsZCB0aGlz
-IGxlYWQgdG8gYSBOVUxMIHBvaW50ZXIgZGVyZWZlcmVuY2UgZHVyaW5nIGRldmljZSB0ZWFyZG93
-bj8KCgoKPgoKCgo+SW4gcm9ja2V0X2NvcmVfZmluaSgpLCBjb3JlLT5pb21tdV9ncm91cCBpcyBz
-ZXQgdG8gTlVMTCB3aXRob3V0IGFjcXVpcmluZwoKCgo+Y29yZS0+am9iX2xvY2sgb3Igd2FpdGlu
-ZyBmb3IgdGhlIElSUSB0aHJlYWQgdG8gZmluaXNoOgoKCgo+CgoKCj5yb2NrZXRfY29yZV9maW5p
-KCkKCgoKPj8/PyAuLi4KCgoKPj8/PyBjb3JlLT5pb21tdV9ncm91cCA9IE5VTEw7CgoKCj4KCgoK
-PklmIHRoZSB0aHJlYWRlZCBJUlEgaGFuZGxlciBydW5zIGNvbmN1cnJlbnRseSBhZnRlciBwYXNz
-aW5nIHRoZSBydW50aW1lIFBNCgoKCj5jaGVjaywgaXQgd2lsbCBwYXNzIHRoaXMgbmV3bHkgbnVs
-bGVkIHBvaW50ZXIgdG8gaW9tbXVfZGV0YWNoX2dyb3VwKCksCgoKCj5jYXVzaW5nIHRoZSBJT01N
-VSBjb3JlIHRvIGRlcmVmZXJlbmNlIGEgTlVMTCBwb2ludGVyIHdoZW4gYWNxdWlyaW5nIHRoZQoK
-Cgo+Z3JvdXAncyBtdXRleC4KCgoKPgoKCgo+Pj8gCQkJZG1hX2ZlbmNlX3NpZ25hbChjb3JlLT5p
-bl9mbGlnaHRfam9iLT5kb25lX2ZlbmNlKTsKCgoKPj4/IAkJCXBtX3J1bnRpbWVfcHV0X2F1dG9z
-dXNwZW5kKGNvcmUtPmRldik7CgoKCj4+PyAJCQljb3JlLT5pbl9mbGlnaHRfam9iID0gTlVMTDsK
-CgoKPgoKCgo+WyAuLi4gXQoKCgo+CgoKCj4+IEBAIC00MjgsMTYgKzQzMSwyNCBAQCBzdGF0aWMg
-aXJxcmV0dXJuX3Qgcm9ja2V0X2pvYl9pcnFfaGFuZGxlcl90aHJlYWQoaW50IGlycSwgdm9pZCAq
-ZGF0YSkKCgoKPj4/IHN0YXRpYyBpcnFyZXR1cm5fdCByb2NrZXRfam9iX2lycV9oYW5kbGVyKGlu
-dCBpcnEsIHZvaWQgKmRhdGEpCgoKCj4+PyB7CgoKCj4+PyAJc3RydWN0IHJvY2tldF9jb3JlICpj
-b3JlID0gZGF0YTsKCgoKPj4gLQl1MzIgcmF3X3N0YXR1cyA9IHJvY2tldF9wY19yZWFkbChjb3Jl
-LCBJTlRFUlJVUFRfUkFXX1NUQVRVUyk7CgoKCj4+ICsJdTMyIHJhd19zdGF0dXM7CgoKCj4+ICsK
-CgoKPj4gKwlpZiAocG1fcnVudGltZV9nZXRfaWZfYWN0aXZlKGNvcmUtPmRldikgIT0gMSkKCgoK
-Pj4gKwkJcmV0dXJuIElSUV9OT05FOwoKCgo+CgoKCj5bU2V2ZXJpdHk6IEhpZ2hdCgoKCj5XaWxs
-IHRoaXMgY2F1c2UgYW4gdW5oYW5kbGVkIGludGVycnVwdCBzdG9ybSBkdXJpbmcgbW9kdWxlIHJl
-bW92YWw/CgoKCj4KCgoKPkR1cmluZyBtb2R1bGUgcmVtb3ZhbCwgcm9ja2V0X2NvcmVfZmluaSgp
-IGRpc2FibGVzIHJ1bnRpbWUgUE06CgoKCj4KCgoKPnJvY2tldF9jb3JlX2ZpbmkoKQoKCgo+Pz8/
-IHBtX3J1bnRpbWVfZGlzYWJsZShjb3JlLT5kZXYpOwoKCgo+CgoKCj5UaGlzIGhhcHBlbnMgYmVm
-b3JlIHRoZSBoYXJkd2FyZSBpcyBzdG9wcGVkLiBJZiBhIGhhcmR3YXJlIGpvYiBjb21wbGV0ZXMK
-CgoKPnN1YnNlcXVlbnRseSwgdGhlIGRldmljZSByYWlzZXMgYSBsZXZlbC10cmlnZ2VyZWQgaW50
-ZXJydXB0LiBTaW5jZSBydW50aW1lCgoKCj5QTSBpcyBkaXNhYmxlZCwgcG1fcnVudGltZV9nZXRf
-aWZfYWN0aXZlKCkgcmV0dXJucyAtRUlOVkFMLgoKCgo+CgoKCj5UaGUgaGFuZGxlciB0aGVuIHVu
-Y29uZGl0aW9uYWxseSByZXR1cm5zIElSUV9OT05FIHdpdGhvdXQgY2xlYXJpbmcgdGhlCgoKCj5p
-bnRlcnJ1cHQuIEJlY2F1c2UgdGhlIElSUSBpcyBsZXZlbC10cmlnZ2VyZWQsIHRoZSB1bmFja25v
-d2xlZGdlZCBpbnRlcnJ1cHQKCgoKPndpbGwgaW1tZWRpYXRlbHkgcmVmaXJlIHVwb24gaGFuZGxl
-ciBleGl0LCBwb3RlbnRpYWxseSBjYXVzaW5nIGFuIGluZmluaXRlCgoKCj5pbnRlcnJ1cHQgc3Rv
-cm0gdGhhdCBkZWFkbG9ja3MgdGhlIENQVS4KCgoKPgoKCgo+W1NldmVyaXR5OiBDcml0aWNhbF0K
-CgoKPlRoaXMgaXNuJ3QgYSBidWcgaW50cm9kdWNlZCBieSB0aGlzIHBhdGNoLCBidXQgZG9lcyB0
-aGUgZXJyb3IgaGFuZGxpbmcgaW4KCgoKPnJvY2tldF9jb3B5X3Rhc2tzKCkgY2F1c2UgYSBkb3Vi
-bGUgZnJlZSBvZiB0aGUgdGFza3MgYXJyYXk/CgoKCj4KCgoKPklmIHZhbGlkYXRpb24gb2YgdGhl
-IGluY29taW5nIHRhc2tzIGZhaWxzLCB0aGUgYXJyYXkgaXMgZnJlZWQgYnV0IHRoZQoKCgo+cG9p
-bnRlciBpcyBub3QgY2xlYXJlZDoKCgoKPgoKCgo+cm9ja2V0X2NvcHlfdGFza3MoKSB7CgoKCj4/
-Pz8gLi4uCgoKCj5mYWlsOgoKCgo+Pz8/IGt2ZnJlZShyam9iLT50YXNrcyk7CgoKCj4/Pz8gcmV0
-dXJuIHJldDsKCgoKPn0KCgoKPgoKCgo+VGhlIGNhbGxlciB0aGVuIGp1bXBzIHRvIHRoZSBlcnJv
-ciBsYWJlbCBhbmQgaW52b2tlcyByb2NrZXRfam9iX3B1dCgpLAoKCgo+d2hpY2ggdHJpZ2dlcnMg
-cm9ja2V0X2pvYl9jbGVhbnVwKCkuIFRoaXMgY2xlYW51cCBmdW5jdGlvbiBmcmVlcyB0aGUKCgoK
-PmRhbmdsaW5nIHBvaW50ZXIgYWdhaW46CgoKCj4KCgoKPnJvY2tldF9qb2JfY2xlYW51cCgpIHsK
-CgoKPj8/PyAuLi4KCgoKPj8/PyBrdmZyZWUoam9iLT50YXNrcyk7CgoKCj59CgoKCj4KCgoKPkNh
-biBhIGxvY2FsIHVucHJpdmlsZWdlZCBhdHRhY2tlciBleHBsb2l0IHRoaXMgdmlhIHRoZSBzdWJt
-aXQgaW9jdGwgdG8KCgoKPmNvcnJ1cHQga2VybmVsIG1lbW9yeT8KCgoKPgoKCgo+W1NldmVyaXR5
-OiBIaWdoXQoKCgo+VGhpcyBpc24ndCBhIGJ1ZyBpbnRyb2R1Y2VkIGJ5IHRoaXMgcGF0Y2gsIGJ1
-dCBpcyB0aGVyZSBhIE5VTEwgcG9pbnRlcgoKCgo+ZGVyZWZlcmVuY2Ugd2hlbiBmcmVlaW5nIGFu
-IHVuaW5pdGlhbGl6ZWQgZG9tYWluPwoKCgo+CgoKCj5XaGVuIHRoZSBqb2Igc3RydWN0dXJlIGlz
-IGFsbG9jYXRlZCwgYWxsIGZpZWxkcyBhcmUgaW5pdGlhbGl6ZWQgdG8gemVyby4KCgoKPklmIHNl
-dHVwIGZhaWxzIGVhcmx5IChmb3IgZXhhbXBsZSwgaW4gZHJtX3NjaGVkX2pvYl9pbml0KCkgb3IK
-CgoKPnJvY2tldF9jb3B5X3Rhc2tzKCkpLCBqb2ItPmRvbWFpbiByZW1haW5zIE5VTEwuCgoKCj4K
-CgoKPlRoZSBlcnJvciBoYW5kbGluZyBwYXRoIGludm9rZXMgcm9ja2V0X2pvYl9jbGVhbnVwKCks
-IHdoaWNoIHVuY29uZGl0aW9uYWxseQoKCgo+cmVsZWFzZXMgdGhlIGRvbWFpbjoKCgoKPgoKCgo+
-cm9ja2V0X2pvYl9jbGVhbnVwKCkgewoKCgo+Pz8/IC4uLgoKCgo+Pz8/IHJvY2tldF9pb21tdV9k
-b21haW5fcHV0KGpvYi0+ZG9tYWluKTsKCgoKPn0KCgoKPgoKCgo+VGhpcyBmdW5jdGlvbiBpbW1l
-ZGlhdGVseSBkZXJlZmVyZW5jZXMgdGhlIHBvaW50ZXI6CgoKCj4KCgoKPnJvY2tldF9pb21tdV9k
-b21haW5fcHV0KCkgewoKCgo+Pz8/IC4uLgoKCgo+Pz8/IGtyZWZfcHV0KCZkb21haW4tPmtyZWYs
-IHJvY2tldF9pb21tdV9kb21haW5fZGVzdHJveSk7CgoKCj59CgoKCj4KCgoKPkNvdWxkIHRoaXMg
-Y2F1c2UgYSBrZXJuZWwgcGFuaWMgaWYgYW4gdW5wcml2aWxlZ2VkIHVzZXIgcGFzc2VzIGludmFs
-aWQKCgoKPmFyZ3VtZW50cz8KCgoKPgoKCgo+LS0gCgoKCj5TYXNoaWtvIEFJIHJldmlldyChpCBo
-dHRwczovL3Nhc2hpa28uZGV2LyMvcGF0Y2hzZXQvMjAyNjA2MTAwNjAxMzIuMzIzOTY0OC0xLXpo
-YW9qaW5taW5nQHVuaW9udGVjaC5jb20/cGFydD0yCgoKCj4KCgo=
+When fb_find_mode() obtains the mode option from fb_get_options(),
+mode_option_buf owns the returned string and name points into that
+buffer. The done label frees mode_option_buf before the database
+fallback has finished using name in name_matches(), so the fallback can
+read freed memory.
 
+Move the free to a common exit path and convert the successful returns
+that can use mode_option_buf into jumps to that exit path.
+
+Fixes: 089d924d03d5 ("fbdev: Read video= option with fb_get_option() in modedb")
+Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
+---
+ drivers/video/fbdev/core/modedb.c | 41 ++++++++++++++++++++-----------
+ 1 file changed, 26 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/video/fbdev/core/modedb.c b/drivers/video/fbdev/core/modedb.c
+index 703d0b7aec322..82f6ea38e1fb8 100644
+--- a/drivers/video/fbdev/core/modedb.c
++++ b/drivers/video/fbdev/core/modedb.c
+@@ -627,7 +627,7 @@ int fb_find_mode(struct fb_var_screeninfo *var,
+ 		 unsigned int default_bpp)
+ {
+ 	char *mode_option_buf = NULL;
+-	int i;
++	int i, ret;
+ 
+ 	/* Set up defaults */
+ 	if (!db) {
+@@ -724,10 +724,9 @@ int fb_find_mode(struct fb_var_screeninfo *var,
+ 			res_specified = 1;
+ 		}
+ done:
+-		kfree(mode_option_buf);
+ 		if (cvt) {
+ 			struct fb_videomode cvt_mode;
+-			int ret;
++			int cvt_ret;
+ 
+ 			DPRINTK("CVT mode %dx%d@%dHz%s%s%s\n", xres, yres,
+ 				(refresh) ? refresh : 60,
+@@ -745,11 +744,12 @@ int fb_find_mode(struct fb_var_screeninfo *var,
+ 			else
+ 				cvt_mode.vmode &= ~FB_VMODE_INTERLACED;
+ 
+-			ret = fb_find_mode_cvt(&cvt_mode, margins, rb);
++			cvt_ret = fb_find_mode_cvt(&cvt_mode, margins, rb);
+ 
+-			if (!ret && !fb_try_mode(var, info, &cvt_mode, bpp)) {
++			if (!cvt_ret && !fb_try_mode(var, info, &cvt_mode, bpp)) {
+ 				DPRINTK("modedb CVT: CVT mode ok\n");
+-				return 1;
++				ret = 1;
++				goto out;
+ 			}
+ 
+ 			DPRINTK("CVT mode invalid, getting mode from database\n");
+@@ -793,8 +793,10 @@ int fb_find_mode(struct fb_var_screeninfo *var,
+ 				if (!interlace_specified ||
+ 				    db_interlace == interlace)
+ 					if (refresh_specified &&
+-					    db[i].refresh == refresh)
+-						return 1;
++					    db[i].refresh == refresh) {
++						ret = 1;
++						goto out;
++					}
+ 
+ 				if (score < diff) {
+ 					diff = score;
+@@ -804,7 +806,8 @@ int fb_find_mode(struct fb_var_screeninfo *var,
+ 		}
+ 		if (best != -1) {
+ 			fb_try_mode(var, info, &db[best], bpp);
+-			return (refresh_specified) ? 2 : 1;
++			ret = (refresh_specified) ? 2 : 1;
++			goto out;
+ 		}
+ 
+ 		diff = 2 * (xres + yres);
+@@ -831,21 +834,29 @@ int fb_find_mode(struct fb_var_screeninfo *var,
+ 		}
+ 		if (best != -1) {
+ 			fb_try_mode(var, info, &db[best], bpp);
+-			return 5;
++			ret = 5;
++			goto out;
+ 		}
+ 	}
+ 
+ 	DPRINTK("Trying default video mode\n");
+-	if (!fb_try_mode(var, info, default_mode, default_bpp))
+-		return 3;
++	if (!fb_try_mode(var, info, default_mode, default_bpp)) {
++		ret = 3;
++		goto out;
++	}
+ 
+ 	DPRINTK("Trying all modes\n");
+ 	for (i = 0; i < dbsize; i++)
+-		if (!fb_try_mode(var, info, &db[i], default_bpp))
+-			return 4;
++		if (!fb_try_mode(var, info, &db[i], default_bpp)) {
++			ret = 4;
++			goto out;
++		}
+ 
+ 	DPRINTK("No valid mode found\n");
+-	return 0;
++	ret = 0;
++out:
++	kfree(mode_option_buf);
++	return ret;
+ }
+ 
+ /**
+-- 
+2.51.0
