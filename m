@@ -4,76 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 487EACD8CBF
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 12:48:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D69F2CD8CA4
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 12:50:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69B4210E613;
-	Tue,  9 Jun 2026 12:48:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39AA910E626;
+	Tue,  9 Jun 2026 12:50:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="TZOtp8AQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i7D7PMdq";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7465E10E5E6;
- Tue,  9 Jun 2026 12:48:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1781009320; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=GH7myePk3LRGsbgAmGXuH3EGnYY5p1aWd2TQOT9JXuNCUb2ZaygjDvf3dpXQXiTxD7g09h+g3Yykx1HLZ7JuD9aGEDbD0hWm7aG1DG7oySA9Z0Q3gzy2q8Ddz9Z6BYPyevKS+HDL60WJ0lqlz/ZiwOmSNmwYPKfJFAiEvTIsEW0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1781009320;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=62KYxCZxFK08w+RoMa7NxzfH3ErdgYCWI77kkaQwXBw=; 
- b=abLDcoRckTiNhs1dSvBk8+q1eGiXMBaqLVAARsf1J9WRzKtFKEAuL8ksgwAczZnQSav7qXoxC5DHlkcAEnzJiNLjWpmaUk+tN+yR21EOMeUcRlvMNDL8d8jB5xIiBhA8eOPlO4CxxNDOAqjhnmKxkMir8JhuUoxsPp8UsyjmV2E=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781009320; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=62KYxCZxFK08w+RoMa7NxzfH3ErdgYCWI77kkaQwXBw=;
- b=TZOtp8AQuNu7JEwZOdLH8trhDXm8lhVECu/0faPGLeeugrfwxkljmmyY9YA85Lta
- FuIWuNjs9NNPEMA3Q51HXgQfvrv+f9bqgn6tRkRbDGHUOocl0uMHbbDbTsr60KnpDmp
- 4dRiEFGWBdo3AZcYj1qN3Ryy+N3BjVFKann7zHLM=
-Received: by mx.zohomail.com with SMTPS id 1781009319488398.85945429547075;
- Tue, 9 Jun 2026 05:48:39 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Tue, 09 Jun 2026 14:44:15 +0200
-Subject: [PATCH v17 28/28] drm/i915/dp: Implement "color format" DRM property
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260609-color-format-v17-28-35739b5782cc@collabora.com>
-References: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
-In-Reply-To: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Daniel Stone <daniel@fooishbar.org>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.15.2
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CB8E10E61B
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 12:50:48 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6881342A83;
+ Tue,  9 Jun 2026 12:50:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CA4F1F00893;
+ Tue,  9 Jun 2026 12:50:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781009448;
+ bh=H0X3SoK1oDv74Mjvqjo8WMaV4wcVo6OhwA3cHGNGC44=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=i7D7PMdqaBIDF3TbInLcOazZMJQ1Ud+pDClDA+t7oVQfBecyGn3A5apaMugpqxkZO
+ 7DFrF1V6SYHvV0uQI5myMYXarwMC11eBhuNR9sb3uN84iGZ/RspiSgJ75eJW44l/Zd
+ eSmEMO9S6IMXN+fbqWn7fzwTMAEicTUgwn15UA97apQQupNr4cFRrFooNE6yZwxISi
+ 1Zd2sP40BFMwMQXh68ns+s/tpZ6di8nMmMDg0Lt0b+WlME7H/83CF0zu06I92/ae1a
+ kvP51MNGR8WEo8wUbCJZJhy0DjLLbblul4tinG6dshmu6KgduliAhA1MG1231kOb82
+ xnu6gHjCXbWYA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 7/7] drm/amd/display: allow individual colorop changes
+To: "Melissa Wen" <mwen@igalia.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260609121230.1358786-8-mwen@igalia.com>
+References: <20260609121230.1358786-8-mwen@igalia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 09 Jun 2026 12:50:47 +0000
+Message-Id: <20260609125048.1CA4F1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,121 +52,72 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Implement the "color format" DRM property for DP. The values of the
-property include RGB, YCbCr420, YCbCr444 and Auto. Auto will pick RGB,
-with a fallback to YCbCr420.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-The mask of supported formats by the source exposed by the property is
-an optimistic scenario, as specific DFP-related caveats can't be
-established before an EDID is present.
+Pre-existing issues:
+- [Critical] Potential NULL pointer dereference when accessing `blob->lengt=
+h` in `__set_dm_plane_colorop_3x4_matrix` if the data blob is NULL.
+--
 
-Should the explicitly requested color format not be supported by the
-sink (or by the source in combination with the sink), then an error is
-returned to userspace, so that it can make a better choice.
+commit f99935be74382989d52703e3315aeec4d0efd059
+Author: Melissa Wen <mwen@igalia.com>
 
-Reviewed-by: Daniel Stone <daniel@fooishbar.org>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 61 ++++++++++++++++++++++++++++++---
- 1 file changed, 57 insertions(+), 4 deletions(-)
+drm/amd/display: allow individual colorop changes
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 7c69d3badf9f..8c189e784adb 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3434,10 +3434,10 @@ intel_dp_compute_output_format(struct intel_encoder *encoder,
- }
- 
- static int
--intel_dp_compute_formats(struct intel_encoder *encoder,
--			 struct intel_crtc_state *crtc_state,
--			 struct drm_connector_state *conn_state,
--			 bool respect_downstream_limits)
-+intel_dp_compute_formats_auto(struct intel_encoder *encoder,
-+			      struct intel_crtc_state *crtc_state,
-+			      struct drm_connector_state *conn_state,
-+			      bool respect_downstream_limits)
- {
- 	struct intel_display *display = to_intel_display(encoder);
- 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
-@@ -3473,6 +3473,34 @@ intel_dp_compute_formats(struct intel_encoder *encoder,
- 	return ret;
- }
- 
-+static int
-+intel_dp_compute_formats(struct intel_encoder *encoder,
-+			 struct intel_crtc_state *crtc_state,
-+			 struct drm_connector_state *conn_state,
-+			 bool respect_downstream_limits)
-+{
-+	switch (conn_state->color_format) {
-+	case DRM_CONNECTOR_COLOR_FORMAT_RGB444:
-+		return intel_dp_compute_output_format(encoder, crtc_state, conn_state,
-+						      respect_downstream_limits,
-+						      INTEL_OUTPUT_FORMAT_RGB);
-+	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR444:
-+		return intel_dp_compute_output_format(encoder, crtc_state, conn_state,
-+						      respect_downstream_limits,
-+						      INTEL_OUTPUT_FORMAT_YCBCR444);
-+	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR420:
-+		return intel_dp_compute_output_format(encoder, crtc_state, conn_state,
-+						      respect_downstream_limits,
-+						      INTEL_OUTPUT_FORMAT_YCBCR420);
-+	case DRM_CONNECTOR_COLOR_FORMAT_AUTO:
-+		return intel_dp_compute_formats_auto(encoder, crtc_state, conn_state,
-+						     respect_downstream_limits);
-+	default:
-+		MISSING_CASE(conn_state->color_format);
-+		return -EINVAL;
-+	}
-+}
-+
- void
- intel_dp_audio_compute_config(struct intel_encoder *encoder,
- 			      struct intel_crtc_state *pipe_config,
-@@ -7027,6 +7055,29 @@ intel_dp_has_gamut_metadata_dip(struct intel_encoder *encoder)
- 	return false;
- }
- 
-+static void
-+intel_dp_attach_color_format_property(struct intel_dp *intel_dp)
-+{
-+	struct intel_connector *connector = intel_dp->attached_connector;
-+	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
-+	unsigned long fmts = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444);
-+	bool has_pcon = false;
-+
-+	if (!connector)
-+		return;
-+
-+	if (dig_port && intel_bios_encoder_is_lspcon(dig_port->base.devdata))
-+		has_pcon = true;
-+
-+	if (has_pcon || source_can_output(intel_dp, INTEL_OUTPUT_FORMAT_YCBCR420))
-+		fmts |= BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
-+
-+	if (has_pcon || source_can_output(intel_dp, INTEL_OUTPUT_FORMAT_YCBCR444))
-+		fmts |= BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444);
-+
-+	drm_connector_attach_color_format_property(&connector->base, fmts);
-+}
-+
- static void
- intel_dp_add_properties(struct intel_dp *intel_dp, struct drm_connector *_connector)
- {
-@@ -7059,6 +7110,8 @@ intel_dp_add_properties(struct intel_dp *intel_dp, struct drm_connector *_connec
- 
- 	if (HAS_VRR(display))
- 		drm_connector_attach_vrr_capable_property(&connector->base);
-+
-+	intel_dp_attach_color_format_property(intel_dp);
- }
- 
- static void
+Change all colorop helpers to get the committed state if there's no new
+state for a given colorop. This allows userspace to modify a single
+property of a colorop without resubmitting the whole color pipeline by
+falling back to colorop settings from the committed state.
 
--- 
-2.54.0
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/dr=
+ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> index 2d91d88a45742..51bd937153d41 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
 
+[ ... ]
+
+> @@ -1561,43 +1550,37 @@ __set_dm_plane_colorop_3x4_matrix(struct drm_plan=
+e_state *plane_state,
+
+[ ... ]
+
+> +	if (colorop_state->bypass) {
+> +		dc_plane_state->gamut_remap_matrix.enable_remap =3D false;
+> +		dc_plane_state->input_csc_color_matrix.enable_adjustment =3D false;
+> +		return 0;
+> +	}
+> +
+> +	drm_dbg(dev, "3x4 matrix colorop with ID: %d\n", colorop->base.id);
+> +	blob =3D colorop_state->data;
+> +	if (blob->length =3D=3D sizeof(struct drm_color_ctm_3x4)) {
+
+[Severity: Critical]
+This is a pre-existing issue, but could this lead to a NULL pointer=20
+dereference if the data blob is missing?
+
+If userspace configures a 3x4 matrix colorop with bypass set to false but
+doesn't provide a valid data blob, the DRM core might leave colorop_state->=
+data
+as NULL. Dereferencing blob->length here without checking if blob is valid
+would then crash the system.=20
+
+Should __set_dm_plane_colorop_3x4_matrix() explicitly check if blob is not =
+NULL
+before attempting to access its length?
+
+> +		ctm =3D (struct drm_color_ctm_3x4 *) blob->data;
+> +		__drm_ctm_3x4_to_dc_matrix(ctm, dc_plane_state->gamut_remap_matrix.mat=
+rix);
+> +		dc_plane_state->gamut_remap_matrix.enable_remap =3D true;
+> +		dc_plane_state->input_csc_color_matrix.enable_adjustment =3D false;
+> +	} else {
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609121230.1358=
+786-1-mwen@igalia.com?part=3D7
