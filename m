@@ -4,42 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C49FCD8C85
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 06:59:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED131CD8CAE
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 07:00:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D1AC10E10D;
-	Tue,  9 Jun 2026 06:59:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC8A410E10E;
+	Tue,  9 Jun 2026 07:00:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CRyBowMC";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ge8WQRR4";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F29AE10E10D
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 06:59:52 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 55B27600AE;
- Tue,  9 Jun 2026 06:59:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC20B1F00893;
- Tue,  9 Jun 2026 06:59:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780988392;
- bh=6PMzg1WoSSi6Fs890h+2XJv0x1TfAu7cZFqrbJPTl4I=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CRyBowMCEGz6PeTDWtgIpigJfROYQhRPaLmanbR8C3adItwEGsHYDk7DAl5Plucqi
- 38Wg5R9MRxjVCvNSV9l66qPkbJ11UvHcckhHneOz21WUlIstEY2gpK5duBtAePU69Y
- IEPfq38v1F5UCQlELb9EP28XYAc+AI2rLizEmpog5cTmrnLehIsaYn4YJyTx1U+kSr
- R8nblJttsnsmLEx8K1xfiJGHgtBnn5o+mdPPOqu0nHkerm6+Fdx1Fbpil3CWorjSCz
- Q8CH/O/oPZq1KxSpo1Q2UumLvhJWJrBznCngVyswOOIJ5NVNP4+i8GgZRhrdnv9/FQ
- NSD5pGupLfmOw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 14/14] list: Cache cursors in entry iterators
-To: "Kaitao Cheng" <kaitao.cheng@linux.dev>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260609064122.95825-2-kaitao.cheng@linux.dev>
-References: <20260609064122.95825-2-kaitao.cheng@linux.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 06:59:51 +0000
-Message-Id: <20260609065951.DC20B1F00893@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3586710E10B;
+ Tue,  9 Jun 2026 07:00:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780988422; x=1812524422;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=2uFU5Nc5neHcjkdpq8khI2EoQ4OEWJdTXCqvSWCGdV4=;
+ b=ge8WQRR4VcrmPbPq+fsDeE7duJPhV9EeKrOr6TXurjOrptdb1yPsT4K1
+ l+icar9RusaYYkEc6ojAxzVZj+mdrDZLFMyLrZy/k2xvWDkssb4efHKNE
+ tArYOZUxH+Bwtnb9fi1q3Mf3ULfaC/HDTy1XabA9ahu7DyNNQlndo7j7O
+ gNnN669/wLAoiP9J8hu9GslQNdU+XSHblcbktR7BQ9ZYpdxbDpZk3j5Oh
+ VzypZUVFhTSLVEIoKUaAInhH6cCbAPKDfOw5yQyqLxw7oOw1EKd0LxNar
+ uOIUyzKFQz2KMdSjpFreu3DSXnfqN/qnY0pcx0bda8zazALgKf8vxjy6v g==;
+X-CSE-ConnectionGUID: rbgSxgFiQhCaGaTOqR5Glg==
+X-CSE-MsgGUID: e8q33WBxRdOYbima7Y5LBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11811"; a="85364719"
+X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; d="scan'208";a="85364719"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2026 00:00:21 -0700
+X-CSE-ConnectionGUID: pCChZ3wCTI+GwpURGgDxKg==
+X-CSE-MsgGUID: Ei1KwtbHTi20oALanPWYpA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; d="scan'208";a="249699387"
+Received: from egrumbac-mobl6.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.39])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2026 00:00:05 -0700
+Date: Tue, 9 Jun 2026 10:00:03 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Kaitao Cheng <kaitao.cheng@linux.dev>
+Cc: Muchun Song <muchun.song@linux.dev>,
+ Philipp Reisner <philipp.reisner@linbit.com>,
+ Lars Ellenberg <lars.ellenberg@linbit.com>,
+ Christoph =?iso-8859-1?Q?B=F6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ Jens Axboe <axboe@kernel.dk>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Eddie James <eajames@linux.ibm.com>,
+ Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Laxman Dewangan <ldewangan@nvidia.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Davidlohr Bueso <dave@stgolabs.net>,
+ "Paul E . McKenney" <paulmck@kernel.org>,
+ Josh Triplett <josh@joshtriplett.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Waiman Long <longman@redhat.com>, drbd-dev@lists.linbit.com,
+ linux-block@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Christian Brauner <brauner@kernel.org>,
+ David Howells <dhowells@redhat.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kaitao Cheng <chengkaitao@kylinos.cn>
+Subject: Re: [PATCH v2 04/14] drm/i915/gt: Open-code active timeline walk
+Message-ID: <aie580RAM3vCunbh@ashevche-desk.local>
+References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
+ <20260609062526.94907-1-kaitao.cheng@linux.dev>
+ <20260609062526.94907-2-kaitao.cheng@linux.dev>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260609062526.94907-2-kaitao.cheng@linux.dev>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,113 +115,36 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Critical] Modifying the standard list iterators to pre-cache the `next` =
-pointer fundamentally changes their traversal semantics from dynamic to sta=
-tic evaluation, causing use-after-free (UAF) vulnerabilities and silently b=
-reaking loops that modify the list ahead of the cursor or skip elements by =
-advancing `pos`.
-- [High] Eliminating the distinction between safe and non-safe list iterato=
-rs obscures code intent, removes a vital visual guardrail for destructive o=
-perations, and introduces severe backporting risks.
---
+On Tue, Jun 09, 2026 at 02:25:16PM +0800, Kaitao Cheng wrote:
+> 
+> A later change will make list_for_each_entry() cache the next element
+> before entering the loop body. __intel_gt_unset_wedged() drops
+> timelines->lock while waiting on a fence and then restarts the walk from
+> the list head after the lock is reacquired.
+> 
+> Keep the loop open-coded so the next timeline is selected after that
+> restart logic has run. This preserves the existing lock-drop traversal
+> semantics and prepares the code for the list iterator update.
 
-commit e1c09f66ccd28cca66865681febeb6f8233f0a36
-Author: Kaitao Cheng <chengkaitao@kylinos.cn>
+...
 
-list: Cache cursors in entry iterators
+>  	spin_lock(&timelines->lock);
+> -	list_for_each_entry(tl, &timelines->active_list, link) {
+> +	for (tl = list_first_entry(&timelines->active_list, typeof(*tl), link);
+> +	     !list_entry_is_head(tl, &timelines->active_list, link);
+> +	     tl = list_next_entry(tl, link)) {
 
-This commit introduces private next and previous cursor variables into the
-standard list iteration macros. It changes the semantics of the
-list_for_each_entry() family to cache the next pointer before executing the
-loop body. It also updates comments to recommend the non-safe variants over
-the safe ones when a temporary cursor is not needed.
+Yeah, these cases should rather be converted to do {} while or while-loop.
+This will make the intention clearer and reduces the possibility that someone
+mistakenly changes these back to use list_for_each_entry().
 
-> diff --git a/include/linux/list.h b/include/linux/list.h
-> index 09d979976b3b8..9df84a56a789b 100644
-> --- a/include/linux/list.h
-> +++ b/include/linux/list.h
-> @@ -809,6 +809,29 @@ static inline size_t list_count_nodes(struct list_he=
-ad *head)
->  #define list_entry_is_head(pos, head, member)				\
->  	list_is_head(&pos->member, (head))
-> =20
-> +#define __list_for_each_entry(pos, next, head, member)			\
-> +	for (typeof(pos) next =3D list_next_entry(pos =3D			\
-> +		list_first_entry(head, typeof(*pos), member), member);	\
-> +	     !list_entry_is_head(pos, head, member);			\
-> +	     pos =3D next, next =3D list_next_entry(next, member))
+See, for example, deferred_probe_work_func() implementation.
 
-[ ... ]
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> @@ -816,9 +839,7 @@ static inline size_t list_count_nodes(struct list_hea=
-d *head)
->   * @member:	the name of the list_head within the struct.
->   */
->  #define list_for_each_entry(pos, head, member)				\
-> -	for (pos =3D list_first_entry(head, typeof(*pos), member);	\
-> -	     !list_entry_is_head(pos, head, member);			\
-> -	     pos =3D list_next_entry(pos, member))
-> +	__list_for_each_entry(pos, __UNIQUE_ID(next), head, member)
 
-[Severity: Critical]
-Does caching the next pointer fundamentally change the dynamic traversal
-semantics of the standard list iterators kernel-wide?
-
-A common kernel pattern is pinning the current entry (pos), dropping the
-lock to perform a blocking operation, and reacquiring the lock. With
-dynamic evaluation, pos->next is safely fetched under the lock.
-
-With the new cached next pointer, if the next element was removed and freed
-by a concurrent thread while the lock was dropped, next becomes a dangling
-pointer, which could lead to a use-after-free when the loop steps.
-
-Will this also silently skip dynamically inserted elements? If a loop body
-inserts a new element immediately after pos, the old macro would naturally
-visit it next. The new macro appears to silently skip it because it advances
-using the pre-cached next.
-
-Could this also overwrite manual cursor updates? If the loop body explicitly
-alters pos to skip elements, the loop increment (pos =3D next) might overwr=
-ite
-the updated cursor with the pre-cached next, negating the skip and potentia=
-lly
-causing incorrect traversal behavior.
-
-[ ... ]
-
-> @@ -901,6 +917,8 @@ static inline size_t list_count_nodes(struct list_hea=
-d *head)
->   * @n:		another type * to use as temporary storage
->   * @head:	the head for your list.
->   * @member:	the name of the list_head within the struct.
-> + *
-> + * Prefer list_for_each_entry() unless the temporary cursor is needed.
->   */
->  #define list_for_each_entry_safe(pos, n, head, member)			\
-
-[Severity: High]
-Does advising developers to prefer list_for_each_entry() over the _safe
-variant for removals obscure the intent of the code?
-
-The _safe variant explicitly signals to reviewers and static analysis tools
-that the loop body may mutate the list. Conflating variable-scoping
-convenience with traversal safety constraints removes a visual guardrail for
-destructive operations.
-
-Additionally, does this introduce a backporting hazard? If developers write
-new code that unlinks elements using list_for_each_entry(), backporting tho=
-se
-patches to older stable kernels (which lack this caching patch) will compile
-cleanly but might reliably introduce use-after-free vulnerabilities, as old=
-er
-kernels evaluate pos->next after pos has been unlinked.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609064122.9582=
-5-1-kaitao.cheng@linux.dev?part=3D14
