@@ -4,46 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6415CD8CA7
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 08:57:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12561CD6E79
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 09:00:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0888910E033;
-	Tue,  9 Jun 2026 08:57:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CABC10E1B8;
+	Tue,  9 Jun 2026 09:00:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="AD7+HCMt";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="N6weoz0q";
 	dkim-atps=neutral
-Received: from mail-m1064.netease.com (mail-m1064.netease.com [154.81.10.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7116D10E033;
- Tue,  9 Jun 2026 08:57:30 +0000 (UTC)
-Received: from DESKTOP-SUEFNF9.taila7e912.ts.net (unknown [221.228.238.82])
- by smtp.qiye.163.com (Hmail) with ESMTP id 41a876c6e;
- Tue, 9 Jun 2026 16:57:26 +0800 (GMT+08:00)
-From: Dawei Feng <dawei.feng@seu.edu.cn>
-To: ttabi@nvidia.com
-Cc: dakr@kernel.org, dawei.feng@seu.edu.cn, dri-devel@lists.freedesktop.org,
- jianhao.xu@seu.edu.cn, linux-kernel@vger.kernel.org, lyude@redhat.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- namcao@linutronix.de, nouveau@lists.freedesktop.org, simona@ffwll.ch,
- stable@vger.kernel.org, zilin@seu.edu.cn
-Subject: Re: [PATCH] nouveau/firmware: fix memory leak on BL load failure
-Date: Tue,  9 Jun 2026 16:57:29 +0800
-Message-Id: <20260609085729.3786763-1-dawei.feng@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <0045b3583272df0b82f146fd96dee13d03377b4a.camel@nvidia.com>
-References: <0045b3583272df0b82f146fd96dee13d03377b4a.camel@nvidia.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFA0410E1B8
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 08:59:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1780995598;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:  in-reply-to:in-reply-to; 
+ bh=+QgjNina6+iDumd0ZqzH0GRicPNFxNM+RIpD2R+Oo3E=;
+ b=N6weoz0qOYWa5IlkouiUicpVAaMKXUSFS3SrafiTKHRGJh6XkVdehsH56m7JiNmBB8KxND
+ AcdGXaQOLTXjcmjAQbOBrwPlunmOiOx7jqV/1heunqAdDk/o8G5c1A8bVsHrNQtfS7IjsV
+ 6hrgXQfbVtqcRXS3rIOBfCXZddW/4WE=
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-695-NpJjPPadPQWk48LVSg2LfQ-1; Tue, 09 Jun 2026 04:59:57 -0400
+X-MC-Unique: NpJjPPadPQWk48LVSg2LfQ-1
+X-Mimecast-MFC-AGG-ID: NpJjPPadPQWk48LVSg2LfQ_1780995596
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-36bc5e97950so6075252a91.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 01:59:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780995596; x=1781600396;
+ h=content-transfer-encoding:date:message-id:subject:cc:in-reply-to:to
+ :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=QA3zW7XVHGpx2witYnUAq2WhOCFAbuZqYNTeCXGJ/sI=;
+ b=iSpJyxQ6cWJexEFjfDeFR5hbXdpTQR252jWR+qcY1Hkk5gKANJxxDY0fxEWKqwy9PQ
+ tXAco8eHQj29ScaLWe21pL+3FCCagWqluNtNuytZcs0kCYSk6oXnJhHCDqVemFSqINa4
+ zt1NaRG9jHsVpupqkkkSiBAZUH3VV6iFsaZZUKrPA5LOtXAjWdGJfvadanmAeYTqx8iL
+ 5teJ6xsFeAsBOrufz33R3DOcL3IK/cO/P4Pm/f63ZDS4ibbzMhue/afABq8vwpmtOgpm
+ 5kBCPBEvWg5EaQ4nYWgL763hNIHFo6KiVTkTytZ9TcaZHaLum3ljVShYRZ2nZvlneX+U
+ 9Jsg==
+X-Gm-Message-State: AOJu0Yz3x8xmpZlfRQ0PY3lk2DhGgx92ILyL3bSYUrB9SgUnFz58XhlH
+ QWWfJGbOVxa1u3zEn2ug3M9h6LCZxfO3J1u7zBJa/WILN8dAZeY+WhdNKLPJ9bY11NAbMLsRTy5
+ iEJwEmv8n4xiBoEKGEp38u2ZYAdPbMG4Oxsa2oHfwR1MwtQunVK+5y9CgzvAAfHhF6446Sz3kWk
+ vq8GYq
+X-Gm-Gg: Acq92OGaJl/Nv0h96IlVIlKU2rypx+kX3v58u16K9Z1Xb0VceUE3aL1AdrFBWcpg2Pz
+ SwFhB0xSMHmWSuXLzFybmXhX2t6t2L/4F+M45rO7x3XGLy/+OtX4H6Ud+df38OzlOUzrgn8+KCp
+ vlSZLuzbpmoUVlOF9u+picTYPtU3cWpdi3+S8jjw6nWbS8YspjWbg4S1/txBpbF/Rl9VjWYEQRP
+ 5NUjuXVR4un2anrRt9D3GsXt+FYY3lRvdkrBm+fE5CpWZWXZp/sfcWU0u+6szp1iatpi51x6hMo
+ d62Bzqj3Gcp8fa7nVXFqceSMmWoO96GzkCz/6yPLlrZj5r0Ip0jF+xLDNbuGSNwQZF2hm876Fod
+ I/GGroiG/HmZQojx2DOdEvEQjNkWgfcEDq7zu/2jUODjlNrayz00uHNMJ7bgsMGyqIJuBGQ==
+X-Received: by 2002:a17:90b:1d89:b0:368:ea0c:1b75 with SMTP id
+ 98e67ed59e1d1-370ee82fe25mr20349275a91.6.1780995596320; 
+ Tue, 09 Jun 2026 01:59:56 -0700 (PDT)
+X-Received: by 2002:a17:90b:1d89:b0:368:ea0c:1b75 with SMTP id
+ 98e67ed59e1d1-370ee82fe25mr20349226a91.6.1780995595776; 
+ Tue, 09 Jun 2026 01:59:55 -0700 (PDT)
+Received: from ryasuoka-thinkpadx1carbongen9.tokyo.csb ([126.143.164.49])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-36f6d1fec5asm18472645a91.10.2026.06.09.01.59.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Jun 2026 01:59:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9eab99d60503a2kunmd4cb5e84127d3d
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGEtCVk4YSklJSh9MHh1JGlYeHw
- 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlPS0hVSktISk
- 9ITFVKS0tVSkJLS1kG
-DKIM-Signature: a=rsa-sha256;
- b=AD7+HCMty0xT7ukJ2iVq24XZZtBk3S/QiDWX6gpGVFjcPKiO7RmZE7dzKCP/i1ObA/sHrur+vKJnntauTebn7UK4kaZhgSBnpvDaCOC3pG1hOrsw5Ok03Ux6gPVAd2HoLcW8JJIC4/n1uvVMkY4LrxLMkFVDeukP++uXZW+UT0U=;
- c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
- bh=PWKiJfHLAuY51AfkQhZeCWOGsOm5BCLCBnZ0+m/OIxk=;
- h=date:mime-version:subject:message-id:from;
+From: "Ryosuke Yasuoka" <ryasuoka@redhat.com>
+To: "Dmitry Osipenko" <dmitry.osipenko@collabora.com>, 
+ "David Airlie" <airlied@redhat.com>, "Gerd Hoffmann" <kraxel@redhat.com>, 
+ "Gurchetan Singh" <gurchetansingh@chromium.org>, 
+ "Chia-I Wu" <olvaffe@gmail.com>
+In-Reply-To: <f3848234-4258-483f-bc27-cdd31f65e7aa@collabora.com>
+Cc: <dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>, 
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v1] drm/virtio: Fix driver removal with disabled KMS
+Message-ID: <18b75e0e21e52581.f1a5ca06374b8df6.21049e9ba3a0559d@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
+Date: Tue, 9 Jun 2026 08:59:52 +0000
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: G0Qim6TqNVzC5GYz9FZWFJWNkhd4fSbXKu-Vo52lEVg_1780995596
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,72 +99,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi, Timur,
+Hi Dmitry
 
-On Fri, Jun 05, 2026 at 06:22:41PM +0000, Timur Tabi wrote:
-> Ah yes, you're right.
->
-> So now I think a better fix might be to have two different `blob`
-> variables, so that there is no longer any confusion. Because right now,
-> the nvkm_firmware_put() call at the end of the function releases a
-> different `blob` depending on whether `bl` is NULL or not.
->
-> What do you think about this:
->
->     nvkm_firmware_put(blob);
->     if (bl) {
->             const struct firmware *blob_bl;
->
->             ret = nvkm_firmware_load_name(subdev, bl, "", ver, &blob_bl);
->             if (ret)
->                     goto done;
->             ...
->             nvkm_firmware_put(blob_bl);
->             if (!fw->boot)
->                     ret = -ENOMEM;
->     } else {
->             fw->boot_addr = fw->nmem_base;
->     }
->
-> done:
->     if (ret)
->             nvkm_falcon_fw_dtor(fw);
->
->     return ret;
+On 08/06/2026 21:40, Dmitry Osipenko wrote:
+> Hi,
+>=20
+> On 6/7/26 07:31, Ryosuke Yasuoka wrote:
+>> Hi Dmitry
+>>=20
+>> On 04/06/2026 15:27, Dmitry Osipenko wrote:
+>>> DRM atomic and modesetting aren't initialized if virtio-gpu driver buil=
+t
+>>> with disabled KMS, leading to access of uninitialized data on driver
+>>> removal/unbinding and crashing kernel. Fix it by skipping shutting down
+>>> atomic core with unavailable KMS.
+>>>
+>>> Fixes: 72122c69d717 ("drm/virtio: Add option to disable KMS support")
+>>> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+>>> ---
+>>>  drivers/gpu/drm/virtio/virtgpu_drv.c | 5 ++++-
+>>>  1 file changed, 4 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/vir=
+tio/virtgpu_drv.c
+>>> index f0fb784c0f6f..2aaa7cb08085 100644
+>>> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
+>>> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
+>>> @@ -138,7 +138,10 @@ static void virtio_gpu_remove(struct virtio_device=
+ *vdev)
+>>> =20
+>>>  =09virtio_gpu_release_vqs(dev);
+>>>  =09drm_dev_unplug(dev);
+>>> -=09drm_atomic_helper_shutdown(dev);
+>>> +
+>>> +=09if (drm_core_check_feature(dev, DRIVER_ATOMIC))
+>>> +=09=09drm_atomic_helper_shutdown(dev);
+>>> +
+>>>  =09virtio_gpu_deinit(dev);
+>>>  =09drm_dev_put(dev);
+>>>  }
+>>=20
+>> The patch looks good to me at a glance. I haven't done a full, deep code
+>> review yet, but I've tested it on my lab and everything works as
+>> expected.
+>>=20
+>> Tested-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
+>=20
+> Thanks a lot for the testing. The review from you will be very welcomed
+> too.
 
-Yes, using a separate pointer `blob_bl` for the bootloader firmware is a
-cleaner approach. 
+I reviewed your patch and this change looks good to me.
 
-However, we must keep the final nvkm_firmware_put(blob) under the done
-label. Moving it earlier would cause memory leaks in prior error paths
-like nvkm_falcon_fw_ctor(), which jump directly to done. 
+Reviewed-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
 
-A safer approach is to manage blob_bl locally inside the if (bl) block,
-while leaving the original blob cleanup at the end. 
+Thank you!
+Ryosuke
 
-What do you think about this:
-
-        if (bl) {
-                const struct firmware *blob_bl;
-
-                ret = nvkm_firmware_load_name(subdev, bl, "", ver, &blob_bl);
-                if (ret)
-                        goto done;
-
-                ...
-                nvkm_firmware_put(blob_bl);
-                if (!fw->boot)
-                        ret = -ENOMEM;
-        } else {
-                fw->boot_addr = fw->nmem_base;
-        }
-
-done:
-        if (ret)
-                nvkm_falcon_fw_dtor(fw);
-
-        nvkm_firmware_put(blob);
-        return ret;
-
-Regards,
-Dawei
