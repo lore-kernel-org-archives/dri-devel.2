@@ -4,31 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3264ACD8CAD
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 06:20:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA40CCD8CB9
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 06:22:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DE8410E070;
-	Tue,  9 Jun 2026 06:20:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B6A810E0B8;
+	Tue,  9 Jun 2026 06:22:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="kQ+kUgOr";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="mu4x5jso";
 	dkim-atps=neutral
-X-Greylist: delayed 333 seconds by postgrey-1.36 at gabe;
- Tue, 09 Jun 2026 06:20:48 UTC
-Received: from out-189.mta0.migadu.com (out-189.mta0.migadu.com
- [91.218.175.189])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E747910E0B8
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 06:20:48 +0000 (UTC)
+Received: from out-182.mta0.migadu.com (out-182.mta0.migadu.com
+ [91.218.175.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06A0E10E0B8
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 06:22:47 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1780985712;
+ t=1780985744;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=i2jpIDCVnNVhXSYDVvdDiQ1s+6wApppzolFVa3ePcBA=;
- b=kQ+kUgOrV6W6Jc16Kii3uxt27H6tnGH4ZT13H/tGloTnC2pxAr0+1e0lN87mGDlSsCwwUT
- byRLJdWy+OF38KcDXWI7VaMSELJjoswljJztiskoxvxrLRlYswbpJIeHHZA8qm2XiuHT4d
- nSyAaMFF4R+0aR7kWu7ve4uMSn0m2lc=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=8IbZbE3jo0O5k9m8Y0Atqn05/3xjZN/raHrVYg8v9cA=;
+ b=mu4x5jsoYo0l0ovgG3zOUnjhNAQicGnTrtTFx6Idq1wmNye60WV1RaPHTgTt8LrIeGV3Rp
+ z1sQSh8qYQYqgD+WB2P0Pz0U+UWtH+CwphgBLPih3SdT7bmzxnYsrxKQ46Ig7exityyWy0
+ /VoZbB9nTPAPZ3JdijaeFc0zLpE0Zho=
 From: Kaitao Cheng <kaitao.cheng@linux.dev>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Muchun Song <muchun.song@linux.dev>,
@@ -75,10 +74,13 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Christian Brauner <brauner@kernel.org>,
  David Howells <dhowells@redhat.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Kaitao Cheng <kaitao.cheng@linux.dev>, Kaito Cheng <chengkaitao@kylinos.cn>
-Subject: [PATCH v2 00/14] list: Prepare entry iterators to cache cursor state
-Date: Tue,  9 Jun 2026 14:13:33 +0800
-Message-ID: <20260609061347.93688-1-kaitao.cheng@linux.dev>
+ Kaitao Cheng <kaitao.cheng@linux.dev>,
+ Kaitao Cheng <chengkaitao@kylinos.cn>
+Subject: [PATCH v2 02/14] firewire: core: Open-code topology list walk
+Date: Tue,  9 Jun 2026 14:13:35 +0800
+Message-ID: <20260609061347.93688-3-kaitao.cheng@linux.dev>
+In-Reply-To: <20260609061347.93688-1-kaitao.cheng@linux.dev>
+References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
@@ -97,64 +99,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Kaito Cheng <chengkaitao@kylinos.cn>
+From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
-This series prepares for, and then updates, the list_for_each_entry()
-family so the common entry iterators cache their next or previous cursor
-before the loop body runs.
+A later change will make list_for_each_entry() cache the next element
+before entering the loop body. for_each_fw_node() intentionally appends
+newly discovered child nodes to the temporary walk list while the list is
+being traversed.
 
-The first 13 patches open-code loops that intentionally depend on the
-old "derive the next entry from the current cursor at the end of the
-iteration" behaviour.  These loops append work to the list being walked,
-restart traversal after dropping a lock, skip an entry consumed by the
-current iteration, or otherwise adjust the cursor in the loop body.
+Keep the loop open-coded so the next node is looked up only after
+children have been appended. This preserves the current breadth-first
+traversal semantics and prepares the code for the list iterator update.
 
-The final patch changes include/linux/list.h to keep a private cursor in
-the common entry iterators while preserving the public macro interface.
-The safe variants remain available when callers need the temporary
-cursor explicitly or have stronger mutation requirements.
+Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+---
+ drivers/firewire/core-topology.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Changes in v2 (Muchun Song, Andy Shevchenko):
- - Drop the list_for_each_entry_mutable*() helpers from v1 and make the
-   cursor change directly in the existing list_for_each_entry*() helpers.
- - Open-code special list walks that rely on updating the loop cursor in
-   the body, preserving their existing traversal semantics.
-
-Link to v1:
-https://lore.kernel.org/all/20260529082149.76764-1-kaitao.cheng@linux.dev/
-
-Kaitao Cheng (14):
-  drbd: Open-code transfer log list walk
-  firewire: core: Open-code topology list walk
-  drm/bridge: Open-code bridge chain list walks
-  drm/i915/gt: Open-code active timeline walk
-  drm/i915: Open-code DFS dependency list walk
-  drm/ttm: Open-code reservation list walk
-  spi: fsi: Open-code message transfer walk
-  spi: stm32-ospi: Open-code message transfer walk
-  spi: stm32-qspi: Open-code message transfer walk
-  spi: tegra210-quad: Open-code message transfer walk
-  locking/locktorture: Open-code ww mutex list walk
-  locking/ww_mutex: Open-code stress reorder list walk
-  ASoC: dapm: Open-code widget invalidation walk
-  list: Cache cursors in entry iterators
-
- drivers/block/drbd/drbd_debugfs.c      |  4 ++-
- drivers/firewire/core-topology.c       |  4 ++-
- drivers/gpu/drm/drm_bridge.c           |  7 ++--
- drivers/gpu/drm/i915/gt/intel_reset.c  |  4 ++-
- drivers/gpu/drm/i915/i915_scheduler.c  |  4 ++-
- drivers/gpu/drm/ttm/ttm_execbuf_util.c |  4 ++-
- drivers/spi/spi-fsi.c                  |  5 ++-
- drivers/spi/spi-stm32-ospi.c           |  4 ++-
- drivers/spi/spi-stm32-qspi.c           |  5 ++-
- drivers/spi/spi-tegra210-quad.c        |  4 ++-
- include/linux/list.h                   | 46 ++++++++++++++++++++------
- kernel/locking/locktorture.c           |  4 ++-
- kernel/locking/test-ww_mutex.c         |  4 ++-
- sound/soc/soc-dapm.c                   |  4 ++-
- 14 files changed, 78 insertions(+), 25 deletions(-)
-
+diff --git a/drivers/firewire/core-topology.c b/drivers/firewire/core-topology.c
+index bb2d2db30795..df2ac0dab106 100644
+--- a/drivers/firewire/core-topology.c
++++ b/drivers/firewire/core-topology.c
+@@ -272,7 +272,9 @@ static void for_each_fw_node(struct fw_card *card, struct fw_node *root,
+ 	fw_node_get(root);
+ 	list_add_tail(&root->link, &list);
+ 	parent = NULL;
+-	list_for_each_entry(node, &list, link) {
++	for (node = list_first_entry(&list, typeof(*node), link);
++	     !list_entry_is_head(node, &list, link);
++	     node = list_next_entry(node, link)) {
+ 		node->color = card->color;
+ 
+ 		for (i = 0; i < node->port_count; i++) {
 -- 
 2.43.0
 
