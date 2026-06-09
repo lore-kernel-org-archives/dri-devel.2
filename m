@@ -4,65 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 872A7CD8C85
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 07:16:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A55DCD98C3
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 07:16:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0629510E132;
-	Tue,  9 Jun 2026 07:16:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F4DD10E134;
+	Tue,  9 Jun 2026 07:16:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="cftHFXnO";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Kr1n4Uts";
 	dkim-atps=neutral
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FCC010E08F
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 05:42:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1780983727;
- bh=oiQztLu7ayEL1BZi0J/ISbX7leUJfOCstoweJDCYphk=;
- h=From:To:Subject:Date:Message-ID:MIME-Version;
- b=cftHFXnO2C1KpdhaS12eCzVJCtf0Kubx+ff8mRLE+4knqaCjr6JdWWrR3vQRI+Sba
- P3d5QPrxYVKL/VEneh47aa0JTc9gTfTIIc3x+t9f/YQnY+bitRmZPljTX/+TzBhqYR
- hGgoDP6fU9AXrkbPDksu38Kzx1yIWqknibx3oPbI=
-X-QQ-mid: esmtpsz19t1780983419tfdbcca62
-X-QQ-Originating-IP: 9YbBN8UemGC7/4w7eZkwyFmDB9pRzgNBtufUVXhGxqY=
-Received: from PEN202512010004 ( [113.57.152.160])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Tue, 09 Jun 2026 13:36:57 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 14602859154893020583
-EX-QQ-RecipientCnt: 8
-From: raoxu <raoxu@uniontech.com>
-To: maarten.lankhorst@linux.intel.com
-Cc: mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, raoxu@uniontech.com
-Subject: [PATCH] drm/debugfs: fix dentry leak when removing files
-Date: Tue,  9 Jun 2026 13:36:55 +0800
-Message-ID: <D43FE6467BFBCD12+20260609053655.2406749-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECD7210E119
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 07:16:41 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 61AA1C4FED4;
+ Tue,  9 Jun 2026 07:16:41 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 009365FFC1;
+ Tue,  9 Jun 2026 07:16:40 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 31A7C106A2AA7; 
+ Tue,  9 Jun 2026 09:16:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1780989399; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ in-reply-to:references; bh=Ll4RtAYhS2rFE5eRASFLWyUVEVc0Hay6pdACZEO3nE8=;
+ b=Kr1n4UtsKcLcc8mnEDUlI9/QEfHHzrU0bANTQKUzXFK+cPPHlZu6J6AOijWyT4ubEyFdFu
+ eHyxh6eR/FpPmd+Kr+XeyR/Paqkj3P0cCOmhCvz6UcO8oHEfNxOUtwU4HO8h4oNjv4S8vP
+ xYC3KXPW+qQ80iwTv6O7Wpav0j0keC2njj+PMxuUKo4bdBWVYfh//3aKNEr5L0eOzA5qQf
+ U4/mGRNmhCZKd5hBjNdLtd420py/17wAnSAvLV/UQyH/RlFaNCAqc/M88xLKORBeMeBy7J
+ /uCfKqNgRLXIcHurkosOlhYyOvcPmc/MWIT3GB4D44/va0XDUJYLZLVUzunwaw==
+From: Romain Gantois <romain.gantois@bootlin.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Paul Kocialkowski <paulk@sys-base.io>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] drm/logicvc: Avoid use-after-free with devm_kzalloc()
+Date: Tue, 09 Jun 2026 09:16:34 +0200
+Message-ID: <aEp-mETTTxmIRUxspbPhzQ@bootlin.com>
+In-Reply-To: <20260608-beetle-of-infinite-atheism-bcfcee@houat>
+References: <20260601-logicvc-uaf-v1-1-8c9ca5b3429c@bootlin.com>
+ <5Q6YIC1WTqOFVMFErYGBEQ@bootlin.com>
+ <20260608-beetle-of-infinite-atheism-bcfcee@houat>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MBN1Gf7pvZQZ6dtJo3SRvjzw3RzpVRYjhv+QuDY9q4tkQBaHjgXA3rhH
- inLNUNaNPDVzYUc4Rv8qa5xpE7O//F4ZPAkfqCxO7NOKjEYWVBVCzVo829bQj5oOXsfEvQA
- h4U9kD/ZN/yotzZbiYV2YwHRQyYiHJq188d8bAT411qkRptowMyan3W6THCL44g3qZezZlu
- 2nxze9cj9Z+0AicuSl0e7A0qJOGWuztU5QVpqOMbwKGsZQPP3tzLEo4NLA3oHAxDXgQiTxA
- 7yXymn0aNIzfwpG5oXavGxXiOe+VQtlXnGwP611gOoBAM41ioSOwUX2KQwoBYnpmn/UnM/G
- 56dU//UGtmAuU3dLegXzqNOw99e0EAzxk1Sa474i/U5PzGoHizjM8smJ/U8hgjxf3oSu+nY
- cT6hlzE9OwytP8qgnd/Hi9S3Mdy9YHOfdK7XfyTQq8ZQyELSO/pKFn/GTVHUnIt9OrNFhNL
- r2m91cnZ8BpG0z+yraCchDrbgppKowDYuSDTKHlORGpz1L5ctPN718+mafmI+N/f5TUXsXK
- vBLPMCQhQ+Q1doloO8z3g/peTd79lBGFblpq6P5LdUAElunVc84v1oCiS/6WyQBOvme0KVp
- pO45zBvKI5G7nLNi7VTtfeRwc+3MgvFIE9rtwqOZW/nvmb7SL1t/XzaNyaQ7/deWIuUAh+O
- bEHOOJj0VS+eUywy/jkELhlZr7fuFOBC71YeutZ/5QsqomergwD51113M0VTPMU4W+i4dL4
- 2XyxhHdpqL/kU5YN1oBRp+ZruL0uKMvBaG3J5zoLxu2jGcs0afUovLa93FcbZKYQaSaJqFa
- JnL3R1VuFkzwIqt5Q3hLCPyEJZbwIxl74OB+NCBPYntgscM4MudzbcXv0XN/S89c6XBfbHg
- dqm0XnSfgUtjFXpkVeWMVnLYiTwDFM2SvLL4EnXbC2sBKci4VETA11oE0BT2h+yyrn6ljJY
- bqbDFz54y+KaxgwiQ65OJZxhwAfM3Nr3wQ/lKmlOAmgwKLZt230HiwUVCYW+fL4DLlMmr6i
- Tg1GW8lwa/A01cgcr+ZvgdDuu/9jfD6Jz9Of6lBA==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
-X-Mailman-Approved-At: Tue, 09 Jun 2026 07:16:14 +0000
+Content-Type: multipart/signed; boundary="nextPartbwA1YJYMT_237ZM1LpD28w";
+ micalg="pgp-sha512"; protocol="application/pgp-signature"
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,34 +68,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Xu Rao <raoxu@uniontech.com>
+--nextPartbwA1YJYMT_237ZM1LpD28w
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Romain Gantois <romain.gantois@bootlin.com>
+To: Maxime Ripard <mripard@kernel.org>
+Subject: Re: [PATCH] drm/logicvc: Avoid use-after-free with devm_kzalloc()
+Date: Tue, 09 Jun 2026 09:16:34 +0200
+Message-ID: <aEp-mETTTxmIRUxspbPhzQ@bootlin.com>
+In-Reply-To: <20260608-beetle-of-infinite-atheism-bcfcee@houat>
+MIME-Version: 1.0
 
-debugfs_lookup() returns a referenced dentry. The caller must drop the
-reference after it is done using the dentry.
+On Monday, 8 June 2026 18:19:04 CEST Maxime Ripard wrote:
+> On Mon, Jun 08, 2026 at 05:41:11PM +0200, Romain Gantois wrote:
+> > Hi Maxime,
+> > 
+...
+> > > You're only partially fixing the issue. You also need to protect any
+> > > device resource (register mapping, clocks, etc) are no longer accessed
+> > > after the device has been removed, and this is typically done using
+> > > drm_dev_enter/exit.
+> > 
+> > Sorry there's something which I don't quite understand: is this a new
+> > issue
+> > which is specifically introduced by my changes in this series, or a
+> > different issue in this driver which isn't handled by my series?
+> 
+> A bit of both I guess ? :)
+> 
+> My point was that while your commit log claims you avoid use-after-free,
+> and your patch definitely avoids some, you can still trivially trigger
+> some.
+> 
+> Whether you want to fix them all at once or prefer to defer it to a
+> later point in time is equally fine by me, but you need to be aware that
+> it's not done, and you probably want to have it in the commit log
+> somewhere too?
+> 
 
-drm_debugfs_remove_files() removes the looked-up file but never drops
-the lookup reference. debugfs_remove() does not consume it.
-debugfs_lookup_and_remove() exists for this case and does the dput().
+Ah ok, I didn't mean to claim that I was fixing any potential UAF in the 
+driver. But if there's another one then I'm definitely interested in fixing it 
+as well :).
 
-Drop the dentry reference after removing the debugfs file.
+> > IIUC all I'm doing here is just letting the drmm code handle cleaning up
+> > the plane, crtc, etc. objects instead of doing it "by hand" with
+> > devm_kzalloc. Why does this make it necessary to add additional
+> > protection of driver resources?
+> 
+> It's not necessary, but it's also kind of the same issue. The reason we
+> need to have drmm over devm is that the driver stays around longer than
+> its device, so devm-allocated memory would have been freed.
+> 
+> But that's also the case for *any* devm resource, or more generally any
+> resource linked to that device, so register mappings, clocks,
+> interrupts, etc.
+> 
+> So yeah, it's a different symptom of the same underlying cause.
 
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
- drivers/gpu/drm/drm_debugfs.c | 1 +
- 1 file changed, 1 insertion(+)
+Okay, I'll assess the issue and probably make another patch in the same series 
+to fix that.
 
-diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
-index ae1c6126c2c5..fbaa53ec2a4c 100644
---- a/drivers/gpu/drm/drm_debugfs.c
-+++ b/drivers/gpu/drm/drm_debugfs.c
-@@ -285,6 +285,7 @@ int drm_debugfs_remove_files(const struct drm_info_list *files, int count,
+Thanks,
 
- 		drmm_kfree(minor->dev, d_inode(dent)->i_private);
- 		debugfs_remove(dent);
-+		dput(dent);
- 	}
- 	return 0;
- }
---
-2.50.1
+-- 
+Romain Gantois, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+--nextPartbwA1YJYMT_237ZM1LpD28w
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEIcCsAScRrtr7W0x0KCYAIARzeA4FAmonvdIACgkQKCYAIARz
+eA7kTg/+NoagThXw+iN7Q3fx0etdoKAG1eAtU2g5ctpyJHJt+byOCdo++rTheK2d
+ivZDjZDdF1pORoe0XFPwgp+hl0VcZ3D7HJtKhMgftUH50k1Xh5VBBPgV7yjH7rGM
+rcaBvqRxWf+FyrqElFWfrdMz5ewbszMQYj3oo/wWaztOZquuzc3rE2IJc5NYz396
+OQUKx5srPy9Fy9+GWc8KsAn+4Y4awRMokffzE7l0tKCSX0qssNYCdHzzX1r+gCpj
+SmwHoHJ+IzPI8lJnE92KMnjzrwDcpD0R8UdEMHu25dfsPwkpc8d9io95qlktwAPz
+ogDl2SKsPo1clIjxrzT/SmHFzGjQQtIRXC4QkMfmtpp8MxA3wrFtBPqJKOKyG0Z2
+twJ0L9wBxHyTYPhOqiaPeUtOVg66bi7Tx/DpZAOx3IAaDUHUhdeepmM0spVh2M+P
+k/i6JzKu8D+5yDBHoOrL+G0MzL/SU13cw+epxtNGAbIm8iQRLYHZjF/d5QPLlmFf
+oIp3tzqkGVB4DAIVjTbHaZGdAfgikC9ZjqU7qYXTxQx7Z2dd/wTe+u3KJ0A24IlZ
+6a8fQN5IDTpdtPrwWSAMoRUZLHB7AGZ10lGNKsUHAsIo2vdt9NvpvaQ4ukYA04kn
+g9416mcACNduCd5kvERtF0iDtUhtCk4fJX91WpwXWRz6NMZulfk=
+=WA82
+-----END PGP SIGNATURE-----
+
+--nextPartbwA1YJYMT_237ZM1LpD28w--
+
+
 
