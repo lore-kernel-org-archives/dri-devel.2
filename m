@@ -4,67 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47AF6CD8CA4
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 08:23:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E42F9CD8CAC
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 08:24:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DF7210E18A;
-	Tue,  9 Jun 2026 08:23:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DD7810E19C;
+	Tue,  9 Jun 2026 08:24:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="hBvKze0J";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Qs9tUYOU";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95FAE10E18A
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 08:23:37 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id BE7BA4E42D42;
- Tue,  9 Jun 2026 08:23:35 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 88A575FFC1;
- Tue,  9 Jun 2026 08:23:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 6A6E7106A2A9D; 
- Tue,  9 Jun 2026 10:23:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1780993414; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=zHx7IH4CQnKVKKiwpqK0zhDBHfLiKLUyXdppF6LNFCI=;
- b=hBvKze0J9N8/PmsSE6wYyE0e6AUrZ2far59k3pTSOl2RKwQor+bVUthTqYbZzuGRC/LqUy
- XEtovmur3V7GsJWjLsQPdA4/cQnjZRRpq3BRdCj7AHlZsPO4vJ3HMd0pMVjkoa8bot+yZq
- LFfie0S6ftflFFnNPOtYWsJxBk2JgQRBT9NzJIrvDOhZ2NxHcQGletZrbMTNalwFH9wKN/
- 8MxgXYJ97sakzc/ZnElRG4JexPstQoQhZik71MXWLzyV6Pzz9mjBLw3BqxUDvTi+ToftvT
- fLjB/nO/tKgurtlMQxRP5TWpzQQTooBZCawYuuYREldkQdfoNHDEoxYhf2B/6A==
-Mime-Version: 1.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EACE10E19C
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 08:24:18 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 16B27443FF;
+ Tue,  9 Jun 2026 08:24:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C84081F00893;
+ Tue,  9 Jun 2026 08:24:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780993458;
+ bh=UcSMu1TW87AJWX6Q9mYFWv4qdv3fOEMOWWYN8aMQ0n0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Qs9tUYOUVb6TmhQL73/YtOXJ3yzwLzUBHt43Etsbpbp6cPQZBPBMTpE3sTQkiX7hQ
+ cFUSLNydMjT+M5S6kbOKxn5tZxEM8gDOYD2oK2O3Giu2ToNdUYQz4Zn1An5SllME+w
+ d5/YRrkxt1lRPrPRKW/V6b2b3Y+kdwNOJSpXvuf2n3g0Bof+n+ppH/XOK07SwkMJ2K
+ 0Kf2INkGq0J/iawn0TWsS8ZgP7KyZ43Mipo6dM9ukuRrUma9kazOgntNQuH0RMHpWb
+ W97byBrvF72Avt3Tk2YqZMlm2d1YdgLVcSlRSHzzk91oAysHi8KaOoT50VwKSiRT0p
+ C331KYJy3jZvQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/6] gpu: host1x: Wait for timeout worker completion on
+ channel free
+To: "Mikko Perttunen" <mperttunen@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260609-b4-host1x-small-fixes-a-v1-1-7c1131c0b3ad@nvidia.com>
+References: <20260609-b4-host1x-small-fixes-a-v1-1-7c1131c0b3ad@nvidia.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 09 Jun 2026 10:23:24 +0200
-Message-Id: <DJ4DGYZ3GQZH.3AZOC0Z69W92S@bootlin.com>
-Subject: Re: [PATCH 30/37] drm/bridge: add drm_bridge_is_tail() to know
- whether a bridge completes the pipeline
-Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas
- Zimmermann" <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Inki Dae"
- <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Marek
- Szyprowski" <m.szyprowski@samsung.com>, "Marek Vasut" <marex@denx.de>,
- "Stefan Agner" <stefan@agner.ch>, "Frank Li" <Frank.Li@nxp.com>, "Sascha
- Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Hui Pu"
- <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>
-To: "Maxime Ripard" <mripard@kernel.org>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.21.0
-References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
- <20260519-drm-bridge-hotplug-v1-30-45e2bdb3dfb4@bootlin.com>
- <20260608-shapeless-opal-ferret-c8b105@houat>
-In-Reply-To: <20260608-shapeless-opal-ferret-c8b105@houat>
-X-Last-TLS-Session-Version: TLSv1.3
+Date: Tue, 09 Jun 2026 08:24:17 +0000
+Message-Id: <20260609082417.C84081F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,97 +53,102 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maxime,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-thanks for the review of this long series!
-
-On Mon Jun 8, 2026 at 2:34 PM CEST, Maxime Ripard wrote:
-...
->> --- a/include/drm/drm_bridge.h
->> +++ b/include/drm/drm_bridge.h
->> @@ -78,6 +78,19 @@ struct drm_bridge_funcs {
->>  	int (*attach)(struct drm_bridge *bridge, struct drm_encoder *encoder,
->>  		      enum drm_bridge_attach_flags flags);
->>
->> +	/**
->> +	 * @is_tail:
->> +	 *
->> +	 * Returns true if this is a tail bridge, i.e. it does not need a
->> +	 * next bridge to work. E.g. a panel_bridge is a tail bridge, a
->> +	 * DSI-to-LVDS bridge is not a tail bridge (no matter whether the
->> +	 * next bridge is present or not).
->
-> Why a DSI-to-LDVS bridge isn't a tail bridge? It only needs a panel
-> next, right?
-
-Uhm, good point, but I'd say it can be a tail bridge or not: in the
-ATTACH_NO_CONNECTOR case it will need a bridge (a panel_bridge most
-likely), no?
-
-However this is possibly irrelevant as the whole .is_tail is meant to
-disappear in v2, see below.
-
->> +	 * The @is_tail callback is optional but it is required if the
->> +	 * bridge is part of a pipeline with hot-pluggable components.
->> +	 */
->> +	bool (*is_tail)(struct drm_bridge *bridge);
->> +
->
-> I don't think that's the right way to think about it, if only because
-> you never really know at the driver level if you're supposed to be last
-> or not. A DSI-to-LVDS bridge might just as well be chained with an
-> LVDS-to-eDP bridge, or feed the panel directly without any additional
-> bridge.
->
-> I *think* that what you're trying to find out here is whether the chain
-> is complete or not.
-
-You nailed it.
-
-That was the main point discussed during the Display Next Hackfest 2026
-(see the report [0]) and we all agreed the .is_tail along with the
--EPROBE_DEFER changes (patches 20+35) are not a good approach.
-
-This is actually the most crucial aspect of the whole work still not having
-no well-defined solution.
-
-> I think you can get the same information by checking
-> whether you have a connector for that bridge chain. If you don't, you
-> know the chain isn't complete, and if you do, it's supposed to be.
-
-There's a checken-egg problem here. Knowing whether the pipeline is
-complete or not is needed to know whether we have to create a
-connector. See patch 36:
-
-  +  if (drm_bridge_connector_pipeline_is_complete(bridge_connector))
-  +          drm_bridge_connector_add_connector(bridge_connector);
-
-So the question is still open, what I need the most right now is comments
-on the overall architecture of this aspecs. Maybe replying to [0] can be
-more effective than here.
-
-In a nutshell what we need is:
-
- * when a bridge needs a following element (a bridge, or a panel which
-   however might/should have a panel_bridge), but that element is not
-   present, instead of deferring the whole card probe the card should be
-   allowed to probe but without a connector
-
- * when something is added to an incomplete pipeline we need to know
-   whether the pipeline has become complete (in order to create the
-   connector)
-
-How to implement this is still an open point. I'll welcome proposals in
-addition to the ones in [0].
-
-[0] https://lore.kernel.org/all/DIXTUCXAU68V.1T7X89LMEUF2F@bootlin.com/
-
-Luca
-
+Pre-existing issues:
+- [High] Missing teardown of `cdma->update_work` during channel destruction=
+ causes workqueue corruption and use-after-free races.
+- [High] Spurious timeout handler execution aborts newly-started jobs due t=
+o unsafe non-synchronous timer cancellation in `update_cdma_locked()`.
 --
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+
+commit 716b1c0819a18e8bf5a813661ef56163eb1114aa
+Author: Mikko Perttunen <mperttunen@nvidia.com>
+
+gpu: host1x: Wait for timeout worker completion on channel free
+
+This commit addresses a race condition during CDMA teardown. By replacing
+cancel_delayed_work() with cancel_delayed_work_sync(), it ensures pending
+timeout work completes before the CDMA channel is freed. This prevents the
+timeout handler from waiting on a destroyed lock.
+
+> diff --git a/drivers/gpu/host1x/hw/cdma_hw.c b/drivers/gpu/host1x/hw/cdma=
+_hw.c
+> index 3f3f0018eee0d..ab714d221120c 100644
+> --- a/drivers/gpu/host1x/hw/cdma_hw.c
+> +++ b/drivers/gpu/host1x/hw/cdma_hw.c
+> @@ -355,7 +355,7 @@ static int cdma_timeout_init(struct host1x_cdma *cdma)
+>  static void cdma_timeout_destroy(struct host1x_cdma *cdma)
+>  {
+>  	if (cdma->timeout.initialized)
+> -		cancel_delayed_work(&cdma->timeout.wq);
+> +		cancel_delayed_work_sync(&cdma->timeout.wq);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the missing teardown of
+cdma->update_work during channel destruction cause workqueue corruption and
+use-after-free races?
+
+When release_channel() calls host1x_cdma_deinit(), it destroys the push
+buffer but fails to call cancel_work_sync(&cdma->update_work):
+
+drivers/gpu/host1x/cdma.c:host1x_cdma_deinit() {
+    ...
+	host1x_pushbuffer_destroy(pb);
+	host1x_hw_cdma_timeout_destroy(host1x, cdma);
+
+	return 0;
+}
+
+The cdma->update_work can be scheduled asynchronously by a hardware syncpoi=
+nt
+interrupt. If the channel is immediately reallocated to a new client,
+host1x_cdma_init() unconditionally executes INIT_WORK(&cdma->update_work, .=
+..).
+
+Calling INIT_WORK() on an actively queued or running work struct can corrupt
+the workqueue linked lists. Additionally, if the stray cdma_update_work()
+executes after the push buffer is destroyed, can it dereference a NULL
+cdma->push_buffer.mapped?
+
+
+[Severity: High]
+This is a pre-existing issue, but does spurious timeout handler execution
+abort newly-started jobs due to unsafe non-synchronous timer cancellation in
+update_cdma_locked()?
+
+When a job finishes, stop_cdma_timer_locked() uses non-sync
+cancel_delayed_work() under a lock, leaving the executing handler to run:
+
+drivers/gpu/host1x/cdma.c:stop_cdma_timer_locked() {
+	cancel_delayed_work(&cdma->timeout.wq);
+	cdma->timeout.client =3D NULL;
+}
+
+If the timeout handler cdma_timeout_handler() has already started on another
+CPU, it blocks waiting for cdma->lock. The current thread then immediately
+starts the next job, updating cdma->timeout.client and syncpt_val, and
+releases the lock.
+
+The stale timeout handler wakes up, sees cdma->timeout.client is not NULL,
+and checks if the NEW job has completed. Since it hasn't, the handler
+spuriously assumes a timeout occurred, freezes the CDMA channel, and aborts
+the new job.
+
+Is a generation sequence number or explicit time check against start_ktime =
+in
+the handler required to fix this race safely, since using
+cancel_delayed_work_sync() here would cause a deadlock?
+
+> =20
+>  	cdma->timeout.initialized =3D false;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-b4-host1x-=
+small-fixes-a-v1-0-7c1131c0b3ad@nvidia.com?part=3D1
