@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1A23CD8CAC
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 06:57:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C49FCD8C85
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 06:59:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48B0F10E105;
-	Tue,  9 Jun 2026 06:57:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D1AC10E10D;
+	Tue,  9 Jun 2026 06:59:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VfYS26O7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CRyBowMC";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66BC310E105
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 06:57:23 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F29AE10E10D
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 06:59:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4287B43767;
- Tue,  9 Jun 2026 06:57:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAD4B1F00893;
- Tue,  9 Jun 2026 06:57:22 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 55B27600AE;
+ Tue,  9 Jun 2026 06:59:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC20B1F00893;
+ Tue,  9 Jun 2026 06:59:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780988243;
- bh=5OLcB8IoeIiXDSK0W4AKNSHVxFgeQ0bf3IWxbTtLYCI=;
+ s=k20260515; t=1780988392;
+ bh=6PMzg1WoSSi6Fs890h+2XJv0x1TfAu7cZFqrbJPTl4I=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VfYS26O7yyONf85xRggrb87R6M2VOztsujuc3MbAljqQVerQtTwaAWFCx6oP4d5QL
- erE2FyXNeO2WUk6WLmD2SGEKGfpLoFBskcIRfRwEXICW/MWhYlkgTPExURHo+tkWBr
- dppis83VjwQBna9Av0z6UcepwgNE2jJBOmkMDvru3fXr5PRIp0E61xGldv0qLovCAO
- agKzIsFSfN/xhVD8Ox4p/X1RigByrpsRSuHVmo1JZtPpLmmCNrb4iRoUhqYdsbklRm
- kY9fesmxN6v3F4qK+VAk/HK0FZT+jw79hvaDhc0pdCjm+pyzw7pyZTCJubpgPyqeJ5
- 8QePMScCe5kJw==
+ b=CRyBowMCEGz6PeTDWtgIpigJfROYQhRPaLmanbR8C3adItwEGsHYDk7DAl5Plucqi
+ 38Wg5R9MRxjVCvNSV9l66qPkbJ11UvHcckhHneOz21WUlIstEY2gpK5duBtAePU69Y
+ IEPfq38v1F5UCQlELb9EP28XYAc+AI2rLizEmpog5cTmrnLehIsaYn4YJyTx1U+kSr
+ R8nblJttsnsmLEx8K1xfiJGHgtBnn5o+mdPPOqu0nHkerm6+Fdx1Fbpil3CWorjSCz
+ Q8CH/O/oPZq1KxSpo1Q2UumLvhJWJrBznCngVyswOOIJ5NVNP4+i8GgZRhrdnv9/FQ
+ NSD5pGupLfmOw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 10/14] spi: tegra210-quad: Open-code message transfer
- walk
+Subject: Re: [PATCH v2 14/14] list: Cache cursors in entry iterators
 To: "Kaitao Cheng" <kaitao.cheng@linux.dev>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260609063855.95710-1-kaitao.cheng@linux.dev>
-References: <20260609063855.95710-1-kaitao.cheng@linux.dev>
+In-Reply-To: <20260609064122.95825-2-kaitao.cheng@linux.dev>
+References: <20260609064122.95825-2-kaitao.cheng@linux.dev>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 06:57:22 +0000
-Message-Id: <20260609065722.EAD4B1F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 06:59:51 +0000
+Message-Id: <20260609065951.DC20B1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,167 +56,109 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Hardware Chip Select (CS) is left asserted indefinitely if the fin=
-al message transfer is absorbed as a dummy transfer.
-- [High] DMA memory mapping leak on error paths in `tegra_qspi_start_dma_ba=
-sed_transfer`.
-- [High] DMA memory mapping leak upon transfer timeout or hardware error.
-- [High] DMA maps memory beyond the end of the SPI transfer buffer when usi=
-ng packed DMA transfers.
-- [High] Unconditional DMA unmap on error path in `tegra_qspi_dma_map_xfer`.
+- [Critical] Modifying the standard list iterators to pre-cache the `next` =
+pointer fundamentally changes their traversal semantics from dynamic to sta=
+tic evaluation, causing use-after-free (UAF) vulnerabilities and silently b=
+reaking loops that modify the list ahead of the cursor or skip elements by =
+advancing `pos`.
+- [High] Eliminating the distinction between safe and non-safe list iterato=
+rs obscures code intent, removes a vital visual guardrail for destructive o=
+perations, and introduces severe backporting risks.
 --
 
-commit dedc4ce6598360fa2a4de3d4413aaecfda3051a4
+commit e1c09f66ccd28cca66865681febeb6f8233f0a36
 Author: Kaitao Cheng <chengkaitao@kylinos.cn>
 
-spi: tegra210-quad: Open-code message transfer walk
+list: Cache cursors in entry iterators
 
-This commit converts the list_for_each_entry() loop in
-tegra_qspi_non_combined_seq_xfer() to an open-coded for-loop. This
-preserves semantics when consuming the next transfer in the loop body,
-preparing the code for future list iterator updates.
+This commit introduces private next and previous cursor variables into the
+standard list iteration macros. It changes the semantics of the
+list_for_each_entry() family to cache the next pointer before executing the
+loop body. It also updates comments to recommend the non-safe variants over
+the safe ones when a temporary cursor is not needed.
 
-> diff --git a/drivers/spi/spi-tegra210-quad.c b/drivers/spi/spi-tegra210-q=
-uad.c
-> index 588a929a97850..102562893d227 100644
-> --- a/drivers/spi/spi-tegra210-quad.c
-> +++ b/drivers/spi/spi-tegra210-quad.c
-> @@ -1309,7 +1309,9 @@ static int tegra_qspi_non_combined_seq_xfer(struct =
-tegra_qspi *tqspi,
->  	if (tqspi->soc_data->supports_tpm)
->  		val &=3D ~QSPI_TPM_WAIT_POLL_EN;
->  	tegra_qspi_writel(tqspi, val, QSPI_GLOBAL_CONFIG);
-> -	list_for_each_entry(transfer, &msg->transfers, transfer_list) {
-> +	for (transfer =3D list_first_entry(&msg->transfers, typeof(*transfer), =
-transfer_list);
-> +	     !list_entry_is_head(transfer, &msg->transfers, transfer_list);
-> +	     transfer =3D list_next_entry(transfer, transfer_list)) {
->  		struct spi_transfer *xfer =3D transfer;
->  		u8 dummy_bytes =3D 0;
->  		u32 cmd1;
+> diff --git a/include/linux/list.h b/include/linux/list.h
+> index 09d979976b3b8..9df84a56a789b 100644
+> --- a/include/linux/list.h
+> +++ b/include/linux/list.h
+> @@ -809,6 +809,29 @@ static inline size_t list_count_nodes(struct list_he=
+ad *head)
+>  #define list_entry_is_head(pos, head, member)				\
+>  	list_is_head(&pos->member, (head))
+> =20
+> +#define __list_for_each_entry(pos, next, head, member)			\
+> +	for (typeof(pos) next =3D list_next_entry(pos =3D			\
+> +		list_first_entry(head, typeof(*pos), member), member);	\
+> +	     !list_entry_is_head(pos, head, member);			\
+> +	     pos =3D next, next =3D list_next_entry(next, member))
 
-[Severity: High]
-This is a pre-existing issue, but does this logic fail to deactivate the
-chip select if the final transfer is absorbed as a dummy transfer?
+[ ... ]
 
-In tegra_qspi_non_combined_seq_xfer(), if the final SPI transfer in the
-message is a dummy transfer, the loop pointer advances to it, effectively
-consuming it into the current xfer:
+> @@ -816,9 +839,7 @@ static inline size_t list_count_nodes(struct list_hea=
+d *head)
+>   * @member:	the name of the list_head within the struct.
+>   */
+>  #define list_for_each_entry(pos, head, member)				\
+> -	for (pos =3D list_first_entry(head, typeof(*pos), member);	\
+> -	     !list_entry_is_head(pos, head, member);			\
+> -	     pos =3D list_next_entry(pos, member))
+> +	__list_for_each_entry(pos, __UNIQUE_ID(next), head, member)
 
-    if (next_xfer->dummy_data) {
-        ...
-        transfer =3D next_xfer;
-    }
+[Severity: Critical]
+Does caching the next pointer fundamentally change the dynamic traversal
+semantics of the standard list iterators kernel-wide?
 
-When checking if CS should be deactivated at the end of the loop body,
-the code uses xfer instead of the updated transfer pointer:
+A common kernel pattern is pinning the current entry (pos), dropping the
+lock to perform a blocking operation, and reacquiring the lock. With
+dynamic evaluation, pos->next is safely fetched under the lock.
 
-    if (list_is_last(&xfer->transfer_list, &msg->transfers)) {
-        if (!xfer->cs_change) {
-            tegra_qspi_transfer_end(spi);
-            ...
-        }
-    } else if (xfer->cs_change) {
-        ...
+With the new cached next pointer, if the next element was removed and freed
+by a concurrent thread while the lock was dropped, next becomes a dangling
+pointer, which could lead to a use-after-free when the loop steps.
 
-Since xfer is the second-to-last transfer, list_is_last() evaluates to
-false. The code falls through to the else branch, and if cs_change is
-false, tegra_qspi_transfer_end() is skipped.
+Will this also silently skip dynamically inserted elements? If a loop body
+inserts a new element immediately after pos, the old macro would naturally
+visit it next. The new macro appears to silently skip it because it advances
+using the pre-cached next.
 
-The loop then terminates, leaving the hardware chip select asserted
-indefinitely. Could this corrupt subsequent bus communications?
+Could this also overwrite manual cursor updates? If the loop body explicitly
+alters pos to skip elements, the loop increment (pos =3D next) might overwr=
+ite
+the updated cursor with the pre-cached next, negating the skip and potentia=
+lly
+causing incorrect traversal behavior.
 
-[Severity: High]
-This is a pre-existing issue, but do we leak DMA memory mappings if a
-transfer times out or encounters a hardware error?
+[ ... ]
 
-Looking at tegra_qspi_non_combined_seq_xfer(), if the transfer times out,
-tegra_qspi_handle_timeout() confirms the timeout, stops the DMA engine
-channels, and jumps to complete_xfer:
-
-    if (tqspi->is_curr_dma_xfer)
-        tegra_qspi_dma_stop(tqspi);
-    ...
-    goto complete_xfer;
-
-Similarly, if a hardware error is detected, we also jump to complete_xfer:
-
-    if (tqspi->tx_status || tqspi->rx_status) {
-        ...
-        goto complete_xfer;
-    }
-
-In both paths, the code exits without calling tegra_qspi_dma_unmap_xfer().
-Are these DMA mappings permanently leaked?
+> @@ -901,6 +917,8 @@ static inline size_t list_count_nodes(struct list_hea=
+d *head)
+>   * @n:		another type * to use as temporary storage
+>   * @head:	the head for your list.
+>   * @member:	the name of the list_head within the struct.
+> + *
+> + * Prefer list_for_each_entry() unless the temporary cursor is needed.
+>   */
+>  #define list_for_each_entry_safe(pos, n, head, member)			\
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does
-tegra_qspi_start_dma_based_transfer() leak DMA memory mappings on its
-error paths?
+Does advising developers to prefer list_for_each_entry() over the _safe
+variant for removals obscure the intent of the code?
 
-When tqspi->is_packed is true, tegra_qspi_dma_map_xfer() successfully
-maps the TX and RX DMA buffers.
+The _safe variant explicitly signals to reviewers and static analysis tools
+that the loop body may mutate the list. Conflating variable-scoping
+convenience with traversal safety constraints removes a visual guardrail for
+destructive operations.
 
-If any subsequent DMA setup operations fail (like dmaengine_slave_config(),
-tegra_qspi_start_tx_dma(), or tegra_qspi_start_rx_dma()), the function
-returns the error directly:
-
-    ret =3D dmaengine_slave_config(tqspi->rx_dma_chan, &dma_sconfig);
-    if (ret < 0) {
-        dev_err(tqspi->dev, "failed DMA slave config: %d\n", ret);
-        return ret;
-    }
-
-The caller tegra_qspi_non_combined_seq_xfer() then propagates the error
-and exits, never calling tegra_qspi_dma_unmap_xfer().
-
-Does this permanently leak the DMA mapped memory and IOMMU space?
-
-[Severity: High]
-This is a pre-existing issue, but does the DMA mapping calculation risk
-crossing an unmapped physical page boundary?
-
-In tegra_qspi_dma_map_xfer(), when tqspi->is_packed is true, the mapped
-length is artificially inflated to a multiple of 4:
-
-    len =3D DIV_ROUND_UP(tqspi->curr_dma_words * tqspi->bytes_per_word, 4) =
-* 4;
-
-    if (t->tx_buf) {
-        t->tx_dma =3D dma_map_single(tqspi->tx_dma_dev, (void *)tx_buf,
-                                   len, DMA_TO_DEVICE);
-
-Because the original client-provided buffer might be exactly t->len bytes
-long, mapping beyond its exact length could cross into restricted or
-unallocated physical memory.
-
-Could this trigger an IOMMU fault or a kernel panic?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the error path in
-tegra_qspi_dma_map_xfer() unconditionally unmap the TX buffer even when
-it was never mapped?
-
-If t->tx_buf is NULL during a read-only transfer, the TX buffer mapping
-is correctly skipped.
-
-However, if the subsequent dma_map_single() for t->rx_buf fails, the
-error handling block unmaps tx_dma without checking:
-
-    if (dma_mapping_error(tqspi->rx_dma_dev, t->rx_dma)) {
-        dma_unmap_single(tqspi->tx_dma_dev, t->tx_dma, len, DMA_TO_DEVICE);
-        return -ENOMEM;
-    }
-
-Since t->tx_buf was NULL, t->tx_dma was never mapped by this function.
-
-Could unmapping it here violate the DMA API contract, potentially
-unmapping page 0 from the IOMMU or corrupting DMA tracking state?
+Additionally, does this introduce a backporting hazard? If developers write
+new code that unlinks elements using list_for_each_entry(), backporting tho=
+se
+patches to older stable kernels (which lack this caching patch) will compile
+cleanly but might reliably introduce use-after-free vulnerabilities, as old=
+er
+kernels evaluate pos->next after pos has been unlinked.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609064122.9582=
-5-1-kaitao.cheng@linux.dev?part=3D10
+5-1-kaitao.cheng@linux.dev?part=3D14
