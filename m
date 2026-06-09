@@ -4,87 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECC2ECD8CAD
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 06:43:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D76B2CD8CAD
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 06:44:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5942010E0E0;
-	Tue,  9 Jun 2026 06:43:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0ABC510E0E2;
+	Tue,  9 Jun 2026 06:44:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="Uf7zi2A8";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="NPkRAgES";
 	dkim-atps=neutral
-Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com
- [91.218.175.186])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D7A210E0E0
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 06:43:02 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1780987378;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=aY/Q2Y4YJZOouDOZHMnVH0A77nfCK6zvU7h1qy64BMY=;
- b=Uf7zi2A8S1Vt216no9vzZ3Kbmiu5WNcJlAjtZ2+I6gLXdoyBsFLfGuy4jDTTeA3xO1+pln
- Ds87oWHmnpQTX0CVJXI1T2pOOcEbz3YgF0qLAuuBFcwrnzZevA48QTk2qsWUyaePK41llH
- LokoxYxt8pU9/doCU/rEpYO3EWSrNiI=
-From: Kaitao Cheng <kaitao.cheng@linux.dev>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Muchun Song <muchun.song@linux.dev>,
- Philipp Reisner <philipp.reisner@linbit.com>,
- Lars Ellenberg <lars.ellenberg@linbit.com>,
- =?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
- Jens Axboe <axboe@kernel.dk>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
+Received: from AM0PR83CU005.outbound.protection.outlook.com
+ (mail-westeuropeazon11010046.outbound.protection.outlook.com [52.101.69.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04F5710E0E2
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 06:44:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aDGx04GhJRrfu/79DtXQZTZyisFYkVXmCalmtRnlWxKuMjChADCJz3Wwy8/fFCjhBzRmoWHrsI6M45QpfGoov86Ip+9gx6fVYEV9uYluKlFcee39jeSgkuaFTs/XLsMc83zBVuaYCwxusmDS3EiS2bJxT0AaFz2PF8HyCEck2LPo7pgUhU8qxVlwPr7QCEk/KRlckhYSaYySBz41iexPuxBXPoDh4mJxqtTNiXCWXfWlqLuTWLfLkNlr8/bXZVUehVOIHwYrR7QKKLpAyeSuOKWIK3xeAU67BRKS5AKFT0CJxxGHPrJ6rRYEw2TKIs+Ka3Q003f98K37PfQuzWDQKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pvHEXq3TVOA025s6I6DXc9YRvOqaulg283EnbdQZ9y8=;
+ b=ufu7XqQkA9QUhdnbfK6SIsxUPXF1UDjxh880V1YD3XC4r0wci6FDmR9ImLJzvsyAasXcMDGtd//T/i7Pq/2o+jl8EKt13u5O3Dg6ClLe4F2B9BZAKFvuNjpt6IPDsY2oNTMLtNZU4uXdB28ZF0G2BNTdC8hBcDo3/f1ewnSsXfAM3H9ibhcvl5M9yL0l9R8JlU8z8GsstyPtP9hBmhAkKaoeEdfEQMUJub56RtVj7WBD2mB05AfPwL4f9lfLdUDLPVINt91V9TGqMRSGdcZq1OML9KsUx1jFocjk8CJIcGvmyfq69MH0JUcvTg6IYH97RF/P7iiMmjssFBeh5VkK1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pvHEXq3TVOA025s6I6DXc9YRvOqaulg283EnbdQZ9y8=;
+ b=NPkRAgESoUrl1qT25+HOopIR7OjRcp3zz4VUNRp6fXt4EI4urMdXGlkSX/Ujp+R1UnHeQI4+nift/KSv0VPE8YQ/KblNmeLQ2eL7wVJw5QSDe7W/EbZZs9SVXr/Fe4c0lABT2zNCiYIFpTYnjtqldpMJvL2/VjyXgukqpx3pNx1fPeYzsJvW3miz/zaAzkXqC1QUS2VWgQPkArMWh+F3iDl/pHSlsUrgXcuI0FOb5xb6IFgwMK4ZnshtnwmfPEuMWghQlqnUhDNOQyAzDYG1XZtPgsNAQ66gnZhLz73PN/5syZgHyPHvI30up0QwUUYl/FxlIMW+4uLnMGXYvPfjbQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
+ by VI1PR04MB7022.eurprd04.prod.outlook.com (2603:10a6:800:126::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Tue, 9 Jun 2026
+ 06:44:03 +0000
+Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
+ ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
+ ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.21.0092.011; Tue, 9 Jun 2026
+ 06:44:03 +0000
+Date: Tue, 9 Jun 2026 14:45:32 +0800
+From: Liu Ying <victor.liu@nxp.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Eddie James <eajames@linux.ibm.com>, Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Laxman Dewangan <ldewangan@nvidia.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Davidlohr Bueso <dave@stgolabs.net>,
- "Paul E . McKenney" <paulmck@kernel.org>,
- Josh Triplett <josh@joshtriplett.org>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Waiman Long <longman@redhat.com>,
- drbd-dev@lists.linbit.com, linux-block@vger.kernel.org,
- linux1394-devel@lists.sourceforge.net, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-spi@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Christian Brauner <brauner@kernel.org>,
- David Howells <dhowells@redhat.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Kaitao Cheng <kaitao.cheng@linux.dev>,
- Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: [PATCH v2 14/14] list: Cache cursors in entry iterators
-Date: Tue,  9 Jun 2026 14:41:22 +0800
-Message-ID: <20260609064122.95825-2-kaitao.cheng@linux.dev>
-In-Reply-To: <20260609064122.95825-1-kaitao.cheng@linux.dev>
-References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
- <20260609064122.95825-1-kaitao.cheng@linux.dev>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2 21/78] drm/bridge: ite-it6263: Switch to
+ atomic_create_state
+Message-ID: <aie2jDdGq_qe_x7S@raspi>
+References: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
+ <20260608-drm-no-more-bridge-reset-v2-21-0a91018bf886@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-21-0a91018bf886@kernel.org>
+X-ClientProxiedBy: MA0PR01CA0035.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:81::6) To AS1PR04MB9287.eurprd04.prod.outlook.com
+ (2603:10a6:20b:4dd::8)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|VI1PR04MB7022:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e032476-7b85-435c-9883-08dec5f27e53
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|19092799006|1800799024|376014|7416014|11063799006|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: LkepVvEUtTkohixibsrKm8jWuMoWNFWEkbCP7FAgLA6kjqwLaFnnAvOpne6cRUhPNzDtK/706xvTGFAh2cObOumm5iLwvFLDNDYLfn9RrGyCFuAvFaJIV2qf8AoTRg5zbugI3zksCkEPBcKgNASaj5YsDDLMSmZw66P6VyFUkH72UJ+RigArF7iSezipY1+aMJMcR01GkvELQ6vo00ZPmrOWKZgk0N0Bl5WCJut1R8rquNk1caCwT5UMD1iQpmiAAtp4EVLZuddiRgBkneX4uDuPPAd8b5W3GRs51E0PoMaSrw4FphJ/MP2SF70XHzH4/Gth1KOHKzplF2Xx1liYP17nfPx23OovU2KPjIY8exa4t7O27ihklqfXRjLk+EKzYcglShLEq2/gM2xiu9n7HrYCG0VXZN3JXzK8UQMGRb+WTT+/mTclsByBkthHD5H2Okhn1UYNTTiJA6EgFGoWBMamw2B34kmttkc+87LN/firEkEE3DtmztkZDw57FCliQePUmLL6K0hoExsnBNDvP7OvX2Nv+HMZrlEXPswOoqCt5ppsEAPWg5sdzDDlvwFNme3+V/iMWM4RD1zCluSNbva5bxlUqQNZ2pXNsCNVeGlWwELmBfqnxTpabEYrOpxyQaMbyofdbfEDWikaJyl5hOKqEfxCFqeOLtxX1+GFcXPJuNKR6h27pnqGH9pelHY4
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AS1PR04MB9287.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(19092799006)(1800799024)(376014)(7416014)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Ddv3KWslaRTmBan+By7wdvjC6hjkPX8sKqHbHaolzH8WQofTPWJ6qlNRcE7w?=
+ =?us-ascii?Q?ZzcSLXxzwSHgwQyilpR7MN+mX5APq/r/kFxs9gGCTSUPImJtWJNT2ezBWTW7?=
+ =?us-ascii?Q?zM6GIQr/QWPHCA/JaxpG5g+0S8k3yyJamGqTbkkE/vpO0UuWyZ/xhH50ghbi?=
+ =?us-ascii?Q?/1pQzvw1aZLarEfrhinYNXACiLLQEa+9KZNP5VPYfxfUNuP8wIjcE6M3XTyR?=
+ =?us-ascii?Q?wFLvVCk0/oZm+eZTg1pQ1D0gTtq0V6FQn4yyvJhuZqQx79uW5CPyThBiOhvM?=
+ =?us-ascii?Q?AaEkLHnR3cG8nUVHBHkscIpuk3glb/t73L1hH4/5cOy4O8jJhZWkHiS17aX7?=
+ =?us-ascii?Q?A8zXMnmz+1aCJeT8PsNeUt4CqkMT7XGUjJuLyRQZbga1oMDoeGh2RAp6WVzm?=
+ =?us-ascii?Q?5h6O9b8sfopynHhPqGJAQcYb42iO7BWZQ2Z5kIYlhBkmTkO7zLGql7CUovGO?=
+ =?us-ascii?Q?7ZN0DVs4f0XeoKbhmjPXe6YajrGhuaio+y859GWqyx8GhW7ZtcBn1Mcbkebq?=
+ =?us-ascii?Q?Qo4Oo6MiZeS98o/QBGKvc73SIffPieMcd4OwXLQwY5OE8w1VuN4/nyI32IjW?=
+ =?us-ascii?Q?kvLCtPh9QL0mkR/HnbEhqhe1MJUhuGlue3VI52tR3mNI+Pkqh0XfCBDx4eXv?=
+ =?us-ascii?Q?LVEy1TOF1z8z8cOJ7LCZ88iCJbKHoIYu8O1o4iUUaVqz+RwkCQ/hAZYCX1G+?=
+ =?us-ascii?Q?lqF94bD1gQotdTyCvErqPLkdxRwYYHk9sCSv6OVYxvO1OtkC8kNQ5x0UJlIl?=
+ =?us-ascii?Q?ibp77MtGt06CkjQFado3sOVBxmjFEKISYVrELEmSJnG3MyAby4/VcIlsQiO0?=
+ =?us-ascii?Q?ftPnKIGMi+Cb7r2oRgscJomtOVIQWJ4l11NyCMLvB1haTnI/wWzKQZNzQuhO?=
+ =?us-ascii?Q?rU6T7ElRhXOuoA/qs7Q/ypLPfBGo6/vImXtU7BQvog5pUhBCuZlHMdQ1JObd?=
+ =?us-ascii?Q?vHNCG9g6Dp6OVcqm2mRs0ApHO6diyVaEbj8eDDYWuR4Rg8BMBYfK8RnSQ1QW?=
+ =?us-ascii?Q?BKXs7pCCU6vF0vL3fJ15h0SPny8C8czVlfobG+smPmsAo3B5voMXhGiQnZar?=
+ =?us-ascii?Q?fztDuJlqtXXhw/ujGE6DVuOLIXb1h5v0KihEllJBHP+hOG026Lot2h/9QyvD?=
+ =?us-ascii?Q?Ped9RRsBnMselYaSAgjvRCZ6wTZsg26q6ojx04zs006ZAox73/uhhTPgD3yM?=
+ =?us-ascii?Q?lY6mgQWFxwyuRYRwBYJzj+W6kndppodNMHhQJ2hrcgfqqUBFYlnrrmx3JrdG?=
+ =?us-ascii?Q?RvQIZuR8fs1dGgVXL7Y2UKMOhRHf5RCGXYZTsrkXAowgGET6k0OIr9PBzbZk?=
+ =?us-ascii?Q?r/zytcmh3LmI6ipsIXLMJ4z2OvNJ4pcrDsrrhOWXGkxHN631xlMebiggTooX?=
+ =?us-ascii?Q?d9QinUbm5u9H36HMaZPgBIq9hL1DTG72bZMYCLJ5zOjXFoyUG7VWpficbyxO?=
+ =?us-ascii?Q?QQS/SPlM1Tj5OKYByf5bDy/miFNzFq5ilh/Saa5dUATArKO+4tRQqd7dpj8y?=
+ =?us-ascii?Q?9Uv+tpCWqHlDXY6i0OZP6ztWoy0yPAJJ2gDz7APo335UetQo8uv9YZv8BqXA?=
+ =?us-ascii?Q?hxBJS9HOTKLuiYynEtZjQ5XKKArsLnPf45Ut+IzGzrhFtCz1zzpXu8YLFsNT?=
+ =?us-ascii?Q?BN4AatFlqrulGf1x4jZbpl+gPTlwIRQkqUIzjWZt/dxDszMMgxl+QIZATVi2?=
+ =?us-ascii?Q?8ZJI699aSqvoXCGh+2wGMTYLKY5ulhp3qWKx4opgNrJ3vExRoi1BAl2Xish3?=
+ =?us-ascii?Q?mzKXxx6o1g=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e032476-7b85-435c-9883-08dec5f27e53
+X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 06:44:02.8364 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mdEUaQXRtssZKp51wnL27WcMWL5ciqaR1eo3WY6LPKz01wp6lbPoV07RnaQ2ap0jxRviMiCbOpo8lKasOVtylQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7022
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,147 +134,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Kaitao Cheng <chengkaitao@kylinos.cn>
+On Mon, Jun 08, 2026 at 04:36:03PM +0200, Maxime Ripard wrote:
+> The drm_bridge_funcs.atomic_reset callback and its
+> drm_atomic_helper_bridge_reset() helper are deprecated.
+> 
+> Switch to the atomic_create_state callback and its
+> drm_atomic_helper_bridge_create_state() counterpart.
+> 
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+> To: Liu Ying <victor.liu@nxp.com>
+> ---
+>  drivers/gpu/drm/bridge/ite-it6263.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-The non-safe list_for_each_entry() family advances by deriving the next
-element from the current cursor in the loop step. If the loop body
-unlinks the current entry, the step can no longer rely on the current
-entry's list pointers.
+Reviewed-by: Liu Ying <victor.liu@nxp.com>
 
-Callers can use the _safe variants today, but those interfaces require a
-temporary cursor to be declared outside the macro. That is necessary when
-the caller actually needs the temporary cursor, but it looks redundant
-and awkward when the cursor is only there to satisfy the macro and is
-never otherwise used.
-
-Add private next and previous cursors for the common entry iterators and
-use unique internal names so callers keep the same interface. This lets
-the loop step use a cursor captured before the body runs, while callers
-that need to alter traversal state can still open-code the walk.
-
-The safe variants remain useful when the caller needs access to the
-temporary cursor or has stronger mutation requirements. Update their
-comments to steer users toward the simpler iterators when that temporary
-cursor is not needed.
-
-Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
----
- include/linux/list.h | 46 +++++++++++++++++++++++++++++++++-----------
- 1 file changed, 35 insertions(+), 11 deletions(-)
-
-diff --git a/include/linux/list.h b/include/linux/list.h
-index 09d979976b3b..9df84a56a789 100644
---- a/include/linux/list.h
-+++ b/include/linux/list.h
-@@ -809,6 +809,29 @@ static inline size_t list_count_nodes(struct list_head *head)
- #define list_entry_is_head(pos, head, member)				\
- 	list_is_head(&pos->member, (head))
- 
-+#define __list_for_each_entry(pos, next, head, member)			\
-+	for (typeof(pos) next = list_next_entry(pos =			\
-+		list_first_entry(head, typeof(*pos), member), member);	\
-+	     !list_entry_is_head(pos, head, member);			\
-+	     pos = next, next = list_next_entry(next, member))
-+
-+#define __list_for_each_entry_reverse(pos, prev, head, member)		\
-+	for (typeof(pos) prev = list_prev_entry(pos =			\
-+		list_last_entry(head, typeof(*pos), member), member);	\
-+	     !list_entry_is_head(pos, head, member);			\
-+	     pos = prev, prev = list_prev_entry(prev, member))
-+
-+#define __list_for_each_entry_continue(pos, next, head, member)		\
-+	for (typeof(pos) next = list_next_entry(pos =			\
-+		list_next_entry(pos, member), member);			\
-+	     !list_entry_is_head(pos, head, member);			\
-+	     pos = next, next = list_next_entry(next, member))
-+
-+#define __list_for_each_entry_from(pos, next, head, member)		\
-+	for (typeof(pos) next = list_next_entry(pos, member);		\
-+	     !list_entry_is_head(pos, head, member);			\
-+	     pos = next, next = list_next_entry(next, member))
-+
- /**
-  * list_for_each_entry	-	iterate over list of given type
-  * @pos:	the type * to use as a loop cursor.
-@@ -816,9 +839,7 @@ static inline size_t list_count_nodes(struct list_head *head)
-  * @member:	the name of the list_head within the struct.
-  */
- #define list_for_each_entry(pos, head, member)				\
--	for (pos = list_first_entry(head, typeof(*pos), member);	\
--	     !list_entry_is_head(pos, head, member);			\
--	     pos = list_next_entry(pos, member))
-+	__list_for_each_entry(pos, __UNIQUE_ID(next), head, member)
- 
- /**
-  * list_for_each_entry_reverse - iterate backwards over list of given type.
-@@ -827,9 +848,7 @@ static inline size_t list_count_nodes(struct list_head *head)
-  * @member:	the name of the list_head within the struct.
-  */
- #define list_for_each_entry_reverse(pos, head, member)			\
--	for (pos = list_last_entry(head, typeof(*pos), member);		\
--	     !list_entry_is_head(pos, head, member); 			\
--	     pos = list_prev_entry(pos, member))
-+	__list_for_each_entry_reverse(pos, __UNIQUE_ID(prev), head, member)
- 
- /**
-  * list_prepare_entry - prepare a pos entry for use in list_for_each_entry_continue()
-@@ -852,9 +871,7 @@ static inline size_t list_count_nodes(struct list_head *head)
-  * the current position.
-  */
- #define list_for_each_entry_continue(pos, head, member) 		\
--	for (pos = list_next_entry(pos, member);			\
--	     !list_entry_is_head(pos, head, member);			\
--	     pos = list_next_entry(pos, member))
-+	__list_for_each_entry_continue(pos, __UNIQUE_ID(next), head, member)
- 
- /**
-  * list_for_each_entry_continue_reverse - iterate backwards from the given point
-@@ -879,8 +896,7 @@ static inline size_t list_count_nodes(struct list_head *head)
-  * Iterate over list of given type, continuing from current position.
-  */
- #define list_for_each_entry_from(pos, head, member) 			\
--	for (; !list_entry_is_head(pos, head, member);			\
--	     pos = list_next_entry(pos, member))
-+	__list_for_each_entry_from(pos, __UNIQUE_ID(next), head, member)
- 
- /**
-  * list_for_each_entry_from_reverse - iterate backwards over list of given type
-@@ -901,6 +917,8 @@ static inline size_t list_count_nodes(struct list_head *head)
-  * @n:		another type * to use as temporary storage
-  * @head:	the head for your list.
-  * @member:	the name of the list_head within the struct.
-+ *
-+ * Prefer list_for_each_entry() unless the temporary cursor is needed.
-  */
- #define list_for_each_entry_safe(pos, n, head, member)			\
- 	for (pos = list_first_entry(head, typeof(*pos), member),	\
-@@ -917,6 +935,8 @@ static inline size_t list_count_nodes(struct list_head *head)
-  *
-  * Iterate over list of given type, continuing after current point,
-  * safe against removal of list entry.
-+ *
-+ * Prefer list_for_each_entry_continue() unless the temporary cursor is needed.
-  */
- #define list_for_each_entry_safe_continue(pos, n, head, member) 		\
- 	for (pos = list_next_entry(pos, member), 				\
-@@ -933,6 +953,8 @@ static inline size_t list_count_nodes(struct list_head *head)
-  *
-  * Iterate over list of given type from current point, safe against
-  * removal of list entry.
-+ *
-+ * Prefer list_for_each_entry_from() unless the temporary cursor is needed.
-  */
- #define list_for_each_entry_safe_from(pos, n, head, member) 			\
- 	for (n = list_next_entry(pos, member);					\
-@@ -948,6 +970,8 @@ static inline size_t list_count_nodes(struct list_head *head)
-  *
-  * Iterate backwards over list of given type, safe against removal
-  * of list entry.
-+ *
-+ * Prefer list_for_each_entry_reverse() unless the temporary cursor is needed.
-  */
- #define list_for_each_entry_safe_reverse(pos, n, head, member)		\
- 	for (pos = list_last_entry(head, typeof(*pos), member),		\
 -- 
-2.43.0
-
+Regards,
+Liu Ying
