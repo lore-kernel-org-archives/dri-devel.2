@@ -4,123 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C333CD8CA4
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 08:46:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFB05CD8CAC
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 08:47:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9863510E1B2;
-	Tue,  9 Jun 2026 08:46:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6D1710E1B4;
+	Tue,  9 Jun 2026 08:47:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.cz header.i=@suse.cz header.b="Vx/BEscr";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="spO2gcbj";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Vx/BEscr";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="spO2gcbj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E8wGJn6k";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8EF310E1B4
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 08:46:51 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4801C6A8A5;
- Tue,  9 Jun 2026 08:46:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1780994810; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=GSQxH6p+aBDmmgKYN3VNQI6BF8H04zVBQYzVTpTNZQo=;
- b=Vx/BEscri+0r67xy3avOveRmQ30LzU24dPEtk4qjekhhW9jO6kGIOJyQmLwDG7x25ePCR2
- Xlaz8xVatdyRqM5Tfoywojl7q8hfbYvbK/V4xCBXi2oum35WHUs+sUA73IFM2FQGMlMDS9
- CBNOerN+mnmdoXzGGnP0+SurjemtxMQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1780994810;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=GSQxH6p+aBDmmgKYN3VNQI6BF8H04zVBQYzVTpTNZQo=;
- b=spO2gcbj47UyJGxrqj93wVAFhcKrlTrh9cZYY+iwZ3P7HvrM5hIZjhXqrvAaHZxWZhA2vd
- J365xzS9oAiV3PAA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="Vx/BEscr";
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=spO2gcbj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1780994810; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=GSQxH6p+aBDmmgKYN3VNQI6BF8H04zVBQYzVTpTNZQo=;
- b=Vx/BEscri+0r67xy3avOveRmQ30LzU24dPEtk4qjekhhW9jO6kGIOJyQmLwDG7x25ePCR2
- Xlaz8xVatdyRqM5Tfoywojl7q8hfbYvbK/V4xCBXi2oum35WHUs+sUA73IFM2FQGMlMDS9
- CBNOerN+mnmdoXzGGnP0+SurjemtxMQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1780994810;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=GSQxH6p+aBDmmgKYN3VNQI6BF8H04zVBQYzVTpTNZQo=;
- b=spO2gcbj47UyJGxrqj93wVAFhcKrlTrh9cZYY+iwZ3P7HvrM5hIZjhXqrvAaHZxWZhA2vd
- J365xzS9oAiV3PAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 373B9779A7;
- Tue,  9 Jun 2026 08:46:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id aXV3DfrSJ2oadgAAD6G6ig
- (envelope-from <jack@suse.cz>); Tue, 09 Jun 2026 08:46:50 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
- id E0D69A0A90; Tue, 09 Jun 2026 10:46:49 +0200 (CEST)
-Date: Tue, 9 Jun 2026 10:46:49 +0200
-From: Jan Kara <jack@suse.cz>
-To: John Hubbard <jhubbard@nvidia.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Christoph Hellwig <hch@infradead.org>, 
- Kees Cook <kees@kernel.org>, Cong Wang <xiyou.wangcong@gmail.com>, 
- Chia-Lin Kao <acelan.kao@canonical.com>, Benjamin LaHaise <bcrl@kvack.org>, 
- Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>, 
- Paolo Bonzini <pbonzini@redhat.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Jens Axboe <axboe@kernel.dk>, linux-fsdevel@vger.kernel.org, 
- linux-aio@kvack.org, linux-mm@kvack.org, kvm@vger.kernel.org, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 2/2] libfs: drop redundant SB_I_NOEXEC/SB_I_NODEV in
- init_pseudo() callers
-Message-ID: <md6vxgeg4h2cs2p7jfgjy6ybgiysbl7fprulimdcxhhiwsv3le@5zgf6mbprh4w>
-References: <20260604025315.245910-1-jhubbard@nvidia.com>
- <20260604025315.245910-3-jhubbard@nvidia.com>
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010036.outbound.protection.outlook.com [52.101.201.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C03ED10E1B4
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 08:47:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mJyvO7GSly9R4B4iTieBomn8lZV6BLGy/BXNXJ2wW3BpYXjI5m/s6EtocMrsHuvWDBqySAzFYdQiCzJfzRi62ghtBx5NhlXcU9QlJ9iPH4LhX7rdKM+7ficU0ceUs3ws6OhOCFzbwGQHHStDP0pKHV3s0mLS4DDfNGMDzGjupq/NO9WvDLgNJhIqtqakmNy9RQGmq8i0SUke3gvUtFsgIvvlMWqsndlDLe/6djqC2Ix+ba4KKl/34R9BRoIqpoaSFl6LgCYlL/lwGrehUomp0CnWgox7t78r06X0kFdpejBvZRfWI8alUCtb7k0nU3J6mVwzga5R2abFDHuT2tcw9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lDOTHWasIJgCLgG4PBYCJgg3PvPVf0yqbFZ2fW001jE=;
+ b=Joj3s6M5zyTUSKJ5tRFAogxaAWOcs7/HXosYCi6+sjm4+fDhyUPetqeir2OzS0yZ4FXRBh0Y3ZInMFqJ+H10KOSsASED7/sjzRd1jYHc5eMgu0odN97x3VfPuVRIBeNn5mCzd1T+kkOYTtdnSiiHGeDOMKW6H3rS1H9EPlT9a6IucRcfULMUpbODRvdkkgMrMEFEcyULTrwMLOiDEx8b0mEZc+HaS6wLuI3efXAmkpAJXCFzhBTUanOwSuQiWT5/uLiKLMrl6vwp+PPZyBFHlfEIvLOWVlXaSoWdNhNPfLecEHxOK9Q6LXL1ttwnbYvRstDRCpVXltMVvSv99TXXmg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lDOTHWasIJgCLgG4PBYCJgg3PvPVf0yqbFZ2fW001jE=;
+ b=E8wGJn6kb7Orn0WYzylqliFCpYZlKuQWDlal/aXPMV3i+oeNN9TRiPLoGbmOH/5zz3JZPuxvsh+6NDRaOK8NxGAo86HaSD6awxVdoU+LB6MlmEX5sVub/31AKINqXzymAaMbeYou+7Gpb274gLqYN2ZGHOTv8xaaQQdRl2geQaQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS7PR12MB8204.namprd12.prod.outlook.com (2603:10b6:8:e1::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.13; Tue, 9 Jun 2026 08:47:15 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Tue, 9 Jun 2026
+ 08:47:15 +0000
+Message-ID: <8c155cd9-3f79-4e0b-ba3e-1c7e8dad1fa0@amd.com>
+Date: Tue, 9 Jun 2026 10:47:11 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] dma-fence: Fix races of fence callbacks versus
+ destructors by locking
+To: phasta@kernel.org, Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Alice Ryhl <aliceryhl@google.com>,
+ Daniel Almeida <dwlsalmeida@gmail.com>, Gary Guo <gary@garyguo.net>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260608142436.265820-2-phasta@kernel.org>
+ <20260608170112.24fd92df@fedora-2.home>
+ <6bdbdb6541392c6ea58e0035f0b20ac3c8f3e54e.camel@mailbox.org>
+ <DJ3RRRX6JY4M.LCRKJ074W9DQ@kernel.org>
+ <256dc5ae3529e2548c4151af34a540476ac928c1.camel@mailbox.org>
+ <20260608181630.20145d1c@fedora-2.home>
+ <739df49a9c0fc54e3d096f95f7d738081f6fcfc2.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <739df49a9c0fc54e3d096f95f7d738081f6fcfc2.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BN9PR03CA0671.namprd03.prod.outlook.com
+ (2603:10b6:408:10e::16) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260604025315.245910-3-jhubbard@nvidia.com>
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- MID_RHS_NOT_FQDN(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCVD_COUNT_THREE(0.00)[3];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- URIBL_BLOCKED(0.00)[nvidia.com:email,suse.cz:email,suse.cz:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCPT_COUNT_TWELVE(0.00)[23];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; RCVD_TLS_LAST(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; TAGGED_RCPT(0.00)[];
- MISSING_XM_UA(0.00)[];
- FREEMAIL_CC(0.00)[zeniv.linux.org.uk,kernel.org,suse.cz,infradead.org,gmail.com,canonical.com,kvack.org,linux-foundation.org,redhat.com,linaro.org,amd.com,kernel.dk,vger.kernel.org,lists.freedesktop.org,lists.linaro.org];
- RCVD_VIA_SMTP_AUTH(0.00)[]; DKIM_TRACE(0.00)[suse.cz:+];
- R_RATELIMIT(0.00)[to_ip_from(RL694s4p1xnhfjnqpxspz5pnt4)];
- DBL_BLOCKED_OPENRESOLVER(0.00)[nvidia.com:email, suse.cz:email, suse.cz:dkim,
- suse.com:email, imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 4801C6A8A5
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB8204:EE_
+X-MS-Office365-Filtering-Correlation-Id: fb20895b-5ece-433c-fa9d-08dec603b4b0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|7416014|376014|1800799024|56012099006|3023799007|4143699003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: KSDZIKcuBm2SASI8BeE3smpm/YCv62tkikxH09Qh+mj149zo14ZgMnt7JVWeLSCAQjrwu9FA1oLqo4W+yTf8XW9MgwH7tb6OAQkh68reigDk9DQz34V6XqMXd9WpcHtf/XTBeSQnck3S8dvsqvZZAR24NnTUe1c9qgftZp7m1K55V53dI8FcJz+rY0dPEMYseaWwyGFRUMHhk6SXa2WrGh5pBnpFCyR73syhT83JSfNT4vYt+tHZ9WSKKlVAtCMge/6Sz+GNXTqzCuTOYTRQd7d9icmmFu0RMVxZ3uPnb+dhhlYaIfFsrVcQDZ5uURbNp1BSXFwjrYlmUtoV5XSCXYcan+JzZncFoP63Lkr60CzLcGiwbCVFiLEiDCFm9C4fIXuH2v/VG6GVSBXekfxwA+VaRG+8b5X9j8jp/7Ct00IVn0Yo24Xk7xyF4i/4uT3rrU9yTh63pdFq6X9iTvf51Rxf5hO6ryAJR56S6qfPvKyinhjttQhMOFypk3PTKhfCN3X/nT83FMGGRZOvYFQ8PuEB9abB6Atn7fjBCGMVhmR02jW+4cHFvwbFP8GZE9wKnN3VWNcIGmtfBTcTi4RBYfHmhmf0t8Q8wpfI4Se0mYyIO1kN5tjDIFYkWylhh/pijwsFR2+rt7hU2SDilHSyff/D/LLfhtxWiRqYTFD+lqlRO/51gZ1TSw0eSfC3NVNL
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(1800799024)(56012099006)(3023799007)(4143699003)(11063799006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WnNsZmpGR2xmTXNXbUt6RlNUbVFRckZhSXc2RysrbkRXZ1NrekJxalV0WWxN?=
+ =?utf-8?B?amNQVzhFbGZtSFNOaTc2djlodlRQdkNyVzFDaTQxeWM4ZmVjOC9JcXIzejYr?=
+ =?utf-8?B?VDI2ZkhqRStObUN6dnptbDY1NFRNYWQ1QWUzRDZCNTh2MC9DaExBR24yZXg1?=
+ =?utf-8?B?WlluamtwZE9RS1ZkMUphTmp3WXMybTF5dXQ4am9NTW5nNElNZjdPMXNUZTdS?=
+ =?utf-8?B?R2EzaytLVDdublVnM1ZDZDBtQ0o5Q0dFQkx3SHBkZjFiem13N0FTVjZjRm1r?=
+ =?utf-8?B?UVg0aGJBd2dVbTBtYlV5Vk5TeE1nS2d1UVVlVGhBN1BtZStxZzFvYXZoaWhq?=
+ =?utf-8?B?TlhQWmNuMmRzN280U04wSWFNUTJ5cEdmWnNZU2hadytiQVN3NDU2MHR5Qk1y?=
+ =?utf-8?B?Q1lEWTM3Wjk0VldseDRhQ0tuOVQ3c3dEVU1yZHZPSXZ4OUVBdjNMUUoxQ0xh?=
+ =?utf-8?B?aUVjbG5ra2dzZEx1ejZsVGk0V1UzT1Q1dkxqWDRiV25LUjQveGpUKzRHcFVP?=
+ =?utf-8?B?d2FXb3ZVaWZhNXpzNkVzajlaaHZvS29FMVRzN2FJY0lIVlFvNEdEaHlnb1BK?=
+ =?utf-8?B?ZnVackJXcStocEk1ek9QV2c0bGVQbnRBeC9UelVjUEtKajB4UVRIMXlLRU5L?=
+ =?utf-8?B?RU1TSDRnazRjZ3UwWXVHeVV2cnhYMERLYkRNTTJiREJxUWQvV2VRVDR4aXAw?=
+ =?utf-8?B?MXlDQnprT1pSTUhoLytocHhaa1pQU0l3U3c5WkpzMElLemE3UWNPNmtwYm83?=
+ =?utf-8?B?bFBJZ3U5bThzeXB0a29rbDVXUS9xdktJY1l3dW84WFVxZVhtcm5aMXZOMlJB?=
+ =?utf-8?B?MFlpWGpXZmNXN2xSYSt3Ync5bFU4bVpvbUVkRHlCOUczZmdXUmk0Qkk2c016?=
+ =?utf-8?B?cU1Ia0l1ejVoMzlxRzFVckhobHMzV1plcmRJWjVQODF3QjY5TzFxTmFwTXRn?=
+ =?utf-8?B?dHNiN0tTbTlGOHZDYy82YWpLQXJ4MWlyN2FudW13VlU2R2dNWDNTK2RrR0FC?=
+ =?utf-8?B?RHlsZ3NyWVBrdnhneVFVZ25uTjg3dlluTTN3SWlyVnFBRkxJVnNUZ2hhM0hM?=
+ =?utf-8?B?TkZsc25DOW9JaE9GbVNwc2J2cHNmVnNsaDdlQk9hOHJSYWM4R2JaZm5DZzQ3?=
+ =?utf-8?B?WWozYjd6VnZDYzZRWEVITkRyVXV4UWVsVjl6Ly8wVTBoa0RFWTk1VTZPZjZr?=
+ =?utf-8?B?QkR2clBxRTFibUt3Z3VBQSt1ejd0Z0x4MnZGTG1sWUxsK2djV1ZkbXJZclJX?=
+ =?utf-8?B?ekpzR3g1MFQvc3RFZzdzbm5GYkEvUG5LeGRTdXhLY3NwS0dabjZJekJmYkJw?=
+ =?utf-8?B?UXViR3J2ZmxvSjZzV0txZkg4azlJMU5HeWZnNnAxSVRiMjA0dEt1WG4yUXJ2?=
+ =?utf-8?B?VlFHZ25Yc2tzQnVBa1Z0QitMZnJPZmxibWFPUmhtK2U0STZrM0U0VWdPbW5v?=
+ =?utf-8?B?dFZ0ejZ0RnAxWmJacXJ4S3hOdE9KdXQ1ZEdtMTB4ZWQyOHV2cStkYndEQmt4?=
+ =?utf-8?B?d0dCSm8yais1UXBpQzFLVWpTVkMrS05YbmRTWGw2dndaSjd6d0JSZnloemRN?=
+ =?utf-8?B?L3hTMmxqUHRzbm1odlptL2xEZ1BTOXlQTGczNjRDMElETW5ZcXZxMHlVcHMx?=
+ =?utf-8?B?QVhoV2JDcWdmT2Q1STljZitKMUxpRzNpOWtUV0tvNXp6SnQ3cHlhb2ZBQ3N5?=
+ =?utf-8?B?bVV1UjVCQSttZHJ1eFJ1a3BGaExvNEt4MWxQd3R4aDcyOW84MVFsM2U0UzRT?=
+ =?utf-8?B?RHJSdDI0Zkk4UnBEZFVrSHlOMThMQSszbHVMRmxqVUZDeXZCSGZEc0VLaHAr?=
+ =?utf-8?B?SVRwYSszNXZTQmJCYTZkVlJFd2hBa2tWcGhWVFdnWHltN2hkYUNyRysycENw?=
+ =?utf-8?B?UnpVU25kcW9sVTRPUlNmVEhmOE9rR3NwQ2RJUjRiVXFBTzFBcHVlMW4yUHR0?=
+ =?utf-8?B?aVNmS0ZHUDY5VHFuQmhza0pSRlBtYmFYWGZoZkJMRW9raUc5SjRjYnJZejJY?=
+ =?utf-8?B?ZnNKWFZ5ekVOblVNay9OcjNvTUVhajZLRVNFN1Vkb1NXVk1YZlVWTWtQNnlu?=
+ =?utf-8?B?N1VtcjNDMWJFUkl6ZkF4MHhuTy9LY2dWM3JJWDlaNWVYL2pGQlhkemg3QlhM?=
+ =?utf-8?B?TUloYU82aVc0ZVdSTCtKaDF1T2E4UFhyYU4wc0k1VzVSOE5oUlNuREw1d2oy?=
+ =?utf-8?B?VDVuYTdjeWxyYUo4OHhYc1N6UnV2Ti9XUVBBQjB1SktyWkhZY1VmeU91SEhW?=
+ =?utf-8?B?MFVrOWxPNDMxNzZDTFdzZk5nVmZHWk1hUmxuNUY4YWZWekQzNmNXLzNlRXA5?=
+ =?utf-8?Q?gfblV8tS1fj1n9h9Es?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb20895b-5ece-433c-fa9d-08dec603b4b0
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 08:47:15.4054 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VES/emS29fwwNWOftIK+tsQ7cu9/0r6oJdfV+LiRFlTByv6FDKZiWsEE154D3FH+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8204
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,106 +145,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed 03-06-26 19:53:15, John Hubbard wrote:
-> init_pseudo() now sets SB_I_NOEXEC and SB_I_NODEV by default, so the
-> per-caller assignments are redundant. Drop them.
+On 6/9/26 10:43, Philipp Stanner wrote:
+> On Mon, 2026-06-08 at 18:16 +0200, Boris Brezillon wrote:
+>> If I were to choose, I'd probably go for a dedicated rwlock_t to
 > 
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-
-Looks good. Feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
-> ---
->  fs/aio.c               | 1 -
->  fs/anon_inodes.c       | 2 --
->  fs/nsfs.c              | 1 -
->  fs/pidfs.c             | 2 --
->  mm/secretmem.c         | 2 --
->  virt/kvm/guest_memfd.c | 2 --
->  6 files changed, 10 deletions(-)
+> side note:
+> rw_locks are officially discouraged AFAIK. They utilize more of the
+> expensive instructions than a spinlock and are only worth it if the
+> read section is really long compared to the write section.
 > 
-> diff --git a/fs/aio.c b/fs/aio.c
-> index 722476560848..f57fa21a2503 100644
-> --- a/fs/aio.c
-> +++ b/fs/aio.c
-> @@ -318,7 +318,6 @@ static int aio_init_fs_context(struct fs_context *fc)
->  	pfc = init_pseudo(fc, AIO_RING_MAGIC);
->  	if (!pfc)
->  		return -ENOMEM;
-> -	fc->s_iflags |= SB_I_NOEXEC;
->  	pfc->ops = &aio_super_operations;
->  	return 0;
->  }
-> diff --git a/fs/anon_inodes.c b/fs/anon_inodes.c
-> index b8381c7fb636..a7b9b948e33d 100644
-> --- a/fs/anon_inodes.c
-> +++ b/fs/anon_inodes.c
-> @@ -86,8 +86,6 @@ static int anon_inodefs_init_fs_context(struct fs_context *fc)
->  	struct pseudo_fs_context *ctx = init_pseudo(fc, ANON_INODE_FS_MAGIC);
->  	if (!ctx)
->  		return -ENOMEM;
-> -	fc->s_iflags |= SB_I_NOEXEC;
-> -	fc->s_iflags |= SB_I_NODEV;
->  	ctx->dops = &anon_inodefs_dentry_operations;
->  	return 0;
->  }
-> diff --git a/fs/nsfs.c b/fs/nsfs.c
-> index 160018c4fb36..c3b6ae76594a 100644
-> --- a/fs/nsfs.c
-> +++ b/fs/nsfs.c
-> @@ -664,7 +664,6 @@ static int nsfs_init_fs_context(struct fs_context *fc)
->  	struct pseudo_fs_context *ctx = init_pseudo(fc, NSFS_MAGIC);
->  	if (!ctx)
->  		return -ENOMEM;
-> -	fc->s_iflags |= SB_I_NOEXEC | SB_I_NODEV;
->  	ctx->s_d_flags |= DCACHE_DONTCACHE;
->  	ctx->ops = &nsfs_ops;
->  	ctx->eops = &nsfs_export_operations;
-> diff --git a/fs/pidfs.c b/fs/pidfs.c
-> index 1cce4f34a051..c363416766f1 100644
-> --- a/fs/pidfs.c
-> +++ b/fs/pidfs.c
-> @@ -1115,8 +1115,6 @@ static int pidfs_init_fs_context(struct fs_context *fc)
->  	if (!ctx)
->  		return -ENOMEM;
->  
-> -	fc->s_iflags |= SB_I_NOEXEC;
-> -	fc->s_iflags |= SB_I_NODEV;
->  	ctx->s_d_flags |= DCACHE_DONTCACHE;
->  	ctx->ops = &pidfs_sops;
->  	ctx->eops = &pidfs_export_operations;
-> diff --git a/mm/secretmem.c b/mm/secretmem.c
-> index 5f57ac4720d3..4877c262cb1f 100644
-> --- a/mm/secretmem.c
-> +++ b/mm/secretmem.c
-> @@ -245,8 +245,6 @@ static int secretmem_init_fs_context(struct fs_context *fc)
->  	if (!ctx)
->  		return -ENOMEM;
->  
-> -	fc->s_iflags |= SB_I_NOEXEC;
-> -	fc->s_iflags |= SB_I_NODEV;
->  	return 0;
->  }
->  
-> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-> index 69c9d6d546b2..80f201035d77 100644
-> --- a/virt/kvm/guest_memfd.c
-> +++ b/virt/kvm/guest_memfd.c
-> @@ -973,8 +973,6 @@ static int kvm_gmem_init_fs_context(struct fs_context *fc)
->  	if (!init_pseudo(fc, GUEST_MEMFD_MAGIC))
->  		return -ENOMEM;
->  
-> -	fc->s_iflags |= SB_I_NOEXEC;
-> -	fc->s_iflags |= SB_I_NODEV;
->  	ctx = fc->fs_private;
->  	ctx->ops = &kvm_gmem_super_operations;
->  
-> -- 
-> 2.54.0
+>> protect dma_fence_ops, so we can:
+>>
+>> - protect all dma_buf_ops::xx() consistently no matter the kind of op
+>> - protect returned data (get_xxx_name()) with this lock instead of the
+>>   RCU read lock
 > 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> That doesn't solve our Rust destructor problem though, does it?
+> 
+> What we want to do is:
+> 
+>    1. Signal the fence before it drops
+>    2. Wait for all accessors to be gone
+>    3. Run the destructor
+> 
+> Step #2 by definition demands the signaled-state lock.
+
+If I'm not completely mistaken that approach won't work.
+
+See you can't have a destructor if the dma_fence is independent of the module it issued.
+
+That's why we have all the handling for inline lock and fence independents.
+
+Regards,
+Christian.
+
+> 
+> Or would your plan be to take and release the ops-lock before the
+> destructor to ensure all callbacks are gone?
+> 
+> P.
+
