@@ -4,138 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27AEDCD8CAA
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 10:34:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25475CD8CAA
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 10:43:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 848B610E24E;
-	Tue,  9 Jun 2026 10:34:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BA7910E244;
+	Tue,  9 Jun 2026 10:42:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="graAYAY7";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IN1CIRzx";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="HkAG6Ar6";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A585510E250
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 10:34:02 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6599xFEv2208513
- for <dri-devel@lists.freedesktop.org>; Tue, 9 Jun 2026 10:34:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=brBIXNGGsispYvZS00KeXP
- 2e5A/MhRPM3DYvmbD3NqE=; b=graAYAY7dhI35EEP/+Ly+UY1VNhai7HyYv1Sw9
- Lejbdt15CCHlfAS8jnFXnr3G2NTJFA/ikn3iRCl2aJfx6z0tazk8l1t9UfTvMh3n
- ACSfFxsZrRIR8HAa3zENi9eaMK6oDLyPJgx7ggvB1g4pnvfNiPqvGIj+OPHxKcZX
- JOyAdX+131oJ097Kh3FDTlO6RR56XJJKF9cOag+2yU3q6E0nmFVAJQCX0YySoS2a
- 08neS4Op3kdxDGRoIMCwDz4DhH57HZiefSrkXzUY2nugIxH4ae4K8f1qyvWedo68
- mgo2gT2fo2nQeaYc1v5dFnhx0fBfis6L8/aCpvdBkhfHCryg==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
- [209.85.215.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epee4gre6-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 10:34:01 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id
- 41be03b00d2f7-c85edbb10dfso2945434a12.0
- for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 03:34:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1781001241; x=1781606041;
- darn=lists.freedesktop.org; 
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=brBIXNGGsispYvZS00KeXP2e5A/MhRPM3DYvmbD3NqE=;
- b=IN1CIRzxTu7ZE0D5lwkU+8ugwBASiW9DmbrYDmfpp9ft7eMfVv4hk5FaJLGWTA7y9i
- 1m3z3ynG3DI6HfNn3sRg3Bo2PCys9YWpa8OYH78AgW39V/FQuAnMP3C6KhctBNW1DBcN
- wrY3KlrWg9G3obSq3uHHQ5TeEpPNsH8lZd00CGuBSJjhqZR6VT0LEhw6ei2io8IenVUI
- gO6V3aW9JV+U/KLkIHGgb61FRmSMI8ElRHPpHSaLdGeMTQElynN6HyL8uk1xZKs8C8LQ
- 2dej+U2tjqGVNoYvEELAQMPgfxgyaXPK/DDAQtichSEKNVPkWkqEOt515Z/EfHQtn3Zz
- 2A7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781001241; x=1781606041;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=brBIXNGGsispYvZS00KeXP2e5A/MhRPM3DYvmbD3NqE=;
- b=imykIeltrPX/rqei5b8An4GtK4FvNeljgJaU0Ln1Yz/9j2whGtgJ4cbeZxFvdumbfF
- evAErHMjKqf4enGbNDDTrW1WRE+tzm1XdkJAg+cUDDmqlMaIBmjRlWWCZJTsQSZww925
- EuICcKb7FdclVV1LubYaRyIP/b+JAMtS0DAv/woDrsvPLBkFdnfF590ZZnK/zZyh5w+m
- 3UEBOUwaBtJ2si8ATRhOakwARR1c/5Ecf6VSM7JbwfvcRUTfu2zldskBIffKtcNs1bim
- uIbV+vN/VQ17q8tK5NuzRiEQzPyE9c+z3yKTdC0ARzdmRBcPFsQ4IL5eB6k/IQQ7x5VM
- AHww==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+qFl/A6vbinBu2JrFGMxi5+oC6faR95zgO7TTnojESfaAGboh+HOnA/CwlNASm7xQcW8P6Wp6ZTug=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwaLd1nl2QoMewyyOKNv0H+ua+sl3Nn0rzMntOG1e8e4aI/yI23
- ormldJxKlZjn+orNrLq3iG4MvHIEOldFR8z91rdd/yXFZ8eNskWBNLs/6Lq+EZBvnRYAx05OXZ+
- TV4iwzUndOxvqKUexz4pttS+5ZjKT/qxwg0o6Sy6+JRrnpjzXrurQ6pwyk1Pz9KDaVciNnyg=
-X-Gm-Gg: Acq92OEeuLP6ILJFVgibzYLbgHbOndd45wijm+RDZB5LBbcnQYe7a0aO9U0920Zn6bg
- Mi4KHciXJc8/QsYDDHOJ43STWOL0vbm+IBzBO07C52Wn3HdZlx88x1UcvOxGg5m78PWTi3ApAHA
- 6AidNZ1LzUAHZ62f3qCpVg0jmHo/BIJOtD/3XuBqiqm2+Bm1CC1UM/ghIe57K/nOp4lAAZknLH8
- iDMAVfNnupQnJPX6yfi4JPDE8jLw7wiVGE8XaJr6PUg+7gKGF+++RzK+zdqBWbMkMhy59w1IBgk
- 90CnaE1jOAO/8LB+5wM4QOfG+6fTrwDrhrL+nICsd8Z/WdvwyW3s00Kyes0IfWJR9d2NiMWbUVJ
- p8iP4g6l1Sh1OR4f+IPYditm0nJ0N1VaI5WiqXruLPI1CG80j4sO2L22x3zDsOpZXUg==
-X-Received: by 2002:a05:6a21:699:b0:398:6ec6:b06d with SMTP id
- adf61e73a8af0-3b4d3dd0543mr17149844637.34.1781001240641; 
- Tue, 09 Jun 2026 03:34:00 -0700 (PDT)
-X-Received: by 2002:a05:6a21:699:b0:398:6ec6:b06d with SMTP id
- adf61e73a8af0-3b4d3dd0543mr17149809637.34.1781001240195; 
- Tue, 09 Jun 2026 03:34:00 -0700 (PDT)
-Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c85df0a4afdsm21001446a12.19.2026.06.09.03.33.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jun 2026 03:33:59 -0700 (PDT)
-From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Date: Tue, 09 Jun 2026 16:03:11 +0530
-Subject: [PATCH] misc: fastrpc: create duplicate sessions after all CB probing
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E4A510E240
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 10:42:57 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gZQV55D1wz9tsm;
+ Tue,  9 Jun 2026 12:42:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1781001773; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=JipsspzxTUx0G7vJgab38RjRzDpeou++CYMWHB1CJoQ=;
+ b=HkAG6Ar6ltWhejZh36R8dhbGKPGpOd96LZABQcMZs1mqP2sqo4gr0a6AzblRP4V/c+2rr6
+ yjom6iqmQ6NeBmM0HMMxG+5o1u3bzQ+yxuuCB5nT67z6PxwMQiMJ3wJnWg8Ia6WLPJJdK7
+ QKX5+ITOq2HS4wHceJEgjat2jM/MwbM5lIzy4bQkuDQ6RbXetLVQ+gzP+xbb7ytoZA2mKt
+ NrdHpKw4ejcXfAUrlQnz+8fk4hLt/8lC01CdsapKQznpXL967EDc+wPTevn2tT5WKA/Bfx
+ Z5p4TecALrpEEDlXEtq/iHJjIdnxvoBKxMKUFQqJ/80RBDaXa2TCQ9oTPk5hzw==
+Message-ID: <11d7c83185a18d13760b6e77275e97c110dcddcc.camel@mailbox.org>
+Subject: Re: [RFC PATCH] dma-fence: Fix races of fence callbacks versus
+ destructors by locking
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ phasta@kernel.org, Danilo Krummrich <dakr@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, Boris Brezillon	
+ <boris.brezillon@collabora.com>, Alice Ryhl <aliceryhl@google.com>, Daniel
+ Almeida <dwlsalmeida@gmail.com>, Gary Guo <gary@garyguo.net>, Tvrtko
+ Ursulin	 <tvrtko.ursulin@igalia.com>, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Tue, 09 Jun 2026 12:42:49 +0200
+In-Reply-To: <66349a9f-d9dd-498b-b118-1c79d3aa3cca@amd.com>
+References: <20260608142436.265820-2-phasta@kernel.org>
+ <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
+ <fa9a335196525adbc03ec21b2e05bb526e4fc174.camel@mailbox.org>
+ <9d49c901-fcdf-487a-a733-0320d0bdf94c@amd.com>
+ <DJ3V3OCLIK2K.3CYKWYNHYU6JQ@kernel.org>
+ <ea4e0541-3702-4014-b8f6-0746a148df86@amd.com>
+ <DJ3VYD71HDQ2.3C8GG983Z2YCM@kernel.org>
+ <c8564ea0-8ff4-4049-996d-bd978c478372@amd.com>
+ <74bd33a06b75c291c3e2eda19e0250fbd280c49b.camel@mailbox.org>
+ <66349a9f-d9dd-498b-b118-1c79d3aa3cca@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260609-dup-sessions-v1-1-26934abb9fa3@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAObrJ2oC/x2MQQqAIBAAvyJ7TlAJwb4SHRbdai8mLkUg/T3rO
- DAzDYQqk8CkGlS6WPjIHeygIO6YN9KcOoMzzhtvgk5n0ULyeaIJHUbEaEMYoSel0sr3v5uX53k
- BRVWeW14AAAA=
-X-Change-ID: 20260609-dup-sessions-ea2acaac1994
-To: Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Bharath Kumar <bkumar@qti.qualcomm.com>,
- Chenna Kesava Raju <chennak@qti.qualcomm.com>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781001236; l=3981;
- i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
- bh=JskPNUjl/unnUFjATN8VxXMvtu7xQ8Bn9aXHNcT2bA8=;
- b=wSC1WwlpkDiGveaxKjULB608p6GB63IHA5iIprbeYniOxm+B+EYXH5aZF1p4xC8N+oFF53YFx
- mLiMqgf/bG7Co5c4pE0N/YAGQ11l1b8/n88fZg6xVBvkyo5ebSLiUY6
-X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
- pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
-X-Authority-Analysis: v=2.4 cv=PIs/P/qC c=1 sm=1 tr=0 ts=6a27ec19 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=_Cnv2d4ds2Bg63dH_xgA:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-GUID: t0piLM041zv4446C7qndnpMebJ_u64Fd
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDA5OSBTYWx0ZWRfX18fZ+dj85O6b
- RqWtrEUVtqJDBpM3vCGyw7Oyued1Poe6U0DsMfRYaQpf89LYmT7/kpcZuuowcYhDRDEIRdO6qh3
- C04/0eNcK5+dih+bBPUyWpzcMsK9k6rrUiswTgQs2p1GgaXYr03kRVT05DEavlREY+IEcXAQ2W2
- ZA1S0nn/O77IBpkI2i6unU2Qc5EfZFWVDZ+HWK6owkDKuM27tTlQK6NMegFIAv2RdkknNcXPj3G
- fOTHlxqYb6gACdoz3RrJFxQZkIBqx+j+I3r2FtXGVa2shiL02r72n4oRF1wMyskUURm4cWI/HuD
- PanVJVvT012evaGEhm7AcWVgpHs27aEep/OTGowxzNYkf+yOTcnst9fXjo+nni/6QGCVEh1NnWI
- 4W2NI4rIhb5hwazsVrxfMsP5vOHwK9U9whTZdRld3Qygxpz//cvb9F80kumMNf5asAvUtSIep3B
- qxSzQEPdo5r780hkTWw==
-X-Proofpoint-ORIG-GUID: t0piLM041zv4446C7qndnpMebJ_u64Fd
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-09_02,2026-06-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 suspectscore=0 adultscore=0 spamscore=0
- clxscore=1011 malwarescore=0 priorityscore=1501 bulkscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606090099
+X-MBO-RS-META: 3g3cmhkz6dg7r6r5a4qcijaedk8sx3jj
+X-MBO-RS-ID: aa0f0b74e0b68467672
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,117 +74,107 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For ADSP, only a limited number of FastRPC context banks (CBs) are
-available. Each CB supports a single session, which means only a few
-processes can run on ADSP simultaneously. If all sessions are consumed
-by fastrpc daemons, no session remains available when a user application
-starts, causing the application to fail.
+On Tue, 2026-06-09 at 12:26 +0200, Christian K=C3=B6nig wrote:
+> On 6/9/26 07:52, Philipp Stanner wrote:
+> ...
+> > >=20
+> > > In detail calling the callbacks without holding locks allows all impl=
+ementations who need it to explicitly take locks in the order they want.
+> >=20
+> > Didn't you say a few mails above that the implementation should not use
+> > the fence lock for its own purposes?
+>=20
+> The usual use case the drivers have is this here:
+>=20
+> dma_fence_lock_irqsave(fence, flags);
+> was_signaled =3D dma_fence_test_signaled(fence);
+> if (!was_signaled)
+> 	dma_fence_signal(fence);
+> dma_fence_unlock_irqrestore(fence, flags);
+>=20
+> if (!was_signaled)
 
-To address this limitation, a Device Tree change was used till now:
-  qcom,nsessions = <5>;
+If cleanup() touches fence data, this is now exactly the race that I am
+concerned with.
 
-However, feedback from the upstream community indicated that this change
-should not be made in the Device Tree. Instead, it was recommended to
-handle this as a driver-level change.
+With the current design, you'd actually need a synchronize_rcu() here,
+which you definitely do not want in a hot path :(
 
-Instead of duplicating sessions inline during fastrpc_cb_probe() using
-the qcom,nsessions DT property, defer duplication until after
-of_platform_populate() returns in fastrpc_rpmsg_probe(), at which point
-all compute-CB child nodes have been probed and the session array is
-fully populated.
+> 	cleanup();
+>=20
+> This is actually what you and me came up with for the KFD when we
+> removed the return code for dma_fence_signal().
 
-For the ADSP domain, append FASTRPC_DUP_SESSIONS (4) copies of the
-last probed session once of_platform_populate() succeeds. This keeps
-the per-CB probe path simple and ensures duplicates are always derived
-from a stable, fully-initialised session state.
+Well, what we came up with for that rare case was
 
-The qcom,nsessions DT property is no longer consumed by the driver; the
-binding and DT sources are left unchanged.
+was_signaled =3D dma_fence_check_and_signal(fence);
+if (!was_signaled)
+	cleanup();
 
-Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
----
- drivers/misc/fastrpc.c | 31 ++++++++++++++++++-------------
- 1 file changed, 18 insertions(+), 13 deletions(-)
+It seems that many of the other use cases where the fence lock is taken
+by drivers ultimately are rooted in the (IMO) design mistake that
+dma_fence_set_error() exists.
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 1080f9acf70a..46afbae9c234 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -30,6 +30,7 @@
- #define CDSP_DOMAIN_ID (3)
- #define GDSP_DOMAIN_ID (4)
- #define FASTRPC_MAX_SESSIONS	14
-+#define FASTRPC_DUP_SESSIONS	4
- #define FASTRPC_MAX_VMIDS	16
- #define FASTRPC_ALIGN		128
- #define FASTRPC_MAX_FDLIST	16
-@@ -2195,7 +2196,6 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
- 	struct fastrpc_channel_ctx *cctx;
- 	struct fastrpc_session_ctx *sess;
- 	struct device *dev = &pdev->dev;
--	int i, sessions = 0;
- 	unsigned long flags;
- 	int rc;
- 	u32 dma_bits;
-@@ -2204,8 +2204,6 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
- 	if (!cctx)
- 		return -EINVAL;
- 
--	of_property_read_u32(dev->of_node, "qcom,nsessions", &sessions);
--
- 	spin_lock_irqsave(&cctx->lock, flags);
- 	if (cctx->sesscount >= FASTRPC_MAX_SESSIONS) {
- 		dev_err(&pdev->dev, "too many sessions\n");
-@@ -2225,16 +2223,6 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
- 	if (of_property_read_u32(dev->of_node, "reg", &sess->sid))
- 		dev_info(dev, "FastRPC Session ID not specified in DT\n");
- 
--	if (sessions > 0) {
--		struct fastrpc_session_ctx *dup_sess;
--
--		for (i = 1; i < sessions; i++) {
--			if (cctx->sesscount >= FASTRPC_MAX_SESSIONS)
--				break;
--			dup_sess = &cctx->session[cctx->sesscount++];
--			memcpy(dup_sess, sess, sizeof(*dup_sess));
--		}
--	}
- 	spin_unlock_irqrestore(&cctx->lock, flags);
- 	rc = dma_set_mask(dev, DMA_BIT_MASK(dma_bits));
- 	if (rc) {
-@@ -2445,6 +2433,23 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 	if (err)
- 		goto err_deregister_fdev;
- 
-+	if (data->domain_id == ADSP_DOMAIN_ID && data->sesscount > 0) {
-+		struct fastrpc_session_ctx *last_sess;
-+		struct fastrpc_session_ctx *dup_sess;
-+		unsigned long flags;
-+		int i;
-+
-+		spin_lock_irqsave(&data->lock, flags);
-+		last_sess = &data->session[data->sesscount - 1];
-+		for (i = 0; i < FASTRPC_DUP_SESSIONS; i++) {
-+			if (data->sesscount >= FASTRPC_MAX_SESSIONS)
-+				break;
-+			dup_sess = &data->session[data->sesscount++];
-+			memcpy(dup_sess, last_sess, sizeof(*dup_sess));
-+		}
-+		spin_unlock_irqrestore(&data->lock, flags);
-+	}
-+
- 	return 0;
- 
- err_deregister_fdev:
+There should just be
 
----
-base-commit: 97e797263a5e963da3d1e66e743fd518567dfe37
-change-id: 20260609-dup-sessions-ea2acaac1994
+void
+dma_fence_signal(struct dma_fence *f, int err);
 
-Best regards,
--- 
-Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+which also conveniently forces all signalers to really carefully think
+about whether the fence's associated operations succeeded. Correctly
+representing the "true fence error state" to all consumers is vital for
+sane system behavior, as you continuously have to point out.
 
+>=20
+> Taking the lock around the enable_signaling() callback has the exact
+> same reason, preventing the fence from signaling between testing and
+> calling dma_fence_signal(). The problem with that approach is that
+> cleanup() now suddenly runs under the fence lock as well.
+
+That problem does not exist if we re-design dma_fence like that:
+
+// driver
+dma_fence_signal(f); // revokes all accesses to our driver through backend_=
+ops
+// synchronize_rcu() now unnecessary \o/
+cleanup(f); // We know that all accessors are gone
+dma_fence_put(f);
+
+>=20
+> So you are left with few options: Either the fence lock is external,
+> which we don't want because that make the fence non-independent, or
+> cleanup() defers work to irq_work or work_structs, which creates
+> numerous lifetime issues.
+
+Yup, this is uncool and we want to avoid that.
+
+But these seem to be the options
+
+1. Ensure proper synchronization
+2. Wait for a grace period in a hot path
+3. Defer cleanup() with some delay mechanism
+
+#1 is by far the cleanest approach. I still cannot see any downside,
+and quite a few upsides.
+
+https://elixir.bootlin.com/linux/v7.1-rc6/source/drivers/dma-buf/dma-fence.=
+c#L1025
+
+^ is already racing with the signaled check.
+
+
+I'm going through the users right now, and it seems all we need to
+ensure to implement this change is to audit all ops->signaled() for
+usage of the fence_lock and see if we can port them.
+
+>=20
+> When enable_signaling would be independent of the fence lock we could
+> avoid all of this and just use a normal spin_lock() for the cleanup.
+
+How's that related to our problem?
+
+P.
