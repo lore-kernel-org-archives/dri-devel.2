@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D3D4CD8CA8
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 11:17:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C85A7CD8CAA
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 11:21:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8ACA10E13D;
-	Tue,  9 Jun 2026 11:17:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1983510E0EE;
+	Tue,  9 Jun 2026 11:21:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NfjtUA8E";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="d/iJco8e";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0DE310E13D
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 11:17:35 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9109D10E0EE
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 11:21:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0D60E4351C;
- Tue,  9 Jun 2026 11:17:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B52791F00893;
- Tue,  9 Jun 2026 11:17:34 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0B338601DC;
+ Tue,  9 Jun 2026 11:21:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61C851F00893;
+ Tue,  9 Jun 2026 11:21:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781003854;
- bh=hsKSu8saQz23vPQQru6hSsyiRw9Rg32Z/szCSUVIlm4=;
+ s=k20260515; t=1781004101;
+ bh=F1E+a/2FRLM00ky6l+DEunjH2UcYftAifgsatzZslk4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NfjtUA8E0iysrsxsg+BNpcZi2u+tQkyWukPPpl/HUiRrqXrRfdr0U7hBPkqd0rd81
- rEgS8bIAFau+WpOC4yw7FKi14Xw6GTPRNZsdRnc2UR8jUbyokKjCTfanvqDTblwMEq
- /bCU3tQrGRxvfVJL30Wp9I6xGyhS0xLCBmTU7Xu09g0XKTLplIPCbHkQrngyY5ztb/
- iz8Ex8HsvBShxOAw8sIf7iRd79lyUay0QXUyEDs31XBBhhfNP3KqvMK6cghzDiG84I
- a9kKnAxR3BfKKSw2hDQu9lesAJ+l9BodM4OstsRnoSBpSCFzd/CQgnx3+3aAO3VVAa
- oSui4FF2yeDtA==
+ b=d/iJco8eI6TjLwzaiSr38qeLDrhr9MGf35lc8xmdemt8diXYTtuLyQ/PnWhN8JFMQ
+ LwIjQkdf8k3ezWqyDGSVej48PvNmGpVkVzxA6apIb1aeJLOCC9H95AcXa06tx2+VO5
+ uWBBcdO3VvOFRNWx4saq3bHAFrEPD44HhYln+QxBa1RFfEllpQcmCO4y3a9QDTxC76
+ WybHOQl7ATp1LTNQv10aP5GdfB/nOa5toAiLWw7mHno6SYCeflkMuGkgIjl/ksvExQ
+ Gqa3wkxaA9Qlyf8G7YFPogI2427swWFY+5urnBZmzKm5A+khXvAlAPD07VjdIGGGCM
+ LGtkxLqM7kPFQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 4/4] drm/amd/display: use plane color_mgmt_changed to
- track colorop changes
+Subject: Re: [PATCH v9 3/4] drm/atomic: track individual colorop updates
 To: "Melissa Wen" <mwen@igalia.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260609110420.1298352-5-mwen@igalia.com>
-References: <20260609110420.1298352-5-mwen@igalia.com>
+In-Reply-To: <20260609110420.1298352-4-mwen@igalia.com>
+References: <20260609110420.1298352-4-mwen@igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 11:17:34 +0000
-Message-Id: <20260609111734.B52791F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 11:21:40 +0000
+Message-Id: <20260609112141.61C851F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,68 +56,86 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The logic in `should_reset_plane` fails to trigger a reset for all=
- planes on a CRTC when another plane's color management changes via the new=
- DRM Color Pipeline API, leading to plane z-order corruption.
+
+Pre-existing issues:
+- [High] Missing `async_flip` validation for `DRM_MODE_OBJECT_COLOROP` allo=
+ws colorop properties to be modified during async page flips, resulting in =
+silently discarded updates.
+- [High] Leaked `drm_property_blob` references in colorop state destruction.
 --
 
-commit 52aefc9e9f5291e7e9724eb87eff29b790339396
+commit e431074495b7fd11806af7e6be2bb0ec2ea72838
 Author: Melissa Wen <mwen@igalia.com>
 
-drm/amd/display: use plane color_mgmt_changed to track colorop changes
+drm/atomic: track individual colorop updates
 
-Ensure the driver tracks changes in any colorop property of a plane
-color pipeline by using the same mechanism of CRTC color management and
-update plane color blocks when any colorop property changes.
+As we do for CRTC color mgmt properties, this commit uses the
+color_mgmt_changed flag to track value changes in the color pipeline
+of a given plane. This allows drivers to update color blocks as soon
+as plane color pipeline or individual colorop values change.
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 8f80420e9f0b8..56ba9bf40ed9f 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
+ic_uapi.c
+> index cd0fb5dc7d3ec..f799863c350c7 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
 [ ... ]
-> @@ -12208,6 +12208,10 @@ static bool should_reset_plane(struct drm_atomic=
-_state *state,
->  	if (new_crtc_state->color_mgmt_changed)
->  		return true;
-> =20
-> +	/* Plane color pipeline or its colorop changes. */
-> +	if (new_plane_state->color_mgmt_changed)
-> +		return true;
-> +
->  	/*
->  	 * On zpos change, planes need to be reordered by removing and re-adding
+> @@ -1271,8 +1296,10 @@ int drm_atomic_set_property(struct drm_atomic_stat=
+e *state,
+>  		break;
+>  	}
+>  	case DRM_MODE_OBJECT_COLOROP: {
+> +		struct drm_plane_state *plane_state;
+>  		struct drm_colorop *colorop =3D obj_to_colorop(obj);
 
 [Severity: High]
-Does this code need to check color_mgmt_changed for other planes on the
-CRTC as well?
+This isn't a bug introduced by this patch, but does this block lack
+validation for async_flip?
 
-Looking further down in should_reset_plane(), there is a loop over
-other planes that checks legacy AMD color properties, but it misses checking
-new_other_state->color_mgmt_changed:
+Unlike the blocks for planes, CRTCs, and connectors, there is no check for
+async_flip here. If userspace submits an atomic commit with
+DRM_MODE_PAGE_FLIP_ASYNC that modifies colorop properties, the ioctl
+succeeds and modifies colorop_state inside the transaction.
 
-	for_each_oldnew_plane_in_state(state, other, old_other_state, new_other_st=
-ate, i) {
-		...
-		/* HDR/Transfer Function changes. */
-		if (dm_old_other_state->degamma_tf !=3D dm_new_other_state->degamma_tf ||
-		...
+However, drm_atomic_helper_async_commit() completely ignores colorops and
+does not swap state->colorops. Could this lead to the updated state being
+silently discarded and never applied to hardware, causing state divergence
+between userspace expectations and kernel state?
 
-If Plane A has color_mgmt_changed =3D=3D true, should_reset_plane() correct=
-ly
-returns true and Plane A gets reset.
+>  		struct drm_colorop_state *colorop_state;
+> +		bool replaced =3D false;
+> =20
+>  		colorop_state =3D drm_atomic_get_colorop_state(state, colorop);
+>  		if (IS_ERR(colorop_state)) {
 
-However, when should_reset_plane() is evaluated for Plane B on the same CRT=
-C,
-it iterates over the other planes (including Plane A). Since the loop does
-not check Plane A's color_mgmt_changed state, it could return false for Pla=
-ne B.
 
-Could this cause only some planes on the CRTC to be removed and re-added,
-resulting in a scrambled hardware z-order or pipeline acquisition errors?
+[Severity: High]
+This is a pre-existing issue, but is there a leaked drm_property_blob
+reference in colorop state destruction?
+
+Looking at drm_colorop_atomic_destroy_state() in
+drivers/gpu/drm/drm_colorop.c:
+
+void drm_colorop_atomic_destroy_state(struct drm_colorop *colorop,
+				      struct drm_colorop_state *state)
+{
+	kfree(state);
+}
+
+When an atomic state is committed or aborted, the atomic framework frees the
+associated state objects by calling their respective destroy functions. This
+function simply calls kfree(state) without dropping the reference to the da=
+ta
+blob (state->data) via drm_property_blob_put().
+
+Because drm_atomic_helper_colorop_duplicate_state() explicitly increments t=
+he
+blob's reference count, and property setting acquires new blob references,
+could failing to release the blob reference during state teardown lead to an
+unbounded memory leak for every atomic update touching the color pipeline?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609110420.1298=
-352-1-mwen@igalia.com?part=3D4
+352-1-mwen@igalia.com?part=3D3
