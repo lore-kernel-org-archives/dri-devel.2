@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A82ACD8CA8
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 06:40:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C946CD8CAE
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 06:42:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB86A10E0DE;
-	Tue,  9 Jun 2026 06:40:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3A0610E0DF;
+	Tue,  9 Jun 2026 06:42:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="hgyxFnhu";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="r9H+J3Ut";
 	dkim-atps=neutral
-Received: from out-179.mta1.migadu.com (out-179.mta1.migadu.com
- [95.215.58.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8262710E0DF
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 06:40:43 +0000 (UTC)
+Received: from out-173.mta0.migadu.com (out-173.mta0.migadu.com
+ [91.218.175.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D903A10E0DF
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 06:42:39 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1780987241;
+ t=1780987356;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=R2e4RVSJjtCpz/u6ASF4RY7PH6icfN90zoN6TTrfeHI=;
- b=hgyxFnhuF4l7T94pV0BMD9VRFskJBHNhkiC30dWs4Jw/Cx7tBiCFIzMtCz8JTf/QVCudQK
- z07KcgyACls2ySGp5r+J4DuVG8iPRdUghwC6xr3FFyfUHG0SFxabTCU19vDKNN5P9hEfxu
- 9xKhmG76TuKP5lpbn8xQIbgW6qu8Hpw=
+ bh=okGbZnshQDiTOCCUcLiGWJ/vXeEA5Q7ST0C3mLZj8lI=;
+ b=r9H+J3UthvdbJqCWseQmPy/6Gw04t2MD3O/3QZkG+FrfACMHjoHmAZhEA7T2/P7rXoTaRj
+ flnwXmsam8NnpyHmx73y4wEmRAzWN+xVg1sMhEn7tyW9qKpEVePYA4xXwp0ikhd+ORVe1t
+ m7DPL598qkuZ4CAlEebaO3UEKtTEsyk=
 From: Kaitao Cheng <kaitao.cheng@linux.dev>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Muchun Song <muchun.song@linux.dev>,
@@ -76,12 +76,11 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Kaitao Cheng <kaitao.cheng@linux.dev>,
  Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: [PATCH v2 12/14] locking/ww_mutex: Open-code stress reorder list walk
-Date: Tue,  9 Jun 2026 14:38:53 +0800
-Message-ID: <20260609063855.95710-3-kaitao.cheng@linux.dev>
-In-Reply-To: <20260609063855.95710-1-kaitao.cheng@linux.dev>
+Subject: [PATCH v2 13/14] ASoC: dapm: Open-code widget invalidation walk
+Date: Tue,  9 Jun 2026 14:41:21 +0800
+Message-ID: <20260609064122.95825-1-kaitao.cheng@linux.dev>
+In-Reply-To: <20260609061347.93688-1-kaitao.cheng@linux.dev>
 References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
- <20260609063855.95710-1-kaitao.cheng@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
@@ -103,33 +102,32 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
 A later change will make list_for_each_entry() cache the next element
-before entering the loop body. stress_reorder_work() can move list
-entries while handling wound/wait locking conflicts and then continue
-from the adjusted cursor.
+before entering the loop body. dapm_widget_invalidate_paths() appends
+newly reached widgets to the temporary work list while walking it.
 
-Keep the list walk open-coded so the loop step observes the cursor
-selected by the body. This preserves the existing stress-test traversal
-semantics and prepares the code for the list iterator update.
+Keep the work-list walk open-coded so the next widget is looked up after
+new widgets have been appended. This preserves the existing invalidation
+traversal semantics and prepares the code for the list iterator update.
 
 Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
 ---
- kernel/locking/test-ww_mutex.c | 4 +++-
+ sound/soc/soc-dapm.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/locking/test-ww_mutex.c b/kernel/locking/test-ww_mutex.c
-index 838d631544ed..08a6ab5ac041 100644
---- a/kernel/locking/test-ww_mutex.c
-+++ b/kernel/locking/test-ww_mutex.c
-@@ -519,7 +519,9 @@ static void stress_reorder_work(struct work_struct *work)
- 	do {
- 		ww_acquire_init(&ctx, stress->class);
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index d6192204e613..5bd921fca132 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -255,7 +255,9 @@ static __always_inline void dapm_widget_invalidate_paths(
+ 	list_add_tail(&w->work_list, &list);
+ 	w->endpoints[dir] = -1;
  
--		list_for_each_entry(ll, &locks, link) {
-+		for (ll = list_first_entry(&locks, typeof(*ll), link);
-+		     !list_entry_is_head(ll, &locks, link);
-+		     ll = list_next_entry(ll, link)) {
- 			err = ww_mutex_lock(ll->lock, &ctx);
- 			if (!err)
+-	list_for_each_entry(w, &list, work_list) {
++	for (w = list_first_entry(&list, typeof(*w), work_list);
++	     !list_entry_is_head(w, &list, work_list);
++	     w = list_next_entry(w, work_list)) {
+ 		snd_soc_dapm_widget_for_each_path(w, dir, p) {
+ 			if (p->is_supply || !p->connect)
  				continue;
 -- 
 2.43.0
