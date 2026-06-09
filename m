@@ -4,52 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C99D1CD8CAE
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 08:07:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77D34CD8CAD
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 08:10:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B27410E175;
-	Tue,  9 Jun 2026 08:07:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BCBF10E177;
+	Tue,  9 Jun 2026 08:10:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="E+FEi6vH";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="L8wskNhX";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1960310E169;
- Tue,  9 Jun 2026 08:07:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=MUKu2VcBHmhgiWKhnRnyU1YK6jC3L1pzS7pqu0bXsPI=; b=E+FEi6vHCSHLqZt2ADzheTnJeF
- aGkV0IeKuyHYb7NzvWe1O05W2SUu/FXGLMbMugruUX369wmhaHmMXkXAHORglIh5NbQ6AbH1h/Htt
- USwGJBaj5/h262PafjOktUidNxiQ+V9r+k03NORYZC3SSHjUOl28fGq4ZsrUTW/iml1W/tl90G938
- H8w61O8E0f+4mAh0zpuuE22LLdTOR6BcGIc/VqzekonfgncOi1dHeGGQ2lkB9PoGkGCsldNyRz1yP
- aWAjmUI2DTSSFl/f/XkGmvcWZuGybq+l97mEckA0QWG+FgWu2cA4hSI+ud4hf54oSwQ5MryVCvwsn
- rhS2Y2gA==;
-Received: from [90.240.106.137] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wWrUj-00Eps0-Qp; Tue, 09 Jun 2026 10:07:33 +0200
-Message-ID: <2660d09d-b549-447e-a28c-ca8550c3b288@igalia.com>
-Date: Tue, 9 Jun 2026 09:07:32 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: initialize irq.lock spinlock earlier
-To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, kernel-dev@igalia.com
-References: <20260608-amdgpu-mutex-fix-2-v1-1-1d850180ed19@igalia.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260608-amdgpu-mutex-fix-2-v1-1-1d850180ed19@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013065.outbound.protection.outlook.com
+ [40.93.201.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 421AD10E177
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 08:10:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CfI1C9ST79tgEcfAQBzwUTEkMQQhT3v5lbL6KxTCbkedFjG2Iee1s22abBlCDP446/UsvajuB+BGhpxcOJgYNejKIpgSZ4Yhpx5gGSvmUEjyVI4NiHDPWFwQx4jAtO9kqfQt1r5pwK2g7LasU5MNHVZiLEwqpirQS7hmreDAd+4kPIfnIw6MMooJmoP9qEfsNOKzqwuCwilRMGWVlZdL69oFBxYk8Tsdgis9htA3SdGN4En3A32t5gwLWRNls1Djestm0qzpqsDV5YNPbSm36OnjHwVS57a0ld5IOlAfgK0AD66SQQOj+I3oSqCCo+C5K1bu5LpSvFH5lf2WfAosZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0ZdcHrNdZHR7CgG5p4dO7LqIZSpCO6qYiiwmrrydSYU=;
+ b=B7IGTKX9q6082goskrUkr4vibJjhNWVmVnHgBG1nYpdj4X8ELt0I3aH4tI2PEp5vRJm35p5wP4Vt6g/vx5kfmAPIJGa4bKB3B2i4Z2nLI3WM9cfT5IsKVugaeEiiyIwFFkaqIF2JhewLKELo1iE+bBCDRZXR/B0wP3D6uyI7XhWGLmwFCjuHxhj0yBrq6r0mODPFV6RKnGeo7n6ZVRGnqMC1fvJrYNJJjFW305rzVM7jthVIapybkJOrX0g7hFXAZgsG35EeRjEEX3Lpn3qvhFeW0t3YcL0nRGuw21bXHHHPd411TllcFOj3gpp22r2av2S7CuvQSQWffCEMi6YhTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0ZdcHrNdZHR7CgG5p4dO7LqIZSpCO6qYiiwmrrydSYU=;
+ b=L8wskNhXY2rphNXqMvE3Z9GmX5gvSps6YcgmQx4EcbjxlJ00UiGatgf3mpJatwSAyFzGiyVlsMbd8MHypX/0KEGJO3UbKQCGl0QGb2uw0wuDG+Q8/bUKIlGQQ56YeTbE3XjEG2W2iZD7rrCV7mnVywNYElr3C/jGCoyy2kge9dtplwQPIyvrkdsVhbt9DK9mstySSXGNHv5MWTdevbSQclgXjnooI5ruyuq1tk6pXPbaLJYYLTYKot0JjkmSidHShvX2azNlbP2kGJu0XRetHLsh2iPEFqBdIu34KPl+G8nEYuLgzExYmkePUqjNLJjDIrefhJDJIGf4w7D9ubxgfw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by MW6PR12MB8900.namprd12.prod.outlook.com (2603:10b6:303:244::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Tue, 9 Jun 2026
+ 08:10:04 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%6]) with mapi id 15.21.0092.010; Tue, 9 Jun 2026
+ 08:10:03 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+Subject: [PATCH 0/6] Miscellaneous fixes for the Host1x driver
+Date: Tue, 09 Jun 2026 17:09:16 +0900
+Message-Id: <20260609-b4-host1x-small-fixes-a-v1-0-7c1131c0b3ad@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqDMBCF4VeRWTswSYuKr1JcxHTUES8lE0UQ3
+ 71pXX4c/nOCchBWqLMTAu+isi4JJs/AD27pGeWdDJZsQQVV2D5xWDWaA3V204SdHKzokCrjO3b
+ WU/mAVH8C/6cUv5rburUj+/i7g+v6AueRNLB7AAAA
+X-Change-ID: 20260608-b4-host1x-small-fixes-a-081cfea2c073
+To: Thierry Reding <thierry.reding@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Mikko Perttunen <mperttunen@nvidia.com>
+X-Mailer: b4 0.16-dev
+X-ClientProxiedBy: OSTPR01CA0045.jpnprd01.prod.outlook.com
+ (2603:1096:604:21b::12) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|MW6PR12MB8900:EE_
+X-MS-Office365-Filtering-Correlation-Id: 502d5dac-bfb6-4897-c927-08dec5fe825f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|10070799003|6133799003|18002099003|3023799007|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: rFkCfUVLzXMCkbHURrhsEvOK6KTWuBidL+qV6EilbgFrUQlWt+xgu+RUj8Wi4CYwWPFv59+yVQ82bW+S5NClvFW9s0yOuUFdvum+q+ZX26PhdYvN3BAOM4jjJrwqesS9yLu/ytd2IFFTXDyZcEfDHdqUGVjSo8AzGXE99VEhwTrZyB7K5M6laPY8xhL4leFpo5u+SgG1YfM1wLijjcLS9Pmp1DVUq2fq5w2dm23UYbV+skPQ/pr3k1VFpZBfBlE/v2itRm/2KzJpMSygNnabBY/s8vLY9qNQaPWlFzKYsTRqkLmN4X8zt2uNa/GgWS0kV8DWVglaM76zLZ8Ck/s7k/hPDgsLt/qBRN2s6z3ee9nXDu8Ywy4s22LCZTnuXg1vmbNNgV1KmXeGGYSYHiXP4iinqdNcL/aYzb/7V1VZ+d17Cpar0GavkWL5LDGTdljKpmcZjPTBxHkJBHLD2+0J7VDazV3EgC9HOi2VGb395SZRs1sATzM9pWi5GuXBOCfeTJlXbhkrUvkXpubAOCai71kNu219DOQV5/6WYGg1zd5aGUzdH8HwobqYfIOYbt3B9rFIxijUwqfgxAYsbtMDIBTbNtlTAW4iUXXy5iidAmhEwZeMvK+uaMI3V1BpjM8lK71k+RIX60vemThL9TXggoK3HaZypKnLRvnBQCvKIFPitqXRkMLUDCsgDHxXP2e8
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(10070799003)(6133799003)(18002099003)(3023799007)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L2VUVzVMTWRwalVTU0JUdjVxNXQzN3QzSGcyOHplYWs5NEI3djJYclBacEpQ?=
+ =?utf-8?B?R0pXZ2dOaG1ubmYvS1pzZHRmaERaM013YXJ1eFFLS3NwOEpIOWZsRHNlLzBK?=
+ =?utf-8?B?VnVyRisyWnFVRGhsMlVXbmVPZkRseWhJSjBETGc1V1FSOU1aT0twZ2t0aUpz?=
+ =?utf-8?B?a1gzUFRmVnFxZVZVMWNwUURnak1lc2tEQmppbm1ucWRqNk5XOHczTXNoMG8y?=
+ =?utf-8?B?Z0ZJdnhNVHVMa2hUWmZLVEkxdGt5MEp4cUxrRkFCS2VHWmRlbXJiT09rQkhn?=
+ =?utf-8?B?dkFuNUM2b0xOcW9rZm54ZjhPMVJqRkprUGxKdVQ2RW5PaEkzeDNaSk1kd01Q?=
+ =?utf-8?B?bWdiZjlzaVpLT2Q3djE5NmlIWjlSbDRvalp1UnYvRUZ0MmxwYlJDUXdpWmVm?=
+ =?utf-8?B?ZHN3ck1YSEtjT0tNY1ZpL0g4ZGJlblJLV3RlaHZ4ckdTcWh4cUZVREU2OFlR?=
+ =?utf-8?B?Rm9IWGxUbm5BL3Mzb2crUEFjQU1TOTFIdElLRENFWlpGZFZrYnRpUFBpNUo1?=
+ =?utf-8?B?QzgwcUg1b1E3S0YxZUYwZWJkWWxiMUlPK0gwVUVrREVrWTJJUkNrZGlxZHU1?=
+ =?utf-8?B?QXpTSDFCVDJnY1F0RUM3ZWxlZWlPQmNOZ2FjcFgzYnRBU1VtNVFxZHNuS09M?=
+ =?utf-8?B?aS9RVloyN29ENHpqWjVZYW5pdE5TVGk4MFd6bXExNzBQbW92eTdtVHFQS0ZX?=
+ =?utf-8?B?MVJIU3pNTkw1N3UwY0R0UHhXNVQxSVVNNUN4c1dyQzZQaVd3WVdDNTBZSnV6?=
+ =?utf-8?B?bUo3QVZiODRXcXpNb3htbDlnVk9MeC84YjNKRGl2dVNtNy94cExmVjcyeTRL?=
+ =?utf-8?B?N0ZGSUZrRFp1TjFiY2o5LzEvbFJkcjdpazNsSmJrT1h2c1ZSRDAxa01HU3hw?=
+ =?utf-8?B?OUZ2QVlraDV4bnZjK2FIV0NIaFZydHdGRGlvcm5XaVMxQkVLUjRyOUZrVTVI?=
+ =?utf-8?B?enFPa3l6MG03a3kyQW0wb2dJZ0pyUElBOGFIajVvbkFzbXNlVXhJUTNOb1lV?=
+ =?utf-8?B?V01VSk81ZUdPVi9weFM2S2ZRRDlyN25ENGJ1RS9DMm91WjM1cnFRUFFzSWNE?=
+ =?utf-8?B?TithNjZYRDhLUlNsNExsWFZwVk5KNEUxYlJjNHB5Tk1VVFI4VzFQeWxQZ2kr?=
+ =?utf-8?B?ZGIydFA4SVpUaW9KcXBzVE5raStwUXNvOWJTbmxDNExpSnB2U0ZCa0x3NlJR?=
+ =?utf-8?B?ZXYvRWdyV0pBUGt5eHQzdzI3bXppNUVpM2xJZ25IUVdtM1lBQlBNaFRjc1Ju?=
+ =?utf-8?B?dUxMZmlRQ1htWENZeUF0VVArMzFla3VJNHhidUZvRnU2RlR2RDc2Z2cxTFpW?=
+ =?utf-8?B?TzQ0S0t0RUNTbnV4MEc3Tm8vb1AxOVg3UUNYUXJQQWJSMllxaUFUVUJTblhD?=
+ =?utf-8?B?U05QZjBWS2xia01hVWY4Y2I1emdhUk9OZFErTmV4UTd2SldjMSt5dGpSclhK?=
+ =?utf-8?B?RzMvNVdMSkc1SFNxaWhWUnMwMWh0SEZRbTVQNzgvekZTQkJ0aXNzaCtDcGYw?=
+ =?utf-8?B?ZnVmVFRDWXpOUWx4V2NPQ1FGcndoZTdZQ3VKdktKd2FkQlF3T09TQ09QNkQw?=
+ =?utf-8?B?dHhHb3B2SUdUUEplbzRueTNKakkyOEJXMnVWcEdNL1dXRFlRendlamszMW16?=
+ =?utf-8?B?dXhSdzJMRjZOdlV3a2tDWGJaamx1Q0pDQ0JzSUZQZkIvL2FUWjBkZGtVQ1NU?=
+ =?utf-8?B?OVhSbUVUZi9zMld0OWEyZnVCMmFOR2ZrYUFKSVpkQkdKSDJLQnByek52V04w?=
+ =?utf-8?B?RTZaMjBHMEdVV3VjVEd4R1kxVE5STmJrWFg4bWhIYTN5d0F2WHplaDhvQ2lX?=
+ =?utf-8?B?Y21wM2JtbkFNUDdGWDU0OWd3TGQ4Mit1WGphUnpSazR5V1U4andLVzc4U0RI?=
+ =?utf-8?B?Zmpna2NYcDFZRkw3YzRSYzRZUlI3ZFRBR3l5K245QXQzSEgycEx1LzNjd3BX?=
+ =?utf-8?B?VVRxZzlLTVpmTG5oa0VIeis2UjE2VGZQbFhmT2FVWVVnOHJObkZoS0RnRUdS?=
+ =?utf-8?B?VWdvU2lsekgxbFBneS9OWXlsWGp6VWVlTjlFc1VmSy9seUttUXA3ejZTS3pr?=
+ =?utf-8?B?Qy8yWnJGeVJlYllHdDF4V2QzRWtsc2k3b1VIMFcrRXZ1Mmcyemx5aUptbDU4?=
+ =?utf-8?B?bldHV2JyY2dvc3hVVFNNNWMwZWxyQlRDVWdldlc3UlJJTzNaaXp1bmlFMmlm?=
+ =?utf-8?B?R3RHRXBTRVE1ckNaSmRMMHNEV2h6eXAvekxtUDVXRWpZOTB3R1YwMTNKbGNh?=
+ =?utf-8?B?VTdUUldibGRBNCtsbkZDaFhqNHhhMmhkaG1hTFZLV0hxMkFLTUswK0F0TmtS?=
+ =?utf-8?B?a1pKbnRsektMTURDalN6VXJSTWYzRC9vSmhtSTBLVGxaZjBjOXRuRXp5N1Rn?=
+ =?utf-8?Q?Yqk7624gXIISTG5nhCA2C/Q/3bFVFrzudeeC3GX3nRa8Y?=
+X-MS-Exchange-AntiSpam-MessageData-1: oeWngi9OE1WcCg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 502d5dac-bfb6-4897-c927-08dec5fe825f
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 08:10:03.5521 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6qL6JJ5OBq/AtE9Up5W3tA30FegnRW5NzigY8a895oZs+PrJVfx4RpM8wyocGymLmYe0j+Q+fzjW4HKgd96qcQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8900
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,116 +141,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+This series has a number of small miscellaneous fixes to the host1x 
+driver.
 
-On 08/06/2026 20:22, Thadeu Lima de Souza Cascardo wrote:
-> If there is an early failure during amdgpu probe, like missing firmware, it
-> will end up calling amdgpu_irq_disable_all, which takes irq.lock spinlock
-> without it being initialized.
-> 
-> Initializing irq.lock earlier at amdgpu_device_init fixes the issue.
-> 
-> [   79.334079] INFO: trying to register non-static key.
-> [   79.334081] The code is fine but needs lockdep annotation, or maybe
-> [   79.334083] you didn't initialize this object before use?
-> [   79.334084] turning off the locking correctness validator.
-> [   79.334088] CPU: 2 UID: 0 PID: 1819 Comm: bash Not tainted 7.1.0-rc5-gfd06300b2348 #96 PREEMPT  8e8f461221633dae3c832d6689eaf0546c0ed4cd
-> [   79.334092] Hardware name: Valve Jupiter/Jupiter, BIOS F7A0133 08/05/2024
-> [   79.334094] Call Trace:
-> [   79.334095]  <TASK>
-> [   79.334097]  dump_stack_lvl+0x5d/0x80
-> [   79.334103]  register_lock_class+0x7af/0x7c0
-> [   79.334109]  __lock_acquire+0x416/0x2610
-> [   79.334114]  lock_acquire+0xcf/0x310
-> [   79.334117]  ? amdgpu_irq_disable_all+0x3b/0xf0 [amdgpu c88bab43d391d519ad0d5c8e5a099b4aceefa180]
-> [   79.334503]  ? _raw_spin_lock_irqsave+0x53/0x60
-> [   79.334508]  _raw_spin_lock_irqsave+0x3f/0x60
-> [   79.334510]  ? amdgpu_irq_disable_all+0x3b/0xf0 [amdgpu c88bab43d391d519ad0d5c8e5a099b4aceefa180]
-> [   79.334881]  amdgpu_irq_disable_all+0x3b/0xf0 [amdgpu c88bab43d391d519ad0d5c8e5a099b4aceefa180]
-> [   79.335240]  amdgpu_device_fini_hw+0x90/0x32c [amdgpu c88bab43d391d519ad0d5c8e5a099b4aceefa180]
-> [   79.335704]  amdgpu_driver_load_kms.cold+0x22/0x44 [amdgpu c88bab43d391d519ad0d5c8e5a099b4aceefa180]
-> [   79.336159]  amdgpu_pci_probe+0x204/0x440 [amdgpu c88bab43d391d519ad0d5c8e5a099b4aceefa180]
-> [   79.336494]  local_pci_probe+0x3c/0x80
-> [   79.336500]  pci_call_probe+0x55/0x2e0
-> [   79.336505]  ? _raw_spin_unlock+0x2d/0x50
-> [   79.336508]  ? pci_match_device+0x157/0x180
-> [   79.336512]  pci_device_probe+0x9b/0x170
-> [   79.336516]  really_probe+0xd5/0x370
-> [   79.336521]  __driver_probe_device+0x84/0x150
-> [   79.336525]  device_driver_attach+0x47/0xb0
-> [   79.336528]  bind_store+0x73/0xc0
-> [   79.336531]  kernfs_fop_write_iter+0x176/0x250
-> [   79.336536]  vfs_write+0x24d/0x560
-> [   79.336542]  ksys_write+0x71/0xe0
-> [   79.336546]  do_syscall_64+0x122/0x710
-> [   79.336550]  ? do_syscall_64+0xd1/0x710
-> [   79.336553]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
-> [   79.336557] RIP: 0033:0x7f92fd675006
-> [   79.336561] Code: 5d e8 41 8b 93 08 03 00 00 59 5e 48 83 f8 fc 75 19 83 e2 39 83 fa 08 75 11 e8 26 ff ff ff 66 0f 1f 44 00 00 48 8b 45 10 0f 05 <48> 8b 5d f8 c9 c3 0f 1f 40 00 f3 0f 1e fa 55 48 89 e5 48 83 ec 08
-> [   79.336562] RSP: 002b:00007ffe4fa867a0 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
-> [   79.336565] RAX: ffffffffffffffda RBX: 000000000000000d RCX: 00007f92fd675006
-> [   79.336567] RDX: 000000000000000d RSI: 000055b2dfce59b0 RDI: 0000000000000001
-> [   79.336568] RBP: 00007ffe4fa867c0 R08: 0000000000000000 R09: 0000000000000000
-> [   79.336569] R10: 0000000000000000 R11: 0000000000000202 R12: 000000000000000d
-> [   79.336570] R13: 000055b2dfce59b0 R14: 00007f92fd7ca5c0 R15: 000055b2dfdbaf70
-> [   79.336574]  </TASK>
-> 
-> Fixes: 9950cda2a018 ("drm/amdgpu: drop the drm irq pre/post/un install callbacks")
-> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 ++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c    | 2 --
->   2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 21a3fb574d53..e5a9f6325c4a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3749,6 +3749,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->   	mutex_init(&adev->gfx.workload_profile_mutex);
->   	mutex_init(&adev->vcn.workload_profile_mutex);
->   
-> +	spin_lock_init(&adev->irq.lock);
+Patches 1 to 4 fix various logic issues that are unlikely to happen
+but technically possible.
 
-The fix and the Fixes: target look correct to me:
+Patch 5 fixes a return type from unsigned int to int -- no functional
+difference.
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Patch 6 adds makes syncpoint value arithmetic explicitly wrapping, 
+mostly to help static/dynamic analysis tools.
 
-The init paths are a bit of a mess though. The driver could use a 
-systematic cleanup in this area path. Maybe consistent 
-init/init_hw/init_early for purely software state, or something. It 
-would be a gargantuan task probably. Some years ago we strived for a 
-clean design along these lines in i915 and I think without a solid 
-continuos integration with fault injection it possibly shouldn't be even 
-attempted.
+---
+Mikko Perttunen (6):
+      gpu: host1x: Wait for timeout worker completion on channel free
+      gpu: host1x: Avoid double device_add when clients already present
+      gpu: host1x: Fix offset calculation in trace_write_gather
+      gpu: host1x: Avoid stack over-read in debug output helpers
+      gpu: host1x: Change pin_job() return type to int
+      gpu: host1x: Annotate intentional syncpoint wrap-around
 
-Regards,
-
-Tvrtko
-
-> +
->   	amdgpu_device_init_apu_flags(adev);
->   
->   	r = amdgpu_device_check_arguments(adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> index 254a4e983f40..40b8506ac66f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> @@ -309,8 +309,6 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
->   	unsigned int irq, flags;
->   	int r;
->   
-> -	spin_lock_init(&adev->irq.lock);
-> -
->   	/* Enable MSI if not disabled by module parameter */
->   	adev->irq.msi_enabled = false;
->   
-> 
-> ---
-> base-commit: 60dc0946bbad3eef8bc66a5a8b09b98dbc6e09c0
-> change-id: 20260608-amdgpu-mutex-fix-2-381a3bed81f0
-> 
-> Best regards,
-> --
-> Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-> 
+ drivers/gpu/host1x/bus.c           |  2 +-
+ drivers/gpu/host1x/cdma.c          |  3 ++-
+ drivers/gpu/host1x/debug.c         |  4 ++--
+ drivers/gpu/host1x/hw/cdma_hw.c    |  2 +-
+ drivers/gpu/host1x/hw/channel_hw.c | 15 +++++++++------
+ drivers/gpu/host1x/intr.c          |  5 +++--
+ drivers/gpu/host1x/job.c           |  2 +-
+ drivers/gpu/host1x/syncpt.c        |  7 ++++++-
+ drivers/gpu/host1x/syncpt.h        |  3 ++-
+ 9 files changed, 27 insertions(+), 16 deletions(-)
+---
+base-commit: 4549871118cf616eecdd2d939f78e3b9e1dddc48
+change-id: 20260608-b4-host1x-small-fixes-a-081cfea2c073
 
