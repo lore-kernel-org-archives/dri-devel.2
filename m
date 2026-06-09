@@ -4,79 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5567DCD8CBD
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 07:16:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 872A7CD8C85
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 07:16:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DC8110E128;
-	Tue,  9 Jun 2026 07:16:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0629510E132;
+	Tue,  9 Jun 2026 07:16:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=yahoo.fr header.i=@yahoo.fr header.b="lQE7NlPk";
+	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="cftHFXnO";
 	dkim-atps=neutral
-Received: from sonic302-21.consmr.mail.ir2.yahoo.com
- (sonic302-21.consmr.mail.ir2.yahoo.com [87.248.110.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFB9010F8A0
- for <dri-devel@lists.freedesktop.org>; Mon,  8 Jun 2026 18:41:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.fr; s=s2048;
- t=1780944068; bh=FHllyc6VezQ4fvRQCARiMi7vOSKPKXIjBA5YjKzRXZ8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To;
- b=lQE7NlPk9LWqLNtpDfo60n7WYQD/0LeYi3/1kjb6qrD2iQjzBPRK/DJolHx5Z72cPSuIpye0O3ejcEW5lNnVFViu1l1KW4QemVPXwdv3GRG1KmTiIeto6Ck2eo8rw5UFlAZvx3TktWVTK1libvSWAyXjhJIJm7XmaiR5UM2WfUm1DaqMzXgkMuRK/UWucKjWjqGg0OcgKwSBmeQOFFhz7bqjDRcV7EgmXEoDiXmXEx9z0zvvBC/46DscPwWlftvOqvNM3n68tuMtqmalSH0d5FnGIFK/M2b9JeqYg8T2P4tuuQ54PVnyBRt4V5c3302EtS87XcZ1S1efU6PvBAFq1w==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1780944068; bh=OKOpqJZcwkijyqkR5gxUTs/v2Yb4DtuRNM/f0v9gIdT=;
- h=X-Sonic-MF:Date:Subject:To:From:From:Subject;
- b=C+zpn9fv5z0YAj/jVWPW/ZRP4E41ANXgszRZi/ByfXIE5jsMTQXB6aNme6hXEFcQHzKkY+v67PGrjxM8mqWhUtypIlcrTrPjNr5ZnqwtKhJN5EURf0l57gJqP0B0oCv1d6/czqaA8B2FjE2/zYYjfRxHjF5QUvTB1n1aSQuHR9MqQcQIuGN4xk/oFNP2ZQbV4GxRyvLZly/ZJVkdGAW5do6nA/YvmafeL1ck9eR8jSTbXgG1NmIrq60PS+4KP802c+08BfJbPu1jEHWFneoJIacRPx2bQmtk9F3547C1kvl3yKyGEtbXMseYnM+aK5SXPBRELzrvfpXYwyRkxy7PtA==
-X-YMail-OSG: AFq77pQVM1mWsa.uL3w5liBtvgbhSqCf_xEph03Eh4JATFE0T5Mb8iHfzQ3U1wJ
- NsT7PysDiuXtLWwDWgsec6m.afX4zBmFXZy.QtlBE8hfAx2haXpRBbcApXoc0dmqHTe8a6t2jar1
- 7Btwp5.lGWH7ZpI3f5zos3V.G934CD7Cg0VKoKVL8bInXOkVrUPLuJAFh2gbRBRvgTXlGv0s42Up
- gZFsxoN5wWzAlg.LtBAxV6Xw25yjJXlU2iI0Y57eF5msw7t7EkxdsEwnzeOrO98H5q8Hvm1qz1FW
- mwJWJyzmsiRAwMonsbbzfDtzx5bSiql0ekp9ZBVexdLYc1geFwoRE8QDIuChQSwQTBQofgYaxQ8R
- LIhBapH4kOsqxT5IJbybDgDtQDPIsT9OvElSdDlWWleZgkK8Xl9OoXvvaCIe346tuJMesOrmxdKk
- m_tibyhWi9IE3mbi_nNft8gF.lNpq1MWj.FJwlU314oej5VeYr2qkL1cDKfCtqLwjvdkYPZp5R3j
- DJ5aF3yxKk3pF47GuPzU32mPbOs_GBLGcbFRTumGtmGyOkJ2J3yajcCq.aJWGFCYTgyyNMZK5tg1
- A8wbDhGL_RTa7h9pb7qUsr9wfXsyEHOwrXEyHu3YFuvCicjZxIK8rH_5ZBXNVTXvA10O9Q2AZI9F
- HwxYoo0tnAmvaq8Gh9yJcnfhqEOqJuowN6zARIe0NZ.449dR8MsRnOeruBChkULWBlv72v52XsGM
- GLQ.gxLXL7mZHGA245xjkQN9BAgtDdFJ15sbDdIwpWvQB3QskwENuRr5e2PJypCXo9js_figm6Xk
- 7mTLJiacnHHyIhBZb0wBcG6QZR7SjNVxXVfvqw2HYUdZAbUyq_8AGt6mZP67ZZE57gNJNFmBs1zg
- RDXX248QTFV5IJdsAkDGqdqg.x7jEv_nBwpHCfZUCvBF9Ext4SIH5EAMZxRWqHB68rGdwNSotE51
- gCS_snrYUb__WCrulNzghUwOwEsgFukBAZjnhiPn4wCX8fPTM4obOOU54Q4M0DcNxabVfYkxu_Js
- t9eg1FzMJUwT60FeHa5rU1y7jDM4uu0pCQTSisVrvGvgtlmrbmZcc6AAUJ0FOD6L.iLl90HEC4qG
- Ut7dMYryWjl4m2QhRlA4kIqg7E0U2zM6MD_bVxTw6HEIEheuXB5573V5MmlmhOyb9zTalbWuA7Ye
- oh0w5jgp8xMleF55L.1pAgfOhIeqOxLWAlXmWP0PGyeqj9qQMRn9GtI9FAmRzX9DoU_ET9Kf7khi
- LNE6KyUHS2FQxMW7NkMn8Dm45tdkVLihZnOEfXYegyqor6fhP66TY.0o16cc.BjdQWBp8UDWPzEk
- IGM8CLtd.x5Mpf4wcCLG1oS8dUV77uBNZAEk7kKb29Qafsl1Rk1l0zkorrN1vnGwAO39FYGaNeEF
- HZKXELNQ6uv3gWIahX99_yp_sTYtZebJMbEgoqFTM1l0s57.Ev_CsM9frKk6lE.54GEVmbUE72W5
- WTM3_n16NAUJ6mt0LL1EVchTVm7bgNG1QtdYqtyICrH4HAgkk7TTFR4YiMUAabN145j.UhX1dkV8
- gH_TTMXZKJNNEKpYap0xhz_NblsAQkFnnmNzxb0wfbsacR9PIMBznXgf3TLcmFlQNeYjabt_zwnM
- dakC42zu.nHwEV.JjADYMrS.xXI_dujHmkJV7P2mpdHmq5_N849jyJItEWH2bldjAsR699r7Zj13
- e4bi4krQIcOhrsUkth2udWRcOxGS4F5_p2xnkCZibsU9zM7Ky3dln6A4nmKI4r65p6Gb0m3zH48h
- pGdvTbpyqXSRw4TkxIigm15uUaGEdhAbHMmGp8y9hk__Sf0OLB_qwrBWfuDZLRve2W15vbkuWxp_
- qR4PpdOwvCdzubV5dbrUfizuxZveF54tlAGHx4GsyXVkwJI38vWk.jSlBxBTc45gcjjjHo6Q7Ywk
- MH7BET7cHMLkSqKS9vOhjutxFFkG5cU18zESVS.i6.CXs2KTwUQjTnqkHQDhYZDE_tZJB44sOlnV
- Xka5KJkPzteGbCxVR9Y1ARXKYouIXKdrNF8wZ9XyPqQncKPZl83zJoROzgCky9Bq7IQnIHiXHbNQ
- 3eFLJcgLza3qhR1e3XTR2oucDMBxIgXdca1sOzStykNWLCj5iFb6aojHy35Km7FHzjLILVIgYvaO
- 0z15geY5Z8TPViGVENeQeufLDbXgl_u5J3SQCnHTtDCs_qw01QY4hH8D_Zp_4ShkUdJOUzU3RJnS
- gWiI.UvIv7d.xk2KDBPerHq_o1nBXs7YJdka1M8HmTNt.W3Rhq3U_RIY8IEAoibqJzIm4bA--
-X-Sonic-MF: <fabstz-it@yahoo.fr>
-X-Sonic-ID: 7e108b7f-0f51-4b5c-af87-f3b4256b6292
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic302.consmr.mail.ir2.yahoo.com with HTTP; Mon, 8 Jun 2026 18:41:08 +0000
-Received: by hermes--production-ir2-89844b765-82cnf (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID d8ebc36e7d9adde9f67d0ffa69cc2f1c; 
- Mon, 08 Jun 2026 18:41:02 +0000 (UTC)
-Message-ID: <2c6340fe-2d3f-4d38-ae6c-d89adfea98b6@yahoo.fr>
-Date: Mon, 8 Jun 2026 20:41:01 +0200
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FCC010E08F
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 05:42:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+ s=onoh2408; t=1780983727;
+ bh=oiQztLu7ayEL1BZi0J/ISbX7leUJfOCstoweJDCYphk=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version;
+ b=cftHFXnO2C1KpdhaS12eCzVJCtf0Kubx+ff8mRLE+4knqaCjr6JdWWrR3vQRI+Sba
+ P3d5QPrxYVKL/VEneh47aa0JTc9gTfTIIc3x+t9f/YQnY+bitRmZPljTX/+TzBhqYR
+ hGgoDP6fU9AXrkbPDksu38Kzx1yIWqknibx3oPbI=
+X-QQ-mid: esmtpsz19t1780983419tfdbcca62
+X-QQ-Originating-IP: 9YbBN8UemGC7/4w7eZkwyFmDB9pRzgNBtufUVXhGxqY=
+Received: from PEN202512010004 ( [113.57.152.160])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Tue, 09 Jun 2026 13:36:57 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 14602859154893020583
+EX-QQ-RecipientCnt: 8
+From: raoxu <raoxu@uniontech.com>
+To: maarten.lankhorst@linux.intel.com
+Cc: mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, raoxu@uniontech.com
+Subject: [PATCH] drm/debugfs: fix dentry leak when removing files
+Date: Tue,  9 Jun 2026 13:36:55 +0800
+Message-ID: <D43FE6467BFBCD12+20260609053655.2406749-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] drm/nouveau: stability fixes for NVAC (MCP79/MCP7A)
-To: Marek Czernohous <mczernohous@gmail.com>, nouveau@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, Marek Czernohous <marek@czernohous.de>
-References: <20260409172126.115441-1-marek@czernohous.de>
-Content-Language: en-US
-From: Fab Stz <fabstz-it@yahoo.fr>
-In-Reply-To: <20260409172126.115441-1-marek@czernohous.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-X-Mailer: WebService/1.1.25918
- mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: MBN1Gf7pvZQZ6dtJo3SRvjzw3RzpVRYjhv+QuDY9q4tkQBaHjgXA3rhH
+ inLNUNaNPDVzYUc4Rv8qa5xpE7O//F4ZPAkfqCxO7NOKjEYWVBVCzVo829bQj5oOXsfEvQA
+ h4U9kD/ZN/yotzZbiYV2YwHRQyYiHJq188d8bAT411qkRptowMyan3W6THCL44g3qZezZlu
+ 2nxze9cj9Z+0AicuSl0e7A0qJOGWuztU5QVpqOMbwKGsZQPP3tzLEo4NLA3oHAxDXgQiTxA
+ 7yXymn0aNIzfwpG5oXavGxXiOe+VQtlXnGwP611gOoBAM41ioSOwUX2KQwoBYnpmn/UnM/G
+ 56dU//UGtmAuU3dLegXzqNOw99e0EAzxk1Sa474i/U5PzGoHizjM8smJ/U8hgjxf3oSu+nY
+ cT6hlzE9OwytP8qgnd/Hi9S3Mdy9YHOfdK7XfyTQq8ZQyELSO/pKFn/GTVHUnIt9OrNFhNL
+ r2m91cnZ8BpG0z+yraCchDrbgppKowDYuSDTKHlORGpz1L5ctPN718+mafmI+N/f5TUXsXK
+ vBLPMCQhQ+Q1doloO8z3g/peTd79lBGFblpq6P5LdUAElunVc84v1oCiS/6WyQBOvme0KVp
+ pO45zBvKI5G7nLNi7VTtfeRwc+3MgvFIE9rtwqOZW/nvmb7SL1t/XzaNyaQ7/deWIuUAh+O
+ bEHOOJj0VS+eUywy/jkELhlZr7fuFOBC71YeutZ/5QsqomergwD51113M0VTPMU4W+i4dL4
+ 2XyxhHdpqL/kU5YN1oBRp+ZruL0uKMvBaG3J5zoLxu2jGcs0afUovLa93FcbZKYQaSaJqFa
+ JnL3R1VuFkzwIqt5Q3hLCPyEJZbwIxl74OB+NCBPYntgscM4MudzbcXv0XN/S89c6XBfbHg
+ dqm0XnSfgUtjFXpkVeWMVnLYiTwDFM2SvLL4EnXbC2sBKci4VETA11oE0BT2h+yyrn6ljJY
+ bqbDFz54y+KaxgwiQ65OJZxhwAfM3Nr3wQ/lKmlOAmgwKLZt230HiwUVCYW+fL4DLlMmr6i
+ Tg1GW8lwa/A01cgcr+ZvgdDuu/9jfD6Jz9Of6lBA==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Tue, 09 Jun 2026 07:16:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,49 +78,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-SGVsbG8gTWFyZWssDQoNCkkgaGF2ZSBhIHZlcnkgc2ltaWxhciBkZXZpY2UgaU1hYzkuMSwg
-YWxzbyB3aXRoIE1DUDc5DQoNCjAzOjAwLjAgVkdBIGNvbXBhdGlibGUgY29udHJvbGxlciBb
-MDMwMF06IE5WSURJQSBDb3Jwb3JhdGlvbiBDNzkgW0dlRm9yY2UgOTQwMF0gWzEwZGU6MDg2
-N10gKHJldiBiMSkNCg0KSSdtIGZhY2luZyB2YXJpb3VzIGlzc3VlcywgaW5jbHVkaW5nIHRo
-ZSBidWcgYmVsb3cNCg0KaHR0cHM6Ly9sb3JlLmZyZWVkZXNrdG9wLm9yZy9ub3V2ZWF1L2I3
-ZjUyM2RjLWZlNDEtNDUxNC1hMWE1LTc0NzAwNTMxMWNiZUB5YWhvby5mci9ULyN1DQoNCkRv
-IHlvdSB0aGluayB5b3VyIHBhdGNoIHdvdWxkIGZpeCB0aGlzPyBXb3VsZCBpdCBhcHBseSBh
-bHNvIHRvIGtlcm5lbCA2LjEyIG9yIGRvZXMgaXQgZGVwZW5kIG9uIHNvbWUgbmV3IGNoYW5n
-ZXMgaW4gNi4xOC4NCg0KUmVnYXJkcw0KRmFiDQoNCg0KTGUgMDkvMDQvMjAyNiDDoCAxNzow
-OSwgTWFyZWsgQ3plcm5vaG91cyBhIMOpY3JpdMKgOg0KPiBIaSwNCj4gDQo+IHRoaXMgaXMg
-bXkgZmlyc3QgcGF0Y2ggc2VyaWVzIGZvciB0aGUga2VybmVsLiBJJ20gcnVubmluZyBhbiBB
-cHBsZSBNYWMNCj4gTWluaSB3aXRoIGFuIE5WQUMgKE1DUDc5KSBjaGlwc2V0IGFuZCBEaXNw
-bGF5UG9ydCBvdXRwdXQsIGFuZCBoaXQgdGhyZWUNCj4gc2VwYXJhdGUgc3RhYmlsaXR5IGlz
-c3VlcyB3aXRoIHRoZSBub3V2ZWF1IGRyaXZlciBvbiBrZXJuZWwgNi4xOC4NCj4gDQo+IFRo
-ZSBwYXRjaGVzIGFyZSBpbmRlcGVuZGVudCBidXQgdG9nZXRoZXIgdGhleSBicmluZyB0aGUg
-TlZBQyBmcm9tDQo+ICJuZWVkcyBOdk1TST0wIHdvcmthcm91bmQgYW5kIGNhbid0IHJ1biBX
-YXlsYW5kIiB0byBmdWxseSBzdGFibGUNCj4gb3BlcmF0aW9uIHdpdGggTVNJIGVuYWJsZWQs
-IHdvcmtpbmcgRFBNUywgYW5kIGZ1bmN0aW9uYWwgV2F5bGFuZA0KPiAodGVzdGVkIHdpdGgg
-V2VzdG9uKS4NCj4gDQo+IFBhdGNoIDE6IFRoZSBNU0kgcmUtYXJtIGZ1bmN0aW9uIGZvciBH
-OTQgdXNlcyBtZW1vcnktbWFwcGVkIHJlZ2lzdGVyDQo+IGFjY2VzcyAobnY0MCksIHdoaWNo
-IGlzIHVucmVsaWFibGUgb24gTlZBQyDigJQgdGhlIHNpc3RlciBjaGlwc2V0IE5WQUENCj4g
-YWxyZWFkeSBoYXMgTVNJIGRpc2FibGVkIGVudGlyZWx5IGZvciB0aGlzIHJlYXNvbi4gU3dp
-dGNoaW5nIHRvIHRoZQ0KPiBQQ0kgY29uZmlnIHNwYWNlIG1ldGhvZCAobnY0NikgZml4ZXMg
-c3BvcmFkaWMgRklGTyBlcnJvcnMgYW5kIGhhbmdzLg0KPiANCj4gUGF0Y2ggMjogbnY1MF9z
-b3JfYXRvbWljX2Rpc2FibGUoKSBkZXJlZmVyZW5jZXMgbnZfZW5jb2Rlci0+Y3J0Yw0KPiB1
-bmNvbmRpdGlvbmFsbHkgdmlhIGNvbnRhaW5lcl9vZigpLiBVbmRlciBXYXlsYW5kIGF0b21p
-YyBtb2Rlc2V0dGluZywNCj4gdGhlIENSVEMgY2FuIGJlY29tZSBOVUxMIGJldHdlZW4gY2hl
-Y2sgYW5kIGNvbW1pdCwgY2F1c2luZyBhIGtlcm5lbA0KPiBjcmFzaC4gQWRkaW5nIGEgTlVM
-TCBndWFyZCBmaXhlcyBXYXlsYW5kIHNlc3Npb24gdGVhcmRvd24uDQo+IA0KPiBQYXRjaCAz
-OiBUcmFuc2llbnQgRGlzcGxheVBvcnQgbGluayBnbGl0Y2hlcyBvbiBOVkFDIGNhdXNlIHVu
-bmVjZXNzYXJ5DQo+IGRpc2Nvbm5lY3QvcmVjb25uZWN0IGN5Y2xlcy4gQSBzaW5nbGUgMTAw
-bXMgcmV0cnkgaW4gdGhlIEhQRCBJUlENCj4gaGFuZGxlciBjYXRjaGVzIHRoZXNlIHdpdGhv
-dXQgYWZmZWN0aW5nIHJlYWwgdW5wbHVnIGRldGVjdGlvbi4NCj4gDQo+IEFsbCB0aHJlZSBw
-YXRjaGVzIHdlcmUgdGVzdGVkIG9uIHRoZSBzYW1lIG1hY2hpbmUgKE5WQUMgMHhhYzA4MGIx
-LA0KPiBEUCBvdXRwdXQpIG92ZXIgbXVsdGlwbGUgZGF5cyB3aXRoIERQTVMgY3ljbGluZywg
-VlQgc3dpdGNoaW5nLCBhbmQNCj4gV2F5bGFuZCBzZXNzaW9ucy4NCj4gDQo+IFRoYW5rcywN
-Cj4gTWFyZWsNCj4gDQo+IE1hcmVrIEN6ZXJub2hvdXMgKDMpOg0KPiAgICBkcm0vbm91dmVh
-dS9wY2k6IHVzZSBudjQ2IE1TSSByZWFybSBmb3IgRzk0IChOVkFDL01DUDc5KQ0KPiAgICBk
-cm0vbm91dmVhdS9rbXM6IGFkZCBOVUxMIGNoZWNrIGZvciBDUlRDIGluIG52NTBfc29yX2F0
-b21pY19kaXNhYmxlDQo+ICAgIGRybS9ub3V2ZWF1L2RwOiByZXRyeSBsaW5rIGNoZWNrIG9u
-Y2Ugb24gSFBEIElSUSBiZWZvcmUgZGlzY29ubmVjdA0KPiANCj4gICBkcml2ZXJzL2dwdS9k
-cm0vbm91dmVhdS9kaXNwbnY1MC9kaXNwLmMgICAgICAgfCA4ICsrKysrKystDQo+ICAgZHJp
-dmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9kaXNwbGF5LmMgICAgIHwgNCArKysrDQo+
-ICAgZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbnZrbS9zdWJkZXYvcGNpL2c5NC5jIHwgMiAr
-LQ0KPiAgIDMgZmlsZXMgY2hhbmdlZCwgMTIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMo
-LSkNCj4gDQoNCg==
+From: Xu Rao <raoxu@uniontech.com>
+
+debugfs_lookup() returns a referenced dentry. The caller must drop the
+reference after it is done using the dentry.
+
+drm_debugfs_remove_files() removes the looked-up file but never drops
+the lookup reference. debugfs_remove() does not consume it.
+debugfs_lookup_and_remove() exists for this case and does the dput().
+
+Drop the dentry reference after removing the debugfs file.
+
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+---
+ drivers/gpu/drm/drm_debugfs.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
+index ae1c6126c2c5..fbaa53ec2a4c 100644
+--- a/drivers/gpu/drm/drm_debugfs.c
++++ b/drivers/gpu/drm/drm_debugfs.c
+@@ -285,6 +285,7 @@ int drm_debugfs_remove_files(const struct drm_info_list *files, int count,
+
+ 		drmm_kfree(minor->dev, d_inode(dent)->i_private);
+ 		debugfs_remove(dent);
++		dput(dent);
+ 	}
+ 	return 0;
+ }
+--
+2.50.1
+
