@@ -4,48 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C40ECD8CB2
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 17:54:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59EE8CD8CB2
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 18:02:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A507D10E59C;
-	Tue,  9 Jun 2026 17:54:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B53810E59F;
+	Tue,  9 Jun 2026 18:02:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="garQTrC7";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="P4rJc69v";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8504910E59C
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 17:54:01 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0A8BE602CC;
- Tue,  9 Jun 2026 17:54:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 882961F00893;
- Tue,  9 Jun 2026 17:54:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781027640;
- bh=0McuGGXEia9/oIlWap16WeUugt/Io6Z9vQ/TAHGe7oI=;
- h=Date:From:To:Cc:Subject;
- b=garQTrC7AgQ6Ab3cOkzGYzAVp+OuSKzzv+TD+WcCcgZgHSIUpGhGVo4jxODyl8ywj
- cWnemXvHloKFxv+jC+ox3uZQG3zFWZT/jS3ySv+HMyhTfJLIMsPv56+OZ2CcJ+diW/
- VFAFZar3y7WrtiQ8ZLJFPa3HWq7Yp8uwCsTo1Nk/bnBSV8aygDzZ2b5D7zZcIvB5fy
- A1Q89GX61KtVoLvwzf3mYut+UAJHq0zw+Zr/yf4Htss9Teo7hoJO/NXS+i28GAxrJO
- 8xozR4NhuamGwA1w7gSKh/OSB0m42YX/Renr5BI6XdRLJ0XwlE3fycJZRGhFF/74hj
- +/sEEGMFjETuQ==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id D61411AC56B7; Tue, 09 Jun 2026 18:53:58 +0100 (BST)
-Date: Tue, 9 Jun 2026 18:53:58 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Honglei Huang <honghuan@amd.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the drm tree with the origin tree
-Message-ID: <aihTNsriYpFrZuOk@sirena.co.uk>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EA3410E59F
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 18:02:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=qUIiWGa2JfIXfePfzn3D25WMSl7RWa2nfJVOulZuf2k=; b=P4rJc69vgsi6pWq650W8Uxo6/1
+ +ygl8NIJsKn2sdHHxUKOTiIWTtBFzq9TIXOrM7h1oW+KRHWe1/vB9AwySTXq0e+MAU2WJVqzIxubA
+ zkaaRhLqOm6J3W+bltopZoNJbb334NTJ1JyuW45LkoGLlg+6QUStay7gsebm8T+TyXGRWtf83w9Gp
+ hhcTFEu2QKHXJImYbEEVkzO+oLYIuO/4CdxaAiGFjqOVfL2IsbK7z12otFsfGeOgwgaLvH/S+Q38b
+ D8BGcv7zJfapHYN38szDI7sntp6oCeVXr9GXn/eiMk/R5pfLcffTYdTq+LT5QZRbTACxjwHjtbIWI
+ uMij3GCg==;
+Received: from [189.7.87.67] (helo=prince) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wX0m2-00F64p-H4; Tue, 09 Jun 2026 20:02:03 +0200
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+Cc: kernel-dev@igalia.com,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v4 00/12] drm/v3d: Scheduler and submission fixes and
+ refactoring
+Date: Tue,  9 Jun 2026 15:01:40 -0300
+Message-ID: <178102809610.1132947.6398170765307850769.b4-ty@igalia.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260604-v3d-sched-misc-fixes-v4-0-c068f5bf5ccf@igalia.com>
+References: <20260604-v3d-sched-misc-fixes-v4-0-c068f5bf5ccf@igalia.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Z3Whxefj/6MdmGsK"
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,87 +68,43 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---Z3Whxefj/6MdmGsK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Thu, 04 Jun 2026 17:32:13 -0300, Maíra Canal wrote:
+> This series addresses several issues in the v3d scheduler and submission
+> code. Most of the fixes were motivated by feedback in the vc4 scheduler
+> series [1], which inherited issues from v3d. Based on the issues found
+> there, this series addresses the issues in the v3d driver as well.
+> 
+> This series has cleanup patches, fixes, and finally, a refactoring of
+> the submission code, which allowed us to fix the atomicity of a submission.
+> 
+> [...]
 
-Hi all,
+Applied, thanks!
 
-Today's linux-next merge of the drm tree got a conflict in:
+[01/12] drm/v3d: Drop unused drm_encoder.h include from v3d_drv.h
+        commit: cc29c864ee50b9c145fa847406b3535026511917
+[02/12] drm/v3d: Clear queue->active_job when v3d_fence_create() fails
+        commit: 25a1669907512e927fab9ad4d4fb74ff57f63cd9
+[03/12] drm/v3d: Extract v3d_job_add_syncobjs() helper
+        commit: 57d78cbc16c930f698616d4db16aa85a49a356f7
+[04/12] drm/v3d: Reject invalid syncobj handles in submit ioctls
+        commit: 66fc52ba7c3f36dcbd55bf19a788306147e2a318
+[05/12] drm/v3d: Migrate BO reservation locking to DRM exec
+        commit: e4a131d1851e217a0ebbd8632a705f6bb5a67672
+[06/12] drm/v3d: Introduce struct v3d_submit and convert CL/TFU/CSD ioctls
+        commit: 57df8fa619c75928aa962683ad4f8026a26f9b76
+[07/12] drm/v3d: Make v3d_get_cpu_indirect_csd_params() a pure parser
+        commit: 719ea1f03984f959700326aaec04b5bcdf3ca982
+[08/12] drm/v3d: Convert submit helpers to operate on struct v3d_submit
+        commit: f59d986943afbb97443cf91f45b1dc2c6fb6bebc
+[09/12] drm/v3d: Refactor CPU ioctl into unified submission chain
+        commit: 2611e1dc361b274b9af6608f8b62d91116d92e25
+[10/12] drm/v3d: Split BO fence attach from syncobj output handling
+        commit: 58e3a4828074d90f15397014c72358a2d1212bda
+[11/12] drm/v3d: Reject invalid out_sync handles in submit ioctls
+        commit: e6145cfc299e7ed7abe1c92b3c16a3fcd58ea49e
+[12/12] drm/v3d: Ensure atomic submissions in v3d_submit_jobs()
+        commit: 7d64136e0f08c108434962d5a4c0c038c034caaa
 
-  drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-
-between commits:
-
-  962d684b5dc074 ("drm/amdgpu: fix amdgpu_hmm_range_get_pages")
-  1c824497d8acd3 ("drm/amdgpu: fix calling VM invalidation in amdgpu_hmm_in=
-validate_gfx")
-  58bafc666c484b ("drm/amdgpu: fix waiting for all submissions for userptrs=
-")
-
-=66rom the origin tree and commits:
-
-  c08972f555945c ("drm/amdgpu: fix amdgpu_hmm_range_get_pages")
-  b6444d1bcbc34f ("drm/amdgpu: fix calling VM invalidation in amdgpu_hmm_in=
-validate_gfx")
-  91250893cbaa25 ("drm/amdgpu: fix waiting for all submissions for userptrs=
-")
-  342981fff32802 ("drm/amdgpu: drop retry loop in amdgpu_hmm_range_get_page=
-s")
-
-=66rom the drm tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --combined drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-index e452444b33b08b,99bc9ad67d5b83..00000000000000
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-@@@ -174,7 -174,6 +174,6 @@@ int amdgpu_hmm_range_get_pages(struct m
-  	const u64 max_bytes =3D SZ_2G;
- =20
-  	struct hmm_range *hmm_range =3D &range->hmm_range;
-- 	unsigned long timeout;
-  	unsigned long *pfns;
-  	unsigned long end;
-  	int r;
-@@@ -201,15 -200,9 +200,9 @@@
-  		pr_debug("hmm range: start =3D 0x%lx, end =3D 0x%lx",
-  			hmm_range->start, hmm_range->end);
- =20
-- 		timeout =3D jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
--=20
-- retry:
-  		r =3D hmm_range_fault(hmm_range);
-- 		if (unlikely(r)) {
-- 			if (r =3D=3D -EBUSY && !time_after(jiffies, timeout))
-- 				goto retry;
-+ 		if (unlikely(r))
-  			goto out_free_pfns;
-- 		}
- =20
-  		if (hmm_range->end =3D=3D end)
-  			break;
-
---Z3Whxefj/6MdmGsK
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmooUzYACgkQJNaLcl1U
-h9Bu+wf/SgksNt+h2UBxXgvkd70xP7QergI0aV+ZNjSY/bPreFPvIiwqVyztRrf8
-Uigr6S+2JdGWg8qV5zWxNq7FqqbrXSamu5rHdwlFe/84TZ+MJVFQSccSIT2+lFko
-c+1ZWHAdkFZkBHHtiQ4tdm52QOO80zoFvIR5K3aFUGuw0yWyZIp8S+c3EsDzHPUk
-9SsnDkatnSKtdPH7bL8z1hNH0Jye1MosNPmjhETcsZowvF1jmLC0/yLlkYUdmCuK
-5EWCElXb5/lVOgA5EdWDfezQQPI7DD5SJ7/pBqesacUebMSFR32yhrnONDSVe8IM
-Ck5sdNAYdpv/EmGItyH2dkcQhyMNDw==
-=n97q
------END PGP SIGNATURE-----
-
---Z3Whxefj/6MdmGsK--
+Best regards,
+- Maíra
