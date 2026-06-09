@@ -4,62 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F8CCCD8CA4
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 08:54:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6415CD8CA7
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 08:57:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFBCA10E1AE;
-	Tue,  9 Jun 2026 08:54:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0888910E033;
+	Tue,  9 Jun 2026 08:57:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="c8vAWrP5";
+	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="AD7+HCMt";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E120C10E1AE
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 08:54:12 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gZN4f0Fx7z9tQk;
- Tue,  9 Jun 2026 10:54:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1780995250; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Gnzyn1FtEPpW02KE6pMOpwrpdyoImhLB9p+D4NNEkXI=;
- b=c8vAWrP5sn+etNsyihfOpmaxCiaSeqoK9GKXLKFKEq89C9fuFdxku7NXMP7/lwCbBMXHab
- a6IwF72CtYuidcytHCssAjxTZIf6MBW9n6W1nhBSQi4G7ZN/ilMzp3oEVoulQJwhJb+IzM
- S4gjODUMHW+ECFLPQJhJYtGyYONNuvfDuPd1h3jcCJFKVZ95FdJBxGiQ816zyPwd2dnK/K
- oYa8drj3HxBdL5RGHcS1MF0g1VJo+nccumjWVDwVGMR+rQac2w50CJ8CEZwDVtJbel+0XM
- 2an34AFwa+1gDLXJ8lI9GfBL4Bgr4T8bX6e7OLqmN1IgygCE8eE21Op4GlNojg==
-Message-ID: <fa2e15f41ef361dd25170ab89509952d3ec8bce5.camel@mailbox.org>
-Subject: Re: [RFC PATCH] dma-fence: Fix races of fence callbacks versus
- destructors by locking
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Boris
- Brezillon <boris.brezillon@collabora.com>
-Cc: phasta@kernel.org, Danilo Krummrich <dakr@kernel.org>, Sumit Semwal	
- <sumit.semwal@linaro.org>, Alice Ryhl <aliceryhl@google.com>, Daniel
- Almeida	 <dwlsalmeida@gmail.com>, Gary Guo <gary@garyguo.net>, Tvrtko
- Ursulin	 <tvrtko.ursulin@igalia.com>, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Tue, 09 Jun 2026 10:54:05 +0200
-In-Reply-To: <850fd675-714e-4e3c-895a-d1dafaeb8219@amd.com>
-References: <20260608142436.265820-2-phasta@kernel.org>
- <20260608170112.24fd92df@fedora-2.home>
- <6bdbdb6541392c6ea58e0035f0b20ac3c8f3e54e.camel@mailbox.org>
- <DJ3RRRX6JY4M.LCRKJ074W9DQ@kernel.org>
- <256dc5ae3529e2548c4151af34a540476ac928c1.camel@mailbox.org>
- <20260608181630.20145d1c@fedora-2.home>
- <850fd675-714e-4e3c-895a-d1dafaeb8219@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-m1064.netease.com (mail-m1064.netease.com [154.81.10.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7116D10E033;
+ Tue,  9 Jun 2026 08:57:30 +0000 (UTC)
+Received: from DESKTOP-SUEFNF9.taila7e912.ts.net (unknown [221.228.238.82])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 41a876c6e;
+ Tue, 9 Jun 2026 16:57:26 +0800 (GMT+08:00)
+From: Dawei Feng <dawei.feng@seu.edu.cn>
+To: ttabi@nvidia.com
+Cc: dakr@kernel.org, dawei.feng@seu.edu.cn, dri-devel@lists.freedesktop.org,
+ jianhao.xu@seu.edu.cn, linux-kernel@vger.kernel.org, lyude@redhat.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ namcao@linutronix.de, nouveau@lists.freedesktop.org, simona@ffwll.ch,
+ stable@vger.kernel.org, zilin@seu.edu.cn
+Subject: Re: [PATCH] nouveau/firmware: fix memory leak on BL load failure
+Date: Tue,  9 Jun 2026 16:57:29 +0800
+Message-Id: <20260609085729.3786763-1-dawei.feng@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <0045b3583272df0b82f146fd96dee13d03377b4a.camel@nvidia.com>
+References: <0045b3583272df0b82f146fd96dee13d03377b4a.camel@nvidia.com>
 MIME-Version: 1.0
-X-MBO-RS-META: uw5m3caeppkq64k5ydrhg1ao9dhasi9g
-X-MBO-RS-ID: 4b965308c8edfb90f2a
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9eab99d60503a2kunmd4cb5e84127d3d
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGEtCVk4YSklJSh9MHh1JGlYeHw
+ 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlPS0hVSktISk
+ 9ITFVKS0tVSkJLS1kG
+DKIM-Signature: a=rsa-sha256;
+ b=AD7+HCMty0xT7ukJ2iVq24XZZtBk3S/QiDWX6gpGVFjcPKiO7RmZE7dzKCP/i1ObA/sHrur+vKJnntauTebn7UK4kaZhgSBnpvDaCOC3pG1hOrsw5Ok03Ux6gPVAd2HoLcW8JJIC4/n1uvVMkY4LrxLMkFVDeukP++uXZW+UT0U=;
+ c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
+ bh=PWKiJfHLAuY51AfkQhZeCWOGsOm5BCLCBnZ0+m/OIxk=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,34 +56,75 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 2026-06-09 at 10:02 +0200, Christian K=C3=B6nig wrote:
-> On 6/8/26 18:16, Boris Brezillon wrote:
-> > - calling with the lock held in the new places is not causing a
-> > =C2=A0 deadlock
->=20
-> Yeah, exactly that.
->=20
-> For example the set_deadline() is intentionally not called with the
-> fence lock held because that won't work for some use cases.
->=20
-> The problem when you call ops with a lock held is always that this
-> lock then becomes the outermost look held. In other words when you
-> for example want to grab a power management lock to implement the
-> deadline feature the framework enforces an order between the two
-> locks which isn't desired.
+Hi, Timur,
 
-A deadlock can only happen if that power management routine also
-attempts to take the fence lock. Or maybe the fence ctx lock.
+On Fri, Jun 05, 2026 at 06:22:41PM +0000, Timur Tabi wrote:
+> Ah yes, you're right.
+>
+> So now I think a better fix might be to have two different `blob`
+> variables, so that there is no longer any confusion. Because right now,
+> the nvkm_firmware_put() call at the end of the function releases a
+> different `blob` depending on whether `bl` is NULL or not.
+>
+> What do you think about this:
+>
+>     nvkm_firmware_put(blob);
+>     if (bl) {
+>             const struct firmware *blob_bl;
+>
+>             ret = nvkm_firmware_load_name(subdev, bl, "", ver, &blob_bl);
+>             if (ret)
+>                     goto done;
+>             ...
+>             nvkm_firmware_put(blob_bl);
+>             if (!fw->boot)
+>                     ret = -ENOMEM;
+>     } else {
+>             fw->boot_addr = fw->nmem_base;
+>     }
+>
+> done:
+>     if (ret)
+>             nvkm_falcon_fw_dtor(fw);
+>
+>     return ret;
 
-Why would it want to do that? What does it want to signal? I suppose in
-case of a close enough deadline you will do a firmware call to shovel
-some more coals into the kettle.
+Yes, using a separate pointer `blob_bl` for the bootloader firmware is a
+cleaner approach. 
 
-The only GPU driver implementing it seems MSM anyways?
+However, we must keep the final nvkm_firmware_put(blob) under the done
+label. Moving it earlier would cause memory leaks in prior error paths
+like nvkm_falcon_fw_ctor(), which jump directly to done. 
 
+A safer approach is to manage blob_bl locally inside the if (bl) block,
+while leaving the original blob cleanup at the end. 
 
-P.
+What do you think about this:
+
+        if (bl) {
+                const struct firmware *blob_bl;
+
+                ret = nvkm_firmware_load_name(subdev, bl, "", ver, &blob_bl);
+                if (ret)
+                        goto done;
+
+                ...
+                nvkm_firmware_put(blob_bl);
+                if (!fw->boot)
+                        ret = -ENOMEM;
+        } else {
+                fw->boot_addr = fw->nmem_base;
+        }
+
+done:
+        if (ret)
+                nvkm_falcon_fw_dtor(fw);
+
+        nvkm_firmware_put(blob);
+        return ret;
+
+Regards,
+Dawei
