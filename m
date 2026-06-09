@@ -4,126 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2D4BCD8CA7
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 08:10:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E9C2CD8C85
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 08:12:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BEC910E186;
-	Tue,  9 Jun 2026 08:10:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7566610E18B;
+	Tue,  9 Jun 2026 08:12:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="E9D7aoIT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="f2EA4QHN";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010056.outbound.protection.outlook.com [52.101.46.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC06310E186
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 08:10:29 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013044.outbound.protection.outlook.com
+ [40.93.196.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7AF010E18B
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 08:12:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rAfuNrINNGWk7nZ1XShPizBpw2R5wEoV9e8VS0Wime1cVh5cdMXSLIg1Mi/tPaJDVwpyExSExXTWChovRKizq4oiIZ+Nudf0dBlIPbBlqZtCw5RbcceqenMJ5kEef4kM0OK60QWRFB1iB2tY04AjLQsSgwLP0Y077YwRBFhPPzj2rhcaY/h0X7eZbPvalcOmiY3xr61FNqs150dN+E+wBEOcvH2hZoBrHoS4f0MfVs2z9K6Fnd4i01lvdz/PZ+9qwFiVovxUuHh+YqRNrAL7lQVJJNQk81OPSe50nyaIUd7DCxnm8mwNJ4PXdiOnx4RHMG0LfaamMsxMnMGbRfgJZw==
+ b=Jjd9NGYqf0tx9cTEl0AVi/Vod6I8YxA6EAsJRFbLCEkJE0H4ldYg5rWX9y/GofXvPYUIlZLqfMhnNdsbOy+UwYSBf7YWj5tUeysZgZ8g9NnDxzFqgleLeKKlTsDXeGhs/g+2oZW2tBIvbID3FafcUhfpvI0DfK8F6hmEPSrdoGXlmOLZ9wI1G/5HxjOpwTFVfGUsP/zSxNZFNS0XH0wFW3xB6BBMTnepSlOfj1wY5bkiWtQN7ZcfGjmo4sLUdmVthvaCAGaFyHQ39liQ2374+G2cKsyLEPW2oVZKdxMNYN18DZf+7rzzIe59RwmsuPEwGToe/5vlzIxVWJ5Klklj0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xnHIUGJ0L5YQfz59V4b9YSstzdHlHE42W90kxXzW99s=;
- b=iEIF4gAn/icXm7PKg8UQeQoxeByqR9LlVJXV/lv8kLtUyRZBmwkgyDaJGvnyig+/Hjg2p4TLGmOX8/gZzTl/cBvFXwvPngHvlTSV/bSJ3zl0NgKz1u63Pet/MWj1c4/lIRMlexOvPfyDAMpiaoHMAL9VaYLs31y4pCYpjA05khzUUZ6uqQo9dSHnBtl7dOi9WuNh1sv9tZ9GyR3MqDCVHvuRNWlJLuiX5PdpUcMpV2sN7r3kWMSRTl+/wS8gcCtfqBdi63Tqe/dWsKAjRAcHMuzPTyA+Nc2mJZOIRjukJLzPoxZRFdVF8XZDDOxkDLzS8fm+pXkim3Bq5Hj2JkXtBA==
+ bh=2srKKecOFKAh18ilAStbbd7uIpqYBcAoiskN9L0PtXQ=;
+ b=B5HA8Q1sr1A5NAJvNyVHFOJagx4cSNa39kpn/loyMy24q4wpJkKJO2Hi/XnXPLahsW38sy7aX328mGq8lunFnzIA5I3lJ/mC1qAKa2K7ZSf4JeGWlvWTm1f0pBoxgbreWnHTDau7K3oiiCaTFEUt8PXDz3jNOPHpu7kjgSUY68sVMyHEpdlGpNrRDs0IK3BQ+9eT+SmIxaeMssUTQ65XmS6zG3oYyP970RGMjcd1XnfZLUT9kZdbK9KHAawR3+VJ2Zbvmb/idbV/FogwKEMuVSNqj6MdLUnjU2d/iQ5BbDdj3Je/s0NCn0PQaZlh0beIG4Pq5ND/kGgnrRVpgfQ2Uw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xnHIUGJ0L5YQfz59V4b9YSstzdHlHE42W90kxXzW99s=;
- b=E9D7aoIT6THqZGbLfak2KnTcrW6l4TrgXgUoTE/EKKAQP9/fZboxTaJKwNgAic1WWxVqebnKoxW4mGYzWA2AbPVVdkyW4X7S7vkuSPkkC/In1bdG6ZBbtt3bA/WG+SqSmhLIZpgnWdsZK/Sib6YwOlZcBCu8ITTsNN5LLCWOtXJxqcO+u7JiDb8FdX0MEYWfIy83m7PkURSeujRKOtWVky0U0J8OzyFdqfgCjjFpMmtU3APbp3frNZ3Wuru85+NI929XyYrks9iNfxNa1vBg/sw4BifZgTYCO2BfP3xr05nMojd0zoCgqHUQCnephWIKNzMI9xZV/HdaddedEl2aBQ==
+ bh=2srKKecOFKAh18ilAStbbd7uIpqYBcAoiskN9L0PtXQ=;
+ b=f2EA4QHNhhVFTlH4XcEMH/RcPX1IcwDxLttrJKxmc575FK8ACdenSF4V9m1IHVKTL0Gh+TZfPSuVBTlM4zw+5rhpLRORIUMWA+Jir9Qg6sbpRPFppFx2j67XOA7ibfQk7xhzCNZ9RF9lyu1vQk05M7jvdBZKrJcQyloouZ5Jh54=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by MW6PR12MB8900.namprd12.prod.outlook.com (2603:10b6:303:244::19)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by MW6PR12MB8915.namprd12.prod.outlook.com (2603:10b6:303:23e::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Tue, 9 Jun 2026
- 08:10:27 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%6]) with mapi id 15.21.0092.010; Tue, 9 Jun 2026
- 08:10:26 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-Date: Tue, 09 Jun 2026 17:09:22 +0900
-Subject: [PATCH 6/6] gpu: host1x: Annotate intentional syncpoint
- wrap-around
-Content-Type: text/plain; charset="utf-8"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Tue, 9 Jun 2026
+ 08:12:38 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Tue, 9 Jun 2026
+ 08:12:38 +0000
+Message-ID: <fdf1bb37-7158-46a0-b6a2-6cca0ac7ae20@amd.com>
+Date: Tue, 9 Jun 2026 10:12:32 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 4/5] vfio/pci: implement get_tph and DMA_BUF_TPH feature
+To: Zhiping Zhang <zhipingz@meta.com>, Alex Williamson <alex@shazbot.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, kvm@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
+ netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Keith Busch <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>,
+ Yishai Hadas <yishaih@nvidia.com>
+References: <20260608185646.4085127-1-zhipingz@meta.com>
+ <20260608185646.4085127-5-zhipingz@meta.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260608185646.4085127-5-zhipingz@meta.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260609-b4-host1x-small-fixes-a-v1-6-7c1131c0b3ad@nvidia.com>
-References: <20260609-b4-host1x-small-fixes-a-v1-0-7c1131c0b3ad@nvidia.com>
-In-Reply-To: <20260609-b4-host1x-small-fixes-a-v1-0-7c1131c0b3ad@nvidia.com>
-To: Thierry Reding <thierry.reding@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Mikko Perttunen <mperttunen@nvidia.com>
-X-Mailer: b4 0.16-dev
-X-ClientProxiedBy: OS7PR01CA0287.jpnprd01.prod.outlook.com
- (2603:1096:604:25a::18) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+X-ClientProxiedBy: FR0P281CA0179.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b4::19) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|MW6PR12MB8900:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8217e4ee-f4f9-4919-d0a5-08dec5fe904e
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW6PR12MB8915:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9945913e-ecbf-47b9-ef25-08dec5fedea1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|10070799003|6133799003|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: GEeX60XhbP2TSXb/ldQcOvHFaH0gNjQHXTy597IsKlafqDxsQKvCZfm7RNxyG4h2Hr/Ew+XpSHuJ+PBo4Dbn2jdTeIhB7oWeyBlJIvIpiNcY7V/tvYlDnREOipWUevGYRzcJnqyrlhZAMPuVOgslRuKuEwImiE0fvVN7hajUHKEkTCxpuCX+5fp4L0iTdO9tQpjP00ZT4dXurTz4rmJWFtdT8iqC6d7N7mdbpoi2Zt81ktYZaQ5cU+7/hSYWhlhscI47R1+OxCvIUA+0MeJl9q9xApPNUFEnqtQFjPVatGzp3uhBvowm3NF40Y3wYYJcQi3VWt/CwVLNg5NQ9+0dIL2nRZKi/n2BrEbcaG7KMIIk96mHAO0u3wbDyxLnigUdyx+iqBWyTSiQI/V52f6rOCwLLY6HjwbqaFE5zoJ0Tuz0jQef8gKgKCD6yuZhJWzb68cfmVaOdGXr0HMMdMGQknRlGqdXlSn2uaB5OMLfH7PIJpJmBCGl+L1RlSrBTBfao0OH7hy+1DWCqe6zjXnAkE01fo+kTmVu7QLFYh/lDBmkcieJBE+ELtWMwTGcGXwhBgcG0oq0mu/I3VVK6LLtv1CsQxVhGPOlvGinuDIskjf333yQKpzDgm4FMVHBP6aPQ1Ve2f4xKf4Hj7IlX3Zn4lhUi6IrBEBIOELm0Ofcitt7Bqn/CgAHb8lOLGbW57aR
+ ARA:13230040|366016|376014|1800799024|7416014|11063799006|56012099006|4143699003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: ToF3q34+w7a3jK4qOmqeN2X4VWXR02Ua04BCaRmjRHJyvJTUtfrz4Kex1s7fBSp4SRwHosdmA4O3TirJ3Qj8GR8WBDnZxOY9KLwKyjVnBuZL8Gz6fx14fzqN31VnvI3nPiuxFKZFVmLwWSxfURF5QHZVXdrCbQvxl6CR81VqTqHMBW33bFFS9t28ZcifEQaRLHSZb6+Xrmm0LXsZ252by/zLrEn/J6aRL1ruQMkY/2jFvhzGaFf+v9dXaAJH5HppBXkmQGxeciRKmZ4wncQaX8IA3IL64JGdxvZoBHjdQXx3Sl+CAMKghqB+VV3Mcu3q+wYlXom5J27zLcygwubNSS0kOxmwIkQlv17HzDNalrjK+BLgTqLu56fSH5aXX/56KqJSZRA4u3x2dHe5dL2Bqu8NBxL0snnuZ5aS7+xqnPJZ7EJqRFgHklhOnpqNnpW33NzsEWJxdEPK6TcHgG7THO18dvQ0CFjXRmmUrhk1JSwPyUQcROUia/j09yO3Qo8I7L+xhF/Ut7GwxL7QS1y8I4rcuwkibf5fLtBjXmue9vtW3w50KZwN76GaXK5EOXEZo3oLGjZsoDIaHBGpT7HO7a97iPiswtHmDt0VnooRffdar21y8q5FI58lz0dKfrts2GE17EEjhC4Lq/0eUdO0k9HVLVY0extxT06/5NrIYYqtyg9+h6+9jLlznCPbqwjJ
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(10070799003)(6133799003)(22082099003)(18002099003)(11063799006)(56012099006);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(7416014)(11063799006)(56012099006)(4143699003)(6133799003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NGxCYzJ6SGJnL3ZGNTZ3a1pqNlRtQXltUEdSQkRDYUpnMU1LQmVMZXoySGl4?=
- =?utf-8?B?V3owYkp2UWVNbHl1OFpQSjV2cCtlRVdtVTVTRXUzZlBaZmtUb1JrQm1MbHNJ?=
- =?utf-8?B?bmo0UW1uTE02bU0vTkVGZ0tGbWtWRjhwU1FuOStaQjRrRklGYWdyK0hBQ0NM?=
- =?utf-8?B?NjN0NFowdVpiT0dQajQ2ZjJLbFc5MmlkNk5GQjBMVER2TnVuMHdNMVdLNHRv?=
- =?utf-8?B?L2t1a0pZQjg5Q2NFTjl6R0tsbC80elZLYUY2MjRqYVRwQS84Zm9WaGtnWHRp?=
- =?utf-8?B?TEQwUEhsdkVIMkhDWXhqdmdIa0lLV2JsNUFiMjNuMWNzN0NQTG9KRFRCMSt0?=
- =?utf-8?B?UWdvVTRGY040YnNyNDAycmxtZ1Z5UEtIVWRuTGZXeWVSM0JldDZhNzVwc2VR?=
- =?utf-8?B?OGg5S0YyeXNOZURvejNPK1FITWxQNW5EeDBpL1BDRWZvWUdrRGdSbXB4WDNp?=
- =?utf-8?B?KzNHNWhIMFRUUEpKSmQxeXpRSUFQbGF1RDkxWE9MWjNIUXhEaXhEWG9RVHg2?=
- =?utf-8?B?UUxFdmxqYWNXY2FXb0dqdWc3MUdIV285bFArQndTaE9EQURXZ1c0R0c5cFUz?=
- =?utf-8?B?eG9Bb0Q2UER5ZnYyY1ZBYU15SnRoV1ovdTJXaG8wOWlNRDBSejNRZ0VQc0cy?=
- =?utf-8?B?TTlVLzVYNmV4ZENvQVVFZmhVT0FCYyt2SDg0SGs5emlpZnA1eU1NaHZzYlRC?=
- =?utf-8?B?dVJoem0ySWpGOWtERUVSVWp5WXEyRm9MY0F6dTFhenEvcThSV2VqbGxTN3I3?=
- =?utf-8?B?dVNCZE1sRlRPR2xVN2xMT2Y0SDA3a2Zhd1UzTEZSSlp4azFXTzVBcWcrYllx?=
- =?utf-8?B?MHBGN0t1SllUaXBRQzRmUkt4Uzg1bVJ5RnBKb2tQeWdmUjVFVmRoU1lLUUgx?=
- =?utf-8?B?Y2NoUUNYNEVzbVUvTjJKcEt0SkRoa1Z3UjJLbXZMSXNZbTFKTHJqa1N2bTJh?=
- =?utf-8?B?ZS9UbGVJQ0VNYzNWSk1SZ1pVdDFNUklQdnBGcGJCc1hmNmVpb1lUUVRneVNB?=
- =?utf-8?B?WWxJeWpwOVFPQWJERWVaelV3UURLaXNVd2hHR0dJdll0SjZZU0RvZXliMndh?=
- =?utf-8?B?ckdHb0hCVTJxcWFjeEhRd3hvaE9KMVQ5Qk5KTUNaenlPRE94NElHY0FnaTZl?=
- =?utf-8?B?M2VzelpZQlpiZ3Vpb285UFM0bGtETWxCRXAvWVlWb25yM0JDVHhVUnc0eGFU?=
- =?utf-8?B?QTZpWWl4aTNhSXcrSkJrVXFtdUt3aEVNUDU5S3VoQmJRdkJ4R21VdzFSYTdD?=
- =?utf-8?B?RXVBdUUydFlabkVxNEdLWTVjUTF1MHByQVhmOVNlSFI4RXV5R202Vnd5ZE8z?=
- =?utf-8?B?MDdwYjNMSjRGdTZYYVNxTjE0bmRQUk5NMk9iZFF1M2FHT0IyRzFNejBwYzQ4?=
- =?utf-8?B?UUpkUzArNkNQQXVzdmttUWpJY3lHbHdGMHZxWHBCVUY5RXgrV3dWZG1KcHBP?=
- =?utf-8?B?ekVQdXo5VkpOUzdPM2lCekduUHpUT2dTd3NpS3ZmT3FKa0ZvMTFoNkM1TE9j?=
- =?utf-8?B?TnU2eit1OHhxVG40a2o0bkMwUzVQbTVNVmgyazRwSWI1Q2l3Y0NKWlZ3di9Q?=
- =?utf-8?B?Rm9KSDNJbmtHMlVXcTQ2TWhuVG1hcDJsMGJsWVNET285Nittd2ZxL1grci81?=
- =?utf-8?B?alFuUk9PaXM1blFWNUtIMGU3MHF5QkpOZGFUMkR1aE83OGpyNmxsTFlFOXBv?=
- =?utf-8?B?WDl4K0FKNG4vUTRMMHRaQ2xWUnJCeElQRzllYkVMd3hKMWF2T2ZyRHBkcE9W?=
- =?utf-8?B?TUFUWVhUVmtRRmQ1WlJlekRqZG9qVVVQOVNOSHdSU3NmRC8zV1p6dW5HOGtZ?=
- =?utf-8?B?Q0dBckFzYmFIaFZ4cDd2ZFFOdU5VQmZFeXdFR0xpU1J0VXVxaDd2dUFpdTAw?=
- =?utf-8?B?bHo5Q0xqR2R4N0pORmY1WUlsSWhiT1F1dEVYWGRLR3hqM0ZFZXF5QWpQelNj?=
- =?utf-8?B?VFZMOUU3SG94KzFXaXlrbWlmdnROdVkvU2FnVDNDR0Nqd1BFVTkwQkR5MndN?=
- =?utf-8?B?cnJmeFZNZXpKT1hDV21NTGJweGxqME5yRURpOWN3NDFUeUZwWVpLSFhmVTYw?=
- =?utf-8?B?MVhlRlRwR1RRT1dxUG5FN1loclZDeGQxSVBBV0sxTGJtcHFUcHFrcWRvbjBO?=
- =?utf-8?B?RHhoUUxhdjVsSXV1ZVFyMmg2QklGbGdqZGZ2aWF4Rk9rdE90WGtIVUFrNFNv?=
- =?utf-8?B?dVowdGJyK2ovVEVMV2NqenhvWTZZUzgyMHJQSDNDYVhtRjBXaC90anFFTFV0?=
- =?utf-8?B?TGhQeXNVNjhhZDYwRHEwM0t5bkt2RW1nU2o4YndKd0NUVC9SMU5GR3Vwa1hj?=
- =?utf-8?B?TTN5c25aeXdqb1NCWUkraThjbTlyS3hURUpaL2tmWlRZQ0E5d1dYN1hpeG92?=
- =?utf-8?Q?kqC4tT2V8LAaD5oFCJZFTRdEoikiwywZRsq21tK2tcuHm?=
-X-MS-Exchange-AntiSpam-MessageData-1: dkQywl8JqVn0AQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8217e4ee-f4f9-4919-d0a5-08dec5fe904e
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M1pkelRUdWFMTWdmb0lRcHlUZUNlWm05WEY3ZnZHK3VTRExweU1jMEx6M25o?=
+ =?utf-8?B?WFByZmIxNGRPYW9yMFBRSzM0WjhRLzVJZ0VLV2hvM0FmS3JXYXZyZWZEN0ZR?=
+ =?utf-8?B?VnFGR3U2REgyNGRMR0UwMHFuNk02WlBMZnhiTmh2RTRFMHVvQkJ3QXcwOGJS?=
+ =?utf-8?B?Q0VjVHNtK1FYQmxvZDNsR2J2VHNJZm9HRU1pOGpYeit3MFNwNWEvRGEycWJO?=
+ =?utf-8?B?QTFwQlhzUFVKWTBDZk8wVDNtNHZpVC9NbStja3JPVGdBa2VLeWJDR0hxU2gw?=
+ =?utf-8?B?aFVoS1NNQlIraEdDQTNLeGZYSWhkaTdqdjdMZzVwK2xCbzJmRlNoVnczZFNq?=
+ =?utf-8?B?Qzk4RzlWY3NjcCtVdG9xb0YzblJrdWFWN2FsTnpMaURzMHAzc3VuWks4QTF4?=
+ =?utf-8?B?ekZtRytTK0g0MVd6NjJBMTYyV056aHg5V2tsQWNGdGJDTGt4S1gvM0VJa1dv?=
+ =?utf-8?B?M2ZoQXBRNTBJN29hc1VCdzh6eDBrc2JaRjV1aTBXR1kxSDNMOUNCdzhWMTlk?=
+ =?utf-8?B?Q29QMkdRMUk3bURONmxPT09UTVhUUDhFUkppOUtvQ3lFc2ZXb2J2bWUwYlI1?=
+ =?utf-8?B?UjFMTW50QmRHQ0pieWE4cFpFdUZXTk9ZenFFeWNpUlp1bGk5a1BnNEdIWWdu?=
+ =?utf-8?B?TjkrYUFmQlJmaDdubXBPL2ErWFdHeVNsNDNSQWxhUWp1TFc0NnUzWVh6RVI3?=
+ =?utf-8?B?cXhSdG9FLzFkb2lMY3RBa3BHaEJFOHY5elF4aVRQbVlqQ1VhQnJzK2xRY0Mx?=
+ =?utf-8?B?cm1VWUl5M0d4bEhYZW9NMFZXTVBvdDBSUHRkTjJsaTNVTDJEKytPR3luVUpy?=
+ =?utf-8?B?aHhseTEyeGpLZUQ2Z1g2S0NFN0NzZjlZNStsV01DYW5uUXZyNklFNk1MdlFR?=
+ =?utf-8?B?S21iQVdxMm5UZit0Y2pjRFBJWjhJRFhBOVJ4Z3ExVmpVTXIzRG9PYU1OeHpx?=
+ =?utf-8?B?OEhVWVI3SHUvOHRtVHRwcG5JMjM5RVB0Vm1XRzEzU0lnM0QzdTQ2b3IyQVRR?=
+ =?utf-8?B?QjhSS1U1V1ZpeFFJaUVES0hWT2FXT2dHOHZpMmFncktoMjc0ODljRUo1VGoz?=
+ =?utf-8?B?L2VaUFdqdVRjMjBOQ3ErVkJzZXh4eWZqbXp2blJLamxDRjJ4WGsxSnFpaEwr?=
+ =?utf-8?B?UDhmeXN5b21BMTdya1doamZzV1c1WkZ5NmVZTzkwTm94VC9kZUY2M2VIbnhq?=
+ =?utf-8?B?R3M2UWdOc2RvU293REFzblhST2RWNTA5Vnp1cmRqMHJMNENPa2puRmJiQkdr?=
+ =?utf-8?B?M1lvNE56OUtjaTJNRTJEaEcxdXRtZ3NISWVnTDZxcDRoS0VPWEE1MFR2Z0RL?=
+ =?utf-8?B?Z1Z6K1RHdEJTUWJiaHI4amZaT2pwL0I2YnozdjZMaWZoZUZnaFRWWHZPbXRw?=
+ =?utf-8?B?RGVwcEVnVWVWV2E4aVBwL3dLdWYzZk81U0tXNHg1MWJmNnlZNG0zL2VIUjRX?=
+ =?utf-8?B?ZWFKYVZFcTljdWNvTkV3eTJiejJqNWhSQU1Da1Y4Skt3QWpmVnc5RVBKVkJq?=
+ =?utf-8?B?L1ZHamczbGMreW5JMnk1UWxDUGJvSmNkZ2ZNenNIekhNUmlKOU53Y2wyVmhz?=
+ =?utf-8?B?Q0J1NXBkT3cwZG5uOWpKZGlyNy91MnNDVzhQY0ljSFdnb0s5dWxKVElRY3g3?=
+ =?utf-8?B?MlFNTGFZSmxyYlJ1RDM3UnRiNGJTU3RreEpIVTZmYjVxR1l0OUladEJyVEhj?=
+ =?utf-8?B?L0drVktGdUl0ZmFKeXkrai9xK2pKbjJMazZKYkNtQ1dvTFdlYzhmQkdBVzZN?=
+ =?utf-8?B?cDBpYnlVOVZPeWZXcVdRYXZOOWhmQjMxMURpZExQb1FQaWtzeU9QUEhXb2tq?=
+ =?utf-8?B?S1JrelZKQWhqM3k4YjhVM3JrNzZneTQrTXd2UEIyU1JOc1lPWThvakw2U1Fw?=
+ =?utf-8?B?aTJlbjdBcjRsWTdOTjBrNDJDMkt1eHF5V3ppNzVVVTJvZ0ZoRlVvdUsvL0d4?=
+ =?utf-8?B?aVFCcDVoQlpVSkhocEFwdDBOR3JEVG5zZFMvNHBiVERSbU53VkZ4RmJCWnVQ?=
+ =?utf-8?B?L1RFK0NWb214ZXdKTzhUVkRDUFRVQkhvOU0vdWNiNThRUnFjVU9LMys0Q1hK?=
+ =?utf-8?B?enNmK1A4U0NOWklHaHpEeWlibEZ4NmRaZUFCaEwxZUhPNksxZEdCVlVuU25p?=
+ =?utf-8?B?SGFLcERVRDRNTHlpMUw5ZmpJZGR2ZWJqMlpBZDJkYVJUUlh1UGhOUlhkTzZR?=
+ =?utf-8?B?bVlNT0xabWpnNkJ1YWZOLzhmSkZCckRMZzBGaStZaXBlZkxyTFBIUU8wVmZQ?=
+ =?utf-8?B?anQ2WTZObW5NTkV1K1dnMkV6R0NVUmNCQ0d6T2w4UGdVRzVlQllvWDJzdmk2?=
+ =?utf-8?Q?KjKJGIewKuAvakhAuT?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9945913e-ecbf-47b9-ef25-08dec5fedea1
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 08:10:26.8507 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 08:12:38.3666 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mFi9Gqr8COTiQT0NxP9gqDXFD4dn3P5DirAKJc4Svrd/FfzUB+GA27z3BVMipBJNssEEOVspZ+6E+0tfa8AszA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8900
+X-MS-Exchange-CrossTenant-UserPrincipalName: smvhzEMKoaJA42DhM50JDcHmFfXvOrcJz2AzQwiP5/8d1cGTsxbYIpBo6yyMOz2k
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8915
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,168 +142,303 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Host1x syncpoints are 32-bit counters that roll over by design.
-To make that explicit in the code, use wrapping_* functions whenever
-arithmetic is done on syncpoint values.
+On 6/8/26 20:56, Zhiping Zhang wrote:
+> Implement the dma-buf get_tph callback for vfio-pci-exported dma-bufs
+> and add VFIO_DEVICE_FEATURE_DMA_BUF_TPH so userspace can attach TPH
+> metadata to such a dma-buf.
+> 
+> 8-bit ST and 16-bit Extended ST are distinct PCIe TPH namespaces; the
+> uAPI carries both with explicit validity flags, and get_tph() returns
+> the value matching the importer's requested width (or -EOPNOTSUPP).
+> 
+> The TPH descriptor is published and read under a new per-dma-buf mutex
+> priv->tph_lock so a SET racing with a get_tph reader sees consistent
+> fields. The mutex's only role is serialising the TPH state; priv->vdev
+> and dmabuf lifetime are managed by the existing ioctl reference and
+> dma_buf_get() ref, so the cleanup path does not need to take this
+> mutex.
+> 
+> The SET ioctl returns -EOPNOTSUPP if the underlying device does not
+> expose the PCIe TPH Extended Capability (pdev->tph_cap == 0); setting
+> ST metadata on a device that cannot act as a TPH completer is
+> nonsensical and rejecting it early gives userspace a clear signal.
+> 
+> The uAPI itself is not device-specific. It publishes the PCI SIG-defined
+> ST/PH tuple for a VFIO-owned PCIe completer and keeps the tuple opaque
+> to dma-buf; any importer simply requests the namespace it supports and
+> places the returned value on generated TLPs. Any other userspace driver
+> using vfio-pci for an endpoint that accepts inbound TPH can reuse the
+> same interface.
+> 
+> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
+> ---
+> Test plan: verified the kernel-side behavior by checking that an
+> importer such as mlx5 emits the programmed ST/PH on outbound P2P TLPs
+> after a successful VFIO_DEVICE_FEATURE_DMA_BUF_TPH set.
+> 
+>  drivers/vfio/pci/vfio_pci_core.c   |  3 +
+>  drivers/vfio/pci/vfio_pci_dmabuf.c | 92 +++++++++++++++++++++++++++++-
+>  drivers/vfio/pci/vfio_pci_priv.h   | 12 ++++
+>  include/uapi/linux/vfio.h          | 45 +++++++++++++++
+>  4 files changed, 151 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+> index 050e7542952e..4fa36f2f7555 100644
+> --- a/drivers/vfio/pci/vfio_pci_core.c
+> +++ b/drivers/vfio/pci/vfio_pci_core.c
+> @@ -1569,6 +1569,9 @@ int vfio_pci_core_ioctl_feature(struct vfio_device *device, u32 flags,
+>  		return vfio_pci_core_feature_token(vdev, flags, arg, argsz);
+>  	case VFIO_DEVICE_FEATURE_DMA_BUF:
+>  		return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
+> +	case VFIO_DEVICE_FEATURE_DMA_BUF_TPH:
+> +		return vfio_pci_core_feature_dma_buf_tph(vdev, flags, arg,
+> +							 argsz);
+>  	default:
+>  		return -ENOTTY;
+>  	}
+> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> index 1a177ce7de54..dd11a7db6b41 100644
+> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> @@ -2,7 +2,9 @@
+>  /* Copyright (c) 2025, NVIDIA CORPORATION & AFFILIATES.
+>   */
+>  #include <linux/dma-buf-mapping.h>
+> +#include <linux/mutex.h>
+>  #include <linux/pci-p2pdma.h>
+> +#include <linux/pci-tph.h>
+>  #include <linux/dma-resv.h>
+>  
+>  #include "vfio_pci_priv.h"
+> @@ -19,7 +21,14 @@ struct vfio_pci_dma_buf {
+>  	u32 nr_ranges;
+>  	struct kref kref;
+>  	struct completion comp;
+> -	u8 revoked : 1;
 
-Atomic operations cannot be updated but a comment is added.
+> +	/* @tph_lock serializes TPH SET vs get_tph on the TPH fields below. */
+> +	struct mutex tph_lock;
 
-Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
----
- drivers/gpu/host1x/cdma.c          |  3 ++-
- drivers/gpu/host1x/hw/channel_hw.c | 10 +++++++---
- drivers/gpu/host1x/intr.c          |  5 +++--
- drivers/gpu/host1x/syncpt.c        |  7 ++++++-
- drivers/gpu/host1x/syncpt.h        |  3 ++-
- 5 files changed, 20 insertions(+), 8 deletions(-)
+Clear NO-GO.
 
-diff --git a/drivers/gpu/host1x/cdma.c b/drivers/gpu/host1x/cdma.c
-index ba2e572567c0..f6d3db2c8c39 100644
---- a/drivers/gpu/host1x/cdma.c
-+++ b/drivers/gpu/host1x/cdma.c
-@@ -13,6 +13,7 @@
- #include <linux/interrupt.h>
- #include <linux/kernel.h>
- #include <linux/kfifo.h>
-+#include <linux/overflow.h>
- #include <linux/slab.h>
- #include <trace/events/host1x.h>
- 
-@@ -419,7 +420,7 @@ void host1x_cdma_update_sync_queue(struct host1x_cdma *cdma,
- 		/* won't need a timeout when replayed */
- 		job->timeout = 0;
- 
--		syncpt_incrs = job->syncpt_end - syncpt_val;
-+		syncpt_incrs = wrapping_sub(u32, job->syncpt_end, syncpt_val);
- 		dev_dbg(dev, "%s: CPU incr (%d)\n", __func__, syncpt_incrs);
- 
- 		host1x_job_dump(dev, job);
-diff --git a/drivers/gpu/host1x/hw/channel_hw.c b/drivers/gpu/host1x/hw/channel_hw.c
-index 9dda73199889..a8251ec0810c 100644
---- a/drivers/gpu/host1x/hw/channel_hw.c
-+++ b/drivers/gpu/host1x/hw/channel_hw.c
-@@ -7,6 +7,7 @@
- 
- #include <linux/host1x.h>
- #include <linux/iommu.h>
-+#include <linux/overflow.h>
- #include <linux/slab.h>
- 
- #include <trace/events/host1x.h>
-@@ -120,7 +121,8 @@ static void submit_gathers(struct host1x_job *job, struct host1x_job_cmd *cmds,
- 
- 		if (cmd->is_wait) {
- 			if (cmd->wait.relative)
--				threshold = job_syncpt_base + cmd->wait.threshold;
-+				threshold = wrapping_add(u32, job_syncpt_base,
-+							 cmd->wait.threshold);
- 			else
- 				threshold = cmd->wait.threshold;
- 
-@@ -259,7 +261,8 @@ static void channel_program_cdma(struct host1x_job *job)
- 
- 	/* Submit work. */
- 	job->syncpt_end = host1x_syncpt_incr_max(sp, job->syncpt_incrs);
--	submit_gathers(job, job->cmds + i, job->num_cmds - i, job->syncpt_end - job->syncpt_incrs);
-+	submit_gathers(job, job->cmds + i, job->num_cmds - i,
-+		       wrapping_sub(u32, job->syncpt_end, job->syncpt_incrs));
- 
- 	/* Before releasing MLOCK, ensure engine is idle again. */
- 	fence = host1x_syncpt_incr_max(sp, 1);
-@@ -297,7 +300,8 @@ static void channel_program_cdma(struct host1x_job *job)
- 
- 	job->syncpt_end = host1x_syncpt_incr_max(sp, job->syncpt_incrs);
- 
--	submit_gathers(job, job->cmds, job->num_cmds, job->syncpt_end - job->syncpt_incrs);
-+	submit_gathers(job, job->cmds, job->num_cmds,
-+		       wrapping_sub(u32, job->syncpt_end, job->syncpt_incrs));
- #endif
- }
- 
-diff --git a/drivers/gpu/host1x/intr.c b/drivers/gpu/host1x/intr.c
-index f77a678949e9..f9fd8a471e60 100644
---- a/drivers/gpu/host1x/intr.c
-+++ b/drivers/gpu/host1x/intr.c
-@@ -7,6 +7,7 @@
- 
- #include <linux/clk.h>
- #include <linux/interrupt.h>
-+#include <linux/overflow.h>
- #include "dev.h"
- #include "fence.h"
- #include "intr.h"
-@@ -17,7 +18,7 @@ static void host1x_intr_add_fence_to_list(struct host1x_fence_list *list,
- 	struct host1x_syncpt_fence *fence_in_list;
- 
- 	list_for_each_entry_reverse(fence_in_list, &list->list, list) {
--		if ((s32)(fence_in_list->threshold - fence->threshold) <= 0) {
-+		if ((s32)wrapping_sub(u32, fence_in_list->threshold, fence->threshold) <= 0) {
- 			/* Fence in list is before us, we can insert here */
- 			list_add(&fence->list, &fence_in_list->list);
- 			return;
-@@ -83,7 +84,7 @@ void host1x_intr_handle_interrupt(struct host1x *host, unsigned int id)
- 	spin_lock(&sp->fences.lock);
- 
- 	list_for_each_entry_safe(fence, tmp, &sp->fences.list, list) {
--		if (((value - fence->threshold) & 0x80000000U) != 0U) {
-+		if ((wrapping_sub(u32, value, fence->threshold) & 0x80000000U) != 0U) {
- 			/* Fence is not yet expired, we are done */
- 			break;
- 		}
-diff --git a/drivers/gpu/host1x/syncpt.c b/drivers/gpu/host1x/syncpt.c
-index acc7d82e0585..9ac4f0c80728 100644
---- a/drivers/gpu/host1x/syncpt.c
-+++ b/drivers/gpu/host1x/syncpt.c
-@@ -8,6 +8,7 @@
- #include <linux/module.h>
- #include <linux/device.h>
- #include <linux/dma-fence.h>
-+#include <linux/overflow.h>
- #include <linux/slab.h>
- 
- #include <trace/events/host1x.h>
-@@ -126,6 +127,10 @@ EXPORT_SYMBOL(host1x_syncpt_id);
-  */
- u32 host1x_syncpt_incr_max(struct host1x_syncpt *sp, u32 incrs)
- {
-+	/*
-+	 * Syncpoint values are intended to be modulo 2^32, so overflow
-+	 * here is intended.
-+	 */
- 	return (u32)atomic_add_return(incrs, &sp->max_val);
- }
- EXPORT_SYMBOL(host1x_syncpt_incr_max);
-@@ -274,7 +279,7 @@ bool host1x_syncpt_is_expired(struct host1x_syncpt *sp, u32 thresh)
- 
- 	current_val = (u32)atomic_read(&sp->min_val);
- 
--	return ((current_val - thresh) & 0x80000000U) == 0U;
-+	return (wrapping_sub(u32, current_val, thresh) & 0x80000000U) == 0U;
- }
- 
- int host1x_syncpt_init(struct host1x *host)
-diff --git a/drivers/gpu/host1x/syncpt.h b/drivers/gpu/host1x/syncpt.h
-index 4c3f3b2f0e9c..9eff42efc445 100644
---- a/drivers/gpu/host1x/syncpt.h
-+++ b/drivers/gpu/host1x/syncpt.h
-@@ -12,6 +12,7 @@
- #include <linux/host1x.h>
- #include <linux/kernel.h>
- #include <linux/kref.h>
-+#include <linux/overflow.h>
- #include <linux/sched.h>
- 
- #include "fence.h"
-@@ -77,7 +78,7 @@ static inline bool host1x_syncpt_check_max(struct host1x_syncpt *sp, u32 real)
- 	if (sp->client_managed)
- 		return true;
- 	max = host1x_syncpt_read_max(sp);
--	return (s32)(max - real) >= 0;
-+	return (s32)wrapping_sub(u32, max, real) >= 0;
- }
- 
- /* Return true if sync point is client managed. */
+When that info is exposed through DMA-buf it must be protected by the DMA-buf resv lock.
 
--- 
-2.53.0
+Christian.
+
+> +	u8 tph_st_valid:1;
+> +	u8 tph_st_ext_valid:1;
+> +	u8 tph_ph:2;
+> +	u8 tph_st;
+> +	u16 tph_st_ext;
+> +	u8 revoked:1;
+>  };
+>  
+>  static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+> @@ -69,6 +78,25 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *attachment,
+>  	return ret;
+>  }
+>  
+> +static int vfio_pci_dma_buf_get_tph(struct dma_buf *dmabuf, bool extended,
+> +				    u16 *steering_tag, u8 *ph)
+> +{
+> +	struct vfio_pci_dma_buf *priv = dmabuf->priv;
+> +
+> +	guard(mutex)(&priv->tph_lock);
+> +	if (extended) {
+> +		if (!priv->tph_st_ext_valid)
+> +			return -EOPNOTSUPP;
+> +		*steering_tag = priv->tph_st_ext;
+> +	} else {
+> +		if (!priv->tph_st_valid)
+> +			return -EOPNOTSUPP;
+> +		*steering_tag = priv->tph_st;
+> +	}
+> +	*ph = priv->tph_ph;
+> +	return 0;
+> +}
+> +
+>  static void vfio_pci_dma_buf_unmap(struct dma_buf_attachment *attachment,
+>  				   struct sg_table *sgt,
+>  				   enum dma_data_direction dir)
+> @@ -95,12 +123,14 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
+>  		up_write(&priv->vdev->memory_lock);
+>  		vfio_device_put_registration(&priv->vdev->vdev);
+>  	}
+> +	mutex_destroy(&priv->tph_lock);
+>  	kfree(priv->phys_vec);
+>  	kfree(priv);
+>  }
+>  
+>  static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
+>  	.attach = vfio_pci_dma_buf_attach,
+> +	.get_tph = vfio_pci_dma_buf_get_tph,
+>  	.map_dma_buf = vfio_pci_dma_buf_map,
+>  	.unmap_dma_buf = vfio_pci_dma_buf_unmap,
+>  	.release = vfio_pci_dma_buf_release,
+> @@ -265,6 +295,7 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>  		ret = -ENOMEM;
+>  		goto err_free_ranges;
+>  	}
+> +	mutex_init(&priv->tph_lock);
+>  	priv->phys_vec = kzalloc_objs(*priv->phys_vec, get_dma_buf.nr_ranges);
+>  	if (!priv->phys_vec) {
+>  		ret = -ENOMEM;
+> @@ -327,12 +358,71 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>  err_free_phys:
+>  	kfree(priv->phys_vec);
+>  err_free_priv:
+> +	mutex_destroy(&priv->tph_lock);
+>  	kfree(priv);
+>  err_free_ranges:
+>  	kfree(dma_ranges);
+>  	return ret;
+>  }
+>  
+> +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
+> +				      u32 flags,
+> +				      struct vfio_device_feature_dma_buf_tph __user *arg,
+> +				      size_t argsz)
+> +{
+> +	struct vfio_device_feature_dma_buf_tph set_tph;
+> +	struct vfio_pci_dma_buf *priv;
+> +	struct dma_buf *dmabuf;
+> +	int ret;
+> +
+> +	if (!pcie_tph_supported(vdev->pdev))
+> +		return -EOPNOTSUPP;
+> +
+> +	ret = vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_SET,
+> +				 sizeof(set_tph));
+> +	if (ret != 1)
+> +		return ret;
+> +
+> +	if (copy_from_user(&set_tph, arg, sizeof(set_tph)))
+> +		return -EFAULT;
+> +
+> +	if (set_tph.flags & ~(VFIO_DMA_BUF_TPH_ST | VFIO_DMA_BUF_TPH_ST_EXT))
+> +		return -EINVAL;
+> +
+> +	/* PCIe TLP Processing Hint is a 2-bit field. */
+> +	if (set_tph.ph & ~0x3)
+> +		return -EINVAL;
+> +
+> +	dmabuf = dma_buf_get(set_tph.dmabuf_fd);
+> +	if (IS_ERR(dmabuf))
+> +		return PTR_ERR(dmabuf);
+> +
+> +	if (dmabuf->ops != &vfio_pci_dmabuf_ops) {
+> +		ret = -EINVAL;
+> +		goto out_put;
+> +	}
+> +
+> +	priv = dmabuf->priv;
+> +	if (priv->vdev != vdev) {
+> +		ret = -EINVAL;
+> +		goto out_put;
+> +	}
+> +
+> +	scoped_guard(mutex, &priv->tph_lock) {
+> +		priv->tph_st = set_tph.steering_tag;
+> +		priv->tph_st_ext = set_tph.steering_tag_ext;
+> +		priv->tph_ph = set_tph.ph;
+> +		priv->tph_st_valid = !!(set_tph.flags & VFIO_DMA_BUF_TPH_ST);
+> +		priv->tph_st_ext_valid =
+> +			!!(set_tph.flags & VFIO_DMA_BUF_TPH_ST_EXT);
+> +	}
+> +	ret = 0;
+> +
+> +out_put:
+> +	dma_buf_put(dmabuf);
+> +	return ret;
+> +}
+> +
+>  void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
+>  {
+>  	struct vfio_pci_dma_buf *priv;
+> diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
+> index fca9d0dfac90..c58f369be4b3 100644
+> --- a/drivers/vfio/pci/vfio_pci_priv.h
+> +++ b/drivers/vfio/pci/vfio_pci_priv.h
+> @@ -118,6 +118,10 @@ static inline bool vfio_pci_is_vga(struct pci_dev *pdev)
+>  int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>  				  struct vfio_device_feature_dma_buf __user *arg,
+>  				  size_t argsz);
+> +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
+> +				      u32 flags,
+> +				      struct vfio_device_feature_dma_buf_tph __user *arg,
+> +				      size_t argsz);
+>  void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev);
+>  void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked);
+>  #else
+> @@ -128,6 +132,14 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>  {
+>  	return -ENOTTY;
+>  }
+> +
+> +static inline int
+> +vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev, u32 flags,
+> +				  struct vfio_device_feature_dma_buf_tph __user *arg,
+> +				  size_t argsz)
+> +{
+> +	return -ENOTTY;
+> +}
+>  static inline void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
+>  {
+>  }
+> diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
+> index 5de618a3a5ee..0ca26721849b 100644
+> --- a/include/uapi/linux/vfio.h
+> +++ b/include/uapi/linux/vfio.h
+> @@ -1534,6 +1534,51 @@ struct vfio_device_feature_dma_buf {
+>   */
+>  #define VFIO_DEVICE_FEATURE_MIG_PRECOPY_INFOv2  12
+>  
+> +/**
+> + * Upon VFIO_DEVICE_FEATURE_SET associate TPH (TLP Processing Hints) metadata
+> + * with a vfio-exported dma-buf. The dma-buf must have been created by
+> + * VFIO_DEVICE_FEATURE_DMA_BUF on this device, and the device must expose the
+> + * TPH Extended Capability (otherwise the ioctl returns -EOPNOTSUPP).
+> + *
+> + * dmabuf_fd is the file descriptor returned by VFIO_DEVICE_FEATURE_DMA_BUF.
+> + *
+> + * 8-bit ST (steering_tag) and 16-bit Extended ST (steering_tag_ext) are
+> + * distinct namespaces in the PCIe TPH ST table and may both be present with
+> + * different values. Userspace should populate the value(s) it has from the
+> + * firmware ST table for this device and set the matching VFIO_DMA_BUF_TPH_ST /
+> + * VFIO_DMA_BUF_TPH_ST_EXT bit in @flags. An importer requests a specific
+> + * width and receives the matching value; if the requested width is not
+> + * present, the importer is told TPH is unavailable for this dma-buf.
+> + *
+> + * This publishes the PCI SIG-defined ST/PH tuple for a VFIO-owned PCIe
+> + * completer. The dma-buf core treats the tuple as opaque completer-owned
+> + * metadata; an importer simply requests the namespace it supports and places
+> + * the returned value on generated TLPs.
+> + *
+> + * @flags == 0 clears any previously published metadata.
+> + *
+> + * ph is the 2-bit TLP Processing Hint and must be in the range [0, 3].
+> + *
+> + * Userspace is responsible for setting TPH on the dma-buf before handing the
+> + * fd to the importer. Calling SET again replaces the previously published
+> + * values; racing a SET against an importer that is already consuming the
+> + * dma-buf is a userspace ordering problem.
+> + *
+> + * Return: 0 on success, -errno on failure.
+> + */
+> +#define VFIO_DEVICE_FEATURE_DMA_BUF_TPH 13
+> +
+> +#define VFIO_DMA_BUF_TPH_ST		(1 << 0)  /* steering_tag valid */
+> +#define VFIO_DMA_BUF_TPH_ST_EXT		(1 << 1)  /* steering_tag_ext valid */
+> +
+> +struct vfio_device_feature_dma_buf_tph {
+> +	__s32	dmabuf_fd;
+> +	__u32	flags;
+> +	__u16	steering_tag_ext;
+> +	__u8	steering_tag;
+> +	__u8	ph;
+> +};
+> +
+>  /* -------- API for Type1 VFIO IOMMU -------- */
+>  
+>  /**
 
