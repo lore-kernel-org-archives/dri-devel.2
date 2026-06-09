@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35E08CD8CBD
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 06:37:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E526CCD8CAE
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 06:40:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8D7010E0D9;
-	Tue,  9 Jun 2026 06:37:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E92A10E0DB;
+	Tue,  9 Jun 2026 06:40:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="isl8KKJu";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="id+QT9X5";
 	dkim-atps=neutral
-Received: from out-170.mta1.migadu.com (out-170.mta1.migadu.com
- [95.215.58.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20C1410E0D9;
- Tue,  9 Jun 2026 06:37:50 +0000 (UTC)
+Received: from out-180.mta1.migadu.com (out-180.mta1.migadu.com
+ [95.215.58.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6875810E0DC
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 06:40:13 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1780986497;
+ t=1780987210;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=MR1hTzP95VNUKx7/pKpDVtm2601TjwJtZ4ASjUfdk1Y=;
- b=isl8KKJuAUNED6y7PqRYss/yrCZzRxABbNH7LLFjXBudV0mEVhbPjitoJS3k0/o1vcGfft
- s62so6ieDuNj/XVJ1vkk1Q7CcR4Ey2KkfWmakHlovNnr2LJm+7oGH2kB4IAdYCBbQxOFWn
- FuuaYym3pHtVPMmNAZdGoQnflBzoQlE=
+ bh=wTuZ/rb+QfWcokK7LysZCAzYrY5sRqAUnm+1GENZ4ls=;
+ b=id+QT9X5+V/ynpRARTKrkCjC0XHu1v1kNLdaLcMXaAcfcSS0RYW9FtMHL4Fw7sKHZNZ3EJ
+ 7kQ2nBRANwBC5bdENNCHV6lwZSTUBbqq8sLkaPOj9spm0sgjf1Cj1DxI8wPaCHIVt3GtJ7
+ Oomyi8z2WwWQWTLvMyF263FMUy80nX8=
 From: Kaitao Cheng <kaitao.cheng@linux.dev>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Muchun Song <muchun.song@linux.dev>,
@@ -76,12 +76,11 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Kaitao Cheng <kaitao.cheng@linux.dev>,
  Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: [PATCH v2 08/14] spi: stm32-ospi: Open-code message transfer walk
-Date: Tue,  9 Jun 2026 14:25:20 +0800
-Message-ID: <20260609062526.94907-6-kaitao.cheng@linux.dev>
-In-Reply-To: <20260609062526.94907-1-kaitao.cheng@linux.dev>
+Subject: [PATCH v2 10/14] spi: tegra210-quad: Open-code message transfer walk
+Date: Tue,  9 Jun 2026 14:38:51 +0800
+Message-ID: <20260609063855.95710-1-kaitao.cheng@linux.dev>
+In-Reply-To: <20260609061347.93688-1-kaitao.cheng@linux.dev>
 References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
- <20260609062526.94907-1-kaitao.cheng@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
@@ -103,7 +102,7 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
 A later change will make list_for_each_entry() cache the next element
-before entering the loop body. stm32_ospi_transfer_one_message() can
+before entering the loop body. tegra_qspi_non_combined_seq_xfer() can
 consume the following transfer as part of the current operation and then
 advance the loop cursor to that entry.
 
@@ -114,24 +113,24 @@ update.
 
 Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
 ---
- drivers/spi/spi-stm32-ospi.c | 4 +++-
+ drivers/spi/spi-tegra210-quad.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/spi/spi-stm32-ospi.c b/drivers/spi/spi-stm32-ospi.c
-index 4461c6e24b9e..4dc2b56b4c20 100644
---- a/drivers/spi/spi-stm32-ospi.c
-+++ b/drivers/spi/spi-stm32-ospi.c
-@@ -675,7 +675,9 @@ static int stm32_ospi_transfer_one_message(struct spi_controller *ctrl,
- 
- 	gpiod_set_value_cansleep(cs_gpiod, true);
- 
+diff --git a/drivers/spi/spi-tegra210-quad.c b/drivers/spi/spi-tegra210-quad.c
+index db28dd556484..42dd5cf53c67 100644
+--- a/drivers/spi/spi-tegra210-quad.c
++++ b/drivers/spi/spi-tegra210-quad.c
+@@ -1302,7 +1302,9 @@ static int tegra_qspi_non_combined_seq_xfer(struct tegra_qspi *tqspi,
+ 	if (tqspi->soc_data->supports_tpm)
+ 		val &= ~QSPI_TPM_WAIT_POLL_EN;
+ 	tegra_qspi_writel(tqspi, val, QSPI_GLOBAL_CONFIG);
 -	list_for_each_entry(transfer, &msg->transfers, transfer_list) {
 +	for (transfer = list_first_entry(&msg->transfers, typeof(*transfer), transfer_list);
 +	     !list_entry_is_head(transfer, &msg->transfers, transfer_list);
 +	     transfer = list_next_entry(transfer, transfer_list)) {
+ 		struct spi_transfer *xfer = transfer;
  		u8 dummy_bytes = 0;
- 
- 		memset(&op, 0, sizeof(op));
+ 		u32 cmd1;
 -- 
 2.43.0
 
