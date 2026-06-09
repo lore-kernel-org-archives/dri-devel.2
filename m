@@ -4,32 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CC5ACD8C85
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 06:32:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE2A1CD8CB9
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 06:32:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2422D10E0CF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25A7710E0D0;
 	Tue,  9 Jun 2026 06:32:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="UtZFil2Q";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="hAcwtJDC";
 	dkim-atps=neutral
-X-Greylist: delayed 356 seconds by postgrey-1.36 at gabe;
- Tue, 09 Jun 2026 06:32:47 UTC
-Received: from out-186.mta1.migadu.com (out-186.mta1.migadu.com
- [95.215.58.186])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4AAE10E0D0
+Received: from out-174.mta1.migadu.com (out-174.mta1.migadu.com
+ [95.215.58.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82F3810E0CF
  for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 06:32:47 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1780986436;
+ t=1780986398;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ImZshMJ6+rspWDeU8PSyvvgq3b/Nfm8OW56yaLbG3dc=;
- b=UtZFil2Qiyf1bDjOVvq/sutmRnZDzRBz0mxmZmocH7V7GJ3JZLqhNR8l1YcXQOvn7aT91+
- 3CdWLOMklrI+61UeG3BWmhHLYUDDgSi0l5QZOgmd5IAalJcZZgGNxEgjE6g9mU5olbJqo8
- QJQ9UeAjc0f/P6GAuyrqcyNXuq5/3yk=
+ bh=QgWAksApTGvLxjW8jDqRXxXlqcSTxmsvhz5k9DI0lic=;
+ b=hAcwtJDCWZFRSYLTEPue3KI/vBKMw7McXz6aBCAwYSHGbCZ8691Hb8Q9SEjvRfQxb72Tta
+ DvZFdo/ENYvZXhMqWs/CaNmhp2HC/ZidkwGpdCsM2noviPsBOF++1vKdv+wycU7cucS29B
+ gJe3i3hLPUY6TqgCUx2oYjH058D/AcI=
 From: Kaitao Cheng <kaitao.cheng@linux.dev>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Muchun Song <muchun.song@linux.dev>,
@@ -78,12 +76,11 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Kaitao Cheng <kaitao.cheng@linux.dev>,
  Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: [PATCH v2 05/14] drm/i915: Open-code DFS dependency list walk
-Date: Tue,  9 Jun 2026 14:25:17 +0800
-Message-ID: <20260609062526.94907-3-kaitao.cheng@linux.dev>
-In-Reply-To: <20260609062526.94907-1-kaitao.cheng@linux.dev>
+Subject: [PATCH v2 03/14] drm/bridge: Open-code bridge chain list walks
+Date: Tue,  9 Jun 2026 14:25:15 +0800
+Message-ID: <20260609062526.94907-1-kaitao.cheng@linux.dev>
+In-Reply-To: <20260609061347.93688-1-kaitao.cheng@linux.dev>
 References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
- <20260609062526.94907-1-kaitao.cheng@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
@@ -104,34 +101,45 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
-A later change will make list_for_each_entry() cache the next element
-before entering the loop body. __i915_schedule() builds its DFS work list
-while walking it by moving newly discovered dependencies to the tail.
+A later change will make list_for_each_entry_from() and
+list_for_each_entry_reverse() cache the next or previous element before
+entering the loop body. The bridge enable and disable ordering code
+adjusts its cursor to skip ranges that have already been handled.
 
-Keep the DFS walk open-coded so the next dependency is resolved after any
-tail moves performed by the body. This preserves the existing traversal
+Keep those walks open-coded so the loop step observes the cursor
+selected by the body. This preserves the existing bridge ordering
 semantics and prepares the code for the list iterator update.
 
 Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
 ---
- drivers/gpu/drm/i915/i915_scheduler.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_bridge.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index aec1342402ca..da1f60282df8 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -190,7 +190,9 @@ static void __i915_schedule(struct i915_sched_node *node,
- 	 * end result is a topological list of requests in reverse order, the
- 	 * last element in the list is the request we must execute first.
- 	 */
--	list_for_each_entry(dep, &dfs, dfs_link) {
-+	for (dep = list_first_entry(&dfs, typeof(*dep), dfs_link);
-+	     !list_entry_is_head(dep, &dfs, dfs_link);
-+	     dep = list_next_entry(dep, dfs_link)) {
- 		struct i915_sched_node *node = dep->signaler;
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index d6f512b73389..a538aabc4e0b 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -868,7 +868,8 @@ void drm_atomic_bridge_chain_post_disable(struct drm_bridge *bridge,
  
- 		/* If we are already flying, we know we have no signalers */
+ 	encoder = bridge->encoder;
+ 
+-	list_for_each_entry_from(bridge, &encoder->bridge_chain, chain_node) {
++	for (; !list_entry_is_head(bridge, &encoder->bridge_chain, chain_node);
++	     bridge = list_next_entry(bridge, chain_node)) {
+ 		limit = NULL;
+ 
+ 		if (!list_is_last(&bridge->chain_node, &encoder->bridge_chain)) {
+@@ -962,7 +963,9 @@ void drm_atomic_bridge_chain_pre_enable(struct drm_bridge *bridge,
+ 
+ 	encoder = bridge->encoder;
+ 
+-	list_for_each_entry_reverse(iter, &encoder->bridge_chain, chain_node) {
++	for (iter = list_last_entry(&encoder->bridge_chain, typeof(*iter), chain_node);
++	     !list_entry_is_head(iter, &encoder->bridge_chain, chain_node);
++	     iter = list_prev_entry(iter, chain_node)) {
+ 		if (iter->pre_enable_prev_first) {
+ 			next = iter;
+ 			limit = bridge;
 -- 
 2.43.0
 
