@@ -4,69 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 905DECD8CAD
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 19:23:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBD76CD8CA8
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 19:28:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED34410E3DA;
-	Tue,  9 Jun 2026 19:23:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DB7210E5E4;
+	Tue,  9 Jun 2026 19:28:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IrEAeJ7j";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UD/omq6n";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5572210E3DA
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 19:23:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781032999; x=1812568999;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=w89bLBIHCx0Hcg7oxfK3eG1Xm1bHBwPKh+bHpE29Neo=;
- b=IrEAeJ7jmllNXM/whGESOSDZnKX284l/skbQKH35xNH77adeRmjy0iSi
- S5wEcbo79byZ0eCo+E8gSFOQ6pIm97anOtiydIafA1ndGvM6x5tw1JiDE
- UNIY+TN73BA6DOEN20hdoOSfdXvxt0zRm+bTp5DTucHJYr5MOvG0vFLJz
- 9YxN2Sjb3NDSO2sJ3vh2TSGaB3T73JtMpQueYfwtuHkZJXekoumq0KMAn
- ajn+e00YIKPbLB6glMEy9SSTa9sJEMoU88iTXJ/u8c13YYKwueA/eSakF
- vEeBEMcvVa6mpjBaPRhvnV6H8u1xP3dAVfGQ4aRUTt+A+9k2fwgdNXoTn g==;
-X-CSE-ConnectionGUID: 9/HbpV7uTcuCIE+vBLVn5Q==
-X-CSE-MsgGUID: jVCAkFdXQdu9eIDehY9BWA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="104475575"
-X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; d="scan'208";a="104475575"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2026 12:23:19 -0700
-X-CSE-ConnectionGUID: FMiw3kJQQ+GXszeXr56kVA==
-X-CSE-MsgGUID: 98rDPy/aQGKFlSmg6grkhA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; d="scan'208";a="250236458"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.162])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2026 12:23:14 -0700
-Date: Tue, 9 Jun 2026 22:23:11 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>,
- Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
- Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v4 14/14] video: leds: backlight: lm3533: Support getting
- LED sources from DT
-Message-ID: <aihoH9Pmzufa9pnE@ashevche-desk.local>
-References: <20260606045738.21050-1-clamor95@gmail.com>
- <20260606045738.21050-15-clamor95@gmail.com>
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
+ [74.125.82.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38FD110E5E4
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 19:28:25 +0000 (UTC)
+Received: by mail-dy1-f170.google.com with SMTP id
+ 5a478bee46e88-304e86ecebfso367463eec.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 12:28:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781033304; cv=none;
+ d=google.com; s=arc-20240605;
+ b=eGGXhVea9XVaB8rpqkCxcE+JtS7LVyyQ7r2ZL6pZSEqo67U2/VBUamNNb84amL2KRJ
+ I014u7bdRe8+/F/LvQyADAWjwo1tuDLckrh0uC8iKPLN+CH8rv8X/oZRj589F3AcXDQg
+ wWbrgE4mzs1EIhJgV4utsbZ47BVwCwNFFQ2uD8MqyeR9CoAVEmmSzGtunYgi6cviwNYF
+ 6yxtQ2rJ5h/IsswoFf6a8ytOrjLly+dgg2MgPFgLOZrLFWfh7o+v4eCZZsVu+ruIIXr6
+ AVp2+M3sxsIqW00kuuI8d3sQQkjamWj6hELClTnBpoXDSqn1/TcAgYCq95HvU9FuODq9
+ 5nww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=OJg9nwIv9ACqjDswvJZaERxDdDEAwRUfl02ZMVnz9zo=;
+ fh=cZAZRCcZsNFaFZo49JlQ15ks2M2qoBQSHl19jIDKY3M=;
+ b=C68TLWnaa8vjtJHSg5nO55x/VUBN4HV54fRaTauVKl6FiX7Itynkg0+FuiLaQa4yjb
+ PME+rOlJ/extgIWuB3RTiLxBVck/8MoXk5OzhqpJK9QMwVDlIPftLXivnWXgeMmZhTYa
+ 6w4sNnyRU0hJiSTk1z/XS6faafbTubbKpTpoMfyYZDnqLMO4VTKVCFbS3GtqYvXyM09R
+ 8FNQ5SO8kQH0YBRzTRutR4rMnjpTRkjzfXo0yea/vo2ibFWowfiTui6lI3kqJ8A03+ki
+ +p9/ScA+smkfe88sJUVFI6S8/pujDsJCadSkdDjYHn2hodqeorTgu0vy7teQF/IQYaXw
+ h27g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781033304; x=1781638104; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=OJg9nwIv9ACqjDswvJZaERxDdDEAwRUfl02ZMVnz9zo=;
+ b=UD/omq6nf9VcmL/m9QlcUZeXZeVIi1u5xsInIii5QQ3pjnrR9aZQdZM5tZBgoh9QCm
+ yvQKKu3HbJQsZZXqnI2IDa9wGUqkRA/9bh2QG5WC1NH6wEvlCc1fwmksHoG0LS7ARQoU
+ Pii668Ae9mbpj/1nSNzIfL4ElyluF/9IEfB3F6XbdI39FETAlKlNKaPGzkfl2KRnLu8R
+ c7ZuJ0abZBoZyWV5RUt7uJV6RtMzqKjPoGYhI2zZIoxfxQZzFH0WFMzmWasBU0XqPZe1
+ svMTk/o00/8RJhLpO3RraAwOb0zaFVrFdYcHoaGoVLeKY9eaSdSQpBpn2hepTN0c6I3a
+ HCbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781033304; x=1781638104;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=OJg9nwIv9ACqjDswvJZaERxDdDEAwRUfl02ZMVnz9zo=;
+ b=D/F/ankiJ7yz9ptdEgjJ60rK0+GJvnqKRR/jWbvr0mRzyYFQrGHtFIuf63uszf9mzk
+ L10+fzyMD3LMIc0r1batX0onm2cocSfp2q0Ru83Fp1lIQ5Sq/RjucFytga+Z0lvfPfhL
+ 9TXIYBC17dehFhHqLJe+/R5eCSe0A6lZW6gZoq+HZnN6RJ7gfYciPE5mFzFeXCG6OCnU
+ 758LcM5tDmJsh4lf8V/cb82q6gmnlLq/REkMpKqbbeWanJohU4Sn5TS5hYE7nX1D0ZmY
+ cyU3CBFGwOss6UOQray8U+F4YsDElTh/kKBpEX0tzNuTueatfk53nck3dDIvtHFIapfK
+ r47g==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9GjhKiD3kBuAT4k5SCQBF8LqyPb3k7IQgCl4mAo9k8rqvPFXsbwG2xivElTyTsRtQICJ+29vIUMZM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyOGPDQk4DV7UitTALYSarO7IT1g0O3GyQdC4qjiWPY8MK8ledS
+ it6yOC+6w5pElW6VaOym62+0lxXyCYevsNxIMl4wrV3giNT7rsJUEHU1GpUotynHeTTExrWVrw/
+ b2CMk0WqyOrD758jeI/WXasBhHzKxGls=
+X-Gm-Gg: Acq92OH2pZ0Wdr55F/tkjAcZgt2KRQnsaLizeiPjH5P0qj+M/Azrq9ZIN5LVH4G68lR
+ zxi1u2rM/Jv5Bql++Pm6DCSM6Bj6nFKlt89qeaFgoBa1pHfAaQuFm3OcJociV4N3mVW/SybXyO9
+ k+0kmOEGeHjn1laCbW6JgaoqahIjYoFBCN5TrkV9ep9g0yZPME2hVZdBdYSVzqDlUfCwMNHTUxm
+ nDHbnESya5/Ipc+6d1YL49nHQacRbtTHqa1cljeTiQyyC6x5/bZTDNM+/LzYi6t5rUEj8FavAVZ
+ ggWlOFNKfyQNJWAq01w8jiSd4niQ7RCNpoXUzzaeDJNFXmI1Q8cfzDHeAS6yEtSoDgEphiLngCc
+ I8WgHJUauCm6Nof5MP6si7o0NvQe8On9dXVHoRQxkLYMh
+X-Received: by 2002:a05:7300:a509:b0:304:f860:3ae3 with SMTP id
+ 5a478bee46e88-307d5cf2045mr1484875eec.1.1781033304355; Tue, 09 Jun 2026
+ 12:28:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260606045738.21050-15-clamor95@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260608183057.2001376-2-lyude@redhat.com>
+ <20260608184329.0BF6C1F00893@smtp.kernel.org>
+ <8898fc261aded12d8adf4c5a74cc6bd830072f27.camel@redhat.com>
+In-Reply-To: <8898fc261aded12d8adf4c5a74cc6bd830072f27.camel@redhat.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 9 Jun 2026 21:28:10 +0200
+X-Gm-Features: AVVi8CfVgY4o06ZxMCThAreiMyLunTvD8jssVSLsOSZ1KkZvxyFM72Kt74QKoKE
+Message-ID: <CANiq72=_t6wc1mx-AmiOCQKf0i0VvvjFLf29uCBgbgS1PmPU3g@mail.gmail.com>
+Subject: Re: [PATCH v19 1/4] rust: drm: gem: shmem: Add DmaResvGuard helper
+To: lyude@redhat.com, Gary Guo <gary@kernel.org>
+Cc: sashiko-reviews@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ ojeda@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,78 +108,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Jun 06, 2026 at 07:57:38AM +0300, Svyatoslav Ryhel wrote:
-> Add Control Bank to HVLED/LVLED muxing support based on the led-sources
-> defined in the device tree.
+On Tue, Jun 9, 2026 at 8:19=E2=80=AFPM <lyude@redhat.com> wrote:
+>
+> Looks like the magic 8 ball is either hallucinating or this needs to be
+> added to the documentation, because there's clearly nothing about this
+> in the documentation. Ugh.
+>
+> If anyone can correct me here let me know, otherwise I just assume
+> hallucination from the hallucination machine
 
-...
+This is the the prompts we currently have to guide the AI:
 
->  static int lm3533_led_setup(struct lm3533_led *led)
->  {
-> -	int ret;
-> +	u32 output_cfg_shift = 0;
+  https://github.com/masoncl/review-prompts/blob/main/kernel/subsystem/rust=
+.md
 
-No need to assign the default to this.
+The goal is to eventually have a single source of truth for this.
 
-> +	u32 output_cfg_val = 0;
-> +	u32 output_cfg_mask = 0;
-> +	int ret, i;
+Having said that, it is a slight hallucination in the sense that we
+don't say `inline(always)` is "reserved" just for `build_assert!`.
 
-No need to add 'i'.
+Cc'ing Gary.
 
-> +	if (led->num_leds) {
-> +		for (i = 0; i < led->num_leds; i++) {
+I hope that clarifies.
 
-		for (unsigned int i = 0; i < led->num_leds; i++) {
-
-> +			if (led->leds[i] >= LM3533_LVCTRLBANK_MAX)
-> +				continue;
-> +
-> +			output_cfg_shift = led->leds[i] * 2;
-> +			output_cfg_val |= led->id << output_cfg_shift;
-> +			output_cfg_mask |= OUTPUT_LVLED_MASK << output_cfg_shift;
-> +		}
-> +
-> +		/* LVLED1, LVLED2 and LVLED3 */
-> +		ret = regmap_update_bits(led->regmap, LM3533_REG_OUTPUT_CONF1,
-> +					 output_cfg_mask << OUTPUT_CONF1_SHIFT,
-> +					 output_cfg_val << OUTPUT_CONF1_SHIFT);
-> +		if (ret)
-> +			return ret;
-> +
-> +		/* LVLED4 and LVLED5 */
-> +		ret = regmap_update_bits(led->regmap, LM3533_REG_OUTPUT_CONF2,
-> +					 output_cfg_mask >> OUTPUT_CONF2_SHIFT,
-> +					 output_cfg_val >> OUTPUT_CONF2_SHIFT);
-> +		if (ret)
-> +			return ret;
-> +	}
-
-...
-
-> +	if (led->num_leds > 0) {
-> +		ret = device_property_read_u32_array(&pdev->dev, "led-sources",
-> +						     led->leds, led->num_leds);
-> +		if (ret) {
-> +			dev_err(&pdev->dev, "failed to get led-sources\n");
-> +			goto err_deregister;
-> +		}
-> +	}
-
-This and other pieces may benefit from local variable
-
-	struct device *dev = &pdev->dev;
-
-defined at the top of the function.
-
-...
-
->  static int lm3533_bl_setup(struct lm3533_bl *bl)
-
-As per above.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Cheers,
+Miguel
