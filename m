@@ -4,43 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32780CD8C92
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 12:37:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F838CD8C92
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 12:44:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8552510E2E8;
-	Tue,  9 Jun 2026 12:37:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1725F10E2F2;
+	Tue,  9 Jun 2026 12:44:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VYZztFzI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="N7u2vIFY";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC81210E2E8
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 12:37:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAC7C10E2F2
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 12:44:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 43FBF601D6;
- Tue,  9 Jun 2026 12:37:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9FD81F00893;
- Tue,  9 Jun 2026 12:37:04 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1A5CA601DC;
+ Tue,  9 Jun 2026 12:44:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53D991F00893;
+ Tue,  9 Jun 2026 12:44:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781008625;
- bh=6cAsjjOwD7K4jjUdJSadeGH+djxV7/U2t8d1mAhrwlM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VYZztFzIwHP4uWKsQBl5GPg6X4FiAckRmGECLpTJ3TsPh9OMkOiIW8J4fKVMPevaS
- V4I6ZpkLhgkI6XHUaGMUeOho+9ck5WnclFD6yCEjWy3d2/rz6Vvgh+T3u3Kpnl37Uk
- CTG4LVMD0vkMAXkFNaPmij7VvYSV/8a1FEQJiR5GdFextLOklb6TMfnScE1uEm4XiA
- aI7103TETQFfYtYkiVruol9iXj0h2PGGg5HYWd7irp4cmXRnVWPiw//UxzDWb6ihCa
- vQ4QdQLwo5lzEBNpLhYGf9sbBns4vlEyxq4MPNG99dRnfH5SObAGhPoocYomoAehx/
- k/1DBCK91Uflw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/7] drm/atomic: reject colorop update from inactive
- color pipeline
-To: "Melissa Wen" <mwen@igalia.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260609121230.1358786-3-mwen@igalia.com>
-References: <20260609121230.1358786-3-mwen@igalia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 12:37:04 +0000
-Message-Id: <20260609123704.C9FD81F00893@smtp.kernel.org>
+ s=k20260515; t=1781009041;
+ bh=Ydq/tbSss8qiRk9qUKdW43eESg1pJEOtT4lCL4jYh6s=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=N7u2vIFY+mXuNNnLLpaRqQQiiR8gMcqNjl+Ywtc5PJAbkIDP3TNdWE9voyP941Lcl
+ lAY981OOyMir/AB2trdLks4i1Jo1uqPCHW50Q6us0gFqRvYTXxTyU8NfkOGXMVNDnL
+ nEkiqZkx5Qli4pRsNHs4dmwUfFU0XSkAieKH1d94FAKMK/IudMBnu7C3I2vAYcmQri
+ 15698UfsH6NFV/WNQ4NbcCg/BHBnA483JKHkFrm9fwDPg4dHsSvUdVWsTWJZqH/yiL
+ R4e2MEmKpg93NC+QgtIlbGww/E1v5HbixBLU3zp/QwglgYLMn3CyNlrCzoeMjPZ3z0
+ UMCSGEObXnF6g==
+Date: Tue, 9 Jun 2026 14:43:59 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
+ Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 23/37] drm/encoder: add drm_encoder_cleanup_from()
+Message-ID: <20260609-hypnotic-honeybee-of-adventure-d89b7c@houat>
+References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
+ <20260519-drm-bridge-hotplug-v1-23-45e2bdb3dfb4@bootlin.com>
+ <20260608-mighty-woodlouse-of-reading-162bca@houat>
+ <DJ4FR339GCKY.21P0315EZLRJU@bootlin.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="gtamny6ghjahqeyo"
+Content-Disposition: inline
+In-Reply-To: <DJ4FR339GCKY.21P0315EZLRJU@bootlin.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,109 +73,143 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm_atomic_colorop_check() allows modifying colorops without addin=
-g the parent plane to the atomic commit, bypassing hardware updates.
---
 
-commit c38eca82c086d2e818d8283fed72b37dc3abbab9
-Author: Melissa Wen <mwen@igalia.com>
+--gtamny6ghjahqeyo
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 23/37] drm/encoder: add drm_encoder_cleanup_from()
+MIME-Version: 1.0
 
-drm/atomic: reject colorop update from inactive color pipeline
+On Tue, Jun 09, 2026 at 12:10:39PM +0200, Luca Ceresoli wrote:
+> On Mon Jun 8, 2026 at 2:10 PM CEST, Maxime Ripard wrote:
+> > On Tue, May 19, 2026 at 12:37:40PM +0200, Luca Ceresoli wrote:
+> >> Supporting hardware whose final part of the DRM pipeline can be physic=
+ally
+> >> removed requires the ability to detach all bridges from a given point =
+to
+> >> the end of the pipeline.
+> >>
+> >> Introduce a variant of drm_encoder_cleanup() for this.
+> >>
+> >> Take care to not try detaching non-attached bridges. This is needed be=
+cause
+> >> when two or more bridges are removed not in the backwards order,
+> >> drm_encoder_cleanup_from() is called more than once for bridges closer=
+ to
+> >> the panel.
+> >>
+> >> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> >>
+> >> ---
+> >>
+> >> Note: in theory drm_encoder_cleanup() is now a superset of
+> >> drm_encoder_cleanup_from() and may be simplified to just call
+> >> drm_encoder_cleanup_from() and then do the extra actions. However the
+> >> common code is subtly different in terms of locking and checks, so this
+> >> would complicate the code in this patch and has thus been kept separat=
+e for
+> >> the time being to make reviewing sompler. Reimplementing
+> >> drm_encoder_cleanup() by using drm_encoder_cleanup_from() cvacn be done
+> >> later on.
+> >>
+> >> A much simpler and now obsolete version of this patch (missing locking=
+ and
+> >> checks) previously appeared in
+> >> https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-13-9d6f2c9=
+c3058@bootlin.com/
+> >> ---
+> >>  drivers/gpu/drm/drm_encoder.c | 38 ++++++++++++++++++++++++++++++++++=
+++++
+> >>  include/drm/drm_encoder.h     |  1 +
+> >>  2 files changed, 39 insertions(+)
+> >>
+> >> diff --git a/drivers/gpu/drm/drm_encoder.c b/drivers/gpu/drm/drm_encod=
+er.c
+> >> index 0d5dbed06db4..40ece477b302 100644
+> >> --- a/drivers/gpu/drm/drm_encoder.c
+> >> +++ b/drivers/gpu/drm/drm_encoder.c
+> >> @@ -179,6 +179,44 @@ int drm_encoder_init(struct drm_device *dev,
+> >>  }
+> >>  EXPORT_SYMBOL(drm_encoder_init);
+> >>
+> >> +/**
+> >> + * drm_encoder_cleanup_from - remove a given bridge and all the follo=
+wing
+> >> + * @encoder: encoder whole list of bridges shall be pruned
+> >> + * @bridge: first bridge to remove
+> >> + *
+> >> + * Removes from an encoder all the bridges starting with a given brid=
+ge
+> >> + * and until the end of the chain.
+> >> + *
+> >> + * Does nothing if the bridge is not attached to an encoder chain.
+> >> + *
+> >> + * This should not be used in "normal" DRM pipelines. It is only usef=
+ul for
+> >> + * devices whose final part of the DRM chain can be physically remove=
+d and
+> >> + * later reconnected (possibly with different hardware).
+> >> + */
+> >> +void drm_encoder_cleanup_from(struct drm_encoder *encoder, struct drm=
+_bridge *bridge)
+> >> +{
+> >> +	struct drm_bridge *next;
+> >> +	LIST_HEAD(tmplist);
+> >> +
+> >> +	/*
+> >> +	 * We need the bridge_chain_mutex to modify the chain, but
+> >> +	 * drm_bridge_detach() will call DRM_MODESET_LOCK_ALL_BEGIN() (in
+> >> +	 * drm_modeset_lock_fini()), resulting in a possible ABBA circular
+> >> +	 * deadlock. Avoid it by first moving all the bridges to a
+> >> +	 * temporary list holding the lock, and then calling
+> >> +	 * drm_bridge_detach() without the lock.
+> >> +	 */
+> >> +	mutex_lock(&encoder->bridge_chain_mutex);
+> >> +	if (!list_empty(&bridge->chain_node))
+> >> +		list_for_each_entry_safe_from(bridge, next, &encoder->bridge_chain,=
+ chain_node)
+> >> +			list_move_tail(&bridge->chain_node, &tmplist);
+> >> +	mutex_unlock(&encoder->bridge_chain_mutex);
+> >> +
+> >> +	while (!list_empty(&tmplist))
+> >> +		drm_bridge_detach(list_first_entry(&tmplist, struct drm_bridge, cha=
+in_node));
+> >> +}
+> >> +EXPORT_SYMBOL(drm_encoder_cleanup_from);
+> >> +
+> >
+> > The name is super confusing, because it doesn't clean up anything.
+> > drm_encoder_cleanup is called that way because it cleans up the encoder.
+> > This function doesn't.
+> >
+> > Unlike what's being documented, it doesn't remove any bridge either. It
+> > just detaches bridge, so let's just call it that way?
+>=20
+> Good point.
+>=20
+> What about:
+>=20
+>  * rename to drm_bridge_detach_from()
+>  * drop the @encoder argument (get if from bridge->encoder)
+>  * maybe even move to drm_bridge.c?
 
-This commit rejects updates on colorops that are not part of an active
-pipeline. It adds drm_atomic_colorop_check() to verify the color pipeline
-of a plane in its current, new or old state.
+Yeah, sounds good
+Maxime
 
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 0d36a955c4d43..ec3c6e4e5a062 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
+--gtamny6ghjahqeyo
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[ ... ]
+-----BEGIN PGP SIGNATURE-----
 
-> @@ -863,6 +863,55 @@ drm_atomic_add_pipeline_colorops(struct drm_atomic_c=
-ommit *state,
->  	return 0;
->  }
-> =20
-> +/**
-> + * drm_atomic_colorop_check - check new colorop state
-> + * @new_colorop_state: new colorop state to check
-> + *
-> + * Ensure that the colorop in @new_colorop_state belongs to an active co=
-lor
-> + * pipeline, i.e. it's in the chain of colorops set to the color_pipeline
-> + * property of current, old or new plane state.
-> + *
-> + * Returns: 0 on success, -EINVAL otherwise.
-> + */
-> +static int drm_atomic_colorop_check(const struct drm_colorop_state *new_=
-colorop_state)
-> +{
-> +	struct drm_atomic_commit *state =3D new_colorop_state->state;
-> +	struct drm_plane *plane =3D new_colorop_state->colorop->plane;
-> +	struct drm_plane_state *new_plane_state, *old_plane_state;
-> +	struct drm_colorop *colorop;
-> +
-> +	new_plane_state =3D drm_atomic_get_new_plane_state(state, plane);
-> +	old_plane_state =3D drm_atomic_get_old_plane_state(state, plane);
-> +
-> +	/* No changes in the plane state. Check current-committed plane state */
-> +	if (!new_plane_state) {
-> +		for (colorop =3D plane->state->color_pipeline; colorop; colorop =3D co=
-lorop->next)
-> +			if (colorop =3D=3D new_colorop_state->colorop)
-> +				return 0;
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaigKjgAKCRAnX84Zoj2+
+dgQLAX42LEgszKsjPU/+3LFQz8tNGVf56HqdErx1pXdLpTvWmUKH+fpmdnsdAvbC
+3ZlmGa4BgOnk3SuyXjrXLkyQvid/yT867XehPj4JCl3exDBnCQCUs5ObEmha8DRZ
++HJfoVLJ/Q==
+=Ujr9
+-----END PGP SIGNATURE-----
 
-[Severity: High]
-If a colorop property is updated but the parent plane isn't explicitly
-modified, new_plane_state will be NULL and this returns 0.
-
-Since drm_colorop does not have its own atomic_update callback, hardware
-programming relies on the plane's commit paths iterating over planes in
-the atomic state.
-
-If the plane is missing from the atomic state, will the hardware ever be
-reprogrammed with the new colorop parameters, or does this result in a
-silent failure where only the software state is updated?
-
-Should the affected plane be actively pulled into the atomic state
-(e.g., via drm_atomic_get_plane_state()) whenever a colorop is modified?
-
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (WARN_ON(!old_plane_state))
-> +		return -EINVAL;
-> +
-> +	/* Check if the colorop is active in the new plane state */
-> +	for (colorop =3D new_plane_state->color_pipeline; colorop; colorop =3D =
-colorop->next)
-> +		if (colorop =3D=3D new_colorop_state->colorop)
-> +			return 0;
-> +
-> +	/* Same color pipeline as new; no point walking old. Colorop isn't acti=
-ve */
-> +	if (new_plane_state->color_pipeline =3D=3D old_plane_state->color_pipel=
-ine)
-> +		return -EINVAL;
-> +
-> +	/* Check if the colorop was active in the old plane state */
-> +	for (colorop =3D old_plane_state->color_pipeline; colorop; colorop =3D =
-colorop->next)
-> +		if (colorop =3D=3D new_colorop_state->colorop)
-> +			return 0;
-> +
-> +	/* Colorop is not part of an active color pipeline. */
-> +	return -EINVAL;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609121230.1358=
-786-1-mwen@igalia.com?part=3D2
+--gtamny6ghjahqeyo--
