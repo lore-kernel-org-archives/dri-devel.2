@@ -4,138 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02DFACD8CAE
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 06:27:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AB24CD8CAE
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 06:32:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 351B210E0BC;
-	Tue,  9 Jun 2026 06:27:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCF9910E0BD;
+	Tue,  9 Jun 2026 06:32:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="H8fvimJg";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZHhQO+if";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="YYIJiCTk";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3561B10E0BC
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 06:27:45 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6593wZvk1060931
- for <dri-devel@lists.freedesktop.org>; Tue, 9 Jun 2026 06:27:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Ha0OMzIFz4oGavhsmpfWitFRwWVvRwRyXxaIfNOHbno=; b=H8fvimJgMTpQT8ea
- rbbJFLJLyFBqeUW4EEjuuZ3+6yezDPLNfeP9U+yXgsbX+PhYPG7w6Yse9FMEhnFx
- xh8wAe5aHtXCabf+s3Rckud9y8cRVn6xuhpbPq68DTegXRsp00HGN/SE3eiQUaKB
- SQk1JXDBhfJ7TwoD2ib/TS2vn3J5S5WUA+5ISJHwRmcCv7knLwxLy1pAYPXWXy7y
- bpSA0YBRKw0xFM1/47V5uEWTdv92L9hGdEGaoDgVYhf59q7vzSfi0+cDapaMwfHH
- CmxCwWHK4ygWKtVbJmB1CB/7HCWhpamGrPjPRp+jeag3Wco8NiQdbBqkIcxLqp9P
- r2M1Lg==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4enun44s7w-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 06:27:44 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-36d98b74447so4033049a91.2
- for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 23:27:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1780986464; x=1781591264;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Ha0OMzIFz4oGavhsmpfWitFRwWVvRwRyXxaIfNOHbno=;
- b=ZHhQO+ifSuotv11q11el7rn4x/xnHv6i2/+yOrj5BkXP66SkKOWyZNYpFxkvDhaaef
- UH3ArT3Mz8n0GW3tJHjsNQHtd3m65IPsndBzl/EhhRVGysyqNeftENRrj00w8bUVoG6q
- fA4R9EUt139DtbYJc+xxfuzP5mD8FjIA+1tJshiHl4/NhlipsCNEDellpkzyNkhdK3Td
- QXDfDe4+DG9hk9tlM2+vq+v3sSg/yuYvNWiVM13LBGZ4FKB7v1mW+FfARJCc5vNGnEYB
- sMWG41K1GvvWuCajP86BNWroZZzD7wc6X9m4sA13bmSbKL1K6SfB9DrS1V5xqu3GEI03
- DJ4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780986464; x=1781591264;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Ha0OMzIFz4oGavhsmpfWitFRwWVvRwRyXxaIfNOHbno=;
- b=Ym/7q2HEl/HZxuVnPYt1ekE190tL8/M1p1LmB3T4CH2TfdU6rGqgglqe0u0BBp/F0W
- zxFBm4mN2gTfJMwkm2/0G2nSQlq9rAUuDY/9Bqya2fY3PzEZ+HpHTAl8+136rLqcq9O/
- C/W5DzT7GZyKb0lvOiOThVWWMaE3Nd1zflf8US+nuILDBD52osCx7exVXj3U0ImMaOz2
- wsm1vWu55YElqa/4L5yn1liXL0XJVBCuCJY/Rw14wJ1aUSWA4mhUzNJmjrjXN7fnp5H/
- d9PtGmXyxGLApqidlW/2UgV95ewNOo9CnepU2qyxSJ1eaqCe1FiG46Znh5+TCEfN9ped
- TgUg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9y0IVpIWD/UBis+GaF9jkfBakSD2Vk3Yx3JthlAthEbv8pcViaOn4C+33gInen7pKzB6Rvw7piXlU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxsH9KnyUGD1nqXU03lev0B+/g5/b21Q0yPg2sl3xUBoj24CPAt
- GDHcTJ4N7Nn9F5Dmzjf3cdGmqRaNPIWsTHiu6JEL9LSXDj2C+zHPrJQOQaehJRqO/9/oJjQSCzK
- yxdQWkQSjCrVrvKBFxF21D4tjVJKCV9scYYIJ6O6IKAeWQTJ5rOCFcLmqkCM6RSxwP1V+D3Q=
-X-Gm-Gg: Acq92OEFwsdHw8CqoKjuCEb5mT08XmuD+qqnrlb83u9DA4gTbigpcSI7HcC3gZBlX8k
- GcS01EF2M+4TmDwiw3pckQ7LNl6qrQ9gr4vgRExnCnSjbBE2sonA529qjR6Pom6sbnJPj12kech
- HhWuienOxvGjULO8aKD9kgOue37UCpOdF6N7F/0iPjeiCmJ6QaUTScCPxY6REfjR5HYcWY37m2H
- 9ie0KW/Zcsb7g7EE2MmU9eIckeux8qDSItSG05i4un5OTaPQIJAdQ26nk+LSIAyYBKTjbF3W0Ml
- A7ABxngKVj+H5MoL7PW0vRnqaCW34leMtCtLPItoiofoTNeL/bVRpx4+bbYBibykKqqbH/vy3JP
- 4rrOBDybdgweaFEIAwhKpEOzVNmwdoF0IiSvvJoamBufs+SZYFV39OF0EAp51ngpDnLOP11sgjj
- v/VKV++TVswdUhxfe7b/1u+Nwsrnby
-X-Received: by 2002:a17:902:e848:b0:2c0:b6c7:2273 with SMTP id
- d9443c01a7336-2c1e79e29ebmr223714415ad.3.1780986463951; 
- Mon, 08 Jun 2026 23:27:43 -0700 (PDT)
-X-Received: by 2002:a17:902:e848:b0:2c0:b6c7:2273 with SMTP id
- d9443c01a7336-2c1e79e29ebmr223714065ad.3.1780986463390; 
- Mon, 08 Jun 2026 23:27:43 -0700 (PDT)
-Received: from [10.133.33.232] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2c16609e627sm205631375ad.52.2026.06.08.23.27.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Jun 2026 23:27:42 -0700 (PDT)
-Message-ID: <21e5e1ee-c083-43a2-9f66-cdd07b529111@oss.qualcomm.com>
-Date: Tue, 9 Jun 2026 14:27:37 +0800
+Received: from out-176.mta1.migadu.com (out-176.mta1.migadu.com
+ [95.215.58.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D482B10E0D6
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 06:32:47 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1780986417;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Np0x5OABf11sd/lWEcYRius1zQG4TmMrbP89pTQvYBE=;
+ b=YYIJiCTkH8MjZ7BoGs7INCC4Vg7NTV50EYqh5qyQzaNnUUn/ixKMeAHTMaJlWsazr68AZc
+ 9cDm4beZcV6ZDk9JRuLp/AOZC3eNoRHb5vZWf2PEag6On3FypjVNmaFjgVo30iqjkj1FaQ
+ vdscYyTKn9RpAnTOcvy8RuzssJ18YbI=
+From: Kaitao Cheng <kaitao.cheng@linux.dev>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Muchun Song <muchun.song@linux.dev>,
+ Philipp Reisner <philipp.reisner@linbit.com>,
+ Lars Ellenberg <lars.ellenberg@linbit.com>,
+ =?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ Jens Axboe <axboe@kernel.dk>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Eddie James <eajames@linux.ibm.com>, Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Laxman Dewangan <ldewangan@nvidia.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Davidlohr Bueso <dave@stgolabs.net>,
+ "Paul E . McKenney" <paulmck@kernel.org>,
+ Josh Triplett <josh@joshtriplett.org>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, Waiman Long <longman@redhat.com>,
+ drbd-dev@lists.linbit.com, linux-block@vger.kernel.org,
+ linux1394-devel@lists.sourceforge.net, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-spi@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Christian Brauner <brauner@kernel.org>,
+ David Howells <dhowells@redhat.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kaitao Cheng <kaitao.cheng@linux.dev>,
+ Kaitao Cheng <chengkaitao@kylinos.cn>
+Subject: [PATCH v2 04/14] drm/i915/gt: Open-code active timeline walk
+Date: Tue,  9 Jun 2026 14:25:16 +0800
+Message-ID: <20260609062526.94907-2-kaitao.cheng@linux.dev>
+In-Reply-To: <20260609062526.94907-1-kaitao.cheng@linux.dev>
+References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
+ <20260609062526.94907-1-kaitao.cheng@linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 07/15] drm/msm/dp: move the pixel clock control to its
- own API
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260602-dp_mstclean-v6-0-2c17ff40a9b2@oss.qualcomm.com>
- <20260602-dp_mstclean-v6-7-2c17ff40a9b2@oss.qualcomm.com>
- <d494a62a-2d4b-4406-99f8-cf8775ea4706@oss.qualcomm.com>
-Content-Language: en-US
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <d494a62a-2d4b-4406-99f8-cf8775ea4706@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDA1OCBTYWx0ZWRfX2Z8NprbWqt8q
- y6pN0q5M7KcRePJMlsJ2bj6fZr92d/rRKbSGpdqxS0HXd9+C/mXeW+gXdxodusNMcZe3DlHg7IJ
- Bzsj1y5VqMtC0B1RC9hTddS1/5WSuJfZ12vp8As/yYaDqnnWIJSQV0q9Yaj3JQ6soW/A2XOpSjB
- 3aTblF4wDIMdLqGxrFsp1CUeEVNxGXTsG2SnZbpmVAIx8naUFfr4hLXsQ/OgPVDOmYg1X+CkVEK
- ErH0G+tNpSYXqgK+FDPad7ul7KDUbhG/Ipi5JH/Dc3Il0eCTdnV83xgqidbsrhxq3nqsZTco8y3
- 1fQ7EfFgX32bXUNdtvfv8QtwPEpJncccbKW1lUnMufYG6HrFF9pmoSlbZMTN6iAQ3PEApryfLwD
- NeaVLy43ThEHPmYdvP1lpKFJGEClG5jYfEwxXYkho1YPC42klNCyRuASzEySnRA8JmOzZpkLYiT
- THSU2tSsSkXIzvZuzRQ==
-X-Proofpoint-ORIG-GUID: NxEORNw-nQQzqkcLvgvTLWXjEqdEstCB
-X-Authority-Analysis: v=2.4 cv=ZY4t8MVA c=1 sm=1 tr=0 ts=6a27b260 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=iRcVBvsBG4cgb8Ug3_IA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: NxEORNw-nQQzqkcLvgvTLWXjEqdEstCB
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-09_01,2026-06-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 adultscore=0 priorityscore=1501 impostorscore=0
- lowpriorityscore=0 spamscore=0 malwarescore=0 bulkscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090058
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,46 +100,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
+A later change will make list_for_each_entry() cache the next element
+before entering the loop body. __intel_gt_unset_wedged() drops
+timelines->lock while waiting on a fence and then restarts the walk from
+the list head after the lock is reacquired.
 
-On 6/8/2026 3:43 PM, Konrad Dybcio wrote:
-> On 6/2/26 11:11 AM, Yongxing Mou wrote:
->> Enable/Disable of DP pixel clock happens in multiple code paths
->> leading to code duplication. Move it into individual helpers so that
->> the helpers can be called wherever necessary.
->>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->> ---
->>   drivers/gpu/drm/msm/dp/dp_ctrl.c | 81 +++++++++++++++++++++-------------------
->>   1 file changed, 42 insertions(+), 39 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> index 1c2eccec6ec6..ac0a2c387f03 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> @@ -2171,6 +2171,42 @@ static bool msm_dp_ctrl_send_phy_test_pattern(struct msm_dp_ctrl_private *ctrl)
->>   	return success;
->>   }
->>   
->> +static int msm_dp_ctrl_on_pixel_clk(struct msm_dp_ctrl_private *ctrl, unsigned long pixel_rate)
->> +{
->> +	int ret;
->> +
->> +	ret = clk_set_rate(ctrl->pixel_clk, pixel_rate * 1000);
->> +	if (ret) {
->> +		DRM_ERROR("Failed to set pixel clock rate. ret=%d\n", ret);
->> +		return ret;
->> +	}
->> +
->> +	if (ctrl->stream_clks_on) {
->> +		drm_dbg_dp(ctrl->drm_dev, "pixel clks already enabled\n");
-> 
-> if (WARN_ON_ONCE(ctrl->stream_clks_on))
-> 	return 0;
-> 
-> ?
-> 
-> Konrad
-Got it. Will update it next patch.
+Keep the loop open-coded so the next timeline is selected after that
+restart logic has run. This preserves the existing lock-drop traversal
+semantics and prepares the code for the list iterator update.
+
+Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+---
+ drivers/gpu/drm/i915/gt/intel_reset.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+index adff482a6c9c..fe0d87e248a7 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.c
++++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+@@ -1077,7 +1077,9 @@ static bool __intel_gt_unset_wedged(struct intel_gt *gt)
+ 	 * No more can be submitted until we reset the wedged bit.
+ 	 */
+ 	spin_lock(&timelines->lock);
+-	list_for_each_entry(tl, &timelines->active_list, link) {
++	for (tl = list_first_entry(&timelines->active_list, typeof(*tl), link);
++	     !list_entry_is_head(tl, &timelines->active_list, link);
++	     tl = list_next_entry(tl, link)) {
+ 		struct dma_fence *fence;
+ 
+ 		fence = i915_active_fence_get(&tl->last_request);
+-- 
+2.43.0
+
