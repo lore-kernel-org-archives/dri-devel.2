@@ -4,96 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71236CD8CA4
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 09:47:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AED3CD6E79
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 09:47:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD19510E1E9;
-	Tue,  9 Jun 2026 09:47:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D32AB10E1EE;
+	Tue,  9 Jun 2026 09:47:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="NJqMtT75";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Zl4fiUF3";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jwbWXG4Q";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SFEOHNSB";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5697010E1E9
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 09:47:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2512510E1EE
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 09:47:51 +0000 (UTC)
 Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6597rJWi1585631
- for <dri-devel@lists.freedesktop.org>; Tue, 9 Jun 2026 09:47:45 GMT
+ 6597rJGo1585639
+ for <dri-devel@lists.freedesktop.org>; Tue, 9 Jun 2026 09:47:50 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- PrpKel4Av768jUzNR25shjZmFALdbmxo17UJsOuCq8E=; b=NJqMtT75CfewzpSe
- GkjST2Uo2e8JFg7Fwk5bQoiokdkHsYD+Zstszo9xSSn0TvUaxUcENsOnq5VsylnV
- Yk4M48j+4j/ygs0wAXDTIfz+Cg6UX8lNacnpk3AVkVy4BW40Anl45D7npsmfdacg
- NIZRcYcM31nIhT8FovxqnKgOgQzP2KwTrxQkt4OULjoulgvZIp/wi8syEK5faY1Y
- N+zZTbWOTlTXnZpzhIefdru6OINjMI4jZQxDNeGZk6gs0hTi1e7SIwJwVRN1z4bc
- xnDaGnlVYaTn7+geknw8q8QkdHMVph2/QHJsqD6enidNYc8d6bb1VHGXcQXHieos
- vbGA6w==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epeqgggt4-1
+ 4GLG60vKqqPhXSK9u7LFSK5eRlVCZiWpAvGD6R5I4zI=; b=jwbWXG4QsCbakz1T
+ QRLIlyesxqjVyud+B6kdO3KTVGd2Mq7yA5+UGl2mW/8DWMSXeA+s0fbD7oMBIET5
+ +BIPMv8iMosABtSfnTGVIkEsmSpMXUpj1/sPN2uQ/zlsK1D1Ht64x2Sn74ri6aqy
+ +S2aluypkX3MUWGc851kcx62+wdrmiCZBEY6n2i2pbvI3vYqmpDQDl4qid6T8hmT
+ E5WklZp7rrat3Wa+h1Wotow9I2Fx4YEO64WwtDmD6rjKkQMnxrmtK3Emj1Jhm/zi
+ frMJMRofXiQbas17ZcMtNUG88c1JBR1tA3hEE/ZZ3rmUJch1WqtcczJPWuvMX/Us
+ McnjLw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epeqgggtf-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 09:47:44 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-915767b341eso617061885a.3
- for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 02:47:44 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 09:47:50 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-915d1d4fc5aso384097685a.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 02:47:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1780998464; x=1781603264;
+ d=oss.qualcomm.com; s=google; t=1780998469; x=1781603269;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=PrpKel4Av768jUzNR25shjZmFALdbmxo17UJsOuCq8E=;
- b=Zl4fiUF3h7ZMqFGzpBQQK5vizoIczrLj82i0pfy+HJsAeihJaulUXOjwBT5Hfo/ewy
- J0CfCifll33hsfJUGOy5ss+H5nhTPMtochSjA0I6xY3+dCIreR5GiJjdZEuYDYBMzKsi
- 0Vc2dUXzlt6WT8roo95Yz9VuZrkctSewy9BSfS64U4BxED84BnirUrd68iI4N6I75mi3
- F+eT/ZV0t+KUlMtHteuyQxRBYg7+A/FHe7e5JdKpa1KEHMRKJthamiWBnKkoDecpLprl
- cUSSLYgfWjdvuj2npuptsDARFeL5zt43K4xHJcDUgoLxWpENWbZ+3X+797Ek+1o462KL
- kMMg==
+ :reply-to; bh=4GLG60vKqqPhXSK9u7LFSK5eRlVCZiWpAvGD6R5I4zI=;
+ b=SFEOHNSB9F/m/CW9DtW0jYhM5pDO1LBU5E5DaAP47CIjjui5v4IX9qyM9Or9rD4gWc
+ F9qMxO2UB739qwHHc1odZ8+aIrpdpR0V39VuvvoMZwWCWOI3jYyQWxDFWLhYnwQ4BeEq
+ 16mFoTPGDeE+M+zgvxXFhn3ommpZO3YSmbFfL35/01FDuvC191WmMI+0XUqG6LKv7RB0
+ VRdAw3SXMrvHyi4W0zvEifz/klOozgtBRivrl+CMj+FfAlftvTfsC//7ZIr0prtZ4hkW
+ QD9SPm9pJ29virSXgwxc0OfLcheIfcxbb79iG5jbH6U9vWCrL9MXruJxDPIiFJUI5P3u
+ Osuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780998464; x=1781603264;
+ d=1e100.net; s=20251104; t=1780998469; x=1781603269;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=PrpKel4Av768jUzNR25shjZmFALdbmxo17UJsOuCq8E=;
- b=aBmvZtKOfls233LWwO2i+cTzRARSxumYgnXqlPlxi60WOau/E91tlnj4NHqBcB6V+z
- msyEVjyfjv3rpWNeULmdCmIIEtmuCKu4UNGRtfCtBcezbs7u3GAxvmjA2SOQw5lLRrUw
- HQxgaigHcbfFrCFCZMTP87peDXui75cKHAOy8b60xyUAQvRyrf19xfIsb8QF53Tnsylm
- Tl8Zk6SSyYo99TQyPtzu7ZU6oqw8RBpxxG8hfbM34r0rDkZFZ691w394TVaqPRVmPUOf
- qo+TzpRT2Lxu4j9wQQ3D7Wt9NmuInA6IO0CsMKCJYEUR6SyJXtJ64ReLdi20d/Q+nkHk
- dqng==
+ bh=4GLG60vKqqPhXSK9u7LFSK5eRlVCZiWpAvGD6R5I4zI=;
+ b=WM7NoXYIvwdqk6JAV2vEqGahZ8v0pj5ZV4IQ2c0W0V7b6+OO8pdhalFPp1E60upsav
+ PiyPm4sM+mtbTxa0ngbB5kABt4hUe3C9ZcrPxjNceCGbxrFNrq91eL9fJYbzHkFcp6MM
+ nvksyw6RRr+SdorTjggqpj47IL7xbg4KDmrJg0qpeHr13H9k/wkDFuszkAV42XHBnKzP
+ EfM0akIRQfjecmDZdzvEZkKNztv4iCoRJBiA+QIIaizLIp2vmYebDv9B0dEUWUSJCeuo
+ 9nBx950v2IN3j0qTn6aEVSnYbYQFbGudBsiCwxXU5SHUW8shM56Kl2KRBM9pvYNcTQ3H
+ OG/g==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8GNz6taMEbcocFF735gS5CEecRVME28dmZxvNg2JIJD6v7nfR7MPR+kKvWjZ7R+PSnihtwaF1dbvA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyWCBALlJusPqr9gjcFjw7vSg1iap1crt2Zc6D73u7tD/uF20C4
- f1sFeT3E1UUCzs3fkydekQB4uHfV2UyMwHPGmh8dfsAVCFVjhSSlXJJ+kvhhqgSshPLywI67kYq
- wP4Wd8eBSRDCDNhrB+tV3ejIcw7AoQh9qLgIvMPgI2s7zjxbmTwAYU8qBje/0b9U7J4MFe04=
-X-Gm-Gg: Acq92OH9SzKqt9/6FdOpuxT6d+jmSR+zLF/uOidMG17fCgvLQCMB9DJY5Jt8hsnORuT
- +a4nI9FkvVtdeVjQivacob1rcp+LQqRf1m3RFq7rQFA9LrGC78ATwfkRjiDAFafa0oE0W5Rp6D+
- xIWpXDCcfWAm1U0ML8k3hQc1dqSfF0dZAgh/3QaoZ55F4bBVN0EHjPIjr8Hge6gdCcrUQbsByIB
- JwHpAE+MRBav7aR/f0dDHuQGWy0Hq74sZEMBv7dJgCSpQuT8Cqf5ejfcw3WMtsAXBPsej9wMV1c
- t4OgwuHwLvFcAlXL2ARNN7VeiWB6iwGN9/yDczesnz6rSBi4E2fV1OcvPKWlfff7aY3F2wsbSWb
- lVLtneWLUrELdicjHEnkkEpFrWeAfCHMb6HNDkxM6KzEIga0HsV7QGakJ0ewQVlSD3pdzMiVGL3
- Q22wPPLyU/yoA+lM1dBA==
-X-Received: by 2002:a05:620a:27c6:b0:915:e1db:7ab0 with SMTP id
- af79cd13be357-915e1db7b3dmr665714185a.45.1780998463813; 
- Tue, 09 Jun 2026 02:47:43 -0700 (PDT)
-X-Received: by 2002:a05:620a:27c6:b0:915:e1db:7ab0 with SMTP id
- af79cd13be357-915e1db7b3dmr665710985a.45.1780998463358; 
- Tue, 09 Jun 2026 02:47:43 -0700 (PDT)
+ AFNElJ/Pbykk6bmv9oWYNfNQ+i15cFskKWBH8qVitmcc9A9CcqJkZXEXO98i+wyPin5PvyazNwfZOZsnmgI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzYr3RMVdy3N7KYTCTfnsCiRguCu8c4scUtGksfJkKwwQ0LjTJt
+ Pe4QWS6A/VLIgBU3kufaREQyNZKfjYTCMeaj2tCndksTetH8WBQQlDwtxaf6Gxbsu8UQnRaHcDx
+ /BZBOOOH3bO0z1HO1IenhD18uO4qMJuAMV33bhbFfCrtodtEZmPQRYFuaEobHhHpt2ANavS4=
+X-Gm-Gg: Acq92OHUpLoPa43B6lTxaOW6YCDEeqwebsuXvebv87wPqHxBqZOZ91t84Vw41d5YB91
+ 41P82my8KXYD9NlixiEH9UEyo+kdGPBYkxix0LxwopVQ/AXwR3uflx4iYRjzTDQg8bdCK37kucH
+ LMD8PLJOSYjrQT2nKbGNubD4rGOHqgDbMt+qmOAcrsVM3erJ8dPdbQjPBXhQy4MHnu/xk8w3cJq
+ qnrD1BxknArvCWVTcDikb7KcCCZcXEgwtgwRRUIX4WOYgkiA9D8FqzkDxJGeZF+yy4MJSx05yok
+ zH3Hl3DJFNlH3sYQ3ZiR4R7QCx03WQ/h8krRLaeJJyyo5MiUqsTq1T3TyLeupzwO4DwQaPaOT8Q
+ fljLEAl1hyaO/EXJuWIumw4FWoWWZ6m7llGDqyi35hwRGadFgc6jj8RNHcQQGBIi+y0ek6OFOy2
+ m+MLxldO6SUWQ2MqHPWg==
+X-Received: by 2002:a05:620a:3186:b0:915:81ba:4071 with SMTP id
+ af79cd13be357-915a9e098f5mr3148080185a.58.1780998469151; 
+ Tue, 09 Jun 2026 02:47:49 -0700 (PDT)
+X-Received: by 2002:a05:620a:3186:b0:915:81ba:4071 with SMTP id
+ af79cd13be357-915a9e098f5mr3148074385a.58.1780998468486; 
+ Tue, 09 Jun 2026 02:47:48 -0700 (PDT)
 Received: from yongmou2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
  [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9158a00afafsm2047489485a.2.2026.06.09.02.47.38
+ af79cd13be357-9158a00afafsm2047489485a.2.2026.06.09.02.47.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jun 2026 02:47:42 -0700 (PDT)
+ Tue, 09 Jun 2026 02:47:48 -0700 (PDT)
 From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Date: Tue, 09 Jun 2026 17:46:35 +0800
-Subject: [PATCH v7 13/15] drm/msm/dp: make bridge helpers use dp_display to
- allow re-use
+Date: Tue, 09 Jun 2026 17:46:36 +0800
+Subject: [PATCH v7 14/15] drm/msm/dp: separate dp_display_prepare() into
+ its own API
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260609-dp_mstclean-v7-13-ea04113e8233@oss.qualcomm.com>
+Message-Id: <20260609-dp_mstclean-v7-14-ea04113e8233@oss.qualcomm.com>
 References: <20260609-dp_mstclean-v7-0-ea04113e8233@oss.qualcomm.com>
 In-Reply-To: <20260609-dp_mstclean-v7-0-ea04113e8233@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -108,29 +108,29 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780998393; l=8509;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780998393; l=3743;
  i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
- bh=js7Ds0kDP3MA2PA3qJwTal/QoxqVBRyKdoKt/vuLT7c=;
- b=Q4czln2aTELSd+w2rD8AgSyWb3LyrU78Eghjd2ofwZFeJbLLneUz2atRy4Cjm9oWvrO1Wj6b2
- GrlLOwEH2UhDazeOvuVqmvAYJY88S1AscjmkCpv0fopNm5eM2j617YA
+ bh=PejPis5lPUmTa0t10X2rGcGnHfGkWszn1oUEuwhLLv0=;
+ b=WijUeIalYja5wc6YJaju+YjwJ6B6aB82NXj1CgEZFrCY8AbHyt+izfR8DIFRPfig0Bqoys3x4
+ y7AHTm4eyHgBXEL7+fh93uvaWTePL7GNPjc4Kv4y/u3RSoTm67i1j9W
 X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
  pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDA5MCBTYWx0ZWRfXy24VftzG5kqj
- nRBs0ku2dvnKD+VpHpn+Gpf3UeboHjxcGkQ1DERpIRAO3J4bWVLBLqj5IEFQNRxBC8mNY2ZPYof
- ZxcFgvGnnXybIZggmSgVHePHtxOuTcgG/dCeQrH5MApgcxaIX+h42UVxiggKDrOOY/DAAWigGNF
- FzjGMiLtFFdlORKOrKN0DJyv7Cs+61RSlQCN27TxlAECwwJgCnYWW3ML8kaJeUbB+rOaFqi8ivQ
- JtX/A7KDIUgLRlGqvTuZ56/4CLr3g/DcW4tXy+z1Esr7Ap/EDsndpuQXfRcvzuGE2M06WOx7KZH
- 94RzjD8TWG9260/iU8IZtWU1uFkW80RrnLHJINyTGbGcSsTwscU7vMvTjwQMzDMJR7l8p7CnDv7
- aCrx3/u0xhI1TUkUh/6vOUthc8JBrWfY1Txy6fLqTkyKt4coZApX3lUN51XlL/5uQ2RllxeAQZ+
- nujKDhZKIPjgBjdZ8nA==
-X-Proofpoint-ORIG-GUID: Rg6WrX8OMrwxzWO9v2nyODuUbgQ_ZTk-
-X-Authority-Analysis: v=2.4 cv=KdHidwYD c=1 sm=1 tr=0 ts=6a27e140 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDA5MCBTYWx0ZWRfX4y9HPcJRTkc8
+ EX9qC/Cpo+3N/yK6ZcavvzwXCeFJSW4zReXzEm4jaZWcru2vcfQzBrKunThR6w5OzxTuRIPh+0R
+ HuDnOKQGihDMwlYWKjE5KCl6RptRtOef96+fgCsPQUM29AbMalivVe05AVsUHHzwt7wWXpoRqfl
+ D2BTJAz3Yt0hRLClFTeH4WFuzM/LZn4LfhD9m0yEVWiJcwvusac1nI38tiFGkIUdK9XMq4qYahf
+ aAL9z07ZdRDXbd6emKHIQgLm5eyud5+DSea9DpMEgI3rLFk2tccCjLn5XQArZK6B8he7tcLiqBM
+ MUIXDcQyNechP5CvY3ae5MHE93fy9/ODigbMprSwVjPrcAc1OdZKuxycj3zQ6ZF8b5yifUSA5/L
+ gLhKdpod1f8Zw42UDBQD1s7Y4+NebRlocdH/IPAfJbcM2uwtu9VQ81aKE9x3JvJ266vJV5znH5V
+ eKxXm/IS/cNnTfROnXg==
+X-Proofpoint-ORIG-GUID: CHM1NCXbUFugifdRFbbHClyOk_d0qQmj
+X-Authority-Analysis: v=2.4 cv=KdHidwYD c=1 sm=1 tr=0 ts=6a27e146 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=LmD7BKvqrCyCckpIDn8A:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: Rg6WrX8OMrwxzWO9v2nyODuUbgQ_ZTk-
+ a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=rHTcTV9uYuKpyGuOXCsA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: CHM1NCXbUFugifdRFbbHClyOk_d0qQmj
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-09_02,2026-06-09_01,2025-10-01_01
@@ -156,198 +156,95 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-dp_bridge helpers take drm_bridge as an input and extract the
-dp_display object to be used in the dp_display module. Rather than
-doing it in a roundabout way, directly pass the dp_display object
-to these helpers so that the MST bridge can also re-use the same
-helpers.
+For MST, the link setup should only be done once when multiple sinks are
+enabled, while stream setup may run multiple times for each sink. Split
+the link-related preparation out of msm_dp_display_atomic_enable() so it
+can be called separately before the per-stream enable path.
 
 Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/dp/dp_display.c | 29 +++++++++------------------
- drivers/gpu/drm/msm/dp/dp_display.h |  7 +++++++
- drivers/gpu/drm/msm/dp/dp_drm.c     | 39 ++++++++++++++++++++++++++++++++++++-
- drivers/gpu/drm/msm/dp/dp_drm.h     |  9 ---------
- 4 files changed, 54 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_display.c | 16 +++++++++++-----
+ drivers/gpu/drm/msm/dp/dp_display.h |  5 +++--
+ drivers/gpu/drm/msm/dp/dp_drm.c     |  6 ++++--
+ 3 files changed, 18 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 63e5b191f95c..2d5ef087648c 100644
+index 2d5ef087648c..cd1f2899b733 100644
 --- a/drivers/gpu/drm/msm/dp/dp_display.c
 +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -738,24 +738,21 @@ static int msm_dp_display_disable(struct msm_dp_display_private *dp)
- 
- /**
-  * msm_dp_bridge_mode_valid - callback to determine if specified mode is valid
-- * @bridge: Pointer to drm bridge structure
-+ * @dp: Pointer to dp display structure
-  * @info: display info
-  * @mode: Pointer to drm mode structure
-  * Returns: Validity status for specified mode
-  */
--enum drm_mode_status msm_dp_bridge_mode_valid(struct drm_bridge *bridge,
--					  const struct drm_display_info *info,
--					  const struct drm_display_mode *mode)
-+enum drm_mode_status msm_dp_display_mode_valid(struct msm_dp *dp,
-+					       const struct drm_display_info *info,
-+					       const struct drm_display_mode *mode)
- {
- 	const u32 num_components = 3, default_bpp = 24;
- 	struct msm_dp_display_private *msm_dp_display;
- 	struct msm_dp_link_info *link_info;
- 	u32 mode_rate_khz = 0, supported_rate_khz = 0, mode_bpp = 0;
--	struct msm_dp *dp;
- 	int mode_pclk_khz = mode->clock;
- 
--	dp = to_dp_bridge(bridge)->msm_dp_display;
--
- 	if (!dp || !mode_pclk_khz || !dp->connector) {
- 		DRM_ERROR("invalid params\n");
- 		return -EINVAL;
-@@ -1406,11 +1403,9 @@ int msm_dp_modeset_init(struct msm_dp *msm_dp_display, struct drm_device *dev,
+@@ -1403,8 +1403,8 @@ int msm_dp_modeset_init(struct msm_dp *msm_dp_display, struct drm_device *dev,
  	return 0;
  }
  
--void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
--				 struct drm_atomic_commit *state)
-+void msm_dp_display_atomic_enable(struct msm_dp *msm_dp_display,
-+				  struct drm_atomic_commit *state)
+-void msm_dp_display_atomic_enable(struct msm_dp *msm_dp_display,
+-				  struct drm_atomic_commit *state)
++void msm_dp_display_atomic_prepare(struct msm_dp *msm_dp_display,
++				   struct drm_atomic_commit *state)
  {
--	struct msm_dp_bridge *msm_dp_bridge = to_dp_bridge(drm_bridge);
--	struct msm_dp *msm_dp_display = msm_dp_bridge->msm_dp_display;
  	struct drm_crtc *crtc;
  	struct drm_crtc_state *crtc_state;
- 	int rc = 0;
-@@ -1419,7 +1414,7 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
- 	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
+@@ -1426,10 +1426,16 @@ void msm_dp_display_atomic_enable(struct msm_dp *msm_dp_display,
+ 	}
  
- 	crtc = drm_atomic_get_new_crtc_for_encoder(state,
--						   drm_bridge->encoder);
-+						   msm_dp_display->bridge->encoder);
- 	if (!crtc)
- 		return;
- 	crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-@@ -1449,11 +1444,8 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
- 	drm_dbg_dp(msm_dp_display->drm_dev, "type=%d Done\n", msm_dp_display->connector_type);
- }
+ 	rc = msm_dp_display_prepare_link(dp);
+-	if (rc) {
++	if (rc)
+ 		DRM_ERROR("DP display prepare failed, rc=%d\n", rc);
+-		return;
+-	}
++}
++
++void msm_dp_display_atomic_enable(struct msm_dp *msm_dp_display)
++{
++	struct msm_dp_display_private *dp;
++	int rc = 0;
++
++	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
  
--void msm_dp_bridge_atomic_disable(struct drm_bridge *drm_bridge,
--				  struct drm_atomic_commit *state)
-+void msm_dp_display_atomic_disable(struct msm_dp *dp)
- {
--	struct msm_dp_bridge *msm_dp_bridge = to_dp_bridge(drm_bridge);
--	struct msm_dp *dp = msm_dp_bridge->msm_dp_display;
- 	struct msm_dp_display_private *msm_dp_display;
- 
- 	msm_dp_display = container_of(dp, struct msm_dp_display_private, msm_dp_display);
-@@ -1470,11 +1462,8 @@ static void msm_dp_display_unprepare(struct msm_dp_display_private *dp)
- 	drm_dbg_dp(dp->drm_dev, "type=%d Done\n", msm_dp_display->connector_type);
- }
- 
--void msm_dp_bridge_atomic_post_disable(struct drm_bridge *drm_bridge,
--				       struct drm_atomic_commit *state)
-+void msm_dp_display_atomic_post_disable(struct msm_dp *dp)
- {
--	struct msm_dp_bridge *msm_dp_bridge = to_dp_bridge(drm_bridge);
--	struct msm_dp *dp = msm_dp_bridge->msm_dp_display;
- 	struct msm_dp_display_private *msm_dp_display;
- 
- 	msm_dp_display = container_of(dp, struct msm_dp_display_private, msm_dp_display);
+ 	rc = msm_dp_display_enable(dp);
+ 	if (rc)
 diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
-index 0b65e16c790d..5116f7bbbd02 100644
+index 5116f7bbbd02..43ed79093e24 100644
 --- a/drivers/gpu/drm/msm/dp/dp_display.h
 +++ b/drivers/gpu/drm/msm/dp/dp_display.h
-@@ -33,5 +33,12 @@ void msm_dp_display_signal_audio_start(struct msm_dp *msm_dp_display);
- void msm_dp_display_signal_audio_complete(struct msm_dp *msm_dp_display);
- void msm_dp_display_set_psr(struct msm_dp *dp, bool enter);
+@@ -35,8 +35,9 @@ void msm_dp_display_set_psr(struct msm_dp *dp, bool enter);
  void msm_dp_display_debugfs_init(struct msm_dp *msm_dp_display, struct dentry *dentry, bool is_edp);
-+void msm_dp_display_atomic_post_disable(struct msm_dp *dp_display);
-+void msm_dp_display_atomic_disable(struct msm_dp *dp_display);
-+void msm_dp_display_atomic_enable(struct msm_dp *dp_display,
-+				  struct drm_atomic_commit *state);
-+enum drm_mode_status msm_dp_display_mode_valid(struct msm_dp *dp,
-+					       const struct drm_display_info *info,
-+					       const struct drm_display_mode *mode);
- 
- #endif /* _DP_DISPLAY_H_ */
+ void msm_dp_display_atomic_post_disable(struct msm_dp *dp_display);
+ void msm_dp_display_atomic_disable(struct msm_dp *dp_display);
+-void msm_dp_display_atomic_enable(struct msm_dp *dp_display,
+-				  struct drm_atomic_commit *state);
++void msm_dp_display_atomic_prepare(struct msm_dp *dp_display,
++				   struct drm_atomic_commit *state);
++void msm_dp_display_atomic_enable(struct msm_dp *dp_display);
+ enum drm_mode_status msm_dp_display_mode_valid(struct msm_dp *dp,
+ 					       const struct drm_display_info *info,
+ 					       const struct drm_display_mode *mode);
 diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-index 6ac5bac903d9..6b8923d9dff4 100644
+index 6b8923d9dff4..4bf1a5b7c3f9 100644
 --- a/drivers/gpu/drm/msm/dp/dp_drm.c
 +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-@@ -49,6 +49,43 @@ static void msm_dp_bridge_debugfs_init(struct drm_bridge *bridge, struct dentry
- 	msm_dp_display_debugfs_init(dp, root, false);
+@@ -55,7 +55,8 @@ static void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
+ 	struct msm_dp_bridge *dp_bridge = to_dp_bridge(drm_bridge);
+ 	struct msm_dp *dp = dp_bridge->msm_dp_display;
+ 
+-	msm_dp_display_atomic_enable(dp, state);
++	msm_dp_display_atomic_prepare(dp, state);
++	msm_dp_display_atomic_enable(dp);
  }
  
-+static void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
-+					struct drm_atomic_commit *state)
-+{
-+	struct msm_dp_bridge *dp_bridge = to_dp_bridge(drm_bridge);
-+	struct msm_dp *dp = dp_bridge->msm_dp_display;
-+
-+	msm_dp_display_atomic_enable(dp, state);
-+}
-+
-+static void msm_dp_bridge_atomic_disable(struct drm_bridge *drm_bridge,
-+					 struct drm_atomic_commit *state)
-+{
-+	struct msm_dp_bridge *dp_bridge = to_dp_bridge(drm_bridge);
-+	struct msm_dp *dp = dp_bridge->msm_dp_display;
-+
-+	msm_dp_display_atomic_disable(dp);
-+}
-+
-+static void msm_dp_bridge_atomic_post_disable(struct drm_bridge *drm_bridge,
-+					      struct drm_atomic_commit *state)
-+{
-+	struct msm_dp_bridge *dp_bridge = to_dp_bridge(drm_bridge);
-+	struct msm_dp *dp = dp_bridge->msm_dp_display;
-+
-+	msm_dp_display_atomic_post_disable(dp);
-+}
-+
-+static enum drm_mode_status msm_dp_bridge_mode_valid(struct drm_bridge *drm_bridge,
-+						     const struct drm_display_info *info,
-+						     const struct drm_display_mode *mode)
-+{
-+	struct msm_dp_bridge *dp_bridge = to_dp_bridge(drm_bridge);
-+	struct msm_dp *dp = dp_bridge->msm_dp_display;
-+
-+	return msm_dp_display_mode_valid(dp, info, mode);
-+}
-+
- static const struct drm_bridge_funcs msm_dp_bridge_ops = {
- 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state   = drm_atomic_helper_bridge_destroy_state,
-@@ -115,7 +152,7 @@ static void msm_edp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
+ static void msm_dp_bridge_atomic_disable(struct drm_bridge *drm_bridge,
+@@ -152,7 +153,8 @@ static void msm_edp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
  		return;
  	}
  
--	msm_dp_bridge_atomic_enable(drm_bridge, state);
-+	msm_dp_display_atomic_enable(dp, state);
+-	msm_dp_display_atomic_enable(dp, state);
++	msm_dp_display_atomic_prepare(dp, state);
++	msm_dp_display_atomic_enable(dp);
  }
  
  static void msm_edp_bridge_atomic_disable(struct drm_bridge *drm_bridge,
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.h b/drivers/gpu/drm/msm/dp/dp_drm.h
-index 4bd788ea05d5..da412c788503 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.h
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.h
-@@ -27,15 +27,6 @@ int msm_dp_bridge_init(struct msm_dp *msm_dp_display, struct drm_device *dev,
- 
- enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
- 					       struct drm_connector *connector);
--void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
--				 struct drm_atomic_commit *state);
--void msm_dp_bridge_atomic_disable(struct drm_bridge *drm_bridge,
--				  struct drm_atomic_commit *state);
--void msm_dp_bridge_atomic_post_disable(struct drm_bridge *drm_bridge,
--				       struct drm_atomic_commit *state);
--enum drm_mode_status msm_dp_bridge_mode_valid(struct drm_bridge *bridge,
--					  const struct drm_display_info *info,
--					  const struct drm_display_mode *mode);
- void msm_dp_bridge_hpd_enable(struct drm_bridge *bridge);
- void msm_dp_bridge_hpd_disable(struct drm_bridge *bridge);
- void msm_dp_bridge_hpd_notify(struct drm_bridge *bridge,
 
 -- 
 2.43.0
