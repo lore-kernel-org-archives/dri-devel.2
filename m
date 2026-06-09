@@ -4,135 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AAFECD8CA8
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 12:44:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE3D9CD8CA8
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 12:45:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A67FE10E057;
-	Tue,  9 Jun 2026 12:44:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45A3010E391;
+	Tue,  9 Jun 2026 12:45:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="ZuDGzaGo";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="fKLz80uS";
 	dkim-atps=neutral
-Received: from CWXP265CU008.outbound.protection.outlook.com
- (mail-ukwestazon11020074.outbound.protection.outlook.com [52.101.195.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11E8010E057
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 12:44:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e+/UbTCKbPROOvE9XSbh1bnY8KYU08RQEu6YTp9vhvO+sqhDYmPcG5Ujow63IXItwabmk18Mz9ZvgFo+BtEKw/Rur6Tze/KNWX3PMQleerfPL3LePoQqEBXihRcz7RAgkIozCTUnQ2rByS+QTfZNg5/GVAOgjRXD67FCw4hCsqYbF2nl0Zo9bqGfSRv+jAp+8TNPnWUw+txaPqIKi4Xn2880ky0Mwlr9brDLmsrrN5Ul9AqNjYZlZA219jSv3u68WEH2G2saf4vQcWrr8KaP5u/E/P81IoOpbquYRKAMX5UCklMEuV79rcHZf68rdz9u/vmfsKgFwZWOw5TrBzM+IQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IziIHHUojx0I67odiQ07xacq7bqaD1j00XTspPleLLQ=;
- b=dVD4Jd2JL+nVhGt4hYz88NStvU563h5EOyaa5Zhy1tg1lxPTgcsb4BbewOFhWPZQuW+pZ5mAAeyF9VFrFLe/35w2LUNDUloGqDhRDAVBdF3+dhVco+HW7lQYfcPdRatUDoChdU0G5bSAaDOYDVyGYIMo8wVWG4BXYZRnVbyERrK8AXQh9N3LO5Z6KXBM8qWVT5HQvK6tO5oarTHUx+iZ+REvAwD+mTZkkGaZbBGHOog2lUliremAH7ee1VOK2q/R9TUICnZ2wdpRBGw15TzBYaCPFn3h7+RdY5SHZXUWq2VUfTV8+Bo1qpP1IwPp/7UD6kmrv9cUbO9DWKw256uZ0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IziIHHUojx0I67odiQ07xacq7bqaD1j00XTspPleLLQ=;
- b=ZuDGzaGosVhS/NG2u/m5u8CTss3YAV3cqAh69PRU4dFUzE1Aupj+Bzmx/DSySAtrdTbMCrYOvz0lzmYzB/OHPCt+lBLJLCTPEB8JtNFaUPt35H+Slt0E+7/vYijYaubRgt42pLOfss3RtRqEwyTDHXuFMmjbVFFm8Gj/olRFeTc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by CW1P265MB9331.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:28f::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Tue, 9 Jun 2026
- 12:44:52 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0092.011; Tue, 9 Jun 2026
- 12:44:52 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 09 Jun 2026 13:44:51 +0100
-Message-Id: <DJ4J15P03MPL.QU45B7NZNN0A@garyguo.net>
-To: "Gary Guo" <gary@garyguo.net>, "Danilo Krummrich" <dakr@kernel.org>,
- "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Abdiel
- Janulgue" <abdiel.janulgue@gmail.com>, "Robin Murphy"
- <robin.murphy@arm.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-Cc: <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "Laura Nao"
- <laura.nao@collabora.com>
-Subject: Re: [PATCH v3 00/19] rust: I/O type generalization and projection
-From: "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.21.0
-References: <20260608-io_projection-v3-0-c5cde13a5ec4@garyguo.net>
-In-Reply-To: <20260608-io_projection-v3-0-c5cde13a5ec4@garyguo.net>
-X-ClientProxiedBy: LO4P123CA0389.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18f::16) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C237510E333;
+ Tue,  9 Jun 2026 12:44:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1781009087; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=JjMWiEm2iAZmBiW4RDe8Sc188Vo/V5/TeZfA8uWVgHlbwOvu+7ZQz1xji78KmnIrwRjzAFuAf3IZabdxmsqufsW7Bjhh9IiRezLHShAAd2ucLd+8HPZSxaGZvKrgIEELZsV6rRH6AJ4ksWXcxdPe7bawIarUMHVlIe7MBhTzQJ8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1781009087;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=EdrCvM7lItFTp7wl4oWhf6q4UqNqphRpKREtgocjK/s=; 
+ b=UDsTac59IURItcwPl3Z6o8cPrr8kFAvt0+PJc2CGsjR6JrRXfBF9BYyv3ZHQBsV9/C+xRaSl1MJwU4/JmsO5psSvEr87yQX4IDV8lzQwQITcBRrTbOdadS4IDitim2gqNzpMs73ZdrGOizJEr+qU6Z2eGL9J1BASdWZrBBxdtA0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781009087; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=EdrCvM7lItFTp7wl4oWhf6q4UqNqphRpKREtgocjK/s=;
+ b=fKLz80uSVAjXtUBtKou3mNCJrl2tErSx9GUMSxNNap2xHEI25sinIiTKHvoMRKfE
+ djvIFnPM6fDaYEtOdrweh/fOOkWRukxskOzFmp0lgNZugKV1OMeTFaQaQUh3CucyIH4
+ DOS1jJaBgXd925LOVKAj7WJVx6inqmb75XnNPQu8=
+Received: by mx.zohomail.com with SMTPS id 1781009084667276.3967805897437;
+ Tue, 9 Jun 2026 05:44:44 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Tue, 09 Jun 2026 14:43:50 +0200
+Subject: [PATCH v17 03/28] drm: Add new general DRM property "color format"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CW1P265MB9331:EE_
-X-MS-Office365-Filtering-Correlation-Id: 43f587a8-d424-4d37-8d66-08dec624e6b4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|7416014|1800799024|10070799003|921020|56012099006|5023799004|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: daYV0M75aBile6wWKS6BQuJpWjrXRHI8+/Zo1S4iczbs/89/9hsHH0wyl1RXwrmZd9VlUfnLydSuy+MkYJr3/rhdR674cqL1eAskZBhSR4qJjugY7AA5+WTOChjX73idEML6prbCnGxHrgQCVLYp2XrxLFLkdzjHc257visU1d4Jlzi86P1Coo+H70W8YxMO0xy/kjWZV00y73QiZAITwFYX7Ii0ujRALKI6OoMiRK6AttfaU6GPVrGW1xukbmiUTmMWZL0ZTcryFFC6HSDBwzxu893d6xXeCnM/LyvnloqLv5YgiYPpLD4yXjQmHIcLm0stEVoad+hyvfYvidiOIWZsFW//jsQEZaVOFxF7kUsaJHqnBJ7r0YdgYisnP2r/02LqOCKDDgXOWt+7ny12tSuy+2oanTQGrW+jvPnTpUAo8k9bLS+Pf/Hy91VjSPw/rQfhwjMWcOuvYIvqrgnetqfvSvUj6c1QBzks1lCx0/s0OOxB3A/jxj9Gepct5NRAx7yYjiRYhRyW/UwVgInxzNcY/Vhr1z6Llxb47qWTfZ1D8s2Iii3ESKQ5RJTlsqywAjI2wPpud4mAX9NeYyeCPDBQXYeJ/1I8BhOXnbcxuzE6ZF0AFkHKG2WuEWryOrGbNTyOouyP2G7TBCoodaRpYJmPZm60Y0T/sDL1CjFtuqV3PWZ5XztkPzWk3P0HTq9S
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(7416014)(1800799024)(10070799003)(921020)(56012099006)(5023799004)(6133799003)(18002099003)(22082099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QmVJbVd3VlR2QkUyTDBhUzFidXFmK2k5ODEzdHd2dG9Ea3E2ajc1aWlkUExR?=
- =?utf-8?B?WTZDQ2wwYUIrbWk4U1pxT3hZT2Z6QmJFUXA5SWFwRC9YelJwK2RwWVk5aTJY?=
- =?utf-8?B?N0tEeFdacVE2UnpDcU9BQ1ZjOWdjSXVYOTJ6SVd3QXYybm40R0FMZFhmRUs4?=
- =?utf-8?B?MUFwUlFaRjFyMU5STjd4bVM1T2MvWHYyRVBpTkpXb0d6cStibkV4YStYSjNz?=
- =?utf-8?B?UVhuVFZLNEIrTlRxYy96ZHlQcURLT1ZIYmxpZjl2TGQ3UytNMy9pU1o5S1gv?=
- =?utf-8?B?c1lWUDBpRGlsSHFVa1V4ZHIybksvay9iMnlGQnBKY3ozclVZUFhoeTRoQVZD?=
- =?utf-8?B?SEtCMDNsVGRUd29kUVJnaDV2UEFiREI3Vm5la21vR2tJczg1OU00Mi9TZi9E?=
- =?utf-8?B?d3hjajZBWjhPZDJlYStJaG8wSzZtSldyZ2RHbTRDcFdzMHpybmE5ZCtrREhx?=
- =?utf-8?B?WGFjMitZNlhuOVZHQkxDWnN4eVQwUzFTbVFkalkyRVR5Y1gwTktrOVZ4NTUw?=
- =?utf-8?B?eUdtdW1pMTVmMlB5c1B1bmhRazBwVS9EaFFFc2xmMzZ0TGtSclJXSkk0SzNS?=
- =?utf-8?B?bXA5S2tGUGV1YTlxRiszVThTSHl3VWtMa2pzRnVWMVlPZkFVMU51ZVNOU2ZI?=
- =?utf-8?B?Zmg3ZktUcHZLcHNValJyVG9wTUFpaUdMUWVnTkhzbGprRG4wY29tNUZrZzlX?=
- =?utf-8?B?U013UkpNSCthdlVkQmRleHhFT3lFcmo3aFVEMDE0S1ZMM0txOVFxbmZKVnho?=
- =?utf-8?B?VEY0VlBLazRHN0hBRVVoSGp4cVdmcHBKK2R3cWxYb2E5ZmdoVVBCa2luSDBL?=
- =?utf-8?B?N2pacXVxL2VXUmNYOHphODBCeUQ5b0NiU1BBcXd3L1JReWRJVjdKYktoQTdW?=
- =?utf-8?B?Z2JNVmZER3pBMEtheVFWN2Fwa2drUWZVRFkyUXM5aEl5cGxVZWFaT0tLVlgx?=
- =?utf-8?B?cVVUWU42aHVHSzJ5ZUpXZXJwa1J6VEZVeENmK3N5STdRam1Cb3I1TEd3UHpQ?=
- =?utf-8?B?MEFCcGtjSFIxUVJZZWFYSlYyenZieERGWFlMZ3lUaGhpMWxqdVd5Wk5GRm9J?=
- =?utf-8?B?MUs2akY4cGxOMzExdHU4RGFPSzFUMXAzWEovaGcwRy8rRHJpRzdaVXdFbFBi?=
- =?utf-8?B?aW44bU9tYmVhVktQc2lGeHBaa0xlZ0FySUNjeGN1L09tQlFQbVRmWDZON09a?=
- =?utf-8?B?MGZQUjlYTnlQQzdBWFdRclZRVHRCWG50Q2dlUVgwMUVtRld6ZnRFdmlMa1lN?=
- =?utf-8?B?aUVTMjRxNlZaVWgwUDRwWGpmM1lZWXhIOUJ6T0RRbTVzdG4vS1Z0b2tzR1lo?=
- =?utf-8?B?K3laTElDb216eDVwMDNhSjZqUm9GNlR5cGcrNTFQK2VtUnhRUktzdEtobUZt?=
- =?utf-8?B?ckVIa1p0Z0xVa0wrZVFKYTZScURXTzVYY1J3NU56TjlZRE0vdi9oY214MVQv?=
- =?utf-8?B?Q2RreVc3aVIzVFBjQjRyYThHaWxoUW13VHBtd29xbndkbnd2YWJYRWhGZHUy?=
- =?utf-8?B?am1jTHFwNHQvZndvbjRBRUJRMVo0aVplcDB2ZTFoOWpFaWVpaUx1Q21rQ3Ju?=
- =?utf-8?B?VitsclhDSUFKSDRWVWtpVnpUTXNKa0Z0SVo1U0hUVy9nN2VjMk9RSHY4bVox?=
- =?utf-8?B?Tml2ZHI2ek9MUkp4RGtudm1kcXlSUVhaMm8zVE9HQWw4eEQxc2E5M2gySGZy?=
- =?utf-8?B?dVJYM2pqNVBybk9ZZkRmYnlWdnZWNnliUUZselVmc01yV28zNkt0MG9kUkN0?=
- =?utf-8?B?bENpQXZJUXJGeVcxYmp2MjBHNDZLa3ZUK0NIRnFKYS91U0tWSlJmbG42OEdw?=
- =?utf-8?B?YlNtNWdKNHZ2UmN6cWJ3TDE5ckorSnZ4TWFJOGJBYXcvSzFja213YW5VRnFo?=
- =?utf-8?B?TXd4SXdBK0syWS9WTUdXSFNacEppalNiV0I5QjlQQTBrRFN1ZkZmRXZ1TFE3?=
- =?utf-8?B?Q3g4MXZIdzB2OUFuL25rdmV5WDlYM3N6bEFQSkVjZFd4U0RoVXVxNFZIMUNo?=
- =?utf-8?B?bDdYUVkxWHVBczMyd2JISktlMy9RVnBMV1JEZ096WFI0bW5LM3VXVHVaU3ll?=
- =?utf-8?B?Mk5OVjVxc1VYdGRDbFhYTmk5aTk3c0FBREZHeGxxNStuSGhpRHMyZVA4anRP?=
- =?utf-8?B?RFplRFhXVHFQemNhVjFwVkxxazRpTHVNdWJiTDlQd0cxQXlYMWx0aUJDZGpn?=
- =?utf-8?B?Q0orTjdpY1Y0RGtvL0FYVjcyYkE5RzBzQVY3NFZVM2hnMkkvSmo5SHlEdnl5?=
- =?utf-8?B?VnBETFJ2VUIxbmNOT2wvRzJJVStpaGYxOCsrNW1vSUZGb3ZyaS9aWUdjN1ZI?=
- =?utf-8?B?U0EzcitOT3FvdjI5TVJvcHVZallBd0h5U3NrS3FDR0tDSlowdHQrdz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 43f587a8-d424-4d37-8d66-08dec624e6b4
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 12:44:52.5636 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AT8XEmEiuYM+SEdy2EuLVL0Wfrlc94eQj0cyhodnucCUNl9v2+fkaR+jihPEaOHekvWGLp/9F4QQvnkTXQafKg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB9331
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260609-color-format-v17-3-35739b5782cc@collabora.com>
+References: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
+In-Reply-To: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Daniel Stone <daniel@fooishbar.org>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Werner Sembach <wse@tuxedocomputers.com>, 
+ Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,123 +91,389 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Jun 8, 2026 at 8:58 PM BST, Gary Guo wrote:
-> This series present a major rework of I/O types, as a summary:
->
-> - Make I/O regions typed. The existing untyped region still exists
->   with a dynamically sized `Region` type.
->
-> - Create I/O view types to represent subregion of a full I/O region mappe=
-d.
->   A projection macro is added to allow safely create such subviews.
->
-> - Split I/O traits, make I/O views play a central role, avoid
->   duplicate monomorphization and less `unsafe` code.
->
-> - Add a `SysMem` backend, and make `Coherent` implement `Io`.
->
-> - Add copying methods (memcpy_{from,to}io and friends).
->
-> This series generalize `Mmio` type from just an untyped region to typed
-> representations (so `MmioRaw<T>` is `__iomem *T`). This allows us to remo=
-ve
-> the `IoKnownSize` trait; the information is sourced from just the pointer
-> from the `KnownSize` trait instead.
->
-> Building on top of that, `Mmio` and `ConfigSpace` have been converted to
-> typed views of I/O regions rather than just a big chunk of untyped I/O
-> memory. These changes made it possible to implement `Io` trait for
-> `Coherent<T>`.
->
-> Shared system memory, `SysMem` is also added to the series, given it
-> similarity in implementation compared to `Coherent`. In fact, the series
-> use `SysMem` to implement `Coherent`'s I/O methods.
->
-> Built on these generalization, this series add `io_project!()`.
-> `io_project!()` performs a safe way to project a bigger view to a small
-> subviews, and some Nova code has been converted in this series to
-> demonstrate cleanups possible with this addition.
->
-> New `io_read!()`, `io_write!()` has been added that supersedes
-> `dma_read!()`, `dma_write!()` macro. Although, they work for primitives
-> only (to be exact, types that the backend is `IoCapable` of).
-> One feature that was lost from the old `dma_read!()` and `dma_write!()`
-> series was the ability to read/write a large structs. However, the
-> semantics was unclear to begin with, as there was no guarantee about thei=
-r
-> atomicity even for structs that were small enough to fit in u32.
->
-> For completeness, I've also included the support for copying methods,
-> although this does not need to be taken together and can become a follow
-> up.
->
-> The last commit in the series is included for reference only, as a
-> demonstration on how you can use all of this to implement `iosys_map` usi=
-ng
-> `Either` type. It automatically gains all the methods via `Io` trait and
-> can be projected with the macros.
+Add a new general DRM property named "color format" which can be used by
+userspace to request the display driver to output a particular color
+format.
 
-Sashiko points out a few issues. It repeatedly reported issues in multiple
-places, but ultimately there're just 3 issues:
+Possible string values for the new enum property are:
+ - "AUTO" (setup by default, driver internally picks the color format)
+ - "RGB"
+ - "YUV 4:4:4"
+ - "YUV 4:2:2"
+ - "YUV 4:2:0"
 
-* `Region`'s alignment. Discussed on Zulip
-  https://rust-for-linux.zulipchat.com/#narrow/channel/288089-General/topic=
-/Generic.20I.2FO.20backends/with/601411822
-  I'll just make this 4-byte aligned (and also check that size is multiple =
-of
-  4). Luckily none of the existing driver depends on 8-byte aligned regions=
-.
+Drivers should advertise from this list the formats they support in an
+optimistic best-case scenario. EDID data from the sink can then be used
+in the kernel's atomic check phase to restrict this set of formats, as
+well as by userspace to make a correct choice in the first place.
 
-* Missing `unsafe impl Send/Sync`. This is actually quite low severity (Sas=
-hiko
-  reported high) given it doesn't break drivers today (otherwise I'd noted =
-them
-  during compilation test). But I'll fix add in the next spin.
+Co-developed-by: Werner Sembach <wse@tuxedocomputers.com>
+Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+Co-developed-by: Andri Yngvason <andri@yngvason.is>
+Signed-off-by: Andri Yngvason <andri@yngvason.is>
+Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Reviewed-by: Daniel Stone <daniel@fooishbar.org>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ Documentation/gpu/drm-kms.rst       |   6 ++
+ drivers/gpu/drm/drm_atomic_helper.c |   5 ++
+ drivers/gpu/drm/drm_atomic_uapi.c   |   4 +
+ drivers/gpu/drm/drm_connector.c     | 155 ++++++++++++++++++++++++++++++++++++
+ include/drm/drm_connector.h         |  84 +++++++++++++++++++
+ 5 files changed, 254 insertions(+)
 
-* `copy_from_io_slice` can trigger memcpy between two `SysMem` regions whic=
-h
-  overlap. This can be fixed by either using `memmove`, or perhaps dropping
-  `copy_from_io_slice` methods until users arise (this method was asked by
-  Danilo, maybe Danilo has some use cases in mind?), and we can change it t=
-o
-  `memmove` then. Anyhow copying methods can be delayed to its own patch se=
-ries
-  if there needs more discussion.
+diff --git a/Documentation/gpu/drm-kms.rst b/Documentation/gpu/drm-kms.rst
+index e4f7153543b3..0dd440a14946 100644
+--- a/Documentation/gpu/drm-kms.rst
++++ b/Documentation/gpu/drm-kms.rst
+@@ -610,6 +610,12 @@ Color Management Properties
+ .. kernel-doc:: drivers/gpu/drm/drm_color_mgmt.c
+    :doc: overview
+ 
++Color Format Property
++---------------------
++
++.. kernel-doc:: drivers/gpu/drm/drm_connector.c
++   :doc: Color format
++
+ Tile Group Property
+ -------------------
+ 
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index 51f39edc31ed..3547f797a850 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -737,6 +737,11 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
+ 			if (old_connector_state->max_requested_bpc !=
+ 			    new_connector_state->max_requested_bpc)
+ 				new_crtc_state->connectors_changed = true;
++
++			if (old_connector_state->color_format !=
++			    new_connector_state->color_format)
++				new_crtc_state->connectors_changed = true;
++
+ 		}
+ 
+ 		if (funcs->atomic_check)
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 6441b55cc274..c7f80d90794c 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -935,6 +935,8 @@ static int drm_atomic_connector_set_property(struct drm_connector *connector,
+ 		state->privacy_screen_sw_state = val;
+ 	} else if (property == connector->broadcast_rgb_property) {
+ 		state->hdmi.broadcast_rgb = val;
++	} else if (property == connector->color_format_property) {
++		state->color_format = val;
+ 	} else if (connector->funcs->atomic_set_property) {
+ 		return connector->funcs->atomic_set_property(connector,
+ 				state, property, val);
+@@ -1020,6 +1022,8 @@ drm_atomic_connector_get_property(struct drm_connector *connector,
+ 		*val = state->privacy_screen_sw_state;
+ 	} else if (property == connector->broadcast_rgb_property) {
+ 		*val = state->hdmi.broadcast_rgb;
++	} else if (property == connector->color_format_property) {
++		*val = state->color_format;
+ 	} else if (connector->funcs->atomic_get_property) {
+ 		return connector->funcs->atomic_get_property(connector,
+ 				state, property, val);
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index a5d13b92b665..296195087a4c 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -1397,6 +1397,18 @@ static const u32 hdmi_colorspaces =
+ 	BIT(DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65) |
+ 	BIT(DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER);
+ 
++static const u32 hdmi_colorformats =
++	BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
++	BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
++	BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
++	BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
++
++static const u32 dp_colorformats =
++	BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
++	BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
++	BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
++	BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
++
+ /*
+  * As per DP 1.4a spec, 2.2.5.7.5 VSC SDP Payload for Pixel Encoding/Colorimetry
+  * Format Table 2-120
+@@ -2944,6 +2956,149 @@ int drm_connector_attach_colorspace_property(struct drm_connector *connector)
+ }
+ EXPORT_SYMBOL(drm_connector_attach_colorspace_property);
+ 
++/**
++ * DOC: Color format
++ *
++ * The connector "color format" property allows userspace to request a specific
++ * color model on the output of the connector. Not all values listed by the
++ * property are guaranteed to work for every sink; rather, it is an optimistic
++ * listing of color formats that the source could output depending on
++ * circumstances.
++ *
++ * Whether it actually can output a certain color format is determined during
++ * the atomic check phase. Consequently, a userspace application that sets the
++ * color format to a value other than "AUTO" should check whether its atomic
++ * commit succeeded.
++ *
++ * Possible values for "color format":
++ *
++ * "AUTO":
++ *	The driver or display protocol helpers should pick a suitable color
++ *	format. All implementations of a specific display protocol will behave
++ *	the same way with "AUTO", but different display protocols do not
++ *	necessarily have the same "AUTO" semantics.
++ *
++ *	For HDMI connectors, "AUTO" picks RGB, but falls back to YUV 4:2:0 if
++ *	the bandwidth required for full-scale RGB is not available, or the mode
++ *	is YUV 4:2:0-only, as long as the mode, source, and sink all support
++ *	YUV 4:2:0.
++ * "RGB":
++ *	RGB output format. The quantization range (limited/full) depends on the
++ *	value of the "Broadcast RGB" property if it is present on the connector.
++ * "YUV 4:4:4":
++ *	YUV 4:4:4 (a.k.a. YCbCr 4:4:4) output format. Chroma is not subsampled.
++ *	The quantization range defaults to limited.
++ * "YUV 4:2:2":
++ *	YUV 4:2:2 (a.k.a. YCbCr 4:2:2) output format. Chroma has half the
++ *	horizontal resolution of Luma. The quantization range defaults to
++ *	limited.
++ * "YUV 4:2:0":
++ *	YUV 4:2:0 (a.k.a. YCbCr 4:2:0) output format. Chroma has half the
++ *	horizontal and vertical resolution of Luma. The quantization range
++ *	defaults to limited.
++ *
++ * A sink may only support some color formats in specific modes and at specific
++ * bit depths. The atomic modesetting API should be used to set a working
++ * configuration in one go, as an unsupported combination of parameters is
++ * rejected.
++ */
++
++/**
++ * drm_connector_attach_color_format_property - create and attach color format property
++ * @connector: connector to create the color format property on
++ * @supported_color_formats: bitmask of bit-shifted &enum drm_output_color_format
++ *                           values the connector supports
++ *
++ * Called by a driver to create a color format property. The property is
++ * attached to the connector automatically on success.
++ *
++ * @supported_color_formats should only include color formats the connector
++ * type can actually support.
++ *
++ * Returns:
++ * 0 on success, negative errno on error
++ */
++int drm_connector_attach_color_format_property(struct drm_connector *connector,
++					       unsigned long supported_color_formats)
++{
++	struct drm_device *dev = connector->dev;
++	struct drm_prop_enum_list enum_list[DRM_CONNECTOR_COLOR_FORMAT_COUNT];
++	unsigned int i = 0;
++	unsigned long fmt;
++
++	if (connector->color_format_property)
++		return 0;
++
++	if (!supported_color_formats) {
++		drm_err(dev, "No supported color formats provided on [CONNECTOR:%d:%s]\n",
++			connector->base.id, connector->name);
++		return -EINVAL;
++	}
++
++	if (supported_color_formats & ~GENMASK(DRM_OUTPUT_COLOR_FORMAT_COUNT - 1, 0)) {
++		drm_err(dev, "Unknown color formats provided on [CONNECTOR:%d:%s]\n",
++			connector->base.id, connector->name);
++		return -EINVAL;
++	}
++
++	switch (connector->connector_type) {
++	case DRM_MODE_CONNECTOR_HDMIA:
++	case DRM_MODE_CONNECTOR_HDMIB:
++		if (supported_color_formats & ~hdmi_colorformats) {
++			drm_err(dev, "Color formats not allowed for HDMI on [CONNECTOR:%d:%s]\n",
++				connector->base.id, connector->name);
++			return -EINVAL;
++		}
++		break;
++	case DRM_MODE_CONNECTOR_DisplayPort:
++	case DRM_MODE_CONNECTOR_eDP:
++		if (supported_color_formats & ~dp_colorformats) {
++			drm_err(dev, "Color formats not allowed for DP on [CONNECTOR:%d:%s]\n",
++				connector->base.id, connector->name);
++			return -EINVAL;
++		}
++		break;
++	}
++
++	enum_list[0].name = "AUTO";
++	enum_list[0].type = DRM_CONNECTOR_COLOR_FORMAT_AUTO;
++
++	for_each_set_bit(fmt, &supported_color_formats, DRM_OUTPUT_COLOR_FORMAT_COUNT) {
++		switch (fmt) {
++		case DRM_OUTPUT_COLOR_FORMAT_RGB444:
++			enum_list[++i].type = DRM_CONNECTOR_COLOR_FORMAT_RGB444;
++			break;
++		case DRM_OUTPUT_COLOR_FORMAT_YCBCR444:
++			enum_list[++i].type = DRM_CONNECTOR_COLOR_FORMAT_YCBCR444;
++			break;
++		case DRM_OUTPUT_COLOR_FORMAT_YCBCR422:
++			enum_list[++i].type = DRM_CONNECTOR_COLOR_FORMAT_YCBCR422;
++			break;
++		case DRM_OUTPUT_COLOR_FORMAT_YCBCR420:
++			enum_list[++i].type = DRM_CONNECTOR_COLOR_FORMAT_YCBCR420;
++			break;
++		default:
++			drm_warn(dev, "Unknown supported format %ld on [CONNECTOR:%d:%s]\n",
++				 fmt, connector->base.id, connector->name);
++			continue;
++		}
++		enum_list[i].name = drm_hdmi_connector_get_output_format_name(fmt);
++	}
++
++	connector->color_format_property =
++		drm_property_create_enum(dev, DRM_MODE_PROP_ENUM, "color format",
++					 enum_list, i + 1);
++
++	if (!connector->color_format_property)
++		return -ENOMEM;
++
++	drm_object_attach_property(&connector->base, connector->color_format_property,
++				   DRM_CONNECTOR_COLOR_FORMAT_AUTO);
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_connector_attach_color_format_property);
++
+ /**
+  * drm_connector_atomic_hdr_metadata_equal - checks if the hdr metadata changed
+  * @old_state: old connector state to compare
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 529755c2e862..e1f6072ce7c9 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -571,12 +571,80 @@ enum drm_colorspace {
+  *   YCbCr 4:2:2 output format (ie. with horizontal subsampling)
+  * @DRM_OUTPUT_COLOR_FORMAT_YCBCR420:
+  *   YCbCr 4:2:0 output format (ie. with horizontal and vertical subsampling)
++ * @DRM_OUTPUT_COLOR_FORMAT_COUNT:
++ *   Number of valid output color format values in this enum
+  */
+ enum drm_output_color_format {
+ 	DRM_OUTPUT_COLOR_FORMAT_RGB444 = 0,
+ 	DRM_OUTPUT_COLOR_FORMAT_YCBCR444,
+ 	DRM_OUTPUT_COLOR_FORMAT_YCBCR422,
+ 	DRM_OUTPUT_COLOR_FORMAT_YCBCR420,
++	DRM_OUTPUT_COLOR_FORMAT_COUNT,
++};
++
++/**
++ * enum drm_connector_color_format - Connector Color Format Request
++ *
++ * This enum, unlike &enum drm_output_color_format, is used to specify requests
++ * for a specific color format on a connector through the DRM "color format"
++ * property. The difference is that it has an "AUTO" value to specify that
++ * no specific choice has been made.
++ */
++enum drm_connector_color_format {
++	/**
++	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or display protocol
++	 * helpers should pick a suitable color format. All implementations of a
++	 * specific display protocol must behave the same way with "AUTO", but
++	 * different display protocols do not necessarily have the same "AUTO"
++	 * semantics.
++	 *
++	 * For HDMI, "AUTO" picks RGB, but falls back to YCbCr 4:2:0 if the
++	 * bandwidth required for full-scale RGB is not available, or the mode
++	 * is YCbCr 4:2:0-only, as long as the mode and output both support
++	 * YCbCr 4:2:0.
++	 *
++	 * For display protocols other than HDMI, the recursive bridge chain
++	 * format selection picks the first chain of bridge formats that works,
++	 * as has already been the case before the introduction of the "color
++	 * format" property. Non-HDMI bridges should therefore either sort their
++	 * bus output formats by preference, or agree on a unified auto format
++	 * selection logic that's implemented in a common state helper (like
++	 * how HDMI does it).
++	 */
++	DRM_CONNECTOR_COLOR_FORMAT_AUTO = 0,
++
++	/**
++	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output format. The
++	 * quantization range depends on the value of the "Broadcast RGB"
++	 * property if it is present on the connector.
++	 */
++	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
++
++	/**
++	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:4 output format (ie.
++	 * not subsampled). Quantization range is "Limited" by default.
++	 */
++	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
++
++	/**
++	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:2 output format (ie.
++	 * with horizontal subsampling). Quantization range is "Limited" by
++	 * default.
++	 */
++	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
++
++	/**
++	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:0 output format (ie.
++	 * with horizontal and vertical subsampling). Quantization range is
++	 * "Limited" by default.
++	 */
++	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
++
++	/**
++	 * @DRM_CONNECTOR_COLOR_FORMAT_COUNT: Number of valid connector color
++	 * format values in this enum
++	 */
++	DRM_CONNECTOR_COLOR_FORMAT_COUNT,
+ };
+ 
+ const char *
+@@ -1167,6 +1235,13 @@ struct drm_connector_state {
+ 	 */
+ 	enum drm_colorspace colorspace;
+ 
++	/**
++	 * @color_format: State variable for Connector property to request
++	 * color format change on Sink. This is most commonly used to switch
++	 * between RGB to YUV and vice-versa.
++	 */
++	enum drm_connector_color_format color_format;
++
+ 	/**
+ 	 * @writeback_job: Writeback job for writeback connectors
+ 	 *
+@@ -2181,6 +2256,12 @@ struct drm_connector {
+ 	 */
+ 	struct drm_property *colorspace_property;
+ 
++	/**
++	 * @color_format_property: Connector property to set the suitable
++	 * color format supported by the sink.
++	 */
++	struct drm_property *color_format_property;
++
+ 	/**
+ 	 * @path_blob_ptr:
+ 	 *
+@@ -2664,6 +2745,9 @@ bool drm_connector_has_possible_encoder(struct drm_connector *connector,
+ 					struct drm_encoder *encoder);
+ const char *drm_get_colorspace_name(enum drm_colorspace colorspace);
+ 
++int drm_connector_attach_color_format_property(struct drm_connector *connector,
++					       unsigned long supported_color_formats);
++
+ /**
+  * drm_for_each_connector_iter - connector_list iterator macro
+  * @connector: &struct drm_connector pointer used as cursor
 
-I'll leave the series on the list for a while before I send out a new versi=
-on.
-If you're reviewing you can assume the first two bullets points will be fix=
-ed.
+-- 
+2.54.0
 
-Best,
-Gary
-
->
-> ---
-> Changes in v3:
-> - This version presents a major rework from the last version, mostly insp=
-ired
->   by discussions that happen during RustWeek. Notably, the new individual
->   view types are now the central piece of `Io` traits rather than an ad-h=
-oc
->   addon using the `View` type. They also benefit from type-erasure; the
->   original type of `Mmio` or `Coherent` doesn't matter anymore for subvie=
-ws.
->   This removes the need of specifying generics on types that take
->   `CoherentView` on Nova code, which is something that I'm not fully happ=
-y
->   with in the last version.
-> - Add `SysMem` backend and use it for `Coherent` (Laura Nao).
-> - Add examples to copying methods and read_val/write_val (Andreas).
-> - Add a reference patch on `Either` implementation.
-> - Link to v2: https://patch.msgid.link/20260421-io_projection-v2-0-4c251c=
-692ef4@garyguo.net
->
-> Changes in v2:
-> - Rebased on projection syntax rework
-> - Added a new patch to forbid use of untyped I/O accessors and register
->   macros on typed I/O structs (Alex).
-> - Fixed a few safety comments (Andreas).
-> - Added a new patch that implements copying methods (see above).
-> - Link to v1: https://lore.kernel.org/rust-for-linux/20260323153807.13607=
-05-1-gary@kernel.org/
