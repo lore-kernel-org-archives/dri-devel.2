@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED131CD8CAE
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 07:00:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23363CD8CB9
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 07:02:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC8A410E10E;
-	Tue,  9 Jun 2026 07:00:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B2D810E111;
+	Tue,  9 Jun 2026 07:02:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ge8WQRR4";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HhxtLC+3";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3586710E10B;
- Tue,  9 Jun 2026 07:00:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2050C10E10F;
+ Tue,  9 Jun 2026 07:02:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780988422; x=1812524422;
+ t=1780988576; x=1812524576;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=2uFU5Nc5neHcjkdpq8khI2EoQ4OEWJdTXCqvSWCGdV4=;
- b=ge8WQRR4VcrmPbPq+fsDeE7duJPhV9EeKrOr6TXurjOrptdb1yPsT4K1
- l+icar9RusaYYkEc6ojAxzVZj+mdrDZLFMyLrZy/k2xvWDkssb4efHKNE
- tArYOZUxH+Bwtnb9fi1q3Mf3ULfaC/HDTy1XabA9ahu7DyNNQlndo7j7O
- gNnN669/wLAoiP9J8hu9GslQNdU+XSHblcbktR7BQ9ZYpdxbDpZk3j5Oh
- VzypZUVFhTSLVEIoKUaAInhH6cCbAPKDfOw5yQyqLxw7oOw1EKd0LxNar
- uOIUyzKFQz2KMdSjpFreu3DSXnfqN/qnY0pcx0bda8zazALgKf8vxjy6v g==;
-X-CSE-ConnectionGUID: rbgSxgFiQhCaGaTOqR5Glg==
-X-CSE-MsgGUID: e8q33WBxRdOYbima7Y5LBg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11811"; a="85364719"
-X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; d="scan'208";a="85364719"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ bh=yzH6uJSi6Qy/tGngU0UZEQlj4llniF58GR8UVGOo5h0=;
+ b=HhxtLC+3DtIZry9DaHdwPlRDQhjNmMMLt4qt68nqfIvlC0bs3jG+oU9+
+ k9oysQLfrFyHiBvblQuXJIO6AaNUA/Dx9Y79zwhp6+uYfS3BzyIbcpbYN
+ jOGKz1NFJIxJEcCHllojj5xHeVBzxuM3wIgkO71CXuJHQTDv1ntkIgg2m
+ uBwkUAQPVPKWorwLIUx6E7VHJFzRGN+bAW8a6o93A7caO7cfs9UKAhZHC
+ NePGdh4BCjt/fiPORIUk9N4HsYVypBzOvzPg86RWMRXjDv4pbHG6qtdR0
+ BI7jFB1dhlRczhthMRcEI1akzOwjEesME6IOCHHbNbRgs+gJm+aYj+E1t Q==;
+X-CSE-ConnectionGUID: n1FxodbbQIm2Dk25S8jc6Q==
+X-CSE-MsgGUID: Wc4vfLSeRqGOV9wBq3iYjg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11811"; a="85364897"
+X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; d="scan'208";a="85364897"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2026 00:00:21 -0700
-X-CSE-ConnectionGUID: pCChZ3wCTI+GwpURGgDxKg==
-X-CSE-MsgGUID: Ei1KwtbHTi20oALanPWYpA==
+ 09 Jun 2026 00:02:55 -0700
+X-CSE-ConnectionGUID: NtMsANXzRtq8/DTsdCsIOw==
+X-CSE-MsgGUID: Qc9xZ1QCR5ObTHR46qYy4w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; d="scan'208";a="249699387"
+X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; d="scan'208";a="243342065"
 Received: from egrumbac-mobl6.ger.corp.intel.com (HELO localhost)
  ([10.245.245.39])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2026 00:00:05 -0700
-Date: Tue, 9 Jun 2026 10:00:03 +0300
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2026 00:02:42 -0700
+Date: Tue, 9 Jun 2026 10:02:40 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Kaitao Cheng <kaitao.cheng@linux.dev>
 Cc: Muchun Song <muchun.song@linux.dev>,
@@ -92,15 +92,15 @@ Cc: Muchun Song <muchun.song@linux.dev>,
  David Howells <dhowells@redhat.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: Re: [PATCH v2 04/14] drm/i915/gt: Open-code active timeline walk
-Message-ID: <aie580RAM3vCunbh@ashevche-desk.local>
+Subject: Re: [PATCH v2 07/14] spi: fsi: Open-code message transfer walk
+Message-ID: <aie6kH06I6mMeoED@ashevche-desk.local>
 References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
  <20260609062526.94907-1-kaitao.cheng@linux.dev>
- <20260609062526.94907-2-kaitao.cheng@linux.dev>
+ <20260609062526.94907-5-kaitao.cheng@linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260609062526.94907-2-kaitao.cheng@linux.dev>
+In-Reply-To: <20260609062526.94907-5-kaitao.cheng@linux.dev>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -118,30 +118,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 09, 2026 at 02:25:16PM +0800, Kaitao Cheng wrote:
-> 
+On Tue, Jun 09, 2026 at 02:25:19PM +0800, Kaitao Cheng wrote:
+>
 > A later change will make list_for_each_entry() cache the next element
-> before entering the loop body. __intel_gt_unset_wedged() drops
-> timelines->lock while waiting on a fence and then restarts the walk from
-> the list head after the lock is reacquired.
+> before entering the loop body. fsi_spi_transfer_one_message() can combine
+> the current transfer with the following transfer and then advance the
+> cursor to that consumed entry.
 > 
-> Keep the loop open-coded so the next timeline is selected after that
-> restart logic has run. This preserves the existing lock-drop traversal
-> semantics and prepares the code for the list iterator update.
+> Keep the transfer walk open-coded so the loop step observes that cursor
+> update and skips the consumed transfer. This preserves the existing
+> message sequencing semantics and prepares the code for the list iterator
+> update.
 
 ...
 
->  	spin_lock(&timelines->lock);
-> -	list_for_each_entry(tl, &timelines->active_list, link) {
-> +	for (tl = list_first_entry(&timelines->active_list, typeof(*tl), link);
-> +	     !list_entry_is_head(tl, &timelines->active_list, link);
-> +	     tl = list_next_entry(tl, link)) {
+> -	list_for_each_entry(transfer, &mesg->transfers, transfer_list) {
+> +	for (transfer = list_first_entry(&mesg->transfers,
+> +					 typeof(*transfer), transfer_list);
 
-Yeah, these cases should rather be converted to do {} while or while-loop.
-This will make the intention clearer and reduces the possibility that someone
-mistakenly changes these back to use list_for_each_entry().
+You can keep this on a single line for more logical split.
 
-See, for example, deferred_probe_work_func() implementation.
+	for (transfer = list_first_entry(&mesg->transfers, typeof(*transfer), transfer_list);
+
+it's under relaxed limits for the line length.
+
+> +	     !list_entry_is_head(transfer, &mesg->transfers, transfer_list);
+> +	     transfer = list_next_entry(transfer, transfer_list)) {
 
 -- 
 With Best Regards,
