@@ -4,49 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02C98CD8CA8
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 11:37:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6FEBCD8CA8
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 11:39:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3855610E1E7;
-	Tue,  9 Jun 2026 11:37:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0008B10E291;
+	Tue,  9 Jun 2026 11:39:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="TPaRYscY";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="tk5HlD4L";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C34E10E1E7
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 11:37:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Lmp2HnWVKAURLFKsayS01Kz9typFlwbfQDlo/cqzcHk=; b=TPaRYscYxuluP+kbRYNUNX93ua
- Oun9NDZdjW3e83tVBRJXP0PdUq16udMKTgLxqMutWhmNzjFgSJ3TdqCLSZwZhC2r6LCd/1UJE5aml
- te4UeU7ZZBvoIQAedU1jC94YQ890zxVFfG2xTTVN85VsSr4gSf0CXdX1wX8BdfhjpDH80t4xi2Sez
- 1BOmzLqdn2zv7Y3n64f+d+F4oHPPvWlo5d0CKUXP866A0ykYSCAStPd54V19CuyXT3Y+q/zsgHQTt
- NoinERFEd74Oy5llp3JL5idVDbgTHGUlCcKeDbT/tbVyv1zj+vG4HcJm0L9Mm85OyfADgObTatRnW
- EY2j+Ubg==;
-Received: from [79.117.146.159] (helo=[192.168.1.135])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wWulQ-00EudE-AN; Tue, 09 Jun 2026 13:37:00 +0200
-Message-ID: <466cd4cc-c6ee-4538-8e71-94ace16f537e@igalia.com>
-Date: Tue, 9 Jun 2026 13:36:59 +0200
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49D5A10E280
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 11:39:16 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gZRl52q1Fz9tr7;
+ Tue,  9 Jun 2026 13:39:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1781005153; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=eluLLDgP42hnm6jSqwzWJSIrEMLWAxnFr1RN8X6YAUo=;
+ b=tk5HlD4L9kqxIDcZlFhew/dR8jEsftGQ+wCMkGLdLOrCCkOVQ7Bho2T2WQIaP67moDgwxv
+ 9dm3zNzGOrb8PPnNNBIcoad6erBNpY9vEe5TF9JVbYHvkWunfu6DwBOkPjc09Y54oF5BhM
+ GazDZiH7A9GLSK1KTnQiUTZWNoDO4aXuVtmpY2We1Vw1U85LkZlA2mhqO8QKEGlzxKq1on
+ FuTpHQ1DIwrOiJM7fP58UAcNf/yqXvtGHH94umZXFnxv4YOJ6U7KydRony9llLW6nCKW8j
+ xgj8QwnlCU2QOtSVFMqPh7H6h6RpfhRYr90IhSvl7aI0mU57YJlHya6eTc4oOA==
+Message-ID: <ced850f9e421d6549c25c27d50a99111bddb2db2.camel@mailbox.org>
+Subject: Re: [RFC PATCH] dma-fence: Fix races of fence callbacks versus
+ destructors by locking
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ phasta@kernel.org, Danilo Krummrich <dakr@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, Boris Brezillon	
+ <boris.brezillon@collabora.com>, Alice Ryhl <aliceryhl@google.com>, Daniel
+ Almeida <dwlsalmeida@gmail.com>, Gary Guo <gary@garyguo.net>, Tvrtko
+ Ursulin	 <tvrtko.ursulin@igalia.com>, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Tue, 09 Jun 2026 13:39:09 +0200
+In-Reply-To: <1bb5efeb-a5d3-4d0b-ae69-8dc8620604d4@amd.com>
+References: <20260608142436.265820-2-phasta@kernel.org>
+ <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
+ <fa9a335196525adbc03ec21b2e05bb526e4fc174.camel@mailbox.org>
+ <9d49c901-fcdf-487a-a733-0320d0bdf94c@amd.com>
+ <DJ3V3OCLIK2K.3CYKWYNHYU6JQ@kernel.org>
+ <ea4e0541-3702-4014-b8f6-0746a148df86@amd.com>
+ <DJ3VYD71HDQ2.3C8GG983Z2YCM@kernel.org>
+ <c8564ea0-8ff4-4049-996d-bd978c478372@amd.com>
+ <74bd33a06b75c291c3e2eda19e0250fbd280c49b.camel@mailbox.org>
+ <66349a9f-d9dd-498b-b118-1c79d3aa3cca@amd.com>
+ <11d7c83185a18d13760b6e77275e97c110dcddcc.camel@mailbox.org>
+ <1bb5efeb-a5d3-4d0b-ae69-8dc8620604d4@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] drm/atomic: only add states of active or transient
- active colorops
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-References: <20260604180457.1110110-2-mwen@igalia.com>
- <20260604182415.3E0601F00893@smtp.kernel.org>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <20260604182415.3E0601F00893@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: f42b8e1ecef5c7e0890
+X-MBO-RS-META: ef3tzkx4ydxh7gmaugqom6nkt6ostb57
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,202 +76,84 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue, 2026-06-09 at 12:53 +0200, Christian K=C3=B6nig wrote:
+> >=20
+> > // driver
+> > dma_fence_signal(f); // revokes all accesses to our driver through back=
+end_ops
+> > // synchronize_rcu() now unnecessary \o/
+> > cleanup(f); // We know that all accessors are gone
+> > dma_fence_put(f);
+>=20
+> Yeah and exactly that doesn't work.
+>=20
+> Just think about the Nouveau case when you have your fences on a double l=
+inked list.
+>=20
+> When the fence lock is independent, e.g. have a separate lock for each fe=
+nce then this lock can't protect this double linked list.
+>=20
+> So your cleanup path needs to take a lock which protects the list, but yo=
+u then run into lock inversion.
 
 
-On 04/06/2026 20:24, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
->
-> New issues:
-> - [High] Adding old pipeline colorops to the atomic state on deactivation causes the AMD driver to incorrectly detect a deactivated pipeline as active.
-It's actually pre-existent, the patch here is just adding another path 
-to trigger a latent problem:
-dm_plane_color_pipeline_active() doesn't check if the colorop is part of 
-an active plane color pipeline, so, if the userspace changes 
-COLOR_PIPELINE from A to Bypass but leaves colorops in A with BYPASS = 
-true, the helper still considers this colorop active, even though it's 
-not part of an active color pipeline.
->
-> Pre-existing issues:
-> - [High] Modifying a COLOROP property via the ATOMIC IOCTL fails to pull the associated plane into the atomic state, causing the update to be silently ignored by the driver.
-It's fixed by another series that track individual colorop changes: 
-https://lore.kernel.org/dri-devel/20260602215743.914265-1-mwen@igalia.com/
-> - [High] Changing the COLOR_PIPELINE plane property does not pull the affected colorops into the atomic state unless a CRTC modeset is concurrently triggered.
-This is covered by: 
-https://lore.kernel.org/dri-devel/20260602215743.914265-1-mwen@igalia.com/
-There is a gap in AMD display driver that can be solved by this series 
-and a change in the way they detect affected colorops.
+static bool nouveau_fence_is_signaled(struct dma_fence *f)
+{
+	struct nouveau_fence *fence =3D to_nouveau_fence(f);
+	struct nouveau_fence_chan *fctx =3D nouveau_fctx(fence);
+	struct nouveau_channel *chan;
+	bool ret =3D false;
 
-I'll send a series covering all this points, but in summary they are all 
-pre-existent.
+	rcu_read_lock();
+	chan =3D rcu_dereference(fence->channel);
+	if (chan)
+		ret =3D (int)(fctx->read(chan) - fence->base.seqno) >=3D
+0;
+	rcu_read_unlock();
 
-Melissa
-> --
->
-> commit c677eb54425763294f2391cd91e9253b70b8e880
-> Author: Melissa Wen <mwen@igalia.com>
->
-> drm/atomic: only add states of active or transient active colorops
->
-> Only consider affected colorop states those that are part of an active
-> color pipeline or a pipeline that is about to be activated or
-> deactivated in the same atomic commit, i.e., colorop is in the chain of
-> old/new plane color pipeline property. To cover color_pipeline
-> deactivation, remove the condition for plane_state->color_pipeline.
->
->> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
->> index 170de30c28ae4..0d36a955c4d43 100644
->> --- a/drivers/gpu/drm/drm_atomic.c
->> +++ b/drivers/gpu/drm/drm_atomic.c
-> [ ... ]
->
->> @@ -812,6 +812,57 @@ static int drm_atomic_plane_check(const struct drm_plane_state *old_plane_state,
->>   	return 0;
->>   }
->>   
->> +/*
->> + * This function walks old and new plane state color pipelines and adds all
->> + * colorops in use by @plane to the atomic configuration @state. This is useful
->> + * when an atomic commit needs to check all currently enabled or about to be
->> + * enabled colorop on @plane, e.g. when changing the mode. This also avoids
->> + * including colorop states that are not part of the atomic state.
->> + *
->> + * Returns:
->> + * 0 on success or can fail with -EDEADLK or -ENOMEM. When the error is EDEADLK
->> + * then the w/w mutex code has detected a deadlock and the entire atomic
->> + * sequence must be restarted. All other errors are fatal.
->> + */
->> +static int
->> +drm_atomic_add_pipeline_colorops(struct drm_atomic_commit *state,
->> +				 struct drm_plane *plane)
->> +{
->> +	struct drm_colorop *colorop;
->> +	struct drm_colorop_state *colorop_state;
->> +	struct drm_plane_state *new_plane_state, *old_plane_state;
->> +
->> +	new_plane_state = drm_atomic_get_new_plane_state(state, plane);
->> +	old_plane_state = drm_atomic_get_old_plane_state(state, plane);
->> +
->> +	if (WARN_ON(!new_plane_state || !old_plane_state))
->> +		return -EINVAL;
->> +
->> +	drm_dbg_atomic(plane->dev,
->> +		       "Adding old+new pipeline colorops for [PLANE:%d:%s]\n",
->> +		       plane->base.id, plane->name);
->> +
->> +	drm_for_each_colorop_in_pipeline(colorop,
->> +					 new_plane_state->color_pipeline) {
->> +		colorop_state = drm_atomic_get_colorop_state(state, colorop);
-> [Severity: High]
-> This is a pre-existing issue, but does modifying a colorop property via the
-> atomic ioctl fail to pull the associated plane into the atomic state?
->
-> The call to drm_atomic_get_colorop_state() successfully fetches and adds the
-> colorop to the state:
->
-> drivers/gpu/drm/drm_atomic.c:drm_atomic_get_colorop_state() {
->      ...
->      ret = drm_modeset_lock(&colorop->plane->mutex, state->acquire_ctx);
->      colorop_state = drm_atomic_helper_colorop_duplicate_state(colorop);
->      ...
-> }
->
-> However, it does not call drm_atomic_get_plane_state() to add the parent plane.
-> When the standard driver commit path executes, it iterates only over planes
-> present in the state:
->
-> drivers/gpu/drm/drm_atomic_helper.c:drm_atomic_helper_commit_planes() {
->      ...
->      for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
->          ...
->          funcs->atomic_update(plane, state);
->      ...
-> }
->
-> Does this mean the driver's atomic_update hook is skipped, and the hardware is
-> not programmed with the new colorop parameters unless userspace also modifies a
-> plane property in the same commit?
->
->> +		if (IS_ERR(colorop_state))
->> +			return PTR_ERR(colorop_state);
->> +	}
->> +
->> +	/* Same color pipeline as new; no point walking old. */
->> +	if (new_plane_state->color_pipeline == old_plane_state->color_pipeline)
->> +		return 0;
->> +
->> +	drm_for_each_colorop_in_pipeline(colorop,
->> +					 old_plane_state->color_pipeline) {
->> +		colorop_state = drm_atomic_get_colorop_state(state, colorop);
-> [Severity: High]
-> Does adding the old pipeline's colorops to the atomic state during deactivation
-> cause issues with active pipeline detection?
->
-> When the pipeline is being deactivated, the old colorops' bypass flags are
-> untouched and remain false.
->
-> In the AMD driver, dm_plane_color_pipeline_active() checks all colorops added
-> to the state:
->
-> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:dm_plane_color_pipeline_active() {
->      ...
->      for_each_oldnew_colorop_in_state(state, colorop, old_colorop_state, new_colorop_state, i) {
->          ...
->          if (!cstate->bypass)
->              return true;
->      }
-> }
->
-> Will this cause the driver to see the old colorops, incorrectly evaluate the
-> deactivated pipeline as active, and attempt to program disabled hardware?
->
->> +		if (IS_ERR(colorop_state))
->> +			return PTR_ERR(colorop_state);
->> +	}
->> +
->> +	return 0;
->> +}
-> [ ... ]
->
->> @@ -1591,11 +1642,9 @@ drm_atomic_add_affected_planes(struct drm_atomic_commit *state,
->>   		if (IS_ERR(plane_state))
->>   			return PTR_ERR(plane_state);
->>   
->> -		if (plane_state->color_pipeline) {
->> -			ret = drm_atomic_add_affected_colorops(state, plane);
->> -			if (ret)
->> -				return ret;
->> -		}
->> +		ret = drm_atomic_add_pipeline_colorops(state, plane);
-> [Severity: High]
-> This is a pre-existing issue, but does changing the color pipeline plane
-> property fail to pull the affected colorops into the atomic state if a CRTC
-> modeset isn't triggered?
->
-> The drm_atomic_add_pipeline_colorops() function is invoked here from
-> drm_atomic_add_affected_planes(). However, this is only called when a modeset
-> is occurring:
->
-> drivers/gpu/drm/drm_atomic_helper.c:drm_atomic_helper_check_modeset() {
->      ...
->      if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
->          continue;
->      ...
->      ret = drm_atomic_add_affected_planes(state, crtc);
-> }
->
-> If userspace dynamically changes the color pipeline property on a plane as a
-> standalone update without triggering a full CRTC modeset, will this bypass
-> drm_atomic_add_affected_planes() entirely?
->
-> Could this result in the colorops for the newly activated or deactivated
-> pipeline never being added to the atomic commit state?
->
->> +		if (ret)
->> +			return ret;
->>   	}
->>   	return 0;
->>   }
+	return ret;
+}
 
+
+AFAICT fctx->read() does not take f->lock. So where is the lock
+inversion?
+
+
+Again, ideally we can get to the point where no one except for the
+fence subsystem itself has to take the lock manually anymore.
+
+>=20
+> > >=20
+> > > So you are left with few options: Either the fence lock is external,
+> > > which we don't want because that make the fence non-independent, or
+> > > cleanup() defers work to irq_work or work_structs, which creates
+> > > numerous lifetime issues.
+> >=20
+> > Yup, this is uncool and we want to avoid that.
+> >=20
+> > But these seem to be the options
+> >=20
+> > 1. Ensure proper synchronization
+> > 2. Wait for a grace period in a hot path
+> > 3. Defer cleanup() with some delay mechanism
+> >=20
+> > #1 is by far the cleanest approach. I still cannot see any downside,
+> > and quite a few upsides.
+> >=20
+> > https://elixir.bootlin.com/linux/v7.1-rc6/source/drivers/dma-buf/dma-fe=
+nce.c#L1025
+> >=20
+> > ^ is already racing with the signaled check.
+>=20
+> Yeah so what? That is just an opportunistic check.=20
+
+What happens if someone signals the fence while the set_deadline()
+callback is running?
+
+
+
+P.
