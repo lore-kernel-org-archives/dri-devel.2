@@ -4,52 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1A6DCD8CA4
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 13:39:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52F9ECD8CAA
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 13:53:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3762A10E2DD;
-	Tue,  9 Jun 2026 13:39:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9515D10E338;
+	Tue,  9 Jun 2026 13:53:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="KclKo/H6";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ckboBTg9";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F80E10E2DD
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 13:39:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
- Cc:To:From:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=i3+VFkvLiQRutoEocZv2biW7v7j/nSQc9QiEVyuQoKc=; b=KclKo/H6tHky/oYd0ag6qzf0Gd
- YZK914kz2l6AaNqMOjdSxFltfMnfWbPPxl0IDNKAEjCak3kIWn2TcIPLzJPnqAeWKOkkrgApkq1z6
- bhZyYwuHHqa7U6cLMjTz9DJPS9/eEuW4iKr1v6XTNSpJnt0HQH0nGtvH8qosCo32Rg03JIXdm4qnK
- R+Rle6DrQWQr0CsndNY7kNB6dhU1B7bxJY4L+ZpkcDuO2h7jb64WSl6bZsY3Ujd1I1cyRZUhNiCvX
- K9i40l5NjP41RakAtRnHyUEzvFgJc3o5awLLLGosp6mtGx0t5I2aUHimqnv2Zl1HSHLHsW/OyDzb1
- etgpAgfQ==;
-Received: from [90.240.106.137] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wWwgH-00Eyko-3O; Tue, 09 Jun 2026 15:39:49 +0200
-Message-ID: <3edf041c-e255-4269-8631-7d25b9744fa2@igalia.com>
-Date: Tue, 9 Jun 2026 14:39:48 +0100
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E34BF10E338;
+ Tue,  9 Jun 2026 13:53:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1781013220;
+ bh=L98cR/ByoGK9e175bYrq4L47hW2opnbC3z5psUrV550=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=ckboBTg9fcyqrbuG3aksVjfwbRoKQ/Dj5BOYDQ4Wat1Tz2/VcmfxWTHNhmmqH/lNJ
+ GmGV0GLMIK1qPDXWpTLMCZ07zVnu0En263ZErGJG7Bpub6yUZ6kUmfCWOUD2ket3UG
+ 6S/qoua/fT9gIMEJy95G9pSfZZaVwtzPXEPDQPw/6Wzsi9p6dBv9mI51vjsQWRxXGy
+ JoKcLsYLphbtXFX2OpU5uT2qIz9hyHR1NCDFmV1NbBBrKk8AWSZhV8GOP+8hvH5z1v
+ c91vc+ZQiZ27nPPU79OKWN5BEEukqGfUIVIKjuy3yzBx8A27h3ebIwzR5KL3eK8kdk
+ tH4KOWBXhoMrQ==
+Received: from fluorite (unknown [100.64.0.208])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: pq)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 8F93F17E0433;
+ Tue,  9 Jun 2026 15:53:39 +0200 (CEST)
+Date: Tue, 9 Jun 2026 16:53:06 +0300
+From: Pekka Paalanen <pekka.paalanen@collabora.com>
+To: Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, Alex
+ Deucher <alexander.deucher@amd.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Ville =?UTF-8?B?U3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>, Daniel Stone <daniels@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com, Derek Foreman
+ <derek.foreman@collabora.com>, Marius Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+Message-ID: <20260609165306.67332621@fluorite>
+In-Reply-To: <7ad74724-9233-44ed-9b54-4c88a6a4f255@mailbox.org>
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <8676926.T7Z3S40VBb@workhorse>
+ <eff61423-a854-44c1-8634-30e2bd61e005@mailbox.org>
+ <4265353.aeNJFYEL58@workhorse>
+ <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
+ <20260326155305.736b4e64@fluorite>
+ <47325395-3790-4cb4-8efd-84a3d8ddb80c@mailbox.org>
+ <20260331153805.376486e2@fluorite>
+ <d9abba15-382d-4bc1-a58a-71bb8413eeac@mailbox.org>
+ <20260331172105.271c677c@fluorite>
+ <7ad74724-9233-44ed-9b54-4c88a6a4f255@mailbox.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/sched: Remove redundant entity->rq initialization and
- checks
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: phasta@kernel.org, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>
-References: <20260602153339.43453-1-tvrtko.ursulin@igalia.com>
- <4e7e282983939dd64b9303d53302e6806361076c.camel@mailbox.org>
- <1ddf1427-e0ee-4891-9af6-028cd559b161@igalia.com>
-Content-Language: en-GB
-In-Reply-To: <1ddf1427-e0ee-4891-9af6-028cd559b161@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; boundary="Sig_/QAc_Qv+y6AjbFFs+expgZaA";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,136 +81,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+--Sig_/QAc_Qv+y6AjbFFs+expgZaA
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On 03/06/2026 10:14, Tvrtko Ursulin wrote:
-> 
-> On 03/06/2026 09:37, Philipp Stanner wrote:
->> On Tue, 2026-06-02 at 16:33 +0100, Tvrtko Ursulin wrote:
->>> Commit
->>> 28c5bf28763d ("drm/sched: Disallow initializing entities with no 
->>> schedulers")
->>> failed to notice clearing of entity->rq in drm_sched_entity_init() is 
->>> now
->>
->> By clearing you also mean the setting to NULL?
->>
->> I'd just use "initialization" consistently, like in the commit title.
-> 
-> It is initialized properly a bit lower down so clearing is I think more 
-> accurate.
-> 
->>> redundant and can be removed.
->>>
->>> Given that entity->rq can now never be NULL, we also remove two 
->>> impossible
->>> checks, from drm_sched_entity_kill() and drm_sched_entity_flush()
->>> respectively.
->>>
->>> Similarly, we can also remove the !entity->rq check in
->>> drm_sched_job_init(). And for the better, given that the error 
->>> message, if
->>> it ever triggered, would have dereferenced the yet un-initialized job->
->>> sched (only initialized later in drm_sched_job_arm()). This appears to
->>> have been theoretically broken ever since commit
->>> 56e449603f0a ("drm/sched: Convert the GPU scheduler to variable 
->>> number of run-queues")
->>> .
->>>
->>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>> Cc: Christian König <christian.koenig@amd.com>
->>> Cc: Danilo Krummrich <dakr@kernel.org>
->>> Cc: Matthew Brost <matthew.brost@intel.com>
->>> Cc: Philipp Stanner <phasta@kernel.org>
->>> ---
->>>   drivers/gpu/drm/scheduler/sched_entity.c | 11 ++---------
->>>   drivers/gpu/drm/scheduler/sched_main.c   |  9 ---------
->>>   2 files changed, 2 insertions(+), 18 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/ 
->>> drm/scheduler/sched_entity.c
->>> index 4ebb513255ed..c51101ec70c1 100644
->>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->>> @@ -129,7 +129,6 @@ int drm_sched_entity_init(struct drm_sched_entity 
->>> *entity,
->>>           return -ENOMEM;
->>>       INIT_LIST_HEAD(&entity->list);
->>> -    entity->rq = NULL;
->>
->> It would seem that has always been redundant because of the memset(0)
->> directly above.
-> 
-> True, ever since 1decbf6bb0b4 ("drm/sched: Fix entities with 0 rqs."). 
-> Just that in this patch the redundant is focusing on:
-> 
->    entity->rq = NULL;
-> ...
->    entity->rq = &sched_list[0]->rq;
-> 
-> Good enough or you want a respin and if so in what flavour?
+On Wed, 1 Apr 2026 09:46:08 +0200
+Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote:
 
-Gentle reminder - can we merge this as is or you want me to tweak what 
-specifically?
+> On 3/31/26 16:21, Pekka Paalanen wrote:
+> > On Tue, 31 Mar 2026 14:56:22 +0200
+> > Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote: =20
+> >> On 3/31/26 14:38, Pekka Paalanen wrote: =20
+> >>> On Tue, 31 Mar 2026 10:01:59 +0200
+> >>> Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote:   =20
+> >>>> On 3/26/26 14:53, Pekka Paalanen wrote:   =20
+> >>>>> On Tue, 24 Mar 2026 17:44:21 +0100
+> >>>>> Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote:
+> >>>>>      =20
+> >>>>>> * There's no clear use case.
+> >>>>>>
+> >>>>>> This is generally a requirement for new KMS UAPI.
+> >>>>>>
+> >>>>>> The practical usefulness of the corresponding weston MR is dubious
+> >>>>>> per the concern above.     =20
+> >>>>>
+> >>>>> I think the example of RGB 10 bpc to be degraded to YCbCr 10 bpc
+> >>>>> rather than RGB 8 bpc is an excellent use case.     =20
+> >>>>
+> >>>> This series and the corresponding Weston MR aren't enough to address
+> >>>> that use case though, are they? All they achieve is logging a
+> >>>> potentially misleading warning.
+> >>>>
+> >>>> It might make sense to combine this series and the Weston MR with
+> >>>> whatever else is needed for that use case.   =20
+> >>>
+> >>> What do you believe is missing?   =20
+> >>
+> >> For the stated use case, e.g. a mechanism to control RGB vs YCbCr? =20
+> >=20
+> > There is no need for that. Currently the driver chooses the color model
+> > and depth on its own. We just want to make sure it's not too low. =20
+>=20
+> What can be done when it's too low though?
 
-Regards,
+Notify the end user that their system is not performing up to their
+parameters. They may need to consider changing hardware.
 
-Tvrtko
->>
->>>       entity->guilty = guilty;
->>>       entity->priority = priority;
->>>       entity->last_user = current->group_leader;
->>> @@ -280,9 +279,6 @@ void drm_sched_entity_kill(struct 
->>> drm_sched_entity *entity)
->>>       struct drm_sched_job *job;
->>>       struct dma_fence *prev;
->>> -    if (!entity->rq)
->>> -        return;
->>> -
->>>       spin_lock(&entity->lock);
->>>       entity->stopped = true;
->>>       drm_sched_rq_remove_entity(entity->rq, entity);
->>> @@ -329,14 +325,11 @@ EXPORT_SYMBOL(drm_sched_entity_kill);
->>>    */
->>>   long drm_sched_entity_flush(struct drm_sched_entity *entity, long 
->>> timeout)
->>>   {
->>> -    struct drm_gpu_scheduler *sched;
->>> +    struct drm_gpu_scheduler *sched =
->>> +        container_of(entity->rq, typeof(*sched), rq);
->>>       struct task_struct *last_user;
->>>       long ret = timeout;
->>> -    if (!entity->rq)
->>> -        return 0;
->>> -
->>> -    sched = container_of(entity->rq, typeof(*sched), rq);
->>>       /*
->>>        * The client will not queue more jobs during this fini - consume
->>>        * existing queued ones, or discard them on SIGKILL.
->>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/ 
->>> drm/scheduler/sched_main.c
->>> index 818d3d4434b5..d2ca01b31ee4 100644
->>> --- a/drivers/gpu/drm/scheduler/sched_main.c
->>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->>> @@ -588,15 +588,6 @@ int drm_sched_job_init(struct drm_sched_job *job,
->>>                  u32 credits, void *owner,
->>>                  uint64_t drm_client_id)
->>>   {
->>> -    if (!entity->rq) {
->>> -        /* This will most likely be followed by missing frames
->>> -         * or worse--a blank screen--leave a trail in the
->>> -         * logs, so this can be debugged easier.
->>> -         */
->>> -        dev_err(job->sched->dev, "%s: entity has no rq!\n", __func__);
->>> -        return -ENOENT;
->>> -    }
->>> -
->>>       if (unlikely(!credits)) {
->>>           pr_err("*ERROR* %s: credits cannot be 0!\n", __func__);
->>>           return -EINVAL;
->>
->> But overall a very nice cleanup
->>
->>
->> P.
-> 
 
+Thanks,
+pq
+
+> The only thing I can see is setting a higher "max bpc" value. If
+> that's acceptable and helps though, why was the lower value set in
+> the first place? (Otherwise the weston MR doesn't log the warning)
+>=20
+>=20
+> I feel like I'm still missing a piece of the picture for the
+> practical use.
+>=20
+
+--Sig_/QAc_Qv+y6AjbFFs+expgZaA
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmooGsIACgkQI1/ltBGq
+qqf5EQ/+LHtQAm7P+Dsc4MhTs4n0DBDmz7WmYgtQe22U7nQ4493kVDGqX8O+YFFn
+DemxD/4lsXAVQPi8OEFAGtb/mdJbmJ6g+RV5tBqWtaCxU5LJ+ND8ZAhJnk4WPjOV
+lAgPHZf8X0iavtWm4yVWvKOsSlNI/+AK+FTSQui7qKmv96ghVdIRZz+zR6/+JmD4
++0rYGSngrpDb63vUzuxXWBpAe8IsicYVghegcHIRbvlHyJ0rc9x/P2LxMKu4Zvbl
+Rd8QUSW+qhzmzay0hsWkJ0bgFRNVGcmXW+KJoOg1381gqhi8I+BEAaKMAuY4kjMv
+5PWBGX/4F73j2MQJzpmDnIDynumxC0jojOS5e7kAaC5tLuEkDgBgRInmgoY3TTVx
++sO5jVhQeQpkpqXYBZnR2zCYP5Ql/wiQH3B89dkylAQkV1OJVUoDRuKGUjrA2sI5
+phB49sfmUNGX/6XVjAA+NUhD73t2LUtE3u577zFBLoGaoYwJbAAyewmpV3cl4zP9
+llDH80zIVIQy9AUWYKXq0lgpXEdNNVLRK5uqTzh8juvbcA2cAFgeLNSl9D8H18Ud
+Gi1QYLl8BJhWgHpUBWW1qNpgEQI6bk9Awq2gXmeoXNNeCnI3EhPOZXcIATJwuaXy
+cwd/a2UFifd40zNkLfNiUvPUH/GZ8p2KQZr17taGjNsnaAquy40=
+=NrJS
+-----END PGP SIGNATURE-----
+
+--Sig_/QAc_Qv+y6AjbFFs+expgZaA--
