@@ -4,43 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B305BCD8C92
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 13:19:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C3A5CD8CBF
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 13:20:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 321B010E2AF;
-	Tue,  9 Jun 2026 13:19:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDB4810E319;
+	Tue,  9 Jun 2026 13:20:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kk8//qlO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Nu3c//Al";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C645210E2AF
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 13:19:41 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC72D10E2D7;
+ Tue,  9 Jun 2026 13:20:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E1869601DC;
- Tue,  9 Jun 2026 13:19:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75E961F00893;
- Tue,  9 Jun 2026 13:19:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6F6FC4369A;
+ Tue,  9 Jun 2026 13:20:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5F451F0089B;
+ Tue,  9 Jun 2026 13:20:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781011180;
- bh=VHnUMXaKMgmTCLPobXcvNC2mI+uZWn5dBhC0nj908Sw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kk8//qlOGPmyZPD1Y/8VkWDyTXUpWaI4EtApdZgPymQVUlAIjMSwoAIzeb6oeKA1J
- /8foNdCrk08cQVoNS3xMA+M0xLrGYv1MlLo5tERyMhqt/8wOX/2S/AaskKWm7ChdQI
- fA3FnqEpqj/15mijozgXpQOEpQyL/2mNPqKchZdhM39nlOceESEEo5YKeUZiBx8D0V
- ZuuSf3kvhumAvcrBLbG/F2wGnzcImqkt4/xAz1ElidddURIALO4pmfc7fY4Q2wtYiB
- QvXAJe/4WAirA48QpCsHv8h4u9NMUEZdWiFEe/byogFt/0A/mN6x6/ci4IB/Pq49+C
- HRVKm4RFff+QA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/arm/malidp: use clk_bulk API in runtime PM
- resume and suspend
-To: =?utf-8?b?R3VzdGF2byBLZW5qaSBNZW5kb27Dp2EgS2FuZWtv?= <kaneko.dev@pm.me>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260609130812.1065699-1-kaneko.dev@pm.me>
-References: <20260609130812.1065699-1-kaneko.dev@pm.me>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 13:19:39 +0000
-Message-Id: <20260609131940.75E961F00893@smtp.kernel.org>
+ s=k20260515; t=1781011204;
+ bh=3kfzfYUQjmzrzaNngkfG7jEfCJtYkrmcPuvtAzgJevo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Nu3c//AlzSp8dePkkxInyBwOH1za16zBtOfwyKKYtLFFLjiG8i4p3lxnz7/woXZRt
+ JtKfFb9rqoH+SnrrC4q2iV44PdZ/9zVTsMNh6FhyvEl7aeFW7q1jiKXD0iYDuZT/19
+ WAoTm2OfHpFKUjwDV7p3e1NXD1LDpjNUjE5OJ0BXTDAqSNdwXFpcotHjICirfRcDqq
+ gXCCws+Lwj8qzUFh7jDIZdWSsogSZOcJi186LTV8ZYFAGhPuAZOcImMurdCnIqzQ5X
+ HlfUlKnoNl7MCbPDCPLxB+eDFsxDgAHMilxw3DMD1rCWpElmqaPJkEJURsALDig2p1
+ sWS4POf/gNapw==
+Date: Tue, 9 Jun 2026 15:20:01 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Adrien Grassein <adrien.grassein@gmail.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Pengyu Luo <mitltlatltl@gmail.com>, Nikita Travkin <nikita@trvn.ru>, 
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Francesco Dolcini <francesco@dolcini.it>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
+ linux-usb@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, 
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v4 1/8] drm/connector: report out-of-band IRQ_HPD events
+Message-ID: <20260609-bouncy-tomato-dalmatian-70ccee@houat>
+References: <20260608-hpd-irq-events-v4-0-30b62b335487@oss.qualcomm.com>
+ <20260608-hpd-irq-events-v4-1-30b62b335487@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="25e53fw4vpfchyki"
+Content-Disposition: inline
+In-Reply-To: <20260608-hpd-irq-events-v4-1-30b62b335487@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,134 +86,106 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] Unhandled error from malidp_runtime_pm_resume() and pm_runtime_get=
-_sync() leads to kernel panic.
-- [High] Missing synchronize_irq() in the runtime PM suspend path for share=
-d IRQs causes a race condition.
-- [High] Asynchronous pm_runtime_put() races with pm_runtime_disable(), lea=
-ving the hardware in an incorrect power state.
---
+--25e53fw4vpfchyki
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 1/8] drm/connector: report out-of-band IRQ_HPD events
+MIME-Version: 1.0
 
-commit 15b02ca295e5d2b2ae68c0ebcf65a7fa13cad1b6
-Author: Gustavo Kenji Mendon=C3=A7a Kaneko <kaneko.dev@pm.me>
+Hi,
 
-drm/arm/malidp: use clk_bulk API in runtime PM resume and suspend
-   =20
-malidp_runtime_pm_resume() calls clk_prepare_enable() three times
-without checking the return value. If any clock fails to enable, the
-driver silently proceeds with unclocked hardware, leading to undefined
-behavior.
-
-> diff --git a/drivers/gpu/drm/arm/malidp_drv.c b/drivers/gpu/drm/arm/malid=
-p_drv.c
-> index 9abe800f598ac..23fa942ae4bbe 100644
-> --- a/drivers/gpu/drm/arm/malidp_drv.c
-> +++ b/drivers/gpu/drm/arm/malidp_drv.c
-> @@ -670,6 +670,11 @@ static int malidp_runtime_pm_suspend(struct device *=
-dev)
-[ ... ]
->  	malidp_se_irq_fini(hwdev);
->  	malidp_de_irq_fini(hwdev);
->  	hwdev->pm_suspended =3D true;
-> -	clk_disable_unprepare(hwdev->mclk);
-> -	clk_disable_unprepare(hwdev->aclk);
-> -	clk_disable_unprepare(hwdev->pclk);
-> +	clk_bulk_disable_unprepare(ARRAY_SIZE(clks), clks);
-
-[Severity: High]
-This is a pre-existing issue, but does this missing synchronize_irq() in the
-runtime PM suspend path for shared IRQs cause a race condition?
-
-The driver registers its DE and SE interrupts with IRQF_SHARED.
-
-If a shared interrupt triggers concurrently on another CPU, could the IRQ
-handler (malidp_se_irq() or malidp_de_irq()) pass the pm_suspended check
-just before the clocks are disabled here, and then attempt to read
-hardware registers while the clocks are off, resulting in a synchronous
-external abort?
-
->  	return 0;
+On Mon, Jun 08, 2026 at 12:33:02AM +0300, Dmitry Baryshkov wrote:
+> The DisplayPort standard defines a special kind of events called IRQ.
+> These events are used to notify DP Source about the events on the Sink
+> side. It is extremely important for DP MST handling, where the MST
+> events are reported through this IRQ.
+>=20
+> In case of the USB-C DP AltMode there is no actual HPD pulse, but the
+> events are reported through the bits in the AltMode VDOs.
+>=20
+> Rename drm_connector_oob_hotplug_event() to drm_connector_dp_oob_status()
+> and extend its interface to report IRQ events to the DisplayPort Sink
+> drivers.
+>=20
+> Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/drm_connector.c          | 20 ++++++++++++--------
+>  drivers/usb/typec/altmodes/displayport.c | 23 +++++++++++++++--------
+>  include/drm/drm_connector.h              | 21 +++++++++++++++++++--
+>  3 files changed, 46 insertions(+), 18 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
+tor.c
+> index 3fa4d2082cd7..bb128dd0263a 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -3502,20 +3502,24 @@ struct drm_connector *drm_connector_find_by_fwnod=
+e(struct fwnode_handle *fwnode)
 >  }
-> @@ -689,10 +692,17 @@ static int malidp_runtime_pm_resume(struct device *=
-dev)
-[ ... ]
-> +	err =3D clk_bulk_prepare_enable(ARRAY_SIZE(clks), clks);
-> +	if (err)
-> +		return err;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but since we are now correctly
-propagating the clock enablement error from malidp_runtime_pm_resume(), do =
-we
-need to update the callers to handle it?
-
-In malidp_bind(), the code ignores the return value:
-
-	if (pm_runtime_enabled(dev))
-		pm_runtime_get_sync(dev);
-	else
-		malidp_runtime_pm_resume(dev);
-
-	ret =3D hwdev->hw->query_hw(hwdev);
-
-If clock enablement fails, it seems the driver unconditionally proceeds
-to read hardware registers (e.g., in query_hw()). Could this cause a
-synchronous external abort when it accesses unclocked hardware?
-
-Similarly, malidp_pm_resume_early() does not check the return value
-and proceeds to mark the device as active:
-
-static int __maybe_unused malidp_pm_resume_early(struct device *dev)
-{
-	malidp_runtime_pm_resume(dev);
-	pm_runtime_set_active(dev);
-	return 0;
-}
-
-[Severity: High]
-This is a pre-existing issue, but does the asynchronous pm_runtime_put()
-race with pm_runtime_disable() in the driver removal paths?
-
-In malidp_bind() (on the query_hw_fail error unroll path):
-
-query_hw_fail:
-	pm_runtime_put(dev);
-	if (pm_runtime_enabled(dev))
-		pm_runtime_disable(dev);
-	else
-		malidp_runtime_pm_suspend(dev);
-
-And similarly in malidp_unbind():
-
-	pm_runtime_put(dev);
-	if (pm_runtime_enabled(dev))
-		pm_runtime_disable(dev);
-	else
-		malidp_runtime_pm_suspend(dev);
-
-Because pm_runtime_put() queues an asynchronous idle notification, the
-subsequent pm_runtime_disable() barrier could cancel the pending suspend
-request before it completes.
-
-Could this leave the device's clocks enabled indefinitely after the driver
-is unloaded? Should this use pm_runtime_put_sync() instead?
-
 > =20
-> -	clk_prepare_enable(hwdev->pclk);
-> -	clk_prepare_enable(hwdev->aclk);
-> -	clk_prepare_enable(hwdev->mclk);
->  	hwdev->pm_suspended =3D false;
->  	malidp_de_irq_hw_init(hwdev);
->  	malidp_se_irq_hw_init(hwdev);
+>  /**
+> - * drm_connector_oob_hotplug_event - Report out-of-band hotplug event to=
+ connector
+> + * drm_connector_dp_oob_status - Report out-of-band hotplug event to Dis=
+playPort connector
+>   * @connector_fwnode: fwnode_handle to report the event on
+>   * @status: hot plug detect logical state
+> + * @extra_status: additional information provided by the sink without ch=
+anging
+> + * the HPD state (or in addition to such a change).
+>   *
+> - * On some hardware a hotplug event notification may come from outside t=
+he display
+> - * driver / device. An example of this is some USB Type-C setups where t=
+he hardware
+> - * muxes the DisplayPort data and aux-lines but does not pass the altmod=
+e HPD
+> - * status bit to the GPU's DP HPD pin.
+> + * In some cases when DisplayPort signals are being routed through the U=
+SB
+> + * Type-C port the hotplug event notifications come from outside of the =
+display
+> + * driver / device. In this case hardware muxes the DisplayPort data and
+> + * AUX-lines but does not pass the altmode HPD status bit to the GPU's D=
+P HPD
+> + * pin.
+>   *
+>   * This function can be used to report these out-of-band events after ob=
+taining
+>   * a drm_connector reference through calling drm_connector_find_by_fwnod=
+e().
+>   */
+> -void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwn=
+ode,
+> -				     enum drm_connector_status status)
+> +void drm_connector_dp_oob_status(struct fwnode_handle *connector_fwnode,
+> +				 enum drm_connector_status status,
+> +				 enum drm_connector_status_extra extra_status)
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609130812.1065=
-699-1-kaneko.dev@pm.me?part=3D1
+Thanks for the renaming, but I think we can also rename
+drm_connector_status_extra to something a bit more descriptive now?
+drm_connector_dp_oob_event? status?
+
+The rest looks good.
+
+Maxime
+
+--25e53fw4vpfchyki
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaigTAQAKCRAnX84Zoj2+
+dnv2AX9le3hz+Lu8gxYvgEXc1sDIBCPM1bh/zkVwBN3wZ9THVMA3l8RMscsHED+I
+ZdjXquUBeQESub4sfU2kH0nggZa7VB2wC1SqcPxTrCSdEwKVl5n4RlSMJ/F47hOK
+i6kZa+CMlQ==
+=wSKV
+-----END PGP SIGNATURE-----
+
+--25e53fw4vpfchyki--
