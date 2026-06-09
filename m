@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C8B2CD8C92
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 12:32:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51822CD8CA4
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 12:33:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 801F910E280;
-	Tue,  9 Jun 2026 12:32:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDA4610E2C3;
+	Tue,  9 Jun 2026 12:33:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YgkrFxBM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MR+kvUke";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB65110E280
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 12:32:57 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5A4C10E2C3
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 12:33:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 47E8F437ED;
- Tue,  9 Jun 2026 12:32:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED5DB1F00893;
- Tue,  9 Jun 2026 12:32:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F2C12601D6;
+ Tue,  9 Jun 2026 12:33:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A59E1F00893;
+ Tue,  9 Jun 2026 12:33:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781008377;
- bh=HP5vXcYOfNqWtdGl6U9doH4cnd/kX9JsaRWIpjliG04=;
+ s=k20260515; t=1781008393;
+ bh=OqA6DrsX5CF1HMvLtOYCIWCXgnmByKiofZ277b/c6Yc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=YgkrFxBMiXcfaxDMihiKlDiNWIUp66vEJ6BmJTcUCMfLABWCn8PaZazP6tr5ANPsl
- ozgrN+y/IdgjZrZAu6TSbebQPIb69/0j9yMDb/ty6Ix7227DeWlM8g19dJqOJtvybn
- 6AHybBjMSawwJ7AS+FiPmSCWMpKxhjQy8If3xUtyjtGyCYGbsPDaaXhnb7X+Qi76J3
- SqmVcYctoSI4n1/+f53BACtPj2Bb5ynBFeIn+nTAz1CoIAYGyCFtZ7Mlw5InZwMXMe
- i3ROVYNpJHTQVRqoNp84wyGdnWLdx1m6hXZWujj7yoy3kOeGCAgcEFsZT3ARjkjXj/
- tYoXD5w33Js9Q==
+ b=MR+kvUkekGcLs3tvLOyUTK4Th/i5KtVNR7RxpVz+CkvZ92qTPRLS5nURqp7kwjVN/
+ yJ45J7PAfssVeNKOsLUErLt56Cu99hUdFsv7ryMwQdPLsw974FflX1Ie9zbEr5mbiY
+ glyYuv91EigSjXAa5yNtWXHp381a7BsgzhsVWLOl++1DcovJ5qRSFST4RrTcAVBMw3
+ K3GaWeN5/VtxPaPZZ9AEUK3RS3+M4URYNR2zFFl6Vn61d/UqzPmuZv+rpXUi/AH1lc
+ 6mJxlsfgkwrKJiIoYkNaYs/BYBjLQypK4+oDYGnnEGaSFiv/VWLl5r+OYa3Sgn+7gU
+ cXamNkkz89ykw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 5/7] drm/amd/display: make shaper bypass mode cleaner
+Subject: Re: [PATCH v3 1/7] drm/atomic: only add states of active or
+ transient active colorops
 To: "Melissa Wen" <mwen@igalia.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260609121230.1358786-6-mwen@igalia.com>
-References: <20260609121230.1358786-6-mwen@igalia.com>
+In-Reply-To: <20260609121230.1358786-2-mwen@igalia.com>
+References: <20260609121230.1358786-2-mwen@igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 12:32:56 +0000
-Message-Id: <20260609123256.ED5DB1F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 12:33:12 +0000
+Message-Id: <20260609123313.7A59E1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,103 +61,79 @@ Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 New issues:
-- [High] Removing the `enabled` fallback leaves the shaper transfer functio=
-n in a corrupted state if an invalid 1D LUT size is provided.
+- [Medium] Incomplete refactoring: drm_atomic_helper_duplicate_state still =
+calls drm_atomic_add_affected_colorops.
 
 Pre-existing issues:
-- [High] Atomic check silently ignores invalid colorop LUT sizes and alloca=
-tion failures in the blend transfer function.
+- [High] Architectural Flaw: Colorops are omitted from the atomic state dur=
+ing normal plane updates.
 --
 
-commit 7d44b36a8843f15370d407ecab07d171e3f7d506
+commit a131c9a42c3beaf39f56794937e21266031060d8
 Author: Melissa Wen <mwen@igalia.com>
 
-drm/amd/display: make shaper bypass mode cleaner
+drm/atomic: only add states of active or transient active colorops
 
-Start shaper tranfer function setup in bypass mode, i.e. tf->type =3D=3D
-TF_TYPE_BYPASS and let the helper checks set it to a different mode
-according to userspace request.
+Only consider affected colorop states those that are part of an active
+color pipeline or a pipeline that is about to be activated or
+deactivated in the same atomic commit.
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/dr=
-ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> index 13ad7ac1e35e4..4651241433296 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> @@ -1648,10 +1648,11 @@ __set_dm_plane_colorop_shaper(struct drm_plane_st=
-ate *plane_state,
->  	struct dc_transfer_func *tf =3D &dc_plane_state->in_shaper_func;
->  	const struct drm_color_lut32 *shaper_lut;
->  	struct drm_device *dev =3D colorop->dev;
-> -	bool enabled =3D false;
->  	u32 shaper_size;
->  	int i =3D 0, ret =3D 0;
-> =20
-> +	tf->type =3D TF_TYPE_BYPASS;
-> +
->  	/* 1D Curve - SHAPER TF */
->  	old_colorop =3D colorop;
->  	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index 170de30c28ae4..0d36a955c4d43 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
 [ ... ]
-
-> @@ -1702,13 +1702,9 @@ __set_dm_plane_colorop_shaper(struct drm_plane_sta=
-te *plane_state,
->  			ret =3D __set_output_tf_32(tf, shaper_lut, shaper_size, false);
->  			if (ret)
->  				return ret;
-> -			enabled =3D true;
->  		}
->  	}
+> @@ -1591,11 +1642,9 @@ drm_atomic_add_affected_planes(struct drm_atomic_c=
+ommit *state,
+>  		if (IS_ERR(plane_state))
+>  			return PTR_ERR(plane_state);
 > =20
-> -	if (!enabled)
-> -		tf->type =3D TF_TYPE_BYPASS;
-> -
->  	return 0;
->  }
+> -		if (plane_state->color_pipeline) {
+> -			ret =3D drm_atomic_add_affected_colorops(state, plane);
+> -			if (ret)
+> -				return ret;
+> -		}
+> +		ret =3D drm_atomic_add_pipeline_colorops(state, plane);
+> +		if (ret)
+> +			return ret;
 
 [Severity: High]
-Does removing the enabled fallback leave the shaper transfer function in a
-corrupted state if an invalid 1D LUT size is provided?
+This isn't a bug introduced by this patch, but since
+drm_atomic_add_affected_planes() executes exclusively during CRTC modesets,
+does this mean active colorops are never added to the atomic state during a
+simple plane update like a page flip?
 
-If userspace sets bypass =3D false but provides an invalid LUT size or unse=
-ts
-the data blob (size =3D 0), the check for shaper_size =3D=3D colorop->size =
-fails
-and __set_output_tf_32() is skipped in __set_dm_plane_colorop_shaper().
+Drivers that iterate over state->colorops via for_each_new_colorop_in_state=
+()
+(like intel_plane_color_copy_uapi_to_hw_state() in the intel driver)
+will silently fail on page flips since the hardware state blobs remain
+empty. Should the color pipeline dependency tracking be anchored to the
+plane's inclusion in the state, perhaps within drm_atomic_get_plane_state()?
 
-Since tf->type was already set to TF_TYPE_DISTRIBUTED_POINTS earlier in the
-function, and we no longer fall back to TF_TYPE_BYPASS when enabled is fals=
-e,
-the function returns 0. Could this cause the atomic commit to succeed while
-programming the hardware with an uninitialized transfer function?
+[Severity: Medium]
+Also, the commit message states the goal is to remove the condition for
+plane_state->color_pipeline to handle deactivations. Did this patch miss
+updating drm_atomic_helper_duplicate_state() in drm_atomic_helper.c?
 
-[Severity: High]
-This is a pre-existing issue, but a similar problem exists in
-__set_dm_plane_colorop_blend().
+It still checks if (plane_state->color_pipeline) and calls the old
+drm_atomic_add_affected_colorops(), which loops over all colorops belonging
+to the plane:
 
-Does the atomic check silently ignore invalid colorop LUT sizes and allocat=
-ion
-failures in the blend transfer function?
-
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c:__set_dm_plane_colo=
-rop_blend() {
+drivers/gpu/drm/drm_atomic_helper.c:drm_atomic_helper_duplicate_state() {
 	...
-		/* Custom LUT size must be the same as supported size */
-		if (blend_size =3D=3D colorop->size)
-			__set_input_tf_32(NULL, tf, blend_lut, blend_size);
+	if (plane_state->color_pipeline) {
+		err =3D drm_atomic_add_affected_colorops(state, plane);
+		if (err)
+			goto free;
 	}
-
-	return 0;
+	...
 }
 
-If the size check fails, __set_input_tf_32() is skipped entirely, but the
-function returns 0. Also, the return value of __set_input_tf_32() is ignore=
-d,
-meaning allocation failures are not propagated. Could this allow the hardwa=
-re
-to be programmed with an uninitialized or partially initialized transfer
-function?
+Should it be updated to use the newly introduced
+drm_atomic_add_pipeline_colorops() unconditionally to ensure consistent sta=
+te
+duplication during suspend/resume?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609121230.1358=
-786-1-mwen@igalia.com?part=3D5
+786-1-mwen@igalia.com?part=3D1
