@@ -4,60 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46837CD8CA4
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 13:36:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1A6DCD8CA4
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 13:39:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF1CA10E37E;
-	Tue,  9 Jun 2026 13:36:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3762A10E2DD;
+	Tue,  9 Jun 2026 13:39:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="g/ofXEZ0";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="KclKo/H6";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B3F710E37E
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 13:36:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F80E10E2DD
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 13:39:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=QKvLq8kRz6hhe+0u7myfT7ziiQ0McNf7H3zbSoHITu0=; b=g/ofXEZ0li5JnqABqz55idaJiD
- kulKheE8I+9lZrTzHjVUjn9KKROxijsv4dPQKhcfmAi+coOg4tqbqDyU9584nP4Ph7J86gOkwVVTo
- YscA3es81FlQPbZbHoACJR1xyg8YqVfHrEpofN10Cou8hydcUsCKOCeBU43XpVEXARc/q0iybdfG8
- B8b5ZCtKgdW+TYoMFAt2+UhxM6wEMMISgdfijG+lpcZJd3NFq5YURJ4SW7bPqMkIFpZ6NdzShL0aL
- LKZHQEtnIUgopiLv1Gd9n6nOnjZLjqdw7C7IGbSvo3dIf9eermYQMemj4QfT9pvHTYlxNY0t966IT
- jTXCcXfg==;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
+ Cc:To:From:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=i3+VFkvLiQRutoEocZv2biW7v7j/nSQc9QiEVyuQoKc=; b=KclKo/H6tHky/oYd0ag6qzf0Gd
+ YZK914kz2l6AaNqMOjdSxFltfMnfWbPPxl0IDNKAEjCak3kIWn2TcIPLzJPnqAeWKOkkrgApkq1z6
+ bhZyYwuHHqa7U6cLMjTz9DJPS9/eEuW4iKr1v6XTNSpJnt0HQH0nGtvH8qosCo32Rg03JIXdm4qnK
+ R+Rle6DrQWQr0CsndNY7kNB6dhU1B7bxJY4L+ZpkcDuO2h7jb64WSl6bZsY3Ujd1I1cyRZUhNiCvX
+ K9i40l5NjP41RakAtRnHyUEzvFgJc3o5awLLLGosp6mtGx0t5I2aUHimqnv2Zl1HSHLHsW/OyDzb1
+ etgpAgfQ==;
 Received: from [90.240.106.137] (helo=[192.168.0.116])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wWwd9-00Eybf-Jd; Tue, 09 Jun 2026 15:36:35 +0200
-Message-ID: <dbda178c-bf02-448b-a88d-5a094adea5c0@igalia.com>
-Date: Tue, 9 Jun 2026 14:36:34 +0100
+ id 1wWwgH-00Eyko-3O; Tue, 09 Jun 2026 15:39:49 +0200
+Message-ID: <3edf041c-e255-4269-8631-7d25b9744fa2@igalia.com>
+Date: Tue, 9 Jun 2026 14:39:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] dma-fence: Fix races of fence callbacks versus
- destructors by locking
-To: phasta@kernel.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
- airlied@gmail.com
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>, Daniel Almeida <dwlsalmeida@gmail.com>,
- Gary Guo <gary@garyguo.net>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260608142436.265820-2-phasta@kernel.org>
- <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
- <fa9a335196525adbc03ec21b2e05bb526e4fc174.camel@mailbox.org>
- <9d49c901-fcdf-487a-a733-0320d0bdf94c@amd.com>
- <DJ3V3OCLIK2K.3CYKWYNHYU6JQ@kernel.org>
- <ea4e0541-3702-4014-b8f6-0746a148df86@amd.com>
- <DJ3VYD71HDQ2.3C8GG983Z2YCM@kernel.org>
- <c8564ea0-8ff4-4049-996d-bd978c478372@amd.com>
- <aebe759117cd65004510946e39bd02e4c903e1e3.camel@mailbox.org>
-Content-Language: en-GB
+Subject: Re: [PATCH] drm/sched: Remove redundant entity->rq initialization and
+ checks
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <aebe759117cd65004510946e39bd02e4c903e1e3.camel@mailbox.org>
+To: phasta@kernel.org, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>
+References: <20260602153339.43453-1-tvrtko.ursulin@igalia.com>
+ <4e7e282983939dd64b9303d53302e6806361076c.camel@mailbox.org>
+ <1ddf1427-e0ee-4891-9af6-028cd559b161@igalia.com>
+Content-Language: en-GB
+In-Reply-To: <1ddf1427-e0ee-4891-9af6-028cd559b161@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,94 +66,135 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On 09/06/2026 14:19, Philipp Stanner wrote:
-> +Cc Dave
+On 03/06/2026 10:14, Tvrtko Ursulin wrote:
 > 
-> On Mon, 2026-06-08 at 20:47 +0200, Christian König wrote:
->> On 6/8/26 20:39, Danilo Krummrich wrote:
->>> How did you get to this conclusion considering that you run into what I
->>> mentioned above as well and the fact that we seem to agree that the performance
->>> concern is rather questionable?
+> On 03/06/2026 09:37, Philipp Stanner wrote:
+>> On Tue, 2026-06-02 at 16:33 +0100, Tvrtko Ursulin wrote:
+>>> Commit
+>>> 28c5bf28763d ("drm/sched: Disallow initializing entities with no 
+>>> schedulers")
+>>> failed to notice clearing of entity->rq in drm_sched_entity_init() is 
+>>> now
 >>
->> Quite simple, it's the cleaner approach.
+>> By clearing you also mean the setting to NULL?
 >>
->> Calling callbacks with locks held is rather questionable even putting the performance issue aside.
+>> I'd just use "initialization" consistently, like in the commit title.
 > 
+> It is initialized properly a bit lower down so clearing is I think more 
+> accurate.
 > 
-> I'm right now going through all fence users to see whether we can
-> implement my solution.
+>>> redundant and can be removed.
+>>>
+>>> Given that entity->rq can now never be NULL, we also remove two 
+>>> impossible
+>>> checks, from drm_sched_entity_kill() and drm_sched_entity_flush()
+>>> respectively.
+>>>
+>>> Similarly, we can also remove the !entity->rq check in
+>>> drm_sched_job_init(). And for the better, given that the error 
+>>> message, if
+>>> it ever triggered, would have dereferenced the yet un-initialized job->
+>>> sched (only initialized later in drm_sched_job_arm()). This appears to
+>>> have been theoretically broken ever since commit
+>>> 56e449603f0a ("drm/sched: Convert the GPU scheduler to variable 
+>>> number of run-queues")
+>>> .
+>>>
+>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>> Cc: Christian König <christian.koenig@amd.com>
+>>> Cc: Danilo Krummrich <dakr@kernel.org>
+>>> Cc: Matthew Brost <matthew.brost@intel.com>
+>>> Cc: Philipp Stanner <phasta@kernel.org>
+>>> ---
+>>>   drivers/gpu/drm/scheduler/sched_entity.c | 11 ++---------
+>>>   drivers/gpu/drm/scheduler/sched_main.c   |  9 ---------
+>>>   2 files changed, 2 insertions(+), 18 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/ 
+>>> drm/scheduler/sched_entity.c
+>>> index 4ebb513255ed..c51101ec70c1 100644
+>>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+>>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+>>> @@ -129,7 +129,6 @@ int drm_sched_entity_init(struct drm_sched_entity 
+>>> *entity,
+>>>           return -ENOMEM;
+>>>       INIT_LIST_HEAD(&entity->list);
+>>> -    entity->rq = NULL;
+>>
+>> It would seem that has always been redundant because of the memset(0)
+>> directly above.
 > 
-> And look what I found:
+> True, ever since 1decbf6bb0b4 ("drm/sched: Fix entities with 0 rqs."). 
+> Just that in this patch the redundant is focusing on:
 > 
-> static inline bool
-> nouveau_cli_work_ready(struct dma_fence *fence)
-> {
-> 	unsigned long flags;
-> 	bool ret = true;
+>    entity->rq = NULL;
+> ...
+>    entity->rq = &sched_list[0]->rq;
 > 
-> 	dma_fence_lock_irqsave(fence, flags);
-> 	if (!dma_fence_is_signaled_locked(fence))
-> 		ret = false;
-> 	dma_fence_unlock_irqrestore(fence, flags);
-> 
-> 	if (ret == true)
-> 		dma_fence_put(fence);
-> 	return ret;
-> }
-> 
-> 
-> That looks weird, doesn't it?
-> 
-> 
-> We do some git-blame:
-> 
-> c8a5d5ea3ba6a18958f8d76430e4cd68eea33943
-> 
-> and we find that it's Dave who wrote that code, because
-> 
-> "
->      My analysis: two threads are running, one in the irq signalling the
->      fence, in dma_fence_signal_timestamp_locked, it has done the
->      DMA_FENCE_FLAG_SIGNALLED_BIT setting, but hasn't yet reached the
->      callbacks.
->      
->      The second thread in nouveau_cli_work_ready, where it sees the fence is
->      signalled, so then puts the fence, cleanups the object and frees the
->      work item, which contains the callback.
->      
->      Thread one goes again and tries to call the callback and causes the
->      use-after-free.
-> "
-> 
-> 
-> So this is a race, caused by lockless speed optimization.
-> 
-> And it would further seem that there is one invention in computer
-> science that can prevent such races:
-> 
-> Locks.
-> 
-> There is no cleaner, safer synchronization strategy in computer science
-> than locking.
-> 
-> This race became possible because the lock does not guard the entirety
-> of dma_fence_is_signaled().
+> Good enough or you want a respin and if so in what flavour?
 
-One could also argue the problem was caused by sharing the fence 
-reference without holding it, anyway, I wanted to ask something else. 
-What happened to the idea to remove opportunistic signalling from 
-dma_fence_is_signaled?
+Gentle reminder - can we merge this as is or you want me to tweak what 
+specifically?
 
 Regards,
 
 Tvrtko
-
+>>
+>>>       entity->guilty = guilty;
+>>>       entity->priority = priority;
+>>>       entity->last_user = current->group_leader;
+>>> @@ -280,9 +279,6 @@ void drm_sched_entity_kill(struct 
+>>> drm_sched_entity *entity)
+>>>       struct drm_sched_job *job;
+>>>       struct dma_fence *prev;
+>>> -    if (!entity->rq)
+>>> -        return;
+>>> -
+>>>       spin_lock(&entity->lock);
+>>>       entity->stopped = true;
+>>>       drm_sched_rq_remove_entity(entity->rq, entity);
+>>> @@ -329,14 +325,11 @@ EXPORT_SYMBOL(drm_sched_entity_kill);
+>>>    */
+>>>   long drm_sched_entity_flush(struct drm_sched_entity *entity, long 
+>>> timeout)
+>>>   {
+>>> -    struct drm_gpu_scheduler *sched;
+>>> +    struct drm_gpu_scheduler *sched =
+>>> +        container_of(entity->rq, typeof(*sched), rq);
+>>>       struct task_struct *last_user;
+>>>       long ret = timeout;
+>>> -    if (!entity->rq)
+>>> -        return 0;
+>>> -
+>>> -    sched = container_of(entity->rq, typeof(*sched), rq);
+>>>       /*
+>>>        * The client will not queue more jobs during this fini - consume
+>>>        * existing queued ones, or discard them on SIGKILL.
+>>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/ 
+>>> drm/scheduler/sched_main.c
+>>> index 818d3d4434b5..d2ca01b31ee4 100644
+>>> --- a/drivers/gpu/drm/scheduler/sched_main.c
+>>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+>>> @@ -588,15 +588,6 @@ int drm_sched_job_init(struct drm_sched_job *job,
+>>>                  u32 credits, void *owner,
+>>>                  uint64_t drm_client_id)
+>>>   {
+>>> -    if (!entity->rq) {
+>>> -        /* This will most likely be followed by missing frames
+>>> -         * or worse--a blank screen--leave a trail in the
+>>> -         * logs, so this can be debugged easier.
+>>> -         */
+>>> -        dev_err(job->sched->dev, "%s: entity has no rq!\n", __func__);
+>>> -        return -ENOENT;
+>>> -    }
+>>> -
+>>>       if (unlikely(!credits)) {
+>>>           pr_err("*ERROR* %s: credits cannot be 0!\n", __func__);
+>>>           return -EINVAL;
+>>
+>> But overall a very nice cleanup
+>>
+>>
+>> P.
 > 
-> Wouldn't you agree that this is a strong indicator for the great
-> advantages that consequent and consistent lock-protection grants? IOW,
-> by using locks more strictly in dma_fence, we can increase its
-> robustness and reliability.
-> 
-> 
-> P.
 
