@@ -4,46 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB600CD98C8
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 17:20:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1974CD98C9
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 17:20:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9F9010E53E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9F6310E518;
 	Tue,  9 Jun 2026 17:20:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Z2TLadlI";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="T83Y5ahz";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D813210E4DA;
- Tue,  9 Jun 2026 17:20:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 599D210E4B8
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 17:20:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:To:From:Sender:Reply-To:Cc:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=u+fdBhaDHSz20LrSRHPxKFOMo3T9YyaeNrfvBmDkBAA=; b=Z2TLadlIMiI4vkTzxe5a5eSp2w
- GfTT9RY5/eMYJooqsRIXASSWp+gLF7/87Epbv1lZCV8TFktjQzvxfGmFPmjpBJXm/YJMwSb/K4e4N
- 0/vCo179s4d3MHVb/KXFuLfHSk+obHx6wXtKkWdXGWNxMe4DLy1lcuCMk1ttDIZSqdS41woMjSRyq
- 4Oa7Ps/rC8ozD4aNpfZVdDHKjv7fS0m5MGA2exrVoe+mSIyLTODE+CXSBkbEFqDM3wJckvRdwO74i
- JMzIxJ4GKYZK0BIAavRrS2PznbU/LRmlldl07J+RFvYAgIEz3Ntd3UoAXpbihfvfLLznEA2473hKc
- dpQQsthw==;
+ bh=qALqgKjcNRzkHYwDTviIlWtC4VRIBJ/dvrAgLXTOznM=; b=T83Y5ahzw4D0MjQyctaZ1Z9VJo
+ he3fhlQE65/Nmqh0pk9e+hO2s7RKd/dzsZKWgfMSsv2CHvNkym0YdMcyIksLfSJ3+jOU5358nrCnv
+ IGUhWCaWH6NsWMSfKfqBdNmwPqw5NAjbQ7wBgwezt9M3x7h/lwc8x1kd1LhPGJKN/drFj8Q1F5vno
+ NM1vm2SbtNHhy/22Yz4J7S3z+SeuU1fNMpeTuozdjVDHLRSvZO4C/Rs0rANBBqKSKMYIEZnQK4N43
+ 9lFxKeBWpiEdLLLZ2Tjen1v7ZuAG/86m+YBZHJfPViy8dDEo6JdPqwtMiXMThuswhHtemU09OhfQw
+ O7UPNIXw==;
 Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
  helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wX07z-00F5FG-F1; Tue, 09 Jun 2026 19:20:39 +0200
+ id 1wX080-00F5FG-Db
+ for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 19:20:40 +0200
 From: John Harrison <John.Harrison@Igalia.com>
 To: dri-devel@lists.freedesktop.org
-Cc: Melissa Wen <mwen@igalia.com>, Suraj Kandpal <suraj.kandpal@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Alex Hung <alex.hung@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, kernel-dev@igalia.com,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: [RFC PATCH 0/8] Convert colorop pipelines to use proper lists
-Date: Tue,  9 Jun 2026 10:19:33 -0700
-Message-ID: <20260609171941.169104-1-John.Harrison@Igalia.com>
+Subject: [RFC PATCH 1/8] drm/colorop: Reduce scope of colorop helpers
+Date: Tue,  9 Jun 2026 10:19:34 -0700
+Message-ID: <20260609171941.169104-2-John.Harrison@Igalia.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260609171941.169104-1-John.Harrison@Igalia.com>
+References: <20260609171941.169104-1-John.Harrison@Igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -61,66 +58,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-As pointed out by Jani, colorop pipelines are using a locally coded
-list system based on a 'next' pointer rather than official kernel list
-structures:
-https://lore.kernel.org/dri-devel/4452e675c4853faf665b520a8932a960946206bb@intel.com/
+The drm_colorop_find function had a comment saying that uses outside
+of DRM properties are deprecated. Such uses seem to have all been
+removed and this function is only ever used once inside the property
+assignment code. So make it a static helper local to the file.
 
-This patch set fixes that up.
-
-The result is a little odd. There is no pipeline object as such -
-pipelines are just a sequence of colorop objects and defined by
-whatever arbitrary colorop object happens to be first in the sequence.
-Therefore, there is no clear place to put the list head object. It has
-to go inside the first colorop in the pipe. Which means there is a
-list head inside *every* colorop object, regardless of whether it is
-the head of a pipeline or not. Most of them are just empty lists.
-
-Hence this set is being posted as an RFC - is the end result actually
-better than the current version? Outside of open coding vs using
-kernel helpers when iterating the list, probably the biggest advantage
-is being able to assert that any given colorop is the head of a
-pipeline rather than somewhere in the middle (or not in a pipeline at
-all). It should not be possible to pass a non-head colorop into a
-function that works on pipelines, but extra sanity checks are
-generally a good thing.
+Likewise drm_atomic_set_colorop_for_plane is never used outside of the
+property set code. So make it a local static helper as well.
 
 Signed-off-by: John Harrison <John.Harrison@Igalia.com>
-CC: Melissa Wen <mwen@igalia.com>
-CC: Suraj Kandpal <suraj.kandpal@intel.com>
-CC: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-CC: Jani Nikula <jani.nikula@linux.intel.com>
-CC: Alex Hung <alex.hung@amd.com>
-CC: Harry Wentland <harry.wentland@amd.com>
-CC: kernel-dev@igalia.com
-CC: intel-xe@lists.freedesktop.org
-CC: intel-gfx@lists.freedesktop.org
-CC: amd-gfx@lists.freedesktop.org
-CC: dri-devel@lists.freedesktop.org
+---
+ drivers/gpu/drm/drm_atomic_uapi.c | 23 ++++++++++++++++-------
+ include/drm/drm_colorop.h         | 20 --------------------
+ 2 files changed, 16 insertions(+), 27 deletions(-)
 
-John Harrison (8):
-  drm/colorop: Reduce scope of colorop helpers
-  drm/colorop: Create pipelines via 'add to pipeline' instead of 'set
-    next'
-  drm/i915/colorop: Update to new pipeline API
-  drm/amd/colorop: Update to new pipeline API
-  drm/vkms/colorop: Update to new pipeline API
-  drm/colorop: Remove old add-next API as no longer used
-  drm/colorop: Convert pipline 'next' pointer to a list
-  drm/colorop: Check that requested colorop is the root of a pipeline
-
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 60 ++++++++++---------
- .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 16 ++---
- drivers/gpu/drm/drm_atomic.c                  | 15 ++++-
- drivers/gpu/drm/drm_atomic_uapi.c             | 30 +++++++---
- drivers/gpu/drm/drm_colorop.c                 | 29 +++++----
- .../drm/i915/display/intel_color_pipeline.c   | 14 ++---
- drivers/gpu/drm/i915/display/intel_plane.c    | 14 +++--
- drivers/gpu/drm/vkms/vkms_colorop.c           |  8 ++-
- drivers/gpu/drm/vkms/vkms_composer.c          |  9 +--
- include/drm/drm_colorop.h                     | 40 +++++--------
- 10 files changed, 135 insertions(+), 100 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 6441b55cc274..530576850239 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -259,16 +259,16 @@ drm_atomic_set_fb_for_plane(struct drm_plane_state *plane_state,
+ EXPORT_SYMBOL(drm_atomic_set_fb_for_plane);
+ 
+ /**
+- * drm_atomic_set_colorop_for_plane - set colorop for plane
++ * set_colorop_for_plane - set colorop for plane
+  * @plane_state: atomic state object for the plane
+  * @colorop: colorop to use for the plane
+  *
+  * Helper function to select the color pipeline on a plane by setting
+  * it to the first drm_colorop element of the pipeline.
+  */
+-void
+-drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
+-				 struct drm_colorop *colorop)
++static void
++set_colorop_for_plane(struct drm_plane_state *plane_state,
++		      struct drm_colorop *colorop)
+ {
+ 	struct drm_plane *plane = plane_state->plane;
+ 
+@@ -284,7 +284,16 @@ drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
+ 
+ 	plane_state->color_pipeline = colorop;
+ }
+-EXPORT_SYMBOL(drm_atomic_set_colorop_for_plane);
++
++static struct drm_colorop *colorop_find(struct drm_device *dev,
++					struct drm_file *file_priv,
++					uint32_t id)
++{
++	struct drm_mode_object *mo;
++
++	mo = drm_mode_object_find(dev, file_priv, id, DRM_MODE_OBJECT_COLOROP);
++	return mo ? obj_to_colorop(mo) : NULL;
++}
+ 
+ /**
+  * drm_atomic_set_crtc_for_connector - set CRTC for connector
+@@ -599,12 +608,12 @@ static int drm_atomic_plane_set_property(struct drm_plane *plane,
+ 		/* find DRM colorop object */
+ 		struct drm_colorop *colorop = NULL;
+ 
+-		colorop = drm_colorop_find(dev, file_priv, val);
++		colorop = colorop_find(dev, file_priv, val);
+ 
+ 		if (val && !colorop)
+ 			return -EACCES;
+ 
+-		drm_atomic_set_colorop_for_plane(state, colorop);
++		set_colorop_for_plane(state, colorop);
+ 	} else if (property == config->prop_fb_damage_clips) {
+ 		ret = drm_property_replace_blob_from_id(dev,
+ 					&state->fb_damage_clips,
+diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+index b4b9e4f558ab..7f0bd58fb625 100644
+--- a/include/drm/drm_colorop.h
++++ b/include/drm/drm_colorop.h
+@@ -381,26 +381,6 @@ struct drm_colorop {
+ 
+ #define obj_to_colorop(x) container_of(x, struct drm_colorop, base)
+ 
+-/**
+- * drm_colorop_find - look up a Colorop object from its ID
+- * @dev: DRM device
+- * @file_priv: drm file to check for lease against.
+- * @id: &drm_mode_object ID
+- *
+- * This can be used to look up a Colorop from its userspace ID. Only used by
+- * drivers for legacy IOCTLs and interface, nowadays extensions to the KMS
+- * userspace interface should be done using &drm_property.
+- */
+-static inline struct drm_colorop *drm_colorop_find(struct drm_device *dev,
+-						   struct drm_file *file_priv,
+-						   uint32_t id)
+-{
+-	struct drm_mode_object *mo;
+-
+-	mo = drm_mode_object_find(dev, file_priv, id, DRM_MODE_OBJECT_COLOROP);
+-	return mo ? obj_to_colorop(mo) : NULL;
+-}
+-
+ void drm_colorop_pipeline_destroy(struct drm_device *dev);
+ void drm_colorop_cleanup(struct drm_colorop *colorop);
+ 
 -- 
 2.43.0
 
