@@ -4,55 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20DBBCD8CB9
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 15:46:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A121BCD8CB9
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 15:48:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CD2E10E31A;
-	Tue,  9 Jun 2026 15:46:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF6B410E427;
+	Tue,  9 Jun 2026 15:48:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Y0wWEGSd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j2xIBZLf";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BF2B10E31A
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 15:46:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1781019986; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=TdLep4iIGLSFu6R6E+jR3886lqG+OCDS5MpX71CqM5XqrBFMH6NI971iK6Zrw2sZp4DZdjL3kSYImAEobCmzF1GGrm0KbOcsoGfUouFdsYjO0j5O6CTtkUiYT9C+2iW9QzVExPSYbJYFxEuHM26iQKH8UKj2EBqNypqNVuYsvtU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1781019986;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=Yq0YedSy2ltlmXQkVjO4DFCO6XZqNvukn5YvwkChBo0=; 
- b=kLTPWdCmRv3sP4u1sMo4Xo7gXrW4tY8VPaRe7Ka/dk7nDgYMHYAGHK4BLZoRpZUuYlTZn+fIb1MUgmSf2eNFLo7N+TS/3V7MzsVaxqEpiI1Oml98WdiPZvTBVjimIjrLaPDCNcEVOxaHSfCJvaxOcpRu1TdD0j70HX0Zmz/nAE4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781019986; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=Yq0YedSy2ltlmXQkVjO4DFCO6XZqNvukn5YvwkChBo0=;
- b=Y0wWEGSdYOaBPbbzztYdYHB8/7iolZvaVNz7kXmENCdgsQmoA1EdTTPZwue0bbDL
- ZALT8mu5mpD40W0nn87vsxx3k11co/M5zAE7AcePsVriPJae5qy4ruAplPF+HGsPD1B
- OuWxlL0KRD1PTXNEaHJL2ZPy14B0WXMIRqRucpkI=
-Received: by mx.zohomail.com with SMTPS id 1781019985329809.925765084812;
- Tue, 9 Jun 2026 08:46:25 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel@collabora.com
-Subject: Re: [PATCH 0/2] Make HDMI state helpers handle odd max bpc requests
-Date: Tue, 09 Jun 2026 17:46:20 +0200
-Message-ID: <n8gESqWZSRS1IhbHdJvkLQ@collabora.com>
-In-Reply-To: <20260609-orthodox-cocky-bull-5ddef8@houat>
-References: <20260608-hdmi-max-bpc-fix-v1-0-6e8dcebc7274@collabora.com>
- <20260609-orthodox-cocky-bull-5ddef8@houat>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1436310E427
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 15:48:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id BFBA7416A2;
+ Tue,  9 Jun 2026 15:48:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 213F61F00893;
+ Tue,  9 Jun 2026 15:48:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781020089;
+ bh=1qLXop+cTPH+f6hmtY1LlYJw4vNZ4SL4+E5w0mhclL8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=j2xIBZLfM6YJpl+WBcmI+rXhbHN9NL1oGqvb2tYqZu+m5Epe3KsrPeSPuRr592nA7
+ vD3wbtJ41R4tJ78706Le93f7TxaZKVy7BOZKPMNjSeYaolmHIQwWI1Sxrmdibk1TTS
+ Ht4CoQJ+CCif1Kj/Jo0mO+8asfDvChdTv/e9cN/LNcCVrLzFYYQ/QQnXZE1DGmzqkx
+ CEx1ZMiuyUdqYpOKh5K+2KJuEgB2z2WRO4g8xOdSZBRw1DaxsS2pWr2J87QRhBHqY+
+ +l5jMr2L3wg3yyK0ADEbQGo4AlYhfpEOHDXTM/7h7dcgQhzN1uCUWroX/AsgPSZHAY
+ OSsVzkV14tRDQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/4] rust: sync: generic memory barriers
+To: "Gary Guo" <gary@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, ojeda@kernel.org, "Alexandre
+ Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260609-rust-barrier-v2-2-30fcc48e1cd0@garyguo.net>
+References: <20260609-rust-barrier-v2-2-30fcc48e1cd0@garyguo.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 09 Jun 2026 15:48:08 +0000
+Message-Id: <20260609154809.213F61F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,56 +53,54 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tuesday, 9 June 2026 14:51:12 Central European Summer Time Maxime Ripard wrote:
-> Hi,
-> 
-> On Mon, Jun 08, 2026 at 01:19:06PM +0200, Nicolas Frattaroli wrote:
-> > With the "max bpc" KMS connector property, userspace can arbitrarily
-> > restrict the upper end of the bits-per-component range. This is fine and
-> > good, except the HDMI state helpers never considered that max_bpc could
-> > be influenced by a userspace setting, so assumed it'll always be an even
-> > value from the HDMI standards.
-> > 
-> > This, unfortunately, is not the world we live in anymore. Patch 1
-> > corrects sink_supports_format_bpc to return false on BPCs outside of
-> > what HDMI allows. Patch 2 then corrects handling of odd-numbered max
-> > bpcs by rounding the loop start value down to an even number instead. It
-> > also adds a KUnit test to make sure nobody breaks this again in the
-> > future.
-> > 
-> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> 
-> Do you have a bit more details on the world you live in? :)
-> 
-> In particular, why would erroring out on setting an odd value in
-> atomic_set_property not work?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The import statement `pub use ordering::{Full, Read, Write};` viola=
+tes the vertical import style guideline.
+--
 
-It would work, but it'd be an inferior solution IMHO. (If the intent
-was to point out this is already done then I can't find the code where
-such a check is performed.)
+commit c070c38a2a2dec94e13a6201bf19eb33e82b5478
+Author: Gary Guo <gary@garyguo.net>
 
-It's perfectly fine, albeit weird, for userspace to say it wants a max
-bpc of 11. That HDMI does not support 11 bpc isn't really something the
-upper end of the range should concern itself with, much like we don't
-error out on a max bpc of 14 either even though HDMI does not support
-bit depths of 14 bits.
+rust: sync: generic memory barriers
 
-By counting from the next even number, we don't leak our implementation's
-choice of trying every other bit depth through the uAPI with an overly
-restrictive constraint being placed. In an alternate universe, mirror
-world Maxime may have decided to i-- in that for loop instead just in
-case, and the second patch wouldn't be needed.
+This commit implements a generic interface for memory barriers (full system,
+DMA, and SMP) that requires the user to specify their intent. It provides
+Read, Write, and Full orderings which map to the existing rmb(), wmb(), and
+mb() barriers to reduce code duplication.
 
-Kind regards,
-Nicolas Frattaroli
+> diff --git a/rust/kernel/sync/barrier.rs b/rust/kernel/sync/barrier.rs
+> index 8f2d435fcd944..54c527fdb7605 100644
+> --- a/rust/kernel/sync/barrier.rs
+> +++ b/rust/kernel/sync/barrier.rs
 
-> 
-> Maxime
-> 
+[ ... ]
 
+> +pub mod ordering {
+> +    pub use crate::sync::atomic::ordering::Full;
+> +
+> +    /// The annotation type for read-read barrier ordering.
+> +    pub struct Read;
+> +
+> +    /// The annotation type for write-write barrier ordering.
+> +    pub struct Write;
+> +}
+> +
+> +pub use ordering::{Full, Read, Write};
 
+[Severity: Low]
+This isn't a bug, but does this violate the kernel's vertical import style
+guidelines?
 
+The subsystem documentation states that commits touching imports should fol=
+low
+the vertical import style, which places each imported item on its own line
+when braces are used to group multiple items.
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-rust-barri=
+er-v2-0-30fcc48e1cd0@garyguo.net?part=3D2
