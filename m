@@ -4,155 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50CBBCD8CA4
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 14:25:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69C2CCD8CA4
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 14:27:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8532F10E3DB;
-	Tue,  9 Jun 2026 14:25:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE2C910E408;
+	Tue,  9 Jun 2026 14:27:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="DKksWpRE";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C4i/rjA1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nwDszgGM";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCA3610E408
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 14:25:48 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 659ClKWY652176
- for <dri-devel@lists.freedesktop.org>; Tue, 9 Jun 2026 14:25:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=71usq3gq9cQd20fa0B4ebJpRi6XgL/ygSODcBJ05MzM=; b=DK
- ksWpRER/65TvGrHF3rlGHwzKvIuDSSLx/mG597yof91G1+dfUrTixwDzyoqgWd9M
- 9bbNN4D+erDTUKzkbyfASWo0uCm+9aiLucefczklDjcE+FQoq3jcSq1XEl2IdrKH
- ye3De7hcd3xWmLgsA7eRvIj2nbHrVzfKfk8hjN2d0OHmBfUT8j6CL0CAynl4ysSz
- hqM9oM1xUBT2YuclYOPvk25OuNEtJJiudbV4HX46vWpicmL5Q+P0X13FfT6gFfK0
- HojplJ8YHo5CHe7Ju6EWstsB8HRmqtSOirqf5wGoZoEbBsgQ/s0JAE9of5qhHP9P
- MNGdpONz0JLUkBSQvXtQ==
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
- [209.85.210.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epf0sspyf-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 14:25:47 +0000 (GMT)
-Received: by mail-ot1-f70.google.com with SMTP id
- 46e09a7af769-7e60737a964so10805858a34.3
- for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 07:25:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781015147; cv=none;
- d=google.com; s=arc-20240605;
- b=j8fXvwPqpa47uVwHWP6kD2DWTjH7m+uHWo8H+Luzisw8r+sNeRA6ETkb6SHgqLVszN
- bhVMcXbAXvinmSc4En0eE4CAxFCLAUOXfjwMYxg3YkUkg5Rn0Cg2fREh9aXE5DJt6e1m
- FCLeZ9+MyyC2Pxm751r01wpRo/a01GS2t2Zi6VwmY9ioGNT/3hGgSjeXStwABjV2Lcr+
- QcohuAwiHxA9zmYpbfneSMVqK02RYDa0ipAxNabEaCHIzPsdQRiVQRFnN8i+QFpcBjlD
- Mdxj3wr1UrZG+yw2Vvi47zdIkip/U11/GU5RIrsYwtwuSEIfTAiReVl97QyZW31GHw4Q
- dJBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:dkim-signature;
- bh=71usq3gq9cQd20fa0B4ebJpRi6XgL/ygSODcBJ05MzM=;
- fh=bL52AfjuEoAvsjZtoO7sIIfuUiyKOJcMEyebwI9MYgI=;
- b=K9k6nKRANv1AaIxtUrTkRcItZehpvw91LLwj7Z/fuxTgmgtFSXJdI8syI3Tbn4sRsh
- AKxBIiGBVOA9UyVb5jlT4PGx8R8teYhIUp+N9e1QXWroquavFNQT7SmY/uLCEkFSx11s
- dwBbfCV5rJ61JdC9TtlDYaJKJmmR4MKSCh3h8x4+uyerD9ALk23zMV0nDSQC/J1+MZ1R
- 0gfxmU3XGHXQNRpnS2wYjPhYH0GM+xxgl1BXelDA620Y6IBkN0uaBTSeGgknuQNyiz1H
- XkEIo1/hZ5fJvCVvjQluwE47HdEoLsqtld0QplepLfLgBb4Q465vgsYeCfvvHQBUkGdt
- 6Egw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1781015147; x=1781619947;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=71usq3gq9cQd20fa0B4ebJpRi6XgL/ygSODcBJ05MzM=;
- b=C4i/rjA15sO9/DSJGS35ySscbQklUQrWIVgn7Khwy0ZgC8CxnBmhzqiwaF0CVRQ9ID
- 5y5GJNZfwHjSHWd7+YQBwaD0DoTO9Fmogpq4V4HalI4Rho1s9cqsTJuI3Y6Ddqt3zMdw
- f/fJAoQNTYMiKggYPsAlQ4EaYuSNCjv1Ciz3eI0A95BFqlkvqYQ+uHM6TB5I4YYNDyAP
- rKnqMEfPlC7DzqcJn0Mytrd5bPfdzK5DrRTbBuNXaYT1lNoYcqIM+x14kx6D4bH+ly8N
- ukRLrYKfASaBRx8UP0m+bj3Gsgr30RUUkwArlIQRu4/K2VFqVGvqbS8haturihzo4ncA
- t0nQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781015147; x=1781619947;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=71usq3gq9cQd20fa0B4ebJpRi6XgL/ygSODcBJ05MzM=;
- b=QDimtgwZRiBc9sRrUfom9FTMQ3FUZvfeb6OWfazJEIsPY/NHzz4o1PfxFEeztcSgXx
- rs4tpipNT4NMoO6+lbtHC2rkRXjK0v3m5yDR4XIjRi9GNLx6vHFx5QSU6gpjgJV4UMwe
- AgpiVQ8X2OLCeD8H0JmkfqFxtg+hWMwXRoZuqFA3trK1mM1fseCiTwiMtFz75rdfUutf
- q8fj9ygJ0n3B1dmE0s1fVRzjHPG9YyrVnSQOIIex0ciFM2Gl04jiIV7PP3IWn29km9TQ
- aXcUT8KPz66+c2+9xJ9W3KCD6ZbZp1WBVdBqtULidRrrIB37132oQuLXvWFUgQKmRLAT
- buNg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9+Zn1uBP7hkokdWEYnJMIq+mE3qFTZ+iZ5/48cvrWlrk1cJ0LQt25XxIfqmMoKzor0TzVdJFOmgpw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw6HkhVjehwMJ3yipdC92gV5tKlTlFNYeClaGeKl0YooqDN2oU4
- YIMcqw4h4Ub8jMqvdlzwmzxpDTk/k9VxzFz5+eE/Ql28tamq2VRL6V1PahmzitpXBX5fiCZjI+t
- EAbmfGCUrDBazNt137mrGF16O+oJP/TpQUeS6qGviSJ7ldXcXRblEunucT3xHUsm/5B9hw4uchB
- 9ySNzE+gN0oQKpy9jXDVCSHauSB4C3qRRBEWFarIU6u+7HXA==
-X-Gm-Gg: Acq92OFfMgblQqJJDvkGeBoILJlTZ5RqffvkUXyZKUQzG/aoMwFbxSlfTsrF26mYMmD
- 8rWzA4uFwP8JZ27p3w4usoMLy8XZFwVw346BDVbLhaNJVoO4Oo4DrAu/ozT/J23z0MaUaicLTNs
- V/2ZBTD/pgtEQg7F+hzbvQ88hsyHzpAi2Ij6zWC4/xjbPmTaJUheYVgENjqYJtYjJ9LceCQNHBK
- RMjuXu/Bn2zTuhAbY+/0effLJFygtAyos9BuHwy3ab3/MPG
-X-Received: by 2002:a05:6830:4995:b0:7dc:c338:d23d with SMTP id
- 46e09a7af769-7e70c9f3c8bmr14276674a34.14.1781015147099; 
- Tue, 09 Jun 2026 07:25:47 -0700 (PDT)
-X-Received: by 2002:a05:6830:4995:b0:7dc:c338:d23d with SMTP id
- 46e09a7af769-7e70c9f3c8bmr14276638a34.14.1781015146571; Tue, 09 Jun 2026
- 07:25:46 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260605-assorted-fixes-june-v1-0-2caa04f7287c@oss.qualcomm.com>
- <20260605-assorted-fixes-june-v1-5-2caa04f7287c@oss.qualcomm.com>
- <CACSVV01dbQcjE+nTic+9R4VfCtNGvpwODH8BMZi8B7LFtcCCfQ@mail.gmail.com>
- <49b8530f-24d3-4201-b22c-0f8eaea9f4e0@oss.qualcomm.com>
- <CACSVV00vFNZDCN24wSdffZFRWpijb53qbX_-3b09ny4noa7-Mw@mail.gmail.com>
- <d153235f-ffec-4fee-87b2-6008f26d7014@oss.qualcomm.com>
-In-Reply-To: <d153235f-ffec-4fee-87b2-6008f26d7014@oss.qualcomm.com>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Tue, 9 Jun 2026 07:25:35 -0700
-X-Gm-Features: AVVi8CfIb0biAtmV6jQ1d_iFduyokQv33M85_Lef8QpAnVhMcGBgRaq9DvmuxOo
-Message-ID: <CACSVV02_Yh21Ld5NX6Z6iaG0sfTGseOD5S9X_avSC=7RAfNt6w@mail.gmail.com>
-Subject: Re: [PATCH 5/6] drm/msm/a6xx: Fix IRQ storm during msm_recovery test
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E90510E408
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 14:27:09 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 32EF443EBB;
+ Tue,  9 Jun 2026 14:27:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72C0D1F00893;
+ Tue,  9 Jun 2026 14:27:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781015229;
+ bh=7b6cZO88qxYhwPQRHX9JdG5EbRfREDm6sv5DAhrto3Y=;
+ h=From:To:Cc:Subject:Date:Reply-To;
+ b=nwDszgGMS4Q5Gx6dDnrYmmxG3JFRwCznR8eeTRISzUFizK3fvgodofWAu0j6qV7Vm
+ x8jzUygPHi0X7dKckNz5MK6s/lYGVbDQhxCVCq/CV6YZzLrPMaloIQFmQ9JFuDUE5t
+ bsKGaAtZc/eXQskQawfXOzP2QBNT3/JHr9JepY5csJaBJqqS9brT6suCfR/tDAY0dl
+ 3cy1egpS8C+a924GwJU7wfUap2OVoYsh+qWf3VZMyjzZUZq62sEE4olr+tg2BSk3eU
+ n3m/ldEIak5tl9p0RlIcfwcAmJu0eCLrYxhxYEWpbrCZaUgMHWORyNWIt7SezgpP9w
+ fnMRyl333y4xg==
+From: Gary Guo <gary@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>,
- Jie Zhang <quic_jiezh@quicinc.com>,
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jie Zhang <jie.zhang@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDEzNyBTYWx0ZWRfX6gASyAD3AnMV
- 8oGIJJ7ZtoOAfQpHkarI8CrtZWRCWI+4/3642kA2VmlTY2MWymFnqh5njH04N2VA39gRW6YwZzN
- Zlyr4QqYM1DcIZjdzzSMkqbzlmrNsb2dF4OumKS7rJGiQC9wt7qxeFT/eCOHGr7R9DbyUaqohyU
- TBpoCyapk5VXGXftDognrXx0pzHi/KWdh1AepD14DbKQrm9180AFY79FSs/ixs03iB31ohb34iS
- N5rq8tzXkbROiUyymq3btt8+MwjomlujmxBBInmCf+hMQHnjBm3/6iLNpnnMNDnKFjqCs1JDPFL
- 1AXFd511Hvlj9at+WbflOn7HUmEA2n43yZxbe+JCpbr0Ey2ooPznZPBVZczSgO7pAwIVy96Ma7x
- pU7MBkTGHRD98f4OWnupL6UeD0uSSbDKpNZimi2dwFCCbNllc0r0rEkOqSq6wXMf3GtF/HuV6Rq
- 9sNZon8McquFvsTvBQQ==
-X-Proofpoint-ORIG-GUID: pD0xb_LurggrW5PNiA2Z9ov9FbJ4YpGd
-X-Proofpoint-GUID: pD0xb_LurggrW5PNiA2Z9ov9FbJ4YpGd
-X-Authority-Analysis: v=2.4 cv=GeonWwXL c=1 sm=1 tr=0 ts=6a28226b cx=c_pps
- a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8 a=AGxqfbsocd9TTLaiNUcA:9
- a=QEXdDO2ut3YA:10 a=EXS-LbY8YePsIyqnH6vw:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-09_03,2026-06-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 malwarescore=0 clxscore=1015 spamscore=0
- lowpriorityscore=0 impostorscore=0 priorityscore=1501 suspectscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606090137
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Yury Norov <yury.norov@gmail.com>, Will Deacon <will@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, Mark Rutland <mark.rutland@arm.com>,
+ Ingo Molnar <mingo@redhat.com>, Waiman Long <longman@redhat.com>,
+ Tamir Duberstein <tamird@kernel.org>
+Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ driver-core@lists.linux.dev, netdev@vger.kernel.org
+Subject: [PATCH v4] rust: make `build_assert` module the home of related macros
+Date: Tue,  9 Jun 2026 15:26:33 +0100
+Message-ID: <20260609142637.373347-1-gary@kernel.org>
+X-Mailer: git-send-email 2.54.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,171 +66,412 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
+Reply-To: Gary Guo <gary@garyguo.net>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 9, 2026 at 6:09=E2=80=AFAM Akhil P Oommen <akhilpo@oss.qualcomm=
-.com> wrote:
->
-> On 6/9/2026 5:50 AM, Rob Clark wrote:
-> > On Mon, Jun 8, 2026 at 2:55=E2=80=AFPM Akhil P Oommen <akhilpo@oss.qual=
-comm.com> wrote:
-> >>
-> >> On 6/5/2026 12:20 PM, Rob Clark wrote:
-> >>> On Thu, Jun 4, 2026 at 1:10=E2=80=AFPM Akhil P Oommen <akhilpo@oss.qu=
-alcomm.com> wrote:
-> >>>>
-> >>>> From: Jie Zhang <jie.zhang@oss.qualcomm.com>
-> >>>>
-> >>>> Once a hang is triggered by the msm_recovery test, the gpu error irq
-> >>>> remains asserted and triggers an interrupt storm. In the worst case,
-> >>>> this IRQ storm lands on the CPU core where the hangcheck timer is
-> >>>> scheduled, blocking it from running. This eventually leads to CPU
-> >>>> watchdog timeouts.
-> >>>>
-> >>>> To fix this, mask the gpu error irqs during msm_recovery test and
-> >>>> enable them back during the recovery.
-> >>>>
-> >>>> Fixes: 5edf2750d998 ("drm/msm: Add debugfs to disable hw err handlin=
-g")
-> >>>> Signed-off-by: Jie Zhang <jie.zhang@oss.qualcomm.com>
-> >>>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> >>>> ---
-> >>>>  drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 5 +++++
-> >>>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 5 ++++-
-> >>>>  drivers/gpu/drm/msm/adreno/a8xx_gpu.c | 5 ++++-
-> >>>>  drivers/gpu/drm/msm/msm_gpu.c         | 2 ++
-> >>>>  4 files changed, 15 insertions(+), 2 deletions(-)
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm=
-/msm/adreno/a5xx_gpu.c
-> >>>> index 2c0bbac43c52..f1df2514c613 100644
-> >>>> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> >>>> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> >>>> @@ -1275,6 +1275,11 @@ static irqreturn_t a5xx_irq(struct msm_gpu *g=
-pu)
-> >>>>                 status & ~A5XX_RBBM_INT_0_MASK_RBBM_AHB_ERROR);
-> >>>>
-> >>>>         if (priv->disable_err_irq) {
-> >>>> +               /* Turn off interrupts to avoid interrupt storm */
-> >>>> +               gpu_write(gpu, REG_A5XX_RBBM_INT_0_MASK,
-> >>>> +                              A5XX_RBBM_INT_0_MASK_CP_CACHE_FLUSH_T=
-S |
-> >>>> +                              A5XX_RBBM_INT_0_MASK_CP_SW);
-> >>>> +
-> >>>>                 status &=3D A5XX_RBBM_INT_0_MASK_CP_CACHE_FLUSH_TS |
-> >>>>                           A5XX_RBBM_INT_0_MASK_CP_SW;
-> >>>>         }
-> >>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm=
-/msm/adreno/a6xx_gpu.c
-> >>>> index 8b3bb2fd433b..9a4f9d0e1780 100644
-> >>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >>>> @@ -1911,8 +1911,11 @@ static irqreturn_t a6xx_irq(struct msm_gpu *g=
-pu)
-> >>>>
-> >>>>         gpu_write(gpu, REG_A6XX_RBBM_INT_CLEAR_CMD, status);
-> >>>>
-> >>>> -       if (priv->disable_err_irq)
-> >>>> +       if (priv->disable_err_irq) {
-> >>>> +               /* Turn off interrupts to avoid interrupt storm */
-> >>>> +               gpu_write(gpu, REG_A6XX_RBBM_INT_0_MASK, A6XX_RBBM_I=
-NT_0_MASK_CP_CACHE_FLUSH_TS);
-> >>>>                 status &=3D A6XX_RBBM_INT_0_MASK_CP_CACHE_FLUSH_TS;
-> >>>> +       }
-> >>>>
-> >>>>         if (status & A6XX_RBBM_INT_0_MASK_RBBM_HANG_DETECT)
-> >>>>                 a6xx_fault_detect_irq(gpu);
-> >>>> diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm=
-/msm/adreno/a8xx_gpu.c
-> >>>> index 9e44fd1ae634..0f6fd35bd587 100644
-> >>>> --- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-> >>>> +++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-> >>>> @@ -1211,8 +1211,11 @@ irqreturn_t a8xx_irq(struct msm_gpu *gpu)
-> >>>>
-> >>>>         gpu_write(gpu, REG_A8XX_RBBM_INT_CLEAR_CMD, status);
-> >>>>
-> >>>> -       if (priv->disable_err_irq)
-> >>>> +       if (priv->disable_err_irq) {
-> >>>> +               /* Turn off interrupts to avoid interrupt storm */
-> >>>> +               gpu_write(gpu, REG_A8XX_RBBM_INT_0_MASK, A6XX_RBBM_I=
-NT_0_MASK_CP_CACHE_FLUSH_TS);
-> >>>>                 status &=3D A6XX_RBBM_INT_0_MASK_CP_CACHE_FLUSH_TS;
-> >>>> +       }
-> >>>>
-> >>>>         if (status & A6XX_RBBM_INT_0_MASK_RBBM_HANG_DETECT)
-> >>>>                 a8xx_fault_detect_irq(gpu);
-> >>>> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm=
-_gpu.c
-> >>>> index 9ac7740a87f0..48ac51f4119b 100644
-> >>>> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> >>>> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> >>>> @@ -552,6 +552,8 @@ static void recover_worker(struct kthread_work *=
-work)
-> >>>>                 msm_update_fence(ring->fctx, fence);
-> >>>>         }
-> >>>>
-> >>>> +       priv->disable_err_irq =3D false;
-> >>>
-> >>> Ok, so we rely on recovery to re-enable the error irqs..  that is
-> >>> probably ok, given the intended purpose of the debugfs file.  And,
-> >>> well, it is debugfs.  But why do we clear disable_err_irq here?
-> >>
-> >> Now that we are updating the IRQ mask register which won't reset until
-> >> there is a gpu suspend, its side effect will be felt even after
-> >> userspace deasserts the debugfs knob, potentially into the next
-> >> testcase. This is different from the older behavior. So, I felt it wou=
-ld
-> >> be better to reset this flag during the recovery, considering
-> >> msm_recovery is the only user of this knob, afaiu.
-> >
-> > Hmm... maybe debugfs writes should just immediately update the irq
-> > mask (if the gpu is powered)?
->
-> That needs some plumbing in adreno func table to program the register.
-> We can do that if you prefer that, but is it an overkill for this usecase=
-?
+From: Gary Guo <gary@garyguo.net>
 
-Yeah, that is why I didn't suggest it earlier.  But stealth re-enable
-of err irqs makes the behavior harder to reason about, which I
-dislike.  I guess it works now because msm_recovery only does a single
-hang-test w/ hw error irq's disabled.  But from userspace PoV it seems
-natural to expect error irq's to remain disabled until writing debugfs
-again.
+Given the macro scoping rules, all macros are rendered twice, in the
+module and in the top-level of kernel crate.
 
-Since it is about debugfs and a single igt test, maybe it is just best
-to document that this is how it works.
+Add `#[doc(no_inline)]` to the prelude so it just shows up as re-export.
+Add `#[doc(hidden)]` to the macro definition and `#[doc(inline)]` to the
+re-export inside `build_assert` module so the top-level items are hidden.
 
-Or, would it be reasonable just to update the irq mask in gpu->submit()?
+Acked-by: Danilo Krummrich <dakr@kernel.org>
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Acked-by: Alexandre Courbot <acourbot@nvidia.com>
+Acked-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+Acked-by: Boqun Feng <boqun@kernel.org>
+Signed-off-by: Gary Guo <gary@garyguo.net>
+---
+This is the remaining unapplied patch from
+https://lore.kernel.org/rust-for-linux/20260319121653.2975748-1-gary@kernel.org/.
 
-BR,
--R
+Changes:
+- Rebased so it applies cleanly. (both on linux-next and rust-next)
+- Picked up tags
+- Updated commit message to reflect that my other patch "rust: doc: disable
+  doc inlining for all prelude items" already reduce number of rendering
+  times from 3 to 2.
+---
+ drivers/gpu/nova-core/bitfield.rs    |  4 ++--
+ drivers/gpu/nova-core/num.rs         |  2 +-
+ rust/kernel/build_assert.rs          | 19 ++++++++++++-------
+ rust/kernel/io/register.rs           | 19 ++++++++++++-------
+ rust/kernel/io/resource.rs           |  2 +-
+ rust/kernel/ioctl.rs                 |  2 +-
+ rust/kernel/net/phy/reg.rs           |  8 +++++---
+ rust/kernel/num/bounded.rs           |  2 +-
+ rust/kernel/prelude.rs               | 12 ++++++++----
+ rust/kernel/sync/atomic/internal.rs  |  9 ++++++---
+ rust/kernel/sync/atomic/predefine.rs |  2 +-
+ rust/kernel/sync/locked_by.rs        |  2 +-
+ rust/kernel/sync/refcount.rs         |  8 +++++---
+ rust/kernel/xarray.rs                | 10 ++++++++--
+ 14 files changed, 64 insertions(+), 37 deletions(-)
 
+diff --git a/drivers/gpu/nova-core/bitfield.rs b/drivers/gpu/nova-core/bitfield.rs
+index 02efdcf78d89..660c3911402d 100644
+--- a/drivers/gpu/nova-core/bitfield.rs
++++ b/drivers/gpu/nova-core/bitfield.rs
+@@ -170,7 +170,7 @@ impl $name {
+     (@check_field_bounds $hi:tt:$lo:tt $field:ident as bool) => {
+         #[allow(clippy::eq_op)]
+         const _: () = {
+-            ::kernel::build_assert!(
++            ::kernel::build_assert::build_assert!(
+                 $hi == $lo,
+                 concat!("boolean field `", stringify!($field), "` covers more than one bit")
+             );
+@@ -181,7 +181,7 @@ impl $name {
+     (@check_field_bounds $hi:tt:$lo:tt $field:ident as $type:tt) => {
+         #[allow(clippy::eq_op)]
+         const _: () = {
+-            ::kernel::build_assert!(
++            ::kernel::build_assert::build_assert!(
+                 $hi >= $lo,
+                 concat!("field `", stringify!($field), "`'s MSB is smaller than its LSB")
+             );
+diff --git a/drivers/gpu/nova-core/num.rs b/drivers/gpu/nova-core/num.rs
+index 6c824b8d7b97..6eb174d136ab 100644
+--- a/drivers/gpu/nova-core/num.rs
++++ b/drivers/gpu/nova-core/num.rs
+@@ -49,7 +49,7 @@ macro_rules! impl_safe_as {
+             #[allow(unused)]
+             #[inline(always)]
+             pub(crate) const fn [<$from _as_ $into>](value: $from) -> $into {
+-                kernel::static_assert!(size_of::<$into>() >= size_of::<$from>());
++                ::kernel::build_assert::static_assert!(size_of::<$into>() >= size_of::<$from>());
+ 
+                 value as $into
+             }
+diff --git a/rust/kernel/build_assert.rs b/rust/kernel/build_assert.rs
+index 2ea2154ec30c..c3acb9b68a65 100644
+--- a/rust/kernel/build_assert.rs
++++ b/rust/kernel/build_assert.rs
+@@ -61,15 +61,16 @@
+ //! undefined symbols and linker errors, it is not developer friendly to debug, so it is recommended
+ //! to avoid it and prefer other two assertions where possible.
+ 
++#[doc(inline)]
+ pub use crate::{
+-    build_assert,
++    build_assert_macro as build_assert,
+     build_error,
+     const_assert,
+     static_assert, //
+ };
+ 
+ #[doc(hidden)]
+-pub use build_error::build_error;
++pub use build_error::build_error as build_error_fn;
+ 
+ /// Static assert (i.e. compile-time assert).
+ ///
+@@ -105,6 +106,7 @@
+ /// static_assert!(f(40) == 42, "f(x) must add 2 to the given input.");
+ /// ```
+ #[macro_export]
++#[doc(hidden)]
+ macro_rules! static_assert {
+     ($condition:expr $(,$arg:literal)?) => {
+         const _: () = ::core::assert!($condition $(,$arg)?);
+@@ -133,6 +135,7 @@ macro_rules! static_assert {
+ /// }
+ /// ```
+ #[macro_export]
++#[doc(hidden)]
+ macro_rules! const_assert {
+     ($condition:expr $(,$arg:literal)?) => {
+         const { ::core::assert!($condition $(,$arg)?) };
+@@ -157,12 +160,13 @@ macro_rules! const_assert {
+ /// // foo(usize::MAX); // Fails to compile.
+ /// ```
+ #[macro_export]
++#[doc(hidden)]
+ macro_rules! build_error {
+     () => {{
+-        $crate::build_assert::build_error("")
++        $crate::build_assert::build_error_fn("")
+     }};
+     ($msg:expr) => {{
+-        $crate::build_assert::build_error($msg)
++        $crate::build_assert::build_error_fn($msg)
+     }};
+ }
+ 
+@@ -200,15 +204,16 @@ macro_rules! build_error {
+ /// const _: () = const_bar(2);
+ /// ```
+ #[macro_export]
+-macro_rules! build_assert {
++#[doc(hidden)]
++macro_rules! build_assert_macro {
+     ($cond:expr $(,)?) => {{
+         if !$cond {
+-            $crate::build_assert::build_error(concat!("assertion failed: ", stringify!($cond)));
++            $crate::build_assert::build_error_fn(concat!("assertion failed: ", stringify!($cond)));
+         }
+     }};
+     ($cond:expr, $msg:expr) => {{
+         if !$cond {
+-            $crate::build_assert::build_error($msg);
++            $crate::build_assert::build_error_fn($msg);
+         }
+     }};
+ }
+diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
+index 388647f28292..f924c7c7c1db 100644
+--- a/rust/kernel/io/register.rs
++++ b/rust/kernel/io/register.rs
+@@ -108,9 +108,10 @@
+ 
+ use core::marker::PhantomData;
+ 
+-use crate::io::IoLoc;
+-
+-use kernel::build_assert;
++use crate::{
++    build_assert::build_assert,
++    io::IoLoc, //
++};
+ 
+ /// Trait implemented by all registers.
+ pub trait Register: Sized {
+@@ -872,7 +873,7 @@ macro_rules! register {
+         @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
+             [ $size:expr, stride = $stride:expr ] @ $offset:literal { $($fields:tt)* }
+     ) => {
+-        ::kernel::static_assert!(::core::mem::size_of::<$storage>() <= $stride);
++        $crate::build_assert::static_assert!(::core::mem::size_of::<$storage>() <= $stride);
+ 
+         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+         $crate::register!(@io_base $name($storage) @ $offset);
+@@ -895,7 +896,9 @@ macro_rules! register {
+         @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $alias:ident [ $idx:expr ]
+             { $($fields:tt)* }
+     ) => {
+-        ::kernel::static_assert!($idx < <$alias as $crate::io::register::RegisterArray>::SIZE);
++        $crate::build_assert::static_assert!(
++            $idx < <$alias as $crate::io::register::RegisterArray>::SIZE
++        );
+ 
+         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+         $crate::register!(
+@@ -912,7 +915,7 @@ macro_rules! register {
+             [ $size:expr, stride = $stride:expr ]
+             @ $base:ident + $offset:literal { $($fields:tt)* }
+     ) => {
+-        ::kernel::static_assert!(::core::mem::size_of::<$storage>() <= $stride);
++        $crate::build_assert::static_assert!(::core::mem::size_of::<$storage>() <= $stride);
+ 
+         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+         $crate::register!(@io_base $name($storage) @ $offset);
+@@ -938,7 +941,9 @@ macro_rules! register {
+         @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
+             => $base:ident + $alias:ident [ $idx:expr ] { $($fields:tt)* }
+     ) => {
+-        ::kernel::static_assert!($idx < <$alias as $crate::io::register::RegisterArray>::SIZE);
++        $crate::build_assert::static_assert!(
++            $idx < <$alias as $crate::io::register::RegisterArray>::SIZE
++        );
+ 
+         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+         $crate::register!(
+diff --git a/rust/kernel/io/resource.rs b/rust/kernel/io/resource.rs
+index b7ac9faf141d..17b0c174cfc5 100644
+--- a/rust/kernel/io/resource.rs
++++ b/rust/kernel/io/resource.rs
+@@ -229,7 +229,7 @@ impl Flags {
+     // Always inline to optimize out error path of `build_assert`.
+     #[inline(always)]
+     const fn new(value: u32) -> Self {
+-        crate::build_assert!(value as u64 <= c_ulong::MAX as u64);
++        build_assert!(value as u64 <= c_ulong::MAX as u64);
+         Flags(value as c_ulong)
+     }
+ }
+diff --git a/rust/kernel/ioctl.rs b/rust/kernel/ioctl.rs
+index 2fc7662339e5..5bb5b48cf949 100644
+--- a/rust/kernel/ioctl.rs
++++ b/rust/kernel/ioctl.rs
+@@ -6,7 +6,7 @@
+ 
+ #![expect(non_snake_case)]
+ 
+-use crate::build_assert;
++use crate::build_assert::build_assert;
+ 
+ /// Build an ioctl number, analogous to the C macro of the same name.
+ #[inline(always)]
+diff --git a/rust/kernel/net/phy/reg.rs b/rust/kernel/net/phy/reg.rs
+index a7db0064cb7d..80e22c264ea8 100644
+--- a/rust/kernel/net/phy/reg.rs
++++ b/rust/kernel/net/phy/reg.rs
+@@ -9,9 +9,11 @@
+ //! defined in IEEE 802.3.
+ 
+ use super::Device;
+-use crate::build_assert;
+-use crate::error::*;
+-use crate::uapi;
++use crate::{
++    build_assert::build_assert,
++    error::*,
++    uapi, //
++};
+ 
+ mod private {
+     /// Marker that a trait cannot be implemented outside of this crate
+diff --git a/rust/kernel/num/bounded.rs b/rust/kernel/num/bounded.rs
+index f9f90d6ec482..dafe77782d79 100644
+--- a/rust/kernel/num/bounded.rs
++++ b/rust/kernel/num/bounded.rs
+@@ -364,7 +364,7 @@ pub fn try_new(value: T) -> Option<Self> {
+     // Always inline to optimize out error path of `build_assert`.
+     #[inline(always)]
+     pub fn from_expr(expr: T) -> Self {
+-        crate::build_assert!(
++        crate::build_assert::build_assert!(
+             fits_within(expr, N),
+             "Requested value larger than maximal representable value."
+         );
+diff --git a/rust/kernel/prelude.rs b/rust/kernel/prelude.rs
+index ca260cc3937a..f6e852638ade 100644
+--- a/rust/kernel/prelude.rs
++++ b/rust/kernel/prelude.rs
+@@ -79,9 +79,6 @@
+         VVec,
+         Vec, //
+     },
+-    build_assert,
+-    build_error,
+-    const_assert,
+     current,
+     dev_alert,
+     dev_crit,
+@@ -105,7 +102,6 @@
+     pr_info,
+     pr_notice,
+     pr_warn,
+-    static_assert,
+     str::CStrExt as _,
+     try_init,
+     try_pin_init,
+@@ -113,6 +109,14 @@
+     ThisModule, //
+ };
+ 
++#[doc(no_inline)]
++pub use crate::build_assert::{
++    build_assert,
++    build_error,
++    const_assert,
++    static_assert, //
++};
++
+ // `super::std_vendor` is hidden, which makes the macro inline for some reason.
+ #[doc(no_inline)]
+ pub use super::dbg;
+diff --git a/rust/kernel/sync/atomic/internal.rs b/rust/kernel/sync/atomic/internal.rs
+index ad810c2172ec..9c8a7a203abd 100644
+--- a/rust/kernel/sync/atomic/internal.rs
++++ b/rust/kernel/sync/atomic/internal.rs
+@@ -4,8 +4,11 @@
+ //!
+ //! Provides 1:1 mapping to the C atomic operations.
+ 
+-use crate::bindings;
+-use crate::macros::paste;
++use crate::{
++    bindings,
++    build_assert::static_assert,
++    macros::paste, //
++};
+ use core::cell::UnsafeCell;
+ use ffi::c_void;
+ 
+@@ -46,7 +49,7 @@ pub trait AtomicImpl: Sized + Copy + private::Sealed {
+ // In the future when a CONFIG_ARCH_SUPPORTS_ATOMIC_RMW=n architecture plans to support Rust, the
+ // load/store helpers that guarantee atomicity against RmW operations (usually via a lock) need to
+ // be added.
+-crate::static_assert!(
++static_assert!(
+     cfg!(CONFIG_ARCH_SUPPORTS_ATOMIC_RMW),
+     "The current implementation of atomic i8/i16/ptr relies on the architecure being \
+     ARCH_SUPPORTS_ATOMIC_RMW"
+diff --git a/rust/kernel/sync/atomic/predefine.rs b/rust/kernel/sync/atomic/predefine.rs
+index 7468153429e1..adc5fa126487 100644
+--- a/rust/kernel/sync/atomic/predefine.rs
++++ b/rust/kernel/sync/atomic/predefine.rs
+@@ -2,7 +2,7 @@
+ 
+ //! Pre-defined atomic types
+ 
+-use crate::static_assert;
++use crate::prelude::*;
+ use core::mem::{align_of, size_of};
+ use ffi::c_void;
+ 
+diff --git a/rust/kernel/sync/locked_by.rs b/rust/kernel/sync/locked_by.rs
+index 61f100a45b35..fb4a1430b3b4 100644
+--- a/rust/kernel/sync/locked_by.rs
++++ b/rust/kernel/sync/locked_by.rs
+@@ -3,7 +3,7 @@
+ //! A wrapper for data protected by a lock that does not wrap it.
+ 
+ use super::{lock::Backend, lock::Lock};
+-use crate::build_assert;
++use crate::build_assert::build_assert;
+ use core::{cell::UnsafeCell, mem::size_of, ptr};
+ 
+ /// Allows access to some data to be serialised by a lock that does not wrap it.
+diff --git a/rust/kernel/sync/refcount.rs b/rust/kernel/sync/refcount.rs
+index 6c7ae8b05a0b..23a5d201f343 100644
+--- a/rust/kernel/sync/refcount.rs
++++ b/rust/kernel/sync/refcount.rs
+@@ -4,9 +4,11 @@
+ //!
+ //! C header: [`include/linux/refcount.h`](srctree/include/linux/refcount.h)
+ 
+-use crate::build_assert;
+-use crate::sync::atomic::Atomic;
+-use crate::types::Opaque;
++use crate::{
++    build_assert::build_assert,
++    sync::atomic::Atomic,
++    types::Opaque, //
++};
+ 
+ /// Atomic reference counter.
+ ///
+diff --git a/rust/kernel/xarray.rs b/rust/kernel/xarray.rs
+index 46e5f43223fe..987c9c0c2198 100644
+--- a/rust/kernel/xarray.rs
++++ b/rust/kernel/xarray.rs
+@@ -5,10 +5,16 @@
+ //! C header: [`include/linux/xarray.h`](srctree/include/linux/xarray.h)
+ 
+ use crate::{
+-    alloc, bindings, build_assert,
++    alloc,
++    bindings,
++    build_assert::build_assert,
+     error::{Error, Result},
+     ffi::c_void,
+-    types::{ForeignOwnable, NotThreadSafe, Opaque},
++    types::{
++        ForeignOwnable,
++        NotThreadSafe,
++        Opaque, //
++    }, //
+ };
+ use core::{iter, marker::PhantomData, pin::Pin, ptr::NonNull};
+ use pin_init::{pin_data, pin_init, pinned_drop, PinInit};
 
-> -Akhil
->
-> >
-> > BR,
-> > -R
-> >
-> >> I should have explicitly called out this new behavior of disable_err_i=
-rq
-> >> in the commit text, but I forgot.
-> >>
-> >> -Akhil.
-> >>
-> >>>
-> >>> BR,
-> >>> -R
-> >>>
-> >>>> +
-> >>>>         gpu->funcs->recover(gpu);
-> >>>>
-> >>>>         /* retire completed submits, plus the one that hung: */
-> >>>>
-> >>>> --
-> >>>> 2.51.0
-> >>>>
-> >>
->
+base-commit: 98cc68794c003bc76fc9da2e8a075e947eee5921
+-- 
+2.54.0
+
