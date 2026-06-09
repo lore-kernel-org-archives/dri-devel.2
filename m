@@ -4,86 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12561CD6E79
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 09:00:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4E52CD8CA7
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 09:00:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CABC10E1B8;
-	Tue,  9 Jun 2026 09:00:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EE7110E1C6;
+	Tue,  9 Jun 2026 09:00:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="N6weoz0q";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="mbKBAflS";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFA0410E1B8
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 08:59:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1780995598;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:  in-reply-to:in-reply-to; 
- bh=+QgjNina6+iDumd0ZqzH0GRicPNFxNM+RIpD2R+Oo3E=;
- b=N6weoz0qOYWa5IlkouiUicpVAaMKXUSFS3SrafiTKHRGJh6XkVdehsH56m7JiNmBB8KxND
- AcdGXaQOLTXjcmjAQbOBrwPlunmOiOx7jqV/1heunqAdDk/o8G5c1A8bVsHrNQtfS7IjsV
- 6hrgXQfbVtqcRXS3rIOBfCXZddW/4WE=
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-695-NpJjPPadPQWk48LVSg2LfQ-1; Tue, 09 Jun 2026 04:59:57 -0400
-X-MC-Unique: NpJjPPadPQWk48LVSg2LfQ-1
-X-Mimecast-MFC-AGG-ID: NpJjPPadPQWk48LVSg2LfQ_1780995596
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-36bc5e97950so6075252a91.1
- for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 01:59:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780995596; x=1781600396;
- h=content-transfer-encoding:date:message-id:subject:cc:in-reply-to:to
- :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=QA3zW7XVHGpx2witYnUAq2WhOCFAbuZqYNTeCXGJ/sI=;
- b=iSpJyxQ6cWJexEFjfDeFR5hbXdpTQR252jWR+qcY1Hkk5gKANJxxDY0fxEWKqwy9PQ
- tXAco8eHQj29ScaLWe21pL+3FCCagWqluNtNuytZcs0kCYSk6oXnJhHCDqVemFSqINa4
- zt1NaRG9jHsVpupqkkkSiBAZUH3VV6iFsaZZUKrPA5LOtXAjWdGJfvadanmAeYTqx8iL
- 5teJ6xsFeAsBOrufz33R3DOcL3IK/cO/P4Pm/f63ZDS4ibbzMhue/afABq8vwpmtOgpm
- 5kBCPBEvWg5EaQ4nYWgL763hNIHFo6KiVTkTytZ9TcaZHaLum3ljVShYRZ2nZvlneX+U
- 9Jsg==
-X-Gm-Message-State: AOJu0Yz3x8xmpZlfRQ0PY3lk2DhGgx92ILyL3bSYUrB9SgUnFz58XhlH
- QWWfJGbOVxa1u3zEn2ug3M9h6LCZxfO3J1u7zBJa/WILN8dAZeY+WhdNKLPJ9bY11NAbMLsRTy5
- iEJwEmv8n4xiBoEKGEp38u2ZYAdPbMG4Oxsa2oHfwR1MwtQunVK+5y9CgzvAAfHhF6446Sz3kWk
- vq8GYq
-X-Gm-Gg: Acq92OGaJl/Nv0h96IlVIlKU2rypx+kX3v58u16K9Z1Xb0VceUE3aL1AdrFBWcpg2Pz
- SwFhB0xSMHmWSuXLzFybmXhX2t6t2L/4F+M45rO7x3XGLy/+OtX4H6Ud+df38OzlOUzrgn8+KCp
- vlSZLuzbpmoUVlOF9u+picTYPtU3cWpdi3+S8jjw6nWbS8YspjWbg4S1/txBpbF/Rl9VjWYEQRP
- 5NUjuXVR4un2anrRt9D3GsXt+FYY3lRvdkrBm+fE5CpWZWXZp/sfcWU0u+6szp1iatpi51x6hMo
- d62Bzqj3Gcp8fa7nVXFqceSMmWoO96GzkCz/6yPLlrZj5r0Ip0jF+xLDNbuGSNwQZF2hm876Fod
- I/GGroiG/HmZQojx2DOdEvEQjNkWgfcEDq7zu/2jUODjlNrayz00uHNMJ7bgsMGyqIJuBGQ==
-X-Received: by 2002:a17:90b:1d89:b0:368:ea0c:1b75 with SMTP id
- 98e67ed59e1d1-370ee82fe25mr20349275a91.6.1780995596320; 
- Tue, 09 Jun 2026 01:59:56 -0700 (PDT)
-X-Received: by 2002:a17:90b:1d89:b0:368:ea0c:1b75 with SMTP id
- 98e67ed59e1d1-370ee82fe25mr20349226a91.6.1780995595776; 
- Tue, 09 Jun 2026 01:59:55 -0700 (PDT)
-Received: from ryasuoka-thinkpadx1carbongen9.tokyo.csb ([126.143.164.49])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-36f6d1fec5asm18472645a91.10.2026.06.09.01.59.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jun 2026 01:59:55 -0700 (PDT)
-MIME-Version: 1.0
-From: "Ryosuke Yasuoka" <ryasuoka@redhat.com>
-To: "Dmitry Osipenko" <dmitry.osipenko@collabora.com>, 
- "David Airlie" <airlied@redhat.com>, "Gerd Hoffmann" <kraxel@redhat.com>, 
- "Gurchetan Singh" <gurchetansingh@chromium.org>, 
- "Chia-I Wu" <olvaffe@gmail.com>
-In-Reply-To: <f3848234-4258-483f-bc27-cdd31f65e7aa@collabora.com>
-Cc: <dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>, 
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v1] drm/virtio: Fix driver removal with disabled KMS
-Message-ID: <18b75e0e21e52581.f1a5ca06374b8df6.21049e9ba3a0559d@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
-Date: Tue, 9 Jun 2026 08:59:52 +0000
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: G0Qim6TqNVzC5GYz9FZWFJWNkhd4fSbXKu-Vo52lEVg_1780995596
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C3E110E1BB
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 09:00:52 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4gZNDJ4jM9z9v6H;
+ Tue,  9 Jun 2026 11:00:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1780995648; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=2XewDnzdhkSGP7z6mkVUkCPOhELJsvC+ONlq1zZ3ECY=;
+ b=mbKBAflSUZtPuK/nXwLbpCorxo++jFSHfc1tVKsE1FSvSH3CDangFWORTdz4h/9h1Konzc
+ lNcns2124vJhTNJWqs03j3QwW4e5MCrLktPa6Ycqs2lxls2qPt2L7ze6ODB4ijdujPnyro
+ E+I3ZJnywOg+KE0hVub8gvgKySdidZaBWRR8gQHrV1VrO9EVeKhDNlOIAUoVD7K5Rl9l2a
+ 5QDlxcUr5F76D54yUw7Nxcc3xyQPKCKmTbhyccBeFNZb9bap9UIdC7SN/JpCiZ2HVj9iSY
+ oY3DVCzd6rQp8Wepvq5S29WJyOLjW/ra0K39r4Kmp2Z+nRl4yKfRK6eiFOltmA==
+Message-ID: <f28f1ec7fe3961aa4e616688ac46056421292564.camel@mailbox.org>
+Subject: Re: [RFC PATCH] dma-fence: Fix races of fence callbacks versus
+ destructors by locking
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ phasta@kernel.org, Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>,  Alice Ryhl <aliceryhl@google.com>, Daniel
+ Almeida <dwlsalmeida@gmail.com>, Gary Guo <gary@garyguo.net>,  Tvrtko
+ Ursulin <tvrtko.ursulin@igalia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 	linux-kernel@vger.kernel.org
+Date: Tue, 09 Jun 2026 11:00:43 +0200
+In-Reply-To: <8c155cd9-3f79-4e0b-ba3e-1c7e8dad1fa0@amd.com>
+References: <20260608142436.265820-2-phasta@kernel.org>
+ <20260608170112.24fd92df@fedora-2.home>
+ <6bdbdb6541392c6ea58e0035f0b20ac3c8f3e54e.camel@mailbox.org>
+ <DJ3RRRX6JY4M.LCRKJ074W9DQ@kernel.org>
+ <256dc5ae3529e2548c4151af34a540476ac928c1.camel@mailbox.org>
+ <20260608181630.20145d1c@fedora-2.home>
+ <739df49a9c0fc54e3d096f95f7d738081f6fcfc2.camel@mailbox.org>
+ <8c155cd9-3f79-4e0b-ba3e-1c7e8dad1fa0@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MBO-RS-META: agbh83dfcab4z3ghtieii8tkw53cd466
+X-MBO-RS-ID: 366f5c3a3072fff08a9
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,62 +73,58 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dmitry
-
-On 08/06/2026 21:40, Dmitry Osipenko wrote:
-> Hi,
+On Tue, 2026-06-09 at 10:47 +0200, Christian K=C3=B6nig wrote:
+> On 6/9/26 10:43, Philipp Stanner wrote:
+> > On Mon, 2026-06-08 at 18:16 +0200, Boris Brezillon wrote:
+> > > If I were to choose, I'd probably go for a dedicated rwlock_t to
+> >=20
+> > side note:
+> > rw_locks are officially discouraged AFAIK. They utilize more of the
+> > expensive instructions than a spinlock and are only worth it if the
+> > read section is really long compared to the write section.
+> >=20
+> > > protect dma_fence_ops, so we can:
+> > >=20
+> > > - protect all dma_buf_ops::xx() consistently no matter the kind
+> > > of op
+> > > - protect returned data (get_xxx_name()) with this lock instead
+> > > of the
+> > > =C2=A0 RCU read lock
+> >=20
+> > That doesn't solve our Rust destructor problem though, does it?
+> >=20
+> > What we want to do is:
+> >=20
+> > =C2=A0=C2=A0 1. Signal the fence before it drops
+> > =C2=A0=C2=A0 2. Wait for all accessors to be gone
+> > =C2=A0=C2=A0 3. Run the destructor
+> >=20
+> > Step #2 by definition demands the signaled-state lock.
 >=20
-> On 6/7/26 07:31, Ryosuke Yasuoka wrote:
->> Hi Dmitry
->>=20
->> On 04/06/2026 15:27, Dmitry Osipenko wrote:
->>> DRM atomic and modesetting aren't initialized if virtio-gpu driver buil=
-t
->>> with disabled KMS, leading to access of uninitialized data on driver
->>> removal/unbinding and crashing kernel. Fix it by skipping shutting down
->>> atomic core with unavailable KMS.
->>>
->>> Fixes: 72122c69d717 ("drm/virtio: Add option to disable KMS support")
->>> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
->>> ---
->>>  drivers/gpu/drm/virtio/virtgpu_drv.c | 5 ++++-
->>>  1 file changed, 4 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/vir=
-tio/virtgpu_drv.c
->>> index f0fb784c0f6f..2aaa7cb08085 100644
->>> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
->>> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
->>> @@ -138,7 +138,10 @@ static void virtio_gpu_remove(struct virtio_device=
- *vdev)
->>> =20
->>>  =09virtio_gpu_release_vqs(dev);
->>>  =09drm_dev_unplug(dev);
->>> -=09drm_atomic_helper_shutdown(dev);
->>> +
->>> +=09if (drm_core_check_feature(dev, DRIVER_ATOMIC))
->>> +=09=09drm_atomic_helper_shutdown(dev);
->>> +
->>>  =09virtio_gpu_deinit(dev);
->>>  =09drm_dev_put(dev);
->>>  }
->>=20
->> The patch looks good to me at a glance. I haven't done a full, deep code
->> review yet, but I've tested it on my lab and everything works as
->> expected.
->>=20
->> Tested-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
+> If I'm not completely mistaken that approach won't work.
 >=20
-> Thanks a lot for the testing. The review from you will be very welcomed
-> too.
+> See you can't have a destructor if the dma_fence is independent of
+> the module it issued.
+>=20
+> That's why we have all the handling for inline lock and fence
+> independents.
 
-I reviewed your patch and this change looks good to me.
+It does work if you have two fence types, one for the producer and one
+for the consumers.
 
-Reviewed-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
+The producer type has a destructor, and with Rust you can ensure that
+all producer-fences get signaled and deconstructed before module
+unload.
 
-Thank you!
-Ryosuke
+That relies on the work done by you and Tvrtko in C, where the
+signaled-state is the point of decoupling.
 
+The only additional thing I'd need now would be to make this a hard
+synchronization point that cannot race / does not need an RCU delay :)
+
+
+P.
