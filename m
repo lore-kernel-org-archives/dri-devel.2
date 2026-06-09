@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27B36CD6E79
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 09:48:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11E30CD8CA4
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 09:51:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EB8110E207;
-	Tue,  9 Jun 2026 09:47:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 534BD10E218;
+	Tue,  9 Jun 2026 09:51:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Kt7P3XCA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eMDP47nQ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4C9810E207
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 09:47:57 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62E8610E231
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 09:50:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 08675601E1;
- Tue,  9 Jun 2026 09:47:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DDFD1F00893;
- Tue,  9 Jun 2026 09:47:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C8BE44323E;
+ Tue,  9 Jun 2026 09:50:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 877A21F00893;
+ Tue,  9 Jun 2026 09:50:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780998476;
- bh=gbh+zvaCM98JRQokv8KCyrp6E6f4rPKAwmhsp4jWhsc=;
+ s=k20260515; t=1780998657;
+ bh=p9o4R+yel4scS8WsFEdUg7JJ6HoUuVj0hc3cvM/kLyc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Kt7P3XCAviFIEx2Hk07Jr6WJkEH5e5A4RRBoTf/9hqq1nTdbYWHbm/VeyjY9XgaDb
- UR5Jlx/UzDuXE8GtlWrIbqbsQmv8beudPxZEQgEXU8FxT8ntBNJX5twDR6KMszPUnT
- mX4RcM+t3MdmwBPD5cehSXo01sohBP6wDItF+rdAEaKf+L2+H7Dc5wU+UlHJFxp1t+
- fHUoJ3PRinpxq33CS17+7jTXnJznYvZTNCHDMyqNe8CSzquEFqoUvU5SoziFSmbp71
- E3BMRY0JN1cw8OmahcvAen486aKyNC6VJoxZZRu2guGnXg0hLBgbsI2vIqwjJxqX+U
- bCqhDGtMourGQ==
+ b=eMDP47nQX9C5weBSYOugPoy+86Z6mWqWVZeLC1gM4+F7H+FK8QGV83k6xc5xs2xit
+ sKKz8cPxqrESut2tsBx9hYCGhdYRLmOBloY73PY0zZQSmsNP3GHX7TA4ca4nRtPrVX
+ 38XXXnoHOVQQgo1Tsdgn2n0oWrQ4S/PwnU3GEeO3ZbyyXwEg1ToZ0xDMgDIBgnanAV
+ 4mPJaSmRg3xLIPUyBVlJOLPo603ZVxYqEtFjeaFzyVqLsks5VCupqaKgAw0HJS/v0D
+ Mwe7QreEiIBh94Xqdz5DTFMHMBItyYCyAonC74UYo1BqfwymZOrZ1xH4hrGSLvoYDP
+ 27KK+UsrT2xtw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] accel/rocket: Fix iommu_group leak and unsafe
- IRQ register access
+Subject: Re: [PATCH v3 1/2] accel/rocket: Fix error path handling in
+ rocket_job_run()
 To: ZhaoJinming <zhaojinming@uniontech.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260609093346.380396-2-zhaojinming@uniontech.com>
-References: <20260609093346.380396-2-zhaojinming@uniontech.com>
+In-Reply-To: <20260609093346.380396-1-zhaojinming@uniontech.com>
+References: <20260609093346.380396-1-zhaojinming@uniontech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 09:47:55 +0000
-Message-Id: <20260609094756.8DDFD1F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 09:50:57 +0000
+Message-Id: <20260609095057.877A21F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,113 +57,109 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Incorrect error handling of pm_runtime_get_if_active() return valu=
-e causes unbalanced pm_runtime_put() and unsafe hardware access.
-- [High] PM usage count leak due to threaded IRQ coalescing on shared inter=
-rupts.
-
 Pre-existing issues:
-- [High] Missing synchronize_irq() in the runtime suspend callback for a de=
-vice with a shared IRQ handler.
-- [High] Attacker-controlled DMA faults leave the device interrupt asserted=
- without clearing it, causing an interrupt storm and kernel log spam.
+- [High] Calling `drm_sched_job_cleanup()` after `drm_sched_job_arm()` viol=
+ates the DRM scheduler API contract.
+- [High] The runtime suspend callback fails to synchronize the shared IRQ b=
+efore powering down.
+- [High] Potential NULL pointer dereference in `iommu_attach_group()` if th=
+e device lacks an IOMMU group.
 --
 
-commit 57f30fe728d7f765520f0d3ccb419368e6f945d0
+commit a91812825621124e6ae3a091adc6205cbeefed80
 Author: ZhaoJinming <zhaojinming@uniontech.com>
 
-accel/rocket: Fix iommu_group leak and unsafe IRQ register access
+accel/rocket: Fix error path handling in rocket_job_run()
 
-This commit fixes an iommu_group reference leak in rocket_job_handle_irq()
-by using the stored iommu_group instead of getting a new reference. It also
-attempts to fix unsafe hardware register accesses in the shared IRQ handler
-by adding pm_runtime_get_if_active() checks to ensure the device is awake.
-
-> 2) Unsafe hardware register access in shared IRQ handler:
->    rocket_job_irq_handler() is registered with IRQF_SHARED but accesses
->    hardware registers without checking runtime PM status.
-
-[Severity: High]
-This is a pre-existing issue, but since the device uses a shared IRQ handle=
-r,
-does the runtime suspend callback (rocket_device_runtime_suspend() in
-rocket_drv.c) need to call synchronize_irq() before disabling clocks?=20
-
-Without it, the IRQ handler could execute mid-flight while the hardware is
-turned off, leading to invalid register accesses and spurious interrupts.
+This commit fixes multiple issues in the error paths of rocket_job_run(). It
+resolves a dma_fence reference leak, correctly balances the runtime PM
+usage counter on failure by switching to pm_runtime_resume_and_get(), and
+returns ERR_PTR(ret) instead of an unsignaled fence to avoid DRM scheduler
+warnings.
 
 > diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
 ket_job.c
-> index cf9f61682dd8b..8eaa3d427a51d 100644
+> index 2f1861f960ccb..cf9f61682dd8b 100644
 > --- a/drivers/accel/rocket/rocket_job.c
 > +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -310,13 +310,22 @@ static struct dma_fence *rocket_job_run(struct drm_=
+sched_job *sched_job)
+
 [ ... ]
-> @@ -428,14 +429,20 @@ static irqreturn_t rocket_job_irq_handler_thread(in=
-t irq, void *data)
->  static irqreturn_t rocket_job_irq_handler(int irq, void *data)
->  {
->  	struct rocket_core *core =3D data;
-> +
-> +	if (!pm_runtime_get_if_active(core->dev))
-> +		return IRQ_NONE;
-> +
 
-[Severity: High]
-Does this correctly handle negative error codes?=20
-
-pm_runtime_get_if_active() returns negative error codes (e.g., -EINVAL) when
-runtime PM is disabled. The condition here only traps a return value of 0.
-When it returns a negative error code, the condition evaluates to false,
-allowing execution to proceed to read hardware registers on a potentially
-suspended device.
-
-Because the PM usage counter is not incremented on error, wouldn't the
-subsequent unconditional pm_runtime_put() calls cause a PM usage count
-underflow?
-
->  	u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
-> =20
->  	WARN_ON(raw_status & PC_INTERRUPT_RAW_STATUS_DMA_READ_ERROR);
->  	WARN_ON(raw_status & PC_INTERRUPT_RAW_STATUS_DMA_WRITE_ERROR);
-> =20
-
-[Severity: High]
-This is a pre-existing issue, but if a DMA error occurs and the DPU_0 and
-DPU_1 bits are not set, the handler returns IRQ_NONE without clearing the
-interrupt.
-
-Since this is a shared level-triggered IRQ line, won't this leave the
-interrupt asserted and cause an interrupt storm, permanently disabling the
-shared IRQ line?
-
->  	if (!(raw_status & PC_INTERRUPT_RAW_STATUS_DPU_0 ||
-> -	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1))
-> +	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1)) {
+>  	ret =3D iommu_attach_group(job->domain->domain, core->iommu_group);
+> -	if (ret < 0)
+> -		return fence;
+> +	if (ret < 0) {
 > +		pm_runtime_put(core->dev);
->  		return IRQ_NONE;
+> +		dma_fence_put(job->done_fence);
+> +		job->done_fence =3D NULL;
+> +		dma_fence_put(fence);
+> +		return ERR_PTR(ret);
 > +	}
-> =20
->  	rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
-> =20
 
 [Severity: High]
-Does this leak the PM usage count if the IRQ subsystem coalesces the thread=
-ed
-interrupt?
+This is a pre-existing issue, but can core->iommu_group be NULL here?
 
-If another device triggers an interrupt on this shared line while
-rocket_job_irq_handler_thread() is already pending, this hardirq handler
-will run again. It will increment the PM usage count via
-pm_runtime_get_if_active() and eventually return IRQ_WAKE_THREAD.
+If the device does not have an IOMMU group (e.g., IOMMU is disabled or not
+present in the device tree), iommu_group_get() returns NULL. Calling
+iommu_attach_group() unconditionally with a NULL group parameter will cause=
+ a
+kernel crash when it attempts to dereference the pointer.
 
-Because the thread is already pending, the IRQ core coalesces the request
-and the thread only runs once. Doesn't this mean pm_runtime_put() is only
-called once, permanently leaking the extra PM reference acquired here?
+Should there be a check for a valid iommu_group before attaching?
+
+[ ... ]
+
+I also noticed a couple of pre-existing issues in this driver:
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is it safe to call
+drm_sched_job_cleanup() after drm_sched_job_arm() has already been called?
+
+In drivers/accel/rocket/rocket_job.c:rocket_job_push(), if
+rocket_acquire_object_fences() fails:
+
+	drm_sched_job_arm(&job->base);
+	...
+	ret =3D rocket_acquire_object_fences(job->in_bos, job->in_bo_count,
+					   &job->base, false);
+	if (ret)
+		goto err_unlock;
+
+The error path returns to rocket_ioctl_submit_job(), which then calls:
+
+out_cleanup_job:
+	if (ret)
+		drm_sched_job_cleanup(&rjob->base);
+
+The DRM scheduler API contract states that drm_sched_job_arm() is a point of
+no return that initializes fences and sequence numbers. Calling
+drm_sched_job_cleanup() after this breaks the dma_fence sequence numbers,
+potentially causing any context waiting on the aborted sequence number to h=
+ang
+indefinitely.
+
+[Severity: High]
+This is a pre-existing issue, but does the runtime suspend callback need to
+synchronize the shared IRQ before powering down?
+
+In drivers/accel/rocket/rocket_drv.c:rocket_device_runtime_suspend():
+
+	clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks),
+				   rdev->cores[core].clks);
+
+The Rocket driver registers its IRQ handler with IRQF_SHARED. According to
+the power management subsystem rules, drivers using shared IRQs must call
+synchronize_irq() in their runtime suspend callback before disabling clocks.
+
+Without this, could the hardware be powered off while the IRQ handler is
+mid-flight and reading registers, potentially leading to system hangs or
+spurious wakeups?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609093346.3803=
-96-1-zhaojinming@uniontech.com?part=3D2
+96-1-zhaojinming@uniontech.com?part=3D1
