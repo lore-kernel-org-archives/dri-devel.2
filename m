@@ -4,132 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52895CD8CAE
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 06:14:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3264ACD8CAD
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 06:20:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B48110E0AB;
-	Tue,  9 Jun 2026 06:14:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DE8410E070;
+	Tue,  9 Jun 2026 06:20:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="qudDzkMG";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="WlibRiNa";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="El2rKelc";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2Hws68a0";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="kQ+kUgOr";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FAC910E0AB
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 06:14:47 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5736067D6D;
- Tue,  9 Jun 2026 06:14:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780985685; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=6dArV38iGqF9GXJ/TV27PoGxLpG8ZojqfWws79F99Yg=;
- b=qudDzkMGLhMnB3kLZJrb2OmFoW0MxPinrB1iR8wfKdNHpczzyfM9D6QLolYGqnHWNdwnvY
- i/QclpRY3auF1vPvH5gD3pVDnN90ZinIR+AIZYr3OFkFbS8MO/8RaBTfACMRUV4Ik0A9+c
- /obk+yMCCirrDWobno4A5Hg9GTgVKI4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780985685;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=6dArV38iGqF9GXJ/TV27PoGxLpG8ZojqfWws79F99Yg=;
- b=WlibRiNa5CwdGCtRUuRjMQjqtM/NY8Qtv8rxifl9xB/pfrACfqpcSMB8oLoAEuBtl1+I3x
- HrjfAgS/w0256sAg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780985684; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=6dArV38iGqF9GXJ/TV27PoGxLpG8ZojqfWws79F99Yg=;
- b=El2rKelc3gdu9lt3ec1AfHViZoCiJfdCI45nLNHps1NblkCUvSY7dl5+9xErMHnmew2wpo
- gRufPkER31sLx5o76AqBinK5jGML/uYt85aSi7MpM8OgRUXBYI2lNquVcliP4REMqkyHnL
- 5cvxknwD3LldG58TEny/iOdzq1C4SuQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780985684;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=6dArV38iGqF9GXJ/TV27PoGxLpG8ZojqfWws79F99Yg=;
- b=2Hws68a0+497qKHIUCOjpaUFOn49UeK32AiL8Dg/YjSwVVnLQta43JTgaM+Dlk5hZx+99I
- YU1xUWlgBFhwzXDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2B950779A7;
- Tue,  9 Jun 2026 06:14:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id o1PsCFSvJ2rwVQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 09 Jun 2026 06:14:44 +0000
-Message-ID: <aaf75c58-c9d5-464a-9651-0021e6784e09@suse.de>
-Date: Tue, 9 Jun 2026 08:14:43 +0200
+X-Greylist: delayed 333 seconds by postgrey-1.36 at gabe;
+ Tue, 09 Jun 2026 06:20:48 UTC
+Received: from out-189.mta0.migadu.com (out-189.mta0.migadu.com
+ [91.218.175.189])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E747910E0B8
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 06:20:48 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1780985712;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=i2jpIDCVnNVhXSYDVvdDiQ1s+6wApppzolFVa3ePcBA=;
+ b=kQ+kUgOrV6W6Jc16Kii3uxt27H6tnGH4ZT13H/tGloTnC2pxAr0+1e0lN87mGDlSsCwwUT
+ byRLJdWy+OF38KcDXWI7VaMSELJjoswljJztiskoxvxrLRlYswbpJIeHHZA8qm2XiuHT4d
+ nSyAaMFF4R+0aR7kWu7ve4uMSn0m2lc=
+From: Kaitao Cheng <kaitao.cheng@linux.dev>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Muchun Song <muchun.song@linux.dev>,
+ Philipp Reisner <philipp.reisner@linbit.com>,
+ Lars Ellenberg <lars.ellenberg@linbit.com>,
+ =?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ Jens Axboe <axboe@kernel.dk>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Eddie James <eajames@linux.ibm.com>, Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Laxman Dewangan <ldewangan@nvidia.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Davidlohr Bueso <dave@stgolabs.net>,
+ "Paul E . McKenney" <paulmck@kernel.org>,
+ Josh Triplett <josh@joshtriplett.org>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, Waiman Long <longman@redhat.com>,
+ drbd-dev@lists.linbit.com, linux-block@vger.kernel.org,
+ linux1394-devel@lists.sourceforge.net, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-spi@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Christian Brauner <brauner@kernel.org>,
+ David Howells <dhowells@redhat.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kaitao Cheng <kaitao.cheng@linux.dev>, Kaito Cheng <chengkaitao@kylinos.cn>
+Subject: [PATCH v2 00/14] list: Prepare entry iterators to cache cursor state
+Date: Tue,  9 Jun 2026 14:13:33 +0800
+Message-ID: <20260609061347.93688-1-kaitao.cheng@linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] lib/fonts: Avoid unncessary 64-bit math in font code
-To: Helge Deller <deller@kernel.org>,
- Ethan Nelson-Moore <enelsonmoore@gmail.com>
-Cc: Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-References: <20260607210203.229613-1-deller@gmx.de>
- <b80a379d-87e4-45c4-a078-09e84a840895@suse.de>
- <1492766a-c349-4cca-932e-bf608b922b6b@gmx.de>
- <CADkSEUg948W-XT3_ODe_6p4i5Y8AKEcP=rmJ+7qJq30Uq0d_EQ@mail.gmail.com>
- <aiclYUfQvMokMu64@carbonx1>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <aiclYUfQvMokMu64@carbonx1>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.998]; MIME_GOOD(-0.10)[text/plain];
- RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; TO_DN_SOME(0.00)[];
- MIME_TRACE(0.00)[0:+]; FREEMAIL_TO(0.00)[kernel.org,gmail.com];
- MID_RHS_MATCH_FROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[gmx.de,vger.kernel.org,lists.freedesktop.org];
- RCPT_COUNT_FIVE(0.00)[5]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:mid, gmx.de:email,
- imap1.dmz-prg2.suse.org:helo, suse.com:url]
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,70 +97,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+From: Kaito Cheng <chengkaitao@kylinos.cn>
 
-thanks for the fix.
+This series prepares for, and then updates, the list_for_each_entry()
+family so the common entry iterators cache their next or previous cursor
+before the loop body runs.
 
-Am 08.06.26 um 22:26 schrieb Helge Deller:
-> * Ethan Nelson-Moore <enelsonmoore@gmail.com>:
->> Hi, Helge and Thomas,
->>
->> On Mon, Jun 8, 2026 at 12:58 PM Helge Deller <deller@gmx.de> wrote:
->>> On 6/8/26 13:25, Thomas Zimmermann wrote:
->>>> Why is there a 64-bit division at all?
->>> Not sure. Might be platform specific.
->>> Maybe, because you add two integers and divide by an integer, that the
->>> compiler then chooses to use 64-bit integer division by 32-bit integer.
->> Actually, I think the real issue is that
->> arch/arm/boot/compressed/Makefile defines "static" to nothing when
->> compiling its copy of lib/fonts/font_acorn_8x8.c (via font.c), so that
->> the font array is available outside of the object file. I assume that
->> this causes various unused static inline functions in the headers it
->> includes (such as <linux/math.h>) to be included in the object file
->> because they become normal inline functions.
-> Does this patch fix the issue then?
->
-> diff --git a/arch/arm/boot/compressed/Makefile b/arch/arm/boot/compressed/Makefile
-> index a159120d1e42..e3f550d62857 100644
-> --- a/arch/arm/boot/compressed/Makefile
-> +++ b/arch/arm/boot/compressed/Makefile
-> @@ -157,4 +157,4 @@ $(obj)/piggy_data: $(obj)/../Image FORCE
->   
->   $(obj)/piggy.o: $(obj)/piggy_data
->   
-> -CFLAGS_font.o := -Dstatic=
-> +CFLAGS_font.o := -DBOOTLOADER
-> diff --git a/lib/fonts/font_acorn_8x8.c b/lib/fonts/font_acorn_8x8.c
-> index 36c51016769d..3327aa6d161d 100644
-> --- a/lib/fonts/font_acorn_8x8.c
-> +++ b/lib/fonts/font_acorn_8x8.c
-> @@ -5,7 +5,11 @@
->   
->   #define FONTDATAMAX 2048
->   
-> +#ifndef BOOTLOADER
->   static const struct font_data acorndata_8x8 = {
-> +#else
-> +const struct font_data acorndata_8x8 = {
-> +#endif
->   { 0, 0, FONTDATAMAX, 0 }, {
->   /* 00 */  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* ^@ */
->   /* 01 */  0x7e, 0x81, 0xa5, 0x81, 0xbd, 0x99, 0x81, 0x7e, /* ^A */
+The first 13 patches open-code loops that intentionally depend on the
+old "derive the next entry from the current cursor at the end of the
+iteration" behaviour.  These loops append work to the list being walked,
+restart traversal after dropping a lock, skip an entry consumed by the
+current iteration, or otherwise adjust the cursor in the loop body.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+The final patch changes include/linux/list.h to keep a private cursor in
+the common entry iterators while preserving the public macro interface.
+The safe variants remain available when callers need the temporary
+cursor explicitly or have stronger mutation requirements.
 
-I do like this better than the other patch.
+Changes in v2 (Muchun Song, Andy Shevchenko):
+ - Drop the list_for_each_entry_mutable*() helpers from v1 and make the
+   cursor change directly in the existing list_for_each_entry*() helpers.
+ - Open-code special list walks that rely on updating the loop cursor in
+   the body, preserving their existing traversal semantics.
 
-Best regards
-Thomas
+Link to v1:
+https://lore.kernel.org/all/20260529082149.76764-1-kaitao.cheng@linux.dev/
 
+Kaitao Cheng (14):
+  drbd: Open-code transfer log list walk
+  firewire: core: Open-code topology list walk
+  drm/bridge: Open-code bridge chain list walks
+  drm/i915/gt: Open-code active timeline walk
+  drm/i915: Open-code DFS dependency list walk
+  drm/ttm: Open-code reservation list walk
+  spi: fsi: Open-code message transfer walk
+  spi: stm32-ospi: Open-code message transfer walk
+  spi: stm32-qspi: Open-code message transfer walk
+  spi: tegra210-quad: Open-code message transfer walk
+  locking/locktorture: Open-code ww mutex list walk
+  locking/ww_mutex: Open-code stress reorder list walk
+  ASoC: dapm: Open-code widget invalidation walk
+  list: Cache cursors in entry iterators
+
+ drivers/block/drbd/drbd_debugfs.c      |  4 ++-
+ drivers/firewire/core-topology.c       |  4 ++-
+ drivers/gpu/drm/drm_bridge.c           |  7 ++--
+ drivers/gpu/drm/i915/gt/intel_reset.c  |  4 ++-
+ drivers/gpu/drm/i915/i915_scheduler.c  |  4 ++-
+ drivers/gpu/drm/ttm/ttm_execbuf_util.c |  4 ++-
+ drivers/spi/spi-fsi.c                  |  5 ++-
+ drivers/spi/spi-stm32-ospi.c           |  4 ++-
+ drivers/spi/spi-stm32-qspi.c           |  5 ++-
+ drivers/spi/spi-tegra210-quad.c        |  4 ++-
+ include/linux/list.h                   | 46 ++++++++++++++++++++------
+ kernel/locking/locktorture.c           |  4 ++-
+ kernel/locking/test-ww_mutex.c         |  4 ++-
+ sound/soc/soc-dapm.c                   |  4 ++-
+ 14 files changed, 78 insertions(+), 25 deletions(-)
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+2.43.0
 
