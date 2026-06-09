@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E96E2CD6E79
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 03:16:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79C3CCD8C85
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 03:18:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54B9E10E069;
-	Tue,  9 Jun 2026 03:16:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6B8D10E06A;
+	Tue,  9 Jun 2026 03:18:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jdnsDVuP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F7OaqcR7";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E3D210E069
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 03:16:00 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2104310E06A
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 03:18:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B4B4C601E1;
- Tue,  9 Jun 2026 03:15:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D46771F00893;
- Tue,  9 Jun 2026 03:15:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DEF21418E7;
+ Tue,  9 Jun 2026 03:18:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A44571F00893;
+ Tue,  9 Jun 2026 03:18:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780974959;
- bh=6Fyv2AkughcFlPb3QtmxiD6Ld+02RwgYu7ptjQIY8/s=;
+ s=k20260515; t=1780975091;
+ bh=Cu0/Bay43OSm6o/pchVYDcYqFjYpyjRghoofTC+YB2I=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jdnsDVuPocjfAC63CfTtiumjWNv1pF7bH+MCyktv2Ldr+mnyGTmjpyOPMWvYHLUMQ
- Sod1qvvAg5eK+SbDVetLsp76ETUmbDJ47capAgcvfsxThRJ79n95AP1OE9U4xiqYmV
- rBQaURS68YnKWSrLsi4UUYpf7LLfZUAHbzgsCAyQxq9K6zmZFKe3VuJEa5Be8ageN5
- cEgOPB1jL460OIHlOtPsJN2W1ToCqDiV2GN1YjkJD7LmPwztP2MGHdkxzxWWLP5n/n
- eIGl/J9OXiMisxu+BNeLiNr5W64eey8495C67+KWuHNLDi2Jtjr1N5aM/nx9nT4xcS
- /AxuDCa5bcunA==
+ b=F7OaqcR7voKqGZf1U132+iG2O1DvdfEtTLcNLYKqsDM9MkUSs6tSW0ncvNKHkeQxi
+ 9H6qOXoBVHDUXXfBaeHAdhenUw2OKpQoFZmhAPxAGdrAdXqOkBKvKhpZ5C3kT2MZ4W
+ lGGNXLegTofF0zQxbVc+9nhuhzXrrfkrSHist6HnUIUzYEtnHgiZB6yK7KxHWsYjmw
+ vuT78QxXNlX3MSYAo9UWl7fyCWVfpE4Qj3SMQn/rF0QSWLFeDU++yX8+8LU0CgYNbD
+ Y/4hgQWQdGeFrlE6DBC4sft5x8S6U/2euZEDYOJQ8ylTT3MfetjwDaHFx1MwN6kmDu
+ NWyd/IWnbbJSw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 3/4] misc: fastrpc: Allocate entire reserved memory
- for Audio PD in probe
+Subject: Re: [PATCH v8 4/4] misc: fastrpc: Allow fastrpc_buf_free() to
+ accept NULL
 To: "Jianping Li" <jianping.li@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260609025938.457-4-jianping.li@oss.qualcomm.com>
-References: <20260609025938.457-4-jianping.li@oss.qualcomm.com>
+In-Reply-To: <20260609025938.457-5-jianping.li@oss.qualcomm.com>
+References: <20260609025938.457-5-jianping.li@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 03:15:58 +0000
-Message-Id: <20260609031558.D46771F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 03:18:11 +0000
+Message-Id: <20260609031811.A44571F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,229 +57,147 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Unconditional call to `qcom_scm_assign_mem` during probe can resul=
-t in an invalid TrustZone call or memory lockout if `data->vmcount` is 0.
-- [High] Unconditional and lockless clearance of `cctx->audio_init_mem` on =
-the static process error path corrupts initialization synchronization.
-- [High] Removal of the dynamic heap fallback breaks Audio PD on older Devi=
-ce Trees.
-- [High] Missing rollback of `qcom_scm_assign_mem` on probe failure permane=
-ntly locks out SCM memory.
-
 Pre-existing issues:
-- [High] Time-of-check to time-of-use (TOCTOU) race condition leading to a =
-NULL pointer dereference of `cctx->remote_heap`.
+- [Critical] Exported DMA buffers outlive their fastrpc_user context, leadi=
+ng to a Use-After-Free on dmabuf operations.
+- [Critical] In `fastrpc_req_mmap()`, if `copy_to_user()` fails, the alloca=
+ted buffer is freed via `fastrpc_req_munmap_impl()`, but its node is never =
+removed from `fl->mmaps`.
+- [Critical] Timeouts in kernel RPCs cause DMA buffers to be freed while th=
+e DSP is still actively using them.
+- [High] Interrupted mmaps are unlinked but their memory is never freed dur=
+ing `fastrpc_rpmsg_remove()`.
+- [High] Invocation contexts leak references to attached maps for handles, =
+allowing unbounded resource accumulation.
+- [High] Failure to restore hypervisor memory permissions in `fastrpc_req_m=
+unmap_impl` for remote heap allocations.
 --
 
-commit 780b6a562518105022f75b2b13f38c9dbad812e3
-Author: Jianping Li <jianping.li@oss.qualcomm.com>
+commit c345df439255945e9c8c222e251d798521775ff6
+Author: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 
-misc: fastrpc: Allocate entire reserved memory for Audio PD in probe
+misc: fastrpc: Allow fastrpc_buf_free() to accept NULL
 
-This patch changes the Audio PD memory allocation to use the entire
-reserved-memory region during rpmsg probe, tying its lifetime to the rpmsg
-channel. It also adds explicit validation for the remote heap before sending
-memory to the DSP.
+Make fastrpc_buf_free() a no-op when passed a NULL pointer, allowing
+callers to avoid open-coded NULL checks.
 
 > diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index 517884000331b..1942e74535e52 100644
+> index 1942e74535e52..b4912b443b982 100644
 > --- a/drivers/misc/fastrpc.c
 > +++ b/drivers/misc/fastrpc.c
-
-[ ... ]
-
-> @@ -1341,15 +1343,24 @@ static int fastrpc_init_create_static_process(str=
-uct fastrpc_user *fl,
->  	struct fastrpc_init_create_static init;
->  	struct fastrpc_invoke_args *args;
->  	struct fastrpc_phy_page pages[1];
-> +	struct fastrpc_channel_ctx *cctx =3D fl->cctx;
->  	char *name;
->  	int err;
->  	struct {
->  		int client_id;
->  		u32 namelen;
->  		u32 pageslen;
->  	} inbuf;
->  	u32 sc;
-> +	unsigned long flags;
+> @@ -424,6 +424,9 @@ static int fastrpc_map_lookup(struct fastrpc_user *fl=
+, int fd,
+> =20
+>  static void fastrpc_buf_free(struct fastrpc_buf *buf)
+>  {
+> +	if (!buf)
+> +		return;
 > +
-> +	if (!cctx->remote_heap || !cctx->remote_heap->dma_addr ||
-> +	    !cctx->remote_heap->size) {
-> +		err =3D -ENOMEM;
-> +		dev_err(fl->sctx->dev,
-> +			"remote heap memory region is not added\n");
-> +		return err;
-> +	}
+>  	dma_free_coherent(buf->dev, buf->size, buf->virt,
+>  			  fastrpc_ipa_to_dma_addr(buf->fl->cctx, buf->dma_addr));
+
+[Severity: Critical]
+This is a pre-existing issue, but does fastrpc_buf_free() have a
+use-after-free risk when called from the dmabuf release path?
+
+If a user closes the fastrpc device descriptor but keeps the DMA-BUF file
+descriptor open, the fastrpc_user (fl) context is freed. When the DMA-BUF
+is later released, it calls fastrpc_buf_free(), which dereferences
+buf->fl->cctx here to calculate the DMA address.
+
+Since fastrpc_dmabuf_alloc() doesn't take a reference on the fastrpc_user
+when exporting the DMA-BUF, can this lead to memory corruption?
 
 [Severity: High]
-Does the removal of the dynamic heap fallback break backwards compatibility?
+This isn't a bug introduced by this patch, but does fastrpc_buf_free()
+safely handle buffers mapped with ADSP_MMAP_REMOTE_HEAP_ADDR?
 
-In the original code, if the device tree lacked a memory-region, the heap w=
-as
-dynamically allocated via fastrpc_remote_heap_alloc(). Now, platforms with
-older device trees will see FASTRPC_IOCTL_INIT_CREATE_STATIC fail with
--ENOMEM.
+When fastrpc_req_mmap() maps a remote heap buffer, it uses
+qcom_scm_assign_mem() to grant access to the DSP VM. During unmapping,
+fastrpc_req_munmap_impl() calls fastrpc_buf_free() directly.
 
-[ ... ]
+Will handing this restricted memory back to the kernel's allocator without
+first calling qcom_scm_assign_mem() to restore ownership to the HLOS lead
+to a hypervisor fault when the kernel tries to use the memory?
 
-> @@ -1409,8 +1395,17 @@ static int fastrpc_init_create_static_process(stru=
-ct fastrpc_user *fl,
->  	args[1].length =3D inbuf.namelen;
->  	args[1].fd =3D -1;
-> =20
-> -	pages[0].addr =3D fl->cctx->remote_heap->dma_addr;
-> -	pages[0].size =3D fl->cctx->remote_heap->size;
-> +	spin_lock_irqsave(&cctx->lock, flags);
-> +	if (!cctx->audio_init_mem) {
-> +		pages[0].addr =3D cctx->remote_heap->dma_addr;
-> +		pages[0].size =3D cctx->remote_heap->size;
+[Severity: Critical]
+This is a pre-existing issue, but does calling fastrpc_buf_free() on
+timeout lead to memory corruption by the DSP?
 
-[Severity: High]
-This is a pre-existing issue, but can this lead to a NULL pointer
-dereference?
+When fastrpc_internal_invoke() times out, callers like fastrpc_req_mmap()
+and fastrpc_init_create_process() treat it as a failure and immediately
+call fastrpc_buf_free(buf) to release the kernel memory.
 
-In fastrpc_init_create_static_process(), cctx->remote_heap is checked
-locklessly at the start of the function. If a concurrent
-fastrpc_rpmsg_remove() executes during a sleeping operation like
-copy_from_user():
+Since there is no mechanism to cancel the pending request on the DSP, won't
+the DSP continue processing and access the freed DMA memory, potentially
+corrupting memory that has been reallocated by the system?
 
-CPU1
-fastrpc_rpmsg_remove()
-    ...
-    kfree(cctx->remote_heap);
-    cctx->remote_heap =3D NULL;
-
-Will CPU2's unconditional dereference of cctx->remote_heap->dma_addr inside
-cctx->lock cause a kernel panic?
-
-> +		cctx->audio_init_mem =3D true;
-> +		inbuf.pageslen =3D 1;
-> +	} else {
-> +		pages[0].addr =3D 0;
-> +		pages[0].size =3D 0;
-> +	}
-> +	spin_unlock_irqrestore(&cctx->lock, flags);
-
-[ ... ]
-
-> @@ -1428,27 +1423,7 @@ static int fastrpc_init_create_static_process(stru=
-ct fastrpc_user *fl,
-> =20
->  	return 0;
->  err_invoke:
-> -	if (fl->cctx->vmcount && scm_done) {
-> -		u64 src_perms =3D 0;
-> -		struct qcom_scm_vmperm dst_perms;
-> -		u32 i;
-> -
-> -		for (i =3D 0; i < fl->cctx->vmcount; i++)
-> -			src_perms |=3D BIT(fl->cctx->vmperms[i].vmid);
-> -
-> -		dst_perms.vmid =3D QCOM_SCM_VMID_HLOS;
-> -		dst_perms.perm =3D QCOM_SCM_PERM_RWX;
-> -		err =3D qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
-> -						(u64)fl->cctx->remote_heap->size,
-> -						&src_perms, &dst_perms, 1);
-> -		if (err)
-> -			dev_err(fl->sctx->dev, "Failed to assign memory dma_addr %pad size 0x=
-%llx err %d\n",
-> -				&fl->cctx->remote_heap->dma_addr, fl->cctx->remote_heap->size, err);
-> -	}
-> -err_map:
-> -	fastrpc_buf_free(fl->cctx->remote_heap);
-> -	fl->cctx->remote_heap =3D NULL;
-> -err_name:
-> +	cctx->audio_init_mem =3D false;
-
-[Severity: High]
-Can this lockless assignment cause a data race that corrupts initialization
-synchronization?
-
-If Thread A successfully sets cctx->audio_init_mem =3D true inside cctx->lo=
-ck
-and proceeds, and Thread B concurrently executes the ioctl, skips
-initialization because the flag is true, but then fails its invoke operatio=
-n,
-Thread B will unconditionally clear the flag for the entire channel. Does
-this break the single-initialization guarantee?
-
->  	kfree(name);
->  err:
->  	kfree(args);
-
-[ ... ]
-
-> @@ -2415,12 +2390,23 @@ static int fastrpc_rpmsg_probe(struct rpmsg_devic=
-e *rpdev)
->  		}
->  	}
-> =20
-> -	if (domain_id =3D=3D SDSP_DOMAIN_ID) {
-> +	if (domain_id =3D=3D SDSP_DOMAIN_ID || domain_id =3D=3D ADSP_DOMAIN_ID)=
- {
->  		struct resource res;
->  		u64 src_perms;
-> =20
->  		err =3D of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
->  		if (!err) {
-> +			if (domain_id =3D=3D ADSP_DOMAIN_ID) {
-> +				data->remote_heap =3D
-> +					kzalloc_obj(*data->remote_heap, GFP_KERNEL);
-> +				if (!data->remote_heap) {
-> +					err =3D -ENOMEM;
-> +					goto err_free_data;
-> +				}
-> +
-> +				data->remote_heap->dma_addr =3D res.start;
-> +				data->remote_heap->size =3D resource_size(&res);
-> +			}
->  			src_perms =3D BIT(QCOM_SCM_VMID_HLOS);
-> =20
->  			err =3D qcom_scm_assign_mem(res.start, resource_size(&res), &src_perm=
-s,
-> @@ -2428,7 +2414,6 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device =
-*rpdev)
->  			if (err)
->  				goto err_free_data;
-
-[Severity: High]
-Is it safe to call qcom_scm_assign_mem() here without verifying
-data->vmcount > 0?
-
-If the device tree lacks the qcom,vmids property, data->vmcount is 0. Passi=
-ng
-a dest_cnt of 0 to TrustZone could cause the SMC call to fail or permanently
-lock out the memory by stripping HLOS permissions, especially since
-fastrpc_rpmsg_remove() skips restoring memory if cctx->vmcount =3D=3D 0.
-
->  		}
->  	}
-
-[ ... ]
-
-> @@ -2487,6 +2472,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device =
-*rpdev)
->  		misc_deregister(&data->secure_fdevice->miscdev);
-> =20
->  err_free_data:
-> +	kfree(data->remote_heap);
->  	kfree(data);
->  	return err;
+>  	kfree(buf);
 >  }
+> @@ -516,8 +519,7 @@ static void fastrpc_user_free(struct kref *ref)
+>  	struct fastrpc_map *map, *m;
+>  	struct fastrpc_buf *buf, *b;
+> =20
+> -	if (fl->init_mem)
+> -		fastrpc_buf_free(fl->init_mem);
+> +	fastrpc_buf_free(fl->init_mem);
+> =20
+>  	list_for_each_entry_safe(ctx, n, &fl->pending, node) {
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but does fastrpc_user_free()
+risk a use-after-free and double free when cleaning up fl->mmaps?
+
+In fastrpc_req_mmap(), if copy_to_user() fails, the code jumps to
+err_assign and calls fastrpc_req_munmap_impl(). This unmaps and frees the
+buffer using fastrpc_buf_free(), but leaves its node in the fl->mmaps
+list.
+
+When fastrpc_user_free() later loops over fl->mmaps, will it attempt to
+access and free this already-freed buffer?
 
 [Severity: High]
-Is there a missing rollback for qcom_scm_assign_mem() on this error path?
+This is a pre-existing issue, but does fastrpc_rpmsg_remove() leak
+interrupted mmaps when tearing down the channel?
 
-If the initial assignment succeeds, but a subsequent probe step like
-fastrpc_device_register() fails, the driver memory is freed but the
-hypervisor mapping is not restored to QCOM_SCM_VMID_HLOS. Can this
-permanently lock out the SCM memory and cause subsequent probes to fail?
+When an invocation returns -ERESTARTSYS, mapped buffers are moved from
+fl->mmaps to cctx->invoke_interrupted_mmaps. During fastrpc_rpmsg_remove(),
+the elements are unlinked:
+
+    list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
+        list_del(&buf->node);
+
+Does skipping the fastrpc_buf_free(buf) call here cause a permanent leak
+of the fastrpc_buf and its associated DMA/SMMU memory allocations?
+
+>  		list_del(&ctx->node);
+> @@ -562,8 +564,7 @@ static void fastrpc_context_free(struct kref *ref)
+>  	for (i =3D 0; i < ctx->nbufs; i++)
+>  		fastrpc_map_put(ctx->maps[i]);
+> =20
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does fastrpc_context_free()
+leak references to attached maps for handles?
+
+In fastrpc_create_maps(), the ctx->maps array is populated for all
+nscalars. For indices >=3D nbufs (handles), fastrpc_map_attach() creates
+a new map and adds it to fl->maps.
+
+Since this cleanup loop only iterates up to ctx->nbufs, does it fail to
+drop the references for the remaining handle maps in ctx->maps, causing
+unbounded accumulation in fl->maps?
+
+> -	if (ctx->buf)
+> -		fastrpc_buf_free(ctx->buf);
+> +	fastrpc_buf_free(ctx->buf);
+> =20
+>  	spin_lock_irqsave(&cctx->lock, flags);
+>  	idr_remove(&cctx->ctx_idr, ctx->ctxid >> 4);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609025938.457-=
-1-jianping.li@oss.qualcomm.com?part=3D3
+1-jianping.li@oss.qualcomm.com?part=3D4
