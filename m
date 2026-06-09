@@ -4,43 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 341DECD8CAA
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 10:17:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAF8DCD8CA8
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 10:26:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9436D10E222;
-	Tue,  9 Jun 2026 10:17:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 411BD10E147;
+	Tue,  9 Jun 2026 10:26:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BuJdQGm4";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vDRM08Fp";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2449E10E222
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 10:17:13 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0827B407F4;
- Tue,  9 Jun 2026 10:17:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC2F21F00893;
- Tue,  9 Jun 2026 10:17:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781000232;
- bh=vT0SGOzlrNIk05SQtKAK5dwRyPsSVqOqe2VIUP68NYU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BuJdQGm4six0UX+q7BceYGibxo+2W7ubPZU5Sxqf8o+CvKmZQsuCWF4Hune2btUYQ
- nuhOm6eUf3pXaORf5jPCiHTMxa7jsSOKIho7wSf7goss5KXcBt7ohwXUmsHN44QiE9
- aeldc8pQGT/n8SlmAUQGNfhW0VXfe+EtNvCjFD1CC7TYpwFJ+bFJSMNL8Jv3S43R7k
- gkkInfrOEFsM/iTmu42n1fBzi+Xcq0V6c3LvT264abbAUUrcUyPwIphSP2ioQtZHsa
- LU97iEciYjal+6N7mHfRv7hsjMCiRyKEdqMqhr5B+9f2YD4HIfc207QIJlru7gUo6q
- KCEUpqUab0OlA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 09/15] drm/msm/dp: re-arrange dp_display_disable()
- into functional parts
-To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260609-dp_mstclean-v7-9-ea04113e8233@oss.qualcomm.com>
-References: <20260609-dp_mstclean-v7-9-ea04113e8233@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 10:17:12 +0000
-Message-Id: <20260609101712.AC2F21F00893@smtp.kernel.org>
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012029.outbound.protection.outlook.com [52.101.43.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69E0810E147
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 10:26:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tZhBn834SNJ4CUE/w200kv/qW0clz6eDEePhS8vubbZwOL5hAjZcozySw17r5XVf/rUahAnNRK5uouc0vt1oQKhjPCVETAaVE8/rC4vk8cOEyeqkfOCy8PC6YfM9ekkq+VRBU+cUzpTpIifmCftFcogmqscRO/jHScQCrr+mHPr6H0RkvQqWtVev+skpqKCmt67fV0WQtIL/8rf02euprL4Szq0GsamBwUe8B/j+hZj6/OwdZ2l0BJqF+LH1ZxO1fU5Qk1lAu3y/KhL3xmq5IKnDln72eXoDd8kWJ+BkeBTzLHfzKB2kVqMxDYtXBnyBHX/OgWOTBeyko8/5/ZJF4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZnUEoQ73pgk5BbOGxsX5QorhqCI+mdxnQv1iaAoUilM=;
+ b=jymQYr+1eJXEmG5prHNs+clYsbdZePxqbnxvXybwtGs4fdrAkXDaQR/cNPu7Hvq0JOM6cFhirs1r3xXiVWwM/WZasx3B3HEKLJHPjds+s32UCsnfJGMU8e6kkkkVVFYrHBHSeQdiO4I8oxeJvwf0huF+TAL6Ix28gPUf2Aomp1C1fF8XeiF0y1V65yKkWuxVyxR8CVzxYvlxi11L+hy0ED/wNHlWeLl8mNkCzsgiXMN0BeqW4yQCcH0Psa/Yp/DlEUh3Gk9dl5a3P/8lsNUor7g6+NfLQT1NkggK42Da0bSDhiVzFZ8L6ScCf6kk6iBEFWXegnKKa1nUX4HMaNxYPQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZnUEoQ73pgk5BbOGxsX5QorhqCI+mdxnQv1iaAoUilM=;
+ b=vDRM08FplMBQjmLQWZeaB0NagEvss+KTddo3U5V9I+6Od3WCuClE5CA3SfW5zbQjMJgUUsKXqrJUTItziXbZgFwJUk9HU0Y/CuvKKYxjpAVb//pT+8Wxqm/rBIF8mDBjgpD+52AU6eBflVt9XMooogpuFikyPpL4LWiG1kKgaEY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SN7PR12MB7347.namprd12.prod.outlook.com (2603:10b6:806:29a::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Tue, 9 Jun 2026
+ 10:26:14 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Tue, 9 Jun 2026
+ 10:26:12 +0000
+Message-ID: <66349a9f-d9dd-498b-b118-1c79d3aa3cca@amd.com>
+Date: Tue, 9 Jun 2026 12:26:05 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] dma-fence: Fix races of fence callbacks versus
+ destructors by locking
+To: phasta@kernel.org, Danilo Krummrich <dakr@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>, Daniel Almeida <dwlsalmeida@gmail.com>,
+ Gary Guo <gary@garyguo.net>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260608142436.265820-2-phasta@kernel.org>
+ <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
+ <fa9a335196525adbc03ec21b2e05bb526e4fc174.camel@mailbox.org>
+ <9d49c901-fcdf-487a-a733-0320d0bdf94c@amd.com>
+ <DJ3V3OCLIK2K.3CYKWYNHYU6JQ@kernel.org>
+ <ea4e0541-3702-4014-b8f6-0746a148df86@amd.com>
+ <DJ3VYD71HDQ2.3C8GG983Z2YCM@kernel.org>
+ <c8564ea0-8ff4-4049-996d-bd978c478372@amd.com>
+ <74bd33a06b75c291c3e2eda19e0250fbd280c49b.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <74bd33a06b75c291c3e2eda19e0250fbd280c49b.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: IA1P220CA0015.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:208:464::15) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB7347:EE_
+X-MS-Office365-Filtering-Correlation-Id: be7eef10-27c8-40e4-ab35-08dec611873c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|376014|18002099003|22082099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: SG4FVm3YWHpdnEsFWfeug/tzmv3wnyv1TwXrtfYjWp+HOZsZJ19l3IKzcx8V5YNQ9Gp/1jcf9xxcsN57nYy2VgoUV5QhtiJ1Pwavf8m4qzcPaBlwQr64YI5e4SBSXNpX09Su1diWBIHCLOhZ4v1H50bbaykpGmgvO+j8zD8hf1JnttLPcNjoKoSZlGVO9T477+07n4M9/BdZgb5Grc/Pc8DrbZWx9KBHw+0qBkjtXqowG+wzgjJhkHaox42MCkwPqbu9c6AnZhjPN49pJaOiAtIsCI+NKEi+IA0W6FblESfn5Eefedn5Whue7YdQ7yll1J6stDIcAiEHak56+pcSTqMvyRmXLD88vz1UUhH1IefkRmTAiIVNE7mVaCS7H3CJYKnTZIqAh632QqdOIaQYUCs83Tq5t9eCi8Uq0VK5zfMXZjrcXpoT7iv5V0eS2ZKDNdGTu4C9FLmip9cCaLsY1HiC92LTJmq//vkJOW2Vr9v/8BNQLGqxBEqYscm9f9eLkTRx+rn9Y9AHP7xFXhNx7m6m2CgYROGh8iIvZ2mVpjcjjdxw8M/qj/unQj0sB4pLFKdmFxZEpEG2f9OV7Df+oyK5gtCFtvVr9ZLxrq/qld47whhbMYF1dtkqrBTplGl1jOUgFIhEf85a7nEvPR7aYa068eyB/YpYRjEGrxO9MQAswjTHNyRRkr5Uc175pUyP
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YURvaWJUR1RUeWxtZTN0Y1RWK1FtY2RCTFdsUytYc2k0L2ZDelVPK3l2MXRk?=
+ =?utf-8?B?R1JMQlJLMERpbWZxY1pkZDlQSmtSa3kyenhwbGNnSHRDNEFRdmNlNUhvQW54?=
+ =?utf-8?B?MW1GVnUxcEJLMDUvU29HaWpXNzV3NGxxZHB4V3J0eE5vWlhJaENmSEx0RUZj?=
+ =?utf-8?B?TnNqaDlVbkhNN3RZR3hub2ppVEthR1VWK2xrSDBzV2ZLSzluYmVxeXpOZkND?=
+ =?utf-8?B?bzVrRTgvam5pSDNyVWNrb0ljMTJEamVMdXpJQ1BkcmNUK3pxZXpOTHc4M0tE?=
+ =?utf-8?B?V1hTc25pZ21oQ0pxeDJlUFRxdSsvVGFZQ1owM2NhaGgzUmN6MEo5M0lQSURv?=
+ =?utf-8?B?eG03UGprWEZvaHVmOWMrRFM4R1JobXVvNlRUVmNjRVZ6WDdYL1I5dmcvWW1C?=
+ =?utf-8?B?WlRzTXJIZFk5b1Rhd2tQcnJoSFhEWXFsa3o5NHQzaUhMYzZGS1BScFBRSzVq?=
+ =?utf-8?B?TElibWpta0UwNWt5RDNNK243dElaVnBueXRFdFVYVWhUTlVxK0dUSTdORDcx?=
+ =?utf-8?B?Q0lhTjI4bHVqNnhuQzNvR2xwYUF2WTB3K3BNTENKb1ZQaTMxaXZ1OGl3Nlps?=
+ =?utf-8?B?amp0eGdqMG9QRlpxWUJUUWFrV01NSHBIVjU1eDEzd2JsWGc2WXRVUzNzMko5?=
+ =?utf-8?B?aDhoVWFqUHE4QXlrU0hSU3FCMEpWMEVCS1lkWStQQ21LN1RSR0hGLytleGlx?=
+ =?utf-8?B?aUg3SmVPMXBjdys3OTBzNm1zbS9JNk1KNDRpNGZBRVFPeXRlbWFtWGZGY1NI?=
+ =?utf-8?B?dUtBT1JER1dIUHhYeldHMWdHR3lmcVFmRUNzVmVPL1FKdXVUV0lRTE9oWHNt?=
+ =?utf-8?B?SUVJWkZSVzlEcEpNNDBqbTJmYWtTcFVZemc5amw4RjBkOCs1dVZDd29ORWQw?=
+ =?utf-8?B?QmhVWTlESmtWdWxXeEwrblNFTGwzck95M01oUmR1YUtaRmFZdEp5ZHNKR0JB?=
+ =?utf-8?B?TWNXNENyTlV4bEVicEVPcE5lRXBQL3lhUmRLcnV6OWp2bFhDMTRvWURKZTZ2?=
+ =?utf-8?B?Sk5TNWJLU2lhQnNtTVpwa2tuNmZOTFM5NWw3REt5YkM1b1FnSE1OSVFjWVZF?=
+ =?utf-8?B?SWdvbktaS3VTU3hCV0tFVDY5RGNXbVgzV1R0NzZmQjZuT3drV2xrMkIrcFd1?=
+ =?utf-8?B?Z0Z4VktYL2tyOW4rSmpVeGJuU2daN015aFJES1pxRE85UkZaaEJNaEc3czZI?=
+ =?utf-8?B?VmszMVNCKzlvdHN6UkhkU1hqVzNNUHpyQXhyZkVsWUpMVUVvSXVnYUlBUHRz?=
+ =?utf-8?B?Z3V1ekY3WDBxczRCblE3aXpXMWNPR2pZaWJSckdVN3pxTFZ3dkozL05mRlFs?=
+ =?utf-8?B?UEtOY0IrUWNOSmxnUURzY3QwZjZKYVFGVEtPQ2UydUhnNERqTUFhWDBhZi9J?=
+ =?utf-8?B?VGJ1QzhxODhwMlB3b1dJSURhTDA4c1RZNlE1ZHhoT2RNMXhLY3hRQmh2WFdI?=
+ =?utf-8?B?eEwyZGNqYnkvS2JmRWY5OEVjS0piVmRPQ0lDNzNtY0hkMmhPdy9OOGxJUWw0?=
+ =?utf-8?B?bHlVcWNVbVpCT21CMURJUHpWc2tzelNRRXRyTzBTd001ZUlsdUxiTXh6dktE?=
+ =?utf-8?B?bUFwdDM2N0F0WDg0bWxrZDRlRU9rOFEwNFZzVXFnejJKcDE1M0N6UWRlY2l5?=
+ =?utf-8?B?bnc3OVZoREVpdFp1c1psaFg3dUlKbjVDZFlQZkVyTTFHL0ZJYU52YlU4QTQ3?=
+ =?utf-8?B?bXYwOWVPMEcxOFBIY1JMY083WTNpa1VPSmo0OTU5MlNTcFVIU3VYTXViNGd1?=
+ =?utf-8?B?QVpLVG54WVBjamp0RDZzTk1IWmJDRERIM2V5Qjg4S1pWNlp1K3pQK0ZkV280?=
+ =?utf-8?B?dUdEWU5UT0FjSjhNOExNMHRJRGVWbGpoZzU2TUVCZVFwb2hpWTdyb1czNlRE?=
+ =?utf-8?B?M2s0RTZaZWp0a1VicTlQcjFDaGxGNGNWOG5wSU1iNUs4YWxmbENvNWdVcHFV?=
+ =?utf-8?B?bWcrQXpaUk5VOVNTZk8wTXZLMDlhNisxQU5RL3g5MWZlRnk1bWlmR0tCWDg3?=
+ =?utf-8?B?OWd6V3Ewd0c1RUZhdzIyUzg2L1hhR2EzMzhyenQvMDE5K0M4S2RYR0kxbFRo?=
+ =?utf-8?B?MTR3Ym4wUVZEMlRIVlhIcFMvZm05VC9PYW0xd0ZnTlBOS0dJT0R5cXZNSFpw?=
+ =?utf-8?B?a0V2NFZmN2NNV0JoVW9iUzBHdGVIb0V4UTczV0NRdGlCM2QxWWdja20wM042?=
+ =?utf-8?B?S0pPejg3SW9tUzNaQkVGS2lISDdITnQ0RTIvZHkvRmxFY3NJb3k5bmhTaFVG?=
+ =?utf-8?B?eFo0OUovQmhHeGM3YmR2QlUwMXNqcGM2OW9YVFZCZVU3ZzErRUNycWNsOU1Q?=
+ =?utf-8?Q?zQYFl1qDCdl/MhR2/w?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: be7eef10-27c8-40e4-ab35-08dec611873c
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 10:26:12.0261 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OtuU6STFMhc9scsi/Fawt1cHYtA742cRj7RgxZX28GlNPfDujicBOMuynDuGX0T0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7347
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,112 +145,46 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On 6/9/26 07:52, Philipp Stanner wrote:
+...
+>>
+>> In detail calling the callbacks without holding locks allows all implementations who need it to explicitly take locks in the order they want.
+> 
+> Didn't you say a few mails above that the implementation should not use
+> the fence lock for its own purposes?
 
-New issues:
-- [High] Replacing msm_dp_ctrl_off_link_stream() with msm_dp_ctrl_off() for=
- the disconnected monitor case inadvertently resets the DP controller, clea=
-ring HPD interrupt masks and permanently breaking dongle unplug detection.
+The usual use case the drivers have is this here:
 
-Pre-existing issues:
-- [High] The display disable sequence invokes sleeping functions from atomi=
-c context during the bridge post_disable callback.
---
+dma_fence_lock_irqsave(fence, flags);
+was_signaled = dma_fence_test_signaled(fence);
+if (!was_signaled)
+	dma_fence_signal(fence);
+dma_fence_unlock_irqrestore(fence, flags);
 
-commit 4edd0bb0b0901115e8cbd3c69301ff0b85ef4340
-Author: Abhinav Kumar <quic_abhinavk@quicinc.com>
+if (!was_signaled)
+	cleanup();
 
-drm/msm/dp: re-arrange dp_display_disable() into functional parts
+This is actually what you and me came up with for the KFD when we removed the return code for dma_fence_signal().
 
-dp_display_disable() handles special case of when monitor is
-disconnected from the dongle while the dongle stays connected
-thereby needing a separate function dp_ctrl_off_link_stream()
-for this. However with a slight rework this can still be handled
-by keeping common paths same for regular and special case.
+Taking the lock around the enable_signaling() callback has the exact same reason, preventing the fence from signaling between testing and calling dma_fence_signal(). The problem with that approach is that cleanup() now suddenly runs under the fence lock as well.
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-> index 2cf4c984c7ca7..e1d90b8539c27 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-[ ... ]
-> @@ -714,12 +714,20 @@ static int msm_dp_display_disable(struct msm_dp_dis=
-play_private *dp)
->  	if (!msm_dp_display->power_on)
->  		return 0;
-> =20
-> +	msm_dp_panel_disable_vsc_sdp(dp->panel);
-> +
-> +	/* dongle is still connected but sinks are disconnected */
->  	if (dp->link->sink_count =3D=3D 0) {
->  		/*
->  		 * irq_hpd with sink_count =3D 0
->  		 * hdmi unplugged out of dongle
->  		 */
-> -		msm_dp_ctrl_off_link_stream(dp->ctrl);
-> +
-> +		/* set dongle to D3 (power off) mode */
-> +		msm_dp_link_psm_config(dp->link, &dp->panel->link_info, true);
-> +		msm_dp_ctrl_off(dp->ctrl);
+So you are left with few options: Either the fence lock is external, which we don't want because that make the fence non-independent, or cleanup() defers work to irq_work or work_structs, which creates numerous lifetime issues.
 
-[Severity: High]
-Does replacing msm_dp_ctrl_off_link_stream() with msm_dp_ctrl_off() here
-permanently break dongle unplug detection?
+When enable_signaling would be independent of the fence lock we could avoid all of this and just use a normal spin_lock() for the cleanup.
 
-msm_dp_ctrl_off() calls msm_dp_ctrl_reset(), which performs a software
-reset (DP_SW_RESET) on the controller:
+Regards,
+Christian.
 
-	sw_reset |=3D DP_SW_RESET;
-	msm_dp_write_ahb(ctrl, REG_DP_SW_RESET, sw_reset);
+> 
+> 
+> P.
+> 
+>>
+>> If you call it with the lock held you enforce the fence lock the be the outermost lock.
+>>
+>> Regards,
+>> Christian.
 
-This clears the controller's register state, including REG_DP_INTR_STATUS
-and REG_DP_DP_HPD_INT_MASK.
-
-Because the dongle is still connected, the driver holds a runtime PM refere=
-nce
-and doesn't transition through suspend/resume. Will this cause the HPD
-interrupts to remain permanently masked, causing the driver to silently miss
-subsequent dongle unplug events since msm_dp_ctrl_enable_irq() is never cal=
-led
-again?
-
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does calling msm_dp_ctrl_off=
-()
-here invoke sleeping functions from atomic context?
-
-msm_dp_display_disable() is invoked from the bridge atomic disable path, wh=
-ich
-runs in atomic context where sleeping is forbidden. However, msm_dp_ctrl_of=
-f()
-calls msm_dp_ctrl_reset(), which executes:
-
-	usleep_range(1000, 1100);
-
-Is this safe to run in atomic commit paths?
-
-> +		/* re-init the PHY so that we can listen to Dongle disconnect */
-> +		msm_dp_ctrl_reinit_phy(dp->ctrl);
-
-[Severity: High]
-This is a pre-existing issue, but does calling msm_dp_ctrl_reinit_phy()
-here also invoke sleeping functions from atomic context?
-
-msm_dp_ctrl_reinit_phy() calls generic PHY framework functions (phy_exit()
-and phy_init()) that acquire mutexes internally, which is forbidden in atom=
-ic
-context.
-
->  	} else {
->  		/*
->  		 * unplugged interrupt
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-dp_mstclea=
-n-v7-0-ea04113e8233@oss.qualcomm.com?part=3D9
