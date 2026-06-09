@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FBC3CD98C5
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 15:49:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 095E4CD98C5
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 15:50:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0363010E14B;
-	Tue,  9 Jun 2026 15:49:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BD3610E390;
+	Tue,  9 Jun 2026 15:50:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XIj/fVrF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TGK5LE6p";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CAF710E14B
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 15:49:54 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8609810E390
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 15:50:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6632C4001A;
- Tue,  9 Jun 2026 15:49:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E9911F00893;
- Tue,  9 Jun 2026 15:49:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B03A560200;
+ Tue,  9 Jun 2026 15:50:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20E901F00898;
+ Tue,  9 Jun 2026 15:50:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781020194;
- bh=g1hpQTBaxPAGBs420FKPxuEagqz9araSXwGyFFSZ6wo=;
+ s=k20260515; t=1781020238;
+ bh=McbuzhZwCbiuQ38U0aq7g+Id45jAA/VUyV9mxpAaDEs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XIj/fVrF12A2k7YlCKnFfXw37ria1LK0CYHfHpNx5tKauv6rjhCPWV7P2T8rNy+CJ
- ZPrxfuNejGR0gCjsk8sUjNahZN+cgeDBrQ7ZY1+dnG4Fk5ms9oeOkDac7Tr+mZgeea
- eDjlbrO8V5Y4dh4v/3Aq1pP6kKYNpMKGto+HfExjlf6jnyBfMfh2QOiAb2JtHhqIpN
- 6N8WryrxfS6lqqHR1+yibQ7XzHE54r2Z4z/Ovs9wqI5uyqqNyTVbndwQ948rWNdnml
- 6BFa/dA0FBio8ZkUzqpkqQ630780GRRa80++CW/+3WEs5NUzrZvd2scDxmCCN3LIv/
- AzBFB+X+SDBuw==
+ b=TGK5LE6pyE3kclNpDOVZzhr2neWm14Agx+F0oHV0srWBwHDxx8Hq3OBhQ+J30ieGB
+ 3UYus/xEFD3P23y5hkJLWnI8AWX2O1KwPkFcMLkPidvexr4Yicj4f/VKE3U+Xt1Dtr
+ AgVcuToq9IvGxXezpjXhtI/1UnVDxQ/asTXZ7lI8cDkZ+FfIf1hwFyrPZ18f8+HgrV
+ ikXr5lxYSaDtaxl3ljlZjdDwC6j/QojDEpk2PQIYI4Ehg6VBOWyHSzGmeDIGZpR0y0
+ RmaOipWTemigqihIX9dqKxhpW7/3x+Dvg7FmgHX7dUBcFDXQ1of0VznzHVgIEkqUZQ
+ emDDkCJxe82rg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/4] gpu: nova-core: fix barrier usage in GSP->CPU
+Subject: Re: [PATCH v2 3/4] gpu: nova-core: fix barrier usage in CPU->GSP
  messaging path
 To: "Gary Guo" <gary@garyguo.net>
-Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org,
- "Danilo Krummrich" <dakr@kernel.org>, "Alexandre
- Courbot" <acourbot@nvidia.com>
-In-Reply-To: <20260609-rust-barrier-v2-4-30fcc48e1cd0@garyguo.net>
-References: <20260609-rust-barrier-v2-4-30fcc48e1cd0@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, ojeda@kernel.org, "Alexandre
+ Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260609-rust-barrier-v2-3-30fcc48e1cd0@garyguo.net>
+References: <20260609-rust-barrier-v2-3-30fcc48e1cd0@garyguo.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 15:49:53 +0000
-Message-Id: <20260609154954.0E9911F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 15:50:37 +0000
+Message-Id: <20260609155038.20E901F00898@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,133 +58,71 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Early returns in `receive_msg` skip advancing the GSP read pointer=
-, leading to a permanently stalled command queue.
-- [High] CPU->GSP messaging path relies on a fragile control dependency for=
- memory ordering instead of an explicit DMA barrier.
+- [High] Missing sequence number validation allows mismatched RPC replies t=
+o be accepted after a timeout.
 --
 
-commit 4410cc89c9104f4a90dab2676e5da7ce4fd1a204
+commit 0c5cf61612018cf7b218d6031a8329297e4ac9dc
 Author: Gary Guo <gary@garyguo.net>
 
-gpu: nova-core: fix barrier usage in GSP->CPU messaging path
+gpu: nova-core: fix barrier usage in CPU->GSP messaging path
 
-This commit replaces the Rust SeqCst barrier with explicit dma_mb(Read) and
-dma_mb(Full) barriers in the GSP->CPU messaging path. The SeqCst barrier do=
-es
-not correctly order DMA operations on architectures like ARM, so using the
-proper dma_mb() ensures correct LOAD->LOAD and LOAD->STORE ordering.
+This commit fixes the barrier usage in the CPU->GSP messaging path. It
+clarifies the LOAD->STORE ordering dependency and moves the STORE->STORE
+barrier to immediately before the write pointer advance to prevent the GSP
+from observing an advanced pointer before the command is fully written.
 
 > diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
 p/cmdq.rs
-> index 94c2790d943d0..229d49a670779 100644
+> index 070de0731e950..94c2790d943d0 100644
 > --- a/drivers/gpu/nova-core/gsp/cmdq.rs
 > +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
 
 [ ... ]
 
-> @@ -339,6 +341,9 @@ fn driver_write_area_size(&self) -> usize {
->              (MSGQ_NUM_PAGES, tx)
->          };
-> =20
-> +        // ORDERING: Ensure data load is ordered after load of GSP write=
- pointer.
-> +        dma_mb(Read);
-> +
-
 [Severity: High]
-This is a pre-existing issue, but since we are updating memory barriers her=
-e,
-does the CPU->GSP messaging path in driver_write_area() also need an explic=
-it
-barrier instead of relying on a fragile control dependency?
+This isn't a bug introduced by this patch, but while looking at the
+messaging path, I noticed a potential issue with sequence number
+validation.
 
-drivers/gpu/nova-core/gsp/cmdq.rs:driver_write_area() {
+If a previous command times out in Cmdq::send_command():
+
+drivers/gpu/nova-core/gsp/cmdq.rs:Cmdq::send_command() {
     ...
-        let (tail_end, wrap_end) =3D if rx =3D=3D 0 {
-            ...
-        } else if rx <=3D tx {
-            ...
-        } else {
-            ...
-        };
-
-        // ORDERING: control dependency provides necessary LOAD->STORE orde=
-ring.
-        // dma_mb(Full) may be used here if we don't want to rely on contro=
-l dependency.
+    loop {
+        match inner.receive_msg::<M::Reply>(Self::RECEIVE_TIMEOUT) {
+            Ok(reply) =3D> break Ok(reply),
+            Err(ERANGE) =3D> continue,
+            Err(e) =3D> break Err(e),
+        }
+    }
     ...
 }
 
-Relying on control dependencies for DMA memory ordering is unsafe in Rust,
-as the compiler does not guarantee preserving them and may optimize away
-branches (e.g., using conditional selects like csel on ARM64).
+The timeout returns ETIMEDOUT and drops the command queue lock, but the
+delayed reply might eventually arrive and remain in the message queue.
 
-Control dependencies also do not emit architectural barriers (like dmb osh
-on ARM64), which are necessary to order memory accesses across the system
-interconnect for device memory.
+When another command with the same function code is subsequently sent,
+CmdqInner::receive_msg() validates the incoming message:
 
-If the CPU's store to the command buffer is observed by the GSP before the
-CPU's load of rx, could the CPU overwrite data the GSP has not yet consumed?
-
-Should an explicit dma_mb(Full) be added here to guarantee LOAD->STORE
-ordering?
-
->          // SAFETY:
->          // - `data` was created from a valid pointer, and `rx` and `tx` =
-are in the
->          //   `0..MSGQ_NUM_PAGES` range per the invariants of `gsp_write_=
-ptr` and `cpu_read_ptr`,
-
-[ ... ]
-
-> @@ -436,6 +441,9 @@ fn cpu_read_ptr(&self) -> u32 {
-> =20
->      // Informs the GSP that it can send `elem_count` new pages into the =
-message queue.
->      fn advance_cpu_read_ptr(&mut self, elem_count: u32) {
-> +        // ORDERING: Ensure read pointer is properly ordered with a LOAD=
-->STORE ordering.
-> +        dma_mb(Full);
-> +
->          super::fw::gsp_mem::advance_cpu_read_ptr(&self.0, elem_count)
->      }
-
-[Severity: High]
-This is a pre-existing issue, but looking at how advance_cpu_read_ptr()
-is used, do the early returns in receive_msg() skip advancing the GSP read
-pointer?
-
-drivers/gpu/nova-core/gsp/cmdq.rs:receive_msg() {
+drivers/gpu/nova-core/gsp/cmdq.rs:CmdqInner::receive_msg() {
     ...
-        let function =3D message.header.function().map_err(|_| EINVAL)?;
-
-        // Extract the message. Store the result as we want to advance the =
-read pointer even in
-        // case of failure.
-        let result =3D if function =3D=3D M::FUNCTION {
-            let (cmd, contents_1) =3D M::Message::from_bytes_prefix(message=
-.contents.0).ok_or(EIO)?;
-    ...
-        // Advance the read pointer past this message.
-        self.gsp_mem.advance_cpu_read_ptr(...);
+    let result =3D if function =3D=3D M::FUNCTION {
+        let (cmd, contents_1) =3D M::Message::from_bytes_prefix(...
     ...
 }
 
-The comments note that the result is stored to ensure the read pointer is
-advanced even on failure. However, the use of the ? operator on
-message.header.function() and M::Message::from_bytes_prefix() causes an
-immediate return.
+Does this code incorrectly accept the stale reply as a successful response
+because it only checks if function =3D=3D M::FUNCTION?
 
-If an early return happens here, will subsequent polls read the exact same
-malformed message?
-
-Could this cause repeated failures and a permanently stalled command queue?
+Could this break RPC protocol synchronization and cause the driver to
+process incorrect payload data? Should the sequence number be validated
+(e.g., via header.sequence()) to prevent mismatched replies?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-rust-barri=
-er-v2-0-30fcc48e1cd0@garyguo.net?part=3D4
+er-v2-0-30fcc48e1cd0@garyguo.net?part=3D3
