@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50B21CD8CAC
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 08:29:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B974CD8CAC
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 08:29:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7982B10E1A4;
-	Tue,  9 Jun 2026 08:29:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 656E810E1A8;
+	Tue,  9 Jun 2026 08:29:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HdV7jFTF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FUipCiG+";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 539C810E1A4
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 08:29:08 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 828FB10E1A8
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 08:29:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1714A416C6;
- Tue,  9 Jun 2026 08:29:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C693F1F00893;
- Tue,  9 Jun 2026 08:29:07 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id EDD8E601E6;
+ Tue,  9 Jun 2026 08:29:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 943A71F00898;
+ Tue,  9 Jun 2026 08:29:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780993748;
- bh=KoiUgA6e0+WiyPSaC0WbA+wzbxNPIszzpZJoQQ5I0o4=;
+ s=k20260515; t=1780993759;
+ bh=gchQjwKtewHdORlOBqADgZdq2U23SgAXQd05XHbvenM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HdV7jFTFR+MK0xDMxDzeAApRFYUpKFg4FQeDsuXf6OWW+hCUlpZO/HZZYmR1korqN
- L0gCPYBG2yJ2j0Fxy36EIeJCYtbE5YKO58mjFEwM3M4xpXmVfTODkWHhVdH7kchWer
- YMPBKYVRdCImlU0VBokkip3U97NfsIEyjM1B8Dv35X27lkDatM2NLzyTqekfABEJqF
- M2dNsnrrOoLiI5Zr+WNsLqpfu7U7X8rEwVDP/fg3Sf3rNR2kcrGowpLeKngQFdTxkx
- oqAk8RkhMOJR8NtvkY/N3757JbU+B08cJX1ux2sut+g0kp4v4pUOf0rIaDkbapDK+Z
- 89ORLBaj+nxGw==
+ b=FUipCiG+i8Da526AjJVD9AwXRAh87HhayGx5IXKdzYr96POG00JZHYLF3LBwddeBj
+ AzaDcPj/yJzFSgAH7b3gFVM1P+E31pZtr/dK+nr5TfhxiNgWTmQZXlO7oBexImKFfM
+ w6gn1LOvrX+1efySwKwcEV/yxubJ3VqpSUhtjC2JciCGSrCykwpAT619BRXkW9bspR
+ VGxKgfcMzUcUgbWV0Qr+r7Q8994YL3GT51uQ2KAlRN9Fv7NmtfR6P0tLha/x6msYME
+ OjeSwVkpp7+0oDjpk7FMwjSy0XypqJ55ZWw0pHB0qz9xru4dVeu1GeLEuNo4KrjUCu
+ mvl3HWFLPyriA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/6] gpu: host1x: Change pin_job() return type to int
+Subject: Re: [PATCH 6/6] gpu: host1x: Annotate intentional syncpoint
+ wrap-around
 To: "Mikko Perttunen" <mperttunen@nvidia.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260609-b4-host1x-small-fixes-a-v1-5-7c1131c0b3ad@nvidia.com>
-References: <20260609-b4-host1x-small-fixes-a-v1-5-7c1131c0b3ad@nvidia.com>
+In-Reply-To: <20260609-b4-host1x-small-fixes-a-v1-6-7c1131c0b3ad@nvidia.com>
+References: <20260609-b4-host1x-small-fixes-a-v1-6-7c1131c0b3ad@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 08:29:06 +0000
-Message-Id: <20260609082907.C693F1F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 08:29:18 +0000
+Message-Id: <20260609082919.943A71F00898@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,179 +57,67 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] An integer overflow in copy_gathers() leads to a massive heap =
-buffer overflow during memcpy.
-- [High] Silent failure when iommu_map_sgtable() returns a negative error c=
-ode.
-- [High] Multiple error paths in pin_job() leak host1x_bo references and pi=
-nned host1x_bo_mapping objects.
-- [High] Missing or incorrect validation of host1x_bo_mmap() return value c=
-auses kernel panic.
+- [High] Direct `<` comparison of wrap-around syncpoint values leads to inc=
+orrect evaluation of job completion status during timeout recovery.
 --
 
-commit 49509dd1b9a9c195fff52b9936852ca75bde12b1
+commit 00ebce8e032b66ba3bfbcd7a17200301254bdb05
 Author: Mikko Perttunen <mperttunen@nvidia.com>
 
-gpu: host1x: Change pin_job() return type to int
+gpu: host1x: Annotate intentional syncpoint wrap-around
 
-pin_job() returns negative errno values on error paths (-EINVAL,
--ENOMEM, PTR_ERR() of mapping) but was declared as unsigned int.
-The caller would immediately cast back to int, so there was no
-functional issue, but it still warrants fixing.
+Host1x syncpoints are 32-bit counters that roll over by design. This commit
+uses wrapping_* functions whenever arithmetic is done on syncpoint values to
+make this explicit in the code.
 
-> diff --git a/drivers/gpu/host1x/job.c b/drivers/gpu/host1x/job.c
-> index 3ed49e1fd9332..1659793195991 100644
-> --- a/drivers/gpu/host1x/job.c
-> +++ b/drivers/gpu/host1x/job.c
+> diff --git a/drivers/gpu/host1x/cdma.c b/drivers/gpu/host1x/cdma.c
+> index ba2e572567c03..f6d3db2c8c395 100644
+> --- a/drivers/gpu/host1x/cdma.c
+> +++ b/drivers/gpu/host1x/cdma.c
+
 [ ... ]
-> @@ -138,7 +138,7 @@ void host1x_job_add_wait(struct host1x_job *job, u32 =
-id, u32 thresh,
->  }
->  EXPORT_SYMBOL(host1x_job_add_wait);
+
+> @@ -419,7 +420,7 @@ void host1x_cdma_update_sync_queue(struct host1x_cdma=
+ *cdma,
+>  		/* won't need a timeout when replayed */
+>  		job->timeout =3D 0;
 > =20
-> -static unsigned int pin_job(struct host1x *host, struct host1x_job *job)
-> +static int pin_job(struct host1x *host, struct host1x_job *job)
->  {
+> -		syncpt_incrs =3D job->syncpt_end - syncpt_val;
+> +		syncpt_incrs =3D wrapping_sub(u32, job->syncpt_end, syncpt_val);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but while reviewing pin_job(),
-does this code silently ignore mapping failures?
+This is a pre-existing issue, but I noticed a potential problem earlier in
+this same function regarding syncpt_val and job->syncpt_end wrap-around.
 
-drivers/gpu/host1x/job.c:pin_job() {
-    ...
-			err =3D iommu_map_sgtable(host->domain,
-						iova_dma_addr(&host->iova, alloc),
-						map->sgt, IOMMU_READ);
-			if (err =3D=3D 0) {
-				__free_iova(&host->iova, alloc);
-				err =3D -EINVAL;
-				goto put;
-			}
-    ...
-}
+In host1x_cdma_update_sync_queue(), the loop over the sync_queue uses a
+direct comparison to check if a job is uncompleted:
 
-iommu_map_sgtable() returns a positive mapped size on success and a negative
-error code (like -EINVAL or -ENOMEM) on failure.
+	list_for_each_entry(job, &cdma->sync_queue, list) {
+		if (syncpt_val < job->syncpt_end) {
 
-Since the check is exactly if (err =3D=3D 0), a negative error code evaluat=
-es
-to false, skipping the error path (goto put;).
+			if (!list_is_last(&job->list, &cdma->sync_queue))
+				next_job =3D list_next_entry(job, list);
 
-This allows the code to proceed with an unmapped IOVA, which would cause the
-IOMMU to block hardware memory access and trigger faults during execution.
-
-Is this check intended to be if (err <=3D 0)?
-
-
-[Severity: High]
-This is a pre-existing issue, but do these error paths leak host1x_bo
-references and mappings?
-
-drivers/gpu/host1x/job.c:pin_job() {
-    ...
-		map =3D host1x_bo_pin(dev, bo, direction, NULL);
-		if (IS_ERR(map)) {
-			err =3D PTR_ERR(map);
-			goto unpin;
+			goto syncpt_incr;
 		}
 
-		if (map->chunks > 1) {
-			err =3D -EINVAL;
-			goto unpin;
-		}
+If syncpt_val is near the maximum value and job->syncpt_end has wrapped
+around to a small value, the condition evaluates to false. This makes the
+recovery logic incorrectly assume the job has completed, skipping the CPU
+increments and resuming the hardware channel without bypassing the failed
+job.
 
-		job->addr_phys[job->num_unpins] =3D map->phys;
-		job->unpins[job->num_unpins].map =3D map;
-		job->num_unpins++;
-    ...
-}
+Should that comparison also be updated to handle wrap-around conditions
+safely?
 
-In the loop, job->num_unpins is only incremented at the end of each iterati=
-on.
-
-If an error occurs midway (e.g., map->chunks > 1), the loop jumps to unpin.
-
-The cleanup routine host1x_job_unpin() iterates strictly up to job->num_unp=
-ins,
-failing to release the BO reference and unpin the memory allocated during t=
-he
-currently failing iteration.
-
-Could a malicious user repeatedly trigger this error path to exhaust kernel
-memory?
-
-
-[Severity: High]
-This is a pre-existing issue, but does this code dereference an error
-pointer if host1x_bo_mmap() fails?
-
-drivers/gpu/host1x/job.c:do_relocs() {
-    ...
-		if (!cmdbuf_addr) {
-			cmdbuf_addr =3D host1x_bo_mmap(cmdbuf);
-
-			if (unlikely(!cmdbuf_addr)) {
-    ...
-}
-
-And similarly in copy_gathers():
-
-drivers/gpu/host1x/job.c:copy_gathers() {
-    ...
-		gather =3D host1x_bo_mmap(g->bo);
-		memcpy(job->gather_copy_mapped + offset, gather + g->offset,
-		       g->words * sizeof(u32));
-    ...
-}
-
-host1x_bo_mmap() returns an ERR_PTR() on failure (e.g., -ENOMEM), not NULL.
-
-In do_relocs(), the check !cmdbuf_addr fails to detect an error pointer.
-In copy_gathers(), the result is passed directly to memcpy() without any
-checks.
-
-Could this lead to a page fault and kernel panic if userspace triggers a
-vmap failure?
-
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but can this size calculation
-overflow on 32-bit platforms?
-
-drivers/gpu/host1x/job.c:copy_gathers() {
-    ...
-	for (i =3D 0; i < job->num_cmds; i++) {
-		struct host1x_job_gather *g;
-
-		if (job->cmds[i].is_wait)
-			continue;
-
-		g =3D &job->cmds[i].gather;
-
-		size +=3D g->words * sizeof(u32);
-	}
-    ...
-}
-
-On 32-bit platforms, size_t size is 32 bits.
-
-If an ioctl is submitted with a large number of command buffers
-(e.g., num_cmdbufs =3D 65541 and words =3D 16383), the size calculation res=
-ults
-in 4,295,027,340, wrapping around to 60,044.
-
-dma_alloc_wc() then allocates this undersized buffer, and the subsequent
-memcpy() loop would copy out of bounds.
-
-Could this lead to a massive heap buffer overflow?
-
->  	unsigned long mask =3D HOST1X_RELOC_READ | HOST1X_RELOC_WRITE;
->  	struct host1x_client *client =3D job->client;
+>  		dev_dbg(dev, "%s: CPU incr (%d)\n", __func__, syncpt_incrs);
+> =20
+>  		host1x_job_dump(dev, job);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-b4-host1x-=
-small-fixes-a-v1-0-7c1131c0b3ad@nvidia.com?part=3D5
+small-fixes-a-v1-0-7c1131c0b3ad@nvidia.com?part=3D6
