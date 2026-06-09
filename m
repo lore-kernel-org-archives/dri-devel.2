@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EBBACD98C6
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 11:05:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BBD4CD98C8
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 11:05:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AE6610E27E;
-	Tue,  9 Jun 2026 11:05:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09B5210E290;
+	Tue,  9 Jun 2026 11:05:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ndlyzSg5";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Vy/A20Fi";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D78210E26D;
- Tue,  9 Jun 2026 11:05:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22B2410E271;
+ Tue,  9 Jun 2026 11:05:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=396lVIZLbPanrTqHkTP3zKwYxxW1e53p4PfMPaRdDNE=; b=ndlyzSg5CML5FRojnEJH3QegbE
- PIFt0r2HzwQQbBlnUUJcNMXAIVH2jTlziBGVp7IG/L2U8/07JTeJbOXa3/pWfO8gcPbLcYjCOCzeF
- 7mWZoiYF3IVJBGyRxPYHyOLykH5Ayn1wKXY9Apb0/dTFh6geH8Y2gTa8B/vV/pDJe61cWAx4Kd/vI
- lGbnjtC+ldVozVMio7sJOQlD+VtngRjEWNYWHOD/nMddfYtaJB864WzxsI3NIb2o5l6KBf8vzY3yV
- JKvHinijBmtZW2ic3yb7p5ehdiq1rYNnvf9oLoxqDW6hB551vBSLX2+XfhmyUbn7Ns/RcxDQ71eGg
- sDtEQo8w==;
+ bh=hdXIQx3O8t+5fRWRaEGrsm+4NQb2B1dwQl8vnIUQGso=; b=Vy/A20FiViObB/9ILejxwRsAat
+ 9kcmO+oqxoCf4FCdsQrKOaQkFqEGQ0hVxMXO2E8dd1pdUlQ82f7Y9vgepJmjmiX5bbXeQEdGYZD1U
+ TNmhn7pm1GOG6SB0m+PrEQtVpkSWfrysYpQzxk/EntKjuQzhyWy+gQy4xTGr29jpZ6sFGdgMW54nS
+ tTSYxaKGTdw6YjDWUfwGxQXZEDRGjDeh5GBAsDasm0SN35ewON4aDqbPh8ujZt9Yv3F0ea2kFlX4i
+ Pxlyl3RIdo+IbHuPXZE4nct30Cok1h5F3ReijtGvP4KDIVzzKzBDvjNTRQs41lPcklHIMryzlPXFS
+ xMQE8zeg==;
 Received: from [79.117.146.159] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wWuG6-00Etww-20; Tue, 09 Jun 2026 13:04:38 +0200
+ id 1wWuG2-00Etww-8q; Tue, 09 Jun 2026 13:04:34 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
  christian.koenig@amd.com, contact@emersion.fr, daniels@collabora.com,
@@ -51,9 +51,10 @@ Cc: Uma Shankar <uma.shankar@intel.com>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH v9 3/4] drm/atomic: track individual colorop updates
-Date: Tue,  9 Jun 2026 12:20:20 +0200
-Message-ID: <20260609110420.1298352-4-mwen@igalia.com>
+Subject: [PATCH v9 1/4] drm/colorop: Remove read-only comments from
+ interpolation fields
+Date: Tue,  9 Jun 2026 12:20:18 +0200
+Message-ID: <20260609110420.1298352-2-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260609110420.1298352-1-mwen@igalia.com>
 References: <20260609110420.1298352-1-mwen@igalia.com>
@@ -74,195 +75,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-As we do for CRTC color mgmt properties, use color_mgmt_changed flag to
-track any value changes in the color pipeline of a given plane, so that
-drivers can update color blocks as soon as plane color pipeline or
-individual colorop values change. Since we're here, only announce and
-track changes to plane COLOR_PIPELINE prop if its value is actually
-changing.
+From: Alex Hung <alex.hung@amd.com>
 
-Fixes: 8c5ea1745f4c ("drm/colorop: Add BYPASS property")
+The lut1d_interpolation and lut3d_interpolation fields and their
+associated properties were marked as read-only, but userspace
+can set them via drm_atomic_colorop_set_property().
+
 Fixes: 7fa3ee8c0a79 ("drm/colorop: Define LUT_1D interpolation")
-Fixes: 41651f9d42eb ("drm/colorop: Add 1D Curve subtype")
-Fixes: 3410108037d5 ("drm/colorop: Add multiplier type")
 Fixes: db971856bbe0 ("drm/colorop: Add 3D LUT support to color pipeline")
-Fixes: e5719e7f1900 ("drm/colorop: Add 3x4 CTM type")
-Fixes: 99a4e4f08abe ("drm/colorop: Add 1D Curve Custom LUT type")
-Fixes: 2afc3184f3b3 ("drm/plane: Add COLOR PIPELINE property")
-Reviewed-by: Harry Wentland <harry.wentland@amd.com> #v1
 Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
 Fixes: 9ba25915efba ("drm/amd/display: Add support for sRGB EOTF in DEGAM block")
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/drm_atomic_uapi.c | 64 ++++++++++++++++++++++++-------
- include/drm/drm_atomic_uapi.h     |  4 +-
- 2 files changed, 54 insertions(+), 14 deletions(-)
+ include/drm/drm_colorop.h | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index b81dbba4d8c3..5eaf0e8a494b 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -265,13 +265,19 @@ EXPORT_SYMBOL(drm_atomic_set_fb_for_plane);
-  *
-  * Helper function to select the color pipeline on a plane by setting
-  * it to the first drm_colorop element of the pipeline.
-+ *
-+ * Return: true if plane color pipeline value changed, false otherwise.
-  */
--void
-+bool
- drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
- 				 struct drm_colorop *colorop)
- {
- 	struct drm_plane *plane = plane_state->plane;
+diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+index bd082854ca74..61cc8206b4c4 100644
+--- a/include/drm/drm_colorop.h
++++ b/include/drm/drm_colorop.h
+@@ -309,7 +309,6 @@ struct drm_colorop {
+ 	/**
+ 	 * @lut1d_interpolation:
+ 	 *
+-	 * Read-only
+ 	 * Interpolation for DRM_COLOROP_1D_LUT
+ 	 */
+ 	enum drm_colorop_lut1d_interpolation_type lut1d_interpolation;
+@@ -317,7 +316,6 @@ struct drm_colorop {
+ 	/**
+ 	 * @lut3d_interpolation:
+ 	 *
+-	 * Read-only
+ 	 * Interpolation for DRM_COLOROP_3D_LUT
+ 	 */
+ 	enum drm_colorop_lut3d_interpolation_type lut3d_interpolation;
+@@ -325,7 +323,7 @@ struct drm_colorop {
+ 	/**
+ 	 * @lut1d_interpolation_property:
+ 	 *
+-	 * Read-only property for DRM_COLOROP_1D_LUT interpolation
++	 * Property for DRM_COLOROP_1D_LUT interpolation
+ 	 */
+ 	struct drm_property *lut1d_interpolation_property;
  
-+	/* Color pipeline didn't change */
-+	if (plane_state->color_pipeline == colorop)
-+		return false;
-+
- 	if (colorop)
- 		drm_dbg_atomic(plane->dev,
- 			       "Set [COLOROP:%d] for [PLANE:%d:%s] state %p\n",
-@@ -283,6 +289,8 @@ drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
- 			       plane->base.id, plane->name, plane_state);
+@@ -353,7 +351,7 @@ struct drm_colorop {
+ 	/**
+ 	 * @lut3d_interpolation_property:
+ 	 *
+-	 * Read-only property for DRM_COLOROP_3D_LUT interpolation
++	 * Property for DRM_COLOROP_3D_LUT interpolation
+ 	 */
+ 	struct drm_property *lut3d_interpolation_property;
  
- 	plane_state->color_pipeline = colorop;
-+
-+	return true;
- }
- EXPORT_SYMBOL(drm_atomic_set_colorop_for_plane);
- 
-@@ -604,7 +612,7 @@ static int drm_atomic_plane_set_property(struct drm_plane *plane,
- 		if (val && !colorop)
- 			return -EACCES;
- 
--		drm_atomic_set_colorop_for_plane(state, colorop);
-+		state->color_mgmt_changed |= drm_atomic_set_colorop_for_plane(state, colorop);
- 	} else if (property == config->prop_fb_damage_clips) {
- 		ret = drm_property_replace_blob_from_id(dev,
- 					&state->fb_damage_clips,
-@@ -713,11 +721,11 @@ drm_atomic_plane_get_property(struct drm_plane *plane,
- static int drm_atomic_color_set_data_property(struct drm_colorop *colorop,
- 					      struct drm_colorop_state *state,
- 					      struct drm_property *property,
--					      uint64_t val)
-+					      uint64_t val,
-+					      bool *replaced)
- {
- 	ssize_t elem_size = -1;
- 	ssize_t size = -1;
--	bool replaced = false;
- 
- 	switch (colorop->type) {
- 	case DRM_COLOROP_1D_LUT:
-@@ -739,28 +747,45 @@ static int drm_atomic_color_set_data_property(struct drm_colorop *colorop,
- 						 &state->data,
- 						 val,
- 						 -1, size, elem_size,
--						 &replaced);
-+						 replaced);
- }
- 
- static int drm_atomic_colorop_set_property(struct drm_colorop *colorop,
- 					   struct drm_colorop_state *state,
- 					   struct drm_file *file_priv,
- 					   struct drm_property *property,
--					   uint64_t val)
-+					   uint64_t val,
-+					   bool *replaced)
- {
- 	if (property == colorop->bypass_property) {
--		state->bypass = val;
-+		if (state->bypass != val) {
-+			state->bypass = val;
-+			*replaced = true;
-+		}
- 	} else if (property == colorop->lut1d_interpolation_property) {
--		state->lut1d_interpolation = val;
-+		if (state->lut1d_interpolation != val) {
-+			state->lut1d_interpolation = val;
-+			*replaced = true;
-+		}
- 	} else if (property == colorop->curve_1d_type_property) {
--		state->curve_1d_type = val;
-+		if (state->curve_1d_type != val) {
-+			state->curve_1d_type = val;
-+			*replaced = true;
-+		}
- 	} else if (property == colorop->multiplier_property) {
--		state->multiplier = val;
-+		if (state->multiplier != val) {
-+			state->multiplier = val;
-+			*replaced = true;
-+		}
- 	} else if (property == colorop->lut3d_interpolation_property) {
--		state->lut3d_interpolation = val;
-+		if (state->lut3d_interpolation != val) {
-+			state->lut3d_interpolation = val;
-+			*replaced = true;
-+		}
- 	} else if (property == colorop->data_property) {
- 		return drm_atomic_color_set_data_property(colorop, state,
--							  property, val);
-+							  property, val,
-+							  replaced);
- 	} else {
- 		drm_dbg_atomic(colorop->dev,
- 			       "[COLOROP:%d:%d] unknown property [PROP:%d:%s]\n",
-@@ -1275,8 +1300,10 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
- 		break;
- 	}
- 	case DRM_MODE_OBJECT_COLOROP: {
-+		struct drm_plane_state *plane_state;
- 		struct drm_colorop *colorop = obj_to_colorop(obj);
- 		struct drm_colorop_state *colorop_state;
-+		bool replaced = false;
- 
- 		colorop_state = drm_atomic_get_colorop_state(state, colorop);
- 		if (IS_ERR(colorop_state)) {
-@@ -1285,7 +1312,18 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
- 		}
- 
- 		ret = drm_atomic_colorop_set_property(colorop, colorop_state,
--						      file_priv, prop, prop_value);
-+						      file_priv, prop, prop_value,
-+						      &replaced);
-+		if (ret || !replaced)
-+			break;
-+
-+		plane_state = drm_atomic_get_plane_state(state, colorop->plane);
-+		if (IS_ERR(plane_state)) {
-+			ret = PTR_ERR(plane_state);
-+			break;
-+		}
-+		plane_state->color_mgmt_changed |= replaced;
-+
- 		break;
- 	}
- 	default:
-diff --git a/include/drm/drm_atomic_uapi.h b/include/drm/drm_atomic_uapi.h
-index 436315523326..4e7e78f711e2 100644
---- a/include/drm/drm_atomic_uapi.h
-+++ b/include/drm/drm_atomic_uapi.h
-@@ -29,6 +29,8 @@
- #ifndef DRM_ATOMIC_UAPI_H_
- #define DRM_ATOMIC_UAPI_H_
- 
-+#include <linux/types.h>
-+
- struct drm_crtc_state;
- struct drm_display_mode;
- struct drm_property_blob;
-@@ -50,7 +52,7 @@ drm_atomic_set_crtc_for_plane(struct drm_plane_state *plane_state,
- 			      struct drm_crtc *crtc);
- void drm_atomic_set_fb_for_plane(struct drm_plane_state *plane_state,
- 				 struct drm_framebuffer *fb);
--void drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
-+bool drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
- 				      struct drm_colorop *colorop);
- int __must_check
- drm_atomic_set_crtc_for_connector(struct drm_connector_state *conn_state,
 -- 
 2.53.0
 
