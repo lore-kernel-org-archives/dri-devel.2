@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55B6ACD8CA4
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 10:04:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD991CD8CA4
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 10:04:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6D3710E212;
-	Tue,  9 Jun 2026 10:04:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 006CB10E215;
+	Tue,  9 Jun 2026 10:04:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T48p08K8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g9ryf6ET";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B058110E212
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 10:04:07 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6026210E216
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 10:04:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2095160172;
- Tue,  9 Jun 2026 10:04:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6A5A1F00893;
- Tue,  9 Jun 2026 10:04:06 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3F9074018B;
+ Tue,  9 Jun 2026 10:04:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E45DF1F00893;
+ Tue,  9 Jun 2026 10:04:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780999446;
- bh=VkIUTjHkKgLRNGdL1Gqzrk3CiiB/EE0hieV10JYzm/k=;
+ s=k20260515; t=1780999474;
+ bh=rPRNwG4L7REI2VHQgEgUWNn2agrCepQO6MhT9+iFf5E=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=T48p08K8C8mkkjbCnC/1UDDYotWqjJ6sEQbRuXGtGVNWajG762UL78zOU7lyw+P4u
- KPnJ/DMPN0FWvVgKa/cfW9LrqkCBSYWZuUNkKbVDZ04Vt17VCnxQHPsXLydp30kCFK
- 2Tu6eB3usdXErl0QhblQN/SGZ8eKjqvfSGnNATGjwEd6hkRTKo+9TDHicOLcIQ8Rm/
- Y10eaDalCe7A7ed2INikv5MpSLGUh752+gLIlk/ZEjAVK0x3am8fa/DvDAwZuHn0kz
- 2PWibgo25D6c/Ws9DyiAibg9ezi9eBAwwiIfi5Ubz3cOQrD6T8ru4jqKgGfH6tWBhR
- hg48J0I1OkqYg==
+ b=g9ryf6ETzw6kUQHs6m5Hhco+l6ZNbEd1IUwpobWXW9X+TMgm34e2RW+8EiVSygBly
+ Fxduk8Ys2iUMtR/HzCBdAfmmnDE6l5giy+gayVQ1QyepBK5tpJdtvaqAyCPxajnEFp
+ R9qDb4LHniAYlZ85r5ndnHqX80k+jIgAmyhMsS0XTErEsydLIl5hWuyG88AmOvnQH3
+ b3WkWd7V6GSZTb09mz/oafPHaCCgsF2shyGE5/Lzeov55jQrG7/ezorsz2wUOUDdFq
+ T+DheRf9CtiCxywhS1l1g8rTJ2lEJh6BVfmh/e9kBHBKFtn+vVJP3wTUAD02HN3VLO
+ GNlPCm+x9v+ug==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 11/15] drm/msm/dp: split dp_ctrl_off() into stream
- and link parts
+Subject: Re: [PATCH v7 04/15] drm/msm/dp: split msm_dp_ctrl_config_ctrl()
+ into link parts and stream parts
 To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260609-dp_mstclean-v7-11-ea04113e8233@oss.qualcomm.com>
-References: <20260609-dp_mstclean-v7-11-ea04113e8233@oss.qualcomm.com>
+In-Reply-To: <20260609-dp_mstclean-v7-4-ea04113e8233@oss.qualcomm.com>
+References: <20260609-dp_mstclean-v7-4-ea04113e8233@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 10:04:05 +0000
-Message-Id: <20260609100406.A6A5A1F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 10:04:33 +0000
+Message-Id: <20260609100433.E45DF1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,58 +59,80 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The error code returned by `msm_dp_ctrl_on_pixel_clk()` is ignored=
- in `msm_dp_ctrl_process_phy_test_request()`, allowing execution to proceed=
- even if clock enablement fails.
+- [High] Splitting `msm_dp_ctrl_config_ctrl()` causes stream configuration =
+state to be permanently lost during dynamic link maintenance, leading to di=
+splay corruption.
 --
 
-commit 63742fe8cd27d164a8457069750896b0e989b7f3
-Author: Abhinav Kumar <quic_abhinavk@quicinc.com>
+commit 83fda55d30fe1cd098ad8cc76e151a0398a09b6a
+Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 
-drm/msm/dp: split dp_ctrl_off() into stream and link parts
-
-This commit splits dp_ctrl_off() into stream and link parts so that for
-MST cases we can control the link and pixel parts separately.
+drm/msm/dp: split msm_dp_ctrl_config_ctrl() into link parts and stream parts
+   =20
+The DP_CONFIGURATION_CTRL register contains both link-level and
+stream-specific fields. Currently, msm_dp_ctrl_config_ctrl() configures
+all of them together. Separate the configuration into link parts and
+stream parts to support MST.
 
 > diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp=
 _ctrl.c
-> index 87c3a5517911f..90fba03de7f0b 100644
+> index 86ef8c89ad443..ed2ba47881fd0 100644
 > --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
 > +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-
 [ ... ]
-
-> @@ -2240,7 +2240,8 @@ static int msm_dp_ctrl_process_phy_test_request(str=
-uct msm_dp_ctrl_private *ctrl
->  	 * running. Add the global reset just before disabling the
->  	 * link clocks and core clocks.
->  	 */
-> -	msm_dp_ctrl_off(&ctrl->msm_dp_ctrl, panel);
-> +	msm_dp_ctrl_off_pixel_clk(&ctrl->msm_dp_ctrl);
-> +	msm_dp_ctrl_off_link(&ctrl->msm_dp_ctrl, panel);
+> +static void msm_dp_ctrl_config_ctrl_link(struct msm_dp_ctrl_private *ctr=
+l)
+> +{
+> +	u32 config =3D 0;
+[ ... ]
+> -	if (ctrl->panel->psr_cap.version)
+> -		config |=3D DP_CONFIGURATION_CTRL_SEND_VSC;
+> -
+> -	drm_dbg_dp(ctrl->drm_dev, "DP_CONFIGURATION_CTRL=3D0x%x\n", config);
+> +	drm_dbg_dp(ctrl->drm_dev, "link DP_CONFIGURATION_CTRL=3D0x%x\n", config=
+);
 > =20
->  	ret =3D msm_dp_ctrl_on_link(&ctrl->msm_dp_ctrl, panel);
->  	if (ret) {
+>  	msm_dp_write_link(ctrl, REG_DP_CONFIGURATION_CTRL, config);
+>  }
+[ ... ]
+> @@ -1628,7 +1644,7 @@ static int msm_dp_ctrl_link_train(struct msm_dp_ctr=
+l_private *ctrl,
+>  	u8 assr;
+>  	struct msm_dp_link_info link_info =3D {0};
+> =20
+> -	msm_dp_ctrl_config_ctrl(ctrl);
+> +	msm_dp_ctrl_config_ctrl_link(ctrl);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but while looking at the rest of
-msm_dp_ctrl_process_phy_test_request(), the return value from enabling the
-pixel clock appears to be completely ignored:
+Does splitting this configuration cause the stream state to be permanently =
+lost
+during dynamic link maintenance?
 
-	ret =3D msm_dp_ctrl_on_pixel_clk(ctrl, pixel_rate);
+Before this patch, msm_dp_ctrl_config_ctrl() programmed both link and stream
+parameters. Now, msm_dp_ctrl_config_ctrl_link() initializes config =3D 0 and
+overwrites REG_DP_CONFIGURATION_CTRL, which erases any existing stream
+configuration.
 
-	msm_dp_ctrl_send_phy_test_pattern(ctrl);
+While normal initialization restores stream parameters by calling
+msm_dp_ctrl_configure_source_params() after link training, dynamic link
+maintenance paths (like msm_dp_ctrl_link_maintenance() calling
+msm_dp_ctrl_setup_main_link()) perform link training and then transition
+directly to DP_STATE_CTRL_SEND_VIDEO without re-applying the stream
+parameters:
 
-	return 0;
+msm_dp_ctrl_link_maintenance()
+    ...
+    ret =3D msm_dp_ctrl_setup_main_link(ctrl, &training_step);
+    ...
+    msm_dp_write_link(ctrl, REG_DP_STATE_CTRL, DP_STATE_CTRL_SEND_VIDEO);
 
-If msm_dp_ctrl_on_pixel_clk() fails to prepare and enable the clock, it
-returns a negative error code, but the code still continues execution. Does
-processing the PHY test pattern and commanding the DP controller without a
-successfully enabled stream clock leave the hardware in an undefined state?
-Should we be checking this return value and exiting early on failure?
+Since msm_dp_ctrl_setup_main_link() eventually triggers
+msm_dp_ctrl_link_train() which calls msm_dp_ctrl_config_ctrl_link(), will t=
+his
+result in the DP stream coming back up with critical parameters cleared (e.=
+g.,
+0 BPC, no VSC, incorrect color format), breaking the display output?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-dp_mstclea=
-n-v7-0-ea04113e8233@oss.qualcomm.com?part=3D11
+n-v7-0-ea04113e8233@oss.qualcomm.com?part=3D4
