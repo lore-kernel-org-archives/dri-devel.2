@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A83CCD8CB2
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 17:32:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C54E1CD8CB2
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 17:37:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00F8410E592;
-	Tue,  9 Jun 2026 17:32:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02C9010E3CD;
+	Tue,  9 Jun 2026 17:37:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Lv5ri84F";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Za/d19Af";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46DDD10E592
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 17:32:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94B5510E3CD
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 17:37:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2149C4006C;
- Tue,  9 Jun 2026 17:32:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCFC61F00893;
- Tue,  9 Jun 2026 17:32:45 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E2AEE60218;
+ Tue,  9 Jun 2026 17:37:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1648B1F00893;
+ Tue,  9 Jun 2026 17:37:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781026366;
- bh=KHfEZlSR9fKKOkrCX3/gB7FGOAV3vPfh0KzIZa6G/b8=;
+ s=k20260515; t=1781026636;
+ bh=RkrpFVF9oRa3rOuk6LlbsggctcZ5zuC9pH00DxGtDH0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Lv5ri84FxZpSgrgnOcc8NZsJxAqx2LGocQE6Rne81QHhRjVb1okJP9lRhWd7K+hPL
- saPDDoUU2qXczEXtOiEMgpV/3tIpJZQzi96IobV8eGQ+mt/rhw7GhZpJiUbs9ppeSa
- UkstxX/w4E3sPyB0Kewov6Yd7ntBEYDuPuve3mhOZlK5v/sAldCX9Ej+2qTGg1Bgdt
- RiISBgUgzSMvgC0o/efmn/bDvaLH8vklypkiD2sb7lsTrCd7cg+7D8soT1lNzPVlXl
- IkYhIkapW5sNLoW3Y1gw1taaAtKqSlqSp6ImWelDw+wSv2NDoQq3XDBfO36v+gjV1Z
- 0yW6N5EFLL+hA==
+ b=Za/d19AfGH0ViaXGJQ+JjQZ67Tn4stIkspI7Bo76CjO5xTBTKhoLWG4edpf/yKnIy
+ HHR23BbpE2jJNmnto01gS1HOjzLucFOAO3OmjMbe3MUwoDqca219OKkysGYqqmH/AB
+ U3KC04TJ71MtufQVYZtE+pIzuHsBlfzjfBo2n2uH4nZJbnhkhRO7uGqMSYM4LvXjkO
+ tymy7+wNR1pScDHgn4DyRita7jqhSLAbXf/IOAZ/NtSP6cZ9B7E7aTzdB88TlIgjFI
+ CIUelVEi7SujHFbl33ALeoJhpawkzUM9N/Vxk2Vw9vYFx7e/m2qTwBGgjiblKHRLzL
+ PKgmcjMLGAavg==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 3/8] drm/i915/colorop: Update to new pipeline API
+Subject: Re: [RFC PATCH 4/8] drm/amd/colorop: Update to new pipeline API
 To: "John Harrison" <John.Harrison@Igalia.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260609171941.169104-4-John.Harrison@Igalia.com>
-References: <20260609171941.169104-4-John.Harrison@Igalia.com>
+In-Reply-To: <20260609171941.169104-5-John.Harrison@Igalia.com>
+References: <20260609171941.169104-5-John.Harrison@Igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 17:32:45 +0000
-Message-Id: <20260609173245.DCFC61F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 17:37:15 +0000
+Message-Id: <20260609173716.1648B1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,124 +56,81 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] Missing `drm_mode_object_unregister()` in colorop cleanup leav=
-es dangling pointers in the DRM device IDR.
-- [High] If colorop initialization fails early, the cleanup path will uncon=
-ditionally dereference uninitialized pointers, causing a kernel panic.
-- [High] Missing error handling for `kasprintf` leads to a NULL pointer der=
-eference when creating the pipeline property.
+- [High] Missing NULL check for kasprintf() when setting the color pipeline=
+ name leads to a potential NULL pointer dereference in strlen().
+- [High] Calling list_del on an uninitialized list head during error cleanu=
+p causes a kernel panic.
 --
 
-commit 430890cda6ad288f9a83188f2b716cf9737d8c83
+commit 3a2ecacea83aea676a95a30af6588c8a29a29749
 Author: John Harrison <John.Harrison@Igalia.com>
 
-drm/i915/colorop: Update to new pipeline API
+drm/amd/colorop: Update to new pipeline API
 
 Switch to using the new method for building colorop pipelines.
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_color_pipeline.c b/driver=
-s/gpu/drm/i915/display/intel_color_pipeline.c
-> index 6cf8080ee8000..49dac9627553a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-> +++ b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+> index 48f5c431eaf91..6b5741d9d98b0 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
 [ ... ]
-
-> @@ -100,8 +100,10 @@ struct intel_colorop *intel_color_pipeline_plane_add=
-_colorop(struct drm_plane *p
+> @@ -210,7 +212,7 @@ amdgpu_dm_build_default_pipeline(struct drm_device *d=
+ev, struct drm_plane *plane
 >  	if (ret)
 >  		goto cleanup;
 > =20
-> -	if (prev)
-> -		drm_colorop_set_next_property(&prev->base, &colorop->base);
-> +	if (!*pipeline)
-> +		*pipeline =3D &colorop->base;
-> +
-> +	drm_colorop_add_to_pipeline(*pipeline, &colorop->base);
+> -	drm_colorop_set_next_property(ops[i-1], ops[i]);
+> +	drm_colorop_add_to_pipeline(ops[0], ops[i]);
 > =20
->  	return colorop;
+>  	list->name =3D kasprintf(GFP_KERNEL, "Color Pipeline %d", ops[0]->base.=
+id);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but if the colorop initialization
-fails before this point, the code jumps to the cleanup label:
+This isn't a bug introduced by this patch, but does this kasprintf() need a
+NULL check?
 
-	cleanup:
-		intel_colorop_destroy(&colorop->base);
-		return ERR_PTR(ret);
+If the memory allocation in kasprintf() fails, it returns a NULL pointer.
+This NULL pointer is blindly assigned to list->name and then passed down to
+drm_plane_create_color_pipeline_property() and eventually to
+drm_property_add_enum(), which attempts to compute its length:
 
-Could this unconditionally dereference an uninitialized pointer?
+drivers/gpu/drm/drm_property.c:drm_property_add_enum() {
+	...
+	if (WARN_ON(strlen(name) >=3D DRM_PROP_NAME_LEN))
+		return -EINVAL;
+	...
+}
 
-The colorop was just allocated, so colorop->dev is NULL.
-Calling intel_colorop_destroy() invokes drm_colorop_cleanup(), which
-attempts to dereference colorop->dev and call list_del(&colorop->head),
-resulting in a NULL pointer dereference.
-
-[Severity: Critical]
-This is another pre-existing issue in the teardown path.
-
-If a colorop is later destroyed (either here in the error path, or during
-general teardown), drm_colorop_cleanup() is called:
-
-	void drm_colorop_cleanup(struct drm_colorop *colorop)
-	{
-		...
-		list_del(&colorop->head);
-		config->num_colorop--;
-
-		if (colorop->state)
-			drm_colorop_atomic_destroy_state(colorop,
-							 colorop->state);
-	}
-
-Is this missing a call to drm_mode_object_unregister()?
-
-The object is registered with the DRM device IDR via drm_mode_object_add()
-during initialization. Omitting drm_mode_object_unregister() leaves a
-dangling pointer in dev->mode_config.object_idr, which could lead to a
-use-after-free or a system crash during device teardown.
-
-[ ... ]
-
-> @@ -132,14 +134,12 @@ int _intel_color_pipeline_plane_init(struct drm_pla=
-ne *plane, struct drm_prop_en
->  	}
-> =20
->  	for (i =3D 0; i < pipeline_len; i++) {
-> -		colorop[i] =3D intel_color_pipeline_plane_add_colorop(plane, prev,
-> +		colorop[i] =3D intel_color_pipeline_plane_add_colorop(plane, &pipeline=
-_root,
->  								    pipeline[i]);
->  		if (IS_ERR(colorop[i])) {
->  			ret =3D PTR_ERR(colorop[i]);
->  			goto cleanup;
->  		}
-> -
-> -		prev =3D colorop[i];
->  	}
-> =20
->  	list->type =3D colorop[0]->base.base.id;
+Calling strlen(NULL) causes an immediate kernel panic during device
+initialization. (This same pattern also appears in the Intel and VKMS
+drivers' color pipeline initialization).
 
 [Severity: High]
-This is a pre-existing issue, but right after this line in
-_intel_color_pipeline_plane_init(), there is an unchecked kasprintf():
+This is another pre-existing issue, but can calling list_del() on an
+uninitialized list head during error cleanup cause a kernel panic?
 
-	list->type =3D colorop[0]->base.base.id;
-	list->name =3D kasprintf(GFP_KERNEL, "Color Pipeline %d", ...);
+When an error occurs early in color pipeline initialization (e.g.,
+drm_mode_object_add() fails), the struct drm_colorop is zero-allocated but
+never added to the global colorop_list. The error handling path in the Intel
+driver unconditionally calls intel_colorop_destroy(), which delegates to
+drm_colorop_cleanup():
 
-	return 0;
+drivers/gpu/drm/drm_colorop.c:drm_colorop_cleanup() {
+	...
+	list_del(&colorop->head);
+	...
+}
 
-If this allocation fails under memory pressure, list->name is set to NULL
-and the function unconditionally returns 0 (success).
-
-Could this cause a NULL pointer dereference later when
-drm_plane_create_color_pipeline_property() passes this name to
-drm_property_create_enum() and drm_property_add_enum(), which performs a
-strlen(name)?
+Because the list_head was never initialized with INIT_LIST_HEAD nor linked,
+its prev pointer is NULL. The internal __list_del macro dereferences this
+NULL pointer, causing an immediate kernel panic on driver probe failure. Is
+this expected behavior?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609171941.1691=
-04-1-John.Harrison@Igalia.com?part=3D3
+04-1-John.Harrison@Igalia.com?part=3D4
