@@ -4,131 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF220CD8CA4
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 13:19:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EBA9CD8C92
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 13:19:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 422E810E3FC;
-	Tue,  9 Jun 2026 13:19:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87F9B10E40D;
+	Tue,  9 Jun 2026 13:19:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="F+D3bU+T";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="nvLL6Ubj";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013034.outbound.protection.outlook.com
- [40.107.201.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7755810E44F
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 13:19:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bDeOSPM3eZy7CYYvSL28/WlDUqMgfc76KP7UZwV9WW1zx9qTbDDhxeNzJ0tOonLy/+O2j6F99I446ABEds2Sagp+LazkGXMV79V/GBzofXSUeTziKvkFy3v5xFe4L+MNZ/CveR+1I95CUTtcfuUBj+qJU4FpVYEmL0c8zeVoIeoF/zcQ6A1Tft5UFIpjLpUMcRSEWZjpTxXclUTwZ+9hKfmgNpmOxru7ayIYlqfHNqFMciECO/Hkeg21SN9QUm98fIFgtL1uFiakDKBq2n7kEKnjvXWcZ4TM8k0/TilEZob+OYHecsMymMcFr2t+hHrKwFr2cRhgqsewecCTviY7SA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9S9V3Y97wUaNbWbbkVY6D8KCy0OT7LBMCZ/Morzj+oY=;
- b=BXiUo8b/V0Er/LQ+1cWoVEnjr+9GASd8YSBuSdh0R5Xjc/P1n8SpT8jEl6nLC52SQJQzeXLGacB/sCeCqHJ6F2+uyb/ag3sJqGiIMofpvNhUDcAWL523EW9lZrTFBuBxMW09EAd2E/k3jOMd6UEqm3w1+klXoFkjj5At8L3ciMMLAwlvH+Crf9IWDjqm7Gc7zcrlY8fq2C6wfMxVrBHyS8Q1z1q1gwIUCzTv0B7LDs3URj8Gzl+oZJ9pOM4F6bJlHBl/J5KF/VbI7bpwgXSWExA2E0u5H4PU9It4ueWUa+bjuHqbN+5/wjr7SeS/KFtCI+z7T10xx4yePC2m4QUXFw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9S9V3Y97wUaNbWbbkVY6D8KCy0OT7LBMCZ/Morzj+oY=;
- b=F+D3bU+T/Hish+0VGOrrn1FhTcO6mFQQW61w9iMFa9N0ivppJ+1sXPuhqB3dE/fVoE6/K0d2O7uWBks+66bOgJQe2USya8x+ElQAkR+37JO/xDfxjME3WM+fUtAWg/H45gntdqzUOdgX/Y0TyPd9K7OmS34Q7J6FRIE4P6wWGGjj7NITjG22XOUW4felXHIlTsNipMwZL1+wtuMKIIFbKGENKuX3KIOwCo5tnloQIl5tyQS+4L2tiFd6svcjwu1hR8XwS8R97RUT7xCg+je/PAXUT3u/iXxy5FhC8jdyosN90r1G5+H2cszThduP0qt688xJK6JSvi36LQtkUK054w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by IA1PR12MB9031.namprd12.prod.outlook.com (2603:10b6:208:3f9::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Tue, 9 Jun 2026
- 13:18:59 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0092.011; Tue, 9 Jun 2026
- 13:18:59 +0000
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5338F10E40D
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 13:19:18 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gZTyW2glfz9tnw;
+ Tue,  9 Jun 2026 15:19:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1781011155; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=mPZl402TTzFkEbpsWPx3x9qh63uQoHgvkfTnX6weyHw=;
+ b=nvLL6Ubjv+0bH+rIPtjZU8EmZQHHyj2A6D3QdOBuIaXO7Kxs7kjGpEp5ZFuNm/+Lhl/Q9I
+ rEKqDsVvwfxsqw7qoqbSfKHjyBaMEfhrPT1N4Xo1yQIGJ71+ahNIexZcy8gl2EVXzOMQYf
+ qfVNjQ8jiQs3C7T8d/qXml0ks8sq3NlUWs8V3DbyK8rvYujOieaNHCENP4YG3UIynSduzI
+ Ll93dtBD2UVh23Ke3ySj3WLB56fcXxoK69Y7LMQMxpQXXzGNqRhqgEJ15cKY3Tcf8YTtJD
+ 4KQa8JDlNV9vzFaQVyGhTf7E5DL1bBZDN0dDev5Efyemwp+Q4sbnEluzo4iUQQ==
+Message-ID: <aebe759117cd65004510946e39bd02e4c903e1e3.camel@mailbox.org>
+Subject: Re: [RFC PATCH] dma-fence: Fix races of fence callbacks versus
+ destructors by locking
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Danilo
+ Krummrich <dakr@kernel.org>, airlied@gmail.com
+Cc: phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Boris
+ Brezillon	 <boris.brezillon@collabora.com>, Alice Ryhl
+ <aliceryhl@google.com>, Daniel Almeida <dwlsalmeida@gmail.com>, Gary Guo
+ <gary@garyguo.net>, Tvrtko Ursulin	 <tvrtko.ursulin@igalia.com>,
+ linux-media@vger.kernel.org, 	dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Tue, 09 Jun 2026 15:19:10 +0200
+In-Reply-To: <c8564ea0-8ff4-4049-996d-bd978c478372@amd.com>
+References: <20260608142436.265820-2-phasta@kernel.org>
+ <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
+ <fa9a335196525adbc03ec21b2e05bb526e4fc174.camel@mailbox.org>
+ <9d49c901-fcdf-487a-a733-0320d0bdf94c@amd.com>
+ <DJ3V3OCLIK2K.3CYKWYNHYU6JQ@kernel.org>
+ <ea4e0541-3702-4014-b8f6-0746a148df86@amd.com>
+ <DJ3VYD71HDQ2.3C8GG983Z2YCM@kernel.org>
+ <c8564ea0-8ff4-4049-996d-bd978c478372@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 09 Jun 2026 22:18:55 +0900
-Message-Id: <DJ4JR8FI7QCY.34N1UHF6NARJF@nvidia.com>
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- "Sashiko" <sashiko-bot@kernel.org>, "Alexandre Courbot"
- <acourbot@nvidia.com>
-Subject: Re: [PATCH] gpu: nova-core: gsp: tu102: keep unloading if FWSEC-SB
- fails
-References: <20260531-nova-unload-fix-v1-1-c8dcdc769b53@nvidia.com>
-In-Reply-To: <20260531-nova-unload-fix-v1-1-c8dcdc769b53@nvidia.com>
-X-ClientProxiedBy: OSTP286CA0091.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:219::12) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|IA1PR12MB9031:EE_
-X-MS-Office365-Filtering-Correlation-Id: 340539ec-ae06-49c1-80c1-08dec629aac4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|10070799003|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: yosD0Vmv1K90ZChHxaAZs6V7+2b1Ca2YRBMjuMUDMzFEcwkXcQJ0/AEfTOsrD57Si7zFu9PtBu4UrEnTwnZ/sQpBOP3IiOTjqWvGItJBiabAWe5A3v+BiPPxLia4tHf0l+03AErVcSu49KJ6g426AZmeG1Nh36O02X849XtMhlJdeT1TZV9Qcc30yJWCcOBop/H/QyP2nEzYwA7hC9Ugg9jidbuAIkaL+/CEV6558i0R1Gn7HlVXIlvScCw+mgPwCyq+i0AJpRNtCQV6dTfB/vS/HJpvzoO+oLv7ueo8KT/mtBSryqB1odj+Fh7qT7oQnAzKGt10g0jZJVkqZeQfbEAxLVMuAuSnNiHrXsmkJx5CU0l75RveXD0hXCILeVg3WgvL9pAXHKddMF2t5D0X5n4aaIqT8NNOFrsF0s75M4wN96xQj2ROpjQQsuYb1WtFo11oMqy1nRM6XViwrEK0d8a6v1VAlW7ouTAM1/h7V7GHV2CFSYK5KYGrMJWvb71ajP2ugS39y+wP92Mh8x2vbuWr6ZjKE/nYMBHA4den8M/U7EkHqd8F/J5JTZ6/dVAo5z1qH7oZ6IcM+RqTpn/Gfa8Yb6NAyo7gQJiqC2DPZDP6p/DTrhNxQQrxgszGzKWZIADYsuYtwNT/6U8kZDpo94x/OUijP3XneV8rJvkxUPpz4UJFXTmtlaPG/C5MW8ki
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(10070799003)(22082099003)(18002099003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TFFWVW9iRUUybTVGZitJTURDaldyMmVaTCtDWXRZUXUvaHhsTk1XY3NzdWx6?=
- =?utf-8?B?OUY0ZjZaeng4ZHBsdFhVY2UyV0pmVkJlbHBuSURHakNFWlp0SFR4SWRlTUF3?=
- =?utf-8?B?NmZBaUducDUzZ215QVc5VmJxVjM3dmhrM09YTTBBd0FvaWdHOTB2ZThvYkNx?=
- =?utf-8?B?RGR0VVNLYVdkaWZNbmpndmNYV3JrZngveFBuM1dnc0hidlhRU3h4SXJ2d3d3?=
- =?utf-8?B?RVh5by80MWw2NXBxc1FNaXJ1VW8zV0QxbTRQeWxuTUNxKzlFQytxbDdhSTVO?=
- =?utf-8?B?WjRISVZyMHdLRTY4dm5ESmh5aFl4WjBlRVBhdXpDWEJSRk1MSWw2MWh0bzBU?=
- =?utf-8?B?bkJDanpxSy9hbUhSRVY5Smw2T05aU1lzaXpBRFJmWDBEL1I4NjJOcGtoZnND?=
- =?utf-8?B?Tjh3SDN0RzQwN3hWU3NqVjFLazdCUWZqRzFESzVnZ2hadW9kVWM1b2FCVFdN?=
- =?utf-8?B?Zm96Y202UFI2RmVsWUkxWUFkREJtSU42Uy9LUHVaV011M3ZPOWUxYzQ1ekJt?=
- =?utf-8?B?NFh6Nkd6c3VLRUlmREJNSVV0MVlZWENqbnZWQ01MR2h0cXVCcnNzbUZ2RVhY?=
- =?utf-8?B?Z1IzMUVmQS92UnFMQ3c1N1EzcVZlVi83L1pDSkpsalZ2bEY2WkdmSVNhYzRM?=
- =?utf-8?B?STJWS3NqZWNET1dReERCQzUvNW5idTlEWWhadXFBSDc0M1hzR2pyWnZsTjBo?=
- =?utf-8?B?WXRWS1FjeXdxRERGQ0xZMkVFaGZjbHQzL3pJZkhMWDJaNUdUV1Z6c1JSNkNR?=
- =?utf-8?B?UEp4d3J4eVp0aExibldULytjRWZPQWtDYXZhZTFGNXQrajh6b3dZV1JCc3E3?=
- =?utf-8?B?UzJxVnNMcGkrcHV3NU8vekJjWXp2Y25jaVpsTXd5WHJoN3ZiU0VWellKSDZl?=
- =?utf-8?B?NzhsZm5KNHZPSWRwUGdaOGlrNnFVajlSWXNPeTBNeU5vYzJwK2FrVllScVVx?=
- =?utf-8?B?anBmTFBqZnJoNW03UTdJSTZ2b0hRYUhWV2pBODVMaVp3a0F6SmZzMHRTTWdr?=
- =?utf-8?B?aFRsMFo0d21QR1ZlcCs5VFhNdy9INWdnd0dkNWVIVWFzL3hHVzYrbnVFc0Zl?=
- =?utf-8?B?WVRxZm1GWnpyV29TYXI3c0UvZHFPaitqaXJ6TzhNQ1NJbjhidWRNdUJmYUJI?=
- =?utf-8?B?SkR2ejFpamw5bVNKSHluc0hwYy9GdDd2djRlSGdpTFVjSXVBV1o0akZ2ZjZT?=
- =?utf-8?B?cDNmb3QyUE1rU2tDdzJLd2hpUE5wT29wN1lpL2J5REYvbjQrVnhLTWdack11?=
- =?utf-8?B?cnlBSmVIQUcwRkc1dVNqelMybEJGbVZuSmxNczVNbTFTeVNsN3FwaldFQlRI?=
- =?utf-8?B?VTEvZ3hqZ3ljenRVY3ZtNWZuWHdjVHczVktkL2NLbW9sc0djRVZxKzE1c3Fn?=
- =?utf-8?B?MFE2UUxGY2NmRVgzRFFOaHJUVjRNaU1WbkpGNTg0eVcwbzNDbFd4VTBFOTYy?=
- =?utf-8?B?NWNzRnFNTy9rSERjZlNLNFFNQWE4USszRXovMDZxTHJleEFXYlpmVGRNanEx?=
- =?utf-8?B?S1hqekduWmxOQ0pQNzlHT3NqMEpxd1VqREliVllacjlXalNOa1hDRE05NWFT?=
- =?utf-8?B?VmpOak1sc2tFQ2ZqdVY0WEU3VFdrc1JqM05ydTVPaG1UWllGd09iUXU3OWcz?=
- =?utf-8?B?dXRLZm1qSmJ4V0RaNzdiQTQza0pLYjdGcmJaUXVQZ2ZzSzdOSkRlRHg0eCtQ?=
- =?utf-8?B?cWd4dFhVbkRUZ3JMWXA3em9kc2ZOQWdKMzVsSm1XQTZlbnpRSmwwbXlGQjA1?=
- =?utf-8?B?NVRYcHJtbnQwNlpTSyswdUdkOE5nRFhsUGowVUFEeVRlNnFTQnNYUG9XSTlN?=
- =?utf-8?B?dzNoaTlHcnB3Z1VpYllhQ2FaN2YzVDVMZ1NLVjBUeUNRdkpxM2R3dW9Iak01?=
- =?utf-8?B?eVZRRGpaeFhlNlZlT1ZQV2tlcGM4UTl1Y1praVZzaHU3YkpydVR2dHIzYzlG?=
- =?utf-8?B?Y24zODROYThMd0MwY1RtZ01CQWEyc1lyeklRQUJHdnhaZE8zUG00MlRIOWor?=
- =?utf-8?B?cWxyMit1Rk80TWYzQzZId0RhTzhMSWs5VDFaZ0xNWWRBa3FpQVpvNHdpK0dr?=
- =?utf-8?B?M1dia1Z5bC91QVcwMTFIR2hUWGx0U0dHeVFiQ2tYeFZMbnBFNnlnYTZ1SjVs?=
- =?utf-8?B?aHEybGNnM0llUTVsOVgvNjV0ZlZUbXJvVXlORTkraVEvcXkwVng0Y2FERXJY?=
- =?utf-8?B?NmVFSFJmaG1qUVR2bHVqclQvbm1FeWRCNEVTZ1dRTTVwSTc4RkEvR0ZoM2Qw?=
- =?utf-8?B?SlVEblk0ZnRHajlqeDFlVDh4RGdMYVk3NDZjaGlOQnBhc3NWVFpsZnFFOWNG?=
- =?utf-8?B?a3QzNHQxaldlT0hOUTh5dW1tUmF4RXlVQkZKWmFQTnZmOVc2YXNBOENzbU9l?=
- =?utf-8?Q?ZAD97k1EJZFLJui+0byGPE8nrsnbpOL6fF29Usoc0/Cbr?=
-X-MS-Exchange-AntiSpam-MessageData-1: LzGwWQmbg9jxcg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 340539ec-ae06-49c1-80c1-08dec629aac4
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 13:18:59.6046 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VcBhWUAeBFD4MWQ426u9v2AfSnGb7B77l97dHI/oWSWFdG5TAH522SjgT9iFrqCaj7sp7d971jVsEiQ6Wv2HHw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9031
+X-MBO-RS-META: jzpunfkr5bfxqpmxapy8ykety9n455dw
+X-MBO-RS-ID: 048a86ff4514b3ea937
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,25 +73,88 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun May 31, 2026 at 9:37 PM JST, Alexandre Courbot wrote:
-> On Turing and Ampere, resetting the GSP involves running two firmware
-> images: FWSEC-SB and Booter Unloader. They are independent from one
-> another, and we should do whatever is possible to restore the GSP's
-> unloaded state even if a failure occurs along the way.
->
-> Thus, keep going and run Booter Unloader even if the execution of
-> FWSEC-SB failed.
->
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260529-nova-unload-v7-0-678f3920=
-9e00%40nvidia.com?part=3D3
-> Fixes: adb99ce3cc78 ("gpu: nova-core: run Booter Unloader and FWSEC-SB up=
-on unbinding")
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
++Cc Dave
 
-Pushed to `drm-rust-next`, thanks!
+On Mon, 2026-06-08 at 20:47 +0200, Christian K=C3=B6nig wrote:
+> On 6/8/26 20:39, Danilo Krummrich wrote:
+> > How did you get to this conclusion considering that you run into what I
+> > mentioned above as well and the fact that we seem to agree that the per=
+formance
+> > concern is rather questionable?
+>=20
+> Quite simple, it's the cleaner approach.
+>=20
+> Calling callbacks with locks held is rather questionable even putting the=
+ performance issue aside.
 
-[acourbot: log Booter Unloader errors.]
+
+I'm right now going through all fence users to see whether we can
+implement my solution.
+
+And look what I found:
+
+static inline bool
+nouveau_cli_work_ready(struct dma_fence *fence)
+{
+	unsigned long flags;
+	bool ret =3D true;
+
+	dma_fence_lock_irqsave(fence, flags);
+	if (!dma_fence_is_signaled_locked(fence))
+		ret =3D false;
+	dma_fence_unlock_irqrestore(fence, flags);
+
+	if (ret =3D=3D true)
+		dma_fence_put(fence);
+	return ret;
+}
+
+
+That looks weird, doesn't it?
+
+
+We do some git-blame:
+
+c8a5d5ea3ba6a18958f8d76430e4cd68eea33943
+
+and we find that it's Dave who wrote that code, because
+
+"
+    My analysis: two threads are running, one in the irq signalling the
+    fence, in dma_fence_signal_timestamp_locked, it has done the
+    DMA_FENCE_FLAG_SIGNALLED_BIT setting, but hasn't yet reached the
+    callbacks.
+   =20
+    The second thread in nouveau_cli_work_ready, where it sees the fence is
+    signalled, so then puts the fence, cleanups the object and frees the
+    work item, which contains the callback.
+   =20
+    Thread one goes again and tries to call the callback and causes the
+    use-after-free.
+"
+
+
+So this is a race, caused by lockless speed optimization.
+
+And it would further seem that there is one invention in computer
+science that can prevent such races:
+
+Locks.
+
+There is no cleaner, safer synchronization strategy in computer science
+than locking.
+
+This race became possible because the lock does not guard the entirety
+of dma_fence_is_signaled().
+
+Wouldn't you agree that this is a strong indicator for the great
+advantages that consequent and consistent lock-protection grants? IOW,
+by using locks more strictly in dma_fence, we can increase its
+robustness and reliability.
+
+
+P.
