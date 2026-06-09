@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97E6ACD8CA7
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 08:15:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DE83CD8CAD
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 08:16:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3C698914B;
-	Tue,  9 Jun 2026 08:15:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 944A610E191;
+	Tue,  9 Jun 2026 08:16:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F54IOZFj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oxNz1Xy7";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B13518914B
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 08:15:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC1F010E18D
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 08:16:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1734F601DC;
- Tue,  9 Jun 2026 08:15:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 794C61F00893;
- Tue,  9 Jun 2026 08:15:26 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 616CA601DC;
+ Tue,  9 Jun 2026 08:16:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1C401F00898;
+ Tue,  9 Jun 2026 08:16:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780992926;
- bh=x3FmhfoNnSkf7BtHmbfVCyisBsU1XriDWXfWGLzZg4Y=;
+ s=k20260515; t=1780992973;
+ bh=83SSt/6M9YasZHu5XeeqQEyHb+uu91F02h/PYaNJRkc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=F54IOZFjoaLL5Eo5W8Y3vJzceL7MOi7vdFGWHwGzWVqLSc7tN7TGsjefL9jbdXJdW
- 72mA9u6xWGvpUnDrMVMMlkFOT5w50Fn7VF7yadx409UVgxb0ZbplcwSF+pmgYfz/95
- f8TtmlDwGsFEC/sQe0fhOB+ysCq0iqzJN/SgpAirRGa50cwln/eI+yYgGc8oTROf59
- yPqMo81QPivrf+80hUdQhxsbnGoYz5b5VEGDkH7yAz6+Gn4b6IlS0vC4W8rSczJqmK
- sT9SUKwkq+4vAkHpBGcmb/kGSrc1cSfzg1kvl2CuHzY0vZn34PdV2CoMb2oMQR+ew3
- h+FWH6wVp01rw==
+ b=oxNz1Xy7oyzXm+2gDABLUzoE1G4d0fnueHHq0nt4VB2a2EtzERLfWJj5Io+Wq+pkD
+ tyA8zYfqNKczM2hnaNy+vyJ/E9mP7oQz6x8EOrnSpGStGROixoX6dhbUVljd9w1Q8+
+ 7W6dRHupG7Jacv3dU4FxzjwwyFR5v82nBoc/H3+f8pemmZie2eVr/LhrVvDOMYonPI
+ 9laGYBtaD6dvX1lFtjtEq5jS6xRU2pP4AOPO2buMsx338bDP1rTMyamc5XKJdELHwh
+ JA/Sqm2ZKhZ7Hg0mbP979A3FssCJS5L/8+f4Fr+EuiaCl2Jf39Qv05ucW3d3hGFaWg
+ NRtUTKc2OuMuA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] gpu: nova-core: move GPU static information
- acquisition to a GSP method
+Subject: Re: [PATCH 1/4] gpu: nova-core: move GSP unload state to a pinned
+ Gpu subobject
 To: "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260609-boot-vram-v1-2-d9382610507a@nvidia.com>
-References: <20260609-boot-vram-v1-2-d9382610507a@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, "Danilo Krummrich" <dakr@kernel.org>,
+ ojeda@kernel.org
+In-Reply-To: <20260609-boot-vram-v1-1-d9382610507a@nvidia.com>
+References: <20260609-boot-vram-v1-1-d9382610507a@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 08:15:25 +0000
-Message-Id: <20260609081526.794C61F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 08:16:12 +0000
+Message-Id: <20260609081612.C1C401F00898@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,59 +60,60 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Incorrect drop order in `Gpu` struct causes sysmem flush page to b=
-e unregistered before GSP falcons are reset, leading to driver timeouts or =
-hardware faults.
+- [High] Moving the GSP unload logic into `GspResources` while leaving `sys=
+mem_flush` declared before `gsp_resources` in `Gpu` causes the sysmem flush=
+ memory page to be unregistered before the GSP is shut down, leading to har=
+dware faults or DMA use-after-free.
 --
 
-commit 70dc6b2e19cb0af3250719038111e9c9fcddf6e7
+commit 77c9cd387aef2d5054c5d4097053c58f9a0d5c45
 Author: Alexandre Courbot <acourbot@nvidia.com>
 
-gpu: nova-core: move GPU static information acquisition to a GSP method
+gpu: nova-core: move GSP unload state to a pinned Gpu subobject
 
-The GSP static information is useful during regular driver runtime; however
-it is currently obtained from Gsp::boot, with no elegant way to pass it back
-to the caller. This moves the code acquiring it to a dedicated method of
-Gsp that can be called as soon as the Gsp is booted.
+This commit moves the GSP state and unload bundle into a dedicated pinned
+GspResources object to ensure that the GSP unload sequence is executed even
+if a later Gpu field initialization fails.
 
 > diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-> index 6b3e02c71dee1..a0cb36cdeeead 100644
+> index b3c91731db45d..6b3e02c71dee1 100644
 > --- a/drivers/gpu/nova-core/gpu.rs
 > +++ b/drivers/gpu/nova-core/gpu.rs
+
 [ ... ]
-> @@ -290,6 +291,8 @@ pub(crate) struct Gpu<'gpu> {
->      /// GSP and its resources.
->      #[pin]
->      gsp_resources: GspResources<'gpu>,
+
+> +/// Structure holding the resources required to operate the GPU.
+> +#[pin_data]
+> +pub(crate) struct Gpu<'gpu> {
+> +    spec: Spec,
+> +    /// System memory page required for flushing all pending GPU-side me=
+mory writes done through
+> +    /// PCIE into system memory, via sysmembar (A GPU-initiated HW memor=
+y-barrier operation).
+> +    sysmem_flush: SysmemFlush<'gpu>,
+> +    /// GSP and its resources.
+> +    #[pin]
+> +    gsp_resources: GspResources<'gpu>,
+> +}
 
 [Severity: High]
-Does this struct layout result in an incorrect drop order?
+Since Rust drops struct fields in their declaration order, will sysmem_flush
+be dropped before gsp_resources here?
 
-In Rust, struct fields are dropped in their declaration order. Since
-sysmem_flush is declared before gsp_resources in the Gpu struct, it will be
-dropped first.
+If sysmem_flush drops first, it will unregister the system memory DMA page
+by writing 0 to the hardware register. Next, when gsp_resources drops, its
+PinnedDrop implementation will execute this.gsp.unload(...) which resets the
+falcons.
 
-When sysmem_flush drops, its Drop implementation unregisters the memory flu=
-sh
-page by writing 0 to the hardware registers. Immediately after, gsp_resourc=
-es
-drops, which shuts down the GSP and resets the falcons.
+Since the unload sequence strictly relies on the sysmembar flush page to
+acknowledge resets and flush writes, won't this cause the hardware to attem=
+pt
+to write to physical address 0 after the page has already been unregistered,
+resulting in an IOMMU fault or driver timeout?
 
-However, the sysmem flush memory page must be registered before any falcon =
-is
-reset, because the reset handshake requires system memory writes. Dropping =
-the
-flush page too early means the subsequent falcon reset handshake will write
-to address 0 or hang, potentially causing a driver timeout or IOMMU fault.
-
-It appears the unload logic was moved to the GspResources subobject in this
-patch series without reordering the struct fields, which causes the reset to
-run after the flush page is already unregistered.
-
-> +    /// Static GPU information as provided by the GSP.
-> +    gsp_static_info: GetGspStaticInfoReply,
->  }
+Should gsp_resources be declared before sysmem_flush to ensure the GSP is
+shut down fully before the flush page is unregistered?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-boot-vram-=
-v1-0-d9382610507a@nvidia.com?part=3D2
+v1-0-d9382610507a@nvidia.com?part=3D1
