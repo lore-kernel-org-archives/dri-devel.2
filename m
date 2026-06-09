@@ -4,84 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D808CD8CAD
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 18:49:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 849ECCD8CAD
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 19:02:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FBD310E570;
-	Tue,  9 Jun 2026 18:49:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A014310E225;
+	Tue,  9 Jun 2026 19:02:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Hk4APPUn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Zl3Uy0gZ";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABD9A10E570
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 18:49:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=EKsU8E40vMrvi4AKUKlpp9MCCO5Br5bIKwTrrkOzNuU=; b=Hk4APPUnwMhH3wyFgPGZevjlj6
- awlynywUxG+AiWwO3gsa91/2mQlke1toZ95vC3B7EDeIVOOqG9dvh0+ki4wU91IuicPIIEraEVwsq
- P9jh02I+Fv9BtLuypYRdb818XL3H/qIirUDDbumIjRtaTxYsAgW0N2WX/r4aCHwmgtDmT5vuKAnC6
- /0vlMTA5Y7NJnUcaIjTYfRLE9JY8GAS7mIgQ4kPKftiUQqZw4Mr/OqZ8UQ36EQhxM+XCllTZ5EkeP
- +fnViD3MeUV5Yk1V4u0zqI2yptpyKw4ZvPwnGOFy4xma0ykeMCEY7uwTvXTMLm9kiNFO9ihx5Na/A
- zdwWJFrQ==;
-Received: from [189.7.87.67] (helo=[192.168.0.2])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wX1W8-00F6ze-DV; Tue, 09 Jun 2026 20:49:40 +0200
-Message-ID: <08b3c484-f198-45eb-adc7-a0e27f5b66f7@igalia.com>
-Date: Tue, 9 Jun 2026 15:49:31 -0300
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 630CF10E225
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 19:02:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781031773; x=1812567773;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=deUspC86kBJfg0o/64mhshqzhfCZxHh4On4fEBT3WEI=;
+ b=Zl3Uy0gZbwwyzsRUlofJ30QLYh5uLxgNSyajb1qludHqM3HxLCMPGy2W
+ aHyOsPPKO333BpxcfRMS/QcTxvEo4zxXUpFNWStbfMbuQZKdF17q/NQki
+ PMvi+52pF4V1CTKeuGXOod2u+oQMEZex7V5+VXAChaKC6ZiDQFLgSmbyl
+ 5onuuy1d+CN2T55z1l4YAuGC/Y8Pckr0ykKvOIleQiHxp5xI9SCUxRNFC
+ 6QgbTiTGWbQfNHu5str8RaBdKS4ckZ/Z8YWt6IGb8yVpRusdTT8FGTnH1
+ nfaFci4JMVVX/EfjY8f/t+pi2vrslQf+tVDFxoHwmvtnoCnW8yOaIj4A2 Q==;
+X-CSE-ConnectionGUID: sWW9hLymSGW+2sEnqHIaWQ==
+X-CSE-MsgGUID: hsUWUOnwRseSBkr5t+po5w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="69341474"
+X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; d="scan'208";a="69341474"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2026 12:02:52 -0700
+X-CSE-ConnectionGUID: QGqNAd4uTc+4Ed3shPeszQ==
+X-CSE-MsgGUID: Ak0qUeEaSXmuteJyhUjHrA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; d="scan'208";a="284012438"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.162])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2026 12:02:47 -0700
+Date: Tue, 9 Jun 2026 22:02:45 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>,
+ Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+ Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v4 02/14] mfd: lm3533: Remove driver specific regmap
+ wrappers
+Message-ID: <aihjVZ9xvM2BRFu4@ashevche-desk.local>
+References: <20260606045738.21050-1-clamor95@gmail.com>
+ <20260606045738.21050-3-clamor95@gmail.com>
+ <aiPDzdKuccdLIvlF@ashevche-desk.local>
+ <CAPVz0n2rdgw8Xr3uxVdQGwrHTNFqK4SKQDFU2FEB8LzLwPhQ_A@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/vc4: fix krealloc() memory leak
-To: "Alexander A. Klimov" <grandmaster@al2klimov.de>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Eric Anholt <eric@anholt.net>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:CLANG/LLVM BUILD SUPPORT:Keyword:b(?i:clang|llvm)b"
- <llvm@lists.linux.dev>
-References: <e1edeadb7c161580a5cd5c7e642dc1b28db8ee86.camel@perches.com>
- <20260606123817.37222-1-grandmaster@al2klimov.de>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20260606123817.37222-1-grandmaster@al2klimov.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPVz0n2rdgw8Xr3uxVdQGwrHTNFqK4SKQDFU2FEB8LzLwPhQ_A@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,73 +85,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alexander,
+On Sat, Jun 06, 2026 at 10:22:43AM +0300, Svyatoslav Ryhel wrote:
+> сб, 6 черв. 2026 р. о 09:53 Andy Shevchenko <andriy.shevchenko@intel.com> пише:
+> > On Sat, Jun 06, 2026 at 07:57:26AM +0300, Svyatoslav Ryhel wrote:
 
-On 06/06/26 09:38, Alexander A. Klimov wrote:
-> Don't just overwrite the original pointer passed to krealloc()
-> with its return value without checking latter:
-> 
->      MEM = krealloc(MEM, SZ, GFP);
-> 
-> If krealloc() returns NULL, that erases the pointer
-> to the still allocated memory, hence leaks this memory.
-> Instead, use a temporary variable, check it's not NULL
-> and only then assign it to the original pointer:
-> 
->      TMP = krealloc(MEM, SZ, GFP);
->      if (!TMP) return;
->      MEM = TMP;
-> 
-> While on it, use krealloc_array().
-> 
-> Fixes: 6d45c81d229d ("drm/vc4: Add support for branching in shader validation.")
-> Signed-off-by: Alexander A. Klimov <grandmaster@al2klimov.de>
+...
 
-Applied to drm/misc/kernel (drm-misc-fixes).
+> > > +     ret = regmap_assign_bits(als->lm3533->regmap, LM3533_REG_ALS_ZONE_INFO,
+> > > +                              LM3533_ALS_INT_ENABLE_MASK, enable);
+> >
+> > In cases like this perhaps leaving mask would be fine and together with
+> 
+> I prefer to remove intermediate variables it the helper allows to
+> directly pass needed value.
+> 
+> >         struct regmap *map = als->lm3533->regmap;
+> 
+> next patch drops lm3533 so there will be als->regmap which IMHO is
+> more logical instead of passing entire lm3533 to child devices.
 
-Best Regards,
-- Maíra
+Still it's longer than map. A local variable may help with making lines
+shorter.
 
-> ---
->   v2: Declare the variable explicitly
->   v2: Instead of void *, use u32 *
->   v2: While on it, enhance variable name
->   v3: Use krealloc_array()
-> 
->   [✓] scripts/checkpatch.pl --strict
->   [✓] allmodconfig compiled (i686, LLVM)
->   [✓] localyesconfig booted (IBM T43)
-> 
->   Note to myself: use --in-reply-to=e1edeadb7c161580a5cd5c7e642dc1b28db8ee86.camel@perches.com
-> 
->   drivers/gpu/drm/vc4/vc4_validate_shaders.c | 13 +++++++------
->   1 file changed, 7 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/vc4/vc4_validate_shaders.c b/drivers/gpu/drm/vc4/vc4_validate_shaders.c
-> index d48cf76983c0..66502a6a4a8e 100644
-> --- a/drivers/gpu/drm/vc4/vc4_validate_shaders.c
-> +++ b/drivers/gpu/drm/vc4/vc4_validate_shaders.c
-> @@ -290,15 +290,16 @@ static bool require_uniform_address_uniform(struct vc4_validated_shader_info *va
->   {
->   	uint32_t o = validated_shader->num_uniform_addr_offsets;
->   	uint32_t num_uniforms = validated_shader->uniforms_size / 4;
-> +	u32 *offsets;
->   
-> -	validated_shader->uniform_addr_offsets =
-> -		krealloc(validated_shader->uniform_addr_offsets,
-> -			 (o + 1) *
-> -			 sizeof(*validated_shader->uniform_addr_offsets),
-> -			 GFP_KERNEL);
-> -	if (!validated_shader->uniform_addr_offsets)
-> +	offsets = krealloc_array(validated_shader->uniform_addr_offsets,
-> +				 o + 1,
-> +				 sizeof(*validated_shader->uniform_addr_offsets),
-> +				 GFP_KERNEL);
-> +	if (!offsets)
->   		return false;
->   
-> +	validated_shader->uniform_addr_offsets = offsets;
->   	validated_shader->uniform_addr_offsets[o] = num_uniforms;
->   	validated_shader->num_uniform_addr_offsets++;
->   
+> > this be nice one-liner:
+> >
+> >         ret = regmap_assign_bits(map, LM3533_REG_ALS_ZONE_INFO, mask, enable);
+> >
+> > >       if (ret) {
+> > >               dev_err(&indio_dev->dev, "failed to set int mode %d\n",
+> > >                                                               enable);
+> >
+> > In many cases it won't increase LoC count.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
