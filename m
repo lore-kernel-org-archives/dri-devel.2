@@ -4,140 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB394CD8CA4
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 09:47:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27B36CD6E79
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 09:48:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EE6710E20B;
-	Tue,  9 Jun 2026 09:47:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EB8110E207;
+	Tue,  9 Jun 2026 09:47:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="o3YRE2cH";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b0RlmhnV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Kt7P3XCA";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69ABA10E20C
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 09:47:55 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6597rbGG2034617
- for <dri-devel@lists.freedesktop.org>; Tue, 9 Jun 2026 09:47:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- CnGOml6KRNLCf8LNyNsT22xgMpxrnwiDol3PAO0B0Jw=; b=o3YRE2cHhsh/ltE9
- 50OL9hBRBuBBVS1pnxeManKhzKUZLAh/iEPA571FCXXrzImF89yRpIs7GVt/VMBE
- 5QhAJd1uBUE5hAvvF7bnwCLxYtYfHnvx9mkM62WkmqrfkPdvmcz+6EPJ2apSyuOq
- TmTHE32n+9dwNg7xRCfhM4LETbFHaK4voZPv5hdZG11QOIYXCrSc0b8Zz9sROe67
- 59peK1FkodcsSVOJGH+8vwAUBWAPvq55DQ8m0xfNafwPjvKe9fpS3sW5ouOCpf8b
- dApkV3j80UFZ2ftbTgAQp1fLmfcwb1p9YQRlm4YnbcxIUzhk6wF0bz6K6grzF2Vo
- a1scXg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epeearjq4-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 09:47:54 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-915b6b63056so772043785a.1
- for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 02:47:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1780998474; x=1781603274;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=CnGOml6KRNLCf8LNyNsT22xgMpxrnwiDol3PAO0B0Jw=;
- b=b0RlmhnV0mJ1dn1GSq+1yUtCuuMhFqjlvyTwOqh+zXj1ztDsU0oj3INQvomj1iHXtW
- XsgNDgiG+X0072Rc6jcwm0akMryuqzNPpTbfd37DaHT681aRdGw7euGCJo/p1ZXk4nxU
- 00P9a22wF0cgzbI2MkXb8njfdz3h4H4RrEhou4lN8iGDHEiL9GPFbmX98p3VhDpkNQuq
- uWSork7J47Im+i80MHsthOYnWN99uRPossKziCToDOMgdaXibzShUY+hBoTFvJv/xoPB
- WajPXASWE8Fkt/LhwhhGdJROlJ3KnH1pU9m6AHzUupA7XSOMdTMQzpl9RTFt/wDuPVsP
- sH9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780998474; x=1781603274;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=CnGOml6KRNLCf8LNyNsT22xgMpxrnwiDol3PAO0B0Jw=;
- b=F1+4KZmuYq71n0n6FSFegYk1iuySpK54EoQ2WJznmEOtswDNodDSJzKAjRgOCvtgwa
- GPmP2lynTcQgfUUl2ieonn9qHlLOWIuJxV7HZE9nKs36QNDfzgv/7Yfqpq6yjbHFH3lx
- 7mLxBFzHFVvtyOdVTOBpekKfIq6hedL2kNKeR8hhwyMv4QuawC2D95GtbxBM03PfLx3M
- mP3bhbeMgFM6UdziFo/PpVPCK3VwOWGyrKqA9ZkoVJ5fQj/mFY++u7LWhYXcvJ/ZR1tU
- gquINFrEDq9AoRdcc6P+W9lXCC+pDCDDbMaMgYf7dpGNHYBCYp1QLgZk2lgR6usBixAl
- W4fg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ86zaRzD44gYrcPxRiwgVkJeeft+Ae6FBjKSeTAAZ0ZVBmsITp+3r5uAvPWgMTSUY3J9XRmtEk5aS8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwKM6MnnTlIXxM9hSBgvOVTddtAJZcTWExqvZbubdgwtZlr/2f/
- miyeHL8PDpjKlN0ewlKQkKv3oVFRX4jSnBegVUNQO/7u2vKRuzhSHztTS+TfrCp6KrkTzcWEuG7
- stOHKIbGoScw1Z3buMDI1HaU+h4aMyHyumWG5mI/lWEjED7XFzAQcPg8SQ7e2CNJULnvtzNs=
-X-Gm-Gg: Acq92OHH2zLd0wK2Fj3QgAwvkfhqwV+wWa5/JBbodeJBxPzw/UfBZFF8OYAG08ZmWMM
- /tVRfAmWQ7WjZYPJVhqDPUtyDPy2oL82ef9t1aw3ZvYo8wvts1FFPtVJm0Av2HmIs6kXtQCPSwd
- JCbEiRW7SAm3qqDACi4TnLEWOFe8WfpDlRGe8YK3YprESxwB55kKnamotKSu3+p+LfjkSB+QZLG
- qHYwifpjCguMz8bKeGw5A+VQs4EWweWAZ1od5VyW5GIaMMtbaUn4SUj22lw+BfRPrOa8nHsVRwS
- f2zd/230jd5SdqNwAg10MKwYH4GPDclLxc4j6uRei0ttKhFgA1vLdr+FCwb+zDJgf5Txsahd6bj
- Sr9k1LKNqYOooPCm1j4yYBxYemkeWciOpgaMOuoFD9YBeF9M/lIegxFCkzk3rst1ViEpf9JUffJ
- b1PtfP7yQUVqsXWkTpeQ==
-X-Received: by 2002:a05:620a:40cf:b0:915:79c8:ec9c with SMTP id
- af79cd13be357-915a9da96ecmr3113621385a.35.1780998473885; 
- Tue, 09 Jun 2026 02:47:53 -0700 (PDT)
-X-Received: by 2002:a05:620a:40cf:b0:915:79c8:ec9c with SMTP id
- af79cd13be357-915a9da96ecmr3113617985a.35.1780998473462; 
- Tue, 09 Jun 2026 02:47:53 -0700 (PDT)
-Received: from yongmou2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
- [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9158a00afafsm2047489485a.2.2026.06.09.02.47.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jun 2026 02:47:53 -0700 (PDT)
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Date: Tue, 09 Jun 2026 17:46:37 +0800
-Subject: [PATCH v7 15/15] drm/msm/dp: pass panel to display enable/disable
- helpers
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260609-dp_mstclean-v7-15-ea04113e8233@oss.qualcomm.com>
-References: <20260609-dp_mstclean-v7-0-ea04113e8233@oss.qualcomm.com>
-In-Reply-To: <20260609-dp_mstclean-v7-0-ea04113e8233@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780998393; l=3118;
- i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
- bh=VMCb+gh78a5tyRp4ocOtlXR3WU+MH0tKL5IrymVyK/Y=;
- b=/bqYPwe+BT8wRDn37HT0g7sYFYdExLZp0AYNmLazK1zbmjMz62sd7TCVmyuOCWbG2FJSdIBCi
- nv2MEP7UAp4AK3aejuq8vXcpP63dyQNtdlsQFAfYzSKoPTnz4Xi703l
-X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
- pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
-X-Proofpoint-ORIG-GUID: JnHsNrpB9q4PHXMPfZhUM02Tbon-MFGc
-X-Authority-Analysis: v=2.4 cv=Iey3n2qa c=1 sm=1 tr=0 ts=6a27e14a cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=wgkWW237A_BUGFCT6doA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDA5MCBTYWx0ZWRfXwC987jvjVx4g
- 9t6vTaoEVkm1qLDxJdAAIV+ONMYAqJX2uoiTVWG4wAD/eRJhR4dGofi5TennFewyJHXwZQr6iP2
- rvtsMqdyzuP3hGBUYYwWh0m3itbYZK0Udi/+7/sdVczxkmNNadlR7kH/5BSTuJTZ7HNe5sVTrEy
- 5D+A4GPFzCgcKr7KDA/oeTcliSNylGQIl5aOaQPDvKeTEtUmVMwk6ocMbr+em7aFR/ny4pZ+tzi
- UEdGs3CldjGwfnBDTjTdyUAO42sZNGVuJaeJBjZguv2LVn3O9sam6xZv1YybWASvYPZnN2cr5U5
- OKOMoJ2Z5LyrIXYtNonzeTWH6REnstrhcVa8cx7Tm3NCwIuoGHJiyU/uUmWZRymSpIMHhF4PUHj
- I4ciQ0UchRqNAeamiTw/Ql3W2XSofReugttPUEQREFxA32rY1Zcpn3qxMWIqlArJy2gA8gaYz3T
- ZVEK3BHDuvoZTz5dNPw==
-X-Proofpoint-GUID: JnHsNrpB9q4PHXMPfZhUM02Tbon-MFGc
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-09_02,2026-06-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 spamscore=0 bulkscore=0 phishscore=0 clxscore=1015
- priorityscore=1501 adultscore=0 suspectscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090090
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4C9810E207
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 09:47:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 08675601E1;
+ Tue,  9 Jun 2026 09:47:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DDFD1F00893;
+ Tue,  9 Jun 2026 09:47:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780998476;
+ bh=gbh+zvaCM98JRQokv8KCyrp6E6f4rPKAwmhsp4jWhsc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Kt7P3XCAviFIEx2Hk07Jr6WJkEH5e5A4RRBoTf/9hqq1nTdbYWHbm/VeyjY9XgaDb
+ UR5Jlx/UzDuXE8GtlWrIbqbsQmv8beudPxZEQgEXU8FxT8ntBNJX5twDR6KMszPUnT
+ mX4RcM+t3MdmwBPD5cehSXo01sohBP6wDItF+rdAEaKf+L2+H7Dc5wU+UlHJFxp1t+
+ fHUoJ3PRinpxq33CS17+7jTXnJznYvZTNCHDMyqNe8CSzquEFqoUvU5SoziFSmbp71
+ E3BMRY0JN1cw8OmahcvAen486aKyNC6VJoxZZRu2guGnXg0hLBgbsI2vIqwjJxqX+U
+ bCqhDGtMourGQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] accel/rocket: Fix iommu_group leak and unsafe
+ IRQ register access
+To: ZhaoJinming <zhaojinming@uniontech.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260609093346.380396-2-zhaojinming@uniontech.com>
+References: <20260609093346.380396-2-zhaojinming@uniontech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 09 Jun 2026 09:47:55 +0000
+Message-Id: <20260609094756.8DDFD1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,93 +53,117 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Pass struct msm_dp_panel to the display enable/disable helpers to make
-them easier to reuse for MST stream handling.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+New issues:
+- [High] Incorrect error handling of pm_runtime_get_if_active() return valu=
+e causes unbalanced pm_runtime_put() and unsafe hardware access.
+- [High] PM usage count leak due to threaded IRQ coalescing on shared inter=
+rupts.
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index cd1f2899b733..bea5bfb22967 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -650,7 +650,8 @@ static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
- 	return msm_dp_ctrl_prepare_stream_on(dp->ctrl, dp->panel, force_link_train);
- }
- 
--static int msm_dp_display_enable(struct msm_dp_display_private *dp)
-+static int msm_dp_display_enable(struct msm_dp_display_private *dp,
-+				 struct msm_dp_panel *msm_dp_panel)
- {
- 	int rc = 0;
- 	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
-@@ -661,7 +662,7 @@ static int msm_dp_display_enable(struct msm_dp_display_private *dp)
- 		return 0;
- 	}
- 
--	rc = msm_dp_ctrl_on_stream(dp->ctrl, dp->panel);
-+	rc = msm_dp_ctrl_on_stream(dp->ctrl, msm_dp_panel);
- 	if (!rc)
- 		msm_dp_display->power_on = true;
- 
-@@ -707,20 +708,21 @@ static void msm_dp_display_audio_notify_disable(struct msm_dp_display_private *d
- 	msm_dp_display->audio_enabled = false;
- }
- 
--static int msm_dp_display_disable(struct msm_dp_display_private *dp)
-+static int msm_dp_display_disable(struct msm_dp_display_private *dp,
-+				  struct msm_dp_panel *msm_dp_panel)
- {
- 	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
- 
- 	if (!msm_dp_display->power_on)
- 		return 0;
- 
--	msm_dp_panel_disable_vsc_sdp(dp->panel);
-+	msm_dp_panel_disable_vsc_sdp(msm_dp_panel);
- 
- 	msm_dp_ctrl_off_pixel_clk(dp->ctrl);
- 
- 	/* dongle is still connected but sinks are disconnected */
- 	if (dp->link->sink_count == 0)
--		msm_dp_link_psm_config(dp->link, &dp->panel->link_info, true);
-+		msm_dp_link_psm_config(dp->link, &msm_dp_panel->link_info, true);
- 
- 	msm_dp_ctrl_off_link(dp->ctrl, dp->panel);
- 
-@@ -1437,14 +1439,14 @@ void msm_dp_display_atomic_enable(struct msm_dp *msm_dp_display)
- 
- 	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
- 
--	rc = msm_dp_display_enable(dp);
-+	rc = msm_dp_display_enable(dp, dp->panel);
- 	if (rc)
- 		DRM_ERROR("DP display enable failed, rc=%d\n", rc);
- 
- 	rc = msm_dp_display_post_enable(msm_dp_display);
- 	if (rc) {
- 		DRM_ERROR("DP display post enable failed, rc=%d\n", rc);
--		msm_dp_display_disable(dp);
-+		msm_dp_display_disable(dp, dp->panel);
- 	}
- 
- 	drm_dbg_dp(msm_dp_display->drm_dev, "type=%d Done\n", msm_dp_display->connector_type);
-@@ -1479,7 +1481,7 @@ void msm_dp_display_atomic_post_disable(struct msm_dp *dp)
- 
- 	msm_dp_display_audio_notify_disable(msm_dp_display);
- 
--	msm_dp_display_disable(msm_dp_display);
-+	msm_dp_display_disable(msm_dp_display, msm_dp_display->panel);
- 
- 	msm_dp_display_unprepare(msm_dp_display);
- }
+Pre-existing issues:
+- [High] Missing synchronize_irq() in the runtime suspend callback for a de=
+vice with a shared IRQ handler.
+- [High] Attacker-controlled DMA faults leave the device interrupt asserted=
+ without clearing it, causing an interrupt storm and kernel log spam.
+--
 
--- 
-2.43.0
+commit 57f30fe728d7f765520f0d3ccb419368e6f945d0
+Author: ZhaoJinming <zhaojinming@uniontech.com>
 
+accel/rocket: Fix iommu_group leak and unsafe IRQ register access
+
+This commit fixes an iommu_group reference leak in rocket_job_handle_irq()
+by using the stored iommu_group instead of getting a new reference. It also
+attempts to fix unsafe hardware register accesses in the shared IRQ handler
+by adding pm_runtime_get_if_active() checks to ensure the device is awake.
+
+> 2) Unsafe hardware register access in shared IRQ handler:
+>    rocket_job_irq_handler() is registered with IRQF_SHARED but accesses
+>    hardware registers without checking runtime PM status.
+
+[Severity: High]
+This is a pre-existing issue, but since the device uses a shared IRQ handle=
+r,
+does the runtime suspend callback (rocket_device_runtime_suspend() in
+rocket_drv.c) need to call synchronize_irq() before disabling clocks?=20
+
+Without it, the IRQ handler could execute mid-flight while the hardware is
+turned off, leading to invalid register accesses and spurious interrupts.
+
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index cf9f61682dd8b..8eaa3d427a51d 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+[ ... ]
+> @@ -428,14 +429,20 @@ static irqreturn_t rocket_job_irq_handler_thread(in=
+t irq, void *data)
+>  static irqreturn_t rocket_job_irq_handler(int irq, void *data)
+>  {
+>  	struct rocket_core *core =3D data;
+> +
+> +	if (!pm_runtime_get_if_active(core->dev))
+> +		return IRQ_NONE;
+> +
+
+[Severity: High]
+Does this correctly handle negative error codes?=20
+
+pm_runtime_get_if_active() returns negative error codes (e.g., -EINVAL) when
+runtime PM is disabled. The condition here only traps a return value of 0.
+When it returns a negative error code, the condition evaluates to false,
+allowing execution to proceed to read hardware registers on a potentially
+suspended device.
+
+Because the PM usage counter is not incremented on error, wouldn't the
+subsequent unconditional pm_runtime_put() calls cause a PM usage count
+underflow?
+
+>  	u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
+> =20
+>  	WARN_ON(raw_status & PC_INTERRUPT_RAW_STATUS_DMA_READ_ERROR);
+>  	WARN_ON(raw_status & PC_INTERRUPT_RAW_STATUS_DMA_WRITE_ERROR);
+> =20
+
+[Severity: High]
+This is a pre-existing issue, but if a DMA error occurs and the DPU_0 and
+DPU_1 bits are not set, the handler returns IRQ_NONE without clearing the
+interrupt.
+
+Since this is a shared level-triggered IRQ line, won't this leave the
+interrupt asserted and cause an interrupt storm, permanently disabling the
+shared IRQ line?
+
+>  	if (!(raw_status & PC_INTERRUPT_RAW_STATUS_DPU_0 ||
+> -	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1))
+> +	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1)) {
+> +		pm_runtime_put(core->dev);
+>  		return IRQ_NONE;
+> +	}
+> =20
+>  	rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
+> =20
+
+[Severity: High]
+Does this leak the PM usage count if the IRQ subsystem coalesces the thread=
+ed
+interrupt?
+
+If another device triggers an interrupt on this shared line while
+rocket_job_irq_handler_thread() is already pending, this hardirq handler
+will run again. It will increment the PM usage count via
+pm_runtime_get_if_active() and eventually return IRQ_WAKE_THREAD.
+
+Because the thread is already pending, the IRQ core coalesces the request
+and the thread only runs once. Doesn't this mean pm_runtime_put() is only
+called once, permanently leaking the extra PM reference acquired here?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609093346.3803=
+96-1-zhaojinming@uniontech.com?part=3D2
