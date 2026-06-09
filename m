@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00001CD8CA8
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 19:38:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5A4BCD8CB2
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 19:38:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6070610E5EC;
-	Tue,  9 Jun 2026 19:38:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F0EE10E5DD;
+	Tue,  9 Jun 2026 19:38:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ny7mzlMr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UW9tKv2v";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AC9B10E5DD
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 19:38:40 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C13C10E5DD
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 19:38:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 530DC602CE;
- Tue,  9 Jun 2026 19:38:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D337F1F00893;
- Tue,  9 Jun 2026 19:38:38 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6627E42D8D;
+ Tue,  9 Jun 2026 19:38:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DD6E1F00893;
+ Tue,  9 Jun 2026 19:38:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781033919;
- bh=XPHGM0EGRSSY/Vy8eoWWttPOeuJ+XBDhfAa5o4+g8Sg=;
+ s=k20260515; t=1781033921;
+ bh=4Qkz6DOqkZ66VvYidaGJY4/KLC76NW7muVqfZU+Lc7s=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Ny7mzlMrbHxebg5xp2gHjvAYhkJI01uzJ+ouzby6qT7y1pViGH+4HhN3VO90rOnqN
- OLvd16IRq2uR9vJ0LJoGlfBslukL1uZAv434N4XtLfrfEW1jD+C8d3HprQRzo+Ji4D
- whC71dm75hgy+Ed5uAXqstfnMuA1IJMCcrgcZLEiQHSYxtxksZc2X61v8qMlX1CYeg
- q72g+JIrElHNwaSUYv56fxBATu9jFOhSbISPXK0JnAIAIFxDo9CIrCjzmVvSf6RnjB
- hU5sl/5T/jnaDA4Pd9ZSmX6j2ZU/UzwYKXAkNiJFetjyL9fQG6kngC6foFbKZUd9Qp
- tq+sH9lZ+B7pA==
+ b=UW9tKv2vw1OtbIp9Mxj8gliwX96xJ8QbbhwChY8mCQyZlaiuB0Ts1DjsPGCOVoQL0
+ y9zoCSgfJl3wjtPUJ7QM5VB2C79FB+Uk7ppPIaLdGPUhgKgDZ2a11rgG07bSinlJzJ
+ SW+EEnImQa1gTEcS3dKYGZYrSGFoic7rEHrsOuMjmA2mW4gmfJpCc0YpKvq0aoLkHg
+ ffozoAywS/XMgHZjFLtmlbSKgXNiwtqxeSg0lHjo/PvJPr2EXa3HIlYL+XePhznfG/
+ 9jYJYm7mq/WkVmS1ml6nf6GFek1bbgrPWmI4ZhRGLguD+9CRU3C0O3g3oGmoS/JCG0
+ ZeGkdx1BhdF4g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 4/5] vfio/pci: implement get_tph and DMA_BUF_TPH feature
+Subject: Re: [PATCH v6 5/5] RDMA/mlx5: get tph for p2p access when
+ registering dma-buf mr
 To: "Zhiping Zhang" <zhipingz@meta.com>
-Cc: kvm@vger.kernel.org, linux-pci@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260608185646.4085127-5-zhipingz@meta.com>
-References: <20260608185646.4085127-5-zhipingz@meta.com>
+Cc: dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org,
+ kvm@vger.kernel.org
+In-Reply-To: <20260608185646.4085127-6-zhipingz@meta.com>
+References: <20260608185646.4085127-6-zhipingz@meta.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 19:38:38 +0000
-Message-Id: <20260609193838.D337F1F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 19:38:40 +0000
+Message-Id: <20260609193841.0DD6E1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,135 +58,77 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Unconditional validation of the flag-gated `ph` parameter causes=
- valid requests clearing metadata to be rejected.
-- [Low] Mixing `goto`-based error handling with scope-based cleanup helpers=
- (`scoped_guard`) in the same function.
-- [Low] Unprotected read of `priv->vdev` races with concurrent write to `NU=
-LL`.
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the `mlx5r_creat=
+e_mkeys` error rollback loop contains an off-by-one error. It leaks the suc=
+cessfully created hardware mkey at `handles[0]` and improperly attempts to =
+destroy the uninitialized failed handle at `handles[i]`, which translates t=
+o destroying the reserved hardware mkey index 0.
 --
 
-commit f7be31969e4c92a551932ef245b8d9697e571272
+commit 37ae7395b661b5e14306aec55bedd4ae96943e49
 Author: Zhiping Zhang <zhipingz@meta.com>
 
-vfio/pci: implement get_tph and DMA_BUF_TPH feature
+RDMA/mlx5: get tph for p2p access when registering dma-buf mr
 
-This commit implements the dma-buf get_tph callback for vfio-pci-exported
-dma-bufs. It also adds the VFIO_DEVICE_FEATURE_DMA_BUF_TPH feature to allow
-userspace to attach TPH metadata to a dma-buf.
+Query dma-buf TPH metadata when registering a dma-buf MR for peer-to-
+peer access and translate the returned steering tag into an mlx5 ST
+index. Keep the DMAH path as the first priority and only fall back to
+DMA-buf metadata when no DMAH is supplied.
 
-> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_p=
-ci_dmabuf.c
-> index 1a177ce7de546..f1bc3733d3db5 100644
-> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
 [ ... ]
-> @@ -327,12 +358,71 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_c=
-ore_device *vdev, u32 flags,
+
+> diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5=
+/mr.c
+> index 254e6aa4ccafb..7b0a883e04048 100644
+> --- a/drivers/infiniband/hw/mlx5/mr.c
+> +++ b/drivers/infiniband/hw/mlx5/mr.c
+
 [ ... ]
-> +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
-> +				      u32 flags,
-> +				      struct vfio_device_feature_dma_buf_tph __user *arg,
-> +				      size_t argsz)
-> +{
-> +	struct vfio_device_feature_dma_buf_tph set_tph;
-> +	struct vfio_pci_dma_buf *priv;
-> +	struct dma_buf *dmabuf;
-> +	int ret;
-> +
-> +	if (!pcie_tph_supported(vdev->pdev))
-> +		return -EOPNOTSUPP;
-> +
-> +	ret =3D vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_SET,
-> +				 sizeof(set_tph));
-> +	if (ret !=3D 1)
-> +		return ret;
-> +
-> +	if (copy_from_user(&set_tph, arg, sizeof(set_tph)))
-> +		return -EFAULT;
-> +
-> +	if (set_tph.flags & ~(VFIO_DMA_BUF_TPH_ST | VFIO_DMA_BUF_TPH_ST_EXT))
-> +		return -EINVAL;
-> +
-> +	/* PCIe TLP Processing Hint is a 2-bit field. */
-> +	if (set_tph.ph & ~0x3)
-> +		return -EINVAL;
 
-[Severity: Medium]
-Will this unconditionally reject requests clearing the metadata?
+> @@ -299,7 +331,8 @@ static int mlx5r_create_mkeys(struct ib_device *devic=
+e, struct ib_frmr_key *key,
+>  	return err;
+>  }
 
-The documentation mentions that setting flags to 0 clears previously publis=
-hed
-metadata. However, because this check is evaluated unconditionally, userspa=
-ce
-leaving the ph field uninitialized (containing stack garbage) when passing
-flags =3D 0 will cause the kernel to erroneously reject a valid clear reque=
-st
-with -EINVAL.
+[Severity: High]
+This isn't a bug introduced by this patch, but while reviewing the changes
+in mlx5r_create_mkeys(), I noticed an off-by-one error in the error
+rollback loop right above this return statement.
 
-Should this validation only occur if the relevant flags are set?
+The error rollback loop is written as:
 
-> +
-> +	dmabuf =3D dma_buf_get(set_tph.dmabuf_fd);
-> +	if (IS_ERR(dmabuf))
-> +		return PTR_ERR(dmabuf);
-> +
-> +	if (dmabuf->ops !=3D &vfio_pci_dmabuf_ops) {
-> +		ret =3D -EINVAL;
-> +		goto out_put;
-> +	}
-> +
-> +	priv =3D dmabuf->priv;
-> +	if (priv->vdev !=3D vdev) {
+	if (err)
+		for (; i > 0; i--)
+			mlx5_core_destroy_mkey(dev->mdev, handles[i]);
 
-[Severity: Low]
-Does this unprotected read of priv->vdev race with concurrent unbound opera=
-tions?
+Since the loop body operates on handles[i] and decrements afterward, doesn't
+this terminate before i =3D=3D 0, thereby skipping handles[0] and leaking t=
+he
+first successfully created hardware mkey?
 
-In vfio_pci_dma_buf_cleanup(), there is a concurrent write setting=20
-priv->vdev =3D NULL under the vdev->memory_lock semaphore.
+Additionally, is it safe to call mlx5_core_destroy_mkey() on the failed
+handles[i] where the error occurred?
 
-Since this read occurs without locks, can it race with the concurrent write
-and cause KCSAN warnings or load tearing? Would using READ_ONCE() here and
-WRITE_ONCE() in vfio_pci_dma_buf_cleanup() help prevent this?
+Because handles[i] only received an 8-bit variant via assign_mkey_variant()
+and the firmware failed to populate its hardware index, its upper 24 bits
+are zeroed. When mlx5_mkey_to_idx() extracts the upper 24 bits, it yields 0.
 
-> +		ret =3D -EINVAL;
-> +		goto out_put;
-> +	}
-> +
-> +	scoped_guard(mutex, &priv->tph_lock) {
-> +		priv->tph_st =3D set_tph.steering_tag;
-> +		priv->tph_st_ext =3D set_tph.steering_tag_ext;
-> +		priv->tph_ph =3D set_tph.ph;
-> +		priv->tph_st_valid =3D !!(set_tph.flags & VFIO_DMA_BUF_TPH_ST);
-> +		priv->tph_st_ext_valid =3D
-> +			!!(set_tph.flags & VFIO_DMA_BUF_TPH_ST_EXT);
-> +	}
-> +	ret =3D 0;
-> +
-> +out_put:
+Could this cause the driver to inadvertently destroy mkey index 0, which is
+a reserved hardware resource?
 
-[Severity: Low]
-Is it okay to mix goto-based error handling and scope-based cleanup helpers=
- in
-this function?
+> =20
+> -static void mlx5r_destroy_mkeys(struct ib_device *device, u32 *handles,
+> +static void mlx5r_destroy_mkeys(struct ib_device *device,
+> +				const struct ib_frmr_key *key, u32 *handles,
+>  				unsigned int count)
+>  {
 
-The kernel cleanup guidelines discourage mixing goto labels for cleanup (li=
-ke
-goto out_put here) and scoped_guard() in the same function to avoid confusi=
-ng
-ownership semantics.
-
-Would it be better to either use a __free() wrapper for the dmabuf or stick=
- to
-traditional mutex_lock()/mutex_unlock() here?
-
-> +	dma_buf_put(dmabuf);
-> +	return ret;
-> +}
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608185646.4085=
-127-1-zhipingz@meta.com?part=3D4
+127-1-zhipingz@meta.com?part=3D5
