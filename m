@@ -4,105 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56761CD8CAD
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 07:06:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8940BCD8CAC
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 07:16:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBFE410E107;
-	Tue,  9 Jun 2026 07:06:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F96410E125;
+	Tue,  9 Jun 2026 07:16:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="V1Q/svxB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ocXp2s8T";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00B8110E107;
- Tue,  9 Jun 2026 07:06:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780988775; x=1812524775;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=wPNxaq+MxK/SZuHOphqim3jNSNXgk7q+4ZcK8M927Ho=;
- b=V1Q/svxBQIKze/UXIJSjOVKgrHKSgASIHCOspehkIKVQv2bX/4KShqag
- d/zBQ8UonmmfCj23Qs6t014+PRFWP64qdiRXDWUO2OGNx4EEGAO2w7sCU
- LzHdXSmmXEbVpF2R8KUvg9khSMXFrJq7Vl7L5BPkpGUIiiD5fiYxw3W59
- 4FQh6ok8g54u9bkh5DW/Blm+yyV0i7ZfxxRM0zm2LuMO17UyyOq9quxWQ
- m9u+KlPrFKZMmipRXS8dPL0QcSU9emqYxGViqZqE8at93dpxdLxORPsZ3
- 1zs8+uHOBOMxAuYOXU3Mg0bhso5WN1KqbjVHLVl3SqfMuxV7UvOnW0AtV w==;
-X-CSE-ConnectionGUID: q3kVeI/eRE+9bvOu2aRrNw==
-X-CSE-MsgGUID: gFoPRw9pR32BYdLVYqlJFg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11811"; a="69275335"
-X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; d="scan'208";a="69275335"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2026 00:06:13 -0700
-X-CSE-ConnectionGUID: 0Fv2wpZjRBeJ47Uck52CjA==
-X-CSE-MsgGUID: onLxLx0PQVGxZ3J/XwQjww==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; d="scan'208";a="242837949"
-Received: from egrumbac-mobl6.ger.corp.intel.com (HELO localhost)
- ([10.245.245.39])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2026 00:06:01 -0700
-Date: Tue, 9 Jun 2026 10:05:58 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Kaitao Cheng <kaitao.cheng@linux.dev>
-Cc: Muchun Song <muchun.song@linux.dev>,
- Philipp Reisner <philipp.reisner@linbit.com>,
- Lars Ellenberg <lars.ellenberg@linbit.com>,
- Christoph =?iso-8859-1?Q?B=F6hmwalder?= <christoph.boehmwalder@linbit.com>,
- Jens Axboe <axboe@kernel.dk>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Christian Koenig <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Eddie James <eajames@linux.ibm.com>,
- Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Laxman Dewangan <ldewangan@nvidia.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Davidlohr Bueso <dave@stgolabs.net>,
- "Paul E . McKenney" <paulmck@kernel.org>,
- Josh Triplett <josh@joshtriplett.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Waiman Long <longman@redhat.com>, drbd-dev@lists.linbit.com,
- linux-block@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Christian Brauner <brauner@kernel.org>,
- David Howells <dhowells@redhat.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Kaito Cheng <chengkaitao@kylinos.cn>
-Subject: Re: [PATCH v2 00/14] list: Prepare entry iterators to cache cursor
- state
-Message-ID: <aie7Vlcg76naApoC@ashevche-desk.local>
-References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
- <aie299WveL1utNya@ashevche-desk.local>
+Received: from mail-qt1-f196.google.com (mail-qt1-f196.google.com
+ [209.85.160.196])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E84810E038
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 01:50:29 +0000 (UTC)
+Received: by mail-qt1-f196.google.com with SMTP id
+ d75a77b69052e-5176bbb9384so50738061cf.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 08 Jun 2026 18:50:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780969828; cv=none;
+ d=google.com; s=arc-20240605;
+ b=PHf/Kis2bnnZ4sd8bG2se00ONQB7+bXkjaIdrpe955GRzOz77K/F94dH9MKGJWmOQz
+ GolcyIwT1YlEzoZ1JdK7tognSk2+TGTiTnPwXB922/wFPXa6NHOezOEcz8y8RXy9uqVb
+ tI8E5UYNmkmIMGWLVZk+pTrtuhR/1YxV0o3jKZkZQGQnVm5pH3TYnWomV9cKsuarsfXv
+ gXRYZbgvRIzjWYYHoUm1MB0xi564Mtwmqn/MxxlXFL5E24UJjTPcGN50I/7wV9dvhyUL
+ ALso+HtwKTeTttQI7DL8fucHHYPJVGqX2vbf8bnx6kZ/Mv7ereW318zx9TVVa2IfBrb3
+ 4CGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=9+dm8iyl1FFmimzn8mWDuy0qsUo+/kaFvq9DAaWHktc=;
+ fh=s1f85g8jkDccZ/un6aTfmVjm3/hGQg4yZb3YRvgk1yA=;
+ b=ECiDB3MPTz05zszwdVBAQW3g++BUE8oynLHtgartxFeU9slo7P30DpibwCqeiFNaJq
+ Cy5H3T635snRdmJ+6zs7eg0N6jdMzcefqm+qcHxAKBbU3SAxkUVR/Uc3qWw4xw7SMeRO
+ /fsbj+SBAUX17JurbWLsP1hvnusZgRZ5FIr6UOJMl9ZEwy2il9E7QRJXP5c3/PR/Es8y
+ zVj54EkQ4aIjEdUa9NJeNaIJExmB1hIgPS5h5s09EOZrgd8RP4tOwp4L/qp0Qn9zKNST
+ WsiUGnzNH+id2nktJUeNXzBSlTqgLecXHg01UOX4vxQsiVZG1K5ZRSf75/0SHPjF9eig
+ qewg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780969828; x=1781574628; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9+dm8iyl1FFmimzn8mWDuy0qsUo+/kaFvq9DAaWHktc=;
+ b=ocXp2s8TprMgo0ijjLLecBfhcPCIcNiSbUisvkjTuVCXqx5flSRLAciMWEV5fAHCCA
+ 9MKkvHQCq/hxdfEdQwFZlv6a4O3KXYSoGzs9Zi3TYEbJ8WTEvRVHJgXfqLxLOAQ//NtC
+ I8YLvFZ+DmrhXwZde5PwWC/g2m4OQC0Ohspdt8XOby/0TQnoSVZtY20N3MrSjD51iJ2U
+ R8VAQywMmXECtQKeXFhbfjI4AWQXxRjLwrx6JtqmDoSP/BNI0j7J1bEjxMSx/PXHJFLt
+ UeA3htsLv2M28TkdF2/ZhjEHSL7dD6fcrbCHm/Z5cYTOVlGyPid86RhwCT+Y9INKjYOP
+ eMEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780969828; x=1781574628;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=9+dm8iyl1FFmimzn8mWDuy0qsUo+/kaFvq9DAaWHktc=;
+ b=QKKqKIJOyEhsYkJSki2ETXfskI2uhVDLjnSbIrVT4gw8r6f/LvGqmTDr8A/mxVljzG
+ GxPvOSth0EIAqh7LTD7G5A6EDzYrTeCKAVaOPrETDriipTcaRvTfR4pZiUwe/BPkaXZl
+ LrhrafCoQh/+457RLIRtiNhVkcOh+m3mDODGD2V307KAg9aAJxTrgtrAPn7MNisl5l6B
+ B/cis69oiIgZdNL77sxkGMY9tfnQ6+/4d5V/qgDdRmXjtUuc+9PGKuGFJjqDFBZnbQU2
+ 6uLDn4hizc2zlh9O/L6XRz914oncsB/ttkEdqhbBClAEYgtNuaCAyDZ7gzdkXXQhwGC1
+ 4WrA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+Z37zHlkn9ruIZ4621RWgteqgLELx7h26d32RKP/tQ1JmbxuK29j9aZZwYH9iwsCmTb2/hkBYPqaU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyS67oHW3b6S8pNUPZdBt3FslJ+n5bFX8Toe9sRONyv+Sfaeaqr
+ gZ79Nz50dCdHsvfvaHo+vFtRacigyWs5c/q8ioG6+oKuzLt3ASWwUpAd1SFdE29DOiUjuxdPRA6
+ GgZW9GayQ08oy8uBcsKtWaDHoilZObP4=
+X-Gm-Gg: Acq92OF1HkSV6m6NvFPnjXOcPj1SSWbfpfRK2NTdgaW0yFMx2JQM7/iYCnzsv1ewni0
+ N0DscsQl1p8Te+cvDwoosUrL1iU6jb62xEC66zuxQ7u6LXh3ENRISjTt70Q0+vWLnVN8JuwKmVr
+ R+kVzz9AJN3bK2FiWMt+qRz2ovetv9ErkkkFO45i5pth1OkN4iI344PC4FteUnkHCmkf1a6BFIT
+ gqf2nYj3fuQ3pBwnHbJldEIBV8IzpqnHrwAY56zs/LNYwi55Shg9BCxTaw3xtFHo3te18+rYQLI
+ sVALZs+wZgZc8eOoGBjogbcEdTw33QFgSIls0LCkkfBI3MwnfJzq9cAwNkHU7YuOvQEqgohwJ/e
+ IGGQ=
+X-Received: by 2002:a05:622a:1b09:b0:50e:631c:c390 with SMTP id
+ d75a77b69052e-51795c5be37mr269805601cf.44.1780969828323; Mon, 08 Jun 2026
+ 18:50:28 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aie299WveL1utNya@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260607210203.229613-1-deller@gmx.de>
+ <b80a379d-87e4-45c4-a078-09e84a840895@suse.de>
+ <1492766a-c349-4cca-932e-bf608b922b6b@gmx.de>
+ <CADkSEUg948W-XT3_ODe_6p4i5Y8AKEcP=rmJ+7qJq30Uq0d_EQ@mail.gmail.com>
+ <aiclYUfQvMokMu64@carbonx1>
+In-Reply-To: <aiclYUfQvMokMu64@carbonx1>
+From: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+Date: Mon, 8 Jun 2026 18:50:17 -0700
+X-Gm-Features: AVVi8CclBz3tJGvpm6QTFFfs_QYSfEhhbHcxbqfMUuBKjZ3-CDGVL-ri5mElbOA
+Message-ID: <CADkSEUiU07XkMkvoyTTxn0VXprKok5tKj80fFnc4k=JHeK8FvQ@mail.gmail.com>
+Subject: Re: [PATCH] lib/fonts: Avoid unncessary 64-bit math in font code
+To: Helge Deller <deller@kernel.org>
+Cc: Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Tue, 09 Jun 2026 07:16:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,35 +111,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 09, 2026 at 09:47:34AM +0300, Andy Shevchenko wrote:
-> On Tue, Jun 09, 2026 at 02:13:33PM +0800, Kaitao Cheng wrote:
-> > 
-> > This series prepares for, and then updates, the list_for_each_entry()
-> > family so the common entry iterators cache their next or previous cursor
-> > before the loop body runs.
+Hi, Helge,
 
-While code looks okay, this doesn't explain "why?" aspects.
+On Mon, Jun 8, 2026 at 1:26=E2=80=AFPM Helge Deller <deller@kernel.org> wro=
+te:
+> Does this patch fix the issue then?
 
-> > The first 13 patches open-code loops that intentionally depend on the
-> > old "derive the next entry from the current cursor at the end of the
-> > iteration" behaviour.  These loops append work to the list being walked,
-> > restart traversal after dropping a lock, skip an entry consumed by the
-> > current iteration, or otherwise adjust the cursor in the loop body.
-> > 
-> > The final patch changes include/linux/list.h to keep a private cursor in
-> > the common entry iterators while preserving the public macro interface.
-> > The safe variants remain available when callers need the temporary
-> > cursor explicitly or have stronger mutation requirements.
-> 
-> Something is really wrong with the patch series email chaining.
-> Patches 3, 10, and 13 start the subthreads. Please, check your
-> tools and fix them accordingly.
-> 
-> Note, `git format-patch ...` should not have this "side-effect"
-> when used correctly.
+Yes, it does. I remember you suggested this solution a while ago. Thank you=
+.
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Ethan
