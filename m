@@ -4,141 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE1CBCD8CAD
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 08:05:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C99D1CD8CAE
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 08:07:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1973B10E16E;
-	Tue,  9 Jun 2026 08:05:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B27410E175;
+	Tue,  9 Jun 2026 08:07:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="hfjrIVWN";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xp/3ceeN";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="E+FEi6vH";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D82210E169
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 08:05:33 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6597rJEx1585631
- for <dri-devel@lists.freedesktop.org>; Tue, 9 Jun 2026 08:05:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- KiAcg4GZAcbzhQVB9wJOqt7JXLgCAxLB5dfBhEJmHiY=; b=hfjrIVWNvvFu/dyF
- YgGS0wXIsycLqAA77Z9hRFVllzKDuZ0FPJkDhUWIgHuMOD1Yfk/fMzSaTz9Lt2Ao
- tuEw1OmRP/zHhNwWYga3pRxB66x/9PaTuL1by88qCscJBNUCgKpvTf1qcMAwiTDh
- kjw44qn5TzeTUmCvPNG7bokg6EnG0VNAcgQOHNJpv1jxn2m51RQWJp6VLgKmUsc4
- YM0QR+dsNSR5s8pXPN8rqul5fCYi02r5QwK9fFu2r7fSqwU1/WZ3nAfyrjTGwbHi
- sKEf4zssoC1GZ35UlCxeR6wa+Ngo3TfWKrv3HGU2Dnxw9GNTgTX7CD9cT8vPcuqg
- f2gZ/Q==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4epeqgg36q-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 08:05:33 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-915827fb1a3so107851185a.2
- for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 01:05:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1780992332; x=1781597132;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=KiAcg4GZAcbzhQVB9wJOqt7JXLgCAxLB5dfBhEJmHiY=;
- b=Xp/3ceeNB0PgBgZSVmJBoWNrlTmPeQGWBwy5v1APwGyf4K1nF2S7zNv4WoRUDM1ksf
- gK+MeUB+VcEfbu+bnptzTVrKZ8n9idczD51MUoRPF/oPHdIZG8AmZ5GPEOq0J/fVK8U2
- zr4pQ3BQDs+IL+LLAAgxJyd6yRi4EXJj+2OejvG+aSZyAuFb8R/1iJTYSyOpGOldPqjv
- WKvQxpiHGXloRJ9gf/KUfDQ9Rp+wnLO+MpEzjK8suVs7ImHxgm4RxCIG4PDxbC95AwLw
- dVbTtdTkkzMsXGXGY3z1TZurNpnM1lauq/Z3fmzBUunBPAyohREr9WgCYcNVk0wztHSM
- 0vfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780992332; x=1781597132;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=KiAcg4GZAcbzhQVB9wJOqt7JXLgCAxLB5dfBhEJmHiY=;
- b=rDl2ZTg27MJSUzgtuD610DfvteC8I25PX9SScHO1JDcgklKP04Keo7DdvjzFr8uXSh
- mwYGOYS+7njLkh/SSEYelEt3YjD8B0WjQol+gYExEaVsgtqELjGJhEWB+6/LY4mpNNrq
- bAwcEUptvdP8fKVtm1JGVAF5cVRtbdzukxryKApDK+e9Ng2Nx0Ip/VzIC0iBMVxLTgct
- JfIay52XZgax9wTU00T8gXYE6gmuhxViHookdFmq4Dfx/RR9+/mS6W/L/Zw5fYv4hQgN
- fsbFYhwVLQhxRRoLOibbvqOeysy5MtsnotqHuiWU00lF2HQ5xVFgdLKphUC4yxTW4uCx
- A85A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+3AET0x89ZW/YWhaMEvct8M41476VQCag0EJ3H9qracXdThoqMfq9/Ehg04PHOcGrig55cSs66Blc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yykq8aZEs09AcYqAbzdQD4LjE4snuCrY1HTRSuOfGdPzl4/Jyus
- UgB3z2YHgYgkrukNpCGagKFy746riiq7Dwhe3VG+5vY8/uRPfwG2kwHhSeRWFJm8Ei5/+jGxD3r
- YC9reREw0fptCsouHdlTswfy0plx21dRMhxMG9iAE6eksCxjytgHbCJAaFymEHMhMey4LxsM=
-X-Gm-Gg: Acq92OGFsK1p3qsz8sL6/rcxHUHX7vbEIKJU+PDQU11EOPA5Rlv8vomJ9/mRQlXzy9u
- TJYP6WFsRUPq62FJypCJp2nM2BciDKOkjbkiNV+OPLgf0ZCD3v3r8IFHc1T+SMT5nfEstqYU0QZ
- ZVh8GAAJVD8eqhF2ir/Eaji8JFarVttNpgjAVVHOARqIvwVfzPEtFVFIfa9Vej9eE0JM20wqqQU
- hnQvk6JBl/Ueo36xyiFKWtTFeUqnO4VO6cNeumzmp6bH0TdN+r0prd/ESfbI8mnzzWHH5ARTPMD
- PT8dyBKcgCUsmqBMr+mb0K4H/N/HAoSAqinkiGCIHphgBtSsJpR+pugo2miPW9Zq9cWlIFbSW2q
- rYEn1/92mOpkC6frVLSkicHYEPzCXTram6Hy/a61FBm4lVuf5GX3A3ugR
-X-Received: by 2002:a05:620a:1a06:b0:915:79da:a898 with SMTP id
- af79cd13be357-915a9e33362mr1730746185a.8.1780992332030; 
- Tue, 09 Jun 2026 01:05:32 -0700 (PDT)
-X-Received: by 2002:a05:620a:1a06:b0:915:79da:a898 with SMTP id
- af79cd13be357-915a9e33362mr1730743785a.8.1780992331605; 
- Tue, 09 Jun 2026 01:05:31 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bf3e39647c4sm606892766b.63.2026.06.09.01.05.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Jun 2026 01:05:29 -0700 (PDT)
-Message-ID: <791b0c02-e1ec-45a6-8b24-07a628b2671f@oss.qualcomm.com>
-Date: Tue, 9 Jun 2026 10:05:27 +0200
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1960310E169;
+ Tue,  9 Jun 2026 08:07:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=MUKu2VcBHmhgiWKhnRnyU1YK6jC3L1pzS7pqu0bXsPI=; b=E+FEi6vHCSHLqZt2ADzheTnJeF
+ aGkV0IeKuyHYb7NzvWe1O05W2SUu/FXGLMbMugruUX369wmhaHmMXkXAHORglIh5NbQ6AbH1h/Htt
+ USwGJBaj5/h262PafjOktUidNxiQ+V9r+k03NORYZC3SSHjUOl28fGq4ZsrUTW/iml1W/tl90G938
+ H8w61O8E0f+4mAh0zpuuE22LLdTOR6BcGIc/VqzekonfgncOi1dHeGGQ2lkB9PoGkGCsldNyRz1yP
+ aWAjmUI2DTSSFl/f/XkGmvcWZuGybq+l97mEckA0QWG+FgWu2cA4hSI+ud4hf54oSwQ5MryVCvwsn
+ rhS2Y2gA==;
+Received: from [90.240.106.137] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wWrUj-00Eps0-Qp; Tue, 09 Jun 2026 10:07:33 +0200
+Message-ID: <2660d09d-b549-447e-a28c-ca8550c3b288@igalia.com>
+Date: Tue, 9 Jun 2026 09:07:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/msm/adreno: Add support for A704 GPU
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Subject: Re: [PATCH] drm/amdgpu: initialize irq.lock spinlock earlier
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Aditya Sherawat <asherawa@qti.qualcomm.com>
-References: <20260609-shikra-gpu-v1-0-9d0e09cab115@oss.qualcomm.com>
- <20260609-shikra-gpu-v1-2-9d0e09cab115@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260609-shikra-gpu-v1-2-9d0e09cab115@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+ Harry Wentland <harry.wentland@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel-dev@igalia.com
+References: <20260608-amdgpu-mutex-fix-2-v1-1-1d850180ed19@igalia.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260608-amdgpu-mutex-fix-2-v1-1-1d850180ed19@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA5MDA3NSBTYWx0ZWRfX2dGOdbdvWtCu
- 4CtGyQygV64CpYDvKD2KlHjNByXgO3X9hvAiDEVwD4OIgLY32/8zSi53G9Tm+OQgPOkSYfMWnkF
- 6dCbW7x3qDTMqwy6cuVPTCtVgkUEuB14PKCiiF1hQIKZe/VCFBi/5J1ygMs78tPQibpEXY7Sms+
- aRp3H9cp/lOotpytVYt5DEVRKHAyWRJk8y27dzrtPkjY2ma8eswUWPCN2Mi197VRR++MlAwY0MB
- VLrBeM9LMdbAdQpGN5E7hzrHDLjSrFCztdSwJ01QRqDiGoOXFV8Nq8XiiLecb2Q/1unmid4VfM/
- UGw+Y2GDVVMa9DXYhwalj5iUMPRCjei+irU05jyKS212jKQdFOqd6WNHSLIjxmZsA1bEIDyMMs7
- fJTl1Bq1ekP41A5X5YERzkKBteUun3N5Wtzk29thuGYMpPcXXNKLP+X/oKGXx4U80lqbURgL9rR
- z5VcAMt4j/ytWgWN0FA==
-X-Proofpoint-ORIG-GUID: P3eooS4aFeocrreRQ5VcY7GOPKlCdSFi
-X-Authority-Analysis: v=2.4 cv=KdHidwYD c=1 sm=1 tr=0 ts=6a27c94d cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=dsl4z-DLeecaUYzO57AA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: P3eooS4aFeocrreRQ5VcY7GOPKlCdSFi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-09_02,2026-06-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0 suspectscore=0
- priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606090075
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,19 +65,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/9/26 1:36 AM, Akhil P Oommen wrote:
-> From: Aditya Sherawat <asherawa@qti.qualcomm.com>
+
+On 08/06/2026 20:22, Thadeu Lima de Souza Cascardo wrote:
+> If there is an early failure during amdgpu probe, like missing firmware, it
+> will end up calling amdgpu_irq_disable_all, which takes irq.lock spinlock
+> without it being initialized.
 > 
-> Adreno A704 GPU found in Shikra is an IP reuse of A702 GPU with very
-> minimal changes. The only KMD facing difference is the chipid and the
-> zap firmware which is specified via devicetree.
+> Initializing irq.lock earlier at amdgpu_device_init fixes the issue.
 > 
-> Just add the new chipid to enable support for A704 GPU in Shikra.
+> [   79.334079] INFO: trying to register non-static key.
+> [   79.334081] The code is fine but needs lockdep annotation, or maybe
+> [   79.334083] you didn't initialize this object before use?
+> [   79.334084] turning off the locking correctness validator.
+> [   79.334088] CPU: 2 UID: 0 PID: 1819 Comm: bash Not tainted 7.1.0-rc5-gfd06300b2348 #96 PREEMPT  8e8f461221633dae3c832d6689eaf0546c0ed4cd
+> [   79.334092] Hardware name: Valve Jupiter/Jupiter, BIOS F7A0133 08/05/2024
+> [   79.334094] Call Trace:
+> [   79.334095]  <TASK>
+> [   79.334097]  dump_stack_lvl+0x5d/0x80
+> [   79.334103]  register_lock_class+0x7af/0x7c0
+> [   79.334109]  __lock_acquire+0x416/0x2610
+> [   79.334114]  lock_acquire+0xcf/0x310
+> [   79.334117]  ? amdgpu_irq_disable_all+0x3b/0xf0 [amdgpu c88bab43d391d519ad0d5c8e5a099b4aceefa180]
+> [   79.334503]  ? _raw_spin_lock_irqsave+0x53/0x60
+> [   79.334508]  _raw_spin_lock_irqsave+0x3f/0x60
+> [   79.334510]  ? amdgpu_irq_disable_all+0x3b/0xf0 [amdgpu c88bab43d391d519ad0d5c8e5a099b4aceefa180]
+> [   79.334881]  amdgpu_irq_disable_all+0x3b/0xf0 [amdgpu c88bab43d391d519ad0d5c8e5a099b4aceefa180]
+> [   79.335240]  amdgpu_device_fini_hw+0x90/0x32c [amdgpu c88bab43d391d519ad0d5c8e5a099b4aceefa180]
+> [   79.335704]  amdgpu_driver_load_kms.cold+0x22/0x44 [amdgpu c88bab43d391d519ad0d5c8e5a099b4aceefa180]
+> [   79.336159]  amdgpu_pci_probe+0x204/0x440 [amdgpu c88bab43d391d519ad0d5c8e5a099b4aceefa180]
+> [   79.336494]  local_pci_probe+0x3c/0x80
+> [   79.336500]  pci_call_probe+0x55/0x2e0
+> [   79.336505]  ? _raw_spin_unlock+0x2d/0x50
+> [   79.336508]  ? pci_match_device+0x157/0x180
+> [   79.336512]  pci_device_probe+0x9b/0x170
+> [   79.336516]  really_probe+0xd5/0x370
+> [   79.336521]  __driver_probe_device+0x84/0x150
+> [   79.336525]  device_driver_attach+0x47/0xb0
+> [   79.336528]  bind_store+0x73/0xc0
+> [   79.336531]  kernfs_fop_write_iter+0x176/0x250
+> [   79.336536]  vfs_write+0x24d/0x560
+> [   79.336542]  ksys_write+0x71/0xe0
+> [   79.336546]  do_syscall_64+0x122/0x710
+> [   79.336550]  ? do_syscall_64+0xd1/0x710
+> [   79.336553]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
+> [   79.336557] RIP: 0033:0x7f92fd675006
+> [   79.336561] Code: 5d e8 41 8b 93 08 03 00 00 59 5e 48 83 f8 fc 75 19 83 e2 39 83 fa 08 75 11 e8 26 ff ff ff 66 0f 1f 44 00 00 48 8b 45 10 0f 05 <48> 8b 5d f8 c9 c3 0f 1f 40 00 f3 0f 1e fa 55 48 89 e5 48 83 ec 08
+> [   79.336562] RSP: 002b:00007ffe4fa867a0 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
+> [   79.336565] RAX: ffffffffffffffda RBX: 000000000000000d RCX: 00007f92fd675006
+> [   79.336567] RDX: 000000000000000d RSI: 000055b2dfce59b0 RDI: 0000000000000001
+> [   79.336568] RBP: 00007ffe4fa867c0 R08: 0000000000000000 R09: 0000000000000000
+> [   79.336569] R10: 0000000000000000 R11: 0000000000000202 R12: 000000000000000d
+> [   79.336570] R13: 000055b2dfce59b0 R14: 00007f92fd7ca5c0 R15: 000055b2dfdbaf70
+> [   79.336574]  </TASK>
 > 
-> Signed-off-by: Aditya Sherawat <asherawa@qti.qualcomm.com>
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> Fixes: 9950cda2a018 ("drm/amdgpu: drop the drm irq pre/post/un install callbacks")
+> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 > ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 ++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c    | 2 --
+>   2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 21a3fb574d53..e5a9f6325c4a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3749,6 +3749,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>   	mutex_init(&adev->gfx.workload_profile_mutex);
+>   	mutex_init(&adev->vcn.workload_profile_mutex);
+>   
+> +	spin_lock_init(&adev->irq.lock);
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+The fix and the Fixes: target look correct to me:
 
-Konrad
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+
+The init paths are a bit of a mess though. The driver could use a 
+systematic cleanup in this area path. Maybe consistent 
+init/init_hw/init_early for purely software state, or something. It 
+would be a gargantuan task probably. Some years ago we strived for a 
+clean design along these lines in i915 and I think without a solid 
+continuos integration with fault injection it possibly shouldn't be even 
+attempted.
+
+Regards,
+
+Tvrtko
+
+> +
+>   	amdgpu_device_init_apu_flags(adev);
+>   
+>   	r = amdgpu_device_check_arguments(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> index 254a4e983f40..40b8506ac66f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> @@ -309,8 +309,6 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
+>   	unsigned int irq, flags;
+>   	int r;
+>   
+> -	spin_lock_init(&adev->irq.lock);
+> -
+>   	/* Enable MSI if not disabled by module parameter */
+>   	adev->irq.msi_enabled = false;
+>   
+> 
+> ---
+> base-commit: 60dc0946bbad3eef8bc66a5a8b09b98dbc6e09c0
+> change-id: 20260608-amdgpu-mutex-fix-2-381a3bed81f0
+> 
+> Best regards,
+> --
+> Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> 
+
