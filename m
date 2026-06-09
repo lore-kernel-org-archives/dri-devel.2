@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C979CD98CC
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 07:58:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 265A6CD98C7
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 07:58:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F57E10E7B6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC90F10E7B9;
 	Wed, 10 Jun 2026 07:58:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="cm+3lfIO";
+	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="jcwUw8hE";
 	dkim-atps=neutral
-X-Greylist: delayed 167549 seconds by postgrey-1.36 at gabe;
- Wed, 10 Jun 2026 07:11:58 UTC
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.79.153])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 378A610E754
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 07:11:57 +0000 (UTC)
+X-Greylist: delayed 84814 seconds by postgrey-1.36 at gabe;
+ Tue, 09 Jun 2026 09:35:16 UTC
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7665E10E1D6
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 09:35:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1781075476;
+ s=onoh2408; t=1780997688;
  bh=FjDzXjUTCA7PwSwSBXMojIa1RoXXpb1tpWd5EIt2Ab4=;
  h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=cm+3lfIOqU7zG8hTZLroEdDH/jU9TjGQJFfqssEBBqwKVliJvdKrBpj5QelQT8iun
- 8opzyMZpnaDknmqucip2xriPMdp3gK5RcCJvNxH5PEkOfWrGTUfcqfVIQO9mJTrtfC
- J0VofpfJsbtxsar4yQVHBDmEFqU9WcdBYr6yB0Hk=
-X-QQ-mid: esmtpsz20t1781075457tb0623c5e
-X-QQ-Originating-IP: 9w9119h/pi2NtSaFq8NvVC5uvLHbf8Bnd7PYZkuQcAQ=
-Received: from localhost.localdomain ( [1.202.39.170])
+ b=jcwUw8hEitQ+FishR+C+7uZGrcGsiqJjj8Rl86HK9RwRfTT1zcCNe9MABWF/gr04I
+ dDnQ5TLePayFMb9Afv8jIMgyCDa2UkaL8SRT5FKxn5L2hFVN4C0p8xTJNHGRSIvHda
+ ffPxjDfRskRXS2nnseDIHl3HrGaaa8AP5Sgussr4=
+X-QQ-mid: esmtpsz17t1780997669tdd1d19f3
+X-QQ-Originating-IP: C6dundOe4PtpDR286kbXAMfUPpshvmFDRxoPxnzgjVo=
+Received: from localhost.localdomain ( [124.126.19.250])
  by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 10 Jun 2026 15:10:49 +0800 (CST)
+ id ; Tue, 09 Jun 2026 17:34:19 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 16958495345642707546
+X-BIZMAIL-ID: 13231379526503889838
 EX-QQ-RecipientCnt: 11
 From: ZhaoJinming <zhaojinming@uniontech.com>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
@@ -42,35 +42,34 @@ Cc: Sumit Semwal <sumit.semwal@linaro.org>,
  linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
  linaro-mm-sig@lists.linaro.org, ZhaoJinming <zhaojinming@uniontech.com>,
  stable@vger.kernel.org
-Subject: [PATCH v6 1/2] accel/rocket: Fix error path handling in
+Subject: [PATCH v3 1/2] accel/rocket: Fix error path handling in
  rocket_job_run()
-Date: Wed, 10 Jun 2026 15:10:44 +0800
-Message-Id: <20260610071045.3414828-1-zhaojinming@uniontech.com>
+Date: Tue,  9 Jun 2026 17:33:45 +0800
+Message-Id: <20260609093346.380396-1-zhaojinming@uniontech.com>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20260610061915.1CA281F00893@smtp.kernel.org>
-References: <20260610061915.1CA281F00893@smtp.kernel.org>
+In-Reply-To: <20260608103845.6F4AB1F00893@smtp.kernel.org>
+References: <20260608103845.6F4AB1F00893@smtp.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: MhWaMTxgikzcEseUwhScMwKj1uvHXyIQadEREZTD4v/yhebL0peP8Dlz
- vRQeEJdIATTrfX1CFaoq+tajdOMDoYC+kj+Xs3eghl7htp4cdQci4PwUtW1OjuWGLDDI245
- 7tImIbYK/W5w70agxHYBVNTNxX4sdbskc/cEYY1ZOMgJripyNr9xhPCZ2kH8fVm/Qh2Mw5z
- 7If1J0zSU2Iom+56uU+078RTvR22RUdeTQ0Lud1ILPon9QaijFOTw4d5dBTM6IdOmMrxFtK
- 1M6krdfcXiKIPV8vdU2pNe0v/dSBLBJTqde/7kmcUvwxn52fADJL3DHQW+4FCTFntZfTa+f
- flD2Nc1jqpZlU8dJ2IT+fNsDGFXp34Ul37e0wHlqH/gv1qgS+xHYX79UWtxKVSqpAdBcOdG
- gvttsuaKltpieYYu03mr8eL3KR62j/R6gEu9whE4q/QClMwp40VTsuO/77gBuCVJ62FC4KO
- UhMYDoGB1+nFYdH5O/lf40GlFJrxb6SYHLiJNqWPhFgwqeVLptZc6UAKMu9OCJJpmphSxIy
- jXML3DWTfgvCmbzvRhed28ggUz5dAxflqE93aqm+3fFj36R3iyHwmZ2SSq8ejY8BNGTjtbL
- T9ALXe+QqgDS+dzHPwZvSzAdpR3BaoIaTeqIWv/3JeXFJklGFA5VO2pW4TTUu4SPgk+Sknp
- HGvTuXjyMdNfQ2qpV38/CCuFllSHBIdRjyHBRN+MYmzz+TTfkxxpJPTvVmMbMt5Iu7yp4p2
- aJ9eUhb0Pmr42jT3uiOLXLcR7fhgeGYzOpmf//rcgB1w81Q3Gozztpx6Yg0SpqTpI85YeW0
- k8QmolWUYxpczXBI24bpgtGCDjM3kjL+7HEarmGUFbTftRrEz3gSDC0Sf/YToPULLxEHwoJ
- f51vADU2u7xr/xyZAi318Sjt+HzTr9WGc0YZyV5HHR+ur7Ezl4K9sg95P0eAmkhTk1f3Yfi
- 8+j6NqC1QBlQ1WWm8vrM4BsStTr/GpxKPSSN2MmBKFlZbB04iZ+S2dLwieDFD6vcOzljNiE
- 0w/q/ugDMk3GoMaYXJ8Gw5Kgxu9TeLCUZre0Dli1pVIxjo0KAw9sTgAcxyppck0CoYTbmPM
- w==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-XMAILINFO: MZ9X7MyfBLbly0P1lyM1Fzp8f5GsQImat8BBywc8CBR7YgJW0mZoiOtD
+ NlcWKK6CbM+XJ+3fGmoQQRlSY3Ou1SmcP4eA+E74PbJippCNb1N+JEyY5IcDm/pHbW9EOBi
+ 3T+sjPwN0CRbAbtmMvU0LN2kUEx0rSEWlNfjK7wOkKvcbkc/VY2m75+hM23H9WoHzCW4Tfd
+ /++LvIESssrskD0JxgLL+SOuiq6sifTScQsHHv10wnsBD0mABAHrI3TtsxOn0ZPFy8vekdq
+ Bjh9FPhooFcQhG9/7Ltn8lLfB3vygXiDO6x4NjijO19LL49GRK37XM5DH6aHUN08bSfiXqy
+ JSz3sBTswgG3vz0F7XT40xQZ+KCBlqrJZitstaVuzxQac/xnUnobVcuMItoiKyUKln535lH
+ WmGoNKFuVaeBBQ/RchCvhTTG4lyZgXLA1lmrfDUniZf/7uIbQ0ZGIOJ85IiQ0OMttvASl6K
+ EO6hFzMK+zh/hq8rIvCaam9jPQR7sDoUmOAa2+76iYYCTXgJ83IWPY62VDGA1W2B9xyhb5B
+ boYMuIX6dqt6nCsHRdfXHeCU+7MX8yMMkfMLuKeRLdxbAZSkB5L3tvRRs7tCDLa8XLqI+Tb
+ vvwczA3SDW4bCVx7XnhwkmRyLr4eKquu8q0bbJdrwn4DAyO0TOVs181DDOyDKJPSesY3Qvp
+ 4iy+axEWmIwNphQcYtqQRH99h5o9etJ0C7sVDfo1eMsFuQzLj42+Bt02tk9FOPDgYV3qJSW
+ GoFYwwF4XUgkw7Q3YENrPwXZrf/dgWO/hqHdELtlBdcH3fs/0R58bsT2aZVAeNg3E9ArtPN
+ o508ayNnnKKRIoOI/C5ZPwUHa3+kfVCKFKz+77ajnT4uq8mSgitQEfGQ0H+vHMYZetsa+U0
+ aRf1u8zB/wZX3fFMuQww1YF/TpqnVa2pkVjximjgdahe5/Io5DtGXtUEzHGd5AGg70zZFbP
+ xhIu+GhESTSNW3YeTFSmZLPQHfzsp3iFWVBj3ZDl3FYhlfxNhhwBhZGwJsKDyc4i/G3mjjN
+ q28qBmnp2v9fMAkfol8fBez9OpZrr1gkt4XYO2cQ==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
 X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Wed, 10 Jun 2026 07:58:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
