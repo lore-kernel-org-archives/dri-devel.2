@@ -4,59 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0097ACD98C9
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 12:13:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C8B2CD8C92
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 12:32:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A79110E381;
-	Tue,  9 Jun 2026 12:13:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 801F910E280;
+	Tue,  9 Jun 2026 12:32:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nVS5YfDY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YgkrFxBM";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 987CD10E2ED;
- Tue,  9 Jun 2026 12:13:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=Ys1hPQ1gZmUZza3nrdD0bkcP4BI8PKUWiJEI9ZB3dOU=; b=nVS5YfDYjSyqXIVhleK2qvhY/y
- 4nlUHbAKQwkhwzFLDz+WTJYVhM3FvYmPZDCtD8/jHYOZ1DkessnKHM3jzQcVI2Pt4pU0I7Ud5b7Di
- H3lju1Nlmfh4nQAnKhbEYgMIkuzDEeUDmZGfIrLbL2qS1VBotmnQmYQvt1L6mm8xSv0WZd9Y+iKa2
- gMhYvmO8RME4godXjyPkYBPvQe1veWFZlbEBORNpBSwOi2LbnVqwup4i71wgQVk8SUBSHgkXiE57G
- VWx4OUONfb/t5rMCLx5Dz6Yl8/jzDrXypOiSGMegjOZ+McquE4ZvrxwaAwN9z9tNgcDm4+xML3Cg1
- BUzJAqtg==;
-Received: from [79.117.146.159] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wWvJw-00EvWP-Im; Tue, 09 Jun 2026 14:12:40 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
- aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
- daniels@collabora.com, harry.wentland@amd.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- siqueira@igalia.com, sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Uma Shankar <uma.shankar@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH v3 0/7] don't allow changes to inactive colorops
-Date: Tue,  9 Jun 2026 13:51:34 +0200
-Message-ID: <20260609121230.1358786-1-mwen@igalia.com>
-X-Mailer: git-send-email 2.53.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB65110E280
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 12:32:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 47E8F437ED;
+ Tue,  9 Jun 2026 12:32:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED5DB1F00893;
+ Tue,  9 Jun 2026 12:32:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781008377;
+ bh=HP5vXcYOfNqWtdGl6U9doH4cnd/kX9JsaRWIpjliG04=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=YgkrFxBMiXcfaxDMihiKlDiNWIUp66vEJ6BmJTcUCMfLABWCn8PaZazP6tr5ANPsl
+ ozgrN+y/IdgjZrZAu6TSbebQPIb69/0j9yMDb/ty6Ix7227DeWlM8g19dJqOJtvybn
+ 6AHybBjMSawwJ7AS+FiPmSCWMpKxhjQy8If3xUtyjtGyCYGbsPDaaXhnb7X+Qi76J3
+ SqmVcYctoSI4n1/+f53BACtPj2Bb5ynBFeIn+nTAz1CoIAYGyCFtZ7Mlw5InZwMXMe
+ i3ROVYNpJHTQVRqoNp84wyGdnWLdx1m6hXZWujj7yoy3kOeGCAgcEFsZT3ARjkjXj/
+ tYoXD5w33Js9Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 5/7] drm/amd/display: make shaper bypass mode cleaner
+To: "Melissa Wen" <mwen@igalia.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260609121230.1358786-6-mwen@igalia.com>
+References: <20260609121230.1358786-6-mwen@igalia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 09 Jun 2026 12:32:56 +0000
+Message-Id: <20260609123256.ED5DB1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,68 +52,111 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series is a follow-up of what was discussed in [1] and on #wayland
-IRC channel regarding policy and userspace expectations on changes in
-colorop properties and the current status of the color pipeline in which
-the colorop is part of. In short, we agreed that userspace can change
-properties of colorops that are currently part of an active color
-pipeline or when the pipeline is switching status in the same commit.
-However, userspace cannot change colorop properties of inactive color
-pipeline in the expactation that it will be activated at some point in
-the future.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Userspace also expects persistence of color pipeline already set, even
-if it becomes inactive for a while, when activated, colorop settings
-previouly set should be preserved.
+New issues:
+- [High] Removing the `enabled` fallback leaves the shaper transfer functio=
+n in a corrupted state if an invalid 1D LUT size is provided.
 
-In addition, I found some bugs on IGT tests when this policy is applied.
-So I sent bug fixes to kms_colorop and kms_properties to behave
-according to this contract [2]. The rest of the series in [1] was
-detached in [3] since there is no dependency between them.
+Pre-existing issues:
+- [High] Atomic check silently ignores invalid colorop LUT sizes and alloca=
+tion failures in the blend transfer function.
+--
 
-[v1] https://lore.kernel.org/dri-devel/20260526142940.504911-1-mwen@igalia.com/
-Changes:
-- define a macro to walk in the color pipeline (Alex H.)
-- fix checkpatch warning (Alex H.)
-[v2] https://lore.kernel.org/dri-devel/20260604180457.1110110-1-mwen@igalia.com/
-Changes:
-- [Drop] drm/atomic: duplicate state of all colorops
-  If inactive colorops state are duplicated on resume, the commit will be
-  rejected. 
-- [New] Four new patches to make AMD driver match the policy of colorop
-  updates only for colorops in active color pipelines plus individual
-  colorop updates. It also tries to untangle COLOR_PIPELINE = Bypass from
-  colorop BYPASS prop = true. I think patches 3-5 can be cherry-picked and
-  applied if it looks correct for AMD, I just included them here for
-  context (for example, Sashiko reported an issue in the previous version
-  of this series).
+commit 7d44b36a8843f15370d407ecab07d171e3f7d506
+Author: Melissa Wen <mwen@igalia.com>
 
-[1] https://lore.kernel.org/dri-devel/20260519211111.228303-1-mwen@igalia.com/
-[2] https://lore.kernel.org/igt-dev/20260602211259.898147-1-mwen@igalia.com
-[3] https://lore.kernel.org/igt-dev/20260526140752.503380-1-mwen@igalia.com/
+drm/amd/display: make shaper bypass mode cleaner
 
+Start shaper tranfer function setup in bypass mode, i.e. tf->type =3D=3D
+TF_TYPE_BYPASS and let the helper checks set it to a different mode
+according to userspace request.
 
-Melissa
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/dr=
+ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> index 13ad7ac1e35e4..4651241433296 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> @@ -1648,10 +1648,11 @@ __set_dm_plane_colorop_shaper(struct drm_plane_st=
+ate *plane_state,
+>  	struct dc_transfer_func *tf =3D &dc_plane_state->in_shaper_func;
+>  	const struct drm_color_lut32 *shaper_lut;
+>  	struct drm_device *dev =3D colorop->dev;
+> -	bool enabled =3D false;
+>  	u32 shaper_size;
+>  	int i =3D 0, ret =3D 0;
+> =20
+> +	tf->type =3D TF_TYPE_BYPASS;
+> +
+>  	/* 1D Curve - SHAPER TF */
+>  	old_colorop =3D colorop;
+>  	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
 
-Melissa Wen (7):
-  drm/atomic: only add states of active or transient active colorops
-  drm/atomic: reject colorop update from inactive color pipeline
-  drm/amd/display: don't check colorop status if its in an inactive
-    pipeline
-  drm/amd/display: truly bypass plane colorop 3x4 matrix and hdr mult
-  drm/amd/display: make shaper bypass mode cleaner
-  drm/amd/display: fix bnld colorop bypass mode
-  drm/amd/display: allow individual colorop changes
+[ ... ]
 
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  31 ++-
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 178 +++++++-----------
- drivers/gpu/drm/drm_atomic.c                  | 125 +++++++++++-
- include/drm/drm_colorop.h                     |   3 +
- 4 files changed, 207 insertions(+), 130 deletions(-)
+> @@ -1702,13 +1702,9 @@ __set_dm_plane_colorop_shaper(struct drm_plane_sta=
+te *plane_state,
+>  			ret =3D __set_output_tf_32(tf, shaper_lut, shaper_size, false);
+>  			if (ret)
+>  				return ret;
+> -			enabled =3D true;
+>  		}
+>  	}
+> =20
+> -	if (!enabled)
+> -		tf->type =3D TF_TYPE_BYPASS;
+> -
+>  	return 0;
+>  }
 
--- 
-2.53.0
+[Severity: High]
+Does removing the enabled fallback leave the shaper transfer function in a
+corrupted state if an invalid 1D LUT size is provided?
 
+If userspace sets bypass =3D false but provides an invalid LUT size or unse=
+ts
+the data blob (size =3D 0), the check for shaper_size =3D=3D colorop->size =
+fails
+and __set_output_tf_32() is skipped in __set_dm_plane_colorop_shaper().
+
+Since tf->type was already set to TF_TYPE_DISTRIBUTED_POINTS earlier in the
+function, and we no longer fall back to TF_TYPE_BYPASS when enabled is fals=
+e,
+the function returns 0. Could this cause the atomic commit to succeed while
+programming the hardware with an uninitialized transfer function?
+
+[Severity: High]
+This is a pre-existing issue, but a similar problem exists in
+__set_dm_plane_colorop_blend().
+
+Does the atomic check silently ignore invalid colorop LUT sizes and allocat=
+ion
+failures in the blend transfer function?
+
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c:__set_dm_plane_colo=
+rop_blend() {
+	...
+		/* Custom LUT size must be the same as supported size */
+		if (blend_size =3D=3D colorop->size)
+			__set_input_tf_32(NULL, tf, blend_lut, blend_size);
+	}
+
+	return 0;
+}
+
+If the size check fails, __set_input_tf_32() is skipped entirely, but the
+function returns 0. Also, the return value of __set_input_tf_32() is ignore=
+d,
+meaning allocation failures are not propagated. Could this allow the hardwa=
+re
+to be programmed with an uninitialized or partially initialized transfer
+function?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609121230.1358=
+786-1-mwen@igalia.com?part=3D5
