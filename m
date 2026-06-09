@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3D5ECD8CA4
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 10:07:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B00ECD8CA7
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 10:09:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45ED610E21B;
-	Tue,  9 Jun 2026 10:07:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CC0110E21D;
+	Tue,  9 Jun 2026 10:09:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LB1eAqCR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Tb5PWmiG";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DB9F10E21B
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 10:06:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 629B510E21D
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 10:09:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0DAED60172;
- Tue,  9 Jun 2026 10:06:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8935F1F00893;
- Tue,  9 Jun 2026 10:06:57 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B4BD360172;
+ Tue,  9 Jun 2026 10:09:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 452091F00893;
+ Tue,  9 Jun 2026 10:09:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780999617;
- bh=QS/AIzhKttWZKwXT8ZFqczduykdKk99XHrGxXnswGas=;
+ s=k20260515; t=1780999744;
+ bh=UTULqAeQamY6Bc1kW8MSZYHR0Nr/KQgY9ck0IyzLqOo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=LB1eAqCR5lzD7bzNp4d3ghA51n9igdck6H5FLTNSG3x95/QTlqELR3xqGOAmBqOjG
- v0pQe1NtEQq0gGtRO3AArvQRSSAfvFw41GDm+64t1ogX6SqW2hAuGzlSOpfzFHY6KH
- rO8yV+plC0/0arLpE9zGMK9kVy3tq3D7UtMkhsn5KQzIi8hXvc5j9GoeLvHzBxrwDZ
- m22WCS+Iz3tqTejk+8+QW3gYrAcm/dnN1uRTruLa+8ZNsdPfWSFPmyUGLsvePJ9Xr0
- NYAnqz+xOiWCcuDz2kNlyHDor2mEKiUaIY8VnSPjJGGea1GcpdJLur6dQZ24rPbfuQ
- Un7foWRnN48oQ==
+ b=Tb5PWmiGU5CZQHH2v7hAq23yL6hFRX8oI0G0kB51gNE3+3dFBY45s6/TBf2G/T7CR
+ Em2nVjKOo+Gugj22ViW06QQrRPAO0VUUi9ZIIcgKPghb8WESiBzDieKYSSVCVuaKB0
+ SjA2LkEnoXscGB4aQQsMXbk8yLQ+KJbV74qcqYQC3WztlIMLao69ISzLhOTbEDKhBQ
+ 8NWa0N3wt4MD6/s2ZF4+Hz+xuAw6dHCXSp+qo09+1cjdQhOMYnPJszYAtsW7tHjSUY
+ oZbPUefXyBTtX1SZT40aJJbreoP6R4qRL9nLzMpp7koPs2tVIDKye2dbRs/vjaK6Uy
+ 4jcwprk0Yi+JQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 02/15] drm/msm/dp: drop deprecated .mode_set() and
- use .atomic_enable
+Subject: Re: [PATCH v7 13/15] drm/msm/dp: make bridge helpers use dp_display
+ to allow re-use
 To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260609-dp_mstclean-v7-2-ea04113e8233@oss.qualcomm.com>
-References: <20260609-dp_mstclean-v7-2-ea04113e8233@oss.qualcomm.com>
+In-Reply-To: <20260609-dp_mstclean-v7-13-ea04113e8233@oss.qualcomm.com>
+References: <20260609-dp_mstclean-v7-13-ea04113e8233@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 09 Jun 2026 10:06:57 +0000
-Message-Id: <20260609100657.8935F1F00893@smtp.kernel.org>
+Date: Tue, 09 Jun 2026 10:09:03 +0000
+Message-Id: <20260609100904.452091F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,101 +57,116 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 New issues:
-- [High] Moving mode setup to `.atomic_enable` causes the upstream DPU enco=
-der to read stale wide-bus configuration data during its own enablement.
+- [High] Hardcoded base encoder in `msm_dp_display_atomic_enable` breaks MS=
+T reuse
+- [Low] Kernel-doc mismatch for `msm_dp_display_mode_valid`
 
 Pre-existing issues:
-- [High] Mode validation callback incorrectly evaluates wide bus availabili=
-ty based on the state of the currently active mode rather than the candidat=
-e mode.
+- [High] `msm_dp_display_mode_valid` ignores the `info` parameter, validati=
+ng against the wrong sink in MST
 --
 
-commit 1b0de5b490fbc6b7e19b00f71948fa7d36954fe7
-Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+commit 79702b8fc2a6d1a516b0d64051edab10a8d7764e
+Author: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Subject: drm/msm/dp: make bridge helpers use dp_display to allow re-use
 
-drm/msm/dp: drop deprecated .mode_set() and use .atomic_enable
-
-The bridge .mode_set() callback is deprecated. Remove it and move all
-mode setup logic to .atomic_enable(), where the adjusted_mode is
-available from the atomic CRTC state.
+This commit modifies the DP bridge helpers to directly take the dp_display
+object rather than a drm_bridge pointer. This refactoring is intended to
+allow the MST bridge to reuse the same helpers.
 
 > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
 /dp_display.c
-> index bce165bac106b..57eafd4724627 100644
+> index f1970e6dd7e46..cdb7dd4cd7cbd 100644
 > --- a/drivers/gpu/drm/msm/dp/dp_display.c
 > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -738,24 +738,21 @@ static int msm_dp_display_disable(struct msm_dp_dis=
+play_private *dp)
+> =20
+>  /**
+>   * msm_dp_bridge_mode_valid - callback to determine if specified mode is=
+ valid
+> - * @bridge: Pointer to drm bridge structure
+> + * @dp: Pointer to dp display structure
+>   * @info: display info
+>   * @mode: Pointer to drm mode structure
+>   * Returns: Validity status for specified mode
+>   */
+
+[Severity: Low]
+This isn't a bug, but there is a mismatch in the documentation. The
+kernel-doc still refers to the old function name msm_dp_bridge_mode_valid,
+while the function was renamed to msm_dp_display_mode_valid.
+
+> -enum drm_mode_status msm_dp_bridge_mode_valid(struct drm_bridge *bridge,
+> -					  const struct drm_display_info *info,
+> -					  const struct drm_display_mode *mode)
+> +enum drm_mode_status msm_dp_display_mode_valid(struct msm_dp *dp,
+> +					       const struct drm_display_info *info,
+> +					       const struct drm_display_mode *mode)
+
+[Severity: High]
+This is a pre-existing issue, but since these helpers are being exposed for
+MST bridge reuse, does it cause problems that the info parameter is ignored?
+
+Inside msm_dp_display_mode_valid(), the code checks capabilities against
+dp->connector->display_info instead of using the provided info parameter:
+
+	if ((drm_mode_is_420_only(&dp->connector->display_info, mode) &&
+	     msm_dp_display->panel->vsc_sdp_supported) ||
+	     msm_dp_wide_bus_available(dp))
+		mode_pclk_khz /=3D 2;
+
+If this is used for an MST stream, won't this validate the mode against the
+main DP connector's capabilities rather than the specific MST sink's
+capabilities?
 
 [ ... ]
 
-> @@ -1309,7 +1325,7 @@ bool msm_dp_wide_bus_available(const struct msm_dp =
-*msm_dp_display)
+> @@ -1406,11 +1403,9 @@ int msm_dp_modeset_init(struct msm_dp *msm_dp_disp=
+lay, struct drm_device *dev,
+>  	return 0;
+>  }
 > =20
+> -void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
+> -				 struct drm_atomic_commit *state)
+> +void msm_dp_display_atomic_enable(struct msm_dp *msm_dp_display,
+> +				  struct drm_atomic_commit *state)
+>  {
+> -	struct msm_dp_bridge *msm_dp_bridge =3D to_dp_bridge(drm_bridge);
+> -	struct msm_dp *msm_dp_display =3D msm_dp_bridge->msm_dp_display;
+>  	struct drm_crtc *crtc;
+>  	struct drm_crtc_state *crtc_state;
+>  	int rc =3D 0;
+> @@ -1419,7 +1414,7 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge =
+*drm_bridge,
 >  	dp =3D container_of(msm_dp_display, struct msm_dp_display_private, msm_=
 dp_display);
 > =20
-> -	if (dp->msm_dp_mode.out_fmt_is_yuv_420)
-> +	if (dp->panel->msm_dp_mode.out_fmt_is_yuv_420)
+>  	crtc =3D drm_atomic_get_new_crtc_for_encoder(state,
+> -						   drm_bridge->encoder);
+> +						   msm_dp_display->bridge->encoder);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but doesn't this function
-check the currently active mode's format rather than the candidate mode's
-format?
+Will this hardcoded encoder lookup break MST support?
 
-During mode validation in msm_dp_display_mode_valid(), the driver calls
-msm_dp_wide_bus_available() to adjust pixel clock limits. Since this reads
-the active mode's YUV420 state, wouldn't it incorrectly assume wide bus is
-unavailable for a candidate RGB mode if the currently active mode happens
-to be YUV420?
+In an MST topology, each stream operates through its own distinct virtual
+drm_bridge and drm_encoder. By hardcoding msm_dp_display->bridge->encoder
+here, the primary DP encoder is used instead of the encoder for the specific
+bridge being updated.
 
-This might cause valid high-resolution RGB modes to be rejected because
-their clock exceeds DP_MAX_PIXEL_CLK_KHZ. Additionally, isn't this reading
-a state field that could be locklessly mutated by concurrent atomic commits?
+If the primary encoder isn't participating in the MST stream's atomic commi=
+t,
+won't drm_atomic_get_new_crtc_for_encoder() return NULL and cause the
+helper to bail out silently without programming the mode?
 
->  		return false;
-> =20
->  	return dp->wide_bus_supported;
-
-[ ... ]
-
-> @@ -1386,7 +1406,7 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge =
-*drm_bridge,
->  	if (msm_dp_display->link->sink_count =3D=3D 0)
+>  	if (!crtc)
 >  		return;
-> =20
-> -	rc =3D msm_dp_display_set_mode(dp, &msm_dp_display->msm_dp_mode);
-> +	rc =3D msm_dp_display_set_mode(dp, &crtc_state->adjusted_mode, msm_dp_d=
-isplay->panel);
-
-[Severity: High]
-By moving the mode setup here into the bridge's .atomic_enable callback,
-could this cause the upstream DPU encoder to read stale wide-bus
-configuration data?
-
-The DRM atomic helper sequence executes the encoder's .atomic_enable hook
-before the bridge's .atomic_enable hook. In the encoder's enable sequence:
-
-drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:dpu_encoder_virt_atomic_enable()
-    dpu_enc->wide_bus_en =3D dpu_encoder_is_widebus_enabled(drm_enc);
-
-This calls down to msm_dp_wide_bus_available(), which checks the
-out_fmt_is_yuv_420 flag.
-
-Since the bridge hasn't updated its mode state yet via
-msm_dp_display_set_mode(), won't the encoder read the stale value from the
-previous modeset?
-
-This seems like it could incorrectly enable or disable wide bus support
-when switching between RGB and YUV420 modes, potentially leading to a
-hardware configuration mismatch and display corruption.
-
->  	if (rc) {
->  		DRM_ERROR("Failed to perform a mode set, rc=3D%d\n", rc);
->  		return;
+>  	crtc_state =3D drm_atomic_get_new_crtc_state(state, crtc);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609-dp_mstclea=
-n-v7-0-ea04113e8233@oss.qualcomm.com?part=3D2
+n-v7-0-ea04113e8233@oss.qualcomm.com?part=3D13
