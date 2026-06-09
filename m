@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A2D5CD8CB2
-	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 19:18:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 905DECD8CAD
+	for <dri-devel@archiver.kernel.org>; Tue,  9 Jun 2026 19:23:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB43810E5D7;
-	Tue,  9 Jun 2026 19:18:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED34410E3DA;
+	Tue,  9 Jun 2026 19:23:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OCn7kXGn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IrEAeJ7j";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 285B710E5D7
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 19:17:59 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5572210E3DA
+ for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 19:23:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781032679; x=1812568679;
+ t=1781032999; x=1812568999;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=MTwsqfpI91yD0Y/+0nOvP+mQrtShptVr2NvwI5cxpnA=;
- b=OCn7kXGnxujXwcPmUrC2R5vyMVOlqh7IiDCko1yC/fiS325+SL1mnE7H
- sIDul9AqFTRnWZMb4bIE3Q5rsSAT5QJDB8L4OkDd/EH0mtC5pyC/trx9u
- QnnDMrd+MiYbgtZ6GczD0zfzo784Jid5Cfw4aNwmOveA15z2QDHHXjj9G
- HhsdziRc+iz4jg7lgTitzDypnHvkDs9AoqVJoXbYDfBvYzeN5/otpwVu0
- F4BcnNEYvuWmh2QFfjJAFvKdUPwNAcTckRbwhGcbCFtJ83DcmUgSqUq76
- OlmOZurFRv1/hDeLrFXyo7QXEnwKfw4lM/k7aFWUThFf9EhgsPKV4BmXD w==;
-X-CSE-ConnectionGUID: rdl/z4zMRqOSoKoZUeqfHA==
-X-CSE-MsgGUID: 17JB9OuuSUWBf22fEPuw5g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="99227007"
-X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; d="scan'208";a="99227007"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2026 12:17:58 -0700
-X-CSE-ConnectionGUID: HucDC72aTtue2Pp5rbNfxg==
-X-CSE-MsgGUID: xJ6+Pb4NQQmRtoZsYTuqNg==
+ bh=w89bLBIHCx0Hcg7oxfK3eG1Xm1bHBwPKh+bHpE29Neo=;
+ b=IrEAeJ7jmllNXM/whGESOSDZnKX284l/skbQKH35xNH77adeRmjy0iSi
+ S5wEcbo79byZ0eCo+E8gSFOQ6pIm97anOtiydIafA1ndGvM6x5tw1JiDE
+ UNIY+TN73BA6DOEN20hdoOSfdXvxt0zRm+bTp5DTucHJYr5MOvG0vFLJz
+ 9YxN2Sjb3NDSO2sJ3vh2TSGaB3T73JtMpQueYfwtuHkZJXekoumq0KMAn
+ ajn+e00YIKPbLB6glMEy9SSTa9sJEMoU88iTXJ/u8c13YYKwueA/eSakF
+ vEeBEMcvVa6mpjBaPRhvnV6H8u1xP3dAVfGQ4aRUTt+A+9k2fwgdNXoTn g==;
+X-CSE-ConnectionGUID: 9/HbpV7uTcuCIE+vBLVn5Q==
+X-CSE-MsgGUID: jVCAkFdXQdu9eIDehY9BWA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="104475575"
+X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; d="scan'208";a="104475575"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2026 12:23:19 -0700
+X-CSE-ConnectionGUID: FMiw3kJQQ+GXszeXr56kVA==
+X-CSE-MsgGUID: 98rDPy/aQGKFlSmg6grkhA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; d="scan'208";a="276140448"
+X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; d="scan'208";a="250236458"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.245.245.162])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2026 12:17:54 -0700
-Date: Tue, 9 Jun 2026 22:17:51 +0300
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2026 12:23:14 -0700
+Date: Tue, 9 Jun 2026 22:23:11 +0300
 From: Andy Shevchenko <andriy.shevchenko@intel.com>
 To: Svyatoslav Ryhel <clamor95@gmail.com>
 Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
@@ -56,14 +56,15 @@ Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
  linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
  linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v4 10/14] mfd: lm3533: Set DMA mask
-Message-ID: <aihm315UtdqJclhh@ashevche-desk.local>
+Subject: Re: [PATCH v4 14/14] video: leds: backlight: lm3533: Support getting
+ LED sources from DT
+Message-ID: <aihoH9Pmzufa9pnE@ashevche-desk.local>
 References: <20260606045738.21050-1-clamor95@gmail.com>
- <20260606045738.21050-11-clamor95@gmail.com>
+ <20260606045738.21050-15-clamor95@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260606045738.21050-11-clamor95@gmail.com>
+In-Reply-To: <20260606045738.21050-15-clamor95@gmail.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,20 +82,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Jun 06, 2026 at 07:57:34AM +0300, Svyatoslav Ryhel wrote:
-> Missing coherent_dma_mask assigning triggers the following warning in
-> dmesg:
-> 
-> [    3.287872] platform lm3533-backlight.0: DMA mask not set
-> 
-> Since this warning might be elevated to an error in the future, set
-> coherent_dma_mask to zero because both the core and cells do not utilize
-> DMA.
+On Sat, Jun 06, 2026 at 07:57:38AM +0300, Svyatoslav Ryhel wrote:
+> Add Control Bank to HVLED/LVLED muxing support based on the led-sources
+> defined in the device tree.
 
-Hmm... I am not sure about this. The entire kernel has only two drivers that
-do that, and thanks to their commit messages one of them pointed out to the
-commit from 2018. So, if no other devices suffer from this, I think it has to
-be a better way of achieving the same.
+...
+
+>  static int lm3533_led_setup(struct lm3533_led *led)
+>  {
+> -	int ret;
+> +	u32 output_cfg_shift = 0;
+
+No need to assign the default to this.
+
+> +	u32 output_cfg_val = 0;
+> +	u32 output_cfg_mask = 0;
+> +	int ret, i;
+
+No need to add 'i'.
+
+> +	if (led->num_leds) {
+> +		for (i = 0; i < led->num_leds; i++) {
+
+		for (unsigned int i = 0; i < led->num_leds; i++) {
+
+> +			if (led->leds[i] >= LM3533_LVCTRLBANK_MAX)
+> +				continue;
+> +
+> +			output_cfg_shift = led->leds[i] * 2;
+> +			output_cfg_val |= led->id << output_cfg_shift;
+> +			output_cfg_mask |= OUTPUT_LVLED_MASK << output_cfg_shift;
+> +		}
+> +
+> +		/* LVLED1, LVLED2 and LVLED3 */
+> +		ret = regmap_update_bits(led->regmap, LM3533_REG_OUTPUT_CONF1,
+> +					 output_cfg_mask << OUTPUT_CONF1_SHIFT,
+> +					 output_cfg_val << OUTPUT_CONF1_SHIFT);
+> +		if (ret)
+> +			return ret;
+> +
+> +		/* LVLED4 and LVLED5 */
+> +		ret = regmap_update_bits(led->regmap, LM3533_REG_OUTPUT_CONF2,
+> +					 output_cfg_mask >> OUTPUT_CONF2_SHIFT,
+> +					 output_cfg_val >> OUTPUT_CONF2_SHIFT);
+> +		if (ret)
+> +			return ret;
+> +	}
+
+...
+
+> +	if (led->num_leds > 0) {
+> +		ret = device_property_read_u32_array(&pdev->dev, "led-sources",
+> +						     led->leds, led->num_leds);
+> +		if (ret) {
+> +			dev_err(&pdev->dev, "failed to get led-sources\n");
+> +			goto err_deregister;
+> +		}
+> +	}
+
+This and other pieces may benefit from local variable
+
+	struct device *dev = &pdev->dev;
+
+defined at the top of the function.
+
+...
+
+>  static int lm3533_bl_setup(struct lm3533_bl *bl)
+
+As per above.
 
 -- 
 With Best Regards,
