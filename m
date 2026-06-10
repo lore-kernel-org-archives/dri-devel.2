@@ -4,95 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B101BCD98CE
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 07:58:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 871ECCD98CD
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 07:58:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44AAD10E7B2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 850A510E79F;
 	Wed, 10 Jun 2026 07:58:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m7T+xXiF";
+	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="aT+d9Sw8";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F09610E545
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 14:58:32 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-2bf237e1433so63016755ad.1
- for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 07:58:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781017112; x=1781621912; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=eFoSbz/qa2j2QRMMIew+HXblnpoKHM6VjME/GNmQDGg=;
- b=m7T+xXiFIr38WPZTtiIYhUgs1/6nvV0Kd/kxkFJxiZscWXQJLzzZXqx/UH9Xh7iaCo
- +4v/ZiMjZ46EtGsp7W8Zn6oZpLMSjmWqpFO8CXK/0R23W3X9KEjyJU7zbhbfDb8Z6qag
- 0+rRw9bTPeOAO74rxoBD4pD7F88z+TsbWBrnnXYM/5mRzeHhGBmj02N1OIlNw/Wj8zA4
- MK5oYSbiM/tLkQEZdTc4XwG0R5cqv1cBxPCIbblNSW6VIH0BB5hqm0PAQS9O8r9oSre6
- 4l+jKo5qtcMKj0Y+0W3oXM4LTfGvhhfXHMR02tlps5E0Ntza8bY0CoIE970U3AIbckOd
- JweA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781017112; x=1781621912;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=eFoSbz/qa2j2QRMMIew+HXblnpoKHM6VjME/GNmQDGg=;
- b=dRW0yr+keeVnPunXGFZxD8g3nDoRqB85qEoK4dR7PsQx+rXS3X4s6kAvUWvaBC5t7m
- 2SKCi82py4lVOoAqIV7Wfut7mSY8z290mRo7Hy+UnjCXCJxkGgA69NIAx/GMY4vV+F0k
- a5p5gRb990frww/PwZ0wseHizQ9DtMPVyPATuCCx2Dfgini4IWCHSCGLFbeRfW1UPGbF
- LoA+KK61SCdTfVqRmjfb6drX9sGu5EtJI7Vc/yYKJhdgJ8ul8VUk0eSYfSx6bUle0Loe
- y/6GpG05x3q5prnEYR8FPK2HBn8X3z0QVkc51yKlAwZYsZnV7qTge49kMtSnYmQq2YZp
- iKVw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+PYDOdMeduGjg/QuSxrUO03ZeaF+8mS72fLFgrcd1p7UcwYnckXx3mn/TF6sk0oX4Bb+013kA7tKM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywg53F5zSTchNlZWH6EC6jUIGNI1agJX1w01uXeoXK3d21f5j4h
- iqhy5nfUW3Wp4K+x332WJQMeWK7uQSUnZcuipG9s5dnqNo5KLX8kZyQ+
-X-Gm-Gg: Acq92OH9KlB576m3w3d8kgyg9zQ+vJQpjBwshjiPnBMGJWO8eyaMGS1l3Crxh9FS50G
- mo0OHQ4EOx47rPXY2T/O0CKlQDuhbMeg30xS3ziRP1dcO4LpZWkvioY7IkTRV9vD2oY6x4JbBcw
- LGhRbW3MZUuP0kppMjCxKH5qsbaL/yhLAHyPGffzDXGPjPrFszbaSR34zAVG6qb/P4IdZgTY88Z
- laZ0nE4f+TWbxs7WOrQ+XGdnyaJbULkZaNrSIDGobLinKXM1QByNSYmWYOr5CfRlFiqdFACR1Xo
- /gzwwT8gpGht+vPgczmbqa7Uc3X/1BEee49+8VhGy0BELo5LUXhzEdustI/yNYi6WYy0yOx2dxh
- 2BjKrthNpHzvwvBgc3xjDOYn5B9Hpy+7Pun/LIyc9LphnByMOY3Ezna2nIRDN2Sq2vh3XNBuy90
- tdcnCw2ujEamlFs4Lz2qNNA2oKDoUxG45RFBelY7kjHu6KCjfDNGOXnA==
-X-Received: by 2002:a17:903:3885:b0:2c2:27be:39a9 with SMTP id
- d9443c01a7336-2c227be3b30mr199425095ad.9.1781017111918; 
- Tue, 09 Jun 2026 07:58:31 -0700 (PDT)
-Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:3::])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2c164f87920sm219844645ad.24.2026.06.09.07.58.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jun 2026 07:58:31 -0700 (PDT)
-Date: Tue, 9 Jun 2026 07:58:29 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-kselftest@vger.kernel.org, sdf@fomichev.me,
- razor@blackwall.org, daniel@iogearbox.net, almasrymina@google.com,
- matttbe@kernel.org, skhawaja@google.com, dw@davidwei.uk,
- Bobby Eshleman <bobbyeshleman@meta.com>
-Subject: Re: [PATCH net-next 2/4] udmabuf: emit one sg entry per pinned folio
-Message-ID: <aigqFQWzPkiSh3ie@devvm29614.prn0.facebook.com>
-References: <20260603-tcpdm-large-niovs-v1-0-f37a4ac6726c@meta.com>
- <20260603-tcpdm-large-niovs-v1-2-f37a4ac6726c@meta.com>
- <bdce2488-fe77-4f36-9ed6-dd2c785fa7c1@amd.com>
- <aiMY8CpckM8Jav0g@devvm29614.prn0.facebook.com>
- <0c86f5d3-b5e9-4cac-aa9d-30c5c8ecca66@amd.com>
- <CAKB00G3opAoAYswsq2uz0Q6jgku8u4NthKOzCbSumZ0qK7QxcQ@mail.gmail.com>
- <a51e97bd-39dc-492f-bd7d-f137423277df@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <a51e97bd-39dc-492f-bd7d-f137423277df@amd.com>
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B82910E6C8
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 03:25:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+ s=onoh2408; t=1781061924;
+ bh=JLHhFb+1u3Grh3AzlgjVjw4b66aNnYpDeFKauDFPJLM=;
+ h=Date:From:To:Subject:Mime-Version:Message-ID;
+ b=aT+d9Sw84loCwVFkR2d2OUEDjZVHh05GtdIyxpekOwbPhpcdyb78rdmc13VJxpIUL
+ qe35idIC+U0VKJMU4MfQto5agzYip8+mKBevN7koLL3mgmVLvFoQFKtAg6Bvr+PQVH
+ AalW2XFMEz7BvMvPUHXXP/7jaQTd4wj+Lm70qoz8=
+X-QQ-mid: zesmtpgz9t1781061919ta117eb2e
+X-QQ-Originating-IP: uRtv9acE+cTWUVqw4CUxe9la102pF0URxWNP+mzH1Rw=
+Received: from PEN002676 ( [1.202.39.170]) by bizesmtp.qq.com (ESMTP) with 
+ id ; Wed, 10 Jun 2026 11:25:17 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 10353218543330882229
+Date: Wed, 10 Jun 2026 11:25:18 +0800
+From: =?GB2312?B?1dS98MP3?= <zhaojinming@uniontech.com>
+To: sashiko-reviews <sashiko-reviews@lists.linux.dev>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>
+Subject: Re: Re: [PATCH v4 2/2] accel/rocket: Fix iommu_group leak and unsafe
+ IRQ register access
+References: <20260610030322.2802744-2-zhaojinming@uniontech.com>, 
+ <20260610031431.E8EA71F00893@smtp.kernel.org>
+X-Priority: 3
+X-GUID: C6BE6651-06DB-498D-AF2B-BE49D49047C6
+X-Has-Attach: no
+X-Mailer: Foxmail 7.2.25.542[cn]
+Mime-Version: 1.0
+Message-ID: <17A6E416FC3798D4+2026061011251435234812@uniontech.com>
+Content-Type: text/plain;
+	charset="GB2312"
+Content-Transfer-Encoding: base64
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: OWMt2c/nLqBG20plE+y1FlqwbDDW/Dy+XzTHlbeCT0Fy0+5D1hqInLeo
+ Q5gJBS5bUMUoba17psQjN5d5ywBpCr7s+Y3KkGEinxzs8XUoaZTIWtFgS6tZqZyUmlMYawH
+ BWEoVvtH/pbKxF1tBo1xRAE9Pw9xogTr9qFJCFIoESnzUiopJs0yaRABGosyeXIpl8MmArP
+ JF+YecX8b8kZH26yZMkneav5hzMsnjwtl0kG2bgsNxmZUlyQenkWy15h0ppGwI8NAkruBoo
+ VKTZhKgpAcZ/bbJvy6anGhhwrsVFDQrPSZyiX/0ooDuTbvnGQYXeUPGDeoZw3lXTgIpuK95
+ bpxm7RZpI9uAcuj0K3abvi7CqjaLQ6JpnMsIYcFq4oVVDmd0txOytXSI4WVYCkB+nUlPs0l
+ 6jngLxq/orFwuHePptBZBQWOEovx3IgeknyGeI8Pk3SPj4ludK+4hm+9dvghAkU3HO1MINM
+ 4nkrlbvIvwAOixz2pzBbQRx7D0nFBj7N7U8JlBOwTAVhVHunrH12RKmVdMHJ/se3bgFZMWQ
+ JN2CObFLezrTOreUyK53VvB5+P7SrUbvV6bcxHOFZW/eGffytCSu3FoX+/q9JWRj/1G+lOH
+ zLWEdBFEo7C7EOvzCCt5n+T4S+UGE1Do2QrNV1d46bsk7S4bqNz6b7vX1C8QPSkKFWHQuXF
+ wrQZM92mLXBrXKzSiDJSghey3g0EFh+IQREafm2Wzyl9TCcpCcqslvoq56lKFVKfk9C/vYe
+ l5hIrbv9NSXfg/hdRMNjvGGTDdj+yxQojyWZbas9f9q7DiwBHBe3/uXhEPRzMBJ86L9v7F8
+ tvSHGiZ6wIY30XkUS2531O+8F3qDq7uesoIu0c+zmwKDsrgdaseleUMszxuKGTFwFoxnGaW
+ M8Z6u4hA/yzVdXAupe0VtoSgIulEOIS8kOhtnMj1ys/PtitrpffnvvRxdml+wDI5r6YP6xg
+ VHaXY4lNqdJ+f0oCE6k64PMaXdnJqOIv0FSjrnsCXAKOjEt38oPDNp2FZ0XithQ0GFOZ/ym
+ KV92jNtPXg0AZMTCS+vZGpDLA/5LuNW6tVaE/G8w==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Wed, 10 Jun 2026 07:58:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,79 +82,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 08, 2026 at 03:59:04PM +0200, Christian König wrote:
-> On 6/8/26 15:55, Bobby Eshleman wrote:
-> > 
-> > On Sun, Jun 7, 2026 at 11:42 PM Christian König <christian.koenig@amd.com <mailto:christian.koenig@amd.com>> wrote:
-> > 
-> >     On 6/5/26 20:44, Bobby Eshleman wrote:
-> >     > On Fri, Jun 05, 2026 at 11:30:07AM +0200, Christian König wrote:
-> >     >> On 6/4/26 02:42, Bobby Eshleman wrote:
-> >     >>> From: Bobby Eshleman <bobbyeshleman@meta.com <mailto:bobbyeshleman@meta.com>>
-> >     >>>
-> >     >>> get_sg_table() emitted one PAGE_SIZE sg entry per page even when the
-> >     >>> underlying folio was larger.
-> >     >>>
-> >     >>> Instead, walk folios[] and emit one sg entry per folio. When folios
-> >     >>> represent large pages (as is for MFD_HUGETLB), each sg entry is a large
-> >     >>> page. Normal PAGE_SIZE sg tables are unchanged.
-> >     >>>
-> >     >>> Required by net/core/devmem to support rx-buf-size > PAGE_SIZE with
-> >     >>> udmabuf.
-> >     >>
-> >     >> That doesn't explain why this is required.
-> >     >
-> >     > Sure, can definitely add. Devmem currently requires dmabuf sg entries to
-> >     > be length and size aligned when it allocates niovs for NIC page pools.
-> >     > Though udmabuf is not violating any dmabuf contract by emitting
-> >     > PAGE_SIZE entries and the above restriction is probably more a
-> >     > shortfalling of devmem, by emitting a single entry per folio this patch
-> >     > allows udmabuf to be used by devmem for large pages.
-> >     >
-> >     >>
-> >     >> Please note that accessing the pages/folio of an sg-table returned by DMA-buf is illegal and strictly forbidden!
-> >     >>
-> >     >> Regards,
-> >     >> Christian.
-> >     >
-> >     > It seems both devmem and io_uring zcrx at least introspect through to
-> >     > the sg-table to build NIC page pools (not accessing the memory itself,
-> >     > however). Is there a better way?
-> > 
-> >     That's an absolute NO-GO! We need to stop that immediately.
-> > 
-> >     Touching the underlying struct page of an DMA-buf exported sg-table is strictly forbidden.
-> > 
-> >     We even have code to wrap the sg_table and hide the struct pages on debug builds to catch those issues, see function dma_buf_wrap_sg_table().
-> > 
-> >     My last status is that the NIC page pools are build directly from the DMA addresses exposed by the sg_table.
-> > 
-> >     Was there any change I'm not aware of?
-> > 
-> >     Regards,
-> >     Christian.
-> > 
-> > 
-> > Oh no change, your mental model is still current.
-> > They just go through each sg and use sg_dma_address() on each.
-> 
-> Ah, thanks! That was a near heart attack :D
-> 
-> Yeah that is perfectly correct, question is do you then still really need this udmabuf change? I mean the DMA API usually merges together contiguous DMA addresses.
-> 
-> Regards,
-> Christian.
-> 
+CgoKCj5UaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBm
+b3VuZCAyIHBvdGVudGlhbCBpc3N1ZShzKSB0byBjb25zaWRlcjoKCgoKPgoKCgo+TmV3IGlzc3Vl
+czoKCgoKPi0gW0hpZ2hdIFJ1bnRpbWUgUE0gdXNhZ2UgY291bnRlciB1bmRlcmZsb3cgZHVlIHRv
+IGluY29ycmVjdCBlcnJvciBoYW5kbGluZyBvZiBgcG1fcnVudGltZV9nZXRfaWZfYWN0aXZlKClg
+IGluIHRocmVhZGVkIElSUSBoYW5kbGVyLgoKCgo+CmNvbW1pdHOjugoKUmVnYXJkaW5nIHRoZSAt
+RUlOVkFMIGNhc2UgaW4gdGhlIHRocmVhZGVkIElSUSBoYW5kbGVyJ3MgcG1fcnVudGltZV9nZXRf
+aWZfYWN0aXZlKCkgY2FsbCBhdCBsaW5lIDQyMzoKCldoaWxlIGl0IGlzIHRydWUgdGhhdCBhIG5v
+bi16ZXJvIHJldHVybiB2YWx1ZSAoaW5jbHVkaW5nIC1FSU5WQUwpIHdvdWxkIHNhdGlzZnkgdGhl
+IGlmIGNvbmRpdGlvbiwgdGhlIGNvbmNlcm4gYWJvdXQgdW5kZXJmbG93IGRvZXMgbm90IGFwcGx5
+IGluIHByYWN0aWNlLiBUaGlzIGlzIGJlY2F1c2UgcG1fcnVudGltZV9nZXRfaWZfYWN0aXZlKCkg
+cmV0dXJucyAtRUlOVkFMIG9ubHkgd2hlbiBkaXNhYmxlX2RlcHRoID4gMCAoc2VlIHJ1bnRpbWUu
+YzoxMjM0KSwgd2hpY2ggbWVhbnMgcG1fcnVudGltZV9kaXNhYmxlKCkgaGFzIGJlZW4gY2FsbGVk
+IG9uIHRoZSBkZXZpY2UuIEluIHRoaXMgZHJpdmVyLCBwbV9ydW50aW1lX2Rpc2FibGUoKSBpcyBv
+bmx5IGNhbGxlZCBpbiByb2NrZXRfY29yZV9maW5pKCkgKHJvY2tldF9jb3JlLmM6MTAwKSwgYWZ0
+ZXIgdGhlIElSUSBoYW5kbGVyIGhhcyBiZWVuIHRvcm4gZG93biBieSByb2NrZXRfam9iX2Zpbmko
+KS4gU28gdGhlIHRocmVhZGVkIElSUSBoYW5kbGVyIGNhbiBuZXZlciBleGVjdXRlIHdoaWxlIFBN
+IGlzIGRpc2FibGVkIKGqIHRoZSB0d28gc3RhdGVzIGFyZSBtdXR1YWxseSBleGNsdXNpdmUgaW4g
+dGhlIGRyaXZlcidzIGxpZmVjeWNsZS4KCkZ1cnRoZXJtb3JlLCBldmVuIGlmIHRoaXMgdGhlb3Jl
+dGljYWwgcGF0aCB3ZXJlIHNvbWVob3cgcmVhY2hlZCwgdGhlIGtlcm5lbCdzIHJ1bnRpbWUgUE0g
+c3Vic3lzdGVtIGhhcyBhbiBleHBsaWNpdCB1bmRlcmZsb3cgZ3VhcmQgaW4gcnBtX2Ryb3BfdXNh
+Z2VfY291bnQoKSAocnVudGltZS5jOjEwNzktMTA5Nik6IGl0IGF0b21pY2FsbHkgZGVjcmVtZW50
+cyB0aGUgdXNhZ2UgY291bnQsIGFuZCBpZiB0aGUgcmVzdWx0IGlzIG5lZ2F0aXZlLCBpdCBpbW1l
+ZGlhdGVseSBpbmNyZW1lbnRzIGl0IGJhY2sgYW5kIGVtaXRzIGEgZGV2X3dhcm4uIFRoZSB1c2Fn
+ZSBjb3VudCBpcyBuZXZlciBhbGxvd2VkIHRvIGdvIG5lZ2F0aXZlLgoKVGhhdCBzYWlkLCB0aGUg
+aGFyZGlycSBoYW5kbGVyIGF0IGxpbmUgNDM3IGFscmVhZHkgdXNlcyAhPSAxIGZvciB0aGlzIGV4
+YWN0IHJlYXNvbi4gRm9yIGNvbnNpc3RlbmN5IGFuZCBkZWZlbnNlLWluLWRlcHRoLCBjaGFuZ2lu
+ZyB0aGUgdGhyZWFkIGhhbmRsZXIgdG8gdXNlICE9IDEgYXMgd2VsbCBpcyBhIHJlYXNvbmFibGUg
+aW1wcm92ZW1lbnQgYW5kIGNhbiBiZSBkb25lIGluIGEgZm9sbG93LXVwIGlmIGRlc2lyZWQuCgoK
+Cj5QcmUtZXhpc3RpbmcgaXNzdWVzOgoKCgo+LSBbSGlnaF0gUmV0dXJuaW5nIGBJUlFfTk9ORWAg
+Zm9yIHZhbGlkIERNQSBlcnJvciBpbnRlcnJ1cHRzIHdpdGhvdXQgY2xlYXJpbmcgdGhlIGludGVy
+cnVwdCBzdGF0dXMgY2F1c2VzIGEgaGFyZGlycSBzdG9ybS4KCgoKPi0tCgoKCj4KCgoKPmNvbW1p
+dCA1ZDg5OTNmNmFiZTU3OWRlN2VlYzdmNGM5ODM2NWUxMWRkMTQxYmY4CgoKCj5BdXRob3I6IFpo
+YW9KaW5taW5nIDx6aGFvamlubWluZ0B1bmlvbnRlY2guY29tPgoKCgo+CgoKCj5hY2NlbC9yb2Nr
+ZXQ6IEZpeCBpb21tdV9ncm91cCBsZWFrIGFuZCB1bnNhZmUgSVJRIHJlZ2lzdGVyIGFjY2VzcwoK
+Cgo+CgoKCj5UaGlzIGNvbW1pdCBmaXhlcyBhbiBpb21tdV9ncm91cCByZWZlcmVuY2UgbGVhayBp
+biB0aGUgSVJRIGhhbmRsaW5nIHBhdGgKCgoKPmFuZCBpbnRyb2R1Y2VzIHJ1bnRpbWUgUE0gY2hl
+Y2tzIGluIHRoZSBJUlEgaGFuZGxlcnMgdG8gcHJldmVudCB1bnNhZmUKCgoKPmhhcmR3YXJlIHJl
+Z2lzdGVyIGFjY2VzcyB3aGVuIHRoZSBkZXZpY2UgaXMgc3VzcGVuZGVkLgoKCgo+CgoKCj4+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2FjY2VsL3JvY2tldC9yb2NrZXRfam9iLmMgYi9kcml2ZXJzL2Fj
+Y2VsL3JvY2tldC9yb2NrZXRfam9iLmMKCgoKPj4gaW5kZXggY2Y5ZjYxNjgyZGQ4Yi4uNmFjNzli
+ODUxNzMxOSAxMDA2NDQKCgoKPj4gLS0tIGEvZHJpdmVycy9hY2NlbC9yb2NrZXQvcm9ja2V0X2pv
+Yi5jCgoKCj4+ICsrKyBiL2RyaXZlcnMvYWNjZWwvcm9ja2V0L3JvY2tldF9qb2IuYwoKCgo+WyAu
+Li4gXQoKCgo+PiBAQCAtNDIwLDcgKzQyMCwxMCBAQCBzdGF0aWMgaXJxcmV0dXJuX3Qgcm9ja2V0
+X2pvYl9pcnFfaGFuZGxlcl90aHJlYWQoaW50IGlycSwgdm9pZCAqZGF0YSkKCgoKPj4/IHsKCgoK
+Pj4/IAlzdHJ1Y3Qgcm9ja2V0X2NvcmUgKmNvcmUgPSBkYXRhOwoKCgo+Pj8gCgoKCj4+IC0Jcm9j
+a2V0X2pvYl9oYW5kbGVfaXJxKGNvcmUpOwoKCgo+PiArCWlmIChwbV9ydW50aW1lX2dldF9pZl9h
+Y3RpdmUoY29yZS0+ZGV2KSkgewoKCgo+PiArCQlyb2NrZXRfam9iX2hhbmRsZV9pcnEoY29yZSk7
+CgoKCj4+ICsJCXBtX3J1bnRpbWVfcHV0KGNvcmUtPmRldik7CgoKCj4+ICsJfQoKCgo+Pj8gCgoK
+Cj4+PyAJcmV0dXJuIElSUV9IQU5ETEVEOwoKCgo+Pj8gfQoKCgo+CgoKCj5bU2V2ZXJpdHk6IEhp
+Z2hdCgoKCj5Eb2VzIHRoaXMgZXZhbHVhdGlvbiBoYW5kbGUgbmVnYXRpdmUgZXJyb3IgY29kZXMg
+Y29ycmVjdGx5PwoKCgo+CgoKCj5wbV9ydW50aW1lX2dldF9pZl9hY3RpdmUoKSByZXR1cm5zIDEg
+aWYgdGhlIGRldmljZSBpcyBhY3RpdmUsIDAgaWYgaW5hY3RpdmUsCgoKCj5hbmQgYSBuZWdhdGl2
+ZSBlcnJvciBjb2RlIChzdWNoIGFzIC1FSU5WQUwpIGlmIHJ1bnRpbWUgUE0gaXMgZGlzYWJsZWQu
+IEJlY2F1c2UKCgoKPmFueSBub24temVybyB2YWx1ZSBldmFsdWF0ZXMgdG8gdHJ1ZSBpbiBDLCBh
+IG5lZ2F0aXZlIHJldHVybiB2YWx1ZSB3aWxsIHNhdGlzZnkKCgoKPnRoaXMgY29uZGl0aW9uLgoK
+Cgo+CgoKCj5JZiB0aGF0IGhhcHBlbnMsIHRoZSBjb2RlIHByb2NlZWRzIHRvIGNhbGwgcG1fcnVu
+dGltZV9wdXQoKS4gU2luY2UgdGhlIGluaXRpYWwKCgoKPmdldCBjYWxsIGZhaWxlZCBhbmQgZGlk
+IG5vdCBpbmNyZW1lbnQgdGhlIHVzYWdlIGNvdW50ZXIsIHdvdWxkbid0IHRoaXMKCgoKPnVuY29u
+ZGl0aW9uYWxseSBkZWNyZW1lbnQgdGhlIGNvdW50ZXIgYW5kIGxlYWQgdG8gYW4gdW5kZXJmbG93
+PwoKCgo+CgoKCj5Db3VsZCB0aGlzIGV4cGxpY2l0bHkgY2hlY2sgZm9yIHN1Y2Nlc3MsIHN1Y2gg
+YXMgZXZhbHVhdGluZyBpZiB0aGUgcmV0dXJuIHZhbHVlCgoKCj5pcyBzdHJpY3RseSBlcXVhbCB0
+byAxPwoKCgo+CgoKCj4+IEBAIC00MjgsMTYgKzQzMSwyNCBAQCBzdGF0aWMgaXJxcmV0dXJuX3Qg
+cm9ja2V0X2pvYl9pcnFfaGFuZGxlcl90aHJlYWQoaW50IGlycSwgdm9pZCAqZGF0YSkKCgoKPj4/
+IHN0YXRpYyBpcnFyZXR1cm5fdCByb2NrZXRfam9iX2lycV9oYW5kbGVyKGludCBpcnEsIHZvaWQg
+KmRhdGEpCgoKCj4+PyB7CgoKCj4+PyAJc3RydWN0IHJvY2tldF9jb3JlICpjb3JlID0gZGF0YTsK
+CgoKPj4gLQl1MzIgcmF3X3N0YXR1cyA9IHJvY2tldF9wY19yZWFkbChjb3JlLCBJTlRFUlJVUFRf
+UkFXX1NUQVRVUyk7CgoKCj4+ICsJdTMyIHJhd19zdGF0dXM7CgoKCj4+ICsKCgoKPj4gKwlpZiAo
+cG1fcnVudGltZV9nZXRfaWZfYWN0aXZlKGNvcmUtPmRldikgIT0gMSkKCgoKPj4gKwkJcmV0dXJu
+IElSUV9OT05FOwoKCgo+PiArCgoKCj4+ICsJcmF3X3N0YXR1cyA9IHJvY2tldF9wY19yZWFkbChj
+b3JlLCBJTlRFUlJVUFRfUkFXX1NUQVRVUyk7CgoKCj4+PyAKCgoKPj4/IAlXQVJOX09OKHJhd19z
+dGF0dXMgJiBQQ19JTlRFUlJVUFRfUkFXX1NUQVRVU19ETUFfUkVBRF9FUlJPUik7CgoKCj4+PyAJ
+V0FSTl9PTihyYXdfc3RhdHVzICYgUENfSU5URVJSVVBUX1JBV19TVEFUVVNfRE1BX1dSSVRFX0VS
+Uk9SKTsKCgoKPj4/IAoKCgo+Pj8gCWlmICghKHJhd19zdGF0dXMgJiBQQ19JTlRFUlJVUFRfUkFX
+X1NUQVRVU19EUFVfMCB8fAoKCgo+PiAtCT8/Pz8/IHJhd19zdGF0dXMgJiBQQ19JTlRFUlJVUFRf
+UkFXX1NUQVRVU19EUFVfMSkpCgoKCj4+ICsJPz8/Pz8gcmF3X3N0YXR1cyAmIFBDX0lOVEVSUlVQ
+VF9SQVdfU1RBVFVTX0RQVV8xKSkgewoKCgo+PiArCQlwbV9ydW50aW1lX3B1dChjb3JlLT5kZXYp
+OwoKCgo+Pj8gCQlyZXR1cm4gSVJRX05PTkU7CgoKCj4+ICsJfQoKCgo+Pj8gCgoKCj4+PyAJcm9j
+a2V0X3BjX3dyaXRlbChjb3JlLCBJTlRFUlJVUFRfTUFTSywgMHgwKTsKCgoKPj4gKwlwbV9ydW50
+aW1lX3B1dChjb3JlLT5kZXYpOwoKCgo+Pj8gCgoKCj4+PyAJcmV0dXJuIElSUV9XQUtFX1RIUkVB
+RDsKCgoKPj4/IH0KCgoKPgoKCgo+W1NldmVyaXR5OiBIaWdoXQoKCgo+VGhpcyBpc24ndCBhIGJ1
+ZyBpbnRyb2R1Y2VkIGJ5IHRoaXMgcGF0Y2gsIGJ1dCB3aWxsIHRoaXMgY2F1c2UgYSBoYXJkaXJx
+IHN0b3JtCgoKCj5pZiBhIERNQSBlcnJvciBvY2N1cnMgd2l0aG91dCBhIERQVSBjb21wbGV0aW9u
+PwoKCgo+CgoKCj5JZiBhbiBpbnRlcnJ1cHQgaXMgcmFpc2VkIGR1ZSB0byBhIERNQSByZWFkIG9y
+IHdyaXRlIGVycm9yLCB0aGUgY29kZSBsb2dzIGEKCgoKPndhcm5pbmcgdmlhIFdBUk5fT04uIEhv
+d2V2ZXIsIGlmIHRoZSBEUFUgY29tcGxldGlvbiBiaXRzIGFyZSBub3Qgc2V0LCB0aGUKCgoKPmhh
+bmRsZXIgcmV0dXJucyBJUlFfTk9ORSB3aXRob3V0IGNsZWFyaW5nLCBhY2tub3dsZWRnaW5nLCBv
+ciBtYXNraW5nIHRoZQoKCgo+cGVuZGluZyBpbnRlcnJ1cHQuCgoKCj4KCgoKPlNpbmNlIHRoZSBp
+bnRlcnJ1cHQgcmVtYWlucyBhc3NlcnRlZCBhdCB0aGUgaGFyZHdhcmUgbGV2ZWwsIHdvbid0IHRo
+ZSBrZXJuZWwncwoKCgo+SVJRIGNvcmUgaW1tZWRpYXRlbHkgcmUtaW52b2tlIHRoZSBoYW5kbGVy
+IGluIGFuIGluZmluaXRlIGxvb3AsIGhhbmdpbmcgdGhlIENQVQoKCgo+dW50aWwgdGhlIHNwdXJp
+b3VzIGludGVycnVwdCBkZXRlY3RvciBwZXJtYW5lbnRseSBkaXNhYmxlcyB0aGUgc2hhcmVkIElS
+USBsaW5lPwoKCgo+CgoKCj4tLSAKCgoKPlNhc2hpa28gQUkgcmV2aWV3IKGkIGh0dHBzOi8vc2Fz
+aGlrby5kZXYvIy9wYXRjaHNldC8yMDI2MDYxMDAzMDMyMi4yODAyNzQ0LTEtemhhb2ppbm1pbmdA
+dW5pb250ZWNoLmNvbT9wYXJ0PTIKCgoKPgoKCg==
 
-Hey Christian, sorry for the delay I justed want to double check what
-I'm seeing...
-
-I reverted the udmabuf patch and confirmed devmem still runs into 4K
-pages even for hugepage udmabuf. I see that the dma_map_direct() path is
-being taken, which if I am reading the code correctly results in the
-sg_dma_len(sg) inheriting sg->length directly (set by udmabuf's
-sg_set_folio(..., PAGE_SIZE) call), compared to the iommu_dma_map_phys()
-path which looks like it does merge when possible.
-
-Best,
-Bobby
