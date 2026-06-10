@@ -4,127 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E466CCD8CB9
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 10:14:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EF1CCD98C7
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 10:16:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D84A710E898;
-	Wed, 10 Jun 2026 10:14:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67F0D10E604;
+	Wed, 10 Jun 2026 10:16:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="tt6mIVXz";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="vnpuV/sA";
 	dkim-atps=neutral
-Received: from CWXP265CU010.outbound.protection.outlook.com
- (mail-ukwestazon11022096.outbound.protection.outlook.com [52.101.101.96])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F35EB10E896
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 10:14:07 +0000 (UTC)
+Received: from LO3P265CU004.outbound.protection.outlook.com
+ (mail-uksouthazon11020127.outbound.protection.outlook.com [52.101.196.127])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCCC310E604
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 10:16:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q4VYLSaDU2fWdXELHKlgAY5HM+GhpMixPiPuDZrbqgINO6UFZNGDI4KG4Cdoff5fKMuS7uHxd8lVOykJ61aIEaRwuM7/7WUBPNigrWf3ZR3rhpYO6IwTcU+aWThpq8YuPTanqnje0eY9K+Jsa7PnztFaucZvQ8doFr6fJ+yIyTOYYoDI2/jJo66KdxWZjYWGgHVvNh6wFgyOxB1kwlhcnUq4aFRAiETfgRS8V0Fay5g4cqi1+2kjuzXLMgRulo9BODeBVvixVwOzwnZU192XXQskzH3dWEBDqQAxISWhPr4HOigzWy3EoW1J2y9lcFkRTP9XyCyD8JMY7npZUzxg8Q==
+ b=v2XtNIVPMxkbOD/y52pzHSaqgh6bm2W8N8Mtm4MTe7J3yQmUz3IlYp3Z/84wUVVCHhy4X1ikzPXVwqUA5lLvUQmBO42+TUhCpw5EP/h7SwBGZU7AkROomQsZ0zwxXey5qV//mDar5sOwBJN0ETMixFhYOKkFR55g2ETq+ovvTH8yMXuy3wNDFI3asWVqebbyazCCUpDNOa8QIBOcZw9FzRQE3NclFJfvV693g1Mdlu7aMRcmnerc06FA11SOrL5Uy8rWgBJAfnY6cRy2H9oe06LFumdMVG19VNAyuZmytN9aK4K6Fz6aSI6G43OzO1p6KrI7JkewS01tj2mk8uotUQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0ix17F10bRJG4v9FVeSbRuZTMmtjt/MNYScE5U3WEEs=;
- b=zSKE06JfUrgGbOXOPh3CIPGp5I5kG3ZdxGwYqndZefKPVOJU5Ms8peqlEWGbkOqfzk6d67lPb+odVjtUCJKpwvMqEvhB+DiR4YGeN29OL3ngoU+QHud+8DZco/hO01eOD89HfWAYJc2YuITC3jI/QecyvsifKdzS7jLiKyBrQv8UUNPOypO1z3eGzn2WDfoghBW2iqNrfWNruxnuqs64tLHr3TBSrKcXs2/nyIjFWmtyxd8H+N893Ceyq0um1ZAaPfCRIgV6sIH51QIOkK6BeDz6JrAaBjdpd5gSAY/kp9AOBxivoZ2+6OaYV7yn068AR5GeMLW6UuC9GtXhI63N7A==
+ bh=iKL0l2zfhBrQKTpaCBWCiQSEFyBikGsoWR4z0Ve/BUM=;
+ b=J/K/4rP0li6ceTbC0DzaMirrqnVv/C1KY2vqBSzvLrLsHIkuYJyxcCxJjh+8ZTY2bDp04V8m6OEXZMSl5hxE9XwhhL1SYlg2gdtPMfiqG03CwmpaKK/LXVseD8UUb+OXzZwe50fS16tuW/5YDIKJs6VJDcpXLfzNT0rm0elktDa/n0Gv8CgZmVLQ/Xq9mSGGTn26nzWBWH4hqFilHSgvITOY0aOEthep3XO7wmZvu/Dx3J30TzUZuMnHiDF4ElcmIuz+Y8qsWkpGDEqyLEhwsX/+XE3HVyvwKns5ZNE+/Mde/hJeqR47amxGjKHKxkQQBnHimZy0VS2gGcaEszSpfw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0ix17F10bRJG4v9FVeSbRuZTMmtjt/MNYScE5U3WEEs=;
- b=tt6mIVXzkNCa1bCfLEMvujGAnhQ5Pk3uyB44Pt+WLBgJxbQQUWD8aNjq8UJZ2x1bVNv5p+dkyIuAfXwPJfNpoMni3YI2pDt4qFvSV0F5z/tbquMNfk1skTHax5DINqHZn9c9sGeJxe51dWpxnPVPNYZYaqw/SwsSNWQ2kzWhu2Y=
+ bh=iKL0l2zfhBrQKTpaCBWCiQSEFyBikGsoWR4z0Ve/BUM=;
+ b=vnpuV/sAGZzr3XXJiWFhCJrKY5qkeNM8B8CTZAxMekUbZ7XBQX3RDfDPaQ3EJDjqTlFqvi8QC7HXePmWVowOloqpKqhuN2NpDSM8xLNDIW07wifxXr3fb+o9Q7KS/O/y9SCVNhAvdIX2DYeCnBDtl/D1T4lbqEmUhYhtFia2uCY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27c::13)
- by CWLP265MB2209.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:6d::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Wed, 10 Jun
- 2026 10:14:04 +0000
+ by LOYP265MB2013.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:120::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.16; Wed, 10 Jun
+ 2026 10:16:31 +0000
 Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
  ([fe80::6c9e:93c8:10db:e995]) by CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
  ([fe80::6c9e:93c8:10db:e995%6]) with mapi id 15.21.0113.011; Wed, 10 Jun 2026
- 10:14:04 +0000
+ 10:16:31 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 10 Jun 2026 11:14:03 +0100
-Message-Id: <DJ5AG8OR68WR.3U4JD92SWJKPU@garyguo.net>
+Date: Wed, 10 Jun 2026 11:16:31 +0100
+Message-Id: <DJ5AI4A9XVNE.1G63OSC35Y99W@garyguo.net>
+Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH 2/4] gpu: nova-core: move GPU static information
+ acquisition to a GSP method
+From: "Gary Guo" <gary@garyguo.net>
 To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
  <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
  <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
  <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>
-Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH 1/4] gpu: nova-core: move GSP unload state to a pinned
- Gpu subobject
-From: "Gary Guo" <gary@garyguo.net>
 X-Mailer: aerc 0.21.0
 References: <20260609-boot-vram-v1-0-d9382610507a@nvidia.com>
- <20260609-boot-vram-v1-1-d9382610507a@nvidia.com>
-In-Reply-To: <20260609-boot-vram-v1-1-d9382610507a@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0264.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:194::17) To CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
+ <20260609-boot-vram-v1-2-d9382610507a@nvidia.com>
+In-Reply-To: <20260609-boot-vram-v1-2-d9382610507a@nvidia.com>
+X-ClientProxiedBy: LO4P265CA0197.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:318::13) To CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:400:27c::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CW1P265MB8877:EE_|CWLP265MB2209:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee01e68a-7705-4cf8-b57a-08dec6d90006
+X-MS-TrafficTypeDiagnostic: CW1P265MB8877:EE_|LOYP265MB2013:EE_
+X-MS-Office365-Filtering-Correlation-Id: 202588c5-db7c-4666-b7af-08dec6d957be
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|7416014|1800799024|10070799003|56012099006|4143699003|5023799004|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: f9ZqZViLjJkGf22XN4Hn1/dkys1elne3aWlXcYYuYxUkkxTgAYmxvMhIykqJefGuuOUZhH1ffEO3gOUF6BrbZjMoVcK0NSsR+DzBblSLOKsMIe4tw96VQzcCM6MiPtCquJMH5UosI97TvTGG8QQ6h3qaP6/I/NB4OkknTZ/ZgEFvveGl0UUYhtAXJukhcI7vAz74NsI7Q1moB7HxUCMCp9Gg/WkQ6WaqCMAdZOPnTiSVGp4DYGMtUdkVbaZWoO5eU7D8TsAgTGlJFD7+EO896yg41m3wnhSEhZwPysis+m22sRkC4K3wcC8ZUHmcvm87C9lOKxdYU7I7/RiGqp35ovilxSI1mjInMEq3jsnSJS5VdrOAt/pCBO/p7qGYyRONqHtYNvg7Q7+JOKHFePH3AIr6Jv7ZlMMnLKb3WVT2bnA1NDWumjQMif0fJaLlYACrG3oom6oyFeepwqQEnSHEf9Y4Tt8SNW2TmxKNLvjjpDbrYYWPma+akUclJanjLA+x+o8NtgLiqpG7D8C2q/uWGNrDErnpnY7v5/Rs8GD88a7M+n8E8bKEP4H5cam61Jyr0RW45AvVKz/ouqp621AoFKJKjfELaMFch40nQxU+bM1G+7qpNJoyZ5gqKM6xoleAd8+j5F0YZms9AzYezbiEAVRRGJfAdC8Cv/EK9I7kOVQvcYS/4x59XEIJEpHZQwqC
+ ARA:13230040|23010399003|376014|7416014|1800799024|10070799003|366016|3023799007|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: VSjEyeAQeTKVCR3TCI/ey3FzHi4X2OGV3/4IdgAvMQmRp+KmqIYdAl3LC3KQycTtIf63+/uzZNAUbbRY7sxrJq4/iXnB/hJJKJxxT2FE073RoJctXbL+4gyMVqQEw8o3bH93k+z1IHC38H1jv9LuXxI29WOaSOa7QfKkeoYTH8enurVj1qBSCu6BUUW6ARiFxug07Hy0fzknZgfGipZuPHNT1R+yQ8TUN9z3CClICF7wte/vMAUOnb6bZ88w7cC3fQc09XxnY9cEzJ8hzGGicGPg6aDpKg7dzxfbuDOkQMr83bXU10QOG5yUAMU2y9AA12cRVqiUwFKYiU/+OLdyiXZ0VVCUJ1CkY91K0f0tgVsF/wA92qT3atvjZSIG6wTpc/hxGbnnHwGMaDyzmXKtJTqDhOmidw5HXBTQWSsPvVNKKRNtbXdTFUYPiIwKibh+IMf+YIi9hIkJ711YB3BBabtKFgylUaLSpAFX6jmFWcXkh4ZP7/aLN6+1Tym6zzLoROywfv4xsS5lfE1HUsYUaYVuJ3ItCOVH0uDaBNVL620Rp1pY2Kda1mZ12iWeG0oMR3SE9V6Yp65+nUjFlAzs/z+N9ZS+nfbjJNkK7PnbYE85oxzEsuE+uqHoYsqgaAXWvD3CLb3vOWbfuV9JJddaqUz+jr8dS8zxy61qBca/h9JrX6homTLNg/crB1RdQLB1
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(10070799003)(56012099006)(4143699003)(5023799004)(6133799003)(18002099003)(22082099003);
+ SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(10070799003)(366016)(3023799007)(56012099006)(4143699003)(18002099003)(22082099003);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cWgzQWhUeHJ0czFoZkZRWE1pVERIbmU4aTI1cGlQOXBwKzVCdWFpYit6eWNX?=
- =?utf-8?B?S2R3SWlOQWxvcGUzMFN4NFlnY3BsbEEyOU50YTc4T3dxZ0IreTl6aG43bVd1?=
- =?utf-8?B?SmhtK1NaM1BZVTZrZUZLUFV3UE4wZWFpQ25yTHR0bjJrQklHdmg0UFA4bkla?=
- =?utf-8?B?WitENkRnN21lNE9vVUg5VkxwSmFoaHRBQkpncUNHVGhmT1FycHJrME9sOXRm?=
- =?utf-8?B?bFErTUg5VTJjbXBCc0ZjdzBnRjIrTWQ4VnRPMkhOY2RzTytmVUF3eE5MaEtV?=
- =?utf-8?B?UUNIUGN5RjM1ZXFoU0tOTjJvMjdQU24rRFo3NU9WTzZhZTQxeFFaMGczY2p4?=
- =?utf-8?B?bCsxak9jbENKeldlQVRtVk1wRDBZVThjcE5WZ2lpUnk3MXJSYkxGSDg0SjIw?=
- =?utf-8?B?a2VCL0hadmI2cDdZa1lYTzlHaFp6SG9yYTF5amNBZklQNU8wc3pSMG8wUXI3?=
- =?utf-8?B?cjkxcEVhUnFrTDBzTUIySFZpaS81TC9MdXFlWWFJZTRjNFVGdkRSMFMzRlZi?=
- =?utf-8?B?VlMxVzZ4MFJXM2tZQllmQVl1dmpUVUFVWkd0NFFreTRmOXQ3OW5MWEQzeVhJ?=
- =?utf-8?B?WTBRV3AxQ3VTMzgzQnpsY2I3bTdqZXhBUi9aNFdkNjJick9PSkpCSFdaZy82?=
- =?utf-8?B?QjdiZXViR1RjbjRaOHdkQkQyVlNuTWVsV0twM0phMXBCbkxwaEVaUk9sa0Rk?=
- =?utf-8?B?MC9FMmJiREx2cHM3bzlkdVJsZFJIRnB4K0pLc2llL3BEZDBoUW10N2R2ZlFo?=
- =?utf-8?B?S0lOTWtvTzNmS0ZWZ1JlSWZML21od0NaZTBlaDBkNi9GUkZmU2I2Z1NyT3o1?=
- =?utf-8?B?a1BkcEtaQ1ZMQklwUE9FZS9xUlJiUUdnVHVaK2J2UGtiY2xRMm5XMEw3MHdJ?=
- =?utf-8?B?RVhJWElYVEk0Q1FvZlBuQXYvM05wTUJHQ2xOWTNYdWE2SFc4TWppb1BMcDJr?=
- =?utf-8?B?WmJVcW1RNkY5VUFqNWtWWGRFSWNsalViWitDSDNHdkFBZWF3NjdsUzJXN1NV?=
- =?utf-8?B?bG9OaW5YVHYwS3Ruei90dndYb2UvaitNZFJtOTNsZzdXTDAzWmo0Sk03dzRn?=
- =?utf-8?B?OFdBbUE4Q3ZjZWsxQmRWZElYUnFQemtWdCt5bm5XSnpnejg5RXpuUzNqS3hU?=
- =?utf-8?B?MkdwVHpQK1RZbDZKL2FVK2h4anloZXFpRUlZeFZjQ29Bd0p0elJZYzdqMVg5?=
- =?utf-8?B?WEN6dXJtUFZ5ZDc2T3NOZXhNYW8yZW1tVTRsZEVCNVJhYXNBelcraU9NMHVU?=
- =?utf-8?B?RFArTk0xSjdSaCtvaWt2czFQZVJQUkFnby90akpCMGppYlVNT0NmYmdhRGhL?=
- =?utf-8?B?cjNBRWdMQXlvVFpUT2Mzalh6K0dPNVhDZ09CSy9aMFo3NnVFaVhmL1VualdL?=
- =?utf-8?B?ZWxCb2dpMTVidkNUTytJSFdTM280MHNaVmpnamVhd1BYd3F2WU05UXFtWjdZ?=
- =?utf-8?B?V0FUOHY5UUJrUDdZMy9PdWdOY0t5UUhDYW1IeVZXMHFnRTRNOE1VSGR0cG9P?=
- =?utf-8?B?ck9GanE4SjJMRGZZdWFTZmVDUUhXOUFYNS8rZUZiZUN1MGVDblZXUmtyNzdZ?=
- =?utf-8?B?U1BVYTFaemQ1Zkk2NDhYY3V3QXMzZjZwTHduYm9KejJGcEU4MEYySmdzTkNq?=
- =?utf-8?B?TjVjZVozRjY1a0RqbDd2Z3M3aWI4OVAwa2pFVDFhaDdNdGNhQzF1NEMzR015?=
- =?utf-8?B?TjBKakxXTitSZElrZC9QT0taVllVUXBTSkJTL0toVWxuZkgycEtMb1FyZTg5?=
- =?utf-8?B?WUlFUk0rQWQ3UWZkdDFmL0ZkMGNTNVNlNEpBNXNVQy95V3hlK1BKQ2t1UFBx?=
- =?utf-8?B?N1ZCU20vZlJmMFhVOFJFSml0UDZlU2IwSHdEd2JKVy9zdmpESjlsNi9xczUz?=
- =?utf-8?B?L0ppcENzdDQ1VFgyclVqT0ZmbkpZM1pIdUpKd3lEN3g2WU0zWFhXSTZIbk9J?=
- =?utf-8?B?TythNkhwRVJiMXVaOEFuZksvU2lEV3FqU0MwVDJQNkJmOXp0dTJPVnArRWh1?=
- =?utf-8?B?R1lkTkZlbElhRFp6UUoraWh6YW1QNXNtd2lVNXI2d1p1U2RPWmpxYWhIRklC?=
- =?utf-8?B?L1hzTmFiZW1kME9IMWtjKy9EQXBBTWNZMzc1VTBuRXhEV0Y3UThyeUs4WlRn?=
- =?utf-8?B?T2hFVE9tMXllRnp2c2FIbEFtVGVkNGk0aUdid2tyM2hiUzVDeU55RWh4Ritz?=
- =?utf-8?B?dlpENHU0Z0pNK3JTOW5hS01UZ3poVGFaRWxCazVJSVdJU2NYKzFyYTUrZzdT?=
- =?utf-8?B?akdpcjVOWFZtM0pJalF4NlE2WnY2WmtqZEc4MWNyNnlLQkJqM2plem0wRUg0?=
- =?utf-8?B?ZWh0YTlLb2huL3NQS1JQWWtWUGJDaUt1UWZBTmlCR1lURGw2bzdEUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K2ZRaWxlWFM4S3Rwb1c0TThFN1VzSUs3bHE0TGhxeUE0bXJvQkVwd0cveXpj?=
+ =?utf-8?B?V3RjVGNWSmZkNkptMkU2aEorKzFlQkJ1d1lHbnVqSlRmR2drWGhYSTZTWHlr?=
+ =?utf-8?B?cjUrWU1HUU92RmpOWHpkU2tld1NnWi84SzllQ3o0SHFmeEpVanJvQW9LSzFr?=
+ =?utf-8?B?UWVSdDRTaXZYeURVUURlZzVKZVVSMjcxeENxeldmL1RQYWVSc1BMTm4vQ0l4?=
+ =?utf-8?B?VVl5VTZkVzl2NFVSUmVWcDVNcXlrcTBzaVJyS1QzdXNtNTZPV28zVHlTdUk1?=
+ =?utf-8?B?YjhrcE4wNmRsVytxS2lRQy9mdm5PejlRNjRLQU1SaDdweDNmYVkxdTVxYXZs?=
+ =?utf-8?B?YVhJOE4wK3ZabTIrRUV2aDRqWkxVMHlKRmRtZHgwYlhFZTRJNjd1ZE1DTGU0?=
+ =?utf-8?B?blNmSVYxM2JMYjhFb0dSZE10aUQ2Q3NHK3hzUmFyaE9DejR3U0d0ZEFPaVM4?=
+ =?utf-8?B?andYeHVsemZjejM4WEI2MERLQ05PYUJmNEowNnFrQzRnRUNHS3hZTnNnNzly?=
+ =?utf-8?B?czFrYmZYZHJXQityNSs5UWNJZmt3aHBXOEpmQWZBaGdXeUVwdTlrT3VyTnha?=
+ =?utf-8?B?eVpuanUvNHBQaG1EVkRiM0VUQlpvR0pVcnYrM3BsSmYrbXVsZHB1bTMvSW8y?=
+ =?utf-8?B?dFNRTFVPUlc5aDhYNzRCNVNKUi9XWG91U1d3dHBOdHJ3a3VvTHMwc1lXZ3I5?=
+ =?utf-8?B?ZUFYc1YvTG9WUlFLREQxd1pvb3liblAwQnRON0dicUhGL2F5MGVGelVQYmNM?=
+ =?utf-8?B?N2wxaDJVbm1XaUV6M3hUem9qWVBmS1A1c1ZKei94eU5FdDFNMlpVajhJTjY3?=
+ =?utf-8?B?S0lwS0FRUzlYRXFCMVg3NjRXTzNuekVTQmJjdzcrSnIycmJETzltQmRrRTVw?=
+ =?utf-8?B?Uk56Zm9KSW9kUkU2MTY0VGg1d3N6SHdwOGQzQkdHeVlMQ0ZnMU9tMldKVlV3?=
+ =?utf-8?B?WnRrbDRCS1NSM05TMzNITk9wRk82U1VwbXZJYXBWbkZlbzhpdEYzektIbm1n?=
+ =?utf-8?B?VDNjQ0s2TjZVWEVKMU5XdFFyTGVrVDVxMk8yUHNGRHhyd3FMVUdSY3h0THh0?=
+ =?utf-8?B?M05sMUR5ajJLeEViWVdyeStpR21qVFMvTVk1azFDbHY4ZlExUUdCNGRZN0hR?=
+ =?utf-8?B?TVlrTGtDeUsrVEFhSGJETDBsck94WUdPRlA3ckk0Nmp4WjJQQnUwaDBzL2Rr?=
+ =?utf-8?B?K3A3Qzd0cm5CdUhYb3RDN0NLbEhJK3V2SnVkMzVUTTgrT3pucmZSQitWaVMx?=
+ =?utf-8?B?TXNyRnMrUkRXdkczbG9EVUZNV3pwUEh5cWEyangrTERqVC9NWFM3R1hEbHYy?=
+ =?utf-8?B?dlVaY3lPUURML0Y0eWtvc1h5VmRrOHpPV0gycmxsQlN5TUpjSVIxQ1NhRkJH?=
+ =?utf-8?B?SVVkL0JtODZNcHFPb2QvV2F1WGVLSnBBTkhwcXB0SFNSazdTczNBbStWWmJS?=
+ =?utf-8?B?NXpncGNtQ0ZaVEZTeWtmZng2MWY5N3JoaDZCK0JrZWd0S0QwL01DeWZPWFZw?=
+ =?utf-8?B?THNkVzFQSmZ6b1BpOFlJSStYMjA1NEk1UEc3Nk1iWllpdGUzaXMySjFvRlB6?=
+ =?utf-8?B?L1hEaWlzM3JWMVBIdXJPY2RIYm1sM29oMmJSSUVyRllKRnErS3p0amZqSFNu?=
+ =?utf-8?B?b09CdkREUUxQS05HSHpNQnVES1NjeDA0ZHIxZGR1ZUpmaWNNam1VaVRhODhm?=
+ =?utf-8?B?d0tGRXNacmt0QzRaNXQydGJvR0owd09sNDFQRFNyTHdtcG9GSTErTlVCa1NU?=
+ =?utf-8?B?TUdKU3oxTzkzbUhiemt1WDRZanZrR2tTQjNJMzFRLzBGSDFtVE94YlUwd3E3?=
+ =?utf-8?B?R1d5RktnVk1KNEI4Nnk2OTcyMFNaQ3RTM3d0VmlmWEYrMitNWWdRNWpzSmNG?=
+ =?utf-8?B?REV4cjdVZGlFa0dtR3NlNURYVXo4OEl1MEsyU3d0Qk1NWnN2UUF5QUpxQTZB?=
+ =?utf-8?B?akV1SWNyVitrTzEzZ3pWRmlidzg3QkJtcHhPaE44anBVcjNzam9Wb1o3YTJa?=
+ =?utf-8?B?YS9vNlgxOXZ3eWVqeDBSZkJFaUc0R2VhVmxaY3F5c29uUmNsQldYVkJvNWRO?=
+ =?utf-8?B?VVVGM3lINldLd3hXd0VJRlhBazFKcGRNMTYxeTVJc3RzZ3JHa21XeStrSStL?=
+ =?utf-8?B?dzBONnVVbzR3a3JLbkdmTkl2cmlYaEd3R0pCS21laHo0V21HblNJZldtcHVC?=
+ =?utf-8?B?TkFkZjRDeGIwV29zQ2duLzNaSmFWRjd5Z3VrZk9WdUo1SXptOFE5WC9BSW5m?=
+ =?utf-8?B?SGpTMktEZ1JGa0NKcmRFSmVHazZsd0Q4bTZ1YWlheHpFSUYvb2hVMXg4Z3hQ?=
+ =?utf-8?B?YkVmaG9SeDM0eFgyWUxBK0dRVkw3MnlYQ216RG9kMkJ4OUtZUGdNQT09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee01e68a-7705-4cf8-b57a-08dec6d90006
+X-MS-Exchange-CrossTenant-Network-Message-Id: 202588c5-db7c-4666-b7af-08dec6d957be
 X-MS-Exchange-CrossTenant-AuthSource: CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 10:14:04.4585 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 10:16:31.6359 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 49+Bkb5LRU2odp6+MpOEnE7rfgHwrQZAb+A0ik0HUyL4iDiV5b8RpQnEMTHVHurpDTEWi01Jo7NgqvLqxPYQXA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB2209
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3UbkF84i40HQNZyjqKE4yeakoJZaCZHn+xwYCyU6AfqcHUqvdzZ9UUK2sSphrCfCGFv/ASDK4IXljuaWjotEqQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOYP265MB2013
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,194 +140,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Jun 9, 2026 at 9:03 AM BST, Alexandre Courbot wrote:
-> `Gpu` currently owns the state needed to unload the GSP directly. This
-> means that `unload_bundle` has to be the last initialized field: once GSP
-> boot succeeds, any later initialization failure would leave `Gpu`
-> partially initialized, and its `PinnedDrop` implementation would not run.
+On Tue Jun 9, 2026 at 9:04 AM BST, Alexandre Courbot wrote:
+> The GSP static information is useful during regular driver runtime;
+> however it is currently obtained from `Gsp::boot`, with no elegant way
+> to pass it back to the caller.
 >
-> This prevents adding fallible `Gpu` fields that need to query the GSP
-> after it has booted.
+> Solve this by moving the code acquiring it to a dedicated method of
+> `Gsp` that can be called as soon as the `Gsp` is booted. This allows us
+> to obtain and display the static information from the `Gpu` constructor,
+> and to store the static information for later use.
 >
-> Move the GSP state and unload bundle into a dedicated pinned
-> `GspResources` object. Once that subobject has been initialized, its
-> `PinnedDrop` implementation will run even if initialization of a later
-> `Gpu` field fails, ensuring that the GSP unload sequence is executed.
+> Its location at the end of `Gsp::boot` was a bit out-of-place anyway:
+> technically, the GSP is considered booted after we have received the
+> `GspInitDone` message, so anything that happens afterwards is not part
+> of the boot sequence anymore.
 >
 > Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 > ---
->  drivers/gpu/nova-core/gpu.rs | 86 +++++++++++++++++++++++++-------------=
-------
->  1 file changed, 49 insertions(+), 37 deletions(-)
+>  drivers/gpu/nova-core/gpu.rs      | 16 ++++++++++++++++
+>  drivers/gpu/nova-core/gsp.rs      | 15 +++++++++++----
+>  drivers/gpu/nova-core/gsp/boot.rs |  7 -------
+>  3 files changed, 27 insertions(+), 11 deletions(-)
 >
 > diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-> index b3c91731db45..6b3e02c71dee 100644
+> index 6b3e02c71dee..a0cb36cdeeea 100644
 > --- a/drivers/gpu/nova-core/gpu.rs
 > +++ b/drivers/gpu/nova-core/gpu.rs
-> @@ -262,35 +262,59 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::R=
-esult {
->      }
+> @@ -23,6 +23,7 @@
+>      fb::SysmemFlush,
+>      gsp::{
+>          self,
+> +        commands::GetGspStaticInfoReply,
+>          Gsp, //
+>      },
+>      regs,
+> @@ -290,6 +291,8 @@ pub(crate) struct Gpu<'gpu> {
+>      /// GSP and its resources.
+>      #[pin]
+>      gsp_resources: GspResources<'gpu>,
+> +    /// Static GPU information as provided by the GSP.
+> +    gsp_static_info: GetGspStaticInfoReply,
 >  }
 > =20
-> -/// Structure holding the resources required to operate the GPU.
-> +/// Self-contained resources to operate and drop the GSP.
->  #[pin_data(PinnedDrop)]
-> -pub(crate) struct Gpu<'gpu> {
-> +struct GspResources<'gpu> {
->      /// Device owning the GPU.
->      device: &'gpu device::Device<device::Bound>,
-> -    spec: Spec,
->      /// MMIO mapping of PCI BAR 0.
->      bar: Bar0<'gpu>,
-> -    /// System memory page required for flushing all pending GPU-side me=
-mory writes done through
-> -    /// PCIE into system memory, via sysmembar (A GPU-initiated HW memor=
-y-barrier operation).
-> -    sysmem_flush: SysmemFlush<'gpu>,
->      /// GSP falcon instance, used for GSP boot up and cleanup.
->      gsp_falcon: Falcon<GspFalcon>,
->      /// SEC2 falcon instance, used for GSP boot up and cleanup.
->      sec2_falcon: Falcon<Sec2Falcon>,
-> -    /// GSP runtime data. Temporarily an empty placeholder.
-> +    /// GSP runtime data.
->      #[pin]
->      gsp: Gsp,
->      /// GSP unload firmware bundle, if any.
->      unload_bundle: Option<gsp::UnloadBundle>,
+>  #[pinned_drop]
+> @@ -354,6 +357,19 @@ pub(crate) fn new(
+>                  // is properly run in case of failure.
+>                  unload_bundle: gsp.boot(pdev, bar, spec.chipset, gsp_fal=
+con, sec2_falcon)?,
+>              }),
+> +
+> +            gsp_static_info: {
+> +                let gsp =3D &gsp_resources.as_ref().get_ref().gsp;
 
-I suppose this field is for unloading only? If so, you could just create a =
-new
-type that stores `device`, `bar`, `bundle` only, which works as `device` an=
-d
-`bar` are Copy.
-
-struct UnloadGuard<'gpu> {
-    deivce: &'gpu device::Device<device::Bound>,
-    bar: Bar0<'gpu>,
-    unload_bundle: Option<gsp::UnloadBundle>,
-}
-
-impl Drop for UnloadGuard {
-    ...
-}
-
-This does mean that the `device` and `bar` are stored
-repeatedly, but this way you get a very clean way of representing this: onc=
-e
-`UnloadGuard` is created unload will happen.
+What's this `as_ref().get_ref()` for? This could just be referenced as
+`&gsp_resoruces.gsp`? Or am I missing something?
 
 Best,
 Gary
 
->  }
-> =20
-> +/// Structure holding the resources required to operate the GPU.
-> +#[pin_data]
-> +pub(crate) struct Gpu<'gpu> {
-> +    spec: Spec,
-> +    /// System memory page required for flushing all pending GPU-side me=
-mory writes done through
-> +    /// PCIE into system memory, via sysmembar (A GPU-initiated HW memor=
-y-barrier operation).
-> +    sysmem_flush: SysmemFlush<'gpu>,
-> +    /// GSP and its resources.
-> +    #[pin]
-> +    gsp_resources: GspResources<'gpu>,
-> +}
 > +
-> +#[pinned_drop]
-> +impl PinnedDrop for GspResources<'_> {
-> +    fn drop(self: Pin<&mut Self>) {
-> +        let this =3D self.project();
-> +        let device =3D *this.device;
-> +        let bar =3D *this.bar;
-> +        let bundle =3D this.unload_bundle.take();
+> +                // Obtain and display basic GPU information.
+> +                let info =3D gsp.get_static_info(bar)?;
+> +                match info.gpu_name() {
+> +                    Ok(name) =3D> dev_info!(pdev, "GPU name: {}\n", name=
+),
+> +                    Err(e) =3D> dev_warn!(pdev, "GPU name unavailable: {=
+:?}\n", e),
+> +                }
 > +
-> +        let _ =3D this
-> +            .gsp
-> +            .as_ref()
-> +            .get_ref()
-> +            .unload(device, bar, &*this.gsp_falcon, &*this.sec2_falcon, =
-bundle)
-> +            .inspect_err(|e| dev_err!(device, "failed to unload GSP: {:?=
-}\n", e));
-> +    }
-> +}
-> +
->  impl<'gpu> Gpu<'gpu> {
->      pub(crate) fn new(
->          pdev: &'gpu pci::Device<device::Core<'_>>,
->          bar: Bar0<'gpu>,
->      ) -> impl PinInit<Self, Error> + 'gpu {
->          try_pin_init!(Self {
-> -            device: pdev.as_ref(),
->              spec: Spec::new(pdev.as_ref(), bar).inspect(|spec| {
->                  dev_info!(pdev,"NVIDIA ({})\n", spec);
->              })?,
-> @@ -310,38 +334,26 @@ pub(crate) fn new(
-> =20
->              sysmem_flush: SysmemFlush::register(pdev.as_ref(), bar, spec=
-.chipset)?,
-> =20
-> -            gsp_falcon: Falcon::new(
-> -                pdev.as_ref(),
-> -                spec.chipset,
-> -            )
-> -            .inspect(|falcon| falcon.clear_swgen0_intr(bar))?,
-> +            gsp_resources <- try_pin_init!(GspResources {
-> +                device: pdev.as_ref(),
-> =20
-> -            sec2_falcon: Falcon::new(pdev.as_ref(), spec.chipset)?,
-> +                bar,
-> =20
-> -            gsp <- Gsp::new(pdev),
-> +                gsp_falcon: Falcon::new(
-> +                    pdev.as_ref(),
-> +                    spec.chipset,
-> +                )
-> +                .inspect(|falcon| falcon.clear_swgen0_intr(bar))?,
-> =20
-> -            // This member must be initialized last, so the `UnloadBundl=
-e` can never be dropped from
-> -            // outside of the constructed `Gpu`, ensuring that the unloa=
-d sequence is properly run
-> -            // in case of failure.
-> -            unload_bundle: gsp.boot(pdev, bar, spec.chipset, gsp_falcon,=
- sec2_falcon)?,
-> -            bar,
-> +                sec2_falcon: Falcon::new(pdev.as_ref(), spec.chipset)?,
-> +
-> +                gsp <- Gsp::new(pdev),
-> +
-> +                // This member must be initialized last, so the `UnloadB=
-undle` can never be dropped
-> +                // from outside of the constructed `GspResources`, ensur=
-ing that the unload sequence
-> +                // is properly run in case of failure.
-> +                unload_bundle: gsp.boot(pdev, bar, spec.chipset, gsp_fal=
-con, sec2_falcon)?,
-> +            }),
+> +                info
+> +            }
 >          })
 >      }
 >  }
-> -
-> -#[pinned_drop]
-> -impl PinnedDrop for Gpu<'_> {
-> -    fn drop(self: Pin<&mut Self>) {
-> -        let this =3D self.project();
-> -        let device =3D *this.device;
-> -        let bar =3D *this.bar;
-> -        let bundle =3D this.unload_bundle.take();
-> -
-> -        let _ =3D this
-> -            .gsp
-> -            .as_ref()
-> -            .get_ref()
-> -            .unload(device, bar, &*this.gsp_falcon, &*this.sec2_falcon, =
-bundle)
-> -            .inspect_err(|e| dev_err!(device, "failed to unload GSP: {:?=
-}\n", e));
-> -    }
-> -}
-
 
