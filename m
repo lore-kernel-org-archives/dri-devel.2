@@ -4,48 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EBF6CD8CA8
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 02:55:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1781DCD8CB9
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 03:01:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90B3410E3C6;
-	Wed, 10 Jun 2026 02:55:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1132D10E6B0;
+	Wed, 10 Jun 2026 03:01:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="BVeB97sS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="buw65NS/";
 	dkim-atps=neutral
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Wed, 10 Jun 2026 02:55:45 UTC
-Received: from mail-m93210.xmail.ntesmail.com (mail-m93210.xmail.ntesmail.com
- [103.126.93.210])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21FE610E3C6;
- Wed, 10 Jun 2026 02:55:44 +0000 (UTC)
-Received: from DESKTOP-SUEFNF9.taila7e912.ts.net (unknown [221.228.238.82])
- by smtp.qiye.163.com (Hmail) with ESMTP id 41c381d5a;
- Wed, 10 Jun 2026 10:50:38 +0800 (GMT+08:00)
-From: Dawei Feng <dawei.feng@seu.edu.cn>
-To: lyude@redhat.com
-Cc: dakr@kernel.org, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn, ttabi@nvidia.com,
- Dawei Feng <dawei.feng@seu.edu.cn>, stable@vger.kernel.org,
- Zilin Guan <zilin@seu.edu.cn>
-Subject: [PATCH v2] nouveau/firmware: fix memory leak on BL load failure
-Date: Wed, 10 Jun 2026 10:50:37 +0800
-Message-Id: <20260610025037.4115412-1-dawei.feng@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9eaf7062b703a2kunmc6eba4c6156930
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGB1KVh5PTBofS09PTEgfH1YeHw
- 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlPS0hVSktISk
- 9ITFVKS0tVSkJLS1kG
-DKIM-Signature: a=rsa-sha256;
- b=BVeB97sStw69DKNXFQtYXpsIiiNTJ/xuDGVaXutLyIwGvGDWzjd81LpZ1siCwco3Lhx0d4CXRrnVANOKJZNkK799vsoxQTDDp1MBK6yEWj2OnJx4nrMqQa1+xw1xn5H+41sL0uDQ4K3WA9zOXryl89EdxTLCmhS9KJSCjJ/p/Wc=;
- c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
- bh=0pJPLwBr4j7fuUn4mvVSS8dg+sLUYiki6rsJq47kVB0=;
- h=date:mime-version:subject:message-id:from;
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C15D10E6B0
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 03:01:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id BDB9C6024D;
+ Wed, 10 Jun 2026 03:01:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E2DF1F00893;
+ Wed, 10 Jun 2026 03:01:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781060514;
+ bh=5ayOPeYHF9Nsof9FS2Ga+hKvXFOimYZ0jzIRKz1fsAc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=buw65NS/NU+lbatgUtCk6rlo5Z2wdnzthBkCaG4M8PZ0PEDnnY9wvS1VtOc1FOrjQ
+ OUhKvWBI7HjjTwA+/nVed7+W/NbfdQleN1ybN7FX/a/EtOm973wbr6uCwOZ/Ql7ryk
+ BKlNaqwFXo3Uxj8BV8UIxx1AM0NPzsloLhMqsdcu2A7A7nTr0/1OrzudAk/uE11ny6
+ NXBuMqvYeUYpvTgAcxGcgsCa8pca36aH8Ft0w0H5SfiKoOcJpZcJi9Rj4/kGDK0kDr
+ yyruhUuFv/gA70h0hlRj+zFbEqzi7l1+iGcFRjV99OMnxIRh92rXI+XkDF84bEdX8V
+ VJhrLHEN19A0A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] nouveau/firmware: fix memory leak on BL load failure
+To: "Dawei Feng" <dawei.feng@seu.edu.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260610025037.4115412-1-dawei.feng@seu.edu.cn>
+References: <20260610025037.4115412-1-dawei.feng@seu.edu.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 10 Jun 2026 03:01:53 +0000
+Message-Id: <20260610030154.4E2DF1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,72 +52,80 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-If loading the HS bootloader blob fails, nvkm_falcon_fw_ctor_hs() returns
-immediately. This skips the common cleanup path and leaks the firmware
-state allocated by nvkm_falcon_fw_ctor() and nvkm_falcon_fw_sign().
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Fix this by routing the load failure to the 'done' label so
-nvkm_falcon_fw_dtor() can properly clean up the partially initialized
-state. Keep the original image firmware in 'blob' until the common
-cleanup path, and use a separate 'blob_bl' pointer for the bootloader
-firmware so it can be released immediately after the bootloader data has
-been copied.
+Pre-existing issues:
+- [High] Missing bounds checking when parsing firmware headers allows out-o=
+f-bounds memory accesses.
+--
 
-The bug was first flagged by an experimental analysis tool we are
-developing for kernel memory-management bugs while analyzing
-v6.13-rc1. The tool is still under development and is not yet publicly
-available. Manual inspection confirms that the bug is still present in
-v7.1-rc6.
+commit 72846afc6e077321cb6e56447e8430295e342e68
+Author: Dawei Feng <dawei.feng@seu.edu.cn>
 
-An x86_64 allyesconfig build showed no new warnings. As we do not have a
-supported NVIDIA GPU with the required firmware to test this path, no
-runtime testing was able to be performed.
+nouveau/firmware: fix memory leak on BL load failure
 
-Fixes: 2541626cfb79 ("drm/nouveau/acr: use common falcon HS FW code for ACR FWs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
-Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
----
-Changes in v2:
-- Use a separate bootloader firmware pointer instead of reusing 'blob'.
-- Keep the original image firmware release in the common cleanup path.
+This patch addresses a memory leak when loading the HS bootloader blob
+fails. It routes the failure to the done label so that the partially
+initialized firmware state can be properly cleaned up rather than returning
+immediately.
 
- drivers/gpu/drm/nouveau/nvkm/falcon/fw.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/falcon/fw.c b/drivers/gpu/drm/n=
+ouveau/nvkm/falcon/fw.c
+> --- a/drivers/gpu/drm/nouveau/nvkm/falcon/fw.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/falcon/fw.c
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/falcon/fw.c b/drivers/gpu/drm/nouveau/nvkm/falcon/fw.c
-index 4e8b3f1c7e25..063469ee462f 100644
---- a/drivers/gpu/drm/nouveau/nvkm/falcon/fw.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/falcon/fw.c
-@@ -277,19 +277,20 @@ nvkm_falcon_fw_ctor_hs(const struct nvkm_falcon_fw_func *func, const char *name,
- 	fw->dmem_sign = loc - lhdr->data_dma_base;
- 
- 	if (bl) {
--		nvkm_firmware_put(blob);
-+		const struct firmware *blob_bl;
- 
--		ret = nvkm_firmware_load_name(subdev, bl, "", ver, &blob);
-+		ret = nvkm_firmware_load_name(subdev, bl, "", ver, &blob_bl);
- 		if (ret)
--			return ret;
-+			goto done;
- 
--		hdr = nvfw_bin_hdr(subdev, blob->data);
--		desc = nvfw_bl_desc(subdev, blob->data + hdr->header_offset);
-+		hdr = nvfw_bin_hdr(subdev, blob_bl->data);
-+		desc = nvfw_bl_desc(subdev, blob_bl->data + hdr->header_offset);
- 
- 		fw->boot_addr = desc->start_tag << 8;
- 		fw->boot_size = desc->code_size;
--		fw->boot = kmemdup(blob->data + hdr->data_offset + desc->code_off,
-+		fw->boot = kmemdup(blob_bl->data + hdr->data_offset + desc->code_off,
- 				   fw->boot_size, GFP_KERNEL);
-+		nvkm_firmware_put(blob_bl);
- 		if (!fw->boot)
- 			ret = -ENOMEM;
- 	} else {
--- 
-2.34.1
+[ ... ]
+
+> @@ -277,19 +277,20 @@ nvkm_falcon_fw_ctor_hs(const struct nvkm_falcon_fw_=
+func *func, const char *name,
+>  	fw->dmem_sign =3D loc - lhdr->data_dma_base;
+> =20
+>  	if (bl) {
+> -		nvkm_firmware_put(blob);
+> +		const struct firmware *blob_bl;
+> =20
+> -		ret =3D nvkm_firmware_load_name(subdev, bl, "", ver, &blob);
+> +		ret =3D nvkm_firmware_load_name(subdev, bl, "", ver, &blob_bl);
+>  		if (ret)
+> -			return ret;
+> +			goto done;
+> =20
+> -		hdr =3D nvfw_bin_hdr(subdev, blob->data);
+> -		desc =3D nvfw_bl_desc(subdev, blob->data + hdr->header_offset);
+> +		hdr =3D nvfw_bin_hdr(subdev, blob_bl->data);
+> +		desc =3D nvfw_bl_desc(subdev, blob_bl->data + hdr->header_offset);
+> =20
+>  		fw->boot_addr =3D desc->start_tag << 8;
+>  		fw->boot_size =3D desc->code_size;
+> -		fw->boot =3D kmemdup(blob->data + hdr->data_offset + desc->code_off,
+> +		fw->boot =3D kmemdup(blob_bl->data + hdr->data_offset + desc->code_off,
+>  				   fw->boot_size, GFP_KERNEL);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the firmware parsing
+code in nvkm_falcon_fw_ctor_hs() lack bounds checking?
+
+The offsets (such as hdr->header_offset, hdr->data_offset, and
+desc->code_off) and sizes (like desc->code_size) are read directly from the
+firmware blob. Because functions like nvfw_bin_hdr() and nvfw_bl_desc() do
+not take the buffer size as an argument, they cannot perform structural
+validation.
+
+Could a malformed or corrupted firmware file cause an out-of-bounds memory
+access when kmemdup() tries to copy data, or trigger an unusually large
+allocation if desc->code_size is excessively large without being validated
+against the total firmware size (blob_bl->size)?
+
+> +		nvkm_firmware_put(blob_bl);
+>  		if (!fw->boot)
+>  			ret =3D -ENOMEM;
+>  	} else {
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610025037.4115=
+412-1-dawei.feng@seu.edu.cn?part=3D1
