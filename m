@@ -4,92 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B0C4CD98C7
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 21:15:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B66A1CD98C5
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 21:15:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1C9710EBF7;
-	Wed, 10 Jun 2026 21:15:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFD1A10EBF1;
+	Wed, 10 Jun 2026 21:15:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="DU9wx6Pr";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dJyH4no5";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="DFjI0D3Y";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MOA7/mbV";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D51410EBF7
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 21:15:27 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E563610EBF1
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 21:15:36 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65AJYTUr2472905
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 21:15:27 GMT
+ 65AJYBHv2604341
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 21:15:36 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 0WiNIoHn0tPoQszF7OPT5fMxwm/uPz62m9J+Xlh/PCo=; b=DU9wx6PrSxuJQAFd
- Pwdq5CLTdkcy0tq710HkqJYRm8Wz3WwuffLj0Vm0us6+NAe7QI4JkCIn7g77rU5+
- s/Iw4Bz95Qa/bziW0P7ucKr1+/hk/ndRIdzIleU//wWu/c7WT2XnvzTm2hqHeFIr
- 99GyIrxPYyhpLwKMEOKa95kWVmrC5yGeSrVsbJ83q24ciFrNo+iYFJqB+PC67F17
- NxrloUr5uqGnxqECOoNi8GdRXfeccE1WsAt4GDecRf9c5PK/+2xNh3prfeMz0owW
- wl5BQiiqBkAz28Wk5bQYge/eO/2OnK+PXLvelOHTsy7QIDOZUJSDJo0GTXwoPC+y
- i0PCRw==
+ CK4Klk07/k4jSgiSHXB7ww53KV5gcUSDtrYkPkbQJw8=; b=DFjI0D3YeJCzsyuV
+ YDJ/oScxBxVsKNCeSqlVvYtmQ+rt+tdPDz8RpeU6TSfQBG+mVbttxjgOF4y2MBo8
+ 9YSzZmhR4tP/g+Pwhsd+Uq2AVQsfK+k8yB15R9mGz3NVdBybXHSCTi50BVoe4/uK
+ DbvGAHXWIPO6EFeQ+aEqBN5MAm0w7RSYmaW3UkwpoNHvOBMrUXQvd7fa0htfzpLB
+ iU6cmAT/TLaRl3k6oOO56DwA68fjJjWU98pDcC/40Pr72cuk27ZvqM3G8TjWkdm9
+ 0yhu1Cfvidcu7AtMbZJLPwiKPDHdl3sKKOUESmfn/EWJ0gBdpLBNnYg2e9ZPQXO8
+ fmUb1w==
 Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
  [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqe6v8bma-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqe6u0brt-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 21:15:27 +0000 (GMT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 21:15:35 +0000 (GMT)
 Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-36d99629fd6so11666518a91.1
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 14:15:27 -0700 (PDT)
+ 98e67ed59e1d1-36bbdcf36f0so188702a91.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 14:15:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1781126127; x=1781730927;
+ d=oss.qualcomm.com; s=google; t=1781126135; x=1781730935;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=0WiNIoHn0tPoQszF7OPT5fMxwm/uPz62m9J+Xlh/PCo=;
- b=dJyH4no5qFXn32ovNF6wISsTSomR1QpQd/X7p+2mpEiv2W0hKa/h8+OhcSZzx6qTrc
- SvIHZ1JtFgeHEZoBcv4wefw6beqCqD1Mb436a9rpBnOXqgXgCeAGYh7o/hh9aoCFDXC7
- wGJY/g/HZVo5EoOjgUQ3yCW+SmFP4URh28KfR/VQYDKE2wlLzhUszyOLeEVvwE3FTYa5
- X3AFZHS3oLbEeicksnbzc1fV6Re6khMtCFWYlYO7Jyi2M04BA/9RIYCay/PyEAM4QPp5
- 4Wsr7F5xlmz2moQSp/iJBGFOj2iUUhkheg8tVacHsAlbp2GGGrP0+12hW5yGh7zIXBHM
- wq+A==
+ :reply-to; bh=CK4Klk07/k4jSgiSHXB7ww53KV5gcUSDtrYkPkbQJw8=;
+ b=MOA7/mbVjeVo+VYGpOk0M2O0y7oQK/wcv8FAkhDaTTdFxCnZt7ggE96680rYx+n9T3
+ jC1Y2t4USOI6jwmt4KB2CGa1Qkn/vcfCq2IUritDEtT/3TDrhXBYBcDRiMTOmO9GPATt
+ OK21drxGGDUnL5weEIDtqzLdE2m5PR9MpwCinh+60ZTESaCOwSPdkIK2nqy83OIAgENF
+ 5kCKaQ7Mtp1HtfkAixqnERsj9tMQrXmUE1HS6tc+U7TEOtrUNym7gut2vJDoS3TiYQNp
+ GFNLWThko/0Td+gnMZIZrJwsjOQL3Y20vQiUkD+HjSgjNSvsl/FWpnBYtx6e8TSJaDiL
+ 6hbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781126127; x=1781730927;
+ d=1e100.net; s=20251104; t=1781126135; x=1781730935;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=0WiNIoHn0tPoQszF7OPT5fMxwm/uPz62m9J+Xlh/PCo=;
- b=pw9mC1RX28vXMmrSOsJrUuPsC6T5D2tOREMFS/BMKBTYtyja6sO3gK7zTKhLzkRXfC
- N2riQsww+GD17r6BLwWKNVVMqH//jEkHgUCzR0YfpQPSDU3m2ZgI4z45NUaxfgN6oRvQ
- R1sR8GLJBFxD5X8QFOhkXBsvbCmNITgu5+X25H3Ogd1SdlDrvuzcidmMeXuhi2CIpyKz
- 0n2UzAYarp56bOfQrLuuEUYqsy91hFzvEr3JZbW6KCm2tOf+wfUFxFj85sM03tDa9iOj
- 88wU6HA4MpwYuicJi2sOF1RyVRzNphjwpKWY6vKaQuCN2n6KKBcj9RyIAzcNxtI5sxkz
- pltg==
-X-Gm-Message-State: AOJu0YyEZ3OjWd+HgUxw9P7dxTlPmmW+cMHSelYRhstl1Md/vIlaiZQW
- Q535DIu19rT7Kn8eUKGmMy0uT5cDnQ4d5E3/6345Xl6vkcWeJtOseVk8r/clm4Zxip5ebEbW152
- VtyjvmZkUZQ6iIbKC+fUxS1QIh7LOYxBkPZt0TDWYkng/4nLVYKgVmrLsieK1r8EsnEu++sU=
-X-Gm-Gg: Acq92OEzfthor7LP7Rc4mW9QKClvPmuHkwfLlF19asHe9yU0/zMYbKgO3fFmfmblLWa
- 5o4x7zL4aaTmUc3OxRCHG7D8p42NyESxoOyrvOm6PSxiLLX72HC5QnZm63FwAtJOB9ftqbiGfa5
- Qpn6UanmBHWRClG+ts/5ncH9ElFsDF7so1bdmLB2FMC7dfqrTO0AmVMNuvU+s6IekNq+sF1o+oc
- zXsSJKGeJwcXxPoPLGFiRew2cUXWxXNfCg1Q6CmUQVkVR2ee5E/vvbNLRIcFMTgs4/mX+xfpg8+
- tEXpoWx5Yts+9h/lJjD9L/L2Qc8jmfnCkVP5SyvGxSxz9ba7NWG/iPbbC9c9ibzoUfdIR46/P0e
- hkXXsHHFL6jkLbYDQCDFX+WkfKBPEx3WUi8ZxYYcCxkQDAKkXEBA51V5M/g==
-X-Received: by 2002:a17:90b:4c41:b0:36d:b12f:613c with SMTP id
- 98e67ed59e1d1-37746e0873fmr847486a91.10.1781126126621; 
- Wed, 10 Jun 2026 14:15:26 -0700 (PDT)
-X-Received: by 2002:a17:90b:4c41:b0:36d:b12f:613c with SMTP id
- 98e67ed59e1d1-37746e0873fmr847448a91.10.1781126126014; 
- Wed, 10 Jun 2026 14:15:26 -0700 (PDT)
+ bh=CK4Klk07/k4jSgiSHXB7ww53KV5gcUSDtrYkPkbQJw8=;
+ b=GKUReg3j63eEIwRAOTUUiW+379d+L4hO35jWvOIa4IC8wHumGwsKzMGrlAQVezUj+o
+ f/wkn0GZIVePNiqKXJvtZ11P8inJrno0CCYcOIsGHHA9xUuzQkBrg9cfsS8UTWp5kjqQ
+ kkF+zDADTM7uKTJ53cwHFPgVRP6Oby7FYKvq2vq+/UbzV3FOlXtqcW3WA7GWjwmylYXI
+ 9U5TfAyha8En0l5IPRHTt3fn6X9PKzVjnJa7C0legzdVt6xFeSKbWRY4OkY0T1DM10S/
+ Ekrp9JNEWFSU8xVZJrKbYVpZrrO6YCIuzLBEUrcNe1tRFBFWw3JnWLJoeWBaC2E/YqgQ
+ kR4g==
+X-Gm-Message-State: AOJu0YwR5wquRtY/6uHlYoYwf1UN63XF8XHRlmgpzr8jy721QK/pdD9P
+ ALXQhzGYvG1Qv+gtniqOodGj9BqGthHDJFJ1nc2W9g+RjuaN/gvsUiJ4gCBpmxmNHSEEOx91Uzr
+ DCs+lQBIzl25jF5KaIHpXEfiH5SXtMdJ9AZ9O7pijOKGVlV/1gzb6mfjBTK7yMQKkwYIxjbc=
+X-Gm-Gg: Acq92OGBUM9TwQ+OTP9sJgK3iw+0FQUc/IykmBnO+6+4mrgT6X4gqiD+YBN70mFBceL
+ +2+kC5Eqp8rSbqbuz6h7ehr8b+NCVCbviUuiq6xtYzWKCOpq8p2lwZBjf20kJswpcNx5MLbhvLq
+ 7ZtVd0CJadDDWExgZPYY3NQ/eqEYAhAuZ6BICCe6y4hEbumfDNbBWujs6Ss9VdxOwij5B3ZCgnY
+ ipDJm0K3O+oGABBsw2zwpPS3pdgRNrNVYs3yUAHRMxrzfLP6UZ+iPR6d2DcNyS0HypUlBmVuWff
+ lIXAeTOfjW2np0dTT/MpEfomtK2z6H4y+Gylb8hFaLmbFP9h4lp62T9GGOuvFTsLbZ78a2AFhs3
+ wOjlfF/JhLWf1k9uWGLETQDSl6oGN7QxJqm97ZwBctc5z+WVn+RG7lanupw==
+X-Received: by 2002:a17:90b:3804:b0:373:302d:3ce6 with SMTP id
+ 98e67ed59e1d1-3776a6cc810mr315527a91.8.1781126133072; 
+ Wed, 10 Jun 2026 14:15:33 -0700 (PDT)
+X-Received: by 2002:a17:90b:3804:b0:373:302d:3ce6 with SMTP id
+ 98e67ed59e1d1-3776a6cc810mr315503a91.8.1781126132511; 
+ Wed, 10 Jun 2026 14:15:32 -0700 (PDT)
 Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-37753d01cc6sm309490a91.11.2026.06.10.14.15.19
+ 98e67ed59e1d1-37753d01cc6sm309490a91.11.2026.06.10.14.15.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Jun 2026 14:15:25 -0700 (PDT)
+ Wed, 10 Jun 2026 14:15:32 -0700 (PDT)
 From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-Date: Thu, 11 Jun 2026 02:44:58 +0530
-Subject: [PATCH 3/4] drm-bridge: lontium lt9611c: fixes and improvements
+Date: Thu, 11 Jun 2026 02:44:59 +0530
+Subject: [PATCH 4/4] drm/bridge: lontium-lt9611c: Add DSI port selection
+ via DT property
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260611-lt9611-b4-send-v1-3-42abbcd3bb1e@oss.qualcomm.com>
+Message-Id: <20260611-lt9611-b4-send-v1-4-42abbcd3bb1e@oss.qualcomm.com>
 References: <20260611-lt9611-b4-send-v1-0-42abbcd3bb1e@oss.qualcomm.com>
 In-Reply-To: <20260611-lt9611-b4-send-v1-0-42abbcd3bb1e@oss.qualcomm.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -107,33 +108,34 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
  boss@oss.qualcomm.com, qc-display-maintainer@oss.qualcomm.com
 X-Mailer: b4 0.15.2
-X-Proofpoint-ORIG-GUID: agMSssRsch9tJiDGyJAoVxxe1W8dQlMi
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEwMDIwNCBTYWx0ZWRfXxL4BFdg7mKpP
- kBGAyG4/6nXbbSJtH3mwEw8Iovsx1h1A1v9lwf8EdmDKSy0ZZAAzvLVsVMrSXlSkU4ZY3oCQT/F
- 0lndPqcGMNZ7qCCsWYzKTSiWLYBnKiI=
-X-Proofpoint-GUID: agMSssRsch9tJiDGyJAoVxxe1W8dQlMi
-X-Authority-Analysis: v=2.4 cv=UsRT8ewB c=1 sm=1 tr=0 ts=6a29d3ef cx=c_pps
+X-Authority-Analysis: v=2.4 cv=PZPPQChd c=1 sm=1 tr=0 ts=6a29d3f7 cx=c_pps
  a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=wg3Ek5SRs51OoikjvKEA:9 a=QEXdDO2ut3YA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=Xheu9sz8Ka-PZ7GlfuwA:9 a=QEXdDO2ut3YA:10
  a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEwMDIwNCBTYWx0ZWRfX9aawSqsTTo8k
- N+CaLCOfWHsjlAEFTkKF5t0CL0F1EH+zCQ8C7sIoSeF28bY7m2fOC4dCi0v6BXD3mpHgRkPBeKv
- XOip9nCRVhMu7FbK1RD/c4/CPChXYIbtMpK9x7AinAgYZej9i4lVUM4T2hXlgNaQQum9NabhSLr
- BuYOA+4WGdziE/jXDmMeG6qfsDQGrk1vbliMKCE9eBd29j/HNiJzvm7jweTN8b6zv6NyWmRVU0Z
- S4CcRzFgpxhD+nvW6dtFfOE/tK4GNKvHGMzsZrbWBQAib85j0fC/Xrofz/bDZxH6epNMBlzXmU9
- Mo8h/9N2dG7vb51FX3Dc9+opbU21dH6+0paf54ZCgfKSxbu0MnTUSi/Cau7EXV/VdswBNTm/gue
- +lPipadUNH3eo2JtaJpZdd1We7OO7Gek/Mqfwe5sewnf9eDqUbStp1OPTmGoWoASgRWhbJtxRMt
- sZcYWpSEXRvT4BAlCjw==
+X-Proofpoint-ORIG-GUID: dwlr0tESGg9rW9i4SWVHavBH1nr7tMqt
+X-Proofpoint-GUID: dwlr0tESGg9rW9i4SWVHavBH1nr7tMqt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEwMDIwNCBTYWx0ZWRfX2iK7xVXtcR5u
+ J8dOF3RQUGI0e0saTVLpxnZFwZ9M2cJpXyYa6hYnozb7R6i+f62KyaccqOHhGgeNwOxCwqbWXcH
+ gq3TimTG+9cf7aS3sBisVjzoFct4YL4DOP/EZBk95aNuHNxDwQTuZrvAPFqkxdfPPoaxyDU8iN4
+ hHzhXVLjak8a6xu2wyh4zgc4wltRxvHxgbcxB+RZrff8KNNRY5RCjCBuHZk5gWK6UJKbCA/kFty
+ bQ3LgVXvJTDpFVnOY2Sf3yQtcLmJF1au1d0vTZLn/17335RyUXq17kFqo2mGqFOuutv1EznPByP
+ F3b02gVwpmrtFVU4mYriueQTA702DfNrQQyKd7yo9qRqyhciJ4/AEiuhJvxbjXPqWQ57H5AQdjU
+ fQmMrgixyMOZf4qMvlJeq8NMHei0KM/Qgkkp02By8LnsOixHBP2BEa5mgatNhHHOeQQgQU/X6EO
+ gJpoFTqbNTlZ0E17c6g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEwMDIwNCBTYWx0ZWRfX4H95G4y7FmtS
+ JQ7M3qVUF3F38IRiz3XrK35Peqq/gTai8zaT4eW8jp5Fw9qBaEt1pdqBEjYC9MjQULIxE6w7oFd
+ R+bc7psLxIEfZaliriB6NodptCl6OLw=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-10_04,2026-06-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 clxscore=1015 lowpriorityscore=0 spamscore=0
- adultscore=0 bulkscore=0 suspectscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606100204
+ impostorscore=0 malwarescore=0 priorityscore=1501 adultscore=0
+ lowpriorityscore=0 clxscore=1015 phishscore=0 spamscore=0 suspectscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
+ definitions=main-2606100204
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,124 +151,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Remove two redundant lt9611c_reset() calls:
+Some board designs connect only DSI port B, or both DSI ports A and B,
+to the LT9611C. Add support for a 'lontium,port-select' DT property that
+allows the board DTS to specify which DSI port(s) the chip should use:
 
-1. In lt9611c_bridge_atomic_pre_enable(): a reset is already performed
-   during probe and resume; calling it again on every display enable
-   adds ~440ms of unnecessary latency.
+  0 = PORT_SELECT_A  (default, single DSI port A)
+  1 = PORT_SELECT_B  (single DSI port B)
+  2 = PORT_SELECT_AB (dual DSI ports A+B)
 
-2. At the end of lt9611c_probe(): a reset was already performed earlier
-   in probe before lt9611c_lock(). The second reset is redundant.
+When the property is absent the driver defaults to PORT_SELECT_A (0),
+preserving backward compatibility with existing DTS files.
 
-Also, the DRM HDMI bridge framework requires hdmi_write_hdmi_infoframe and
-hdmi_clear_hdmi_infoframe callbacks for HDMI vendor-specific infoframe
-(VSI) support, used for features such as HDR metadata signalling.
-
-This patch add stub implementations that return success. Wire them into the bridge
-function table.
-
-Also, Store the chip variant enum value in the of_match_table .data field and
-retrieve it via of_device_get_match_data() when probing from a DT node.
-Fall back to i2c_device_id.driver_data for non-DT (e.g. ACPI) probe
-paths.
-
-This is the standard kernel pattern for passing per-compatible data
-through the OF match table, and avoids relying solely on the I2C device
-ID table for chip type detection when DT is available.
-
-Populate bridge.vendor and bridge.product so the DRM HDMI framework can
-report the correct manufacturer and product name in the HDMI connector
-properties (visible via xrandr --prop and related sysfs entries).
+The selected port is programmed into the chip via lt9611c_select_port()
+during probe, after the chip ID has been verified.
 
 Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
 ---
- drivers/gpu/drm/bridge/lontium-lt9611c.c | 31 ++++++++++++++++++++++++++-----
- 1 file changed, 26 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/bridge/lontium-lt9611c.c | 44 ++++++++++++++++++++++++++++++++
+ 1 file changed, 44 insertions(+)
 
 diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-index b0402726367e..fe51f4978546 100644
+index fe51f4978546..5d67bb7391fb 100644
 --- a/drivers/gpu/drm/bridge/lontium-lt9611c.c
 +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-@@ -622,7 +622,6 @@ static void lt9611c_bridge_atomic_pre_enable(struct drm_bridge *bridge,
- 	ret = regulator_bulk_enable(ARRAY_SIZE(lt9611c->supplies), lt9611c->supplies);
- 	if (ret)
- 		dev_err(lt9611c->dev, "regulator bulk enable failed.\n");
--	lt9611c_reset(lt9611c);
+@@ -41,6 +41,12 @@ enum lt9611_chip_type {
+ 	CHIP_LT9611UXD,
+ };
+ 
++enum lt9611c_PORT_SELECT {
++	PORT_SELECT_A  = 0,
++	PORT_SELECT_B  = 1,
++	PORT_SELECT_AB = 2,
++};
++
+ struct lt9611c {
+ 	struct device *dev;
+ 	struct i2c_client *client;
+@@ -60,6 +66,8 @@ struct lt9611c {
+ 	enum lt9611_chip_type chip_type;
+ 	 /* HDMI cable connection status */
+ 	bool hdmi_connected;
++	/* Selected DSI port configuration */
++	int selected_port;
+ };
+ 
+ DECLARE_CRC8_TABLE(lt9611c_crc8_table);
+@@ -115,6 +123,34 @@ static int lt9611c_read_write_flow(struct lt9611c *lt9611c, u8 *params,
+ 				return_count);
  }
  
- static void lt9611c_bridge_atomic_enable(struct drm_bridge *bridge,
-@@ -777,6 +776,17 @@ static int lt9611c_hdmi_clear_avi_infoframe(struct drm_bridge *bridge)
- 	return 0;
- }
- 
-+static int lt9611c_hdmi_write_hdmi_infoframe(struct drm_bridge *bridge,
-+					     const u8 *buffer, size_t len)
++static int lt9611c_select_port(struct lt9611c *lt9611c, int port_select)
 +{
-+	return 0;
-+}
++	int ret;
++	u8 set_port_select_cmd[6] = {0x57, 0x4d, 0x31, 0x3a, 0x01, 0xc0};
++	u8 set_port_select_ret[5];
 +
-+static int lt9611c_hdmi_clear_hdmi_infoframe(struct drm_bridge *bridge)
-+{
-+	return 0;
-+}
-+
- static int lt9611c_hdmi_write_audio_infoframe(struct drm_bridge *bridge,
- 					      const u8 *buffer, size_t len)
- {
-@@ -895,6 +905,8 @@ static const struct drm_bridge_funcs lt9611c_bridge_funcs = {
- 	.hdmi_tmds_char_rate_valid = lt9611c_hdmi_tmds_char_rate_valid,
- 	.hdmi_write_avi_infoframe = lt9611c_hdmi_write_avi_infoframe,
- 	.hdmi_clear_avi_infoframe = lt9611c_hdmi_clear_avi_infoframe,
-+	.hdmi_write_hdmi_infoframe = lt9611c_hdmi_write_hdmi_infoframe,
-+	.hdmi_clear_hdmi_infoframe = lt9611c_hdmi_clear_hdmi_infoframe,
- 	.hdmi_write_audio_infoframe = lt9611c_hdmi_write_audio_infoframe,
- 	.hdmi_clear_audio_infoframe = lt9611c_hdmi_clear_audio_infoframe,
- 
-@@ -1025,6 +1037,13 @@ static int lt9611c_probe(struct i2c_client *client)
- 	lt9611c->dev = dev;
- 	lt9611c->client = client;
- 	lt9611c->chip_type = id->driver_data;
-+
-+	if (dev->of_node) {
-+		lt9611c->chip_type = (uintptr_t)of_device_get_match_data(dev);
-+	} else {
-+		lt9611c->chip_type = id->driver_data;
++	if (port_select == PORT_SELECT_B) {
++		set_port_select_cmd[5] = 0x40;
++	} else if (port_select == PORT_SELECT_AB) {
++		set_port_select_cmd[4] = 0x02;
++		set_port_select_cmd[5] = 0xd0;
++	} else if (port_select != PORT_SELECT_A) {
++		return -EINVAL;
 +	}
 +
- 	ret = devm_mutex_init(dev, &lt9611c->ocm_lock);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to init mutex\n");
-@@ -1111,6 +1130,9 @@ static int lt9611c_probe(struct i2c_client *client)
- 			DRM_BRIDGE_OP_HDMI_AUDIO;
- 	lt9611c->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
- 
-+	lt9611c->bridge.vendor = "Lontium";
-+	lt9611c->bridge.product = "LT9611C";
++	/* MCU must be running (0xe0ee=0x00) for lt9611c_read_write_flow */
++	guard(mutex)(&lt9611c->ocm_lock);
 +
- 	lt9611c->bridge.hdmi_audio_dev = dev;
- 	lt9611c->bridge.hdmi_audio_max_i2s_playback_channels = 8;
- 	lt9611c->bridge.hdmi_audio_dai_port = 2;
-@@ -1136,7 +1158,6 @@ static int lt9611c_probe(struct i2c_client *client)
- 	lt9611c->hdmi_connected = false;
- 	i2c_set_clientdata(client, lt9611c);
- 	enable_irq(client->irq);
--	lt9611c_reset(lt9611c);
++	ret = lt9611c_read_write_flow(lt9611c, set_port_select_cmd,
++			ARRAY_SIZE(set_port_select_cmd),
++			set_port_select_ret,
++			ARRAY_SIZE(set_port_select_ret));
++	if (ret < 0 || set_port_select_ret[4] == 0)
++		return ret < 0 ? ret : -EIO;
++
++	return 0;
++}
++
+ static void lt9611c_config_parameters(struct lt9611c *lt9611c)
+ {
+ 	const struct reg_sequence seq_write_paras[] = {
+@@ -924,6 +960,10 @@ static int lt9611c_parse_dt(struct device *dev,
  
- 	return 0;
+ 	lt9611c->dsi1_node = of_graph_get_remote_node(dev->of_node, 1, -1);
  
-@@ -1214,9 +1235,9 @@ static struct i2c_device_id lt9611c_id[] = {
- };
++	if (of_property_read_u32(dev->of_node, "lontium,port-select",
++				 &lt9611c->selected_port))
++		lt9611c->selected_port = 0;
++
+ 	return drm_of_find_panel_or_bridge(dev->of_node, 2, -1, NULL, &lt9611c->bridge.next_bridge);
+ }
  
- static const struct of_device_id lt9611c_match_table[] = {
--	{ .compatible = "lontium,lt9611c" },
--	{ .compatible = "lontium,lt9611ex" },
--	{ .compatible = "lontium,lt9611uxd" },
-+	{ .compatible = "lontium,lt9611c",   .data = (void *)CHIP_LT9611C   },
-+	{ .compatible = "lontium,lt9611ex",  .data = (void *)CHIP_LT9611EX  },
-+	{ .compatible = "lontium,lt9611uxd", .data = (void *)CHIP_LT9611UXD },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, lt9611c_match_table);
+@@ -1070,6 +1110,10 @@ static int lt9611c_probe(struct i2c_client *client)
+ 
+ 	lt9611c_reset(lt9611c);
+ 
++	ret = lt9611c_select_port(lt9611c, lt9611c->selected_port);
++	if (ret < 0)
++		dev_err(lt9611c->dev, "failed to select port %d\n", lt9611c->selected_port);
++
+ 	lt9611c_lock(lt9611c);
+ 
+ 	ret = lt9611c_read_chipid(lt9611c);
 
 -- 
 2.34.1
