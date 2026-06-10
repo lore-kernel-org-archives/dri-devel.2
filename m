@@ -4,49 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABAA3CD98CC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7F4FCD98D5
 	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 10:49:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CECA310EE53;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4B7B10EE59;
 	Thu, 11 Jun 2026 10:49:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sms-medipool.de header.i=@sms-medipool.de header.b="MBlILbA6";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="Y+ffWGv8";
 	dkim-atps=neutral
-Received: from mail.sms-medipool.de (mail.sms-medipool.de [178.63.14.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30BB310EB7A
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 17:58:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sms-medipool.de;
- s=mail; t=1781113690;
- bh=aGIuEo52oGTAKHQCGB8qB3lP7UFewXmefo1KMtagL90=;
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9CFE10EAB6
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 15:50:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1781106303;
+ bh=Y5kBW1vxNXDE6JRXBcV0sBowQzBU5fXbOfu7RYwBVRQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MBlILbA6hY41v6iCtb28Q56RxQTguhihsO0FeDaH5ys9uzNtwfslkaP3/vf5cdqLw
- r4Koi0ZJNpVlqD48IiM8VD4v+PIqkjpsPHqdmCmZUX5pj4TouRSagZSUXHOwLwYrgf
- E/SV+Fuj8qdqOStdSitvadH3+36I2Tw2/6EaGNxcBLoDrhILusVPt4pqqteJEAg7a7
- QIsAvwfWbv5+0uVrRUd645Bm8GQlxPxJx7uv2If3O18vmK7fyjbGXFdyOegfkQ2KCn
- RLnDUWQPn3LK8nyRuz3hzqcl0LVZWGTul2fuK0QWRgZVpucnp3twlrlwb5rnlkJwpk
- +8+wMhucLAc5Q==
-Received: from mail.stoss-medica.de (mail.stoss-medica.de [213.147.17.40])
- by mail.sms-medipool.de (Postfix) with ESMTPS id D0A8811D48;
- Wed, 10 Jun 2026 19:48:09 +0200 (CEST)
-Received: from NUC16-Linux.sb.golima.de ([95.88.98.111])
- by mail.stoss-medica.de (Kerio Connect 10.0.8 patch 2) with ESMTP;
- Wed, 10 Jun 2026 19:48:08 +0200
-From: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
-To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Cc: Imre Deak <imre.deak@intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, alexander.kaplan@sms-medipool.de
-Subject: [PATCH 1/2] drm/dp: Add quirk for Synaptics PCONs failing channel EQ
- at RBR
-Date: Wed, 10 Jun 2026 19:48:06 +0200
-Message-ID: <20260610174807.6231-2-alexander.kaplan@sms-medipool.de>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260610174807.6231-1-alexander.kaplan@sms-medipool.de>
-References: <20260610174807.6231-1-alexander.kaplan@sms-medipool.de>
+ b=Y+ffWGv868slujFWV5zuulzhwGAZ1Q7EKf6Y6XNIJbaFt1u9yxffsBQ39HrQOX6+c
+ KsDoBkSz4VxRFqLvhhuV4gGj90D10geNMa8k7tLgPDrOIEc/IolNDUEdkBnRBaVhFG
+ oRXzTmhY8M2JapiGu8m9qjM7omF2pIK5F2vrNATXUQB5zW/jTOR3IsSSletWuLG3uR
+ xX68poepfetCcscEVEgOSHevmtBSLBkknXbeZ+iYcv5lFPegkC1bQMpVul48HXICAI
+ 6bQBnf4PWaIN5phsfoB4KWtEKTiDS3oQr6/+0VG1YMTgNe60pPaDeE3yRN4loTWdGE
+ ycrpjf7MGkCYw==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4gb98G16N4z4x98;
+ Thu, 11 Jun 2026 01:45:01 +1000 (AEST)
+From: Matt Evans <matt@ozlabs.org>
+To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>
+Cc: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
+ Ankit Agrawal <ankita@nvidia.com>, Pranjal Shrivastava <praan@google.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+Subject: [PATCH v3 9/9] vfio/pci: Add mmap() attributes to DMABUF feature
+Date: Wed, 10 Jun 2026 16:43:23 +0100
+Message-ID: <20260610154327.37758-10-matt@ozlabs.org>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260610154327.37758-1-matt@ozlabs.org>
+References: <20260610154327.37758-1-matt@ozlabs.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 11 Jun 2026 10:49:05 +0000
@@ -65,72 +69,202 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Synaptics VMM7100 DP-to-HDMI 2.1 protocol converters with branch
-firmware 7.1 (branch dev-ID "SYNAq", FW revision at DPCD 0x50a/0x50b)
-deterministically fail 8b/10b channel equalization when link training
-at the RBR link rate with 4 lanes.
-Clock recovery succeeds, but during channel equalization the device
-keeps toggling its requested voltage swing/pre-emphasis levels
-without ever converging, until the 5 attempt limit is reached.
-Only this link configuration fails.
-RBR with 1 or 2 lanes and all higher link rates with 2 or 4 lanes
-train reliably.
-A second dongle based on the same VMM7100 chip (same HW-rev 1.0) but
-with branch firmware 7.2 trains 4-lane RBR without issue, so this is
-a firmware problem in the converter, fixed by newer firmware.
-The failure was observed on PTL behind the board's non-transparent
-LTTPR, with the source granting all swing/pre-emphasis requests.
+A new VFIO feature, VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR, is added to
+set CPU-facing memory type attributes for a DMABUF exported from
+vfio-pci.  These are used for subsequent mmap()s of the buffer.
 
-Add a quirk entry for these devices, so that drivers can avoid the
-RBR link rate for them.
-The quirk matching can't distinguish firmware revisions, so devices
-with fixed firmware are matched as well.
-Avoiding RBR is free for these PCONs, since any mode that fits into
-the RBR link bandwidth also fits into HBR, which they train reliably.
+There are two attributes supported:
+ - The default, VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_NC
+ - VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_WC, which results in WC
+   PTEs for the DMABUF's BAR region.
 
-The quirk will be handled by the i915 driver in a follow-up change.
-
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
+Signed-off-by: Matt Evans <matt@ozlabs.org>
 ---
- drivers/gpu/drm/display/drm_dp_helper.c | 3 +++
- include/drm/display/drm_dp_helper.h     | 8 ++++++++
- 2 files changed, 11 insertions(+)
+ drivers/vfio/pci/vfio_pci_core.c   |  2 ++
+ drivers/vfio/pci/vfio_pci_dmabuf.c | 57 +++++++++++++++++++++++++++++-
+ drivers/vfio/pci/vfio_pci_priv.h   | 14 ++++++++
+ include/uapi/linux/vfio.h          | 27 ++++++++++++++
+ 4 files changed, 99 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index 9c31e14cc413..a8737943ef11 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -2558,6 +2558,9 @@ static const struct dpcd_quirk dpcd_quirk_list[] = {
- 	{ OUI(0x90, 0xCC, 0x24), DEVICE_ID('S', 'Y', 'N', 'A', 0x53, 0x22), true, BIT(DP_DPCD_QUIRK_DSC_THROUGHPUT_BPP_LIMIT) },
- 	{ OUI(0x90, 0xCC, 0x24), DEVICE_ID('S', 'Y', 'N', 'A', 0x53, 0x31), true, BIT(DP_DPCD_QUIRK_DSC_THROUGHPUT_BPP_LIMIT) },
- 	{ OUI(0x90, 0xCC, 0x24), DEVICE_ID('S', 'Y', 'N', 'A', 0x53, 0x33), true, BIT(DP_DPCD_QUIRK_DSC_THROUGHPUT_BPP_LIMIT) },
-+	/* Synaptics VMM7100 DP-to-HDMI 2.1 PCONs fail channel EQ at the RBR link rate */
-+	{ OUI(0x90, 0xCC, 0x24), DEVICE_ID('S', 'Y', 'N', 'A', 'q', '\0'), true,
-+	  BIT(DP_DPCD_QUIRK_NO_LINK_RATE_RBR) },
+diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+index 064906b25467..dc9c6f479e2c 100644
+--- a/drivers/vfio/pci/vfio_pci_core.c
++++ b/drivers/vfio/pci/vfio_pci_core.c
+@@ -1575,6 +1575,8 @@ int vfio_pci_core_ioctl_feature(struct vfio_device *device, u32 flags,
+ 		return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
+ 	case VFIO_DEVICE_FEATURE_DMA_BUF_REVOKE:
+ 		return vfio_pci_core_feature_dma_buf_revoke(vdev, flags, arg, argsz);
++	case VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR:
++		return vfio_pci_core_feature_dma_buf_memattr(vdev, flags, arg, argsz);
+ 	default:
+ 		return -ENOTTY;
+ 	}
+diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+index b47411992ab6..58b769e65ab8 100644
+--- a/drivers/vfio/pci/vfio_pci_dmabuf.c
++++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+@@ -51,7 +51,10 @@ static int vfio_pci_dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *
+ 	 * contained within the DMABUF size before calling this.
+ 	 */
+ 
+-	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
++	if (READ_ONCE(priv->memattr) == VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_WC)
++		vma->vm_page_prot = pgprot_writecombine(vma->vm_page_prot);
++	else
++		vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
+ 	vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
+ 
+ 	/* See comments in vfio_pci_core_mmap() re VM_ALLOW_ANY_UNCACHED. */
+@@ -468,6 +471,7 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+ 	priv->vdev = vdev;
+ 	priv->nr_ranges = get_dma_buf.nr_ranges;
+ 	priv->size = length;
++	priv->memattr = VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_NC;
+ 	ret = vdev->pci_ops->get_dmabuf_phys(vdev, &priv->provider,
+ 					     get_dma_buf.region_index,
+ 					     priv->phys_vec, dma_ranges,
+@@ -755,6 +759,57 @@ int vfio_pci_core_feature_dma_buf_revoke(
+ 		}
+ 	}
+ 
++out_put_buf:
++	dma_buf_put(dmabuf);
++
++	return ret;
++}
++
++int vfio_pci_core_feature_dma_buf_memattr(
++	struct vfio_pci_core_device *vdev, u32 flags,
++	struct vfio_device_feature_dma_buf_memattr __user *arg,
++	size_t argsz)
++{
++	struct vfio_device_feature_dma_buf_memattr db_attr;
++	struct vfio_pci_dma_buf *priv;
++	struct dma_buf *dmabuf;
++	int ret;
++
++	if (!vdev->pci_ops || !vdev->pci_ops->get_dmabuf_phys)
++		return -EOPNOTSUPP;
++
++	ret = vfio_check_feature(flags, argsz,
++				 VFIO_DEVICE_FEATURE_SET,
++				 sizeof(db_attr));
++	if (ret != 1)
++		return ret;
++
++	if (copy_from_user(&db_attr, arg, sizeof(db_attr)))
++		return -EFAULT;
++
++	dmabuf = dma_buf_get(db_attr.dmabuf_fd);
++	if (IS_ERR(dmabuf))
++		return PTR_ERR(dmabuf);
++
++	/* Verify DMABUF: see comments in vfio_pci_dma_buf_revoke() */
++	priv = dmabuf->priv;
++	if (dmabuf->ops != &vfio_pci_dmabuf_ops ||
++	    READ_ONCE(priv->vdev) != vdev) {
++		ret = -ENODEV;
++		goto out_put_buf;
++	}
++
++	switch (db_attr.memattr) {
++	case VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_NC:
++	case VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_WC:
++		WRITE_ONCE(priv->memattr, db_attr.memattr);
++		ret = 0;
++		break;
++
++	default:
++		ret = -ENOENT;
++	}
++
+ out_put_buf:
+ 	dma_buf_put(dmabuf);
+ 
+diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
+index 3c2f2575b670..3ec8b62194f3 100644
+--- a/drivers/vfio/pci/vfio_pci_priv.h
++++ b/drivers/vfio/pci/vfio_pci_priv.h
+@@ -41,6 +41,7 @@ struct vfio_pci_dma_buf {
+ 	struct kref kref;
+ 	struct completion comp;
+ 	unsigned long vma_pgoff_adjust;
++	u32 memattr;
+ 	enum vfio_pci_dma_buf_status status;
  };
  
- #undef OUI
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index 8c2d77a032f0..324197894300 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -863,6 +863,14 @@ enum drm_dp_quirk {
- 	 * specific DSC pixel throughput.
- 	 */
- 	DP_DPCD_QUIRK_DSC_THROUGHPUT_BPP_LIMIT,
-+	/**
-+	 * @DP_DPCD_QUIRK_NO_LINK_RATE_RBR:
-+	 *
-+	 * The device fails 8b/10b channel equalization at the RBR link
-+	 * rate, but trains reliably at all higher link rates. Drivers
-+	 * should avoid the RBR link rate for these devices.
-+	 */
-+	DP_DPCD_QUIRK_NO_LINK_RATE_RBR,
+@@ -158,6 +159,10 @@ int vfio_pci_core_feature_dma_buf_revoke(
+ 	struct vfio_pci_core_device *vdev, u32 flags,
+ 	struct vfio_device_feature_dma_buf_revoke __user *arg,
+ 	size_t argsz);
++int vfio_pci_core_feature_dma_buf_memattr(
++	struct vfio_pci_core_device *vdev, u32 flags,
++	struct vfio_device_feature_dma_buf_memattr __user *arg,
++	size_t argsz);
+ #else
+ static inline int
+ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+@@ -166,6 +171,7 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+ {
+ 	return -ENOTTY;
+ }
++
+ static inline int vfio_pci_core_feature_dma_buf_revoke(
+ 	struct vfio_pci_core_device *vdev, u32 flags,
+ 	struct vfio_device_feature_dma_buf_revoke __user *arg,
+@@ -173,6 +179,14 @@ static inline int vfio_pci_core_feature_dma_buf_revoke(
+ {
+ 	return -ENOTTY;
+ }
++
++static inline int vfio_pci_core_feature_dma_buf_memattr(
++	struct vfio_pci_core_device *vdev, u32 flags,
++	struct vfio_device_feature_dma_buf_memattr __user *arg,
++	size_t argsz)
++{
++	return -ENOTTY;
++}
+ #endif
+ 
+ #endif
+diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
+index 697c0bb4b9bc..ab30b89399d0 100644
+--- a/include/uapi/linux/vfio.h
++++ b/include/uapi/linux/vfio.h
+@@ -1554,6 +1554,33 @@ struct vfio_device_feature_dma_buf_revoke {
+ 	__s32	dmabuf_fd;
  };
+ 
++/**
++ * Given a dma_buf fd previously created by
++ * VFIO_DEVICE_FEATURE_DMA_BUF, SET the memory attribute that will be
++ * used by future mmap()s of that fd.  SETting a new attribute does
++ * not affect existing VMAs.
++ *
++ * The default, if no previous SET has been performed, is NC.
++ *
++ * Return: 0 on success, -1 and errno is set on failure:
++ *
++ *  EBADF, EINVAL: dmabuf_fd is not a DMABUF fd.
++ *  ENODEV: The dmabuf_fd does not match this VFIO device.
++ *  ENOENT: The given memattr is not supported.
++ */
++#define VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR 14
++
++/* Valid memory attributes for the memattr field */
++enum vfio_device_dma_buf_memattr {
++	VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_NC = 0, /* pgprot_noncached */
++	VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_WC = 1, /* pgprot_writecombine */
++};
++
++struct vfio_device_feature_dma_buf_memattr {
++	__s32	dmabuf_fd;
++	__u32	memattr;
++};
++
+ /* -------- API for Type1 VFIO IOMMU -------- */
  
  /**
 -- 
-2.54.0
-
+2.50.1 (Apple Git-155)
 
