@@ -4,80 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52533CD8CB2
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 07:58:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E928CD98CC
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 07:58:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C94310E7C2;
-	Wed, 10 Jun 2026 07:58:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36E3A10E7C7;
+	Wed, 10 Jun 2026 07:58:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MXO7q7Sy";
+	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="Q3vrav3p";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88C2C10E139
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 07:34:14 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-37474afe908so644958a91.1
- for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 00:34:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780990454; x=1781595254; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=eXLhOufDUGH9RyGTzlJd0uwXniEfiIM0oyP9s5OGvWg=;
- b=MXO7q7Symupy+OtFcehkT/2WC7xnXVQMP3bp71FSDEVrqdfZ2G4CFWxe9KECY3Hs4U
- mmI1sARYHSpzUmpZr2AfDU+nFfvObh0aSMIhkThRbjTZXWKbBGBSGJyRo1uc/t1h+0q2
- Y7Ydr2pQZkpmZulpAwFpBklOvCUdHT7O2lf3FJsQYsIoFPoTPr/OmkpuolZlG8oKsKyZ
- Oj2/zTFkF/vH+LgBKnXUuXjFLQgPgsVywT2FDOSzFqxxYG4PxgHB7QfDp79b9SrY0xow
- LoGZgXV0R4v2KgBc9ydZ5Qr5td1kxUlz8PHstBMoKCc1OxfvgB9bI2Ff8dbF68GGvRhC
- bjPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780990454; x=1781595254;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=eXLhOufDUGH9RyGTzlJd0uwXniEfiIM0oyP9s5OGvWg=;
- b=ZOL0h8q7YQfuQuqlyr+mit+UM5XQLRZT/btYxJgB7nb0opXVIiYOou+VqtCmc09Vyi
- xRtqJwjjSzJibOsPA/Pj1rDg5vQrnG4CvSGVWMEl8cgJ4cjHvMZng06KH0oCGk/z0Vlk
- qGpjprLZqYcpUnCBw7N6En4twLvwtPI72J/t8WRknnhQsFNPw29/Ovqqk1iE1cTmkOe4
- sxvWkDVZJJGwMqnBHG4w+txPrXcyiU8CymOXKnFy2jqJCwC/QcyBYpuEMZE3FGKqmthM
- P3hOY/hdeqniSnNzGdTQiKHWiGuXNIWv6oPSXhb6AvhbH7oj87MMbtylknWS1YNsyiCs
- 1Oew==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+3H+/drYHmt3EAs5092SYS0LAPtJHjHJn4jXXL9MAEm0UlLctS0m5/KLiTHM1+PxWCbBpJ7yo1Sbc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyid4crvLsbO3C4Hd0kJVZoFuJUVVlDMo2cuBI2007XGKpGQxOf
- HkCHCSr8muezYHICnf5WbXIwKSvieVU5IZDWuYx1YCE97mjZZkFHwIRW
-X-Gm-Gg: Acq92OFF8gg86yEl00lXlZn7rpunkcvKq+SeETQQ96dBbEfygFATR06wCpfNJ+/jZMP
- Q77VNkfVW3kcLKjM/QNFi1EDWC3i9t3BmYYLb/BPMz65Z06qAFwcU1pp/W9ucoI92HDUSLfYYNk
- +dJGUOaR/mUSbYpSIQSmy2sbMacZtEjU8E7ErE73YZ5m/kjbfwCvB8zgTFr6aqmKY7CF8b0w29w
- EcYlLXP69HNMJ/OYnQGqAVwwgA5o9RYOSkBcGqDdenHA5sRfkn5Fz3vl852pYWMqcQvY/fJcR5O
- A08hRcVanHDrGRbcTsnIbmxi3C7zaL0NCjW/ZWhu+IyettXcTMqYIQP9TbxKw80NzxcQFQmAYaq
- A+x501AsALEpaMNeB8LHL30IS+o1Y00Ecm9CfYT00K8IldATJGVJB+NPV6rPX9zntBU7lBYoWDc
- UNHeixppQlftPI5HKPnu5/mXVojMYXWao9/v1SeO94SVGO/lRQaxS9xA==
-X-Received: by 2002:a17:90b:380a:b0:36b:b06c:30a1 with SMTP id
- 98e67ed59e1d1-370ee447ddemr19641700a91.1.1780990453907; 
- Tue, 09 Jun 2026 00:34:13 -0700 (PDT)
-Received: from haichao.tail057a43.ts.net
- ([2001:da8:e000:1206:37c9:44fa:729b:6aaa])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-36f6c76f55asm18214326a91.7.2026.06.09.00.34.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jun 2026 00:34:13 -0700 (PDT)
-From: Ruoyu Wang <ruoyuw560@gmail.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Tomeu Vizoso <tomeu@tomeuvizoso.net>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Ruoyu Wang <ruoyuw560@gmail.com>
-Subject: [PATCH] drm/panfrost: fix runtime PM leak on remove
-Date: Tue,  9 Jun 2026 15:34:07 +0800
-Message-ID: <20260609073407.5-1-ruoyuw560@gmail.com>
-X-Mailer: git-send-email 2.51.0
+X-Greylist: delayed 158460 seconds by postgrey-1.36 at gabe;
+ Wed, 10 Jun 2026 06:02:44 UTC
+Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.73.137])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1C7410E707
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 06:02:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+ s=onoh2408; t=1781071331;
+ bh=kfi9QQs1sSwBEx+EWPByMHmDQhMKagxQkR72o+z1MxU=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=Q3vrav3p2K3rIndpoalfPkjR3tbptoQGE0460gBJDktvHpgYr+qwWyMShs6/eayfe
+ cw26sDAS3sO6afKnl4zV6lMEh0jrKn77n2aOh7wDBnxseBn1ZGsGtp1Cw2oYkdzur0
+ jn7OB/NFsbz1qclZw0M8jHY2khqPxg4mNtSKZ/V0=
+X-QQ-mid: esmtpsz18t1781071313t87eaabd4
+X-QQ-Originating-IP: HzTryzSASr1kVugWO+zDD+LA0POeXIQkgLA7vapCPC0=
+Received: from localhost.localdomain ( [124.126.19.250])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Wed, 10 Jun 2026 14:01:48 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 4142150529808979720
+EX-QQ-RecipientCnt: 11
+From: ZhaoJinming <zhaojinming@uniontech.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Oded Gabbay <ogabbay@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jeff Hugo <jeff.hugo@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, ZhaoJinming <zhaojinming@uniontech.com>,
+ stable@vger.kernel.org
+Subject: [PATCH v5 2/2] accel/rocket: Fix iommu_group leak and unsafe IRQ
+ register access
+Date: Wed, 10 Jun 2026 14:01:32 +0800
+Message-Id: <20260610060132.3239648-2-zhaojinming@uniontech.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20260610060132.3239648-1-zhaojinming@uniontech.com>
+References: <20260610031431.E8EA71F00893@smtp.kernel.org>
+ <20260610060132.3239648-1-zhaojinming@uniontech.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: N9YbC0BvHDAbkCjuMZ1NwoUZFgpUVUCAqzsRZ3gvum4FTtXf4iU8FymF
+ uW53nWRxEkGIJRiQj2mIB/yE2aFbrBGNnVOUCFL3xKpkP2GJC1UhBwjIjwZ/VDqZzcoBdcg
+ J0LLr2WIomNApAxfDrOusE54FaOs0+kzDiXyI3S+baCdNgs2JlS29cy54V9+a6NuBo0+BZP
+ WWkGa2KnHibtGA/ksmXXk7YGx7iIu1ETVJwk0xhM71sLClBDrcKL1IhiStC0Ljvy54BMKNt
+ q0dIqLgREVyBsEEA8QLZAMz4K5pKfSyTb5Bg5xWshzO/4U6o8A5lMQsFekNVxQqmY+qH5ao
+ mBOaTii/nbW8L12GJLhF0vUAxINwwQl8bUC6O/jolb3MniSpnyMmaWcGPI3bg3Jy4DsjDxV
+ Tlsae97O0XsHwCLqqe9O+JO0nX6Us3ncJFV8txROEjtqnVgCTPVuuY9LfN+nd+L2z+BPb8e
+ gtmXpc79vclmjVLq/uaxpW5mAbQAgejSRbDwL6vbR6Q7EWhCDi294ousgGp9neT0rKlVI58
+ 3AuL57y49fyy6QMy8BRTtVrrUGgsRln/W4U9Dw750hleUDrPNSMHpA7IL8zY2D3PxXkEy+A
+ O1jIyVPmuGbl3GvcOuciGx7tDlr+03DBGLbS8vaMOnB8JnzVX+WbJ7qXaycdzIA4WQeUbjU
+ /XCB2SG8PjWy2jH2reIIj+wkQ3yjLX46lea9Nfgb27jrz1bH5+hstA6eJ+D9FMjKSjTu7bL
+ kYN3mr/7b1wexJggVox3qJFkqPbzKcmKlCPYVu0uNAOy2EBlajBuEr6Fhcb30vxQXbp7elC
+ K4C231SkHUf3bsM/yZtdD5xtfigl6C/K5aft2CSCm3+H6BTvO5fweQUIB31Zz8a+Xw6AZwS
+ nagmIvDV4wpXVQj7z10nmHndZ7lRB05Z9dO4stLg2DGJ0TPrWPkSU3xuh9HXZt1OOYxhNtc
+ AHdImdEmJ8Z5MQWsA/3btrGzi8Gf5FbQxnlXdSmpRNOBH3szPHaapZxnQl2J9+fCYOYmoX5
+ pMiL6d6qPb6O+CruXGGxyjQJoX3xysvhsu2uXGP4IHjt6AdPnYOTl7+o3aeADvnwgKDZlQd
+ XHyy339WLBJ5NetmdOa/T7RBWrSTzG/Zuh9BarncIH8fPyr7Q5qthNAGDOX6FCdkrBvwDBb
+ kWzIWrOZauWAPwk=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Wed, 10 Jun 2026 07:58:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,34 +90,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-pm_runtime_get_sync() increments the runtime PM usage counter even when it
-returns an error. panfrost_remove() uses it to keep the GPU active while
-runtime PM is disabled and the device is finalized, but the usage counter
-is not dropped afterwards.
+Two bugs in the IRQ handling path:
 
-Balance the get with pm_runtime_put_noidle() after disabling runtime PM.
-This drops the extra usage count without requesting a runtime suspend,
-preserving the existing teardown sequence that avoids suspending after
-panfrost_device_fini().
+1) iommu_group reference leak in rocket_job_handle_irq():
+   iommu_group_get() increments the reference count but the returned
+   pointer is passed directly to iommu_detach_group() which does not
+   consume it. Since this runs on every completed job, the reference
+   count accumulates and prevents the group from being freed. Use
+   core->iommu_group instead, consistent with rocket_reset().
 
-Fixes: 876b15d2c88d ("drm/panfrost: Fix module unload")
-Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
+2) Unsafe hardware register access in shared IRQ handler:
+   rocket_job_irq_handler() is registered with IRQF_SHARED but accesses
+   hardware registers without checking runtime PM status. If another
+   device on the same IRQ line triggers an interrupt while the NPU is
+   suspended, register reads return 0xffffffff, spuriously triggering
+   WARN_ON macros and falsely returning IRQ_WAKE_THREAD.
+
+   Add pm_runtime_get_if_active() in the hardirq handler to atomically
+   verify the device is active before accessing registers. Each handler
+   (hardirq and threaded) independently acquires and releases its own
+   runtime PM reference to avoid coalescing-related leaks when the
+   IRQ core coalesces multiple wakeups into a single thread execution.
+
+Cc: stable@vger.kernel.org
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_drv.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/accel/rocket/rocket_job.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 074c0995ddc26..d78ea7d4d099e 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -1027,6 +1027,7 @@ static void panfrost_remove(struct platform_device *pdev)
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index e8a073e22ac2..0ea3b3099704 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -349,7 +349,7 @@ static void rocket_job_handle_irq(struct rocket_core *core)
+ 				return;
+ 			}
  
- 	pm_runtime_get_sync(pfdev->base.dev);
- 	pm_runtime_disable(pfdev->base.dev);
-+	pm_runtime_put_noidle(pfdev->base.dev);
- 	panfrost_device_fini(pfdev);
- 	pm_runtime_set_suspended(pfdev->base.dev);
+-			iommu_detach_group(NULL, iommu_group_get(core->dev));
++			iommu_detach_group(NULL, core->iommu_group);
+ 			dma_fence_signal(core->in_flight_job->done_fence);
+ 			pm_runtime_put_autosuspend(core->dev);
+ 			core->in_flight_job = NULL;
+@@ -420,7 +420,10 @@ static irqreturn_t rocket_job_irq_handler_thread(int irq, void *data)
+ {
+ 	struct rocket_core *core = data;
+ 
+-	rocket_job_handle_irq(core);
++	if (pm_runtime_get_if_active(core->dev) == 1) {
++		rocket_job_handle_irq(core);
++		pm_runtime_put(core->dev);
++	}
+ 
+ 	return IRQ_HANDLED;
+ }
+@@ -428,16 +431,24 @@ static irqreturn_t rocket_job_irq_handler_thread(int irq, void *data)
+ static irqreturn_t rocket_job_irq_handler(int irq, void *data)
+ {
+ 	struct rocket_core *core = data;
+-	u32 raw_status = rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
++	u32 raw_status;
++
++	if (pm_runtime_get_if_active(core->dev) != 1)
++		return IRQ_NONE;
++
++	raw_status = rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
+ 
+ 	WARN_ON(raw_status & PC_INTERRUPT_RAW_STATUS_DMA_READ_ERROR);
+ 	WARN_ON(raw_status & PC_INTERRUPT_RAW_STATUS_DMA_WRITE_ERROR);
+ 
+ 	if (!(raw_status & PC_INTERRUPT_RAW_STATUS_DPU_0 ||
+-	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1))
++	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1)) {
++		pm_runtime_put(core->dev);
+ 		return IRQ_NONE;
++	}
+ 
+ 	rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
++	pm_runtime_put(core->dev);
+ 
+ 	return IRQ_WAKE_THREAD;
  }
 -- 
-2.51.0
+2.20.1
 
