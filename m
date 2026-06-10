@@ -4,104 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0C3DCD8CB9
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 14:38:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FBA1CD8CB9
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 14:41:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3255710E9E8;
-	Wed, 10 Jun 2026 14:38:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 703CD10E9ED;
+	Wed, 10 Jun 2026 14:41:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kqi/QFE/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QMoTPnmI";
 	dkim-atps=neutral
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
- [74.125.82.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F51210E9E8
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 14:38:51 +0000 (UTC)
-Received: by mail-dy1-f174.google.com with SMTP id
- 5a478bee46e88-304ddfcf72cso7218888eec.0
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 07:38:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781102330; cv=none;
- d=google.com; s=arc-20240605;
- b=I9lRLPljEVSJH0XISY5Vf33B8xStDKbxczYdLTlbzQ92+q2xc+l+k5I6fhqnM3OwBA
- +x4/8hMBL9d+92ElNzyIXPA6wlddbnyZq8nQCwJl7e+tGY7nhCvEJrG8M40rCaapf87w
- l3HrIt3CN8njedokr0fnWeQX4SbC0u1nxvwSR0gdq1Fd8L9qnenhB0ORjBs/7ksNhTqf
- 5gxmPn7kYo3PvEb5Hn9ulumynaaJ1Cr1WaAgohZA+l3d1i0vHDTnfDy2IDaWT9kEMOnC
- hRpP0ffffvmIBFmExgij6qZ4fBKhRhEDxQLzG0hWVCFl64YnTOFZO/y333lkKMMGdp9E
- vb1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=xEmfQD66YljQgfpm6pWxKEM84AHfr3eAJ9XCpH6lBeM=;
- fh=iKbzkH9bd5U4bf45WNijaJvrPZlsDH+B72GejKtjloI=;
- b=T0rZlhjrQqyQuv7jaT39IvcMNl1cMedqMs2Zw1+FwFowHvjfPzr3+kIMlP3RbNLUkR
- 3MJBxuDPZcwbtGw0ReBct8EGVq5QZIQXNOcqvjp0fX86QGY2xgxizUppXj2O3xkHCQC9
- xU7tOYVOoSOCY+qvUHyflnAoY+fnKKURT+X1KMWRpK2JQPA0MpsVMkZWK1zRSguFdx1Y
- JxHBtAI4faliX7XHpmNHyVKobUL16yp2Chv8qvRMmLZ5dZIdOc0vHiy0vGxNSpQrA4g4
- /zfOsT4+cFrU8fm6UEvsdNOtiZuFPRVU7PJXF9oRW9FWUvsuu/I7EdQBuVDgWwHWjc0f
- R7AA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781102330; x=1781707130; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xEmfQD66YljQgfpm6pWxKEM84AHfr3eAJ9XCpH6lBeM=;
- b=kqi/QFE/ANIAvc442LHiadKnlvxHAgMgGkfMsCr6ht8eXFz23hTskVRb5H+nlTOviQ
- cBAJ3FBpl6UDepSzZ+RkQCEUzh+8bnNyNu5CcyxSTr+8oDSWm7r24dzDypYXf7YfLi40
- 9yg5QqPxHyajerTPHcGfC8JnT7gyyOT9DJ4M1NEG0W769207G6z3q3MSz5qxWyxw01Ma
- /H5ZdybAfxybGGjvUH/kAOnFKlNT1gjAJfexGiciDQyKu2CPgSEYA+0XJbuaK+13it44
- yMf/Tc+BW12bpn1YXKaP9mhzSUIm3K4uv5MjXNUK9Xx5cELPmQXbSrm+zkTp/8D/vh/M
- 1a1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781102330; x=1781707130;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=xEmfQD66YljQgfpm6pWxKEM84AHfr3eAJ9XCpH6lBeM=;
- b=pWLdXUyPDAOHKT3VxvUA3Wmf9Z24bR/kcNPuqZTBaUH4QNRFIyDpiR5/6l0Wfgefug
- dlj3dKmnQdvQuKT6/6x1qa36sbFvrKMQkjNlUngXqvWlZ4k8BW72uxtiEAmhchNNjl4c
- Ipoy7BKckVnhm4Rzc+YQDDl+baeEK6KcbD5gnEk/1ajD/DICC+GMWsY2W7SbSIbcNKh4
- bhTHmzzNULNbwVxnXu2WiVjuI/JnWpWEXJJAdt3cIwSM90GptyltbM5yWpSB4mcdiTUU
- KtvzYJIsBPWYphzNQa76CeFoH4i6RAr+RRTTI814WUvLHvA6R0Ry/YUQFAa11C9vgSe5
- xNyg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9gTKQeQw3Jd7TkT+dUqo4ggYcYuEz1+VDkc/Lra9dU6jjXKJuZLKCaCZImxGcHBlLOX8NVoV+GXf8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzjC1oOk4bxDq1Kb4yCimaTiIn9HrrOHZcDK2es3EkiESMYIaEv
- uZPge8jcnU1Brwms34Req2dWM2Ih7wxI0Dlcbzr9+JcaFhWzL0pn6r6sR3bhDE3dY6CjwJ2IC+j
- FOhHxUmpRdF1DXydH/gHKYRlbLpCiqCw=
-X-Gm-Gg: Acq92OEbl8FsEQr0i3teIutTIclKW51d8MQzjgD5xvxhTeCimYWg+HRx3jmS24ejc2i
- gQ42AW0jbTDmNjl50Df999mxPJ/NlhIyNy9X9jAIA1wxKMpJV6C9O9shyI/UVY9t2OWw5fdml/N
- cEVgpHsWP16wJKDj6uGDFO0ysszreNOiI5lLhfhzF5XrSORTVYhPvl2QqQr9DnZLfvsGA0sN/t4
- QjTq5bl0LZ203EuLqU8Cf4pH8axJQUGWIX7TwtW/AmFmt0zgGe6zpnE0YkcE4r8FJTjFoQyaqV7
- VsYSpk3A5V0V+UdjtHc=
-X-Received: by 2002:a05:7300:cc0c:b0:304:e6f8:7cc9 with SMTP id
- 5a478bee46e88-3077b1cc840mr15721596eec.20.1781102330361; Wed, 10 Jun 2026
- 07:38:50 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260606045738.21050-1-clamor95@gmail.com>
- <20260606045738.21050-8-clamor95@gmail.com>
- <aihl9yIqN3adKWLr@ashevche-desk.local>
-In-Reply-To: <aihl9yIqN3adKWLr@ashevche-desk.local>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 10 Jun 2026 17:38:38 +0300
-X-Gm-Features: AVVi8Cf09c5dRYmH0R9kJGLjsyEz3GTJujrRgluMHRMUhIaWopJLSUHlJiMgJFA
-Message-ID: <CAPVz0n2+27QVeWNgPm3PH6V2Ceuym6sbMtUrh7hSHe9PcRmfMA@mail.gmail.com>
-Subject: Re: [PATCH v4 07/14] mfd: lm3533: Switch sysfs_create_group() to
- device_add_group()
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
- Johan Hovold <johan@kernel.org>, 
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D26D510E9ED
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 14:41:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9CB73435EB;
+ Wed, 10 Jun 2026 14:41:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 659E71F00893;
+ Wed, 10 Jun 2026 14:41:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781102460;
+ bh=mvP6NEMtBHUKqCXRC2qMbrjVdyXpuQg8QhCZEjLoQvQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=QMoTPnmId1+pbIjG7Z7iCoXNud6yROIvlnlAMZj9qQNmw6Ie74fLyNs/LEw/yjFLB
+ CUPAl6q0UPJ3MLbE14fsPNOfA/o0BjL1q3PrLEp0ZcbhvuEX15eSFUPoq/ZhUrsoyC
+ B0Q6rvaWzS0z4tfdsokTR47E9pPA8lWxLdr0+EfgxlHffX9pX/5iD14Ccf+qCL0fau
+ RG+6+zDQRmjyqZvK+uDkzKuPuBcrXXHCNuW9eTYaeX8TVxxbVN4uppctkcnnwLHBsp
+ HrqAlZRvCKmCTxrn7Nh8xMgqeSikmvv0mDv7VDeniFXqyivK+IH2tA8rS6EZZbpKy2
+ ymgyEYwibWY1g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/tests: Move test EDID data to separate .c file
+To: "Nicolas Frattaroli" <nicolas.frattaroli@collabora.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260610-test-edid-array-definition-fix-v2-1-9de4605c4869@collabora.com>
+References: <20260610-test-edid-array-definition-fix-v2-1-9de4605c4869@collabora.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Wed, 10 Jun 2026 14:40:59 +0000
+Message-Id: <20260610144100.659E71F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,45 +52,73 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=D0=B2=D1=82, 9 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 22:14=
- Andy Shevchenko <andriy.shevchenko@intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Sat, Jun 06, 2026 at 07:57:31AM +0300, Svyatoslav Ryhel wrote:
-> > Switch from sysfs_create_group() to device_add_group() including device
-> > managed where appropriate.
->
-> This should use .dev_groups member of struct device_driver.
->
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The newly added drm_kunit_edid.c file is built as a loadable module=
+ but lacks a MODULE_LICENSE() declaration.
+--
 
-Specify pls, device_add_group literally uses dev_groups, I don't
-understand what is wrong.
+commit 6969a389dfc7ebf286991ec9afae031d0abd753f
+Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-> ...
->
-> > +     ret =3D devm_device_add_group(&bd->dev, &lm3533_bl_attribute_grou=
-p);
->
-> This will make Greg KH very grumpy. (For the record, original code as wel=
-l
-> but it already is in upstream. So, thanks for trying to address this, jus=
-t
-> needs a bit more of work.)
->
+drm/tests: Move test EDID data to separate .c file
 
-In the prev iteration YOU asked to me to adjust this. I have adjusted
-and now you say that this is not appropriate. I will just drop this
-commit altogether.
+This commit moves the test EDID array definitions from a header file into a=
+ newly created drm_kunit_edid.c file. The arrays are exported so they can b=
+e shared among different KUnit tests without duplicating data across multip=
+le users.
 
-> > +     if (ret < 0)
-> > +             return dev_err_probe(&pdev->dev, ret,
-> > +                                  "failed to create sysfs attributes\n=
-");
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+Link: https://lore.kernel.org/r/04ff70850213ae0f75486b1a27a7edb6fb4e71c3@in=
+tel.com/
+
+> diff --git a/drivers/gpu/drm/tests/Makefile b/drivers/gpu/drm/tests/Makef=
+ile
+> index 3b83e6616fb25..e7193b49cf91f 100644
+> --- a/drivers/gpu/drm/tests/Makefile
+> +++ b/drivers/gpu/drm/tests/Makefile
+> @@ -24,6 +24,7 @@ obj-$(CONFIG_DRM_KUNIT_TEST) +=3D \
+>  	drm_probe_helper_test.o \
+>  	drm_rect_test.o \
+>  	drm_sysfb_modeset_test.o \
+> -	drm_fixp_test.o
+> +	drm_fixp_test.o \
+> +	drm_kunit_edid.o
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/tests/drm_kunit_edid.c b/drivers/gpu/drm/tes=
+ts/drm_kunit_edid.c
+> new file mode 100644
+> index 0000000000000..0976372860627
+> --- /dev/null
+> +++ b/drivers/gpu/drm/tests/drm_kunit_edid.c
+> @@ -0,0 +1,991 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +#include <linux/export.h>
+> +
+> +#include "drm_kunit_edid.h"
+
+[Severity: Low]
+Because drm_kunit_edid.o is added directly to obj-$(CONFIG_DRM_KUNIT_TEST) =
+in
+the Makefile, it will be built as a standalone module when that config is s=
+et
+to 'm'. Does this new file need to include <linux/module.h> and provide a
+MODULE_LICENSE() declaration to prevent modpost warnings and a tainted kern=
+el
+when loaded?
+
+> +
+> +/*
+> + * edid-decode (hex):
+> + *
+> + * 00 ff ff ff ff ff ff 00 31 d8 2a 00 00 00 00 00
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610-test-edid-=
+array-definition-fix-v2-1-9de4605c4869@collabora.com?part=3D1
