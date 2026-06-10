@@ -4,42 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66953CD8CB2
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 14:33:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A55FECD8CB2
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 14:33:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEB6510E9D2;
-	Wed, 10 Jun 2026 14:33:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FF7610E9D4;
+	Wed, 10 Jun 2026 14:33:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HZ1GKVSg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MOTecDwY";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7ACA510E9D2
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 14:32:59 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A127310E9D4
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 14:33:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A16F5600AA;
- Wed, 10 Jun 2026 14:32:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 324C21F00893;
- Wed, 10 Jun 2026 14:32:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5BB6740AA7;
+ Wed, 10 Jun 2026 14:33:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E371D1F00893;
+ Wed, 10 Jun 2026 14:33:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781101978;
- bh=ViGOb2fl+sAzOD6FGQGxdXwTKdPgEZLZCjelynbrcGs=;
+ s=k20260515; t=1781102025;
+ bh=Nc4WWGysk4BX4jXdA7yrMnTVb1/myijYZec3dC5qscE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HZ1GKVSgG4WyGNznQFAbvuRZooiAUUG0s23uDfmpxJrZswF3WPnXB7MdZ2Of2iFsf
- TzDFPiKHfWEbV8cRxyd8+UdsY9OYz7fIZ9Vg4JqJrYqjI8FL4IeOjUuI35n7pDRqS7
- APpQSwIDjYFzRKiK35X9SDiYFD56qmc9D2Y92a/XFPwm46kVV8/sOhIdklsgmftncs
- M5X88yC9nHJuAzdYHKfMyXB5ADtZU6uEXZcEVFQMrTrke+ndL8iY5W+ofgfvACI8Ok
- miPhEJ9BLfxdOfAhID5ARwoTij1iPTB0YLLqVmUwxRR94wnHsx1/U5Y1oJUJkBvibI
- mUgCH6I8QqTzg==
+ b=MOTecDwYbCzd7OL0TnmzLqSOFlpDCffMVA3xzE8KS/UcWY21SZ/2ofWWhGuB1M9TI
+ 54v4JOXWtCCeJ+iU57PvVsR2AQGjzdcnBUFFxUG2BfOsO6Q3n9bQ25RwfE2FrfuxK5
+ jOStm3hximRI3bD7AzRjj1uzoS33wTvvgyi/R4xaZNqIRr2o1OKBg1SLPJwy87KlA/
+ NrSwuk9ENYL/3RWhK8J5ukHN3rhRUKLV5j7GRgP/hAUhNma4YBQbnrvgiJyWBtQ8Rq
+ KGgus+9j/nlzCLyEZ/3W54vx+2NSryNhJhecny9Q1HqjrgIJHk/IGUJbkCX/NkCHmI
+ I8MbUpNh0KkyA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/displayid: fix Tiled Display Topology ID size
-To: "Jani Nikula" <jani.nikula@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260610141549.555605-1-jani.nikula@intel.com>
-References: <20260610141549.555605-1-jani.nikula@intel.com>
+Subject: Re: [PATCH] dma-buf: move system_cc_shared heap under separate Kconfig
+To: "Sumit Semwal" <sumit.semwal@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, "Vasily Gorbik" <gor@linux.ibm.com>,
+ "Alexander
+ Gordeev" <agordeev@linux.ibm.com>, "Heiko Carstens" <hca@linux.ibm.com>,
+ linux-s390@vger.kernel.org
+In-Reply-To: <20260610142329.3836808-1-sumit.semwal@linaro.org>
+References: <20260610142329.3836808-1-sumit.semwal@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 14:32:57 +0000
-Message-Id: <20260610143258.324C21F00893@smtp.kernel.org>
+Date: Wed, 10 Jun 2026 14:33:44 +0000
+Message-Id: <20260610143344.E371D1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,65 +63,56 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Missing payload size validation in `drm_parse_tiled_block` allows =
-an out-of-bounds read of the EDID buffer when parsing malformed DisplayID t=
-iled display blocks.
+- [High] Unconditional page re-encryption in error path causes potential me=
+mory leak and invalid hypercalls
 --
 
-commit 3a0b5d7c7c564335f99c7d692448de9241f67bbd
-Author: Jani Nikula <jani.nikula@intel.com>
+commit 611c6660a2bb2f9f324ce349cfce6b2530846d28
+Author: Arnd Bergmann <arnd@arndb.de>
 
-drm/displayid: fix Tiled Display Topology ID size
+dma-buf: move system_cc_shared heap under separate Kconfig
 
-This commit updates the Tiled Display Topology ID size from 8 to 9 bytes
-in the DRM subsystem structures.
+This commit moves the system_cc_shared heap into its own Kconfig symbol,
+DMABUF_HEAPS_CC_SYSTEM. This resolves a build failure on architectures like
+powerpc and s390 when the system heap is built as a loadable module, since
+the set_memory_encrypted and set_memory_decrypted functions are not
+exported to modules.
 
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
-tor.c
-> index 3fa4d2082cd72..11646453aaac9 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
+> diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/=
+system_heap.c
+> index c92bdec356fcc..71d9028cc3dfc 100644
+> --- a/drivers/dma-buf/heaps/system_heap.c
+> +++ b/drivers/dma-buf/heaps/system_heap.c
 [ ... ]
-> @@ -3579,14 +3579,14 @@ EXPORT_SYMBOL(drm_mode_put_tile_group);
->   * tile group or NULL if not found.
->   */
->  struct drm_tile_group *drm_mode_get_tile_group(struct drm_device *dev,
-> -					       const char topology[8])
-> +					       const char topology_id[9])
->  {
->  	struct drm_tile_group *tg;
->  	int id;
-> =20
->  	mutex_lock(&dev->mode_config.idr_mutex);
->  	idr_for_each_entry(&dev->mode_config.tile_idr, tg, id) {
-> -		if (!memcmp(tg->group_data, topology, 8)) {
-> +		if (!memcmp(tg->group_data, topology_id, sizeof(tg->group_data))) {
+> @@ -485,7 +488,7 @@ static struct dma_buf *system_heap_allocate(struct dm=
+a_heap *heap,
+>  		 * Intentionally leak pages that cannot be re-encrypted
+>  		 * to prevent shared memory from being reused.
+>  		 */
+> -		if (buffer->cc_shared &&
+> +		if (cc_shared_buffer(buffer) &&
+>  		    system_heap_set_page_encrypted(p))
+>  			continue;
+>  		__free_pages(p, compound_order(p));
 
 [Severity: High]
-This isn't a bug introduced by this patch, but could this lead to an
-out-of-bounds read of the EDID buffer when parsing malformed DisplayID tiled
-display blocks?
+This isn't a bug introduced by this patch, but does this error path
+unintentionally re-encrypt pages that were never decrypted?
 
-Looking at drm_parse_tiled_block() in drivers/gpu/drm/drm_edid.c, the gener=
-ic
-block is cast to a displayid_tiled_block without validating that the payload
-size (block->num_bytes) is large enough:
+If system_heap_set_page_decrypted() fails during the earlier loop in
+system_heap_allocate(), it jumps to the free_pages label. However, the
+cleanup loop here uses for_each_sgtable_sg(table, sg, i), which iterates
+over the entire scatterlist starting from index 0.
 
-drivers/gpu/drm/drm_edid.c:drm_parse_tiled_block() {
-    ...
-    const struct displayid_tiled_block *tile =3D
-        (struct displayid_tiled_block *)block;
-    ...
-    tg =3D drm_mode_get_tile_group(connector->dev, tile->topology_id);
-}
+This means pages after the failure point, which were never decrypted, will
+still be passed to system_heap_set_page_encrypted(). If the underlying
+set_memory_encrypted() call fails on already-encrypted pages (e.g., due to
+hypervisor state enforcement), the code skips __free_pages() and leaks the
+memory.
 
-If a malformed EDID provides a tiled block with a short length near the end
-of the allocated EDID buffer, comparing 9 bytes here (or copying them down =
-in
-drm_mode_create_tile_group()) might read past the bounds of the EDID buffer.
-
-[ ... ]
+Could this loop be modified to only re-encrypt the pages that were
+successfully decrypted before the failure?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610141549.5556=
-05-1-jani.nikula@intel.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610142329.3836=
+808-1-sumit.semwal@linaro.org?part=3D1
