@@ -4,43 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4870ACD8CB2
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 07:24:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 039CDCD8CB9
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 07:30:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9525710E787;
-	Wed, 10 Jun 2026 07:24:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 566D810E69C;
+	Wed, 10 Jun 2026 07:30:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aEbg9u4s";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZfgQ9Ljx";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C2F210E786
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 07:24:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A02F10E69C
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 07:29:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6ED0D602CC;
- Wed, 10 Jun 2026 07:24:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2DEB1F00893;
- Wed, 10 Jun 2026 07:24:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8B3726001A;
+ Wed, 10 Jun 2026 07:29:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C2E31F00893;
+ Wed, 10 Jun 2026 07:29:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781076295;
- bh=OR9YiHFTMqfz/UlYE227FUGVYjeC94KEIOJ0d+Lo5LI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=aEbg9u4srZKl3zNrwGPv0WQrP3XA4+mNMLZDPlkEOaRyWI8oxkASUc9pJc2x3/Vl/
- LTyQDPQGJydL1LNGFb8pYAPYr8faBwOFXngkK7mN5ZSCWI6tAwP3+F0i2bBXKCWGj+
- kOpQ+KNeAohARYA/Dm0Zsalmrpk2f95iwcK2ixqW9PoF4sMI0pjQdnx60VT1EBx393
- NKCO11r4rYTBk0RNwdNKGvWPUBBpwvCi/ZUNoc3knKVDbZW/qJ0OpnKAQZ0gShV+G1
- PFpshYQa04kYfpAYHaqI2Og137JWLN04d4bXzT+/M0KldlP5W+zhkfjav8ScZTq2sC
- dHbjAN73nb1aQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] accel/rocket: Fix iommu_group leak and unsafe
- IRQ register access
-To: ZhaoJinming <zhaojinming@uniontech.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260610071045.3414828-2-zhaojinming@uniontech.com>
-References: <20260610071045.3414828-2-zhaojinming@uniontech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 07:24:54 +0000
-Message-Id: <20260610072454.F2DEB1F00893@smtp.kernel.org>
+ s=k20260515; t=1781076598;
+ bh=AiSFfMoIY2TE+nHxtwX/bpt7ovICgLMC4JbA8Q1cu8w=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=ZfgQ9LjxioHkZ8YmzINDziO5XNY3bRg4375unc2i/iSTsSx/Jf6jtcxsX1oVw34A2
+ Maf7TTGdgfGi+Txkn/Iv9h8Thn4iKD0Hxas9qKpQwjYc73/VkVbjnajBP6xGu58eMH
+ 7cgtoE8Fks9ZbYWqYxMw9J8XZYy+BZpTny4HvF2HHyG8rB5J4n3P5vm9tw26sPRIME
+ h7uWafB37kG+MmaIz0+uALe77dnFgyQJey/7f7J6v3FU/boWoLfLPqxfqT65JM6b8P
+ ffLt+NgkW0QM7H1eQZQHDi4d15RamybNOry6SIKA4jD4d75nf7qbPwJg7ZOkVZ9cEZ
+ FROfc4w+6TjWw==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gary@garyguo.net
+Cc: a.hindborg@kernel.org, acourbot@nvidia.com, airlied@gmail.com,
+ aliceryhl@google.com, bjorn3_gh@protonmail.com, boqun@kernel.org,
+ dakr@kernel.org, daniel.almeida@collabora.com,
+ dri-devel@lists.freedesktop.org, driver-core@lists.linux.dev,
+ fujita.tomonori@gmail.com, linux-kernel@vger.kernel.org,
+ longman@redhat.com, lossin@kernel.org, mark.rutland@arm.com,
+ miguel.ojeda.sandonis@gmail.com, mingo@redhat.com, netdev@vger.kernel.org,
+ nova-gpu@lists.linux.dev, ojeda@kernel.org, peterz@infradead.org,
+ rust-for-linux@vger.kernel.org, simona@ffwll.ch, tamird@kernel.org,
+ tmgross@umich.edu, will@kernel.org, yury.norov@gmail.com
+Subject: Re: [PATCH v4] rust: make `build_assert` module the home of related
+ macros
+Date: Wed, 10 Jun 2026 09:29:47 +0200
+Message-ID: <20260610072947.338278-1-ojeda@kernel.org>
+In-Reply-To: <DJ4Q5J5OILOX.1KCPFIVUFN2VV@garyguo.net>
+References: <DJ4Q5J5OILOX.1KCPFIVUFN2VV@garyguo.net>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,177 +62,28 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On Tue, 09 Jun 2026 19:19:42 +0100 Gary Guo <gary@garyguo.net> wrote:
+>
+> I think I just kept it as is when rebasing. It's file to have them grouped in
+> the crate to.
 
-New issues:
-- [High] Mismatched and strict return value checks for `pm_runtime_get_if_a=
-ctive()` break IRQ handling when Runtime PM is disabled, causing job hangs.
+Thanks for confirming!
 
-Pre-existing issues:
-- [High] The runtime suspend callback powers down hardware without calling =
-`synchronize_irq()`, violating shared IRQ rules.
-- [High] Unhandled hardware DMA errors result in an unacknowledged interrup=
-t, causing an immediate IRQ storm.
-- [High] Calling `iommu_detach_group()` and `iommu_attach_group()` with a N=
-ULL group pointer causes a kernel panic if the device is not bound to an IO=
-MMU.
---
+> This one is using size_of, align_of, c_void which are all in prelude. However it
+> looks like I forgot to actually remove these imports in the last version, and I
+> didn't change it during rebase.
 
-commit 1a0ceb9d138ab6f44b71efac6f2c376438bd8d22
-Author: ZhaoJinming <zhaojinming@uniontech.com>
+Ah, I see, makes sense.
 
-accel/rocket: Fix iommu_group leak and unsafe IRQ register access
+> Are you okay with fixing during applying, or do you want me to send a new version?
 
-This commit fixes a reference leak of the iommu_group in the IRQ handler
-by reusing the cached core->iommu_group. It also fixes unsafe hardware regi=
-ster
-accesses in the shared IRQ handler by adding runtime PM checks to verify the
-device is active before reading registers.
+I did it on my side. I also tweaked a couple more bits: they were already
+`no_inline`, and I noted that they sadly do not appear in the prelude anymore,
+but the change looks fine and that may be more of a `rustdoc`-side issue or
+design choice.
 
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index cf9f61682dd8b..81b222198dac9 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -349,7 +349,7 @@ static void rocket_job_handle_irq(struct rocket_core =
-*core)
->  				return;
->  			}
-> =20
-> -			iommu_detach_group(NULL, iommu_group_get(core->dev));
-> +			iommu_detach_group(NULL, core->iommu_group);
-
-[Severity: High]
-This is a pre-existing issue, but calling iommu_detach_group() and
-iommu_attach_group() with a NULL group pointer causes a kernel panic if
-the device is not bound to an IOMMU.
-
-If the device is not behind an IOMMU, iommu_group_get() returns NULL
-during initialization.
-
-If CONFIG_IOMMU_API is enabled, both functions unconditionally
-dereference the group pointer to acquire its lock, which triggers a NULL
-pointer dereference crash.
-
-Does this path also need to ensure core->iommu_group is not NULL before
-detaching, and similarly during job submission?
-
->  			dma_fence_signal(core->in_flight_job->done_fence);
->  			pm_runtime_put_autosuspend(core->dev);
->  			core->in_flight_job =3D NULL;
-
-[ ... ]
-
-> @@ -420,7 +420,10 @@ static irqreturn_t rocket_job_irq_handler_thread(int=
- irq, void *data)
->  {
->  	struct rocket_core *core =3D data;
-> =20
-> -	rocket_job_handle_irq(core);
-> +	if (pm_runtime_get_if_active(core->dev) =3D=3D 1) {
-> +		rocket_job_handle_irq(core);
-> +		pm_runtime_put(core->dev);
-> +	}
-
-[Severity: High]
-When CONFIG_PM is disabled or runtime PM is globally disabled for the
-device, pm_runtime_get_if_active() returns -EINVAL.
-
-Because -EINVAL !=3D 1, the condition evaluates to false, silently
-skipping rocket_job_handle_irq() entirely.
-
-Since the threaded handler skips execution, the completed job is never
-processed, the IOMMU group is not detached, the DMA fence is never
-signaled, and waiting user processes hang permanently.
-
-Could this strict check cause a regression in IRQ handling when Runtime
-PM is disabled?
-
-> =20
->  	return IRQ_HANDLED;
->  }
-> @@ -428,16 +431,28 @@ static irqreturn_t rocket_job_irq_handler_thread(in=
-t irq, void *data)
->  static irqreturn_t rocket_job_irq_handler(int irq, void *data)
->  {
->  	struct rocket_core *core =3D data;
-> -	u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
-> +	u32 raw_status;
-> +	int ret;
-> +
-> +	ret =3D pm_runtime_get_if_active(core->dev);
-> +	if (ret =3D=3D 0)
-> +		return IRQ_NONE;
-> +
-> +	raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
-> =20
->  	WARN_ON(raw_status & PC_INTERRUPT_RAW_STATUS_DMA_READ_ERROR);
->  	WARN_ON(raw_status & PC_INTERRUPT_RAW_STATUS_DMA_WRITE_ERROR);
-> =20
->  	if (!(raw_status & PC_INTERRUPT_RAW_STATUS_DPU_0 ||
-> -	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1))
-> +	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1)) {
-> +		if (ret > 0)
-> +			pm_runtime_put(core->dev);
->  		return IRQ_NONE;
-> +	}
-
-[Severity: High]
-This is a pre-existing issue, but unhandled hardware DMA errors result
-in an unacknowledged interrupt, causing an immediate IRQ storm.
-
-If the hardware triggers an interrupt with
-PC_INTERRUPT_RAW_STATUS_DMA_READ_ERROR set, but the DPU completion bits
-are not set, the condition !(raw_status & DPU) evaluates as true.
-
-It executes the WARN_ON() and immediately returns IRQ_NONE without
-writing to INTERRUPT_CLEAR or INTERRUPT_MASK.
-
-Because the shared IRQ line is level-triggered and the hardware is still
-asserting the unacknowledged error, the interrupt controller will
-immediately re-invoke the handler as soon as it returns.
-
-Will this create an infinite IRQ storm that permanently hogs the CPU
-core until the kernel's spurious interrupt detector forcibly disables
-the shared IRQ line?
-
-> =20
->  	rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
-> +	if (ret > 0)
-> +		pm_runtime_put(core->dev);
-> =20
->  	return IRQ_WAKE_THREAD;
->  }
-
-[Severity: High]
-This is a pre-existing issue, but the runtime suspend callback powers
-down hardware without calling synchronize_irq(), violating shared IRQ
-rules.
-
-The global subsystem guide explicitly states: "When devices use shared
-IRQs (IRQF_SHARED), the runtime suspend callback must call
-synchronize_irq() before powering down hardware to ensure no IRQ handler
-is executing mid-flight."
-
-The device requests its interrupt with IRQF_SHARED, but its runtime
-suspend callback disables the device's clocks without waiting for
-executing IRQ handlers to finish:
-
-drivers/accel/rocket/rocket_drv.c:rocket_device_runtime_suspend() {
-    ...
-    clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks),
-                               rdev->cores[core].clks);
-    ...
-}
-
-Might this lead to mid-flight handlers reading powered-down hardware
-registers, causing bus faults?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610061915.1CA2=
-81F00893@smtp.kernel.org?part=3D2
+Cheers,
+Miguel
