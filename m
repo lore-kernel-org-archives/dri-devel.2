@@ -4,69 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 234A2CD8CB2
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 07:49:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AB49CD8CB2
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 07:58:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D16610E45E;
-	Wed, 10 Jun 2026 07:49:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCB2B10E7B0;
+	Wed, 10 Jun 2026 07:58:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="sFXCTkQF";
+	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="BuNSqgCZ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B42C10E45E;
- Wed, 10 Jun 2026 07:49:20 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id D049560172;
- Wed, 10 Jun 2026 07:49:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 79F6FC2BCB9;
- Wed, 10 Jun 2026 07:49:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1781077759;
- bh=lD1HUnZXDh8evB2ZyROS/+Exc/gYge+hONvXJRsg0UY=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=sFXCTkQFUj30kP12tXU3X+Elc6KPQMgHJy/S4wyg4uB3hHXD9VW+Sg5A1Y6rofwOD
- PnBCCKSzLiLXGFa4/aNO8EPUNEtNNmtF8W8Is7GfsagbFj5hy2jLZgUIVS868osOQn
- ItTmk51/M1OynqNhKQomyWevpLNHfI6ZwVuQoKnqZkjKdOaT+nzhe3OlCrSCOwKXU0
- yLBg4h0mt22I3qfXyWEDVOEs8VaNC9xtdSKxciRZByL2VFWKWmjShGJvmXGs5QO7DX
- HdOkNTFJjVldKzRyYL2UCrhHOeSUy8slR1e+LR5Tl6nxEBRUoWgXDLZuViDnBi5WEh
- Pv+lx9/cFpuzw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 53B98CD98C7;
- Wed, 10 Jun 2026 07:49:19 +0000 (UTC)
-From: Alexandre MINETTE via B4 Relay <devnull+contact.alex-min.fr@kernel.org>
-Date: Wed, 10 Jun 2026 09:49:17 +0200
-Subject: [PATCH] drm/msm/a3xx: Drain VBIF before GPU suspend
+X-Greylist: delayed 62934 seconds by postgrey-1.36 at gabe;
+ Wed, 10 Jun 2026 03:04:23 UTC
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03AA310E6B3
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 03:04:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+ s=onoh2408; t=1781060642;
+ bh=pPmroeQDHsA9ug2HnLTa8g6lPR2P7s9mi76pG8L8oJI=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=BuNSqgCZlJmnGmMVd/iPKDirBsV/5/yYjnlkefASCAi6aMqzs/z/bcIcKmsQZigQD
+ Oma6S1YRLOeZUU8cMhU9ouyZMCreH0ySQ65XEzJ/n6P84VspTI36PMDGbshBBYzcbw
+ 3LkNp0z4Bc/jbviZTM/Vg+xVdylj8pwN5wt6gfFI=
+X-QQ-mid: esmtpgz13t1781060624tc1abae19
+X-QQ-Originating-IP: cLg5X++iDCAXLdBCZBxzRSN4dV8URO0z6d3AWbklGOE=
+Received: from localhost.localdomain ( [1.202.39.170])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Wed, 10 Jun 2026 11:03:38 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 2952194183593288770
+EX-QQ-RecipientCnt: 11
+From: ZhaoJinming <zhaojinming@uniontech.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Oded Gabbay <ogabbay@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jeff Hugo <jeff.hugo@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, ZhaoJinming <zhaojinming@uniontech.com>,
+ stable@vger.kernel.org
+Subject: [PATCH v4 2/2] accel/rocket: Fix iommu_group leak and unsafe IRQ
+ register access
+Date: Wed, 10 Jun 2026 11:03:22 +0800
+Message-Id: <20260610030322.2802744-2-zhaojinming@uniontech.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20260610030322.2802744-1-zhaojinming@uniontech.com>
+References: <20260609094756.8DDFD1F00893@smtp.kernel.org>
+ <20260610030322.2802744-1-zhaojinming@uniontech.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260610-mainline-fix-a3xx-gpu-hang-sending-v1-1-9282182840b5@alex-min.fr>
-X-B4-Tracking: v=1; b=H4sIAPwWKWoC/yWNywrCQAxFf6VkbWAetYK/Ii6mnVgjGsuklYHSf
- zfV1eXA4dwVlAqTwrlZodCHld9i4A8NDPckIyFnYwgudK7zDl+J5clCeOOKKdaK47TgrqKSZLY
- NR9f2Mcfc+hNYaCpk8u/kcv2zLv2Dhnkvw7Z9AYguHeSGAAAA
-X-Change-ID: 20260610-mainline-fix-a3xx-gpu-hang-sending-2504b3d3d417
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, Alexandre MINETTE <contact@alex-min.fr>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781077758; l=4188;
- i=contact@alex-min.fr; s=20260421; h=from:subject:message-id;
- bh=U1m7+SxBVxKaqhEGJu1GKuE9XFcw724ySAWY6Dm6jt4=;
- b=nrWv/4C4ROSaessiJUfrFyLGL8vxGp7iEbTcPpIDVjzhm5GMPY2gubhvQdtpsE1HDsq0fRHUJ
- N8MMsl3qktVBuMTFr00w7oJnk+2lIfD+kdrBvz16faVmf2QzhyMn59s
-X-Developer-Key: i=contact@alex-min.fr; a=ed25519;
- pk=KOCaxY4v16ptaT0uk1FRkuaDF2n1JhmnYwLiqWD76M4=
-X-Endpoint-Received: by B4 Relay for contact@alex-min.fr/20260421 with
- auth_id=743
-X-Original-From: Alexandre MINETTE <contact@alex-min.fr>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: N7V5dvLk9gGfNKwaqmR804LFZSjywXn/11FfW7YtIkRsck2p2GyRkBHO
+ WuA0sPIcwR9KbL04RkBSCFOUz2uA1pc1F2KVRN82piJsoDkgQdy2QzSRCe12UVcFTPnuAOF
+ h41ba8t2XHLCCoyvUt3EzjcQpVSgKwgT5yuEgDQucmBTk2wXd2/Z38TgHQ0yz3NbfpZiE5M
+ 5u1pQI26lnRsyBlJ3VAA/swO0KnYwdKRCiJP4fF6lboxEcE+QE6BhIfuqF1hfSxt1X25mr2
+ x+i0yPJLZVDwny5lLpxdzoW29blMqpdYemGqyDn0zuQ8bAFylHYpsY4Aik4MyuHJT//lfad
+ rqy3ZDFkgxviLXNdxiDE7S5OlslS0t4Our6O1V7Xx+k/Jq8B6Q04GjkQ+M3vF3z+HMjDt6T
+ eFU9QZFMYkhlsxkmT0Njs1hvSXt9OIddf8jFrwtKIXqAWPTxp8Z+qI6yxm/bkb4Z6l3+sYW
+ ls/kXdGvK+dC4guOTOgZIL6DeLldEHtvbO/fa2KorAwzQX5uP7Ie0t/zZnSOqklUWTPcSqV
+ nzLf4aC8zJySXhRD6LkioU8ljWr9mlmY+iktQ9YjZcq108FicZgJqyc4AWOrJm6X51pA8AV
+ lSo8RIga64z0PevFHPTgSXFsqZHpz+kcNI8RWrPt9ltU0/xmhQ1+jYiOpSn4IuiH0YqFbXN
+ fYfpOuseGXPsFWdBSAtUxCWxhIn6ivADa5wxFyHCO5G1buUIzmQ6pwNuWRdK1zUx1Pm5JN0
+ 6G+qF/pVAN9kZVMrZfBDVLMF5tygGpr6bpRyLfBU0Cwrn8//VI2x9Y+9g+VctmVC1GslYSt
+ Uatp4AXtAEKadOdVxG1Rr0sBe2KW/eFa9A/ZfvhBzxxyw4hV/6FDJ8IlZsjM9z14SszeYg+
+ yZURZpARso0Svup2hZyQsZ0DSEZfTDeK6Y71mMPE6dBD4KVc/h5RPXMOSx0FOq5IkXWEKy9
+ MzNN4ZQyGQsGF4CfmXs8MVVX71Df335WUftB2RKBHSbkta/dhobKTojoSeNYffbLKWdJECG
+ 2g3WutyIdy5GXLzy7vPu73bUnal7hUSeHMGvmJrvzR9pezlO8btFmFql77us+rvfvsbXNnu
+ UUfV1BplF7w
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
+X-Mailman-Approved-At: Wed, 10 Jun 2026 07:58:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,123 +86,90 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: contact@alex-min.fr
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Alexandre MINETTE <contact@alex-min.fr>
+Two bugs in the IRQ handling path:
 
-A3xx hangs after every runtime suspend on the Samsung Galaxy S4
-GT-I9505. Even simple GPU workloads, such as drawing a single triangle,
-hang reliably once the GPU has been suspended by runtime PM.
+1) iommu_group reference leak in rocket_job_handle_irq():
+   iommu_group_get() increments the reference count but the returned
+   pointer is passed directly to iommu_detach_group() which does not
+   consume it. Since this runs on every completed job, the reference
+   count accumulates and prevents the group from being freed. Use
+   core->iommu_group instead, consistent with rocket_reset().
 
-The generic MSM GPU suspend path disables clocks/power, but A3xx also
-needs to ensure that pending VBIF transactions are drained before that
-happens.
+2) Unsafe hardware register access in shared IRQ handler:
+   rocket_job_irq_handler() is registered with IRQF_SHARED but accesses
+   hardware registers without checking runtime PM status. If another
+   device on the same IRQ line triggers an interrupt while the NPU is
+   suspended, register reads return 0xffffffff, spuriously triggering
+   WARN_ON macros and falsely returning IRQ_WAKE_THREAD.
 
-Add an A3xx-specific pm_suspend callback. Wait for the GPU to become
-idle, halt all VBIF XIN clients, wait for the corresponding
-acknowledgment, and only then enter the generic MSM GPU suspend path.
+   Add pm_runtime_get_if_active() in the hardirq handler to atomically
+   verify the device is active before accessing registers. Each handler
+   (hardirq and threaded) independently acquires and releases its own
+   runtime PM reference to avoid coalescing-related leaks when the
+   IRQ core coalesces multiple wakeups into a single thread execution.
 
-This fixes reliable A3xx GPU hangs observed after runtime PM on the
-Samsung Galaxy S4 GT-I9505, codename jflte. The failure is reported as:
-
-  mdp4 5100000.display-controller: [drm:hangcheck_handler] *ERROR* 3.2.0.2: hangcheck detected gpu lockup rb 0!
-  mdp4 5100000.display-controller: [drm:hangcheck_handler] *ERROR* 3.2.0.2:     completed fence: 4294967041
-  mdp4 5100000.display-controller: [drm:hangcheck_handler] *ERROR* 3.2.0.2:     submitted fence: 4294967049
-  mdp4 5100000.display-controller: [drm:recover_worker] *ERROR* 3.2.0.2: hangcheck recover!
-
-Link: https://github.com/freedreno-zz/freedreno/issues/12
-Signed-off-by: Alexandre MINETTE <contact@alex-min.fr>
+Cc: stable@vger.kernel.org
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
 ---
-Fix A3xx GPU hangs after runtime PM by draining pending VBIF
-transactions before entering the generic MSM GPU suspend path.
----
- drivers/gpu/drm/msm/adreno/a3xx_gpu.c         | 36 ++++++++++++++++++++++++++-
- drivers/gpu/drm/msm/registers/adreno/a3xx.xml |  2 ++
- 2 files changed, 37 insertions(+), 1 deletion(-)
+ drivers/accel/rocket/rocket_job.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
-index 018183e0ac3f..a37be1241271 100644
---- a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
-@@ -25,6 +25,8 @@
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index e8a073e22ac2..f05043619169 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -349,7 +349,7 @@ static void rocket_job_handle_irq(struct rocket_core *core)
+ 				return;
+ 			}
  
- extern bool hang_debug;
- 
-+#define A3XX_VBIF_XIN_HALT_CTRL0_MASK	GENMASK(5, 0)
-+
- static void a3xx_dump(struct msm_gpu *gpu);
- static bool a3xx_idle(struct msm_gpu *gpu);
- 
-@@ -502,6 +504,38 @@ static u64 a3xx_gpu_busy(struct msm_gpu *gpu, unsigned long *out_sample_rate)
- 	return busy_cycles;
- }
- 
-+static int a3xx_vbif_halt(struct msm_gpu *gpu)
-+{
-+	u32 ack;
-+	int ret;
-+
-+	gpu_write(gpu, REG_A3XX_VBIF_XIN_HALT_CTRL0,
-+		  A3XX_VBIF_XIN_HALT_CTRL0_MASK);
-+	ret = spin_until(((ack = gpu_read(gpu, REG_A3XX_VBIF_XIN_HALT_CTRL1)) &
-+			  A3XX_VBIF_XIN_HALT_CTRL0_MASK) ==
-+			 A3XX_VBIF_XIN_HALT_CTRL0_MASK);
-+	gpu_write(gpu, REG_A3XX_VBIF_XIN_HALT_CTRL0, 0);
-+
-+	if (ret)
-+		return -EBUSY;
-+
-+	return 0;
-+}
-+
-+static int a3xx_pm_suspend(struct msm_gpu *gpu)
-+{
-+	int ret;
-+
-+	if (!a3xx_idle(gpu))
-+		return -EBUSY;
-+
-+	ret = a3xx_vbif_halt(gpu);
-+	if (ret)
-+		return ret;
-+
-+	return msm_gpu_pm_suspend(gpu);
-+}
-+
- static u32 a3xx_get_rptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+-			iommu_detach_group(NULL, iommu_group_get(core->dev));
++			iommu_detach_group(NULL, core->iommu_group);
+ 			dma_fence_signal(core->in_flight_job->done_fence);
+ 			pm_runtime_put_autosuspend(core->dev);
+ 			core->in_flight_job = NULL;
+@@ -420,7 +420,10 @@ static irqreturn_t rocket_job_irq_handler_thread(int irq, void *data)
  {
- 	ring->memptrs->rptr = gpu_read(gpu, REG_AXXX_CP_RB_RPTR);
-@@ -597,7 +631,7 @@ const struct adreno_gpu_funcs a3xx_gpu_funcs = {
- 		.get_param = adreno_get_param,
- 		.set_param = adreno_set_param,
- 		.hw_init = a3xx_hw_init,
--		.pm_suspend = msm_gpu_pm_suspend,
-+		.pm_suspend = a3xx_pm_suspend,
- 		.pm_resume = msm_gpu_pm_resume,
- 		.recover = a3xx_recover,
- 		.submit = a3xx_submit,
-diff --git a/drivers/gpu/drm/msm/registers/adreno/a3xx.xml b/drivers/gpu/drm/msm/registers/adreno/a3xx.xml
-index 6717abc0a897..096de72b0b6c 100644
---- a/drivers/gpu/drm/msm/registers/adreno/a3xx.xml
-+++ b/drivers/gpu/drm/msm/registers/adreno/a3xx.xml
-@@ -1499,6 +1499,8 @@ xsi:schemaLocation="https://gitlab.freedesktop.org/freedreno/ rules-fd.xsd">
- 	<reg32 offset="0x3058" name="VBIF_OUT_AXI_AMEMTYPE_CONF0"/>
- 	<reg32 offset="0x305e" name="VBIF_OUT_AXI_AOOO_EN"/>
- 	<reg32 offset="0x305f" name="VBIF_OUT_AXI_AOOO"/>
-+	<reg32 offset="0x3080" name="VBIF_XIN_HALT_CTRL0"/>
-+	<reg32 offset="0x3081" name="VBIF_XIN_HALT_CTRL1"/>
+ 	struct rocket_core *core = data;
  
- 	<bitset name="a3xx_vbif_perf_cnt" inline="yes">
- 		<bitfield name="CNT0" pos="0" type="boolean"/>
-
----
-base-commit: 2d3090a8aeb596a26935db0955d46c9a5db5c6ce
-change-id: 20260610-mainline-fix-a3xx-gpu-hang-sending-2504b3d3d417
-
-Best regards,
---  
-Alexandre MINETTE <contact@alex-min.fr>
-
+-	rocket_job_handle_irq(core);
++	if (pm_runtime_get_if_active(core->dev)) {
++		rocket_job_handle_irq(core);
++		pm_runtime_put(core->dev);
++	}
+ 
+ 	return IRQ_HANDLED;
+ }
+@@ -428,16 +431,24 @@ static irqreturn_t rocket_job_irq_handler_thread(int irq, void *data)
+ static irqreturn_t rocket_job_irq_handler(int irq, void *data)
+ {
+ 	struct rocket_core *core = data;
+-	u32 raw_status = rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
++	u32 raw_status;
++
++	if (pm_runtime_get_if_active(core->dev) != 1)
++		return IRQ_NONE;
++
++	raw_status = rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
+ 
+ 	WARN_ON(raw_status & PC_INTERRUPT_RAW_STATUS_DMA_READ_ERROR);
+ 	WARN_ON(raw_status & PC_INTERRUPT_RAW_STATUS_DMA_WRITE_ERROR);
+ 
+ 	if (!(raw_status & PC_INTERRUPT_RAW_STATUS_DPU_0 ||
+-	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1))
++	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1)) {
++		pm_runtime_put(core->dev);
+ 		return IRQ_NONE;
++	}
+ 
+ 	rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
++	pm_runtime_put(core->dev);
+ 
+ 	return IRQ_WAKE_THREAD;
+ }
+-- 
+2.20.1
 
