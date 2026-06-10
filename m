@@ -4,111 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 831C9CD98DE
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 15:25:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 546F5CD8CB2
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 15:28:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4B4C10EAA2;
-	Wed, 10 Jun 2026 15:25:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E15510EABE;
+	Wed, 10 Jun 2026 15:28:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="LErn801m";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="/gj2oqwe";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LErn801m";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="/gj2oqwe";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="W+wAHRNE";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B492410EAB6
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 15:25:45 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 344C76AED7;
- Wed, 10 Jun 2026 15:25:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781105125; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=y5UtJ6eV6iOSreVQ99DfSSH13XZuuKC0qy/3UHtKhSU=;
- b=LErn801mgf0Wj2MbLzMjH9WR8A2GfoXtHgvC4Kgg5XcqnGRLO4WucHIqSMIrl9LtfjaeJ3
- f9JoFG9cSP6BSKsvEq7MmOxOs7hVOJR9ECVZZWlTUHvYhFHKBFiIKfdSB3QFi9ZzPTIQis
- ulr4+xns++2oB5B/UpyPg9/sEjHHbIY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781105125;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=y5UtJ6eV6iOSreVQ99DfSSH13XZuuKC0qy/3UHtKhSU=;
- b=/gj2oqweTBBHd8ryXjO4cluY8v9LaZrF9oBqMR+EgAOTTCUNVGdHRhxkxrt1O82U3YVqhq
- Wx/f6dDn0M5okzCQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781105125; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=y5UtJ6eV6iOSreVQ99DfSSH13XZuuKC0qy/3UHtKhSU=;
- b=LErn801mgf0Wj2MbLzMjH9WR8A2GfoXtHgvC4Kgg5XcqnGRLO4WucHIqSMIrl9LtfjaeJ3
- f9JoFG9cSP6BSKsvEq7MmOxOs7hVOJR9ECVZZWlTUHvYhFHKBFiIKfdSB3QFi9ZzPTIQis
- ulr4+xns++2oB5B/UpyPg9/sEjHHbIY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781105125;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=y5UtJ6eV6iOSreVQ99DfSSH13XZuuKC0qy/3UHtKhSU=;
- b=/gj2oqweTBBHd8ryXjO4cluY8v9LaZrF9oBqMR+EgAOTTCUNVGdHRhxkxrt1O82U3YVqhq
- Wx/f6dDn0M5okzCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6098A779A9;
- Wed, 10 Jun 2026 15:25:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id +JMmFuSBKWr3HwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 10 Jun 2026 15:25:24 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: mripard@kernel.org, maarten.lankhorst@linux.intel.com, airlied@redhat.com,
- airlied@gmail.com, simona@ffwll.ch, admin@kodeit.net,
- gargaditya08@proton.me, paul@crapouillou.net, jani.nikula@linux.intel.com,
- mhklkml@zohomail.com, zack.rusin@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com, harry.wentland@amd.com,
- sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
- tursulin@ursulin.net, javierm@redhat.com, dmitry.osipenko@collabora.com,
- gurchetansingh@chromium.org, olvaffe@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-mips@vger.kernel.org, virtualization@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v5 15/15] drm/vmwgfx: Remove unused field struct
- vmwgfx_du_update_plane.old_state
-Date: Wed, 10 Jun 2026 17:18:31 +0200
-Message-ID: <20260610152505.260172-16-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260610152505.260172-1-tzimmermann@suse.de>
-References: <20260610152505.260172-1-tzimmermann@suse.de>
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7C4810EABE
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 15:28:06 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-2bf22c18ad3so104245ad.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 08:28:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1781105286; x=1781710086;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=rRGcDEeCGM58JoYwcY0kneIT0WSa4bKVwTj3Opbvtug=;
+ b=W+wAHRNE7X6aanv3cQ82c1yDc9iVmWyElMj8zyarGtlGB2uVR/4Zn39z+QbIiJf4El
+ /ITmI2+NHlP4SK8lKBD7LN7MlwxDMjijzk4Sbe3JkvqgyuqHxWEiOphtyW/bqXqirwzf
+ ZNfRKDkrV3sHHFbyZOooU5GqJTADrnNbXKAXSLlbRyfO6gSv8/ju30ybIouh6NetkmTZ
+ YL8nzAlEMIKjxFS9bIWu35vc/wvzAKjMots/+GgQaQ2LN+TYM+nJtpW0rzedU+DxAW52
+ +SwT4XZ5R4IfAr/cb5yq5sAEKew9mWn2Hq/dU2FpmQ72FPm5Lfnx4JgBkFMaT4gbloXg
+ JgsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781105286; x=1781710086;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=rRGcDEeCGM58JoYwcY0kneIT0WSa4bKVwTj3Opbvtug=;
+ b=jL+pBTw8CBY70pQFbk9K34x/R72D+fZpQVQ8/4qp+mtpUlL5+rpgiCd9WDtHn8UNZD
+ QPNDHGBXYby9wjVpTByu83fCpbiMUPb3R1ekEXYplpI+BGOHu4v1OeXH/8ekUJBEVhEP
+ PXOe0Y0K+Fl3oYi+GQV8vvpxMznZ1BhAJpv96dJKaHyjUP29h5cJwv7KfuVH8eYV8gg0
+ gGyDe0+5vWKPa24x7Dap2QbxdoZNjsdS0geAEnjj5m1x7EH0nsf325XdJKM3QEowiEfB
+ E4PtvrpjvK/8/Rw4KLblIoQNXvp3M2j6/jywPQbH8fk+03dYlbTrXOtyDgeEG85HWmz3
+ yX/Q==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/ms6bgLRMtxnlFsNSU/Fj4n3YTVbVWDforFI2pWVBUauJekyuvZ+c4r1yqhVEmUz1MPUVjzdOUSCo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwHJlIeQyhCqzH0waOOVKxG9GO0yBMkMcCvMKp9CDXHcKFF1rAh
+ l5mbXzS8RszxiruA5yWdT2JX0T7lFHxH8mHTNbLvH3KxVkJiUPdNKegBB/xxmoj2/Q==
+X-Gm-Gg: Acq92OHBOvHpb70DvBeXr2sIHQAvLwgYvIAm/Wq3Q4qxbngVW6FI5gR5koFX6AmG5O5
+ CWIxOs0DhWbK8WFpxvyOk6Pe3YVAI9zAtBd+Ap2bhDF4sr/+xWkLpbm5Xa89Nvf/NVZFn/yLIZL
+ ou+kJmYRwG6sBFF11II++ctqpjPtlUAs68l1B97O4znm3BVuU+eGouIe/oXruoTucO10wT0+KEn
+ PwwF+LbX4oZQNIPIEdJkUpjr5/vNE2FLZvu2klj3zN1XH6VEhP782OFnSzjtyNL2wj7UcQjRZ47
+ 7/vcfBBQ/iz26EgV1H6SDFnHW6P0GYqoA/mFJf3Y949pOeXttg/RWsQNRdDOpnv/zFVt6utyQIV
+ QAQt1dhdwx4kcUZtuz4Lsc2tDCn/heNnZYoCkSTtiu3PgC2iLUbGNTuzySPDg3jHhEaiKfptaXf
+ skV1OITlkr3RXLA/DczOSXHTBZLDcOnxZusqvNsrIs5We+DrQ9PMjCpM6Y1MtAvEiNwj5U5Ls=
+X-Received: by 2002:a17:903:1ad0:b0:2b0:b925:da98 with SMTP id
+ d9443c01a7336-2c2d941bcf3mr118265ad.19.1781105285671; 
+ Wed, 10 Jun 2026 08:28:05 -0700 (PDT)
+Received: from google.com (199.255.142.34.bc.googleusercontent.com.
+ [34.142.255.199]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2c164fa00b3sm237800395ad.32.2026.06.10.08.28.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Jun 2026 08:28:05 -0700 (PDT)
+Date: Wed, 10 Jun 2026 15:27:57 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Alex Williamson <alex.williamson@nvidia.com>,
+ Matt Evans <mattev@meta.com>, Leon Romanovsky <leon@kernel.org>,
+ Alex Mastro <amastro@fb.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v2 1/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
+Message-ID: <aimCfaCM-m4TS2g9@google.com>
+References: <20260527102319.100128-1-mattev@meta.com>
+ <20260527102319.100128-2-mattev@meta.com>
+ <20260527150946.312b3042@nvidia.com>
+ <20260529230553.GE3195266@nvidia.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-6.79 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- NEURAL_HAM_SHORT(-0.19)[-0.942]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid];
- RCPT_COUNT_TWELVE(0.00)[31]; MIME_TRACE(0.00)[0:+];
- TO_DN_SOME(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,redhat.com,gmail.com,ffwll.ch,kodeit.net,proton.me,crapouillou.net,zohomail.com,broadcom.com,amd.com,igalia.com,intel.com,ursulin.net,collabora.com,chromium.org];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLq3cifbxyhc6qbbynzfc6amns)];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260529230553.GE3195266@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,148 +103,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Plane updates no longer require the old plane state. Remove the field
-from struct vmwgfx_du_update_plane and fix all callers.
+On Fri, May 29, 2026 at 08:05:53PM -0300, Jason Gunthorpe wrote:
+> On Wed, May 27, 2026 at 03:09:46PM -0600, Alex Williamson wrote:
+> > This deserves a /* CONFIG_PCI_P2PDMA */ reference like the previous
+> > long span, though potentially a better solution would be to split the
+> > core code out to a separate file with shared header.  I asked opus to
+> > see what this would look like and it generated the patch below
+> > (unverified, compile tested only).  Bigger diff, harder to follow
+> > blame, but the shape of the core is much more apparent.  You're welcome
+> > to take or leave it.
+> 
+> I think it is a good idea, it will make it easier to add more stuff to
+> these different aspects.
+> 
+> Really they are now two different things with one layered on top of
+> the other.
+> 
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Zack Rusin <zack.rusin@broadcom.com>
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
----
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.h  |  2 --
- drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c | 12 ++----------
- drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c | 11 ++---------
- 3 files changed, 4 insertions(+), 21 deletions(-)
+A little late to this party. I agree with this split per status quo.
+Although, one observation from me, I've posted a concurrent RFC [1] that
+implements ZONE_DEVICE P2P registration for VFIO. That work relies on
+pci_p2pdma_add_resource(), which requires ZONE_DEVICE and the full
+CONFIG_PCI_P2PDMA stack rather than just the CORE part.
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h
-index 2224d7d91d1b..8c2072b82062 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h
-@@ -19,7 +19,6 @@
- /**
-  * struct vmw_du_update_plane - Closure structure for vmw_du_helper_plane_update
-  * @plane: Plane which is being updated.
-- * @old_state: Old state of plane.
-  * @dev_priv: Device private.
-  * @du: Display unit on which to update the plane.
-  * @vfb: Framebuffer which is blitted to display unit.
-@@ -102,7 +101,6 @@ struct vmw_du_update_plane {
- 				    struct drm_rect *bb);
- 
- 	struct drm_plane *plane;
--	struct drm_plane_state *old_state;
- 	struct vmw_private *dev_priv;
- 	struct vmw_display_unit *du;
- 	struct vmw_framebuffer *vfb;
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c b/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
-index c83061cf7455..fa84bc7ab5bb 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
-@@ -530,7 +530,6 @@ static uint32_t vmw_stud_bo_post_clip(struct vmw_du_update_plane  *update,
-  */
- static int vmw_sou_plane_update_bo(struct vmw_private *dev_priv,
- 				   struct drm_plane *plane,
--				   struct drm_plane_state *old_state,
- 				   struct vmw_framebuffer *vfb,
- 				   struct vmw_fence_obj **out_fence)
- {
-@@ -538,7 +537,6 @@ static int vmw_sou_plane_update_bo(struct vmw_private *dev_priv,
- 
- 	memset(&bo_update, 0, sizeof(struct vmw_du_update_plane_buffer));
- 	bo_update.base.plane = plane;
--	bo_update.base.old_state = old_state;
- 	bo_update.base.dev_priv = dev_priv;
- 	bo_update.base.du = vmw_crtc_to_du(plane->state->crtc);
- 	bo_update.base.vfb = vfb;
-@@ -692,7 +690,6 @@ static uint32_t vmw_sou_surface_post_clip(struct vmw_du_update_plane *update,
-  */
- static int vmw_sou_plane_update_surface(struct vmw_private *dev_priv,
- 					struct drm_plane *plane,
--					struct drm_plane_state *old_state,
- 					struct vmw_framebuffer *vfb,
- 					struct vmw_fence_obj **out_fence)
- {
-@@ -700,7 +697,6 @@ static int vmw_sou_plane_update_surface(struct vmw_private *dev_priv,
- 
- 	memset(&srf_update, 0, sizeof(struct vmw_du_update_plane_surface));
- 	srf_update.base.plane = plane;
--	srf_update.base.old_state = old_state;
- 	srf_update.base.dev_priv = dev_priv;
- 	srf_update.base.du = vmw_crtc_to_du(plane->state->crtc);
- 	srf_update.base.vfb = vfb;
-@@ -721,7 +717,6 @@ static void
- vmw_sou_primary_plane_atomic_update(struct drm_plane *plane,
- 				    struct drm_atomic_commit *state)
- {
--	struct drm_plane_state *old_state = drm_atomic_get_old_plane_state(state, plane);
- 	struct drm_plane_state *new_state = drm_atomic_get_new_plane_state(state, plane);
- 	struct drm_crtc *crtc = new_state->crtc;
- 	struct vmw_fence_obj *fence = NULL;
-@@ -734,12 +729,9 @@ vmw_sou_primary_plane_atomic_update(struct drm_plane *plane,
- 			vmw_framebuffer_to_vfb(new_state->fb);
- 
- 		if (vfb->bo)
--			ret = vmw_sou_plane_update_bo(dev_priv, plane,
--						      old_state, vfb, &fence);
-+			ret = vmw_sou_plane_update_bo(dev_priv, plane, vfb, &fence);
- 		else
--			ret = vmw_sou_plane_update_surface(dev_priv, plane,
--							   old_state, vfb,
--							   &fence);
-+			ret = vmw_sou_plane_update_surface(dev_priv, plane, vfb, &fence);
- 		if (ret != 0)
- 			DRM_ERROR("Failed to update screen.\n");
- 	} else {
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c b/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
-index f0df2b1c8465..474e3badb80f 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
-@@ -1240,7 +1240,6 @@ vmw_stdu_bo_populate_update_cpu(struct vmw_du_update_plane  *update, void *cmd,
-  */
- static int vmw_stdu_plane_update_bo(struct vmw_private *dev_priv,
- 				    struct drm_plane *plane,
--				    struct drm_plane_state *old_state,
- 				    struct vmw_framebuffer *vfb,
- 				    struct vmw_fence_obj **out_fence)
- {
-@@ -1248,7 +1247,6 @@ static int vmw_stdu_plane_update_bo(struct vmw_private *dev_priv,
- 
- 	memset(&bo_update, 0, sizeof(struct vmw_du_update_plane_buffer));
- 	bo_update.base.plane = plane;
--	bo_update.base.old_state = old_state;
- 	bo_update.base.dev_priv = dev_priv;
- 	bo_update.base.du = vmw_crtc_to_du(plane->state->crtc);
- 	bo_update.base.vfb = vfb;
-@@ -1350,7 +1348,6 @@ vmw_stdu_surface_populate_update(struct vmw_du_update_plane  *update, void *cmd,
-  */
- static int vmw_stdu_plane_update_surface(struct vmw_private *dev_priv,
- 					 struct drm_plane *plane,
--					 struct drm_plane_state *old_state,
- 					 struct vmw_framebuffer *vfb,
- 					 struct vmw_fence_obj **out_fence)
- {
-@@ -1363,7 +1360,6 @@ static int vmw_stdu_plane_update_surface(struct vmw_private *dev_priv,
- 
- 	memset(&srf_update, 0, sizeof(struct vmw_du_update_plane));
- 	srf_update.plane = plane;
--	srf_update.old_state = old_state;
- 	srf_update.dev_priv = dev_priv;
- 	srf_update.du = vmw_crtc_to_du(plane->state->crtc);
- 	srf_update.vfb = vfb;
-@@ -1424,12 +1420,9 @@ vmw_stdu_primary_plane_atomic_update(struct drm_plane *plane,
- 			DRM_ERROR("Failed to bind surface to STDU.\n");
- 
- 		if (vfb->bo)
--			ret = vmw_stdu_plane_update_bo(dev_priv, plane,
--						       old_state, vfb, &fence);
-+			ret = vmw_stdu_plane_update_bo(dev_priv, plane, vfb, &fence);
- 		else
--			ret = vmw_stdu_plane_update_surface(dev_priv, plane,
--							    old_state, vfb,
--							    &fence);
-+			ret = vmw_stdu_plane_update_surface(dev_priv, plane, vfb, &fence);
- 		if (ret)
- 			DRM_ERROR("Failed to update STDU.\n");
- 	} else {
--- 
-2.54.0
+I guess I can be careful to guard the ZONE_DEVICE P2P registration 
+feature in VFIO with the full PCI_P2PDMA config. Apart from that, this
+split provides a clean foundation for both series to coexist.
 
+Thanks,
+Praan
+
+[1] https://lore.kernel.org/all/20260610151853.3608948-1-praan@google.com/
