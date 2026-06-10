@@ -4,67 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65758CD8CB2
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 00:20:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAC58CD8CAD
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 01:14:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7667310E3A1;
-	Wed, 10 Jun 2026 00:20:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB0C210E140;
+	Wed, 10 Jun 2026 01:14:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="kZOwsiH2";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="JMc/acb2";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EA4110E3A1;
- Wed, 10 Jun 2026 00:20:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1781050811; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Md6nNVHOEmyf92T+nDS9CJqqPti1DRSk4EGTpu6C0HNPBqi7DA1DYIbBx6XVRwZKGYg+7FAMp+zRe7yCffEmmdzShm8ChVUIErNYfWJ2C0Z5rs+Jr8hsTWIn9J8BQuxRZb4sbMgl4VDNNe+Fp/YF9+TLnLcWHr/2HsETWIA/0Fs=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1781050811;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=O9fNTHv6wbBG42jHa8mAw6pvJNsDpQ9M5O3qhn0l1Vo=; 
- b=CtLCFoN/HUmgdMdaKxivguNvewtVOqnOf/GU04aTbIVSPmsAiqq9UfL62Sh1qJdTXzHGhlCky8R8LX2pYa39GqhrE6Q5y6NWBjh3JAboYzSpnuOv/I0JcGJ2wxwR6L9BGZsTO/owZFYHVWFWX4701w6nqoN2HlVw+vD+Fu7sY3Q=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
- dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781050811; 
- s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=O9fNTHv6wbBG42jHa8mAw6pvJNsDpQ9M5O3qhn0l1Vo=;
- b=kZOwsiH29/dAC81lSN65kYEuoTOcxiFWnRZI3eUfAzUyKksZvENO4jOoeUKfRUoY
- DRrLnkZ+tvZiLYP+qTTiiMl8pibUI+SDHnj/H9Qez+JfTBfn21bbtaEiqZZVW628ZQS
- t+lDFRobsq/ZdrPqaZCGglTpHn7wVk4iLg/THklE=
-Received: by mx.zohomail.com with SMTPS id 1781050810087120.3536602556942;
- Tue, 9 Jun 2026 17:20:10 -0700 (PDT)
-Date: Tue, 9 Jun 2026 17:20:09 -0700
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- nouveau@lists.freedesktop.org, Alexandre Courbot <acourbot@nvidia.com>,
- Gary Guo <gary@garyguo.net>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- driver-core@lists.linux.dev, Miguel Ojeda <ojeda@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Alice Ryhl <aliceryhl@google.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maxime Ripard <mripard@kernel.org>,
- David Airlie <airlied@gmail.com>, Benno Lossin <lossin@kernel.org>,
- linaro-mm-sig@lists.linaro.org, Danilo Krummrich <dakr@kernel.org>,
- Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
- Asahi Lina <lina+kernel@asahilina.net>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH v19 0/4] Rust bindings for gem shmem
-Message-ID: <aiituaFg3i4Qpb-a@um790>
-References: <20260608183057.2001376-1-lyude@redhat.com>
+Received: from mail-m128169.netease.com (mail-m128169.netease.com
+ [103.209.128.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 850F710E140
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 01:14:08 +0000 (UTC)
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 41bfeee6e;
+ Wed, 10 Jun 2026 09:14:04 +0800 (GMT+08:00)
+Message-ID: <b05f7154-e85f-4207-80ae-f080282ba780@rock-chips.com>
+Date: Wed, 10 Jun 2026 09:14:02 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260608183057.2001376-1-lyude@redhat.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v3 0/9] accel: rocket: Add RK3568 NPU support
+To: Midgy Balon <midgy971@gmail.com>
+Cc: tomeu@tomeuvizoso.net, ogabbay@kernel.org, heiko@sntech.de,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org,
+ will@kernel.org, robin.murphy@arm.com, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Simon Xue <xxm@rock-chips.com>,
+ Finley Xiao <finley.xiao@rock-chips.com>
+References: <20260604135255.62682-1-midgy971@gmail.com>
+ <3d99569e-9c3a-49d1-93fb-1335382523e9@rock-chips.com>
+ <CA+GS1Y1s78PwN63X2YJoS8VEGp7CpTERo_K65yKs00U4VRAw4Q@mail.gmail.com>
+ <e5058919-9485-4de5-8eea-331ebfc2987c@rock-chips.com>
+ <CA+GS1Y3ysdWZ3qCq3ip_Pbw+v4LxHZd95aBo=jwB+orYaMBBNw@mail.gmail.com>
+ <CA+GS1Y0kAM_XGLQuKPTphif2HcQg18ZXhd8RHHr2xPOEMCDvXA@mail.gmail.com>
+ <bcedaff0-abf8-4585-a0ea-057062cd0411@rock-chips.com>
+ <CA+GS1Y2-hRqpGgsknh+oOX+-uZ3DZtdekdP9viTP6a40zhhUhg@mail.gmail.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <CA+GS1Y2-hRqpGgsknh+oOX+-uZ3DZtdekdP9viTP6a40zhhUhg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9eaf17f7ca03a7kunm086ddc0f265e19
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTkIaVhgaT0JNSExLGhoeQlYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=JMc/acb2P5/j0WDgBoNYDEgabsrTG6UUouYskrbbIrI3+e1FIjV+cY3SVNG0i6tQBYa65TADufI1IrcgOpVVxNrpxG7VhU9HVuUDORdfhEobuPvJC/wPn9SI+ziLIe3dHBTZ3H2EfowPzM3i1R4/7UXBr2WSPouPPyabXZj+Hlc=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=xT9TRXqNVQ4NrOZ7G30C+sE2EpbR+Jn/B+pjkgNcIuw=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,56 +71,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 08, 2026 at 02:29:00PM -0400, Lyude Paul wrote:
-> Most of this patch series has already been pushed upstream, this is just
-> the second half of the patch series that has not been pushed yet + some
-> additional changes which were required to implement changes requested by
-> the mailing list. This patch series is originally from Asahi, previously
-> posted by Daniel Almeida.
-> 
-> The previous version of the patch series can be found here:
-> 
-> 	https://patchwork.freedesktop.org/series/164580/
-> 
-> Branch with patches applied available here:
-> 
-> 	https://gitlab.freedesktop.org/lyudess/linux/-/commits/rust/gem-shmem
-> 
-> This patch series applies on top of drm-rust-next
-> 
-> Patch-series wide changes since V15:
-> * Fix some major rebasing errors I somehow didn't notice :(
-> * Drop the dependency on LazyInit, use the trick that Alice suggested
->   instead.
-> * Fix dependency ordering so that Tyr can get the vmap stuff first
->   without the other bits.
-> Patch-series wide changes since V16:
-> * Fix ordering one more time (SetOnce::reset() doesn't need to come
->   before adding vmap functions)
-> * Rebase against the latest DeviceContext changes from me that got
->   pushed.
-> 
-> Lyude Paul (4):
->   rust: drm: gem: shmem: Add DmaResvGuard helper
->   rust: drm: gem: shmem: Add vmap functions
->   rust: faux: Allow retrieving a bound Device
->   rust: drm: gem: Introduce shmem::Object::sg_table()
-> 
->  rust/kernel/drm/gem/shmem.rs | 524 ++++++++++++++++++++++++++++++++++-
->  rust/kernel/faux.rs          |  16 +-
->  2 files changed, 524 insertions(+), 16 deletions(-)
-> 
-> 
-> base-commit: fea3a2dd7d3fc1936211ced5f84420e610435730
-> -- 
-> 2.54.0
-> 
-Thanks, it's working nicely with Tyr. To make this work with [1] I did
-have to make a few changes to the KunitDriver and tests, but that
-is a separate issue.
+Hi Midgy,
 
-[1] [PATCH v2 0/7] rust: drm: Higher-Ranked Lifetime private data
-https://lore.kernel.org/rust-for-linux/20260603011711.2077361-1-dakr@kernel.org/
+On 6/9/2026 7:11 PM, Midgy Balon wrote:
+> Hello Chaoyi,
+> 
+> You were right - building rocket as a module fixes it. Thanks for the pointer.
+> 
+> I rebuilt with CONFIG_DRM_ACCEL_ROCKET=m (everything else the same:
+> need_regulator on
+> the RK3568 NPU power domain via a DOMAIN_M_R variant, domain-supply =
+> <&vdd_npu>, and the
+> regulator-always-on workaround dropped). The board now boots cleanly
+> and, more importantly,
+> an NPU job submit no longer hangs: I ran the test workload five times
+> with no RCU stall and
+> no freeze.
+> 
+> So with rocket=m the need_regulator approach works on RK3568, and I'll
+> keep it for v4
+> (domain-supply + need_regulator, instead of marking vdd_npu
+> always-on). rocket=m is the
+> normal configuration anyway; my earlier hang came from building it =y
+> in a self-contained
+> image, so it probed in the initcalls (around 2 s) and the genpd ->
+> I2C-PMIC regulator
+> transition ran before the system was ready. As a module it loads from
+> udev much later
+> (~6.8 s here), after the I2C controller and regulator core are fully up.
+> 
+> On your question of when the device-link error is printed - it is at
+> power-domain
+> controller probe, not at the rocket probe:
+> 
+>   [    2.700618] vdd_npu: Bringing 500000uV into 825000-825000uV
+>   [    2.749637] rockchip-pm-domain fdd90000.power-management:power-controller:
+>                  Failed to create device link (0x180) with supplier 0-0020 for
+>                  /power-management@fdd90000/power-controller/power-domain@6
+>   [    2.945955] platform fde40000.npu: Adding to iommu group 3
+>   ...
+>   [    6.840374] rocket: loading out-of-tree module taints kernel.
+>   [    6.877647] [drm] Initialized rocket 0.0.0 for rknn on minor 0
+>   [    6.879950] rocket fde40000.npu: Rockchip NPU core 0 version: 0
+> 
+> So the device-link to the rk809 PMIC (0-0020) fails to form at ~2.75
+> s, well before rocket
+> loads at ~6.8 s. It is non-fatal here - the vdd_npu rail is brought up
+> by the regulator core
+> and all jobs run - and there is no "failed to get ack on domain npu"
+> NoC warning this boot
+> (the always-on kernel had one). The complete boot log is attached.
+> 
+> Two notes / one question:
+> - This boot used fw_devlink=permissive on the command line. Is the
+> "Failed to create device
+>   link ... supplier 0-0020" at pmdomain probe expected/benign, or is
+> there a clean way to make
+>   it order correctly (so it also works without permissive, and a =y
+> build wouldn't deadlock in
+>   the initcalls)?
 
-Tested-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+We encountered the same issue on the RK3588 NPU before. And it was
+resolved with the following patch at that time.
 
+https://lore.kernel.org/all/20251216055247.13150-1-rmxpzlb@gmail.com/
+
+Please compare the differences in NPU pmdomain and DTS configuration
+between the RK3568 and RK3588.
+
+> - (The convolution output is still uniform zero-point / the job times
+> out - that is the
+>   separate NPU compute-completion issue, unrelated to the power-domain
+> work. Finley, that is
+>   the one I flagged earlier re PVTPLL/NoC.)
+> 
+> Kind regards,
+> Midgy
+> 
+
+-- 
+Best, 
+Chaoyi
