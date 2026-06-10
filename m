@@ -4,33 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A8B0CD98C5
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 23:14:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 906A5CD98C7
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 23:18:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E81F910E1DE;
-	Wed, 10 Jun 2026 23:14:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5F1D10E275;
+	Wed, 10 Jun 2026 23:18:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="YIUzjsVU";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="IU0H9k89";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8127210E275
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 23:14:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 881FF10E275
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 23:18:45 +0000 (UTC)
 Received: from killaraus.ideasonboard.com
  (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 93A08228;
- Thu, 11 Jun 2026 01:14:16 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id C4C419D1;
+ Thu, 11 Jun 2026 01:18:14 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1781133256;
- bh=qvRqUmsXGAiDCeG0M6um26A7WMTRPlrJmdZSfx/38rI=;
+ s=mail; t=1781133495;
+ bh=bDutxsDGuo64IizNyxZ3PZMW7vgf15RM9takx0DvE9g=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=YIUzjsVUuTVsjBeaRQ6UDNmE5wjkRu6wotAeDPvLcf9dWwxUUSMN+myIgbzqcvMl8
- oJnsm1svgDU+7UZA8+B7pdMOAYynWGxIapk/LGljVBjRiPEy05zoNTWq46CnBemi2C
- GI+9s/SuBYtBiY1an0IDnFO37McHMckXzRSOWqfU=
-Date: Thu, 11 Jun 2026 02:14:44 +0300
+ b=IU0H9k89utnCTP8294WQVrX4V7yUu1dCAp/7cj2CxziK3GlvEP7jp4nxaWe60bykX
+ 0YR2Nt6KMs7QgEF2RP+wqg6h05arbJb4q4SQvh3BN0KhqLiFPGpvKOYstMthRFIQMM
+ Ka287by0WrkpCnyCg4fTZQCOa17uSWpZrlacTa3s=
+Date: Thu, 11 Jun 2026 02:18:42 +0300
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+To: Conor Dooley <conor@kernel.org>
+Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
  Michael Turquette <mturquette@baylibre.com>,
  Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>,
@@ -48,14 +49,16 @@ Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 1/7] clk: renesas: r8a779g0: Add DSC clock
-Message-ID: <20260610231444.GB1632628@killaraus.ideasonboard.com>
-References: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
- <20260515-rcar-du-dsc-v3-1-164157820498@ideasonboard.com>
+Subject: Re: [PATCH v2 2/5] dt-bindings: display: bridge: Document Renesas
+ R-Car V4H DSC bindings
+Message-ID: <20260610231842.GA1751568@killaraus.ideasonboard.com>
+References: <20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com>
+ <20260515-rcar-du-dsc-v2-2-f6b9240a1240@ideasonboard.com>
+ <20260515-fraying-trickle-7511a2eeaf44@spud>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260515-rcar-du-dsc-v3-1-164157820498@ideasonboard.com>
+In-Reply-To: <20260515-fraying-trickle-7511a2eeaf44@spud>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,33 +74,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, May 15, 2026 at 12:09:26PM +0300, Tomi Valkeinen wrote:
-> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+On Fri, May 15, 2026 at 06:32:27PM +0100, Conor Dooley wrote:
+> On Fri, May 15, 2026 at 10:56:15AM +0300, Tomi Valkeinen wrote:
+> > From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> > 
+> > The Renesas DSC Display Stream Compression is a bridge embedded in the
+> > Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
+> > 8k or 400 Mpixel/s .
+> > 
+> > Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> > [tomi.valkeinen: fix the example]
+> > Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> > ---
+> >  .../bindings/display/bridge/renesas,dsc.yaml       | 96 ++++++++++++++++++++++
+> >  1 file changed, 96 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
+> > new file mode 100644
+> > index 000000000000..2918d592732b
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
 > 
-> Add the DSC module clock for Renesas R-Car V4H (R8A779G0) SoC.
+> Filename matching the compatible please.
 > 
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> pw-bot: changes-requested
+> 
+> > @@ -0,0 +1,96 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/display/bridge/renesas,dsc.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Renesas R-Car DSC Display Stream Compression
+> > +
+> > +maintainers:
+> > +  - Marek Vasut <marek.vasut+renesas@mailbox.org>
+> > +
+> > +description: |
+> > +  This binding describes the VESA DSC Display Stream Compression encoder
+> > +  embedded in the Renesas R-Car V4H SoC. The encoder supports all DSC1.1
+> > +  encoding mechanisms, configurable bits-per-pixel, resolution up to 8k.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: renesas,r8a779g0-dsc
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  clocks:
+> > +    maxItems: 1
+> > +
+> > +  interrupts:
+> > +    maxItems: 1
+> > +
+> > +  power-domains:
+> > +    maxItems: 1
+> > +
+> > +  resets:
+> > +    maxItems: 1
+> > +
+> > +  ports:
+> > +    $ref: /schemas/graph.yaml#/properties/ports
+> > +
+> > +    properties:
+> > +      port@0:
+> > +        $ref: /schemas/graph.yaml#/properties/port
+> > +        description: R-Car DU input port
+> > +
+> > +      port@1:
+> > +        $ref: /schemas/graph.yaml#/properties/port
+> > +        description: R-Car DSI output port
+> > +
+> > +    required:
+> > +      - port@0
+> > +      - port@1
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - clocks
+> > +  - interrupts
+> > +  - power-domains
+> > +  - resets
+> > +  - ports
+> > +
+> > +unevaluatedProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/clock/r8a779g0-cpg-mssr.h>
+> > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> > +    #include <dt-bindings/power/r8a779g0-sysc.h>
+> > +
+> > +    dsc@feb8d000 {
+> 
+> Speaking of fixing the example, should this not be "decoder" or
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Or rather "encoder"
 
-> ---
->  drivers/clk/renesas/r8a779g0-cpg-mssr.c | 1 +
->  1 file changed, 1 insertion(+)
+> "bridge"?
+> Not a big deal though.
+> With the changed filename
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
 > 
-> diff --git a/drivers/clk/renesas/r8a779g0-cpg-mssr.c b/drivers/clk/renesas/r8a779g0-cpg-mssr.c
-> index 015b9773cc55..54ba76ff5ab0 100644
-> --- a/drivers/clk/renesas/r8a779g0-cpg-mssr.c
-> +++ b/drivers/clk/renesas/r8a779g0-cpg-mssr.c
-> @@ -245,6 +245,7 @@ static const struct mssr_mod_clk r8a779g0_mod_clks[] __initconst = {
->  	DEF_MOD("fcpvx0",	1100,	R8A779G0_CLK_S0D1_VIO),
->  	DEF_MOD("fcpvx1",	1101,	R8A779G0_CLK_S0D1_VIO),
->  	DEF_MOD("tsn",		2723,	R8A779G0_CLK_S0D4_HSC),
-> +	DEF_MOD("dsc",		2819,	R8A779G0_CLK_VIOBUSD2),
->  	DEF_MOD("ssiu",		2926,	R8A779G0_CLK_S0D6_PER),
->  	DEF_MOD("ssi",		2927,	R8A779G0_CLK_S0D6_PER),
->  };
-> 
+> > +        compatible = "renesas,r8a779g0-dsc";
+> > +        reg = <0xfeb8d000 0x400>;
+> > +        interrupts = <GIC_SPI 559 IRQ_TYPE_LEVEL_HIGH>;
+> > +        clocks = <&cpg CPG_MOD 2819>;
+> > +        power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
+> > +        resets = <&cpg 2819>;
+> > +
+> > +        ports {
+> > +            #address-cells = <1>;
+> > +            #size-cells = <0>;
+> > +
+> > +            port@0 {
+> > +                reg = <0>;
+> > +                dsc_in_dsi1: endpoint {
+> > +                    remote-endpoint = <&du_out_dsi1>;
+> > +                };
+> > +            };
+> > +
+> > +            port@1 {
+> > +                reg = <1>;
+> > +                dsc_out_dsi1: endpoint {
+> > +                    remote-endpoint = <&dsi1_in>;
+> > +                };
+> > +            };
+> > +        };
+> > +    };
+> > +...
 
 -- 
 Regards,
