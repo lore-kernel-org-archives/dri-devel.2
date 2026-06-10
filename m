@@ -4,77 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B876CD98D2
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 10:49:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3962CD98D6
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 10:49:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC60B10EE47;
-	Thu, 11 Jun 2026 10:49:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0523A10EE4C;
+	Thu, 11 Jun 2026 10:49:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CIPE11lN";
+	dkim=pass (2048-bit key; secure) header.d=sms-medipool.de header.i=@sms-medipool.de header.b="p5/sMMMS";
 	dkim-atps=neutral
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43F7E10E500
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 16:44:58 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-4600cbb06deso35423f8f.1
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 09:44:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781109897; x=1781714697; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7tuZU5chW129Gn+ZceSGJIAdU7Oe7M+OtmrZzZzJOnc=;
- b=CIPE11lN2+/pG/DiQ/wXyMQjn4x2w4NsARQaBKNq7c5Fhly/lrB8nu8m+Ktwv3ekcF
- G9Je6lm7/6uZ8OLw50MZPB7j4My+vg6V5pWq+34zWzCBW8ItWpxAkTFLdPSw3SAkVLvO
- VQ/RXcFjr8Aqefw/OUj6GqkiM66lU8s7bzhDmrl73bMy3fzLy5fls2eWvmB2WVaniqAj
- 5KCL2zY+5+lO0nSnVyFTTgeq9zoSqCmWh8gxPcr8xTQTOZKjpIHl0aDrClmlyE+D5WQJ
- eL3ikj7IBxuEhoF13XTQ+e71CA3bXJ9kz7+/8NCPHc1yCwnVG3bgm3VRVj+25Qb8DFfg
- V/qQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781109897; x=1781714697;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=7tuZU5chW129Gn+ZceSGJIAdU7Oe7M+OtmrZzZzJOnc=;
- b=QMBcczrKXnBWg9rWbkx20pJY2BVE5X05m/2CssbzvANiIxeSz6KkpFc5IAorfSa4Th
- TGEasdXPdyuS1yafsR/ijsu/TCqjbeUH6HJxbkicCuqa6f+HaAM+wsDkw3KOqlb9THA2
- BpVr7ZJ3soMqD/XlsyRC03G4OsMEBNbPr8qScyMrt2dmsZG1BdoqSliR5LJZUAlqwwHA
- XaSZ0dbymuqNv4fX9WW9Ti56Gi6vUuhWxUNZE3gFOAIa/TVTYqEy12JT1aZRebqfq3w2
- sS2RZ1sxydbpmroTIrh5MpN9bgwsJeE4F8WydnD2MLlsgg2FYAT3IVnxWJGEYeTjedwv
- rkWw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8Y9uxtjVPGm4zHUnJtivA0qQKPgosR7Odu5v8eA1G2XwdukxaCFnaTfhj9EhcWdxTfYvjYQfGrckE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyEi5NisJ/9ap9PAYoCUrHgeA1c63PwwI/GbPxPYP3HxLhz9sfN
- I3NzMDN0kb4AM5ZBKcwaKQiizzjFXSRWZXmvFEuga1r+WKih02vYX+RO
-X-Gm-Gg: Acq92OFnBaYlP9nWL7IB4sCg/VoPca95lZc63tRMoEMkgEuAoKDjVUBV7ILHmMRSkF1
- lgvTO/xNGk9DNpZ9QezRRyrda9vfAOquML2bl5LVCJ/uwHingzIUPnu1oMtK2jkXfOLJLsAdjOk
- Y/PWGfuelH9ytrP6n+LDBE8S7ZcIvud3WUUF6gSMuvwTHeXa6PRDfP8DM/PTbfLrz0XdJjyc/gd
- PqiA9xRBfjhuU+S5ONX6xEeiHhB7HJGofscjONqCNvvhHbb98p/IKAhtLtgkdZrGyhRqFtaaJUF
- Om2I3k0gdR7t2LglQw5Wn/S606YQNSN5Wmj6I4E4DGtAOWTSWD6Nrobc6w9hezWk/KCmDrEq5La
- 6xGi+DQ7UjX4YUoK+rPV0wkCsJFz+nGJ5Hau2iS8SUSweiV81+Z8GqTtCjaCFYgAFnwu9792Z36
- 0y7PHWCEBrfW8NpK4/hvJhj1aGOHXNyNMXaevi7TUcVuNkPMTeCgo=
-X-Received: by 2002:a05:6000:1785:b0:45e:daa9:f34c with SMTP id
- ffacd0b85a97d-46032dce5d3mr37114605f8f.26.1781109896641; 
- Wed, 10 Jun 2026 09:44:56 -0700 (PDT)
-Received: from anthony ([2a06:c701:9cfb:2900:12ff:e0ff:fea5:3d2e])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-46028a6dcbdsm61156733f8f.7.2026.06.10.09.44.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Jun 2026 09:44:55 -0700 (PDT)
-From: Amit Barzilai <amit.barzilai22@gmail.com>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch
-Cc: javierm@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Amit Barzilai <amit.barzilai22@gmail.com>
-Subject: [PATCH 1/2] dt-bindings: display: Add Solomon SSD1351 OLED controller
-Date: Wed, 10 Jun 2026 19:44:27 +0300
-Message-ID: <20260610164428.180091-2-amit.barzilai22@gmail.com>
+X-Greylist: delayed 595 seconds by postgrey-1.36 at gabe;
+ Wed, 10 Jun 2026 17:58:06 UTC
+Received: from mail.sms-medipool.de (mail.sms-medipool.de [178.63.14.108])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 177AB10EB42
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 17:58:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sms-medipool.de;
+ s=mail; t=1781113715;
+ bh=nE96KNk6MqeKHtTvcFrsvJeaaru9noiZamxjCmdDHI0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=p5/sMMMS8C1YnggKI8IIPW2zNVR9ItAI/7nWIrXa8cjyv368k2zP4T47J8tMKc0NP
+ 4MUj/gOIHmmuEjUIO6092492KckWM2wg7oGVxPnN6Vv4XohfZBVagrJQjGT6DZfRf3
+ 0npjAIu3wlvqMKTuw8U1V/3WWTlckVV8aPlH74LYmbYw6cV/pXWTXH5At7MSjHebJY
+ GFGhcY937Kx6rhwZAy0WW0Mb4qM0bvO7l964x/SDVa5i3hIa4rpEHcqLVQrYT/uPPT
+ 1ypLFjHpRdrUAppOOjwwau+Ovoed3hkT+VATcoG1jxRdm2FnSo0LSj6FF2zo8PY2QW
+ yFvjNZznUFsEA==
+Received: from mail.stoss-medica.de (mail.stoss-medica.de [213.147.17.40])
+ by mail.sms-medipool.de (Postfix) with ESMTPS id C675011B61;
+ Wed, 10 Jun 2026 19:48:35 +0200 (CEST)
+Received: from NUC16-Linux.sb.golima.de ([95.88.98.111])
+ by mail.stoss-medica.de (Kerio Connect 10.0.8 patch 2) with ESMTP;
+ Wed, 10 Jun 2026 19:48:34 +0200
+From: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
+To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Cc: Hans Verkuil <hverkuil@kernel.org>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, alexander.kaplan@sms-medipool.de
+Subject: [PATCH] drm/dp: Service the CEC tunneling IRQ flags without CEC_IRQ
+ in ESI1
+Date: Wed, 10 Jun 2026 19:48:33 +0200
+Message-ID: <20260610174833.6284-1-alexander.kaplan@sms-medipool.de>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260610164428.180091-1-amit.barzilai22@gmail.com>
-References: <20260610164428.180091-1-amit.barzilai22@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 11 Jun 2026 10:49:05 +0000
@@ -93,71 +66,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a device tree binding for the Solomon SSD1351, a 128x128 65k-color
-RGB OLED display controller driven over a 4-wire SPI bus. The binding
-builds on the shared solomon,ssd-common.yaml properties already used by
-the other Solomon display controllers.
+The DP standard requires a DP-to-HDMI protocol converter to assert
+an IRQ_HPD pulse with the CEC_IRQ bit in the
+DEVICE_SERVICE_IRQ_VECTOR_ESI1 register set whenever it sets a bit in
+the CEC_TUNNELING_IRQ_FLAGS register (DP v2.0, Table 2-194, DPCD
+address 3004h).
 
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
+The Synaptics VMM7100 based DP-to-HDMI protocol converters get this
+half right.
+They assert an IRQ_HPD pulse for each CEC event, but never set the
+CEC_IRQ bit.
+ESI1 reads as 0 at the very moment CEC_TUNNELING_IRQ_FLAGS has the
+corresponding TX/RX flags set.
+drm_dp_cec_irq() trusts the bit and returns without servicing the
+flags, so no transmit is ever completed and the CEC adapter is
+unusable with these devices.
+Every transmit times out, claiming a logical address fails and the
+/dev/cecX device ends up unconfigured.
+The converter's CEC engine itself works fine.
+Driving the CEC tunneling DPCD registers manually shows the TV
+ACKing the tunneled messages and sending requests of its own.
+
+Demote the CEC_IRQ bit from a gate to an acknowledge hint: service
+the CEC tunneling IRQ flags on every IRQ_HPD pulse, whether or not
+the branch device set CEC_IRQ, and acknowledge CEC_IRQ in ESI1 only
+when it was actually set.
+Servicing is idempotent since every action is keyed to a
+write-1-to-clear flag bit, so for branch devices with no pending CEC
+event this amounts to one additional AUX read of the flags register,
+and only on connectors that advertise the CEC tunneling capability
+(without it no CEC adapter is registered and drm_dp_cec_irq()
+returns early as before).
+Devices that conformantly set CEC_IRQ are serviced exactly as before.
+
+With this the CEC adapter of a VMM7100 based USB-C to HDMI adapter
+configures and transmits successfully (verified against an LG OLED
+TV with an Intel Panther Lake xe device, including TV power on/off
+over CEC).
+
+Fixes: 2c6d1fffa1d9 ("drm: add support for DisplayPort CEC-Tunneling-over-AUX")
+Signed-off-by: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
 ---
- .../bindings/display/solomon,ssd1351.yaml     | 47 +++++++++++++++++++
- 1 file changed, 47 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
+This patch is part of a set of independent fixes for the USB-C to DP
+to HDMI 2.1 protocol converter (PCON) path, found and verified on an
+ASUS NUC 16 Pro (Panther Lake, xe) with Synaptics VMM7100 based
+adapters.
+Each part stands on its own and can be merged independently.
+The other parts:
+[1] https://lore.kernel.org/r/20260610174413.5881-1-alexander.kaplan@sms-medipool.de
+[2] https://lore.kernel.org/r/20260610174807.6231-1-alexander.kaplan@sms-medipool.de
+[3] https://lore.kernel.org/r/20260610174819.6258-1-alexander.kaplan@sms-medipool.de
+ drivers/gpu/drm/display/drm_dp_cec.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml b/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
-new file mode 100644
-index 000000000000..a7d77132faa6
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
-@@ -0,0 +1,47 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/solomon,ssd1351.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/gpu/drm/display/drm_dp_cec.c b/drivers/gpu/drm/display/drm_dp_cec.c
+index 436bfe9f9081..824a99f86a3d 100644
+--- a/drivers/gpu/drm/display/drm_dp_cec.c
++++ b/drivers/gpu/drm/display/drm_dp_cec.c
+@@ -218,6 +218,9 @@ static void drm_dp_cec_handle_irq(struct drm_dp_aux *aux)
+ 	if (drm_dp_dpcd_read_byte(aux, DP_CEC_TUNNELING_IRQ_FLAGS, &flags) < 0)
+ 		return;
+ 
++	if (!flags)
++		return;
 +
-+title: Solomon SSD1351 OLED Display Controller
+ 	if (flags & DP_CEC_RX_MESSAGE_INFO_VALID)
+ 		drm_dp_cec_received(aux);
+ 
+@@ -255,11 +258,22 @@ void drm_dp_cec_irq(struct drm_dp_aux *aux)
+ 
+ 	ret = drm_dp_dpcd_read_byte(aux, DP_DEVICE_SERVICE_IRQ_VECTOR_ESI1,
+ 				    &cec_irq);
+-	if (ret < 0 || !(cec_irq & DP_CEC_IRQ))
++	if (ret < 0)
+ 		goto unlock;
+ 
++	/*
++	 * Some branch devices, for instance the Synaptics VMM7100 based
++	 * DP-to-HDMI protocol converters, assert an IRQ_HPD pulse for each
++	 * CEC event, but never set the CEC_IRQ bit in the
++	 * DEVICE_SERVICE_IRQ_VECTOR_ESI1 register. Check the CEC tunneling
++	 * IRQ flags even without CEC_IRQ being set: servicing the flags is
++	 * idempotent and only costs one additional AUX read.
++	 */
+ 	drm_dp_cec_handle_irq(aux);
+-	drm_dp_dpcd_write_byte(aux, DP_DEVICE_SERVICE_IRQ_VECTOR_ESI1, DP_CEC_IRQ);
 +
-+maintainers:
-+  - Amit Barzilai <amit.barzilai22@gmail.com>
-+
-+allOf:
-+  - $ref: solomon,ssd-common.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - solomon,ssd1351
-+
-+  solomon,width:
-+    default: 128
-+
-+  solomon,height:
-+    default: 128
-+
-+  rotation: true
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        oled@0 {
-+            compatible = "solomon,ssd1351";
-+            reg = <0x0>;
-+            reset-gpios = <&gpio2 7>;
-+            dc-gpios = <&gpio2 8>;
-+            spi-max-frequency = <10000000>;
-+        };
-+    };
++	if (cec_irq & DP_CEC_IRQ)
++		drm_dp_dpcd_write_byte(aux, DP_DEVICE_SERVICE_IRQ_VECTOR_ESI1,
++				       DP_CEC_IRQ);
+ unlock:
+ 	mutex_unlock(&aux->cec.lock);
+ }
 -- 
 2.54.0
+
 
