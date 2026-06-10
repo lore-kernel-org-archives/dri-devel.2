@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 626BCCD8CB2
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 15:25:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE9B4CD98D2
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 15:25:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11AB510EA37;
-	Wed, 10 Jun 2026 15:25:16 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F065210EA31
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 15:25:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFAB610EA42;
+	Wed, 10 Jun 2026 15:25:18 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BD7810EA42
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 15:25:17 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C1C2375930;
- Wed, 10 Jun 2026 15:25:12 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id ACC786AE60;
+ Wed, 10 Jun 2026 15:25:13 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E399D779A9;
- Wed, 10 Jun 2026 15:25:11 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C9234779A7;
+ Wed, 10 Jun 2026 15:25:12 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 2ComNteBKWr3HwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 10 Jun 2026 15:25:11 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id SGeyL9iBKWr3HwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 10 Jun 2026 15:25:12 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: mripard@kernel.org, maarten.lankhorst@linux.intel.com, airlied@redhat.com,
  airlied@gmail.com, simona@ffwll.ch, admin@kodeit.net,
@@ -44,11 +44,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  linux-mips@vger.kernel.org, virtualization@lists.linux.dev,
  amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Zack Rusin <zackr@vmware.com>, stable@vger.kernel.org
-Subject: [PATCH v5 01/15] drm/amd/display: Handle struct
+ stable@vger.kernel.org, Zack Rusin <zackr@vmware.com>
+Subject: [PATCH v5 02/15] drm/i915/display: Handle struct
  drm_plane_state.ignore_damage_clips
-Date: Wed, 10 Jun 2026 17:18:17 +0200
-Message-ID: <20260610152505.260172-2-tzimmermann@suse.de>
+Date: Wed, 10 Jun 2026 17:18:18 +0200
+Message-ID: <20260610152505.260172-3-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260610152505.260172-1-tzimmermann@suse.de>
 References: <20260610152505.260172-1-tzimmermann@suse.de>
@@ -56,7 +56,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
-X-Rspamd-Queue-Id: C1C2375930
+X-Rspamd-Queue-Id: ACC786AE60
 X-Rspamd-Action: no action
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Rspamd-Pre-Result: action=no action; module=replies;
@@ -80,56 +80,43 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 The mode-setting pipeline can disabled damage clippings for a commit
 by setting ignore_damage_clips in struct drm_plane_state. The commit
-will then do a full display update.
+will then do a full display update. Commit 35ed38d58257 ("drm: Allow
+drivers to indicate the damage helpers to ignore damage clips") introduced
+ignore_damage_clips to selectively ignore damage clipping in certain
+framebuffer changes.
 
-Test the flag in DCN code and do a full update in DCN code if it has
-been set.
-
-Commit 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers
-to ignore damage clips") introduced ignore_damage_clips to selectively
-ignore damage clipping in certain framebuffer changes. This driver does
-not do that, but DRM's damage iterator will soon rely on the flag.
-Therefore supporting it here as well make sense for consistency.
+The i915 driver does not modify the flag, but DRM's damage iterator
+will soon rely on it. Calling drm_atomic_helper_check_plane_damage()
+right before drm_atomic_helper_damage_merged() guarantees that it
+has the correct state. The i915 driver does not do this elsewhere
+so far.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 Fixes: 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers to ignore damage clips")
+Cc: <stable@vger.kernel.org> # v6.4+
 Cc: Javier Martinez Canillas <javierm@redhat.com>
 Cc: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Zack Rusin <zackr@vmware.com>
 Cc: dri-devel@lists.freedesktop.org
 Cc: <stable@vger.kernel.org> # v6.8+
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 0e20194e6662..4cbb27f65a0b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6614,8 +6614,8 @@ static void fill_dc_dirty_rects(struct drm_plane *plane,
- {
- 	struct dm_crtc_state *dm_crtc_state = to_dm_crtc_state(crtc_state);
- 	struct rect *dirty_rects = flip_addrs->dirty_rects;
--	u32 num_clips;
--	struct drm_mode_rect *clips;
-+	u32 num_clips = 0;
-+	struct drm_mode_rect *clips = NULL;
- 	bool bb_changed;
- 	bool fb_changed;
- 	u32 i = 0;
-@@ -6631,8 +6631,10 @@ static void fill_dc_dirty_rects(struct drm_plane *plane,
- 	if (new_plane_state->rotation != DRM_MODE_ROTATE_0)
- 		goto ffu;
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index e138982dc91f..e4f43eb5bd72 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -3018,6 +3018,9 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
+ 		src = drm_plane_state_src(&new_plane_state->uapi);
+ 		drm_rect_fp_to_int(&src, &src);
  
--	num_clips = drm_plane_get_damage_clips_count(new_plane_state);
--	clips = drm_plane_get_damage_clips(new_plane_state);
-+	if (!new_plane_state->ignore_damage_clips) {
-+		num_clips = drm_plane_get_damage_clips_count(new_plane_state);
-+		clips = drm_plane_get_damage_clips(new_plane_state);
-+	}
- 
- 	if (num_clips && (!amdgpu_damage_clips || (amdgpu_damage_clips < 0 &&
- 						   is_psr_su)))
++		/* Prepare plane-damage state before using it */
++		drm_atomic_helper_check_plane_damage(&state->base, &new_plane_state->uapi);
++
+ 		if (!drm_atomic_helper_damage_merged(&old_plane_state->uapi,
+ 						     &new_plane_state->uapi, &damaged_area))
+ 			continue;
 -- 
 2.54.0
 
