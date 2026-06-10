@@ -4,78 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CB41CD98C8
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 07:58:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9A1FCD8CB2
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 07:58:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4980610E7B5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44A4310E7B3;
 	Wed, 10 Jun 2026 07:58:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="W/07LLuU";
+	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="im191+tY";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1DB510E520
- for <dri-devel@lists.freedesktop.org>; Tue,  9 Jun 2026 16:21:04 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-36d9794d82aso4098096a91.0
- for <dri-devel@lists.freedesktop.org>; Tue, 09 Jun 2026 09:21:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781022064; x=1781626864; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=W/o6xoNweapTrriRmAST3RoLSBcjrFwLozoiHNOF/xU=;
- b=W/07LLuUTQThFQC97nZNMVNus22JlroYxR94EVkPcPapK5WsTudPUSSGzh5EcqAv4o
- kQK+zWNNqWpQxYLXK+6NVR5bGC8pwI3OzSWl8bzFn3dPA+C74Q20ApRccp61VGla/Jua
- EUiEBBE4zZOGydC/kxsR5/2Rr9xSQ5QUnFTFLpcIMSjVaczZIkPlkB0yqzlDtbvEScOM
- Z0kA97x5iUEYvxsk2KmttrAv8HTd8PN2SwfHDlBIkLpwIRKE5eNdK4xpg58G1N+4Lddh
- oh3aWxtH1Vr11tNWfx160TDr+YawcZ/1XNtcnj036ccVYWyV0jX64ewSc+yNBpdnoXN6
- PJWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781022064; x=1781626864;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=W/o6xoNweapTrriRmAST3RoLSBcjrFwLozoiHNOF/xU=;
- b=eDoJm8tg5gd6lsf9OAgSaR2KA5/+jnGBoolRg4gR/vJ/DrQxZEzWztAB1WmQ8mnYlC
- D+3dE5psQcNG3d8a3jwmsUuK+rOFA21sw9XUoW/+4vYLTyx4andLSIcBZB/GYXAk5hSk
- +j646cRvmvu6eujJFNLnNK0fW7/QrA6D5vsGkZ7dLS4FjyUp4xvYhLiwHeYBDqn0M2+L
- HcxSquRMQeT6byXXxZk9ZYqKqcOpEliLDUqKqzkK+R2lDsvPBKanN5zFUR9kBIy51og4
- lz1MR2c2R6J0evIIYy8pwOPt1ayX7LKht3YScFKY/KTAbVKNBsPXermSATTNNdlP+STA
- XksA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9kwe+MtRdmL9AcJyfRC2PC8wmALxyZTDxThhSsI/xCprQsFasI9u7ZWqV32QAK3Jztj1EYSs/Tf44=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwNWcWHUQdO6FODYPRdjpbg1HFcxW4AaJh9ONvDWA/dwXcOeGdr
- HNlWOOr4ynrPeZSLryhxq/f4/Fo3DbO8YegiUCR6dzUILCcGQchP+Ss+
-X-Gm-Gg: Acq92OGTFqo9UKjNH4flARmSLGjzHlf4HxODJSrrDMZ+6lL9O94R6JxM/90ZP4Lqx8Y
- fpBHX9FtX8Hlt0DOx/ZGcDEt7vuOKhztav77NSzMGrqpkMxMr9rY3NdacFY7kF/+BQhUE/sErdP
- 2XJS6ic2VoGY2qGgnA8K5eFB//k2ORLdLwKjx/UhTcGEVt3E/0PK+r57eutzevOZTuFq67VID+G
- tH42IsEP6iYv+nskWAp7Usxu7TOersqK1HDXI4dU3PBFz7qbOrh3koF0/bWzxlU7yrc40PpXwoH
- dQ/Lpb5J5IgfeTtlFipLXeaAi3d4n2ZPTWYHNjWIVr4WiRVlsAlYUnAa25acNBtKFEN1XTCsNFS
- un//bAGzOJoUiSs1t63804NGh5GUoCvWLZAeEYHqteRJ3BzPGDmpSndJWNCO3cPX4adOJk10zVJ
- A0ftsl0CT1zxXqEiv31xaz2i0lEK7KuzXG9suWUaoD1RrWjUVl/rwueA45IEvQZZV1
-X-Received: by 2002:a17:90b:57c4:b0:369:a9e8:dbf5 with SMTP id
- 98e67ed59e1d1-370ee643748mr22119245a91.3.1781022064062; 
- Tue, 09 Jun 2026 09:21:04 -0700 (PDT)
-Received: from haichao.tail057a43.ts.net
- ([2001:da8:e000:1206:37c9:44fa:729b:6aaa])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-36f6bf830b2sm18366170a91.4.2026.06.09.09.21.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jun 2026 09:21:03 -0700 (PDT)
-From: Ruoyu Wang <ruoyuw560@gmail.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Ruoyu Wang <ruoyuw560@gmail.com>
-Subject: [PATCH] drm/xe: keep process name fallback for diagnostics
-Date: Wed, 10 Jun 2026 00:20:57 +0800
-Message-ID: <20260609162057.5-1-ruoyuw560@gmail.com>
-X-Mailer: git-send-email 2.51.0
+X-Greylist: delayed 62932 seconds by postgrey-1.36 at gabe;
+ Wed, 10 Jun 2026 03:04:24 UTC
+Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.58.223])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39C3210E6B3
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 03:04:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+ s=onoh2408; t=1781060636;
+ bh=FjDzXjUTCA7PwSwSBXMojIa1RoXXpb1tpWd5EIt2Ab4=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=im191+tYgUA5nWAtnwvKYxgm8AgZKHXXTOKbRZQCSzQK3xsLaX/Au3Jh26Mje35i8
+ BtfmmFeXqmYpjRu1+v1tbKikd0PWRqyvgFdU0awZql4GOTL3cYATpROeD9kI6IcrEc
+ hJvj6cGaSR4MPAa6G09YXa7uT1BiCBdSYHXtIuHI=
+X-QQ-mid: esmtpgz13t1781060616t4cb5f45a
+X-QQ-Originating-IP: HqAmerhJ3hI49ZXtNeNqKA5HqnwfQOOj3mTqxE9tZT8=
+Received: from localhost.localdomain ( [1.202.39.170])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Wed, 10 Jun 2026 11:03:26 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 4178767575033228324
+EX-QQ-RecipientCnt: 11
+From: ZhaoJinming <zhaojinming@uniontech.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Oded Gabbay <ogabbay@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jeff Hugo <jeff.hugo@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, ZhaoJinming <zhaojinming@uniontech.com>,
+ stable@vger.kernel.org
+Subject: [PATCH v4 1/2] accel/rocket: Fix error path handling in
+ rocket_job_run()
+Date: Wed, 10 Jun 2026 11:03:21 +0800
+Message-Id: <20260610030322.2802744-1-zhaojinming@uniontech.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20260609094756.8DDFD1F00893@smtp.kernel.org>
+References: <20260609094756.8DDFD1F00893@smtp.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: MsqSUSn/kyQPQjiCyz75oXbJQh/snsUlhVklJHo5k/puxzxr+lGaXlpP
+ d7wIdvzla2afja9/GAK5MOnJLSQC3GWUuV875W+WvKCuRxn/MhMhv//K6dk326kjfmmatcd
+ n9EzdSSt8DaFNBzPfpKXfJJPgzhWjOerlFbvcwXKjZOUS+yV4K2bbLa06SynTDBZDMQXYjQ
+ 3UryfK5MdBKEoW0d9+cXYuxBBZxbWC1q6LoVq2wbUhuMdUKB4wpafcYy2dQAc34ZO/yVO3J
+ zf0/tfx7oFn9mz/qIYPpoTziteZgKtwqKVs3a5BGScHZXHV9BiOQpthpfOvGEVt1LvGRnLb
+ FsSgctwpgsNaEJEHKivpVtzZdCvOOvnMh5QPAiekxuZo9YmixLVJxTfJxBRpvYYMw+v377g
+ Dx5++ZKyTNWhqqxvQ3ZRvBcrrV0VIsg2ftKqaMZxAFF/OSu8tY9+WuWQrbE8LXdrGDtwaF5
+ oHHAiavnj7jV/niSNIA2gNMKzfnuUf6r8+7dFxINigafhBO64DKugwMFDl/4kuF73FYPAxx
+ lo0Csmg+j1Ra2gy6KrBLKNIUVJAQf3KAZi9qffO+JYg6HAkISeTUGBScQetn0vsRv9UHG0s
+ KPh80l6e2zKJp4HAijt63Uh3cIwVCgiRTtzbT1LLXVbPsExzqJzNSPctt6GLWUg/A54/5Px
+ g6q5v1V+myd79uqhmen7HR6NMODclm1auvUuLu8S6PRJLgc/m8mP1LSnqc0GKXsTRNCxNVT
+ ddETzoskDY0xXoWOrr+aH/UOcyhvxWTYoiFxbUIEUptacGR5leeNB9sfRUhpwUG0VTXH4yg
+ ciCoeLK5P4wA6WUIYd19aaGyfzUCuxHU2khnILY2viSArgNVQ+HYg44wC0wisxRnwDew3cg
+ mS7KRpS2qY6Td/lZbwyw+yn0zY4PwzHa4P/JeQsU4Ojui2aSK99m2UODpmUU6zK35Iyx7mC
+ DlpMIFfgpMeCnh92Q5+89siCKMKkDQc/l6vBssUuGIaowWU80gIgunNNK0dY0mJ8ectemjT
+ efJhH2LJ4ELNX4Th6bOTHX7ruKfaM=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Wed, 10 Jun 2026 07:58:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,53 +87,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-xe_file_open() stores task->comm in xef->process_name with kstrdup(),
-but this diagnostic string is optional and the file open continues if
-the allocation fails.
+In rocket_job_run(), after taking an extra fence reference for
+job->done_fence via dma_fence_get(), the error paths have three bugs:
 
-The timeout and devcoredump paths initialize process_name to the safe
-"no process" fallback, then overwrite it whenever q->vm->xef exists. If
-the kstrdup() failed, the fallback is replaced with NULL and the NULL
-pointer is passed to string handling in diagnostic paths.
+- The dma_fence reference held by job->done_fence is never released,
+  causing a reference leak.
+- pm_runtime_get_sync() increments the usage counter even on failure,
+  but the error path does not decrement it, leaking the runtime PM
+  reference and preventing the NPU from suspending.
+- A valid but unsignaled fence is returned to the DRM scheduler,
+  which triggers WARN("Fence ... released with pending signals!")
+  when the scheduler drops its reference.
 
-Keep the fallback process name unless xef->process_name was actually
-allocated. Still report the stored pid when the xe file is available.
+Fix by replacing pm_runtime_get_sync() with pm_runtime_resume_and_get()
+which auto-balances the usage counter on failure, releasing both fence
+references on error, and returning ERR_PTR(ret) instead of the
+unsignaled fence.
 
-Fixes: 8af13c3fc125 ("drm/xe: Store process name and pid in xe file")
-Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
+Cc: stable@vger.kernel.org
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
 ---
- drivers/gpu/drm/xe/xe_devcoredump.c | 3 ++-
- drivers/gpu/drm/xe/xe_guc_submit.c  | 3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ drivers/accel/rocket/rocket_job.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_devcoredump.c b/drivers/gpu/drm/xe/xe_devcoredump.c
-index 11e60d6..fbe1fba 100644
---- a/drivers/gpu/drm/xe/xe_devcoredump.c
-+++ b/drivers/gpu/drm/xe/xe_devcoredump.c
-@@ -343,7 +343,8 @@ static void devcoredump_snapshot(struct xe_devcoredump *coredump,
- 	ss->boot_time = ktime_get_boottime();
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index ac51bff39833..e8a073e22ac2 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -310,13 +310,22 @@ static struct dma_fence *rocket_job_run(struct drm_sched_job *sched_job)
+ 		dma_fence_put(job->done_fence);
+ 	job->done_fence = dma_fence_get(fence);
  
- 	if (q->vm && q->vm->xef) {
--		process_name = q->vm->xef->process_name;
-+		if (q->vm->xef->process_name)
-+			process_name = q->vm->xef->process_name;
- 		ss->pid = q->vm->xef->pid;
- 	}
+-	ret = pm_runtime_get_sync(core->dev);
+-	if (ret < 0)
+-		return fence;
++	ret = pm_runtime_resume_and_get(core->dev);
++	if (ret < 0) {
++		dma_fence_put(job->done_fence);
++		job->done_fence = NULL;
++		dma_fence_put(fence);
++		return ERR_PTR(ret);
++	}
  
-diff --git a/drivers/gpu/drm/xe/xe_guc_submit.c b/drivers/gpu/drm/xe/xe_guc_submit.c
-index 2ac87ff..0892400 100644
---- a/drivers/gpu/drm/xe/xe_guc_submit.c
-+++ b/drivers/gpu/drm/xe/xe_guc_submit.c
-@@ -1189,7 +1189,8 @@ trigger_reset:
- 	}
+ 	ret = iommu_attach_group(job->domain->domain, core->iommu_group);
+-	if (ret < 0)
+-		return fence;
++	if (ret < 0) {
++		pm_runtime_put(core->dev);
++		dma_fence_put(job->done_fence);
++		job->done_fence = NULL;
++		dma_fence_put(fence);
++		return ERR_PTR(ret);
++	}
  
- 	if (q->vm && q->vm->xef) {
--		process_name = q->vm->xef->process_name;
-+		if (q->vm->xef->process_name)
-+			process_name = q->vm->xef->process_name;
- 		pid = q->vm->xef->pid;
- 	}
- 
+ 	scoped_guard(mutex, &core->job_lock) {
+ 		core->in_flight_job = job;
 -- 
-2.51.0
+2.20.1
 
