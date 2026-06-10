@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AF78CD98C7
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 23:20:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DCCACD98C7
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 23:24:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4D7410EC1C;
-	Wed, 10 Jun 2026 23:20:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EF2E10EC23;
+	Wed, 10 Jun 2026 23:24:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="oKe6LGbz";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Cs87tXWK";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BDC410EC1C
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 23:20:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32BF810EC20
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 23:24:07 +0000 (UTC)
 Received: from killaraus.ideasonboard.com
  (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id CB5691283;
- Thu, 11 Jun 2026 01:20:01 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 86A02228;
+ Thu, 11 Jun 2026 01:23:36 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1781133602;
- bh=1sBfgUpTaMt3+5XDmLI9dhmy6pYrizel4o+tCMTtBq0=;
+ s=mail; t=1781133816;
+ bh=1VgXq/psbzPZ5ujKREwdsJzxQTcDhvTF80CsspVxDH0=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=oKe6LGbzyVucGlmDps3xkBk/Oe5+4XfOzgqlk3tkSxfJ5QDNI3rdyRhAZHzJ2IRZO
- BNrlCg+2fNXqsZb0NlGeYX7pADzmLZbF6ZhO9ettaZrWuGKpVH/+DP4+j3mG0UIYER
- Jln+gwfc+DtfyUfywxeFhUfV5s/ceu3KisOoy884=
-Date: Thu, 11 Jun 2026 02:20:29 +0300
+ b=Cs87tXWK6hb7EuJl/FYSVlMzECBIoDmVnwjQh86ApEAq4bvqbHWDOezgf2P0NQ/ka
+ nBTPwxU7NqsP3yRF/yIFPQKIm2F+KMoiG9GfZ19Fwu4i1W+SS0NLtDUyGR3AivFslr
+ dZIqyvBQhMCXRrJHCKDDAhlFZXSy00Sdvzs1CYQs=
+Date: Thu, 11 Jun 2026 02:24:04 +0300
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -48,15 +48,14 @@ Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 2/7] dt-bindings: display: bridge: Document Renesas
- R-Car V4H DSC bindings
-Message-ID: <20260610232029.GC1632628@killaraus.ideasonboard.com>
+Subject: Re: [PATCH v3 5/7] arm64: dts: renesas: r8a779g0: Add DSC
+Message-ID: <20260610232404.GD1632628@killaraus.ideasonboard.com>
 References: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
- <20260515-rcar-du-dsc-v3-2-164157820498@ideasonboard.com>
+ <20260515-rcar-du-dsc-v3-5-164157820498@ideasonboard.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260515-rcar-du-dsc-v3-2-164157820498@ideasonboard.com>
+In-Reply-To: <20260515-rcar-du-dsc-v3-5-164157820498@ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,127 +75,75 @@ Hi Tomi and Marek,
 
 Thank you for the patch.
 
-On Fri, May 15, 2026 at 12:09:27PM +0300, Tomi Valkeinen wrote:
+On Fri, May 15, 2026 at 12:09:30PM +0300, Tomi Valkeinen wrote:
 > From: Marek Vasut <marek.vasut+renesas@mailbox.org>
 > 
 > The Renesas DSC Display Stream Compression is a bridge embedded in the
-> Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
-> 8k or 400 Mpixel/s .
+> Renesas R-Car V4H SoC. The bridge is placed between DU and DSI1 units.
+> 
+> The current dtsi file does not represent the DSC at all, and thus the
+> pipeline for DSI1 has not been functional.
 > 
 > Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> [tomi.valkeinen: fix the example]
+> [tomi.valkeinen: separated the sparrowhawk changes]
 > Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-
-With the comments from Conor in v2 addressed,
 
 Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
 > ---
->  .../bindings/display/bridge/renesas,dsc.yaml       | 96 ++++++++++++++++++++++
->  1 file changed, 96 insertions(+)
+>  arch/arm64/boot/dts/renesas/r8a779g0.dtsi | 31 ++++++++++++++++++++++++++++++-
+>  1 file changed, 30 insertions(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
-> new file mode 100644
-> index 000000000000..2918d592732b
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
-> @@ -0,0 +1,96 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/bridge/renesas,dsc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+> index 82a7278836e5..52a6176f9fd0 100644
+> --- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+> @@ -2298,6 +2298,35 @@ du_out_dsi0: endpoint {
+>  				port@1 {
+>  					reg = <1>;
+>  					du_out_dsi1: endpoint {
+> +						remote-endpoint = <&dsc_in_dsi1>;
+> +					};
+> +				};
+> +			};
+> +		};
 > +
-> +title: Renesas R-Car DSC Display Stream Compression
+> +		dsc: dsc@feb8d000 {
+> +			compatible = "renesas,r8a779g0-dsc";
+> +			reg = <0 0xfeb8d000 0 0x400>;
+> +			interrupts = <GIC_SPI 559 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cpg CPG_MOD 2819>;
+> +			power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
+> +			resets = <&cpg 2819>;
+> +			status = "disabled";
 > +
-> +maintainers:
-> +  - Marek Vasut <marek.vasut+renesas@mailbox.org>
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
 > +
-> +description: |
-> +  This binding describes the VESA DSC Display Stream Compression encoder
-> +  embedded in the Renesas R-Car V4H SoC. The encoder supports all DSC1.1
-> +  encoding mechanisms, configurable bits-per-pixel, resolution up to 8k.
+> +				port@0 {
+> +					reg = <0>;
+> +					dsc_in_dsi1: endpoint {
+> +						remote-endpoint = <&du_out_dsi1>;
+> +					};
+> +				};
 > +
-> +properties:
-> +  compatible:
-> +    const: renesas,r8a779g0-dsc
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  power-domains:
-> +    maxItems: 1
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: R-Car DU input port
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: R-Car DSI output port
-> +
-> +    required:
-> +      - port@0
-> +      - port@1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - interrupts
-> +  - power-domains
-> +  - resets
-> +  - ports
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/r8a779g0-cpg-mssr.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/power/r8a779g0-sysc.h>
-> +
-> +    dsc@feb8d000 {
-> +        compatible = "renesas,r8a779g0-dsc";
-> +        reg = <0xfeb8d000 0x400>;
-> +        interrupts = <GIC_SPI 559 IRQ_TYPE_LEVEL_HIGH>;
-> +        clocks = <&cpg CPG_MOD 2819>;
-> +        power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
-> +        resets = <&cpg 2819>;
-> +
-> +        ports {
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            port@0 {
-> +                reg = <0>;
-> +                dsc_in_dsi1: endpoint {
-> +                    remote-endpoint = <&du_out_dsi1>;
-> +                };
-> +            };
-> +
-> +            port@1 {
-> +                reg = <1>;
-> +                dsc_out_dsi1: endpoint {
-> +                    remote-endpoint = <&dsi1_in>;
-> +                };
-> +            };
-> +        };
-> +    };
-> +...
+> +				port@1 {
+> +					reg = <1>;
+> +					dsc_out_dsi1: endpoint {
+>  						remote-endpoint = <&dsi1_in>;
+>  					};
+>  				};
+> @@ -2534,7 +2563,7 @@ ports {
+>  				port@0 {
+>  					reg = <0>;
+>  					dsi1_in: endpoint {
+> -						remote-endpoint = <&du_out_dsi1>;
+> +						remote-endpoint = <&dsc_out_dsi1>;
+>  					};
+>  				};
+>  
+> 
 
 -- 
 Regards,
