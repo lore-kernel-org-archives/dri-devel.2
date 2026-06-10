@@ -4,35 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F34E8CD98D7
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 10:49:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1714CD98D5
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 10:49:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77CB910EE4A;
-	Thu, 11 Jun 2026 10:49:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A42310EE4D;
+	Thu, 11 Jun 2026 10:49:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="kvOQYP94";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="qz0aAdJz";
 	dkim-atps=neutral
-X-Greylist: delayed 392 seconds by postgrey-1.36 at gabe;
- Wed, 10 Jun 2026 15:50:44 UTC
 Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C1D510EA4D
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85F8810EA95
  for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 15:50:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1781106254;
- bh=4zVxq3uovh2J8FD1q/PCkdVziJUrgTY6Mn1aPtE5kW4=;
+ s=201707; t=1781106297;
+ bh=vq4Co5UCuZiCB6S/1h9DN6xspuD9NojY/on5I5eQX6U=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kvOQYP94595kYCWbedWJmGb9cE7ZfxOtLO7SYqqdDYJfLM79dykwCfzdWU/MTShu9
- /OTWScSG1ktPNKbTYp1ZcOKrukONd/qJtkSJ2bhr8wffB3uznILf+r5xXXydWm6VPO
- dvWwjr68rIGiOzDGpY64f56gEko9LNV/Zpu1BZnSDdF1ZixxORzzkgAzB7UF7ZVTz8
- GEYsn7Mltq8GtOyvIS3IzYk2OP10x6OuBB/ie79KvuSbRBLlVJJH79vmERy+jIf55N
- txKp3LrOUeURmKFOYjkdPgAT28/Nw6Tk8ZCx3DI3+LxqQRBnykwa3AkAeltPdKYrR8
- pDtrXrpYQPi2w==
+ b=qz0aAdJzmhg/zhg2cccHdqbn/LHf0E/rNf0yeEt9+g/AKyZR2/3pTPFD9On4EZJ1U
+ eJBFgGUzwmb+ZZ4Gl8otVyxKdwzIXa1wd2schkd8GoOSPGdVPHvqlLX5Ru/vHu8zwG
+ PUm4qxWGUuBkLhZCEtu+iT9yzS3wQf0XguW+/Y11PEcRIpZioqHU9vrxHjS1elfq8i
+ pN5IfgbnxZjC8P+4Mt2lTIQwRcY0Oa1ExcOIDcyIXwgD8Qzr3EuP3tJAYk8cLlvShs
+ 19hEe6aoEHNvaAh8z3bZ/ovI0BIPP4m0MnunplyeAhUhR2mOdBa16SxuptamG5ltRR
+ uQ3CkoCwW9ZZw==
 Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4gb97L0D44z4wLv;
- Thu, 11 Jun 2026 01:44:13 +1000 (AEST)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4gb9883Mycz4x87;
+ Thu, 11 Jun 2026 01:44:56 +1000 (AEST)
 From: Matt Evans <matt@ozlabs.org>
 To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
  Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
@@ -47,9 +45,9 @@ Cc: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
  linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
  linux-pci@vger.kernel.org
-Subject: [PATCH v3 1/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
-Date: Wed, 10 Jun 2026 16:43:15 +0100
-Message-ID: <20260610154327.37758-2-matt@ozlabs.org>
+Subject: [PATCH v3 8/9] vfio/pci: Permanently revoke a DMABUF on request
+Date: Wed, 10 Jun 2026 16:43:22 +0100
+Message-ID: <20260610154327.37758-9-matt@ozlabs.org>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260610154327.37758-1-matt@ozlabs.org>
 References: <20260610154327.37758-1-matt@ozlabs.org>
@@ -71,453 +69,380 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The P2PDMA code currently provides two features under the same
-CONFIG_PCI_P2PDMA option:
+Expand the VFIO DMABUF revocation state to three states:
+Not revoked, temporarily revoked, and permanently revoked.
 
- 1.  Locate providers via pcim_p2pdma_provider()
- 2.  Manage actual P2P DMA
+The first two are for existing transient revocation, e.g. across a
+function reset, and the DMABUF is put into the last in response to a
+new VFIO feature VFIO_DEVICE_FEATURE_DMA_BUF.
 
-Some drivers (such as vfio-pci) depend on 1, without having a hard
-dependency on 2.
+VFIO_DEVICE_FEATURE_DMA_BUF passes a DMABUF by fd and requests that
+the DMABUF is permanently revoked.  On success, it's guaranteed that
+the buffer can never be imported/attached/mmap()ed in future, that
+dynamic imports have been cleanly detached, and that all mappings have
+been made inaccessible/PTEs zapped.
 
-A future commit expands the use of DMABUF in vfio-pci for non-P2P
-scenarios, relying on pcim_p2pdma_provider() always being present.  If
-that depended on CONFIG_PCI_P2PDMA, it would make vfio-pci only
-available if CONFIG_ZONE_DEVICE is present (e.g. 64-bit systems), even
-when P2P is not needed.
+This is useful for lifecycle management, to reclaim VFIO PCI BAR
+ranges previously delegated to a subordinate client process: The
+driver process can ensure that the loaned resources are revoked when
+the client is deemed "done", and exported ranges can be safely re-used
+elsewhere.
 
-To resolve this, introduce CONFIG_PCI_P2PDMA_CORE and refactor the
-basic provider functionality into a new p2pdma_core.c file.  This is
-available even if the CONFIG_PCI_P2PDMA feature is disabled (or
-unavailable due to !CONFIG_ZONE_DEVICE).  Then, drivers can enable any
-additional P2P features with the original CONFIG_PCI_P2PDMA (available
-when CONFIG_ZONE_DEVICE is set).
+Refactor the revocation code out of vfio_pci_dma_buf_move() to a
+function common to move and the new feature request path.
 
 Signed-off-by: Matt Evans <matt@ozlabs.org>
 ---
- MAINTAINERS                |   2 +-
- drivers/pci/Kconfig        |  10 ++--
- drivers/pci/Makefile       |   1 +
- drivers/pci/p2pdma.c       | 109 ++--------------------------------
- drivers/pci/p2pdma.h       |  29 +++++++++
- drivers/pci/p2pdma_core.c  | 118 +++++++++++++++++++++++++++++++++++++
- include/linux/pci-p2pdma.h |  24 ++++----
- include/linux/pci.h        |   2 +-
- 8 files changed, 174 insertions(+), 121 deletions(-)
- create mode 100644 drivers/pci/p2pdma.h
- create mode 100644 drivers/pci/p2pdma_core.c
+ drivers/vfio/pci/vfio_pci_core.c   |   6 +-
+ drivers/vfio/pci/vfio_pci_dmabuf.c | 169 ++++++++++++++++++++++-------
+ drivers/vfio/pci/vfio_pci_priv.h   |  19 +++-
+ include/uapi/linux/vfio.h          |  20 ++++
+ 4 files changed, 173 insertions(+), 41 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c2c6d79275c6..b21523b3bd8b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -20617,7 +20617,7 @@ B:	https://bugzilla.kernel.org
- C:	irc://irc.oftc.net/linux-pci
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git
- F:	Documentation/driver-api/pci/p2pdma.rst
--F:	drivers/pci/p2pdma.c
-+F:	drivers/pci/p2pdma*
- F:	include/linux/pci-p2pdma.h
+diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+index 508a5eca910a..064906b25467 100644
+--- a/drivers/vfio/pci/vfio_pci_core.c
++++ b/drivers/vfio/pci/vfio_pci_core.c
+@@ -1573,6 +1573,8 @@ int vfio_pci_core_ioctl_feature(struct vfio_device *device, u32 flags,
+ 		return vfio_pci_core_feature_token(vdev, flags, arg, argsz);
+ 	case VFIO_DEVICE_FEATURE_DMA_BUF:
+ 		return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
++	case VFIO_DEVICE_FEATURE_DMA_BUF_REVOKE:
++		return vfio_pci_core_feature_dma_buf_revoke(vdev, flags, arg, argsz);
+ 	default:
+ 		return -ENOTTY;
+ 	}
+@@ -1784,7 +1786,7 @@ static vm_fault_t vfio_pci_mmap_huge_fault(struct vm_fault *vmf,
  
- PCI POWER CONTROL
-diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
-index 33c88432b728..59d70bc84cc9 100644
---- a/drivers/pci/Kconfig
-+++ b/drivers/pci/Kconfig
-@@ -206,11 +206,7 @@ config PCIE_TPH
- config PCI_P2PDMA
- 	bool "PCI peer-to-peer transfer support"
- 	depends on ZONE_DEVICE
--	#
--	# The need for the scatterlist DMA bus address flag means PCI P2PDMA
--	# requires 64bit
--	#
--	depends on 64BIT
-+	select PCI_P2PDMA_CORE
- 	select GENERIC_ALLOCATOR
- 	select NEED_SG_DMA_FLAGS
- 	help
-@@ -226,6 +222,10 @@ config PCI_P2PDMA
+ 	dma_resv_lock(priv->dmabuf->resv, NULL);
  
- 	  If unsure, say N.
+-	if (priv->revoked) {
++	if (priv->status != VFIO_PCI_DMABUF_OK) {
+ 		pr_debug_ratelimited("%s VA 0x%lx, pgoff 0x%lx: DMABUF revoked/cleaned up\n",
+ 				     __func__, vmf->address, vma->vm_pgoff);
+ 		dma_resv_unlock(priv->dmabuf->resv);
+@@ -1809,7 +1811,7 @@ static vm_fault_t vfio_pci_mmap_huge_fault(struct vm_fault *vmf,
  
-+config PCI_P2PDMA_CORE
-+	default n
-+	bool
-+
- config PCI_LABEL
- 	def_bool y if (DMI || ACPI)
- 	select NLS
-diff --git a/drivers/pci/Makefile b/drivers/pci/Makefile
-index 41ebc3b9a518..0b32572d57a1 100644
---- a/drivers/pci/Makefile
-+++ b/drivers/pci/Makefile
-@@ -30,6 +30,7 @@ obj-$(CONFIG_PCI_SYSCALL)	+= syscall.o
- obj-$(CONFIG_PCI_STUB)		+= pci-stub.o
- obj-$(CONFIG_PCI_PF_STUB)	+= pci-pf-stub.o
- obj-$(CONFIG_PCI_ECAM)		+= ecam.o
-+obj-$(CONFIG_PCI_P2PDMA_CORE)	+= p2pdma_core.o
- obj-$(CONFIG_PCI_P2PDMA)	+= p2pdma.o
- obj-$(CONFIG_XEN_PCIDEV_FRONTEND) += xen-pcifront.o
- obj-$(CONFIG_VGA_ARB)		+= vgaarb.o
-diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index 7c898542af8d..50b1a7daf55c 100644
---- a/drivers/pci/p2pdma.c
-+++ b/drivers/pci/p2pdma.c
-@@ -21,12 +21,7 @@
- #include <linux/seq_buf.h>
- #include <linux/xarray.h>
+ 	scoped_guard(rwsem_read, &vdev->memory_lock) {
+ 		/* Revocation status must be re-read, under memory_lock */
+-		if (!priv->revoked) {
++		if (priv->status == VFIO_PCI_DMABUF_OK) {
+ 			int pres = vfio_pci_dma_buf_find_pfn(priv, vma,
+ 							     vmf->address,
+ 							     order, &pfn);
+diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+index 2fb09a2c0f6b..b47411992ab6 100644
+--- a/drivers/vfio/pci/vfio_pci_dmabuf.c
++++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+@@ -19,7 +19,7 @@ static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+ 	if (!attachment->peer2peer)
+ 		return -EOPNOTSUPP;
  
--struct pci_p2pdma {
--	struct gen_pool *pool;
--	bool p2pmem_published;
--	struct xarray map_types;
--	struct p2pdma_provider mem[PCI_STD_NUM_BARS];
--};
-+#include "p2pdma.h"
+-	if (priv->revoked)
++	if (priv->status != VFIO_PCI_DMABUF_OK)
+ 		return -ENODEV;
  
- struct pci_p2pdma_pagemap {
- 	struct dev_pagemap pgmap;
-@@ -226,110 +221,16 @@ static const struct dev_pagemap_ops p2pdma_pgmap_ops = {
- 	.folio_free = p2pdma_folio_free,
- };
+ 	if (!dma_buf_attach_revocable(attachment))
+@@ -41,7 +41,7 @@ static int vfio_pci_dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *
+ 	 * still safe because the fault handler ultimately prevents
+ 	 * access to a revoked buffer if it isn't caught here.
+ 	 */
+-	if (READ_ONCE(priv->revoked))
++	if (READ_ONCE(priv->status) != VFIO_PCI_DMABUF_OK)
+ 		return -ENODEV;
+ 	if ((vma->vm_flags & VM_SHARED) == 0)
+ 		return -EINVAL;
+@@ -81,7 +81,7 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *attachment,
  
--static void pci_p2pdma_release(void *data)
-+void pci_p2pdma_release_pool(struct pci_dev *pdev, struct pci_p2pdma *p2pdma)
- {
--	struct pci_dev *pdev = data;
--	struct pci_p2pdma *p2pdma;
--
--	p2pdma = rcu_dereference_protected(pdev->p2pdma, 1);
--	if (!p2pdma)
--		return;
--
--	/* Flush and disable pci_alloc_p2p_mem() */
--	pdev->p2pdma = NULL;
--	if (p2pdma->pool)
--		synchronize_rcu();
--	xa_destroy(&p2pdma->map_types);
--
- 	if (!p2pdma->pool)
- 		return;
+ 	dma_resv_assert_held(priv->dmabuf->resv);
  
-+	synchronize_rcu();
- 	gen_pool_destroy(p2pdma->pool);
- 	sysfs_remove_group(&pdev->dev.kobj, &p2pmem_group);
+-	if (priv->revoked)
++	if (priv->status != VFIO_PCI_DMABUF_OK)
+ 		return ERR_PTR(-ENODEV);
+ 
+ 	ret = dma_buf_phys_vec_to_sgt(attachment, priv->provider,
+@@ -291,7 +291,8 @@ static int vfio_pci_dmabuf_export(struct vfio_pci_core_device *vdev,
+ 	INIT_LIST_HEAD(&priv->dmabufs_elm);
+ 	down_write(&vdev->memory_lock);
+ 	dma_resv_lock(priv->dmabuf->resv, NULL);
+-	priv->revoked = !__vfio_pci_memory_enabled(vdev);
++	priv->status = __vfio_pci_memory_enabled(vdev) ? VFIO_PCI_DMABUF_OK :
++		VFIO_PCI_DMABUF_TEMP_REVOKED;
+ 	list_add_tail(&priv->dmabufs_elm, &vdev->dmabufs);
+ 	dma_resv_unlock(priv->dmabuf->resv);
+ 	up_write(&vdev->memory_lock);
+@@ -322,7 +323,7 @@ int vfio_pci_dma_buf_iommufd_map(struct dma_buf_attachment *attachment,
+ 		return -EOPNOTSUPP;
+ 
+ 	priv = attachment->dmabuf->priv;
+-	if (priv->revoked)
++	if (priv->status != VFIO_PCI_DMABUF_OK)
+ 		return -ENODEV;
+ 
+ 	/* More than one range to iommufd will require proper DMABUF support */
+@@ -591,6 +592,64 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
+ 	return ret;
  }
  
--/**
-- * pcim_p2pdma_init - Initialise peer-to-peer DMA providers
-- * @pdev: The PCI device to enable P2PDMA for
-- *
-- * This function initializes the peer-to-peer DMA infrastructure
-- * for a PCI device. It allocates and sets up the necessary data
-- * structures to support P2PDMA operations, including mapping type
-- * tracking.
-- */
--int pcim_p2pdma_init(struct pci_dev *pdev)
--{
--	struct pci_p2pdma *p2p;
--	int i, ret;
--
--	p2p = rcu_dereference_protected(pdev->p2pdma, 1);
--	if (p2p)
--		return 0;
--
--	p2p = devm_kzalloc(&pdev->dev, sizeof(*p2p), GFP_KERNEL);
--	if (!p2p)
--		return -ENOMEM;
--
--	xa_init(&p2p->map_types);
--	/*
--	 * Iterate over all standard PCI BARs and record only those that
--	 * correspond to MMIO regions. Skip non-memory resources (e.g. I/O
--	 * port BARs) since they cannot be used for peer-to-peer (P2P)
--	 * transactions.
--	 */
--	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
--		if (!(pci_resource_flags(pdev, i) & IORESOURCE_MEM))
--			continue;
--
--		p2p->mem[i].owner = &pdev->dev;
--		p2p->mem[i].bus_offset =
--			pci_bus_address(pdev, i) - pci_resource_start(pdev, i);
--	}
--
--	ret = devm_add_action_or_reset(&pdev->dev, pci_p2pdma_release, pdev);
--	if (ret)
--		goto out_p2p;
--
--	rcu_assign_pointer(pdev->p2pdma, p2p);
--	return 0;
--
--out_p2p:
--	devm_kfree(&pdev->dev, p2p);
--	return ret;
--}
--EXPORT_SYMBOL_GPL(pcim_p2pdma_init);
--
--/**
-- * pcim_p2pdma_provider - Get peer-to-peer DMA provider
-- * @pdev: The PCI device to enable P2PDMA for
-- * @bar: BAR index to get provider
-- *
-- * This function gets peer-to-peer DMA provider for a PCI device. The lifetime
-- * of the provider (and of course the MMIO) is bound to the lifetime of the
-- * driver. A driver calling this function must ensure that all references to the
-- * provider, and any DMA mappings created for any MMIO, are all cleaned up
-- * before the driver remove() completes.
-- *
-- * Since P2P is almost always shared with a second driver this means some system
-- * to notify, invalidate and revoke the MMIO's DMA must be in place to use this
-- * function. For example a revoke can be built using DMABUF.
-- */
--struct p2pdma_provider *pcim_p2pdma_provider(struct pci_dev *pdev, int bar)
--{
--	struct pci_p2pdma *p2p;
--
--	if (!(pci_resource_flags(pdev, bar) & IORESOURCE_MEM))
--		return NULL;
--
--	p2p = rcu_dereference_protected(pdev->p2pdma, 1);
--	if (WARN_ON(!p2p))
--		/* Someone forgot to call to pcim_p2pdma_init() before */
--		return NULL;
--
--	return &p2p->mem[bar];
--}
--EXPORT_SYMBOL_GPL(pcim_p2pdma_provider);
--
- static int pci_p2pdma_setup_pool(struct pci_dev *pdev)
- {
- 	struct pci_p2pdma *p2pdma;
-@@ -932,8 +833,8 @@ void *pci_alloc_p2pmem(struct pci_dev *pdev, size_t size)
- 	struct pci_p2pdma *p2pdma;
- 
- 	/*
--	 * Pairs with synchronize_rcu() in pci_p2pdma_release() to
--	 * ensure pdev->p2pdma is non-NULL for the duration of the
-+	 * Pairs with synchronize_rcu() in pci_p2pdma_release_pool()
-+	 * to ensure pdev->p2pdma is non-NULL for the duration of the
- 	 * read-lock.
- 	 */
- 	rcu_read_lock();
-diff --git a/drivers/pci/p2pdma.h b/drivers/pci/p2pdma.h
-new file mode 100644
-index 000000000000..453f4aa7ade8
---- /dev/null
-+++ b/drivers/pci/p2pdma.h
-@@ -0,0 +1,29 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * PCI Peer 2 Peer DMA support.
-+ */
-+
-+#ifndef _PCI_P2PDMA_H
-+#define _PCI_P2PDMA_H
-+
-+#include <linux/genalloc.h>
-+#include <linux/pci-p2pdma.h>
-+#include <linux/xarray.h>
-+
-+struct pci_p2pdma {
-+	struct gen_pool *pool;
-+	bool p2pmem_published;
-+	struct xarray map_types;
-+	struct p2pdma_provider mem[PCI_STD_NUM_BARS];
-+};
-+
-+#ifdef CONFIG_PCI_P2PDMA
-+void pci_p2pdma_release_pool(struct pci_dev *pdev, struct pci_p2pdma *p2pdma);
-+#else
-+static inline void pci_p2pdma_release_pool(struct pci_dev *pdev, struct pci_p2pdma *p2pdma)
++/* Set the DMABUF's revocation status (OK or temporarily/permanently revoked) */
++static void vfio_pci_dma_buf_set_status(struct vfio_pci_dma_buf *priv,
++					enum vfio_pci_dma_buf_status new_status)
 +{
-+}
-+#endif
++	bool was_revoked;
 +
-+#endif
++	lockdep_assert_held_write(&priv->vdev->memory_lock);
 +
-diff --git a/drivers/pci/p2pdma_core.c b/drivers/pci/p2pdma_core.c
-new file mode 100644
-index 000000000000..1fda15d40196
---- /dev/null
-+++ b/drivers/pci/p2pdma_core.c
-@@ -0,0 +1,118 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * PCI Peer 2 Peer DMA support core, providing a bare-bones
-+ * pcim_p2pdma_provider() interface to drivers even if full P2PDMA
-+ * isn't present.  The full P2PDMA feature is in p2pdma.c (see
-+ * CONFIG_PCI_P2PDMA).
-+ *
-+ * Copyright (c) 2016-2018, Logan Gunthorpe
-+ * Copyright (c) 2016-2017, Microsemi Corporation
-+ * Copyright (c) 2017, Christoph Hellwig
-+ * Copyright (c) 2018, Eideticom Inc.
-+ */
-+
-+#define pr_fmt(fmt) "pci-p2pdma: " fmt
-+#include <linux/ctype.h>
-+#include <linux/genalloc.h>
-+#include <linux/memremap.h>
-+#include <linux/pci-p2pdma.h>
-+#include <linux/xarray.h>
-+
-+#include "p2pdma.h"
-+
-+static void pci_p2pdma_release(void *data)
-+{
-+	struct pci_dev *pdev = data;
-+	struct pci_p2pdma *p2pdma;
-+
-+	p2pdma = rcu_dereference_protected(pdev->p2pdma, 1);
-+	if (!p2pdma)
++	if (priv->status == VFIO_PCI_DMABUF_PERM_REVOKED ||
++	    priv->status == new_status) {
 +		return;
-+
-+	/* Flush and disable pci_alloc_p2p_mem() */
-+	pdev->p2pdma = NULL;
-+	pci_p2pdma_release_pool(pdev, p2pdma);
-+	xa_destroy(&p2pdma->map_types);
-+}
-+
-+/**
-+ * pcim_p2pdma_init - Initialise peer-to-peer DMA providers
-+ * @pdev: The PCI device to enable P2PDMA for
-+ *
-+ * This function initializes the peer-to-peer DMA infrastructure
-+ * for a PCI device. It allocates and sets up the necessary data
-+ * structures to support P2PDMA operations, including mapping type
-+ * tracking.
-+ */
-+int pcim_p2pdma_init(struct pci_dev *pdev)
-+{
-+	struct pci_p2pdma *p2p;
-+	int i, ret;
-+
-+	p2p = rcu_dereference_protected(pdev->p2pdma, 1);
-+	if (p2p)
-+		return 0;
-+
-+	p2p = devm_kzalloc(&pdev->dev, sizeof(*p2p), GFP_KERNEL);
-+	if (!p2p)
-+		return -ENOMEM;
-+
-+	xa_init(&p2p->map_types);
-+	/*
-+	 * Iterate over all standard PCI BARs and record only those that
-+	 * correspond to MMIO regions. Skip non-memory resources (e.g. I/O
-+	 * port BARs) since they cannot be used for peer-to-peer (P2P)
-+	 * transactions.
-+	 */
-+	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
-+		if (!(pci_resource_flags(pdev, i) & IORESOURCE_MEM))
-+			continue;
-+
-+		p2p->mem[i].owner = &pdev->dev;
-+		p2p->mem[i].bus_offset =
-+			pci_bus_address(pdev, i) - pci_resource_start(pdev, i);
 +	}
 +
-+	ret = devm_add_action_or_reset(&pdev->dev, pci_p2pdma_release, pdev);
-+	if (ret)
-+		goto out_p2p;
++	dma_resv_lock(priv->dmabuf->resv, NULL);
++	was_revoked = (priv->status == VFIO_PCI_DMABUF_TEMP_REVOKED);
 +
-+	rcu_assign_pointer(pdev->p2pdma, p2p);
-+	return 0;
++	if (new_status != VFIO_PCI_DMABUF_OK) {
++		priv->status = new_status; /* Temp or permanently revoked */
 +
-+out_p2p:
-+	devm_kfree(&pdev->dev, p2p);
++		if (was_revoked) {
++			/*
++			 * TEMP_REVOKED is being upgraded to
++			 * PERM_REVOKED.  The buffer is already gone,
++			 * don't wait on it again.
++			 */
++			dma_resv_unlock(priv->dmabuf->resv);
++			return;
++		}
++	}
++
++	dma_buf_invalidate_mappings(priv->dmabuf);
++	dma_resv_wait_timeout(priv->dmabuf->resv,
++			      DMA_RESV_USAGE_BOOKKEEP, false,
++			      MAX_SCHEDULE_TIMEOUT);
++	dma_resv_unlock(priv->dmabuf->resv);
++	if (new_status != VFIO_PCI_DMABUF_OK) {
++		kref_put(&priv->kref, vfio_pci_dma_buf_done);
++		wait_for_completion(&priv->comp);
++		unmap_mapping_range(priv->dmabuf->file->f_mapping,
++				    0, priv->size, 1);
++		/*
++		 * Re-arm the registered kref reference and the
++		 * completion so the post-revoke state matches the
++		 * post-creation state.	 An un-revoke followed by a
++		 * new mapping needs the kref to be non-zero before
++		 * kref_get(), and vfio_pci_dma_buf_cleanup()
++		 * delegates its drain back through this revoke
++		 * path on a possibly-already-revoked dma-buf.
++		 */
++		kref_init(&priv->kref);
++		reinit_completion(&priv->comp);
++	} else {
++		dma_resv_lock(priv->dmabuf->resv, NULL);
++		priv->status = VFIO_PCI_DMABUF_OK;
++		dma_resv_unlock(priv->dmabuf->resv);
++	}
++}
++
+ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
+ {
+ 	struct vfio_pci_dma_buf *priv;
+@@ -599,44 +658,15 @@ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
+ 	lockdep_assert_held_write(&vdev->memory_lock);
+ 	/*
+ 	 * Holding memory_lock ensures a racing VMA fault observes
+-	 * priv->revoked properly.
++	 * priv->status properly.
+ 	 */
+ 
+ 	list_for_each_entry_safe(priv, tmp, &vdev->dmabufs, dmabufs_elm) {
+ 		if (!get_file_active(&priv->dmabuf->file))
+ 			continue;
+-
+-		if (priv->revoked != revoked) {
+-			dma_resv_lock(priv->dmabuf->resv, NULL);
+-			if (revoked)
+-				priv->revoked = true;
+-			dma_buf_invalidate_mappings(priv->dmabuf);
+-			dma_resv_wait_timeout(priv->dmabuf->resv,
+-					      DMA_RESV_USAGE_BOOKKEEP, false,
+-					      MAX_SCHEDULE_TIMEOUT);
+-			dma_resv_unlock(priv->dmabuf->resv);
+-			if (revoked) {
+-				kref_put(&priv->kref, vfio_pci_dma_buf_done);
+-				wait_for_completion(&priv->comp);
+-				unmap_mapping_range(priv->dmabuf->file->f_mapping,
+-						    0, priv->size, 1);
+-				/*
+-				 * Re-arm the registered kref reference and the
+-				 * completion so the post-revoke state matches the
+-				 * post-creation state.  An un-revoke followed by a
+-				 * new mapping needs the kref to be non-zero before
+-				 * kref_get(), and vfio_pci_dma_buf_cleanup()
+-				 * delegates its drain back through this revoke
+-				 * path on a possibly-already-revoked dma-buf.
+-				 */
+-				kref_init(&priv->kref);
+-				reinit_completion(&priv->comp);
+-			} else {
+-				dma_resv_lock(priv->dmabuf->resv, NULL);
+-				priv->revoked = false;
+-				dma_resv_unlock(priv->dmabuf->resv);
+-			}
+-		}
++		vfio_pci_dma_buf_set_status(priv, revoked ?
++					    VFIO_PCI_DMABUF_TEMP_REVOKED :
++					    VFIO_PCI_DMABUF_OK);
+ 		fput(priv->dmabuf->file);
+ 	}
+ }
+@@ -668,3 +698,66 @@ void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
+ 	}
+ 	up_write(&vdev->memory_lock);
+ }
++
++#ifdef CONFIG_VFIO_PCI_DMABUF
++int vfio_pci_core_feature_dma_buf_revoke(
++	struct vfio_pci_core_device *vdev, u32 flags,
++	struct vfio_device_feature_dma_buf_revoke __user *arg,
++	size_t argsz)
++{
++	struct vfio_device_feature_dma_buf_revoke db_revoke;
++	struct vfio_pci_dma_buf *priv;
++	struct dma_buf *dmabuf;
++	int ret;
++
++	if (!vdev->pci_ops || !vdev->pci_ops->get_dmabuf_phys)
++		return -EOPNOTSUPP;
++
++	ret = vfio_check_feature(flags, argsz,
++				 VFIO_DEVICE_FEATURE_SET,
++				 sizeof(db_revoke));
++	if (ret != 1)
++		return ret;
++
++	if (copy_from_user(&db_revoke, arg, sizeof(db_revoke)))
++		return -EFAULT;
++
++	dmabuf = dma_buf_get(db_revoke.dmabuf_fd);
++	if (IS_ERR(dmabuf))
++		return PTR_ERR(dmabuf);
++
++	priv = dmabuf->priv;
++	/*
++	 * Sanity-check the DMABUF is really a vfio_pci_dma_buf _and_
++	 * relates to the VFIO device it was provided with.
++	 *
++	 * If the DMABUF relates to this vdev then priv->vdev is
++	 * stable because this open fd prevents cleanup.
++	 *
++	 * If it relates to a different vdev, reading priv->vdev might
++	 * race with a concurrent cleanup on that device.  But if so,
++	 * it points to a non-matching vdev or NULL and is unusable
++	 * either way.
++	 */
++	if (dmabuf->ops != &vfio_pci_dmabuf_ops ||
++	    READ_ONCE(priv->vdev) != vdev) {
++		ret = -ENODEV;
++		goto out_put_buf;
++	}
++
++	scoped_guard(rwsem_write, &vdev->memory_lock) {
++		if (priv->status == VFIO_PCI_DMABUF_PERM_REVOKED) {
++			ret = -EBADFD;
++		} else {
++			vfio_pci_dma_buf_set_status(priv,
++						    VFIO_PCI_DMABUF_PERM_REVOKED);
++			ret = 0;
++		}
++	}
++
++out_put_buf:
++	dma_buf_put(dmabuf);
++
 +	return ret;
 +}
-+EXPORT_SYMBOL_GPL(pcim_p2pdma_init);
-+
-+/**
-+ * pcim_p2pdma_provider - Get peer-to-peer DMA provider
-+ * @pdev: The PCI device to enable P2PDMA for
-+ * @bar: BAR index to get provider
-+ *
-+ * This function gets peer-to-peer DMA provider for a PCI device. The lifetime
-+ * of the provider (and of course the MMIO) is bound to the lifetime of the
-+ * driver. A driver calling this function must ensure that all references to the
-+ * provider, and any DMA mappings created for any MMIO, are all cleaned up
-+ * before the driver remove() completes.
-+ *
-+ * Since P2P is almost always shared with a second driver this means some system
-+ * to notify, invalidate and revoke the MMIO's DMA must be in place to use this
-+ * function. For example a revoke can be built using DMABUF.
-+ */
-+struct p2pdma_provider *pcim_p2pdma_provider(struct pci_dev *pdev, int bar)
-+{
-+	struct pci_p2pdma *p2p;
-+
-+	if (!(pci_resource_flags(pdev, bar) & IORESOURCE_MEM))
-+		return NULL;
-+
-+	p2p = rcu_dereference_protected(pdev->p2pdma, 1);
-+	if (WARN_ON(!p2p))
-+		/* Someone forgot to call to pcim_p2pdma_init() before */
-+		return NULL;
-+
-+	return &p2p->mem[bar];
-+}
-+EXPORT_SYMBOL_GPL(pcim_p2pdma_provider);
-diff --git a/include/linux/pci-p2pdma.h b/include/linux/pci-p2pdma.h
-index 873de20a2247..4c42a7b2ee85 100644
---- a/include/linux/pci-p2pdma.h
-+++ b/include/linux/pci-p2pdma.h
-@@ -67,9 +67,22 @@ enum pci_p2pdma_map_type {
- 	PCI_P2PDMA_MAP_THRU_HOST_BRIDGE,
++#endif /* CONFIG_VFIO_PCI_DMABUF */
+diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
+index db2e2aeae88f..3c2f2575b670 100644
+--- a/drivers/vfio/pci/vfio_pci_priv.h
++++ b/drivers/vfio/pci/vfio_pci_priv.h
+@@ -23,6 +23,12 @@ struct vfio_pci_ioeventfd {
+ 	bool			test_mem;
  };
  
--#ifdef CONFIG_PCI_P2PDMA
-+#ifdef CONFIG_PCI_P2PDMA_CORE
- int pcim_p2pdma_init(struct pci_dev *pdev);
- struct p2pdma_provider *pcim_p2pdma_provider(struct pci_dev *pdev, int bar);
-+#else
-+static inline int pcim_p2pdma_init(struct pci_dev *pdev)
-+{
-+	return -EOPNOTSUPP;
-+}
-+static inline struct p2pdma_provider *pcim_p2pdma_provider(struct pci_dev *pdev,
-+							   int bar)
-+{
-+	return NULL;
-+}
-+#endif
++enum vfio_pci_dma_buf_status {
++	VFIO_PCI_DMABUF_OK = 0,
++	VFIO_PCI_DMABUF_TEMP_REVOKED = 1,
++	VFIO_PCI_DMABUF_PERM_REVOKED = 2,
++};
 +
-+#ifdef CONFIG_PCI_P2PDMA
- int pci_p2pdma_add_resource(struct pci_dev *pdev, int bar, size_t size,
- 		u64 offset);
- int pci_p2pdma_distance_many(struct pci_dev *provider, struct device **clients,
-@@ -89,15 +102,6 @@ ssize_t pci_p2pdma_enable_show(char *page, struct pci_dev *p2p_dev,
- enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
- 					     struct device *dev);
- #else /* CONFIG_PCI_P2PDMA */
--static inline int pcim_p2pdma_init(struct pci_dev *pdev)
--{
--	return -EOPNOTSUPP;
--}
--static inline struct p2pdma_provider *pcim_p2pdma_provider(struct pci_dev *pdev,
--							   int bar)
--{
--	return NULL;
--}
- static inline int pci_p2pdma_add_resource(struct pci_dev *pdev, int bar,
- 		size_t size, u64 offset)
+ struct vfio_pci_dma_buf {
+ 	struct dma_buf *dmabuf;
+ 	struct vfio_pci_core_device *vdev;
+@@ -35,7 +41,7 @@ struct vfio_pci_dma_buf {
+ 	struct kref kref;
+ 	struct completion comp;
+ 	unsigned long vma_pgoff_adjust;
+-	u8 revoked : 1;
++	enum vfio_pci_dma_buf_status status;
+ };
+ 
+ extern const struct vm_operations_struct vfio_pci_mmap_ops;
+@@ -148,6 +154,10 @@ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked);
+ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+ 				  struct vfio_device_feature_dma_buf __user *arg,
+ 				  size_t argsz);
++int vfio_pci_core_feature_dma_buf_revoke(
++	struct vfio_pci_core_device *vdev, u32 flags,
++	struct vfio_device_feature_dma_buf_revoke __user *arg,
++	size_t argsz);
+ #else
+ static inline int
+ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+@@ -156,6 +166,13 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
  {
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index 2c4454583c11..531aec355686 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -557,7 +557,7 @@ struct pci_dev {
- 	u16		pasid_cap;	/* PASID Capability offset */
- 	u16		pasid_features;
+ 	return -ENOTTY;
+ }
++static inline int vfio_pci_core_feature_dma_buf_revoke(
++	struct vfio_pci_core_device *vdev, u32 flags,
++	struct vfio_device_feature_dma_buf_revoke __user *arg,
++	size_t argsz)
++{
++	return -ENOTTY;
++}
  #endif
--#ifdef CONFIG_PCI_P2PDMA
-+#ifdef CONFIG_PCI_P2PDMA_CORE
- 	struct pci_p2pdma __rcu *p2pdma;
+ 
  #endif
- #ifdef CONFIG_PCI_DOE
+diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
+index 5de618a3a5ee..697c0bb4b9bc 100644
+--- a/include/uapi/linux/vfio.h
++++ b/include/uapi/linux/vfio.h
+@@ -1534,6 +1534,26 @@ struct vfio_device_feature_dma_buf {
+  */
+ #define VFIO_DEVICE_FEATURE_MIG_PRECOPY_INFOv2  12
+ 
++/**
++ * Given a dma_buf fd previously created by
++ * VFIO_DEVICE_FEATURE_DMA_BUF, a SET of this feature requests that
++ * access to the corresponding DMABUF is immediately and permanently
++ * revoked.  On successful return, the buffer is not accessible
++ * through any mmap() or dma-buf import.  The buffer is permanently
++ * disabled, and VFIO refuses all map, mmap, attach, etc. requests.
++ *
++ * Return: 0 on success, -1 and errno is set on failure:
++ *
++ *  EBADF, EINVAL: dmabuf_fd is not a DMABUF fd.
++ *  ENODEV: The dmabuf_fd does not match this VFIO device.
++ *  EBADFD: The DMABUF is already revoked.
++ */
++#define VFIO_DEVICE_FEATURE_DMA_BUF_REVOKE 13
++
++struct vfio_device_feature_dma_buf_revoke {
++	__s32	dmabuf_fd;
++};
++
+ /* -------- API for Type1 VFIO IOMMU -------- */
+ 
+ /**
 -- 
 2.50.1 (Apple Git-155)
 
