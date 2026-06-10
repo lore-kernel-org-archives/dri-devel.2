@@ -4,57 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A5E8CD8CB9
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 14:45:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08740CD98CC
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 14:54:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B83E10E4A8;
-	Wed, 10 Jun 2026 14:45:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B520010E62E;
+	Wed, 10 Jun 2026 14:54:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="krCm0IZj";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AWBraR7Z";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AAFD10E637
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 14:45:51 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED05D10E4D4;
+ Wed, 10 Jun 2026 14:54:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781102751; x=1812638751;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=tkOzyDdrsQBrIpjjWDbFuiQH0jDBEtUyXu5Q0Kdtqbg=;
- b=krCm0IZjlAxUIXtAYc/MNz8jY57+dHscX1jQcozHzacZljGTNQYyXUDz
- +w/gJAVKP81X6YZz2ogr2gJFYZG6Hi53S6VYqQ4Q+eYBlolMrIT7gn+mP
- yTSFywFf9Oj4u2mM1+wZ/VkrU4/b9qd1051Zp0tIktUb0oSVRPfVZH23W
- /BVx9D2rk74vN0SIRKo0MRlOou95/EZVB5VnRDmok2wveL09BO+NKsuNf
- gLlIw7vqPDubDhJOAto8bM7zh45CQHemMMP3f8OnM7jNtVGBjeFzRDavH
- nMKUb/K3uoE2TL5i7PinsghwuGaBnDfwGCptkP34/96b0zJgjZYU+Hafc g==;
-X-CSE-ConnectionGUID: +NM2PjPJTCSrFXx36Yz1dw==
-X-CSE-MsgGUID: 3JEFEKeFTqy/NKTxb/CmDw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81027985"
-X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="81027985"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2026 07:45:51 -0700
-X-CSE-ConnectionGUID: siS0FlX3QkKQt5vi8NPjZQ==
-X-CSE-MsgGUID: GRIgeYagT9GKyI3duiWHpQ==
+ t=1781103292; x=1812639292;
+ h=date:from:to:cc:subject:message-id:reply-to:references:
+ in-reply-to:mime-version;
+ bh=4Zs0qZmZnPmSrkYo9UTFoLmAPZD+a304pVwDpckRsLQ=;
+ b=AWBraR7Z8w9KohmGkdEoUnDLuvgjou1zwY0JNJN0Ms61VG7MkGWuidkO
+ cY28lDnd7l6PGgV/6D0fMtpfkEjutvK4QwDP0FASUoxdjbtuOmCcCfRAE
+ cNVX5XXWlgYqQCL0pF210/jAKo/8buSemsx9Kaqe31rUO8/ypcH8tVYjr
+ rdasT8mGWZ8BX1gsGOAdZlRjcnzr1MR686NNug+8LEXzLo5OxGX1pdIez
+ SfhUmZXv5L/Wllw8GMwF9FqoGy46rswx4p3jdqgVXem9kbPa2R28U2j9a
+ SBvjPq4DF5DydKazsTK3qvx3z0fzULC+RCZuNIVDToYuZWfhG1SJ5UBlv w==;
+X-CSE-ConnectionGUID: RXLwarzZQReL5utUzTVQLw==
+X-CSE-MsgGUID: Ap9lusuUSIqh/ItiSuf7bA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="82089296"
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="82089296"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2026 07:54:52 -0700
+X-CSE-ConnectionGUID: 65+0oAYpTWiBXY6l+vgXgg==
+X-CSE-MsgGUID: /o0/q5MOQKefzMjFixRynw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="243727800"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost)
- ([10.245.244.3])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2026 07:45:50 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] drm/displayid: fix Tiled Display Topology ID size
-In-Reply-To: <20260610143258.324C21F00893@smtp.kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260610141549.555605-1-jani.nikula@intel.com>
- <20260610143258.324C21F00893@smtp.kernel.org>
-Date: Wed, 10 Jun 2026 17:45:47 +0300
-Message-ID: <7f2d51d75ff70c1d2f46658d162c54d0bbe46da7@intel.com>
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="246214920"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2026 07:54:51 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 10 Jun 2026 07:54:51 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Wed, 10 Jun 2026 07:54:51 -0700
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.15) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 10 Jun 2026 07:54:49 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TLNuUr3A/nKpG5sf+wGn+Uvg6Kr0mRi1cVeXqjJgmCrrajArcBJe94+nvQd/N6u1ObxswBG9gvDcvm0CQjOll+DiJBOkoAlquP96WPhZyx54jYiKdjRyFjGb14PF7UpWJcVDifjiB/lWqqA41P4v4n3KIrCphGFeeKztXuVv5RkkKd0UQ5ySRCzuIGHZbHWWXM2e3x0QLVRnkBTztM0wIVKIeik1Ua/cAn2z9U7nGYXjNSUHxY1LYu9/exCzw5FZ/gjpKpIR2mSbpn628U+9tQ9owCWkZpHM6OoIkzvTvt5S2+66W6i5v18NSJSALfRky1SA8AS6Uz4zKMdGyIOWXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PnI9U6YN8RldhMZe1NpoIAtF3ZxwacGEoHx/WanNbV4=;
+ b=hYMYwha2G7DNpn/6XFdSczlpNTxuPySoX55htwgX9VM4uqOVwr/+nG85pwjWdsqvaRRvSyTk2rKNIEqSU8mLBu41KOYUJcElWSHPxvkwBSabX3uwHSEPyoXfy6MvNA6CruZjNyO54+wBmxQMSNRYK2h09YoVpo6rRESqTUv3mFe973UvhvuhnAoJhplDM/OE8xLVA32khvbvE9HpZ8QcfEPR+1pyVE+6zYJd4Gq++1zJWrw4Mz+EhHaOcFdBmchubd0O1obTdS5qlaPXPZtwDRJ/NzasZ7zbg9ItmbOL0WlAz6mR/modHoemEFrdgbA4Gv5kLvGdIjSAJVjF9dnAiw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA3PR11MB9273.namprd11.prod.outlook.com (2603:10b6:208:573::17)
+ by PH0PR11MB9775.namprd11.prod.outlook.com (2603:10b6:510:397::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Wed, 10 Jun
+ 2026 14:54:47 +0000
+Received: from IA3PR11MB9273.namprd11.prod.outlook.com
+ ([fe80::31a4:58c:e3b5:43fa]) by IA3PR11MB9273.namprd11.prod.outlook.com
+ ([fe80::31a4:58c:e3b5:43fa%4]) with mapi id 15.21.0092.007; Wed, 10 Jun 2026
+ 14:54:47 +0000
+Date: Wed, 10 Jun 2026 17:54:39 +0300
+From: Imre Deak <imre.deak@intel.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+CC: Jani Nikula <jani.nikula@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Uma Shankar <uma.shankar@intel.com>,
+ =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] drm/i915: clear CRTC color blob pointers after
+ dropping refs
+Message-ID: <ail6r13cZSN5EPLx@ideak-desk.lan>
+References: <20260610035419.1596963-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260610035419.1596963-1-lgs201920130244@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-ClientProxiedBy: GV3PEPF0001DC3E.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:158:400::2e5) To IA3PR11MB9273.namprd11.prod.outlook.com
+ (2603:10b6:208:573::17)
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA3PR11MB9273:EE_|PH0PR11MB9775:EE_
+X-MS-Office365-Filtering-Correlation-Id: 121295ce-cb97-4959-6147-08dec7003750
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|7416014|376014|23010399003|366016|56012099006|11063799006|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: BXOrYJkn5IaS7M00rH1f0pQ+ueti8TZzC3EfPCaNb4GBsZibv6ojKb2cqMk0+bG/Emqz3YcEFvL26b4FF8EJzUv3SZx11El3sSSCtg946B+kP5dyrovVnSQeYZ+5AbbxDrY1NmAgkwqwlMhm45qEASr7sJt/b2uWJyCQuXuRFUfq1HTD9K/EDo0vJT2OgJjBfRM1aI9DCJcWsFtcptR8kJ+jUafVFXKVplZUIJ/Z+CGAIrtvx0CxUTOd77uS66gebZzhYNkHiEJpvruRkrBT4RsvFyNM5VOSTYA1X7whvLluQVT8QwLXsmwlTlM+RVXRfZ/vBuN1LJLQWm8GwcbVJHZ0dTL7Pw4t6t/kQuy2MkaXNQsQYG42kQj8mLMWQlouOWW2W1ihHD8NJplYwd7T5/XG2OzQzSNvYG3fsnDFmzp/Z68Ii01k3HhzUIYNxKgNz6vG4Y7vMZeuNW3eykZWPpLmDjJpCasDOsPqa5uToiVW0vEMKCVNxPZt0YfVu/lGMR8vj9TbWN7Nns9te+0VT4PO6x2n3VimexLxV7bCL47EWSAlRElfgyAMU7JkzFxbSnWDR+RQOOPUuoTe6SuLzIiH+obQ0o39L3qghzU2OQg87qf2mHRhJ7R1hc58l0E90ETYt1rj9H2J4ZBQvjx6Qft4D96/6rDS18AIjJEhABIQulSSuNqfi2Dl4HPf/uOK
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA3PR11MB9273.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(56012099006)(11063799006)(6133799003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Iuhhn6M03+bs8wyf6bKtxTsJ00EHeTjkZ/URPcHemTnvGsIvK16bGjkmND67?=
+ =?us-ascii?Q?eJWiiBguMe1Lji/+xPYPGDby4I3ULIq8uDoHmOEdrlRns0+Re+TQfWP6RKiT?=
+ =?us-ascii?Q?dNW1mpeyfVELDZjIjGn5yUpk1UG4Yq/fStCpzVs1BPLLPJ5dXL+J2s2fzcLw?=
+ =?us-ascii?Q?fC4ZKw3CycS1zu3m10UzeqGjdZ+OFQVkfBSYdoLFIEyZmIKflzXiZB1jCubc?=
+ =?us-ascii?Q?0E6IhB5U/jX77IjNimhGyN5HvX9/zGaVXbNYChq0BOYLzoq7gF3mR+S8gfhD?=
+ =?us-ascii?Q?XrO4LSZN+Ked3oprhA9qt/qldZiVKfj6QPfEEDGhvSQ4Pj6I24SuXwcWtJhN?=
+ =?us-ascii?Q?nWwtMzOk8QGHtQ7d78Nfsg3Wb1lADIFEFW3OSq5ksr0JgkUEmdCU1P96ZCCc?=
+ =?us-ascii?Q?F56JJbrvPkXvgYToT5zThdZPp2o8M2gE4YjxvNm3Tzunk6m9R1AGs49B26Oh?=
+ =?us-ascii?Q?XiHqAcCqkOBvx8FMaGTYzj/gwKpQP4nf+gTx0LGagvbUxhxkua8K4k+aIp+s?=
+ =?us-ascii?Q?j1ZxGY7TUPO+eBDUbsu+1DIWcHgO/5UnlnOqIb9cBqZhJNpV7i3Km7P260Op?=
+ =?us-ascii?Q?e2szJaZbPrHbhios4o4VTZzzFgBMQ8cuhJAL+Gkb9k9GKbi/fpgpf/yMTguY?=
+ =?us-ascii?Q?ULWml2IWyhASQKlLEAdycIbW8bPWjhWdJ2XPjCOkZS0Kq6/nkm1lQSpCIxWu?=
+ =?us-ascii?Q?mFREHaIIJyUAcA3llicLmZrg450rXwAR5ZnA/o5bnuJtx6REv0y61HV2Hl+f?=
+ =?us-ascii?Q?Qb/yjYh3GmWfZlYj7WliOQVKZECfKpN5U3ad3WtMW7jWHqUd3HsBFmnxwa8O?=
+ =?us-ascii?Q?g0zB7T6bJRNCUc+A92r9n6onsoSIBQTr05pNjxQhuCQ68HoxHWccDPZCuaZA?=
+ =?us-ascii?Q?s5Tg/S126Jln1/7VtFVjTTe8xsFKMXZY2P7FC2Eyp6wLw8UPXqAreNFCPzdQ?=
+ =?us-ascii?Q?ST7Ddo4AIcqCVetpGKU/105YGZ+U7H7jmnASsYKK+36XQZVxyyOh38I55fh8?=
+ =?us-ascii?Q?2AD4vgflF/HbybXp01jRRFqfN2njpjZsaVwZLXohuwgSt8U/OmUeSGPfEeTn?=
+ =?us-ascii?Q?IV4BvptmL3K8qv9qw/CUnV45qy4rWKg+izDfPO0usxgs/Vl4aoLFXdqhudhs?=
+ =?us-ascii?Q?KTsvDvq+3SDILsRnUD8bv4RJ8aqwG87kyDigYeN1baSjCIYOnx+fyKYplVex?=
+ =?us-ascii?Q?fIUNAebm++eZ5XYEzFxsbgIeR67pMTAZqjhaffIN5Fpk5YzApxCgRLqVLpPY?=
+ =?us-ascii?Q?wSW3mRmP3d67dIa4c5MqZgiGS9xc50Mys4TfzLnQjyrTh75j35zYhAyjq8j2?=
+ =?us-ascii?Q?KK1eq0CI9x+xK4M0JoqqYQspFJM59bg3wdwOExl1fQWpzxAMaqZw3PU2AZgd?=
+ =?us-ascii?Q?/PFlCO2YMLGIw2Z9jyLJAr6qF7f9Nf7Ciqyl/reX3UWeOg81DgN/leIX5hAu?=
+ =?us-ascii?Q?Ug6be92jzjTy+/zt3OZZch7VSqov7dpT0V7395Nr8ziMd3MOjcqHY3Ky+TnM?=
+ =?us-ascii?Q?9LWuTvc4OL1GaEjD2W749akLt22F++f5mp2Vj3v4KIiIbvZuI8CxWVCEsS78?=
+ =?us-ascii?Q?iZb/eCVVZeaH1EizAZ6qD+JYSmgXd38OXRdYM9IMfEHzlqCDZ3K1nm0DjyN5?=
+ =?us-ascii?Q?0IS8mbK0bfi4DnK7Pn3bI703pMg47Y1XWmjyUh2OJ+7AD1RFr7irFunphF+O?=
+ =?us-ascii?Q?M2S+HEYcnfn33iEklQKKbBoSsX5N/VaGC2x06LorUspax+x2QQPfHDO35cAb?=
+ =?us-ascii?Q?k6QAbGsN0g=3D=3D?=
+X-Exchange-RoutingPolicyChecked: Gz/jmI1ztdFVp8EZhftmTjt2SRa4RPjZL4umqZG2PdVpOlBLSiZymOiLqXpyZyynxtJFwnvtnTCi9ZlRBZwkpl+gh/TXMbw4kSUlJJBXFEFq4/tlgm6o7d3s1f/OW/k7WcpPPhtNt0FSgGr8sdlOu2MoFkTpjd31prZH5fwIwVZSUy0rtLB0lY8BP69BDVUZpwL85pLFEwgjWpUFnb57mHPoT87gVZdLHSiCea2XF8Q7R6Ql6R+dMuqZLdibZBoBmo4yQ0Vy5q8AXkdYkxd00J12ePxuj+BrUxS5jIQRTyNnaExnbyvsik3LNNpk7lu0PPRsqgQH9seB2gO0wtT9+g==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 121295ce-cb97-4959-6147-08dec7003750
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB9273.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 14:54:47.6888 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DQikucTFkMUikNz7WvVD7crNIr5VZyppOr5nddMvhH2J1k68EV3meJt61YdMwWNh378H69yL1wqIAyjf4AW1YQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB9775
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,75 +163,60 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: imre.deak@intel.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 10 Jun 2026, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
->
-> Pre-existing issues:
-> - [High] Missing payload size validation in `drm_parse_tiled_block` allows an out-of-bounds read of the EDID buffer when parsing malformed DisplayID tiled display blocks.
-> --
->
-> commit 3a0b5d7c7c564335f99c7d692448de9241f67bbd
-> Author: Jani Nikula <jani.nikula@intel.com>
->
-> drm/displayid: fix Tiled Display Topology ID size
->
-> This commit updates the Tiled Display Topology ID size from 8 to 9 bytes
-> in the DRM subsystem structures.
->
->> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
->> index 3fa4d2082cd72..11646453aaac9 100644
->> --- a/drivers/gpu/drm/drm_connector.c
->> +++ b/drivers/gpu/drm/drm_connector.c
-> [ ... ]
->> @@ -3579,14 +3579,14 @@ EXPORT_SYMBOL(drm_mode_put_tile_group);
->>   * tile group or NULL if not found.
->>   */
->>  struct drm_tile_group *drm_mode_get_tile_group(struct drm_device *dev,
->> -					       const char topology[8])
->> +					       const char topology_id[9])
->>  {
->>  	struct drm_tile_group *tg;
->>  	int id;
->>  
->>  	mutex_lock(&dev->mode_config.idr_mutex);
->>  	idr_for_each_entry(&dev->mode_config.tile_idr, tg, id) {
->> -		if (!memcmp(tg->group_data, topology, 8)) {
->> +		if (!memcmp(tg->group_data, topology_id, sizeof(tg->group_data))) {
->
-> [Severity: High]
-> This isn't a bug introduced by this patch, but could this lead to an
-> out-of-bounds read of the EDID buffer when parsing malformed DisplayID tiled
-> display blocks?
->
-> Looking at drm_parse_tiled_block() in drivers/gpu/drm/drm_edid.c, the generic
-> block is cast to a displayid_tiled_block without validating that the payload
-> size (block->num_bytes) is large enough:
->
-> drivers/gpu/drm/drm_edid.c:drm_parse_tiled_block() {
->     ...
->     const struct displayid_tiled_block *tile =
->         (struct displayid_tiled_block *)block;
->     ...
->     tg = drm_mode_get_tile_group(connector->dev, tile->topology_id);
-> }
->
-> If a malformed EDID provides a tiled block with a short length near the end
-> of the allocated EDID buffer, comparing 9 bytes here (or copying them down in
-> drm_mode_create_tile_group()) might read past the bounds of the EDID buffer.
+On Wed, Jun 10, 2026 at 11:54:19AM +0800, Guangshuo Li wrote:
+> intel_crtc_free_hw_state() drops the CRTC color blob references, but
+> leaves the corresponding pointers unchanged.
+> 
+> This can matter in intel_crtc_prepare_cleared_state(), which frees the
+> old CRTC hw state before calling intel_dp_tunnel_atomic_clear_stream_bw().
+> The latter can fail while looking up the DP tunnel group state, for
+> example with -EDEADLK.
+> 
+> If that happens, the function returns without completing the cleared
+> state preparation. The failed atomic state will then be cleared by the
+> atomic core and intel_crtc_free_hw_state() can be called again for the
+> same state, dropping the same blob references again.
+> 
+> Clear the blob pointers after dropping the references so repeated cleanup
+> of the same CRTC hw state is safe.
+> 
+> Fixes: fb69d0076e68 ("drm/i915/dp_tunnel: Fix error handling when clearing stream BW in atomic state")
+> Suggested-by: Imre Deak <imre.deak@intel.com>
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+> v2:
+>   - Keep the original ordering in intel_crtc_prepare_cleared_state().
+>   - Clear the blob reference pointers in intel_crtc_free_hw_state(), as
+>     suggested by Imre.
+> 
+>  drivers/gpu/drm/i915/display/intel_atomic.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
+> index 71b7325917b6..0cdae87e4bfc 100644
+> --- a/drivers/gpu/drm/i915/display/intel_atomic.c
+> +++ b/drivers/gpu/drm/i915/display/intel_atomic.c
+> @@ -294,6 +294,12 @@ static void intel_crtc_put_color_blobs(struct intel_crtc_state *crtc_state)
+>  void intel_crtc_free_hw_state(struct intel_crtc_state *crtc_state)
+>  {
+>  	intel_crtc_put_color_blobs(crtc_state);
+> +
+> +	crtc_state->hw.degamma_lut = NULL;
+> +	crtc_state->hw.gamma_lut = NULL;
+> +	crtc_state->hw.ctm = NULL;
+> +	crtc_state->pre_csc_lut = NULL;
+> +	crtc_state->post_csc_lut = NULL;
+>  }
 
-Yeah, maybe you should start reading the mailing list [1]. This patch is
-in response to the fix for that very issue.
+Could you still move the clearing closer where the refs are dropped, to
+the end of intel_crtc_put_color_blobs()? Otherwise this looks ok to me.
 
-BR,
-Jani.
-
-
-[1] https://lore.kernel.org/r/4e784cad86c91595b6d5da64ca854dab38357658@intel.com
-
-
-
--- 
-Jani Nikula, Intel
+>  
+>  /**
+> -- 
+> 2.43.0
+> 
