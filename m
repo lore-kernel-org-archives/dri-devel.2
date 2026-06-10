@@ -4,50 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7500CD98D9
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 10:49:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8DD2CD98CC
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 10:49:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0B3910EE71;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA65D10EE6F;
 	Thu, 11 Jun 2026 10:49:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sms-medipool.de header.i=@sms-medipool.de header.b="JG5F+hcS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jFhYfg28";
 	dkim-atps=neutral
-Received: from mail.sms-medipool.de (mail.sms-medipool.de [178.63.14.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FCC710EB6D;
- Wed, 10 Jun 2026 18:44:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sms-medipool.de;
- s=mail; t=1781117098;
- bh=W6FxcmvZc7O9uWrU0PcbRqzEAh2J4RoXnjElLIAkQk8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JG5F+hcSVf1vQj8f77tOvQd4+XyAcTNN/DZFCIcnbElk9ntyMKC2AQuBIQw+qVguo
- lh1RkohVtLFglEBWusBcb06MA3Yny7z8fhZbDWnLCyX5dpmF0buY8dhqNroUB7XwE7
- nZZyXMYwmnjbe5oBgfjiSnelrK1Nbzqakx/2RmP/LixtS4HOznceU07akjTY150Whg
- uP7jk1dKszWteF/oyDQwbMEmO8UsLAuHP56rTOpPi8kRvS7wisx02mXJJJtbspc8nh
- SyEZoW9BxUgByXXP4TMjxYpaE4oC9r2rXyUu6TnS1F0bS20RCYO+ddC3+e8M05ZMAL
- 6tFt83zZXC65Q==
-Received: from mail.stoss-medica.de (mail.stoss-medica.de [213.147.17.40])
- by mail.sms-medipool.de (Postfix) with ESMTPS id E543C11F58;
- Wed, 10 Jun 2026 20:44:57 +0200 (CEST)
-Received: from NUC16-Linux.sb.golima.de ([95.88.98.111])
- by mail.stoss-medica.de (Kerio Connect 10.0.8 patch 2) with ESMTP;
- Wed, 10 Jun 2026 20:44:57 +0200
-From: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- Imre Deak <imre.deak@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, alexander.kaplan@sms-medipool.de
-Subject: Re: [PATCH] drm/dp: Read the PCON max FRL bandwidth only for HDMI DFPs
-Date: Wed, 10 Jun 2026 20:44:56 +0200
-Message-ID: <20260610184456.8424-1-alexander.kaplan@sms-medipool.de>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260610180312.374901F00893@smtp.kernel.org>
-References: <20260610180312.374901F00893@smtp.kernel.org>
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4564D10E7D1
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 08:33:23 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-45ef41adbc1so4804539f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 01:33:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781080401; x=1781685201; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=42JyeNN6hbRFmmAETFft87Ynwj8c8+fcuTymho+Tavk=;
+ b=jFhYfg280sYZ1JOeR+tyM2EPV/OLIi3zLKCYzDA5RoxARblV6Cg5QeXQkHtXDe8KPW
+ O9R+FFDyVdzQejH6Lef6yh++4uDXjLTcmj340iMTnbEbetrYiqElnKE8e1vXwX4dIdR5
+ qSoH7pM2sxvVSg5L/Gyx9e+sgx0uO+SVa/eXe7UGRwssBG9YBONPOyfCoJ1tWjQu7cmR
+ jXmiRgxNwz5LDy7GxnQ8tTqf18zybdzuEr9eXhv73vMZurA3lRFTM15YRQbQVZYYYVs1
+ RA/TXPKPVMBlnj/tb7HePaawQLzHY1Kux1A3XDnB5OPTOcnAa5QiMOiJdhI7j6su7GA7
+ 5Gkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781080401; x=1781685201;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=42JyeNN6hbRFmmAETFft87Ynwj8c8+fcuTymho+Tavk=;
+ b=j5uUCYPaneVX+eL63M25cNh+JT2XGT0uqLmrqhK2I4AJ8vIAHJy90EqUOcgEEeE1zU
+ fnJIqlsl9/mrt3LoNxEA7wCx7UiJFcviod2hTYbpDEljY/yzWtEkdDCkEdEX7L18NsO3
+ 04g/ddC4oAjm+KRN/2bCsegR/90VXfDFdn3iiNjdvQOGN2AL+OF2/8y4ubFgy5bYq+Lx
+ es29n8fpAf6Kk0W4Re+yJe//9j8o8QOpXPezscVciQtBqGWzInz886pFS+6JtWuyUmO2
+ MDq6HZJRmWmjHxAaKWRIa5+tZaDAde08u5Xzi2nPpJ+L3kLocXj8MkvXE1f9GvOyW7Id
+ rUVw==
+X-Gm-Message-State: AOJu0YxR1yp/iyvlAeLWlT6QOoq/HU8QPCBD5/0EqygfJB5UGAe+Q8hv
+ coh8/UeuTQPugLLmYrm/SMWrwu4VkadSXdhJVjpuJKAxi1iTz/Qh9j1+
+X-Gm-Gg: Acq92OFs2E1qepY2GzHRmYTF+q1fhrCjMxG8paWCaFH8jzSVwVtxyN+J3zozI5Rmc6y
+ N91Qb5SMSntX0S+5n06WzlrDvC/6rVL2uRpeQCzrmPqrS8bqHakIUP4ajn/Ga2951/U0QXZ5VRZ
+ ZtQzAu+hMWg2zIliLQrGRs6s/XlmXdMv5WXhiMad8MlKJja/uaaqJa0+CisYTPxtSDw6Hwm0pUZ
+ +Mw0qDG+qakL7h4nI49fK+m9gmDhSqJI3UjS6LgM4/NPkMEn0xXUaQVIrQmQ8RCFUBeQ09r6Guc
+ FIAedr0cC4sJyxeJFThOsYoQljwe3ib1pxmC2jD64oFzqDZRQfWK6qy0b1/9mCcKTmOM3HuFPSY
+ L79XVlu10ip5gQ/4fazQULqDpXzX37VVb5KMHlejwh/Fqb7tObYNQrl+B/YQvQZLfHbgDOfTF7R
+ 9TpjQpsRSlOE2njL2sXMRCxR+zysMsJS35eOlo2imLQgppnoC3TYqsAX0rMe1DuVhFWqh7B88=
+X-Received: by 2002:a05:6000:2b0b:b0:45e:ea2a:dd79 with SMTP id
+ ffacd0b85a97d-460302e0a31mr24547521f8f.4.1781080401290; 
+ Wed, 10 Jun 2026 01:33:21 -0700 (PDT)
+Received: from aldebaran ([193.165.157.230]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4601f35fd33sm76213092f8f.35.2026.06.10.01.33.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Jun 2026 01:33:20 -0700 (PDT)
+From: =?UTF-8?q?Pavel=20Ondra=C4=8Dka?= <pavel.ondracka@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com, stable@vger.kernel.org,
+ =?UTF-8?q?Pavel=20Ondra=C4=8Dka?= <pavel.ondracka@gmail.com>
+Subject: [PATCH] drm/radeon: fix r100_copy_blit for large BOs
+Date: Wed, 10 Jun 2026 10:32:45 +0200
+Message-ID: <20260610083245.1057241-1-pavel.ondracka@gmail.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 11 Jun 2026 10:49:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -65,48 +86,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 10 Jun 2026, sashiko-bot@kernel.org wrote:
-> If detailed capability info is not available, downstream_ports contains 1-byte
-> descriptors per port. Doesn't this mean downstream_ports[2] would represent
-> the third downstream port rather than byte 2 of Port 0?
+r100_copy_blit() copies BOs as 1024-pixel-wide ARGB8888 blits, so one
+GPU page becomes one blit row. Large copies are split into chunks of at
+most 8191 rows.
 
-The DPCD addressing concern is valid.
-Without DP_DETAILED_CAP_INFO_AVAILABLE the registers at DPCD 0x80 hold
-one byte per port, so downstream_ports[2] is the descriptor of port 2
-and not byte 2 of the port 0 descriptor.
-Bit 5 can even be legitimately set in that format, where it is part of
-the non-EDID format bits (DP_DS_NON_EDID_720x480i_50).
-So intel_dp_check_frl_training() evaluating DP_PCON_SOURCE_CTL_MODE on
-that byte is indeed unguarded.
+The kernel register header names the packet coordinate dwords SRC_Y_X
+and DST_Y_X. In the BITBLT_MULTI description in
+R5xx_Acceleration_v1.5.pdf docs, these correspond to [SRC_X1 | SRC_Y1]
+and [DST_X1 | DST_Y1], which are signed 13-bit coordinates in the
+-8192..8191 range. The old code kept SRC/DST_PITCH_OFFSET at the BO base
+and used SRC_Y_X/DST_Y_X as the chunk address, so large BO moves could
+exceed that coordinate range.
 
-The practical exposure is small, though.
-The same condition also requires intel_dp_is_hdmi_2_1_sink(), so the
-EDID of the attached sink must additionally advertise HDMI FRL rates
-in the HF-VSDB.
-drm_dp_read_downstream_info() zeroes descriptor bytes beyond the
-advertised port count, so hitting the bogus bit takes a branch device
-that exposes three or more downstream ports without detailed
-capability info while driving an HDMI 2.1 sink, which should be a
-rare combination.
+Compute per-chunk SRC/DST_PITCH_OFFSET bases and emit zero source and
+destination coordinates. r100_copy_blit() already packs
+SRC/DST_PITCH_OFFSET as pitch plus base offset, so large chunk addresses
+belong there rather than in the coordinate fields.
 
-> Should intel_dp_check_frl_training() be updated with similar checks to ensure
-> we only evaluate DP_PCON_SOURCE_CTL_MODE when appropriate?
+This fixes Prison Architect corruption with 4096x4096 mipped textures
+after they are evicted to GTT under memory pressure on RV530.
 
-This patch also narrows the remaining window.
-With it, dfp.pcon_max_frl_bw is only non-zero for a branch device with
-detailed capability info and an HDMI downstream port, so in the
-scenario above intel_dp_pcon_start_frl_training() now fails the
-max_frl_bw check before any FRL DPCD access happens.
+Closes: https://gitlab.freedesktop.org/mesa/mesa/-/work_items/6716
+Cc: stable@vger.kernel.org
+Signed-off-by: Pavel Ondračka <pavel.ondracka@gmail.com>
+---
+ drivers/gpu/drm/radeon/r100.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-What remains is the TMDS fallback write to DP_PCON_HDMI_LINK_CONFIG_1
-in the error path of intel_dp_check_frl_training().
-Gating the function on intel_dp->dfp.pcon_max_frl_bw, which after this
-patch encodes exactly the checks added here, would close that.
-That is an i915 change and out of scope for this helper patch.
-If the maintainers think it is worth closing, I am happy to send a
-separate follow-up patch for that.
-
-Thanks,
-
-Alexander
+diff --git a/drivers/gpu/drm/radeon/r100.c b/drivers/gpu/drm/radeon/r100.c
+index 3ac1a79b6f13..533215d6e9cb 100644
+--- a/drivers/gpu/drm/radeon/r100.c
++++ b/drivers/gpu/drm/radeon/r100.c
+@@ -906,6 +906,7 @@ struct radeon_fence *r100_copy_blit(struct radeon_device *rdev,
+ {
+ 	struct radeon_ring *ring = &rdev->ring[RADEON_RING_TYPE_GFX_INDEX];
+ 	struct radeon_fence *fence;
++	uint64_t cur_src_offset, cur_dst_offset;
+ 	uint32_t cur_pages;
+ 	uint32_t stride_bytes = RADEON_GPU_PAGE_SIZE;
+ 	uint32_t pitch;
+@@ -934,6 +935,10 @@ struct radeon_fence *r100_copy_blit(struct radeon_device *rdev,
+ 			cur_pages = 8191;
+ 		}
+ 		num_gpu_pages -= cur_pages;
++		cur_src_offset = src_offset +
++			(uint64_t)num_gpu_pages * RADEON_GPU_PAGE_SIZE;
++		cur_dst_offset = dst_offset +
++			(uint64_t)num_gpu_pages * RADEON_GPU_PAGE_SIZE;
+ 
+ 		/* pages are in Y direction - height
+ 		   page width in X direction - width */
+@@ -950,13 +955,13 @@ struct radeon_fence *r100_copy_blit(struct radeon_device *rdev,
+ 				  RADEON_DP_SRC_SOURCE_MEMORY |
+ 				  RADEON_GMC_CLR_CMP_CNTL_DIS |
+ 				  RADEON_GMC_WR_MSK_DIS);
+-		radeon_ring_write(ring, (pitch << 22) | (src_offset >> 10));
+-		radeon_ring_write(ring, (pitch << 22) | (dst_offset >> 10));
++		radeon_ring_write(ring, (pitch << 22) | (cur_src_offset >> 10));
++		radeon_ring_write(ring, (pitch << 22) | (cur_dst_offset >> 10));
+ 		radeon_ring_write(ring, (0x1fff) | (0x1fff << 16));
+ 		radeon_ring_write(ring, 0);
+ 		radeon_ring_write(ring, (0x1fff) | (0x1fff << 16));
+-		radeon_ring_write(ring, num_gpu_pages);
+-		radeon_ring_write(ring, num_gpu_pages);
++		radeon_ring_write(ring, 0);
++		radeon_ring_write(ring, 0);
+ 		radeon_ring_write(ring, cur_pages | (stride_pixels << 16));
+ 	}
+ 	radeon_ring_write(ring, PACKET0(RADEON_DSTCACHE_CTLSTAT, 0));
+-- 
+2.52.0
 
