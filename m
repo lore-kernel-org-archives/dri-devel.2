@@ -4,42 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C838CD8CB2
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 15:24:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42C64CD98CE
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 15:25:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C101110EA17;
-	Wed, 10 Jun 2026 15:24:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B18D10EA31;
+	Wed, 10 Jun 2026 15:25:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K6GfTQFt";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Ofbw+I8E";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ZadUv3kr";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Ofbw+I8E";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ZadUv3kr";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 410C710EA17
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 15:24:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F0A1440774;
- Wed, 10 Jun 2026 15:24:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B85AE1F00893;
- Wed, 10 Jun 2026 15:24:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781105090;
- bh=ZxkPqI2LQUiNR8MU0eFZsdjqi3F9qAbIjRkJlveZHkQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=K6GfTQFtdtKvp597owoT4LShZFFC0QbxcmpV8vPg+u7XBVASZcgjBKe4b9Z1/DDVM
- O71BI5Zj6XYLXs5hMGQaWs4eEaUCJTTUaEyTonHPVaqMy0ylHQE+ae0LQYEmYmxZuJ
- lj7AgP4QMSnX3664ECjHGYH1999/1/4S+xiB5l67VoR2K6TT1rbpJDll80H1ARcgO7
- n0TlVH51Ijr1GfghetJxojypoiM3FfWQU1dCZUxKKv/raufreXz+1e34U86eypmhsH
- IIFmKwEv0sC7bc9ADDDeGPFCy0pWdDhISQI6AEKaF5BEo9FCoa1iAWC3PrO1GcSBVv
- jwZFW2wx+OZdQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH resend 2] gpu/trace: TRACE_GPU_MEM should depend on DRM
-To: "Geert Uytterhoeven" <geert+renesas@glider.be>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <600d327c8fc37decc1acaccc96439825d12c57e3.1781104422.git.geert+renesas@glider.be>
-References: <600d327c8fc37decc1acaccc96439825d12c57e3.1781104422.git.geert+renesas@glider.be>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 15:24:50 +0000
-Message-Id: <20260610152450.B85AE1F00893@smtp.kernel.org>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28CDD10EA31
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 15:25:13 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DB13F6AE85;
+ Wed, 10 Jun 2026 15:25:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1781105111; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=cbSdKO0RWgsTw4xxGPpPidtmybVhhY9oAG7VyTdwfbk=;
+ b=Ofbw+I8EpjdWA54MBoZwLZ9EVyh3w0VJaMvVmdK7iNgf0aXC1yxt84HNEqXK8w0no4erFc
+ cLoDCcIS6uO9Pn4ARImm5VZjqYxRvFPP+LxmrozXMiwRbabdK+F0i/yeQiCKY09hcDwytF
+ UY0fA2Qdo6nl3dEUT+7SqIGAXFAHBI4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1781105111;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=cbSdKO0RWgsTw4xxGPpPidtmybVhhY9oAG7VyTdwfbk=;
+ b=ZadUv3krn4Ug1Qrz9RDVscZKfDdsRoZELhTayY9Rp+vE4ldXvG3TBN+tP0r0EmNHX2u512
+ 6t4n71EsbnrsizCg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1781105111; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=cbSdKO0RWgsTw4xxGPpPidtmybVhhY9oAG7VyTdwfbk=;
+ b=Ofbw+I8EpjdWA54MBoZwLZ9EVyh3w0VJaMvVmdK7iNgf0aXC1yxt84HNEqXK8w0no4erFc
+ cLoDCcIS6uO9Pn4ARImm5VZjqYxRvFPP+LxmrozXMiwRbabdK+F0i/yeQiCKY09hcDwytF
+ UY0fA2Qdo6nl3dEUT+7SqIGAXFAHBI4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1781105111;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=cbSdKO0RWgsTw4xxGPpPidtmybVhhY9oAG7VyTdwfbk=;
+ b=ZadUv3krn4Ug1Qrz9RDVscZKfDdsRoZELhTayY9Rp+vE4ldXvG3TBN+tP0r0EmNHX2u512
+ 6t4n71EsbnrsizCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0DD44779A7;
+ Wed, 10 Jun 2026 15:25:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id RjDtAdeBKWr3HwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 10 Jun 2026 15:25:11 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: mripard@kernel.org, maarten.lankhorst@linux.intel.com, airlied@redhat.com,
+ airlied@gmail.com, simona@ffwll.ch, admin@kodeit.net,
+ gargaditya08@proton.me, paul@crapouillou.net, jani.nikula@linux.intel.com,
+ mhklkml@zohomail.com, zack.rusin@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com, harry.wentland@amd.com,
+ sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
+ rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, javierm@redhat.com, dmitry.osipenko@collabora.com,
+ gurchetansingh@chromium.org, olvaffe@gmail.com
+Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-mips@vger.kernel.org, virtualization@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v5 00/15] drm: Improve logic behind damage handling
+Date: Wed, 10 Jun 2026 17:18:16 +0200
+Message-ID: <20260610152505.260172-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.79 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.19)[-0.940];
+ MIME_GOOD(-0.10)[text/plain]; RCPT_COUNT_TWELVE(0.00)[31];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,redhat.com,gmail.com,ffwll.ch,kodeit.net,proton.me,crapouillou.net,zohomail.com,broadcom.com,amd.com,igalia.com,intel.com,ursulin.net,collabora.com,chromium.org];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLq3cifbxyhc6qbbynzfc6amns)];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,56 +110,133 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Adding `depends on DRM || COMPILE_TEST` to the `bool` config `TR=
-ACE_GPU_MEM` restricts it to `n` when `DRM=3Dm`, preventing manual selectio=
-n and causing an unmet direct dependency warning when selected by `DRM_MSM`.
---
+DRM clients can supply information on framebuffer areas to update as
+part of each page flip, called damage-clipping rectangles. But DRM's
+processing of this information is inconsistent and prone to errors.
 
-commit 0cbe66fe073574dbd85dfed2b1c566d5b58e1668
-Author: Geert Uytterhoeven <geert+renesas@glider.be>
+- There are multiple fields and tests that decide if damage clips
+should be taken or ignored.
 
-gpu/trace: TRACE_GPU_MEM should depend on DRM
+- Sometimes damage clips are removed behind the back of the DRM client.
 
-This commit adds a dependency on DRM for the TRACE_GPU_MEM configuration
-option to prevent prompting users about this functionality when configuring
-a kernel without DRM GPU support.
+- Atomic helpers evaluate damage clipping in the middle of the atomic
+check: after connectors and encoders, but before planes and CRTCs. Hence
+pipeline stages have an inconsistent view.
 
-> diff --git a/drivers/gpu/trace/Kconfig b/drivers/gpu/trace/Kconfig
-> index cd3d19c4a201c..7f405ce7df5a0 100644
-> --- a/drivers/gpu/trace/Kconfig
-> +++ b/drivers/gpu/trace/Kconfig
-> @@ -2,6 +2,7 @@
-> =20
->  config TRACE_GPU_MEM
->  	bool "Enable GPU memory usage tracepoints"
-> +	depends on DRM || COMPILE_TEST
+- Which leads to drivers (ingenic) doing a re-evaluation if necessary.
 
-[Severity: Medium]
-Will this dependency cause issues when CONFIG_DRM is built as a module?
+- Tests of plane source coordinates only happen during commits. At this
+point, the driver should already know if damage clips are to be taken or
+not. Because of this, some drivers (appletbdrm) might operate on incorrect
+damage information for their internal workings. This also leads to excessive
+use of the old plane state.
 
-Because TRACE_GPU_MEM is a bool config, if CONFIG_DRM=3Dm and COMPILE_TEST=
-=3Dn,
-the dependency expression evaluates to m, which restricts the bool to n.
-This makes it impossible for users to manually enable the tracepoints when
-DRM is built as a module.
+Therefore go through DRM helpers and drivers and fix the logic.
 
-Additionally, since tristate drivers like DRM_MSM use select TRACE_GPU_MEM,
-building them as modules will force this bool to y, which exceeds its
-dependency limit of m. This triggers an unmet direct dependencies warning
-in Kconfig.
+- Run all of the atomic checks with the damage information supplied by
+DRM clients. Afterwards evaluate plane and CRTC states on whether to
+take or ignore damage clips. Do all related tests in a single atomic
+helper.
 
-Would it be better to use depends on DRM !=3D n || COMPILE_TEST here?
+- Do not discard damage clips. Set ignore_damage_clips in struct
+drm_plane_state instead. This includes changes to plane source-coordinates.
+The damage iterator now only has to look at this flag to detect if it
+should use the damage clips. 
 
->  	default n
->  	help
->  	  Choose this option to enable tracepoints for tracking
+- Go over drivers and fix the damage handling in the plane's
+atomic_update helpers. Most drivers no longer need the old plane state
+in their update.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/600d327c8fc37decc1a=
-caccc96439825d12c57e3.1781104422.git.geert+renesas@glider.be?part=3D1
+- The appletbdrm driver requires a fix in how it uses damage information.
+Ingenic and vmwgfx can be simplified. These changes improve the drivers'
+code organization.
+
+- Add support for ignore_damage_clips to various drivers that ignored it
+until now.
+
+- Kunit tests require some changes. Drop some obsolete tests and add a new
+one for ignore_damage_flags.
+
+Tested with bochs, mgag200, Kunit tests.
+
+v5:
+- support ignore_damage_clips in amdgpu, i915, virtgpu, vmwgfx
+- reorder patches to avoid possible regressions during the series
+- fix clearing ignore_damage_clips in a separate patch (Javier)
+v4:
+- reorder patches to avoid error-prone intermediate state
+v3:
+- fix error path in appletbdrm
+v2:
+- rebase on latest upstream
+
+Thomas Zimmermann (15):
+  drm/amd/display: Handle struct drm_plane_state.ignore_damage_clips
+  drm/i915/display: Handle struct drm_plane_state.ignore_damage_clips
+  drm/vboxvideo: Handle struct drm_plane_state.ignore_damage_clips
+  drm/vmwgfx: Handle struct drm_plane_state.ignore_damage_clips
+  drm/appletbdrm: Allocate request/response buffers in begin_fb_access
+  drm/damage-helper: Clear ignore_damage_clips in plane-state
+    duplication
+  drm/damage-helper: Do not alter damage clips on modeset, but ignore
+    them
+  drm/atomic-helpers: Evaluate plane damage after atomic_check
+  drm/ingenic: Remove calls to drm_atomic_helper_check_plane_damage()
+  drm/atomic_helper: Do not evaluate plane damage before atomic_check
+  drm/damage-helper: Test src coord in
+    drm_atomic_helper_check_plane_damage()
+  drm/damage-helper: Remove old state from
+    drm_atomic_helper_damage_iter_init()
+  drm/damage-helper: Remove old state from
+    drm_atomic_helper_damage_merged()
+  drm/damage-helper: Rename state parameters in damage helpers
+  drm/vmwgfx: Remove unused field struct
+    vmwgfx_du_update_plane.old_state
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  10 +-
+ drivers/gpu/drm/ast/ast_cursor.c              |   3 +-
+ drivers/gpu/drm/ast/ast_mode.c                |   2 +-
+ drivers/gpu/drm/drm_atomic_helper.c           |   6 +-
+ drivers/gpu/drm/drm_atomic_state_helper.c     |   1 +
+ drivers/gpu/drm/drm_damage_helper.c           |  44 ++--
+ drivers/gpu/drm/drm_fb_dma_helper.c           |   2 +-
+ drivers/gpu/drm/drm_mipi_dbi.c                |   3 +-
+ drivers/gpu/drm/gud/gud_pipe.c                |   3 +-
+ drivers/gpu/drm/hyperv/hyperv_drm_modeset.c   |   3 +-
+ drivers/gpu/drm/i915/display/intel_plane.c    |  11 +-
+ drivers/gpu/drm/i915/display/intel_psr.c      |   8 +-
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |   3 -
+ drivers/gpu/drm/ingenic/ingenic-ipu.c         |   8 +-
+ drivers/gpu/drm/mgag200/mgag200_mode.c        |   3 +-
+ drivers/gpu/drm/sitronix/st7571.c             |   3 +-
+ drivers/gpu/drm/sitronix/st7586.c             |   3 +-
+ drivers/gpu/drm/sitronix/st7920.c             |   3 +-
+ drivers/gpu/drm/solomon/ssd130x.c             |   9 +-
+ drivers/gpu/drm/sysfb/drm_sysfb_modeset.c     |   3 +-
+ .../gpu/drm/tests/drm_damage_helper_test.c    | 200 +++---------------
+ drivers/gpu/drm/tiny/appletbdrm.c             |  59 +++---
+ drivers/gpu/drm/tiny/bochs.c                  |   3 +-
+ drivers/gpu/drm/tiny/cirrus-qemu.c            |   2 +-
+ drivers/gpu/drm/tiny/gm12u320.c               |   2 +-
+ drivers/gpu/drm/tiny/ili9225.c                |   3 +-
+ drivers/gpu/drm/tiny/repaper.c                |   2 +-
+ drivers/gpu/drm/tiny/sharp-memory.c           |   3 +-
+ drivers/gpu/drm/udl/udl_modeset.c             |   3 +-
+ drivers/gpu/drm/vboxvideo/vbox_mode.c         |  11 +-
+ drivers/gpu/drm/virtio/virtgpu_plane.c        |   2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.c           |   5 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.h           |   2 -
+ drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c           |   9 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c          |  12 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c          |  15 +-
+ include/drm/drm_damage_helper.h               |   9 +-
+ 37 files changed, 148 insertions(+), 325 deletions(-)
+
+
+base-commit: fc59f76558703febba8056be87d1c97d14f7485e
+-- 
+2.54.0
+
