@@ -4,166 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED6A9CD8CB9
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 09:11:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 970B0CD8CB9
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 09:12:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42D7810E82C;
-	Wed, 10 Jun 2026 09:11:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F234A10E82F;
+	Wed, 10 Jun 2026 09:12:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LS1aaYZP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZBr8TtgQ";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012067.outbound.protection.outlook.com [52.101.43.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86C9D10E82A;
- Wed, 10 Jun 2026 09:11:56 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011026.outbound.protection.outlook.com [52.101.52.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A20D710E82F;
+ Wed, 10 Jun 2026 09:12:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XLsTWKvOrqNoL5y9vG4BglC5zhVKYY5h48A7r8DKwqouom2PAPCsR8dVUwPuWWjTIXQ+rR+Y39eZy0vH/eH4Qv/lcJVIdbg2Ys++yYssZyfzXKbfYsgSgqKuBwoDqLNldlBFeHSitP5j+5z2bFj6iAOgHdz/UhxDR3fAl0Q5o7l8o/kaHG/qu9RoGjMxQPvo3xB6UwQqHeHwS9GIZcehwHclZIpPwCBs8LxYBKCDZYKr5lehF0FXrU/0aRSenZN6Y1zQQoCCS9YcptXBfEisoZm3l4C/bP5p5B0a8kHvFh9fyk8D+Qant1URttIvpwEjVVLNeJAEjaWJ7KTHFqK04g==
+ b=odqy/eMGnAoNmJEJeNAHWAfNIl9r9g0HuLNXacbxZWmwvLzQfIf82olID+WieizfikThZpP/Qr5ocYqNp9KfVM6gCd3SdKqNxxlL47eQt4CXOCC5cnfycqQu6S5fBvqKl5oj88q1IznGnai8KXUpuvX8g3Fmkk4yyu+7813Ix30mCscxgRyjeGhodjWrsoZEj1bXfDHljl/k7MxSRi23WD70ERziY+Kgi0/bJ3EK8xkUY2/wM48HRy1UmI0oaDxYE2oyRn2A8i3Rq6ccRQPdYL4SNNU4mcV4JIt90GxY7v8JbLjvXu0UKF00/pvtyEc/DdMhSvDUh6/1+Q+XUzmwbg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gQ+OE8QIAEvordwq9Eu9KduXF7SvGCeNdQFbFKcTS00=;
- b=wcRibGEguqE2bE7UWKzySrTCEBso+kwKN1+W1GZq2EQaQHT/j4u1xOExJhikVdZXlvo6HNeGpbuO+VE9XQ56EyTZBwKck5aNKYNFnaiWCsUqmwbFup4rrWMT33fHKmaT97Oi6nPEYWysY27QUJYeXxUyPPvR3bogoJG9jII/Re6DHAYDCbXsQrst5n8rScy3ntXy7cqe+lyuLjvd4H6mOn40l7kvQUPC/FazuymAe6yoT8b2xO78aULg5Iv533njULkobE67TE9dAlYKjCOU1l2EbwEfaG+2F6ZIvOv3gvo7+qBwE7nuR3Pw2XyfoZKfih2R9bWbSO+7yiUiFalCew==
+ bh=JlWrHUinfWyOsgh2U3AirqBlQMjF4JGd5UjNeM3VMtg=;
+ b=h82EtVtOa7az4rBXpj5T6znrzCWjpk2aUkwcby/3nVzDDdkdhXf7EmBAV9gVKHQVSwR13J89sejm6lKoCMQ+UURhq2pNHt9gOmwSjJN7rDeFh1PA5tIR+DtoYakLs2p7G1+7n1gjSeFXhdSFj34SvGuKhJ3pvklX8CHc5Stp3Yqf86FkIfrQgNNjP2Vomd/cDwQS8RE27pxcl/2ts5IdTsz7dWD8VVZI0pBjX9mujKMiP1nwwJE6+42RjJgYcpgdo6ILNFgd57WsRGOilo3ZVnKdaUaDp9vw5wn+zGV1Nu4bNJZ3LO1fY9awuDmwaR/vtz8jOn0GXpudLGNabAuv+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gQ+OE8QIAEvordwq9Eu9KduXF7SvGCeNdQFbFKcTS00=;
- b=LS1aaYZPLyJN1jVGavcWqfLUftprSIQw/07AGkLkBUG0UWQBe9QqfwZxWOEYj4VFh64DyrnQJYH0xIALiwgW/puLyrDEoorDHljrSDr0ymc3cYWk4FSAVMCX/9qWXrDdk8iCY/00P49M5AUe2MTWAOyBUY1Iq2GGPEktW5kxtFU=
+ bh=JlWrHUinfWyOsgh2U3AirqBlQMjF4JGd5UjNeM3VMtg=;
+ b=ZBr8TtgQ6fojGTDNLPgW37HQh6r5QG0MlwBpqVV2ukwKZZQAhOd92qWhYRyPIxqH4Nf31LRxCDpBzFtus39iLmzTV6GhFqktyjHE2IsLE84VSYg7okg7dn+AlfbEdOqQI4AqOis3BxbCqyke3fqKL1xyew1jssW8MSRJyz7by5A=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by CY8PR12MB8241.namprd12.prod.outlook.com (2603:10b6:930:76::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Wed, 10 Jun
- 2026 09:11:52 +0000
+ 2026 09:12:54 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Wed, 10 Jun 2026
- 09:11:51 +0000
-Message-ID: <d974a2ea-6102-45ff-bf36-3b25a2404e40@amd.com>
-Date: Wed, 10 Jun 2026 11:11:34 +0200
+ 09:12:54 +0000
+Message-ID: <0b2d96b0-59c5-4ca7-9404-90f313725ba9@amd.com>
+Date: Wed, 10 Jun 2026 11:12:48 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/14] list: Prepare entry iterators to cache cursor
- state
-To: Kaitao Cheng <kaitao.cheng@linux.dev>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Davidlohr Bueso <dave@stgolabs.net>, "Paul E . McKenney"
- <paulmck@kernel.org>, Josh Triplett <josh@joshtriplett.org>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Eddie James <eajames@linux.ibm.com>, Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Laxman Dewangan <ldewangan@nvidia.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+Subject: Re: [PATCH] drm/nouveau: Document weird looking bugfix
+To: Philipp Stanner <phasta@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Waiman Long <longman@redhat.com>,
- drbd-dev@lists.linbit.com, linux-block@vger.kernel.org,
- linux1394-devel@lists.sourceforge.net, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-spi@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Christian Brauner
- <brauner@kernel.org>, David Howells <dhowells@redhat.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Kaito Cheng <chengkaitao@kylinos.cn>, Muchun Song <muchun.song@linux.dev>,
- Philipp Reisner <philipp.reisner@linbit.com>,
- Lars Ellenberg <lars.ellenberg@linbit.com>,
- =?UTF-8?Q?Christoph_B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
- Jens Axboe <axboe@kernel.dk>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
- <bd0b7393-8ccb-4d67-8bfc-18c68347122c@amd.com>
- <5152089a-2808-4fe9-b633-b03018105dd2@linux.dev>
- <6b2efdee-95b0-4306-a682-0d0466497ddb@amd.com>
- <2399841f-d834-4652-8285-4a15c7d9a9b9@linux.dev>
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+References: <20260610082602.1292853-2-phasta@kernel.org>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <2399841f-d834-4652-8285-4a15c7d9a9b9@linux.dev>
+In-Reply-To: <20260610082602.1292853-2-phasta@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0086.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1f::13) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0085.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1f::22) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB8241:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7464e8d5-7c24-4f24-2866-08dec6d04ee4
+X-MS-Office365-Filtering-Correlation-Id: 98d1786a-4fed-4ed0-dbcc-08dec6d07443
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|7416014|56012099006|11063799006|5023799004|4143699003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 1htKofcJEs3WQFHVpqi/ZmKoxqDUWoziML8B50OQPmpkEjon74KxOB4u+OnvZqitJp3H3n59XEPQXs2ZM4rK2Cs9/Ou7Ts7zj8RPb+qk9qPCE/NwXunHVvwUQiyqyePQ65c9iaUNAAQo7eHgiLuOTtQw2H5ZJXeZXOxx6nr0fe3xuSuA5WIbHeU2MNT8I/ulSp23QMEgjoaSmAlKN2Ng1IXF04RdL/vJgQll0jWEgJUi/o9Me5pxFZxh32wZpQGuzskmyLR5HkeNbjki0A+VlpiqpS+SWNaQnrPd9nOy0zlCn1sNrbtVKSRps52Z8qwUjW3kX841RiI5iCa4+z2na3c9fsjOo0pEcazTH1A/2NtmDXYn+CCqV+mmlL4hUWfUfchpGcHERGgTqKWjLR0vSUWQhqxTuRKGlNNaL/r3Z/eU/6w7ctm28LMvqNedaFsls0VSmuNBDoBZZfPFXGxvihQkIMzL9LR9HZz+omUTgGaG3RH2QyuBsNEeHgs8ex5VN/lyz6QaxSmhBdgD7FvpJ/Kyygo0tUrSneiSOsh1wNaCMMOgsRrhlngP0fIeEF0fA6Xv3GIX3QMVLRUNFhBk83t8fHi22FaSFf8EQfRiIRdZhYZKDzGYqi8pfhxH19Z6LhOQ5adR6YyVHzYys3HMORl3YOwwW9+M45e9KZqFZkv7twfLSeTk6iq2XaSLgMOMEbslKgBFRuPYKVznmbYbtQ==
+ ARA:13230040|23010399003|366016|1800799024|376014|7416014|56012099006|11063799006|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 0Jgjf8QkzcrWjivmk6NRhcq7jdWQonDfgRnOKX6A/w4rTPJ8Go2LM6O3bCwoS6bymOWy6JEAu0SJ6JIF3lulrqKByLhiEPH/fm+j3lEheNR0x0c1Kvp2NSaUzaM2H2gZdtPD4GoO9pYkGlmFoVXpP5atV92VghMzVZ4YtO3Nw2do3O3Lp3/d2ifZZIbqJzj3TEU9UPnZw9GeKpxE6H+wTZsI7xJCY1Rk6LhXsFRrqReMtFBPgPyTvPgr7pjvaYtdDEXJUGC0HA6BdS9FkyOSXAuPu5/NdLvNQoH8k5NSDDt4sieq/elIPquStzeHhiEi/dMoTH2F0EbAQg69fj/vT7r2C3f1vbq44RqkqEJ2nvabWZlpdvtLgA+kk1f+SDvlmKPE2gt27E6qeXesKmr8OQbZQ4mQ5aCWPsBa4XyIZMJQHH8Se21rSvnWcuk90N2AfRI6awANwVkbcAxIrgUTuZkRaSiL7deSAo1q/OQo/4g4DlxsCn9BEWlshNPG30ZpoCs6Sz/+GJrQZX7iO+ZzGCgftH5KaF1oW3zEnRdxXxEkuQPG0YfScOCvt01bb4PnWfmFku43JSLBCjGyxZUU3SCw28H6+sNsKTwWifVh3/U2Mn//Ayoy22wO02XIn623XJ53PVp2D9n4HMQND94+9WlwLwQWIIpYektMZDZGpgdug5h6UVAuoOqk03toOEXB
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(56012099006)(11063799006)(5023799004)(4143699003)(6133799003)(22082099003)(18002099003);
+ SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(56012099006)(11063799006)(6133799003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eTVwSGRWQ2NlUmhwb3dVN2M3RjV3SVlsSXRoa3Y2VVVyQWwxaWU0MmhsVTFI?=
- =?utf-8?B?czI5UTFiM29IOEhIOTUxVVpoQjRqbGVMSGV4dWRHNFJZOW9EVG5YczdsbkEw?=
- =?utf-8?B?cVExRk9CZG92emlEM0dLaGRLeDNvazZQclVoSVQ1S25XUWJYVExiVnJabHM5?=
- =?utf-8?B?OFFEdkZmaVFTUnE3enh1aWM0czVlRitQZ0U1c3dDQzdkWXdwUmswRGNzV2th?=
- =?utf-8?B?c0h3RXF5VzlISVk0dW84WGY1Q3ZWTUpKaXhRN0JqMDZzSWFNQ0F5cXpjd0Fm?=
- =?utf-8?B?cDJTb0d2cklGUXJ5UjcxMkVHUWlyRGxZTGlvNjJCZ0xxcVpST0h5bGdFRDY3?=
- =?utf-8?B?Q25mQnpZMDZlVi9LZktkWlkxZmNKNHpuK1F5NzExYjIzUEErNFFFYTBDekpS?=
- =?utf-8?B?aVltbGJyemoyTS8wOVB3dElwUVIwamhJWDR5VUtQeFdoMUtNYXFvVU4ra0Nt?=
- =?utf-8?B?cHJieDJUT3F3NUduSnlyb0dpdFFLTHRaYktmTmlZZ0xEZC9jc21ZU2VEaFNM?=
- =?utf-8?B?ZXBPbHd4TVB0TjA4NVVxVU1hN3Bpem1XUWREQXBoL0tQc1hUVmpOTW9oVTgx?=
- =?utf-8?B?RnIycUtLMTVuRExEYTRFYVZsbVRmRXBzYTRDUFJGMTNnblJYNU9xSDJ0TlhL?=
- =?utf-8?B?YndaVStabGwyRGVzeEZsWG4vUTBDekJ3VjMwdkd2ejV3aUladjlFK0srWXNS?=
- =?utf-8?B?YmVNZmxPd01lVGFLNDhpbFdCZ245bVgyUXJVYnIyR1I5a01lN3dPSmhYbjgr?=
- =?utf-8?B?RUFwNW5XQWNuWnJrYUtKMFEzMFdkZWswdXlIanAwZG5YUzRZWUFiVnMwZDJC?=
- =?utf-8?B?K0dJeGtVdjc0TkhGc0NEU0t3OTVqbWI1azB2eUZZT2prMXM1ZzhqUHR5S0tE?=
- =?utf-8?B?QW5IMWcrUG9weGE4SUJwR0UzMWJocHZreEpwaGJjdThLUExWT0pEYmtpRitl?=
- =?utf-8?B?VXNtQUROUWx2YTVlNFVnRStjVEdsbEtlQTB4Z2FyT2NHcUlWUVE0b2hBTU5O?=
- =?utf-8?B?QWFBZ2EwNDMzRzRGZjF6NEltSU5NcTFyRmFieUF5ZW0rZWRmaHF1U3htNGFT?=
- =?utf-8?B?Qm44cDY0cWFLTVhpK3d2MXlQNzNTNW5EK2liUU02cE93YlpzTVFocDJUei85?=
- =?utf-8?B?Qk1YVnpEVkxyalpoNU1mQnZ5aCtrZFFaUHlQZDRQRVNwMXZpRXVYOUhNMzJK?=
- =?utf-8?B?Qno3MnhwWjFWYXRYNTQ0dUwyMmJCQk10dU5yenQrRXJxRHprcWRaMzZtc3Fs?=
- =?utf-8?B?NStjVlRUNndrS1lrZnNzOEUyckxGUEJTcG9jR2FYVy82UThsYW9MU3V1MXIx?=
- =?utf-8?B?RTdlNHRSMUlyZTBzZXVFSlp0SGF3TmFDWDM4L3J3Ukk4OURQZ1pPOWphNngx?=
- =?utf-8?B?LzVjN0FvWXByTU82WlhYN3B1Ynl6S2NmTUovNGhQMlBEbEo3RVJacFVIUXhE?=
- =?utf-8?B?MGYyV0lCQTBZd2J1VHYwYmJ4V2hiVlpkWGZXVlQrUVZlZEtRa1J6U0h0d00y?=
- =?utf-8?B?V0tLbXhOcTRpNVFXdnZ0QlZ0ZFlRdzVodmNERlJ4Sm5mdkdOclNJTXdRVWR6?=
- =?utf-8?B?eStsdStTQTI2dS9nSCthUVNLYXpacjJXdHQ0UnRuZU1ZZzJXeG9hT3NXeDBM?=
- =?utf-8?B?RjI5dTRXUnN5QkdYQTJ1Q1RQNHNvSUFLWWpSaWppOTBrQjQ3WGgxMnBWSC9G?=
- =?utf-8?B?L0NwOURhSDNGbXVzUHhBb0F4dkZ2SjI1VzdLWXM0Rnd0U3lVdFBmWGpIVHYw?=
- =?utf-8?B?YTZNUjJEUE4xUGdhU2hZYTY0NWtrajNmOEdYL2Zya0dmQWVOL0pRanJyVHpO?=
- =?utf-8?B?N1pUWjFaNWRsU3RxOUh5Tis5K0pTa3NUY2g0TEJndmQyNUttTUt1R3ZzTmFK?=
- =?utf-8?B?NlJjaWM4bTNnTGlUc3pLRk41VkJMcEY1UjdtMHdYZmpuQTZlZURxYU82akVQ?=
- =?utf-8?B?ZXFSQ1ozZmd1MGJFQVJxOEJaeXJLSHVNUGV0T2xuaFJZOG4wWXB2bVkzdC94?=
- =?utf-8?B?dFZvbHlTYjhIdXBPc3UxWFVua1BSSzZWTGg0WnIrQUo5U3NCN3hoYkdJSWU1?=
- =?utf-8?B?MUtOVzNraUR4M0dXTTlUeGl5ZXZuRjhLV0IySi9PUldIc29GR1NvMU51N3lW?=
- =?utf-8?B?bkJWUDliK1JQLzZxOUNGb3NOaFdPeGJxL0kzMmFacEpFMkV3SUZ4OHM2cml1?=
- =?utf-8?B?SkpsNXVBSm04NStnNDRCNmdOZ3V0WmVBTlBxTnZ0RnRRRy9RMW96MThiaERL?=
- =?utf-8?B?cytjMnY5ZUZ4QncxMmJiZ2lXaFRUUEd2R2NDaEQvK29tUm00MVIwWTAyTlp6?=
- =?utf-8?Q?r++g69Ih9P6IalPmUj?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZVRoVVFVWC92RDdjUExuT1Vhek1ZWGpKb2ZqYW1wL1dJNDNEQVFCN0pyZ24w?=
+ =?utf-8?B?Q2ZVVUpqdEhML0FZeXBCeWhGSXJBa3JJNGtHZkc5YWxrMXpMbzRKS1lzMFRP?=
+ =?utf-8?B?dytwSlR5Z1lDOFd1K0FiekhIZmZFckJUNXV3ekpiTTRQK0RtTzZNRityaW1O?=
+ =?utf-8?B?aFdibm9zYk9ZdnNwREFma2I1eFJadkpvRERLU0E4cWJ4UjVPQXNOalNzWHFO?=
+ =?utf-8?B?a3dFREVPQ0hHaVZVTGg2MWFGajJkRzEvQWREZjlNbkRZQmpSYnltU0FqREZI?=
+ =?utf-8?B?bU1sd2pOZXh1MkpPOWp0Z1EyY3hjZDhzOEJrZUphR1ZNSjlZKzh1ZmFDcCtv?=
+ =?utf-8?B?TnBCSHVNcnBRSXEwZGltSkx3SlR2Qm1qa3RhWml1SGR1Y1RFVlpqM2g3RlNv?=
+ =?utf-8?B?UmlQL0JEY21BeWJkVDY2YlIzdk1lZm4vVGphYTVJeEFpOE12NDBmYm1tdG9m?=
+ =?utf-8?B?aWxYbEdCM05QakhFSXBvT0ZyUi9RenpHTkJ2RmR0RjJHaEdZTlhPOC9IZkdU?=
+ =?utf-8?B?NytpNENxK21RZkN0MHJuK01KRFJ4aTVObTNEVERDNEJlUzZnZmVyUGhxYUN4?=
+ =?utf-8?B?NUlpKzdXdXhONlZBVlBGdGh4Q3IyMEpZbTFFNklwY1hrREs0UkRiVVBPSXpt?=
+ =?utf-8?B?QnY4cGdvVnIySXJGVEdhMWsrUWFlSjVHTys1Lyt4OXd1Y0FMMVozd3FLQnhx?=
+ =?utf-8?B?UHNZbW1idUc1eSt5SFpxYTFITGlHQVoyUFBaTS80SEN6bFdsSlVZVUgyMkE3?=
+ =?utf-8?B?MWlkVkNIZ0UvYmZxaXlITVZIUStrSDNNWkllcHVIMUtrS2RmZ3V3OW4zTW0x?=
+ =?utf-8?B?SjYzZEZFVmg1SG1xTkVCdmVJWDg3L0ZjMEV5bWc0REM4a2hVdGdjbzlENktL?=
+ =?utf-8?B?RitabVdQQ2dFcU9yZFFhSDBUTjg2WXZ2WGNaa25vZFFWWmNpOXJvRDZZV01z?=
+ =?utf-8?B?RHpaZUVnazF1c2RPL0E2QUs3emxYaFRwRmFGWUxQazl3ZldyWmppSE5xYWRO?=
+ =?utf-8?B?SndTUS9sME9jKzBsQmZ2NFdSdXRCOTN4RTI0WTFrTVJUQjNpb0xnaHl1clQr?=
+ =?utf-8?B?RlZWMWlNbzBmQ0pxOFdqTXBydk54VDBuTnFGSHFoYVZObC8raDNicW00K1lK?=
+ =?utf-8?B?NytSQ0szSGZiMnZzRHN2Z1lEbnpCMHJzeVZmVnJQdDh4QnIxUk1PdDMyWDU1?=
+ =?utf-8?B?VmlWcFhxUHNwcTkyZk9zYWZacW9YOHJBMXdVcGRoUHR5YURUMm9zcmxjdnRN?=
+ =?utf-8?B?VW9ZZGpKakNrL0hlV1NjUlgwa1I1YUcrVURwOHFJcEpWanJRRm5iYWM0cU5z?=
+ =?utf-8?B?VzJON0NxTFVvODdseXM1bTY5a3M0UGRvbmpabW5RcnVTSTlhR3dLd3pHT25S?=
+ =?utf-8?B?c0FCaVA0ZTlwS0pwT1pobGhvN0hYbkR6Z2FFOUFtSGM5UktzTW5RdFZnQUF5?=
+ =?utf-8?B?U0VPSjV6NjlIYjlMNktCWkh3Z3dFRFVsSVY1Z2hYc3Evam1CUWI0OTIxYXFS?=
+ =?utf-8?B?QzFwQmZrMThVR3JTSnE0NFg3cENWaFAzRUxxcTB5djR4bU9HS0VPVVk3U0Rp?=
+ =?utf-8?B?WjZEUWdBbVc0K3hFbUtFREJXVEh4SnQ2dVdhSVVLZDY4RnBqUWhVeWdTbEZP?=
+ =?utf-8?B?QU9Hc3VwZFJ5VERhVHZrU0JBUDBXV25GdTNRSXNJOTBzbDk1OWk2d0Z5QVBO?=
+ =?utf-8?B?N0NyNHNpWExwR25MZUhPUG41Si9qeFR5R3UySmp1OTZsTUxnL3RiSVhZZXB1?=
+ =?utf-8?B?aWRaVlNGN013enhmcnd5Mk5DYzhFYW1RRFBKbWJVaGZKUXQ3TFRGSSs2RVJw?=
+ =?utf-8?B?M3Vjd3hxUHB1b3BkVjZvOUpCckhhYnI3UlE4VmZxdEJ5aDNyUUtVSjhXSHlS?=
+ =?utf-8?B?R3RXeFhWdUN1Wm1iZVFIWjlhU2M1UDRMZjFNK3F0MklvZTh6b0RWa1NGQVhX?=
+ =?utf-8?B?YzZpbERPSk1wZXVGaXRtekN0QmFVa29EWFNDa0pvU1VJTTFnMmtMazcwNW5w?=
+ =?utf-8?B?bU9SN09wNC9oVk5ZQVN1eEVFalV3VmpDK2x4bHlDQVhHZGQ1aGl3M0JPZE1t?=
+ =?utf-8?B?dkpKSzFKKzJCV2NwYm1XVU93Q0w0TTNXVE9oa2JZMUliUkpUMFYxdkhPNEZG?=
+ =?utf-8?B?ZExXTXFPRVdrdWE2S0dweEVzZzJ6UFFJZ3ltb2VybzROY1ZHcGphdXdaNkU5?=
+ =?utf-8?B?Q0ZqeE5PVUd1YlVXUXhpQ0RZVVZBTGRPa1dnSWFXamFkZzJSSnRIeVhtZjFv?=
+ =?utf-8?B?WC82K1B0VXRUWjVZQ252UVdQM2h1L21xWDJtWVozd2dJejFtZXg0NVpMVlZw?=
+ =?utf-8?Q?rcpLlWm0TTze5YRD2n?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7464e8d5-7c24-4f24-2866-08dec6d04ee4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98d1786a-4fed-4ed0-dbcc-08dec6d07443
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 09:11:51.3845 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 09:12:54.0430 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O2pS5uzv20sPGWEIj7DuFxfVi8xT8GgRzfTSwjQsp7tXU+0BXMaezMEMi/BXG3es
+X-MS-Exchange-CrossTenant-UserPrincipalName: IEfDSzadS1ivWowybTIp/JDxofPcqUST45nGDo+/icm8Ei9WIEVs9+++C0nVUgnq
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8241
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -180,97 +140,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 6/10/26 10:18, Kaitao Cheng wrote:
+On 6/10/26 10:26, Philipp Stanner wrote:
+> commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
+> fixed a race. To do so, it replaced the automatically locking
+> dma_fence_is_signaled() with manual locks plus
+> dma_fence_is_signaled_locked().
 > 
+> For someone browsing through the code, this reads very much like a
+> cleanup or rework leftover. Future contributors and / or new maintainers
+> not familiar with the history might be tempted to remove that bugfix.
 > 
-> 在 2026/6/10 16:07, Christian König 写道:
->> On 6/10/26 08:14, Kaitao Cheng wrote:
->>> 在 2026/6/9 18:33, Christian König 写道:
->>>> On 6/9/26 08:13, Kaitao Cheng wrote:
->>>>> From: Kaito Cheng <chengkaitao@kylinos.cn>
->>>>>
->>>>> This series prepares for, and then updates, the list_for_each_entry()
->>>>> family so the common entry iterators cache their next or previous cursor
->>>>> before the loop body runs.
->>>>
->>>> Why in the world would we want to do that?
->>>>
->>>> The safe and non-safe variants have very distinct use cases and that is completely intentional.
->>>>
->>>> What we could improve maybe is the documentation, from my experience an astonishing large amount of people have misconceptions about the safe variants.
->>>>
->>>>> The first 13 patches open-code loops that intentionally depend on the
->>>>> old "derive the next entry from the current cursor at the end of the
->>>>> iteration" behaviour.  These loops append work to the list being walked,
->>>>> restart traversal after dropping a lock, skip an entry consumed by the
->>>>> current iteration, or otherwise adjust the cursor in the loop body.
->>>>
->>>> Well I have to clearly reject the changes for subsystems/components I'm maintaining, that just looks horrible to me and I clearly don't see a good reason for that.
->>>
->>> Hi Christian and Andy Shevchenko,
->>>
->>> Thanks for taking a look. I would like to clarify the point you raised.
->>>
->>> The reason I started looking at this is the original motivation behind
->>> the _safe() variants.  They exist because some users need to remove, move
->>> or otherwise consume the current entry while walking the list.  In that
->>> case the next cursor has to be preserved before the loop body can modify
->>> the current entry.
->>>
->>> The unfortunate part is that this could not be expressed with the
->>> existing list_for_each_entry() interface without changing its calling
->>> convention.  The _safe() variants had to grow an extra argument for the
->>> temporary cursor, and that is why we ended up with a separate family of
->>> macros.
->>>
->>> But conceptually, the distinction does not have to be exposed as two
->>> different iterator families forever.  The difference is an implementation
->>> detail: whether the iterator keeps the next/previous cursor before the
->>> body runs.  This series makes the common list_for_each_entry() iterators
->>> do that internally, so the safe and non-safe forms can effectively be
->>> folded together, or at least the need for a separate public _safe()
->>> interface becomes much weaker.
->>>
->>> There is also a usability issue with the current _safe() interface.  The
->>> caller is forced to define a temporary cursor outside the macro and pass
->>> it in, even though almost all users never use that cursor directly.  It is
->>> just boilerplate required by the macro implementation.  I find that
->>> redundant and awkward: the temporary cursor is an internal detail of the
->>> iteration, but every caller has to spell it out.
->>>
->>> With the updated list_for_each_entry() implementation, that extra cursor
->>> can be kept inside the iterator itself.  Callers that only want to walk
->>> the list, including callers that delete or consume the current entry, no
->>> longer need to carry an otherwise-unused temporary variable just to make
->>> the macro work.
->>
->> Well the distinction between list_for_each_entry() and list_for_each_entry_safe() is *not* there because you need an extra variable to hold the next pointer, but because just 'iterating the list' and 'iterating the list while you modify it' are two distinct use cases.
->>
->> Apart from the technical implications this also has some documentation value for the code using it.
->>
->> What we could consider with C99 at hand is to have _safe() variants who uses a local hidden variable to hold the next element.
->>
->> Or maybe come up with a better name instead of _safe() because people seem to misunderstand that quite often.
->>
->> But mangling the two use cases together just because it is now technical possible is among the worst ideas I've ever heard.
->>
+> Document the bugfix.
 > 
-> Should we revert to v1, or keep list_for_each_entry() and
-> list_for_each_entry_safe() as they are, close this thread, and make no
-> changes?
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+
+> ---
+> (I did not test this)
+> ---
+>  drivers/gpu/drm/nouveau/nouveau_drm.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
 > 
-> Link to v1:
-> https://lore.kernel.org/all/20260529082149.76764-1-kaitao.cheng@linux.dev/
-> 
-> Or do you have any better suggestions?
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> index 42a81166f3a9..519a0c164a72 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> @@ -159,6 +159,13 @@ nouveau_cli_work_ready(struct dma_fence *fence)
+>  	unsigned long flags;
+>  	bool ret = true;
+>  
+> +	/*
+> +	 * This is not a cleanup / rework leftover, but a bugfix to prevent a
+> +	 * race with someone signalling the fence. The locked
+> +	 * dma_fence_is_signaled() cannot be used. The dma_fence implementation
+> +	 * is not fully synchronized with locks, but also uses atomic bits,
+> +	 * which can cause the dma_fence_put() below to be executed too soon.
+> +	 */
+>  	dma_fence_lock_irqsave(fence, flags);
+>  	if (!dma_fence_is_signaled_locked(fence))
+>  		ret = false;
 
-v1 looks perfectly reasonable to me.
-
-You should just include some patches in the same patch set to actually use the new macros.
-
-If you modify the files under drivers/dma-buf or drivers/gpu/drm/amd to use the new macro I'm happy to review that.
-
-Regards,
-Christian.
