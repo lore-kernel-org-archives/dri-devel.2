@@ -4,153 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78184CD8CB9
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 10:03:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A293CD98C7
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 10:05:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F88389D63;
-	Wed, 10 Jun 2026 10:03:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A4BB89D5C;
+	Wed, 10 Jun 2026 10:05:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="HGdnLQAx";
+	dkim=pass (2048-bit key; unprotected) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="X3cX35lj";
 	dkim-atps=neutral
-Received: from SY5PR01CU010.outbound.protection.outlook.com
- (mail-australiaeastazolkn19012008.outbound.protection.outlook.com
- [52.103.72.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB5D889D63;
- Wed, 10 Jun 2026 10:03:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D6aJ7wwy/jJS9eYWlaTzeSB2Z6h9H4t/JP1mMz6iTu71BCZ1FjdXWChNhTaYFMMhc1FESU+EyKGSiSN4arpsQMslxfVelWFovbZJfm4Xokeel8FjX/VYDPBenOx3ytYFLDRzixl8Js3Ta/wP2EXvw58inca7+8TDcKvd5zABJ0D8DRVndG/4zMpNRb+c+ud2XqNH57lJYfAiQmxKb7SbkL3UfMLkFeXsOaqXi/iadpLV0nMVkGrj8wLAxe+JJnAkcrqE9YEE8SePzo4wIZZtW7T9Kmc3DKqDOxmXEdchAlobpyZbJofLwahj+n8uOng0N/SdJkPrpTmkIuB9UGLL1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Mhuymo737O0Zw8Xo4zmOC+9uMPt7hG4hYTLKKQ/Dorg=;
- b=m1hNpphNkPoCMFi4xJh1w5e85itTBV5ZN+dYTK0cDxqWj3+BTEVT35AptjPsV27m+31ceArCFuAire9pnyQzxFV3Y+f09NP+sfV6HZAQRB+In5rCP+j9M1OwR8/mFAWu+k9/Xiz4eTumYrdV93r0Rn+8i6LUlOOu3n01v1t0RsJvf1dO5WwkT3QY9OoreOQFAs6jsxgu679UD++5aqK6sxjIViP/bDSQVcuboFftIO/WOOoseqO9iZg0kQAyQ7RTTIB/1djRS5GmgRnHI2C3bpP2TGRNiR7rK1ptuuikFiIGgRbN0eEeB7Jlhe3hXFpHKk1jfzSynDqnQGtPh2FQmw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Mhuymo737O0Zw8Xo4zmOC+9uMPt7hG4hYTLKKQ/Dorg=;
- b=HGdnLQAxhYwtXGBKOxkafzrPSvYvZKPLIDh88TOPWCY5I29bsj4BKq6makCZXw1QDTiVt98S1rgk4UNxiQNxue1agCHtzmf+sJ7j7Jnqbucq6EcskbAWC6XOr4j1psyJj8+F3e3acltW616TW18t2y2qWUMLA+kXAxM0T/ghXX3FGpaIBJo6GowCqvxtZaPIuvVo37jByIMy12AWwbUHpEJ3on8GfkK8IRkDK5H/BtcGKttJRcPm6ADnUZKWNaYNMGw7TKBi0hNYbkofYWx3oDSGPEEDLJMafXDOmS1j7MpY2BK2vtOeoO+oFz8gmb9kwivtdXDs+ttpa6Vx38dLXQ==
-Received: from SYBPR01MB7881.ausprd01.prod.outlook.com (2603:10c6:10:1b0::5)
- by SY8PR01MB9096.ausprd01.prod.outlook.com (2603:10c6:10:228::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Wed, 10 Jun
- 2026 10:03:11 +0000
-Received: from SYBPR01MB7881.ausprd01.prod.outlook.com
- ([fe80::7cd2:d6e8:3fa0:5f0c]) by SYBPR01MB7881.ausprd01.prod.outlook.com
- ([fe80::7cd2:d6e8:3fa0:5f0c%3]) with mapi id 15.21.0113.011; Wed, 10 Jun 2026
- 10:03:11 +0000
-From: Junrui Luo <moonafterrain@outlook.com>
-Date: Wed, 10 Jun 2026 18:01:28 +0800
-Subject: [PATCH] drm/nouveau: fix reversed error cleanup order in ucopy
- functions
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <SYBPR01MB7881484D91A6F80271415F71AF1A2@SYBPR01MB7881.ausprd01.prod.outlook.com>
-X-B4-Tracking: v=1; b=H4sIAPc1KWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDMwML3bTMitRi3eQkE0tDIwuL1CRzQyWg2oKiVLAEUGl0bG0tAHe8wMJ
- XAAAA
-X-Change-ID: 20260608-fixes-cb491288eb71
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dave Airlie <airlied@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
- stable@vger.kernel.org, Junrui Luo <moonafterrain@outlook.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2273;
- i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=uY+plNNbMTbtgH4EPrmAJdFzp+QKWCeqP4QCmE8v/To=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGLE3T7+Lri7Mdjj/d+1LpJ1fqySxmVeO/LNvK4sXjH
- P/fKi4qetlRysIgxsUgK6bIcrzg0jcL3y26W3y2JMPMYWUCGcLAxSkAE5nIy/A/vYpP226CkUo8
- 99nNPmY2zyd+/9a1rb9WL+9gy8Wayi3JDP+MNjy+d9Q46uomibpTfXNWy/8zmqEgYCC40OOz4Ia
- 9D1awAgB+I0u5
-X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
- fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
-X-ClientProxiedBy: TYCP286CA0155.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:383::13) To SYBPR01MB7881.ausprd01.prod.outlook.com
- (2603:10c6:10:1b0::5)
-X-Microsoft-Original-Message-ID: <20260610-fixes-v1-1-81f2c42d9134@outlook.com>
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SYBPR01MB7881:EE_|SY8PR01MB9096:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f0e00c6-aff0-44d3-c21c-08dec6d77a54
-X-MS-Exchange-SLBlob-MailProps: znQPCv1HvwUXBahuwteIkQeW30lJPuxOD3JyTmjEWWrIkIQHjHROOxAlFDNPTg8SH30C7I19ibkA+H4SXu69RRgaYqv4WcLEVdwCIu+6IuzCkO5HFJ36pSckLfhgAdTVksMnF1dGxeqYZ8gm3KgHv2C9aVBDxT5/janiuXPN8S2Pf8YuxT1ZY5kHVa3f8Rilw2SatJCyBVyV1O3eueadkhb9lh39EwlbafkVQVmkWZgmUgDj8GGKDyyytPOfFR6ynQ5bSwUufVRHSP0DMj6a9WgZuWLubgRlEdx8/Pizxk/zxqHuQJjY8M14DJATgeXGS+SITSoVgnh5VGOG/0xcPCornxScdbyhP7SN4W4NIHKcRt1zDIj3EuQ6RmnaE8o0rAwiZAYLkGhmysKgcV/xKEvmWMb+6mPmDEcHzvS4JbWKBFF+ypopRxN2wxB2bDBSwx9nSSudpPZzRjhNeTiCjtFA91c9lkIRd7K/ZT+cXWGzEmRUrsWXzm4bymOLNQLlfkuaJFnyKivNtW7MWxQTEHpHjCeLosVl3U57C+I3y2yW8wUlYAz1YSYu+dBEipbECHnsH/Sd3lh5wN5ySFizQ7Wl1OvfdYviCIB/3eZmBVLuF+AtdwVwP4fmj0+HbnBucHgsYicC7pB5C9e1Nn2IXjRPPJ2GW5n3LN1G0g3+sQb4qK4KAuSm5IdENKfKyaSAHH7TejFSv6PfUXvC6CUA+9n062yDrKEWBXuHWM1+JqrzfLnwVzg6JKEwZuweANFAzvvSoeWho00=
-X-Microsoft-Antispam: BCL:0;
- ARA:14566002|8060799015|24121999003|22091999003|5072599009|23021999003|19110799012|24021099003|55001999006|6090799003|5062599005|41001999006|15080799012|53005399003|40105399003|3412199025|440099028|12091999003|26121999007|1710799026;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?T2cyYUR5YUVFak1rNXl0OUExNHR5VU5oSmdFazJVNW5tdHNXQlY2Vi9mcHls?=
- =?utf-8?B?NlZMdFN1RTBtVnVkZDk3UjFKa1ZuYkxSdXhSWHhqSWxJRnQ5aVdGK3pHM3o5?=
- =?utf-8?B?TjhlbTVFRlFaajArSEVsYllac3A2TFZDYWRhMnhUUDYyY3FwRGt1aE5NdEtH?=
- =?utf-8?B?MVBtZ091U2ZBb3IrVFdqYmdNYjRYMnZPRW5YTGhEdEd2MUl0c3FlWTA0bFdB?=
- =?utf-8?B?bkR4WG9sTXdacmV3K1RrWnhiMEFZNUZZdUR4Z1ZlbWEvUEpSMVJCK29UTzhX?=
- =?utf-8?B?V2NyR3ZSUnNaMzlMN1dKVXZWcmlHbU9MWkRMZUxSeFdVRDZJVjdlKzM3QXRZ?=
- =?utf-8?B?K3RWL2Ztb1NtT2d6MisyK3R2NUFBekF2R2txOFZqWlc5SkRKREpOUDJJcEpp?=
- =?utf-8?B?RUZneEJVbFZ1ZEw3V2JTYnM2NHdrWXJYcjJZNFdsV1gzMHd2ckVSRnVLSzEy?=
- =?utf-8?B?OWRGZVFzR0sxUkd2SWpBbFpReUtVM2NwMVFwd0wxSEtRdFhkTmpSN0krbzRz?=
- =?utf-8?B?QXo4eHVERTMrVW9XQjB6dXgxbytvMzNoZmRhdGh2R3N5dUNLK2ltWjVsOWNu?=
- =?utf-8?B?cTFIUUFucnZWUy9DNE1lMS9YSllLdmNxZnRXdDJCd2xZODZCOG1hV2lEdnQ0?=
- =?utf-8?B?OWFRcE9ORE5KaG5GSHJkdk45eGpzMzFjZUZmODFBelVKREpWajVuVlBHblVv?=
- =?utf-8?B?enpSMXhLbjBXYjkva01uMHJ4dU5UT3psR2tpUmplNE5HaWV5M2Z5dlN6aUM2?=
- =?utf-8?B?SDBtdUcrKzNzQXlRaGRxWHFlUFdWMGJlaFd1RzF6SDVJNkUrd0RaenZKVmFi?=
- =?utf-8?B?UnQ5UHRvdkVBTHh6eE43YWhkQU5ZWWE3alk2dUZyWDRRT2NmMmZUTU9vVlhO?=
- =?utf-8?B?MkFBTktEcGZrbEdJZkJ6ekJ5NTRiby84Ky9OYWQyRFQ5dGNKNmFNclVuMlVJ?=
- =?utf-8?B?K3N3ZWVDQnFESUx3SDdSVGprUkpuNzJFeW5ZdDFmSVh5NGtEeSt5aWJwR0pS?=
- =?utf-8?B?djJuWVJCc2Y1MzZkZG4wbHUzdDJVZEt1RUFYTVBHd2VpOSt0VEhwdzBMaGZp?=
- =?utf-8?B?Q0hGNTVkNVgvOGhDZklJcU5BRzI3Z0Y5VzBlaytjVmFybEFtV1k2eXdWLzRN?=
- =?utf-8?B?T3IvaXhnTGVLV1pFeTRZOU12alc1ODliVW12bEl6TzBxNDdOeFJzQmVwdjNt?=
- =?utf-8?B?aktkV0wvMzUyaHFmdFBJZjZSRE1ydWZHWW5uUldPYW5ZdjllaWk4NDZjU2RM?=
- =?utf-8?B?WDAzRldvUjFKWFY4TTh0TGtsT1JYcEJCRVRTM1VuTW1oUnBpSEZIL1YyR2J4?=
- =?utf-8?B?NmFuK0g0U0M1UkxVZDZleFhLUzF5cXBSdngvWnVLc2p5SnU4Q3Y3SkdTWUlr?=
- =?utf-8?B?K2l1cHBtcWVBUW9mUEE1RmQyOUxtMlhQK2JnVU4vSmdqYVBsY2NpVXJGNXNZ?=
- =?utf-8?B?YXY5cGxIazVXZ0lGVjVseTU5clU0Y3Z3NEUxNzBTSmkwQkRBakFRaGhWZmNn?=
- =?utf-8?B?U2c4NTd0UWVLcjFSbG0yMG1hNzJBeWYrYjgrQ2djS3hWSC9UNUJMR3lwTktT?=
- =?utf-8?B?Vk1kNjhvRGM4ci9jeVBsUXpEVXdJY3o1WlJTT2ZYOTh1VkNVcDFoTS9ITWxO?=
- =?utf-8?B?SUY5cGlmaFBkUjJpcUlTZ3VrbTZBaGc9PQ==?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b0Y2SjRvUmJ0OFB4ZTZyU1ZJbGo0RXdLMmxNaVJPNjRBYkI2N09Jai9vMTY2?=
- =?utf-8?B?Um9zRldpMU5JaDljUTl6QndIcE9iVXlOUG9UQVYzRWtGKzJwM2xudE5senA1?=
- =?utf-8?B?ZVprUEl0QmlMRzlCWjRoV1hCMjllcXRBVnZjVG5rSmFFdS9rbkJ0S1AyUjc3?=
- =?utf-8?B?NWx1Z3ZtaG14T1d2Q2gxQklZclU0bGxBSDhBTTM4Y0Jub2hXVGJaMThuYnJR?=
- =?utf-8?B?cDZiMERGYjA5dVRZVXV0cnR3cVJZWkhyVEhFT3cyMzdlbzh1YmNWYnAwQ1Zi?=
- =?utf-8?B?RmRVWGYzWXlpUUh2aEJsNUk4d1ZKS1lUK0VjZ21PMm00bHMxME9abExNZS8w?=
- =?utf-8?B?Z2JHTXljbEpzNjN0LzJnbk14UlhJYTNtR0w5VDZScnBJZHZFYUp2NjZCUGln?=
- =?utf-8?B?SFZWbWZPa3lrWU9NUjArWm1nZytNV010UE0vUGlmbTlGMmpkcXphSnRZSjBo?=
- =?utf-8?B?Y0VyVUhVYlFudE5TSkVJdWVkbFhRK1NHYkJsa2wvUVZLSzNhZnhvRnBKMUZK?=
- =?utf-8?B?YWV3aHpWcjhLNG1KWk9HMVIxOHZyK2tUcWNkbzRzOUdzWGNZa05yZld4cHJD?=
- =?utf-8?B?N2tCcHV5eXlOcUpmZ3lYVUJjU25NUytjS0tHZU1FRkNWY0oxZHhRaHgrS0NP?=
- =?utf-8?B?OFV5QVhQU0dycUxvWFJZSTNvOEgvd05LblBNZEtLbm92UG52SlMwcnBuT0JC?=
- =?utf-8?B?OVIwVTJLTUdKeEs3SEphTmZrajFzaGF0eHYxclRGVTlhZkpiNVN0ayt4ZG5U?=
- =?utf-8?B?ZG1taGxmRTViZE90NU44ZUtud0ozREYwbTM4NUVnMzg2UVdoSXlYdDE2TkFw?=
- =?utf-8?B?UDQ2M3UxTHpUdWRzM3NnVXdJM253WnVjN3ZiV2c5blExR2gwdlJMVDIrOFZQ?=
- =?utf-8?B?dWM5Rk5mWjNkSVhKcFFDVHlOcnRrakFoSUtEdFpXbk9tVDdGdjcweGR3Tk9M?=
- =?utf-8?B?UWtOWSt3azgrSC9nak10T2ZndSsyenBhNDNZeHRacWY5MmJaWXYzSWRYZzZh?=
- =?utf-8?B?S3BYY1ZGaHcwUWw5Z2t5V0xKbHZSb0hObWFFWmM0QWl2WlZOS2FPZm1DUjl4?=
- =?utf-8?B?bHlTZzNzMEc5Qk1vdDdKbzA3OFczZWJuaEM1UExWRVJvdHlYTlBEUWwzN1lF?=
- =?utf-8?B?ekxocXhNaGZmODcxcWV5ZDg2RGNNZzhkZGxybmJKQ3Q4dzNJa08yWWdPaTJR?=
- =?utf-8?B?NW1mM1J1dkhMU2V5T0pxcEkxWHJpaGhmaHFUZFJoTnJWQms3Yk9yUHB0aUdP?=
- =?utf-8?B?WG1Yd0I5Y01taWdJR2x1ZVRiVUoxbFpTWG5uR3N5K0ttc3ZoSjMwSGRheEpy?=
- =?utf-8?B?UGswcG8xbXFvQmdyQW1TY3VBV1hOVjAwMDQ4TTgwV0tEcnBrZE9sTm5kV3dD?=
- =?utf-8?B?ZHp5WDVWdzRTZTNDSmhreGwzL0tLRC9CYkYra2g1WkxnNS9ORVpuVGRrWTRW?=
- =?utf-8?B?elQwUWluUm01eHgwUmFhRU1rWHFkZm5jZmhsaXpPWlVKcXZ2aSttUVBmSENO?=
- =?utf-8?B?NWNDbWhGeVkxT01HK2MyRThJdnJJcm1FNzFHNXpQbFlwVXNibWNHbWFVZXhr?=
- =?utf-8?B?NXhlMEVScG5XaTFpWTQ4TXNEYTVBUU1GMSs1MkNOVlNMTXViSjFMVW1SZnFW?=
- =?utf-8?B?dk5LbFl0bGdPK3ZkQkNvOWx6aDVjZGNkNTAyaEcvZ3N4b01xUVlVWUpHL1ZY?=
- =?utf-8?B?TGhaMlpxanE1SkVueVhEYXhvVDhsRzBxZ09BR1JTb25sL2YvQzNYWGhlSTV5?=
- =?utf-8?B?SXAvdTJ0SnVGQWM4VnRjaFJjRlBpMjJ1VFAyR1l2bnl2dmhpQU0xSHVoSnlC?=
- =?utf-8?B?bmpnZDY3KzVYZlZGMWQ4SHBlK3gvc0hCUnB0dDFTWjh3REF4RUx4ZlVjTFRC?=
- =?utf-8?B?ZGo1VnZZZXlDMTMwZ0EwOGR3R09XWEFVVXJIK0tnOEt6Rmc9PQ==?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f0e00c6-aff0-44d3-c21c-08dec6d77a54
-X-MS-Exchange-CrossTenant-AuthSource: SYBPR01MB7881.ausprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 10:03:11.0256 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY8PR01MB9096
+Received: from out-185.mta0.migadu.com (out-185.mta0.migadu.com
+ [91.218.175.185])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8A9489D5C
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 10:05:55 +0000 (UTC)
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
+ s=key1; t=1781085953;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=YXhOcqMPHO+S5QqlHxh7fMeK781ZP72bMnS5EH8zaug=;
+ b=X3cX35ljKdPrn8ghjGraHP1nRfUjKOzodTDZBQC8Bodbl4K5BZ3SeQCEUQYnIQHXomWMv2
+ GDYsnnYDG6qC9nxUOC6skm9sE/n1P6wkH55bWQZjwRr28gq4kBZemajTf/2mM0CPe52B5u
+ 4IASRmUHKLwqpGKX38uLjYe3EMrnhDqZppAtJmbn8Ed7cp/1gIkFPaAccACARsT97Bxzcs
+ HPydH1A3PBbFf0pU8obu+92IEPA+vLo2RX0wsIfwwIjfCjhrfZQFDAtSiiSsMaiiVXOyM+
+ irD1BK2deVH2yC9tmxTdbTJXa+lrr3N7jnjiUNuYuTEjOYBkP69T0tsjKXcRaA==
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 10 Jun 2026 12:05:49 +0200
+Message-Id: <DJ5A9XL183RZ.20J3ASQ3EWUZ6@cknow-tech.com>
+Cc: <tomeu@tomeuvizoso.net>, <ogabbay@kernel.org>, <heiko@sntech.de>,
+ <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <joro@8bytes.org>, <will@kernel.org>, <robin.murphy@arm.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-rockchip@lists.infradead.org>,
+ <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>, "Simon Xue"
+ <xxm@rock-chips.com>, "Finley Xiao" <finley.xiao@rock-chips.com>, "Jonas
+ Karlman" <jonas@kwiboo.se>
+Subject: Re: [RFC PATCH v3 0/9] accel: rocket: Add RK3568 NPU support
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Chaoyi Chen" <chaoyi.chen@rock-chips.com>, "Midgy Balon"
+ <midgy971@gmail.com>
+References: <20260604135255.62682-1-midgy971@gmail.com>
+ <3d99569e-9c3a-49d1-93fb-1335382523e9@rock-chips.com>
+ <CA+GS1Y1s78PwN63X2YJoS8VEGp7CpTERo_K65yKs00U4VRAw4Q@mail.gmail.com>
+ <e5058919-9485-4de5-8eea-331ebfc2987c@rock-chips.com>
+ <CA+GS1Y3ysdWZ3qCq3ip_Pbw+v4LxHZd95aBo=jwB+orYaMBBNw@mail.gmail.com>
+ <CA+GS1Y0kAM_XGLQuKPTphif2HcQg18ZXhd8RHHr2xPOEMCDvXA@mail.gmail.com>
+ <bcedaff0-abf8-4585-a0ea-057062cd0411@rock-chips.com>
+ <CA+GS1Y2-hRqpGgsknh+oOX+-uZ3DZtdekdP9viTP6a40zhhUhg@mail.gmail.com>
+ <b05f7154-e85f-4207-80ae-f080282ba780@rock-chips.com>
+In-Reply-To: <b05f7154-e85f-4207-80ae-f080282ba780@rock-chips.com>
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,70 +73,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-nouveau_uvmm_vm_bind_ucopy() and nouveau_exec_ucopy() place their error
-cleanup labels in allocation order rather than reverse allocation order.
-On a u_memcpya() failure for in_sync.s, the goto to err_free_ops (or
-err_free_pushs) frees the first allocation and then falls through to
-err_free_ins, which calls u_free() on args->in_sync.s.
+Hi,
 
-Since args->in_sync.s still holds the ERR_PTR returned by the failed
-u_memcpya(), and ERR_PTR values are not caught by ZERO_OR_NULL_PTR(),
-kvfree() proceeds to dereference it, which can result in a kernel oops.
-A failure for out_sync.s instead jumps to err_free_ins and skips freeing
-the first allocation, leading to a memory leak.
+On Wed Jun 10, 2026 at 3:14 AM CEST, Chaoyi Chen wrote:
+> Hi Midgy,
+>
+> On 6/9/2026 7:11 PM, Midgy Balon wrote:
+>> Hello Chaoyi,
+>>=20
+>> You were right - building rocket as a module fixes it. Thanks for the po=
+inter.
+>>=20
+>> I rebuilt with CONFIG_DRM_ACCEL_ROCKET=3Dm (everything else the same:
+>> need_regulator on
+>> the RK3568 NPU power domain via a DOMAIN_M_R variant, domain-supply =3D
+>> <&vdd_npu>, and the
+>> regulator-always-on workaround dropped). The board now boots cleanly
+>> and, more importantly,
+>> an NPU job submit no longer hangs: I ran the test workload five times
+>> with no RCU stall and
+>> no freeze.
+>>=20
+>> So with rocket=3Dm the need_regulator approach works on RK3568, and I'll
+>> keep it for v4
+>> (domain-supply + need_regulator, instead of marking vdd_npu
+>> always-on). rocket=3Dm is the
+>> normal configuration anyway; my earlier hang came from building it =3Dy
+>> in a self-contained
+>> image, so it probed in the initcalls (around 2 s) and the genpd ->
+>> I2C-PMIC regulator
+>> transition ran before the system was ready. As a module it loads from
+>> udev much later
+>> (~6.8 s here), after the I2C controller and regulator core are fully up.
+>>=20
+>> On your question of when the device-link error is printed - it is at
+>> power-domain
+>> controller probe, not at the rocket probe:
+>>=20
+>>   [    2.700618] vdd_npu: Bringing 500000uV into 825000-825000uV
+>>   [    2.749637] rockchip-pm-domain fdd90000.power-management:power-cont=
+roller:
+>>                  Failed to create device link (0x180) with supplier 0-00=
+20 for
+>>                  /power-management@fdd90000/power-controller/power-domai=
+n@6
+>>   [    2.945955] platform fde40000.npu: Adding to iommu group 3
+>>   ...
+>>   [    6.840374] rocket: loading out-of-tree module taints kernel.
+>>   [    6.877647] [drm] Initialized rocket 0.0.0 for rknn on minor 0
+>>   [    6.879950] rocket fde40000.npu: Rockchip NPU core 0 version: 0
+>>=20
+>> So the device-link to the rk809 PMIC (0-0020) fails to form at ~2.75
+>> s, well before rocket
+>> loads at ~6.8 s. It is non-fatal here - the vdd_npu rail is brought up
+>> by the regulator core
+>> and all jobs run - and there is no "failed to get ack on domain npu"
+>> NoC warning this boot
+>> (the always-on kernel had one). The complete boot log is attached.
+>>=20
+>> Two notes / one question:
+>> - This boot used fw_devlink=3Dpermissive on the command line. Is the
+>> "Failed to create device
+>>   link ... supplier 0-0020" at pmdomain probe expected/benign, or is
+>> there a clean way to make
+>>   it order correctly (so it also works without permissive, and a =3Dy
+>> build wouldn't deadlock in
+>>   the initcalls)?
+>
+> We encountered the same issue on the RK3588 NPU before. And it was
+> resolved with the following patch at that time.
+>
+> https://lore.kernel.org/all/20251216055247.13150-1-rmxpzlb@gmail.com/
+>
+> Please compare the differences in NPU pmdomain and DTS configuration
+> between the RK3568 and RK3588.
 
-Fix by swapping the cleanup label order so resources are freed in the
-correct reverse allocation sequence.
+About a month ago on #linux-rockchip we were discussing PM 'stuff':
+https://libera.catirclogs.org/linux-rockchip/2026-05-15#39939137;
+which references this paste
+https://paste.sr.ht/~diederik/89d9f84e22474e837b55286d213b67f03859ce2e
+I've since removed the DCDC_REG2 for PineTab2 and the 'fix' should likely
+be extended to cover all RK3566/RK3568 devices though.
 
-Fixes: b88baab82871 ("drm/nouveau: implement new VM_BIND uAPI")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
----
- drivers/gpu/drm/nouveau/nouveau_exec.c | 4 ++--
- drivers/gpu/drm/nouveau/nouveau_uvmm.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+It's what I made at the time hoping to fix a suspend/resume issue when
+trying upstream TF-A. It didn't fix the issue at the time, but may still
+be useful/needed and I think it's what Chaoyi hinted at.
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_exec.c b/drivers/gpu/drm/nouveau/nouveau_exec.c
-index c01a01aee32b..a08ab1cfea9b 100644
---- a/drivers/gpu/drm/nouveau/nouveau_exec.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_exec.c
-@@ -331,10 +331,10 @@ nouveau_exec_ucopy(struct nouveau_exec_job_args *args,
- 
- 	return 0;
- 
--err_free_pushs:
--	u_free(args->push.s);
- err_free_ins:
- 	u_free(args->in_sync.s);
-+err_free_pushs:
-+	u_free(args->push.s);
- 	return ret;
- }
- 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-index 36445915aa58..f5e4756b4de4 100644
---- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-@@ -1779,10 +1779,10 @@ nouveau_uvmm_vm_bind_ucopy(struct nouveau_uvmm_bind_job_args *args,
- 
- 	return 0;
- 
--err_free_ops:
--	u_free(args->op.s);
- err_free_ins:
- 	u_free(args->in_sync.s);
-+err_free_ops:
-+	u_free(args->op.s);
- 	return ret;
- }
- 
+Just yesterday, Jonas posted this patch which may be useful/needed too:
+https://lore.kernel.org/linux-rockchip/20260609154124.445182-1-jonas@kwiboo=
+.se/
 
----
-base-commit: ddd664bbff63e09e7a7f9acae9c43605d4cf185f
-change-id: 20260608-fixes-cb491288eb71
+HTH,
+  Diederik
 
-Best regards,
--- 
-Junrui Luo <moonafterrain@outlook.com>
+>> - (The convolution output is still uniform zero-point / the job times
+>> out - that is the
+>>   separate NPU compute-completion issue, unrelated to the power-domain
+>> work. Finley, that is
+>>   the one I flagged earlier re PVTPLL/NoC.)
+>>=20
+>> Kind regards,
+>> Midgy
+>>=20
 
