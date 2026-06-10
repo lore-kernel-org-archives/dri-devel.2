@@ -4,139 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77BA9CD8CB9
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 15:38:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3DCECD8CB9
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 15:46:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2E5710EAAA;
-	Wed, 10 Jun 2026 15:38:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3BFA10EA35;
+	Wed, 10 Jun 2026 15:46:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="m5xSDiSA";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="MA9TveqP";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012037.outbound.protection.outlook.com [52.101.43.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 627A410EAAA
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 15:38:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=p/Gj8RHy0yLZea0KLRBc69avuJJOkv+VFIsywr84pX1n/XtmtAT29MEceMjlW9Hb/+KPafBfYPbdAhIEsz2jxBUuwxxU9P6s1rM29BR6P6Egm6yJGLafZlZ4FrPxVSkV2wmhZmk4Zhc97kUNfl8i+xBSElOPpPSiKo2tX5Kx4Q0QsIrxdWk8tDDe9pl2v7Qv19AwCSC+NeTu9Uotcip0O7DSzts2+rlzxvNgWI4WkPkKlym1TSpQLq+5/Ad7vE5J6Px8bp3HGs7NmZ4sRcOfvtxsRHPASXjTNIX/VSk2MpigfF5Wf6lACxQcQRfBtWZZwTfRL44rA3zAGtSqGpZw7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lEid8PS5h39+dql7iX2hG2PQUXtxFkJ7e2Da0AomXVE=;
- b=JyLP2IkkPpYZk8fLsEnssLGOgP8fpJSlgidI12bSUPQMyV0jGPv8vb+8vuWQt1EeZ0XBo9v/7z7E3trEbk8F3kkoZx7yGaYX8Bg2I/Sr9JnntjZpO+CEbNopS64xlxIbqepPk6C6sshIYOPGCpOlFrGt1HF0YGudYGtKCLBcV/AbNwv95rezzYobpljEpBDhtZ4no0S8aqKttgEr9L5gznpVMCMV7DGTpUmbl6r46jR19Tr6Otqahde6WpH5/z6X6ZS4+jUbVRI7LioVRtIXzXLyho+RZKdkWUIqt2WCamOlEYMJPHRUCLNS29kUdOqYZD14HQq3PnNsBUmPPAKAdQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lEid8PS5h39+dql7iX2hG2PQUXtxFkJ7e2Da0AomXVE=;
- b=m5xSDiSAu2upqBVfs25FgEPT8JiqaxGUy08mlsNRzVBs9vPYUTuZAWFS9IJ4AV5prTY5D23AUB2xcWx6OYnP4HnvhiP+k5tS5kjAyiKybu42lhb/1ucqZnFvlNFYI6lZgVGPNxj5Yfv8f4y5OAbpZzs8sBuJkivSphyJIh3qwoxf5KMQ1fWNp0L8QMG8nufmWmJ6sNxw1VJfk3k436yAHcXK243NelOsfd6Jk+JvpOrgWXoexXRnSjX03I4rTI0hLrogYAW2cQ8+d6Hi3EDgifqnfpNcKIhGzyTVzpDNwETHFtOFChWRdsDlDzux8pdC/6lE9jCoz4+7lGT8W0kxKw==
-Received: from CY8PR12MB8412.namprd12.prod.outlook.com (2603:10b6:930:6f::11)
- by LVUPR12MB999183.namprd12.prod.outlook.com (2603:10b6:408:3a3::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.18; Wed, 10 Jun
- 2026 15:38:30 +0000
-Received: from CY8PR12MB8412.namprd12.prod.outlook.com
- ([fe80::76e6:4d65:7ed1:6970]) by CY8PR12MB8412.namprd12.prod.outlook.com
- ([fe80::76e6:4d65:7ed1:6970%5]) with mapi id 15.21.0092.011; Wed, 10 Jun 2026
- 15:38:30 +0000
-From: Timur Tabi <ttabi@nvidia.com>
-To: "gary@garyguo.net" <gary@garyguo.net>, Alexandre Courbot
- <acourbot@nvidia.com>, "dakr@kernel.org" <dakr@kernel.org>,
- "aliceryhl@google.com" <aliceryhl@google.com>, "airlied@gmail.com"
- <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>, "lossin@kernel.org"
- <lossin@kernel.org>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "nova-gpu@lists.linux.dev" <nova-gpu@lists.linux.dev>, Joel Fernandes
- <joelagnelf@nvidia.com>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "rust-for-linux@vger.kernel.org"
- <rust-for-linux@vger.kernel.org>, John Hubbard <jhubbard@nvidia.com>
-Subject: Re: [PATCH 3/4] gpu: nova-core: gsp: Extract usable FB region from GSP
-Thread-Topic: [PATCH 3/4] gpu: nova-core: gsp: Extract usable FB region from
- GSP
-Thread-Index: AQHc9+bCvAQjhHSsqUG/iQwqFbCTdLY3lrKAgAABHoCAAFbBgA==
-Date: Wed, 10 Jun 2026 15:38:29 +0000
-Message-ID: <b561f47d18f48ac2c00153f83d5baa9637f4a552.camel@nvidia.com>
-References: <20260609-boot-vram-v1-0-d9382610507a@nvidia.com>
- <20260609-boot-vram-v1-3-d9382610507a@nvidia.com>
- <DJ5ANU6OL6X2.D8ZG3LV755I8@garyguo.net>
- <DJ5AQWO0KMIZ.1EUA18XBRIJC3@garyguo.net>
-In-Reply-To: <DJ5AQWO0KMIZ.1EUA18XBRIJC3@garyguo.net>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.56.2-9 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB8412:EE_|LVUPR12MB999183:EE_
-x-ms-office365-filtering-correlation-id: 61890a1c-5e53-4028-c3b4-08dec706524e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|10070799003|1800799024|366016|23010399003|7416014|376014|22082099003|18002099003|38070700021|5023799004|11063799006|4143699003|56012099006;
-x-microsoft-antispam-message-info: dCVpstDhrzbsGwHely3Z/zOnsjoBu8pirKFWVXnXaUCLKQUCaP7/Nu89jtEWPXR5FZNEKYhzjXv2W+WSL9zYDE9GFWpUCiD7W3y0m7FyrhOKUMUSPPIqzrP9TtM1e6v+dCWbU6dzze+1cYKLmKhHfZy5OyCULrOKeVoUQHM3utk/cgZEWg7Sgk5kT0cEMi1Dsg9mHp6qW7zVNCv+TKnZ0KsAL/XudXaZbk/DMp+dCmSDaQTuOWu2faTddhRpZV9mL9c0FdHjkj4r5M/Eti7riLMn16fTHc0ScOWHi2asfk7Gjd98yYVqJeBu4eJJr3AqlNDcqe4UbvmyiRiK3fOEMpk1kHQy+/1E2vHt0tcMxokn64AZKPVps7TjBXtK11qXs2si2smufYYFnVuT5tv9ofmEWE/DCstSLMvtpwlRYuEJKumb998lLipPZLKfOoq/gSLpbXxWUMySFr+LgE0yBU7jdbzD9v/ZKxnUvaMuXQx2pIeuLLTsKHjFU79WWz9pYdYDwiX0VPyNWwst85f6Y0tJEjwCUZLWubHpDeLRBEPhrW5DjMyq8YOI098aRZPa68s7BpLhhGjOZlAk9Al1RC86nrhTrIu5dBsVRkfhtd2rhHgC65Vel/u2fQGm2j964CStyruZYm3GF4BAoyIt7nESqrLamrAW1Ds27Fg3QhexEqZhG71oYUxc9BKbqm5Vj+qHgFcjBjXnBf90rTNuN84DuIjA9L+B4EwHudfdjvp6hyCdmxgBmeSPa98TjlMS
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB8412.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(1800799024)(366016)(23010399003)(7416014)(376014)(22082099003)(18002099003)(38070700021)(5023799004)(11063799006)(4143699003)(56012099006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MS9zRS9WL0duNnNFY09adXQwdEJqeVpHRXo5SDFNdjRJSHJKeXc0N1IvWGZJ?=
- =?utf-8?B?WDNVd21yVC9WRERLR21vWFpyM1lmTUF0aFlmT3FoK3A1K1JOQXp4TFgwRGw5?=
- =?utf-8?B?M1VVd0QvanFDODBHelRyUVlFK3ByQWJLa1JBRGFkTmtpQjZKZ0VKcFFjYlpY?=
- =?utf-8?B?QTNRRVpXaUJzQk9SbTBUMWVZZ2p3RHVuUXhsNUtwZ2VMZGI4K3dCRlpTOTlI?=
- =?utf-8?B?V1ZmYjJLa1BtZ080Q0NYMVJTTDNubG82MmFEd0w2OTMva21GM1phaXJSSjYz?=
- =?utf-8?B?dmd4dHh0aGhQWkQ2NTlEakRDQjRUaXpNQnhhTnB4QzZLWk5uWW8zUUlzekJa?=
- =?utf-8?B?REhnZmk1RTErdTZvZGJmbUszN1ZITVllV29jSWd6SXBOam5iYUM4NUc3WW5i?=
- =?utf-8?B?V2N4RzN1Y2RZcnZrMGNvWDFoakV5aXV0dEt3aEEvVVAyWDNPSE5NTE5qRW9a?=
- =?utf-8?B?RlA0ZWVPTng1bUhVV2JQVXJNSVQ5Z0NLRER6QUtXd3ZkdzJpUGIwYzRyUFcx?=
- =?utf-8?B?dG8zNVQxdjNJZWtGaDVCeS9PM0JWcFgvUkNiZi9iYlhCSEQxR3YvWmdsRE9t?=
- =?utf-8?B?QnJhYlRzWWtOQThublY1blc1YXFHR0toZDROSTF1aVA0dEEvanYzMW4rZlcr?=
- =?utf-8?B?RnNDNkhwTURobzJNQ2RFREw4NE5ZdXJEWXJPcG5xamRJNHM4UkFyM2d2L0pU?=
- =?utf-8?B?V1FNSzZtNmdkSCsxb0lFMVpDSERXY01rZENwZlFTMWVJUGp4aGUwZTdISFNK?=
- =?utf-8?B?SytOT3JrYStldWVxNUtzUS9uZTVUTE8vakkrQm1HODJPTWttQmRPbVlmOEtv?=
- =?utf-8?B?QkFqM1kvb0Q4UVhqTHlFSGUvNkRDcDFFeUF2YWpmY0RYRERlUzVUYVAzejhQ?=
- =?utf-8?B?cXlaWnB1UEQ3OGVwc1RUMWVtNTBMTnRwQ0JIVHNpYUtBQVZIQ1lGd0J1WmlF?=
- =?utf-8?B?RkYvdG1RZVRyOTRWOHA0Ri9EemE5cHd6V1djZ1pJbWU3bmlmZUNnOWdvTjZ1?=
- =?utf-8?B?bDZieGloWmx2VHpXazNuMjVkMWN3OURzUmY3eDlFMUJpdEMwUXJpSHZaaUht?=
- =?utf-8?B?WWpKMVlwV293eWNtRm5DbGZkNFBlL2ZPZEdOY3dtaXAycnpINlpQV2dLQWNz?=
- =?utf-8?B?VGw1WTJiY2hoOGtIZDhYTk5UYzRCUXVkZ0xPTG1UT3FDTFQzeitVWmxPbzlY?=
- =?utf-8?B?TUlCWGwyS1BTV1d3cFI1cFduME85blBwSUJvMkNGc0dlNEt3ODk3c1VIeFp0?=
- =?utf-8?B?V2FRTVAyeFJqMFlBSTJhaUtIbFRpTHNkYno0a3laVlcvaWlqbUpYcm5VQW85?=
- =?utf-8?B?VE9HQ2lST2lCcFpqTTFOSk1PVS9Pb25ONmN1SFBiYkFjNFdzeFNsR0h0Y00r?=
- =?utf-8?B?QklMQnRmTzViSVJNSldjQUZTSUdNQTU1bWNTNUNxNFluNlQvR3JHMmZwODJM?=
- =?utf-8?B?VzdaamV6dFE3cFAvUG9nMmNROWRwSm1XZ2VWN3B6a3ZqMFhEUTBjemRSWkI1?=
- =?utf-8?B?SWtkR3c2aWlLeS9UUGJSYVBFUG1pYzFUOUZCcUpSbkRucm5sb09DdGNVdGE3?=
- =?utf-8?B?REdsMEt2aDlYRGpxdlFIUTdQWlBPVUk2d0EzUXNJQUNBWHEvMTdlUjRBTkZn?=
- =?utf-8?B?WkpxTDVISU5ONDV0c2lJblBJYnNhVWVSaCsxeE1KVzNMMFUxY2NlcmJBS015?=
- =?utf-8?B?ZlcvVEovM0tYMHBMY1psVWkwY3NBRktBRGVleGpVR1JodmgvSzdVamxpclBK?=
- =?utf-8?B?MDJUK0hsbmFqWld3K2kraW9HbklDSXBLaDR6UTk4UnFlZzlsMi8yYUU0S3dX?=
- =?utf-8?B?SDQ0Wks5QnpIWjdVSFluR0dZbUF1azBQNnhGRXBzUm9nS0l6WCtvQTIzYVFt?=
- =?utf-8?B?UmhMcGQ2cVBUalArRDRDVkFZUlUzZ0ZOR0FXU0dpRlJRVGxldE1qSjN2K0w1?=
- =?utf-8?B?RkFWQWJDalRVTzYrZzN0bEVtQ0xFZkpyTUF4WkNFenpUbmlLT1p0WEttcnNv?=
- =?utf-8?B?KzkycVpCL092OTAySlJvNUpMZVpQcVRJNVU0eFBLU3ptQ0tiRTZIOTlmeVk3?=
- =?utf-8?B?UWRKY2NDbDFBeVU3d3hueTlUSVV2ZDArVkp3bGpWYUYzekNzd0cxekdQY0FL?=
- =?utf-8?B?cHBDaGpuOFRkMWl0OElPWGhyMlRnTzdrRWw2bHdqeXJobysrVnVZcFg5M3gx?=
- =?utf-8?B?ekZDaDMyU1ZQMWZDaFNMUXRJVHFWWWJTSlVHTEMvbnRkSW4rY2RYSXV3UzVj?=
- =?utf-8?B?L3JVZDV4UXlxZFpXekhvVVVWcFlaU05vSDJwSlVqTWoyNkRqaTlqWXpMZHIr?=
- =?utf-8?B?empaRy9ZclVPU2h3YjBOSDQ3S002aUZpakwyVG44Z3VldytzTGdZamJaTENC?=
- =?utf-8?Q?ZtoPtVdlhiahqptFjgwTY83X0a7Qp7ZbiuDnplUgzR2zR?=
-x-ms-exchange-antispam-messagedata-1: etx83kmmK1Ki1Q==
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <A70DBBB19FBE544B9D534601D71E9354@namprd12.prod.outlook.com>
-Content-Transfer-Encoding: base64
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD82110E1AC
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 15:46:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1781106394;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=VhAoECBQXQqCtdG9eNW5XUoRrOiJaUrouLUGatPWJFQ=;
+ b=MA9TveqPcX6sDzdt+aT/VzrckabmVQqTo88WC91vjAOqY+bURc1eUQ0NMPUpty90JOfMhn
+ XAwUXAOpeKSoLWkppgCVhuOCLAugT0TGz3r3qZz7Grsmc1///rW5DWlExfgJDnMKxLLJbW
+ RVbxlZMqVc/g50BK+W1w5+KKXuCxrZo=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-296-tC5pnGD0MlG_WXtyNSOiCw-1; Wed, 10 Jun 2026 11:46:33 -0400
+X-MC-Unique: tC5pnGD0MlG_WXtyNSOiCw-1
+X-Mimecast-MFC-AGG-ID: tC5pnGD0MlG_WXtyNSOiCw_1781106393
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-8ccd83d58d9so112930966d6.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 08:46:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781106393; x=1781711193;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=VhAoECBQXQqCtdG9eNW5XUoRrOiJaUrouLUGatPWJFQ=;
+ b=ehtBWXVnpAAyajSJnZDh57DcgQpzQL9yEUBw2NGVmud+4s699wiS05WUpFo2dKDGGT
+ HWSGJQZDzEP4lGtpt7ZZ/7TvE+Ov6v0L2k1EsQxddxxhLE1qzONANDnXqEZH6ZFbh467
+ IsvN71rvL/+GRw3pDZZzpr37Qhbpm54SY4aHFBwqY9THymm4QfnT4c9OL61v+KE0ZwI6
+ 69kXQgRaFCfRNknJT/qkT/J3U/EJlI1Q/Cjh44VN46prFtXCg32+X7B5e/jy/bddTKlq
+ 1nIuWrDzMJvJS5gEEn10Gw30cWDHonKHKHfx2Qk+HmfwJPqSX7bFbKz3qsfBmVXMqQAy
+ sWZg==
+X-Gm-Message-State: AOJu0YwOXacD3nbA+C0Gkpb0n8VEIjACJePoLaYM7OZOQ0BYJ0YjvlZR
+ 8IQ1HXzf3yQkN8vTv9ZK/gXXbAWkLKLyYUa1eHL+vQGLysdTSxgexPAcu9c0b8n2ydM8KyFicK5
+ l8cPObQosklUdjaNd1QRuaPDUDapsnOdtpaNjPH0fxaJi57ynl+6u1IYeLHeLT9iS6qhz5A==
+X-Gm-Gg: Acq92OFIDZxWfmkDok9hexsU0qcaLd8+0efKerrnklXjMIvVrUjaZkQdfAhU1vWRxjO
+ rtwxsBpVECHAeV+n1p9tEA5vqgCbmWAkCOP+Kwwkeqs5WYiauDgiA7Dl3KII9j6CbzM3QlBsRsY
+ DRpcjrdxZip7jAgoqt5r7uNwGYbtxP8nP2TIkregNrwt6ybGjtW4GFSCkVtwL38QkqeFO+e1vcH
+ molGBz72suArFDGRirX7edF2D1iqV9uApv0bcMaN1HoMM2gqh5ov5WErE5WGozp6v087F2VqOwf
+ h05wc1jcAdJ3iLYcMw2ZI7W+0tmoSzXFFDGjtQ/16/f6GcYfpXd7ceIb8Gx4cYtL5hYy4sV1GVd
+ jmTpkvLYQRhKEglQ1NQPld3BfnEHE
+X-Received: by 2002:a05:6214:301e:b0:8ce:d77e:e5f with SMTP id
+ 6a1803df08f44-8cee6141b25mr462425166d6.36.1781106392485; 
+ Wed, 10 Jun 2026 08:46:32 -0700 (PDT)
+X-Received: by 2002:a05:6214:301e:b0:8ce:d77e:e5f with SMTP id
+ 6a1803df08f44-8cee6141b25mr462424686d6.36.1781106391913; 
+ Wed, 10 Jun 2026 08:46:31 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8cecd053210sm233596986d6.26.2026.06.10.08.46.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Jun 2026 08:46:31 -0700 (PDT)
+Message-ID: <86cf30192e1cc11d411c4384eba1e61a663b919f.camel@redhat.com>
+Subject: Re: [PATCH v19 4/4] rust: drm: gem: Introduce
+ shmem::Object::sg_table()
+From: lyude@redhat.com
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
+Date: Wed, 10 Jun 2026 11:46:31 -0400
+In-Reply-To: <20260608184829.B7E7B1F00893@smtp.kernel.org>
+References: <20260608183057.2001376-5-lyude@redhat.com>
+ <20260608184829.B7E7B1F00893@smtp.kernel.org>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB8412.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 61890a1c-5e53-4028-c3b4-08dec706524e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jun 2026 15:38:29.7308 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: W6CoDGfumhJKpGeGTtoc5n66TLxSyhSSGtglZ6C3t14e4q7pP7SYqphajnYiZu96Uvt26BEycGx8jPf6drPxsg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LVUPR12MB999183
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 78qJjy5E8QyH1r22b5O8ht3ZjY8ZPuAZ2uJtfiiOPUQ_1781106393
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,12 +98,365 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-T24gV2VkLCAyMDI2LTA2LTEwIGF0IDExOjI3ICswMTAwLCBHYXJ5IEd1byB3cm90ZToNCj4gPiBE
-b2VzIGl0IGp1c3QgZXNzZW50aWFsbHkgcmVxdWlyZSBhIEZCIHRvIGJlIHByZXNlbnQ/IFdoYXQg
-d291bGQgaGFwcGVuIHRvIEdQVXMNCj4gPiB3aXRob3V0IGRpc3BsYXkgc3VwcG9ydCBsaWtlIFJU
-WCBQUk8gNDUwMCBCbGFja3dlbGwgU2VydmVyIEVkaXRpb24/DQo+IA0KPiBBY3R1YWxseSBsb29r
-cyBsaWtlIEZCIGluIE5vdmEganVzdCBtZWFucyAiVlJBTSIgYW5kIG5vdCBhY3R1YWxseSAiRnJh
-bWVidWZmZXIiLg0KPiBJcyB0aGlzIGRvY3VtZW50ZWQgc29tZXdoZXJlIG9yIGFtIEkganVzdCBp
-bmNhcGFibGUgb2YgZmluZGluZyBpdD8NCg0KRm9yIHNvbWUgcmVhc29uLCBpbnRlcm5hbGx5IHdl
-IHRlbmQgdG8gdXNlIHRoZSB0ZXJtICJmcmFtZWJ1ZmZlciIgaW5zdGVhZCBvZiAidnJhbSIsIHNv
-IHRoYXQNCmxlYWtzIGludG8gb3VyIGNvZGUuDQo=
+I think these are (almost) all false positives?
+
+On Mon, 2026-06-08 at 18:48 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 5 potential
+> issue(s) to consider:
+> - [Critical] `SGTableMap::drop()` unconditionally frees the
+> scatter/gather table, causing a double-free and memory corruption for
+> imported GEM objects whose SGT is owned by the DMA-BUF exporter.
+> - [Critical] Caching `Devres` in a `SetOnce` field on a reference-
+> counted GEM object causes a Use-After-Free if the driver is unbound
+> and rebound.
+> - [Critical] Concurrent execution of device unbind
+> (`devres_node_release`) and GEM object freeing (`free_callback`)
+> causes a fatal Use-After-Free due to missing synchronization.
+> - [High] SGTableMap fails to pin the GEM object, allowing the
+> shrinker to purge the object and free the sg_table out from under the
+> Rust driver, leading to a UAF and NULL pointer dereference.
+> - [High] `SGTableMap::drop` destroys the SGT but fails to release the
+> backing pages reference, permanently leaking the memory and
+> triggering a kernel warning on rebinds.
+> --
+>=20
+> commit ca164753ace4f901b6f5bd1ab132aa0d035c5a2b
+> Author: Lyude Paul <lyude@redhat.com>
+> rust: drm: gem: Introduce shmem::Object::sg_table()
+>=20
+> This patch introduces sg_table() to shmem::Object, utilizing Devres
+> to ensure
+> SGTable mappings are released on driver-unbind.
+>=20
+> > diff --git a/rust/kernel/drm/gem/shmem.rs
+> > b/rust/kernel/drm/gem/shmem.rs
+> > index e0bd0695ba1f8..ae97498500afa 100644
+> > --- a/rust/kernel/drm/gem/shmem.rs
+> > +++ b/rust/kernel/drm/gem/shmem.rs
+>=20
+> [ ... ]
+>=20
+> > @@ -183,18 +207,26 @@ extern "C" fn free_callback(obj: *mut
+> > bindings::drm_gem_object) {
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // - DRM always passes=
+ a valid gem object here
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // - We used drm_gem_s=
+hmem_create() in our
+> > create_gem_object callback, so we know that
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 //=C2=A0=C2=A0 `obj` i=
+s contained within a drm_gem_shmem_object
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let this =3D unsafe { conta=
+iner_of!(obj,
+> > bindings::drm_gem_shmem_object, base) };
+> > -
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY:
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // - We're in free_callback=
+ - so this function is safe to
+> > call.
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // - We won't be using the =
+gem resources on `this` after
+> > this call.
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe { bindings::drm_gem_=
+shmem_release(this) };
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let base =3D unsafe { conta=
+iner_of!(obj,
+> > bindings::drm_gem_shmem_object, base) };
+> > =C2=A0
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY:
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // - We verified above=
+ that `obj` is valid, which makes
+> > `this` valid
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // - This function is =
+set in AllocOps, so we know that
+> > `this` is contained within a
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 //=C2=A0=C2=A0 `Object=
+<T, C>`
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let this =3D unsafe { conta=
+iner_of!(Opaque::cast_from(this),
+> > Self, obj) }.cast_mut();
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let this =3D unsafe { conta=
+iner_of!(Opaque::cast_from(base),
+> > Self, obj) }.cast_mut();
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // We need to drop `sgt_res=
+` first, since doing so
+> > requires that the GEM object is still
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // alive.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // - We verified above that=
+ `this` is valid.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // - We are in free_callbac=
+k, guaranteeing we have
+> > exclusive access to `this` and that
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 //=C2=A0=C2=A0 `sgt_res` wi=
+ll not be used after dropping it here.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe { ManuallyDrop::drop=
+(&mut (*this).sgt_res) };
+>=20
+> [Severity: Critical]
+> Could this cause a race condition with a concurrent device unbind? If
+> the
+> drop races with devres_node_release, Devres::drop's internal atomic
+> revoke
+> might return false, but free_callback proceeds to free the Rust
+> Object memory
+> without blocking.
+
+This doesn't make sense - `sgt_res` doesn't get cleared on driver
+unbind, the Devres simply just no longer can be used to access its
+contents.
+
+>=20
+> When the concurrent unbind thread continues and invokes
+> SGTableMap::drop, it
+> dereferences self.obj to acquire the dma_resv lock, which would
+> access
+> already freed memory.
+
+I don't think the drop order here matters?
+
+>=20
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // - We're in free_callback=
+ - so this function is safe to
+> > call.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // - We won't be using the =
+gem resources on `this` after
+> > this call.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe { bindings::drm_gem_=
+shmem_release(base) };
+> > =C2=A0
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: We're recov=
+ering the Kbox<> we created in
+> > gem_create_object()
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let _ =3D unsafe { KBo=
+x::from_raw(this) };
+>=20
+> [ ... ]
+>=20
+> > @@ -270,6 +302,46 @@ pub fn vmap<const SIZE: usize>(&self) ->
+> > Result<VMapRef<'_, T, C, SIZE>> {
+> > =C2=A0=C2=A0=C2=A0=C2=A0 pub fn owned_vmap<const SIZE: usize>(&self) ->
+> > Result<VMapOwned<T, C, SIZE>> {
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 self.make_vmap()
+> > =C2=A0=C2=A0=C2=A0=C2=A0 }
+> > +
+> > +=C2=A0=C2=A0=C2=A0 /// Creates (if necessary) and returns an immutable=
+ reference
+> > to a scatter-gather table of DMA
+> > +=C2=A0=C2=A0=C2=A0 /// pages for this object.
+> > +=C2=A0=C2=A0=C2=A0 ///
+> > +=C2=A0=C2=A0=C2=A0 /// This will pin the object in memory. It is expec=
+ted that
+> > `dev` should be a pointer to the
+> > +=C2=A0=C2=A0=C2=A0 /// same [`device::Device`] which `self` belongs to=
+, otherwise
+> > this function will return
+> > +=C2=A0=C2=A0=C2=A0 /// `Err(EINVAL)`.
+> > +=C2=A0=C2=A0=C2=A0 pub fn sg_table<'a>(
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &'a self,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev: &'a device::Device<Bou=
+nd>,
+> > +=C2=A0=C2=A0=C2=A0 ) -> Result<&'a scatterlist::SGTable> {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if dev.as_raw() !=3D self.d=
+ev().as_ref().as_raw() {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret=
+urn Err(EINVAL);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let sgt_res =3D 'out: {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // =
+Fast path: sgt_res is already initialized
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if =
+let Some(sgt_res) =3D self.sgt_res.as_ref() {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 break 'out sgt_res;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // =
+Slow path: Grab the lock and see if we need to
+> > initialize sgt_res.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let=
+ _guard =3D self.sgt_lock.lock();
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // =
+If someone initialized it while we were waiting, we
+> > can exit early.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if =
+let Some(sgt_res) =3D self.sgt_res.as_ref() {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 break 'out sgt_res;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // =
+If not, finish initializing and return.
+> > `populate()` cannot return false, as
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // =
+`sgt_res` must be unpopulated, and we must hold
+> > `sgt_lock` to reach this point.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sel=
+f.sgt_res
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 .populate(Devres::new(dev,
+> > SGTableMap::new(self))?);
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // =
+SAFETY: We just populated sgt_res above.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uns=
+afe { self.sgt_res.as_ref().unwrap_unchecked() }
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Ok(sgt_res.access(dev)?)
+> > +=C2=A0=C2=A0=C2=A0 }
+>=20
+> [Severity: Critical]
+> Does caching Devres in a SetOnce field on a reference-counted GEM
+> object
+> cause a use-after-free on driver rebind?=20
+
+Driver "rebind" is definitely not something I've ever heard before, is
+that even possible for a driver to do?
+
+>=20
+> On device unbind, the Devres is revoked and its internal SGTableMap
+> is dropped,
+> clearing the SGT. Since the GEM object outlives the binding and
+> SetOnce is
+> never cleared, a subsequent rebind with the same device pointer would
+> hit
+> the fast path here. The call to access() bypasses revocation checks,
+> returning
+> a reference to the dropped SGTableMap and accessing a NULL shmem-
+> >sgt.
+>=20
+> > =C2=A0}
+> > =C2=A0
+> > =C2=A0impl<T: DriverObject, C: DeviceContext> Deref for Object<T, C> {
+>=20
+> [ ... ]
+>=20
+> > @@ -468,6 +540,64 @@ unsafe fn io_write(&self, value: $ty, address:
+> > usize) {
+> > =C2=A0#[cfg(CONFIG_64BIT)]
+> > =C2=A0impl_vmap_io_capable!(u64);
+> > =C2=A0
+> > +/// A reference to a GEM object that is known to have a mapped
+> > [`SGTable`].
+> > +///
+> > +/// This is used by the Rust bindings with [`Devres`] in order to
+> > ensure that mappings for SGTables
+> > +/// on GEM shmem objects are revoked on driver-unbind.
+> > +///
+> > +/// # Invariants
+> > +///
+> > +/// - `self.obj` always points to a valid GEM object.
+> > +/// - This object is proof that `self.obj.owner.sgt_res` has an
+> > initialized and valid pointer to an
+> > +///=C2=A0=C2=A0 [`SGTable`].
+> > +///
+> > +/// [`SGTable`]: scatterlist::SGTable
+> > +pub struct SGTableMap<T: DriverObject, C: DeviceContext> {
+> > +=C2=A0=C2=A0=C2=A0 obj: NonNull<Object<T, C>>,
+> > +}
+> > +
+> > +impl<T: DriverObject, C: DeviceContext> Deref for SGTableMap<T, C>
+> > {
+> > +=C2=A0=C2=A0=C2=A0 type Target =3D scatterlist::SGTable;
+> > +
+> > +=C2=A0=C2=A0=C2=A0 fn deref(&self) -> &Self::Target {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // - The NonNull is guarant=
+eed to be valid via our type
+> > invariants.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // - The sgt field is guara=
+nteed to be initialized and
+> > valid via our type invariants.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe {
+> > scatterlist::SGTable::from_raw((*self.obj.as_ref().as_raw_shmem()).
+> > sgt) }
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +}
+> > +
+> > +impl<T: DriverObject, C: DeviceContext> Drop for SGTableMap<T, C>
+> > {
+> > +=C2=A0=C2=A0=C2=A0 fn drop(&mut self) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `obj` is always =
+valid via our type invariants
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let obj =3D unsafe { self.o=
+bj.as_ref() };
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let _lock =3D DmaResvGuard:=
+:new(obj);
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: We acquired the =
+lock needed for calling this
+> > function above
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe {
+> > bindings::__drm_gem_shmem_free_sgt_locked(obj.as_raw_shmem()) };
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +}
+>=20
+> [Severity: Critical]
+> Is it safe to unconditionally free the SGT here? For imported DMA-BUF
+> objects, the SGT is owned by the exporter and must be freed via
+> dma_buf_unmap_attachment. Calling __drm_gem_shmem_free_sgt_locked on
+> an
+> imported object frees the exporter's table, leading to memory
+> corruption
+> and a double-free when the DMA-BUF is eventually destroyed.
+
+I don't think this is correct either, but I'm a bit stumped on this
+one? Or if it is, it's not a bug in this patch. It looks like it's
+pulling tokens from other functions that look like they have similar
+purposes (drm_gem_shmem_prime_import_no_map(), or
+drm_gem_shmem_prime_import_sg_table()) but I can't tell.
+
+>=20
+> [Severity: High]
+> Does this leak the backing pages reference? SGTableMap::new calls
+> drm_gem_shmem_get_pages_sgt, which increments pages_use_count. When
+> this
+> drop destroys the SGT, it omits the paired call to
+> drm_gem_shmem_put_pages_locked. If a driver unbinds and rebinds, this
+> will leak the extra reference and trigger a kernel warning.
+
+I think this one may actually be correct, but it's not about this
+patch.
+
+>=20
+> > +
+> > +impl<T: DriverObject, C: DeviceContext> SGTableMap<T, C> {
+> > +=C2=A0=C2=A0=C2=A0 fn new(obj: &Object<T, C>) -> impl Init<Self, Error=
+> {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // INVARIANT:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // - We call drm_gem_shmem_=
+get_pages_sgt below and check
+> > whether or not it succeeds,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 //=C2=A0=C2=A0 fulfilling t=
+he invariant of SGTableMap that the
+> > object's `sgt` field is initialized.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // - `obj` is fully initial=
+ized, making this function safe
+> > to call.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 from_err_ptr(unsafe {
+> > bindings::drm_gem_shmem_get_pages_sgt(obj.as_raw_shmem()) })?;
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Ok(Self { obj: obj.into() }=
+)
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +}
+>=20
+> [Severity: High]
+> Should this pin the GEM object? The documentation for sg_table
+> mentions it
+> pins the object, but drm_gem_shmem_get_pages_sgt only increments
+> pages_use_count, not pages_pin_count.=20
+>=20
+> If userspace calls madvise(DONTNEED), the shrinker could purge the
+> object,
+> freeing shmem->sgt. When SGTableMap is dropped, passing the object to
+> __drm_gem_shmem_free_sgt_locked will dereference a NULL pointer.
+
+Looks correct, but not our bug again.
+
