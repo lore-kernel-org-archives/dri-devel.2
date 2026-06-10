@@ -4,60 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5F53CD8CB9
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 06:03:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33B3ECD8CB9
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 06:14:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A57E10E70A;
-	Wed, 10 Jun 2026 06:03:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7670810E726;
+	Wed, 10 Jun 2026 06:14:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="n2JOG30Y";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A1THewnx";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A73B10E707;
- Wed, 10 Jun 2026 06:03:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781071406; x=1812607406;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Z9tggGgYXlOsfk5+OVnZAmo5fEL/nn5W/r1f6Z4h7f0=;
- b=n2JOG30YsfdOEMGUhrYwxKf7XPCaYCXsj6rr/qxOZaA+K+qH7X87JmaZ
- GKZPB/3NKOD6uuX+2EvFbTvz7rFZUGz7oKRp+pDDMKM+sh2RW/baPs2ri
- ODl94fIV504qilKzjwkELS8jo92ALfkkRW9HqYl/vWQGY8LydyQJwdKvi
- d5zYKt0mqaj90bDR5yiX12uUtrazYBro51M3tuuCdbuxhmPthWZB+DH7N
- NEU7D33/38R+ATglAqIf47rxBBriE+XnvoB/ZY/qAwXVPMfPLXmpWw5lb
- mPRgT2YLCFB9/3q8MyjFBaxi4XoX+K6DY2lMdn3naoX7ZtPNpUVFkshNt Q==;
-X-CSE-ConnectionGUID: rclVnDddTNOolJet09qjmg==
-X-CSE-MsgGUID: 8YVNMOzxRtmX6EWYeyZWmw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="69389234"
-X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="69389234"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2026 23:03:25 -0700
-X-CSE-ConnectionGUID: 6e29jrx/SzOb5RH5RjT9LQ==
-X-CSE-MsgGUID: dramR6GdRIOScJsNgY6SUg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="270082569"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.208])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2026 23:03:22 -0700
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-To: Intel graphics driver community testing & development
- <intel-gfx@lists.freedesktop.org>
-Cc: Direct Rendering Infrastructure - Development
- <dri-devel@lists.freedesktop.org>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, stable@vger.kernel.org,
- Tvrtko Ursulin <tursulin@ursulin.net>, Simona Vetter <simona@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-Subject: [PATCH] drm/i915/gem: Fix phys BO pread/pwrite with offset
-Date: Wed, 10 Jun 2026 09:03:14 +0300
-Message-ID: <20260610060314.26111-1-joonas.lahtinen@linux.intel.com>
-X-Mailer: git-send-email 2.54.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B124A10E726
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 06:14:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 55CF543BF0;
+ Wed, 10 Jun 2026 06:14:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13E101F00893;
+ Wed, 10 Jun 2026 06:14:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781072090;
+ bh=LwEtjbt+fVZRH2irA1fywaLkHi+Gxek9gTc8ICn3QkU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=A1THewnxeew30+mYSKn1fy5Gx1I3UQmfDVHvhaqSDq32QtsMN4TXS5o5qo9TqzuWW
+ OwixwCP3tmMeVd4uGV5RNe7eycQ384mcvE5RtsDElDPvg+B9rqEQdWaSll4dezQCUo
+ ZCWMmDCfie6WikH7fo/oLJxuBNLAl5noUw7q0zIxqqgp2hKNqsZC5nTlMT4gZF1aup
+ HV4Q3/HQ8D/yo02KOFf5n0nEt+oqKipfdx7Ficw6aR2N4VVzCMV5FiAZZDzOJ16VRl
+ 24fwA0K01jN8MyBrQ24V5fy1naKmDgBs4mHlaU4qjTfebC3z2ONjLm7RNGt24MVC8z
+ y3Mbh3mmezulA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/i915/gem: Fix phys BO pread/pwrite with offset
+To: "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260610060314.26111-1-joonas.lahtinen@linux.intel.com>
+References: <20260610060314.26111-1-joonas.lahtinen@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 10 Jun 2026 06:14:49 +0000
+Message-Id: <20260610061450.13E101F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,86 +52,83 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-sg_page() returns struct page pointer not (void *) so the scaling
-of pread/pwrite is wrong for phys BO and wrong parts of BO would be
-accessed if non-zero offset is used.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Last impacted platform with overlay or cursor planes using phys
-mapping was Gen3/945G/Lakeport.
+Pre-existing issues:
+- [Critical] Integer overflow in `roundup_pow_of_two` on 32-bit systems cau=
+ses a massive heap buffer overflow when allocating physically contiguous pa=
+ges for large objects.
+--
 
-Reported-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-Fixes: c6790dc22312 ("drm/i915: Wean off drm_pci_alloc/drm_pci_free")
-Cc: <stable@vger.kernel.org> # v4.5+
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_phys.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
+commit bdaf5470cc890b63dd50b4ef6b0bd2b13dcdaa7b
+Author: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_phys.c b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
-index e375afbf458e..d53129eb5603 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_phys.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
-@@ -18,6 +18,17 @@
- #include "i915_gem_tiling.h"
- #include "i915_scatterlist.h"
- 
-+/* Abuse scatterlist to store pointer instead of struct page. */
-+static inline void __set_phys_vaddr(struct scatterlist *sg, void *vaddr)
-+{
-+	sg_assign_page(sg, (struct page *)vaddr);
-+}
-+
-+static inline void *__get_phys_vaddr(struct scatterlist *sg)
-+{
-+	return (void *)sg_page(sg);
-+}
-+
- static int i915_gem_object_get_pages_phys(struct drm_i915_gem_object *obj)
- {
- 	struct address_space *mapping = obj->base.filp->f_mapping;
-@@ -58,7 +69,7 @@ static int i915_gem_object_get_pages_phys(struct drm_i915_gem_object *obj)
- 	sg->offset = 0;
- 	sg->length = obj->base.size;
- 
--	sg_assign_page(sg, (struct page *)vaddr);
-+	__set_phys_vaddr(sg, vaddr);
- 	sg_dma_address(sg) = dma;
- 	sg_dma_len(sg) = obj->base.size;
- 
-@@ -99,7 +110,7 @@ i915_gem_object_put_pages_phys(struct drm_i915_gem_object *obj,
- 			       struct sg_table *pages)
- {
- 	dma_addr_t dma = sg_dma_address(pages->sgl);
--	void *vaddr = sg_page(pages->sgl);
-+	void *vaddr = __get_phys_vaddr(pages->sgl);
- 
- 	__i915_gem_object_release_shmem(obj, pages, false);
- 
-@@ -139,7 +150,7 @@ i915_gem_object_put_pages_phys(struct drm_i915_gem_object *obj,
- int i915_gem_object_pwrite_phys(struct drm_i915_gem_object *obj,
- 				const struct drm_i915_gem_pwrite *args)
- {
--	void *vaddr = sg_page(obj->mm.pages->sgl) + args->offset;
-+	void *vaddr = __get_phys_vaddr(obj->mm.pages->sgl) + args->offset;
- 	char __user *user_data = u64_to_user_ptr(args->data_ptr);
- 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
- 	int err;
-@@ -170,7 +181,7 @@ int i915_gem_object_pwrite_phys(struct drm_i915_gem_object *obj,
- int i915_gem_object_pread_phys(struct drm_i915_gem_object *obj,
- 			       const struct drm_i915_gem_pread *args)
- {
--	void *vaddr = sg_page(obj->mm.pages->sgl) + args->offset;
-+	void *vaddr = __get_phys_vaddr(obj->mm.pages->sgl) + args->offset;
- 	char __user *user_data = u64_to_user_ptr(args->data_ptr);
- 	int err;
- 
--- 
-2.54.0
+drm/i915/gem: Fix phys BO pread/pwrite with offset
 
+This commit fixes a scaling issue in phys BO pread/pwrite when using
+non-zero offsets. It updates the code to correctly access the struct
+page pointers via scatterlist abstractions instead of void pointers.
+
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_phys.c b/drivers/gpu/drm/i=
+915/gem/i915_gem_phys.c
+> index e375afbf458ee..d53129eb56030 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_phys.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
+
+[ ... ]
+
+> @@ -58,7 +69,7 @@ static int i915_gem_object_get_pages_phys(struct drm_i9=
+15_gem_object *obj)
+>  	sg->offset =3D 0;
+>  	sg->length =3D obj->base.size;
+> =20
+> -	sg_assign_page(sg, (struct page *)vaddr);
+> +	__set_phys_vaddr(sg, vaddr);
+
+[Severity: Critical]
+This is a pre-existing issue, but does the dma_alloc_coherent() allocation
+earlier in this function overflow on 32-bit systems?
+
+Looking at i915_gem_object_get_pages_phys(), we allocate memory using:
+
+    vaddr =3D dma_alloc_coherent(obj->base.dev->dev,
+                               roundup_pow_of_two(obj->base.size),
+                               &dma, GFP_KERNEL);
+
+If a user allocates a GEM object larger than 2GB (e.g., 0x80001000),
+roundup_pow_of_two() calculates 1UL << fls_long(n - 1). On x86 32-bit,
+shift amounts are masked to 5 bits, so 32 & 31 =3D 0, resulting in an
+allocation size of 1 byte (which the allocator rounds up to PAGE_SIZE).
+
+Later in the same function, a loop writes obj->base.size bytes into this
+undersized buffer:
+
+    for (i =3D 0; i < obj->base.size / PAGE_SIZE; i++) {
+        struct page *page;
+
+        page =3D shmem_read_mapping_page(mapping, i);
+        if (IS_ERR(page))
+            goto err_st;
+
+        memcpy_from_page(dst, page, 0, PAGE_SIZE);
+        drm_clflush_virt_range(dst, PAGE_SIZE);
+
+        put_page(page);
+        dst +=3D PAGE_SIZE;
+    }
+
+Can this cause a massive buffer overflow and corrupt physical memory when
+handling large objects?
+
+>  	sg_dma_address(sg) =3D dma;
+>  	sg_dma_len(sg) =3D obj->base.size;
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610060314.2611=
+1-1-joonas.lahtinen@linux.intel.com?part=3D1
