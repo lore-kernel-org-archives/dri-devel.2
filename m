@@ -4,32 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7352BCD98D2
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 15:25:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19923CD98DA
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 15:25:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FC9610EA60;
-	Wed, 10 Jun 2026 15:25:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 089EC10EA68;
+	Wed, 10 Jun 2026 15:25:27 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ggxih/Pl";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HKPXQaNj";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ggxih/Pl";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HKPXQaNj";
+	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 225DA10EA5F
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 15:25:21 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3419310EA7D
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 15:25:25 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 597DD6AE8E;
- Wed, 10 Jun 2026 15:25:16 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 1ABAE6AEA5;
+ Wed, 10 Jun 2026 15:25:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1781105118; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=fBzLPMAqxqn9R4waBS++H7+XppSH4AsBxWAq/Efav5w=;
+ b=ggxih/PlMKDLJO/OZcW0i8EgVIm2n7wZDmIFaFQQ40R6EqboIT6eQAYyfbiuyOevRrlqqi
+ 8TbsFV7/QYtn3GdHLsrxCFjFYUdJilQR9WP5CxI8ldoFhQv8xcbygPrwz1QPxjV5wv0AiI
+ 7rDJJH/S7usdFyJ2Bo5lnl/qpGihIPQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1781105118;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=fBzLPMAqxqn9R4waBS++H7+XppSH4AsBxWAq/Efav5w=;
+ b=HKPXQaNjPfhvR3sI48w/CHwQTFtWHjOldSfDBEwV7tG5YRkvf2owNd0GGAbJLKYffm6fs7
+ /7hQD/hhdr3xcIAQ==
 Authentication-Results: smtp-out1.suse.de;
 	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1781105118; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=fBzLPMAqxqn9R4waBS++H7+XppSH4AsBxWAq/Efav5w=;
+ b=ggxih/PlMKDLJO/OZcW0i8EgVIm2n7wZDmIFaFQQ40R6EqboIT6eQAYyfbiuyOevRrlqqi
+ 8TbsFV7/QYtn3GdHLsrxCFjFYUdJilQR9WP5CxI8ldoFhQv8xcbygPrwz1QPxjV5wv0AiI
+ 7rDJJH/S7usdFyJ2Bo5lnl/qpGihIPQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1781105118;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=fBzLPMAqxqn9R4waBS++H7+XppSH4AsBxWAq/Efav5w=;
+ b=HKPXQaNjPfhvR3sI48w/CHwQTFtWHjOldSfDBEwV7tG5YRkvf2owNd0GGAbJLKYffm6fs7
+ /7hQD/hhdr3xcIAQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 82C03779A9;
- Wed, 10 Jun 2026 15:25:15 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 42648779A9;
+ Wed, 10 Jun 2026 15:25:17 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id SAmBHtuBKWr3HwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 10 Jun 2026 15:25:15 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id IAvGDt2BKWr3HwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 10 Jun 2026 15:25:17 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: mripard@kernel.org, maarten.lankhorst@linux.intel.com, airlied@redhat.com,
  airlied@gmail.com, simona@ffwll.ch, admin@kodeit.net,
@@ -44,24 +85,30 @@ Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  linux-mips@vger.kernel.org, virtualization@lists.linux.dev,
  amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v5 05/15] drm/appletbdrm: Allocate request/response buffers in
- begin_fb_access
-Date: Wed, 10 Jun 2026 17:18:21 +0200
-Message-ID: <20260610152505.260172-6-tzimmermann@suse.de>
+Subject: [PATCH v5 07/15] drm/damage-helper: Do not alter damage clips on
+ modeset, but ignore them
+Date: Wed, 10 Jun 2026 17:18:23 +0200
+Message-ID: <20260610152505.260172-8-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260610152505.260172-1-tzimmermann@suse.de>
 References: <20260610152505.260172-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: 597DD6AE8E
-X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-6.79 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
+ NEURAL_HAM_SHORT(-0.19)[-0.936]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo];
+ RCPT_COUNT_TWELVE(0.00)[31]; MIME_TRACE(0.00)[0:+];
+ TO_DN_SOME(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,redhat.com,gmail.com,ffwll.ch,kodeit.net,proton.me,crapouillou.net,zohomail.com,broadcom.com,amd.com,igalia.com,intel.com,ursulin.net,collabora.com,chromium.org];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLq3cifbxyhc6qbbynzfc6amns)];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,120 +124,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In atomic_check, damage handling is not fully evaluated. Another
-atomic_check helper could trigger a full modeset and thus invalidate
-damage clips.
+User space supplies rectangles for damage clipping in a plane property.
+For full mode sets, drivers still require a full plane update. In this
+case, leave the information as-is and set the ignore_damage_clips flag
+instead. The damage iterator will later ignore any damage information.
 
-Allocation of the request/response buffers in appletbdrm depends on
-correct damage information. Otherwise it might allocate incorrectly
-sized buffers. Allocate the buffers in the driver's begin_fb_access
-helper. It runs early during the commit when damage clipping has been
-fully evaluated.
+Leaving the damage information as-is might be helpful to drivers that
+benefit from this information even on full modesets (e.g., for cache
+management). It will also help with consolidating the damage-handling
+logic.
+
+Also add a new unit test that evaluates the ignore_damage_clips flag. It
+sets two damage clips plus the flag and tests if the reported damage
+covers the entire framebuffer.
 
 v5:
-- pass plane state as the old damage-iterator state
-v2:
-- allocate before drm_gem_begin_shadow_fb_access() to avoid leak on error
+- clear ignore_damage_clips in a separate patch (Javier)
+v4:
+- slightly reword the commit description
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-Acked-by: Aditya Garg <gargaditya08@proton.me>
 Acked-by: Zack Rusin <zack.rusin@broadcom.com>
 ---
- drivers/gpu/drm/tiny/appletbdrm.c | 53 +++++++++++++++++--------------
- 1 file changed, 30 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/drm_damage_helper.c           |  6 ++--
+ .../gpu/drm/tests/drm_damage_helper_test.c    | 28 +++++++++++++++++++
+ 2 files changed, 30 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/tiny/appletbdrm.c b/drivers/gpu/drm/tiny/appletbdrm.c
-index cdd35af49892..ef71b9957961 100644
---- a/drivers/gpu/drm/tiny/appletbdrm.c
-+++ b/drivers/gpu/drm/tiny/appletbdrm.c
-@@ -315,33 +315,16 @@ static const u32 appletbdrm_primary_plane_formats[] = {
- 	DRM_FORMAT_XRGB8888, /* emulated */
- };
+diff --git a/drivers/gpu/drm/drm_damage_helper.c b/drivers/gpu/drm/drm_damage_helper.c
+index 74a7f4252ecf..945fac8dc27b 100644
+--- a/drivers/gpu/drm/drm_damage_helper.c
++++ b/drivers/gpu/drm/drm_damage_helper.c
+@@ -78,10 +78,8 @@ void drm_atomic_helper_check_plane_damage(struct drm_atomic_commit *state,
+ 		if (WARN_ON(!crtc_state))
+ 			return;
  
--static int appletbdrm_primary_plane_helper_atomic_check(struct drm_plane *plane,
--						   struct drm_atomic_commit *state)
-+static int appletbdrm_primary_plane_helper_begin_fb_access(struct drm_plane *plane,
-+							   struct drm_plane_state *new_plane_state)
- {
--	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state, plane);
--	struct drm_plane_state *old_plane_state = drm_atomic_get_old_plane_state(state, plane);
--	struct drm_crtc *new_crtc = new_plane_state->crtc;
--	struct drm_crtc_state *new_crtc_state = NULL;
- 	struct appletbdrm_plane_state *appletbdrm_state = to_appletbdrm_plane_state(new_plane_state);
-+	size_t frames_size = 0;
- 	struct drm_atomic_helper_damage_iter iter;
- 	struct drm_rect damage;
--	size_t frames_size = 0;
- 	size_t request_size;
--	int ret;
--
--	if (new_crtc)
--		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_crtc);
- 
--	ret = drm_atomic_helper_check_plane_state(new_plane_state, new_crtc_state,
--						  DRM_PLANE_NO_SCALING,
--						  DRM_PLANE_NO_SCALING,
--						  false, false);
--	if (ret)
--		return ret;
--	else if (!new_plane_state->visible)
--		return 0;
--
--	drm_atomic_helper_damage_iter_init(&iter, old_plane_state, new_plane_state);
-+	drm_atomic_helper_damage_iter_init(&iter, plane->state, new_plane_state);
- 	drm_atomic_for_each_plane_damage(&iter, &damage) {
- 		frames_size += struct_size((struct appletbdrm_frame *)0, buf, rect_size(&damage));
+-		if (drm_atomic_crtc_needs_modeset(crtc_state)) {
+-			drm_property_blob_put(plane_state->fb_damage_clips);
+-			plane_state->fb_damage_clips = NULL;
+-		}
++		if (drm_atomic_crtc_needs_modeset(crtc_state))
++			plane_state->ignore_damage_clips = true;
  	}
-@@ -366,6 +349,29 @@ static int appletbdrm_primary_plane_helper_atomic_check(struct drm_plane *plane,
- 	appletbdrm_state->request_size = request_size;
- 	appletbdrm_state->frames_size = frames_size;
+ }
+ EXPORT_SYMBOL(drm_atomic_helper_check_plane_damage);
+diff --git a/drivers/gpu/drm/tests/drm_damage_helper_test.c b/drivers/gpu/drm/tests/drm_damage_helper_test.c
+index 0df2e1a54b0d..64f038a62ffe 100644
+--- a/drivers/gpu/drm/tests/drm_damage_helper_test.c
++++ b/drivers/gpu/drm/tests/drm_damage_helper_test.c
+@@ -603,6 +603,33 @@ static void drm_test_damage_iter_damage_not_visible(struct kunit *test)
+ 	KUNIT_EXPECT_EQ_MSG(test, num_hits, 0, "Should not return any damage.");
+ }
  
-+	return drm_gem_begin_shadow_fb_access(plane, new_plane_state);
++static void drm_test_damage_iter_damage_ignore(struct kunit *test)
++{
++	struct drm_damage_mock *mock = test->priv;
++	struct drm_atomic_helper_damage_iter iter;
++	struct drm_property_blob damage_blob;
++	struct drm_mode_rect damage[2];
++	struct drm_rect clip;
++	u32 num_hits = 0;
++
++	set_plane_src(&mock->old_state, 0, 0, 1024 << 16, 768 << 16);
++	set_plane_src(&mock->state, 0, 0, 1024 << 16, 768 << 16);
++	/* 2 damage clips, but ignore them. */
++	set_damage_clip(&damage[0], 20, 30, 200, 180);
++	set_damage_clip(&damage[1], 240, 200, 280, 250);
++	set_damage_blob(&damage_blob, &damage[0], sizeof(damage));
++	set_plane_damage(&mock->state, &damage_blob);
++	mock->state.ignore_damage_clips = true;
++	drm_atomic_helper_damage_iter_init(&iter, &mock->old_state, &mock->state);
++	drm_atomic_for_each_plane_damage(&iter, &clip) {
++		if (num_hits == 0)
++			check_damage_clip(test, &clip, 0, 0, 1024, 768);
++		num_hits++;
++	}
++
++	KUNIT_EXPECT_EQ_MSG(test, num_hits, 1, "Should return full-framebuffer damage.");
 +}
 +
-+static int appletbdrm_primary_plane_helper_atomic_check(struct drm_plane *plane,
-+							struct drm_atomic_commit *state)
-+{
-+	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state, plane);
-+	struct drm_crtc *new_crtc = new_plane_state->crtc;
-+	struct drm_crtc_state *new_crtc_state = NULL;
-+	int ret;
-+
-+	if (new_crtc)
-+		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_crtc);
-+
-+	ret = drm_atomic_helper_check_plane_state(new_plane_state, new_crtc_state,
-+						  DRM_PLANE_NO_SCALING,
-+						  DRM_PLANE_NO_SCALING,
-+						  false, false);
-+	if (ret)
-+		return ret;
-+	else if (!new_plane_state->visible)
-+		return 0;
-+
- 	return 0;
- }
+ static struct kunit_case drm_damage_helper_tests[] = {
+ 	KUNIT_CASE(drm_test_damage_iter_no_damage),
+ 	KUNIT_CASE(drm_test_damage_iter_no_damage_fractional_src),
+@@ -625,6 +652,7 @@ static struct kunit_case drm_damage_helper_tests[] = {
+ 	KUNIT_CASE(drm_test_damage_iter_damage_one_outside),
+ 	KUNIT_CASE(drm_test_damage_iter_damage_src_moved),
+ 	KUNIT_CASE(drm_test_damage_iter_damage_not_visible),
++	KUNIT_CASE(drm_test_damage_iter_damage_ignore),
+ 	{ }
+ };
  
-@@ -468,7 +474,7 @@ static int appletbdrm_flush_damage(struct appletbdrm_device *adev,
- }
- 
- static void appletbdrm_primary_plane_helper_atomic_update(struct drm_plane *plane,
--						     struct drm_atomic_commit *old_state)
-+							  struct drm_atomic_commit *old_state)
- {
- 	struct appletbdrm_device *adev = drm_to_adev(plane->dev);
- 	struct drm_device *drm = plane->dev;
-@@ -552,7 +558,8 @@ static void appletbdrm_primary_plane_destroy_state(struct drm_plane *plane,
- }
- 
- static const struct drm_plane_helper_funcs appletbdrm_primary_plane_helper_funcs = {
--	DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
-+	.begin_fb_access = appletbdrm_primary_plane_helper_begin_fb_access,
-+	.end_fb_access = drm_gem_end_shadow_fb_access,
- 	.atomic_check = appletbdrm_primary_plane_helper_atomic_check,
- 	.atomic_update = appletbdrm_primary_plane_helper_atomic_update,
- 	.atomic_disable = appletbdrm_primary_plane_helper_atomic_disable,
 -- 
 2.54.0
 
