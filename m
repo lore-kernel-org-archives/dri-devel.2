@@ -4,71 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8DD2CD98CC
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 10:49:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1ED0CD98D5
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 10:49:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA65D10EE6F;
-	Thu, 11 Jun 2026 10:49:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EF6B10EE77;
+	Thu, 11 Jun 2026 10:49:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jFhYfg28";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="DwSLtZXb";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4564D10E7D1
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 08:33:23 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-45ef41adbc1so4804539f8f.0
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 01:33:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781080401; x=1781685201; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=42JyeNN6hbRFmmAETFft87Ynwj8c8+fcuTymho+Tavk=;
- b=jFhYfg280sYZ1JOeR+tyM2EPV/OLIi3zLKCYzDA5RoxARblV6Cg5QeXQkHtXDe8KPW
- O9R+FFDyVdzQejH6Lef6yh++4uDXjLTcmj340iMTnbEbetrYiqElnKE8e1vXwX4dIdR5
- qSoH7pM2sxvVSg5L/Gyx9e+sgx0uO+SVa/eXe7UGRwssBG9YBONPOyfCoJ1tWjQu7cmR
- jXmiRgxNwz5LDy7GxnQ8tTqf18zybdzuEr9eXhv73vMZurA3lRFTM15YRQbQVZYYYVs1
- RA/TXPKPVMBlnj/tb7HePaawQLzHY1Kux1A3XDnB5OPTOcnAa5QiMOiJdhI7j6su7GA7
- 5Gkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781080401; x=1781685201;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=42JyeNN6hbRFmmAETFft87Ynwj8c8+fcuTymho+Tavk=;
- b=j5uUCYPaneVX+eL63M25cNh+JT2XGT0uqLmrqhK2I4AJ8vIAHJy90EqUOcgEEeE1zU
- fnJIqlsl9/mrt3LoNxEA7wCx7UiJFcviod2hTYbpDEljY/yzWtEkdDCkEdEX7L18NsO3
- 04g/ddC4oAjm+KRN/2bCsegR/90VXfDFdn3iiNjdvQOGN2AL+OF2/8y4ubFgy5bYq+Lx
- es29n8fpAf6Kk0W4Re+yJe//9j8o8QOpXPezscVciQtBqGWzInz886pFS+6JtWuyUmO2
- MDq6HZJRmWmjHxAaKWRIa5+tZaDAde08u5Xzi2nPpJ+L3kLocXj8MkvXE1f9GvOyW7Id
- rUVw==
-X-Gm-Message-State: AOJu0YxR1yp/iyvlAeLWlT6QOoq/HU8QPCBD5/0EqygfJB5UGAe+Q8hv
- coh8/UeuTQPugLLmYrm/SMWrwu4VkadSXdhJVjpuJKAxi1iTz/Qh9j1+
-X-Gm-Gg: Acq92OFs2E1qepY2GzHRmYTF+q1fhrCjMxG8paWCaFH8jzSVwVtxyN+J3zozI5Rmc6y
- N91Qb5SMSntX0S+5n06WzlrDvC/6rVL2uRpeQCzrmPqrS8bqHakIUP4ajn/Ga2951/U0QXZ5VRZ
- ZtQzAu+hMWg2zIliLQrGRs6s/XlmXdMv5WXhiMad8MlKJja/uaaqJa0+CisYTPxtSDw6Hwm0pUZ
- +Mw0qDG+qakL7h4nI49fK+m9gmDhSqJI3UjS6LgM4/NPkMEn0xXUaQVIrQmQ8RCFUBeQ09r6Guc
- FIAedr0cC4sJyxeJFThOsYoQljwe3ib1pxmC2jD64oFzqDZRQfWK6qy0b1/9mCcKTmOM3HuFPSY
- L79XVlu10ip5gQ/4fazQULqDpXzX37VVb5KMHlejwh/Fqb7tObYNQrl+B/YQvQZLfHbgDOfTF7R
- 9TpjQpsRSlOE2njL2sXMRCxR+zysMsJS35eOlo2imLQgppnoC3TYqsAX0rMe1DuVhFWqh7B88=
-X-Received: by 2002:a05:6000:2b0b:b0:45e:ea2a:dd79 with SMTP id
- ffacd0b85a97d-460302e0a31mr24547521f8f.4.1781080401290; 
- Wed, 10 Jun 2026 01:33:21 -0700 (PDT)
-Received: from aldebaran ([193.165.157.230]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4601f35fd33sm76213092f8f.35.2026.06.10.01.33.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Jun 2026 01:33:20 -0700 (PDT)
-From: =?UTF-8?q?Pavel=20Ondra=C4=8Dka?= <pavel.ondracka@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
- christian.koenig@amd.com, stable@vger.kernel.org,
- =?UTF-8?q?Pavel=20Ondra=C4=8Dka?= <pavel.ondracka@gmail.com>
-Subject: [PATCH] drm/radeon: fix r100_copy_blit for large BOs
-Date: Wed, 10 Jun 2026 10:32:45 +0200
-Message-ID: <20260610083245.1057241-1-pavel.ondracka@gmail.com>
-X-Mailer: git-send-email 2.52.0
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FE1A10EA96
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 15:50:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1781106283;
+ bh=ODStJl7uKOYesbN+LmW+wd/qKGP/mjmuiJR78MgFlwE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=DwSLtZXbsysGUfc6fIZMwOpEOqj4wmLfZhQZw5fg5K8sjCE0DZXNa+b8GnoB9X+i3
+ 9/XJF+2x+JfZ4G2m/8WxOHTz3suWSlaw2uLPqrjvNeP0W1xbGiteBWHCgj1ZzR8b5V
+ +TflY+XIHzOGPQNYffXTlBC9lPvYTkKe51680FYqhjW40+z7l19sTdc9VfgtuuDsAo
+ ceefRUd7YyhZT/vUAS8NDXUKUPIurhQVEcwp6K5MMO5lT5UBDthPlyqg0BwTEfb230
+ 9+RGPsjnkWd1qyZpTJUecHmKppA5Gwk/95mSt21J2kOtrcN/YeJbU5JcuAWdLEW1Ag
+ SsafVNgCJD+Uw==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4gb97t4ymfz4x4g;
+ Thu, 11 Jun 2026 01:44:42 +1000 (AEST)
+From: Matt Evans <matt@ozlabs.org>
+To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>
+Cc: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
+ Ankit Agrawal <ankita@nvidia.com>, Pranjal Shrivastava <praan@google.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+Subject: [PATCH v3 6/9] vfio/pci: Clean up BAR zap and revocation
+Date: Wed, 10 Jun 2026 16:43:20 +0100
+Message-ID: <20260610154327.37758-7-matt@ozlabs.org>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260610154327.37758-1-matt@ozlabs.org>
+References: <20260610154327.37758-1-matt@ozlabs.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 11 Jun 2026 10:49:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -86,74 +69,313 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-r100_copy_blit() copies BOs as 1024-pixel-wide ARGB8888 blits, so one
-GPU page becomes one blit row. Large copies are split into chunks of at
-most 8191 rows.
+Previously, vfio_pci_zap_bars() (and the wrapper
+vfio_pci_zap_and_down_write_memory_lock()) calls were paired with
+calls to vfio_pci_dma_buf_move().
 
-The kernel register header names the packet coordinate dwords SRC_Y_X
-and DST_Y_X. In the BITBLT_MULTI description in
-R5xx_Acceleration_v1.5.pdf docs, these correspond to [SRC_X1 | SRC_Y1]
-and [DST_X1 | DST_Y1], which are signed 13-bit coordinates in the
--8192..8191 range. The old code kept SRC/DST_PITCH_OFFSET at the BO base
-and used SRC_Y_X/DST_Y_X as the chunk address, so large BO moves could
-exceed that coordinate range.
+This commit replaces them with a unified new function,
+vfio_pci_zap_revoke_bars() containing both the vfio_pci_dma_buf_move()
+and the unmap_mapping_range(), making it harder for callers to omit
+one.  It adds a wrapper, vfio_pci_lock_zap_revoke_bars(), which takes
+the write memory_lock before zapping, and adds a new
+vfio_pci_unrevoke_bars() for the re-enable path.
 
-Compute per-chunk SRC/DST_PITCH_OFFSET bases and emit zero source and
-destination coordinates. r100_copy_blit() already packs
-SRC/DST_PITCH_OFFSET as pitch plus base offset, so large chunk addresses
-belong there rather than in the coordinate fields.
+As of "vfio/pci: Convert BAR mmap() to use a DMABUF", the
+unmap_mapping_range() to zap is no longer performed for vfio-pci since
+the DMABUFs used for BAR mappings already zap PTEs when the
+vfio_pci_dma_buf_move() occurs.
 
-This fixes Prison Architect corruption with 4096x4096 mipped textures
-after they are evicted to GTT under memory pressure on RV530.
+However, it must be assumed that VFIO drivers which override the .mmap
+op could create mappings _not_ backed by DMABUFs.  So, the zap is
+still performed on revoke if .mmap is overridden, using a new
+zap_bars_on_revoke flag.  A driver can explicitly opt out; the flag is
+cleared by the hisi_acc_vfio_pci driver, since its .mmap just wraps
+vfio_pci_core_mmap() and so still uses DMABUFs.
 
-Closes: https://gitlab.freedesktop.org/mesa/mesa/-/work_items/6716
-Cc: stable@vger.kernel.org
-Signed-off-by: Pavel Ondračka <pavel.ondracka@gmail.com>
+Signed-off-by: Matt Evans <matt@ozlabs.org>
 ---
- drivers/gpu/drm/radeon/r100.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ .../vfio/pci/hisilicon/hisi_acc_vfio_pci.c    |  8 +++
+ drivers/vfio/pci/vfio_pci_config.c            | 30 ++++----
+ drivers/vfio/pci/vfio_pci_core.c              | 70 +++++++++++++------
+ drivers/vfio/pci/vfio_pci_priv.h              |  3 +-
+ include/linux/vfio_pci_core.h                 |  1 +
+ 5 files changed, 73 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/r100.c b/drivers/gpu/drm/radeon/r100.c
-index 3ac1a79b6f13..533215d6e9cb 100644
---- a/drivers/gpu/drm/radeon/r100.c
-+++ b/drivers/gpu/drm/radeon/r100.c
-@@ -906,6 +906,7 @@ struct radeon_fence *r100_copy_blit(struct radeon_device *rdev,
- {
- 	struct radeon_ring *ring = &rdev->ring[RADEON_RING_TYPE_GFX_INDEX];
- 	struct radeon_fence *fence;
-+	uint64_t cur_src_offset, cur_dst_offset;
- 	uint32_t cur_pages;
- 	uint32_t stride_bytes = RADEON_GPU_PAGE_SIZE;
- 	uint32_t pitch;
-@@ -934,6 +935,10 @@ struct radeon_fence *r100_copy_blit(struct radeon_device *rdev,
- 			cur_pages = 8191;
- 		}
- 		num_gpu_pages -= cur_pages;
-+		cur_src_offset = src_offset +
-+			(uint64_t)num_gpu_pages * RADEON_GPU_PAGE_SIZE;
-+		cur_dst_offset = dst_offset +
-+			(uint64_t)num_gpu_pages * RADEON_GPU_PAGE_SIZE;
+diff --git a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+index 86362ec424a5..51990f6d66d5 100644
+--- a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
++++ b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+@@ -1692,6 +1692,14 @@ static int hisi_acc_vfio_pci_probe(struct pci_dev *pdev, const struct pci_device
+ 	if (ret)
+ 		goto out_put_vdev;
  
- 		/* pages are in Y direction - height
- 		   page width in X direction - width */
-@@ -950,13 +955,13 @@ struct radeon_fence *r100_copy_blit(struct radeon_device *rdev,
- 				  RADEON_DP_SRC_SOURCE_MEMORY |
- 				  RADEON_GMC_CLR_CMP_CNTL_DIS |
- 				  RADEON_GMC_WR_MSK_DIS);
--		radeon_ring_write(ring, (pitch << 22) | (src_offset >> 10));
--		radeon_ring_write(ring, (pitch << 22) | (dst_offset >> 10));
-+		radeon_ring_write(ring, (pitch << 22) | (cur_src_offset >> 10));
-+		radeon_ring_write(ring, (pitch << 22) | (cur_dst_offset >> 10));
- 		radeon_ring_write(ring, (0x1fff) | (0x1fff << 16));
- 		radeon_ring_write(ring, 0);
- 		radeon_ring_write(ring, (0x1fff) | (0x1fff << 16));
--		radeon_ring_write(ring, num_gpu_pages);
--		radeon_ring_write(ring, num_gpu_pages);
-+		radeon_ring_write(ring, 0);
-+		radeon_ring_write(ring, 0);
- 		radeon_ring_write(ring, cur_pages | (stride_pixels << 16));
++	/*
++	 * hisi_acc_vfio_pci_mmap() calls down to
++	 * vfio_pci_core_mmap(), so BAR mappings are still
++	 * DMABUF-backed.  They don't require a zap on revoke, so opt
++	 * out:
++	 */
++	hisi_acc_vdev->core_device.zap_bars_on_revoke = false;
++
+ 	hisi_acc_vfio_debug_init(hisi_acc_vdev);
+ 	return 0;
+ 
+diff --git a/drivers/vfio/pci/vfio_pci_config.c b/drivers/vfio/pci/vfio_pci_config.c
+index a10ed733f0e3..8bfab0da481c 100644
+--- a/drivers/vfio/pci/vfio_pci_config.c
++++ b/drivers/vfio/pci/vfio_pci_config.c
+@@ -590,12 +590,10 @@ static int vfio_basic_config_write(struct vfio_pci_core_device *vdev, int pos,
+ 		virt_mem = !!(le16_to_cpu(*virt_cmd) & PCI_COMMAND_MEMORY);
+ 		new_mem = !!(new_cmd & PCI_COMMAND_MEMORY);
+ 
+-		if (!new_mem) {
+-			vfio_pci_zap_and_down_write_memory_lock(vdev);
+-			vfio_pci_dma_buf_move(vdev, true);
+-		} else {
++		if (!new_mem)
++			vfio_pci_lock_zap_revoke_bars(vdev);
++		else
+ 			down_write(&vdev->memory_lock);
+-		}
+ 
+ 		/*
+ 		 * If the user is writing mem/io enable (new_mem/io) and we
+@@ -631,7 +629,7 @@ static int vfio_basic_config_write(struct vfio_pci_core_device *vdev, int pos,
+ 		*virt_cmd |= cpu_to_le16(new_cmd & mask);
+ 
+ 		if (__vfio_pci_memory_enabled(vdev))
+-			vfio_pci_dma_buf_move(vdev, false);
++			vfio_pci_unrevoke_bars(vdev);
+ 		up_write(&vdev->memory_lock);
  	}
- 	radeon_ring_write(ring, PACKET0(RADEON_DSTCACHE_CTLSTAT, 0));
+ 
+@@ -712,16 +710,14 @@ static int __init init_pci_cap_basic_perm(struct perm_bits *perm)
+ static void vfio_lock_and_set_power_state(struct vfio_pci_core_device *vdev,
+ 					  pci_power_t state)
+ {
+-	if (state >= PCI_D3hot) {
+-		vfio_pci_zap_and_down_write_memory_lock(vdev);
+-		vfio_pci_dma_buf_move(vdev, true);
+-	} else {
++	if (state >= PCI_D3hot)
++		vfio_pci_lock_zap_revoke_bars(vdev);
++	else
+ 		down_write(&vdev->memory_lock);
+-	}
+ 
+ 	vfio_pci_set_power_state(vdev, state);
+ 	if (__vfio_pci_memory_enabled(vdev))
+-		vfio_pci_dma_buf_move(vdev, false);
++		vfio_pci_unrevoke_bars(vdev);
+ 	up_write(&vdev->memory_lock);
+ }
+ 
+@@ -908,11 +904,10 @@ static int vfio_exp_config_write(struct vfio_pci_core_device *vdev, int pos,
+ 						 &cap);
+ 
+ 		if (!ret && (cap & PCI_EXP_DEVCAP_FLR)) {
+-			vfio_pci_zap_and_down_write_memory_lock(vdev);
+-			vfio_pci_dma_buf_move(vdev, true);
++			vfio_pci_lock_zap_revoke_bars(vdev);
+ 			pci_try_reset_function(vdev->pdev);
+ 			if (__vfio_pci_memory_enabled(vdev))
+-				vfio_pci_dma_buf_move(vdev, false);
++				vfio_pci_unrevoke_bars(vdev);
+ 			up_write(&vdev->memory_lock);
+ 		}
+ 	}
+@@ -993,11 +988,10 @@ static int vfio_af_config_write(struct vfio_pci_core_device *vdev, int pos,
+ 						&cap);
+ 
+ 		if (!ret && (cap & PCI_AF_CAP_FLR) && (cap & PCI_AF_CAP_TP)) {
+-			vfio_pci_zap_and_down_write_memory_lock(vdev);
+-			vfio_pci_dma_buf_move(vdev, true);
++			vfio_pci_lock_zap_revoke_bars(vdev);
+ 			pci_try_reset_function(vdev->pdev);
+ 			if (__vfio_pci_memory_enabled(vdev))
+-				vfio_pci_dma_buf_move(vdev, false);
++				vfio_pci_unrevoke_bars(vdev);
+ 			up_write(&vdev->memory_lock);
+ 		}
+ 	}
+diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+index f9636d8f9e2a..5ea0bd4e7876 100644
+--- a/drivers/vfio/pci/vfio_pci_core.c
++++ b/drivers/vfio/pci/vfio_pci_core.c
+@@ -319,8 +319,7 @@ static int vfio_pci_runtime_pm_entry(struct vfio_pci_core_device *vdev,
+ 	 * The vdev power related flags are protected with 'memory_lock'
+ 	 * semaphore.
+ 	 */
+-	vfio_pci_zap_and_down_write_memory_lock(vdev);
+-	vfio_pci_dma_buf_move(vdev, true);
++	vfio_pci_lock_zap_revoke_bars(vdev);
+ 
+ 	if (vdev->pm_runtime_engaged) {
+ 		up_write(&vdev->memory_lock);
+@@ -406,7 +405,7 @@ static void vfio_pci_runtime_pm_exit(struct vfio_pci_core_device *vdev)
+ 	down_write(&vdev->memory_lock);
+ 	__vfio_pci_runtime_pm_exit(vdev);
+ 	if (__vfio_pci_memory_enabled(vdev))
+-		vfio_pci_dma_buf_move(vdev, false);
++		vfio_pci_unrevoke_bars(vdev);
+ 	up_write(&vdev->memory_lock);
+ }
+ 
+@@ -1256,6 +1255,8 @@ static int vfio_pci_ioctl_set_irqs(struct vfio_pci_core_device *vdev,
+ 	return ret;
+ }
+ 
++static void vfio_pci_zap_revoke_bars(struct vfio_pci_core_device *vdev);
++
+ static int vfio_pci_ioctl_reset(struct vfio_pci_core_device *vdev,
+ 				void __user *arg)
+ {
+@@ -1264,7 +1265,7 @@ static int vfio_pci_ioctl_reset(struct vfio_pci_core_device *vdev,
+ 	if (!vdev->reset_works)
+ 		return -EINVAL;
+ 
+-	vfio_pci_zap_and_down_write_memory_lock(vdev);
++	down_write(&vdev->memory_lock);
+ 
+ 	/*
+ 	 * This function can be invoked while the power state is non-D0. If
+@@ -1277,10 +1278,11 @@ static int vfio_pci_ioctl_reset(struct vfio_pci_core_device *vdev,
+ 	 */
+ 	vfio_pci_set_power_state(vdev, PCI_D0);
+ 
+-	vfio_pci_dma_buf_move(vdev, true);
++	vfio_pci_zap_revoke_bars(vdev);
++
+ 	ret = pci_try_reset_function(vdev->pdev);
+ 	if (__vfio_pci_memory_enabled(vdev))
+-		vfio_pci_dma_buf_move(vdev, false);
++		vfio_pci_unrevoke_bars(vdev);
+ 	up_write(&vdev->memory_lock);
+ 
+ 	return ret;
+@@ -1648,20 +1650,37 @@ ssize_t vfio_pci_core_write(struct vfio_device *core_vdev, const char __user *bu
+ }
+ EXPORT_SYMBOL_GPL(vfio_pci_core_write);
+ 
+-static void vfio_pci_zap_bars(struct vfio_pci_core_device *vdev)
++static void vfio_pci_zap_revoke_bars(struct vfio_pci_core_device *vdev)
+ {
+-	struct vfio_device *core_vdev = &vdev->vdev;
+-	loff_t start = VFIO_PCI_INDEX_TO_OFFSET(VFIO_PCI_BAR0_REGION_INDEX);
+-	loff_t end = VFIO_PCI_INDEX_TO_OFFSET(VFIO_PCI_ROM_REGION_INDEX);
+-	loff_t len = end - start;
++	lockdep_assert_held_write(&vdev->memory_lock);
++	vfio_pci_dma_buf_move(vdev, true);
+ 
+-	unmap_mapping_range(core_vdev->inode->i_mapping, start, len, true);
++	/*
++	 * If a driver could possibly create BAR mappings in the
++	 * vdev's address_space, do an additional zap on revoke.  See
++	 * vfio_pci_core_register_device().
++	 */
++	if (vdev->zap_bars_on_revoke) {
++		struct vfio_device *core_vdev = &vdev->vdev;
++		loff_t start = VFIO_PCI_INDEX_TO_OFFSET(VFIO_PCI_BAR0_REGION_INDEX);
++		loff_t end = VFIO_PCI_INDEX_TO_OFFSET(VFIO_PCI_ROM_REGION_INDEX);
++		loff_t len = end - start;
++
++		unmap_mapping_range(core_vdev->inode->i_mapping,
++				    start, len, true);
++	}
+ }
+ 
+-void vfio_pci_zap_and_down_write_memory_lock(struct vfio_pci_core_device *vdev)
++void vfio_pci_lock_zap_revoke_bars(struct vfio_pci_core_device *vdev)
+ {
+ 	down_write(&vdev->memory_lock);
+-	vfio_pci_zap_bars(vdev);
++	vfio_pci_zap_revoke_bars(vdev);
++}
++
++void vfio_pci_unrevoke_bars(struct vfio_pci_core_device *vdev)
++{
++	lockdep_assert_held_write(&vdev->memory_lock);
++	vfio_pci_dma_buf_move(vdev, false);
+ }
+ 
+ u16 vfio_pci_memory_lock_and_enable(struct vfio_pci_core_device *vdev)
+@@ -2242,6 +2261,17 @@ int vfio_pci_core_register_device(struct vfio_pci_core_device *vdev)
+ 	if (ret)
+ 		goto out_vf;
+ 
++	/*
++	 * If a driver overrides .mmap, it has to be assumed that it
++	 * might not use the DMABUF-backed core mmap; this flag
++	 * enables a zap at revoke time.  Drivers can opt out by
++	 * clearing this flag after registration, e.g. if their .mmap
++	 * override calls down to vfio_pci_core_mmap() so that maps
++	 * are DMABUF-backed.
++	 */
++	if (vdev->vdev.ops->mmap != vfio_pci_core_mmap)
++		vdev->zap_bars_on_revoke = true;
++
+ 	vfio_pci_probe_power_state(vdev);
+ 
+ 	/*
+@@ -2517,9 +2547,10 @@ static int vfio_pci_dev_set_hot_reset(struct vfio_device_set *dev_set,
+ 		}
+ 
+ 		/*
+-		 * Take the memory write lock for each device and zap BAR
+-		 * mappings to prevent the user accessing the device while in
+-		 * reset.  Locking multiple devices is prone to deadlock,
++		 * Take the memory write lock for each device and
++		 * zap/revoke BAR mappings to prevent the user (or
++		 * peers) accessing the device while in reset.
++		 * Locking multiple devices is prone to deadlock,
+ 		 * runaway and unwind if we hit contention.
+ 		 */
+ 		if (!down_write_trylock(&vdev->memory_lock)) {
+@@ -2527,8 +2558,7 @@ static int vfio_pci_dev_set_hot_reset(struct vfio_device_set *dev_set,
+ 			break;
+ 		}
+ 
+-		vfio_pci_dma_buf_move(vdev, true);
+-		vfio_pci_zap_bars(vdev);
++		vfio_pci_zap_revoke_bars(vdev);
+ 	}
+ 
+ 	if (!list_entry_is_head(vdev,
+@@ -2558,7 +2588,7 @@ static int vfio_pci_dev_set_hot_reset(struct vfio_device_set *dev_set,
+ 	list_for_each_entry_from_reverse(vdev, &dev_set->device_list,
+ 					 vdev.dev_set_list) {
+ 		if (vdev->vdev.open_count && __vfio_pci_memory_enabled(vdev))
+-			vfio_pci_dma_buf_move(vdev, false);
++			vfio_pci_unrevoke_bars(vdev);
+ 		up_write(&vdev->memory_lock);
+ 	}
+ 
+diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
+index d38e1b98b2e9..10833aabd7fb 100644
+--- a/drivers/vfio/pci/vfio_pci_priv.h
++++ b/drivers/vfio/pci/vfio_pci_priv.h
+@@ -83,7 +83,8 @@ void vfio_config_free(struct vfio_pci_core_device *vdev);
+ int vfio_pci_set_power_state(struct vfio_pci_core_device *vdev,
+ 			     pci_power_t state);
+ 
+-void vfio_pci_zap_and_down_write_memory_lock(struct vfio_pci_core_device *vdev);
++void vfio_pci_lock_zap_revoke_bars(struct vfio_pci_core_device *vdev);
++void vfio_pci_unrevoke_bars(struct vfio_pci_core_device *vdev);
+ u16 vfio_pci_memory_lock_and_enable(struct vfio_pci_core_device *vdev);
+ void vfio_pci_memory_unlock_and_restore(struct vfio_pci_core_device *vdev,
+ 					u16 cmd);
+diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
+index 7accd0eac457..93629b7fb8b8 100644
+--- a/include/linux/vfio_pci_core.h
++++ b/include/linux/vfio_pci_core.h
+@@ -127,6 +127,7 @@ struct vfio_pci_core_device {
+ 	bool			needs_pm_restore:1;
+ 	bool			pm_intx_masked:1;
+ 	bool			pm_runtime_engaged:1;
++	bool			zap_bars_on_revoke:1;
+ 	struct pci_saved_state	*pci_saved_state;
+ 	struct pci_saved_state	*pm_save;
+ 	int			ioeventfds_nr;
 -- 
-2.52.0
+2.50.1 (Apple Git-155)
 
