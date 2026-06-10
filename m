@@ -4,59 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDF2DCD98C7
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 22:51:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A8B0CD98C5
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 23:14:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 503B110EC02;
-	Wed, 10 Jun 2026 22:51:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E81F910E1DE;
+	Wed, 10 Jun 2026 23:14:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="O+jpXZim";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="YIUzjsVU";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF77010EC0B
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 22:51:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
- Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
- Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
- :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=EISVHFFgIuccdZ28R3wrcitK3cG5RBhXVy2buxZsbLU=; b=O+jpXZim7L1hxIBSoSTKaH/zya
- RAWe1i9FaQc8gyuDg9y8XYEL380blLNpcqgRS3nvDYdEFF8nvxZKV1oEdb+Kx4nd5AEsufR502Mcq
- bXR8T+r4ymeOllgNS6B2RYu1ewmXMI5gNgXL/RUD+oKREdlYy5TLEhSaB5kPZvA/En1kPp6u3xt1N
- 4tMEus3MOpatNgnkHyeAffJrM4f3FSzEKdN5LyHkXMUXHvURaeqUBMhBKAW+YZX6GwLdu7Jh+kcEd
- OR+bPrSjFj3wz628T/b3gxFWA0D6Td4RmwaVsg3QQ0SMnud2ufOCYiAB81ja22e0DEmgfCdr0Lus4
- kUGoZd2g==;
-Received: from [189.7.87.67] (helo=[10.0.0.1])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wXRlV-00FrrZ-Uy; Thu, 11 Jun 2026 00:51:18 +0200
-From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Wed, 10 Jun 2026 19:51:01 -0300
-Subject: [PATCH 3/3] drm/v3d: Use write_to_buffer() helper in performance
- query copy
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8127210E275
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 23:14:47 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 93A08228;
+ Thu, 11 Jun 2026 01:14:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1781133256;
+ bh=qvRqUmsXGAiDCeG0M6um26A7WMTRPlrJmdZSfx/38rI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=YIUzjsVUuTVsjBeaRQ6UDNmE5wjkRu6wotAeDPvLcf9dWwxUUSMN+myIgbzqcvMl8
+ oJnsm1svgDU+7UZA8+B7pdMOAYynWGxIapk/LGljVBjRiPEy05zoNTWq46CnBemi2C
+ GI+9s/SuBYtBiY1an0IDnFO37McHMckXzRSOWqfU=
+Date: Thu, 11 Jun 2026 02:14:44 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 1/7] clk: renesas: r8a779g0: Add DSC clock
+Message-ID: <20260610231444.GB1632628@killaraus.ideasonboard.com>
+References: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
+ <20260515-rcar-du-dsc-v3-1-164157820498@ideasonboard.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260610-v3d-cpu-job-fixes-v1-3-0d9c88989edc@igalia.com>
-References: <20260610-v3d-cpu-job-fixes-v1-0-0d9c88989edc@igalia.com>
-In-Reply-To: <20260610-v3d-cpu-job-fixes-v1-0-0d9c88989edc@igalia.com>
-To: Melissa Wen <mwen@igalia.com>, Iago Toral Quiroga <itoral@igalia.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1214; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=JIHYJ0yn03HbkLTTTVaDypE7s6zhM2tBXSmlHRyj+DA=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqKepaIpJRknds64JteWyyrpJFp2exE5oXj+6LM
- 6OSeybASCiJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCainqWgAKCRA/8w6Kdoj6
- qonrCAC+D6VzXP/0L3CS2ospkh/00ki+SkkTyqSKlU7oAV9QyOZnaz6vLOWXLLWjxo+i/lqcnHd
- lLjSFd2HQvThOXkVw5k8aHZpQtW6zS4OWc7e2b86GvdltYUUsLBmag5t4T2Nl29Lom8O5m0ny3g
- H+y6uKZ5SRi0qtZvqNwRDsmLrddDFne6mIDMJ3WZyqyyoSluqhYpOUy+k4rxrnyL5b27oZppc3X
- BkPeJOtxvcEdJ1P6h2KuYR0+SEch5xnZiKSj6XjcuBjBy4fpKiJ79wiuju7JDoG23QQvKN8LpUV
- ihqxr0owEk9s4MVZlePFX6HpMPXYWkIFuoaOFyzED6ZXqRH/
-X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
- fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260515-rcar-du-dsc-v3-1-164157820498@ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,39 +71,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The copy of performance query results to the output buffer open-codes
-the 32-bit/64-bit selection with two nearly identical loops. As the
-write_to_buffer() helper already encapsulates the do_64bit decision,
-use it instead of open-coding it.
+On Fri, May 15, 2026 at 12:09:26PM +0300, Tomi Valkeinen wrote:
+> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> 
+> Add the DSC module clock for Renesas R-Car V4H (R8A779G0) SoC.
+> 
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
----
- drivers/gpu/drm/v3d/v3d_sched.c | 11 ++---------
- 1 file changed, 2 insertions(+), 9 deletions(-)
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-index 53deae1a2eda..17751c8d7f16 100644
---- a/drivers/gpu/drm/v3d/v3d_sched.c
-+++ b/drivers/gpu/drm/v3d/v3d_sched.c
-@@ -594,15 +594,8 @@ v3d_write_performance_query_result(struct v3d_cpu_job *job, void *data,
- 
- 		v3d_perfmon_stop(v3d, perfmon, true);
- 
--		if (job->copy.do_64bit) {
--			for (j = 0; j < perfmon->ncounters; j++)
--				write_to_buffer_64(data, offset + j,
--						   perfmon->values[j]);
--		} else {
--			for (j = 0; j < perfmon->ncounters; j++)
--				write_to_buffer_32(data, offset + j,
--						   perfmon->values[j]);
--		}
-+		for (j = 0; j < perfmon->ncounters; j++)
-+			write_to_buffer(data, offset + j, job->copy.do_64bit, perfmon->values[j]);
- 
- 		v3d_perfmon_put(perfmon);
- 	}
+> ---
+>  drivers/clk/renesas/r8a779g0-cpg-mssr.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/clk/renesas/r8a779g0-cpg-mssr.c b/drivers/clk/renesas/r8a779g0-cpg-mssr.c
+> index 015b9773cc55..54ba76ff5ab0 100644
+> --- a/drivers/clk/renesas/r8a779g0-cpg-mssr.c
+> +++ b/drivers/clk/renesas/r8a779g0-cpg-mssr.c
+> @@ -245,6 +245,7 @@ static const struct mssr_mod_clk r8a779g0_mod_clks[] __initconst = {
+>  	DEF_MOD("fcpvx0",	1100,	R8A779G0_CLK_S0D1_VIO),
+>  	DEF_MOD("fcpvx1",	1101,	R8A779G0_CLK_S0D1_VIO),
+>  	DEF_MOD("tsn",		2723,	R8A779G0_CLK_S0D4_HSC),
+> +	DEF_MOD("dsc",		2819,	R8A779G0_CLK_VIOBUSD2),
+>  	DEF_MOD("ssiu",		2926,	R8A779G0_CLK_S0D6_PER),
+>  	DEF_MOD("ssi",		2927,	R8A779G0_CLK_S0D6_PER),
+>  };
+> 
 
 -- 
-2.54.0
+Regards,
 
+Laurent Pinchart
