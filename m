@@ -4,123 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4FCCCD8CB9
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 09:18:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90C76CD8CB9
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 09:19:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9461610E456;
-	Wed, 10 Jun 2026 09:18:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0395F10E837;
+	Wed, 10 Jun 2026 09:19:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nj8qchAR";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Z2LH+sX8";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011003.outbound.protection.outlook.com [52.101.52.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6681810E456;
- Wed, 10 Jun 2026 09:18:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SYGRFnoF6XjhaYQ1Eq4Rg/D2xhQ0QuRUiWIwjl3neJalw9eAXdyyrmOdq6i9cm57xvv0x0QHlSVSP1+gtkqwEJjfh2qCsixigAjZofS2oL70oj/MPkPP/f67HejWkKGnKFDJarh8/rJfwjkQyKuYNFEr6ICpBJUtpKQpVsK5bEqY0Dvah369Dkz5Ot0otu57+FpoaU6aw91/p3cyTvpkGjZB/AgKCrFLGcZXxd+RVLPAbRr+sDI+pG9HmDAnHUDqZHBEO56a78ve6W4qP8jIDN0Jf7liPW7UlHMutV+yqY6kDjeZmfDwPj/p+mOjp+cENN2fU/h6oyb80N8Q0vRycA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RgkdG2Y1AD8lhv2cL6ir2jbko+oZPva2+Y+/SnSyYw8=;
- b=T7qAlIXNiPXRUp0Gf4a+o7mjyFJkAoHdziJs4RFbe7I+R7KB5kXZXxc0BBjBG2BUofYx9URcTCrb9MwuZY8Q0Tv40twSwS7vVrAvwQNyM2Aud7bMkUVBVCMJWZdzDRGSRZqJyApFZGpZvY70sYHxjbuJlNO56EH8UM7fdT0B/jwYVL5Ye8SJxBtGCzDaIsvcS/kTaQDKH7wVMlCkicjT3l4ILKkPryBgThKystwPxySAx1MC6DCr7oaAqeOLJs5XfVltMEwVvNfUtJfpFRD6VxvqIo74APIIMndN+tGEnIIhxs5Na7sCzo9/sgibpj5s6eu6OzxdL8L3Ia861kUArw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RgkdG2Y1AD8lhv2cL6ir2jbko+oZPva2+Y+/SnSyYw8=;
- b=nj8qchARuVUITFAsl5Gx0Tblbmnua8idFfGl/LYjstZiLLZMPu8FsXoU6n2B8HKx9AYH5g2BIG5oPmJ7VSJKY8n5lRva+v76JBsWy+e/Bb39s3Ojw0e6fX6Frjzgu0xTUhuDAEEVxxiFcryRl+VrHOk0jULOo8DnuwsXILd2tpc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY8PR12MB8241.namprd12.prod.outlook.com (2603:10b6:930:76::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Wed, 10 Jun
- 2026 09:18:00 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Wed, 10 Jun 2026
- 09:18:00 +0000
-Message-ID: <f0041fae-2703-480b-be9a-51a1df964a01@amd.com>
-Date: Wed, 10 Jun 2026 11:17:56 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/radeon: fix r100_copy_blit for large BOs
-To: =?UTF-8?Q?Pavel_Ondra=C4=8Dka?= <pavel.ondracka@gmail.com>,
- amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
- stable@vger.kernel.org
-References: <20260610083245.1057241-1-pavel.ondracka@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260610083245.1057241-1-pavel.ondracka@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0177.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a0::14) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3032510E836;
+ Wed, 10 Jun 2026 09:19:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781083189; x=1812619189;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Y85qMLreVI0AHAcqUW1hyXsv77cphQzeMfTzLfhgTmc=;
+ b=Z2LH+sX8uZRn+GmS3yolV0UDs+tPb1fzV6xTUvgLTtz/nE2+eU2BKS/M
+ wdNuvKt0GDPsjw+0k+Vh+VPujIWHipkke3+/WQDzG+KYSd6jNbxXWbwkm
+ 9NEbbNJvqlHxaUlHXyvkZUoSGIT59ojLXTBQO+06JDrRUi+lb6bSkTLFV
+ +HIhGg+mLUCFbXNvUOWAnnYI/XA1MM1bzJuWSYC+yV5/kdIJcSq1w1ATe
+ C8JwEGx0VOdqD63Kihm1DTlzre+hf8ZDhzbnh67VRDYvZARPuDEJgVur8
+ 0sCACg9ZZi9qEyOgtO45X1cZrQTCQ3r/5oEMKguHpSNVH3E/sBq5gN2e+ g==;
+X-CSE-ConnectionGUID: lB/shqSOSbOFYr1ZmBjCUw==
+X-CSE-MsgGUID: oO1mg9I9RtqAQz2kCj6r/A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="104536293"
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="104536293"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2026 02:19:49 -0700
+X-CSE-ConnectionGUID: tuJW+hsWT0KKsIk6XLFOyg==
+X-CSE-MsgGUID: Ew732dcuRYawJeoLlRNvEg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="250055004"
+Received: from amilburn-desk.amilburn-desk (HELO [10.245.244.17])
+ ([10.245.244.17])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2026 02:19:47 -0700
+Message-ID: <3ba98ec2-ea1f-4074-b1cc-456fca283ef8@intel.com>
+Date: Wed, 10 Jun 2026 10:19:44 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB8241:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0e2ffeaa-7aa2-40d6-001b-08dec6d12a91
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|56012099006|11063799006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: vX+f30jWrkDzJgctKm/UClhefaJxq2wLnWndq5kaNlt50kUxwgARL0VwuhFZU+y79Jz7xs8qPzoUDO5RJ0QxGJhnLsCfYGd57oTiYp4B67Ui6EWAZD9JdpWNjIWZdZolQkfgFEEDgQqa87vn89GuNLfl1IBjHBu/LMvfqtussqj6zzV1m1MntDu4jVH6Fe/1QVMdWf2wFLYXtNGR350WQ8QxLs6tlDdo9ROkUMnSnn/9UgQBt7IckXvAy8nn2zPJDJ3m6Rh1fitKXJOVnnSuJ45hh+Zcm9mEDcnDlLQMo2G/4LaRbExKfh9jemICqijy8jkAl48WKvxYOhQ3EvqMCYvmmhegU3v0orAGM6CmKAIsPzvtP1wyTjt4K6zrZnuRBgqdzbiH+7SSvDRJWdUofbFuG1Iry1P09QqcGOchDN6ivZwVStUuSIBZpNvfgUZ9NYwX6BOuJPn+Bkkf64WthDnE3H6vsuP7EXAwiGt/KMLD3lOYSfriM4SBNxQff/ADeSu2X2JCjtBF6QBGdcj9gEFh6Vh7ix9BokFQO5kFhAak7wzBxEQaijsPyihXtHZ77DJ/iZoEZl88jTp+AWFX/d8ScxOsMUb44FUn6PWrnuIpniQbR0BTOKCz1vCRy/kTDlCbzAWx4x9pS8WD0H2AlZlOFVAL50WiCIlwxAJf3J67t8Gid44jTT8mOVQBJNe5
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(56012099006)(11063799006)(6133799003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OG5oV2NiZExRYUtxN3JxRk9nR1ZGS2VQbW1MYjY2eWhVMTVCOVh4Vk1jVGhn?=
- =?utf-8?B?RkxSdXl2bnl6em1Da3M3T3lXQXFZWE1aSDlnVkg3OXJzNndUQUZQd0pJSzAw?=
- =?utf-8?B?RENJeUo4WVpZU1ZHYlVWYWxKdFc2K0VrWUs3TW5qd3lBNHRKUTlVM1B3NWJG?=
- =?utf-8?B?SGdEMnZkRUpSTkxRM1JTN2hIRTYzYUtOM2dkQmhjSVVzV3BnSXR6RHRneEJQ?=
- =?utf-8?B?UWdNaGRQVVZMY0ZtZHhFUGk1WFoxZXA5ZGJpQkpKRDk5cjlJRkppNldqclk1?=
- =?utf-8?B?VlpZbnRmZXRjZzlOQzRGWnNqd0FMZWxlSEg3MkZlWFAvdFlyT2kwZDk2dVJv?=
- =?utf-8?B?MlczbFhLenA0U1haVkV3eHNiYTJsSEIrUzJHMnUxbTN5NThmUHRlUmZZdGR3?=
- =?utf-8?B?cW9wdWY0M1JwMTM2ZzNYWlRuQ216MUlRS3pWK3hIMFVTeGRwcXJpT3YxUzB0?=
- =?utf-8?B?WUUzc1BucHo1MnAvQnBvUXN2L2tmK1NWK25CTW5ISE5pWDVBallvNFpDSTg1?=
- =?utf-8?B?bE9wY0QvNy9FQjBmeURjcmZqZThBRVVUSTRFeFVnSXBDMWljNXZuZXZ1VE5E?=
- =?utf-8?B?ekZITklFSTR5Y1RNc2Z0aHY1dkxMM2NjSHhMZVhzL0hUc1k2dERML1VRM2Zi?=
- =?utf-8?B?ZzNwc1BTdzUzSS9ibGI5bzRPTEZYd05NOURjZ0pMTnBGL2Q4REFrbmN1UFhT?=
- =?utf-8?B?MktmTFF5Y1RINlUrd2dkV1A1SEZqMVhVVUtmMUxObVg4bFRrS0UvR1dZa3h4?=
- =?utf-8?B?Zld6Y1kydW9QdUpCYUgvNGdtTVE0WlNPTjJwM1V2bTU2bEZFaWRWMnlaT1U5?=
- =?utf-8?B?WGN1NTFpVlJDcVViekxzTi9xR1hVdDhKaTBUZzlVVkViMmY3VzB1L0NqR0pv?=
- =?utf-8?B?dElmeDNBbWxPS2svZVdwazBBSEhBWXc4SVpydXVmV0FRQ1VKWkp1S05yUURJ?=
- =?utf-8?B?SUd6VUw3TmQyclQ0UTRybUZ3cE1admhIaDEvQTZqMmdIMnFIY2xVaUxJOFRn?=
- =?utf-8?B?RFFTRHNHS1pHNUpaUVd0WE5HMU0wZXJPTVFRVHRzRHJ6RWhrRHVrbU1HYWlL?=
- =?utf-8?B?RFZ3SENwRVhFM012ZkRhOU1NYlNKemdUeWlaNlVaL2tpUTJCZUJ4QWIxTnZQ?=
- =?utf-8?B?ZndCd0pXMnh6WFNKcmxvTDhBNklUSlA4RzFJZGM5LzlrdjdUNFFDTUM0YzBE?=
- =?utf-8?B?ZnE0MjVHNHA1ZWhaU3RXR0dkdHBpNzFLM3hCWlUrcGxLMThZQm5rak56YURy?=
- =?utf-8?B?OTZoOTQzMlQ1QW1NYWN2VndqbHJ2SDR6YTdSSURUOEhzN2FJWWI3RDNYWEQ3?=
- =?utf-8?B?RExIR0FIa01nNEZ0b1QyNC9oeWpmL0gzRVZqQUp5LzJZOWgxaFFaOHZ1N0cv?=
- =?utf-8?B?MWMyWGxKMGZhSzBueXRyT2ZEOFFQRjdldVpGVnlSb0EwNkRNeHMvWXUwbDIy?=
- =?utf-8?B?Y3ovbC9yVnZqaVpHT0E1WTlOTE5qWEszd2VVdTIvUk82aklRVC9CdVpjQnVV?=
- =?utf-8?B?UjVCWDQ4cFFQb2VMZ3k3YktORFVOVkswZ1ZyUlhFUGlSazBWcDFCTE5xdVZ6?=
- =?utf-8?B?Q0dDeEFjNVVzNGRObTRmcld0NGNMK0dGdThhRkpWYjJNbG9YSEVIT1hNQmtm?=
- =?utf-8?B?R01sbUxQUXZyak1nSHlycnFoZmZEZXUrWnJ1TlFucVEvK0wyRzBLVjdteVRn?=
- =?utf-8?B?MFNnbzZrT1lsMTFhVTcweEN5UHpYaEkvL3JsM3laOVAvVTlsbUhSS0FMOHN0?=
- =?utf-8?B?UjF5R0FISUxYUnhYOUdUb3krajlRY1cvY1JRanlkWVdtY2hFbDJ2R1k4Szdy?=
- =?utf-8?B?WXhGamlvNmMyZ00zNEFOSFhtWHAxYzQ0bUJHT1RYSEVNaFFnU1RURy9LZG5L?=
- =?utf-8?B?d1dSY0ZLV29LN0xDNS91OSs3WnYwb1ZZVlUyWVZDUHR4WEltWkVHWmhWcUp5?=
- =?utf-8?B?aldRbENJeU9IREdMclA5eFhUYWRuU1pyb09DcVU0b2lzc0tIaStSSVlBdXpU?=
- =?utf-8?B?NHdqR08xWm1xMEVWN2cyT21tbi8yV2I4NG1aRDVMQVJkdlZLR3FFSUhDTTR0?=
- =?utf-8?B?bTdhbWRxRjBITWFsamcwUis2eC93YzQ5MHllTWs3M0s3S0YzenExL0UvUzFG?=
- =?utf-8?B?cTZFZmtmbEJUV0N3SHhoQUJTS3JQN0FZS3h4TjNNZ0pueUF4T2JGS2l3cGRw?=
- =?utf-8?B?WnRscWFhblA4R0lTOEUrQU5YOGEvdTd2ckllYmcvN1hNc1d3eVFYeEtuUTNw?=
- =?utf-8?B?bDVpUnpreWNlWVYvYkxFTG1sazRueStLNG1Hc3pJMFFXVW5KTU9LaTJxYWN2?=
- =?utf-8?Q?W3sdLgdRvyNGqqRrWN?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e2ffeaa-7aa2-40d6-001b-08dec6d12a91
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 09:17:59.9676 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MOX6ANJSvSoxYqy6tnPv5bXXo+ii9TKpZA0809MtRtCiHy2+hP1av6AbdstOvjmM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8241
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] gpu/buddy: replace dual-tree/force_merge with
+ decoupled clear tracker
+To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com
+References: <20260527112902.3815-1-Arunpravin.PaneerSelvam@amd.com>
+ <c9cdcf8a-d531-4e79-a238-97fd39b8c108@intel.com>
+ <9b0add60-9bca-44dc-a95d-be289ea2d3c1@amd.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <9b0add60-9bca-44dc-a95d-be289ea2d3c1@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,85 +76,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/10/26 10:32, Pavel Ondračka wrote:
+On 01/06/2026 11:51, Arunpravin Paneer Selvam wrote:
 > 
-> r100_copy_blit() copies BOs as 1024-pixel-wide ARGB8888 blits, so one
-> GPU page becomes one blit row. Large copies are split into chunks of at
-> most 8191 rows.
 > 
-> The kernel register header names the packet coordinate dwords SRC_Y_X
-> and DST_Y_X. In the BITBLT_MULTI description in
-> R5xx_Acceleration_v1.5.pdf docs, these correspond to [SRC_X1 | SRC_Y1]
-> and [DST_X1 | DST_Y1], which are signed 13-bit coordinates in the
-> -8192..8191 range. The old code kept SRC/DST_PITCH_OFFSET at the BO base
-> and used SRC_Y_X/DST_Y_X as the chunk address, so large BO moves could
-> exceed that coordinate range.
-> 
-> Compute per-chunk SRC/DST_PITCH_OFFSET bases and emit zero source and
-> destination coordinates. r100_copy_blit() already packs
-> SRC/DST_PITCH_OFFSET as pitch plus base offset, so large chunk addresses
-> belong there rather than in the coordinate fields.
-> 
-> This fixes Prison Architect corruption with 4096x4096 mipped textures
-> after they are evicted to GTT under memory pressure on RV530.
+> On 5/29/2026 11:11 PM, Matthew Auld wrote:
+>> Hi,
+>>
+>> On 27/05/2026 12:29, Arunpravin Paneer Selvam wrote:
+>>> The current buddy allocator maintains separate clear_tree[] and
+>>> dirty_tree[] rbtrees per order, preventing coalescing between cleared
+>>> and dirty buddies. Under mixed workloads, this creates a merge barrier:
+>>> adjacent buddies frequently end up split across trees, forcing reliance
+>>> on __force_merge() during allocation.
+>>>
+>>> __force_merge() performs an O(N x max_order) scan under the VRAM manager
+>>> lock, leading to allocation stalls and failures for large contiguous
+>>> requests even when sufficient total free memory is available.
+>>
+>> So is this contig with non power-of-two sizes?
+> Both power-of-two and non-power-of-two contiguous requests are affected 
+> - in either case, the required higher-order block can't form when its 
+> lower-order buddies are separated by clear/dirty state across the dual 
+> trees. But the core issue we are seeing is VRAM fragmentation caused by 
+> massive small allocations (e.g., thousands of 4 KiB–8 KiB buffers) that 
+> end up split across clear and dirty trees, preventing buddy coalescing. 
+> This leads to allocation failures and OOM in later workloads even when 
+> sufficient total free VRAM is available.
+>>
+>> Do we know if we could force_merge everything in one go or somehow be 
+>> more aggressive and do more than needed now, at the first sign of 
+>> contention here, instead of doing it piecemeal? Downside would be 
+>> losing more of the clear tracking, when this happens, but more re- 
+>> merging.
+>>
+>> Could we have another per-order list, of all blocks that we failed to 
+>> merge, when we did the free step? When doing the force merge step, we 
+>> maybe don't need to search blindly and can focus instead on the stuff 
+>> tracked in those lists? Maybe it doesn't need to be a list, but could 
+>> be another rb-tree?
+>>
+>> We know the size of the total allocation, if we trigger force_merge, 
+>> could we try to merge enough in one go for the entire allocation, 
+>> instead of restarting the entire thing on the next iteration? Would 
+>> that help at all?
+>>
+>> But I guess these are more for the stalling side, and won't help much 
+>> with the contig angle?
+> The memory is highly fragmented into mostly 4 KiB chunks and small 
+> scattered blocks across the dual trees, so although total free memory 
+> exists, it is split into low-order fragments. The workload then requests 
+> very large contiguous allocations (tens of GBs, e.g., ~64 GiB), which 
+> fail with OOM because the allocator cannot form sufficiently large high- 
+> order blocks from the fragmented space. We could go with more aggressive 
+> merging or merge-in-one-go approaches, but this might waste more cleared 
+> memory. I think fundamentally the buddy allocator should be allowed to 
+> merge unconditionally - the single-tree approach with unconditional 
+> coalescing would improve the fragmentation and benefit contiguous 
+> allocations along with addressing the stalling and latency issues.
+>>
+>> For the extent idea, is there any merit in maybe doing this for all 
+>> contig blobs, and not just cleared stuff? Or is the workload you are 
+>> seeing only benefit users that want cleared stuff? Wondering if this 
+>> would benefit all users that want contig? Like if we hypothetically 
+>> kept clear and dirty separate, like we do now, but with an improved 
+>> force_merge, and then have extent tracking for all contig blobs and 
+>> replace the try_harder stuff? When you do a contig alloc, the 
+>> individual clear/dirty is still all there within the range, so you can 
+>> skip re-clearing in some cases. I guess downside is overall more fuzzy 
+>> contig + clear/free path, but I guess you would never get allocation 
+>> failures, when there is sufficient contig space?
+> Yes, extending extent tracking to all contig allocations has merit, but 
+> the core problem remains - with the dual-tree design, we still need 
+> force_merge to undo the clear/dirty split before those extents can form. 
+> In cases like heavy small-allocation workloads (thousands of 4 KiB 
+> buffers) running first, the memory ends up massively fragmented across 
+> both trees. When a very large contiguous allocation (e.g., ~64 GiB) 
+> comes in later, the allocator fails with OOM even though sufficient 
+> total free memory exists, because the extent tracker can't find a 
+> contiguous range that was never allowed to merge in the first place. I 
+> think the dirty/clear split is fundamentally the problem - allowing the 
+> buddy allocator to merge unconditionally removes this barrier, and the 
+> clear tracker can then be layered on top as an optimization without 
+> blocking coalescing.
+>>
+>>>
+>>> Solution
+>>>
+>>> Replace the dual-tree design with:
+>>> - A single free_tree[order] rbtree for dirty and mixed free blocks
+>>>    (fully cleared free blocks float outside this tree)
+>>> - A lightweight out-of-band clear tracker (gpu_clear_tracker)
+>>>
+>>> Fully cleared free blocks are tracked outside the buddy trees using an
+>>> augmented interval rbtree, enabling O(log E) lookup of the largest
+>>> cleared extents.
+>>>
+>>> Buddy coalescing is now unconditional in __gpu_buddy_free(), regardless
+>>> of clear/dirty state. This removes the merge barrier and eliminates the
+>>> need for __force_merge().
+>>>
+>>> Benefits
+>>>
+>>> - Correct high-order allocations after mixed clear/dirty workloads
+>>> - Elimination of O(N x max_order) merge cost from the allocation path
+>>> - O(log E) cleared-extent lookup replacing O(N) scans
+>>> - Predictable allocation latency under fragmentation
+>>> - Reduced complexity with a single tree per order
+>>
+>> Since there is no separate tracking for dirty stuff, is the non- 
+>> cleared alloc path a bit more "fuzzy" now, with it potentially 
+>> stealing cleared memory, or is it the same behaviour still?
+> Right, on v4, the dirty and mixed (partially cleared) blocks are 
+> allocated for the non-cleared alloc path, which can end up stealing 
+> cleared memory. On v5, I plan to address this with a three-tier dirty 
+> allocation fallback: dirty → mixed → clear, driven by rbtree augment 
+> bits (subtree_has_dirty, subtree_has_mixed), each pass O(log N). The 
+> split-descent also applies the same preference at every level when 
+> carving a higher-order block, so cleared memory is preserved as much as 
+> possible and only used as a last resort.
+> Thoughts ?
 
-Wow, impressive piece of work. 
+No objections from me. Do you want me to still look at v4 in depth, or 
+wait for v5? I only really looked at this from high level.
 
-> Closes: https://gitlab.freedesktop.org/mesa/mesa/-/work_items/6716
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Pavel Ondračka <pavel.ondracka@gmail.com>
-
-Acked-by: Christian König <christian.koenig@amd.com>
-
-Thanks a lot for digging into this,
-Christian.
-
-> ---
->  drivers/gpu/drm/radeon/r100.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
+>>
+>> For drivers that don't use free tracking, is there some benefit? Are 
+>> there any downsides there? I assume that clear tracker is always empty.
+> Correct, for drivers that don't clear memory, the clear tracker is 
+> always empty and they simply allocate from the free_tree[]. Benefits:
 > 
-> diff --git a/drivers/gpu/drm/radeon/r100.c b/drivers/gpu/drm/radeon/r100.c
-> index 3ac1a79b6f13..533215d6e9cb 100644
-> --- a/drivers/gpu/drm/radeon/r100.c
-> +++ b/drivers/gpu/drm/radeon/r100.c
-> @@ -906,6 +906,7 @@ struct radeon_fence *r100_copy_blit(struct radeon_device *rdev,
->  {
->         struct radeon_ring *ring = &rdev->ring[RADEON_RING_TYPE_GFX_INDEX];
->         struct radeon_fence *fence;
-> +       uint64_t cur_src_offset, cur_dst_offset;
->         uint32_t cur_pages;
->         uint32_t stride_bytes = RADEON_GPU_PAGE_SIZE;
->         uint32_t pitch;
-> @@ -934,6 +935,10 @@ struct radeon_fence *r100_copy_blit(struct radeon_device *rdev,
->                         cur_pages = 8191;
->                 }
->                 num_gpu_pages -= cur_pages;
-> +               cur_src_offset = src_offset +
-> +                       (uint64_t)num_gpu_pages * RADEON_GPU_PAGE_SIZE;
-> +               cur_dst_offset = dst_offset +
-> +                       (uint64_t)num_gpu_pages * RADEON_GPU_PAGE_SIZE;
+> Single tree per order instead of dual trees (fewer rbtree operations)
+> No force_merge path at all (unconditional coalescing at free time)
+> Simpler code path overall
 > 
->                 /* pages are in Y direction - height
->                    page width in X direction - width */
-> @@ -950,13 +955,13 @@ struct radeon_fence *r100_copy_blit(struct radeon_device *rdev,
->                                   RADEON_DP_SRC_SOURCE_MEMORY |
->                                   RADEON_GMC_CLR_CMP_CNTL_DIS |
->                                   RADEON_GMC_WR_MSK_DIS);
-> -               radeon_ring_write(ring, (pitch << 22) | (src_offset >> 10));
-> -               radeon_ring_write(ring, (pitch << 22) | (dst_offset >> 10));
-> +               radeon_ring_write(ring, (pitch << 22) | (cur_src_offset >> 10));
-> +               radeon_ring_write(ring, (pitch << 22) | (cur_dst_offset >> 10));
->                 radeon_ring_write(ring, (0x1fff) | (0x1fff << 16));
->                 radeon_ring_write(ring, 0);
->                 radeon_ring_write(ring, (0x1fff) | (0x1fff << 16));
-> -               radeon_ring_write(ring, num_gpu_pages);
-> -               radeon_ring_write(ring, num_gpu_pages);
-> +               radeon_ring_write(ring, 0);
-> +               radeon_ring_write(ring, 0);
->                 radeon_ring_write(ring, cur_pages | (stride_pixels << 16));
->         }
->         radeon_ring_write(ring, PACKET0(RADEON_DSTCACHE_CTLSTAT, 0));
-> --
-> 2.52.0
+> No real downsides - the clear tracker adds zero overhead when empty, and 
+> the augment bits would simply show all blocks as dirty, so the walk 
+> degenerates to a normal rbtree lookup with no extra cost.
+> 
+> Regards,
+> Arun.
+> 
 > 
 
