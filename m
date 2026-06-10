@@ -4,87 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C9B6CD98C7
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 08:19:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63B52CD98C7
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 08:26:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D13ED10E7CB;
-	Wed, 10 Jun 2026 08:19:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6EED10E7C0;
+	Wed, 10 Jun 2026 08:26:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="b+KKxMDO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D7euH2ph";
 	dkim-atps=neutral
-Received: from out-174.mta1.migadu.com (out-174.mta1.migadu.com
- [95.215.58.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B694C10E7D3
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 08:19:54 +0000 (UTC)
-Message-ID: <2399841f-d834-4652-8285-4a15c7d9a9b9@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1781079581;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vgeT73qC1JMBtqJB2TUIr+4bit/wHx6kJFn5Pav/2f4=;
- b=b+KKxMDOPPD9issjhumw6+KGbYM7wMtezvy5jEnscI0CZYz2NKMOHn33g1ku+yIj4Y2DTn
- +Yag6Z6BDFL2Y2GchMx0dVC5s3t6GNYZv4TV2TeNkysaubM7HMus5UBFldLUBxBN8KRyYZ
- t05b5xvQnStTsnzUuvWsLluFbGiay9I=
-Date: Wed, 10 Jun 2026 16:18:28 +0800
-MIME-Version: 1.0
-Subject: Re: [PATCH v2 00/14] list: Prepare entry iterators to cache cursor
- state
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Davidlohr Bueso <dave@stgolabs.net>, "Paul E . McKenney"
- <paulmck@kernel.org>, Josh Triplett <josh@joshtriplett.org>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Eddie James <eajames@linux.ibm.com>, Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Laxman Dewangan <ldewangan@nvidia.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4978410E7C0;
+ Wed, 10 Jun 2026 08:26:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7F6146001A;
+ Wed, 10 Jun 2026 08:26:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0BD31F00893;
+ Wed, 10 Jun 2026 08:26:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781079989;
+ bh=N/meOR8qXZA62uzXKo7V6ddIdrYaFI08nRHNwkyigvU=;
+ h=From:To:Cc:Subject:Date;
+ b=D7euH2ph0IRx5agO0gaC8kNCg/qxTzdB45LZ2MgtRE8hNgp+rHYbfSzV/BxQenHYt
+ TP2nltVdTft9SDuhDqRmw+wQooocWHUmfwcB8HKm0aGCpn9O8THjjXKx0m1CS3OQ/J
+ sDMYRZHbhlRkW+zLElSrMNaPRwOQLgtfkOa9F3Ar6CgvH5ieWV7/ghVK59n5TzAkZJ
+ Ylsrhsj0BVWhyC2wLCW0w6GpNIuAitcUz+uJTaq3WGymLeW3a8oqNWgPUe9oyPGLfd
+ Innx51sYQo1imPN23H03RIBohDSnnK3GykmMCvai/IYofIUQ2AnOq2vTtMGYVXY5mF
+ aLmhVJm61TNhA==
+From: Philipp Stanner <phasta@kernel.org>
+To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Waiman Long <longman@redhat.com>,
- drbd-dev@lists.linbit.com, linux-block@vger.kernel.org,
- linux1394-devel@lists.sourceforge.net, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-spi@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Christian Brauner
- <brauner@kernel.org>, David Howells <dhowells@redhat.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Kaito Cheng <chengkaitao@kylinos.cn>, Muchun Song <muchun.song@linux.dev>,
- Philipp Reisner <philipp.reisner@linbit.com>,
- Lars Ellenberg <lars.ellenberg@linbit.com>,
- =?UTF-8?Q?Christoph_B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
- Jens Axboe <axboe@kernel.dk>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
- <bd0b7393-8ccb-4d67-8bfc-18c68347122c@amd.com>
- <5152089a-2808-4fe9-b633-b03018105dd2@linux.dev>
- <6b2efdee-95b0-4306-a682-0d0466497ddb@amd.com>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Kaitao Cheng <kaitao.cheng@linux.dev>
-In-Reply-To: <6b2efdee-95b0-4306-a682-0d0466497ddb@amd.com>
-Content-Type: text/plain; charset=UTF-8
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ Philipp Stanner <phasta@kernel.org>
+Subject: [PATCH] drm/nouveau: Document weird looking bugfix
+Date: Wed, 10 Jun 2026 10:26:03 +0200
+Message-ID: <20260610082602.1292853-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.54.0
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,90 +61,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
+fixed a race. To do so, it replaced the automatically locking
+dma_fence_is_signaled() with manual locks plus
+dma_fence_is_signaled_locked().
 
+For someone browsing through the code, this reads very much like a
+cleanup or rework leftover. Future contributors and / or new maintainers
+not familiar with the history might be tempted to remove that bugfix.
 
-在 2026/6/10 16:07, Christian König 写道:
-> On 6/10/26 08:14, Kaitao Cheng wrote:
->> 在 2026/6/9 18:33, Christian König 写道:
->>> On 6/9/26 08:13, Kaitao Cheng wrote:
->>>> From: Kaito Cheng <chengkaitao@kylinos.cn>
->>>>
->>>> This series prepares for, and then updates, the list_for_each_entry()
->>>> family so the common entry iterators cache their next or previous cursor
->>>> before the loop body runs.
->>>
->>> Why in the world would we want to do that?
->>>
->>> The safe and non-safe variants have very distinct use cases and that is completely intentional.
->>>
->>> What we could improve maybe is the documentation, from my experience an astonishing large amount of people have misconceptions about the safe variants.
->>>
->>>> The first 13 patches open-code loops that intentionally depend on the
->>>> old "derive the next entry from the current cursor at the end of the
->>>> iteration" behaviour.  These loops append work to the list being walked,
->>>> restart traversal after dropping a lock, skip an entry consumed by the
->>>> current iteration, or otherwise adjust the cursor in the loop body.
->>>
->>> Well I have to clearly reject the changes for subsystems/components I'm maintaining, that just looks horrible to me and I clearly don't see a good reason for that.
->>
->> Hi Christian and Andy Shevchenko,
->>
->> Thanks for taking a look. I would like to clarify the point you raised.
->>
->> The reason I started looking at this is the original motivation behind
->> the _safe() variants.  They exist because some users need to remove, move
->> or otherwise consume the current entry while walking the list.  In that
->> case the next cursor has to be preserved before the loop body can modify
->> the current entry.
->>
->> The unfortunate part is that this could not be expressed with the
->> existing list_for_each_entry() interface without changing its calling
->> convention.  The _safe() variants had to grow an extra argument for the
->> temporary cursor, and that is why we ended up with a separate family of
->> macros.
->>
->> But conceptually, the distinction does not have to be exposed as two
->> different iterator families forever.  The difference is an implementation
->> detail: whether the iterator keeps the next/previous cursor before the
->> body runs.  This series makes the common list_for_each_entry() iterators
->> do that internally, so the safe and non-safe forms can effectively be
->> folded together, or at least the need for a separate public _safe()
->> interface becomes much weaker.
->>
->> There is also a usability issue with the current _safe() interface.  The
->> caller is forced to define a temporary cursor outside the macro and pass
->> it in, even though almost all users never use that cursor directly.  It is
->> just boilerplate required by the macro implementation.  I find that
->> redundant and awkward: the temporary cursor is an internal detail of the
->> iteration, but every caller has to spell it out.
->>
->> With the updated list_for_each_entry() implementation, that extra cursor
->> can be kept inside the iterator itself.  Callers that only want to walk
->> the list, including callers that delete or consume the current entry, no
->> longer need to carry an otherwise-unused temporary variable just to make
->> the macro work.
-> 
-> Well the distinction between list_for_each_entry() and list_for_each_entry_safe() is *not* there because you need an extra variable to hold the next pointer, but because just 'iterating the list' and 'iterating the list while you modify it' are two distinct use cases.
-> 
-> Apart from the technical implications this also has some documentation value for the code using it.
-> 
-> What we could consider with C99 at hand is to have _safe() variants who uses a local hidden variable to hold the next element.
-> 
-> Or maybe come up with a better name instead of _safe() because people seem to misunderstand that quite often.
-> 
-> But mangling the two use cases together just because it is now technical possible is among the worst ideas I've ever heard.
-> 
+Document the bugfix.
 
-Should we revert to v1, or keep list_for_each_entry() and
-list_for_each_entry_safe() as they are, close this thread, and make no
-changes?
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+(I did not test this)
+---
+ drivers/gpu/drm/nouveau/nouveau_drm.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Link to v1:
-https://lore.kernel.org/all/20260529082149.76764-1-kaitao.cheng@linux.dev/
-
-Or do you have any better suggestions?
-
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+index 42a81166f3a9..519a0c164a72 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+@@ -159,6 +159,13 @@ nouveau_cli_work_ready(struct dma_fence *fence)
+ 	unsigned long flags;
+ 	bool ret = true;
+ 
++	/*
++	 * This is not a cleanup / rework leftover, but a bugfix to prevent a
++	 * race with someone signalling the fence. The locked
++	 * dma_fence_is_signaled() cannot be used. The dma_fence implementation
++	 * is not fully synchronized with locks, but also uses atomic bits,
++	 * which can cause the dma_fence_put() below to be executed too soon.
++	 */
+ 	dma_fence_lock_irqsave(fence, flags);
+ 	if (!dma_fence_is_signaled_locked(fence))
+ 		ret = false;
 -- 
-Thanks
-Kaitao Cheng
+2.54.0
 
