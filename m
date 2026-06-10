@@ -4,42 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A14DDCD8CB9
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 16:39:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F57FCD8CB2
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 16:44:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09B7710EA99;
-	Wed, 10 Jun 2026 16:39:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA0BC10EAD9;
+	Wed, 10 Jun 2026 16:44:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aCjQO0gl";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="M+L3507K";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8C9210EA8E
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 16:39:46 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8F645435A6;
- Wed, 10 Jun 2026 16:39:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4120B1F00893;
- Wed, 10 Jun 2026 16:39:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781109586;
- bh=C5yZnnuIZx0eg8btj+8fLipi6owPMvQ39mkGD/+gVkI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=aCjQO0glLE4r5VO3Xznjj03VYOBOdRZeGvb7GAYprTIKEoHBDTwZlfnpVBj2ydt2t
- MMMamEmlxa04hQUUawrX4i0IeQpbOx70ixHPUTt3ZZK6dJpm5dcOQvbxdNMs2WCPt5
- cBrwAEjs0VdJUuMp8E08f4mf4TBrB9gfgSD/IS7JKRHcs4YoFeUGvsLGmCmeGDmnPf
- FeV/klFkkTDLT1uX9wDPwEevXApbNLV8GFmSlw8F1oyd+0mDTldIgCEyN+Ss2qKn9r
- 5MPhnXMW+hFb7rVoiQob3sW5VF51y/2kmsz+W7eK8x5S4QaqXNp+boUXSNlhV47F4R
- Oy64ZHGFug6dQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v20 2/4] rust: drm: gem: shmem: Add vmap functions
-To: "Lyude Paul" <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
-In-Reply-To: <20260610162433.923550-3-lyude@redhat.com>
-References: <20260610162433.923550-3-lyude@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 16:39:45 +0000
-Message-Id: <20260610163946.4120B1F00893@smtp.kernel.org>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FDFE10EAD9
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 16:44:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1781109843; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=W3DVy9ai91/MZNd3MQIEGkGlzzLEEaAl94vNFBne7iMIVI2oltThXwAG+RZZXwFWyc85s+0YRWxqbTInQ5J5GAb7+BUIvm7Ck3BSBqI6y7y0SEj7pBe0yGe8AV9MrrJaAFY+bHvXBrHBG1GqxR1mf0Qclaa3tVc4iRi4xRXrKBc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1781109843;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=gtENxBZjziSSkB1Yavy3BeZxEK4epvnbYx6xO+JNltA=; 
+ b=hG2icteXpSjx/y4zi6QGSE76JBeuEplgl3IpEH0GPP8HxAR89xfJ3J8tYRI0J1rSFGyaAUWZVWxgy9gkfEZUJRHcIxcFTEGftpJJ0JiDWwpaRR6bycW7R0ld74Ovo07XREHkjQLbE0PCEFcgWzOXptnLOetjPyfW+bUaeNKRKHw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781109843; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
+ bh=gtENxBZjziSSkB1Yavy3BeZxEK4epvnbYx6xO+JNltA=;
+ b=M+L3507KZY+snMRhd9hx4MbeH9wcNbGnv74nYCc19nRHJavoNNREV65tZMT/QGol
+ bg5Gl27pi1H2ws1NUkR18S1WKhtVaWA9kv8Rw3RzIZhcohTp/xRzg2Oi7DlVm6svfft
+ FysSOK9poRQz5yqhLuRXONg3aLUG7g0PUZIPUo6c=
+Received: by mx.zohomail.com with SMTPS id 1781109841687805.4275002037951;
+ Wed, 10 Jun 2026 09:44:01 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Wed, 10 Jun 2026 18:43:43 +0200
+Subject: [PATCH v3] drm/tests: Move test EDID data to separate .c file
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260610-test-edid-array-definition-fix-v3-1-8ba947c1c453@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WOwVLDMAxEfyXjMwInNU7aE//R6UG2FSqmiYvsZ
+ tLp5N9xU7hwgpt2tPt2byqRMCW1q25KaOLEcSxi81Qpf8TxnYBD0arRjdW21pApZaDAAVAErxC
+ o55FziUHPM5hN79FQa51GVSBnKf95LdgfHjpd3Af5fKd+O4Q+L6U5P2zKYSLwcRg476ogAwyc/
+ MvPASPNWd1ZR045ynXdPtVr9K8zpxpqMMa2Dk3Xdp198/F0QhcFn0vzip+a/yGbgtwGMla/etP
+ Z7W/ksixfJY8DY28BAAA=
+X-Change-ID: 20260610-test-edid-array-definition-fix-43fca4e76b0a
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Daniel Stone <daniel@fooishbar.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ kernel@collabora.com, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,181 +70,2055 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] VMap unconditionally implements Send and Sync without requiring it=
-s generic parameter R to be Send or Sync.
-- [High] The Sync implementation for VMap combined with its IoCapable trait=
- implementations allows safe concurrent volatile writes to the same memory =
-location, causing a data race.
-- [Medium] Off-by-one error in vmap_io kunit test loop prematurely terminat=
-es the test, preventing verification of the final byte.
-- [Low] Struct VMap fails to compile due to unused generic type parameters =
-D and C.
---
+Having the test EDID arrays defined in the .h directly will duplicate
+them across every user of the EDID arrays. This works fine as long as
+there's only one user, but may produce build warnings/errors when there
+are multiple users and not all of them use all definitions.
 
-commit 2c1f27a93b4873be7178ca4b1861ef62ac59a6b1
-Author: Lyude Paul <lyude@redhat.com>
+Move the array definitions to a new .c file, and mark the declarations
+in the header as "extern" to avoid the linker throwing a fit, and give
+them an explicit size (either 128 or 256, depending on EDID) to avoid
+the compiler inferring that they must be size 1.
 
-rust: drm: gem: shmem: Add vmap functions
+Reported-by: Jani Nikula <jani.nikula@linux.intel.com>
+Closes: https://lore.kernel.org/r/04ff70850213ae0f75486b1a27a7edb6fb4e71c3@intel.com/
+Fixes: ce1d0139adac ("drm/tests: bridge: Add test for HDMI output bus formats helper")
+Fixes: 082fbc179c01 ("drm/tests: bridge: Add KUnit tests for bridge chain format selection")
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+Changes in v3:
+- Add the MODULE_ macros so people who build the tests as modules (???)
+  get to do that.
+- Link to v2: https://patch.msgid.link/20260610-test-edid-array-definition-fix-v2-1-9de4605c4869@collabora.com
 
-This commit hooks up vmap creation for gem shmem objects in the Rust bindin=
-gs,
-allowing mappings to be created for their contents.
+Changes in v2:
+- Move comment blocks to .c file
+- Add EXPORT_SYMBOL for all the definitions
+- Link to v1: https://patch.msgid.link/20260610-test-edid-array-definition-fix-v1-1-4467ba487886@collabora.com
+---
+ drivers/gpu/drm/tests/Makefile         |   3 +-
+ drivers/gpu/drm/tests/drm_kunit_edid.c | 995 +++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/tests/drm_kunit_edid.h | 985 +-------------------------------
+ 3 files changed, 1006 insertions(+), 977 deletions(-)
 
-> diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
-> index bfbf2bb25eac1..d4afc06d1be50 100644
-> --- a/rust/kernel/drm/gem/shmem.rs
-> +++ b/rust/kernel/drm/gem/shmem.rs
+diff --git a/drivers/gpu/drm/tests/Makefile b/drivers/gpu/drm/tests/Makefile
+index 3b83e6616fb2..e7193b49cf91 100644
+--- a/drivers/gpu/drm/tests/Makefile
++++ b/drivers/gpu/drm/tests/Makefile
+@@ -24,6 +24,7 @@ obj-$(CONFIG_DRM_KUNIT_TEST) += \
+ 	drm_probe_helper_test.o \
+ 	drm_rect_test.o \
+ 	drm_sysfb_modeset_test.o \
+-	drm_fixp_test.o
++	drm_fixp_test.o \
++	drm_kunit_edid.o
+ 
+ CFLAGS_drm_mm_test.o := $(DISABLE_STRUCTLEAK_PLUGIN)
+diff --git a/drivers/gpu/drm/tests/drm_kunit_edid.c b/drivers/gpu/drm/tests/drm_kunit_edid.c
+new file mode 100644
+index 000000000000..c807ae0d9faa
+--- /dev/null
++++ b/drivers/gpu/drm/tests/drm_kunit_edid.c
+@@ -0,0 +1,995 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include <linux/module.h>
++
++#include "drm_kunit_edid.h"
++
++/*
++ * edid-decode (hex):
++ *
++ * 00 ff ff ff ff ff ff 00 31 d8 2a 00 00 00 00 00
++ * 00 21 01 03 81 a0 5a 78 0a 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 01 01 01 01 01 01 01 01 01 01
++ * 01 01 01 01 01 01 02 3a 80 18 71 38 2d 40 58 2c
++ * 45 00 40 84 63 00 00 1e 00 00 00 fc 00 54 65 73
++ * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 32
++ * 46 1e 46 0f 00 0a 20 20 20 20 20 20 00 00 00 10
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ab
++ *
++ * ----------------
++ *
++ * Block 0, Base EDID:
++ *   EDID Structure Version & Revision: 1.3
++ *   Vendor & Product Identification:
++ *     Manufacturer: LNX
++ *     Model: 42
++ *     Made in: 2023
++ *   Basic Display Parameters & Features:
++ *     Digital display
++ *     DFP 1.x compatible TMDS
++ *     Maximum image size: 160 cm x 90 cm
++ *     Gamma: 2.20
++ *     RGB color display
++ *     First detailed timing is the preferred timing
++ *   Color Characteristics:
++ *     Red  : 0.0000, 0.0000
++ *     Green: 0.0000, 0.0000
++ *     Blue : 0.0000, 0.0000
++ *     White: 0.0000, 0.0000
++ *   Established Timings I & II: none
++ *   Standard Timings: none
++ *   Detailed Timing Descriptors:
++ *     DTD 1:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (1600 mm x 900 mm)
++ *                  Hfront   88 Hsync  44 Hback  148 Hpol P
++ *                  Vfront    4 Vsync   5 Vback   36 Vpol P
++ *     Display Product Name: 'Test EDID'
++ *     Display Range Limits:
++ *       Monitor ranges (GTF): 50-70 Hz V, 30-70 kHz H, max dotclock 150 MHz
++ *     Dummy Descriptor:
++ * Checksum: 0xab
++ *
++ * ----------------
++ *
++ * edid-decode 1.30.0-5367
++ * edid-decode SHA: 41ebf7135691 2025-05-01 10:19:22
++ *
++ * EDID conformity: PASS
++ */
++const unsigned char test_edid_dvi_1080p[] = {
++	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
++	0x0a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
++	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x3a, 0x80, 0x18, 0x71, 0x38,
++	0x2d, 0x40, 0x58, 0x2c, 0x45, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
++	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
++	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x32,
++	0x46, 0x1e, 0x46, 0x0f, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
++	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xab
++};
++EXPORT_SYMBOL(test_edid_dvi_1080p);
++
++/*
++ *
++ * This edid is intentionally broken with the 100MHz limit. It's meant
++ * to be used only with tests in unusual situations.
++ *
++ * edid-decode (hex):
++ *
++ * 00 ff ff ff ff ff ff 00 31 d8 2a 00 00 00 00 00
++ * 00 21 01 03 81 a0 5a 78 02 00 00 00 00 00 00 00
++ * 00 00 00 20 00 00 01 01 01 01 01 01 01 01 01 01
++ * 01 01 01 01 01 01 02 3a 80 18 71 38 2d 40 58 2c
++ * 45 00 40 84 63 00 00 1e 00 00 00 fc 00 54 65 73
++ * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 32
++ * 46 1e 46 0f 00 0a 20 20 20 20 20 20 00 00 00 10
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 92
++ *
++ * 02 03 15 81 e3 05 00 20 41 10 e2 00 4a 67 03 0c
++ * 00 12 34 00 14 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 10
++ *
++ * ----------------
++ *
++ * Block 0, Base EDID:
++ *   EDID Structure Version & Revision: 1.3
++ *   Vendor & Product Identification:
++ *     Manufacturer: LNX
++ *     Model: 42
++ *     Made in: 2023
++ *   Basic Display Parameters & Features:
++ *     Digital display
++ *     DFP 1.x compatible TMDS
++ *     Maximum image size: 160 cm x 90 cm
++ *     Gamma: 2.20
++ *     Monochrome or grayscale display
++ *     First detailed timing is the preferred timing
++ *   Color Characteristics:
++ *     Red  : 0.0000, 0.0000
++ *     Green: 0.0000, 0.0000
++ *     Blue : 0.0000, 0.0000
++ *     White: 0.0000, 0.0000
++ *   Established Timings I & II:
++ *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
++ *   Standard Timings: none
++ *   Detailed Timing Descriptors:
++ *     DTD 1:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (1600 mm x 900 mm)
++ *                  Hfront   88 Hsync  44 Hback  148 Hpol P
++ *                  Vfront    4 Vsync   5 Vback   36 Vpol P
++ *     Display Product Name: 'Test EDID'
++ *     Display Range Limits:
++ *       Monitor ranges (GTF): 50-70 Hz V, 30-70 kHz H, max dotclock 150 MHz
++ *     Dummy Descriptor:
++ *   Extension blocks: 1
++ * Checksum: 0x92
++ *
++ * ----------------
++ *
++ * Block 1, CTA-861 Extension Block:
++ *   Revision: 3
++ *   Underscans IT Video Formats by default
++ *   Native detailed modes: 1
++ *   Colorimetry Data Block:
++ *     sRGB
++ *   Video Data Block:
++ *     VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz
++ *   Video Capability Data Block:
++ *     YCbCr quantization: No Data
++ *     RGB quantization: Selectable (via AVI Q)
++ *     PT scan behavior: No Data
++ *     IT scan behavior: Always Underscanned
++ *     CE scan behavior: Always Underscanned
++ *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
++ *     Source physical address: 1.2.3.4
++ *     Maximum TMDS clock: 100 MHz
++ * Checksum: 0x10  Unused space in Extension Block: 106 bytes
++ *
++ * ----------------
++ *
++ * edid-decode 1.30.0-5367
++ * edid-decode SHA: 41ebf7135691 2025-05-01 10:19:22
++ *
++ * Failures:
++ *
++ * EDID:
++ *   CTA-861: The maximum HDMI TMDS clock is 100000 kHz, but one or more video timings go up to 148500 kHz.
++ *
++ * EDID conformity: FAIL
++ */
++const unsigned char test_edid_hdmi_1080p_rgb_max_100mhz[] = {
++	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
++	0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
++	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
++	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x3a, 0x80, 0x18, 0x71, 0x38,
++	0x2d, 0x40, 0x58, 0x2c, 0x45, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
++	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
++	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x32,
++	0x46, 0x1e, 0x46, 0x0f, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
++	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x92, 0x02, 0x03, 0x15, 0x81,
++	0xe3, 0x05, 0x00, 0x20, 0x41, 0x10, 0xe2, 0x00, 0x4a, 0x67, 0x03, 0x0c,
++	0x00, 0x12, 0x34, 0x00, 0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x10
++};
++EXPORT_SYMBOL(test_edid_hdmi_1080p_rgb_max_100mhz);
++
++/*
++ * edid-decode (hex):
++ *
++ * 00 ff ff ff ff ff ff 00 31 d8 2a 00 00 00 00 00
++ * 00 21 01 03 81 a0 5a 78 02 00 00 00 00 00 00 00
++ * 00 00 00 20 00 00 01 01 01 01 01 01 01 01 01 01
++ * 01 01 01 01 01 01 02 3a 80 18 71 38 2d 40 58 2c
++ * 45 00 40 84 63 00 00 1e 00 00 00 fc 00 54 65 73
++ * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 32
++ * 46 1e 46 0f 00 0a 20 20 20 20 20 20 00 00 00 10
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 92
++ *
++ * 02 03 15 81 e3 05 00 20 41 10 e2 00 4a 67 03 0c
++ * 00 12 34 00 28 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fc
++ *
++ * ----------------
++ *
++ * Block 0, Base EDID:
++ *   EDID Structure Version & Revision: 1.3
++ *   Vendor & Product Identification:
++ *     Manufacturer: LNX
++ *     Model: 42
++ *     Made in: 2023
++ *   Basic Display Parameters & Features:
++ *     Digital display
++ *     DFP 1.x compatible TMDS
++ *     Maximum image size: 160 cm x 90 cm
++ *     Gamma: 2.20
++ *     Monochrome or grayscale display
++ *     First detailed timing is the preferred timing
++ *   Color Characteristics:
++ *     Red  : 0.0000, 0.0000
++ *     Green: 0.0000, 0.0000
++ *     Blue : 0.0000, 0.0000
++ *     White: 0.0000, 0.0000
++ *   Established Timings I & II:
++ *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
++ *   Standard Timings: none
++ *   Detailed Timing Descriptors:
++ *     DTD 1:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (1600 mm x 900 mm)
++ *                  Hfront   88 Hsync  44 Hback  148 Hpol P
++ *                  Vfront    4 Vsync   5 Vback   36 Vpol P
++ *     Display Product Name: 'Test EDID'
++ *     Display Range Limits:
++ *       Monitor ranges (GTF): 50-70 Hz V, 30-70 kHz H, max dotclock 150 MHz
++ *     Dummy Descriptor:
++ *   Extension blocks: 1
++ * Checksum: 0x92
++ *
++ * ----------------
++ *
++ * Block 1, CTA-861 Extension Block:
++ *   Revision: 3
++ *   Underscans IT Video Formats by default
++ *   Native detailed modes: 1
++ *   Colorimetry Data Block:
++ *     sRGB
++ *   Video Data Block:
++ *     VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz
++ *   Video Capability Data Block:
++ *     YCbCr quantization: No Data
++ *     RGB quantization: Selectable (via AVI Q)
++ *     PT scan behavior: No Data
++ *     IT scan behavior: Always Underscanned
++ *     CE scan behavior: Always Underscanned
++ *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
++ *     Source physical address: 1.2.3.4
++ *     Maximum TMDS clock: 200 MHz
++ * Checksum: 0xfc  Unused space in Extension Block: 106 bytes
++ *
++ * ----------------
++ *
++ * edid-decode 1.30.0-5367
++ * edid-decode SHA: 41ebf7135691 2025-05-01 10:19:22
++ *
++ * EDID conformity: PASS
++ */
++const unsigned char test_edid_hdmi_1080p_rgb_max_200mhz[] = {
++	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
++	0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
++	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
++	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x3a, 0x80, 0x18, 0x71, 0x38,
++	0x2d, 0x40, 0x58, 0x2c, 0x45, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
++	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
++	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x32,
++	0x46, 0x1e, 0x46, 0x0f, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
++	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x92, 0x02, 0x03, 0x15, 0x81,
++	0xe3, 0x05, 0x00, 0x20, 0x41, 0x10, 0xe2, 0x00, 0x4a, 0x67, 0x03, 0x0c,
++	0x00, 0x12, 0x34, 0x00, 0x28, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0xfc
++};
++EXPORT_SYMBOL(test_edid_hdmi_1080p_rgb_max_200mhz);
++
++/*
++ * edid-decode (hex):
++ *
++ * 00 ff ff ff ff ff ff 00 31 d8 2a 00 00 00 00 00
++ * 00 21 01 03 81 a0 5a 78 02 00 00 00 00 00 00 00
++ * 00 00 00 20 00 00 01 01 01 01 01 01 01 01 01 01
++ * 01 01 01 01 01 01 02 3a 80 18 71 38 2d 40 58 2c
++ * 45 00 40 84 63 00 00 1e 00 00 00 fc 00 54 65 73
++ * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 32
++ * 46 1e 46 0f 00 0a 20 20 20 20 20 20 00 00 00 10
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 92
++ *
++ * 02 03 1c 81 e3 05 c0 20 41 10 e2 00 4a 67 03 0c
++ * 00 12 34 00 28 e6 06 05 01 52 52 51 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 4e
++ *
++ * ----------------
++ *
++ * Block 0, Base EDID:
++ *   EDID Structure Version & Revision: 1.3
++ *   Vendor & Product Identification:
++ *     Manufacturer: LNX
++ *     Model: 42
++ *     Made in: 2023
++ *   Basic Display Parameters & Features:
++ *     Digital display
++ *     DFP 1.x compatible TMDS
++ *     Maximum image size: 160 cm x 90 cm
++ *     Gamma: 2.20
++ *     Monochrome or grayscale display
++ *     First detailed timing is the preferred timing
++ *   Color Characteristics:
++ *     Red  : 0.0000, 0.0000
++ *     Green: 0.0000, 0.0000
++ *     Blue : 0.0000, 0.0000
++ *     White: 0.0000, 0.0000
++ *   Established Timings I & II:
++ *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
++ *   Standard Timings: none
++ *   Detailed Timing Descriptors:
++ *     DTD 1:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (1600 mm x 900 mm)
++ *                  Hfront   88 Hsync  44 Hback  148 Hpol P
++ *                  Vfront    4 Vsync   5 Vback   36 Vpol P
++ *     Display Product Name: 'Test EDID'
++ *     Display Range Limits:
++ *       Monitor ranges (GTF): 50-70 Hz V, 30-70 kHz H, max dotclock 150 MHz
++ *     Dummy Descriptor:
++ *   Extension blocks: 1
++ * Checksum: 0x92
++ *
++ * ----------------
++ *
++ * Block 1, CTA-861 Extension Block:
++ *   Revision: 3
++ *   Underscans IT Video Formats by default
++ *   Native detailed modes: 1
++ *   Colorimetry Data Block:
++ *     BT2020YCC
++ *     BT2020RGB
++ *     sRGB
++ *   Video Data Block:
++ *     VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz
++ *   Video Capability Data Block:
++ *     YCbCr quantization: No Data
++ *     RGB quantization: Selectable (via AVI Q)
++ *     PT scan behavior: No Data
++ *     IT scan behavior: Always Underscanned
++ *     CE scan behavior: Always Underscanned
++ *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
++ *     Source physical address: 1.2.3.4
++ *     Maximum TMDS clock: 200 MHz
++ *   HDR Static Metadata Data Block:
++ *     Electro optical transfer functions:
++ *       Traditional gamma - SDR luminance range
++ *       SMPTE ST2084
++ *     Supported static metadata descriptors:
++ *       Static metadata type 1
++ *     Desired content max luminance: 82 (295.365 cd/m^2)
++ *     Desired content max frame-average luminance: 82 (295.365 cd/m^2)
++ *     Desired content min luminance: 81 (0.298 cd/m^2)
++ * Checksum: 0x4e  Unused space in Extension Block: 99 bytes
++ *
++ * ----------------
++ *
++ * edid-decode 1.31.0-5387
++ * edid-decode SHA: 5508bc4301ac 2025-08-25 08:14:22
++ *
++ * EDID conformity: PASS
++ */
++const unsigned char test_edid_hdmi_1080p_rgb_max_200mhz_hdr[] = {
++	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
++	0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
++	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
++	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x3a, 0x80, 0x18, 0x71, 0x38,
++	0x2d, 0x40, 0x58, 0x2c, 0x45, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
++	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
++	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x32,
++	0x46, 0x1e, 0x46, 0x0f, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
++	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x92, 0x02, 0x03, 0x1c, 0x81,
++	0xe3, 0x05, 0xc0, 0x20, 0x41, 0x10, 0xe2, 0x00, 0x4a, 0x67, 0x03, 0x0c,
++	0x00, 0x12, 0x34, 0x78, 0x28, 0xe6, 0x06, 0x05, 0x01, 0x52, 0x52, 0x51,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0xd6,
++};
++EXPORT_SYMBOL(test_edid_hdmi_1080p_rgb_max_200mhz_hdr);
++
++/*
++ * edid-decode (hex):
++ *
++ * 00 ff ff ff ff ff ff 00 31 d8 2a 00 00 00 00 00
++ * 00 21 01 03 81 a0 5a 78 02 00 00 00 00 00 00 00
++ * 00 00 00 20 00 00 01 01 01 01 01 01 01 01 01 01
++ * 01 01 01 01 01 01 02 3a 80 18 71 38 2d 40 58 2c
++ * 45 00 40 84 63 00 00 1e 00 00 00 fc 00 54 65 73
++ * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 32
++ * 46 1e 46 0f 00 0a 20 20 20 20 20 20 00 00 00 10
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 92
++ *
++ * 02 03 15 81 e3 05 00 20 41 10 e2 00 4a 67 03 0c
++ * 00 12 34 00 44 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 e0
++ *
++ * ----------------
++ *
++ * Block 0, Base EDID:
++ *   EDID Structure Version & Revision: 1.3
++ *   Vendor & Product Identification:
++ *     Manufacturer: LNX
++ *     Model: 42
++ *     Made in: 2023
++ *   Basic Display Parameters & Features:
++ *     Digital display
++ *     DFP 1.x compatible TMDS
++ *     Maximum image size: 160 cm x 90 cm
++ *     Gamma: 2.20
++ *     Monochrome or grayscale display
++ *     First detailed timing is the preferred timing
++ *   Color Characteristics:
++ *     Red  : 0.0000, 0.0000
++ *     Green: 0.0000, 0.0000
++ *     Blue : 0.0000, 0.0000
++ *     White: 0.0000, 0.0000
++ *   Established Timings I & II:
++ *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
++ *   Standard Timings: none
++ *   Detailed Timing Descriptors:
++ *     DTD 1:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (1600 mm x 900 mm)
++ *                  Hfront   88 Hsync  44 Hback  148 Hpol P
++ *                  Vfront    4 Vsync   5 Vback   36 Vpol P
++ *     Display Product Name: 'Test EDID'
++ *     Display Range Limits:
++ *       Monitor ranges (GTF): 50-70 Hz V, 30-70 kHz H, max dotclock 150 MHz
++ *     Dummy Descriptor:
++ *   Extension blocks: 1
++ * Checksum: 0x92
++ *
++ * ----------------
++ *
++ * Block 1, CTA-861 Extension Block:
++ *   Revision: 3
++ *   Underscans IT Video Formats by default
++ *   Native detailed modes: 1
++ *   Colorimetry Data Block:
++ *     sRGB
++ *   Video Data Block:
++ *     VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz
++ *   Video Capability Data Block:
++ *     YCbCr quantization: No Data
++ *     RGB quantization: Selectable (via AVI Q)
++ *     PT scan behavior: No Data
++ *     IT scan behavior: Always Underscanned
++ *     CE scan behavior: Always Underscanned
++ *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
++ *     Source physical address: 1.2.3.4
++ *     Maximum TMDS clock: 340 MHz
++ * Checksum: 0xe0  Unused space in Extension Block: 106 bytes
++ *
++ * ----------------
++ *
++ * edid-decode 1.30.0-5367
++ * edid-decode SHA: 41ebf7135691 2025-05-01 10:19:22
++ *
++ * EDID conformity: PASS
++ */
++const unsigned char test_edid_hdmi_1080p_rgb_max_340mhz[] = {
++	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
++	0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
++	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
++	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x3a, 0x80, 0x18, 0x71, 0x38,
++	0x2d, 0x40, 0x58, 0x2c, 0x45, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
++	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
++	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x32,
++	0x46, 0x1e, 0x46, 0x0f, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
++	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x92, 0x02, 0x03, 0x15, 0x81,
++	0xe3, 0x05, 0x00, 0x20, 0x41, 0x10, 0xe2, 0x00, 0x4a, 0x67, 0x03, 0x0c,
++	0x00, 0x12, 0x34, 0x00, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0xe0
++};
++EXPORT_SYMBOL(test_edid_hdmi_1080p_rgb_max_340mhz);
++
++/*
++ * edid-decode (hex):
++ *
++ * 00 ff ff ff ff ff ff 00 31 d8 2a 00 00 00 00 00
++ * 00 21 01 03 81 a0 5a 78 1a 00 00 00 00 00 00 00
++ * 00 00 00 20 00 00 01 01 01 01 01 01 01 01 01 01
++ * 01 01 01 01 01 01 02 3a 80 18 71 38 2d 40 58 2c
++ * 45 00 40 84 63 00 00 1e 00 00 00 fc 00 54 65 73
++ * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 32
++ * 46 1e 46 0f 00 0a 20 20 20 20 20 20 00 00 00 10
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 7a
++ *
++ * 02 03 15 b1 e3 05 00 20 41 10 e2 00 ca 67 03 0c
++ * 00 12 34 78 28 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 d4
++ *
++ * ----------------
++ *
++ * Block 0, Base EDID:
++ *   EDID Structure Version & Revision: 1.3
++ *   Vendor & Product Identification:
++ *     Manufacturer: LNX
++ *     Model: 42
++ *     Made in: 2023
++ *   Basic Display Parameters & Features:
++ *     Digital display
++ *     DFP 1.x compatible TMDS
++ *     Maximum image size: 160 cm x 90 cm
++ *     Gamma: 2.20
++ *     Undefined display color type
++ *     First detailed timing is the preferred timing
++ *   Color Characteristics:
++ *     Red  : 0.0000, 0.0000
++ *     Green: 0.0000, 0.0000
++ *     Blue : 0.0000, 0.0000
++ *     White: 0.0000, 0.0000
++ *   Established Timings I & II:
++ *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
++ *   Standard Timings: none
++ *   Detailed Timing Descriptors:
++ *     DTD 1:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (1600 mm x 900 mm)
++ *                  Hfront   88 Hsync  44 Hback  148 Hpol P
++ *                  Vfront    4 Vsync   5 Vback   36 Vpol P
++ *     Display Product Name: 'Test EDID'
++ *     Display Range Limits:
++ *       Monitor ranges (GTF): 50-70 Hz V, 30-70 kHz H, max dotclock 150 MHz
++ *     Dummy Descriptor:
++ *   Extension blocks: 1
++ * Checksum: 0x7a
++ *
++ * ----------------
++ *
++ * Block 1, CTA-861 Extension Block:
++ *   Revision: 3
++ *   Underscans IT Video Formats by default
++ *   Supports YCbCr 4:4:4
++ *   Supports YCbCr 4:2:2
++ *   Native detailed modes: 1
++ *   Colorimetry Data Block:
++ *     sRGB
++ *   Video Data Block:
++ *     VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz
++ *   Video Capability Data Block:
++ *     YCbCr quantization: Selectable (via AVI YQ)
++ *     RGB quantization: Selectable (via AVI Q)
++ *     PT scan behavior: No Data
++ *     IT scan behavior: Always Underscanned
++ *     CE scan behavior: Always Underscanned
++ *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
++ *     Source physical address: 1.2.3.4
++ *     DC_48bit
++ *     DC_36bit
++ *     DC_30bit
++ *     DC_Y444
++ *     Maximum TMDS clock: 200 MHz
++ * Checksum: 0xd4  Unused space in Extension Block: 106 bytes
++ *
++ * ----------------
++ *
++ * edid-decode 1.30.0-5367
++ * edid-decode SHA: 41ebf7135691 2025-05-01 10:19:22
++ *
++ * EDID conformity: PASS
++ */
++const unsigned char test_edid_hdmi_1080p_rgb_yuv_dc_max_200mhz[] = {
++	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
++	0x1a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
++	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
++	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x3a, 0x80, 0x18, 0x71, 0x38,
++	0x2d, 0x40, 0x58, 0x2c, 0x45, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
++	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
++	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x32,
++	0x46, 0x1e, 0x46, 0x0f, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
++	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x7a, 0x02, 0x03, 0x15, 0xb1,
++	0xe3, 0x05, 0x00, 0x20, 0x41, 0x10, 0xe2, 0x00, 0xca, 0x67, 0x03, 0x0c,
++	0x00, 0x12, 0x34, 0x78, 0x28, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0xd4
++};
++EXPORT_SYMBOL(test_edid_hdmi_1080p_rgb_yuv_dc_max_200mhz);
++
++/*
++ * edid-decode (hex):
++ *
++ * 00 ff ff ff ff ff ff 00 31 d8 2a 00 00 00 00 00
++ * 00 21 01 03 81 a0 5a 78 0a 00 00 00 00 00 00 00
++ * 00 00 00 20 00 00 01 01 01 01 01 01 01 01 01 01
++ * 01 01 01 01 01 01 02 3a 80 18 71 38 2d 40 58 2c
++ * 45 00 40 84 63 00 00 1e 00 00 00 fc 00 54 65 73
++ * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 32
++ * 46 1e 46 0f 00 0a 20 20 20 20 20 20 00 00 00 10
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 8a
++ *
++ * 02 03 15 b1 e3 05 00 20 41 10 e2 00 ca 67 03 0c
++ * 00 12 34 78 44 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 b8
++ *
++ * ----------------
++ *
++ * Block 0, Base EDID:
++ *   EDID Structure Version & Revision: 1.3
++ *   Vendor & Product Identification:
++ *     Manufacturer: LNX
++ *     Model: 42
++ *     Made in: 2023
++ *   Basic Display Parameters & Features:
++ *     Digital display
++ *     DFP 1.x compatible TMDS
++ *     Maximum image size: 160 cm x 90 cm
++ *     Gamma: 2.20
++ *     RGB color display
++ *     First detailed timing is the preferred timing
++ *   Color Characteristics:
++ *     Red  : 0.0000, 0.0000
++ *     Green: 0.0000, 0.0000
++ *     Blue : 0.0000, 0.0000
++ *     White: 0.0000, 0.0000
++ *   Established Timings I & II:
++ *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
++ *   Standard Timings: none
++ *   Detailed Timing Descriptors:
++ *     DTD 1:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (1600 mm x 900 mm)
++ *                  Hfront   88 Hsync  44 Hback  148 Hpol P
++ *                  Vfront    4 Vsync   5 Vback   36 Vpol P
++ *     Display Product Name: 'Test EDID'
++ *     Display Range Limits:
++ *       Monitor ranges (GTF): 50-70 Hz V, 30-70 kHz H, max dotclock 150 MHz
++ *     Dummy Descriptor:
++ *   Extension blocks: 1
++ * Checksum: 0x8a
++ *
++ * ----------------
++ *
++ * Block 1, CTA-861 Extension Block:
++ *   Revision: 3
++ *   Underscans IT Video Formats by default
++ *   Supports YCbCr 4:4:4
++ *   Supports YCbCr 4:2:2
++ *   Native detailed modes: 1
++ *   Colorimetry Data Block:
++ *     sRGB
++ *   Video Data Block:
++ *     VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz
++ *   Video Capability Data Block:
++ *     YCbCr quantization: Selectable (via AVI YQ)
++ *     RGB quantization: Selectable (via AVI Q)
++ *     PT scan behavior: No Data
++ *     IT scan behavior: Always Underscanned
++ *     CE scan behavior: Always Underscanned
++ *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
++ *     Source physical address: 1.2.3.4
++ *     DC_48bit
++ *     DC_36bit
++ *     DC_30bit
++ *     DC_Y444
++ *     Maximum TMDS clock: 340 MHz
++ * Checksum: 0xb8  Unused space in Extension Block: 106 bytes
++ *
++ * ----------------
++ *
++ * edid-decode 1.30.0-5367
++ * edid-decode SHA: 41ebf7135691 2025-05-01 10:19:22
++ *
++ * EDID conformity: PASS
++ */
++const unsigned char test_edid_hdmi_1080p_rgb_yuv_dc_max_340mhz[] = {
++	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
++	0x0a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
++	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
++	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x3a, 0x80, 0x18, 0x71, 0x38,
++	0x2d, 0x40, 0x58, 0x2c, 0x45, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
++	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
++	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x32,
++	0x46, 0x1e, 0x46, 0x0f, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
++	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x8a, 0x02, 0x03, 0x15, 0xb1,
++	0xe3, 0x05, 0x00, 0x20, 0x41, 0x10, 0xe2, 0x00, 0xca, 0x67, 0x03, 0x0c,
++	0x00, 0x12, 0x34, 0x78, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0xb8
++};
++EXPORT_SYMBOL(test_edid_hdmi_1080p_rgb_yuv_dc_max_340mhz);
++
++/*
++ * Max resolution:
++ * - 1920x1080@60Hz with RGB, YUV444, YUV422
++ * - 3840x2160@30Hz with YUV420 only
++ * Max BPC:         16 for all modes
++ * Max TMDS clock:  200 MHz
++ *
++ * edid-decode (hex):
++ *
++ * 00 ff ff ff ff ff ff 00 31 d8 34 00 00 00 00 00
++ * ff 23 01 03 80 60 36 78 0f ee 91 a3 54 4c 99 26
++ * 0f 50 54 20 00 00 01 01 01 01 01 01 01 01 01 01
++ * 01 01 01 01 01 01 02 3a 80 18 71 38 2d 40 58 2c
++ * 45 00 c0 1c 32 00 00 1e 00 00 00 fc 00 54 65 73
++ * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 18
++ * 55 18 5e 11 00 0a 20 20 20 20 20 20 00 00 00 10
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 bb
++ *
++ * 02 03 29 31 42 90 5f 6c 03 0c 00 10 00 78 28 20
++ * 00 00 01 03 6d d8 5d c4 01 28 80 07 00 00 00 00
++ * 00 00 e3 0f 00 00 e2 0e 5f 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ca
++ *
++ * ----------------
++ *
++ * Block 0, Base EDID:
++ *   EDID Structure Version & Revision: 1.3
++ *   Vendor & Product Identification:
++ *     Manufacturer: LNX
++ *     Model: 52
++ *     Model year: 2025
++ *   Basic Display Parameters & Features:
++ *     Digital display
++ *     Maximum image size: 96 cm x 54 cm
++ *     Gamma: 2.20
++ *     RGB color display
++ *     Default (sRGB) color space is primary color space
++ *     First detailed timing is the preferred timing
++ *     Supports GTF timings within operating range
++ *   Color Characteristics:
++ *     Red  : 0.6396, 0.3300
++ *     Green: 0.2998, 0.5996
++ *     Blue : 0.1503, 0.0595
++ *     White: 0.3125, 0.3291
++ *   Established Timings I & II:
++ *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
++ *   Standard Timings: none
++ *   Detailed Timing Descriptors:
++ *     DTD 1:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (960 mm x 540 mm)
++ *                  Hfront   88 Hsync  44 Hback  148 Hpol P
++ *                  Vfront    4 Vsync   5 Vback   36 Vpol P
++ *     Display Product Name: 'Test EDID'
++ *     Display Range Limits:
++ *       Monitor ranges (GTF): 24-85 Hz V, 24-94 kHz H, max dotclock 170 MHz
++ *     Dummy Descriptor:
++ *   Extension blocks: 1
++ * Checksum: 0xbb
++ *
++ * ----------------
++ *
++ * Block 1, CTA-861 Extension Block:
++ *   Revision: 3
++ *   Supports YCbCr 4:4:4
++ *   Supports YCbCr 4:2:2
++ *   Native detailed modes: 1
++ *   Video Data Block:
++ *     VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (native)
++ *     VIC  95:  3840x2160   30.000000 Hz  16:9     67.500 kHz    297.000000 MHz
++ *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
++ *     Source physical address: 1.0.0.0
++ *     DC_48bit
++ *     DC_36bit
++ *     DC_30bit
++ *     DC_Y444
++ *     Maximum TMDS clock: 200 MHz
++ *     Extended HDMI video details:
++ *   Vendor-Specific Data Block (HDMI Forum), OUI C4-5D-D8:
++ *     Version: 1
++ *     Maximum TMDS Character Rate: 200 MHz
++ *     SCDC Present
++ *     Supports 16-bits/component Deep Color 4:2:0 Pixel Encoding
++ *     Supports 12-bits/component Deep Color 4:2:0 Pixel Encoding
++ *     Supports 10-bits/component Deep Color 4:2:0 Pixel Encoding
++ *   YCbCr 4:2:0 Capability Map Data Block:
++ *     Empty Capability Map
++ *   YCbCr 4:2:0 Video Data Block:
++ *     VIC  95:  3840x2160   30.000000 Hz  16:9     67.500 kHz    297.000000 MHz
++ * Checksum: 0xca
++ */
++const unsigned char test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz[] = {
++	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x34, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0xff, 0x23, 0x01, 0x03, 0x80, 0x60, 0x36, 0x78,
++	0x0f, 0xee, 0x91, 0xa3, 0x54, 0x4c, 0x99, 0x26, 0x0f, 0x50, 0x54, 0x20,
++	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
++	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x3a, 0x80, 0x18, 0x71, 0x38,
++	0x2d, 0x40, 0x58, 0x2c, 0x45, 0x00, 0xc0, 0x1c, 0x32, 0x00, 0x00, 0x1e,
++	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
++	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x18,
++	0x55, 0x18, 0x5e, 0x11, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
++	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xbb, 0x02, 0x03, 0x29, 0x31,
++	0x42, 0x90, 0x5f, 0x6c, 0x03, 0x0c, 0x00, 0x10, 0x00, 0x78, 0x28, 0x20,
++	0x00, 0x00, 0x01, 0x03, 0x6d, 0xd8, 0x5d, 0xc4, 0x01, 0x28, 0x80, 0x07,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe3, 0x0f, 0x00, 0x00, 0xe2, 0x0e,
++	0x5f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0xca
++};
++EXPORT_SYMBOL(test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz);
++
++/*
++ * Max resolution: 3840x2160@30Hz with RGB, YUV444, YUV422, YUV420
++ * Max BPC:        16 for all modes
++ * Max TMDS clock: 340 MHz
++ *
++ * edid-decode (hex):
++ *
++ * 00 ff ff ff ff ff ff 00 31 d8 34 00 00 00 00 00
++ * ff 23 01 03 80 60 36 78 0f ee 91 a3 54 4c 99 26
++ * 0f 50 54 20 00 00 01 01 01 01 01 01 01 01 01 01
++ * 01 01 01 01 01 01 04 74 00 30 f2 70 5a 80 b0 58
++ * 8a 00 40 84 63 00 00 1e 00 00 00 fc 00 54 65 73
++ * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 18
++ * 55 18 5e 22 00 0a 20 20 20 20 20 20 00 00 00 10
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 ce
++ *
++ * 02 03 27 31 41 5f 6c 03 0c 00 10 00 78 44 20 00
++ * 00 01 03 6d d8 5d c4 01 44 80 07 00 00 00 00 00
++ * 00 e3 0f 01 00 e1 0e 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 84
++ *
++ * ----------------
++ *
++ * Block 0, Base EDID:
++ *   EDID Structure Version & Revision: 1.3
++ *   Vendor & Product Identification:
++ *     Manufacturer: LNX
++ *     Model: 52
++ *     Model year: 2025
++ *   Basic Display Parameters & Features:
++ *     Digital display
++ *     Maximum image size: 96 cm x 54 cm
++ *     Gamma: 2.20
++ *     RGB color display
++ *     Default (sRGB) color space is primary color space
++ *     First detailed timing is the preferred timing
++ *     Supports GTF timings within operating range
++ *   Color Characteristics:
++ *     Red  : 0.6396, 0.3300
++ *     Green: 0.2998, 0.5996
++ *     Blue : 0.1503, 0.0595
++ *     White: 0.3125, 0.3291
++ *   Established Timings I & II:
++ *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
++ *   Standard Timings: none
++ *   Detailed Timing Descriptors:
++ *     DTD 1:  3840x2160   30.000000 Hz  16:9     67.500 kHz    297.000000 MHz (1600 mm x 900 mm)
++ *                  Hfront  176 Hsync  88 Hback  296 Hpol P
++ *                  Vfront    8 Vsync  10 Vback   72 Vpol P
++ *     Display Product Name: 'Test EDID'
++ *     Display Range Limits:
++ *       Monitor ranges (GTF): 24-85 Hz V, 24-94 kHz H, max dotclock 340 MHz
++ *     Dummy Descriptor:
++ *   Extension blocks: 1
++ * Checksum: 0xce
++ *
++ * ----------------
++ *
++ * Block 1, CTA-861 Extension Block:
++ *   Revision: 3
++ *   Supports YCbCr 4:4:4
++ *   Supports YCbCr 4:2:2
++ *   Native detailed modes: 1
++ *   Video Data Block:
++ *     VIC  95:  3840x2160   30.000000 Hz  16:9     67.500 kHz    297.000000 MHz
++ *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
++ *     Source physical address: 1.0.0.0
++ *     DC_48bit
++ *     DC_36bit
++ *     DC_30bit
++ *     DC_Y444
++ *     Maximum TMDS clock: 340 MHz
++ *     Extended HDMI video details:
++ *   Vendor-Specific Data Block (HDMI Forum), OUI C4-5D-D8:
++ *     Version: 1
++ *     Maximum TMDS Character Rate: 340 MHz
++ *     SCDC Present
++ *     Supports 16-bits/component Deep Color 4:2:0 Pixel Encoding
++ *     Supports 12-bits/component Deep Color 4:2:0 Pixel Encoding
++ *     Supports 10-bits/component Deep Color 4:2:0 Pixel Encoding
++ *   YCbCr 4:2:0 Capability Map Data Block:
++ *     VIC  95:  3840x2160   30.000000 Hz  16:9     67.500 kHz    297.000000 MHz
++ *   YCbCr 4:2:0 Video Data Block:
++ * Checksum: 0x84
++ */
++const unsigned char test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz[] = {
++	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x34, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0xff, 0x23, 0x01, 0x03, 0x80, 0x60, 0x36, 0x78,
++	0x0f, 0xee, 0x91, 0xa3, 0x54, 0x4c, 0x99, 0x26, 0x0f, 0x50, 0x54, 0x20,
++	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
++	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x04, 0x74, 0x00, 0x30, 0xf2, 0x70,
++	0x5a, 0x80, 0xb0, 0x58, 0x8a, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
++	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
++	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x18,
++	0x55, 0x18, 0x5e, 0x22, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
++	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xce, 0x02, 0x03, 0x27, 0x31,
++	0x41, 0x5f, 0x6c, 0x03, 0x0c, 0x00, 0x10, 0x00, 0x78, 0x44, 0x20, 0x00,
++	0x00, 0x01, 0x03, 0x6d, 0xd8, 0x5d, 0xc4, 0x01, 0x44, 0x80, 0x07, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0xe3, 0x0f, 0x01, 0x00, 0xe1, 0x0e, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x84
++};
++EXPORT_SYMBOL(test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz);
++
++MODULE_AUTHOR("Maxime Ripard <mripard@kernel.org>");
++MODULE_DESCRIPTION("EDID Definitions for KUnit tests");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/gpu/drm/tests/drm_kunit_edid.h b/drivers/gpu/drm/tests/drm_kunit_edid.h
+index f4923157f5bf..28b4df93a555 100644
+--- a/drivers/gpu/drm/tests/drm_kunit_edid.h
++++ b/drivers/gpu/drm/tests/drm_kunit_edid.h
+@@ -3,981 +3,14 @@
+ #ifndef DRM_KUNIT_EDID_H_
+ #define DRM_KUNIT_EDID_H_
+ 
+-/*
+- * edid-decode (hex):
+- *
+- * 00 ff ff ff ff ff ff 00 31 d8 2a 00 00 00 00 00
+- * 00 21 01 03 81 a0 5a 78 0a 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 01 01 01 01 01 01 01 01 01 01
+- * 01 01 01 01 01 01 02 3a 80 18 71 38 2d 40 58 2c
+- * 45 00 40 84 63 00 00 1e 00 00 00 fc 00 54 65 73
+- * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 32
+- * 46 1e 46 0f 00 0a 20 20 20 20 20 20 00 00 00 10
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ab
+- *
+- * ----------------
+- *
+- * Block 0, Base EDID:
+- *   EDID Structure Version & Revision: 1.3
+- *   Vendor & Product Identification:
+- *     Manufacturer: LNX
+- *     Model: 42
+- *     Made in: 2023
+- *   Basic Display Parameters & Features:
+- *     Digital display
+- *     DFP 1.x compatible TMDS
+- *     Maximum image size: 160 cm x 90 cm
+- *     Gamma: 2.20
+- *     RGB color display
+- *     First detailed timing is the preferred timing
+- *   Color Characteristics:
+- *     Red  : 0.0000, 0.0000
+- *     Green: 0.0000, 0.0000
+- *     Blue : 0.0000, 0.0000
+- *     White: 0.0000, 0.0000
+- *   Established Timings I & II: none
+- *   Standard Timings: none
+- *   Detailed Timing Descriptors:
+- *     DTD 1:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (1600 mm x 900 mm)
+- *                  Hfront   88 Hsync  44 Hback  148 Hpol P
+- *                  Vfront    4 Vsync   5 Vback   36 Vpol P
+- *     Display Product Name: 'Test EDID'
+- *     Display Range Limits:
+- *       Monitor ranges (GTF): 50-70 Hz V, 30-70 kHz H, max dotclock 150 MHz
+- *     Dummy Descriptor:
+- * Checksum: 0xab
+- *
+- * ----------------
+- *
+- * edid-decode 1.30.0-5367
+- * edid-decode SHA: 41ebf7135691 2025-05-01 10:19:22
+- *
+- * EDID conformity: PASS
+- */
+-static const unsigned char test_edid_dvi_1080p[] = {
+-	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
+-	0x0a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+-	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x3a, 0x80, 0x18, 0x71, 0x38,
+-	0x2d, 0x40, 0x58, 0x2c, 0x45, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
+-	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
+-	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x32,
+-	0x46, 0x1e, 0x46, 0x0f, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+-	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xab
+-};
+-
+-/*
+- *
+- * This edid is intentionally broken with the 100MHz limit. It's meant
+- * to be used only with tests in unusual situations.
+- *
+- * edid-decode (hex):
+- *
+- * 00 ff ff ff ff ff ff 00 31 d8 2a 00 00 00 00 00
+- * 00 21 01 03 81 a0 5a 78 02 00 00 00 00 00 00 00
+- * 00 00 00 20 00 00 01 01 01 01 01 01 01 01 01 01
+- * 01 01 01 01 01 01 02 3a 80 18 71 38 2d 40 58 2c
+- * 45 00 40 84 63 00 00 1e 00 00 00 fc 00 54 65 73
+- * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 32
+- * 46 1e 46 0f 00 0a 20 20 20 20 20 20 00 00 00 10
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 92
+- *
+- * 02 03 15 81 e3 05 00 20 41 10 e2 00 4a 67 03 0c
+- * 00 12 34 00 14 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 10
+- *
+- * ----------------
+- *
+- * Block 0, Base EDID:
+- *   EDID Structure Version & Revision: 1.3
+- *   Vendor & Product Identification:
+- *     Manufacturer: LNX
+- *     Model: 42
+- *     Made in: 2023
+- *   Basic Display Parameters & Features:
+- *     Digital display
+- *     DFP 1.x compatible TMDS
+- *     Maximum image size: 160 cm x 90 cm
+- *     Gamma: 2.20
+- *     Monochrome or grayscale display
+- *     First detailed timing is the preferred timing
+- *   Color Characteristics:
+- *     Red  : 0.0000, 0.0000
+- *     Green: 0.0000, 0.0000
+- *     Blue : 0.0000, 0.0000
+- *     White: 0.0000, 0.0000
+- *   Established Timings I & II:
+- *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
+- *   Standard Timings: none
+- *   Detailed Timing Descriptors:
+- *     DTD 1:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (1600 mm x 900 mm)
+- *                  Hfront   88 Hsync  44 Hback  148 Hpol P
+- *                  Vfront    4 Vsync   5 Vback   36 Vpol P
+- *     Display Product Name: 'Test EDID'
+- *     Display Range Limits:
+- *       Monitor ranges (GTF): 50-70 Hz V, 30-70 kHz H, max dotclock 150 MHz
+- *     Dummy Descriptor:
+- *   Extension blocks: 1
+- * Checksum: 0x92
+- *
+- * ----------------
+- *
+- * Block 1, CTA-861 Extension Block:
+- *   Revision: 3
+- *   Underscans IT Video Formats by default
+- *   Native detailed modes: 1
+- *   Colorimetry Data Block:
+- *     sRGB
+- *   Video Data Block:
+- *     VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz
+- *   Video Capability Data Block:
+- *     YCbCr quantization: No Data
+- *     RGB quantization: Selectable (via AVI Q)
+- *     PT scan behavior: No Data
+- *     IT scan behavior: Always Underscanned
+- *     CE scan behavior: Always Underscanned
+- *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
+- *     Source physical address: 1.2.3.4
+- *     Maximum TMDS clock: 100 MHz
+- * Checksum: 0x10  Unused space in Extension Block: 106 bytes
+- *
+- * ----------------
+- *
+- * edid-decode 1.30.0-5367
+- * edid-decode SHA: 41ebf7135691 2025-05-01 10:19:22
+- *
+- * Failures:
+- *
+- * EDID:
+- *   CTA-861: The maximum HDMI TMDS clock is 100000 kHz, but one or more video timings go up to 148500 kHz.
+- *
+- * EDID conformity: FAIL
+- */
+-static const unsigned char test_edid_hdmi_1080p_rgb_max_100mhz[] = {
+-	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
+-	0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
+-	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+-	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x3a, 0x80, 0x18, 0x71, 0x38,
+-	0x2d, 0x40, 0x58, 0x2c, 0x45, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
+-	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
+-	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x32,
+-	0x46, 0x1e, 0x46, 0x0f, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+-	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x92, 0x02, 0x03, 0x15, 0x81,
+-	0xe3, 0x05, 0x00, 0x20, 0x41, 0x10, 0xe2, 0x00, 0x4a, 0x67, 0x03, 0x0c,
+-	0x00, 0x12, 0x34, 0x00, 0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x10
+-};
+-
+-/*
+- * edid-decode (hex):
+- *
+- * 00 ff ff ff ff ff ff 00 31 d8 2a 00 00 00 00 00
+- * 00 21 01 03 81 a0 5a 78 02 00 00 00 00 00 00 00
+- * 00 00 00 20 00 00 01 01 01 01 01 01 01 01 01 01
+- * 01 01 01 01 01 01 02 3a 80 18 71 38 2d 40 58 2c
+- * 45 00 40 84 63 00 00 1e 00 00 00 fc 00 54 65 73
+- * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 32
+- * 46 1e 46 0f 00 0a 20 20 20 20 20 20 00 00 00 10
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 92
+- *
+- * 02 03 15 81 e3 05 00 20 41 10 e2 00 4a 67 03 0c
+- * 00 12 34 00 28 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fc
+- *
+- * ----------------
+- *
+- * Block 0, Base EDID:
+- *   EDID Structure Version & Revision: 1.3
+- *   Vendor & Product Identification:
+- *     Manufacturer: LNX
+- *     Model: 42
+- *     Made in: 2023
+- *   Basic Display Parameters & Features:
+- *     Digital display
+- *     DFP 1.x compatible TMDS
+- *     Maximum image size: 160 cm x 90 cm
+- *     Gamma: 2.20
+- *     Monochrome or grayscale display
+- *     First detailed timing is the preferred timing
+- *   Color Characteristics:
+- *     Red  : 0.0000, 0.0000
+- *     Green: 0.0000, 0.0000
+- *     Blue : 0.0000, 0.0000
+- *     White: 0.0000, 0.0000
+- *   Established Timings I & II:
+- *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
+- *   Standard Timings: none
+- *   Detailed Timing Descriptors:
+- *     DTD 1:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (1600 mm x 900 mm)
+- *                  Hfront   88 Hsync  44 Hback  148 Hpol P
+- *                  Vfront    4 Vsync   5 Vback   36 Vpol P
+- *     Display Product Name: 'Test EDID'
+- *     Display Range Limits:
+- *       Monitor ranges (GTF): 50-70 Hz V, 30-70 kHz H, max dotclock 150 MHz
+- *     Dummy Descriptor:
+- *   Extension blocks: 1
+- * Checksum: 0x92
+- *
+- * ----------------
+- *
+- * Block 1, CTA-861 Extension Block:
+- *   Revision: 3
+- *   Underscans IT Video Formats by default
+- *   Native detailed modes: 1
+- *   Colorimetry Data Block:
+- *     sRGB
+- *   Video Data Block:
+- *     VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz
+- *   Video Capability Data Block:
+- *     YCbCr quantization: No Data
+- *     RGB quantization: Selectable (via AVI Q)
+- *     PT scan behavior: No Data
+- *     IT scan behavior: Always Underscanned
+- *     CE scan behavior: Always Underscanned
+- *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
+- *     Source physical address: 1.2.3.4
+- *     Maximum TMDS clock: 200 MHz
+- * Checksum: 0xfc  Unused space in Extension Block: 106 bytes
+- *
+- * ----------------
+- *
+- * edid-decode 1.30.0-5367
+- * edid-decode SHA: 41ebf7135691 2025-05-01 10:19:22
+- *
+- * EDID conformity: PASS
+- */
+-static const unsigned char test_edid_hdmi_1080p_rgb_max_200mhz[] = {
+-	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
+-	0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
+-	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+-	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x3a, 0x80, 0x18, 0x71, 0x38,
+-	0x2d, 0x40, 0x58, 0x2c, 0x45, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
+-	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
+-	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x32,
+-	0x46, 0x1e, 0x46, 0x0f, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+-	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x92, 0x02, 0x03, 0x15, 0x81,
+-	0xe3, 0x05, 0x00, 0x20, 0x41, 0x10, 0xe2, 0x00, 0x4a, 0x67, 0x03, 0x0c,
+-	0x00, 0x12, 0x34, 0x00, 0x28, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0xfc
+-};
+-
+-/*
+- * edid-decode (hex):
+- *
+- * 00 ff ff ff ff ff ff 00 31 d8 2a 00 00 00 00 00
+- * 00 21 01 03 81 a0 5a 78 02 00 00 00 00 00 00 00
+- * 00 00 00 20 00 00 01 01 01 01 01 01 01 01 01 01
+- * 01 01 01 01 01 01 02 3a 80 18 71 38 2d 40 58 2c
+- * 45 00 40 84 63 00 00 1e 00 00 00 fc 00 54 65 73
+- * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 32
+- * 46 1e 46 0f 00 0a 20 20 20 20 20 20 00 00 00 10
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 92
+- *
+- * 02 03 1c 81 e3 05 c0 20 41 10 e2 00 4a 67 03 0c
+- * 00 12 34 00 28 e6 06 05 01 52 52 51 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 4e
+- *
+- * ----------------
+- *
+- * Block 0, Base EDID:
+- *   EDID Structure Version & Revision: 1.3
+- *   Vendor & Product Identification:
+- *     Manufacturer: LNX
+- *     Model: 42
+- *     Made in: 2023
+- *   Basic Display Parameters & Features:
+- *     Digital display
+- *     DFP 1.x compatible TMDS
+- *     Maximum image size: 160 cm x 90 cm
+- *     Gamma: 2.20
+- *     Monochrome or grayscale display
+- *     First detailed timing is the preferred timing
+- *   Color Characteristics:
+- *     Red  : 0.0000, 0.0000
+- *     Green: 0.0000, 0.0000
+- *     Blue : 0.0000, 0.0000
+- *     White: 0.0000, 0.0000
+- *   Established Timings I & II:
+- *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
+- *   Standard Timings: none
+- *   Detailed Timing Descriptors:
+- *     DTD 1:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (1600 mm x 900 mm)
+- *                  Hfront   88 Hsync  44 Hback  148 Hpol P
+- *                  Vfront    4 Vsync   5 Vback   36 Vpol P
+- *     Display Product Name: 'Test EDID'
+- *     Display Range Limits:
+- *       Monitor ranges (GTF): 50-70 Hz V, 30-70 kHz H, max dotclock 150 MHz
+- *     Dummy Descriptor:
+- *   Extension blocks: 1
+- * Checksum: 0x92
+- *
+- * ----------------
+- *
+- * Block 1, CTA-861 Extension Block:
+- *   Revision: 3
+- *   Underscans IT Video Formats by default
+- *   Native detailed modes: 1
+- *   Colorimetry Data Block:
+- *     BT2020YCC
+- *     BT2020RGB
+- *     sRGB
+- *   Video Data Block:
+- *     VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz
+- *   Video Capability Data Block:
+- *     YCbCr quantization: No Data
+- *     RGB quantization: Selectable (via AVI Q)
+- *     PT scan behavior: No Data
+- *     IT scan behavior: Always Underscanned
+- *     CE scan behavior: Always Underscanned
+- *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
+- *     Source physical address: 1.2.3.4
+- *     Maximum TMDS clock: 200 MHz
+- *   HDR Static Metadata Data Block:
+- *     Electro optical transfer functions:
+- *       Traditional gamma - SDR luminance range
+- *       SMPTE ST2084
+- *     Supported static metadata descriptors:
+- *       Static metadata type 1
+- *     Desired content max luminance: 82 (295.365 cd/m^2)
+- *     Desired content max frame-average luminance: 82 (295.365 cd/m^2)
+- *     Desired content min luminance: 81 (0.298 cd/m^2)
+- * Checksum: 0x4e  Unused space in Extension Block: 99 bytes
+- *
+- * ----------------
+- *
+- * edid-decode 1.31.0-5387
+- * edid-decode SHA: 5508bc4301ac 2025-08-25 08:14:22
+- *
+- * EDID conformity: PASS
+- */
+-static const unsigned char test_edid_hdmi_1080p_rgb_max_200mhz_hdr[] = {
+-	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
+-	0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
+-	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+-	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x3a, 0x80, 0x18, 0x71, 0x38,
+-	0x2d, 0x40, 0x58, 0x2c, 0x45, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
+-	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
+-	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x32,
+-	0x46, 0x1e, 0x46, 0x0f, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+-	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x92, 0x02, 0x03, 0x1c, 0x81,
+-	0xe3, 0x05, 0xc0, 0x20, 0x41, 0x10, 0xe2, 0x00, 0x4a, 0x67, 0x03, 0x0c,
+-	0x00, 0x12, 0x34, 0x78, 0x28, 0xe6, 0x06, 0x05, 0x01, 0x52, 0x52, 0x51,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0xd6,
+-};
+-
+-/*
+- * edid-decode (hex):
+- *
+- * 00 ff ff ff ff ff ff 00 31 d8 2a 00 00 00 00 00
+- * 00 21 01 03 81 a0 5a 78 02 00 00 00 00 00 00 00
+- * 00 00 00 20 00 00 01 01 01 01 01 01 01 01 01 01
+- * 01 01 01 01 01 01 02 3a 80 18 71 38 2d 40 58 2c
+- * 45 00 40 84 63 00 00 1e 00 00 00 fc 00 54 65 73
+- * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 32
+- * 46 1e 46 0f 00 0a 20 20 20 20 20 20 00 00 00 10
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 92
+- *
+- * 02 03 15 81 e3 05 00 20 41 10 e2 00 4a 67 03 0c
+- * 00 12 34 00 44 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 e0
+- *
+- * ----------------
+- *
+- * Block 0, Base EDID:
+- *   EDID Structure Version & Revision: 1.3
+- *   Vendor & Product Identification:
+- *     Manufacturer: LNX
+- *     Model: 42
+- *     Made in: 2023
+- *   Basic Display Parameters & Features:
+- *     Digital display
+- *     DFP 1.x compatible TMDS
+- *     Maximum image size: 160 cm x 90 cm
+- *     Gamma: 2.20
+- *     Monochrome or grayscale display
+- *     First detailed timing is the preferred timing
+- *   Color Characteristics:
+- *     Red  : 0.0000, 0.0000
+- *     Green: 0.0000, 0.0000
+- *     Blue : 0.0000, 0.0000
+- *     White: 0.0000, 0.0000
+- *   Established Timings I & II:
+- *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
+- *   Standard Timings: none
+- *   Detailed Timing Descriptors:
+- *     DTD 1:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (1600 mm x 900 mm)
+- *                  Hfront   88 Hsync  44 Hback  148 Hpol P
+- *                  Vfront    4 Vsync   5 Vback   36 Vpol P
+- *     Display Product Name: 'Test EDID'
+- *     Display Range Limits:
+- *       Monitor ranges (GTF): 50-70 Hz V, 30-70 kHz H, max dotclock 150 MHz
+- *     Dummy Descriptor:
+- *   Extension blocks: 1
+- * Checksum: 0x92
+- *
+- * ----------------
+- *
+- * Block 1, CTA-861 Extension Block:
+- *   Revision: 3
+- *   Underscans IT Video Formats by default
+- *   Native detailed modes: 1
+- *   Colorimetry Data Block:
+- *     sRGB
+- *   Video Data Block:
+- *     VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz
+- *   Video Capability Data Block:
+- *     YCbCr quantization: No Data
+- *     RGB quantization: Selectable (via AVI Q)
+- *     PT scan behavior: No Data
+- *     IT scan behavior: Always Underscanned
+- *     CE scan behavior: Always Underscanned
+- *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
+- *     Source physical address: 1.2.3.4
+- *     Maximum TMDS clock: 340 MHz
+- * Checksum: 0xe0  Unused space in Extension Block: 106 bytes
+- *
+- * ----------------
+- *
+- * edid-decode 1.30.0-5367
+- * edid-decode SHA: 41ebf7135691 2025-05-01 10:19:22
+- *
+- * EDID conformity: PASS
+- */
+-static const unsigned char test_edid_hdmi_1080p_rgb_max_340mhz[] = {
+-	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
+-	0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
+-	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+-	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x3a, 0x80, 0x18, 0x71, 0x38,
+-	0x2d, 0x40, 0x58, 0x2c, 0x45, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
+-	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
+-	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x32,
+-	0x46, 0x1e, 0x46, 0x0f, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+-	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x92, 0x02, 0x03, 0x15, 0x81,
+-	0xe3, 0x05, 0x00, 0x20, 0x41, 0x10, 0xe2, 0x00, 0x4a, 0x67, 0x03, 0x0c,
+-	0x00, 0x12, 0x34, 0x00, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0xe0
+-};
+-
+-/*
+- * edid-decode (hex):
+- *
+- * 00 ff ff ff ff ff ff 00 31 d8 2a 00 00 00 00 00
+- * 00 21 01 03 81 a0 5a 78 1a 00 00 00 00 00 00 00
+- * 00 00 00 20 00 00 01 01 01 01 01 01 01 01 01 01
+- * 01 01 01 01 01 01 02 3a 80 18 71 38 2d 40 58 2c
+- * 45 00 40 84 63 00 00 1e 00 00 00 fc 00 54 65 73
+- * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 32
+- * 46 1e 46 0f 00 0a 20 20 20 20 20 20 00 00 00 10
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 7a
+- *
+- * 02 03 15 b1 e3 05 00 20 41 10 e2 00 ca 67 03 0c
+- * 00 12 34 78 28 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 d4
+- *
+- * ----------------
+- *
+- * Block 0, Base EDID:
+- *   EDID Structure Version & Revision: 1.3
+- *   Vendor & Product Identification:
+- *     Manufacturer: LNX
+- *     Model: 42
+- *     Made in: 2023
+- *   Basic Display Parameters & Features:
+- *     Digital display
+- *     DFP 1.x compatible TMDS
+- *     Maximum image size: 160 cm x 90 cm
+- *     Gamma: 2.20
+- *     Undefined display color type
+- *     First detailed timing is the preferred timing
+- *   Color Characteristics:
+- *     Red  : 0.0000, 0.0000
+- *     Green: 0.0000, 0.0000
+- *     Blue : 0.0000, 0.0000
+- *     White: 0.0000, 0.0000
+- *   Established Timings I & II:
+- *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
+- *   Standard Timings: none
+- *   Detailed Timing Descriptors:
+- *     DTD 1:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (1600 mm x 900 mm)
+- *                  Hfront   88 Hsync  44 Hback  148 Hpol P
+- *                  Vfront    4 Vsync   5 Vback   36 Vpol P
+- *     Display Product Name: 'Test EDID'
+- *     Display Range Limits:
+- *       Monitor ranges (GTF): 50-70 Hz V, 30-70 kHz H, max dotclock 150 MHz
+- *     Dummy Descriptor:
+- *   Extension blocks: 1
+- * Checksum: 0x7a
+- *
+- * ----------------
+- *
+- * Block 1, CTA-861 Extension Block:
+- *   Revision: 3
+- *   Underscans IT Video Formats by default
+- *   Supports YCbCr 4:4:4
+- *   Supports YCbCr 4:2:2
+- *   Native detailed modes: 1
+- *   Colorimetry Data Block:
+- *     sRGB
+- *   Video Data Block:
+- *     VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz
+- *   Video Capability Data Block:
+- *     YCbCr quantization: Selectable (via AVI YQ)
+- *     RGB quantization: Selectable (via AVI Q)
+- *     PT scan behavior: No Data
+- *     IT scan behavior: Always Underscanned
+- *     CE scan behavior: Always Underscanned
+- *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
+- *     Source physical address: 1.2.3.4
+- *     DC_48bit
+- *     DC_36bit
+- *     DC_30bit
+- *     DC_Y444
+- *     Maximum TMDS clock: 200 MHz
+- * Checksum: 0xd4  Unused space in Extension Block: 106 bytes
+- *
+- * ----------------
+- *
+- * edid-decode 1.30.0-5367
+- * edid-decode SHA: 41ebf7135691 2025-05-01 10:19:22
+- *
+- * EDID conformity: PASS
+- */
+-static const unsigned char test_edid_hdmi_1080p_rgb_yuv_dc_max_200mhz[] = {
+-	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
+-	0x1a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
+-	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+-	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x3a, 0x80, 0x18, 0x71, 0x38,
+-	0x2d, 0x40, 0x58, 0x2c, 0x45, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
+-	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
+-	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x32,
+-	0x46, 0x1e, 0x46, 0x0f, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+-	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x7a, 0x02, 0x03, 0x15, 0xb1,
+-	0xe3, 0x05, 0x00, 0x20, 0x41, 0x10, 0xe2, 0x00, 0xca, 0x67, 0x03, 0x0c,
+-	0x00, 0x12, 0x34, 0x78, 0x28, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0xd4
+-};
+-
+-/*
+- * edid-decode (hex):
+- *
+- * 00 ff ff ff ff ff ff 00 31 d8 2a 00 00 00 00 00
+- * 00 21 01 03 81 a0 5a 78 0a 00 00 00 00 00 00 00
+- * 00 00 00 20 00 00 01 01 01 01 01 01 01 01 01 01
+- * 01 01 01 01 01 01 02 3a 80 18 71 38 2d 40 58 2c
+- * 45 00 40 84 63 00 00 1e 00 00 00 fc 00 54 65 73
+- * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 32
+- * 46 1e 46 0f 00 0a 20 20 20 20 20 20 00 00 00 10
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 8a
+- *
+- * 02 03 15 b1 e3 05 00 20 41 10 e2 00 ca 67 03 0c
+- * 00 12 34 78 44 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 b8
+- *
+- * ----------------
+- *
+- * Block 0, Base EDID:
+- *   EDID Structure Version & Revision: 1.3
+- *   Vendor & Product Identification:
+- *     Manufacturer: LNX
+- *     Model: 42
+- *     Made in: 2023
+- *   Basic Display Parameters & Features:
+- *     Digital display
+- *     DFP 1.x compatible TMDS
+- *     Maximum image size: 160 cm x 90 cm
+- *     Gamma: 2.20
+- *     RGB color display
+- *     First detailed timing is the preferred timing
+- *   Color Characteristics:
+- *     Red  : 0.0000, 0.0000
+- *     Green: 0.0000, 0.0000
+- *     Blue : 0.0000, 0.0000
+- *     White: 0.0000, 0.0000
+- *   Established Timings I & II:
+- *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
+- *   Standard Timings: none
+- *   Detailed Timing Descriptors:
+- *     DTD 1:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (1600 mm x 900 mm)
+- *                  Hfront   88 Hsync  44 Hback  148 Hpol P
+- *                  Vfront    4 Vsync   5 Vback   36 Vpol P
+- *     Display Product Name: 'Test EDID'
+- *     Display Range Limits:
+- *       Monitor ranges (GTF): 50-70 Hz V, 30-70 kHz H, max dotclock 150 MHz
+- *     Dummy Descriptor:
+- *   Extension blocks: 1
+- * Checksum: 0x8a
+- *
+- * ----------------
+- *
+- * Block 1, CTA-861 Extension Block:
+- *   Revision: 3
+- *   Underscans IT Video Formats by default
+- *   Supports YCbCr 4:4:4
+- *   Supports YCbCr 4:2:2
+- *   Native detailed modes: 1
+- *   Colorimetry Data Block:
+- *     sRGB
+- *   Video Data Block:
+- *     VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz
+- *   Video Capability Data Block:
+- *     YCbCr quantization: Selectable (via AVI YQ)
+- *     RGB quantization: Selectable (via AVI Q)
+- *     PT scan behavior: No Data
+- *     IT scan behavior: Always Underscanned
+- *     CE scan behavior: Always Underscanned
+- *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
+- *     Source physical address: 1.2.3.4
+- *     DC_48bit
+- *     DC_36bit
+- *     DC_30bit
+- *     DC_Y444
+- *     Maximum TMDS clock: 340 MHz
+- * Checksum: 0xb8  Unused space in Extension Block: 106 bytes
+- *
+- * ----------------
+- *
+- * edid-decode 1.30.0-5367
+- * edid-decode SHA: 41ebf7135691 2025-05-01 10:19:22
+- *
+- * EDID conformity: PASS
+- */
+-static const unsigned char test_edid_hdmi_1080p_rgb_yuv_dc_max_340mhz[] = {
+-	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
+-	0x0a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
+-	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+-	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x3a, 0x80, 0x18, 0x71, 0x38,
+-	0x2d, 0x40, 0x58, 0x2c, 0x45, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
+-	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
+-	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x32,
+-	0x46, 0x1e, 0x46, 0x0f, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+-	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x8a, 0x02, 0x03, 0x15, 0xb1,
+-	0xe3, 0x05, 0x00, 0x20, 0x41, 0x10, 0xe2, 0x00, 0xca, 0x67, 0x03, 0x0c,
+-	0x00, 0x12, 0x34, 0x78, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0xb8
+-};
+-
+-/*
+- * Max resolution:
+- * - 1920x1080@60Hz with RGB, YUV444, YUV422
+- * - 3840x2160@30Hz with YUV420 only
+- * Max BPC:         16 for all modes
+- * Max TMDS clock:  200 MHz
+- *
+- * edid-decode (hex):
+- *
+- * 00 ff ff ff ff ff ff 00 31 d8 34 00 00 00 00 00
+- * ff 23 01 03 80 60 36 78 0f ee 91 a3 54 4c 99 26
+- * 0f 50 54 20 00 00 01 01 01 01 01 01 01 01 01 01
+- * 01 01 01 01 01 01 02 3a 80 18 71 38 2d 40 58 2c
+- * 45 00 c0 1c 32 00 00 1e 00 00 00 fc 00 54 65 73
+- * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 18
+- * 55 18 5e 11 00 0a 20 20 20 20 20 20 00 00 00 10
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 bb
+- *
+- * 02 03 29 31 42 90 5f 6c 03 0c 00 10 00 78 28 20
+- * 00 00 01 03 6d d8 5d c4 01 28 80 07 00 00 00 00
+- * 00 00 e3 0f 00 00 e2 0e 5f 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ca
+- *
+- * ----------------
+- *
+- * Block 0, Base EDID:
+- *   EDID Structure Version & Revision: 1.3
+- *   Vendor & Product Identification:
+- *     Manufacturer: LNX
+- *     Model: 52
+- *     Model year: 2025
+- *   Basic Display Parameters & Features:
+- *     Digital display
+- *     Maximum image size: 96 cm x 54 cm
+- *     Gamma: 2.20
+- *     RGB color display
+- *     Default (sRGB) color space is primary color space
+- *     First detailed timing is the preferred timing
+- *     Supports GTF timings within operating range
+- *   Color Characteristics:
+- *     Red  : 0.6396, 0.3300
+- *     Green: 0.2998, 0.5996
+- *     Blue : 0.1503, 0.0595
+- *     White: 0.3125, 0.3291
+- *   Established Timings I & II:
+- *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
+- *   Standard Timings: none
+- *   Detailed Timing Descriptors:
+- *     DTD 1:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (960 mm x 540 mm)
+- *                  Hfront   88 Hsync  44 Hback  148 Hpol P
+- *                  Vfront    4 Vsync   5 Vback   36 Vpol P
+- *     Display Product Name: 'Test EDID'
+- *     Display Range Limits:
+- *       Monitor ranges (GTF): 24-85 Hz V, 24-94 kHz H, max dotclock 170 MHz
+- *     Dummy Descriptor:
+- *   Extension blocks: 1
+- * Checksum: 0xbb
+- *
+- * ----------------
+- *
+- * Block 1, CTA-861 Extension Block:
+- *   Revision: 3
+- *   Supports YCbCr 4:4:4
+- *   Supports YCbCr 4:2:2
+- *   Native detailed modes: 1
+- *   Video Data Block:
+- *     VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (native)
+- *     VIC  95:  3840x2160   30.000000 Hz  16:9     67.500 kHz    297.000000 MHz
+- *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
+- *     Source physical address: 1.0.0.0
+- *     DC_48bit
+- *     DC_36bit
+- *     DC_30bit
+- *     DC_Y444
+- *     Maximum TMDS clock: 200 MHz
+- *     Extended HDMI video details:
+- *   Vendor-Specific Data Block (HDMI Forum), OUI C4-5D-D8:
+- *     Version: 1
+- *     Maximum TMDS Character Rate: 200 MHz
+- *     SCDC Present
+- *     Supports 16-bits/component Deep Color 4:2:0 Pixel Encoding
+- *     Supports 12-bits/component Deep Color 4:2:0 Pixel Encoding
+- *     Supports 10-bits/component Deep Color 4:2:0 Pixel Encoding
+- *   YCbCr 4:2:0 Capability Map Data Block:
+- *     Empty Capability Map
+- *   YCbCr 4:2:0 Video Data Block:
+- *     VIC  95:  3840x2160   30.000000 Hz  16:9     67.500 kHz    297.000000 MHz
+- * Checksum: 0xca
+- */
+-static const unsigned char test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz[] = {
+-	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x34, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0xff, 0x23, 0x01, 0x03, 0x80, 0x60, 0x36, 0x78,
+-	0x0f, 0xee, 0x91, 0xa3, 0x54, 0x4c, 0x99, 0x26, 0x0f, 0x50, 0x54, 0x20,
+-	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+-	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x3a, 0x80, 0x18, 0x71, 0x38,
+-	0x2d, 0x40, 0x58, 0x2c, 0x45, 0x00, 0xc0, 0x1c, 0x32, 0x00, 0x00, 0x1e,
+-	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
+-	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x18,
+-	0x55, 0x18, 0x5e, 0x11, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+-	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xbb, 0x02, 0x03, 0x29, 0x31,
+-	0x42, 0x90, 0x5f, 0x6c, 0x03, 0x0c, 0x00, 0x10, 0x00, 0x78, 0x28, 0x20,
+-	0x00, 0x00, 0x01, 0x03, 0x6d, 0xd8, 0x5d, 0xc4, 0x01, 0x28, 0x80, 0x07,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe3, 0x0f, 0x00, 0x00, 0xe2, 0x0e,
+-	0x5f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0xca
+-};
+-
+-/*
+- * Max resolution: 3840x2160@30Hz with RGB, YUV444, YUV422, YUV420
+- * Max BPC:        16 for all modes
+- * Max TMDS clock: 340 MHz
+- *
+- * edid-decode (hex):
+- *
+- * 00 ff ff ff ff ff ff 00 31 d8 34 00 00 00 00 00
+- * ff 23 01 03 80 60 36 78 0f ee 91 a3 54 4c 99 26
+- * 0f 50 54 20 00 00 01 01 01 01 01 01 01 01 01 01
+- * 01 01 01 01 01 01 04 74 00 30 f2 70 5a 80 b0 58
+- * 8a 00 40 84 63 00 00 1e 00 00 00 fc 00 54 65 73
+- * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 18
+- * 55 18 5e 22 00 0a 20 20 20 20 20 20 00 00 00 10
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 ce
+- *
+- * 02 03 27 31 41 5f 6c 03 0c 00 10 00 78 44 20 00
+- * 00 01 03 6d d8 5d c4 01 44 80 07 00 00 00 00 00
+- * 00 e3 0f 01 00 e1 0e 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 84
+- *
+- * ----------------
+- *
+- * Block 0, Base EDID:
+- *   EDID Structure Version & Revision: 1.3
+- *   Vendor & Product Identification:
+- *     Manufacturer: LNX
+- *     Model: 52
+- *     Model year: 2025
+- *   Basic Display Parameters & Features:
+- *     Digital display
+- *     Maximum image size: 96 cm x 54 cm
+- *     Gamma: 2.20
+- *     RGB color display
+- *     Default (sRGB) color space is primary color space
+- *     First detailed timing is the preferred timing
+- *     Supports GTF timings within operating range
+- *   Color Characteristics:
+- *     Red  : 0.6396, 0.3300
+- *     Green: 0.2998, 0.5996
+- *     Blue : 0.1503, 0.0595
+- *     White: 0.3125, 0.3291
+- *   Established Timings I & II:
+- *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
+- *   Standard Timings: none
+- *   Detailed Timing Descriptors:
+- *     DTD 1:  3840x2160   30.000000 Hz  16:9     67.500 kHz    297.000000 MHz (1600 mm x 900 mm)
+- *                  Hfront  176 Hsync  88 Hback  296 Hpol P
+- *                  Vfront    8 Vsync  10 Vback   72 Vpol P
+- *     Display Product Name: 'Test EDID'
+- *     Display Range Limits:
+- *       Monitor ranges (GTF): 24-85 Hz V, 24-94 kHz H, max dotclock 340 MHz
+- *     Dummy Descriptor:
+- *   Extension blocks: 1
+- * Checksum: 0xce
+- *
+- * ----------------
+- *
+- * Block 1, CTA-861 Extension Block:
+- *   Revision: 3
+- *   Supports YCbCr 4:4:4
+- *   Supports YCbCr 4:2:2
+- *   Native detailed modes: 1
+- *   Video Data Block:
+- *     VIC  95:  3840x2160   30.000000 Hz  16:9     67.500 kHz    297.000000 MHz
+- *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
+- *     Source physical address: 1.0.0.0
+- *     DC_48bit
+- *     DC_36bit
+- *     DC_30bit
+- *     DC_Y444
+- *     Maximum TMDS clock: 340 MHz
+- *     Extended HDMI video details:
+- *   Vendor-Specific Data Block (HDMI Forum), OUI C4-5D-D8:
+- *     Version: 1
+- *     Maximum TMDS Character Rate: 340 MHz
+- *     SCDC Present
+- *     Supports 16-bits/component Deep Color 4:2:0 Pixel Encoding
+- *     Supports 12-bits/component Deep Color 4:2:0 Pixel Encoding
+- *     Supports 10-bits/component Deep Color 4:2:0 Pixel Encoding
+- *   YCbCr 4:2:0 Capability Map Data Block:
+- *     VIC  95:  3840x2160   30.000000 Hz  16:9     67.500 kHz    297.000000 MHz
+- *   YCbCr 4:2:0 Video Data Block:
+- * Checksum: 0x84
+- */
+-static const unsigned char test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz[] = {
+-	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x34, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0xff, 0x23, 0x01, 0x03, 0x80, 0x60, 0x36, 0x78,
+-	0x0f, 0xee, 0x91, 0xa3, 0x54, 0x4c, 0x99, 0x26, 0x0f, 0x50, 0x54, 0x20,
+-	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+-	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x04, 0x74, 0x00, 0x30, 0xf2, 0x70,
+-	0x5a, 0x80, 0xb0, 0x58, 0x8a, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
+-	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
+-	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x18,
+-	0x55, 0x18, 0x5e, 0x22, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+-	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xce, 0x02, 0x03, 0x27, 0x31,
+-	0x41, 0x5f, 0x6c, 0x03, 0x0c, 0x00, 0x10, 0x00, 0x78, 0x44, 0x20, 0x00,
+-	0x00, 0x01, 0x03, 0x6d, 0xd8, 0x5d, 0xc4, 0x01, 0x44, 0x80, 0x07, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0xe3, 0x0f, 0x01, 0x00, 0xe1, 0x0e, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x84
+-};
++extern const unsigned char test_edid_dvi_1080p[128];
++extern const unsigned char test_edid_hdmi_1080p_rgb_max_100mhz[256];
++extern const unsigned char test_edid_hdmi_1080p_rgb_max_200mhz[256];
++extern const unsigned char test_edid_hdmi_1080p_rgb_max_200mhz_hdr[256];
++extern const unsigned char test_edid_hdmi_1080p_rgb_max_340mhz[256];
++extern const unsigned char test_edid_hdmi_1080p_rgb_yuv_dc_max_200mhz[256];
++extern const unsigned char test_edid_hdmi_1080p_rgb_yuv_dc_max_340mhz[256];
++extern const unsigned char test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz[256];
++extern const unsigned char test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz[256];
+ 
+ #endif // DRM_KUNIT_EDID_H_
 
-[ ... ]
+---
+base-commit: 2df5efb45425b48fbf5a3c1f36a686af26871009
+change-id: 20260610-test-edid-array-definition-fix-43fca4e76b0a
 
-> +/// A reference to a virtual mapping for an shmem-based GEM object in ke=
-rnel address space.
-> +///
-> +/// # Invariants
-> +///
-> +/// - The size of `owner` is >=3D SIZE.
-> +/// - The memory pointed to by `addr` remains valid at least until this =
-object is dropped.
-> +pub struct VMap<D, R, C =3D Registered, const SIZE: usize =3D 0>
-> +where
-> +    D: DriverObject,
-> +    C: DeviceContext,
-> +    R: Deref<Target =3D Object<D, C>>,
-> +{
-> +    addr: *mut c_void,
-> +    owner: R,
-> +}
+Best regards,
+--  
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-[Severity: Low]
-Does this struct compile successfully?
-
-The generic type parameters D and C are used in the where clause but not in
-any fields. Would this trigger a compiler error (E0392) requiring a
-PhantomData field to compute variance?
-
-[ ... ]
-
-> +// SAFETY: VMaps are safe to send across threads.
-> +unsafe impl<D, R, C, const SIZE: usize> Send for VMap<D, R, C, SIZE>
-> +where
-> +    D: DriverObject,
-> +    C: DeviceContext,
-> +    R: Deref<Target =3D Object<D, C>>,
-> +{
-> +}
-> +
-> +// SAFETY: VMaps are safe to access from multiple threads.
-> +unsafe impl<D, R, C, const SIZE: usize> Sync for VMap<D, R, C, SIZE>
-> +where
-> +    D: DriverObject,
-> +    C: DeviceContext,
-> +    R: Deref<Target =3D Object<D, C>>,
-> +{
-> +}
-
-[Severity: High]
-Are these unconditional Send and Sync implementations sound?
-
-If a caller provides a custom type for R that implements Deref but is !Send
-or !Sync (such as a type using non-atomic reference counting), VMap would
-still be allowed across threads. When the VMap is dropped on another thread,
-the !Send R would be dropped there, resulting in a data race.
-
-Should these implementations require explicit Send and Sync bounds on R?
-
-[ ... ]
-
-> +macro_rules! impl_vmap_io_capable {
-> +    ($ty:ty) =3D> {
-> +        impl<D, R, C, const SIZE: usize> IoCapable<$ty> for VMap<D, R, C=
-, SIZE>
-> +        where
-> +            D: DriverObject,
-> +            C: DeviceContext,
-> +            R: Deref<Target =3D Object<D, C>>,
-> +        {
-> +            #[inline]
-> +            unsafe fn io_read(&self, address: usize) -> $ty {
-> +                let ptr =3D address as *mut $ty;
-> +
-> +                // SAFETY: The safety contract of `io_read` guarantees t=
-hat address is a valid
-> +                // address within the bounds of `Self` of at least the s=
-ize of $ty, and is properly
-> +                // aligned.
-> +                unsafe { ptr::read_volatile(ptr) }
-> +            }
-> +
-> +            #[inline]
-> +            unsafe fn io_write(&self, value: $ty, address: usize) {
-> +                let ptr =3D address as *mut $ty;
-> +
-> +                // SAFETY: The safety contract of `io_write` guarantees =
-that address is a valid
-> +                // address within the bounds of `Self` of at least the s=
-ize of $ty, and is properly
-> +                // aligned.
-> +                unsafe { ptr::write_volatile(ptr, value) }
-> +            }
-> +        }
-> +    };
-> +}
-
-[Severity: High]
-Can this result in a data race?
-
-Since VMap implements the Sync trait, shared references (&VMap) can be safe=
-ly
-sent to multiple threads. This IoCapable implementation powers safe Io trait
-accessors (like write8) using ptr::write_volatile, which is not atomic.
-
-According to the Rust memory model, concurrent volatile writes from multiple
-threads to the same memory location constitute a data race. Should this
-synchronize access to avoid undefined behavior?
-
-[ ... ]
-
-> +    #[test]
-> +    fn vmap_io() -> Result {
-> +        let (_dev, drm) =3D create_drm_dev()?;
-> +
-> +        let obj =3D Object::<KunitObject, _>::new(&drm, PAGE_SIZE, Objec=
-tConfig::default(), ())?;
-> +
-> +        let vmap =3D obj.vmap::<PAGE_SIZE>()?;
-> +
-> +        vmap.write8(0xDE, 0x0);
-> +        assert_eq!(vmap.read8(0x0), 0xDE);
-> +        vmap.write32(0xFEDCBA98, 0x20);
-> +
-> +        assert_eq!(vmap.read32(0x20), 0xFEDCBA98);
-> +
-> +        // Ensure the ordering in memory is correct
-> +        let offsets =3D (0x20..0x23).into_iter();
-> +        let expected =3D 0xFEDCBA98_u32.to_ne_bytes().into_iter();
-> +        for (offset, expected) in offsets.zip(expected) {
-> +            assert_eq!(vmap.read8(offset), expected);
-> +        }
-> +
-> +        Ok(())
-> +    }
-> +}
-
-[Severity: Medium]
-Does this loop skip the 4th byte verification?
-
-The offsets iterator (0x20..0x23) produces exactly 3 elements (0x20, 0x21,
-and 0x22). Because zip stops when the shortest iterator is exhausted, it
-appears the 4th byte at offset 0x23 is silently skipped and never verified.
-
-Should this be (0x20..=3D0x23) or (0x20..0x24) instead?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610162433.9235=
-50-1-lyude@redhat.com?part=3D2
