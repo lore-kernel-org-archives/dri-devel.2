@@ -4,74 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AB49CD8CB2
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 07:58:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92DA3CD8CB2
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 07:58:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCB2B10E7B0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B620C10E7AF;
 	Wed, 10 Jun 2026 07:58:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="BuNSqgCZ";
+	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="laSVrF+i";
 	dkim-atps=neutral
-X-Greylist: delayed 62934 seconds by postgrey-1.36 at gabe;
- Wed, 10 Jun 2026 03:04:23 UTC
-Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03AA310E6B3
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 03:04:22 +0000 (UTC)
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D202610E754
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 07:08:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1781060642;
- bh=pPmroeQDHsA9ug2HnLTa8g6lPR2P7s9mi76pG8L8oJI=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=BuNSqgCZlJmnGmMVd/iPKDirBsV/5/yYjnlkefASCAi6aMqzs/z/bcIcKmsQZigQD
- Oma6S1YRLOeZUU8cMhU9ouyZMCreH0ySQ65XEzJ/n6P84VspTI36PMDGbshBBYzcbw
- 3LkNp0z4Bc/jbviZTM/Vg+xVdylj8pwN5wt6gfFI=
-X-QQ-mid: esmtpgz13t1781060624tc1abae19
-X-QQ-Originating-IP: cLg5X++iDCAXLdBCZBxzRSN4dV8URO0z6d3AWbklGOE=
-Received: from localhost.localdomain ( [1.202.39.170])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 10 Jun 2026 11:03:38 +0800 (CST)
+ s=onoh2408; t=1781075302;
+ bh=zvKytJ58T/chWpp24xm4A9/cDcPHoU4w4qBHxE0/tfQ=;
+ h=Date:From:To:Subject:Mime-Version:Message-ID;
+ b=laSVrF+iqYLs3ZcnnmsnitWRMdx4Cy7Um8OsrFATdtZdJcBvGzlzeR7Z+r232NF3i
+ P0NKPYKpkyWz5AqruSR/5DkSMfWsicT801MZMIyZIKXVjNrMRGat4qdyU8E3E/HRMD
+ 6D0LzDtzxVC/n+wWV00zFQDEXaFTZABg05WrXTR4=
+X-QQ-mid: zesmtpsz3t1781075297tf0a746f2
+X-QQ-Originating-IP: n5AAiXA+maG+AP4yA7ZO7SnW+9aOqpN+vqkbX+vaBfU=
+Received: from PEN002676 ( [124.126.19.250]) by bizesmtp.qq.com (ESMTP) with 
+ id ; Wed, 10 Jun 2026 15:08:15 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 2952194183593288770
-EX-QQ-RecipientCnt: 11
-From: ZhaoJinming <zhaojinming@uniontech.com>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	Oded Gabbay <ogabbay@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Jeff Hugo <jeff.hugo@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, ZhaoJinming <zhaojinming@uniontech.com>,
- stable@vger.kernel.org
-Subject: [PATCH v4 2/2] accel/rocket: Fix iommu_group leak and unsafe IRQ
- register access
-Date: Wed, 10 Jun 2026 11:03:22 +0800
-Message-Id: <20260610030322.2802744-2-zhaojinming@uniontech.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20260610030322.2802744-1-zhaojinming@uniontech.com>
-References: <20260609094756.8DDFD1F00893@smtp.kernel.org>
- <20260610030322.2802744-1-zhaojinming@uniontech.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 16299428127603928625
+Date: Wed, 10 Jun 2026 15:08:16 +0800
+From: =?GB2312?B?1dS98MP3?= <zhaojinming@uniontech.com>
+To: sashiko-reviews <sashiko-reviews@lists.linux.dev>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>
+Subject: Re: Re: [PATCH v5 2/2] accel/rocket: Fix iommu_group leak and unsafe
+ IRQ register access
+References: <20260610060132.3239648-2-zhaojinming@uniontech.com>, 
+ <20260610061915.1CA281F00893@smtp.kernel.org>
+X-Priority: 3
+X-GUID: 0633139B-E067-4908-8126-AAB895F2707B
+X-Has-Attach: no
+X-Mailer: Foxmail 7.2.25.542[cn]
+Mime-Version: 1.0
+Message-ID: <D23A28C3959804D9+202606101508151030321@uniontech.com>
+Content-Type: text/plain;
+	charset="GB2312"
+Content-Transfer-Encoding: base64
 X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: N7V5dvLk9gGfNKwaqmR804LFZSjywXn/11FfW7YtIkRsck2p2GyRkBHO
- WuA0sPIcwR9KbL04RkBSCFOUz2uA1pc1F2KVRN82piJsoDkgQdy2QzSRCe12UVcFTPnuAOF
- h41ba8t2XHLCCoyvUt3EzjcQpVSgKwgT5yuEgDQucmBTk2wXd2/Z38TgHQ0yz3NbfpZiE5M
- 5u1pQI26lnRsyBlJ3VAA/swO0KnYwdKRCiJP4fF6lboxEcE+QE6BhIfuqF1hfSxt1X25mr2
- x+i0yPJLZVDwny5lLpxdzoW29blMqpdYemGqyDn0zuQ8bAFylHYpsY4Aik4MyuHJT//lfad
- rqy3ZDFkgxviLXNdxiDE7S5OlslS0t4Our6O1V7Xx+k/Jq8B6Q04GjkQ+M3vF3z+HMjDt6T
- eFU9QZFMYkhlsxkmT0Njs1hvSXt9OIddf8jFrwtKIXqAWPTxp8Z+qI6yxm/bkb4Z6l3+sYW
- ls/kXdGvK+dC4guOTOgZIL6DeLldEHtvbO/fa2KorAwzQX5uP7Ie0t/zZnSOqklUWTPcSqV
- nzLf4aC8zJySXhRD6LkioU8ljWr9mlmY+iktQ9YjZcq108FicZgJqyc4AWOrJm6X51pA8AV
- lSo8RIga64z0PevFHPTgSXFsqZHpz+kcNI8RWrPt9ltU0/xmhQ1+jYiOpSn4IuiH0YqFbXN
- fYfpOuseGXPsFWdBSAtUxCWxhIn6ivADa5wxFyHCO5G1buUIzmQ6pwNuWRdK1zUx1Pm5JN0
- 6G+qF/pVAN9kZVMrZfBDVLMF5tygGpr6bpRyLfBU0Cwrn8//VI2x9Y+9g+VctmVC1GslYSt
- Uatp4AXtAEKadOdVxG1Rr0sBe2KW/eFa9A/ZfvhBzxxyw4hV/6FDJ8IlZsjM9z14SszeYg+
- yZURZpARso0Svup2hZyQsZ0DSEZfTDeK6Y71mMPE6dBD4KVc/h5RPXMOSx0FOq5IkXWEKy9
- MzNN4ZQyGQsGF4CfmXs8MVVX71Df335WUftB2RKBHSbkta/dhobKTojoSeNYffbLKWdJECG
- 2g3WutyIdy5GXLzy7vPu73bUnal7hUSeHMGvmJrvzR9pezlO8btFmFql77us+rvfvsbXNnu
- UUfV1BplF7w
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: NUDY11p76rEh0nJqIjXSTINt5rhMf1tdRfOmhhL7rtSPS2D9N9n7vNBm
+ iD3hA37YbSRZ24P99XW8LpcT2TVgbyQyYsC2F+vDV51nQTOSMY1azR1MgUBNHpSWKdswrm/
+ YW33C0qivYD8Sy/A7z24Fyd9Vvg7PCOLsJ+/2oNMlJphoOs9MdnZCEQPng2LqxTK5AkoviV
+ OAi4OrxNWZ6CI+qr1afnsNVRCSkfYIBKf8uIHIzua7kzkal/89LP66JO31etQ3VlQrUTCuY
+ YS8uVnfL5E9zKk7gXyVc2Mq7seIwyJWrtkgMaVkJtPWbIpB5p9STDislfleHtZaZmkmnuJ1
+ M/f60RL+228/C2CIFgo4HHm+iOYPo25ObEoJF2t4JDhXUzwRuMgwzz/+niUkkUOfpNqO4M/
+ aUcvFlgk/9D9KCoJ0LHJE/hQ+nHHNEfEGT8bQaCau+RB1snb0WAlK4FxQAo35uSL3NwcvxV
+ j4hx16O7SrxR1iahDcJ4tCXvRgZ6kRGf0soE0Sj7FtpSN/a+4cFKxtXXdwWYET4mRDfNoIt
+ lPFKjYoz8T5VNgW4KuahZSyAoPVx1h9tOULORLlXdVAMM6rpYNMPrJnpW4NbAYj7HuhK+xZ
+ bLcCgGSKnPuTRSRrBVQaMhWvSkJO45zQZ5/ECmkI0DDtkpnCDOEdtSuJ9dekIxwLKyM7/jv
+ QCCRHmaiXBqdYV2LICu3M9//wSWhn4gJU+TdPXyIOS7CM740k7BcaeAZnsuxd/KNX8+N4os
+ hJBtTexZ77/Tcle4kwm4sTnXgyXiMQsyYUy/1OEaWmNZ0o82vU7XcCTZLg7K9hBnuWMVqk1
+ ceuIsRo0YxSam1+OVSUooXcBGLBkYGVRpzH2BRGps2/DRWWIJLmb+1YlDpWgQMNS6xHl38Q
+ Bdhupjv5ruXwz58UC7iAMqeNnIVRhc4WG9zgs5Lwfe7iHP3xnLE8bGJuio69wqcsnd/wU3I
+ g0aPzX+e2tMCIrvYz+p08NcxE3L55SQYpS8n9Fz9A1EgYIi/Pvm/i+HnLBx0gHeryLABcbE
+ pHbzS+cXfZSYLJrCiE
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
 X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Wed, 10 Jun 2026 07:58:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -89,87 +82,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Two bugs in the IRQ handling path:
-
-1) iommu_group reference leak in rocket_job_handle_irq():
-   iommu_group_get() increments the reference count but the returned
-   pointer is passed directly to iommu_detach_group() which does not
-   consume it. Since this runs on every completed job, the reference
-   count accumulates and prevents the group from being freed. Use
-   core->iommu_group instead, consistent with rocket_reset().
-
-2) Unsafe hardware register access in shared IRQ handler:
-   rocket_job_irq_handler() is registered with IRQF_SHARED but accesses
-   hardware registers without checking runtime PM status. If another
-   device on the same IRQ line triggers an interrupt while the NPU is
-   suspended, register reads return 0xffffffff, spuriously triggering
-   WARN_ON macros and falsely returning IRQ_WAKE_THREAD.
-
-   Add pm_runtime_get_if_active() in the hardirq handler to atomically
-   verify the device is active before accessing registers. Each handler
-   (hardirq and threaded) independently acquires and releases its own
-   runtime PM reference to avoid coalescing-related leaks when the
-   IRQ core coalesces multiple wakeups into a single thread execution.
-
-Cc: stable@vger.kernel.org
-Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
-Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
----
- drivers/accel/rocket/rocket_job.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index e8a073e22ac2..f05043619169 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -349,7 +349,7 @@ static void rocket_job_handle_irq(struct rocket_core *core)
- 				return;
- 			}
- 
--			iommu_detach_group(NULL, iommu_group_get(core->dev));
-+			iommu_detach_group(NULL, core->iommu_group);
- 			dma_fence_signal(core->in_flight_job->done_fence);
- 			pm_runtime_put_autosuspend(core->dev);
- 			core->in_flight_job = NULL;
-@@ -420,7 +420,10 @@ static irqreturn_t rocket_job_irq_handler_thread(int irq, void *data)
- {
- 	struct rocket_core *core = data;
- 
--	rocket_job_handle_irq(core);
-+	if (pm_runtime_get_if_active(core->dev)) {
-+		rocket_job_handle_irq(core);
-+		pm_runtime_put(core->dev);
-+	}
- 
- 	return IRQ_HANDLED;
- }
-@@ -428,16 +431,24 @@ static irqreturn_t rocket_job_irq_handler_thread(int irq, void *data)
- static irqreturn_t rocket_job_irq_handler(int irq, void *data)
- {
- 	struct rocket_core *core = data;
--	u32 raw_status = rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
-+	u32 raw_status;
-+
-+	if (pm_runtime_get_if_active(core->dev) != 1)
-+		return IRQ_NONE;
-+
-+	raw_status = rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
- 
- 	WARN_ON(raw_status & PC_INTERRUPT_RAW_STATUS_DMA_READ_ERROR);
- 	WARN_ON(raw_status & PC_INTERRUPT_RAW_STATUS_DMA_WRITE_ERROR);
- 
- 	if (!(raw_status & PC_INTERRUPT_RAW_STATUS_DPU_0 ||
--	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1))
-+	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1)) {
-+		pm_runtime_put(core->dev);
- 		return IRQ_NONE;
-+	}
- 
- 	rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
-+	pm_runtime_put(core->dev);
- 
- 	return IRQ_WAKE_THREAD;
- }
--- 
-2.20.1
+CgoKCj5UaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBm
+b3VuZCA0IHBvdGVudGlhbCBpc3N1ZShzKSB0byBjb25zaWRlcjoKCgoKPgoKCgo+TmV3IGlzc3Vl
+czoKCgoKPi0gW0hpZ2hdIFVuaGFuZGxlZCBpbnRlcnJ1cHQgc3Rvcm0gZHVyaW5nIGRldmljZSBy
+ZW1vdmFsIGR1ZSB0byBgcG1fcnVudGltZV9nZXRfaWZfYWN0aXZlKClgLgpJIHRyeSB0byBmaXgg
+aXQgIGluIG5leHQgdmVyc2lvbiBvZiBwYXRjaGVzLgoKCj4tIFtIaWdoXSBOVUxMIHBvaW50ZXIg
+ZGVyZWZlcmVuY2UgaW4gdGhlIElSUSB0aHJlYWQgZHVyaW5nIHRlYXJkb3duIChVc2UtQWZ0ZXIt
+RnJlZSkuCgoKClJlZ2FyZGluZyB0aGUgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlIGR1cmluZyB0
+ZWFyZG93biBjb25jZXJuOgoKVGhpcyBjYW5ub3Qgb2NjdXIgaW4gdGhlIGN1cnJlbnQgcGF0Y2gu
+IFRoZSB0aHJlYWRlZCBJUlEgaGFuZGxlciBoYXMgdGhyZWUgbGF5ZXJzIG9mIHByb3RlY3Rpb246
+CgpwbV9ydW50aW1lX2dldF9pZl9hY3RpdmUoKSA9PSAxIChsaW5lIDQyMyk6IEluIHJvY2tldF9j
+b3JlX2ZpbmkoKSwgcG1fcnVudGltZV9kaXNhYmxlKCkgaXMgY2FsbGVkIGJlZm9yZSBjb3JlLT5p
+b21tdV9ncm91cCA9IE5VTEwuIEFmdGVyIHBtX3J1bnRpbWVfZGlzYWJsZSgpLCBkaXNhYmxlX2Rl
+cHRoID4gMCwgc28gcG1fcnVudGltZV9nZXRfaWZfYWN0aXZlKCkgcmV0dXJucyAtRUlOVkFMLiBT
+aW5jZSAtRUlOVkFMICE9IDEgaXMgZmFsc2UsIHRoZSB0aHJlYWRlZCBoYW5kbGVyIG5ldmVyIGNh
+bGxzIHJvY2tldF9qb2JfaGFuZGxlX2lycSgpIGFuZCB0aHVzIG5ldmVyIGFjY2Vzc2VzIGNvcmUt
+PmlvbW11X2dyb3VwLiBUaGlzIGhvbGRzIGV2ZW4gaWYgdGhlIHRocmVhZCBpcyB3b2tlbiBieSBj
+b2FsZXNjaW5nIGFmdGVyIHBtX3J1bnRpbWVfZGlzYWJsZSgpLgpzY29wZWRfZ3VhcmQobXV0ZXgs
+ICZjb3JlLT5qb2JfbG9jaykgd2l0aCBpbl9mbGlnaHRfam9iIGNoZWNrIChsaW5lIDM0NSk6IEV2
+ZW4gaWYgdGhlIGZpcnN0IGNoZWNrIHdlcmUgc29tZWhvdyBieXBhc3NlZCwgcm9ja2V0X2pvYl9o
+YW5kbGVfaXJxKCkgb25seSBhY2Nlc3NlcyBjb3JlLT5pb21tdV9ncm91cCBpbnNpZGUgYSBzY29w
+ZWRfZ3VhcmQgdGhhdCBjaGVja3MgY29yZS0+aW5fZmxpZ2h0X2pvYiAhPSBOVUxMLiBCeSB0aGUg
+dGltZSByb2NrZXRfY29yZV9maW5pKCkgcnVucywgZHJtX3NjaGVkX2ZpbmkoKSBoYXMgYWxyZWFk
+eSBiZWVuIGNhbGxlZCAodmlhIHJvY2tldF9qb2JfZmluaSgpKSwgd2hpY2ggc3RvcHMgdGhlIHNj
+aGVkdWxlciBhbmQgcmVsZWFzZXMgYWxsIGpvYnMsIGxlYXZpbmcgaW5fZmxpZ2h0X2pvYiBhcyBO
+VUxMLgpFeGVjdXRpb24gb3JkZXJpbmcgZ3VhcmFudGVlOiByb2NrZXRfY29yZV9maW5pKCkgY2Fs
+bHMgcG1fcnVudGltZV9kaXNhYmxlKCkgYmVmb3JlIHNldHRpbmcgaW9tbXVfZ3JvdXAgPSBOVUxM
+LiBUaGUgcG1fcnVudGltZV9nZXRfaWZfYWN0aXZlKCkgY2hlY2sgaW4gdGhlIHRocmVhZCBoYW5k
+bGVyIGlzIGV2YWx1YXRlZCB1bmRlciBzcGluX2xvY2tfaXJxc2F2ZSAoc2VlIHBtX3J1bnRpbWVf
+Z2V0X2NvbmRpdGlvbmFsKCkgYXQgcnVudGltZS5jOjEyMzMpLCB3aGljaCBwcm92aWRlcyB0aGUg
+aGFwcGVucy1iZWZvcmUgZ3VhcmFudGVlIHdpdGggcmVzcGVjdCB0byBkaXNhYmxlX2RlcHRoIG1v
+ZGlmaWNhdGlvbiBpbiBfX3BtX3J1bnRpbWVfZGlzYWJsZSgpLgpObyBjb2RlIHBhdGggZXhpc3Rz
+IHdoZXJlIHRoZSB0aHJlYWRlZCBoYW5kbGVyIGNhbiByZWFjaCBpb21tdV9kZXRhY2hfZ3JvdXAo
+TlVMTCwgY29yZS0+aW9tbXVfZ3JvdXApIGFmdGVyIGNvcmUtPmlvbW11X2dyb3VwIGhhcyBiZWVu
+IHNldCB0byBOVUxMLgoKCgoKPlByZS1leGlzdGluZyBpc3N1ZXM6CgoKCj4tIFtDcml0aWNhbF0g
+RG91YmxlIGZyZWUgb2YgYHJqb2ItPnRhc2tzYCBhcnJheSBkdXJpbmcgam9iIHN1Ym1pc3Npb24g
+ZXJyb3IgaGFuZGxpbmcuCgoKCj4tIFtIaWdoXSBOVUxMIHBvaW50ZXIgZGVyZWZlcmVuY2Ugd2hl
+biBmcmVlaW5nIGFuIHVuaW5pdGlhbGl6ZWQgYGpvYi0+ZG9tYWluYC4KCgoKPi0tCgoKCj4KCgoK
+PmNvbW1pdCA3YzU5YTRkNWUyZTc0MjY0YmNmZTdiYzhhYTdjOTAzNTE2YjFjMWMwCgoKCj5BdXRo
+b3I6IFpoYW9KaW5taW5nIDx6aGFvamlubWluZ0B1bmlvbnRlY2guY29tPgoKCgo+CgoKCj5hY2Nl
+bC9yb2NrZXQ6IEZpeCBpb21tdV9ncm91cCBsZWFrIGFuZCB1bnNhZmUgSVJRIHJlZ2lzdGVyIGFj
+Y2VzcwoKCgo+CgoKCj5UaGlzIGNvbW1pdCByZXBsYWNlcyBpb21tdV9ncm91cF9nZXQoKSB3aXRo
+IHRoZSBjYWNoZWQgY29yZS0+aW9tbXVfZ3JvdXAKCgoKPnRvIHByZXZlbnQgYSByZWZlcmVuY2Ug
+bGVhay4gSXQgYWxzbyBhZGRzIHBtX3J1bnRpbWVfZ2V0X2lmX2FjdGl2ZSgpIGNoZWNrcwoKCgo+
+aW4gdGhlIElSUSBoYW5kbGVyIGFuZCB0aHJlYWQgdG8gcHJldmVudCB1bnNhZmUgaGFyZHdhcmUg
+cmVnaXN0ZXIgYWNjZXNzZXMKCgoKPndoZW4gdGhlIGRldmljZSBpcyBzdXNwZW5kZWQuCgoKCj4K
+CgoKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvYWNjZWwvcm9ja2V0L3JvY2tldF9qb2IuYyBiL2Ry
+aXZlcnMvYWNjZWwvcm9ja2V0L3JvY2tldF9qb2IuYwoKCgo+PiBpbmRleCBjZjlmNjE2ODJkZDhi
+Li4yMWI0MzM4MjZiNDc5IDEwMDY0NAoKCgo+PiAtLS0gYS9kcml2ZXJzL2FjY2VsL3JvY2tldC9y
+b2NrZXRfam9iLmMKCgoKPj4gKysrIGIvZHJpdmVycy9hY2NlbC9yb2NrZXQvcm9ja2V0X2pvYi5j
+CgoKCj4+IEBAIC0zNDksNyArMzQ5LDcgQEAgc3RhdGljIHZvaWQgcm9ja2V0X2pvYl9oYW5kbGVf
+aXJxKHN0cnVjdCByb2NrZXRfY29yZSAqY29yZSkKCgoKPj4/IAkJCQlyZXR1cm47CgoKCj4+PyAJ
+CQl9CgoKCj4+PyAKCgoKPj4gLQkJCWlvbW11X2RldGFjaF9ncm91cChOVUxMLCBpb21tdV9ncm91
+cF9nZXQoY29yZS0+ZGV2KSk7CgoKCj4+ICsJCQlpb21tdV9kZXRhY2hfZ3JvdXAoTlVMTCwgY29y
+ZS0+aW9tbXVfZ3JvdXApOwoKCgo+CgoKCj5bU2V2ZXJpdHk6IEhpZ2hdCgoKCj5Db3VsZCB0aGlz
+IGxlYWQgdG8gYSBOVUxMIHBvaW50ZXIgZGVyZWZlcmVuY2UgZHVyaW5nIGRldmljZSB0ZWFyZG93
+bj8KCgoKPgoKCgo+SW4gcm9ja2V0X2NvcmVfZmluaSgpLCBjb3JlLT5pb21tdV9ncm91cCBpcyBz
+ZXQgdG8gTlVMTCB3aXRob3V0IGFjcXVpcmluZwoKCgo+Y29yZS0+am9iX2xvY2sgb3Igd2FpdGlu
+ZyBmb3IgdGhlIElSUSB0aHJlYWQgdG8gZmluaXNoOgoKCgo+CgoKCj5yb2NrZXRfY29yZV9maW5p
+KCkKCgoKPj8/PyAuLi4KCgoKPj8/PyBjb3JlLT5pb21tdV9ncm91cCA9IE5VTEw7CgoKCj4KCgoK
+PklmIHRoZSB0aHJlYWRlZCBJUlEgaGFuZGxlciBydW5zIGNvbmN1cnJlbnRseSBhZnRlciBwYXNz
+aW5nIHRoZSBydW50aW1lIFBNCgoKCj5jaGVjaywgaXQgd2lsbCBwYXNzIHRoaXMgbmV3bHkgbnVs
+bGVkIHBvaW50ZXIgdG8gaW9tbXVfZGV0YWNoX2dyb3VwKCksCgoKCj5jYXVzaW5nIHRoZSBJT01N
+VSBjb3JlIHRvIGRlcmVmZXJlbmNlIGEgTlVMTCBwb2ludGVyIHdoZW4gYWNxdWlyaW5nIHRoZQoK
+Cgo+Z3JvdXAncyBtdXRleC4KCgoKPgoKCgo+Pj8gCQkJZG1hX2ZlbmNlX3NpZ25hbChjb3JlLT5p
+bl9mbGlnaHRfam9iLT5kb25lX2ZlbmNlKTsKCgoKPj4/IAkJCXBtX3J1bnRpbWVfcHV0X2F1dG9z
+dXNwZW5kKGNvcmUtPmRldik7CgoKCj4+PyAJCQljb3JlLT5pbl9mbGlnaHRfam9iID0gTlVMTDsK
+CgoKPgoKCgo+WyAuLi4gXQoKCgo+CgoKCj4+IEBAIC00MjgsMTYgKzQzMSwyNCBAQCBzdGF0aWMg
+aXJxcmV0dXJuX3Qgcm9ja2V0X2pvYl9pcnFfaGFuZGxlcl90aHJlYWQoaW50IGlycSwgdm9pZCAq
+ZGF0YSkKCgoKPj4/IHN0YXRpYyBpcnFyZXR1cm5fdCByb2NrZXRfam9iX2lycV9oYW5kbGVyKGlu
+dCBpcnEsIHZvaWQgKmRhdGEpCgoKCj4+PyB7CgoKCj4+PyAJc3RydWN0IHJvY2tldF9jb3JlICpj
+b3JlID0gZGF0YTsKCgoKPj4gLQl1MzIgcmF3X3N0YXR1cyA9IHJvY2tldF9wY19yZWFkbChjb3Jl
+LCBJTlRFUlJVUFRfUkFXX1NUQVRVUyk7CgoKCj4+ICsJdTMyIHJhd19zdGF0dXM7CgoKCj4+ICsK
+CgoKPj4gKwlpZiAocG1fcnVudGltZV9nZXRfaWZfYWN0aXZlKGNvcmUtPmRldikgIT0gMSkKCgoK
+Pj4gKwkJcmV0dXJuIElSUV9OT05FOwoKCgo+CgoKCj5bU2V2ZXJpdHk6IEhpZ2hdCgoKCj5XaWxs
+IHRoaXMgY2F1c2UgYW4gdW5oYW5kbGVkIGludGVycnVwdCBzdG9ybSBkdXJpbmcgbW9kdWxlIHJl
+bW92YWw/CgoKCj4KCgoKPkR1cmluZyBtb2R1bGUgcmVtb3ZhbCwgcm9ja2V0X2NvcmVfZmluaSgp
+IGRpc2FibGVzIHJ1bnRpbWUgUE06CgoKCj4KCgoKPnJvY2tldF9jb3JlX2ZpbmkoKQoKCgo+Pz8/
+IHBtX3J1bnRpbWVfZGlzYWJsZShjb3JlLT5kZXYpOwoKCgo+CgoKCj5UaGlzIGhhcHBlbnMgYmVm
+b3JlIHRoZSBoYXJkd2FyZSBpcyBzdG9wcGVkLiBJZiBhIGhhcmR3YXJlIGpvYiBjb21wbGV0ZXMK
+CgoKPnN1YnNlcXVlbnRseSwgdGhlIGRldmljZSByYWlzZXMgYSBsZXZlbC10cmlnZ2VyZWQgaW50
+ZXJydXB0LiBTaW5jZSBydW50aW1lCgoKCj5QTSBpcyBkaXNhYmxlZCwgcG1fcnVudGltZV9nZXRf
+aWZfYWN0aXZlKCkgcmV0dXJucyAtRUlOVkFMLgoKCgo+CgoKCj5UaGUgaGFuZGxlciB0aGVuIHVu
+Y29uZGl0aW9uYWxseSByZXR1cm5zIElSUV9OT05FIHdpdGhvdXQgY2xlYXJpbmcgdGhlCgoKCj5p
+bnRlcnJ1cHQuIEJlY2F1c2UgdGhlIElSUSBpcyBsZXZlbC10cmlnZ2VyZWQsIHRoZSB1bmFja25v
+d2xlZGdlZCBpbnRlcnJ1cHQKCgoKPndpbGwgaW1tZWRpYXRlbHkgcmVmaXJlIHVwb24gaGFuZGxl
+ciBleGl0LCBwb3RlbnRpYWxseSBjYXVzaW5nIGFuIGluZmluaXRlCgoKCj5pbnRlcnJ1cHQgc3Rv
+cm0gdGhhdCBkZWFkbG9ja3MgdGhlIENQVS4KCgoKPgoKCgo+W1NldmVyaXR5OiBDcml0aWNhbF0K
+CgoKPlRoaXMgaXNuJ3QgYSBidWcgaW50cm9kdWNlZCBieSB0aGlzIHBhdGNoLCBidXQgZG9lcyB0
+aGUgZXJyb3IgaGFuZGxpbmcgaW4KCgoKPnJvY2tldF9jb3B5X3Rhc2tzKCkgY2F1c2UgYSBkb3Vi
+bGUgZnJlZSBvZiB0aGUgdGFza3MgYXJyYXk/CgoKCj4KCgoKPklmIHZhbGlkYXRpb24gb2YgdGhl
+IGluY29taW5nIHRhc2tzIGZhaWxzLCB0aGUgYXJyYXkgaXMgZnJlZWQgYnV0IHRoZQoKCgo+cG9p
+bnRlciBpcyBub3QgY2xlYXJlZDoKCgoKPgoKCgo+cm9ja2V0X2NvcHlfdGFza3MoKSB7CgoKCj4/
+Pz8gLi4uCgoKCj5mYWlsOgoKCgo+Pz8/IGt2ZnJlZShyam9iLT50YXNrcyk7CgoKCj4/Pz8gcmV0
+dXJuIHJldDsKCgoKPn0KCgoKPgoKCgo+VGhlIGNhbGxlciB0aGVuIGp1bXBzIHRvIHRoZSBlcnJv
+ciBsYWJlbCBhbmQgaW52b2tlcyByb2NrZXRfam9iX3B1dCgpLAoKCgo+d2hpY2ggdHJpZ2dlcnMg
+cm9ja2V0X2pvYl9jbGVhbnVwKCkuIFRoaXMgY2xlYW51cCBmdW5jdGlvbiBmcmVlcyB0aGUKCgoK
+PmRhbmdsaW5nIHBvaW50ZXIgYWdhaW46CgoKCj4KCgoKPnJvY2tldF9qb2JfY2xlYW51cCgpIHsK
+CgoKPj8/PyAuLi4KCgoKPj8/PyBrdmZyZWUoam9iLT50YXNrcyk7CgoKCj59CgoKCj4KCgoKPkNh
+biBhIGxvY2FsIHVucHJpdmlsZWdlZCBhdHRhY2tlciBleHBsb2l0IHRoaXMgdmlhIHRoZSBzdWJt
+aXQgaW9jdGwgdG8KCgoKPmNvcnJ1cHQga2VybmVsIG1lbW9yeT8KCgoKPgoKCgo+W1NldmVyaXR5
+OiBIaWdoXQoKCgo+VGhpcyBpc24ndCBhIGJ1ZyBpbnRyb2R1Y2VkIGJ5IHRoaXMgcGF0Y2gsIGJ1
+dCBpcyB0aGVyZSBhIE5VTEwgcG9pbnRlcgoKCgo+ZGVyZWZlcmVuY2Ugd2hlbiBmcmVlaW5nIGFu
+IHVuaW5pdGlhbGl6ZWQgZG9tYWluPwoKCgo+CgoKCj5XaGVuIHRoZSBqb2Igc3RydWN0dXJlIGlz
+IGFsbG9jYXRlZCwgYWxsIGZpZWxkcyBhcmUgaW5pdGlhbGl6ZWQgdG8gemVyby4KCgoKPklmIHNl
+dHVwIGZhaWxzIGVhcmx5IChmb3IgZXhhbXBsZSwgaW4gZHJtX3NjaGVkX2pvYl9pbml0KCkgb3IK
+CgoKPnJvY2tldF9jb3B5X3Rhc2tzKCkpLCBqb2ItPmRvbWFpbiByZW1haW5zIE5VTEwuCgoKCj4K
+CgoKPlRoZSBlcnJvciBoYW5kbGluZyBwYXRoIGludm9rZXMgcm9ja2V0X2pvYl9jbGVhbnVwKCks
+IHdoaWNoIHVuY29uZGl0aW9uYWxseQoKCgo+cmVsZWFzZXMgdGhlIGRvbWFpbjoKCgoKPgoKCgo+
+cm9ja2V0X2pvYl9jbGVhbnVwKCkgewoKCgo+Pz8/IC4uLgoKCgo+Pz8/IHJvY2tldF9pb21tdV9k
+b21haW5fcHV0KGpvYi0+ZG9tYWluKTsKCgoKPn0KCgoKPgoKCgo+VGhpcyBmdW5jdGlvbiBpbW1l
+ZGlhdGVseSBkZXJlZmVyZW5jZXMgdGhlIHBvaW50ZXI6CgoKCj4KCgoKPnJvY2tldF9pb21tdV9k
+b21haW5fcHV0KCkgewoKCgo+Pz8/IC4uLgoKCgo+Pz8/IGtyZWZfcHV0KCZkb21haW4tPmtyZWYs
+IHJvY2tldF9pb21tdV9kb21haW5fZGVzdHJveSk7CgoKCj59CgoKCj4KCgoKPkNvdWxkIHRoaXMg
+Y2F1c2UgYSBrZXJuZWwgcGFuaWMgaWYgYW4gdW5wcml2aWxlZ2VkIHVzZXIgcGFzc2VzIGludmFs
+aWQKCgoKPmFyZ3VtZW50cz8KCgoKPgoKCgo+LS0gCgoKCj5TYXNoaWtvIEFJIHJldmlldyChpCBo
+dHRwczovL3Nhc2hpa28uZGV2LyMvcGF0Y2hzZXQvMjAyNjA2MTAwNjAxMzIuMzIzOTY0OC0xLXpo
+YW9qaW5taW5nQHVuaW9udGVjaC5jb20/cGFydD0yCgoKCj4KCgo=
 
