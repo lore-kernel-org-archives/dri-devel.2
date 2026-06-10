@@ -4,90 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29474CD8CB9
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 14:35:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0C3DCD8CB9
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 14:38:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 848B010EA10;
-	Wed, 10 Jun 2026 14:35:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3255710E9E8;
+	Wed, 10 Jun 2026 14:38:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="o6Pja300";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kqi/QFE/";
 	dkim-atps=neutral
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com
- [74.125.82.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AE7A10E9E9
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 14:35:32 +0000 (UTC)
-Received: by mail-dy1-f181.google.com with SMTP id
- 5a478bee46e88-304f0039c02so12353225eec.1
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 07:35:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781102132; cv=none;
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
+ [74.125.82.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F51210E9E8
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 14:38:51 +0000 (UTC)
+Received: by mail-dy1-f174.google.com with SMTP id
+ 5a478bee46e88-304ddfcf72cso7218888eec.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 07:38:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781102330; cv=none;
  d=google.com; s=arc-20240605;
- b=gYNqju40qD7YDDy3gXFyxbcUMNpyBkNrlJqEhxUjeVfE1Wybt8qIM0OTCe6B7I0h8X
- kXakCNkZnL63RCEqYcpJUgQwcEBLCtCVV3hQpVgOgOBR5wQ4DSE4dWBNZ4ktDFGoW7hz
- QO+eP2vakch1Sj9JndjmiDJKQI7V7PW35tVJdQVHtrJX+sQ6aagWSboQsgasaSzMqf3O
- EqHdWJGrQGrTbZKXDUtB7k4Ko4sPSFOOupOUJNXfPi3wVoaNI3pNFn5xKiTeeMeMhknI
- PGdN21AjNP0QLzoS7XUoylj4IOE0mC8CgR7JFYz48WJ42kmtuHvriHfXPar/hGzn2/I3
- diDg==
+ b=I9lRLPljEVSJH0XISY5Vf33B8xStDKbxczYdLTlbzQ92+q2xc+l+k5I6fhqnM3OwBA
+ +x4/8hMBL9d+92ElNzyIXPA6wlddbnyZq8nQCwJl7e+tGY7nhCvEJrG8M40rCaapf87w
+ l3HrIt3CN8njedokr0fnWeQX4SbC0u1nxvwSR0gdq1Fd8L9qnenhB0ORjBs/7ksNhTqf
+ 5gxmPn7kYo3PvEb5Hn9ulumynaaJ1Cr1WaAgohZA+l3d1i0vHDTnfDy2IDaWT9kEMOnC
+ hRpP0ffffvmIBFmExgij6qZ4fBKhRhEDxQLzG0hWVCFl64YnTOFZO/y333lkKMMGdp9E
+ vb1w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=5u4rWfzB/dXcaizEq3FSq09DXlW+GebEr04lNWgXuHI=;
- fh=OLIO9U7iYosMVmh8ivU4p0v/Rq/nWuJ5jIafxSJ/ozk=;
- b=LpCrFwf7yy2+uXkdGeB61oWCdJDXWeK67NEjuRB45HGUfQrrEVFa3Ren3Aqzlz2yuQ
- QiQ7790ZdvzbeA2Tb8NyISGMFq2DlikoudOSH5AOfXKdp/upqGNSTHs+7jml4cMmJZu+
- sOei9jyoL2Yt2Lv/dMh+oQxTsiUcmLE5wbpFKcVqZ1LddlfK3DGTXc7UfMNzZvYju6ki
- yESKD8LGo8JRVdqIRpUG37fkNu1A3EXyW284ZiHHydDXEofRcJQZtYUYjV4OSKU8dzWJ
- wbFDRaI445sfYKv9KZAsj6RWI5d0LGsm1J9QFGTM2X13ov98BBSk9B6XXGyW2mBVKcH8
- TFOQ==; darn=lists.freedesktop.org
+ bh=xEmfQD66YljQgfpm6pWxKEM84AHfr3eAJ9XCpH6lBeM=;
+ fh=iKbzkH9bd5U4bf45WNijaJvrPZlsDH+B72GejKtjloI=;
+ b=T0rZlhjrQqyQuv7jaT39IvcMNl1cMedqMs2Zw1+FwFowHvjfPzr3+kIMlP3RbNLUkR
+ 3MJBxuDPZcwbtGw0ReBct8EGVq5QZIQXNOcqvjp0fX86QGY2xgxizUppXj2O3xkHCQC9
+ xU7tOYVOoSOCY+qvUHyflnAoY+fnKKURT+X1KMWRpK2JQPA0MpsVMkZWK1zRSguFdx1Y
+ JxHBtAI4faliX7XHpmNHyVKobUL16yp2Chv8qvRMmLZ5dZIdOc0vHiy0vGxNSpQrA4g4
+ /zfOsT4+cFrU8fm6UEvsdNOtiZuFPRVU7PJXF9oRW9FWUvsuu/I7EdQBuVDgWwHWjc0f
+ R7AA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781102132; x=1781706932; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781102330; x=1781707130; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=5u4rWfzB/dXcaizEq3FSq09DXlW+GebEr04lNWgXuHI=;
- b=o6Pja30079h8zgDWZ3IwqULChFqV2ppzUWwkE+JpRxsipPC/oD13EqeYzCRpkw069a
- aOoDm7Ilnavw0mtZs2hKMyqjqffkvgS4VNYdpAQquiUSTbcy0NqBqYyBv4iSFiqgxI6w
- erMg9onFXHpHXixE56ijnLnWceTIWGxXVSUoMEnKe3N55etIvN//7ToofTYibbeXx9nf
- 67+Ls3Rl1ypPDQxl2InEojvLW0iYJNM/yBa/b627ewPaHPrUGUWQqk/zi6VTCDbWEY0m
- cQJWABXVGB8v6vcDs4NWybysgBcg7CZcojhOMXw0ubrwmj4kPtBWRoMjRI2lDDH1mU3r
- I4zw==
+ bh=xEmfQD66YljQgfpm6pWxKEM84AHfr3eAJ9XCpH6lBeM=;
+ b=kqi/QFE/ANIAvc442LHiadKnlvxHAgMgGkfMsCr6ht8eXFz23hTskVRb5H+nlTOviQ
+ cBAJ3FBpl6UDepSzZ+RkQCEUzh+8bnNyNu5CcyxSTr+8oDSWm7r24dzDypYXf7YfLi40
+ 9yg5QqPxHyajerTPHcGfC8JnT7gyyOT9DJ4M1NEG0W769207G6z3q3MSz5qxWyxw01Ma
+ /H5ZdybAfxybGGjvUH/kAOnFKlNT1gjAJfexGiciDQyKu2CPgSEYA+0XJbuaK+13it44
+ yMf/Tc+BW12bpn1YXKaP9mhzSUIm3K4uv5MjXNUK9Xx5cELPmQXbSrm+zkTp/8D/vh/M
+ 1a1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781102132; x=1781706932;
+ d=1e100.net; s=20251104; t=1781102330; x=1781707130;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=5u4rWfzB/dXcaizEq3FSq09DXlW+GebEr04lNWgXuHI=;
- b=Gy9mfbk0jGsAZ5ZJhDe0zwFro5GlMdXTfD/gQWLTyeGlM9TJQQf5PQFwfx8VC4v2DC
- CnO4k30P2d8c8xcVjigz7mffhTg3L/ziNWcsRVv+RRWzdmdhxZ+qeYPHCw8aFWscYTLU
- dxbyYFE8NqwKTN88EzL9K/fcJnzjumIPpPfJiByDCUr1BJREWV3h6Q+n6hCnWau6/2Nt
- XQLRx6TPmweBbXUyCP5iLRsGNm25W0Rdfuc09esdcahr2SLfvVKA4GaxOwZyL8PJ/oII
- 21YkNuZy2X1a3/oWQQBoebLC3+LJ7JkmwFsk0D6L3git7tCZvpZFC8G/ldVvKilBqL7p
- rcwg==
+ bh=xEmfQD66YljQgfpm6pWxKEM84AHfr3eAJ9XCpH6lBeM=;
+ b=pWLdXUyPDAOHKT3VxvUA3Wmf9Z24bR/kcNPuqZTBaUH4QNRFIyDpiR5/6l0Wfgefug
+ dlj3dKmnQdvQuKT6/6x1qa36sbFvrKMQkjNlUngXqvWlZ4k8BW72uxtiEAmhchNNjl4c
+ Ipoy7BKckVnhm4Rzc+YQDDl+baeEK6KcbD5gnEk/1ajD/DICC+GMWsY2W7SbSIbcNKh4
+ bhTHmzzNULNbwVxnXu2WiVjuI/JnWpWEXJJAdt3cIwSM90GptyltbM5yWpSB4mcdiTUU
+ KtvzYJIsBPWYphzNQa76CeFoH4i6RAr+RRTTI814WUvLHvA6R0Ry/YUQFAa11C9vgSe5
+ xNyg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9cAopi9g/8Sl6JoWiphY3RmtIivvXl+DWU1pGPKi/NOAQwZ6omFvbn8uVWI09Hm0TVSUu7dwVpqe4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz4bBOaitTijY+gi1KvfgrKK0MDBq+4xv9M/uXI2XdxWvcWskA7
- xQHHjnrhI3H7fNO0FE0DouPA14rG3FSa1pxilqENS4YRfS0Jedp8WwX+1QGThE/Jc4bF8PLP2eb
- QJSJLweAs5IeK+ZUm1aEPUheun71rNhI=
-X-Gm-Gg: Acq92OHt86DO3ZuxCgqToP+tjRWiryoFffcwrawvX/+CleYf/4uJlmciYFJJuoK696n
- v6xVWP8wVd37/I1KcOT/kmpA8nHA75H5STItRwg7I6i9grCJHFWWB1eeUmrGqRHlZAJgL4c1sf/
- CvlmyQMtApSE8CunLlIYg5rl3XP0jFTxiiAO6q0WSStuMpRjZP7gBVVtBtWACsbSHLb9pQEjbbv
- Ro8UqqDdrK7N+EKLu/UmH6EMGUUWVXPLDnefPzZq7sBoc32HJrX2N/d0l9D+tHAHZ2xEU1xBH0b
- Jae40AGAlnQCTM+NuWs=
-X-Received: by 2002:a05:7301:4186:b0:2ef:9961:27fa with SMTP id
- 5a478bee46e88-307d62ddc77mr6085557eec.18.1781102131738; Wed, 10 Jun 2026
- 07:35:31 -0700 (PDT)
+ AFNElJ9gTKQeQw3Jd7TkT+dUqo4ggYcYuEz1+VDkc/Lra9dU6jjXKJuZLKCaCZImxGcHBlLOX8NVoV+GXf8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzjC1oOk4bxDq1Kb4yCimaTiIn9HrrOHZcDK2es3EkiESMYIaEv
+ uZPge8jcnU1Brwms34Req2dWM2Ih7wxI0Dlcbzr9+JcaFhWzL0pn6r6sR3bhDE3dY6CjwJ2IC+j
+ FOhHxUmpRdF1DXydH/gHKYRlbLpCiqCw=
+X-Gm-Gg: Acq92OEbl8FsEQr0i3teIutTIclKW51d8MQzjgD5xvxhTeCimYWg+HRx3jmS24ejc2i
+ gQ42AW0jbTDmNjl50Df999mxPJ/NlhIyNy9X9jAIA1wxKMpJV6C9O9shyI/UVY9t2OWw5fdml/N
+ cEVgpHsWP16wJKDj6uGDFO0ysszreNOiI5lLhfhzF5XrSORTVYhPvl2QqQr9DnZLfvsGA0sN/t4
+ QjTq5bl0LZ203EuLqU8Cf4pH8axJQUGWIX7TwtW/AmFmt0zgGe6zpnE0YkcE4r8FJTjFoQyaqV7
+ VsYSpk3A5V0V+UdjtHc=
+X-Received: by 2002:a05:7300:cc0c:b0:304:e6f8:7cc9 with SMTP id
+ 5a478bee46e88-3077b1cc840mr15721596eec.20.1781102330361; Wed, 10 Jun 2026
+ 07:38:50 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260606045738.21050-1-clamor95@gmail.com>
- <20260606045738.21050-6-clamor95@gmail.com>
- <aihlDGNZRuHI-vMR@ashevche-desk.local>
-In-Reply-To: <aihlDGNZRuHI-vMR@ashevche-desk.local>
+ <20260606045738.21050-8-clamor95@gmail.com>
+ <aihl9yIqN3adKWLr@ashevche-desk.local>
+In-Reply-To: <aihl9yIqN3adKWLr@ashevche-desk.local>
 From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 10 Jun 2026 17:35:20 +0300
-X-Gm-Features: AVVi8CeF2WtE8NAfRo3Ry4_ONFpQ60FlY7Ry_ggOsna45f4Sc2pO4GqWSxBW8Fo
-Message-ID: <CAPVz0n17uAvpyuF5_E1L49eoz8LvHULE0-SVjJpHvu4veWWjEQ@mail.gmail.com>
-Subject: Re: [PATCH v4 05/14] iio: light: lm3533-als: Remove redundant pdata
- helpers
+Date: Wed, 10 Jun 2026 17:38:38 +0300
+X-Gm-Features: AVVi8Cf09c5dRYmH0R9kJGLjsyEz3GTJujrRgluMHRMUhIaWopJLSUHlJiMgJFA
+Message-ID: <CAPVz0n2+27QVeWNgPm3PH6V2Ceuym6sbMtUrh7hSHe9PcRmfMA@mail.gmail.com>
+Subject: Re: [PATCH v4 07/14] mfd: lm3533: Switch sysfs_create_group() to
+ device_add_group()
 To: Andy Shevchenko <andriy.shevchenko@intel.com>
 Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
  Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
@@ -117,70 +117,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=D0=B2=D1=82, 9 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 22:10=
+=D0=B2=D1=82, 9 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 22:14=
  Andy Shevchenko <andriy.shevchenko@intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
 >
-> On Sat, Jun 06, 2026 at 07:57:29AM +0300, Svyatoslav Ryhel wrote:
-> > The lm3533_als_set_input_mode and lm3533_als_set_resistor functions are
-> > used only in lm3533_als_setup. Incorporate their code into
-> > lm3533_als_setup directly to simplify driver readability.
+> On Sat, Jun 06, 2026 at 07:57:31AM +0300, Svyatoslav Ryhel wrote:
+> > Switch from sysfs_create_group() to device_add_group() including device
+> > managed where appropriate.
 >
-> Use func() when referring to a function in the commit message.
+> This should use .dev_groups member of struct device_driver.
 >
 
-I must have missed, thanks.
+Specify pls, device_add_group literally uses dev_groups, I don't
+understand what is wrong.
 
 > ...
 >
-> >  static int lm3533_als_setup(struct lm3533_als *als,
-> >                           const struct lm3533_als_platform_data *pdata)
-> >  {
-> > +     struct device *dev =3D &als->pdev->dev;
-> >       int ret;
-> >
-> > -     ret =3D lm3533_als_set_input_mode(als, pdata->pwm_mode);
-> > +     ret =3D regmap_assign_bits(als->regmap, LM3533_REG_ALS_CONF,
-> > +                              LM3533_ALS_INPUT_MODE_MASK, pdata->pwm_m=
-ode);
-> >       if (ret)
-> > -             return ret;
-> > +             return dev_err_probe(dev, ret, "failed to set input mode =
-%d\n",
-> > +                                  pdata->pwm_mode);
-> >
-> >       /* ALS input is always high impedance in PWM-mode. */
-> >       if (!pdata->pwm_mode) {
-> > -             ret =3D lm3533_als_set_resistor(als, pdata->r_select);
-> > +             if (pdata->r_select < LM3533_ALS_RESISTOR_MIN ||
-> > +                 pdata->r_select > LM3533_ALS_RESISTOR_MAX)
-> > +                     return dev_err_probe(dev, -EINVAL,
-> > +                                          "invalid resistor value\n");
-> > +
-> > +             ret =3D regmap_write(als->regmap, LM3533_REG_ALS_RESISTOR=
-_SELECT,
-> > +                                pdata->r_select);
-> >               if (ret)
-> > -                     return ret;
-> > +                     return dev_err_probe(dev, ret, "failed to set res=
-istor\n");
-> >       }
-> >
-> >       return 0;
+> > +     ret =3D devm_device_add_group(&bd->dev, &lm3533_bl_attribute_grou=
+p);
 >
-> Wondering if it would be better to
->
->         /* Bail out when in PWM-mode */
->         if (pdata->pwm_mode)
->                 return 0;
->
->         /* ALS input is always high impedance in PWM-mode. */
->         ...
->
-> as the above changes almost every line in that conditional.
+> This will make Greg KH very grumpy. (For the record, original code as wel=
+l
+> but it already is in upstream. So, thanks for trying to address this, jus=
+t
+> needs a bit more of work.)
 >
 
-This is a decent idea, thank you!
+In the prev iteration YOU asked to me to adjust this. I have adjusted
+and now you say that this is not appropriate. I will just drop this
+commit altogether.
 
+> > +     if (ret < 0)
+> > +             return dev_err_probe(&pdev->dev, ret,
+> > +                                  "failed to create sysfs attributes\n=
+");
+>
 > --
 > With Best Regards,
 > Andy Shevchenko
