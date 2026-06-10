@@ -4,127 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EF1CCD98C7
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 10:16:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D713ACD8CB9
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 10:24:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67F0D10E604;
-	Wed, 10 Jun 2026 10:16:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 222C910E896;
+	Wed, 10 Jun 2026 10:24:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="vnpuV/sA";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="DwLmT7ed";
 	dkim-atps=neutral
-Received: from LO3P265CU004.outbound.protection.outlook.com
- (mail-uksouthazon11020127.outbound.protection.outlook.com [52.101.196.127])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCCC310E604
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 10:16:34 +0000 (UTC)
+Received: from CWXP265CU009.outbound.protection.outlook.com
+ (mail-ukwestazon11021136.outbound.protection.outlook.com [52.101.100.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 725E310E896
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 10:24:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v2XtNIVPMxkbOD/y52pzHSaqgh6bm2W8N8Mtm4MTe7J3yQmUz3IlYp3Z/84wUVVCHhy4X1ikzPXVwqUA5lLvUQmBO42+TUhCpw5EP/h7SwBGZU7AkROomQsZ0zwxXey5qV//mDar5sOwBJN0ETMixFhYOKkFR55g2ETq+ovvTH8yMXuy3wNDFI3asWVqebbyazCCUpDNOa8QIBOcZw9FzRQE3NclFJfvV693g1Mdlu7aMRcmnerc06FA11SOrL5Uy8rWgBJAfnY6cRy2H9oe06LFumdMVG19VNAyuZmytN9aK4K6Fz6aSI6G43OzO1p6KrI7JkewS01tj2mk8uotUQ==
+ b=ykrAgEIMw3ulXM3unVVhc+1fgFE8CKvlnQ3iwIZVquZeTYL9PqKjM2SBOSH4O4o77Yp2vM8tvjAeS991+1poQZIVjoMPLGHVXZDAytqHXg8xRakcOOEGylhmxtZaXQYDRcooxVorvv6z8fpnnO1Hqyx6uC6r19mWTm6D2+iCsd1Y0e6sw+sUFNfWpyuZejGDEJPDIbUF6B15qo7TRaKGnEHgm3NJL9yb+ep9YDLHNcHuxI2HvmwjL0HmegK/IGvfmUBpvQlStDH3qKZ5mAaDafpLri9YJ47rTuS9qJs+b+5kl+5HccVGrg7qQJsAiwf6s5mwCQ0C5tnR/WkC3NLMgA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iKL0l2zfhBrQKTpaCBWCiQSEFyBikGsoWR4z0Ve/BUM=;
- b=J/K/4rP0li6ceTbC0DzaMirrqnVv/C1KY2vqBSzvLrLsHIkuYJyxcCxJjh+8ZTY2bDp04V8m6OEXZMSl5hxE9XwhhL1SYlg2gdtPMfiqG03CwmpaKK/LXVseD8UUb+OXzZwe50fS16tuW/5YDIKJs6VJDcpXLfzNT0rm0elktDa/n0Gv8CgZmVLQ/Xq9mSGGTn26nzWBWH4hqFilHSgvITOY0aOEthep3XO7wmZvu/Dx3J30TzUZuMnHiDF4ElcmIuz+Y8qsWkpGDEqyLEhwsX/+XE3HVyvwKns5ZNE+/Mde/hJeqR47amxGjKHKxkQQBnHimZy0VS2gGcaEszSpfw==
+ bh=UjxScthDhBZfo+1nY8OsFhI0BUyJ1rwJmX50/XC/nU0=;
+ b=OqAwYaiWp4sBZHEZvPjIsldkaQoI4R4F8q2mZglAcRQ/BLBJDtPGY4361DwAMm8cBZfLv718M/Ic5PF0062Fb1U/2dxzVYjLKLHNNzIUpOkWzpSpMZXmLqx3XuSHL8gf6t6EXgaOO97g9rpenmnPdEYqcLkgcst2V92aei4QhtEq18O5h7uJBEy8AFr3FZDzeI0Ml9bQ7yOidJGHsQciDF9Q8sJZRc0kYul58eqEPux1H7P06vvkFrcmTkMzO9vw9rwfKo9C00yRof3RnP6imtdGfi30itIJXgrtgAy2KHymknI2Z37DkSZmSScjsw9BlN0sD/czRpQlXIY8YxY2Mg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iKL0l2zfhBrQKTpaCBWCiQSEFyBikGsoWR4z0Ve/BUM=;
- b=vnpuV/sAGZzr3XXJiWFhCJrKY5qkeNM8B8CTZAxMekUbZ7XBQX3RDfDPaQ3EJDjqTlFqvi8QC7HXePmWVowOloqpKqhuN2NpDSM8xLNDIW07wifxXr3fb+o9Q7KS/O/y9SCVNhAvdIX2DYeCnBDtl/D1T4lbqEmUhYhtFia2uCY=
+ bh=UjxScthDhBZfo+1nY8OsFhI0BUyJ1rwJmX50/XC/nU0=;
+ b=DwLmT7edBVegJbOA9Rp05+MpnCj49xiQ+uMBoqQtADkndKgtcDlWb8v+kf+C3UfB9CbV5YA/8dR3jKuTnkjcSc4FQhtnA56GwxcFjrQNpI7ecN/ApoYC6g8CnTAfwrbsdE2n1CglaEprQ4320NnppMpnrcnyvIkwbDeCRN7swD4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27c::13)
- by LOYP265MB2013.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:120::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.16; Wed, 10 Jun
- 2026 10:16:31 +0000
+ by CWXP265MB2024.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:86::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Wed, 10 Jun
+ 2026 10:24:00 +0000
 Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
  ([fe80::6c9e:93c8:10db:e995]) by CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
  ([fe80::6c9e:93c8:10db:e995%6]) with mapi id 15.21.0113.011; Wed, 10 Jun 2026
- 10:16:31 +0000
+ 10:24:00 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 10 Jun 2026 11:16:31 +0100
-Message-Id: <DJ5AI4A9XVNE.1G63OSC35Y99W@garyguo.net>
-Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH 2/4] gpu: nova-core: move GPU static information
- acquisition to a GSP method
-From: "Gary Guo" <gary@garyguo.net>
+Date: Wed, 10 Jun 2026 11:23:59 +0100
+Message-Id: <DJ5ANU6OL6X2.D8ZG3LV755I8@garyguo.net>
 To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
  <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
  <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
  <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>
+Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>, "Joel
+ Fernandes" <joelagnelf@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>
+Subject: Re: [PATCH 3/4] gpu: nova-core: gsp: Extract usable FB region from GSP
+From: "Gary Guo" <gary@garyguo.net>
 X-Mailer: aerc 0.21.0
 References: <20260609-boot-vram-v1-0-d9382610507a@nvidia.com>
- <20260609-boot-vram-v1-2-d9382610507a@nvidia.com>
-In-Reply-To: <20260609-boot-vram-v1-2-d9382610507a@nvidia.com>
-X-ClientProxiedBy: LO4P265CA0197.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:318::13) To CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
+ <20260609-boot-vram-v1-3-d9382610507a@nvidia.com>
+In-Reply-To: <20260609-boot-vram-v1-3-d9382610507a@nvidia.com>
+X-ClientProxiedBy: LO2P265CA0509.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:13b::16) To CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:400:27c::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CW1P265MB8877:EE_|LOYP265MB2013:EE_
-X-MS-Office365-Filtering-Correlation-Id: 202588c5-db7c-4666-b7af-08dec6d957be
+X-MS-TrafficTypeDiagnostic: CW1P265MB8877:EE_|CWXP265MB2024:EE_
+X-MS-Office365-Filtering-Correlation-Id: c3b63658-c669-4892-167b-08dec6da62fb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|7416014|1800799024|10070799003|366016|3023799007|56012099006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: VSjEyeAQeTKVCR3TCI/ey3FzHi4X2OGV3/4IdgAvMQmRp+KmqIYdAl3LC3KQycTtIf63+/uzZNAUbbRY7sxrJq4/iXnB/hJJKJxxT2FE073RoJctXbL+4gyMVqQEw8o3bH93k+z1IHC38H1jv9LuXxI29WOaSOa7QfKkeoYTH8enurVj1qBSCu6BUUW6ARiFxug07Hy0fzknZgfGipZuPHNT1R+yQ8TUN9z3CClICF7wte/vMAUOnb6bZ88w7cC3fQc09XxnY9cEzJ8hzGGicGPg6aDpKg7dzxfbuDOkQMr83bXU10QOG5yUAMU2y9AA12cRVqiUwFKYiU/+OLdyiXZ0VVCUJ1CkY91K0f0tgVsF/wA92qT3atvjZSIG6wTpc/hxGbnnHwGMaDyzmXKtJTqDhOmidw5HXBTQWSsPvVNKKRNtbXdTFUYPiIwKibh+IMf+YIi9hIkJ711YB3BBabtKFgylUaLSpAFX6jmFWcXkh4ZP7/aLN6+1Tym6zzLoROywfv4xsS5lfE1HUsYUaYVuJ3ItCOVH0uDaBNVL620Rp1pY2Kda1mZ12iWeG0oMR3SE9V6Yp65+nUjFlAzs/z+N9ZS+nfbjJNkK7PnbYE85oxzEsuE+uqHoYsqgaAXWvD3CLb3vOWbfuV9JJddaqUz+jr8dS8zxy61qBca/h9JrX6homTLNg/crB1RdQLB1
+ ARA:13230040|7416014|376014|10070799003|23010399003|1800799024|366016|3023799007|22082099003|56012099006|4143699003|6133799003|18002099003;
+X-Microsoft-Antispam-Message-Info: K3zGzDgrdbxAKpsFvQ+oC7iurkQ0eAUdzh69CMLia30vWyB/+OelMsjFbmnxUc6bS+ux3Q2XdqWJOsYGvfl7WKBWLp2zylehaEcwa6Nnr7cXHUs4sVLiUlEjX/K6Q7JjJSKTOyH8cBquefXjHNBPw3OlM8kppMs56U49fDRUHjU+bWaxcNu0MZWlEZR0oHZCiLy+HsdzmJXnRgodLh8U9tW13WPG2NgFZjBZWWXGZr4ynYLs31K4IOP1vaiUZT8d1oNOrN/CltnseCWZtx5WhDYmjt7MIPyat6P65p/+5gAU4QOodemCSeQj4f/CfziASJ1Tf/k6weefQQAtKEzLD5/cz16TyQARedfWFTXrw9X5CKACK6OiJWbcly89oFOncNAnbvzcx2OKDxxwBrzIWrqk05LFbBBkzgMCWi+9H9U6wnB9om4twHFWT0EK+myHY4NZclkKFbMxiTT13fU56/PnJgpQwuS7gpE3wTMfU9Hj6ctOaIt2LOFQ2xWLXiCPJ0qQcy2NE6mce1HpjRe5GsvgwTjyJyrczJFAdth8Iujjae8lt3Z1ZwiuM8VaKbvAsWYL2Pbt93Bv071/znyhSWO5NhdIGYu8PQVlpUKUAxmaVq0fbmaRLRsC1v3aM6gHLojysQbvBOkIuuz0DaleGC2r7BOHve22iUGLKfWynM4ofVbrKhpG0r9Ja+GzCy2g
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(10070799003)(366016)(3023799007)(56012099006)(4143699003)(18002099003)(22082099003);
+ SFS:(13230040)(7416014)(376014)(10070799003)(23010399003)(1800799024)(366016)(3023799007)(22082099003)(56012099006)(4143699003)(6133799003)(18002099003);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K2ZRaWxlWFM4S3Rwb1c0TThFN1VzSUs3bHE0TGhxeUE0bXJvQkVwd0cveXpj?=
- =?utf-8?B?V3RjVGNWSmZkNkptMkU2aEorKzFlQkJ1d1lHbnVqSlRmR2drWGhYSTZTWHlr?=
- =?utf-8?B?cjUrWU1HUU92RmpOWHpkU2tld1NnWi84SzllQ3o0SHFmeEpVanJvQW9LSzFr?=
- =?utf-8?B?UWVSdDRTaXZYeURVUURlZzVKZVVSMjcxeENxeldmL1RQYWVSc1BMTm4vQ0l4?=
- =?utf-8?B?VVl5VTZkVzl2NFVSUmVWcDVNcXlrcTBzaVJyS1QzdXNtNTZPV28zVHlTdUk1?=
- =?utf-8?B?YjhrcE4wNmRsVytxS2lRQy9mdm5PejlRNjRLQU1SaDdweDNmYVkxdTVxYXZs?=
- =?utf-8?B?YVhJOE4wK3ZabTIrRUV2aDRqWkxVMHlKRmRtZHgwYlhFZTRJNjd1ZE1DTGU0?=
- =?utf-8?B?blNmSVYxM2JMYjhFb0dSZE10aUQ2Q3NHK3hzUmFyaE9DejR3U0d0ZEFPaVM4?=
- =?utf-8?B?andYeHVsemZjejM4WEI2MERLQ05PYUJmNEowNnFrQzRnRUNHS3hZTnNnNzly?=
- =?utf-8?B?czFrYmZYZHJXQityNSs5UWNJZmt3aHBXOEpmQWZBaGdXeUVwdTlrT3VyTnha?=
- =?utf-8?B?eVpuanUvNHBQaG1EVkRiM0VUQlpvR0pVcnYrM3BsSmYrbXVsZHB1bTMvSW8y?=
- =?utf-8?B?dFNRTFVPUlc5aDhYNzRCNVNKUi9XWG91U1d3dHBOdHJ3a3VvTHMwc1lXZ3I5?=
- =?utf-8?B?ZUFYc1YvTG9WUlFLREQxd1pvb3liblAwQnRON0dicUhGL2F5MGVGelVQYmNM?=
- =?utf-8?B?N2wxaDJVbm1XaUV6M3hUem9qWVBmS1A1c1ZKei94eU5FdDFNMlpVajhJTjY3?=
- =?utf-8?B?S0lwS0FRUzlYRXFCMVg3NjRXTzNuekVTQmJjdzcrSnIycmJETzltQmRrRTVw?=
- =?utf-8?B?Uk56Zm9KSW9kUkU2MTY0VGg1d3N6SHdwOGQzQkdHeVlMQ0ZnMU9tMldKVlV3?=
- =?utf-8?B?WnRrbDRCS1NSM05TMzNITk9wRk82U1VwbXZJYXBWbkZlbzhpdEYzektIbm1n?=
- =?utf-8?B?VDNjQ0s2TjZVWEVKMU5XdFFyTGVrVDVxMk8yUHNGRHhyd3FMVUdSY3h0THh0?=
- =?utf-8?B?M05sMUR5ajJLeEViWVdyeStpR21qVFMvTVk1azFDbHY4ZlExUUdCNGRZN0hR?=
- =?utf-8?B?TVlrTGtDeUsrVEFhSGJETDBsck94WUdPRlA3ckk0Nmp4WjJQQnUwaDBzL2Rr?=
- =?utf-8?B?K3A3Qzd0cm5CdUhYb3RDN0NLbEhJK3V2SnVkMzVUTTgrT3pucmZSQitWaVMx?=
- =?utf-8?B?TXNyRnMrUkRXdkczbG9EVUZNV3pwUEh5cWEyangrTERqVC9NWFM3R1hEbHYy?=
- =?utf-8?B?dlVaY3lPUURML0Y0eWtvc1h5VmRrOHpPV0gycmxsQlN5TUpjSVIxQ1NhRkJH?=
- =?utf-8?B?SVVkL0JtODZNcHFPb2QvV2F1WGVLSnBBTkhwcXB0SFNSazdTczNBbStWWmJS?=
- =?utf-8?B?NXpncGNtQ0ZaVEZTeWtmZng2MWY5N3JoaDZCK0JrZWd0S0QwL01DeWZPWFZw?=
- =?utf-8?B?THNkVzFQSmZ6b1BpOFlJSStYMjA1NEk1UEc3Nk1iWllpdGUzaXMySjFvRlB6?=
- =?utf-8?B?L1hEaWlzM3JWMVBIdXJPY2RIYm1sM29oMmJSSUVyRllKRnErS3p0amZqSFNu?=
- =?utf-8?B?b09CdkREUUxQS05HSHpNQnVES1NjeDA0ZHIxZGR1ZUpmaWNNam1VaVRhODhm?=
- =?utf-8?B?d0tGRXNacmt0QzRaNXQydGJvR0owd09sNDFQRFNyTHdtcG9GSTErTlVCa1NU?=
- =?utf-8?B?TUdKU3oxTzkzbUhiemt1WDRZanZrR2tTQjNJMzFRLzBGSDFtVE94YlUwd3E3?=
- =?utf-8?B?R1d5RktnVk1KNEI4Nnk2OTcyMFNaQ3RTM3d0VmlmWEYrMitNWWdRNWpzSmNG?=
- =?utf-8?B?REV4cjdVZGlFa0dtR3NlNURYVXo4OEl1MEsyU3d0Qk1NWnN2UUF5QUpxQTZB?=
- =?utf-8?B?akV1SWNyVitrTzEzZ3pWRmlidzg3QkJtcHhPaE44anBVcjNzam9Wb1o3YTJa?=
- =?utf-8?B?YS9vNlgxOXZ3eWVqeDBSZkJFaUc0R2VhVmxaY3F5c29uUmNsQldYVkJvNWRO?=
- =?utf-8?B?VVVGM3lINldLd3hXd0VJRlhBazFKcGRNMTYxeTVJc3RzZ3JHa21XeStrSStL?=
- =?utf-8?B?dzBONnVVbzR3a3JLbkdmTkl2cmlYaEd3R0pCS21laHo0V21HblNJZldtcHVC?=
- =?utf-8?B?TkFkZjRDeGIwV29zQ2duLzNaSmFWRjd5Z3VrZk9WdUo1SXptOFE5WC9BSW5m?=
- =?utf-8?B?SGpTMktEZ1JGa0NKcmRFSmVHazZsd0Q4bTZ1YWlheHpFSUYvb2hVMXg4Z3hQ?=
- =?utf-8?B?YkVmaG9SeDM0eFgyWUxBK0dRVkw3MnlYQ216RG9kMkJ4OUtZUGdNQT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dnhtK0o1Z2pZeWp2S0ZWYnptY21HV3lNY2FmQ08xYlpjYlNMTit3Q3V3OXI1?=
+ =?utf-8?B?K21VTWdzVC8xSE9ickpWNXh0UG1NbUpBRUN2L3Zac2ZPeUY5Y3dxeHlObmRB?=
+ =?utf-8?B?SUpGdHpIM1FwYXo1ditGR2dJblhzZFVNMWJmcDUrMVVmaEhBUUkzM3ZZZno1?=
+ =?utf-8?B?RXQzQmx5QWY2TkJraWtoYjd1TGVSNWRHZ2UxM1RYQ3IyenBlWUptbUhJQVUz?=
+ =?utf-8?B?bjFHd0hLV1JXczA5VmcvcUxhK2ljOERjdndtYlN6VVVhNWJEYU1xR3lXM0hl?=
+ =?utf-8?B?WlptcDBFaVNFZktCWDhWRUhNRTIzQnhUdERYNzlsVWhnNDREa3dwSUxsZ3lu?=
+ =?utf-8?B?WHNMS21VU01UNFNMV3VueHlaYy9jcTBGYTlKMDZMdURTcUhvT0VqcFRzTXhB?=
+ =?utf-8?B?aXVxa2hCaWVwbnZkaEYycElQR3lUUi9FS0wyT2Z0RUZXQXEvRGVVKzlEQ0J4?=
+ =?utf-8?B?ODY3dU1TbnpiL2Q0VXlFUzh0QXY4QUZyUkdIT2J2V3RIeW9HVTFtN1dUcGVY?=
+ =?utf-8?B?TzQxYUY4aU1jUjVpcTlJbUQyNVVDTlhpRWVFWUxKZEdIZ1N0S0VIa1Q1SXFG?=
+ =?utf-8?B?ZTRIZWFGY2R6eUZJenhxZlJ4MnR0SWVaTVI1REVoQVp2aytYM2hiWjVVd0Jq?=
+ =?utf-8?B?SUkvTkYydVBnSU1xS1ZHRHFFNnA0OFd6a09Ra3ByRnd2ZnhOc005bFNaWERq?=
+ =?utf-8?B?ZC9DOWhDZzRwcmxXbjNqRVl0S0N6Zk1qbWtUc2YvTHlTUFM0ZXg3bmZPWTlG?=
+ =?utf-8?B?RnhlZlhCZFdEa25HZ0FETnkyblJaZ095REhCYzVIeHlHNHkxYzVzWHQyM0FS?=
+ =?utf-8?B?bjNBcWQxSkFMaHpINjRkRkh1UWhiWDFZM1VOZFRmdHRYeTI1WC93NlRteEtF?=
+ =?utf-8?B?S2E0UXZLcVR1bDBxeUppQkZYbkc1V2tvOTd6SGFUcXdjZERybFNHbUppbUtY?=
+ =?utf-8?B?aVFJbi9uVXNGOVhsY01TRVNmWW9XRG5CUmZkcitWVFVvbnU4ZlM1Q0Y4dlV1?=
+ =?utf-8?B?bFE4M2xyOWVmc3pwQklvTW9VN05ocEFLV1BKT3FQajNFRHRuNDZVWVZwQWYz?=
+ =?utf-8?B?QnNhajVFVVZ4aTNvY2NacUxGRXE1Z0F1enZjeGhRcmtZcFNEb2RJaGZkWUdH?=
+ =?utf-8?B?TTNBNVZHQkRFSFRtNnNXVUpiSWhYNjRPMU5ocEZEWUM1YXY4RHhmUkN4TzNH?=
+ =?utf-8?B?U256SGorUGRsMzFsUnRCZHhnU1FSa3RvRmVOcnJuWDBSeGVibzFlVkJaYzJ3?=
+ =?utf-8?B?YVZQT0lzV0VRS2ZiYVpURGNLZVhka2dVK083YU1aM1JlcXZxZkVVQ0ZVMTFv?=
+ =?utf-8?B?aUtDSk0zQUdrVU5LVHZvN3ZtYUZwbzZIZlNNSThFcDI5SFJielJTb1g0MllL?=
+ =?utf-8?B?YXFsWVJRdWl2WWNUYWVCbWVvd3V1aHhoQnhZYmhKSDQvWmY5VkoveVpyUkQ0?=
+ =?utf-8?B?ejhjWUxJbE1MQnU3bDNBREUzUkVvQUhiYWRkTitMdDZQc1VQUVBGRmlLTTVj?=
+ =?utf-8?B?ZUhwQ3ZhaHd0MEZLMlJiWVpIYzhpcHUralRHUE5pNXVmZ0cyUTM0Z0xuZXpy?=
+ =?utf-8?B?TEZRbnpVNU1zb2czOUxUbWtxbk1LU1pUOGhySS9jenBMNzI3WDdtL253cytM?=
+ =?utf-8?B?RHI5K1BVbEtaUUlhRk1ETUJuTVkrZXA3SVFhSVl1VVJORzE4Nzl6R1lidnhR?=
+ =?utf-8?B?bEk0ZVd4UDBybkpjbCtxTFZBcW5mNG1PSUk3WWpieXVrRDhLdWExSDJBTTBi?=
+ =?utf-8?B?ZFRBZ2tOamRYWG5DK0RPbEg0QllMa1B1OUdSaXVsQ0s1eUJQWHhpSnlaaXFz?=
+ =?utf-8?B?R09STlNNY2JjMW9INHdaVHg5V3VqK2lVRm5WK21ValdJN3hPVVV4OGJqRUF6?=
+ =?utf-8?B?TjZqZzNsMVBkNDNyajN3OGhOVVhnUXZiVVZnY0wwSkZKdkdDK0lqUDBrcVBn?=
+ =?utf-8?B?UEhycHJBcVFTYWl2cnRFYmlWZEI4aTdxeUJtaVcvUWVYR2djb3hGTVRZMjRM?=
+ =?utf-8?B?aWhyWS9ONEJjcEJkRzJ4U1orejJQV3ZFbmo0eFVka1BCQ3pFcUFnbU8xU2tm?=
+ =?utf-8?B?MUQ5M0MrYUhWMWN6bVUybjYxMTFXMlBWdmJkdDhUSDhRaG9oS2ZLa29OM0Fu?=
+ =?utf-8?B?MjVvNXljWmpNZXFpV25TNnRoa09ESjFhT3V5eVF5VDFwRGRxM3YySGFSeUdB?=
+ =?utf-8?B?aitEbFhPVmJVcG8vdG1NT2d3eEVrSUszU0E2WjFIMElqSEowZU9sNy80VU5p?=
+ =?utf-8?B?dnhiM3JPNDdTekJTY1ZqUG96ODBkbm11dThTcmdtTC9QL1NLTVpkQXZaWVor?=
+ =?utf-8?B?S2NpOFREZjJ5LzhoaEYwL2sydHVCTGZSNTJPVTlUYWFtSkpmbG0xdz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 202588c5-db7c-4666-b7af-08dec6d957be
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3b63658-c669-4892-167b-08dec6da62fb
 X-MS-Exchange-CrossTenant-AuthSource: CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 10:16:31.6359 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 10:24:00.1479 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3UbkF84i40HQNZyjqKE4yeakoJZaCZHn+xwYCyU6AfqcHUqvdzZ9UUK2sSphrCfCGFv/ASDK4IXljuaWjotEqQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOYP265MB2013
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5m2DwRHE+zt7F8Kn8MrUswDnpFw6Ik3PCH2RZOmM1d64qR4QsEMJsRlj2Wwo/rzTr2/kcm/xjgsp5xFYjDBqhw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2024
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,76 +141,156 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On Tue Jun 9, 2026 at 9:04 AM BST, Alexandre Courbot wrote:
-> The GSP static information is useful during regular driver runtime;
-> however it is currently obtained from `Gsp::boot`, with no elegant way
-> to pass it back to the caller.
+> From: Joel Fernandes <joelagnelf@nvidia.com>
 >
-> Solve this by moving the code acquiring it to a dedicated method of
-> `Gsp` that can be called as soon as the `Gsp` is booted. This allows us
-> to obtain and display the static information from the `Gpu` constructor,
-> and to store the static information for later use.
+> Add usable_fb_regions_iter() to GspStaticConfigInfo to extract the first
+> usable FB region from GSP's fbRegionInfoParams. Usable regions are those
+> that are not reserved or protected.
 >
-> Its location at the end of `Gsp::boot` was a bit out-of-place anyway:
-> technically, the GSP is considered booted after we have received the
-> `GspInitDone` message, so anything that happens afterwards is not part
-> of the boot sequence anymore.
+> The extracted region is stored in GetGspStaticInfoReply and exposed as
+> usable_fb_region field for use by the memory subsystem.
 >
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+> Reviewed-by: John Hubbard <jhubbard@nvidia.com>
 > ---
->  drivers/gpu/nova-core/gpu.rs      | 16 ++++++++++++++++
->  drivers/gpu/nova-core/gsp.rs      | 15 +++++++++++----
->  drivers/gpu/nova-core/gsp/boot.rs |  7 -------
->  3 files changed, 27 insertions(+), 11 deletions(-)
+>  drivers/gpu/nova-core/gsp/commands.rs    |  9 +++++--
+>  drivers/gpu/nova-core/gsp/fw/commands.rs | 40 ++++++++++++++++++++++++++=
++++++-
+>  2 files changed, 46 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-> index 6b3e02c71dee..a0cb36cdeeea 100644
-> --- a/drivers/gpu/nova-core/gpu.rs
-> +++ b/drivers/gpu/nova-core/gpu.rs
-> @@ -23,6 +23,7 @@
->      fb::SysmemFlush,
->      gsp::{
->          self,
-> +        commands::GetGspStaticInfoReply,
->          Gsp, //
->      },
->      regs,
-> @@ -290,6 +291,8 @@ pub(crate) struct Gpu<'gpu> {
->      /// GSP and its resources.
->      #[pin]
->      gsp_resources: GspResources<'gpu>,
-> +    /// Static GPU information as provided by the GSP.
-> +    gsp_static_info: GetGspStaticInfoReply,
+> diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-cor=
+e/gsp/commands.rs
+> index f84de9f4f045..d955f52a93bb 100644
+> --- a/drivers/gpu/nova-core/gsp/commands.rs
+> +++ b/drivers/gpu/nova-core/gsp/commands.rs
+> @@ -5,6 +5,7 @@
+>      array,
+>      convert::Infallible,
+>      ffi::FromBytesUntilNulError,
+> +    ops::Range,
+>      str::Utf8Error, //
+>  };
+> =20
+> @@ -191,15 +192,18 @@ fn init(&self) -> impl Init<Self::Command, Self::In=
+itError> {
+>      }
 >  }
 > =20
->  #[pinned_drop]
-> @@ -354,6 +357,19 @@ pub(crate) fn new(
->                  // is properly run in case of failure.
->                  unload_bundle: gsp.boot(pdev, bar, spec.chipset, gsp_fal=
-con, sec2_falcon)?,
->              }),
-> +
-> +            gsp_static_info: {
-> +                let gsp =3D &gsp_resources.as_ref().get_ref().gsp;
+> -/// The reply from the GSP to the [`GetGspInfo`] command.
+> +/// The reply from the GSP to the [`GetGspStaticInfo`] command.
+>  pub(crate) struct GetGspStaticInfoReply {
+>      gpu_name: [u8; 64],
+> +    /// Usable FB (VRAM) region for driver memory allocation.
+> +    #[expect(dead_code)]
+> +    pub(crate) usable_fb_region: Range<u64>,
+>  }
+> =20
+>  impl MessageFromGsp for GetGspStaticInfoReply {
+>      const FUNCTION: MsgFunction =3D MsgFunction::GetGspStaticInfo;
+>      type Message =3D fw::commands::GspStaticConfigInfo;
+> -    type InitError =3D Infallible;
+> +    type InitError =3D Error;
+> =20
+>      fn read(
+>          msg: &Self::Message,
+> @@ -207,6 +211,7 @@ fn read(
+>      ) -> Result<Self, Self::InitError> {
+>          Ok(GetGspStaticInfoReply {
+>              gpu_name: msg.gpu_name_str(),
+> +            usable_fb_region: msg.usable_fb_regions_iter().next().ok_or(=
+ENODEV)?,
 
-What's this `as_ref().get_ref()` for? This could just be referenced as
-`&gsp_resoruces.gsp`? Or am I missing something?
+Does it just essentially require a FB to be present? What would happen to G=
+PUs
+without display support like RTX PRO 4500 Blackwell Server Edition?
+
+I feel that this check should be done by the user of `GetGspStaticInfoReply=
+`,
+the firmware doesn't reply with an error.
+
+>          })
+>      }
+>  }
+> diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-=
+core/gsp/fw/commands.rs
+> index 7bcc41fc7fa0..d025167927df 100644
+> --- a/drivers/gpu/nova-core/gsp/fw/commands.rs
+> +++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
+> @@ -1,6 +1,8 @@
+>  // SPDX-License-Identifier: GPL-2.0
+>  // SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION & =
+AFFILIATES. All rights reserved.
+> =20
+> +use core::ops::Range;
+> +
+>  use kernel::{
+>      device,
+>      pci,
+> @@ -13,7 +15,8 @@
+> =20
+>  use crate::{
+>      gpu::Chipset,
+> -    gsp::GSP_PAGE_SIZE, //
+> +    gsp::GSP_PAGE_SIZE,
+> +    num::IntoSafeCast, //
+>  };
+> =20
+>  use super::bindings;
+> @@ -129,6 +132,41 @@ impl GspStaticConfigInfo {
+>      pub(crate) fn gpu_name_str(&self) -> [u8; 64] {
+>          self.0.gpuNameString
+>      }
+> +
+> +    /// Returns an iterator over valid FB regions from GSP firmware data=
+.
+> +    fn fb_regions(
+> +        &self,
+> +    ) -> impl Iterator<Item =3D &bindings::NV2080_CTRL_CMD_FB_GET_FB_REG=
+ION_FB_REGION_INFO> {
+> +        let fb_info =3D &self.0.fbRegionInfoParams;
+> +        fb_info
+> +            .fbRegion
+> +            .iter()
+> +            .take(fb_info.numFBRegions.into_safe_cast())
+> +            .filter(|reg| reg.limit >=3D reg.base)
+> +    }
+> +
+> +    /// Iterates over usable FB regions from GSP firmware data.
+> +    ///
+> +    /// Each yielded region is a [`Range<u64>`] suitable for driver memo=
+ry allocation.
+> +    /// Usable regions are those that satisfy all the following properti=
+es:
+> +    /// - Are not reserved for firmware internal use.
+> +    /// - Are not protected (hardware-enforced access restrictions).
+> +    /// - Support compression (can use GPU memory compression for bandwi=
+dth).
+> +    /// - Support ISO (isochronous memory for display requiring guarante=
+ed bandwidth).
+> +    pub(crate) fn usable_fb_regions_iter(&self) -> impl Iterator<Item =
+=3D Range<u64>> + '_ {
+
+I think this is a bit too verbose. `usable_fb_regions` should be okay.
 
 Best,
 Gary
 
-> +
-> +                // Obtain and display basic GPU information.
-> +                let info =3D gsp.get_static_info(bar)?;
-> +                match info.gpu_name() {
-> +                    Ok(name) =3D> dev_info!(pdev, "GPU name: {}\n", name=
-),
-> +                    Err(e) =3D> dev_warn!(pdev, "GPU name unavailable: {=
-:?}\n", e),
-> +                }
-> +
-> +                info
+> +        self.fb_regions().filter_map(|reg| {
+> +            // Filter: not reserved, not protected, supports compression=
+ and ISO.
+> +            if reg.reserved =3D=3D 0
+> +                && reg.bProtected =3D=3D 0
+> +                && reg.supportCompressed !=3D 0
+> +                && reg.supportISO !=3D 0
+> +            {
+> +                reg.limit.checked_add(1).map(|end| reg.base..end)
+> +            } else {
+> +                None
 > +            }
->          })
->      }
+> +        })
+> +    }
 >  }
+> =20
+>  // SAFETY: Padding is explicit and will not contain uninitialized data.
+
 
