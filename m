@@ -4,82 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92545CD8CB9
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 11:54:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB349CD8CB2
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 12:12:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F05910E5AD;
-	Wed, 10 Jun 2026 11:54:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1353F10E913;
+	Wed, 10 Jun 2026 12:12:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="a8m9eQ+P";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="M7t6/i91";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AB4010E483;
- Wed, 10 Jun 2026 11:54:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781092485; x=1812628485;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=IBdSvbniv45jCKX2cc9fNGt2KfPPluvYcMxmenPPBM0=;
- b=a8m9eQ+PQeVhlZTCMjGLPcA2Y9U2Aw912dTp4B+8MOslLy51AuWkbKtU
- MBow95YbLgz+BaMoPWLBeB7YmLCbYg1wbbfOVynoBb84fkXCanK+SIJfr
- XGasThfEMrSvY/sDXk4w7zw+rn29XUHFEpqVtkGYWFBug1XM4P0jjJpHU
- 1JShHhInuxRKbxhmAs6R7cnNKx21NcO1R90rPZwEm5xPK+bs77TnyeWkS
- 3UvzjdUJQrBQ1FaqMokDLsZllB0zyEBHZ0hGkEHfR6sUN5gGjrTgM7AC+
- alGy5IvFrcbRAhaGiSNLEjkHq+OUHzx4xv4KYo/zD7jm58rrRv6sF3WkE A==;
-X-CSE-ConnectionGUID: mZgg+GRvQ5K+oItAoA9a1Q==
-X-CSE-MsgGUID: 3S5gGZ3wQ5OTSR2cw7bZfQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="81789866"
-X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="81789866"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2026 04:54:44 -0700
-X-CSE-ConnectionGUID: YLk1Sbj9TlyqNzCagqc0RQ==
-X-CSE-MsgGUID: /M4SHBnES7ybbKKuTAV9eg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="250439091"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost)
- ([10.245.244.3])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2026 04:54:32 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
- <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>, Christian
- =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Sandy Huang
- <hjc@rock-chips.com>, Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan
- <andy.yan@rock-chips.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Joonas
- Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, Sascha Hauer
- <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, Jonathan Corbet
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Daniel Stone
- <daniel@fooishbar.org>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org
-Subject: Re: [PATCH v17 21/28] drm/tests: bridge: Add KUnit tests for bridge
- chain format selection
-In-Reply-To: <gnicb4WkT1S4aQIC2G_naw@collabora.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
- <20260609-color-format-v17-21-35739b5782cc@collabora.com>
- <04ff70850213ae0f75486b1a27a7edb6fb4e71c3@intel.com>
- <gnicb4WkT1S4aQIC2G_naw@collabora.com>
-Date: Wed, 10 Jun 2026 14:54:29 +0300
-Message-ID: <596f0f063d6ef2ffb4c6640e3df5ed89d95b11dd@intel.com>
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
+ [209.85.208.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EB7B10E913
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 12:12:26 +0000 (UTC)
+Received: by mail-ed1-f52.google.com with SMTP id
+ 4fb4d7f45d1cf-692491fec0bso3219872a12.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 05:12:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1781093545; x=1781698345; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=YJe1xz1ZMNVnBlNAhTok//gR+6F59R46BnGd4lcF8bY=;
+ b=M7t6/i91iRfqU1TN97bLsiq9zQUABlMEGWfsK8kEQ7naQBP1YUAyNqY7dULffieTa5
+ 5zKwGStwmg5P0WRARB3pDkfMW1UGx6x0Ftl8CIgYKJPj6b8gFr+ukPibw6lWc4UMwCRJ
+ V9zZXagJ+jI3XU6UwGzrhztR1GGWtkXpPO2Wa3iTSCYpd3n7x+VhgNhE1fyiUO4oG0E9
+ PKkWqYarxc/rz6mn9mL9ASMo66TlwGrXYMotaGnvrGSEiuawYq7zCqWSxUL5I0HmCYtt
+ bpZmhsDmkcUiiVgQOKsGs4Mdhs6awrOXMpNrU4nLzqYztmExUSlm8CmUCKlybil1LaJ4
+ gFjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781093545; x=1781698345;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=YJe1xz1ZMNVnBlNAhTok//gR+6F59R46BnGd4lcF8bY=;
+ b=IUyG3i6vlki/CYzBCMJ7GnRAhgLjEQjofTKLgvPlzE0lgBFciWgIQBmAqOAZmSL0Bz
+ HRiEoFkeueDocLu6mV1HO2ptkyM25UTuOeVTwSxJTSE7Ge2hjoL1Y1ick09Wvv0fOvTj
+ w23OaZqCbn3zuRrzR/wA32OcAvSUYAVPQ232DflYM5Sdjae/GzmuJlaHW45bQGajFcpP
+ +vPlNZs5AlItMHzZHl35FCtmYvtO7g+pCyKLJZOdvC6Q02GHQA0nAzqQirHY+xtQWCkB
+ W7NvEtkbwjOcH8JC/iBeizuWRhLWs44lq4tXXWZA+rZPq+wBVubOpl8cFHlEluT6WGkJ
+ 6AXg==
+X-Gm-Message-State: AOJu0YzgXJRDiQrSL6V+akq1h/qiw7S0VXYf2WDRhdR9lsExqfPCgXzZ
+ OCjprLwHwb8wzz/jVYRmgq1tZglV50zQdq/d3rFCdChc03bA36zmdxnC6UoQ8kjXX/M=
+X-Gm-Gg: Acq92OF1pwK924Muhcbb68WUHpcEcozLpyVF6fbMfOcaO5PmVa37biYTUhadgP5zokM
+ o4mfd2qUYAcvVE68u3DqZ9aXONLnnKLAzumTlzHnhnq/kdlfE7pmxdWEoLk7LKaTa28Z5iiV3I8
+ IUtmFQvCA9XNk4Whu8zZyzd60ch7uAwgruYQJ6XA6QqLSCXMTz4FjMgvYs5SXBqWviv4Gj8c9Ri
+ rJ71+wLdZuELpEFzJtY/pZ2byeHYHLkSaQ1zavJTN2tQBWpM/fFtP2IT4jc/IUsoZTPtWl9A9l6
+ 7SiAyJhg7w2kHvePFfO7fc09STEUhWCoiMohN+i6KJKENjOKujyV0Kapw+r9K8M6wEt8Lf4wbFq
+ vWwH3xZexu5VwZSq4mgjCr3uv4lNCdFOILlPK2eYQjDbOKzzH1/xdZ++rcgsOm1Y/L+kwg3LmeH
+ S1y5zJ+fCC9GbbIS4zEQIfcPFFXj7AKiNdl78SwCUs0XyiMO2tB6H0b6HeB590B6S0Iw==
+X-Received: by 2002:a05:6402:5193:b0:66e:abe5:ab22 with SMTP id
+ 4fb4d7f45d1cf-68fa4c0039fmr11944776a12.5.1781093544179; 
+ Wed, 10 Jun 2026 05:12:24 -0700 (PDT)
+Received: from [192.168.0.116] ([90.240.106.137])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-68e64e2c810sm9966710a12.9.2026.06.10.05.12.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 Jun 2026 05:12:22 -0700 (PDT)
+Message-ID: <b5f634e3-ca52-4674-82a7-fabce99ec364@ursulin.net>
+Date: Wed, 10 Jun 2026 13:12:21 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/nouveau: Document weird looking bugfix
+To: Philipp Stanner <phasta@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+References: <20260610082602.1292853-2-phasta@kernel.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20260610082602.1292853-2-phasta@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,22 +96,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 10 Jun 2026, Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
-> If you don't want __maybe_unused, then sure, I'll move them into a new
-> .c file. Though I think the two are roughly equivalent in that I don't
-> think anyone is really trying to minimise the size of their KUnit
-> binaries.
 
-I think placing arrays in headers is bad practice, and we shouldn't set
-that example, kunit or not.
+On 10/06/2026 09:26, Philipp Stanner wrote:
+> commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
+> fixed a race. To do so, it replaced the automatically locking
+> dma_fence_is_signaled() with manual locks plus
+> dma_fence_is_signaled_locked().
+> 
+> For someone browsing through the code, this reads very much like a
+> cleanup or rework leftover. Future contributors and / or new maintainers
+> not familiar with the history might be tempted to remove that bugfix.
+> 
+> Document the bugfix.
+> 
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> ---
+> (I did not test this)
+> ---
+>   drivers/gpu/drm/nouveau/nouveau_drm.c | 7 +++++++
+>   1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> index 42a81166f3a9..519a0c164a72 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> @@ -159,6 +159,13 @@ nouveau_cli_work_ready(struct dma_fence *fence)
+>   	unsigned long flags;
+>   	bool ret = true;
+>   
+> +	/*
+> +	 * This is not a cleanup / rework leftover, but a bugfix to prevent a
+> +	 * race with someone signalling the fence. The locked
+> +	 * dma_fence_is_signaled() cannot be used. The dma_fence implementation
+> +	 * is not fully synchronized with locks, but also uses atomic bits,
+> +	 * which can cause the dma_fence_put() below to be executed too soon.
+> +	 */
 
-> I'll send a patch to move them to a .c
+IMHO it would also be interesting to document why this happens from the 
+nouveau point of view.
 
-Thanks.
+For example I see the two references held on this fences in the call 
+chain, but apparently neither are enough to close the race. Which 
+suggests a third party has a pointer to this fence but with no reference.
 
-BR,
-Jani.
+I talk about this:
 
+nouveau_gem_object_unmap -> nouveau_cli_work_queue
 
--- 
-Jani Nikula, Intel
+There it grabs a reference before queing the worker. In the worker it 
+drops it before calling the callback nouveau_gem_object_unmap installed:
+
+static void
+nouveau_cli_work(struct work_struct *w)
+{
+	struct nouveau_cli *cli = container_of(w, typeof(*cli), work);
+	struct nouveau_cli_work *work, *wtmp;
+	mutex_lock(&cli->lock);
+	list_for_each_entry_safe(work, wtmp, &cli->worker, head) {
+		if (!work->fence || nouveau_cli_work_ready(work->fence)) {
+
+... nouveau_cli_work_ready can drop one reference
+
+			list_del(&work->head);
+			work->func(work);
+
+... then work->func was set to nouveau_gem_object_delete_work by 
+nouveau_gem_object_unmap, which will end up calling:
+
+nouveau_gem_object_delete -> nouveau_fence_unref
+
+On possibly the same fence.
+
+So if there a path inside nouveau itself which signals the fence without 
+holding a reference then could be it that the problem is self-inflicted 
+and not due a dma-fence quirks?
+
+I am not entirely sure since it is not very clear. It needs someone with 
+nouveau expertise to clarify.
+
+Regards,
+
+Tvrtko
+
+>   	dma_fence_lock_irqsave(fence, flags);
+>   	if (!dma_fence_is_signaled_locked(fence))
+>   		ret = false;
+
