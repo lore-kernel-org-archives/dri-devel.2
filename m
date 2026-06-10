@@ -4,82 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D327ECD8CB9
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 10:32:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2DD6CD8CB9
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 10:40:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28E9A10E464;
-	Wed, 10 Jun 2026 10:32:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 282CC10E458;
+	Wed, 10 Jun 2026 10:40:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="csvThB7Y";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bJ6tIPLn";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E63D10E0B4;
- Wed, 10 Jun 2026 10:32:44 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7909810E458;
+ Wed, 10 Jun 2026 10:40:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781087564; x=1812623564;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=4QR48FPX6NW6pWd+A0RB2168FFt8Kbmy8OacTeDGsas=;
- b=csvThB7Y8q0udoW7y2PMRPaqLQsLEnAy+EHkVJ8aPjFLMGWx1S+3SPlH
- +b+TEHnazMhAoLk3CHoc/j/caX0roQcrvH/WblhbhYOFFPd1+szKhsd20
- wmxxSh4EQXrSQOhXV3RUnb39xxe7MevDm+bjt4e7HdbQgHE3mG8TBG7Ko
- vBeNf/tPYr19cc+GeT3Uyg+Ot7UScLxLG0LcLvJbdHK8M1PKFzsA2ywcb
- lRGK16F+ucBUn73BnQ6I94AckaSz6QEGTXWmdYKBaVnDzfH11vjj21wJJ
- QJjKnJJpmKwrG5CkhodXIl9MLlSsLvlZ3dnyiMBTi069+wxTbzNVb9g9j A==;
-X-CSE-ConnectionGUID: wrgDms+6Rn2+YYyWIB8U4A==
-X-CSE-MsgGUID: 4csHF8trSIKch5ihDWMGQQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="85721122"
-X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="85721122"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2026 03:32:44 -0700
-X-CSE-ConnectionGUID: 7vHeeByYR6mbP2vHMrx5EQ==
-X-CSE-MsgGUID: HeuP8FBRTDSW4l3PyZ1Pfw==
+ t=1781088054; x=1812624054;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=KJFwkgycpuQeR/HDhxldSBlJ4HoX051kOdsKVAUQJlg=;
+ b=bJ6tIPLnhtxMNfE+AP/REX1FnlIyb+15VVZmRveAi0f4qXaLWc3Mujf8
+ iNHvSdhxf+FztsVPKJw0ffWoZZlIt3vSsmuLUAXuiEjzT3v3tu5ljuvlm
+ NdVNLELGkDOTI+bV7N90sGv2kuCZV2JU10v36P9ScXnA8PgYlwLcZOl9d
+ qHd6W+/kmYOP/JPWUxPyPDKKTup6xgRcU7ZmYUKYcKVC6NLeFyJfJnmy7
+ /x3LSfgSLnp1hvhAqFvp7TOi6JMZM8Lk03gPL+RIqqZyFHUP94/A5fpXB
+ j+OmTUTpevvBpQKDrY3xd/OStXA38FNVPc7rTS50d2lAQoVGX/mZQktLZ g==;
+X-CSE-ConnectionGUID: voOseavDQTCXkNWx2J/0bA==
+X-CSE-MsgGUID: MMjlKM4CTrKBHfaPGZcZTw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="99454947"
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="99454947"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2026 03:40:53 -0700
+X-CSE-ConnectionGUID: uCinmPnIThujjQWiXkzufg==
+X-CSE-MsgGUID: cmVg/vSOT2WNGgi6gquovQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="250415777"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost)
- ([10.245.244.3])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2026 03:32:32 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
- <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>, Christian
- =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Sandy Huang
- <hjc@rock-chips.com>, Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan
- <andy.yan@rock-chips.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Joonas
- Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, Sascha Hauer
- <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, Jonathan Corbet
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Daniel Stone
- <daniel@fooishbar.org>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, Nicolas
- Frattaroli <nicolas.frattaroli@collabora.com>
-Subject: Re: [PATCH v17 21/28] drm/tests: bridge: Add KUnit tests for bridge
- chain format selection
-In-Reply-To: <20260609-color-format-v17-21-35739b5782cc@collabora.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
- <20260609-color-format-v17-21-35739b5782cc@collabora.com>
-Date: Wed, 10 Jun 2026 13:32:29 +0300
-Message-ID: <04ff70850213ae0f75486b1a27a7edb6fb4e71c3@intel.com>
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="269818587"
+Received: from amilburn-desk.amilburn-desk (HELO [10.245.244.17])
+ ([10.245.244.17])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2026 03:40:51 -0700
+Message-ID: <44287c42-3248-4c3e-b8d5-6e58afa4c6b7@intel.com>
+Date: Wed, 10 Jun 2026 11:40:48 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/xe/ggtt: hold FORCEWAKE while updating GGTT PTEs
+ on LNL
+To: Nikolay Mikhaylov <sonny@milton.pro>, intel-xe@lists.freedesktop.org
+Cc: Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org
+References: <20260520194426.1334262-1-sonny@milton.pro>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260520194426.1334262-1-sonny@milton.pro>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,111 +74,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 09 Jun 2026, Nicolas Frattaroli <nicolas.frattaroli@collabora.com> =
-wrote:
-> diff --git a/drivers/gpu/drm/tests/drm_bridge_test.c b/drivers/gpu/drm/te=
-sts/drm_bridge_test.c
-> index 64b665580a88..92f142ca6695 100644
-> --- a/drivers/gpu/drm/tests/drm_bridge_test.c
-> +++ b/drivers/gpu/drm/tests/drm_bridge_test.c
-> @@ -2,15 +2,23 @@
->  /*
->   * Kunit test for drm_bridge functions
->   */
-> +#include <linux/cleanup.h>
-> +#include <linux/media-bus-format.h>
-> +
->  #include <drm/drm_atomic_state_helper.h>
-> +#include <drm/drm_atomic_uapi.h>
->  #include <drm/drm_bridge.h>
->  #include <drm/drm_bridge_connector.h>
->  #include <drm/drm_bridge_helper.h>
-> +#include <drm/drm_edid.h>
->  #include <drm/drm_kunit_helpers.h>
-> +#include <drm/drm_managed.h>
->=20=20
->  #include <kunit/device.h>
->  #include <kunit/test.h>
->=20=20
-> +#include "drm_kunit_edid.h"
+Hi,
 
-So here's the problem with adding *any* arrays into headers: every
-compilation unit that includes them duplicates all the arrays. It's only
-really okay for single use.
+On 20/05/2026 20:44, Nikolay Mikhaylov wrote:
+> GGTT PTEs are written through GSM using MMIO writes. On Lunar Lake
+> systems affected by the referenced issue, hangs have been observed around
+> GGTT update paths while the GT may be entering RC6 under GuC control.
+> 
+> The GGTT modify paths currently rely on xe_pm_runtime_get_noresume() for
+> power management protection. That prevents the device from entering D3,
+> but does not keep the GT out of RC6 while the device is otherwise runtime
+> PM active.
+> 
+> Hold GT FORCEWAKE across the observed GGTT PTE write batches:
+> 
+>    - xe_ggtt_insert_node_transform() and __xe_ggtt_insert_bo_at(),
+>      covering the display framebuffer pin path observed as the primary
+>      trigger on LNL/Wayland systems
+>    - xe_ggtt_clear(), covering the GGTT node removal/unpin path
+> 
+> This keeps the change limited to the paths where the hang has been
+> observed. The exact code shape submitted here has been tested by multiple
+> LNL users, including several weeks of uptime without reproducing the hang.
+> 
+> Boot-time xe_ggtt_initial_clear() is also covered by the xe_ggtt_clear()
+> wrap. That is incidental and not the primary load-bearing path for the
+> reported issue.
+> 
+> The insert-path FORCEWAKE wrapping was originally proposed by Márton Vigh
+> (@mrtnvgh):
+> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513#note_3418761
+> 
+> Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513
+> Tested-by: Nikolay Mikhaylov <sonny@milton.pro>
+> Signed-off-by: Nikolay Mikhaylov <sonny@milton.pro>
 
-And, in this case, most of the included arrays are unused, leading to
-build failures:
+I went through the specs, WAs and the only thing I could come up with 
+was a potential miss in the implementation of WA 22019338487_display, 
+which is relevant for LNL, and could be related since this is in the fb 
+pin path, but it's still a long shot. The WA seems to want the driver to 
+limit host side (over the BAR) writes to stolen memory. The GT side of 
+the WA 22019338487, looks to try to "rate limit" GGTT host side writes, 
+since GGTT also lives in stolen, and we ofc can't outright disable it 
+(see ggtt_update_access_counter).
 
-  CC [M]  drivers/gpu/drm/tests/drm_bridge_test.o
-In file included from ../drivers/gpu/drm/tests/drm_bridge_test.c:21:
-../drivers/gpu/drm/tests/drm_kunit_edid.h:958:28: error: =E2=80=98test_edid=
-_hdmi_4k_rgb_yuv420_dc_max_340mhz=E2=80=99 defined but not used [-Werror=3D=
-unused-const-variable=3D]
-  958 | static const unsigned char test_edid_hdmi_4k_rgb_yuv420_dc_max_340m=
-hz[] =3D {
-      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
-~~
-../drivers/gpu/drm/tests/drm_kunit_edid.h:726:28: error: =E2=80=98test_edid=
-_hdmi_1080p_rgb_yuv_dc_max_340mhz=E2=80=99 defined but not used [-Werror=3D=
-unused-const-variable=3D]
-  726 | static const unsigned char test_edid_hdmi_1080p_rgb_yuv_dc_max_340m=
-hz[] =3D {
-      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
-~~
-../drivers/gpu/drm/tests/drm_kunit_edid.h:612:28: error: =E2=80=98test_edid=
-_hdmi_1080p_rgb_yuv_dc_max_200mhz=E2=80=99 defined but not used [-Werror=3D=
-unused-const-variable=3D]
-  612 | static const unsigned char test_edid_hdmi_1080p_rgb_yuv_dc_max_200m=
-hz[] =3D {
-      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
-~~
-../drivers/gpu/drm/tests/drm_kunit_edid.h:498:28: error: =E2=80=98test_edid=
-_hdmi_1080p_rgb_max_340mhz=E2=80=99 defined but not used [-Werror=3Dunused-=
-const-variable=3D]
-  498 | static const unsigned char test_edid_hdmi_1080p_rgb_max_340mhz[] =
-=3D {
-      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../drivers/gpu/drm/tests/drm_kunit_edid.h:390:28: error: =E2=80=98test_edid=
-_hdmi_1080p_rgb_max_200mhz_hdr=E2=80=99 defined but not used [-Werror=3Dunu=
-sed-const-variable=3D]
-  390 | static const unsigned char test_edid_hdmi_1080p_rgb_max_200mhz_hdr[=
-] =3D {
-      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../drivers/gpu/drm/tests/drm_kunit_edid.h:271:28: error: =E2=80=98test_edid=
-_hdmi_1080p_rgb_max_200mhz=E2=80=99 defined but not used [-Werror=3Dunused-=
-const-variable=3D]
-  271 | static const unsigned char test_edid_hdmi_1080p_rgb_max_200mhz[] =
-=3D {
-      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../drivers/gpu/drm/tests/drm_kunit_edid.h:163:28: error: =E2=80=98test_edid=
-_hdmi_1080p_rgb_max_100mhz=E2=80=99 defined but not used [-Werror=3Dunused-=
-const-variable=3D]
-  163 | static const unsigned char test_edid_hdmi_1080p_rgb_max_100mhz[] =
-=3D {
-      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../drivers/gpu/drm/tests/drm_kunit_edid.h:57:28: error: =E2=80=98test_edid_=
-dvi_1080p=E2=80=99 defined but not used [-Werror=3Dunused-const-variable=3D]
-   57 | static const unsigned char test_edid_dvi_1080p[] =3D {
-      |                            ^~~~~~~~~~~~~~~~~~~
-cc1: all warnings being treated as errors
+Patch is here: 
+https://lore.kernel.org/intel-xe/20260609171002.380499-2-matthew.auld@intel.com/
 
-This breaks the build for me, I don't know how it didn't for any of you.
+I don't know if this will actually solve your particular issue, but 
+regardless I think we should still land that anyway.
 
-Reverting these two fixes it:
+For your patch, assuming the other patch doesn't help, I think maybe 
+tweak it such that it is limited only to LNL, with FIXME that we still 
+need to figure out the proper root cause, but in the meantime this has 
+been shown to resolve the hang?
 
-ce1d0139adac ("drm/tests: bridge: Add test for HDMI output bus formats help=
-er")
-082fbc179c01 ("drm/tests: bridge: Add KUnit tests for bridge chain format s=
-election")
+> ---
+>   drivers/gpu/drm/xe/xe_ggtt.c | 39 ++++++++++++++++++++++++++++--------
+>   1 file changed, 31 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/xe/xe_ggtt.c b/drivers/gpu/drm/xe/xe_ggtt.c
+> index a351c578b170..c048bad70ebf 100644
+> --- a/drivers/gpu/drm/xe/xe_ggtt.c
+> +++ b/drivers/gpu/drm/xe/xe_ggtt.c
+> @@ -20,6 +20,8 @@
+>   #include "regs/xe_regs.h"
+>   #include "xe_assert.h"
+>   #include "xe_bo.h"
+> +#include "xe_device.h"
+> +#include "xe_force_wake.h"
+>   #include "xe_gt_printk.h"
+>   #include "xe_gt_types.h"
+>   #include "xe_map.h"
+> @@ -272,9 +274,18 @@ static void xe_ggtt_clear(struct xe_ggtt *ggtt, u64 start, u64 size)
+>   	else
+>   		scratch_pte = 0;
+>   
+> -	while (start < end) {
+> -		ggtt->pt_ops->ggtt_set_pte(ggtt, start, scratch_pte);
+> -		start += XE_PAGE_SIZE;
+> +	/*
+> +	 * GSM (mapped at tile->mmio.regs + SZ_8M) is not in an always-on
+> +	 * power domain. Hold FORCEWAKE for the PTE write batch to keep
+> +	 * the GT awake; on LNL GuC autonomously enters RC6 via
+> +	 * GUCRC_FIRMWARE_CONTROL and writeq() to GSM hangs if the GT
+> +	 * is asleep.
+> +	 */
+> +	xe_with_force_wake(fw_ref, gt_to_fw(ggtt->tile->primary_gt), XE_FW_GT) {
+> +		while (start < end) {
+> +			ggtt->pt_ops->ggtt_set_pte(ggtt, start, scratch_pte);
+> +			start += XE_PAGE_SIZE;
+> +		}
+>   	}
+>   }
+>   
+> @@ -769,10 +780,19 @@ struct xe_ggtt_node *xe_ggtt_insert_node_transform(struct xe_ggtt *ggtt,
+>   	if (ret)
+>   		goto err_unlock;
+>   
+> -	if (transform)
+> -		transform(ggtt, node, pte_flags, ggtt->pt_ops->ggtt_set_pte, arg);
+> -	else
+> -		xe_ggtt_map_bo(ggtt, node, bo, pte_flags);
+> +	/*
+> +	 * Hold FORCEWAKE for the PTE write batch. xe_pm_runtime_get_noresume()
+> +	 * upstack only prevents D3, not RC6: GuC may have placed the GT into
+> +	 * RC6 autonomously (GUCRC_FIRMWARE_CONTROL on LNL), and writeq() to
+> +	 * GSM hangs if the GT is asleep. Triggers most often from the display
+> +	 * framebuffer pin path on LNL/Wayland.
+> +	 */
+> +	xe_with_force_wake(fw_ref, gt_to_fw(ggtt->tile->primary_gt), XE_FW_GT) {
+> +		if (transform)
+> +			transform(ggtt, node, pte_flags, ggtt->pt_ops->ggtt_set_pte, arg);
+> +		else
+> +			xe_ggtt_map_bo(ggtt, node, bo, pte_flags);
+> +	}
+>   
+>   	mutex_unlock(&ggtt->lock);
+>   	return node;
+> @@ -844,7 +864,10 @@ static int __xe_ggtt_insert_bo_at(struct xe_ggtt *ggtt, struct xe_bo *bo,
+>   		u16 pat_index = xe_cache_pat_idx(tile_to_xe(ggtt->tile), cache_mode);
+>   		u64 pte = ggtt->pt_ops->pte_encode_flags(bo, pat_index);
+>   
+> -		xe_ggtt_map_bo(ggtt, bo->ggtt_node[tile_id], bo, pte);
+> +		/* See xe_ggtt_insert_node_transform()/xe_ggtt_clear() */
+> +		xe_with_force_wake(fw_ref, gt_to_fw(ggtt->tile->primary_gt), XE_FW_GT) {
+> +			xe_ggtt_map_bo(ggtt, bo->ggtt_node[tile_id], bo, pte);
+> +		}
+>   	}
+>   	mutex_unlock(&ggtt->lock);
+>   
 
-I think the proper fix would be to move the arrays into a .c file, and
-only have declarations in the headers. But that needs to happen real
-soon or the commits need to be reverted.
-
-
-BR,
-Jani.
-
-
---=20
-Jani Nikula, Intel
