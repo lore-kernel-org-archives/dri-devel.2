@@ -4,35 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D6B4CD8CB2
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 15:50:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABE15CD8CB9
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 15:57:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F84C10E1AC;
-	Wed, 10 Jun 2026 15:50:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18A5410E1AA;
+	Wed, 10 Jun 2026 15:57:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="tHtgDLWe";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="gRhTOwv8";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9581710EA96
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 15:50:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 907A510E1AA
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 15:57:56 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2352822C8;
- Wed, 10 Jun 2026 08:50:39 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5422F1D14;
+ Wed, 10 Jun 2026 08:57:51 -0700 (PDT)
 Received: from [10.57.29.87] (unknown [10.57.29.87])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 71B303F99C;
- Wed, 10 Jun 2026 08:50:41 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CA0A73F99C;
+ Wed, 10 Jun 2026 08:57:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1781106643; bh=AC2CtmNBNABy5OdkjA74aKJda+g8Vv0KQiNLTs/R2F8=;
+ t=1781107076; bh=Q5iijV3e6PT4d+hlHTO2Ek4GFfSTb3UehfZhp8Qanmo=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=tHtgDLWebpdq3pZKdM0S15Jnhee4Chp0Cionot9c2NJbCiZFj7r2RsAW/vvPgdSXq
- E+tqi/Ymo4bxdWBH5JRnvMzdgLr61GPqAIBv9kdQKPZxquUKTWtdaUZennyRt8mAYx
- xCCTBw2hsFYR0a2L2/4WeFRZEdWdRuqI1qhFtwNk=
-Message-ID: <3ad7dabb-85de-474c-a02f-2cf4aa317f31@arm.com>
-Date: Wed, 10 Jun 2026 16:50:38 +0100
+ b=gRhTOwv8GcynPERUyBPNEZLlqGucOjROdFvErl0kzJNwxvgko+MlSEEKcDtN2ElZj
+ mD6WrcHktiQ7v3jnt7pvCg3lFTbdW1PgAwqmg5UP+R+8ionct8rsn+ZcPpQ4S7Ey7G
+ a5osxMMK4runxgOkXi9eqvjC3jaRndyZZ+uNzdBQ=
+Message-ID: <d5b1a50d-26cc-4309-b149-3f94e8498eaf@arm.com>
+Date: Wed, 10 Jun 2026 16:57:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 02/18] drm/panthor: Move register access helpers out
- of panthor_device.h
+Subject: Re: [RFC PATCH 03/18] drm/panthor: Parse and store GPU_ID fields
 To: Karunika Choo <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org
 Cc: nd@arm.com, Boris Brezillon <boris.brezillon@collabora.com>,
  Liviu Dudau <liviu.dudau@arm.com>,
@@ -41,10 +40,10 @@ Cc: nd@arm.com, Boris Brezillon <boris.brezillon@collabora.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org
 References: <20260528150546.3168527-1-karunika.choo@arm.com>
- <20260528150546.3168527-3-karunika.choo@arm.com>
+ <20260528150546.3168527-4-karunika.choo@arm.com>
 From: Steven Price <steven.price@arm.com>
 Content-Language: en-GB
-In-Reply-To: <20260528150546.3168527-3-karunika.choo@arm.com>
+In-Reply-To: <20260528150546.3168527-4-karunika.choo@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -63,276 +62,220 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 28/05/2026 16:05, Karunika Choo wrote:
-> panthor_device.h should describe the panthor device state, not provide
-> generic MMIO helpers.
+> Prepare for Mali v15, where GPU_ID expands to 64 bits and its field
+> layout changes.
 > 
-> Move the register accessors and poll-timeout wrappers to a dedicated
-> panthor_device_io.h header and include it from the users that need MMIO
-> access. This makes the dependency explicit and avoids pulling the full
-> device definition into code that only needs register helpers.
+> Introduce a small panthor_gpu_id structure and parse the GPU_ID fields
+> once during hardware initialization. Convert existing users to consume
+> the cached fields instead of extracting them repeatedly from the raw
+> register value.
 > 
-> No functional change.
+> This centralizes GPU_ID decoding and makes it easier to support both the
+> existing and v15 formats.
 > 
 > Signed-off-by: Karunika Choo <karunika.choo@arm.com>
 > ---
->  drivers/gpu/drm/panthor/panthor_device.h    | 72 ------------------
->  drivers/gpu/drm/panthor/panthor_device_io.h | 81 +++++++++++++++++++++
->  drivers/gpu/drm/panthor/panthor_fw.c        |  1 +
->  drivers/gpu/drm/panthor/panthor_gpu.c       |  1 +
->  drivers/gpu/drm/panthor/panthor_hw.c        |  1 +
->  drivers/gpu/drm/panthor/panthor_mmu.c       |  1 +
->  drivers/gpu/drm/panthor/panthor_pwr.c       |  1 +
->  7 files changed, 86 insertions(+), 72 deletions(-)
->  create mode 100644 drivers/gpu/drm/panthor/panthor_device_io.h
+>  drivers/gpu/drm/panthor/panthor_device.h | 33 ++++++++++++++++++++++++
+>  drivers/gpu/drm/panthor/panthor_fw.c     |  4 +--
+>  drivers/gpu/drm/panthor/panthor_gpu.c    |  2 +-
+>  drivers/gpu/drm/panthor/panthor_hw.c     | 26 +++++++++++++------
+>  drivers/gpu/drm/panthor/panthor_hw.h     |  3 +--
+>  5 files changed, 55 insertions(+), 13 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index 4e4607bca7cc..c376e52e8564 100644
+> index c376e52e8564..8b2a9bb426fc 100644
 > --- a/drivers/gpu/drm/panthor/panthor_device.h
 > +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -6,7 +6,6 @@
->  #ifndef __PANTHOR_DEVICE_H__
->  #define __PANTHOR_DEVICE_H__
+> @@ -104,6 +104,36 @@ struct panthor_irq {
+>  	atomic_t state;
+>  };
 >  
-> -#include <linux/atomic.h>
->  #include <linux/io-pgtable.h>
->  #include <linux/regulator/consumer.h>
->  #include <linux/pm_runtime.h>
-> @@ -630,75 +629,4 @@ static inline void panthor_ ## __name ## _irq_disable_events(struct panthor_irq
->  
->  extern struct workqueue_struct *panthor_cleanup_wq;
->  
-> -static inline void gpu_write(void __iomem *iomem, u32 reg, u32 data)
-> -{
-> -	writel(data, iomem + reg);
-> -}
-> -
-> -static inline u32 gpu_read(void __iomem *iomem, u32 reg)
-> -{
-> -	return readl(iomem + reg);
-> -}
+> +/**
+> + * struct panthor_gpu_id - Parsed GPU_ID fields
+> + */
+> +struct panthor_gpu_id {
+> +	struct {
+> +		/** @arch.major: Architecture major revision */
+> +		u8 major;
+> +
+> +		/** @arch.minor: Architecture minor revision */
+> +		u8 minor;
+> +
+> +		/** @arch.rev: Architecture patch revision */
+> +		u8 rev;
+> +	} arch;
+> +
+> +	/** @prod_major: Product identifier */
+> +	u8 prod_major;
+> +
+> +	struct {
+> +		/** @ver.major: Major release version number */
+> +		u8 major;
+> +
+> +		/** @ver.minor: Minor release version number */
+> +		u8 minor;
+> +
+> +		/** @ver.status: Status of GPU release */
+> +		u8 status;
+> +	} ver;
 
-This is a bit ugly at the moment because further down in this file
-you've still got calls to gpu_read() (in the PANTHOR_IRQ_HANDLER macro).
-This of course does build but means that macros are broken unless
-panthor_device_io.h is also included.
+NIT: I'm not sure what the point of these nested structs is - it seems
+inconsistent to have arch.major but prod_major. Is there any good reason
+not to just collapse this:
 
-I think once Boris' change[1] to the IRQ macro machinery lands this will
-resolve itself.
+struct panthor_gpu_id {
+	/** @arch_major: Architecture major revision */
+	u8 arch_major;
+
+	/** @arch_minor: Architecture minor revision */
+	u8 arch_minor;
+
+	/** @arch_rev: Architecture patch revision */
+	u8 arch_rev;
+
+	/** @prod_major: Product identifier */
+	u8 prod_major;
+
+	/** @ver_major: Major release version number */
+	u8 ver_major;
+
+	/** @ver_minor: Minor release version number */
+	u8 ver_minor;
+
+	/** @ver_status: Status of GPU release */
+	u8 ver_status;
+};
 
 Thanks,
 Steve
 
-[1]
-https://lore.kernel.org/all/20260512-panthor-signal-from-irq-v2-3-95c614a739cb@collabora.com/
-
-> -
-> -static inline u32 gpu_read_relaxed(void __iomem *iomem, u32 reg)
-> -{
-> -	return readl_relaxed(iomem + reg);
-> -}
-> -
-> -static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
-> -{
-> -	gpu_write(iomem, reg, lower_32_bits(data));
-> -	gpu_write(iomem, reg + 4, upper_32_bits(data));
-> -}
-> -
-> -static inline u64 gpu_read64(void __iomem *iomem, u32 reg)
-> -{
-> -	return (gpu_read(iomem, reg) | ((u64)gpu_read(iomem, reg + 4) << 32));
-> -}
-> -
-> -static inline u64 gpu_read64_relaxed(void __iomem *iomem, u32 reg)
-> -{
-> -	return (gpu_read_relaxed(iomem, reg) |
-> -		((u64)gpu_read_relaxed(iomem, reg + 4) << 32));
-> -}
-> -
-> -static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
-> -{
-> -	u32 lo, hi1, hi2;
-> -	do {
-> -		hi1 = gpu_read(iomem, reg + 4);
-> -		lo = gpu_read(iomem, reg);
-> -		hi2 = gpu_read(iomem, reg + 4);
-> -	} while (hi1 != hi2);
-> -	return lo | ((u64)hi2 << 32);
-> -}
-> -
-> -#define gpu_read_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
-> -	read_poll_timeout(gpu_read, val, cond, delay_us, timeout_us, false,	\
-> -			  iomem, reg)
-> -
-> -#define gpu_read_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
-> -				     timeout_us)				\
-> -	read_poll_timeout_atomic(gpu_read, val, cond, delay_us, timeout_us,	\
-> -				 false, iomem, reg)
-> -
-> -#define gpu_read64_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
-> -	read_poll_timeout(gpu_read64, val, cond, delay_us, timeout_us, false,	\
-> -			  iomem, reg)
-> -
-> -#define gpu_read64_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
-> -				       timeout_us)				\
-> -	read_poll_timeout_atomic(gpu_read64, val, cond, delay_us, timeout_us,	\
-> -				 false, iomem, reg)
-> -
-> -#define gpu_read_relaxed_poll_timeout_atomic(iomem, reg, val, cond, delay_us,	\
-> -					     timeout_us)			\
-> -	read_poll_timeout_atomic(gpu_read_relaxed, val, cond, delay_us,		\
-> -				 timeout_us, false, iomem, reg)
-> -
-> -#define gpu_read64_relaxed_poll_timeout(iomem, reg, val, cond, delay_us,	\
-> -					timeout_us)				\
-> -	read_poll_timeout(gpu_read64_relaxed, val, cond, delay_us, timeout_us,	\
-> -			  false, iomem, reg)
-> -
->  #endif
-> diff --git a/drivers/gpu/drm/panthor/panthor_device_io.h b/drivers/gpu/drm/panthor/panthor_device_io.h
-> new file mode 100644
-> index 000000000000..54e206c6aaa5
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panthor/panthor_device_io.h
-> @@ -0,0 +1,81 @@
-> +/* SPDX-License-Identifier: GPL-2.0 or MIT */
-> +/* Copyright 2026 ARM Limited. All rights reserved. */
+> +};
 > +
-> +#ifndef __PANTHOR_DEVICE_IO_H__
-> +#define __PANTHOR_DEVICE_IO_H__
+>  /**
+>   * enum panthor_device_profiling_mode - Profiling state
+>   */
+> @@ -160,6 +190,9 @@ struct panthor_device {
+>  	/** @csif_info: Command stream interface information. */
+>  	struct drm_panthor_csif_info csif_info;
+>  
+> +	/** @gpu_id: Parsed GPU_ID fields */
+> +	struct panthor_gpu_id gpu_id;
 > +
-> +#include <linux/atomic.h>
-> +#include <linux/io.h>
-> +
-> +static inline void gpu_write(void __iomem *iomem, u32 reg, u32 data)
-> +{
-> +	writel(data, iomem + reg);
-> +}
-> +
-> +static inline u32 gpu_read(void __iomem *iomem, u32 reg)
-> +{
-> +	return readl(iomem + reg);
-> +}
-> +
-> +static inline u32 gpu_read_relaxed(void __iomem *iomem, u32 reg)
-> +{
-> +	return readl_relaxed(iomem + reg);
-> +}
-> +
-> +static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
-> +{
-> +	gpu_write(iomem, reg, lower_32_bits(data));
-> +	gpu_write(iomem, reg + 4, upper_32_bits(data));
-> +}
-> +
-> +static inline u64 gpu_read64(void __iomem *iomem, u32 reg)
-> +{
-> +	return (gpu_read(iomem, reg) | ((u64)gpu_read(iomem, reg + 4) << 32));
-> +}
-> +
-> +static inline u64 gpu_read64_relaxed(void __iomem *iomem, u32 reg)
-> +{
-> +	return (gpu_read_relaxed(iomem, reg) |
-> +		((u64)gpu_read_relaxed(iomem, reg + 4) << 32));
-> +}
-> +
-> +static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
-> +{
-> +	u32 lo, hi1, hi2;
-> +	do {
-> +		hi1 = gpu_read(iomem, reg + 4);
-> +		lo = gpu_read(iomem, reg);
-> +		hi2 = gpu_read(iomem, reg + 4);
-> +	} while (hi1 != hi2);
-> +	return lo | ((u64)hi2 << 32);
-> +}
-> +
-> +#define gpu_read_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
-> +	read_poll_timeout(gpu_read, val, cond, delay_us, timeout_us, false,	\
-> +			  iomem, reg)
-> +
-> +#define gpu_read_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
-> +				     timeout_us)				\
-> +	read_poll_timeout_atomic(gpu_read, val, cond, delay_us, timeout_us,	\
-> +				 false, iomem, reg)
-> +
-> +#define gpu_read64_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
-> +	read_poll_timeout(gpu_read64, val, cond, delay_us, timeout_us, false,	\
-> +			  iomem, reg)
-> +
-> +#define gpu_read64_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
-> +				       timeout_us)				\
-> +	read_poll_timeout_atomic(gpu_read64, val, cond, delay_us, timeout_us,	\
-> +				 false, iomem, reg)
-> +
-> +#define gpu_read_relaxed_poll_timeout_atomic(iomem, reg, val, cond, delay_us,	\
-> +					     timeout_us)			\
-> +	read_poll_timeout_atomic(gpu_read_relaxed, val, cond, delay_us,		\
-> +				 timeout_us, false, iomem, reg)
-> +
-> +#define gpu_read64_relaxed_poll_timeout(iomem, reg, val, cond, delay_us,	\
-> +					timeout_us)				\
-> +	read_poll_timeout(gpu_read64_relaxed, val, cond, delay_us, timeout_us,	\
-> +			  false, iomem, reg)
-> +
-> +#endif /* __PANTHOR_DEVICE_IO_H__ */
+>  	/** @hw: GPU-specific data. */
+>  	struct panthor_hw *hw;
+>  
 > diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> index 986151681b24..52f176644aa6 100644
+> index 52f176644aa6..784d0a25beb2 100644
 > --- a/drivers/gpu/drm/panthor/panthor_fw.c
 > +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -19,6 +19,7 @@
->  #include <drm/drm_print.h>
+> @@ -799,8 +799,8 @@ static int panthor_fw_load(struct panthor_device *ptdev)
+>  	int ret;
 >  
->  #include "panthor_device.h"
-> +#include "panthor_device_io.h"
->  #include "panthor_fw.h"
->  #include "panthor_fw_regs.h"
->  #include "panthor_gem.h"
+>  	snprintf(fw_path, sizeof(fw_path), "arm/mali/arch%d.%d/%s",
+> -		 (u32)GPU_ARCH_MAJOR(ptdev->gpu_info.gpu_id),
+> -		 (u32)GPU_ARCH_MINOR(ptdev->gpu_info.gpu_id),
+> +		 (u32)ptdev->gpu_id.arch.major,
+> +		 (u32)ptdev->gpu_id.arch.minor,
+>  		 CSF_FW_NAME);
+>  
+>  	ret = request_firmware(&fw, fw_path, ptdev->base.dev);
 > diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> index e52c5675981f..b63a33fe155e 100644
+> index b63a33fe155e..bb5e64188a15 100644
 > --- a/drivers/gpu/drm/panthor/panthor_gpu.c
 > +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -18,6 +18,7 @@
->  #include <drm/drm_print.h>
+> @@ -74,7 +74,7 @@ static void panthor_gpu_l2_config_set(struct panthor_device *ptdev)
+>  	if (!data || !data->asn_hash_enable)
+>  		return;
 >  
->  #include "panthor_device.h"
-> +#include "panthor_device_io.h"
->  #include "panthor_gpu.h"
->  #include "panthor_gpu_regs.h"
->  #include "panthor_hw.h"
+> -	if (GPU_ARCH_MAJOR(ptdev->gpu_info.gpu_id) < 11) {
+> +	if (ptdev->gpu_id.arch.major < 11) {
+>  		drm_err(&ptdev->base, "Custom ASN hash not supported by the device");
+>  		return;
+>  	}
 > diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
-> index 4c96573b649a..5cf54028f606 100644
+> index 5cf54028f606..3570e2889584 100644
 > --- a/drivers/gpu/drm/panthor/panthor_hw.c
 > +++ b/drivers/gpu/drm/panthor/panthor_hw.c
-> @@ -7,6 +7,7 @@
->  #include <drm/drm_print.h>
+> @@ -120,9 +120,9 @@ void panthor_hw_power_status_unregister(void)
+>  
+>  static char *get_gpu_model_name(struct panthor_device *ptdev)
+>  {
+> -	const u32 gpu_id = ptdev->gpu_info.gpu_id;
+> -	const u32 product_id = GPU_PROD_ID_MAKE(GPU_ARCH_MAJOR(gpu_id),
+> -						GPU_PROD_MAJOR(gpu_id));
+> +	const struct panthor_gpu_id *gpu_id = &ptdev->gpu_id;
+> +	const u32 product_id = GPU_PROD_ID_MAKE(gpu_id->arch.major,
+> +						gpu_id->prod_major);
+>  	const bool ray_intersection = !!(ptdev->gpu_info.gpu_features &
+>  					 GPU_FEATURES_RAY_INTERSECTION);
+>  	const u8 shader_core_count = hweight64(ptdev->gpu_info.shader_present);
+> @@ -246,13 +246,13 @@ static int panthor_hw_info_init(struct panthor_device *ptdev)
+>  	if (ret)
+>  		return ret;
+>  
+> -	major = GPU_VER_MAJOR(ptdev->gpu_info.gpu_id);
+> -	minor = GPU_VER_MINOR(ptdev->gpu_info.gpu_id);
+> -	status = GPU_VER_STATUS(ptdev->gpu_info.gpu_id);
+> +	major = ptdev->gpu_id.ver.major;
+> +	minor = ptdev->gpu_id.ver.minor;
+> +	status = ptdev->gpu_id.ver.status;
+>  
+>  	drm_info(&ptdev->base,
+>  		 "%s id 0x%x major 0x%x minor 0x%x status 0x%x",
+> -		 get_gpu_model_name(ptdev), ptdev->gpu_info.gpu_id >> 16,
+> +		 get_gpu_model_name(ptdev), ptdev->gpu_id.prod_major,
+>  		 major, minor, status);
+>  
+>  	drm_info(&ptdev->base,
+> @@ -274,7 +274,7 @@ static int panthor_hw_info_init(struct panthor_device *ptdev)
+>  static int panthor_hw_bind_device(struct panthor_device *ptdev)
+>  {
+>  	struct panthor_hw *hdev = NULL;
+> -	const u32 arch_major = GPU_ARCH_MAJOR(ptdev->gpu_info.gpu_id);
+> +	const u32 arch_major = ptdev->gpu_id.arch.major;
+>  	int i = 0;
+>  
+>  	for (i = 0; i < ARRAY_SIZE(panthor_hw_match); i++) {
+> @@ -296,10 +296,20 @@ static int panthor_hw_bind_device(struct panthor_device *ptdev)
+>  
+>  static int panthor_hw_gpu_id_init(struct panthor_device *ptdev)
+>  {
+> +	struct panthor_gpu_id *gpu_id = &ptdev->gpu_id;
+>  	ptdev->gpu_info.gpu_id = gpu_read(ptdev->iomem, GPU_ID);
+> +
+>  	if (!ptdev->gpu_info.gpu_id)
+>  		return -ENXIO;
+>  
+> +	gpu_id->arch.major = GPU_ARCH_MAJOR(ptdev->gpu_info.gpu_id);
+> +	gpu_id->arch.minor = GPU_ARCH_MINOR(ptdev->gpu_info.gpu_id);
+> +	gpu_id->arch.rev = GPU_ARCH_REV(ptdev->gpu_info.gpu_id);
+> +	gpu_id->prod_major = GPU_PROD_MAJOR(ptdev->gpu_info.gpu_id);
+> +	gpu_id->ver.major = GPU_VER_MAJOR(ptdev->gpu_info.gpu_id);
+> +	gpu_id->ver.minor = GPU_VER_MINOR(ptdev->gpu_info.gpu_id);
+> +	gpu_id->ver.status = GPU_VER_STATUS(ptdev->gpu_info.gpu_id);
+> +
+>  	return 0;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/panthor/panthor_hw.h b/drivers/gpu/drm/panthor/panthor_hw.h
+> index f797663893b2..2a666d8cdb98 100644
+> --- a/drivers/gpu/drm/panthor/panthor_hw.h
+> +++ b/drivers/gpu/drm/panthor/panthor_hw.h
+> @@ -5,7 +5,6 @@
+>  #define __PANTHOR_HW_H__
 >  
 >  #include "panthor_device.h"
-> +#include "panthor_device_io.h"
->  #include "panthor_gpu.h"
->  #include "panthor_gpu_regs.h"
->  #include "panthor_hw.h"
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index 452d0b6d4668..48127313332f 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -31,6 +31,7 @@
->  #include <linux/sizes.h>
+> -#include "panthor_gpu_regs.h"
 >  
->  #include "panthor_device.h"
-> +#include "panthor_device_io.h"
->  #include "panthor_gem.h"
->  #include "panthor_gpu.h"
->  #include "panthor_gpu_regs.h"
-> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
-> index 7c7f424a1436..1cba093a2452 100644
-> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
-> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
-> @@ -11,6 +11,7 @@
->  #include <drm/drm_print.h>
+>  /**
+>   * struct panthor_hw_ops - HW operations that are specific to a GPU
+> @@ -58,7 +57,7 @@ static inline void panthor_hw_l2_power_off(struct panthor_device *ptdev)
 >  
->  #include "panthor_device.h"
-> +#include "panthor_device_io.h"
->  #include "panthor_gpu_regs.h"
->  #include "panthor_hw.h"
->  #include "panthor_pwr.h"
+>  static inline bool panthor_hw_has_pwr_ctrl(struct panthor_device *ptdev)
+>  {
+> -	return GPU_ARCH_MAJOR(ptdev->gpu_info.gpu_id) >= 14;
+> +	return ptdev->gpu_id.arch.major >= 14;
+>  }
+>  
+>  #endif /* __PANTHOR_HW_H__ */
 
