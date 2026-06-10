@@ -4,45 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A55FECD8CB2
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 14:33:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19429CD98CE
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 14:34:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FF7610E9D4;
-	Wed, 10 Jun 2026 14:33:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AC6210E9D7;
+	Wed, 10 Jun 2026 14:34:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MOTecDwY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bx/ro/ST";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A127310E9D4
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 14:33:45 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5BB6740AA7;
- Wed, 10 Jun 2026 14:33:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E371D1F00893;
- Wed, 10 Jun 2026 14:33:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781102025;
- bh=Nc4WWGysk4BX4jXdA7yrMnTVb1/myijYZec3dC5qscE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MOTecDwYbCzd7OL0TnmzLqSOFlpDCffMVA3xzE8KS/UcWY21SZ/2ofWWhGuB1M9TI
- 54v4JOXWtCCeJ+iU57PvVsR2AQGjzdcnBUFFxUG2BfOsO6Q3n9bQ25RwfE2FrfuxK5
- jOStm3hximRI3bD7AzRjj1uzoS33wTvvgyi/R4xaZNqIRr2o1OKBg1SLPJwy87KlA/
- NrSwuk9ENYL/3RWhK8J5ukHN3rhRUKLV5j7GRgP/hAUhNma4YBQbnrvgiJyWBtQ8Rq
- KGgus+9j/nlzCLyEZ/3W54vx+2NSryNhJhecny9Q1HqjrgIJHk/IGUJbkCX/NkCHmI
- I8MbUpNh0KkyA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dma-buf: move system_cc_shared heap under separate Kconfig
-To: "Sumit Semwal" <sumit.semwal@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, "Vasily Gorbik" <gor@linux.ibm.com>,
- "Alexander
- Gordeev" <agordeev@linux.ibm.com>, "Heiko Carstens" <hca@linux.ibm.com>,
- linux-s390@vger.kernel.org
-In-Reply-To: <20260610142329.3836808-1-sumit.semwal@linaro.org>
-References: <20260610142329.3836808-1-sumit.semwal@linaro.org>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com
+ [74.125.82.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE99B10E9D7
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 14:34:37 +0000 (UTC)
+Received: by mail-dy1-f169.google.com with SMTP id
+ 5a478bee46e88-304c520fe9aso2192231eec.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 07:34:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781102077; cv=none;
+ d=google.com; s=arc-20240605;
+ b=dXjXT7ukvWnxV5bXNEsfU6Wc5oFdkM4CACTfPNKbCWR63YKpJwUXIu4Td3rPmHmcoB
+ PFvIMR2q/oCOYQFoZacqK3R6ks1vlnqRjYcwV7GZsJPjVFYqv+M5fcnyejsDfFAc6YRD
+ 7q1g/w1E6s6M5gmjyyHcyLQ9JQJ8w6V7M8T5CiXfe++XxorO4EotZC4rjnfSTK1y8J/i
+ mAAyIbLJXmw5/FyHo0tPM7j/kxUmnPxzQ9JR32F48GgaI4R8e9U8/b3lGRGj+WM1K7Gi
+ GZ8vab0eHzjTWYLl4X3IHhNCraPwGzqTOXqERymsFxuRMYN5A7yUBS6yh1V/cZMXQZek
+ jBVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Y4QsNr9+C2sksb8f9hiRst13xYKm9uscJWoJD0+yoDM=;
+ fh=qRXm2un79Kcgwg21tp+pEglfA0gLrC1nY6dhBk5xf1U=;
+ b=d/5rxHffu/4CQ7BjkyNqmq/8NxdKIuOjCsRilwJld7m9B7BM0oFUg0F8hb/zJjDyl2
+ CkdaS8xnZE1xGHiHUmtxfE8eAa5Qp+RWX59EGXDOJWKlmSvukcbM/u8YRzn0Yk/uPr9j
+ CInkg9yT7eIaoCYyhXIDsc/4l50nrtQjpD8GSNEcbsO6HCvn3I1Fn52iyUbt+chAoO3H
+ cQSTtcVHpKA+LEyC0HAAG4dvzYMQJVsGgTPCaOhLpCVa+bbXSnL8dFQMCIBdlAx49Zzo
+ BY5D2PgEybBczc6ZukTDKyx7VfbUJ8XvRplWPoJL4VAgPjaGyfJbPDkTI7F1G/QbAhrs
+ nmEQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781102077; x=1781706877; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Y4QsNr9+C2sksb8f9hiRst13xYKm9uscJWoJD0+yoDM=;
+ b=bx/ro/STt/ANfsTgphNtwnSVe/Mz6HpLlnkruHvOuvgODRwnPOwbvx4JDseY3Do19y
+ IF2cZTd4FJ+nWOXezVDsW3Uud/sQFQks/Meq6w1lfjL/lqOWUDIcoM7eTFdWPLTOwhwy
+ 2GO9HML+u2l+IFlo7U1RcbmYogClyr0aL6/7Z9wOaFgb3LKXeJvHiFKE1vvXVIxyCVvX
+ cPViWyMZ3o1vkEv4e2ZZtPOTme9kpguzChAnv/QaCJsUIFnOZKjn4TNjlJBpNZiJdyYW
+ tSGYprcuJiogw3KDYuLB0/k1guZJFoZSWh5HA5ejur40vzol53u3e1KjwFLAaC0o513M
+ mv3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781102077; x=1781706877;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Y4QsNr9+C2sksb8f9hiRst13xYKm9uscJWoJD0+yoDM=;
+ b=rt/Wk2hWwNCwDqCpyd0P0LyjL0y0pK1DkXhGNQfy0CIP/6CiQ/vvomAfW24dxCedzB
+ oJAGv36WU5hwx8HGp1oHIuc77wCJf99P3OE8uIbxZsjfdE2XkYMz7vwKzo/0q++FAXNW
+ 7rFVHQ+uL4PAHO/mByIchX4UK7sht5u/Cvv6e1PpI+Rm/JjmcUziedKZVCVYNXr2yZsT
+ RvfTzH8meeevAAo/delmdbEjdGumMWVg8YKGUasECsTWjptIllpvBuH5aJhPT8h91Awe
+ 1LZp1swO4/6nCZCH49CdQin6pkGvJlUgZ9soUGJfqsq/8Pw3lTv5kCKRtau1KttYJatw
+ iB4g==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9BBhzVWEXaHaBNFRWUkT150gR1BPRTs/SGOSMd+Y0wl4LJNFhu+ok6Nnqx5uObxxcPOT7RQn2XClE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwNrIGhdIsVwwgY1p5wZFNJkPtLxtIMGoLWdMf8aUlt4t2BTD44
+ kli415KEs1hPQgHxkT3TRfHLJzJ8nwMmYirkzPmd7qPgFVXOHC8W1J3PPn5Pgb5S/m2+dDel7m7
+ LLvR51IRBHN2iVHps6LAczVIJdpHx3jg=
+X-Gm-Gg: Acq92OGzAmYKxLAnxrHiDDg00uZQ3MPAXDntOxDu0WLz5LPXZ3Fj/s0vVlng4+vutJ3
+ UhGs6PsXoK1a0bQijUfdjd3s7vLANwIiPhxtr3bLiG+1A8//DV1rcL4rlZL0D21cUEFXSjW2IpB
+ 2LzUo52ZOZTzQyvDL+CTS2aD+/7cSZshCdtJ4hnwc3lQokGr4ksmnSuTDI5dTCI058Ws+hD903Y
+ z3AC3f6IPt+j5B/fr5c5zQXq9dve9U8K1J9BqKfHH89rqydZ60BGgUpOuyUb6KTmH60E5llsmBL
+ bEMTd+wz2GhaNK3rGus=
+X-Received: by 2002:a05:7300:4311:b0:304:d32e:65f5 with SMTP id
+ 5a478bee46e88-3077b7d84c8mr15465647eec.26.1781102076873; Wed, 10 Jun 2026
+ 07:34:36 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260606045738.21050-1-clamor95@gmail.com>
+ <20260606045738.21050-5-clamor95@gmail.com>
+ <aihkNekrgfu6-6Q_@ashevche-desk.local>
+In-Reply-To: <aihkNekrgfu6-6Q_@ashevche-desk.local>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 10 Jun 2026 17:34:25 +0300
+X-Gm-Features: AVVi8CdXjWV2Xn6oo1ydHrhUl2T2tO1QvChE8BglKpS9ooBB10CdbUEM-do5fqk
+Message-ID: <CAPVz0n2WG=35W7Z8USDck+xQ4sQSxkfhJR9oeYGe_vBkkXGKFg@mail.gmail.com>
+Subject: Re: [PATCH v4 04/14] mfd: lm3533: Pass only regmap and light sensor
+ presence to child devices
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+ Johan Hovold <johan@kernel.org>, 
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Jun 2026 14:33:44 +0000
-Message-Id: <20260610143344.E371D1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,64 +114,51 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+=D0=B2=D1=82, 9 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 22:06=
+ Andy Shevchenko <andriy.shevchenko@intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Sat, Jun 06, 2026 at 07:57:28AM +0300, Svyatoslav Ryhel wrote:
+> > Instead of passing the entire lm3533 core data structure, only pass the
+> > regmap and the light sensor presence flag to child devices.
+>
+> ...
+>
+> >  struct lm3533_als {
+> > -     struct lm3533 *lm3533;
+> > +     struct regmap *regmap;
+> >       struct platform_device *pdev;
+>
+> And this pdev is probably not needed. But I haven't checked the whole lot=
+ of
+> the patches yet.
+>
 
-Pre-existing issues:
-- [High] Unconditional page re-encryption in error path causes potential me=
-mory leak and invalid hypercalls
---
+It is needed since it holds childs pdev (dev would be better, but not
+in this patchset), you cannot get childs dev from regmap since regmap
+holds cores dev.
 
-commit 611c6660a2bb2f9f324ce349cfce6b2530846d28
-Author: Arnd Bergmann <arnd@arndb.de>
+> >       unsigned long flags;
+>
+> ...
+>
+> >  struct lm3533_ctrlbank {
+> > -     struct lm3533 *lm3533;
+> > +     struct regmap *regmap;
+> >       struct device *dev;
+>
+> Ditto.
+>
 
-dma-buf: move system_cc_shared heap under separate Kconfig
+Same here, dev holds either LEDs dev or backlight dev.
 
-This commit moves the system_cc_shared heap into its own Kconfig symbol,
-DMABUF_HEAPS_CC_SYSTEM. This resolves a build failure on architectures like
-powerpc and s390 when the system heap is built as a loadable module, since
-the set_memory_encrypted and set_memory_decrypted functions are not
-exported to modules.
-
-> diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/=
-system_heap.c
-> index c92bdec356fcc..71d9028cc3dfc 100644
-> --- a/drivers/dma-buf/heaps/system_heap.c
-> +++ b/drivers/dma-buf/heaps/system_heap.c
-[ ... ]
-> @@ -485,7 +488,7 @@ static struct dma_buf *system_heap_allocate(struct dm=
-a_heap *heap,
->  		 * Intentionally leak pages that cannot be re-encrypted
->  		 * to prevent shared memory from being reused.
->  		 */
-> -		if (buffer->cc_shared &&
-> +		if (cc_shared_buffer(buffer) &&
->  		    system_heap_set_page_encrypted(p))
->  			continue;
->  		__free_pages(p, compound_order(p));
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this error path
-unintentionally re-encrypt pages that were never decrypted?
-
-If system_heap_set_page_decrypted() fails during the earlier loop in
-system_heap_allocate(), it jumps to the free_pages label. However, the
-cleanup loop here uses for_each_sgtable_sg(table, sg, i), which iterates
-over the entire scatterlist starting from index 0.
-
-This means pages after the failure point, which were never decrypted, will
-still be passed to system_heap_set_page_encrypted(). If the underlying
-set_memory_encrypted() call fails on already-encrypted pages (e.g., due to
-hypervisor state enforcement), the code skips __free_pages() and leaks the
-memory.
-
-Could this loop be modified to only re-encrypt the pages that were
-successfully decrypted before the failure?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610142329.3836=
-808-1-sumit.semwal@linaro.org?part=3D1
+> >       int id;
+> >  };
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
