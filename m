@@ -4,109 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5896BCD98C6
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 15:02:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A364FCD8CB2
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 15:11:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9710410E9FF;
-	Wed, 10 Jun 2026 15:02:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0474F10E492;
+	Wed, 10 Jun 2026 15:11:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TpH+7KDu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="shbKRxvX";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48D2B10E9FD;
- Wed, 10 Jun 2026 15:02:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781103769; x=1812639769;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=wdD+yxiW9aVoMld4LMPC1DWLru4HtTsU9EmgfMnk6eg=;
- b=TpH+7KDu9yBxBpX9N9OUkqwoqYHkRAhhb4yUIMHmvV/iWg0eazJFy8uo
- Gk3a9O9aO7tTQ5ZGpjRmWtlD+wfS5ojx3IhHP7YejfZ1K45V17FqQ1fEN
- EgchDFRxG6R5gKdXoMpshqnIMF6cwgafaBTNj1EVHyr7Z/ogY5PPurCi0
- W58MOvXhsOOKFe+EGb5mQYIhIA/66e/ofsc5yNk0f4D0CktRpbiPlCa7R
- w1xfQU5fu0O8aNbAIP+U3b1bn3EefemfbpxlFM7KSOV7hCKjn5OiuGJ8c
- MU5IGSm4X6S9Q6ozxvFihkcfaCcfccTqmtNT+TutOuaEDhHc2ASQ5V0cg g==;
-X-CSE-ConnectionGUID: Ow+h21Q0SfmEBQZc13Yesw==
-X-CSE-MsgGUID: +E4Xi8VrRJWBqzNo36L+KA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="107334576"
-X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="107334576"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2026 08:02:48 -0700
-X-CSE-ConnectionGUID: vFiAK4i9TuuPvjj1ruVuyA==
-X-CSE-MsgGUID: yPzj5/7BTy26oZg8/7CqtA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="251275772"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.244.38])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2026 08:02:35 -0700
-Date: Wed, 10 Jun 2026 18:02:32 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Kaitao Cheng <kaitao.cheng@linux.dev>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Davidlohr Bueso <dave@stgolabs.net>,
- "Paul E . McKenney" <paulmck@kernel.org>,
- Josh Triplett <josh@joshtriplett.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Huang Rui <ray.huang@amd.com>, Eddie James <eajames@linux.ibm.com>,
- Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Laxman Dewangan <ldewangan@nvidia.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Waiman Long <longman@redhat.com>, drbd-dev@lists.linbit.com,
- linux-block@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Christian Brauner <brauner@kernel.org>,
- David Howells <dhowells@redhat.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Kaito Cheng <chengkaitao@kylinos.cn>, Muchun Song <muchun.song@linux.dev>,
- Philipp Reisner <philipp.reisner@linbit.com>,
- Lars Ellenberg <lars.ellenberg@linbit.com>,
- Christoph =?iso-8859-1?Q?B=F6hmwalder?= <christoph.boehmwalder@linbit.com>,
- Jens Axboe <axboe@kernel.dk>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: Re: [PATCH v2 00/14] list: Prepare entry iterators to cache cursor
- state
-Message-ID: <ail8iNvPrJnE7p58@ashevche-desk.local>
-References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
- <bd0b7393-8ccb-4d67-8bfc-18c68347122c@amd.com>
- <5152089a-2808-4fe9-b633-b03018105dd2@linux.dev>
- <6b2efdee-95b0-4306-a682-0d0466497ddb@amd.com>
- <2399841f-d834-4652-8285-4a15c7d9a9b9@linux.dev>
- <d974a2ea-6102-45ff-bf36-3b25a2404e40@amd.com>
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012036.outbound.protection.outlook.com [52.101.43.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AD0C10E492
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 15:11:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kxt5P/EEBqcWJ2ix0nByTEbSJ6x5QDJkx2mhVaSO6JnCCNeXqZ678zLGOw1JoELCGUPwS+gKdMQr8CVblMN563wqmLAMf4Qw94uG9iS2s/e+T6+NkK/hkrfB7cv4vQkU75eKRcBK5S0QT2RMWMdtEJc4AGxa92Y7u1FZECJAA+vtIxD/2CROq2dZXBy8EEPCPWzjPwmXNbDKR7pVSY884tWXfQP1tYeVtljE/oDMRYXMFcX8ohFAmeVwtZQfLTNClDYubkXnKnm6dIkdTzL6uA1MRVdPW84C9f5SIO4WWkRO5BMyTVeIq1YjiU/ENddZQYL7yIf9lOdtXsQkaKe10w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6jssqmiaiZ9rXUV9ZmNdUR3Apgml8BwFxZa66QRHtYA=;
+ b=k7AV56EmMRVtSo62VyppKU/pN6rIrC3DhYK2yvm45sCeoAcN0+PqIU+p9v+KUe4eCW4RYd+FkLMLtssCtx46BT8dGDGv36JqXRJKgBPnioxohxenzIaIYp1cDgP/jI1kZsOT0NfHK4Fsfp/NAKjNzIImhvO9pvNvk5rt8UQl/iS1V/S9rYLb8oAui5Dajq/H9WVNNenF4VkwGDMQfM07lcqKUTjsMD4nI/RLWRZyNj4rdRdueuJjOhpF37WQrF10dxmNK4ovqaDmxEe25RVBEYP5i2f0mJxtGFEt9FlfXQ1mm3jTXF5WXrUJYJx5nfWkPTBOjGDn3py09svL35THRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6jssqmiaiZ9rXUV9ZmNdUR3Apgml8BwFxZa66QRHtYA=;
+ b=shbKRxvXQuuvmkBc0slPDcuY26Vj5GnjvcF9vq235n6+08bJGuDTSF4y3aRUxgdXaRJ6IwR2jToFevFsTSqUGyRh0y2+A7I77dg6fB5X0e9Bu2LOLynWdAw0WpPaxlydKLgryTLKMk5FmIiCVYEk17O/8WXFc97+vf+kyG+Kij0=
+Received: from PH1PEPF000132EE.NAMP220.PROD.OUTLOOK.COM (2603:10b6:518:1::36)
+ by IA0PR12MB9009.namprd12.prod.outlook.com (2603:10b6:208:48f::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Wed, 10 Jun
+ 2026 15:11:36 +0000
+Received: from CY4PEPF0000E9DA.namprd05.prod.outlook.com
+ (2a01:111:f403:f912::5) by PH1PEPF000132EE.outlook.office365.com
+ (2603:1036:903:47::3) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.11 via Frontend Transport; Wed,
+ 10 Jun 2026 15:11:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000E9DA.mail.protection.outlook.com (10.167.241.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.113.7 via Frontend Transport; Wed, 10 Jun 2026 15:11:35 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 10 Jun
+ 2026 10:11:35 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 10 Jun
+ 2026 10:11:34 -0500
+Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Wed, 10 Jun 2026 10:11:34 -0500
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+ <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+ <karol.wachowski@linux.intel.com>
+CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
+ <max.zhen@amd.com>, <sonal.santan@amd.com>
+Subject: [PATCH V1] accel/amdxdna: Fix mm_struct reference leak in
+ aie2_populate_range()
+Date: Wed, 10 Jun 2026 08:11:27 -0700
+Message-ID: <20260610151127.2994185-1-lizhi.hou@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <d974a2ea-6102-45ff-bf36-3b25a2404e40@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9DA:EE_|IA0PR12MB9009:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9808707a-bab4-4804-9607-08dec7029024
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|23010399003|376014|36860700016|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: mF+03fwWRTFEmE8JFox7ClFuQsC1DFLBM3cJRQJIbLkeJKfqT580WbskBL+M2K51e/9vtrmZMyKhL2KRBPCx/lD37pFRcpvDz4ofZz+nXjS+VL3LGz42iB5/oRQrkX1JT4rGLSflN1sDD9Uxe9NdOxUyBfwB1WvCD1QS7nxzmU1uIRDt9lO9POZklMXwI0ZHWK05BMyxAVosm8OKZBdqoYQxAlv+XqGXS814jTySfub8SEnrnTnsxcT8QNYpJPVn0g/YWdol4VbFYGx8JtskjeWCG4C137FybLFfMa2to4PprGXyV9Lu73E2UdXP9UQBjwXl5iN6fdW4ko0Rr3QgJAD/K1uySEVWjkJ4EjOMnr/JVhlwD4CAMsPbKWmXQ6Z0kboV6WeAfJ1ZVFThNtQpDvECmJ+KC0yioONZ4u4JMUggig6H1JT3svrQvZYr6aUPWSA0/T93Lls7s5Edxui29iQd1KwNqdx4OFNwPR4zz2O6zjJNFZTjLZC5weuBlSLpTuXZ4U4E+uR05KpajYeMcEpLzwzDhAiKe5OG30gPv4tyS5rk+8AGP7VV1Glv93qmqDNg8MZuENDDipq+ZY0qXOUMMuCnECzBnj8uZpYN7pEuM5a60GSehqQIvF/ceZlfh4GncVCb5bDu6U0KQubQ3ROA7MEl5mP3uLQelC+Lq6XJdGDqvv3s4lK37fiI1JvsO9JErGduvb7zTQYum/n+U7Fq2JX0x0t17SwSXidm4HY=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(23010399003)(376014)(36860700016)(18002099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: qj5SrXcVtNI1/iOmaaQIU8R/sBcYvxXD8Q4W84ugwTnru+ILlJzVUvkUQzeDqkqCs+vKlbN8hmuokyTpV8Vn+q/Bt6/T0uiFtaBXfOqAb4KFsiyeJ23d63fz7npLYnHp+oqp7YUKQsIbSquxwxdp7t2hgHAlORFi9ScQuFW6ltU0uODfTpSeJ79GcQeNkPRVCaSqsj2iIs4gUmEE6MPJgq8mAulzlyQInC4hyYCJvYWfIubBtH8djWT/yu1CNFvLRwe6PmG9pMhl7ACfc4zoxXkguEOXdzcf71MedpWRUWGyBqZXLQQ5xZUvjMOD+3JroRdOsj3sl7DWleTvhWvCtBu/FAT0iyvlXD/4h6zzjgW3r1nftRu4WEvaYLPwlal3+474Q7lFmHbJKA7saudG/iH8MI2nvMbj2Gi0ClyhA67kPocBW9OWcCHSWOFx139z
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 15:11:35.4477 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9808707a-bab4-4804-9607-08dec7029024
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9DA.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB9009
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,34 +116,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 10, 2026 at 11:11:34AM +0200, Christian König wrote:
-> On 6/10/26 10:18, Kaitao Cheng wrote:
-> > 在 2026/6/10 16:07, Christian König 写道:
+aie2_populate_range() jumps back to the again label without calling
+mmput(mm), leaking a reference to the mm_struct.
 
-...
+Add the missing mmput() before jumping to again.
 
-> > Should we revert to v1, or keep list_for_each_entry() and
-> > list_for_each_entry_safe() as they are, close this thread, and make no
-> > changes?
-> > 
-> > Link to v1:
-> > https://lore.kernel.org/all/20260529082149.76764-1-kaitao.cheng@linux.dev/
-> > 
-> > Or do you have any better suggestions?
-> 
-> v1 looks perfectly reasonable to me.
+Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+---
+ drivers/accel/amdxdna/aie2_ctx.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-But why not just hiding that once for all (in case they don't use the temporary
-iterator)? Easy to automate, robust — everyone is happy?
-
-> You should just include some patches in the same patch set to actually use
-> the new macros.
-> 
-> If you modify the files under drivers/dma-buf or drivers/gpu/drm/amd to use
-> the new macro I'm happy to review that.
-
+diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+index 3e21e2dabe82..e0f30dbe0238 100644
+--- a/drivers/accel/amdxdna/aie2_ctx.c
++++ b/drivers/accel/amdxdna/aie2_ctx.c
+@@ -1041,6 +1041,7 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
+ 
+ 		if (ret == -EBUSY) {
+ 			amdxdna_umap_put(mapp);
++			mmput(mm);
+ 			goto again;
+ 		}
+ 
+@@ -1051,11 +1052,13 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
+ 	if (mmu_interval_read_retry(&mapp->notifier, mapp->range.notifier_seq)) {
+ 		up_write(&xdna->notifier_lock);
+ 		amdxdna_umap_put(mapp);
++		mmput(mm);
+ 		goto again;
+ 	}
+ 	mapp->invalid = false;
+ 	up_write(&xdna->notifier_lock);
+ 	amdxdna_umap_put(mapp);
++	mmput(mm);
+ 	goto again;
+ 
+ put_mm:
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.34.1
 
