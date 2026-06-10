@@ -4,102 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5897CD8CB9
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 15:23:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C838CD8CB2
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 15:24:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C38410E5C4;
-	Wed, 10 Jun 2026 15:23:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C101110EA17;
+	Wed, 10 Jun 2026 15:24:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="ExOTwLKO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K6GfTQFt";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79B8110E5C4
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 15:23:40 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-490b23c828aso57395e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 08:23:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781105019; cv=none;
- d=google.com; s=arc-20240605;
- b=KqJVhuW5Dkm+gH21HGEpJoxA8moIZv7KOlO0NjqU8MWZgp4q1pgPGJyJPg28uMsnu1
- caqXzI8PQqnJ2tRpggU/VjTWKwse2llUatLJSwaF7iFkRxpNN0yR2TnAim1uABlM/n61
- p3DgMvJOsGPy7SLAZvxlwXlXY84W+KwBowtUp3AUYTE9rhJmYyGQ6BTAqbZWv0QVZbyy
- fvlE65tB57erZnjt2/sYgBvbUdLPXdy8Mk3wRsrebA3E1gtNJAMKcTTJP3wxjeC9vYND
- ypfzjmO2m0eF/01p6NP6V0f0nNpMpV75NxFtsFEHI7qW6chb6DNdg/no1K+a+0g70N6l
- dcJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=HLSNIkxH7X+mkcTC4TNft77b6jFG+UTH6aJ4cVsmWLs=;
- fh=DujrL3s1riTKzOBabuZ6a3fjnx7u2noai9J+FgB9Eo0=;
- b=F2NRRWK1sAjB/rYfmugvuL+HyZkrYtir0/3PYsP0ndcKelSN/npzZWtmBIRAFjjDTS
- 32ps16SeSOJrv1Z+svlwrD6rMlq11AEHmPi1K83GemKdViUKa0+Utcw+8LtxO24Ebu+0
- KGu6qPYiXUtan/B5Mj0X4rpJbYEupwV5eC2vMtijEYlqDE3Qkt7oh6RiYH0tM6HSifby
- YMc6zNo+QxMV3Vp6qGD4iAxmcAh+hvOa89xheC3KLbooTQndcP4YsxnDdTFkTnGMvmI1
- 4AltF9iBMvuRbaQHHn+Suy2FuKHqpUYm5TLzlRJEgwB5FFGqnOFPuNV6exrUregAZtBZ
- hBaA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1781105019; x=1781709819;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=HLSNIkxH7X+mkcTC4TNft77b6jFG+UTH6aJ4cVsmWLs=;
- b=ExOTwLKORECW+arfyy+9liUJcqQPko2VnQ8qR76j6eXY+QoeWs40Q3b61VJb+bUIus
- d+0/m7M9ZfGqj6TSTIBU4VjY7a/NMxC2VdzUZFgantVFmGvI3wFTnA35svK/8S5AoCZV
- Ei4N5f6VWZgtkLbcovF2xYnAS0L1IQFfrsQrTHIHQW2Sate38wz15Die1vwBQx+TRrhi
- 4tFsip7GioO0x9gWoSpcyzDXZdqus0tfTcjXslwMOZ9r6zgMW7vJWmKK0At1lnVxlsJy
- b69Zo/wPHkwDnObucUA7Es3DK5NPyLKGEuBAw04I7nyTu3ldt7Xq7AXVKViLqSb42JxQ
- Fueg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781105019; x=1781709819;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=HLSNIkxH7X+mkcTC4TNft77b6jFG+UTH6aJ4cVsmWLs=;
- b=OK1UWjCyfS2S7GUOqTS/arZ+1DZVpXh8ZTVmIs5WTZ4rfn4lVVnNrH1si+F/yLPmNh
- Hr2qaJ/gIu0vmMSODHahAkTfS36MvbfIwSzYLKgUXRCVcI0lFHsV/HNI70Afjx0Vflpy
- 7+9uxtFk3zsRfNJFYA/DHoq9u53SlI5LMDUmOdtnIJHpTyoCB+akNx+zmo6kndf5y6jF
- L0WOtWotENvQKt1TQZexQgS+EoBGVeLNB2wRZp/8kp/rbgWVPiy86jhrY5E/5OxV1gxm
- DMZSM/xIjP3KNbsm3ExMC0PhM0SljBBsw5SzrCCUqf+guHFRyW+wwtYmlLTS1wEfwMc0
- umpA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/a4Od3jrBnCrXF+jf1NtGNB/xajbkhFzl/o76YjArmEZ2+D1CGrHfM5irHIJ8Qa0k4S3MF0GLMjVE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyq1ab0/TO3x4SRsLW77i8oTauUti7HuVwwr4cNns+YU+q4PMQ8
- RQfh2HalHS1g3WlGHmft8pEVC49tqn/YLKg3oEbc8X5eecJExBXuhLNs76e6bAv2lY5Ciu68T5+
- g1hQZ1h7PlHmdWmQxNwRYxxcTxihRXZ3LUDGODZPx
-X-Gm-Gg: Acq92OFzDG2P6jGV0DUzK8d6xkdvJYb+qpgRf8wMxjKoNDO/49RnSgeKm40BGuSd/Z1
- 4Owu/w2Gz05Vslxaeurz4dDMp/knxgLk5Czl+cuz9OH7JmxIji7tZuEZdzZoayRIV7BwgCkk8pl
- eyqQcYmbhtGwznydp0HGtSFsOYRScEPE+l9qtESsniNmdftZZl17UbCfL3GtbiOOigYAtwiH/yC
- Z1azjskwVG9cF3IKKYFqxKvhGI9LsUGRoBOOrwRmcTj2kMBIp3Ej2jKuqAwHFSfT6C8ajWzGfVW
- WAMnEZna17eTFdHxs4M4zyGRc591a2SGucPjb026a3cupJyu89WMCg6uAv3LBeyfEpEffbLGUpK
- dHZH0
-X-Received: by 2002:a7b:c055:0:b0:48a:5aa3:ac1e with SMTP id
- 5b1f17b1804b1-490e250419dmr39465e9.3.1781105018413; Wed, 10 Jun 2026 08:23:38
- -0700 (PDT)
-MIME-Version: 1.0
-References: <20260610142329.3836808-1-sumit.semwal@linaro.org>
-In-Reply-To: <20260610142329.3836808-1-sumit.semwal@linaro.org>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Wed, 10 Jun 2026 08:23:24 -0700
-X-Gm-Features: AVVi8CeKPjOw-ulqerfXTIRQXgt0wS2BLRdaHk4b32zpbgZavKZyW6IeEygncls
-Message-ID: <CABdmKX0K22aaPTrk7Xs_8859ePYQsPNuqcG3v4oMZHK3T0xqKQ@mail.gmail.com>
-Subject: Re: [PATCH] dma-buf: move system_cc_shared heap under separate Kconfig
-To: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: christian.koenig@amd.com, jgg@ziepe.ca, jiri@resnulli.us, 
- hch@infradead.org, maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, 
- chleroy@kernel.org, linuxppc-dev@lists.ozlabs.org, lkp@intel.com, 
- agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com, 
- linux-s390@vger.kernel.org, djbw@kernel.org, thomas.lendacky@amd.com, 
- x86@kernel.org, arnd@linaro.org, benjamin.gaignard@collabora.com, 
- Brian.Starkey@arm.com, jstultz@google.com, mripard@kernel.org, afd@ti.com, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
- Arnd Bergmann <arnd@arndb.de>
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 410C710EA17
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 15:24:51 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id F0A1440774;
+ Wed, 10 Jun 2026 15:24:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B85AE1F00893;
+ Wed, 10 Jun 2026 15:24:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781105090;
+ bh=ZxkPqI2LQUiNR8MU0eFZsdjqi3F9qAbIjRkJlveZHkQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=K6GfTQFtdtKvp597owoT4LShZFFC0QbxcmpV8vPg+u7XBVASZcgjBKe4b9Z1/DDVM
+ O71BI5Zj6XYLXs5hMGQaWs4eEaUCJTTUaEyTonHPVaqMy0ylHQE+ae0LQYEmYmxZuJ
+ lj7AgP4QMSnX3664ECjHGYH1999/1/4S+xiB5l67VoR2K6TT1rbpJDll80H1ARcgO7
+ n0TlVH51Ijr1GfghetJxojypoiM3FfWQU1dCZUxKKv/raufreXz+1e34U86eypmhsH
+ IIFmKwEv0sC7bc9ADDDeGPFCy0pWdDhISQI6AEKaF5BEo9FCoa1iAWC3PrO1GcSBVv
+ jwZFW2wx+OZdQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH resend 2] gpu/trace: TRACE_GPU_MEM should depend on DRM
+To: "Geert Uytterhoeven" <geert+renesas@glider.be>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <600d327c8fc37decc1acaccc96439825d12c57e3.1781104422.git.geert+renesas@glider.be>
+References: <600d327c8fc37decc1acaccc96439825d12c57e3.1781104422.git.geert+renesas@glider.be>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Wed, 10 Jun 2026 15:24:50 +0000
+Message-Id: <20260610152450.B85AE1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,32 +52,56 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 10, 2026 at 7:23=E2=80=AFAM Sumit Semwal <sumit.semwal@linaro.o=
-rg> wrote:
->
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> While system heap and system_cc_shared heap share a lot of code
-> and hence the same source file, their users have different needs.
->
-> system heap users need it to be a loadable module, while
-> system_cc_shared heap users don't.
->
-> Building as a loadable module breaks system_cc_shared heap on
-> powerpc and s390 due to un-exported set_memory_encrypted /
-> set_memory_decrypted functions.
->
-> Fix these by reorganising code to put the system_cc_shared heap
-> under a new Kconfig symbol, which allows either building both
-> into the kernel, or leave encryption up to the consumers of the
-> system heap.
->
-> Fixes: fd55edff8a0a ("dma-buf: heaps: system: Turn the heap into a module=
-")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> Signed-off-by: Sumit Semwal <sumit.semwal@linaro.org>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Adding `depends on DRM || COMPILE_TEST` to the `bool` config `TR=
+ACE_GPU_MEM` restricts it to `n` when `DRM=3Dm`, preventing manual selectio=
+n and causing an unmet direct dependency warning when selected by `DRM_MSM`.
+--
 
-Reviewed-by: T.J. Mercier <tjmercier@google.com>
+commit 0cbe66fe073574dbd85dfed2b1c566d5b58e1668
+Author: Geert Uytterhoeven <geert+renesas@glider.be>
+
+gpu/trace: TRACE_GPU_MEM should depend on DRM
+
+This commit adds a dependency on DRM for the TRACE_GPU_MEM configuration
+option to prevent prompting users about this functionality when configuring
+a kernel without DRM GPU support.
+
+> diff --git a/drivers/gpu/trace/Kconfig b/drivers/gpu/trace/Kconfig
+> index cd3d19c4a201c..7f405ce7df5a0 100644
+> --- a/drivers/gpu/trace/Kconfig
+> +++ b/drivers/gpu/trace/Kconfig
+> @@ -2,6 +2,7 @@
+> =20
+>  config TRACE_GPU_MEM
+>  	bool "Enable GPU memory usage tracepoints"
+> +	depends on DRM || COMPILE_TEST
+
+[Severity: Medium]
+Will this dependency cause issues when CONFIG_DRM is built as a module?
+
+Because TRACE_GPU_MEM is a bool config, if CONFIG_DRM=3Dm and COMPILE_TEST=
+=3Dn,
+the dependency expression evaluates to m, which restricts the bool to n.
+This makes it impossible for users to manually enable the tracepoints when
+DRM is built as a module.
+
+Additionally, since tristate drivers like DRM_MSM use select TRACE_GPU_MEM,
+building them as modules will force this bool to y, which exceeds its
+dependency limit of m. This triggers an unmet direct dependencies warning
+in Kconfig.
+
+Would it be better to use depends on DRM !=3D n || COMPILE_TEST here?
+
+>  	default n
+>  	help
+>  	  Choose this option to enable tracepoints for tracking
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/600d327c8fc37decc1a=
+caccc96439825d12c57e3.1781104422.git.geert+renesas@glider.be?part=3D1
