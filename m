@@ -4,97 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAB13CD98C7
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 21:15:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43756CD98C7
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 21:15:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C03B10E6E6;
-	Wed, 10 Jun 2026 21:15:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F84D10EBF0;
+	Wed, 10 Jun 2026 21:15:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EkaUc6xB";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gj2yl4Mo";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IBsiYPpk";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jZcSfmaR";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E79110E6E6
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 21:15:09 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC77310EBF0
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 21:15:15 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65AJYfn52516568
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 21:15:08 GMT
+ 65AJZWuH2559588
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 21:15:14 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=aH6bsVIeV+YDj6V8Pt6RtV
- 7WwW8GwBlSVsbE7KsyT08=; b=EkaUc6xBbL9xjFaDfQkn/FApDMYu5L5aqcwM8C
- EQCF6v0BDmh6tO6Wg3qMRpi88PMc1bG3ZZ14kv1vodqn5RMeoMYXxbDIrZOEil/H
- DhJXpGNZUpx9ULZWEO2SYtEh5RR6kjd+KhtidMFFiwY9n5hXpIHTY0FKTVBNz+im
- YBUh3Edip2X/rZx74Nvot0k/Cj3yoEReNa5pQgk5ADh9v6Eb52WxVFRrlzIyXxbo
- okYFFETgImIbBI87cpLaTARv5F1nERwdOyvTGDLmOB7veBSUnGo7yBBRBGJorVUS
- MbGriPxeY/Hp1xJ05oOdgeiL1WScMPpDcjSQQoqcDmNj73UQ==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqe6sgeua-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ glU2Zdl+5BB7aU0+/FquWdehxVMdTHFFprBfn6zocTo=; b=IBsiYPpkEZwZ+rOY
+ Do1J8o9pnk2OlrCyjHJSYl+R53TXzWXNWLRtpH0/Tld0+WFiEkIE6HJ95ieikDTy
+ lZcqU8OJcNaWPqjqS49rwu735T4aqU3ESCghHLFwD5b3OFluX0X2SaSI8cIZi2Hd
+ 9FCipzGfE6lg/KsbFXrPimy/pLsXmsVAMCGZ4iOaqCMzmKZVuv+eipE0vQQPtzGu
+ jIvHqNZfTwL+xeofHuarj2HBr2WX/aWra3/yzPkfZmw8hICibWpV20r/HKwwaKn6
+ ngEHd13dutET/uzy2UzlRLKtaC2PRj8nJGD0XThh6QTYuVlCpI1COQPVvn4A8KNM
+ AlmFdQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqe71gfqx-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 21:15:08 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id
- 98e67ed59e1d1-36d98b828c8so9709147a91.2
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 14:15:07 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 21:15:14 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-36d97955899so6819119a91.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 14:15:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1781126107; x=1781730907;
+ d=oss.qualcomm.com; s=google; t=1781126114; x=1781730914;
  darn=lists.freedesktop.org; 
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=aH6bsVIeV+YDj6V8Pt6RtV7WwW8GwBlSVsbE7KsyT08=;
- b=gj2yl4MozMGeFwWlcUHH6ALiGkmllNJVXTuoAlYVoH66EuE9tD8N0O14b90u1FUkch
- zxUSBkEwUhERPi3BLbpiwAMqgsg61p85rCG05gueNCDH0Xp2obW6VvP2SRjx8GWzvQ76
- tdk9y00fVL+4NxSRc45QTQY/0I+rtScOmbxifQghoZB4cEKpoOmgVtfhcrSdFedI6u8r
- 0Kt+7nH8njnp3mlc7kb07E6NY+AiTZvIfgc7j7suUfujYVFC6Cgbw+3l8UUaNGuHIV3t
- 5wdXI+3oOeA/Ay1zLHI3kYQgXohJMIXukzQPnC9gD7ifwDiIQ7c8+hBB8uWwvrMfxwFL
- rlGw==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=glU2Zdl+5BB7aU0+/FquWdehxVMdTHFFprBfn6zocTo=;
+ b=jZcSfmaRc4DYtCcIeHTtsnnW3XpWrN7Bn+bcb3ooGR4e+L9cSsDfPybPZAGTqLRbe8
+ rsJuzODpw/wxJBPSfB91SqGIpBWiehcuS7ygIsqZrRDkzcD6bJGJctwD5QahNieAbwAL
+ ceC/wyAUoBuPsH3AiqwpB/rrPqJvZRb/nOw7/lHh9Xg0FLWQBry5IOPmm3MINxUxI9fz
+ 3RdXCZSr6A6XWONAFCwy6PhwoxRO3wKE8dJ/WuxVXpRkjo35dybifigMXNoDGApz9cYZ
+ 7KHYBvH/VkakcI+QxkW64bWiw3KfL4ujS78RxWev+ccM4OuSKYk782IUo30f57DEvLFR
+ gfIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781126107; x=1781730907;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=aH6bsVIeV+YDj6V8Pt6RtV7WwW8GwBlSVsbE7KsyT08=;
- b=Ig+VE5KsYESxaIM1/I/0V+h54aY3x/Q3oQ2H52u3hwOKc3JRxEgkjrVwb/ic13XQMe
- pAo/Fhm6AWn9mzLdQHfK6amzQoRnKNpT6+iWZN2+k6vHiKs5akP6dJpc2IgzC1C0Q3bV
- obLMt8WbIkryif7qqW13/sMLLfDzy0zQoZEk8uFpaCy4xP7I4HBu7XlzZh6vU+TNjtfd
- QwuElfEnTiH8pQWJDbrkwxey5eM5zxv5cjZEjQQcoOj1MSs9/XfO4ScyHX8QoA89yHSj
- 9/1HFP6b4LQ71UnFI1yy/pFtTQj/Dff4CxypeCSmNvNSvuYXI3gsYfxqqpNupKy/p7UK
- FCfw==
-X-Gm-Message-State: AOJu0YzPePO13vLk/UcbwCk/17mSgK4IE20m2N5c2s+0RTRoid0CcMTo
- egOcsmiqMW8/3KdocgZhFDx6UvnM8AXGHgORgDhs23jdpgWtntRVmmwQUPXckPwexbfsIK98fWr
- 7tdBotnZ1Lit7a8jQMo2eZU5a86nDkXCMsZhHids/RvvsE3/ilxtdTbqwWAoYsMgXNqijIhw=
-X-Gm-Gg: Acq92OFFC74Y5HEOPX566LMFk+i3ASVjZJ5Dpse+OFwwRMAWFp/s7GtiFSuDPOIC/ZC
- QMaqks9xiqldyhUbJrO2aTjgBz0l1zXqq2iw7Aw2i0e7Mgn17EM71R2it9Ja5Om0ca1aNZrRHZ+
- tDeoeafB6tlvGdjh+6+L1loLnrXkbs6IG/0KUegvci623no4/kiabBtqiJ9PaQ6KDnJ3AfUgeVM
- wjTfn/RQYsvd6UohFAf3UndjWW6yQZd7iBWZeAbMUOXYNSouXxOw/OSQELFeXST9zsdOjmvz1vd
- agOXUdqBSsD0yiwZ7gblnRnC9FJcxScZVjY+ArmOfmvZS+gnGZT9xuj1V5eEwjdQMUE4Mx+EzKG
- KNQW6mYItcgCdXO7zrkbL2rMqZpnA7ToaynWPw2tcbUVLD5C4oaIBCazbfQ==
-X-Received: by 2002:a17:90b:5827:b0:36b:a0fa:ff96 with SMTP id
- 98e67ed59e1d1-370ef1f2cdemr28232055a91.12.1781126107002; 
- Wed, 10 Jun 2026 14:15:07 -0700 (PDT)
-X-Received: by 2002:a17:90b:5827:b0:36b:a0fa:ff96 with SMTP id
- 98e67ed59e1d1-370ef1f2cdemr28232019a91.12.1781126106417; 
- Wed, 10 Jun 2026 14:15:06 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1781126114; x=1781730914;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=glU2Zdl+5BB7aU0+/FquWdehxVMdTHFFprBfn6zocTo=;
+ b=e22F6HFW0rC0ul78Z7CzmVmBxuIBtWzFNERde5lM7zJnxosB8jBxOKOwUmGrAyI2SK
+ n84jIdxL8/DRc88W1XtdJC7QH1S2iedvDX0xPJcXEQaxcQxSS/S4fAaunp/tS97Fp23q
+ dmTFN2i+rGNx9hIJzPINnto4P+w9qr8xWMrULr0klvlo7rbLMHVqSAnQBFbkYB3h4xHr
+ c+DfwJ+BFQfv35xWQait3lUXsjSCzpjZEGcfsDQM5ytBGU5CBmwOud6ObiofjQ02sboH
+ yGJeMc0ub8pdxCQentpz46JZ6pn2F8ycvidQkmMMTQ5TvA/HajivjcOjKuLY462WOS8s
+ Z6pw==
+X-Gm-Message-State: AOJu0Yw4pPbQ2Z+gpNVmbRE2pIqxmAkdG7a2Bm/WD9mn/04twGaOtftx
+ f+ZqAkUu6iPKqHvGdhZTuatLvi/6oG8VzBtvbHuRdZ5X45TX6a5gTsbBK03P2jJc/GmXSrkZ0at
+ vY52FxIAAaJysrbaQizUsIeS+tbg467grmJq4N/zMdvrxDcGtRhGUwNN8Yw36u24pxN5wFIE=
+X-Gm-Gg: Acq92OEEiLq8tqwiDELJj7udtBkVvZdXZUgwzO+Td4yVDvyNMCZfoDi031eMPYu1TOJ
+ l6lAqF6FWYv6L9NzLjdfk6gXGyqs0JdDdfJAv8iALMPwqxcZhkON4vWoRXl1SCFAHVcsOSUr/WU
+ HJBH3jH2MJo45Cq57tLp5O27LQBSwjIPZ0L425bqRx2hzd8qA/lBBoYeRoEiWjk3k/PzyVj/54D
+ FWLu2ZElaudQ1B+74ssapyuJT8KiqQKS8EEBXe4uf12b0h98ADWMVSJcuaN/JxP6pt8M4vgVpc0
+ ZUdREUpNsjuE+PNb5aIuXqH/zEDz01JJfBFQ841eQftLq758YH2yw8JXezQuX3n8Ths3swy6zij
+ mZuNQriPTczdNYqz0PEGpM2uTPEpAmAnp5+ucjxGqp4aAZff3xD3BsVRFnw==
+X-Received: by 2002:a17:90b:2e08:b0:36d:a510:f908 with SMTP id
+ 98e67ed59e1d1-3751f35bddbmr10020890a91.5.1781126113599; 
+ Wed, 10 Jun 2026 14:15:13 -0700 (PDT)
+X-Received: by 2002:a17:90b:2e08:b0:36d:a510:f908 with SMTP id
+ 98e67ed59e1d1-3751f35bddbmr10020848a91.5.1781126113068; 
+ Wed, 10 Jun 2026 14:15:13 -0700 (PDT)
 Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-37753d01cc6sm309490a91.11.2026.06.10.14.14.59
+ 98e67ed59e1d1-37753d01cc6sm309490a91.11.2026.06.10.14.15.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Jun 2026 14:15:05 -0700 (PDT)
+ Wed, 10 Jun 2026 14:15:12 -0700 (PDT)
 From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-Subject: [PATCH 0/4] (no cover subject)
-Date: Thu, 11 Jun 2026 02:44:55 +0530
-Message-Id: <20260611-lt9611-b4-send-v1-0-42abbcd3bb1e@oss.qualcomm.com>
+Date: Thu, 11 Jun 2026 02:44:56 +0530
+Subject: [PATCH 1/4] dt-bindings: brige: lt9611c: add port-select property
+ for LT9611C
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIANDTKWoC/y2P0W7DIAxFfyXieVSYEjOiatp/TH0AbDamJtkCm
- VZV/feRdE/Wka7vsW+i8JK5iKG7iYV/csnz1ACeOhE//PTOMlNjoZVGhQDyUt02gpGFJ5KYgI4
- uakKyoi19LZzy7174dn5wWcMnx7q1/CcW/l6bqT5iYuRS/G4autMuMlo1GRpzAN2DskqCLNdru
- +f1Mk81r+MhzuPLVhd8YdlgzHXobECI/bMihyYZ59KRfXJI2FvnLWhL5NsbQZzv9z+CGvs++wA
- AAA==
-X-Change-ID: 20260611-lt9611-b4-send-6f1d39c2d6d7
+Message-Id: <20260611-lt9611-b4-send-v1-1-42abbcd3bb1e@oss.qualcomm.com>
+References: <20260611-lt9611-b4-send-v1-0-42abbcd3bb1e@oss.qualcomm.com>
+In-Reply-To: <20260611-lt9611-b4-send-v1-0-42abbcd3bb1e@oss.qualcomm.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
@@ -110,34 +108,33 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
  boss@oss.qualcomm.com, qc-display-maintainer@oss.qualcomm.com
 X-Mailer: b4 0.15.2
-X-Authority-Analysis: v=2.4 cv=GbMnWwXL c=1 sm=1 tr=0 ts=6a29d3dc cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-ORIG-GUID: 0fcujL2xd9AIbqjs-pcZmXjwXT97kAv-
+X-Proofpoint-GUID: 0fcujL2xd9AIbqjs-pcZmXjwXT97kAv-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEwMDIwNCBTYWx0ZWRfXw4Uxrp2ciPaE
+ u8Py1udqVz1NOfG07g3Gftp1S+j+0+qyN+wdXzbxuV5dKC5RhdXvRaDLw+Yn0NLEWEG35BZAess
+ f8xdjeuEjpx+FvBYWVsiSFhT8/xPgFTJl5vpCj+K2o1X/g/o7r/Lyv5/6nqs5IarRy+cbUI3Jst
+ OpyTcvh9xovYegQ/f2nvkDXuIzMNf0efJGB+k6QUwDZ/C6r0w15fMdxYAD+7rqZaeZHWtEAPqQk
+ 7vVfBH1BTDDsVRgzlXLdCaW2iOqpXv4bHZrqi8VjOV+wAzFHvQpH9iwVQnqrOWquRyCCmEz8foA
+ BQ9H2zdUjax366v9sl2Dyz4j+yXswnls+pwmDlVB6fH98fsMj8KTgXyZHgw13VswGFlyqwHXPND
+ OZ8zvunr5pcEKXck5Q6T8KZ/Mh81WTHxt2ZbTjgjWvuQbP57JCvULUAmlEdvRUB1BJmamckVP+3
+ JNU0PZMtyS3rUV5SuAg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEwMDIwNCBTYWx0ZWRfX83Ru7iYKfuEJ
+ 2K4Z1uo3ktSUDEbMsj6hH3JwvKqeS4FcNX+OvTuLSXgFTU9p0oYMmfzQp61A5chzPQQJWz2EJJK
+ 56zU57Sv+vT0XX46EB6z8FiZDA6Sjbo=
+X-Authority-Analysis: v=2.4 cv=Lf0MLDfi c=1 sm=1 tr=0 ts=6a29d3e2 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=Kz8-B0t5AAAA:8 a=xVA8p-6yhMX1th-SxBQA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22 a=RuZk68QooNbwfxovefhk:22
-X-Proofpoint-ORIG-GUID: atgClFvq_VmgQSee07JveGJU0rju4PnK
-X-Proofpoint-GUID: atgClFvq_VmgQSee07JveGJU0rju4PnK
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEwMDIwNCBTYWx0ZWRfX2SqF0Gm/qDvw
- dI7RBiKHjbgC5tueY3ImF+bhYDIw1I9zd9nY8o+AXoFPdGK9co1Gp9uDXG3QjMn6T1pJRex6qby
- 1IM/ZRTwMXz5ouZnCC5jXleTFon3v6xc7owjA58y42tiI6X9eLSQOG+rJDUP7/d1efar1m26V0B
- VkOTnaGv0OZQr+6VLh8jdhXIZ3DDnfm1NTtmE4mlmKSOAVxk85IvsVJFoYsUF9JLiOTgpRXIiVp
- AW/0Z1gPMQ30RAdGQSDm6H0ohfL9S9vt7xUEqJmXUJNSXQke85emASD+5iQcutDdgjY9c1spWjC
- nZpZ+7BnLIZaJ3fcncn9RncmliPQ3xDzkzXuNiQzugVAcnvMPekyVQdGxXH+nB5GGrzTx3r2C6z
- /AMb5D21++TmVQNkcGLdWoICLoT0XZ1l/dX3D7nZWFD/9dRVs8MRf+Bb5J4s9N+W3bG5wvo61zx
- +VNVOU9pnLy1HHskt8w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEwMDIwNCBTYWx0ZWRfX1OnRuA+Dbh4v
- gmElHkQbsJBSgG71Rsed7+qaDpYwyPZt9q6LD+kUStC1Kthvha+FJqyKjY1WdprECD5RazzZcDZ
- 7Cn3pvVQ/QjRp+iM7dNdNisF/499ovA=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=SIeAQ9iB8I19DNjXgjYA:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-10_04,2026-06-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 malwarescore=0 suspectscore=0
- priorityscore=1501 bulkscore=0 adultscore=0 spamscore=0 impostorscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
- definitions=main-2606100204
+ adultscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0 malwarescore=0
+ suspectscore=0 phishscore=0 clxscore=1015 bulkscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606100204
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,57 +150,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-Subject: [PATCH 0/4] LT9611C improvements and fixes updates
+Add a new optional `lontium,port-select` property to describe the DSI
+input port configuration for the LT9611C variant, which supports
+single-port (A or B) and dual-port (A+B) operation.
 
-Hi,
-
-This series contains improvements and fixes for the Lontium LT9611C
-MIPI DSI to HDMI bridge driver, along with DT binding updates.
-
-The key addition is support for selecting the DSI input port using
-a new device tree property, which is required for configurations
-using port B or dual-port (A+B) operation.
-
-Summary of changes:
-- Add DSI port selection support via DT property
-- Fixes and improvements
-- Increase MCU polling timeout for stability
-
-- Add dt-binding for port configuration
-
-Patches:
-
-1. dt-bindings: bridge: lt9611c: add port-select property for LT9611C
-2. drm/bridge: lontium-lt9611c: Increase MCU poll timeout to 200ms
-3. drm-bridge: lontium lt9611c: fixes and improvements
-4. drm/bridge: lontium-lt9611c: Add DSI port selection via DT property
-
-This has been tested on LT9611C-based platforms.
-Please review.
-
-Thanks,
-Mohit
+This property allows explicitly selecting the active DSI input port(s):
+  0 = port A (default)
+  1 = port B
+  2 = ports A and B (dual-port)
 
 Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
 ---
-Mohit Dsor (4):
-      dt-bindings: brige: lt9611c: add port-select property for LT9611C
-      drm/bridge: lontium-lt9611c: Increase MCU poll timeout to 200ms
-      drm-bridge: lontium lt9611c: fixes and improvements
-      drm/bridge: lontium-lt9611c: Add DSI port selection via DT property
+ .../devicetree/bindings/display/bridge/lontium,lt9611.yaml  | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
- .../bindings/display/bridge/lontium,lt9611.yaml    | 13 ++++
- drivers/gpu/drm/bridge/lontium-lt9611c.c           | 79 ++++++++++++++++++++--
- 2 files changed, 85 insertions(+), 7 deletions(-)
----
-base-commit: 7b61c580d964f499f3eaf96d6579a7127dda606b
-change-id: 20260611-lt9611-b4-send-6f1d39c2d6d7
-prerequisite-message-id: <20260420061644.1251070-1-syyang@lontium.com>
-prerequisite-patch-id: 5e0ea8907c87174a28fac5456fc51183d8e8b36f
-prerequisite-patch-id: 6fd8685174c2c83b8871d9e6419c6f3bd29ccc1a
+diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+index e0821a63d9d7..77220f893bf8 100644
+--- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+@@ -41,6 +41,17 @@ properties:
+   vcc-supply:
+     description: Regulator for 3.3V IO power.
+ 
++  lontium,port-select:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [0, 1, 2]
++    default: 0
++    description: |
++      Selects which DSI input port(s) the bridge uses. Only relevant for
++      the lontium,lt9611c compatible.
++        0 = PORT_SELECT_A  - single DSI port A (default)
++        1 = PORT_SELECT_B  - single DSI port B
++        2 = PORT_SELECT_AB - dual DSI ports A and B
++
+   ports:
+     $ref: /schemas/graph.yaml#/properties/ports
+ 
+@@ -104,6 +115,8 @@ examples:
+         vdd-supply = <&lt9611_1v8>;
+         vcc-supply = <&lt9611_3v3>;
+ 
++        lontium,port-select = <1>;
++
+         ports {
+           #address-cells = <1>;
+           #size-cells = <0>;
 
-Best regards,
---  
-Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+-- 
+2.34.1
 
