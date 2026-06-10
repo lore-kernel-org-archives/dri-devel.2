@@ -4,55 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF923CD98C5
-	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 21:22:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CCBFCD98C7
+	for <dri-devel@archiver.kernel.org>; Wed, 10 Jun 2026 22:00:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 140D410E1DF;
-	Wed, 10 Jun 2026 21:22:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AD8510E48D;
+	Wed, 10 Jun 2026 22:00:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="RvJBQda/";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="AKvUzWRE";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9DE910E1DF
- for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 21:22:37 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id C49946DF;
- Wed, 10 Jun 2026 23:22:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1781126527;
- bh=E2+6uUwceDBbDTMJpVePzuCtqucnkDmk3KU2p2VCqw0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RvJBQda/9pjI65Pxze53N/t3dA+FUumF0Ihbj9yvXbQgzpa+RjCxoRs1cRuFdKD68
- GGlQLjzws0JqcMhdwEpcXbwswav8sW6jK05xyr9bapz4HC2Uk0m0LyvuAEkQYNC6OO
- bRNPUQG6PD51E1WC5/hR/D9acBLfQdrYmVHpvYSE=
-Date: Thu, 11 Jun 2026 00:22:34 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, geert@linux-m68k.org,
- linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v5 14/20] drm: renesas: rz-du: Add RZ/G3E support
-Message-ID: <20260610212234.GA1632628@killaraus.ideasonboard.com>
-References: <cover.1770996493.git.tommaso.merciai.xr@bp.renesas.com>
- <152f19a068fcdf27c063e845fe04a48a46c5b47e.1770996493.git.tommaso.merciai.xr@bp.renesas.com>
- <abq6ohQW-LPcmXgy@tom-desktop>
+Received: from mail-pl1-f228.google.com (mail-pl1-f228.google.com
+ [209.85.214.228])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA52410E4FD
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 22:00:28 +0000 (UTC)
+Received: by mail-pl1-f228.google.com with SMTP id
+ d9443c01a7336-2bf36a6905cso52123025ad.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 15:00:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781128828; x=1781733628;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ifrWdwmMtnSLIzspQXoLqNd92UGj3f+HmaYSM1XCOxs=;
+ b=SyEdKbJncx3E3xvp+SEWGDzCcwTFV2eVGps9gn09URfG3e7FWVtz7sQgBuQePwqmF/
+ KDZy76hZLf7KWTYEc2JoaKzw1LTl1r1+E7wNTOOkq/6XlsYJW9YIFLwMF9zEoyZnTnr6
+ zclCr/sGlsScHh9EygiSGZo/rYoNpCzbN6dmAPXuj6MfpEjE40XSLpAf1YuVpk4QRzVE
+ F9hEowgHVSEx3ov9Qtf2BZGV4Hb/oyfrLOO1b00faT3u/LuDqGRQs1/7059qMnQogl0m
+ AYf3mT4RTYmjRFQmjLt6wcZHbAkr07/QsabGSggrAPMPP7CilicJS+hbNxQGG2/EbSiU
+ IwDQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8fYobOy2ZDENc1KR0AABn5EWst7lKjT6UgT20xP4dPgLXBxzHvjJAzQOQmJsPYdIBRzTRuNBvHB0s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz/InT6ihBxprBx66QS+9SUHEZIkFadRvYGUiqtl3cOJrEODGot
+ 8D0BHDc1KwSpF5XVL6LKs4wlt6njw04GfDMjqx4xClAUR8RHI5jLw4zjatZj/TzqXuzlY4i6OdT
+ bLaB5DtaW/G6xLnk6zpDR3VV3ee+d5EeooUptQKPIOsyrdsY6CZLCwsdcjeKcXEnqCp3RBotsGL
+ w6NNQGt66nkRSubRAA3/6lJAimZa5D4Go60XLXxHkCCmc/I8ACty+kvp7KpqQ0trlf7VFc7oILW
+ rZw5wXfCDSAPzqQDWMQIUaVBvGG
+X-Gm-Gg: Acq92OHV2SaZs5mOeOZVEYEVMREdGyQ/28goetWk7Fj1LZQMMXlORRBSfNhLhjm2G3M
+ sjacaGAAAgVNuz7TBBI7tEz7gSuGM2AFbUnCJOA8/Kvu36tJJGnqYFKPtqJEo5fy7G/mhro3T8b
+ Di1MkZzCoStBLJnUpiopY2GwrtsPIqCzn1Zi2G8ygAA0OcqcPtCz+1JQp0dfAYCgfO/kuN9NaiW
+ 94J9E76Q3b6qEaGOxtxUkKv1CVOLY0yW/781UVhtkWIFwLv2xbzObvWn5TJTm4DCkanat0IsNkQ
+ /5hm4INnt5hKlLxP3Vgop4NMrl4y7wtCMXCxyUHOLg+pCBot4g0v2Lq/ujUNOElLkZkueEdLeUL
+ gCxttkSnlLSR1QagkvcITmsjPjmgeKWlBgk4FLQNdbhbbQnxnnTP7LA4QdhztxWdeYER3IcwRgy
+ UD1MtStzjszIjPykPBuN2KRIZYdTDdFxBNWd0Ia9F3EB9lomjMKEG8/+cQJVkAklAsCsJsF8/zE
+ 1I=
+X-Received: by 2002:a17:903:11c9:b0:2c2:21e9:5a7d with SMTP id
+ d9443c01a7336-2c2a1cb65cemr105908555ad.34.1781128828053; 
+ Wed, 10 Jun 2026 15:00:28 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-101.dlp.protect.broadcom.com. [144.49.247.101])
+ by smtp-relay.gmail.com with ESMTPS id
+ d9443c01a7336-2c164f71aedsm24689715ad.3.2026.06.10.15.00.27
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 10 Jun 2026 15:00:28 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f198.google.com with SMTP id
+ 5a478bee46e88-30761ab3483so4847183eec.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 10 Jun 2026 15:00:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1781128826; x=1781733626;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ifrWdwmMtnSLIzspQXoLqNd92UGj3f+HmaYSM1XCOxs=;
+ b=AKvUzWREmTYkbBTrFLmuBdhrtjyUN0JoImyKNbOFtHWsZvtgNlzuG6eF1agznpRAA8
+ D7g0jK/HnEiwPSsBILOVGB4NqVJ7H1h2dZuIH4yLNzA0YvtzO4GXuXDcXY8/haJqHRTT
+ SBW/BiGWBj2XXUdGnOpjnOEMmkSLSewxYHyHo=
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8nsEK38mW0mMKG7XLTL/G48i0xgWvTJwCqwbWZU0X4xHpMPmENWNsxE39f7BG54D4OjbiGNKkr3Ks=@lists.freedesktop.org
+X-Received: by 2002:a05:7300:7305:b0:304:c520:4e0c with SMTP id
+ 5a478bee46e88-3080479b610mr95426eec.6.1781128821346; 
+ Wed, 10 Jun 2026 15:00:21 -0700 (PDT)
+X-Received: by 2002:a05:7300:7305:b0:304:c520:4e0c with SMTP id
+ 5a478bee46e88-3080479b610mr95382eec.6.1781128820606; 
+ Wed, 10 Jun 2026 15:00:20 -0700 (PDT)
+Received: from [10.211.247.235] ([192.19.50.250])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-30791f9da69sm19593521eec.31.2026.06.10.15.00.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 Jun 2026 15:00:19 -0700 (PDT)
+Message-ID: <de7acf2e-e07c-4a94-92c7-ae0c9311c8a5@broadcom.com>
+Date: Wed, 10 Jun 2026 15:04:07 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/vmwgfx: Don't use UTS_RELEASE directly
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>, Zack Rusin <zack.rusin@broadcom.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Markus Schneider-Pargmann <msp@baylibre.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260504073422.1130008-2-u.kleine-koenig@baylibre.com>
+From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Content-Language: en-US
+In-Reply-To: <20260504073422.1130008-2-u.kleine-koenig@baylibre.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <abq6ohQW-LPcmXgy@tom-desktop>
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,259 +120,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Tommaso,
-
-On Wed, Mar 18, 2026 at 03:45:54PM +0100, Tommaso Merciai wrote:
-> On Fri, Feb 13, 2026 at 05:27:40PM +0100, Tommaso Merciai wrote:
-> > The RZ/G3E Soc has 2 LCD controller (LCDC), contain a Frame Compression
-> > Processor (FCPVD), a Video Signal Processor (VSPD), Video Signal
-> > Processor (VSPD), and Display Unit (DU).
-> > 
-> > LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
-> > LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
-> > 
-> > Depending on the selected output, the correct SMUX2 clock parent must be
-> > chosen based on the requested duty cycle:
-> > 
-> >  - Index 0 for LVDS -> CDIV7_DSIx_CLK (DUTY H/L=4/3, 4/7 duty cycle)
-> >  - Index 1 for DSI/DPAD -> CSDIV_2to16_PLLDSIx (symmetric 50% duty cycle)
-> > 
-> > To support this behavior, introduce the `RZG2L_DU_FEATURE_SMUX2_DSI_CLK`
-> > feature flag and extend the `rzg2l_du_device_info` structure to include a
-> > features field. Also, add a new helper function `rzg2l_du_has()` to check
-> > for feature flags.
-> > 
-> > Add support for the RZ/G3E SoC by introducing:
-> >  - `rzg2l_du_r9a09g047_du_info` structure
-> >  - The `renesas,r9a09g047-du` compatible string
-> > 
-> > Additionally, introduce the missing output definitions
-> > `RZG2L_DU_OUTPUT_LVDS{0,1}`.
-> > 
-> > Introduce `rzg2l_du_crtc_atomic_check()` helper to store the routes from
-> > the CRTC output to the DU outputs.
-> > 
-> > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > ---
-> > v4->v5:
-> >  - Fixed RG2L_DU_FEATURE_SMUX2_DSI_CLK to RZG2L_DU_FEATURE_SMUX2_DSI_CLK,
-> >    update commit body accordingly.
-> >  - Added features field documentation.
-> > 
-> > v3->v4:
-> >  - No changes.
-> > 
-> > v2->v3:
-> >  - No changes.
-> > 
-> > v1->v2:
-> >  - Instead of using clk-provider API to select the right parent clock,
-> >    based on the outputs. Just set the correct duty cycle based on the
-> >    output, this reflects at CPG lvl to select the right parent.
-> >  - Updated commit message accordingly.
-> > 
-> >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c | 48 +++++++++++++++++++
-> >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  | 26 ++++++++++
-> >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  | 12 +++++
-> >  3 files changed, 86 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
-> > index 6e7aac6219be..cc35dd409e3e 100644
-> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
-> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
-> > @@ -64,11 +64,32 @@
-> >  static void rzg2l_du_crtc_set_display_timing(struct rzg2l_du_crtc *rcrtc)
-> >  {
-> >  	const struct drm_display_mode *mode = &rcrtc->crtc.state->adjusted_mode;
-> > +	struct rzg2l_du_crtc_state *rstate =
-> > +		to_rzg2l_crtc_state(rcrtc->crtc.state);
-> >  	unsigned long mode_clock = mode->clock * 1000;
-> >  	u32 ditr0, ditr1, ditr2, ditr3, ditr4, pbcr0;
-> >  	struct rzg2l_du_device *rcdu = rcrtc->dev;
-> >  
-> >  	clk_prepare_enable(rcrtc->rzg2l_clocks.dclk);
-> > +
-> > +	if (rzg2l_du_has(rcdu, RZG2L_DU_FEATURE_SMUX2_DSI_CLK)) {
-> > +		struct clk *clk_parent;
-> > +
-> > +		clk_parent = clk_get_parent(rcrtc->rzg2l_clocks.dclk);
-> > +
-> > +		/*
-> > +		 * Request appropriate duty cycle to let clock driver select
-> > +		 * the correct parent:
-> > +		 * - CDIV7_DSIx_CLK (LVDS path) has DUTY H/L=4/3, 4/7 duty cycle.
-> > +		 * - CSDIV_2to16_PLLDSIx (DSI/RGB path) has symmetric 50% duty cycle.
-> > +		 */
-> > +		if (rstate->outputs == BIT(RZG2L_DU_OUTPUT_LVDS0) ||
-> > +		    rstate->outputs == BIT(RZG2L_DU_OUTPUT_LVDS1))
-> > +			clk_set_duty_cycle(clk_parent, 4, 7);
-> > +		else
-> > +			clk_set_duty_cycle(clk_parent, 1, 2);
-> > +	}
-> > +
+On 5/4/26 12:34 AM, Uwe Kleine-König (The Capable Hub) wrote:
+> UTS_RELEASE evaluates to a static string and changes quite easily (e.g.
+> uncommitted changes in the source tree or new commits). So when checking
+> if a patch introduces changes to the resulting binary each usage of
+> UTS_RELEASE is source of annoyance.
 > 
-> I’d appreciate any feedback/suggestions regarding this.
-> Thank you in advance for your time.
-
-Sorry for the very late reply.
-
-I've taken time to analyse the clock tree, and I think the way you model
-it makes sense. As the SMUX2_DSI[01]_CLK clocks are used by the LCD,
-LVDS and DSI blocks, I may have selected the duty cycle in the LVDS and
-DSI drivers personally. I wonder if it would lead to simpler code (you
-wouldn't need to implement rzg2l_du_crtc_atomic_check()) here for
-instance. In any case, it does not affect the DT bindings, so it could
-be changed later too.
-
-Do you need further feedback on this ?
-
-> FYI this commit is related to [0]
+> Instead of using UTS_RELEASE directly use init_utsname()->release which
+> evaluates to the same string but with that a change of UTS_RELEASE
+> doesn't affect vmwgfx_drv.o.
 > 
-> [0] https://patchwork.kernel.org/project/linux-renesas-soc/patch/53c8d9e7fde7b176e05503a72af81e74c7a8a1c1.1770996493.git.tommaso.merciai.xr@bp.renesas.com/
+> Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+> ---
+> Hello,
 > 
-> Kind Regards,
-> Tommaso
+> an alternative way to address this is to drop the kernel version string
+> completely. But I'm not sure how redundant this really is so I chose the
+> init_utsname() approach.
 > 
-> >  	clk_set_rate(rcrtc->rzg2l_clocks.dclk, mode_clock);
-> >  
-> >  	ditr0 = (DU_DITR0_DEMD_HIGH
-> > @@ -248,6 +269,32 @@ static void rzg2l_du_crtc_stop(struct rzg2l_du_crtc *rcrtc)
-> >   * CRTC Functions
-> >   */
-> >  
-> > +static int rzg2l_du_crtc_atomic_check(struct drm_crtc *crtc,
-> > +				      struct drm_atomic_state *state)
-> > +{
-> > +	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state,
-> > +									  crtc);
-> > +	struct rzg2l_du_crtc_state *rstate = to_rzg2l_crtc_state(crtc_state);
-> > +	struct drm_encoder *encoder;
-> > +
-> > +	/* Store the routes from the CRTC output to the DU outputs. */
-> > +	rstate->outputs = 0;
-> > +
-> > +	drm_for_each_encoder_mask(encoder, crtc->dev,
-> > +				  crtc_state->encoder_mask) {
-> > +		struct rzg2l_du_encoder *renc;
-> > +
-> > +		/* Skip the writeback encoder. */
-> > +		if (encoder->encoder_type == DRM_MODE_ENCODER_VIRTUAL)
-> > +			continue;
-> > +
-> > +		renc = to_rzg2l_encoder(encoder);
-> > +		rstate->outputs |= BIT(renc->output);
-> > +	}
-> > +
-> > +	return 0;
-> > +}
-> > +
-> >  static void rzg2l_du_crtc_atomic_enable(struct drm_crtc *crtc,
-> >  					struct drm_atomic_state *state)
-> >  {
-> > @@ -296,6 +343,7 @@ static void rzg2l_du_crtc_atomic_flush(struct drm_crtc *crtc,
-> >  }
-> >  
-> >  static const struct drm_crtc_helper_funcs crtc_helper_funcs = {
-> > +	.atomic_check = rzg2l_du_crtc_atomic_check,
-> >  	.atomic_flush = rzg2l_du_crtc_atomic_flush,
-> >  	.atomic_enable = rzg2l_du_crtc_atomic_enable,
-> >  	.atomic_disable = rzg2l_du_crtc_atomic_disable,
-> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > index 0fef33a5a089..3c20471fdbea 100644
-> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > @@ -51,6 +51,29 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a07g044_info = {
-> >  	}
-> >  };
-> >  
-> > +static const struct rzg2l_du_device_info rzg2l_du_r9a09g047_du_info = {
-> > +	.features = RZG2L_DU_FEATURE_SMUX2_DSI_CLK,
-> > +	.channels_mask = BIT(0),
-> > +	.routes = {
-> > +		[RZG2L_DU_OUTPUT_DSI0] = {
-> > +			.possible_outputs = BIT(0),
-> > +			.port = 0,
-> > +		},
-> > +		[RZG2L_DU_OUTPUT_LVDS0] = {
-> > +			.possible_outputs = BIT(0),
-> > +			.port = 1,
-> > +		},
-> > +		[RZG2L_DU_OUTPUT_LVDS1] = {
-> > +			.possible_outputs = BIT(0),
-> > +			.port = 2,
-> > +		},
-> > +		[RZG2L_DU_OUTPUT_DPAD0] = {
-> > +			.possible_outputs = BIT(0),
-> > +			.port = 3,
-> > +		},
-> > +	},
-> > +};
-> > +
-> >  static const struct rzg2l_du_device_info rzg2l_du_r9a09g057_info = {
-> >  	.channels_mask = BIT(0),
-> >  	.routes = {
-> > @@ -64,6 +87,7 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a09g057_info = {
-> >  static const struct of_device_id rzg2l_du_of_table[] = {
-> >  	{ .compatible = "renesas,r9a07g043u-du", .data = &rzg2l_du_r9a07g043u_info },
-> >  	{ .compatible = "renesas,r9a07g044-du", .data = &rzg2l_du_r9a07g044_info },
-> > +	{ .compatible = "renesas,r9a09g047-du", .data = &rzg2l_du_r9a09g047_du_info },
-> >  	{ .compatible = "renesas,r9a09g057-du", .data = &rzg2l_du_r9a09g057_info },
-> >  	{ /* sentinel */ }
-> >  };
-> > @@ -74,6 +98,8 @@ const char *rzg2l_du_output_name(enum rzg2l_du_output output)
-> >  {
-> >  	static const char * const names[] = {
-> >  		[RZG2L_DU_OUTPUT_DSI0] = "DSI0",
-> > +		[RZG2L_DU_OUTPUT_LVDS0] = "LVDS0",
-> > +		[RZG2L_DU_OUTPUT_LVDS1] = "LVDS1",
-> >  		[RZG2L_DU_OUTPUT_DPAD0] = "DPAD0"
-> >  	};
-> >  
-> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> > index 58806c2a8f2b..480a7bdfcd66 100644
-> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> > @@ -20,8 +20,12 @@
-> >  struct device;
-> >  struct drm_property;
-> >  
-> > +#define RZG2L_DU_FEATURE_SMUX2_DSI_CLK	BIT(0)	/* Per output mux */
-> > +
-> >  enum rzg2l_du_output {
-> >  	RZG2L_DU_OUTPUT_DSI0,
-> > +	RZG2L_DU_OUTPUT_LVDS0,
-> > +	RZG2L_DU_OUTPUT_LVDS1,
-> >  	RZG2L_DU_OUTPUT_DPAD0,
-> >  	RZG2L_DU_OUTPUT_MAX,
-> >  };
-> > @@ -42,10 +46,12 @@ struct rzg2l_du_output_routing {
-> >  
-> >  /*
-> >   * struct rzg2l_du_device_info - DU model-specific information
-> > + * @features: device features (RZG2L_DU_FEATURE_*)
-> >   * @channels_mask: bit mask of available DU channels
-> >   * @routes: array of CRTC to output routes, indexed by output (RZG2L_DU_OUTPUT_*)
-> >   */
-> >  struct rzg2l_du_device_info {
-> > +	unsigned int features;
-> >  	unsigned int channels_mask;
-> >  	struct rzg2l_du_output_routing routes[RZG2L_DU_OUTPUT_MAX];
-> >  };
-> > @@ -73,6 +79,12 @@ static inline struct rzg2l_du_device *to_rzg2l_du_device(struct drm_device *dev)
-> >  	return container_of(dev, struct rzg2l_du_device, ddev);
-> >  }
-> >  
-> > +static inline bool rzg2l_du_has(struct rzg2l_du_device *rcdu,
-> > +				unsigned int feature)
-> > +{
-> > +	return rcdu->info->features & feature;
-> > +}
-> > +
-> >  const char *rzg2l_du_output_name(enum rzg2l_du_output output);
-> >  
-> >  #endif /* __RZG2L_DU_DRV_H__ */
+> Best regards
+> Uwe
+> 
+>  drivers/gpu/drm/vmwgfx/vmwgfx_drv.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+> index 0f101aedb49a..12f5f288ae15 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+> @@ -24,7 +24,6 @@
+>  #include <drm/drm_sysfs.h>
+>  #include <drm/ttm/ttm_range_manager.h>
+>  #include <drm/ttm/ttm_placement.h>
+> -#include <generated/utsrelease.h>
+>  
+>  #ifdef CONFIG_X86
+>  #include <asm/hypervisor.h>
+> @@ -35,6 +34,7 @@
+>  #include <linux/dma-mapping.h>
+>  #include <linux/module.h>
+>  #include <linux/pci.h>
+> +#include <linux/utsname.h>
+>  #include <linux/version.h>
+>  #include <linux/vmalloc.h>
+>  
+> @@ -1115,7 +1115,7 @@ static int vmw_driver_load(struct vmw_private *dev_priv, u32 pci_id)
+>  	vmw_print_sm_type(dev_priv);
+>  	vmw_host_printf("vmwgfx: Module Version: %d.%d.%d (kernel: %s)",
+>  			VMWGFX_DRIVER_MAJOR, VMWGFX_DRIVER_MINOR,
+> -			VMWGFX_DRIVER_PATCHLEVEL, UTS_RELEASE);
+> +			VMWGFX_DRIVER_PATCHLEVEL, init_utsname()->release);
+>  	vmw_write_driver_id(dev_priv);
+>  
+>  	dev_priv->pm_nb.notifier_call = vmwgfx_pm_notifier;
+> 
+> base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+
+LGTM!
+
+Reviewed-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+
+Sorry for missing this patch earlier. Unfortunately our maintainer Zack
+is out for two weeks so we'll merge this patch at that time.
 
 -- 
-Regards,
-
-Laurent Pinchart
+Maaz Mombasawala <maaz.mombasawala@broadcom.com>
