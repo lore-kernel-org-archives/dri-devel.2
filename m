@@ -4,54 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 890A7CD98CC
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 07:32:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13B37CD98CC
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 07:35:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF87F10ED2D;
-	Thu, 11 Jun 2026 07:32:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BFA410ED37;
+	Thu, 11 Jun 2026 07:35:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CNLmau97";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MWHABnq1";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3008310ED30;
- Thu, 11 Jun 2026 07:32:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:
- Sender:Reply-To:Content-Transfer-Encoding:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=OW1rughmaPoVXzZo44yIw3sm9DaFihfWaLOUCkIpbRM=; b=CNLmau9781otmvERAXLH/LGwzg
- uf15iwYHxE/T0EG/ITwEGu3+dbIXp6Bk8FnMKxMCiJNio3n6LybhBpfbIQYQ1onHcy3AFzRQxYVUn
- i+7SDvql+nB8nteKWTmnYLeF83etc9JjKvFGzpqHKsbGyaoEvqQMUtV9435Dup6AEEDu2h5/lKJ0R
- mMT0CL2fRfbHzAIcQ6TpKUwGhzbxj6aSzgZiP6CVABENN4gzFgzee6WYCgSTcZW6JCdWk7AUT9p5y
- DtheyFH9U61c0CjFsNGUyW7YYIV83kLI9NSZg85us2dZr23natCMk3lddP6FW7e+3dbd7waz+wZlP
- jlVQ5HDg==;
-Received: from [90.240.106.137] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wXZtS-00G0cQ-VT; Thu, 11 Jun 2026 09:32:03 +0200
-Date: Thu, 11 Jun 2026 08:32:01 +0100
-From: Tvrtko Ursulin <tursulin@igalia.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-intel-fixes
-Message-ID: <aipkcUDnTlzre-8F@linux>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AC0210ED36
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 07:35:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E042443EE2;
+ Thu, 11 Jun 2026 07:35:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E8B31F00893;
+ Thu, 11 Jun 2026 07:35:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781163305;
+ bh=NedeNJ8O8q2mH1LBp+XUUGW47B46q0klZNROJC8QyLE=;
+ h=Date:From:To:Subject:In-Reply-To:References:Cc;
+ b=MWHABnq1Z81Doo8SXmG+JKZ2J7sT8/AQa5MAtGCxGl/2WyqIiQHX76QEySG7bYqIv
+ Ugh1TwXou1Y6G9FW5TwZBVPkhVHefRlIs0ydizpw6h0vIejyw2xtrfmXLRvn4+knsc
+ 6c4ofiZGtlTI7+XH7YOonTIYrMaMPSSHPrPHbvCv+f3p5P79OqhW+6+JxOttd3BEW9
+ zyJCIrQAxSOZr20KlqKeLnpCPCXFi4vMoKh8Ded28wpXt9xIYEF4z/c6WeZCVpuOxp
+ 8j36hwO/EhLpmM3mUxNc7lv2T8xd5NQYVYJCw4EKhnEE3ltz/XJgmJy1w788dbSTxQ
+ KsLVwcisfrx+A==
+Message-ID: <a940e00a5774c8c409a9338163cd125c@kernel.org>
+Date: Thu, 11 Jun 2026 07:35:02 +0000
+From: "Maxime Ripard" <mripard@kernel.org>
+To: "Nicolas Frattaroli" <nicolas.frattaroli@collabora.com>
+Subject: Re: [PATCH v2] drm/tests: Move test EDID data to separate .c file
+In-Reply-To: <20260610-test-edid-array-definition-fix-v2-1-9de4605c4869@collabora.com>
+References: <20260610-test-edid-array-definition-fix-v2-1-9de4605c4869@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, kernel@collabora.com,
+ linux-kernel@vger.kernel.org, "Daniel
+ Stone" <daniel@fooishbar.org>, "David Airlie" <airlied@gmail.com>, "Jani
+ Nikula" <jani.nikula@linux.intel.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime
+ Ripard" <mripard@kernel.org>, "Simona Vetter" <simona@ffwll.ch>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,42 +60,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Wed, 10 Jun 2026 16:31:08 +0200, Nicolas Frattaroli wrote:
+> Having the test EDID arrays defined in the .h directly will duplicate
+> them across every user of the EDID arrays. This works fine as long as
+> there's only one user, but may produce build warnings/errors when there
+> are multiple users and not all of them use all definitions.
+> 
+> 
+> [ ... ]
 
-Hi Dave, Sima,
+Acked-by: Maxime Ripard <mripard@kernel.org>
 
-Two fixes this week - one to avoid bogus DP link rates caused by parsing
-un-iniitialized stack values if DPCD read failed, and the second one to
-fix a potential out of bound memory reads on Pentium 4 era machines cursor
-plane access via pread/pwrite.
-
-Tvrtko
-
-drm-intel-fixes-2026-06-11:
-- Check supported link rates DPCD read [edp] (Nikita Zhandarovich)
-- Fix phys BO pread/pwrite with offset [gem] (Joonas Lahtinen)
-The following changes since commit 4549871118cf616eecdd2d939f78e3b9e1dddc48:
-
-  Linux 7.1-rc7 (2026-06-07 15:37:58 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-fixes-2026-06-11
-
-for you to fetch changes up to d21ad938398bca695a511307de38a65889e3b354:
-
-  drm/i915/gem: Fix phys BO pread/pwrite with offset (2026-06-10 09:23:22 +0100)
-
-----------------------------------------------------------------
-- Check supported link rates DPCD read [edp] (Nikita Zhandarovich)
-- Fix phys BO pread/pwrite with offset [gem] (Joonas Lahtinen)
-
-----------------------------------------------------------------
-Joonas Lahtinen (1):
-      drm/i915/gem: Fix phys BO pread/pwrite with offset
-
-Nikita Zhandarovich (1):
-      drm/i915/edp: Check supported link rates DPCD read
-
- drivers/gpu/drm/i915/display/intel_dp.c  | 11 +++++++++--
- drivers/gpu/drm/i915/gem/i915_gem_phys.c | 19 +++++++++++++++----
- 2 files changed, 24 insertions(+), 6 deletions(-)
+Thanks!
+Maxime
