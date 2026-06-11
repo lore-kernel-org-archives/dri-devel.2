@@ -4,53 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B219ECD98C6
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 05:52:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B01C7CD8CB2
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 05:52:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CDDB10E714;
-	Thu, 11 Jun 2026 05:52:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1ECF810ECC8;
+	Thu, 11 Jun 2026 05:52:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DT9Ko+1X";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yUF/1cuv";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0D3810E714
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 05:52:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781157129; x=1812693129;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=zjlGcPNBpn5inREKDnVJNtqfrZyi/wrAw1TGjUZ+zYU=;
- b=DT9Ko+1XJu1ozhW5cFzvK0pVrBv2Kb+E1JLw8QhVWRR/eqVgRQ1uDY0Q
- pqLmjGiOwFvzfCme1OT7JX+LkQlukd3VhMV3kS96uT85d24/m6nLaIMNJ
- umOyRhaW4GLMS89YaPO5glhdPOdCoLuzJMexiwcrSCO9PjGggQiMZWWB1
- /zBPu0+yZafEz63nJDlVD5/EO3/2LTGGFcW19EyTqDv3GNIvtRyf7M55E
- 5KsuWvENKLKpkLewGekyx3gVYab5vL+dLchPqrtkWYP/W546dz2OTmUx7
- UbNwiUfJ2KhgjhWcQYVWLM/H74FdSiihktrWHH+gt5l1RAnYmOzJQWKNn g==;
-X-CSE-ConnectionGUID: zQXiRt9LRy2V+gxl+KaVbw==
-X-CSE-MsgGUID: Tr/vDtw6Qg61LnEhnBqbgw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="92284417"
-X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="92284417"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2026 22:52:09 -0700
-X-CSE-ConnectionGUID: Lvjvf3DCRbmJ++aaQugH6Q==
-X-CSE-MsgGUID: tb+b1XM7TW2EiPjgCtzxEA==
-X-ExtLoop1: 1
-Received: from pl-npu-pc-kwachow.igk.intel.com ([10.91.220.239])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2026 22:52:07 -0700
-From: Karol Wachowski <karol.wachowski@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
- andrzej.kacprowski@linux.intel.com, dawid.osuchowski@linux.intel.com,
- Karol Wachowski <karol.wachowski@linux.intel.com>
-Subject: [PATCH] accel/ivpu: Use threaded IRQ for IPC callback processing
-Date: Thu, 11 Jun 2026 07:52:01 +0200
-Message-ID: <20260611055201.948726-1-karol.wachowski@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010053.outbound.protection.outlook.com [52.101.46.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3554310ECC8
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 05:52:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FQ0j6zNXMyu0sNPnVJEyq9TD+6G6P4DNi+JfUNCxagt3T6hQKeSmpliy3me6m0dlb0+o8yf2/q8Hs2G8DkoeNjzGmyrcdKujnjcCZShW/oa+pAdBIW5cfxbmtBEx012NCfaG7uzMGBDjfPj5YNJcsr9Acdu8Ea2+CyJM4OzPBFb47BrZQgbvcBowWA5qMKyP3y2GOYnLkuEbjjaSsyr4SJyWxHjtDmtaABLj3YHXEgNRXA5WoXnYENeZBFRqV4y5RyKxBx0Nqddao9unQa4LsanRTP5bFg30UjpEtDb+MKBJAeOWqjJTZN2xCX6dJ7/FvhsZvNNDgI5RQivJPwItBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QCv9HvpbItZ6ERQSp8RfADk+/q4lAqyuIqME8CMnfV8=;
+ b=CeEW/OF9hvOwEBT2WOXYUWEawIVn5zCdb9jYRlRiz+ROChRByWerNIApZ0FeMf6Qbv3F57Sv7Xphq6G1d9gCPtG0vATssy2mO0GIAk3zNSqIE49fVY0e9xQ5dtlieuk/pjs1cg1lJ8ej/IZqRVi562hiM6uaJxoJ+nh2ARYHY3w3Z3fIijOh753xxysr3zt29D2CMm91DArbqp+A1M80F+fK6cmuW5wXIGVd+U4echHMKA0yFfAInA8636Y6d4FaBW9fdSUblBuBr+wDnGcpUA9NitTiWrbaVe8Q70ZvMBl5WFFKfx03flV9kyfTKWhTWXAsenFfSA4oAwfoWlJB7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QCv9HvpbItZ6ERQSp8RfADk+/q4lAqyuIqME8CMnfV8=;
+ b=yUF/1cuveY9KUZ39zsoXCECnh3r5w6J2EeOn/opTpl96+UGK/o4VOxrsX6oYHzL0hD20IxxSg83fe52dqWN+UBLZBkNYOd+f1XTfxPWU4JLj4kqxag6xXqflMAK+5cd1vVz8QjT3t6Oi0t0UIJIPPkWbEJz1y15rZGQ3WPt/ac0=
+Received: from SJ0PR03CA0127.namprd03.prod.outlook.com (2603:10b6:a03:33c::12)
+ by MW4PR12MB7430.namprd12.prod.outlook.com (2603:10b6:303:224::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.13; Thu, 11 Jun
+ 2026 05:52:07 +0000
+Received: from SJ1PEPF00001CDF.namprd05.prod.outlook.com
+ (2603:10b6:a03:33c:cafe::74) by SJ0PR03CA0127.outlook.office365.com
+ (2603:10b6:a03:33c::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.12 via Frontend Transport; Thu,
+ 11 Jun 2026 05:52:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF00001CDF.mail.protection.outlook.com (10.167.242.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.113.7 via Frontend Transport; Thu, 11 Jun 2026 05:52:07 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 11 Jun
+ 2026 00:52:05 -0500
+Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Thu, 11 Jun 2026 00:52:05 -0500
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+ <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+ <karol.wachowski@linux.intel.com>
+CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
+ <max.zhen@amd.com>, <sonal.santan@amd.com>
+Subject: [PATCH V3 2/3] accel/amdxdna: Fix notifier_wq lifetime race during
+ device removal
+Date: Wed, 10 Jun 2026 22:51:49 -0700
+Message-ID: <20260611055150.3070216-2-lizhi.hou@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260611055150.3070216-1-lizhi.hou@amd.com>
+References: <20260611055150.3070216-1-lizhi.hou@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDF:EE_|MW4PR12MB7430:EE_
+X-MS-Office365-Filtering-Correlation-Id: 95230c6c-1eb7-4767-2054-08dec77d9248
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|376014|82310400026|23010399003|18002099003|22082099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: tjj2e2yvpoBzHSchbIv5ErKKl261tlJWDx0J6GDAIkbWz/MBikgBR92poB10eE6inggNe2NY31QSoXC1bKfTac5fWO9w1l86Q2ad72L71MoCU99yhatoCAG/smuIA4mvmBuBBp6ts/mPm3O1OKOZcpthlCHrrTKZJXf203ahdouj1yl0GF6tXa7xDgYbpiXoCIKu1/h08MUEQdf3L22OQeJiC8kCokSuuTfsMvr79SoQ7w39s1XhlMoyXVGmUP9ROb95P5JZ8cD//A9povrWzC/ZjbGshqlMlfCVcBFKaolysQ1oWNMHfGGtw/gsUO0mUyflp21TTT07M6vG6FI4dZG0p4SjhdslXtSDGmT8PNONll2ACVM8pzKEyVEVJdaKlK7fJTpDbvoVQ8lNUI9PsJvNVRN2HXwGmeEMsAv7xbTIakE0oeSolCtemJoYmCvSF0qHQxJt4XLNQSgqCJGdYpp8EOEs7vCmzUQh0I064DgOu0OCjJuIm9P5uyAn2vNaSKycVz9iNQ8UxN9M7k7vdUDRC6+AA3Z4wvGkL9VMn4m1aN8NCbIkfqgycrh3eJVi/lbroi1nioxwo19tpiJKCN3BadCRNRf/O74mTpv6+ESy5HAaKidy2Sjw3nP0Sz468vAPjSemwCSAbXZB7t6yqnkSjgcFaZgpuWeqNCgJ2LZRPZxWsCadX57Y1OI73JDFaZu1wvXuMcPF4HVmLSpItF7ZDs5J/I0JWdkVcH8o1YU=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(23010399003)(18002099003)(22082099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: MjYunlJ8K++Cd7EJoTCyTVOSyyvUIC16tLqaDiTc3LlQDd8EcaTDYK/2mcDkfCCs/M2T1xB/TClm7EGnMTJgPrHBV3lT7pb7TXaGsWWsOC7LlkCuy5yXxpgcWt8FMqfuCeLSnJpiY3brCKgFc78UcUtZ+xbpdHo1Eq06J4yXmqtj84no2wG9MEiFOgVcy3wsEUDeYKZEoXHCO1nvigxkaEU+ip22vg4Vmq48qRw86co+SQTZ4LmXLB7PAZCEfU9QP4EinmtLXZpCB2gZb5VEHHVtZ+r/JQmOQlS7pySGBVBES6A3ia0NjcggTPW4rsRNSVy424NaxvjLP6dKGS7jyYAAmj4tcZI1m3oqLKor6Jmky1H7OhK5awbPEUr1I7twF6nuujcMZ9SMGAGaRziM4vDNoELssJlRCFtUlmtZB4AEzr8+u7+hKvq1UZaTfvbm
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 05:52:07.0875 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95230c6c-1eb7-4767-2054-08dec77d9248
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CDF.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7430
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,352 +114,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Dispatching IPC callbacks from system_percpu_wq adds scheduling latency
-that is neither bounded nor predictable, which hurts job completion
-turnaround. Handle them from a threaded IRQ instead: the hard-IRQ
-handler drains the IPC FIFO and wakes the thread, which runs the
-callback consumers such as job-done processing.
+amdxdna_remove() destroys notifier_wq. If amdxdna_gem_obj_free() is
+called after device removal, it may attempt to flush notifier_wq,
+resulting in a use-after-free.
 
-Job resource teardown can trigger IOMMU unmapping and context teardown,
-which is too slow to run from the IRQ thread. Defer it to a dedicated
-WQ_UNBOUND | WQ_MEM_RECLAIM workqueue via a per-device lockless list.
-UNBOUND keeps the long-running cleanup off the percpu workers and
-MEM_RECLAIM guarantees forward progress because the work frees buffer
-objects. The runtime PM reference taken at submission is released only
-after cleanup completes, otherwise runtime suspend could race the
-pending work and deadlock.
+Fix the race by allocating notifier_wq with
+drmm_alloc_ordered_workqueue(), so its lifetime is managed by DRM and
+remains valid until all managed resources are released.
 
-Because cleanup is now asynchronous, userspace that rapidly recycles
-file descriptors or command queues can momentarily observe stale
-per-context resources and fail with -EMFILE or -EBUSY. Flush the
-cleanup work once and retry before giving up.
-
-Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
 ---
- drivers/accel/ivpu/ivpu_drv.c | 28 ++++++++++++++---
- drivers/accel/ivpu/ivpu_drv.h |  5 ++-
- drivers/accel/ivpu/ivpu_hw.c  |  4 +++
- drivers/accel/ivpu/ivpu_ipc.c |  8 ++---
- drivers/accel/ivpu/ivpu_ipc.h |  2 +-
- drivers/accel/ivpu/ivpu_job.c | 59 +++++++++++++++++++++++++++++++----
- drivers/accel/ivpu/ivpu_job.h |  7 ++++-
- 7 files changed, 96 insertions(+), 17 deletions(-)
+ drivers/accel/amdxdna/amdxdna_pci_drv.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
-index 35e506074d5f..6b34c52b1fba 100644
---- a/drivers/accel/ivpu/ivpu_drv.c
-+++ b/drivers/accel/ivpu/ivpu_drv.c
-@@ -307,6 +307,11 @@ static int ivpu_open(struct drm_device *dev, struct drm_file *file)
- 		return -ENODEV;
- 
- 	limits = ivpu_user_limits_get(vdev);
-+	if (IS_ERR(limits) && PTR_ERR(limits) == -EMFILE) {
-+		/* Context limit may be held by jobs pending deferred cleanup */
-+		flush_work(&vdev->job_destroy_work);
-+		limits = ivpu_user_limits_get(vdev);
-+	}
- 	if (IS_ERR(limits)) {
- 		ret = PTR_ERR(limits);
- 		goto err_dev_exit;
-@@ -510,9 +515,9 @@ void ivpu_prepare_for_reset(struct ivpu_device *vdev)
- {
- 	ivpu_hw_irq_disable(vdev);
- 	disable_irq(vdev->irq);
--	flush_work(&vdev->irq_ipc_work);
- 	flush_work(&vdev->irq_dct_work);
- 	flush_work(&vdev->context_abort_work);
-+	flush_work(&vdev->job_destroy_work);
- 	ivpu_ipc_disable(vdev);
- 	ivpu_mmu_disable(vdev);
- }
-@@ -584,6 +589,11 @@ static const struct drm_driver driver = {
- 	.major = 1,
- };
- 
-+static void ivpu_destroy_workqueue(void *wq)
-+{
-+	destroy_workqueue(wq);
-+}
-+
- static int ivpu_irq_init(struct ivpu_device *vdev)
- {
- 	struct pci_dev *pdev = to_pci_dev(vdev->drm.dev);
-@@ -595,16 +605,26 @@ static int ivpu_irq_init(struct ivpu_device *vdev)
- 		return ret;
- 	}
- 
--	INIT_WORK(&vdev->irq_ipc_work, ivpu_ipc_irq_work_fn);
- 	INIT_WORK(&vdev->irq_dct_work, ivpu_pm_irq_dct_work_fn);
- 	INIT_WORK(&vdev->context_abort_work, ivpu_context_abort_work_fn);
-+	init_llist_head(&vdev->job_destroy_list);
-+	INIT_WORK(&vdev->job_destroy_work, ivpu_job_destroy_work_fn);
-+
-+	vdev->job_destroy_wq = alloc_workqueue("ivpu_job_destroy", WQ_UNBOUND | WQ_MEM_RECLAIM, 0);
-+	if (!vdev->job_destroy_wq)
-+		return -ENOMEM;
-+
-+	ret = devm_add_action_or_reset(vdev->drm.dev, ivpu_destroy_workqueue, vdev->job_destroy_wq);
-+	if (ret)
-+		return ret;
- 
- 	ivpu_irq_handlers_init(vdev);
- 
- 	vdev->irq = pci_irq_vector(pdev, 0);
- 
--	ret = devm_request_irq(vdev->drm.dev, vdev->irq, ivpu_hw_irq_handler,
--			       IRQF_NO_AUTOEN, DRIVER_NAME, vdev);
-+	ret = devm_request_threaded_irq(vdev->drm.dev, vdev->irq, ivpu_hw_irq_handler,
-+					ivpu_ipc_irq_thread_handler, IRQF_NO_AUTOEN | IRQF_ONESHOT,
-+					DRIVER_NAME, vdev);
+diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+index 470bf4fc744b..b943c06a451e 100644
+--- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
++++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+@@ -389,9 +389,9 @@ static int amdxdna_probe(struct pci_dev *pdev, const struct pci_device_id *id)
  	if (ret)
- 		ivpu_err(vdev, "Failed to request an IRQ %d\n", ret);
- 
-diff --git a/drivers/accel/ivpu/ivpu_drv.h b/drivers/accel/ivpu/ivpu_drv.h
-index 9eefbbb7ba11..86d7c9966cac 100644
---- a/drivers/accel/ivpu/ivpu_drv.h
-+++ b/drivers/accel/ivpu/ivpu_drv.h
-@@ -13,6 +13,7 @@
- #include <drm/drm_print.h>
- 
- #include <linux/hashtable.h>
-+#include <linux/llist.h>
- #include <linux/pci.h>
- #include <linux/xarray.h>
- #include <uapi/drm/ivpu_accel.h>
-@@ -157,9 +158,11 @@ struct ivpu_device {
- 	struct xa_limit db_limit;
- 	u32 db_next;
- 
--	struct work_struct irq_ipc_work;
- 	struct work_struct irq_dct_work;
- 	struct work_struct context_abort_work;
-+	struct llist_head job_destroy_list;
-+	struct work_struct job_destroy_work;
-+	struct workqueue_struct *job_destroy_wq;
- 
- 	struct mutex bo_list_lock; /* Protects bo_list */
- 	struct list_head bo_list;
-diff --git a/drivers/accel/ivpu/ivpu_hw.c b/drivers/accel/ivpu/ivpu_hw.c
-index d4a9bcda4100..647dc045c231 100644
---- a/drivers/accel/ivpu/ivpu_hw.c
-+++ b/drivers/accel/ivpu/ivpu_hw.c
-@@ -399,6 +399,10 @@ irqreturn_t ivpu_hw_irq_handler(int irq, void *ptr)
- 		return IRQ_NONE;
- 
- 	pm_runtime_mark_last_busy(vdev->drm.dev);
-+
-+	if (ip_handled)
-+		return IRQ_WAKE_THREAD;
-+
- 	return IRQ_HANDLED;
- }
- 
-diff --git a/drivers/accel/ivpu/ivpu_ipc.c b/drivers/accel/ivpu/ivpu_ipc.c
-index 9f1ba0c57442..64864e9d8a0a 100644
---- a/drivers/accel/ivpu/ivpu_ipc.c
-+++ b/drivers/accel/ivpu/ivpu_ipc.c
-@@ -462,13 +462,11 @@ void ivpu_ipc_irq_handler(struct ivpu_device *vdev)
- 			ivpu_ipc_rx_mark_free(vdev, ipc_hdr, jsm_msg);
- 		}
- 	}
--
--	queue_work(system_percpu_wq, &vdev->irq_ipc_work);
- }
- 
--void ivpu_ipc_irq_work_fn(struct work_struct *work)
-+irqreturn_t ivpu_ipc_irq_thread_handler(int irq, void *ptr)
- {
--	struct ivpu_device *vdev = container_of(work, struct ivpu_device, irq_ipc_work);
-+	struct ivpu_device *vdev = ptr;
- 	struct ivpu_ipc_info *ipc = vdev->ipc;
- 	struct ivpu_ipc_rx_msg *rx_msg, *r;
- 	struct list_head cb_msg_list;
-@@ -483,6 +481,8 @@ void ivpu_ipc_irq_work_fn(struct work_struct *work)
- 		rx_msg->callback(vdev, rx_msg->ipc_hdr, rx_msg->jsm_msg);
- 		ivpu_ipc_rx_msg_del(vdev, rx_msg);
- 	}
-+
-+	return IRQ_HANDLED;
- }
- 
- int ivpu_ipc_init(struct ivpu_device *vdev)
-diff --git a/drivers/accel/ivpu/ivpu_ipc.h b/drivers/accel/ivpu/ivpu_ipc.h
-index b524a1985b9d..1c9cf67f1e5b 100644
---- a/drivers/accel/ivpu/ivpu_ipc.h
-+++ b/drivers/accel/ivpu/ivpu_ipc.h
-@@ -90,7 +90,7 @@ void ivpu_ipc_disable(struct ivpu_device *vdev);
- void ivpu_ipc_reset(struct ivpu_device *vdev);
- 
- void ivpu_ipc_irq_handler(struct ivpu_device *vdev);
--void ivpu_ipc_irq_work_fn(struct work_struct *work);
-+irqreturn_t ivpu_ipc_irq_thread_handler(int irq, void *ptr);
- 
- void ivpu_ipc_consumer_add(struct ivpu_device *vdev, struct ivpu_ipc_consumer *cons,
- 			   u32 channel, ivpu_ipc_rx_callback_t callback);
-diff --git a/drivers/accel/ivpu/ivpu_job.c b/drivers/accel/ivpu/ivpu_job.c
-index b24f31a8b567..ebb2c865b09a 100644
---- a/drivers/accel/ivpu/ivpu_job.c
-+++ b/drivers/accel/ivpu/ivpu_job.c
-@@ -535,6 +535,20 @@ static void ivpu_job_destroy(struct ivpu_job *job)
- 	kfree(job);
- }
- 
-+void ivpu_job_destroy_work_fn(struct work_struct *work)
-+{
-+	struct ivpu_device *vdev = container_of(work, struct ivpu_device, job_destroy_work);
-+	struct ivpu_job *job, *tmp;
-+	struct llist_node *list;
-+
-+	list = llist_del_all(&vdev->job_destroy_list);
-+
-+	llist_for_each_entry_safe(job, tmp, list, destroy_node) {
-+		ivpu_job_destroy(job);
-+		ivpu_rpm_put(vdev);
-+	}
-+}
-+
- static struct ivpu_job *
- ivpu_job_create(struct ivpu_file_priv *file_priv, u32 engine_idx, u32 bo_count)
- {
-@@ -619,7 +633,7 @@ bool ivpu_job_handle_engine_error(struct ivpu_device *vdev, u32 job_id, u32 job_
- 	return false;
- }
- 
--static int ivpu_job_signal_and_destroy(struct ivpu_device *vdev, u32 job_id, u32 job_status)
-+static struct ivpu_job *ivpu_job_signal(struct ivpu_device *vdev, u32 job_id, u32 job_status)
- {
- 	struct ivpu_job *job;
- 
-@@ -627,7 +641,7 @@ static int ivpu_job_signal_and_destroy(struct ivpu_device *vdev, u32 job_id, u32
- 
- 	job = xa_load(&vdev->submitted_jobs_xa, job_id);
- 	if (!job)
--		return -ENOENT;
-+		return NULL;
- 
- 	ivpu_job_remove_from_submitted_jobs(vdev, job_id);
- 
-@@ -646,14 +660,37 @@ static int ivpu_job_signal_and_destroy(struct ivpu_device *vdev, u32 job_id, u32
- 		 job->job_id, job->file_priv->ctx.id, job->cmdq_id, job->engine_idx,
- 		 job->job_status);
- 
--	ivpu_job_destroy(job);
- 	ivpu_stop_job_timeout_detection(vdev);
- 
--	ivpu_rpm_put(vdev);
--
- 	if (!xa_empty(&vdev->submitted_jobs_xa))
- 		ivpu_start_job_timeout_detection(vdev);
- 
-+	return job;
-+}
-+
-+static int ivpu_job_signal_and_destroy(struct ivpu_device *vdev, u32 job_id, u32 job_status)
-+{
-+	struct ivpu_job *job = ivpu_job_signal(vdev, job_id, job_status);
-+
-+	if (!job)
-+		return -ENOENT;
-+
-+	ivpu_job_destroy(job);
-+	ivpu_rpm_put(vdev);
-+
-+	return 0;
-+}
-+
-+static int ivpu_job_signal_and_defer_destroy(struct ivpu_device *vdev, u32 job_id, u32 job_status)
-+{
-+	struct ivpu_job *job = ivpu_job_signal(vdev, job_id, job_status);
-+
-+	if (!job)
-+		return -ENOENT;
-+
-+	llist_add(&job->destroy_node, &vdev->job_destroy_list);
-+	queue_work(vdev->job_destroy_wq, &vdev->job_destroy_work);
-+
- 	return 0;
- }
- 
-@@ -689,6 +726,7 @@ static int ivpu_job_submit(struct ivpu_job *job, u8 priority, u32 cmdq_id)
- 	struct ivpu_file_priv *file_priv = job->file_priv;
- 	struct ivpu_device *vdev = job->vdev;
- 	struct ivpu_cmdq *cmdq;
-+	bool flushed = false;
- 	bool is_first_job;
- 	int ret;
- 
-@@ -696,6 +734,7 @@ static int ivpu_job_submit(struct ivpu_job *job, u8 priority, u32 cmdq_id)
- 	if (ret < 0)
  		return ret;
  
-+retry:
- 	mutex_lock(&vdev->submitted_jobs_lock);
- 	mutex_lock(&file_priv->lock);
- 
-@@ -709,6 +748,14 @@ static int ivpu_job_submit(struct ivpu_job *job, u8 priority, u32 cmdq_id)
+-	xdna->notifier_wq = alloc_ordered_workqueue("notifier_wq", WQ_MEM_RECLAIM);
+-	if (!xdna->notifier_wq) {
+-		ret = -ENOMEM;
++	xdna->notifier_wq = drmm_alloc_ordered_workqueue(ddev, "notifier_wq", WQ_MEM_RECLAIM);
++	if (IS_ERR(xdna->notifier_wq)) {
++		ret = PTR_ERR(xdna->notifier_wq);
+ 		goto iommu_fini;
  	}
  
- 	ret = ivpu_cmdq_register(file_priv, cmdq);
-+	if (ret == -EBUSY && !flushed) {
-+		/* Doorbell may be held by jobs pending deferred cleanup */
-+		mutex_unlock(&file_priv->lock);
-+		mutex_unlock(&vdev->submitted_jobs_lock);
-+		flush_work(&vdev->job_destroy_work);
-+		flushed = true;
-+		goto retry;
-+	}
+@@ -400,7 +400,7 @@ static int amdxdna_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 	mutex_unlock(&xdna->dev_lock);
  	if (ret) {
- 		ivpu_err(vdev, "Failed to register command queue: %d\n", ret);
- 		goto err_unlock;
-@@ -1101,7 +1148,7 @@ ivpu_job_done_callback(struct ivpu_device *vdev, struct ivpu_ipc_hdr *ipc_hdr,
- 	mutex_lock(&vdev->submitted_jobs_lock);
- 	if (!ivpu_job_handle_engine_error(vdev, payload->job_id, payload->job_status))
- 		/* No engine error, complete the job normally */
--		ivpu_job_signal_and_destroy(vdev, payload->job_id, payload->job_status);
-+		ivpu_job_signal_and_defer_destroy(vdev, payload->job_id, payload->job_status);
- 	mutex_unlock(&vdev->submitted_jobs_lock);
- }
+ 		XDNA_ERR(xdna, "Hardware init failed, ret %d", ret);
+-		goto destroy_notifier_wq;
++		goto iommu_fini;
+ 	}
  
-diff --git a/drivers/accel/ivpu/ivpu_job.h b/drivers/accel/ivpu/ivpu_job.h
-index 3ab61e6a5616..d8dbce82447a 100644
---- a/drivers/accel/ivpu/ivpu_job.h
-+++ b/drivers/accel/ivpu/ivpu_job.h
-@@ -6,8 +6,10 @@
- #ifndef __IVPU_JOB_H__
- #define __IVPU_JOB_H__
+ 	ret = amdxdna_sysfs_init(xdna);
+@@ -424,8 +424,6 @@ static int amdxdna_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 	mutex_lock(&xdna->dev_lock);
+ 	xdna->dev_info->ops->fini(xdna);
+ 	mutex_unlock(&xdna->dev_lock);
+-destroy_notifier_wq:
+-	destroy_workqueue(xdna->notifier_wq);
+ iommu_fini:
+ 	amdxdna_iommu_fini(xdna);
+ 	return ret;
+@@ -436,8 +434,6 @@ static void amdxdna_remove(struct pci_dev *pdev)
+ 	struct amdxdna_dev *xdna = pci_get_drvdata(pdev);
+ 	struct amdxdna_client *client;
  
--#include <linux/kref.h>
- #include <linux/idr.h>
-+#include <linux/kref.h>
-+#include <linux/llist.h>
-+#include <linux/workqueue.h>
- 
- #include "ivpu_gem.h"
- 
-@@ -47,6 +49,7 @@ struct ivpu_cmdq {
-  * @vdev:                Pointer to the VPU device
-  * @file_priv:           The client context that submitted this job
-  * @done_fence:          Fence signaled when job completes
-+ * @destroy_node:        List node for deferred resource cleanup after job completion
-  * @cmd_buf_vpu_addr:    VPU address of the command buffer for this job
-  * @cmdq_id:             Command queue ID used for submission
-  * @job_id:              Unique job ID for tracking and status reporting
-@@ -61,6 +64,7 @@ struct ivpu_job {
- 	struct ivpu_device *vdev;
- 	struct ivpu_file_priv *file_priv;
- 	struct dma_fence *done_fence;
-+	struct llist_node destroy_node;
- 	u64 cmd_buf_vpu_addr;
- 	u32 cmdq_id;
- 	u32 job_id;
-@@ -87,6 +91,7 @@ void ivpu_job_done_consumer_init(struct ivpu_device *vdev);
- void ivpu_job_done_consumer_fini(struct ivpu_device *vdev);
- bool ivpu_job_handle_engine_error(struct ivpu_device *vdev, u32 job_id, u32 job_status);
- void ivpu_context_abort_work_fn(struct work_struct *work);
-+void ivpu_job_destroy_work_fn(struct work_struct *work);
- 
- void ivpu_jobs_abort_all(struct ivpu_device *vdev);
+-	destroy_workqueue(xdna->notifier_wq);
+-
+ 	drm_dev_unplug(&xdna->ddev);
+ 	amdxdna_sysfs_fini(xdna);
  
 -- 
-2.43.0
+2.34.1
 
