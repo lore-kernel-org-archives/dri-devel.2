@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66FBECD8CB9
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 07:30:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 667F5CD98CC
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 07:30:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C775F10ED2A;
-	Thu, 11 Jun 2026 07:30:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F98E10ED2B;
+	Thu, 11 Jun 2026 07:30:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NeJ06dWr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hb+Aljif";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A50610ED2A
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86C3710ED2B
  for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 07:30:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D150560052;
+ by sea.source.kernel.org (Postfix) with ESMTP id 4268143729;
+ Thu, 11 Jun 2026 07:30:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07BCC1F00893;
  Thu, 11 Jun 2026 07:30:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA3661F00893;
- Thu, 11 Jun 2026 07:30:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781163050;
- bh=mN5AUoJB73BNj0mQNwR9sSCep9Zf/+iRrw/5pQpsUzw=;
+ s=k20260515; t=1781163051;
+ bh=nygukIEHKp7U38KsGjNFvp81aDUj3gXvd/nLvNSRBbI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NeJ06dWru8vy1Tvpgm290W77BG2rbsQTFZvpwiyfCzR59A07GEXBzLZr0wqv8qGHb
- UjOKeLhJyQhcJtX8fBqvKd7vb282aioOKCN9eTnA/iEXPZ+Qd2DCWCR3l+rBVgKW8V
- 1VmvVWmpY69588wAq0fAnEmQNdTk+lVqQSOgJMHJajQzSZsM4x2QESLNTU3J2KCunr
- DgoiONpTWlkJhkFd/g07SjtRemDKWfJ8qC2QYgDBQF/FvOY+EaTToyxupNj6qHz+6y
- A+nXpgsRnowr0Zpy08PLiN4N3VSyCWFLFjp7wsxOvjsdR8aS62x3himAirqxkxUmsi
- oEKKnd+xb4XlA==
+ b=hb+Aljifhek3G41v4pznbSv2J2Bkv7f5XgrANvZQYxoF22czQvc+jqZNb7wTM279v
+ C+dLoaVdxzfoHloND1TNi49nar3A55VzjWFoHRmDvEE3XIG6YiNIaytKWsDifPqnbw
+ TYaNWEauj3aGvmdNNt4axyp963pvpJuCF089cNTZzgePIMiA673QzMLPRBPeyGfnGE
+ 6+4wezLePJMIyYovIi0x5EhrpEQt+6a+a9FwHYZlj8uVKkRwkRrU55ANm0DVxP9aQd
+ sfpq5BypcViB0I1R42X06tr5kxHp4PesH24Xj8YPEpVKs7EfxvBC2yD+1F/fEQaXRR
+ m9SooK0TDuc1Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/3] drm/armada: fbdev: Calculate buffer geometry
- with format helpers
-To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Subject: Re: [PATCH v3] drm/imagination: Fix double call to
+ drm_sched_entity_fini()
+To: "Brajesh Gupta" <brajesh.gupta@imgtec.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260611072121.71492-2-tzimmermann@suse.de>
-References: <20260611072121.71492-2-tzimmermann@suse.de>
+In-Reply-To: <20260611-b4-sched_fix-v3-1-693beb50ea01@imgtec.com>
+References: <20260611-b4-sched_fix-v3-1-693beb50ea01@imgtec.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jun 2026 07:30:49 +0000
-Message-Id: <20260611073049.DA3661F00893@smtp.kernel.org>
+Date: Thu, 11 Jun 2026 07:30:50 +0000
+Message-Id: <20260611073051.07BCC1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,65 +57,131 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] The newly added `check_mul_overflow` check is completely ineffecti=
-ve because it stores the result in a `u64` variable. Since both operands (`=
-pitch` and `sizes->surface_height`) are `u32`, their product can never over=
-flow a 64-bit integer, meaning the check always passes. The `u64` size is t=
-hen implicitly truncated to 32 bits when passed to `armada_gem_alloc_privat=
-e_object()`, which expects a `size_t` argument. This completely bypasses th=
-e intended overflow protection.
+- [Critical] Dangling pointer in `ctx->fw_obj` leads to use-after-free on `=
+xa_alloc()` failure in `pvr_context_create()`.
+- [High] Concurrent job submission and context destruction pushes jobs to a=
+ destroyed DRM scheduler entity, leaking jobs and corrupting memory.
 --
 
-commit 9304c78ca806a472129099acb5c200bab2e752a0
-Author: Thomas Zimmermann <tzimmermann@suse.de>
+commit 251c2d0e7e2826c41929b77248365d4ff3fa7a98
+Author: Brajesh Gupta <brajesh.gupta@imgtec.com>
 
-drm/armada: fbdev: Calculate buffer geometry with format helpers
+drm/imagination: Fix double call to drm_sched_entity_fini()
 
-This commit replaces the geometry and size calculation in armada's fbdev
-emulation with DRM format helpers. It uses a 4CC lookup, pitch calculation,
-and allocates the GEM buffer object for the framebuffer memory aligned to
-PAGE_SIZE.
+This patch removes an extra call to drm_sched_entity_fini() during context
+teardown. It fixes a use-after-free underflow issue in the DRM scheduler
+entity stats refcounting.
 
-> diff --git a/drivers/gpu/drm/armada/armada_fbdev.c b/drivers/gpu/drm/arma=
-da/armada_fbdev.c
-> index 8bbae94804f8b..f95658091acf2 100644
-> --- a/drivers/gpu/drm/armada/armada_fbdev.c
-> +++ b/drivers/gpu/drm/armada/armada_fbdev.c
-> @@ -45,20 +45,30 @@ int armada_fbdev_driver_fbdev_probe(struct drm_fb_hel=
-per *fbh,
->  {
+Fixes: eaf01ee5ba28 ("drm/imagination: Implement job submission and schedul=
+ing")
+References: fd177135f0e6 ("drm/sched: Account entity GPU time")
+
+> diff --git a/drivers/gpu/drm/imagination/pvr_context.c b/drivers/gpu/drm/=
+imagination/pvr_context.c
+> index eba4694400b5a..e2e30908dfce4 100644
+> --- a/drivers/gpu/drm/imagination/pvr_context.c
+> +++ b/drivers/gpu/drm/imagination/pvr_context.c
+
 [ ... ]
-> +	if (check_mul_overflow(pitch, sizes->surface_height, &size))
-> +		return -EINVAL;
-> +	size =3D ALIGN(size, PAGE_SIZE);
-> +	if (size < PAGE_SIZE)
-> +		return -EINVAL;
+
+> @@ -349,7 +374,7 @@ int pvr_context_create(struct pvr_file *pvr_file, str=
+uct drm_pvr_ioctl_create_co
+>  	pvr_fw_object_destroy(ctx->fw_obj);
 > =20
-> -	size =3D mode.pitches[0] * mode.height;
->  	obj =3D armada_gem_alloc_private_object(dev, size);
+>  err_destroy_queues:
+> -	pvr_context_destroy_queues(ctx);
+> +	pvr_context_destroy_queues(ctx, true);
+
+[Severity: Critical]
+This is a pre-existing issue, but can this cause a use-after-free if
+xa_alloc() fails?
+
+If xa_alloc() fails for the context handle, the code jumps to
+err_destroy_fw_obj:
+
+err_destroy_fw_obj:
+        pvr_fw_object_destroy(ctx->fw_obj);
+
+err_destroy_queues:
+        pvr_context_destroy_queues(ctx, true);
+
+This frees the pvr_fw_object but does not set ctx->fw_obj to NULL. Execution
+then falls through to err_destroy_queues, where pvr_context_destroy_queues()
+will iterate through the queues and call pvr_queue_destroy().
+
+Inside pvr_queue_destroy(), it eventually calls
+pvr_queue_cleanup_fw_context():
+
+pvr_queue_cleanup_fw_context() {
+        if (!queue->ctx->fw_obj)
+                return 0;
+        return pvr_fw_structure_cleanup(..., queue->ctx->fw_obj, ...);
+}
+
+Since the freed pointer is not NULL, does it bypass this check and
+dereference the freed memory in pvr_fw_structure_cleanup()?
+
+> =20
+>  err_free_ctx_id:
+>  	/*
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/im=
+agination/pvr_queue.c
+> index 7ed60e1c1a866..15cd8adc7528f 100644
+> --- a/drivers/gpu/drm/imagination/pvr_queue.c
+> +++ b/drivers/gpu/drm/imagination/pvr_queue.c
+> @@ -1445,15 +1445,11 @@ void pvr_queue_kill(struct pvr_queue *queue)
+>   */
+>  void pvr_queue_destroy(struct pvr_queue *queue)
+>  {
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does this check_mul_overflow=
-()
-actually prevent overflow here?
+This is a pre-existing issue, but does a race condition exist
+between pvr_submit_jobs() and pvr_context_destroy()?
 
-Since pitch and sizes->surface_height are 32-bit unsigned integers, and size
-is a u64, the multiplication will never overflow the 64-bit target, so the
-check will always pass.
+If pvr_submit_jobs() acquires a reference to the context and sets up a job,
+and another thread concurrently calls the context destruction ioctl,
+pvr_context_destroy() calls pvr_context_kill_queues() and then
+pvr_queue_kill().
 
-However, when size is passed to armada_gem_alloc_private_object(), which
-takes a size_t argument, couldn't this silently truncate to 32 bits since
-the Armada DRM driver operates on a 32-bit architecture?
+pvr_queue_kill() executes:
 
-For example, if pitch * height evaluates to 0xFFFFFFFF, ALIGN() expands it
-to 0x100000000. The check size < PAGE_SIZE evaluates to false on the u64,
-but when passed to armada_gem_alloc_private_object(), the size truncates
-to 0, resulting in an undersized buffer allocation.
+        drm_sched_entity_destroy(&queue->entity);
+        dma_fence_put(queue->last_queued_job_scheduled_fence);
+        queue->last_queued_job_scheduled_fence =3D NULL;
+
+If the submit thread concurrently reaches pvr_queue_job_push():
+
+        dma_fence_put(queue->last_queued_job_scheduled_fence);
+        queue->last_queued_job_scheduled_fence =3D dma_fence_get(...);
+        ...
+        drm_sched_entity_push_job(&job->base);
+
+Can this lead to a data race on queue->last_queued_job_scheduled_fence,
+potentially causing a double free?=20
+
+Also, wouldn't this push a job to a scheduler entity that was already
+destroyed by pvr_queue_kill(), leaking the stranded jobs?
+
+> -	if (!queue)
+> -		return;
+> -
+>  	mutex_lock(&queue->ctx->pvr_dev->queues.lock);
+>  	list_del_init(&queue->node);
+>  	mutex_unlock(&queue->ctx->pvr_dev->queues.lock);
+> =20
+>  	drm_sched_fini(&queue->scheduler);
+> -	drm_sched_entity_fini(&queue->entity);
+> =20
+>  	if (WARN_ON(queue->last_queued_job_scheduled_fence))
+>  		dma_fence_put(queue->last_queued_job_scheduled_fence);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611072121.7149=
-2-1-tzimmermann@suse.de?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611-b4-sched_f=
+ix-v3-1-693beb50ea01@imgtec.com?part=3D1
