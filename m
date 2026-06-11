@@ -4,103 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8D63CD98C7
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 08:51:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55952CD98D2
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 08:54:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27B5910ED93;
-	Thu, 11 Jun 2026 08:51:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 802ED10E684;
+	Thu, 11 Jun 2026 08:54:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LM6b847t";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="lNi/XdDn";
 	dkim-atps=neutral
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
- [74.125.82.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4C1A10ED93
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 08:51:26 +0000 (UTC)
-Received: by mail-dy1-f174.google.com with SMTP id
- 5a478bee46e88-304f9bc869aso947125eec.2
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 01:51:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781167886; cv=none;
- d=google.com; s=arc-20240605;
- b=ctljEMEUUY9mDvf84ieCHqftxJB7SFbpnG5lGL39g6AWbClfedb6yIghme4NOupay5
- rjO4fIekEN4gm5/ogcD2Qprq3fsOuz/lQ654rmDkae/47a5xUfwO6b/Qs521yT18WZ3S
- NprhMiuYOD5gj9ebMduvjc3bA0pcPJkB09qm1fwxhxW1jcSnF8P1ZKWtMdPd9iL19FSE
- v0hfXu9aFe1pwvep9EUnlBMfW02KF7jGkqCQTUPinnDgT5mRsOuSbYig9Wy0f+jUJFrY
- D4FXYeYBbn0hBcVFog6a+8uGaO31wFSz+wXYCLrXRgDTEw8KjPPNsT92bZ3qDARJsLbo
- Sx6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Gu6SXLCI0/eC/AnJZSyIbfVO8bAqJ5On3y51xTlO4vw=;
- fh=fyhkBswkU5a8DLrVqe9jd+ZnasL+9PwkasBB8++90Gs=;
- b=JiX9C/Xc87wDqNHic32+i5UMBOQi7OdFD6nOwsMFK0k4NqU3RsVXvJZ8//yX16puWF
- kAW8G8r1+g005kns7SPcSbTx7gjA2j7RTy+HHATNmaxxMa+U8XjswVlYhUdvGclFWY0W
- qwXTX6zexi3XIBsvEVjRfHPmzDRRgLLBaw9ZCguuThM5eggTVrOHP/doc3bDOeHsoBCP
- mSd0iMWRXAfJ9VuFo+uJhT5ugsxa0LZx/R5rj7JibrTZN3QBHRv6IW6ahXAEgGvr2MeH
- 1BQVaKaizTccrMfiADy6aVpWOgbR+rAVD1HeN1t9RuErihyu5F3D2dM29hnU/krTQODR
- CmOg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781167886; x=1781772686; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Gu6SXLCI0/eC/AnJZSyIbfVO8bAqJ5On3y51xTlO4vw=;
- b=LM6b847t+Vxt44TXezJL1equECBA35uxl1wkJ3SReIUp4eohp0MZG5EFyKPwaHCx6U
- rIAo/8HodCcxQl4cljsSG00QJH8ogQ8X2KA/hUuF65K3tCPtzMfJE/E4FTNHGj8oBwlM
- ZG3WaGP/A+YVTYk9S8eBtKkgZfpbQxE6w0skE8wAgX+mFUzA+L++rEq19XUwAG/mUxTJ
- PmqU3uhsC88+D+8TFwhFXDs66AmVHpWhMgNme/qwKM1F2m+82mTEePhMvQXnY0gIPk1m
- QF7hdNKU8hmp3MRK2zwp7tMPXAOPk5gWto7FtvrYzvQiipdSAZ4oONbPj8sd+aciBPR/
- YQaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781167886; x=1781772686;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Gu6SXLCI0/eC/AnJZSyIbfVO8bAqJ5On3y51xTlO4vw=;
- b=WgLDxUWBnSB/gwv0ZK9mP+BhSd4ULZkYOzys4Cpxs02Pt5pXPdpZbObSBoqyfuORYJ
- K1ont2avnDlDtuuAlBZk2shwLRcplQhWrbI24yFXw4JUSsBJj1Ge9PZYrlgP4tH02RLz
- RcdLT6B+2Ky1Ng5JSN/Vo7sda/dQo3rB5NuhG1Eoy8hdXweaaFU/mMP8vkqli0mn+Akl
- Td7xX9Tp0Jmq0r4I+a+MSichowJNTjqhoKoziN/wpVEBS5aoG/2c8ENnsOMaPavOo4ko
- sKSSjr8DNLfBUKOeGyBx+YZ7ddKqgHVlt6K4X3ffl8bgLTWYyYl7SspiZBuBqSbrqil3
- fzlQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/9SdETRh3kmj6XxUumHEgCvyqt4V6QulA/fZsIwb/OTJk6OGjjrG7G8+ONJRjSfwqDbi49p5hNR50=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwU7VDdcNOjeDtSuens+rDig2NC0wTO1P6/IgDHZeVS33OqeGjZ
- K+uT2QF5wIr/GcZQK/SCP5E53BDnsw0HBs+WT7pTyDtUqdBTku/rfrdtjf+ogfT6NwoG5i9wweB
- RkYTCSDEh59W8rYzUscmV5ddNLB2Sxkk=
-X-Gm-Gg: Acq92OF7GVIJRn7On4VJIIT/Pna+2CthNCbCDMix1dYMScBWWUt65bW5IpcR3RealBv
- dTqqZIs/30kBINDaKmYrHWUGFolN3oKIe96AY0jjcyPqEqLU3I3HkX57EzGvAv5rbMN1JnfZg1j
- j6bzCsnYTjdblS2wIHBHpcq0h3AzA4dF6ph9Z8Q1H84i57ViImgUx0wn46Haq9ViMlf/5wuO6bO
- Hy3+Lc5g6RynoDHto60Hdi/8OTkveCusau80OVRUc2ukGQjXyOtd6K8RnRNdN78l/bYJr/Id5X5
- 5hzXKVg/31zE0q5LejmqaTw9j6BDnTKltf5+WdgWCDFJHhFCrYWKskOQLyWcE1L09E4uYCesGPI
- FaqjbRs1FRFIZ+lM2IUuOxFuA7gDWeO3b3Q==
-X-Received: by 2002:a05:7300:8184:b0:2da:b05a:5a7d with SMTP id
- 5a478bee46e88-3080410050emr652555eec.0.1781167885763; Thu, 11 Jun 2026
- 01:51:25 -0700 (PDT)
-MIME-Version: 1.0
-References: <DJ4Q5J5OILOX.1KCPFIVUFN2VV@garyguo.net>
- <20260610072947.338278-1-ojeda@kernel.org>
- <DJ5A6AM2FDGQ.19T1Y9N1T6JST@garyguo.net>
-In-Reply-To: <DJ5A6AM2FDGQ.19T1Y9N1T6JST@garyguo.net>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Thu, 11 Jun 2026 10:51:12 +0200
-X-Gm-Features: AVVi8CeZqdEWXPdGh8thUTK4-wo6B8DARvooPGXEOY6tr17NX-f1ZHtJHf1zMrU
-Message-ID: <CANiq72khOCLC5kG5vWhDeXpHv6n7Yo9Nv=PewNS0D73AxUDB4Q@mail.gmail.com>
-Subject: Re: [PATCH v4] rust: make `build_assert` module the home of related
- macros
-To: Gary Guo <gary@garyguo.net>
-Cc: Miguel Ojeda <ojeda@kernel.org>, a.hindborg@kernel.org, acourbot@nvidia.com,
- airlied@gmail.com, aliceryhl@google.com, bjorn3_gh@protonmail.com, 
- boqun@kernel.org, dakr@kernel.org, daniel.almeida@collabora.com, 
- dri-devel@lists.freedesktop.org, driver-core@lists.linux.dev, 
- fujita.tomonori@gmail.com, linux-kernel@vger.kernel.org, longman@redhat.com, 
- lossin@kernel.org, mark.rutland@arm.com, mingo@redhat.com, 
- netdev@vger.kernel.org, nova-gpu@lists.linux.dev, peterz@infradead.org, 
- rust-for-linux@vger.kernel.org, simona@ffwll.ch, tamird@kernel.org, 
- tmgross@umich.edu, will@kernel.org, yury.norov@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09F0C10E684
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 08:54:28 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 7C6651A3840;
+ Thu, 11 Jun 2026 08:54:26 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 4A6925FF03;
+ Thu, 11 Jun 2026 08:54:26 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id E3564106B9477; 
+ Thu, 11 Jun 2026 10:54:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1781168064; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=59GDvGkxf3cHZtAQ2AAidgdUgpnfTEwmRZmFMmIXUBM=;
+ b=lNi/XdDnbrP4ELsevq7Ct9EK0bIg9nouRauRmtlYYjVjULpigORAvDxGGIx9sWsnTega8d
+ CZf4OQFho7OL2/4YdDVIYm/K8CB3CIBJD/j/2vTX0VBvuqJLmv0oEVR7zh19M4b/ge3LSQ
+ I2oE2bQyA4n+xqhkktJFocnIJl8ZfolR5BmmP7DSeA2lJeyE8Qqt/chMWuJUBpu7ckat5d
+ 6LqN5ctT1Gh45eEQJGF4vmL/O+6834D7Rj2Y0Jmk1MyxoA0QrBvNkgluqK0DH4kKQOD70o
+ 5rtwoDTKSSzav4WRygvNcut1xMaDp8mIAiG2zPw/LijjDBAqo3ubc/YA4my+IQ==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 11 Jun 2026 10:54:14 +0200
+Message-Id: <DJ63DNXUOW46.1DI6982PGPFRR@bootlin.com>
+Subject: Re: [PATCH 19/37] drm/bridge: samsung-dsim: move drm_bridge_add()
+ call to probe
+Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Inki Dae"
+ <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Marek
+ Szyprowski" <m.szyprowski@samsung.com>, "Marek Vasut" <marex@denx.de>,
+ "Stefan Agner" <stefan@agner.ch>, "Frank Li" <Frank.Li@nxp.com>, "Sascha
+ Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
+ <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Hui Pu"
+ <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>
+To: "Maxime Ripard" <mripard@kernel.org>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.21.0
+References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
+ <20260519-drm-bridge-hotplug-v1-19-45e2bdb3dfb4@bootlin.com>
+ <20260608-mellow-weasel-of-politeness-a56172@houat>
+In-Reply-To: <20260608-mellow-weasel-of-politeness-a56172@houat>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,20 +80,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 10, 2026 at 2:28=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
+On Mon Jun 8, 2026 at 1:58 PM CEST, Maxime Ripard wrote:
+> On Tue, May 19, 2026 at 12:37:36PM +0200, Luca Ceresoli wrote:
+>> This bridge driver calls drm_bridge_add() in the DSI host .attach callba=
+ck
+>> instead of in the probe function.
+>>
+>> This works for current use cases but is problematic for supporting hotpl=
+ug
+>> of DRM bridges. The problematic case is when this DSI host is always
+>> present while its DSI device is hot-pluggable. In such case with the
+>> current code the DRM card will not be populated until after the DSI devi=
+ce
+>> attaches to the host, which could happen a very long time after booting,=
+ or
+>> even not happen at all.
+>>
+>> The reason is that the previous pipeline component (the encoder in this
+>> case) when probing cannot find the samsung-dsim bridge. What happens is:
+>>
+>>  [1 and 2 can happen in any order, same result]
+>>  1) samsung-dsim probes (does not drm_bridge_add() itself)
+>>  2) The lcdif starts probing multiple times, but
+>>     lcdif_probe
+>>     -> lcdif_load
+>>        -> lcdif_attach_bridge
+>>           -> devm_drm_of_get_bridge() returns -EPROBE_DEFER because
+>>              the samsung-dsim is not in the global bridge_list
+>>              (deferred probe pending: imx-lcdif: Cannot connect bridge)
+>>
+>> The samsung-dsim will not drm_bridge_add() itself until a DSI device wil=
+l
+>> try to mipi_dsi_attach() to the DSI Host, which can happen arbitratily l=
+ate
+>> on hot-pluggable hardware.
+>>
+>> As a preliminary step to supporting hotplug move drm_bridge_add() at pro=
+be
+>> time, so that the samsung-dsim DSI host bridge is available during boot,
+>> even without a connected DSI device. This results in:
+>>
+>>  1) samsung-dsim probes (and adds to drm_bridge_add() itself)
+>>  2) The lcdif starts probing multiple times, but
+>>     lcdif_probe
+>>     -> lcdif_load
+>>        -> lcdif_attach_bridge
+>>           -> devm_drm_of_get_bridge() --> OK, returns samsung-dsim ptr
+>>
+>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 >
-> I think if the re-export is of form "use crate::build_assert::*" then it =
-will
-> still be the same semantics but would be appearing now?
+> We should probably amend
+> https://www.kernel.org/doc/html/latest/gpu/drm-kms-helpers.html#special-c=
+are-with-mipi-dsi-bridges
+>
+> To mention this use case here
 
-If you mean a glob import (within or outside the existing `use` --
-same behavior), then that makes the glob import appear in the list at
-least, which is an improvement because at least people have a link to
-the module (i.e. but not the individual ones).
+Right. I haven't updated the docs for this v1 because I was not sure the
+overall approach would be acked. Now Dmitry acked it overall, and I kind of
+infer you are not against, so I'll look into updating the docs in v2.
 
-Or do you mean something else?
+However I find that section of the docs a bit hard to read especially from
+a newcomer perspective.
 
-Good first issue?
+A better understanding on my side would help in doing the right change as
+far as this patch is concerned, and as a bonus in improving the section
+overall (that would probably be a separate series).
 
-Cheers,
-Miguel
+So I have a couple questions to start from:
+
+ * Do I understand correctly that using the component framework is legacy,
+   not recommended for new DRM development, and that converting existing
+   code to stop using it is welcome?
+
+ * The first bullet quotes "The upstream driver [...] isn=E2=80=99t a MIPI-=
+DSI
+   host". If the upstream driver of a MIPI DSI link isn't a MIPI DSI host,
+   what else could it be? What are the use cases here?
+
+ * If read literally, none of the 4 bullets after "Indeed, there=E2=80=99s =
+multiple
+   cases that needs to be considered" covers this driver (it does not use
+   the component framework, it does not use DCS, and the upstream device is
+   a DSI host). However the 3 bullets after "The ideal pattern to cover the
+   last item" appear to cover what this driver does.  Do we need a fifth
+   bullet for drivers like this one? Or...?
+
+ * To me it looks like the "bridge" word in this section is always used to
+   refer to the DSI device. Would it make sense to replace "bridge" ->
+   "[DSI ]device" in this section? (especially as the DSI host is also a
+   DRM bridge)
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
