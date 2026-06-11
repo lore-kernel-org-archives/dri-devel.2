@@ -4,47 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C236ECD98C6
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 06:21:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C886ECD98C6
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 06:54:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F44710ED08;
-	Thu, 11 Jun 2026 06:21:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1B6510E725;
+	Thu, 11 Jun 2026 06:54:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="PTm9M+pd";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WhpU3346";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6833610ECFB
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 06:21:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
- In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=PC8V1BtFzTbRAOtrZB95m3PachLURo45K29rSX4xNLY=; b=PTm9M+pdw19JPlhhL+tdkUcoVx
- cnUpgEkW1M2ko2umOwL6RTEUqw3JRr4m2JZeMBxTtou9/3uVvWEN4TO1WM8cdOPjLRJWuGioGyfoK
- bM+p5qXpDddaXAmOyPnN40CsaJl8JRpFIR3gEPmZQIpoziFTg2iJ4XSxAVwELE/uO1CoyYtZHQZgb
- v/3yPJ1s0SpHGbLa+wL/D/Xbf9xfIhW3LRYHTo9wY8bJY1b2swBAoC0pgd6IbS1YfLV9sbtBg15NY
- 443yLmFV8sap0INksKcTxPbyYRe/Cq8HeFYAs7ovEAdJ0x7vNqbIcT/Rz7X8fx+P+oMi7i8pTiP3D
- kX+KQ92w==;
-Received: from [192.168.12.229] by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wXYn6-00FzKD-D8; Thu, 11 Jun 2026 08:21:24 +0200
-Message-ID: <206699ed0dc51ea37fea2ebc12c52a32307d0d7b.camel@igalia.com>
-Subject: Re: [PATCH 0/3] drm/v3d: Miscellaneous fixes
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
- <mwen@igalia.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-Date: Thu, 11 Jun 2026 08:21:24 +0200
-In-Reply-To: <20260610-v3d-cpu-job-fixes-v1-0-0d9c88989edc@igalia.com>
-References: <20260610-v3d-cpu-job-fixes-v1-0-0d9c88989edc@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EB7A10E725;
+ Thu, 11 Jun 2026 06:54:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781160883; x=1812696883;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=CFowTlceAGT8bJGLRrhVxOnbTokjR6+XQ9kWSeerCo0=;
+ b=WhpU3346DWhP/EhnjDPZAMNXvikAUrJCx+Wgn0fQt5V30BgBkJkUsC8f
+ UTclgAQE8iAVqHwNX4z42rfmkU6NheW+lOqLMjxY5cj1vy6cI1f3kpbd1
+ nSZMOPa/S9e5wO/O0T6X9Iq2RleGtVCjyeL0/KOc7lwLvn+HiyrOZUq5g
+ PLIsfyJG2pv2i6upqMyvjwSLLdM2jjmzvgb0wJaDitP/x+0xuGK2KoVAs
+ yzI0uBbAMaJCMSYLYdVMFojpQlys+zGCvaSt40lHCHz7astJeUi8h93DO
+ PWGDNbdiOKWjza4JSvO3HAVbRcgJo78jyzSHnLCU+ohTlu7+5pOd7qX9u Q==;
+X-CSE-ConnectionGUID: YuN/JOiZR/er3lc3MS2xWg==
+X-CSE-MsgGUID: rnWIbMzlS4+ajwTgHom1DQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81101224"
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="81101224"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2026 23:54:42 -0700
+X-CSE-ConnectionGUID: Iu2FGfWER0CTkX31t1P0qw==
+X-CSE-MsgGUID: yMX5BnmDSEy1/50OFUSSPw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="250674708"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.123])
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2026 23:54:28 -0700
+Date: Thu, 11 Jun 2026 09:54:26 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Kaitao Cheng <kaitao.cheng@linux.dev>
+Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Davidlohr Bueso <dave@stgolabs.net>,
+ "Paul E . McKenney" <paulmck@kernel.org>,
+ Josh Triplett <josh@joshtriplett.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Huang Rui <ray.huang@amd.com>, Eddie James <eajames@linux.ibm.com>,
+ Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Laxman Dewangan <ldewangan@nvidia.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Waiman Long <longman@redhat.com>, drbd-dev@lists.linbit.com,
+ linux-block@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Christian Brauner <brauner@kernel.org>,
+ David Howells <dhowells@redhat.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kaito Cheng <chengkaitao@kylinos.cn>, Muchun Song <muchun.song@linux.dev>,
+ Philipp Reisner <philipp.reisner@linbit.com>,
+ Lars Ellenberg <lars.ellenberg@linbit.com>,
+ Christoph =?iso-8859-1?Q?B=F6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ Jens Axboe <axboe@kernel.dk>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: Re: [PATCH v2 00/14] list: Prepare entry iterators to cache cursor
+ state
+Message-ID: <aipbojSeMH-usARY@ashevche-desk.local>
+References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
+ <bd0b7393-8ccb-4d67-8bfc-18c68347122c@amd.com>
+ <5152089a-2808-4fe9-b633-b03018105dd2@linux.dev>
+ <ail4AvzqAOXNaU6N@ashevche-desk.local>
+ <9b98e860-11df-44bf-9a95-3046d2c274a6@linux.dev>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9b98e860-11df-44bf-9a95-3046d2c274a6@linux.dev>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,52 +121,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-I had some questions about patch 1, but patches 2 and 3 are:
+On Thu, Jun 11, 2026 at 12:42:02PM +0800, Kaitao Cheng wrote:
+> 在 2026/6/10 22:43, Andy Shevchenko 写道:
+> > On Wed, Jun 10, 2026 at 02:14:06PM +0800, Kaitao Cheng wrote:
+> >> 在 2026/6/9 18:33, Christian König 写道:
+> >>> On 6/9/26 08:13, Kaitao Cheng wrote:
 
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+> >>>> This series prepares for, and then updates, the list_for_each_entry()
+> >>>> family so the common entry iterators cache their next or previous cursor
+> >>>> before the loop body runs.
+> >>>
+> >>> Why in the world would we want to do that?
+> >>>
+> >>> The safe and non-safe variants have very distinct use cases and that is completely intentional.
+> >>>
+> >>> What we could improve maybe is the documentation, from my experience an astonishing large amount of people have misconceptions about the safe variants.
+> >>>
+> >>>> The first 13 patches open-code loops that intentionally depend on the
+> >>>> old "derive the next entry from the current cursor at the end of the
+> >>>> iteration" behaviour.  These loops append work to the list being walked,
+> >>>> restart traversal after dropping a lock, skip an entry consumed by the
+> >>>> current iteration, or otherwise adjust the cursor in the loop body.
+> >>>
+> >>> Well I have to clearly reject the changes for subsystems/components I'm maintaining, that just looks horrible to me and I clearly don't see a good reason for that.
+> >>
+> >> Hi Christian and Andy Shevchenko,
+> >>
+> >> Thanks for taking a look. I would like to clarify the point you raised.
+> >>
+> >> The reason I started looking at this is the original motivation behind
+> >> the _safe() variants.  They exist because some users need to remove, move
+> >> or otherwise consume the current entry while walking the list.  In that
+> >> case the next cursor has to be preserved before the loop body can modify
+> >> the current entry.
+> >>
+> >> The unfortunate part is that this could not be expressed with the
+> >> existing list_for_each_entry() interface without changing its calling
+> >> convention.  The _safe() variants had to grow an extra argument for the
+> >> temporary cursor, and that is why we ended up with a separate family of
+> >> macros.
+> >>
+> >> But conceptually, the distinction does not have to be exposed as two
+> >> different iterator families forever.  The difference is an implementation
+> >> detail: whether the iterator keeps the next/previous cursor before the
+> >> body runs.  This series makes the common list_for_each_entry() iterators
+> >> do that internally, so the safe and non-safe forms can effectively be
+> >> folded together, or at least the need for a separate public _safe()
+> >> interface becomes much weaker.
+> >>
+> >> There is also a usability issue with the current _safe() interface.  The
+> >> caller is forced to define a temporary cursor outside the macro and pass
+> >> it in, even though almost all users never use that cursor directly.  It is
+> >> just boilerplate required by the macro implementation.  I find that
+> >> redundant and awkward: the temporary cursor is an internal detail of the
+> >> iteration, but every caller has to spell it out.
+> > 
+> > Ah, I think the distinct macro families is that what we want.
+> > But the hiding of the parameter can be done inside list_for_each_*_safe().
+> > You can do a treewide change with coccinelle.
+> > 
+> > Sorry if I didn't get the whole idea from your previous contributions.
+> > 
+> > Note, even cases that would need a temporary cursor may be switched to
+> > new list_for_each_*_safe(), see how PCI macros for iterating over resources
+> > are implemented (include/linux/pci.h).
+> 
+> Thanks for your suggestions. I've written a demo based on your feedback.
+> Could you please review it and share your thoughts on this approach?
 
-El mi=C3=A9, 10-06-2026 a las 19:50 -0300, Ma=C3=ADra Canal escribi=C3=B3:
-> Being brief, this small series collects a correctness fix (#1)
-> reported by
-> Sashiko, a error-path fix (#2) reported by Sashiko, and a cleanup
-> (#3)
-> found while reading the code.
->=20
-> The first patch is the only notable one: a v3d submission expands
-> into a
-> chain of jobs (e.g. BIN + RENDER + CACHE CLEAN), but the BO list was
-> only
-> ever attached to the last job. Since implicit synchronization is
-> added
-> per-job and gated on job->bo_count, every job before the last one
-> silently
-> skipped implicit dependencies. In practice the binning job could read
-> a
-> buffer object while another context was still writing it. It's fixed
-> by
-> looking up the BOs onto every job that references them.
->=20
-> Best regards,
-> - Ma=C3=ADra
->=20
-> ---
-> Ma=C3=ADra Canal (3):
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/v3d: Associate BOs with every job that=
- accesses them
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/v3d: Reject invalid indirect BO handle=
- in indirect CSD
-> setup
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/v3d: Use write_to_buffer() helper in p=
-erformance query copy
->=20
-> =C2=A0drivers/gpu/drm/v3d/v3d_sched.c=C2=A0 | 11 ++--------
-> =C2=A0drivers/gpu/drm/v3d/v3d_submit.c | 43 ++++++++++++++++++++++-------=
--
-> ----------
-> =C2=A02 files changed, 26 insertions(+), 28 deletions(-)
-> ---
-> base-commit: 2df5efb45425b48fbf5a3c1f36a686af26871009
-> change-id: 20260609-v3d-cpu-job-fixes-fbe2051bee3a
->=20
->=20
+Have you checked how many users actually need the temporary storage?
+
+> >> With the updated list_for_each_entry() implementation, that extra cursor
+> >> can be kept inside the iterator itself.  Callers that only want to walk
+> >> the list, including callers that delete or consume the current entry, no
+> >> longer need to carry an otherwise-unused temporary variable just to make
+> >> the macro work.
+> >>
+> >>>> The final patch changes include/linux/list.h to keep a private cursor in
+> >>>> the common entry iterators while preserving the public macro interface.
+> >>>> The safe variants remain available when callers need the temporary
+> >>>> cursor explicitly or have stronger mutation requirements.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
