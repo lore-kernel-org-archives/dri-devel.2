@@ -4,125 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 029B8CD98CE
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 07:34:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C126CD4F2C
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 07:45:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14A8C10F2B7;
-	Fri, 12 Jun 2026 07:34:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 942F710E960;
+	Fri, 12 Jun 2026 07:45:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HnQaHBcH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SGwE86Co";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013029.outbound.protection.outlook.com
- [40.93.196.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EACC10F2B7;
- Fri, 12 Jun 2026 07:34:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f3Hei6S26jaXz5BaUJqblIuAAgWFRiAN8ymN0crcTAW7eam5y/W1CPZhKLwIW0LIou0Bi52zK/M+L2i81OvpAzrinv9QIATzyaMOw5R3FUVePBfw2XH9jxyR8uBVd57UpuKysyNBCJJk5BDhe9jm6FeRJBUDodLVvEu97WnyrFBFmFXet1p798aHQERACb8ocYBc2WDMVbIgPmCi0kcUGeKL9Mr5JgD+0gVdZHhU95di0GVrsiFgEs5jUIyReMCEdtr1u6laidQu33AYc6rb4jGiAGEpOsnwfCMBx5WrPcCO51XsYakIt6adrewXk7SoNlGif+Gz/TgU5rZrKrWmjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hrYN6bfyIyFwuKgg16nSfVZbgPU0JZFJKUU0KC1iGSs=;
- b=DwTbASKjpaM7fOyLWzxGO5+BmhnvYjy6rQFYA94TjXh156rVFFCy1QZ27dBlnyfKn004wCN5lqDlx1Tsrei7s2pCiaq4B5VpVgBubxmQByVb5zApKRZZyzYQhsj0oKbnrC/pmz+YNZBJ9saQdThkLddUPDTCRl3aD2LLbnoHWYqvAo9h/a5G0qZqp55bkVe3PCsBrUB/TPl8V2b/A9EdHErXEp7ShrSrpaY7I0xKUAdusMZ5dtSV/CgYiP7af3zHBQrRixX+ANLg3Ch5mW0/PuzsxE/zIJ3oGdtZNifcVwbUu+NBK0afyhxB/PnwaxaiQMKIe12C0+0K08dGOCjkgw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hrYN6bfyIyFwuKgg16nSfVZbgPU0JZFJKUU0KC1iGSs=;
- b=HnQaHBcH5MT7SrehPBguYoNl3dijbeOreBlahuoUcPOrZkY1ogY3NahUzSSe4L2/TK3eXSuZfZ2DcKGIIuLU9hRfOOSwWp0qYSAPMGJ6+buT2TCiAuyhpn9mLprgHyHW3L9BwvMEQ4ohQbuaXYhfuDyIovQtfl+PtPrNgnrSs24=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS2PR12MB9751.namprd12.prod.outlook.com (2603:10b6:8:2ad::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
- 2026 07:34:41 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Fri, 12 Jun 2026
- 07:34:41 +0000
-Message-ID: <33b42033-a5ae-4fa2-bafa-ea007a29eab1@amd.com>
-Date: Fri, 12 Jun 2026 09:34:35 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND 0/9] drm/amd/display: convert GPIO translation
- logic to lookup tables
-To: Guilherme Ivo Bozi <guilherme.bozi@usp.br>, airlied@gmail.com,
- alexander.deucher@amd.com, harry.wentland@amd.com, simona@ffwll.ch,
- siqueira@igalia.com, sunpeng.li@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20260611195026.25125-1-guilherme.bozi@usp.br>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260611195026.25125-1-guilherme.bozi@usp.br>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0175.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9f::12) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D1C610E0B7
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 21:58:13 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-36dd65b95f2so311007a91.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 14:58:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781215093; x=1781819893; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=058Dub1D8Mo8YvUnluCsrCmQe9OxK3zbzQpkHf2iTGc=;
+ b=SGwE86Cor/XWpQDui6Y3iVBIqQbWy7vpddAnbH+yNd1LwX0vwk9/uspGVjkY3DUQMn
+ UPN++yJNLs4gMwmMoEkCHaTXe13A6XAmYP8dEd1kU5HmCyIunMOfSHxQmE/BZK/HWn3W
+ ouLamhdcF9tBGo126r5nLg0uE9E7kKyKfDQpRUPSm/GmeJfSi0J88DuHEYcXuFuUr5Uq
+ qWvlKokxkClb5ajbljFv+/TmJCPat857VmxfOj35I4204rpGyrI9q7NMbLXhKlqGtFY/
+ GSxy6atwg6fSBybVkIEShQJC5Z4+ETJos+60QIlTyXA1bC+BUswqV+2GuMakYzUtSvSY
+ Cp2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781215093; x=1781819893;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=058Dub1D8Mo8YvUnluCsrCmQe9OxK3zbzQpkHf2iTGc=;
+ b=awGFh7UE6z4dOTw4RtmeQ39p57e2bLqLFUqeqtpSydjyRfCv4IO1djsqDo0wSnEwi/
+ 0XXYjEYd09sGURWVdRKeFXL8w7namffY3IBRaD3rXkbPGHoAaBTvIn7ddNhQlkJi6pIc
+ EwzDQDwwd3hGLLZ3bayoEnpBXyIngYE8xvuvN2JQAeNWhzkZbRNLuszBAu79B0hmbDE4
+ SqcjU/fuJxFnUKwwXIFk2FTrhgmWruv6VZQ/KcDzWsOt8JFxCmEZLT9rgs5ugrB6WTBr
+ 2zPBDdlmpfl35CrkgwSh6Rfw2uU4LSr449ns7WAdK9LaTGQThC346ogyzw3edCvjnEkP
+ yyVw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+1TFTf9FTgQFw/jbcWt9ZuIx3Cr1eFm/4fi0KERqHem8A5+U7iBhjnZ6kEQqo0Gi1B4rbG7bx6zVw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy81wSmfodCRmUKd9f8EtGO3jiCOEgTxa+0XDPcegJcLUaqpw/G
+ YfZYBYdjbnDiWStKOoxk7b21Ukqu73WJLGEtmVOemcbje49pMOTNOhqk
+X-Gm-Gg: Acq92OEJfMfmYEnlpgmJsbwZ0cfSBfiSAibPdu4esNSlyQS7NiX8d2zAx6qwF3f3+k9
+ fs6CA7SxpObgLN+UOjKvnNQ+RdciU3vJEywc+hbJTKaiVskH6GzUhovH44ETHVEuF5ncp9VD9xF
+ 4/IZuPyQbhkNi7uWiQbyjkA/af93GhSxITQsT8ua40ETCq3kyab+H5wc6EQum4CkdvwO5I8+GBo
+ KKkuzPbk8xUjnskYMD+n1XvIudMTizwx7zoRxviHJq6cQqF6tLi09ieUH6QI6UACnMyH7UVqG89
+ H0C6z0MmAteF6RVZ3IwgktGo05P7R4I877LymY2GzmZ6G5dkxFt021SdKEZbWCXSoZta134XQ88
+ QsoiUfdcr+bsq8BM07SZuY0kCWkKENZIgDVaVv5rOrMv42IhbXNwq/e3rdzMHmAFswGvd+5LMhT
+ t97vDqH7RrPgtUKBgtXOZJBVBXZEEbVG7Y3NULB8NnG1o=
+X-Received: by 2002:a17:90b:2cc3:b0:36b:de66:92c3 with SMTP id
+ 98e67ed59e1d1-379ef747839mr387023a91.10.1781215092780; 
+ Thu, 11 Jun 2026 14:58:12 -0700 (PDT)
+Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:8::])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-379c3240b5esm327367a91.0.2026.06.11.14.58.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Jun 2026 14:58:12 -0700 (PDT)
+Date: Thu, 11 Jun 2026 14:58:10 -0700
+From: Bobby Eshleman <bobbyeshleman@gmail.com>
+To: Stanislav Fomichev <sdf.kernel@gmail.com>
+Cc: Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-kselftest@vger.kernel.org, sdf@fomichev.me,
+ razor@blackwall.org, daniel@iogearbox.net, almasrymina@google.com,
+ matttbe@kernel.org, skhawaja@google.com, dw@davidwei.uk,
+ Bobby Eshleman <bobbyeshleman@meta.com>
+Subject: Re: [PATCH net-next v2 3/4] selftests/net: ncdevmem: add -b option
+ to set rx-buf-size on bind
+Message-ID: <aisvcqQp37rnfK5d@devvm29614.prn0.facebook.com>
+References: <20260611-tcpdm-large-niovs-v2-0-ee2bf15e7523@meta.com>
+ <20260611-tcpdm-large-niovs-v2-3-ee2bf15e7523@meta.com>
+ <aislm0fS2MSDMzKf@devvm7509.cco0.facebook.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS2PR12MB9751:EE_
-X-MS-Office365-Filtering-Correlation-Id: a726c98d-8d90-4b5f-afb4-08dec85510bf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|18002099003|22082099003|6133799003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: e2Rfj/gm9E+QYfaOQc5mZcN5hAgQCwDdm84ZI7F01Hij5qE9lSguhK/E+vR1ll3Lbas6Sj7hffqo7T8jIZzWHxRE47TMVEIfPvhckISnp0KEtDs6b1eFleMexqrj1nleUYrlVSgfvDVAet0Vpo2YbJbnKGOe6evouWNkEJuxUx+AEn7XfCcMFif4hAXn8OUFFciLWZXvtd5lRdfaF+c+GSAgkgWaPuzIQHYNwV6OBxRjFPe1xY5NhE+AuOJQ51xVEBOYIb6zh1Niu1FkX2eXObIAgTJUThkpMf4guHlJP1Vm+9KSlCDskHa3vBTNMt++SK+1Od4ylaKeKIHHFSn/Y/mxTolkQYQhueSHQNG1MCEkgPfewFc0U2kCRXFN/PbIBgT2uTZF2DrfxXvwELU7fsTSgoJ91dqUCz3YmdsiSMy0uFlGKkdSKHVYdb0pLlXMoiviOmikjQ3ARno6X1WVFWobJ/dd64RVHO52PAvt8tYxw+3JYDlX5y68RAd9XbgZOOYOaEchEg6MfaXaHRKBlq2NumdbFz6gzcV9iJ3n51UjjuxWW6lUsNZ9GioJHO1NXPOSr0ffARacaISloyMIUh0AUox2dPAE0QIdL8ma2/rbgSdNh/2eaYHDTOWTEIpC4PGc4gpk94ykR4pfbuodyA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(18002099003)(22082099003)(6133799003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d0hWU0R6Z0R3VVgralJhQVFWcWtEaUlQT1BFeERYS3YrUnlNZEpHZm5uTlNh?=
- =?utf-8?B?K3UrWlZ3NWhackFVMFFrZkdUNlQrNzFKM2YvS3RWWFpNZ2ZBaGFIT3Q2aURk?=
- =?utf-8?B?MGxXMkU1M3pZOFBuSm9LelRmNTloa0JPcVgvWEdzM0V2bG1USTFzWUVJTHcv?=
- =?utf-8?B?WmtQV0pVMDF1dXNiMzZVdFpvcEhYenFzNXk0Qm81Z055TTExRVd6SVhscEtT?=
- =?utf-8?B?Tis4TmZuWDVVKzN3YzVKcGVlbnhJL3plajBpNzRldkgwRXNpWW1ja0xJeVlB?=
- =?utf-8?B?K2doQnRucHhaeFNrc1FSZFBiT0FHSWxBZ1dSR1Ria2dCbUpNUml2c1ZRMzFR?=
- =?utf-8?B?MDR4YlRhZExtUjdyR1pUalhRaU1tUjVTOUtZTGJlUmlTMEY3UWMzOUVpbFND?=
- =?utf-8?B?T00zdkJPZWdRdGJjSEhYRS9UeHNsOFhrbHFxY2g1aXRIdUtqaUhqemtGd2g2?=
- =?utf-8?B?aVRBSGFTTWlIRkg4VXZ0SXJDMUR3YXF3bTFRNUVZUW9Nalh2c1dDemgzdU50?=
- =?utf-8?B?MFpNYlZtd21nUHRiOCsrQjNINEdsNWFnZHI0bmthVlFabTdSMVpUaUx3M0pq?=
- =?utf-8?B?S1p3bHQ3emNZOUhJbUVuMlY0a1FMMUFGek5DUlB5ekJvK243QnNCSmMzcGdw?=
- =?utf-8?B?MHdCdXB4aUtyZXdVZXd5SFI4VmIyeHliYkJiQktQbUNCTitNZWlLNWR2U0xN?=
- =?utf-8?B?UFlsZVlQb1ZXaWpFUHpKelZnK2hqRUlyUFBUR3NOcTlHQnM4ZjNVVjErcXRR?=
- =?utf-8?B?Y25YK3lKdUx3UUVPRlNRMFlGdktEamtxN3F3UzhkN0VHZFZvRCtQWGwyWERE?=
- =?utf-8?B?THhpcHhHOU11QUJIMlpManN3bkV6MmtLZ2RCanlRbVpyRXhuaDFuWEMrayt6?=
- =?utf-8?B?R1d2bTlnMjNPT09kekF2OVNRU0dtNnpJa3cwamIzeHZGeGdLcnF3R254RWZj?=
- =?utf-8?B?VHFQaWx2UlFvYjBDQzlkM01xYWl6NUhReU1CSVhDZFpZeXE1bjVRRThWSGds?=
- =?utf-8?B?eGRuQUxUajc4NmRNS1ZOT1dzc3NQdEgrOHZRVnJaRlRGRFJpSzE0RnBydkc1?=
- =?utf-8?B?eXI1aDVwUDdFNFk0R3p2N3pZVlZpSFFJT1FINU80TmJDZ045aTVWTTQ3bXpN?=
- =?utf-8?B?ZDk4QkpVM1JnMHRHNWFGYmVTYktSVXBtZWtiVzdjOHJ0K3F0VjJJeHhJb0dv?=
- =?utf-8?B?ckxzSjFXOXVuWVNCNjNKK1luSVhwNjIwbEpxeE9nREY5Y2k4dm44Tmp5K1cw?=
- =?utf-8?B?QzZQdDROWm5YYTRoY2lJamlCWmxPeFZpZGNnaHAwOVRaRk5IdUZNNkNYRVFJ?=
- =?utf-8?B?UGxXMkIzeFRkSCtVdlQxSmV5cVYweFZTczNibm9DYkQreGRvdmZGak50ZC9q?=
- =?utf-8?B?dlAvUzBNTFlONERqSlkwTVZBbXpYRFFrMjVOZ2pWUHNzVEU3MzF3VEVjNnlF?=
- =?utf-8?B?dHk0bkFacnhJUzBhWStBZkJMM0dqK3lQQU5Bc2FnN08xdEZGaGdmZy9xaGo2?=
- =?utf-8?B?NEdXNXBzb2N2aHNMVm9NUzBrVEwxbmJvZVk0Mk9HYUUxMGpIMVlETTBFVVFI?=
- =?utf-8?B?WHF5UEVsdDBuaERzWXRhK3AvYkdoSW95bTZMaUxhdlR0WnRXVXNzaWdSbU42?=
- =?utf-8?B?RzVkUjV5NThnbmh4b3hOSjRIUjliYjUzam5ZejFEUllRMUtvLzk3ZU9GOTY5?=
- =?utf-8?B?WkFWaUt0b3pOaFdUOVd1SDNacC9mRmNubXp0NnBoQnRJd0RFQVBFUGEvTUhi?=
- =?utf-8?B?YXYyVXQ3eTAvK3d6N0ViV3RHNm8zdlJGTkFsNkJ1WnVxRHVZblYvaWhMS0tu?=
- =?utf-8?B?Q0VscHF3NGJzcVJ5Vm40N0M0ZXFMeURZZHBjcDRmL1c4enoxeVkzQTVlVytK?=
- =?utf-8?B?cjBEWnIyRVJQcUY2UEF1QzlPV2paMjhzaHhkNzltOVJFRlJGbC9zbkg2UHM1?=
- =?utf-8?B?NmM3aXM4b3RRK1BFNGcrb1dCdkdmVUI4RkpDR3ZabDZHZitITFkwTE54eXFJ?=
- =?utf-8?B?QlJCWXlVUHhGS3c1Nk55RnBJK2lnMWRJK2JwN1l2N1psbkhPSHlWR0xYcEtY?=
- =?utf-8?B?NDlhaExVSXgzSVRCdlBCT3hVODdNNG9OQ3d2NFhtUHRjZEk4TmdjcTZ0clpL?=
- =?utf-8?B?MDk4dzhDYUxNaHFud2M4VWRUU3lZSDd2d3BjMVA2aWhWMFRwODBCcDJSK1dC?=
- =?utf-8?B?bStqQSt1Z0tDUVFDanFKcVVpRlgvSm5DVWpsU1dhdWZ1N0gvK3A4WVVxbWUv?=
- =?utf-8?B?M1EwOEZXM0FEb3cvUVVEOGV0ZGtWczVLTm42eXVreFp4bWRHTitEc01WdlAx?=
- =?utf-8?Q?4t1ZB6D8KtwAYX9LPk?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a726c98d-8d90-4b5f-afb4-08dec85510bf
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 07:34:41.4895 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: g3m+uaI7T4VrXhvd80KrhrysIJoloW2ajk0tABvW8OMXQbmFYShzROIkDna1kUHf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9751
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aislm0fS2MSDMzKf@devvm7509.cco0.facebook.com>
+X-Mailman-Approved-At: Fri, 12 Jun 2026 07:45:54 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,76 +105,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/11/26 21:49, Guilherme Ivo Bozi wrote:
-> This series converts the GPIO HW translation logic used by
-> multiple DCN generations from large switch statements to
-> static lookup tables with shared helper functions.
+On Thu, Jun 11, 2026 at 02:22:54PM -0700, Stanislav Fomichev wrote:
+> On 06/11, Bobby Eshleman wrote:
+> > From: Bobby Eshleman <bobbyeshleman@meta.com>
+> > 
+> > Add -b <bytes> to request a non-default niov size via
+> > NETDEV_A_DMABUF_RX_BUF_SIZE. When the value exceeds PAGE_SIZE,
+> > udmabuf_alloc() switches to an MFD_HUGETLB-backed memfd so each 2 MB
+> > hugepage produces one naturally-aligned sg entry.
+> > 
+> > Reject values > 2 MB up front: MFD_HUGETLB + udmabuf can only guarantee
+> > 2 MB per sg entry (one hugepage), so a larger rx_buf_size would fail the
+> > per-sg length/alignment check.
+> > 
+> > Add CONFIG_HUGETLBFS=y to drivers/net/hw/config so the new path is
+> > reachable in the CI kernels built for these tests.
+> > 
+> > Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
+> > ---
+> >  tools/testing/selftests/drivers/net/hw/config     |  1 +
+> >  tools/testing/selftests/drivers/net/hw/ncdevmem.c | 49 +++++++++++++++++++++--
+> >  2 files changed, 47 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/tools/testing/selftests/drivers/net/hw/config b/tools/testing/selftests/drivers/net/hw/config
+> > index cd20024218cd..ed8642b68094 100644
+> > --- a/tools/testing/selftests/drivers/net/hw/config
+> > +++ b/tools/testing/selftests/drivers/net/hw/config
+> > @@ -3,6 +3,7 @@ CONFIG_FAIL_FUNCTION=y
+> >  CONFIG_FAULT_INJECTION=y
+> >  CONFIG_FAULT_INJECTION_DEBUG_FS=y
+> >  CONFIG_FUNCTION_ERROR_INJECTION=y
+> > +CONFIG_HUGETLBFS=y
+> >  CONFIG_INET6_ESP=y
+> >  CONFIG_INET6_ESP_OFFLOAD=y
+> >  CONFIG_INET_ESP=y
+> > diff --git a/tools/testing/selftests/drivers/net/hw/ncdevmem.c b/tools/testing/selftests/drivers/net/hw/ncdevmem.c
+> > index d96e8a3b5a65..325c128191e2 100644
+> > --- a/tools/testing/selftests/drivers/net/hw/ncdevmem.c
+> > +++ b/tools/testing/selftests/drivers/net/hw/ncdevmem.c
+> > @@ -61,6 +61,7 @@
+> >  #include <sys/time.h>
+> >  
+> >  #include <linux/memfd.h>
+> > +#include <sys/param.h>
+> >  #include <linux/dma-buf.h>
+> >  #include <linux/errqueue.h>
+> >  #include <linux/udmabuf.h>
+> > @@ -79,6 +80,7 @@
+> >  #define PAGE_SHIFT 12
+> >  #define TEST_PREFIX "ncdevmem"
+> >  #define NUM_PAGES 16000
+> > +#define MB(x) ((x) << 20)
+> >  
+> >  #ifndef MSG_SOCK_DEVMEM
+> >  #define MSG_SOCK_DEVMEM 0x2000000
+> > @@ -100,6 +102,7 @@ static unsigned int dmabuf_id;
+> >  static uint32_t tx_dmabuf_id;
+> >  static int waittime_ms = 500;
+> >  static bool fail_on_linear;
+> > +static uint32_t rx_buf_size;
+> >  
+> >  /* System state loaded by current_config_load() */
+> >  #define MAX_FLOWS	8
+> > @@ -142,6 +145,7 @@ static struct memory_buffer *udmabuf_alloc(size_t size)
+> >  {
+> >  	struct udmabuf_create create;
+> >  	struct memory_buffer *ctx;
+> > +	unsigned int memfd_flags;
+> >  	int ret;
+> >  
+> >  	ctx = malloc(sizeof(*ctx));
+> > @@ -156,9 +160,14 @@ static struct memory_buffer *udmabuf_alloc(size_t size)
+> >  		goto err_free_ctx;
+> >  	}
+> >  
+> > -	ctx->memfd = memfd_create("udmabuf-test", MFD_ALLOW_SEALING);
+> > +	memfd_flags = MFD_ALLOW_SEALING;
+> 
+> [..]
+> 
+> > +	if (rx_buf_size > (uint32_t)getpagesize())
+> 
+> What's the logic behind explicit (uint32_t) cast? uint vs int
+> comparisons should promote the int to uint automatically?
 
-Not to block this patch set, but please keep in mind that when some array index comes from userspace to use array_index_nospec() to avoid security problems caused by speculative execution.
-
-We already had problems with that in the past when people converted switch statements into an array lockup.
-
-Regards,
-Christian.
+Right, it's actually not needed. Avoids -Wsign-compare, but we don't use
+it anyway.
 
 > 
-> The new implementation reduces duplicated translation logic
-> across generations and makes the GPIO mappings easier to
-> maintain and extend.
+> > +		memfd_flags |= MFD_HUGETLB | MFD_HUGE_2MB;
+> > +
+> > +	ctx->memfd = memfd_create("udmabuf-test", memfd_flags);
+> >  	if (ctx->memfd < 0) {
+> > -		pr_err("[skip,no-memfd]");
+> > +		pr_err("[skip,no-memfd%s]",
+> > +		       (memfd_flags & MFD_HUGETLB) ? " (need hugepages)" : "");
+> >  		goto err_close_dev;
+> >  	}
+> >  
+> > @@ -168,6 +177,11 @@ static struct memory_buffer *udmabuf_alloc(size_t size)
+> >  		goto err_close_memfd;
+> >  	}
+> >  
+> > +	if (memfd_flags & MFD_HUGETLB) {
+> > +		size = roundup(size, MB(2));
+> > +		ctx->size = size;
+> > +	}
+> > +
+> >  	ret = ftruncate(ctx->memfd, size);
+> >  	if (ret == -1) {
+> >  		pr_err("[FAIL,memfd-truncate]");
+> > @@ -699,6 +713,8 @@ static int bind_rx_queue(unsigned int ifindex, unsigned int dmabuf_fd,
+> >  	netdev_bind_rx_req_set_ifindex(req, ifindex);
+> >  	netdev_bind_rx_req_set_fd(req, dmabuf_fd);
+> >  	__netdev_bind_rx_req_set_queues(req, queues, n_queue_index);
+> > +	if (rx_buf_size)
+> > +		netdev_bind_rx_req_set_rx_buf_size(req, rx_buf_size);
+> >  
+> >  	rsp = netdev_bind_rx(*ys, req);
+> >  	if (!rsp) {
+> > @@ -1411,7 +1427,7 @@ int main(int argc, char *argv[])
+> >  	int is_server = 0, opt;
+> >  	int ret, err = 1;
+> >  
+> > -	while ((opt = getopt(argc, argv, "Lls:c:p:v:q:t:f:z:n")) != -1) {
+> > +	while ((opt = getopt(argc, argv, "Lls:c:p:v:q:t:f:z:nb:")) != -1) {
+> >  		switch (opt) {
+> >  		case 'L':
+> >  			fail_on_linear = true;
+> > @@ -1446,6 +1462,33 @@ int main(int argc, char *argv[])
+> >  		case 'n':
+> >  			skip_config = 1;
+> >  			break;
+> > +		case 'b': {
+> > +			char *endp;
+> > +			unsigned long val;
 > 
-> The series introduces generic GPIO translation helpers first,
-> followed by per-generation conversions.
-> 
-> The following generations were converted:
-> 
->   - dcn10
->   - dcn20
->   - dcn21
->   - dcn30
->   - dcn315
->   - dcn32
->   - dcn401
->   - dcn42
-> 
-> The dce60, dce80, dce110 and dce120 implementations were
-> left unchanged for now.
-> 
-> dce60 and dce80 contain special switch-case handling paths
-> that currently do not map cleanly to the new table-based
-> representation, so they were intentionally excluded from
-> this refactor.
-> 
-> No functional changes intended.
-> 
-> v1 resend:
-> 
-> No changes since original submission.
-> 
-> Automated review:
-> https://lore.gitlab.freedesktop.org/drm-ai-reviews/review-overall-20260512190019.228440-1-guilherme.bozi@usp.br/
-> 
-> Guilherme Ivo Bozi (9):
->   drm/amd/display: add GPIO HW translation helpers
->   drm/amd/display: convert dcn10 GPIO translation to lookup tables
->   drm/amd/display: convert dcn20 GPIO translation to lookup tables
->   drm/amd/display: convert dcn21 GPIO translation to lookup tables
->   drm/amd/display: convert dcn30 GPIO translation to lookup tables
->   drm/amd/display: convert dcn315 GPIO translation to lookup tables
->   drm/amd/display: convert dcn32 GPIO translation to lookup tables
->   drm/amd/display: convert dcn401 GPIO translation to lookup tables
->   drm/amd/display: convert dcn42 GPIO translation to lookup tables
-> 
->  .../dc/gpio/dcn10/hw_translate_dcn10.c        | 484 +++++++-----------
->  .../dc/gpio/dcn20/hw_translate_dcn20.c        | 432 ++++++----------
->  .../dc/gpio/dcn21/hw_translate_dcn21.c        | 417 ++++++---------
->  .../dc/gpio/dcn30/hw_translate_dcn30.c        | 432 ++++++----------
->  .../dc/gpio/dcn315/hw_translate_dcn315.c      | 418 ++++++---------
->  .../dc/gpio/dcn32/hw_translate_dcn32.c        | 386 +++++---------
->  .../dc/gpio/dcn401/hw_translate_dcn401.c      | 392 +++++---------
->  .../dc/gpio/dcn42/hw_translate_dcn42.c        | 193 +++----
->  .../drm/amd/display/dc/gpio/hw_translate.c    |  86 ++++
->  .../drm/amd/display/dc/gpio/hw_translate.h    |  21 +
->  .../gpu/drm/amd/display/include/gpio_types.h  |  48 ++
->  11 files changed, 1274 insertions(+), 2035 deletions(-)
-> 
+> Christmas tree here as well?
 
+Ah right, don't know how I missed that. Thank you.
+
+> 
+> > +
+> > +			errno = 0;
+> > +			val = strtoul(optarg, &endp, 0);
+> 
+> [..]
+> 
+> > +			if (errno || endp == optarg || *endp || val == 0 ||
+> > +			    val > UINT32_MAX) {
+> > +				pr_err("invalid rx_buf_size: %s", optarg);
+> > +				return 1;
+> > +			}
+> 
+> This is too sophisticated :-/ Just (if val == UINT32_MAX && errno == ERANGE) ?
+> (you're looking for an overflow here supposedly?)
+
+yes, sounds good!
+
+> 
+> [..]
+> 
+> > +			if (val & (val - 1)) {
+> > +				pr_err("rx_buf_size must be a power of 2");
+> > +				return 1;
+> > +			}
+> > +			if (val < (unsigned long)getpagesize()) {
+> > +				pr_err("rx_buf_size must be >= PAGE_SIZE (%d)",
+> > +				       getpagesize());
+> > +				return 1;
+> > +			}
+> > +			if (val > MB(2)) {
+> > +				pr_err("rx_buf_size > 2 MB not supported");
+> > +				return 1;
+> > +			}
+> 
+> We already check these on the kernel size, so should be ok to drop? 
+
+True, that works.
+
+Best,
+Bobby
