@@ -4,113 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE0D3CD98C7
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 18:31:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F98CCD8C9D
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 18:32:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30D0810F08E;
-	Thu, 11 Jun 2026 18:31:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F8F110F0E5;
+	Thu, 11 Jun 2026 18:32:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ky2sh99t";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CQZxW/7u";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82D2E10E814;
- Thu, 11 Jun 2026 18:31:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781202682; x=1812738682;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=7hFbgC9HnPzMr6oxo3wnpqIPpU8GHodGdbMFTy6e1TU=;
- b=ky2sh99tnZnpx3yYw8IMgvo9uy9y7Wr3WmuNu/xJjm3JyEx5DH+pEUcs
- bPmd3hgQH4tZIF3bZghaRqKiUf/DTEcG2Yy/wLTjDVNPYG+cmIjoZEvAx
- F9hPWa/8H3YoWCSgIf21wohoDef8LvAWAcEVRJ9/jluToq6MtRvrxpqI2
- Rrm4aGtXA9PfgNHYUo6J2g+eVFkbCVzAX7KkVW3hyqyfshxFo37Xxe4JB
- DbLUu9kCSppTwXa1ixSaAtZuUnWqhnlM+PkZWNX2YYycN+j0JHmPZVT13
- MzA2z9/G42ogyga8052F3XCCmoBc4L5F+Asynl3lFfDp8t3r0n4X2TyOO w==;
-X-CSE-ConnectionGUID: Nx8j/4U/RgSnDA3nKbC6wA==
-X-CSE-MsgGUID: i3CH6l6LQI2QrDYGLjK6FA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="93136340"
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="93136340"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2026 11:31:21 -0700
-X-CSE-ConnectionGUID: 5eTY9mfpReuvZAQcDYRSJg==
-X-CSE-MsgGUID: MEeJ9TMTQhGOHh6SBSHMRQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="276756938"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.123])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2026 11:31:08 -0700
-Date: Thu, 11 Jun 2026 21:31:04 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Kaitao Cheng <kaitao.cheng@linux.dev>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Davidlohr Bueso <dave@stgolabs.net>,
- "Paul E . McKenney" <paulmck@kernel.org>,
- Josh Triplett <josh@joshtriplett.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Huang Rui <ray.huang@amd.com>, Eddie James <eajames@linux.ibm.com>,
- Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Laxman Dewangan <ldewangan@nvidia.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Waiman Long <longman@redhat.com>, drbd-dev@lists.linbit.com,
- linux-block@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Christian Brauner <brauner@kernel.org>,
- David Howells <dhowells@redhat.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Kaito Cheng <chengkaitao@kylinos.cn>, Muchun Song <muchun.song@linux.dev>,
- Philipp Reisner <philipp.reisner@linbit.com>,
- Lars Ellenberg <lars.ellenberg@linbit.com>,
- Christoph =?iso-8859-1?Q?B=F6hmwalder?= <christoph.boehmwalder@linbit.com>,
- Jens Axboe <axboe@kernel.dk>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: Re: [PATCH v2 00/14] list: Prepare entry iterators to cache cursor
- state
-Message-ID: <air-6P9ZGBbCWtGs@ashevche-desk.local>
-References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
- <bd0b7393-8ccb-4d67-8bfc-18c68347122c@amd.com>
- <5152089a-2808-4fe9-b633-b03018105dd2@linux.dev>
- <6b2efdee-95b0-4306-a682-0d0466497ddb@amd.com>
- <2399841f-d834-4652-8285-4a15c7d9a9b9@linux.dev>
- <d974a2ea-6102-45ff-bf36-3b25a2404e40@amd.com>
- <ail8iNvPrJnE7p58@ashevche-desk.local>
- <92683537-8404-47fe-a4ba-160e54870f0b@amd.com>
- <aipx1goKIsk40vrF@ashevche-desk.local>
- <96f9390b-a547-442f-b0a9-99a5ba52c0e1@amd.com>
-MIME-Version: 1.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A0C110F0D3
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 18:32:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 54EDD404C4;
+ Thu, 11 Jun 2026 18:32:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F065E1F000E9;
+ Thu, 11 Jun 2026 18:32:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781202775;
+ bh=wj07LR9OwbvYyeJXyCaTmGJwF1ISfPKiU5ozJFMFyjc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=CQZxW/7uwpKAFWHIeN3vVnwE+GYpay1cigDyMah6uclp8F/xRkZDuPc+GpTowpPHj
+ fCEXh/fAuOQq/jfqk55jvjdMDZNMKh/KDRyoPG0VDR08bVKLrBHge4MAXFOfZMdDEZ
+ EOTGkbVQwFXj5exVXVuU2yINvu/q+kxEzXB8xTXC5v2NRjK6iDeqqR4AgyM2+kVZjk
+ NtD5ha5csVfHxeeExfA+ONqSvqXBK/Y/stYCJoYb3iBqzB4oR0j0sqR1XPGrVjzNAD
+ woyFDL9mymVAW9k+gEPVYopPITX7+VEDLE0QjxlEIuUbxi1jNLFxZjhiHs008on2bS
+ B0NFltVGRgkGA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 6/6] drm/amdgpu: Wire up dmem cgroup reclaim for VRAM
+ manager
+To: =?utf-8?b?VGhvbWFzIEhlbGxzdHLDtm0=?= <thomas.hellstrom@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, tj@kernel.org, mkoutny@suse.com,
+ hannes@cmpxchg.org
+In-Reply-To: <20260611173301.17473-7-thomas.hellstrom@linux.intel.com>
+References: <20260611173301.17473-7-thomas.hellstrom@linux.intel.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <96f9390b-a547-442f-b0a9-99a5ba52c0e1@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 11 Jun 2026 18:32:53 +0000
+Message-Id: <20260611183254.F065E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,68 +54,117 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 11, 2026 at 10:39:14AM +0200, Christian König wrote:
-> On 6/11/26 10:29, Andy Shevchenko wrote:
-> > On Thu, Jun 11, 2026 at 10:01:25AM +0200, Christian König wrote:
-> >> On 6/10/26 17:02, Andy Shevchenko wrote:
-> >>> On Wed, Jun 10, 2026 at 11:11:34AM +0200, Christian König wrote:
-> >>>> On 6/10/26 10:18, Kaitao Cheng wrote:
-> >>>>> 在 2026/6/10 16:07, Christian König 写道:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-...
+New issues:
+- [Critical] Early return in `amdgpu_vram_mgr_fini()` on eviction failure s=
+kips `dmem_cgroup_unregister_region()`, leading to a use-after-free.
+- [Medium] The cgroup region name is hardcoded to 'vram', breaking the devi=
+ce-specific namespace prefix and causing collisions on multi-GPU setups.
 
-> >>>>> Should we revert to v1, or keep list_for_each_entry() and
-> >>>>> list_for_each_entry_safe() as they are, close this thread, and make no
-> >>>>> changes?
-> >>>>>
-> >>>>> Link to v1:
-> >>>>> https://lore.kernel.org/all/20260529082149.76764-1-kaitao.cheng@linux.dev/
-> >>>>>
-> >>>>> Or do you have any better suggestions?
-> >>>>
-> >>>> v1 looks perfectly reasonable to me.
-> >>>
-> >>> But why not just hiding that once for all (in case they don't use the temporary
-> >>> iterator)? Easy to automate, robust — everyone is happy?
-> >>
-> >> As far as I can see that is an extremely bad idea.
-> >>
-> >> The distinction between the use cases of 'iterating the list' and 'iterating
-> >> the list while you modify it' is completely intentional.
-> > 
-> > What I meant is to keep the name, just drop the parameter (make it hidden and
-> > being defined inside list_for_each_*_safe() cases).
-> 
-> Ah, sorry I was still thinking the suggestion is to merge
-> list_for_each_entry() and list_for_each_entry_safe().
-> 
-> If the modification is done all at once or in steps doesn't really matter for
-> me as long as the patch can be re-created reproducible.
-> 
-> But I'm wondering if we couldn't improve the name at the same time. The
-> _safe() postfix has caused tons of confusion where especially beginners
-> thought that it is a thread-safe variant, which it clearly isn't.
-> 
-> The _mutable() postfix sounds like a much better description to what happens here.
+Pre-existing issues:
+- [High] Unconditional cleanup of the buddy allocator causes a UAF/NULL der=
+eference if `gpu_buddy_init()` fails during initialization.
+--
 
-I see, no objections from my side, but with the new name we don't need to have
-treewide change, the downside that one should undertake this to finish the job,
-otherwise we will have _safe() and _mutable() for a long time.
+commit 869c423a8a9487b5c3e7321e4f9a0e14f69318b4
+Author: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
 
-> >> See the bool type can be implemented by int as well, but it is just a
-> >> different use case.
-> > 
-> >>>> You should just include some patches in the same patch set to actually use
-> >>>> the new macros.
-> >>>>
-> >>>> If you modify the files under drivers/dma-buf or drivers/gpu/drm/amd to use
-> >>>> the new macro I'm happy to review that.
+drm/amdgpu: Wire up dmem cgroup reclaim for VRAM manager
 
--- 
-With Best Regards,
-Andy Shevchenko
+Register the VRAM manager with the dmem cgroup reclaim infrastructure
+so that lowering dmem.max below current VRAM usage triggers TTM
+eviction rather than failing with -EBUSY.
 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_vram_mgr.c
+> index 08f05c3aed1d5..2250bab0970dd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+[ ... ]
+> @@ -933,12 +938,16 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
+>  	if (err)
+>  		return err;
+> =20
+> -	man->cg =3D drmm_cgroup_register_region(adev_to_drm(adev), "vram",
+> -					      &(struct dmem_cgroup_init){
+> -						.size =3D adev->gmc.real_vram_size,
+> -					      });
+> -	if (IS_ERR(man->cg))
+> -		return PTR_ERR(man->cg);
+> +	cg =3D dmem_cgroup_register_region(&(struct dmem_cgroup_init){
+> +					     .size =3D adev->gmc.real_vram_size,
+> +					     .ops =3D &amdgpu_vram_mgr_dmem_ops,
+> +					     .reclaim_priv =3D man,
+> +					 }, "vram");
 
+[Severity: Medium]
+Does this hardcoded "vram" string break the device-specific namespace prefi=
+x?
+
+Before this patch, drmm_cgroup_register_region() automatically prefixed the
+cgroup region name with the DRM device's unique identifier. On systems with
+multiple AMD GPUs, won't using just "vram" here cause all GPUs to register a
+region with the exact same name, breaking userspace tools' ability to
+distinguish between the GPUs' memory cgroups?
+
+[ ... ]
+> @@ -966,6 +975,16 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device *adev)
+>  	ret =3D ttm_resource_manager_evict_all(&adev->mman.bdev, man);
+>  	if (ret)
+>  		return;
+> =20
+> +	/*
+> +	 * Drain any in-flight dmem cgroup reclaim callbacks and remove the
+> +	 * region from the global list.  This must happen after evict_all()
+> +	 * so that ttm_resource_free() can still uncharge via man->cg while
+> +	 * BOs are being evicted.
+> +	 */
+> +	dmem_cgroup_unregister_region(mgr->cg_region);
+
+[Severity: Critical]
+If ttm_resource_manager_evict_all() fails (for example, due to pinned BOs)
+and returns an error, the early return above skips the newly added
+dmem_cgroup_unregister_region() call.
+
+Could this permanently leak the region and leave a dangling pointer as its
+reclaim callback argument? When the DRM device is eventually released and
+the amdgpu_device struct is freed, any subsequent memory pressure triggering
+dmem cgroup reclaim would dereference the freed man pointer, causing a
+kernel use-after-free.
+
+> +	mgr->cg_region =3D NULL;
+> +	man->cg =3D NULL;
+> +
+>  	mutex_lock(&mgr->lock);
+>  	list_for_each_entry_safe(rsv, temp, &mgr->reservations_pending, blocks)
+>  		kfree(rsv);
+[ ... ]
+>  	list_for_each_entry_safe(rsv, temp, &mgr->reserved_pages, blocks) {
+>  		gpu_buddy_free_list(&mgr->mm, &rsv->allocated, 0);
+>  		kfree(rsv);
+>  	}
+>  	if (!adev->gmc.is_app_apu)
+>  		gpu_buddy_fini(&mgr->mm);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this unconditional
+cleanup cause a use-after-free or NULL pointer dereference if
+gpu_buddy_init() failed during initialization?
+
+If gpu_buddy_init() fails, it returns an error and frees its internal arrays
+without setting them to NULL. The driver error path then calls
+amdgpu_device_fini_sw(), which triggers amdgpu_vram_mgr_fini().
+
+Since mm->n_roots was populated before the allocation failure, won't
+gpu_buddy_fini() iterate over mm->n_roots and dereference the uninitialized
+or NULL mm->roots pointer?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611173301.1747=
+3-1-thomas.hellstrom@linux.intel.com?part=3D6
