@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43340CD98C7
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 16:46:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0E91CD98CE
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 16:46:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F9B910F01B;
-	Thu, 11 Jun 2026 16:46:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CFF210F017;
+	Thu, 11 Jun 2026 16:46:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="v+/EgHMG";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="OoHKPxa/";
 	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BCCC10F017
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:46:12 +0000 (UTC)
-Received: from pps.filterd (m0528008.ppops.net [127.0.0.1])
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4814910F004
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:46:16 +0000 (UTC)
+Received: from pps.filterd (m0109332.ppops.net [127.0.0.1])
  by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65BEjwQK2099256
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 09:46:11 -0700
+ 65BDxGLh2263096
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 09:46:15 -0700
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=OKtfjeKUos+le6rbGwLhae2ZwdVWKZcx+SvDveSqOBo=; b=v+/EgHMGpOA8
- OsP8MSJ/tgP54IawW8YER2C0nKCdDEHHJJxkm3VlG2cdLI/Fr5bjXxULnXjbxwhR
- 8xeI9izSLO12Pr6MQQA5ckFyJcgkZQ+zdCpmlFqV9reOiy47Y+klzscEyup3t74I
- vGY+pxGjpONqQTAsy3oLtv9+s2i9HUX6+0Bs+0lSnAGSYYZxkAtdKX0CffwTBBDW
- Nj+WB4Nob6iA3F+dJEaCqVgpJTtY/eWDZhR7u5nC/Sk8ntusIyyfWuqNIcaHk5C4
- AIYGFkt3Uh8pKAUU92GhTbjWEGcyxRiSaC/4UQ8RiDw0S2HJND7vNFoAE2L0eMpm
- QO0NKOVqAQ==
-Received: from maileast.thefacebook.com ([163.114.135.16])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4eqe7cetfu-4
+ bh=042rDf1bYsfHgsRjwT/IB+2TVDBYS7DHhXWbJC6IyLg=; b=OoHKPxa/O6HZ
+ xFD7XEF3eKFgswXMF+l90lAbUF9oUqooDQAD9HEf6Sc10ASDFiQNixKq4ZCt+04C
+ lRQLwT9L3YtqA2kEtj0lJ1k0lm5ouI87jvV+M7OnaI9zCy/CgR+U7SCVggUQp4VT
+ sm5YVRlMbEXrHYYl5F50hXK/dWekIlZy7tMsoyX8I39wEgiiHVselm9UeOOT51bY
+ RVzcG/0LHbUMvZUsb1hBUPRqBGx0MQXz6NiA1s0vdjrCDfosZng3wPz5C/tr3ipz
+ 5kSUpQQ4MLIgszTN/CNzpjYNszU7sJd/syLXWkwMS9JBhCdWJ06wKKQ3SwAAxyr6
+ BEDglh01UA==
+Received: from mail.thefacebook.com ([163.114.134.16])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4eqe7b6r0k-7
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 09:46:11 -0700 (PDT)
-Received: from twshared8664.02.snb3.facebook.com (2620:10d:c0a8:1b::2d) by
- mail.thefacebook.com (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 09:46:15 -0700 (PDT)
+Received: from twshared22650.04.snb2.facebook.com (2620:10d:c085:208::f) by
+ mail.thefacebook.com (2620:10d:c08b:78::c78f) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.41; Thu, 11 Jun 2026 16:46:09 +0000
+ 15.2.2562.41; Thu, 11 Jun 2026 16:46:12 +0000
 Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
- id 26C313DD37764; Thu, 11 Jun 2026 09:23:48 -0700 (PDT)
+ id F12833DD363E2; Thu, 11 Jun 2026 09:23:43 -0700 (PDT)
 From: Zhiping Zhang <zhipingz@meta.com>
 To: <netdev@vger.kernel.org>
 CC: <kvm@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
  <linux-pci@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
  Zhiping Zhang <zhipingz@meta.com>
-Subject: [PATCH v7 5/5] RDMA/mlx5: get tph for p2p access when registering
- dma-buf mr
-Date: Thu, 11 Jun 2026 09:11:20 -0700
-Message-ID: <20260611161546.4075580-6-zhipingz@meta.com>
+Subject: [PATCH v7 3/5] dma-buf: add optional get_tph() callback
+Date: Thu, 11 Jun 2026 09:11:18 -0700
+Message-ID: <20260611161546.4075580-4-zhipingz@meta.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260611161546.4075580-1-zhipingz@meta.com>
 References: <20260611161546.4075580-1-zhipingz@meta.com>
@@ -56,24 +55,24 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 X-FB-Internal: Safe
 Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDE2OCBTYWx0ZWRfX7YuYRWDz3sc7
- OHsKHJrSE/wIwvW1RW0mE7de8hoOThrkSb2SoTpv+l3mHRhBg3PQE8VPqVW9NRlpAnvrwvPNCUK
- baCpDgONDBqA275lPbUkV4pEVtEut6kNG+XoxUbUntLNjlQqALweyIBZ1KoqkMJ4U7RJ7IRLS/U
- vaIFum5xRoOMVeIGc4WtWE0IaXawPVn7XGtxY5Q+MdE+4tDjsNnv8YX/oiZXPUaEZBsfj+MCwKp
- gPx84Dfc9y3mVRn0aQ4br2laN+p+2NVqMzNzq0g02DDw/Y28zCDox1bWQMxxi4pVdTRG6+aSN1T
- nRpufWvOYpRj+AY1s+fwQDOSRLyXCRPuuFAz4lgtGnXIXXJtcnhwS9ZfocbsLUv/Rj2yP1U8gTl
- 2bmY8RoqcudJqDKKjpJRR9XBk/gpbdfGx/TCnoZ2Qym0FimK0VL/f8As1jl86Swl1JFsydME+f6
- rzeoN40YuDsVOqm37vQ==
-X-Proofpoint-GUID: zlqhSC31WwTFwiJ5tKylNlIWVaXlqSHF
-X-Authority-Analysis: v=2.4 cv=U+2iy+ru c=1 sm=1 tr=0 ts=6a2ae653 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDE2OCBTYWx0ZWRfXzS+kuQQi1GOW
+ 0OpMJwsUXv7kiq0YhCFr+EOYw3k+iPEMhO0iQNrsKgMT1CGjOhjgiLZdkWWmLl2gpdKeMy5kKLv
+ jdl3NjruQ+SNYOxWdF+Hj6DYtUVuVes=
+X-Proofpoint-GUID: ZZawYA5V9W9rJRgUlvKVkp6YyiGtjJbY
+X-Proofpoint-ORIG-GUID: ZZawYA5V9W9rJRgUlvKVkp6YyiGtjJbY
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDE2OCBTYWx0ZWRfX1y2QOwQonzgA
+ lmnbyGh4KeaOrIpv6cg9jOpaImfDWPfjvtjt5NkkUQPwQTSB8JDvKlwkdYfhhINUdiNl5tXwbKR
+ 3hV7t1jRJSr96OgJQUvJwZW0K+MdoS/1D+IUH34HGJozb9iwtOAsBkngAiAVRhrKZWF1QH3RnJx
+ epP7Rg+W1P92i8dr7wO5nt0nYc0uIrHuuCGoOVPoK6Mz2BvgdqD6sqOpSOzcRdzbihF4/Aegd+i
+ KrcAV/gXPdFB+34Bl1K0tjQWjfXfgYRnapkr6UDs6jRFXt3fHNPoT0K+175inwtOo/nhSFyxiv6
+ ODZv5iaSAOd5iN20J5zx+H83DtJNP4/Sv/cr/mxrpxK2AOsKJSxGTiv9mJ4dquVpVq8Z3wMmcM8
+ e2WyfjFjZcDUO5iXevzHihWgfD4wpU3b2aw8tOTjdM5k6sdJptQzvU6TonFvupAmB77gU3p3XsF
+ e8LZLoMGPCfpacOK4yg==
+X-Authority-Analysis: v=2.4 cv=C8nZDwP+ c=1 sm=1 tr=0 ts=6a2ae657 cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
  a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=_1IyUuN4QrATX339ibzo:22 a=VabnemYjAAAA:8 a=Ea2IVqN79ALhG3V46woA:9
+ a=xtH7KyWI9dI7BmFOsl-x:22 a=VabnemYjAAAA:8 a=DhvycHomHhz2uGJtbakA:9
  a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-ORIG-GUID: zlqhSC31WwTFwiJ5tKylNlIWVaXlqSHF
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDE2OCBTYWx0ZWRfX0V2f1YMRVmzp
- zoXC4A/QiTE6GPz6Bkc3qyRkxNDJqzQ2tjxEyPdWMCDruaSzqiB58ubHhU1SozYwAn/50XogTmb
- JRdUC7jZYOgBhTj1Hm8xd+JtvILZhK8=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-11_03,2026-06-11_01,2025-10-01_01
@@ -92,498 +91,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Query dma-buf TPH metadata when registering a dma-buf MR for peer-to-
-peer access to a PCIe endpoint and use it to program requester-side TPH
-on the outbound mkey. If the exporter has no metadata, fall back to the
-existing no-TPH path.
+Add an optional dma_buf_ops.get_tph callback and a dma_buf_get_tph()
+wrapper for importers.
 
-For TPH-backed FRMRs, make the extra ST-table reference belong to the
-hardware mkey handle rather than the transient MR object. Extend the
-FRMR pool API so reuse and final destroy can transfer and drop that ref
-at the handle lifetime boundaries, and add mlx5_st_get_index() to take
-a ref on an already-known ST index.
+8-bit ST and 16-bit Extended ST are distinct PCIe TPH namespaces, so
+the importer requests the namespace it can emit and the exporter
+returns the matching ST/PH tuple or -EOPNOTSUPP.
 
-Also decode PH from kernel_vendor_key when recreating pooled mkeys so
-the requester hint matches the pool key.
+dma_buf_get_tph() is the importer entry point. It returns -EOPNOTSUPP
+when the exporter lacks the callback and requires dmabuf->resv to be
+held while the callback runs.
+
+The first user is VFIO_DEVICE_FEATURE_DMA_BUF_TPH in vfio-pci, with
+mlx5 as the first importer.
 
 Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
 ---
- drivers/infiniband/core/frmr_pools.c          |  20 +++-
- drivers/infiniband/hw/mlx5/mr.c               | 111 +++++++++++++++++-
- .../net/ethernet/mellanox/mlx5/core/lib/st.c  |  49 ++++++--
- include/linux/mlx5/driver.h                   |  12 ++
- include/rdma/frmr_pools.h                     |   5 +-
- 5 files changed, 178 insertions(+), 19 deletions(-)
+ drivers/dma-buf/dma-buf.c | 25 +++++++++++++++++++++++++
+ include/linux/dma-buf.h   | 21 +++++++++++++++++++++
+ 2 files changed, 46 insertions(+)
 
-diff --git a/drivers/infiniband/core/frmr_pools.c b/drivers/infiniband/co=
-re/frmr_pools.c
-index 5e992ff3d7cf..61a77847118e 100644
---- a/drivers/infiniband/core/frmr_pools.c
-+++ b/drivers/infiniband/core/frmr_pools.c
-@@ -92,7 +92,8 @@ static void destroy_all_handles_in_queue(struct ib_devi=
-ce *device,
- 	u32 count;
-=20
- 	while (pop_frmr_handles_page(pool, queue, &page, &count)) {
--		pools->pool_ops->destroy_frmrs(device, page->handles, count);
-+		pools->pool_ops->destroy_frmrs(device, &pool->key,
-+					       page->handles, count);
- 		kfree(page);
- 	}
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index d504c636dc29..aff79ea12e43 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -1144,6 +1144,31 @@ void dma_buf_unpin(struct dma_buf_attachment *atta=
+ch)
  }
-@@ -136,7 +137,8 @@ static bool age_pinned_pool(struct ib_device *device,=
- struct ib_frmr_pool *pool)
- 	spin_unlock(&pool->lock);
+ EXPORT_SYMBOL_NS_GPL(dma_buf_unpin, "DMA_BUF");
 =20
- 	if (destroyed)
--		pools->pool_ops->destroy_frmrs(device, handles, destroyed);
-+		pools->pool_ops->destroy_frmrs(device, &pool->key, handles,
-+					       destroyed);
- 	kfree(handles);
- 	return has_work;
- }
-@@ -453,9 +455,11 @@ int ib_frmr_pools_set_pinned(struct ib_device *devic=
-e, struct ib_frmr_key *key,
- }
-=20
- static int get_frmr_from_pool(struct ib_device *device,
--			      struct ib_frmr_pool *pool, struct ib_mr *mr)
-+			      struct ib_frmr_pool *pool, struct ib_mr *mr,
-+			      bool *reused)
- {
- 	struct ib_frmr_pools *pools =3D device->frmr_pools;
-+	bool local_reused =3D false;
- 	u32 handle;
- 	int err;
-=20
-@@ -464,6 +468,7 @@ static int get_frmr_from_pool(struct ib_device *devic=
-e,
- 		if (pool->inactive_queue.ci > 0) {
- 			handle =3D pop_handle_from_queue_locked(
- 				&pool->inactive_queue);
-+			local_reused =3D true;
- 		} else {
- 			spin_unlock(&pool->lock);
- 			err =3D pools->pool_ops->create_frmrs(device, &pool->key,
-@@ -474,6 +479,7 @@ static int get_frmr_from_pool(struct ib_device *devic=
-e,
- 		}
- 	} else {
- 		handle =3D pop_handle_from_queue_locked(&pool->queue);
-+		local_reused =3D true;
- 	}
-=20
- 	pool->in_use++;
-@@ -484,6 +490,8 @@ static int get_frmr_from_pool(struct ib_device *devic=
-e,
-=20
- 	mr->frmr.pool =3D pool;
- 	mr->frmr.handle =3D handle;
-+	if (reused)
-+		*reused =3D local_reused;
-=20
- 	return 0;
- }
-@@ -493,10 +501,12 @@ static int get_frmr_from_pool(struct ib_device *dev=
-ice,
-  *
-  * @device: The device to pop the FRMR handle from.
-  * @mr: The MR to pop the FRMR handle from.
-+ * @reused: Optional output that reports whether the returned handle was
-+ *	    reused from the pool instead of freshly created.
-  *
-  * Returns 0 on success, negative error code on failure.
-  */
--int ib_frmr_pool_pop(struct ib_device *device, struct ib_mr *mr)
-+int ib_frmr_pool_pop(struct ib_device *device, struct ib_mr *mr, bool *r=
-eused)
- {
- 	struct ib_frmr_pools *pools =3D device->frmr_pools;
- 	struct ib_frmr_pool *pool;
-@@ -509,7 +519,7 @@ int ib_frmr_pool_pop(struct ib_device *device, struct=
- ib_mr *mr)
- 			return PTR_ERR(pool);
- 	}
-=20
--	return get_frmr_from_pool(device, pool, mr);
-+	return get_frmr_from_pool(device, pool, mr, reused);
- }
- EXPORT_SYMBOL(ib_frmr_pool_pop);
-=20
-diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5=
-/mr.c
-index 3b6da45061a5..5697c2862615 100644
---- a/drivers/infiniband/hw/mlx5/mr.c
-+++ b/drivers/infiniband/hw/mlx5/mr.c
-@@ -38,6 +38,7 @@
- #include <linux/delay.h>
- #include <linux/dma-buf.h>
- #include <linux/dma-resv.h>
-+#include <linux/pci-tph.h>
- #include <rdma/frmr_pools.h>
- #include <rdma/ib_umem_odp.h>
- #include "dm.h"
-@@ -167,12 +168,39 @@ static int get_unchangeable_access_flags(struct mlx=
-5_ib_dev *dev,
- #define MLX5_FRMR_POOLS_KERNEL_KEY_PH_MASK 0xFF0000
- #define MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK 0xFFFF
-=20
-+static int mlx5_ib_get_frmr_st_handle_ref(struct mlx5_ib_dev *dev,
-+					  u16 st_index)
++/**
++ * dma_buf_get_tph - Retrieve TPH metadata from an exporter
++ * @dmabuf: DMA buffer to query
++ * @extended: false for 8-bit ST, true for 16-bit Extended ST
++ * @steering_tag: returns the raw steering tag for the requested namespa=
+ce
++ * @ph: returns the TPH processing hint
++ *
++ * Wrapper for the optional &dma_buf_ops.get_tph callback.
++ *
++ * Must be called with &dma_buf.resv held. Returns -EOPNOTSUPP if the
++ * exporter does not implement the callback or has no metadata for the
++ * requested namespace.
++ */
++int dma_buf_get_tph(struct dma_buf *dmabuf, bool extended,
++		    u16 *steering_tag, u8 *ph)
 +{
-+	if (st_index =3D=3D MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX)
-+		return 0;
++	dma_resv_assert_held(dmabuf->resv);
 +
-+	return mlx5_st_get_index(dev->mdev, st_index);
-+}
-+
-+static void mlx5_ib_put_st_index_ref(struct mlx5_ib_dev *dev, u16 st_ind=
-ex)
-+{
-+	if (st_index =3D=3D MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX)
-+		return;
-+
-+	mlx5_st_dealloc_index(dev->mdev, st_index);
-+}
-+
-+static void mlx5_ib_put_frmr_st_handle_ref(struct mlx5_ib_dev *dev,
-+					   u64 kernel_vendor_key)
-+{
-+	u16 st_index =3D kernel_vendor_key &
-+		       MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK;
-+
-+	mlx5_ib_put_st_index_ref(dev, st_index);
-+}
-+
- static struct mlx5_ib_mr *
- _mlx5_frmr_pool_alloc(struct mlx5_ib_dev *dev, struct ib_umem *umem,
- 		      int access_flags, int access_mode,
- 		      unsigned long page_size, u16 st_index, u8 ph)
- {
- 	struct mlx5_ib_mr *mr;
-+	bool reused =3D false;
- 	int err;
-=20
- 	mr =3D kzalloc_obj(*mr);
-@@ -195,11 +223,14 @@ _mlx5_frmr_pool_alloc(struct mlx5_ib_dev *dev, stru=
-ct ib_umem *umem,
-=20
- 	mr->ibmr.frmr.key.kernel_vendor_key =3D
- 		st_index | (ph << MLX5_FRMR_POOLS_KERNEL_KEY_PH_SHIFT);
--	err =3D ib_frmr_pool_pop(&dev->ib_dev, &mr->ibmr);
-+	err =3D ib_frmr_pool_pop(&dev->ib_dev, &mr->ibmr, &reused);
- 	if (err) {
- 		kfree(mr);
- 		return ERR_PTR(err);
- 	}
-+	if (reused)
-+		mlx5_ib_put_frmr_st_handle_ref(
-+			dev, mr->ibmr.frmr.key.kernel_vendor_key);
- 	mr->mmkey.key =3D mr->ibmr.frmr.handle;
- 	init_waitqueue_head(&mr->mmkey.wait);
-=20
-@@ -229,7 +260,7 @@ struct mlx5_ib_mr *mlx5_mr_cache_alloc(struct mlx5_ib=
-_dev *dev,
- 	init_waitqueue_head(&mr->mmkey.wait);
-=20
- 	mr->ibmr.frmr.key =3D key;
--	ret =3D ib_frmr_pool_pop(&dev->ib_dev, &mr->ibmr);
-+	ret =3D ib_frmr_pool_pop(&dev->ib_dev, &mr->ibmr, NULL);
- 	if (ret) {
- 		kfree(mr);
- 		return ERR_PTR(ret);
-@@ -273,7 +304,8 @@ static int mlx5r_create_mkeys(struct ib_device *devic=
-e, struct ib_frmr_key *key,
-=20
- 	st_index =3D key->kernel_vendor_key &
- 		   MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK;
--	ph =3D key->kernel_vendor_key & MLX5_FRMR_POOLS_KERNEL_KEY_PH_MASK;
-+	ph =3D (key->kernel_vendor_key & MLX5_FRMR_POOLS_KERNEL_KEY_PH_MASK) >>
-+	     MLX5_FRMR_POOLS_KERNEL_KEY_PH_SHIFT;
- 	if (ph) {
- 		/* Normalize ph: swap MLX5_IB_NO_PH for 0 */
- 		if (ph =3D=3D MLX5_IB_NO_PH)
-@@ -299,7 +331,8 @@ static int mlx5r_create_mkeys(struct ib_device *devic=
-e, struct ib_frmr_key *key,
- 	return err;
- }
-=20
--static void mlx5r_destroy_mkeys(struct ib_device *device, u32 *handles,
-+static void mlx5r_destroy_mkeys(struct ib_device *device,
-+				const struct ib_frmr_key *key, u32 *handles,
- 				unsigned int count)
- {
- 	struct mlx5_ib_dev *dev =3D to_mdev(device);
-@@ -311,6 +344,9 @@ static void mlx5r_destroy_mkeys(struct ib_device *dev=
-ice, u32 *handles,
- 			pr_warn_ratelimited(
- 				"mlx5_ib: failed to destroy mkey %d: %d",
- 				handles[i], err);
-+		else
-+			mlx5_ib_put_frmr_st_handle_ref(dev,
-+						       key->kernel_vendor_key);
- 	}
- }
-=20
-@@ -333,6 +369,7 @@ static int mlx5r_build_frmr_key(struct ib_device *dev=
-ice,
- 		get_unchangeable_access_flags(dev, in->access_flags);
- 	out->vendor_key =3D in->vendor_key;
- 	out->num_dma_blocks =3D in->num_dma_blocks;
-+	out->kernel_vendor_key =3D in->kernel_vendor_key;
-=20
- 	return 0;
- }
-@@ -753,6 +790,12 @@ static struct ib_mr *create_real_mr(struct ib_pd *pd=
-, struct ib_umem *umem,
-=20
- 	xlt_with_umr =3D mlx5r_umr_can_load_pas(dev, umem->length);
- 	if (xlt_with_umr) {
-+		err =3D mlx5_ib_get_frmr_st_handle_ref(dev, st_index);
-+		if (err) {
-+			ib_umem_release(umem);
-+			return ERR_PTR(err);
-+		}
-+
- 		mr =3D alloc_cacheable_mr(pd, umem, iova, access_flags,
- 					MLX5_MKC_ACCESS_MODE_MTT,
- 					st_index, ph);
-@@ -767,6 +810,8 @@ static struct ib_mr *create_real_mr(struct ib_pd *pd,=
- struct ib_umem *umem,
- 		mutex_unlock(&dev->slow_path_mutex);
- 	}
- 	if (IS_ERR(mr)) {
-+		if (xlt_with_umr)
-+			mlx5_ib_put_st_index_ref(dev, st_index);
- 		ib_umem_release(umem);
- 		return ERR_CAST(mr);
- 	}
-@@ -899,6 +944,52 @@ static struct dma_buf_attach_ops mlx5_ib_dmabuf_atta=
-ch_ops =3D {
- 	.invalidate_mappings =3D mlx5_ib_dmabuf_invalidate_cb,
- };
-=20
-+static void get_tph_mr_dmabuf(struct mlx5_ib_dev *dev, struct dma_buf *d=
-mabuf,
-+			      u16 *st_index, u8 *ph)
-+{
-+	u16 local_st_index;
-+	u16 steering_tag;
-+	u8 local_ph;
-+	bool extended;
-+	int ret;
-+
-+	switch (pcie_tph_enabled_req_type(dev->mdev->pdev)) {
-+	case PCI_TPH_REQ_TPH_ONLY:
-+		extended =3D false;
-+		break;
-+	case PCI_TPH_REQ_EXT_TPH:
-+		extended =3D true;
-+		break;
-+	default:
-+		return;
-+	}
-+
-+	dma_resv_lock(dmabuf->resv, NULL);
-+	ret =3D dma_buf_get_tph(dmabuf, extended, &steering_tag, &local_ph);
-+	dma_resv_unlock(dmabuf->resv);
-+	if (ret) {
-+		if (ret !=3D -EOPNOTSUPP)
-+			mlx5_ib_dbg(dev, "get_tph failed (%d)\n", ret);
-+		return;
-+	}
-+
-+	ret =3D mlx5_st_alloc_index_by_tag(dev->mdev, steering_tag,
-+					 &local_st_index);
-+	if (ret) {
-+		mlx5_ib_dbg(dev, "st_alloc_index_by_tag failed (%d)\n", ret);
-+		return;
-+	}
-+
-+	*st_index =3D local_st_index;
-+	*ph =3D local_ph;
-+}
-+
-+static void mlx5_ib_mr_put_frmr_st_handle_ref(struct mlx5_ib_mr *mr)
-+{
-+	mlx5_ib_put_frmr_st_handle_ref(mr_to_mdev(mr),
-+				       mr->ibmr.frmr.key.kernel_vendor_key);
-+}
-+
- static struct ib_mr *
- reg_user_mr_dmabuf(struct ib_pd *pd, struct device *dma_device,
- 		   u64 offset, u64 length, u64 virt_addr,
-@@ -941,12 +1032,22 @@ reg_user_mr_dmabuf(struct ib_pd *pd, struct device=
- *dma_device,
- 		ph =3D dmah->ph;
- 		if (dmah->valid_fields & BIT(IB_DMAH_CPU_ID_EXISTS))
- 			st_index =3D mdmah->st_index;
-+
-+		err =3D mlx5_ib_get_frmr_st_handle_ref(dev, st_index);
-+		if (err) {
-+			ib_umem_release(&umem_dmabuf->umem);
-+			return ERR_PTR(err);
-+		}
-+	} else {
-+		get_tph_mr_dmabuf(dev, umem_dmabuf->attach->dmabuf,
-+				  &st_index, &ph);
- 	}
-=20
- 	mr =3D alloc_cacheable_mr(pd, &umem_dmabuf->umem, virt_addr,
- 				access_flags, access_mode,
- 				st_index, ph);
- 	if (IS_ERR(mr)) {
-+		mlx5_ib_put_st_index_ref(dev, st_index);
- 		ib_umem_release(&umem_dmabuf->umem);
- 		return ERR_CAST(mr);
- 	}
-@@ -1400,6 +1501,8 @@ static int mlx5r_handle_mkey_cleanup(struct mlx5_ib=
-_mr *mr)
- 		dma_resv_unlock(
- 			to_ib_umem_dmabuf(mr->umem)->attach->dmabuf->resv);
- 	}
-+	if (!ret)
-+		mlx5_ib_mr_put_frmr_st_handle_ref(mr);
- 	return ret;
- }
-=20
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c b/drivers/n=
-et/ethernet/mellanox/mlx5/core/lib/st.c
-index 7cedc348790d..877b37b4e639 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-@@ -92,23 +92,18 @@ void mlx5_st_destroy(struct mlx5_core_dev *dev)
- 	kfree(st);
- }
-=20
--int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
-_type,
--			unsigned int cpu_uid, u16 *st_index)
-+int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev, u16 tag,
-+			       u16 *st_index)
- {
- 	struct mlx5_st_idx_data *idx_data;
- 	struct mlx5_st *st =3D dev->st;
- 	unsigned long index;
- 	u32 xa_id;
--	u16 tag;
--	int ret;
-+	int ret =3D 0;
-=20
- 	if (!st)
- 		return -EOPNOTSUPP;
-=20
--	ret =3D pcie_tph_get_cpu_st(dev->pdev, mem_type, cpu_uid, &tag);
--	if (ret)
--		return ret;
--
- 	if (st->direct_mode) {
- 		*st_index =3D tag;
- 		return 0;
-@@ -152,8 +147,46 @@ int mlx5_st_alloc_index(struct mlx5_core_dev *dev, e=
-num tph_mem_type mem_type,
- 	mutex_unlock(&st->lock);
- 	return ret;
- }
-+EXPORT_SYMBOL_GPL(mlx5_st_alloc_index_by_tag);
-+
-+int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
-_type,
-+			unsigned int cpu_uid, u16 *st_index)
-+{
-+	u16 tag;
-+	int ret;
-+
-+	ret =3D pcie_tph_get_cpu_st(dev->pdev, mem_type, cpu_uid, &tag);
-+	if (ret)
-+		return ret;
-+
-+	return mlx5_st_alloc_index_by_tag(dev, tag, st_index);
-+}
- EXPORT_SYMBOL_GPL(mlx5_st_alloc_index);
-=20
-+int mlx5_st_get_index(struct mlx5_core_dev *dev, u16 st_index)
-+{
-+	struct mlx5_st_idx_data *idx_data;
-+	struct mlx5_st *st =3D dev->st;
-+	int ret =3D 0;
-+
-+	if (!st)
++	if (!dmabuf->ops->get_tph)
 +		return -EOPNOTSUPP;
 +
-+	if (st->direct_mode)
-+		return 0;
-+
-+	mutex_lock(&st->lock);
-+	idx_data =3D xa_load(&st->idx_xa, st_index);
-+	if (WARN_ON_ONCE(!idx_data))
-+		ret =3D -EINVAL;
-+	else
-+		refcount_inc(&idx_data->usecount);
-+	mutex_unlock(&st->lock);
-+
-+	return ret;
++	return dmabuf->ops->get_tph(dmabuf, extended, steering_tag, ph);
 +}
-+EXPORT_SYMBOL_GPL(mlx5_st_get_index);
++EXPORT_SYMBOL_NS_GPL(dma_buf_get_tph, "DMA_BUF");
 +
- int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index)
- {
- 	struct mlx5_st_idx_data *idx_data;
-diff --git a/include/linux/mlx5/driver.h b/include/linux/mlx5/driver.h
-index 04b96c5abb57..0480b5c4f189 100644
---- a/include/linux/mlx5/driver.h
-+++ b/include/linux/mlx5/driver.h
-@@ -1166,10 +1166,22 @@ int mlx5_dm_sw_icm_dealloc(struct mlx5_core_dev *=
-dev, enum mlx5_sw_icm_type type
- 			   u64 length, u16 uid, phys_addr_t addr, u32 obj_id);
+ /**
+  * dma_buf_map_attachment - Returns the scatterlist table of the attachm=
+ent;
+  * mapped into _device_ address space. Is a wrapper for map_dma_buf() of=
+ the
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index d1203da56fc5..6a54e0f251a2 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -113,6 +113,25 @@ struct dma_buf_ops {
+ 	 */
+ 	void (*unpin)(struct dma_buf_attachment *attach);
 =20
- #ifdef CONFIG_PCIE_TPH
-+int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev, u16 tag,
-+			       u16 *st_index);
-+int mlx5_st_get_index(struct mlx5_core_dev *dev, u16 st_index);
- int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
-_type,
- 			unsigned int cpu_uid, u16 *st_index);
- int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index);
- #else
-+static inline int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev,
-+					     u16 tag, u16 *st_index)
-+{
-+	return -EOPNOTSUPP;
-+}
-+static inline int mlx5_st_get_index(struct mlx5_core_dev *dev, u16 st_in=
-dex)
-+{
-+	return -EOPNOTSUPP;
-+}
- static inline int mlx5_st_alloc_index(struct mlx5_core_dev *dev,
- 				      enum tph_mem_type mem_type,
- 				      unsigned int cpu_uid, u16 *st_index)
-diff --git a/include/rdma/frmr_pools.h b/include/rdma/frmr_pools.h
-index af1b88801fa4..a08d2b2cf9f3 100644
---- a/include/rdma/frmr_pools.h
-+++ b/include/rdma/frmr_pools.h
-@@ -24,7 +24,8 @@ struct ib_frmr_key {
- struct ib_frmr_pool_ops {
- 	int (*create_frmrs)(struct ib_device *device, struct ib_frmr_key *key,
- 			    u32 *handles, u32 count);
--	void (*destroy_frmrs)(struct ib_device *device, u32 *handles,
-+	void (*destroy_frmrs)(struct ib_device *device,
-+			      const struct ib_frmr_key *key, u32 *handles,
- 			      u32 count);
- 	int (*build_key)(struct ib_device *device, const struct ib_frmr_key *in=
-,
- 			 struct ib_frmr_key *out);
-@@ -33,7 +34,7 @@ struct ib_frmr_pool_ops {
- int ib_frmr_pools_init(struct ib_device *device,
- 		       const struct ib_frmr_pool_ops *pool_ops);
- void ib_frmr_pools_cleanup(struct ib_device *device);
--int ib_frmr_pool_pop(struct ib_device *device, struct ib_mr *mr);
-+int ib_frmr_pool_pop(struct ib_device *device, struct ib_mr *mr, bool *r=
-eused);
- int ib_frmr_pool_push(struct ib_device *device, struct ib_mr *mr);
++	/**
++	 * @get_tph:
++	 * @dmabuf: DMA buffer for which to retrieve TPH metadata
++	 * @extended: false for 8-bit ST, true for 16-bit Extended ST
++	 * @steering_tag: Returns the raw TPH steering tag for the requested
++	 *                namespace
++	 * @ph: Returns the TPH processing hint (2-bit value)
++	 *
++	 * Return TPH metadata for the namespace selected by @extended. Return
++	 * 0 on success, or -EOPNOTSUPP if no metadata is available.
++	 *
++	 * This callback is optional. Importers must not call it directly;
++	 * the dma_buf_get_tph() wrapper is the only entry point and handles
++	 * the NULL-callback case. The callback is invoked with
++	 * &dma_buf.resv held.
++	 */
++	int (*get_tph)(struct dma_buf *dmabuf, bool extended,
++		       u16 *steering_tag, u8 *ph);
++
+ 	/**
+ 	 * @map_dma_buf:
+ 	 *
+@@ -563,6 +582,8 @@ void dma_buf_detach(struct dma_buf *dmabuf,
+ 		    struct dma_buf_attachment *attach);
+ int dma_buf_pin(struct dma_buf_attachment *attach);
+ void dma_buf_unpin(struct dma_buf_attachment *attach);
++int dma_buf_get_tph(struct dma_buf *dmabuf, bool extended,
++		    u16 *steering_tag, u8 *ph);
 =20
- #endif /* FRMR_POOLS_H */
+ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_inf=
+o);
+=20
 --=20
 2.53.0-Meta
 
