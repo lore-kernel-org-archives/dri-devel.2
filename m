@@ -4,43 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BFA7CD8CB2
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 05:41:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 743F3CD8CB2
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 05:43:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65C6410ECB8;
-	Thu, 11 Jun 2026 05:41:32 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lAPNXsoc";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73B5A10ECB8
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 05:41:31 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 83E5C60209;
- Thu, 11 Jun 2026 05:41:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11F991F00893;
- Thu, 11 Jun 2026 05:41:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781156490;
- bh=dKQBJjOrKln7yEILKhnW2pgfTvc47Eg6VIbvmnw2hsk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lAPNXsochqKkYVg/iOQWIhAuRECcx5ecQNA0m1IWfxX5JORmNKIomwc/Zw56VKEiX
- rY2adMGM9BKGvV1Ok3Bq+JL+zYquu1WGvYHLCS5+/2kERV9s4JAyWTyKw8wrRK3HS3
- yuZWBwlG3MUGZTmR+fQ0LoYrG1p2hz7nHH85Y41KY4RpoU0nIM5WgVSMmvWZYk93RT
- X+7PIe8E1egWcx5sWABckrNKtfdsVvDCA/lhA21HKtLYtWSajTs0yvJJ3ysNmvQJZP
- ut2h3TnX7DiNaekJzoiYNmtgniaZObtD0TeCPWwgnBoTv9Lp3ObMqKYrCUxCj/UNQn
- 6iPzTyMT91tjw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/imagination: Fix double call to
- drm_sched_entity_fini()
-To: "Brajesh Gupta" <brajesh.gupta@imgtec.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260611-b4-sched_fix-v2-1-17a93be86fcd@imgtec.com>
-References: <20260611-b4-sched_fix-v2-1-17a93be86fcd@imgtec.com>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4C3410ECBD;
+	Thu, 11 Jun 2026 05:43:36 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B79C110ECBD
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 05:43:35 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.167])
+ by APP-01 (Coremail) with SMTP id qwCowACXOtMBSypqL+NEAQ--.1358S2;
+ Thu, 11 Jun 2026 13:43:30 +0800 (CST)
+Message-ID: <69a18fd1a1b9f375bbccfbe0d9e88ab31a01a188.camel@iscas.ac.cn>
+Subject: Re: [PATCH 3/3] drm/panel: himax-hx83121a: add backlight regulator
+ support
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Pengyu Luo <mitltlatltl@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang	
+ <jesszhan0024@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>, Liam
+ Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Date: Thu, 11 Jun 2026 13:43:29 +0800
+In-Reply-To: <178115560757.199930.5802398831559617564.b4-review@b4>
+References: <20260608162622.403713-1-zhengxingda@iscas.ac.cn>
+ <20260608162622.403713-3-zhengxingda@iscas.ac.cn>
+ <178115560757.199930.5802398831559617564.b4-review@b4>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jun 2026 05:41:29 +0000
-Message-Id: <20260611054130.11F991F00893@smtp.kernel.org>
+User-Agent: Evolution 3.58.3 
+MIME-Version: 1.0
+X-CM-TRANSID: qwCowACXOtMBSypqL+NEAQ--.1358S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtF1fGryxZF1rJFyUKrWUCFg_yoWkZwc_Wr
+ 4jqrZFqrWqqr4kCFn7AFyftF93KFs5uFn7Z3ZYy34aka47CrsrZrWUXrWrAas8Jw1FkFyq
+ kanrZFyFvr4DWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbskYjsxI4VW3JwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
+ 6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+ 8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0
+ cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+ 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+ 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
+ Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+ c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+ 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+ 14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+ IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+ 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+ IFyTuYvjxU7veHUUUUU
+X-Originating-IP: [112.94.100.167]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,103 +69,48 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Missing `drm_sched_entity_fini()` on the context creation error pa=
-th leaks the scheduler entity and can cause a use-after-free.
-- [Low] Missing semicolon in `pvr_context_destroy_queues()` causes a syntax=
- error.
---
+=E5=9C=A8 2026-06-11=E5=9B=9B=E7=9A=84 13:26 +0800=EF=BC=8CPengyu Luo=E5=86=
+=99=E9=81=93=EF=BC=9A
+> On Tue, 09 Jun 2026 00:26:22 +0800, Icenowy Zheng
+> <zhengxingda@iscas.ac.cn> wrote:
+> > diff --git a/drivers/gpu/drm/panel/panel-himax-hx83121a.c
+> > b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
+> > index 1a7e0125bced..e31e2fba0a78 100644
+> > --- a/drivers/gpu/drm/panel/panel-himax-hx83121a.c
+> > +++ b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
+> > @@ -195,7 +197,27 @@ static int himax_bl_update_status(struct
+> > backlight_device *bl)
+> > [ ... skip 18 lines ... ]
+> > +		ret =3D regulator_enable(ctx->bl_supply);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ctx->backlight_enabled =3D true;
+> > +
+>=20
+> If you use a pin, (it is indeed a hwen pin as we know) you can
+> simplify it like this,
+>=20
+> bool bl_enable_now =3D !!brightness;
+>=20
+> if (ctx->bl_enable !=3D bl_enable_now) {
+> 	gpiod_set_value(ctx->hwen_gpio, bl_enable_now);
+> 	ctx->bl_enable =3D bl_enable_now;
+> }
+>=20
+> BTW, iirc, panel bias can be turned off too, although I don't think
+> this will save too much power.
 
-commit 7864ceeaa41cde8bf7fefb9b24c11520d33badc2
-Author: Brajesh Gupta <brajesh.gupta@imgtec.com>
+BTW during my test, it seems that DCS backlight 0 isn't turning off
+backlight.
 
-drm/imagination: Fix double call to drm_sched_entity_fini()
+Thanks,
+Icenowy
 
-This commit resolves a double call to drm_sched_entity_fini() that was
-causing a refcount underflow use-after-free. It removes the
-drm_sched_entity_fini() call from pvr_queue_destroy() and introduces a
-boolean flag to conditionally call it in pvr_context_destroy_queues().
+>=20
+> Best wishes,
+> Pengyu
 
-> diff --git a/drivers/gpu/drm/imagination/pvr_context.c b/drivers/gpu/drm/=
-imagination/pvr_context.c
-> index eba4694400b5a..f11a45d046326 100644
-> --- a/drivers/gpu/drm/imagination/pvr_context.c
-> +++ b/drivers/gpu/drm/imagination/pvr_context.c
-> @@ -161,21 +161,36 @@ ctx_fw_data_init(void *cpu_ptr, void *priv)
->  /**
->   * pvr_context_destroy_queues() - Destroy all queues attached to a conte=
-xt.
->   * @ctx: Context to destroy queues on.
-> + * @queue_entity_fini: Corresponding queues of context to be released for
-> + *                     failure path in context creation.
->   *
->   * Should be called when the last reference to a context object is dropp=
-ed.
->   * It releases all resources attached to the queues bound to this contex=
-t.
->   */
-> -static void pvr_context_destroy_queues(struct pvr_context *ctx)
-> +static void pvr_context_destroy_queues(struct pvr_context *ctx, bool que=
-ue_entity_fini)
->  {
->  	switch (ctx->type) {
->  	case DRM_PVR_CTX_TYPE_RENDER:
-> +		if (queue_entity_fini) {
-> +			drm_sched_entity_fini(&ctx->queues.fragment->entity);
-> +			drm_sched_entity_fini(&ctx->queues.geometry->entity)
-
-[Severity: Low]
-Is a semicolon missing at the end of this line? This will cause a compiler
-syntax error.
-
-[Severity: High]
-Could this cause a crash on partial allocation failure if true was passed?
-The queues are unconditionally accessed here in pvr_context_destroy_queues(=
-),
-so if ctx->queues.fragment or ctx->queues.geometry is NULL, evaluating the
-address of the entity member on a NULL pointer and passing it to the fini
-function will cause a crash.
-
-> +		}
-> +
->  		pvr_queue_destroy(ctx->queues.fragment);
->  		pvr_queue_destroy(ctx->queues.geometry);
->  		break;
-
-[ ... ]
-
-> @@ -240,7 +255,7 @@ static int pvr_context_create_queues(struct pvr_conte=
-xt *ctx,
->  	return -EINVAL;
-> =20
->  err_destroy_queues:
-> -	pvr_context_destroy_queues(ctx);
-> +	pvr_context_destroy_queues(ctx, false);
-
-[Severity: High]
-Does this leak the scheduler entity of successfully created queues during a
-partial allocation failure?
-
-If pvr_context_create_queues() successfully creates the geometry queue but =
-fails
-to create the fragment queue, it jumps to err_destroy_queues. By passing fa=
-lse,
-the successfully created geometry queue's scheduler entity is never finaliz=
-ed
-since pvr_queue_destroy() no longer does it unconditionally.
-
-This leaks the entity's internal resources and frees the queue memory while
-the scheduler might still hold references to the entity, potentially leading
-to a use-after-free.
-
->  	return err;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611-b4-sched_f=
-ix-v2-1-17a93be86fcd@imgtec.com?part=3D1
