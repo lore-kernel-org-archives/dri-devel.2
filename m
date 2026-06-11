@@ -4,81 +4,170 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 127D6CD98C7
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 08:01:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4357FCD98D2
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 08:02:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6212A10ED5F;
-	Thu, 11 Jun 2026 08:01:58 +0000 (UTC)
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
- [209.85.128.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EBD810ED56
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 08:01:57 +0000 (UTC)
-Received: by mail-yw1-f178.google.com with SMTP id
- 00721157ae682-7dc67a5e102so79274237b3.1
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 01:01:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781164916; x=1781769716;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=wg1AD3f/1jWyYR3P0Z5p8wEPI+MYZzqh5FcI4v1k2P8=;
- b=Q+TP+mk3QWOEEuqL42h49jFVSLOfMJ2LGRUTgtoPslfvRZzRyRiMWDtXcwUCceBYLM
- oSX5WtAYJSWCyCS7/7E8azztOEPevgtkLnCeGy/wj4vfdYafuDW6m76ta1QgMOHkL5TM
- Bokwq4RIsoAb7LHYH1Sw8AGh983Hzk18vx4Y5IZ0PPetDqnm4jf47tEl/7GC+TKO9OMR
- +XIg1NDiQng7PiekOpQ6V7JEqCe1NiDeGMO8kQZ71QZz/qp5rW0xzqDvHU3IGRTnyU8c
- rb0bt5RApxy3+/WO6kFrHm3oA+xlK+cWGDXbWlu4xvXmxMLI4aUCYp9jhE4o+q+pELeZ
- NcLQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9jb86onX+m0IEvHK2YAkbDbncI6kCioa+gax+/oIaUMdgbXJWz2yyx8YYj/nXm3+dM4G4RI8Uufxk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxxOZzGLwhdik12JzDhm+Zc9gKvKUI+ZFJbHgCQbJXrTLtuqXUh
- 4ugzkQyNimBxthfNz7rzpJYMtGltkD/j1VaV8ug6lIfZsJN4V/7LEGjNPJMlbUpB3kI=
-X-Gm-Gg: Acq92OH+mC7TF6n5O8yyH071TotHcs85UfwzjpNVDjIcxV8l5qWZh4h4vyqPhhnG/sj
- IpmQpcLgKqo3S6l9nofqkY/irUiCbeAv94TgxJvjpBxgXpgR+S6HDepBlqAfNAUgsgI3QP8H5mk
- +IOF2bknAyGggRs55GYiv0lY6h/nlBt7VVGUPA8KZ8/poc1N8Y5LULVZ5J5uVBrUNnPbz2j0IFS
- GUUR62Ew6HCHC1xFgq5qPV1pXZCjxSFbTnVOxdksPTyUvMiXINfsonBcEQjSca+3/cwB79Ugfc2
- fniS7FfsCVe2r58FGzdVxy709X6Q0Q1nMtitWrAMwrpvMg1uzgMr8AZ6dNCDYJm+M8tbyDFVCLU
- E/QWB0Nfw0a1pDmfsjUAUPqw9ytttVVaJ7JKjMWuuyziL4q/GQenSQXqpJv1xWi2YbJn82xMSeI
- cQvhM2Bc9GGaiv1JEhttzUTUB3wqZpkSXoC4KVfrJHN/lIK5wVVhT3CH0v1lOHs3fHtIi2To2oY
- 1w=
-X-Received: by 2002:a05:690c:e372:b0:7c0:56f:5b70 with SMTP id
- 00721157ae682-7f656ea3c44mr17401777b3.29.1781164915876; 
- Thu, 11 Jun 2026 01:01:55 -0700 (PDT)
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com.
- [209.85.222.181]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8d1e8777a69sm11773886d6.21.2026.06.11.01.01.55
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jun 2026 01:01:55 -0700 (PDT)
-Received: by mail-qk1-f181.google.com with SMTP id
- af79cd13be357-9159951f05aso884842485a.0
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 01:01:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ+g1fmNCwOaHeMDLfCPGa5MzA1RSkq0HClFRzgxsug1e4lkbJksxRT+k8t65xoRW20eYqCuqw89hnM=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:54a0:b0:631:28c1:155c with SMTP id
- ada2fe7eead31-71d5d8a78fdmr441637137.7.1781164516527; Thu, 11 Jun 2026
- 00:55:16 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F20F10ED61;
+	Thu, 11 Jun 2026 08:02:11 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WGcCDjow";
+	dkim-atps=neutral
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013052.outbound.protection.outlook.com
+ [40.107.201.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C48B510ED40;
+ Thu, 11 Jun 2026 08:02:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BQLX8zabzpWc70aq8SJmqI3sePCP2cR5Qr1sS6LdgHtWyofcP7NGdX3sJtacptQ8rie7d7e2TraDAMNXLKK1FASa9BMdJY88m71DWL58vM8D1CQ3oN/JY9pN33EoRZB00huaPmZaLJIENjqd1U5BMtqkaI6RwFkGe+uDq0IsXdrJ6I1VtZ/8ybvdsVBH8FLTi66sK1/JgQHue+WlHsY7jZcvSbAJBZ3BwGpV5CAD6AjNtbdaQuncOqVZ1oQ4CIE3QjD6j5ecFF8akumVlxjLAgRZkIuUC7sZJ1uaM8kbJWcXBwch9GE1RGj7XJEbVBu6MZxHTCBYn1MFdOI0o7sEvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=U1l4L2KZOkl3OQtjo8wiusThkx1Bv4k4J552WYRPRLo=;
+ b=exXLzskEDD/BCKBF6KIqGWx1im6JtFEdWMNKr4j8fjo1s7CabcfzP62KxQB/Ve2sZU3dsMmSMqUWIfAmBNUv1q+KrEXciWonfJ+Mjvt7Dl1wRPYPlSesILu/BTS4EAqeUnK5khKBq11B04aMw2EU9ICSN0a4aVDLXDRSvr2Tt7t+/VCtv+qUSLRVdd1qWqAzK4ihAAdym5AA31DTqmC8rfE6m2HLj/kHTJqqNuKVq3RbijvyVhm8A21+hlP6pc3YyKBEVfwNhQEFchjV+uu6Vk5BvYjMPkKoI6v/s7I5fBCvfbJ/wvH3MqU1Kxzthn7D+bA29516WfTQeX7Eo1GDjA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=U1l4L2KZOkl3OQtjo8wiusThkx1Bv4k4J552WYRPRLo=;
+ b=WGcCDjow4rqR2DPOb936zshpMU6RnT6hEz88DuoFTc5aX8agh59UpBO09eUJY4eiph3jElpmq+DGIsoIzo+PLA4o81/mDREPTeVW0MR1H5Y7edR6Ihy2snXl6LCrcMYGwvAxMfXxKnmJFBLMxDnGkbmZ6D8RmevMKm5mpOcoZpk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM4PR12MB8523.namprd12.prod.outlook.com (2603:10b6:8:18e::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.13; Thu, 11 Jun
+ 2026 08:02:04 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Thu, 11 Jun 2026
+ 08:02:04 +0000
+Message-ID: <92683537-8404-47fe-a4ba-160e54870f0b@amd.com>
+Date: Thu, 11 Jun 2026 10:01:25 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/14] list: Prepare entry iterators to cache cursor
+ state
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Kaitao Cheng <kaitao.cheng@linux.dev>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Davidlohr Bueso <dave@stgolabs.net>, "Paul E . McKenney"
+ <paulmck@kernel.org>, Josh Triplett <josh@joshtriplett.org>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Eddie James <eajames@linux.ibm.com>, Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Laxman Dewangan <ldewangan@nvidia.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, Waiman Long <longman@redhat.com>,
+ drbd-dev@lists.linbit.com, linux-block@vger.kernel.org,
+ linux1394-devel@lists.sourceforge.net, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-spi@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Christian Brauner
+ <brauner@kernel.org>, David Howells <dhowells@redhat.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kaito Cheng <chengkaitao@kylinos.cn>, Muchun Song <muchun.song@linux.dev>,
+ Philipp Reisner <philipp.reisner@linbit.com>,
+ Lars Ellenberg <lars.ellenberg@linbit.com>,
+ =?UTF-8?Q?Christoph_B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ Jens Axboe <axboe@kernel.dk>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
+ <bd0b7393-8ccb-4d67-8bfc-18c68347122c@amd.com>
+ <5152089a-2808-4fe9-b633-b03018105dd2@linux.dev>
+ <6b2efdee-95b0-4306-a682-0d0466497ddb@amd.com>
+ <2399841f-d834-4652-8285-4a15c7d9a9b9@linux.dev>
+ <d974a2ea-6102-45ff-bf36-3b25a2404e40@amd.com>
+ <ail8iNvPrJnE7p58@ashevche-desk.local>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <ail8iNvPrJnE7p58@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN0PR04CA0025.namprd04.prod.outlook.com
+ (2603:10b6:208:52d::24) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-References: <20260611005952.146825-1-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260611005952.146825-1-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 11 Jun 2026 09:55:01 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVkxCo3p6SEB4a=wUY+qXE9AxqmYtsGyLH_+wb_e328Pw@mail.gmail.com>
-X-Gm-Features: AVVi8CfMFk11kDzU1W7A90vpbtR6Nnss2ELpEbzCC4jdTDTJHmSm7MM16QZwFsU
-Message-ID: <CAMuHMdVkxCo3p6SEB4a=wUY+qXE9AxqmYtsGyLH_+wb_e328Pw@mail.gmail.com>
-Subject: Re: [PATCH 1/3] arm64: dts: renesas: r8a77965-salvator-x: Enable GPU
- support
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
- David Airlie <airlied@gmail.com>, Frank Binns <frank.binns@imgtec.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Magnus Damm <magnus.damm@gmail.com>, Matt Coster <matt.coster@imgtec.com>, 
- Maxime Ripard <mripard@kernel.org>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
- Rob Herring <robh@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB8523:EE_
+X-MS-Office365-Filtering-Correlation-Id: d88b51d7-4a73-4e9d-b823-08dec78fb987
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|1800799024|7416014|56012099006|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: i763Z/yN9QSE/0E3zH19KNbxVfG91nw+dD37LePGrpOYWeKztx4BbBBN0gVnHiIAOLiRAHP/2IjK1C+1JW/JEi4+7m1e7H4CSsGKBEUdF4v9PJFCijiBp+MixrFPlkfNeMBbhrbCDUhXVqPohAIX5nL1ydLJu/ztwl8rQ9FOfd7ZXqtfmXo1tv+65UUgmgq/WnF+fEnr2MoIIetdBx4tEyDBCVohIe/jotzSim1dyrmHLgqg54RbfOV3tv+SnYb3bPkklyyQpAASrI3STfW3mDmHxbwqrJAUw+yK2DV7L3N9UhWtxftmJFqUgw6TK/ZNOi3M0qXQ95nE5c3SHiw1Z0ViunlP7WO/jz+1S0sMDOvgxetDYFb06syvbYIncDdiTe1HWM2XrpKLB+ExmML5spDiYLP6viSIKpNKemr8XHUgWm7kE3qRmc9+QQLX188QEc0zzjB2OiCqJfe4+1e3CvNbY1PmR2taeWJ5j6TPhIvfksDCL/0/giB1yUduXCxgGO3sbSJv30Ddy9XHqaZHoLxvUgCfjFBYChKfszzNVjGlUk0450V2mHguwaW0EUkArlYrYf82R3ghyDtSuONG7tXnBak6ITrwtfuTZCQiRLVExSzUiWQLfVWeiHwUwqRZpzHa2QN02GwecCkPPKxRbWm2Kmbdk0sWopFlVclhJqm9sGIB5kWpsQSULBGX5qide9FZsFs746Kg/4HIWO3lAg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(7416014)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z05Ncnc5L0JndER4cm1xV2o4MHlGOUJKTVdoS2RFQUYxYVF5VmQwZkVYS3Fm?=
+ =?utf-8?B?T3ovYnpaYmw3WXB0MG9HOVY0WnRiM2ZnMVNnTExBSTVrZXV4Ylk0a3U2dzNQ?=
+ =?utf-8?B?dGlXbmR3UnRRT0YvZmU0TmxpcCtCOTZualI5NHp3WTlhOUVRQ0MrSnVBbzRK?=
+ =?utf-8?B?RExxVXh0a1hMUngrQWJEcTVuTm9uc0tJTGU2YW01cXdOUVRWQzkzTEhFRzFU?=
+ =?utf-8?B?SGZsblBSOEFlYjlWTnM4eXpsaW1scG9IUEZOSVh4Zmg5V0dKNlVzZVI1WUlG?=
+ =?utf-8?B?bFNFZy8vZXk1cmJRYnZWMWlPV2dVKzQzejdSUmdIZTlXQ2Q4S0pTOVRsNUZM?=
+ =?utf-8?B?TVBpOTRpc2pFTCtrYi9iV3NpQmIwTDVObnpzOW5rSlpKWHBmYkdzUmZkMGZa?=
+ =?utf-8?B?U3lvRHM0cjA0anpPODUraWFiYkZ4V2FuWUgwN0h4UThwRVArWmd4alBlNnMv?=
+ =?utf-8?B?WDhXbStSSUl3UW05NEdydjFsdXRZQXJ6bDZIbXoxTGEwRHZKZzEvWFI3UjVV?=
+ =?utf-8?B?U210UUlOdktsNkUyOVdHb3NlZEZBUGplNWV2dmpzUzIzZWVYbnBxSUl6ZWly?=
+ =?utf-8?B?K043eGRXY1dLSENEb3dIanNWZExCakpyWGtxRE1XVXgzOEJzRWZOZE1TZy9o?=
+ =?utf-8?B?NTdxbkoxaCsxVDhyYWplbzBQT3ZkR1BOak9SUHd1MUt3VG9FWkRhdjJJcG85?=
+ =?utf-8?B?YS8vZXZYRVdhRWR3T0x2aVg3YjNxeTZZTURNczE5dmxDeWlPNWlTWkNSL1BY?=
+ =?utf-8?B?bSszOVJqSXFIUTJZSlJrMlB5NEhocExWS0FXOXQvQ2lWRTVNSTVOY2JYSWpB?=
+ =?utf-8?B?d01uYkE5cnZ5bmNHd25PR2hXTUZhMmpJMmQwN0FpQmFxL202U3lHQmdoMC9D?=
+ =?utf-8?B?ckNKaVBQdzM3VkFpaE9taENkTkhuMEc4a3A0TnF3NEIrWkk3SWJvY3V6Uk55?=
+ =?utf-8?B?YU1jcGhjNFdoNlNWbEVRUTJwK2FjN3FJUCtqejF6Ykw3RHVKdUhqeW9YNDJD?=
+ =?utf-8?B?amlUSVYyRG9pSlNuS3dQbXpPWlZuUTZzWUlwSk4rREw3WUlQT292bTNMVGFk?=
+ =?utf-8?B?SGFjMWt2eWxzenVCV0VtWU4rcmdEb1ZJYWhUSWtPSFVkajB4ajFBZ2w5Wlpy?=
+ =?utf-8?B?bXcrSW9henRUZ2svRWtTdUVZSVZSZm0rUStZZE5uc3J4RkE0R0w0Z2pjaW5Z?=
+ =?utf-8?B?YVQ3M0tyRno2V05YNVBpendvUCtISk1oWWU3clJseG8yV3ZOY25BMjJROG91?=
+ =?utf-8?B?b2gzdm9MMHMrbmIrdlMvYi9ONmUvR2prb082QVJkWjJuKzFDMlpRVjZlbjFW?=
+ =?utf-8?B?QngzRXZrdWIwYk1FQ2Fzd0xQM2kyWktCcWJ1WUtPcmVZR2FPbG5odDh3V3A3?=
+ =?utf-8?B?WFdwYmxQbjZQaDVYWnRaQkdrTk1zbmthQjc1SXUzOEhocXpEZVZncEowTlZs?=
+ =?utf-8?B?Qms2b05rLy9NYmhlQTRYNUxQWXJwYVg1a3ZFdzRqRWUzWWx5R251dVEybmhh?=
+ =?utf-8?B?eFdOdkNVUlFQVGJkQ1FvTWhMejRPVWVnUGNON0RlbmZEK29PUm5hU3Z4U2lU?=
+ =?utf-8?B?RkxwQnNFcS9LYTZuYVJhT0xWb0JtSHRwVDhSRTdmdnp0YzkwL2M0K29LVW9M?=
+ =?utf-8?B?ejlXZlBHVWtaSExJYW4xUndBd2dtU1dMNnNpc3lNZFVDYytsUnFhUWs2VTNk?=
+ =?utf-8?B?bzRGTzFPVjREZW85YTYxVFRXQ2w3MVN1UEdvY3hiZ2RBbUJCL1ZOQWw1dml5?=
+ =?utf-8?B?ZS90VnhvaGZkN0lVY2pSTjVSdzdzUGdJMGI0MWhpcE9Ld09ESTNxMkZEelo0?=
+ =?utf-8?B?eHc1cE10cW5VcWNZOXU5dXJzbWJXVytVZFE2NnlFa2dxZUhqSnM1dGNpSEhG?=
+ =?utf-8?B?T2ZJeGY1YkNvQVZPRmV4MCsxbHo0NURMcFhRSmRYaHlHdTlLV0tPVk4rdjl0?=
+ =?utf-8?B?QTJVc1AzM1ZOV1ltWmhMd3BuZDdGZXpleU5sVENERTZheEZZSjIrVVprSjlE?=
+ =?utf-8?B?VEh6aEoxKy9FNDhtQXNUOXNCb1pJTFVjNVBNWXZYQ2VGM0hsRXBIQW5aT2R5?=
+ =?utf-8?B?ZWNzMTJzWXlPbyt4ZktranRIeitjRzlpd2FiRmJJYXd1SzBKVSs1aDVFd2pZ?=
+ =?utf-8?B?QVBXUWF5MjE5QkxadVVySXNkOWJvYkR2MFcyZ2VwZVhSbnBieENWcFRpUUsr?=
+ =?utf-8?B?cjVMR01taHpERVNzamtHaktHTi9vRlBjWHk5am1NV3kyQUdLdElCWnR5YkpN?=
+ =?utf-8?B?SnRyT2pKZzQ0UDJPTWZsb2xoQ2ZydE5mN1RheHNRamQyLzl0dldRRGo1LzJi?=
+ =?utf-8?Q?OS33vQYzpuGM0t2bg0?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d88b51d7-4a73-4e9d-b823-08dec78fb987
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 08:02:04.1722 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: T9Ieec8W5GNnHevvvWWrKeDSDvvpHyAMm34tm5sASpPik2PfNYwk289Hx6uDwMdK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8523
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,22 +183,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 11 Jun 2026 at 03:00, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> Enable GPU on Salvator-X with R-Car M3-N.
->
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+On 6/10/26 17:02, Andy Shevchenko wrote:
+> On Wed, Jun 10, 2026 at 11:11:34AM +0200, Christian König wrote:
+>> On 6/10/26 10:18, Kaitao Cheng wrote:
+>>> 在 2026/6/10 16:07, Christian König 写道:
+> 
+> ...
+> 
+>>> Should we revert to v1, or keep list_for_each_entry() and
+>>> list_for_each_entry_safe() as they are, close this thread, and make no
+>>> changes?
+>>>
+>>> Link to v1:
+>>> https://lore.kernel.org/all/20260529082149.76764-1-kaitao.cheng@linux.dev/
+>>>
+>>> Or do you have any better suggestions?
+>>
+>> v1 looks perfectly reasonable to me.
+> 
+> But why not just hiding that once for all (in case they don't use the temporary
+> iterator)? Easy to automate, robust — everyone is happy?
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.3.
+As far as I can see that is an extremely bad idea.
 
-Gr{oetje,eeting}s,
+The distinction between the use cases of 'iterating the list' and 'iterating the list while you modify it' is completely intentional.
 
-                        Geert
+See the bool type can be implemented by int as well, but it is just a different use case.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Regards,
+Christian.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> 
+>> You should just include some patches in the same patch set to actually use
+>> the new macros.
+>>
+>> If you modify the files under drivers/dma-buf or drivers/gpu/drm/amd to use
+>> the new macro I'm happy to review that.
+> 
+
