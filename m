@@ -4,46 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13B37CD98CC
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 07:35:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFB05CD8CB9
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 07:35:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BFA410ED37;
-	Thu, 11 Jun 2026 07:35:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E59C10ED30;
+	Thu, 11 Jun 2026 07:35:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MWHABnq1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z01QBw/h";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AC0210ED36
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 07:35:06 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D09B810ED30
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 07:35:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E042443EE2;
- Thu, 11 Jun 2026 07:35:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E8B31F00893;
- Thu, 11 Jun 2026 07:35:05 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D79B56020A;
+ Thu, 11 Jun 2026 07:35:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E3651F00893;
+ Thu, 11 Jun 2026 07:35:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781163305;
- bh=NedeNJ8O8q2mH1LBp+XUUGW47B46q0klZNROJC8QyLE=;
+ s=k20260515; t=1781163319;
+ bh=mo/64/HPY/6XXdxYXG0j1Rf2IH961OLjSb7/zYXIAp0=;
  h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=MWHABnq1Z81Doo8SXmG+JKZ2J7sT8/AQa5MAtGCxGl/2WyqIiQHX76QEySG7bYqIv
- Ugh1TwXou1Y6G9FW5TwZBVPkhVHefRlIs0ydizpw6h0vIejyw2xtrfmXLRvn4+knsc
- 6c4ofiZGtlTI7+XH7YOonTIYrMaMPSSHPrPHbvCv+f3p5P79OqhW+6+JxOttd3BEW9
- zyJCIrQAxSOZr20KlqKeLnpCPCXFi4vMoKh8Ded28wpXt9xIYEF4z/c6WeZCVpuOxp
- 8j36hwO/EhLpmM3mUxNc7lv2T8xd5NQYVYJCw4EKhnEE3ltz/XJgmJy1w788dbSTxQ
- KsLVwcisfrx+A==
-Message-ID: <a940e00a5774c8c409a9338163cd125c@kernel.org>
-Date: Thu, 11 Jun 2026 07:35:02 +0000
+ b=Z01QBw/hVD0yzmyR9h/PeeyZ0iRCgAk+/aPcn16UqS3zZfuWeP7a6qWfdqmwQ64c7
+ SUPKR2ROzkbXWRdLbWoisYB51wZF40L8vvw0MozUehUzOXbcsSsnQ0fbgMJJmCHGkW
+ z+TuJ9RV3obUIo8CPP/tRZUPc5Hs7F5upTIG6t0fkoVPZxquwXwNgAinfjXUhvkvqU
+ 6YeQ2LjisVMoDUHycAma+Lu74RYAWxQFblvBsWwIvRFb7/kKDiutnbSyvdf+3vpuqS
+ Dp2GHlTRm5vmXa5cb7jZrXcCPOVrqwZElTLvCkH94I9VrnrjiQ9+mME23BBp+rSEGk
+ 5s8EcKr+hihgQ==
+Message-ID: <c52f5bc48973b580c8df41764acb73e4@kernel.org>
+Date: Thu, 11 Jun 2026 07:35:17 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
-To: "Nicolas Frattaroli" <nicolas.frattaroli@collabora.com>
-Subject: Re: [PATCH v2] drm/tests: Move test EDID data to separate .c file
-In-Reply-To: <20260610-test-edid-array-definition-fix-v2-1-9de4605c4869@collabora.com>
-References: <20260610-test-edid-array-definition-fix-v2-1-9de4605c4869@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, kernel@collabora.com,
- linux-kernel@vger.kernel.org, "Daniel
- Stone" <daniel@fooishbar.org>, "David Airlie" <airlied@gmail.com>, "Jani
- Nikula" <jani.nikula@linux.intel.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime
- Ripard" <mripard@kernel.org>, "Simona Vetter" <simona@ffwll.ch>, "Thomas
- Zimmermann" <tzimmermann@suse.de>
+To: "Sumit Semwal" <sumit.semwal@linaro.org>
+Subject: Re: [PATCH] dma-buf: move system_cc_shared heap under separate Kconfig
+In-Reply-To: <20260610142329.3836808-1-sumit.semwal@linaro.org>
+References: <20260610142329.3836808-1-sumit.semwal@linaro.org>
+Cc: Brian.Starkey@arm.com, afd@ti.com, agordeev@linux.ibm.com, arnd@linaro.org,
+ benjamin.gaignard@collabora.com, chleroy@kernel.org, christian.koenig@amd.com,
+ djbw@kernel.org, dri-devel@lists.freedesktop.org,
+ gerald.schaefer@linux.ibm.com, hch@infradead.org, jgg@ziepe.ca,
+ jiri@resnulli.us, jstultz@google.com, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, lkp@intel.com,
+ maddy@linux.ibm.com, mpe@ellerman.id.au, mripard@kernel.org, npiggin@gmail.com,
+ sumit.semwal@linaro.org, thomas.lendacky@amd.com, tjmercier@google.com,
+ x86@kernel.org, "Arnd
+ Bergmann" <arnd@arndb.de>, "Maxime Ripard" <mripard@kernel.org>
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,11 +64,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 10 Jun 2026 16:31:08 +0200, Nicolas Frattaroli wrote:
-> Having the test EDID arrays defined in the .h directly will duplicate
-> them across every user of the EDID arrays. This works fine as long as
-> there's only one user, but may produce build warnings/errors when there
-> are multiple users and not all of them use all definitions.
+On Wed, 10 Jun 2026 19:53:29 +0530, Sumit Semwal wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> While system heap and system_cc_shared heap share a lot of code
+> and hence the same source file, their users have different needs.
 > 
 > 
 > [ ... ]
