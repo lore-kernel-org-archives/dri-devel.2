@@ -4,58 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBD6BCD98C5
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 00:03:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA670CD98C5
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 00:04:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E92F10E6EE;
-	Thu, 11 Jun 2026 00:03:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0171A10E57E;
+	Thu, 11 Jun 2026 00:04:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="KkynWMvH";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="QkchJo/i";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F85F10E57E
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 00:03:27 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 80DE52D9;
- Thu, 11 Jun 2026 02:02:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1781136176;
- bh=7Lc1rx8Jp41JTvrcWNEo7iJ/+E/l8wCtqHTTiQ1kiKc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KkynWMvH4/GKiABKartnvdELDg8NTpkhQD92fWte+U+KU7Tlt/JUY4Yc+8KJ7k0qG
- cBLvV61QlTfXBUChPHMJhNSVPSBT4Aqt+gdcmkMEXhhJiagpstoGWC9nBuu5t3pauW
- 01H1kUOWt0IQOTdUvUA4AEbjtX6QtanSzrHSPBvY=
-Date: Thu, 11 Jun 2026 03:03:24 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 4/7] drm/rcar-du: dsi: Support DSC in the pipeline
-Message-ID: <20260611000324.GH1632628@killaraus.ideasonboard.com>
-References: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
- <20260515-rcar-du-dsc-v3-4-164157820498@ideasonboard.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEC7810E57E
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 00:04:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1781136275; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=hPqJDgC0pfM4wqY9wmjTC6HoTbkgO+Wq3ZWfvjIUyUhhCHJfMMVlDhN6eNxgoQcNisnER8/n4ldZOb1KX+tWw9FoPzukoZ3qpIxOTnxK+ZlNhMJGerzKzAlWHkjicyNAnrHENfpMk8RcS7eVlIekUlWbdLiOVyxpMp2jEoM0uw4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1781136275;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=08qklnwrYy3ybfK0Fq9VgJW7y6VO7BnPIkyUQ1yUUXc=; 
+ b=OhLmMo947erInw/VjdnGRXCj37bKbi9SyTY3pUHF7vHUDGK75wU7NPEWgBDU9UolIX/hZOO7F+XeOfqPuejtSvap9oaKzzTapcc50ovGM1BeBV7j1a6R7+GMKCzzQevqBh29ykdF7xcE4/4HIToGvhUBRrqmFG68l6mgtr1zizA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+ dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781136274; 
+ s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
+ bh=08qklnwrYy3ybfK0Fq9VgJW7y6VO7BnPIkyUQ1yUUXc=;
+ b=QkchJo/iF9jsHcMoYIHuvDf+RYMygrK2jqhXvyYaw8YIgyOSE6Vv9VEq3S6XRFuc
+ dY+mWLO+3fzaR61gDu1vOfWd2XmWxrwt0CgQj+4560/0dA2ziCiFtdZQn8lOHbzwVMF
+ o4CdRbaGKddjb6MYm7G7XLv5CKNkemzFwDhHoDaA=
+Received: by mx.zohomail.com with SMTPS id 1781136272832700.1664977279125;
+ Wed, 10 Jun 2026 17:04:32 -0700 (PDT)
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+Date: Wed, 10 Jun 2026 17:04:31 -0700
+Subject: [PATCH] rust: drm: gpuvm: add SmContext lifetime bound
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260515-rcar-du-dsc-v3-4-164157820498@ideasonboard.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260610-gpuvm_smcontext_lifetime_bound_v1-v1-1-531e7d2ee7b4@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3N0QqEIBBA0V+JeU4YhY3qVyKk1bEdWDXUJIj+f
+ WUfz8u9N2RKTBnm7oZElTPH0CD7DsxnCzsJts2gUA04SBT7cVavszcxFLqK/rKjwp70O57B6iq
+ FG9Vk8GVHNBO0zpHI8fV/LOvz/ABK1ZvvcwAAAA==
+X-Change-ID: 20260610-gpuvm_smcontext_lifetime_bound_v1-f829c05d80c9
+To: Danilo Krummrich <dakr@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>
+Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, laura.nao@collabora.com, 
+ samitolvanen@google.com, boris.brezillon@collabora.com, 
+ Deborah Brouwer <deborah.brouwer@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2343;
+ i=deborah.brouwer@collabora.com; h=from:subject:message-id;
+ bh=jHJAQB/EOHX4fGMtGmvkXai9pbOgWNCI48HlzZompPU=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDFmavyds/HHif3pBa8W7Bc4/Qh9yH1bcdCjgg4nFB+bVu
+ Rsvimk/7ihlYRDjYpAVU2Q5a2/UI1713kh3/v9mmDmsTCBDGLg4BWAiv0UYGb7kyJUeuV4d/K02
+ L/jA1v6MaW3i0heMj+TOa7X1e3JtrSkjw1nhiEar5ic7iu89LP47P2rexbN1T7nad5bpfpp+jzG
+ ElxMA
+X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
+ fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,106 +86,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Tomi,
+From: Boris Brezillon <boris.brezillon@collabora.com>
 
-Thank you for the patch.
+If a DriverGpuVm implementation is lifetime-parameterized, its
+SmContext<'ctx> type may depend on lifetimes carried by that driver
+implementation. In this case, SmContext<'ctx> is only valid if the
+driver implementation outlives 'ctx.
 
-On Fri, May 15, 2026 at 12:09:29PM +0300, Tomi Valkeinen wrote:
-> Enabling DSI clocks on rcar-du needs some tricks as the DU dot clock is
-> provided by the DSI. Thus, we call rcar_mipi_dsi_pclk_enable() from the
-> crtc, when enabling the crtc.
-> 
-> With DSC (added in upcoming patch) in the pipeline, between the DU and
-> the DSI, the above call path is broken as the crtc tries to call
-> rcar_mipi_dsi_pclk_enable() on the DSC.
-> 
-> Adjust the rcar_mipi_dsi_pclk_enable() so that it detects the DSC, and
-> in that case gets the next bridge from the DSC, which is the DSI.
-> 
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> ---
->  drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c | 36 +++++++++++++++++++++++--
->  1 file changed, 34 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> index 4ef2e3c129ed..085e229bcb0b 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> @@ -88,6 +88,8 @@ struct dsi_setup_info {
->  	const struct dsi_clk_config *clkset;
->  };
->  
-> +static const struct drm_bridge_funcs rcar_mipi_dsi_bridge_ops;
-> +
->  static inline struct rcar_mipi_dsi *
->  bridge_to_rcar_mipi_dsi(struct drm_bridge *bridge)
->  {
-> @@ -844,15 +846,39 @@ static void rcar_mipi_dsi_atomic_disable(struct drm_bridge *bridge,
->  	rcar_mipi_dsi_stop_video(dsi);
->  }
->  
-> +/*
-> + * We need to skip the DSC bridge when we have DSC in between the DU and
-> + * the DSI. We detect the DSI bridge via bridge->funcs, and assume the
-> + * next_bridge is the DSI bridge. If this is not the case, the DT data
-> + * is wrong (so it shouldn't really happen).
-> + */
-> +static struct drm_bridge *
-> +rcar_mipi_dsi_resolve_bridge(struct drm_bridge *bridge)
-> +{
-> +	if (bridge->funcs != &rcar_mipi_dsi_bridge_ops)
-> +		bridge = bridge->next_bridge;
-> +
-> +	if (!bridge || bridge->funcs != &rcar_mipi_dsi_bridge_ops)
-> +		return NULL;
-> +
-> +	return bridge;
-> +}
+Add a Self: 'ctx bound to DriverGpuVm::SmContext<'ctx> to express that
+requirement. Then propagate the corresponding T: 'ctx bound to the GPUVM
+state machine helper types that store T::SmContext<'ctx>.
 
-Hmmmm... It's quite a bit of a hack. It would be nicer to do this in
-rcar_du_crtc.c instead, where we cache the dsi bridge pointer. The
-question is how to then identify the right bridge, as we won't have
-access to rcar_mipi_dsi_bridge_ops. Should this driver set the bridge
-type field to DRM_MODE_CONNECTOR_DSI ?
+This allows drivers to provide lifetime-parameterized implementations of
+DriverGpuVm.
 
-> +
->  void rcar_mipi_dsi_pclk_enable(struct drm_bridge *bridge,
->  			       struct drm_atomic_state *state)
->  {
-> -	struct rcar_mipi_dsi *dsi = bridge_to_rcar_mipi_dsi(bridge);
->  	const struct drm_display_mode *mode;
->  	struct drm_connector *connector;
-> +	struct rcar_mipi_dsi *dsi;
->  	struct drm_crtc *crtc;
->  	int ret;
->  
-> +	bridge = rcar_mipi_dsi_resolve_bridge(bridge);
-> +	if (WARN_ON(!bridge))
-> +		return;
-> +
-> +	dsi = bridge_to_rcar_mipi_dsi(bridge);
-> +
->  	connector = drm_atomic_get_new_connector_for_encoder(state,
->  							     bridge->encoder);
->  	crtc = drm_atomic_get_new_connector_state(state, connector)->crtc;
-> @@ -885,7 +911,13 @@ EXPORT_SYMBOL_GPL(rcar_mipi_dsi_pclk_enable);
->  
->  void rcar_mipi_dsi_pclk_disable(struct drm_bridge *bridge)
->  {
-> -	struct rcar_mipi_dsi *dsi = bridge_to_rcar_mipi_dsi(bridge);
-> +	struct rcar_mipi_dsi *dsi;
-> +
-> +	bridge = rcar_mipi_dsi_resolve_bridge(bridge);
-> +	if (WARN_ON(!bridge))
-> +		return;
-> +
-> +	dsi = bridge_to_rcar_mipi_dsi(bridge);
->  
->  	rcar_mipi_dsi_shutdown(dsi);
->  	rcar_mipi_dsi_clk_disable(dsi);
-> 
+Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+---
+ rust/kernel/drm/gpuvm/mod.rs    | 4 +++-
+ rust/kernel/drm/gpuvm/sm_ops.rs | 4 ++--
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
+diff --git a/rust/kernel/drm/gpuvm/mod.rs b/rust/kernel/drm/gpuvm/mod.rs
+index ae58f6f667c1..1ec649fa50ea 100644
+--- a/rust/kernel/drm/gpuvm/mod.rs
++++ b/rust/kernel/drm/gpuvm/mod.rs
+@@ -264,7 +264,9 @@ pub trait DriverGpuVm: Sized + Send {
+     type VmBoData;
+ 
+     /// The private data passed to callbacks.
+-    type SmContext<'ctx>;
++    type SmContext<'ctx>
++    where
++        Self: 'ctx;
+ 
+     /// Indicates that a new mapping should be created.
+     fn sm_step_map<'op, 'ctx>(
+diff --git a/rust/kernel/drm/gpuvm/sm_ops.rs b/rust/kernel/drm/gpuvm/sm_ops.rs
+index 69a8e5ab2821..742c151b2540 100644
+--- a/rust/kernel/drm/gpuvm/sm_ops.rs
++++ b/rust/kernel/drm/gpuvm/sm_ops.rs
+@@ -3,7 +3,7 @@
+ use super::*;
+ 
+ /// The actual data that gets threaded through the callbacks.
+-struct SmData<'a, 'ctx, T: DriverGpuVm> {
++struct SmData<'a, 'ctx, T: DriverGpuVm + 'ctx> {
+     gpuvm: &'a mut UniqueRefGpuVm<T>,
+     user_context: &'a mut T::SmContext<'ctx>,
+ }
+@@ -20,7 +20,7 @@ struct SmMapData<'a, 'ctx, T: DriverGpuVm> {
+ }
+ 
+ /// The argument for [`UniqueRefGpuVm::sm_map`].
+-pub struct OpMapRequest<'a, 'ctx, T: DriverGpuVm> {
++pub struct OpMapRequest<'a, 'ctx, T: DriverGpuVm + 'ctx> {
+     /// Address in GPU virtual address space.
+     pub addr: u64,
+     /// Length of mapping to create.
+
+---
+base-commit: 550dc7536644db2d67c6f8cf525bba682fba08d9
+change-id: 20260610-gpuvm_smcontext_lifetime_bound_v1-f829c05d80c9
+
+Best regards,
 -- 
-Regards,
+Deborah Brouwer <deborah.brouwer@collabora.com>
 
-Laurent Pinchart
