@@ -4,108 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C886ECD98C6
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 06:54:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C9A2CD98CC
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 07:01:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1B6510E725;
-	Thu, 11 Jun 2026 06:54:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC3E510ED00;
+	Thu, 11 Jun 2026 07:01:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WhpU3346";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HEELQdCC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EB7A10E725;
- Thu, 11 Jun 2026 06:54:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781160883; x=1812696883;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=CFowTlceAGT8bJGLRrhVxOnbTokjR6+XQ9kWSeerCo0=;
- b=WhpU3346DWhP/EhnjDPZAMNXvikAUrJCx+Wgn0fQt5V30BgBkJkUsC8f
- UTclgAQE8iAVqHwNX4z42rfmkU6NheW+lOqLMjxY5cj1vy6cI1f3kpbd1
- nSZMOPa/S9e5wO/O0T6X9Iq2RleGtVCjyeL0/KOc7lwLvn+HiyrOZUq5g
- PLIsfyJG2pv2i6upqMyvjwSLLdM2jjmzvgb0wJaDitP/x+0xuGK2KoVAs
- yzI0uBbAMaJCMSYLYdVMFojpQlys+zGCvaSt40lHCHz7astJeUi8h93DO
- PWGDNbdiOKWjza4JSvO3HAVbRcgJo78jyzSHnLCU+ohTlu7+5pOd7qX9u Q==;
-X-CSE-ConnectionGUID: YuN/JOiZR/er3lc3MS2xWg==
-X-CSE-MsgGUID: rnWIbMzlS4+ajwTgHom1DQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81101224"
-X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="81101224"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2026 23:54:42 -0700
-X-CSE-ConnectionGUID: Iu2FGfWER0CTkX31t1P0qw==
-X-CSE-MsgGUID: yMX5BnmDSEy1/50OFUSSPw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="250674708"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.123])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2026 23:54:28 -0700
-Date: Thu, 11 Jun 2026 09:54:26 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Kaitao Cheng <kaitao.cheng@linux.dev>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Davidlohr Bueso <dave@stgolabs.net>,
- "Paul E . McKenney" <paulmck@kernel.org>,
- Josh Triplett <josh@joshtriplett.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Huang Rui <ray.huang@amd.com>, Eddie James <eajames@linux.ibm.com>,
- Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Laxman Dewangan <ldewangan@nvidia.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Waiman Long <longman@redhat.com>, drbd-dev@lists.linbit.com,
- linux-block@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Christian Brauner <brauner@kernel.org>,
- David Howells <dhowells@redhat.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Kaito Cheng <chengkaitao@kylinos.cn>, Muchun Song <muchun.song@linux.dev>,
- Philipp Reisner <philipp.reisner@linbit.com>,
- Lars Ellenberg <lars.ellenberg@linbit.com>,
- Christoph =?iso-8859-1?Q?B=F6hmwalder?= <christoph.boehmwalder@linbit.com>,
- Jens Axboe <axboe@kernel.dk>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: Re: [PATCH v2 00/14] list: Prepare entry iterators to cache cursor
- state
-Message-ID: <aipbojSeMH-usARY@ashevche-desk.local>
-References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
- <bd0b7393-8ccb-4d67-8bfc-18c68347122c@amd.com>
- <5152089a-2808-4fe9-b633-b03018105dd2@linux.dev>
- <ail4AvzqAOXNaU6N@ashevche-desk.local>
- <9b98e860-11df-44bf-9a95-3046d2c274a6@linux.dev>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD61010E715;
+ Thu, 11 Jun 2026 07:01:16 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id A3BF840C1F;
+ Thu, 11 Jun 2026 07:01:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FA921F00893;
+ Thu, 11 Jun 2026 07:01:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781161276;
+ bh=VWDkvKSB5HPhJp1K3fAV1Rpoi1GjI/+QsXoqWTC10s4=;
+ h=Date:From:Subject:To:Cc:References:In-Reply-To;
+ b=HEELQdCCFNTEbjWVMs+EqXniulHpn/Ipztc1Rt1X7iPevxjVbrf4G2jE64jo2zPg2
+ kvsOjdsrhKB4B9tv3sFM2wYM1/mbbzjDQ/hfxBlJiimjFsKzV2XeF2oQMmge0AozAj
+ w1mzEg70KIfla+b76SmGoHVejwGb0RkIat2Ydqzh1qwJLdeqm/dey9CZhcMCC+F6Qx
+ tg8FNaUApCR2hjhZOwdtEcWlVqUEqz0Gj6gkHZ6p9HJZWGSVMD72UPTDt4ezu2O/p7
+ CmsjdNgx1/AyHHVeHtxXl0ACfqnBjZqqUFXrs5GOmPfFfbStygGGmiF0O7mmInA1TL
+ uW8bN3NiY9BnA==
+Message-ID: <e3b30034-70c2-43ce-be46-938e2b07d5ba@kernel.org>
+Date: Thu, 11 Jun 2026 09:01:12 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <9b98e860-11df-44bf-9a95-3046d2c274a6@linux.dev>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH] drm/dp: Service the CEC tunneling IRQ flags without
+ CEC_IRQ in ESI1
+To: Alexander Kaplan <alexander.kaplan@sms-medipool.de>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Cc: Hans Verkuil <hverkuil@kernel.org>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+References: <20260610174833.6284-1-alexander.kaplan@sms-medipool.de>
+Content-Language: en-US, nl
+In-Reply-To: <20260610174833.6284-1-alexander.kaplan@sms-medipool.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,89 +66,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 11, 2026 at 12:42:02PM +0800, Kaitao Cheng wrote:
-> 在 2026/6/10 22:43, Andy Shevchenko 写道:
-> > On Wed, Jun 10, 2026 at 02:14:06PM +0800, Kaitao Cheng wrote:
-> >> 在 2026/6/9 18:33, Christian König 写道:
-> >>> On 6/9/26 08:13, Kaitao Cheng wrote:
+Hi Alexander,
 
-> >>>> This series prepares for, and then updates, the list_for_each_entry()
-> >>>> family so the common entry iterators cache their next or previous cursor
-> >>>> before the loop body runs.
-> >>>
-> >>> Why in the world would we want to do that?
-> >>>
-> >>> The safe and non-safe variants have very distinct use cases and that is completely intentional.
-> >>>
-> >>> What we could improve maybe is the documentation, from my experience an astonishing large amount of people have misconceptions about the safe variants.
-> >>>
-> >>>> The first 13 patches open-code loops that intentionally depend on the
-> >>>> old "derive the next entry from the current cursor at the end of the
-> >>>> iteration" behaviour.  These loops append work to the list being walked,
-> >>>> restart traversal after dropping a lock, skip an entry consumed by the
-> >>>> current iteration, or otherwise adjust the cursor in the loop body.
-> >>>
-> >>> Well I have to clearly reject the changes for subsystems/components I'm maintaining, that just looks horrible to me and I clearly don't see a good reason for that.
-> >>
-> >> Hi Christian and Andy Shevchenko,
-> >>
-> >> Thanks for taking a look. I would like to clarify the point you raised.
-> >>
-> >> The reason I started looking at this is the original motivation behind
-> >> the _safe() variants.  They exist because some users need to remove, move
-> >> or otherwise consume the current entry while walking the list.  In that
-> >> case the next cursor has to be preserved before the loop body can modify
-> >> the current entry.
-> >>
-> >> The unfortunate part is that this could not be expressed with the
-> >> existing list_for_each_entry() interface without changing its calling
-> >> convention.  The _safe() variants had to grow an extra argument for the
-> >> temporary cursor, and that is why we ended up with a separate family of
-> >> macros.
-> >>
-> >> But conceptually, the distinction does not have to be exposed as two
-> >> different iterator families forever.  The difference is an implementation
-> >> detail: whether the iterator keeps the next/previous cursor before the
-> >> body runs.  This series makes the common list_for_each_entry() iterators
-> >> do that internally, so the safe and non-safe forms can effectively be
-> >> folded together, or at least the need for a separate public _safe()
-> >> interface becomes much weaker.
-> >>
-> >> There is also a usability issue with the current _safe() interface.  The
-> >> caller is forced to define a temporary cursor outside the macro and pass
-> >> it in, even though almost all users never use that cursor directly.  It is
-> >> just boilerplate required by the macro implementation.  I find that
-> >> redundant and awkward: the temporary cursor is an internal detail of the
-> >> iteration, but every caller has to spell it out.
-> > 
-> > Ah, I think the distinct macro families is that what we want.
-> > But the hiding of the parameter can be done inside list_for_each_*_safe().
-> > You can do a treewide change with coccinelle.
-> > 
-> > Sorry if I didn't get the whole idea from your previous contributions.
-> > 
-> > Note, even cases that would need a temporary cursor may be switched to
-> > new list_for_each_*_safe(), see how PCI macros for iterating over resources
-> > are implemented (include/linux/pci.h).
+On 10/06/2026 19:48, Alexander Kaplan wrote:
+> The DP standard requires a DP-to-HDMI protocol converter to assert
+> an IRQ_HPD pulse with the CEC_IRQ bit in the
+> DEVICE_SERVICE_IRQ_VECTOR_ESI1 register set whenever it sets a bit in
+> the CEC_TUNNELING_IRQ_FLAGS register (DP v2.0, Table 2-194, DPCD
+> address 3004h).
 > 
-> Thanks for your suggestions. I've written a demo based on your feedback.
-> Could you please review it and share your thoughts on this approach?
+> The Synaptics VMM7100 based DP-to-HDMI protocol converters get this
+> half right.
+> They assert an IRQ_HPD pulse for each CEC event, but never set the
+> CEC_IRQ bit.
+> ESI1 reads as 0 at the very moment CEC_TUNNELING_IRQ_FLAGS has the
+> corresponding TX/RX flags set.
+> drm_dp_cec_irq() trusts the bit and returns without servicing the
+> flags, so no transmit is ever completed and the CEC adapter is
+> unusable with these devices.
+> Every transmit times out, claiming a logical address fails and the
+> /dev/cecX device ends up unconfigured.
+> The converter's CEC engine itself works fine.
+> Driving the CEC tunneling DPCD registers manually shows the TV
+> ACKing the tunneled messages and sending requests of its own.
+> 
+> Demote the CEC_IRQ bit from a gate to an acknowledge hint: service
+> the CEC tunneling IRQ flags on every IRQ_HPD pulse, whether or not
+> the branch device set CEC_IRQ, and acknowledge CEC_IRQ in ESI1 only
+> when it was actually set.
+> Servicing is idempotent since every action is keyed to a
+> write-1-to-clear flag bit, so for branch devices with no pending CEC
+> event this amounts to one additional AUX read of the flags register,
+> and only on connectors that advertise the CEC tunneling capability
+> (without it no CEC adapter is registered and drm_dp_cec_irq()
+> returns early as before).
+> Devices that conformantly set CEC_IRQ are serviced exactly as before.
+> 
+> With this the CEC adapter of a VMM7100 based USB-C to HDMI adapter
+> configures and transmits successfully (verified against an LG OLED
+> TV with an Intel Panther Lake xe device, including TV power on/off
+> over CEC).
+> 
+> Fixes: 2c6d1fffa1d9 ("drm: add support for DisplayPort CEC-Tunneling-over-AUX")
+> Signed-off-by: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
+> ---
+> This patch is part of a set of independent fixes for the USB-C to DP
+> to HDMI 2.1 protocol converter (PCON) path, found and verified on an
+> ASUS NUC 16 Pro (Panther Lake, xe) with Synaptics VMM7100 based
+> adapters.
+> Each part stands on its own and can be merged independently.
+> The other parts:
+> [1] https://lore.kernel.org/r/20260610174413.5881-1-alexander.kaplan@sms-medipool.de
+> [2] https://lore.kernel.org/r/20260610174807.6231-1-alexander.kaplan@sms-medipool.de
+> [3] https://lore.kernel.org/r/20260610174819.6258-1-alexander.kaplan@sms-medipool.de
+>  drivers/gpu/drm/display/drm_dp_cec.c | 18 ++++++++++++++++--
+>  1 file changed, 16 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/display/drm_dp_cec.c b/drivers/gpu/drm/display/drm_dp_cec.c
+> index 436bfe9f9081..824a99f86a3d 100644
+> --- a/drivers/gpu/drm/display/drm_dp_cec.c
+> +++ b/drivers/gpu/drm/display/drm_dp_cec.c
+> @@ -218,6 +218,9 @@ static void drm_dp_cec_handle_irq(struct drm_dp_aux *aux)
+>  	if (drm_dp_dpcd_read_byte(aux, DP_CEC_TUNNELING_IRQ_FLAGS, &flags) < 0)
+>  		return;
+>  
+> +	if (!flags)
+> +		return;
+> +
+>  	if (flags & DP_CEC_RX_MESSAGE_INFO_VALID)
+>  		drm_dp_cec_received(aux);
+>  
+> @@ -255,11 +258,22 @@ void drm_dp_cec_irq(struct drm_dp_aux *aux)
+>  
+>  	ret = drm_dp_dpcd_read_byte(aux, DP_DEVICE_SERVICE_IRQ_VECTOR_ESI1,
+>  				    &cec_irq);
+> -	if (ret < 0 || !(cec_irq & DP_CEC_IRQ))
+> +	if (ret < 0)
+>  		goto unlock;
 
-Have you checked how many users actually need the temporary storage?
+I saw that you added a quirk for this device in this patch series:
 
-> >> With the updated list_for_each_entry() implementation, that extra cursor
-> >> can be kept inside the iterator itself.  Callers that only want to walk
-> >> the list, including callers that delete or consume the current entry, no
-> >> longer need to carry an otherwise-unused temporary variable just to make
-> >> the macro work.
-> >>
-> >>>> The final patch changes include/linux/list.h to keep a private cursor in
-> >>>> the common entry iterators while preserving the public macro interface.
-> >>>> The safe variants remain available when callers need the temporary
-> >>>> cursor explicitly or have stronger mutation requirements.
+https://lore.kernel.org/all/20260610174807.6231-2-alexander.kaplan@sms-medipool.de/
 
--- 
-With Best Regards,
-Andy Shevchenko
+Should we add a quirk for this as well? It's not worth it if that's a lot of work,
+but if it is easy to add, then I think that's the better approach for this.
 
+Regards,
+
+	Hans
+
+>  
+> +	/*
+> +	 * Some branch devices, for instance the Synaptics VMM7100 based
+> +	 * DP-to-HDMI protocol converters, assert an IRQ_HPD pulse for each
+> +	 * CEC event, but never set the CEC_IRQ bit in the
+> +	 * DEVICE_SERVICE_IRQ_VECTOR_ESI1 register. Check the CEC tunneling
+> +	 * IRQ flags even without CEC_IRQ being set: servicing the flags is
+> +	 * idempotent and only costs one additional AUX read.
+> +	 */
+>  	drm_dp_cec_handle_irq(aux);
+> -	drm_dp_dpcd_write_byte(aux, DP_DEVICE_SERVICE_IRQ_VECTOR_ESI1, DP_CEC_IRQ);
+> +
+> +	if (cec_irq & DP_CEC_IRQ)
+> +		drm_dp_dpcd_write_byte(aux, DP_DEVICE_SERVICE_IRQ_VECTOR_ESI1,
+> +				       DP_CEC_IRQ);
+>  unlock:
+>  	mutex_unlock(&aux->cec.lock);
+>  }
 
