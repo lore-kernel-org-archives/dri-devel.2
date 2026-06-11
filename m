@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D27FECD98C6
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 06:08:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 769A4CD8CB9
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 06:08:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1885010ECDC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26D4310ECDF;
 	Thu, 11 Jun 2026 06:08:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eG8oKfde";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Teqyt6jL";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E98910ECDC;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0628210ECDB;
  Thu, 11 Jun 2026 06:08:10 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E5787432B8;
+ by sea.source.kernel.org (Postfix) with ESMTP id D066E407FD;
  Thu, 11 Jun 2026 06:08:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C55CEC2BCC7;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9DF03C2BCB0;
  Thu, 11 Jun 2026 06:08:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1781158089;
- bh=N4TX6TuZny23eBaXcZmnD0Ha3T+/QtIMM5zVz19bTXo=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=eG8oKfdellegnf4TQ3PZr60qpVlD9RhvBTBcAq1E775G7u2oYsyfcsnA34ZIG1Jcr
- e6IlvPFQGGaByfNKnvlOhXVjJK4MtSnj23cUkroCF42v/G1sPFx0baE2/NoYyPK+Ih
- TKOvMBwM3gJQ/Z38qWBLyMsR8Nu9JRCpScdMbvdMuxsZuOH1Y8cGnqu50HtgWmj+mb
- cqddv5Uwvs6EnS/dUPshVHdUL0Xz54Sl7/LyS7GUPjNr8uLjtEtHY855OdGXxU3T9t
- 26wU/IIwyvVyhqNQRnXBTV6pVVU3NHRR7HsBoI4kocg3/4YIeg8/qcpeL/WvrhsnWJ
- Ask7Z90fId0PA==
+ bh=81muFtNZlIN5I+ReHetL0p5x3A+MyYaxxxEAsQdgsiE=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=Teqyt6jL6hijIep64ZxmyiUlIwfknzaHLfZDm8o1qRRsMOKvkKktH/8LEo837k7KR
+ m6eAh2FJXBtYjN+/Cn51/WVuB1H5UiCwlip6GfY7Njrobw9ocOcUeOU0nplf3vhrGt
+ CBjHapY3N8bM5hQkgRVGcoPXKUTeXMFNSGodV8qFdm7/WwOZf6V4atkbC88OD34o0w
+ VTKeMOoG8ukZnilDp8a8d8oj2+Rt/bmMcqd0bJ6zh8y60pJ+5RjNc5QCsiAV37rljc
+ wmuEkb/eNu4srVzL6FQP4O58/jw6Xf9eabsOVm/a6OfNn5tKxrR+7+GKA9MyI/5X3N
+ IuQuOrKJAHCGA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id B7DE3CD98CF;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 931C5CD8CB9;
  Thu, 11 Jun 2026 06:08:09 +0000 (UTC)
 From: Alexandre MINETTE via B4 Relay <devnull+contact.alex-min.fr@kernel.org>
-Date: Thu, 11 Jun 2026 08:07:47 +0200
-Subject: [PATCH 2/2] drm/msm/mdp4: keep inherited display clocks enabled
- until modeset
+Subject: [PATCH 0/2] drm/msm/mdp4: fix intermittent blue screen on Galaxy
+ S4
+Date: Thu, 11 Jun 2026 08:07:45 +0200
+Message-Id: <20260611-mainline-fix-mdp4-blue-screen-sending-v1-v1-0-22925600e4f2@alex-min.fr>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260611-mainline-fix-mdp4-blue-screen-sending-v1-v1-2-22925600e4f2@alex-min.fr>
-References: <20260611-mainline-fix-mdp4-blue-screen-sending-v1-v1-0-22925600e4f2@alex-min.fr>
-In-Reply-To: <20260611-mainline-fix-mdp4-blue-screen-sending-v1-v1-0-22925600e4f2@alex-min.fr>
+X-B4-Tracking: v=1; b=H4sIALFQKmoC/yXNwQ6CMBCE4Vche3aTFqQkvorxUNoR18BKWiAmh
+ He36vE7zD87ZSRBpku1U8ImWV5aYE8VhYfXASyxmGpTO+Os4cmLjqLgu7x5ivOZ+3EF55AA5Qy
+ NogNvlo1ruth5F5q2pZKbE8rkd3W9/Z3X/omwfPt0HB/C2qJDjAAAAA==
+X-Change-ID: 20260610-mainline-fix-mdp4-blue-screen-sending-v1-0637d7a6c355
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
  Dmitry Baryshkov <lumag@kernel.org>, 
  Abhinav Kumar <abhinav.kumar@linux.dev>, 
@@ -54,11 +56,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  phone-devel@vger.kernel.org, Alexandre MINETTE <contact@alex-min.fr>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781158087; l=5355;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781158087; l=1297;
  i=contact@alex-min.fr; s=20260421; h=from:subject:message-id;
- bh=bRl6/0Ew6JY9Fp5O3asZLYPvgCZok6zy103T4pX0/Lo=;
- b=N6BN8t/pvr/mk8k9OqSwa+SamY44EgWxbcKuRlCORo73qZPDSRrVALCiktAauT8vcvXJIXhbn
- FC+BsZ/5NhSDqG2snx7vVR0mS6keV3KDb/GBnnp0ZXwU8T3dyQRgzyn
+ bh=81muFtNZlIN5I+ReHetL0p5x3A+MyYaxxxEAsQdgsiE=;
+ b=0xbJVqU4awXIOs3QAV1exSkY/TNPZmxrn4rSiwfmmxX3PgynjiiF2s3u7oOvRNUQsQoI3dQBY
+ GNcWij60CaXBzgqdahAot4Dc5UraLukFX185Itt9H67s6HDMhZDVZEp
 X-Developer-Key: i=contact@alex-min.fr; a=ed25519;
  pk=KOCaxY4v16ptaT0uk1FRkuaDF2n1JhmnYwLiqWD76M4=
 X-Endpoint-Received: by B4 Relay for contact@alex-min.fr/20260421 with
@@ -80,157 +82,37 @@ Reply-To: contact@alex-min.fr
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Alexandre MINETTE <contact@alex-min.fr>
+This series fixes an intermittent blue screen seen on the Samsung
+Galaxy S4 with the MDP4 display controller. The issue happens on roughly
+half of boots.
 
-Some devices boot with the MDP4 display pipeline already enabled by
-firmware. On the Samsung Galaxy S4, disabling clocks used by that
-inherited pipeline before DRM takes over can leave the panel showing a
-blue screen.
+The first patch keeps the AXI/bus clock enabled while a CRTC is active,
+so scanout does not lose bus access while the display pipeline is still
+running.
 
-Keep the required display clocks prepared when an inherited
-DSI/LCDC/DTV enable state is detected, and drop the extra clock
-references on the first DRM CRTC enable. At that point the driver owns
-the display pipeline.
+The second patch handles the case where firmware left the display
+pipeline enabled before Linux takes over. In that case, the required
+display clocks are kept enabled until the first DRM modeset, where the
+driver takes ownership of the pipeline.
+
+Tested on a Samsung Galaxy S4 GT-I9505, codename jflte.
 
 Signed-off-by: Alexandre MINETTE <contact@alex-min.fr>
 ---
- drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c |  1 +
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c  | 66 ++++++++++++++++++++++++++++++-
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h  |  2 +
- 3 files changed, 68 insertions(+), 1 deletion(-)
+Alexandre MINETTE (2):
+      drm/msm/mdp4: keep the bus clock enabled while a CRTC is active
+      drm/msm/mdp4: keep inherited display clocks enabled until modeset
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
-index 9e53c9d956ca..0aeefd48be1f 100644
---- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
-@@ -297,6 +297,7 @@ static void mdp4_crtc_atomic_enable(struct drm_crtc *crtc,
- 
- 	mdp4_enable(mdp4_kms);
- 	mdp4_crtc_bus_get(mdp4_kms);
-+	mdp4_inherited_display_clocks_put(mdp4_kms);
- 
- 	/* Restore vblank irq handling after power is enabled */
- 	drm_crtc_vblank_on(crtc);
-diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-index 4c60b49fb784..1264ce7e8459 100644
---- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-@@ -151,6 +151,58 @@ void mdp4_crtc_bus_put(struct mdp4_kms *mdp4_kms)
- 	mutex_unlock(&mdp4_kms->clock_lock);
- }
- 
-+static bool mdp4_has_inherited_display_state(struct mdp4_kms *mdp4_kms)
-+{
-+	return mdp4_read(mdp4_kms, REG_MDP4_DSI_ENABLE) ||
-+	       mdp4_read(mdp4_kms, REG_MDP4_LCDC_ENABLE) ||
-+	       mdp4_read(mdp4_kms, REG_MDP4_DTV_ENABLE);
-+}
-+
-+/*
-+ * If firmware left MDP4 scanout enabled, preserve the core/LUT clocks until
-+ * the first DRM CRTC enable takes ownership of the display pipeline.
-+ */
-+static void mdp4_inherited_display_clocks_get(struct mdp4_kms *mdp4_kms)
-+{
-+	bool inherited_display;
-+
-+	mutex_lock(&mdp4_kms->clock_lock);
-+
-+	clk_prepare_enable(mdp4_kms->clk);
-+	clk_prepare_enable(mdp4_kms->pclk);
-+	clk_prepare_enable(mdp4_kms->lut_clk);
-+	clk_prepare_enable(mdp4_kms->axi_clk);
-+
-+	inherited_display = mdp4_has_inherited_display_state(mdp4_kms);
-+
-+	if (inherited_display) {
-+		clk_prepare_enable(mdp4_kms->clk);
-+		clk_prepare_enable(mdp4_kms->lut_clk);
-+		mdp4_kms->inherited_display_clocks_held = true;
-+	}
-+
-+	clk_disable_unprepare(mdp4_kms->clk);
-+	clk_disable_unprepare(mdp4_kms->pclk);
-+	clk_disable_unprepare(mdp4_kms->lut_clk);
-+	clk_disable_unprepare(mdp4_kms->axi_clk);
-+
-+	mutex_unlock(&mdp4_kms->clock_lock);
-+}
-+
-+void mdp4_inherited_display_clocks_put(struct mdp4_kms *mdp4_kms)
-+{
-+	mutex_lock(&mdp4_kms->clock_lock);
-+	if (!mdp4_kms->inherited_display_clocks_held)
-+		goto unlock;
-+
-+	clk_disable_unprepare(mdp4_kms->clk);
-+	clk_disable_unprepare(mdp4_kms->lut_clk);
-+	mdp4_kms->inherited_display_clocks_held = false;
-+
-+unlock:
-+	mutex_unlock(&mdp4_kms->clock_lock);
-+}
-+
- static void mdp4_destroy(struct msm_kms *kms)
- {
- 	struct mdp4_kms *mdp4_kms = to_mdp4_kms(to_mdp_kms(kms));
-@@ -171,6 +223,11 @@ static void mdp4_destroy(struct msm_kms *kms)
- 		pm_runtime_disable(dev);
- 
- 	mutex_lock(&mdp4_kms->clock_lock);
-+	if (mdp4_kms->inherited_display_clocks_held) {
-+		clk_disable_unprepare(mdp4_kms->clk);
-+		clk_disable_unprepare(mdp4_kms->lut_clk);
-+		mdp4_kms->inherited_display_clocks_held = false;
-+	}
- 	if (mdp4_kms->crtc_bus_count) {
- 		clk_disable_unprepare(mdp4_kms->axi_clk);
- 		mdp4_kms->crtc_bus_count = 0;
-@@ -549,6 +606,7 @@ static int mdp4_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct mdp4_kms *mdp4_kms;
- 	int irq;
-+	int ret;
- 
- 	mdp4_kms = devm_kzalloc(dev, sizeof(*mdp4_kms), GFP_KERNEL);
- 	if (!mdp4_kms)
-@@ -594,7 +652,13 @@ static int mdp4_probe(struct platform_device *pdev)
- 	if (IS_ERR(mdp4_kms->lut_clk))
- 		return dev_err_probe(dev, PTR_ERR(mdp4_kms->lut_clk), "failed to get lut_clk\n");
- 
--	return msm_drv_probe(&pdev->dev, mdp4_kms_init, &mdp4_kms->base.base);
-+	mdp4_inherited_display_clocks_get(mdp4_kms);
-+
-+	ret = msm_drv_probe(&pdev->dev, mdp4_kms_init, &mdp4_kms->base.base);
-+	if (ret)
-+		mdp4_inherited_display_clocks_put(mdp4_kms);
-+
-+	return ret;
- }
- 
- static void mdp4_remove(struct platform_device *pdev)
-diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
-index 86391d9bc55f..289b5b476d99 100644
---- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
-+++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
-@@ -34,6 +34,7 @@ struct mdp4_kms {
- 	struct clk *lut_clk;
- 	struct clk *axi_clk;
- 	struct mutex clock_lock;
-+	bool inherited_display_clocks_held;
- 	unsigned int crtc_bus_count;
- 
- 	struct mdp_irq error_handler;
-@@ -152,6 +153,7 @@ static inline uint32_t mixercfg(uint32_t mixer_cfg, int mixer,
- 
- int mdp4_disable(struct mdp4_kms *mdp4_kms);
- int mdp4_enable(struct mdp4_kms *mdp4_kms);
-+void mdp4_inherited_display_clocks_put(struct mdp4_kms *mdp4_kms);
- void mdp4_crtc_bus_get(struct mdp4_kms *mdp4_kms);
- void mdp4_crtc_bus_put(struct mdp4_kms *mdp4_kms);
- 
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c |   3 +
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c  | 108 +++++++++++++++++++++++++++++-
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h  |   8 +++
+ 3 files changed, 118 insertions(+), 1 deletion(-)
+---
+base-commit: acb7500801e98639f6d8c2d796ed9f64cba83d3a
+change-id: 20260610-mainline-fix-mdp4-blue-screen-sending-v1-0637d7a6c355
 
--- 
-2.43.0
+Best regards,
+--  
+Alexandre MINETTE <contact@alex-min.fr>
 
 
