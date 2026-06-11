@@ -4,120 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 365D3CD98CC
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 22:55:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8B55CD98C7
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 23:02:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91D7410E8C2;
-	Thu, 11 Jun 2026 22:55:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F13D510F161;
+	Thu, 11 Jun 2026 23:02:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="GSoH5Slu";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="md1FMUhb";
 	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92E1410E8C2
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 22:55:07 +0000 (UTC)
-Received: from pps.filterd (m0089730.ppops.net [127.0.0.1])
- by m0089730.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 65BEFurG3822102
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 15:55:06 -0700
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88B1110F161
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 23:02:38 +0000 (UTC)
+Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65BEf4R42133335
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:02:38 -0700
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=PstN10mGGH+L0A0CuZvfxdqRssEKVpUiOodgdSJiiVo=; b=GSoH5SluoitA
- ZhbhWOwNzZW0wVQslaRzOinRNj0iQBrT8vlZdPN2pSQ81NJhJsM6lrkRBfl65wwB
- Y6XI9NxpND7U3QFlGs/3h9zNcYs5uhOwY47aIU5+EFwN8tL0uJjB3xT4Nc2flLB8
- OuoRY9cJNAxqPnad+ocTYUbkKCVC8IBCfC3SpUi1FJ+WZQob1ge1Jpp9UqjUFdWz
- K1c+zwzcafG7syWDN66Fj9WqXwz7FP2S9x2PYeJbkQE2VqOZpCCSJ1Pi0LPZggjM
- b2aFPVkM2zchaidEebRvMGWAVwnPUS0gkiIJhE8DgZHNoygYJJTbBZkcw54dlUux
- W3AMfKkv+w==
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com
- [209.85.210.72])
- by m0089730.ppops.net (PPS) with ESMTPS id 4eqe7xhb7f-1
+ bh=ob92Tq2R57wAiMWenfqpV0H25NaZcFwlwctuc69C3Js=; b=md1FMUhbMLo8
+ Fh894GG//O50My3HeLIl+N1moRtgU28J41XgC7IeNjtkXzdqb3Q4pJbloUb0sI57
+ 9jVz7NnQpwJ5bDPV4npoEbwYzhg4rgAl9HiKES6OFpGviFE4XpNWf6+El9J9dJ7B
+ Yo/EOv0vO3lg0CKH0IeKIWviH2o6Ji1sS4icJbrVsodYNItHLNAjRW6ZraJMViyk
+ n/FyvaceZSOsCn5SwSysZB4DgzxdCuNLNoHpkBe5q1vDh++JPpSH4eLPJhsKjRSE
+ bq0UWdRUpM7b1KbePNQSfzI9YgeqCUP1xW5dgvSck3N00OzgCLYF3SsitjHsc7bI
+ ag85db8yRw==
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
+ [209.85.210.71])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4eqe81s9w0-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 15:55:06 -0700 (PDT)
-Received: by mail-ot1-f72.google.com with SMTP id
- 46e09a7af769-7e6f905ea78so792039a34.1
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 15:55:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781218506; cv=none;
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:02:37 -0700 (PDT)
+Received: by mail-ot1-f71.google.com with SMTP id
+ 46e09a7af769-7e74781faaaso842270a34.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:02:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781218957; cv=none;
  d=google.com; s=arc-20240605;
- b=OOutMyIh/NUna/kmDbVhCeknJBHTEdyO+QaonUYYMxkr5MKZiLVgCzJMdzbu8Zy8cp
- VkCGffQM1AAm6GJpsXpdo1g5LMRLuFfik6LIMwAR3owm+B9pBhsFRvKSoloSRfwJZw+m
- BDA0oMS40rpMPAo8m1l+WeGEBApkdodjYUfjMGhj+svJTWY8uA3awAqcvqY7E6vU/62p
- 7tfjPV9161TIXyqSRILSbPEuUncGzawu0cR+jCGWn9SyFtBbKfL8BKMmie0oX7MJ5G5o
- CPVM/nA/2jgnSi2+jnDH/olj7wpF4XaBEVP/0gSK33EO169jsLI6Ms3gIvPP9DhkgXpT
- 7qZg==
+ b=CNnDlbNTUU3xI3tfJBppKq8tGXQ9VcIu2zz8tAtuIdgNuPuWisIr9YNjCWG5PAxZSh
+ VC4ihoe89+U86IOXJDg/CmhkOvFF87PEGSoHl0WEYyU7KJjFEl9x4zqe+DbM4Mgb59Dy
+ 5yCjnpYMa3i+A8rgFnIU7wP9XW/M2lhhJCFcFkDUQSU1L95ryRMbAosYE9kd4dlm7Y2c
+ xWR13PS/NZTqqhZ5JWyKAGRui7QGhAU0Zd0aqgbKH3qB8ZxMKytVnMbbbD2Hx/xHL8BR
+ ADuDYfUfyzDim/DmZIRQQxa3ld9F2qLVNBp9UG012+v1Dq0NpKOkbWJSxiu3I+LZLRsL
+ 47yw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version;
- bh=YYy1fCwoPtiMDCF76edFD+6WvAo/7l1hbbUr+kdv9e0=;
- fh=jZJlarzlJDmijODdXLIId4gbjBwr6UxhIYo5eMmifjk=;
- b=Mvdd5PRkjuwG8zyMa6mSHBSY9lDGotL8iJwJPd4kiROhdg49qR1Lww7fWSDMhZ4A8Y
- 1qdV8Q9ryx9BWJUoFdjKPa7gj5gY9kF7PeVVYwNSKjyhL3CXVGAqY0S+HVw7rQDh0lLJ
- o9Wyu18LdLkxAFt7NHZ87CvSaMx3LPCt6Rrj/Rd/bo7DzRVb2xDMJOTQwjDKnQDXK7v9
- Eqx0fl7ZIXgzRIoSlS6bXhraMP1h057iqkd0rS57c/WeTSCXAxDhluOsQ8rmia7RmZJR
- 3x0FafJKhfM2kVbJkxx2xeQISbJiEKSC6keFg9qHWIlilnhEltuc9ANS6mdtRcnkw1lK
- hLBg==; darn=lists.freedesktop.org
+ bh=WY5Yrlv2Sc7Wnv9jSySuWH/Jl8+9GO4Ig0Gi7133UjE=;
+ fh=tYY7InHlS5vewjCAMrDwHN/+ii4f4KGN8nKNLmzfxq0=;
+ b=Ki4odP/Jg8XGdOgDrd4Jhpkl2QUyAZByj+bSkMTpoU4rIDXhBDLrrfMIvKpb+c4gA0
+ qUpfe5mhSvLFi/9gl8gaLvJRdJ3f8C1/sScHUYBrWUF31i+ekgzD6NrqdNnMualzHf5m
+ t3b2yaNhG0p1Tekc/3kc5VIglkNnoWj/nYJzULGuei5pIxWRT5dUyAUyMvYusyLyOViC
+ MgukH77pGyIrihC21nXS+4SuQ/Q80fW4NUy7QxyS+/usvMzC7/sY0KLseB7SH1Pcdsko
+ 79w/0Y3StNQhVNGhnnzx8/PLy6TUq3zjVwRzAypMmVbt0ZJm34tP1x7KHEOtVASkKupv
+ 80lw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781218506; x=1781823306;
+ d=1e100.net; s=20251104; t=1781218957; x=1781823757;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=YYy1fCwoPtiMDCF76edFD+6WvAo/7l1hbbUr+kdv9e0=;
- b=XtTJ2FylYd1XRA+KthLMpkBW1SuowQntZuxWRWFmJMeRmC6XU722/OngW9yFSXQX0Y
- SBB7UtGfFK9ommds9YxqSLoFLFEccFi5SYXN6xqghzaqvnqSscZMBFEMeb+Y9tnuN7E6
- m/lRdvF6wzqAckCcKv6VZlXbwkellwDmwZ7XfxxoA1JM79yU2OWKUmEtMGSBJxO5Cx6G
- UpLhtzJpZNEcFZPjqXq1MLbo6syOHwmwzVMCpKyEfWcQRW2jlan5PbWzANedFtrYpLTw
- aObgLKuXA7sMYCKZsraosJMIBqjuPl3kMFpMrXXxq6D4q64fhme+mm3MFcl23lcPSCHO
- 6pAw==
+ bh=WY5Yrlv2Sc7Wnv9jSySuWH/Jl8+9GO4Ig0Gi7133UjE=;
+ b=L5vQ6vrFjd8oHSSXWTwwDhDlBAAYhv1dvQP5cTPmVaEEi+FniUKJtiGkOJ3gscikQ0
+ QyduAhc/cuV5Wie8EAjOefQRX2bLvhyAmmP98naOTy6PL5nXiL7KnoCILtKYbc919+40
+ OtIcDbCv4QbE8nqbeU3gbP0NeRndIeGZM7F/nZiymOZqJraViBPaIfJKvlUXh4alWraP
+ 3PPAYBM/vGT6SCuhHBR765Mn8bu9sDfJ7jNBA75cKHEmeAIJWSUFTxdNd73lrVpbC2Pw
+ QchYYmdjtETgKZuiXsfSJ87SoJADiWXwtrFsEXUtmj11G7eG7sx8V7QgMoMQHCo0FPr0
+ oc0w==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9BD0sneQYgF7wRyHc5QzPGdceVZvGqNgKVVvMjyyw0EhydUJkBpLHpOdlCtH4MmKW2DY1bpyPrIlQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzmQJXxicw1GvTtUkYFLAlv7UgJlryBPgO24kmqnVIoJtR0d3gD
- uLkK34B+TQHhyFdnYUnAE/2Ju6qkm4SGTqXt12WSLGfuxSKRqJXDpHOodjJhqDp+zyrKmEM9ENr
- xIOVNVzlS8KmVcwEygsog0G6LnPeHm8KwbhuclhtAueEepErcOx1VZiCK6SDBvWqYZDX8JsUcHH
- XqbqUpEVcppWW5UikyBu+Gn1YQ5ghIU0sCeJ+dcSHmt7B/0tf6290=
-X-Gm-Gg: Acq92OEPoc/bRFG9rOif/rcdQsya+1aKYHLbI0nFedM+RBqZszzP5TdUYuHzm4Tc8+h
- mNRtEM80TvgaRt4LFwxtg3w5ldrlJN9ftWLLAFsjGOuVrTpNkJV9jS8juiCrEPgsyhipYkL85WM
- w3lNZZFCrXjOGHbagLHFtfP1kh//UMlziczZEa19Ai2eL/sizGcUbUJU3MIZWshwEniHnDYisrK
- aq4/svgqmWNE/RGrymvnQ==
-X-Received: by 2002:a05:6830:3e01:b0:7e6:f9e4:539b with SMTP id
- 46e09a7af769-7e7846e89d4mr84841a34.9.1781218505389; 
- Thu, 11 Jun 2026 15:55:05 -0700 (PDT)
-X-Received: by 2002:a05:6830:3e01:b0:7e6:f9e4:539b with SMTP id
- 46e09a7af769-7e7846e89d4mr84824a34.9.1781218504891; Thu, 11 Jun 2026 15:55:04
- -0700 (PDT)
+ AFNElJ9PiF7Y2KIH4QL0ccnnLZR2FS2agI2rkdPYfHp02yXhmIkcPXuBP7ffcu3H5tpaIwSlP/dbVMA5au0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy3p68UPHDzZlqklHd8Ua1NlmE/YIkSzHOwtZTTltqzZkWRL+Hh
+ kh+PBKWtM+KnvWUWBSWGMvA7KPipPKdDWetD3TwROtH7X5z6Zu22wGXLWwY3GkppIGV6rD7AV6A
+ e+UqEeRAVez45TrFSLHddeGFb7kTLH6XfSLobBk766sVuFDVxu4Wlo+351wxt6MV3KVm9iOGUsp
+ ovYhdH/4xMIEBN+/luPwL8aFZ9VDxrxmrzsEDJOHGjwSI=
+X-Gm-Gg: Acq92OH2+jHUH/g3VBSZp+eiyvuWR38hUOzF7e0qjFHMQMCeOp7RbiO72+PvviQ+9sL
+ CDIiJJNjs3O1nfzgeevx0V+OCQ6BWgxuBRtbUrhxDtB9bRsmkMm7AggpB1BIlwm8mesrKR2793E
+ sefgnGlsauMDGfUoV0x06h0nz3qRmEIiqNcxvtObmkTPy+QFmRJqF7MR0vZTkplK7aTWKCMyTrz
+ G4sU3ZSCxA2X0Y3xNHk7Q==
+X-Received: by 2002:a05:6830:4411:b0:7dc:cd0b:58bc with SMTP id
+ 46e09a7af769-7e78473e9a9mr114898a34.7.1781218957157; 
+ Thu, 11 Jun 2026 16:02:37 -0700 (PDT)
+X-Received: by 2002:a05:6830:4411:b0:7dc:cd0b:58bc with SMTP id
+ 46e09a7af769-7e78473e9a9mr114839a34.7.1781218956672; Thu, 11 Jun 2026
+ 16:02:36 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260610193158.2614209-2-zhipingz@meta.com>
- <20260611202559.80EF21F000E9@smtp.kernel.org>
-In-Reply-To: <20260611202559.80EF21F000E9@smtp.kernel.org>
+References: <20260610193158.2614209-5-zhipingz@meta.com>
+ <20260611202555.B0FE31F000E9@smtp.kernel.org>
+In-Reply-To: <20260611202555.B0FE31F000E9@smtp.kernel.org>
 From: Zhiping Zhang <zhipingz@meta.com>
-Date: Thu, 11 Jun 2026 15:54:54 -0700
-X-Gm-Features: AVVi8Cec0xPin_3Tu2bkuOl2uwNE0xNjryiPQU2XmmSIcyBQ5hzh3oLNXw3MBdo
-Message-ID: <CAH3zFs1U92oXZse+8h5rKNrfWmtqt3SeCRJa8D9O8R02chnwTA@mail.gmail.com>
-Subject: Re: [PATCH v7 1/5] net/mlx5: free mlx5_st_idx_data on final dealloc
+Date: Thu, 11 Jun 2026 16:02:25 -0700
+X-Gm-Features: AVVi8CelQJPHsRb_TsddVOxCGdtZJzAKJ67zmwHKr7MIkmqZ8rgse99DfYGSmhU
+Message-ID: <CAH3zFs3FjiCfOceVRin0ytKNdZ7Pgyv4ds=Dd_GhrRC_XcbNOg@mail.gmail.com>
+Subject: Re: [PATCH v7 4/5] vfio/pci: implement get_tph and DMA_BUF_TPH feature
 To: sashiko-reviews@lists.linux.dev
-Cc: kvm@vger.kernel.org, linux-pci@vger.kernel.org,
+Cc: linux-pci@vger.kernel.org, kvm@vger.kernel.org,
  dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDIzMCBTYWx0ZWRfXxf/wu6EpYnxn
- 0s+BcgRHrIccTvnw2v/Z7P1DrInpvePF553fZcIgYlNFOXXrW7eN7s4+uqHoongMGceb2E3DCzJ
- 9vPmQE1idaUOka0L+cldflCw9TOF7DU=
-X-Proofpoint-GUID: x4D0krfoIoAdS35_L5qncHzkfnIo49ok
-X-Proofpoint-ORIG-GUID: x4D0krfoIoAdS35_L5qncHzkfnIo49ok
-X-Authority-Analysis: v=2.4 cv=Zagt8MVA c=1 sm=1 tr=0 ts=6a2b3cca cx=c_pps
- a=+3WqYijBVYhDct2f5Fivkw==:117 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=855S8uPTkML1Oy45N9_h:22
- a=c92rfblmAAAA:8 a=VabnemYjAAAA:8 a=VwQbUJbxAAAA:8 a=37eGqx-N3tBcJSbcPa0A:9
- a=QEXdDO2ut3YA:10 a=GvGzcOZaWPEFPQC_NcjD:22 a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDIzMCBTYWx0ZWRfX4sfWe3GSBYA/
- jeVeQDWoHKftwm5LOoY2NxlPHw4vYc9ZBKJFUNrT/pErelkrMQmRAlI2TPq5/5TNnBT+1MFDykS
- P+ssSyIuoAWf+39WdDr49ZUORhUXC9DL0JCZw6sLZ6YKcuiPv5rk3Mq6GsaRvY97nKGuLQ2Huam
- xdRLZsG+fgaarYR+Xs7i5HY8lsOLVjGufNnnuWvMujw2Ju85wv7ircq/OxR7O4Q4cXFWzV6inna
- 2QLzHBvm9oneQDg/70aP8CxIoTr5ZUa69dItClbzRmpgnMgjn2dZdhbzYFQmi+FIRQrg+GHU/da
- SbqbSS/irxLSOY6uj5rT5EuOflqQJ5jNYU8nCrd+4r91WSD4F0ILcTsQuyq+zeAm9ze+mjJl2t8
- N/g8AOP7bhfBMos8AsK/8ox+lyJ1z56NgFGnCATLH6vC2YlKHvsKUrLxgV5wrd6JP/rjbRVTA/l
- UUTsoID9zCVbZUZNLnw==
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDIzMSBTYWx0ZWRfXwu7/eBsosiBa
+ LJAWM3XCBveh2Y+YE4u6+DBKJnMYwRja/RQdqDiznAp2RAbDwlBNvK9zHgjvRf1gP9kRfmVP4Fo
+ weqgIEKPEAm83hmR27RUvkA52ihjGKh3EdAgYBZStUB8EMpanuydrDX7BdzTlFbtBGlg6HCs6po
+ 7hqMLyTqHuAJdQ/QJ4G/S1EpkEBzm4cT54+zmCAMAFcmC5Jra+Sem7gCOvA3Jcz0gmpWICCq7Tq
+ vTQeeABX1Onz5SDM2Uf6yt/01JGccwmCWjtxzSxPwx5sqKaRaHHfoBn8vD8u1lVKXEn5qyJo46t
+ dKiNQQYr4h10ISxLZkX8w5/qRyQr774aGpMGQJI18Th+RQ9DsefSSMG0oR77acLPU/O33Jv/A7Z
+ 0oTgKkhXRdUDEmksFTRk96+4SWlBPyoEUvGs5oWqC7oD+/xGS5+lgasY1v1eU1AJPRs9ygw2b9L
+ aUY0iyK/1a5k23h7ZOA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDIzMSBTYWx0ZWRfX0fnWgezLsO+V
+ 6XzUknm+P++mZ/Gy6L5g7b/38RTv9ybvPBCftGnheA0D2fvt1fWiW6y4GJPzrDik/Hdg4XrCZQs
+ nYLWx4wyFicHowk/5SmkioqAgWvx8Ew=
+X-Proofpoint-ORIG-GUID: SX0VUwdBAJUZxMVO-fWSuMqXDSDu2Gca
+X-Authority-Analysis: v=2.4 cv=ToXWQjXh c=1 sm=1 tr=0 ts=6a2b3e8d cx=c_pps
+ a=OI0sxtj7PyCX9F1bxD/puw==:117 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=03ozwUkBphtHgyqjj1sw:22
+ a=VwQbUJbxAAAA:8 a=VabnemYjAAAA:8 a=vvh9Qk1aVFpNxidmG9UA:9 a=QEXdDO2ut3YA:10
+ a=Z1Yy7GAxqfX1iEi80vsk:22 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-GUID: SX0VUwdBAJUZxMVO-fWSuMqXDSDu2Gca
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-11_05,2026-06-11_01,2025-10-01_01
@@ -136,91 +137,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 11, 2026 at 1:26=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+On Thu, Jun 11, 2026 at 1:25=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
 >
 > >
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
 e(s) to consider:
->
-> Pre-existing issues:
-> - [Critical] Out-of-bounds read in UVERBS_METHOD_DMAH_ALLOC handler due t=
-o missing bounds check on user-supplied cpu_id.
+> - [Medium] Unconditional validation of the flag-gated 'ph' parameter can =
+lead to spurious -EINVAL errors, breaking the syscall trust boundary.
+> - [Medium] VFIO_DEVICE_FEATURE_PROBE falsely reports that VFIO_DEVICE_FEA=
+TURE_DMA_BUF_TPH is supported even if the hardware lacks TPH support.
 > --
 >
-> commit efb72743b37fe4c5005fca2d75b36ef50832bc6c
+> commit d57637d667ca6dc95def77a0a5bd339d62d4f506
 > Author: Zhiping Zhang <zhipingz@meta.com>
 >
-> net/mlx5: free mlx5_st_idx_data on final dealloc
+> vfio/pci: implement get_tph and DMA_BUF_TPH feature
 >
-> When the last reference to an ST table entry is dropped,
-> mlx5_st_dealloc_index() removed the entry from idx_xa but leaked the
-> backing mlx5_st_idx_data allocation. Repeated alloc/dealloc cycles
-> therefore accumulate one struct mlx5_st_idx_data per cycle.
+> This commit implements dma-buf get_tph for vfio-pci exported dma-bufs and
+> adds the VFIO_DEVICE_FEATURE_DMA_BUF_TPH feature. This allows userspace to
+> publish TPH metadata for a VFIO-owned device. It checks completer support
+> and protects the metadata under dmabuf->resv.
 >
-> Free idx_data after the xa_erase() so the lifetime of the bookkeeping
-> struct matches the lifetime of the ST entry it tracks.
+> > diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio=
+_pci_dmabuf.c
+> > index 1a177ce7de546..0a0705c8dbea6 100644
+> > --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+> > +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
 >
-> Fixes: 888a7776f4fb ("net/mlx5: Add support for device steering tag")
-> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
+> [ ... ]
 >
-> > diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c b/drivers=
-/net/ethernet/mellanox/mlx5/core/lib/st.c
-> > index 997be91f0a135..7cedc348790db 100644
-> > --- a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-> > +++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-> > @@ -175,6 +175,7 @@ int mlx5_st_dealloc_index(struct mlx5_core_dev *dev=
-, u16 st_index)
+> > @@ -333,6 +360,71 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_=
+core_device *vdev, u32 flags,
+> >       return ret;
+> >  }
 > >
-> >       if (refcount_dec_and_test(&idx_data->usecount)) {
-> >               xa_erase(&st->idx_xa, st_index);
-> > +             kfree(idx_data);
-> >               /* We leave PCI config space as was before, no mkey will =
-refer to it */
-> >       }
-> >
+> > +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vde=
+v,
+> > +                                   u32 flags,
+> > +                                   struct vfio_device_feature_dma_buf_=
+tph __user *arg,
+> > +                                   size_t argsz)
+> > +{
+> > +     struct vfio_device_feature_dma_buf_tph set_tph;
+> > +     struct vfio_pci_dma_buf *priv;
+> > +     struct dma_buf *dmabuf;
+> > +     u8 comp;
+> > +     int ret;
+> > +
+> > +     ret =3D vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_SET,
+> > +                              sizeof(set_tph));
+> > +     if (ret !=3D 1)
+> > +             return ret;
 >
-> [Severity: Critical]
-> This is a pre-existing issue, but does
-> UVERBS_HANDLER(UVERBS_METHOD_DMAH_ALLOC) in
-> drivers/infiniband/core/uverbs_std_types_dmah.c lack bounds checking on t=
-he
-> untrusted user-supplied dmah->cpu_id?
+> [Severity: Medium]
+> vfio_check_feature() returns 0 for VFIO_DEVICE_FEATURE_PROBE, causing an
+> early return of success.
 >
-> drivers/infiniband/core/uverbs_std_types_dmah.c:UVERBS_HANDLER(UVERBS_MET=
-HOD_DMAH_ALLOC)() {
->     ...
->                 ret =3D uverbs_copy_from(&dmah->cpu_id, attrs,
->                                        UVERBS_ATTR_ALLOC_DMAH_CPU_ID);
->                 if (ret)
->                         goto err;
+> Should the hardware capability check (pcie_tph_completer_type) occur befo=
+re
+> checking the feature flags, to avoid falsely reporting that the feature is
+> supported on devices that lack TPH?
 >
->                 if (!cpumask_test_cpu(dmah->cpu_id, current->cpus_ptr)) {
->                         ret =3D -EPERM;
->                         goto err;
->                 }
->     ...
-> }
->
-> The dmah->cpu_id is copied directly from an untrusted uverbs attribute
-> without value validation.
->
-> Since cpumask_check only emits a warning if the CPU ID is out of bounds a=
-nd
-> does not cap the value, could test_bit compute a bit offset far outside t=
-he
-> bounds of current->cpus_ptr?
->
-> Can an attacker exploit this to read unmapped kernel memory (causing a ke=
-rnel
-> panic) or infer the contents of kernel memory by observing whether the
-> syscall succeeds or fails with -EPERM?
->
-> --
-> Sashiko AI review =C2=B7 https://urldefense.com/v3/__https://sashiko.dev/=
-*/patchset/20260610193158.2614209-1-zhipingz@meta.com?part=3D1__;Iw!!Bt8RZU=
-m9aw!-yx89CgOVvF9E6-bX3TWkgI1oBHKqqBP1C88LmgmavxlZKHEFJdEeW7gwHdiVC2U2gzS3R=
-GnvW_CiJNQVwxS$
 
-Not relevant to my patch series.
+Will fix it with a change like below:
+ -     if (ret !=3D 1)
++     if (ret !=3D 1) {
++             if (ret =3D=3D 0 &&
++                 pcie_tph_completer_type(vdev->pdev) =3D=3D
++                     PCI_EXP_DEVCAP2_TPH_COMP_NONE)
++                     return -EOPNOTSUPP;
+                return ret;
++     }
 
-Zhiping
+> > +
+> > +     if (copy_from_user(&set_tph, arg, sizeof(set_tph)))
+> > +             return -EFAULT;
+> > +
+> > +     if (set_tph.flags & ~(VFIO_DMA_BUF_TPH_ST | VFIO_DMA_BUF_TPH_ST_E=
+XT))
+> > +             return -EINVAL;
+> > +
+> > +     if (set_tph.ph & ~0x3)
+> > +             return -EINVAL;
+>
+> [Severity: Medium]
+> When userspace clears the TPH metadata by passing flags =3D=3D 0, is it r=
+equired
+> to zero-fill the unused ph field?
+>
+
+Not an issue.
