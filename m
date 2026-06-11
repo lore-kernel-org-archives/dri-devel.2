@@ -4,89 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40FC3CD98DA
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 07:46:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 080B9CD98DC
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 07:46:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E1C210F2E2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF8C010F2E4;
 	Fri, 12 Jun 2026 07:45:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WIB2KQPs";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="Os9kV2Gx";
 	dkim-atps=neutral
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
- [209.85.210.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA92510E827
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:17:19 +0000 (UTC)
-Received: by mail-pf1-f173.google.com with SMTP id
- d2e1a72fcca58-842848fd613so79748b3a.3
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 09:17:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781194639; x=1781799439; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=T8aH/PnHGsQapYlnDIfPb1IzSgXvUuaowcmjYD6mOfs=;
- b=WIB2KQPsg+A7YIi1WBnCnmCDRH6M846ZX+VOCSwTa73nP9zgZdk3Y/Xu4VEs/BPpjJ
- kDk/KaV4YuR9hXBuig2y8VGGEqwUCsH4Addwx+xSDoWHxswOZ5FMVjyBbde1+u+49PBK
- Uvs8lvxVzlqbWy7jixU1fwL2c2YD7+enw8QA4KcEjv9Hz3iBu0G+BLfX2g47YWSMgE1I
- NCMY2ow/b/qcqCxbqGhUg519M4Sh3ft9tMIxKp7CbjnOC+Xso+C09sI3iHm333P+2Swq
- aKOQVCR6vAxKRcMv82zby604CXtkPJ57+1DaAmMeRLaDOO1g+8t1lIXrsXLIjz4suhb2
- XoRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781194639; x=1781799439;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=T8aH/PnHGsQapYlnDIfPb1IzSgXvUuaowcmjYD6mOfs=;
- b=r50Wylk+HDz5m29mOJ4NzjYvBJIdVNZRmwzpLsT5XdiaVgTqoaQP9EhRsL9Kl/9jBf
- iY85tnZgf1zzahsrrp7VNM1VpuP90ZMvx4tTZVSPsFbrK1XIqPqTutuudUE6mHtP/PEK
- vFTYD4CSngl7ecGD2pVY3nUf2a5VeGygJzKjwJrrx0WWpFoKlC0y5KfANMuixVejHzch
- MsiuJt3qVf7WBeNOU5VOob+HHcqprodNjombKDScVHEdYFoSqIxbBbykf7e8T9lP63Cy
- N+1FQUBeBX+6XF4w/laMaYNbxLKvzVQSKjoHmocxScKpa9DDzCOpgL0Ud47IEUk5jtHW
- Y2EA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+e09spXu8wva40Ia8HiRTKtjHxVrSS6VDHFRNoLmZi64ukXzgV5Vs/4gRYeTEJuis4nNYXpOyUt8w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxIUa36Wtue7fiJ1yp1wlbVusNX9ATTITSWWiFZ4+7+cw/DHhxh
- 0OfOsxW1tsW6KdUNl1UeLUcTEqhviN/ykKxAI88Jl/2fzfeGfV63kJJ2
-X-Gm-Gg: Acq92OFQJkqSwVrIubLFcp/0E/KnALT295PzpuCG4iZibD4BhOQbv2MdRpEFEAajcg0
- 01FqNtg3cp6B2VDNnD7B0ogWK5Yv8qxX2PBr1dyGAkwRQV8fjzTH5ZjeRcinEABlP1x/ECqtP3T
- zuVjIgoUMYWud2sdKUQ0EyuauAp+h9tXd3ayycFMk6VDSIVLM108hrR7+OBfknukOHjcXzK3VKA
- iJHGfK59UMpWtIqG8+f6Xc0BVGPn0UgUC1CsxR3aWPzSVmSxF5yjpK/fw24t+ZhBJ/OXpLuFFk9
- AMUAFBBgbcIK6pKVw8wNwioTpqqEd7m63h2q600rBwW0YmHq4HxwAJL4VpAxhrxA4tqFBcTTSvM
- o32t3me5rQ1gtL0k4fs//7aSX9s55AIdX3e6Bub6jyzEA27b96+eOMJz87yTjrh7BtaDvA+zXpG
- e75LrYPCuDiEchJ6sdFT4=
-X-Received: by 2002:a05:6a00:3a12:b0:83e:3050:d0b with SMTP id
- d2e1a72fcca58-843367a7702mr3874966b3a.1.1781194639376; 
- Thu, 11 Jun 2026 09:17:19 -0700 (PDT)
-Received: from localhost ([2a03:2880:ff:45::])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84337bf128bsm2656012b3a.27.2026.06.11.09.17.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jun 2026 09:17:19 -0700 (PDT)
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-Date: Thu, 11 Jun 2026 08:28:44 -0700
-Subject: [PATCH net-next v2 3/4] selftests/net: ncdevmem: add -b option to
- set rx-buf-size on bind
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D507D10F09A
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 17:44:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1781199888;
+ bh=bgyx4tuoR1VujLGJebtgmRpeK21Ky1z7/2zTZbfFLxY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Os9kV2GxCX6cgBB+jfIbx4Jk5aYyWKQ5X/ZXH+VDun8JRkKYtFv/ieIvA9GjW9BEP
+ oCbiUOIm0Juecvy1as3nTJYV673czVuKakUU/AnOzg1YsHLcYDcCT6wfnXjOb4o5EF
+ gGsD9u+TtAD6sXt5Fps0rxVzebnry3bpHhfB/x6aKrUvYTzMNZCxodqLKN4BSGZnoy
+ 7qlwpEUgQ//8IfsVc+0INo/af9xSHJs4pcUtFr/egZjryoz4iw5WPTWSpoUclLkJ9x
+ MLyh0LmyKHrhyNGTv+5AcdgmuuA1QN8TdwwUbruNIB224zwt1Y0N8Pmt5FJFGTti/K
+ pXV0X5964ySzw==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4gbqlp6VBVz4wJk;
+ Fri, 12 Jun 2026 03:44:38 +1000 (AEST)
+Message-ID: <d38fc0ed-4e89-4eeb-b32d-06afba3157f6@ozlabs.org>
+Date: Thu, 11 Jun 2026 18:44:35 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
+Content-Language: en-GB
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
+ Ankit Agrawal <ankita@nvidia.com>, Pranjal Shrivastava <praan@google.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20260611160749.GA469670@bhelgaas>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <20260611160749.GA469670@bhelgaas>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260611-tcpdm-large-niovs-v2-3-ee2bf15e7523@meta.com>
-References: <20260611-tcpdm-large-niovs-v2-0-ee2bf15e7523@meta.com>
-In-Reply-To: <20260611-tcpdm-large-niovs-v2-0-ee2bf15e7523@meta.com>
-To: Donald Hunter <donald.hunter@gmail.com>, 
- Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- Gerd Hoffmann <kraxel@redhat.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Shuah Khan <shuah@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org, 
- sdf@fomichev.me, razor@blackwall.org, daniel@iogearbox.net, 
- almasrymina@google.com, matttbe@kernel.org, skhawaja@google.com, 
- dw@davidwei.uk, Bobby Eshleman <bobbyeshleman@meta.com>
-X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Fri, 12 Jun 2026 07:45:54 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,156 +72,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Bobby Eshleman <bobbyeshleman@meta.com>
+Hi Bjorn,
 
-Add -b <bytes> to request a non-default niov size via
-NETDEV_A_DMABUF_RX_BUF_SIZE. When the value exceeds PAGE_SIZE,
-udmabuf_alloc() switches to an MFD_HUGETLB-backed memfd so each 2 MB
-hugepage produces one naturally-aligned sg entry.
+On 11/06/2026 17:07, Bjorn Helgaas wrote:
+> On Wed, Jun 10, 2026 at 04:43:15PM +0100, Matt Evans wrote:
+>> The P2PDMA code currently provides two features under the same
+>> CONFIG_PCI_P2PDMA option:
+>>
+>>  1.  Locate providers via pcim_p2pdma_provider()
+>>  2.  Manage actual P2P DMA
+>>
+>> Some drivers (such as vfio-pci) depend on 1, without having a hard
+>> dependency on 2.
+>>
+>> A future commit expands the use of DMABUF in vfio-pci for non-P2P
+>> scenarios, relying on pcim_p2pdma_provider() always being present.  If
+>> that depended on CONFIG_PCI_P2PDMA, it would make vfio-pci only
+>> available if CONFIG_ZONE_DEVICE is present (e.g. 64-bit systems), even
+>> when P2P is not needed.
+>>
+>> To resolve this, introduce CONFIG_PCI_P2PDMA_CORE and refactor the
+>> basic provider functionality into a new p2pdma_core.c file.  This is
+>> available even if the CONFIG_PCI_P2PDMA feature is disabled (or
+>> unavailable due to !CONFIG_ZONE_DEVICE).  Then, drivers can enable any
+>> additional P2P features with the original CONFIG_PCI_P2PDMA (available
+>> when CONFIG_ZONE_DEVICE is set).
+>>
+>> Signed-off-by: Matt Evans <matt@ozlabs.org>
+> 
+> I thought this was going to be just a code move and new Kconfig
+> option, but it involves a little more than that, e.g., adding
+> pci_p2pdma_release_pool() and tweaking the RCU synchronization.
+> 
+> If possible, it would be nice to do that refactoring in a smaller
+> preliminary patch so it's easier to review/bisect/etc and make this
+> one a pure code move.
 
-Reject values > 2 MB up front: MFD_HUGETLB + udmabuf can only guarantee
-2 MB per sg entry (one hugepage), so a larger rx_buf_size would fail the
-per-sg length/alignment check.
+pci_p2pdma_release_pool() is really part of the split, not a functional
+change, i.e. factoring the (P2P-only) pool handling out from the rest of
+the pci_p2pdma_release() actions still needed for the _CORE case.
 
-Add CONFIG_HUGETLBFS=y to drivers/net/hw/config so the new path is
-reachable in the CI kernels built for these tests.
+I guess .._release() could be split in place in a small patch, and then
+moved alongside the rest in a second.
 
-Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
----
- tools/testing/selftests/drivers/net/hw/config     |  1 +
- tools/testing/selftests/drivers/net/hw/ncdevmem.c | 49 +++++++++++++++++++++--
- 2 files changed, 47 insertions(+), 3 deletions(-)
+> I guess CONFIG_PCI_P2PDMA_CORE selects just part 1 ("Locate providers
+> via pcim_p2pdma_provider()"), right?
 
-diff --git a/tools/testing/selftests/drivers/net/hw/config b/tools/testing/selftests/drivers/net/hw/config
-index cd20024218cd..ed8642b68094 100644
---- a/tools/testing/selftests/drivers/net/hw/config
-+++ b/tools/testing/selftests/drivers/net/hw/config
-@@ -3,6 +3,7 @@ CONFIG_FAIL_FUNCTION=y
- CONFIG_FAULT_INJECTION=y
- CONFIG_FAULT_INJECTION_DEBUG_FS=y
- CONFIG_FUNCTION_ERROR_INJECTION=y
-+CONFIG_HUGETLBFS=y
- CONFIG_INET6_ESP=y
- CONFIG_INET6_ESP_OFFLOAD=y
- CONFIG_INET_ESP=y
-diff --git a/tools/testing/selftests/drivers/net/hw/ncdevmem.c b/tools/testing/selftests/drivers/net/hw/ncdevmem.c
-index d96e8a3b5a65..325c128191e2 100644
---- a/tools/testing/selftests/drivers/net/hw/ncdevmem.c
-+++ b/tools/testing/selftests/drivers/net/hw/ncdevmem.c
-@@ -61,6 +61,7 @@
- #include <sys/time.h>
- 
- #include <linux/memfd.h>
-+#include <sys/param.h>
- #include <linux/dma-buf.h>
- #include <linux/errqueue.h>
- #include <linux/udmabuf.h>
-@@ -79,6 +80,7 @@
- #define PAGE_SHIFT 12
- #define TEST_PREFIX "ncdevmem"
- #define NUM_PAGES 16000
-+#define MB(x) ((x) << 20)
- 
- #ifndef MSG_SOCK_DEVMEM
- #define MSG_SOCK_DEVMEM 0x2000000
-@@ -100,6 +102,7 @@ static unsigned int dmabuf_id;
- static uint32_t tx_dmabuf_id;
- static int waittime_ms = 500;
- static bool fail_on_linear;
-+static uint32_t rx_buf_size;
- 
- /* System state loaded by current_config_load() */
- #define MAX_FLOWS	8
-@@ -142,6 +145,7 @@ static struct memory_buffer *udmabuf_alloc(size_t size)
- {
- 	struct udmabuf_create create;
- 	struct memory_buffer *ctx;
-+	unsigned int memfd_flags;
- 	int ret;
- 
- 	ctx = malloc(sizeof(*ctx));
-@@ -156,9 +160,14 @@ static struct memory_buffer *udmabuf_alloc(size_t size)
- 		goto err_free_ctx;
- 	}
- 
--	ctx->memfd = memfd_create("udmabuf-test", MFD_ALLOW_SEALING);
-+	memfd_flags = MFD_ALLOW_SEALING;
-+	if (rx_buf_size > (uint32_t)getpagesize())
-+		memfd_flags |= MFD_HUGETLB | MFD_HUGE_2MB;
-+
-+	ctx->memfd = memfd_create("udmabuf-test", memfd_flags);
- 	if (ctx->memfd < 0) {
--		pr_err("[skip,no-memfd]");
-+		pr_err("[skip,no-memfd%s]",
-+		       (memfd_flags & MFD_HUGETLB) ? " (need hugepages)" : "");
- 		goto err_close_dev;
- 	}
- 
-@@ -168,6 +177,11 @@ static struct memory_buffer *udmabuf_alloc(size_t size)
- 		goto err_close_memfd;
- 	}
- 
-+	if (memfd_flags & MFD_HUGETLB) {
-+		size = roundup(size, MB(2));
-+		ctx->size = size;
-+	}
-+
- 	ret = ftruncate(ctx->memfd, size);
- 	if (ret == -1) {
- 		pr_err("[FAIL,memfd-truncate]");
-@@ -699,6 +713,8 @@ static int bind_rx_queue(unsigned int ifindex, unsigned int dmabuf_fd,
- 	netdev_bind_rx_req_set_ifindex(req, ifindex);
- 	netdev_bind_rx_req_set_fd(req, dmabuf_fd);
- 	__netdev_bind_rx_req_set_queues(req, queues, n_queue_index);
-+	if (rx_buf_size)
-+		netdev_bind_rx_req_set_rx_buf_size(req, rx_buf_size);
- 
- 	rsp = netdev_bind_rx(*ys, req);
- 	if (!rsp) {
-@@ -1411,7 +1427,7 @@ int main(int argc, char *argv[])
- 	int is_server = 0, opt;
- 	int ret, err = 1;
- 
--	while ((opt = getopt(argc, argv, "Lls:c:p:v:q:t:f:z:n")) != -1) {
-+	while ((opt = getopt(argc, argv, "Lls:c:p:v:q:t:f:z:nb:")) != -1) {
- 		switch (opt) {
- 		case 'L':
- 			fail_on_linear = true;
-@@ -1446,6 +1462,33 @@ int main(int argc, char *argv[])
- 		case 'n':
- 			skip_config = 1;
- 			break;
-+		case 'b': {
-+			char *endp;
-+			unsigned long val;
-+
-+			errno = 0;
-+			val = strtoul(optarg, &endp, 0);
-+			if (errno || endp == optarg || *endp || val == 0 ||
-+			    val > UINT32_MAX) {
-+				pr_err("invalid rx_buf_size: %s", optarg);
-+				return 1;
-+			}
-+			if (val & (val - 1)) {
-+				pr_err("rx_buf_size must be a power of 2");
-+				return 1;
-+			}
-+			if (val < (unsigned long)getpagesize()) {
-+				pr_err("rx_buf_size must be >= PAGE_SIZE (%d)",
-+				       getpagesize());
-+				return 1;
-+			}
-+			if (val > MB(2)) {
-+				pr_err("rx_buf_size > 2 MB not supported");
-+				return 1;
-+			}
-+			rx_buf_size = val;
-+			break;
-+		}
- 		case '?':
- 			fprintf(stderr, "unknown option: %c\n", optopt);
- 			break;
+Yes, I can reword that last paragraph of the commit message to make this
+clearer.
 
--- 
-2.53.0-Meta
+>> +++ b/drivers/pci/p2pdma.h
+>> @@ -0,0 +1,29 @@
+>> +/* SPDX-License-Identifier: GPL-2.0 */
+>> +/*
+>> + * PCI Peer 2 Peer DMA support.
+>> + */
+>> +
+>> +#ifndef _PCI_P2PDMA_H
+>> +#define _PCI_P2PDMA_H
+>> +
+>> +#include <linux/genalloc.h>
+>> +#include <linux/pci-p2pdma.h>
+>> +#include <linux/xarray.h>
+>> +
+>> +struct pci_p2pdma {
+>> +	struct gen_pool *pool;
+>> +	bool p2pmem_published;
+>> +	struct xarray map_types;
+>> +	struct p2pdma_provider mem[PCI_STD_NUM_BARS];
+>> +};
+>> +
+>> +#ifdef CONFIG_PCI_P2PDMA
+>> +void pci_p2pdma_release_pool(struct pci_dev *pdev, struct pci_p2pdma *p2pdma);
+>> +#else
+>> +static inline void pci_p2pdma_release_pool(struct pci_dev *pdev, struct pci_p2pdma *p2pdma)
+> 
+> Wrap to fit in 80 columns like the rest of drivers/pci/
+
+Fixed.
+
+>> +{
+>> +}
+>> +#endif
+>> +
+>> +#endif
+>> +
+> 
+> Spurious blank line at end.
+
+Doh, fixed.
+
+>> +++ b/drivers/pci/p2pdma_core.c
+>> @@ -0,0 +1,118 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +/*
+>> + * PCI Peer 2 Peer DMA support core, providing a bare-bones
+> 
+> In this English text, I think I would spell out "Peer to Peer" instead
+> of relying on the "2" homophone.  Same in p2pdma.h.
+
+I would've preferred that too, it isn't correct; I was seeking to keep
+the blurb here (and in p2pdma.h) as close to the original p2pdma.c as
+possible.  I'll correct it in the new files (hyphenated "peer-to-peer"
+in PCI-SIG language).
+
+
+Thanks,
+
+
+Matt
 
