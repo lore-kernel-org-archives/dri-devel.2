@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 382F5CD98CC
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 14:37:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68438CD98CE
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 14:40:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 967A010EF93;
-	Thu, 11 Jun 2026 14:37:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C1A710E7C6;
+	Thu, 11 Jun 2026 14:40:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gbyEDz+i";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KOhLT4Fs";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E42B010EF93
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 14:37:52 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B5F110E7C6
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 14:40:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 21B8E600AA;
- Thu, 11 Jun 2026 14:37:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86DFA1F00893;
- Thu, 11 Jun 2026 14:37:51 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4326040176;
+ Thu, 11 Jun 2026 14:40:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1EF91F00893;
+ Thu, 11 Jun 2026 14:40:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781188671;
- bh=fqGr3cu2RGJI68UHtKwcJ+hMcsaT9BkGtwcU5OEsKh4=;
+ s=k20260515; t=1781188847;
+ bh=5/UWbGdSCmGDdIhOfMc2IusuSl6d/rmknI7aPw7r7VY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gbyEDz+iW1ugUjbuOUfymTZcO4n/1hN/eXT39I9Nvn6tPA4HHS6IPtsGgOURkcY8p
- 18DJfp8b8xJqVx35Ah7yq2huB4tqvVnvfEcbYjX1rFZaqYmVNuBz6ZRlSWbP1QSV8x
- OYuPeAQaRMp4Qy0W0I9p3mUMWF4xqWAADaJPiS3pWmRI92QljVs1+GxD673/PtE3Oi
- 1C9n6DA4daCauJxI2G4ykxOeLq4aOriq8slMx/STrk/7zPbLNL7mMm/rjjh+gAvLfP
- U1pEgPL7wya2tpCYK7nF5bIUp3+vONIB8JaRGi11QZapc7/c/mTG3UeHEXuOMWdzsa
- UvDVKzCSeSj8g==
+ b=KOhLT4Fsq66ZyA4UNo4cI/hogROru132nsN/7vsZp2tELhzdHKa6m10fqWOeEVDoi
+ r2JdIyKzANeE+wL0hr+CLKIh7uRdH6A+Oa1pKcPz9LtED5APLXZA5NGswDtpreYcV9
+ lI+WPkFmh+9O8hLOfcVSN7sRDBuBcVv6NAgcluepOj2n26bA/2esIzrSIXLI4Y2lb0
+ WEyMrZI4yh2pFw2yDyGRl5a5ApIqo9GuKknkTwrJQROeBBFOpt3N+OxtCrgZfI2Ad8
+ 0BLRDTJW9Bx6ATzpFH5nYu1hRuV0gNPmeB70vBWpxLPk5aUzhWzFrA63RZrbqmfIwu
+ Jkc3twWUEp1eQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/6] drm/amdgpu: Fix init ordering in
- amdgpu_vram_mgr_init()
+Subject: Re: [PATCH v5 3/6] cgroup/dmem: Add reclaim callback for lowering
+ max below current usage
 To: =?utf-8?b?VGhvbWFzIEhlbGxzdHLDtm0=?= <thomas.hellstrom@linux.intel.com>
-Cc: mkoutny@suse.com, tj@kernel.org, dri-devel@lists.freedesktop.org,
+Cc: tj@kernel.org, mkoutny@suse.com, dri-devel@lists.freedesktop.org,
  hannes@cmpxchg.org
-In-Reply-To: <20260611142242.2529-2-thomas.hellstrom@linux.intel.com>
-References: <20260611142242.2529-2-thomas.hellstrom@linux.intel.com>
+In-Reply-To: <20260611142242.2529-4-thomas.hellstrom@linux.intel.com>
+References: <20260611142242.2529-4-thomas.hellstrom@linux.intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jun 2026 14:37:51 +0000
-Message-Id: <20260611143751.86DFA1F00893@smtp.kernel.org>
+Date: Thu, 11 Jun 2026 14:40:46 +0000
+Message-Id: <20260611144046.E1EF91F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,84 +58,117 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
+New issues:
+- [Medium] The docstring for `struct dmem_cgroup_ops->reclaim` explicitly c=
+ontradicts the implementation for `-ENOSPC` return values.
+
 Pre-existing issues:
-- [High] Incomplete Fix / Kernel panic on module load error path: If `gpu_b=
-uddy_init()` fails, it cleans up its internal allocations but leaves `mm->n=
-_roots > 0` and `mm->free_trees` and `mm->roots` as dangling or NULL pointe=
-rs. Because `adev->mman.initialized` is set to `true` prior to calling `amd=
-gpu_vram_mgr_init()`, a failure in `gpu_buddy_init()` unconditionally trigg=
-ers the driver teardown path. `amdgpu_vram_mgr_fini()` then invokes `gpu_bu=
-ddy_fini()`, which dereferences the invalid pointers and causes a kernel pa=
-nic.
+- [High] On 32-bit systems, `dmemcg` limits tracked in bytes are truncated =
+to 32-bit `unsigned long`, leading to overflows and artificially severe con=
+straints.
 --
 
-commit 88a159aad4fc080127cdbd3bc127dfaae0ae9c17
+commit ccfc580d266b8b80afec154f819853307351d98a
 Author: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
 
-drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
+cgroup/dmem: Add reclaim callback for lowering max below current usage
 
-This commit fixes kernel panics on the module load error path by moving
-drmm_cgroup_register_region() after the list and buddy allocator are fully
-initialized.
+Add an optional reclaim callback to struct dmem_cgroup_region. When
+dmem.max is set below the current usage of a cgroup pool, the new limit
+is applied immediately and then the driver is asked to evict memory.
 
-Closes: https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellst=
-rom@linux.intel.com?part=3D4
+> diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
+> index d9eab8a2c1ee6..d705e94d8784d 100644
+> --- a/include/linux/cgroup_dmem.h
+> +++ b/include/linux/cgroup_dmem.h
+> @@ -14,12 +14,33 @@ struct dmem_cgroup_pool_state;
+>  /* Opaque definition of a cgroup region, used internally */
+>  struct dmem_cgroup_region;
+> =20
+> +/**
+> + * struct dmem_cgroup_ops - Operations for a dmem cgroup region.
+> + * @reclaim: Optional callback invoked when dmem.max is set below the cu=
+rrent
+> + *           usage of a pool. The driver should attempt to free at least
+> + *           @target_bytes from @pool. May be called multiple times if u=
+sage
+> + *           remains above the limit after returning.
+> + *
+> + *           Return: 0 if some progress was made (even if less than
+> + *           @target_bytes was freed), -ENOSPC if no progress could be m=
+ade,
+> + *           or another negative error code if a fatal error occurred.
+> + *           Any non-zero return stops further reclaim attempts.
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_vram_mgr.c
-> index 2a241a5b12c42..ac3f71d77140a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+[Severity: Medium]
+Is the documentation accurate regarding the -ENOSPC return code?
+
+The docstring here explicitly states that any non-zero return stops further
+reclaim attempts. However, the implementation in set_resource_max() appears
+to intercept -ENOSPC and will retry up to 16 times:
+
+    if (ret && (ret !=3D -ENOSPC || !retries--))
+        break;
+
+Could this mislead driver authors into assuming -ENOSPC is a terminal
+return code that aborts the loop immediately, when it actually subjects
+the driver to continuous retries?
+
+> + */
+> +struct dmem_cgroup_ops {
+> +	int (*reclaim)(struct dmem_cgroup_pool_state *pool,
+> +		       u64 target_bytes, void *priv);
+> +};
+
 [ ... ]
-> @@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
->  	if (err)
->  		return err;
+
+> diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+> index 373ad04d289d5..f7166b8255c7b 100644
+> --- a/kernel/cgroup/dmem.c
+> +++ b/kernel/cgroup/dmem.c
+
+[ ... ]
+
+>  static void
+> -set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
+> +set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val, bool nonb=
+lock)
+>  {
+> -	page_counter_set_max(&pool->cnt, val);
+> +	struct dmem_cgroup_region *region =3D pool->region;
+> +	unsigned long limit =3D (unsigned long)val;
 
 [Severity: High]
-This is a pre-existing issue, but if gpu_buddy_init() fails, does it still
-leave the system vulnerable to the same module load error path panic?
+This is a pre-existing issue, but does this truncation to unsigned long cau=
+se
+severe limitations on 32-bit systems?
 
-Looking at drivers/gpu/buddy.c, if gpu_buddy_init() fails after setting
-mm->n_roots, the error path cleans up allocations but leaves mm->n_roots
-populated and mm->roots as a dangling or NULL pointer:
+The dmemcg subsystem accounts for memory limits in bytes, but integrates wi=
+th
+the page_counter infrastructure which tracks limits using unsigned long. The
+64-bit byte limit is truncated here, wrapping values larger than 4GB on 32-=
+bit
+architectures.
 
-drivers/gpu/buddy.c:gpu_buddy_init() {
-    ...
-    mm->n_roots =3D hweight64(size);
-    ...
-out_free_tree:
-    while (i--)
-        kfree(mm->free_trees[i]);
-    kfree(mm->free_trees);
-    return -ENOMEM;
-}
+Additionally, when setting the limit to 'max' via dmemcg_parse_limit() or
+reset_all_resource_limits(), it translates to PAGE_COUNTER_MAX (which is
+~524,287 on 32-bit). Because dmem_cgroup_try_charge() passes the allocation
+size in bytes to page_counter_try_charge(), a limit of 'max' restricts usage
+to ~512KB instead of being unlimited. Will this cause 32-bit workloads to O=
+OM
+on allocations larger than ~512KB?
 
-Since adev->mman.initialized is set to true before amdgpu_vram_mgr_init() is
-called, returning this error will trigger the teardown path where
-amdgpu_vram_mgr_fini() unconditionally calls gpu_buddy_fini():
-
-drivers/gpu/buddy.c:gpu_buddy_fini() {
-    ...
-    for (i =3D 0; i < mm->n_roots; ++i) {
-        start =3D gpu_buddy_block_offset(mm->roots[i]);
-    ...
-}
-
-Because mm->n_roots is non-zero, will this unconditionally dereference the
-invalid mm->roots pointer and cause a panic?
-
-> +	man->cg =3D drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev=
-->gmc.real_vram_size);
-> +	if (IS_ERR(man->cg))
-> +		return PTR_ERR(man->cg);
 > +
->  	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
->  	ttm_resource_manager_set_used(man, true);
->  	return 0;
+> +	/*
+> +	 * Always update the limit, even if usage currently exceeds it.
+> +	 * Concurrent allocations will be throttled against the new limit
+> +	 * while reclaim is in progress.
+> +	 */
+> +	xchg(&pool->cnt.max, limit);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611142242.2529=
--1-thomas.hellstrom@linux.intel.com?part=3D1
+-1-thomas.hellstrom@linux.intel.com?part=3D3
