@@ -4,43 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 667F5CD98CC
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 07:30:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 890A7CD98CC
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 07:32:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F98E10ED2B;
-	Thu, 11 Jun 2026 07:30:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF87F10ED2D;
+	Thu, 11 Jun 2026 07:32:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hb+Aljif";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CNLmau97";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86C3710ED2B
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 07:30:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4268143729;
- Thu, 11 Jun 2026 07:30:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07BCC1F00893;
- Thu, 11 Jun 2026 07:30:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781163051;
- bh=nygukIEHKp7U38KsGjNFvp81aDUj3gXvd/nLvNSRBbI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=hb+Aljifhek3G41v4pznbSv2J2Bkv7f5XgrANvZQYxoF22czQvc+jqZNb7wTM279v
- C+dLoaVdxzfoHloND1TNi49nar3A55VzjWFoHRmDvEE3XIG6YiNIaytKWsDifPqnbw
- TYaNWEauj3aGvmdNNt4axyp963pvpJuCF089cNTZzgePIMiA673QzMLPRBPeyGfnGE
- 6+4wezLePJMIyYovIi0x5EhrpEQt+6a+a9FwHYZlj8uVKkRwkRrU55ANm0DVxP9aQd
- sfpq5BypcViB0I1R42X06tr5kxHp4PesH24Xj8YPEpVKs7EfxvBC2yD+1F/fEQaXRR
- m9SooK0TDuc1Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] drm/imagination: Fix double call to
- drm_sched_entity_fini()
-To: "Brajesh Gupta" <brajesh.gupta@imgtec.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260611-b4-sched_fix-v3-1-693beb50ea01@imgtec.com>
-References: <20260611-b4-sched_fix-v3-1-693beb50ea01@imgtec.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jun 2026 07:30:50 +0000
-Message-Id: <20260611073051.07BCC1F00893@smtp.kernel.org>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3008310ED30;
+ Thu, 11 Jun 2026 07:32:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:
+ Sender:Reply-To:Content-Transfer-Encoding:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=OW1rughmaPoVXzZo44yIw3sm9DaFihfWaLOUCkIpbRM=; b=CNLmau9781otmvERAXLH/LGwzg
+ uf15iwYHxE/T0EG/ITwEGu3+dbIXp6Bk8FnMKxMCiJNio3n6LybhBpfbIQYQ1onHcy3AFzRQxYVUn
+ i+7SDvql+nB8nteKWTmnYLeF83etc9JjKvFGzpqHKsbGyaoEvqQMUtV9435Dup6AEEDu2h5/lKJ0R
+ mMT0CL2fRfbHzAIcQ6TpKUwGhzbxj6aSzgZiP6CVABENN4gzFgzee6WYCgSTcZW6JCdWk7AUT9p5y
+ DtheyFH9U61c0CjFsNGUyW7YYIV83kLI9NSZg85us2dZr23natCMk3lddP6FW7e+3dbd7waz+wZlP
+ jlVQ5HDg==;
+Received: from [90.240.106.137] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wXZtS-00G0cQ-VT; Thu, 11 Jun 2026 09:32:03 +0200
+Date: Thu, 11 Jun 2026 08:32:01 +0100
+From: Tvrtko Ursulin <tursulin@igalia.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-intel-fixes
+Message-ID: <aipkcUDnTlzre-8F@linux>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,135 +64,45 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [Critical] Dangling pointer in `ctx->fw_obj` leads to use-after-free on `=
-xa_alloc()` failure in `pvr_context_create()`.
-- [High] Concurrent job submission and context destruction pushes jobs to a=
- destroyed DRM scheduler entity, leaking jobs and corrupting memory.
---
+Hi Dave, Sima,
 
-commit 251c2d0e7e2826c41929b77248365d4ff3fa7a98
-Author: Brajesh Gupta <brajesh.gupta@imgtec.com>
+Two fixes this week - one to avoid bogus DP link rates caused by parsing
+un-iniitialized stack values if DPCD read failed, and the second one to
+fix a potential out of bound memory reads on Pentium 4 era machines cursor
+plane access via pread/pwrite.
 
-drm/imagination: Fix double call to drm_sched_entity_fini()
+Tvrtko
 
-This patch removes an extra call to drm_sched_entity_fini() during context
-teardown. It fixes a use-after-free underflow issue in the DRM scheduler
-entity stats refcounting.
+drm-intel-fixes-2026-06-11:
+- Check supported link rates DPCD read [edp] (Nikita Zhandarovich)
+- Fix phys BO pread/pwrite with offset [gem] (Joonas Lahtinen)
+The following changes since commit 4549871118cf616eecdd2d939f78e3b9e1dddc48:
 
-Fixes: eaf01ee5ba28 ("drm/imagination: Implement job submission and schedul=
-ing")
-References: fd177135f0e6 ("drm/sched: Account entity GPU time")
+  Linux 7.1-rc7 (2026-06-07 15:37:58 -0700)
 
-> diff --git a/drivers/gpu/drm/imagination/pvr_context.c b/drivers/gpu/drm/=
-imagination/pvr_context.c
-> index eba4694400b5a..e2e30908dfce4 100644
-> --- a/drivers/gpu/drm/imagination/pvr_context.c
-> +++ b/drivers/gpu/drm/imagination/pvr_context.c
+are available in the Git repository at:
 
-[ ... ]
+  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-fixes-2026-06-11
 
-> @@ -349,7 +374,7 @@ int pvr_context_create(struct pvr_file *pvr_file, str=
-uct drm_pvr_ioctl_create_co
->  	pvr_fw_object_destroy(ctx->fw_obj);
-> =20
->  err_destroy_queues:
-> -	pvr_context_destroy_queues(ctx);
-> +	pvr_context_destroy_queues(ctx, true);
+for you to fetch changes up to d21ad938398bca695a511307de38a65889e3b354:
 
-[Severity: Critical]
-This is a pre-existing issue, but can this cause a use-after-free if
-xa_alloc() fails?
+  drm/i915/gem: Fix phys BO pread/pwrite with offset (2026-06-10 09:23:22 +0100)
 
-If xa_alloc() fails for the context handle, the code jumps to
-err_destroy_fw_obj:
+----------------------------------------------------------------
+- Check supported link rates DPCD read [edp] (Nikita Zhandarovich)
+- Fix phys BO pread/pwrite with offset [gem] (Joonas Lahtinen)
 
-err_destroy_fw_obj:
-        pvr_fw_object_destroy(ctx->fw_obj);
+----------------------------------------------------------------
+Joonas Lahtinen (1):
+      drm/i915/gem: Fix phys BO pread/pwrite with offset
 
-err_destroy_queues:
-        pvr_context_destroy_queues(ctx, true);
+Nikita Zhandarovich (1):
+      drm/i915/edp: Check supported link rates DPCD read
 
-This frees the pvr_fw_object but does not set ctx->fw_obj to NULL. Execution
-then falls through to err_destroy_queues, where pvr_context_destroy_queues()
-will iterate through the queues and call pvr_queue_destroy().
-
-Inside pvr_queue_destroy(), it eventually calls
-pvr_queue_cleanup_fw_context():
-
-pvr_queue_cleanup_fw_context() {
-        if (!queue->ctx->fw_obj)
-                return 0;
-        return pvr_fw_structure_cleanup(..., queue->ctx->fw_obj, ...);
-}
-
-Since the freed pointer is not NULL, does it bypass this check and
-dereference the freed memory in pvr_fw_structure_cleanup()?
-
-> =20
->  err_free_ctx_id:
->  	/*
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/im=
-agination/pvr_queue.c
-> index 7ed60e1c1a866..15cd8adc7528f 100644
-> --- a/drivers/gpu/drm/imagination/pvr_queue.c
-> +++ b/drivers/gpu/drm/imagination/pvr_queue.c
-> @@ -1445,15 +1445,11 @@ void pvr_queue_kill(struct pvr_queue *queue)
->   */
->  void pvr_queue_destroy(struct pvr_queue *queue)
->  {
-
-[Severity: High]
-This is a pre-existing issue, but does a race condition exist
-between pvr_submit_jobs() and pvr_context_destroy()?
-
-If pvr_submit_jobs() acquires a reference to the context and sets up a job,
-and another thread concurrently calls the context destruction ioctl,
-pvr_context_destroy() calls pvr_context_kill_queues() and then
-pvr_queue_kill().
-
-pvr_queue_kill() executes:
-
-        drm_sched_entity_destroy(&queue->entity);
-        dma_fence_put(queue->last_queued_job_scheduled_fence);
-        queue->last_queued_job_scheduled_fence =3D NULL;
-
-If the submit thread concurrently reaches pvr_queue_job_push():
-
-        dma_fence_put(queue->last_queued_job_scheduled_fence);
-        queue->last_queued_job_scheduled_fence =3D dma_fence_get(...);
-        ...
-        drm_sched_entity_push_job(&job->base);
-
-Can this lead to a data race on queue->last_queued_job_scheduled_fence,
-potentially causing a double free?=20
-
-Also, wouldn't this push a job to a scheduler entity that was already
-destroyed by pvr_queue_kill(), leaking the stranded jobs?
-
-> -	if (!queue)
-> -		return;
-> -
->  	mutex_lock(&queue->ctx->pvr_dev->queues.lock);
->  	list_del_init(&queue->node);
->  	mutex_unlock(&queue->ctx->pvr_dev->queues.lock);
-> =20
->  	drm_sched_fini(&queue->scheduler);
-> -	drm_sched_entity_fini(&queue->entity);
-> =20
->  	if (WARN_ON(queue->last_queued_job_scheduled_fence))
->  		dma_fence_put(queue->last_queued_job_scheduled_fence);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611-b4-sched_f=
-ix-v3-1-693beb50ea01@imgtec.com?part=3D1
+ drivers/gpu/drm/i915/display/intel_dp.c  | 11 +++++++++--
+ drivers/gpu/drm/i915/gem/i915_gem_phys.c | 19 +++++++++++++++----
+ 2 files changed, 24 insertions(+), 6 deletions(-)
