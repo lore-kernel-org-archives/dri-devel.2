@@ -4,146 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89BAECD98C7
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 16:12:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D99AECD98CE
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 16:28:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7AEB10E7F7;
-	Thu, 11 Jun 2026 16:12:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C99210E7D7;
+	Thu, 11 Jun 2026 16:28:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="JmUqed/g";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="JmUqed/g";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="I9rlsiI7";
 	dkim-atps=neutral
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazon11011021.outbound.protection.outlook.com [52.101.70.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89FD610E7F7
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:12:18 +0000 (UTC)
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=cPbDCCFjutRq6eT7EKO01ArCO6M9HdSx+iC5H4bP8Xj7azqVXc3WDHVLsMeCJdIzmqB3056L61+Vr8tq7sMObSkhA20unsJhlwwTdzSI7DBNsC53IitN/F0u7QOLJuoO3qlmTsa3W1u2Rf0+G1XIuFAndxqbLmGUttc2AB2A8McvyQrngz5Gtk5+Ei9rvPw6jxs2AEKXxzE+cCwpHPQsTPAcCKocSx9o+D3brnQ9bq74XY9b7pkLohQH+iiM7MUEOYyLTrhp8JWKLNKktrsxMDI3g/0ok8SqL/StoStsy44ZVHSl+GJ302oIN9Dpvl84JHWaEpHythbSvVn3FqSR/A==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vm2S5Qyo09uGfWBhPX447a8a+cb1mhBAAflSx+yXkoA=;
- b=jC3ww92suBl1qdPk7Wy9xYXGL+StUoTCoj4pGRYBtt/Yo28ZDf9ryoSTbQfoOtFQ0sEuH1LHIfG9u91xC2Ad2Yx0wV6Dylbr0TWk+OkDvaAYF4MUoAuTbgHmmn6cNq0edz+biuphYNtr4q5/f2MkxxidWtIdkP9sJYYxH4CxK4jclUIqTiAtQHJtevAdDtJ8ic+aebQHnKumeBqiWWabf7TKx9y95q46+WZXWJocA+TwYEBoSb0rg1j+2PqhfEc4XoS5WFq6DXki2+ZQnyQ2r8y2eTGCRbZl2G0L1E5NunqFxFaSg0sko2vhLREoICkpOCpt0J04CBk8JTHPJ6QibQ==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vm2S5Qyo09uGfWBhPX447a8a+cb1mhBAAflSx+yXkoA=;
- b=JmUqed/g7csmnxLyFbp8DypOh1n7IUH78W2R/oVntZmDi6opX0rwT/qFo1+8oZgNXiZCmnw9XdP6uVfbQ3dAEynLO9Vn3BFxhVVmYo188RluNF3h8B8K0I0kldkyYnZTeTbPaC/udeK9X5eEswYbcExfkwPT4A8W5qMYOVaGazY=
-Received: from DU2PR04CA0048.eurprd04.prod.outlook.com (2603:10a6:10:234::23)
- by AM7PR08MB5301.eurprd08.prod.outlook.com (2603:10a6:20b:dd::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Thu, 11 Jun
- 2026 16:12:09 +0000
-Received: from DU2PEPF00028CFF.eurprd03.prod.outlook.com
- (2603:10a6:10:234:cafe::75) by DU2PR04CA0048.outlook.office365.com
- (2603:10a6:10:234::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.13 via Frontend Transport; Thu,
- 11 Jun 2026 16:12:09 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- DU2PEPF00028CFF.mail.protection.outlook.com (10.167.242.183) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.5 via
- Frontend Transport; Thu, 11 Jun 2026 16:12:09 +0000
+Received: from LO3P265CU004.outbound.protection.outlook.com
+ (mail-uksouthazon11020111.outbound.protection.outlook.com [52.101.196.111])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8E8310E7C1
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:28:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CY3LVPX2elyaatMDdpY+W3NubAIpPdXmRcsP9fdPgNX4MJCJ2xG770rSHaNEOIcBafGqyUqtanMBkBFEqBTz53fzoL2a41VrpCdgTJlurRpS6GR7HSbsXdeM1413QSIjqrkjjm7ANp8ILVNdt/Lr+gl7XTU+tPWy1yAJXoXbUEmMB+2JB9heZ0cRQyZMxBh8f9V2jBR3AIT6WiZWzCoIEulYSh7u0PkIfWGxbR7JlImwsMfkJBbqfGdY+HjzJozfdepsyJPTyfdXrKPPAZ0uwN0Lycbrp4/KCiHY/Rfj82tOubMJptz2YaSTfUoFU1YBeXgEH/DzbyRn5YRjTw9Xlw==
+ b=SZhisqnEChievMbXMKZB14JjCS5o9IyZUO+SISBQKT8PKbC7d1eJfcRJCXn7PYizhyfSczrDWmbnYv1IKzGXjeqzTc/JHMLRMluLP2GWmZmbUrphUhyt+CpkWvcJCtAWI3ZbTlOhe0SmFBAXPtFxKESZTjzZFyzx6HlqkbAhXFHePaRcaidJQXQSRrhfhzGBNXdVuDroxDXYeYrF3fu3N8xZbN1V1EvF1bNdV+g9FsOOuDJdAXJtK01wVg7kUMZjHVf/36x6dPxoz8lyy2Kw3wMPe3i2mBpUf6KhXNsWuc0kTe7vC2W29Ym29keUyzwt9Tjve7q9Ka9S0Nj6EONHBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vm2S5Qyo09uGfWBhPX447a8a+cb1mhBAAflSx+yXkoA=;
- b=Sak0/WrQB22qCyz9s1fCalWPoTJtp1zvoZUJBO6Y/FdksKFsOZ4LtyRezN62x5eJPlx935+Stv8ufS4aaL8BXa7EVVHLTaOgJzwwwVsTGsiC9+L+MO5M0L2UndeLjOxzKwSIx5X6TK9pnRz8lVPNkxlu9MnHDxPAdqumutDAJiCYYGG+GXh71sYmPZqBVjJq9qwKob7D4+b4QhaMwy7hMUIKgNf19Ycw8F3nKFwamIAy8mKmwY0ORnFVsq02KxjZBImsTgAfnUxzGKWbD3pP7lHVloXG2wfPk8rZNbGCRseaA5H//NVWEvfPkroiHf7rH7iGqCqfdDBCgfw/rOPs2Q==
+ bh=9lH390IS2xn+Ehy2wop3ztGAqHMj2r1XssAT/o5Yxo8=;
+ b=ppvnYbafJLfM7fBcURtKgGFe3vh/nX7mTIrELH+Karv+vY/QzPTZPjPfrMoySYS9cA1vkZ/0pRE6cRe0eswf9SBfwVSMOSj6TSd941xzzrJ2k5aMLjJ8fAl4IY6vrdi95j1KJWpf8/NloF/pQow2ScXB1VpXvZT1xBBkt90SIc1LC5olA8Fs94U5NbFi745RZUd/zwrDeOVIcoXsq6xtL72LcoWnBxEar+iFM1tq+hDj+V3O00tXgMeF4cSl9tCHJtYHauhyC16NFF2vbb2Pq7GPcuzVhbOsJQW3f9Cm+C9CLgzpAaCaTRB4lAwNiD5VbUm8RUXMOoGDb3t22UteFA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vm2S5Qyo09uGfWBhPX447a8a+cb1mhBAAflSx+yXkoA=;
- b=JmUqed/g7csmnxLyFbp8DypOh1n7IUH78W2R/oVntZmDi6opX0rwT/qFo1+8oZgNXiZCmnw9XdP6uVfbQ3dAEynLO9Vn3BFxhVVmYo188RluNF3h8B8K0I0kldkyYnZTeTbPaC/udeK9X5eEswYbcExfkwPT4A8W5qMYOVaGazY=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from GVXPR08MB11183.eurprd08.prod.outlook.com
- (2603:10a6:150:1fc::16) by AS8PR08MB9885.eurprd08.prod.outlook.com
- (2603:10a6:20b:5b0::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Thu, 11 Jun
- 2026 16:11:06 +0000
-Received: from GVXPR08MB11183.eurprd08.prod.outlook.com
- ([fe80::5576:8db3:22e8:135c]) by GVXPR08MB11183.eurprd08.prod.outlook.com
- ([fe80::5576:8db3:22e8:135c%6]) with mapi id 15.21.0092.017; Thu, 11 Jun 2026
- 16:11:06 +0000
-Message-ID: <6462b21f-a624-4505-b0aa-b2d96d7a8564@arm.com>
-Date: Thu, 11 Jun 2026 17:11:04 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 06/18] drm/panthor: Derive MMU AS register addresses
- from base and stride
-Content-Language: en-GB
-To: Steven Price <steven.price@arm.com>, dri-devel@lists.freedesktop.org
-Cc: nd@arm.com, Boris Brezillon <boris.brezillon@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org
-References: <20260528150546.3168527-1-karunika.choo@arm.com>
- <20260528150546.3168527-7-karunika.choo@arm.com>
- <ca983479-efcf-4b8d-825d-69b5ab54d92e@arm.com>
-In-Reply-To: <ca983479-efcf-4b8d-825d-69b5ab54d92e@arm.com>
-From: Karunika Choo <karunika.choo@arm.com>
-Content-Type: text/plain; charset=UTF-8
+ bh=9lH390IS2xn+Ehy2wop3ztGAqHMj2r1XssAT/o5Yxo8=;
+ b=I9rlsiI7kuYjZUFPf2xaqSX2Qk1fNyVlel0L2sbmw1R5ia2Lwu0pzxAg/Ulo9X1nK2l4zx8DivMSyf7KfXXDKfG0of82LoJTRRBya5MY+0z0c9KOsODM85nnZngi830hqjULywCljBGMXSv/69GHJxSFohxsvvhnEmNQfNAjoGI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27c::13)
+ by LO2P265MB3263.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:156::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.13; Thu, 11 Jun
+ 2026 16:28:23 +0000
+Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::6c9e:93c8:10db:e995]) by CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::6c9e:93c8:10db:e995%6]) with mapi id 15.21.0113.011; Thu, 11 Jun 2026
+ 16:28:23 +0000
+From: Gary Guo <gary@garyguo.net>
+Date: Thu, 11 Jun 2026 17:28:03 +0100
+Subject: [PATCH v4 01/20] rust: io: add dynamically-sized `Region` type
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PA7P264CA0176.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:36f::13) To GVXPR08MB11183.eurprd08.prod.outlook.com
- (2603:10a6:150:1fc::16)
+Message-Id: <20260611-io_projection-v4-1-1f7224b02dcb@garyguo.net>
+References: <20260611-io_projection-v4-0-1f7224b02dcb@garyguo.net>
+In-Reply-To: <20260611-io_projection-v4-0-1f7224b02dcb@garyguo.net>
+To: Alice Ryhl <aliceryhl@google.com>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>, 
+ Robin Murphy <robin.murphy@arm.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781195301; l=17117;
+ i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
+ bh=SrFfOHPnj3XpIXHr75f9FycoGL9SYFYygZ9kS+LCZg0=;
+ b=NzECPXyh8VRDQLPuHusW0leQ6OYgcE9njCfUsgOPqtFHbLE5o9/WE2eVp9z4crrFCVE8HsADE
+ 3TcQk0j0GvbBo0gV8+DjyVt2lY7V3Y4w0/ZjrcDPcakDc/GsmVF3S0G
+X-Developer-Key: i=gary@garyguo.net; a=ed25519;
+ pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
+X-ClientProxiedBy: LO6P265CA0015.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:339::8) To CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:400:27c::13)
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic: GVXPR08MB11183:EE_|AS8PR08MB9885:EE_|DU2PEPF00028CFF:EE_|AM7PR08MB5301:EE_
-X-MS-Office365-Filtering-Correlation-Id: f12f35e4-7c69-4a14-e500-08dec7d4309e
-X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
-x-checkrecipientrouted: true
-NoDisclaimer: true
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CW1P265MB8877:EE_|LO2P265MB3263:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ca0c1bb-d414-4695-eb02-08dec7d674e2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
- ARA:13230040|23010399003|376014|366016|1800799024|6133799003|56012099006|4143699003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info-Original: 8I/XSvaWE5fh5JrnxiO7yze1zJc24z9AALhlKjTtWWJdl7UfAhb0gslYduI/s4+oOGvOeTfNhbpCbrAhgNbomLn3aHQQCvZy3h1y0GrQC0wNwI8ik38suJjMVF+RpNv/a5cHW6R35KEMxpFGST/nu5QK3LIIq6ig2rnv32ys6T/+UuB6CyBPP6fbWmfbSKT5K9tFP3J/S4BQMIzR/6Ubfa1qW7ceFZ3AQFLAMIrvrlsTiFHwxJV+1LE2CG3a6I0b/e7H71QjJ8IxrBbEWBrbC0ler3krU0jfDblMnB4pCbDFrTU1701U9rNyQNHYRjucPX+1ZdLh61LCeKXiCN5LmOdDUG5ZMcf9ysIkpvQn3mm4PHIkSuvaE8vjmaBbAwecPf8akyzH/b7M+DisRCYNrkCcBbJ1GCK/IVF3uQqjRGmdu4ZFh6IC5obAvXc/bNRCmKpr7GLbvx7Elw8SXZTjG0Lx4To1vRVoLu1fxirfbHDLXCO+eL2OHBSjihWJ5lf7bL96BmNbnO23hh2324+nUjlo8TAq1Gq9tIQGm+l2HjGtRaySwadkxNieWTD9uv6veYBDxSrk3dXsF4jeg5XrqNzBChKZkX0XeyNk/llsvb+Twn9l6355by28obYR/hNqvIa5rotok+j5EBnXWOT7feL7s4bns0zifGeqHZKS48/keSmvIgJ8WZLwawcSt9ZO
-X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
- SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:GVXPR08MB11183.eurprd08.prod.outlook.com;
- PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(6133799003)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-Exchange-RoutingPolicyChecked: ePAJalTkq9wc16L2EeVo/kaA5UGontg4wfR62hPxzzlL+ECBpiQYvnLG07QFBOS/thtw3tGSu/gDKoZs/UYxxzYGnZQmrshIN4qgSQOIlN4rYpNEjkTsvFMuYuQIaopbhyS49pE34xUIIuSdd1An/Cd/M3n50dAfGnaQJJV2dEt2KR4j4PqMTYJVVudTrFRHNKAtWSvPRJ4FJvHsFld96+Zc+Fpkhwqhx7BQoBwBFSxAfyJjKvfAOy8aaBEBaDM5fkAo3Q2uj/ZiSvQEL5TqIDCsKOZMOesWVvSDqsB32qE09b60zQIG7NTFr6B8XorpunPnSX31f8a3C2p8XKzpQA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB9885
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: DU2PEPF00028CFF.eurprd03.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs: 9487463b-8452-4f9e-c1d4-08dec7d40a99
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|35042699022|23010399003|82310400026|1800799024|376014|14060799003|36860700016|22082099003|18002099003|11063799006|56012099006|4143699003|6133799003;
-X-Microsoft-Antispam-Message-Info: uwQPuGwWjy/6uYRPB3nhWVS0hsRc8t4ElypZjkeEATS81dgwewz12UGTmAKSeKKzZgDmRXObnalQGT64jZwpP01IJEhQ4Cszvs0kHw4HBt64dhBtM1RMsN6w1f/r+Hg/GW+AFQjlXBv5reF//aYghTyDjPDmxlISwoa0+8bYOXbpeVp/20LroS0P+8a+KAHAy+VgrBTIadFwCOSR7g9cxUEt5m3SrIpf8zYH5UtjTH7vXs/iuwqRk3pm9Eg7k+ON5VoxGVehQC8sSjrOyyATp1fVDslrTVzo5lXOWlILmZ92TNXx93x4FvUFQ6/JAYv75gyR+n9vB5M4vtnBLsn/KoFMcUFMIz2FPnpSD9S04qiSQoNsl6MHZcCkasuzEDwqW7a7ENzJ26oYQC7XXSaeWbdfxmzZoIX0aYHqpjdbFA5KqwCQOLk2ib1WNnBK86bI66/nXz8axovOM7bwaikc4AzRDgpkRjPe+eTTQfGGsJT5Ygy7CzBQiFIV7Ph0UxaDzrF+T6BoB+ig3nInzG7hx43G4DvuaoTtyH3IyUvc/T90PxktACzDeR+4Cs1T+6SYQ57D6HEby/NJdN4cNWBVFte+Jz4Iq8wqXdvJ52IPtzyx6OmLNlS07h2pIqAywqCCnwSaSrUJbeG1C1KfsFaKX5IUAnG4nCOhWTAk9vnQq/Q53b9SjSJIhuUybnugkupfTOveQNn1wDTQZt8qp3zraIJP+MjGq+VcJdDUI5N52oU=
-X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
- PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(35042699022)(23010399003)(82310400026)(1800799024)(376014)(14060799003)(36860700016)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003)(6133799003);
- DIR:OUT; SFP:1101; 
+ ARA:13230040|10070799003|1800799024|7416014|376014|366016|23010399003|18002099003|22082099003|921020|5023799004|6133799003|56012099006;
+X-Microsoft-Antispam-Message-Info: 1u1u/PKb7xw55r3BA2Q9cSYvWlKg5w5WqPMIgjbjx2QA0WuloEwUxUtLMp93Exe2UrD2pOFoYb8neHyDurNUhhZ3RCWbX365T8HYWTegFyH9j0ubfst+d1xWOWbl88CecOCaewJCF23anC518z5GZjM+8c3K7uu9KewgUPsl57Zn0RJ1t2fh2iMqYN2HWjMTr9k+naNDAqlWmtooSgzOAExCDL64XAm4tP6br/15tHjVifoKyaamN8m5AacshEbf4Y60fQH08dTkaX437LZHbTD7/N+PezMFsepozjTzfJhty5ZF+dzKSBupGWYQnBdiraFvObXCeb9zKyzvYLa2KiYxopj2Syrx+7e+NkZJ1EZwvGyRjto4dTMay7jtaClU3mpN+gvHgj5tQhaUFSGLt6TagKjBQlFGTZaywvHPQeJr0m/cyHkdtQ0ttdWE490CzYS5q00E4W9ne2R34kTSZO5/1lfNrYMfXq03ZE+FkGJ7cIJq+mmtubEm++A/AxOG+EuFMyTpcLS9vlIOqC1v4Vel9csa2N1eXS5+zUMG07rHY+pDyJ6G6xtYeO/fs+FLxgs2Ugps3TmViDEXynttDiZ/od+h9T3N0sYYrvKA3L1U1ehoqmL/xelcB/OyiXQ9yjPyqvAbzyBQWyxWrdblCnKhlCkp2pMZxBQzPzM6SxUop5Hvhh7zV1Qw4nKvBki+WcIDkx0OqmBW3xbrRp+ya3ptRO5dTiMM7uXy3bzx+tTO3wFC0QyjyDsbPx7PZaRk
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(1800799024)(7416014)(376014)(366016)(23010399003)(18002099003)(22082099003)(921020)(5023799004)(6133799003)(56012099006);
+ DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: SV0QcTbmvpMEhZzWlOCOFAm4141g00bXNXhCnceIj0k2IHkCUaGd1hvgKnv/jloz8+eLfm7k4da8OCBCCTlPBebF03MnoqHjvXk5DTCqOTZ8PojmaHpqRcEVVqNaaGBEAfzqfgc5CExa5rR7NI2z+zkDxi33Y3ztVSnbVa1baXT5xaOgK0qPWfqK1eGyJNEzJZul89OKFhX1D7XOZU8w9yWfPcslf546Wvw8vJXU8kqBswbNhvihYYyZoile831tgYP2sUfLebKm4AvCHUTgm5rNce7syA9unxyYRcwe638VRFKjcp6NI9ZICq6Lz1h94Mz4c/Ymr/Y2dwn3OnqKrUWAF9gFRl+atU4fe4vqBwvuC16cBh+F9CpoUXJWO4kh5nJEZB15uN70v3MBquuZILhpEcoEp4Fj9y9tIS/lvtw2fCypWLMCclK//DW0QBv+
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 16:12:09.4832 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f12f35e4-7c69-4a14-e500-08dec7d4309e
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
- Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource: DU2PEPF00028CFF.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR08MB5301
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dk5mN2gzMWNmbC9sSzdTZGt1R3loUmJGT3M1WkkvZTFkZXVYRDgyVjRud2tZ?=
+ =?utf-8?B?SGU5ZXJqNFozYjFPY3JNYzYzanM2cWtvZlVaR1dmU3RvQTFhZW9vZjdWdzll?=
+ =?utf-8?B?ZndkTngycE9KTE1PMjJuY0RQZzIwVjZ6dk04MTBnMFBsUnpaay9PWlREVmFt?=
+ =?utf-8?B?Q1pwV0RVaTJmMDI5QWxRNFBOdnVVYkZxcGtmSExEdUhvNkpVQ3preDRDbEFF?=
+ =?utf-8?B?ZUJ2Nkcya3BYWkJYRWg2TS9OM0l0RVRMSnNYU2tvUGJWVU1zQTJ4dVBaQWV4?=
+ =?utf-8?B?dGlibmxyaDM5eXEzZVNxazdSc043OTV3amVmejZhR1lzbEtvM3dsMWpQbVBa?=
+ =?utf-8?B?azZkQWU0ZzZTRmh0SGdRV2RMNVlzSnVGVDMxNjdacDRuZGtrNEU4YTEzRTFH?=
+ =?utf-8?B?QUlwRUFDNDR3Q2FadFd6Y2RHbmxBSngxSjRWT1Z0TW9vNUkzcGRCaGdKeVox?=
+ =?utf-8?B?VWlTUmxERW00dmlaZ0Y0WWlpaVV5TndmQWRpVFQvclhIb3FFTUdaYWwzYjVw?=
+ =?utf-8?B?VVoxVzhCd3FFRVRSZXNmYmhPdHVwTjlMbmlBU3cyYUJtbDNiQS9vb2JkLzZ4?=
+ =?utf-8?B?OHpNdjRYS0RyKzZhQ3JUbEdhNzlNZ0FJT21BQzhhRE0vWWdFQ3B5d2NsdXZZ?=
+ =?utf-8?B?QlU2UjB2Sm1TdFprRG5VVmY4ejAzRUxDYlkybVlka2xwV2ZVTUJEa2dwQ0tU?=
+ =?utf-8?B?eGtabVdXVnpobVNHVUg5UzJ0WUNtYkdkTVZiOXBOQ0FaRy9RL2R3bHg4R2FV?=
+ =?utf-8?B?YkhybCsyZ0I3Y0Y2amlJWHA4S3ZCdFVkdkVqZjJvK0M4eDIwSFV5QzMyZk1B?=
+ =?utf-8?B?Vzc2V3RReENKWmdjK2REVFRkVENTMDUyRzRPV2xyeUlnb1U3TktMaHExSS9k?=
+ =?utf-8?B?RFJwOUpsMy85T2J1VnRGQVpXNzl0NU1ONnlSQXpJWVBGaVhIY3N4OXd0RjZm?=
+ =?utf-8?B?TWxmcWlLbXpQb2FHaW5maWxXaExOZlc3aXoyZ2FxN3hkVVVSU2FyUnhWTTJI?=
+ =?utf-8?B?a3RXWUc3R1JDcG5jb0xRbUZXMktiWkdhQ3NVbUU1cXc0TS84VTFrRmh5NUpx?=
+ =?utf-8?B?Uy96MkczUVRFM05QdXNSblgrQWRaTk53MEQ5Q2tXb3U4RFhQZmtyeVA0bStm?=
+ =?utf-8?B?UytyQVBRN2MwaGcvK1Vxb3NyVGV2d1JaRXprUmdaaWxmdlJoMUlVUUFHanVO?=
+ =?utf-8?B?OGRnWXp6ZFA2eENZRGRhdjZKSU52cERZK2xTeWRJdEticEtRNExGL2E5UEcv?=
+ =?utf-8?B?bVJQOFhodWJWNHF5cTcvaWcvbUJ0Mlo1QnNzQ2loRlhpRk1pU2xNbXJrM0Rz?=
+ =?utf-8?B?TWJKeVhyT0sxd25LQWtEMExqVHhEVks4Y1o4aERHVG5SVmRsUVJmUnplaUxo?=
+ =?utf-8?B?ajViUkxmdXVxVjU4SXVIcDFxazhDN01NTldSRDdnNHV1cWU5YkxlQVFBTE8x?=
+ =?utf-8?B?UzFyWVpxNnlpcWJSVjJLZzNLWUlDMFNNUUJsWWNFRlE2VHZJK1lTM0ZEQzVY?=
+ =?utf-8?B?UVUwQkk2S1RGVzJJRkRUTUlsK2ZWbWlieVIrV3k0ckFnbDB1QUZBaVAvcWc0?=
+ =?utf-8?B?em1lQU5LOWliNHZ0eGd0VGtFUFRVbU4rdWdIVG1RR1huZC9xeHpRWWQ2Wk5o?=
+ =?utf-8?B?OTU4OGxsV281UDE3bFgrK3RxbGtaaWRNblJoYW9zY3JLb1A3U3ZVZVhpZVhZ?=
+ =?utf-8?B?V00wb0s1dGc0L2h0dFkwM3VYVUlYcVNHSUN2ZVUxRTk0VDBlQWlQTmhDMFhL?=
+ =?utf-8?B?dUJqSDBMdW1YazcyUlpkYU5TVkR3MGUzakVuSWViU1N2MlpnSy9DbENwaDBy?=
+ =?utf-8?B?NmxhTjhQdVQ3eUJYbFBNS0l5SFJVWUl4M0FwMWRieVArSUR0MUpsS1pPK3I1?=
+ =?utf-8?B?S2I3VWppUHVtcSs3ZndoRVZsR25adXFpRXJVSEE3OFg1QXBQVDJOaWhFWGgr?=
+ =?utf-8?B?U3k5UmtCTnBzRCt6SWlHNHdJakV6cVF6KzczaThKUWRRSnVuNmlaQ0wxL0FW?=
+ =?utf-8?B?YUNmYkxFZU9nN2F6SGp5YklnM3dnbW11dEo4WkpLSWxaZkcxY1hvOVdsbzVW?=
+ =?utf-8?B?WVoyNnNCQytHcHJEZUpUOGJDS1FlT1RweEtSdjlPQmtuMVVZRE1OYnJpMnhC?=
+ =?utf-8?B?dkFaZU52RkRzTEtsb3Vad3lCR2xjSWRydEQvZXlNTFNQK05yaUMreVljeTh0?=
+ =?utf-8?B?ZWM5K1lRcjlBRmNSMWZtdnhzSVhoRnFkLzNhekJFNkFoYlR5OVdHN2d6SHQ0?=
+ =?utf-8?B?Wkx3bTZOcEJFYjhXTEdhTjIzVWVjeXdrazV1MWw1T3EzOGlLTmRMcnZVVDM1?=
+ =?utf-8?B?Mmo3WVFqMGZIUjRLR3lXKzFsZWxqWmViNmFLdk1zR0RET292UGZuUT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ca0c1bb-d414-4695-eb02-08dec7d674e2
+X-MS-Exchange-CrossTenant-AuthSource: CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 16:28:23.2124 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zaZaGC+bNo6NpB5x9cYCav8HZmgMGpqahnsPRkaUDauu2QcGXTLrdg7SZV7PBePv2Wlbz2GyQYrg5FluzvR8bA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB3263
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,299 +156,504 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 11/06/2026 15:45, Steven Price wrote:
-> On 28/05/2026 16:05, Karunika Choo wrote:
->> Move the MMU address-space register layout into the hardware description
->> by storing the MMU_AS base offset and per-AS stride in the Panthor HW
->> map.
->>
->> Use those values to compute the iomem pointer for each AS slot and make
->> the MMU AS register definitions relative to the per-slot register window
->> instead of hard-coding the slot offset in every register macro.
->>
->> This prepares the MMU code for GPUs where the MMU AS register region is
->> not at a fixed offset while keeping the existing register accesses
->> scoped to a single AS window.
->>
->> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
->> ---
->>  drivers/gpu/drm/panthor/panthor_hw.c       |  8 +++++
->>  drivers/gpu/drm/panthor/panthor_hw.h       |  8 +++++
->>  drivers/gpu/drm/panthor/panthor_mmu.c      | 35 ++++++++++++++--------
->>  drivers/gpu/drm/panthor/panthor_mmu_regs.h | 23 ++++++--------
->>  4 files changed, 47 insertions(+), 27 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
->> index 1f7fab4caf4d..e677f1a8f488 100644
->> --- a/drivers/gpu/drm/panthor/panthor_hw.c
->> +++ b/drivers/gpu/drm/panthor/panthor_hw.c
->> @@ -41,6 +41,10 @@ static struct panthor_hw panthor_hw_arch_v10 = {
->>  	.map = {
->>  		.gpu_control_base = 0x0,
->>  		.mcu_control_base = 0x700,
->> +		.mmu_as = {
->> +			.base = 0x2400,
->> +			.stride = 0x40,
->> +		},
->>  	},
->>  };
->>  
->> @@ -54,6 +58,10 @@ static struct panthor_hw panthor_hw_arch_v14 = {
->>  		.gpu_control_base = 0x0,
->>  		.pwr_control_base = 0x800,
->>  		.mcu_control_base = 0x700,
->> +		.mmu_as = {
->> +			.base = 0x2400,
->> +			.stride = 0x40,
->> +		},
->>  	},
->>  };
->>  
->> diff --git a/drivers/gpu/drm/panthor/panthor_hw.h b/drivers/gpu/drm/panthor/panthor_hw.h
->> index 58673a427bc9..0ae11b78c77e 100644
->> --- a/drivers/gpu/drm/panthor/panthor_hw.h
->> +++ b/drivers/gpu/drm/panthor/panthor_hw.h
->> @@ -38,6 +38,14 @@ struct panthor_hw_regmap {
->>  
->>  	/** @mcu_control_base: MCU_CONTROL base address */
->>  	u32 mcu_control_base;
->> +
->> +	struct {
->> +		/** @mmu_as.base: MMU_AS base address */
->> +		u32 base;
->> +
->> +		/** @mmu_as.stride: Stride between subsequent MMU_AS register blocks */
->> +		u32 stride;
->> +	} mmu_as;
->>  };
->>  
->>  /**
->> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
->> index 48127313332f..9a64f977d28c 100644
->> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
->> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
->> @@ -36,6 +36,7 @@
->>  #include "panthor_gpu.h"
->>  #include "panthor_gpu_regs.h"
->>  #include "panthor_heap.h"
->> +#include "panthor_hw.h"
->>  #include "panthor_mmu.h"
->>  #include "panthor_mmu_regs.h"
->>  #include "panthor_sched.h"
->> @@ -57,7 +58,7 @@ struct panthor_as_slot {
->>   */
->>  struct panthor_mmu {
->>  	/** @iomem: CPU mapping of MMU_AS_CONTROL iomem region */
->> -	void __iomem *iomem;
->> +	void __iomem *iomem[MAX_AS_SLOTS];
-> 
-> I'm not convinced that having a iomem pointer per AS is worth it. It 
-> seems excessive.
-> 
-> Boris's suggestion of moving it to panthor_as_slot at least avoids the 
-> array indexing, but I did wonder about just having a helper function. AI 
-> cooked up the below diff (untested, applies on top) which demonstrates
-> the idea.
-> 
-> I think the AI was a bit over the top with the as_present check in the
-> helper, although that would clearly indicate a serious bug if it
-> triggered.
-> 
-> What do you think?
-> 
-> Thanks,
-> Steve
+Currently many I/O related structs carry a `SIZE` parameter to denote the
+minimum size of the I/O region, while they also carry a field indicating
+the actual size. Proliferation of the pattern creates a lot of duplicated
+code, and makes it hard to create typed views of I/O.
 
-TBF, with Boris's suggestion, I included a new as_iomem() helper
-anyways, this isn't that far off as an option. Perhaps maybe
-rename `iomem` to `as_iomem` to clarify that this isn't the
-MMU_CONTROL iomem. 
+Introduce a `Region` type that carries the `SIZE` parameter. It is a
+wrapper of `[u8]`, which makes it dynamically sized with a metadata of
+`usize`. This way, pointers to `Region` naturally carry size information.
+This type is required to be 4-byte aligned.
 
-I don't really mind either way, this option has the ambiguity
-of where the iomem belongs to, while Boris' solution adds a
-little more baggage to the struct but ownership is clear.
+Expose the minimum size information via `MIN_SIZE` constant of the
+`KnownSize` trait. Similarly, expose the minimum alignment information via
+`KnownSize::MIN_ALIGN`.
 
-Kind regards,
-Karunika
+With these changes, it is possible to add an associated type to `Io` trait
+to represent the type of I/O region. For untyped regions, this is the newly
+added `Region` type. Remove `IoKnownSize` as it is no longer necessary. Use
+the same mechanism to indicate minimum size of PCI config spaces.
 
-> 
-> ----8<-----
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index 53c5744609fa..6127df893476 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -58,7 +58,7 @@ struct panthor_as_slot {
->   */
->  struct panthor_mmu {
->  	/** @iomem: CPU mapping of MMU_AS_CONTROL iomem region */
-> -	void __iomem *iomem[MAX_AS_SLOTS];
-> +	void __iomem *iomem;
->  
->  	/** @irq: The MMU irq. */
->  	struct panthor_irq irq;
-> @@ -112,6 +112,20 @@ struct panthor_mmu {
->  	} vm;
->  };
->  
-> +static void __iomem *
-> +panthor_mmu_as_iomem(struct panthor_device *ptdev, u32 as_nr)
-> +{
-> +	struct panthor_mmu *mmu = ptdev->mmu;
-> +
-> +	if (drm_WARN_ON(&ptdev->base, as_nr >= MAX_AS_SLOTS))
-> +		return mmu->iomem;
-> +
-> +	if (drm_WARN_ON(&ptdev->base, !(ptdev->gpu_info.as_present & BIT(as_nr))))
-> +		return mmu->iomem;
-> +
-> +	return mmu->iomem + (ptdev->hw->map.mmu_as.stride * as_nr);
-> +}
-> +
->  /**
->   * struct panthor_vm_pool - VM pool object
->   */
-> @@ -522,14 +536,14 @@ static void free_pt(void *cookie, void *data, size_t size)
->  
->  static int wait_ready(struct panthor_device *ptdev, u32 as_nr)
->  {
-> -	struct panthor_mmu *mmu = ptdev->mmu;
-> +	void __iomem *as_iomem = panthor_mmu_as_iomem(ptdev, as_nr);
->  	int ret;
->  	u32 val;
->  
->  	/* Wait for the MMU status to indicate there is no active command, in
->  	 * case one is pending.
->  	 */
-> -	ret = gpu_read_relaxed_poll_timeout_atomic(mmu->iomem[as_nr], AS_STATUS, val,
-> +	ret = gpu_read_relaxed_poll_timeout_atomic(as_iomem, AS_STATUS, val,
->  						   !(val & AS_STATUS_AS_ACTIVE), 10, 100000);
->  
->  	if (ret) {
-> @@ -542,12 +556,13 @@ static int wait_ready(struct panthor_device *ptdev, u32 as_nr)
->  
->  static int as_send_cmd_and_wait(struct panthor_device *ptdev, u32 as_nr, u32 cmd)
->  {
-> +	void __iomem *as_iomem = panthor_mmu_as_iomem(ptdev, as_nr);
->  	int status;
->  
->  	/* write AS_COMMAND when MMU is ready to accept another command */
->  	status = wait_ready(ptdev, as_nr);
->  	if (!status) {
-> -		gpu_write(ptdev->mmu->iomem[as_nr], AS_COMMAND, cmd);
-> +		gpu_write(as_iomem, AS_COMMAND, cmd);
->  		status = wait_ready(ptdev, as_nr);
->  	}
->  
-> @@ -595,14 +610,14 @@ PANTHOR_IRQ_HANDLER(mmu, panthor_mmu_irq_handler);
->  static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr,
->  				 u64 transtab, u64 transcfg, u64 memattr)
->  {
-> -	struct panthor_mmu *mmu = ptdev->mmu;
-> +	void __iomem *as_iomem = panthor_mmu_as_iomem(ptdev, as_nr);
->  
->  	panthor_mmu_irq_enable_events(&ptdev->mmu->irq,
->  				      panthor_mmu_as_fault_mask(ptdev, as_nr));
->  
-> -	gpu_write64(mmu->iomem[as_nr], AS_TRANSTAB, transtab);
-> -	gpu_write64(mmu->iomem[as_nr], AS_MEMATTR, memattr);
-> -	gpu_write64(mmu->iomem[as_nr], AS_TRANSCFG, transcfg);
-> +	gpu_write64(as_iomem, AS_TRANSTAB, transtab);
-> +	gpu_write64(as_iomem, AS_MEMATTR, memattr);
-> +	gpu_write64(as_iomem, AS_TRANSCFG, transcfg);
->  
->  	return as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
->  }
-> @@ -610,8 +625,8 @@ static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr,
->  static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr,
->  				  bool recycle_slot)
->  {
-> -	struct panthor_mmu *mmu = ptdev->mmu;
->  	struct panthor_vm *vm = ptdev->mmu->as.slots[as_nr].vm;
-> +	void __iomem *as_iomem = panthor_mmu_as_iomem(ptdev, as_nr);
->  	int ret;
->  
->  	lockdep_assert_held(&ptdev->mmu->as.slots_lock);
-> @@ -638,9 +653,9 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr,
->  	if (recycle_slot)
->  		return 0;
->  
-> -	gpu_write64(mmu->iomem[as_nr], AS_TRANSTAB, 0);
-> -	gpu_write64(mmu->iomem[as_nr], AS_MEMATTR, 0);
-> -	gpu_write64(mmu->iomem[as_nr], AS_TRANSCFG, AS_TRANSCFG_ADRMODE_UNMAPPED);
-> +	gpu_write64(as_iomem, AS_TRANSTAB, 0);
-> +	gpu_write64(as_iomem, AS_MEMATTR, 0);
-> +	gpu_write64(as_iomem, AS_TRANSCFG, AS_TRANSCFG_ADRMODE_UNMAPPED);
->  
->  	return as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
->  }
-> @@ -1740,7 +1755,7 @@ static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
->  	mutex_lock(&ptdev->mmu->as.slots_lock);
->  	if (vm->as.id >= 0 && size) {
->  		/* Lock the region that needs to be updated */
-> -		gpu_write64(ptdev->mmu->iomem[vm->as.id], AS_LOCKADDR,
-> +		gpu_write64(panthor_mmu_as_iomem(ptdev, vm->as.id), AS_LOCKADDR,
->  			    pack_region_range(ptdev, &start, &size));
->  
->  		/* If the lock succeeded, update the locked_region info. */
-> @@ -1789,21 +1804,21 @@ static void panthor_vm_unlock_region(struct panthor_vm *vm)
->  
->  static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status)
->  {
-> -	struct panthor_mmu *mmu = ptdev->mmu;
->  	bool has_unhandled_faults = false;
->  
->  	status = panthor_mmu_fault_mask(ptdev, status);
->  	while (status) {
->  		u32 as = ffs(status | (status >> 16)) - 1;
->  		u32 mask = panthor_mmu_as_fault_mask(ptdev, as);
-> +		void __iomem *as_iomem = panthor_mmu_as_iomem(ptdev, as);
->  		u64 addr;
->  		u32 fault_status;
->  		u32 exception_type;
->  		u32 access_type;
->  		u32 source_id;
->  
-> -		fault_status = gpu_read(mmu->iomem[as], AS_FAULTSTATUS);
-> -		addr = gpu_read64(mmu->iomem[as], AS_FAULTADDRESS);
-> +		fault_status = gpu_read(as_iomem, AS_FAULTSTATUS);
-> +		addr = gpu_read64(as_iomem, AS_FAULTADDRESS);
->  
->  		/* decode the fault status */
->  		exception_type = fault_status & 0xFF;
-> @@ -1834,7 +1849,7 @@ static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status)
->  		 * Note that COMPLETED irqs are never cleared, but this is fine
->  		 * because they are always masked.
->  		 */
-> -		gpu_write(mmu->irq.iomem, INT_CLEAR, mask);
-> +		gpu_write(ptdev->mmu->irq.iomem, INT_CLEAR, mask);
->  
->  		if (ptdev->mmu->as.slots[as].vm)
->  			ptdev->mmu->as.slots[as].vm->unhandled_fault = true;
-> @@ -3239,11 +3254,8 @@ static void panthor_mmu_release_wq(struct drm_device *ddev, void *res)
->  int panthor_mmu_init(struct panthor_device *ptdev)
->  {
->  	u32 va_bits = GPU_MMU_FEATURES_VA_BITS(ptdev->gpu_info.mmu_features);
-> -	unsigned long as_present_mask = ptdev->gpu_info.as_present;
-> -	struct panthor_hw_regmap *regmap = &ptdev->hw->map;
->  	struct panthor_mmu *mmu;
->  	int ret, irq;
-> -	u32 as_id;
->  
->  	mmu = drmm_kzalloc(&ptdev->base, sizeof(*mmu), GFP_KERNEL);
->  	if (!mmu)
-> @@ -3260,12 +3272,7 @@ int panthor_mmu_init(struct panthor_device *ptdev)
->  	if (ret)
->  		return ret;
->  
-> -	for_each_set_bit(as_id, &as_present_mask, MAX_AS_SLOTS) {
-> -		u64 offset = regmap->mmu_as.base + (regmap->mmu_as.stride * as_id);
-> -
-> -		mmu->iomem[as_id] = ptdev->iomem + offset;
-> -	}
-> -
-> +	mmu->iomem = ptdev->iomem + ptdev->hw->map.mmu_as.base;
->  	ptdev->mmu = mmu;
->  
->  	irq = platform_get_irq_byname(to_platform_device(ptdev->base.dev), "mmu");
-> 
+Signed-off-by: Gary Guo <gary@garyguo.net>
+---
+ rust/kernel/devres.rs |   6 +--
+ rust/kernel/io.rs     | 130 +++++++++++++++++++++++++++++++++-----------------
+ rust/kernel/lib.rs    |   3 ++
+ rust/kernel/pci.rs    |   1 -
+ rust/kernel/pci/io.rs |  40 +++++++---------
+ rust/kernel/ptr.rs    |  12 +++++
+ 6 files changed, 118 insertions(+), 74 deletions(-)
+
+diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
+index 11ce500e9b76..ed30ccc6e68e 100644
+--- a/rust/kernel/devres.rs
++++ b/rust/kernel/devres.rs
+@@ -68,7 +68,6 @@ struct Inner<T> {
+ ///     devres::Devres,
+ ///     io::{
+ ///         Io,
+-///         IoKnownSize,
+ ///         Mmio,
+ ///         MmioRaw,
+ ///         PhysAddr, //
+@@ -297,10 +296,7 @@ pub fn device(&self) -> &Device {
+     /// use kernel::{
+     ///     device::Core,
+     ///     devres::Devres,
+-    ///     io::{
+-    ///         Io,
+-    ///         IoKnownSize, //
+-    ///     },
++    ///     io::Io,
+     ///     pci, //
+     /// };
+     ///
+diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+index fcc7678fd9e3..bef571dad6eb 100644
+--- a/rust/kernel/io.rs
++++ b/rust/kernel/io.rs
+@@ -6,7 +6,11 @@
+ 
+ use crate::{
+     bindings,
+-    prelude::*, //
++    prelude::*,
++    ptr::{
++        Alignment,
++        KnownSize, //
++    }, //
+ };
+ 
+ pub mod mem;
+@@ -31,6 +35,58 @@
+ /// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a u64 even on 32-bit architectures.
+ pub type ResourceSize = bindings::resource_size_t;
+ 
++/// Untyped I/O region.
++///
++/// This type can be used when an I/O region without known type information has a compile-time known
++/// minimum size (and a runtime known actual size).
++///
++/// This must be 4-byte aligned.
++///
++/// # Invariants
++///
++/// Size of the region is at least as large as the `SIZE` generic parameter.
++#[repr(C, align(4))]
++pub struct Region<const SIZE: usize = 0> {
++    inner: [u8],
++}
++
++impl<const SIZE: usize> Region<SIZE> {
++    /// Create a raw mutable pointer from given base address and size.
++    ///
++    /// `size` should be at least as large as the minimum size `SIZE`, and `base` and `size` should
++    /// be 4-byte aligned to uphold the type invariant.
++    ///
++    /// Just like other methods on raw pointers, it is not unsafe to create a raw pointer
++    /// that does not uphold the type invariants. However such pointers are not valid.
++    #[inline]
++    pub fn ptr_from_raw_parts_mut(base: *mut u8, size: usize) -> *mut Self {
++        core::ptr::slice_from_raw_parts_mut(base, size) as *mut Region<SIZE>
++    }
++
++    /// Create a raw mutable pointer from given base address and size.
++    ///
++    /// The alignment of `base` is checked, and `size` is checked against the minimum size specified
++    /// via const generics.
++    #[inline]
++    pub fn ptr_try_from_raw_parts_mut(base: *mut u8, size: usize) -> Result<*mut Self> {
++        if size < SIZE || base.align_offset(4) != 0 || !size.is_multiple_of(4) {
++            return Err(EINVAL);
++        }
++
++        Ok(Self::ptr_from_raw_parts_mut(base, size))
++    }
++}
++
++impl<const SIZE: usize> KnownSize for Region<SIZE> {
++    const MIN_SIZE: usize = SIZE;
++    const MIN_ALIGN: Alignment = Alignment::new::<4>();
++
++    #[inline(always)]
++    fn size(p: *const Self) -> usize {
++        (p as *const [u8]).len()
++    }
++}
++
+ /// Raw representation of an MMIO region.
+ ///
+ /// By itself, the existence of an instance of this structure does not provide any guarantees that
+@@ -85,7 +141,6 @@ pub fn maxsize(&self) -> usize {
+ ///     ffi::c_void,
+ ///     io::{
+ ///         Io,
+-///         IoKnownSize,
+ ///         Mmio,
+ ///         MmioRaw,
+ ///         PhysAddr,
+@@ -241,12 +296,25 @@ fn offset(self) -> usize {
+ /// For MMIO regions, all widths (u8, u16, u32, and u64 on 64-bit systems) are typically
+ /// supported. For PCI configuration space, u8, u16, and u32 are supported but u64 is not.
+ pub trait Io {
++    /// Type of this I/O region. For untyped regions, [`Region`] can be used.
++    type Target: ?Sized + KnownSize;
++
+     /// Returns the base address of this mapping.
+     fn addr(&self) -> usize;
+ 
+     /// Returns the maximum size of this mapping.
+     fn maxsize(&self) -> usize;
+ 
++    /// Returns the absolute I/O address for a given `offset`,
++    /// performing compile-time bound checks.
++    // Always inline to optimize out error path of `build_assert`.
++    #[inline(always)]
++    fn io_addr_assert<U>(&self, offset: usize) -> usize {
++        build_assert!(offset_valid::<U>(offset, Self::Target::MIN_SIZE));
++
++        self.addr() + offset
++    }
++
+     /// Returns the absolute I/O address for a given `offset`,
+     /// performing runtime bound checks.
+     #[inline]
+@@ -336,7 +404,7 @@ fn try_write64(&self, value: u64, offset: usize) -> Result
+     #[inline(always)]
+     fn read8(&self, offset: usize) -> u8
+     where
+-        Self: IoKnownSize + IoCapable<u8>,
++        Self: IoCapable<u8>,
+     {
+         self.read(offset)
+     }
+@@ -345,7 +413,7 @@ fn read8(&self, offset: usize) -> u8
+     #[inline(always)]
+     fn read16(&self, offset: usize) -> u16
+     where
+-        Self: IoKnownSize + IoCapable<u16>,
++        Self: IoCapable<u16>,
+     {
+         self.read(offset)
+     }
+@@ -354,7 +422,7 @@ fn read16(&self, offset: usize) -> u16
+     #[inline(always)]
+     fn read32(&self, offset: usize) -> u32
+     where
+-        Self: IoKnownSize + IoCapable<u32>,
++        Self: IoCapable<u32>,
+     {
+         self.read(offset)
+     }
+@@ -363,7 +431,7 @@ fn read32(&self, offset: usize) -> u32
+     #[inline(always)]
+     fn read64(&self, offset: usize) -> u64
+     where
+-        Self: IoKnownSize + IoCapable<u64>,
++        Self: IoCapable<u64>,
+     {
+         self.read(offset)
+     }
+@@ -372,7 +440,7 @@ fn read64(&self, offset: usize) -> u64
+     #[inline(always)]
+     fn write8(&self, value: u8, offset: usize)
+     where
+-        Self: IoKnownSize + IoCapable<u8>,
++        Self: IoCapable<u8>,
+     {
+         self.write(offset, value)
+     }
+@@ -381,7 +449,7 @@ fn write8(&self, value: u8, offset: usize)
+     #[inline(always)]
+     fn write16(&self, value: u16, offset: usize)
+     where
+-        Self: IoKnownSize + IoCapable<u16>,
++        Self: IoCapable<u16>,
+     {
+         self.write(offset, value)
+     }
+@@ -390,7 +458,7 @@ fn write16(&self, value: u16, offset: usize)
+     #[inline(always)]
+     fn write32(&self, value: u32, offset: usize)
+     where
+-        Self: IoKnownSize + IoCapable<u32>,
++        Self: IoCapable<u32>,
+     {
+         self.write(offset, value)
+     }
+@@ -399,7 +467,7 @@ fn write32(&self, value: u32, offset: usize)
+     #[inline(always)]
+     fn write64(&self, value: u64, offset: usize)
+     where
+-        Self: IoKnownSize + IoCapable<u64>,
++        Self: IoCapable<u64>,
+     {
+         self.write(offset, value)
+     }
+@@ -582,7 +650,7 @@ fn try_update<T, L, F>(&self, location: L, f: F) -> Result
+     fn read<T, L>(&self, location: L) -> T
+     where
+         L: IoLoc<T>,
+-        Self: IoKnownSize + IoCapable<L::IoType>,
++        Self: IoCapable<L::IoType>,
+     {
+         let address = self.io_addr_assert::<L::IoType>(location.offset());
+ 
+@@ -614,7 +682,7 @@ fn read<T, L>(&self, location: L) -> T
+     fn write<T, L>(&self, location: L, value: T)
+     where
+         L: IoLoc<T>,
+-        Self: IoKnownSize + IoCapable<L::IoType>,
++        Self: IoCapable<L::IoType>,
+     {
+         let address = self.io_addr_assert::<L::IoType>(location.offset());
+         let io_value = value.into();
+@@ -658,7 +726,7 @@ fn write_reg<T, L, V>(&self, value: V)
+     where
+         L: IoLoc<T>,
+         V: LocatedRegister<Location = L, Value = T>,
+-        Self: IoKnownSize + IoCapable<L::IoType>,
++        Self: IoCapable<L::IoType>,
+     {
+         let (location, value) = value.into_io_op();
+ 
+@@ -690,7 +758,7 @@ fn write_reg<T, L, V>(&self, value: V)
+     fn update<T, L, F>(&self, location: L, f: F)
+     where
+         L: IoLoc<T>,
+-        Self: IoKnownSize + IoCapable<L::IoType> + Sized,
++        Self: IoCapable<L::IoType> + Sized,
+         F: FnOnce(T) -> T,
+     {
+         let address = self.io_addr_assert::<L::IoType>(location.offset());
+@@ -704,28 +772,6 @@ fn update<T, L, F>(&self, location: L, f: F)
+     }
+ }
+ 
+-/// Trait for types with a known size at compile time.
+-///
+-/// This trait is implemented by I/O backends that have a compile-time known size,
+-/// enabling the use of infallible I/O accessors with compile-time bounds checking.
+-///
+-/// Types implementing this trait can use the infallible methods in [`Io`] trait
+-/// (e.g., `read8`, `write32`), which require `Self: IoKnownSize` bound.
+-pub trait IoKnownSize: Io {
+-    /// Minimum usable size of this region.
+-    const MIN_SIZE: usize;
+-
+-    /// Returns the absolute I/O address for a given `offset`,
+-    /// performing compile-time bound checks.
+-    // Always inline to optimize out error path of `build_assert`.
+-    #[inline(always)]
+-    fn io_addr_assert<U>(&self, offset: usize) -> usize {
+-        build_assert!(offset_valid::<U>(offset, Self::MIN_SIZE));
+-
+-        self.addr() + offset
+-    }
+-}
+-
+ /// Implements [`IoCapable`] on `$mmio` for `$ty` using `$read_fn` and `$write_fn`.
+ macro_rules! impl_mmio_io_capable {
+     ($mmio:ident, $(#[$attr:meta])* $ty:ty, $read_fn:ident, $write_fn:ident) => {
+@@ -758,6 +804,8 @@ unsafe fn io_write(&self, value: $ty, address: usize) {
+ );
+ 
+ impl<const SIZE: usize> Io for Mmio<SIZE> {
++    type Target = Region<SIZE>;
++
+     /// Returns the base address of this mapping.
+     #[inline]
+     fn addr(&self) -> usize {
+@@ -771,10 +819,6 @@ fn maxsize(&self) -> usize {
+     }
+ }
+ 
+-impl<const SIZE: usize> IoKnownSize for Mmio<SIZE> {
+-    const MIN_SIZE: usize = SIZE;
+-}
+-
+ impl<const SIZE: usize> Mmio<SIZE> {
+     /// Converts an `MmioRaw` into an `Mmio` instance, providing the accessors to the MMIO mapping.
+     ///
+@@ -798,6 +842,8 @@ pub unsafe fn from_raw(raw: &MmioRaw<SIZE>) -> &Self {
+ pub struct RelaxedMmio<const SIZE: usize = 0>(Mmio<SIZE>);
+ 
+ impl<const SIZE: usize> Io for RelaxedMmio<SIZE> {
++    type Target = Region<SIZE>;
++
+     #[inline]
+     fn addr(&self) -> usize {
+         self.0.addr()
+@@ -809,10 +855,6 @@ fn maxsize(&self) -> usize {
+     }
+ }
+ 
+-impl<const SIZE: usize> IoKnownSize for RelaxedMmio<SIZE> {
+-    const MIN_SIZE: usize = SIZE;
+-}
+-
+ impl<const SIZE: usize> Mmio<SIZE> {
+     /// Returns a [`RelaxedMmio`] reference that performs relaxed I/O operations.
+     ///
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index 9512af7156df..68f4d9a3425d 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -16,6 +16,9 @@
+ // Please see https://github.com/Rust-for-Linux/linux/issues/2 for details on
+ // the unstable features in use.
+ //
++// Stable since Rust 1.87.0.
++#![feature(unsigned_is_multiple_of)]
++//
+ // Stable since Rust 1.89.0.
+ #![feature(generic_arg_infer)]
+ //
+diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+index 5071cae6543f..c6d6bd8f251d 100644
+--- a/rust/kernel/pci.rs
++++ b/rust/kernel/pci.rs
+@@ -43,7 +43,6 @@
+ pub use self::io::{
+     Bar,
+     ConfigSpace,
+-    ConfigSpaceKind,
+     ConfigSpaceSize,
+     Extended,
+     Normal, //
+diff --git a/rust/kernel/pci/io.rs b/rust/kernel/pci/io.rs
+index 0461e01aaa20..b4996aa059d8 100644
+--- a/rust/kernel/pci/io.rs
++++ b/rust/kernel/pci/io.rs
+@@ -10,11 +10,12 @@
+     io::{
+         Io,
+         IoCapable,
+-        IoKnownSize,
+         Mmio,
+-        MmioRaw, //
++        MmioRaw,
++        Region, //
+     },
+-    prelude::*, //
++    prelude::*,
++    ptr::KnownSize, //
+ };
+ use core::{
+     marker::PhantomData,
+@@ -46,28 +47,21 @@ pub const fn into_raw(self) -> usize {
+     }
+ }
+ 
+-/// Marker type for normal (256-byte) PCI configuration space.
+-pub struct Normal;
++/// Alias for normal (256-byte) PCI configuration space.
++pub type Normal = Region<256>;
+ 
+-/// Marker type for extended (4096-byte) PCIe configuration space.
+-pub struct Extended;
++/// Alias for extended (4096-byte) PCIe configuration space.
++pub type Extended = Region<4096>;
+ 
+ /// Trait for PCI configuration space size markers.
+ ///
+ /// This trait is implemented by [`Normal`] and [`Extended`] to provide
+ /// compile-time knowledge of the configuration space size.
+-pub trait ConfigSpaceKind {
+-    /// The size of this configuration space in bytes.
+-    const SIZE: usize;
+-}
++pub trait ConfigSpaceKind: KnownSize {}
+ 
+-impl ConfigSpaceKind for Normal {
+-    const SIZE: usize = 256;
+-}
++impl ConfigSpaceKind for Normal {}
+ 
+-impl ConfigSpaceKind for Extended {
+-    const SIZE: usize = 4096;
+-}
++impl ConfigSpaceKind for Extended {}
+ 
+ /// The PCI configuration space of a device.
+ ///
+@@ -77,7 +71,7 @@ impl ConfigSpaceKind for Extended {
+ /// The generic parameter `S` indicates the maximum size of the configuration space.
+ /// Use [`Normal`] for 256-byte legacy configuration space or [`Extended`] for
+ /// 4096-byte PCIe extended configuration space (default).
+-pub struct ConfigSpace<'a, S: ConfigSpaceKind = Extended> {
++pub struct ConfigSpace<'a, S: ?Sized + ConfigSpaceKind = Extended> {
+     pub(crate) pdev: &'a Device<device::Bound>,
+     _marker: PhantomData<S>,
+ }
+@@ -85,7 +79,7 @@ pub struct ConfigSpace<'a, S: ConfigSpaceKind = Extended> {
+ /// Implements [`IoCapable`] on [`ConfigSpace`] for `$ty` using `$read_fn` and `$write_fn`.
+ macro_rules! impl_config_space_io_capable {
+     ($ty:ty, $read_fn:ident, $write_fn:ident) => {
+-        impl<'a, S: ConfigSpaceKind> IoCapable<$ty> for ConfigSpace<'a, S> {
++        impl<'a, S: ?Sized + ConfigSpaceKind> IoCapable<$ty> for ConfigSpace<'a, S> {
+             unsafe fn io_read(&self, address: usize) -> $ty {
+                 let mut val: $ty = 0;
+ 
+@@ -118,7 +112,9 @@ unsafe fn io_write(&self, value: $ty, address: usize) {
+ impl_config_space_io_capable!(u16, pci_read_config_word, pci_write_config_word);
+ impl_config_space_io_capable!(u32, pci_read_config_dword, pci_write_config_dword);
+ 
+-impl<'a, S: ConfigSpaceKind> Io for ConfigSpace<'a, S> {
++impl<'a, S: ?Sized + ConfigSpaceKind> Io for ConfigSpace<'a, S> {
++    type Target = S;
++
+     /// Returns the base address of the I/O region. It is always 0 for configuration space.
+     #[inline]
+     fn addr(&self) -> usize {
+@@ -132,10 +128,6 @@ fn maxsize(&self) -> usize {
+     }
+ }
+ 
+-impl<'a, S: ConfigSpaceKind> IoKnownSize for ConfigSpace<'a, S> {
+-    const MIN_SIZE: usize = S::SIZE;
+-}
+-
+ /// A PCI BAR to perform I/O-Operations on.
+ ///
+ /// I/O backend assumes that the device is little-endian and will automatically
+diff --git a/rust/kernel/ptr.rs b/rust/kernel/ptr.rs
+index 3f3e529e9f58..82acb531b17b 100644
+--- a/rust/kernel/ptr.rs
++++ b/rust/kernel/ptr.rs
+@@ -235,11 +235,20 @@ fn align_up(self, alignment: Alignment) -> Option<Self> {
+ ///
+ /// This is a generalization of [`size_of`] that works for dynamically sized types.
+ pub trait KnownSize {
++    /// Minimum size of this type known at compile-time.
++    const MIN_SIZE: usize;
++
++    /// Minimum alignment of this type known at compile-time.
++    const MIN_ALIGN: Alignment;
++
+     /// Get the size of an object of this type in bytes, with the metadata of the given pointer.
+     fn size(p: *const Self) -> usize;
+ }
+ 
+ impl<T> KnownSize for T {
++    const MIN_SIZE: usize = size_of::<T>();
++    const MIN_ALIGN: Alignment = Alignment::of::<T>();
++
+     #[inline(always)]
+     fn size(_: *const Self) -> usize {
+         size_of::<T>()
+@@ -247,6 +256,9 @@ fn size(_: *const Self) -> usize {
+ }
+ 
+ impl<T> KnownSize for [T] {
++    const MIN_SIZE: usize = 0;
++    const MIN_ALIGN: Alignment = Alignment::of::<T>();
++
+     #[inline(always)]
+     fn size(p: *const Self) -> usize {
+         p.len() * size_of::<T>()
+
+-- 
+2.54.0
 
