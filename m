@@ -4,86 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3C9DCD98D5
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 11:29:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50C38CD98CC
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 11:33:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF74310E1A7;
-	Thu, 11 Jun 2026 11:29:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B41010EE96;
+	Thu, 11 Jun 2026 11:33:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SkeFMjMu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Vexdn9ED";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A99410E1A7
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 11:29:30 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-2c27fc587ebso20327055ad.0
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 04:29:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781177370; cv=none;
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18C4F10EE96
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 11:33:34 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-2c0c1e0d00bso74925915ad.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 04:33:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781177613; cv=none;
  d=google.com; s=arc-20240605;
- b=DJIjV+uFHgyJ1gJoiynx7/VG+TaSVf6ErWlb2Ka9fBdc8I5rkjohiQuMnKgkLFW5JJ
- FCBtJ6st1d06AgW1QWnUBb+saufSW+SLS3zPgNp6ZLs0//LWEDMnDzcWkfoWAQa5r+re
- S+/ss34zrlrZeUBLvUX4ZU8JUDesuzKnnawqGyzQMmdums1zNg60dTFseBWc1/SDYoI3
- a1QxYI3vZmjnI/no6AUXGXG5HIhgR/QjpMH9W4B55l0dTLo4NPWe5HHaODSwH7Lbc7R5
- hUDBruQZ72uKSLY2ybXggySzDs1zIeVsHL49iTPbAdjqoac2+XqMuljaSayMnmudtpqR
- lojw==
+ b=NZcGmUregMWNJ6TIhH5YoOTpnAfNA2LuytdIyPicZ8bhaqrvgVFhhTtPlup2DP0s8M
+ l4jmEiupcWAO4atwX48pFFA9BfzdvzF8vXvXr0tcR5dbj43239EZyIF1nVjvRB4Ijpsb
+ gVjsoI1r79aG5ZTGXduLt3d+3DGJlJHtnCwOPMrvUkOyJvL9f1QVj/RgTIxDEUFhW7m2
+ didZILQ0jWvJLFXtm3sYw0xvrcGUp2f+EA2Tl8j2WUqo0jiL+1MQqtvUzC3M+gMkihg0
+ YCoJMdtyJ0lhu4owSrjtP9KVr9d5+n67krKY5/QZ3ku99aR3oiBjOQtdJ3BNk2l+5Pe5
+ 88bg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature;
- bh=jg92tmAO+k66o2B5Of/8Nf2qLZy8ghLQqXh25wAN8Mg=;
- fh=L5XzckKlfmpTMg1dRQFXn88iRcYqkt7LN6oz594BoPQ=;
- b=jNBh9LqNQVjyQymJT07JGCcATn/B19sLKTej+5WeKdlmVtbMWGmP24q9tAVLjrgu+B
- gd4nP+2G1S+QPvBAUvohDWBl7xMPaNBukkANR4dGkDqCzi7kfd0Cwsvfn3WhDzE2cI6R
- ewnZoKOCGXeMPo0iRszTZ7Ry8PSlqBYtIpeBj0zIFxgmbc53/Lkiqm45NABXgb6XGcbI
- yVz5PgrCqiXiZmkkkZCcYKC6q3dyxmL/1G9ErKYK23n4iiQUdg8c5rLIbWCF3TuO22Os
- rsDs1RixIUEj7g8GEFRauXCXa6pxY+GxswtbfgY777FW4HEvjFdlekCHtwLmuPD9aeq8
- dqzQ==; darn=lists.freedesktop.org
+ bh=Dp9QBlKQgTMU863TVI7dtmsZ6ywpDTOUUJKYTfISpko=;
+ fh=m/sl8ULpbFGVr6Vd/I5iaFoXeKx+GjnR62Wrw1yHdcw=;
+ b=Tbey2IPOSkPg+jqgNWI7yotL1O19eYhKIuPY/E3HgIVazJepbPuWd8XjIPn68hS+SQ
+ o+I3/ffdO+b4amcrajZG89hH91CmzHzG8GD7ipGR2zeT49vkFD0wdm4bKGHvcslzorRC
+ moJGSohmM+7e5BMddbs/VXX50LxEkJY4LvL1PH5pMxo54mrKYvryvK766+PfDBu0Tkzo
+ 6ZyaoWmkI7EcDGiRcKTaruKNo/zuTedivvCWG1cxavj7Cgj8OJTSr5S4bhtm/K+Zg1i1
+ cjWCS6hyFGVCYSBzODMJxr2xzteegIFp68djhQflu3MluWfFa4LXlxxpy9GBHxKOCsDl
+ rUrw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781177370; x=1781782170; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781177613; x=1781782413; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=jg92tmAO+k66o2B5Of/8Nf2qLZy8ghLQqXh25wAN8Mg=;
- b=SkeFMjMuU/mKg/3Q90wIRfZDkRl6qkC5b10ojvr5n/HfO4W1RBY6WpRN8iAkTm6Ixc
- J257l37b57I/L+eJT977Q5PDSxDaK0g6ci7Kizegn/0ryWlAkmeGpnZZcOhWkjNIEVAf
- eOOf1ZZEyuvgOkbVRojCynycc8hrXGG2wtmcCR3WgqQngpT0l7hERbMDD3cnsJ7W8WYF
- AvMGe6FPzDpjHPMuiydi4pnqfvTBvZDZYL2FChh54HehaoXMypd8zSk+ZB3m9+Q1Pame
- 44gHIGLPWKisFGdsRAZx9+X51XCrTLN6B2e8PlpzwEHEI7bcnQAWBENLP6hjoR1ZtrVu
- 3oOA==
+ bh=Dp9QBlKQgTMU863TVI7dtmsZ6ywpDTOUUJKYTfISpko=;
+ b=Vexdn9EDZAs2g5OWwHlWeQO/DihI8wMQIVoRD07IvD3cpeO7mBHy0yqXL/0fIEKsNi
+ Vn7unn7fyObdkzRj4eE5Us/9Lun5ehunItnnBU6zzpGv/kyZB/kDj7F/6B7Qtq9oxI7Y
+ ubvtqt1bklz0D1nCyENIiYKCbS05HEtX10+KLa3UmKRkh1P9tKDXpGDIfjTfRYpT5uI6
+ 7FtH2Lr1Zm4CwWScB3r5fS5EgrtmDQylNbS7ktb+MDfOThw8qVViUmB7SvEk6LiMwWdK
+ K9wEjLlOFuLL+j9ow1bkXo6Ppxe64m6Ss2s4wgsKfSLKFSWS2pFl1NEJ6ak9EHhI7pGN
+ ZxnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781177370; x=1781782170;
+ d=1e100.net; s=20251104; t=1781177613; x=1781782413;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=jg92tmAO+k66o2B5Of/8Nf2qLZy8ghLQqXh25wAN8Mg=;
- b=XGMz7pcEm2W5ejgHIxHjrGtjb2NxVmwzmZ9C8GxUrIASutKCURMnCRzP5dEPzUQz9s
- +zegiETReMVgIkCq/TYAPPPRUTygKxLey8XogZkJQwf5mECqee5hvkrD3YshE9ZUkUuL
- OWWkmvOJz+g/6CTMgXXfalGtjHKEhzU8b0e9pruHOwCEOgMBrcp4cHz+WDwO0kNoMCOV
- XtKac6Ipz7fC5i+3201yu8Jw2rVXhAO+tQ8KfIFxRxKajQG5lLnvnjjJA5XRixZsa7L7
- w+Uh7xpYTspNhjNUswTnymsHK3kxsox+1Wl4U5JB51pmpJWMXkVb7oSFtfszaB0QyqAi
- dGWg==
+ bh=Dp9QBlKQgTMU863TVI7dtmsZ6ywpDTOUUJKYTfISpko=;
+ b=SmkYgOqAi4Y8zj2LomF2LIF1DQ927on1PbDjbaPBSNASCneZj4sxNdhcQJJIv8bgvX
+ RxPDX5soy4x/8iiY23KVLwbGuFcc1opVG+8+Iqdt/LNsUwjCKkVg+qJodoRyYaccTGv0
+ NrK97T41ghR4/mQer5iRnJnRU7yA8h70Zxnsw03RXrpH+neToITSI0XFuSHffIm4gIsI
+ cGrzAVCYgMZT13sBudR3ZGd4S8TiT9sMlkNnW3pYEa+PCVCzPolLyV8hEDloa/rw76Ey
+ 09xJk4G4jdCA7FJTKKzUhAaQPtKflz58Pk6SboKymWx75wwecq9RZVtBYJc9uC6yGJq/
+ AQJw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9g7IIs1fyU/HsgP8naCLF+hUvOWd/6QQa9DG8sIUkb8CFQNC+wIV65M8g2DhhXdbilJ3iQ44dpivY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyffwgUNAyhvn2l/UkXuYKlhFsUfBkvIruULkh+el5kLTxWmYpp
- B/KeNgJ3e/niHJ79pxHDFSM+7LgbyKClPG9HCi0Jyr4FbrPQ//KPXMgXT112nzPmFbG2eIMFRdR
- ye9gC0fL1ACao8L0+OfHnaWH6ryFu1nkS1GSg
-X-Gm-Gg: Acq92OEoCPjNjt9o20Lt8DKdcNzoiaCLljvNWVS0pW3bVtF84AI0kFGVp0V954AJDtI
- bG/hpsRDvc2iMS/0C0XLl8bB0SDUtgpCRpGjokdMouOqLxadtT471DbdUUJq57+PWjpEqKF4u0v
- l6GR7NfIf5BGTP/oExHkcLFuDSekyTsrMwL7VCBKgcP3fJ0v/N7W9O4c7QqwCg+zqLYb0yQ9j2A
- DiGd7XMj3wgRZgL0wvAAZOo1HaO0vyoSGzfmed4mg7DbBpzJ0MnXos4mrv3Eadqi1elK6spC8O8
- v6sxNpNUBpwByKFaf27DnNu3MlgsagRsJh4NYlNyLUkwUmrH
-X-Received: by 2002:a17:902:e744:b0:2bf:195d:21d2 with SMTP id
- d9443c01a7336-2c2f0c1b5b4mr27995025ad.16.1781177370098; Thu, 11 Jun 2026
- 04:29:30 -0700 (PDT)
+ AFNElJ92z5/bqknA5BfNVY0a+3sHw2ha8fuzzBxrCZWgCLhnsXwTBJ/UIIHMv4FlHctpsxFvPBaqzkvsTYI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyOcsb+3Eshiuu7JD/shuwqm+VxKtuZDSxTHp2KDXXTdfpK/Bz4
+ oTd5EDL3dC9RWPLFELH3T9oo9DT7aiVcc+ojivvoQl7dFnDkFzprO9bJSTPSS85hl22e++NecGP
+ irwt5BLj8+p5kl+vpHCKrbFA5kkkXl5y2RsJ3
+X-Gm-Gg: Acq92OGeAyv8mZZwTKjBpdCrWlnm5EfDlQ+H4NA9hrDjKpmbIyj0COk1XK1tDfJjkem
+ Is2Vz9HwcXdUCTb1ImUgYaRRcpSgmAIt6oloEFkKKbYPy8UVvLGiUNlo+Besu4OQ3U/npPAHyGI
+ 1asz5lWeXFGsQ5hRyR9RcU4upwkYgJkKQKI6Y4X/1OTPPSNWWvkyzYto11lafEM5/9OKTxmRCBo
+ uPESqVaJIdTTyvkJtHRPaFK2Jdt0BXwViR6njfkvp6or7RNAhDoKWkt0/DXg6Eib7SLcIRP+KlK
+ 8W4QTmIdQJ7/kx+C3U8Xk45yKYS90gY6N880+wnilLrshubi
+X-Received: by 2002:a17:903:37c6:b0:2c0:a360:45e9 with SMTP id
+ d9443c01a7336-2c2f2b6ee3amr28266425ad.29.1781177613475; Thu, 11 Jun 2026
+ 04:33:33 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260511085148.652256-1-l.stach@pengutronix.de>
-In-Reply-To: <20260511085148.652256-1-l.stach@pengutronix.de>
+ <20260511085148.652256-2-l.stach@pengutronix.de>
+In-Reply-To: <20260511085148.652256-2-l.stach@pengutronix.de>
 From: Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Thu, 11 Jun 2026 13:29:18 +0200
-X-Gm-Features: AVVi8CfXfPcPU-CTPeK8vvYAg_xZHsziIqIT6JmDi8jRSfhyqrhMYiFsNLWMSuo
-Message-ID: <CAH9NwWdZEzosaWGBWtb9QOCwr=mCsJKmLxCXe1dq0qZ98GgfWg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/etnaviv: check all modules for idle after reset
+Date: Thu, 11 Jun 2026 13:33:20 +0200
+X-Gm-Features: AVVi8CdntjkGsiSaOStsg0DvQrN99U9lXn-a3gylizm_-sdLiXemiGC-O5Gz3VI
+Message-ID: <CAH9NwWcqF1+=opm0wcVevYwv+9GKm-OZYde+W0Wc4d9PbCjaNg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/etnaviv: check MMUv2 status after reset
 To: Lucas Stach <l.stach@pengutronix.de>
 Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
@@ -103,36 +104,47 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 >
-> While the FE is an important part of the GPU, which needs to be idle
-> after reset, all other modules should be idle after a proper reset.
-> Check all present modules for being idle to determine wether the
-> reset was successful.
+> A fully GPU reset is the only way to disable the MMUv2 and the
+> driver depends on the MMU being disabled after a reset to be able
+> to properly restart the GPU. Validate this assumption by checking
+> that the reset actually did disable the MMU.
 >
 > Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
 
 Reviewed-by: Christian Gmeiner <cgmeiner@igalia.com>
 
 > ---
->  drivers/gpu/drm/etnaviv/etnaviv_gpu.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/etnaviv/etnaviv_gpu.c | 17 +++++++++++++++++
+>  1 file changed, 17 insertions(+)
 >
 > diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-> index a891d4f1f843..34fff36af450 100644
+> index 34fff36af450..577fc8131976 100644
 > --- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
 > +++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-> @@ -585,9 +585,9 @@ static int etnaviv_hw_reset(struct etnaviv_gpu *gpu)
->                 /* read idle register. */
->                 idle = gpu_read(gpu, VIVS_HI_IDLE_STATE);
->
-> -               /* try resetting again if FE is not idle */
-> -               if ((idle & VIVS_HI_IDLE_STATE_FE) == 0) {
-> -                       dev_dbg(gpu->dev, "FE is not idle\n");
-> +               /* try resetting again if any module is not idle */
-> +               if ((idle & gpu->idle_mask) != gpu->idle_mask) {
-> +                       dev_dbg(gpu->dev, "GPU modules not idle\n");
+> @@ -601,6 +601,23 @@ static int etnaviv_hw_reset(struct etnaviv_gpu *gpu)
 >                         continue;
 >                 }
 >
+> +               /* try resetting again if MMUv2 is not disabled */
+> +               if (gpu->identity.minor_features1 & chipMinorFeatures1_MMU_VERSION) {
+> +                       if (gpu->sec_mode == ETNA_SEC_KERNEL) {
+> +                               if (gpu_read(gpu, VIVS_MMUv2_SEC_CONTROL) &
+> +                                   VIVS_MMUv2_SEC_CONTROL_ENABLE) {
+> +                                       dev_dbg(gpu->dev, "MMU is not disabled\n");
+> +                                       continue;
+> +                               }
+> +                       } else {
+> +                               if (gpu_read(gpu, VIVS_MMUv2_CONTROL) &
+> +                                   VIVS_MMUv2_CONTROL_ENABLE) {
+> +                                       dev_dbg(gpu->dev, "MMU is not disabled\n");
+> +                                       continue;
+> +                               }
+> +                       }
+> +               }
+> +
+>                 /* enable debug register access */
+>                 control &= ~VIVS_HI_CLOCK_CONTROL_DISABLE_DEBUG_REGISTERS;
+>                 gpu_write(gpu, VIVS_HI_CLOCK_CONTROL, control);
 > --
 > 2.47.3
 >
