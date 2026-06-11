@@ -4,54 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77828CD98CE
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 13:52:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3179FCD98CF
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 13:54:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 506A310EF3B;
-	Thu, 11 Jun 2026 13:52:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 492EA10EF48;
+	Thu, 11 Jun 2026 13:54:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sms-medipool.de header.i=@sms-medipool.de header.b="mVoMeNkI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iHm2Fyv3";
 	dkim-atps=neutral
-Received: from mail.sms-medipool.de (mail.sms-medipool.de [178.63.14.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D9A910EE75;
- Thu, 11 Jun 2026 11:04:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sms-medipool.de;
- s=mail; t=1781175846;
- bh=sbqTH6csCbYzGVd++Hm2MAfMl1HHDKWuOAqr7ifXNfQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=mVoMeNkI1xgrP7xlwdAP749yeOOecY1LF/Dw+i8lNLEEUlNFugBXcR+82Mo+A3qZn
- ag0Bl7i+iUymb+s0WruPuQgOSeksice3vxHUWTyFMx0xwJNJNMI0+QFEN+7BpbVERu
- uLNKDTjKvpI3TA3GctnD7cbbwzhmQR+pd3n0kQA1QgAjM6FBYD9yMy1hg7ja3cDTI0
- 6GPFsGhNIZd7X3ikXmOHXDJpuwSTopdPvbfB/ZcpSCKD6HPosnP9eoKTQtXVz8H7/y
- LJjMPwtzkiAJWe+cqvZlORbzZKB9CF/CgDDvWBIbEUgWEMKcObXfmmdfz1dqNY15Xf
- JtijXr5QvuNPA==
-Received: from mail.stoss-medica.de (mail.stoss-medica.de [213.147.17.40])
- by mail.sms-medipool.de (Postfix) with ESMTPS id E3A3D141C6;
- Thu, 11 Jun 2026 13:04:05 +0200 (CEST)
-Received: from NUC16-Linux.sb.golima.de ([95.88.98.111])
- by mail.stoss-medica.de (Kerio Connect 10.0.8 patch 2) with ESMTP;
- Thu, 11 Jun 2026 13:04:04 +0200
-From: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: Hans Verkuil <hverkuil@kernel.org>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECA4A10EF48
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 13:54:37 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3524C600AA;
+ Thu, 11 Jun 2026 13:54:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B75661F0089C;
+ Thu, 11 Jun 2026 13:54:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781186076;
+ bh=lUhjcWa4cl33papuj0akhgtxsIcEGGqf770vd/unceU=;
+ h=Date:From:To:Cc:Subject;
+ b=iHm2Fyv3PZEc0uUDNpNb79PpdUG6MGGO+oB0YHO+DKkyVKNukr+tBbb1VR83X2IN3
+ 9tuND0blqWacf2gXPLhJF0gJ+0KtpQJSihhSSdtbS2qcfXBC9dFLEDcaeE+iliInri
+ PRf5Oxm74USA5kOCfuI3uVBiKHAWK2jxaugRx0vos9M+zc/BEHc/Z7OHPA7u3i88OT
+ ZUOpJ/wPsy1lT4xZwbkkvjN8yLkMVn6XhiVO5qYiUwnwvDQlb2LGRzlHjU01lxT53/
+ dpMjMUuQUXFNTKo55ND/ym1TcmhvaV+e0krgDLSH0TTABq/VZSUsOYCg9pbMMp/F/i
+ pcgA/sGgh5HJA==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+ id 707C51AC56C6; Thu, 11 Jun 2026 14:54:33 +0100 (BST)
+Date: Thu, 11 Jun 2026 14:54:33 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
+Cc: Jani Nikula <jani.nikula@intel.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alexander Kaplan <alexander.kaplan@sms-medipool.de>
-Subject: Re: [PATCH] drm/dp: Service the CEC tunneling IRQ flags without
- CEC_IRQ in ESI1
-Date: Thu, 11 Jun 2026 13:04:04 +0200
-Message-ID: <20260611110404.11637-1-alexander.kaplan@sms-medipool.de>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <e3b30034-70c2-43ce-be46-938e2b07d5ba@kernel.org>
-References: <e3b30034-70c2-43ce-be46-938e2b07d5ba@kernel.org>
+ Melissa Wen <melissa.srw@gmail.com>, Melissa Wen <mwen@igalia.com>
+Subject: linux-next: manual merge of the drm tree with the drm-misc-fixes tree
+Message-ID: <aiq-GWegHjzdYJ2S@sirena.co.uk>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 11 Jun 2026 13:52:22 +0000
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="sj32bbAeCvMOuiop"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,74 +61,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 11/06/2026 09:01, Hans Verkuil wrote:
-> I saw that you added a quirk for this device in this patch series:
->
-> https://lore.kernel.org/all/20260610174807.6231-2-alexander.kaplan@sms-medipool.de/
->
-> Should we add a quirk for this as well? It's not worth it if that's a lot of work,
-> but if it is easy to add, then I think that's the better approach for this.
 
-Hi Hans,
+--sj32bbAeCvMOuiop
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-thanks for the suggestion. A quirk would indeed be easy to add.
-drm_dp_cec.c already reads the branch ident for its status debugfs,
-so gating the relaxed ESI check on a DPCD quirk entry is a handful
-of lines.
+Hi all,
 
-However, while validating which devices such a quirk should cover,
-I found a firmware problem that makes me withdraw this patch
-instead.
+Today's linux-next merge of the drm tree got a conflict in:
 
-I tested all three Synaptics VMM7100 based devices I have:
+  drivers/gpu/drm/drm_atomic.c
+  include/drm/drm_colorop.h
 
-- Club3D CAC-2505 (branch ID "SYNAq", FW 7.1): CEC works with my
-  patch. This is the device the patch was written for.
-- A USB-C to HDMI dongle with the macOS 4K120 firmware (branch ID
-  "SYNAq", FW 7.2): announces CEC capability but never services the
-  tunneling registers. TX requests and incoming bus traffic are
-  both ignored.
-- A Thunderbolt 4 dock (branch ID "SYNAa", FW 6.5): same dead stub.
+between commit:
 
-On the one working device the firmware causes an audible audio
-dropout of roughly 100 ms for every CEC message it handles while
-CEC tunneling is enabled.
-This affects its own transmissions, directed traffic and even
-broadcasts it does not ack.
-My LG TV broadcasts its vendor ID and polls for playback devices
-every 14 seconds, around the clock.
-With a configured CEC adapter that means a dropout every few
-seconds during audio playback.
-I verified this by correlating heard dropouts against monitored
-CEC messages, 9 out of 9 matched to the second with no false
-positives.
-With tunneling disabled the same bus traffic causes no dropouts
-at all.
+  94ff735296d371 ("drm/colorop: make lut(1/3)d_interpolation props correctl=
+y behave as mutable")
 
-The dropout length matches the frame time on the CEC wire and AUX
-stays fully responsive during the stall.
-It also reproduces with the kernel completely uninvolved when I
-drive the DPCD tunneling registers directly from userspace.
-So the stall happens inside the dongle MCU while it bit-bangs the
-CEC line and I see no host-reachable way to fix or mitigate it.
+=66rom the drm-misc-fixes tree and commits:
 
-That changes the picture for the patch.
-The only known device family with working CEC tunneling has this
-defect.
-Merging it would hand users working CEC plus broken audio, and
-setups like Kodi configure CEC automatically, so exactly those
-users would then have to disable CEC again to get clean audio.
-That is a bad trade, even behind a quirk.
+  5164f7e7ff8ec7 ("drm: Rename struct drm_atomic_state to drm_atomic_commit=
+")
+  0c44d8dc6df988 ("drm/atomic: prefer drm_printf_indent() over inline \t")
 
-My guess is that Synaptics never shipped the CEC firmware glue
-before.
-The CAC-2505 is a recent product and probably carries the newest
-firmware branch, the other two devices are older designs.
-If a future firmware shows up with working CEC and without the
-audio stall, I will resubmit this together with the device quirk
-you suggested.
+=66rom the drm tree.
 
-Sorry for the noise, and thanks for the review.
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
 
-Alexander
+--sj32bbAeCvMOuiop
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoqvhgACgkQJNaLcl1U
+h9DSCAf/YK/ukTzY2rdOQgIVUPLApQZh0WOvb48HcTQOlnrXxHzin29XyBgideml
+NWbUu9sBXLXXKNmogX6aTKWq8nQkkHMVWVeV0NZKAJiJGiYtutP8PbuR18XWj6eo
+2tmsJpViu1hQ6Y0TPhOfxHKymeQCBkkXzNZNNlQIkkhPqh4IzSOZlfZaONIBvKZy
+lFrezVP5wz2m2lXba+p2XIX0K+aW8OcC12VMDkduE6DWItuQXZPHg/wpWMAhl4q+
+7QtR/Fc4AzxGaBV+AWA9T5/KRUJax3uIPTxPqm1xYoAu7DgTMx+fhu6GEv8/GtMJ
+9DxO6SNyPROW9XqgNE1uz7i78M7xUA==
+=PvUH
+-----END PGP SIGNATURE-----
+
+--sj32bbAeCvMOuiop--
