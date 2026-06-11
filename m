@@ -4,42 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C72ACD8CB9
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 06:09:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1BF5CD8CB9
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 06:15:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BF6310ECE9;
-	Thu, 11 Jun 2026 06:09:03 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eWra/w/U";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64E0E10ECE9
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 06:09:02 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DD5DA60209;
- Thu, 11 Jun 2026 06:09:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D9AC1F00893;
- Thu, 11 Jun 2026 06:09:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781158141;
- bh=J65hoBene/DjLvzKyTNQVJkFSn/x/X8k7JmsspCvzLg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=eWra/w/UWMkulkBpX7mjTaGrdoJTGp9ez7QeVehUwDk7C8/Z35JxtZEdKtvipbDos
- tjGIieBEamaS7gS7vKZg2KNQgP/KAUR/RwGZvAc5rjVKKIBhhACdIdRfDBYiCG4FDG
- GA4HV3BiO6TjliteaXjkIX2jHul4JRfxFSOG4JdJlVzzshXYeC/Yx3xPD4YQeGIseE
- eQwB9oyEDUnbtiukS9Zj3iQO1oH0Wnn79E6aQmmaFfU4dnlxO1KQYOCpHnlFDtiTGY
- vFEdrTi7lG2hHH0sxRs7hAp3tiA3JbXXkbj/Q6bjGQ5v1o0YKLteQLJPtnmWf9oLsn
- Rg8coBc3qeY2Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] accel/ivpu: Use threaded IRQ for IPC callback processing
-To: "Karol Wachowski" <karol.wachowski@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260611055201.948726-1-karol.wachowski@linux.intel.com>
-References: <20260611055201.948726-1-karol.wachowski@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2501010ECE3;
+	Thu, 11 Jun 2026 06:15:26 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67D1B10ECE3
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 06:15:24 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.167])
+ by APP-01 (Coremail) with SMTP id qwCowABnB9B2Uipq53FFAQ--.9476S2;
+ Thu, 11 Jun 2026 14:15:19 +0800 (CST)
+Message-ID: <6a756a4b1e48d036329f688f46796161fddd7a50.camel@iscas.ac.cn>
+Subject: Re: [PATCH 1/3] dt-bindings: display: panel: himax,hx83121a: add
+ optional bl supply
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Pengyu Luo <mitltlatltl@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang	
+ <jesszhan0024@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>, Liam
+ Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Date: Thu, 11 Jun 2026 14:15:18 +0800
+In-Reply-To: <CAH2e8h7oDLO4isyPOY3syEQLMrcCGiGmkKsAYvtEz+qoT9-N_w@mail.gmail.com>
+References: <20260608162622.403713-1-zhengxingda@iscas.ac.cn>
+ <178115560756.199930.11183711627429440356.b4-review@b4>
+ <2877375c4efee4b4e816b418c965da7bd7d60992.camel@iscas.ac.cn>
+ <CAH2e8h7oDLO4isyPOY3syEQLMrcCGiGmkKsAYvtEz+qoT9-N_w@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jun 2026 06:09:00 +0000
-Message-Id: <20260611060901.6D9AC1F00893@smtp.kernel.org>
+User-Agent: Evolution 3.58.3 
+MIME-Version: 1.0
+X-CM-TRANSID: qwCowABnB9B2Uipq53FFAQ--.9476S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tr13KFWrWF43tFyxtrW5KFg_yoW5Jry5p3
+ 4DCasxtan5tr1xJ3y0qw1xWr4ftw4kKw47WFn8Wr1xGwsFvw18JrWSyFn5WF4DZr18JF42
+ vFyqgFZ7XFn2y3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
+ C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+ 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+ 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+ MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+ 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+ 67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+ x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+ z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
+ UI43ZEXa7IU8rWrJUUUUU==
+X-Originating-IP: [112.94.100.167]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,86 +70,99 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Firmware command queue leak and duplicate hardware initialization =
-on the retry path in `ivpu_job_submit`.
---
+=E5=9C=A8 2026-06-11=E5=9B=9B=E7=9A=84 13:45 +0800=EF=BC=8CPengyu Luo=E5=86=
+=99=E9=81=93=EF=BC=9A
+> On Thu, Jun 11, 2026 at 1:36=E2=80=AFPM Icenowy Zheng
+> <zhengxingda@iscas.ac.cn> wrote:
+> >=20
+> > =E5=9C=A8 2026-06-11=E5=9B=9B=E7=9A=84 13:26 +0800=EF=BC=8CPengyu Luo=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > > On Tue, 09 Jun 2026 00:26:20 +0800, Icenowy Zheng
+> > > <zhengxingda@iscas.ac.cn> wrote:
+> > > > When the backlight is managed by the panel controller IC, an
+> > > > external
+> > > > power rail might be powering the backlight.
+> > > >=20
+> > > > Add an optional `bl-supply` property to describe such power
+> > > > rail,
+> > > > thus
+> > > > allow disabling the backlight.
+> > > >=20
+> > >=20
+> > > Please add it as a hwen pin, this will simplify your code later.
+> >=20
+> > I am not sure whether this should be a pin or a regulator -- the DT
+> > binding should reflect the HW fact, and LCD panel backlights
+> > usually
+> > require a high voltage (or even a current source) that is driven by
+> > a
+> > dedicated regulator.
+> >=20
+>=20
+> Most backlight ICs use a hwen pin to enable the supply, afaik, like
+> ktz8866, ktz8868, aw99706, etc. We don't touch the VIN. (My
+> disclaimer:
+> I am just an amateur, know less about the circuit)
 
-commit 91623d3f3cc1b38781bd2f9f2354ef0fa3591d50
-Author: Karol Wachowski <karol.wachowski@linux.intel.com>
+I found some specificiation of a LCD panel using DCS brightness to
+control backlight at [1] (this panel is supported by panel-himax-
+hx83102 driver), and it has no HWEN pins -- the pins related to
+backlight seem to be LED_{C2,C1,A} and PWM, which means a backlight
+regulator must be present.
 
-accel/ivpu: Use threaded IRQ for IPC callback processing
+Although the situation is a little odd -- the regulator isn't a fixed
+one, but a adjustable one adjusted by the panel.
 
-Dispatching IPC callbacks from system_percpu_wq adds scheduling latency
-that is neither bounded nor predictable, which hurts job completion
-turnaround. Handle them from a threaded IRQ instead, and defer job
-resource teardown to a dedicated unbounded workqueue.
+Thanks,
+Icenowy
 
-> diff --git a/drivers/accel/ivpu/ivpu_job.c b/drivers/accel/ivpu/ivpu_job.c
-> index 521931d1f7fca..7320c97762832 100644
-> --- a/drivers/accel/ivpu/ivpu_job.c
-> +++ b/drivers/accel/ivpu/ivpu_job.c
-[ ... ]
-> @@ -709,6 +748,14 @@ static int ivpu_job_submit(struct ivpu_job *job, u8 =
-priority, u32 cmdq_id)
->  	}
-> =20
->  	ret =3D ivpu_cmdq_register(file_priv, cmdq);
-> +	if (ret =3D=3D -EBUSY && !flushed) {
-> +		/* Doorbell may be held by jobs pending deferred cleanup */
-> +		mutex_unlock(&file_priv->lock);
-> +		mutex_unlock(&vdev->submitted_jobs_lock);
-> +		flush_work(&vdev->job_destroy_work);
-> +		flushed =3D true;
-> +		goto retry;
-> +	}
+[1]
+https://www.scribd.com/presentation/759684395/Titan20-TP-LCM-SPEC-XT2073-Mo=
+torola-one-fusion
 
-[Severity: High]
-Does this retry loop cause duplicate firmware queue initialization and leak
-resources?
+>=20
+> Best wishes,
+> Pengyu
+>=20
+> > Thanks,
+> > Icenowy
+> >=20
+> > >=20
+> > > >=20
+> > > >=20
+> > > > diff --git
+> > > > a/Documentation/devicetree/bindings/display/panel/himax,hx83121
+> > > > a.ya
+> > > > ml
+> > > > b/Documentation/devicetree/bindings/display/panel/himax,hx83121
+> > > > a.ya
+> > > > ml
+> > > > index e067a2f6d0b2..aeca3c9a599c 100644
+> > > > ---
+> > > > a/Documentation/devicetree/bindings/display/panel/himax,hx83121
+> > > > a.ya
+> > > > ml
+> > > > +++
+> > > > b/Documentation/devicetree/bindings/display/panel/himax,hx83121
+> > > > a.ya
+> > > > ml
+> > > > @@ -40,6 +40,9 @@ properties:
+> > > > =C2=A0=C2=A0 vddi-supply:
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0 description: power supply for IC
+> > > >=20
+> > > > +=C2=A0 bl-supply:
+> > > > +=C2=A0=C2=A0=C2=A0 description: power supply for backlight, in cas=
+e it's
+> > > > managed
+> > > > via DSC
+> > > > +
+> > >=20
+> > > s/DSC/DCS/
+> > >=20
+> > > Best wishes,
+> > > Pengyu
+> >=20
 
-If ivpu_cmdq_register() successfully calls ivpu_hws_cmdq_init() but then
-ivpu_register_db() fails with -EBUSY, the function returns -EBUSY without
-undoing the firmware queue initialization and leaves cmdq->db_id as 0:
-
-drivers/accel/ivpu/ivpu_job.c:ivpu_cmdq_register() {
-    ...
-	if (vdev->fw->sched_mode =3D=3D VPU_SCHEDULING_MODE_HW) {
-		ret =3D ivpu_hws_cmdq_init(file_priv, cmdq, VPU_ENGINE_COMPUTE, cmdq->pri=
-ority);
-		if (ret)
-			return ret;
-	}
-
-	ret =3D ivpu_register_db(file_priv, cmdq);
-	if (ret)
-		return ret;  // Returns -EBUSY here, db_id is 0
-    ...
-}
-
-When the goto retry path is taken, ivpu_cmdq_register() is called again
-with the same cmdq. Because cmdq->db_id is still 0, the early bailout is
-skipped, and ivpu_hws_cmdq_init() is called a second time.
-
-Furthermore, if the retry also fails (or is not attempted), will this
-leak the firmware resource? The unregister path seems to bail early if
-db_id is 0:
-
-drivers/accel/ivpu/ivpu_job.c:ivpu_cmdq_unregister() {
-	if (!cmdq->db_id)
-		return 0;
-    ... // ivpu_jsm_hws_destroy_cmdq() is skipped
-}
-
->  	if (ret) {
->  		ivpu_err(vdev, "Failed to register command queue: %d\n", ret);
->  		goto err_unlock;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611055201.9487=
-26-1-karol.wachowski@linux.intel.com?part=3D1
