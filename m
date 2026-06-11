@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A4FECD8C9D
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 20:26:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8681BCD98C7
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 20:26:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE3B310E85D;
-	Thu, 11 Jun 2026 20:26:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8E8F10E863;
+	Thu, 11 Jun 2026 20:26:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="n08kEcPg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Tt5qQr0W";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CE5810E7EB
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 20:26:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D44910E863
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 20:26:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E92BB44596;
- Thu, 11 Jun 2026 20:25:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80EF21F000E9;
- Thu, 11 Jun 2026 20:25:59 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 06D3D43E90;
+ Thu, 11 Jun 2026 20:26:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A63F41F000E9;
+ Thu, 11 Jun 2026 20:26:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781209559;
- bh=STvMrLJffPmLGT5LWmY4jKECc2USvp9zYePXFiZNp4g=;
+ s=k20260515; t=1781209562;
+ bh=Y2aEaqIyGjSd9iLc8HlW106uLiozZT7UzRCWks28JO4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=n08kEcPg891VJZRixmwP3PrrS7CmKR2fJk9T+OrNKBfK4NZd4SRU4LObMeNBKUJ8+
- cJp40gK5iEk728cnGeo8Pvy+IcElt3MKd0ZXHa0SjV6xJJfNhLBYJ1MA1lxJbgfWFO
- OSHM4pocYqZgcxLwt9gcOLGxNQPOjtBAjhZ9XG1mLou+7SHO/gb0VgWRyJTbykAgKp
- BM1cea6nSXIA3b8h0RutTSJNf+MaVSbpW4gE86xlFWDYEngbJ/zfxZ1yjpRt7D/gd6
- fc+80lls4Un/ZHzr6HrR4eRFOuihgiKauxVem4sbI4YHAFPspXnd+A+OF4zjMtwroO
- JwKgAjm1NcWnw==
+ b=Tt5qQr0WGRUH+Xv4ngGIc3GKBqN1pIkeat5LfM2kSHNq70IEbUINoV8wU57CWl1dc
+ JbZ/41NCiE+OtQiQ/anzcuoWnM0LQyIe+vMckF0fMkm56MQvnIHqhBxPXPumBuxAWg
+ CDNnESpzs6bLfSIG1BZDsU32F1vmwJKpPiMYYSKHK2hQzcLHsD6CMs/R9kdKmSY/x9
+ T8CQCjctqP70EvIuaZOYMPmLF2Sf1a77lF/W8ecgfdf/Ix+ur7HxER+OnDGShUZa7K
+ QtBaqLkbMPE2yXH8ceKHQcXFeYBJnBqTIDX7XmRytxmyoMRTQB8oQWvCJCMHZ4WKpt
+ z7/7RVPqQlDMg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/5] net/mlx5: free mlx5_st_idx_data on final dealloc
+Subject: Re: [PATCH v7 5/5] RDMA/mlx5: get tph for p2p access when
+ registering dma-buf mr
 To: "Zhiping Zhang" <zhipingz@meta.com>
-Cc: kvm@vger.kernel.org, linux-pci@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260610193158.2614209-2-zhipingz@meta.com>
-References: <20260610193158.2614209-2-zhipingz@meta.com>
+Cc: dri-devel@lists.freedesktop.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+In-Reply-To: <20260610193158.2614209-6-zhipingz@meta.com>
+References: <20260610193158.2614209-6-zhipingz@meta.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jun 2026 20:25:58 +0000
-Message-Id: <20260611202559.80EF21F000E9@smtp.kernel.org>
+Date: Thu, 11 Jun 2026 20:26:01 +0000
+Message-Id: <20260611202602.A63F41F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,78 +58,101 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] Out-of-bounds read in UVERBS_METHOD_DMAH_ALLOC handler due to =
-missing bounds check on user-supplied cpu_id.
+- [Critical] Off-by-one error in mlx5r_create_mkeys error handling path cau=
+ses hardware mkey leak and invalid destroy.
+- [High] Hardware mkeys are leaked in `ib_frmr_pools_set_pinned` if pushing=
+ a handle to the pool's queue fails.
 --
 
-commit efb72743b37fe4c5005fca2d75b36ef50832bc6c
+commit 08f720e58b52ed548a72c452a9bd15258e2e9264
 Author: Zhiping Zhang <zhipingz@meta.com>
 
-net/mlx5: free mlx5_st_idx_data on final dealloc
-   =20
-When the last reference to an ST table entry is dropped,
-mlx5_st_dealloc_index() removed the entry from idx_xa but leaked the
-backing mlx5_st_idx_data allocation. Repeated alloc/dealloc cycles
-therefore accumulate one struct mlx5_st_idx_data per cycle.
-   =20
-Free idx_data after the xa_erase() so the lifetime of the bookkeeping
-struct matches the lifetime of the ST entry it tracks.
-   =20
-Fixes: 888a7776f4fb ("net/mlx5: Add support for device steering tag")
-Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
+RDMA/mlx5: get tph for p2p access when registering dma-buf mr
 
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c b/drivers/n=
-et/ethernet/mellanox/mlx5/core/lib/st.c
-> index 997be91f0a135..7cedc348790db 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-> @@ -175,6 +175,7 @@ int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, =
-u16 st_index)
-> =20
->  	if (refcount_dec_and_test(&idx_data->usecount)) {
->  		xa_erase(&st->idx_xa, st_index);
-> +		kfree(idx_data);
->  		/* We leave PCI config space as was before, no mkey will refer to it */
+This commit queries dma-buf TPH metadata when registering a dma-buf MR for
+peer-to-peer access, falling back to no-TPH if absent. It also transfers
+the ST-table reference ownership to the hardware mkey handle rather than
+the transient MR object, and updates the pool API to handle this transfer.
+
+> diff --git a/drivers/infiniband/core/frmr_pools.c b/drivers/infiniband/co=
+re/frmr_pools.c
+> --- a/drivers/infiniband/core/frmr_pools.c
+> +++ b/drivers/infiniband/core/frmr_pools.c
+[ ... ]
+> @@ -430,16 +430,16 @@ int ib_frmr_pools_set_pinned(struct ib_device *devi=
+ce, struct ib_frmr_key *key,
+>  	ret =3D pools->pool_ops->create_frmrs(device, key, handles,
+>  					    needed_handles);
+>  	if (ret) {
+>  		kfree(handles);
+>  		return ret;
 >  	}
 > =20
+>  	spin_lock(&pool->lock);
+>  	for (i =3D 0; i < needed_handles; i++) {
+>  		ret =3D push_handle_to_queue_locked(&pool->queue,
+>  						  handles[i]);
+>  		if (ret)
+>  			goto end;
+>  	}
+> =20
+>  end:
+>  	spin_unlock(&pool->lock);
+>  	kfree(handles);
+
+[Severity: High]
+This is a pre-existing issue, but can this error path leak the successfully
+created hardware mkeys?
+
+In ib_frmr_pools_set_pinned(), up to needed_handles hardware mkeys are
+successfully created via create_frmrs(). If push_handle_to_queue_locked()
+fails, the code jumps to the end: label and frees the handles array.
+
+However, the mkeys that were successfully created but not yet pushed don't
+appear to be explicitly destroyed here. Could this lead to a bulk resource
+leak if queue page allocation fails?
+
+> diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5=
+/mr.c
+> --- a/drivers/infiniband/hw/mlx5/mr.c
+> +++ b/drivers/infiniband/hw/mlx5/mr.c
+[ ... ]
+> @@ -335,16 +335,16 @@ static int mlx5r_create_mkeys(struct ib_device *dev=
+ice, struct ib_frmr_key *key,
+>  	for (i =3D 0; i < count; i++) {
+>  		assign_mkey_variant(dev, handles + i, in);
+>  		err =3D mlx5_core_create_mkey(dev->mdev, handles + i, in, inlen);
+>  		if (err)
+>  			goto free_in;
+>  	}
+>  free_in:
+>  	kfree(in);
+>  	if (err)
+>  		for (; i > 0; i--)
+>  			mlx5_core_destroy_mkey(dev->mdev, handles[i]);
 
 [Severity: Critical]
-This is a pre-existing issue, but does
-UVERBS_HANDLER(UVERBS_METHOD_DMAH_ALLOC) in
-drivers/infiniband/core/uverbs_std_types_dmah.c lack bounds checking on the
-untrusted user-supplied dmah->cpu_id?
+This is a pre-existing issue, but does this rollback loop properly clean up
+the successfully created mkeys?
 
-drivers/infiniband/core/uverbs_std_types_dmah.c:UVERBS_HANDLER(UVERBS_METHO=
-D_DMAH_ALLOC)() {
-    ...
-		ret =3D uverbs_copy_from(&dmah->cpu_id, attrs,
-				       UVERBS_ATTR_ALLOC_DMAH_CPU_ID);
-		if (ret)
-			goto err;
+When mlx5_core_create_mkey() fails at index i, the rollback loop=20
+for (; i > 0; i--) attempts to destroy handles[i]. Because the creation
+failed, handles[i] still contains the unallocated index preset by
+assign_mkey_variant().
 
-		if (!cpumask_test_cpu(dmah->cpu_id, current->cpus_ptr)) {
-			ret =3D -EPERM;
-			goto err;
-		}
-    ...
-}
+Executing mlx5_core_destroy_mkey() on this value could send a destroy
+command for an unowned mkey, potentially causing hardware state corruption.
 
-The dmah->cpu_id is copied directly from an untrusted uverbs attribute
-without value validation.
+Additionally, since the loop stops at i > 0, does it permanently leak the
+successfully created mkey at handles[0]?
 
-Since cpumask_check only emits a warning if the CPU ID is out of bounds and
-does not cap the value, could test_bit compute a bit offset far outside the
-bounds of current->cpus_ptr?
-
-Can an attacker exploit this to read unmapped kernel memory (causing a kern=
-el
-panic) or infer the contents of kernel memory by observing whether the
-syscall succeeds or fails with -EPERM?
+>  	return err;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610193158.2614=
-209-1-zhipingz@meta.com?part=3D1
+209-1-zhipingz@meta.com?part=3D5
