@@ -4,74 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD4D8CD8C9D
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 19:27:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E1EACD8C9D
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 19:36:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3BC710E831;
-	Thu, 11 Jun 2026 19:27:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BEF610E84C;
+	Thu, 11 Jun 2026 19:36:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KXIXh/UE";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="QNg0HkIw";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F84010E831
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 19:27:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781206074; x=1812742074;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=ZsYHI2Mv0/sivtqF2/BNg7mQl3iBrP2bqcQipJwiT+Y=;
- b=KXIXh/UE+RtfjZbZWSKCylfzkfw+lWUJZ9EXSIa8yk07l4RVT7YfY3nH
- OO/2YB2BwXgfOV9RyLVySoMQskmpUSIUPuexuALIlYnF7uPZCz3gHFAqA
- +tHykquc1ntsgkCm/TR1EzvM6TDGvn6au2PAwzl0sAr0X53ldVp0A0UCo
- WFvAdgpVm2o0jWKgq0KP8vG7ud6NoS8Z0K/Ng3xPyKOcp3bmnjuIOdo8N
- 0St0+9lrEE+0OacY7YccUVAaMxmhX1nVRz4z5quyD61yayRmK80krA1Ek
- 731QvVvxpWsSgbZ7XUbkdBnRwUFYMzsrbrDNRJ7aGExnalxolwBONSdeZ A==;
-X-CSE-ConnectionGUID: EaBva6FQQMO/XfSGb3aMkQ==
-X-CSE-MsgGUID: XheUTmgAQRaZugSLS0EtRg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="104698286"
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="104698286"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2026 12:27:54 -0700
-X-CSE-ConnectionGUID: qhaqYVHXR62R6ZSVw7gEwA==
-X-CSE-MsgGUID: H7BMtbp3SoKVHA79A3Horg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="246662023"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.123])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2026 12:27:48 -0700
-Date: Thu, 11 Jun 2026 22:27:46 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>,
- Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
- Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v4 14/14] video: leds: backlight: lm3533: Support getting
- LED sources from DT
-Message-ID: <aisMMgsGMNwOq1lX@ashevche-desk.local>
-References: <20260606045738.21050-1-clamor95@gmail.com>
- <20260606045738.21050-15-clamor95@gmail.com>
- <aihoH9Pmzufa9pnE@ashevche-desk.local>
- <CAPVz0n0m+i7wexfC0BWwvdOuJxDk_=x+EpxEbNmoHN1AsEmfNg@mail.gmail.com>
- <aimy3BxBaXQ3Uigd@ashevche-desk.local>
- <CAPVz0n0bpo6PAfdN+LGEgPYhEx8mqtu_SL=WnDxhWn-Cq4rQKA@mail.gmail.com>
+Received: from LO2P265CU024.outbound.protection.outlook.com
+ (mail-uksouthazon11021105.outbound.protection.outlook.com [52.101.95.105])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C922910E84C
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 19:36:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=loH19zHG8lJPKTvT2a+51mdxKlq4T/Z987AbwXEG1DnxCump5p7Ywz2h2s6GdKOOfCwnLLqtNmysFwk7xZgkQLydiI8lMH0US45yNhazFvhrv+17yh67WAPlOMX7WOnjp/7un5q+UnXFDxsDuvwqX4jfNQdLZXtMZXTZWYdk/MIfnloNVk0xWfoSg0ADuLxqEcbLT8ADzigKfRvoV02/Xej2849JTfV7cRjgLkeN7IzLXw8SlWih5H2xgArPdOdY8baj4lGYCsMIZNCULRWY4hWDX4b10ZWrI6ZUI4oWg3lLIuHob0fOoSxiGLFVVsruZQ0WoGosLgecz4cdArBLQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eY0KzQw8mCIM26rAhDs8XrajWUnRCEhoDp2y1uSOuGQ=;
+ b=Lg6sJj6iPXLQA9mcLGH9NM/WB4PKruxz1Q7CTJVbxq/hwwz4lH9d2Y9O7m3UnMdawVGGWBxuTr9ZJei8wbcbVosQVy9nKUJYKyePw93+D8zHa7Z1T+KDzMqrTJruFXum5TI11+/j4uWjFfQINnYIXWgsxQtOEuLq3dHQdgjxljTtf06VVXQhG4u/5Z42/eem4QXRbAhq4ZIBPejjjYG3oySohl5A42grdLraFkb/aVS94WqYaDrxyYMaExp4HiOXG6FqEGf+HlKsVS5subE7LRRc5MF8FcCXHhssuu5Q1kzJY/Nj0mGL8LPFDXwjLrzLmZjb9gcG1B5xbUjqp6XPaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eY0KzQw8mCIM26rAhDs8XrajWUnRCEhoDp2y1uSOuGQ=;
+ b=QNg0HkIwIK/QBU0eGhTDdeLyoA2nij8fxUy/cHqfizIpARWNxheVEcE7khd2yr+f43JFbmITBAWqfWbr1PXPCWDMLjSYYYtWyGsLDe0NJzb96JYU7GZznPjkVovbkTyiEEmzVBa/ok4vp9o6lsI1O1XAVrmq8zuqZxFzyvkQ71U=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27c::13)
+ by CWXP265MB5702.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1ac::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.13; Thu, 11 Jun
+ 2026 19:36:48 +0000
+Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::6c9e:93c8:10db:e995]) by CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::6c9e:93c8:10db:e995%6]) with mapi id 15.21.0113.011; Thu, 11 Jun 2026
+ 19:36:48 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 11 Jun 2026 20:36:47 +0100
+Message-Id: <DJ6H1N4T9A9Z.9OX5GX0CEE0Q@garyguo.net>
+Subject: Re: [PATCH v4 19/20] rust: io: add copying methods
+From: "Gary Guo" <gary@garyguo.net>
+To: "Gary Guo" <gary@garyguo.net>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Abdiel
+ Janulgue" <abdiel.janulgue@gmail.com>, "Robin Murphy"
+ <robin.murphy@arm.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>
+X-Mailer: aerc 0.21.0
+References: <20260611-io_projection-v4-0-1f7224b02dcb@garyguo.net>
+ <20260611-io_projection-v4-19-1f7224b02dcb@garyguo.net>
+In-Reply-To: <20260611-io_projection-v4-19-1f7224b02dcb@garyguo.net>
+X-ClientProxiedBy: LO0P123CA0007.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:354::16) To CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:400:27c::13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPVz0n0bpo6PAfdN+LGEgPYhEx8mqtu_SL=WnDxhWn-Cq4rQKA@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CW1P265MB8877:EE_|CWXP265MB5702:EE_
+X-MS-Office365-Filtering-Correlation-Id: d16e8135-da06-4dea-911b-08dec7f0c75a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|23010399003|7416014|10070799003|1800799024|921020|4143699003|56012099006|5023799004|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: PgxJ8+RRZCX34yHQgvd1vWMoIiYtc0Iyj2Bp8i+wuEM0Z2EQfoHTPNa7R3uLLSXQ5gwcpyjEez2hGgRih28qjl3T0diF4F8OCzzL6B3Ujvx5twB/S9QR0wVTTORMV7e+5Ui2ASePh0E/Fnex/dWekI/TnyQY4brLeNI/WmmjTFr3mHh0Jvbx7NYtF59YkNhNGZ4yol9sCgfiHuiQnKSIyF2yJv/BHhqwwEvjOQa6yKtQVGZndQpe0/oWu969Y3/ihaEpblUo0S1K/dCNnZT7uKGYIab/321yq/Io6IZHP1Hp3bQUwiTE+ccDWyhdJu1DCsqZ3xW72cMrjAMJ2EGALQkH8TbpmlXKw0Yj6C9bw5bcVEgLSu008YdTSrsPqSPF1e2GVarl4jYzu0ZV0kYfVekNL0JvO1fl3cWe4TGcs6P/hga7vk2vYwGFEm8F9KgbB3VSZutV6XGIYQWPWK+Phj08j5uH/WpgYN0nJxzR6LoQyqlxZz6l4zh+37vFtQ4eJ7VqEfntuf02afYAzynmznod3y3ThyaqhBuhXblRp44glNs+HUnt/7y2Fn6BUcAbTvJXiNSPx2dfRsucEtRtnRTxoX+CSBDnXFsBqZ3hpU+Kp4FPtJ1rhMhEyYlR3BWfwfATwXInoR6qcllVBL6zVvecPo3AwfuQsnRKgfX1xcrxWmrVVueNrylZSrhKVg3vaQXW3YYk7GoGeIdHPN94f7+uSGh7kcDFuIAJMWX92FY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(23010399003)(7416014)(10070799003)(1800799024)(921020)(4143699003)(56012099006)(5023799004)(6133799003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TnMwUWlNRERYYTFRUVZqTmFmbUxHOTNCOGx5bFJVTldSbHFHSldraGdLTnlO?=
+ =?utf-8?B?UU9hall5cFVJWU5aMWpyYTlwWkFtSlF3ZjRXZUp2VUkwQnhvM0JTdG9KSXAv?=
+ =?utf-8?B?S2JjV25QeEtja1cyZzZLNFpZaFF2TENpSHlPZU1KYzJDdmJWZTUzQU41aTJO?=
+ =?utf-8?B?ZER0ekFyUk95cHRXREk5cXZlWTFQZFFtd09QMHczY0wyeHBLT0dDeVhXbE5y?=
+ =?utf-8?B?VlFHS1hBWllGT3R2K3BMcHdEdk5MejlIamFyS0p2NzNDYjNBNVlLU2ZuMXRW?=
+ =?utf-8?B?ZXEyVkI2NnJZdGhoMHFGOC95bHpPOW55aDQ5cXpMQi9hb0ZGei9ub1JTWk1R?=
+ =?utf-8?B?dHZnTDRuOURZZ0Zza1FkTlkzL2hwaEpYaEdzTEtPeWhDQzNyN01GbjE3Y1dU?=
+ =?utf-8?B?dUY0c0x5Rm5QSDgzd2YxRnpDQW9qWmNFMHNQY0xJbHBhOWppVkN2eENaQ1F1?=
+ =?utf-8?B?MDFIcVRpK1V5UTFTSktUVkpTNmRuZ3BZZG1nUEdtRUFJTHQ4SUd3Q2RZT1BO?=
+ =?utf-8?B?dWgvUXY2NUp4amZkODlOb0ZMcTdJRU9XTWNuaXc2NTc5SjczdXhwN0dIc1dr?=
+ =?utf-8?B?SUpxQXhKVEY5S25FQWNjb3lqUGNPbVpaK1B1UmFleUpPZW5qYW9VV2lXeHBa?=
+ =?utf-8?B?aDd0TWxuV3VrdDdQYUdNSGd5cGtlMWdPSFd1emhaU3FubXpqbWFKSmJudlVY?=
+ =?utf-8?B?MGZ3YmhxdjFmcWpaS3RlZTI0Y3Vxa0t6MU1SU210MWRLUTkzMHAxOXc2QmV0?=
+ =?utf-8?B?M0hYMW1GOVRBOEVTWlZvVFE0RXhsd0JncHpCbjhwcThKcFROcEI4d09XMkVD?=
+ =?utf-8?B?dUZuK1Q4aEVPYngyZjhFbmU0eFR0ZlRTeDNyTU5ubllpdDJ2NEZ4OFFmL1lB?=
+ =?utf-8?B?MXlMUXFPOHd2WUdPcXAvWlBiWFkxRmFJMlhZWWNoZXhSRzlUdXByZy9iWHFv?=
+ =?utf-8?B?MFRJUUxuREJ4SFpReXgyL2h0OXJVZVJ0Z2Y0Y3FwS0p1Yzl4VlpnZUNEd2s0?=
+ =?utf-8?B?R2hOdmhRdFFYblcvWFM5UVBFNXVpR2szdlpZdTVOZmxxMENrM2Rrb1Mvc3Fv?=
+ =?utf-8?B?bmc4R0hzSEZiZUMzOVgzb2N4eFJzOXhNUndlaXpyWHVKbnlHdCtuemM3b1lR?=
+ =?utf-8?B?ZWFoL05OTTdZRFVPVlpCSjRvTUVGR3duVWF2eWVOYmNpNDZOMU14bmFjZDl6?=
+ =?utf-8?B?TVNWWklQYVRSSzArZmZDTlIvWG1Xck9oNWlpRENqOVJNcXNKM2t3dkwwbFVn?=
+ =?utf-8?B?UnVXQ2xYRTU3Y2ZnWEJDVTdzRENDVnI5Um5RNWRSOXJXYWJwZzBGZ1hrS2pw?=
+ =?utf-8?B?TkdTUHZWd0owM2pKOVdyRWQ3eEFkKzBpTnNFVE5KK0NnN0NHdDhSb0NBUWZw?=
+ =?utf-8?B?ZmE3ZHdlRnlUbWRoZE9HMjNJMFAxT294UGxuSS9jTWI0TTRPeE1EMUFacUwr?=
+ =?utf-8?B?L0tOeWs0UEloOVo1K0tZL2pUWDhzSmRjeHJiWnFmNGU0ajcyYzJSbnVBSzcr?=
+ =?utf-8?B?NzdqdXBiYXM3TUtuc0RWV3V0R1VvSGVRVktYMm1RaTRHSUV1azQ3UFZBV0RX?=
+ =?utf-8?B?TElNMGcwb0lJY2VpaURVa2JFQng5cDF1QkZySnpCUS9jZGJsZnI4RWxpamJy?=
+ =?utf-8?B?S2ZBVndOQ2lVNnhvajFkQzUyckY2T2x2UjNINk5yS0xOTlJFZ0NQR1lpRHhO?=
+ =?utf-8?B?L2hkSkVrdjJOU1huRHplczMwcGN3Z3Z0RUM2UHM5TU9GNUEyYkVHSDAwQnRJ?=
+ =?utf-8?B?Y3A3MlNEMGszaThLQWZSVllTbDd0U2d5UkJ2VVNrQkFUcWR5enE2cUtsL0pZ?=
+ =?utf-8?B?SSthNHpPK2Fqdmw4MWlBV1dtWThoajg1NDJwUnNFNlU2eU80TWxKZWNNd1dZ?=
+ =?utf-8?B?c3pnbTFEKzAvbG5JWWxnK1dFUlRXSHBJRllOK2txM0VKcXZpdWU3MGlxa1gw?=
+ =?utf-8?B?Vk9pV1ozcGtMNlJoYld0d1daNFBXeitKYnV0aTI0M0JkY1R0aFJXNm5OSS9Z?=
+ =?utf-8?B?Z0FkNGZXTWVGTlVIbmt2cHJzUlNDZWRqMGE4ZGpyU2ZYUnV5L1hMNDNQWVFm?=
+ =?utf-8?B?dDF4dGwyY2RMaEFSWXdManZEc1lGQjV5bnQraVhpSEdrbjJIQWxLTWZZb2Fy?=
+ =?utf-8?B?NWo1TnNmOWk1RTdiRUluVjk1bXI0dmdKNUdSQ0VsZzErVWdGUmIybDlTRHlL?=
+ =?utf-8?B?dFErWElMSWlZT1l6bkd0YU1rZkxPZjUxS3RTbWdtOEpUdDVOeElaaDF0bnlI?=
+ =?utf-8?B?TnJ2WmxYVnUyOE55dWx0MldNemtzdzNuUDdDM05IOHZaSVVkcnZZdy9vV2g4?=
+ =?utf-8?B?dk0vNXJiQ3ZrUjNvRjV6eVBwVzU5YXJTS1BBa1h6WjBjYkg5cmViUT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: d16e8135-da06-4dea-911b-08dec7f0c75a
+X-MS-Exchange-CrossTenant-AuthSource: CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 19:36:48.4975 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hVM07xRLu7QtzC2kszVbU1EbDdQ6sdDq1ffIfL0Yd1Kmt2s7ZOLoBNGgG15YDoyLKlJWhWTRXPXi9EBXC0ya/g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB5702
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,49 +148,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 11, 2026 at 03:33:42PM +0300, Svyatoslav Ryhel wrote:
-> ср, 10 черв. 2026 р. о 21:54 Andy Shevchenko <andriy.shevchenko@intel.com> пише:
-> > On Wed, Jun 10, 2026 at 05:45:28PM +0300, Svyatoslav Ryhel wrote:
-> > > вт, 9 черв. 2026 р. о 22:23 Andy Shevchenko <andriy.shevchenko@intel.com> пише:
-> > > > On Sat, Jun 06, 2026 at 07:57:38AM +0300, Svyatoslav Ryhel wrote:
-> > > > > Add Control Bank to HVLED/LVLED muxing support based on the led-sources
-> > > > > defined in the device tree.
+On Thu Jun 11, 2026 at 5:28 PM BST, Gary Guo wrote:
+> One feature that was lost from the old `dma_read!` and `dma_write!` when
+> moving to `io_read!` and `io_write!` was the ability to read/write a larg=
+e
+> structs. However, the semantics was unclear to begin with, as there was n=
+o
+> guarantee about their atomicity even for structs that were small enough t=
+o
+> fit in u32. Re-introduce the capability in the form of copying methods.
+>
+>     dma_read!(foo, bar) -> io_project!(foo, bar).copy_read()
+>     dma_write!(foo, bar, baz) -> io_project!(foo, bar).copy_write(baz)
+>
+> Model these semantics after memcpy so user has clear expectation of lack =
+of
+> atomicity. As an additional benefit of this change, this now works for MM=
+IO
+> as well by mapping them to `memcpy_{from,to}io`.
+>
+> For slices which is DST so the `copy_read` and `copy_write` API above can=
+'t
+> work, add `copy_from_slice` and `copy_to_slice` to copy from/to normal
+> memory.
+>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> ---
+>  rust/helpers/io.c        |  13 +++
+>  rust/kernel/dma.rs       |  25 +++++
+>  rust/kernel/io.rs        | 238 +++++++++++++++++++++++++++++++++++++++++=
++++++-
+>  samples/rust/rust_dma.rs |  15 ++-
+>  4 files changed, 285 insertions(+), 6 deletions(-)
+>
+> [snip]
+>
+> +
+> +    #[inline]
+> +    fn copy_read<T: FromBytes>(view: Self::View<'_, T>) -> T {
+> +        // SAFETY:
+> +        // - Per type invariant, `ptr` is valid and aligned.
+> +        // - Using read_volatile() here so that race with hardware is we=
+ll-defined.
+> +        // - Using read_volatile() here is not sound if it races with ot=
+her CPU per Rust
+> +        //   rules, but this is allowed per LKMM.
+> +        // - The macro is only used on primitives so all bit patterns ar=
+e valid.
 
-...
+This line should read "`T: FromBytes` so all bit patterns are valid.". I co=
+pied
+from `IoCapable` impl and forgot to update the comment.
 
-> > > > > +     int ret, i;
-> > > >
-> > > > No need to add 'i'.
-> > >
-> > > This is personal preference as well. There is no strict rule that
-> > > iteration variable must be defined strictly in the for loop.
-> >
-> > This is a preference by Linus who is the leader of the project.
-> > Also in IIO we have some set of maintainer preferences.
-> 
-> Well, this is not meant for IIO,
+Best,
+Gary
 
-Oh, my bad. I am overwhelmed with the IIO patches, automatically thought that
-I am dealing with yet another IIO patch.
-
-> though it seems that Lee is also in favor if this approach.
-
-Good to know!
-
-> > > > > +             for (i = 0; i < led->num_leds; i++) {
-> > > >
-> > > >                 for (unsigned int i = 0; i < led->num_leds; i++) {
-> > > >
-> > > > > +                     if (led->leds[i] >= LM3533_LVCTRLBANK_MAX)
-> > > > > +                             continue;
-> > > > > +
-> > > > > +                     output_cfg_shift = led->leds[i] * 2;
-> > > > > +                     output_cfg_val |= led->id << output_cfg_shift;
-> > > > > +                     output_cfg_mask |= OUTPUT_LVLED_MASK << output_cfg_shift;
-> > > > > +             }
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+> +        unsafe { view.ptr.read_volatile() }
+> +    }
+> +
+> +    #[inline]
+> +    fn copy_write<T: IntoBytes>(view: Self::View<'_, T>, value: T) {
+> +        // SAFETY:
+> +        // - Per type invariant, `ptr` is valid and aligned.
+> +        // - Using write_volatile() here so that race with hardware is w=
+ell-defined.
+> +        // - Using write_volatile() here is not sound if it races with o=
+ther CPU per Rust
+> +        //   rules, but this is allowed per LKMM.
+> +        unsafe { view.ptr.write_volatile(value) }
+> +    }
+> +}
+> +
+>  /// System memory region.
+>  ///
+>  /// Provides `Io` trait implementation for kernel virtual address ranges=
+,
 
