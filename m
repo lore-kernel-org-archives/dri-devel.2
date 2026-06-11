@@ -4,78 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6957CD98D9
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 12:45:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1076BCD98CC
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 12:58:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28E2110EEF8;
-	Thu, 11 Jun 2026 12:45:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B33D10E65C;
+	Thu, 11 Jun 2026 12:58:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lq+k76j2";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="AEZ3o4IJ";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A44C10EEF2
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 12:45:41 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-490791a3e92so9891365e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 05:45:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781181940; x=1781786740; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cZC8AOgwDUkqE3FrJgyPhYy8Ulxsg9q9DK142dUYM4M=;
- b=lq+k76j2Zqtjb+bm1Q4hO2yM4r8UOq0mHBTieV+MSY9O30Hvw9ASjhoLe0sNIt3ZeF
- bEaHgIWY9bEh/C0qmSZl+LLTk/hFB2akHeYiUBjczkoqzCFKmYzN3rmJWwLqjBfiVL65
- hRqdFqyTeAK7nTNzOJnMe1fCPpq5MLyiaIZ3z02F3G3Z1R69O/jWk/XFz4cfVXMF4aoE
- 194YDwqeXwPzxUqqk2xPeCgNEhdR2xrpSWfQQg+wNTWFlLnDqe2CMnCD+8yRHtMrNCHi
- MddRVNNMzU4WP2uCAgtY/v1gAxg0x0fgC1cg9KDi/Q1M1KWZWuLHmzVS5IHAoxibnTe6
- 6ivw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781181940; x=1781786740;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=cZC8AOgwDUkqE3FrJgyPhYy8Ulxsg9q9DK142dUYM4M=;
- b=fTrFtmr7is6SHrQxn72AgndhL3QbYpvV4uDvvniPy6OgT84cMKAY3S5WaUufOA8+2W
- rhIAoCiPOWlJ9lYQEclsDDsFqMpXfe1rKKnB7HYL/dN7Z5lCFNMAxD+kZIswBOk9LCom
- 1XEca3OIOGj/nh+4UjdL/U+ruhBlZ2ImDboqEI7CvspVSaLPhMs3ODeXBbHkbvw6fLF8
- FyD4xjpTShk5g9Mz4I+f9gwJOub16aj9Unxl2jk1Ck1k0NAyhxN9OiTBiZZMGXb9kFZh
- SvsshTlVoepAbRrZUXu3FjYPWlZVpMRa/Bbibx/RGWaUPRT8l1wODoUhp9Px8pybEJyi
- JVbQ==
-X-Gm-Message-State: AOJu0Yy8IExrLq4l2k78CdRitCI2Qm0WDKPIolQ8cfIJWLERo78qgSvm
- J51sFwRn+GFrSiTNSloV56g6dfB04+TZoYWSLl4yWxAu5GOrBglvC5yH
-X-Gm-Gg: Acq92OEz5HqAN1a3fJKG7g7oyUU9OROwXmuAdawaKHq/7KUfRzZuiP4HVWikLOv3pcD
- /DkR6Rmc6jgkE+aOsrRCtiqNzd69bHAuwZn7N1kWgYKRnt+FIzwIdj5JpYYRUs1jq26SZ+LSAzL
- WERtji6ru+QmOobnSdc0ZDxnss6pwbLIQztRIfu0CFfCMxlOlPlZ/ddMswpK2HBNKyXeT0F2jtH
- smI94yYPR9T0sVq7Wbj4aFAldp1jY/wOy12i6XNp85w7KA2nQxAIg1qaSpO+RKycVKlNICPX9w7
- npRrf80/Vt8WO1KRfATT92t1VClDvzklR0EXoNrF/b5TeX78UMFCIalkTFQ+pjjPt2WoAFcB6SG
- WEg83LBVqlJROwNlna8uCn4wTiiNssCToKT0dBA1CzQHiOZUrTrOdAfZWFamaKxadhZjc2bOwrt
- 3eu2bFJOlPtZnF29H8ZbX0lQLaIm7okN2ych9q7gmVk4UZ+n+UoL8NonKn1sbhp308snCsYRfLW
- 3kvW870KX5RRuH1m74ikxOMhjnE
-X-Received: by 2002:a05:600c:1d16:b0:490:e919:7bba with SMTP id
- 5b1f17b1804b1-490e9197c83mr3700335e9.8.1781181939386; 
- Thu, 11 Jun 2026 05:45:39 -0700 (PDT)
-Received: from localhost.localdomain
- (ip-109-193-028-127.um39.pools.vodafone-ip.de. [109.193.28.127])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490e532c778sm48697645e9.14.2026.06.11.05.45.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jun 2026 05:45:38 -0700 (PDT)
-From: Marek Czernohous <mczernohous@gmail.com>
-To: Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Fab Stz <fabstz-it@yahoo.fr>
-Subject: [PATCH v3 2/2] drm/nouveau/kms: guard NULL crtc in
- nv50_sor_atomic_disable()
-Date: Thu, 11 Jun 2026 14:45:35 +0200
-Message-ID: <20260611124535.527275-3-mczernohous@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260611124535.527275-1-mczernohous@gmail.com>
-References: <20260611124535.527275-1-mczernohous@gmail.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6583B10E65C
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 12:58:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1781182702; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=FhFxcS91fK4wKpxm6gILiNtTAYN5f2XHzrokhVqO+XAazipzADdSdxOlEPSkRqdkVccBQgTPWe8lItlXmQxrtLKL7+NOzR71Kh5AsTsfut7TUNr4rXA7xtJfl3+TPqGqytyihCaQSfFd8zYegXU15mv85c7XUFLRt2DaSgqfexo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1781182702;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=mB4RDx7WLLz1jGu1AJfIYfcIzjlDcxV2OlgvTKYijK4=; 
+ b=MaZ8vyuv1fnFg74sZZ2cLO7uvE7PxM/NbC6eYBKnRjFp4LPpW+2R2cEOHDlZkTMyu0QW8H6dvqt8D2gWlcYYnWjFhfOq4wsIJx0L0M+8RrCMUQ1rz/hyCp7Rbf9wOLyKZYwUUfKERnFE2LFQsBnCWDiS57gGzBdJ8T4NCC21cmE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781182702; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=mB4RDx7WLLz1jGu1AJfIYfcIzjlDcxV2OlgvTKYijK4=;
+ b=AEZ3o4IJOUlK/1QDdY1W/tLEwoiR1+9vRYlsEEdDgpKRApgAOGTpkUIfEiNVaD96
+ z+tBXzGXhJfOkwM1Ir29Y7fWjBFlParie0glKJTcQiYrg4fX96PvJsujxyBJI78Vnnr
+ ffhWdT8n5UiOuDyvVB/5C3ww6p5vDyOaLgyYa4II=
+Received: by mx.zohomail.com with SMTPS id 1781182700385899.6698876495188;
+ Thu, 11 Jun 2026 05:58:20 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Subject: [PATCH v6 0/4] Add SCDC information to connector debugfs
+Date: Thu, 11 Jun 2026 14:57:56 +0200
+Message-Id: <20260611-scdc-link-health-v6-0-6307875a6b5e@collabora.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23Q227DIAwG4FepuB4bBnLq1d5j2oUDzsKWQwtpt
+ KnKu4+kkVptXKFf2J8tX1kg7yiw4+HKPM0uuHGIIX86MNPi8EHc2ZiZFDIXGhQPxhreueGLt4T
+ d1PKyUvELlK1yw2LbyVPjvjfy7f2Ww6X+JDOtzl7h6XyJs6ZbGasxEDdj37vpeLC+55M7vewvW
+ 5HWhWn0P9uaM2w9+0bZ/41m4IKXVCigsiRsxKsZuw7r0eNzHLKBs7wjmRQJREYkA8AGSmNzXac
+ Q9YjkCUStSEUaNSKhhRSiH5EigeiI5FISaoHQZFUKye5IvEoCySICAIWqBRpl6S+yLMsvrDzNK
+ Q0CAAA=
+X-Change-ID: 20260413-scdc-link-health-89326013d96c
+To: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Daniel Stone <daniel@fooishbar.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Daniel Stone <daniels@collabora.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,109 +81,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Marek Czernohous <marek@czernohous.de>
+HDMI uses the DDC I2C bus for communicating various bits of link status
+out of band with the actual HDMI video signal. This information can be
+useful for debugging issues like questionable cables sabotaged by feline
+teeth, Enthusiast Grade cables made of cow fencing wire, and other such
+problems that ruin one's media viewing plans.
 
-nv50_sor_atomic_disable() unconditionally computes
-nv50_head(nv_encoder->crtc) and dereferences the result a few lines
-later.  nv_encoder->crtc is nouveau's own shadow pointer, set in
-.atomic_enable and cleared at the end of .atomic_disable.
-Commit f575f2bdb6c3 ("drm/nouveau/kms/nv50-: Remove (nv_encoder->crtc)
-checks in ->disable callbacks") removed the NULL check here,
-reasoning that the atomic helpers never call ->disable without a
-crtc.  On NVAC (MCP79) under Wayland sessions (observed with Weston's
-DRM backend and with labwc/wlroots) we have hit the NULL case in
-practice during session teardown and VT switches: disable runs without
-(or after) its matching enable, and because nv50_head() is
-container_of(), the NULL does not stay NULL but becomes a bogus
-non-NULL pointer, so the subsequent head dereferences fault and the
-kernel oopses.
+Consequently, this series exposes various bits of pertinent information
+from the SCDC protocol in an HDMI connector's debugfs. To continually
+poll the link status, userspace can poll the debugfs file.
 
-Restore the guard, as drm_WARN_ON_ONCE() instead of a silent return:
-a NULL crtc here still indicates a state-tracking inconsistency that
-should stay visible.  Return without touching the output; in this path
-either enable never ran (nothing to tear down) or an earlier disable
-already did the teardown, and the encoder release is handled by the
-commit_tail release loop in both cases.  (That loop then rejects the
-release of a never-acquired output with -EINVAL in the nvif layer,
-which is harmless; the vanilla code oopsed before ever reaching it.)
-
-The same inconsistent-state path can also leave the encoder without an
-old connector state, in which case nv50_outp_get_old_connector()
-returns NULL while the backlight teardown dereferenced it
-unconditionally, so the oops would only have moved there.  Hoist the
-guard above all of that and look at the old connector only after
-checking it.
-
-Fixes: f575f2bdb6c3 ("drm/nouveau/kms/nv50-: Remove (nv_encoder->crtc) checks in ->disable callbacks")
-Cc: <stable@vger.kernel.org>
-Tested-by: Fab Stz <fabstz-it@yahoo.fr>
-Assisted-by: Claude:claude-opus-4-7
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Marek Czernohous <marek@czernohous.de>
 ---
-v2 -> v3: hoisted the guard above the CONFIG_DRM_NOUVEAU_BACKLIGHT
-block and made the old-connector lookup NULL-safe (reported by the
-Sashiko AI review on the v2 posting: the unconditional
-nv_connector->backlight initializer ran before the guard); folded
-review nits (pointer wording, release-loop note, comment).  Tested-by
-carried over; the changes stay confined to the inconsistent-state
-path, normal-path behavior is unchanged.
-v1 -> v2: dropped the nvif_outp_release() call from the early return
-(the release is owned by the commit_tail release loop; calling it here
-released twice and detached the OR before the disable flush); turned
-the silent return into drm_WARN_ON_ONCE(); reworded the commit message.
-v2: https://lore.kernel.org/all/66ea307dd4fa080db27b2b9a0caa31b562d72c2b.1781162589.git.marek@czernohous.de/
-v1: https://lore.kernel.org/nouveau/20260409172126.115441-3-marek@czernohous.de/
+Changes in v6:
+- Fix off-by-one error in drm_scdc_read_state
+- Link to v5: https://patch.msgid.link/20260604-scdc-link-health-v5-0-11173b0ac3de@collabora.com
 
- drivers/gpu/drm/nouveau/dispnv50/disp.c | 30 ++++++++++++++++++++-----
- 1 file changed, 25 insertions(+), 5 deletions(-)
+Changes in v5:
+- Read all SCDC data regardless of update flags
+- Dump SCDC data as hex before the human-readable output. It's separated
+  with "\n----------------\n\n".
+- No longer write 0 to read-only registers
+- Add Reed-Solomon Corrections counter parsing
+- Parsing has been kept. A desire was expressed to get this data without
+  any external userspace tooling, and the kernel will need to parse it
+  eventually anyway to set the link status.
+- Functions have been made static as of right now, since external users
+  may do another pass over the function signatures anyway.
+- Link to v4: https://patch.msgid.link/20260527-scdc-link-health-v4-0-622ea40a1f59@collabora.com
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index 6c3a871..47e15a4 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -1565,16 +1565,36 @@ static void
- nv50_sor_atomic_disable(struct drm_encoder *encoder, struct drm_atomic_state *state)
- {
- 	struct nouveau_encoder *nv_encoder = nouveau_encoder(encoder);
--	struct nv50_head *head = nv50_head(nv_encoder->crtc);
-+	struct nv50_head *head;
- #ifdef CONFIG_DRM_NOUVEAU_BACKLIGHT
--	struct nouveau_connector *nv_connector = nv50_outp_get_old_connector(state, nv_encoder);
-+	struct nouveau_connector *nv_connector;
- 	struct nouveau_drm *drm = nouveau_drm(nv_encoder->base.base.dev);
--	struct nouveau_backlight *backlight = nv_connector->backlight;
--	struct drm_dp_aux *aux = &nv_connector->aux;
-+	struct nouveau_backlight *backlight;
- 	int ret;
-+#endif
- 
-+	/* nv_encoder->crtc is the driver's shadow pointer, set in
-+	 * .atomic_enable (and by the boot-time hardware readback) and
-+	 * cleared at the end of this function.  NULL here
-+	 * means disable-without-enable or a double disable; bail before
-+	 * container_of() turns it into a bogus head pointer (checking the
-+	 * result would not work, container_of(NULL) is never NULL).  The
-+	 * encoder release is handled by the commit_tail release loop, so
-+	 * there is nothing to clean up here.
-+	 */
-+	if (drm_WARN_ON_ONCE(encoder->dev, !nv_encoder->crtc))
-+		return;
-+	head = nv50_head(nv_encoder->crtc);
-+
-+#ifdef CONFIG_DRM_NOUVEAU_BACKLIGHT
-+	/* The same inconsistent-state path can leave us without an old
-+	 * connector state, so check before touching it.
-+	 */
-+	nv_connector = nv50_outp_get_old_connector(state, nv_encoder);
-+	backlight = nv_connector ? nv_connector->backlight : NULL;
- 	if (backlight && backlight->uses_dpcd) {
--		ret = drm_edp_backlight_disable(aux, &backlight->edp_info);
-+		ret = drm_edp_backlight_disable(&nv_connector->aux,
-+						&backlight->edp_info);
- 		if (ret < 0)
- 			NV_ERROR(drm, "Failed to disable backlight on [CONNECTOR:%d:%s]: %d\n",
- 				 nv_connector->base.base.id, nv_connector->base.name, ret);
--- 
-2.53.0
+Changes in v4:
+- Don't use C struct bitfields for parsing status flags. Switch to
+  bitwise AND for boolean flags, and FIELD_GET for multi-bit values.
+- Drop the superfluous !! and parens
+- Drop the __pure attributes on static functions
+- Initialise stack local arrays with {}, not { 0 }.
+- I've kept the print macros and %-30s format. Reason being that I don't
+  want to repeat the format specifier and str_yes_no(foo) a bunch, and I
+  like the %-30s format because it means all values are aligned with the
+  value of the longest field, which is 30 chars long.
+- Link to v3: https://patch.msgid.link/20260526-scdc-link-health-v3-0-59e4a4aaead1@collabora.com
+
+Changes in v3:
+- Add patch to change return type of drm_scdc_read/write.
+- Rework error counter reading to duplicate less code.
+- Also check lane 3 counter valid flag when reading its error counter.
+- Use memset to clear buf for error counters, rather than doing it in
+  the loop.
+- Make read_error_counters not accept 0 as num_lanes; fix it up in the
+  caller instead.
+- Link to v2: https://patch.msgid.link/20260520-scdc-link-health-v2-0-511af18cd64b@collabora.com
+
+Changes in v2:
+- Add HDMI 2.1 SCDC status reporting
+- Link to v1: https://patch.msgid.link/20260415-scdc-link-health-v1-0-8e731e88eaf0@collabora.com
+
+To: Jani Nikula <jani.nikula@linux.intel.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Andrzej Hajda <andrzej.hajda@intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Robert Foss <rfoss@kernel.org>
+To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+To: Jonas Karlman <jonas@kwiboo.se>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Daniel Stone <daniel@fooishbar.org>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: kernel@collabora.com
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+
+---
+Nicolas Frattaroli (4):
+      drm/scdc-helper: Don't use ssize_t return type for scdc_read/write
+      drm/scdc-helper: Add scdc_status debugfs entry
+      drm/display: bridge_connector: init scdc debugfs for HDMI
+      drm/scdc-helper: Implement parsing and printing HDMI 2.1 fields
+
+ drivers/gpu/drm/display/drm_bridge_connector.c |   4 +
+ drivers/gpu/drm/display/drm_scdc_helper.c      | 285 ++++++++++++++++++++++++-
+ include/drm/display/drm_scdc.h                 |  21 +-
+ include/drm/display/drm_scdc_helper.h          | 103 ++++++++-
+ 4 files changed, 404 insertions(+), 9 deletions(-)
+---
+base-commit: 4fdfaadba04dc0f2f2490dbc91922caa290463a5
+change-id: 20260413-scdc-link-health-89326013d96c
+
+Best regards,
+--  
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
