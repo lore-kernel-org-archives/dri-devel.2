@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FF02CD98D8
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 16:28:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B563CD98CE
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 16:28:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9F7D10EFF0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3CC710EFEE;
 	Thu, 11 Jun 2026 16:28:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="zzwx/o72";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="LUPORnRi";
 	dkim-atps=neutral
 Received: from LO3P265CU004.outbound.protection.outlook.com
  (mail-uksouthazon11020136.outbound.protection.outlook.com [52.101.196.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E796910E7C1
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:28:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C96410E7C1
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:28:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oDdwgxLnMYi3UICnXrhxn7Ji5gCxd3JJNf+YAuMowpVs6wav7/gnW6sgqCg71hdwiwmd74ubXMppy2OZHYO1T7jOMXtACXUtIqPW1KY3lT1p3Kvrc9X6c3HehEbvae8gPC730mFXPGgAGdLqMPakClKvVKtJ2TZdoYF1YsQ4sAQUf8TznYchaMdX7Q05ENgrRDzUQcOcxYx3uN0ASuVI7kNUgSwjR3z9gD8XRFQkaal4/ngqNEPfDjNbR1Wq0oFjf2pDZskqbzJUT2pf6HRW4qYPTuXbRoL5MAppUHAabY/2H7N9cx4vDaIwKDR0a9Hw+7skGNYjYmhH966Gi6x/Xg==
+ b=davStuv447juijMlpIMX2H35gRyb+M9knOEvr/E77taSjsZdHm3POmqc7YRE7MCbTjNVtfbOWwA2c7TkN9OYDZGuGQBtvQO3Ih8DheH8pJxaPM4VSidr0nClODbbQBIVb5OXIekzoaTp0OrgxFotMquJCjgLcjqrp87E+K2YKRuAhPjJMMtuugFJ7mX81nGmMkjn+lN3Fhioi836qSPpQLQijUB0Ep+DSU5OMpx9cUrbutuVt2ijsxjbrdA1PRqOrq2IT/lhm2hes9GmnKz8xMmkvNaJKxilY3vd7frNc46ydtRoD+Zn/EdiAKN8NoiiG99Xw2VfYj5oCncf1OrAFA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CU3aq4g1wJ41mMYj2EqQEpAh/FCh6owb2V+lttrlG+I=;
- b=gLUUb6WyQ8pRKnV/fsRzYDnmfj0VYC95PKhL7/6ebQuVqG/yoZLf0bLgMOpxRQKIzzEXJzbx20iM3DlKv+DkibNtlrT/ReU8hcdxWTp1c3fUqUDEc9HiPngoI6ud8pv+8nG1ojZ9OFkfodJjJtjoa17hLwq12gVDceuQnQvthQ4zI54umhSK2Z5ipcmw07aUcNyxtsJmC/+ffdcP06aOKhf5Jc2On/LfVKFU5/8Jfcmf5pHj+gYWOLej8zmOjQY8AKkXMlFGBNtonp9LEmkOyfCuJ5B/iVCTjjGuv5NJTSytj2kGn1W2vTA08J4IMy+nUD4O/PAC6Bfkhfp3pc6meQ==
+ bh=VvP3V1N2DDGsrmatTSvhoZJuRmdEBJem5u3DqqZsDrA=;
+ b=TstVJKy3Eq2XsUD7M+vyKYFirPwiOp7N3f4eLNvao4AUL598VBPijTiaHO7Y8rq4Y3sZ2mETae9whNllct+ZCanJj5BpuW+MO8stSD9ffA+KP+utobua/Akcb/2iKd7TZGpnALGWJKRu7cDZYTYuPwSExS9ABLiRmjNhSk14BETbjFDYOofmuQiX4OD9RIRPopUM6nSz8OHQ+3trigrBn8PwdRfwRcPHBo3hrPLdWtdZgEqtIOZyLcyjTzTFHPZi4n2aesNEsyICdsO2A9ckbIrQurfG98IfvMyi3Ff7UMJqHCUrpcAhgNlqK0rsnoXsrvtwJ6qMNgR3poOUzia8xw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CU3aq4g1wJ41mMYj2EqQEpAh/FCh6owb2V+lttrlG+I=;
- b=zzwx/o72edDVPcxJzHhPNytJIEKRH1EnPq/VIi411C8Ze0zn9/JyM8bBNZ1SfePcqE14XefI4IEmn0MDUZYrtpfe9/UYZ9kFD/eKZHnwGsVU+7F/WbD/a+WkMth0RfxHUWoccLzKONU2Uh1l/f6jvU1z15J423ypQ/6GSQUbydg=
+ bh=VvP3V1N2DDGsrmatTSvhoZJuRmdEBJem5u3DqqZsDrA=;
+ b=LUPORnRiuk8tgHYfr36u0hLjEZS0OWeF5VmmzX2tEJUIV2xrTj9b5WjB1/fWX4ibJnSnHeBKgc5FOBC9ze910bxhYxm3a0pOXPRRT5fvvTasFgGcazA3rmZwdBa3N/fFrMdyMBBpOTrvPe/PAoNklzFL838fsduYPDJubtk0eiY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27c::13)
  by LO4P265MB6525.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2e7::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Thu, 11 Jun
- 2026 16:28:29 +0000
+ 2026 16:28:32 +0000
 Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
  ([fe80::6c9e:93c8:10db:e995]) by CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
  ([fe80::6c9e:93c8:10db:e995%6]) with mapi id 15.21.0113.011; Thu, 11 Jun 2026
- 16:28:29 +0000
+ 16:28:32 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Thu, 11 Jun 2026 17:28:13 +0100
-Subject: [PATCH v4 11/20] rust: io: move `Io` methods to extension trait
+Date: Thu, 11 Jun 2026 17:28:19 +0100
+Subject: [PATCH v4 17/20] gpu: nova-core: use I/O projection for cleaner
+ encapsulation
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260611-io_projection-v4-11-1f7224b02dcb@garyguo.net>
+Message-Id: <20260611-io_projection-v4-17-1f7224b02dcb@garyguo.net>
 References: <20260611-io_projection-v4-0-1f7224b02dcb@garyguo.net>
 In-Reply-To: <20260611-io_projection-v4-0-1f7224b02dcb@garyguo.net>
 To: Alice Ryhl <aliceryhl@google.com>, 
@@ -68,11 +69,11 @@ Cc: Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
  linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev, 
  dri-devel@lists.freedesktop.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781195301; l=6959;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781195301; l=13099;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=yTxNVoexkQa5ghSRgiZ4IDZUMzahHs98bJoJqFesjDg=;
- b=GG6s4jjIT1Nfjs3VO1gdInRVylFCHg0hKlxdTWHcNVVbcjGdjZ4icmjasx+yHiUPKHeyNSuCb
- ww9057mJqs0AubGbWTyrg0FAdgAjBAXJxndqvSFvQ7sZhR1l3oZgSyJ
+ bh=X3jtfWZLQGJZh2g9tCEqgAxb4lmWw01CX+lOBYGY4qM=;
+ b=T4mmhjhEPj1vEDa7YClxNoxvGs6OTJpkZxYSTS/wg0AHAVW7QE93eZ0zmH1Qm3EGITH1OpzBE
+ QcGSW2Vgyb+Dp462CIB8qN7tfYEur4Rjja1YoxC/QutTM4buZqn2v+4
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO6P265CA0015.GBRP265.PROD.OUTLOOK.COM
@@ -81,65 +82,65 @@ X-ClientProxiedBy: LO6P265CA0015.GBRP265.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CW1P265MB8877:EE_|LO4P265MB6525:EE_
-X-MS-Office365-Filtering-Correlation-Id: 51f334b6-df05-4dd3-46ba-08dec7d67872
+X-MS-Office365-Filtering-Correlation-Id: d4c4056e-c6dc-40ea-78d4-08dec7d67a82
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|7416014|366016|1800799024|10070799003|921020|6133799003|56012099006|3023799007|5023799004|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: vks86nwaePNnp2ERbdmQqhxC+6QczAJtM1q9XZXA3LF4f+v+aEF0GSwz7ySXmjCYna1eeo/ZYGO4wpNwg97vI8w1HJ2TZ3RmWSAYkifs0ZYCCESxsp8vpMLrnbBVLGcw/AIf6dSHg0Es7dqx3ZTPzXCztRK2f/5fJgPNFJxPqgptgYxWEdFFdZBR5ydt/ljdtede2PNlrA7YivgJHpASxqONXYzAJ9VtFxnl/GRUU1aFY/s/0hgUu57os2VuQcpY/eHngMlqg6jenygnbF+VhdYcn5jDd9NHCOA/x4GeegazDfWbtY5mMA0l99UHiLu12P42QtXnUojTm340gFzNRhnGjFeW0+SI/HKvadYGjDgA805yhOUXeD6rrHeeMPTBLlY4buobngP6x3yR4QgThBJ+wzlQSoH19Vb9tDq3s8Tc/DSEkBpNP1jW3dR/zNAl2QGMmZlvbxuLJ87zc1j7Vjd0tQvwlUMydcGy2uQXDNZ4c0FKNNlUOPB2xw7/zh2/jv5h7ip+YeStd3EGcogvpxMukq+r7SMqB3sOXLeTclwt0QhPmO1u3+v1kCdo2wr5e8C2us1+BUPxZmHFGiyC8n494NfqQAEE2zUHz3D5vwFfzfoFq5IBVNXd9Ydd4jOEvk/thC57Q7D1eRfTK04le9xAZSYcl5amgphFAk/44kfCjFGv9ZelqaM5HzKVi7S8Qd17kwuJ4RnrfBCrMfZyhYEFjolFH3L9CwF/GNCaVeM=
+ ARA:13230040|23010399003|376014|7416014|366016|1800799024|10070799003|921020|6133799003|56012099006|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: hY6oSpQDGZDkqNtTjH++bTcLTSSaizBz4sa6Vv5CF6r6DLs/i1jamB2WFK59J3fElDa218lJqZYwX66zp2o7DDzG9WAEyjhjw/bBar/3J8EuI0w+yznneeKZ8zMfsukiJUB9rNib/F62+k7RMSMFD3l8NP8+g+dioizf8dFhXDjj5///2qRQU6mG0irbbTCg7Pc0KmyMGq5a0AmlrsP8hXzMLGE6RMBCS/RZo+l3GXfwCee2Y36PWA3ZU7pMnIOfY8ddOZn5rrDA9+pwVwU9WTfZceOPlSJK222I3D4oGZ1yj1UiPp9cj7zmDGRm+NbSmuytevSrYl5xhEQVYMbrdtOvhIbh6Usxi2JZLFlUCdFemd+RRBNlA7deNt+TFS85JofTRBQ41nFfCozvt2uXh0/HZRKmCpAwpf7ihb61caQQ/uqqa60CJW9D8pv/DaVJ5Cdx1SbrfruvMQJSKIw6BRU+eFTBaZcs5s5z9On8M/Aho3Vk328JvIflULMHQXOKI87WaqOXImLhicpfFwoquTDUjHzZJRoHdwXClbNIEYyW0wSRBP7xVvWIIvloRb6FBuygngU7WIpHf8fe3HFik3TC7k1vlgWRAC4J2QvceFcEmMsWk+vVKKqwbJbhvfQGimD3PsFBFgNFchrQnYls3+FCqmQotu/CbXp9UHV9VDsOkFi7pNhTQZoRW7mgSPpxlIWXtikJdYjRXInxWDU+Fx9uO7KoTCrxEUIAqBlp+IQ=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(10070799003)(921020)(6133799003)(56012099006)(3023799007)(5023799004)(22082099003)(18002099003);
+ SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(10070799003)(921020)(6133799003)(56012099006)(3023799007)(22082099003)(18002099003);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZFlzOVpXSTcrZFN6UXNObFhvOEJGdnh1MEUwdHRUMzVJZVhramZQSHlQZU9E?=
- =?utf-8?B?Ui8zbFo4NEtOZ0lZMVFWWk14cFVOWndFV1dXNFFXTEUwZ050R0dUV3FVeFkv?=
- =?utf-8?B?SEg2ZFVSMGx1bEd4U1VwNTVHRTM0c3VTalUvUDlaWkd4N3ZhU1hzNC93YnZ4?=
- =?utf-8?B?MHJFT3l1eTdPR3BWMmQ0QllTWlplcWI1WFZwSG9tNmo2anJSOGF5T1VucjM1?=
- =?utf-8?B?bXJiemdWZGkyUzBJQVlHZzJGR2RjWGp2NVhleWhHaVVzMUlDcHpVVnpxRExu?=
- =?utf-8?B?L0hxSDdTd1hsdTZSdEt6MVdEZUIxL0Y5bEx1TnZXWENOMmUyaHo2VDVsdDVm?=
- =?utf-8?B?Zy9hWklhUFh5b2VDcnRkYnFIR2hBcGFLcUxrNThlNitwSTNNdWRoRFlEQ1hP?=
- =?utf-8?B?eDdITlFKNnd2QU5PNU9ubGh5Zmh3cW1BbWo2MnhWV0dKL3g3TnhZWnJyR2ls?=
- =?utf-8?B?OUZWU2t3dkVaNFVUak96anBwQ0hQNVZIMU83Z0dycTRQSmduckovRFgzbFJh?=
- =?utf-8?B?ZXc3aE00MUJLTHE2dUZ3aVUzdHVJZHhZWnpEN3l6Vm9VTmNUMU9iNDJGOXRk?=
- =?utf-8?B?VzV5UzluTXZVeCtvU3N0c2JXRk5NZ09MV3pBSE1ISUpOYkJpZWNrQUZ2Z0wr?=
- =?utf-8?B?aWFvWmxJR0tCdGxXazFhd0huNmtBUGg3S0MyUWluNVNNbWVxL1ROd2FrRHdm?=
- =?utf-8?B?TjBHWnlGZkZ1YnFXQkZGcW4zME0yM0FUSkpITVUxTXBkVFhNYU96cWJ6aU1h?=
- =?utf-8?B?UmxUbEs4K3U5K0RHNnNPL0pQVGpFRlFyeWJqRGZhU0dabGhaTTQyeWdzVHd2?=
- =?utf-8?B?NGR0SWNUd2w4MWJMMHJnY3R1MXBWM0hmbkE4Y1UzOVRNaC9wUGhCSGV1dmFF?=
- =?utf-8?B?MjBTMjVFRk1Cb0IvdlJKTEw5dERYbFdvRHVabk1Hc2dLTmxpV21QR3gyUWtj?=
- =?utf-8?B?UWpwVXd6RmltY1h1bUlNSGlsNm00Qm9XSVM0bUtFWnF0QjRyWFRHREV2K1pl?=
- =?utf-8?B?VHRNOWZTakZYV05jRENxb2RSNFZCdDlxRXRXbTNtMlpUdERLbVRsQVlXTlhL?=
- =?utf-8?B?b25ZODZmYW4wZytKcERhNFZlWmlOaFp2K2FHZGRFb0NMWjJCWXlZNW9iaGF3?=
- =?utf-8?B?b3JFdnArT2dHVUpFY1hNQWxDRzBMbXlOWkQrWlBRbDVsMlQ4OE9vd2lMeFZj?=
- =?utf-8?B?L2k4bHY0cjlqSWFVa2lWQW51aURodE16S2swM0c1WmtSd1RiL2U4Wm8rTGZ5?=
- =?utf-8?B?THd2Nlo3STFiTkxnL0lyNjlZYzNMU2ZVaElqdG01UDNMT2lXTGVOeFY2dFFR?=
- =?utf-8?B?d0VTcUtNT0xla3BuWVlaQmtZcjZoQkFyd091Ym5Zd2lGRmRtaDFCeklPRFQy?=
- =?utf-8?B?YU93S1RxdGlwekx5OFN6TnN1ZExUUGxseHpNcFgyN2xKVUFGMXZRQWVZUGZI?=
- =?utf-8?B?NGVLK0Iyd01naUVETmxtSkJpQlF5eWhueDhSdDJQdmw4ZGh3QzJIbSt6Q21L?=
- =?utf-8?B?VFMxLzFNNFRNdjRNSDZSYkRkY3VadkxGOVRESDNjR1R0dldYZCsrZkczSEls?=
- =?utf-8?B?SDZMUWhBVC9VN3E2T1h1NXU5VFFhVElPZUhuS0JqbGdkY0d3RTBTY3lxUXow?=
- =?utf-8?B?RWUyV1ZCaXg1STd2SklBbjVTTHNUaFpGUzRaUDJQQnJvUXBYVGU2OVdVZWtZ?=
- =?utf-8?B?Z0lPckd4VVFBeHZIMzNncExNYnNHditMT0hiQnZWbkluYlRGcDQ3cDhRYklo?=
- =?utf-8?B?Q3IzTVJyUHRCQXlSNzNiWmt4elhCWHdkd0tPYldkbzFFNndUQk9jOHIrSW1r?=
- =?utf-8?B?Sm02RlcyZWFMTFkzSjIwNUorM3N4VHd1a0xUSnp6aXpySXhQTXNXVGhmdHhP?=
- =?utf-8?B?Ui92S0VIaHRXK1BWRmUwWi9JRy94OS9NeDFqT3Z0S3JFRUNyODhWLzlZR25S?=
- =?utf-8?B?R0g5dGJhMXdGbTVJT1k3WmxRN2VWa3dWNHFudHVZS0xFdGRDL2wzSElTTjQ5?=
- =?utf-8?B?SHNXTEZkN05WbEY1RTl6MmRvQVRPb3JQK1FVZVJPTmpPUU45NTI1Yk1LUEJt?=
- =?utf-8?B?eTl3M2lPNmtBQWJUSExscG8zSU5EbzJDTCtpV0hlU1FSUFFLWWdLVDNiUEVv?=
- =?utf-8?B?L3ZtV3VYSGxFTFF6bU42d1pZdXpzdG5oNXNiS0l0VU9ZRzdSOWYvVTJnNHgx?=
- =?utf-8?B?cDBTeVJ4Zk4rQmRvTGR0dVc5RzVOYkJQelhQd3Q2Tnk3NS90c214cnhJdWhO?=
- =?utf-8?B?VnhENkdWZjVTaVBMZTVxK1kvUU4ySVpUUHFTZnJQQVE0WCsxWURmT29JQ1FD?=
- =?utf-8?B?ckhFN2hFNFg1Q2dVVWdVbDVHaXdib0FLQVp2c3pwTlg0cUdYREp5dz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NjZwM3ZmYkpFYVJhRGcxM0lnQW1GeDJUalJzVjRma1oyVDROODJibmczRzFv?=
+ =?utf-8?B?N05yUUZuRENiU3pWaFJ3TWE2aDNXam5oMDc4M2N6UjhKNmo2MG00L3ZUYlQy?=
+ =?utf-8?B?MzhaT20ybGY4L1VMRE5mTU9sUDRpeWpGdE45ekl5dk9TK2lhOVNacDVxSzYz?=
+ =?utf-8?B?NnNzTnYwZmdSVUg4M3V2djF1Y0gxMlloQ0s1NGJHcE5qeHpzTEdvMVRLMmpj?=
+ =?utf-8?B?UlB5N1k0VTdteWpEMGxUWHVwakt0VkdUNEFSdk4yWWFsUTA0UFprOTc5RGVQ?=
+ =?utf-8?B?N3FoUXpiYmVzcWxnVVVZOFJSc1N1ektEUHN3NjV5TVMrVDE4cjh1elVLOEUx?=
+ =?utf-8?B?aEUrR3JrNWtRYU55NHUvRzlmNmpmME5FYTV2M0J1MmpFbm1wR0wra25CSTlN?=
+ =?utf-8?B?VEhiWklieVBXdTJZM1NmVXQ1MWk5TTZKQi9pc0k5VHBJdTF5cmo4VWNLTDly?=
+ =?utf-8?B?Y2NWWGpoQUg4Y21OSHhqZk5kM3YzaThHWEJxbUJCT3pUYitRaGZvVENFOFNE?=
+ =?utf-8?B?U21zRTRrSWkxM2FYRTdZVmw0MU9MWS9sUW9OQ0o4elBQNElTQ3BwVlNHTzd3?=
+ =?utf-8?B?bXZreHlYdFZ3bFBtbVMxcEdnQ09HblEwZGtaZmZrZ2RweGR1Q2FwMklSbllO?=
+ =?utf-8?B?cnpVaWxnUE1pUWZuZ1pTOVkrMnJtRnFhR1lrOUJGNnc0QWVjQTkvL1ZYSkZz?=
+ =?utf-8?B?a01kaHFudGVKMWxnL0NBeHRsZFlIWmtVSUhDUUFHemRmZ1AxQVdscVlldGIy?=
+ =?utf-8?B?TTRXaTF3bUZtSjJ6WGZsWVVYUE5Bdkt0YnZ6NmFBWEcrUDRyR2J6eTVaN3h4?=
+ =?utf-8?B?REg5SlI5bmlDVEtYMEg1eGdtR3Z2TEE1a1FXQ0g2K2lPVUo3NDB1d1N5VS95?=
+ =?utf-8?B?cGtiZmt4WENSL3pKTzQ1SXRDLzc1ZXNwRlZ6THIrZ092SjU5Qk0rYTJ4UG5H?=
+ =?utf-8?B?UndNd0NBYVprejhyV2RHNmlIY2RiT1JxV0ROcDkvUEFyUDlnN3g3ejBtbnhy?=
+ =?utf-8?B?anJSUEw3QTJUcXRTTWZINWNkYzBYeEExN2o2cnRkNHl1VGxxTHUrQ01tR3U4?=
+ =?utf-8?B?T3o5Z0ZqcEVSZXVsNXhJSHA1YTRkbjNBNmt0aTVmbkxXejVlZ0ZIOTRNZGli?=
+ =?utf-8?B?QUtveGNxanhkRmwwS3pkWit3NklQZVZIRVFIMmRrd0FjdE5DeElmSmh0RDFZ?=
+ =?utf-8?B?TVlVZElDbVBqZkFnOFBQZlUrbmJ6b0dkZTBPbm5MSHRDK3FZdjlQZmRjTDZ4?=
+ =?utf-8?B?ajVmSmcvckZLaXFhdmFESmJTUzdwWnlzUkNjZnJMbnlNZ1dybHRFeTkrNDVO?=
+ =?utf-8?B?RnNQZnpFR3NTNXdwY25uQWJxSkovQkZwb09PeDIvY2dnNFArM0czdDVzWUc5?=
+ =?utf-8?B?aWoyM3QrSjZVbkVzVzluT3Niam5MOXZ6U0RQT05YejFZeEtXNXd0N0ZLNHcr?=
+ =?utf-8?B?MmttWlB1UXVTbFpLMmgrdU54bE9YaTF3bEpPMDNtblBhT1lyQzhLNkVaY2Jm?=
+ =?utf-8?B?WEdnbllnRCtYK0VZL2RmdXM5NkQ5ZDFXVUVXODg3TUFpT1BxamRHYnB3eW5r?=
+ =?utf-8?B?VTh4bXVvVkhEVWs1LzNiVUY1NDMvaWxOSHV5Sms3TW56SzdNcmpscmFVcDNJ?=
+ =?utf-8?B?UFcxYldzUFpEcEFzR3VYU1ZwaWVvQlpIb0ZoZmVyOEloVnlsd1BwcEJaaFBS?=
+ =?utf-8?B?ZUgyQnB6cHBTZVpFc05oQzJwVjBOWnZ0OWFaWWh6S25VRTErUEJLaGxZdDQz?=
+ =?utf-8?B?bFc0K0RDNzZ1Y0lvUGMrU0N4N0NGWldrTVJLMzlOQmlJdklzcWx3aGxQQVVW?=
+ =?utf-8?B?S29EWk0ybXE2YnBEMWdjZmFrQjl3NzhwRVJFSXBMcXRSTXozZ29FSElHUjJR?=
+ =?utf-8?B?M2JBQmxJeFZwOTZZWXhYbGh4a2dIVUJwNWl0K25XbW5nTHAzSmJjY3FRQmM3?=
+ =?utf-8?B?ZEdnK1JJMXQxdmpQcWFyRHZZdjZidTlRWm1iVHhtMzJ2eEx3KzF2dUNKR24v?=
+ =?utf-8?B?T2I1eUUyM3VGamU3VVlNdzlEVi9CbEoxa2E2aXpsdE1jd2pYNkFBaUpvNG1x?=
+ =?utf-8?B?bjJVQmRYK2RTMGFSSWdxUklybWtSSldJM3Z2TGRrcHAxUHVqbjdBbzJUTDFT?=
+ =?utf-8?B?WVVtenFZY2hUMU1PZHczR0Q5SWIrZHV2L1dtOUNETTI3Vm9rTDVwaVAzeU1V?=
+ =?utf-8?B?MTA4QWJVUHRjZnVpV3Jac1NGaS9Vc0Z5OVlXUDV0ZVJEdEpvNzRMcFBMZW1R?=
+ =?utf-8?B?d2htZGlxRk1OTmNlRHljVUZjUUdMVHoxSFZ2Z2wwcWhQRjgzTTF4ZlRnbW40?=
+ =?utf-8?B?RytzazNSbWF5M1lQSGtYeTBpaUx5eHFQMG5ja05XVE1MMlhvZ0dIUT09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51f334b6-df05-4dd3-46ba-08dec7d67872
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4c4056e-c6dc-40ea-78d4-08dec7d67a82
 X-MS-Exchange-CrossTenant-AuthSource: CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 16:28:29.1653 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 16:28:32.6329 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fnxQK+k/vbFzg5MgSFKqu34E3ahZXGQB+1SQy3NAjcAbB5VYC+6T3v/RrSav5tYREOdYKpSra2S2hetxzmz0Dw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: FRIIwG40BA1rvEScOSIK4564fqL2ktnPr8xrLhSS+Hp2v4/F/rY4WbFQEQEI8nIm6IY8fV3j+yBmF/2jo2wewA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB6525
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -156,194 +157,373 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-`Io` trait now has a single required methods with many more provided
-methods. Provided methods may want to rely on their implementations to not
-be arbitrarily overridden by implementers for correctness or soundness.
+Use `io_project!` for PTE array and message queues to restore the proper
+encapsulation.
 
-Thus, extract these methods to a new trait and provide a blanket
-implementation. This pattern is used extensively in userspace Rust
-libraries e.g. `tokio` where `AsyncRead` has minimum methods and
-`AsyncReadExt` is what users mostly interact with.
+The remaining `dma_read!` and `dma_write!` is now only acting on
+primitives; thus replace by `io_read!` and `io_write!`.
 
-To avoid changing all user imports, the base trait is renamed to `IoBase`
-and the newly added trait takes the existing `Io` name.
-
-A `size` method is added as an example of methods that users should not
-override.
-
-Suggested-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- rust/kernel/devres.rs |  3 ++-
- rust/kernel/io.rs     | 34 ++++++++++++++++++++++++----------
- rust/kernel/io/mem.rs |  6 +++---
- rust/kernel/pci/io.rs |  6 +++---
- 4 files changed, 32 insertions(+), 17 deletions(-)
+ drivers/gpu/nova-core/gsp.rs      | 53 ++++++++++++-------------
+ drivers/gpu/nova-core/gsp/cmdq.rs | 66 +++++++++++++++++--------------
+ drivers/gpu/nova-core/gsp/fw.rs   | 82 +++++++++++++--------------------------
+ 3 files changed, 90 insertions(+), 111 deletions(-)
 
-diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
-index 3545ffc5345d..6e0b845b229b 100644
---- a/rust/kernel/devres.rs
-+++ b/rust/kernel/devres.rs
-@@ -68,6 +68,7 @@ struct Inner<T> {
- ///     devres::Devres,
- ///     io::{
- ///         Io,
-+///         IoBase,
- ///         Mmio,
- ///         MmioRaw,
- ///         MmioBackend,
-@@ -105,7 +106,7 @@ struct Inner<T> {
- ///     }
- /// }
- ///
--/// impl<'a, const SIZE: usize> Io<'a> for &'a IoMem<SIZE> {
-+/// impl<'a, const SIZE: usize> IoBase<'a> for &'a IoMem<SIZE> {
- ///    type Backend = MmioBackend;
- ///    type Target = Region<SIZE>;
- ///
-diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-index 132454a38d64..470ee2ed9849 100644
---- a/rust/kernel/io.rs
-+++ b/rust/kernel/io.rs
-@@ -184,7 +184,7 @@ const fn offset_valid<U>(base: usize, offset: usize, size: usize) -> bool {
- /// operation.
- pub trait IoBackend {
-     /// View type for this I/O backend.
--    type View<'a, T: ?Sized + KnownSize>: Io<'a, Backend = Self, Target = T>;
-+    type View<'a, T: ?Sized + KnownSize>: IoBase<'a, Backend = Self, Target = T>;
+diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
+index 69175ca3315c..cfa7553cd820 100644
+--- a/drivers/gpu/nova-core/gsp.rs
++++ b/drivers/gpu/nova-core/gsp.rs
+@@ -9,14 +9,16 @@
+     dma::{
+         Coherent,
+         CoherentBox,
++        CoherentView,
+         DmaAddress, //
+     },
++    io::{
++        io_project,
++        io_write,
++        Io, //
++    },
+     pci,
+-    prelude::*,
+-    transmute::{
+-        AsBytes,
+-        FromBytes, //
+-    }, //
++    prelude::*, //
+ };
  
-     /// Convert a `view` to a raw pointer for projection.
-     fn as_ptr<'a, T: ?Sized + KnownSize>(view: Self::View<'a, T>) -> *mut T;
-@@ -267,13 +267,10 @@ fn offset(self) -> usize {
- /// Types implementing this trait (e.g. MMIO BARs or PCI config regions)
- /// can perform I/O operations on regions of memory.
- ///
--/// The [`Io`] trait provides:
--/// - Method to convert into [`IoBackend::View`].
--/// - Helper methods for offset validation and address calculation
--/// - Fallible (runtime checked) accessors for different data widths
--///
--/// Which I/O methods are available depends on the associated [`IoBackend`] implementation.
--pub trait Io<'a>: Copy {
-+/// This trait defines which backend shall be used for I/O operations and provides a method to
-+/// convert into [`IoBackend::View`]. Users should use the [`Io`] trait which provides the actual
-+/// methods to perform I/O operations.
-+pub trait IoBase<'a>: Copy {
-     /// Type that defines all I/O operations.
-     type Backend: IoBackend;
+ pub(crate) mod cmdq;
+@@ -48,21 +50,21 @@
  
-@@ -282,6 +279,21 @@ pub trait Io<'a>: Copy {
+ /// Array of page table entries, as understood by the GSP bootloader.
+ #[repr(C)]
++#[derive(FromBytes, IntoBytes)]
+ struct PteArray<const NUM_ENTRIES: usize>([u64; NUM_ENTRIES]);
  
-     /// Return a view that covers the full region.
-     fn as_view(self) -> <Self::Backend as IoBackend>::View<'a, Self::Target>;
-+}
+-/// SAFETY: arrays of `u64` implement `FromBytes` and we are but a wrapper around one.
+-unsafe impl<const NUM_ENTRIES: usize> FromBytes for PteArray<NUM_ENTRIES> {}
+-
+-/// SAFETY: arrays of `u64` implement `AsBytes` and we are but a wrapper around one.
+-unsafe impl<const NUM_ENTRIES: usize> AsBytes for PteArray<NUM_ENTRIES> {}
+-
+ impl<const NUM_PAGES: usize> PteArray<NUM_PAGES> {
+-    /// Returns the page table entry for `index`, for a mapping starting at `start`.
+-    // TODO: Replace with `IoView` projection once available.
+-    fn entry(start: DmaAddress, index: usize) -> Result<u64> {
+-        start
+-            .checked_add(num::usize_as_u64(index) << GSP_PAGE_SHIFT)
+-            .ok_or(EOVERFLOW)
++    /// Initialize a new page table array mapping `NUM_PAGES` GSP pages starting at address `start`.
++    fn init(view: CoherentView<'_, Self>, start: DmaAddress) -> Result<()> {
++        for i in 0..NUM_PAGES {
++            io_write!(view, .0[build: i],
++                start
++                    .checked_add(num::usize_as_u64(i) << GSP_PAGE_SHIFT)
++                    .ok_or(EOVERFLOW)?
++            );
++        }
 +
-+/// Extension trait to provide I/O operation methods to types that implement [`IoBase`].
-+///
-+/// This trait provides:
-+/// - Helper methods for offset validation and address calculation
-+/// - Fallible (runtime checked) accessors for different data widths
-+///
-+/// Which I/O methods are available depends on the associated [`IoBackend`] implementation.
-+pub trait Io<'a>: IoBase<'a> {
-+    /// Returns the size of this I/O region.
-+    #[inline]
-+    fn size(self) -> usize {
-+        KnownSize::size(Self::Backend::as_ptr(self.as_view()))
-+    }
- 
-     /// Returns a view for a given `offset`, performing compile-time bound checks.
-     // Always inline to optimize out error path of `build_assert`.
-@@ -769,6 +781,8 @@ fn update<T, L, F>(self, location: L, f: F)
++        Ok(())
      }
  }
  
-+impl<'a, T: IoBase<'a>> Io<'a> for T {}
-+
- /// A view of memory-mapped I/O region.
- ///
- /// # Invariant
-@@ -809,7 +823,7 @@ unsafe impl<T: ?Sized + Sync> Send for Mmio<'_, T> {}
- // SAFETY: `Mmio<'_, T>` is conceptually `&T` but in I/O memory.
- unsafe impl<T: ?Sized + Sync> Sync for Mmio<'_, T> {}
+@@ -89,17 +91,12 @@ fn new(dev: &device::Device<device::Bound>) -> Result<Self> {
  
--impl<'a, T: ?Sized + KnownSize> Io<'a> for Mmio<'a, T> {
-+impl<'a, T: ?Sized + KnownSize> IoBase<'a> for Mmio<'a, T> {
-     type Backend = MmioBackend;
-     type Target = T;
+         let start_addr = obj.0.dma_handle();
  
-@@ -925,7 +939,7 @@ unsafe fn project_view<'a, T: ?Sized + KnownSize, U: ?Sized + KnownSize>(
+-        // SAFETY: `obj` has just been created and we are its sole user.
+-        let pte_region = unsafe {
+-            &mut obj.0.as_mut()[size_of::<u64>()..][..RM_LOG_BUFFER_NUM_PAGES * size_of::<u64>()]
+-        };
+-
+-        // Write values one by one to avoid an on-stack instance of `PteArray`.
+-        for (i, chunk) in pte_region.chunks_exact_mut(size_of::<u64>()).enumerate() {
+-            let pte_value = PteArray::<0>::entry(start_addr, i)?;
+-
+-            chunk.copy_from_slice(&pte_value.to_ne_bytes());
+-        }
++        let pte_view = io_project!(
++            obj.0,
++            [build: size_of::<u64>()..][build: ..RM_LOG_BUFFER_NUM_PAGES * size_of::<u64>()]
++        )
++        .try_cast::<PteArray<RM_LOG_BUFFER_NUM_PAGES>>()?;
++        PteArray::init(pte_view, start_addr)?;
+ 
+         Ok(obj)
      }
- }
+diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
+index 070de0731e95..c34b48961496 100644
+--- a/drivers/gpu/nova-core/gsp/cmdq.rs
++++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+@@ -2,16 +2,23 @@
  
--impl<'a, T: ?Sized + KnownSize> Io<'a> for RelaxedMmio<'a, T> {
-+impl<'a, T: ?Sized + KnownSize> IoBase<'a> for RelaxedMmio<'a, T> {
-     type Backend = RelaxedMmioBackend;
-     type Target = T;
+ mod continuation;
  
-diff --git a/rust/kernel/io/mem.rs b/rust/kernel/io/mem.rs
-index d9b3189d09b4..e95b769ebe47 100644
---- a/rust/kernel/io/mem.rs
-+++ b/rust/kernel/io/mem.rs
-@@ -14,7 +14,7 @@
-             Region,
-             Resource, //
-         },
--        Io,
-+        IoBase,
-         Mmio,
-         MmioBackend,
-         MmioRaw, //
-@@ -210,7 +210,7 @@ pub fn into_devres(self) -> Result<Devres<ExclusiveIoMem<'static, SIZE>>> {
-     }
- }
+-use core::mem;
++use core::{
++    mem,
++    sync::atomic::{
++        fence,
++        Ordering, //
++    },
++};
  
--impl<'a, const SIZE: usize> Io<'a> for &'a ExclusiveIoMem<'_, SIZE> {
-+impl<'a, const SIZE: usize> IoBase<'a> for &'a ExclusiveIoMem<'_, SIZE> {
-     type Backend = MmioBackend;
-     type Target = super::Region<SIZE>;
- 
-@@ -292,7 +292,7 @@ fn drop(&mut self) {
-     }
- }
- 
--impl<'a, const SIZE: usize> Io<'a> for &'a IoMem<'_, SIZE> {
-+impl<'a, const SIZE: usize> IoBase<'a> for &'a IoMem<'_, SIZE> {
-     type Backend = MmioBackend;
-     type Target = super::Region<SIZE>;
- 
-diff --git a/rust/kernel/pci/io.rs b/rust/kernel/pci/io.rs
-index 4be33ecb4192..4d1d0afdc491 100644
---- a/rust/kernel/pci/io.rs
-+++ b/rust/kernel/pci/io.rs
-@@ -8,8 +8,8 @@
+ use kernel::{
      device,
-     devres::Devres,
+     dma::{
+         Coherent,
++        CoherentBox,
+         DmaAddress, //
+     },
+-    dma_write,
      io::{
--        Io,
-         IoBackend,
-+        IoBase,
-         IoCapable,
-         Mmio,
-         MmioBackend,
-@@ -144,7 +144,7 @@ fn io_write(view: ConfigSpace<'_, $ty>, value: $ty) {
- impl_config_space_io_capable!(u16, pci_read_config_word, pci_write_config_word);
- impl_config_space_io_capable!(u32, pci_read_config_dword, pci_write_config_dword);
++        io_project,
+         poll::read_poll_timeout,
+         Io, //
+     },
+@@ -171,20 +178,18 @@ struct MsgqData {
+ #[repr(C)]
+ // There is no struct defined for this in the open-gpu-kernel-source headers.
+ // Instead it is defined by code in `GspMsgQueuesInit()`.
+-// TODO: Revert to private once `IoView` projections replace the `gsp_mem` module.
+-pub(super) struct Msgq {
++struct Msgq {
+     /// Header for sending messages, including the write pointer.
+-    pub(super) tx: MsgqTxHeader,
++    tx: MsgqTxHeader,
+     /// Header for receiving messages, including the read pointer.
+-    pub(super) rx: MsgqRxHeader,
++    rx: MsgqRxHeader,
+     /// The message queue proper.
+     msgq: MsgqData,
+ }
  
--impl<'a, T: ?Sized + KnownSize> Io<'a> for ConfigSpace<'a, T> {
-+impl<'a, T: ?Sized + KnownSize> IoBase<'a> for ConfigSpace<'a, T> {
-     type Backend = ConfigSpaceBackend;
-     type Target = T;
+ /// Structure shared between the driver and the GSP and containing the command and message queues.
+ #[repr(C)]
+-// TODO: Revert to private once `IoView` projections replace the `gsp_mem` module.
+-pub(super) struct GspMem {
++struct GspMem {
+     /// Self-mapping page table entries.
+     ptes: PteArray<{ Self::PTE_ARRAY_SIZE }>,
+     /// CPU queue: the driver writes commands here, and the GSP reads them. It also contains the
+@@ -192,13 +197,13 @@ pub(super) struct GspMem {
+     /// index into the GSP queue.
+     ///
+     /// This member is read-only for the GSP.
+-    pub(super) cpuq: Msgq,
++    cpuq: Msgq,
+     /// GSP queue: the GSP writes messages here, and the driver reads them. It also contains the
+     /// write and read pointers that the GSP updates. This means that the read pointer here is an
+     /// index into the CPU queue.
+     ///
+     /// This member is read-only for the driver.
+-    pub(super) gspq: Msgq,
++    gspq: Msgq,
+ }
  
-@@ -267,7 +267,7 @@ fn drop(&mut self) {
+ impl GspMem {
+@@ -232,20 +237,12 @@ fn new(dev: &device::Device<device::Bound>) -> Result<Self> {
+         const MSGQ_SIZE: u32 = num::usize_into_u32::<{ size_of::<Msgq>() }>();
+         const RX_HDR_OFF: u32 = num::usize_into_u32::<{ mem::offset_of!(Msgq, rx) }>();
+ 
+-        let gsp_mem = Coherent::<GspMem>::zeroed(dev, GFP_KERNEL)?;
+-
+-        let start = gsp_mem.dma_handle();
+-        // Write values one by one to avoid an on-stack instance of `PteArray`.
+-        for i in 0..GspMem::PTE_ARRAY_SIZE {
+-            dma_write!(gsp_mem, .ptes.0[build: i], PteArray::<0>::entry(start, i)?);
+-        }
++        let mut gsp_mem = CoherentBox::<GspMem>::zeroed(dev, GFP_KERNEL)?;
++        gsp_mem.cpuq.tx = MsgqTxHeader::new(MSGQ_SIZE, RX_HDR_OFF, MSGQ_NUM_PAGES);
++        gsp_mem.cpuq.rx = MsgqRxHeader::new();
+ 
+-        dma_write!(
+-            gsp_mem,
+-            .cpuq.tx,
+-            MsgqTxHeader::new(MSGQ_SIZE, RX_HDR_OFF, MSGQ_NUM_PAGES)
+-        );
+-        dma_write!(gsp_mem, .cpuq.rx, MsgqRxHeader::new());
++        let gsp_mem: Coherent<_> = gsp_mem.into();
++        PteArray::init(io_project!(gsp_mem, .ptes), gsp_mem.dma_handle())?;
+ 
+         Ok(Self(gsp_mem))
+     }
+@@ -406,7 +403,7 @@ fn allocate_command(&mut self, size: usize, timeout: Delta) -> Result<GspCommand
+     //
+     // - The returned value is within `0..MSGQ_NUM_PAGES`.
+     fn gsp_write_ptr(&self) -> u32 {
+-        super::fw::gsp_mem::gsp_write_ptr(&self.0)
++        MsgqTxHeader::write_ptr(io_project!(self.0, .gspq.tx)) % MSGQ_NUM_PAGES
+     }
+ 
+     // Returns the index of the memory page the GSP will read the next command from.
+@@ -415,7 +412,7 @@ fn gsp_write_ptr(&self) -> u32 {
+     //
+     // - The returned value is within `0..MSGQ_NUM_PAGES`.
+     fn gsp_read_ptr(&self) -> u32 {
+-        super::fw::gsp_mem::gsp_read_ptr(&self.0)
++        MsgqRxHeader::read_ptr(io_project!(self.0, .gspq.rx)) % MSGQ_NUM_PAGES
+     }
+ 
+     // Returns the index of the memory page the CPU can read the next message from.
+@@ -424,12 +421,18 @@ fn gsp_read_ptr(&self) -> u32 {
+     //
+     // - The returned value is within `0..MSGQ_NUM_PAGES`.
+     fn cpu_read_ptr(&self) -> u32 {
+-        super::fw::gsp_mem::cpu_read_ptr(&self.0)
++        MsgqRxHeader::read_ptr(io_project!(self.0, .cpuq.rx)) % MSGQ_NUM_PAGES
+     }
+ 
+     // Informs the GSP that it can send `elem_count` new pages into the message queue.
+     fn advance_cpu_read_ptr(&mut self, elem_count: u32) {
+-        super::fw::gsp_mem::advance_cpu_read_ptr(&self.0, elem_count)
++        let rx = io_project!(self.0, .cpuq.rx);
++        let rptr = MsgqRxHeader::read_ptr(rx).wrapping_add(elem_count) % MSGQ_NUM_PAGES;
++
++        // Ensure read pointer is properly ordered.
++        fence(Ordering::SeqCst);
++
++        MsgqRxHeader::set_read_ptr(rx, rptr)
+     }
+ 
+     // Returns the index of the memory page the CPU can write the next command to.
+@@ -438,12 +441,17 @@ fn advance_cpu_read_ptr(&mut self, elem_count: u32) {
+     //
+     // - The returned value is within `0..MSGQ_NUM_PAGES`.
+     fn cpu_write_ptr(&self) -> u32 {
+-        super::fw::gsp_mem::cpu_write_ptr(&self.0)
++        MsgqTxHeader::write_ptr(io_project!(self.0, .cpuq.tx)) % MSGQ_NUM_PAGES
+     }
+ 
+     // Informs the GSP that it can process `elem_count` new pages from the command queue.
+     fn advance_cpu_write_ptr(&mut self, elem_count: u32) {
+-        super::fw::gsp_mem::advance_cpu_write_ptr(&self.0, elem_count)
++        let tx = io_project!(self.0, .cpuq.tx);
++        let wptr = MsgqTxHeader::write_ptr(tx).wrapping_add(elem_count) % MSGQ_NUM_PAGES;
++        MsgqTxHeader::set_write_ptr(tx, wptr);
++
++        // Ensure all command data is visible before triggering the GSP read.
++        fence(Ordering::SeqCst);
      }
  }
  
--impl<'a, const SIZE: usize> Io<'a> for &'a Bar<'_, SIZE> {
-+impl<'a, const SIZE: usize> IoBase<'a> for &'a Bar<'_, SIZE> {
-     type Backend = MmioBackend;
-     type Target = crate::io::Region<SIZE>;
+diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
+index 4db0cfa4dc4d..b0e7de328eaf 100644
+--- a/drivers/gpu/nova-core/gsp/fw.rs
++++ b/drivers/gpu/nova-core/gsp/fw.rs
+@@ -10,7 +10,14 @@
+ use core::ops::Range;
  
+ use kernel::{
+-    dma::Coherent,
++    dma::{
++        Coherent,
++        CoherentView, //
++    },
++    io::{
++        io_read,
++        io_write, //
++    },
+     prelude::*,
+     ptr::{
+         Alignable,
+@@ -44,59 +51,6 @@
+     },
+ };
+ 
+-// TODO: Replace with `IoView` projections once available.
+-pub(super) mod gsp_mem {
+-    use core::sync::atomic::{
+-        fence,
+-        Ordering, //
+-    };
+-
+-    use kernel::{
+-        dma::Coherent,
+-        dma_read,
+-        dma_write, //
+-    };
+-
+-    use crate::gsp::cmdq::{
+-        GspMem,
+-        MSGQ_NUM_PAGES, //
+-    };
+-
+-    pub(in crate::gsp) fn gsp_write_ptr(qs: &Coherent<GspMem>) -> u32 {
+-        dma_read!(qs, .gspq.tx.0.writePtr) % MSGQ_NUM_PAGES
+-    }
+-
+-    pub(in crate::gsp) fn gsp_read_ptr(qs: &Coherent<GspMem>) -> u32 {
+-        dma_read!(qs, .gspq.rx.0.readPtr) % MSGQ_NUM_PAGES
+-    }
+-
+-    pub(in crate::gsp) fn cpu_read_ptr(qs: &Coherent<GspMem>) -> u32 {
+-        dma_read!(qs, .cpuq.rx.0.readPtr) % MSGQ_NUM_PAGES
+-    }
+-
+-    pub(in crate::gsp) fn advance_cpu_read_ptr(qs: &Coherent<GspMem>, count: u32) {
+-        let rptr = cpu_read_ptr(qs).wrapping_add(count) % MSGQ_NUM_PAGES;
+-
+-        // Ensure read pointer is properly ordered.
+-        fence(Ordering::SeqCst);
+-
+-        dma_write!(qs, .cpuq.rx.0.readPtr, rptr);
+-    }
+-
+-    pub(in crate::gsp) fn cpu_write_ptr(qs: &Coherent<GspMem>) -> u32 {
+-        dma_read!(qs, .cpuq.tx.0.writePtr) % MSGQ_NUM_PAGES
+-    }
+-
+-    pub(in crate::gsp) fn advance_cpu_write_ptr(qs: &Coherent<GspMem>, count: u32) {
+-        let wptr = cpu_write_ptr(qs).wrapping_add(count) % MSGQ_NUM_PAGES;
+-
+-        dma_write!(qs, .cpuq.tx.0.writePtr, wptr);
+-
+-        // Ensure all command data is visible before triggering the GSP read.
+-        fence(Ordering::SeqCst);
+-    }
+-}
+-
+ /// Maximum size of a single GSP message queue element in bytes.
+ pub(crate) const GSP_MSG_QUEUE_ELEMENT_SIZE_MAX: usize =
+     num::u32_as_usize(bindings::GSP_MSG_QUEUE_ELEMENT_SIZE_MAX);
+@@ -720,6 +674,16 @@ pub(crate) fn new(msgq_size: u32, rx_hdr_offset: u32, msg_count: u32) -> Self {
+             entryOff: num::usize_into_u32::<GSP_PAGE_SIZE>(),
+         })
+     }
++
++    /// Returns the value of the write pointer for this queue.
++    pub(crate) fn write_ptr(this: CoherentView<'_, Self>) -> u32 {
++        io_read!(this, .0.writePtr)
++    }
++
++    /// Sets the value of the write pointer for this queue.
++    pub(crate) fn set_write_ptr(this: CoherentView<'_, Self>, val: u32) {
++        io_write!(this, .0.writePtr, val)
++    }
+ }
+ 
+ // SAFETY: Padding is explicit and does not contain uninitialized data.
+@@ -735,6 +699,16 @@ impl MsgqRxHeader {
+     pub(crate) fn new() -> Self {
+         Self(Default::default())
+     }
++
++    /// Returns the value of the read pointer for this queue.
++    pub(crate) fn read_ptr(this: CoherentView<'_, Self>) -> u32 {
++        io_read!(this, .0.readPtr)
++    }
++
++    /// Sets the value of the read pointer for this queue.
++    pub(crate) fn set_read_ptr(this: CoherentView<'_, Self>, val: u32) {
++        io_write!(this, .0.readPtr, val)
++    }
+ }
+ 
+ // SAFETY: Padding is explicit and does not contain uninitialized data.
 
 -- 
 2.54.0
