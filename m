@@ -4,73 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E740CD98C7
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 00:01:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBD6BCD98C5
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 00:03:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB10210E25E;
-	Thu, 11 Jun 2026 00:01:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E92F10E6EE;
+	Thu, 11 Jun 2026 00:03:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="OoM5B34g";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="KkynWMvH";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B9FE10E25E
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 00:01:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1781136110; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=mTuGGxo3OhrSlrHy63qltSNjAbKwXA8RG7ZKPdsvHXPcR9aD1PX8sWyVkccIkFtlapnL1aDUIkn2cIn7dQZB9KWxau66V4frwv3PfycWnjCKf0KtgOh9dQfy8binzTPccMrouKBTVPYcpZOs218BSwhJ4R0vTWkynLKNBFlqWhE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1781136110;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=tzMSj5cjQidpv0zF/Q4oyjbLi4Xorc8wR2gOqNma8Y4=; 
- b=js4wRfaXAwFNDOj0fFOR54WvYescTCCSuoPsNYXPhouuwh78G3qEKinSRTxNpdZ5HGfZbnUgu2xvPfMQ/sMimRmi9svQFqDs1qKwkeG9vl8TV4F7I0zSUqfMz5lrZzqkhrTDCRHSQyVS1wOkqplg3/fISesuhM6F3fSTIW8c+J4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
- dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781136110; 
- s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
- bh=tzMSj5cjQidpv0zF/Q4oyjbLi4Xorc8wR2gOqNma8Y4=;
- b=OoM5B34gmoQ1TU7Ynj+HhoyKHvOVco6LC/Pn1AtQYBYzIIgBHEG7hg+9CI0yfcNf
- ObDwJHdfc0FNS8dAJgGQd78gnBbqlpuykcPlCQaHnj0qTB60ACEoIwH9NJKvYYoQHgs
- f9R+0XB7WyizOmPI3egCsvV8DTw7stvREeCmzmi4=
-Received: by mx.zohomail.com with SMTPS id 1781136109785375.24266434750245;
- Wed, 10 Jun 2026 17:01:49 -0700 (PDT)
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Date: Wed, 10 Jun 2026 17:01:26 -0700
-Subject: [PATCH] rust: drm: gpuvm: update DriverGpuVm for DeviceContext
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F85F10E57E
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 00:03:27 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 80DE52D9;
+ Thu, 11 Jun 2026 02:02:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1781136176;
+ bh=7Lc1rx8Jp41JTvrcWNEo7iJ/+E/l8wCtqHTTiQ1kiKc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=KkynWMvH4/GKiABKartnvdELDg8NTpkhQD92fWte+U+KU7Tlt/JUY4Yc+8KJ7k0qG
+ cBLvV61QlTfXBUChPHMJhNSVPSBT4Aqt+gdcmkMEXhhJiagpstoGWC9nBuu5t3pauW
+ 01H1kUOWt0IQOTdUvUA4AEbjtX6QtanSzrHSPBvY=
+Date: Thu, 11 Jun 2026 03:03:24 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 4/7] drm/rcar-du: dsi: Support DSC in the pipeline
+Message-ID: <20260611000324.GH1632628@killaraus.ideasonboard.com>
+References: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
+ <20260515-rcar-du-dsc-v3-4-164157820498@ideasonboard.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260610-gpuvm_device_context_v1-v1-1-01a890b17448@collabora.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2M0QqEIBQFfyXuc4LXwmh/ZQlZ7FT3IQttJYj+P
- elxYGYuSoiCRJ/qoogsSbZQgOuK/PILM5SMhcloY7Vlreb9n1c3FtXD+S0cOA+XWTW284anvgW
- DSr1HTHK+5+9w3w9L4e2PaQAAAA==
-X-Change-ID: 20260610-gpuvm_device_context_v1-367c21f94e1e
-To: Danilo Krummrich <dakr@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>
-Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, samitolvanen@google.com, 
- laura.nao@collabora.com, boris.brezillon@collabora.com, 
- Deborah Brouwer <deborah.brouwer@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1997;
- i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=2zo0nAJbApWHFzHVP/4Qn3FawEkCJQAy+zNNwPSiIsA=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDFmav97Ue/BxR+mUsPmF+3HIxPA4X/dvPpQlEvxqxiY/W
- e49kzI6SlkYxLgYZMUUWc7aG/WIV7030p3/vxlmDisTyBAGLk4BmMj2Job/edvkL3bcNVJj+/a7
- pVImViSB7V5tvbZ28BP5b1FRzyvsGBk6sldZmbvqXXr0UnKv12nbPVeTfqacTNSatXTrVk3NWax
- 8AA==
-X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
- fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260515-rcar-du-dsc-v3-4-164157820498@ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,57 +71,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since the introduction of DeviceContext, there is no longer a single
-driver object type to equate with the GPUVM object type.
+Hi Tomi,
 
-Instead of threading DeviceContext through GPUVM, remove the strict
-identity between DriverGpuVm::Object and drm::Driver::Object and
-instead tighten the requirement that the DriverGpuVm::Object be an
-allocatable GEM object associated with the same DRM driver.
+Thank you for the patch.
 
-Also, make GpuVm::new() generic over DeviceContext so it can accept a
-drm::Device<T::Driver, Ctx>.
+On Fri, May 15, 2026 at 12:09:29PM +0300, Tomi Valkeinen wrote:
+> Enabling DSI clocks on rcar-du needs some tricks as the DU dot clock is
+> provided by the DSI. Thus, we call rcar_mipi_dsi_pclk_enable() from the
+> crtc, when enabling the crtc.
+> 
+> With DSC (added in upcoming patch) in the pipeline, between the DU and
+> the DSI, the above call path is broken as the crtc tries to call
+> rcar_mipi_dsi_pclk_enable() on the DSC.
+> 
+> Adjust the rcar_mipi_dsi_pclk_enable() so that it detects the DSC, and
+> in that case gets the next bridge from the DSC, which is the DSI.
+> 
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> ---
+>  drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c | 36 +++++++++++++++++++++++--
+>  1 file changed, 34 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+> index 4ef2e3c129ed..085e229bcb0b 100644
+> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+> @@ -88,6 +88,8 @@ struct dsi_setup_info {
+>  	const struct dsi_clk_config *clkset;
+>  };
+>  
+> +static const struct drm_bridge_funcs rcar_mipi_dsi_bridge_ops;
+> +
+>  static inline struct rcar_mipi_dsi *
+>  bridge_to_rcar_mipi_dsi(struct drm_bridge *bridge)
+>  {
+> @@ -844,15 +846,39 @@ static void rcar_mipi_dsi_atomic_disable(struct drm_bridge *bridge,
+>  	rcar_mipi_dsi_stop_video(dsi);
+>  }
+>  
+> +/*
+> + * We need to skip the DSC bridge when we have DSC in between the DU and
+> + * the DSI. We detect the DSI bridge via bridge->funcs, and assume the
+> + * next_bridge is the DSI bridge. If this is not the case, the DT data
+> + * is wrong (so it shouldn't really happen).
+> + */
+> +static struct drm_bridge *
+> +rcar_mipi_dsi_resolve_bridge(struct drm_bridge *bridge)
+> +{
+> +	if (bridge->funcs != &rcar_mipi_dsi_bridge_ops)
+> +		bridge = bridge->next_bridge;
+> +
+> +	if (!bridge || bridge->funcs != &rcar_mipi_dsi_bridge_ops)
+> +		return NULL;
+> +
+> +	return bridge;
+> +}
 
-Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
----
- rust/kernel/drm/gpuvm/mod.rs | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Hmmmm... It's quite a bit of a hack. It would be nicer to do this in
+rcar_du_crtc.c instead, where we cache the dsi bridge pointer. The
+question is how to then identify the right bridge, as we won't have
+access to rcar_mipi_dsi_bridge_ops. Should this driver set the bridge
+type field to DRM_MODE_CONNECTOR_DSI ?
 
-diff --git a/rust/kernel/drm/gpuvm/mod.rs b/rust/kernel/drm/gpuvm/mod.rs
-index ae58f6f667c1..a625fcd9b5f2 100644
---- a/rust/kernel/drm/gpuvm/mod.rs
-+++ b/rust/kernel/drm/gpuvm/mod.rs
-@@ -116,9 +116,9 @@ const fn vtable() -> &'static bindings::drm_gpuvm_ops {
- 
-     /// Creates a GPUVM instance.
-     #[expect(clippy::new_ret_no_self)]
--    pub fn new<E>(
-+    pub fn new<E, Ctx: drm::DeviceContext>(
-         name: &'static CStr,
--        dev: &drm::Device<T::Driver>,
-+        dev: &drm::Device<T::Driver, Ctx>,
-         r_obj: &T::Object,
-         range: Range<u64>,
-         reserve_range: Range<u64>,
-@@ -252,10 +252,10 @@ fn raw_resv(&self) -> *mut bindings::dma_resv {
- /// The manager for a GPUVM.
- pub trait DriverGpuVm: Sized + Send {
-     /// Parent `Driver` for this object.
--    type Driver: drm::Driver<Object = Self::Object>;
-+    type Driver: drm::Driver;
- 
-     /// The kind of GEM object stored in this GPUVM.
--    type Object: IntoGEMObject;
-+    type Object: drm::driver::AllocImpl<Driver = Self::Driver>;
- 
-     /// Data stored with each [`struct drm_gpuva`](struct@GpuVa).
-     type VaData;
+> +
+>  void rcar_mipi_dsi_pclk_enable(struct drm_bridge *bridge,
+>  			       struct drm_atomic_state *state)
+>  {
+> -	struct rcar_mipi_dsi *dsi = bridge_to_rcar_mipi_dsi(bridge);
+>  	const struct drm_display_mode *mode;
+>  	struct drm_connector *connector;
+> +	struct rcar_mipi_dsi *dsi;
+>  	struct drm_crtc *crtc;
+>  	int ret;
+>  
+> +	bridge = rcar_mipi_dsi_resolve_bridge(bridge);
+> +	if (WARN_ON(!bridge))
+> +		return;
+> +
+> +	dsi = bridge_to_rcar_mipi_dsi(bridge);
+> +
+>  	connector = drm_atomic_get_new_connector_for_encoder(state,
+>  							     bridge->encoder);
+>  	crtc = drm_atomic_get_new_connector_state(state, connector)->crtc;
+> @@ -885,7 +911,13 @@ EXPORT_SYMBOL_GPL(rcar_mipi_dsi_pclk_enable);
+>  
+>  void rcar_mipi_dsi_pclk_disable(struct drm_bridge *bridge)
+>  {
+> -	struct rcar_mipi_dsi *dsi = bridge_to_rcar_mipi_dsi(bridge);
+> +	struct rcar_mipi_dsi *dsi;
+> +
+> +	bridge = rcar_mipi_dsi_resolve_bridge(bridge);
+> +	if (WARN_ON(!bridge))
+> +		return;
+> +
+> +	dsi = bridge_to_rcar_mipi_dsi(bridge);
+>  
+>  	rcar_mipi_dsi_shutdown(dsi);
+>  	rcar_mipi_dsi_clk_disable(dsi);
+> 
 
----
-base-commit: 550dc7536644db2d67c6f8cf525bba682fba08d9
-change-id: 20260610-gpuvm_device_context_v1-367c21f94e1e
-
-Best regards,
 -- 
-Deborah Brouwer <deborah.brouwer@collabora.com>
+Regards,
 
+Laurent Pinchart
