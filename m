@@ -4,132 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E637CD98CE
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 12:44:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21997CD98CC
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 12:45:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1F9710EEFE;
-	Thu, 11 Jun 2026 12:44:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AC8810EEE8;
+	Thu, 11 Jun 2026 12:45:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="DuOSK4YD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NKEBPmWP";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010039.outbound.protection.outlook.com
- [40.93.198.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA80210EF04
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 12:44:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iHlGcZikPfYJ3qx1JPYIL88eUXcOjsNBvg5bfFFupDmlTnOPW+1B7btgNsUFsC9NYS5gfQVHkxWwK0h5nt/LBo2ppMP4C0hMC+0NPXSsGGV9ldVWXx5tywkfVIt/MQeCCK8iYvr5URafv9ZapnRUjkXbVNqLJDph8Ok5E74atwudlfGMptQaJrCLSO5nz9nqII2RLnmxdtJhONrwa3kweF12PBu/QApRc1qHZfTmpaGuWnCdNDp11xFp41tTXjM5GPE5/TvkG1Rc928EVCY1Ye6P/VHBcGQm4cbzCyXv8P2h9wpipi5IiGp2prp6MRk8kzRyFa0csdQnLbMaZWp5IQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CU93XqR1UXqV50op/vAqnUHiyoXiWKmrPYfqAqvaCQ4=;
- b=sB/1kjICvdSQC/7hhHj31bgsJgvmFuEA28g4kxeHV1NafafFnOpyptNqBkHXrgX5BcAT46RPH/nRCXDnhhHAiiT34a6GHrDuw8UB3zrJP64TiJMQPzWK8218zUN7IkwoCzZB8ZwL7VvlU8YtBsHg0t1k9/oZnG5lI+m9VJHUgCLBMyg4RImn/MNbOQVaZQJ6U5j2EhSb+2IJxvD0nR9y+PfmVhFd1+hV6RxQaszwU163QOB12PPJQ2fU/s0YFM+NRiHKYZPu8auekpVxIor4bFDmrQ/uiPoYPr8hNs+lmfDUpKPqrLtCxcvpNH6Xq3nbcQPDTLdnbKPIUL2MLYDeig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CU93XqR1UXqV50op/vAqnUHiyoXiWKmrPYfqAqvaCQ4=;
- b=DuOSK4YD/HU8qw9W/YcQ7p1lEC12GM58O9nXTwLs04laPRwfnhFf/5yCXO3c2Nf95c7j198ezA8ehbiB+rFhlEE0o8hBxhzIRV3rL0OjUY+qyFq5hlTUbSsXTWBm8AibSuQqSvyFkMCEGlHX8HxtmVUpgP+3ce7tppMpCmO/JsJMFFtlhQFzGBdvpBkbZFRbOQcjCanH6ZypApxbaRQJH1A6FsXKP+w/y5mqVIFcgro0CJeG1WnByUpMi1OBDJBZSagZPOwFIWX3PLEvgkDbLG/d8l49x8dc/OXuWYTPMeUXRe1FwkcBG4uN8pECC3Vqs4wi1EcyNXZZDDxpG4ddMQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9715.namprd12.prod.outlook.com (2603:10b6:408:2a0::7)
- by SJ2PR12MB8955.namprd12.prod.outlook.com (2603:10b6:a03:542::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.18; Thu, 11 Jun
- 2026 12:44:31 +0000
-Received: from LV8PR12MB9715.namprd12.prod.outlook.com
- ([fe80::e74f:2cf8:cf2c:142]) by LV8PR12MB9715.namprd12.prod.outlook.com
- ([fe80::e74f:2cf8:cf2c:142%6]) with mapi id 15.21.0092.017; Thu, 11 Jun 2026
- 12:44:30 +0000
-Message-ID: <4dc9ad01-97ce-4c97-9c8d-189822da53b2@nvidia.com>
-Date: Thu, 11 Jun 2026 15:44:26 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 5/5] RDMA/mlx5: get tph for p2p access when registering
- dma-buf mr
-To: Zhiping Zhang <zhipingz@meta.com>, Alex Williamson <alex@shazbot.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian Konig <christian.koenig@amd.com>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, kvm@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
- netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Keith Busch <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>,
- Yishai Hadas <yishaih@nvidia.com>
-References: <20260610193158.2614209-1-zhipingz@meta.com>
- <20260610193158.2614209-6-zhipingz@meta.com>
-Content-Language: en-US
-From: Michael Gur <michaelgur@nvidia.com>
-In-Reply-To: <20260610193158.2614209-6-zhipingz@meta.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0151.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ba::17) To LV8PR12MB9715.namprd12.prod.outlook.com
- (2603:10b6:408:2a0::7)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D7C010EEE8
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 12:45:39 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-490a762c8d5so7493405e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 05:45:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781181938; x=1781786738; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=hC/dkIeX3rG+bUwxYjAdonivB+9Nfr2TugEmLAKhT0w=;
+ b=NKEBPmWPVfLv0N23TtSkz4zN/8mR20t3urXFZUotTGOjUxune3sydFmuSKt3+qxJSh
+ UD2RvR6E/R0bKvGCyanob7vHHg5FR+pGsvgj9CPAyblSHDmcBxA5b3UJ23HZjGVdejnu
+ pMGOrE7mAtj37zFgt29U0tDqq6E7b67+nQy1fR5k3HwHLveLuU+4ItXnm6PxR8/TKt4U
+ LeBrlh9r2DNDC+7pm3k4O1MHKaYuRAMf6fXW4XZAfbmnSviRY1KOvHIVogZf8v48EWJS
+ Yn5WqHWg1LJUebvs40L5mVB6JlBj9gOF105xN6T95VrEU7xX1ndwwa+KgAcqbeaMC8H5
+ P03A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781181938; x=1781786738;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=hC/dkIeX3rG+bUwxYjAdonivB+9Nfr2TugEmLAKhT0w=;
+ b=AVItOl5VXkP6nHBhe1aELaSEaur8D7Rc2r0rhl+xduBnDol6LVk2FUH6oypMHFJJql
+ SV2liLjTrB9khE+kdHzfVkN7vsErLt3gCxqPWOkegmkeNMNUDnyLvMo8s+pzAot3p1tG
+ i2CLQ04yNSf8xvzHMkK6v/35CMqZUyNVMH4hPrEZuGi+quh9q8zLLBBLhti8UHB/WZ0K
+ yYz+1yD/jAh2SVcuKJGbufgKdRL86IryyHgVvUlk7KYQVXKBJTvRdXIluwicmE0vSFOW
+ qST/pHs+nGA4P6ZVltw+lrlA5TV2Il3hM5w+p4/bn8oEXAWrnsXf2Ztu94k8vGXvcs0J
+ 9eow==
+X-Gm-Message-State: AOJu0YzCGGcQNtD+2Pg4vvFrSr1+RwInXkkkgjnjQJRYFr7oXL/qxLMM
+ tdvW3u+NfYFP/z4zV6WcMQWoTZU2URXOdugfmtR1NGcMWLYX9awqHD/w
+X-Gm-Gg: Acq92OGt889e9/SU6C1eHQvRm57Jp55v6uuRpoiq1qpxM7gpMyYvHSZouLo7pqRl9xJ
+ AldXnprZBpxfB9kUnmAo3hfnOq9TIYUgTvpxPHfxKnWnKtwSQAKT29TCJ117t1DglMm+aMvqX3b
+ b0Okif/oCluoI+UBnnY+EePx+pnPiB/d5L5Ht6/nZFw5V7dtZFLXK1Gtu+vsFywLrJtPFCUi7ZF
+ CceE772hLlCk2pgA3CYIfO52I8lkdk5qmhYMzFALUKfJoZ0CtUtPpeU/rclsAsC8g7+DO5J1JKr
+ M0S65GMoz8ZvtVkwQU78vg+Fzy2Zo5ptM5kFh6wQaLNS3/EvjptAr82/fwelfBJXb7ZkvBUIY4J
+ JH8fkgYx9vRiwlQBKPokTHc2Bs6eKiygzS0FyKOFqeW4jnYJEL9vO/8YL+ZqSaNd9tsoKTwWorG
+ daT1TvWJqzzGvB7UetjXRwt8voE6aHhlaPi5aiV2jBxiSUdN+HsVILqD48dVCxZv/Y34KXr/DXD
+ ehD7MObRsAmAtf6KjR4ppDfomTy
+X-Received: by 2002:a05:600c:46d5:b0:490:c123:3b7a with SMTP id
+ 5b1f17b1804b1-490e562490cmr17760225e9.4.1781181937355; 
+ Thu, 11 Jun 2026 05:45:37 -0700 (PDT)
+Received: from localhost.localdomain
+ (ip-109-193-028-127.um39.pools.vodafone-ip.de. [109.193.28.127])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-490e532c778sm48697645e9.14.2026.06.11.05.45.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Jun 2026 05:45:36 -0700 (PDT)
+From: Marek Czernohous <mczernohous@gmail.com>
+To: Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Fab Stz <fabstz-it@yahoo.fr>
+Subject: [PATCH v3 0/2] drm/nouveau: NVAC (MCP79) MSI rearm + SOR-disable NULL
+ guard
+Date: Thu, 11 Jun 2026 14:45:33 +0200
+Message-ID: <20260611124535.527275-1-mczernohous@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9715:EE_|SJ2PR12MB8955:EE_
-X-MS-Office365-Filtering-Correlation-Id: c0d9c2b3-262f-446a-b760-08dec7b72e72
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|7416014|376014|366016|18002099003|22082099003|4143699003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: XmhL6ruwim/c6ih8h5o1JwlYjoXHGZGLzGiRP/2nKUXHrIAqAh6AXDZrlszo+dfK5FczeeLZsGaUuqYhxnKp8owMshSz2j86RhZSPOIQ83FDBieRLRhsHhXRlJs8y47m9Q3HrHGgwBmVD14WAlEQisXWD5jtGLKH/tbHrNvOan3J+SnZMc2jrfDpQIbaXfG4yjuL4uDxJzgmXbkAsLXS2b47HGZfbLkUmB9xzjIUn3weGUAmO7wZPIFn99CAQFeuvqiBSNqQoU0NlYengBr63Fyn8LZfSt6EXb/8Cx1bn0o0R9DgE5M5RVSlphUjB0Vt0n5OBdShtwWhW0M8SpDCyWNyGXnGyHs7HGyCL7+vUzmDi6eQJbE0jApLjMEhdFQjOh4zb5IsswJV76kHAlsoZgCAePmoIYTjOL8t3osb/eday3H5f7zrtvD/OkgQIv3Vn3xYhXYcZoxMyBIs/GSblof/viDJLBHBMGcU7p8fVNwOdSdgCOe6adZd0nr/maumv+RCF+K4pVFpsAZcgGVfPtDtUGDqLUmNet0E7BJ1lJ1pzu3gS+u8/V3+Pi4/JHUzazeQnuPD15jWDWQgfKZ7aCHv0Fun1QNFul1awaagFnCDzWwxd3b7OOHnhImewvGnWhW8ug6Otv5D8hLEjs9p0avWPh6kctS4IdskIbNqG0IQ/dzHu6QaGxoiIgQWXMmF
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV8PR12MB9715.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M0RRakRrNlRSTDlVRFgrOE11cGQyaWlJQ0pmVDZ5d05sRStiZGVHSnhNVWhO?=
- =?utf-8?B?cjVMajhQWTc0eGxpN1FSYm9CaHlZd2owMnYxeUFNSWNXU1dsbEE5a1RRSEJW?=
- =?utf-8?B?SjRNMTJzaksrMzB5bnhGdWpvbHBZVmdLQmVzSHhRR0tNLzJuVWdXemJwUVRL?=
- =?utf-8?B?TmFTNmZRQkRzMUxTS3g1eDdsS29LbHFmSmdLRDl2N0IrVmRJbU9ZeEhKSGhV?=
- =?utf-8?B?V1YwVUErL0NEVmRyTjZCSEQ2VjJRc1Q1SVlod1hyelVsU2xIUm1BYlJnMHh3?=
- =?utf-8?B?SkdSaVZZdjNRRTV5QTU2dldUeGhtRjVUbHQzM2xOakt6MUFxWDdjMXFrNEZX?=
- =?utf-8?B?NzAybnZKZ2UxOWFHVmFPRmhhQVhnMStYR1RPQ0ZQK2I5SEVQUHMvOU1NV1dy?=
- =?utf-8?B?b2h3dVJua1k2VFlPa2NCUEwyTkdKT09TOUIvSC9BZXdhVmVadjVXZEN5Q3BH?=
- =?utf-8?B?Z1c0cHpmNHlNVkdIeEcrZXJpb3hseVFKamtPUElVc1o0d0FHaVE0cEk1VkZD?=
- =?utf-8?B?eDlvQUYxRXcyRUpUSERidzBOaUN0K0RjZThOTDdaaDBBdThxaDBhYjJRTUk3?=
- =?utf-8?B?ZENkSlcxZWo2VXkrQTJscHV6UktJSkxtL1h4b0ZBUVBGb2ZMSUR5VG1GeTZw?=
- =?utf-8?B?RTF2NFBJVVVUbkZTbmgwU05Va2g1VWxMcTBIUURhNUl3cXdoNzFGNmp0aWds?=
- =?utf-8?B?ZW5xOEhDTVpBWDBnWDU0YkVyU2JoeEt6YkY4dVhpQ3lZSThBRHhNUFVJa2po?=
- =?utf-8?B?VW1lcFgyL3A4RGppajQ0a3JGRkd2NFZSVDJCTGNpa1Z2ZW5hdEJoTmh0SGo0?=
- =?utf-8?B?R01EQjgrWHZsTHVyK2ZtbllqeWZ6ZDJ0L1ZvcU1Qa3c3YmZuUk82cjMvWnQ3?=
- =?utf-8?B?VjgweWcxeGxiV3FzbGx6UWxxenN2aVhLS0cwcE5kc0RHN3lYMmZiUFp4MVZX?=
- =?utf-8?B?Z2pmZGtON3gzWkJ0dkI4L3dFdXpVWklWQ3RKWlpiZWtBRVlWWVJNMHRpN3dM?=
- =?utf-8?B?eDZnVStsMHZ5T1BIS1Y4N25ZcExwTGppM05pRUZGNGlOZkFRSEw5VlJXL1FN?=
- =?utf-8?B?dWc2T2ZNTzYrUkFWNm5ybzJmMExzbGxwNjkwb3NuOXpmdkVNUlpxVGR2Sjk2?=
- =?utf-8?B?a2IvTXhUNmFzWjRkSXduRmg2VFhEeTBNN0JleDZyR0FqTFhnVXNNNjIwQVRz?=
- =?utf-8?B?aGtBZXY5YTNnT2hTQzZWaVJDVzhTQTJMWHhoVjNaN3hFalRUdWRCTks0VkVR?=
- =?utf-8?B?NWllcU5zT285M0ltVE1NYlN1QlppYSszQVZsdXRnZ3AzTGRLcDBaT3A4bWF1?=
- =?utf-8?B?Ty9UcFg4WGR3Q1h0cXBDQktJcjQyTStiQm1BTHljN1U2b1RrbGQvK2dDbTU5?=
- =?utf-8?B?Mnl0NVBYZERBN1VvYXE4d0l4V3grY0ZpTzc1WXlLK3pYbWV4dmdJQi8zeE9O?=
- =?utf-8?B?MHpydWNQR0JuMERJbThzWUQ0aDk4ZUhwWmx6cGs1MWc5WDBvOGJxU2RrMXk0?=
- =?utf-8?B?aWlSajlQRUNLMTV5T0hNSjVjcldTUk0zbXJIbHFWSWNkSDNBcnhzNWtsV0pG?=
- =?utf-8?B?M2ZJVk16V2NqczQ5dXp4a2dwQUdDbTlSZXBlVFM5bVhTazIrSVAxUGFWdmtC?=
- =?utf-8?B?ckNldlpHb2VlY1c4TWYydUU0MzI2SGdGSy9uTS9ZM0hsSWhHSTNRVG5vanZN?=
- =?utf-8?B?cUNMUVprRGk1Q3hTbHlRbk1vU1FQTVNsdzJVTXljQTE4aEQ4TUxkT0JuSzRC?=
- =?utf-8?B?R1BFT3lDK2kza3U2SG1FS3hqU25BT2s4Ky80TXZGamZIVGNNVFMyamZrOXdi?=
- =?utf-8?B?OXUyblNYNy96V2NGUm53MHZwWWxLc1J6SXM0ejR2TnB6dUVzbTEvQkg4Q3Fr?=
- =?utf-8?B?NnlDNC80RnoxeUtXSWVoOFE1aTh6YnpQT0lSYXlFVHh1RzRLQ0c0S3RyeFo4?=
- =?utf-8?B?TDY3WitaSEpHMms2Mk9uZHRUWmhVUXhUS21FbFR6djV2dWRRZTA4U0hjMFZU?=
- =?utf-8?B?QWVuZ0Fjbll0b1pGcGRCY05MUDkybTNmOHhLK1B3SHc2bW40QU13TWZhTnRW?=
- =?utf-8?B?VWphM2E2ckdhaTd5Z2Jsc2I4aTdmejFjUFN3UUgrK0xTQlQ2ZTJUd1FNNUhL?=
- =?utf-8?B?Z1BaYlltc3FkRklBR1FBaFBha2FCeTNLRW5LRHNUc05QNCt1Um9NcTRZVENY?=
- =?utf-8?B?OFdhZzJ0TGVOVlJNV0xJN0tKd1JjcFc3L2w2Wjg2UmV6dEJmSUIwVWZoWkVF?=
- =?utf-8?B?dm5DL29JcWI3U3g3SVh4Z1BpVzVySFYyK3k4TGk5b0JpREFkVFFxcnJ0emFZ?=
- =?utf-8?B?cXNUTm4zbHF3Vjd1RlpVaGdjLy81WkNVL1RyTUt0RlNwWlA1QTgwUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0d9c2b3-262f-446a-b760-08dec7b72e72
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9715.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 12:44:30.6262 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YWwivQ4ZfIkTzceJboIUPJk1puaUlPphDcvxxCFGZz3YyZ9MGTkJO7e06XjhT4+6Vnwx3u2hxLRbuZD6yQOV5g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8955
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,37 +88,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Marek Czernohous <marek@czernohous.de>
 
-On 6/10/2026 10:31 PM, Zhiping Zhang wrote:
-> Query dma-buf TPH metadata when registering a dma-buf MR for peer-to-
-> peer access to a PCIe endpoint and use it to program requester-side TPH
-> on the outbound mkey. If the exporter has no metadata, fall back to the
-> existing no-TPH path.
->
-> For TPH-backed FRMRs, make the extra ST-table reference belong to the
-> hardware mkey handle rather than the transient MR object. Extend the
-> FRMR pool API so reuse and final destroy can transfer and drop that ref
-> at the handle lifetime boundaries, and add mlx5_st_get_index() to take
-> a ref on an already-known ST index.
-I'd keep the ST reference tied to MRs, where the ST is actually in use.
-There's no functional need to couple ST refcounting to mkey lifetime.
-Once an MR is destroyed and its mkey revoked, the mkey can no longer 
-generate traffic, it's just an idle entry in the FRMR pool waiting to be 
-aged out or reused.
-This lets us drop all FRMR pool changes from this patch and keep a 
-simple flow of 'acquire on MR create, release on MR destroy'.
-> Also decode PH from kernel_vendor_key when recreating pooled mkeys so
-> the requester hint matches the pool key.
-I've fixed that in a series I've sent earlier this week, please rebase 
-next version on top of it.
+(v3 follows up on this morning's v2 posting twice over: those mails
+went out with a duplicated in-body From: line and broken threading due
+to a send-email misconfiguration on my side, and the Sashiko AI review
+correctly pointed out that the new guard in 2/2 sat below a connector
+dereference it was meant to protect.  Patch 1 is unchanged; please
+disregard the earlier copies.  Previous posting:
+https://lore.kernel.org/all/cover.1781162589.git.marek@czernohous.de/ )
 
-Thanks,
-Michael
-> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
-> ---
->   drivers/infiniband/core/frmr_pools.c          |  20 +++-
->   drivers/infiniband/hw/mlx5/mr.c               | 111 +++++++++++++++++-
->   .../net/ethernet/mellanox/mlx5/core/lib/st.c  |  49 ++++++--
->   include/linux/mlx5/driver.h                   |  12 ++
->   include/rdma/frmr_pools.h                     |   5 +-
->   5 files changed, 178 insertions(+), 19 deletions(-)
+This is v3 of the NVAC (MCP79/MCP7A) stability series, narrowed to the
+two changes that are genuinely stable material and reworked after review
+plus an independent second-machine test.
+
+The original v1 [1] was a three-patch series. Since then it has had a
+two-month daily-driver soak on my Apple Mac mini (early 2009, MCP79) and an independent
+test by Fab Stz on a second machine (iMac9,1 / MCP79, 6.12.90, X11/KDE 6),
+who confirmed the system is more stable with the series and provided a
+Tested-by. After an internal review pass:
+
+  Patch 1 (MSI rearm): NVAC re-arms MSI through the MMIO mirror of PCI
+    config space, which is unreliable on this IGP; a missed re-arm leaves
+    the interrupt line dead and the GPU wedges. v1 switched the whole
+    shared g94_pci_func (ten chipsets); v2 narrows this to a dedicated
+    mcp79 pci func so only the tested chipset (0xac) changes, matching the
+    existing g92 precedent.  The stable tag is annotated v6.16+ (the new
+    file uses the .cfg member added there); older LTS trees want the
+    era-specific one-line msi_rearm switch instead, offered in 1/2.
+
+  Patch 2 (SOR disable NULL guard): nv50_sor_atomic_disable() can run with
+    a NULL nv_encoder->crtc under Wayland session teardown / VT switches,
+    and because the deref goes through container_of() the NULL becomes a
+    bogus pointer that faults. v2 restores the guard as drm_WARN_ON_ONCE()
+    and, unlike v1, does not call nvif_outp_release() in the early return
+    (that path is owned by the commit_tail release loop; the v1 form could
+    release twice and detach the OR before the disable flush).
+
+The v1 patch 3 (HPD link-check retry) is intentionally dropped from this
+series: it is a behavioral workaround that sleeps under mode_config.mutex,
+not an obviously-correct fix, so it does not meet the stable bar. I will
+revisit it separately if it is still needed.
+
+Both patches carry Fixes: and Cc: stable tags. Per-patch changelogs
+are under the --- in each patch.
+
+Disclosure: this work was done with assistance from an AI coding assistant
+(Anthropic's Claude, Opus 4.7 and 4.8); the analysis and conclusions are
+mine and have been verified on hardware. Each patch also carries an
+Assisted-by trailer to that effect.
+
+[1] https://lore.kernel.org/nouveau/20260409172126.115441-1-marek@czernohous.de/
+
+Marek Czernohous (2):
+  drm/nouveau/pci: use config-space MSI rearm on MCP79/MCP7A (NVAC)
+  drm/nouveau/kms: guard NULL crtc in nv50_sor_atomic_disable()
+
+ drivers/gpu/drm/nouveau/dispnv50/disp.c       | 30 +++++++++++++---
+ .../gpu/drm/nouveau/include/nvkm/subdev/pci.h |  1 +
+ .../gpu/drm/nouveau/nvkm/engine/device/base.c |  2 +-
+ .../gpu/drm/nouveau/nvkm/subdev/pci/Kbuild    |  1 +
+ .../gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c   | 35 +++++++++++++++++++
+ 5 files changed, 63 insertions(+), 6 deletions(-)
+ create mode 100644 drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c
+
+-- 
+2.53.0
+
