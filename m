@@ -4,131 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E3B7CD98D2
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 09:22:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38A57CD98CC
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 09:41:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E4BF10E739;
-	Thu, 11 Jun 2026 09:22:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ABAE10E781;
+	Thu, 11 Jun 2026 09:41:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="pR6DQiab";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G0l3BmWC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AiPadoYV";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A63A410E739
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 09:22:34 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65B5GCFp3843629
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 09:22:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=lRkZOp3iPYfQpAbFXsal39
- p3C4jzKAkopk1z5GMHzKg=; b=pR6DQiabb5dCwvywGX0y7Gf6KnTUbRYrcypq8l
- ZHmuh0d+Eu71BVn1PnZ8C3cozG1dkeGUnbIcOwQ9g5nKMISewtOYBjOQxB36IRDJ
- G1c/r1/Eq9kkaFTjOAUzku5Tdq8FwePWNXVMUmRtXOgJ0QyWvm2BX6CIS9ldBLbu
- juP8d9wJei0IhWv8DktpnxwI4KSeD0mSVEvt8l2/jw/9jFDMDQEbp7kmsb8m1Bkt
- YNIf25gX8BgFFxbqXtOEzjkCs0Di76M8aLmmiOEZargdEp9i0bE99LeLAiHbd6Mq
- 6WTa/KsB6MVYkZbvx/+ZK9QRHngO++oHQBy0n4oK6ljQY9JQ==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
- [74.125.82.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqe702nqm-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 09:22:33 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-3080bb0267dso269969eec.1
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 02:22:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1781169752; x=1781774552;
- darn=lists.freedesktop.org; 
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=lRkZOp3iPYfQpAbFXsal39p3C4jzKAkopk1z5GMHzKg=;
- b=G0l3BmWC2R947ubrUHwuVaWy3URF66efeH1YlL6bOwDJZdHjqgyDmUpXJxrBM10q8O
- vmwUivSKtQMYGTLeYYF+LdVlIFAMkvRAobXlsQM2GX5ftytSpOJZnU9YpKcekoLlzefN
- TEm6njPSStmdVIKhnWyPhCZcGdb6xrTm1ZYxsKZBQgVNwwCOh4KDAf2KZrhgLW6eourk
- BDRtLc6Kg6EXvQfpQ1poZQIYNxTRgm465zhmLprBVMeWsvfKxJ/0IIyiXXZr7BI+Ep4D
- ZJKs8qc05yWDmOYtZYIB4P3ZBgIz49Yi+aGHtUgPzLU/mIKVJpMUIpZuvvmz8CwliO6O
- G6xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781169752; x=1781774552;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lRkZOp3iPYfQpAbFXsal39p3C4jzKAkopk1z5GMHzKg=;
- b=jXUDA/HA4Df0QgqnVg+rAEnbqu/6uSeKq1bUgfhgSw0allKG229AOeGE+YHZzYpMrg
- u3pFNaSd9yJ+oou7fEKHGB6UB79uPu9DMt/hi2gA5OzX3Eydq4CjxeLh8o/3i8E9wpci
- LG4IA6TDgLsCMAGBbJgwkpjLFWVkPgahIVatnPEJH00NuYz7AYPXXQPfGzMbtxc/J29o
- foXFmcdckv+MxIiWyNVh2gwKmU98886lf60cKpHpgK69o2pnYEpoaJ8NPfqKxIvdg2Pw
- NVMyX6cD9nF9xMUJbG0A92mRKXkqPD3VWsfak7oohqTaykmoAIz06h4dHOnepguSfMT6
- DrOw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9bZogys7qr2E8eBKEfjUEjiNa3iEGtJFijXVFz7oXW2vh260IM+NjNeYN3aiUCC4zdbLq7JDX75do=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzpYdr37eBkf9oodkwnmWk07kKyCNBmgJIuqr+SYuMD5n30vo4L
- /b5q9duV7EGZdJyiw3Wb9kwBuxklppaEBeOxLRLZf9lN0vcFmqy4sfPZHU2FpH4lEqOryVDw1Q/
- 1oblotqp6X8DQh86RjdTS069AQwgT2kO7HuYvvZsrcAK3F5XWffkv4oq9VyYRW64vzp/aB3M=
-X-Gm-Gg: Acq92OELPcrNwZlZaymSspNJ7d8n/+1yZAEtXluVG67FkvRhzbk1jVRJtr2+A+p72dm
- xOkANdHWOtBSDf9v5C+W1piwLDdMs5AoU2IBBH5qcKWQfiMcgTGljBZi1WT5D3PFqmk4oL2qG/s
- 9798AhApE1MqvfCyoobRXahHnM8pTif2LkN/0S5oCwIUEwb05kj/azL/mPcUqRWeGcckYuFmcas
- Oz7Ax9ofbyTEBJ4KKDjy31M2/p1jDmy2V4KPfbgUF6quKUTixKMTEJolk6kiH6Mt2KPsvWtDFGI
- y/J1Qb5PEYDerA8P1OTO8B2bdN2IWuzZPfy1SJmJ3fJz1yh03FJSBje7JO25XCCN0yGQXxnESHy
- 5CeG+pGl3OvDB4qMqmYaD/36fx7BMjWepHYYJU4LainrkvrN4PjR0mWd9/jZjlS1rbcAtyorYlK
- ETFV9D
-X-Received: by 2002:a05:7022:7a0:b0:138:30b1:4bfc with SMTP id
- a92af1059eb24-138421355f7mr1223014c88.9.1781169752457; 
- Thu, 11 Jun 2026 02:22:32 -0700 (PDT)
-X-Received: by 2002:a05:7022:7a0:b0:138:30b1:4bfc with SMTP id
- a92af1059eb24-138421355f7mr1223005c88.9.1781169751981; 
- Thu, 11 Jun 2026 02:22:31 -0700 (PDT)
-Received: from hu-yutlin-lv.qualcomm.com (Global_NAT1.qualcomm.com.
- [129.46.96.20]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-138430536ccsm1333005c88.15.2026.06.11.02.22.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jun 2026 02:22:31 -0700 (PDT)
-From: Eddie Lin <eddie.lin@oss.qualcomm.com>
-Date: Thu, 11 Jun 2026 02:21:44 -0700
-Subject: [PATCH] misc: fastrpc: fix memory leak in fastrpc_channel_ctx_free
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260611-fastrpc-cctx-cleanup-v1-1-28097444116c@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIACd+KmoC/yXMwQrCMAyA4VcZORtoe9jEVxEPaZbOiNTSdDIYe
- 3erHr/D/+9gUlUMLsMOVd5q+sod/jQA3ykvgjp3Q3BhdKP3mMhaLYzMbUN+CuW1YExzcERTPJO
- DnpYqSbff9nr729b4EG7fFxzHB4FP+zh4AAAA
-X-Change-ID: 20260611-fastrpc-cctx-cleanup-bfd20aa7b8a0
-To: Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Eddie Lin <eddie.lin@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Proofpoint-GUID: bPBgKTihBTAF5g3-5r3BB1wjXFVKx451
-X-Authority-Analysis: v=2.4 cv=B9eJFutM c=1 sm=1 tr=0 ts=6a2a7e59 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=TEyi4pTYuxprMEVdLL4A:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDA5MiBTYWx0ZWRfX1spDB8SgL8Uz
- zK05Rb0tKNyoZAovpQ6BYsJkCdUYFCBsdflw8RCvYTJRU5VU8io5PwmB3T4jL2X3bOFzcunUSIQ
- 7oZiFwUhsvhv83yBB4fWmwQEbOIBzhKl4MluRH1zzq3J2C+WQTD+66tzVqXZGMuq4WqJP8u/N2G
- HrEFqpfXydUlqgHGbt3QU1MeC64/kE/UNXKtAaa+GBx3JgE67FBoCEVtnlsmZXK4M4Aw/zenGgl
- DtyLSxxD9I7KaqgbucpN9/Yen/W5DG/pnMFTQcbE5typP0Ysd1qLlltIlun55Zgu40OleXDU0CV
- vioFl5GsRfR8VMVVogwHUjtFrqbFTMCmlXKkztA7LZIcZxyrNFRypQa9OhSJDx5U65Z8XXinqsb
- 9av/J6S0Cc7am/F2gXmXu0TTAyXuYm4Ex808kkRmdiqBbB274CMe5u23F6XVfek2417mGETuTLM
- FRRo1xPOufSFhXIPA4w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDA5MiBTYWx0ZWRfX4hNwfOFM8dxL
- p5GzLdoGytj+S0F7xqnBVyedI1F+gG+3+wmY71ohyzR9VOwGEppa/FDryIzaZ9YGW7WlcI3djCh
- aBSq35bAJqiwfcq/deQZInKST16+5Uo=
-X-Proofpoint-ORIG-GUID: bPBgKTihBTAF5g3-5r3BB1wjXFVKx451
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-11_01,2026-06-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 malwarescore=0 spamscore=0 bulkscore=0
- phishscore=0 suspectscore=0 clxscore=1011 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606110092
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFAC510E781
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 09:41:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7F8D5444EC;
+ Thu, 11 Jun 2026 09:41:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 463D51F00893;
+ Thu, 11 Jun 2026 09:41:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781170899;
+ bh=qyfbkf6zF2AbxFQO+wQBKOzV/dbC8xta1A6w9OFHwYA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=AiPadoYVTeKbj92m+F7DFF4VE4SGwfPfHRm/13pj2DnElGaT6Ayt7Ft08gorVazV0
+ mECrU5oQPQXNpiaNZv0V9oGsdhsGF/hEPaMAcLSnlIuXzrw9L5kwmQEmO428w0kDWT
+ to+R99MA/S1VzeTvCUeMvBoMPbR9eutoh0YV0inCpz5jS9KYd+smwfvLQgSEWw/kwg
+ /LtrBUcY4im2ZMUeoYjPLslTvauFmxtxzo+q4i2dbC1tgWK9nEEPmx5An6Tr4MtOYr
+ dC7e6Qh1x/D6ND256m+1UcqPoyZC6gAqzms49JitvLolKO7pM1BCcX1XJvjf3v+RlW
+ xtgP32sZt2MxA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] misc: fastrpc: fix memory leak in fastrpc_channel_ctx_free
+To: "Eddie Lin" <eddie.lin@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260611-fastrpc-cctx-cleanup-v1-1-28097444116c@oss.qualcomm.com>
+References: <20260611-fastrpc-cctx-cleanup-v1-1-28097444116c@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 11 Jun 2026 09:41:38 +0000
+Message-Id: <20260611094139.463D51F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,39 +52,297 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The 'ctx_idr' is initialized but never destroyed when
-the channel context is freed, leading to a memory leak.
-Add idr_destroy() to properly clean up the IDR resources.
+Thank you for your contribution! Sashiko AI review found 9 potential issue(=
+s) to consider:
 
-Signed-off-by: Eddie Lin <eddie.lin@oss.qualcomm.com>
----
-This patch series fixes a memory leak in the FastRPC driver.
-The channel context's IDR was not being destroyed during cleanup.
----
- drivers/misc/fastrpc.c | 1 +
- 1 file changed, 1 insertion(+)
+Pre-existing issues:
+- [Critical] Processing duplicate DSP responses for the same context ID cau=
+ses refcount underflow and Use-After-Free of the `fastrpc_invoke_ctx`.
+- [Critical] Concurrent user calls to unmap ioctls on the same mapping allo=
+w multiple threads to operate on the same object without locking, leading t=
+o UAF and Double-Free.
+- [Critical] A malicious DSP can artificially underflow the reference count=
+ of DMA maps by placing duplicate or arbitrary file descriptors in `fdlist`.
+- [Critical] Unvalidated `rpra[i].buf.pv` and `rpra[i].buf.len` from shared=
+ DSP memory allow arbitrary kernel memory read or overflow.
+- [High] Race condition exposing device to userspace before driver initiali=
+zation is complete.
+- [High] A circular reference permanently leaks `fastrpc_user`, `fastrpc_in=
+voke_ctx`, and `fastrpc_channel_ctx` if an invocation times out or is inter=
+rupted.
+- [High] DMA buffers moved to `invoke_interrupted_mmaps` are never freed, a=
+nd list manipulations race without locks.
+- [High] Pending invocation contexts and their associated memory mappings a=
+re leaked permanently when the rpmsg channel is removed.
+- [High] fastrpc_device_open leaks cctx reference when fastrpc_session_allo=
+c fails.
+--
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index a9b2ae44c06f..7727850e9240 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -492,6 +492,7 @@ static void fastrpc_channel_ctx_free(struct kref *ref)
- 
- 	cctx = container_of(ref, struct fastrpc_channel_ctx, refcount);
- 
-+	idr_destroy(&cctx->ctx_idr);
- 	kfree(cctx);
- }
- 
+commit f4af01238585672316982b98df7fba26c048be45
+Author: Eddie Lin <eddie.lin@oss.qualcomm.com>
 
----
-base-commit: abe651837cb394f76d738a7a747322fca3bf17ba
-change-id: 20260611-fastrpc-cctx-cleanup-bfd20aa7b8a0
+misc: fastrpc: fix memory leak in fastrpc_channel_ctx_free
 
-Best regards,
---  
-Eddie Lin <eddie.lin@oss.qualcomm.com>
+This commit fixes a memory leak in the fastrpc driver by adding a call to
+idr_destroy() in fastrpc_channel_ctx_free(). It ensures that idr resources
+are properly cleaned up when the channel context is freed.
 
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index a9b2ae44c06f6..7727850e9240d 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -492,6 +492,7 @@ static void fastrpc_channel_ctx_free(struct kref *ref)
+> =20
+>  	cctx =3D container_of(ref, struct fastrpc_channel_ctx, refcount);
+> =20
+> +	idr_destroy(&cctx->ctx_idr);
+>  	kfree(cctx);
+>  }
+
+[ ... ]
+
+> drivers/misc/fastrpc.c:fastrpc_rpmsg_probe()
+> 	err =3D fastrpc_device_register(rdev, data, secure_dsp, domain);
+> 	if (err)
+> 		goto err_free_data;
+> 	...
+> 	kref_init(&data->refcount);
+
+[Severity: High]
+This is a pre-existing issue, but does this race condition expose the
+device to userspace before driver initialization is complete?
+
+In fastrpc_rpmsg_probe(), fastrpc_device_register() is called before
+essential structures like data->refcount, data->lock, and data->ctx_idr
+are initialized.
+
+A malicious or early userspace process could immediately open the device,
+triggering fastrpc_channel_ctx_get() which performs a kref_get() on an
+uninitialized refcount.
+
+When probe continues, it calls kref_init(), unconditionally forcing the
+refcount to 1. If userspace then closes the file, the refcount decrements
+to 0 and fastrpc_channel_ctx_free() is called, prematurely freeing the
+active context while the device is still fully registered.
+
+Additionally, on the probe error path, kfree(data) is called without
+respecting early opened file descriptors. Can this sequence cause a
+use-after-free for future users?
+
+[ ... ]
+
+> drivers/misc/fastrpc.c:fastrpc_internal_invoke()
+> 	if (err !=3D -ERESTARTSYS && err !=3D -ETIMEDOUT) {
+> 		spin_lock(&fl->lock);
+> 		list_del(&ctx->node);
+> 		spin_unlock(&fl->lock);
+> 		fastrpc_context_put(ctx);
+> 	}
+
+[Severity: High]
+This is a pre-existing issue, but does this error path permanently leak
+the fastrpc_user, fastrpc_invoke_ctx, and fastrpc_channel_ctx objects if
+an invocation times out or is interrupted?
+
+If wait_for_completion() returns -ERESTARTSYS or -ETIMEDOUT, this code
+explicitly skips calling fastrpc_context_put(). Because the context is
+never freed, its reference to the user is never dropped.
+
+When the application closes the file descriptor, the user refcount remains
+greater than zero.
+
+Does this prevent fastrpc_user_free() from running to clean up the pending
+list, permanently leaking the circular dependency?
+
+[ ... ]
+
+> drivers/misc/fastrpc.c:fastrpc_internal_invoke()
+> 	list_for_each_entry_safe(buf, b, &fl->mmaps, node) {
+> 		list_del(&buf->node);
+> 		list_add_tail(&buf->node, &fl->cctx->invoke_interrupted_mmaps);
+> 	}
+
+[ ... ]
+
+> drivers/misc/fastrpc.c:fastrpc_rpmsg_remove()
+> 	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
+> 		list_del(&buf->node);
+
+[Severity: High]
+This is a pre-existing issue, but are the dma buffers moved to
+invoke_interrupted_mmaps ever freed, and do list manipulations race
+without locks?
+
+When fastrpc_internal_invoke() is interrupted, it iterates over all user
+mmaps, unlinks them, and moves them to invoke_interrupted_mmaps. This
+manipulation appears to happen without holding fl->lock or cctx->lock.
+
+When the channel is removed in fastrpc_rpmsg_remove(), the code
+iterates over invoke_interrupted_mmaps and unlinks nodes without ever
+calling fastrpc_buf_free().
+
+Does this result in a permanent memory leak of all user dma buffers that
+were mapped when an interruption occurred?
+
+[ ... ]
+
+> drivers/misc/fastrpc.c:fastrpc_rpmsg_callback()
+> 	schedule_work(&ctx->put_work);
+
+[Severity: Critical]
+This is a pre-existing issue, but does processing duplicate remote processor
+responses for the same context ID cause a refcount underflow?
+
+In fastrpc_rpmsg_callback(), the context is looked up by ctxid using
+idr_find(). The callback immediately schedules ctx->put_work without
+verifying if a response has already been processed.
+
+If a compromised or faulty remote processor sends multiple responses with
+the same ctxid, schedule_work() can be called multiple times. Because
+process_one_work() clears the pending flag before executing, the work
+can be re-queued and executed multiple times.
+
+Each execution drops a reference via fastrpc_context_put(), leading to
+a refcount underflow. Could this cause a use-after-free when the user
+thread or subsequent operations access the freed context?
+
+[ ... ]
+
+> drivers/misc/fastrpc.c:fastrpc_notify_users()
+> 	ctx->retval =3D -EPIPE;
+> 	complete(&ctx->work);
+
+[Severity: High]
+This is a pre-existing issue, but are pending invocation contexts and their
+associated memory mappings permanently leaked when the rpmsg channel is
+removed?
+
+When sending a message to the remote processor, fastrpc_invoke_send() takes
+an extra reference on the fastrpc_invoke_ctx specifically to keep it alive
+for the asynchronous response. Normally, fastrpc_rpmsg_callback() drops thi=
+s.
+
+If the remote processor crashes or the rpmsg channel goes away,
+fastrpc_rpmsg_remove() completes ctx->work with an error. This unblocks the
+waiting user threads, which drop their original reference and return to
+userspace.
+
+Because the channel is gone, the callback will never run, and the extra
+reference taken by fastrpc_invoke_send() is never dropped. Does this mean
+the fastrpc_invoke_ctx and all its associated buffers leak forever?
+
+[ ... ]
+
+> drivers/misc/fastrpc.c:fastrpc_req_munmap()
+> 	spin_lock(&fl->lock);
+> 	list_for_each_entry_safe(iter, b, &fl->mmaps, node) {
+> 		if ((iter->raddr =3D=3D req.vaddrout) && (iter->size =3D=3D req.size)) {
+> 			buf =3D iter;
+> 			break;
+> 		}
+> 	}
+> 	spin_unlock(&fl->lock);
+
+[ ... ]
+
+> drivers/misc/fastrpc.c:fastrpc_req_mem_unmap_impl()
+> 	spin_unlock(&fl->lock);
+
+[Severity: Critical]
+This is a pre-existing issue, but do concurrent user calls to unmap ioctls
+on the same mapping allow multiple threads to operate on the same object
+without locking?
+
+In fastrpc_req_mem_unmap_impl() and fastrpc_req_munmap(), the driver looks
+up the mapping object from a list while holding fl->lock. Once found, it
+unlocks the spinlock without taking a reference count or removing the
+object from the list.
+
+Two concurrent unmap ioctls on the same file descriptor and address will
+both find the same object, drop the lock, and race through the rest of
+the function.
+
+Both threads could attempt to free it via fastrpc_map_put() or
+fastrpc_buf_free(). Can this result in a use-after-free followed by a
+double-free and list corruption?
+
+[ ... ]
+
+> drivers/misc/fastrpc.c:fastrpc_put_args()
+> 	if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false))
+> 		fastrpc_map_put(mmap);
+
+[Severity: Critical]
+This is a pre-existing issue, but can a malicious remote processor
+artificially underflow the reference count of dma maps by placing duplicate
+or arbitrary file descriptors in fdlist?
+
+The kernel processes an array of file descriptors written by the remote
+processor into a shared dma buffer. For each non-zero fd, the kernel looks
+up the corresponding map and directly calls fastrpc_map_put() to drop a
+reference.
+
+If the remote processor populates fdlist with the same fd multiple times,
+the kernel will perform multiple unchecked fastrpc_map_put() calls.
+
+Could this decrement the refcount below expected values and free the map
+prematurely while the kernel or user still uses it, causing a
+use-after-free?
+
+[ ... ]
+
+> drivers/misc/fastrpc.c:fastrpc_device_open()
+> 	if (!fl->sctx) {
+> 		dev_err(&cctx->rpdev->dev, "No session available\n");
+> 		mutex_destroy(&fl->mutex);
+> 		kfree(fl);
+>=20
+> 		return -EBUSY;
+> 	}
+
+[Severity: High]
+This is a pre-existing issue, but does fastrpc_device_open() leak the
+cctx reference when fastrpc_session_alloc() fails?
+
+The channel context reference is acquired via fastrpc_channel_ctx_get().
+If fastrpc_session_alloc() fails, the code jumps into an error path that
+destroys the mutex and frees fl, but returns -EBUSY without dropping
+the cctx reference.
+
+Does this inflate the refcount permanently, meaning the channel context
+and its idr will never be freed when the device is unbound?
+
+[ ... ]
+
+> drivers/misc/fastrpc.c:fastrpc_put_args()
+> 	void *src =3D (void *)(uintptr_t)rpra[i].buf.pv;
+> 	void *dst =3D (void *)(uintptr_t)ctx->args[i].ptr;
+> 	u64 len =3D rpra[i].buf.len;
+>=20
+> 	if (!kernel) {
+> 		if (copy_to_user((void __user *)dst, src, len)) {
+
+[Severity: Critical]
+This is a pre-existing issue, but do unvalidated rpra[i].buf.pv and
+rpra[i].buf.len from shared memory allow arbitrary kernel memory reads
+or overflows?
+
+The source pointer and length are read directly from rpra[i].buf, which
+resides in a shared dma buffer. The remote processor has full write access
+to this buffer.
+
+The host driver does not appear to validate that the length is bounded
+by the originally trusted ctx->args[i].length or that pv points within
+the legitimate dma bounds.
+
+Since these untrusted values are passed to copy_to_user() or memcpy(),
+can a malicious remote processor use this to leak arbitrary kernel memory
+to user space or cause a kernel buffer overflow?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611-fastrpc-cc=
+tx-cleanup-v1-1-28097444116c@oss.qualcomm.com?part=3D1
