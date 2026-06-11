@@ -4,121 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8B55CD98C7
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 23:02:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AB99CD98CC
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 23:06:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F13D510F161;
-	Thu, 11 Jun 2026 23:02:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A237010F1B9;
+	Thu, 11 Jun 2026 23:06:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="md1FMUhb";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="aAliD7hP";
 	dkim-atps=neutral
 Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
  [67.231.145.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88B1110F161
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 23:02:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 431A210F1B9
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 23:06:14 +0000 (UTC)
 Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
  by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65BEf4R42133335
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:02:38 -0700
+ 65BF70wf2135131
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:06:14 -0700
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=ob92Tq2R57wAiMWenfqpV0H25NaZcFwlwctuc69C3Js=; b=md1FMUhbMLo8
- Fh894GG//O50My3HeLIl+N1moRtgU28J41XgC7IeNjtkXzdqb3Q4pJbloUb0sI57
- 9jVz7NnQpwJ5bDPV4npoEbwYzhg4rgAl9HiKES6OFpGviFE4XpNWf6+El9J9dJ7B
- Yo/EOv0vO3lg0CKH0IeKIWviH2o6Ji1sS4icJbrVsodYNItHLNAjRW6ZraJMViyk
- n/FyvaceZSOsCn5SwSysZB4DgzxdCuNLNoHpkBe5q1vDh++JPpSH4eLPJhsKjRSE
- bq0UWdRUpM7b1KbePNQSfzI9YgeqCUP1xW5dgvSck3N00OzgCLYF3SsitjHsc7bI
- ag85db8yRw==
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
- [209.85.210.71])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4eqe81s9w0-1
+ bh=efsnF3+1jWR8pvzMYJfBE7lVlQMbzzxbwMqOReRrznE=; b=aAliD7hP4Pnb
+ sDHga9w9vOIaX4gPrLDH9CxWfUDul6tHQH4Xi0x95taVkfEY+GcuJ5llY9o7rdU/
+ 6IxhrOtNRPf0TZXzirIqsi4bvN0RdnQAebO3TXTwQ1ciy0nZK/Rpu2xM5w244SPJ
+ RXgJk7lo9T1WisKqszJAd+5MNgI/KlpyBjNrdHxIF9RMJjY3r8Q959ivZHAEzgoG
+ khu0ku8hPaoN7AYRRbn9WFZIlTuHEdyYgbXmb7kn2o0lgBqUwRaYgCIBG8ogF9SH
+ Vazr4Xq0IrMxhXUedk59GhVrJIceY2weOoGa+2aM1YsFU9fskt3OQlTECK6T/8pJ
+ mXSX9Zuhtw==
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
+ [209.85.167.197])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4eqe81sasu-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:02:37 -0700 (PDT)
-Received: by mail-ot1-f71.google.com with SMTP id
- 46e09a7af769-7e74781faaaso842270a34.2
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:02:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781218957; cv=none;
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:06:13 -0700 (PDT)
+Received: by mail-oi1-f197.google.com with SMTP id
+ 5614622812f47-4863c8d459eso453962b6e.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:06:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781219173; cv=none;
  d=google.com; s=arc-20240605;
- b=CNnDlbNTUU3xI3tfJBppKq8tGXQ9VcIu2zz8tAtuIdgNuPuWisIr9YNjCWG5PAxZSh
- VC4ihoe89+U86IOXJDg/CmhkOvFF87PEGSoHl0WEYyU7KJjFEl9x4zqe+DbM4Mgb59Dy
- 5yCjnpYMa3i+A8rgFnIU7wP9XW/M2lhhJCFcFkDUQSU1L95ryRMbAosYE9kd4dlm7Y2c
- xWR13PS/NZTqqhZ5JWyKAGRui7QGhAU0Zd0aqgbKH3qB8ZxMKytVnMbbbD2Hx/xHL8BR
- ADuDYfUfyzDim/DmZIRQQxa3ld9F2qLVNBp9UG012+v1Dq0NpKOkbWJSxiu3I+LZLRsL
- 47yw==
+ b=HOLEmTxbmbxzl/yWqywInr5Nxs7m8oBzhkMJMqrwauUzk1029Fos3Wf6/7qY9sK9J8
+ siZcgKv6JKW1uVLeONI8baPm40KV4DTd2L9PKUvt8NP88bmlWI7fFXXggEuiRNnyh4sG
+ BIUU18cEjjS8Dpj8szUxK9hT/Oae1toUmomds41Jk/u6EP8pPiAbBjpTvrsXijS6qiB0
+ O2VPzzc94zhkGmhGsD4chg0qloIRFHUUH9Mia4KpfeNP7yXHBFqjp4mATEyiLc1BvS7j
+ 7t35/JouMc3jNG+o5LuUCSsLloylIAmfLMSLB2zwGTNZOL4IOl+sYGyR2uJxDTI5gTWA
+ c9PA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version;
- bh=WY5Yrlv2Sc7Wnv9jSySuWH/Jl8+9GO4Ig0Gi7133UjE=;
- fh=tYY7InHlS5vewjCAMrDwHN/+ii4f4KGN8nKNLmzfxq0=;
- b=Ki4odP/Jg8XGdOgDrd4Jhpkl2QUyAZByj+bSkMTpoU4rIDXhBDLrrfMIvKpb+c4gA0
- qUpfe5mhSvLFi/9gl8gaLvJRdJ3f8C1/sScHUYBrWUF31i+ekgzD6NrqdNnMualzHf5m
- t3b2yaNhG0p1Tekc/3kc5VIglkNnoWj/nYJzULGuei5pIxWRT5dUyAUyMvYusyLyOViC
- MgukH77pGyIrihC21nXS+4SuQ/Q80fW4NUy7QxyS+/usvMzC7/sY0KLseB7SH1Pcdsko
- 79w/0Y3StNQhVNGhnnzx8/PLy6TUq3zjVwRzAypMmVbt0ZJm34tP1x7KHEOtVASkKupv
- 80lw==; darn=lists.freedesktop.org
+ bh=5o88lgTdR3UljadKJlYcq0XYptrmydXykEVU7qCr7g8=;
+ fh=9dFXWPPSq314KtnSCgvkZxFyQJPxDUTEebxIq6UhW3g=;
+ b=BVDqFy8vHc/e9AF2lcQ4UIgp7a+MkJ4IhvYLqwNAJMrlnRmPwWu8p8KlHJMaTol1Gt
+ /9JypRGCZFXv5g2MNXzB9mhUXKLnQ7Mp8J7Oy7d52wulebNDkXN42/evboOp2qT4666u
+ t5uIxD/SwaBFWP7EnnNfJY4fuTaqQ57Ub394dWSByp59gN/CYb4RB2F+TGXYlfhMzuoQ
+ 7unGQdi5RILeUzmtIPmv0dCWjxXSE3fBtAYnAj9Ugx0rTk+b35pZBywvCV7I3z7KMNjc
+ yrVkjSQtYqY/mm4zFPUjDO4dvftmH34EPKje0kE4tX4bUaR8SczvoxFn5tzCvt+Pb0Qk
+ 7w1g==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781218957; x=1781823757;
+ d=1e100.net; s=20251104; t=1781219173; x=1781823973;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=WY5Yrlv2Sc7Wnv9jSySuWH/Jl8+9GO4Ig0Gi7133UjE=;
- b=L5vQ6vrFjd8oHSSXWTwwDhDlBAAYhv1dvQP5cTPmVaEEi+FniUKJtiGkOJ3gscikQ0
- QyduAhc/cuV5Wie8EAjOefQRX2bLvhyAmmP98naOTy6PL5nXiL7KnoCILtKYbc919+40
- OtIcDbCv4QbE8nqbeU3gbP0NeRndIeGZM7F/nZiymOZqJraViBPaIfJKvlUXh4alWraP
- 3PPAYBM/vGT6SCuhHBR765Mn8bu9sDfJ7jNBA75cKHEmeAIJWSUFTxdNd73lrVpbC2Pw
- QchYYmdjtETgKZuiXsfSJ87SoJADiWXwtrFsEXUtmj11G7eG7sx8V7QgMoMQHCo0FPr0
- oc0w==
+ bh=5o88lgTdR3UljadKJlYcq0XYptrmydXykEVU7qCr7g8=;
+ b=G6xg0Cl0uZoeLiuI4nEyVHUwHt/CaOPuz/sncWgrZN/G39bRQxQIFsFnNzmg8Drizw
+ r3vG56Bi43DThTU/68bHxJ1oqX2WqyxCUNUQAzXBkEiUQDwZBqISux8Wo7ffgZZF0jsi
+ KwJOhsCb/O4kG2wfkAGWa63uMbsb+eqRJ4dvIupUOmANXpryGbi0zkmvoSSWQEvP/dYw
+ mSPEsUdoWF9l8SWdxQno/6X7DbeFWWc0zMrbrkME1Gv3cxwAfqAEiz06IOw6klI04cqK
+ W0/YHFYiFFwvNICvCcO4Cke50YxuYPaEo7L1iXNhMsDE2vbelxvtGwXiEuZzRU8O7wP1
+ bRYw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9PiF7Y2KIH4QL0ccnnLZR2FS2agI2rkdPYfHp02yXhmIkcPXuBP7ffcu3H5tpaIwSlP/dbVMA5au0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy3p68UPHDzZlqklHd8Ua1NlmE/YIkSzHOwtZTTltqzZkWRL+Hh
- kh+PBKWtM+KnvWUWBSWGMvA7KPipPKdDWetD3TwROtH7X5z6Zu22wGXLWwY3GkppIGV6rD7AV6A
- e+UqEeRAVez45TrFSLHddeGFb7kTLH6XfSLobBk766sVuFDVxu4Wlo+351wxt6MV3KVm9iOGUsp
- ovYhdH/4xMIEBN+/luPwL8aFZ9VDxrxmrzsEDJOHGjwSI=
-X-Gm-Gg: Acq92OH2+jHUH/g3VBSZp+eiyvuWR38hUOzF7e0qjFHMQMCeOp7RbiO72+PvviQ+9sL
- CDIiJJNjs3O1nfzgeevx0V+OCQ6BWgxuBRtbUrhxDtB9bRsmkMm7AggpB1BIlwm8mesrKR2793E
- sefgnGlsauMDGfUoV0x06h0nz3qRmEIiqNcxvtObmkTPy+QFmRJqF7MR0vZTkplK7aTWKCMyTrz
- G4sU3ZSCxA2X0Y3xNHk7Q==
-X-Received: by 2002:a05:6830:4411:b0:7dc:cd0b:58bc with SMTP id
- 46e09a7af769-7e78473e9a9mr114898a34.7.1781218957157; 
- Thu, 11 Jun 2026 16:02:37 -0700 (PDT)
-X-Received: by 2002:a05:6830:4411:b0:7dc:cd0b:58bc with SMTP id
- 46e09a7af769-7e78473e9a9mr114839a34.7.1781218956672; Thu, 11 Jun 2026
- 16:02:36 -0700 (PDT)
+ AFNElJ+g83KJ05Yw5TjYehKJ/XA0dKgzC/AmPMbT0IF0e3Ql581ef5/V9NpdTZ3RTqQAwcLNu/UKX3ZTCKk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyd3hRCNUQPNfE90Yt4QpKHIojv7mWaOxR/Q8vjLI0m3cvMa7wd
+ yLwF6vMRHz7nsIhmkBsylM3Db/ZJiKUTGDHGbeBujyVFRgo3WBIObgJFrXXUGg+VEByJoPopxmp
+ qkzdGAvmGq+akHULOhltYgijuxg69bpfAGMxCBvlJkDD2Hx/qaRddHQiFy/5aXBRIVw58gL2Tv1
+ bY8w8WvRuxVPjcJ30hjrhbRcCoQxEWsmj1ijQNgId5CTk=
+X-Gm-Gg: Acq92OEc7hjDAZYyy/Tn2dXp0Qszk26OnwvQ/1lLovsG6dKlU8ecsHyGivxaVTE0FxY
+ 2AQtEDjYVmALmnGNA/GuqSD4jfkHfmc6kn8CbZJHLlQkMcuRJNR9Ijm8DiuwvoJ4TuFr9G+q5tr
+ 1GvyZdKrsnc3YgQMunVMuMjnl3JDYZGC+3BGHNJZyRFh+GnqemnMRi60dgyV6HdAjthqVtK7UIM
+ gm2LeOcA5Dg80YwEV5gOA==
+X-Received: by 2002:a05:6808:3089:b0:486:3498:d1ae with SMTP id
+ 5614622812f47-4872f397045mr351962b6e.18.1781219173061; 
+ Thu, 11 Jun 2026 16:06:13 -0700 (PDT)
+X-Received: by 2002:a05:6808:3089:b0:486:3498:d1ae with SMTP id
+ 5614622812f47-4872f397045mr351942b6e.18.1781219172624; Thu, 11 Jun 2026
+ 16:06:12 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260610193158.2614209-5-zhipingz@meta.com>
- <20260611202555.B0FE31F000E9@smtp.kernel.org>
-In-Reply-To: <20260611202555.B0FE31F000E9@smtp.kernel.org>
+References: <20260610193158.2614209-3-zhipingz@meta.com>
+ <20260611202558.09C691F00A3A@smtp.kernel.org>
+In-Reply-To: <20260611202558.09C691F00A3A@smtp.kernel.org>
 From: Zhiping Zhang <zhipingz@meta.com>
-Date: Thu, 11 Jun 2026 16:02:25 -0700
-X-Gm-Features: AVVi8CelQJPHsRb_TsddVOxCGdtZJzAKJ67zmwHKr7MIkmqZ8rgse99DfYGSmhU
-Message-ID: <CAH3zFs3FjiCfOceVRin0ytKNdZ7Pgyv4ds=Dd_GhrRC_XcbNOg@mail.gmail.com>
-Subject: Re: [PATCH v7 4/5] vfio/pci: implement get_tph and DMA_BUF_TPH feature
+Date: Thu, 11 Jun 2026 16:06:01 -0700
+X-Gm-Features: AVVi8CeJj9q0ez37YfrPTO2KXyhyeT-bv8zCIdToMWZsgp_4cN-UqKdyKzNGj7A
+Message-ID: <CAH3zFs24Gs6MSccrNoP-UmowvpcV8PmweegczKU7Ymq+kMtdxw@mail.gmail.com>
+Subject: Re: [PATCH v7 2/5] PCI/TPH: Add requester/completer type helpers
 To: sashiko-reviews@lists.linux.dev
-Cc: linux-pci@vger.kernel.org, kvm@vger.kernel.org,
+Cc: kvm@vger.kernel.org, linux-pci@vger.kernel.org,
  dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDIzMSBTYWx0ZWRfXwu7/eBsosiBa
- LJAWM3XCBveh2Y+YE4u6+DBKJnMYwRja/RQdqDiznAp2RAbDwlBNvK9zHgjvRf1gP9kRfmVP4Fo
- weqgIEKPEAm83hmR27RUvkA52ihjGKh3EdAgYBZStUB8EMpanuydrDX7BdzTlFbtBGlg6HCs6po
- 7hqMLyTqHuAJdQ/QJ4G/S1EpkEBzm4cT54+zmCAMAFcmC5Jra+Sem7gCOvA3Jcz0gmpWICCq7Tq
- vTQeeABX1Onz5SDM2Uf6yt/01JGccwmCWjtxzSxPwx5sqKaRaHHfoBn8vD8u1lVKXEn5qyJo46t
- dKiNQQYr4h10ISxLZkX8w5/qRyQr774aGpMGQJI18Th+RQ9DsefSSMG0oR77acLPU/O33Jv/A7Z
- 0oTgKkhXRdUDEmksFTRk96+4SWlBPyoEUvGs5oWqC7oD+/xGS5+lgasY1v1eU1AJPRs9ygw2b9L
- aUY0iyK/1a5k23h7ZOA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDIzMSBTYWx0ZWRfX0fnWgezLsO+V
- 6XzUknm+P++mZ/Gy6L5g7b/38RTv9ybvPBCftGnheA0D2fvt1fWiW6y4GJPzrDik/Hdg4XrCZQs
- nYLWx4wyFicHowk/5SmkioqAgWvx8Ew=
-X-Proofpoint-ORIG-GUID: SX0VUwdBAJUZxMVO-fWSuMqXDSDu2Gca
-X-Authority-Analysis: v=2.4 cv=ToXWQjXh c=1 sm=1 tr=0 ts=6a2b3e8d cx=c_pps
- a=OI0sxtj7PyCX9F1bxD/puw==:117 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDIzMSBTYWx0ZWRfX3w+N3eANpbUl
+ RDIqpru3vtv2z2AC/YsaQrh9//OuE32zCYzFvo7bW9Wtcx5w8eoX2ga1anL9sz4MrhpPPkNzTWM
+ cTGWCQsnAL2nz+6SLALMt9sRd+vcSQpPE20WyxJfzAqJZZQL8GjV0duAhf/PpunR1o9zF85dKdk
+ w3nrzGgBW4OkM+ELk+IiaXcJKoTH4z+uv4wCdpkhexVR7rleTO1x1zkBkdDFELN17tenRJ2qRZ1
+ Hs9xUQaWZIMtf0xKbQG8QGr88uw1FE3b8CVA0etoC2NVQ4qZjkVbw+sRtm5pPOkaHG+54w679MM
+ kFq++k6qeyDg8Rp+5Qj0pcT5UPJJmHO3Bl7ygZMQiEQde5SmI8mhbg8FHBFVz/QJZJ8pzM+UexE
+ OJJn1PLe3jgAx/opAdXyRJu9gZaL6CeJnfpEHNHEYIWgQEwCRBwdmXS7zTQI9MbMIAnoU/RWZzM
+ z9Ea9LH/iXaVYtDGlqg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDIzMSBTYWx0ZWRfX1ZW6M+uj39Gv
+ Fxtq+sUgoYAjuRO6yPzggbREjC168uZNleD5iLclJb40qx/ZcP7r7DSWYUJF7TxeYVUxxcoICbs
+ o95SQjoJVeJVtkm9jc4W1zPRGfahu8Q=
+X-Proofpoint-ORIG-GUID: 6BgozEhNjR0A8SDJ5pyFdCYie0Kt1jy8
+X-Authority-Analysis: v=2.4 cv=ToXWQjXh c=1 sm=1 tr=0 ts=6a2b3f65 cx=c_pps
+ a=WJcna6AvsNCxL/DJwPP1KA==:117 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=03ozwUkBphtHgyqjj1sw:22
- a=VwQbUJbxAAAA:8 a=VabnemYjAAAA:8 a=vvh9Qk1aVFpNxidmG9UA:9 a=QEXdDO2ut3YA:10
- a=Z1Yy7GAxqfX1iEi80vsk:22 a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-GUID: SX0VUwdBAJUZxMVO-fWSuMqXDSDu2Gca
+ a=VwQbUJbxAAAA:8 a=4OgE2WNpP8yww339eGMA:9 a=QEXdDO2ut3YA:10
+ a=_Y9Zt4tPzoBS9L09Snn2:22
+X-Proofpoint-GUID: 6BgozEhNjR0A8SDJ5pyFdCYie0Kt1jy8
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-11_05,2026-06-11_01,2025-10-01_01
@@ -137,93 +137,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 11, 2026 at 1:25=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+On Thu, Jun 11, 2026 at 1:26=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
 >
 > >
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
-> - [Medium] Unconditional validation of the flag-gated 'ph' parameter can =
-lead to spurious -EINVAL errors, breaking the syscall trust boundary.
-> - [Medium] VFIO_DEVICE_FEATURE_PROBE falsely reports that VFIO_DEVICE_FEA=
-TURE_DMA_BUF_TPH is supported even if the hardware lacks TPH support.
-> --
->
-> commit d57637d667ca6dc95def77a0a5bd339d62d4f506
-> Author: Zhiping Zhang <zhipingz@meta.com>
->
-> vfio/pci: implement get_tph and DMA_BUF_TPH feature
->
-> This commit implements dma-buf get_tph for vfio-pci exported dma-bufs and
-> adds the VFIO_DEVICE_FEATURE_DMA_BUF_TPH feature. This allows userspace to
-> publish TPH metadata for a VFIO-owned device. It checks completer support
-> and protects the metadata under dmabuf->resv.
->
-> > diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio=
-_pci_dmabuf.c
-> > index 1a177ce7de546..0a0705c8dbea6 100644
-> > --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
->
+
+> > diff --git a/drivers/pci/tph.c b/drivers/pci/tph.c
+> > index 91145e8d9d951..4fe076bba953a 100644
+> > --- a/drivers/pci/tph.c
+> > +++ b/drivers/pci/tph.c
 > [ ... ]
->
-> > @@ -333,6 +360,71 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_=
-core_device *vdev, u32 flags,
-> >       return ret;
-> >  }
-> >
-> > +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vde=
-v,
-> > +                                   u32 flags,
-> > +                                   struct vfio_device_feature_dma_buf_=
-tph __user *arg,
-> > +                                   size_t argsz)
+> > +u8 pcie_tph_completer_type(struct pci_dev *pdev)
 > > +{
-> > +     struct vfio_device_feature_dma_buf_tph set_tph;
-> > +     struct vfio_pci_dma_buf *priv;
-> > +     struct dma_buf *dmabuf;
-> > +     u8 comp;
-> > +     int ret;
+> > +     u32 reg;
 > > +
-> > +     ret =3D vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_SET,
-> > +                              sizeof(set_tph));
-> > +     if (ret !=3D 1)
-> > +             return ret;
+> > +     if (pcie_capability_read_dword(pdev, PCI_EXP_DEVCAP2, &reg))
+> > +             return PCI_EXP_DEVCAP2_TPH_COMP_NONE;
+> > +
+> > +     switch (FIELD_GET(PCI_EXP_DEVCAP2_TPH_COMP_MASK, reg)) {
 >
 > [Severity: Medium]
-> vfio_check_feature() returns 0 for VFIO_DEVICE_FEATURE_PROBE, causing an
-> early return of success.
->
-> Should the hardware capability check (pcie_tph_completer_type) occur befo=
-re
-> checking the feature flags, to avoid falsely reporting that the feature is
-> supported on devices that lack TPH?
+> If the device is hot-removed, pcie_capability_read_dword() returns succes=
+s (0)
+> but can leave reg as 0xFFFFFFFF (PCI_ERROR_RESPONSE due to master abort).
 >
 
-Will fix it with a change like below:
- -     if (ret !=3D 1)
-+     if (ret !=3D 1) {
-+             if (ret =3D=3D 0 &&
-+                 pcie_tph_completer_type(vdev->pdev) =3D=3D
-+                     PCI_EXP_DEVCAP2_TPH_COMP_NONE)
-+                     return -EOPNOTSUPP;
-                return ret;
-+     }
-
-> > +
-> > +     if (copy_from_user(&set_tph, arg, sizeof(set_tph)))
-> > +             return -EFAULT;
-> > +
-> > +     if (set_tph.flags & ~(VFIO_DMA_BUF_TPH_ST | VFIO_DMA_BUF_TPH_ST_E=
-XT))
-> > +             return -EINVAL;
-> > +
-> > +     if (set_tph.ph & ~0x3)
-> > +             return -EINVAL;
->
-> [Severity: Medium]
-> When userspace clears the TPH metadata by passing flags =3D=3D 0, is it r=
-equired
-> to zero-fill the unused ph field?
->
-
-Not an issue.
+will fix this one with check like below before the switch statement:
+ +     if (PCI_POSSIBLE_ERROR(reg))
+ +             return PCI_EXP_DEVCAP2_TPH_COMP_NONE;
