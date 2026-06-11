@@ -4,88 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32889CD98D4
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 09:46:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63DF9CD98CC
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 09:49:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D4ED10EDA5;
-	Thu, 11 Jun 2026 09:46:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B94DA10EDBA;
+	Thu, 11 Jun 2026 09:49:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="hWzLwX4V";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bKK0PNb8";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4719C10EDA5
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 09:46:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1781171212;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=mANNLFli+Qqln8O18mym5e67ud5lXKMPf5ZJaH21+oI=;
- b=hWzLwX4VXjCUqS5qtbDv6lGOGThYZ3P8LDuWUoUPqRmLnJvWoZXskrHXhLjJGvVwXx7A3g
- msTjn45sEMTUvJuTZ4Pk1yIvyPfHVvq7OB2naI2Wb/1GbpXx5a57ZzQMvgOfWrkZ4t4Cm4
- NlxBWWrWE751uWjozo8N4/H2OxbrIRM=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-664-sRA_ZjvhNt26IFKBzOS2oA-1; Thu, 11 Jun 2026 05:46:49 -0400
-X-MC-Unique: sRA_ZjvhNt26IFKBzOS2oA-1
-X-Mimecast-MFC-AGG-ID: sRA_ZjvhNt26IFKBzOS2oA_1781171208
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-490b5d2e394so58037165e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 02:46:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781171208; x=1781776008;
- h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=mANNLFli+Qqln8O18mym5e67ud5lXKMPf5ZJaH21+oI=;
- b=Bn1FIE1qUDMMct6eiRpi/kfF0FjmDegsCWpzO7kmNguuzosxCkBGbLD5frKe/MY6yG
- 721vVOP0K1BJ3pywTpwgnDoNB9/poH2q9MS6rJQbqz/bbPdYy17NuG129WZx/58D9Kzf
- d1FQ15skGNFyz0OQK2MeCnvmVFfnw1vzVwU5NaPno0XoTEG0vJOHBvPLAc+1asp0w2eQ
- JcvPREcsNqE1Xmdbv/XvJbVcdjsS6+SvgAxpSBQjtQMVFVdDlcTYEEv5IcS/j3wLjy6T
- GogapvBmI48WDeYzu9ddSDeGz06oSz1ICweUpJPfdDZ8cqmLwxTODSw18qxU0QxhK/qJ
- 2sHg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+4QGqxUNjV1jab3+hGFmybQIwSN0U5nmNKxI9w6o7U6He3WbyKUYMjbWO9lQHLWZbatxJ2/dWQXp4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwdDSMhajlO6d2AIgRKgqkflsyltFyKG/g9CW+un7jPntCcCnC8
- iavCu4hRVgg8KbJtLsbDIqVTFEdd8f7dgINl2BgtuvI90AHtCnNTZruEtV5ItFCm0F5s30CU1Jp
- mMGM4J8QJNJo+o1uwjSBobgN2Trd0PDXubZABTrH+55lTuUfxPU0Pt+VTmsia+NKhNJhE0DC4Ga
- DnuQ==
-X-Gm-Gg: Acq92OH+AP6cKzaH9nPsDyt1YTL6Us0FyEDCFWexeRef1CbfCF/lmC2ZgNEsIyntJcL
- gYFm4I86VMpSrCK/MK89j7VkZzKOfbE1vryRMIitzSwTlDoUYVdlFwHHv3wh25atvZfWH+hlARu
- tdk8T5cZn2d7tfxi1cJczS+wzOHUha1APC3QGOPasjCMgkjQrYMb8rNTy7rdf2St/1KuM4PsEkS
- mkQMTglN45kcH2orZ8NmPylApxxR3mLuAfrDieHNXF4r23ZfKHoqAiSSRQ9DOk3gvp7Q0tJccby
- YvsDqPzeZb+Nj5QaYm3neUNAodVfCvUo5SwMbW81xZHAjEDx3ZnBDFr/vgzpa23fFNRdFolj1F0
- dqEsEVZ4advQXEGMXnj1XHjaxWidxwtdTQ08+lkeDyIbGC4/xMWGspc9So9q32/WYu7ItGpqh0v
- sBGaEU0ZEA4Nmv8os=
-X-Received: by 2002:a05:600d:8489:10b0:490:bfda:7d7e with SMTP id
- 5b1f17b1804b1-490e55cc58amr16296595e9.3.1781171207833; 
- Thu, 11 Jun 2026 02:46:47 -0700 (PDT)
-X-Received: by 2002:a05:600d:8489:10b0:490:bfda:7d7e with SMTP id
- 5b1f17b1804b1-490e55cc58amr16296365e9.3.1781171207508; 
- Thu, 11 Jun 2026 02:46:47 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490e5153feesm37373695e9.0.2026.06.11.02.46.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jun 2026 02:46:46 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Ethan Nelson-Moore <enelsonmoore@gmail.com>,
- dri-devel@lists.freedesktop.org
-Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>, Thomas Zimmermann
- <tzimmermann@suse.de>
-Subject: Re: [PATCH] sysfb: correct CONFIG_SYSFB_SIMPLEFB macro name in
- #endif comment
-In-Reply-To: <20260610195248.19442-1-enelsonmoore@gmail.com>
-References: <20260610195248.19442-1-enelsonmoore@gmail.com>
-Date: Thu, 11 Jun 2026 11:46:45 +0200
-Message-ID: <871ped76ka.fsf@ocarina.mail-host-address-is-not-set>
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: EBBzHCjQY4zrNzDstrqBJBQuA33eKFN37x9iMxkqknc_1781171208
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2019310EDBA
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 09:49:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 5031A600B0;
+ Thu, 11 Jun 2026 09:49:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E64D1F00893;
+ Thu, 11 Jun 2026 09:49:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781171345;
+ bh=PaXoJASViySO8hQHnbvUHikzZfdUFXuii1sojc9l76Y=;
+ h=Date:From:To:Subject:In-Reply-To:References:Cc;
+ b=bKK0PNb8qMFF5wpH05aFy7gNeTmuLz8Qh2Vn8uE7IV5mJszGi0+fkR4phVOFV3heL
+ l0GIgNeOJSH1OCBDDOe6Eh1BqIjCGQkddosFvKxJARxVHDmJe8sFxtt40EZMko0H2D
+ 0yX0GYC5MSGusLcHQR/1ElhKLPdvUTUkER7oVobqm0RczwFfrAi+SDvqS7ec6Pwv9A
+ A2+P4Ghhp9mAjgAvd9QsaPR1CNighXOr6rC9lTHsh/wiEWx743+/SIt1AoNO5Dqbmg
+ 2OcJcLuvhjWb85wVG2O1YcbIQfxahdVpIzGJQsHhE/ss9uGubzKvn5kQVB9EuouNIs
+ h1Hh4CkoufSEQ==
+Message-ID: <be56d8fe4fe3e7bd1c37b92c273c414d@kernel.org>
+Date: Thu, 11 Jun 2026 09:49:02 +0000
+From: "Maxime Ripard" <mripard@kernel.org>
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
+Subject: Re: [PATCH v7 01/30] drm/fb-helper: Remove unused local variable in
+ hotplug_event()
+In-Reply-To: <20260602-dw-hdmi-qp-scramb-v7-1-445eb54ee1ed@collabora.com>
+References: <20260602-dw-hdmi-qp-scramb-v7-1-445eb54ee1ed@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, kernel@collabora.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, "Andrzej
+ Hajda" <andrzej.hajda@intel.com>, "Andy Yan" <andy.yan@rock-chips.com>, "Daniel
+ Stone" <daniels@collabora.com>,
+ "Dave Stevenson" <dave.stevenson@raspberrypi.com>, "David
+ Airlie" <airlied@gmail.com>, =?utf-8?b?SGVpa28gU3TDvGJuZXI=?= <heiko@sntech.de>,
+ "Jernej
+ Skrabec" <jernej.skrabec@gmail.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>,
+ "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Maxime Ripard" <mripard@kernel.org>, 
+ =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>,
+ "Neil Armstrong" <neil.armstrong@linaro.org>, "Raspberry
+ Pi Kernel Maintenance" <kernel-list@raspberrypi.com>,
+ "Robert Foss" <rfoss@kernel.org>, "Sandy
+ Huang" <hjc@rock-chips.com>, "Simona Vetter" <simona@ffwll.ch>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,25 +73,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Ethan Nelson-Moore <enelsonmoore@gmail.com> writes:
+On Tue, 2 Jun 2026 01:44:01 +0300, Cristian Ciocaltea wrote:
+> Remove the 'err' local variable in drm_fb_helper_hotplug_event() which
+> only stores a return value that is never used beyond the immediate
+> return statement.  This simplifies the code without behavior changes.
+> 
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> 
+> [ ... ]
 
-Hello Ethan,
+Acked-by: Maxime Ripard <mripard@kernel.org>
 
-> A comment in <linux/sysfb.h> incorrectly refers to CONFIG_SYSFB_SIMPLE
-> instead of CONFIG_SYSFB_SIMPLEFB. Correct it.
->
-> Discovered while searching for CONFIG_* symbols referenced in code but
-> not defined in any Kconfig file.
->
-> Signed-off-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-> ---
-
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-
--- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+Thanks!
+Maxime
