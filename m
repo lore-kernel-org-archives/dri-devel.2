@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F813CD8CB9
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 06:18:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8967FCD98C6
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 06:18:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C74E710ECEA;
-	Thu, 11 Jun 2026 06:18:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDC1A10ECEB;
+	Thu, 11 Jun 2026 06:18:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ddIkvX3t";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gb1Yvi23";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3341710ECEA
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 06:18:06 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6820C10ECEB
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 06:18:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0EF6640664
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 06:18:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEFD91F00893;
- Thu, 11 Jun 2026 06:18:05 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D100E60208
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 06:18:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 698821F00893;
+ Thu, 11 Jun 2026 06:18:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781158685;
- bh=RDAcEPw+bUlWtLZfPw7jqJISQa126CwdjAY4eH20OKI=;
+ s=k20260515; t=1781158701;
+ bh=f3zV1gvGtei2/jVpLL2Axwm3F6+gjDhcdGYSzX+B6hU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ddIkvX3tEao8DPS1iRZ/V1C9tHKHhnY+//hfxlc6NMji2d0buUHkXG6gBTXqYJu5B
- yjzAiaQwxWDds0W/HG1LgElDs5YYZTAecRn1JNHDJUzHuJ11+jnnOBd2qLZrU5liER
- KWwJQ49UiPy2RLR7kCUC6/c6z9dEP5H1WFtpmAad8GKngsm4wIVt7vOP5N1M91y83x
- DlMfEPhzqpJogFSAqjdfhY1mcpAUqLSAxAV3B+klGMRi/O0qwQN5imaNCd2d35L3UL
- oViAxrg5bxPLi8ni7m1n+qSLzOFMj9HjTEk2sJjt2XYIfdWxmqZuzN0bN0lU1yJNuv
- C/N5gUV1efrnQ==
+ b=gb1Yvi23pi5Gryrvfi3iRQd7EgTaGXQFzufjOR9uPpjH1MdI4G5SM53i1ymBvaY8T
+ 1GyUhHPI2YJrPxycw6LnuSN0ajQ5BXsZVRlz0XQ+g++W6gdL81Foh2Qtdb1DtkNZnV
+ mllsHD+FoTcB9RIDv7SdAnBFwQiRj4vSI1oPUdcNaSCuUXXLfhokI7EXzNAmNy7pgj
+ ATSv+8OPEDwdlb7Ypq+c8oxX+cT3ZrHCgC5pqFNFbyXGHn3ZVCjUGDhi0Oxb7Z/DCX
+ iLO4Wbheg8Onw98zGc2S5sWI6S+4PivtD4WL4G1xQCjv3HqDXQgl1Xw0bFJsmM6lPI
+ cwdYGQNGLsl+A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/msm/mdp4: keep inherited display clocks enabled
- until modeset
+Subject: Re: [PATCH 1/2] drm/msm/mdp4: keep the bus clock enabled while a
+ CRTC is active
 To: "Alexandre MINETTE via B4 Relay" <devnull+contact.alex-min.fr@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260611-mainline-fix-mdp4-blue-screen-sending-v1-v1-2-22925600e4f2@alex-min.fr>
-References: <20260611-mainline-fix-mdp4-blue-screen-sending-v1-v1-2-22925600e4f2@alex-min.fr>
+In-Reply-To: <20260611-mainline-fix-mdp4-blue-screen-sending-v1-v1-1-22925600e4f2@alex-min.fr>
+References: <20260611-mainline-fix-mdp4-blue-screen-sending-v1-v1-1-22925600e4f2@alex-min.fr>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jun 2026 06:18:05 +0000
-Message-Id: <20260611061805.BEFD91F00893@smtp.kernel.org>
+Date: Thu, 11 Jun 2026 06:18:21 +0000
+Message-Id: <20260611061821.698821F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,133 +57,138 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 New issues:
-- [High] Unchecked clk_prepare_enable() return values can lead to synchrono=
-us external aborts during MMIO access or unbalanced clock disables.
-- [High] The patch explicitly turns off `pclk` and `axi_clk` during probe, =
-which can break the inherited display pipeline.
-- [High] Inherited display clocks are leaked indefinitely if DRM components=
- fail to bind, if the CRTC is disabled without being enabled first, or if u=
-serspace never initiates a modeset.
+- [High] Sleeping functions called from atomic context.
+- [High] Unbalanced reference counting on AXI clock enable failure leads to=
+ premature clock disable for active CRTCs.
 
 Pre-existing issues:
-- [High] Calling sleeping functions from atomic context in CRTC atomic enab=
-le callback.
+- [High] Failure to enforce IOMMU requirement by allowing a NULL VM fallbac=
+k in drm_gpuvm conversion.
 --
 
-commit deec425702ee01b881e4c0a6e40e6ec4f167024f
+commit f1ffff35bea0debf56db480bb3da6443ad42c41a
 Author: Alexandre MINETTE <contact@alex-min.fr>
+Subject: drm/msm/mdp4: keep the bus clock enabled while a CRTC is active
 
-drm/msm/mdp4: keep inherited display clocks enabled until modeset
-
-This patch detects if the MDP4 display pipeline was already enabled by
-firmware and keeps the required display clocks prepared to prevent panel
-glitches. It drops the extra clock references on the first DRM CRTC
-enable when the driver takes ownership.
+This patch keeps the AXI/bus clock enabled for the lifetime of each active
+CRTC to avoid temporary MDP4 disable paths gating the bus clock while
+scanout is still running.
 
 > diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c b/drivers/gpu/drm/=
 msm/disp/mdp4/mdp4_crtc.c
+> index e8066f9fd5343..9e53c9d956ca8 100644
 > --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
 > +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
-> @@ -297,6 +297,7 @@ static void mdp4_crtc_atomic_enable(struct drm_crtc *=
+> @@ -271,6 +271,7 @@ static void mdp4_crtc_atomic_disable(struct drm_crtc =
+*crtc,
+> =20
+>  	mdp_irq_unregister(&mdp4_kms->base, &mdp4_crtc->err);
+>  	mdp4_disable(mdp4_kms);
+> +	mdp4_crtc_bus_put(mdp4_kms);
+
+[Severity: High]
+Does calling mdp4_crtc_bus_put() here introduce a sleeping lock into an ato=
+mic
+context?
+
+CRTC atomic disable callbacks execute in an atomic context where sleeping is
+forbidden, but mdp4_crtc_bus_put() acquires a mutex lock.
+
+[ ... ]
+
+> @@ -295,6 +296,7 @@ static void mdp4_crtc_atomic_enable(struct drm_crtc *=
 crtc,
+>  		return;
 > =20
 >  	mdp4_enable(mdp4_kms);
->  	mdp4_crtc_bus_get(mdp4_kms);
-> +	mdp4_inherited_display_clocks_put(mdp4_kms);
+> +	mdp4_crtc_bus_get(mdp4_kms);
 
 [Severity: High]
-Will the inherited clock references be leaked if the display components
-never bind or if userspace never initiates a modeset?
+Similarly, does this introduce sleeping calls into the atomic enable path?
 
-If msm_drv_probe() successfully adds the master component but the required
-display components fail to bind, the mdp4_destroy() callback is never
-executed. If userspace never initiates a modeset or explicitly disables
-the display first, atomic_enable is never reached. In these cases, it
-appears the driver holds explicit clk_prepare_enable references that will
-bypass the clock framework's late initcalls, leaving the hardware fully
-powered on indefinitely.
-
-[Severity: High]
-This is a pre-existing issue, but does adding this call here worsen a
-violation of atomic context rules?
-
-CRTC atomic enable callbacks run in atomic context during non-blocking
-commits, where sleeping is strictly forbidden. The mdp4_crtc_atomic_enable()
-function already contained sleeping calls like mdp4_enable(), and this
-patch adds mdp4_inherited_display_clocks_put() which acquires a mutex and
-calls clk_disable_unprepare(). Both of these operations can sleep. Could
-this lead to kernel might_sleep() warnings or deadlocks during non-blocking
-commits?
-
-> =20
->  	/* Restore vblank irq handling after power is enabled */
->  	drm_crtc_vblank_on(crtc);
+mdp4_crtc_bus_get() uses both mutex_lock() and clk_prepare_enable(), which
+may sleep.
 
 [ ... ]
 
 > diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/m=
 sm/disp/mdp4/mdp4_kms.c
+> index 809ca191e9de7..4c60b49fb7842 100644
 > --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
 > +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+> @@ -118,6 +118,39 @@ static long mdp4_round_pixclk(struct msm_kms *kms, u=
+nsigned long rate,
 [ ... ]
-> +static void mdp4_inherited_display_clocks_get(struct mdp4_kms *mdp4_kms)
+> +void mdp4_crtc_bus_get(struct mdp4_kms *mdp4_kms)
 > +{
-> +	bool inherited_display;
+> +	int ret =3D 0;
 > +
 > +	mutex_lock(&mdp4_kms->clock_lock);
 > +
-> +	clk_prepare_enable(mdp4_kms->clk);
-> +	clk_prepare_enable(mdp4_kms->pclk);
-> +	clk_prepare_enable(mdp4_kms->lut_clk);
-> +	clk_prepare_enable(mdp4_kms->axi_clk);
-
-[Severity: High]
-Is it safe to proceed with hardware MMIO reads if any of these clocks fail
-to enable?
-
-The return values from clk_prepare_enable() are completely ignored here.
-If enabling the core or bus clock fails, the driver will proceed to perform
-MMIO reads in mdp4_has_inherited_display_state() on unclocked hardware. On
-MSM platforms, accessing unclocked registers typically triggers an unhandled
-synchronous external abort, resulting in a kernel panic. Should these
-return values be checked and handled?
-
+> +	if (!mdp4_kms->crtc_bus_count)
+> +		ret =3D clk_prepare_enable(mdp4_kms->axi_clk);
 > +
-> +	inherited_display =3D mdp4_has_inherited_display_state(mdp4_kms);
-> +
-> +	if (inherited_display) {
-> +		clk_prepare_enable(mdp4_kms->clk);
-> +		clk_prepare_enable(mdp4_kms->lut_clk);
-> +		mdp4_kms->inherited_display_clocks_held =3D true;
-> +	}
-> +
-> +	clk_disable_unprepare(mdp4_kms->clk);
-> +	clk_disable_unprepare(mdp4_kms->pclk);
-> +	clk_disable_unprepare(mdp4_kms->lut_clk);
-> +	clk_disable_unprepare(mdp4_kms->axi_clk);
-
-[Severity: High]
-Will unconditionally disabling pclk and axi_clk here break the inherited
-display pipeline?
-
-The Linux Common Clock Framework initializes clocks left on by the
-bootloader with a software usage count of 0. By temporarily enabling and
-then disabling them, the usage count goes from 0 to 1 and back to 0. This
-triggers the framework to physically turn off the hardware clocks
-immediately. Disabling the pixel clock (pclk) and memory bus clock
-(axi_clk) while the hardware is actively scanning out a frame will
-typically starve the pipeline, causing bus hangs, underflows, or the exact
-blank screen this patch aims to prevent. Should the active state of these
-clocks be preserved if an inherited display is detected?
-
+> +	if (!ret)
+> +		mdp4_kms->crtc_bus_count++;
 > +
 > +	mutex_unlock(&mdp4_kms->clock_lock);
+> +
+> +	WARN_ON(ret);
 > +}
+> +
+> +void mdp4_crtc_bus_put(struct mdp4_kms *mdp4_kms)
+> +{
+> +	mutex_lock(&mdp4_kms->clock_lock);
+> +	if (!mdp4_kms->crtc_bus_count)
+> +		goto unlock;
+> +
+> +	mdp4_kms->crtc_bus_count--;
+
+[Severity: High]
+Could this result in unbalanced reference counting and premature clock disa=
+ble?
+
+If clk_prepare_enable() fails in mdp4_crtc_bus_get(), crtc_bus_count is not
+incremented, but the error isn't propagated since the function returns void.
+If a subsequent CRTC successfully enables the clock, the counter becomes 1.
+
+Later, when the first (failed) CRTC is disabled, mdp4_crtc_bus_put() will
+unconditionally decrement crtc_bus_count to 0 and disable the clock. This
+steals the reference belonging to the second active CRTC, leaving it scanni=
+ng
+out with its bus clock disabled.
+
+[ ... ]
+
+While reviewing this file, I noticed a pre-existing issue in mdp4_kms_init(=
+):
+
+drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c:mdp4_kms_init() {
+    ...
+	vm =3D msm_kms_init_vm(mdp4_kms->dev, NULL);
+	if (IS_ERR(vm)) {
+		ret =3D PTR_ERR(vm);
+		goto fail;
+	}
+
+	kms->vm =3D vm;
+    ...
+}
+
+[Severity: High]
+This is a pre-existing issue, but does this bypass the IOMMU requirement if
+msm_kms_init_vm() returns NULL?
+
+The DRM subsystem requires IOMMU support for drm_gpuvm and does not support
+fallback modes. Since msm_kms_init_vm() might return NULL when IOMMU is
+unavailable, checking only IS_ERR(vm) allows driver initialization to proce=
+ed
+with a NULL VM instead of failing with an error.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611-mainline-f=
-ix-mdp4-blue-screen-sending-v1-v1-0-22925600e4f2@alex-min.fr?part=3D2
+ix-mdp4-blue-screen-sending-v1-v1-0-22925600e4f2@alex-min.fr?part=3D1
