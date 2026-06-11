@@ -4,108 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5D64CD98CE
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 17:14:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A75F8CD98C7
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 17:15:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B32688697;
-	Thu, 11 Jun 2026 17:14:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B2C510E274;
+	Thu, 11 Jun 2026 17:15:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="TA0AOqCZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LnsOUic6";
 	dkim-atps=neutral
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
- [209.85.128.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94A7510E825
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 17:14:30 +0000 (UTC)
-Received: by mail-yw1-f173.google.com with SMTP id
- 00721157ae682-7dc67a5e102so880197b3.1
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 10:14:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781198069; cv=none;
- d=google.com; s=arc-20240605;
- b=es8GA3i8b2BxcHapnxDGHhTdIZy+HAsQ9N4I3rC5qfyTDRyODyi89m0DsUgQHeivlN
- HDidipQBudPDfuWEAb6Re+QdalbW7c6p6ptCwLjNJu5ZQk5sHTDh7vjvg+ebJ0T5y6By
- IHGSr6HtpXHkMSLNaVjg5ZtE4EIZAxRzC527xlDKtEfHbLVdT3x3FEXyVe1ji+iPv89q
- z6IKezREGE4AON3Tj5oVuQfNsADESDUj1zDpgMYbwMvLe+CrUoPZoIPuBU9yyVLDzixo
- 9D3F42JlkWP1q67ltlY8DS2+BDUfSIoJSjgKX4D9lK63zYYI6BiA6GyYQn1uwZ8tSCnv
- VJ8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=eA7yRXvTEh8fNrCRO00h2bUBzADrGeYwcxZYdic1EgQ=;
- fh=uSfTQ4taLpwh1Ix0MoMNUSthPj+QD44k2HX/WInX4TQ=;
- b=FDLX/ob4sZZSIj/+qBz0DM4sntiSmaGtYtiQ0Z4IzKZIOie8bW+5UTVUijsOMMVYJT
- Os4Mnh2Vh88GR+70NR879wO94nSrHKQ7H14j0FAgIdeiCiJdNro/ai6+fjuGS1pNWZbx
- eMeFpmUNdtXBJR806u4BnGrMF0SzFSv4CdsgQY+hM/LlsvOIy85UT4FPnlQ3lWoJe0ag
- yHoPfdcHgsB42hAmcdX3S94AOCaT7ORr85HWJ0AvMykQSMINnTux4is4RrCKY003AE7a
- mpTCFAhqYwcu9rRmeCBamHC+qjIdE+/klUcgd1sCdwUoN5Y9pzW7CWMW3wuSN5c8AIW/
- E64w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=raspberrypi.com; s=google; t=1781198069; x=1781802869;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=eA7yRXvTEh8fNrCRO00h2bUBzADrGeYwcxZYdic1EgQ=;
- b=TA0AOqCZ/32aNVDqu1QOw2wI2aLXtd8s0OFDsN5Kdy+5H2aMpLgjMsQD40vlFp/mz6
- CPZh2IG9QEWzfO4cZUKKXoMrwaZOz3cRxOwcVgsysIh6tre90MjrvSXYjRtFZyt5798o
- Hmz4cBziQbdZU+WOWphu26t1VEkNtQqEuDg0OR++/ZC2TVv2h+AWTT1Z7bpe/1EOG0Pm
- 0sckFTlXtEV7G/jvojNXv8N3Dj9f6JSiV4C6YcQM/XQSCbk72GuEmlPD0Lc07Bz/vhTH
- gOinduMfBcbc7+2ulsgnAZtxr0liWXjVzT79Qlmo5laTDWwfjRdIhfZE6XBA22BkobGC
- QkCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781198069; x=1781802869;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=eA7yRXvTEh8fNrCRO00h2bUBzADrGeYwcxZYdic1EgQ=;
- b=PnfltebpyahsP+nsDAn42HINx7Pqq4T25zA4PI6ngnaLylIvWPu40XwxthiKcpAyfF
- BAD2f0EOsPOd1gpHFcaJVcTv1H28euk1GdyRvCyHhS/7IbXcj/1sJCBts9LTgfhXjGMi
- U4hkvGpAbtelqT3sIDodmQPyB/C+NuNl6EpRi7zWXYbVvOf+2I1C4hexdw0I4+3MjiII
- FrJvQjxYAA37ISuBYc3Z/ZI0l4mcCMcwR15LugL5v1FwaqOdG94UBo9HIPUxkaRhk/Dz
- R2Sbq5tk/L/tn64KekCMRiUBCtnbY1sB0iUArNJdMIJqq3t9kWqN3xaB6id7HJKvTY9d
- KJpg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/K3DmrVsL4Xww7Qxyp0z51kqhNjEXt9q+/cBHOg7zi1u7/ZwClWW+eaA56mmCUNTQJH03Iw/4haAc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz6LGiJs3v4qXkwug4jxv09UuI8DOd5h7JMG6mAfbU+ilZKGctC
- ZTyO5NbUKBsZW8zJ9YpRbsAKdDdUXZe9ZuXFRRG4pRzlOh2+0vv+9sosUvRC0WvPsE1KJLRsbet
- xJlBDnL2sasQuri/ACykYfaKFHZpq3eB/XCJkitmGqQ==
-X-Gm-Gg: Acq92OGCaKMcHwGiu6UiXidfYU6S6WAhRxPE4jVsOERYq7Xq/iV75qt28QH6WpXnpO8
- 4D1pRRSP1gvAeexxBBZl+kGw4Qx5iAcQvlmtC7Kj+BgzVi544dO6s3cFFlGoHGPYPpYDd0s9rkA
- OycdF3z2Uti5ONYxZDWG+TKA4sM8Z74aHH5/kvZF/j/wWFL1ZzhAsP+VOhMOzKjhLG2Kq6glyDO
- d42tztr54Mrf+K72E4tmuot6YlmAujtLqFA/1J3x9wFGZwIAxr5bxJioIF71aR/3ivHAxbxoFQW
- eyWbajdJJvYp7WHz3Z2dKWnvOvqEWdYAvplgYRHvzybHxQo94LKAFEZGp+fmrjnJbAD9Za5c3tq
- X8lvAT1493auzIin7JKiqkflYVaQ1Z7czDlE=
-X-Received: by 2002:a05:690c:660f:b0:7cf:f14e:bf5a with SMTP id
- 00721157ae682-7f655cd3b81mr39665227b3.20.1781198069266; Thu, 11 Jun 2026
- 10:14:29 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
- <20260602-dw-hdmi-qp-scramb-v7-24-445eb54ee1ed@collabora.com>
-In-Reply-To: <20260602-dw-hdmi-qp-scramb-v7-24-445eb54ee1ed@collabora.com>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 11 Jun 2026 18:14:11 +0100
-X-Gm-Features: AVVi8CeUnQ0ZG_IBJrTt3afcxP7ht6E9ev0RCneHeSMnT7NSdu-xpfFzb1oLr80
-Message-ID: <CAPY8ntDw9CSZgMzdDenHdv8ZN8Ho5JAhu1h8FXUiqLfxcVCWLQ@mail.gmail.com>
-Subject: Re: [PATCH v7 24/30] drm/vc4: hdmi: Use common TMDS char rate
- constants
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>, 
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>, 
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- kernel@collabora.com, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C9B010E274
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 17:15:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 21D4341B58;
+ Thu, 11 Jun 2026 17:15:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5C9C1F00893;
+ Thu, 11 Jun 2026 17:15:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781198139;
+ bh=JLvdfWSCm/54x6keqqqX23HM8ntLWBTzs5SmYTGEFOw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=LnsOUic65IMYyuSdcKTt6UP2YGpm+frbZvhqgwgIJTN6HqIvFRxNBhJAVmlhZah7I
+ LoN1UC4VQSJD+fUbuGJEXLBHF1Z2DYsXbnAFm+gQNV+Ak5XxgegwAFyZl2cv0CtYNL
+ 4xxrxxAQvN8s7bUS+ObjoJML4Mbyc6iBOVbV1X2jPshBEEANcJ1tTteJY4DLg/zJed
+ WnNFXUZ2v242+Ih+2GJbdAHsxBuGGdklQ+E4ISb5dGJturoTVVBZj6xscmKRVmkcvh
+ 0V8TlOnpzQqV7zK9Tb8yUV3tko+bUVtJ3VHx+P6IgOeVme5XpoBY6fBnQy4K6c2puo
+ 5V7/5+B7szUVQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 05/20] rust: io: generalize `MmioRaw` to pointer to
+ arbitrary type
+To: "Gary Guo" <gary@garyguo.net>
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, linux-pci@vger.kernel.org,
+ ojeda@kernel.org, "Danilo
+ Krummrich" <dakr@kernel.org>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260611-io_projection-v4-5-1f7224b02dcb@garyguo.net>
+References: <20260611-io_projection-v4-5-1f7224b02dcb@garyguo.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 11 Jun 2026 17:15:37 +0000
+Message-Id: <20260611171538.B5C9C1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,22 +55,57 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 1 Jun 2026 at 23:45, Cristian Ciocaltea
-<cristian.ciocaltea@collabora.com> wrote:
->
-> Replace HDMI_14_MAX_TMDS_CLK defined locally with
-> HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ provided by linux/hdmi.h.  Note this
-> incorrectly referenced HDMI 1.4, as the 340 MHz maximum TMDS character
-> rate was actually introduced in HDMI 1.3.
->
-> Similarly, use HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ instead of the 600000000
-> magic number.
->
-> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Pre-existing issues:
+- [High] Resource leak of I/O mapped virtual memory in `IoMem::ioremap` upo=
+n `MmioRaw::new_region` failure.
+--
 
-> ---
+commit 341339f8ea263586994f368a12f84cd531475a2a
+Author: Gary Guo <gary@garyguo.net>
+
+Update MmioRaw to use the dynamic-sized type Region<SIZE> instead of
+representing compile-time known minimum sizes directly. Implement Clone,
+Copy, Send, and Sync manually due to raw pointer usage.
+
+> diff --git a/rust/kernel/io/mem.rs b/rust/kernel/io/mem.rs
+> index fc2a3e24f8d5..9e15bc8fde78 100644
+> --- a/rust/kernel/io/mem.rs
+> +++ b/rust/kernel/io/mem.rs
+
+[ ... ]
+
+> @@ -264,8 +264,7 @@ fn ioremap(dev: &'a Device<Bound>, resource: &Resourc=
+e) -> Result<Self> {
+>              return Err(ENOMEM);
+>          }
+> =20
+> -        let io =3D MmioRaw::new(addr as usize, size)?;
+> -
+> +        let io =3D MmioRaw::new_region(addr as usize, size)?;
+
+[Severity: High]
+This is a pre-existing issue, but does this early return via the ? operator
+leak the mapped I/O virtual memory in IoMem::ioremap()?
+
+If MmioRaw::new_region() fails (for example, if the device's hardware size
+is smaller than the statically requested SIZE), the ? operator causes an
+early return with an error.
+
+Because the IoMem structure is not yet fully constructed, its Drop
+implementation is never invoked. This means bindings::iounmap is bypassed,
+abandoning the raw addr pointer and leading to an unrecoverable leak of
+vmalloc space.
+
+>          Ok(IoMem { dev, io })
+>      }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611-io_project=
+ion-v4-0-1f7224b02dcb@garyguo.net?part=3D5
