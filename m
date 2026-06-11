@@ -4,44 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83E49CD8C9D
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 18:30:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE0D3CD98C7
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 18:31:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF4F610F089;
-	Thu, 11 Jun 2026 18:30:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30D0810F08E;
+	Thu, 11 Jun 2026 18:31:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ai9XWaeo";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ky2sh99t";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3830410E814
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 18:30:52 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 730EF600AA;
- Thu, 11 Jun 2026 18:30:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA8A01F000E9;
- Thu, 11 Jun 2026 18:30:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781202651;
- bh=Tq9WlxyaX3hhKxGeqMBQiX/2lLF66I5lE34NLBYcw2g=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ai9XWaeoxvL5A2wEXm729UqVMmIMZy4YEY3zTYb+R90b3ULWwMKflQpt+EHzG94Ce
- GTQl77PBptIh9sE5ASR/Obz7QEHx5kjznXAiDiSoGlr4QhTg+Gys8oupHuyO/X+W3z
- UDLTivtua7pRWzplMq8Wx7wwStstj/9BbjhVqD28vdeGRNTFrYI0OtkDHB6pjnKhuS
- +6W3lOr6F/RtZwM5VWxOxmlZzYoQHD2IAzej7rVZwi4jwN/MdmA74g7oef1lnv+mgZ
- kW9LKwXbpEwgApSndiTnLIQQ4Aulma6FlrzJJcGkXLBC5nmJR6FF/R27SzuhNLJd9P
- tAtiRifZFchHw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 15/20] rust: io: implement a view type for `Coherent`
-To: "Gary Guo" <gary@garyguo.net>
-Cc: ojeda@kernel.org, linux-pci@vger.kernel.org,
- dri-devel@lists.freedesktop.org, "Danilo
- Krummrich" <dakr@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>
-In-Reply-To: <20260611-io_projection-v4-15-1f7224b02dcb@garyguo.net>
-References: <20260611-io_projection-v4-15-1f7224b02dcb@garyguo.net>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82D2E10E814;
+ Thu, 11 Jun 2026 18:31:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781202682; x=1812738682;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=7hFbgC9HnPzMr6oxo3wnpqIPpU8GHodGdbMFTy6e1TU=;
+ b=ky2sh99tnZnpx3yYw8IMgvo9uy9y7Wr3WmuNu/xJjm3JyEx5DH+pEUcs
+ bPmd3hgQH4tZIF3bZghaRqKiUf/DTEcG2Yy/wLTjDVNPYG+cmIjoZEvAx
+ F9hPWa/8H3YoWCSgIf21wohoDef8LvAWAcEVRJ9/jluToq6MtRvrxpqI2
+ Rrm4aGtXA9PfgNHYUo6J2g+eVFkbCVzAX7KkVW3hyqyfshxFo37Xxe4JB
+ DbLUu9kCSppTwXa1ixSaAtZuUnWqhnlM+PkZWNX2YYycN+j0JHmPZVT13
+ MzA2z9/G42ogyga8052F3XCCmoBc4L5F+Asynl3lFfDp8t3r0n4X2TyOO w==;
+X-CSE-ConnectionGUID: Nx8j/4U/RgSnDA3nKbC6wA==
+X-CSE-MsgGUID: i3CH6l6LQI2QrDYGLjK6FA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="93136340"
+X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="93136340"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2026 11:31:21 -0700
+X-CSE-ConnectionGUID: 5eTY9mfpReuvZAQcDYRSJg==
+X-CSE-MsgGUID: MEeJ9TMTQhGOHh6SBSHMRQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="276756938"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.123])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2026 11:31:08 -0700
+Date: Thu, 11 Jun 2026 21:31:04 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Kaitao Cheng <kaitao.cheng@linux.dev>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Davidlohr Bueso <dave@stgolabs.net>,
+ "Paul E . McKenney" <paulmck@kernel.org>,
+ Josh Triplett <josh@joshtriplett.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Huang Rui <ray.huang@amd.com>, Eddie James <eajames@linux.ibm.com>,
+ Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Laxman Dewangan <ldewangan@nvidia.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Waiman Long <longman@redhat.com>, drbd-dev@lists.linbit.com,
+ linux-block@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Christian Brauner <brauner@kernel.org>,
+ David Howells <dhowells@redhat.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kaito Cheng <chengkaitao@kylinos.cn>, Muchun Song <muchun.song@linux.dev>,
+ Philipp Reisner <philipp.reisner@linbit.com>,
+ Lars Ellenberg <lars.ellenberg@linbit.com>,
+ Christoph =?iso-8859-1?Q?B=F6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ Jens Axboe <axboe@kernel.dk>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: Re: [PATCH v2 00/14] list: Prepare entry iterators to cache cursor
+ state
+Message-ID: <air-6P9ZGBbCWtGs@ashevche-desk.local>
+References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
+ <bd0b7393-8ccb-4d67-8bfc-18c68347122c@amd.com>
+ <5152089a-2808-4fe9-b633-b03018105dd2@linux.dev>
+ <6b2efdee-95b0-4306-a682-0d0466497ddb@amd.com>
+ <2399841f-d834-4652-8285-4a15c7d9a9b9@linux.dev>
+ <d974a2ea-6102-45ff-bf36-3b25a2404e40@amd.com>
+ <ail8iNvPrJnE7p58@ashevche-desk.local>
+ <92683537-8404-47fe-a4ba-160e54870f0b@amd.com>
+ <aipx1goKIsk40vrF@ashevche-desk.local>
+ <96f9390b-a547-442f-b0a9-99a5ba52c0e1@amd.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jun 2026 18:30:49 +0000
-Message-Id: <20260611183050.CA8A01F000E9@smtp.kernel.org>
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <96f9390b-a547-442f-b0a9-99a5ba52c0e1@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,113 +123,68 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The safety documentation for `CoherentView::as_mut` and `as_ref` f=
-ails to demand Rust's reference aliasing exclusivity, allowing Undefined Be=
-havior.
---
+On Thu, Jun 11, 2026 at 10:39:14AM +0200, Christian König wrote:
+> On 6/11/26 10:29, Andy Shevchenko wrote:
+> > On Thu, Jun 11, 2026 at 10:01:25AM +0200, Christian König wrote:
+> >> On 6/10/26 17:02, Andy Shevchenko wrote:
+> >>> On Wed, Jun 10, 2026 at 11:11:34AM +0200, Christian König wrote:
+> >>>> On 6/10/26 10:18, Kaitao Cheng wrote:
+> >>>>> 在 2026/6/10 16:07, Christian König 写道:
 
-commit 20e5ba166044275ffb7dbced6b142a0a7c1c896e
-Author: Gary Guo <gary@garyguo.net>
+...
 
-Implement a CoherentView type which is a view of Coherent.
+> >>>>> Should we revert to v1, or keep list_for_each_entry() and
+> >>>>> list_for_each_entry_safe() as they are, close this thread, and make no
+> >>>>> changes?
+> >>>>>
+> >>>>> Link to v1:
+> >>>>> https://lore.kernel.org/all/20260529082149.76764-1-kaitao.cheng@linux.dev/
+> >>>>>
+> >>>>> Or do you have any better suggestions?
+> >>>>
+> >>>> v1 looks perfectly reasonable to me.
+> >>>
+> >>> But why not just hiding that once for all (in case they don't use the temporary
+> >>> iterator)? Easy to automate, robust — everyone is happy?
+> >>
+> >> As far as I can see that is an extremely bad idea.
+> >>
+> >> The distinction between the use cases of 'iterating the list' and 'iterating
+> >> the list while you modify it' is completely intentional.
+> > 
+> > What I meant is to keep the name, just drop the parameter (make it hidden and
+> > being defined inside list_for_each_*_safe() cases).
+> 
+> Ah, sorry I was still thinking the suggestion is to merge
+> list_for_each_entry() and list_for_each_entry_safe().
+> 
+> If the modification is done all at once or in steps doesn't really matter for
+> me as long as the patch can be re-created reproducible.
+> 
+> But I'm wondering if we couldn't improve the name at the same time. The
+> _safe() postfix has caused tons of confusion where especially beginners
+> thought that it is a thread-safe variant, which it clearly isn't.
+> 
+> The _mutable() postfix sounds like a much better description to what happens here.
 
-To be able to give out DMA handles, the view type contains both CPU and DMA
-pointers, and the projection method projects both at once. Delegate most of
-the Io implementation to SysMemBackend. Provide a method to erase the DMA
-handle and give out a SysMem view, if the user does not need the dma_handle.
+I see, no objections from my side, but with the new name we don't need to have
+treewide change, the downside that one should undertake this to finish the job,
+otherwise we will have _safe() and _mutable() for a long time.
 
-> diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
-> index 200def84fb69..ab6504910e4f 100644
-> --- a/rust/kernel/dma.rs
-> +++ b/rust/kernel/dma.rs
+> >> See the bool type can be implemented by int as well, but it is just a
+> >> different use case.
+> > 
+> >>>> You should just include some patches in the same patch set to actually use
+> >>>> the new macros.
+> >>>>
+> >>>> If you modify the files under drivers/dma-buf or drivers/gpu/drm/amd to use
+> >>>> the new macro I'm happy to review that.
 
-[ ... ]
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> +impl<T: ?Sized> Copy for CoherentView<'_, T> {}
-> +impl<T: ?Sized> Clone for CoherentView<'_, T> {
-> +    #[inline]
-> +    fn clone(&self) -> Self {
-> +        *self
-> +    }
-> +}
-> +
-> +impl<'a, T: ?Sized> CoherentView<'a, T> {
 
-[ ... ]
-
-> +    /// Returns a reference to the data in the region.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// * Callers must ensure that the device does not read/write to/fro=
-m memory while the returned
-> +    ///   reference is live.
-> +    /// * Callers must ensure that this call does not race with a write =
-to the same region while
-> +    ///   the returned reference is live.
-> +    #[inline]
-> +    pub unsafe fn as_ref(self) -> &'a T {
-
-[Severity: High]
-Since CoherentView implements Copy, callers can duplicate the view and call
-this method multiple times. Does this safety contract adequately protect
-against creating overlapping shared and mutable references?
-
-Rust's aliasing rules consider it undefined behavior to create aliasing
-mutable and shared references, even in single-threaded code without a data
-race.
-
-It seems the preconditions should explicitly require callers to ensure no
-mutable references to the same memory region exist while the returned
-reference is live.
-
-> +        // SAFETY: pointer is aligned and valid per type invariant. Alia=
-sing rule is satisfied per
-> +        // safety requirement.
-> +        unsafe { &*self.cpu_addr.as_ptr() }
-> +    }
-> +
-> +    /// Returns a mutable reference to the data in the region.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// * Callers must ensure that the device does not read/write to/fro=
-m memory while the returned
-> +    ///   reference is live.
-> +    /// * Callers must ensure that this call does not race with a read o=
-r write to the same region
-> +    ///   while the returned reference is live.
-> +    #[inline]
-> +    pub unsafe fn as_mut(self) -> &'a mut T {
-
-[Severity: High]
-Similar to as_ref() above, does this safety contract prevent the creation of
-aliasing mutable references?
-
-Because the struct implements Copy and this method takes self by value retu=
-rning
-&'a mut T, a caller could copy the view and call as_mut() sequentially. The
-safety contract only forbids racing with a read or write, which does not pr=
-event
-the immediate undefined behavior of having multiple overlapping &'a mut T
-references.
-
-Should the documentation be updated to demand Rust's reference aliasing
-exclusivity?
-
-> +        // SAFETY: pointer is aligned and valid per type invariant. Alia=
-sing rule is satisfied per
-> +        // safety requirement.
-> +        unsafe { &mut *self.cpu_addr.as_ptr() }
-> +    }
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611-io_project=
-ion-v4-0-1f7224b02dcb@garyguo.net?part=3D15
