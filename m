@@ -4,105 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89060CD98CE
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 13:48:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66F81CD98CC
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 13:52:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFE5010E7A8;
-	Thu, 11 Jun 2026 13:48:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD45D10E78D;
+	Thu, 11 Jun 2026 13:52:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kX2o9L+1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TQvUZiLt";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE77C10E7A8
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 13:48:21 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8386042A86;
- Thu, 11 Jun 2026 13:48:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D5FF1F00893;
- Thu, 11 Jun 2026 13:48:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781185701;
- bh=aF00A/7LJqHmnZrGb5ZdXoOv2Kq8GHQtu8KTtY3CkN4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=kX2o9L+1zy0n3E2kY9ryIPg3zWECW8UZdxmdJ4pvDlPElbnUzNpTjsbkWNZ8+izT1
- QlFXERUt7CDbJkWLV74cQDE8hWfDagUTWBz/vTmtCc7bqQCB1NQsB1fPrmsMP2ROZQ
- 85mdSrpgo/c14dkzS1eVKw5uVi+VuhzhVHZO/PI9lABJX/ks9/M7yD5wmMQzeZw342
- rNIOSRBMqjrPx9haaPMaJaLzIwpF7RlpkcW2OUZc2nbMPOO4P3EsT96hwkSrUVw4Wn
- ucNQLeX11Iz6Pfq5JeH+DX+vpVZ/AuuznsLP8On45sH2ISyzPqgncsHzwSZwYdRDWN
- mNpHHd4zeHjXA==
-Message-ID: <ac191a18-bcb4-4fa5-a179-b72a6ac928cb@kernel.org>
-Date: Thu, 11 Jun 2026 15:48:15 +0200
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com
+ [209.85.222.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3580510EEF9
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 12:54:12 +0000 (UTC)
+Received: by mail-qk1-f178.google.com with SMTP id
+ af79cd13be357-915510525deso93733685a.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 05:54:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781182451; x=1781787251; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=pApUitxnpFLRw4B63hSdHQtKPDI/sltH6G53COwClfE=;
+ b=TQvUZiLt93n3vxBfF/J+7PdBQoPZWevztBgcDIgUsm1Hu0gc7l8jUsOTAAKNQ89O7c
+ jtGBdwnaz7kGnKYRJ+Vkpszwh6PqqneWtmF8QMIiwBtjT3l8zIZN8cvZwsNZDLigLrYj
+ XFs21Drp1BoIkctyPn0JyldGSo9hadUcF3AVIpj3hibH04/jB6Q05yGNUCeMgAckUvQe
+ RoEqz4vWH9PatWETIWitqRagWhTxSjUWwTp5udrzKjUjMMVPSF+HXCkO8J36L9N0tnWr
+ isU+rPAu9YDQPDD7hJ9m1miwd5f6LC99UZxEyqJop4B5tS1XuVmzrt3SrsrJYc368P8q
+ j+Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781182451; x=1781787251;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=pApUitxnpFLRw4B63hSdHQtKPDI/sltH6G53COwClfE=;
+ b=ik5Be2Em6Swjn3Ybjc89MdZd6gxXEh18gqJWHoMeVlKYeGVmfWYNobMOa3T27MjtJ/
+ GZiKFw4TzjB2cPj2i/4/0z1cmn5qJE5KY8bZozIx4gUMVjeQUpAg4s0EJIBlTM4uh7y2
+ Hz8USS9A39lvcu5tlYnDgJ3yrN2DxDj6Kc2os5MlfuAKUYT9puXQivuS1PgJ9riQQnaj
+ sWoqkkOuQ7kRqsc88xiaRZzM8puaWXJpN+zqk8liJMy2e137IOlO6nroTAdTHvgEiZif
+ Ff//uR3Q4XXhgL7uyPlPqcaIImQGSDNzdll8UtF2mYGmAm2ADseQlCxcWBsIlvPnVqyM
+ BjVQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ86bBQ3W/qp47vJxu2T5Or2RnhFjr7ZxLhj+qK/bP04lPxDFDU9eouwt6UyxR5dG8qNBLcaSdDv/mU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy/TJk0RMFkU5jjYSDZiRZ7NmB2bZ+sYSsKO4um5DfNCzx5vvM/
+ 7Q43ARqDCLL3AENpAljS6OPG8tK81hIc+oUsSdPAxeeAB4X96Azkr3BX
+X-Gm-Gg: Acq92OGrt5GYuS0U7tdLazoP4Bb9aQij0NhR08cSGBdqHoQGc8jn1jIE/DYog+hhQqx
+ OYwN+AjvFTUohFsz8/eVS5Lo/dbItEoxB8gO6I3eS5f2G2lnAzk0tzBkpSC1Nc20am11umqnxom
+ PTJPNC/GzEjFyPR7+18+PxK+qER8JjB+IR/fgRErRVN5c3GVI2aW5k5DN9887a+jYxrFg7SrhqY
+ TbVULeJdxtuyQIBtr9OGAzjLo2bTFmaxVcZWs3BT4103AZLdXT0RC4DOD3ztmCoYPLgsfn8Cu7H
+ fR2LXkMS5EStq+jkZKavpD1VE3nH2IRJNShxiyolsccGNg9isfqIfp4qdL6IJ0UwaoA0R5iOIsY
+ RBgGAxVr50Ius1oKJQdGIS5WtAxYiHINWWwkV7XjxZUt6lsKKho3G2b/uzlfxqG2+z5i7aJTiq/
+ +5smg78pXSVDb8YlSxqLynSDu86oyeQycWlen2o2cRxc27g5SMHxEcfkpYsZB9uoItCv9/FbxEJ
+ s0IeejGMpT1DKT/UC8MmgAv7nL13HYV+aa2ETBf2nMHbSXwMj9y6yxTfFHognK1OQz921mtxaIs
+ sA==
+X-Received: by 2002:a05:620a:6486:b0:914:ea37:6f14 with SMTP id
+ af79cd13be357-9160ab058bdmr226309185a.1.1781182451197; 
+ Thu, 11 Jun 2026 05:54:11 -0700 (PDT)
+Received: from debian-t14-gen1-fuhrysteve.fuhry.app
+ (6.sub-75-230-138.myvzw.com. [75.230.138.6])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-9160accaf7asm176311485a.19.2026.06.11.05.54.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Jun 2026 05:54:10 -0700 (PDT)
+From: "Stephen J. Fuhry" <fuhrysteve@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+ Animesh Manna <animesh.manna@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, "Stephen J . Fuhry" <fuhrysteve@gmail.com>
+Subject: [PATCH] drm/i915/display: guard intel_alpm_get_error() against
+ non-ALPM sinks
+Date: Thu, 11 Jun 2026 08:54:08 -0400
+Message-ID: <20260611125408.676626-1-fuhrysteve@gmail.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] dt-bindings: arm: qcom: Add Lenovo Yoga Slim 7x Gen11
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: rob.clark@oss.qualcomm.com, Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Douglas Anderson
- <dianders@chromium.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-References: <20260604-topic-yoga_submission-v1-0-57c70c23d0d6@oss.qualcomm.com>
- <20260604-topic-yoga_submission-v1-2-57c70c23d0d6@oss.qualcomm.com>
- <7a330941-8715-4523-9f39-10b57586c69d@kernel.org>
- <CACSVV03J7Y4-ADRNE+4qArqsWvQZ3qmTc04r7vmY64s0qDYFkw@mail.gmail.com>
- <799fea04-e7d0-4184-b9ae-4cebfdac38d5@kernel.org>
- <841a54ff-6287-48d2-a513-a7442d624ab6@oss.qualcomm.com>
- <uieb6ukjokwnppc5zfr6bjychqsnpikwmiy7j7dmt2kgk7k4zi@2stv37ijv36o>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <uieb6ukjokwnppc5zfr6bjychqsnpikwmiy7j7dmt2kgk7k4zi@2stv37ijv36o>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 11 Jun 2026 13:52:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,32 +94,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/06/2026 15:31, Abel Vesa wrote:
->>>>>> @@ -68,6 +68,7 @@ properties:
->>>>>>
->>>>>>        - items:
->>>>>>            - enum:
->>>>>> +              - lenovo,yoga-slim7x-gen11
->>>>>
->>>>> I imagine you might want different panel variants, just like T14s has
->>>>> LCD and OLED?
->>>>
->>>> I expect this will be the case.
->>>
->>> Then better to prepare for this now, otherwise later you need to change
->>> bindings. If unsure what other variants are, then at least make this
->>> compatible panel-specific, e.g. lenovo,yoga-slim7x-gen11-oled-foo-bar.
->>
->> I took another look at psref [1] and there's only OLED SKUs (today?).
->> There are however, two different resolutions available and both can be
->> touch/notouch.
-> 
-> If the other SKU doesn't have touch, then you might as well mark now this
-> one with touch suffix or something like that.
+intel_alpm_get_error() unconditionally reads DP_RECEIVER_ALPM_STATUS via
+AUX from any DP connection that receives a short-pulse interrupt.  However,
+alpm_dpcd is only populated by intel_edp_init_dpcd(), so it is zero for
+all external (non-eDP) DP and DP-MST connections.  On such connections the
+AUX read fails, producing a spurious
 
+  [drm] *ERROR* Error reading ALPM status
 
-If you decide not to have any changes (new compatibles), then at least
-please document the above reasoning in commit msg.
+and setting sink_alpm_error = true, which is then visible in the ALPM
+debug output even on hardware that never enabled ALPM.
 
-Best regards,
-Krzysztof
+intel_alpm_disable() already has the same guard (DISPLAY_VER check plus
+!intel_dp->alpm_dpcd); extend the same logic to intel_alpm_get_error() so
+it returns early without attempting the AUX transaction when ALPM is not
+supported by the sink.
+
+Reproducer: ThinkPad T14 Gen1 (Alder Lake-P / i915 DISPLAY_VER 12) docked
+via Lenovo ThinkPad USB-C Dock Gen2 with external DP-MST monitors.  On
+every DPMS wake the error fires once on the dock's upstream DP port.
+
+Fixes: 2063174c22da ("drm/i915/lobf: Check for sink error and disable LOBF")
+Signed-off-by: Stephen J. Fuhry <fuhrysteve@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_alpm.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
+index a7350ce8e716..4bb0c00741c4 100644
+--- a/drivers/gpu/drm/i915/display/intel_alpm.c
++++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+@@ -611,6 +611,9 @@ bool intel_alpm_get_error(struct intel_dp *intel_dp)
+ 	u8 val;
+ 	int r;
+
++	if (!intel_dp->alpm_dpcd)
++		return false;
++
+ 	r = drm_dp_dpcd_readb(aux, DP_RECEIVER_ALPM_STATUS, &val);
+ 	if (r != 1) {
+ 		drm_err(display->drm, "Error reading ALPM status\n");
+--
+2.39.5
