@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44568CD98D5
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 16:28:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A8A6CD98CF
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 16:28:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F212410F001;
-	Thu, 11 Jun 2026 16:28:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8039010F015;
+	Thu, 11 Jun 2026 16:28:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="G5W3uHWX";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="OMRC8Isb";
 	dkim-atps=neutral
 Received: from LO3P265CU004.outbound.protection.outlook.com
- (mail-uksouthazon11020136.outbound.protection.outlook.com [52.101.196.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94AE510E7C1
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:28:31 +0000 (UTC)
+ (mail-uksouthazon11020099.outbound.protection.outlook.com [52.101.196.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F75910EFF6
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:28:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nmxLX+pa+v7bxdhmm2s3WG6UsJHdY/XIEd1+XyDOtMLxAKcYh155FyCOgW63MlTXizD2Wm/zyU72HIr28wcjUS8jHpj9veirkEWWE9+5j4A/NkJ29QObXiDhLYrg4yiDWSUGujsS4QZ/UT1AmKSzCQCr6mfGXrdvcJagYOSS2vMAxVxY8FpBdqCFB65XQ1iP4J9WD8GmKmZOugoPrgyZHQNOjHmbcO04SEl9VwsXS3sFN1DYlXsk5eQ+ZZhPls4sE0TeO5BOsfsPjZXumk+yRVweSM9CJNMGzT9eD5I5ZzKW94JzSsVw/s/fdh3hyL7eVBfw1SXU88BiuNOkbhIwrQ==
+ b=X6dD0pHV9dmWJwgLv4mvZCFVWu5TY2MJUjocD/7bEE2gNLcnX+NGi5SV8D/wS/1mDqX3Web2bhz6Snc5P2fRxeNMCrwn3V1C41Umhz+hgbMmvPxNXAotT6A2VzMczc5FG6JeN4IE41Jrlg1GFQylSmLP8NEth4VSvdiL5BqzN95KQLCTT5l+nrY3b9MyM9BZojv305jsy18o7VoRMQ/Q+Z2fnYxYLyt2iMaH++phIj53J8oYbQND8tWRucJ91dLXQq9BuoWsP6DdPXcBm1+Q80dJsOYrLvUcC2K9b3+cb92fNKtwVy950y09NQpIIc0yZWkIcFN6uuJPrcZQP22yyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O+f600/3NgUVIUQ4CUqf5OEvw/H8USpLP5zT8BXesqU=;
- b=oDhyh1k3BIuH9DTBQWU4uNIp8DSFnMJLCEQVVUJ8vJvCeKWabMU2LhD3OUqsTau15y7vLcFJftB5wyteTjjAQJaLleHrHF0FahWSMRdQdWR+j4MEFEfPjXA1ILqV0eUZiZg6qzr7B8otKK3zXFNdMaMoadt47kjEOUVgOMKfVfyLuIeeLbezyp8bbYtAmnN8h/DKO2DQi45pJuLy2EKsgu7iQ0jH+gD66RFjzrMqoJsx+ClKv8YnGEGKpM1z75xaJi7GpZFl63gmL8KVCq671VxTSrnIOjvPB9GHSuAMPMZyiIJit4hQqHqmFooPBM/yGxTdaLVhnjL6IqFQKBHZmg==
+ bh=OPmicdJDeHPwAA+5x7f6CCnvjBWluXEwiR4ROiYGTW4=;
+ b=RRmcnZNIb5a8+AyN9BvjbG+ZF0MibOPjg+ux4cX/6Gk0vWrYR/on/w+OMa45OwDmvqT3o5fzBRWi6jbU2sTzh3Mi2S82woyAc4fC4vJmcm30pnUBMVi5uLWFm7roPhvk587xuo4pvtk0KuwY0wtzSZEJu0JFG5IptXk17qOO3ute4X4cP3ogabf9jdiAju7VbxFmuMwr1hpj2a7fcVqkFVWKGAlsRHzELFy7EobAShhNTVxVrNi2B98jdfaTeqKtnr+dxi21p2AQzpORGNqLP0bfA60ZtJiApna+o0uqOdcPyAz26UXwUbcHQKQiWAkgrs878fh2pTAP77bcmSSEfw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O+f600/3NgUVIUQ4CUqf5OEvw/H8USpLP5zT8BXesqU=;
- b=G5W3uHWXpjn7/1EmMSmKjw+bjb/Zq4Y8hX2deAbmstiEbCSlb08OA5hnbDSeTsQWFWxUJesVWn3qhOmjQR15IoQsteSkLMpZH4pqOYgfrok3zvMzkpFLFzRVNVLphwXSwOv0Tge35Hte6FnuTkv3RX9BJUkAiM9TO0YC1/NX8dM=
+ bh=OPmicdJDeHPwAA+5x7f6CCnvjBWluXEwiR4ROiYGTW4=;
+ b=OMRC8IsbhfFmGzyPd23zI4NO3+dZY0/DYoDrdJCRrMh7sUPRXnxRjZPs0gKCCz/1pl6VdCaLicyOfpEFSIKStWyXPVGQFQhIlOQDGk/2tGTPTN9ef3UE0vSX6dH8bmMHn/GAs/WCQP9Rw/lSpt47Cwm+PFqUl5NS70pOqvIywDo=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27c::13)
- by LO4P265MB6525.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2e7::9) with
+ by LO2P265MB3263.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:156::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Thu, 11 Jun
- 2026 16:28:28 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.13; Thu, 11 Jun
+ 2026 16:28:34 +0000
 Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
  ([fe80::6c9e:93c8:10db:e995]) by CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
  ([fe80::6c9e:93c8:10db:e995%6]) with mapi id 15.21.0113.011; Thu, 11 Jun 2026
- 16:28:28 +0000
+ 16:28:34 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Thu, 11 Jun 2026 17:28:12 +0100
-Subject: [PATCH v4 10/20] rust: io: remove `MmioOwned`
+Date: Thu, 11 Jun 2026 17:28:22 +0100
+Subject: [PATCH v4 20/20] rust: io: implement `IoSysMap`
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260611-io_projection-v4-10-1f7224b02dcb@garyguo.net>
+Message-Id: <20260611-io_projection-v4-20-1f7224b02dcb@garyguo.net>
 References: <20260611-io_projection-v4-0-1f7224b02dcb@garyguo.net>
 In-Reply-To: <20260611-io_projection-v4-0-1f7224b02dcb@garyguo.net>
 To: Alice Ryhl <aliceryhl@google.com>, 
@@ -68,11 +68,11 @@ Cc: Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
  linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev, 
  dri-devel@lists.freedesktop.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781195301; l=8853;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781195302; l=5479;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=iK6UgmiaN9Jcnn8xAl/Gjs2DlE8eXQgL6Hxf/lSxxFo=;
- b=o2LFKxdITrV8B3IlCdPP4CTRc+MdH0hNCxvLG8d7SwllaV5yZP4V7DiP8ow11fSLPcvigEaE1
- 3o0/ryTWPr2DdZBKamJlxT87i4DafUSk4XT+tDUgsV1VeYK6MkYZDhw
+ bh=AGvF2/hSGFWEibxHYJRZxGGpo9SaGA+vZSfD5GYxu6o=;
+ b=bbZr8M7GrKpU1CS/yIgftjgU+co0rixsTFvsPYIgZRfiQRIyhe0ayexpgbqP6gK0Z+Y/GGbnL
+ UE3PvMcpg0oDu+YwGx1HcMyAYtzo71lDv+sTkHVkrW0ierL9jRwzuC7
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO6P265CA0015.GBRP265.PROD.OUTLOOK.COM
@@ -80,67 +80,67 @@ X-ClientProxiedBy: LO6P265CA0015.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:400:27c::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CW1P265MB8877:EE_|LO4P265MB6525:EE_
-X-MS-Office365-Filtering-Correlation-Id: 985a4382-ac92-4a6f-c1f8-08dec7d67813
+X-MS-TrafficTypeDiagnostic: CW1P265MB8877:EE_|LO2P265MB3263:EE_
+X-MS-Office365-Filtering-Correlation-Id: bc9c7400-846f-4c4c-7ed2-08dec7d67b8f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|7416014|366016|1800799024|10070799003|921020|6133799003|56012099006|5023799004|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: g5ZWzC4aGGIHBBcvUO/FC3xRtHmQpNphNe8bfl307iEeG7SOtDTX9JsEZ3Q2k5Kp409ZefMLRHjEhTxaMCqB4ZVH1nA81FtWklpJnrpLNaIyq0aLArTebHLBQ3ILj198Iy4LxdhA1zY/hizVZlmsFktd9RYmyy5qlHl/5j4rM7zNdn3FxBx94lvULog0b/CR29Bpdsyii/YDl4Egcp8hZ0yMcRxlrOOxZooOwjET6Uaf/WO/flAJRkMU0DrWSErmqsVz2C7BZQLEpN4i9DvmU3GQo6EW2r6gvoYDmqE9JgTeYSh4V2ln+0Bh9CRX/QNQhjCHQXf16xAkhwQMROKI7xBKZ2kQGirxU4kAqM6ymFUcFM+6y32i3PLsUo3zQeOiCH7h1YJhdmXT9ra/vd743ZBRLyEs6MYqufIbvgxD8A+lyD79zTv9CFCAjghEYOdnxDHPY7YMXocRKmHoiLDPMGsVcA7B09H0OE+9EWohToOWXDJYX+h+cbErGVMbwVrPyEZ6O41fPbVrqY7Lczby5iCLFwb+rCLxEOPynw8R6XPS4jvGeOluHOGfUeHNUOTXtmFKB3dIpSqZX0v6MYkdxfC9RoIyrolX4Kc8w3p65vLYZgjX56abtasejq+rHiRn+1YcCFYzeeyAAVQSdEMVuuhjABy88SU4nKMvoU1gZdd0ahDFI/+KzSpr+SU2CiCKgzxVVSfqqZFyWIaJTjWyDkyR6v05w7ZL/KRk1WSQxKk=
+ ARA:13230040|10070799003|1800799024|7416014|376014|366016|23010399003|18002099003|22082099003|921020|5023799004|6133799003|56012099006;
+X-Microsoft-Antispam-Message-Info: PA1c5wlNR4F/7fecPliMjCBW6WXfS+4Rg8/SxCsUw3gePn0znJNSqWZqo5p07uDi8QNQO68P6QkfBXdwKz9x6jLckSP2olRIt25D+SIUCQycjj6UI1HoZs5LZ00TRHmhc+kzNb4PA5Z3WPqUaocDGCCqr7pbEWHem9o95DuVs0TM6ncwIjvKRASp6CBp98v8fxq+3Mk4R1S9t6jGKakQ1eiqhDUBv0iNrxuDGz62DTiZPmWyeJdqLty2yyqjlNuwPv8PgaC7qG1ZiRZGPo64f1sSSiKlAvcdc1T833Mv+mZ0MT4A01viM0C58rOamDIPcusn2K0h7zY0p7mDVGImhbYZfsfb04hYHxtZslT5RKPySwFAgnsijoXMFhIQMkhSWFSz9N42IBZrYqik4sxSd1hhDSprGI6ige2dC6txhjjzP7Ub+dYcrht/9DfVp9VuiwwDSM9xLtZBG76igZ2szTpAmsZ2hYEVoTVYmWpm2YbTgQHAUet2Q4FDvXPymAQMZMCQY2iVcvzz6yFXdy+/OarCj4IzgC2skWOifUiRYyESYa0rDii1GwVmnWdoJPy9cQCLQD3NO28SdNdJTm+fnP0TPVgfh4m6tOBJtAE18PgPHscheI/ZTAD+I5tXfUekMy53cCMRUeWFMqHbuSDf83SsrDXpS14KaLVcRRNjjIosE2ulhDEnsRpEXXHlh4FVnDfiEeD0oO0MXPito2xd/5NsBg/Bu2O4h9tadsoDDIg=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(10070799003)(921020)(6133799003)(56012099006)(5023799004)(22082099003)(18002099003);
+ SFS:(13230040)(10070799003)(1800799024)(7416014)(376014)(366016)(23010399003)(18002099003)(22082099003)(921020)(5023799004)(6133799003)(56012099006);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eXNnS0l6LzdKdmVRN3lhdnZFZjcvWmxCbmJRb2RWWlU1bmpKUmFORDRhVzl6?=
- =?utf-8?B?SDE0UC96MDVCMDF2NmxmMU1udjBjR0IyenNVeU9NcHMreWp3eWdUazBqNEl0?=
- =?utf-8?B?empRVHFZenFpckRtQWthZUpqVnp2dEE1bXhTVW5UNVZWVTB2OEY1TS9aNWcv?=
- =?utf-8?B?Y1ZDdzNBalF3dWk2YkhlR3U5aWpWbTdmYUxCbUhoM2hGZU9ydHlNZGswNzlV?=
- =?utf-8?B?SVh5bjlGR2ZjWUg5a2o0amMxWE9vdHJVTlp6UDBUYm1NaUJPOHI3MEY2VkE4?=
- =?utf-8?B?bjJ4ZkZNUU9qSnJTcnd4ZU5ZTHNpRmU5K0xNRGQ2VVg4QlhzZXZHTEZPYXpK?=
- =?utf-8?B?bFF3SkxCTjlWMW9rR1JpZVlYSUpYdUFudWJPMFpOL09YcHdqUG1aNDJ0STRR?=
- =?utf-8?B?TkZwY1p3ZFRGUTVaaCtjUUhPSzlpRm5IZEdzSENBS1BydG5CVGllSnRGNisz?=
- =?utf-8?B?M2wrbEF2QXpMVzVqZDBZRnkxcitQSHJoeG9mNzh0TWxhMEhPVGU1dmU1Ykxr?=
- =?utf-8?B?blZBR0dJNjJuaEVDM2JjNis2MEQ4UUtPNm5uV25ldnZTMWNZcStiOU5UWkRx?=
- =?utf-8?B?WU1KMldXK2FpdW0wb3BpZm1remYyc25lK1E2ZFN3OCtSWEJTbHlERGo5YVVX?=
- =?utf-8?B?ZTYyUUoyR245SmF1Q3FhN0NhQ09Xa2pHSVMvczFTcFZuWnQwSVhlTkpMM1pD?=
- =?utf-8?B?TnlkRlhqTUVkN3V3eGxqL3VDanBaYzgzTEVaSzBWejFKenhsMFdyaC9HS2g0?=
- =?utf-8?B?MXZIcWppaWUrVEhzV21GdHBvVXV3QTRCdmczdHV3ZER0cW42OU1hUDBBQzNy?=
- =?utf-8?B?MW9aaUhBbWo2WE1zTEw4NjdSbGZ4azlRY3JnMStWMFhWSDdBYW80Uk1KUlI0?=
- =?utf-8?B?L0tNZit2MjF3NTkrbVRHczl1U3BEdWw3cjdGN1FIOGwwQ2t2d1puNnB6dUVG?=
- =?utf-8?B?TmMzOVg1cUxiTk1FdWpCQStENUFWMDRpZWJnZ3QxVTI3c2hYaU01V1dPaHFq?=
- =?utf-8?B?VFlaNmNtVzZPcFdQUGRTbG5sdXBuSGVwNDZHWjFMZWJvTzdFQ3A4TVF2bGNU?=
- =?utf-8?B?R0h1aS9laEsraGNMZjV2Z0FMMkhiSGVRRlhHd1NGT1dmaUc4MDRPenduL0JB?=
- =?utf-8?B?RS9zQXJ5TU05S05GeGl3TE02Nnl5di9abEVWZERDT3dhZVRMcVRoWGYwRC9r?=
- =?utf-8?B?RlpDMWlBK0NGL29FN2cyRHk5QmNzdmpscGF2MU9tRDRmdENJdTRCemlCVnpE?=
- =?utf-8?B?MmpQTGxFWFp6MXpnYlVTQURmdFNYOG00ZjR4eDVqTDZWVUs0SmFUTzZmcGdk?=
- =?utf-8?B?ang2dGlGSnNnL21XalVRRzNod2hwb3JEZU9INmgzdjV4VUZiYzRlWFJ2WHJX?=
- =?utf-8?B?V1VyME5pR3RwTXAraGlpbktFUEk3WlF1ejRNTG5oVWpnWEUrUlRkOFZPOFRm?=
- =?utf-8?B?VDUxaHhFM3ZHeUp3elhyUzRsa3FFRFpOZCtDWFlsam1hWkJDTHMvUkNuaFdt?=
- =?utf-8?B?ZUNGQ1F1Z1l6RUcyRGc2WDRtL2RBNmZKVzREeEt2L0paY2M2NE0xNjQ4N0gv?=
- =?utf-8?B?b2pZMGdNZVhaNngrMk1KQ3ZEcHRCaGZQaHV5NE9jY05YblYrTm1aalhnNXRP?=
- =?utf-8?B?RjBkanNiV0lCNDhVWTFpWUtWbURkL1Q5VXNCSk1hY2d4SklFTXVBQ3lScDkv?=
- =?utf-8?B?eno2aENBMVowdERoQUxSVjdSYm4rN242RjFya20zUUdsdERoR2xFazM0VnZs?=
- =?utf-8?B?L0hncEdpR2Zkb0NKRHRIK0VNNHVWWTVodUViaTJLRkV1cXNobXRSQ0dVYzBQ?=
- =?utf-8?B?WmJiWitnazJmQ0dENUZUVGNxWU9Kc0hvSEdVNTFiNDg2cmtzSmRYV1FTZ05Z?=
- =?utf-8?B?THJIK3V5UzdwVjlzRjJNTitYMzVrbmN5S21JWnpJOHpxMU5idFcyMnJZMmpq?=
- =?utf-8?B?cGI0ekpmakhWMDBaSjVveUlXV3lKWDVMVWNSZU84S3lKemxOSzVpWDZJNFdm?=
- =?utf-8?B?Rmg2Wk8rVkVndFRRcWFrUXIwT2tjamx0cTRVOXNLZzNoT0lGZEV0M3owaHBY?=
- =?utf-8?B?ZUpSajZNNytUNU9mcHZjeFZpTmplQ3ZVOVo2SWs0VEtsdHo3amlONVhwVGlj?=
- =?utf-8?B?eXgvWXBRZWZKcUJTUFNhUlZzNEpSb1FERTVkK3E3Rlo0c3prYWlaanRnRmhE?=
- =?utf-8?B?YWtzcjN2TWMzQTFYUlhvUW8xQ0oxbklLUVEveEdRaUZYd2h0UEhOclBSMVcw?=
- =?utf-8?B?dFlSRk9QV1RHVE16VnpEK2ZQV1pMZTREb0UwQ1BuVFVEdUlGcU45VlhsbW02?=
- =?utf-8?B?SmlMSE9ydWhnakdqUTJmSnB4eUx0bkVkREtVWHNtUUhnRlMwYmVpUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TDlMNG1GUGpnbDhad2NSU0t3ZEljRmtRVzA5YzJTV1ROQzVndW1aZ29ITU52?=
+ =?utf-8?B?RXVOUy81RVcyYVNQK1BUbVMxZXpSOUs4cDJQNTlIcjZXbkdmQWlYbWhaek1U?=
+ =?utf-8?B?YUJxNDRpL1BEdWlKTDh2ZEtrcHFGcFJLKzNXazc4UloyTFUxZG1wMVJOQTF3?=
+ =?utf-8?B?UE1wYVQzZHUycHAzRWxyVWl4OWFnYUU2MWpocEkvU1JJWGJJSkd0M2w5L3M5?=
+ =?utf-8?B?QU9taVRMNGVmZE9ZalNaSFJ1Yk41M0tVRFNDTnMrRThWaCtibFVmNXZWL2JD?=
+ =?utf-8?B?OEFYV1NGRWhXOEZUVmd6WkZyc2J6bm5HVlowQnlQNDh2TkdaanpKVW5HTGRw?=
+ =?utf-8?B?Y2xRSkJKRXFPVUhiTitIaDFXamUvL1FRVm8vbXZEVVNEWXVOUmtJRDJxTzlW?=
+ =?utf-8?B?ZWlCdVRFckNXZ09xaHE1dTJMMWxHSXh0eE05eWtCUmErL1NZUmR2a1Z6ZDcz?=
+ =?utf-8?B?UTVnTFJZNDJsUXkzcTFST0dSUjFoVkc5ZUpNbGVaYVh6RmluN29EL2RQaUVx?=
+ =?utf-8?B?d0RqV3dMbjdxQUR4RGNlTTlLVVpRUlpFcndKWU14aVU5R0ZXOUNpTEdXZWdt?=
+ =?utf-8?B?NzFzS0syUjNMUlRucGw4QnZwOCtSUFhaWnZPRlZ4L3JsbCtQM05yS1BBVi9R?=
+ =?utf-8?B?akcyRmVOVFlhQVlXSXNZYm1zemd3eHgxdkdnNjJXT29uYmdmM0hBbmZrOEFH?=
+ =?utf-8?B?SENtQmMwSUZEc2J1TU9Hc0x6NlJsbzlCTW9XRmRqRk55Z1l5SjdSMlZGU0FP?=
+ =?utf-8?B?MkIrb1lTaHFTek03cjR1UGJDdG9QbEI2aUhmaUgrZ3pQNjBaZWJCRW9EdXhZ?=
+ =?utf-8?B?Z0lRTE5zdXpBZk1nWlZPeWtUZEJzeTZDVGR2L3o1NkhoRmx3RmQ0Q0pESmw3?=
+ =?utf-8?B?R1RXNEhWOVAveWtZU3VxYlVtN1NhcUFzUnlVZ2lNWlY2YjJvNFJpS0tZeU9S?=
+ =?utf-8?B?bDdRaUpDTGdFNThQc21YVHdqQlJyLysyeldrRFVLMWJ2S0swQ3cyQVNkRnNE?=
+ =?utf-8?B?SEpzem5xVmxGTUNvSkpGT2crUFZJRm5HZ0pxNW9nSHJsM3VwVWdmVm9IaG5p?=
+ =?utf-8?B?d3ZSWUw1dFVPUUxJbFN3QWR1UGVITEFXZEgzR3VqSWpzSCszUG1wazVCbi9v?=
+ =?utf-8?B?UCthNThOZlRXb1pwVVNJMTBFN2oyeFhLYVNFd1NnZjJVcGlVemlZVWdETWNH?=
+ =?utf-8?B?dmM1RGc2SnZJOTZpa3gyT2Zkb3F5eWNQWmpLcEpjTUJWaXVxRFptUVRWWHUw?=
+ =?utf-8?B?V2N4K1RuMzRlU1F5eENtRGgwOTg0ajMzbE80aUhob1BQZlgzb3BLeEdqZThM?=
+ =?utf-8?B?NWZnbVZ0UWNqT0JVUEwydjZiQndjK3NoOG13bnVxRWtnSFoyVzJkWHJQRDg4?=
+ =?utf-8?B?RW1WN2tsTnY4Q2o0eVJVTkZGZDczSlp1S0ZXSmZQZFNPK25NTFN3SXZqQmdU?=
+ =?utf-8?B?K29Pa29RRE55VjYvSEFjdWNLRm8xcTdxek5wMHY3UW9hM0l1S0RjUFlDU0hE?=
+ =?utf-8?B?dVA3c2VPaVVwQUhGM0tTZnpMVFdIQjVGdDRJZ1lUc0pHcGdBQzJkYmVjWlRy?=
+ =?utf-8?B?bUhLbmRNdENrcFZMMmtCVEpHbGJlWHBpSFVJTzloSW9Nbk1aRDlYSEVoODdl?=
+ =?utf-8?B?R3RveURiVjJYZUdFMyswYm8rY1FRQmRLSXdpNFpiaWtKeHB3b29CeXNyVWZF?=
+ =?utf-8?B?OEw5RERyNUpDOXVielIwSTFnMXZnNjRtVEtMaTN0a0N5S0I3OEoxTkJUemZT?=
+ =?utf-8?B?VVNGclZDb09pK3RwRDI0bUhKb3g4U1lEVlRVclMxUldzZnd3ck9DT0FUWjQ1?=
+ =?utf-8?B?Zk5MVTV0Ky9NRllJRzhDYWFzcGxBUG83R21Id3hIbTFWTFpZbXdiVVU1MW41?=
+ =?utf-8?B?YnBDVWhnQXRDQ0NVa1RtNmttaEFvU09DbW5PSE5XSGhXZGFMNWZNOTRRYTdk?=
+ =?utf-8?B?WUtOU0VwVVVVei9Pam1aL0FOc0N4MWNIbnlETThBUkRFdTlTR2YrODBzdlJp?=
+ =?utf-8?B?ZURjUzk4U0Framc2NVMrbEtIaTdZSTdqN2hyWUV4ZVI0aXFzak9yRkJpRlF1?=
+ =?utf-8?B?MG5UT3lzam9SWFZZZnk2ekNOY2RsSE9zbkh6eXdPYk4rU0hkeFVvV2hZYjdP?=
+ =?utf-8?B?S2l2TVoxcHNlUkpvUmpvUUFPSUt0NWF2MzMrT3dPNUhCY0FucURRYzdpdEwv?=
+ =?utf-8?B?ZmhLL1JJZkpYTDBQYWlwUUphMG90NVA4V0JQU0tMeUxWYkw2NTRleENROU1C?=
+ =?utf-8?B?Q1FDanYrbW5oN3NFMzhHS1Q4UGxMNHVzckxQcHNBRTZFdXZ6WmU3Q20za2h2?=
+ =?utf-8?B?dFBZTlV5WUU1dXNiYjArU1F5RXR5TisyeTAxcGNxaG9kK21lMCtOZz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 985a4382-ac92-4a6f-c1f8-08dec7d67813
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc9c7400-846f-4c4c-7ed2-08dec7d67b8f
 X-MS-Exchange-CrossTenant-AuthSource: CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 16:28:28.5608 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 16:28:34.3938 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 60fPJMLaQK148vunb3RDvVbNgFbFzdLHP376nEEaqrgrw1pzlLiP3vigRfWW6qHkqaXTO4rcph+vr2C/joJUpQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB6525
+X-MS-Exchange-CrossTenant-UserPrincipalName: WNvZtOkkI0CSnlKy68g/hwiMK++9aoMVnuvhtXyIMSv2zZmqDvhh459Ob18MZRKdkaQFqY3Ol9GXTDISNyC5EQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB3263
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,280 +156,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-`Io` trait is now very easy to implement. Thus, implement it on `Bar` and
-`IoMem` directly and remove the `MmioOwned` struct.
+Add an enum as sum type for `Mmio` and `SysMem`. This serves similar
+purpose of `iosys_map`. Thanks to Rust's type system, all of projection and
+struct read/write can be handled by the generic I/O projection mechanism
+(i.e. `io_project!`, `io_read!, `io_write!`) for free, and there is no need
+to provide things like `iosys_map_rd_field` or `iosys_map_wr_field`. An
+enum type also makes it very easy to construct or destruct.
+
+This could be made more generic by implementing on a general purpose sum
+type like `Either`; however this is kept specific unless a need arises that
+warrants this to be generic over other I/O backends.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- rust/kernel/devres.rs |  12 +++---
- rust/kernel/io.rs     | 103 +-------------------------------------------------
- rust/kernel/io/mem.rs |  26 +++++++------
- rust/kernel/pci/io.rs |  16 ++++----
- 4 files changed, 32 insertions(+), 125 deletions(-)
+ rust/kernel/io.rs | 135 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 135 insertions(+)
 
-diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
-index aed0c994fd30..3545ffc5345d 100644
---- a/rust/kernel/devres.rs
-+++ b/rust/kernel/devres.rs
-@@ -68,8 +68,9 @@ struct Inner<T> {
- ///     devres::Devres,
- ///     io::{
- ///         Io,
--///         MmioOwned,
-+///         Mmio,
- ///         MmioRaw,
-+///         MmioBackend,
- ///         PhysAddr,
- ///         Region, //
- ///     },
-@@ -104,12 +105,13 @@ struct Inner<T> {
- ///     }
- /// }
- ///
--/// impl<const SIZE: usize> Deref for IoMem<SIZE> {
--///    type Target = MmioOwned<SIZE>;
-+/// impl<'a, const SIZE: usize> Io<'a> for &'a IoMem<SIZE> {
-+///    type Backend = MmioBackend;
-+///    type Target = Region<SIZE>;
- ///
--///    fn deref(&self) -> &Self::Target {
-+///    fn as_view(self) -> Mmio<'a, Region<SIZE>> {
- ///         // SAFETY: The memory range stored in `self` has been properly mapped in `Self::new`.
--///         unsafe { MmioOwned::from_raw(&self.0) }
-+///         unsafe { Mmio::from_raw(self.0) }
- ///    }
- /// }
- /// # fn no_run(dev: &Device<Bound>) -> Result<(), Error> {
 diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-index e422a5ff2a5e..132454a38d64 100644
+index 16f818d396bf..5cd4756cf237 100644
 --- a/rust/kernel/io.rs
 +++ b/rust/kernel/io.rs
-@@ -99,8 +99,8 @@ fn size(p: *const Self) -> usize {
- /// the represented MMIO region does exist or is properly mapped.
- ///
- /// Instead, the bus specific MMIO implementation must convert this raw representation into an
--/// `MmioOwned` instance providing the actual memory accessors. Only by the conversion into an
--/// `MmioOwned` structure any guarantees are given.
-+/// `Mmio` instance providing the actual memory accessors. Only by the conversion into an `Mmio`
-+/// structure any guarantees are given.
- pub struct MmioRaw<T: ?Sized> {
-     /// Pointer is in I/O address space.
-     ///
-@@ -157,80 +157,6 @@ pub fn size(&self) -> usize {
+@@ -1443,6 +1443,141 @@ fn as_view(self) -> <Self::Backend as IoBackend>::View<'a, Self::Target> {
      }
  }
  
--/// IO-mapped memory region.
--///
--/// The creator (usually a subsystem / bus such as PCI) is responsible for creating the
--/// mapping, performing an additional region request etc.
--///
--/// # Invariant
--///
--/// `addr` is the start and `maxsize` the length of valid I/O mapped memory region of size
--/// `maxsize`.
--///
--/// # Examples
--///
--/// ```no_run
--/// use kernel::{
--///     bindings,
--///     ffi::c_void,
--///     io::{
--///         Io,
--///         MmioOwned,
--///         MmioRaw,
--///         PhysAddr,
--///         Region,
--///     },
--/// };
--/// use core::ops::Deref;
--///
--/// // See also `pci::Bar` for a real example.
--/// struct IoMem<const SIZE: usize>(MmioRaw<Region<SIZE>>);
--///
--/// impl<const SIZE: usize> IoMem<SIZE> {
--///     /// # Safety
--///     ///
--///     /// [`paddr`, `paddr` + `SIZE`) must be a valid MMIO region that is mappable into the CPUs
--///     /// virtual address space.
--///     unsafe fn new(paddr: usize) -> Result<Self>{
--///         // SAFETY: By the safety requirements of this function [`paddr`, `paddr` + `SIZE`) is
--///         // valid for `ioremap`.
--///         let addr = unsafe { bindings::ioremap(paddr as PhysAddr, SIZE) };
--///         if addr.is_null() {
--///             return Err(ENOMEM);
--///         }
--///
--///         Ok(IoMem(MmioRaw::new_region(addr as usize, SIZE)?))
--///     }
--/// }
--///
--/// impl<const SIZE: usize> Drop for IoMem<SIZE> {
--///     fn drop(&mut self) {
--///         // SAFETY: `self.0.addr()` is guaranteed to be properly mapped by `Self::new`.
--///         unsafe { bindings::iounmap(self.0.addr() as *mut c_void); };
--///     }
--/// }
--///
--/// impl<const SIZE: usize> Deref for IoMem<SIZE> {
--///    type Target = MmioOwned<SIZE>;
--///
--///    fn deref(&self) -> &Self::Target {
--///         // SAFETY: The memory range stored in `self` has been properly mapped in `Self::new`.
--///         unsafe { MmioOwned::from_raw(&self.0) }
--///    }
--/// }
--///
--///# fn no_run() -> Result<(), Error> {
--/// // SAFETY: Invalid usage for example purposes.
--/// let iomem = unsafe { IoMem::<{ core::mem::size_of::<u32>() }>::new(0xBAAAAAAD)? };
--/// iomem.write32(0x42, 0x0);
--/// assert!(iomem.try_write32(0x42, 0x0).is_ok());
--/// assert!(iomem.try_write32(0x42, 0x4).is_err());
--/// # Ok(())
--/// # }
--/// ```
--#[repr(transparent)]
--pub struct MmioOwned<const SIZE: usize = 0>(MmioRaw<Region<SIZE>>);
--
- /// Checks whether an access of type `U` at the given `base` and the given `offset`
- /// is valid within this region.
- ///
-@@ -945,31 +871,6 @@ fn io_write(view: <$backend as IoBackend>::View<'_, $ty>, value: $ty) {
- #[cfg(CONFIG_64BIT)]
- impl_mmio_io_capable!(MmioBackend, u64, readq, writeq);
- 
--impl<'a, const SIZE: usize> Io<'a> for &'a MmioOwned<SIZE> {
--    type Backend = MmioBackend;
--    type Target = Region<SIZE>;
--
--    #[inline]
--    fn as_view(self) -> Mmio<'a, Self::Target> {
--        // SAFETY: `Mmio` has same invariant as `MmioOwned`
--        unsafe { Mmio::from_raw(self.0) }
--    }
--}
--
--impl<const SIZE: usize> MmioOwned<SIZE> {
--    /// Converts an `MmioRaw` into an `MmioOwned` instance, providing the accessors to the MMIO
--    /// mapping.
--    ///
--    /// # Safety
--    ///
--    /// Callers must ensure that `addr` is the start of a valid I/O mapped memory region of size
--    /// `maxsize`.
--    pub unsafe fn from_raw(raw: &MmioRaw<Region<SIZE>>) -> &Self {
--        // SAFETY: `MmioOwned` is a transparent wrapper around `MmioRaw`.
--        unsafe { &*core::ptr::from_ref(raw).cast() }
--    }
--}
--
- /// [`Mmio`] but using relaxed accessors.
- ///
- /// This type provides an implementation of [`Io`] that uses relaxed I/O MMIO operands instead of
-diff --git a/rust/kernel/io/mem.rs b/rust/kernel/io/mem.rs
-index 8f6c257c5b8e..d9b3189d09b4 100644
---- a/rust/kernel/io/mem.rs
-+++ b/rust/kernel/io/mem.rs
-@@ -2,8 +2,6 @@
- 
- //! Generic memory-mapped IO.
- 
--use core::ops::Deref;
--
- use crate::{
-     device::{
-         Bound,
-@@ -16,7 +14,9 @@
-             Region,
-             Resource, //
-         },
--        MmioOwned,
-+        Io,
-+        Mmio,
-+        MmioBackend,
-         MmioRaw, //
-     },
-     prelude::*,
-@@ -210,11 +210,13 @@ pub fn into_devres(self) -> Result<Devres<ExclusiveIoMem<'static, SIZE>>> {
-     }
- }
- 
--impl<const SIZE: usize> Deref for ExclusiveIoMem<'_, SIZE> {
--    type Target = MmioOwned<SIZE>;
-+impl<'a, const SIZE: usize> Io<'a> for &'a ExclusiveIoMem<'_, SIZE> {
-+    type Backend = MmioBackend;
-+    type Target = super::Region<SIZE>;
- 
--    fn deref(&self) -> &Self::Target {
--        &self.iomem
++/// I/O Backend for [`IoSysMap`].
++pub struct IoSysMapBackend;
++
++/// Either [`Mmio`] or [`SysMem`].
++///
++/// This can be used when a piece of logic may wish to handle both MMIO or system memory but does
++/// not want or cannot be generic over I/O backends. This serves a similar purpose to
++/// [`include/linux/iosys-map.h`] in C.
++///
++/// This type can be used like any other types that implements [`Io`]; this also include
++/// [`io_project!`], [`io_read!`], [`io_write!`].
++///
++/// [`include/linux/iosys-map.h`](srctree/include/linux/iosys-map.h)
++pub enum IoSysMap<'a, T: ?Sized> {
++    Io(Mmio<'a, T>),
++    Sys(SysMem<'a, T>),
++}
++
++impl<T: ?Sized> Copy for IoSysMap<'_, T> {}
++impl<T: ?Sized> Clone for IoSysMap<'_, T> {
 +    #[inline]
-+    fn as_view(self) -> Mmio<'a, Self::Target> {
-+        self.iomem.as_view()
-     }
- }
- 
-@@ -290,11 +292,13 @@ fn drop(&mut self) {
-     }
- }
- 
--impl<const SIZE: usize> Deref for IoMem<'_, SIZE> {
--    type Target = MmioOwned<SIZE>;
-+impl<'a, const SIZE: usize> Io<'a> for &'a IoMem<'_, SIZE> {
-+    type Backend = MmioBackend;
-+    type Target = super::Region<SIZE>;
- 
--    fn deref(&self) -> &Self::Target {
++    fn clone(&self) -> Self {
++        *self
++    }
++}
++
++impl<'a, T: ?Sized> From<Mmio<'a, T>> for IoSysMap<'a, T> {
 +    #[inline]
-+    fn as_view(self) -> Mmio<'a, Self::Target> {
-         // SAFETY: Safe as by the invariant of `IoMem`.
--        unsafe { MmioOwned::from_raw(&self.io) }
-+        unsafe { Mmio::from_raw(self.io) }
-     }
- }
-diff --git a/rust/kernel/pci/io.rs b/rust/kernel/pci/io.rs
-index e67c1e3694fb..4be33ecb4192 100644
---- a/rust/kernel/pci/io.rs
-+++ b/rust/kernel/pci/io.rs
-@@ -11,16 +11,14 @@
-         Io,
-         IoBackend,
-         IoCapable,
--        MmioOwned,
-+        Mmio,
-+        MmioBackend,
-         MmioRaw,
-         Region, //
-     },
-     prelude::*,
-     ptr::KnownSize, //
- };
--use core::{
--    ops::Deref, //
--};
- 
- /// Represents the size of a PCI configuration space.
- ///
-@@ -269,12 +267,14 @@ fn drop(&mut self) {
-     }
- }
- 
--impl<const SIZE: usize> Deref for Bar<'_, SIZE> {
--    type Target = MmioOwned<SIZE>;
-+impl<'a, const SIZE: usize> Io<'a> for &'a Bar<'_, SIZE> {
-+    type Backend = MmioBackend;
-+    type Target = crate::io::Region<SIZE>;
- 
--    fn deref(&self) -> &Self::Target {
++    fn from(value: Mmio<'a, T>) -> Self {
++        IoSysMap::Io(value)
++    }
++}
++
++impl<'a, T: ?Sized> From<SysMem<'a, T>> for IoSysMap<'a, T> {
 +    #[inline]
-+    fn as_view(self) -> Mmio<'a, Self::Target> {
-         // SAFETY: By the type invariant of `Self`, the MMIO range in `self.io` is properly mapped.
--        unsafe { MmioOwned::from_raw(&self.io) }
-+        unsafe { Mmio::from_raw(self.io) }
-     }
- }
- 
++    fn from(value: SysMem<'a, T>) -> Self {
++        IoSysMap::Sys(value)
++    }
++}
++
++impl IoBackend for IoSysMapBackend {
++    type View<'a, T: ?Sized + KnownSize> = IoSysMap<'a, T>;
++
++    #[inline]
++    fn as_ptr<'a, T: ?Sized + KnownSize>(view: Self::View<'a, T>) -> *mut T {
++        match view {
++            IoSysMap::Io(l) => MmioBackend::as_ptr(l),
++            IoSysMap::Sys(r) => SysMemBackend::as_ptr(r),
++        }
++    }
++
++    #[inline]
++    unsafe fn project_view<'a, T: ?Sized + KnownSize, U: ?Sized + KnownSize>(
++        view: Self::View<'a, T>,
++        ptr: *mut U,
++    ) -> Self::View<'a, U> {
++        match view {
++            // SAFETY: Per safety requirement.
++            IoSysMap::Io(l) => IoSysMap::Io(unsafe { MmioBackend::project_view(l, ptr) }),
++            // SAFETY: Per safety requirement.
++            IoSysMap::Sys(r) => IoSysMap::Sys(unsafe { SysMemBackend::project_view(r, ptr) }),
++        }
++    }
++}
++
++impl<T> IoCapable<T> for IoSysMapBackend
++where
++    MmioBackend: IoCapable<T>,
++    SysMemBackend: IoCapable<T>,
++{
++    #[inline]
++    fn io_read(view: Self::View<'_, T>) -> T {
++        match view {
++            IoSysMap::Io(l) => MmioBackend::io_read(l),
++            IoSysMap::Sys(r) => SysMemBackend::io_read(r),
++        }
++    }
++
++    #[inline]
++    fn io_write<'a>(view: Self::View<'a, T>, value: T) {
++        match view {
++            IoSysMap::Io(l) => MmioBackend::io_write(l, value),
++            IoSysMap::Sys(r) => SysMemBackend::io_write(r, value),
++        }
++    }
++}
++
++impl IoCopyable for IoSysMapBackend {
++    #[inline]
++    unsafe fn copy_from_io(view: Self::View<'_, [u8]>, buffer: *mut u8) {
++        match view {
++            // SAFETY: Per safety requirement.
++            IoSysMap::Io(l) => unsafe { MmioBackend::copy_from_io(l, buffer) },
++            // SAFETY: Per safety requirement.
++            IoSysMap::Sys(r) => unsafe { SysMemBackend::copy_from_io(r, buffer) },
++        }
++    }
++
++    #[inline]
++    unsafe fn copy_to_io(view: Self::View<'_, [u8]>, buffer: *const u8) {
++        match view {
++            // SAFETY: Per safety requirement.
++            IoSysMap::Io(l) => unsafe { MmioBackend::copy_to_io(l, buffer) },
++            // SAFETY: Per safety requirement.
++            IoSysMap::Sys(r) => unsafe { SysMemBackend::copy_to_io(r, buffer) },
++        }
++    }
++
++    #[inline]
++    fn copy_read<T: FromBytes>(view: Self::View<'_, T>) -> T {
++        match view {
++            IoSysMap::Io(l) => MmioBackend::copy_read(l),
++            IoSysMap::Sys(r) => SysMemBackend::copy_read(r),
++        }
++    }
++
++    #[inline]
++    fn copy_write<T: IntoBytes>(view: Self::View<'_, T>, value: T) {
++        match view {
++            IoSysMap::Io(l) => MmioBackend::copy_write(l, value),
++            IoSysMap::Sys(r) => SysMemBackend::copy_write(r, value),
++        }
++    }
++}
++
++impl<'a, T: ?Sized + KnownSize> IoBase<'a> for IoSysMap<'a, T> {
++    type Backend = IoSysMapBackend;
++    type Target = T;
++
++    #[inline]
++    fn as_view(self) -> IoSysMap<'a, T> {
++        self
++    }
++}
++
+ // This helper turns associated functions to methods so it can be invoked in macro.
+ // Used by `io_project!()` only.
+ #[doc(hidden)]
 
 -- 
 2.54.0
