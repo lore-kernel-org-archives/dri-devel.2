@@ -4,135 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E1EACD8C9D
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 19:36:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88CBACD8C9D
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 19:41:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BEF610E84C;
-	Thu, 11 Jun 2026 19:36:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3478010E834;
+	Thu, 11 Jun 2026 19:41:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="QNg0HkIw";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KO5G2tCE";
 	dkim-atps=neutral
-Received: from LO2P265CU024.outbound.protection.outlook.com
- (mail-uksouthazon11021105.outbound.protection.outlook.com [52.101.95.105])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C922910E84C
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 19:36:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=loH19zHG8lJPKTvT2a+51mdxKlq4T/Z987AbwXEG1DnxCump5p7Ywz2h2s6GdKOOfCwnLLqtNmysFwk7xZgkQLydiI8lMH0US45yNhazFvhrv+17yh67WAPlOMX7WOnjp/7un5q+UnXFDxsDuvwqX4jfNQdLZXtMZXTZWYdk/MIfnloNVk0xWfoSg0ADuLxqEcbLT8ADzigKfRvoV02/Xej2849JTfV7cRjgLkeN7IzLXw8SlWih5H2xgArPdOdY8baj4lGYCsMIZNCULRWY4hWDX4b10ZWrI6ZUI4oWg3lLIuHob0fOoSxiGLFVVsruZQ0WoGosLgecz4cdArBLQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eY0KzQw8mCIM26rAhDs8XrajWUnRCEhoDp2y1uSOuGQ=;
- b=Lg6sJj6iPXLQA9mcLGH9NM/WB4PKruxz1Q7CTJVbxq/hwwz4lH9d2Y9O7m3UnMdawVGGWBxuTr9ZJei8wbcbVosQVy9nKUJYKyePw93+D8zHa7Z1T+KDzMqrTJruFXum5TI11+/j4uWjFfQINnYIXWgsxQtOEuLq3dHQdgjxljTtf06VVXQhG4u/5Z42/eem4QXRbAhq4ZIBPejjjYG3oySohl5A42grdLraFkb/aVS94WqYaDrxyYMaExp4HiOXG6FqEGf+HlKsVS5subE7LRRc5MF8FcCXHhssuu5Q1kzJY/Nj0mGL8LPFDXwjLrzLmZjb9gcG1B5xbUjqp6XPaA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eY0KzQw8mCIM26rAhDs8XrajWUnRCEhoDp2y1uSOuGQ=;
- b=QNg0HkIwIK/QBU0eGhTDdeLyoA2nij8fxUy/cHqfizIpARWNxheVEcE7khd2yr+f43JFbmITBAWqfWbr1PXPCWDMLjSYYYtWyGsLDe0NJzb96JYU7GZznPjkVovbkTyiEEmzVBa/ok4vp9o6lsI1O1XAVrmq8zuqZxFzyvkQ71U=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27c::13)
- by CWXP265MB5702.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1ac::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.13; Thu, 11 Jun
- 2026 19:36:48 +0000
-Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
- ([fe80::6c9e:93c8:10db:e995]) by CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
- ([fe80::6c9e:93c8:10db:e995%6]) with mapi id 15.21.0113.011; Thu, 11 Jun 2026
- 19:36:48 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4C2910E28C;
+ Thu, 11 Jun 2026 19:41:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781206897; x=1812742897;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=XGA8XvGhar3Z1r6Oh+DGdi0DMjCB5+1+8ldPsokTHIE=;
+ b=KO5G2tCE96w4Na6uToqh1+gUtdxWoPHX1fjFG2wThAnn/9swpN4kweCI
+ XoSCSJX3hT7irJ14MZGZuD272QLlADhJnzDd1lJ/O3/FRo++DT2cqj4ir
+ jSBl+aTzAyxuhk+KRvwaizMMoi059H8KnLX+aCVHEyqE655W+K2YRNLym
+ f7M5Sp/qGy7uD8yhST7KAM1VZuw5WAfHpBwqCEPXSuRL1rM+Ih35Yl6ji
+ MCh3WOOvpx7dOlArcF8XKn1Qg5+NAin/V9J1++73uzidfcw3PcdsGvIIE
+ CRrOD4Iy/CgW0plUaSJw2P/HvGvK3h3HDkBlwKp0u24m7oHhIeeyA+inA w==;
+X-CSE-ConnectionGUID: JLaPrXbiQ/S1j4kHIf3mBQ==
+X-CSE-MsgGUID: VPFG16J+Q8W82dktiX1q4A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="93520563"
+X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="93520563"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2026 12:41:36 -0700
+X-CSE-ConnectionGUID: vvwdwSeZRd228JgWLwt3IQ==
+X-CSE-MsgGUID: NS0KcAVJTj2pqMYozOfh6Q==
+X-ExtLoop1: 1
+Received: from amilburn-desk.amilburn-desk (HELO [10.245.244.169])
+ ([10.245.244.169])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2026 12:41:31 -0700
+Message-ID: <c4dec5fa460cdbeb3706410c6fb3375ab36012ab.camel@linux.intel.com>
+Subject: Re: [PATCH v6 6/6] drm/amdgpu: Wire up dmem cgroup reclaim for VRAM
+ manager
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner
+ <hannes@cmpxchg.org>,  Tejun Heo <tj@kernel.org>, Michal
+ =?ISO-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>, 	cgroups@vger.kernel.org,
+ Huang Rui <ray.huang@amd.com>, Matthew Brost	 <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann	 <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie	 <airlied@gmail.com>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, 	linux-kernel@vger.kernel.org
+Date: Thu, 11 Jun 2026 21:41:28 +0200
+In-Reply-To: <20260611173301.17473-7-thomas.hellstrom@linux.intel.com>
+References: <20260611173301.17473-1-thomas.hellstrom@linux.intel.com>
+ <20260611173301.17473-7-thomas.hellstrom@linux.intel.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 11 Jun 2026 20:36:47 +0100
-Message-Id: <DJ6H1N4T9A9Z.9OX5GX0CEE0Q@garyguo.net>
-Subject: Re: [PATCH v4 19/20] rust: io: add copying methods
-From: "Gary Guo" <gary@garyguo.net>
-To: "Gary Guo" <gary@garyguo.net>, "Alice Ryhl" <aliceryhl@google.com>,
- "Daniel Almeida" <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Abdiel
- Janulgue" <abdiel.janulgue@gmail.com>, "Robin Murphy"
- <robin.murphy@arm.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-X-Mailer: aerc 0.21.0
-References: <20260611-io_projection-v4-0-1f7224b02dcb@garyguo.net>
- <20260611-io_projection-v4-19-1f7224b02dcb@garyguo.net>
-In-Reply-To: <20260611-io_projection-v4-19-1f7224b02dcb@garyguo.net>
-X-ClientProxiedBy: LO0P123CA0007.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:354::16) To CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:400:27c::13)
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CW1P265MB8877:EE_|CWXP265MB5702:EE_
-X-MS-Office365-Filtering-Correlation-Id: d16e8135-da06-4dea-911b-08dec7f0c75a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|23010399003|7416014|10070799003|1800799024|921020|4143699003|56012099006|5023799004|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: PgxJ8+RRZCX34yHQgvd1vWMoIiYtc0Iyj2Bp8i+wuEM0Z2EQfoHTPNa7R3uLLSXQ5gwcpyjEez2hGgRih28qjl3T0diF4F8OCzzL6B3Ujvx5twB/S9QR0wVTTORMV7e+5Ui2ASePh0E/Fnex/dWekI/TnyQY4brLeNI/WmmjTFr3mHh0Jvbx7NYtF59YkNhNGZ4yol9sCgfiHuiQnKSIyF2yJv/BHhqwwEvjOQa6yKtQVGZndQpe0/oWu969Y3/ihaEpblUo0S1K/dCNnZT7uKGYIab/321yq/Io6IZHP1Hp3bQUwiTE+ccDWyhdJu1DCsqZ3xW72cMrjAMJ2EGALQkH8TbpmlXKw0Yj6C9bw5bcVEgLSu008YdTSrsPqSPF1e2GVarl4jYzu0ZV0kYfVekNL0JvO1fl3cWe4TGcs6P/hga7vk2vYwGFEm8F9KgbB3VSZutV6XGIYQWPWK+Phj08j5uH/WpgYN0nJxzR6LoQyqlxZz6l4zh+37vFtQ4eJ7VqEfntuf02afYAzynmznod3y3ThyaqhBuhXblRp44glNs+HUnt/7y2Fn6BUcAbTvJXiNSPx2dfRsucEtRtnRTxoX+CSBDnXFsBqZ3hpU+Kp4FPtJ1rhMhEyYlR3BWfwfATwXInoR6qcllVBL6zVvecPo3AwfuQsnRKgfX1xcrxWmrVVueNrylZSrhKVg3vaQXW3YYk7GoGeIdHPN94f7+uSGh7kcDFuIAJMWX92FY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(23010399003)(7416014)(10070799003)(1800799024)(921020)(4143699003)(56012099006)(5023799004)(6133799003)(18002099003)(22082099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TnMwUWlNRERYYTFRUVZqTmFmbUxHOTNCOGx5bFJVTldSbHFHSldraGdLTnlO?=
- =?utf-8?B?UU9hall5cFVJWU5aMWpyYTlwWkFtSlF3ZjRXZUp2VUkwQnhvM0JTdG9KSXAv?=
- =?utf-8?B?S2JjV25QeEtja1cyZzZLNFpZaFF2TENpSHlPZU1KYzJDdmJWZTUzQU41aTJO?=
- =?utf-8?B?ZER0ekFyUk95cHRXREk5cXZlWTFQZFFtd09QMHczY0wyeHBLT0dDeVhXbE5y?=
- =?utf-8?B?VlFHS1hBWllGT3R2K3BMcHdEdk5MejlIamFyS0p2NzNDYjNBNVlLU2ZuMXRW?=
- =?utf-8?B?ZXEyVkI2NnJZdGhoMHFGOC95bHpPOW55aDQ5cXpMQi9hb0ZGei9ub1JTWk1R?=
- =?utf-8?B?dHZnTDRuOURZZ0Zza1FkTlkzL2hwaEpYaEdzTEtPeWhDQzNyN01GbjE3Y1dU?=
- =?utf-8?B?dUY0c0x5Rm5QSDgzd2YxRnpDQW9qWmNFMHNQY0xJbHBhOWppVkN2eENaQ1F1?=
- =?utf-8?B?MDFIcVRpK1V5UTFTSktUVkpTNmRuZ3BZZG1nUEdtRUFJTHQ4SUd3Q2RZT1BO?=
- =?utf-8?B?dWgvUXY2NUp4amZkODlOb0ZMcTdJRU9XTWNuaXc2NTc5SjczdXhwN0dIc1dr?=
- =?utf-8?B?SUpxQXhKVEY5S25FQWNjb3lqUGNPbVpaK1B1UmFleUpPZW5qYW9VV2lXeHBa?=
- =?utf-8?B?aDd0TWxuV3VrdDdQYUdNSGd5cGtlMWdPSFd1emhaU3FubXpqbWFKSmJudlVY?=
- =?utf-8?B?MGZ3YmhxdjFmcWpaS3RlZTI0Y3Vxa0t6MU1SU210MWRLUTkzMHAxOXc2QmV0?=
- =?utf-8?B?M0hYMW1GOVRBOEVTWlZvVFE0RXhsd0JncHpCbjhwcThKcFROcEI4d09XMkVD?=
- =?utf-8?B?dUZuK1Q4aEVPYngyZjhFbmU0eFR0ZlRTeDNyTU5ubllpdDJ2NEZ4OFFmL1lB?=
- =?utf-8?B?MXlMUXFPOHd2WUdPcXAvWlBiWFkxRmFJMlhZWWNoZXhSRzlUdXByZy9iWHFv?=
- =?utf-8?B?MFRJUUxuREJ4SFpReXgyL2h0OXJVZVJ0Z2Y0Y3FwS0p1Yzl4VlpnZUNEd2s0?=
- =?utf-8?B?R2hOdmhRdFFYblcvWFM5UVBFNXVpR2szdlpZdTVOZmxxMENrM2Rrb1Mvc3Fv?=
- =?utf-8?B?bmc4R0hzSEZiZUMzOVgzb2N4eFJzOXhNUndlaXpyWHVKbnlHdCtuemM3b1lR?=
- =?utf-8?B?ZWFoL05OTTdZRFVPVlpCSjRvTUVGR3duVWF2eWVOYmNpNDZOMU14bmFjZDl6?=
- =?utf-8?B?TVNWWklQYVRSSzArZmZDTlIvWG1Xck9oNWlpRENqOVJNcXNKM2t3dkwwbFVn?=
- =?utf-8?B?UnVXQ2xYRTU3Y2ZnWEJDVTdzRENDVnI5Um5RNWRSOXJXYWJwZzBGZ1hrS2pw?=
- =?utf-8?B?TkdTUHZWd0owM2pKOVdyRWQ3eEFkKzBpTnNFVE5KK0NnN0NHdDhSb0NBUWZw?=
- =?utf-8?B?ZmE3ZHdlRnlUbWRoZE9HMjNJMFAxT294UGxuSS9jTWI0TTRPeE1EMUFacUwr?=
- =?utf-8?B?L0tOeWs0UEloOVo1K0tZL2pUWDhzSmRjeHJiWnFmNGU0ajcyYzJSbnVBSzcr?=
- =?utf-8?B?NzdqdXBiYXM3TUtuc0RWV3V0R1VvSGVRVktYMm1RaTRHSUV1azQ3UFZBV0RX?=
- =?utf-8?B?TElNMGcwb0lJY2VpaURVa2JFQng5cDF1QkZySnpCUS9jZGJsZnI4RWxpamJy?=
- =?utf-8?B?S2ZBVndOQ2lVNnhvajFkQzUyckY2T2x2UjNINk5yS0xOTlJFZ0NQR1lpRHhO?=
- =?utf-8?B?L2hkSkVrdjJOU1huRHplczMwcGN3Z3Z0RUM2UHM5TU9GNUEyYkVHSDAwQnRJ?=
- =?utf-8?B?Y3A3MlNEMGszaThLQWZSVllTbDd0U2d5UkJ2VVNrQkFUcWR5enE2cUtsL0pZ?=
- =?utf-8?B?SSthNHpPK2Fqdmw4MWlBV1dtWThoajg1NDJwUnNFNlU2eU80TWxKZWNNd1dZ?=
- =?utf-8?B?c3pnbTFEKzAvbG5JWWxnK1dFUlRXSHBJRllOK2txM0VKcXZpdWU3MGlxa1gw?=
- =?utf-8?B?Vk9pV1ozcGtMNlJoYld0d1daNFBXeitKYnV0aTI0M0JkY1R0aFJXNm5OSS9Z?=
- =?utf-8?B?Z0FkNGZXTWVGTlVIbmt2cHJzUlNDZWRqMGE4ZGpyU2ZYUnV5L1hMNDNQWVFm?=
- =?utf-8?B?dDF4dGwyY2RMaEFSWXdManZEc1lGQjV5bnQraVhpSEdrbjJIQWxLTWZZb2Fy?=
- =?utf-8?B?NWo1TnNmOWk1RTdiRUluVjk1bXI0dmdKNUdSQ0VsZzErVWdGUmIybDlTRHlL?=
- =?utf-8?B?dFErWElMSWlZT1l6bkd0YU1rZkxPZjUxS3RTbWdtOEpUdDVOeElaaDF0bnlI?=
- =?utf-8?B?TnJ2WmxYVnUyOE55dWx0MldNemtzdzNuUDdDM05IOHZaSVVkcnZZdy9vV2g4?=
- =?utf-8?B?dk0vNXJiQ3ZrUjNvRjV6eVBwVzU5YXJTS1BBa1h6WjBjYkg5cmViUT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: d16e8135-da06-4dea-911b-08dec7f0c75a
-X-MS-Exchange-CrossTenant-AuthSource: CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 19:36:48.4975 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hVM07xRLu7QtzC2kszVbU1EbDdQ6sdDq1ffIfL0Yd1Kmt2s7ZOLoBNGgG15YDoyLKlJWhWTRXPXi9EBXC0ya/g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB5702
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,79 +81,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Jun 11, 2026 at 5:28 PM BST, Gary Guo wrote:
-> One feature that was lost from the old `dma_read!` and `dma_write!` when
-> moving to `io_read!` and `io_write!` was the ability to read/write a larg=
-e
-> structs. However, the semantics was unclear to begin with, as there was n=
-o
-> guarantee about their atomicity even for structs that were small enough t=
-o
-> fit in u32. Re-introduce the capability in the form of copying methods.
->
->     dma_read!(foo, bar) -> io_project!(foo, bar).copy_read()
->     dma_write!(foo, bar, baz) -> io_project!(foo, bar).copy_write(baz)
->
-> Model these semantics after memcpy so user has clear expectation of lack =
-of
-> atomicity. As an additional benefit of this change, this now works for MM=
-IO
-> as well by mapping them to `memcpy_{from,to}io`.
->
-> For slices which is DST so the `copy_read` and `copy_write` API above can=
-'t
-> work, add `copy_from_slice` and `copy_to_slice` to copy from/to normal
-> memory.
->
-> Signed-off-by: Gary Guo <gary@garyguo.net>
+On Thu, 2026-06-11 at 19:33 +0200, Thomas Hellstr=C3=B6m wrote:
+> Register the VRAM manager with the dmem cgroup reclaim infrastructure
+> so that lowering dmem.max below current VRAM usage triggers TTM
+> eviction rather than failing with -EBUSY.
+>=20
+> Guard place->flags in amdgpu_ttm_bo_eviction_valuable() against NULL,
+> as the TTM reclaim path passes a NULL place in cgroup drain mode.
+>=20
+> v3:
+> - Rebased on fix for uninitialized list and buddy allocator on the
+> =C2=A0 drmm_cgroup_register_region() error path.
+>=20
+> v5:
+> - Rebased on the introduction of struct dmem_cgroup_init.
+> - Clear the reclaim callback in amdgpu_vram_mgr_fini() to prevent
+> =C2=A0 use-after-free if cgroup reclaim is triggered after driver unbind
+> =C2=A0 while userspace holds an open DRM file descriptor. (Sashiko-bot)
+> - Switch from drmm_cgroup_register_region() to the raw
+> =C2=A0 dmem_cgroup_register_region() and store the region in
+> =C2=A0 amdgpu_vram_mgr.cg_region. Call dmem_cgroup_unregister_region()
+> =C2=A0 in amdgpu_vram_mgr_fini() after ttm_resource_manager_evict_all()
+> =C2=A0 to drain in-flight reclaim callbacks, and clear man->cg afterwards=
+.
+> =C2=A0 This is required because amdgpu's vram manager fini is called
+> =C2=A0 explicitly during driver unbind, which may precede the DRM device
+> =C2=A0 release and thus precede any drmm-based cleanup. (Sashiko-bot)
+>=20
+> v6:
+> - Fix mgr->cg_region never being assigned, so
+> =C2=A0 dmem_cgroup_unregister_region() in fini silently no-ops on NULL
+> =C2=A0 and leaks the region. (Sashiko-bot)
+> - Reorder fini to call set_used(false) and evict_all() before
+> =C2=A0 dmem_cgroup_unregister_region(), so ttm_resource_free() can
+> =C2=A0 uncharge via man->cg during eviction; clear man->cg after
+> =C2=A0 unregister. (Sashiko-bot)
+>=20
+> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+> Signed-off-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
 > ---
->  rust/helpers/io.c        |  13 +++
->  rust/kernel/dma.rs       |  25 +++++
->  rust/kernel/io.rs        | 238 +++++++++++++++++++++++++++++++++++++++++=
-+++++-
->  samples/rust/rust_dma.rs |  15 ++-
->  4 files changed, 285 insertions(+), 6 deletions(-)
->
-> [snip]
->
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 31 ++++++++++++++++-=
+-
+> --
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h |=C2=A0 2 ++
+> =C2=A03 files changed, 28 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index 2740de94e93c..8cbcd33f51a5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -1488,7 +1488,7 @@ static bool
+> amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+> =C2=A0	dma_resv_for_each_fence(&resv_cursor, bo->base.resv,
+> =C2=A0				DMA_RESV_USAGE_BOOKKEEP, f) {
+> =C2=A0		if (amdkfd_fence_check_mm(f, current->mm) &&
+> -		=C2=A0=C2=A0=C2=A0 !(place->flags & TTM_PL_FLAG_CONTIGUOUS))
+> +		=C2=A0=C2=A0=C2=A0 !(place && (place->flags &
+> TTM_PL_FLAG_CONTIGUOUS)))
+> =C2=A0			return false;
+> =C2=A0	}
+> =C2=A0
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> index 08f05c3aed1d..2250bab0970d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> @@ -906,6 +906,10 @@ static const struct ttm_resource_manager_func
+> amdgpu_vram_mgr_func =3D {
+> =C2=A0	.debug	=3D amdgpu_vram_mgr_debug
+> =C2=A0};
+> =C2=A0
+> +static const struct dmem_cgroup_ops amdgpu_vram_mgr_dmem_ops =3D {
+> +	.reclaim =3D ttm_resource_manager_dmem_reclaim,
+> +};
+
+Probably might want to block reclaim after device unbind, just like xe.
+I'll look at that for v7.
+
 > +
-> +    #[inline]
-> +    fn copy_read<T: FromBytes>(view: Self::View<'_, T>) -> T {
-> +        // SAFETY:
-> +        // - Per type invariant, `ptr` is valid and aligned.
-> +        // - Using read_volatile() here so that race with hardware is we=
-ll-defined.
-> +        // - Using read_volatile() here is not sound if it races with ot=
-her CPU per Rust
-> +        //   rules, but this is allowed per LKMM.
-> +        // - The macro is only used on primitives so all bit patterns ar=
-e valid.
-
-This line should read "`T: FromBytes` so all bit patterns are valid.". I co=
-pied
-from `IoCapable` impl and forgot to update the comment.
-
-Best,
-Gary
-
-> +        unsafe { view.ptr.read_volatile() }
-> +    }
+> =C2=A0/**
+> =C2=A0 * amdgpu_vram_mgr_init - init VRAM manager and DRM MM
+> =C2=A0 *
+> @@ -917,6 +921,7 @@ int amdgpu_vram_mgr_init(struct amdgpu_device
+> *adev)
+> =C2=A0{
+> =C2=A0	struct amdgpu_vram_mgr *mgr =3D &adev->mman.vram_mgr;
+> =C2=A0	struct ttm_resource_manager *man =3D &mgr->manager;
+> +	struct dmem_cgroup_region *cg;
+> =C2=A0	int err;
+> =C2=A0
+> =C2=A0	ttm_resource_manager_init(man, &adev->mman.bdev,
+> @@ -933,12 +938,16 @@ int amdgpu_vram_mgr_init(struct amdgpu_device
+> *adev)
+> =C2=A0	if (err)
+> =C2=A0		return err;
+> =C2=A0
+> -	man->cg =3D drmm_cgroup_register_region(adev_to_drm(adev),
+> "vram",
+> -					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &(struct
+> dmem_cgroup_init){
+> -						.size =3D adev-
+> >gmc.real_vram_size,
+> -					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 });
+> -	if (IS_ERR(man->cg))
+> -		return PTR_ERR(man->cg);
+> +	cg =3D dmem_cgroup_register_region(&(struct dmem_cgroup_init){
+> +					=C2=A0=C2=A0=C2=A0=C2=A0 .size =3D adev-
+> >gmc.real_vram_size,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0 .ops =3D
+> &amdgpu_vram_mgr_dmem_ops,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0 .reclaim_priv =3D man,
+> +					 }, "vram");
+> +	if (IS_ERR(cg))
+> +		return PTR_ERR(cg);
 > +
-> +    #[inline]
-> +    fn copy_write<T: IntoBytes>(view: Self::View<'_, T>, value: T) {
-> +        // SAFETY:
-> +        // - Per type invariant, `ptr` is valid and aligned.
-> +        // - Using write_volatile() here so that race with hardware is w=
-ell-defined.
-> +        // - Using write_volatile() here is not sound if it races with o=
-ther CPU per Rust
-> +        //   rules, but this is allowed per LKMM.
-> +        unsafe { view.ptr.write_volatile(value) }
-> +    }
-> +}
+> +	mgr->cg_region =3D cg;
+> +	ttm_resource_manager_set_dmem_region(man, cg);
+> =C2=A0
+> =C2=A0	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr-
+> >manager);
+> =C2=A0	ttm_resource_manager_set_used(man, true);
+> @@ -966,6 +975,16 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device
+> *adev)
+> =C2=A0	if (ret)
+> =C2=A0		return;
+> =C2=A0
+> +	/*
+> +	 * Drain any in-flight dmem cgroup reclaim callbacks and
+> remove the
+> +	 * region from the global list.=C2=A0 This must happen after
+> evict_all()
+> +	 * so that ttm_resource_free() can still uncharge via man-
+> >cg while
+> +	 * BOs are being evicted.
+> +	 */
+> +	dmem_cgroup_unregister_region(mgr->cg_region);
+> +	mgr->cg_region =3D NULL;
+> +	man->cg =3D NULL;
 > +
->  /// System memory region.
->  ///
->  /// Provides `Io` trait implementation for kernel virtual address ranges=
-,
-
+> =C2=A0	mutex_lock(&mgr->lock);
+> =C2=A0	list_for_each_entry_safe(rsv, temp, &mgr-
+> >reservations_pending, blocks)
+> =C2=A0		kfree(rsv);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+> index 429a21a2e9b2..07103cddb335 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+> @@ -36,6 +36,8 @@ struct amdgpu_vram_mgr {
+> =C2=A0	atomic64_t vis_usage;
+> =C2=A0	u64 default_page_size;
+> =C2=A0	struct list_head allocated_vres_list;
+> +	/** @cg_region: dmem cgroup region for VRAM; unregistered in
+> fini. */
+> +	struct dmem_cgroup_region *cg_region;
+> =C2=A0};
+> =C2=A0
+> =C2=A0struct amdgpu_vres_task {
