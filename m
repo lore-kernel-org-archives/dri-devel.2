@@ -4,91 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C126CD4F2C
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 07:45:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CDC0CD98CE
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 07:45:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 942F710E960;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94A9510F2C1;
 	Fri, 12 Jun 2026 07:45:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SGwE86Co";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lk6dgaTC";
 	dkim-atps=neutral
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D1C610E0B7
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 21:58:13 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-36dd65b95f2so311007a91.0
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 14:58:13 -0700 (PDT)
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com
+ [209.85.219.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A796510EF9A
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 14:50:00 +0000 (UTC)
+Received: by mail-qv1-f49.google.com with SMTP id
+ 6a1803df08f44-8ccf130dedcso13494256d6.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 07:50:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781215093; x=1781819893; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=058Dub1D8Mo8YvUnluCsrCmQe9OxK3zbzQpkHf2iTGc=;
- b=SGwE86Cor/XWpQDui6Y3iVBIqQbWy7vpddAnbH+yNd1LwX0vwk9/uspGVjkY3DUQMn
- UPN++yJNLs4gMwmMoEkCHaTXe13A6XAmYP8dEd1kU5HmCyIunMOfSHxQmE/BZK/HWn3W
- ouLamhdcF9tBGo126r5nLg0uE9E7kKyKfDQpRUPSm/GmeJfSi0J88DuHEYcXuFuUr5Uq
- qWvlKokxkClb5ajbljFv+/TmJCPat857VmxfOj35I4204rpGyrI9q7NMbLXhKlqGtFY/
- GSxy6atwg6fSBybVkIEShQJC5Z4+ETJos+60QIlTyXA1bC+BUswqV+2GuMakYzUtSvSY
- Cp2g==
+ d=gmail.com; s=20251104; t=1781189399; x=1781794199; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=DP19gLPJP1jpWVxngAoDyNJY7navrVqVsJRQOoZOUTs=;
+ b=lk6dgaTCZS42EE4EwJTdpHyAw7btQBPHGxLvi38OKoEF7wTmLBBA6ruwtynriK1grx
+ Dly+3RC+uC9/XUb5TsHgiijTng51IpvL5TGRCbHaOmrMdQZYfPoXGmSxeKa1LY6swDEG
+ oJ1R2X+HimmzwIuABnbfNAwB6HnbH0lEzqnF2RU6mKPDkLCuE/zEb7YI+mBkVbjl6jeC
+ rauRpXATsdZugh6cfPzYCIxlYat+nP6+DvN9kKG/JrPDqvXOcFqRlUb750bM0HEEmdc/
+ /6aBkNfA8P11J37n6iHn3RsSXGpu9YVTMmhAjgNNqW7t5keOOFFl1a7XUV/pc3WtJWgK
+ OK4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781215093; x=1781819893;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=058Dub1D8Mo8YvUnluCsrCmQe9OxK3zbzQpkHf2iTGc=;
- b=awGFh7UE6z4dOTw4RtmeQ39p57e2bLqLFUqeqtpSydjyRfCv4IO1djsqDo0wSnEwi/
- 0XXYjEYd09sGURWVdRKeFXL8w7namffY3IBRaD3rXkbPGHoAaBTvIn7ddNhQlkJi6pIc
- EwzDQDwwd3hGLLZ3bayoEnpBXyIngYE8xvuvN2JQAeNWhzkZbRNLuszBAu79B0hmbDE4
- SqcjU/fuJxFnUKwwXIFk2FTrhgmWruv6VZQ/KcDzWsOt8JFxCmEZLT9rgs5ugrB6WTBr
- 2zPBDdlmpfl35CrkgwSh6Rfw2uU4LSr449ns7WAdK9LaTGQThC346ogyzw3edCvjnEkP
- yyVw==
+ d=1e100.net; s=20251104; t=1781189399; x=1781794199;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=DP19gLPJP1jpWVxngAoDyNJY7navrVqVsJRQOoZOUTs=;
+ b=B0nEeyHxcCdqSefvDAYnF9aySM86Cezc8CATSvn8RWsObs2z0n/YRScFTllbr2k9fZ
+ uwxx3PpJ5kZBgfmnx6W9uaQI4q8fQt317iBu4kERKEMtxm18zMSKm/LSoxZyggG7N9/i
+ PQFXDstGxjtAzcmO+UayFtv23Imdlclgy8SXcHrcoKB7y0OZjNXuwFIa/qL4Ln0TyYoj
+ Ehc+nxR8UGIFGyud6zrlyDQDKFrGx7xK7kqhyTGOx91aWofTPF+oASHT5m5QHHcGXIo5
+ olqqj3ual48oRwmVh9cVc2z2Owh+qH1fz5vjSy0QPjNyA4EvOsTY81jiuaT4QO09TWCJ
+ Y6sg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+1TFTf9FTgQFw/jbcWt9ZuIx3Cr1eFm/4fi0KERqHem8A5+U7iBhjnZ6kEQqo0Gi1B4rbG7bx6zVw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy81wSmfodCRmUKd9f8EtGO3jiCOEgTxa+0XDPcegJcLUaqpw/G
- YfZYBYdjbnDiWStKOoxk7b21Ukqu73WJLGEtmVOemcbje49pMOTNOhqk
-X-Gm-Gg: Acq92OEJfMfmYEnlpgmJsbwZ0cfSBfiSAibPdu4esNSlyQS7NiX8d2zAx6qwF3f3+k9
- fs6CA7SxpObgLN+UOjKvnNQ+RdciU3vJEywc+hbJTKaiVskH6GzUhovH44ETHVEuF5ncp9VD9xF
- 4/IZuPyQbhkNi7uWiQbyjkA/af93GhSxITQsT8ua40ETCq3kyab+H5wc6EQum4CkdvwO5I8+GBo
- KKkuzPbk8xUjnskYMD+n1XvIudMTizwx7zoRxviHJq6cQqF6tLi09ieUH6QI6UACnMyH7UVqG89
- H0C6z0MmAteF6RVZ3IwgktGo05P7R4I877LymY2GzmZ6G5dkxFt021SdKEZbWCXSoZta134XQ88
- QsoiUfdcr+bsq8BM07SZuY0kCWkKENZIgDVaVv5rOrMv42IhbXNwq/e3rdzMHmAFswGvd+5LMhT
- t97vDqH7RrPgtUKBgtXOZJBVBXZEEbVG7Y3NULB8NnG1o=
-X-Received: by 2002:a17:90b:2cc3:b0:36b:de66:92c3 with SMTP id
- 98e67ed59e1d1-379ef747839mr387023a91.10.1781215092780; 
- Thu, 11 Jun 2026 14:58:12 -0700 (PDT)
-Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:8::])
+ AFNElJ/yvcV8S7DTCulGkLDgkJVaUmQG0KNeW8OnImI2WWAfJhy1RZ+i8chuU/Faw+zc2yooxqy9+FxH0BQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz85XjKKKqunnK/fnWIVkRdBWQ2rqCsWJ4P13s9LiYwfzLbelTh
+ /AHZmAbwC4V3lJEUpnXfBAk5lYnORgycnVskTB5VADhit1R0t8Xp28xk
+X-Gm-Gg: Acq92OEnRFspSNatbrpJIpxIfBQIM8DpvTtdUkdTJ+296MQWB+PYsucPoXnoa/f36fs
+ e6t7b5IBZPERqZiztTT9oKqRTCJ1azWl3yQRnbODMBe3qQKqsJjbsPVLD21g4wJiFMq2Jsy1Uy1
+ 2TiURBeBCHDgjNN9vVoHfff8DnOm+B+uyiJrPNe/yw4sA2zfmRwU6lWHLzZPyQmX04RjfCn0hjM
+ tWZRIUYDtOykcNuCGVINwh4o1ZO30z6p+IIcVzWwDyOJQ6dlLi0aZWjxxGCHZACkIkaizi0rXz2
+ mGTg8sIjguTg0VCS1RI/2ADsp0YdKg8Dvra6CBKa7pPo+0unecsq7OVB/GYukQ9ak0ETmzwe9Vj
+ fnYlGVRpi6e5OGlAvCNZ4tYgROnfRddKJ1QQlQhZN6QyPSoTtvl/ExqVL/yeaDzJoSW1QBNcnfL
+ F4UzV03j2wkGdQbdH28CBQPOZhzzPvRMvlkn032F6AfSSQhhoJNZ4Pe8A1fu9G5YRZaEeg0nXem
+ p2tvWuphuUU1/m8d/CUhYODX98LFAeoLJFJej4f+7nxSzFWFIptgxCjFj+U6u+q/3muBgpixSmq
+ Ew==
+X-Received: by 2002:a05:6214:33c2:b0:8d1:d1e1:835f with SMTP id
+ 6a1803df08f44-8d1dc1a2588mr28820326d6.7.1781189399264; 
+ Thu, 11 Jun 2026 07:49:59 -0700 (PDT)
+Received: from debian-t14-gen1-fuhrysteve.fuhry.app
+ (6.sub-75-230-138.myvzw.com. [75.230.138.6])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-379c3240b5esm327367a91.0.2026.06.11.14.58.11
+ 6a1803df08f44-8d1e7bc32acsm20141096d6.5.2026.06.11.07.49.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jun 2026 14:58:12 -0700 (PDT)
-Date: Thu, 11 Jun 2026 14:58:10 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: Stanislav Fomichev <sdf.kernel@gmail.com>
-Cc: Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-kselftest@vger.kernel.org, sdf@fomichev.me,
- razor@blackwall.org, daniel@iogearbox.net, almasrymina@google.com,
- matttbe@kernel.org, skhawaja@google.com, dw@davidwei.uk,
- Bobby Eshleman <bobbyeshleman@meta.com>
-Subject: Re: [PATCH net-next v2 3/4] selftests/net: ncdevmem: add -b option
- to set rx-buf-size on bind
-Message-ID: <aisvcqQp37rnfK5d@devvm29614.prn0.facebook.com>
-References: <20260611-tcpdm-large-niovs-v2-0-ee2bf15e7523@meta.com>
- <20260611-tcpdm-large-niovs-v2-3-ee2bf15e7523@meta.com>
- <aislm0fS2MSDMzKf@devvm7509.cco0.facebook.com>
+ Thu, 11 Jun 2026 07:49:59 -0700 (PDT)
+From: "Stephen J. Fuhry" <fuhrysteve@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+ Animesh Manna <animesh.manna@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ "Stephen J . Fuhry" <fuhrysteve@gmail.com>,
+ sashiko AI review <sashiko-bot@kernel.org>
+Subject: [PATCH] drm/i915/display: fix ALPM error handling in psr_alpm_check()
+Date: Thu, 11 Jun 2026 10:49:56 -0400
+Message-ID: <20260611144956.710911-1-fuhrysteve@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260611125408.676626-1-fuhrysteve@gmail.com>
+References: <20260611125408.676626-1-fuhrysteve@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aislm0fS2MSDMzKf@devvm7509.cco0.facebook.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 12 Jun 2026 07:45:54 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,184 +98,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 11, 2026 at 02:22:54PM -0700, Stanislav Fomichev wrote:
-> On 06/11, Bobby Eshleman wrote:
-> > From: Bobby Eshleman <bobbyeshleman@meta.com>
-> > 
-> > Add -b <bytes> to request a non-default niov size via
-> > NETDEV_A_DMABUF_RX_BUF_SIZE. When the value exceeds PAGE_SIZE,
-> > udmabuf_alloc() switches to an MFD_HUGETLB-backed memfd so each 2 MB
-> > hugepage produces one naturally-aligned sg entry.
-> > 
-> > Reject values > 2 MB up front: MFD_HUGETLB + udmabuf can only guarantee
-> > 2 MB per sg entry (one hugepage), so a larger rx_buf_size would fail the
-> > per-sg length/alignment check.
-> > 
-> > Add CONFIG_HUGETLBFS=y to drivers/net/hw/config so the new path is
-> > reachable in the CI kernels built for these tests.
-> > 
-> > Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
-> > ---
-> >  tools/testing/selftests/drivers/net/hw/config     |  1 +
-> >  tools/testing/selftests/drivers/net/hw/ncdevmem.c | 49 +++++++++++++++++++++--
-> >  2 files changed, 47 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/tools/testing/selftests/drivers/net/hw/config b/tools/testing/selftests/drivers/net/hw/config
-> > index cd20024218cd..ed8642b68094 100644
-> > --- a/tools/testing/selftests/drivers/net/hw/config
-> > +++ b/tools/testing/selftests/drivers/net/hw/config
-> > @@ -3,6 +3,7 @@ CONFIG_FAIL_FUNCTION=y
-> >  CONFIG_FAULT_INJECTION=y
-> >  CONFIG_FAULT_INJECTION_DEBUG_FS=y
-> >  CONFIG_FUNCTION_ERROR_INJECTION=y
-> > +CONFIG_HUGETLBFS=y
-> >  CONFIG_INET6_ESP=y
-> >  CONFIG_INET6_ESP_OFFLOAD=y
-> >  CONFIG_INET_ESP=y
-> > diff --git a/tools/testing/selftests/drivers/net/hw/ncdevmem.c b/tools/testing/selftests/drivers/net/hw/ncdevmem.c
-> > index d96e8a3b5a65..325c128191e2 100644
-> > --- a/tools/testing/selftests/drivers/net/hw/ncdevmem.c
-> > +++ b/tools/testing/selftests/drivers/net/hw/ncdevmem.c
-> > @@ -61,6 +61,7 @@
-> >  #include <sys/time.h>
-> >  
-> >  #include <linux/memfd.h>
-> > +#include <sys/param.h>
-> >  #include <linux/dma-buf.h>
-> >  #include <linux/errqueue.h>
-> >  #include <linux/udmabuf.h>
-> > @@ -79,6 +80,7 @@
-> >  #define PAGE_SHIFT 12
-> >  #define TEST_PREFIX "ncdevmem"
-> >  #define NUM_PAGES 16000
-> > +#define MB(x) ((x) << 20)
-> >  
-> >  #ifndef MSG_SOCK_DEVMEM
-> >  #define MSG_SOCK_DEVMEM 0x2000000
-> > @@ -100,6 +102,7 @@ static unsigned int dmabuf_id;
-> >  static uint32_t tx_dmabuf_id;
-> >  static int waittime_ms = 500;
-> >  static bool fail_on_linear;
-> > +static uint32_t rx_buf_size;
-> >  
-> >  /* System state loaded by current_config_load() */
-> >  #define MAX_FLOWS	8
-> > @@ -142,6 +145,7 @@ static struct memory_buffer *udmabuf_alloc(size_t size)
-> >  {
-> >  	struct udmabuf_create create;
-> >  	struct memory_buffer *ctx;
-> > +	unsigned int memfd_flags;
-> >  	int ret;
-> >  
-> >  	ctx = malloc(sizeof(*ctx));
-> > @@ -156,9 +160,14 @@ static struct memory_buffer *udmabuf_alloc(size_t size)
-> >  		goto err_free_ctx;
-> >  	}
-> >  
-> > -	ctx->memfd = memfd_create("udmabuf-test", MFD_ALLOW_SEALING);
-> > +	memfd_flags = MFD_ALLOW_SEALING;
-> 
-> [..]
-> 
-> > +	if (rx_buf_size > (uint32_t)getpagesize())
-> 
-> What's the logic behind explicit (uint32_t) cast? uint vs int
-> comparisons should promote the int to uint automatically?
+intel_dp_short_pulse() calls intel_psr_short_pulse() before the direct
+intel_alpm_get_error() check.  For PSR2-enabled panels, intel_psr_short_pulse()
+calls psr_alpm_check(), which reads and clears DP_ALPM_LOCK_TIMEOUT_ERROR via
+intel_alpm_get_error().  The subsequent direct call in intel_dp_short_pulse()
+then reads zero and skips calling intel_alpm_disable() and setting
+sink_alpm_error, leaving LOBF potentially enabled despite the ALPM error.
 
-Right, it's actually not needed. Avoids -Wsign-compare, but we don't use
-it anyway.
+Fix this by having psr_alpm_check() also call intel_alpm_disable() and set
+sink_alpm_error when it handles an ALPM error.  This mirrors what the direct
+call in intel_dp_short_pulse() would have done, ensuring correct cleanup
+regardless of which code path consumes the error bit first.
 
-> 
-> > +		memfd_flags |= MFD_HUGETLB | MFD_HUGE_2MB;
-> > +
-> > +	ctx->memfd = memfd_create("udmabuf-test", memfd_flags);
-> >  	if (ctx->memfd < 0) {
-> > -		pr_err("[skip,no-memfd]");
-> > +		pr_err("[skip,no-memfd%s]",
-> > +		       (memfd_flags & MFD_HUGETLB) ? " (need hugepages)" : "");
-> >  		goto err_close_dev;
-> >  	}
-> >  
-> > @@ -168,6 +177,11 @@ static struct memory_buffer *udmabuf_alloc(size_t size)
-> >  		goto err_close_memfd;
-> >  	}
-> >  
-> > +	if (memfd_flags & MFD_HUGETLB) {
-> > +		size = roundup(size, MB(2));
-> > +		ctx->size = size;
-> > +	}
-> > +
-> >  	ret = ftruncate(ctx->memfd, size);
-> >  	if (ret == -1) {
-> >  		pr_err("[FAIL,memfd-truncate]");
-> > @@ -699,6 +713,8 @@ static int bind_rx_queue(unsigned int ifindex, unsigned int dmabuf_fd,
-> >  	netdev_bind_rx_req_set_ifindex(req, ifindex);
-> >  	netdev_bind_rx_req_set_fd(req, dmabuf_fd);
-> >  	__netdev_bind_rx_req_set_queues(req, queues, n_queue_index);
-> > +	if (rx_buf_size)
-> > +		netdev_bind_rx_req_set_rx_buf_size(req, rx_buf_size);
-> >  
-> >  	rsp = netdev_bind_rx(*ys, req);
-> >  	if (!rsp) {
-> > @@ -1411,7 +1427,7 @@ int main(int argc, char *argv[])
-> >  	int is_server = 0, opt;
-> >  	int ret, err = 1;
-> >  
-> > -	while ((opt = getopt(argc, argv, "Lls:c:p:v:q:t:f:z:n")) != -1) {
-> > +	while ((opt = getopt(argc, argv, "Lls:c:p:v:q:t:f:z:nb:")) != -1) {
-> >  		switch (opt) {
-> >  		case 'L':
-> >  			fail_on_linear = true;
-> > @@ -1446,6 +1462,33 @@ int main(int argc, char *argv[])
-> >  		case 'n':
-> >  			skip_config = 1;
-> >  			break;
-> > +		case 'b': {
-> > +			char *endp;
-> > +			unsigned long val;
-> 
-> Christmas tree here as well?
+intel_alpm_disable() is already called under psr->lock from
+intel_psr_disable_locked() for the Panel Replay path, so the lock ordering
+is established and safe.
 
-Ah right, don't know how I missed that. Thank you.
+Suggested-by: sashiko AI review <sashiko-bot@kernel.org>
+Fixes: 2063174c22da ("drm/i915/lobf: Check for sink error and disable LOBF")
+Signed-off-by: Stephen J. Fuhry <fuhrysteve@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_psr.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> 
-> > +
-> > +			errno = 0;
-> > +			val = strtoul(optarg, &endp, 0);
-> 
-> [..]
-> 
-> > +			if (errno || endp == optarg || *endp || val == 0 ||
-> > +			    val > UINT32_MAX) {
-> > +				pr_err("invalid rx_buf_size: %s", optarg);
-> > +				return 1;
-> > +			}
-> 
-> This is too sophisticated :-/ Just (if val == UINT32_MAX && errno == ERANGE) ?
-> (you're looking for an overflow here supposedly?)
-
-yes, sounds good!
-
-> 
-> [..]
-> 
-> > +			if (val & (val - 1)) {
-> > +				pr_err("rx_buf_size must be a power of 2");
-> > +				return 1;
-> > +			}
-> > +			if (val < (unsigned long)getpagesize()) {
-> > +				pr_err("rx_buf_size must be >= PAGE_SIZE (%d)",
-> > +				       getpagesize());
-> > +				return 1;
-> > +			}
-> > +			if (val > MB(2)) {
-> > +				pr_err("rx_buf_size > 2 MB not supported");
-> > +				return 1;
-> > +			}
-> 
-> We already check these on the kernel size, so should be ok to drop? 
-
-True, that works.
-
-Best,
-Bobby
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 9382ad1e01d8..0701c8b94aa2 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -3869,6 +3869,8 @@ static void psr_alpm_check(struct intel_dp *intel_dp)
+ 	if (intel_alpm_get_error(intel_dp)) {
+ 		intel_psr_disable_locked(intel_dp);
+ 		psr->sink_not_reliable = true;
++		intel_alpm_disable(intel_dp);
++		intel_dp->alpm.sink_alpm_error = true;
+ 	}
+ }
+--
+2.39.5
