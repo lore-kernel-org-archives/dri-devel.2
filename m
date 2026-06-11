@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13DD7CD8C9D
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 18:00:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ACEBCD8C9D
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 18:01:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BBD210E82D;
-	Thu, 11 Jun 2026 18:00:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B27C10F05F;
+	Thu, 11 Jun 2026 18:01:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KLECK6Qa";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G9fbIALG";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36D1510E82D
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 18:00:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4093910F05B
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 18:01:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0457F438C0;
- Thu, 11 Jun 2026 18:00:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 960851F00893;
- Thu, 11 Jun 2026 18:00:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2A59F434AE;
+ Thu, 11 Jun 2026 18:01:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C01451F00899;
+ Thu, 11 Jun 2026 18:01:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781200850;
- bh=ycquyeVXr6bgIZr16uD8WlkI/eKF+zRgsiLiiWFk/vA=;
+ s=k20260515; t=1781200868;
+ bh=oSdVfhRIxYVSIvZRCsc9ClAjraWTFuEromwYbZiyG4U=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KLECK6QaPOWRjSm/O61FxDmvTmKYKbOH69a2wgHU96DcOtE29sWYvBtCbJ2U6CYJs
- HoxQqPXdFz3fIRHx4oLq6dzygkMhvBfvyVLTphVrMjTOubZPJNRHL4SU8S3Rr8Rk7d
- zAsxf0hhPWrezKKHXd3W9mMIHiVuoasjUAcCVt8pmEGCpu9UDUxO8T3yY+ZcC3WKz3
- Hd6yByFG0c2nQbloaD3xtXLvvo3e7JGhFrkhhDjwklmCEt+ihdHUJH5VdYnFsRshKx
- aTj5drYvKdvx4gwfDQqUbq6RNlHP2IzZMoJDD79HZsHnhTrNo7gF3nZLhv58dGS4Mn
- NSmwEYB72qQPw==
+ b=G9fbIALGZs0CivdQrlTBKGC1FnkLNIoCY/1Tux7mh5XnHJxE0TN3G0TEYHUr30Qx2
+ iR387NFLqXGtzSHsPvoDHMmYzlI5gKY5EHMQZprwMWhON6Y38zAQMC1ItoZBvJq9gJ
+ Bga/SfglH+M9wo6FwZ4bkMOQqAZAfIytUljctMklBaryIfN38j6BQoQ3hvvafktUwN
+ +5De+TYlMGRvZYDdue8sMm9sDXhmwtKguOMVc0RbrC2fw0X78GkW+9FDkXWM7aJEuA
+ fANsUhXAArD8bElDM1iJkA+VXcANSg3ExzXcHzBclBpdWdFIXZz4PGSBpBt9ZoZc34
+ z2du8VAt8Hnsg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 11/20] rust: io: move `Io` methods to extension trait
-To: "Gary Guo" <gary@garyguo.net>
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org,
- "Danilo
- Krummrich" <dakr@kernel.org>, ojeda@kernel.org, linux-pci@vger.kernel.org
-In-Reply-To: <20260611-io_projection-v4-11-1f7224b02dcb@garyguo.net>
-References: <20260611-io_projection-v4-11-1f7224b02dcb@garyguo.net>
+Subject: Re: [PATCH v6 3/6] cgroup/dmem: Add reclaim callback for lowering
+ max below current usage
+To: =?utf-8?b?VGhvbWFzIEhlbGxzdHLDtm0=?= <thomas.hellstrom@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, tj@kernel.org, hannes@cmpxchg.org,
+ mkoutny@suse.com
+In-Reply-To: <20260611173301.17473-4-thomas.hellstrom@linux.intel.com>
+References: <20260611173301.17473-4-thomas.hellstrom@linux.intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jun 2026 18:00:50 +0000
-Message-Id: <20260611180050.960851F00893@smtp.kernel.org>
+Date: Thu, 11 Jun 2026 18:01:07 +0000
+Message-Id: <20260611180107.C01451F00899@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,27 +58,62 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> `Io` trait now has a single required methods with many more provided
-> methods. Provided methods may want to rely on their implementations to not
-> be arbitrarily overridden by implementers for correctness or soundness.
->=20
-> Thus, extract these methods to a new trait and provide a blanket
-> implementation. This pattern is used extensively in userspace Rust
-> libraries e.g. `tokio` where `AsyncRead` has minimum methods and
-> `AsyncReadExt` is what users mostly interact with.
->=20
-> To avoid changing all user imports, the base trait is renamed to `IoBase`
-> and the newly added trait takes the existing `Io` name.
->=20
-> A `size` method is added as an example of methods that users should not
-> override.
->=20
-> Suggested-by: Danilo Krummrich <dakr@kernel.org>
-> Signed-off-by: Gary Guo <gary@garyguo.net>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Pre-existing issues:
+- [High] dmemcg_parse_limit does not clamp parsed limits to PAGE_COUNTER_MA=
+X, leading to silent truncation and broken limits on 32-bit systems.
+--
+
+commit 71a34045a2531fca277baab558f3a81add06614b
+Author: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+
+cgroup/dmem: Add reclaim callback for lowering max below current usage
+
+This patch adds an optional reclaim callback to dmem_cgroup_region to
+allow memory eviction when dmem.max is lowered below current usage. It
+handles reclaim in a bounded loop and respects O_NONBLOCK to avoid
+charging reclaim costs to writers.
+
+> diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+> index 373ad04d289d5..f7166b8255c7b 100644
+> --- a/kernel/cgroup/dmem.c
+> +++ b/kernel/cgroup/dmem.c
+[ ... ]
+> @@ -145,21 +170,71 @@ static void free_cg_pool(struct dmem_cgroup_pool_st=
+ate *pool)
+[ ... ]
+>  static void
+> -set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
+> +set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val, bool nonb=
+lock)
+>  {
+> -	page_counter_set_max(&pool->cnt, val);
+> +	struct dmem_cgroup_region *region =3D pool->region;
+> +	unsigned long limit =3D (unsigned long)val;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does casting the u64 value
+to unsigned long here cause issues on 32-bit systems?
+
+It looks like dmemcg_parse_limit() parses user input into a u64 via
+memparse() without clamping it to PAGE_COUNTER_MAX. The dmem controller uses
+page_counter to track raw bytes rather than pages.
+
+On 32-bit systems, page_counter tracks limits using unsigned long and usage
+using atomic_long_t (signed), meaning it can safely track at most LONG_MAX
+(2GB-1) bytes. If a user writes a limit larger than 4GB (e.g., 5GB), the
+cast to unsigned long will silently truncate it to 1GB.
+
+Additionally, if a value between 2GB and 4GB is written, does actual usage
+exceeding 2GB cause atomic_long_sub_return() in page_counter_cancel() to
+result in a negative value, triggering a WARN_ONCE and permanently
+resetting the cgroup's usage to 0?
+
+Would it be safer to clamp the parsed value to PAGE_COUNTER_MAX in
+dmemcg_parse_limit() before it reaches this point?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611-io_project=
-ion-v4-0-1f7224b02dcb@garyguo.net?part=3D11
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611173301.1747=
+3-1-thomas.hellstrom@linux.intel.com?part=3D3
