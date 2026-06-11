@@ -4,49 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37F00CD98CE
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 15:34:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46F1ACD98C7
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 15:49:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8871610EEEA;
-	Thu, 11 Jun 2026 15:34:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90A1110EFF5;
+	Thu, 11 Jun 2026 15:49:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="dMInVyTV";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="T3zsTRev";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7C2AE10EEEA
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 15:34:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id B063810EFEE
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 15:49:18 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2EEBF25E2;
- Thu, 11 Jun 2026 08:34:22 -0700 (PDT)
-Received: from [10.1.29.27] (e122027.cambridge.arm.com [10.1.29.27])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D34C43FB90;
- Thu, 11 Jun 2026 08:34:24 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2D9042D97
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 08:49:13 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ B28CA3FB90
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 08:49:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1781192066; bh=/sCwt4VmnlRUdYpbYUPm3IxE68ROI+yaC/qYgEqdhvY=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=dMInVyTVVvVKK5+JgcfXSesZeVnF8c53JrVjC34Rv2nIwPYlCpDsE8TpduOEdv822
- jBpEwAe8XS0lvSFLbdcyLZIZbjR4G75zBM6e7lHEOvDEMA5l046U0k+HfXa/U50kdf
- Xxvqrub3wetr7nKmvQRMgFhYZdKZdhmng3pO5j/E=
-Message-ID: <dc038a81-3c59-49d5-ab8a-29202c7ce935@arm.com>
-Date: Thu, 11 Jun 2026 16:34:22 +0100
+ t=1781192957; bh=AAOh/RJo7nNSkQR8BQ9V87bX6Y+TZZtett4JP3LpdgA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=T3zsTRevdzERZYdHdGc/ZxeZQFQITltg9kyzEeaSuaJ3/3dJdJPkuJk3mmn15/3Gb
+ Yz0xfVKq7rD9/Np6ScQEeRAgoYkV8RCzBfuG4j7fw0Bzvafcer9V/fFWilwpkx6XP+
+ 4PEpH1SXO+YELzDB6sAAs7HGc2V4lXR5c/xesvws=
+Date: Thu, 11 Jun 2026 16:49:15 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Gustavo Kenji =?utf-8?B?TWVuZG9uw6dh?= Kaneko <kaneko.dev@pm.me>
+Cc: dri-devel@lists.freedesktop.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] drm/arm/malidp: use clk_bulk API in runtime PM resume
+ and suspend
+Message-ID: <airY-4XRrsHjGfeW@e142607>
+References: <20260609130812.1065699-1-kaneko.dev@pm.me>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 08/18] drm/panthor: Skip devfreq when no OPP table is
- present
-To: Karunika Choo <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org
-Cc: nd@arm.com, Boris Brezillon <boris.brezillon@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org
-References: <20260528150546.3168527-1-karunika.choo@arm.com>
- <20260528150546.3168527-9-karunika.choo@arm.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260528150546.3168527-9-karunika.choo@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260609130812.1065699-1-kaneko.dev@pm.me>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,96 +58,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 28/05/2026 16:05, Karunika Choo wrote:
-> On Mali v15 AM systems, frequency scaling is handled outside panthor by
-> the AM_GOVERNOR block, so the GPU DT node may not provide an OPP table.
+On Tue, Jun 09, 2026 at 01:08:19PM +0000, Gustavo Kenji Mendonça Kaneko wrote:
+> malidp_runtime_pm_resume() calls clk_prepare_enable() three times
+> without checking the return value. If any clock fails to enable, the
+> driver silently proceeds with unclocked hardware, leading to undefined
+> behavior.
 > 
-> Make panthor_devfreq_init() return early when operating-points-v2 is
-> absent, and guard the devfreq helper paths against a missing devfreq
-> instance.
+> Convert both the resume and suspend paths to use the clk_bulk API:
+> clk_bulk_prepare_enable() in resume checks the return value and rolls
+> back any successfully enabled clocks on failure;
+> clk_bulk_disable_unprepare() in suspend keeps the two paths symmetric.
 > 
-> This keeps devfreq enabled for existing platforms while allowing v15 AM
-> systems to probe without a local devfreq setup.
+> This issue was found by code review without access to Mali DP hardware.
 > 
-> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+> Signed-off-by: Gustavo Kenji Mendonça Kaneko <kaneko.dev@pm.me>
+
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+
+Best regards,
+Liviu
+
 > ---
->  drivers/gpu/drm/panthor/panthor_devfreq.c | 13 ++++++++-----
->  1 file changed, 8 insertions(+), 5 deletions(-)
+> Changes in v2:
+>   - Also convert malidp_runtime_pm_suspend() to clk_bulk_disable_unprepare()
+>     to make both paths truly symmetric (Liviu Dudau)
+>   - Drop the incorrect claim about existing clk_bulk usage in the suspend
+>     path from the commit message (Liviu Dudau)
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/panthor/panthor_devfreq.c
-> index 2249b41ca4af..c3252ce54437 100644
-> --- a/drivers/gpu/drm/panthor/panthor_devfreq.c
-> +++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
-> @@ -148,6 +148,9 @@ int panthor_devfreq_init(struct panthor_device *ptdev)
->  	unsigned long freq = ULONG_MAX;
->  	int ret;
+>  drivers/gpu/drm/arm/malidp_drv.c | 22 ++++++++++++++++------
+>  1 file changed, 16 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/arm/malidp_drv.c b/drivers/gpu/drm/arm/malidp_drv.c
+> index b765f6c9eea4..90e7f14aacec 100644
+> --- a/drivers/gpu/drm/arm/malidp_drv.c
+> +++ b/drivers/gpu/drm/arm/malidp_drv.c
+> @@ -670,6 +670,11 @@ static int malidp_runtime_pm_suspend(struct device *dev)
+>  	struct drm_device *drm = dev_get_drvdata(dev);
+>  	struct malidp_drm *malidp = drm_to_malidp(drm);
+>  	struct malidp_hw_device *hwdev = malidp->dev;
+> +	struct clk_bulk_data clks[] = {
+> +		{ .clk = hwdev->pclk },
+> +		{ .clk = hwdev->aclk },
+> +		{ .clk = hwdev->mclk },
+> +	};
 >  
-> +	if (!device_property_read_bool(ptdev->base.dev, "operating-points-v2"))
-
-Don't you want device_property_present() here?
-
-I'm also a little wary of encoding operating-points-v2 as the check -
-e.g. it potentially breaks if there's ever a "-v3" or some other way of
-describing the opps. Can we use the -ENODEV returned from the
-devm_pm_opp functions instead?
-
-> +		return 0;
+>  	/* we can only suspend if the hardware is in config mode */
+>  	WARN_ON(!hwdev->hw->in_config_mode(hwdev));
+> @@ -677,9 +682,7 @@ static int malidp_runtime_pm_suspend(struct device *dev)
+>  	malidp_se_irq_fini(hwdev);
+>  	malidp_de_irq_fini(hwdev);
+>  	hwdev->pm_suspended = true;
+> -	clk_disable_unprepare(hwdev->mclk);
+> -	clk_disable_unprepare(hwdev->aclk);
+> -	clk_disable_unprepare(hwdev->pclk);
+> +	clk_bulk_disable_unprepare(ARRAY_SIZE(clks), clks);
+>  
+>  	return 0;
+>  }
+> @@ -689,10 +692,17 @@ static int malidp_runtime_pm_resume(struct device *dev)
+>  	struct drm_device *drm = dev_get_drvdata(dev);
+>  	struct malidp_drm *malidp = drm_to_malidp(drm);
+>  	struct malidp_hw_device *hwdev = malidp->dev;
+> +	struct clk_bulk_data clks[] = {
+> +		{ .clk = hwdev->pclk },
+> +		{ .clk = hwdev->aclk },
+> +		{ .clk = hwdev->mclk },
+> +	};
+> +	int err;
 > +
->  	pdevfreq = drmm_kzalloc(&ptdev->base, sizeof(*ptdev->devfreq), GFP_KERNEL);
->  	if (!pdevfreq)
->  		return -ENOMEM;
-> @@ -267,7 +270,7 @@ void panthor_devfreq_resume(struct panthor_device *ptdev)
->  {
->  	struct panthor_devfreq *pdevfreq = ptdev->devfreq;
+> +	err = clk_bulk_prepare_enable(ARRAY_SIZE(clks), clks);
+> +	if (err)
+> +		return err;
 >  
-> -	if (!pdevfreq->devfreq)
-> +	if (!pdevfreq || !pdevfreq->devfreq)
->  		return;
->  
->  	panthor_devfreq_reset(pdevfreq);
-> @@ -279,7 +282,7 @@ void panthor_devfreq_suspend(struct panthor_device *ptdev)
->  {
->  	struct panthor_devfreq *pdevfreq = ptdev->devfreq;
->  
-> -	if (!pdevfreq->devfreq)
-> +	if (!pdevfreq || !pdevfreq->devfreq)
->  		return;
->  
->  	drm_WARN_ON(&ptdev->base, devfreq_suspend_device(pdevfreq->devfreq));
-> @@ -290,7 +293,7 @@ void panthor_devfreq_record_busy(struct panthor_device *ptdev)
->  	struct panthor_devfreq *pdevfreq = ptdev->devfreq;
->  	unsigned long irqflags;
->  
-> -	if (!pdevfreq->devfreq)
-> +	if (!pdevfreq || !pdevfreq->devfreq)
->  		return;
->  
->  	spin_lock_irqsave(&pdevfreq->lock, irqflags);
-> @@ -306,7 +309,7 @@ void panthor_devfreq_record_idle(struct panthor_device *ptdev)
->  	struct panthor_devfreq *pdevfreq = ptdev->devfreq;
->  	unsigned long irqflags;
->  
-> -	if (!pdevfreq->devfreq)
-> +	if (!pdevfreq || !pdevfreq->devfreq)
->  		return;
->  
->  	spin_lock_irqsave(&pdevfreq->lock, irqflags);
-> @@ -323,7 +326,7 @@ unsigned long panthor_devfreq_get_freq(struct panthor_device *ptdev)
->  	unsigned long freq = 0;
->  	int ret;
->  
-> -	if (!pdevfreq->devfreq)
-> +	if (!pdevfreq || !pdevfreq->devfreq)
->  		return 0;
+> -	clk_prepare_enable(hwdev->pclk);
+> -	clk_prepare_enable(hwdev->aclk);
+> -	clk_prepare_enable(hwdev->mclk);
+>  	hwdev->pm_suspended = false;
+>  	malidp_de_irq_hw_init(hwdev);
+>  	malidp_se_irq_hw_init(hwdev);
+> -- 
+> 2.54.0
+> 
+> 
 
-This has the unfortunate effect of reporting a bogus frequency in
-panthor_gpu_show_fdinfo(). We should avoid reporting a frequency at all
-if we don't know it. Or of course even better report the actual
-frequency the governor block has set.
-
-Thanks,
-Steve
-
->  
->  	ret = pdevfreq->devfreq->profile->get_cur_freq(ptdev->base.dev, &freq);
-
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
