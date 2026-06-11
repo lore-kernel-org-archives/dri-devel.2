@@ -4,102 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5954CD98C6
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 05:52:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D133CCD98C6
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 05:52:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EF4610ECD4;
-	Thu, 11 Jun 2026 05:52:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 357DE10ECD5;
+	Thu, 11 Jun 2026 05:52:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AZF3AUrw";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hGRPEJrK";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012013.outbound.protection.outlook.com
- [40.107.200.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59EB710ECD4
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 05:52:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sq58ezFJCJNFgxmVAJK/AnWS0nCl6MU8pjckp2bQCpEAh/d0bA4AzFCPbOIhzvgOkifD1NDGugFmQ1CO1nLT7HH9FYeL74I6s2pigtgoDlfdwo6lId7SA4mfAKVE6QdRipcagstTsbLgnjIePrfUnEiibJixxxbxHnJK6cFXT15By+1bPVAmStfErDDPshxUXyPJtxun0KWgd8kWIoa+gstS9yGEUV2gGu5AwnqEbTftUg+LrNqhu6dodvSSq+2EmDEQA9G/chCaa3HKgkqdWuy/8G9pfXHhEA9l0cTtG2obCQO6rQRgb4Z1C19TUaC/dBSTk1ACGnuNR6haau9L3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D8ZAyfmwZonDGwdz/8KraJAX9fFtHJ6l465LAjNGbVo=;
- b=uvAg105kGohwyKPKJ+k/PIT+e+DWyzaQZKoR2+ePf5PfSzE0pZjlJyq86HcM5TG+FwjSRjOsV5DzWXTNymmqC2KeJGsfIpKKwzRAtH7dERuUv2GDLXOpOj1UwI53kHHhzqv9jNi1HXFBhhGYZF8y1SnFE3iGjLq43KHv4+Dy+Buizvqiur6Xq7bBwv4nKwrOPp/xNHQNjQ+C4z4+gdcY/xWK0qFeRZU8fJHqVAYy999TSSKEShLzgxaFkH+mczsbiYdDhJCiQhAERxWgcdlHCE8xLZzEE5bYDNRPtaV8wphjfbhdHabfxgThLV1AxC3goSfMUW6Fuw7NW9YOx6afMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D8ZAyfmwZonDGwdz/8KraJAX9fFtHJ6l465LAjNGbVo=;
- b=AZF3AUrwCiFvLAwqE9kvlf4ktDFaf3aFG9UIB6h6hJpcCS8zVeFt+dcoYmPpcfMZ9nQ26iuMM/eZNtkh7xBLFeDzq5n0X0ULiSjyiNSVWTucP+JHKqcvV0PHUy821vxDq9S4IIdStjrJbE0IiLQxB2bLvTtMvk+Q1M043aQks30=
-Received: from SJ0PR03CA0125.namprd03.prod.outlook.com (2603:10b6:a03:33c::10)
- by DS7PR12MB5768.namprd12.prod.outlook.com (2603:10b6:8:77::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Thu, 11 Jun
- 2026 05:52:08 +0000
-Received: from SJ1PEPF00001CDF.namprd05.prod.outlook.com
- (2603:10b6:a03:33c:cafe::87) by SJ0PR03CA0125.outlook.office365.com
- (2603:10b6:a03:33c::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.11 via Frontend Transport; Thu,
- 11 Jun 2026 05:52:08 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF00001CDF.mail.protection.outlook.com (10.167.242.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.7 via Frontend Transport; Thu, 11 Jun 2026 05:52:08 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 11 Jun
- 2026 00:52:06 -0500
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Thu, 11 Jun 2026 00:52:05 -0500
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
- <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
- <karol.wachowski@linux.intel.com>
-CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
- <max.zhen@amd.com>, <sonal.santan@amd.com>
-Subject: [PATCH V3 3/3] accel/amdxdna: Fix iommu domain lifetime race during
- device removal
-Date: Wed, 10 Jun 2026 22:51:50 -0700
-Message-ID: <20260611055150.3070216-3-lizhi.hou@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260611055150.3070216-1-lizhi.hou@amd.com>
-References: <20260611055150.3070216-1-lizhi.hou@amd.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 917EF10ECD5
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 05:52:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781157143; x=1812693143;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=BpELOAMpFoeObzhHKuQ35WZ/aREM4dlxzGz5ATu9RUI=;
+ b=hGRPEJrKYUaEPft90Lz70OhGnNgFY5bsKlba3RraY/1MtBFjdcoGfrPA
+ cFnrfexBCgLkVRNx6PkwApn0AX1bXYvCbnUMG2iNBKvDD5ICqf1qJNWSK
+ Dx5q0UlmIFrWU9pu9AdE6wH8XV+QDJ5mokOWjfiElkcEEIsZ8fA8HKIDr
+ KMnkiXQ9BZPuWCm6hRx0osZ5VqvKyArPSYj+TUmi0+S8IAzCfubCETE5/
+ KG1uIjuAurH9NzYcPMIBerOqsZQY7FUL7i4y/NcaxAxKTe5k6Vx6gApBp
+ S9lXzUp5eDSq9PpQCplLb+AoyuTXPbPc0U1cVHZ3aJUakn3lzXuQiUccf Q==;
+X-CSE-ConnectionGUID: imqv/VSeQPy+PsuP2yACxQ==
+X-CSE-MsgGUID: MMzbTWauTlaYBmmrzf/nDA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="92284434"
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="92284434"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2026 22:52:22 -0700
+X-CSE-ConnectionGUID: 9ZUrn71BR2CA59tEMb4ByA==
+X-CSE-MsgGUID: 7x2Qb1NORiqfxol6fwOdtQ==
+X-ExtLoop1: 1
+Received: from pl-npu-pc-kwachow.igk.intel.com ([10.91.220.239])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2026 22:52:20 -0700
+From: Karol Wachowski <karol.wachowski@linux.intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
+ andrzej.kacprowski@linux.intel.com, dawid.osuchowski@linux.intel.com,
+ Karol Wachowski <karol.wachowski@linux.intel.com>
+Subject: [PATCH] accel/ivpu: use kmem_cache for IPC rx_msg allocations
+Date: Thu, 11 Jun 2026 07:52:14 +0200
+Message-ID: <20260611055214.948748-1-karol.wachowski@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDF:EE_|DS7PR12MB5768:EE_
-X-MS-Office365-Filtering-Correlation-Id: 12cf93e8-f998-4a00-509f-08dec77d92ca
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: dz51QU2tml+47HJnEyweJwyFafPGdVFVcOrHta7wtj/9rrGVQdNmgZrPMr2loKsOwm87hzDMFwLz3hagPuU4W62kqwqwsicNTOywYS46dIkSmfcUfGY34RkEpmRlVWDPZdWTSHyM59GLWzEjmq4/Y/V6VhKu2/Vhfc6ia/tzD1VGoiHLWzrKdZQfma+FQKljsca6G2WC6y6AFU5z9s7SCL3kcuTCACs7OXU0bHYRJ/FdbgPPESYOySdvtNQFVJVHZPFOD6AilOw6hUMm9O5Wx7+O5NLMh87OAs7hjp7wX7cWqJYyzzgLtORI4Zc+qMs9bv7o+uQATRoky5/TKYrgTMpN+n/Wpt9czDi70Z8opQj/ARGAw3e7pQK4Ryi0CugVJUF2LiYE4jm/25Dg/oJU12M6a2OHu1u/ZSTtvbM1p7V/DE/no5guSaUlPlK9APYytfPR15cG3h2AQDhaxys5t1etKbNnb7deYZshU0his7OkIPFmA46m/h8UlwpQQ0bAh+U5iYU+BglPg8RM7ScFLoXMDAG/KgWXWJnOTTBGHPL5L3u6PX61v+woYxxyvy+t6LxwJgDr+cVUtCeu0OXrqZ3n4R4iTiR9txFs+Emedk1ur/RWCPCSNuooFX4nnmdLurRRefxyEWUQgcybtUxpFaeMfQqa4amG71woEeH0KN+uu72c7gx9Tzg6EYK7GbU4nRkLGQ3shC3TbMgaNuZ7Oq44pZXorzm+V8sbirNwDdA=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(11063799006)(56012099006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: SWIxMNldhbFVRdE2Pc3vaxfhnTxe/kOzvH4WGOFAJKsnO57bdGSLHHEkUXJ6lv7O3Wsg/WNKJVH72Kb9oWwd3ANp5qDN87PvZs+egXCg6MYAn7wSAVQ+4IlHP5/mOHTtkj2qUzAZfBCWPwHL0lfcRAMSU69yU+XYqbL1MBs9RFk7RwoySLZXKm8ZOuxbqS/lrR6dZ8q0srUce7TtrPtq1rVhgMZp5ZxwqDpG9Al6JhUUakxM8xCUKhefwNAWa7G7/QZ2r/JD8ILQe1JddgnHaX3DsXCG8XdCYsWB3kyBW7pxowSKbW4NMyLyhObBjINro26plsE1SgBBmvFySGkjWN6pxsi/thU+osMAhN2FrKWgPBaTeG2CH+Vuw4E46715sl1ZqchL75fAuf+uu82tJtVooaNihQz1vRpDjvMe7nwl5Z3RWWKd3czPJmaCdE65
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 05:52:08.0000 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 12cf93e8-f998-4a00-509f-08dec77d92ca
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CDF.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5768
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,101 +66,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When force_iova mode is enabled, amdxdna_remove() frees xdna->domain. If
-amdxdna_gem_obj_free() is called after device removal, it may attempt to
-access xdna->domain, resulting in a use-after-free.
+Use a dedicated kmem_cache for ivpu_ipc_rx_msg allocations instead of
+the generic kmalloc. This gives each CPU its own hot freelist for this
+object type, reducing allocator overhead in the IRQ handler and threaded
+IRQ path where rx_msg objects are allocated and freed at high frequency.
 
-Fix the race by adding freeing xdna->domain as a managed release action,
-so its lifetime is managed by DRM and remains valid until all managed
-resources are released.
-
-Fixes: ece3e8980907 ("accel/amdxdna: Allow forcing IOVA-based DMA via module parameter")
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
 ---
- drivers/accel/amdxdna/amdxdna_iommu.c | 43 ++++++++++++++++++---------
- 1 file changed, 29 insertions(+), 14 deletions(-)
+ drivers/accel/ivpu/ivpu_ipc.c | 17 ++++++++++++++---
+ drivers/accel/ivpu/ivpu_ipc.h |  1 +
+ 2 files changed, 15 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/accel/amdxdna/amdxdna_iommu.c b/drivers/accel/amdxdna/amdxdna_iommu.c
-index eff00131d0f8..4f245b969eef 100644
---- a/drivers/accel/amdxdna/amdxdna_iommu.c
-+++ b/drivers/accel/amdxdna/amdxdna_iommu.c
-@@ -4,6 +4,7 @@
-  */
+diff --git a/drivers/accel/ivpu/ivpu_ipc.c b/drivers/accel/ivpu/ivpu_ipc.c
+index 64864e9d8a0a..c5f11be86c8c 100644
+--- a/drivers/accel/ivpu/ivpu_ipc.c
++++ b/drivers/accel/ivpu/ivpu_ipc.c
+@@ -146,7 +146,7 @@ ivpu_ipc_rx_msg_add(struct ivpu_device *vdev, struct ivpu_ipc_consumer *cons,
  
- #include <drm/amdxdna_accel.h>
-+#include <drm/drm_managed.h>
- #include <linux/iommu.h>
- #include <linux/iova.h>
+ 	lockdep_assert_held(&ipc->cons_lock);
  
-@@ -153,10 +154,30 @@ void amdxdna_iommu_free(struct amdxdna_dev *xdna, size_t size,
- 	free_pages((unsigned long)cpu_addr, get_order(size));
+-	rx_msg = kzalloc_obj(*rx_msg, GFP_ATOMIC);
++	rx_msg = kmem_cache_zalloc(ipc->rx_msg_cache, GFP_ATOMIC);
+ 	if (!rx_msg) {
+ 		ivpu_ipc_rx_mark_free(vdev, ipc_hdr, jsm_msg);
+ 		return;
+@@ -174,7 +174,7 @@ ivpu_ipc_rx_msg_del(struct ivpu_device *vdev, struct ivpu_ipc_rx_msg *rx_msg)
+ 	list_del(&rx_msg->link);
+ 	ivpu_ipc_rx_mark_free(vdev, rx_msg->ipc_hdr, rx_msg->jsm_msg);
+ 	atomic_dec(&vdev->ipc->rx_msg_count);
+-	kfree(rx_msg);
++	kmem_cache_free(vdev->ipc->rx_msg_cache, rx_msg);
  }
  
-+static void amdxdna_cleanup_force_iova(struct drm_device *dev, void *res)
-+{
-+	struct amdxdna_dev *xdna = to_xdna_dev(dev);
-+
-+	if (xdna->domain) {
-+		iommu_detach_group(xdna->domain, xdna->group);
-+		put_iova_domain(&xdna->iovad);
-+		iova_cache_put();
-+		iommu_domain_free(xdna->domain);
+ void ivpu_ipc_consumer_add(struct ivpu_device *vdev, struct ivpu_ipc_consumer *cons,
+@@ -490,10 +490,18 @@ int ivpu_ipc_init(struct ivpu_device *vdev)
+ 	struct ivpu_ipc_info *ipc = vdev->ipc;
+ 	int ret;
+ 
++	ipc->rx_msg_cache = kmem_cache_create("ivpu_ipc_rx_msg", sizeof(struct ivpu_ipc_rx_msg), 0,
++					      SLAB_HWCACHE_ALIGN, NULL);
++	if (!ipc->rx_msg_cache) {
++		ivpu_err(vdev, "Failed to create rx_msg_cache\n");
++		return -ENOMEM;
 +	}
 +
-+	iommu_group_put(xdna->group);
-+}
-+
-+void amdxdna_iommu_fini(struct amdxdna_dev *xdna)
-+{
-+	if (xdna->group && !xdna->domain)
-+		iommu_group_put(xdna->group);
-+}
-+
- int amdxdna_iommu_init(struct amdxdna_dev *xdna)
- {
- 	unsigned long order;
--	int ret;
-+	int ret = 0;
+ 	ipc->mem_tx = ivpu_bo_create_global(vdev, SZ_16K, DRM_IVPU_BO_WC | DRM_IVPU_BO_MAPPABLE);
+ 	if (!ipc->mem_tx) {
+ 		ivpu_err(vdev, "Failed to allocate mem_tx\n");
+-		return -ENOMEM;
++		ret = -ENOMEM;
++		goto err_destroy_cache;
+ 	}
  
- 	xdna->group = iommu_group_get(xdna->ddev.dev);
- 	if (!xdna->group || !force_iova)
-@@ -182,8 +203,14 @@ int amdxdna_iommu_init(struct amdxdna_dev *xdna)
- 	if (ret)
- 		goto put_iova;
- 
-+	ret = drmm_add_action(&xdna->ddev, amdxdna_cleanup_force_iova, NULL);
-+	if (ret)
-+		goto detach_group;
-+
- 	return 0;
- 
-+detach_group:
-+	iommu_detach_group(xdna->domain, xdna->group);
- put_iova:
- 	put_iova_domain(&xdna->iovad);
- 	iova_cache_put();
-@@ -191,20 +218,8 @@ int amdxdna_iommu_init(struct amdxdna_dev *xdna)
- 	iommu_domain_free(xdna->domain);
- put_group:
- 	iommu_group_put(xdna->group);
-+	xdna->group = NULL;
- 	xdna->domain = NULL;
- 
+ 	ipc->mem_rx = ivpu_bo_create_global(vdev, SZ_16K, DRM_IVPU_BO_WC | DRM_IVPU_BO_MAPPABLE);
+@@ -532,6 +540,8 @@ int ivpu_ipc_init(struct ivpu_device *vdev)
+ 	ivpu_bo_free(ipc->mem_rx);
+ err_free_tx:
+ 	ivpu_bo_free(ipc->mem_tx);
++err_destroy_cache:
++	kmem_cache_destroy(ipc->rx_msg_cache);
  	return ret;
  }
--
--void amdxdna_iommu_fini(struct amdxdna_dev *xdna)
--{
--	if (xdna->domain) {
--		iommu_detach_group(xdna->domain, xdna->group);
--		put_iova_domain(&xdna->iovad);
--		iova_cache_put();
--		iommu_domain_free(xdna->domain);
--	}
--
--	if (xdna->group)
--		iommu_group_put(xdna->group);
--}
+ 
+@@ -544,6 +554,7 @@ void ivpu_ipc_fini(struct ivpu_device *vdev)
+ 	drm_WARN_ON(&vdev->drm, atomic_read(&ipc->rx_msg_count) > 0);
+ 
+ 	ivpu_ipc_mem_fini(vdev);
++	kmem_cache_destroy(ipc->rx_msg_cache);
+ }
+ 
+ void ivpu_ipc_enable(struct ivpu_device *vdev)
+diff --git a/drivers/accel/ivpu/ivpu_ipc.h b/drivers/accel/ivpu/ivpu_ipc.h
+index 1c9cf67f1e5b..fb3e5816ca50 100644
+--- a/drivers/accel/ivpu/ivpu_ipc.h
++++ b/drivers/accel/ivpu/ivpu_ipc.h
+@@ -70,6 +70,7 @@ struct ivpu_ipc_info {
+ 	struct gen_pool *mm_tx;
+ 	struct ivpu_bo *mem_tx;
+ 	struct ivpu_bo *mem_rx;
++	struct kmem_cache *rx_msg_cache;
+ 
+ 	atomic_t rx_msg_count;
+ 
 -- 
-2.34.1
+2.43.0
 
