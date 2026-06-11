@@ -4,74 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AFE8CD98CF
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 16:46:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43E4ACD98C7
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 16:53:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A30010F02C;
-	Thu, 11 Jun 2026 16:46:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAF1710F047;
+	Thu, 11 Jun 2026 16:53:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="riQJveyM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ieDSEpsX";
 	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6161E10F01F
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:46:22 +0000 (UTC)
-Received: from pps.filterd (m0001303.ppops.net [127.0.0.1])
- by m0001303.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 65B6HDsK2485677
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 09:46:21 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=s2048-2025-q2; bh=vNdm3ZHO/a6vYyABeK
- VuuCxgS035lQzO2EwO81+XdLA=; b=riQJveyMKWcP+qsczYKBmb10+7f0oOrWCz
- v3YILDS5BfcRLZ1OPBxV6gKKXLxQkMJIqPFX0VR0p+39ogaQnlG38mnBAqCQXSjD
- oAPloYcVFHlPmt/gxyE4aZ+CgaQTYn74UVQ7q8yqDShB/hrJXCBuZ4m/CkevB2iW
- /oq1zwWDNg0tl94j42uQFU38MInZsJNP8ItqnNqt9nEI4dpjuK4x5NXRYoeLW0nA
- wlhJhkJL4WJbFPydC68+3G+tM0IchYkOHeSuAgPOD05D/bwmav9U4kmKPd3VHGbI
- tzDSM1ujRG013mpuK/i3+ASkJj+iTmmKuXps2bT/zshJo5XTe8Cw==
-Received: from mail.thefacebook.com ([163.114.134.16])
- by m0001303.ppops.net (PPS) with ESMTPS id 4eqe7a6yvx-3
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 09:46:21 -0700 (PDT)
-Received: from twshared22650.04.snb2.facebook.com (2620:10d:c085:208::f) by
- mail.thefacebook.com (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.41; Thu, 11 Jun 2026 16:46:12 +0000
-Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
- id C18293DD35ECE; Thu, 11 Jun 2026 09:23:23 -0700 (PDT)
-From: Zhiping Zhang <zhipingz@meta.com>
-To: <netdev@vger.kernel.org>
-CC: <kvm@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- Zhiping Zhang <zhipingz@meta.com>
-Subject: [PATCH v7 0/5] vfio/dma-buf: add TPH support for peer-to-peer access
-Date: Thu, 11 Jun 2026 09:11:15 -0700
-Message-ID: <20260611161546.4075580-1-zhipingz@meta.com>
-X-Mailer: git-send-email 2.52.0
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010005.outbound.protection.outlook.com [52.101.85.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6220C10F02D
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:53:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Es9N0E5aFYz7HbmsAO8roxGXSHi9p1hbmn7bA1JlA/e6949v/egGQgzQkvVkoV+enj11bJjdrFvQxY9MNDBXcIDIVvNG6hUbFnAPw+6Q7JxRUgjc2KgbfI/gk9HjSPDJuHBUkzwczn7fKJvE6jt8gc0tRKk8JNBZJ6UyfpHc/yvFWrerGRlal/yVA04tNTR4Y7g3SQnLz99ptBo5+RPTL6bTM/Q/oxnhfbs+Hw+3TKt7qnETQdIbYWjZAj6MiwHbFiakwdcXkRvDhuEevDaep8BlLPCiIm61SsElJi0+MYkxofLH862SRfctAAo0lHuz8GXxalk/4fNZgTlXihs/8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SPXR8tGRkCsS1uL1R00I6W0wOpK8CJYlIZQO5amw3Tg=;
+ b=Y6qAARjl8kNXoDBYlP8QRhXrZIgQnyJMN55K1k+LzlhtWqWoE1pMOBw9bpjBN4PAqwovRZWgkAlgcarUZWgNFj2Xcc3vKpyDARQa+M+gBFTifbHxayb4H7GPzWn8bZ7lV0XSzInkLeCs8RofMy+G/dAqpXtYvThh9X9RHt5BWVap9ZVpwnnCQuukg6dLBbNL/vfP6wBQHGr68h5nItYQjelayIHCQ3wdjTMasevq1EUae7V3Wzu/mS4+zu8oKWAX96nMiZUotfFzwUgOXd7KPzSUHnufZh94/LN5c3i8QudWqUy29pJlHhrcNLAiJK2Op75lfXfAjnQAs3fLc/p9MA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SPXR8tGRkCsS1uL1R00I6W0wOpK8CJYlIZQO5amw3Tg=;
+ b=ieDSEpsXAlA4oh3nYLoR7c6EANZzm1NHskOZz5NPMdxQSkTsrYlfphTzt0kvfJqWhc8vX3cY1B4O4aniKLVpC9AftLfjv/D8bwk6RIoXCPGEWPTwulfPbCdSk8SqLxW+sPI5imZPtA9tyEF8OGlb6V18SXH85AxSNpxQru/rThA=
+Received: from PH8PR21CA0001.namprd21.prod.outlook.com (2603:10b6:510:2ce::25)
+ by IA0PR12MB8207.namprd12.prod.outlook.com (2603:10b6:208:401::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.18; Thu, 11 Jun
+ 2026 16:53:38 +0000
+Received: from CY4PEPF0000E9D9.namprd05.prod.outlook.com
+ (2603:10b6:510:2ce:cafe::3d) by PH8PR21CA0001.outlook.office365.com
+ (2603:10b6:510:2ce::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.5 via Frontend Transport; Thu, 11
+ Jun 2026 16:53:37 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D9.mail.protection.outlook.com (10.167.241.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.113.7 via Frontend Transport; Thu, 11 Jun 2026 16:53:37 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 11 Jun
+ 2026 11:53:36 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 11 Jun
+ 2026 11:53:36 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Thu, 11 Jun 2026 11:53:36 -0500
+Message-ID: <a02306aa-0470-d4e9-db7f-0f5c08b728b8@amd.com>
+Date: Thu, 11 Jun 2026 09:53:35 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-FB-Internal: Safe
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDE2OCBTYWx0ZWRfX8gwAtnSE2uUk
- rOzjFlys2e1PJWR9NAR7vEVUdIeXZ0MTCk9fkm5sEWaCAA2OIqIVlGtvp/nMLIrVnI2stZ56S+n
- JxW79YUU6QymJjvHeuPzpcbWIa0uhRx64rXEVd0zRZbrpYkjobquOUHuKEP5esXd/6d63S6acEM
- lDlsiLAc+XheZP69swB+kw0Hm47g/hA8mfsJX1C2k+J9HAxpHeHA6xu/PbkuKGipdTjIsjEcCus
- BzF81AYzryRHmqDYkxrjwJdC4jmqODpNb+MisUiIcaXBUHCH35XMG9pfmSov0GvQ5UXHnqFbFcg
- CZdZyyIRysdlMv/mjoMn5LtIkq+wncjxAy3ra5GIA8dKquyy021O1rhA3qmw6keoELndi2f+ZtN
- v0mAWd+6hFiNdOBbO+vEHVojwK+Ce07RErhAZr8jkAWQ12lek7O9MDLn1tR4ffOHNvk5l962JDe
- YfGpQ5w3nxfKOz3/fvA==
-X-Authority-Analysis: v=2.4 cv=AKrEjgtd c=1 sm=1 tr=0 ts=6a2ae65d cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=_78whYxrdx1mplLwxq1U:22 a=VwQbUJbxAAAA:8 a=VabnemYjAAAA:8
- a=IrN9ioZU3SVRGu70jE0A:9 a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-GUID: J9BT5BoV_Th2g1qSR_n9wDQ9eUfZzSa5
-X-Proofpoint-ORIG-GUID: J9BT5BoV_Th2g1qSR_n9wDQ9eUfZzSa5
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDE2OCBTYWx0ZWRfX0LAHqfyQwU/o
- QigNjNtU4A6F3JsQO41niy35RE5ke+byVWjKhWF8suOnucQ+xkjjI22w81tB5NId9OvpOygkYL0
- JqSAKjGaxweEuXOGeqfPELkOqla9g9E=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-11_03,2026-06-11_01,2025-10-01_01
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V1] accel/amdxdna: Fix mm_struct reference leak in
+ aie2_populate_range()
+Content-Language: en-US
+To: Mario Limonciello <superm1@kernel.org>, <ogabbay@kernel.org>,
+ <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+ <karol.wachowski@linux.intel.com>
+CC: <linux-kernel@vger.kernel.org>, <max.zhen@amd.com>, <sonal.santan@amd.com>
+References: <20260610151127.2994185-1-lizhi.hou@amd.com>
+ <621cc992-5de2-455b-a488-f89ed2a9a91a@kernel.org>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <621cc992-5de2-455b-a488-f89ed2a9a91a@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D9:EE_|IA0PR12MB8207:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4b968d4d-d2d2-4912-34e7-08dec7d9fb6c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|11063799006|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: Twuz/q6JTSlzpk3VMtSIDwdICsOATjB2hJHty8bVC9ZX2jKYjzelLXbXOQEqtjxp3ARC1IGmJ2smDzGAkcIO45rgRtenJaLr4Rl4EbRT8j3EtQ+G/JyeYnGZ2w7igmPe0VEk02x+b+fdycN8oTIGjlt3GLCErq9L/6LNo0JFOAcdbCUaU8BGRjQ8LVLZhwCbtRcTzmx/97GDVGtUTEUnLqz2DGQmqmYc0yFbvSf6cyI5kaChTowhHWKvzkPCBZXh+QvQ3yVxxIpPh2ivi6ZMNLBb8/a9xrhkjabO61wYviqUH20GnWmEWtapsqQqLoBRmWea4ZqKvFFVumo5ELfOT8MtowKCjcKNtXiP8Mt2a4lChdr2PZGBoQXGXpE0nZSJj/ANMF/T6ypkqqvh3L21X3MCKvJ9JtSLmpIMwiDXF0pd6zYHayNlv/OiHe/KE1+j1Scj1F+OJQ8JI3ctJkT/Xg9+eceBOH0yWsO5ZIwKMwT17Vw8al+Z6vQrhxIwe2YTQjFbw+BqdVfviA/UlqsMiNUqmhAaFaYtf0iFevIE8a93UsX7QsUPTxwfFrUB1VrhBw3jIMpXqKJ7sxgN0BwyQeEy8VdHIbbhw96JLwG88/fW0er3DxDhZxExMM3MJmDKlYSfLoEVuO7N/K4n5lUDwgn21jnkv4Jrijr2TIopgQbW1sb3PKYDK9AwwwPU8b6LChdPtanS7N+tpVCCyuijrAai4OsyABN04DD0C0K/rzg=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: wMzBiHQ4avsOeDtDH1Lm4H3y0xtMUbSe1M9Qer/wxm81y2+FopLVZU9l5Ujd0kyAgya64lAnPl/OYuzJrcKLu4s3wrWIICV18ofI/3HZu1lDI8paTzXm3UpQuvEYpa0INwbpOJCZswUpEdelPs0mc/P2bWiWEWMf6bR1d679I5eL8KTPfh05YiZ54gsQKBhMnGbDLIqBh2T2A0j8R4AtHXDUCq1T45d+7VAWsrCNdqNXeO/9wywWJx5uDjuYZtlkXHrOXC3zWQuVCScMrp/x3jrNcSmAA42NCrhrAU6HOcnXYQMb23CeTZnyRs56G1UFj89AR4Qqlz8m6T/UTGFIOiwG2HIVmWqO31uOJMAdxj3WaCWW88prxYBK+Rtu1wryhocMPv34mUeN6sYtWZnL05zRlcaWvosIcMfgvhUcdP54X5cQdEEnGerSSPNrlnmD
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 16:53:37.2314 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b968d4d-d2d2-4912-34e7-08dec7d9fb6c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8207
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,100 +120,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series adds TLP Processing Hints (TPH) support to the VFIO dma-buf
-export path, allowing importing drivers (e.g. mlx5) to use the
-exporter's steering tag when performing peer-to-peer DMA into a
-VFIO-owned device.
+Applied to drm-misc-fixes
 
-There is no separate in-tree vendor kernel driver for the target device:
-vfio-pci is the in-tree driver and the targeted device is managed
-from userspace via VFIO passthrough. That is why the ST has to flow
-through a uAPI: userspace owns the device and its ST table, so it is the
-entity that can publish a meaningful value for a given dma-buf. The
-kernel-visible participants are still in-tree: vfio-pci exports the
-dma-buf and mlx5 imports it.
-
-On the effect: the endpoint's PCIe ingress block uses the 8-bit ST as
-an in-band instruction for the incoming P2P TLP -- selecting a target
-cache partition and, on writes, an in-flight operation on the data
-before it lands. The dma-buf callback keeps this opaque to the
-framework -- only the producer (userspace owner of the VFIO device)
-and the consumer (endpoint block) need to interpret the value. The
-dma-buf get_tph callback itself is optional for workloads that depend
-on the endpoint's in-flight operation that fallback does not produce
-the same result.
-
-The dma-buf hook is intentionally generic and discoverable rather than
-a private side channel. The exporter owns the completing address
-space for the dma-buf and decides whether it can provide a meaningful
-ST/PH tuple for that completer; the dma-buf core keeps the tuple opaque,
-and importers merely request the namespace they support and place the
-returned value on generated TLPs. Exporters that cannot derive a
-meaningful tuple simply return -EOPNOTSUPP.
-
-Patch 1 is a pre-existing fix split out from the series:
-mlx5_st_dealloc_index() removed the xarray entry but never freed the
-backing struct, so repeated alloc/dealloc cycles leaked memory.
-Patch 2 adds small PCI/TPH type helpers so drivers can query the enabled
-TPH requester mode and the device's TPH Completer Supported field
-without reaching into pci_dev internals (and so callers in
-CONFIG_PCIE_TPH=3Dn builds get a clean fallback).
-Patch 3 adds the optional dma_buf_ops::get_tph callback plus the
-dma_buf_get_tph() importer wrapper so importers can fetch TPH metadata
-from an exporter under dmabuf->resv.
-Patch 4 implements get_tph in vfio-pci and adds the new uAPI
-(VFIO_DEVICE_FEATURE_DMA_BUF_TPH) for userspace to attach the metadata.
-Patch 5 wires up the mlx5 RDMA driver as a consumer.
-
-Build-tested with both CONFIG_PCIE_TPH=3Dy and CONFIG_PCIE_TPH=3Dn.
-Functional validation on the target topology: PCIe analyzer captures
-on the P2P TLPs confirm the ST emitted by mlx5 matches the value
-published through VFIO_DEVICE_FEATURE_DMA_BUF_TPH, and the end-to-end
-P2P workload only produces results consistent with the endpoint's
-ST-selected in-flight operation. For example, with userspace
-publishing 8-bit ST=3D0xf0 and PH=3D2, an analyzer capture of a peer-to-
-peer MWr64 shows "STP MWr64 TC=3D0 OHC=3D2 ..." followed by "OHC-B
-ST=3DF0h PH=3D2 HV=3D1":
-(TLP Captures)
-08000260 -> STP MWr64 TC=3D0 OHC=3D2 TS=3D0 Attr=3D0 L=3D8
-F0000004 -> RID=3D4h:0h.0h EP- Tag=3DF0h
-E0200000 -> AddrH=3D000020E0h
-00080006 -> AddrL=3D06000800h
-90F00000 -> OHC-B ST=3DF0h PH=3D2 HV=3D1 AMA=3D0 AV-
-
-Previous link:
-v6: https://lore.kernel.org/dri-devel/20260608185646.4085127-1-zhipingz@m=
-eta.com/
-v5: https://lore.kernel.org/dri-devel/20260526144401.1485788-1-zhipingz@m=
-eta.com/
-v4: https://lore.kernel.org/linux-pci/20260519201401.1558410-1-zhipingz@m=
-eta.com/
-v3: https://lore.kernel.org/linux-pci/20260512184755.4137227-1-zhipingz@m=
-eta.com/
-v2: https://lore.kernel.org/linux-pci/20260430200704.352228-1-zhipingz@me=
-ta.com/
-
-Zhiping Zhang (5):
-  net/mlx5: free mlx5_st_idx_data on final dealloc
-  PCI/TPH: Add requester/completer type helpers
-  dma-buf: add optional get_tph() callback
-  vfio/pci: implement get_tph and DMA_BUF_TPH feature
-  RDMA/mlx5: get tph for p2p access when registering dma-buf mr
-
- drivers/dma-buf/dma-buf.c                     |  25 ++++
- drivers/infiniband/core/frmr_pools.c          |  20 +++-
- drivers/infiniband/hw/mlx5/mr.c               | 111 +++++++++++++++++-
- .../net/ethernet/mellanox/mlx5/core/lib/st.c  |  50 ++++++--
- drivers/pci/tph.c                             |  43 +++++++
- drivers/vfio/pci/vfio_pci_core.c              |   3 +
- drivers/vfio/pci/vfio_pci_dmabuf.c            |  94 ++++++++++++++-
- drivers/vfio/pci/vfio_pci_priv.h              |  12 ++
- include/linux/dma-buf.h                       |  21 ++++
- include/linux/mlx5/driver.h                   |  12 ++
- include/linux/pci-tph.h                       |   8 ++
- include/rdma/frmr_pools.h                     |   5 +-
- include/uapi/linux/vfio.h                     |  37 ++++++
- 13 files changed, 421 insertions(+), 20 deletions(-)
-
---=20
-2.53.0-Meta
+On 6/10/26 08:18, Mario Limonciello wrote:
+>
+>
+> On 6/10/26 10:11, Lizhi Hou wrote:
+>> aie2_populate_range() jumps back to the again label without calling
+>> mmput(mm), leaking a reference to the mm_struct.
+>>
+>> Add the missing mmput() before jumping to again.
+>>
+>> Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
+>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+>> ---
+>>   drivers/accel/amdxdna/aie2_ctx.c | 3 +++
+>>   1 file changed, 3 insertions(+)
+>>
+>> diff --git a/drivers/accel/amdxdna/aie2_ctx.c 
+>> b/drivers/accel/amdxdna/aie2_ctx.c
+>> index 3e21e2dabe82..e0f30dbe0238 100644
+>> --- a/drivers/accel/amdxdna/aie2_ctx.c
+>> +++ b/drivers/accel/amdxdna/aie2_ctx.c
+>> @@ -1041,6 +1041,7 @@ static int aie2_populate_range(struct 
+>> amdxdna_gem_obj *abo)
+>>             if (ret == -EBUSY) {
+>>               amdxdna_umap_put(mapp);
+>> +            mmput(mm);
+>>               goto again;
+>>           }
+>>   @@ -1051,11 +1052,13 @@ static int aie2_populate_range(struct 
+>> amdxdna_gem_obj *abo)
+>>       if (mmu_interval_read_retry(&mapp->notifier, 
+>> mapp->range.notifier_seq)) {
+>>           up_write(&xdna->notifier_lock);
+>>           amdxdna_umap_put(mapp);
+>> +        mmput(mm);
+>>           goto again;
+>>       }
+>>       mapp->invalid = false;
+>>       up_write(&xdna->notifier_lock);
+>>       amdxdna_umap_put(mapp);
+>> +    mmput(mm);
+>>       goto again;
+>>     put_mm:
+>
