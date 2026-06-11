@@ -4,58 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 080B9CD98DC
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 07:46:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2B59CD4F2C
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 07:46:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF8C010F2E4;
-	Fri, 12 Jun 2026 07:45:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69C7210F2D2;
+	Fri, 12 Jun 2026 07:46:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="Os9kV2Gx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="drqIksIR";
 	dkim-atps=neutral
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D507D10F09A
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 17:44:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1781199888;
- bh=bgyx4tuoR1VujLGJebtgmRpeK21Ky1z7/2zTZbfFLxY=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Os9kV2GxCX6cgBB+jfIbx4Jk5aYyWKQ5X/ZXH+VDun8JRkKYtFv/ieIvA9GjW9BEP
- oCbiUOIm0Juecvy1as3nTJYV673czVuKakUU/AnOzg1YsHLcYDcCT6wfnXjOb4o5EF
- gGsD9u+TtAD6sXt5Fps0rxVzebnry3bpHhfB/x6aKrUvYTzMNZCxodqLKN4BSGZnoy
- 7qlwpEUgQ//8IfsVc+0INo/af9xSHJs4pcUtFr/egZjryoz4iw5WPTWSpoUclLkJ9x
- MLyh0LmyKHrhyNGTv+5AcdgmuuA1QN8TdwwUbruNIB224zwt1Y0N8Pmt5FJFGTti/K
- pXV0X5964ySzw==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4gbqlp6VBVz4wJk;
- Fri, 12 Jun 2026 03:44:38 +1000 (AEST)
-Message-ID: <d38fc0ed-4e89-4eeb-b32d-06afba3157f6@ozlabs.org>
-Date: Thu, 11 Jun 2026 18:44:35 +0100
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43A1E10E827
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 16:17:19 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-2bf22d29dabso71775ad.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 09:17:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781194639; x=1781799439; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=jAxTBIOEmfhpqt503+PoPJMs1ii7LUEnvcbZDbUBB0A=;
+ b=drqIksIRtQwuXhoWnT/mtLg2VQTF41iuKXecuBcwI8/sSSnslh8lm6fsx6M8yyDdvX
+ 5wYdfZ4g/lwXUe7IZ49BWf9L6K+9glIAJI2Okp3ikGDrsQo458P8L17Nl+edTkM6bHyf
+ 59bh+JgRBcvqJWysVG/7pJTcmkp/Ec1db+9amZk48Wc9iVNrE2+v+hT0IbMmp+JRLpf+
+ EDJCtyBdG+3NVrvtLUihH9739oECkKt8+TsDX+Geto6jkMYthmIvv54wC6jUXIUpoxMd
+ XJhawB/dVrHeEPYMZJJV459s3FL0RU8z8Nxi4WM1YY1s2deP+xOv5ujx437IQ+BavhRy
+ AcOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781194639; x=1781799439;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=jAxTBIOEmfhpqt503+PoPJMs1ii7LUEnvcbZDbUBB0A=;
+ b=M/8kFN+3VWk8cUD2CKpokc9om+8LMLI6vd69ccVzyrV7SOG6CsD/zLj4HCnhFhAzcf
+ kCyn6jjMaNMOfMUbxYPcjNPb7TgZwfC6/ysKGiMRwZQFQz2dZkEVWC50fxk08aKHXXYJ
+ mUcYpQwHoc7GikwuoYPHaZTSNRHhpBuY9vVYiuTZJYsC5jT9Hs5g0rvXpxNWVxna+s8h
+ ZG3Bac13DrOd7D9UM95muCIhj48Dgn6uLeskqHbAzLpxlv2YI9dNLg6bkj1XMz9K6S0H
+ NGovlZk6JZsKYznMEydkP/E1ZyY5WGlhgOiUhpW57YKjl9dYVVn8FVAm+5Hq3/RnEYzy
+ vJbQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9H8p9zqMXZUdQiuSQ2GOkqzbiCDk4DBSwZso25vdWPpKRWVDNpxUWCrAn4zEOBJoVuDmjqnCdRhq0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyDWMEHzFkIR4feXU1fIhgNfFN3JwmV3lTv7vVMEOr5ck7FZc7V
+ B8TEtsFjvbk2xyLCays+0NKI9X0IdbSS2fTJtuMnuHmkOap2SaLoF+2q
+X-Gm-Gg: Acq92OFIsCMANrgq7Nu+hdvJi6p/7pJWXyiA4+X+Ftap+RStGNJzP9oJclG3t6vcLxX
+ JbGMjZbNJHKLRPahCP0ZxqtQ5goLgOwkFrWxymsfuDFe8NJsEGgakmATUdDOQha/XwbHUuruvRc
+ MGrukDK9rJNgf4U/Facpp0RXwhhyZiM8K986h6SexXrAOahsmPsjmuGcIU1z1xddN0rbIM8j495
+ WUFul0uTQzwWDVOmfAvYudrlIApazt2f3EYQRo9TN/EUGLJVv6I5mmwACAck4J3qq7hXjZAuvCv
+ Be30ZT99mUU+XdDChkVqnc6Pr0Uv5kv4H6LNXwGUafPBrgf1e0pVQKEMMoZTqyEFPlVtuyYheYy
+ 34B8v1SLzH2/9AIFXc4yLXt/3T265mB0CR1tExdoHvYL72twLU6VVPVVusrKSFX5mwKzwa4j7ua
+ 4eZBkmpIc/SZ44582KOyg=
+X-Received: by 2002:a17:902:c404:b0:2bf:128d:f7ff with SMTP id
+ d9443c01a7336-2c2f0932d65mr42009805ad.16.1781194638490; 
+ Thu, 11 Jun 2026 09:17:18 -0700 (PDT)
+Received: from localhost ([2a03:2880:ff:41::])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2c16609e627sm288573265ad.52.2026.06.11.09.17.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Jun 2026 09:17:18 -0700 (PDT)
+From: Bobby Eshleman <bobbyeshleman@gmail.com>
+Date: Thu, 11 Jun 2026 08:28:43 -0700
+Subject: [PATCH net-next v2 2/4] udmabuf: emit one sg entry per pinned
+ folio
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
-Content-Language: en-GB
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
- Ankit Agrawal <ankita@nvidia.com>, Pranjal Shrivastava <praan@google.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260611160749.GA469670@bhelgaas>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <20260611160749.GA469670@bhelgaas>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260611-tcpdm-large-niovs-v2-2-ee2bf15e7523@meta.com>
+References: <20260611-tcpdm-large-niovs-v2-0-ee2bf15e7523@meta.com>
+In-Reply-To: <20260611-tcpdm-large-niovs-v2-0-ee2bf15e7523@meta.com>
+To: Donald Hunter <donald.hunter@gmail.com>, 
+ Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ Gerd Hoffmann <kraxel@redhat.com>, 
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Shuah Khan <shuah@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org, 
+ sdf@fomichev.me, razor@blackwall.org, daniel@iogearbox.net, 
+ almasrymina@google.com, matttbe@kernel.org, skhawaja@google.com, 
+ dw@davidwei.uk, Bobby Eshleman <bobbyeshleman@meta.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Fri, 12 Jun 2026 07:45:54 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,113 +103,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Bjorn,
+From: Bobby Eshleman <bobbyeshleman@meta.com>
 
-On 11/06/2026 17:07, Bjorn Helgaas wrote:
-> On Wed, Jun 10, 2026 at 04:43:15PM +0100, Matt Evans wrote:
->> The P2PDMA code currently provides two features under the same
->> CONFIG_PCI_P2PDMA option:
->>
->>  1.  Locate providers via pcim_p2pdma_provider()
->>  2.  Manage actual P2P DMA
->>
->> Some drivers (such as vfio-pci) depend on 1, without having a hard
->> dependency on 2.
->>
->> A future commit expands the use of DMABUF in vfio-pci for non-P2P
->> scenarios, relying on pcim_p2pdma_provider() always being present.  If
->> that depended on CONFIG_PCI_P2PDMA, it would make vfio-pci only
->> available if CONFIG_ZONE_DEVICE is present (e.g. 64-bit systems), even
->> when P2P is not needed.
->>
->> To resolve this, introduce CONFIG_PCI_P2PDMA_CORE and refactor the
->> basic provider functionality into a new p2pdma_core.c file.  This is
->> available even if the CONFIG_PCI_P2PDMA feature is disabled (or
->> unavailable due to !CONFIG_ZONE_DEVICE).  Then, drivers can enable any
->> additional P2P features with the original CONFIG_PCI_P2PDMA (available
->> when CONFIG_ZONE_DEVICE is set).
->>
->> Signed-off-by: Matt Evans <matt@ozlabs.org>
-> 
-> I thought this was going to be just a code move and new Kconfig
-> option, but it involves a little more than that, e.g., adding
-> pci_p2pdma_release_pool() and tweaking the RCU synchronization.
-> 
-> If possible, it would be nice to do that refactoring in a smaller
-> preliminary patch so it's easier to review/bisect/etc and make this
-> one a pure code move.
+get_sg_table() emitted one PAGE_SIZE sg entry per page even when the
+underlying folio was larger.
 
-pci_p2pdma_release_pool() is really part of the split, not a functional
-change, i.e. factoring the (P2P-only) pool handling out from the rest of
-the pci_p2pdma_release() actions still needed for the _CORE case.
+Instead, walk folios[] and emit one sg entry per folio. When folios
+represent large pages (as is for MFD_HUGETLB), each sg entry is a large
+page. Normal PAGE_SIZE sg tables are unchanged.
 
-I guess .._release() could be split in place in a small patch, and then
-moved alongside the rest in a second.
+This is helpful for importers like net/core/devmem that expect dmabuf sg
+entries to be size and length aligned. Prior to this patch udmabuf
+handed over one PAGE_SIZE sg entry per page, so devmem only saw
+PAGE_SIZE chunks regardless of the underlying folio size.
 
-> I guess CONFIG_PCI_P2PDMA_CORE selects just part 1 ("Locate providers
-> via pcim_p2pdma_provider()"), right?
+dma_map_sgtable() does not always merge contiguous pages for us, so we
+do this internally before exporting.
 
-Yes, I can reword that last paragraph of the commit message to make this
-clearer.
+Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
+---
+ drivers/dma-buf/udmabuf.c | 52 ++++++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 47 insertions(+), 5 deletions(-)
 
->> +++ b/drivers/pci/p2pdma.h
->> @@ -0,0 +1,29 @@
->> +/* SPDX-License-Identifier: GPL-2.0 */
->> +/*
->> + * PCI Peer 2 Peer DMA support.
->> + */
->> +
->> +#ifndef _PCI_P2PDMA_H
->> +#define _PCI_P2PDMA_H
->> +
->> +#include <linux/genalloc.h>
->> +#include <linux/pci-p2pdma.h>
->> +#include <linux/xarray.h>
->> +
->> +struct pci_p2pdma {
->> +	struct gen_pool *pool;
->> +	bool p2pmem_published;
->> +	struct xarray map_types;
->> +	struct p2pdma_provider mem[PCI_STD_NUM_BARS];
->> +};
->> +
->> +#ifdef CONFIG_PCI_P2PDMA
->> +void pci_p2pdma_release_pool(struct pci_dev *pdev, struct pci_p2pdma *p2pdma);
->> +#else
->> +static inline void pci_p2pdma_release_pool(struct pci_dev *pdev, struct pci_p2pdma *p2pdma)
-> 
-> Wrap to fit in 80 columns like the rest of drivers/pci/
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index 94b8ecb892bb..9b751dd98b12 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -141,26 +141,68 @@ static void vunmap_udmabuf(struct dma_buf *buf, struct iosys_map *map)
+ 	vm_unmap_ram(map->vaddr, ubuf->pagecount);
+ }
+ 
++/* Return the number of contiguous pages backed by the folio at @i.
++ * A udmabuf may map only part of a folio, or reference the same folio
++ * in multiple non-contiguous runs, so folio_nr_pages() can't be used.
++ */
++static pgoff_t udmabuf_folio_nr_pages(struct udmabuf *ubuf, pgoff_t i)
++{
++	struct folio *f = ubuf->folios[i];
++	pgoff_t j;
++
++	for (j = 1; i + j < ubuf->pagecount; j++) {
++		if (ubuf->folios[i + j] != f)
++			break;
++		/* Same folio, but not a sequential offset within it. */
++		if (ubuf->offsets[i + j] != ubuf->offsets[i] + j * PAGE_SIZE)
++			break;
++	}
++	return j;
++}
++
++/* Count the contiguous folio runs in @ubuf, one sg entry per run.
++ *
++ * Coalescing folios into a single sg entry up front lets importers actually
++ * see large chunks. We can't rely on dma_map_sgtable() to do this for us as
++ * the dma_map_direct() path preserves the input scatterlist lengths verbatim.
++ */
++static unsigned int udmabuf_sg_nents(struct udmabuf *ubuf)
++{
++	unsigned int nents = 0;
++	pgoff_t i;
++
++	for (i = 0; i < ubuf->pagecount; i += udmabuf_folio_nr_pages(ubuf, i))
++		nents++;
++	return nents;
++}
++
+ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
+ 				     enum dma_data_direction direction)
+ {
+ 	struct udmabuf *ubuf = buf->priv;
+-	struct sg_table *sg;
+ 	struct scatterlist *sgl;
+-	unsigned int i = 0;
++	struct sg_table *sg;
++	pgoff_t i, run;
++	unsigned int nents;
+ 	int ret;
+ 
++	nents = udmabuf_sg_nents(ubuf);
++
+ 	sg = kzalloc_obj(*sg);
+ 	if (!sg)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	ret = sg_alloc_table(sg, ubuf->pagecount, GFP_KERNEL);
++	ret = sg_alloc_table(sg, nents, GFP_KERNEL);
+ 	if (ret < 0)
+ 		goto err_alloc;
+ 
+-	for_each_sg(sg->sgl, sgl, ubuf->pagecount, i)
+-		sg_set_folio(sgl, ubuf->folios[i], PAGE_SIZE,
++	sgl = sg->sgl;
++	for (i = 0; i < ubuf->pagecount; i += run) {
++		run = udmabuf_folio_nr_pages(ubuf, i);
++		sg_set_folio(sgl, ubuf->folios[i], run << PAGE_SHIFT,
+ 			     ubuf->offsets[i]);
++		sgl = sg_next(sgl);
++	}
+ 
+ 	ret = dma_map_sgtable(dev, sg, direction, 0);
+ 	if (ret < 0)
 
-Fixed.
-
->> +{
->> +}
->> +#endif
->> +
->> +#endif
->> +
-> 
-> Spurious blank line at end.
-
-Doh, fixed.
-
->> +++ b/drivers/pci/p2pdma_core.c
->> @@ -0,0 +1,118 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * PCI Peer 2 Peer DMA support core, providing a bare-bones
-> 
-> In this English text, I think I would spell out "Peer to Peer" instead
-> of relying on the "2" homophone.  Same in p2pdma.h.
-
-I would've preferred that too, it isn't correct; I was seeking to keep
-the blurb here (and in p2pdma.h) as close to the original p2pdma.c as
-possible.  I'll correct it in the new files (hyphenated "peer-to-peer"
-in PCI-SIG language).
-
-
-Thanks,
-
-
-Matt
+-- 
+2.53.0-Meta
 
