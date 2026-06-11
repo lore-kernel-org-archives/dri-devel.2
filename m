@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D2C3CD8CB9
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 07:26:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB47ACD98CC
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 07:26:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B135810ED1B;
-	Thu, 11 Jun 2026 07:26:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCF1710ED27;
+	Thu, 11 Jun 2026 07:26:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PGUF1AFJ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Scm9pmix";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CB3210ED16
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 07:26:39 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-490d6730461so2703905e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 00:26:39 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FF4310ED22
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 07:26:41 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-490b1df16acso6886415e9.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 00:26:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781162798; x=1781767598; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781162800; x=1781767600; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=5eKc8xoinNQulP3EE43EUw/q3KLX56zkxbj8GquDS6g=;
- b=PGUF1AFJ/SsGGWNeOzob070uVUgRy6aGZdBExgbRGmDiKc3bI1WqpN+/T0LCjN48dK
- l5oMvpPPvn9tLt9qguhPuxdCOPZ04Lu5DzKCH4Kul/FcILTY7k+9oTqiV3y4d078dxTZ
- XOx7cib/3oGpOKoZbijj2uD9sHVPxizYhHrv3fd5C1dYGZ/466+snDS0eQiTpWN3EqFN
- 3W0h6979WsLcWXNAzCoR7YmOmuZ+1gv1zO7QFkNFbse29BNcrAGkWSu/w0nTK9vuIsnF
- vGeSRlCC8kj+LX2CthllOOnG3n6oj4kgCRfcHVBogjt4jbTg+ZOgTp5GBwSUD2EzZPvL
- V/Gg==
+ bh=jlBSAof3dxTHn+vmJPVfCbz7wQyEQetNaXJtCkbufXA=;
+ b=Scm9pmixasVGuw2yi8xvV7YXu8kJpv8aOtjFhrCIFl+DUFSc1ntHz/RfAIB/5u/NsH
+ etuP/9B084o9VmXNJUMJzr6jGfVUY66UaFRzEgDM5uM2ovta5vXzEuyDNyXorhhAIPaG
+ V/ieGnXvhAE7g0F6Cbp7OanT+SgUFpnZpaTweYD2xKiUztbEmh37Qjq+TRmRU+cnlwHi
+ YakSNs8rfSvcBdkGzlBwEPxJEVG9W/lLkmc/JVPtXTsNYbQN+uJwfzGlbDEoMvTqJNqs
+ CWI3QLE6DhKSD0divH1rIPzBBnwR9o7rKhEDMNhTpVisyvEwjg7iVOfrVaMkx8PR+Avd
+ lgTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781162798; x=1781767598;
+ d=1e100.net; s=20251104; t=1781162800; x=1781767600;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=5eKc8xoinNQulP3EE43EUw/q3KLX56zkxbj8GquDS6g=;
- b=C+BWENVclL/AeZpvuuExDVhrlxMOAqkpPPxTgXmazE3SGjuXXzc03nmUxM7SDn71QG
- WFe+vNn2JKC3d9/54XhDfuWYA8f02X7TX+UMBW4O1EEJ4pElkxXVieBdzO/3C77lbFTC
- /gCGrj7yKa5+2FpcX2GAAO+RO1LCaKFDpzXG+xSejgrPwY5F7g3XKZlw+pRWwwptDPiz
- I3YShKhTjWc2oQNR/1i5GqMENbMHn0a+y51VIvNKIFEyK3p3QNyacqYTufBkxyTaHa9P
- YTH/iKh1xOuGYCEZcGjc4B0bsquiLiiFAMYWb4kUFLxBv7VZCS2g6HyhMErUmufZbENP
- EXrA==
-X-Gm-Message-State: AOJu0Yxtu10meeGe5N7VL975jTy0N4E3xSSqdud5xE2zJQvGz3SiQFkc
- RWAiC1goxmjTneIb5zCmQk5fK/IrG0yjVQ3Oe8+40CmOAjoENt3bokOlb3jG/tz4VK8=
-X-Gm-Gg: Acq92OFvGP7DXKdP473vjk5GFsTnr5e0rfEczk2ziL31hV6CpIZja06EbhWY/Q07JW0
- jDkWN/Sxrq1Ir3rz0KYqaswCEv4Tv2e7vpXXVX+w7ZpRhJgBsjBznKCoDmq+kaqRRbgPSBsNIGd
- KC5M/NtvLqsEy5eTfb4qY6rR/uPyG5wptsIkIInbuAxxvQ8L061VPztujvZRsL/EWemkHRyoDp8
- bLXKkRpekDKmO00Hym3lY4JKDWU+nvP+zQPbLXs3F9k9MuKtY9akHKHp93i6sbTj+Tj2sf3X3Sn
- hj1vQlY50a+IQyL8tupMGTbW6ghwa4HzQDTrR+bxg4Oh+Ry4dhdTMvAjmkM0E5ob3JG2a6gCdUo
- bOg34BMSSW31SPJPWOJNtlr274opVMcXrQm2LANlbHUTS6u+Aspqg1b3rLxX8l97sryd016/aaj
- RhUS0ReyRsZ6xzIYYQS8X2mvKQAtqsC9hlXIZ9NK323V79IlcTZ4IClsjNb4N+0rowXzzUGgsYL
- lY7387JyhLkgzzaIFdYCguQDg==
-X-Received: by 2002:a05:600c:3104:b0:490:b2b2:87d2 with SMTP id
- 5b1f17b1804b1-490e561be8cmr6449625e9.5.1781162797702; 
- Thu, 11 Jun 2026 00:26:37 -0700 (PDT)
+ bh=jlBSAof3dxTHn+vmJPVfCbz7wQyEQetNaXJtCkbufXA=;
+ b=I7fNsARHUcWiFdIhhXvGUehUGJLN87e2hiRxlGY4xIYT/RcxeIh7DOQwSEbrc+vJiF
+ kkJst4KF0/AjZZusGN44B+DqNMrFBypuYJ2mStVhbmaGpAOp0mg9rA3Ngk/naNP0If3I
+ ZPzDn5R1kilsnF9aXcniZivuyREprOKqnyZWj+v9h7rMmwtIA7BL7k9bzAIoLK2afa0y
+ 61FdmByQY+a994TZj6N+m9qrvuP3C+SZeGGn9bwXj0vP+rljEjlEX73sA/Nbeq3D2oxe
+ fahjgInh1aqa1ZNXVy4W/d5Qd5gkYQgOTtHUuvm+tQFRCVOZ2U5JoJrlo/HfAsXIbGOt
+ D8tA==
+X-Gm-Message-State: AOJu0YwJ2ACImnAQiaD0Liit3Ry2Y2hr28aRkO8I/lE3OxOcAlcQvDZ/
+ vpgfIy/TCqklGCmqQJQseF+AVE6tjytVgT6Px7RrRkR05PfX95XTUPEJ
+X-Gm-Gg: Acq92OHqMskqqEUCf5GLoRAuBH0i65fphQb5Ylz6sSLV766OEEPfXmE75RzWNY33Nfd
+ NyzuNYuX12y+1peph41Sr1/OnmAck/mr+wc2GB89uYVsjS/ZfyOw/mbXJR6FQE0C7USzuX4Ai7P
+ 10WgAhGemXF3+0WNqeUNYvG5U7SoMBEavbc+2XUuJQy+3aUH3MZfAbdltC9SwzeCAZAKhBY7y38
+ 0iVw7SPG6mhc7AtfevknfZVXZYeNt5KIXW9/UTi3owAklCe5T2WN60/zcxD/5dKct3aTJRcxpdO
+ 7mq0I7W+3Fh0vN6fEsLQ664C907HMhbFqm75E+DpRBvwhw5uhVN7Mt/hsC/198CWxKfuWAt2KBE
+ RnhLg6taxL4TBOotY8BcNfXCpn7ZeK5rl0ehUsF8It3uLmkbxbROjPfjO8vStsMzi8YGzLFU1iz
+ FH0wtFCTEGcDQpu1QbkrfMkBWT+CYtj7fphZwqUGI3qLbknrScEGNUl3We1UK3nHmGa4TrZ0Esa
+ 1/XCWMcB1gJkCxw04Ua0sIu5A==
+X-Received: by 2002:a05:600c:1f83:b0:490:3fdd:d344 with SMTP id
+ 5b1f17b1804b1-490e558813fmr7830845e9.1.1781162799452; 
+ Thu, 11 Jun 2026 00:26:39 -0700 (PDT)
 Received: from localhost.localdomain
  (ip-109-193-028-127.um39.pools.vodafone-ip.de. [109.193.28.127])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490e2c7ea21sm42585795e9.1.2026.06.11.00.26.36
+ 5b1f17b1804b1-490e2c7ea21sm42585795e9.1.2026.06.11.00.26.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jun 2026 00:26:37 -0700 (PDT)
+ Thu, 11 Jun 2026 00:26:38 -0700 (PDT)
 From: Marek Czernohous <mczernohous@gmail.com>
 X-Google-Original-From: Marek Czernohous <marek@czernohous.de>
 To: Lyude Paul <lyude@redhat.com>,
 	Danilo Krummrich <dakr@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Fab Stz <fabstz-it@yahoo.fr>
-Subject: [PATCH v2 1/2] drm/nouveau/pci: use config-space MSI rearm on
- MCP79/MCP7A (NVAC)
-Date: Thu, 11 Jun 2026 09:26:33 +0200
-Message-ID: <b658dc52cf2f7ec9cf65ba80f7713c7f79988583.1781162589.git.marek@czernohous.de>
+Subject: [PATCH v2 2/2] drm/nouveau/kms: guard NULL crtc in
+ nv50_sor_atomic_disable()
+Date: Thu, 11 Jun 2026 09:26:34 +0200
+Message-ID: <66ea307dd4fa080db27b2b9a0caa31b562d72c2b.1781162589.git.marek@czernohous.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1781162589.git.marek@czernohous.de>
 References: <cover.1781162589.git.marek@czernohous.de>
@@ -96,128 +96,80 @@ From: Marek Czernohous <mczernohous@gmail.com>
 
 From: Marek Czernohous <marek@czernohous.de>
 
-NVAC (MCP79/MCP7A) uses g94_pci_func, whose .msi_rearm is
-nv40_pci_msi_rearm(): a re-arm write through the MMIO mirror of PCI
-config space.  On this IGP that path is unreliable; when a re-arm is
-missed the interrupt line stays dead, command submission times out and
-the GPU appears hung until reboot.  On an Apple Mac mini (early 2009,
-MCP79, 0xac080b1) this showed as sporadic fifo timeouts and GPU hangs
-under load unless MSI was disabled via config=NvMSI=0.
+nv50_sor_atomic_disable() unconditionally computes
+nv50_head(nv_encoder->crtc) and dereferences the result a few lines
+later.  nv_encoder->crtc is nouveau's own shadow pointer, set in
+.atomic_enable and cleared at the end of .atomic_disable.
+Commit f575f2bdb6c3 ("drm/nouveau/kms/nv50-: Remove (nv_encoder->crtc)
+checks in ->disable callbacks") removed the NULL check here,
+reasoning that the atomic helpers never call ->disable without a
+crtc.  On NVAC (MCP79) under
+Wayland sessions (observed with Weston's DRM backend and with
+labwc/wlroots) we have hit the NULL case in practice during session
+teardown and VT switches: disable runs without (or after) its matching
+enable, and because nv50_head() is container_of(), the NULL does not
+stay NULL but becomes a small bogus pointer, so the subsequent head
+dereferences fault and the kernel oopses.
 
-Give NVAC its own pci func that re-arms through real PCI config space
-(nv46_pci_msi_rearm) instead.  This follows existing precedent: nv46.c
-documents the MMIO-mirror re-arm as broken on several related parts,
-and commit 5112abc6a433 ("drm/nouveau/pci/g92: Fix rearm") already
-split g92 out of the shared table for the same reason.  The sibling
-IGP NVAA (MCP77/MCP78) has MSI disabled entirely as "reported broken"
-in nvkm_pci_new_(); NVAC works correctly once the re-arm goes through
-config space, so disabling MSI is not necessary.
+Restore the guard, as drm_WARN_ON_ONCE() instead of a silent return:
+a NULL crtc here still indicates a state-tracking inconsistency that
+should stay visible.  Return without touching the output; in this path
+either enable never ran (nothing to tear down) or an earlier disable
+already did the teardown, and the encoder release is handled by the
+commit_tail release loop in both cases.
 
-Only NVAC is switched: that is the hardware this has been validated
-on.  The other users of g94_pci_func (G94/G96/G98/GT2xx and the
-MCP77/MCP89 IGPs) keep their current behavior; MCP77 and MCP89
-plausibly want the same treatment but were not tested.
-
-Tested on the Mac mini as a daily driver for two months with MSI
-enabled and zero fifo timeouts; independently confirmed stable on an
-iMac9,1 (MCP79) running 6.12.90.
-
-Fixes: 5112abc6a433 ("drm/nouveau/pci/g92: Fix rearm")
+Fixes: f575f2bdb6c3 ("drm/nouveau/kms/nv50-: Remove (nv_encoder->crtc) checks in ->disable callbacks")
 Cc: <stable@vger.kernel.org>
 Tested-by: Fab Stz <fabstz-it@yahoo.fr>
 Assisted-by: Claude:claude-opus-4-7
 Assisted-by: Claude:claude-opus-4-8
 Signed-off-by: Marek Czernohous <marek@czernohous.de>
 ---
-v1 -> v2: narrowed to NVAC via a dedicated mcp79 pci func instead of
-changing the shared g94 table (only chipset the fix was validated on);
-added Fixes/stable/Assisted-by tags.
-v1: https://lore.kernel.org/nouveau/20260409172126.115441-2-marek@czernohous.de/
+v1 -> v2: dropped the nvif_outp_release() call from the early return
+(the release is owned by the commit_tail release loop; calling it here
+released twice and detached the OR before the disable flush); turned
+the silent return into drm_WARN_ON_ONCE(); reworded the commit message
+(the v1 "race between atomic_check and atomic_commit" wording did not
+match the mechanism).
+v1: https://lore.kernel.org/nouveau/20260409172126.115441-3-marek@czernohous.de/
 
- .../gpu/drm/nouveau/include/nvkm/subdev/pci.h |  2 ++
- .../gpu/drm/nouveau/nvkm/engine/device/base.c |  2 +-
- .../gpu/drm/nouveau/nvkm/subdev/pci/Kbuild    |  1 +
- .../gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c   | 33 +++++++++++++++++++
- 4 files changed, 37 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c
+ drivers/gpu/drm/nouveau/dispnv50/disp.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h b/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h
-index 112b674..88efe06 100644
---- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h
-+++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h
-@@ -46,6 +46,8 @@ int nv4c_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct n
- int g84_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
- int g92_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
- int g94_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
-+int mcp79_pci_new(struct nvkm_device *device, enum nvkm_subdev_type type,
-+		  int inst, struct nvkm_pci **ppci);
- int gf100_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
- int gf106_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
- int gk104_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
-index b101e14..a809ec3 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
-@@ -1237,7 +1237,7 @@ nvac_chipset = {
- 	.mc       = { 0x00000001, g98_mc_new },
- 	.mmu      = { 0x00000001, mcp77_mmu_new },
- 	.mxm      = { 0x00000001, nv50_mxm_new },
--	.pci      = { 0x00000001, g94_pci_new },
-+	.pci      = { 0x00000001, mcp79_pci_new },
- 	.therm    = { 0x00000001, g84_therm_new },
- 	.timer    = { 0x00000001, nv41_timer_new },
- 	.volt     = { 0x00000001, nv40_volt_new },
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/pci/Kbuild b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/Kbuild
-index a14ea0f..90f03ba 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/pci/Kbuild
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/Kbuild
-@@ -9,6 +9,7 @@ nvkm-y += nvkm/subdev/pci/nv4c.o
- nvkm-y += nvkm/subdev/pci/g84.o
- nvkm-y += nvkm/subdev/pci/g92.o
- nvkm-y += nvkm/subdev/pci/g94.o
-+nvkm-y += nvkm/subdev/pci/mcp79.o
- nvkm-y += nvkm/subdev/pci/gf100.o
- nvkm-y += nvkm/subdev/pci/gf106.o
- nvkm-y += nvkm/subdev/pci/gk104.o
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c
-new file mode 100644
-index 0000000..9f6a6cd
---- /dev/null
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c
-@@ -0,0 +1,33 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * MCP79/MCP7A (NVAC): like g94, but MSI re-arm goes through real PCI
-+ * config space.  The MMIO-mirror re-arm is unreliable on this IGP and a
-+ * missed re-arm kills the interrupt line (see the nv46 comment; g92 was
-+ * split out of the shared table for the same reason).
-+ */
-+#include "priv.h"
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+index 6c3a871..597bc64 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+@@ -1565,14 +1565,28 @@ static void
+ nv50_sor_atomic_disable(struct drm_encoder *encoder, struct drm_atomic_state *state)
+ {
+ 	struct nouveau_encoder *nv_encoder = nouveau_encoder(encoder);
+-	struct nv50_head *head = nv50_head(nv_encoder->crtc);
++	struct nv50_head *head;
+ #ifdef CONFIG_DRM_NOUVEAU_BACKLIGHT
+ 	struct nouveau_connector *nv_connector = nv50_outp_get_old_connector(state, nv_encoder);
+ 	struct nouveau_drm *drm = nouveau_drm(nv_encoder->base.base.dev);
+ 	struct nouveau_backlight *backlight = nv_connector->backlight;
+ 	struct drm_dp_aux *aux = &nv_connector->aux;
+ 	int ret;
++#endif
 +
-+static const struct nvkm_pci_func
-+mcp79_pci_func = {
-+	.cfg = { .addr = 0x088000, .size = 0x1000 },
-+
-+	.init = g84_pci_init,
-+	.msi_rearm = nv46_pci_msi_rearm,
-+
-+	.pcie.init = g84_pcie_init,
-+	.pcie.set_link = g84_pcie_set_link,
-+
-+	.pcie.max_speed = g84_pcie_max_speed,
-+	.pcie.cur_speed = g84_pcie_cur_speed,
-+
-+	.pcie.set_version = g84_pcie_set_version,
-+	.pcie.version = g84_pcie_version,
-+	.pcie.version_supported = g92_pcie_version_supported,
-+};
-+
-+int
-+mcp79_pci_new(struct nvkm_device *device, enum nvkm_subdev_type type, int inst,
-+	      struct nvkm_pci **ppci)
-+{
-+	return nvkm_pci_new_(&mcp79_pci_func, device, type, inst, ppci);
-+}
++	/* nv_encoder->crtc is the driver's shadow pointer, set in
++	 * .atomic_enable and cleared at the end of this function.  NULL here
++	 * means disable-without-enable or a double disable; bail before
++	 * container_of() turns it into a bogus head pointer (checking the
++	 * result would not work, container_of(NULL) is never NULL).  The
++	 * encoder release is handled by the commit_tail release loop, so
++	 * there is nothing to clean up here.
++	 */
++	if (drm_WARN_ON_ONCE(encoder->dev, !nv_encoder->crtc))
++		return;
++	head = nv50_head(nv_encoder->crtc);
+ 
++#ifdef CONFIG_DRM_NOUVEAU_BACKLIGHT
+ 	if (backlight && backlight->uses_dpcd) {
+ 		ret = drm_edp_backlight_disable(aux, &backlight->edp_info);
+ 		if (ret < 0)
 -- 
 2.53.0
 
