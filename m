@@ -4,61 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED1AECD8C9D
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 04:42:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2496FCD8C9D
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 04:43:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0858410ECA6;
-	Thu, 11 Jun 2026 04:42:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80CBD10ECA7;
+	Thu, 11 Jun 2026 04:43:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="HbNpwvp0";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="Hp8pOFHp";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D67010ECA6
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 04:42:32 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gbVPK5Fbvz9txK;
- Thu, 11 Jun 2026 06:42:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1781152949;
+Received: from out-186.mta1.migadu.com (out-186.mta1.migadu.com
+ [95.215.58.186])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAB2110ECA7
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 04:43:15 +0000 (UTC)
+Message-ID: <9b98e860-11df-44bf-9a95-3046d2c274a6@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1781152991;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=a6BcnN8rdSZBC0imBDjb7WvsMQmmgBw7lE2xxGdBFAc=;
- b=HbNpwvp0Zj9yuH8o2oc0btr7NocD+4rpR36lGjssYY90zRMgEJRkepCWreP4M9Nf7FWw2G
- E9HY7rp4S1MHTyX7QMMv4fee/ekSf8lduJvfBHyzesvL6A0l+8xzJosXYM3uEd5i/B7NCU
- XmguDNfQaWWdZs542ORZ1bEfxqdHnEaIn+nV+xPx+WSbnnv1kOj/dQZ9e42m4tixPkbJYf
- XCDZ2t31PxCmC6VKwmLLgG9MPT5QYc9OJeFntCCtD4Aif4NtXPkbD4xa0jiLpOWeWwgjAT
- pYs0XO2gv848HpNsiV/Bhc9ssNxU0+H+ax/skEM2e6ZHgyZiJJuhS5Ekuv7d+A==
-Message-ID: <7fc8f50f-7f6d-4b45-b172-a83d97164b40@mailbox.org>
-Date: Wed, 10 Jun 2026 18:31:02 +0200
+ bh=amFobG45FitZxSTZMk37sKmrzp6+HTwygF2QRCMVESA=;
+ b=Hp8pOFHpWz66c6aS666mzKdGRUOg5trj2OOXjIC2FT49beQLeiNdwbdvku6y74Ze+FUPE+
+ E8RFdhLaOrZjL9dY7cSSbpn242HXv3fuPOtrI0a7ePuPhOCMW89fa+R0t1DoJD4yyOztEo
+ oTw51U8wnDSUmm+mYfNoclmpLJbmbns=
+Date: Thu, 11 Jun 2026 12:42:02 +0800
 MIME-Version: 1.0
-Subject: Re: [PATCH 00/39] Add i.MX95 DPU/DSI/LVDS support
-To: Liu Ying <victor.liu@nxp.com>
-Cc: Piyush Patle <piyushpatle228@gmail.com>, dri-devel@lists.freedesktop.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- Shawn Guo <shawnguo@kernel.org>, Fabio Estevam <festevam@gmail.com>,
- Peng Fan <peng.fan@nxp.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Lucas Stach <l.stach@pengutronix.de>,
+Subject: Re: [PATCH v2 00/14] list: Prepare entry iterators to cache cursor
+ state
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Davidlohr Bueso <dave@stgolabs.net>, "Paul E . McKenney"
+ <paulmck@kernel.org>, Josh Triplett <josh@joshtriplett.org>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Eddie James <eajames@linux.ibm.com>, Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Laxman Dewangan <ldewangan@nvidia.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Abel Vesa <abelvesa@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>
-References: <20251011170213.128907-1-marek.vasut@mailbox.org>
- <20260605121112.27866-1-piyushpatle228@gmail.com> <aiZzxhljfyYQ68Gl@raspi>
- <9ece4e08-a77f-4410-ba16-a77b9bd0aace@mailbox.org> <aifOQtaAi_7F9hXt@raspi>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <aifOQtaAi_7F9hXt@raspi>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: 8a541f9777ff949760e
-X-MBO-RS-META: trp3ppsudps4pgwo9w4hhy1o1twon399
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, Waiman Long <longman@redhat.com>,
+ drbd-dev@lists.linbit.com, linux-block@vger.kernel.org,
+ linux1394-devel@lists.sourceforge.net, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-spi@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Christian Brauner
+ <brauner@kernel.org>, David Howells <dhowells@redhat.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kaito Cheng <chengkaitao@kylinos.cn>, Muchun Song <muchun.song@linux.dev>,
+ Philipp Reisner <philipp.reisner@linbit.com>,
+ Lars Ellenberg <lars.ellenberg@linbit.com>,
+ =?UTF-8?Q?Christoph_B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ Jens Axboe <axboe@kernel.dk>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
+ <bd0b7393-8ccb-4d67-8bfc-18c68347122c@amd.com>
+ <5152089a-2808-4fe9-b633-b03018105dd2@linux.dev>
+ <ail4AvzqAOXNaU6N@ashevche-desk.local>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Kaitao Cheng <kaitao.cheng@linux.dev>
+In-Reply-To: <ail4AvzqAOXNaU6N@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,99 +100,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/9/26 10:26 AM, Liu Ying wrote:
 
-Hello Liu,
 
->>>> I brought this series up on the i.MX95 15x15 FRDM (IT6263 LVDS-to-HDMI on
->>>> LVDS ch1). It mostly works, but I ran into a few issues around DI routing,
->>>> LVDS format handling, and DC enable sequencing which needed rework before
->>>> HDMI would come up reliably on the board.
+在 2026/6/10 22:43, Andy Shevchenko 写道:
+> On Wed, Jun 10, 2026 at 02:14:06PM +0800, Kaitao Cheng wrote:
+>> 在 2026/6/9 18:33, Christian König 写道:
+>>> On 6/9/26 08:13, Kaitao Cheng wrote:
 >>>>
->>>> I don't see a v2 of the series and things seem to have been quiet since
->>>> November. Are you planning to post an updated version?
+>>>> This series prepares for, and then updates, the list_for_each_entry()
+>>>> family so the common entry iterators cache their next or previous cursor
+>>>> before the loop body runs.
 >>>
->>> My plan was to enable prefetch engine support[1] for i.MX8QXP display
->>> controller and add device tree for a whole i.MX8QXP LVDS display pipeline,
->>> before adding i.MX95 display controller support.
+>>> Why in the world would we want to do that?
 >>>
->>> Unfortunately, it seems that Marek is not a big fan of [1]
->>
->> I am fine with [1] as long as it can be isolated and does not affect every
->> SoC that might reuse this driver, which I think it can be done.
-> 
-> How can it be isolated?
-
-if (compatible("mx8q"))
-   something->prefetch_op = somefunction;
-
-And then wherever is prefetch used, do
-
-if (something->prefetch_op)
-   something->prefetch_op()
-
-Or something along those lines ?
-
->>> and I'm busy
->>> with downstream development so the plan doesn't move forward well.  I still
->>> think [1] makes sense(maybe I need to rebase it on latest drm-misc-next),
->>> so I'd like to see review comments on [1] and hopefully people think that
->>> the overall idea of [1] is ok.
->>
->> My only concern is, to keep it isolated to MX8Q, so this driver can be
->> reused by MX95.
->>
->>>> I've accumulated a fair amount of rework while getting this running on the
->>>> FRDM. If you're not planning a v2, I can clean things up and send one based
->>>> on the current series.
+>>> The safe and non-safe variants have very distinct use cases and that is completely intentional.
 >>>
->>> I still think that i.MX95 display controller driver should be in a separate
->>> driver, rather than sharing the same driver with i.MX8QXP display controller
->>> like this patch series does, because the two display controllers are quite
->>> different as I mentioned in comments on this patch series and in discussion
->>> in [1].  Also, the common part between the two display controllers should
->>> be extracted to a common helper library as I mentioned there too.
->> Are they really? It seems this series adds support for the MX95 DC without
->> that many changes, so are the DCs really that different ? It seems the MX95
->> DC is simply a reuse/evolution of the MX8Q DC blocks, so duplicating the
->> code seems like the wrong direction, it will only lead to disparate sets of
->> bugs in two drivers, which isn't desired.
+>>> What we could improve maybe is the documentation, from my experience an astonishing large amount of people have misconceptions about the safe variants.
+>>>
+>>>> The first 13 patches open-code loops that intentionally depend on the
+>>>> old "derive the next entry from the current cursor at the end of the
+>>>> iteration" behaviour.  These loops append work to the list being walked,
+>>>> restart traversal after dropping a lock, skip an entry consumed by the
+>>>> current iteration, or otherwise adjust the cursor in the loop body.
+>>>
+>>> Well I have to clearly reject the changes for subsystems/components I'm maintaining, that just looks horrible to me and I clearly don't see a good reason for that.
+>>
+>> Hi Christian and Andy Shevchenko,
+>>
+>> Thanks for taking a look. I would like to clarify the point you raised.
+>>
+>> The reason I started looking at this is the original motivation behind
+>> the _safe() variants.  They exist because some users need to remove, move
+>> or otherwise consume the current entry while walking the list.  In that
+>> case the next cursor has to be preserved before the loop body can modify
+>> the current entry.
+>>
+>> The unfortunate part is that this could not be expressed with the
+>> existing list_for_each_entry() interface without changing its calling
+>> convention.  The _safe() variants had to grow an extra argument for the
+>> temporary cursor, and that is why we ended up with a separate family of
+>> macros.
+>>
+>> But conceptually, the distinction does not have to be exposed as two
+>> different iterator families forever.  The difference is an implementation
+>> detail: whether the iterator keeps the next/previous cursor before the
+>> body runs.  This series makes the common list_for_each_entry() iterators
+>> do that internally, so the safe and non-safe forms can effectively be
+>> folded together, or at least the need for a separate public _safe()
+>> interface becomes much weaker.
+>>
+>> There is also a usability issue with the current _safe() interface.  The
+>> caller is forced to define a temporary cursor outside the macro and pass
+>> it in, even though almost all users never use that cursor directly.  It is
+>> just boilerplate required by the macro implementation.  I find that
+>> redundant and awkward: the temporary cursor is an internal detail of the
+>> iteration, but every caller has to spell it out.
 > 
-> I pointed out a lot of H/W differences between the two display controllers
-> during the discussions for this patch series and my i.MX8QXP prefetch engine
-> patch series[1].  Please take a look at [1], which clearly shows that the
-> prefetch engine would considerably impact CRTC/plane atomic callback
-> implementations.
-
-Is the prefetch engine actually grown into the CRTC/DE or not ? I 
-suspect it is separate and instead part of the built-in DMA, right ?
-
-> Display controller internal blocks would also impact
-> the implementations, e.g., DomainBlend block in i.MX95 display controller
-> doesn't present in i.MX8QXP display controller.  It makes sense to use
-> separate drivers for the two display controllers instead of adding 'if/else'
-> checks to a single driver's atomic callbacks or introducing two pairs of
-> atomic callbacks to that single driver.  I mentioned before, the code to
-> simply add a DRM driver(struct drm_driver) is fairly limited.
-
-Can't we simply have two sets of ops (one for mx8q and one for mx95) for 
-those ops which are too complicated to implement as a single op with 
-if/else statements ?
-
-> I also mentioned before that separate drivers make them easier to maintain:
-> we don't have to test both i.MX8QXP and i.MX95 if only one display controller
-> specific code is changed.
-
-The downside is lack of code reuse, which leads to disparate sets of 
-bugs in these two drivers and code duplication. And it seems to me, that 
-large parts of the MX8Q and MX95 DC are effectively identical.
-
->> (I might not fully understand what you have in mind with the helper library
->> though?)
+> Ah, I think the distinct macro families is that what we want.
+> But the hiding of the parameter can be done inside list_for_each_*_safe().
+> You can do a treewide change with coccinelle.
 > 
-> I said this could be something like imx-ldb-helper.c and plus perhaps some
-> callbacks like fg->dc_fg_cfg_videomode().
-Do you perceive that the DC driver cannot be parametrized easily enough 
-that it has to be turned into a library like that ? When I look at this 
-patchset, esp. the first half which updates the various blocks, it does 
-not seem to me that way.
+> Sorry if I didn't get the whole idea from your previous contributions.
+> 
+> Note, even cases that would need a temporary cursor may be switched to
+> new list_for_each_*_safe(), see how PCI macros for iterating over resources
+> are implemented (include/linux/pci.h).
+
+Thanks for your suggestions. I've written a demo based on your feedback.
+Could you please review it and share your thoughts on this approach?
+
+
+diff --git a/include/linux/list.h b/include/linux/list.h
+index 9df84a56a789..306554ab1841 100644
+--- a/include/linux/list.h
++++ b/include/linux/list.h
+@@ -7,6 +7,7 @@
+ #include <linux/stddef.h>
+ #include <linux/poison.h>
+ #include <linux/const.h>
++#include <linux/args.h>
+
+ #include <asm/barrier.h>
+
+@@ -911,20 +912,34 @@ static inline size_t list_count_nodes(struct list_head *head)
+        for (; !list_entry_is_head(pos, head, member);                  \
+             pos = list_prev_entry(pos, member))
+
++#define __list_for_each_entry_safe_internal(pos, next, head, member)   \
++       for (typeof(pos) next = list_next_entry(pos =                   \
++               list_first_entry(head, typeof(*pos), member), member);  \
++            !list_entry_is_head(pos, head, member);                    \
++            pos = next, next = list_next_entry(next, member))
++
++#define __list_for_each_entry_safe2(pos, head, member)                 \
++       __list_for_each_entry_safe_internal(pos, __UNIQUE_ID(next), head, member)
++
++#define __list_for_each_entry_safe3(pos, next, head, member)           \
++       for (pos = list_first_entry(head, typeof(*pos), member),        \
++               next = list_next_entry(pos, member);                    \
++            !list_entry_is_head(pos, head, member);                    \
++            pos = next, next = list_next_entry(next, member))
++
+ /**
+  * list_for_each_entry_safe - iterate over list of given type safe against removal of list entry
+  * @pos:       the type * to use as a loop cursor.
+- * @n:         another type * to use as temporary storage
+- * @head:      the head for your list.
+- * @member:    the name of the list_head within the struct.
++ * @...:       either (head, member) or (next, head, member)
++ *     @next:  another type * to use as optional temporary storage. The temporary
++ *             cursor is internal unless explicitly supplied by the caller.
++ *     @head:  the head for your list.
++ *     @member:the name of the list_head within the struct.
+  *
+  */
+-#define list_for_each_entry_safe(pos, n, head, member)                 \
+-       for (pos = list_first_entry(head, typeof(*pos), member),        \
+-               n = list_next_entry(pos, member);                       \
+-            !list_entry_is_head(pos, head, member);                    \
+-            pos = n, n = list_next_entry(n, member))
++#define list_for_each_entry_safe(pos, ...)                             \
++       CONCATENATE(__list_for_each_entry_safe, COUNT_ARGS(__VA_ARGS__))\
++               (pos, __VA_ARGS__)
+
+ /**
+  * list_for_each_entry_safe_continue - continue list iteration safe against removal
+
+>> With the updated list_for_each_entry() implementation, that extra cursor
+>> can be kept inside the iterator itself.  Callers that only want to walk
+>> the list, including callers that delete or consume the current entry, no
+>> longer need to carry an otherwise-unused temporary variable just to make
+>> the macro work.
+>>
+>>>> The final patch changes include/linux/list.h to keep a private cursor in
+>>>> the common entry iterators while preserving the public macro interface.
+>>>> The safe variants remain available when callers need the temporary
+>>>> cursor explicitly or have stronger mutation requirements.
+> 
+> 
+
+-- 
+Thanks
+Kaitao Cheng
+
