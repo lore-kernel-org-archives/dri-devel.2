@@ -4,124 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEFD7CD98CE
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 15:14:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67E03CD98CC
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 15:18:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC8FB10E7D2;
-	Thu, 11 Jun 2026 15:14:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B160E10EFDB;
+	Thu, 11 Jun 2026 15:18:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xI5S358D";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="Jv0OUS8t";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011043.outbound.protection.outlook.com [52.101.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0185A10E7D2;
- Thu, 11 Jun 2026 15:14:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mSBSu0fz7lNdBPA68qnBvlWxLtJWeDlr3iLzzEFdYQkBpJ4yd8CePG0ZTlEcbGnRtj23Ad8Boim5Lt5M+BuVR73rgutvZIpkIcVzA0uCf1i1lfP8GBR++bANlq7zhIQ9eRmNVeq/VPl4ikixHOwvp3EYAzwu/stN6gS6CoUNlXyJwVsQOzy/mmWl/qV+22M2PAHbwskLG0p6NSVoAtggs7UjiPBwVnIYC9cKiqHazBvXMXtFSjV9YbkeCHasWaxySWNpBeeDCW+mKlG2i2w80ke8HD9HZzWF5V2Lq61HYXx+jR5irIlm7iNAL7Q/oWo+baAyc44P2puXPcqCsw+2kg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=az3fI1Ch7M6JVidhcXqOlfFzH1wSD3+fsx9WASPo2Bo=;
- b=YaFYcSVHFqdAkDIuK6uR9uFFNvx2Uw4diDQfFDiExqi+ady5fyW2CnqmCzdOJ6wQuCAb4peoOnsC/GzEK8dMSmwuda/HD1NeBgWFUqUMbjkcpRQG9G9BddhaX+jO3jbyNwdPqOjh6ZVG2kMV7nuwjwRXdAeBkcaz2x+L/P0hxWjSyxFcSre3pMaxEM93tq9cF0qW65yyHZEX8B8bq0gNRWphIBwolJLBpTB4g2osyaD8JMtKIBC0iEAM2Awgu5smfrhkiOO+CXt+sPFRpC4QWvjaCNMAp4r3cMD/2MeuxKUICrqJEsfgeCZS7OLUap0b7pFQGiX9AkIhCwUwKh7p3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=az3fI1Ch7M6JVidhcXqOlfFzH1wSD3+fsx9WASPo2Bo=;
- b=xI5S358DnAXbCQ5MDb6TksYefagHCfQ1bvVh6KXECZStkyeXiCYrid7Gjpz+hxp0DjLiwutpk+4TuIxXcg49kfdQSDvInWHQNDSts9B8r/XrCopJyQ/rfMzaos2+27Ed1mg+YTe/aK0YYC3230Og7it2YdBMMD0S0IkYkH4cu20=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA1PR12MB8118.namprd12.prod.outlook.com (2603:10b6:806:333::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.17; Thu, 11 Jun
- 2026 15:14:27 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Thu, 11 Jun 2026
- 15:14:26 +0000
-Message-ID: <8285bb4c-90ae-4a79-8f82-a8f42adb67f8@amd.com>
-Date: Thu, 11 Jun 2026 17:14:21 +0200
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0BC2210EFE0
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 15:18:51 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C89051DB5;
+ Thu, 11 Jun 2026 08:18:45 -0700 (PDT)
+Received: from [10.1.29.27] (e122027.cambridge.arm.com [10.1.29.27])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D14273FB90;
+ Thu, 11 Jun 2026 08:18:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1781191130; bh=Aw4Kwc/XYrYP0lASM4X3waJ2IktiUVHCzk54UzMFqIo=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Jv0OUS8tOFe8ZcA7o4prTQ+s5ZjyuUgChunPoWPg5nYnTZFjaU21iuRn4hVoH/tST
+ ZMl4PWg8mPwZH1zfbIVDK+IQVtHQyR9BnYEzycdwg0VZufd1T6OOR1wslTSDmGMUy5
+ BF6aqxABHG33KIRflxqXVI+WCkvs6ivvhcLA593U=
+Message-ID: <99c5c33c-3c68-49a8-b827-c3fa210e8b13@arm.com>
+Date: Thu, 11 Jun 2026 16:18:44 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] amdgpu: lockdep: move temporary mutexes off stack
-To: Arnd Bergmann <arnd@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Vitaly Prosyak <vitaly.prosyak@amd.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260611130240.3388318-1-arnd@kernel.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260611130240.3388318-1-arnd@kernel.org>
+Subject: Re: [RFC PATCH 07/18] drm/panthor: Add Mali v15 hardware support
+To: Karunika Choo <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org
+Cc: nd@arm.com, Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org
+References: <20260528150546.3168527-1-karunika.choo@arm.com>
+ <20260528150546.3168527-8-karunika.choo@arm.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260528150546.3168527-8-karunika.choo@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN9PR03CA0394.namprd03.prod.outlook.com
- (2603:10b6:408:111::9) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB8118:EE_
-X-MS-Office365-Filtering-Correlation-Id: 390ea7aa-912f-4e50-3c22-08dec7cc2074
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: TIPP/0W+huDgh/xy6vchz+TOgIak2W83O6wmUmDL0bA1D0idmu7uL7rtd+0e+tcQKtmCPQj7EusxFfkZ76AFXF5578t/1MAZkyYJ+zKrO/TP7XNpWEZvqGMnUgQrFJpDXw5Ul/A8eR5BIsVSZDQUaatgzUm+GRucUsILtgc9ZVrAKB/yeoVf2y8Xi1XOhT0FvxQW7b8W+mo8nC6O0JKvsGs6Ag5zg7faTAj4/vf03gyKn2N9RP4DVx5lpHl36Zcnunjnk5rXtUwuNufxTOi/7AtcmULF9qKZN0Oz33dDupKjEMev+v30t96zmY4IcCndXRwVytTaxLtEGmpbMUotTpgdZhzqzr3bAwQbcKXJT9wHDHdD6odoa+ezrK9tvEyadqL9FpN7KKL1wgouP4e9v4LJP7Ocy7GJ2rcjisW4aZG/1v4ng4WIFCN4B+B+fHfLVXaxzl81jOo0qEWyQrW3AHx7P8IOK2JZyx1XgWgl+ZP20VN21lKGSYQMMs8WKlrAx6Mju/r7tYKRyHrkBnCtJmHmDsxiHBwhXjsDGHVZQ1h3I/2mopiciWZatdFmE9GeJ32bYUAJEtTaN16w0PfuAD1Cb4WxG70D6WtI+XHPNxZqbIR9EVdEDzxMTXW4Mt4B8bZVJqoeud64ndskmgA/5wKZkyBwnweXuMemIsODN58dpHPTZ/up8kEm5dR6u0UG
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MWRvVEFxbXpKMTZoeE5QNHpNOEVuWUF2SXY2Y0g2Q0FUQWY3bHNnamxTUnRD?=
- =?utf-8?B?eTJta1dUMGNsdzhSQ093bmR1cTJKMldBVk9XaW5vUnRoZXVtRDFKdi9HWUVj?=
- =?utf-8?B?dnUwazFIY2drb1pXd0NpemJYWHFjemVTSkR1T293SnBnV1pNQlR5R3QxNk14?=
- =?utf-8?B?dlhlYkNPZHFkT0trcWpqbVdwWlpreUdNNU40ZDNYMFZWQUF5STYzUmFTbTBC?=
- =?utf-8?B?Wkd3YXl1MGFIYU5DOXF0eVdIMU9mN3dlcUhIdUxMYlJReCtmY3BDZWZXelNQ?=
- =?utf-8?B?SVJKUFhiZ0lrL1Z6dTI0MVNiRXdkZi8zQ25aT28wbWxXdjg2Q2xtbHBiY3FS?=
- =?utf-8?B?SXIra3Zzd0JxQjlwRmt1YmhFTUxEdjE2UGx2Y3FHZVhLWENucnZ5eE9TTm0y?=
- =?utf-8?B?ZDFXVFRxU1BGVVRmL3p4TlEyTENvRi9TZ0diNEFnMmZuZ0hVMGVEbDFabVNH?=
- =?utf-8?B?VjJFdnplbkNPTk5rS0E4NWlOcWdyeERNejBPTE54YmJzMk5iZjRwYldCVVZK?=
- =?utf-8?B?UThzWHk1NjZSdXZYTTdsMDl3ck10NDE2N3RNQlNJaHJFdytiQzQ2VmdjaHl5?=
- =?utf-8?B?YjFFNnphbWhYSmd3Zk9uc0VRZXVnbTBkTytPYmpjRHNHWkE4SUpXYjdMeG44?=
- =?utf-8?B?TU96dStqTmRGS1hGWjZqMXJXUjIycFppekIxUzh3YTBqWE42TnVRR1RiVmJn?=
- =?utf-8?B?V1IvRHd6QUVrLzNnb2pEbnl4eHFEUnRrSXNSMWRDWkhDVkdOMVAwQS94VklG?=
- =?utf-8?B?Vi80ajVaUXlOWUNwRlBkT3BlM1UyVjY2dHhZM2xEMVFaY0JXcFFHSDIyZTh6?=
- =?utf-8?B?T1JkRGI0YUswbGNXOVg3RW1XSThQNmxkSlJvU3NxNUVLa1l4Q2daNnluMXVR?=
- =?utf-8?B?cE94d2RaTWdtYjk2Q3VDejlDL1FjWVA0STVRY09HbUVNNEpmN1RGb2xVMWY4?=
- =?utf-8?B?bzZ0VjllQ3RFd21lbG5CYWZqS2x2eS9mdEUrdXRobkZiMXluZUV5NnpKZHYv?=
- =?utf-8?B?dXM3bkd3SjJYclVXNTFwSlFDb25zbWcxSzdDakhFMVpZVFNORlZidUJSSnNi?=
- =?utf-8?B?L1dlZGVqZUdUem5aVDE0cDNwNGM4VHE4K28ydlE4MmRuQnVmbmVvb0hyN3hU?=
- =?utf-8?B?cGUrTGRuaElvc0NOUW9qSHVDVm9LbGV5OHF4a0VZNDUyOVdXUUErUE5qTFJL?=
- =?utf-8?B?V1N1WGhMWUZHWUg5WXRoSTZ2Um9xc21pRmJEWjhrMmJ0VldVdVJGc3ZzeEFv?=
- =?utf-8?B?S0NUbldaSkVtdmx3UlZIQTcxc29aZ212a0Q0blJDMVpSZ1VpaW9WWHdwazhU?=
- =?utf-8?B?MGg2ZFg4M25JV1ltOXJ6bTZYd2tabjdmSWlsaWF5SG9NcXZhcTJ5Skg3aVor?=
- =?utf-8?B?N1J3NDhUUWZheUN0QUJ2Tm1iSWZSbm9iSWFHeXZJQXlROGR4cEJGRk9wSTBK?=
- =?utf-8?B?SUkxdkNEWlJMOUZKRGlnbDFDc3hZQVNzU2sxVllNclp2bUs1S1VHSm96QVVD?=
- =?utf-8?B?dGovYlZzOG9XQ3N2YmpxQkg0djlYcmJJeU90dzR5bTBXWGFMT281dlRKVVp5?=
- =?utf-8?B?SHAweVVrVFFWTmpnTWdEZGgyRktPQ1ZOb05sRU9pa0QweTg2OW1kbGVQbGFY?=
- =?utf-8?B?VXV6WVNOcWRvOUZCaXRwcDBnSjVLbkdhWkhxeHIvY0c5MHhFajl1UWtMVitW?=
- =?utf-8?B?SHRGWlBFaXMrSDRYRDhla3U0Y3Z2SWRwQWRiV1kraUtLNkxQc1pIcjRhL3hC?=
- =?utf-8?B?SkxGYUdtcUdpQVVHVENTTUtPbDhlRHYxL1Z0T2xIQ1laZ2Q5aDJrajAyM2pz?=
- =?utf-8?B?T3d0OUFBVVRuUW0zTjB3VDFtMGszdWZ1ZDNaVm9hQ2FlQkN1eWNIbGNKZmVp?=
- =?utf-8?B?T2hlRUlSWlNwNDAyUXhyWUhqTlY3dW1FaUp4QnhFQVpRalVlL1pKRUNNVzNY?=
- =?utf-8?B?N3UyQ0Jjc1EwMzdjYWdxajliQTJjTXdYblRHbjJJbDhOeGNQN0h5UGZZMmwy?=
- =?utf-8?B?WGpKRzlpZnZYYW1iR1dRSmZ2Vm1HSzhzbTFNZ0VyYjViNTErSDU3Q215djN5?=
- =?utf-8?B?aXNaMXFQOTdtbjdEeDVqZnI3WnF3SXVaU0x2UW80NFhCMDBmQ0JLbDhnd3RJ?=
- =?utf-8?B?NmY3dFZraXdHK3lSQVRPRlg4YmFha28xaVVmRnladnNPaWJuMUx1MWJXMGhy?=
- =?utf-8?B?ZnF5QWxtTDZGV2J0MzljM3UvNFFpWFFkZTVsN2ZEc3ZHV0lsVmlMeG9VUlk2?=
- =?utf-8?B?SlQ3VXZlYU9XQy9KM0RueXVURnI5allQbDBNamxDdDBTMGlqMHkvNlN5Wm9G?=
- =?utf-8?Q?JYfcw5xLqLTfrAkyqi?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 390ea7aa-912f-4e50-3c22-08dec7cc2074
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 15:14:26.7311 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bnHofl6TsATcqhM1L7Crukc+sZr9jFbOTY8RAII/wvwTAd7g5aH03zKY/NOCUb3h
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8118
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,73 +61,308 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/11/26 15:02, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
+On 28/05/2026 16:05, Karunika Choo wrote:
+> Add the panthor hardware description for Mali v15 GPUs and hook it into
+> device matching.
 > 
-> In randconfig builds, the newly added function frequently exceeds
-> the limit for stack frames, like:
+> This includes the v15 register map and product identification needed to
+> populate the GPU information exposed by the driver and its uAPI.
 > 
-> drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c:84:5: error: stack frame size (1312) exceeds limit (1280) in 'amdgpu_lockdep_init' [-Werror,-Wframe-larger-than]
+> Add compatibility string for v15 GPUs.
 > 
-> Change this to use static allocation for the locks to reduce
-> this at the expense of a slightly larger driver binary.
-> 
-> Fixes: 1d0f5838b126 ("drm/amdgpu: Add lockdep annotations for lock ordering validation")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-
-Thanks for the patch, but we already found that one internally as well.
-
-It's just that Alex is on vacation this week and so the fix was not in some pull request yet.
-
-Should go upstream before the end of next week.
-
-Regards,
-Christian.
-
+> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c | 24 ++++++---------------
->  1 file changed, 7 insertions(+), 17 deletions(-)
+>  drivers/gpu/drm/panthor/panthor_drv.c         |  1 +
+>  drivers/gpu/drm/panthor/panthor_fw.c          |  1 +
+>  .../drm/panthor/panthor_gpu_discover_regs.h   | 25 ++++++
+>  drivers/gpu/drm/panthor/panthor_heap.c        |  3 +-
+>  drivers/gpu/drm/panthor/panthor_hw.c          | 81 ++++++++++++++++++-
+>  drivers/gpu/drm/panthor/panthor_hw.h          | 13 +++
+>  include/uapi/drm/panthor_drm.h                | 10 ++-
+>  7 files changed, 128 insertions(+), 6 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
-> index d5d71fd7c70d..cf723c9f9216 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
-> @@ -85,13 +85,13 @@ int amdgpu_lockdep_init(void)
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index e8dc4096c1d2..21644a60c8e4 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -1875,6 +1875,7 @@ static const struct of_device_id dt_match[] = {
+>  	{ .compatible = "mediatek,mt8196-mali", .data = &soc_data_mediatek_mt8196, },
+>  	{ .compatible = "rockchip,rk3588-mali" },
+>  	{ .compatible = "arm,mali-valhall-csf" },
+> +	{ .compatible = "arm,mali-gen5-am" },
+
+Just a heads up: a new DT compatible should have a binding document
+describing it. So this can't be merged until the DT bindings change is
+agreed.
+
+>  	{}
+>  };
+>  MODULE_DEVICE_TABLE(of, dt_match);
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> index f6381f5f236f..e2a511b741f4 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -1529,3 +1529,4 @@ MODULE_FIRMWARE("arm/mali/arch11.8/mali_csffw.bin");
+>  MODULE_FIRMWARE("arm/mali/arch12.8/mali_csffw.bin");
+>  MODULE_FIRMWARE("arm/mali/arch13.8/mali_csffw.bin");
+>  MODULE_FIRMWARE("arm/mali/arch14.8/mali_csffw.bin");
+> +MODULE_FIRMWARE("arm/mali/arch15.8/mali_csffw.bin");
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
+> index 54bb104902ee..9c64676dc35a 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
+> @@ -14,4 +14,29 @@
+>  #define   GPU_WIDE_VER_MINOR(x)				(((x) & GENMASK(15, 8)) >> 8)
+>  #define   GPU_WIDE_VER_STATUS(x)			((x) & GENMASK(7, 0))
+>  
+> +#define DISCOVER_REVIDR					0x8
+> +#define DISCOVER_GPU_FEATURES				0x20
+> +#define   GPU_FEATURES_VARIABLE_RATE_SHADING		BIT(0)
+> +#define   GPU_FEATURES_SIMD_STATE			BIT(1)
+> +#define   GPU_FEATURES_CROSS_STREAM_SYNC		BIT(3)
+> +#define   GPU_FEATURES_NX				BIT(4)
+> +#define   GPU_FEATURES_RAY_TRAVERSAL			BIT(5)
+> +#define   GPU_FEATURES_LD_LEA_TENSOR_INSTRUCTIONS	BIT(6)
+> +#define DISCOVER_MCU_FEATURES				0x40
+> +#define DISCOVER_PRFCNT_FEATURES			0x50
+> +#define   PRFCNT_FEATURES_COUNTER_BLOCK_SIZE(x)		(((x) & GENMASK(7, 0)) << 8)
+> +#define DISCOVER_DOORBELL_FEATURES			0x60
+> +#define DISCOVER_MEM_FEATURES				0x100
+> +#define DISCOVER_MMU_FEATURES				0x108
+> +#define   MMU_FEATURES_AS_COUNT(x)			(((x) & GENMASK(23, 16)) >> 16)
+> +#define DISCOVER_AMBA_FEATURES				0x120
+> +
+> +#define DISCOVER_L2_FEATURES				0x128
+> +#define DISCOVER_TILER_FEATURES				0x200
+> +#define DISCOVER_CORE_FEATURES				0x300
+> +#define DISCOVER_THREAD_FEATURES			0x320
+> +#define DISCOVER_THREAD_MAX_THREADS			0x330
+> +#define DISCOVER_THREAD_NUM_ACTIVE_GRANULARITY		0x334
+> +#define DISCOVER_TEXTURE_FEATURES			0x360
+> +
+>  #endif /* __PANTHOR_GPU_DISCOVER_REGS_H__ */
+> diff --git a/drivers/gpu/drm/panthor/panthor_heap.c b/drivers/gpu/drm/panthor/panthor_heap.c
+> index 99311abdf1e9..afb7d68abc87 100644
+> --- a/drivers/gpu/drm/panthor/panthor_heap.c
+> +++ b/drivers/gpu/drm/panthor/panthor_heap.c
+> @@ -11,6 +11,7 @@
+>  #include "panthor_gem.h"
+>  #include "panthor_gpu_regs.h"
+>  #include "panthor_heap.h"
+> +#include "panthor_hw.h"
+>  #include "panthor_mmu.h"
+>  
+>  /*
+> @@ -105,7 +106,7 @@ struct panthor_heap_pool {
+>  
+>  static int panthor_heap_ctx_stride(struct panthor_device *ptdev)
 >  {
->  	struct amdgpu_reset_domain *reset_domain = NULL;
->  	struct amdgpu_reset_control reset_ctl;
-> -	struct mutex userq_sch_mutex;
-> -	struct mutex userq_mutex;
-> -	struct mutex notifier_lock;
-> -	struct mutex vram_lock;
-> -	struct mutex srbm_mutex;
-> -	struct mutex grbm_idx_mutex;
-> -	spinlock_t mmio_idx_lock;
-> +	static DEFINE_MUTEX(userq_sch_mutex);
-> +	static DEFINE_MUTEX(userq_mutex);
-> +	static DEFINE_MUTEX(notifier_lock);
-> +	static DEFINE_MUTEX(vram_lock);
-> +	static DEFINE_MUTEX(srbm_mutex);
-> +	static DEFINE_MUTEX(grbm_idx_mutex);
-> +	static DEFINE_SPINLOCK(mmio_idx_lock);
->  	unsigned long flags;
+> -	u32 l2_features = ptdev->gpu_info.l2_features;
+> +	u64 l2_features = panthor_hw_get_l2_features(ptdev);
+>  	u32 gpu_cache_line_size = GPU_L2_FEATURES_LINE_SIZE(l2_features);
 >  
->  	/*
-> @@ -102,16 +102,6 @@ int amdgpu_lockdep_init(void)
->  	if (!reset_domain)
->  		return -ENOMEM;
+>  	return ALIGN(HEAP_CONTEXT_SIZE, gpu_cache_line_size);
+> diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
+> index e677f1a8f488..52271fb9db52 100644
+> --- a/drivers/gpu/drm/panthor/panthor_hw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_hw.c
+> @@ -65,6 +65,23 @@ static struct panthor_hw panthor_hw_arch_v14 = {
+>  	},
+>  };
 >  
-> -	/* Initialize dummy locks */
-> -	mutex_init(&userq_sch_mutex);
-> -	mutex_init(&userq_mutex);
-> -	mutex_init(&notifier_lock);
-> -	mutex_init(&vram_lock);
-> -	mutex_init(&reset_ctl.reset_lock);
-> -	mutex_init(&srbm_mutex);
-> -	mutex_init(&grbm_idx_mutex);
-> -	spin_lock_init(&mmio_idx_lock);
-> -
->  	/*
->  	 * Associate dummy locks with the same class keys used for real
->  	 * driver locks. This ensures lockdep connects the ordering learned
+> +static struct panthor_hw panthor_hw_arch_v15 = {
+> +	.ops = {
+> +		.soft_reset = panthor_pwr_reset_soft,
+> +		.l2_power_off = panthor_pwr_l2_power_off,
+> +		.l2_power_on = panthor_pwr_l2_power_on,
+> +	},
+> +	.map = {
+> +		.gpu_control_base = 0x3000,
+> +		.pwr_control_base = 0x3800,
+> +		.mcu_control_base = 0x3100,
+> +		.mmu_as = {
+> +			.base = 0x2800,
+> +			.stride = 0x80,
+> +		},
+> +	},
+> +};
+> +
+>  static struct panthor_hw_entry panthor_hw_match[] = {
+>  	{
+>  		.arch_min = 10,
+> @@ -76,6 +93,11 @@ static struct panthor_hw_entry panthor_hw_match[] = {
+>  		.arch_max = 14,
+>  		.hwdev = &panthor_hw_arch_v14,
+>  	},
+> +	{
+> +		.arch_min = 15,
+> +		.arch_max = 15,
+> +		.hwdev = &panthor_hw_arch_v15,
+> +	}
+>  };
+>  
+>  static int panthor_hw_set_power_tracing(struct device *dev, void *data)
+> @@ -187,6 +209,12 @@ static char *get_gpu_model_name(struct panthor_device *ptdev)
+>  		return "Mali-G1-Premium";
+>  	case GPU_PROD_ID_MAKE(14, 3):
+>  		return "Mali-G1-Pro";
+> +	case GPU_PROD_ID_MAKE(15, 0):
+> +		return "Mali-G2-Ultra";
+> +	case GPU_PROD_ID_MAKE(15, 1):
+> +		return "Mali-G2-Premium";
+> +	case GPU_PROD_ID_MAKE(15, 3):
+> +		return "Mali-G2-Pro";
+>  	}
+>  
+>  	return "(Unknown Mali GPU)";
+> @@ -210,7 +238,7 @@ static int overload_shader_present(struct panthor_device *ptdev)
+>  	return 0;
+>  }
+>  
+> -static int panthor_gpu_info_init(struct panthor_device *ptdev)
+> +static void panthor_gpu_info_v10_init(struct panthor_device *ptdev)
+>  {
+>  	unsigned int i;
+>  
+> @@ -251,12 +279,56 @@ static int panthor_gpu_info_init(struct panthor_device *ptdev)
+>  		ptdev->gpu_info.tiler_present = gpu_read64(gpu_iomem, GPU_TILER_PRESENT);
+>  		ptdev->gpu_info.l2_present = gpu_read64(gpu_iomem, GPU_L2_PRESENT);
+>  	}
+> +}
+> +
+> +static void panthor_gpu_info_v15_init(struct panthor_device *ptdev)
+> +{
+> +	void __iomem *pwr_iomem = ptdev->iomem + ptdev->hw->map.pwr_control_base;
+> +	u64 texture_features;
+> +
+> +	ptdev->gpu_info.gpu_rev_wide = gpu_read64(ptdev->iomem, DISCOVER_REVIDR);
+> +	ptdev->gpu_info.l2_features_wide = gpu_read64(ptdev->iomem, DISCOVER_L2_FEATURES);
+> +
+> +	texture_features = gpu_read64(ptdev->iomem, DISCOVER_TEXTURE_FEATURES);
+> +	ptdev->gpu_info.texture_features[0] = lower_32_bits(texture_features);
+> +	ptdev->gpu_info.texture_features[1] = upper_32_bits(texture_features);
+> +
+> +	ptdev->gpu_info.thread_features = gpu_read(ptdev->iomem, DISCOVER_THREAD_FEATURES);
+> +	ptdev->gpu_info.max_threads = gpu_read(ptdev->iomem, DISCOVER_THREAD_MAX_THREADS);
+> +	ptdev->gpu_info.thread_num_active_granularity =
+> +		gpu_read(ptdev->iomem, DISCOVER_THREAD_NUM_ACTIVE_GRANULARITY);
+> +
+> +	ptdev->gpu_info.gpu_features = gpu_read64(ptdev->iomem, DISCOVER_GPU_FEATURES);
+> +
+> +	/* The following _HI registers do not contain any information (yet) */
+
+This is a little confusing as a comment - there are no "_HI" registers
+mentioned. I think this would be better reworded as "32 bit reads are
+used as the HI part of the 64 bit register does not contian any
+information (yet)" (or similar).
+
+Or alternatively you could just upgrade these to 64 bit and be done with
+it ;)
+
+> +	ptdev->gpu_info.mem_features = gpu_read(ptdev->iomem, DISCOVER_MEM_FEATURES);
+> +	ptdev->gpu_info.mmu_features = gpu_read(ptdev->iomem, DISCOVER_MMU_FEATURES);
+> +	ptdev->gpu_info.coherency_features = gpu_read(ptdev->iomem, DISCOVER_AMBA_FEATURES);
+> +	ptdev->gpu_info.tiler_features = gpu_read(ptdev->iomem, DISCOVER_TILER_FEATURES);
+> +	ptdev->gpu_info.core_features = gpu_read(ptdev->iomem, DISCOVER_CORE_FEATURES);
+> +
+> +	/* AS_PRESENT register removed on v15+ create virtual mask from MMU_FEATURES.AS_COUNT */
+> +	ptdev->gpu_info.as_present =
+> +		(1U << MMU_FEATURES_AS_COUNT(ptdev->gpu_info.mmu_features)) - 1;
+
+This might be better expressed using GENMASK:
+
+GENMASK(MMU_FEATURES_AS_COUNT(ptdev->gpu_info.mmu_features) - 1, 0)
+
+> +
+> +	ptdev->gpu_info.l2_present = gpu_read64(pwr_iomem, PWR_L2_PRESENT);
+> +	ptdev->gpu_info.tiler_present = gpu_read64(pwr_iomem, PWR_TILER_PRESENT);
+> +	ptdev->gpu_info.shader_present = gpu_read64(pwr_iomem, PWR_SHADER_PRESENT);
+> +}
+> +
+> +static int panthor_gpu_info_init(struct panthor_device *ptdev)
+> +{
+> +	if (panthor_hw_has_gpu_discover(ptdev))
+> +		panthor_gpu_info_v15_init(ptdev);
+> +	else
+> +		panthor_gpu_info_v10_init(ptdev);
+>  
+>  	return overload_shader_present(ptdev);
+>  }
+>  
+>  static int panthor_hw_info_init(struct panthor_device *ptdev)
+>  {
+> +	u64 l2_features = ptdev->gpu_info.l2_features;
+>  	u32 major, minor, status;
+>  	int ret;
+>  
+> @@ -268,14 +340,17 @@ static int panthor_hw_info_init(struct panthor_device *ptdev)
+>  	minor = ptdev->gpu_id.ver.minor;
+>  	status = ptdev->gpu_id.ver.status;
+>  
+> +	if (panthor_hw_has_gpu_discover(ptdev))
+> +		l2_features = ptdev->gpu_info.l2_features_wide;
+> +
+>  	drm_info(&ptdev->base,
+>  		 "%s id 0x%x major 0x%x minor 0x%x status 0x%x",
+>  		 get_gpu_model_name(ptdev), ptdev->gpu_id.prod_major,
+>  		 major, minor, status);
+>  
+>  	drm_info(&ptdev->base,
+> -		 "Features: L2:%#x Tiler:%#x Mem:%#x MMU:%#x AS:%#x",
+> -		 ptdev->gpu_info.l2_features,
+> +		 "Features: L2:%#llx Tiler:%#x Mem:%#x MMU:%#x AS:%#x",
+> +		 l2_features,
+>  		 ptdev->gpu_info.tiler_features,
+>  		 ptdev->gpu_info.mem_features,
+>  		 ptdev->gpu_info.mmu_features,
+> diff --git a/drivers/gpu/drm/panthor/panthor_hw.h b/drivers/gpu/drm/panthor/panthor_hw.h
+> index 0ae11b78c77e..1b2678ea00db 100644
+> --- a/drivers/gpu/drm/panthor/panthor_hw.h
+> +++ b/drivers/gpu/drm/panthor/panthor_hw.h
+> @@ -83,4 +83,17 @@ static inline bool panthor_hw_has_pwr_ctrl(struct panthor_device *ptdev)
+>  	return ptdev->gpu_id.arch.major >= 14;
+>  }
+>  
+> +static inline bool panthor_hw_has_gpu_discover(struct panthor_device *ptdev)
+> +{
+> +	return ptdev->gpu_id.arch.major >= 15;
+> +}
+> +
+> +static inline u64 panthor_hw_get_l2_features(struct panthor_device *ptdev)
+> +{
+> +	if (panthor_hw_has_gpu_discover(ptdev))
+> +		return ptdev->gpu_info.l2_features_wide;
+> +
+> +	return ptdev->gpu_info.l2_features;
+> +}
+> +
+>  #endif /* __PANTHOR_HW_H__ */
+> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+> index 04fc9f133152..2ecc50eade27 100644
+> --- a/include/uapi/drm/panthor_drm.h
+> +++ b/include/uapi/drm/panthor_drm.h
+> @@ -368,8 +368,8 @@ struct drm_panthor_gpu_info {
+>  	/** @core_features: Used to discriminate core variants when they exist. */
+>  	__u32 core_features;
+>  
+> -	/** @pad: MBZ. */
+> -	__u32 pad;
+> +	/** @thread_num_active_granularity: Granularity of number of active threads */
+> +	__u32 thread_num_active_granularity;
+>  
+>  	/** @gpu_features: Bitmask describing supported GPU-wide features */
+>  	__u64 gpu_features;
+> @@ -383,6 +383,12 @@ struct drm_panthor_gpu_info {
+>  #define DRM_PANTHOR_WIDE_VERSION_MAJOR(x)	(((x) >> 16) & 0xff)
+>  #define DRM_PANTHOR_WIDE_VERSION_MINOR(x)	(((x) >> 8) & 0xff)
+>  #define DRM_PANTHOR_WIDE_VERSION_STATUS(x)	((x) & 0xff)
+> +
+> +	/** @gpu_rev_wide: 64-bit GPU revision for v15 onwards */
+> +	__u64 gpu_rev_wide;
+> +
+> +	/** @l2_features_wide: 64-bit L2_FEATURES for v15 onwards */
+> +	__u64 l2_features_wide;
+>  };
+>  
+>  /**
 
