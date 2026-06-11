@@ -4,137 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B70C0CD98CC
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 07:51:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10046CD98C7
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 07:53:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15D7010ED59;
-	Thu, 11 Jun 2026 07:51:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CC5810ED3D;
+	Thu, 11 Jun 2026 07:53:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OiQWMt0h";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MdcHkE1l";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BlyCxNoZ";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F28310ED56
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 07:51:05 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65B5GQh23817113
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 07:51:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- p/X20Z2CefrI8yMv/8IpDBoqq2Hb9n39SsxgdwnIVWs=; b=OiQWMt0hPdkUmBxQ
- L0B8ZhmcJtjmI1w/TbShYSDVRgrpWZW3o6vafFjuE0HHB5d4eg5YBL1PKWZ1XKSv
- WWrAqqtcYVONSwYsxy1VvU1LPnHiBq99pR5mSGX1Wbg85GFooHwCicTtMacQLlcv
- qt66nVW97zM7XKl+3Dk3SCZDAyFw41fA9+BUTWUODQ4ubac9aHSme6wwEegIU9td
- 7JZObfCtWbHxPom/sUnpVg69aTqAmJ1cOwAnqfZ+7G41+pav2BuqsyD5Fgg1ZDiY
- LJQA2KS62PW3HlNLh3TUU0UdaM3hib3nSeF2Hsx2TmMeCFGAtp081s4WBYRsB32l
- vO0VRw==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqe6ut9pk-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 07:51:04 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-517865e6219so16577711cf.0
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 00:51:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1781164264; x=1781769064;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=p/X20Z2CefrI8yMv/8IpDBoqq2Hb9n39SsxgdwnIVWs=;
- b=MdcHkE1lGWg+C6wn6gW8HgKE6UKc0+tQa1bq4U738RUW9LWY6r9AiT04Nmpp8c1htf
- 8wcwgW2hMyfW8tBO8D2xA/d9O+WhrZieBMq1J1SF5jfUH9xbyP3EFErs25/T/fOtEG9w
- gL2r12YtZD/gzbMm2vM/uiqekT++84A+GtG+6t3aA22e4CQcof3hb8bppA8Ogg2Jh6uf
- BHYr8AY/vlQtTwrZ6rBKwZiLIgMTc0s6UiiF77ifKND1eUnUhUbNq1ng6aeZO/umhdTS
- OCo5PRs4DTFaAefaK8L64vwBeWmilSmNHpFtuwRZz+ISb3rjHInscvHM4hAB4jzgQco8
- /CbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781164264; x=1781769064;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=p/X20Z2CefrI8yMv/8IpDBoqq2Hb9n39SsxgdwnIVWs=;
- b=R+QftSbntw/vFNN8WUwtzZSQFuKXmJ4zLQY0qbbEVm2mL2sHwbE7Th0n8L8dIqJ+kn
- tm+hOju/TF5BSlI3/oCSFobIAFWoh9BSvy/LT5gv583qBzhGz0SuPxFjQHXrs4L4/B7Q
- rRxawivMvhnAihlQP/DOZQNUViGIO6SCQbgWW8f3fRIGAs+CyGBORHUn3UHcdvc9Zrw0
- gkpaC00Jiox6k1nDpNIddlz/Ppr1R5Vrc7bq3/NkcANJwlTrxiT+4h++LZUZQJhIeM4U
- s2YwaxgjGGX9W0gHa4/ORh+hvERm/uUM3Cum7Y1+CfNZjP8z1NDcrmUiBrr590MgYd/Q
- 2W5g==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9EMOswuaINMIIdQMDqVeThVL/TO8CPdXCssDXWFl7QzYRefI+u6NMGxssRRdQAvbw+T+ZNwfDYn3k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwV5dRQdg5ID3R30mNppNhCy6e8idLeGMZybjF1xU6g0a1zhZpp
- ilwq4HDnvY3pBy4+765FaWEt6VrEjYA5fi/IU53DMZ/sl+n+RSY9N1W2XxcpAZjYhG6va/AyX8B
- PjcWcl9qtJ+5kyHtfssUbgZZKuxmEGEavjKTL98qAyS1iyo9bWxK0cl79iKUe2jDr1I2BEe0=
-X-Gm-Gg: Acq92OHmg3pzJQx3nHVaq5KTRJc1SS7jzzdUauXAVn7R4SQDO4CjTCWklSgcaOwmEqG
- jXivwz0M8L5TCYs5dyd34ZgwJA9B+3rxUUfH234w8Voa3pR6QB8MxXH/3s1/SBgXC/fCPXM8M6V
- 0hxc/b84AsaknAXesIDpnJ39jdJXLbTDSJUikCZYQa3ZipCwskrBNwtLuxLxyhlUS+OTqPkZcIY
- zp0tJSHKIluRRVy+QGfmHoFDGB4ad5TvQD9NIIKxwhkWwQudYedd+xMHg8HOriPdW9x0YtVu81a
- L41GzhQaNYolhus6C5tncUtKlYRDbPo00vudZcZQVv6U0zI8GX9YLk6d4hAKqQoUttEjsg3MmUk
- rvvduIDPSDlMDfs6qciaaKRZ+PylrlfIClEKiuxok9QGIWxmp2N0oC5ng
-X-Received: by 2002:a05:622a:c16:b0:510:144a:636 with SMTP id
- d75a77b69052e-517ee281cf9mr17195381cf.8.1781164263959; 
- Thu, 11 Jun 2026 00:51:03 -0700 (PDT)
-X-Received: by 2002:a05:622a:c16:b0:510:144a:636 with SMTP id
- d75a77b69052e-517ee281cf9mr17195171cf.8.1781164263570; 
- Thu, 11 Jun 2026 00:51:03 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bfcb6a6cc97sm23272366b.63.2026.06.11.00.51.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jun 2026 00:51:02 -0700 (PDT)
-Message-ID: <998b673a-9754-4bdd-a305-73824a8f8060@oss.qualcomm.com>
-Date: Thu, 11 Jun 2026 09:51:00 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE25510ED3D;
+ Thu, 11 Jun 2026 07:53:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781164390; x=1812700390;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=WodgeCwMhxs/nQa2II6pfVewJYMMJPHkCdCGsJ449YA=;
+ b=BlyCxNoZbX0iE+QNw2AxkECmu/pgM7arlNgAMrq59jrQj8Q3EK1qbWjv
+ 5myUeb69GjBWpbmPQWSKSXtqNW74l+AoJ6TYL/pOK6SBvYD7qMxD7smoq
+ B8f++sBtyEDBfxeExW034rgCRDCch4SmJsk42/NiiKZ04oTz1GCsagk6E
+ B1iGy9A3L/HXINMYmM2fcEZ8K3FFedmHYxsPK7C3SwxMm7hcnQ1p33w/C
+ N+cqqbV74RIn3zUdnQpYIHr9yuwhp9svzKHAZifMr0MwBZaAQOhdheHfQ
+ nF/7vSQDHClF5I//HoQMjac2Jyy8n2kzR7xIjgTujpiBg8GSeEsIgoErP Q==;
+X-CSE-ConnectionGUID: 5ZzzqCOHQEmDDk/Z85r0RQ==
+X-CSE-MsgGUID: yXG+4EMfQ/GrHulmAFbOAA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="80986590"
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="80986590"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2026 00:53:09 -0700
+X-CSE-ConnectionGUID: 7kx+48t4ShyPZDKBg37+Vg==
+X-CSE-MsgGUID: bmL7KCWdSnqhurymMySuZQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="250689566"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.123])
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2026 00:52:54 -0700
+Date: Thu, 11 Jun 2026 10:52:52 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Kaitao Cheng <kaitao.cheng@linux.dev>
+Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Davidlohr Bueso <dave@stgolabs.net>,
+ "Paul E . McKenney" <paulmck@kernel.org>,
+ Josh Triplett <josh@joshtriplett.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Huang Rui <ray.huang@amd.com>, Eddie James <eajames@linux.ibm.com>,
+ Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Laxman Dewangan <ldewangan@nvidia.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Waiman Long <longman@redhat.com>, drbd-dev@lists.linbit.com,
+ linux-block@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Christian Brauner <brauner@kernel.org>,
+ David Howells <dhowells@redhat.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kaito Cheng <chengkaitao@kylinos.cn>, Muchun Song <muchun.song@linux.dev>,
+ Philipp Reisner <philipp.reisner@linbit.com>,
+ Lars Ellenberg <lars.ellenberg@linbit.com>,
+ Christoph =?iso-8859-1?Q?B=F6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ Jens Axboe <axboe@kernel.dk>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: Re: [PATCH v2 00/14] list: Prepare entry iterators to cache cursor
+ state
+Message-ID: <aippVAj83dCzscTN@ashevche-desk.local>
+References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
+ <bd0b7393-8ccb-4d67-8bfc-18c68347122c@amd.com>
+ <5152089a-2808-4fe9-b633-b03018105dd2@linux.dev>
+ <ail4AvzqAOXNaU6N@ashevche-desk.local>
+ <9b98e860-11df-44bf-9a95-3046d2c274a6@linux.dev>
+ <aipbojSeMH-usARY@ashevche-desk.local>
+ <83ba73d8-27d3-4ee9-a143-7dfe4cb827be@linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/msm/mdp4: keep the bus clock enabled while a CRTC
- is active
-To: contact@alex-min.fr, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org
-References: <20260611-mainline-fix-mdp4-blue-screen-sending-v1-v1-0-22925600e4f2@alex-min.fr>
- <20260611-mainline-fix-mdp4-blue-screen-sending-v1-v1-1-22925600e4f2@alex-min.fr>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260611-mainline-fix-mdp4-blue-screen-sending-v1-v1-1-22925600e4f2@alex-min.fr>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=FJ8rAeos c=1 sm=1 tr=0 ts=6a2a68e9 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=qYPBgzPrCaqp2f--smQA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDA3NiBTYWx0ZWRfX0iCjtZNnFPui
- fnGrfIvwntRcfJ83b/5sNzzHrlOwj5N3zzYKBqRRPt48MYYiTqgzAQTAFFfzFFtpP8T6cQjMs/L
- v+90IWzmqFCVbEPPzjwALTDKg12MXk0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDA3NiBTYWx0ZWRfX15Ycojx+9Tb3
- u89csKbDGDeHmC4VWw6MAPvVffpK9krU/VEryr/JJ9pSTpM11Jen55dyy0GBxO8nSHU2ybY9Bjf
- odL6tm47omW8B7EkeXbSQ1KSa+PJz1TtKNYTb6TVXaIctxm+W7ALbp4MKTgr3Uy2TBjW3M1quT5
- 5G8HteNo53lAdV2NmzrKTnovb7xs1qM2yFvM+Kf0XVkx0oafTYCpx0wr0X0de+Pz1frwiVyb+lP
- 4jZRVgE4PyusBWQNsnKci1ACFfu2qrxFFnfi4ExyjjnCSgVihoNiBYjFNnOHR3TJ8BEOIqtZqqN
- QYACP3FGcyl7IFKqe2wB3ICJfF2WSoFhYBsnwe/nmEYbAD/q2ieezHlBzj6MFyuR9jhingzeurI
- 5Lvtq87ypNZh/VASiv4P5wwFEnvhW8kMnLRQg9y5Tr8DEaWmS7wgQbauBkDjbmVBihUepm0adV4
- T13n9pcGtGsr24j93Ag==
-X-Proofpoint-GUID: SKAx86pIZpn3Qo6JC2yTomYdVLP1O1HC
-X-Proofpoint-ORIG-GUID: SKAx86pIZpn3Qo6JC2yTomYdVLP1O1HC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-11_01,2026-06-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 adultscore=0 lowpriorityscore=0 bulkscore=0
- impostorscore=0 priorityscore=1501 spamscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606110076
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <83ba73d8-27d3-4ee9-a143-7dfe4cb827be@linux.dev>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,28 +123,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/11/26 8:07 AM, Alexandre MINETTE via B4 Relay wrote:
-> From: Alexandre MINETTE <contact@alex-min.fr>
+On Thu, Jun 11, 2026 at 03:36:01PM +0800, Kaitao Cheng wrote:
+> 在 2026/6/11 14:54, Andy Shevchenko 写道:
+> > On Thu, Jun 11, 2026 at 12:42:02PM +0800, Kaitao Cheng wrote:
+> >> 在 2026/6/10 22:43, Andy Shevchenko 写道:
+> >>> On Wed, Jun 10, 2026 at 02:14:06PM +0800, Kaitao Cheng wrote:
+> >>>> 在 2026/6/9 18:33, Christian König 写道:
+> >>>>> On 6/9/26 08:13, Kaitao Cheng wrote:
+> > 
+> >>>>>> This series prepares for, and then updates, the list_for_each_entry()
+> >>>>>> family so the common entry iterators cache their next or previous cursor
+> >>>>>> before the loop body runs.
+> >>>>>
+> >>>>> Why in the world would we want to do that?
+> >>>>>
+> >>>>> The safe and non-safe variants have very distinct use cases and that is completely intentional.
+> >>>>>
+> >>>>> What we could improve maybe is the documentation, from my experience an astonishing large amount of people have misconceptions about the safe variants.
+> >>>>>
+> >>>>>> The first 13 patches open-code loops that intentionally depend on the
+> >>>>>> old "derive the next entry from the current cursor at the end of the
+> >>>>>> iteration" behaviour.  These loops append work to the list being walked,
+> >>>>>> restart traversal after dropping a lock, skip an entry consumed by the
+> >>>>>> current iteration, or otherwise adjust the cursor in the loop body.
+> >>>>>
+> >>>>> Well I have to clearly reject the changes for subsystems/components I'm maintaining, that just looks horrible to me and I clearly don't see a good reason for that.
+> >>>>
+> >>>> Hi Christian and Andy Shevchenko,
+> >>>>
+> >>>> Thanks for taking a look. I would like to clarify the point you raised.
+> >>>>
+> >>>> The reason I started looking at this is the original motivation behind
+> >>>> the _safe() variants.  They exist because some users need to remove, move
+> >>>> or otherwise consume the current entry while walking the list.  In that
+> >>>> case the next cursor has to be preserved before the loop body can modify
+> >>>> the current entry.
+> >>>>
+> >>>> The unfortunate part is that this could not be expressed with the
+> >>>> existing list_for_each_entry() interface without changing its calling
+> >>>> convention.  The _safe() variants had to grow an extra argument for the
+> >>>> temporary cursor, and that is why we ended up with a separate family of
+> >>>> macros.
+> >>>>
+> >>>> But conceptually, the distinction does not have to be exposed as two
+> >>>> different iterator families forever.  The difference is an implementation
+> >>>> detail: whether the iterator keeps the next/previous cursor before the
+> >>>> body runs.  This series makes the common list_for_each_entry() iterators
+> >>>> do that internally, so the safe and non-safe forms can effectively be
+> >>>> folded together, or at least the need for a separate public _safe()
+> >>>> interface becomes much weaker.
+> >>>>
+> >>>> There is also a usability issue with the current _safe() interface.  The
+> >>>> caller is forced to define a temporary cursor outside the macro and pass
+> >>>> it in, even though almost all users never use that cursor directly.  It is
+> >>>> just boilerplate required by the macro implementation.  I find that
+> >>>> redundant and awkward: the temporary cursor is an internal detail of the
+> >>>> iteration, but every caller has to spell it out.
+> >>>
+> >>> Ah, I think the distinct macro families is that what we want.
+> >>> But the hiding of the parameter can be done inside list_for_each_*_safe().
+> >>> You can do a treewide change with coccinelle.
+> >>>
+> >>> Sorry if I didn't get the whole idea from your previous contributions.
+> >>>
+> >>> Note, even cases that would need a temporary cursor may be switched to
+> >>> new list_for_each_*_safe(), see how PCI macros for iterating over resources
+> >>> are implemented (include/linux/pci.h).
+> >>
+> >> Thanks for your suggestions. I've written a demo based on your feedback.
+> >> Could you please review it and share your thoughts on this approach?
+> > 
+> > Have you checked how many users actually need the temporary storage?
 > 
-> MDP4 scanout continues to fetch framebuffer data while the CRTC is
-> active. Keep the AXI/bus clock enabled for the lifetime of each active
-> CRTC so that temporary MDP4 disable paths do not gate the bus clock
-> while scanout is still running.
+> In Muchun's reply, he mentioned the following:
 > 
-> This avoids display corruption seen on the Samsung Galaxy S4 when the
-> display pipeline is active.
+> There are 9,925 list_for_each_entry() call sites in total. Among them,
+> 9,919 do not require any adaptation, and only 6 need to be refactored:
 > 
-> Signed-off-by: Alexandre MINETTE <contact@alex-min.fr>
-> ---
+> As for list_for_each_entry_safe(), there are 4,572 callers. 4,550 of them
+> can be directly replaced by the new list_for_each_entry(), while 22 cannot
+> be replaced
+> 
+> https://lore.kernel.org/all/2B3BFA1E-08B8-42AB-87D6-A28BF15E5C58@linux.dev/
+> 
+> I only used Coccinelle to scan for list_for_each_entry() call sites, and
+> found the 13 call sites shown in the current patch series, which cover
+> the 6 cases mentioned in Muchun's email. I have not yet run the Coccinelle
+> scan for list_for_each_entry_safe().
+> 
+> If we need to handle all 9,925 list_for_each_entry() call sites or all 4,572
+> list_for_each_entry_safe() call sites in one go, would such a change be too
+> large? I expect it would affect almost every kernel subsystem.
 
-[...]
+If it's done by Linus himself during the day when he prepares -rc1, it's fine.
+You would need to provide a good justification for the change, though.
 
-> +void mdp4_crtc_bus_put(struct mdp4_kms *mdp4_kms)
-> +{
-> +	mutex_lock(&mdp4_kms->clock_lock);
+But in the above statistics the 4572 vs 4550, so the first step is to investigate
+why temporary cursor is used in those 22 cases and what we can do to avoid that.
 
-If you use guard(mutex)(&mdp4_kms->lock_lock), you can drop
-the manual _unlock() calls (the lock will be dropped once you
-exit the scope
+> I wonder whether it would be better to first provide the necessary
+> compatibility APIs, and then let each subsystem owner update their code as
+> appropriate. That would make the impact more controlled, similar to how
+> the current folio replacement of page is being handled.
+> 
+> >>>> With the updated list_for_each_entry() implementation, that extra cursor
+> >>>> can be kept inside the iterator itself.  Callers that only want to walk
+> >>>> the list, including callers that delete or consume the current entry, no
+> >>>> longer need to carry an otherwise-unused temporary variable just to make
+> >>>> the macro work.
+> >>>>
+> >>>>>> The final patch changes include/linux/list.h to keep a private cursor in
+> >>>>>> the common entry iterators while preserving the public macro interface.
+> >>>>>> The safe variants remain available when callers need the temporary
+> >>>>>> cursor explicitly or have stronger mutation requirements.
 
-Konrad
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
