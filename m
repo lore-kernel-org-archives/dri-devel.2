@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCAE8CD98CC
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 14:23:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF0DECD98CE
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 14:23:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F05C510EF87;
-	Thu, 11 Jun 2026 14:23:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E58D10EF7C;
+	Thu, 11 Jun 2026 14:23:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="llPrgSha";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IAsd6abO";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 375BB10EF9D;
- Thu, 11 Jun 2026 14:23:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEC2C10EF51;
+ Thu, 11 Jun 2026 14:23:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781187810; x=1812723810;
+ t=1781187815; x=1812723815;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=FsvkI3LOasYuprXDVfPJVH1qnNqYfZwMGOjwjiJ3aL0=;
- b=llPrgShaQTkXJC2HcU9eQw1WeMtMWzbqWVJULS+OcNl2qBCuFAgPfP6M
- nUmmr1/OQdo68+rzSE48YB8bRgMQ7H25iv14z5DRZUy04MKVL2pB1n2ML
- FzqCUBeZQ7qL1WB4Jqcqm45B21M8O9OnKAUA3QdOlOb/SKqnb01l1I2a5
- ZHjJRkMC15Kh007nABBSle9566ZX8Om7+5B8Ky5V6hhAAE5DNoO6vgw0g
- +lAC03CSpnkm4ZpHWhWJiGspS/Wv73XdSOma3MqQKGsfUOS4QUE31Xd55
- YJxQ4We/7KOgKmENI8yqhe2ZJDgM6EDEPyLg2pf1owFa82SwRCSIUnAUP g==;
-X-CSE-ConnectionGUID: SP82RI5ISwOLXqbDy3I6FA==
-X-CSE-MsgGUID: +lXQMrhwRXK0EL9kTfrQRQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81983450"
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="81983450"
+ bh=awhOvbKuIT8kazUlxYlfnhoiupJ7K7wXsTHZirjffKQ=;
+ b=IAsd6abOryFZMYHzNZocqrIcTXvSkE14kuXvNaVtDRBNCipFP1ZaiXEk
+ 3SeZMMe55JcVQeBQB6lxbwnXu9X/34BnkN9DjYdDyPeBS649vFMy3PMJB
+ K7FwW0vJmUfPSBXCAFK84j408iTAn4jJwTR1TXCSPJROfXqb+ElsROpPU
+ mwL39xwoSf4ToeF24pFu9uSYMgDDpB4NN2NODQppbYFDfOMl/dcPUzLKh
+ H3e5lIc1VumsFoDCfL9dMlqq3Yb4x1RMVePsaT5vr9VxuPWoASsbSjkw3
+ +HzMpGmFuCzgGDqf7n+5CkGUI/qMXsYXEbDAS9ZX6xhtez33+PY2qv7+I g==;
+X-CSE-ConnectionGUID: BHRFwIDwS5exlJ979ea/jQ==
+X-CSE-MsgGUID: u9+eTrt6R7u/xpDTEY9csQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81983467"
+X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="81983467"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2026 07:23:30 -0700
-X-CSE-ConnectionGUID: iEq5kIJUSpuBvxUHauSL0w==
-X-CSE-MsgGUID: eefaeiGmRd+c6DId46Vv1g==
+ 11 Jun 2026 07:23:34 -0700
+X-CSE-ConnectionGUID: 7XeEKXDxQ/a37dPKAsAtfw==
+X-CSE-MsgGUID: zK/aDci3QaeXjSjER8BUcw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="284574360"
+X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="284574385"
 Received: from amilburn-desk.amilburn-desk (HELO fedora) ([10.245.244.169])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2026 07:23:26 -0700
+ 11 Jun 2026 07:23:30 -0700
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
@@ -58,9 +58,10 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v5 5/6] drm/xe: Wire up dmem cgroup reclaim for VRAM manager
-Date: Thu, 11 Jun 2026 16:22:41 +0200
-Message-ID: <20260611142242.2529-6-thomas.hellstrom@linux.intel.com>
+Subject: [PATCH v5 6/6] drm/amdgpu: Wire up dmem cgroup reclaim for VRAM
+ manager
+Date: Thu, 11 Jun 2026 16:22:42 +0200
+Message-ID: <20260611142242.2529-7-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260611142242.2529-1-thomas.hellstrom@linux.intel.com>
 References: <20260611142242.2529-1-thomas.hellstrom@linux.intel.com>
@@ -86,109 +87,123 @@ Register the VRAM manager with the dmem cgroup reclaim infrastructure
 so that lowering dmem.max below current VRAM usage triggers TTM
 eviction rather than failing with -EBUSY.
 
-v4:
-- Rebased on drm-tip; dropped the XE_PL_STOLEN guard as stolen memory
-  uses a separate TTM manager and never calls __xe_ttm_vram_mgr_init().
+Guard place->flags in amdgpu_ttm_bo_eviction_valuable() against NULL,
+as the TTM reclaim path passes a NULL place in cgroup drain mode.
+
+v3:
+- Rebased on fix for uninitialized list and buddy allocator on the
+  drmm_cgroup_register_region() error path.
 
 v5:
 - Rebased on the introduction of struct dmem_cgroup_init.
-- Register the fini drmm action before drmm_cgroup_register_region() so
-  that devres LIFO teardown runs unregister_region() first (draining any
-  in-flight reclaim callbacks via the rwsem) and xe_ttm_vram_mgr_fini()
-  second, ensuring the manager is never accessed by a reclaim callback
-  after teardown. (Sashiko-bot)
-- Wrap the reclaim callback in xe_ttm_vram_mgr_dmem_reclaim() using
-  drm_dev_enter()/drm_dev_exit() to prevent TTM reclaim from running
-  after driver unbind.
+- Clear the reclaim callback in amdgpu_vram_mgr_fini() to prevent
+  use-after-free if cgroup reclaim is triggered after driver unbind
+  while userspace holds an open DRM file descriptor. (Sashiko-bot)
+- Switch from drmm_cgroup_register_region() to the raw
+  dmem_cgroup_register_region() and store the region in
+  amdgpu_vram_mgr.cg_region. Explicitly call
+  dmem_cgroup_unregister_region() at the top of amdgpu_vram_mgr_fini()
+  before any manager teardown, draining in-flight reclaim callbacks via
+  the rwsem before the manager is destroyed. This is required because
+  amdgpu's vram manager fini is called explicitly during driver unbind,
+  which may precede the DRM device release and thus precede any
+  drmm-based cleanup. (Sashiko-bot)
 
 Assisted-by: GitHub_Copilot:claude-sonnet-4.6
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/xe/xe_ttm_vram_mgr.c | 54 +++++++++++++++++++++++-----
- 1 file changed, 45 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 29 ++++++++++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h |  2 ++
+ 3 files changed, 26 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-index 308fda4248eb..b2500344cd57 100644
---- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-+++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-@@ -276,6 +276,28 @@ static const struct ttm_resource_manager_func xe_ttm_vram_mgr_func = {
- 	.debug	= xe_ttm_vram_mgr_debug
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 2740de94e93c..8cbcd33f51a5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1488,7 +1488,7 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+ 	dma_resv_for_each_fence(&resv_cursor, bo->base.resv,
+ 				DMA_RESV_USAGE_BOOKKEEP, f) {
+ 		if (amdkfd_fence_check_mm(f, current->mm) &&
+-		    !(place->flags & TTM_PL_FLAG_CONTIGUOUS))
++		    !(place && (place->flags & TTM_PL_FLAG_CONTIGUOUS)))
+ 			return false;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+index 08f05c3aed1d..ee98b963e84a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+@@ -906,6 +906,10 @@ static const struct ttm_resource_manager_func amdgpu_vram_mgr_func = {
+ 	.debug	= amdgpu_vram_mgr_debug
  };
  
-+static const struct dmem_cgroup_ops xe_ttm_vram_mgr_dmem_ops;
-+
-+static int xe_ttm_vram_mgr_dmem_reclaim(struct dmem_cgroup_pool_state *pool,
-+					 u64 target_bytes, void *priv)
-+{
-+	struct ttm_resource_manager *man = priv;
-+	struct xe_device *xe = ttm_to_xe_device(man->bdev);
-+	int ret, idx;
-+
-+	if (!drm_dev_enter(&xe->drm, &idx))
-+		return -ENODEV;
-+
-+	ret = ttm_resource_manager_dmem_reclaim(pool, target_bytes, priv);
-+
-+	drm_dev_exit(idx);
-+	return ret;
-+}
-+
-+static const struct dmem_cgroup_ops xe_ttm_vram_mgr_dmem_ops = {
-+	.reclaim = xe_ttm_vram_mgr_dmem_reclaim,
++static const struct dmem_cgroup_ops amdgpu_vram_mgr_dmem_ops = {
++	.reclaim = ttm_resource_manager_dmem_reclaim,
 +};
 +
- static void xe_ttm_vram_mgr_fini(struct drm_device *dev, void *arg)
+ /**
+  * amdgpu_vram_mgr_init - init VRAM manager and DRM MM
+  *
+@@ -917,6 +921,7 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
  {
- 	struct xe_device *xe = to_xe_device(dev);
-@@ -301,17 +323,10 @@ int __xe_ttm_vram_mgr_init(struct xe_device *xe, struct xe_ttm_vram_mgr *mgr,
- 			   u64 default_page_size)
- {
+ 	struct amdgpu_vram_mgr *mgr = &adev->mman.vram_mgr;
  	struct ttm_resource_manager *man = &mgr->manager;
 +	struct dmem_cgroup_region *cg;
- 	const char *name;
  	int err;
  
--	name = mem_type == XE_PL_VRAM0 ? "vram0" : "vram1";
--	man->cg = drmm_cgroup_register_region(&xe->drm, name,
+ 	ttm_resource_manager_init(man, &adev->mman.bdev,
+@@ -933,12 +938,15 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
+ 	if (err)
+ 		return err;
+ 
+-	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram",
 -					      &(struct dmem_cgroup_init){
--						.size = size,
+-						.size = adev->gmc.real_vram_size,
 -					      });
 -	if (IS_ERR(man->cg))
 -		return PTR_ERR(man->cg);
--
- 	man->func = &xe_ttm_vram_mgr_func;
- 	mgr->mem_type = mem_type;
- 	err = drmm_mutex_init(&xe->drm, &mgr->lock);
-@@ -330,7 +345,28 @@ int __xe_ttm_vram_mgr_init(struct xe_device *xe, struct xe_ttm_vram_mgr *mgr,
- 	ttm_set_driver_manager(&xe->ttm, mem_type, &mgr->manager);
- 	ttm_resource_manager_set_used(&mgr->manager, true);
- 
--	return drmm_add_action_or_reset(&xe->drm, xe_ttm_vram_mgr_fini, mgr);
-+	/*
-+	 * Register the fini action before the cgroup region so that devres
-+	 * LIFO teardown runs unregister_region first (draining any in-flight
-+	 * reclaim callbacks) and the manager fini second.
-+	 */
-+	err = drmm_add_action_or_reset(&xe->drm, xe_ttm_vram_mgr_fini, mgr);
-+	if (err)
-+		return err;
-+
-+	name = mem_type == XE_PL_VRAM0 ? "vram0" : "vram1";
-+	cg = drmm_cgroup_register_region(&xe->drm, name,
-+					 &(struct dmem_cgroup_init){
-+						.size = size,
-+						.ops = &xe_ttm_vram_mgr_dmem_ops,
-+						.reclaim_priv = man,
-+					 });
++	cg = dmem_cgroup_register_region(&(struct dmem_cgroup_init){
++					     .size = adev->gmc.real_vram_size,
++					     .ops = &amdgpu_vram_mgr_dmem_ops,
++					     .reclaim_priv = man,
++					 }, "vram");
 +	if (IS_ERR(cg))
 +		return PTR_ERR(cg);
 +
 +	ttm_resource_manager_set_dmem_region(man, cg);
-+
-+	return 0;
- }
  
- /**
+ 	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
+ 	ttm_resource_manager_set_used(man, true);
+@@ -960,6 +968,15 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device *adev)
+ 	int ret;
+ 	struct amdgpu_vram_reservation *rsv, *temp;
+ 
++	/*
++	 * Drain any in-flight dmem cgroup reclaim callbacks and remove the
++	 * region from the global list before tearing down the manager.
++	 * This must happen first so no reclaim callback can access the
++	 * manager after this point.
++	 */
++	dmem_cgroup_unregister_region(mgr->cg_region);
++	mgr->cg_region = NULL;
++
+ 	ttm_resource_manager_set_used(man, false);
+ 
+ 	ret = ttm_resource_manager_evict_all(&adev->mman.bdev, man);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+index 429a21a2e9b2..07103cddb335 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+@@ -36,6 +36,8 @@ struct amdgpu_vram_mgr {
+ 	atomic64_t vis_usage;
+ 	u64 default_page_size;
+ 	struct list_head allocated_vres_list;
++	/** @cg_region: dmem cgroup region for VRAM; unregistered in fini. */
++	struct dmem_cgroup_region *cg_region;
+ };
+ 
+ struct amdgpu_vres_task {
 -- 
 2.54.0
 
