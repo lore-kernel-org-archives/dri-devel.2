@@ -4,70 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 400B5CD98C7
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 07:55:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 553FCCD98C7
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 07:56:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9927910ED5E;
-	Thu, 11 Jun 2026 07:55:41 +0000 (UTC)
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com
- [209.85.221.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E5E610ED5E
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 07:55:40 +0000 (UTC)
-Received: by mail-vk1-f171.google.com with SMTP id
- 71dfb90a1353d-59bbe027424so6162251e0c.3
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 00:55:40 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0EC310ED66;
+	Thu, 11 Jun 2026 07:56:01 +0000 (UTC)
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com
+ [209.85.221.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 168F710ED66
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 07:56:01 +0000 (UTC)
+Received: by mail-vk1-f182.google.com with SMTP id
+ 71dfb90a1353d-59e23d70dfaso2614967e0c.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 00:56:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781164539; x=1781769339;
+ d=1e100.net; s=20251104; t=1781164560; x=1781769360;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=w2NiokGN/wizVGUGbdWYAqnmeeSP+HB1QCep5aAksHU=;
- b=fBO1m6m59TnuMtvE7W+VVRR97Kpcu6qVqzXVzuPFxP57xB0aa1Qe9wUsyeqo7v8G1o
- pqyZu16HMnYeHYb+uhqdhuAING82NeG+d/VxYIPxI5qLgm98Jx/wnaFNdNjloElUFN24
- k3rT8/NdBRnvU+RlN9p6moYDoQrlfz7u4SW7oJgjY3LJETRatkrFK3pFiDBoruMIaQXs
- JcAsjM+/Y+kAWA+zu4q+ejj9ydHwdebOcclBv9wrzfhBT7XFdzJm1cC9CbJRcDc1fpbE
- 6bCf/obJG1pIJbxVPzhd6XI1LG3dKzkjTJwzQNvsOqrz2s0Qldm7K6kXK5mZeRN5ekCE
- PJ/Q==
+ bh=0QWA/oASaoEGszjXXYseH4EEvJ11J7t3dPdy+riQNNw=;
+ b=YltIgCv8ioJi9kq3/vD8P/FRSyaabhT6PdwoKFxUWxICV9trSMvpJEcUPwdx1tT6IV
+ thQH9NSPYhD2ixAeVhx4jIlSZsR/khSApj6rmU3smpwI3WJtRL/lg0L4ttDRF44Uugyz
+ 5Qho8rkwJ4Fbucia6gEvH2nirssIazThpd5RTUaGLF6+z76a4WrrTEqj0+NYi+epHFSq
+ Ybw/Ya2cUdYjfMi0JiefP9aihaCtVpZquLcM13zfRI3Unbg7IErll+cog6WngjOORW9w
+ sMCjgcD+btIT+FAvUznfO4UxnH+O1Hbz9OLEjtmbz+jpwxaLpS6mGPyOcRg6v/nhMh0o
+ nicg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8OMtaAexxnyZdxJOul5m2J21a8PEk0crFpculJLNjXtj1Zf9Z9oAf9pAE2EZcEzc7XhzCdYNSqY5Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx9lmZamCkSdFMbtgR4nYrX94jmbAPDTfZUtEhvfVLr6SMTVAiT
- E97l+sYe1Gw5gOVc1HZwtGPNsPk13LVYGOaHas/a5J3znIHl7us8hV5041AQ5YhLzMU=
-X-Gm-Gg: Acq92OEQNI2m7PRHOHpuXs9ll6ynGqUiz2SqaGm/AOOM/XO/muieC921oFRKVqjjTFQ
- WVQ5rtHi8oXhSHWrjQEvzvujpJ7aOIsxs+ejGE8H4yXN1zO31ZqiuqJ6rzyz+z0Hf3llj8NNWoF
- HGay0E9nWMsXJqTdtKkt38UA+yacwY9DsYV5isO+/AwjkgY0ysm+IQKWa7BCTBSLIJDci0glzge
- CKv35wATgMcbaHEha0cE9LcAU59sLfg6OFicgYIHysQKnN/W5S11qvivMZfl1w1Kvh3pxRo1aCR
- sGlei1RbvjNxuAELqKOMsxNzi9e0q057zdlbH/lXrEsHEf556ThUQ1/MX0YlWUO2frx+dnL/+qI
- QNXrZIG+VavHckoOeO0Do9jNkrm8IPnnEbvrjNIuiIpHPtgrX8qwtVUszdeDNOs8DeQ0FJCGPMg
- 14lKXPiIY3h9aY1Fot1P9FfdFzgZu8P4NxnJq7DL1bBF0ZAwX1VyyEZ/JeE7zCI/1C7BtEcNTyQ
- FM=
-X-Received: by 2002:a05:6122:6606:b0:575:2072:54d1 with SMTP id
- 71dfb90a1353d-5bb004a9332mr495686e0c.8.1781164539460; 
- Thu, 11 Jun 2026 00:55:39 -0700 (PDT)
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com.
- [209.85.221.172]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5bb0d9b4a20sm728599e0c.13.2026.06.11.00.55.37
+ AFNElJ/r8pJfQqnMBS9eo9CIpc+ulVtbMJgu2BMY336L901/pP3GAFYoj3rGbt1sq8bIAd8wgKtz2ueBtXk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwjHoOrBup3rWNlbEP0MBO/bczzFhy2R0yLptkVWvSrmTISBqr6
+ tK7kLkYtdPcbpEvsWic5tIa//uMmBQ+iL8YdDr9CqYruYNac+eapXw7GuuPV63RjoE0=
+X-Gm-Gg: Acq92OGVZwlMf9UaTbe6pkcNvq/eWPzSHLT23xD4Mf8Ih6lYGUuhYWkZTJvtgAmpTww
+ LqLFkxTEgxIxoK1sj+R5ekudnSCgblSTupnus2sgeqpEDCV+oGSS2qMyywgDtccOcFO0KR8QE0d
+ bmBdP/Tlk9oRDSFPDsVMzHQF8zBLtuWW5TmnGo7ss8gSjFrpYZjs2n0cx7j8RKlUfu0lgbbggf+
+ 2FEUOWjN1HQ/FJrb02JtYi5+HWjL9CGsSRwRuI5kj3r/OSEL8XRrgk99sR2q+eud9TCzrNQlEQg
+ aFQg8h0HmTnHneYswzAShQxpS26B2yvH1RZnry5yxo/FQWypNUtNWk8Pp2EIAT037iCKb0GjC0i
+ ksDThfgA72BlKdtxQVZwyIRXRbBDT7DHDB6OkwTSY96vXlhm2fPonL3BF86vJerGRvfuUSPydnV
+ UHJaeDVOd3tvtlvODZED31K2Dio+cDlauZm7wCmqP8mzDEnjDMLtUUe/N3nhZlUT/wPUR1Ol9s8
+ sFDp2sSbg==
+X-Received: by 2002:a05:6122:2895:b0:573:a6f2:65f with SMTP id
+ 71dfb90a1353d-5bafe94315fmr399786e0c.6.1781164560030; 
+ Thu, 11 Jun 2026 00:56:00 -0700 (PDT)
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com.
+ [209.85.217.53]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5bb0e17f196sm727371e0c.15.2026.06.11.00.55.58
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jun 2026 00:55:38 -0700 (PDT)
-Received: by mail-vk1-f172.google.com with SMTP id
- 71dfb90a1353d-59d07df448bso5777257e0c.0
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 00:55:37 -0700 (PDT)
+ Thu, 11 Jun 2026 00:55:59 -0700 (PDT)
+Received: by mail-vs1-f53.google.com with SMTP id
+ ada2fe7eead31-6cfdcc79789so2998436137.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 00:55:58 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AFNElJ9lX3mvKNd344MXGWQb/CEQj/AeXaWOpg4Gnt3s7rXjSh72O7zw5zvZQZf2hkNo3cVonL3Y07w/Fhw=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:419e:b0:639:1e8b:ecd9 with SMTP id
- ada2fe7eead31-71d5ca6f14emr533723137.20.1781164537632; Thu, 11 Jun 2026
- 00:55:37 -0700 (PDT)
+ AFNElJ/y9LdrRSSeg+ye4QAq59ENKSkCIelQHe3F9+zniWBvyQRFLvH3NfCX5sgwv6zzZwufn5V5qNPCN4g=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:3e02:b0:6d3:aad5:6d2d with SMTP id
+ ada2fe7eead31-71d5f2c9e58mr483488137.18.1781164558613; Thu, 11 Jun 2026
+ 00:55:58 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260611005952.146825-1-marek.vasut+renesas@mailbox.org>
- <20260611005952.146825-2-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260611005952.146825-2-marek.vasut+renesas@mailbox.org>
+ <20260611005952.146825-3-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260611005952.146825-3-marek.vasut+renesas@mailbox.org>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 11 Jun 2026 09:55:26 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVU=msc6f3KpW1PeC1mB4dLKhAdqRaFx2i7GMRNDv+4vg@mail.gmail.com>
-X-Gm-Features: AVVi8CctB5g3lahw0kyIeWwLgXx3I55B4rJDSwSay_Z70zWBy3E0yh5vjNFIWN4
-Message-ID: <CAMuHMdVU=msc6f3KpW1PeC1mB4dLKhAdqRaFx2i7GMRNDv+4vg@mail.gmail.com>
-Subject: Re: [PATCH 2/3] arm64: dts: renesas: r8a77965-salvator-xs: Enable GPU
- support
+Date: Thu, 11 Jun 2026 09:55:47 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXZASW=5v55QqsSjt0y_0Cf-3H4xuVYcQO96spfvQevug@mail.gmail.com>
+X-Gm-Features: AVVi8Cc4jIWBETm4Ynpi7szi6_VsDVkjFdXWa9mml-KaDUYCZmOXsqOLYp1ugKQ
+Message-ID: <CAMuHMdXZASW=5v55QqsSjt0y_0Cf-3H4xuVYcQO96spfvQevug@mail.gmail.com>
+Subject: Re: [PATCH 3/3] arm64: dts: renesas: r8a77965-ulcb: Enable GPU support
 To: Marek Vasut <marek.vasut+renesas@mailbox.org>
 Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
  David Airlie <airlied@gmail.com>, Frank Binns <frank.binns@imgtec.com>, 
@@ -97,7 +96,7 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On Thu, 11 Jun 2026 at 03:00, Marek Vasut
 <marek.vasut+renesas@mailbox.org> wrote:
-> Enable GPU on Salvator-X 2nd version with R-Car M3-N.
+> Enable GPU on M3NULCB with R-Car M3-N.
 >
 > Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
