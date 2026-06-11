@@ -4,68 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4FE7CD98D2
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 09:50:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BD98CD98CC
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 10:01:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09EC110E759;
-	Thu, 11 Jun 2026 09:50:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3D2F10E58F;
+	Thu, 11 Jun 2026 10:01:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="SfbHZSdf";
+	dkim=pass (2048-bit key; unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.b="RJ01i4F7";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="H+VOIoa1";
 	dkim-atps=neutral
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93C1C10E759
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 09:50:49 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4gbdF20qKmz9txq;
- Thu, 11 Jun 2026 11:50:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1781171446; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8APNNjMUqlJKRCWIhdXA+v06KtrUcTvadK3ymXZ0K00=;
- b=SfbHZSdfOWpHH4Gu+n0dJwYZi7PskhcxXQ66iCSadWUCaegazL/hohsCOotozPaE/w/iUj
- pFoAModvZajLQMaPEs2nmls4yOvEnUiJxKXo7LDWMzRsRuHfdz/tWbyywezInt/XguaNXY
- U0YRPX4J7lcKjNx2ua91UyyUgJJQNAxnDaoFVVjfAB1FXL/4ShhClpR+jb1N8Hn6Kuuvxs
- ZjdA3g8hp9XneqBL+E8o3qxJ/vbAlkrf3FMYMcU06IPoap0uJ+No7JM+WEmIXr2srMNi4v
- nnHSo9eLyBUR/gYMzAnIA3gpvduGmQjn8qpRUHKw4lQI2dpt1uJDIAA7Yee1Ng==
-Message-ID: <7dc7920604169a8d7ff97c70bb3867286f3b3ea3.camel@mailbox.org>
-Subject: Re: [RFC PATCH] dma-fence: Fix races of fence callbacks versus
- destructors by locking
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- phasta@kernel.org, Danilo Krummrich <dakr@kernel.org>, airlied@gmail.com
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Boris Brezillon	
- <boris.brezillon@collabora.com>, Alice Ryhl <aliceryhl@google.com>, Daniel
- Almeida <dwlsalmeida@gmail.com>, Gary Guo <gary@garyguo.net>, Tvrtko
- Ursulin	 <tvrtko.ursulin@igalia.com>, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Thu, 11 Jun 2026 11:50:38 +0200
-In-Reply-To: <c3e8a9b8-e344-491f-8b8c-f6a682f15121@amd.com>
-References: <20260608142436.265820-2-phasta@kernel.org>
- <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
- <fa9a335196525adbc03ec21b2e05bb526e4fc174.camel@mailbox.org>
- <9d49c901-fcdf-487a-a733-0320d0bdf94c@amd.com>
- <DJ3V3OCLIK2K.3CYKWYNHYU6JQ@kernel.org>
- <ea4e0541-3702-4014-b8f6-0746a148df86@amd.com>
- <DJ3VYD71HDQ2.3C8GG983Z2YCM@kernel.org>
- <c8564ea0-8ff4-4049-996d-bd978c478372@amd.com>
- <aebe759117cd65004510946e39bd02e4c903e1e3.camel@mailbox.org>
- <84519e72-e057-45f9-8ace-baf12f095e55@amd.com>
- <29754897c2b6d0a9560a05fcd1c0a0946577518d.camel@mailbox.org>
- <25494ee8-5108-4044-b4d9-cfcb37c397ea@amd.com>
- <c6a3964b130ac371e203aeee5f5b52d146c22bea.camel@mailbox.org>
- <c3e8a9b8-e344-491f-8b8c-f6a682f15121@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Greylist: delayed 826 seconds by postgrey-1.36 at gabe;
+ Thu, 11 Jun 2026 10:01:34 UTC
+Received: from fhigh-b8-smtp.messagingengine.com
+ (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B69A810E58F
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 10:01:34 +0000 (UTC)
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 3550C7A0145;
+ Thu, 11 Jun 2026 05:47:47 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-02.internal (MEProxy); Thu, 11 Jun 2026 05:47:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm3; t=1781171267;
+ x=1781257667; bh=UZ2O6D9TYuSc3XK/tGr/NEv5TCWienlMRXuMasKrb3w=; b=
+ RJ01i4F7M6T3NtQbcPpC9m1v53MeVxZalQe5mlgdsR5exsjqrJosyf9l3THwbm5b
+ 6xEpOzIu85GFVOWvgGsrLJcRRRLU2MYRJexMGELllcsc43ubuF6Hp6Jpx/YrkSy5
+ ExASw6fgV8XOKbeT/p9OPnuHQAmka8NPpDJyRMA6TWcgCCe0aJ9jXfu/hNhutkY8
+ 7ikAGGlTJU6F2Xxst+HZ9I3JC1djRv2TKjcQHmCVIZ/t9d1BhbR7h+TBVNVzeWIA
+ x7LI+lRblZYVryar1Ki6OT0FzdXJBQVQiVK/2/gtjih0NQqWnBbqnW1lkbLz6KGx
+ qfpsInWIruD/+9jZhZrOXw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1781171267; x=
+ 1781257667; bh=UZ2O6D9TYuSc3XK/tGr/NEv5TCWienlMRXuMasKrb3w=; b=H
+ +VOIoa1uDfmQaRubfyPh39kpBBRvWYAFMxB8FHMOaSGKeUMIkpPU4GT2oB6L+V5D
+ l2T++99L5tmIExAy1SKs6NYw4JmmVQb/sGgWb4y6QVG+nWCOpbToUjlbaxCPCtu/
+ +jfmffCmYDmp415jL0gahqIGKfoNn/jL7VFd8Pd/6FTzhEop4KgE85OtMb/P0b+b
+ M1V+CLgAOE+StLpclJx4CYK52OS4RYdo6kYLivxEGN/Zirdkh3snaqp4wjd8JIFr
+ fe+uBec9+BpbzI0qCE/WlH1tYZDbOMGWX035oFLsZUBqMaBviDYR8yzJ/oV9Rcpx
+ 9skHkH9l0GBNSzlc+PolQ==
+X-ME-Sender: <xms:QYQqakDSdxbv_5i1gNbWKEvW2MR_QtsN2ggOm8hn8F4ezi2tfqgU-Q>
+ <xme:QYQqaifELtSd_NtVjk_xBz0quXvKdhtlGSRpQef7u7pirneiQuSI0pSGoytXkL5Oy
+ vm5E5pPwwGQltqCwTYqAnUyLQTJ9wIuCphgmUa4Ra6k3-x9Jc-J1g>
+X-ME-Received: <xmr:QYQqatsq-sSd7xL_15hK3W7ecPt53edqEOjMnmmFukkNSC5Km3GcgnG6VXzPQ-WjlF738SnJVdvaIMC3btQszgx9pmsQ>
+X-ME-Proxy-Cause: dmFkZTFSv3JB1Ni2NSAN7aIRmf1apyIuRnKdo8KEYWuccHfmeKPOVWKXC3OfaoSLzL2W7f
+ nNOAnnyYfP8hapRVEhYpYVm5/Z2ckitiCKkSFw2fKP4q9G9hkaJy+1G5/Beuv5/YWp5smA
+ vKG9SdCje210KdC3G6aLaRj+f5ORP48y9jT0dTAzqjlXpou2INuS5XE2SEJcfFsToQLfbB
+ uviAh5Of/P9J2hQ04clNI9hwAbBscNWuVs+bg9B63kxHSfE1VWlAmuQ1asSufXWnRJuvwt
+ NbJJv8FjFR+GluH5q6YvALo2YZQMDCabxEj7lE7VfO23Q8qkC3nPtAIObxqK+E+Bt2R7XO
+ QcvFh1cYrMCCKveZG2bbon9kAS1WNVor1cidvPWgMmaeIy9VJrF1x9hFDpmQpemJJYBjZn
+ F8HQG6l98wlvwkHf1GUWYZ2B5UbRBh6gV85gX/M8+tWhFU8Y+HCOVpj8akvrx7Ewc7M2vf
+ 95HcXLaaj9xuJiJmUZqAQyXL21czLEniKui4xhb4VK3Lw33MYs92qrXN+r9HNBbPlOHEmW
+ 8N1e7zbyRjbVDEuvlDimYlurEdu3Icq9lxVIvhxmeH1HX3nFyJldQ7A7zbyhK7Jkpd8Gdn
+ a5ySNV0/R+oA6M1f+ZPJaX3prKoFrLF7ZxVZLkwK0cSTQ39DOuxcxz+j75Rg
+X-ME-Proxy: <xmx:QYQqahLaji_soT2YGOOZS0-EiJUy8VumU02i_EKHqltp74Khcn1K-w>
+ <xmx:QYQqana4FklhvInZfs59k1o8X4kgA6FpPhMtCGdiYcqtum_4QOXQNA>
+ <xmx:QYQqavIpV4bNVlgSh1tH6yQmUzIWNn8QXsQlS0GS3Zyqe767rIapnQ>
+ <xmx:QYQqaopng1QiEO4BgdkNqYi-_D5Rr3kfL17-P2MBfxgrY7mtJ-kHFw>
+ <xmx:Q4Qqan6tOiRdTjReYsb2ShalPTv-QKourkashIn1X3L0K6OVill_mQj1>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 11 Jun 2026 05:47:45 -0400 (EDT)
+Date: Thu, 11 Jun 2026 11:47:43 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
+ David Airlie <airlied@gmail.com>, Frank Binns <frank.binns@imgtec.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Magnus Damm <magnus.damm@gmail.com>, Matt Coster <matt.coster@imgtec.com>,
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 1/3] arm64: dts: renesas: r8a77965-salvator-x: Enable GPU
+ support
+Message-ID: <20260611094743.GC69568@ragnatech.se>
+References: <20260611005952.146825-1-marek.vasut+renesas@mailbox.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: 1b548ff8d1a05a45a6e
-X-MBO-RS-META: uxk6mykxh1hgxhodj13rkj7kifefowsr
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260611005952.146825-1-marek.vasut+renesas@mailbox.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,244 +104,59 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 2026-06-11 at 11:14 +0200, Christian K=C3=B6nig wrote:
-> On 6/11/26 10:35, Philipp Stanner wrote:
-> > On Wed, 2026-06-10 at 17:15 +0200, Christian K=C3=B6nig wrote:
-> > > On 6/10/26 16:25, Philipp Stanner wrote:
-> > > >=20
-> > > > Are you referring to this comment from the documentation?
-> > > >=20
-> > > > =C2=A0* Since many implementations can call dma_fence_signal() even
-> > > > when before
-> > > > =C2=A0* @enable_signaling has been called there's a race window,
-> > > > where the
-> > > > =C2=A0* dma_fence_signal() might result in the final fence referenc=
-e
-> > > > being
-> > > > =C2=A0* released and its memory freed. To avoid this,
-> > > > implementations of this
-> > > > =C2=A0* callback should grab their own reference using
-> > > > dma_fence_get(), to be
-> > > > =C2=A0* released when the fence is signalled (through e.g. the
-> > > > interrupt
-> > > > =C2=A0* handler).
-> > > > =C2=A0*
-> > > > =C2=A0* This callback is optional. If this callback is not present,
-> > > > then the
-> > > > =C2=A0* driver must always have signaling enabled.
-> > > > =C2=A0*/
-> > > > =C2=A0bool (*enable_signaling)(struct dma_fence *fence);
-> > >=20
-> > > Yes, that was an extremely bad idea which I have tried multiple
-> > > times to fix.
-> >=20
-> > What's the reason why enable_signaling() is nowadays called with
-> > lock-
-> > protection?
->=20
-> That was some decision originally made a long long time ago because
-> the initial thought was that fence need to signal in order, but that
-> concept was also abandoned a long long time ago.
+Hi Marek,
 
-You also need it to avoid a race with the driver's requested signalling
-in ops->enable_signalling(), through dma_fence_add_callback().
+Thanks for your work.
 
-I pointed that out in my answer. You cut it out and did not react to
-that statement.
+On 2026-06-11 02:57:29 +0200, Marek Vasut wrote:
+> Enable GPU on Salvator-X with R-Car M3-N.
+> 
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
->=20
-> Fixing this is on my TODO list ever since we figured out that this
-> was a bad idea, see the latest patch set here as well:
-> https://www.spinics.net/lists/dri-devel/msg461253.html
->=20
-> > > > Sure you can. If everything is properly synchronized.
-> > > >=20
-> > > > // driver
-> > > > dma_fence_signal(f);
-> > > > // all callbacks can't reach our driver anymore
-> > >=20
-> > > That's irrelevant. The question is not if a callback can reach
-> > > the backend after signaling.
-> >=20
-> > Irrelevant for your lock-inversion maybe. It's very relevant for
-> > life
-> > time and module unload. Proof: you and Tvrtko made
-> > dma_fence_signal()
-> > the decoupling point, with RCU protection.
-> >=20
-> > And as I keep saying, that synchronisation point would make the
-> > entire
-> > framework simpler and more robust if we were making it consistent.
->=20
-> Exactly that's what I strongly disagree on.
+For the whole series,
 
-Yeah, and you don't provide any rationale AFAICS. The argument
-basically is "this is how it is, and it is how it is because it is like
-that". It's "this is done with RCU instead of locks, because you can
-use RCU for that".
+Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 
-No offense intended, but I just can't see any substantial argument
-except for non-existing deadlocks that COULD ALREADY OCCUR and have to
-be mitigated by the drivers already.
+> ---
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Frank Binns <frank.binns@imgtec.com>
+> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Magnus Damm <magnus.damm@gmail.com>
+> Cc: Matt Coster <matt.coster@imgtec.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: "Niklas Söderlund" <niklas.soderlund@ragnatech.se>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: devicetree@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> ---
+>  arch/arm64/boot/dts/renesas/r8a77965-salvator-x.dts | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/renesas/r8a77965-salvator-x.dts b/arch/arm64/boot/dts/renesas/r8a77965-salvator-x.dts
+> index f84c64ed4df7b..af8cfdccd2103 100644
+> --- a/arch/arm64/boot/dts/renesas/r8a77965-salvator-x.dts
+> +++ b/arch/arm64/boot/dts/renesas/r8a77965-salvator-x.dts
+> @@ -30,3 +30,7 @@ &du {
+>  	clock-names = "du.0", "du.1", "du.3",
+>  		      "dclkin.0", "dclkin.1", "dclkin.3";
+>  };
+> +
+> +&gpu {
+> +	status = "okay";
+> +};
+> -- 
+> 2.53.0
+> 
 
->=20
-> The fence lock and the synchronization point which allows the driver
-> to know when nobody else is in a callback any more are two very
-> different things we should not be mixed up together.
-
-Why? It's literally what locks exist for. For synchronization.
-
-RCU has been literally developed for deadlock avoidance, which its
-usage in dma_fence provably doesn't achieve. You still have the
-deadlock problem, and on top of that you have redundant, unnecessary
-RCU calls.
-
->=20
-> The fence lock protects the signaled state of the fence, so that the
-> fence functions can add callbacks, test signaling etc... while the
-> fence can't signal. It is protecting internal state of the fence and
-> so should be internal to the fence, external code should not touch it
-> if possible.
-
-You allow people to take the lock manually with the API function
-dma_fence_lock_irqsave().
-
-But you know what, I absolutely agree!
-
-I think if we take the locks for the callbacks and remove
-dma_fence_set_error(), then the need to ever touch the lock manually
-disappears.
-
-Then the driver knows what I pointed out at least three times now:
-
-dma_fence_signal(f);
-cleanup(f); // perfectly safe, bc after signal() all accesors are done
-
-No RCU, no nothing. Just plain proper synchronization.
-
-But when I point that out, you say "No no, you can't do that, that's
-not the purpose of the lock, you have to do:
-
-dma_fence_signal(f);
-call_rcu(cleanup(f));
-"
-
-???
-
->=20
-> The synchronization point for the driver is a service the dma_fence
-> implementation offers to let drivers know when there is no more
-> caller of their function. And usually this is implemented using
-> RCU/SRCU.
-
-"this is how it is because it is how it is".
-
-The one and only reason why you need RCU is that you don't lock
-consistently.
-
-Using RCU everywhere is nothing but symptom treatment.
-
->=20
-> Tvrko and I now choose RCU instead of SRCU because there didn't seem
-> to be a need to sleep in the fence callbacks.
-
-You can't sleep in the callbacks, because the callbacks are invoked
-with the fence spinlock being held.
-
->=20
-> But both RCU and SRCU offer not only synchronize_rcu()/_srcu() but
-> also call_rcu()/_srcu() which allows drivers to delegate the cleanup
-> to a point where it is save to do so.
-
-"We use RCU instead of locks because we can use RCU instead of locks".
-This is not an argument against locks, Christian.
-
-If you lock consistently, cleaning up after dma_fence_signal() is
-guaranteed to be safe to do, immediately.
-
->=20
-> So while I see the problem I actually don't understand why you insist
-> of solving it with the fence lock?
-
-Well, that's then a philosophical moment, because I on the contrary
-don't understand why you insist on solving it with RCU :D
-
-The tl;dr is: using the locks makes the entire implementation more
-robust and consistent and allows for removing the RCU delays.
-
-I showed you a bug that would have been prevented with locks. It was
-caused by the improper synchronization, where dma_fence_is_signaled()
-can return true when the callbacks have not yet been run.
-
-The solution is to use
-
-dma_fence_lock_irqsave(f);
-if (dma_fence_is_signaled_locked(f))
-  cleanup(f);
-dma_fence_unlock_irqrestore(f);
-
-IOW=E2=80=A6 the solution is to call the ops->signaled() callback with the =
-lock
-held=E2=80=A6=E2=80=A6=E2=80=A6 notice something? ;)
-
-I provided more rationale on the rest of my mail, but you cut that out.
-Here, let me repost it:
-
-
-"
-You need the lock for synchronization. To add the callback.
-
-Basically, you came quite naturally to the same conclusion and solution
-as I did: you need / want race-free synchronization.
-
-It's the exact same use-case, really. You want to prevent someone from
-interfering with the fence while the ops->callback is running. You need
-the lock for that, by definition.
-
-The other two relevant callbacks, signaled() and set_deadline(),
-already have the same lock protection guarantee. The former through
-dma_fence_is_signaled_locked(), the latter through  the fact that
-everyone takes the lock immediately after callback begin anyways.
-"
-
-and
-
-"
-All we have to do is make the existing rules official and the code a
-bit more consistent.
-"
-
-
-The deadlock argument doesn't hold up because the lock is already being
-taken for enable_signalling() and signaled().
-
-I showed you one Nouveau bug which the locks would have prevented.
-
-Furthermore, I argue that it's impossible for you to remove the lock
-protection from ops->enable_signalling().
-
-I further argue that consistent lock protection would allow for
-removing the need for dma_fence_is_signaled_locked() and
-dma_fence_lock_irqsave() as public APIs.
-
-
->  That just brings us back to the bad design we had before where
-> internal fence state is abused to protect something else.
-
-If we apply my design, we could deprecate dma_fence_lock_irqsave() and
-thereby declare it illegal to do that.
-
-Relying on dma_fence_signal() being a point of synchronization is
-completely different from using its internal lock to protect your own
-list or tree or whatever.
-
-
-P.
-
->=20
-> Regards,
-> Christian.
+-- 
+Kind Regards,
+Niklas Söderlund
