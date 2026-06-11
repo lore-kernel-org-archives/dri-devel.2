@@ -4,80 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64A20CD98C7
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 19:53:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 549F0CD98C7
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 20:25:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEAA110F117;
-	Thu, 11 Jun 2026 19:53:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B753D10E852;
+	Thu, 11 Jun 2026 20:25:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="zR/vVR3s";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cdmmYE1g";
 	dkim-atps=neutral
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com
- [209.85.221.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4465E10F117
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 19:53:12 +0000 (UTC)
-Received: by mail-vk1-f170.google.com with SMTP id
- 71dfb90a1353d-59f967189e7so64334e0c.0
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 12:53:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1781207591; x=1781812391; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=sbId00WAHp2KabBC0vsQBfXuDPvPFs92EuJ0J29qKqs=;
- b=zR/vVR3s28rokfeO9IwHQGra815A13g/K5JJSmopcW0Homrl0Icp+S/iSbEJaYDakQ
- +cH6P7/kwWrnIGaUaliiivtkEEAw1swb/qHpWONTLnj0srwrn9MMRukCpvykLf2/rwMt
- 0dPS7EqEpQwJliIZbGErpqG8PWLqqF0UTCsMAnYB7+bs7BYeaKeJEkLgAXKPHJSR2xHR
- 97TTucayWq5qWCaLglfA2A+gMOj9He/v0M1NyQrLKUt0H+cOlKx8Z4LfCyvp2L8FHntJ
- FuMSSWQtURC1KxFE5VCkKXanE3Fkp5rHuo20RnW+eDoF71ObY7liifE45YKe7qihAeUX
- 9fsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781207591; x=1781812391;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=sbId00WAHp2KabBC0vsQBfXuDPvPFs92EuJ0J29qKqs=;
- b=cf6xDEQ9C5VkekWWcRLQfIkYCsgbGMa3/Hh7wkqiwu5JUPi5OkIyI+I2KDwL/S6ado
- N2vgqnIGZGf7oqys6D0jASBr9jfhkY8k+62zTyHqNkGq0dvxIWz1oMjPDPTWhnGoOafQ
- +Hv5wIqKcERuLa0Ovo9IEwcZcqGNdjiqN++aMvpXVFYJ+tq2SbjosGatSoeYFQyf8Qfh
- ULw+C0f8AsJ//J+MlQ9PZ2HF9P2DRdHLTP1v+92Wwe2oKceU8HYe7vhjRI9frqtVTssF
- 5Y0yxjG4lhHX7pduqFPnS+zsMVwzuEZXX2GTjY2rx13s52LoHldvs0kj19Lagvdu5lcO
- PNSQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+xitw0h4+nvo1HM+5/otovMJn8/zpTOOb9W5dekKHLNJEcvrdsxqpDFfOVqTxHJIPYJl98arrr2Vo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxGCbOTFZmTQlky11vepipihiqt6Fo8YwNCCGvQFW7ekGmpfUFv
- HrBfrBcZvTbzUDHLXt58sS73wYEzT6QHU/bIaRQjLqYUrQNEoHv+wxS0V/g7EBvxfd0=
-X-Gm-Gg: Acq92OEJybpizKahczvT/JKiXtFZ0Cfr50OKv6vBasg0ofYxHj6ZQJZGSpjqUlSEnFy
- vUit3WzNRrPUOhMZuxhAIoKIFXPndmyDeTAh/Ue+nxHM5eHF6xcQmfDfbkBmyqZ9UzDpoTrdyn/
- JuyRNChr7TthcL4+/weqCkPvIFPWnQyTXIOcafzoHPZBu3AUF4MTMfb5qar9aLA2G5zIRsizh/Z
- RZA3+I8K0J5QMVv6MF+bd8TdnqYC2ECxPAUXnXvmvR1VdYunDDaUszshbVc2JlrMkr9O3yIBav1
- eTTPnyZiPAqL6BROnLSrujx95WqsfkKSOh4nwL8M7BoHb+xN3OwUFgKf5JuKHynKvWdR/H38lwJ
- P34zZ0DEZTpJxqIXaJHufgUqK/mClfSQ1nEvMj5yUGoNGi8easiyLiJu9LR6Z64NRbUHts04uTv
- pPMOTkIwgX8ShnG986GoP732eOzC3+rbxbr2BskSOR+q6UVR1KiCDs38+Xl3DNdsSGjP9JF4myI
- k+oqJymS9htKMP/B0Rt6annOlwzNZAL0tVasbi19kVR+g3qIw==
-X-Received: by 2002:a05:6122:21a6:b0:583:5e28:17b1 with SMTP id
- 71dfb90a1353d-5bb01c400a0mr2865749e0c.12.1781207591262; 
- Thu, 11 Jun 2026 12:53:11 -0700 (PDT)
-Received: from gui-host.Dlink ([186.220.219.98])
- by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5bb691bb8a4sm345359e0c.10.2026.06.11.12.53.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jun 2026 12:53:10 -0700 (PDT)
-From: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
-To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- harry.wentland@amd.com, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com
-Cc: Guilherme Ivo Bozi <guilherme.bozi@usp.br>, amd-gfx@lists.freedesktop.org,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4641310E7EB
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 20:25:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 83E34601FE;
+ Thu, 11 Jun 2026 20:25:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0FE31F000E9;
+ Thu, 11 Jun 2026 20:25:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781209556;
+ bh=cwZQ4Fkcp4Qe17h4r7IOj7PfdpW+0mtqRp4Cr44HjnI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=cdmmYE1gqMivjLvCV3iGtJtODJlL4jjwuVAlY1aJEWIcRe+IsSWQPSh9irNHGx7ys
+ oULys0IO85O84kQ2e18N2YEahb1G6fLO2/XzsT0ys3DZVvTs9Jgj3KLK8zZcsCYiC3
+ Uw+BKAmpFtQSCsfwBq7Fnh/tDkNWv3kDUxDqs0O/IYBPmaSvZt36JL8F00a8ysNdd3
+ 2OOqI1I28taUlHf1c2i9HLPlM6q8jmKssE22rjuS+AVCnY/KBmY5sQzny1VX4iMfAd
+ csyUx650G3Sn6QxRw61fooa+DdXTSzG3ps1OmoxUCp027dFhrVCg9Bm4FHZ4nDeUn8
+ iLlH+4ovOiwcg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 4/5] vfio/pci: implement get_tph and DMA_BUF_TPH feature
+To: "Zhiping Zhang" <zhipingz@meta.com>
+Cc: linux-pci@vger.kernel.org, kvm@vger.kernel.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH RESEND 9/9] drm/amd/display: convert dcn42 GPIO translation to
- lookup tables
-Date: Thu, 11 Jun 2026 16:49:09 -0300
-Message-ID: <20260611195026.25125-10-guilherme.bozi@usp.br>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260611195026.25125-1-guilherme.bozi@usp.br>
-References: <20260611195026.25125-1-guilherme.bozi@usp.br>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260610193158.2614209-5-zhipingz@meta.com>
+References: <20260610193158.2614209-5-zhipingz@meta.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 11 Jun 2026 20:25:55 +0000
+Message-Id: <20260611202555.B0FE31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,241 +53,92 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace dcn42 GPIO translation switch statements with the
-generic table-based translation helpers.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Unconditional validation of the flag-gated 'ph' parameter can le=
+ad to spurious -EINVAL errors, breaking the syscall trust boundary.
+- [Medium] VFIO_DEVICE_FEATURE_PROBE falsely reports that VFIO_DEVICE_FEATU=
+RE_DMA_BUF_TPH is supported even if the hardware lacks TPH support.
+--
 
-This simplifies the GPIO mapping logic and reduces duplicated
-translation code.
+commit d57637d667ca6dc95def77a0a5bd339d62d4f506
+Author: Zhiping Zhang <zhipingz@meta.com>
 
-No functional changes intended.
+vfio/pci: implement get_tph and DMA_BUF_TPH feature
 
-Signed-off-by: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
----
- .../dc/gpio/dcn42/hw_translate_dcn42.c        | 193 +++++++-----------
- 1 file changed, 70 insertions(+), 123 deletions(-)
+This commit implements dma-buf get_tph for vfio-pci exported dma-bufs and
+adds the VFIO_DEVICE_FEATURE_DMA_BUF_TPH feature. This allows userspace to
+publish TPH metadata for a VFIO-owned device. It checks completer support
+and protects the metadata under dmabuf->resv.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c
-index e7e1d9979876..7b2c4cd42450 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c
-@@ -39,62 +39,76 @@
-  * end *********************/
- 
- 
-+static const struct gpio_id_offset_entry gpio_offsets[] = {
-+	/* HPD */
-+	GPIO_ENTRY(HPD0_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_1),
-+	GPIO_ENTRY(HPD1_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_2),
-+	GPIO_ENTRY(HPD2_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_3),
-+	GPIO_ENTRY(HPD3_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_4),
-+	GPIO_ENTRY(HPD4_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_5),
-+};
-+
-+
-+/* DDC */
-+static const struct gpio_ddc_offset_entry ddc_offset_map[] = {
-+	{ REG(DC_GPIO_DDC1_A), GPIO_DDC_LINE_DDC1 },
-+	{ REG(DC_GPIO_DDC2_A), GPIO_DDC_LINE_DDC2 },
-+	{ REG(DC_GPIO_DDC3_A), GPIO_DDC_LINE_DDC3 },
-+	{ REG(DC_GPIO_DDC4_A), GPIO_DDC_LINE_DDC4 },
-+	{ REG(DC_GPIO_DDC5_A), GPIO_DDC_LINE_DDC5 },
-+	{ REG(DC_GPIO_DDCVGA_A), GPIO_DDC_LINE_DDC_VGA },
-+};
-+
-+
-+static const struct gpio_pin_entry gpio_pins[] = {
-+	/* DDC */
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC1,
-+		DC_GPIO_DDC1_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC2,
-+		DC_GPIO_DDC2_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC3,
-+		DC_GPIO_DDC3_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC4,
-+		DC_GPIO_DDC4_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC5,
-+		DC_GPIO_DDC5_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC_VGA,
-+		DC_GPIO_DDCVGA_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC1,
-+		DC_GPIO_DDC1_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC2,
-+		DC_GPIO_DDC2_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC3,
-+		DC_GPIO_DDC3_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC4,
-+		DC_GPIO_DDC4_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC5,
-+		DC_GPIO_DDC5_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC_VGA,
-+		DC_GPIO_DDCVGA_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
-+};
-+
-+
- static bool offset_to_id(
- 	uint32_t offset,
- 	uint32_t mask,
- 	enum gpio_id *id,
- 	uint32_t *en)
- {
--	(void)mask;
--	switch (offset) {
--	/* HPD */
--	case REG(HPD0_DC_HPD_INT_STATUS):
--		*id = GPIO_ID_HPD;
--		*en = GPIO_HPD_1;
--		return true;
--	case REG(HPD1_DC_HPD_INT_STATUS):
--		*id = GPIO_ID_HPD;
--		*en = GPIO_HPD_2;
-+	if (dal_hw_translate_gpio_ddc_offset_to_id(
-+			ddc_offset_map,
-+			ARRAY_SIZE(ddc_offset_map),
-+			offset, en))
- 		return true;
--	case REG(HPD2_DC_HPD_INT_STATUS):
--		*id = GPIO_ID_HPD;
--		*en = GPIO_HPD_3;
--		return true;
--	case REG(HPD3_DC_HPD_INT_STATUS):
--		*id = GPIO_ID_HPD;
--		*en = GPIO_HPD_4;
--		return true;
--	case REG(HPD4_DC_HPD_INT_STATUS):
--		*id = GPIO_ID_HPD;
--		*en = GPIO_HPD_5;
--		return true;
--	/* DDC */
--	/* we don't care about the GPIO_ID for DDC
--	 * in DdcHandle it will use GPIO_ID_DDC_DATA/GPIO_ID_DDC_CLOCK
--	 * directly in the create method
--	 */
--	case REG(DC_GPIO_DDC1_A):
--		*en = GPIO_DDC_LINE_DDC1;
--		return true;
--	case REG(DC_GPIO_DDC2_A):
--		*en = GPIO_DDC_LINE_DDC2;
--		return true;
--	case REG(DC_GPIO_DDC3_A):
--		*en = GPIO_DDC_LINE_DDC3;
--		return true;
--	case REG(DC_GPIO_DDC4_A):
--		*en = GPIO_DDC_LINE_DDC4;
--		return true;
--	case REG(DC_GPIO_DDC5_A):
--		*en = GPIO_DDC_LINE_DDC5;
--		return true;
--	case REG(DC_GPIO_DDCVGA_A):
--		*en = GPIO_DDC_LINE_DDC_VGA;
-+
-+	if (dal_hw_translate_gpio_offset_to_id(
-+			gpio_offsets,
-+			ARRAY_SIZE(gpio_offsets),
-+			offset, mask, id, en))
- 		return true;
--	default:
--		ASSERT_CRITICAL(false);
--		return false;
--	}
-+
-+	ASSERT_CRITICAL(false);
-+	return false;
- }
- 
- 
-@@ -103,81 +117,14 @@ static bool id_to_offset(
- 	uint32_t en,
- 	struct gpio_pin_info *info)
- {
--	bool result = true;
--
--	switch (id) {
--	case GPIO_ID_DDC_DATA:
--		info->mask = DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK;
--		switch (en) {
--		case GPIO_DDC_LINE_DDC1:
--			info->offset = REG(DC_GPIO_DDC1_A);
--		break;
--		case GPIO_DDC_LINE_DDC2:
--			info->offset = REG(DC_GPIO_DDC2_A);
--		break;
--		case GPIO_DDC_LINE_DDC3:
--			info->offset = REG(DC_GPIO_DDC3_A);
--		break;
--		case GPIO_DDC_LINE_DDC4:
--			info->offset = REG(DC_GPIO_DDC4_A);
--		break;
--		case GPIO_DDC_LINE_DDC5:
--			info->offset = REG(DC_GPIO_DDC5_A);
--		break;
--		case GPIO_DDC_LINE_DDC_VGA:
--			info->offset = REG(DC_GPIO_DDCVGA_A);
--		break;
--		case GPIO_DDC_LINE_I2C_PAD:
--		default:
--			ASSERT_CRITICAL(false);
--			result = false;
--		}
--	break;
--	case GPIO_ID_DDC_CLOCK:
--		info->mask = DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK;
--		switch (en) {
--		case GPIO_DDC_LINE_DDC1:
--			info->offset = REG(DC_GPIO_DDC1_A);
--		break;
--		case GPIO_DDC_LINE_DDC2:
--			info->offset = REG(DC_GPIO_DDC2_A);
--		break;
--		case GPIO_DDC_LINE_DDC3:
--			info->offset = REG(DC_GPIO_DDC3_A);
--		break;
--		case GPIO_DDC_LINE_DDC4:
--			info->offset = REG(DC_GPIO_DDC4_A);
--		break;
--		case GPIO_DDC_LINE_DDC5:
--			info->offset = REG(DC_GPIO_DDC5_A);
--		break;
--		case GPIO_DDC_LINE_DDC_VGA:
--			info->offset = REG(DC_GPIO_DDCVGA_A);
--		break;
--		case GPIO_DDC_LINE_I2C_PAD:
--		default:
--			ASSERT_CRITICAL(false);
--			result = false;
--		}
--	break;
--	case GPIO_ID_SYNC:
--	case GPIO_ID_VIP_PAD:
--	default:
--		ASSERT_CRITICAL(false);
--		result = false;
--	}
--
--	if (result) {
--		info->offset_y = info->offset + 2;
--		info->offset_en = info->offset + 1;
--		info->offset_mask = info->offset - 1;
--
--		info->mask_y = info->mask;
--		info->mask_en = info->mask;
--		info->mask_mask = info->mask;
--	}
--
--	return result;
-+	if (dal_hw_translate_id_to_offset(
-+			gpio_pins,
-+			ARRAY_SIZE(gpio_pins),
-+			id, en, info))
-+		return true;
-+
-+	ASSERT_CRITICAL(false);
-+	return false;
- }
- 
- 
--- 
-2.47.3
+> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_p=
+ci_dmabuf.c
+> index 1a177ce7de546..0a0705c8dbea6 100644
+> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
 
+[ ... ]
+
+> @@ -333,6 +360,71 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_co=
+re_device *vdev, u32 flags,
+>  	return ret;
+>  }
+> =20
+> +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
+> +				      u32 flags,
+> +				      struct vfio_device_feature_dma_buf_tph __user *arg,
+> +				      size_t argsz)
+> +{
+> +	struct vfio_device_feature_dma_buf_tph set_tph;
+> +	struct vfio_pci_dma_buf *priv;
+> +	struct dma_buf *dmabuf;
+> +	u8 comp;
+> +	int ret;
+> +
+> +	ret =3D vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_SET,
+> +				 sizeof(set_tph));
+> +	if (ret !=3D 1)
+> +		return ret;
+
+[Severity: Medium]
+vfio_check_feature() returns 0 for VFIO_DEVICE_FEATURE_PROBE, causing an=20
+early return of success.=20
+
+Should the hardware capability check (pcie_tph_completer_type) occur before
+checking the feature flags, to avoid falsely reporting that the feature is
+supported on devices that lack TPH?
+
+> +
+> +	if (copy_from_user(&set_tph, arg, sizeof(set_tph)))
+> +		return -EFAULT;
+> +
+> +	if (set_tph.flags & ~(VFIO_DMA_BUF_TPH_ST | VFIO_DMA_BUF_TPH_ST_EXT))
+> +		return -EINVAL;
+> +
+> +	if (set_tph.ph & ~0x3)
+> +		return -EINVAL;
+
+[Severity: Medium]
+When userspace clears the TPH metadata by passing flags =3D=3D 0, is it req=
+uired
+to zero-fill the unused ph field?=20
+
+Since this check is unconditional, could stack garbage in the uninitialized=
+=20
+ph field cause spurious -EINVAL errors, rejecting a valid invalidation=20
+request?
+
+> +
+> +	comp =3D pcie_tph_completer_type(vdev->pdev);
+> +	if (comp =3D=3D PCI_EXP_DEVCAP2_TPH_COMP_NONE)
+> +		return -EOPNOTSUPP;
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610193158.2614=
+209-1-zhipingz@meta.com?part=3D4
