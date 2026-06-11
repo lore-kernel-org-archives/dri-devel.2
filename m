@@ -4,60 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1BF5CD8CB9
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 06:15:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 081C1CD8CB9
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 06:17:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2501010ECE3;
-	Thu, 11 Jun 2026 06:15:26 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67D1B10ECE3
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 06:15:24 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.167])
- by APP-01 (Coremail) with SMTP id qwCowABnB9B2Uipq53FFAQ--.9476S2;
- Thu, 11 Jun 2026 14:15:19 +0800 (CST)
-Message-ID: <6a756a4b1e48d036329f688f46796161fddd7a50.camel@iscas.ac.cn>
-Subject: Re: [PATCH 1/3] dt-bindings: display: panel: himax,hx83121a: add
- optional bl supply
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Pengyu Luo <mitltlatltl@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang	
- <jesszhan0024@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>, Liam
- Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Date: Thu, 11 Jun 2026 14:15:18 +0800
-In-Reply-To: <CAH2e8h7oDLO4isyPOY3syEQLMrcCGiGmkKsAYvtEz+qoT9-N_w@mail.gmail.com>
-References: <20260608162622.403713-1-zhengxingda@iscas.ac.cn>
- <178115560756.199930.11183711627429440356.b4-review@b4>
- <2877375c4efee4b4e816b418c965da7bd7d60992.camel@iscas.ac.cn>
- <CAH2e8h7oDLO4isyPOY3syEQLMrcCGiGmkKsAYvtEz+qoT9-N_w@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC89E10ECE2;
+	Thu, 11 Jun 2026 06:17:33 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Pv8hM7K4";
+	dkim-atps=neutral
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9ADB910ECE2
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 06:17:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+ In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=slNfQPieqtp88lbT2OWdg+a8XGqlJaKPOVemSmH9yWY=; b=Pv8hM7K4N9moehBUg55SPXdu31
+ cg+jyc/s9Vl9bfcvP4qUk67O6kO/vv6ypwCMkRl7UV7IZP2kcOpdGQS8uG65z/mJr4Stke3OSoNHl
+ FmuJ5QP14j5TnDmIvMqYCxtKYShhjKf6V2wEqWPRvREHJQueEj2IBKQZ5tqmls0UoBi3JCHjx4HHH
+ tvAkdRtNYCwjR5CPu5Rx9NMzZhM9KqUKMSvCEw1Y+fY5TsoCrHk3XKYD/J3XmgSwk8v5BaNL0eq12
+ lruaK0vJcv+Jgm/JaZCvcXGBrIjrDxHebQyfkT9j5OplNKnRGkjxpTtYDtx3PGuWzObbT9xOQI5Yj
+ HN9AkV2Q==;
+Received: from [192.168.12.229] by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wXYjG-00FzES-By; Thu, 11 Jun 2026 08:17:26 +0200
+Message-ID: <4a83fb4434459846c2e2936e4bbd297b75d70af1.camel@igalia.com>
+Subject: Re: [PATCH 1/3] drm/v3d: Associate BOs with every job that accesses
+ them
+From: Iago Toral <itoral@igalia.com>
+To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
+ <mwen@igalia.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, Emma Anholt
+ <anholt@igalia.com>
+Date: Thu, 11 Jun 2026 08:17:26 +0200
+In-Reply-To: <20260610-v3d-cpu-job-fixes-v1-1-0d9c88989edc@igalia.com>
+References: <20260610-v3d-cpu-job-fixes-v1-0-0d9c88989edc@igalia.com>
+ <20260610-v3d-cpu-job-fixes-v1-1-0d9c88989edc@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowABnB9B2Uipq53FFAQ--.9476S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tr13KFWrWF43tFyxtrW5KFg_yoW5Jry5p3
- 4DCasxtan5tr1xJ3y0qw1xWr4ftw4kKw47WFn8Wr1xGwsFvw18JrWSyFn5WF4DZr18JF42
- vFyqgFZ7XFn2y3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
- C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
- MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
- 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
- 67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
- x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
- z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
- UI43ZEXa7IU8rWrJUUUUU==
-X-Originating-IP: [112.94.100.167]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,96 +63,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-06-11=E5=9B=9B=E7=9A=84 13:45 +0800=EF=BC=8CPengyu Luo=E5=86=
-=99=E9=81=93=EF=BC=9A
-> On Thu, Jun 11, 2026 at 1:36=E2=80=AFPM Icenowy Zheng
-> <zhengxingda@iscas.ac.cn> wrote:
-> >=20
-> > =E5=9C=A8 2026-06-11=E5=9B=9B=E7=9A=84 13:26 +0800=EF=BC=8CPengyu Luo=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > > On Tue, 09 Jun 2026 00:26:20 +0800, Icenowy Zheng
-> > > <zhengxingda@iscas.ac.cn> wrote:
-> > > > When the backlight is managed by the panel controller IC, an
-> > > > external
-> > > > power rail might be powering the backlight.
-> > > >=20
-> > > > Add an optional `bl-supply` property to describe such power
-> > > > rail,
-> > > > thus
-> > > > allow disabling the backlight.
-> > > >=20
-> > >=20
-> > > Please add it as a hwen pin, this will simplify your code later.
-> >=20
-> > I am not sure whether this should be a pin or a regulator -- the DT
-> > binding should reflect the HW fact, and LCD panel backlights
-> > usually
-> > require a high voltage (or even a current source) that is driven by
-> > a
-> > dedicated regulator.
-> >=20
+Hi Ma=C3=ADra,
+
+I have a couple of thoughts here:
+
+1. The original code seems to very specifica about targeting this only
+for the last job, which makes it look like a very intentional decision,
+so I wonder if there is something we are missing here. I am adding Emma
+to the CC in case she has any thoughts about it.
+
+2. I am not aware of any issues despite not having implicit sync for
+all the jobs in the chanin. Like you mention, this is because user-
+space is already trying to handle job depedencies, so I wonder if we
+should instead work on the opposite direction and try to drop implicit
+sync in the kernel entirely. Would that make sense? What are other
+drivers doing in this regard?
+
+As for the patch itself, I have a comment below:
+
+El mi=C3=A9, 10-06-2026 a las 19:50 -0300, Ma=C3=ADra Canal escribi=C3=B3:
+> A submission can expand into a chain of jobs (e.g. bin + render +
+> cache
+> clean), but v3d_lookup_bos() only looked up the user's BO list onto
+> the
+> *last* job of the submission. Every earlier job was left with
+> bo_count =3D=3D 0 and an empty bo[] array.
 >=20
-> Most backlight ICs use a hwen pin to enable the supply, afaik, like
-> ktz8866, ktz8868, aw99706, etc. We don't touch the VIN. (My
-> disclaimer:
-> I am just an amateur, know less about the circuit)
-
-I found some specificiation of a LCD panel using DCS brightness to
-control backlight at [1] (this panel is supported by panel-himax-
-hx83102 driver), and it has no HWEN pins -- the pins related to
-backlight seem to be LED_{C2,C1,A} and PWM, which means a backlight
-regulator must be present.
-
-Although the situation is a little odd -- the regulator isn't a fixed
-one, but a adjustable one adjusted by the panel.
-
-Thanks,
-Icenowy
-
-[1]
-https://www.scribd.com/presentation/759684395/Titan20-TP-LCM-SPEC-XT2073-Mo=
-torola-one-fusion
-
+> As a consequence, when implicit synchronization happens in
+> v3d_submit_lock_reservations(), earlier jobs get no implicit
+> dependencies at all, as the loop is gated on job->bo_count and
+> earlier
+> jobs don't have any BO attached to them. With that, the BIN job reads
+> the
+> same buffers as the RENDER job, yet nothing made it wait for a prior
+> writer to finish. The BIN job could therefore be dispatched to the
+> hardware and read a BO while another context was still writing it,
+> leading to data corruption that was only avoided as the userspace
+> adds
+> explicit syncobjs.
 >=20
-> Best wishes,
-> Pengyu
+> Fix this by calling v3d_lookup_bos() for each job that references the
+> submission's BOs, so every job carries its own bo[]/bo_count and
+> picks
+> up the correct implicit dependencies during reservation locking.
 >=20
-> > Thanks,
-> > Icenowy
-> >=20
-> > >=20
-> > > >=20
-> > > >=20
-> > > > diff --git
-> > > > a/Documentation/devicetree/bindings/display/panel/himax,hx83121
-> > > > a.ya
-> > > > ml
-> > > > b/Documentation/devicetree/bindings/display/panel/himax,hx83121
-> > > > a.ya
-> > > > ml
-> > > > index e067a2f6d0b2..aeca3c9a599c 100644
-> > > > ---
-> > > > a/Documentation/devicetree/bindings/display/panel/himax,hx83121
-> > > > a.ya
-> > > > ml
-> > > > +++
-> > > > b/Documentation/devicetree/bindings/display/panel/himax,hx83121
-> > > > a.ya
-> > > > ml
-> > > > @@ -40,6 +40,9 @@ properties:
-> > > > =C2=A0=C2=A0 vddi-supply:
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0 description: power supply for IC
-> > > >=20
-> > > > +=C2=A0 bl-supply:
-> > > > +=C2=A0=C2=A0=C2=A0 description: power supply for backlight, in cas=
-e it's
-> > > > managed
-> > > > via DSC
-> > > > +
-> > >=20
-> > > s/DSC/DCS/
-> > >=20
-> > > Best wishes,
-> > > Pengyu
-> >=20
+> Fixes: dffa9b7a78c4 ("drm/v3d: Add missing implicit
+> synchronization.")
+> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
+> ---
+> =C2=A0drivers/gpu/drm/v3d/v3d_submit.c | 41 +++++++++++++++++++++--------=
+-
+> ----------
+> =C2=A01 file changed, 22 insertions(+), 19 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c
+> b/drivers/gpu/drm/v3d/v3d_submit.c
+> index ee2ac2540ed5..3d6582dfb1bf 100644
+> --- a/drivers/gpu/drm/v3d/v3d_submit.c
+> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
+> @@ -68,7 +68,6 @@ v3d_submit_unlock_reservations(struct v3d_submit
+> *submit)
+> =C2=A0/**
+> =C2=A0 * v3d_lookup_bos() - Sets up job->bo[] with the GEM objects
+> =C2=A0 * referenced by the job.
+> - * @dev: DRM device
+> =C2=A0 * @file_priv: DRM file for this fd
+> =C2=A0 * @job: V3D job being set up
+> =C2=A0 * @bo_handles: GEM handles
+> @@ -82,23 +81,19 @@ v3d_submit_unlock_reservations(struct v3d_submit
+> *submit)
+> =C2=A0 * failure, because that will happen at `v3d_job_free()`.
+> =C2=A0 */
+> =C2=A0static int
+> -v3d_lookup_bos(struct v3d_submit *submit, u64 bo_handles, u32
+> bo_count)
+> +v3d_lookup_bos(struct drm_file *file_priv, struct v3d_job *job,
+> +	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u64 bo_handles, u32 bo_count)
+> =C2=A0{
+
+Wouldn't it make more sense to have this function take the submit like
+it did originally and loop through all the jobs in a chain instead of
+calling this multiple times for each job in a chain?
+
+> -	struct v3d_job *last_job =3D submit->jobs[submit->job_count -
+> 1];
+> -
+> -	last_job->bo_count =3D bo_count;
+> -
+> -	if (!last_job->bo_count) {
+> -		/* See comment on bo_index for why we have to check
+> -		 * this.
+> -		 */
+> -		drm_warn(&submit->v3d->drm, "Rendering requires
+> BOs\n");
+> +	if (!bo_count) {
+> +		drm_warn(&job->v3d->drm, "Rendering requires
+> BOs\n");
+> =C2=A0		return -EINVAL;
+> =C2=A0	}
+> =C2=A0
+> -	return drm_gem_objects_lookup(submit->file_priv,
+> +	job->bo_count =3D bo_count;
+> +
+> +	return drm_gem_objects_lookup(file_priv,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (void __user
+> *)(uintptr_t)bo_handles,
+> -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 last_job->bo_count, &last_job-
+> >bo);
+> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 job->bo_count, &job->bo);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static void
+> @@ -446,7 +441,8 @@ v3d_setup_csd_jobs_and_bos(struct v3d_submit
+> *submit,
+> =C2=A0	if (IS_ERR(clean_job))
+> =C2=A0		return PTR_ERR(clean_job);
+> =C2=A0
+> -	return v3d_lookup_bos(submit, args->bo_handles, args-
+> >bo_handle_count);
+> +	return v3d_lookup_bos(submit->file_priv, &job->base,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 args->bo_handles, args-
+> >bo_handle_count);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static void
+> @@ -1066,6 +1062,11 @@ v3d_submit_cl_ioctl(struct drm_device *dev,
+> void *data,
+> =C2=A0					=C2=A0=C2=A0 &se);
+> =C2=A0		if (ret)
+> =C2=A0			goto fail;
+> +
+> +		ret =3D v3d_lookup_bos(submit.file_priv, &bin->base,
+> +				=C2=A0=C2=A0=C2=A0=C2=A0 args->bo_handles, args-
+> >bo_handle_count);
+> +		if (ret)
+> +			goto fail;
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	render =3D (struct v3d_render_job
+> *)v3d_submit_add_job(&submit, V3D_RENDER);
+> @@ -1085,6 +1086,11 @@ v3d_submit_cl_ioctl(struct drm_device *dev,
+> void *data,
+> =C2=A0	if (ret)
+> =C2=A0		goto fail;
+> =C2=A0
+> +	ret =3D v3d_lookup_bos(submit.file_priv, &render->base,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0 args->bo_handles, args-
+> >bo_handle_count);
+> +	if (ret)
+> +		goto fail;
+> +
+> =C2=A0	if (args->flags & DRM_V3D_SUBMIT_CL_FLUSH_CACHE) {
+> =C2=A0		clean_job =3D v3d_submit_add_job(&submit,
+> V3D_CACHE_CLEAN);
+> =C2=A0		if (IS_ERR(clean_job)) {
+> @@ -1097,10 +1103,6 @@ v3d_submit_cl_ioctl(struct drm_device *dev,
+> void *data,
+> =C2=A0	if (ret)
+> =C2=A0		goto fail;
+> =C2=A0
+> -	ret =3D v3d_lookup_bos(&submit, args->bo_handles, args-
+> >bo_handle_count);
+> -	if (ret)
+> -		goto fail;
+> -
+> =C2=A0	ret =3D v3d_submit_lock_reservations(&submit);
+> =C2=A0	if (ret)
+> =C2=A0		goto fail;
+> @@ -1359,7 +1361,8 @@ v3d_submit_cpu_ioctl(struct drm_device *dev,
+> void *data,
+> =C2=A0	 * the CSD and clean jobs in the case of indirect CSD job.
+> =C2=A0	 */
+> =C2=A0	if (args->bo_handle_count) {
+> -		ret =3D v3d_lookup_bos(&submit, args->bo_handles,
+> args->bo_handle_count);
+> +		ret =3D v3d_lookup_bos(submit.file_priv, &cpu_job-
+> >base,
+> +				=C2=A0=C2=A0=C2=A0=C2=A0 args->bo_handles, args-
+> >bo_handle_count);
+> =C2=A0		if (ret)
+> =C2=A0			goto fail;
+> =C2=A0	}
+>=20
 
