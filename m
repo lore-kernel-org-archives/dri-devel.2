@@ -4,75 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7E4CCD98C7
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 19:52:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ADD7CD98C7
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 19:52:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 431D310F0F3;
-	Thu, 11 Jun 2026 19:52:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE77510F0FF;
+	Thu, 11 Jun 2026 19:52:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="Gs1xuKwF";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="hfJBe35/";
 	dkim-atps=neutral
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com
- [209.85.221.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09B6010F0F7
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 19:52:27 +0000 (UTC)
-Received: by mail-vk1-f176.google.com with SMTP id
- 71dfb90a1353d-59f967189e7so64109e0c.0
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 12:52:26 -0700 (PDT)
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com
+ [209.85.221.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1360810F0FF
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 19:52:35 +0000 (UTC)
+Received: by mail-vk1-f181.google.com with SMTP id
+ 71dfb90a1353d-59ebde7d704so51720e0c.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 12:52:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1781207546; x=1781812346; darn=lists.freedesktop.org;
+ d=usp.br; s=usp-google; t=1781207554; x=1781812354; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=UkrcsSBf4E5uIJla+SJtmicxw+grtZfy8hRoNdM7964=;
- b=Gs1xuKwF5hYkGQKidmi2LyR2F8SmCt4YpC/Mhd+7s1Rj8I76/2wlk5dnSEb/xxKbwJ
- 6tpU6WnjpnuUY/koYyqvXPsSWaQU1meBsnhXxP0k3pyH/8n0oUNqGecJrCLIQsLAWELa
- RuvuV8E2scGQ7JdKX3VXg6ijVyV0ge/clNHNBp4GCyk3yFrnToz6YO0QxKrMAvHfmGNm
- f9CDiAVv3FXyqDwEtBpJcX5mdd2ayElFuH34bct8o5a+eGGO8Ef4FL3i+r+eRFoWq6wg
- /e725MGeKbHiozY/UHTZranDajd1iN14OOPrw2Dm6BYu/sHKZQTEwnDMycrTvrw9MzCG
- Yi8Q==
+ bh=3l+NNrZ8Cf8TmrGRm7OFOPfEcZLnJ3FIk2PyTUdkAU0=;
+ b=hfJBe35/Hzp4DTfTgLd1qgezy93rpwmUXvXRBoxR6eQYE7SCM1cmjuGdGxd6NB8YzI
+ OnwikbnC7fI9UjiyjjaAHVxsb1or6CkGXGbvQPQybDZnr4+rgyGDrssKqNqJOwRgEqA6
+ gb1vU6JrS3uEgy4e+7lRho0Uzm6zHtEker8IBbI4kSJDdU/VwIVEaYackeTmEgaVTaXz
+ fEkPLAlWelI+w+lXgQf3YpYCmaJVUCrU2fLCgZSvX63DWuGe/w8zua1iXLeBszW3+jmg
+ 2e7ZFSGVJo3zWx2EHNJSEkZ2G05ZaFvJ2UctcqEyHOtLVGPx049WItx096+CE0YfKcrG
+ Hjlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781207546; x=1781812346;
+ d=1e100.net; s=20251104; t=1781207554; x=1781812354;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=UkrcsSBf4E5uIJla+SJtmicxw+grtZfy8hRoNdM7964=;
- b=mw2oER4KfigsCsKFRDNhxZqjV8I0UUHjcP4OFATwhFkmkBhd2OUsuTcOCTzLrWzW/e
- p6/GCGaDCpfUGOcG837kO/tSdFDUeio9AOieop/rFVgpUzAegH0C5HC5hUieqMlgfu/C
- HDqb36+wu1bIfNNDYY+N5ELfGJuZROuqHDjjx8DBKvrRsnmeL8p7JQbevDWsod1JO6CD
- miMaw/KS06gsX/Q+xbYMaZKmnj7swGVhgui8TfVat5n2k12shCgTnuMAE06MVobDYzfJ
- gYVY3TH/q1ynpgLhgcZWMF+w9/kIT++rjdjDdqRte4BR6z2uHMRXfR4HeefXR8QrLcj4
- 1dfg==
+ bh=3l+NNrZ8Cf8TmrGRm7OFOPfEcZLnJ3FIk2PyTUdkAU0=;
+ b=j6eKVj9cZkV77OL1MkhAZI8gpim1eo6UHEJVWTNBhJjeqpIGoI1PgQDts2Xfxj01wH
+ OIGCX1lTduf3CyS0t6LGLnC41LFR2enAFfRfqD27d7rc0Jda8hK0ee7xIlEuZ0gegifu
+ K4LqvHkvXRYui3PqMCiCeyrg9YT6ZFHiUCYdjez+o8Njo9Iq6p8PCBOcgQqJiTIyrZDm
+ AhJfl1y2EVcNoV/FnN+qyTDopyM0SZbZkStnaIMqkOmn7LDa2Gtqr3ctMza0V/8nlA1X
+ +SV0v4KoJtiXVKdRfdGm+1JC+WyQWJWLaDj33PpcO8o8X1KmiLCEflq7vgUHIUAXW63y
+ tk6A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8rzSMw0wmbN9de5N4hqUoMD4QjcoyOJlzmYf4B4DDGn5Sur5IXTe/apa95/1twb9Jus5pBNHenfrk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywl1ofNT5nnuMfYm70qNJV3Z+M1Pwtu6RNRcP11aDJ+08YN8HUp
- X9ff6nCtOANMxk1gQWFX08rzL8N8V3uMz3aKPhlftvme8A0yu8HAM6pasJXQlfJ5k+k=
-X-Gm-Gg: Acq92OFL+cDE+jwkCdyVjhQLGJ0llyRI+j1v1Ew4GvKufR+oVkxLJgQDk/YGBEPr5Ve
- dAKMk7ZDJMwzjCx5l5gFodPs7pc1KZN/iWEV8nsxbwo0L58jLdRObSUVB2rlXShth7ab8sYBPtl
- gZxoh+gpUJrCrJ8eZCJXIdyz+V9Y0DZquDrcyGcV6+167JPKygb9EeWRwTkk44Q2Rp1YNfw/0k0
- nZPRvD1w+B+Ea928eRdjMB0v+M+m7F0Q+pezTvJWkEAYD1JAQta0jIymAOe5x8fFbxLIC1X0iUB
- d3w/Za/+VA++cuUC0aG8rRYemhtgJUL0VVOTvpDnrX5Qcj1RgD/+3wTHIi0+VTT4D/nNMCMT0hl
- UoA4tw2loC6dEGYcCq2N5RZ1zoi0MmaG45p7bdoOBGj/X0HPlsG/5+aS30KqSS1mAJPCD5QBBJW
- MoIa4L0xdt+5NPGKN9Sh1L9xSpcPKxC8DTyLHkhc50fIdKWfRlHoIEQIfITGY6K8IXAExewf6Xv
- kOa7VP7fYDj1anb0ijxe4/Tl32j/PUN+l3V6dgRyHkG7EFoyA==
-X-Received: by 2002:a05:6122:430b:b0:56f:6cc0:681e with SMTP id
- 71dfb90a1353d-5bafd9b53e6mr2845515e0c.1.1781207545991; 
- Thu, 11 Jun 2026 12:52:25 -0700 (PDT)
+ AFNElJ8LuOlLGJZCze4apCft5bcE1y8m2aZ7tcdwV46atglNhjXUin1wYUbHhOx8QqUbrSnPusKuH5ucsOQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx63ih8MvVtBiu99WGls0dp9pQ3/BFmKPQNL6W+iYFpnr4vKzWt
+ qe4mBjzTr8g5r+Sb9BnN4xM0T4OfA23FUsbLB4g7rT+3Wv9CvHx3lILzXQcDoXWJqsc=
+X-Gm-Gg: Acq92OGRj0nPnUTyvFYTSC/uZFs4a3sKz5Yw/+Caj8ucffW4D9h7dU3zBiIm17wOZr4
+ Fzmzh76a+TYyikFfaKdYVfBM3a7vEfRRvCCGL0I8QdChtBF+IQuyMHB3Ch8QrJ+UnFCMhOdpV5g
+ 27ZQBT8m1cVRFBG0gjXj5bXZizlbFZyiTJqx+xnLnu1L3jUHRxtWSIkNJGGatqPSQBwKvKK//az
+ bQyk2asDVkPe5Fn8jT8hTTH4uPmBW5lHlquVVWAOLvV2pXGw24mQx7+m9qiygN2LXlbNh1lUSR6
+ GQON6xa7yVdcIhYSvQryUhNgfkbH0BRM91JwEoBD2kE+fspNkyn92DlYMCSz3ZPNKL24SBkW4vf
+ BNigNR/ydPy+dgp0HO36D4qC4iWXXfjnIB69jTMUZFuVvVw7VHQJ3E9N+7q3cKzn72KiSuu+xel
+ 9+991IzBUwcUJWBOnv04EPBE/Wl1YL2Gon2Zs4jOn9AjrnRxLmyegGt0eDsWYKKaKsmOkmLo67+
+ naOOxPFR4foi/ynbjLjChAbydgpnNJGCmEkkPnuTp1vWpsd2g==
+X-Received: by 2002:a05:6122:1d03:b0:56e:f071:d4ef with SMTP id
+ 71dfb90a1353d-5baffcd4b47mr2444641e0c.8.1781207553995; 
+ Thu, 11 Jun 2026 12:52:33 -0700 (PDT)
 Received: from gui-host.Dlink ([186.220.219.98])
  by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5bb691bb8a4sm345359e0c.10.2026.06.11.12.52.21
+ 71dfb90a1353d-5bb691bb8a4sm345359e0c.10.2026.06.11.12.52.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jun 2026 12:52:25 -0700 (PDT)
+ Thu, 11 Jun 2026 12:52:33 -0700 (PDT)
 From: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, simona@ffwll.ch, siqueira@igalia.com,
  sunpeng.li@amd.com
 Cc: Guilherme Ivo Bozi <guilherme.bozi@usp.br>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH RESEND 4/9] drm/amd/display: convert dcn21 GPIO translation to
+Subject: [PATCH RESEND 5/9] drm/amd/display: convert dcn30 GPIO translation to
  lookup tables
-Date: Thu, 11 Jun 2026 16:49:04 -0300
-Message-ID: <20260611195026.25125-5-guilherme.bozi@usp.br>
+Date: Thu, 11 Jun 2026 16:49:05 -0300
+Message-ID: <20260611195026.25125-6-guilherme.bozi@usp.br>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260611195026.25125-1-guilherme.bozi@usp.br>
 References: <20260611195026.25125-1-guilherme.bozi@usp.br>
@@ -93,7 +93,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace dcn21 GPIO translation switch statements with the
+Replace dcn30 GPIO translation switch statements with the
 generic table-based translation helpers.
 
 This simplifies the GPIO mapping logic and reduces duplicated
@@ -103,16 +103,16 @@ No functional changes intended.
 
 Signed-off-by: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
 ---
- .../dc/gpio/dcn21/hw_translate_dcn21.c        | 417 ++++++------------
- 1 file changed, 147 insertions(+), 270 deletions(-)
+ .../dc/gpio/dcn30/hw_translate_dcn30.c        | 432 +++++++-----------
+ 1 file changed, 153 insertions(+), 279 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_translate_dcn21.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_translate_dcn21.c
-index e3b11b3c1daa..18bd4d4e32d0 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_translate_dcn21.c
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_translate_dcn21.c
-@@ -60,6 +60,135 @@
- /* macros to expend register list macro defined in HW object header file
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_translate_dcn30.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_translate_dcn30.c
+index 49d6250037a9..c4225231f725 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_translate_dcn30.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_translate_dcn30.c
+@@ -67,131 +67,161 @@
   * end *********************/
+ 
  
 +static const struct gpio_id_offset_entry gpio_offsets[] = {
 +	/* GENERIC */
@@ -179,6 +179,7 @@ index e3b11b3c1daa..18bd4d4e32d0 100644
 +	{ REG(DC_GPIO_DDC3_A), GPIO_DDC_LINE_DDC3 },
 +	{ REG(DC_GPIO_DDC4_A), GPIO_DDC_LINE_DDC4 },
 +	{ REG(DC_GPIO_DDC5_A), GPIO_DDC_LINE_DDC5 },
++	{ REG(DC_GPIO_DDC6_A), GPIO_DDC_LINE_DDC6 },
 +	{ REG(DC_GPIO_DDCVGA_A), GPIO_DDC_LINE_DDC_VGA },
 +};
 +
@@ -190,29 +191,33 @@ index e3b11b3c1daa..18bd4d4e32d0 100644
 +static const struct gpio_pin_entry gpio_pins[] = {
 +	/* DDC */
 +	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC1,
-+		DC_GPIO_DDC1_A, DC_GPIO_DDC5_A__DC_GPIO_DDC5DATA_A_MASK),
++		DC_GPIO_DDC1_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6DATA_A_MASK),
 +	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC2,
-+		DC_GPIO_DDC2_A, DC_GPIO_DDC5_A__DC_GPIO_DDC5DATA_A_MASK),
++		DC_GPIO_DDC2_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6DATA_A_MASK),
 +	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC3,
-+		DC_GPIO_DDC3_A, DC_GPIO_DDC5_A__DC_GPIO_DDC5DATA_A_MASK),
++		DC_GPIO_DDC3_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6DATA_A_MASK),
 +	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC4,
-+		DC_GPIO_DDC4_A, DC_GPIO_DDC5_A__DC_GPIO_DDC5DATA_A_MASK),
++		DC_GPIO_DDC4_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6DATA_A_MASK),
 +	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC5,
-+		DC_GPIO_DDC5_A, DC_GPIO_DDC5_A__DC_GPIO_DDC5DATA_A_MASK),
++		DC_GPIO_DDC5_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6DATA_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC6,
++		DC_GPIO_DDC6_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6DATA_A_MASK),
 +	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC_VGA,
-+		DC_GPIO_DDCVGA_A, DC_GPIO_DDC5_A__DC_GPIO_DDC5DATA_A_MASK),
++		DC_GPIO_DDCVGA_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6DATA_A_MASK),
 +	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC1,
-+		DC_GPIO_DDC1_A, DC_GPIO_DDC5_A__DC_GPIO_DDC5CLK_A_MASK),
++		DC_GPIO_DDC1_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6CLK_A_MASK),
 +	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC2,
-+		DC_GPIO_DDC2_A, DC_GPIO_DDC5_A__DC_GPIO_DDC5CLK_A_MASK),
++		DC_GPIO_DDC2_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6CLK_A_MASK),
 +	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC3,
-+		DC_GPIO_DDC3_A, DC_GPIO_DDC5_A__DC_GPIO_DDC5CLK_A_MASK),
++		DC_GPIO_DDC3_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6CLK_A_MASK),
 +	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC4,
-+		DC_GPIO_DDC4_A, DC_GPIO_DDC5_A__DC_GPIO_DDC5CLK_A_MASK),
++		DC_GPIO_DDC4_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6CLK_A_MASK),
 +	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC5,
-+		DC_GPIO_DDC5_A, DC_GPIO_DDC5_A__DC_GPIO_DDC5CLK_A_MASK),
++		DC_GPIO_DDC5_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6CLK_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC6,
++		DC_GPIO_DDC6_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6CLK_A_MASK),
 +	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC_VGA,
-+		DC_GPIO_DDCVGA_A, DC_GPIO_DDC5_A__DC_GPIO_DDC5CLK_A_MASK),
++		DC_GPIO_DDCVGA_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6CLK_A_MASK),
 +	/* GENERIC */
 +	GPIO_PIN_ENTRY(GPIO_ID_GENERIC, GPIO_GENERIC_A,
 +		DC_GPIO_GENERIC_A, DC_GPIO_GENERIC_A__DC_GPIO_GENERICA_A_MASK),
@@ -227,7 +232,7 @@ index e3b11b3c1daa..18bd4d4e32d0 100644
 +	GPIO_PIN_ENTRY(GPIO_ID_GENERIC, GPIO_GENERIC_F,
 +		DC_GPIO_GENERIC_A, DC_GPIO_GENERIC_A__DC_GPIO_GENERICF_A_MASK),
 +	GPIO_PIN_ENTRY(GPIO_ID_GENERIC, GPIO_GENERIC_G,
-+		   DC_GPIO_GENERIC_A, DC_GPIO_GENERIC_A__DC_GPIO_GENERICG_A_MASK),
++		DC_GPIO_GENERIC_A, DC_GPIO_GENERIC_A__DC_GPIO_GENERICG_A_MASK),
 +	/* HPD */
 +	GPIO_PIN_ENTRY(GPIO_ID_HPD, GPIO_HPD_1,
 +		DC_GPIO_HPD_A, DC_GPIO_HPD_A__DC_GPIO_HPD1_A_MASK),
@@ -243,10 +248,10 @@ index e3b11b3c1daa..18bd4d4e32d0 100644
 +		DC_GPIO_HPD_A, DC_GPIO_HPD_A__DC_GPIO_HPD6_A_MASK),
 +};
 +
- 
++
  static bool offset_to_id(
  	uint32_t offset,
-@@ -67,122 +196,20 @@ static bool offset_to_id(
+ 	uint32_t mask,
  	enum gpio_id *id,
  	uint32_t *en)
  {
@@ -339,11 +344,7 @@ index e3b11b3c1daa..18bd4d4e32d0 100644
 -		return true;
 -	case REG(DC_GPIO_DDC2_A):
 -		*en = GPIO_DDC_LINE_DDC2;
-+	if (dal_hw_translate_gpio_ddc_offset_to_id(
-+			ddc_offset_map,
-+			ARRAY_SIZE(ddc_offset_map),
-+			offset, en))
- 		return true;
+-		return true;
 -	case REG(DC_GPIO_DDC3_A):
 -		*en = GPIO_DDC_LINE_DDC3;
 -		return true;
@@ -353,6 +354,13 @@ index e3b11b3c1daa..18bd4d4e32d0 100644
 -	case REG(DC_GPIO_DDC5_A):
 -		*en = GPIO_DDC_LINE_DDC5;
 -		return true;
+-	case REG(DC_GPIO_DDC6_A):
+-		*en = GPIO_DDC_LINE_DDC6;
++	if (dal_hw_translate_gpio_ddc_offset_to_id(
++			ddc_offset_map,
++			ARRAY_SIZE(ddc_offset_map),
++			offset, en))
+ 		return true;
 -	case REG(DC_GPIO_DDCVGA_A):
 -		*en = GPIO_DDC_LINE_DDC_VGA;
 +
@@ -380,7 +388,7 @@ index e3b11b3c1daa..18bd4d4e32d0 100644
  }
  
  static bool id_to_offset(
-@@ -190,164 +217,14 @@ static bool id_to_offset(
+@@ -199,170 +229,14 @@ static bool id_to_offset(
  	uint32_t en,
  	struct gpio_pin_info *info)
  {
@@ -388,7 +396,7 @@ index e3b11b3c1daa..18bd4d4e32d0 100644
 -
 -	switch (id) {
 -	case GPIO_ID_DDC_DATA:
--		info->mask = DC_GPIO_DDC5_A__DC_GPIO_DDC5DATA_A_MASK;
+-		info->mask = DC_GPIO_DDC6_A__DC_GPIO_DDC6DATA_A_MASK;
 -		switch (en) {
 -		case GPIO_DDC_LINE_DDC1:
 -			info->offset = REG(DC_GPIO_DDC1_A);
@@ -404,6 +412,9 @@ index e3b11b3c1daa..18bd4d4e32d0 100644
 -		break;
 -		case GPIO_DDC_LINE_DDC5:
 -			info->offset = REG(DC_GPIO_DDC5_A);
+-		break;
+-		case GPIO_DDC_LINE_DDC6:
+-			info->offset = REG(DC_GPIO_DDC6_A);
 -		break;
 -		case GPIO_DDC_LINE_DDC_VGA:
 -			info->offset = REG(DC_GPIO_DDCVGA_A);
@@ -415,7 +426,7 @@ index e3b11b3c1daa..18bd4d4e32d0 100644
 -		}
 -	break;
 -	case GPIO_ID_DDC_CLOCK:
--		info->mask = DC_GPIO_DDC5_A__DC_GPIO_DDC5CLK_A_MASK;
+-		info->mask = DC_GPIO_DDC6_A__DC_GPIO_DDC6CLK_A_MASK;
 -		switch (en) {
 -		case GPIO_DDC_LINE_DDC1:
 -			info->offset = REG(DC_GPIO_DDC1_A);
@@ -431,6 +442,9 @@ index e3b11b3c1daa..18bd4d4e32d0 100644
 -		break;
 -		case GPIO_DDC_LINE_DDC5:
 -			info->offset = REG(DC_GPIO_DDC5_A);
+-		break;
+-		case GPIO_DDC_LINE_DDC6:
+-			info->offset = REG(DC_GPIO_DDC6_A);
 -		break;
 -		case GPIO_DDC_LINE_DDC_VGA:
 -			info->offset = REG(DC_GPIO_DDCVGA_A);
