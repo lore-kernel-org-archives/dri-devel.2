@@ -4,72 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BE25CD98C7
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 08:10:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 494D7CD98C7
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 08:29:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F80610ED47;
-	Thu, 11 Jun 2026 08:10:47 +0000 (UTC)
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com
- [209.85.222.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67F8C10ED47
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 08:10:45 +0000 (UTC)
-Received: by mail-ua1-f48.google.com with SMTP id
- a1e0cc1a2514c-963b248ef0fso3535818241.2
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 01:10:45 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781165444; x=1781770244;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DIoi3XPcNIb2wKg/vVIZMhNixDSLEl80pAhTezj3BuE=;
- b=S+wLORHPprhMiCIDH2dyd8a2UaslbAhGDnNp3wWbx+HbpartZSVUwBrVRnCYaJPvln
- eiGckBVoqYiLO6j1B4nTCE/Zgl1qlQrR/Bpye788Z9pxGqoGHr6FW0XNAKyjiB0MOSQ+
- nTglz11dC9efaZquG47/GYqQClIQRSQMfkzjf7x3LCjX/XRV4RvghJjBcPqmgLFvWGNh
- GcRjDaofYp3X3MKGBUljHqIl2HmGW+LZQQahY47tG0DMoJWAOUB240yhRIsu0GonMWmt
- gd2fLK6MV6yiOcraU5ebbeDlQ6f62Nwxrw6/OtfjGaWZCKLSASkJstTeNLOpiBGvDfPF
- 1o0A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8gJWCa7Vacg2ykppVwQrd12uL2oNHFPY85pGf/9JaHR83LF3yNoAv82kM+a+QO7yo+I5OsZetja8M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyHmhg4MYuDzDp8Ir11yxYiBehBvYYh1Jplk7DVfltJ8prTqkgP
- uXi8nShyqxxyglyuL7EV/2ct+PpmF4wDV/HPxa8SfP9em/RtAXONas57wZH0zsQ4EBs=
-X-Gm-Gg: Acq92OEbRkjqyubL9l4eEqhOxOPwjVKpj8qfDwFmSsyhKhq6NlA+qnNEvILxtNMND2L
- Seylp4uv2hcsVffb3C8pvh1tIdxhaPqxc0Ck6jOxAhavWylg51z22opm7MO7pGsUDwS2BvQVcBf
- 6AlS/W/EyuARJ8t4hB9rsOA9HDrQqDTpFpPztzWqOncgGBuBYmnBdbh+Sc5YEjnwOluYiyFLG+F
- o+Za377ILJDwrhPmmcwywNeW+d83MZjvPZ+UuxvytFsMFmIOhIY4IXRlC03+GufIEpytn5YVCcg
- uWbmdAH5b9mhk12GNLzJaxKGus7ely6is3CzuF3Rlg250u7ppj8abjNspR1e4l9TMY4QDgCAB2H
- YcCtNz8ze+KJTrQCKjHf/wr806LFrAT9mP+KoqsZRedd47ctMW94mTl9/SlQXEbty04xqoDuAU6
- Ltr15DYPpW3eijUDTf+DJPJbyQJIHxvD49invt/EfRSy55gsKVF2d+Pz3nb2i34OWPFKDzqMw=
-X-Received: by 2002:a05:6102:4496:b0:6d9:a879:8e39 with SMTP id
- ada2fe7eead31-71d5c473f23mr542222137.14.1781165444309; 
- Thu, 11 Jun 2026 01:10:44 -0700 (PDT)
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com.
- [209.85.217.42]) by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-71d926849ddsm477901137.7.2026.06.11.01.10.43
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jun 2026 01:10:44 -0700 (PDT)
-Received: by mail-vs1-f42.google.com with SMTP id
- ada2fe7eead31-6ca94e539f9so4501221137.2
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 01:10:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ9qDUyqO1GboF+QnS91CKL/8Zji5+MvqL3Fq/r3VFw3bV4pySKVrMH/U7prSiafoipilV8QvUWpL9U=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:a50:b0:631:26f6:7021 with SMTP id
- ada2fe7eead31-71d5d08c7e6mr549819137.26.1781165443791; Thu, 11 Jun 2026
- 01:10:43 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DAB810ED7D;
+	Thu, 11 Jun 2026 08:29:27 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YEz0Y66A";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDFDB10ED7D;
+ Thu, 11 Jun 2026 08:29:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781166566; x=1812702566;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=PQrdG7EV4quhX26AHkiaOyDqMWYsaSvMsUL42rw95G8=;
+ b=YEz0Y66A90AZ3hNd1X0TAyrcZMojFddC2Mfb2dc03XojdBi3zv76a1R/
+ U7kUom7MSIDjEgVYHdv2/boOBbeirfZAW1pMccpBm+deoTsgjWNNE9fWe
+ ZdlRZIjkqZGJOGTekGismS8n7BS3CfJ18QVo7wH6NAJGcjlVxvrvWtGRL
+ pWBj0iHf9QD0GlSqiaZRrAsI1dPsydMIj7C55JW/+Jm/Rksnnepfsdjik
+ k3fkvI7AchOp+/0J+CL8ukLGqaLpriZEbnNU3RTp2Gs4eJ219NFDYvOpE
+ tZ81Psu7bxxqrRQv/hJTK/AEJuOo4u4FYuFtkyS1TMT5u59zZkUf3yALM Q==;
+X-CSE-ConnectionGUID: RS95fzvNTxqa3sz8RturRQ==
+X-CSE-MsgGUID: DOwCQPQJRjizmyl+A/5UYA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81953795"
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="81953795"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2026 01:29:25 -0700
+X-CSE-ConnectionGUID: ZG4MT08iQHe6mEq2035+wQ==
+X-CSE-MsgGUID: s/GNAqCUTJqY9+1lZtgZqw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="240074812"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.123])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2026 01:29:13 -0700
+Date: Thu, 11 Jun 2026 11:29:10 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Kaitao Cheng <kaitao.cheng@linux.dev>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Davidlohr Bueso <dave@stgolabs.net>,
+ "Paul E . McKenney" <paulmck@kernel.org>,
+ Josh Triplett <josh@joshtriplett.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Huang Rui <ray.huang@amd.com>, Eddie James <eajames@linux.ibm.com>,
+ Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Laxman Dewangan <ldewangan@nvidia.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Waiman Long <longman@redhat.com>, drbd-dev@lists.linbit.com,
+ linux-block@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Christian Brauner <brauner@kernel.org>,
+ David Howells <dhowells@redhat.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kaito Cheng <chengkaitao@kylinos.cn>, Muchun Song <muchun.song@linux.dev>,
+ Philipp Reisner <philipp.reisner@linbit.com>,
+ Lars Ellenberg <lars.ellenberg@linbit.com>,
+ Christoph =?iso-8859-1?Q?B=F6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ Jens Axboe <axboe@kernel.dk>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: Re: [PATCH v2 00/14] list: Prepare entry iterators to cache cursor
+ state
+Message-ID: <aipx1goKIsk40vrF@ashevche-desk.local>
+References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
+ <bd0b7393-8ccb-4d67-8bfc-18c68347122c@amd.com>
+ <5152089a-2808-4fe9-b633-b03018105dd2@linux.dev>
+ <6b2efdee-95b0-4306-a682-0d0466497ddb@amd.com>
+ <2399841f-d834-4652-8285-4a15c7d9a9b9@linux.dev>
+ <d974a2ea-6102-45ff-bf36-3b25a2404e40@amd.com>
+ <ail8iNvPrJnE7p58@ashevche-desk.local>
+ <92683537-8404-47fe-a4ba-160e54870f0b@amd.com>
 MIME-Version: 1.0
-References: <20260610025014.5913-1-islituo@gmail.com>
-In-Reply-To: <20260610025014.5913-1-islituo@gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 11 Jun 2026 10:10:32 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdW_+WE2uUyqAEhSqT7F4pWseO6Gygbw3tCo7LpAJB2C4Q@mail.gmail.com>
-X-Gm-Features: AVVi8CdVNKXrG0x1HHGz_rLBLe8j66H4QINxyVuJFwMPwOBF3fyFXz7IkA4-6yQ
-Message-ID: <CAMuHMdW_+WE2uUyqAEhSqT7F4pWseO6Gygbw3tCo7LpAJB2C4Q@mail.gmail.com>
-Subject: Re: [PATCH v2] fbdev:modedb: fix a possible UAF in fb_find_mode()
-To: Tuo Li <islituo@gmail.com>, deller@gmx.de
-Cc: simona@ffwll.ch, tzimmermann@suse.de, kees@kernel.org, 
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <92683537-8404-47fe-a4ba-160e54870f0b@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,58 +124,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Tuo, Helge,
+On Thu, Jun 11, 2026 at 10:01:25AM +0200, Christian König wrote:
+> On 6/10/26 17:02, Andy Shevchenko wrote:
+> > On Wed, Jun 10, 2026 at 11:11:34AM +0200, Christian König wrote:
+> >> On 6/10/26 10:18, Kaitao Cheng wrote:
+> >>> 在 2026/6/10 16:07, Christian König 写道:
 
-On Wed, 10 Jun 2026 at 04:50, Tuo Li <islituo@gmail.com> wrote:
-> If mode_option is NULL, it is assigned from mode_option_buf:
->
->   if (!mode_option) {
->     fb_get_options(NULL, &mode_option_buf);
->     mode_option = mode_option_buf;
->   }
->
-> Later, name is assigned from mode_option:
->
->   const char *name = mode_option;
->
-> However, mode_option_buf is freed before name is no longer used:
->
->   kfree(mode_option_buf);
->
-> while name is still accessed by:
->
->   if ((name_matches(db[i], name, namelen) ||
->
-> Since name aliases mode_option_buf, this may result in a
-> use-after-free.
->
-> Fix this by extending the lifetime of mode_option_buf until the end of the
-> function and using scope-based resource management for cleanup.
->
-> Signed-off-by: Tuo Li <islituo@gmail.com>
-> ---
-> v2:
-> * Use scope-based resource management instead of manual kfree() calls.
->   Thanks to Helge Deller for the helpful advice.
+...
 
-Thanks for your patch, which is now commit 85b6256469cebdac ("fbdev:
-modedb: fix a possible UAF in fb_find_mode()") in fbdev/for-next, and has:
+> >>> Should we revert to v1, or keep list_for_each_entry() and
+> >>> list_for_each_entry_safe() as they are, close this thread, and make no
+> >>> changes?
+> >>>
+> >>> Link to v1:
+> >>> https://lore.kernel.org/all/20260529082149.76764-1-kaitao.cheng@linux.dev/
+> >>>
+> >>> Or do you have any better suggestions?
+> >>
+> >> v1 looks perfectly reasonable to me.
+> > 
+> > But why not just hiding that once for all (in case they don't use the temporary
+> > iterator)? Easy to automate, robust — everyone is happy?
+> 
+> As far as I can see that is an extremely bad idea.
+> 
+> The distinction between the use cases of 'iterating the list' and 'iterating
+> the list while you modify it' is completely intentional.
 
-    Cc: stable@vger.kernel.org # v6.5+
+What I meant is to keep the name, just drop the parameter (make it hidden and
+being defined inside list_for_each_*_safe() cases).
 
-I believe it needs:
-Fixes: 089d924d03d5c17b ("fbdev: Read video= option with
-fb_get_option() in modedb")
+> See the bool type can be implemented by int as well, but it is just a
+> different use case.
 
-and that commit entered v6.4-rc1, i.e. not v6.5?
-
-Gr{oetje,eeting}s,
-
-                        Geert
+> >> You should just include some patches in the same patch set to actually use
+> >> the new macros.
+> >>
+> >> If you modify the files under drivers/dma-buf or drivers/gpu/drm/amd to use
+> >> the new macro I'm happy to review that.
+> > 
+> 
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+With Best Regards,
+Andy Shevchenko
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+
