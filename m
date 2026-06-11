@@ -4,90 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50C38CD98CC
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 11:33:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FF4BCD98CC
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 11:49:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B41010EE96;
-	Thu, 11 Jun 2026 11:33:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DABDC10E312;
+	Thu, 11 Jun 2026 11:49:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Vexdn9ED";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="S+bEAs8j";
 	dkim-atps=neutral
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18C4F10EE96
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 11:33:34 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-2c0c1e0d00bso74925915ad.0
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 04:33:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781177613; cv=none;
- d=google.com; s=arc-20240605;
- b=NZcGmUregMWNJ6TIhH5YoOTpnAfNA2LuytdIyPicZ8bhaqrvgVFhhTtPlup2DP0s8M
- l4jmEiupcWAO4atwX48pFFA9BfzdvzF8vXvXr0tcR5dbj43239EZyIF1nVjvRB4Ijpsb
- gVjsoI1r79aG5ZTGXduLt3d+3DGJlJHtnCwOPMrvUkOyJvL9f1QVj/RgTIxDEUFhW7m2
- didZILQ0jWvJLFXtm3sYw0xvrcGUp2f+EA2Tl8j2WUqo0jiL+1MQqtvUzC3M+gMkihg0
- YCoJMdtyJ0lhu4owSrjtP9KVr9d5+n67krKY5/QZ3ku99aR3oiBjOQtdJ3BNk2l+5Pe5
- 88bg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=Dp9QBlKQgTMU863TVI7dtmsZ6ywpDTOUUJKYTfISpko=;
- fh=m/sl8ULpbFGVr6Vd/I5iaFoXeKx+GjnR62Wrw1yHdcw=;
- b=Tbey2IPOSkPg+jqgNWI7yotL1O19eYhKIuPY/E3HgIVazJepbPuWd8XjIPn68hS+SQ
- o+I3/ffdO+b4amcrajZG89hH91CmzHzG8GD7ipGR2zeT49vkFD0wdm4bKGHvcslzorRC
- moJGSohmM+7e5BMddbs/VXX50LxEkJY4LvL1PH5pMxo54mrKYvryvK766+PfDBu0Tkzo
- 6ZyaoWmkI7EcDGiRcKTaruKNo/zuTedivvCWG1cxavj7Cgj8OJTSr5S4bhtm/K+Zg1i1
- cjWCS6hyFGVCYSBzODMJxr2xzteegIFp68djhQflu3MluWfFa4LXlxxpy9GBHxKOCsDl
- rUrw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781177613; x=1781782413; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=Dp9QBlKQgTMU863TVI7dtmsZ6ywpDTOUUJKYTfISpko=;
- b=Vexdn9EDZAs2g5OWwHlWeQO/DihI8wMQIVoRD07IvD3cpeO7mBHy0yqXL/0fIEKsNi
- Vn7unn7fyObdkzRj4eE5Us/9Lun5ehunItnnBU6zzpGv/kyZB/kDj7F/6B7Qtq9oxI7Y
- ubvtqt1bklz0D1nCyENIiYKCbS05HEtX10+KLa3UmKRkh1P9tKDXpGDIfjTfRYpT5uI6
- 7FtH2Lr1Zm4CwWScB3r5fS5EgrtmDQylNbS7ktb+MDfOThw8qVViUmB7SvEk6LiMwWdK
- K9wEjLlOFuLL+j9ow1bkXo6Ppxe64m6Ss2s4wgsKfSLKFSWS2pFl1NEJ6ak9EHhI7pGN
- ZxnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781177613; x=1781782413;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Dp9QBlKQgTMU863TVI7dtmsZ6ywpDTOUUJKYTfISpko=;
- b=SmkYgOqAi4Y8zj2LomF2LIF1DQ927on1PbDjbaPBSNASCneZj4sxNdhcQJJIv8bgvX
- RxPDX5soy4x/8iiY23KVLwbGuFcc1opVG+8+Iqdt/LNsUwjCKkVg+qJodoRyYaccTGv0
- NrK97T41ghR4/mQer5iRnJnRU7yA8h70Zxnsw03RXrpH+neToITSI0XFuSHffIm4gIsI
- cGrzAVCYgMZT13sBudR3ZGd4S8TiT9sMlkNnW3pYEa+PCVCzPolLyV8hEDloa/rw76Ey
- 09xJk4G4jdCA7FJTKKzUhAaQPtKflz58Pk6SboKymWx75wwecq9RZVtBYJc9uC6yGJq/
- AQJw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ92z5/bqknA5BfNVY0a+3sHw2ha8fuzzBxrCZWgCLhnsXwTBJ/UIIHMv4FlHctpsxFvPBaqzkvsTYI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyOcsb+3Eshiuu7JD/shuwqm+VxKtuZDSxTHp2KDXXTdfpK/Bz4
- oTd5EDL3dC9RWPLFELH3T9oo9DT7aiVcc+ojivvoQl7dFnDkFzprO9bJSTPSS85hl22e++NecGP
- irwt5BLj8+p5kl+vpHCKrbFA5kkkXl5y2RsJ3
-X-Gm-Gg: Acq92OGeAyv8mZZwTKjBpdCrWlnm5EfDlQ+H4NA9hrDjKpmbIyj0COk1XK1tDfJjkem
- Is2Vz9HwcXdUCTb1ImUgYaRRcpSgmAIt6oloEFkKKbYPy8UVvLGiUNlo+Besu4OQ3U/npPAHyGI
- 1asz5lWeXFGsQ5hRyR9RcU4upwkYgJkKQKI6Y4X/1OTPPSNWWvkyzYto11lafEM5/9OKTxmRCBo
- uPESqVaJIdTTyvkJtHRPaFK2Jdt0BXwViR6njfkvp6or7RNAhDoKWkt0/DXg6Eib7SLcIRP+KlK
- 8W4QTmIdQJ7/kx+C3U8Xk45yKYS90gY6N880+wnilLrshubi
-X-Received: by 2002:a17:903:37c6:b0:2c0:a360:45e9 with SMTP id
- d9443c01a7336-2c2f2b6ee3amr28266425ad.29.1781177613475; Thu, 11 Jun 2026
- 04:33:33 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3901410EE98
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 11:49:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=xgcD6COU+kZagJzmXfAaNmEQozLIuFB+qvYXXbTxbsw=; b=S+bEAs8jefLO7s5zBHoov0bnn/
+ NkIBVxWoRXwALrqR8vKAr6z+tL1adgaKvcU+G0TS3tHjlmnQwa+9ORbvxo7QYg3oE63luZrNGDzFP
+ t/WmGsVoi1mGYY6oRWJoFGjb65qP6AXJxTbwwgXn2MFKCGiETMXor3yeyVWF21k2f1VukNKXUMQ8f
+ aRAlbRTGMGHIYq6Wa+C7yhfOC3+xuL2RdBDdK8ChD5ruC5M1WOu03NwPUr/quyOS9dHcYBW+SyGNc
+ ssLwDdc4NlA/23U02MKyGsoqwhZWslUz9vr2EA+ctj7wvXJq83t5XeaAm9nElsve6+jYNjwLPbUw5
+ dB/n2SKw==;
+Received: from [189.7.87.67] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wXdug-00G5iT-EB; Thu, 11 Jun 2026 13:49:34 +0200
+Message-ID: <37a44215-4fd5-4569-a619-a5677e4b19fb@igalia.com>
+Date: Thu, 11 Jun 2026 08:49:28 -0300
 MIME-Version: 1.0
-References: <20260511085148.652256-1-l.stach@pengutronix.de>
- <20260511085148.652256-2-l.stach@pengutronix.de>
-In-Reply-To: <20260511085148.652256-2-l.stach@pengutronix.de>
-From: Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Thu, 11 Jun 2026 13:33:20 +0200
-X-Gm-Features: AVVi8CdntjkGsiSaOStsg0DvQrN99U9lXn-a3gylizm_-sdLiXemiGC-O5Gz3VI
-Message-ID: <CAH9NwWcqF1+=opm0wcVevYwv+9GKm-OZYde+W0Wc4d9PbCjaNg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/etnaviv: check MMUv2 status after reset
-To: Lucas Stach <l.stach@pengutronix.de>
-Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/v3d: Associate BOs with every job that accesses
+ them
+To: Iago Toral <itoral@igalia.com>, Melissa Wen <mwen@igalia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ Emma Anholt <anholt@igalia.com>
+References: <20260610-v3d-cpu-job-fixes-v1-0-0d9c88989edc@igalia.com>
+ <20260610-v3d-cpu-job-fixes-v1-1-0d9c88989edc@igalia.com>
+ <4a83fb4434459846c2e2936e4bbd297b75d70af1.camel@igalia.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <4a83fb4434459846c2e2936e4bbd297b75d70af1.camel@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,56 +89,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
->
-> A fully GPU reset is the only way to disable the MMUv2 and the
-> driver depends on the MMU being disabled after a reset to be able
-> to properly restart the GPU. Validate this assumption by checking
-> that the reset actually did disable the MMU.
->
-> Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
+Hi Iago,
 
-Reviewed-by: Christian Gmeiner <cgmeiner@igalia.com>
+On 11/06/26 03:17, Iago Toral wrote:
+> Hi Maíra,
+> 
+> I have a couple of thoughts here:
+> 
+> 1. The original code seems to very specifica about targeting this only
+> for the last job, which makes it look like a very intentional decision,
+> so I wonder if there is something we are missing here. I am adding Emma
+> to the CC in case she has any thoughts about it.
+> 
 
-> ---
->  drivers/gpu/drm/etnaviv/etnaviv_gpu.c | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
->
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-> index 34fff36af450..577fc8131976 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-> @@ -601,6 +601,23 @@ static int etnaviv_hw_reset(struct etnaviv_gpu *gpu)
->                         continue;
->                 }
->
-> +               /* try resetting again if MMUv2 is not disabled */
-> +               if (gpu->identity.minor_features1 & chipMinorFeatures1_MMU_VERSION) {
-> +                       if (gpu->sec_mode == ETNA_SEC_KERNEL) {
-> +                               if (gpu_read(gpu, VIVS_MMUv2_SEC_CONTROL) &
-> +                                   VIVS_MMUv2_SEC_CONTROL_ENABLE) {
-> +                                       dev_dbg(gpu->dev, "MMU is not disabled\n");
-> +                                       continue;
-> +                               }
-> +                       } else {
-> +                               if (gpu_read(gpu, VIVS_MMUv2_CONTROL) &
-> +                                   VIVS_MMUv2_CONTROL_ENABLE) {
-> +                                       dev_dbg(gpu->dev, "MMU is not disabled\n");
-> +                                       continue;
-> +                               }
-> +                       }
-> +               }
-> +
->                 /* enable debug register access */
->                 control &= ~VIVS_HI_CLOCK_CONTROL_DISABLE_DEBUG_REGISTERS;
->                 gpu_write(gpu, VIVS_HI_CLOCK_CONTROL, control);
-> --
-> 2.47.3
->
+I have the impression that this is a consequence of several design
+changes that the driver passed through the years. Initially, the v3d
+driver only had a CL submission and attaching BOs to the last job meant
+attaching to the render job. This was fine, only considering the caveat
+mentioned in commit dffa9b7a78c4 "drm/v3d: Add missing implicit
+synchronization": "we currently only implicitly sync for the rendering
+pass, not binning -- if you texture-from-pixmap in the binning vertex
+shader you'll miss out on synchronization."
 
+However, with time, we added the CACHE_CLEAN flag to the CL submission
+(so the last job could be a CACHE_CLEAN job) and we added CSD and TFU
+submissions. Then, attaching the BOs to the last job wasn't the correct
+approach anymore.
 
--- 
-greets
---
-Christian Gmeiner, MSc
+> 2. I am not aware of any issues despite not having implicit sync for
+> all the jobs in the chanin. Like you mention, this is because user-
+> space is already trying to handle job depedencies, so I wonder if we
+> should instead work on the opposite direction and try to drop implicit
+> sync in the kernel entirely. Would that make sense? What are other
+> drivers doing in this regard?
+> 
 
-https://christian-gmeiner.info/privacypolicy
+Maybe some one who has been around for longer could bring a historical
+overview about this topic. From my understand, I don't think we can drop
+implicit sync because it's part of the dma-buf synchronization contract.
+If I'm not mistaken, v3d_submit_attach_object_fences() publishes our
+fence so a consumer (e.g. compositor, KMS) can wait on us, and
+drm_sched_job_add_implicit_dependencies() makes us wait on other actors'
+fences already on the buffer. Mesa only syncs within its own context,
+but it doesn't sync shared buffers cross-processes.
+
+We can think about creating a EXPLICIT_SYNC flag for the BOs in the
+future. We can talk more about this idea privately.
+
+> As for the patch itself, I have a comment below:
+> 
+> El mié, 10-06-2026 a las 19:50 -0300, Maíra Canal escribió:
+>> A submission can expand into a chain of jobs (e.g. bin + render +
+>> cache
+>> clean), but v3d_lookup_bos() only looked up the user's BO list onto
+>> the
+>> *last* job of the submission. Every earlier job was left with
+>> bo_count == 0 and an empty bo[] array.
+>>
+>> As a consequence, when implicit synchronization happens in
+>> v3d_submit_lock_reservations(), earlier jobs get no implicit
+>> dependencies at all, as the loop is gated on job->bo_count and
+>> earlier
+>> jobs don't have any BO attached to them. With that, the BIN job reads
+>> the
+>> same buffers as the RENDER job, yet nothing made it wait for a prior
+>> writer to finish. The BIN job could therefore be dispatched to the
+>> hardware and read a BO while another context was still writing it,
+>> leading to data corruption that was only avoided as the userspace
+>> adds
+>> explicit syncobjs.
+>>
+>> Fix this by calling v3d_lookup_bos() for each job that references the
+>> submission's BOs, so every job carries its own bo[]/bo_count and
+>> picks
+>> up the correct implicit dependencies during reservation locking.
+>>
+>> Fixes: dffa9b7a78c4 ("drm/v3d: Add missing implicit
+>> synchronization.")
+>> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+>> ---
+>>   drivers/gpu/drm/v3d/v3d_submit.c | 41 +++++++++++++++++++++---------
+>> ----------
+>>   1 file changed, 22 insertions(+), 19 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c
+>> b/drivers/gpu/drm/v3d/v3d_submit.c
+>> index ee2ac2540ed5..3d6582dfb1bf 100644
+>> --- a/drivers/gpu/drm/v3d/v3d_submit.c
+>> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
+>> @@ -68,7 +68,6 @@ v3d_submit_unlock_reservations(struct v3d_submit
+>> *submit)
+>>   /**
+>>    * v3d_lookup_bos() - Sets up job->bo[] with the GEM objects
+>>    * referenced by the job.
+>> - * @dev: DRM device
+>>    * @file_priv: DRM file for this fd
+>>    * @job: V3D job being set up
+>>    * @bo_handles: GEM handles
+>> @@ -82,23 +81,19 @@ v3d_submit_unlock_reservations(struct v3d_submit
+>> *submit)
+>>    * failure, because that will happen at `v3d_job_free()`.
+>>    */
+>>   static int
+>> -v3d_lookup_bos(struct v3d_submit *submit, u64 bo_handles, u32
+>> bo_count)
+>> +v3d_lookup_bos(struct drm_file *file_priv, struct v3d_job *job,
+>> +	       u64 bo_handles, u32 bo_count)
+>>   {
+> 
+> Wouldn't it make more sense to have this function take the submit like
+> it did originally and loop through all the jobs in a chain instead of
+> calling this multiple times for each job in a chain?
+
+We don't want to attach the BOs to all the jobs in the chain. For
+example, I don't believe we would want to attach BOs to a CLEAN_CACHE
+job.
+
+Best regards,
+- Maíra
+
