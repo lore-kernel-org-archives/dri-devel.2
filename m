@@ -4,74 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB36CCD98D2
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 07:55:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 400B5CD98C7
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 07:55:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5683910ED62;
-	Thu, 11 Jun 2026 07:55:25 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="FG941Fdw";
-	dkim-atps=neutral
-Received: from mail-wm1-f74.google.com (mail-wm1-f74.google.com
- [209.85.128.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF9B410ED62
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 07:55:23 +0000 (UTC)
-Received: by mail-wm1-f74.google.com with SMTP id
- 5b1f17b1804b1-490bfd70b0fso76768445e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 00:55:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1781164522; x=1781769322;
- darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=AXZxyRMFccdWt/MQKRyDlJE1FTaAohbihCXqfQGqWSs=;
- b=FG941Fdwcyu/X+DBPRGYNYJP5IOjq+ijhj1nBLy2gL56UOhKRvLSNrDX59bdP2lUrF
- 6dDobXiedeHXbdg1SMmr2XLwLU1dV/236gmbMQ15JYKrTVSaP53+enOCYlSOTB3ev+tJ
- P8VsFAm8nqbyihcXeH5Ygyo7Xn59XB2RZ391anAiL+L8gvLlATT+zjLalQ+AOjVoBn94
- 0pFIfj4HPYvCJ1pn/bS/bwmjWkjlydZU0CUx0vxwirRaQmoVszW/wdAsQhGzu4q3Xg0B
- jqCrYAmfmDqQMBvfqO+CR92MH60Jds6YXzYplKdPJzP86rBKOPnw50SzxGtRlu0HPOuZ
- FTCw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9927910ED5E;
+	Thu, 11 Jun 2026 07:55:41 +0000 (UTC)
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com
+ [209.85.221.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E5E610ED5E
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 07:55:40 +0000 (UTC)
+Received: by mail-vk1-f171.google.com with SMTP id
+ 71dfb90a1353d-59bbe027424so6162251e0c.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 00:55:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781164522; x=1781769322;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=AXZxyRMFccdWt/MQKRyDlJE1FTaAohbihCXqfQGqWSs=;
- b=bF7KcgFdn1+lhEeVBBTmwZu0axbitCdEIDvvPGvpdveeixed0Q1pGu2tCcVZoCK1rk
- cX++rzgEYG+G1ttesNyelAIotiWuBNtFO5MLClH+RdZZ1178FrOv/T9xRO3s2DPbdwxh
- 52twZdNb66xKsoeFDBerOMLxXgAj89Uf+tERZgKI6ItIBGPgzbmNHGnhE09+640jrzPm
- Ux1Cb5Mn0Yj2F4Q+eO2bMH1q4yWJQ4mPo7Ee7E9XX40bgtwnUtbkVJuuwObujeKYu30r
- VdZ3zcnItSY2IzxheM+VcjRxbnQAKcS4eSQL4KB35AhxbNWKXALobMoCAbeekFDNgOO+
- 7Qzw==
+ d=1e100.net; s=20251104; t=1781164539; x=1781769339;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=w2NiokGN/wizVGUGbdWYAqnmeeSP+HB1QCep5aAksHU=;
+ b=fBO1m6m59TnuMtvE7W+VVRR97Kpcu6qVqzXVzuPFxP57xB0aa1Qe9wUsyeqo7v8G1o
+ pqyZu16HMnYeHYb+uhqdhuAING82NeG+d/VxYIPxI5qLgm98Jx/wnaFNdNjloElUFN24
+ k3rT8/NdBRnvU+RlN9p6moYDoQrlfz7u4SW7oJgjY3LJETRatkrFK3pFiDBoruMIaQXs
+ JcAsjM+/Y+kAWA+zu4q+ejj9ydHwdebOcclBv9wrzfhBT7XFdzJm1cC9CbJRcDc1fpbE
+ 6bCf/obJG1pIJbxVPzhd6XI1LG3dKzkjTJwzQNvsOqrz2s0Qldm7K6kXK5mZeRN5ekCE
+ PJ/Q==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+Ze8AhuLKaQqqlPxCCr9K333BOBu/WzRkGhsFBbPeiuCX5HtqMwvv5quw/RkQV0l8ytYFcPQ8DY2k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxZkeaLpGdATS7P7KclHU2Z31nyzgPS+KcMBflyIT5jqMPa+eil
- 2ZWM7zKOZfz/H9uKVD3a+01JmMuazXue5i47mIxJBXJCOEOwx7+pTHCiT1x0VJNpb0gaijakQ/m
- rf1JPrWYh8Cf6noAwzA==
-X-Received: from wmbg11.prod.google.com ([2002:a05:600c:a40b:b0:490:b22d:da02])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:4455:b0:490:c2a2:e91c with SMTP id
- 5b1f17b1804b1-490e5642822mr18384385e9.34.1781164522238; 
- Thu, 11 Jun 2026 00:55:22 -0700 (PDT)
-Date: Thu, 11 Jun 2026 07:55:21 +0000
-In-Reply-To: <20260610-gpuvm_device_context_v1-v1-1-01a890b17448@collabora.com>
-Mime-Version: 1.0
-References: <20260610-gpuvm_device_context_v1-v1-1-01a890b17448@collabora.com>
-Message-ID: <aipp6chnYAUQ8LOv@google.com>
-Subject: Re: [PATCH] rust: drm: gpuvm: update DriverGpuVm for DeviceContext
-From: Alice Ryhl <aliceryhl@google.com>
-To: Deborah Brouwer <deborah.brouwer@collabora.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- "Thomas =?utf-8?Q?Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- "=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, samitolvanen@google.com, 
- laura.nao@collabora.com, boris.brezillon@collabora.com
-Content-Type: text/plain; charset="utf-8"
+ AFNElJ8OMtaAexxnyZdxJOul5m2J21a8PEk0crFpculJLNjXtj1Zf9Z9oAf9pAE2EZcEzc7XhzCdYNSqY5Q=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx9lmZamCkSdFMbtgR4nYrX94jmbAPDTfZUtEhvfVLr6SMTVAiT
+ E97l+sYe1Gw5gOVc1HZwtGPNsPk13LVYGOaHas/a5J3znIHl7us8hV5041AQ5YhLzMU=
+X-Gm-Gg: Acq92OEQNI2m7PRHOHpuXs9ll6ynGqUiz2SqaGm/AOOM/XO/muieC921oFRKVqjjTFQ
+ WVQ5rtHi8oXhSHWrjQEvzvujpJ7aOIsxs+ejGE8H4yXN1zO31ZqiuqJ6rzyz+z0Hf3llj8NNWoF
+ HGay0E9nWMsXJqTdtKkt38UA+yacwY9DsYV5isO+/AwjkgY0ysm+IQKWa7BCTBSLIJDci0glzge
+ CKv35wATgMcbaHEha0cE9LcAU59sLfg6OFicgYIHysQKnN/W5S11qvivMZfl1w1Kvh3pxRo1aCR
+ sGlei1RbvjNxuAELqKOMsxNzi9e0q057zdlbH/lXrEsHEf556ThUQ1/MX0YlWUO2frx+dnL/+qI
+ QNXrZIG+VavHckoOeO0Do9jNkrm8IPnnEbvrjNIuiIpHPtgrX8qwtVUszdeDNOs8DeQ0FJCGPMg
+ 14lKXPiIY3h9aY1Fot1P9FfdFzgZu8P4NxnJq7DL1bBF0ZAwX1VyyEZ/JeE7zCI/1C7BtEcNTyQ
+ FM=
+X-Received: by 2002:a05:6122:6606:b0:575:2072:54d1 with SMTP id
+ 71dfb90a1353d-5bb004a9332mr495686e0c.8.1781164539460; 
+ Thu, 11 Jun 2026 00:55:39 -0700 (PDT)
+Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com.
+ [209.85.221.172]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5bb0d9b4a20sm728599e0c.13.2026.06.11.00.55.37
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 11 Jun 2026 00:55:38 -0700 (PDT)
+Received: by mail-vk1-f172.google.com with SMTP id
+ 71dfb90a1353d-59d07df448bso5777257e0c.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 00:55:37 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9lX3mvKNd344MXGWQb/CEQj/AeXaWOpg4Gnt3s7rXjSh72O7zw5zvZQZf2hkNo3cVonL3Y07w/Fhw=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:419e:b0:639:1e8b:ecd9 with SMTP id
+ ada2fe7eead31-71d5ca6f14emr533723137.20.1781164537632; Thu, 11 Jun 2026
+ 00:55:37 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260611005952.146825-1-marek.vasut+renesas@mailbox.org>
+ <20260611005952.146825-2-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260611005952.146825-2-marek.vasut+renesas@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 11 Jun 2026 09:55:26 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVU=msc6f3KpW1PeC1mB4dLKhAdqRaFx2i7GMRNDv+4vg@mail.gmail.com>
+X-Gm-Features: AVVi8CctB5g3lahw0kyIeWwLgXx3I55B4rJDSwSay_Z70zWBy3E0yh5vjNFIWN4
+Message-ID: <CAMuHMdVU=msc6f3KpW1PeC1mB4dLKhAdqRaFx2i7GMRNDv+4vg@mail.gmail.com>
+Subject: Re: [PATCH 2/3] arm64: dts: renesas: r8a77965-salvator-xs: Enable GPU
+ support
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Frank Binns <frank.binns@imgtec.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Magnus Damm <magnus.damm@gmail.com>, Matt Coster <matt.coster@imgtec.com>, 
+ Maxime Ripard <mripard@kernel.org>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
+ Rob Herring <robh@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,18 +95,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 10, 2026 at 05:01:26PM -0700, Deborah Brouwer wrote:
-> Since the introduction of DeviceContext, there is no longer a single
-> driver object type to equate with the GPUVM object type.
-> 
-> Instead of threading DeviceContext through GPUVM, remove the strict
-> identity between DriverGpuVm::Object and drm::Driver::Object and
-> instead tighten the requirement that the DriverGpuVm::Object be an
-> allocatable GEM object associated with the same DRM driver.
-> 
-> Also, make GpuVm::new() generic over DeviceContext so it can accept a
-> drm::Device<T::Driver, Ctx>.
-> 
-> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+On Thu, 11 Jun 2026 at 03:00, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> Enable GPU on Salvator-X 2nd version with R-Car M3-N.
+>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.3.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
