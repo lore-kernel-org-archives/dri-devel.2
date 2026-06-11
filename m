@@ -4,46 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28736CD98D2
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 07:56:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72131CD98D2
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 07:58:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A7F910ED69;
-	Thu, 11 Jun 2026 07:56:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0AD710ED71;
+	Thu, 11 Jun 2026 07:58:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="T4vzXzg3";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ao52wPXR";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94E8F10ED69
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 07:56:24 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 681D59D1;
- Thu, 11 Jun 2026 09:55:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1781164553;
- bh=QkMxJVv5RNjTeesSINsxfa55tjcPiIQrQEaY+ggrTNU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=T4vzXzg35iMSykaCbXcVa5X5i+jNULm3yLfeipv4KWW7DY2kJBWTX+fGspy4JjU0i
- gLmJkeTlrsmW8GIIqrEM4y6haeERdbzBeyIke+JO3aRAhbgWvML4ewLN4DUDaSdgmU
- di7o6q4uUuFmSRh5mWf6OGEUS+vJbF2oAFpCwQvg=
-Date: Thu, 11 Jun 2026 10:56:21 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH] drm/rcar-du: Drop superfluous spaces after assignments
-Message-ID: <20260611075621.GB1758601@killaraus.ideasonboard.com>
-References: <80e30578b6dd86664112320616c460c48dbd79f6.1777881435.git.geert+renesas@glider.be>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AE4210ED71
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 07:58:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781164693; x=1812700693;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=TFvoUxxZrergDNxRSBivXTrpWKdYR7ci7bGVdqx0nKs=;
+ b=ao52wPXRtPuf4R/HQ5JHR/KIcBXHicgfp+bjshF1Gyqnpw0Vh7ncdyXK
+ IodRzq3lS8j65eyB+b53GtmyaQqgwNQ+u+TeNxG8F0tf+u/vtpFK96GGS
+ 1zz0+oM3Gxwoiwi2yeti79Zk5S2EhWthhH5mIQrFPIAOuc9kAvc6yMs1d
+ 7h2GUIN/1on2ZDADTheftkPwzqCxXsYREd3eOjxkkYTDuUe7xkvBGpskT
+ acKLZGEEyexy9wmMBQ82Bh8NPZZFa2WUIuASR2N04MybsZkZno/0OJG5X
+ c303TybsurIjvAjwe5n7OgnrgPB3efFZFVlCYfyzgzsJ/OuGVoxUBOHqs g==;
+X-CSE-ConnectionGUID: AAIg480yQZyCdV2Jv0cuZg==
+X-CSE-MsgGUID: 36y56R1HQ12uAaUzWmh19g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="82016487"
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="82016487"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2026 00:58:13 -0700
+X-CSE-ConnectionGUID: Q3zC1mlzQeqi5UxJ6S5MCA==
+X-CSE-MsgGUID: vPbwuaiNSL2HAIx5/E3enA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="270081244"
+Received: from jkollber-mobl1.ger.corp.intel.com (HELO [10.246.16.106])
+ ([10.246.16.106])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2026 00:58:12 -0700
+Message-ID: <7d335fd9-8911-48fb-9765-95aa637b5c67@linux.intel.com>
+Date: Thu, 11 Jun 2026 09:58:09 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <80e30578b6dd86664112320616c460c48dbd79f6.1777881435.git.geert+renesas@glider.be>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] accel/ivpu: use kmem_cache for IPC rx_msg allocations
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+References: <20260611055214.948748-1-karol.wachowski@linux.intel.com>
+ <20260611060448.197F71F00893@smtp.kernel.org>
+Content-Language: en-US
+From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
+In-Reply-To: <20260611060448.197F71F00893@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,120 +71,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Geert,
-
-Thank you for your space-saving efforts.
-
-On Mon, May 04, 2026 at 09:58:23AM +0200, Geert Uytterhoeven wrote:
-> There is no need for a double space after an assignment.
+On 11-Jun-26 8:04, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] Duplicate kmem_cache name on multi-device systems
+> --
 > 
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-
-> ---
-> This started with two instances, and got copied each time support for
-> a new SoC was added...
-> ---
->  drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.c | 20 +++++++++----------
->  1 file changed, 10 insertions(+), 10 deletions(-)
+> commit 41c16409be6704d2ef5ab21270390fee65dcf7aa
+> Author: Karol Wachowski <karol.wachowski@linux.intel.com>
 > 
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.c
-> index 031d07f4508e9762..d9926c24984eb3db 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.c
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.c
-> @@ -137,7 +137,7 @@ static const struct rcar_du_device_info rcar_du_r8a774a1_info = {
->  	},
->  	.num_lvds = 1,
->  	.num_rpf = 5,
-> -	.dpll_mask =  BIT(1),
-> +	.dpll_mask = BIT(1),
->  };
->  
->  static const struct rcar_du_device_info rcar_du_r8a774b1_info = {
-> @@ -168,7 +168,7 @@ static const struct rcar_du_device_info rcar_du_r8a774b1_info = {
->  	},
->  	.num_lvds = 1,
->  	.num_rpf = 5,
-> -	.dpll_mask =  BIT(1),
-> +	.dpll_mask = BIT(1),
->  };
->  
->  static const struct rcar_du_device_info rcar_du_r8a774c0_info = {
-> @@ -196,7 +196,7 @@ static const struct rcar_du_device_info rcar_du_r8a774c0_info = {
->  	},
->  	.num_lvds = 2,
->  	.num_rpf = 4,
-> -	.lvds_clk_mask =  BIT(1) | BIT(0),
-> +	.lvds_clk_mask = BIT(1) | BIT(0),
->  };
->  
->  static const struct rcar_du_device_info rcar_du_r8a774e1_info = {
-> @@ -227,7 +227,7 @@ static const struct rcar_du_device_info rcar_du_r8a774e1_info = {
->  	},
->  	.num_lvds = 1,
->  	.num_rpf = 5,
-> -	.dpll_mask =  BIT(1),
-> +	.dpll_mask = BIT(1),
->  };
->  
->  static const struct rcar_du_device_info rcar_du_r8a7779_info = {
-> @@ -385,7 +385,7 @@ static const struct rcar_du_device_info rcar_du_r8a7795_info = {
->  	},
->  	.num_lvds = 1,
->  	.num_rpf = 5,
-> -	.dpll_mask =  BIT(2) | BIT(1),
-> +	.dpll_mask = BIT(2) | BIT(1),
->  };
->  
->  static const struct rcar_du_device_info rcar_du_r8a7796_info = {
-> @@ -416,7 +416,7 @@ static const struct rcar_du_device_info rcar_du_r8a7796_info = {
->  	},
->  	.num_lvds = 1,
->  	.num_rpf = 5,
-> -	.dpll_mask =  BIT(1),
-> +	.dpll_mask = BIT(1),
->  };
->  
->  static const struct rcar_du_device_info rcar_du_r8a77965_info = {
-> @@ -447,7 +447,7 @@ static const struct rcar_du_device_info rcar_du_r8a77965_info = {
->  	},
->  	.num_lvds = 1,
->  	.num_rpf = 5,
-> -	.dpll_mask =  BIT(1),
-> +	.dpll_mask = BIT(1),
->  };
->  
->  static const struct rcar_du_device_info rcar_du_r8a77970_info = {
-> @@ -502,7 +502,7 @@ static const struct rcar_du_device_info rcar_du_r8a7799x_info = {
->  	},
->  	.num_lvds = 2,
->  	.num_rpf = 5,
-> -	.lvds_clk_mask =  BIT(1) | BIT(0),
-> +	.lvds_clk_mask = BIT(1) | BIT(0),
->  };
->  
->  static const struct rcar_du_device_info rcar_du_r8a779a0_info = {
-> @@ -523,7 +523,7 @@ static const struct rcar_du_device_info rcar_du_r8a779a0_info = {
->  		},
->  	},
->  	.num_rpf = 5,
-> -	.dsi_clk_mask =  BIT(1) | BIT(0),
-> +	.dsi_clk_mask = BIT(1) | BIT(0),
->  };
->  
->  static const struct rcar_du_device_info rcar_du_r8a779g0_info = {
-> @@ -544,7 +544,7 @@ static const struct rcar_du_device_info rcar_du_r8a779g0_info = {
->  		},
->  	},
->  	.num_rpf = 5,
-> -	.dsi_clk_mask =  BIT(1) | BIT(0),
-> +	.dsi_clk_mask = BIT(1) | BIT(0),
->  };
->  
->  static const struct rcar_du_device_info rcar_du_r8a779h0_info = {
+> accel/ivpu: use kmem_cache for IPC rx_msg allocations
+> 
+> This commit introduces a dedicated kmem_cache for allocating IPC rx_msg
+> objects to reduce allocator overhead in IRQ handlers.
+> 
+>> diff --git a/drivers/accel/ivpu/ivpu_ipc.c b/drivers/accel/ivpu/ivpu_ipc.c
+>> --- a/drivers/accel/ivpu/ivpu_ipc.c
+>> +++ b/drivers/accel/ivpu/ivpu_ipc.c
+> 
+> [ ... ]
+> 
+>> @@ -490,10 +490,18 @@ int ivpu_ipc_init(struct ivpu_device *vdev)
+>>   	struct ivpu_ipc_info *ipc = vdev->ipc;
+>>   	int ret;
+>>   
+>> +	ipc->rx_msg_cache = kmem_cache_create("ivpu_ipc_rx_msg", sizeof(struct ivpu_ipc_rx_msg), 0,
+>> +					      SLAB_HWCACHE_ALIGN, NULL);
+> 
+> [Severity: Medium]
+> Will this cause a name collision if there are multiple ivpu devices in the
+> same system?
 
--- 
-Regards,
+In practice, no:
+    1. There is a single NPU instance per system, so ivpu_ipc_init() 
+runs once and the cache is created once
 
-Laurent Pinchart
+    2. Even with multiple instances it's safe, because the cache is 
+mergeable (only SLAB_HWCACHE_ALIGN flag). On the merge path the name is 
+registered only as a sysfs alias via sysfs_slab_alias(). So the 
+CONFIG_DEBUG_VM duplicate-name check (which scans slab_caches by name) 
+shouldn't fire.
+
+   The WARN and sysfs collision require slab_nomerge and more than one 
+device which doesn't occur for this driver.
+
+> 
+> Since this is initialized per-device in ivpu_ipc_init(), calling
+> kmem_cache_create() multiple times with the same hardcoded string
+> "ivpu_ipc_rx_msg" can trigger a kernel WARN in kmem_cache_sanity_check()
+> when CONFIG_DEBUG_VM is enabled.
+> 
+> Furthermore, if SLUB merging is disabled via boot parameters or config,
+> the duplicate name causes a sysfs kobject collision, leading to a sysfs
+> warning and a failure to register the cache in sysfs.
+> 
+> Should this cache name be made unique per device using dev_name(), or
+> should the cache be a global singleton?
+> 
+>> +	if (!ipc->rx_msg_cache) {
+>> +		ivpu_err(vdev, "Failed to create rx_msg_cache\n");
+>> +		return -ENOMEM;
+>> +	}
+>> +
+>>   	ipc->mem_tx = ivpu_bo_create_global(vdev, SZ_16K, DRM_IVPU_BO_WC | DRM_IVPU_BO_MAPPABLE);
+>>   	if (!ipc->mem_tx) {
+>>   		ivpu_err(vdev, "Failed to allocate mem_tx\n");
+>> -		return -ENOMEM;
+>> +		ret = -ENOMEM;
+>> +		goto err_destroy_cache;
+>>   	}
+> 
+
