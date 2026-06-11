@@ -4,52 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AE93CD98CC
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 14:13:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 845AACD98CE
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 14:23:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51B1910EF50;
-	Thu, 11 Jun 2026 14:13:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A455E10EF63;
+	Thu, 11 Jun 2026 14:23:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Yzi4I1Mj";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="f+anoEcO";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CEB210EF50
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 14:13:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1503741A2C;
- Thu, 11 Jun 2026 14:13:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2C221F00893;
- Thu, 11 Jun 2026 14:13:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781187215;
- bh=rnZnid0isfWpGxezJrkvnlhLzk5qO1wcq8btBAN/56M=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date;
- b=Yzi4I1MjuiSeOa8sq4OZMCdbXyeTP9Tg5xqmbyjqJeXAaLw/zZu/9pFQbyAqaTFHQ
- GF5qf76L7YNdqTavqV69/JUXJW0x0ygHK1P8w0alVfkrtZrZ9wLut0cLHXzoZoJbXW
- bKCwCFOwd0+FrRHQYNdMVfaRHHRPmNxzXO7ngSq4pg/vE//DBgpP1UBisQ7Q+pt1r6
- Bd+5hyDZSdEqSk/UMe2VdjarD6bIWuy+lW4m75JysYroUtH14CZ/BdI52yNjB713DQ
- DYy0qfbEqXePJTQyGxZ0XTKRF+1WPfFMorkTN2UlfQwGCZNpHutlmmar+jYrk+N4LF
- BS01Ulm03oqlg==
-From: Lee Jones <lee@kernel.org>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>
-Cc: Michael Hennerich <michael.hennerich@analog.com>, 
- Helge Deller <deller@gmx.de>, Junjie Cao <caojunjie650@gmail.com>, 
- Jianhua Lu <lujianhua000@gmail.com>, Flavio Suligoi <f.suligoi@asem.it>, 
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260518111203.639603-2-u.kleine-koenig@baylibre.com>
-References: <20260518111203.639603-2-u.kleine-koenig@baylibre.com>
-Subject: Re: (subset) [PATCH] backlight: Use named initializers for arrays
- of i2c_device_data
-Message-Id: <178118721246.1123697.8942177075587208326.b4-ty@b4>
-Date: Thu, 11 Jun 2026 15:13:32 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FB5C10EF51;
+ Thu, 11 Jun 2026 14:23:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781187786; x=1812723786;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=UXxdt4IUKP8xvjJVsf/LNyew/umC4+Tm2mlOnXMpnvo=;
+ b=f+anoEcOb1ElnPkmlx6GJEicotjtrBkpD+YfXA+SO6k3vxN9x54CoANO
+ 0DZ0AVqQwM3KvbV9EzrIYb46ARwMQmHj1CnpICeJ0ZOaBszJtBlbXzuCQ
+ CfJaDUFXZoZQieK25QjCtz4SAToTYTVnNnLHkADT14LOPfyh8k3if5ROg
+ 9ooLKX3g6yfpcDnqdr2BtXWucYxld5UWtVldUo9UADiWWn/ttIL7Bpe7E
+ RYjvttt7r7kWHiZ+DwZrGDaQE2cJQT34evYBZLheDeA2cPv23dq+Riv0F
+ IMrZ3IRn/QgQDWRbBmBZ6IoBbbw8ouw1U5agimcYU6Lq8ZK+v7IfFhQJg w==;
+X-CSE-ConnectionGUID: ha5LQCLyS1mgy+Af1mBX0g==
+X-CSE-MsgGUID: a1tVdqTmR2e7SZsrUP4q4Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81983374"
+X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="81983374"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2026 07:23:05 -0700
+X-CSE-ConnectionGUID: qf+/glCfT9KDnDvlcai7Rg==
+X-CSE-MsgGUID: 1rG2v9+vRsuge1w/VQwaJw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="284574282"
+Received: from amilburn-desk.amilburn-desk (HELO fedora) ([10.245.244.169])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2026 07:23:01 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ Tejun Heo <tj@kernel.org>,
+ =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+ cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v5 0/6] [PATCH v5 0/6] Add reclaim to the dmem cgroup
+ controller
+Date: Thu, 11 Jun 2026 16:22:36 +0200
+Message-ID: <20260611142242.2529-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,22 +81,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 18 May 2026 13:12:03 +0200, Uwe Kleine-König (The Capable Hub) wrote:
-> While being less compact, using named initializers allows to more easily
-> see which members of the structs are assigned which value without having
-> to lookup the declaration of the struct. And it's also more robust
-> against changes to the struct definition.
-> 
-> The mentioned robustness is relevant for a planned change to struct
-> i2c_device_id that replaces .driver_data by an anonymous union.
-> 
-> [...]
+When writing a "max" limit lower than the current usage, the
+existing code silently failed. This series aims to improve
+on that by returning -EBUSY on failure and also attempt
+to synchronously reclaim device memory to push the usage
+under the new max limit to avoid the error.
 
-Applied, thanks!
+Patch 1 fixes a pre-existing amdgpu_vram_mgr_init() error path
+Patch 2 introduces struct dmem_cgroup_init for extensible region
+      registration.
+Patch 3 implements and documents a reclaim callback interface
+      for the dmem controller.
+Patch 4 implements a TTM reclaim callback.
+Patches 5-6 hook up the reclaim callback to the dmem cgroup-aware
+      drivers xe and amdgpu.
 
-[1/1] backlight: Use named initializers for arrays of i2c_device_data
-      commit: b3c8bb2e69979e3aadcbfc5ac53424ecf26a9277
+v2:
+- Remove the error propagation that was in a previous series (Maarten)
+- A number of updates in patch 1. See its commit message for
+  details (Maarten)
 
---
-Lee Jones [李琼斯]
+v3:
+- Add patch 1 fixing a pre-existing amdgpu_vram_mgr_init() error path
+  bug where drmm_cgroup_register_region() was called before
+  INIT_LIST_HEAD() and gpu_buddy_init(), causing a kernel panic on
+  failure. (Sashiko-bot)
+- Use an rwsem to protect reclaim callback registration and region
+  unregister against concurrent reclaim invocations. (Sashiko-bot)
+- Fix ttm_resource_manager_set_dmem_region() storing an error pointer
+  in man->cg unconditionally. (Sashiko-bot)
+- Fix kernel-doc function name format for ttm_bo_evict_cgroup() and
+  ttm_resource_manager_set_dmem_region().
+
+v4:
+- Rebased on drm-tip; dropped the XE_PL_STOLEN guard in the xe patch
+  as stolen memory uses a separate TTM manager.
+
+v5:
+- Add patch 2 introducing struct dmem_cgroup_init to make the
+  dmem_cgroup_register_region() API extensible without adding positional
+  arguments in the future.
+- Use nonblock=true in reset_all_resource_limits() to avoid sleeping
+  inside rcu_read_lock() in dmemcs_offline(). (Sashiko-bot)
+- Compare usage against the truncated limit stored in cnt.max, not the
+  original u64. (Sashiko-bot)
+- Use DMEM_MAX_RECLAIM_RETRIES (16) retry budget instead of 5, matching
+  the memcg controller; only -ENOSPC (no progress) counts against the
+  budget, other errors abort immediately.
+- Handle NULL region in ttm_resource_manager_set_dmem_region() to clear
+  the reclaim callback, preventing use-after-free when the manager is
+  torn down while the dmem region outlives it. (Sashiko-bot)
+- Return 0 on any eviction progress; reserve -ENOSPC for zero progress.
+- Register xe fini devres action before drmm_cgroup_register_region()
+  so LIFO teardown runs unregister first, draining callbacks before the
+  manager is destroyed. (Sashiko-bot)
+- Switch amdgpu to explicit dmem_cgroup_unregister_region() at the top
+  of amdgpu_vram_mgr_fini() before any manager teardown, since amdgpu's
+  fini is called explicitly during driver unbind before drmm cleanup.
+  (Sashiko-bot)
+- Wrap the xe reclaim callback with drm_dev_enter()/drm_dev_exit() to
+  prevent TTM reclaim from running after driver unbind.
+
+User-space tests are at
+https://patchwork.freedesktop.org/series/163935/
+
+Test-with: 20260428065411.4222-1-thomas.hellstrom@linux.intel.com
+
+Thomas Hellström (6):
+  drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
+  cgroup/dmem: Introduce struct dmem_cgroup_init for region initialization
+  cgroup/dmem: Add reclaim callback for lowering max below current usage
+  drm/ttm: Hook up a cgroup-aware reclaim callback for the dmem
+    controller
+  drm/xe: Wire up dmem cgroup reclaim for VRAM manager
+  drm/amdgpu: Wire up dmem cgroup reclaim for VRAM manager
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c |  10 +-
+ drivers/gpu/drm/ttm/ttm_bo.c                 |  95 ++++++++++++++++-
+ drivers/gpu/drm/ttm/ttm_bo_util.c            |   3 +-
+ drivers/gpu/drm/ttm/ttm_resource.c           |  37 +++++++
+ drivers/gpu/drm/xe/xe_ttm_vram_mgr.c         |  19 ++--
+ include/drm/ttm/ttm_bo.h                     |  10 ++
+ include/drm/ttm/ttm_resource.h               |   4 +
+ include/linux/cgroup_dmem.h                  |  24 +++++
+ kernel/cgroup/dmem.c                         | 106 +++++++++++++++++--
+ 10 files changed, 286 insertions(+), 24 deletions(-)
+
+-- 
+2.54.0
+
+Thomas Hellström (6):
+  drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
+  cgroup/dmem: Introduce struct dmem_cgroup_init for region
+    initialization
+  cgroup/dmem: Add reclaim callback for lowering max below current usage
+  drm/ttm: Hook up a cgroup-aware reclaim callback for the dmem
+    controller
+  drm/xe: Wire up dmem cgroup reclaim for VRAM manager
+  drm/amdgpu: Wire up dmem cgroup reclaim for VRAM manager
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c |  28 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h |   2 +
+ drivers/gpu/drm/drm_drv.c                    |   8 +-
+ drivers/gpu/drm/ttm/ttm_bo.c                 |  95 +++++++++++++-
+ drivers/gpu/drm/ttm/ttm_bo_util.c            |   3 +-
+ drivers/gpu/drm/ttm/ttm_resource.c           |  50 +++++++
+ drivers/gpu/drm/xe/xe_ttm_vram_mgr.c         |  53 +++++++-
+ include/drm/drm_drv.h                        |   4 +-
+ include/drm/ttm/ttm_bo.h                     |  10 ++
+ include/drm/ttm/ttm_resource.h               |   7 +
+ include/linux/cgroup_dmem.h                  |  37 +++++-
+ kernel/cgroup/dmem.c                         | 129 +++++++++++++++++--
+ 13 files changed, 393 insertions(+), 35 deletions(-)
+
+-- 
+2.54.0
 
