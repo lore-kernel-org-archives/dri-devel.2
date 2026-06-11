@@ -4,139 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 985DACD98D2
-	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 09:14:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E3B7CD98D2
+	for <dri-devel@archiver.kernel.org>; Thu, 11 Jun 2026 09:22:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F08EE10E16D;
-	Thu, 11 Jun 2026 09:14:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E4BF10E739;
+	Thu, 11 Jun 2026 09:22:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="H0UhUqLV";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="pR6DQiab";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G0l3BmWC";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012066.outbound.protection.outlook.com [40.107.209.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8717810E16D
- for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 09:14:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=p+POMKSwSHmTuvPNdpTfTInET/YT1WfW5TW6r08ewNm75zofOQK+aN0Xtwcl0cA9B9Py7vb9KKYhGhLbM62avrWXW4eMj/bOhFJmYjbBYmp1uYLjDQKerd7BwO7YL83YA2+bP9N0vs+G1J+wQ24q2ibrxibDgIKu/lquIf/fYYVrGtBczcPDtbI/zUDhhyu7IwHhy+1mKYlCtJupxE+eS5gbaBfHmK7Pp22SdfjzHdTHFVvnp3V+ak3F0WT9XwwmCoq6b/smO20YZaUtgny2uHFhh+ACdEEc65XszHJUk4JCPtEt+cyGiBvlbIZuf9brj/YJMe+p72SbUhgA+J/PMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wSW5H/OmviwF3MKkJZWB13P0VVwfzgSYt5VjgLO6RfY=;
- b=BcbRIFTksnXVCV0pvM5FPIHAa2LymwIs6dmVdXOAfy3H/6mcLLkc5khDmy+6bL2zo0XlW/lx6PWPuXaB+Sz/biniwZrXKSOjRMmRVhxhs9ZQATszHbWJkiNx+WUsX58kHOYK+VQaAi0Dzq832L0AuavS1LuIloDkRR/lk39zaDX2kmOVnfqzbYo2U4fxWTtoPnhO+L/KJsU3Oxvmc/wha39aBlv2WbCaJcfjnMd6dVlKO45TbLHa3Y1PJM5igdRT8TNPX8TMzukVf42MT639EMxx9tIvIMFetO2aoZkXR6OWi7zACsVsasTJdkzQV98+7xuWPUTFT9Z0FJw6QBJVzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wSW5H/OmviwF3MKkJZWB13P0VVwfzgSYt5VjgLO6RfY=;
- b=H0UhUqLVjA+qvcJ+zZkx8+AzztmLicpuS8kwVE8TmH5040MHnH8nfdaO5UfJ9/9INHafXZsZqDmY1NIMZINiAUBk5wnJbEV4U2eAoTRDXKU0Znl6LftjmyXBU9wL0q7r+7vxd9cCVkD3PDAQUaqzinMB0Awvk9t9ladAaw8X/8M=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS7PR12MB6213.namprd12.prod.outlook.com (2603:10b6:8:97::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Thu, 11 Jun
- 2026 09:14:41 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Thu, 11 Jun 2026
- 09:14:41 +0000
-Message-ID: <c3e8a9b8-e344-491f-8b8c-f6a682f15121@amd.com>
-Date: Thu, 11 Jun 2026 11:14:34 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] dma-fence: Fix races of fence callbacks versus
- destructors by locking
-To: phasta@kernel.org, Danilo Krummrich <dakr@kernel.org>, airlied@gmail.com
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>, Daniel Almeida <dwlsalmeida@gmail.com>,
- Gary Guo <gary@garyguo.net>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260608142436.265820-2-phasta@kernel.org>
- <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
- <fa9a335196525adbc03ec21b2e05bb526e4fc174.camel@mailbox.org>
- <9d49c901-fcdf-487a-a733-0320d0bdf94c@amd.com>
- <DJ3V3OCLIK2K.3CYKWYNHYU6JQ@kernel.org>
- <ea4e0541-3702-4014-b8f6-0746a148df86@amd.com>
- <DJ3VYD71HDQ2.3C8GG983Z2YCM@kernel.org>
- <c8564ea0-8ff4-4049-996d-bd978c478372@amd.com>
- <aebe759117cd65004510946e39bd02e4c903e1e3.camel@mailbox.org>
- <84519e72-e057-45f9-8ace-baf12f095e55@amd.com>
- <29754897c2b6d0a9560a05fcd1c0a0946577518d.camel@mailbox.org>
- <25494ee8-5108-4044-b4d9-cfcb37c397ea@amd.com>
- <c6a3964b130ac371e203aeee5f5b52d146c22bea.camel@mailbox.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <c6a3964b130ac371e203aeee5f5b52d146c22bea.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR15CA0060.namprd15.prod.outlook.com
- (2603:10b6:208:237::29) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A63A410E739
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 09:22:34 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65B5GCFp3843629
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 09:22:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=lRkZOp3iPYfQpAbFXsal39
+ p3C4jzKAkopk1z5GMHzKg=; b=pR6DQiabb5dCwvywGX0y7Gf6KnTUbRYrcypq8l
+ ZHmuh0d+Eu71BVn1PnZ8C3cozG1dkeGUnbIcOwQ9g5nKMISewtOYBjOQxB36IRDJ
+ G1c/r1/Eq9kkaFTjOAUzku5Tdq8FwePWNXVMUmRtXOgJ0QyWvm2BX6CIS9ldBLbu
+ juP8d9wJei0IhWv8DktpnxwI4KSeD0mSVEvt8l2/jw/9jFDMDQEbp7kmsb8m1Bkt
+ YNIf25gX8BgFFxbqXtOEzjkCs0Di76M8aLmmiOEZargdEp9i0bE99LeLAiHbd6Mq
+ 6WTa/KsB6MVYkZbvx/+ZK9QRHngO++oHQBy0n4oK6ljQY9JQ==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
+ [74.125.82.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqe702nqm-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 09:22:33 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id
+ 5a478bee46e88-3080bb0267dso269969eec.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 11 Jun 2026 02:22:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1781169752; x=1781774552;
+ darn=lists.freedesktop.org; 
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=lRkZOp3iPYfQpAbFXsal39p3C4jzKAkopk1z5GMHzKg=;
+ b=G0l3BmWC2R947ubrUHwuVaWy3URF66efeH1YlL6bOwDJZdHjqgyDmUpXJxrBM10q8O
+ vmwUivSKtQMYGTLeYYF+LdVlIFAMkvRAobXlsQM2GX5ftytSpOJZnU9YpKcekoLlzefN
+ TEm6njPSStmdVIKhnWyPhCZcGdb6xrTm1ZYxsKZBQgVNwwCOh4KDAf2KZrhgLW6eourk
+ BDRtLc6Kg6EXvQfpQ1poZQIYNxTRgm465zhmLprBVMeWsvfKxJ/0IIyiXXZr7BI+Ep4D
+ ZJKs8qc05yWDmOYtZYIB4P3ZBgIz49Yi+aGHtUgPzLU/mIKVJpMUIpZuvvmz8CwliO6O
+ G6xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781169752; x=1781774552;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=lRkZOp3iPYfQpAbFXsal39p3C4jzKAkopk1z5GMHzKg=;
+ b=jXUDA/HA4Df0QgqnVg+rAEnbqu/6uSeKq1bUgfhgSw0allKG229AOeGE+YHZzYpMrg
+ u3pFNaSd9yJ+oou7fEKHGB6UB79uPu9DMt/hi2gA5OzX3Eydq4CjxeLh8o/3i8E9wpci
+ LG4IA6TDgLsCMAGBbJgwkpjLFWVkPgahIVatnPEJH00NuYz7AYPXXQPfGzMbtxc/J29o
+ foXFmcdckv+MxIiWyNVh2gwKmU98886lf60cKpHpgK69o2pnYEpoaJ8NPfqKxIvdg2Pw
+ NVMyX6cD9nF9xMUJbG0A92mRKXkqPD3VWsfak7oohqTaykmoAIz06h4dHOnepguSfMT6
+ DrOw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9bZogys7qr2E8eBKEfjUEjiNa3iEGtJFijXVFz7oXW2vh260IM+NjNeYN3aiUCC4zdbLq7JDX75do=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzpYdr37eBkf9oodkwnmWk07kKyCNBmgJIuqr+SYuMD5n30vo4L
+ /b5q9duV7EGZdJyiw3Wb9kwBuxklppaEBeOxLRLZf9lN0vcFmqy4sfPZHU2FpH4lEqOryVDw1Q/
+ 1oblotqp6X8DQh86RjdTS069AQwgT2kO7HuYvvZsrcAK3F5XWffkv4oq9VyYRW64vzp/aB3M=
+X-Gm-Gg: Acq92OELPcrNwZlZaymSspNJ7d8n/+1yZAEtXluVG67FkvRhzbk1jVRJtr2+A+p72dm
+ xOkANdHWOtBSDf9v5C+W1piwLDdMs5AoU2IBBH5qcKWQfiMcgTGljBZi1WT5D3PFqmk4oL2qG/s
+ 9798AhApE1MqvfCyoobRXahHnM8pTif2LkN/0S5oCwIUEwb05kj/azL/mPcUqRWeGcckYuFmcas
+ Oz7Ax9ofbyTEBJ4KKDjy31M2/p1jDmy2V4KPfbgUF6quKUTixKMTEJolk6kiH6Mt2KPsvWtDFGI
+ y/J1Qb5PEYDerA8P1OTO8B2bdN2IWuzZPfy1SJmJ3fJz1yh03FJSBje7JO25XCCN0yGQXxnESHy
+ 5CeG+pGl3OvDB4qMqmYaD/36fx7BMjWepHYYJU4LainrkvrN4PjR0mWd9/jZjlS1rbcAtyorYlK
+ ETFV9D
+X-Received: by 2002:a05:7022:7a0:b0:138:30b1:4bfc with SMTP id
+ a92af1059eb24-138421355f7mr1223014c88.9.1781169752457; 
+ Thu, 11 Jun 2026 02:22:32 -0700 (PDT)
+X-Received: by 2002:a05:7022:7a0:b0:138:30b1:4bfc with SMTP id
+ a92af1059eb24-138421355f7mr1223005c88.9.1781169751981; 
+ Thu, 11 Jun 2026 02:22:31 -0700 (PDT)
+Received: from hu-yutlin-lv.qualcomm.com (Global_NAT1.qualcomm.com.
+ [129.46.96.20]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-138430536ccsm1333005c88.15.2026.06.11.02.22.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Jun 2026 02:22:31 -0700 (PDT)
+From: Eddie Lin <eddie.lin@oss.qualcomm.com>
+Date: Thu, 11 Jun 2026 02:21:44 -0700
+Subject: [PATCH] misc: fastrpc: fix memory leak in fastrpc_channel_ctx_free
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB6213:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ed42e47-ca50-41f0-e5e0-08dec799de9b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|7416014|11063799006|4143699003|56012099006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: KdLMYY8mnlZZwE/GZLvRN73Tn74WkziDLduRSU5e47zwliauA/lmeApenPJdO+R7DTyH1VaRE8pZuhbjqO+4wEaI1+HPQ6xLNnxa4Q/TKlVd9oXnnPaNT81uNN39thEaiTGW0A+rm5VFeT52V/nhWP4IFQ+lEcsFs3xUmnV6PABG5FhTsK1S0AwSa25gO33a+wPiLuEm7CNiG6KKYFwJWT9/wERJFIkoKSat1iul1xvRYFfvZ6nZpk33tVASteb8VfEw38qHzGbWiy9nJfDo90wn1X8J6DtjaU00QG0R7aLYce9gskWwSs1heTiqgU3wix9O+s6Xk75pcWpaDApVkkaQGtFHYhIIt2yKLgRm/NV97WfgIrx6EXtL2gFI2HqIcbcS6K+pcMLu6LR4l2j27gBTYU2+K4aym8EI4hPAajPkAKpqU9KeA/gYr84Pn1pvd+EjDQyLpAniw3W+bUGDck1i1r2eccRO7hy3eQ5qb+bZhSGejfz3Txp6r41XyJICsmSZu9oLfaPJUl9AdBQshXD3gEjWvYgA/sGsHrAdfHPaTurxeMRF1ujrRB+g8y1qG2z/XMhi0Q5gn7rtikwqwE6JgNOzE/PuoMuY3zSSv/sm5K8Ja0vo3lPAKiskTyClCS/vOhVlverE1CFsg7iIF1w3fvfGCXGCOTbEPtjigntC370rT0Q8wbdIbX04RZ6jX7IswvmcMb+pXvKBKfqOCw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(11063799006)(4143699003)(56012099006)(6133799003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZC9ZcjBodkZZM2poNVRORTlPei9NNlhScExHd0ZVdGQxcHdnQXNsTTk2Zkc5?=
- =?utf-8?B?NE9HTnVpeWtCRHFmRExZcnpSZy9Zb1Myb2FteDJsNUJoVXRJVyt0YXpHaFg2?=
- =?utf-8?B?MWdjcE1DY3ZZZXozOTNPenpmT0VEQTlqcXIya1BUdVdJWlAyVGFoSHI4ejlr?=
- =?utf-8?B?WWt2WVc2ZzhHbGZjcDlUdmxhUFBYZVNMdWoyeVlVa296TUdMZ1liNHVDc3dN?=
- =?utf-8?B?NnBaa0UvOUQ1dTJ1RndwMXNQeEV1eG9zaUhHQU5qTW9xSThTWWorZ0xwbWNO?=
- =?utf-8?B?Z3JCRit5OVhFYWxXL0hqUjFQd0FWZXZIRFdKZXFhbE9Od2RZNGlNb1ZFNUk3?=
- =?utf-8?B?QXNRRjFCTkZIbkc0YWdKeGVWU3lYMFBhd2ZaVUxDUTZnTHhMTjBNUEIyV3Ix?=
- =?utf-8?B?VWZEWGVnNzcvNXVmN3hsM0czR0RmTWhsWG1PWGhURi9YM2prVndBeVNaMXVD?=
- =?utf-8?B?TUM5Y1BSQSs1VCt2eXd0RDNST3FQeXBQSUFid20xYkxVUmdWRlBjczJ2aFhW?=
- =?utf-8?B?RW1BZ0NHcS83SjAzbmpsaE9lUDJCMjVCYURUMjJ2eFQwVDRtL25VVWp0dGpQ?=
- =?utf-8?B?a1JxSUh0MmxDRWhHNjZka3pFdnBvaHJKNkdONkVxb2VCWHVLb2ZGdVdSUkQr?=
- =?utf-8?B?a0gzaXdtU2UxMnczd3JSVjkwNW9GM1JXcldFaEpwU1gxSENYa1l6Q0RmQ1pX?=
- =?utf-8?B?cTV2b1FHQm5meUEvclBmNGpuTE5UM1Bxc0N0enZNV0NEKy9jS0pFdWN3ckRm?=
- =?utf-8?B?dUNRelhaNURDc3BaK0FRU1Fzb3E3UEpmdUlTMnB2UlVnaVB1RStrbnBWWVBH?=
- =?utf-8?B?VFczSjQ3aG9yZVMvSFY4cVdpTmhuajNqUkVCb2c1RVFlYWV2cStrcUd2WGFY?=
- =?utf-8?B?RTR5RzhUanJ4a2xsTW5OVlFBbDUrQ1o5Y0dvT0ExUlk4eENOUDF4N3NMaVZr?=
- =?utf-8?B?TzBVUE1hb3JhK2QyY3lBbi8zWlVrUXNOUVRqS1FCdUNWQ3JzT2xQenhWc1dX?=
- =?utf-8?B?MmpJZE5OcExJK05IYmVMZXI3Rk54eVArbC8wdFRPYUQ0UzhZcWxpR3M0YW1a?=
- =?utf-8?B?cXVsMEtjL1JNTWI3cGhkV25zTkVBY1JEbFNreU5lcUhnYXlqMXdQZlo1ZDBi?=
- =?utf-8?B?V3VZV0ZxRkFUWC9MZkhMMVhveExwMW9nQWxqQ3RJU1A3bVdvVU5uSGY4YkJu?=
- =?utf-8?B?ckFsdXJYaVN4K2xSQXFvZzdpc0lsRHdLd1BVY0ZOZDNDT080VzlzYzZSSElY?=
- =?utf-8?B?bENEU2luZ2FkeVBNOE1iWHRjcFQ1R1hXUmhQSnYzbHlGTXpRWVFSNkdlTXhV?=
- =?utf-8?B?ZitMTForbTR2NjB2S1JjL0tjWWRoUmpMbzNpZGZqRDVWRk13WE9vbXFxRWdT?=
- =?utf-8?B?cVFWeWFQa0RqNTZKdHhPOS9MVVB0Z3dsOW1GSm9QbHBOak9pc0hFWnF4WGRL?=
- =?utf-8?B?Y29maDVXOHNGMktKT2QxZXYyTEFjeEJHS1FXWS9tM2xDME9tMG1HWGNlVVdS?=
- =?utf-8?B?WnBwWTZpNzEvSktwNWNyZCtPTHRRV1BkclkvakNsY25RblAweG4zZjNKNTIy?=
- =?utf-8?B?U3hHdTBHSkdrYTYzN0FjL1RORkdiMWt6L0dVNllOTDRLOFhmUVozdHdFWWJH?=
- =?utf-8?B?WTRYUUExdjg2MFBLa0w4RUhTL092KzV0aGRZNFI5Tm5LZEVxdnhUdG02VGJS?=
- =?utf-8?B?eXU3bHVJVUJlMG5yNzE5VVh3S28rUUl0azVVUGlNMEM2NnlSRHl0U3k5REdn?=
- =?utf-8?B?SXpKTVNqTXJQV0xOa1JRbDUrN281eGk4cG02ZnIxUVp5dE5iVGxqSWJWSThy?=
- =?utf-8?B?SGdRRXNhNVRXaW5DNmVKT3laVys2L1hwSVowRlEzL3dSdFUzeGRyc2JMYkRL?=
- =?utf-8?B?NmVyV01tdmxDUDZIY0lLS2Y2UW1VRVY4amdnZTNRYVZOaDhma01WMUROYzZE?=
- =?utf-8?B?VStVTkNrUDBOUmN6VzFXMkU0eWpPNmMrRUxCWnQ5amE4Y3pzVjJFV2VsczZO?=
- =?utf-8?B?cUw2ZjdWa3oxK2dsZ1B2MDdYU2ZGdFhmdnpMRS9JamNnR2RleFQxNEZEZ0Nw?=
- =?utf-8?B?dUZuL0JSSVhUdzJBQXVhUHRaWll6K3hveVo3QnlxY2pwTXR4aU1KcVNuWHBV?=
- =?utf-8?B?UG5UdlJKQk0vNzhydC8vL3cveU50eWdNQVVzT0k0aUJYZnBTcmJrVmlIV3Iv?=
- =?utf-8?B?MDJUMnFDa1pWL0tyZDZIN0NnU1Ara3BjOWJlcjRCSWpVaTdyWDdyb295Z1BE?=
- =?utf-8?B?WVF0c0h5aHVDZkF0UWRPeWQzUExhQmwrZnQzc2lsMHRUblViQmVqdGdUNkYr?=
- =?utf-8?Q?sRx3FLCJJ71wX5Rk1/?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ed42e47-ca50-41f0-e5e0-08dec799de9b
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 09:14:41.3362 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FWyuAelpdDe9HKmLGlMw29TfxEd+xoRs9SRbe9SGgNmAAlTUIZ88AQxvoT0ORZHl
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6213
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260611-fastrpc-cctx-cleanup-v1-1-28097444116c@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIACd+KmoC/yXMwQrCMAyA4VcZORtoe9jEVxEPaZbOiNTSdDIYe
+ 3erHr/D/+9gUlUMLsMOVd5q+sod/jQA3ykvgjp3Q3BhdKP3mMhaLYzMbUN+CuW1YExzcERTPJO
+ DnpYqSbff9nr729b4EG7fFxzHB4FP+zh4AAAA
+X-Change-ID: 20260611-fastrpc-cctx-cleanup-bfd20aa7b8a0
+To: Srinivas Kandagatla <srini@kernel.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Eddie Lin <eddie.lin@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-GUID: bPBgKTihBTAF5g3-5r3BB1wjXFVKx451
+X-Authority-Analysis: v=2.4 cv=B9eJFutM c=1 sm=1 tr=0 ts=6a2a7e59 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=TEyi4pTYuxprMEVdLL4A:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDA5MiBTYWx0ZWRfX1spDB8SgL8Uz
+ zK05Rb0tKNyoZAovpQ6BYsJkCdUYFCBsdflw8RCvYTJRU5VU8io5PwmB3T4jL2X3bOFzcunUSIQ
+ 7oZiFwUhsvhv83yBB4fWmwQEbOIBzhKl4MluRH1zzq3J2C+WQTD+66tzVqXZGMuq4WqJP8u/N2G
+ HrEFqpfXydUlqgHGbt3QU1MeC64/kE/UNXKtAaa+GBx3JgE67FBoCEVtnlsmZXK4M4Aw/zenGgl
+ DtyLSxxD9I7KaqgbucpN9/Yen/W5DG/pnMFTQcbE5typP0Ysd1qLlltIlun55Zgu40OleXDU0CV
+ vioFl5GsRfR8VMVVogwHUjtFrqbFTMCmlXKkztA7LZIcZxyrNFRypQa9OhSJDx5U65Z8XXinqsb
+ 9av/J6S0Cc7am/F2gXmXu0TTAyXuYm4Ex808kkRmdiqBbB274CMe5u23F6XVfek2417mGETuTLM
+ FRRo1xPOufSFhXIPA4w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDA5MiBTYWx0ZWRfX4hNwfOFM8dxL
+ p5GzLdoGytj+S0F7xqnBVyedI1F+gG+3+wmY71ohyzR9VOwGEppa/FDryIzaZ9YGW7WlcI3djCh
+ aBSq35bAJqiwfcq/deQZInKST16+5Uo=
+X-Proofpoint-ORIG-GUID: bPBgKTihBTAF5g3-5r3BB1wjXFVKx451
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-11_01,2026-06-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 malwarescore=0 spamscore=0 bulkscore=0
+ phishscore=0 suspectscore=0 clxscore=1011 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606110092
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,62 +144,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/11/26 10:35, Philipp Stanner wrote:
-> On Wed, 2026-06-10 at 17:15 +0200, Christian König wrote:
->> On 6/10/26 16:25, Philipp Stanner wrote:
->>>
->>> Are you referring to this comment from the documentation?
->>>
->>>  * Since many implementations can call dma_fence_signal() even when before
->>>  * @enable_signaling has been called there's a race window, where the
->>>  * dma_fence_signal() might result in the final fence reference being
->>>  * released and its memory freed. To avoid this, implementations of this
->>>  * callback should grab their own reference using dma_fence_get(), to be
->>>  * released when the fence is signalled (through e.g. the interrupt
->>>  * handler).
->>>  *
->>>  * This callback is optional. If this callback is not present, then the
->>>  * driver must always have signaling enabled.
->>>  */
->>>  bool (*enable_signaling)(struct dma_fence *fence);
->>
->> Yes, that was an extremely bad idea which I have tried multiple times to fix.
-> 
-> What's the reason why enable_signaling() is nowadays called with lock-
-> protection?
+The 'ctx_idr' is initialized but never destroyed when
+the channel context is freed, leading to a memory leak.
+Add idr_destroy() to properly clean up the IDR resources.
 
-That was some decision originally made a long long time ago because the initial thought was that fence need to signal in order, but that concept was also abandoned a long long time ago.
+Signed-off-by: Eddie Lin <eddie.lin@oss.qualcomm.com>
+---
+This patch series fixes a memory leak in the FastRPC driver.
+The channel context's IDR was not being destroyed during cleanup.
+---
+ drivers/misc/fastrpc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Fixing this is on my TODO list ever since we figured out that this was a bad idea, see the latest patch set here as well: https://www.spinics.net/lists/dri-devel/msg461253.html
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index a9b2ae44c06f..7727850e9240 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -492,6 +492,7 @@ static void fastrpc_channel_ctx_free(struct kref *ref)
+ 
+ 	cctx = container_of(ref, struct fastrpc_channel_ctx, refcount);
+ 
++	idr_destroy(&cctx->ctx_idr);
+ 	kfree(cctx);
+ }
+ 
 
->>> Sure you can. If everything is properly synchronized.
->>>
->>> // driver
->>> dma_fence_signal(f);
->>> // all callbacks can't reach our driver anymore
->>
->> That's irrelevant. The question is not if a callback can reach the backend after signaling.
-> 
-> Irrelevant for your lock-inversion maybe. It's very relevant for life
-> time and module unload. Proof: you and Tvrtko made dma_fence_signal()
-> the decoupling point, with RCU protection.
-> 
-> And as I keep saying, that synchronisation point would make the entire
-> framework simpler and more robust if we were making it consistent.
+---
+base-commit: abe651837cb394f76d738a7a747322fca3bf17ba
+change-id: 20260611-fastrpc-cctx-cleanup-bfd20aa7b8a0
 
-Exactly that's what I strongly disagree on.
+Best regards,
+--  
+Eddie Lin <eddie.lin@oss.qualcomm.com>
 
-The fence lock and the synchronization point which allows the driver to know when nobody else is in a callback any more are two very different things we should not be mixed up together.
-
-The fence lock protects the signaled state of the fence, so that the fence functions can add callbacks, test signaling etc... while the fence can't signal. It is protecting internal state of the fence and so should be internal to the fence, external code should not touch it if possible.
-
-The synchronization point for the driver is a service the dma_fence implementation offers to let drivers know when there is no more caller of their function. And usually this is implemented using RCU/SRCU.
-
-Tvrko and I now choose RCU instead of SRCU because there didn't seem to be a need to sleep in the fence callbacks.
-
-But both RCU and SRCU offer not only synchronize_rcu()/_srcu() but also call_rcu()/_srcu() which allows drivers to delegate the cleanup to a point where it is save to do so.
-
-So while I see the problem I actually don't understand why you insist of solving it with the fence lock? That just brings us back to the bad design we had before where internal fence state is abused to protect something else.
-
-Regards,
-Christian.
