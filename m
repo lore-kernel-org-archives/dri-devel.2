@@ -4,49 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ABABCD98CE
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 12:34:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B557FCD8CA8
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 12:45:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A84EC10E0C9;
-	Fri, 12 Jun 2026 12:34:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0ADD710E124;
+	Fri, 12 Jun 2026 12:45:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aWBBLlbt";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="dFQd8k6P";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E16610E0C9
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 12:34:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CB50E60008;
- Fri, 12 Jun 2026 12:34:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B00B01F000E9;
- Fri, 12 Jun 2026 12:34:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781267664;
- bh=Y54MncDyC20nn430l0lNofQfX53i/RP2TTU+Lej2ES4=;
- h=From:To:Cc:Subject:Date:Reply-To;
- b=aWBBLlbt7aUtx1s0B0hQ0hCj46Uj8qAVVsaIP+B9s54oK4L7NChXQ7+FsoeBkL4zV
- av49Uc6R/iCc18vM0Un+LOjCKJwHaS89AVFJaljJ+71LuCQe4AFWHHl0t+TMZsrIzC
- wo9SokJI2su3/iG7q/SxJ5qeFHkDZiHUGXdgBTBXmy8Tgi0MtYIzLKHiImgBIeQSbE
- He68LoEimGL3ZSdpPg1VWJuBhqcGYMe/gAa5sXoNDIrr6gDhITQgtVPPaWSyJvD9UJ
- GYtbJ7DFrvCVFrv3C9Kp78eJ0jw7zmE+Yq/Ds6bnBRvNF9Ve6w7HDwMd2BcgW8xc8D
- bGyFWxnQE47VA==
-From: Gary Guo <gary@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>
-Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Subject: [PATCH] gpu: nova-core: remove `#[allow(non_snake_case)]`
-Date: Fri, 12 Jun 2026 13:34:00 +0100
-Message-ID: <20260612123401.2684025-1-gary@kernel.org>
-X-Mailer: git-send-email 2.54.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AED4C10E124
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 12:45:01 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 81CCCC49F7D;
+ Fri, 12 Jun 2026 12:45:02 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id AA41760012;
+ Fri, 12 Jun 2026 12:44:59 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 226DB106C8A0F; 
+ Fri, 12 Jun 2026 14:44:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1781268298; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=q7aYHV0vui2KpwKYP+HcA0t9W95kz+LHWdQ+dO9GQBA=;
+ b=dFQd8k6PJ94E3ZZfjEYqzmkQPsYvoyTrrQlY4Ap40W2wN2QFEsqFoGSHPBKtSwsht7DU2k
+ Pzjdc8EXl/e4irMwbnvHbVy23C4pBhLMD0lUW57jjyFdnRxbPzPfuwC0HB5m0GAdEDVQlu
+ Gvkeypv5fnK/etR7C1B8B2BsB7qVFWaB2sNx6Y6CG2OJSowKF/G9zX+BaW4Hl7QAjB8x9l
+ raAXLVg5BQk0hoh0UU75wZJIG4htMGFnWK23MlNkFNqt1EVQVxIz8gDWDJb9EEo2JXlTFP
+ lP/htl8CFs/KmblKYtGA4Ny9yZF/BnQ+K4F4/DojGy2A3miZyk5PvapCL0wgnQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 12 Jun 2026 14:44:43 +0200
+Message-Id: <DJ72WOUW5FA2.G1MPCAHJQ13F@bootlin.com>
+To: "Maxime Ripard" <mripard@kernel.org>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH 15/37] drm/display: bridge-connector: allocate the
+ connector dynamically
+Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Inki Dae"
+ <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Marek
+ Szyprowski" <m.szyprowski@samsung.com>, "Marek Vasut" <marex@denx.de>,
+ "Stefan Agner" <stefan@agner.ch>, "Frank Li" <Frank.Li@nxp.com>, "Sascha
+ Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
+ <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Hui Pu"
+ <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>
+X-Mailer: aerc 0.21.0
+References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
+ <20260519-drm-bridge-hotplug-v1-15-45e2bdb3dfb4@bootlin.com>
+ <20260608-rustling-infrared-turkey-e09af8@houat>
+In-Reply-To: <20260608-rustling-infrared-turkey-e09af8@houat>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,116 +77,50 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Gary Guo <gary@garyguo.net>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Gary Guo <gary@garyguo.net>
+On Mon Jun 8, 2026 at 1:46 PM CEST, Maxime Ripard wrote:
+> On Tue, May 19, 2026 at 12:37:32PM +0200, Luca Ceresoli wrote:
+>> Currently the drm_bridge_connector has an embedded drm_connector, so the=
+ir
+>> allocation lifetimes are tied to each other. This is insufficient to
+>> support DRM bridge hotplugging, which requires the connector to be added
+>> and removed dynamically at runtime multiple times based on hotplug/unplu=
+g
+>> events while the drm_bridge_connector is persistent.
+>>
+>> Moreover the drm_connector is exposed to user space and thus an ongoing
+>> operation (e.g. an ioctl) might last for an arbitrarily long time even
+>> after the hardware gets removed. This means a new connector might have t=
+o
+>> be added when the previous one is still referenced by user space.
+>>
+>> In preparation to handle hotplug, allocate the drm-connector dynamically=
+,
+>> to allow:
+>>
+>>  * creating and destroying a connector multiple times during a single
+>>    drm_bridge_connector lifetime
+>>  * creating a new connector even though the previous one is still in use
+>>    and thus still refcounted and not yet freed
+>>
+>> This commit does not introduce the actions in the two bullets (it will
+>> happen in a later commit), it only moves to dynamic APIs for connector
+>> allocation and init.
+>>
+>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>
+> I think this patch should be split in half, with the switch to using
+> destroy first, and then the actual move to the dynamically allocated
+> connector API.
 
-Since commit 5423ef9d4db8 ("rust: pin-init: internal: suppress
-`non_snake_case` lint in `[pin_]init!`"), mere use of the non-snake-case
-identifiers would not cause the warning to be generated. Thus remove these
-allows.
+Is it doable? drm_connector_dynamic_init() mandates a .destroy callback,
+drm_connector_init() forbids it.
 
-Signed-off-by: Gary Guo <gary@garyguo.net>
----
-This should be applied after the merge window when v7.2-rc1 is backmerged
-to drm-rust-next tree, so the pin-init changes are picked up.
----
- drivers/gpu/nova-core/gsp/fw.rs          | 8 --------
- drivers/gpu/nova-core/gsp/fw/commands.rs | 2 --
- 2 files changed, 10 deletions(-)
+Luca
 
-diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index 4db0cfa4dc4d..d96ea0b216b4 100644
---- a/drivers/gpu/nova-core/gsp/fw.rs
-+++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -219,7 +219,6 @@ pub(crate) fn new<'a>(
-         gsp_firmware: &'a GspFirmware,
-         fb_layout: &'a FbLayout,
-     ) -> impl Init<Self> + 'a {
--        #[allow(non_snake_case)]
-         let init_inner = init!(bindings::GspFwWprMeta {
-             // CAST: we want to store the bits of `GSP_FW_WPR_META_MAGIC` unmodified.
-             magic: bindings::GSP_FW_WPR_META_MAGIC as u64,
-@@ -674,7 +673,6 @@ fn id8(name: &str) -> u64 {
-             u64::from_ne_bytes(bytes)
-         }
- 
--        #[allow(non_snake_case)]
-         let init_inner = init!(bindings::LibosMemoryRegionInitArgument {
-             id8: id8(name),
-             pa: obj.dma_handle(),
-@@ -793,7 +791,6 @@ impl GspMsgElement {
-     /// * `sequence` - Sequence number of the message.
-     /// * `cmd_size` - Size of the command (not including the message element), in bytes.
-     /// * `function` - Function of the message.
--    #[allow(non_snake_case)]
-     pub(crate) fn init(
-         sequence: u32,
-         cmd_size: usize,
-@@ -876,7 +873,6 @@ pub(crate) struct GspArgumentsCached {
- impl GspArgumentsCached {
-     /// Creates the arguments for starting the GSP up using `cmdq` as its command queue.
-     pub(crate) fn new(cmdq: &Cmdq) -> impl Init<Self> + '_ {
--        #[allow(non_snake_case)]
-         let init_inner = init!(bindings::GSP_ARGUMENTS_CACHED {
-             messageQueueInitArguments <- MessageQueueInitArguments::new(cmdq),
-             bDmemStack: 1,
-@@ -923,7 +919,6 @@ unsafe impl FromBytes for GspArgumentsPadded {}
- 
- impl MessageQueueInitArguments {
-     /// Creates a new init arguments structure for `cmdq`.
--    #[allow(non_snake_case)]
-     fn new(cmdq: &Cmdq) -> impl Init<Self> + '_ {
-         init!(MessageQueueInitArguments {
-             sharedMemPhysAddr: cmdq.dma_handle,
-@@ -947,7 +942,6 @@ pub(crate) enum GspDmaTarget {
- 
- impl GspAcrBootGspRmParams {
-     fn new(target: GspDmaTarget, wpr_meta_addr: u64) -> impl Init<Self> {
--        #[allow(non_snake_case)]
-         let params = init!(Self {
-             target: target as u32,
-             gspRmDescSize: num::usize_into_u32::<{ size_of::<GspFwWprMeta>() }>(),
-@@ -966,7 +960,6 @@ fn new(target: GspDmaTarget, wpr_meta_addr: u64) -> impl Init<Self> {
- 
- impl GspRmParams {
-     fn new(target: GspDmaTarget, libos_addr: u64) -> impl Init<Self> {
--        #[allow(non_snake_case)]
-         let params = init!(Self {
-             target: target as u32,
-             bootArgsOffset: libos_addr,
-@@ -986,7 +979,6 @@ unsafe impl FromBytes for GspFmcBootParams {}
- 
- impl GspFmcBootParams {
-     pub(crate) fn new(wpr_meta_addr: u64, libos_addr: u64) -> impl Init<Self> {
--        #[allow(non_snake_case)]
-         let init = init!(Self {
-             // Blackwell FSP obtains WPR info from other sources, so
-             // wprCarveoutOffset and wprCarveoutSize are left zero.
-diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-core/gsp/fw/commands.rs
-index 7bcc41fc7fa0..6c31d825b746 100644
---- a/drivers/gpu/nova-core/gsp/fw/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
-@@ -27,7 +27,6 @@ pub(crate) struct GspSetSystemInfo {
- 
- impl GspSetSystemInfo {
-     /// Returns an in-place initializer for the `GspSetSystemInfo` command.
--    #[allow(non_snake_case)]
-     pub(crate) fn init<'a>(
-         dev: &'a pci::Device<device::Bound>,
-         chipset: Chipset,
-@@ -99,7 +98,6 @@ pub(crate) struct PackedRegistryTable {
- }
- 
- impl PackedRegistryTable {
--    #[allow(non_snake_case)]
-     pub(crate) fn init(num_entries: u32, size: u32) -> impl Init<Self> {
-         type InnerPackedRegistryTable = bindings::PACKED_REGISTRY_TABLE;
-         let init_inner = init!(InnerPackedRegistryTable {
-
-base-commit: 614f7220e548a8df6262887c0140d9267841dbc1
--- 
-2.54.0
-
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
