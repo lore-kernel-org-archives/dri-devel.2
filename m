@@ -4,44 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70DECCD8CA8
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 12:18:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D2D1CD98CE
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 12:21:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7519510E283;
-	Fri, 12 Jun 2026 12:18:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60D9110F4D0;
+	Fri, 12 Jun 2026 12:21:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Cj7yS2PP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ErwItn0L";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3B2310E283
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 12:18:22 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B884E60008;
- Fri, 12 Jun 2026 12:18:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 226781F00A3A;
- Fri, 12 Jun 2026 12:18:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781266701;
- bh=hEPSysnu3BtUjudGXNksTHjJ4FRqtTwcysb49YgThoo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Cj7yS2PPamWKySGwvDtcy64J7bn1eun53cGt0G7M8Hb/H+Z1sgImwr4nQLJSlSU3H
- r++c3nN7MNk3AxC7f89NY9KOSxfGbDUfKTmZsyxpZefhdIFCL4WVAg5nVueamw9lpC
- YwVYAcjZ7wtfxkQpRHL+8IQw+882nSi3mA/nn3KPBw14FCFIgYwqwJp8El33HBkefS
- pHFmxM0NjIYvoP4CkMDt4F7UQ8HZYbFlyEQm3PTZz7FeDoVeAN6OrFLI3Qzg47RdEK
- aL561VAtcxQvazu5TW884k1Empqc59s+NrudUHJKiqZd4WuEUveDb7ElFYSh9aNuGh
- JjE9C3CYyAO1g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 5/9] drm/imx: Add support for i.MX94 DCIF
-To: "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Frank.Li@kernel.org
-In-Reply-To: <20260612-dcif-upstreaming-v9-5-8d0ff89aa3c5@oss.nxp.com>
-References: <20260612-dcif-upstreaming-v9-5-8d0ff89aa3c5@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 12:18:20 +0000
-Message-Id: <20260612121821.226781F00A3A@smtp.kernel.org>
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010005.outbound.protection.outlook.com [52.101.46.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A64510F4A3;
+ Fri, 12 Jun 2026 12:21:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GsgUJzzrRv3GPpif3txc8Dd2iWhxYLgv/tO8zFKXeKCZNPnIlZYaW3MsbrRo1GAhPHQdmNOSuNzRo6FPaPyQurTakYouL+RKwPwkCjOX1v+U2NsFDHTOa6bnPlQjct5sPz4MZbKE1ziL5xd5m9WTimHq392JYWBIur2TW1ogt0K2gD1aT+f0DonqrBw+FRaYStM73YnvOhhOKnsThMNcdOs7OglmCMCAa0GWSyGhZCkfvS/fPndalaYMm5BqdOUssvbiT46gN14eVRiYz+IYkxk5JsXSk4P/4vzRgC0GcVvRK7hBlSX5p7NSSGXlLiTsNoEU7o3nDadpNLYmTWJ4kA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ihbegeMwGolyuxYPa0zXycJ5SCwlnSogk+nRglUDsCs=;
+ b=wInEhsA6ZybZIXKDjA9eNW7fBWEMexNqHroy0C/rc7LTlTjKl691biFsr3EKJkQyuGRGX03pmFPEmCdPWVafmmEXfK4ib4OdUHRexxiG8mMUjgd4yJdV6G3RBLYsw6pr2bGJoyZZFt+0Fper3UvFTBe7cvdansxGkYG98QQ5+POM9Y9SNPIJrNKJIxBdz2hCcZESE+dKR/7GYTAPLQ8f+MKaeAF05pnybeXPP5ECT7UEt8lle5qmQrrkAoRtOYOBjLebMWLCAmmKlA8pv83Am1XZSV0blRMPDL10YFtFeP5sCXsU1ZJniw9SuMGaggMcHpjOA8/aAAkAJapzAJoLvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ihbegeMwGolyuxYPa0zXycJ5SCwlnSogk+nRglUDsCs=;
+ b=ErwItn0Lno5KVGc42kwUJ0ZLOGw1EhDBVFEYAvYSSPaarSNy3ZsWvASQz/092plGzPuZbgyhbW9nT0OlzHuAMwS266GV4Pr6gefQqYenDJolzDuzRXHYlcSyYDsATq7nP75k2hUoqZcXAv/B7G6/G3Bv90T18wLhac+m0exEHAk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM6PR12MB4300.namprd12.prod.outlook.com (2603:10b6:5:21a::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.16; Fri, 12 Jun
+ 2026 12:21:12 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Fri, 12 Jun 2026
+ 12:21:12 +0000
+Message-ID: <7d073e2b-0a7c-4e42-a67d-32817596d238@amd.com>
+Date: Fri, 12 Jun 2026 14:21:03 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 07/18] drm/amdgpu: implement SVM range GPU mapping core
+To: Huang Rui <ray.huang@amd.com>, Philip Yang <Philip.Yang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>, Simona Vetter <simona@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Xiaogang Chen <xiaogang.chen@amd.com>, Oak Zeng <Oak.Zeng@amd.com>,
+ Jenny Liu <Jenny-Jing.Liu@amd.com>, Zhu Lingshan <lingshan.zhu@amd.com>,
+ Honglei Huang <honglei1.huang@amd.com>, Junhua Shen <Junhua.Shen@amd.com>,
+ Yiru Ma <yiru.ma@amd.com>, Honglei Huang <honghuan@amd.com>
+References: <20260612090928.29682-1-ray.huang@amd.com>
+ <20260612090928.29682-8-ray.huang@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260612090928.29682-8-ray.huang@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL1PR13CA0212.namprd13.prod.outlook.com
+ (2603:10b6:208:2bf::7) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM6PR12MB4300:EE_
+X-MS-Office365-Filtering-Correlation-Id: d2cfce5e-b91a-4271-4f00-08dec87d171c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|23010399003|18002099003|22082099003|921020|3023799007|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: V96pmJR713Nqv3Pr95nslwMuv9hEu7xjz4iSQWsOpMIEDjMMspIE/Xl76HlkrNzuOICMcPtkoCs7sS1Q78K7WWVOwry3ufnTMYuoLaFiASROxaNt+7ibWylFW2zr//43BtFUq5JPfLMqXR/RjYuOEdxNWt36qcX1XPsG1cN7lOtuJDvtYSfgnf6t2k766LOGcYyKnp/sUeOuNdsOFBWTUXXH85ULbKzxCeQnRG+FMJetpPgw16whcxn5UbpE1Zn3BF565I2gbWvbEYoqw8ITcq8A9DfK0mMJHwpTyUCkmXJlrNowfwu0r4xQWz7Ky3ojGaJGXupj6nm1Ev/+PYuKH6bif3X5WpgzTd/g5zl+uMtOaAT69dS2b4yBjjQQE97aCMNpc4V/+aRp5aIcBARA1GfC0J95ytDJkrGzKXO8VLbJjlw8PyHZUdFqk+DdlM03BCM3MzAg3qeaJhEtFcbaoMKwfarTRv40hLTw4/5iFYuVHRBXcfN3vt+Jdz6AC6IzB51qJ788K5WgsqrjADWqs+uFkong2GB3XEa2AHqvtFFaMIpr4wTcMKeBsgaiEy79gXYn1ybSJer+e0Rfbry0vGjkR3fX9VuTFXfrCAHVrzs4MfSyJLFCv4PA2amMt+1q53L/YO062bEZIRn6zfiqS9qJ63NZKinajs74uC4UTHyD6hVjU3q8xjTQCZutRYiAsNafRJHCwh1sHDEKODgO8PpNEScijcNRv1y52hQtBL4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(18002099003)(22082099003)(921020)(3023799007)(11063799006)(4143699003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c29IRGJxQ2Zzb2VTR2V5SUI2Nm0zSXh0SExwenNPRzRRYno5anQ5bit1QlZx?=
+ =?utf-8?B?cFE2UEtUcTJmUUpoQlFNUlVmYzBSVE84K3FrSXM5SjAvZHl2TzBNSHA3YWYr?=
+ =?utf-8?B?ZUtWZVNMcEZrbVhRWTFXbjJXeGZLMEo3ZDNucjczZ3hKTkIwZXpTclVZRlRV?=
+ =?utf-8?B?R3NFVXVsSHlUVWEyTEVWMHB6QlN4Mzk3THdLQnczbEh6VG1Ud1JWSXdrb0RQ?=
+ =?utf-8?B?OGdOam5wRWppemYwZzBjWXZzWnZaZTdPaHg5Nm1mUnJkemhvcEJ1cE9SZ2x1?=
+ =?utf-8?B?L21ZTVk3ajZ0Q1crcXVUWjlOUVA5YXRreTdSaFVhZXN0bzZLL2thNU1QUjZu?=
+ =?utf-8?B?UXluTTN1a2VISUs1MDFJSWVJYnA5eFdmaHh5dzgwdmswcHdHZEhuZW5PWHpZ?=
+ =?utf-8?B?cHJRR2RtTElxbDZHNVUvemVVMmRMY2c0b2dDTXFNdy9MdmJ6RE1kQzZmdE90?=
+ =?utf-8?B?bldacW1pcE9SUHNRK2ZCUjBoVTdjNGYrNkY2WldFM3ZNT0dQS1NodUI5VktM?=
+ =?utf-8?B?VkJBQnRpNlBJWVJWWVpWRUFETjZnalFRcFJHdmpRVTZOTFV0cTM3L3hmdkFi?=
+ =?utf-8?B?ckxjNmZZaHN5VU9NMTIweEtLS01FaWpKVmkrODUrMWZhdGhkVTRjSHFXeUd1?=
+ =?utf-8?B?SmNLTjBDeXFuZ2NLWWI1YmF2VTg5RzcxZ2tGbEZpcFRXL3piRDFzQWUwaWtW?=
+ =?utf-8?B?V3hjMmpXUEVrenNoWUVqdGRNQ1FjUitLMHhmQ2twdDA4cDZXcWlSUkRKYnBK?=
+ =?utf-8?B?ZzNwSXlERnVxM1p0SEZHWEtiVGZSRUk2TzZmOGh3QU5XU2hnTW5UUjQzaUwr?=
+ =?utf-8?B?L0FlbVViOGh5N1pWT3Q1Yks2b3Y4WEpnWUY0bHNPMVBXeDVXVnAwdzE5QkhI?=
+ =?utf-8?B?eWt4MzRWRFNrbHJzekxveXN2dEZxS0NTZDVVUEQxcGtabm5CSGt1eGdwZ2kr?=
+ =?utf-8?B?RnVGTFhRT3ExTkxqbEVlYnNzZkZPcWNUL1FoK2NhUnhNTkJ4d3dEZzh5LzZO?=
+ =?utf-8?B?ZjFOeHFJWkVjZTE4NHBycUpjbFY5Mk9WKzdESGtrZ2h3VjF4YzZraSsvdVBL?=
+ =?utf-8?B?MUowTC9NNGFaS1NTUndwTFZYdFR2dW5kVGMrMzdkTzlEeko4am94VU5JNzhn?=
+ =?utf-8?B?am9qL0dvZ0VhNmozM2FjcXZ3TVd2Z3ZNUHV5QUJpSUJsK1NHcFU4a1VHR0pN?=
+ =?utf-8?B?SnRYb3NteE04QTdaVVN5c2FRUHpMUWpJNERxcXNwbXBmU1gvNTRRM0FyS1Bp?=
+ =?utf-8?B?dXI2aVFZN2hkTm44cVB0aEpUWTkrNDBsckFxdHBnNUQyV2c2TU9wYlVEbDJE?=
+ =?utf-8?B?UWY5bkpibnV1SHJSUWkrZlJjM2R0ZGxaZGVnY0RzZkxvVEJFMXBhQUhiOTJG?=
+ =?utf-8?B?dy9yT1NFRUI2cXVOa1JmdlhhbFJIK1BWMlBiL3g5emY0RmduWldIb1dQMURa?=
+ =?utf-8?B?YW9EbzU4L1YyUDhHcTRURlhIcXNEU0RkNWx3MkVmWFJlbTFZMkJXOG9jK1Ey?=
+ =?utf-8?B?RllpeCt2WGVqYWNxcWtPMmZYRnQ1Y2xtdzVKbHdjd1FxUVgyYVdPajdMK3da?=
+ =?utf-8?B?clFUTmI2UW13R3R4UC9nWFJ6K0I3VVpPeFUxTzR3dDA1VFhma203QUhuZGlh?=
+ =?utf-8?B?YkwxelBTdVJlYXZReXVDMWs0cFZTTnBSc2YweVZwRXk1UzVob3p6bFZrcXVQ?=
+ =?utf-8?B?NjFabXE1T0NmR1M2S2JMTDhqSnVhbHhxTFpJK1dSVDdKRkluc2J1UWdqaVRS?=
+ =?utf-8?B?aVdSUGYzaHVibzNiZDNNZ1hBNzdQUVkycmg5S2pRSHBPNlZueVJUTGJyUXE2?=
+ =?utf-8?B?ZEJKczdqWHVlRWVwMUQ4U0tBWGhCcHlXNE1lWCtnVFkyaGhvNWFuK1RxUklQ?=
+ =?utf-8?B?ZlE5YUJmNHFhbUc3bGROYVFjd3hITlV6REtZU2RwTzN0Tm56cVdLTm5oOEh0?=
+ =?utf-8?B?MXdEakkwYjIrUm9ENzlKeTNVYjZnSHRBb3F2MzhHOXZ1M2oxQ0ZMOG9QdUZw?=
+ =?utf-8?B?V0p1N0NsQlpmYjBrZTloVzBONGNaREtLbllUT2loSmFQdENLcnlsazhPRmRE?=
+ =?utf-8?B?MW0rZWYyVkZJY1QzSXhYemJxMU9LR3IxNTZpNWdGWnZMc01kVitLaktIMENE?=
+ =?utf-8?B?Vks4cjhSbndzZnRJZEp4VVVXV1VrZCtXZDFXejhIM24wOEZPWkxjZXdYYktl?=
+ =?utf-8?B?eFFKSm1ianM5bFVzVDIzd0l6aEt0UlhibVNPZzgzak4yUTJTOGIzNCtVdUNa?=
+ =?utf-8?B?ekFqTStCdU0wQXA5ZDBqTnpQeGZZaGhZbW1oM0t4ZU5kSXU0Y0FBdHVpWmE2?=
+ =?utf-8?Q?XnyX89qCTwNfLm5mGS?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2cfce5e-b91a-4271-4f00-08dec87d171c
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 12:21:12.0027 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xGijliLb247N/gTUF1nNyOMkH26rLgnt/MhYCqLJ74jdR3Y2rfm6J+RiQmzHVJfh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4300
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,319 +142,584 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 15 potential issue=
-(s) to consider:
-- [High] Read-modify-write (RMW) operations on Write-1-to-Clear (W1C) inter=
-rupt status registers cause lost interrupts.
-- [High] Module reference count underflow and use-after-free caused by unba=
-lanced `drm_bridge_put`.
-- [High] CRTC `bus_format` and `bus_flags` state is corrupted and permanent=
-ly lost during plane-only atomic updates.
-- [High] Unprotected hardware register accesses in the IRQ handler risk bus=
- errors on runtime suspended devices.
-- [High] System resume fails to enable the display because `pm_runtime_resu=
-me_and_get` is called while PM transitions are disabled.
-- [High] An unhandled pending vblank event in `dcif->event` during CRTC dis=
-able causes userspace to hang indefinitely and memory to leak.
-- [High] Unlocked access to `crtc->state` in `dcif_crc_source_parse` causes=
- a data race and potential use-after-free.
-- [High] Failure of `pm_runtime_resume_and_get` causes the atomic commit to=
- hang permanently.
-- [High] Use of sleeping functions and inappropriate lock guards in atomic =
-context paths.
-- [High] Ignoring the return value of `drm_crtc_vblank_get()` causes vblank=
- reference count underflow on failure.
-- [High] Disabling Layer 0 without triggering `SHADOW_LOAD_EN` causes an ab=
-rupt hardware stop and AXI bus lockup risks.
-- [High] `drm_crtc_vblank_on()` is called before software reset, permanentl=
-y breaking vblank interrupts.
-- [Medium] Dynamic plane color encoding and color range updates are silentl=
-y ignored.
-- [Medium] Transitions between active CRC sources (e.g., updating ROI coord=
-inates) are ignored.
-- [Medium] Data race (TOCTOU) on `dcif->crc_is_enabled` causes garbage CRC =
-reads.
---
 
-commit 4328341d625e1f0fbf8be8ca733a73ea0e76115e
-Author: Sandor Yu <sandor.yu@nxp.com>
 
-drm/imx: Add support for i.MX94 DCIF
-
-This commit introduces DRM support for the i.MX94 Display Control
-Interface (DCIF). It includes core CRTC, plane, and KMS integration,
-along with CRC generation support.
-
-> diff --git a/drivers/gpu/drm/imx/dcif/dcif-crc.h b/drivers/gpu/drm/imx/dc=
-if/dcif-crc.h
-> --- /dev/null
-> +++ b/drivers/gpu/drm/imx/dcif/dcif-crc.h
-[ ... ]
-> +static inline bool enable_dcif_crc_needed(struct dcif_crtc_state *new_dc=
-state,
-> +					  struct dcif_crtc_state *old_dcstate)
-> +{
-> +	return old_dcstate->crc.source =3D=3D DCIF_CRC_SRC_NONE &&
-> +	       new_dcstate->crc.source !=3D DCIF_CRC_SRC_NONE;
-> +}
-
-[Severity: Medium]
-Does this prevent updates when transitioning directly between two active
-CRC configurations? If userspace modifies the ROI region while keeping the
-source active, both helpers will return false, meaning the hardware might
-continue capturing the old ROI coordinates.
-
-> diff --git a/drivers/gpu/drm/imx/dcif/dcif-crc.c b/drivers/gpu/drm/imx/dc=
-if/dcif-crc.c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/imx/dcif/dcif-crc.c
-[ ... ]
-> +void dcif_crc_source_disable(struct dcif_dev *dcif, int ncrc)
-> +{
-[ ... ]
-> +	regmap_clear_bits(dcif->regmap, DCIF_CRC_CTRL, DCIF_CRC_CTRL_CRC_EN(ncr=
-c));
+On 6/12/26 11:09, Huang Rui wrote:
+> From: Honglei Huang <honghuan@amd.com>
+> 
+> Implement GPU page table mapping in amdgpu_svm_range.c:
+> - amdgpu_svm_range_pages_valid: check notifier sequence validity
+> - amdgpu_svm_range_is_valid: validate gpu_mapped and attr_flags
+>   against the requested attribute set, under MMU notifier lock.
+> - amdgpu_svm_range_zap_ptes: clear GPU PTEs via amdgpu_vm_update_range
+> - amdgpu_svm_range_attr_pte_flags: compute PTE flags per GC IP version
+> - amdgpu_svm_range_lock_vm_pd: acquire VM page directory by drm_exec
+> - amdgpu_svm_range_update_gpu_range: DMA segment coalescing; recomputes
+>   PTE flags per segment from entry->proto via attr_pte_flags, then
+>   programs PTEs under notifier lock
+> - amdgpu_svm_range_find_or_insert: wrapper of drm gpu SVM find or insert
+>   API.
+> - amdgpu_svm_range_get_pages: wrapper of drm gpu SVM get pages.
+> - amdgpu_svm_range_evict: thin wrapper of drm_gpusvm_range_evict
+> - amdgpu_svm_range_update_mapping: full pipeline (lock PD, validate
+>   pages, program PTEs, update PDEs, flush TLB, record attr_flags
+>   and mapped state); takes attrs + read_only and forwards them to
+>   update_gpu_range
+> - amdgpu_svm_range_map_attrs: cursor based iteration across attr tree,
+>   creating/mapping ranges
+> 
+> - Add to amdgpu_svm.h driver private interconnect tags used in
+> drm_pagemap_addr.proto:
+>   AMDGPU_INTERCONNECT_VRAM = DRM_INTERCONNECT_DRIVER
+>   AMDGPU_INTERCONNECT_P2P  = AMDGPU_INTERCONNECT_VRAM + 1
+> 
+> Signed-off-by: Honglei Huang <honghuan@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h       |   4 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c | 488 ++++++++++++++++++
+>  2 files changed, 492 insertions(+)
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h
+> index 9884a1f834d67..ac84b80f750f8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h
+> @@ -27,6 +27,7 @@
+>  
+>  #include <drm/amdgpu_drm.h>
+>  #include <drm/drm_gpusvm.h>
+> +#include <drm/drm_pagemap.h>
+>  #include <linux/atomic.h>
+>  #include <linux/kref.h>
+>  #include <linux/list.h>
+> @@ -44,6 +45,9 @@ struct amdgpu_svm_attrs;
+>  struct drm_device;
+>  struct drm_file;
+>  
+> +#define AMDGPU_INTERCONNECT_VRAM	DRM_INTERCONNECT_DRIVER
+> +#define AMDGPU_INTERCONNECT_P2P		(AMDGPU_INTERCONNECT_VRAM + 1)
 > +
-> +	dcif->crc_is_enabled =3D false;
-> +}
-
-[Severity: Medium]
-Is there a data race on the crc_is_enabled flag here? This flag is modified
-without holding the event_lock, while the IRQ handler evaluates it with the
-lock held. This could allow the module to power off while the IRQ handler
-attempts to read the disabled register, generating spurious payload data.
-
-[ ... ]
-> +static int dcif_crc_source_parse(struct drm_crtc *crtc, const char *sour=
-ce_name,
-> +				 enum dcif_crc_source *s, struct drm_rect *roi)
-> +{
-> +	static const char roi_prefix[] =3D "roi:";
-> +
-> +	if (!source_name) {
-> +		*s =3D DCIF_CRC_SRC_NONE;
-> +	} else if (!strcmp(source_name, "auto")) {
-> +		struct drm_display_mode *mode =3D &crtc->state->adjusted_mode;
-
-[Severity: High]
-Can this unlocked access to the atomic state lead to a use-after-free? This
-parser is called before acquiring any connection locks. A concurrent atomic
-commit could swap and free the atomic state while this thread is referencing
-the adjusted_mode.
-
-> diff --git a/drivers/gpu/drm/imx/dcif/dcif-crtc.c b/drivers/gpu/drm/imx/d=
-cif/dcif-crtc.c
+>  enum amdgpu_svm_xnack_mode {
+>  	AMDGPU_SVM_XNACK_OFF,
+>  	AMDGPU_SVM_XNACK_ON,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
+> new file mode 100644
+> index 0000000000000..e1b392b2cf56a
 > --- /dev/null
-> +++ b/drivers/gpu/drm/imx/dcif/dcif-crtc.c
-[ ... ]
-> +static void dcif_disable_controller(struct dcif_dev *dcif)
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
+> @@ -0,0 +1,488 @@
+> +// SPDX-License-Identifier: GPL-2.0 OR MIT
+> +/*
+> + * Copyright 2026 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +
+> +#include "amdgpu_svm.h"
+> +#include "amdgpu_svm_attr.h"
+> +#include "amdgpu_svm_range.h"
+> +#include "amdgpu_svm_fault.h"
+> +#include "amdgpu.h"
+> +#include "amdgpu_vm.h"
+> +
+> +#include <drm/drm_exec.h>
+> +#include <drm/drm_pagemap.h>
+> +
+> +#include <linux/mmu_notifier.h>
+> +#include <uapi/linux/kfd_ioctl.h>
+> +
+> +bool
+> +amdgpu_svm_range_pages_valid(struct amdgpu_svm *svm,
+> +		  struct amdgpu_svm_range *range)
 > +{
-> +	u32 reg;
+> +	struct drm_gpusvm_range *base = &range->base;
+> +
+> +	lockdep_assert_held(&svm->gpusvm.notifier_lock);
+> +
+> +	if (base->pages.flags.unmapped || base->pages.flags.partial_unmap)
+> +		return false;
+> +
+> +	return drm_gpusvm_range_pages_valid(&svm->gpusvm, base);
+> +}
+> +
+> +bool amdgpu_svm_range_is_valid(struct amdgpu_svm *svm,
+> +			       struct amdgpu_svm_range *range,
+> +			       const struct amdgpu_svm_attrs *attrs)
+> +{
+> +	bool valid;
+> +
+> +	drm_gpusvm_notifier_lock(&svm->gpusvm);
+> +	valid = range->gpu_mapped &&
+> +		range->attr_flags == attrs->flags &&
+> +		amdgpu_svm_range_pages_valid(svm, range);
+> +	drm_gpusvm_notifier_unlock(&svm->gpusvm);
+> +
+> +	return valid;
+
+That looks completely broken to me.
+
+The valid state looses meaning as soon as the lock is dropped.
+
+> +}
+> +
+> +
+> +int
+> +amdgpu_svm_range_zap_ptes(struct amdgpu_svm *svm,
+> +			  struct amdgpu_svm_range *range,
+> +			  unsigned long start_page,
+> +			  unsigned long last_page)
+> +{
+> +	struct dma_fence *fence = NULL;
+> +	unsigned int flags;
 > +	int ret;
 > +
-> +	/* Disable layer 0 */
-> +	regmap_clear_bits(dcif->regmap, DCIF_CTRLDESC0(0), DCIF_CTRLDESC0_EN);
-
-[Severity: High]
-Does clearing the enable bit without also triggering the shadow load bit
-leave the layer hardware active? The hardware typically ignores the register
-change without the shadow load bit, meaning it will continue fetching data
-via DMA. Severing the display controller abruptly while DMA is active could
-risk AXI bus lockups.
-
-[ ... ]
-> +static void dcif_crtc_queue_state_event(struct drm_crtc *crtc)
-> +{
-> +	struct dcif_dev *dcif =3D crtc_to_dcif_dev(crtc);
+> +	if (last_page < start_page)
+> +		return 0;
 > +
-> +	scoped_guard(spinlock_irq, &crtc->dev->event_lock) {
-> +		if (crtc->state->event) {
-> +			WARN_ON(drm_crtc_vblank_get(crtc));
-> +			WARN_ON(dcif->event);
-> +			dcif->event =3D crtc->state->event;
+> +	flags = memalloc_noreclaim_save();
+> +	ret = amdgpu_vm_update_range(svm->adev, svm->vm, false, true, true, false,
+> +				     NULL, start_page, last_page, 0, 0, 0, NULL,
+> +				     NULL, &fence);
+> +	memalloc_noreclaim_restore(flags);
 
-[Severity: High]
-What happens if drm_crtc_vblank_get returns an error? The code continues to
-queue the event without having incremented the vblank reference count. When
-the interrupt handler later processes the event and calls the corresponding
-put function, it would cause a reference count underflow.
+That's the same nonsense we already had in the existing KFD implementation.
 
-[ ... ]
-> +static void dcif_crtc_query_output_bus_format(struct drm_crtc *crtc,
-> +					      struct drm_crtc_state *crtc_state)
-> +{
-> +	struct dcif_crtc_state *dcif_state =3D to_dcif_crtc_state(crtc_state);
-> +	struct drm_bridge *bridge __free(drm_bridge_put) =3D NULL;
+The whole patch set needs to be rebased on top of my patches to fix this.
 
-[Severity: High]
-Will the cleanup attribute here cause a use-after-free? The bridge is
-obtained via drm_bridge_chain_get_first_bridge, which does not increment
-the module reference count. When the function returns, drm_bridge_put will
-decrement a reference that was never acquired, potentially allowing the
-bridge module to unload prematurely.
-
-> +	struct drm_bridge_state *bridge_state;
 > +
-> +	dcif_state->bus_format =3D MEDIA_BUS_FMT_RGB888_1X24;
-> +	dcif_state->bus_flags =3D 0;
-> +
-> +	bridge =3D dcif_crtc_get_bridge(crtc, crtc_state);
-> +	if (!bridge)
-> +		return;
+> +	if (!ret && fence) {
 
-[Severity: High]
-Could this overwrite destroy the existing bus_format and bus_flags during
-a plane-only update? In a plane update, the bridge is not part of the atomic
-commit state, causing the bridge state query below to return NULL. Returning
-early leaves the state permanently overwritten with default values.
+That needs to block for the fence even if the return value is non zero.
 
-[ ... ]
-> +static void dcif_crtc_atomic_enable(struct drm_crtc *crtc,
-> +				    struct drm_atomic_commit *state)
-> +{
-[ ... ]
-> +	/* enable power when we start to set mode for CRTC */
-> +	ret =3D pm_runtime_resume_and_get(drm->dev);
-> +	if (ret < 0) {
-> +		drm_err(drm, "failed to resume DCIF, ret =3D %d\n", ret);
-> +		return;
-> +	}
+> +		ret = dma_fence_wait(fence, false);
 
-[Severity: High]
-Is pm_runtime_resume_and_get safe to call here? This is an atomic context
-path during non-blocking commits, and this PM function can sleep.
+> +		if (ret < 0)
+> +			AMDGPU_SVM_TRACE(
+> +				"notifier unmap fence wait failed: ret=%d [0x%lx-0x%lx]-0x%lx\n",
+> +				ret, start_page, last_page,
+> +				last_page - start_page + 1);
 
-Additionally, if this path executes during system resume, runtime PM
-transitions are disabled and it will return an error, leaving the display
-blanked.
+Drop that check and warning.
 
-If it does return early, the pending event in crtc->state->event is never
-consumed. The DRM core expects the driver to consume the event, and
-abandoning it here will cause the atomic commit to hang indefinitely
-waiting for a flip completion.
-
-> +	dcif->crtc_pm_enabled =3D true;
-> +
-> +	drm_crtc_vblank_on(crtc);
-> +
-> +	dcif_crtc_mode_set_nofb(crtc_state, plane_state);
-
-[Severity: High]
-Will the software reset performed inside dcif_crtc_mode_set_nofb destroy the
-vblank interrupt enablement? Since drm_crtc_vblank_on is called right before
-the reset, the hardware state and interrupt enable bits will be cleared,
-permanently breaking vblanks.
-
-[ ... ]
-> +static void dcif_crtc_atomic_disable(struct drm_crtc *crtc,
-> +				     struct drm_atomic_commit *state)
-> +{
-[ ... ]
-> +	if (dcif->crtc_pm_enabled) {
-> +		dcif->crtc_pm_enabled =3D false;
-> +		pm_runtime_put_sync(drm->dev);
 > +	}
 > +
-> +	scoped_guard(spinlock_irq, &crtc->dev->event_lock) {
-> +		if (crtc->state->event && !crtc->state->active) {
-> +			drm_crtc_send_vblank_event(crtc, crtc->state->event);
-> +			crtc->state->event =3D NULL;
+> +	dma_fence_put(fence);
+> +	return ret;
+> +}
+> +
+> +uint64_t
+> +amdgpu_svm_range_attr_pte_flags(struct amdgpu_svm *svm,
+> +			    const struct amdgpu_svm_attrs *attrs,
+> +			    bool read_only,
+> +			    enum drm_interconnect_protocol proto)
+> +{
+> +	uint32_t flags = attrs->flags;
+> +	uint32_t mapping_flags = 0;
+> +	uint32_t gc_ip_version = amdgpu_ip_version(svm->adev, GC_HWIP, 0);
+> +	uint64_t pte_flags;
+> +	bool snoop = proto != AMDGPU_INTERCONNECT_VRAM;
+> +	bool coherent = flags & (AMDGPU_SVM_ATTR_BIT_COHERENT |
+> +				 AMDGPU_SVM_ATTR_BIT_EXT_COHERENT);
+> +	bool ext_coherent = flags & AMDGPU_SVM_ATTR_BIT_EXT_COHERENT;
+> +	unsigned int mtype_local, mtype_remote;
+> +	bool is_aid_a1;
+> +	bool is_local = (proto == AMDGPU_INTERCONNECT_VRAM);
+> +	bool is_vram = is_local || (proto == AMDGPU_INTERCONNECT_P2P);
+> +
+> +	switch (gc_ip_version) {
+> +	case IP_VERSION(9, 4, 1):
+> +	case IP_VERSION(9, 4, 2):
+> +		if (is_local) {
+> +			mapping_flags |= coherent ?
+> +				AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;
+> +			/* 9.4.2 local VRAM with XGMI keeps snoop */
+> +			if (gc_ip_version == IP_VERSION(9, 4, 2) &&
+> +			    svm->adev->gmc.xgmi.connected_to_cpu)
+> +				snoop = true;
+> +		} else {
+> +			mapping_flags |= coherent ?
+> +				AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_NC;
+> +			/* TODO: migration: re enable snoop for same hive */
+> +		}
+> +		break;
+> +	case IP_VERSION(9, 4, 3):
+> +	case IP_VERSION(9, 4, 4):
+> +	case IP_VERSION(9, 5, 0):
+> +		if (ext_coherent)
+> +			mtype_local = AMDGPU_VM_MTYPE_CC;
+> +		else
+> +			mtype_local = amdgpu_mtype_local == 1 ? AMDGPU_VM_MTYPE_NC :
+> +				amdgpu_mtype_local == 2 ? AMDGPU_VM_MTYPE_CC :
+> +				AMDGPU_VM_MTYPE_RW;
+> +		snoop = true;
+> +		if (is_vram) {
+> +			if (is_local) {
+> +				/* local HBM region close to partition */
+> +				mapping_flags |= mtype_local;
+> +			} else if (!ext_coherent) {
+> +				/* TODO: add same hive check */
+> +				mapping_flags |= AMDGPU_VM_MTYPE_NC;
+> +			} else if (gc_ip_version < IP_VERSION(9, 5, 0)) {
+> +				/* TODO: add same hive check */
+> +				mapping_flags |= AMDGPU_VM_MTYPE_UC;
+> +			} else {
+> +				mapping_flags |= ext_coherent ?
+> +					AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_NC;
+> +			}
+> +		} else if (svm->adev->flags & AMD_IS_APU) {
+> +			/* On NUMA systems, locality is determined per-page
+> +			 * in amdgpu_gmc_override_vm_pte_flags.
+> +			 */
+> +			if (num_possible_nodes() <= 1)
+> +				mapping_flags |= mtype_local;
+> +			else
+> +				mapping_flags |= ext_coherent ?
+> +					AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_NC;
+> +		} else {
+> +			if (gc_ip_version < IP_VERSION(9, 5, 0) || ext_coherent)
+> +				mapping_flags |= AMDGPU_VM_MTYPE_UC;
+> +			else
+> +				mapping_flags |= AMDGPU_VM_MTYPE_NC;
+> +		}
+> +		break;
+> +	case IP_VERSION(12, 0, 0):
+> +	case IP_VERSION(12, 0, 1):
+> +		mapping_flags |= AMDGPU_VM_MTYPE_NC;
+> +		break;
+> +	case IP_VERSION(12, 1, 0):
+> +		is_aid_a1 = (svm->adev->rev_id & 0x10);
+> +		mtype_local = amdgpu_mtype_local == 0 ? AMDGPU_VM_MTYPE_RW :
+> +				amdgpu_mtype_local == 1 ? AMDGPU_VM_MTYPE_NC :
+> +				is_aid_a1 ? AMDGPU_VM_MTYPE_RW : AMDGPU_VM_MTYPE_NC;
+> +		mtype_remote = is_aid_a1 ? AMDGPU_VM_MTYPE_NC : AMDGPU_VM_MTYPE_UC;
+> +		snoop = true;
+> +
+> +		if (is_local) {
+> +			mapping_flags |= mtype_local;
+> +		} else if (ext_coherent) {
+> +			mapping_flags |= AMDGPU_VM_MTYPE_UC;
+> +		} else {
+> +			/* system memory or remote VRAM */
+> +			mapping_flags |= mtype_remote;
+> +		}
+> +		break;
+> +	default:
+> +		mapping_flags |= coherent ?
+> +			AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_NC;
+> +		break;
+> +	}
+
+All of this needs to be in HW IP version specific files.
+
+Regards,
+Christian.
+
+> +
+> +	if (flags & AMDGPU_SVM_ATTR_BIT_GPU_EXEC)
+> +		mapping_flags |= AMDGPU_VM_PAGE_EXECUTABLE;
+> +
+> +	pte_flags = AMDGPU_PTE_VALID;
+> +	pte_flags |= is_local ? 0 : AMDGPU_PTE_SYSTEM;
+> +	pte_flags |= snoop ? AMDGPU_PTE_SNOOPED : 0;
+> +	if (gc_ip_version >= IP_VERSION(12, 0, 0))
+> +		pte_flags |= AMDGPU_PTE_IS_PTE;
+> +
+> +	amdgpu_gmc_get_vm_pte(svm->adev, svm->vm, NULL, mapping_flags, &pte_flags);
+> +	pte_flags |= AMDGPU_PTE_READABLE;
+> +	if (!(flags & AMDGPU_SVM_ATTR_BIT_GPU_RO) && !read_only)
+> +		pte_flags |= AMDGPU_PTE_WRITEABLE;
+> +
+> +	if (gc_ip_version == IP_VERSION(12, 1, 0) &&
+> +	    svm->adev->have_atomics_support)
+> +		pte_flags |= AMDGPU_PTE_BUS_ATOMICS;
+> +
+> +	return pte_flags;
+> +}
+> +
+> +
+> +
+> +int amdgpu_svm_range_lock_vm_pd(struct amdgpu_svm *svm, struct drm_exec *exec,
+> +				bool intr)
+> +{
+> +	unsigned int exec_flags = DRM_EXEC_IGNORE_DUPLICATES;
+> +	int ret;
+> +
+> +	if (intr)
+> +		exec_flags |= DRM_EXEC_INTERRUPTIBLE_WAIT;
+> +
+> +	drm_exec_init(exec, exec_flags, 0);
+> +	drm_exec_until_all_locked(exec) {
+> +		ret = amdgpu_vm_lock_pd(svm->vm, exec, 1);
+> +		drm_exec_retry_on_contention(exec);
+> +		if (ret) {
+> +			drm_exec_fini(exec);
+> +			return ret;
 > +		}
 > +	}
+> +
+> +	return 0;
 > +}
-
-[Severity: High]
-Similar to the enable path, pm_runtime_put_sync is a sleeping function
-called in an atomic context.
-
-Also, does the use of the spinlock_irq scoped guard here cause problems?
-When exiting the scoped guard, it unconditionally re-enables hardware
-interrupts, which breaks the caller's atomic execution context.
-
-Finally, if a non-blocking commit queued an event into dcif->event, it
-seems to be ignored here. If the hardware interrupts are turned off, the
-pending event in dcif->event is stranded and never signaled, leaving
-userspace blocked.
-
-[ ... ]
-> +static int dcif_crtc_enable_vblank(struct drm_crtc *crtc)
-> +{
-> +	struct dcif_dev *dcif =3D crtc_to_dcif_dev(crtc);
-> +	int domain =3D dcif->cpu_domain;
 > +
-> +	/* Clear and enable VS_BLANK IRQ */
-> +	regmap_set_bits(dcif->regmap, DCIF_IS0(domain), DCIF_INT0_VS_BLANK);
-> +	regmap_set_bits(dcif->regmap, DCIF_IE0(domain), DCIF_INT0_VS_BLANK);
-
-[Severity: High]
-Does using a read-modify-write helper on a Write-1-to-Clear register cause
-lost interrupts? regmap_set_bits will read the register, OR the new bit, and
-write it back, which inadvertently clears any already pending interrupts
-before the handler can process them. W1C registers usually need to be
-written directly.
-
-[ ... ]
-> +static void dcif_crtc_disable_vblank(struct drm_crtc *crtc)
+> +int
+> +amdgpu_svm_range_update_gpu_range(struct amdgpu_svm *svm,
+> +				  struct amdgpu_svm_range *range,
+> +				  const struct amdgpu_svm_attrs *attrs,
+> +				  bool read_only,
+> +				  bool flush_tlb,
+> +				  bool wait_fence,
+> +				  struct dma_fence **fence)
 > +{
-> +	struct dcif_dev *dcif =3D crtc_to_dcif_dev(crtc);
-> +	int domain =3D dcif->cpu_domain;
+> +	struct drm_gpusvm_range *base = &range->base;
 > +
-> +	/* Disable and clear VS_BLANK IRQ */
-> +	regmap_clear_bits(dcif->regmap, DCIF_IE0(domain), DCIF_INT0_VS_BLANK);
-> +	regmap_clear_bits(dcif->regmap, DCIF_IS0(domain), DCIF_INT0_VS_BLANK);
+> +	lockdep_assert_held(&svm->gpusvm.notifier_lock);
+> +
+> +	const unsigned long range_start_page = drm_gpusvm_range_start(base) >> PAGE_SHIFT;
+> +	const unsigned long range_end_page = drm_gpusvm_range_end(base) >> PAGE_SHIFT;
+> +	const unsigned long npages = range_end_page - range_start_page;
+> +	unsigned long mapped_pages = 0;
+> +	unsigned long dma_idx = 0;
+> +	int ret;
+> +
+> +	if (!base->pages.dma_addr || !npages)
+> +		return -EINVAL;
+> +
+> +	while (mapped_pages < npages) {
+> +		const struct drm_pagemap_addr *entry = &base->pages.dma_addr[dma_idx++];
+> +		unsigned long seg_pages = min_t(unsigned long, 1UL << entry->order,
+> +						npages - mapped_pages);
+> +		uint64_t pte_flags;
+> +		unsigned long start_page, last_page;
+> +		bool is_last_seg;
+> +
+> +		if (entry->proto != DRM_INTERCONNECT_SYSTEM)
+> +			return -EOPNOTSUPP;
+> +
+> +		pte_flags = amdgpu_svm_range_attr_pte_flags(svm, attrs,
+> +							    read_only,
+> +							    entry->proto);
+> +
+> +		start_page = range_start_page + mapped_pages;
+> +		last_page = start_page + seg_pages - 1;
+> +		mapped_pages += seg_pages;
+> +		is_last_seg = mapped_pages == npages;
+> +
+> +		ret = amdgpu_vm_update_range(svm->adev, svm->vm, false, false,
+> +					     flush_tlb && is_last_seg, true, NULL,
+> +					     start_page, last_page, pte_flags,
+> +					     0, entry->addr, NULL, NULL,
+> +					     wait_fence && is_last_seg ? fence : NULL);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
 > +}
-
-[Severity: High]
-The same applies here. regmap_clear_bits will write a 1 to all pending
-interrupts while writing a 0 to the target bit, improperly clearing unrelat=
-ed
-interrupts and failing to clear the target bit.
-
-[ ... ]
-> +irqreturn_t dcif_irq_handler(int irq, void *data)
-> +{
-> +	struct drm_device *drm =3D data;
-> +	struct dcif_dev *dcif =3D to_dcif_dev(drm);
-> +	int domain =3D dcif->cpu_domain;
-> +	u32 stat0, stat1, crc;
 > +
-> +	regmap_read(dcif->regmap, DCIF_IS0(domain), &stat0);
-
-[Severity: High]
-Is it safe to read hardware registers here without verifying the power
-management active state? If the device is in runtime suspend and its clocks
-are turned off, a spurious interrupt could trigger this handler, and
-accessing unclocked registers can cause bus faults or system lockups. Should
-this be protected with pm_runtime_get_if_active?
-
-> diff --git a/drivers/gpu/drm/imx/dcif/dcif-plane.c b/drivers/gpu/drm/imx/=
-dcif/dcif-plane.c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/imx/dcif/dcif-plane.c
-[ ... ]
-> +static int dcif_plane_atomic_check(struct drm_plane *plane, struct drm_a=
-tomic_commit *state)
+> +struct amdgpu_svm_range *
+> +amdgpu_svm_range_find_or_insert(struct amdgpu_svm *svm, unsigned long addr,
+> +				unsigned long gpuva_start, unsigned long gpuva_end,
+> +				struct drm_gpusvm_ctx *ctx)
 > +{
-[ ... ]
+> +	struct drm_gpusvm_range *r;
+> +
+> +retry:
+> +	r = drm_gpusvm_range_find_or_insert(&svm->gpusvm, addr,
+> +					    gpuva_start, gpuva_end, ctx);
 > +	/*
-> +	 * Force CRTC mode change if framebuffer stride or pixel format have ch=
-anged.
+> +	 * UMD doesn't set RO for some RO VMAs, but the drm gpu svm framework
+> +	 * denies no RO flag range insert for RO VMAs, so treat
+> +	 * -EPERM as an indication of RO and retry if not set.
 > +	 */
-> +	if (plane->type =3D=3D DRM_PLANE_TYPE_PRIMARY && old_fb &&
-> +	    (fb->pitches[0] !=3D old_fb->pitches[0] || fb->format->format !=3D =
-old_fb->format->format))
-> +		crtc_state->mode_changed =3D true;
+> +	if (PTR_ERR_OR_ZERO(r) == -EPERM && !ctx->read_only) {
+> +		ctx->read_only = true;
+> +		goto retry;
+> +	}
+> +
+> +	if (IS_ERR(r))
+> +		return ERR_CAST(r);
+> +
+> +	return to_amdgpu_svm_range(r);
+> +}
+> +
+> +int amdgpu_svm_range_get_pages(struct amdgpu_svm *svm,
+> +			       struct drm_gpusvm_range *range,
+> +			       struct drm_gpusvm_ctx *ctx)
+> +{
+> +	int ret;
+> +
+> +retry:
+> +	ret = drm_gpusvm_range_get_pages(&svm->gpusvm, range, ctx);
+> +	/*
+> +	 * HMM returns -EPERM when write access is requested for a read-only
+> +	 * VMA. Retry as read-only so the eventual GPU mapping follows the CPU
+> +	 * VMA permissions.
+> +	 */
+> +	if (ret == -EPERM && !ctx->read_only) {
+> +		ctx->read_only = true;
+> +		goto retry;
+> +	}
+> +
+> +	if (ret == -EOPNOTSUPP) {
+> +		AMDGPU_SVM_ERR(
+> +			"range get pages -EOPNOTSUPP, evict and retry: gpuva=[0x%lx-0x%lx) ret=%d\n",
+> +			drm_gpusvm_range_start(range),
+> +			drm_gpusvm_range_end(range), ret);
+> +		amdgpu_svm_range_evict(svm, range);
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +void amdgpu_svm_range_evict(struct amdgpu_svm *svm,
+> +			    struct drm_gpusvm_range *range)
+> +{
+> +	if (!range->pages.flags.has_devmem_pages)
+> +		return;
+> +
+> +	drm_gpusvm_range_evict(&svm->gpusvm, range);
+> +}
+> +
+> +int amdgpu_svm_range_update_mapping(struct amdgpu_svm *svm,
+> +				    struct amdgpu_svm_range *range,
+> +				    const struct amdgpu_svm_attrs *attrs,
+> +				    bool read_only,
+> +				    bool intr, bool wait,
+> +				    bool flush_tlb)
+> +{
+> +	struct drm_exec exec;
+> +	struct dma_fence *fence = NULL;
+> +	unsigned int flags;
+> +	int ret;
+> +
+> +	ret = amdgpu_svm_range_lock_vm_pd(svm, &exec, intr);
+> +	if (ret)
+> +		return ret;
+> +
+> +	flags = memalloc_noreclaim_save();
+> +	drm_gpusvm_notifier_lock(&svm->gpusvm);
+> +
+> +	if (!amdgpu_svm_range_pages_valid(svm, range)) {
+> +		amdgpu_svm_range_invalidate_gpu_mapping(range);
+> +		ret = -EAGAIN;
+> +	} else {
+> +		ret = amdgpu_svm_range_update_gpu_range(svm, range, attrs,
+> +							read_only, flush_tlb,
+> +							wait, wait ? &fence : NULL);
+> +	}
+> +
+> +	drm_gpusvm_notifier_unlock(&svm->gpusvm);
+> +	memalloc_noreclaim_restore(flags);
+> +
+> +	if (!ret && fence)
+> +		dma_fence_wait(fence, intr);
+> +	dma_fence_put(fence);
+> +
+> +	if (!ret)
+> +		ret = amdgpu_vm_update_pdes(svm->adev, svm->vm, false);
+> +
+> +	if (!ret) {
+> +		if (flush_tlb)
+> +			svm->flush_tlb(svm);
+> +		WRITE_ONCE(range->attr_flags, attrs->flags);
+> +		WRITE_ONCE(range->gpu_mapped, true);
+> +		range->validate_timestamp = ktime_get_boottime();
+> +	}
+> +
+> +	drm_exec_fini(&exec);
+> +	return ret;
+> +}
+> +
+> +int
+> +amdgpu_svm_range_map_attrs(struct amdgpu_svm *svm,
+> +		       const struct amdgpu_svm_attrs *attrs,
+> +		       unsigned long start, unsigned long end)
+> +{
+> +	unsigned long addr = start;
+> +	int ret;
+> +	bool devmem_possible = amdgpu_svm_devmem_possible(svm);
+> +	bool need_vram_migration = devmem_possible &&
+> +				   amdgpu_svm_attr_prefer_vram(attrs);
+> +	struct drm_gpusvm_ctx map_ctx = {
+> +		.devmem_possible = devmem_possible,
+> +		.devmem_only = need_vram_migration,
+> +		.check_pages_threshold = devmem_possible ? SZ_64K : 0,
+> +	};
+> +
+> +	while (addr < end) {
+> +		struct amdgpu_svm_range *range;
+> +		unsigned long next_addr;
+> +		/* reset read_only every iteration, amdgpu_svm_range_find_or_insert may change it */
+> +		map_ctx.read_only = !!(attrs->flags & AMDGPU_SVM_ATTR_BIT_GPU_RO);
+> +
+> +		range = amdgpu_svm_range_find_or_insert(svm, addr,
+> +							addr, end,
+> +							&map_ctx);
+> +		if (IS_ERR(range)) {
+> +			AMDGPU_SVM_ERR(
+> +				"failed to find/insert range for gpuva 0x%lx [0x%lx-0x%lx), ret=%ld\n",
+> +				addr, start, end, PTR_ERR(range));
+> +			return PTR_ERR(range);
+> +		}
+> +
+> +		next_addr = drm_gpusvm_range_end(&range->base);
+> +		if (next_addr <= addr)
+> +			return -EINVAL;
+> +
+> +		if (amdgpu_svm_range_is_valid(svm, range, attrs)) {
+> +			addr = next_addr;
+> +			continue;
+> +		}
+> +
+> +		/* TODO: add migration */
+> +
+> +		AMDGPU_SVM_RANGE_DEBUG(range, "GET PAGES");
+> +
+> +		ret = amdgpu_svm_range_get_pages(svm, &range->base,
+> +						 &map_ctx);
+> +		if (ret) {
+> +			AMDGPU_SVM_ERR("failed to get pages for range [0x%lx-0x%lx), ret=%d\n",
+> +					drm_gpusvm_range_start(&range->base),
+> +					drm_gpusvm_range_end(&range->base), ret);
+> +			return ret;
+> +		}
+> +
+> +		AMDGPU_SVM_RANGE_DEBUG(range, "UPDATE MAPPING");
+> +
+> +		ret = amdgpu_svm_range_update_mapping(svm, range, attrs,
+> +						      map_ctx.read_only,
+> +						      true, true,
+> +						      true);
+> +		if (ret) {
+> +			AMDGPU_SVM_ERR("failed to update gpu map for range [0x%lx-0x%lx), ret=%d\n",
+> +					drm_gpusvm_range_start(&range->base),
+> +					drm_gpusvm_range_end(&range->base), ret);
+> +			return ret;
+> +		}
+> +
+> +		addr = next_addr;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
 
-[Severity: Medium]
-Will dynamic updates to plane color encoding or color ranges be silently
-ignored? The hardware CSC coefficients are programmed during a full modeset,
-but this check does not flag a mode change if only the color properties are
-modified.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-dcif-upstr=
-eaming-v9-0-8d0ff89aa3c5@oss.nxp.com?part=3D5
